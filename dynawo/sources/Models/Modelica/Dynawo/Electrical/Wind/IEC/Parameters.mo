@@ -91,30 +91,30 @@ record GenSystem4 "Control parameters for generator system of WT Type 4"
 end GenSystem4;
 
 record GridMeasurementControl
-  parameter Types.PerUnit DfcMaxPu "Maximum frequency control ramp rate in pu/s (base fNom), example value = 1" annotation(Dialog(tab = "Measurement", group = "Control"));
-  parameter Types.Time tfcFilt "Filter time constant for frequency control measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "Control"));
-  parameter Types.Time tIcFilt "Filter time constant for current control measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "Control"));
-  parameter Types.Time tPcFilt "Filter time constant for active power control measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "Control"));
-  parameter Types.Time tQcFilt "Filter time constant for reactive power control measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "Control"));
-  parameter Types.Time tUcFilt "Filter time constant for voltage control measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "Control"));
+  parameter Types.PerUnit DfcMaxPu "Maximum frequency control ramp rate in pu/s (base fNom), example value = 1" annotation(Dialog(tab = "Measurement", group = "WT: Control"));
+  parameter Types.Time tfcFilt "Filter time constant for frequency control measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "WT: Control"));
+  parameter Types.Time tIcFilt "Filter time constant for current control measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "WT: Control"));
+  parameter Types.Time tPcFilt "Filter time constant for active power control measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "WT: Control"));
+  parameter Types.Time tQcFilt "Filter time constant for reactive power control measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "WT: Control"));
+  parameter Types.Time tUcFilt "Filter time constant for voltage control measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "WT: Control"));
 end GridMeasurementControl;
 
 record GridMeasurementProtection
-  parameter Types.PerUnit DfpMaxPu "Maximum frequency protection ramp rate in pu/s (base fNom), example value = 1" annotation(Dialog(tab = "Measurement", group = "Protection"));
-  parameter Types.Time tfpFilt "Filter time constant for frequency protection measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "Protection"));
-  parameter Types.Time tIpFilt "Filter time constant for current protection measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "Protection"));
-  parameter Types.Time tPpFilt "Filter time constant for active power protection measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "Protection"));
-  parameter Types.Time tQpFilt "Filter time constant for reactive power protection measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "Protection"));
-  parameter Types.Time tUpFilt "Filter time constant for voltage protection measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "Protection"));
+  parameter Types.PerUnit DfpMaxPu "Maximum frequency protection ramp rate in pu/s (base fNom), example value = 1" annotation(Dialog(tab = "Measurement", group = "WT: Protection"));
+  parameter Types.Time tfpFilt "Filter time constant for frequency protection measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "WT: Protection"));
+  parameter Types.Time tIpFilt "Filter time constant for current protection measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "WT: Protection"));
+  parameter Types.Time tPpFilt "Filter time constant for active power protection measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "WT: Protection"));
+  parameter Types.Time tQpFilt "Filter time constant for reactive power protection measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "WT: Protection"));
+  parameter Types.Time tUpFilt "Filter time constant for voltage protection measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "WT: Protection"));
 end GridMeasurementProtection;
 
 record GridMeasurementWPP
-  parameter Types.AngularVelocityPu DfMaxPu "Maximum frequency ramp rate in pu/s (base omegaNom), example value = 1" annotation(Dialog(tab = "Measurement"));
-  parameter Types.Time tfFilt "Filter time constant for frequency measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement"));
-  parameter Types.Time tIFilt "Filter time constant for current measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement"));
-  parameter Types.Time tPFilt "Filter time constant for active power measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement"));
-  parameter Types.Time tQFilt "Filter time constant for reactive power measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement"));
-  parameter Types.Time tUFilt "Filter time constant for voltage measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement"));
+  parameter Types.AngularVelocityPu DfMaxPu "Maximum frequency ramp rate in pu/s (base omegaNom), example value = 1" annotation(Dialog(tab = "Measurement", group = "WP"));
+  parameter Types.Time tfFilt "Filter time constant for frequency measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "WP"));
+  parameter Types.Time tIFilt "Filter time constant for current measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "WP"));
+  parameter Types.Time tPFilt "Filter time constant for active power measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "WP"));
+  parameter Types.Time tQFilt "Filter time constant for reactive power measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "WP"));
+  parameter Types.Time tUFilt "Filter time constant for voltage measurement in s, example value = 0.005" annotation(Dialog(tab = "Measurement", group = "WP"));
 end GridMeasurementWPP;
 
 record GridProtection
@@ -221,8 +221,8 @@ record IntegrationTimeStep
 end IntegrationTimeStep;
 
 record LinearCommunication
-  parameter Types.Time tLag "Communication lag time constant in s" annotation(Dialog(tab = "LinearCommunication"));
-  parameter Types.Time tLead "Communication lead time constant in s" annotation(Dialog(tab = "LinearCommunication"));
+  parameter Types.Time tLag "Communication lag time constant in s" annotation(Dialog(tab = "Communication"));
+  parameter Types.Time tLead "Communication lead time constant in s" annotation(Dialog(tab = "Communication"));
 end LinearCommunication;
 
 record Mechanical
@@ -233,59 +233,59 @@ record Mechanical
 end Mechanical;
 
 record PControlWPP
-  parameter Types.PerUnit DPRefMaxPu "Maximum positive ramp rate for PD power reference in pu/s (base SNom)" annotation(Dialog(tab = "PControlWP"));
-  parameter Types.PerUnit DPRefMinPu "Minimum negative ramp rate for PD power reference in pu/s (base SNom)" annotation(Dialog(tab = "PControlWP"));
-  parameter Types.PerUnit DPwpRefMaxPu "Maximum positive ramp rate for WP power reference in pu/s (base SNom)" annotation(Dialog(tab = "PControlWP"));
-  parameter Types.PerUnit DPwpRefMinPu "Minimum negative ramp rate for WP power reference in pu/s (base SNom)" annotation(Dialog(tab = "PControlWP"));
-  parameter Types.PerUnit Kiwpp "Power PI controller integration gain in pu/s (base SNom)" annotation(Dialog(tab = "PControlWP"));
-  parameter Types.PerUnit Kpwpp "Power PI controller proportional gain in pu (base SNom)" annotation(Dialog(tab = "PControlWP"));
-  parameter Types.PerUnit KwppRef "Power reference gain in pu (base SNom)" annotation(Dialog(tab = "PControlWP"));
-  parameter Types.ActivePowerPu PKiwppMaxPu "Maximum active power reference from integration in pu (base SNom)" annotation(Dialog(tab = "PControlWP"));
-  parameter Types.ActivePowerPu PKiwppMinPu "Minimum active power reference from integration in pu (base SNom)" annotation(Dialog(tab = "PControlWP"));
-  parameter Types.ActivePowerPu PRefMaxPu "Maximum PD power reference in pu (base SNom)" annotation(Dialog(tab = "PControlWP"));
-  parameter Types.ActivePowerPu PRefMinPu "Minimum PD power reference in pu (base SNom)" annotation(Dialog(tab = "PControlWP"));
+  parameter Types.PerUnit DPRefMaxPu "Maximum positive ramp rate for PD power reference in pu/s (base SNom)" annotation(Dialog(tab = "PControl", group = "WP"));
+  parameter Types.PerUnit DPRefMinPu "Minimum negative ramp rate for PD power reference in pu/s (base SNom)" annotation(Dialog(tab = "PControl", group = "WP"));
+  parameter Types.PerUnit DPwpRefMaxPu "Maximum positive ramp rate for WP power reference in pu/s (base SNom)" annotation(Dialog(tab = "PControl", group = "WP"));
+  parameter Types.PerUnit DPwpRefMinPu "Minimum negative ramp rate for WP power reference in pu/s (base SNom)" annotation(Dialog(tab = "PControl", group = "WP"));
+  parameter Types.PerUnit Kiwpp "Power PI controller integration gain in pu/s (base SNom)" annotation(Dialog(tab = "PControl", group = "WP"));
+  parameter Types.PerUnit Kpwpp "Power PI controller proportional gain in pu (base SNom)" annotation(Dialog(tab = "PControl", group = "WP"));
+  parameter Types.PerUnit KwppRef "Power reference gain in pu (base SNom)" annotation(Dialog(tab = "PControl", group = "WP"));
+  parameter Types.ActivePowerPu PKiwppMaxPu "Maximum active power reference from integration in pu (base SNom)" annotation(Dialog(tab = "PControl", group = "WP"));
+  parameter Types.ActivePowerPu PKiwppMinPu "Minimum active power reference from integration in pu (base SNom)" annotation(Dialog(tab = "PControl", group = "WP"));
+  parameter Types.ActivePowerPu PRefMaxPu "Maximum PD power reference in pu (base SNom)" annotation(Dialog(tab = "PControl", group = "WP"));
+  parameter Types.ActivePowerPu PRefMinPu "Minimum PD power reference in pu (base SNom)" annotation(Dialog(tab = "PControl", group = "WP"));
 end PControlWPP;
 
 record PControlWPP2020
-  parameter Types.ActivePowerPu PErrMaxPu "Maximum control error for power PI controller in pu (base SNom)" annotation(Dialog(tab = "PControlWP"));
-  parameter Types.ActivePowerPu PErrMinPu "Minimum negative control error for power PI controller in pu (base SNom)" annotation(Dialog(tab = "PControlWP"));
+  parameter Types.ActivePowerPu PErrMaxPu "Maximum control error for power PI controller in pu (base SNom)" annotation(Dialog(tab = "PControl", group = "WP"));
+  parameter Types.ActivePowerPu PErrMinPu "Minimum negative control error for power PI controller in pu (base SNom)" annotation(Dialog(tab = "PControl", group = "WP"));
 end PControlWPP2020;
 
 record PControlWPP2015
-  parameter Types.Time tpft "Lead time constant in the reference value transfer function in s" annotation(Dialog(tab = "PControlWP"));
-  parameter Types.Time tpfv "Lag time constant in the reference value transfer function in s" annotation(Dialog(tab = "PControlWP"));
-  parameter Types.Time tWPfFiltP "Filter time constant for frequency measurement in s" annotation(Dialog(tab = "PControlWP"));
-  parameter Types.Time tWPPFiltP "Filter time constant for active power measurement in s" annotation(Dialog(tab = "PControlWP"));
+  parameter Types.Time tpft "Lead time constant in the reference value transfer function in s" annotation(Dialog(tab = "PControl", group = "WP"));
+  parameter Types.Time tpfv "Lag time constant in the reference value transfer function in s" annotation(Dialog(tab = "PControl", group = "WP"));
+  parameter Types.Time tWPfFiltP "Filter time constant for frequency measurement in s" annotation(Dialog(tab = "PControl", group = "WP"));
+  parameter Types.Time tWPPFiltP "Filter time constant for active power measurement in s" annotation(Dialog(tab = "PControl", group = "WP"));
 end PControlWPP2015; 
 
 record PControlWT3 "Parameters used in Type 3a P control including torque PI controller"
   extends Dynawo.Electrical.Wind.IEC.Parameters.SNom;
   extends Dynawo.Electrical.Wind.IEC.Parameters.IntegrationTimeStep;
-  parameter Types.ActivePowerPu DPMaxPu "Maximum ramp rate of wind turbine power, example value = 999" annotation(Dialog(tab = "PControl", group = "PControl"));
-  parameter Types.ActivePowerPu DPRefMax4abPu "Maximum ramp rate for reference power of the wind turbine, example value = 0.3" annotation(Dialog(tab = "PControl", group = "PControl"));
-  parameter Types.ActivePowerPu DPRefMin4abPu "Minimum ramp rate for reference power of the wind turbine, example value = -0.3" annotation(Dialog(tab = "PControl", group = "PControl"));
-  parameter Types.PerUnit KDtd "Active drive train damping: gain, example value = 1.5" annotation(Dialog(tab = "PControl", group = "PControl"));
-  parameter Boolean MOmegaTMax "Mode for source of rotational speed for maximum torque calculation (false: OmegaWtr -- true: OmegaRef), example value = true" annotation(Dialog(tab = "PControl", group = "PControl"));
-  parameter Boolean MOmegaTqpi "Mode for source of rotational speed for torque PI controller error calculation (false: OmegaGen -- true: OmegaWtr), example value = false" annotation(Dialog(tab = "PControl", group = "PControl"));
-  parameter Boolean MpUScale "Enable voltage scaling for power reference during a voltage dip (false: no scaling -- true: u scaling), example value = false" annotation(Dialog(tab = "PControl", group = "PControl"));
-  parameter Types.AngularVelocityPu OmegaDtdPu "Active drive train damping: frequency, derived from two-mass model parameters, example value = 11.3" annotation(Dialog(tab = "PControl", group = "PControl"));
-  parameter Types.AngularVelocityPu OmegaOffsetPu "Offset from the reference value to limit controller action during rotor speed changes, example value = 0" annotation(Dialog(tab = "PControl", group = "PControl"));
-  parameter Types.ActivePowerPu PDtdMaxPu "Active drive train damping: maximum power, example value = 0.15" annotation(Dialog(tab = "PControl", group = "PControl"));
-  parameter Real TableOmegaPPu[:,:] = [0, 0.76; 0.3, 0.76; 0.31, 0.86; 0.4, 0.94; 0.5, 1; 1, 1] "Lookup table for power as a function of speed, example value = [0, 0.76; 0.3, 0.76; 0.31, 0.86; 0.4, 0.94; 0.5, 1; 1, 1]" annotation(Dialog(tab = "PControl", group = "PControl"));
-  parameter Types.Time tOmegafiltp3 "Filter time constant for measuring generator speed, example value = 0.005" annotation(Dialog(tab = "PControl", group = "PControl"));
-  parameter Types.Time tOmegaRef "Time constant in the speed reference filter, example value = 0.005" annotation(Dialog(tab = "PControl", group = "PControl"));
-  parameter Types.Time tPord "Power order lag time constant, example value = 0.01" annotation(Dialog(tab = "PControl", group = "PControl"));
-  parameter Types.PerUnit Zeta "Active drive train damping: damping coefficient, example value = 0.5" annotation(Dialog(tab = "PControl", group = "PControl"));
-  parameter Types.PerUnit DTauMaxPu "Torque ramp rate limit, as required by some grid codes, example value = 0.25" annotation(Dialog(tab = "PControl", group = "TorquePi"));
-  parameter Types.PerUnit DTauUvrtMaxPu "Torque rise rate limit during UVRT, example value = 0" annotation(Dialog(tab = "PControl", group = "TorquePi"));
-  parameter Types.PerUnit KIp  "Integrator time constant of the PI controller, example value = 5" annotation(Dialog(tab = "PControl", group = "TorquePi"));
-  parameter Types.PerUnit KPp  "Proportional gain of the PI controller, example value = 8" annotation(Dialog(tab = "PControl", group = "TorquePi"));
-  parameter Boolean MPUvrt  "Mode for UVRT power control (false: reactive power control -- true: voltage control), example value = true" annotation(Dialog(tab = "PControl", group = "TorquePi"));
-  parameter Types.PerUnit TauEMinPu  "Minimum torque for the electrical generator, example value = 0.001" annotation(Dialog(tab = "PControl", group = "TorquePi"));
-  parameter Types.PerUnit TauUscalePu  "Voltage scaling factor for reset torque, example value = 1" annotation(Dialog(tab = "PControl", group = "TorquePi"));
-  parameter Types.Time tDvs  "Time delay following deep a voltage dip, example value = 0.05" annotation(Dialog(tab = "PControl", group = "TorquePi"));
-  parameter Types.VoltageModulePu UDvsPu  "Voltage limit for maintaining UVRT status after a deep voltage dip, example value = 0.15" annotation(Dialog(tab = "PControl", group = "TorquePi"));
-  parameter Types.VoltageModulePu UpDipPu  "Voltage dip threshold for active power control, often different from converter thresholds (e.g., 0.8), example value = 0.9" annotation(Dialog(tab = "PControl", group = "TorquePi"));
+  parameter Types.ActivePowerPu DPMaxPu "Maximum ramp rate of wind turbine power, example value = 999" annotation(Dialog(tab = "PControl", group = "WT"));
+  parameter Types.ActivePowerPu DPRefMax4abPu "Maximum ramp rate for reference power of the wind turbine, example value = 0.3" annotation(Dialog(tab = "PControl", group = "WT"));
+  parameter Types.ActivePowerPu DPRefMin4abPu "Minimum ramp rate for reference power of the wind turbine, example value = -0.3" annotation(Dialog(tab = "PControl", group = "WT"));
+  parameter Types.PerUnit KDtd "Active drive train damping: gain, example value = 1.5" annotation(Dialog(tab = "PControl", group = "WT"));
+  parameter Boolean MOmegaTMax "Mode for source of rotational speed for maximum torque calculation (false: OmegaWtr -- true: OmegaRef), example value = true" annotation(Dialog(tab = "PControl", group = "WT"));
+  parameter Boolean MOmegaTqpi "Mode for source of rotational speed for torque PI controller error calculation (false: OmegaGen -- true: OmegaWtr), example value = false" annotation(Dialog(tab = "PControl", group = "WT"));
+  parameter Boolean MpUScale "Enable voltage scaling for power reference during a voltage dip (false: no scaling -- true: u scaling), example value = false" annotation(Dialog(tab = "PControl", group = "WT"));
+  parameter Types.AngularVelocityPu OmegaDtdPu "Active drive train damping: frequency, derived from two-mass model parameters, example value = 11.3" annotation(Dialog(tab = "PControl", group = "WT"));
+  parameter Types.AngularVelocityPu OmegaOffsetPu "Offset from the reference value to limit controller action during rotor speed changes, example value = 0" annotation(Dialog(tab = "PControl", group = "WT"));
+  parameter Types.ActivePowerPu PDtdMaxPu "Active drive train damping: maximum power, example value = 0.15" annotation(Dialog(tab = "PControl", group = "WT"));
+  parameter Real TableOmegaPPu[:,:] = [0, 0.76; 0.3, 0.76; 0.31, 0.86; 0.4, 0.94; 0.5, 1; 1, 1] "Lookup table for power as a function of speed, example value = [0, 0.76; 0.3, 0.76; 0.31, 0.86; 0.4, 0.94; 0.5, 1; 1, 1]" annotation(Dialog(tab = "PControl", group = "WT"));
+  parameter Types.Time tOmegafiltp3 "Filter time constant for measuring generator speed, example value = 0.005" annotation(Dialog(tab = "PControl", group = "WT"));
+  parameter Types.Time tOmegaRef "Time constant in the speed reference filter, example value = 0.005" annotation(Dialog(tab = "PControl", group = "WT"));
+  parameter Types.Time tPord "Power order lag time constant, example value = 0.01" annotation(Dialog(tab = "PControl", group = "WT"));
+  parameter Types.PerUnit Zeta "Active drive train damping: damping coefficient, example value = 0.5" annotation(Dialog(tab = "PControl", group = "WT"));
+  parameter Types.PerUnit DTauMaxPu "Torque ramp rate limit, as required by some grid codes, example value = 0.25" annotation(Dialog(tab = "PControl", group = "WT: TorquePi"));
+  parameter Types.PerUnit DTauUvrtMaxPu "Torque rise rate limit during UVRT, example value = 0" annotation(Dialog(tab = "PControl", group = "WT: TorquePi"));
+  parameter Types.PerUnit KIp  "Integrator time constant of the PI controller, example value = 5" annotation(Dialog(tab = "PControl", group = "WT: TorquePi"));
+  parameter Types.PerUnit KPp  "Proportional gain of the PI controller, example value = 8" annotation(Dialog(tab = "PControl", group = "WT: TorquePi"));
+  parameter Boolean MPUvrt  "Mode for UVRT power control (false: reactive power control -- true: voltage control), example value = true" annotation(Dialog(tab = "PControl", group = "WT: TorquePi"));
+  parameter Types.PerUnit TauEMinPu  "Minimum torque for the electrical generator, example value = 0.001" annotation(Dialog(tab = "PControl", group = "WT: TorquePi"));
+  parameter Types.PerUnit TauUscalePu  "Voltage scaling factor for reset torque, example value = 1" annotation(Dialog(tab = "PControl", group = "WT: TorquePi"));
+  parameter Types.Time tDvs  "Time delay following deep a voltage dip, example value = 0.05" annotation(Dialog(tab = "PControl", group = "WT: TorquePi"));
+  parameter Types.VoltageModulePu UDvsPu  "Voltage limit for maintaining UVRT status after a deep voltage dip, example value = 0.15" annotation(Dialog(tab = "PControl", group = "WT: TorquePi"));
+  parameter Types.VoltageModulePu UpDipPu  "Voltage dip threshold for active power control, often different from converter thresholds (e.g., 0.8), example value = 0.9" annotation(Dialog(tab = "PControl", group = "WT: TorquePi"));
   parameter Types.ActivePower PWTRef0Pu "Initial upper power limit of the wind turbine (if less than PAvail then the turbine will be derated) in pu (base SNom), example value = 1.1" annotation(Dialog(tab = "Operating point"));
  
   // initial parameters
@@ -297,45 +297,45 @@ record PControlWT3 "Parameters used in Type 3a P control including torque PI con
 end PControlWT3;
 
 record PControlWT4
-  parameter Boolean MpUScale "Voltage scaling for power reference during voltage dip (true: u scaling, false: no scaling)" annotation(Dialog(tab = "PControl"));
-  parameter Types.VoltageModulePu UpDipPu "Voltage dip threshold for power control in pu (base UNom)" annotation(Dialog(tab = "PControl"));
+  parameter Boolean MpUScale "Voltage scaling for power reference during voltage dip (true: u scaling, false: no scaling)" annotation(Dialog(tab = "PControl", group = "WT"));
+  parameter Types.VoltageModulePu UpDipPu "Voltage dip threshold for power control in pu (base UNom)" annotation(Dialog(tab = "PControl", group = "WT"));
 end PControlWT4;
 
 record PControlWT4a
   extends PControlWT4;
-  parameter Types.PerUnit DPMaxP4APu "Maximum WT power ramp rate in pu/s (base SNom) (generator convention)" annotation(Dialog(tab = "PControl"));
-  parameter Types.PerUnit DPRefMax4APu "Maximum WT reference power ramp rate in pu/s (base SNom) (generator convention)" annotation(Dialog(tab = "PControl"));
-  parameter Types.PerUnit DPRefMin4APu "Minimum WT reference power ramp rate in pu/s (base SNom) (generator convention)" annotation(Dialog(tab = "PControl"));
-  parameter Boolean MpUScale "Voltage scaling for power reference during voltage dip (true: u scaling, false: no scaling)" annotation(Dialog(tab = "PControl"));
-  parameter Types.Time tPOrdP4A "Power order lag time constant in s" annotation(Dialog(tab = "PControl"));
-  parameter Types.Time tPWTRef4A "Reference power order lag time constant in s" annotation(Dialog(tab = "PControl"));
-  parameter Types.VoltageModulePu UpDipPu "Voltage dip threshold for power control in pu (base UNom)" annotation(Dialog(tab = "PControl"));
+  parameter Types.PerUnit DPMaxP4APu "Maximum WT power ramp rate in pu/s (base SNom) (generator convention)" annotation(Dialog(tab = "PControl", group = "WT"));
+  parameter Types.PerUnit DPRefMax4APu "Maximum WT reference power ramp rate in pu/s (base SNom) (generator convention)" annotation(Dialog(tab = "PControl", group = "WT"));
+  parameter Types.PerUnit DPRefMin4APu "Minimum WT reference power ramp rate in pu/s (base SNom) (generator convention)" annotation(Dialog(tab = "PControl", group = "WT"));
+  parameter Boolean MpUScale "Voltage scaling for power reference during voltage dip (true: u scaling, false: no scaling)" annotation(Dialog(tab = "PControl", group = "WT"));
+  parameter Types.Time tPOrdP4A "Power order lag time constant in s" annotation(Dialog(tab = "PControl", group = "WT"));
+  parameter Types.Time tPWTRef4A "Reference power order lag time constant in s" annotation(Dialog(tab = "PControl", group = "WT"));
+  parameter Types.VoltageModulePu UpDipPu "Voltage dip threshold for power control in pu (base UNom)" annotation(Dialog(tab = "PControl", group = "WT"));
 end PControlWT4a; 
 
 record PControlWT4a2015
-  parameter Types.PerUnit DPMaxP4APu "Maximum WT power ramp rate in pu/s (base SNom) (generator convention)" annotation(Dialog(tab = "PControl"));
-  parameter Types.Time tPOrdP4A "Power order lag time constant in s" annotation(Dialog(tab = "PControl"));
-  parameter Types.Time tUFiltP4A "Filter time constant for voltage measurement in s" annotation(Dialog(tab = "PControl"));
+  parameter Types.PerUnit DPMaxP4APu "Maximum WT power ramp rate in pu/s (base SNom) (generator convention)" annotation(Dialog(tab = "PControl", group = "WT"));
+  parameter Types.Time tPOrdP4A "Power order lag time constant in s" annotation(Dialog(tab = "PControl", group = "WT"));
+  parameter Types.Time tUFiltP4A "Filter time constant for voltage measurement in s" annotation(Dialog(tab = "PControl", group = "WT"));
 end PControlWT4a2015;
 
 record PControlWT4b
   extends PControlWT4;
-  parameter Types.PerUnit DPMaxP4BPu "Maximum WT power ramp rate in pu/s (base SNom) (generator convention)" annotation(Dialog(tab = "PControl"));
-  parameter Types.PerUnit DPRefMax4BPu "Maximum WT reference power ramp rate in pu/s (base SNom) (generator convention)" annotation(Dialog(tab = "PControl"));
-  parameter Types.PerUnit DPRefMin4BPu "Minimum WT reference power ramp rate in pu/s (base SNom) (generator convention)" annotation(Dialog(tab = "PControl"));
-  parameter Types.Time tPAero "Reference power order lag time constant in s" annotation(Dialog(tab = "PControl"));
-  parameter Types.Time tPOrdP4B "Power order lag time constant in s" annotation(Dialog(tab = "PControl"));
+  parameter Types.PerUnit DPMaxP4BPu "Maximum WT power ramp rate in pu/s (base SNom) (generator convention)" annotation(Dialog(tab = "PControl", group = "WT"));
+  parameter Types.PerUnit DPRefMax4BPu "Maximum WT reference power ramp rate in pu/s (base SNom) (generator convention)" annotation(Dialog(tab = "PControl", group = "WT"));
+  parameter Types.PerUnit DPRefMin4BPu "Minimum WT reference power ramp rate in pu/s (base SNom) (generator convention)" annotation(Dialog(tab = "PControl", group = "WT"));
+  parameter Types.Time tPAero "Reference power order lag time constant in s" annotation(Dialog(tab = "PControl", group = "WT"));
+  parameter Types.Time tPOrdP4B "Power order lag time constant in s" annotation(Dialog(tab = "PControl", group = "WT"));
 end PControlWT4b;
 
 record PControlWT4b2015
-  parameter Types.PerUnit DPMaxP4BPu "Maximum WT power ramp rate in pu/s (base SNom) (generator convention)" annotation(Dialog(tab = "PControl"));
-  parameter Types.Time tPAero "Aerodynamic power response time constant in s" annotation(Dialog(tab = "PControl"));
-  parameter Types.Time tPOrdP4B "Power order lag time constant in s" annotation(Dialog(tab = "PControl"));
-  parameter Types.Time tUFiltP4B "Filter time constant for voltage measurement in s" annotation(Dialog(tab = "PControl"));
+  parameter Types.PerUnit DPMaxP4BPu "Maximum WT power ramp rate in pu/s (base SNom) (generator convention)" annotation(Dialog(tab = "PControl", group = "WT"));
+  parameter Types.Time tPAero "Aerodynamic power response time constant in s" annotation(Dialog(tab = "PControl", group = "WT"));
+  parameter Types.Time tPOrdP4B "Power order lag time constant in s" annotation(Dialog(tab = "PControl", group = "WT"));
+  parameter Types.Time tUFiltP4B "Filter time constant for voltage measurement in s" annotation(Dialog(tab = "PControl", group = "WT"));
 end PControlWT4b2015;
 
 record PControlWT4Base
-  parameter Types.PerUnit Kpaw "Anti-windup gain for active power in pu/s (base SNom)" annotation(Dialog(tab = "PControl"));
+  parameter Types.PerUnit Kpaw "Anti-windup gain for active power in pu/s (base SNom)" annotation(Dialog(tab = "PControl", group = "WT"));
 end PControlWT4Base;
 
 record PitchAngleControl
@@ -366,72 +366,72 @@ record Pll
 end Pll;
 
 record QControlWT2015
-  parameter Integer MqUvrt "UVRT Q control modes (0-2) (see Table 23, section 5.6.5.7, page 51 of the IEC norm N°61400-27-1:2015)" annotation(Dialog(tab = "QControl"));
-  parameter Types.Time tPFiltQ "Active power filter time constant in s" annotation(Dialog(tab = "QControl"));
-  parameter Types.Time tUFiltQ "Voltage filter time constant in s" annotation(Dialog(tab = "QControl"));
-  parameter Types.VoltageModulePu Udb1Pu "Voltage dead band lower limit in pu (base UNom)" annotation(Dialog(tab = "QControl"));
-  parameter Types.VoltageModulePu Udb2Pu "Voltage dead band upper limit in pu (base UNom)" annotation(Dialog(tab = "QControl"));
+  parameter Integer MqUvrt "UVRT Q control modes (0-2) (see Table 23, section 5.6.5.7, page 51 of the IEC norm N°61400-27-1:2015)" annotation(Dialog(tab = "QControl", group = "WT"));
+  parameter Types.Time tPFiltQ "Active power filter time constant in s" annotation(Dialog(tab = "QControl", group = "WT"));
+  parameter Types.Time tUFiltQ "Voltage filter time constant in s" annotation(Dialog(tab = "QControl", group = "WT"));
+  parameter Types.VoltageModulePu Udb1Pu "Voltage dead band lower limit in pu (base UNom)" annotation(Dialog(tab = "QControl", group = "WT"));
+  parameter Types.VoltageModulePu Udb2Pu "Voltage dead band upper limit in pu (base UNom)" annotation(Dialog(tab = "QControl", group = "WT"));
 end QControlWT2015;
 
 record QControlWT2020
-  parameter Types.VoltageModulePu DUdb1Pu "Voltage change dead band lower limit (typically negative) in pu (base UNom)" annotation(Dialog(tab = "QControl"));
-  parameter Types.VoltageModulePu DUdb2Pu "Voltage change dead band upper limit (typically positive) in pu (base UNom)" annotation(Dialog(tab = "QControl"));
-  parameter Types.PerUnit Kpufrt "Voltage PI controller proportional gain during FRT in pu (base UNom, SNom)" annotation(Dialog(tab = "QControl"));
-  parameter Integer Mqfrt "FRT Q control modes (0-3) (see Table 29, section 7.7.5, page 60 of the IEC norm N°61400-27-1:2020)" annotation(Dialog(tab = "QControl"));
-  parameter Types.Time tUss "Steady-state voltage filter time constant in s" annotation(Dialog(tab = "QControl"));
-  parameter Types.VoltageModulePu UqRisePu "Voltage threshold for OVRT detection in Q control in pu (base UNom)" annotation(Dialog(tab = "QControl"));
+  parameter Types.VoltageModulePu DUdb1Pu "Voltage change dead band lower limit (typically negative) in pu (base UNom)" annotation(Dialog(tab = "QControl", group = "WT"));
+  parameter Types.VoltageModulePu DUdb2Pu "Voltage change dead band upper limit (typically positive) in pu (base UNom)" annotation(Dialog(tab = "QControl", group = "WT"));
+  parameter Types.PerUnit Kpufrt "Voltage PI controller proportional gain during FRT in pu (base UNom, SNom)" annotation(Dialog(tab = "QControl", group = "WT"));
+  parameter Integer Mqfrt "FRT Q control modes (0-3) (see Table 29, section 7.7.5, page 60 of the IEC norm N°61400-27-1:2020)" annotation(Dialog(tab = "QControl", group = "WT"));
+  parameter Types.Time tUss "Steady-state voltage filter time constant in s" annotation(Dialog(tab = "QControl", group = "WT"));
+  parameter Types.VoltageModulePu UqRisePu "Voltage threshold for OVRT detection in Q control in pu (base UNom)" annotation(Dialog(tab = "QControl", group = "WT"));
 end QControlWT2020;
 
 record QControlWTBase
    extends RDropXDrop;
-   parameter Types.PerUnit IqH1Pu "Maximum reactive current injection during dip in pu (base UNom, SNom) (generator convention)" annotation(Dialog(tab = "QControl"));
-  parameter Types.PerUnit IqMaxPu "Maximum reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(Dialog(tab = "QControl"));
-  parameter Types.PerUnit IqMinPu "Minimum reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(Dialog(tab = "QControl"));
-  parameter Types.PerUnit IqPostPu "Post-fault reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(Dialog(tab = "QControl"));
-  parameter Types.PerUnit Kiq "Reactive power PI controller integration gain in pu/s (base UNom, SNom)" annotation(Dialog(tab = "QControl"));
-  parameter Types.PerUnit Kiu "Voltage PI controller integration gain in pu/s (base UNom, SNom)" annotation(Dialog(tab = "QControl"));
-  parameter Types.PerUnit Kpq "Reactive power PI controller proportional gain in pu (base UNom, SNom)" annotation(Dialog(tab = "QControl"));
-  parameter Types.PerUnit Kpu "Voltage PI controller proportional gain in pu (base UNom, SNom)" annotation(Dialog(tab = "QControl"));
-  parameter Types.PerUnit Kqv "Voltage scaling factor for FRT current in pu (base UNom, SNom)" annotation(Dialog(tab = "QControl"));
-  parameter Integer MqG "General Q control mode (0-4): Voltage control (0), Reactive power control (1), Open loop reactive power control (2), Power factor control (3), Open loop power factor control (4)" annotation(Dialog(tab = "QControl"));
-  parameter Types.Time tPost "Length of time period where post-fault reactive power is injected, in s" annotation(Dialog(tab = "QControl"));
-  parameter Types.Time tQord "Reactive power order lag time constant in s" annotation(Dialog(tab = "QControl"));
-  parameter Types.VoltageModulePu UMaxPu "Maximum voltage in voltage PI controller integral term in pu (base UNom)" annotation(Dialog(tab = "QControl"));
-  parameter Types.VoltageModulePu UMinPu "Minimum voltage in voltage PI controller integral term in pu (base UNom)" annotation(Dialog(tab = "QControl"));
-  parameter Types.VoltageModulePu UqDipPu "Voltage threshold for UVRT detection in Q control in pu (base UNom)" annotation(Dialog(tab = "QControl"));
-  parameter Types.VoltageModulePu URef0Pu "User-defined bias in voltage reference in pu (base UNom)" annotation(Dialog(tab = "QControl"));
+   parameter Types.PerUnit IqH1Pu "Maximum reactive current injection during dip in pu (base UNom, SNom) (generator convention)" annotation(Dialog(tab = "QControl", group = "WT"));
+  parameter Types.PerUnit IqMaxPu "Maximum reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(Dialog(tab = "QControl", group = "WT"));
+  parameter Types.PerUnit IqMinPu "Minimum reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(Dialog(tab = "QControl", group = "WT"));
+  parameter Types.PerUnit IqPostPu "Post-fault reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(Dialog(tab = "QControl", group = "WT"));
+  parameter Types.PerUnit Kiq "Reactive power PI controller integration gain in pu/s (base UNom, SNom)" annotation(Dialog(tab = "QControl", group = "WT"));
+  parameter Types.PerUnit Kiu "Voltage PI controller integration gain in pu/s (base UNom, SNom)" annotation(Dialog(tab = "QControl", group = "WT"));
+  parameter Types.PerUnit Kpq "Reactive power PI controller proportional gain in pu (base UNom, SNom)" annotation(Dialog(tab = "QControl", group = "WT"));
+  parameter Types.PerUnit Kpu "Voltage PI controller proportional gain in pu (base UNom, SNom)" annotation(Dialog(tab = "QControl", group = "WT"));
+  parameter Types.PerUnit Kqv "Voltage scaling factor for FRT current in pu (base UNom, SNom)" annotation(Dialog(tab = "QControl", group = "WT"));
+  parameter Integer MqG "General Q control mode (0-4): Voltage control (0), Reactive power control (1), Open loop reactive power control (2), Power factor control (3), Open loop power factor control (4)" annotation(Dialog(tab = "QControl", group = "WT"));
+  parameter Types.Time tPost "Length of time period where post-fault reactive power is injected, in s" annotation(Dialog(tab = "QControl", group = "WT"));
+  parameter Types.Time tQord "Reactive power order lag time constant in s" annotation(Dialog(tab = "QControl", group = "WT"));
+  parameter Types.VoltageModulePu UMaxPu "Maximum voltage in voltage PI controller integral term in pu (base UNom)" annotation(Dialog(tab = "QControl", group = "WT"));
+  parameter Types.VoltageModulePu UMinPu "Minimum voltage in voltage PI controller integral term in pu (base UNom)" annotation(Dialog(tab = "QControl", group = "WT"));
+  parameter Types.VoltageModulePu UqDipPu "Voltage threshold for UVRT detection in Q control in pu (base UNom)" annotation(Dialog(tab = "QControl", group = "WT"));
+  parameter Types.VoltageModulePu URef0Pu "User-defined bias in voltage reference in pu (base UNom)" annotation(Dialog(tab = "QControl", group = "WT"));
 end QControlWTBase;
 
 record QControlWPP
-  parameter Types.PerUnit DXRefMaxPu "Maximum positive ramp rate for WT reactive power or voltage reference in pu/s (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit DXRefMinPu "Minimum negative ramp rate for WT reactive power or voltage reference in pu/s (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit Kiwpx "Reactive power or voltage PI controller integral gain in pu/s (base SNom)" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit Kpwpx "Reactive power or voltage PI controller proportional gain in pu (base SNom)" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit KwpqRef "Reactive power reference gain in pu (base SNom)" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit Kwpqu "Voltage controller cross coupling gain in pu (base SNom)" annotation(Dialog(tab = "QControlWP"));
-  parameter Integer MwpqMode "Control mode (0 : reactive power reference, 1 : power factor reference, 2 : UQ static, 3 : voltage control)" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.Time tUqFilt "Time constant for the UQ static mode in s" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.VoltageModulePu UwpqDipPu "Voltage threshold for UVRT detection in pu (base UNom)" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit XKiwpxMaxPu "Maximum WT reactive power or voltage reference from integration in pu (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit XKiwpxMinPu "Minimum WT reactive power or voltage reference from integration in pu (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit XRefMaxPu "Maximum WT reactive power or voltage reference in pu (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit XRefMinPu "Minimum WT reactive power or voltage reference in pu (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "QControlWP"));
+  parameter Types.PerUnit DXRefMaxPu "Maximum positive ramp rate for WT reactive power or voltage reference in pu/s (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "QControl", group = "WP"));
+  parameter Types.PerUnit DXRefMinPu "Minimum negative ramp rate for WT reactive power or voltage reference in pu/s (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "QControl", group = "WP"));
+  parameter Types.PerUnit Kiwpx "Reactive power or voltage PI controller integral gain in pu/s (base SNom)" annotation(Dialog(tab = "QControl", group = "WP"));
+  parameter Types.PerUnit Kpwpx "Reactive power or voltage PI controller proportional gain in pu (base SNom)" annotation(Dialog(tab = "QControl", group = "WP"));
+  parameter Types.PerUnit KwpqRef "Reactive power reference gain in pu (base SNom)" annotation(Dialog(tab = "QControl", group = "WP"));
+  parameter Types.PerUnit Kwpqu "Voltage controller cross coupling gain in pu (base SNom)" annotation(Dialog(tab = "QControl", group = "WP"));
+  parameter Integer MwpqMode "Control mode (0 : reactive power reference, 1 : power factor reference, 2 : UQ static, 3 : voltage control)" annotation(Dialog(tab = "QControl", group = "WP"));
+  parameter Types.Time tUqFilt "Time constant for the UQ static mode in s" annotation(Dialog(tab = "QControl", group = "WP"));
+  parameter Types.VoltageModulePu UwpqDipPu "Voltage threshold for UVRT detection in pu (base UNom)" annotation(Dialog(tab = "QControl", group = "WP"));
+  parameter Types.PerUnit XKiwpxMaxPu "Maximum WT reactive power or voltage reference from integration in pu (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "QControl", group = "WP"));
+  parameter Types.PerUnit XKiwpxMinPu "Minimum WT reactive power or voltage reference from integration in pu (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "QControl", group = "WP"));
+  parameter Types.PerUnit XRefMaxPu "Maximum WT reactive power or voltage reference in pu (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "QControl", group = "WP"));
+  parameter Types.PerUnit XRefMinPu "Minimum WT reactive power or voltage reference in pu (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "QControl", group = "WP"));
 end QControlWPP;
 
 record QControlWPP2015
-  parameter Types.Time tWPPFiltQ "Filter time constant for active power measurement in s" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.Time tWPQFiltQ "Filter time constant for reactive power measurement in s" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.Time tWPUFiltQ "Filter time constant for voltage measurement in s" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.Time txft "Lead time constant in the reference value transfer function in s" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.Time txfv "Lag time constant in the reference value transfer function in s" annotation(Dialog(tab = "QControlWP"));
+  parameter Types.Time tWPPFiltQ "Filter time constant for active power measurement in s" annotation(Dialog(tab = "QControl", group = "WP"));
+  parameter Types.Time tWPQFiltQ "Filter time constant for reactive power measurement in s" annotation(Dialog(tab = "QControl", group = "WP"));
+  parameter Types.Time tWPUFiltQ "Filter time constant for voltage measurement in s" annotation(Dialog(tab = "QControl", group = "WP"));
+  parameter Types.Time txft "Lead time constant in the reference value transfer function in s" annotation(Dialog(tab = "QControl", group = "WP"));
+  parameter Types.Time txfv "Lag time constant in the reference value transfer function in s" annotation(Dialog(tab = "QControl", group = "WP"));
 end QControlWPP2015;
 
 record QControlWPP2020
-  parameter Types.PerUnit RwpDropPu "Resistive component of voltage drop impedance in pu (base UNom, SNom)" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.VoltageModulePu UwpqRisePu "Voltage threshold for OVRT detection in pu (base UNom)" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit XErrMaxPu "Maximum reactive power or voltage error input to PI controller in pu (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit XErrMinPu "Minimum reactive power or voltage error input to PI controller in pu (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit XwpDropPu "Inductive component of voltage drop impedance in pu (base UNom, SNom)" annotation(Dialog(tab = "QControlWP"));
+  parameter Types.PerUnit RwpDropPu "Resistive component of voltage drop impedance in pu (base UNom, SNom)" annotation(Dialog(tab = "QControl", group = "WP"));
+  parameter Types.VoltageModulePu UwpqRisePu "Voltage threshold for OVRT detection in pu (base UNom)" annotation(Dialog(tab = "QControl", group = "WP"));
+  parameter Types.PerUnit XErrMaxPu "Maximum reactive power or voltage error input to PI controller in pu (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "QControl", group = "WP"));
+  parameter Types.PerUnit XErrMinPu "Minimum reactive power or voltage error input to PI controller in pu (base SNom or UNom) (generator convention)" annotation(Dialog(tab = "QControl", group = "WP"));
+  parameter Types.PerUnit XwpDropPu "Inductive component of voltage drop impedance in pu (base UNom, SNom)" annotation(Dialog(tab = "QControl", group = "WP"));
 end QControlWPP2020;
 
 record QLimiter
@@ -446,8 +446,8 @@ record QLimiter2015
 end QLimiter2015;
 
 record RDropXDrop
-  parameter Types.PerUnit RDropPu "Resistive component of voltage drop impedance in pu (base UNom, SNom)" annotation(  Dialog(tab = "QControl"));
-  parameter Types.PerUnit XDropPu "Inductive component of voltage drop impedance in pu (base UNom, SNom)" annotation(  Dialog(tab = "QControl"));
+  parameter Types.PerUnit RDropPu "Resistive component of voltage drop impedance in pu (base UNom, SNom)" annotation(  Dialog(tab = "QControl", group = "WT"));
+  parameter Types.PerUnit XDropPu "Inductive component of voltage drop impedance in pu (base UNom, SNom)" annotation(  Dialog(tab = "QControl", group = "WT"));
 
 end RDropXDrop; 
 
@@ -552,63 +552,63 @@ record TableGridProtection
 end TableGridProtection;
 
 record TablePControl
-  parameter Real TablePwpBiasfwpFiltCom11 = 0.95 annotation(Dialog(tab = "PControl", group = "Tables"));
-  parameter Real TablePwpBiasfwpFiltCom12 = 1 annotation(Dialog(tab = "PControl", group = "Tables"));
-  parameter Real TablePwpBiasfwpFiltCom21 = 1 annotation(Dialog(tab = "PControl", group = "Tables"));
-  parameter Real TablePwpBiasfwpFiltCom22 = 0 annotation(Dialog(tab = "PControl", group = "Tables"));
-  parameter Real TablePwpBiasfwpFiltCom31 = 1.05 annotation(Dialog(tab = "PControl", group = "Tables"));
-  parameter Real TablePwpBiasfwpFiltCom32 = -1 annotation(Dialog(tab = "PControl", group = "Tables"));
-  parameter Real TablePwpBiasfwpFiltCom41 = 1.06 annotation(Dialog(tab = "PControl", group = "Tables"));
-  parameter Real TablePwpBiasfwpFiltCom42 = -1 annotation(Dialog(tab = "PControl", group = "Tables"));
-  parameter Real TablePwpBiasfwpFiltCom51 = 1.07 annotation(Dialog(tab = "PControl", group = "Tables"));
-  parameter Real TablePwpBiasfwpFiltCom52 = -1 annotation(Dialog(tab = "PControl", group = "Tables"));
-  parameter Real TablePwpBiasfwpFiltCom61 = 1.08 annotation(Dialog(tab = "PControl", group = "Tables"));
-  parameter Real TablePwpBiasfwpFiltCom62 = -1 annotation(Dialog(tab = "PControl", group = "Tables"));
-  parameter Real TablePwpBiasfwpFiltCom71 = 1.09 annotation(Dialog(tab = "PControl", group = "Tables"));
-  parameter Real TablePwpBiasfwpFiltCom72 = -1 annotation(Dialog(tab = "PControl", group = "Tables"));
-  parameter Real TablePwpBiasfwpFiltCom[:,:] = [TablePwpBiasfwpFiltCom11, TablePwpBiasfwpFiltCom12; TablePwpBiasfwpFiltCom21, TablePwpBiasfwpFiltCom22; TablePwpBiasfwpFiltCom31, TablePwpBiasfwpFiltCom32; TablePwpBiasfwpFiltCom41, TablePwpBiasfwpFiltCom42; TablePwpBiasfwpFiltCom51, TablePwpBiasfwpFiltCom52; TablePwpBiasfwpFiltCom61, TablePwpBiasfwpFiltCom62; TablePwpBiasfwpFiltCom71, TablePwpBiasfwpFiltCom72] "Table for defining power variation versus frequency" annotation(Dialog(tab = "PControl", group = "Tables"));
+  parameter Real TablePwpBiasfwpFiltCom11 = 0.95 annotation(Dialog(tab = "PControl", group = "WP: Tables"));
+  parameter Real TablePwpBiasfwpFiltCom12 = 1 annotation(Dialog(tab = "PControl", group = "WP: Tables"));
+  parameter Real TablePwpBiasfwpFiltCom21 = 1 annotation(Dialog(tab = "PControl", group = "WP: Tables"));
+  parameter Real TablePwpBiasfwpFiltCom22 = 0 annotation(Dialog(tab = "PControl", group = "WP: Tables"));
+  parameter Real TablePwpBiasfwpFiltCom31 = 1.05 annotation(Dialog(tab = "PControl", group = "WP: Tables"));
+  parameter Real TablePwpBiasfwpFiltCom32 = -1 annotation(Dialog(tab = "PControl", group = "WP: Tables"));
+  parameter Real TablePwpBiasfwpFiltCom41 = 1.06 annotation(Dialog(tab = "PControl", group = "WP: Tables"));
+  parameter Real TablePwpBiasfwpFiltCom42 = -1 annotation(Dialog(tab = "PControl", group = "WP: Tables"));
+  parameter Real TablePwpBiasfwpFiltCom51 = 1.07 annotation(Dialog(tab = "PControl", group = "WP: Tables"));
+  parameter Real TablePwpBiasfwpFiltCom52 = -1 annotation(Dialog(tab = "PControl", group = "WP: Tables"));
+  parameter Real TablePwpBiasfwpFiltCom61 = 1.08 annotation(Dialog(tab = "PControl", group = "WP: Tables"));
+  parameter Real TablePwpBiasfwpFiltCom62 = -1 annotation(Dialog(tab = "PControl", group = "WP: Tables"));
+  parameter Real TablePwpBiasfwpFiltCom71 = 1.09 annotation(Dialog(tab = "PControl", group = "WP: Tables"));
+  parameter Real TablePwpBiasfwpFiltCom72 = -1 annotation(Dialog(tab = "PControl", group = "WP: Tables"));
+  parameter Real TablePwpBiasfwpFiltCom[:,:] = [TablePwpBiasfwpFiltCom11, TablePwpBiasfwpFiltCom12; TablePwpBiasfwpFiltCom21, TablePwpBiasfwpFiltCom22; TablePwpBiasfwpFiltCom31, TablePwpBiasfwpFiltCom32; TablePwpBiasfwpFiltCom41, TablePwpBiasfwpFiltCom42; TablePwpBiasfwpFiltCom51, TablePwpBiasfwpFiltCom52; TablePwpBiasfwpFiltCom61, TablePwpBiasfwpFiltCom62; TablePwpBiasfwpFiltCom71, TablePwpBiasfwpFiltCom72] "Table for defining power variation versus frequency" annotation(Dialog(tab = "PControl", group = "WP: Tables"));
 end TablePControl;
 
 record TableQControl2015
-  parameter Real TableQwpUErr11 = -0.05 annotation(Dialog(tab = "QControlWP", group = "Tables"));
-  parameter Real TableQwpUErr12 = 1.21 annotation(Dialog(tab = "QControlWP", group = "Tables"));
-  parameter Real TableQwpUErr21 = 0 annotation(Dialog(tab = "QControlWP", group = "Tables"));
-  parameter Real TableQwpUErr22 = 0.21 annotation(Dialog(tab = "QControlWP", group = "Tables"));
-  parameter Real TableQwpUErr31 = 0.05 annotation(Dialog(tab = "QControlWP", group = "Tables"));
-  parameter Real TableQwpUErr32 = -0.79 annotation(Dialog(tab = "QControlWP", group = "Tables"));
-  parameter Real TableQwpUErr41 = 0.06 annotation(Dialog(tab = "QControlWP", group = "Tables"));
-  parameter Real TableQwpUErr42 = -0.79 annotation(Dialog(tab = "QControlWP", group = "Tables"));
-  parameter Real TableQwpUErr51 = 0.07 annotation(Dialog(tab = "QControlWP", group = "Tables"));
-  parameter Real TableQwpUErr52 = -0.79 annotation(Dialog(tab = "QControlWP", group = "Tables"));
-  parameter Real TableQwpUErr61 = 0.08 annotation(Dialog(tab = "QControlWP", group = "Tables"));
-  parameter Real TableQwpUErr62 = -0.79 annotation(Dialog(tab = "QControlWP", group = "Tables"));
-  parameter Real TableQwpUErr[:,:] = [TableQwpUErr11, TableQwpUErr12; TableQwpUErr21, TableQwpUErr22; TableQwpUErr31, TableQwpUErr32; TableQwpUErr41, TableQwpUErr42; TableQwpUErr51, TableQwpUErr52; TableQwpUErr61, TableQwpUErr62] "Table for the UQ static mode" annotation(Dialog(tab = "QControlWP", group = "Tables"));
+  parameter Real TableQwpUErr11 = -0.05 annotation(Dialog(tab = "QControl", group = "WP: Tables"));
+  parameter Real TableQwpUErr12 = 1.21 annotation(Dialog(tab = "QControl", group = "WP: Tables"));
+  parameter Real TableQwpUErr21 = 0 annotation(Dialog(tab = "QControl", group = "WP: Tables"));
+  parameter Real TableQwpUErr22 = 0.21 annotation(Dialog(tab = "QControl", group = "WP: Tables"));
+  parameter Real TableQwpUErr31 = 0.05 annotation(Dialog(tab = "QControl", group = "WP: Tables"));
+  parameter Real TableQwpUErr32 = -0.79 annotation(Dialog(tab = "QControl", group = "WP: Tables"));
+  parameter Real TableQwpUErr41 = 0.06 annotation(Dialog(tab = "QControl", group = "WP: Tables"));
+  parameter Real TableQwpUErr42 = -0.79 annotation(Dialog(tab = "QControl", group = "WP: Tables"));
+  parameter Real TableQwpUErr51 = 0.07 annotation(Dialog(tab = "QControl", group = "WP: Tables"));
+  parameter Real TableQwpUErr52 = -0.79 annotation(Dialog(tab = "QControl", group = "WP: Tables"));
+  parameter Real TableQwpUErr61 = 0.08 annotation(Dialog(tab = "QControl", group = "WP: Tables"));
+  parameter Real TableQwpUErr62 = -0.79 annotation(Dialog(tab = "QControl", group = "WP: Tables"));
+  parameter Real TableQwpUErr[:,:] = [TableQwpUErr11, TableQwpUErr12; TableQwpUErr21, TableQwpUErr22; TableQwpUErr31, TableQwpUErr32; TableQwpUErr41, TableQwpUErr42; TableQwpUErr51, TableQwpUErr52; TableQwpUErr61, TableQwpUErr62] "Table for the UQ static mode" annotation(Dialog(tab = "QControl", group = "WP: Tables"));
 end TableQControl2015;
 
 record TableQControl2020
-  parameter Real TableQwpMaxPwpFiltCom11 = 0 annotation(Dialog(tab = "QControlWP", group = "Tables"));
-  parameter Real TableQwpMaxPwpFiltCom12 = 0.33 annotation(Dialog(tab = "QControlWP", group = "Tables"));
-  parameter Real TableQwpMaxPwpFiltCom21 = 0.5 annotation(Dialog(tab = "QControlWP", group = "Tables"));
-  parameter Real TableQwpMaxPwpFiltCom22 = 0.33 annotation(Dialog(tab = "QControlWP", group = "Tables"));
-  parameter Real TableQwpMaxPwpFiltCom31 = 1 annotation(Dialog(tab = "QControlWP", group = "Tables"));
-  parameter Real TableQwpMaxPwpFiltCom32 = 0.33 annotation(Dialog(tab = "QControlWP", group = "Tables"));
-  parameter Real TableQwpMaxPwpFiltCom[:,:] = [TableQwpMaxPwpFiltCom11, TableQwpMaxPwpFiltCom12; TableQwpMaxPwpFiltCom21, TableQwpMaxPwpFiltCom22; TableQwpMaxPwpFiltCom31, TableQwpMaxPwpFiltCom32] "Power dependent reactive power maximum limit" annotation(Dialog(tab = "QControlWP", group = "Tables"));
+  parameter Real TableQwpMaxPwpFiltCom11 = 0 annotation(Dialog(tab = "QControl", group = "Tables"));
+  parameter Real TableQwpMaxPwpFiltCom12 = 0.33 annotation(Dialog(tab = "QControl", group = "WP: Tables"));
+  parameter Real TableQwpMaxPwpFiltCom21 = 0.5 annotation(Dialog(tab = "QControl", group = "WP: Tables"));
+  parameter Real TableQwpMaxPwpFiltCom22 = 0.33 annotation(Dialog(tab = "QControl", group = "WP: Tables"));
+  parameter Real TableQwpMaxPwpFiltCom31 = 1 annotation(Dialog(tab = "QControl", group = "WP: Tables"));
+  parameter Real TableQwpMaxPwpFiltCom32 = 0.33 annotation(Dialog(tab = "QControl", group = "WP: Tables"));
+  parameter Real TableQwpMaxPwpFiltCom[:,:] = [TableQwpMaxPwpFiltCom11, TableQwpMaxPwpFiltCom12; TableQwpMaxPwpFiltCom21, TableQwpMaxPwpFiltCom22; TableQwpMaxPwpFiltCom31, TableQwpMaxPwpFiltCom32] "Power dependent reactive power maximum limit" annotation(Dialog(tab = "QControl", group = "WP: Tables"));
 
-  parameter Real TableQwpMinPwpFiltCom11 = 0 annotation(Dialog(tab = "QControlWP", group = "Tables"));
-  parameter Real TableQwpMinPwpFiltCom12 = -0.33 annotation(Dialog(tab = "QControlWP", group = "Tables"));
-  parameter Real TableQwpMinPwpFiltCom21 = 0.5 annotation(Dialog(tab = "QControlWP", group = "Tables"));
-  parameter Real TableQwpMinPwpFiltCom22 = -0.33 annotation(Dialog(tab = "QControlWP", group = "Tables"));
-  parameter Real TableQwpMinPwpFiltCom31 = 1 annotation(Dialog(tab = "QControlWP", group = "Tables"));
-  parameter Real TableQwpMinPwpFiltCom32 = -0.33 annotation(Dialog(tab = "QControlWP", group = "Tables"));
-  parameter Real TableQwpMinPwpFiltCom[:,:] = [TableQwpMinPwpFiltCom11, TableQwpMinPwpFiltCom12; TableQwpMinPwpFiltCom21, TableQwpMinPwpFiltCom22; TableQwpMinPwpFiltCom31, TableQwpMinPwpFiltCom32] "Power dependent reactive power minimum limit" annotation(Dialog(tab = "QControlWP", group = "Tables"));
+  parameter Real TableQwpMinPwpFiltCom11 = 0 annotation(Dialog(tab = "QControl", group = "WP: Tables"));
+  parameter Real TableQwpMinPwpFiltCom12 = -0.33 annotation(Dialog(tab = "QControl", group = "WP: Tables"));
+  parameter Real TableQwpMinPwpFiltCom21 = 0.5 annotation(Dialog(tab = "QControl", group = "WP: Tables"));
+  parameter Real TableQwpMinPwpFiltCom22 = -0.33 annotation(Dialog(tab = "QControl", group = "WP: Tables"));
+  parameter Real TableQwpMinPwpFiltCom31 = 1 annotation(Dialog(tab = "QControl", group = "WP: Tables"));
+  parameter Real TableQwpMinPwpFiltCom32 = -0.33 annotation(Dialog(tab = "QControl", group = "WP: Tables"));
+  parameter Real TableQwpMinPwpFiltCom[:,:] = [TableQwpMinPwpFiltCom11, TableQwpMinPwpFiltCom12; TableQwpMinPwpFiltCom21, TableQwpMinPwpFiltCom22; TableQwpMinPwpFiltCom31, TableQwpMinPwpFiltCom32] "Power dependent reactive power minimum limit" annotation(Dialog(tab = "QControl", group = "WP: Tables"));
 
-  parameter Real TableQwpUErr11 = -0.05 annotation(Dialog(tab = "QControlWP", group = "Tables"));
-  parameter Real TableQwpUErr12 = 1.21 annotation(Dialog(tab = "QControlWP", group = "Tables"));
-  parameter Real TableQwpUErr21 = 0 annotation(Dialog(tab = "QControlWP", group = "Tables"));
-  parameter Real TableQwpUErr22 = 0.21 annotation(Dialog(tab = "QControlWP", group = "Tables"));
-  parameter Real TableQwpUErr31 = 0.05 annotation(Dialog(tab = "QControlWP", group = "Tables"));
-  parameter Real TableQwpUErr32 = -0.79 annotation(Dialog(tab = "QControlWP", group = "Tables"));
-  parameter Real TableQwpUErr[:,:] = [TableQwpUErr11, TableQwpUErr12; TableQwpUErr21, TableQwpUErr22; TableQwpUErr31, TableQwpUErr32] "Table for the UQ static mode" annotation(Dialog(tab = "QControlWP", group = "Tables"));
+  parameter Real TableQwpUErr11 = -0.05 annotation(Dialog(tab = "QControl", group = "WP: Tables"));
+  parameter Real TableQwpUErr12 = 1.21 annotation(Dialog(tab = "QControl", group = "WP: Tables"));
+  parameter Real TableQwpUErr21 = 0 annotation(Dialog(tab = "QControl", group = "WP: Tables"));
+  parameter Real TableQwpUErr22 = 0.21 annotation(Dialog(tab = "QControl", group = "WP: Tables"));
+  parameter Real TableQwpUErr31 = 0.05 annotation(Dialog(tab = "QControl", group = "WP: Tables"));
+  parameter Real TableQwpUErr32 = -0.79 annotation(Dialog(tab = "QControl", group = "WP: Tables"));
+  parameter Real TableQwpUErr[:,:] = [TableQwpUErr11, TableQwpUErr12; TableQwpUErr21, TableQwpUErr22; TableQwpUErr31, TableQwpUErr32] "Table for the UQ static mode" annotation(Dialog(tab = "QControl", group = "WP: Tables"));
 end TableQControl2020;
 
 record TableQLimit
@@ -658,11 +658,11 @@ record TableQLimit
 end TableQLimit;
 
 record UfMeasurement2015
-  parameter Types.AngularVelocityPu DfMaxPu "Maximum frequency ramp rate in pu/s (base omegaNom)" annotation(Dialog(tab = "UfMeasurement"));
-  parameter Boolean Mzc "Zero crossing measurement mode (true = 1 if the wind turbine protection system uses zero crossings to detect the frequency - otherwise false = 0)" annotation(Dialog(tab = "UfMeasurement"));
-  parameter Types.Time tfFilt "Filter time constant for frequency measurement in s" annotation(Dialog(tab = "UfMeasurement"));
-  parameter Types.Time tphiFilt "Filter time constant for voltage angle measurement in s" annotation(Dialog(tab = "UfMeasurement"));
-  parameter Types.Time tUFilt "Filter time constant for voltage measurement in s" annotation(Dialog(tab = "UfMeasurement"));
+  parameter Types.AngularVelocityPu DfMaxPu "Maximum frequency ramp rate in pu/s (base omegaNom)" annotation(Dialog(tab = "Measurement", group = "Uf"));
+  parameter Boolean Mzc "Zero crossing measurement mode (true = 1 if the wind turbine protection system uses zero crossings to detect the frequency - otherwise false = 0)" annotation(Dialog(tab = "Measurement", group = "Uf"));
+  parameter Types.Time tfFilt "Filter time constant for frequency measurement in s" annotation(Dialog(tab = "Measurement", group = "Uf"));
+  parameter Types.Time tphiFilt "Filter time constant for voltage angle measurement in s" annotation(Dialog(tab = "Measurement", group = "Uf"));
+  parameter Types.Time tUFilt "Filter time constant for voltage measurement in s" annotation(Dialog(tab = "Measurement", group = "Uf"));
 end UfMeasurement2015;
 
 record XEqv_
