@@ -17,15 +17,24 @@ model GeneratorPVRemoteSFR "Model for generator PV based on SignalN for the freq
   extends BaseClasses.BasePVRemote;
 
 equation
-  when QGenPu <= QMinPu and URegulated >= URef then
+  when QGenPu + QDeadBandPu <= QMinPu and URegulated - UDeadBandPu > URef then
     qStatus = QStatus.AbsorptionMax;
     limUQDown = true;
     limUQUp = false;
-  elsewhen QGenPu >= QMaxPu and URegulated <= URef then
+  elsewhen QGenPu - QDeadBandPu >= QMaxPu and URegulated + UDeadBandPu < URef then
     qStatus = QStatus.GenerationMax;
     limUQDown = false;
     limUQUp = true;
-  elsewhen (QGenPu > QMinPu or URegulated < URef) and (QGenPu < QMaxPu or URegulated > URef) then
+  // If the two following branches are not here we fail to adjust QGenPu if QMaxPu was modified but we were in Standard Mode.
+  elsewhen QGenPu + QDeadBandPu <= QMinPu and URegulated - UDeadBandPu == URef then
+    qStatus = QStatus.AbsorptionMax;
+    limUQDown = true;
+    limUQUp = false;
+  elsewhen QGenPu - QDeadBandPu >= QMaxPu and URegulated + UDeadBandPu == URef then
+    qStatus = QStatus.GenerationMax;
+    limUQDown = false;
+    limUQUp = true;
+  elsewhen (QGenPu - QDeadBandPu > QMinPu or URegulated + UDeadBandPu < URef) and (QGenPu + QDeadBandPu < QMaxPu or URegulated - UDeadBandPu > URef) then
     qStatus = QStatus.Standard;
     limUQDown = false;
     limUQUp = false;

@@ -10,7 +10,8 @@
 
     This file is part of Dynawo, an hybrid C++/Modelica open source time domain
     simulation tool for power systems.
---><dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
+-->
+<dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:job name="LoadRestoration">
     <dyn:solver lib="dynawo_SolverSIM" parFile="solvers.par" parId="3"/>
     <dyn:modeler compileDir="outputs/compilation">

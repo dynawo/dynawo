@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
     Copyright (c) 2024, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -24,10 +24,8 @@
   <dyn:connect id1="Disconnect_Load3" var1="event_state1_value" id2="NETWORK" var2="Load3_state_value"/>
   <dyn:connect id1="Connect_Load3" var1="event_state1_value" id2="NETWORK" var2="Load3_state_value"/>
   <dyn:connect id1="Load2" var1="load_terminal" id2="NETWORK" var2="@Load2@@NODE@_ACPIN"/>
-
   <dyn:blackBoxModel id="Disconnect_Load" lib="EventConnectedStatus" parFile="DisconnectLoad_VoltageVariation.par" parId="Disconnect_Load"/>
   <dyn:connect id1="Disconnect_Load" var1="event_state1_value" id2="NETWORK" var2="Load_state_value"/>
-
   <!--<dyn:blackBoxModel id="Load" lib="LoadPQ" parFile="DisconnectLoad_VoltageVariation.par" parId="LoadPQ" staticId="Load"/>
   <dyn:connect id1="Load" var1="load_terminal" id2="NETWORK" var2="@Load@@NODE@_ACPIN"/>
   <dyn:blackBoxModel id="Disconnect_Load" lib="EventSetPointBoolean" parFile="DisconnectLoad_VoltageVariation.par" parId="Disconnect_Load"/>
