@@ -8,6 +8,7 @@ FixedBooleanDelay
 FlipFlopR
 FlipFlopS
 IntegratorOrFirstOrder
+LimitedDivision
 LimitedFirstOrder
 LimitedIntegrator
 LimitedLeadLag
