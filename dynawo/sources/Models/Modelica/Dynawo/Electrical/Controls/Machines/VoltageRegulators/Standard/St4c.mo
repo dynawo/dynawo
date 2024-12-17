@@ -126,8 +126,6 @@ equation
     min2.u[3] = min2.u[1];
   end if;
 
-  connect(division.y, rectifierRegulationCharacteristic.u) annotation(
-    Line(points = {{101, -120}, {118, -120}}, color = {0, 0, 127}));
   connect(firstOrder.y, sum1.u[1]) annotation(
     Line(points = {{-319, 80}, {-283, 80}}, color = {0, 0, 127}));
   connect(product.y, firstOrder1.u) annotation(
@@ -138,8 +136,8 @@ equation
     Line(points = {{-298, -180}, {-262, -180}}, color = {255, 0, 255}));
   connect(const1.y, switch.u3) annotation(
     Line(points = {{-298, -220}, {-280, -220}, {-280, -188}, {-262, -188}}, color = {0, 0, 127}));
-  connect(switch.y, division.u2) annotation(
-    Line(points = {{-238, -180}, {80, -180}, {80, -126}, {98, -126}}, color = {0, 0, 127}));
+  connect(switch.y, rectifierRegulationCharacteristic.u2) annotation(
+    Line(points = {{-238, -180}, {120, -180}, {120, -126}, {138, -126}}, color = {0, 0, 127}));
   connect(switch.y, product1.u2) annotation(
     Line(points = {{-238, -180}, {180, -180}, {180, -146}, {198, -146}}, color = {0, 0, 127}));
   connect(add.y, min1.u[1]) annotation(

@@ -34,7 +34,7 @@ model AcRotatingExciter "Rotating exciter model for IEEE regulations type AC"
 
   //Output variables
   Modelica.Blocks.Interfaces.RealOutput EfdPu(start = Efd0Pu) "Excitation voltage in pu (user-selected base voltage)" annotation(
-    Placement(visible = true, transformation(origin = {250, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {230, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput VfePu(start = Efe0Pu) "Field current signal in pu (user-selected base voltage)" annotation(
     Placement(visible = true, transformation(origin = {-150, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
@@ -44,12 +44,10 @@ model AcRotatingExciter "Rotating exciter model for IEEE regulations type AC"
     Placement(visible = true, transformation(origin = {-70, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = Kc) annotation(
     Placement(visible = true, transformation(origin = {-10, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Division division annotation(
-    Placement(visible = true, transformation(origin = {110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product annotation(
-    Placement(visible = true, transformation(origin = {210, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.RectifierRegulationCharacteristic rectifierRegulationCharacteristic annotation(
-    Placement(visible = true, transformation(origin = {150, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {130, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add(k1 = AEx) annotation(
     Placement(visible = true, transformation(origin = {-10, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = Kd) annotation(
@@ -87,18 +85,16 @@ equation
     Line(points = {{-240, -80}, {-188, -80}}, color = {0, 0, 127}));
   connect(IrPu, gain.u) annotation(
     Line(points = {{-240, 120}, {-22, 120}}, color = {0, 0, 127}));
-  connect(gain.y, division.u1) annotation(
-    Line(points = {{1, 120}, {80, 120}, {80, 86}, {98, 86}}, color = {0, 0, 127}));
-  connect(integratorVariableLimits.y, division.u2) annotation(
-    Line(points = {{-59, -80}, {80, -80}, {80, 74}, {98, 74}}, color = {0, 0, 127}));
-  connect(division.y, rectifierRegulationCharacteristic.u) annotation(
-    Line(points = {{121, 80}, {137, 80}}, color = {0, 0, 127}));
+  connect(gain.y, rectifierRegulationCharacteristic.u1) annotation(
+    Line(points = {{1, 120}, {80, 120}, {80, 86}, {118, 86}}, color = {0, 0, 127}));
+  connect(integratorVariableLimits.y, rectifierRegulationCharacteristic.u2) annotation(
+    Line(points = {{-59, -80}, {80, -80}, {80, 74}, {118, 74}}, color = {0, 0, 127}));
   connect(rectifierRegulationCharacteristic.y, product.u1) annotation(
-    Line(points = {{161, 80}, {180, 80}, {180, 6}, {198, 6}}, color = {0, 0, 127}));
+    Line(points = {{141, 80}, {160, 80}, {160, 6}, {178, 6}}, color = {0, 0, 127}));
   connect(product.y, EfdPu) annotation(
-    Line(points = {{221, 0}, {249, 0}}, color = {0, 0, 127}));
+    Line(points = {{201, 0}, {230, 0}}, color = {0, 0, 127}));
   connect(integratorVariableLimits.y, product.u2) annotation(
-    Line(points = {{-59, -80}, {180, -80}, {180, -6}, {198, -6}}, color = {0, 0, 127}));
+    Line(points = {{-59, -80}, {160, -80}, {160, -6}, {178, -6}}, color = {0, 0, 127}));
   connect(feedback.y, integratorVariableLimits.u) annotation(
     Line(points = {{-171, -80}, {-82, -80}}, color = {0, 0, 127}));
   connect(IrPu, gain1.u) annotation(
@@ -138,5 +134,5 @@ equation
 
   annotation(
     preferredView = "diagram",
-    Diagram(coordinateSystem(extent = {{-220, -140}, {240, 140}})));
+    Diagram(coordinateSystem(extent = {{-220, -140}, {220, 140}})));
 end AcRotatingExciter;

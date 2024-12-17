@@ -30,10 +30,10 @@ equation
   add.u2 = 0;
   sum1.u[4] = 0;
 
-  connect(potentialCircuit.vE, division.u2) annotation(
-    Line(points = {{-298, -140}, {80, -140}, {80, -126}, {98, -126}}, color = {0, 0, 127}));
+  connect(potentialCircuit.vE, rectifierRegulationCharacteristic.u2) annotation(
+    Line(points = {{-298, -140}, {120, -140}, {120, -126}, {138, -126}}, color = {0, 0, 127}));
   connect(potentialCircuit.vE, product1.u2) annotation(
-    Line(points = {{-298, -140}, {80, -140}, {80, -146}, {198, -146}}, color = {0, 0, 127}));
+    Line(points = {{-298, -140}, {120, -140}, {120, -146}, {198, -146}}, color = {0, 0, 127}));
   connect(add.y, limPI1.u) annotation(
     Line(points = {{-158, 80}, {-62, 80}}, color = {0, 0, 127}));
   connect(product.y, gain.u) annotation(

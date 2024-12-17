@@ -62,8 +62,6 @@ partial model BaseSt6 "IEEE exciter type ST6 base model"
 
   Modelica.Blocks.Sources.Constant const(k = VbMaxPu) annotation(
     Placement(visible = true, transformation(origin = {-70, 200}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Division division annotation(
-    Placement(visible = true, transformation(origin = {-170, 160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Min min5 annotation(
     Placement(visible = true, transformation(origin = {-10, 160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product1 annotation(
@@ -138,14 +136,12 @@ equation
     Line(points = {{-59, 200}, {-40, 200}, {-40, 166}, {-22, 166}}, color = {0, 0, 127}));
   connect(product1.y, min5.u2) annotation(
     Line(points = {{-59, 140}, {-40, 140}, {-40, 154}, {-22, 154}}, color = {0, 0, 127}));
-  connect(division.y, rectifierRegulationCharacteristic.u) annotation(
-    Line(points = {{-159, 160}, {-142, 160}}, color = {0, 0, 127}));
   connect(UsPu, firstOrder.u) annotation(
     Line(points = {{-460, -80}, {-422, -80}}, color = {0, 0, 127}));
   connect(product.y, EfdPu) annotation(
     Line(points = {{381, 0}, {430, 0}}, color = {0, 0, 127}));
-  connect(gain1.y, division.u1) annotation(
-    Line(points = {{-219, 200}, {-200, 200}, {-200, 166}, {-182, 166}}, color = {0, 0, 127}));
+  connect(gain1.y, rectifierRegulationCharacteristic.u1) annotation(
+    Line(points = {{-219, 200}, {-160, 200}, {-160, 166}, {-142, 166}}, color = {0, 0, 127}));
   connect(IrPu, gain1.u) annotation(
     Line(points = {{-460, 200}, {-242, 200}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(limPI1.y, feedback.u1) annotation(

@@ -129,8 +129,8 @@ equation
     Line(points = {{-378, 100}, {-342, 100}}, color = {255, 0, 255}));
   connect(const5.y, switch.u3) annotation(
     Line(points = {{-378, 60}, {-360, 60}, {-360, 92}, {-342, 92}}, color = {0, 0, 127}));
-  connect(switch.y, division.u2) annotation(
-    Line(points = {{-318, 100}, {-200, 100}, {-200, 154}, {-182, 154}}, color = {0, 0, 127}));
+  connect(switch.y, rectifierRegulationCharacteristic.u2) annotation(
+    Line(points = {{-318, 100}, {-160, 100}, {-160, 154}, {-142, 154}}, color = {0, 0, 127}));
   connect(switch.y, product1.u2) annotation(
     Line(points = {{-318, 100}, {-100, 100}, {-100, 134}, {-82, 134}}, color = {0, 0, 127}));
   connect(min4.y, limitedFirstOrder.u) annotation(
