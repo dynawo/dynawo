@@ -5,7 +5,7 @@ within Dynawo.Electrical.Wind.IEC;
   * See AUTHORS.txt
   * All rights reserved.
   * This Source Code Form is subject to the terms of the Mozilla Public
-  * License, v. 2.0. If a copy of the MPL was not distributed with this
+  * License, v. 2.0. If af copy of the MPL was not distributed with this
   * file, you can obtain one at http://mozilla.org/MPL/2.0/.
   * SPDX-License-Identifier: MPL-2.0
   *
@@ -161,7 +161,10 @@ record InitialIGs "Initial current for generator system (GS) side"
 end InitialIGs;
 
 record InitialPAg "Initial PAg"
-    parameter Types.ActivePowerPu PAg0Pu "Initial generator (air gap) power in pu (base SNom) (generator convention)" annotation(
+    extends InitialIGs;
+    extends InitialUGs;
+    protected
+      parameter Types.ActivePowerPu PAg0Pu = Modelica.ComplexMath.real(Complex(UGsRe0Pu, UGsIm0Pu)*Complex(IGsRe0Pu, -IGsIm0Pu)) "Initial generator (air gap) power in pu (base SNom) (generator convention)" annotation(
       Dialog(tab = "Initialization"));
 end InitialPAg;
 
@@ -261,6 +264,10 @@ end PControlWPP2015;
 record PControlWT3 "Parameters used in Type 3a P control including torque PI controller"
   extends Dynawo.Electrical.Wind.IEC.Parameters.SNom;
   extends Dynawo.Electrical.Wind.IEC.Parameters.IntegrationTimeStep;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGs;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialIGs;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.XEqv_;
   parameter Types.ActivePowerPu DPMaxPu "Maximum ramp rate of wind turbine power, example value = 999" annotation(Dialog(tab = "PControl", group = "WT"));
   parameter Types.ActivePowerPu DPRefMax4abPu "Maximum ramp rate for reference power of the wind turbine, example value = 0.3" annotation(Dialog(tab = "PControl", group = "WT"));
   parameter Types.ActivePowerPu DPRefMin4abPu "Minimum ramp rate for reference power of the wind turbine, example value = -0.3" annotation(Dialog(tab = "PControl", group = "WT"));
@@ -294,6 +301,14 @@ record PControlWT3 "Parameters used in Type 3a P control including torque PI con
   final parameter Types.ActivePowerPu PWtcFilt0Pu = -P0Pu "Initial measured active power in pu (base SystemBase.SnRef) (generator convention)" annotation(Dialog(tab = "Initialization"));
   final parameter Types.PerUnit OmegaRef0Pu = Modelica.Math.Vectors.interpolate(TableOmegaPPu[:,1], TableOmegaPPu[:,2], POrd0Pu) "Initial value for omegaRef (output of omega(p) characteristic) in pu (base SystemBase.omegaRef0Pu)" annotation(Dialog(tab = "Initialization"));
   final parameter Types.PerUnit TauEMax0Pu = PWTRef0Pu / (if MOmegaTMax then OmegaRef0Pu else SystemBase.omega0Pu) "Initial value of maximum torque signal tauEMaxPu in pu (base SNom/OmegaNom)" annotation(Dialog(tab = "Initialization"));
+  
+  // initialization helpers
+  final parameter Types.PerUnit Torque0Type3bPu = ((IGsRe0Pu + UGsIm0Pu / XEqv) * cos(UPhase0) + (IGsIm0Pu - UGsRe0Pu / XEqv) * sin(UPhase0)) * U0Pu / SystemBase.omega0Pu;
+  final parameter Types.PerUnit Torque0Type3aPu = -P0Pu * SystemBase.SnRef / SNom / SystemBase.omega0Pu "Initialization value of torque PI controller output in pu (base SNom/OmegaNom)";
+  final parameter Types.PerUnit PiIntegrator0Type3aPu = if Torque0Type3aPu > TauEMax0Pu then TauEMax0Pu elseif Torque0Type3aPu < TauEMinPu then TauEMinPu else Torque0Type3aPu "Initial value of the integral part of the PI controller in pu (base SNom/OmegaNom)";
+  final parameter Types.PerUnit PiIntegrator0Type3bPu = if Torque0Type3bPu > TauEMax0Pu then TauEMax0Pu elseif Torque0Type3bPu < TauEMinPu then TauEMinPu else Torque0Type3bPu "Initial value of the integral part of the PI controller in pu (base SNom/OmegaNom)";
+  final parameter Types.PerUnit ratelimResetvalue0Type3b = if U0Pu * TauUscalePu < Torque0Type3bPu then U0Pu * TauUscalePu else Torque0Type3bPu;
+  final parameter Types.PerUnit ratelimResetvalue0Type3a = if U0Pu * TauUscalePu < Torque0Type3aPu then U0Pu * TauUscalePu else Torque0Type3aPu;
 end PControlWT3;
 
 record PControlWT4

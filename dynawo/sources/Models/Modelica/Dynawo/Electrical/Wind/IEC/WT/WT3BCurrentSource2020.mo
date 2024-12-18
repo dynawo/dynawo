@@ -29,8 +29,17 @@ model WT3BCurrentSource2020 "Wind Turbine Type 4A model from IEC 61400-27-1:2020
     Placement(visible = true, transformation(origin = {14, -38}, extent = {{-22, -22}, {22, 22}}, rotation = 0)));
   Controls.IEC.IEC61400.BaseControls.WT.Aerodynamic2d aerodynamic2d(DPOmega0Pu = DPOmega0Pu, DPOmegaThetaPu = DPOmegaThetaPu, DPThetaPu = DPThetaPu, PAvailPu = PAvailPu, Theta0 = Theta0) annotation(
     Placement(visible = true, transformation(origin = {-34, -94}, extent = {{-12, -12}, {12, 12}}, rotation = 0)));
-  Controls.IEC.IEC61400.BaseControls.WT.PitchAngleControl pitchAngleControl(DThetaCmax = DThetaCmax, DThetaCmin = DThetaCmin, DThetaMax = DThetaMax, DThetaMin = DThetaMin, DThetaOmegamax = DThetaOmegamax, DThetaOmegamin = DThetaOmegamin, KIcPu = KIcPu, KIomegaPu = KIomegaPu, KPXPu = KPXPu, KPcPu = KPcPu, KPomegaPu = KPomegaPu, TTheta = TTheta, ThetaCmax = ThetaCmax, ThetaCmin = ThetaCmin, ThetaMax = ThetaMax, ThetaMin = ThetaMin, ThetaOmegamax = ThetaOmegamax, ThetaOmegamin = ThetaOmegamin) annotation(
+  Controls.IEC.IEC61400.BaseControls.WT.PitchAngleControl pitchAngleControl(
+    //initial theta
+    integratorPiOmega.Y0 = Theta0 + (PAg0Pu - PAvailPu)/DPThetaPu,
+    firstOrderTheta.Y0 = Theta0 + (PAg0Pu - PAvailPu)/DPThetaPu,
+    thetaOmegaRateLim.y_start = Theta0 + (PAg0Pu - PAvailPu)/DPThetaPu,
+    //pass other parameters
+    DThetaCmax = DThetaCmax, DThetaCmin = DThetaCmin, DThetaMax = DThetaMax, DThetaMin = DThetaMin, DThetaOmegamax = DThetaOmegamax, DThetaOmegamin = DThetaOmegamin, KIcPu = KIcPu, KIomegaPu = KIomegaPu, KPXPu = KPXPu, KPcPu = KPcPu, KPomegaPu = KPomegaPu, TTheta = TTheta, ThetaCmax = ThetaCmax, ThetaCmin = ThetaCmin, ThetaMax = ThetaMax, ThetaMin = ThetaMin, ThetaOmegamax = ThetaOmegamax, ThetaOmegamin = ThetaOmegamin) annotation(
     Placement(visible = true, transformation(origin = {-78, -96}, extent = {{-12, -12}, {12, 12}}, rotation = 0)));
+
+
+
 equation
   connect(control.ipMaxPu, injector.ipMaxPu) annotation(
     Line(points = {{-34, -30}, {-28, -30}, {-28, -21}, {-10, -21}}, color = {0, 0, 127}));
