@@ -20,8 +20,6 @@
 #include <cmath>
 #include <vector>
 #include <cassert>
-#include <boost/archive/binary_iarchive.hpp>
-#include <boost/archive/binary_oarchive.hpp>
 
 #include "PARParametersSet.h"
 
@@ -834,7 +832,7 @@ void
 ModelDanglingLine::getY0() {
   if (network_->isInitModel())
     return;
-  if (!network_->isStartingFromDump()) {
+  if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
     if (!modelBus_->getSwitchOff()) {
       y_[0] = urFict0_;
       y_[1] = uiFict0_;
@@ -870,21 +868,29 @@ ModelDanglingLine::getY0() {
 }
 
 void
-ModelDanglingLine::dumpInternalVariables(std::stringstream& streamVariables) const {
-  boost::archive::binary_oarchive os(streamVariables);
-  os << P0_;
-  os << Q0_;
-  os << ir0_;
-  os << ii0_;
+ModelDanglingLine::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
+  // streamVariables << P0_;
+  // streamVariables << Q0_;
+  // streamVariables << ir0_;
+  // streamVariables << ii0_;
+  ModelCPP::dumpInStream(streamVariables, P0_);
+  ModelCPP::dumpInStream(streamVariables, Q0_);
+  ModelCPP::dumpInStream(streamVariables, ir0_);
+  ModelCPP::dumpInStream(streamVariables, ii0_);
 }
 
 void
-ModelDanglingLine::loadInternalVariables(std::stringstream& streamVariables) {
-  boost::archive::binary_iarchive is(streamVariables);
-  is >> P0_;
-  is >> Q0_;
-  is >> ir0_;
-  is >> ii0_;
+ModelDanglingLine::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
+  char c;
+  streamVariables >> c;
+  streamVariables >> P0_;
+  streamVariables >> c;
+  streamVariables >> Q0_;
+  streamVariables >> c;
+  streamVariables >> ir0_;
+  streamVariables >> c;
+  streamVariables >> ii0_;
+  streamVariables >> c;
 }
 
 NetworkComponent::StateChange_t

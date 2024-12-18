@@ -18,10 +18,6 @@
  *
  */
 
-
-#include <boost/archive/binary_iarchive.hpp>
-#include <boost/archive/binary_oarchive.hpp>
-
 #include "DYNModelShuntCompensator.h"
 
 #include "PARParametersSet.h"
@@ -250,7 +246,7 @@ ModelShuntCompensator::collectSilentZ(BitMask* silentZTable) {
 void
 ModelShuntCompensator::getY0() {
   if (!network_->isInitModel()) {
-    if (!network_->isStartingFromDump()) {
+    if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
       z_[connectionStateNum_] = getConnected();
       z_[isCapacitorNum_] = isCapacitor() ? 1. : 0.;
       z_[isAvailableNum_] = 1.;  // always available at the beginning of the simulation
@@ -279,21 +275,28 @@ ModelShuntCompensator::getY0() {
 }
 
 void
-ModelShuntCompensator::dumpInternalVariables(std::stringstream& streamVariables) const {
-  boost::archive::binary_oarchive os(streamVariables);
-  os << ir0_;
-  os << ii0_;
-  os << suscepPu_;
-  os << tLastOpening_;
+ModelShuntCompensator::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
+  // streamVariables << ir0_;
+  // streamVariables << ii0_;
+  // streamVariables << suscepPu_;
+  // streamVariables << tLastOpening_;
+  ModelCPP::dumpInStream(streamVariables, ir0_);
+  ModelCPP::dumpInStream(streamVariables, ii0_);
+  ModelCPP::dumpInStream(streamVariables, suscepPu_);
+  ModelCPP::dumpInStream(streamVariables, tLastOpening_);
 }
 
 void
-ModelShuntCompensator::loadInternalVariables(std::stringstream& streamVariables) {
-  boost::archive::binary_iarchive is(streamVariables);
-  is >> ir0_;
-  is >> ii0_;
-  is >> suscepPu_;
-  is >> tLastOpening_;
+ModelShuntCompensator::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
+  char c;
+  streamVariables >> c;
+  streamVariables >> ir0_;
+  streamVariables >> c;
+  streamVariables >> ii0_;
+  streamVariables >> c;
+  streamVariables >> suscepPu_;
+  streamVariables >> c;
+  streamVariables >> tLastOpening_;
 }
 
 bool

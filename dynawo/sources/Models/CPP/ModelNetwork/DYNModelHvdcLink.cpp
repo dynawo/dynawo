@@ -20,8 +20,6 @@
  */
 //======================================================================
 #include <iostream>
-#include <boost/archive/binary_iarchive.hpp>
-#include <boost/archive/binary_oarchive.hpp>
 
 #include "DYNModelHvdcLink.h"
 
@@ -62,7 +60,7 @@ startingPointMode_(WARM) {
 
 void
 ModelHvdcLink::init(int& /*yNum*/) {
-  if (!network_->isStartingFromDump()) {
+  if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
     std::shared_ptr<HvdcLineInterface> dcLine = dcLine_.lock();
     // no state variable for simple hvdc model: no indexes to set
     // calculate active power at the two points of common coupling
@@ -149,7 +147,7 @@ ModelHvdcLink::initSize() {
 void
 ModelHvdcLink::getY0() {
   if (!network_->isInitModel()) {
-    if (!network_->isStartingFromDump()) {
+    if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
       // get init value for state variables
 
       // get init value for discrete variables
@@ -178,13 +176,7 @@ ModelHvdcLink::getY0() {
           break;
         }
         case CLOSED_1:
-        {
-          throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
-        }
         case CLOSED_2:
-        {
-          throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
-        }
         case CLOSED_3:
         {
           throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
@@ -214,13 +206,7 @@ ModelHvdcLink::getY0() {
           break;
         }
         case CLOSED_1:
-        {
-          throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
-        }
         case CLOSED_2:
-        {
-          throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
-        }
         case CLOSED_3:
         {
           throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
@@ -235,29 +221,44 @@ ModelHvdcLink::getY0() {
 }
 
 void
-ModelHvdcLink::dumpInternalVariables(std::stringstream& streamVariables) const {
-  boost::archive::binary_oarchive os(streamVariables);
-  os << P01_;
-  os << Q01_;
-  os << P02_;
-  os << Q02_;
-  os << ir01_;
-  os << ii01_;
-  os << ir02_;
-  os << ii02_;
+ModelHvdcLink::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
+  // streamVariables << P01_;
+  // streamVariables << Q01_;
+  // streamVariables << P02_;
+  // streamVariables << Q02_;
+  // streamVariables << ir01_;
+  // streamVariables << ii01_;
+  // streamVariables << ir02_;
+  // streamVariables << ii02_;
+  ModelCPP::dumpInStream(streamVariables, P01_);
+  ModelCPP::dumpInStream(streamVariables, Q01_);
+  ModelCPP::dumpInStream(streamVariables, P02_);
+  ModelCPP::dumpInStream(streamVariables, Q02_);
+  ModelCPP::dumpInStream(streamVariables, ir01_);
+  ModelCPP::dumpInStream(streamVariables, ii01_);
+  ModelCPP::dumpInStream(streamVariables, ir02_);
+  ModelCPP::dumpInStream(streamVariables, ii02_);
 }
 
 void
-ModelHvdcLink::loadInternalVariables(std::stringstream& streamVariables) {
-  boost::archive::binary_iarchive is(streamVariables);
-  is >> P01_;
-  is >> Q01_;
-  is >> P02_;
-  is >> Q02_;
-  is >> ir01_;
-  is >> ii01_;
-  is >> ir02_;
-  is >> ii02_;
+ModelHvdcLink::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
+  char c;
+  streamVariables >> c;
+  streamVariables >> P01_;
+  streamVariables >> c;
+  streamVariables >> Q01_;
+  streamVariables >> c;
+  streamVariables >> P02_;
+  streamVariables >> c;
+  streamVariables >> Q02_;
+  streamVariables >> c;
+  streamVariables >> ir01_;
+  streamVariables >> c;
+  streamVariables >> ii01_;
+  streamVariables >> c;
+  streamVariables >> ir02_;
+  streamVariables >> c;
+  streamVariables >> ii02_;
 }
 
 void

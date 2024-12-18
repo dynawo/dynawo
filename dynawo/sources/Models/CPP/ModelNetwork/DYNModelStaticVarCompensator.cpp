@@ -20,8 +20,6 @@
  */
 //======================================================================
 #include <iostream>
-#include <boost/archive/binary_iarchive.hpp>
-#include <boost/archive/binary_oarchive.hpp>
 
 #include "DYNModelStaticVarCompensator.h"
 
@@ -103,7 +101,7 @@ ModelStaticVarCompensator::setFequations(map<int, string>& /*fEquationIndex*/) {
 
 void
 ModelStaticVarCompensator::init(int& /*yNum*/) {
-  if (!network_->isStartingFromDump()) {
+  if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
     double gTotal0 = 0.;
     double bTotal0 = 0.;
     double ur0 = 0.;
@@ -223,7 +221,7 @@ ModelStaticVarCompensator::evalJtPrim(SparseMatrix& /*jt*/, const int& /*rowOffs
 void
 ModelStaticVarCompensator::getY0() {
   if (!network_->isInitModel()) {
-    if (!network_->isStartingFromDump()) {
+    if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
       z_[modeNum_] = mode_;
       z_[connectionStateNum_] = getConnected();
     } else {
@@ -250,21 +248,28 @@ ModelStaticVarCompensator::getY0() {
 }
 
 void
-ModelStaticVarCompensator::dumpInternalVariables(std::stringstream& streamVariables) const {
-  boost::archive::binary_oarchive os(streamVariables);
-  os << ir0_;
-  os << ii0_;
-  os << gSvc0_;
-  os << bSvc0_;
+ModelStaticVarCompensator::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
+  // streamVariables << ir0_;
+  // streamVariables << ii0_;
+  // streamVariables << gSvc0_;
+  // streamVariables << bSvc0_;
+  ModelCPP::dumpInStream(streamVariables, ir0_);
+  ModelCPP::dumpInStream(streamVariables, ii0_);
+  ModelCPP::dumpInStream(streamVariables, gSvc0_);
+  ModelCPP::dumpInStream(streamVariables, bSvc0_);
 }
 
 void
-ModelStaticVarCompensator::loadInternalVariables(std::stringstream& streamVariables) {
-  boost::archive::binary_iarchive is(streamVariables);
-  is >> ir0_;
-  is >> ii0_;
-  is >> gSvc0_;
-  is >> bSvc0_;
+ModelStaticVarCompensator::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
+  char c;
+  streamVariables >> c;
+  streamVariables >> ir0_;
+  streamVariables >> c;
+  streamVariables >> ii0_;
+  streamVariables >> c;
+  streamVariables >> gSvc0_;
+  streamVariables >> c;
+  streamVariables >> bSvc0_;
 }
 
 NetworkComponent::StateChange_t

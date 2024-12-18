@@ -20,8 +20,6 @@
 #include <cmath>
 #include <vector>
 #include <cassert>
-#include <boost/archive/binary_iarchive.hpp>
-#include <boost/archive/binary_oarchive.hpp>
 
 #include "PARParametersSet.h"
 
@@ -1718,7 +1716,7 @@ ModelLine::evalCalculatedVarI(unsigned numCalculatedVar) const {
 void
 ModelLine::getY0() {
   if (!network_->isInitModel()) {
-    if (!network_->isStartingFromDump()) {
+    if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
       if (isDynamic_) {
         y_[0] = ir01_;
         y_[1] = ii01_;
@@ -1888,21 +1886,28 @@ ModelLine::getY0() {
 }
 
 void
-ModelLine::dumpInternalVariables(std::stringstream& streamVariables) const {
-  boost::archive::binary_oarchive os(streamVariables);
-  os << ir01_;
-  os << ii01_;
-  os << ir02_;
-  os << ii02_;
+ModelLine::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
+  // streamVariables << ir01_;
+  // streamVariables << ii01_;
+  // streamVariables << ir02_;
+  // streamVariables << ii02_;
+  ModelCPP::dumpInStream(streamVariables, ir01_);
+  ModelCPP::dumpInStream(streamVariables, ii01_);
+  ModelCPP::dumpInStream(streamVariables, ir02_);
+  ModelCPP::dumpInStream(streamVariables, ii02_);
 }
 
 void
-ModelLine::loadInternalVariables(std::stringstream& streamVariables) {
-  boost::archive::binary_iarchive is(streamVariables);
-  is >> ir01_;
-  is >> ii01_;
-  is >> ir02_;
-  is >> ii02_;
+ModelLine::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
+  char c;
+  streamVariables >> c;
+  streamVariables >> ir01_;
+  streamVariables >> c;
+  streamVariables >> ii01_;
+  streamVariables >> c;
+  streamVariables >> ir02_;
+  streamVariables >> c;
+  streamVariables >> ii02_;
 }
 
 NetworkComponent::StateChange_t

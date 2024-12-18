@@ -21,6 +21,9 @@
 #define MODELS_CPP_MODELNETWORK_DYNMODELDANGLINGLINE_H_
 
 #include <boost/shared_ptr.hpp>
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+
 #include "DYNNetworkComponent.h"
 
 namespace DYN {
@@ -309,19 +312,28 @@ class ModelDanglingLine : public NetworkComponent {
     return (connectionState_ == CLOSED);
   }
 
+ /**
+   * @brief get the number of internal variable of the model
+   *
+   * @return the number of internal variable of the model
+   */
+  inline unsigned getNbInternalVariables() const override {
+    return 4;
+  }
+
   /**
    * @brief append the internal variables values to a stringstream
    *
-   * @param streamVariables : stringstream with binary formated internalVariables
+   * @param streamVariables : stream with binary formated internalVariables
    */
-  void dumpInternalVariables(std::stringstream& streamVariables) const override;
+  void dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const override;
 
   /**
    * @brief import the internal variables values of the component from stringstream
    *
-   * @param streamVariables : stringstream with binary formated internalVariables
+   * @param streamVariables : stream with binary formated internalVariables
    */
-  void loadInternalVariables(std::stringstream& streamVariables) override;
+  void loadInternalVariables(boost::archive::binary_iarchive& streamVariables) override;
 
  private:
   boost::shared_ptr<ModelCurrentLimits> currentLimits_;  ///< current limit
