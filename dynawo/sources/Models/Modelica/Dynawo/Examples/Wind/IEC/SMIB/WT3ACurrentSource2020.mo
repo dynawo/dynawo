@@ -45,7 +45,7 @@ equation
     Line(points = {{-68, 0}, {80, 0}}, color = {0, 0, 255}));
   annotation(
     preferredView = "diagram",
-    experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-06, Interval = 0.000285714),
+    experiment(StartTime = 0, StopTime = 40, Tolerance = 1e-05, Interval = 0.005),
     __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", nls = "kinsol", s = "ida", nlsLS = "klu", maxIntegrationOrder = "2", maxStepSize = "10", emit_protected = "()"),
     Diagram(coordinateSystem(extent = {{-140, -70}, {140, 70}})),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode");
