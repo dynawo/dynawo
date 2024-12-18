@@ -30,6 +30,7 @@
 #include "DYNRatioTapChangerInterfaceIIDM.h"
 #include "DYNVoltageLevelInterfaceIIDM.h"
 #include "DYNCommon.h"
+#include "make_unique.hpp"
 
 namespace DYN {
 
@@ -144,28 +145,28 @@ TEST(DataInterfaceTest, FictTwoWTransformer_1) {
 
   ASSERT_EQ(tfoInterface.getCurrentLimitInterfaces1().size(), 0);
   ASSERT_EQ(tfoInterface.getCurrentLimitInterfaces2().size(), 0);
-  std::unique_ptr<CurrentLimitInterface> curLimItf1(new CurrentLimitInterfaceIIDM(1, 1));
+  std::unique_ptr<CurrentLimitInterface> curLimItf1 = DYN::make_unique<CurrentLimitInterfaceIIDM>(1, 1);
   tfoInterface.addCurrentLimitInterface1(std::move(curLimItf1));
-  std::unique_ptr<CurrentLimitInterface> curLimItf2(new CurrentLimitInterfaceIIDM(2, 2));
+  std::unique_ptr<CurrentLimitInterface> curLimItf2 = DYN::make_unique<CurrentLimitInterfaceIIDM>(2, 2);
   tfoInterface.addCurrentLimitInterface2(std::move(curLimItf2));
   ASSERT_EQ(tfoInterface.getCurrentLimitInterfaces1().size(), 0);
   ASSERT_EQ(tfoInterface.getCurrentLimitInterfaces2().size(), 1);
 
   ASSERT_EQ(tfoInterface.getBusInterface1().get(), nullptr);
   vl1Bus1.setV(10.0).setAngle(0.01);
-  std::unique_ptr<BusInterface> busItf1(new BusInterfaceIIDM(vl1Bus1));
+  std::unique_ptr<BusInterface> busItf1 = DYN::make_unique<BusInterfaceIIDM>(vl1Bus1);
   tfoInterface.setBusInterface1(std::move(busItf1));
   ASSERT_EQ(tfoInterface.getBusInterface1().get()->getID(), "VL1_BUS1");
 
   ASSERT_EQ(tfoInterface.getBusInterface2().get(), nullptr);
   vl2Bus1.setV(11.0).setAngle(0.02);
-  std::unique_ptr<BusInterface> busItf2(new BusInterfaceIIDM(vl2Bus1));
+  std::unique_ptr<BusInterface> busItf2 = DYN::make_unique<BusInterfaceIIDM>(vl2Bus1);
   tfoInterface.setBusInterface2(std::move(busItf2));
   ASSERT_EQ(tfoInterface.getBusInterface2().get()->getID(), "VL2_BUS1");
 
-  std::unique_ptr<VoltageLevelInterface> voltageLevelItf1(new VoltageLevelInterfaceIIDM(vl1));
+  std::unique_ptr<VoltageLevelInterface> voltageLevelItf1 = DYN::make_unique<VoltageLevelInterfaceIIDM>(vl1);
   tfoInterface.setVoltageLevelInterface1(std::move(voltageLevelItf1));
-  std::unique_ptr<VoltageLevelInterface> voltageLevelItf2(new VoltageLevelInterfaceIIDM(vl2));
+  std::unique_ptr<VoltageLevelInterface> voltageLevelItf2 = DYN::make_unique<VoltageLevelInterfaceIIDM>(vl2);
   tfoInterface.setVoltageLevelInterface2(std::move(voltageLevelItf2));
 
   ASSERT_TRUE(tfoInterface.getInitialConnected1());
@@ -282,8 +283,8 @@ TEST(DataInterfaceTest, FictTwoWTransformer_NoInitialConnections) {
   FictTwoWTransformerInterfaceIIDM tfoInterface("3WT_VL1_VL2_VL3_1",
       leg1, false, transformer.getRatedU0(), transformer.getRatedU0(), "UNDEFINED");
   ASSERT_EQ(tfoInterface.getID(), "3WT_VL1_VL2_VL3_1");
-  std::unique_ptr<VoltageLevelInterface> vl1Itf(new VoltageLevelInterfaceIIDM(vl1));
-  std::unique_ptr<VoltageLevelInterface> vl2Itf(new VoltageLevelInterfaceIIDM(vl2));
+  std::unique_ptr<VoltageLevelInterface> vl1Itf = DYN::make_unique<VoltageLevelInterfaceIIDM>(vl1);
+  std::unique_ptr<VoltageLevelInterface> vl2Itf = DYN::make_unique<VoltageLevelInterfaceIIDM>(vl2);
   tfoInterface.setVoltageLevelInterface1(std::move(vl1Itf));
   tfoInterface.setVoltageLevelInterface2(std::move(vl2Itf));
 

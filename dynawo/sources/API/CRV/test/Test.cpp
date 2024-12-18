@@ -27,6 +27,8 @@
 #include "CRVXmlExporter.h"
 #include "CRVCsvExporter.h"
 
+#include "make_unique.hpp"
+
 namespace curves {
 
 TEST(APICRVTest, test1) {
@@ -71,11 +73,11 @@ TEST(APICRVTest, test1) {
   }
 
   // export the curves in xml format
-  std::unique_ptr<XmlExporter> xmlExporter = std::unique_ptr<XmlExporter>(new XmlExporter());
+  std::unique_ptr<XmlExporter> xmlExporter = DYN::make_unique<XmlExporter>();
   ASSERT_NO_THROW(xmlExporter->exportToFile(curves, "testXmlCurvesExport.crv"));
 
   // export the curves in xml format
-  std::unique_ptr<CsvExporter> csvExporter = std::unique_ptr<CsvExporter>(new CsvExporter());
+  std::unique_ptr<CsvExporter> csvExporter = DYN::make_unique<CsvExporter>();
   ASSERT_NO_THROW(csvExporter->exportToFile(curves, "testCsvCurvesExport.csv"));
 
   // throw
