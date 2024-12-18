@@ -14,8 +14,9 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT;
   
 model Aerodynamic2d "Two-dimensional aerodynmaic module for type 3 wind turbines (IEC N°61400-27-1:2020)"
 
-      // parameters
+          // parameters
   extends Dynawo.Electrical.Wind.IEC.Parameters.Aerodynamic2d;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPGrid;
   // inputs
   Modelica.Blocks.Interfaces.RealInput omegaWTRPu "Wind turbine rotor speed in pu (base SystemBase.omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -37,7 +38,7 @@ model Aerodynamic2d "Two-dimensional aerodynmaic module for type 3 wind turbines
     Placement(visible = true, transformation(origin = {-35, -47}, extent = {{-7, -7}, {7, 7}}, rotation = 90)));
   Modelica.Blocks.Sources.Constant constOmega0Pu(k = SystemBase.omega0Pu) annotation(
     Placement(visible = true, transformation(origin = {-78, -84}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant constPAvailPu(k = PAvailPu) annotation(
+  Modelica.Blocks.Sources.Constant constPAvailPu(k = if PAvailPu>P0Pu then PAvailPu else P0Pu) annotation(
     Placement(visible = true, transformation(origin = {19, 1}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constTheta0(k = Theta0) annotation(
     Placement(visible = true, transformation(origin = {-70, 42}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
