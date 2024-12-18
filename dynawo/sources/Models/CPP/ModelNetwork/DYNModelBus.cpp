@@ -507,7 +507,7 @@ ModelBus::evalCalculatedVars() {
 
 void
 ModelBus::init(int& yNum) {
-  if (!network_->isStartingFromDump()) {
+  if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
     switch (startingPointMode_) {
     case FLAT:
       u0_ = bus_.lock()->getVNom() / unom_;
@@ -555,7 +555,7 @@ ModelBus::getY0() {
       y_[uiNum_] = ui0_;
     }
   } else {
-    if (!network_->isStartingFromDump()) {
+    if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
       if (getSwitchOff()) {
         y_[urNum_] = 0.0;
         y_[uiNum_] = 0.0;
@@ -607,23 +607,32 @@ ModelBus::getY0() {
 }
 
 void
-ModelBus::dumpInternalVariables(std::stringstream& streamVariables) const {
-  boost::archive::binary_oarchive os(streamVariables);
-  os << angle0_;
-  os << u0_;
-  os << U_;
-  os << U2Pu_;
-  os << UPu_;
+ModelBus::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
+  // streamVariables << angle0_;
+  // streamVariables << u0_;
+  // streamVariables << U_;
+  // streamVariables << U2Pu_;
+  // streamVariables << UPu_;
+  ModelCPP::dumpInStream(streamVariables, angle0_);
+  ModelCPP::dumpInStream(streamVariables, u0_);
+  ModelCPP::dumpInStream(streamVariables, U_);
+  ModelCPP::dumpInStream(streamVariables, U2Pu_);
+  ModelCPP::dumpInStream(streamVariables, UPu_);
 }
 
 void
-ModelBus::loadInternalVariables(std::stringstream& streamVariables) {
-  boost::archive::binary_iarchive is(streamVariables);
-  is >> angle0_;
-  is >> u0_;
-  is >> U_;
-  is >> U2Pu_;
-  is >> UPu_;
+ModelBus::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
+  char c;
+  streamVariables >> c;
+  streamVariables >> angle0_;
+  streamVariables >> c;
+  streamVariables >> u0_;
+  streamVariables >> c;
+  streamVariables >> U_;
+  streamVariables >> c;
+  streamVariables >> U2Pu_;
+  streamVariables >> c;
+  streamVariables >> UPu_;
 }
 
 void

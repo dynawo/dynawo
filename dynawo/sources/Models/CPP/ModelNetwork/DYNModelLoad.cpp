@@ -19,8 +19,6 @@
  */
 #include <cmath>
 #include <cassert>
-#include <boost/archive/binary_iarchive.hpp>
-#include <boost/archive/binary_oarchive.hpp>
 
 #include "PARParametersSet.h"
 
@@ -208,7 +206,7 @@ ModelLoad::setGequations(std::map<int, std::string>& /*gEquationIndex*/) {
 
 void
 ModelLoad::init(int& yNum) {
-  if (!network_->isStartingFromDump()) {
+  if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
     std::shared_ptr<LoadInterface> load = load_.lock();
     double thetaNode = load->getBusInterface()->getAngle0();
     double unomNode = load->getBusInterface()->getVNom();
@@ -224,10 +222,10 @@ ModelLoad::init(int& yNum) {
       u0_ = load->getBusInterface()->getV0() / unomNode;
       break;
     }
-    
-    double ur0 = u0_ * cos(thetaNode * DEG_TO_RAD);
-    double ui0 = u0_ * sin(thetaNode * DEG_TO_RAD);
+
     if (isConnected() && !doubleIsZero(u0_)) {
+      double ur0 = u0_ * cos(thetaNode * DEG_TO_RAD);
+      double ui0 = u0_ * sin(thetaNode * DEG_TO_RAD);
       ir0_ = (P0_ * ur0 + Q0_ * ui0) / (ur0 * ur0 + ui0 * ui0);
       ii0_ = (P0_ * ui0 - Q0_ * ur0) / (ur0 * ur0 + ui0 * ui0);
     } else {
@@ -634,7 +632,7 @@ ModelLoad::evalG(const double& /*t*/) {
 void
 ModelLoad::getY0() {
   if (!network_->isInitModel()) {
-    if (!network_->isStartingFromDump()) {
+    if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
       unsigned int index = 0;
       if (isPControllable_ || isControllable_) {
         y_[index] = DeltaPc0_;
@@ -696,23 +694,32 @@ ModelLoad::getY0() {
 }
 
 void
-ModelLoad::dumpInternalVariables(std::stringstream& streamVariables) const {
-  boost::archive::binary_oarchive os(streamVariables);
-  os << P0_;
-  os << Q0_;
-  os << u0_;
-  os << ii0_;
-  os << ir0_;
+ModelLoad::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
+  // streamVariables << P0_;
+  // streamVariables << Q0_;
+  // streamVariables << u0_;
+  // streamVariables << ii0_;
+  // streamVariables << ir0_;
+  ModelCPP::dumpInStream(streamVariables, P0_);
+  ModelCPP::dumpInStream(streamVariables, Q0_);
+  ModelCPP::dumpInStream(streamVariables, u0_);
+  ModelCPP::dumpInStream(streamVariables, ii0_);
+  ModelCPP::dumpInStream(streamVariables, ir0_);
 }
 
 void
-ModelLoad::loadInternalVariables(std::stringstream& streamVariables) {
-  boost::archive::binary_iarchive is(streamVariables);
-  is >> P0_;
-  is >> Q0_;
-  is >> u0_;
-  is >> ii0_;
-  is >> ir0_;
+ModelLoad::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
+  char c;
+  streamVariables >> c;
+  streamVariables >> P0_;
+  streamVariables >> c;
+  streamVariables >> Q0_;
+  streamVariables >> c;
+  streamVariables >> u0_;
+  streamVariables >> c;
+  streamVariables >> ii0_;
+  streamVariables >> c;
+  streamVariables >> ir0_;
 }
 
 void

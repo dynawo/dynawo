@@ -62,6 +62,7 @@ sizeZ_(0),
 sizeG_(0),
 sizeMode_(0),
 sizeCalculatedVar_(0),
+internalVariablesFoundInDump_(false),
 offsetCalculatedVar_(0),
 network_(NULL) { }
 
@@ -81,6 +82,7 @@ sizeZ_(0),
 sizeG_(0),
 sizeMode_(0),
 sizeCalculatedVar_(0),
+internalVariablesFoundInDump_(false),
 offsetCalculatedVar_(0),
 id_(id),
 network_(NULL) { }
@@ -268,7 +270,7 @@ NetworkComponent::loadVariables(boost::archive::binary_iarchive& streamVariables
     getY0();
     return false;
   }
-
+  setInternalVariablesFoundInDump(true);
   loadInternalVariables(streamVariables);
 
   // loading values
