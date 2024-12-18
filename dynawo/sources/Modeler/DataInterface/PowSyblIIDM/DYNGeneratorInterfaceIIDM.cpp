@@ -147,6 +147,11 @@ GeneratorInterfaceIIDM::importStaticParameters() {
     staticParameters_.insert(std::make_pair("targetV_pu", StaticParameter("targetV_pu", StaticParameter::DOUBLE).setValue(0.)));
     staticParameters_.insert(std::make_pair("targetV", StaticParameter("targetV", StaticParameter::DOUBLE).setValue(0.)));
   }
+  if (!(doubleIsZero(getActivePowerControlDroop()))) {
+    staticParameters_.insert(std::make_pair("kGover", StaticParameter("kGover", StaticParameter::DOUBLE).setValue(1./getActivePowerControlDroop())));
+  } else {
+    staticParameters_.insert(std::make_pair("kGover", StaticParameter("kGover", StaticParameter::DOUBLE).setValue(0.)));
+  }
 }
 
 void
@@ -329,7 +334,7 @@ bool GeneratorInterfaceIIDM::isVoltageRegulationOn() const {
 
 bool
 GeneratorInterfaceIIDM::hasActivePowerControl() const {
-  if (activePowerControl_) {
+  if (activePowerControl_ || (generatorActivePowerControl_ && generatorActivePowerControl_->exists())) {
     return true;
   }
   return false;
@@ -338,7 +343,11 @@ GeneratorInterfaceIIDM::hasActivePowerControl() const {
 bool
 GeneratorInterfaceIIDM::isParticipating() const {
   if (hasActivePowerControl()) {
-    return activePowerControl_.get().isParticipate();
+    if (activePowerControl_) {
+      return activePowerControl_.get().isParticipate();
+    } else {
+      return generatorActivePowerControl_->isParticipate().value();
+    }
   }
   return false;
 }
@@ -346,7 +355,11 @@ GeneratorInterfaceIIDM::isParticipating() const {
 double
 GeneratorInterfaceIIDM::getActivePowerControlDroop() const {
   if (hasActivePowerControl() && isParticipating()) {
-    return activePowerControl_.get().getDroop();
+    if (activePowerControl_) {
+      return activePowerControl_.get().getDroop();
+    } else {
+      generatorActivePowerControl_->getDroop().value();
+    }
   }
   return 0.;
 }
@@ -365,16 +378,6 @@ GeneratorInterfaceIIDM::getCoordinatedReactiveControlPercentage() const {
     return coordinatedReactiveControl_.get().getQPercent();
   }
   return 0.;
-}
-
-boost::optional<double>
-GeneratorInterfaceIIDM::getDroop() const {
-  return generatorActivePowerControl_ ? generatorActivePowerControl_->getDroop() : boost::optional<double>();
-}
-
-boost::optional<bool>
-GeneratorInterfaceIIDM::isParticipate() const {
-  return generatorActivePowerControl_ ? generatorActivePowerControl_->isParticipate() : boost::optional<bool>();
 }
 
 GeneratorInterface::EnergySource_t
