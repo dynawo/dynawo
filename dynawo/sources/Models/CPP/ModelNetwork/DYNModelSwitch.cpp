@@ -191,7 +191,7 @@ ModelSwitch::getY0() {
     y_[0] = inLoop_ ? 1. : 0.;
     y_[1] = inLoop_ ? 1. : 0.;
   } else {
-    if (!network_->isStartingFromDump()) {
+    if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
       y_[0] = inLoop_ ? 1. : ir0_;
       y_[1] = inLoop_ ? 1. : ii0_;
       yp_[0] = 0.;

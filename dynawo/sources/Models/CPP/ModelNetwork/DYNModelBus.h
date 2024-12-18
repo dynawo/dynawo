@@ -23,6 +23,8 @@
 
 #include <boost/optional.hpp>
 #include <boost/shared_ptr.hpp>
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
 
 #include "DYNNetworkComponent.h"
 #include "DYNBitMask.h"
@@ -545,18 +547,27 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
   void resetCurrentUStatus();
 
   /**
+   * @brief get the number of internal variable of the model
+   *
+   * @return the number of internal variable of the model
+   */
+  inline unsigned getNbInternalVariables() const override {
+    return 5;
+  }
+
+  /**
    * @brief append the internal variables values to a stringstream
    *
-   * @param streamVariables : stringstream with binary formated internalVariables
+   * @param streamVariables : stream with binary formated internalVariables
    */
-  void dumpInternalVariables(std::stringstream& streamVariables) const override;
+  void dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const override;
 
   /**
    * @brief import the internal variables values of the component from stringstream
    *
-   * @param streamVariables : stringstream with binary formated internalVariables
+   * @param streamVariables : stream with binary formated internalVariables
    */
-  void loadInternalVariables(std::stringstream& streamVariables) override;
+  void loadInternalVariables(boost::archive::binary_iarchive& streamVariables) override;
 
  private:
   /**

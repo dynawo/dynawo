@@ -181,13 +181,6 @@ class ModelTapChanger {
    */
   inline bool isFictitious() const { return fictitious_; }
 
-  /**
-   * @brief dump in a stream the value of a variable after a char indicating its type
-   * @param os stringstream with binary formated internalVariables
-   * @param value value to write
-   */
-  template <typename T> void dumpInternalVariable(boost::archive::binary_oarchive& os, T value) const;
-
  private:
   std::string id_;  ///< id of the tap changer
   std::vector<TapChangerStep>
@@ -203,7 +196,5 @@ class ModelTapChanger {
 };                 // class ModelTapChanger
 
 }  // namespace DYN
-
-#include "DYNModelTapChanger.hpp"
 
 #endif  // MODELS_CPP_MODELNETWORK_DYNMODELTAPCHANGER_H_
