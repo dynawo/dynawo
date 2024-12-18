@@ -179,16 +179,16 @@ unsigned ModelRatioTapChanger::getNbInternalVariables() const {
 }
 
 void ModelRatioTapChanger::dumpInternalVariables(boost::archive::binary_oarchive& os) const {
-  dumpInternalVariable(os, whenUp_);
-  dumpInternalVariable(os, whenDown_);
-  dumpInternalVariable(os, whenLastTap_);
-  dumpInternalVariable(os, moveUp_);
-  dumpInternalVariable(os, moveDown_);
-  dumpInternalVariable(os, tapRefDown_);
-  dumpInternalVariable(os, tapRefUp_);
-  dumpInternalVariable(os, uMaxState_);
-  dumpInternalVariable(os, uMinState_);
-  dumpInternalVariable(os, uTargetState_);
+  ModelCPP::dumpInStream(os, whenUp_);
+  ModelCPP::dumpInStream(os, whenDown_);
+  ModelCPP::dumpInStream(os, whenLastTap_);
+  ModelCPP::dumpInStream(os, moveUp_);
+  ModelCPP::dumpInStream(os, moveDown_);
+  ModelCPP::dumpInStream(os, tapRefDown_);
+  ModelCPP::dumpInStream(os, tapRefUp_);
+  ModelCPP::dumpInStream(os, uMaxState_);
+  ModelCPP::dumpInStream(os, uMinState_);
+  ModelCPP::dumpInStream(os, uTargetState_);
 }
 
 void ModelRatioTapChanger::loadInternalVariables(boost::archive::binary_iarchive& is) {

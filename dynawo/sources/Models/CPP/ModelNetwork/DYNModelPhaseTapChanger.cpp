@@ -159,14 +159,14 @@ unsigned ModelPhaseTapChanger::getNbInternalVariables() const {
 }
 
 void ModelPhaseTapChanger::dumpInternalVariables(boost::archive::binary_oarchive& os) const {
-  dumpInternalVariable(os, whenUp_);
-  dumpInternalVariable(os, whenDown_);
-  dumpInternalVariable(os, whenLastTap_);
-  dumpInternalVariable(os, moveUp_);
-  dumpInternalVariable(os, moveDown_);
-  dumpInternalVariable(os, tapRefDown_);
-  dumpInternalVariable(os, tapRefUp_);
-  dumpInternalVariable(os, currentOverThresholdState_);
+  ModelCPP::dumpInStream(os, whenUp_);
+  ModelCPP::dumpInStream(os, whenDown_);
+  ModelCPP::dumpInStream(os, whenLastTap_);
+  ModelCPP::dumpInStream(os, moveUp_);
+  ModelCPP::dumpInStream(os, moveDown_);
+  ModelCPP::dumpInStream(os, tapRefDown_);
+  ModelCPP::dumpInStream(os, tapRefUp_);
+  ModelCPP::dumpInStream(os, currentOverThresholdState_);
 }
 
 void ModelPhaseTapChanger::loadInternalVariables(boost::archive::binary_iarchive& is) {

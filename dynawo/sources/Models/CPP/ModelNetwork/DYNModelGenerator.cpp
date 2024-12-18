@@ -19,8 +19,6 @@
  */
 #include <cmath>
 #include <vector>
-#include <boost/archive/binary_iarchive.hpp>
-#include <boost/archive/binary_oarchive.hpp>
 
 #include "DYNModelGenerator.h"
 #include "DYNModelBus.h"
@@ -219,7 +217,7 @@ ModelGenerator::collectSilentZ(BitMask* silentZTable) {
 void
 ModelGenerator::getY0() {
   if (!network_->isInitModel()) {
-    if (!network_->isStartingFromDump()) {
+    if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
       z_[0] = getConnected();
       z_[1] = Pc_;
       z_[2] = Qc_;
@@ -248,17 +246,20 @@ ModelGenerator::getY0() {
 }
 
 void
-ModelGenerator::dumpInternalVariables(std::stringstream& streamVariables) const {
-  boost::archive::binary_oarchive os(streamVariables);
-  os << ir0_;
-  os << ii0_;
+ModelGenerator::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
+  // streamVariables << ir0_;
+  // streamVariables << ii0_;
+  ModelCPP::dumpInStream(streamVariables, ir0_);
+  ModelCPP::dumpInStream(streamVariables, ii0_);
 }
 
 void
-ModelGenerator::loadInternalVariables(std::stringstream& streamVariables) {
-  boost::archive::binary_iarchive is(streamVariables);
-  is >> ir0_;
-  is >> ii0_;
+ModelGenerator::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
+  char c;
+  streamVariables >> c;
+  streamVariables >> ir0_;
+  streamVariables >> c;
+  streamVariables >> ii0_;
 }
 
 NetworkComponent::StateChange_t
@@ -402,7 +403,7 @@ ModelGenerator::setGequations(std::map<int, std::string>& /*gEquationIndex*/) {
 
 void
 ModelGenerator::init(int & /*yNum*/) {
-  if (!network_->isStartingFromDump()) {
+  if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
     double uNode = 0.;
     std::shared_ptr<GeneratorInterface> generator = generator_.lock();
     double thetaNode = generator->getBusInterface()->getAngle0();
