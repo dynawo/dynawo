@@ -1,4 +1,4 @@
 var a01907 =
 [
-    [ "newMacroStaticRef", "de/dca/a01907.html#a25179dcd1ce3c70a27c860cfb7a718a8", null ]
+    [ "newMacroStaticRef", "de/dca/a01907.html#aa6fa4ce0a828db63164293988e242d32", null ]
 ];

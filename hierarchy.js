@@ -419,8 +419,8 @@ var hierarchy =
     [ "job::OutputsEntry", "df/d71/a02247.html", null ],
     [ "job::OutputsEntryFactory", "d1/d0c/a02251.html", null ],
     [ "parameters::Parameter", "d1/de1/a02435.html", null ],
-    [ "parameters::ParametersSet::parameter_const_iterator", "d8/d9a/a02447.html", null ],
     [ "parameters::MacroParameterSet::parameter_const_iterator", "d5/d73/a02423.html", null ],
+    [ "parameters::ParametersSet::parameter_const_iterator", "d8/d9a/a02447.html", null ],
     [ "DYN::ParameterCommon", "d8/dd7/a02643.html", [
       [ "DYN::ParameterModeler", "da/d8e/a02759.html", null ],
       [ "DYN::ParameterSolver", "d5/d9d/a03343.html", null ]

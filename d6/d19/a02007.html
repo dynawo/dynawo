@@ -126,9 +126,9 @@ Public Member Functions</h2></td></tr>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d19/a02007.html#a06c04b4b92359ce81a717a0e34fcc9f8">~ModelTemplateHandler</a> ()</td></tr>
 <tr class="memdesc:a06c04b4b92359ce81a717a0e34fcc9f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
 <tr class="separator:a06c04b4b92359ce81a717a0e34fcc9f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a271c5264979308c1c45635b062ed2a0e"><td class="memItemLeft" align="right" valign="top">boost::shared_ptr&lt; <a class="el" href="../../d9/de1/a01923.html">ModelTemplate</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d19/a02007.html#a271c5264979308c1c45635b062ed2a0e">get</a> () const</td></tr>
-<tr class="memdesc:a271c5264979308c1c45635b062ed2a0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the model template read in xml file  <a href="#a271c5264979308c1c45635b062ed2a0e">More...</a><br /></td></tr>
-<tr class="separator:a271c5264979308c1c45635b062ed2a0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4ae1df5fc0a43d612fc2761faff1176"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d9/de1/a01923.html">ModelTemplate</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d19/a02007.html#ad4ae1df5fc0a43d612fc2761faff1176">get</a> () const</td></tr>
+<tr class="memdesc:ad4ae1df5fc0a43d612fc2761faff1176"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the model template read in xml file  <a href="#ad4ae1df5fc0a43d612fc2761faff1176">More...</a><br /></td></tr>
+<tr class="separator:ad4ae1df5fc0a43d612fc2761faff1176"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa95537e2acd61c5c65cee188b58438fa"><td class="memItemLeft" align="right" valign="top"><a id="aa95537e2acd61c5c65cee188b58438fa"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d19/a02007.html#aa95537e2acd61c5c65cee188b58438fa">addConnect</a> ()</td></tr>
 <tr class="memdesc:aa95537e2acd61c5c65cee188b58438fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a connector to the model template <br /></td></tr>
@@ -186,10 +186,10 @@ Private Attributes</h2></td></tr>
 <a class="el" href="../../d5/d1b/a01971.html">UnitDynamicModelHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d19/a02007.html#a1f673011e398ce5329daedd0ad78df70">unitDynamicModelHandler_</a></td></tr>
 <tr class="memdesc:a1f673011e398ce5329daedd0ad78df70"><td class="mdescLeft">&#160;</td><td class="mdescRight">handler used to read unit dynamic model element <br /></td></tr>
 <tr class="separator:a1f673011e398ce5329daedd0ad78df70"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5cafddb419d7c5c5a0828e785daaab33"><td class="memItemLeft" align="right" valign="top"><a id="a5cafddb419d7c5c5a0828e785daaab33"></a>
-boost::shared_ptr&lt; <a class="el" href="../../d9/de1/a01923.html">ModelTemplate</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d19/a02007.html#a5cafddb419d7c5c5a0828e785daaab33">modelTemplate_</a></td></tr>
-<tr class="memdesc:a5cafddb419d7c5c5a0828e785daaab33"><td class="mdescLeft">&#160;</td><td class="mdescRight">current model template <br /></td></tr>
-<tr class="separator:a5cafddb419d7c5c5a0828e785daaab33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0830d7db7bf861e9a2f648a51e61b3c5"><td class="memItemLeft" align="right" valign="top"><a id="a0830d7db7bf861e9a2f648a51e61b3c5"></a>
+std::shared_ptr&lt; <a class="el" href="../../d9/de1/a01923.html">ModelTemplate</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d19/a02007.html#a0830d7db7bf861e9a2f648a51e61b3c5">modelTemplate_</a></td></tr>
+<tr class="memdesc:a0830d7db7bf861e9a2f648a51e61b3c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">current model template <br /></td></tr>
+<tr class="separator:a0830d7db7bf861e9a2f648a51e61b3c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Handler used to parse model template element. </p>
@@ -263,14 +263,14 @@ boost::shared_ptr&lt; <a class="el" href="../../d9/de1/a01923.html">ModelTemplat
 
 </div>
 </div>
-<a id="a271c5264979308c1c45635b062ed2a0e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a271c5264979308c1c45635b062ed2a0e">&#9670;&nbsp;</a></span>get()</h2>
+<a id="ad4ae1df5fc0a43d612fc2761faff1176"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4ae1df5fc0a43d612fc2761faff1176">&#9670;&nbsp;</a></span>get()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">boost::shared_ptr&lt;<a class="el" href="../../d9/de1/a01923.html">ModelTemplate</a>&gt; dynamicdata::ModelTemplateHandler::get </td>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d9/de1/a01923.html">ModelTemplate</a>&gt; dynamicdata::ModelTemplateHandler::get </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -303,7 +303,7 @@ boost::shared_ptr&lt; <a class="el" href="../../d9/de1/a01923.html">ModelTemplat
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>dynamicdata</b></li><li class="navelem"><a class="el" href="../../d6/d19/a02007.html">ModelTemplateHandler</a></li>
-    <li class="footer">Generated on Mon Dec 16 2024 16:47:43 for Dynawo by
+    <li class="footer">Generated on Wed Dec 18 2024 13:48:33 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

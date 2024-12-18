@@ -75,7 +75,7 @@ var searchData=
   ['staticref_5f',['staticRef_',['../dd/d4e/a01975.html#a5aecf815cee797f52c33c6ea043fac42',1,'dynamicdata::StaticRefHandler']]],
   ['staticrefhandler_5f',['staticRefHandler_',['../d6/dd6/a01983.html#a5dcb89a8fbb160e25a887532447d0f5b',1,'dynamicdata::MacroStaticReferenceHandler::staticRefHandler_()'],['../d7/d98/a02003.html#a2b6f41862fa7fdca9ceeedbb0109fe85',1,'dynamicdata::ModelicaModelHandler::staticRefHandler_()'],['../d6/d19/a02007.html#a66119dbf5ae3f23609ede162138db699',1,'dynamicdata::ModelTemplateHandler::staticRefHandler_()'],['../d5/db4/a02011.html#a0414b60c076478824719c874306f4751',1,'dynamicdata::BlackBoxModelHandler::staticRefHandler_()'],['../de/d0a/a02015.html#a9cf01c21d0dcf50442ac00b68bac5914',1,'dynamicdata::ModelTemplateExpansionHandler::staticRefHandler_()']]],
   ['staticrefinterfaces_5f',['staticRefInterfaces_',['../df/dee/a02743.html#aea5e36d6889f372853b066f65ef0e755',1,'DYN::ModelDescription']]],
-  ['staticrefs_5f',['staticRefs_',['../d9/d32/a01899.html#aec8e45041cd1aaa0bf1e1df8df0bdfe9',1,'dynamicdata::MacroStaticReference::staticRefs_()'],['../d3/d3b/a01911.html#ab924067143d8e065fe3d1cab473505c7',1,'dynamicdata::Model::staticRefs_()']]],
+  ['staticrefs_5f',['staticRefs_',['../d9/d32/a01899.html#a20f14b89077b6698e4e9a4a6eceab8ca',1,'dynamicdata::MacroStaticReference::staticRefs_()'],['../d3/d3b/a01911.html#a3447cf57374b5fc20e7a2dd7f352229e',1,'dynamicdata::Model::staticRefs_()']]],
   ['staticvar',['staticVar',['../d3/dce/a01963.html#ab21e66e153e74fe0d5917a8268889bcd',1,'dynamicdata::StaticRefRead']]],
   ['staticvar_5f',['staticVar_',['../d4/d25/a01939.html#a2aef0b0007d02ea5079fdc18bf7d0388',1,'dynamicdata::StaticRef::staticVar_()'],['../dc/d40/a02767.html#a101886c8300663cd43f00f15a9503a12',1,'DYN::StaticRefInterface::staticVar_()']]],
   ['staticvarcompensatoriidm_5f',['staticVarCompensatorIIDM_',['../d0/d9b/a03103.html#ac780508ba410bd06cd398ea0872abe38',1,'DYN::StaticVarCompensatorInterfaceIIDM']]],
@@ -111,5 +111,5 @@ var searchData=
   ['switchoff_5ffalse',['SWITCHOFF_FALSE',['../d4/dbc/a03159.html#a1903ae104f135c0aa7fb7e505cf01a19',1,'DYN::ModelLoadRestorativeWithLimits']]],
   ['switchoff_5ftrue',['SWITCHOFF_TRUE',['../d4/dbc/a03159.html#a1d2e033918cfff79cd5bba910d474462',1,'DYN::ModelLoadRestorativeWithLimits']]],
   ['switchstate_5f',['switchState_',['../d7/d2e/a03127.html#a0f786379b51be57464ac51cb98092de3',1,'DYN::VoltageLevelInterfaceIIDM']]],
-  ['systemconnects_5f',['systemConnects_',['../d1/d58/a02731.html#a349969cc770218bb1392e4e6f2a03f1a',1,'DYN::DynamicData']]]
+  ['systemconnects_5f',['systemConnects_',['../d1/d58/a02731.html#a61f8350e934914248d16d5d67030cb5a',1,'DYN::DynamicData']]]
 ];

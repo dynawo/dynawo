@@ -37,7 +37,7 @@ var searchData=
   ['resetstaticrefinterfaces',['resetStaticRefInterfaces',['../df/dee/a02743.html#a4cc9a95933e45e1f63514dc4aa434e07',1,'DYN::ModelDescription']]],
   ['resetstats',['resetStats',['../d9/d58/a03371.html#ab11dd63b82e3252c35a012a2690348a7',1,'DYN::Solver::Impl']]],
   ['resetsubnetwork',['resetSubNetwork',['../d3/d1b/a03227.html#a2c5160c1075defd95514fde8f4aca10d',1,'DYN::ModelBusContainer']]],
-  ['resolveparreferences',['resolveParReferences',['../d1/d58/a02731.html#a311df6083a1e85beadc21d603fd31643',1,'DYN::DynamicData']]],
+  ['resolveparreferences',['resolveParReferences',['../d1/d58/a02731.html#aaeda0053176e48951ba5b0e98660e53b',1,'DYN::DynamicData']]],
   ['restorecontinuousvariables',['restoreContinuousVariables',['../d1/d01/a03375.html#af7bea0c031fbc72635809abb135f38d8',1,'DYN::SolverCommonFixedTimeStep::restoreContinuousVariables()'],['../dc/d58/a03383.html#a1d4f1ef19acc6b2e8d54a9fddf424893',1,'DYN::SolverSIM::restoreContinuousVariables()'],['../df/dea/a03391.html#a1a035db8b14a9640d8930487158f216d',1,'DYN::SolverTRAP::restoreContinuousVariables()']]],
   ['restoredata',['restoreData',['../d0/dbd/a02771.html#ac79dbcbfaa37ccf2786d8a209148cd5f',1,'DYN::SubModel']]],
   ['ringbuffer',['RingBuffer',['../d5/d4d/a02763.html#af87a5ad958ec87bf59eafb5760d8f862',1,'DYN::RingBuffer']]],

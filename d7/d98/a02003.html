@@ -126,9 +126,9 @@ Public Member Functions</h2></td></tr>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d98/a02003.html#a96a078419e5ef795fd71f7ea2757db93">~ModelicaModelHandler</a> ()</td></tr>
 <tr class="memdesc:a96a078419e5ef795fd71f7ea2757db93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
 <tr class="separator:a96a078419e5ef795fd71f7ea2757db93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add5526335176be0ba740ee315fab8a59"><td class="memItemLeft" align="right" valign="top">boost::shared_ptr&lt; <a class="el" href="../../df/d11/a01915.html">ModelicaModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d98/a02003.html#add5526335176be0ba740ee315fab8a59">get</a> () const</td></tr>
-<tr class="memdesc:add5526335176be0ba740ee315fab8a59"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the modelica model read in xml file  <a href="#add5526335176be0ba740ee315fab8a59">More...</a><br /></td></tr>
-<tr class="separator:add5526335176be0ba740ee315fab8a59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcdf256d8589edba5080a7ce9929257a"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../df/d11/a01915.html">ModelicaModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d98/a02003.html#adcdf256d8589edba5080a7ce9929257a">get</a> () const</td></tr>
+<tr class="memdesc:adcdf256d8589edba5080a7ce9929257a"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the modelica model read in xml file  <a href="#adcdf256d8589edba5080a7ce9929257a">More...</a><br /></td></tr>
+<tr class="separator:adcdf256d8589edba5080a7ce9929257a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad63eea06e32c5808a03f7f9ea9647210"><td class="memItemLeft" align="right" valign="top"><a id="ad63eea06e32c5808a03f7f9ea9647210"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d98/a02003.html#ad63eea06e32c5808a03f7f9ea9647210">addConnect</a> ()</td></tr>
 <tr class="memdesc:ad63eea06e32c5808a03f7f9ea9647210"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a connector to the modelica model <br /></td></tr>
@@ -186,10 +186,10 @@ Private Attributes</h2></td></tr>
 <a class="el" href="../../d5/d1b/a01971.html">UnitDynamicModelHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d98/a02003.html#acf59096da84945eb9e518688091917e2">unitDynamicModelHandler_</a></td></tr>
 <tr class="memdesc:acf59096da84945eb9e518688091917e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">handler used to read unit dynamic model element <br /></td></tr>
 <tr class="separator:acf59096da84945eb9e518688091917e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49ec0bbd4093b052632b25d8102e6cd2"><td class="memItemLeft" align="right" valign="top"><a id="a49ec0bbd4093b052632b25d8102e6cd2"></a>
-boost::shared_ptr&lt; <a class="el" href="../../df/d11/a01915.html">ModelicaModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d98/a02003.html#a49ec0bbd4093b052632b25d8102e6cd2">modelicaModel_</a></td></tr>
-<tr class="memdesc:a49ec0bbd4093b052632b25d8102e6cd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">current modelica model <br /></td></tr>
-<tr class="separator:a49ec0bbd4093b052632b25d8102e6cd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab3687186350e087e01dadc58a4efaa4"><td class="memItemLeft" align="right" valign="top"><a id="aab3687186350e087e01dadc58a4efaa4"></a>
+std::shared_ptr&lt; <a class="el" href="../../df/d11/a01915.html">ModelicaModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d98/a02003.html#aab3687186350e087e01dadc58a4efaa4">modelicaModel_</a></td></tr>
+<tr class="memdesc:aab3687186350e087e01dadc58a4efaa4"><td class="mdescLeft">&#160;</td><td class="mdescRight">current modelica model <br /></td></tr>
+<tr class="separator:aab3687186350e087e01dadc58a4efaa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Handler used to parse modelica model element. </p>
@@ -263,14 +263,14 @@ boost::shared_ptr&lt; <a class="el" href="../../df/d11/a01915.html">ModelicaMode
 
 </div>
 </div>
-<a id="add5526335176be0ba740ee315fab8a59"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#add5526335176be0ba740ee315fab8a59">&#9670;&nbsp;</a></span>get()</h2>
+<a id="adcdf256d8589edba5080a7ce9929257a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcdf256d8589edba5080a7ce9929257a">&#9670;&nbsp;</a></span>get()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">boost::shared_ptr&lt;<a class="el" href="../../df/d11/a01915.html">ModelicaModel</a>&gt; dynamicdata::ModelicaModelHandler::get </td>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../df/d11/a01915.html">ModelicaModel</a>&gt; dynamicdata::ModelicaModelHandler::get </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -303,7 +303,7 @@ boost::shared_ptr&lt; <a class="el" href="../../df/d11/a01915.html">ModelicaMode
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>dynamicdata</b></li><li class="navelem"><a class="el" href="../../d7/d98/a02003.html">ModelicaModelHandler</a></li>
-    <li class="footer">Generated on Mon Dec 16 2024 16:47:43 for Dynawo by
+    <li class="footer">Generated on Wed Dec 18 2024 13:48:33 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

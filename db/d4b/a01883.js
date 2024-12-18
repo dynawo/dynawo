@@ -1,4 +1,4 @@
 var a01883 =
 [
-    [ "newMacroConnection", "db/d4b/a01883.html#adc8f1914ee06fec015c163bab6d6cf86", null ]
+    [ "newMacroConnection", "db/d4b/a01883.html#aba904f4fac30160723290b4f5ee20bd5", null ]
 ];

@@ -126,8 +126,8 @@ Public Member Functions</h2></td></tr>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d25/a01999.html#af4df100dc9c2c304647c5558406f0b69">~MacroConnectorHandler</a> ()</td></tr>
 <tr class="memdesc:af4df100dc9c2c304647c5558406f0b69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
 <tr class="separator:af4df100dc9c2c304647c5558406f0b69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39f98bb537cfcdb5c1a678bcf5431051"><td class="memItemLeft" align="right" valign="top">boost::shared_ptr&lt; <a class="el" href="../../db/dbe/a01887.html">MacroConnector</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d25/a01999.html#a39f98bb537cfcdb5c1a678bcf5431051">get</a> () const</td></tr>
-<tr class="separator:a39f98bb537cfcdb5c1a678bcf5431051"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9f753b2e673532cc1a8037b7e2b050e"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../db/dbe/a01887.html">MacroConnector</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d25/a01999.html#ac9f753b2e673532cc1a8037b7e2b050e">get</a> () const</td></tr>
+<tr class="separator:ac9f753b2e673532cc1a8037b7e2b050e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad3738b62abd68b09743df206c99af1f2"><td class="memItemLeft" align="right" valign="top"><a id="ad3738b62abd68b09743df206c99af1f2"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d25/a01999.html#ad3738b62abd68b09743df206c99af1f2">addConnect</a> ()</td></tr>
 <tr class="memdesc:ad3738b62abd68b09743df206c99af1f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a connector to the macro connector <br /></td></tr>
@@ -153,10 +153,10 @@ Private Attributes</h2></td></tr>
 <a class="el" href="../../d3/dd8/a01995.html">MacroConnectionHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d25/a01999.html#a19221ce0a31f447d40205828f13a5298">macroInitConnectionHandler_</a></td></tr>
 <tr class="memdesc:a19221ce0a31f447d40205828f13a5298"><td class="mdescLeft">&#160;</td><td class="mdescRight">handler used to read macroInitConnection element <br /></td></tr>
 <tr class="separator:a19221ce0a31f447d40205828f13a5298"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a76e349286f2b063fcf208fa7bbf1b2a4"><td class="memItemLeft" align="right" valign="top"><a id="a76e349286f2b063fcf208fa7bbf1b2a4"></a>
-boost::shared_ptr&lt; <a class="el" href="../../db/dbe/a01887.html">MacroConnector</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d25/a01999.html#a76e349286f2b063fcf208fa7bbf1b2a4">macroConnector_</a></td></tr>
-<tr class="memdesc:a76e349286f2b063fcf208fa7bbf1b2a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">current macro connector object <br /></td></tr>
-<tr class="separator:a76e349286f2b063fcf208fa7bbf1b2a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57539833ea7bc28364d64615de4d42dd"><td class="memItemLeft" align="right" valign="top"><a id="a57539833ea7bc28364d64615de4d42dd"></a>
+std::shared_ptr&lt; <a class="el" href="../../db/dbe/a01887.html">MacroConnector</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d25/a01999.html#a57539833ea7bc28364d64615de4d42dd">macroConnector_</a></td></tr>
+<tr class="memdesc:a57539833ea7bc28364d64615de4d42dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">current macro connector object <br /></td></tr>
+<tr class="separator:a57539833ea7bc28364d64615de4d42dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Handler used to parse <a class="el" href="../../db/dbe/a01887.html" title="Macro connector interface class. ">MacroConnector</a> element. </p>
@@ -230,14 +230,14 @@ boost::shared_ptr&lt; <a class="el" href="../../db/dbe/a01887.html">MacroConnect
 
 </div>
 </div>
-<a id="a39f98bb537cfcdb5c1a678bcf5431051"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a39f98bb537cfcdb5c1a678bcf5431051">&#9670;&nbsp;</a></span>get()</h2>
+<a id="ac9f753b2e673532cc1a8037b7e2b050e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9f753b2e673532cc1a8037b7e2b050e">&#9670;&nbsp;</a></span>get()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">boost::shared_ptr&lt;<a class="el" href="../../db/dbe/a01887.html">MacroConnector</a>&gt; dynamicdata::MacroConnectorHandler::get </td>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../db/dbe/a01887.html">MacroConnector</a>&gt; dynamicdata::MacroConnectorHandler::get </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -268,7 +268,7 @@ boost::shared_ptr&lt; <a class="el" href="../../db/dbe/a01887.html">MacroConnect
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>dynamicdata</b></li><li class="navelem"><a class="el" href="../../de/d25/a01999.html">MacroConnectorHandler</a></li>
-    <li class="footer">Generated on Mon Dec 16 2024 16:47:43 for Dynawo by
+    <li class="footer">Generated on Wed Dec 18 2024 13:48:33 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

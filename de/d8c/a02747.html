@@ -143,9 +143,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d8c/a02747.html#a9c232ef21a0987a55548b431bb9e9c06">initConnects</a> ()</td></tr>
 <tr class="memdesc:a9c232ef21a0987a55548b431bb9e9c06"><td class="mdescLeft">&#160;</td><td class="mdescRight">creates all connects between models <br /></td></tr>
 <tr class="separator:a9c232ef21a0987a55548b431bb9e9c06"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05cd2f0c6a3e223fc8efe56897fbc91e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d8c/a02747.html#a05cd2f0c6a3e223fc8efe56897fbc91e">initStaticRefs</a> (const boost::shared_ptr&lt; <a class="el" href="../../d0/dbd/a02771.html">SubModel</a> &gt; &amp;model, const boost::shared_ptr&lt; <a class="el" href="../../df/dee/a02743.html">ModelDescription</a> &gt; &amp;modelDescription)</td></tr>
-<tr class="memdesc:a05cd2f0c6a3e223fc8efe56897fbc91e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add reference between static model and subModel.  <a href="#a05cd2f0c6a3e223fc8efe56897fbc91e">More...</a><br /></td></tr>
-<tr class="separator:a05cd2f0c6a3e223fc8efe56897fbc91e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add7bce7fa67722ee9062ee18a16654f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d8c/a02747.html#add7bce7fa67722ee9062ee18a16654f1">initStaticRefs</a> (const boost::shared_ptr&lt; <a class="el" href="../../d0/dbd/a02771.html">SubModel</a> &gt; &amp;model, const std::shared_ptr&lt; <a class="el" href="../../df/dee/a02743.html">ModelDescription</a> &gt; &amp;modelDescription)</td></tr>
+<tr class="memdesc:add7bce7fa67722ee9062ee18a16654f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add reference between static model and subModel.  <a href="#add7bce7fa67722ee9062ee18a16654f1">More...</a><br /></td></tr>
+<tr class="separator:add7bce7fa67722ee9062ee18a16654f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d3b9ce1e08ef84a4e5ab732a7a8b441"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d8c/a02747.html#a0d3b9ce1e08ef84a4e5ab732a7a8b441">findNodeConnectorName</a> (const std::string &amp;id, const std::string &amp;labelNode) const</td></tr>
 <tr class="memdesc:a0d3b9ce1e08ef84a4e5ab732a7a8b441"><td class="mdescLeft">&#160;</td><td class="mdescRight">find a node connector name  <a href="#a0d3b9ce1e08ef84a4e5ab732a7a8b441">More...</a><br /></td></tr>
 <tr class="separator:a0d3b9ce1e08ef84a4e5ab732a7a8b441"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -153,15 +153,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d8c/a02747.html#abed7cd5301d4d5a2ea4d86204473ec77">SanityCheckFlowConnection</a> () const</td></tr>
 <tr class="memdesc:abed7cd5301d4d5a2ea4d86204473ec77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check for each flow connections that there is no mix of internal and system connections. <br /></td></tr>
 <tr class="separator:abed7cd5301d4d5a2ea4d86204473ec77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3fa5d60fd953ec43e2be5c5b7daa0aab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d8c/a02747.html#a3fa5d60fd953ec43e2be5c5b7daa0aab">collectAllInternalConnections</a> (boost::shared_ptr&lt; <a class="el" href="../../df/d11/a01915.html">dynamicdata::ModelicaModel</a> &gt; model, std::vector&lt; std::pair&lt; std::string, std::string &gt; &gt; &amp;variablesConnectedInternally) const</td></tr>
-<tr class="memdesc:a3fa5d60fd953ec43e2be5c5b7daa0aab"><td class="mdescLeft">&#160;</td><td class="mdescRight">collect internal connections for a modelica model  <a href="#a3fa5d60fd953ec43e2be5c5b7daa0aab">More...</a><br /></td></tr>
-<tr class="separator:a3fa5d60fd953ec43e2be5c5b7daa0aab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88398c11a1b14e65460f64ae262a9394"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d8c/a02747.html#a88398c11a1b14e65460f64ae262a9394">collectAllInternalConnections</a> (std::shared_ptr&lt; <a class="el" href="../../df/d11/a01915.html">dynamicdata::ModelicaModel</a> &gt; model, std::vector&lt; std::pair&lt; std::string, std::string &gt; &gt; &amp;variablesConnectedInternally) const</td></tr>
+<tr class="memdesc:a88398c11a1b14e65460f64ae262a9394"><td class="mdescLeft">&#160;</td><td class="mdescRight">collect internal connections for a modelica model  <a href="#a88398c11a1b14e65460f64ae262a9394">More...</a><br /></td></tr>
+<tr class="separator:a88398c11a1b14e65460f64ae262a9394"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e793fd2f9b6a20e563bd3c22ea46dc6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d8c/a02747.html#a9e793fd2f9b6a20e563bd3c22ea46dc6">replaceStaticAndNodeMacroInVariableName</a> (const boost::shared_ptr&lt; <a class="el" href="../../d0/dbd/a02771.html">SubModel</a> &gt; &amp;subModel1, std::string &amp;var1, const boost::shared_ptr&lt; <a class="el" href="../../d0/dbd/a02771.html">SubModel</a> &gt; &amp;subModel2, std::string &amp;var2) const</td></tr>
 <tr class="memdesc:a9e793fd2f9b6a20e563bd3c22ea46dc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">replace STATIC and NODE macros in a macro connection  <a href="#a9e793fd2f9b6a20e563bd3c22ea46dc6">More...</a><br /></td></tr>
 <tr class="separator:a9e793fd2f9b6a20e563bd3c22ea46dc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af69e08261fa87e696a829cf3950a22f6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d8c/a02747.html#af69e08261fa87e696a829cf3950a22f6">initParamDescription</a> (const boost::shared_ptr&lt; <a class="el" href="../../df/dee/a02743.html">ModelDescription</a> &gt; &amp;modelDescription)</td></tr>
-<tr class="memdesc:af69e08261fa87e696a829cf3950a22f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialization of parameters of a dynamic model.  <a href="#af69e08261fa87e696a829cf3950a22f6">More...</a><br /></td></tr>
-<tr class="separator:af69e08261fa87e696a829cf3950a22f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a273d81177fe3484467aca48c4559eb1e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d8c/a02747.html#a273d81177fe3484467aca48c4559eb1e">initParamDescription</a> (const std::shared_ptr&lt; <a class="el" href="../../df/dee/a02743.html">ModelDescription</a> &gt; &amp;modelDescription)</td></tr>
+<tr class="memdesc:a273d81177fe3484467aca48c4559eb1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialization of parameters of a dynamic model.  <a href="#a273d81177fe3484467aca48c4559eb1e">More...</a><br /></td></tr>
+<tr class="separator:a273d81177fe3484467aca48c4559eb1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3749645649c295d1579b448ddf29f624"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d8c/a02747.html#a3749645649c295d1579b448ddf29f624">replaceNodeWithBus</a> (const boost::shared_ptr&lt; <a class="el" href="../../d0/dbd/a02771.html">SubModel</a> &gt; &amp;subModel1, std::string &amp;var1, const boost::shared_ptr&lt; <a class="el" href="../../d0/dbd/a02771.html">SubModel</a> &gt; &amp;subModel2, std::string &amp;var2, const std::string &amp;labelNode) const</td></tr>
 <tr class="memdesc:a3749645649c295d1579b448ddf29f624"><td class="mdescLeft">&#160;</td><td class="mdescRight">replace @NODE@, @NODE1@, @NODE2@ with the id of the bus the component is connected to  <a href="#a3749645649c295d1579b448ddf29f624">More...</a><br /></td></tr>
 <tr class="separator:a3749645649c295d1579b448ddf29f624"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -189,8 +189,8 @@ std::map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../d0/dbd
 <div class="textblock"><p>class <a class="el" href="../../de/d8c/a02747.html" title="class Modeler ">Modeler</a> </p>
 <p>A modeler instantiate and connect all submodels thanks to data contained in data interface (static data) and dynamic data </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a3fa5d60fd953ec43e2be5c5b7daa0aab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3fa5d60fd953ec43e2be5c5b7daa0aab">&#9670;&nbsp;</a></span>collectAllInternalConnections()</h2>
+<a id="a88398c11a1b14e65460f64ae262a9394"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88398c11a1b14e65460f64ae262a9394">&#9670;&nbsp;</a></span>collectAllInternalConnections()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -201,7 +201,7 @@ std::map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../d0/dbd
         <tr>
           <td class="memname">void DYN::Modeler::collectAllInternalConnections </td>
           <td>(</td>
-          <td class="paramtype">boost::shared_ptr&lt; <a class="el" href="../../df/d11/a01915.html">dynamicdata::ModelicaModel</a> &gt;&#160;</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="../../df/d11/a01915.html">dynamicdata::ModelicaModel</a> &gt;&#160;</td>
           <td class="paramname"><em>model</em>, </td>
         </tr>
         <tr>
@@ -308,8 +308,8 @@ std::map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../d0/dbd
 
 </div>
 </div>
-<a id="af69e08261fa87e696a829cf3950a22f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af69e08261fa87e696a829cf3950a22f6">&#9670;&nbsp;</a></span>initParamDescription()</h2>
+<a id="a273d81177fe3484467aca48c4559eb1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a273d81177fe3484467aca48c4559eb1e">&#9670;&nbsp;</a></span>initParamDescription()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -320,7 +320,7 @@ std::map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../d0/dbd
         <tr>
           <td class="memname">void DYN::Modeler::initParamDescription </td>
           <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../df/dee/a02743.html">ModelDescription</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../df/dee/a02743.html">ModelDescription</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>modelDescription</em></td><td>)</td>
           <td></td>
         </tr>
@@ -342,8 +342,8 @@ std::map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../d0/dbd
 
 </div>
 </div>
-<a id="a05cd2f0c6a3e223fc8efe56897fbc91e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a05cd2f0c6a3e223fc8efe56897fbc91e">&#9670;&nbsp;</a></span>initStaticRefs()</h2>
+<a id="add7bce7fa67722ee9062ee18a16654f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add7bce7fa67722ee9062ee18a16654f1">&#9670;&nbsp;</a></span>initStaticRefs()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -360,7 +360,7 @@ std::map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../d0/dbd
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../df/dee/a02743.html">ModelDescription</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../df/dee/a02743.html">ModelDescription</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>modelDescription</em>&#160;</td>
         </tr>
         <tr>
@@ -600,7 +600,7 @@ std::map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../d0/dbd
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../de/d8c/a02747.html">Modeler</a></li>
-    <li class="footer">Generated on Mon Dec 16 2024 16:47:42 for Dynawo by
+    <li class="footer">Generated on Wed Dec 18 2024 13:48:33 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
