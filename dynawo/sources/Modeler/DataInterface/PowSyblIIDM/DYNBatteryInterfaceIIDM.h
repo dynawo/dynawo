@@ -183,16 +183,6 @@ class BatteryInterfaceIIDM : public GeneratorInterface, public InjectorInterface
   double getCoordinatedReactiveControlPercentage() const;
 
   /**
-   * @copydoc GeneratorInterface::getDroop() const
-   */
-  boost::optional<double> getDroop() const final;
-
-  /**
-   * @copydoc GeneratorInterface::getDroop() const
-   */
-  boost::optional<bool> isParticipate() const final;
-
-  /**
    * @brief Getter for the generator' country
    * @return the battery country
    */

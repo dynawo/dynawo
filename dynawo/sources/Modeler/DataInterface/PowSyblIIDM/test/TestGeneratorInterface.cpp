@@ -222,9 +222,6 @@ TEST(DataInterfaceTest, Generator_1) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(genItfWithExtensions.getActivePowerControlDroop(), 4.);
   ASSERT_TRUE(genItfWithExtensions.hasCoordinatedReactiveControl());
   ASSERT_DOUBLE_EQUALS_DYNAWO(genItfWithExtensions.getCoordinatedReactiveControlPercentage(), 50.);
-
-  ASSERT_FALSE(genItf.getDroop());
-  ASSERT_FALSE(genItf.isParticipate());
 }  // TEST(DataInterfaceTest, Generator_1)
 
 TEST(DataInterfaceTest, Generator_2) {
