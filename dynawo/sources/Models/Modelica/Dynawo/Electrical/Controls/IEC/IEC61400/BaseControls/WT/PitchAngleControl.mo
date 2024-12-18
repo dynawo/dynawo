@@ -37,9 +37,9 @@ model PitchAngleControl
     Placement(transformation(origin = {69, -67}, extent = {{-7, -7}, {7, 7}}, rotation = 90)));
   Modelica.Blocks.Nonlinear.SlewRateLimiter thetaOmegaRateLim1(Falling = DThetaCmin, Rising = DThetaCmax, initType = Modelica.Blocks.Types.Init.InitialOutput, y_start = 0) annotation(
     Placement(transformation(origin = {69, -37}, extent = {{-7, -7}, {7, 7}}, rotation = 90)));
-  Dynawo.NonElectrical.Blocks.Continuous.AntiWindupIntegrator integratorPiOmega(tI = 1/KIomegaPu, DyMax = DThetaOmegamax, DyMin = DThetaOmegamin, YMax = ThetaOmegamax, YMin = ThetaOmegamin, Y0 = 0)  annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.AntiWindupIntegrator integratorPiOmega( DyMax = DThetaOmegamax, DyMin = DThetaOmegamin, Y0 = 0, YMax = ThetaOmegamax, YMin = ThetaOmegamin,tI = if KIomegaPu > 1e-6 then 1 / KIomegaPu else 1 / Modelica.Constants.eps)  annotation(
     Placement(transformation(origin = {-16, 130}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.NonElectrical.Blocks.Continuous.AntiWindupIntegrator integratorPiPower(DyMax = DThetaCmax, DyMin = DThetaCmin, Y0 = 0, YMax = ThetaCmax, YMin = ThetaCmin, tI = 1/KIcPu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.AntiWindupIntegrator integratorPiPower(DyMax = DThetaCmax, DyMin = DThetaCmin, Y0 = 0, YMax = ThetaCmax, YMin = ThetaCmin, tI = if KIcPu > 1e-6 then 1 / KIcPu else 1 / Modelica.Constants.eps) annotation(
     Placement(transformation(origin = {-26, -70}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = false) annotation(
     Placement(visible = true, transformation(origin = {120, 52}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

@@ -113,8 +113,8 @@ model TorquePi "Sub module for torque control inside active power control module
   
   Modelica.Blocks.Math.Add add annotation(
     Placement(visible = true, transformation(origin = {130, 176}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant constant1(k = 0.001) annotation(
-    Placement(visible = true, transformation(origin = {107, 169}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant constant1(k = (-Modelica.Constants.eps * 0) - 0.001) annotation(
+    Placement(visible = true, transformation(origin = {105, 169}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
 equation
   connect(gainKPp.y, addTauOut.u1) annotation(
     Line(points = {{67, 142}, {92, 142}}, color = {0, 0, 127}));
@@ -239,7 +239,7 @@ equation
   connect(add.y, limitTauOut.yMax) annotation(
     Line(points = {{137, 176}, {142, 176}, {142, 144}, {154, 144}}, color = {0, 0, 127}));
   connect(constant1.y, add.u2) annotation(
-    Line(points = {{114, 170}, {122, 170}, {122, 172}}, color = {0, 0, 127}));
+    Line(points = {{113, 169}, {122, 169}, {122, 172}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-400, -250}, {210, 200}})),
