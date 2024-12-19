@@ -237,12 +237,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a70e20753b48f642a1d35396ab7df6102"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d44/a02899.html#a70e20753b48f642a1d35396ab7df6102">getCoordinatedReactiveControlPercentage</a> () const =0</td></tr>
 <tr class="memdesc:a70e20753b48f642a1d35396ab7df6102"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the reactive power control percentage of participation.  <a href="#a70e20753b48f642a1d35396ab7df6102">More...</a><br /></td></tr>
 <tr class="separator:a70e20753b48f642a1d35396ab7df6102"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d8f812c29f3a894cb92120be7327ef3"><td class="memItemLeft" align="right" valign="top">virtual boost::optional&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d44/a02899.html#a2d8f812c29f3a894cb92120be7327ef3">getDroop</a> () const =0</td></tr>
-<tr class="memdesc:a2d8f812c29f3a894cb92120be7327ef3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the droop parameter.  <a href="#a2d8f812c29f3a894cb92120be7327ef3">More...</a><br /></td></tr>
-<tr class="separator:a2d8f812c29f3a894cb92120be7327ef3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af83a02e3e44eb707b93073f857c9d01c"><td class="memItemLeft" align="right" valign="top">virtual boost::optional&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d44/a02899.html#af83a02e3e44eb707b93073f857c9d01c">isParticipate</a> () const =0</td></tr>
-<tr class="memdesc:af83a02e3e44eb707b93073f857c9d01c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the generator is participate.  <a href="#af83a02e3e44eb707b93073f857c9d01c">More...</a><br /></td></tr>
-<tr class="separator:af83a02e3e44eb707b93073f857c9d01c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a5dfac90bd1fbc6920bcb67a0072a2e"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../dc/d44/a02899.html#a872c0d65cf9d9cebb4f650d98e5f49c2">EnergySource_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d44/a02899.html#a6a5dfac90bd1fbc6920bcb67a0072a2e">getEnergySource</a> () const =0</td></tr>
 <tr class="memdesc:a6a5dfac90bd1fbc6920bcb67a0072a2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for energy source type.  <a href="#a6a5dfac90bd1fbc6920bcb67a0072a2e">More...</a><br /></td></tr>
 <tr class="separator:a6a5dfac90bd1fbc6920bcb67a0072a2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -492,36 +486,6 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d4/d32/a02951.html
 <dl class="section return"><dt>Returns</dt><dd>reactive power control percentage of participation value </dd></dl>
 
 <p>Implemented in <a class="el" href="../../d1/d89/a03035.html#ade0d9df4fb6d5674e0e291518de9ed8d">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dd/d65/a02991.html#ac6ef0749a0b38661a92b9f0993965a0c">DYN::BatteryInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="a2d8f812c29f3a894cb92120be7327ef3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2d8f812c29f3a894cb92120be7327ef3">&#9670;&nbsp;</a></span>getDroop()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual boost::optional&lt;double&gt; DYN::GeneratorInterface::getDroop </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get the droop parameter. </p>
-<dl class="section return"><dt>Returns</dt><dd>the droop parameter value, or nullopt if the parameter is not found </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d1/d89/a03035.html#a10d2816d685720c7c45150f17925d009">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dd/d65/a02991.html#a37f57a94e689b58fab1f095790900062">DYN::BatteryInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -1039,36 +1003,6 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d4/d32/a02951.html
 
 </div>
 </div>
-<a id="af83a02e3e44eb707b93073f857c9d01c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af83a02e3e44eb707b93073f857c9d01c">&#9670;&nbsp;</a></span>isParticipate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual boost::optional&lt;bool&gt; DYN::GeneratorInterface::isParticipate </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Determines if the generator is participate. </p>
-<dl class="section return"><dt>Returns</dt><dd>true if the generator is participate, false if not, or nullopt if the parameter is not found </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d1/d89/a03035.html#a7ea89118537e4e771a8c706c6d8acc75">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dd/d65/a02991.html#ad421bc9d85a402cce9ad5a2ec9f244d4">DYN::BatteryInterfaceIIDM</a>.</p>
-
-</div>
-</div>
 <a id="a7aab15af2c9eb1f1b0cd1b4f63436b3c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7aab15af2c9eb1f1b0cd1b4f63436b3c">&#9670;&nbsp;</a></span>isParticipating()</h2>
 
@@ -1221,7 +1155,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d4/d32/a02951.html
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../dc/d44/a02899.html">GeneratorInterface</a></li>
-    <li class="footer">Generated on Wed Dec 18 2024 13:48:32 for Dynawo by
+    <li class="footer">Generated on Thu Dec 19 2024 17:39:08 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

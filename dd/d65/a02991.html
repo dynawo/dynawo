@@ -248,12 +248,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac6ef0749a0b38661a92b9f0993965a0c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/a02991.html#ac6ef0749a0b38661a92b9f0993965a0c">getCoordinatedReactiveControlPercentage</a> () const</td></tr>
 <tr class="memdesc:ac6ef0749a0b38661a92b9f0993965a0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the reactive power control percentage of participation.  <a href="#ac6ef0749a0b38661a92b9f0993965a0c">More...</a><br /></td></tr>
 <tr class="separator:ac6ef0749a0b38661a92b9f0993965a0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a37f57a94e689b58fab1f095790900062"><td class="memItemLeft" align="right" valign="top">boost::optional&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/a02991.html#a37f57a94e689b58fab1f095790900062">getDroop</a> () const final</td></tr>
-<tr class="memdesc:a37f57a94e689b58fab1f095790900062"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the droop parameter.  <a href="#a37f57a94e689b58fab1f095790900062">More...</a><br /></td></tr>
-<tr class="separator:a37f57a94e689b58fab1f095790900062"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad421bc9d85a402cce9ad5a2ec9f244d4"><td class="memItemLeft" align="right" valign="top">boost::optional&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/a02991.html#ad421bc9d85a402cce9ad5a2ec9f244d4">isParticipate</a> () const final</td></tr>
-<tr class="memdesc:ad421bc9d85a402cce9ad5a2ec9f244d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the droop parameter.  <a href="#ad421bc9d85a402cce9ad5a2ec9f244d4">More...</a><br /></td></tr>
-<tr class="separator:ad421bc9d85a402cce9ad5a2ec9f244d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a501063aea5b928eb582714e390e93b"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/a02991.html#a6a501063aea5b928eb582714e390e93b">getCountry</a> () const</td></tr>
 <tr class="memdesc:a6a501063aea5b928eb582714e390e93b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the generator' country.  <a href="#a6a501063aea5b928eb582714e390e93b">More...</a><br /></td></tr>
 <tr class="separator:a6a501063aea5b928eb582714e390e93b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -628,36 +622,6 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d4/d32/a02951.html
 
 <p>Getter for the generator' country. </p>
 <dl class="section return"><dt>Returns</dt><dd>the battery country </dd></dl>
-
-</div>
-</div>
-<a id="a37f57a94e689b58fab1f095790900062"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a37f57a94e689b58fab1f095790900062">&#9670;&nbsp;</a></span>getDroop()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">boost::optional&lt;double&gt; DYN::BatteryInterfaceIIDM::getDroop </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get the droop parameter. </p>
-<dl class="section return"><dt>Returns</dt><dd>the droop parameter value, or nullopt if the parameter is not found </dd></dl>
-
-<p>Implements <a class="el" href="../../dc/d44/a02899.html#a2d8f812c29f3a894cb92120be7327ef3">DYN::GeneratorInterface</a>.</p>
 
 </div>
 </div>
@@ -1200,36 +1164,6 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d4/d32/a02951.html
 
 </div>
 </div>
-<a id="ad421bc9d85a402cce9ad5a2ec9f244d4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad421bc9d85a402cce9ad5a2ec9f244d4">&#9670;&nbsp;</a></span>isParticipate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">boost::optional&lt;bool&gt; DYN::BatteryInterfaceIIDM::isParticipate </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get the droop parameter. </p>
-<dl class="section return"><dt>Returns</dt><dd>the droop parameter value, or nullopt if the parameter is not found </dd></dl>
-
-<p>Implements <a class="el" href="../../dc/d44/a02899.html#af83a02e3e44eb707b93073f857c9d01c">DYN::GeneratorInterface</a>.</p>
-
-</div>
-</div>
 <a id="a5286ed1bc5ef92a277bcdea76891b029"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5286ed1bc5ef92a277bcdea76891b029">&#9670;&nbsp;</a></span>isParticipating()</h2>
 
@@ -1416,7 +1350,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d4/d32/a02951.html
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../dd/d65/a02991.html">BatteryInterfaceIIDM</a></li>
-    <li class="footer">Generated on Wed Dec 18 2024 13:48:32 for Dynawo by
+    <li class="footer">Generated on Thu Dec 19 2024 17:39:08 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
