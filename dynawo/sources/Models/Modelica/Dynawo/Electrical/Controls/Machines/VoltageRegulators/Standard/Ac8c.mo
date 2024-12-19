@@ -50,12 +50,10 @@ model Ac8c "IEEE exciter type AC8C model (2016 standard)"
     Placement(visible = true, transformation(origin = {-270, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product annotation(
     Placement(visible = true, transformation(origin = {230, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Division division annotation(
-    Placement(visible = true, transformation(origin = {-150, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.RectifierRegulationCharacteristic rectifierRegulationCharacteristic annotation(
-    Placement(visible = true, transformation(origin = {-90, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-150, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product1 annotation(
-    Placement(visible = true, transformation(origin = {-30, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-90, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = Kc1) annotation(
     Placement(visible = true, transformation(origin = {-150, 160}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.PotentialCircuit potentialCircuit(Ki = Ki, Kp = Kp, Theta = Thetap, X = XlPu) annotation(
@@ -65,9 +63,9 @@ model Ac8c "IEEE exciter type AC8C model (2016 standard)"
   Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = Sw1) annotation(
     Placement(visible = true, transformation(origin = {-270, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const2(k = VbMaxPu) annotation(
-    Placement(visible = true, transformation(origin = {-30, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-90, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Min min3 annotation(
-    Placement(visible = true, transformation(origin = {30, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-30, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.MinMax max1(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {-150, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.MinMax min1(nu = 3) annotation(
@@ -170,12 +168,10 @@ equation
     Line(points = {{241, 0}, {276, 0}}, color = {0, 0, 127}));
   connect(limitedFirstOrder.y, product.u2) annotation(
     Line(points = {{181, -40}, {200, -40}, {200, -6}, {218, -6}}, color = {0, 0, 127}));
-  connect(division.y, rectifierRegulationCharacteristic.u) annotation(
-    Line(points = {{-139, 120}, {-103, 120}}, color = {0, 0, 127}));
   connect(rectifierRegulationCharacteristic.y, product1.u1) annotation(
-    Line(points = {{-79, 120}, {-60, 120}, {-60, 106}, {-43, 106}}, color = {0, 0, 127}));
-  connect(gain1.y, division.u1) annotation(
-    Line(points = {{-161, 160}, {-180, 160}, {-180, 126}, {-163, 126}}, color = {0, 0, 127}));
+    Line(points = {{-139, 120}, {-120, 120}, {-120, 106}, {-103, 106}}, color = {0, 0, 127}));
+  connect(gain1.y, rectifierRegulationCharacteristic.u1) annotation(
+    Line(points = {{-161, 160}, {-180, 160}, {-180, 126}, {-162, 126}}, color = {0, 0, 127}));
   connect(acRotatingExciter.VfePu, gain1.u) annotation(
     Line(points = {{322, -16}, {340, -16}, {340, 160}, {-138, 160}}, color = {0, 0, 127}));
   connect(constant1.y, switch.u3) annotation(
@@ -188,16 +184,16 @@ equation
     Line(points = {{-380, 140}, {-300, 140}, {-300, 124}, {-282, 124}}, color = {85, 170, 255}));
   connect(itPu, potentialCircuit.iT) annotation(
     Line(points = {{-380, 100}, {-300, 100}, {-300, 116}, {-282, 116}}, color = {85, 170, 255}));
-  connect(switch.y, division.u2) annotation(
+  connect(switch.y, rectifierRegulationCharacteristic.u2) annotation(
     Line(points = {{-199, 80}, {-180, 80}, {-180, 114}, {-162, 114}}, color = {0, 0, 127}));
   connect(switch.y, product1.u2) annotation(
-    Line(points = {{-199, 80}, {-60, 80}, {-60, 94}, {-43, 94}}, color = {0, 0, 127}));
+    Line(points = {{-199, 80}, {-120, 80}, {-120, 94}, {-102, 94}}, color = {0, 0, 127}));
   connect(const2.y, min3.u1) annotation(
-    Line(points = {{-19, 140}, {0, 140}, {0, 126}, {17, 126}}, color = {0, 0, 127}));
+    Line(points = {{-79, 140}, {-60, 140}, {-60, 126}, {-43, 126}}, color = {0, 0, 127}));
   connect(product1.y, min3.u2) annotation(
-    Line(points = {{-19, 100}, {0, 100}, {0, 114}, {17, 114}}, color = {0, 0, 127}));
+    Line(points = {{-79, 100}, {-60, 100}, {-60, 114}, {-43, 114}}, color = {0, 0, 127}));
   connect(min3.y, product.u1) annotation(
-    Line(points = {{41, 120}, {200, 120}, {200, 6}, {218, 6}}, color = {0, 0, 127}));
+    Line(points = {{-19, 120}, {200, 120}, {200, 6}, {218, 6}}, color = {0, 0, 127}));
   connect(max1.yMax, add2.u1) annotation(
     Line(points = {{-139, -34}, {-103, -34}}, color = {0, 0, 127}));
   connect(add2.y, min1.u[1]) annotation(

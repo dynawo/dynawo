@@ -105,16 +105,14 @@ model St9c "IEEE exciter type ST9C model (2016 standard)"
     Placement(visible = true, transformation(origin = {-170, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain2(k = Kc) annotation(
     Placement(visible = true, transformation(origin = {-170, 180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Division division annotation(
-    Placement(visible = true, transformation(origin = {-50, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.RectifierRegulationCharacteristic rectifierRegulationCharacteristic annotation(
-    Placement(visible = true, transformation(origin = {-10, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-50, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product2 annotation(
-    Placement(visible = true, transformation(origin = {50, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {10, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Min min2 annotation(
-    Placement(visible = true, transformation(origin = {110, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {70, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const2(k = VbMaxPu) annotation(
-    Placement(visible = true, transformation(origin = {50, 180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {10, 180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = Ku) annotation(
     Placement(visible = true, transformation(origin = {30, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter1(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = 1, uMin = 0) annotation(
@@ -227,28 +225,26 @@ equation
     Line(points = {{-99, -20}, {-83, -20}}, color = {0, 0, 127}));
   connect(IrPu, gain2.u) annotation(
     Line(points = {{-340, 180}, {-182, 180}}, color = {0, 0, 127}));
-  connect(gain2.y, division.u1) annotation(
-    Line(points = {{-159, 180}, {-80, 180}, {-80, 126}, {-63, 126}}, color = {0, 0, 127}));
+  connect(gain2.y, rectifierRegulationCharacteristic.u1) annotation(
+    Line(points = {{-159, 180}, {-80, 180}, {-80, 126}, {-62, 126}}, color = {0, 0, 127}));
   connect(potentialCircuit.vE, switch.u1) annotation(
     Line(points = {{-159, 120}, {-140, 120}, {-140, 88}, {-123, 88}}, color = {0, 0, 127}));
   connect(booleanConstant.y, switch.u2) annotation(
     Line(points = {{-159, 80}, {-123, 80}}, color = {255, 0, 255}));
   connect(const1.y, switch.u3) annotation(
     Line(points = {{-159, 40}, {-140, 40}, {-140, 72}, {-123, 72}}, color = {0, 0, 127}));
-  connect(switch.y, division.u2) annotation(
-    Line(points = {{-99, 80}, {-80, 80}, {-80, 114}, {-63, 114}}, color = {0, 0, 127}));
-  connect(division.y, rectifierRegulationCharacteristic.u) annotation(
-    Line(points = {{-39, 120}, {-23, 120}}, color = {0, 0, 127}));
+  connect(switch.y, rectifierRegulationCharacteristic.u2) annotation(
+    Line(points = {{-99, 80}, {-80, 80}, {-80, 114}, {-62, 114}}, color = {0, 0, 127}));
   connect(rectifierRegulationCharacteristic.y, product2.u1) annotation(
-    Line(points = {{1, 120}, {20, 120}, {20, 106}, {37, 106}}, color = {0, 0, 127}));
+    Line(points = {{-39, 120}, {-20, 120}, {-20, 106}, {-3, 106}}, color = {0, 0, 127}));
   connect(switch.y, product2.u2) annotation(
-    Line(points = {{-99, 80}, {20, 80}, {20, 94}, {37, 94}}, color = {0, 0, 127}));
+    Line(points = {{-99, 80}, {-20, 80}, {-20, 94}, {-2, 94}}, color = {0, 0, 127}));
   connect(const2.y, min2.u1) annotation(
-    Line(points = {{61, 180}, {80, 180}, {80, 146}, {98, 146}}, color = {0, 0, 127}));
+    Line(points = {{21, 180}, {40, 180}, {40, 146}, {58, 146}}, color = {0, 0, 127}));
   connect(product2.y, min2.u2) annotation(
-    Line(points = {{61, 100}, {80, 100}, {80, 134}, {98, 134}}, color = {0, 0, 127}));
+    Line(points = {{21, 100}, {40, 100}, {40, 134}, {58, 134}}, color = {0, 0, 127}));
   connect(min2.y, product.u1) annotation(
-    Line(points = {{121, 140}, {260, 140}, {260, 86}, {278, 86}}, color = {0, 0, 127}));
+    Line(points = {{81, 140}, {260, 140}, {260, 86}, {278, 86}}, color = {0, 0, 127}));
   connect(gain1.y, limiter1.u) annotation(
     Line(points = {{41, -120}, {57, -120}}, color = {0, 0, 127}));
   connect(limiter1.y, gain3.u) annotation(

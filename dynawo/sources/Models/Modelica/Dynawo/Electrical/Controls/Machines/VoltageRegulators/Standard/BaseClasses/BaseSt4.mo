@@ -60,8 +60,6 @@ partial model BaseSt4 "IEEE exciter type ST4 base model"
 
   Modelica.Blocks.Sources.Constant const(k = VbMaxPu) annotation(
     Placement(visible = true, transformation(origin = {210, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Division division annotation(
-    Placement(visible = true, transformation(origin = {110, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Min min3 annotation(
     Placement(visible = true, transformation(origin = {270, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product1 annotation(
@@ -79,7 +77,7 @@ partial model BaseSt4 "IEEE exciter type ST4 base model"
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {40, 80}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = Kc) annotation(
-    Placement(visible = true, transformation(origin = {-330, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-310, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Sum sum1(k = {-1, 1, 1, 1, 1, 1}, nin = 6) annotation(
     Placement(visible = true, transformation(origin = {-290, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.PotentialCircuit potentialCircuit(Ki = Ki, Kp = Kp, Theta = Thetap, X = XlPu) annotation(
@@ -112,8 +110,6 @@ equation
     Line(points = {{221, -60}, {240, -60}, {240, -94}, {258, -94}}, color = {0, 0, 127}));
   connect(product1.y, min3.u2) annotation(
     Line(points = {{221, -140}, {240, -140}, {240, -106}, {258, -106}}, color = {0, 0, 127}));
-  connect(division.y, rectifierRegulationCharacteristic.u) annotation(
-    Line(points = {{121, -120}, {138, -120}}, color = {0, 0, 127}));
   connect(UsPu, firstOrder.u) annotation(
     Line(points = {{-400, 80}, {-362, 80}}, color = {0, 0, 127}));
   connect(min3.y, product.u2) annotation(
@@ -122,10 +118,10 @@ equation
     Line(points = {{341, 0}, {390, 0}}, color = {0, 0, 127}));
   connect(feedback.y, limPI2.u) annotation(
     Line(points = {{49, 80}, {78, 80}}, color = {0, 0, 127}));
-  connect(gain1.y, division.u1) annotation(
-    Line(points = {{-319, -80}, {80, -80}, {80, -114}, {98, -114}}, color = {0, 0, 127}));
+  connect(gain1.y, rectifierRegulationCharacteristic.u1) annotation(
+    Line(points = {{-299, -80}, {120, -80}, {120, -114}, {138, -114}}, color = {0, 0, 127}));
   connect(IrPu, gain1.u) annotation(
-    Line(points = {{-400, -80}, {-342, -80}}, color = {0, 0, 127}));
+    Line(points = {{-400, -80}, {-322, -80}}, color = {0, 0, 127}));
   connect(firstOrder.y, sum1.u[1]) annotation(
     Line(points = {{-339, 80}, {-303, 80}}, color = {0, 0, 127}));
   connect(UsRefPu, sum1.u[2]) annotation(

@@ -35,12 +35,10 @@ model Ac7c "IEEE exciter type AC7C model (2016 standard)"
   Modelica.Blocks.Interfaces.RealInput USclUelPu(start = USclUel0Pu) "Stator current underexcitation limitation output voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-500, -180}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {120, 40}, extent = {{20, -20}, {-20, 20}}, rotation = 0)));
 
-  Modelica.Blocks.Math.Division division annotation(
-    Placement(visible = true, transformation(origin = {-270, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.RectifierRegulationCharacteristic rectifierRegulationCharacteristic annotation(
-    Placement(visible = true, transformation(origin = {-210, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-270, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product1 annotation(
-    Placement(visible = true, transformation(origin = {-150, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-210, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = Kc1) annotation(
     Placement(visible = true, transformation(origin = {-270, 160}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch annotation(
@@ -50,9 +48,9 @@ model Ac7c "IEEE exciter type AC7C model (2016 standard)"
   Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = Sw1) annotation(
     Placement(visible = true, transformation(origin = {-390, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const2(k = VbMaxPu) annotation(
-    Placement(visible = true, transformation(origin = {-150, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-210, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Min min4 annotation(
-    Placement(visible = true, transformation(origin = {-90, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-150, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant1(k = Sw2) annotation(
     Placement(visible = true, transformation(origin = {150, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch1 annotation(
@@ -148,12 +146,10 @@ equation
     Line(points = {{422, 0}, {490, 0}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(IrPu, acRotatingExciter.IrPu) annotation(
     Line(points = {{-500, 200}, {360, 200}, {360, 16}, {376, 16}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
-  connect(division.y, rectifierRegulationCharacteristic.u) annotation(
-    Line(points = {{-259, 120}, {-223, 120}}, color = {0, 0, 127}));
   connect(rectifierRegulationCharacteristic.y, product1.u1) annotation(
-    Line(points = {{-199, 120}, {-180, 120}, {-180, 106}, {-163, 106}}, color = {0, 0, 127}));
-  connect(gain1.y, division.u1) annotation(
-    Line(points = {{-281, 160}, {-300, 160}, {-300, 126}, {-283, 126}}, color = {0, 0, 127}));
+    Line(points = {{-259, 120}, {-240, 120}, {-240, 106}, {-223, 106}}, color = {0, 0, 127}));
+  connect(gain1.y, rectifierRegulationCharacteristic.u1) annotation(
+    Line(points = {{-281, 160}, {-300, 160}, {-300, 126}, {-282, 126}}, color = {0, 0, 127}));
   connect(acRotatingExciter.VfePu, gain1.u) annotation(
     Line(points = {{422, -16}, {440, -16}, {440, 160}, {-258, 160}}, color = {0, 0, 127}));
   connect(const1.y, pid.u_m) annotation(
@@ -170,18 +166,18 @@ equation
     Line(points = {{-500, 140}, {-420, 140}, {-420, 124}, {-402, 124}}, color = {85, 170, 255}));
   connect(itPu, potentialCircuit.iT) annotation(
     Line(points = {{-500, 100}, {-420, 100}, {-420, 116}, {-402, 116}}, color = {85, 170, 255}));
-  connect(switch.y, division.u2) annotation(
+  connect(switch.y, rectifierRegulationCharacteristic.u2) annotation(
     Line(points = {{-319, 80}, {-300, 80}, {-300, 114}, {-282, 114}}, color = {0, 0, 127}));
   connect(switch.y, product1.u2) annotation(
-    Line(points = {{-318, 80}, {-180, 80}, {-180, 94}, {-162, 94}}, color = {0, 0, 127}));
+    Line(points = {{-318, 80}, {-240, 80}, {-240, 94}, {-222, 94}}, color = {0, 0, 127}));
   connect(booleanConstant1.y, switch1.u2) annotation(
     Line(points = {{161, 80}, {197, 80}}, color = {255, 0, 255}));
   connect(const2.y, min4.u1) annotation(
-    Line(points = {{-138, 140}, {-120, 140}, {-120, 126}, {-102, 126}}, color = {0, 0, 127}));
+    Line(points = {{-199, 140}, {-180, 140}, {-180, 126}, {-163, 126}}, color = {0, 0, 127}));
   connect(product1.y, min4.u2) annotation(
-    Line(points = {{-138, 100}, {-120, 100}, {-120, 114}, {-102, 114}}, color = {0, 0, 127}));
+    Line(points = {{-199, 100}, {-180, 100}, {-180, 114}, {-163, 114}}, color = {0, 0, 127}));
   connect(min4.y, switch1.u1) annotation(
-    Line(points = {{-78, 120}, {180, 120}, {180, 88}, {198, 88}}, color = {0, 0, 127}));
+    Line(points = {{-139, 120}, {180, 120}, {180, 88}, {198, 88}}, color = {0, 0, 127}));
   connect(acRotatingExciter.EfdPu, gain2.u) annotation(
     Line(points = {{422, 0}, {460, 0}, {460, 60}, {402, 60}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(gain2.y, switch1.u3) annotation(
