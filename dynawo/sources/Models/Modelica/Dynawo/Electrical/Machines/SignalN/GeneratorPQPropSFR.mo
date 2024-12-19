@@ -37,7 +37,7 @@ equation
     elseif qStatus == QStatus.AbsorptionMax then
       QGenPu = QMinPu;
     else
-      QGenPu = QGenRawPu;
+      QGenPu = min(max(QGenRawPu, QMinPu), QMaxPu);
     end if;
   else
     terminal.i.im = 0;
