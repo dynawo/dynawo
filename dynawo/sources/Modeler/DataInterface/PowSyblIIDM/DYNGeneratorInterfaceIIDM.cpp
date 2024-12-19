@@ -358,7 +358,7 @@ GeneratorInterfaceIIDM::getActivePowerControlDroop() const {
     if (activePowerControl_) {
       return activePowerControl_.get().getDroop();
     } else {
-      generatorActivePowerControl_->getDroop().value();
+      return generatorActivePowerControl_->getDroop().value();
     }
   }
   return 0.;
