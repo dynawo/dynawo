@@ -8,7 +8,7 @@ model GenSystem3a
     Placement(visible = true, transformation(origin = {-40, 61}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedbackP annotation(
     Placement(visible = true, transformation(origin = {-70, 60}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
-  Modelica.Blocks.Sources.RealExpression realExpression1(y = -theta) annotation(
+  Modelica.Blocks.Sources.RealExpression theta3(y = -theta) annotation(
     Placement(visible = true, transformation(origin = {0, 92}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   RefFrameRotation rotationGridToWt(IGsIm0Pu = Q0Pu * SystemBase.SnRef / (SNom * U0Pu), IGsRe0Pu = -P0Pu * SystemBase.SnRef / (SNom * U0Pu), P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, iGsImPu(start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu)), iGsRePu(start = -P0Pu * SystemBase.SnRef / (SNom * U0Pu)), ipCmdPu(start = IGsRe0Pu), iqCmdPu(start = IGsIm0Pu), theta(start = -UPhase0)) annotation(
     Placement(visible = true, transformation(origin = {1.02426e-05, 54}, extent = {{-8.00002, -24}, {8.00002, 24}}, rotation = 180)));
@@ -22,7 +22,7 @@ model GenSystem3a
     Placement(visible = true, transformation(origin = {50, -40}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
 
 equation
-  connect(realExpression1.y, rotationGridToWt.theta) annotation(
+  connect(theta3.y, rotationGridToWt.theta) annotation(
     Line(points = {{12, 92}, {18, 92}, {18, 76}, {10, 76}}, color = {0, 0, 127}));
   connect(feedbackP.y, piP.u) annotation(
     Line(points = {{-60, 60}, {-54, 60}, {-54, 61}, {-48, 61}}, color = {0, 0, 127}));

@@ -128,6 +128,7 @@ equation
   IpMax0Pu = combiTable1Ds4.y[1];
   IqMax0Pu = min1.y;
   IqMin0Pu = max3.y;
+  //TODO this is wrong, IGsRe0 should not be rotated here
   IGsRe0Pu = (-P0Pu * SystemBase.SnRef / (SNom * U0Pu)) * cos(UPhase0) - Q0Pu * SystemBase.SnRef / (SNom * U0Pu) * sin(UPhase0);
   IGsIm0Pu = (-P0Pu * SystemBase.SnRef / (SNom * U0Pu)) * sin(UPhase0) + Q0Pu * SystemBase.SnRef / (SNom * U0Pu) * cos(UPhase0);
   u0Pu = Complex(UGsRe0Pu, UGsIm0Pu) - Complex(ResPu, XesPu) * (-i0Pu * SystemBase.SnRef / SNom);

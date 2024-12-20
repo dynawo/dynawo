@@ -34,6 +34,7 @@ model WT3ACurrentSource2020 "Wind Turbine Type 4A model from IEC 61400-27-1:2020
 
   Dynawo.Electrical.Sources.IEC.WT3aInjector injector(KPc = KPc, TIc = TIc, XEqv = XEqv, BesPu = BesPu, DipMaxPu = DipMaxPu, DiqMaxPu = DiqMaxPu, GesPu = GesPu, IGsIm0Pu = IGsIm0Pu, IGsRe0Pu = IGsRe0Pu, IpMax0Pu = IpMax0Pu, IqMax0Pu = IqMax0Pu, IqMin0Pu = IqMin0Pu, P0Pu = P0Pu, PAg0Pu = PAg0Pu, Q0Pu = Q0Pu, ResPu = ResPu, SNom = SNom, U0Pu = U0Pu, UGsIm0Pu = UGsIm0Pu, UGsRe0Pu = UGsRe0Pu, UPhase0 = UPhase0, XesPu = XesPu, i0Pu = i0Pu, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {14, -38}, extent = {{-22, -22}, {22, 22}}, rotation = 0)));
+  
   Controls.IEC.IEC61400.BaseControls.WT.Aerodynamic2d aerodynamic2d(DPOmega0Pu = DPOmega0Pu, DPOmegaThetaPu = DPOmegaThetaPu, DPThetaPu = DPThetaPu, PAvailPu = PAvailPu, Theta0 = Theta0) annotation(
     Placement(visible = true, transformation(origin = {-34, -94}, extent = {{-12, -12}, {12, 12}}, rotation = 0)));
   

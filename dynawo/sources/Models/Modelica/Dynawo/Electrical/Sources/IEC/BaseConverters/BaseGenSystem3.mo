@@ -63,7 +63,7 @@ model BaseGenSystem3 "Type 4 generator system module (IEC N°61400-27-1)"
     Placement(visible = true, transformation(origin = {124, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-157, 44}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression realExpression(y = theta) annotation(
+  Modelica.Blocks.Sources.RealExpression theta2(y = theta) annotation(
     Placement(visible = true, transformation(origin = {1, -52}, extent = {{9, -10}, {-9, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.ComplexToReal complexToRealUGs annotation(
     Placement(visible = true, transformation(origin = {144, 34}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
@@ -117,7 +117,7 @@ equation
     Line(points = {{89, -34}, {100, -34}, {100, -6}, {188, -6}}, color = {0, 0, 127}));
   connect(addXRe.y, realToComplexIGs.re) annotation(
     Line(points = {{89, 54}, {100, 54}, {100, 6}, {188, 6}}, color = {0, 0, 127}));
-  connect(realExpression.y, rotationWtToGrid.theta) annotation(
+  connect(theta2.y, rotationWtToGrid.theta) annotation(
     Line(points = {{-8, -52}, {-14, -52}, {-14, -38}, {-8, -38}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",

@@ -55,7 +55,7 @@ model BaseWPPQControl "Reactive power control base module for wind power plants 
     Placement(visible = true, transformation(origin = {-110, 20}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.MathBoolean.Or or2(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {230, 20}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.AntiWindupIntegrator antiWindupIntegrator(DyMax = 999, Y0 = (1 - KwpqRef) * XWT0Pu, YMax = XKiwpxMaxPu, YMin = XKiwpxMinPu, tI = if Kiwpx > 1e-5 then 1 / Kiwpx else 1 / Modelica.Constants.eps) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.AntiWindupIntegrator antiWindupIntegrator(DyMax = 999, Y0 =  XWT0Pu - KwpqRef * (-Q0Pu * SystemBase.SnRef / SNom), YMax = XKiwpxMaxPu, YMin = XKiwpxMinPu, tI = if Kiwpx > 1e-5 then 1 / Kiwpx else 1 / Modelica.Constants.eps) annotation(
     Placement(visible = true, transformation(origin = {170, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
