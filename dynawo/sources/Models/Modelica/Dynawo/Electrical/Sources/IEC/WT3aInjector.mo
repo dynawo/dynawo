@@ -17,10 +17,13 @@ model WT3aInjector "Converter model and grid interface according to IEC N°61400
   
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.BaseWTInjector;
   extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem3a;
+
   Dynawo.Electrical.Sources.IEC.BaseConverters.GenSystem3a genSystem3a(DipMaxPu = DipMaxPu, DiqMaxPu = DiqMaxPu, KPc = KPc, TIc = TIc, XEqv = XEqv, IGsIm0Pu = IGsIm0Pu, IGsRe0Pu = IGsRe0Pu, IpMax0Pu = IpMax0Pu, IqMax0Pu = IqMax0Pu, IqMin0Pu = IqMin0Pu, P0Pu = P0Pu, PAg0Pu = PAg0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UGsIm0Pu = UGsIm0Pu, UGsRe0Pu = UGsRe0Pu, UPhase0 = UPhase0) annotation(
     Placement(visible = true, transformation(origin = {-38, -2.22045e-16}, extent = {{-18, -18}, {18, 18}}, rotation = 0)));
+
 equation
   genSystem3a.running = running.value;
+
   connect(genSystem3a.terminal, elecSystem.terminal1) annotation(
     Line(points = {{-18, 0}, {18, 0}}, color = {0, 0, 255}));
   connect(fOCB, genSystem3a.fOCB) annotation(
@@ -39,6 +42,7 @@ equation
     Line(points = {{-110, -40}, {-74, -40}, {-74, -14}, {-58, -14}}, color = {0, 0, 127}));
   connect(genSystem3a.PAgPu, PAgPu) annotation(
     Line(points = {{-18, -14}, {-8, -14}, {-8, -58}, {-80, -58}, {-80, -110}}, color = {0, 0, 127}));
+  
   annotation(
     Icon(graphics = {Text(origin = {58, 22}, extent = {{-20, -20}, {20, 20}}, textString = "3A")}));
 end WT3aInjector;

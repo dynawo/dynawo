@@ -1,25 +1,47 @@
 within Dynawo.Electrical.Sources.IEC.BaseConverters;
 
-model GenSystem3a
+/*
+* Copyright (c) 2024, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+*/
+
+/*
+Equivalent circuit and conventions:
+
+  __   fOCB     iGs
+  /__\---/------->-- (terminal)
+  \__/--------------
+
+*/
+
+model GenSystem3a "Type 3A generator system module (IEC N°61400-27-1)"
+
   extends BaseGenSystem3;
   extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem3a;
   
-  Modelica.Blocks.Continuous.PI piP(T = TIc, initType = Modelica.Blocks.Types.Init.InitialOutput, k = KPc, y_start = 0) annotation(
-    Placement(visible = true, transformation(origin = {-40, 61}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedbackP annotation(
     Placement(visible = true, transformation(origin = {-70, 60}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
-  Modelica.Blocks.Sources.RealExpression theta3(y = -theta) annotation(
-    Placement(visible = true, transformation(origin = {0, 92}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  RefFrameRotation rotationGridToWt(IGsIm0Pu = Q0Pu * SystemBase.SnRef / (SNom * U0Pu), IGsRe0Pu = -P0Pu * SystemBase.SnRef / (SNom * U0Pu), P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, iGsImPu(start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu)), iGsRePu(start = -P0Pu * SystemBase.SnRef / (SNom * U0Pu)), ipCmdPu(start = IGsRe0Pu), iqCmdPu(start = IGsIm0Pu), theta(start = -UPhase0)) annotation(
-    Placement(visible = true, transformation(origin = {1.02426e-05, 54}, extent = {{-8.00002, -24}, {8.00002, 24}}, rotation = 180)));
   Modelica.Blocks.Math.Feedback feedbackQ annotation(
     Placement(visible = true, transformation(origin = {-70, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.PI piQ(T = TIc, initType = Modelica.Blocks.Types.Init.InitialOutput, k = KPc, y_start = 0) annotation(
-    Placement(visible = true, transformation(origin = {-40, -19}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integratorRe(y_start = IGsRe0Pu + UGsIm0Pu / XEqv) annotation(
-    Placement(visible = true, transformation(origin = {50, 60}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
   Modelica.Blocks.Continuous.Integrator integratorIm(y_start = IGsIm0Pu - UGsRe0Pu / XEqv) annotation(
     Placement(visible = true, transformation(origin = {50, -40}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
+  Modelica.Blocks.Continuous.Integrator integratorRe(y_start = IGsRe0Pu + UGsIm0Pu / XEqv) annotation(
+    Placement(visible = true, transformation(origin = {50, 60}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
+  Modelica.Blocks.Continuous.PI piP(T = TIc, initType = Modelica.Blocks.Types.Init.InitialOutput, k = KPc, y_start = 0) annotation(
+    Placement(visible = true, transformation(origin = {-40, 61}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
+  Modelica.Blocks.Continuous.PI piQ(T = TIc, initType = Modelica.Blocks.Types.Init.InitialOutput, k = KPc, y_start = 0) annotation(
+    Placement(visible = true, transformation(origin = {-40, -19}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
+  RefFrameRotation rotationGridToWt(IGsIm0Pu = Q0Pu * SystemBase.SnRef / (SNom * U0Pu), IGsRe0Pu = -P0Pu * SystemBase.SnRef / (SNom * U0Pu), P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, iGsImPu(start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu)), iGsRePu(start = -P0Pu * SystemBase.SnRef / (SNom * U0Pu)), ipCmdPu(start = IGsRe0Pu), iqCmdPu(start = IGsIm0Pu), theta(start = -UPhase0)) annotation(
+    Placement(visible = true, transformation(origin = {1.02426e-05, 54}, extent = {{-8.00002, -24}, {8.00002, 24}}, rotation = 180)));
+  Modelica.Blocks.Sources.RealExpression theta3(y = -theta) annotation(
+    Placement(visible = true, transformation(origin = {0, 92}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
   connect(theta3.y, rotationGridToWt.theta) annotation(
@@ -56,6 +78,7 @@ equation
     Line(points = {{-88, 60}, {-78, 60}}, color = {0, 0, 127}));
   connect(rateLimitQ.y, feedbackQ.u1) annotation(
     Line(points = {{-88, -20}, {-78, -20}}, color = {0, 0, 127}));
+  
   annotation(
     Icon,
     Diagram);

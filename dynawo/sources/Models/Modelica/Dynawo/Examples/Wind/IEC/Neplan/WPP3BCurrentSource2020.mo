@@ -1,7 +1,7 @@
 within Dynawo.Examples.Wind.IEC.Neplan;
 
 /*
-* Copyright (c) 2023, RTE (http://www.rte-france.com)
+* Copyright (c) 2024, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,7 +12,7 @@ within Dynawo.Examples.Wind.IEC.Neplan;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model WPP3BCurrentSource2020 "Wind Power Plant Type 4A model from IEC 61400-27-1:2020 standard with infinite bus - fault and reference tracking tests (Active and reactive power steps)"
+model WPP3BCurrentSource2020 "Wind Power Plant Type 3B model from IEC 61400-27-1:2020 standard with infinite bus - fault and reference tracking tests (Active and reactive power steps)"
   extends Icons.Example;
 
   Dynawo.Electrical.Events.NodeFault nodeFault1(RPu = 0, XPu = 0.4, tBegin = 50, tEnd = 50.15) annotation(
@@ -47,6 +47,7 @@ model WPP3BCurrentSource2020 "Wind Power Plant Type 4A model from IEC 61400-27-1
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-12, -12}, {12, 12}}, rotation = 0)));
   Dynawo.Electrical.Wind.IEC.WT.WT3CurrentSource_INIT init(BesPu = wPP3BCurrentSource.BesPu, GesPu = wPP3BCurrentSource.GesPu, IMaxDipPu = wPP3BCurrentSource.IMaxDipPu, IMaxPu = wPP3BCurrentSource.IMaxPu, Kpqu = wPP3BCurrentSource.Kpqu, MdfsLim = wPP3BCurrentSource.MdfsLim, MqG = wPP3BCurrentSource.MqG, Mqpri = wPP3BCurrentSource.Mqpri, P0Pu = wPP3BCurrentSource.P0Pu, Q0Pu = wPP3BCurrentSource.Q0Pu, QMaxPu = wPP3BCurrentSource.QMaxPu, QMinPu = wPP3BCurrentSource.QMinPu, QlConst = wPP3BCurrentSource.QlConst, ResPu = wPP3BCurrentSource.ResPu, SNom = wPP3BCurrentSource.SNom, TableIpMaxUwt = wPP3BCurrentSource.TableIpMaxUwt, TableIqMaxUwt = wPP3BCurrentSource.TableIqMaxUwt, TableQMaxPwtcFilt = wPP3BCurrentSource.TableQMaxPwtcFilt, TableQMaxUwtcFilt = wPP3BCurrentSource.TableQMaxUwtcFilt, TableQMinPwtcFilt = wPP3BCurrentSource.TableQMinPwtcFilt, TableQMinUwtcFilt = wPP3BCurrentSource.TableQMinUwtcFilt, U0Pu = wPP3BCurrentSource.U0Pu, UPhase0 = wPP3BCurrentSource.UPhase0, UpquMaxPu = wPP3BCurrentSource.UpquMaxPu, XesPu = wPP3BCurrentSource.XesPu) annotation(
     Placement(visible = true, transformation(origin = {-22, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
 equation
   wPP3BCurrentSource.wT3BCurrentSource.injector.switchOffSignal1.value = false;
   wPP3BCurrentSource.wT3BCurrentSource.injector.switchOffSignal2.value = false;
@@ -65,6 +66,7 @@ equation
   transformer.switchOffSignal2.value = false;
   transformer1.switchOffSignal1.value = false;
   transformer1.switchOffSignal2.value = false;
+
   connect(transformer1.terminal2, line4.terminal1) annotation(
     Line(points = {{-40, 0}, {-30, 0}}, color = {0, 0, 255}));
   connect(line4.terminal2, transformer.terminal1) annotation(
@@ -95,6 +97,7 @@ equation
     Line(points = {{-118, -20}, {-114, -20}, {-114, -2}, {-104, -2}}, color = {0, 0, 127}));
   connect(omegaRefPu.y, wPP3BCurrentSource.omegaRefPu) annotation(
     Line(points = {{-118, -60}, {-108, -60}, {-108, -8}, {-104, -8}}, color = {0, 0, 127}));
+  
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 300, Tolerance = 1e-04, Interval = 0.005),

@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Wind.IEC.WT;
 
 /*
-* Copyright (c) 2022, RTE (http://www.rte-france.com)
+* Copyright (c) 2024, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,7 +12,7 @@ within Dynawo.Electrical.Wind.IEC.WT;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model WT3CurrentSource_INIT "Wind Turbine Type 4 model from IEC 61400-27-1 standard : initialization model"
+model WT3CurrentSource_INIT "Wind Turbine Type 3 model from IEC 61400-27-1 standard : initialization model"
   extends AdditionalIcons.Init;
   extends Dynawo.Electrical.Wind.IEC.Parameters.TableQLimit;
   extends Dynawo.Electrical.Wind.IEC.Parameters.TableCurrentLimit;

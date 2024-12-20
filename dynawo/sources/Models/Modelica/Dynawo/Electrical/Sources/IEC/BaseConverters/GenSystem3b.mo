@@ -1,57 +1,60 @@
 within Dynawo.Electrical.Sources.IEC.BaseConverters;
 
-model GenSystem3b
+model GenSystem3b "Type 3B generator system module (IEC N°61400-27-1)"
+
   extends BaseGenSystem3(
     rateLimitP.y_start=(IGsRe0Pu+UGsIm0Pu/XEqv)*cos(UPhase0) + (IGsIm0Pu-UGsRe0Pu/XEqv)*sin(UPhase0),
     rateLimitQ.y_start=-1*(IGsRe0Pu+UGsIm0Pu/XEqv)*sin(UPhase0) + (IGsIm0Pu-UGsRe0Pu/XEqv)*cos(UPhase0) - (UGsIm0Pu^2+UGsRe0Pu^2)^0.5/XEqv
   );
   extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem3b;
+
+  Modelica.Blocks.Sources.RealExpression absU(y = complexToAbs.len) annotation(
+    Placement(visible = true, transformation(origin = {-148, -58}, extent = {{-6, -10}, {6, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.RealExpression absU2(y = complexToAbs.len) annotation(
+    Placement(visible = true, transformation(origin = {-210, 300}, extent = {{-6, -10}, {6, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Add add1 annotation(
+    Placement(visible = true, transformation(origin = {-69, 287}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
+  Modelica.Blocks.Math.Add addXEqv(k2 = 1 / XEqv)  annotation(
+    Placement(visible = true, transformation(origin = {-62, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.ComplexToPolar complexToAbs annotation(
     Placement(visible = true, transformation(origin = {0, 130}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant constant1(k = 1e-6) annotation(
+    Placement(visible = true, transformation(origin = {-89, 271}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
+  Modelica.Blocks.Sources.BooleanConstant constMCrb(k = MCrb) annotation(
+    Placement(visible = true, transformation(origin = {-189, 119}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant constOne(k = 1) annotation(
+    Placement(visible = true, transformation(origin = {-189, 94}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
+  Modelica.Blocks.Math.BooleanToReal crowbarFlag annotation(
+    Placement(visible = true, transformation(origin = {110, 290}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Nonlinear.FixedDelay delay(delayTime = 1e-6) annotation(
+    Placement(visible = true, transformation(origin = {-98, 290}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
+  Modelica.Blocks.Nonlinear.FixedDelay delay2(delayTime = 1e-6) annotation(
+    Placement(visible = true, transformation(origin = {-8, 222}, extent = {{6, -6}, {-6, 6}}, rotation = 0)));
+  Modelica.Blocks.Logical.Greater greater annotation(
+    Placement(visible = true, transformation(origin = {-46, 300}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Logical.GreaterEqual greaterEqual annotation(
+    Placement(visible = true, transformation(origin = {66, 298}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder lagTgP(T = tG, y_start = IGsRe0Pu + UGsIm0Pu / XEqv)  annotation(
     Placement(visible = true, transformation(origin = {44, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder lagTgQ(T = tG, y_start = IGsIm0Pu - UGsRe0Pu / XEqv)  annotation(
     Placement(visible = true, transformation(origin = {42, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Product prodCrowbarQ annotation(
-    Placement(visible = true, transformation(origin = {-180, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Product prodCrowbarP annotation(
-    Placement(visible = true, transformation(origin = {-180, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant constOne(k = 1) annotation(
-    Placement(visible = true, transformation(origin = {-189, 94}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Modelica.Blocks.Logical.Switch switchMCrb annotation(
-    Placement(visible = true, transformation(origin = {-169, 103}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
-  Modelica.Blocks.Sources.BooleanConstant constMCrb(k = MCrb) annotation(
-    Placement(visible = true, transformation(origin = {-189, 119}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression absU2(y = complexToAbs.len) annotation(
-    Placement(visible = true, transformation(origin = {-210, 300}, extent = {{-6, -10}, {6, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Derivative washoutFilter(T = tWo, k = tWo) annotation(
-    Placement(visible = true, transformation(origin = {-180, 300}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Tables.CombiTable1D lutTCrb(table = tCrb) annotation(
     Placement(visible = true, transformation(origin = {-140, 300}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.FixedDelay delay2(delayTime = 1e-6) annotation(
-    Placement(visible = true, transformation(origin = {-8, 222}, extent = {{6, -6}, {-6, 6}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.FixedDelay delay(delayTime = 1e-6) annotation(
-    Placement(visible = true, transformation(origin = {-98, 290}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant constant1(k = 1e-6) annotation(
-    Placement(visible = true, transformation(origin = {-89, 271}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Modelica.Blocks.Math.Add add1 annotation(
-    Placement(visible = true, transformation(origin = {-69, 287}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
-  Modelica.Blocks.Logical.Greater greater annotation(
-    Placement(visible = true, transformation(origin = {-46, 300}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Logical.Switch switch annotation(
-    Placement(visible = true, transformation(origin = {-8, 250}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
   Modelica.Blocks.Logical.Not not1 annotation(
     Placement(visible = true, transformation(origin = {-14, 300}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
+  Modelica.Blocks.Math.Product prodCrowbarP annotation(
+    Placement(visible = true, transformation(origin = {-180, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Product prodCrowbarQ annotation(
+    Placement(visible = true, transformation(origin = {-180, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Logical.Switch switch annotation(
+    Placement(visible = true, transformation(origin = {-8, 250}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
+  Modelica.Blocks.Logical.Switch switchMCrb annotation(
+    Placement(visible = true, transformation(origin = {-169, 103}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
   Modelica.Blocks.Logical.Timer timer annotation(
     Placement(visible = true, transformation(origin = {16, 300}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Logical.GreaterEqual greaterEqual annotation(
-    Placement(visible = true, transformation(origin = {66, 298}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.BooleanToReal crowbarFlag annotation(
-    Placement(visible = true, transformation(origin = {110, 290}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add addXEqv(k2 = 1 / XEqv)  annotation(
-    Placement(visible = true, transformation(origin = {-62, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression absU(y = complexToAbs.len) annotation(
-    Placement(visible = true, transformation(origin = {-148, -58}, extent = {{-6, -10}, {6, 10}}, rotation = 0)));
+  Modelica.Blocks.Continuous.Derivative washoutFilter(T = tWo, k = tWo) annotation(
+    Placement(visible = true, transformation(origin = {-180, 300}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
 equation
   connect(rateLimitP.y, rotationWtToGrid.ipCmdPu) annotation(
     Line(points = {{-88, 60}, {-20, 60}, {-20, 0}, {-8, 0}}, color = {0, 0, 127}));

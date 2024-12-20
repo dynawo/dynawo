@@ -1,17 +1,19 @@
 within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT;
 
+/*
+* Copyright (c) 2024, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+*/
+
 model TorquePi "Sub module for torque control inside active power control module for type 3 wind turbines (IEC N°61400-27-1:2020)"
-  /*
-  * Copyright (c) 2024, RTE (http://www.rte-france.com)
-  * See AUTHORS.txt
-  * All rights reserved.
-  * This Source Code Form is subject to the terms of the Mozilla Public
-  * License, v. 2.0. If a copy of the MPL was not distributed with this
-  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-  * SPDX-License-Identifier: MPL-2.0
-  *
-  * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-  */
+
   extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT3;
   extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPGrid;
   extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGs;
@@ -19,16 +21,8 @@ model TorquePi "Sub module for torque control inside active power control module
   extends Dynawo.Electrical.Wind.IEC.Parameters.XEqv_;
   extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGrid;
 
-  Modelica.Blocks.Interfaces.RealInput omegaErrPu(start = 0) annotation(
-    Placement(visible = true, transformation(origin = {-410, 150}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-426, 60}, extent = {{-25, -25}, {25, 25}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput tauEMaxPu(start = 1) annotation(
-    Placement(visible = true, transformation(origin = {-410, 180}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-426, 150}, extent = {{-25, -25}, {25, 25}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput tauOutPu annotation(
-    Placement(visible = true, transformation(origin = {220, 136}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {236, -24}, extent = {{-25, -25}, {25, 25}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput uTcHookPu(start = 0) annotation(
-    Placement(visible = true, transformation(origin = {-410, -212}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-426, -200}, extent = {{-25, -25}, {25, 25}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput uWtcPu(start = 1) annotation(
-    Placement(visible = true, transformation(origin = {-410, -168}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-426, -100}, extent = {{-25, -25}, {25, 25}}, rotation = 0)));
+  Modelica.Blocks.Math.Add add annotation(
+    Placement(visible = true, transformation(origin = {130, 176}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
   Modelica.Blocks.Math.Add addKIpKPp(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {-76, -52}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add addTauOut annotation(
@@ -37,6 +31,8 @@ model TorquePi "Sub module for torque control inside active power control module
     Placement(visible = true, transformation(origin = {-340, -218}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.MathBoolean.And andResetKIpKPp(nu = 2) annotation(
     Placement(visible = true, transformation(origin = {-130, -120}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant constant1(k = (-Modelica.Constants.eps * 0) - 0.001) annotation(
+    Placement(visible = true, transformation(origin = {105, 169}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constDTauMax(k = DTauMaxPu) annotation(
     Placement(visible = true, transformation(origin = {-189, 83}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constDTauUvrtMax(k = DTauUvrtMaxPu) annotation(
@@ -67,8 +63,14 @@ model TorquePi "Sub module for torque control inside active power control module
     Placement(visible = true, transformation(origin = {-346, -168}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Greater greater annotation(
     Placement(visible = true, transformation(origin = {-284, -56}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Logical.GreaterEqual greaterEqual annotation(
+    Placement(visible = true, transformation(origin = {-66, 42}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.IntegerToReal integerToReal annotation(
     Placement(visible = true, transformation(origin = {-320, -56}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.IntegratorVariableLimitsContinuousSetFreeze integratorDTauMax(LimitMax0 = TauEMax0Pu, LimitMin0 = TauEMinPu,UseFreeze = false, UseReset = true, UseSet = true, Y0 = TauEMax0Pu) annotation(
+    Placement(visible = true, transformation(origin = {-152, 84}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.IntegratorVariableLimitsContinuousSetFreeze integratorKIpKPp(K = if KPp > 1e-6 then KIp / KPp else 1 / Modelica.Constants.eps, LimitMax0 = TauEMax0Pu, LimitMin0 = TauEMinPu, UseFreeze = true, UseReset = true, UseSet = true, Y0 = Torque0Type3bPu) annotation(
+    Placement(visible = true, transformation(origin = {0, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Less lessUDvs annotation(
     Placement(visible = true, transformation(origin = {-338, 32}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Less lessUPdip annotation(
@@ -101,19 +103,20 @@ model TorquePi "Sub module for torque control inside active power control module
     Placement(visible = true, transformation(origin = {-72, -72}, extent = {{-6, -10}, {6, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression zero3(y = constZero.y) annotation(
     Placement(visible = true, transformation(origin = {-350, -78}, extent = {{-6, -10}, {6, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.IntegratorVariableLimitsContinuousSetFreeze integratorDTauMax(LimitMax0 = TauEMax0Pu, LimitMin0 = TauEMinPu,UseFreeze = false, UseReset = true, UseSet = true, Y0 = TauEMax0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-152, 84}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.IntegratorVariableLimitsContinuousSetFreeze integratorKIpKPp(K = if KPp > 1e-6 then KIp / KPp else 1 / Modelica.Constants.eps, LimitMax0 = TauEMax0Pu, LimitMin0 = TauEMinPu, UseFreeze = true, UseReset = true, UseSet = true, Y0 = Torque0Type3bPu) annotation(
-    Placement(visible = true, transformation(origin = {0, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Logical.GreaterEqual greaterEqual annotation(
-    Placement(visible = true, transformation(origin = {-66, 42}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  
-  
-  
-  Modelica.Blocks.Math.Add add annotation(
-    Placement(visible = true, transformation(origin = {130, 176}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant constant1(k = (-Modelica.Constants.eps * 0) - 0.001) annotation(
-    Placement(visible = true, transformation(origin = {105, 169}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
+
+  // inputs
+  Modelica.Blocks.Interfaces.RealInput omegaErrPu(start = 0) annotation(
+    Placement(visible = true, transformation(origin = {-410, 150}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-426, 60}, extent = {{-25, -25}, {25, 25}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput tauEMaxPu(start = 1) annotation(
+    Placement(visible = true, transformation(origin = {-410, 180}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-426, 150}, extent = {{-25, -25}, {25, 25}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput uTcHookPu(start = 0) annotation(
+    Placement(visible = true, transformation(origin = {-410, -212}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-426, -200}, extent = {{-25, -25}, {25, 25}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput uWtcPu(start = 1) annotation(
+    Placement(visible = true, transformation(origin = {-410, -168}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-426, -100}, extent = {{-25, -25}, {25, 25}}, rotation = 0)));
+  // outputs
+  Modelica.Blocks.Interfaces.RealOutput tauOutPu annotation(
+    Placement(visible = true, transformation(origin = {220, 136}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {236, -24}, extent = {{-25, -25}, {25, 25}}, rotation = 0)));
+
 equation
   connect(gainKPp.y, addTauOut.u1) annotation(
     Line(points = {{67, 142}, {92, 142}}, color = {0, 0, 127}));
@@ -239,6 +242,7 @@ equation
     Line(points = {{137, 176}, {142, 176}, {142, 144}, {154, 144}}, color = {0, 0, 127}));
   connect(constant1.y, add.u2) annotation(
     Line(points = {{113, 169}, {122, 169}, {122, 172}}, color = {0, 0, 127}));
+  
   annotation(
     preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-400, -250}, {210, 200}})),

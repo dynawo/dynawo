@@ -1,18 +1,21 @@
 within Dynawo.Electrical.Wind.IEC.WT;
 
+/*
+* Copyright (c) 2024, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+*/
+
 model WT3ACurrentSource2020 "Wind Turbine Type 4A model from IEC 61400-27-1:2020 standard"
-  /*
-  * Copyright (c) 2023, RTE (http://www.rte-france.com)
-  * See AUTHORS.txt
-  * All rights reserved.
-  * This Source Code Form is subject to the terms of the Mozilla Public
-  * License, v. 2.0. If a copy of the MPL was not distributed with this
-  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-  * SPDX-License-Identifier: MPL-2.0
-  *
-  * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-  */
+  
   extends Dynawo.Electrical.Wind.IEC.BaseClasses.BaseWTCurrentSource2020(pll.tS = tS, pll.tPll = tPll);
+
   // Parameters
   extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem3a;
   extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT3;
@@ -20,6 +23,7 @@ model WT3ACurrentSource2020 "Wind Turbine Type 4A model from IEC 61400-27-1:2020
   extends Dynawo.Electrical.Wind.IEC.Parameters.Aerodynamic2d;
   extends Dynawo.Electrical.Wind.IEC.Parameters.PitchAngleControl;
   extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPAg;
+
   Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT.Mechanical mechanical(CdrtPu = CdrtPu, Hgen = Hgen, Hwtr = Hwtr, KdrtPu = KdrtPu, P0Pu = P0Pu, PAg0Pu = PAg0Pu, SNom = SNom) annotation(
     Placement(visible = true, transformation(origin = {80, -80}, extent = {{-20, 20}, {20, -20}}, rotation = 0)));
   Dynawo.Electrical.Controls.IEC.IEC61400.WT.Control3AB2020 control(
@@ -46,9 +50,6 @@ model WT3ACurrentSource2020 "Wind Turbine Type 4A model from IEC 61400-27-1:2020
     //pass other parameters
     DThetaCmax = DThetaCmax, DThetaCmin = DThetaCmin, DThetaMax = DThetaMax, DThetaMin = DThetaMin, DThetaOmegamax = DThetaOmegamax, DThetaOmegamin = DThetaOmegamin, KIcPu = KIcPu, KIomegaPu = KIomegaPu, KPXPu = KPXPu, KPcPu = KPcPu, KPomegaPu = KPomegaPu, TTheta = TTheta, ThetaCmax = ThetaCmax, ThetaCmin = ThetaCmin, ThetaMax = ThetaMax, ThetaMin = ThetaMin, ThetaOmegamax = ThetaOmegamax, ThetaOmegamin = ThetaOmegamin) annotation(
     Placement(visible = true, transformation(origin = {-78, -96}, extent = {{-12, -12}, {12, 12}}, rotation = 0)));
-
-
-
 
 equation
   connect(control.ipMaxPu, injector.ipMaxPu) annotation(
@@ -109,6 +110,7 @@ equation
     Line(points = {{38, -56}, {44, -56}, {44, -72}, {58, -72}}, color = {0, 0, 127}));
   connect(aerodynamic2d.pAeroPu, mechanical.PAeroPu) annotation(
     Line(points = {{-20, -94}, {40, -94}, {40, -88}, {58, -88}}, color = {0, 0, 127}));
+  
   annotation(
     preferredView = "diagram",
     Icon(graphics = {Text(origin = {-4, -21}, extent = {{-51, 41}, {56, -41}}, textString = "Type 3A")}));

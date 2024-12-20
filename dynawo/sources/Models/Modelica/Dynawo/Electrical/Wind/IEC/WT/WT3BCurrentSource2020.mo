@@ -1,18 +1,21 @@
 within Dynawo.Electrical.Wind.IEC.WT;
 
-model WT3BCurrentSource2020 "Wind Turbine Type 4A model from IEC 61400-27-1:2020 standard"
-  /*
-  * Copyright (c) 2023, RTE (http://www.rte-france.com)
-  * See AUTHORS.txt
-  * All rights reserved.
-  * This Source Code Form is subject to the terms of the Mozilla Public
-  * License, v. 2.0. If a copy of the MPL was not distributed with this
-  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-  * SPDX-License-Identifier: MPL-2.0
-  *
-  * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-  */
+/*
+* Copyright (c) 2024, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+*/
+
+model WT3BCurrentSource2020 "Wind Turbine Type 3B model from IEC 61400-27-1:2020 standard"
+
   extends Dynawo.Electrical.Wind.IEC.BaseClasses.BaseWTCurrentSource2020(pll.tS = tS, pll.tPll = tPll);
+
   // Parameters
   extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem3b;
   extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT3;
@@ -37,8 +40,6 @@ model WT3BCurrentSource2020 "Wind Turbine Type 4A model from IEC 61400-27-1:2020
     //pass other parameters
     DThetaCmax = DThetaCmax, DThetaCmin = DThetaCmin, DThetaMax = DThetaMax, DThetaMin = DThetaMin, DThetaOmegamax = DThetaOmegamax, DThetaOmegamin = DThetaOmegamin, KIcPu = KIcPu, KIomegaPu = KIomegaPu, KPXPu = KPXPu, KPcPu = KPcPu, KPomegaPu = KPomegaPu, TTheta = TTheta, ThetaCmax = ThetaCmax, ThetaCmin = ThetaCmin, ThetaMax = ThetaMax, ThetaMin = ThetaMin, ThetaOmegamax = ThetaOmegamax, ThetaOmegamin = ThetaOmegamin) annotation(
     Placement(visible = true, transformation(origin = {-78, -96}, extent = {{-12, -12}, {12, 12}}, rotation = 0)));
-
-
 
 equation
   connect(control.ipMaxPu, injector.ipMaxPu) annotation(
@@ -99,6 +100,7 @@ equation
     Line(points = {{102, -88}, {110, -88}, {110, -116}, {-58, -116}, {-58, -102}, {-48, -102}}, color = {0, 0, 127}));
   connect(controlMeasurements.PFiltPu, control.PWTCFiltPu) annotation(
     Line(points = {{-96, 58}, {-96, -24}, {-82, -24}}, color = {0, 0, 127}));
+  
   annotation(
     preferredView = "diagram",
     Icon(graphics = {Text(origin = {0, -20}, extent = {{-66, 33}, {66, -33}}, textString = "Type 3B")}));
