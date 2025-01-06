@@ -1,4 +1,4 @@
-# Copyright (c) 2022, RTE (http://www.rte-france.com)
+# Copyright (c) 2024, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -15,6 +15,7 @@ set(MODEL_FILES
   WPP4ACurrentSource2015.mo
   WPP4ACurrentSource2020.mo
   WPP4ACurrentSource2020FOCB.mo
+  WPP4ACurrentSource2020UDip.mo
   WPP4BCurrentSource2020.mo
   WPP4BCurrentSource2020FOCB.mo
   WT4ACurrentSource2015.mo
