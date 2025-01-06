@@ -1,4 +1,4 @@
-# Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+# Copyright (c) 2015-2024, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -244,6 +244,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   UFLS3Steps.xml
   UFLS10Steps.xml
   UnderVoltageAutomaton.xml
+  VariableImpedantFault.xml
   VRRemote.xml
   WeightedDifference.xml
   WT4AWeccCurrentSource.xml
