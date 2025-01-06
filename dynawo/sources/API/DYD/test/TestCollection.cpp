@@ -67,8 +67,8 @@ TEST(APIDYDTest, CollectionCreate) {
 }
 
 TEST(APIDYDTest, CollectionCopy) {
-  boost::shared_ptr<DynamicModelsCollection> collection;
-  collection = boost::shared_ptr<DynamicModelsCollection>(DynamicModelsCollectionFactory::newCollection());
+  std::unique_ptr<DynamicModelsCollection> collection;
+  collection = std::unique_ptr<DynamicModelsCollection>(DynamicModelsCollectionFactory::newCollection());
 
   std::unique_ptr<BlackBoxModel> model = BlackBoxModelFactory::newModel("blackBoxModel");
   std::unique_ptr<ModelTemplate> model1 = ModelTemplateFactory::newModel("modelTemplate");
@@ -76,7 +76,7 @@ TEST(APIDYDTest, CollectionCopy) {
   collection->addModel(std::move(model));
   collection->addModel(std::move(model1));
 
-  boost::shared_ptr<DynamicModelsCollection> collection1;
+  std::unique_ptr<DynamicModelsCollection> collection1;
   collection1 = DynamicModelsCollectionFactory::copyCollection(collection);
 
   int nbModels = 0;
@@ -97,8 +97,8 @@ TEST(APIDYDTest, CollectionCopy) {
 }
 
 TEST(APIDYDTest, CollectionSameModel) {
-  boost::shared_ptr<DynamicModelsCollection> collection;
-  collection = boost::shared_ptr<DynamicModelsCollection>(DynamicModelsCollectionFactory::newCollection());
+  std::unique_ptr<DynamicModelsCollection> collection;
+  collection = std::unique_ptr<DynamicModelsCollection>(DynamicModelsCollectionFactory::newCollection());
 
   std::shared_ptr<BlackBoxModel> model = BlackBoxModelFactory::newModel("blackBoxModel");
   collection->addModel(model);
@@ -106,8 +106,8 @@ TEST(APIDYDTest, CollectionSameModel) {
 }
 
 TEST(APIDYDTest, CollectionAddConnect) {
-  boost::shared_ptr<DynamicModelsCollection> collection;
-  collection = boost::shared_ptr<DynamicModelsCollection>(DynamicModelsCollectionFactory::newCollection());
+  std::unique_ptr<DynamicModelsCollection> collection;
+  collection = std::unique_ptr<DynamicModelsCollection>(DynamicModelsCollectionFactory::newCollection());
 
   collection->addConnect("model1", "var1", "model2", "var2");
   // no internal connection between same models
@@ -137,8 +137,8 @@ TEST(APIDYDTest, CollectionAddConnect) {
 }
 
 TEST(APIDYDTest, CollectionAddMacroConnector) {
-  boost::shared_ptr<DynamicModelsCollection> collection;
-  collection = boost::shared_ptr<DynamicModelsCollection>(DynamicModelsCollectionFactory::newCollection());
+  std::unique_ptr<DynamicModelsCollection> collection;
+  collection = std::unique_ptr<DynamicModelsCollection>(DynamicModelsCollectionFactory::newCollection());
 
   std::unique_ptr<MacroConnector> mc1 = MacroConnectorFactory::newMacroConnector("mc1");
   std::unique_ptr<MacroConnector> mc2 = MacroConnectorFactory::newMacroConnector("mc2");
@@ -169,8 +169,8 @@ TEST(APIDYDTest, CollectionAddMacroConnector) {
 }
 
 TEST(APIDYDTest, CollectionAddMacroConnectorNotUnique) {
-  boost::shared_ptr<DynamicModelsCollection> collection;
-  collection = boost::shared_ptr<DynamicModelsCollection>(DynamicModelsCollectionFactory::newCollection());
+  std::unique_ptr<DynamicModelsCollection> collection;
+  collection = std::unique_ptr<DynamicModelsCollection>(DynamicModelsCollectionFactory::newCollection());
 
   std::unique_ptr<MacroConnector> mc1 = MacroConnectorFactory::newMacroConnector("mc1");
   std::unique_ptr<MacroConnector> mc2 = MacroConnectorFactory::newMacroConnector("mc1");
@@ -180,8 +180,8 @@ TEST(APIDYDTest, CollectionAddMacroConnectorNotUnique) {
 }
 
 TEST(APIDYDTest, CollectionFindMacroConnector) {
-  boost::shared_ptr<DynamicModelsCollection> collection;
-  collection = boost::shared_ptr<DynamicModelsCollection>(DynamicModelsCollectionFactory::newCollection());
+  std::unique_ptr<DynamicModelsCollection> collection;
+  collection = std::unique_ptr<DynamicModelsCollection>(DynamicModelsCollectionFactory::newCollection());
 
   std::unique_ptr<MacroConnector> mc1 = MacroConnectorFactory::newMacroConnector("mc1");
   std::unique_ptr<MacroConnector> mc2 = MacroConnectorFactory::newMacroConnector("mc2");
@@ -195,8 +195,8 @@ TEST(APIDYDTest, CollectionFindMacroConnector) {
 }
 
 TEST(APIDYDTest, CollectionAddMacroConnect) {
-  boost::shared_ptr<DynamicModelsCollection> collection;
-  collection = boost::shared_ptr<DynamicModelsCollection>(DynamicModelsCollectionFactory::newCollection());
+  std::unique_ptr<DynamicModelsCollection> collection;
+  collection = std::unique_ptr<DynamicModelsCollection>(DynamicModelsCollectionFactory::newCollection());
 
   std::unique_ptr<MacroConnect> mc1 = MacroConnectFactory::newMacroConnect("mc1", "model1", "model2");
   std::unique_ptr<MacroConnect> mc2 = MacroConnectFactory::newMacroConnect("mc2", "model1", "model2");
@@ -227,8 +227,8 @@ TEST(APIDYDTest, CollectionAddMacroConnect) {
 }
 
 TEST(APIDYDTest, CollectionMacroStaticReference) {
-  boost::shared_ptr<DynamicModelsCollection> collection;
-  collection = boost::shared_ptr<DynamicModelsCollection>(DynamicModelsCollectionFactory::newCollection());
+  std::unique_ptr<DynamicModelsCollection> collection;
+  collection = std::unique_ptr<DynamicModelsCollection>(DynamicModelsCollectionFactory::newCollection());
 
   std::shared_ptr<MacroStaticReference> mStRef1 = MacroStaticReferenceFactory::newMacroStaticReference("mStRef1");
   std::shared_ptr<MacroStaticReference> mStRef2 = MacroStaticReferenceFactory::newMacroStaticReference("mStRef2");
@@ -266,8 +266,8 @@ TEST(APIDYDTest, CollectionMacroStaticReference) {
 }
 
 TEST(APIDYDTest, StaticRefIterators) {
-  boost::shared_ptr<DynamicModelsCollection> collection;
-  collection = boost::shared_ptr<DynamicModelsCollection>(DynamicModelsCollectionFactory::newCollection());
+  std::unique_ptr<DynamicModelsCollection> collection;
+  collection = std::unique_ptr<DynamicModelsCollection>(DynamicModelsCollectionFactory::newCollection());
 
   std::shared_ptr<BlackBoxModel> model = BlackBoxModelFactory::newModel("blackBoxModel");
 
@@ -292,8 +292,8 @@ TEST(APIDYDTest, StaticRefIterators) {
 }
 
 TEST(APIDYDTest, MacroStaticRefIterators) {
-  boost::shared_ptr<DynamicModelsCollection> collection;
-  collection = boost::shared_ptr<DynamicModelsCollection>(DynamicModelsCollectionFactory::newCollection());
+  std::unique_ptr<DynamicModelsCollection> collection;
+  collection = std::unique_ptr<DynamicModelsCollection>(DynamicModelsCollectionFactory::newCollection());
 
   std::shared_ptr<BlackBoxModel> model = BlackBoxModelFactory::newModel("blackBoxModel");
 

@@ -94,7 +94,7 @@ macroStaticReferenceHandler_(parser::ElementName(namespace_uri(), "macroStaticRe
 
 XmlHandler::~XmlHandler() {}
 
-boost::shared_ptr<DynamicModelsCollection>
+std::shared_ptr<DynamicModelsCollection>
 XmlHandler::getDynamicModelsCollection() {
   return dynamicModelsCollection_;
 }

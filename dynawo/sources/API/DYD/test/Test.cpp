@@ -40,7 +40,7 @@ namespace dynamicdata {
 
 TEST(APIDYDTest, ImporterTwoFilesAndExportWrongFile) {
   XmlImporter importer;
-  boost::shared_ptr<DynamicModelsCollection> collection;
+  std::shared_ptr<DynamicModelsCollection> collection;
   std::vector<std::string> files;
   files.push_back("res/templateExpansion.xml");
   files.push_back("res/blackBoxModel.xml");
@@ -49,7 +49,6 @@ TEST(APIDYDTest, ImporterTwoFilesAndExportWrongFile) {
 
 TEST(APIDYDTest, ImporterWrongFiles) {
   XmlImporter importer;
-  boost::shared_ptr<DynamicModelsCollection> collection;
   std::vector<std::string> files;
   files.push_back("res/BadTemplateExpansion.xml");
   files.push_back("res/blackBoxModel.xml");
@@ -62,7 +61,6 @@ TEST(APIDYDTest, ImporterWrongFiles) {
 
 TEST(APIDYDTest, ImporterWrongStream) {
   XmlImporter importer;
-  boost::shared_ptr<DynamicModelsCollection> collection;
 
   XmlHandler dydHandler;
   xml::sax::parser::ParserFactory parser_factory;
@@ -74,7 +72,6 @@ TEST(APIDYDTest, ImporterWrongStream) {
 
 TEST(APIDYDTest, ImporterStream) {
   XmlImporter importer;
-  boost::shared_ptr<DynamicModelsCollection> collection;
 
   XmlHandler dydHandler;
   xml::sax::parser::ParserFactory parser_factory;
@@ -99,7 +96,7 @@ TEST(APIDYDTest, ImporterStream) {
 
 TEST(APIDYDTest, ImportMacroConnect) {
   XmlImporter importer;
-  boost::shared_ptr<DynamicModelsCollection> collection;
+  std::shared_ptr<DynamicModelsCollection> collection;
   std::vector<std::string> files;
   files.push_back("res/macroConnectExample.xml");
   ASSERT_NO_THROW(collection = importer.importFromDydFiles(files));
@@ -113,7 +110,7 @@ TEST(APIDYDTest, ImportMacroConnect) {
 
 TEST(APIDYDTest, ImportMacroStaticRef) {
   XmlImporter importer;
-  boost::shared_ptr<DynamicModelsCollection> collection;
+  std::shared_ptr<DynamicModelsCollection> collection;
   std::vector<std::string> files;
   files.push_back("res/macroStaticRef.xml");
   ASSERT_NO_THROW(collection = importer.importFromDydFiles(files));

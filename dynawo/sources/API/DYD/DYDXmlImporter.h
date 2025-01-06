@@ -22,7 +22,6 @@
 
 #include "DYDImporter.h"
 
-#include <boost/shared_ptr.hpp>
 
 namespace dynamicdata {
 
@@ -37,7 +36,7 @@ class XmlImporter : public Importer {
   /**
    * @copydoc Importer::importFromDydFiles()
    */
-  boost::shared_ptr<DynamicModelsCollection> importFromDydFiles(const std::vector<std::string>& fileNames) const;
+  std::shared_ptr<DynamicModelsCollection> importFromDydFiles(const std::vector<std::string>& fileNames) const;
 
   /**
    * @copydoc Importer::importFromStream()

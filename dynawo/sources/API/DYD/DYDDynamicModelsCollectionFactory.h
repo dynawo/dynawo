@@ -22,7 +22,7 @@
 
 #include "DYDDynamicModelsCollection.h"
 
-#include <boost/shared_ptr.hpp>
+
 namespace dynamicdata {
 
 /**
@@ -37,18 +37,18 @@ class DynamicModelsCollectionFactory {
   /**
    * @brief Create new DynamicModelsCollection instance
    *
-   * @return Shared pointer to a new empty @p DynamicModelsCollection
+   * @return Unique pointer to a new empty @p DynamicModelsCollection
    */
-  static boost::shared_ptr<DynamicModelsCollection> newCollection();
+  static std::unique_ptr<DynamicModelsCollection> newCollection();
 
   /**
    * @brief Create new DynamicModelsCollection instance as a clone of given instance
    *
    * @param[in] original DynamicModelsCollection to be cloned
    *
-   * @return Shared pointer to a new @p DynamicModelsCollection copied from original
+   * @return Unique pointer to a new @p DynamicModelsCollection copied from original
    */
-  static boost::shared_ptr<DynamicModelsCollection> copyCollection(boost::shared_ptr<DynamicModelsCollection> original);
+  static std::unique_ptr<DynamicModelsCollection> copyCollection(std::unique_ptr<DynamicModelsCollection>& original);
 };
 
 }  // namespace dynamicdata

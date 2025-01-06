@@ -16,7 +16,7 @@
  * @brief Unit tests for API_DYD
  *
  */
-#include <boost/shared_ptr.hpp>
+
 #include "gtest_dynawo.h"
 
 #include "DYDBlackBoxModelFactory.h"
@@ -55,7 +55,7 @@ TEST(APIDYDTest, BlackBoxModelCreate) {
 TEST(APIDYDTest, BlackBoxModelImport_export) {
   // import
   XmlImporter importer;
-  boost::shared_ptr<DynamicModelsCollection> collection;
+  std::shared_ptr<DynamicModelsCollection> collection;
   std::vector<std::string> files;
   files.push_back("res/blackBoxModel.xml");
   ASSERT_NO_THROW(collection = importer.importFromDydFiles(files));

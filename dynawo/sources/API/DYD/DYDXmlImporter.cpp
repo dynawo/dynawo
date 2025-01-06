@@ -30,7 +30,6 @@
 
 using std::string;
 using std::vector;
-using boost::shared_ptr;
 
 namespace parser = xml::sax::parser;
 
@@ -38,7 +37,7 @@ using parameters::ParametersSetCollection;
 
 namespace dynamicdata {
 
-shared_ptr<DynamicModelsCollection>
+std::shared_ptr<DynamicModelsCollection>
 XmlImporter::importFromDydFiles(const vector<string>& fileNames) const {
   XmlHandler dydHandler;
   xml::sax::parser::ParserFactory parser_factory;

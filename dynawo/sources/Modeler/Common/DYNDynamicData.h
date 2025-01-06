@@ -65,7 +65,7 @@ class DynamicData : public boost::noncopyable {
   * @brief set of dynamic models collection
   * @param dynamicModelsCollection the dynamic data model
   */
-  void setDynamicModelsCollection(const boost::shared_ptr<dynamicdata::DynamicModelsCollection>& dynamicModelsCollection);
+  void setDynamicModelsCollection(const std::shared_ptr<dynamicdata::DynamicModelsCollection>& dynamicModelsCollection);
 
   /**
    * @brief get network parameters from a directory
@@ -208,7 +208,7 @@ class DynamicData : public boost::noncopyable {
    * @brief get the current dynamicModelsCollection used
    * @return the current dynamicModelsCollection used
    */
-  inline const boost::shared_ptr<dynamicdata::DynamicModelsCollection>& getDynamicModelsCollection() {
+  inline const std::shared_ptr<dynamicdata::DynamicModelsCollection>& getDynamicModelsCollection() {
     return dynamicModelsCollection_;
   }
 
@@ -260,7 +260,7 @@ class DynamicData : public boost::noncopyable {
   std::unordered_map<std::string,
           boost::shared_ptr<parameters::ParametersSetCollection> > referenceParameters_;  ///< association between file name and parameters collection
 
-  boost::shared_ptr<dynamicdata::DynamicModelsCollection> dynamicModelsCollection_;  ///< dynamic models collection, input from API DYD
+  std::shared_ptr<dynamicdata::DynamicModelsCollection> dynamicModelsCollection_;  ///< dynamic models collection, input from API DYD
 
   boost::shared_ptr<DataInterface> dataInterface_;  ///< static data interface
   std::shared_ptr<parameters::ParametersSet> networkParameters_;  ///< network parameters

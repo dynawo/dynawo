@@ -51,7 +51,7 @@ class Exporter {
    * @param filePath File to export to
    * @param encoding the encoding for xml (parameter is ignored if empty)
    */
-  virtual void exportToFile(const boost::shared_ptr<DynamicModelsCollection>& collection, const std::string& filePath, const std::string& encoding) const = 0;
+  virtual void exportToFile(const std::shared_ptr<DynamicModelsCollection>& collection, const std::string& filePath, const std::string& encoding) const = 0;
 
   /**
    * @brief Export method in XML format
@@ -60,7 +60,7 @@ class Exporter {
    * @param stream Stream to export XML formatted parameters to
    * @param encoding the encoding for xml (parameter is ignored if empty)
    */
-  virtual void exportToStream(const boost::shared_ptr<DynamicModelsCollection>& collection, std::ostream& stream, const std::string& encoding) const = 0;
+  virtual void exportToStream(const std::shared_ptr<DynamicModelsCollection>& collection, std::ostream& stream, const std::string& encoding) const = 0;
 };
 
 #ifdef __clang__

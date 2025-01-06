@@ -37,8 +37,6 @@ namespace dynamicdata {
 //-----------------------------------------------------
 
 TEST(APIDYDTest, ModelTemplateExpansionCreate) {
-  boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();
-
   // create object
   std::unique_ptr<ModelTemplateExpansion> model;
   model = ModelTemplateExpansionFactory::newModel("ModelTemplateExpansion");
@@ -58,7 +56,7 @@ TEST(APIDYDTest, ModelTemplateExpansionCreate) {
 TEST(APIDYDTest, ModelTemplateExpansionImport_export) {
   // import
   XmlImporter importer;
-  boost::shared_ptr<DynamicModelsCollection> collection;
+  std::shared_ptr<DynamicModelsCollection> collection;
   std::vector<std::string> files;
   files.push_back("res/templateExpansion.xml");
   ASSERT_NO_THROW(collection = importer.importFromDydFiles(files));

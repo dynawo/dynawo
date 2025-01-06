@@ -86,7 +86,7 @@ DynamicData::initFromDydFiles(const std::vector <string>& fileNames) {
 }
 
 void
-DynamicData::setDynamicModelsCollection(const boost::shared_ptr<dynamicdata::DynamicModelsCollection>& dynamicModelsCollection) {
+DynamicData::setDynamicModelsCollection(const std::shared_ptr<dynamicdata::DynamicModelsCollection>& dynamicModelsCollection) {
   dynamicModelsCollection_ = dynamicModelsCollection;
 
   createModelDescriptions();

@@ -18,8 +18,6 @@
  */
 #include <map>
 
-#include <boost/shared_ptr.hpp>
-
 #include "gtest_dynawo.h"
 
 #include "DYDDynamicModelsCollectionFactory.h"
@@ -44,8 +42,6 @@ namespace dynamicdata {
 //-----------------------------------------------------
 
 TEST(APIDYDTest, ModelicaModel) {
-  boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();
-
   std::unique_ptr<ModelicaModel> model;
   model = ModelicaModelFactory::newModel("ModelicaModel");
   model->setStaticId("staticId");
@@ -88,7 +84,7 @@ TEST(APIDYDTest, ModelicaModel) {
 TEST(APIDYDTest, ModelicaModelImport_export) {
   // import
   XmlImporter importer;
-  boost::shared_ptr<DynamicModelsCollection> collection;
+  std::shared_ptr<DynamicModelsCollection> collection;
   std::vector<std::string> files;
   files.push_back("res/modelicaModel.xml");
   ASSERT_NO_THROW(collection = importer.importFromDydFiles(files));
@@ -103,15 +99,13 @@ TEST(APIDYDTest, ModelicaModelImport_export) {
 TEST(APIDYDTest, ModelicaModelMissingInitName) {
   // import
   XmlImporter importer;
-  boost::shared_ptr<DynamicModelsCollection> collection;
+  std::shared_ptr<DynamicModelsCollection> collection;
   std::vector<std::string> files;
   files.push_back("res/modelicaModelMissingInitName.xml");
   ASSERT_THROW_DYNAWO(collection = importer.importFromDydFiles(files), DYN::Error::API, DYN::KeyError_t::XmlFileParsingError);
 }
 
 TEST(APIDYDTest, ModelicaModelBadConnectors) {
-  boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();  // reset identifiable
-
   std::unique_ptr<ModelicaModel> model;
   model = ModelicaModelFactory::newModel("modelTemplate");
   std::unique_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
@@ -137,7 +131,7 @@ TEST(APIDYDTest, ModelicaModelBadConnectors) {
 TEST(APIDYDTest, ModelicaModel_1UDM_EqualsFromXml) {
   // import
   XmlImporter importer;
-  boost::shared_ptr<DynamicModelsCollection> collection;
+  std::shared_ptr<DynamicModelsCollection> collection;
   std::vector<std::string> files;
   files.push_back("res/sameModelicaModel.xml");
   ASSERT_NO_THROW(collection = importer.importFromDydFiles(files));
@@ -163,7 +157,7 @@ TEST(APIDYDTest, ModelicaModel_1UDM_EqualsFromXml) {
 TEST(APIDYDTest, ModelicaModel_1UDM_DifferentFromXml) {
   // import
   XmlImporter importer;
-  boost::shared_ptr<DynamicModelsCollection> collection;
+  std::shared_ptr<DynamicModelsCollection> collection;
   std::vector<std::string> files;
   files.push_back("res/differentModelicaModel.xml");
   ASSERT_NO_THROW(collection = importer.importFromDydFiles(files));
@@ -189,7 +183,7 @@ TEST(APIDYDTest, ModelicaModel_1UDM_DifferentFromXml) {
 TEST(APIDYDTest, ModelicaModel_3UDMsNoConnections_EqualsFromXml) {
   // import
   XmlImporter importer;
-  boost::shared_ptr<DynamicModelsCollection> collection;
+  std::shared_ptr<DynamicModelsCollection> collection;
   std::vector<std::string> files;
   files.push_back("res/3UDMsameModelicaModel.xml");
   ASSERT_NO_THROW(collection = importer.importFromDydFiles(files));
@@ -215,7 +209,7 @@ TEST(APIDYDTest, ModelicaModel_3UDMsNoConnections_EqualsFromXml) {
 TEST(APIDYDTest, ModelicaModel_3UDMsNoConnections_DifferentFromXml) {
   // import
   XmlImporter importer;
-  boost::shared_ptr<DynamicModelsCollection> collection;
+  std::shared_ptr<DynamicModelsCollection> collection;
   std::vector<std::string> files;
   files.push_back("res/3UDMdifferentModelicaModel.xml");
   ASSERT_NO_THROW(collection = importer.importFromDydFiles(files));
@@ -241,7 +235,7 @@ TEST(APIDYDTest, ModelicaModel_3UDMsNoConnections_DifferentFromXml) {
 TEST(APIDYDTest, ModelicaModelSameModelFromXml) {
   // import
   XmlImporter importer;
-  boost::shared_ptr<DynamicModelsCollection> collection;
+  std::shared_ptr<DynamicModelsCollection> collection;
   std::vector<std::string> files;
   files.push_back("res/modelicaModel.xml");
   ASSERT_NO_THROW(collection = importer.importFromDydFiles(files));
@@ -265,8 +259,6 @@ TEST(APIDYDTest, ModelicaModelSameModelFromXml) {
 //=================================================
 
 TEST(APIDYDTest, ModelicaModelDifferentSize) {
-  boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();
-
   // first model
   std::unique_ptr<ModelicaModel> model;
   model = ModelicaModelFactory::newModel("ModelicaModel");
@@ -289,8 +281,6 @@ TEST(APIDYDTest, ModelicaModelDifferentSize) {
 //=======================================================================
 
 TEST(APIDYDTest, ModelicaModelDifferentInitConnects) {
-  boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();
-
   // first model
   std::unique_ptr<ModelicaModel> model;
   model = ModelicaModelFactory::newModel("ModelicaModel");
@@ -318,8 +308,6 @@ TEST(APIDYDTest, ModelicaModelDifferentInitConnects) {
 //==================================================================
 
 TEST(APIDYDTest, ModelicaModelDifferentConnects) {
-  boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();
-
   // first model
   std::unique_ptr<ModelicaModel> model;
   model = ModelicaModelFactory::newModel("ModelicaModel");
@@ -347,8 +335,6 @@ TEST(APIDYDTest, ModelicaModelDifferentConnects) {
 //=======================================================================================
 
 TEST(APIDYDTest, ModelicaModelDifferentInitUDM) {
-  boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();
-
   // first model
   std::unique_ptr<ModelicaModel> model;
   model = ModelicaModelFactory::newModel("ModelicaModel");
@@ -382,8 +368,6 @@ TEST(APIDYDTest, ModelicaModelDifferentInitUDM) {
 //=======================================================================================
 
 TEST(APIDYDTest, ModelicaModelDifferentInitUDM_2) {
-  boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();
-
   // first model
   std::unique_ptr<ModelicaModel> model;
   model = ModelicaModelFactory::newModel("ModelicaModel");
@@ -417,8 +401,6 @@ TEST(APIDYDTest, ModelicaModelDifferentInitUDM_2) {
 //================================================================================================================================================
 
 TEST(APIDYDTest, ModelicaModelSameConnectsButDifferentConnectionGraph) {
-  boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();
-
   // first model
   std::unique_ptr<ModelicaModel> model;
   model = ModelicaModelFactory::newModel("ModelicaModel");
@@ -464,8 +446,6 @@ TEST(APIDYDTest, ModelicaModelSameConnectsButDifferentConnectionGraph) {
 //=========================================================================================================================================
 
 TEST(APIDYDTest, ModelicaModelSameInitConnectsButDifferentInitConnectionGraph) {
-  boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();
-
   // first model
   std::unique_ptr<ModelicaModel> model;
   model = ModelicaModelFactory::newModel("ModelicaModel");
@@ -511,8 +491,6 @@ TEST(APIDYDTest, ModelicaModelSameInitConnectsButDifferentInitConnectionGraph) {
 //=======================================================================================
 
 TEST(APIDYDTest, ModelicaModelSameInitUDM) {
-  boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();
-
   // first model
   std::unique_ptr<ModelicaModel> model;
   model = ModelicaModelFactory::newModel("ModelicaModel");
@@ -542,8 +520,6 @@ TEST(APIDYDTest, ModelicaModelSameInitUDM) {
 }
 
 TEST(APIDYDTest, ModelicaModelWithMacroConnect) {
-  boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();  // reset identifiable
-
   std::unique_ptr<ModelicaModel> model;
   model = ModelicaModelFactory::newModel("ModelicaModel");
   std::unique_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
@@ -582,8 +558,6 @@ TEST(APIDYDTest, ModelicaModelWithMacroConnect) {
 //===================================================================
 
 TEST(APIDYDTest, ModelicaModelSameMacroConnects) {
-  boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();
-
   // first model
   std::unique_ptr<ModelicaModel> model;
   model = ModelicaModelFactory::newModel("ModelicaModel");
@@ -616,8 +590,6 @@ TEST(APIDYDTest, ModelicaModelSameMacroConnects) {
 //=====================================================================
 
 TEST(APIDYDTest, ModelicaModelDifferentMacroConnects) {
-  boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();
-
   // first model
   std::unique_ptr<ModelicaModel> model;
   model = ModelicaModelFactory::newModel("ModelicaModel");
@@ -651,8 +623,6 @@ TEST(APIDYDTest, ModelicaModelDifferentMacroConnects) {
 //================================================================================
 
 TEST(APIDYDTest, ModelicaModelDifferentMacroConnectsConnection) {
-  boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();
-
   // first model
   std::unique_ptr<ModelicaModel> model;
   model = ModelicaModelFactory::newModel("ModelicaModel");

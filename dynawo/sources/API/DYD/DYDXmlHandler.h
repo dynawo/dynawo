@@ -30,8 +30,6 @@
 #include "DYDModelicaModel.h"
 #include "DYDUnitDynamicModel.h"
 
-#include <boost/shared_ptr.hpp>
-
 #include <xml/sax/parser/ComposableDocumentHandler.h>
 #include <xml/sax/parser/ComposableElementHandler.h>
 
@@ -617,7 +615,7 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
    *
    * @return Parameters set collection parsed.
    */
-  boost::shared_ptr<DynamicModelsCollection> getDynamicModelsCollection();
+  std::shared_ptr<DynamicModelsCollection> getDynamicModelsCollection();
 
   /**
    * @brief Set root directory
@@ -667,7 +665,7 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
    */
   void addMacroStaticReference();
 
-  boost::shared_ptr<DynamicModelsCollection> dynamicModelsCollection_;  ///< Dynamic models collection parsed
+  std::shared_ptr<DynamicModelsCollection> dynamicModelsCollection_;    ///< Dynamic models collection parsed
   ModelicaModelHandler modelicaModelHandler_;                           ///< handler used to read modelia model element
   ModelTemplateHandler modelTemplateHandler_;                           ///< handler used to read model template element
   BlackBoxModelHandler blackBoxModelHandler_;                           ///< handler used to read black box model element

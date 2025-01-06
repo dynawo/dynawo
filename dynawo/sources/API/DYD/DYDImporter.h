@@ -52,7 +52,7 @@ class Importer {
    * @param fileNames list of files to read
    * @returns Collection imported
    */
-  virtual boost::shared_ptr<DynamicModelsCollection> importFromDydFiles(const std::vector<std::string>& fileNames) const = 0;
+  virtual std::shared_ptr<DynamicModelsCollection> importFromDydFiles(const std::vector<std::string>& fileNames) const = 0;
 
   /**
    * @brief Import dynamic models collection from stream

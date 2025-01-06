@@ -18,8 +18,6 @@
  */
 #include <map>
 
-#include <boost/shared_ptr.hpp>
-
 #include "gtest_dynawo.h"
 
 #include "DYDDynamicModelsCollectionFactory.h"
@@ -44,8 +42,6 @@ namespace dynamicdata {
 //-----------------------------------------------------
 
 TEST(APIDYDTest, ModelTemplateCreate) {
-  boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();  // reset identifiable
-
   std::unique_ptr<ModelTemplate> model;
   model = ModelTemplateFactory::newModel("modelTemplate");
   ASSERT_TRUE(model->getUseAliasing());
@@ -87,7 +83,7 @@ TEST(APIDYDTest, ModelTemplateCreate) {
 
 TEST(APIDYDTest, ModelTemplateImport_export) {
   XmlImporter importer;
-  boost::shared_ptr<DynamicModelsCollection> collection;
+  std::shared_ptr<DynamicModelsCollection> collection;
   std::vector<std::string> files;
   files.push_back("res/modelTemplate.xml");
   ASSERT_NO_THROW(collection = importer.importFromDydFiles(files));
@@ -100,8 +96,6 @@ TEST(APIDYDTest, ModelTemplateImport_export) {
 }
 
 TEST(APIDYDTest, ModelTemplateBadConnectors) {
-  boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();  // reset identifiable
-
   std::unique_ptr<ModelTemplate> model;
   model = ModelTemplateFactory::newModel("modelTemplate");
   std::unique_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
@@ -121,8 +115,6 @@ TEST(APIDYDTest, ModelTemplateBadConnectors) {
 }
 
 TEST(APIDYDTest, ModelTemplateWithMacroConnect) {
-  boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();  // reset identifiable
-
   std::unique_ptr<ModelTemplate> model;
   model = ModelTemplateFactory::newModel("modelTemplate");
   std::unique_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");

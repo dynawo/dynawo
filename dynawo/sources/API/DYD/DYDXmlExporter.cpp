@@ -43,8 +43,6 @@ using std::fstream;
 using std::map;
 using std::string;
 
-using boost::shared_ptr;
-
 using xml::sax::formatter::AttributeList;
 using xml::sax::formatter::Formatter;
 using xml::sax::formatter::FormatterPtr;
@@ -52,7 +50,7 @@ using xml::sax::formatter::FormatterPtr;
 namespace dynamicdata {
 
 void
-XmlExporter::exportToFile(const shared_ptr<DynamicModelsCollection>& collection, const string& filePath, const std::string& encoding) const {
+XmlExporter::exportToFile(const std::shared_ptr<DynamicModelsCollection>& collection, const string& filePath, const std::string& encoding) const {
   fstream file;
   file.open(filePath.c_str(), fstream::out);
   if (!file.is_open()) {
@@ -63,7 +61,7 @@ XmlExporter::exportToFile(const shared_ptr<DynamicModelsCollection>& collection,
   file.close();
 }
 
-void XmlExporter::exportToStream(const boost::shared_ptr<DynamicModelsCollection>& collection, std::ostream& stream, const std::string& encoding) const {
+void XmlExporter::exportToStream(const std::shared_ptr<DynamicModelsCollection>& collection, std::ostream& stream, const std::string& encoding) const {
   FormatterPtr formatter = Formatter::createFormatter(stream);
   formatter->addNamespace("dyn", "http://www.rte-france.com/dynawo");
   if (!encoding.empty()) {
