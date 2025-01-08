@@ -92,10 +92,8 @@ equation
     Line(points = {{-178, -70}, {-160, -70}, {-160, -16}, {-142, -16}}, color = {0, 0, 127}));
   connect(converterVoltageSourceIEC63406.terminal, transformer1.terminal1) annotation(
     Line(points = {{-100, 0}, {-80, 0}}, color = {0, 0, 255}));
-  connect(nodeFault1.terminal, converterVoltageSourceIEC63406.terminal) annotation(
-    Line(points = {{-90, -40}, {-90, 0}, {-100, 0}}, color = {0, 0, 255}));
-  connect(nodeFault.terminal, line.terminal2) annotation(
-    Line(points = {{70, -40}, {70, -20}, {60, -20}}, color = {0, 0, 255}));
+  connect(converterVoltageSourceIEC63406.terminal, nodeFault1.terminal) annotation(
+    Line(points = {{-100, 0}, {-90, 0}, {-90, -40}}, color = {0, 0, 255}));
 protected
 
   annotation(

@@ -60,13 +60,13 @@ model FRTCurrentCalculation "Current orders calculation during FRT (IEC63406)"
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   //Output variables
-  Modelica.Blocks.Interfaces.RealOutput ipRTPu0 "Active current in pu (base SNom, UNom) calculated by the FRT module and used if H/LVRT_IN_PFlag = 0" annotation(
+  Modelica.Blocks.Interfaces.RealOutput ipRTPu0(start = -P0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Active current in pu (base SNom, UNom) calculated by the FRT module and used if H/LVRT_IN_PFlag = 0" annotation(
     Placement(visible = true, transformation(origin = {110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput ipRTPu1 "Active current in pu (base SNom, UNom) calculated by the FRT module and used if H/LVRT_IN_PFlag = 1" annotation(
+  Modelica.Blocks.Interfaces.RealOutput ipRTPu1(start = -P0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Active current in pu (base SNom, UNom) calculated by the FRT module and used if H/LVRT_IN_PFlag = 1" annotation(
     Placement(visible = true, transformation(origin = {110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput iqRTPu0 "Reactive current in pu (base SNom, UNom) calculated by the FRT module and used if H/LVRT_IN_QFlag = 0" annotation(
+  Modelica.Blocks.Interfaces.RealOutput iqRTPu0(start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Reactive current in pu (base SNom, UNom) calculated by the FRT module and used if H/LVRT_IN_QFlag = 0" annotation(
     Placement(visible = true, transformation(origin = {110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput iqRTPu1 "Reactive current in pu (base SNom, UNom) calculated by the FRT module and used if H/LVRT_IN_QFlag = 1" annotation(
+  Modelica.Blocks.Interfaces.RealOutput iqRTPu1(start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Reactive current in pu (base SNom, UNom) calculated by the FRT module and used if H/LVRT_IN_QFlag = 1" annotation(
     Placement(visible = true, transformation(origin = {110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters

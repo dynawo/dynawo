@@ -54,8 +54,8 @@ model PControl "Active power control (IEC 63406)"
     Placement(visible = true, transformation(origin = {200, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Inner variables
-  Real iPcmdFreezePu "Value of iPcmdPu pre-fault that is kept until a new fault";
-  Real pRefFreezePu "Value of pRefPu pre-fault that is kept until a new fault";
+  Real iPcmdFreezePu(start = P0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Value of iPcmdPu pre-fault that is kept until a new fault";
+  Real pRefFreezePu(start = -P0Pu * SystemBase.SnRef / SNom) "Value of pRefPu pre-fault that is kept until a new fault";
 
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T = TpRef, y_start = -P0Pu * SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {-150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

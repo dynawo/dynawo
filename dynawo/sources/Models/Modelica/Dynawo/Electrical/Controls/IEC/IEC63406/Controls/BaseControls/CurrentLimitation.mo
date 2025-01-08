@@ -68,7 +68,7 @@ model CurrentLimitation "Global current limitation block (IEC 63406)"
   parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
     Dialog(group = "Operating point"));
 
-  Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls.AuxiliaryControls.IqLimitation iqLimitation(IMaxPu = IMaxPu, P0Pu = P0Pu, SNom = SNom, U0Pu = U0Pu)  annotation(
+  Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls.AuxiliaryControls.IqLimitation iqLimitation(IMaxPu = IMaxPu, IQMax0Pu = IQMax0Pu, P0Pu = P0Pu, SNom = SNom, U0Pu = U0Pu)  annotation(
     Placement(visible = true, transformation(origin = {-60, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression realExpression2(y = IMaxPu) annotation(
     Placement(visible = true, transformation(origin = {-60, -100}, extent = {{-10, -12}, {10, 12}}, rotation = 0)));
@@ -78,7 +78,7 @@ model CurrentLimitation "Global current limitation block (IEC 63406)"
     Placement(visible = true, transformation(origin = {58, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch13 annotation(
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls.AuxiliaryControls.IpLimitation ipLimitation(IMaxPu = IMaxPu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu)  annotation(
+  Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls.AuxiliaryControls.IpLimitation ipLimitation(IMaxPu = IMaxPu, IPMax0Pu = IPMax0Pu, IPMin0Pu = IPMin0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu)  annotation(
     Placement(visible = true, transformation(origin = {-60, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression realExpression(y = IMaxPu) annotation(
     Placement(visible = true, transformation(origin = {-60, 116}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

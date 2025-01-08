@@ -51,7 +51,7 @@ model StorageSys "Primary energy source-driven electric conversion module of ene
     Placement(visible = true, transformation(origin = {50, 4.44089e-16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = SOCInit) annotation(
     Placement(visible = true, transformation(origin = {-10, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.IEC63406.PrimaryEnergy.Auxiliary.SOCcontrol sOCcontrol(PMaxPu = PMaxPu, SOCMax = SOCMax, SOCMin = SOCMin) annotation(
+  Dynawo.Electrical.Controls.IEC.IEC63406.PrimaryEnergy.Auxiliary.SOCcontrol sOCcontrol(PAvailIn0Pu = PAvailIn0Pu,PMaxPu = PMaxPu, SOCInit = SOCInit, SOCMax = SOCMax, SOCMin = SOCMin) annotation(
     Placement(visible = true, transformation(origin = {80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = 100) annotation(
     Placement(visible = true, transformation(origin = {-84, 0}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
