@@ -102,13 +102,13 @@ model FRTControl "Global control during FRT (IEC63406)"
       Placement(visible = true, transformation(origin = {180, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {180, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput iqqPu(start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Reactive current command in pu (base SNom, UNom) calculated by the FRT before trip_flag verification" annotation(
       Placement(visible = true, transformation(origin = {180, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {180, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput ipHVRTPu "Active current calculated by the HVRT module in pu (base UNom, SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput ipHVRTPu(start = -P0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Active current calculated by the HVRT module in pu (base UNom, SNom) (generator convention)" annotation(
       Placement(visible = true, transformation(origin = {170, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {170, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput ipLVRTPu "Active current calculated by the LVRT module in pu (base UNom, SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput ipLVRTPu(start = -P0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Active current calculated by the LVRT module in pu (base UNom, SNom) (generator convention)" annotation(
       Placement(visible = true, transformation(origin = {170, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {170, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput iqHVRTPu "Reactive current calculated by the HVRT module in pu (base UNom, SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput iqHVRTPu(start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Reactive current calculated by the HVRT module in pu (base UNom, SNom) (generator convention)" annotation(
       Placement(visible = true, transformation(origin = {170, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {170, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput iqLVRTPu "Rective current calculated by the LVRT module in pu (base UNom, SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput iqLVRTPu(start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Rective current calculated by the LVRT module in pu (base UNom, SNom) (generator convention)" annotation(
       Placement(visible = true, transformation(origin = {170, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {170, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
@@ -151,9 +151,9 @@ model FRTControl "Global control during FRT (IEC63406)"
       Placement(visible = true, transformation(origin = {-80, -140}, extent = {{-20, -10}, {20, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanExpression booleanExpression3(y = HVRTinPFlag) annotation(
       Placement(visible = true, transformation(origin = {-80, -20}, extent = {{-20, -10}, {20, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.IEC63406.Protections.AuxiliaryProtections.FRTCurrentBounds LVRTCurrentBounds(IMaxPu = IMaxPu, IPMaxPu = IPMaxPu, IPMinPu = IPMinPu, IQMaxPu = IQMaxPu, IQMinPu = IQMinPu, pqFRTFlag = pqFRTFlag)  annotation(
+  Dynawo.Electrical.Controls.IEC.IEC63406.Protections.AuxiliaryProtections.FRTCurrentBounds LVRTCurrentBounds(IMaxPu = IMaxPu, IPMax0Pu = IPMax0Pu, IPMaxPu = IPMaxPu, IPMin0Pu = IPMin0Pu, IPMinPu = IPMinPu, IQMax0Pu = IQMax0Pu, IQMaxPu = IQMaxPu, IQMin0Pu = IQMin0Pu, IQMinPu = IQMinPu, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, pqFRTFlag = pqFRTFlag)  annotation(
     Placement(visible = true, transformation(origin = {60, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.IEC63406.Protections.AuxiliaryProtections.FRTCurrentBounds HVRTCurrentBounds1(IMaxPu = IMaxPu, IPMaxPu = IPMaxPu, IPMinPu = IPMinPu, IQMaxPu = IQMaxPu, IQMinPu = IQMinPu, pqFRTFlag = pqFRTFlag)  annotation(
+  Dynawo.Electrical.Controls.IEC.IEC63406.Protections.AuxiliaryProtections.FRTCurrentBounds HVRTCurrentBounds1(IMaxPu = IMaxPu, IPMax0Pu = IPMax0Pu, IPMaxPu = IPMaxPu, IPMin0Pu = IPMin0Pu, IPMinPu = IPMinPu, IQMax0Pu = IQMax0Pu, IQMaxPu = IQMaxPu, IQMin0Pu = IQMin0Pu, IQMinPu = IQMinPu, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, pqFRTFlag = pqFRTFlag)  annotation(
     Placement(visible = true, transformation(origin = {60, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Controls.IEC.IEC63406.Protections.AuxiliaryProtections.FRTCurrentCalculation LVRTCurrentCalculation(K1Ip = K1IpLV, K1Iq = K1IqLV, K2Ip = K2IpLV, K2Iq = K2IqLV, KpRT = KpLVRT, KqRT = KqLVRT, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, iPSetPu = iPSetLVPu, iQSetPu = iQSetLVPu, pSetPu = pSetLVPu, qSetPu = qSetLVPu, uHVRTPu = uHVRTPu, uLVRTPu = uLVRTPu, uRTPu = uLVRTPu)  annotation(
     Placement(visible = true, transformation(origin = {-80, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -248,7 +248,6 @@ equation
     Line(points = {{82, -86}, {120, -86}, {120, -132}, {128, -132}}, color = {0, 0, 127}));
   connect(HVRTCurrentBounds1.iqMinPu, variableLimiter2.limit2) annotation(
     Line(points = {{82, -94}, {110, -94}, {110, -148}, {128, -148}}, color = {0, 0, 127}));
-
   annotation(
     Icon(graphics = {Rectangle(extent = {{-160, 160}, {160, -160}}), Text(extent = {{-160, 160}, {160, -160}}, textString = "FRT
 Control")}, coordinateSystem(extent = {{-160, -160}, {160, 160}})),

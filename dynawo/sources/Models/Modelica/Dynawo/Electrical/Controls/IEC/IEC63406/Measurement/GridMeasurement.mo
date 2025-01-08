@@ -67,7 +67,7 @@ model GridMeasurement "Representation of the measurements of electrical magnitud
     Placement(visible = true, transformation(origin = {150, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput UFiltPu(start = U0Pu) "Filtered voltage amplitude at grid terminal in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {150, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput thetaPLL(start=UPhase0) "Phase angle outputted by phase-locked loop" annotation(
+  Modelica.Blocks.Interfaces.RealOutput thetaPLL(start = UPhase0) "Phase angle outputted by phase-locked loop" annotation(
     Placement(visible = true, transformation(origin = {150, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tPFilt, y_start = -P0Pu * SystemBase.SnRef / SNom) annotation(
