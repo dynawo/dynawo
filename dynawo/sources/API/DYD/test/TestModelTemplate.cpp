@@ -46,23 +46,23 @@ namespace dynamicdata {
 TEST(APIDYDTest, ModelTemplateCreate) {
   boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();  // reset identifiable
 
-  boost::shared_ptr<ModelTemplate> model;
+  std::unique_ptr<ModelTemplate> model;
   model = ModelTemplateFactory::newModel("modelTemplate");
   ASSERT_TRUE(model->getUseAliasing());
   ASSERT_TRUE(model->getGenerateCalculatedVariables());
   model->setCompilationOptions(false, false);
 
   // <dyn:unitDynamicModel id="component1" name="model1" initName="model1_init"/>
-  boost::shared_ptr<UnitDynamicModel> udm1;
+  std::shared_ptr<UnitDynamicModel> udm1;
   udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
   udm1->setInitModelName("model1_init");
   // <dyn:unitDynamicModel id="component2" name="model2" initName="model2_init"/>
-  boost::shared_ptr<UnitDynamicModel> udm2;
+  std::unique_ptr<UnitDynamicModel> udm2;
   udm2 = UnitDynamicModelFactory::newModel("component2", "model2");
   udm2->setInitModelName("model2_init");
 
   model->addUnitDynamicModel(udm1);
-  model->addUnitDynamicModel(udm2);
+  model->addUnitDynamicModel(std::move(udm2));
 
   model->addConnect("component1", "var1", "component2", "var2");
   model->addConnect("component2", "var1", "component1", "var2");
@@ -81,7 +81,7 @@ TEST(APIDYDTest, ModelTemplateCreate) {
   ASSERT_EQ(model->getId(), "modelTemplate");
   ASSERT_FALSE(model->getUseAliasing());
   ASSERT_FALSE(model->getGenerateCalculatedVariables());
-  std::map<std::string, boost::shared_ptr<UnitDynamicModel> > udms = model->getUnitDynamicModels();
+  std::map<std::string, std::shared_ptr<UnitDynamicModel> > udms = model->getUnitDynamicModels();
   ASSERT_EQ(udms.size(), 2);
 }
 
@@ -102,12 +102,12 @@ TEST(APIDYDTest, ModelTemplateImport_export) {
 TEST(APIDYDTest, ModelTemplateBadConnectors) {
   boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();  // reset identifiable
 
-  boost::shared_ptr<ModelTemplate> model;
+  std::unique_ptr<ModelTemplate> model;
   model = ModelTemplateFactory::newModel("modelTemplate");
-  boost::shared_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
-  boost::shared_ptr<UnitDynamicModel> udm2 = UnitDynamicModelFactory::newModel("component2", "model2");
-  model->addUnitDynamicModel(udm1);
-  model->addUnitDynamicModel(udm2);
+  std::unique_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
+  std::unique_ptr<UnitDynamicModel> udm2 = UnitDynamicModelFactory::newModel("component2", "model2");
+  model->addUnitDynamicModel(std::move(udm1));
+  model->addUnitDynamicModel(std::move(udm2));
 
   ASSERT_THROW_DYNAWO(model->addConnect("component1", "var1", "component3", "var2"), DYN::Error::API,
           DYN::KeyError_t::ConnectorNotPartofModel);  // component3 does not exist
@@ -123,29 +123,29 @@ TEST(APIDYDTest, ModelTemplateBadConnectors) {
 TEST(APIDYDTest, ModelTemplateWithMacroConnect) {
   boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();  // reset identifiable
 
-  boost::shared_ptr<ModelTemplate> model;
+  std::unique_ptr<ModelTemplate> model;
   model = ModelTemplateFactory::newModel("modelTemplate");
-  boost::shared_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
-  boost::shared_ptr<UnitDynamicModel> udm2 = UnitDynamicModelFactory::newModel("component2", "model2");
-  boost::shared_ptr<UnitDynamicModel> udm3 = UnitDynamicModelFactory::newModel("component3", "model3");
-  model->addUnitDynamicModel(udm1);
-  model->addUnitDynamicModel(udm2);
-  model->addUnitDynamicModel(udm3);
+  std::unique_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
+  std::unique_ptr<UnitDynamicModel> udm2 = UnitDynamicModelFactory::newModel("component2", "model2");
+  std::unique_ptr<UnitDynamicModel> udm3 = UnitDynamicModelFactory::newModel("component3", "model3");
+  model->addUnitDynamicModel(std::move(udm1));
+  model->addUnitDynamicModel(std::move(udm2));
+  model->addUnitDynamicModel(std::move(udm3));
 
-  boost::shared_ptr<MacroConnect> mc1 = MacroConnectFactory::newMacroConnect("mc1", "component1", "component2");
-  boost::shared_ptr<MacroConnect> mc2 = MacroConnectFactory::newMacroConnect("mc2", "component3", "component2");
-  boost::shared_ptr<MacroConnect> mc3 = MacroConnectFactory::newMacroConnect("mc3", "component4", "component2");  // model4 does not exist
-  boost::shared_ptr<MacroConnect> mc4 = MacroConnectFactory::newMacroConnect("mc4", "component2", "component4");  // model4 does not exist
-  ASSERT_NO_THROW(model->addMacroConnect(mc1));
-  ASSERT_NO_THROW(model->addMacroConnect(mc2));
+  std::unique_ptr<MacroConnect> mc1 = MacroConnectFactory::newMacroConnect("mc1", "component1", "component2");
+  std::unique_ptr<MacroConnect> mc2 = MacroConnectFactory::newMacroConnect("mc2", "component3", "component2");
+  std::unique_ptr<MacroConnect> mc3 = MacroConnectFactory::newMacroConnect("mc3", "component4", "component2");  // model4 does not exist
+  std::unique_ptr<MacroConnect> mc4 = MacroConnectFactory::newMacroConnect("mc4", "component2", "component4");  // model4 does not exist
+  ASSERT_NO_THROW(model->addMacroConnect(std::move(mc1)));
+  ASSERT_NO_THROW(model->addMacroConnect(std::move(mc2)));
 
-  ASSERT_THROW_DYNAWO(model->addMacroConnect(mc3), DYN::Error::API, DYN::KeyError_t::MacroConnectNotPartofModel);
-  ASSERT_THROW_DYNAWO(model->addMacroConnect(mc4), DYN::Error::API, DYN::KeyError_t::MacroConnectNotPartofModel);
+  ASSERT_THROW_DYNAWO(model->addMacroConnect(std::move(mc3)), DYN::Error::API, DYN::KeyError_t::MacroConnectNotPartofModel);
+  ASSERT_THROW_DYNAWO(model->addMacroConnect(std::move(mc4)), DYN::Error::API, DYN::KeyError_t::MacroConnectNotPartofModel);
 
-  std::map<std::string, boost::shared_ptr<MacroConnect> > macroConnects = model->getMacroConnects();
+  std::map<std::string, std::shared_ptr<MacroConnect> > macroConnects = model->getMacroConnects();
   ASSERT_EQ(macroConnects.size(), 2);
 
-  std::map<std::string, boost::shared_ptr<MacroConnect > >::const_iterator iter = macroConnects.begin();
+  std::map<std::string, std::shared_ptr<MacroConnect > >::const_iterator iter = macroConnects.begin();
   int index = 0;
   for (; iter != macroConnects.end(); ++iter) {
     if (index == 0)
@@ -161,21 +161,21 @@ TEST(APIDYDTest, ModelTemplateWithMacroConnect) {
 //=======================================================================================
 
 TEST(APIDYDTest, ModelTemplateRefIterators) {
-  boost::shared_ptr<ModelTemplate> model;
+  std::unique_ptr<ModelTemplate> model;
   model = ModelTemplateFactory::newModel("modelTemplate");
-  boost::shared_ptr<MacroStaticRef> macroStaticRef = MacroStaticRefFactory::newMacroStaticRef("MyMacroStaticRef");
-  model->addMacroStaticRef(macroStaticRef);
+  std::unique_ptr<MacroStaticRef> macroStaticRef = MacroStaticRefFactory::newMacroStaticRef("MyMacroStaticRef");
+  model->addMacroStaticRef(std::move(macroStaticRef));
 
   model->addStaticRef("MyVar", "MyStaticVar");
   ASSERT_NO_THROW(model->findMacroStaticRef("MyMacroStaticRef"));
   ASSERT_NO_THROW(model->findStaticRef("MyVar_MyStaticVar"));
   for (staticRef_iterator it = model->beginStaticRef(), itEnd = model->endStaticRef(); it != itEnd; ++it) {
-    boost::shared_ptr<StaticRef> ref = *it;
+    const std::unique_ptr<StaticRef>& ref = *it;
     ASSERT_EQ(ref->getModelVar(), "MyVar");
     ASSERT_EQ(ref->getStaticVar(), "MyStaticVar");
   }
   for (macroStaticRef_iterator it = model->beginMacroStaticRef(), itEnd = model->endMacroStaticRef(); it != itEnd; ++it) {
-    boost::shared_ptr<MacroStaticRef> ref = *it;
+    std::shared_ptr<MacroStaticRef> ref = *it;
     ASSERT_EQ(ref->getId(), "MyMacroStaticRef");
   }
 }

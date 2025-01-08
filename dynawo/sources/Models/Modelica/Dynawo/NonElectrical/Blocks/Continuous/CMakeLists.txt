@@ -39,6 +39,7 @@ set(MODEL_FILES
   SecondOrder.mo
   SqrtNoEvent.mo
   TransferFunction.mo
+  TransferFunctionBypass.mo
   VarLimPIDFreeze.mo
   Washout.mo
   WeightedDifference.mo

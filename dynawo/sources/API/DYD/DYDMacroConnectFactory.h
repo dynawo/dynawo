@@ -22,7 +22,8 @@
 
 #include "DYDMacroConnect.h"
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
+
 
 namespace dynamicdata {
 
@@ -41,9 +42,9 @@ class MacroConnectFactory {
    * @param[in] id : id for new MacroConnect instance
    * @param[in] model1 : id of the model 1 to connect
    * @param[in] model2 : id of the model 2 to connect
-   * @returns Shared pointer to a new @p MacroConnect with given ID
+   * @returns Unique pointer to a new @p MacroConnect with given ID
    */
-  static boost::shared_ptr<MacroConnect> newMacroConnect(const std::string& id, const std::string& model1, const std::string& model2);
+  static std::unique_ptr<MacroConnect> newMacroConnect(const std::string& id, const std::string& model1, const std::string& model2);
 };
 
 }  // namespace dynamicdata

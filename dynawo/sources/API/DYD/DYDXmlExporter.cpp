@@ -17,7 +17,6 @@
  *
  */
 #include <fstream>
-#include <sstream>
 
 #include <xml/sax/formatter/AttributeList.h>
 #include <xml/sax/formatter/Formatter.h>
@@ -43,9 +42,7 @@
 using std::fstream;
 using std::map;
 using std::string;
-using std::vector;
 
-using boost::dynamic_pointer_cast;
 using boost::shared_ptr;
 
 using xml::sax::formatter::AttributeList;
@@ -110,25 +107,25 @@ void XmlExporter::exportToStream(const boost::shared_ptr<DynamicModelsCollection
 }
 
 void
-XmlExporter::writeModel(const shared_ptr<Model>& model, Formatter& formatter) const {
+XmlExporter::writeModel(const std::shared_ptr<Model>& model, Formatter& formatter) const {
   switch (model->getType()) {
     case Model::BLACK_BOX_MODEL:
-      writeBlackBoxModel(dynamic_pointer_cast<BlackBoxModel>(model), formatter);
+      writeBlackBoxModel(std::dynamic_pointer_cast<BlackBoxModel>(model), formatter);
       break;
     case Model::MODELICA_MODEL:
-      writeModelicaModel(dynamic_pointer_cast<ModelicaModel>(model), formatter);
+      writeModelicaModel(std::dynamic_pointer_cast<ModelicaModel>(model), formatter);
       break;
     case Model::MODEL_TEMPLATE:
-      writeModelTemplate(dynamic_pointer_cast<ModelTemplate>(model), formatter);
+      writeModelTemplate(std::dynamic_pointer_cast<ModelTemplate>(model), formatter);
       break;
     case Model::MODEL_TEMPLATE_EXPANSION:
-      writeModelTemplateExpansion(dynamic_pointer_cast<ModelTemplateExpansion>(model), formatter);
+      writeModelTemplateExpansion(std::dynamic_pointer_cast<ModelTemplateExpansion>(model), formatter);
       break;
   }
 }
 
 void
-XmlExporter::writeBlackBoxModel(const shared_ptr<BlackBoxModel>& bbm, Formatter& formatter) const {
+XmlExporter::writeBlackBoxModel(const std::shared_ptr<BlackBoxModel>& bbm, Formatter& formatter) const {
   AttributeList attrs;
   attrs.add("id", bbm->getId());
 
@@ -158,7 +155,7 @@ XmlExporter::writeBlackBoxModel(const shared_ptr<BlackBoxModel>& bbm, Formatter&
 }
 
 void
-XmlExporter::writeModelTemplateExpansion(const shared_ptr<ModelTemplateExpansion>& mte, Formatter& formatter) const {
+XmlExporter::writeModelTemplateExpansion(const std::shared_ptr<ModelTemplateExpansion>& mte, Formatter& formatter) const {
   AttributeList attrs;
   attrs.add("id", mte->getId());
   attrs.add("templateId", mte->getTemplateId());
@@ -188,7 +185,7 @@ XmlExporter::writeModelTemplateExpansion(const shared_ptr<ModelTemplateExpansion
 }
 
 void
-XmlExporter::writeUnitDynamicModel(const shared_ptr<UnitDynamicModel>& mm, Formatter& formatter) const {
+XmlExporter::writeUnitDynamicModel(const std::shared_ptr<UnitDynamicModel>& mm, Formatter& formatter) const {
   AttributeList attrs;
   attrs.add("id", mm->getId());
   attrs.add("name", mm->getDynamicModelName());
@@ -209,7 +206,7 @@ XmlExporter::writeUnitDynamicModel(const shared_ptr<UnitDynamicModel>& mm, Forma
 }
 
 void
-XmlExporter::writeModelicaModel(const shared_ptr<ModelicaModel>& cm, Formatter& formatter) const {
+XmlExporter::writeModelicaModel(const std::shared_ptr<ModelicaModel>& cm, Formatter& formatter) const {
   AttributeList attrs;
   attrs.add("id", cm->getId());
   if (cm->getStaticId() != "")
@@ -220,25 +217,25 @@ XmlExporter::writeModelicaModel(const shared_ptr<ModelicaModel>& cm, Formatter& 
     attrs.add("generateCalculatedVariables", cm->getGenerateCalculatedVariables());
 
   formatter.startElement("dyn", "modelicaModel", attrs);
-  for (map<std::string, shared_ptr<UnitDynamicModel> >::const_iterator itModel = cm->getUnitDynamicModels().begin();
+  for (map<std::string, std::shared_ptr<UnitDynamicModel> >::const_iterator itModel = cm->getUnitDynamicModels().begin();
           itModel != cm->getUnitDynamicModels().end();
           ++itModel) {
     writeUnitDynamicModel(itModel->second, formatter);
   }
 
-  for (map<std::string, shared_ptr<MacroConnect> >::const_iterator itConnect = cm->getMacroConnects().begin();
+  for (map<std::string, std::shared_ptr<MacroConnect> >::const_iterator itConnect = cm->getMacroConnects().begin();
           itConnect != cm->getMacroConnects().end();
           ++itConnect) {
     writeMacroConnect(itConnect->second, formatter);
   }
 
-  for (map<std::string, shared_ptr<Connector> >::const_iterator itConnector = cm->getConnectors().begin();
+  for (map<std::string, std::shared_ptr<Connector> >::const_iterator itConnector = cm->getConnectors().begin();
           itConnector != cm->getConnectors().end();
           ++itConnector) {
     writeConnector(itConnector->second, formatter);
   }
 
-  for (map<std::string, shared_ptr<Connector> >::const_iterator itConnector = cm->getInitConnectors().begin();
+  for (map<std::string, std::shared_ptr<Connector> >::const_iterator itConnector = cm->getInitConnectors().begin();
           itConnector != cm->getInitConnectors().end();
           ++itConnector) {
     writeInitConnector(itConnector->second, formatter);
@@ -260,7 +257,7 @@ XmlExporter::writeModelicaModel(const shared_ptr<ModelicaModel>& cm, Formatter& 
 }
 
 void
-XmlExporter::writeModelTemplate(const shared_ptr<ModelTemplate>& mt, Formatter& formatter) const {
+XmlExporter::writeModelTemplate(const std::shared_ptr<ModelTemplate>& mt, Formatter& formatter) const {
   AttributeList attrs;
   attrs.add("id", mt->getId());
   if (!mt->getUseAliasing())
@@ -269,25 +266,25 @@ XmlExporter::writeModelTemplate(const shared_ptr<ModelTemplate>& mt, Formatter& 
     attrs.add("generateCalculatedVariables", mt->getGenerateCalculatedVariables());
 
   formatter.startElement("dyn", "modelTemplate", attrs);
-  for (map<std::string, shared_ptr<UnitDynamicModel> >::const_iterator itModel = mt->getUnitDynamicModels().begin();
+  for (map<std::string, std::shared_ptr<UnitDynamicModel> >::const_iterator itModel = mt->getUnitDynamicModels().begin();
           itModel != mt->getUnitDynamicModels().end();
           ++itModel) {
     writeUnitDynamicModel(itModel->second, formatter);
   }
 
-  for (map<std::string, shared_ptr<MacroConnect> >::const_iterator itConnect = mt->getMacroConnects().begin();
+  for (map<std::string, std::shared_ptr<MacroConnect> >::const_iterator itConnect = mt->getMacroConnects().begin();
           itConnect != mt->getMacroConnects().end();
           ++itConnect) {
     writeMacroConnect(itConnect->second, formatter);
   }
 
-  for (map<std::string, shared_ptr<Connector> >::const_iterator itConnector = mt->getConnectors().begin();
+  for (map<std::string, std::shared_ptr<Connector> >::const_iterator itConnector = mt->getConnectors().begin();
           itConnector != mt->getConnectors().end();
           ++itConnector) {
     writeConnector(itConnector->second, formatter);
   }
 
-  for (map<std::string, shared_ptr<Connector> >::const_iterator itConnector = mt->getInitConnectors().begin();
+  for (map<std::string, std::shared_ptr<Connector> >::const_iterator itConnector = mt->getInitConnectors().begin();
           itConnector != mt->getInitConnectors().end();
           ++itConnector) {
     writeInitConnector(itConnector->second, formatter);
@@ -309,7 +306,7 @@ XmlExporter::writeModelTemplate(const shared_ptr<ModelTemplate>& mt, Formatter& 
 }
 
 void
-XmlExporter::writeInitConnector(const shared_ptr<Connector>& ic, Formatter& formatter) const {
+XmlExporter::writeInitConnector(const std::shared_ptr<Connector>& ic, Formatter& formatter) const {
   AttributeList attrs;
   attrs.add("id1", ic->getFirstModelId());
   attrs.add("var1", ic->getFirstVariableId());
@@ -320,7 +317,7 @@ XmlExporter::writeInitConnector(const shared_ptr<Connector>& ic, Formatter& form
 }
 
 void
-XmlExporter::writeMacroConnect(const shared_ptr<MacroConnect>& mc, Formatter& formatter) const {
+XmlExporter::writeMacroConnect(const std::shared_ptr<MacroConnect>& mc, Formatter& formatter) const {
   AttributeList attrs;
   attrs.add("connector", mc->getConnector());
   attrs.add("id1", mc->getFirstModelId());
@@ -338,7 +335,7 @@ XmlExporter::writeMacroConnect(const shared_ptr<MacroConnect>& mc, Formatter& fo
 }
 
 void
-XmlExporter::writeConnector(const boost::shared_ptr<Connector>& dc, Formatter& formatter) const {
+XmlExporter::writeConnector(const std::shared_ptr<Connector>& dc, Formatter& formatter) const {
   AttributeList attrs;
   attrs.add("id1", dc->getFirstModelId());
   attrs.add("var1", dc->getFirstVariableId());
@@ -349,7 +346,7 @@ XmlExporter::writeConnector(const boost::shared_ptr<Connector>& dc, Formatter& f
 }
 
 void
-XmlExporter::writeStaticRef(const boost::shared_ptr<StaticRef>& sr, Formatter& formatter) const {
+XmlExporter::writeStaticRef(const std::unique_ptr<StaticRef>& sr, Formatter& formatter) const {
   AttributeList attrs;
   attrs.add("var", sr->getModelVar());
   attrs.add("staticVar", sr->getStaticVar());
@@ -358,7 +355,7 @@ XmlExporter::writeStaticRef(const boost::shared_ptr<StaticRef>& sr, Formatter& f
 }
 
 void
-XmlExporter::writeMacroStaticRef(const shared_ptr<MacroStaticRef>& macroStaticRef, Formatter& formatter) const {
+XmlExporter::writeMacroStaticRef(const std::shared_ptr<MacroStaticRef>& macroStaticRef, Formatter& formatter) const {
   AttributeList attrs;
   attrs.add("id", macroStaticRef->getId());
   formatter.startElement("dyn", "macroStaticRef", attrs);
@@ -366,7 +363,7 @@ XmlExporter::writeMacroStaticRef(const shared_ptr<MacroStaticRef>& macroStaticRe
 }
 
 void
-XmlExporter::writeMacroStaticReference(const boost::shared_ptr<MacroStaticReference>& macroStaticReference, Formatter& formatter) const {
+XmlExporter::writeMacroStaticReference(const std::shared_ptr<MacroStaticReference>& macroStaticReference, Formatter& formatter) const {
   AttributeList attrs;
   attrs.add("id", macroStaticReference->getId());
   formatter.startElement("dyn", "macroStaticReference", attrs);
@@ -379,16 +376,16 @@ XmlExporter::writeMacroStaticReference(const boost::shared_ptr<MacroStaticRefere
 }
 
 void
-XmlExporter::writeMacroConnector(const boost::shared_ptr<MacroConnector>& mc, Formatter& formatter) const {
+XmlExporter::writeMacroConnector(const std::shared_ptr<MacroConnector>& mc, Formatter& formatter) const {
   AttributeList attrs;
   attrs.add("id", mc->getId());
   formatter.startElement("dyn", "macroConnector", attrs);
-  for (map<string, shared_ptr<MacroConnection> >::const_iterator itConnector = mc->getConnectors().begin();
+  for (map<string, std::unique_ptr<MacroConnection> >::const_iterator itConnector = mc->getConnectors().begin();
           itConnector != mc->getConnectors().end();
           ++itConnector) {
     writeMacroConnection(itConnector->second, formatter);
   }
-  for (map<string, shared_ptr<MacroConnection> >::const_iterator itConnector = mc->getInitConnectors().begin();
+  for (map<string, std::unique_ptr<MacroConnection> >::const_iterator itConnector = mc->getInitConnectors().begin();
           itConnector != mc->getInitConnectors().end();
           ++itConnector) {
     writeInitMacroConnection(itConnector->second, formatter);
@@ -398,7 +395,7 @@ XmlExporter::writeMacroConnector(const boost::shared_ptr<MacroConnector>& mc, Fo
 }
 
 void
-XmlExporter::writeMacroConnection(const boost::shared_ptr<MacroConnection>& mc, Formatter& formatter) const {
+XmlExporter::writeMacroConnection(const std::unique_ptr<MacroConnection>& mc, Formatter& formatter) const {
   AttributeList attrs;
   attrs.add("var1", mc->getFirstVariableId());
   attrs.add("var2", mc->getSecondVariableId());
@@ -407,7 +404,7 @@ XmlExporter::writeMacroConnection(const boost::shared_ptr<MacroConnection>& mc, 
 }
 
 void
-XmlExporter::writeInitMacroConnection(const boost::shared_ptr<MacroConnection>& mc, Formatter& formatter) const {
+XmlExporter::writeInitMacroConnection(const std::unique_ptr<MacroConnection>& mc, Formatter& formatter) const {
   AttributeList attrs;
   attrs.add("var1", mc->getFirstVariableId());
   attrs.add("var2", mc->getSecondVariableId());

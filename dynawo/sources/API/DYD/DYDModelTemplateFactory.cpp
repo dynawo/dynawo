@@ -20,15 +20,12 @@
 #include "DYDModelTemplateFactory.h"
 #include "DYDModelTemplate.h"
 
-using std::string;
-
-using boost::shared_ptr;
 
 namespace dynamicdata {
 
-shared_ptr<ModelTemplate>
+std::unique_ptr<ModelTemplate>
 ModelTemplateFactory::newModel(const std::string& modelId) {
-  return shared_ptr<ModelTemplate>(new ModelTemplate(modelId));
+  return std::unique_ptr<ModelTemplate>(new ModelTemplate(modelId));
 }
 
 }  // namespace dynamicdata
