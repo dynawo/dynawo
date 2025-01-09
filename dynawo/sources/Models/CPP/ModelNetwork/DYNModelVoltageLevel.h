@@ -75,6 +75,12 @@ class ModelVoltageLevel : public NetworkComponent {
    */
   void addComponent(const std::shared_ptr<NetworkComponent>& component);
 
+ /**
+   * @brief add a new component instance to the voltage level model
+   * @param component instance to add
+   */
+  void addComponentEvalG(const std::shared_ptr<NetworkComponent>& component);
+
   /**
    * @brief add a new bus component instance to the voltage level model
    * @param bus component instance to add
@@ -364,6 +370,7 @@ class ModelVoltageLevel : public NetworkComponent {
   std::unordered_map<unsigned, std::pair<unsigned, std::vector<std::string> > > closestBBS_;  ///< node id -> closest bbs + shortest path
   VoltageLevelInterface::VoltageLevelTopologyKind_t topologyKind_;  ///< voltage level topology (bus breaker or node breaker)
   std::vector<std::shared_ptr<NetworkComponent> > components_;  ///< all components in a voltage level
+  std::vector<std::shared_ptr<NetworkComponent> > componentsEvalG_;  ///< all components in a voltage level
   std::map<int, std::shared_ptr<ModelBus> > busesByIndex_;  ///< map of voltage level buses with their index
   std::vector<std::shared_ptr<ModelBus> > busesWithBBS_;  ///< vector of buses that contain a bus bar section
   std::vector<std::shared_ptr<ModelSwitch> > switches_;  ///< all switch components in a voltage level

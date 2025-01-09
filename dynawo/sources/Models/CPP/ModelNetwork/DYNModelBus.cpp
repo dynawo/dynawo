@@ -25,6 +25,9 @@
 
 #include "PARParametersSet.h"
 #include "DYNModelBus.h"
+
+#include <DYNTimer.h>
+
 #include "DYNModelSwitch.h"
 #include "DYNModelConstants.h"
 #include "DYNModelNetwork.h"
@@ -368,6 +371,9 @@ ModelBus::addNeighbor(const std::shared_ptr<ModelBus>& bus) {
 
 void
 ModelBus::evalDerivatives(const double /*cj*/) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer3("ModelNetwork::ModelBus::evalDerivatives");
+#endif
   if (!network_->isInitModel() && (hasConnection_ || hasShortCircuitCapabilities_)) {
     derivatives_->addDerivative(IR_DERIVATIVE, irYNum_, -1);
     derivatives_->addDerivative(II_DERIVATIVE, iiYNum_, -1);
@@ -773,6 +779,9 @@ ModelBus::evalZ(const double /*t*/) {
 
 void
 ModelBus::evalG(const double /*t*/) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer("ModelNetwork::ModelBus::evalG");
+#endif
   if (!network_->hasConstraints()) return;
   const double upu = getCurrentU(ModelBus::UPuType_);
   g_[0] = (upu - uMax_ > 0) ? ROOT_UP : ROOT_DOWN;  // U > Umax
@@ -894,6 +903,9 @@ ModelBus::evalCalculatedVarI(unsigned numCalculatedVar) const {
 
 void
 ModelBus::evalJt(const double /*cj*/, const int rowOffset, SparseMatrix& jt) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer("ModelNetwork::ModelBus::evalJt");
+#endif
   if (getSwitchOff()) {
     jt.changeCol();
     jt.addTerm(urYNum() + rowOffset, 1.0);
@@ -907,7 +919,7 @@ ModelBus::evalJt(const double /*cj*/, const int rowOffset, SparseMatrix& jt) {
     // ----------------------------------
     // Switching column
     jt.changeCol();
-    const map<int, double>& irDerivativesValues = derivatives_->getValues(IR_DERIVATIVE);
+    const auto& irDerivativesValues = derivatives_->getValues(IR_DERIVATIVE);
     for (const auto& irDerivativesValue : irDerivativesValues) {
       jt.addTerm(irDerivativesValue.first + rowOffset, irDerivativesValue.second);
     }
@@ -916,7 +928,7 @@ ModelBus::evalJt(const double /*cj*/, const int rowOffset, SparseMatrix& jt) {
     // ---------------------------------------
     // Switching column
     jt.changeCol();
-    const map<int, double>& iiDerivativesValues = derivatives_->getValues(II_DERIVATIVE);
+    const auto& iiDerivativesValues = derivatives_->getValues(II_DERIVATIVE);
     for (const auto& iiDerivativesValue : iiDerivativesValues) {
       jt.addTerm(iiDerivativesValue.first + rowOffset, iiDerivativesValue.second);
     }
@@ -928,13 +940,13 @@ ModelBus::evalJtPrim(const int rowOffset, SparseMatrix& jtPrim) {
   // y' in network equations - differential voltages
   if (hasDifferentialVoltages_ && !getSwitchOff() && !derivativesPrim_->empty()) {
     jtPrim.changeCol();
-    const map<int, double>& irDerivativesValues = derivativesPrim_->getValues(IR_DERIVATIVE);
+    const auto& irDerivativesValues = derivativesPrim_->getValues(IR_DERIVATIVE);
     for (const auto& irDerivativesValue : irDerivativesValues) {
       jtPrim.addTerm(irDerivativesValue.first + rowOffset, irDerivativesValue.second);
     }
 
     jtPrim.changeCol();
-    const map<int, double>& iiDerivativesValues = derivativesPrim_->getValues(II_DERIVATIVE);
+    const auto& iiDerivativesValues = derivativesPrim_->getValues(II_DERIVATIVE);
     for (const auto& iiDerivativesValue : iiDerivativesValues) {
       jtPrim.addTerm(iiDerivativesValue.first + rowOffset, iiDerivativesValue.second);
     }

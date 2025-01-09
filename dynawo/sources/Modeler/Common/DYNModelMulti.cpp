@@ -339,14 +339,14 @@ ModelMulti::evalF(const double t, const double* y, const double* yp, double* f) 
 #endif
   copyContinuousVariables(y, yp);
 
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer* timer2 = new Timer("ModelMulti::evalF_subModels");
 #endif
   for (const auto& subModel : subModels_) {
     if (subModel->sizeF() != 0)
       subModel->evalFSub(t);
   }
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   delete timer2;
 #endif
 
@@ -357,7 +357,7 @@ ModelMulti::evalF(const double t, const double* y, const double* yp, double* f) 
 
 void
 ModelMulti::evalFDiff(const double t, const double* y, const double* yp, double* f) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("ModelMulti::evalFDiff");
 #endif
   copyContinuousVariables(y, yp);
@@ -370,7 +370,7 @@ ModelMulti::evalFDiff(const double t, const double* y, const double* yp, double*
 
 void
 ModelMulti::evalFMode(const double t, const double* y, const double* yp, double* f) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("ModelMulti::evalFMode");
 #endif
   copyContinuousVariables(y, yp);
@@ -396,9 +396,7 @@ ModelMulti::evalFMode(const double t, const double* y, const double* yp, double*
 
 void
 ModelMulti::evalG(const double t, vector<state_g>& g) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalG");
-#endif
   for (const auto& subModel : subModels_)
     subModel->evalGSub(t);
 
@@ -407,9 +405,7 @@ ModelMulti::evalG(const double t, vector<state_g>& g) {
 
 void
 ModelMulti::evalJt(const double t, const double cj, SparseMatrix& jt) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalJt");
-#endif
   int rowOffset = 0;
   for (const auto& subModel : subModels_) {
     subModel->evalJtSub(t, cj, rowOffset, jt);
@@ -429,6 +425,7 @@ ModelMulti::evalJt(const double t, const double cj, SparseMatrix& jt) {
 
 void
 ModelMulti::evalJtPrim(const double t, const double cj, SparseMatrix& jtPrim) {
+  Timer timer("ModelMulti::evalJtPrim");
   int rowOffset = 0;
   for (const auto& subModel : subModels_) {
     subModel->evalJtPrimSub(t, cj, rowOffset, jtPrim);
@@ -445,9 +442,7 @@ ModelMulti::evalJtPrim(const double t, const double cj, SparseMatrix& jtPrim) {
 
 void
 ModelMulti::evalZ(const double t) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalZ");
-#endif
   if (sizeZ() == 0) return;
   // calculate Z by model
   for (const auto& subModel : subModels_)
@@ -512,9 +507,7 @@ ModelMulti::propagateZModif() {
 
 void
 ModelMulti::evalMode(const double t) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalMode");
-#endif
   /* modeChange_ has to be set at each evalMode call
    *  -> it indicates if there has been a mode change for this call
    * modeChangeType_ is the worst mode change for a complete time step (possibly several evalMode calls)
@@ -581,9 +574,7 @@ ModelMulti::checkParametersCoherence() const {
 
 void
 ModelMulti::checkDataCoherence(const double t) {
-#if defined(_DEBUG_)
-  Timer timer("ModelMulti::checkDataCoherence");
-#endif
+  // Timer timer("ModelMulti::checkDataCoherence");
 
   for (const auto& subModel : subModels_)
     subModel->checkDataCoherenceSub(t);

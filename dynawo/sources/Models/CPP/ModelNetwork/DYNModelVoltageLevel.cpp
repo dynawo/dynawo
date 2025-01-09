@@ -22,6 +22,9 @@
  */
 
 #include "DYNModelVoltageLevel.h"
+
+#include <DYNTimer.h>
+
 #include "DYNModelBus.h"
 #include "DYNModelSwitch.h"
 #include "DYNModelLoad.h"
@@ -74,9 +77,15 @@ ModelVoltageLevel::addComponent(const std::shared_ptr<NetworkComponent>& compone
 }
 
 void
+ModelVoltageLevel::addComponentEvalG(const std::shared_ptr<NetworkComponent>& component) {
+  componentsEvalG_.push_back(component);
+}
+
+void
 ModelVoltageLevel::addBus(const std::shared_ptr<ModelBus>& bus) {
   busesByIndex_.insert(make_pair(bus->getBusIndex(), bus));
   components_.push_back(bus);
+  componentsEvalG_.push_back(bus);
   if (bus->hasBBS())
     busesWithBBS_.push_back(bus);
 }
@@ -436,6 +445,9 @@ ModelVoltageLevel::evalDynamicYType() {
 
 void
 ModelVoltageLevel::evalG(const double t) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer("ModelNetwork::ModelVoltageLevel::evalG");
+#endif
   for (const auto& component : components_)
     component->evalG(t);
 }

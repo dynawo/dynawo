@@ -25,6 +25,8 @@
 
 #include "DYNModelLine.h"
 
+#include <DYNTimer.h>
+
 #include "DYNCommon.h"
 #include "DYNCommonModeler.h"
 #include "DYNModelConstants.h"
@@ -136,7 +138,7 @@ modelType_("Line") {
   currentLimitsDesactivate_ = 0.;
 
   // current limits side 1
-  const vector<std::unique_ptr<CurrentLimitInterface> >& cLimit1 = line->getCurrentLimitInterfaces1();
+  /*const vector<std::unique_ptr<CurrentLimitInterface> >& cLimit1 = line->getCurrentLimitInterfaces1();
   if (cLimit1.size() > 0) {
     currentLimits1_.reset(new ModelCurrentLimits());
     currentLimits1_->setSide(ModelCurrentLimits::SIDE_1);
@@ -152,10 +154,10 @@ modelType_("Line") {
         currentLimits1_->addLimit(limit, cLimit1[i]->getAcceptableDuration());
       }
     }
-  }
+  }*/
 
   // current limits side 2
-  const vector<std::unique_ptr<CurrentLimitInterface> >& cLimit2 = line->getCurrentLimitInterfaces2();
+  /*const vector<std::unique_ptr<CurrentLimitInterface> >& cLimit2 = line->getCurrentLimitInterfaces2();
   if (cLimit2.size() > 0) {
     currentLimits2_.reset(new ModelCurrentLimits());
     currentLimits2_->setSide(ModelCurrentLimits::SIDE_2);
@@ -171,7 +173,7 @@ modelType_("Line") {
         currentLimits2_->addLimit(limit, cLimit2[i]->getAcceptableDuration());
       }
     }
-  }
+  }*/
 
   ir01_ = 0;
   ii01_ = 0;
@@ -1062,6 +1064,9 @@ ModelLine::collectSilentZ(BitMask* silentZTable) {
 
 void
 ModelLine::evalG(const double t) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer("ModelNetwork::ModelLine::evalG");
+#endif
   if (currentLimits1_ || currentLimits2_) {
     int offset = 0;
     const double ur1Val = ur1();

@@ -27,6 +27,9 @@
 #include <cmath>
 
 #include "DYNSolverKINAlgRestoration.h"
+
+#include <DYNTimer.h>
+
 #include "DYNModel.h"
 #include "DYNSolverCommon.h"
 #include "DYNSparseMatrix.h"
@@ -237,6 +240,7 @@ SolverKINAlgRestoration::updateKINSOLSettings(const double fnormtol, const doubl
 
 int
 SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
+  Timer timer("SolverKINAlgRestoration::evalF_KIN");
   SolverKINAlgRestoration* solver = reinterpret_cast<SolverKINAlgRestoration*>(data);
   Model& model = solver->getModel();
 
@@ -318,6 +322,7 @@ SolverKINAlgRestoration::checkJacobian(const SparseMatrix& smj, Model& model) {
 int
 SolverKINAlgRestoration::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
          SUNMatrix JJ, void* data, N_Vector /*tmp1*/, N_Vector /*tmp2*/) {
+  Timer timer("SolverKINAlgRestoration::evalJ_KIN");
   SolverKINAlgRestoration* solver = reinterpret_cast<SolverKINAlgRestoration*> (data);
   Model& model = solver->getModel();
   SparseMatrix& smj = solver->getMatrix();
@@ -344,6 +349,7 @@ SolverKINAlgRestoration::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
 int
 SolverKINAlgRestoration::evalJPrim_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
         SUNMatrix JJ, void* data, N_Vector /*tmp1*/, N_Vector /*tmp2*/) {
+  Timer timer("SolverKINAlgRestoration::evalJPrim_KIN");
   SolverKINAlgRestoration* solver = reinterpret_cast<SolverKINAlgRestoration*> (data);
   Model& model = solver->getModel();
   SparseMatrix& smj = solver->getMatrix();

@@ -23,6 +23,9 @@
 #include "PARParametersSet.h"
 
 #include "DYNModelLoad.h"
+
+#include <DYNTimer.h>
+
 #include "DYNCommon.h"
 #include "DYNNumericalUtils.h"
 #include "DYNMacrosMessage.h"
@@ -272,6 +275,9 @@ ModelLoad::init(int& yNum) {
 
 void
 ModelLoad::evalJt(const double cj, const int rowOffset, SparseMatrix& jt) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer("ModelNetwork::ModelLoad::evalJt");
+#endif
   if (network_->isInitModel())
     return;
 

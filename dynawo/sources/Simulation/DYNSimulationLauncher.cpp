@@ -69,9 +69,7 @@ static void print(const T& output, const DYN::SeverityLevel level = DYN::INFO) {
 }
 
 void launchSimu(const std::string& jobsFileName) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   DYN::Timer timer("Main::LaunchSimu");
-#endif
 
   job::XmlImporter importer;
   const std::shared_ptr<job::JobsCollection>& jobsCollection = importer.importFromFile(jobsFileName);

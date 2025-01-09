@@ -364,6 +364,14 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
     return isInitModel_ ?  initComponents_ : components_;
   }
 
+ /**
+   * @brief get the network components depending on the model used (init or not)
+   * @return the vector of network component modeled
+   */
+  inline const std::vector<std::shared_ptr<NetworkComponent> >& getEvalGComponents() const {
+    return isInitModel_ ?  initEvalGComponents_ : evalGComponents_;
+  }
+
   /**
    * @brief get the voltage levels depending on the model used (init or not)
    * @return the vector of voltage levels modeled
@@ -409,6 +417,8 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
   std::vector<std::shared_ptr<ModelVoltageLevel> > vLevelComponents_;  ///< all voltage level components
   std::vector<std::shared_ptr<ModelVoltageLevel> > vLevelInitComponents_;  ///< all voltage level components  (used for init model)
   std::vector<std::shared_ptr<NetworkComponent> > components_;  ///< all network components without dynamic Model
+  std::vector<std::shared_ptr<NetworkComponent> > evalGComponents_;  ///< all network components without dynamic Model
+  std::vector<std::shared_ptr<NetworkComponent> > initEvalGComponents_;  ///< all network components without dynamic Model
   std::vector<std::shared_ptr<NetworkComponent> > initComponents_;  ///< all network components even components with dynamic model
   std::vector<int> componentIndexByCalculatedVar_;  ///< index of component for each calculated variable
 };

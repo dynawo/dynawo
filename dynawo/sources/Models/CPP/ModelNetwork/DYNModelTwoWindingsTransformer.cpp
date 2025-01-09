@@ -32,6 +32,7 @@
 
 #include "DYNModelTwoWindingsTransformer.h"
 
+#include <DYNTimer.h>
 #include <iomanip>
 
 #include "DYNCommon.h"
@@ -235,7 +236,7 @@ modelType_("TwoWindingsTransformer") {
   factorPuToASide2_ = 1000. * SNREF / (sqrt(3.) * vNom2_);
 
   // current limits side 1
-  const vector<std::unique_ptr<CurrentLimitInterface> >& cLimit1 = tfo->getCurrentLimitInterfaces1();
+  /*const vector<std::unique_ptr<CurrentLimitInterface> >& cLimit1 = tfo->getCurrentLimitInterfaces1();
   if (!cLimit1.empty()) {
     currentLimits1_.reset(new ModelCurrentLimits());
     currentLimits1_->setSide(ModelCurrentLimits::SIDE_1);
@@ -251,10 +252,10 @@ modelType_("TwoWindingsTransformer") {
         currentLimits1_->addLimit(limit, cLimit1[i]->getAcceptableDuration());
       }
     }
-  }
+  }*/
 
   // current limits side 2
-  const vector<std::unique_ptr<CurrentLimitInterface> >& cLimit2 = tfo->getCurrentLimitInterfaces2();
+  /*const vector<std::unique_ptr<CurrentLimitInterface> >& cLimit2 = tfo->getCurrentLimitInterfaces2();
   if (!cLimit2.empty()) {
     currentLimits2_.reset(new ModelCurrentLimits());
     currentLimits2_->setSide(ModelCurrentLimits::SIDE_2);
@@ -270,7 +271,7 @@ modelType_("TwoWindingsTransformer") {
         currentLimits2_->addLimit(limit, cLimit2[i]->getAcceptableDuration());
       }
     }
-  }
+  }*/
 
   ir01_ = 0;
   ii01_ = 0;
@@ -1433,6 +1434,9 @@ ModelTwoWindingsTransformer::P2(const double ur1, const double ui1, const double
 
 void
 ModelTwoWindingsTransformer::evalG(const double t) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer("ModelNetwork::ModelTwoWindingsTransformer::evalG");
+#endif
   int offset = 0;
   double ur1Val = 0.;
   double ui1Val = 0.;

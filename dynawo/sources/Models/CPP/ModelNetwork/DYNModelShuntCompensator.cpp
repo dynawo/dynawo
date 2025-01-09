@@ -20,6 +20,8 @@
 
 #include "DYNModelShuntCompensator.h"
 
+#include <DYNTimer.h>
+
 #include "PARParametersSet.h"
 
 #include "DYNModelBus.h"
@@ -201,6 +203,9 @@ ModelShuntCompensator::defineElements(std::vector<Element>& elements, std::map<s
 
 void
 ModelShuntCompensator::evalG(const double t) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer("ModelNetwork::ModelShuntCompensator::evalG");
+#endif
   // Time out reached for availability
   g_[0] = (doubleEquals(tLastOpening_, VALDEF) || t >= tLastOpening_ + noReclosingDelay_) ? ROOT_UP : ROOT_DOWN;
 }
