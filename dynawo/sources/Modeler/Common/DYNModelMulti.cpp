@@ -405,7 +405,7 @@ ModelMulti::evalG(const double t, vector<state_g>& g) {
 
 void
 ModelMulti::evalJt(const double t, const double cj, SparseMatrix& jt) {
-  Timer timer("ModelMulti::evalJt");
+  // Timer timer("ModelMulti::evalJt");
   int rowOffset = 0;
   for (const auto& subModel : subModels_) {
     subModel->evalJtSub(t, cj, rowOffset, jt);
@@ -425,7 +425,7 @@ ModelMulti::evalJt(const double t, const double cj, SparseMatrix& jt) {
 
 void
 ModelMulti::evalJtPrim(const double t, const double cj, SparseMatrix& jtPrim) {
-  Timer timer("ModelMulti::evalJtPrim");
+  // Timer timer("ModelMulti::evalJtPrim");
   int rowOffset = 0;
   for (const auto& subModel : subModels_) {
     subModel->evalJtPrimSub(t, cj, rowOffset, jtPrim);
