@@ -25,6 +25,9 @@
 
 #include "PARParametersSet.h"
 #include "DYNModelBus.h"
+
+#include <DYNTimer.h>
+
 #include "DYNModelSwitch.h"
 #include "DYNModelConstants.h"
 #include "DYNModelNetwork.h"
@@ -56,33 +59,32 @@ ModelBusContainer::add(const std::shared_ptr<ModelBus>& model) {
 
 void
 ModelBusContainer::resetCurrentUStatus() {
-  for (vector<std::shared_ptr<ModelBus> >::const_iterator itB = models_.begin(); itB != models_.end(); ++itB)
-    (*itB)->resetCurrentUStatus();
+  for (auto& bus : models_)
+    bus->resetCurrentUStatus();
 }
 
 void
 ModelBusContainer::evalF(propertyF_t type) {
-  for (vector<std::shared_ptr<ModelBus> >::const_iterator itB = models_.begin(); itB != models_.end(); ++itB)
-    (*itB)->evalF(type);
+  for (auto& bus : models_)
+    bus->evalF(type);
 }
 
 void
 ModelBusContainer::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) {
-  for (vector<std::shared_ptr<ModelBus> >::const_iterator itB = models_.begin(); itB != models_.end(); ++itB)
-    (*itB)->evalJt(jt, cj, rowOffset);
+  for (auto& bus : models_)
+    bus->evalJt(jt, cj, rowOffset);
 }
 
 void
 ModelBusContainer::evalJtPrim(SparseMatrix& jt, const int& rowOffset) {
-  for (vector<std::shared_ptr<ModelBus> >::const_iterator itB = models_.begin(); itB != models_.end(); ++itB)
-    (*itB)->evalJtPrim(jt, rowOffset);
+  for (auto& bus : models_)
+    bus->evalJtPrim(jt, rowOffset);
 }
 
 void
 ModelBusContainer::resetSubNetwork() {
   subNetworks_.clear();
-  for (vector<std::shared_ptr<ModelBus> >::iterator itModelBus = models_.begin(); itModelBus != models_.end(); ++itModelBus) {
-    std::shared_ptr<ModelBus> bus = *itModelBus;
+  for (auto& bus : models_) {
     bus->clearNeighbors();
     bus->clearNumSubNetwork();
   }
@@ -90,8 +92,8 @@ ModelBusContainer::resetSubNetwork() {
 
 void
 ModelBusContainer::resetNodeInjections() {
-  for (vector<std::shared_ptr<ModelBus> >::iterator itModelBus = models_.begin(); itModelBus != models_.end(); ++itModelBus) {
-    (*itModelBus)->resetNodeInjection();
+  for (auto& bus : models_) {
+    bus->resetNodeInjection();
   }
 }
 
@@ -101,8 +103,7 @@ ModelBusContainer::exploreNeighbors(double t) {
   shared_ptr<SubNetwork> subNetwork(new SubNetwork(numSubNetwork));
   subNetworks_.push_back(subNetwork);
 
-  for (vector<std::shared_ptr<ModelBus> >::iterator itModelBus = models_.begin(); itModelBus != models_.end(); ++itModelBus) {
-    std::shared_ptr<ModelBus> bus = *itModelBus;
+  for (auto& bus : models_) {
     if (!bus->numSubNetworkSet()) {  // Bus not yet treated
       bus->numSubNetwork(numSubNetwork);
       subNetwork->addBus(bus);
@@ -131,15 +132,15 @@ ModelBusContainer::exploreNeighbors(double t) {
 
 void
 ModelBusContainer::initRefIslands() {
-  for (std::vector<std::shared_ptr<ModelBus> >::iterator itModelBus = models_.begin(); itModelBus != models_.end(); ++itModelBus) {
-    (*itModelBus)->setRefIslands(0);
+  for (auto& bus : models_) {
+    bus->setRefIslands(0);
   }
 }
 
 void
 ModelBusContainer::initDerivatives() {
-  for (std::vector<std::shared_ptr<ModelBus> >::iterator itModelBus = models_.begin(); itModelBus != models_.end(); ++itModelBus)
-    (*itModelBus)->initDerivatives();
+  for (auto& bus : models_)
+    bus->initDerivatives();
 }
 
 ModelBus::ModelBus(const std::shared_ptr<BusInterface>& bus, bool isNodeBreaker) :
@@ -371,6 +372,9 @@ ModelBus::addNeighbor(std::shared_ptr<ModelBus>& bus) {
 
 void
 ModelBus::evalDerivatives(const double /*cj*/) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer3("ModelNetwork::ModelBus::evalDerivatives");
+#endif
   if (!network_->isInitModel() && (hasConnection_ || hasShortCircuitCapabilities_)) {
     derivatives_->addDerivative(IR_DERIVATIVE, irYNum_, -1);
     derivatives_->addDerivative(II_DERIVATIVE, iiYNum_, -1);
@@ -430,7 +434,7 @@ ModelBus::resetNodeInjection() {
 }
 
 void
-ModelBus::irAdd(const double& ir) {
+ModelBus::irAdd(double ir) {
   if (network_->isInit() || network_->isInitModel()) {
     ir0_ += ir;
   } else {
@@ -439,7 +443,7 @@ ModelBus::irAdd(const double& ir) {
 }
 
 void
-ModelBus::iiAdd(const double& ii) {
+ModelBus::iiAdd(double ii) {
   if (network_->isInit() || network_->isInitModel()) {
     ii0_ += ii;
   } else {
@@ -724,6 +728,9 @@ ModelBus::evalZ(const double& /*t*/) {
 
 void
 ModelBus::evalG(const double& /*t*/) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer3("ModelNetwork::ModelBus::evalG");
+#endif
   if (!network_->hasConstraints()) return;
   double upu = getCurrentU(ModelBus::UPuType_);
   g_[0] = (upu - uMax_ > 0) ? ROOT_UP : ROOT_DOWN;  // U > Umax
@@ -845,6 +852,9 @@ ModelBus::evalCalculatedVarI(unsigned numCalculatedVar) const {
 
 void
 ModelBus::evalJt(SparseMatrix& jt, const double& /*cj*/, const int& rowOffset) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer3("ModelNetwork::ModelBus::evalJt");
+#endif
   if (getSwitchOff()) {
     jt.changeCol();
     jt.addTerm(urYNum() + rowOffset, 1.0);
@@ -858,20 +868,18 @@ ModelBus::evalJt(SparseMatrix& jt, const double& /*cj*/, const int& rowOffset) {
     // ----------------------------------
     // Switching column
     jt.changeCol();
-    const map<int, double>& irDerivativesValues = derivatives_->getValues(IR_DERIVATIVE);
-    map<int, double>::const_iterator iter = irDerivativesValues.begin();
-    for (; iter != irDerivativesValues.end(); ++iter) {
-      jt.addTerm(iter->first + rowOffset, iter->second);
+    const auto& irDerivativesValues = derivatives_->getValues(IR_DERIVATIVE);
+    for (const auto& values : irDerivativesValues) {
+      jt.addTerm(values.first + rowOffset, values.second);
     }
 
     // Column for the imaginary part of the node current
     // ---------------------------------------
     // Switching column
     jt.changeCol();
-    const map<int, double>& iiDerivativesValues = derivatives_->getValues(II_DERIVATIVE);
-    iter = iiDerivativesValues.begin();
-    for (; iter != iiDerivativesValues.end(); ++iter) {
-      jt.addTerm(iter->first + rowOffset, iter->second);
+    const auto& iiDerivativesValues = derivatives_->getValues(II_DERIVATIVE);
+    for (const auto& values : iiDerivativesValues) {
+      jt.addTerm(values.first + rowOffset, values.second);
     }
   }
 }
@@ -881,15 +889,15 @@ ModelBus::evalJtPrim(SparseMatrix& jt, const int& rowOffset) {
   // y' in network equations - differential voltages
   if (hasDifferentialVoltages_ && !getSwitchOff() && !derivativesPrim_->empty()) {
     jt.changeCol();
-    const map<int, double>& irDerivativesValues = derivativesPrim_->getValues(IR_DERIVATIVE);
-    for (map<int, double>::const_iterator iter = irDerivativesValues.begin(); iter != irDerivativesValues.end(); ++iter) {
-      jt.addTerm(iter->first + rowOffset, iter->second);
+    const auto& irDerivativesValues = derivativesPrim_->getValues(IR_DERIVATIVE);
+    for (const auto& values : irDerivativesValues) {
+      jt.addTerm(values.first + rowOffset, values.second);
     }
 
     jt.changeCol();
-    const map<int, double>& iiDerivativesValues = derivativesPrim_->getValues(II_DERIVATIVE);
-    for (map<int, double>::const_iterator iter = iiDerivativesValues.begin(); iter != iiDerivativesValues.end(); ++iter) {
-      jt.addTerm(iter->first + rowOffset, iter->second);
+    const auto& iiDerivativesValues = derivativesPrim_->getValues(II_DERIVATIVE);
+    for (const auto& values : iiDerivativesValues) {
+      jt.addTerm(values.first + rowOffset, values.second);
     }
   } else {
     // no y' in network equations, we only change the column index in Jacobian

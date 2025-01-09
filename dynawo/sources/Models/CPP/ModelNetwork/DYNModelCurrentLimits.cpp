@@ -20,6 +20,9 @@
 #include <limits>
 #include <iostream>
 #include "DYNModelCurrentLimits.h"
+
+#include <DYNTimer.h>
+
 #include "DYNModelNetwork.h"
 #include "DYNMacrosMessage.h"
 #include "DYNModelConstants.h"
@@ -55,12 +58,12 @@ ModelCurrentLimits::setFactorPuToA(double factorPuToA) {
 }
 
 void
-ModelCurrentLimits::setMaxTimeOperation(const double& maxTimeOperation) {
+ModelCurrentLimits::setMaxTimeOperation(double maxTimeOperation) {
   maxTimeOperation_ = maxTimeOperation;
 }
 
 void
-ModelCurrentLimits::addLimit(const double& limit, const int& acceptableDuration) {
+ModelCurrentLimits::addLimit(double limit, int acceptableDuration) {
   if (!std::isnan(limit)) {
     limits_.push_back(limit);
     activated_.push_back(false);
@@ -76,7 +79,10 @@ ModelCurrentLimits::addLimit(const double& limit, const int& acceptableDuration)
 }
 
 void
-ModelCurrentLimits::evalG(const double& t, const double& current, state_g* g, const double& desactivate) {
+ModelCurrentLimits::evalG(double t, double current, state_g* g, double desactivate) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer3("ModelNetwork::ModelCurrentLimits::evalG");
+#endif
   lastCurrentValue_ = current;
   for (unsigned int i = 0; i < limits_.size(); ++i) {
     g[0 + 2 * i] = (current > limits_[i] && !(desactivate > 0)) ? ROOT_UP : ROOT_DOWN;  // I > Imax

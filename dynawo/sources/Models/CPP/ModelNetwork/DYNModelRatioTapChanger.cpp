@@ -21,6 +21,9 @@
 #include <boost/archive/binary_oarchive.hpp>
 
 #include "DYNModelRatioTapChanger.h"
+
+#include <DYNTimer.h>
+
 #include "DYNModelConstants.h"
 #include "DYNModelNetwork.h"
 
@@ -87,6 +90,9 @@ bool ModelRatioTapChanger::getUpIncreaseTargetU() const {
 
 void
 ModelRatioTapChanger::evalG(double t, double uValue, bool nodeOff, state_g* g, double disable, double locked, bool tfoClosed, double deltaUTarget) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer3("ModelNetwork::ModelRatioTapChanger::evalG");
+#endif
   int currentStepIndex = getCurrentStepIndex();
   double maxTargetV = targetV_ + tolV_ + deltaUTarget;
   double minTargetV = targetV_ - tolV_ + deltaUTarget;
@@ -105,6 +111,7 @@ ModelRatioTapChanger::evalG(double t, double uValue, bool nodeOff, state_g* g, d
 
 void
 ModelRatioTapChanger::evalZ(double t, state_g* g, ModelNetwork* network, double disable, bool nodeOff, double locked, bool tfoClosed) {
+  return;
   if (!(disable > 0) && !nodeOff && !(locked > 0) && tfoClosed) {
     if (g[0] == ROOT_UP && !uMaxState_) {  // U > UMax
       if (!getUpIncreaseTargetU()) {

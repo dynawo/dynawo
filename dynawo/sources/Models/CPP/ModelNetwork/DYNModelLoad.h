@@ -291,7 +291,7 @@ class ModelLoad : public NetworkComponent {
    * @param U2 voltage square
    * @return value
    */
-  double P_dUr(const double& ur, const double& ui, const double& U, const double& U2) const;
+  double P_dUr(double ur, double ui, double U, double U2) const;
   /**
    * @brief calculated value
    * @param ur real part of the voltage
@@ -300,7 +300,7 @@ class ModelLoad : public NetworkComponent {
    * @param U2 voltage square
    * @return value
    */
-  double Q_dUr(const double& ur, const double& ui, const double& U, const double& U2) const;
+  double Q_dUr(double ur, double ui, double U, double U2) const;
   /**
    * @brief calculated value
    * @param ur real part of the voltage
@@ -309,7 +309,7 @@ class ModelLoad : public NetworkComponent {
    * @param U2 voltage square
    * @return value
    */
-  double P_dUi(const double& ur, const double& ui, const double& U, const double& U2) const;
+  double P_dUi(double ur, double ui, double U, double U2) const;
   /**
    * @brief calculated value
    * @param ur real part of the voltage
@@ -318,7 +318,7 @@ class ModelLoad : public NetworkComponent {
    * @param U2 voltage square
    * @return value
    */
-  double Q_dUi(const double& ur, const double& ui, const double& U, const double& U2) const;
+  double Q_dUi(double ur, double ui, double U, double U2) const;
   /**
    * @brief compute the active power in pu (SNREF)
    * @param ur real part of the voltage
@@ -326,7 +326,7 @@ class ModelLoad : public NetworkComponent {
    * @param U voltage
    * @return value
    */
-  double P(const double& ur, const double& ui, const double& U) const;  // compute the active power in pu (SNREF)
+  double P(double ur, double ui, double U) const;  // compute the active power in pu (SNREF)
   /**
    * @brief compute the reactive power in pu (SNREF)
    * @param ur real part of the voltage
@@ -334,7 +334,7 @@ class ModelLoad : public NetworkComponent {
    * @param U voltage
    * @return value
    */
-  double Q(const double& ur, const double& ui, const double& U) const;  // compute the reactive power in pu (SNREF)
+  double Q(double ur, double ui, double U) const;  // compute the reactive power in pu (SNREF)
   /**
    * @brief compute value
    * @return value
@@ -387,8 +387,8 @@ class ModelLoad : public NetworkComponent {
    * @param QdUr partial derivative of reactive power with respect to ur
    * @return value
    */
-  inline double ir_dUr(const double& ur, const double& ui, const double& U2,
-                       const double& p, const double& q, const double& PdUr, const double& QdUr) const {
+  inline double ir_dUr(double ur, double ui, double U2,
+                       double p, double q, double PdUr, double QdUr) const {
     return ((PdUr * ur + p) + (QdUr * ui) - 2. * ur * (p * ur + q * ui) / U2) / U2;
   }
 
@@ -403,8 +403,8 @@ class ModelLoad : public NetworkComponent {
    * @param QdUr partial derivative of reactive power with respect to ur
    * @return value
    */
-  inline double ii_dUr(const double& ur, const double& ui, const double& U2,
-                       const double& p, const double& q, const double& PdUr, const double& QdUr) const {
+  inline double ii_dUr(double ur, double ui, double U2,
+                       double p, double q, double PdUr, double QdUr) const {
     return ((PdUr * ui) - (QdUr * ur + q) - 2. * ur * (p * ui - q * ur) / U2) / U2;
   }
 
@@ -419,8 +419,8 @@ class ModelLoad : public NetworkComponent {
    * @param QdUi partial derivative of reactive power with respect to ui
    * @return value
    */
-  inline double ir_dUi(const double& ur, const double& ui, const double& U2,
-                       const double& p, const double& q, const double& PdUi, const double& QdUi) const {
+  inline double ir_dUi(double ur, double ui, double U2,
+                       double p, double q, double PdUi, double QdUi) const {
     return ((PdUi * ur) + (QdUi * ui + q) - 2. * ui * (p * ur + q * ui) / U2) / U2;
   }
 
@@ -435,8 +435,8 @@ class ModelLoad : public NetworkComponent {
    * @param QdUi partial derivative of reactive power with respect to ui
    * @return value
    */
-  inline double ii_dUi(const double& ur, const double & ui, const double& U2,
-                       const double& p, const double& q, const double& PdUi, const double& QdUi) const {
+  inline double ii_dUi(double ur, const double & ui, double U2,
+                       double p, double q, double PdUi, double QdUi) const {
     return ((PdUi * ui + p) - (QdUi * ur) - 2. * ui * (p * ui - q * ur) / U2) / U2;
   }
 
@@ -448,7 +448,7 @@ class ModelLoad : public NetworkComponent {
    * @param U2 voltage square
    * @return value
    */
-  double ir_dZp(const double& ur, const double& ui, const double& U, const double& U2) const;
+  double ir_dZp(double ur, double ui, double U, double U2) const;
   /**
    * @brief compute value
    * @param ur real part of the voltage
@@ -457,7 +457,7 @@ class ModelLoad : public NetworkComponent {
    * @param U2 voltage square
    * @return value
    */
-  double ir_dZq(const double& ur, const double& ui, const double& U, const double& U2) const;
+  double ir_dZq(double ur, double ui, double U, double U2) const;
   /**
    * @brief compute value
    * @param ur real part of the voltage
@@ -466,7 +466,7 @@ class ModelLoad : public NetworkComponent {
    * @param U2 voltage square
    * @return value
    */
-  double ii_dZp(const double& ur, const double& ui, const double& U, const double& U2) const;
+  double ii_dZp(double ur, double ui, double U, double U2) const;
   /**
    * @brief compute value
    * @param ur real part of the voltage
@@ -475,7 +475,7 @@ class ModelLoad : public NetworkComponent {
    * @param U2 voltage square
    * @return value
    */
-  double ii_dZq(const double& ur, const double& ui, const double& U, const double& U2) const;
+  double ii_dZq(double ur, double ui, double U, double U2) const;
 
   /**
    * @brief compute the global Y index inside the Y matrix

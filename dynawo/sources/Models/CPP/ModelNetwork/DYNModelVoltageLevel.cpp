@@ -22,6 +22,9 @@
  */
 
 #include "DYNModelVoltageLevel.h"
+
+#include <DYNTimer.h>
+
 #include "DYNModelBus.h"
 #include "DYNModelSwitch.h"
 #include "DYNModelLoad.h"
@@ -56,9 +59,15 @@ ModelVoltageLevel::addComponent(const std::shared_ptr<NetworkComponent>& compone
 }
 
 void
+ModelVoltageLevel::addComponentEvalG(const std::shared_ptr<NetworkComponent>& component) {
+  componentsEvalG_.push_back(component);
+}
+
+void
 ModelVoltageLevel::addBus(const std::shared_ptr<ModelBus>& bus) {
   busesByIndex_.insert(make_pair(bus->getBusIndex(), bus));
   components_.push_back(bus);
+  componentsEvalG_.push_back(bus);
   if (bus->hasBBS())
     busesWithBBS_.push_back(bus);
 }
@@ -336,9 +345,8 @@ ModelVoltageLevel::getY0() {
 
 void
 ModelVoltageLevel::evalF(propertyF_t type) {
-  for (vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent = components_.begin();
-      itComponent != components_.end(); ++itComponent)
-    (*itComponent)->evalF(type);
+  for (auto& component : components_)
+    component->evalF(type);
 }
 
 void
@@ -388,11 +396,10 @@ ModelVoltageLevel::evalDynamicFType() {
 void
 ModelVoltageLevel::collectSilentZ(BitMask* silentZTable) {
   unsigned int offsetComponent = 0;
-  for (vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent = components_.begin(), itEnd = components_.end();
-      itComponent != itEnd; ++itComponent) {
-    if ((*itComponent)->sizeZ() != 0) {
-      (*itComponent)->collectSilentZ(&silentZTable[offsetComponent]);
-      offsetComponent += (*itComponent)->sizeZ();
+  for (auto& component : components_) {
+    if (component->sizeZ() != 0) {
+      component->collectSilentZ(&silentZTable[offsetComponent]);
+      offsetComponent += component->sizeZ();
     }
   }
 }
@@ -400,8 +407,8 @@ ModelVoltageLevel::collectSilentZ(BitMask* silentZTable) {
 void
 ModelVoltageLevel::evalYMat() {
   vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
-  for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent)
-    (*itComponent)->evalYMat();
+  for (auto& component : components_)
+    component->evalYMat();
 }
 
 void
@@ -427,6 +434,9 @@ ModelVoltageLevel::evalDynamicYType() {
 
 void
 ModelVoltageLevel::evalG(const double& t) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer3("ModelNetwork::ModelVoltageLevel::evalG");
+#endif
   vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent)
     (*itComponent)->evalG(t);
@@ -456,9 +466,8 @@ NetworkComponent::StateChange_t
 ModelVoltageLevel::evalZ(const double& t) {
   bool topoChange = false;
   bool stateChange = false;
-  for (vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent = components_.begin(), itEnd = components_.end();
-      itComponent != itEnd; ++itComponent) {
-    switch ((*itComponent)->evalZ(t)) {
+  for (auto& component : getComponents()) {
+    switch (component->evalZ(t)) {
     case NetworkComponent::TOPO_CHANGE:
       topoChange = true;
       break;
@@ -481,9 +490,8 @@ ModelVoltageLevel::evalState(const double& time) {
   bool topoChange = false;
   bool stateChange = false;
 
-  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
-  for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
-    switch ((*itComponent)->evalState(time)) {
+  for (auto& component : components_) {
+    switch (component->evalState(time)) {
     case NetworkComponent::TOPO_CHANGE:
       topoChange = true;
       break;
@@ -510,37 +518,32 @@ ModelVoltageLevel::evalState(const double& time) {
 
 void
 ModelVoltageLevel::evalDerivatives(const double cj) {
-  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
-  for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent)
-    (*itComponent)->evalDerivatives(cj);
+  for (auto& component : getComponents())
+    component->evalDerivatives(cj);
 }
 
 void
 ModelVoltageLevel::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) {
-  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
-  for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent)
-    (*itComponent)->evalJt(jt, cj, rowOffset);
+  for (auto& component : getComponents())
+    component->evalJt(jt, cj, rowOffset);
 }
 
 void
 ModelVoltageLevel::evalJtPrim(SparseMatrix& jt, const int& rowOffset) {
-  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
-  for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent)
-    (*itComponent)->evalJtPrim(jt, rowOffset);
+  for (auto& component : getComponents())
+    component->evalJtPrim(jt, rowOffset);
 }
 
 void
 ModelVoltageLevel::evalNodeInjection() {
-  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
-  for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent)
-    (*itComponent)->evalNodeInjection();
+  for (auto& component : components_)
+    component->evalNodeInjection();
 }
 
 void
 ModelVoltageLevel::evalCalculatedVars() {
-  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
-  for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent)
-    (*itComponent)->evalCalculatedVars();
+  for (auto& component : components_)
+    component->evalCalculatedVars();
 }
 
 void

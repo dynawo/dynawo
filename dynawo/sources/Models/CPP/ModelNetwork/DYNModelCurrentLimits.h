@@ -63,7 +63,7 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
    * @param g value of the root function
    * @param desactivate @b true if the current limits is off
    */
-  void evalG(const double& t, const double& current, state_g* g, const double& desactivate);
+  void evalG(double t, double current, state_g* g, double desactivate);
 
   /**
    * @brief compute the state of the current limits
@@ -85,13 +85,13 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
    * @param limit new current limit
    * @param acceptableDuration acceptable duration
    */
-  void addLimit(const double& limit, const int& acceptableDuration);
+  void addLimit(double limit, int acceptableDuration);
 
   /**
    * @brief set side
    * @param side side
    */
-  void setSide(const side_t side);
+  void setSide(side_t side);
 
   /**
    * @brief set factor to convert from pu to Amperes
@@ -103,7 +103,7 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
    * @brief set the max time operation
    * @param maxTimeOperation max time operation
    */
-  void setMaxTimeOperation(const double& maxTimeOperation);
+  void setMaxTimeOperation(double maxTimeOperation);
 
   /**
    * @brief get G size

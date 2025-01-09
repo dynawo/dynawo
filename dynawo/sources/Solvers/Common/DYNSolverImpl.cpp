@@ -224,13 +224,14 @@ Solver::Impl::resetStats() {
   stats_.njeAlgebraic_ = 0;
   stats_.nreAlgebraicPrim_ = 0;
   stats_.njeAlgebraicPrim_ = 0;
-  stats_.nmeDiff_= 0;
-  stats_.nmeAlg_= 0;
+  stats_.nmeDiff_ = 0;
+  stats_.nmeAlg_ = 0;
   stats_.nmeAlgJ_ = 0;
 }
 
 void
 Solver::Impl::solve(double tAim, double& tNxt) {
+  Timer timer("Solver::Impl::solve");
   // Solving
   state_.reset();
   model_->reinitMode();
@@ -243,9 +244,7 @@ Solver::Impl::solve(double tAim, double& tNxt) {
 
 bool
 Solver::Impl::evalZMode(vector<state_g>& G0, vector<state_g>& G1, double time) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
-  Timer timer("SolverIMPL::evalZMode");
-#endif
+  // Timer timer("SolverIMPL::evalZMode");
   bool change = false;
 
   // evalZ part

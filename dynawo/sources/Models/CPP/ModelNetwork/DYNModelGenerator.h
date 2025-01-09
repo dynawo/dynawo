@@ -280,7 +280,7 @@ class ModelGenerator : public NetworkComponent {
    * @param Qc reactive power set point
    * @return the real part of the current
    */
-  inline double ir(const double& ur, const double& ui, const double& U2, const double& Pc, const double& Qc) const {
+  inline double ir(double ur, double ui, double U2, double Pc, double Qc) const {
     return (-Pc * ur - Qc * ui) / U2;
   }
 
@@ -293,7 +293,7 @@ class ModelGenerator : public NetworkComponent {
    * @param Qc reactive power set point
    * @return the imaginary part of the current
    */
-  inline double ii(const double& ur, const double& ui, const double& U2, const double& Pc, const double& Qc) const {
+  inline double ii(double ur, double ui, double U2, double Pc, double Qc) const {
     return (-Pc * ui + Qc * ur) / U2;
   }
 
@@ -306,7 +306,7 @@ class ModelGenerator : public NetworkComponent {
    * @param Qc reactive power set point
    * @return the partial derivative of ir with respect to Ur
    */
-  inline double ir_dUr(const double& ur, const double& ui, const double& U2, const double& Pc, const double& Qc) const {
+  inline double ir_dUr(double ur, double ui, double U2, double Pc, double Qc) const {
     return (-Pc - 2. * ur * (-Pc * ur - Qc * ui) / U2) / U2;
   }
 
@@ -319,7 +319,7 @@ class ModelGenerator : public NetworkComponent {
    * @param Qc reactive power set point
    * @return the partial derivative of ir with respect to Ui
    */
-  inline double ir_dUi(const double& ur, const double& ui, const double& U2, const double& Pc, const double& Qc) const {
+  inline double ir_dUi(double ur, double ui, double U2, double Pc, double Qc) const {
     return (-Qc - 2. * ui * (-Pc * ur - Qc * ui) / U2) / U2;
   }
 
@@ -345,7 +345,7 @@ class ModelGenerator : public NetworkComponent {
    * @param Qc reactive power set point
    * @return the partial derivative of ii with respect to Ui
    */
-  inline double ii_dUi(const double& ur, const double& ui, const double& U2, const double& Pc, const double& Qc) const {
+  inline double ii_dUi(double ur, double ui, double U2, double Pc, double Qc) const {
     return (-Pc - 2 * ui * (-Pc * ui + Qc * ur) / U2) / U2;
   }
 

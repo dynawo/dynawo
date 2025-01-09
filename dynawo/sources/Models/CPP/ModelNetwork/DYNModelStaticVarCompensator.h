@@ -278,14 +278,14 @@ class ModelStaticVarCompensator : public NetworkComponent {
    * @param ui imaginary part of the voltage
    * @return value
    */
-  double ir(const double& ui) const;
+  double ir(double ui) const;
 
   /**
    * @brief compute value
    * @param ur real part of the voltage
    * @return value
    */
-  double ii(const double& ur) const;
+  double ii(double ur) const;
 
   /**
    * @brief compute value

@@ -23,6 +23,9 @@
 #include "PARParametersSet.h"
 
 #include "DYNModelDanglingLine.h"
+
+#include <DYNTimer.h>
+
 #include "DYNModelConstants.h"
 #include "DYNModelBus.h"
 #include "DYNModelCurrentLimits.h"

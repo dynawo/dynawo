@@ -21,6 +21,9 @@
 #include <vector>
 
 #include "DYNModelGenerator.h"
+
+#include <DYNTimer.h>
+
 #include "DYNModelBus.h"
 #include "DYNTrace.h"
 #include "DYNVariableForModel.h"

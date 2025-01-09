@@ -153,7 +153,7 @@ ModelStaticVarCompensator::Q() const {
 }
 
 double
-ModelStaticVarCompensator::ir(const double& ui) const {
+ModelStaticVarCompensator::ir(double ui) const {
   double ir = 0.;
   if (network_->isInitModel()) {
     ir = ir0_;
@@ -166,7 +166,7 @@ ModelStaticVarCompensator::ir(const double& ui) const {
 }
 
 double
-ModelStaticVarCompensator::ii(const double& ur) const {
+ModelStaticVarCompensator::ii(double ur) const {
   double ii = 0.;
   if (network_->isInitModel()) {
     ii = ii0_;
