@@ -411,39 +411,38 @@ ModelMulti::evalG(double t, double* g) {
 
 void
 ModelMulti::evalJt(const double t, const double cj, SparseMatrix& Jt) {
-  Timer timer("ModelMulti::evalJt");
+  // Timer timer("ModelMulti::evalJt");
   int rowOffset = 0;
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    (*it)->evalJtSub(t, cj, Jt, rowOffset);
+  for (const auto& subModel : subModels_) {
+    subModel->evalJtSub(t, cj, Jt, rowOffset);
     if (!Jt.withoutNan() || !Jt.withoutInf()) {
-      throw DYNError(Error::MODELER, SparseMatrixWithNanInf, (*it)->modelType(), (*it)->name());
+      throw DYNError(Error::MODELER, SparseMatrixWithNanInf, subModel->modelType(), subModel->name());
     }
   }
 
   connectorContainer_->evalJtConnector(Jt);
 
   // add Jacobian for optional variables X = 0
-  for (set<int>::const_iterator it = numVarsOptional_.begin();
-       it != numVarsOptional_.end(); ++it) {
+  for (const auto numVarsOptional : numVarsOptional_) {
     Jt.changeCol();
-    Jt.addTerm(*it, +1);  // d(f)/d(Y) = +1;
+    Jt.addTerm(numVarsOptional, +1);  // d(f)/d(Y) = +1;
   }
 }
 
 void
 ModelMulti::evalJtPrim(const double t, const double cj, SparseMatrix& JtPrim) {
-  Timer timer("ModelMulti::evalJtPrim");
+  // Timer timer("ModelMulti::evalJtPrim");
   int rowOffset = 0;
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    (*it)->evalJtPrimSub(t, cj, JtPrim, rowOffset);
+  for (const auto& subModel : subModels_) {
+    subModel->evalJtPrimSub(t, cj, JtPrim, rowOffset);
     if (!JtPrim.withoutNan() || !JtPrim.withoutInf()) {
-      throw DYNError(Error::MODELER, SparseMatrixWithNanInf, (*it)->modelType(), (*it)->name());
+      throw DYNError(Error::MODELER, SparseMatrixWithNanInf, subModel->modelType(), subModel->name());
     }
   }
 
   connectorContainer_->evalJtPrimConnector(JtPrim);
 
-  for (unsigned int i =0; i < numVarsOptional_.size(); ++i)
+  for (unsigned int i = 0; i < numVarsOptional_.size(); ++i)
     JtPrim.changeCol();
 }
 
