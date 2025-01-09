@@ -27,11 +27,13 @@ namespace DYN {
 
 void
 Derivatives::reset() {
-  values_.clear();
+ for (auto& value : values_)
+    value.second = 0.;
+  // values_.clear();
 }
 
 void
-Derivatives::addValue(const int& numVar, const double& value) {
+Derivatives::addValue(const int numVar, const double value) {
   values_[numVar] += value;
 }
 
@@ -42,7 +44,7 @@ BusDerivatives::reset() {
 }
 
 void
-BusDerivatives::addDerivative(typeDerivative_t type, const int& numVar, const double& value) {
+BusDerivatives::addDerivative(typeDerivative_t type, const int numVar, const double value) {
   switch (type) {
     case IR_DERIVATIVE:
       irDerivatives_.addValue(numVar, value);
@@ -62,6 +64,19 @@ BusDerivatives::getValues(typeDerivative_t type) const {
   else if (type == II_DERIVATIVE)
     return iiDerivatives_.getValues();
   throw DYNError(Error::MODELER, InvalidDerivativeType, type);
+}
+
+Derivatives& BusDerivatives::getDerivatives(typeDerivative_t type) {
+  switch (type) {
+    case IR_DERIVATIVE:
+      return irDerivatives_;
+    break;
+    case II_DERIVATIVE:
+      return iiDerivatives_;
+    break;
+    default:
+      throw DYNError(Error::MODELER, InvalidDerivativeType, type);
+  }
 }
 
 }  // namespace DYN

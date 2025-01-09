@@ -21,6 +21,7 @@
 #define MODELS_CPP_MODELNETWORK_DYNDERIVATIVE_H_
 
 #include <map>
+#include <unordered_map>
 
 namespace DYN {
 // Structure dedicated to the network Jacobian filling
@@ -43,12 +44,13 @@ class Derivatives {
    * @brief reset
    */
   void reset();
+
   /**
    * @brief add value
    * @param numVar number of variable
    * @param value value
    */
-  void addValue(const int& numVar, const double& value);
+  void addValue(int numVar, double value);
 
   /**
    * @brief get values
@@ -82,6 +84,7 @@ class BusDerivatives {
    * @brief reset
    */
   void reset();
+
   /**
    * @brief add derivative
    *
@@ -89,7 +92,8 @@ class BusDerivatives {
    * @param numVar number of variable
    * @param value number of value
    */
-  void addDerivative(typeDerivative_t type, const int& numVar, const double& value);
+  void addDerivative(typeDerivative_t type, int numVar, double value);
+
   /**
    * @brief get values
    * @param type type of derivatives
@@ -104,6 +108,13 @@ class BusDerivatives {
   inline bool empty() const {
     return irDerivatives_.empty() && iiDerivatives_.empty();
   }
+
+  /**
+   * @brief get values
+   * @param type derivative type
+   * @return Derivatives of variables' values
+   */
+  Derivatives& getDerivatives(typeDerivative_t type);
 
  private:
   Derivatives irDerivatives_;  ///< ir derivative
