@@ -286,13 +286,13 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
    * @brief add a new real current to the sum of real currents
    * @param ir new real current to add to the sum of real current
    */
-  void irAdd(const double& ir);
+  void irAdd(double ir);
 
   /**
    * @brief add a new imaginary current to the sum of imaginary currents
    * @param ii new imaginary current to add to the sum of imaginary currents
    */
-  void iiAdd(const double& ii);
+  void iiAdd(double ii);
 
   /**
    * @brief get the current requested value of U
@@ -343,7 +343,7 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
    * @brief get derivatives for J
    * @return the derivatives associated to the bus model for J
    */
-  inline boost::shared_ptr<BusDerivatives> derivatives() const {
+  inline boost::shared_ptr<BusDerivatives>& derivatives() {
     return derivatives_;
   }
 
@@ -351,7 +351,7 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
    * @brief get derivatives for J'
    * @return the derivatives associated to the bus model for J'
    */
-  inline boost::shared_ptr<BusDerivatives> derivativesPrim() const {
+  inline boost::shared_ptr<BusDerivatives>& derivativesPrim() {
     return derivativesPrim_;
   }
 
@@ -581,7 +581,6 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
   double U_;  ///< current value of U in S.I. unit (=0 if not yet calculated)
   BitMask currentUStatus_;  ///< Bit mask value indicating which value of U have already been calculated for the current time step
 
-
   // equivalent to z_[switchOffNum_] but with discrete variable, to be able to switch off a node thanks to an outside event
   State connectionState_;  ///< "internal" bus connection status, evaluated at the end of evalZ to detect if the state was modified by another component
   bool topologyModified_;  ///< true if the bus connection state was modified
@@ -750,7 +749,7 @@ class ModelBusContainer {
    * @brief get sub networks
    * @return sub networks
    */
-  std::vector<boost::shared_ptr<SubNetwork> > getSubNetworks() const {
+  std::vector<boost::shared_ptr<SubNetwork> >& getSubNetworks() const {
     return subNetworks_;
   }   // get the list of sub-networks
 

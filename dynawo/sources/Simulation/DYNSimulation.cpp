@@ -806,9 +806,7 @@ Simulation::initStructure() {
 
 void
 Simulation::init() {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("Simulation::init()");
-#endif
   Trace::info() << Trace::endline << "-----------------------------------------------------------------------" << Trace::endline;
   Trace::info() << DYNLog(ModelBuilding) << Trace::endline;
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
@@ -1168,7 +1166,6 @@ Simulation::checkCriteria(double t, bool finalStep) {
   return criteriaChecked;
 }
 
-
 void
 Simulation::getFailingCriteria(std::vector<std::pair<double, std::string> >& failingCriteria) const {
   data_->getFailingCriteria(failingCriteria);
@@ -1200,9 +1197,7 @@ Simulation::updateParametersValues() {
 
 void
 Simulation::updateCurves(bool updateCalculateVariable) {
-#if defined(_DEBUG_)
-  Timer timer("Simulation::updateCurves()");
-#endif
+  // Timer timer("Simulation::updateCurves()");
   if (exportCurvesMode_ == EXPORT_CURVES_NONE && exportFinalStateValuesMode_ == EXPORT_FINAL_STATE_VALUES_NONE)
     return;
 

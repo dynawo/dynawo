@@ -19,6 +19,8 @@
  */
 #include "DYNModelShuntCompensator.h"
 
+#include <DYNTimer.h>
+
 #include "PARParametersSet.h"
 
 #include "DYNModelBus.h"
@@ -83,7 +85,7 @@ ModelShuntCompensator::initSize() {
 }
 
 double
-ModelShuntCompensator::ir(const double& ui) const {
+ModelShuntCompensator::ir(double ui) const {
   double ir = 0.;
   if (isConnected()) {
     ir = -suscepPu_ * ui;
@@ -92,7 +94,7 @@ ModelShuntCompensator::ir(const double& ui) const {
 }
 
 double
-ModelShuntCompensator::ii(const double& ur) const {
+ModelShuntCompensator::ii(double ur) const {
   double ii = 0.;
   if (isConnected()) {
     ii = suscepPu_ * ur;
@@ -200,6 +202,9 @@ ModelShuntCompensator::defineElements(std::vector<Element>& elements, std::map<s
 
 void
 ModelShuntCompensator::evalG(const double& t) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer3("ModelNetwork::ModelShuntCompensator::evalG");
+#endif
   // Time out reached for availability
   g_[0] = (doubleEquals(tLastOpening_, VALDEF) || t >= tLastOpening_ + noReclosingDelay_) ? ROOT_UP : ROOT_DOWN;
 }

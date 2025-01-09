@@ -32,6 +32,7 @@
 
 #include "DYNModelTwoWindingsTransformer.h"
 
+#include <DYNTimer.h>
 #include <iomanip>
 
 #include "DYNCommon.h"
@@ -235,7 +236,7 @@ modelType_("TwoWindingsTransformer") {
   factorPuToASide2_ = 1000. * SNREF / (sqrt(3.) * vNom2_);
 
   // current limits side 1
-  const vector<std::unique_ptr<CurrentLimitInterface> >& cLimit1 = tfo->getCurrentLimitInterfaces1();
+  /*const vector<std::unique_ptr<CurrentLimitInterface> >& cLimit1 = tfo->getCurrentLimitInterfaces1();
   if (cLimit1.size() > 0) {
     currentLimits1_.reset(new ModelCurrentLimits());
     currentLimits1_->setSide(ModelCurrentLimits::SIDE_1);
@@ -251,10 +252,10 @@ modelType_("TwoWindingsTransformer") {
         currentLimits1_->addLimit(limit, cLimit1[i]->getAcceptableDuration());
       }
     }
-  }
+  }*/
 
   // current limits side 2
-  const vector<std::unique_ptr<CurrentLimitInterface> >& cLimit2 = tfo->getCurrentLimitInterfaces2();
+  /*const vector<std::unique_ptr<CurrentLimitInterface> >& cLimit2 = tfo->getCurrentLimitInterfaces2();
   if (cLimit2.size() > 0) {
     currentLimits2_.reset(new ModelCurrentLimits());
     currentLimits2_->setSide(ModelCurrentLimits::SIDE_2);
@@ -270,7 +271,7 @@ modelType_("TwoWindingsTransformer") {
         currentLimits2_->addLimit(limit, cLimit2[i]->getAcceptableDuration());
       }
     }
-  }
+  }*/
 
   ir01_ = 0;
   ii01_ = 0;
@@ -433,22 +434,22 @@ ModelTwoWindingsTransformer::evalNodeInjection() {
 }
 
 double
-ModelTwoWindingsTransformer::ir1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+ModelTwoWindingsTransformer::ir1(double ur1, double ui1, double ur2, double ui2) const {
   return ir1_dUr1_ * ur1 + ir1_dUi1_ * ui1 + ir1_dUr2_ * ur2 + ir1_dUi2_ * ui2;
 }
 
 double
-ModelTwoWindingsTransformer::ii1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+ModelTwoWindingsTransformer::ii1(double ur1, double ui1, double ur2, double ui2) const {
   return ii1_dUr1_ * ur1 + ii1_dUi1_ * ui1 + ii1_dUr2_ * ur2 + ii1_dUi2_ * ui2;
 }
 
 double
-ModelTwoWindingsTransformer::ir2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+ModelTwoWindingsTransformer::ir2(double ur1, double ui1, double ur2, double ui2) const {
   return ir2_dUr1_ * ur1 + ir2_dUi1_ * ui1 + ir2_dUr2_ * ur2 + ir2_dUi2_ * ui2;
 }
 
 double
-ModelTwoWindingsTransformer::ii2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+ModelTwoWindingsTransformer::ii2(double ur1, double ui1, double ur2, double ui2) const {
   return ii2_dUr1_ * ur1 + ii2_dUi1_ * ui1 + ii2_dUr2_ * ur2 + ii2_dUi2_ * ui2;
 }
 
@@ -1419,14 +1420,14 @@ ModelTwoWindingsTransformer::ui2() const {
 }
 
 double
-ModelTwoWindingsTransformer::P1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+ModelTwoWindingsTransformer::P1(double ur1, double ui1, double ur2, double ui2) const {
   double irBus1 = ir1(ur1, ui1, ur2, ui2);
   double iiBus1 = ii1(ur1, ui1, ur2, ui2);
   return ur1 * irBus1 + ui1 * iiBus1;
 }
 
 double
-ModelTwoWindingsTransformer::P2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+ModelTwoWindingsTransformer::P2(double ur1, double ui1, double ur2, double ui2) const {
   const double irBus2 = ir2(ur1, ui1, ur2, ui2);
   const double iiBus2 = ii2(ur1, ui1, ur2, ui2);
   return ur2 * irBus2 + ui2 * iiBus2;
@@ -1434,6 +1435,9 @@ ModelTwoWindingsTransformer::P2(const double& ur1, const double& ui1, const doub
 
 void
 ModelTwoWindingsTransformer::evalG(const double& t) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer3("ModelNetwork::ModelTwoWindingsTransformer::evalG");
+#endif
   int offset = 0;
   double ur1Val = 0.;
   double ui1Val = 0.;
@@ -1507,14 +1511,14 @@ ModelTwoWindingsTransformer::setGequations(std::map<int, std::string>& gEquation
 }
 
 double
-ModelTwoWindingsTransformer::i1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+ModelTwoWindingsTransformer::i1(double ur1, double ui1, double ur2, double ui2) const {
   double irBus1 = ir1(ur1, ui1, ur2, ui2);
   double iiBus1 = ii1(ur1, ui1, ur2, ui2);
   return sqrt(irBus1 * irBus1 + iiBus1 * iiBus1);
 }
 
 double
-ModelTwoWindingsTransformer::i2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+ModelTwoWindingsTransformer::i2(double ur1, double ui1, double ur2, double ui2) const {
   double irBus2 = ir2(ur1, ui1, ur2, ui2);
   double iiBus2 = ii2(ur1, ui1, ur2, ui2);
   return sqrt(irBus2 * irBus2 + iiBus2 * iiBus2);

@@ -381,6 +381,7 @@ ModelManager::evalJtAdept(const double t, double* y, double* yp, const double cj
 
 void
 ModelManager::evalG(const double t) {
+  // Timer timer("ModelManager::evalG");
   setManagerTime(t);
 
   modelModelica()->setGomc(gLocal_);

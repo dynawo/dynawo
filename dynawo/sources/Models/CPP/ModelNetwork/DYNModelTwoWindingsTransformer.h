@@ -494,7 +494,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the value of the active power at side 1
    */
-  double P1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double P1(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief  get the current value of the active power at side 2
@@ -504,7 +504,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the value of the active power at side 2
    */
-  double P2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double P2(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief compute value
@@ -610,7 +610,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the real part of the current on side 1
    */
-  double ir1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double ir1(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief compute the imaginary part of the current on side 1
@@ -620,7 +620,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the imaginary part of the current on side 1
    */
-  double ii1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double ii1(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief compute the real part of the current on side 2
@@ -630,7 +630,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the real part of the current on side 2
    */
-  double ir2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double ir2(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief compute the imaginary part of the current on side 2
@@ -640,7 +640,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the imaginary part of the current on side 2
    */
-  double ii2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double ii2(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief compute the absolute current entering side 1
@@ -650,7 +650,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return value of the current
    */
-  double i1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double i1(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief compute the absolute current entering side 2
@@ -660,7 +660,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return value of the current
    */
-  double i2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double i2(double ur1, double ui1, double ur2, double ui2) const;
 
    /**
    * @brief get the real part of the voltage at side 1

@@ -178,6 +178,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
       modelBusById[id] = modelBus;
       // Add to containers
       modelVoltageLevelInit->addBus(modelBus);
+      initEvalGComponents_.push_back(modelBus);
       modelBus->setNetwork(this);
       modelBus->setVoltageLevel(modelVoltageLevel);
       if ((*iBus)->hasDynamicModel()) {
@@ -187,6 +188,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
       Trace::debug(Trace::network()) << DYNLog(AddingBusToNetwork, id) << Trace::endline;
       modelVoltageLevel->addBus(modelBus);
       busContainer_->add(modelBus);
+      // evalGComponents_.push_back(modelBus);
       // declare reference between subModel and static data
       data->setReference("v", id, id, "U_value");
       data->setReference("angle", id, id, "phi_value");
@@ -295,6 +297,8 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
       modelShuntCompensator->setModelBus(modelBus);
 
       modelVoltageLevelInit->addComponent(modelShuntCompensator);
+      modelVoltageLevelInit->addComponentEvalG(modelShuntCompensator);
+      initEvalGComponents_.push_back(modelShuntCompensator);
 
       if ((*iShunt)->hasDynamicModel()) {
         Trace::debug(Trace::network()) << DYNLog(ShuntExtDynModel, id) << Trace::endline;
@@ -303,6 +307,8 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
       Trace::debug(Trace::network()) << DYNLog(AddingShuntToNetwork, id) << Trace::endline;
       // add to containers
       modelVoltageLevel->addComponent(modelShuntCompensator);
+      modelVoltageLevel->addComponentEvalG(modelShuntCompensator);
+      // evalGComponents_.push_back(modelShuntCompensator);
       // declare reference between subModel and static data
       data->setReference("q", id, id, "Q_value");
       data->setReference("state", id, id, "state_value");
@@ -354,7 +360,8 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
       modelDanglingLine->setModelBus(modelBus);
 
       modelVoltageLevelInit->addComponent(modelDanglingLine);
-
+      modelVoltageLevelInit->addComponentEvalG(modelDanglingLine);
+      initEvalGComponents_.push_back(modelDanglingLine);
 
       if ((*iDangling)->hasDynamicModel()) {
         Trace::debug(Trace::network()) << DYNLog(DanglingLineExtDynModel, id) << Trace::endline;
@@ -363,6 +370,8 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
       Trace::debug(Trace::network()) << DYNLog(AddingDanglingLineToNetwork, id) << Trace::endline;
       // add to containers
       modelVoltageLevel->addComponent(modelDanglingLine);
+      modelVoltageLevel->addComponentEvalG(modelDanglingLine);
+      // evalGComponents_.push_back(modelDanglingLine);
       // declare reference between subModel and static data
       data->setReference("p", id, id, "P_value");
       data->setReference("q", id, id, "Q_value");
@@ -390,6 +399,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
     }
 
     initComponents_.push_back(modelLine);
+    initEvalGComponents_.push_back(modelLine);
 
     if ((*iLine)->hasDynamicModel()) {
       Trace::debug(Trace::network()) << DYNLog(LineExtDynModel, id) << Trace::endline;
@@ -399,6 +409,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
     Trace::debug(Trace::network()) << DYNLog(AddingLineToNetwork, id) << Trace::endline;
     // add to containers
     components_.push_back(modelLine);
+    // evalGComponents_.push_back(modelLine);
     // declare reference between subModel and static data
     data->setReference("p1", id, id, "P1_value");
     data->setReference("q1", id, id, "Q1_value");
@@ -429,7 +440,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
     }
 
     initComponents_.push_back(modelTwoWindingsTransformer);
-
+    initEvalGComponents_.push_back(modelTwoWindingsTransformer);
 
     if ((*i2WTfo)->hasDynamicModel()) {
       Trace::debug(Trace::network()) << DYNLog(TwoWTfoExtDynModel, id) << Trace::endline;
@@ -439,6 +450,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
 
     // add to containers
     components_.push_back(modelTwoWindingsTransformer);
+    // evalGComponents_.push_back(modelTwoWindingsTransformer);
 
     // declare reference between subModel and static data
     data->setReference("p1", id, id, "P1_value");
@@ -477,7 +489,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
     }
 
     initComponents_.push_back(modelThreeWindingsTransformer);
-
+    initEvalGComponents_.push_back(modelThreeWindingsTransformer);
 
     if ((*i3WTfo)->hasDynamicModel()) {
       Trace::debug(Trace::network()) << DYNLog(ThreeWTfoExtDynModel, id) << Trace::endline;
@@ -488,6 +500,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
 
     // add to containers
     components_.push_back(modelThreeWindingsTransformer);
+    // evalGComponents_.push_back(modelThreeWindingsTransformer);
   }
 
   for (iVL = voltageLevels.begin(); iVL != voltageLevels.end(); ++iVL) {
@@ -865,11 +878,13 @@ ModelNetwork::getSize() {
     sizeZ_ += (*itComponent)->sizeZ();
     sizeMode_ += (*itComponent)->sizeMode();
     sizeF_ += (*itComponent)->sizeF();
-    sizeG_ += (*itComponent)->sizeG();
     (*itComponent)->setOffsetCalculatedVar(sizeCalculatedVar_);
     sizeCalculatedVar_ += (*itComponent)->sizeCalculatedVar();
     componentIndexByCalculatedVar_.resize(sizeCalculatedVar_, index);
     ++index;
+  }
+  for (const auto& component : getEvalGComponents()) {
+    sizeG_ += component->sizeG();
   }
 }
 
@@ -1019,28 +1034,23 @@ ModelNetwork::evalF(double /*t*/, propertyF_t type) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
     Timer timer2("ModelNetwork::evalF_evalNodeInjection");
 #endif
-    for (vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent = getComponents().begin();
-        itComponent != getComponents().end(); ++itComponent)
-      (*itComponent)->evalNodeInjection();
+    for (auto& component : getComponents())
+      component->evalNodeInjection();
   }
 
   // evaluate F
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer3("ModelNetwork::evalF_evalF");
 #endif
-  for (vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent = getComponents().begin();
-      itComponent != getComponents().end(); ++itComponent)
-    (*itComponent)->evalF(type);
+  for (auto& component : getComponents())
+    component->evalF(type);
 }
 
 void
 ModelNetwork::evalG(const double t) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
-  Timer timer3("ModelNetwork::evalG");
-#endif
-  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
-  for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent)
-    (*itComponent)->evalG(t);
+  // Timer timer3("ModelNetwork::evalG");
+  for (const auto& component : getEvalGComponents())
+    component->evalG(t);
 }
 
 void
@@ -1050,9 +1060,8 @@ ModelNetwork::evalZ(const double t) {
 #endif
   bool topoChange = false;
   bool stateChange = false;
-  for (vector<std::shared_ptr<NetworkComponent> >::const_iterator  itComponent = getComponents().begin(), itEnd = getComponents().end();
-      itComponent != itEnd; ++itComponent) {
-    switch ((*itComponent)->evalZ(t)) {
+  for (auto& component : getComponents()) {
+    switch (component->evalZ(t)) {
     case NetworkComponent::TOPO_CHANGE:
       topoChange = true;
       break;
@@ -1083,9 +1092,8 @@ ModelNetwork::evalMode(const double t) {
   bool stateChange = false;
   modeChangeType_t modeChangeType = NO_MODE;
 
-  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
-  for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent) {
-    switch ((*itComponent)->evalState(t)) {
+  for (auto& component : getComponents()) {
+    switch (component->evalState(t)) {
     case NetworkComponent::TOPO_CHANGE:
       topoChange = true;
       break;
@@ -1112,59 +1120,42 @@ ModelNetwork::evalCalculatedVars() {
 #if defined(_DEBUG_)
   Timer timer3("ModelNetwork::calculatedVars");
 #endif
-  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
-  for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent)
-    (*itComponent)->evalCalculatedVars();
+  for (auto& component : getComponents())
+    component->evalCalculatedVars();
 
   std::copy(calculatedVarBuffer_, calculatedVarBuffer_ + sizeCalculatedVar_, calculatedVars_.begin());
 }
 
 void
 ModelNetwork::evalJt(const double /*t*/, const double cj, SparseMatrix& jt, const int rowOffset) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
-  Timer timer("ModelNetwork::evalJ");
-#endif
+  Timer timer("ModelNetwork::evalJt");
 
   // init bus derivatives
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
-  Timer * timer2 = new Timer("ModelNetwork::evalJt_initBusDerivatives");
-#endif
+  Timer* timer2 = new Timer("ModelNetwork::evalJt_initBusDerivatives");
   busContainer_->initDerivatives();
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   delete timer2;
-#endif
-  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
 
   // fill bus derivatives
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
-  Timer * timer3 = new Timer("ModelNetwork::evalJt_evalDerivatives");
-#endif
+  Timer* timer3 = new Timer("ModelNetwork::evalJt_evalDerivatives");
 
-  for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent)
-    (*itComponent)->evalDerivatives(cj);
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  for (auto& component : getComponents())
+    component->evalDerivatives(cj);
   delete timer3;
-#endif
 
   // fill sparse matrix Jt
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
-  Timer * timer1 = new Timer("ModelNetwork::EvalJt_evalJt");
-#endif
-  for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent)
-    (*itComponent)->evalJt(jt, cj, rowOffset);
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer* timer1 = new Timer("ModelNetwork::evalJt_evalJt");
+  for (auto& component : getComponents())
+    component->evalJt(jt, cj, rowOffset);
   delete timer1;
-#endif
 }
 
 void
 ModelNetwork::evalJtPrim(const double /*t*/, const double /*cj*/, SparseMatrix& jt, const int rowOffset) {
-  for (vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent = getComponents().begin();
-       itComponent != getComponents().end(); ++itComponent)
-    (*itComponent)->evalDerivativesPrim();
+  for (auto& component : getComponents())
+    component->evalDerivativesPrim();
 
-  for (vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent)
-    (*itComponent)->evalJtPrim(jt, rowOffset);
+  for (auto& component : getComponents())
+    component->evalJtPrim(jt, rowOffset);
 }
 
 void

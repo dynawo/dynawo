@@ -376,7 +376,7 @@ class ModelHvdcLink : public NetworkComponent {
    * @param U1_2 square of the voltage1
    * @return value
    */
-  double ir1(const double& ur1, const double& ui1, const double& U1_2) const;
+  double ir1(double ur1, double ui1, double U1_2) const;
 
   /**
    * @brief compute value
@@ -385,7 +385,7 @@ class ModelHvdcLink : public NetworkComponent {
    * @param U1_2 square of the voltage1
    * @return value
    */
-  double ii1(const double& ur1, const double& ui1, const double& U1_2) const;
+  double ii1(double ur1, double ui1, double U1_2) const;
 
   /**
    * @brief compute value
@@ -394,7 +394,7 @@ class ModelHvdcLink : public NetworkComponent {
    * @param U2_2 square of the voltage2
    * @return value
    */
-  double ir2(const double& ur2, const double& ui2, const double& U2_2) const;
+  double ir2(double ur2, double ui2, double U2_2) const;
 
   /**
    * @brief compute value
@@ -403,7 +403,7 @@ class ModelHvdcLink : public NetworkComponent {
    * @param U2_2 square of the voltage2
    * @return value
    */
-  double ii2(const double& ur2, const double& ui2, const double& U2_2) const;
+  double ii2(double ur2, double ui2, double U2_2) const;
 
   /**
    * @brief compute value
@@ -412,7 +412,7 @@ class ModelHvdcLink : public NetworkComponent {
    * @param U1_2 square of the voltage1
    * @return value
    */
-  double ir1_dUr(const double& ur1, const double& ui1, const double& U1_2) const;
+  double ir1_dUr(double ur1, double ui1, double U1_2) const;
 
   /**
    * @brief compute value
@@ -421,7 +421,7 @@ class ModelHvdcLink : public NetworkComponent {
    * @param U1_2 square of the voltage1
    * @return value
    */
-  double ii1_dUr(const double& ur1, const double& ui1, const double& U1_2) const;
+  double ii1_dUr(double ur1, double ui1, double U1_2) const;
 
   /**
    * @brief compute value
@@ -430,7 +430,7 @@ class ModelHvdcLink : public NetworkComponent {
    * @param U1_2 square of the voltage1
    * @return value
    */
-  double ir1_dUi(const double& ur1, const double& ui1, const double& U1_2) const;
+  double ir1_dUi(double ur1, double ui1, double U1_2) const;
 
   /**
    * @brief compute value
@@ -439,7 +439,7 @@ class ModelHvdcLink : public NetworkComponent {
    * @param U1_2 square of the voltage1
    * @return value
    */
-  double ii1_dUi(const double& ur1, const double& ui1, const double& U1_2) const;
+  double ii1_dUi(double ur1, double ui1, double U1_2) const;
 
   /**
    * @brief compute value
@@ -448,7 +448,7 @@ class ModelHvdcLink : public NetworkComponent {
    * @param U2_2 square of the voltage2
    * @return value
    */
-  double ir2_dUr(const double& ur2, const double& ui2, const double& U2_2) const;
+  double ir2_dUr(double ur2, double ui2, double U2_2) const;
 
   /**
    * @brief compute value
@@ -457,7 +457,7 @@ class ModelHvdcLink : public NetworkComponent {
    * @param U2_2 square of the voltage2
    * @return value
    */
-  double ii2_dUr(const double& ur2, const double& ui2, const double& U2_2) const;
+  double ii2_dUr(double ur2, double ui2, double U2_2) const;
 
   /**
    * @brief compute value
@@ -466,7 +466,7 @@ class ModelHvdcLink : public NetworkComponent {
    * @param U2_2 square of the voltage2
    * @return value
    */
-  double ir2_dUi(const double& ur2, const double& ui2, const double& U2_2) const;
+  double ir2_dUi(double ur2, double ui2, double U2_2) const;
 
   /**
    * @brief compute value
@@ -475,7 +475,7 @@ class ModelHvdcLink : public NetworkComponent {
    * @param U2_2 square of the voltage2
    * @return value
    */
-  double ii2_dUi(const double& ur2, const double& ui2, const double& U2_2) const;
+  double ii2_dUi(double ur2, double ui2, double U2_2) const;
 
  private:
   std::weak_ptr<HvdcLineInterface> dcLine_;  ///< reference to the hvdc line interface object

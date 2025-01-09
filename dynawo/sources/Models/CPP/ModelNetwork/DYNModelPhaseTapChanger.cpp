@@ -21,6 +21,9 @@
 #include <boost/archive/binary_oarchive.hpp>
 
 #include "DYNModelPhaseTapChanger.h"
+
+#include <DYNTimer.h>
+
 #include "DYNModelConstants.h"
 #include "DYNModelNetwork.h"
 
@@ -79,6 +82,9 @@ bool ModelPhaseTapChanger::getIncreaseTap(bool P1SupP2) const {
 void ModelPhaseTapChanger::evalG(double t, double iValue, bool /*nodeOff*/,
                                  state_g* g, double disable, double locked,
                                  bool tfoClosed) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer3("ModelNetwork::ModelPhaseTapChanger::evalG");
+#endif
   g[0] = (iValue >= thresholdI_ && !(disable > 0.) && tfoClosed)
              ? ROOT_UP
              : ROOT_DOWN;  // I > IThreshold
@@ -110,6 +116,7 @@ void ModelPhaseTapChanger::evalG(double t, double iValue, bool /*nodeOff*/,
 void ModelPhaseTapChanger::evalZ(double t, state_g* g, ModelNetwork* network,
                                  double disable, bool P1SupP2, double locked,
                                  bool tfoClosed) {
+  return;
   if (!(disable > 0.) && !(locked > 0.) && tfoClosed) {
     if (g[0] == ROOT_UP && !currentOverThresholdState_) {  // I > IThreshold
       if (getIncreaseTap(P1SupP2)) {

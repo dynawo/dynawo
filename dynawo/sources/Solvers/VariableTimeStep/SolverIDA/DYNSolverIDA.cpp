@@ -620,9 +620,7 @@ SolverIDA::analyseFlag(const int & flag) {
 int
 SolverIDA::evalF(realtype tres, N_Vector yy, N_Vector yp,
         N_Vector rr, void* data) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SolverIDA::evalF");
-#endif
   SolverIDA* solver = reinterpret_cast<SolverIDA*> (data);
   Model& model = solver->getModel();
 
@@ -640,7 +638,7 @@ SolverIDA::evalF(realtype tres, N_Vector yy, N_Vector yp,
     }
   }
 #endif
-  std::vector<double> vectorF(model.sizeY());
+  /*std::vector<double> vectorF(model.sizeY());
   std::vector<double> vectorFScale(model.sizeY(), 1.);
   memcpy(&vectorF[0], irr, vectorF.size() * sizeof(vectorF[0]));
   double weightedInfNorm = SolverCommon::weightedInfinityNorm(vectorF, vectorFScale);
@@ -654,7 +652,7 @@ SolverIDA::evalF(realtype tres, N_Vector yy, N_Vector yp,
   fErr.reserve(nbErr);
   for (size_t i = 0; i < static_cast<size_t>(model.sizeF()); ++i)
     fErr.push_back(std::pair<double, size_t>(vectorF[i], i));
-  SolverCommon::printLargestErrors(fErr, model, nbErr);
+  SolverCommon::printLargestErrors(fErr, model, nbErr);*/
 
   // if (!solver->flagInit()) {
   //   /* The convergence criterion in IDA is associated to the weighted RMS norm of the delta between two Newton iterations.
@@ -712,22 +710,20 @@ return 0;
 int
 SolverIDA::evalG(realtype tres, N_Vector yy, N_Vector yp, realtype* gout,
         void* data) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SolverIDA::evalG");
-#endif
   SolverIDA* solver = reinterpret_cast<SolverIDA*> (data);
   Model& model = solver->getModel();
   realtype* iyy = NV_DATA_S(yy);
   realtype* iyp = NV_DATA_S(yp);
 
-  std::vector<state_g>& g1 = solver->getG1();
+  // std::vector<state_g>& g1 = solver->getG1();
 
   model.copyContinuousVariables(iyy, iyp);
-  model.evalG(tres, g1);
+  model.evalG(tres, gout);
 
-  for (unsigned int i = 0 ; i < g1.size(); ++i) {
+  /*for (unsigned int i = 0 ; i < g1.size(); ++i) {
     gout[i] = g1[i];
-  }
+  }*/
 
   return 0;
 }
@@ -737,9 +733,7 @@ SolverIDA::evalJ(realtype tt, realtype cj,
         N_Vector yy, N_Vector yp, N_Vector /*rr*/,
         SUNMatrix JJ, void* data,
         N_Vector /*tmp1*/, N_Vector /*tmp2*/, N_Vector /*tmp3*/) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SolverIDA::evalJ");
-#endif
   SolverIDA* solver = reinterpret_cast<SolverIDA*> (data);
   Model& model = solver->getModel();
   SparseMatrix& smj = solver->getMatrix();
@@ -911,6 +905,7 @@ void SolverIDA::updateAlgebraicRestorationStatistics() {
  */
 void
 SolverIDA::reinit() {
+  Timer timer("SolverIDA::reinit");
   int counter = 0;
   modeChangeType_t modeChangeType = model_->getModeChangeType();
   if (modeChangeType == NO_MODE) return;

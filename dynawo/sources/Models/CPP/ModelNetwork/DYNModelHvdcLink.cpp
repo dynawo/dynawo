@@ -621,7 +621,7 @@ ModelHvdcLink::getQ2() const {
 }
 
 double
-ModelHvdcLink::ir1(const double& ur1, const double& ui1, const double& U1_2) const {
+ModelHvdcLink::ir1(double ur1, double ui1, double U1_2) const {
   double ir = 0.;
   if (!doubleIsZero(U1_2))
     ir = (-getP1() * ur1 - getQ1() * ui1) / U1_2;
@@ -630,7 +630,7 @@ ModelHvdcLink::ir1(const double& ur1, const double& ui1, const double& U1_2) con
 }
 
 double
-ModelHvdcLink::ii1(const double& ur1, const double& ui1, const double& U1_2) const {
+ModelHvdcLink::ii1(double ur1, double ui1, double U1_2) const {
   double ii = 0.;
   if (!doubleIsZero(U1_2))
     ii = (-getP1() * ui1 + getQ1() * ur1) / U1_2;
@@ -639,7 +639,7 @@ ModelHvdcLink::ii1(const double& ur1, const double& ui1, const double& U1_2) con
 }
 
 double
-ModelHvdcLink::ir2(const double& ur2, const double& ui2, const double& U2_2) const {
+ModelHvdcLink::ir2(double ur2, double ui2, double U2_2) const {
   double ir = 0.;
   if (!doubleIsZero(U2_2))
     ir = (-getP2() * ur2 - getQ2() * ui2) / U2_2;
@@ -648,7 +648,7 @@ ModelHvdcLink::ir2(const double& ur2, const double& ui2, const double& U2_2) con
 }
 
 double
-ModelHvdcLink::ii2(const double& ur2, const double& ui2, const double& U2_2) const {
+ModelHvdcLink::ii2(double ur2, double ui2, double U2_2) const {
   double ii = 0.;
   if (!doubleIsZero(U2_2))
     ii = (-getP2() * ui2 + getQ2() * ur2) / U2_2;
@@ -657,7 +657,7 @@ ModelHvdcLink::ii2(const double& ur2, const double& ui2, const double& U2_2) con
 }
 
 double
-ModelHvdcLink::ir1_dUr(const double& ur1, const double& ui1, const double& U1_2) const {
+ModelHvdcLink::ir1_dUr(double ur1, double ui1, double U1_2) const {
   double ir_dUr = 0.;
   if (!doubleIsZero(U1_2))
     ir_dUr = (-getP1() - 2. * ur1 * (-getP1() * ur1 - getQ1() * ui1) / U1_2) / U1_2;
@@ -666,7 +666,7 @@ ModelHvdcLink::ir1_dUr(const double& ur1, const double& ui1, const double& U1_2)
 }
 
 double
-ModelHvdcLink::ir1_dUi(const double& ur1, const double& ui1, const double& U1_2) const {
+ModelHvdcLink::ir1_dUi(double ur1, double ui1, double U1_2) const {
   double ir_dUi = 0.;
   if (!doubleIsZero(U1_2))
     ir_dUi = (-getQ1() - 2. * ui1 * (-getP1() * ur1 - getQ1() * ui1) / U1_2) / U1_2;
@@ -675,7 +675,7 @@ ModelHvdcLink::ir1_dUi(const double& ur1, const double& ui1, const double& U1_2)
 }
 
 double
-ModelHvdcLink::ii1_dUr(const double& ur1, const double& ui1, const double& U1_2) const {
+ModelHvdcLink::ii1_dUr(double ur1, double ui1, double U1_2) const {
   double ii_dUr = 0.;
   if (!doubleIsZero(U1_2))
     ii_dUr = (getQ1() - 2. * ur1 * (-getP1() * ui1 + getQ1() * ur1) / U1_2) / U1_2;
@@ -684,7 +684,7 @@ ModelHvdcLink::ii1_dUr(const double& ur1, const double& ui1, const double& U1_2)
 }
 
 double
-ModelHvdcLink::ii1_dUi(const double& ur1, const double& ui1, const double& U1_2) const {
+ModelHvdcLink::ii1_dUi(double ur1, double ui1, double U1_2) const {
   double ii_dUi = 0.;
   if (doubleNotEquals(U1_2, 0.))
     ii_dUi = (-getP1() - 2. * ui1 * (-getP1() * ui1 + getQ1() * ur1) / U1_2) / U1_2;
@@ -693,7 +693,7 @@ ModelHvdcLink::ii1_dUi(const double& ur1, const double& ui1, const double& U1_2)
 }
 
 double
-ModelHvdcLink::ir2_dUr(const double& ur2, const double& ui2, const double& U2_2) const {
+ModelHvdcLink::ir2_dUr(double ur2, double ui2, double U2_2) const {
   double ir_dUr = 0.;
   if (!doubleIsZero(U2_2))
     ir_dUr = (-getP2() - 2. * ur2 * (-getP2() * ur2 - getQ2() * ui2) / U2_2) / U2_2;
@@ -702,7 +702,7 @@ ModelHvdcLink::ir2_dUr(const double& ur2, const double& ui2, const double& U2_2)
 }
 
 double
-ModelHvdcLink::ir2_dUi(const double& ur2, const double& ui2, const double& U2_2) const {
+ModelHvdcLink::ir2_dUi(double ur2, double ui2, double U2_2) const {
   double ir_dUi = 0.;
   if (!doubleIsZero(U2_2))
     ir_dUi = (-getQ2() - 2. * ui2 * (-getP2() * ur2 - getQ2() * ui2) / U2_2) / U2_2;
@@ -711,7 +711,7 @@ ModelHvdcLink::ir2_dUi(const double& ur2, const double& ui2, const double& U2_2)
 }
 
 double
-ModelHvdcLink::ii2_dUr(const double& ur2, const double& ui2, const double& U2_2) const {
+ModelHvdcLink::ii2_dUr(double ur2, double ui2, double U2_2) const {
   double ii_dUr = 0.;
   if (!doubleIsZero(U2_2))
     ii_dUr = (getQ2() - 2. * ur2 * (-getP2() * ui2 + getQ2() * ur2) / U2_2) / U2_2;
@@ -720,7 +720,7 @@ ModelHvdcLink::ii2_dUr(const double& ur2, const double& ui2, const double& U2_2)
 }
 
 double
-ModelHvdcLink::ii2_dUi(const double& ur2, const double& ui2, const double& U2_2) const {
+ModelHvdcLink::ii2_dUi(double ur2, double ui2, double U2_2) const {
   double ii_dUi = 0.;
   if (!doubleIsZero(U2_2))
     ii_dUi = (-getP2() - 2. * ui2 * (-getP2() * ui2 + getQ2() * ur2) / U2_2) / U2_2;

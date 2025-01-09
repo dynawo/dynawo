@@ -25,6 +25,8 @@
 
 #include "DYNModelLine.h"
 
+#include <DYNTimer.h>
+
 #include "DYNCommon.h"
 #include "DYNCommonModeler.h"
 #include "DYNModelConstants.h"
@@ -136,7 +138,7 @@ modelType_("Line") {
   currentLimitsDesactivate_ = 0.;
 
   // current limits side 1
-  const vector<std::unique_ptr<CurrentLimitInterface> >& cLimit1 = line->getCurrentLimitInterfaces1();
+  /*const vector<std::unique_ptr<CurrentLimitInterface> >& cLimit1 = line->getCurrentLimitInterfaces1();
   if (cLimit1.size() > 0) {
     currentLimits1_.reset(new ModelCurrentLimits());
     currentLimits1_->setSide(ModelCurrentLimits::SIDE_1);
@@ -152,10 +154,10 @@ modelType_("Line") {
         currentLimits1_->addLimit(limit, cLimit1[i]->getAcceptableDuration());
       }
     }
-  }
+  }*/
 
   // current limits side 2
-  const vector<std::unique_ptr<CurrentLimitInterface> >& cLimit2 = line->getCurrentLimitInterfaces2();
+  /*const vector<std::unique_ptr<CurrentLimitInterface> >& cLimit2 = line->getCurrentLimitInterfaces2();
   if (cLimit2.size() > 0) {
     currentLimits2_.reset(new ModelCurrentLimits());
     currentLimits2_->setSide(ModelCurrentLimits::SIDE_2);
@@ -171,7 +173,7 @@ modelType_("Line") {
         currentLimits2_->addLimit(limit, cLimit2[i]->getAcceptableDuration());
       }
     }
-  }
+  }*/
 
   ir01_ = 0;
   ii01_ = 0;
@@ -285,22 +287,22 @@ ModelLine::evalYMat() {
 }
 
 double
-ModelLine::ir1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+ModelLine::ir1(double ur1, double ui1, double ur2, double ui2) const {
   return ir1_dUr1_ * ur1 + ir1_dUi1_ * ui1 + ir1_dUr2_ * ur2 + ir1_dUi2_ * ui2;
 }
 
 double
-ModelLine::ii1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+ModelLine::ii1(double ur1, double ui1, double ur2, double ui2) const {
   return ii1_dUr1_ * ur1 + ii1_dUi1_ * ui1 + ii1_dUr2_ * ur2 + ii1_dUi2_ * ui2;
 }
 
 double
-ModelLine::ir2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+ModelLine::ir2(double ur1, double ui1, double ur2, double ui2) const {
   return ir2_dUr1_ * ur1 + ir2_dUi1_ * ui1 + ir2_dUr2_ * ur2 + ir2_dUi2_ * ui2;
 }
 
 double
-ModelLine::ii2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+ModelLine::ii2(double ur1, double ui1, double ur2, double ui2) const {
   return ii2_dUr1_ * ur1 + ii2_dUi1_ * ui1 + ii2_dUr2_ * ur2 + ii2_dUi2_ * ui2;
 }
 
@@ -1062,6 +1064,9 @@ ModelLine::collectSilentZ(BitMask* silentZTable) {
 
 void
 ModelLine::evalG(const double& t) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer3("ModelNetwork::ModelLine::evalG");
+#endif
   int offset = 0;
   if (currentLimits1_ || currentLimits2_) {
     double ur1Val = ur1();
@@ -1256,14 +1261,14 @@ ModelLine::uip2() const {
 }
 
 double
-ModelLine::i1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+ModelLine::i1(double ur1, double ui1, double ur2, double ui2) const {
   double irBus1 = ir1(ur1, ui1, ur2, ui2);
   double iiBus1 = ii1(ur1, ui1, ur2, ui2);
   return sqrt(irBus1 * irBus1 + iiBus1 * iiBus1);
 }
 
 double
-ModelLine::i2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+ModelLine::i2(double ur1, double ui1, double ur2, double ui2) const {
   double irBus2 = ir2(ur1, ui1, ur2, ui2);
   double iiBus2 = ii2(ur1, ui1, ur2, ui2);
   return sqrt(irBus2 * irBus2 + iiBus2 * iiBus2);
