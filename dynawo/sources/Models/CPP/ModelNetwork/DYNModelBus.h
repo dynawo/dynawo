@@ -774,7 +774,7 @@ class ModelBusContainer {
    * @brief get sub networks
    * @return sub networks
    */
-  std::vector<boost::shared_ptr<SubNetwork> >& getSubNetworks() const {
+  const std::vector<boost::shared_ptr<SubNetwork> >& getSubNetworks() const {
     return subNetworks_;
   }   // get the list of sub-networks
 

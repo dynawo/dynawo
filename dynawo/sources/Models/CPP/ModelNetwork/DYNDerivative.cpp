@@ -27,7 +27,9 @@ namespace DYN {
 
 void
 Derivatives::reset() {
-  values_.clear();
+ for (auto& value : values_)
+    value.second = 0.;
+  // values_.clear();
 }
 
 void
@@ -62,6 +64,19 @@ BusDerivatives::getValues(typeDerivative_t type) const {
   else if (type == II_DERIVATIVE)
     return iiDerivatives_.getValues();
   throw DYNError(Error::MODELER, InvalidDerivativeType, type);
+}
+
+Derivatives& BusDerivatives::getDerivatives(typeDerivative_t type) {
+  switch (type) {
+    case IR_DERIVATIVE:
+      return irDerivatives_;
+    break;
+    case II_DERIVATIVE:
+      return iiDerivatives_;
+    break;
+    default:
+      throw DYNError(Error::MODELER, InvalidDerivativeType, type);
+  }
 }
 
 }  // namespace DYN

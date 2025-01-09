@@ -94,20 +94,28 @@ ModelGenerator::evalNodeInjection() {
 
 void
 ModelGenerator::evalDerivatives(const double /*cj*/) {
-  if (!network_->isInitModel() && isConnected() && !modelBus_->getSwitchOff()) {
-    const double ur = modelBus_->ur();
-    const double ui = modelBus_->ui();
-    const double U2 = ur * ur + ui * ui;
+  auto& modelBus = *modelBus_;
+  if (!network_->isInitModel() && isConnected() && modelBus.getSwitchOff()) {
+    double ur = modelBus.ur();
+    double ui = modelBus.ui();
+    double U2 = ur * ur + ui * ui;
     if (doubleIsZero(U2))
       return;
     const double Pc = PcPu();
     const double Qc = QcPu();
-    const int urYNum = modelBus_->urYNum();
-    const int uiYNum = modelBus_->uiYNum();
-    modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, urYNum, ir_dUr(ur, ui, U2, Pc, Qc));
-    modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, uiYNum, ir_dUi(ur, ui, U2, Pc, Qc));
-    modelBus_->derivatives()->addDerivative(II_DERIVATIVE, urYNum, ii_dUr(ur, ui, U2, Pc, Qc));
-    modelBus_->derivatives()->addDerivative(II_DERIVATIVE, uiYNum, ii_dUi(ur, ui, U2, Pc, Qc));
+    const int urYNum = modelBus.urYNum();
+    const int uiYNum = modelBus.uiYNum();
+    const double ir_dUrValue = ir_dUr(ur, ui, U2, Pc, Qc);
+    const double ir_dUiValue = ir_dUi(ur, ui, U2, Pc, Qc);
+    const double ii_dUrValue = ii_dUr(ur, ui, U2, Pc, Qc);
+    const double ii_dUiValue = ii_dUi(ur, ui, U2, Pc, Qc);
+    auto& derivatives = *modelBus.derivatives();
+    auto& irDerivatives = derivatives.getDerivatives(IR_DERIVATIVE);
+    auto& iiDerivatives = derivatives.getDerivatives(II_DERIVATIVE);
+    irDerivatives.addValue(urYNum, ir_dUrValue);
+    irDerivatives.addValue(uiYNum, ir_dUiValue);
+    iiDerivatives.addValue(urYNum, ii_dUrValue);
+    iiDerivatives.addValue(uiYNum, ii_dUiValue);
   }
 }
 
