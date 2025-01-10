@@ -26,7 +26,7 @@ model GeneratorSynchronousThreeWindingsWithControl "Model of synchronous generat
     Placement(visible = true, transformation(origin = {60, 0}, extent = {{-40, -40}, {40, 40}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified.VRNordic vrNordic(Efd0Pu(fixed = false), Ir0Pu(fixed = false), Us0Pu(fixed = false), KTgr = GeneratorParameters.vrParamValues[gen, GeneratorParameters.vrParams.KTgr], IrLimPu = GeneratorParameters.vrParamValues[gen, GeneratorParameters.vrParams.IrLimPu], KPss = GeneratorParameters.vrParamValues[gen, GeneratorParameters.vrParams.KPss], tOelMin = GeneratorParameters.vrParamValues[gen, GeneratorParameters.vrParams.tOelMin], EfdMaxPu = GeneratorParameters.vrParamValues[gen, GeneratorParameters.vrParams.EfdMaxPu], tLeadPss = GeneratorParameters.vrParamValues[gen, GeneratorParameters.vrParams.tLeadPss], tLagPss = GeneratorParameters.vrParamValues[gen, GeneratorParameters.vrParams.tLagPss], tLeadTgr = GeneratorParameters.vrParamValues[gen, GeneratorParameters.vrParams.tLeadTgr], tLagTgr = GeneratorParameters.vrParamValues[gen, GeneratorParameters.vrParams.tLagTgr], tDerOmega = GeneratorParameters.vrParamValues[gen, GeneratorParameters.vrParams.tDerOmega], OelMode = GeneratorParameters.vrParamValues[gen, GeneratorParameters.vrParams.OelMode]) annotation(
     Placement(visible = true, transformation(origin = {-20, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.Governors.Simplified.GoverNordic goverNordic(Pm0Pu(fixed = false), KSigma = GeneratorParameters.govParamValues[gen,GeneratorParameters.govParams.KSigma], Ki = GeneratorParameters.govParamValues[gen,GeneratorParameters.govParams.Ki], Kp = GeneratorParameters.govParamValues[gen,GeneratorParameters.govParams.Kp], PNom = GeneratorParameters.govParamValues[gen,GeneratorParameters.govParams.PNom]) annotation(
+  Dynawo.Electrical.Controls.Machines.Governors.Simplified.GoverNordic goverNordic(PGen0Pu(fixed = false), Pm0Pu(fixed = false), KSigma = GeneratorParameters.govParamValues[gen,GeneratorParameters.govParams.KSigma], Ki = GeneratorParameters.govParamValues[gen,GeneratorParameters.govParams.Ki], Kp = GeneratorParameters.govParamValues[gen,GeneratorParameters.govParams.Kp], PNom = GeneratorParameters.govParamValues[gen,GeneratorParameters.govParams.PNom]) annotation(
     Placement(visible = true, transformation(origin = {-20, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   parameter Types.ActivePowerPu P0Pu "Start value of active power at terminal in pu (base SnRef) (receptor convention)";
@@ -38,6 +38,7 @@ initial algorithm
   vrNordic.Efd0Pu := generatorSynchronous.Efd0Pu;
   vrNordic.Ir0Pu := generatorSynchronous.IRotor0Pu;
   vrNordic.Us0Pu := generatorSynchronous.UStator0Pu;
+  goverNordic.PGen0Pu := -generatorSynchronous.P0Pu;
   goverNordic.Pm0Pu := generatorSynchronous.Pm0Pu;
 
 equation
@@ -50,11 +51,12 @@ equation
   generatorSynchronous.UStatorPu.value = vrNordic.UsPu;
   generatorSynchronous.omegaPu.value = goverNordic.omegaPu;
   generatorSynchronous.PGenPu = goverNordic.PGenPu;
+  generatorSynchronous.PmPu.value = goverNordic.PmPu;
 
   connect(generatorSynchronous.terminal, terminal);
-  connect(generatorSynchronous.PmPu, goverNordic.PmPuPin);
 
-  annotation(preferredView = "text",
+  annotation(
+    preferredView = "text",
     Documentation(info = "<html><head></head><body>The controlled generator frame functions as the regulated synchronous generator of the Nordic 32 test system.<div>It consists of a 3 windings initialized synchronous generator, which models hydro-power plants. The regulating elements comprise automatic voltage regulation (AVR), exciter (EXC), overexcitation limitation (OEL), power system stabilizer (PSS) and speed control by a governor (GOV).</div><div>Parameters are automatically chosen according to a preset defined in the GeneratorParameters. Then, only initial values need to be supplied.</div><div>To add another configuration, append a new line to \"genFrameParamValues\", \"govParamValues\" and \"vrParamValues\"&nbsp;in GeneratorParameters and append a fitting name in the \"genFramePreset\" enumeration.</div>
 </body></html>"),
     Icon(graphics = {Rectangle(lineThickness = 0.75, extent = {{-100, 100}, {100, -100}})}));
