@@ -12,7 +12,7 @@ encapsulated package Dynawo "Dynawo models library"
   extends Icons.Package;
 
   annotation(
-    version = "1.7.0",
+    version = "1.8.0",
     Documentation(info = "<html><head></head><body>
 <p>Copyright (c) 2015-2024, RTE (<a href=\"http://www.rte-france.com/\">http://www.rte-france.com</a>)</p>
 
