@@ -10,14 +10,10 @@ model LvrtFrz
  annotation(
     Placement(visible = true, transformation(origin = {-260, -15}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110,48}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Interfaces.RealOutput FrzReal(start = 1) "q-axis current in the grid in pu (base UNom, SNom) (generator convention)"
- annotation(
-    Placement(visible = true, transformation(origin = {-260, -15}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110,-40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
 
 equation
 
-  Frz = if VPu < VDipPu then false else true; 
-  FrzReal = if VPu < VDipPu then 0 else 1; 
+  Frz = if VPu < VDipPu then true else false; 
+
 
 end LvrtFrz;

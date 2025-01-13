@@ -126,8 +126,8 @@ equation
     Line(points = {{-224, 30}, {-210, 30}, {-210, -12}, {172, -12}, {172, -46}, {148, -46}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(gfm.theta, dQTrafo.theta) annotation(
     Line(points = {{-224, 30}, {-210, 30}, {-210, -12}, {100, -12}, {100, 24}, {112, 24}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
-  connect(comptodq.FrzReal, epriVoltageCtrl.FrzReal) annotation(
-    Line(points = {{130, -88}, {130, -108}, {-80, -108}, {-80, 8}}, color = {0, 0, 127}));
+  connect(comptodq.Frz, epriVoltageCtrl.Frz) annotation(
+    Line(points = {{132, -32}, {-80, -32}, {-80, 8}}, color = {255, 0, 255}));
 protected
   annotation(
     Diagram(coordinateSystem(extent = {{-400, -200}, {400, 200}})),
