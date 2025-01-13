@@ -36,8 +36,10 @@ model Comptodq
     Placement(visible = true, transformation(origin = {-10, -44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
  Modelica.Blocks.Sources.IntegerConstant integerConstant(k = wflag)  annotation(
     Placement(visible = true, transformation(origin = {-48, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
- Modelica.Blocks.Interfaces.BooleanInput u annotation(
-    Placement(visible = true, transformation(origin = {-116, 56}, extent = {{-16, -16}, {16, 16}}, rotation = 0), iconTransformation(origin = {-28, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
+ Modelica.Blocks.Math.Product product annotation(
+    Placement(visible = true, transformation(origin = {-66, 18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+ Modelica.Blocks.Interfaces.RealInput FrzReal annotation(
+    Placement(visible = true, transformation(origin = {-120, 56}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-40, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
 equation
  connect(OmegaRefPu.y, pll.omegaRefPu) annotation(
     Line(points = {{-69, -4}, {-51, -4}}, color = {0, 0, 127}));
@@ -51,8 +53,6 @@ equation
     Line(points = {{37, 8}, {73, 8}, {73, 10}, {109, 10}}, color = {0, 0, 127}));
  connect(omega, pll.omegaPLLPu) annotation(
     Line(points = {{110, -28}, {-20, -28}, {-20, 8}, {-28, 8}}, color = {0, 0, 127}));
- connect(uINjPu, pll.uPu) annotation(
-    Line(points = {{-110, 30}, {-50, 30}, {-50, 8}}, color = {85, 170, 255}));
  connect(transformRItoDQ1.uPu, iINjPu) annotation(
     Line(points = {{15, 8}, {-23, 8}, {-23, 80}, {-110, 80}}, color = {85, 170, 255}));
  connect(uINjPu, transformRItoDQ.uPu) annotation(
@@ -71,6 +71,13 @@ equation
     Line(points = {{14, 36}, {8, 36}, {8, -44}, {2, -44}}, color = {0, 0, 127}));
  connect(integerConstant.y, multiSwitch.f) annotation(
     Line(points = {{-36, -30}, {-23, -30}, {-23, -32}, {-10, -32}}, color = {255, 127, 0}));
+ connect(uINjPu, product.u1) annotation(
+    Line(points = {{-110, 30}, {-87, 30}, {-87, 24}, {-78, 24}}, color = {85, 170, 255}));
+ connect(product.y, pll.uPu) annotation(
+    Line(points = {{-54, 18}, {-50, 18}, {-50, 8}}, color = {0, 0, 127}));
+ connect(FrzReal, product.u2) annotation(
+    Line(points = {{-120, 56}, {-90, 56}, {-90, 12}, {-78, 12}}, color = {0, 0, 127}));
+
 annotation(
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {1, 3}, extent = {{-83, 65}, {83, -65}}, textString = "computation
 to

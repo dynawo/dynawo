@@ -25,7 +25,8 @@ equation
 if PQflag == 0 then
 
   //    ----- P Priority -----
-  Iqmax_pPu = sqrt((IMaxPu * IMaxPu) - (idConvRefLimPu * idConvRefLimPu)*0)*0+1;
+  
+  Iqmax_pPu = noEvent(if IMaxPu^2 > idConvRefPu^2 then sqrt(IMaxPu^2 - idConvRefPu^2) else 0);
   Ipmax_qPu = 0;
   
   if idConvRefPu > Ipmax_pPu then
@@ -46,7 +47,7 @@ if PQflag == 0 then
 
 else
   //    ----- Q Priority -----
-  Ipmax_qPu = sqrt((IMaxPu * IMaxPu) - (iqConvRefLimPu * iqConvRefLimPu)*0);
+  Ipmax_qPu = noEvent(if IMaxPu^2 > iqConvRefPu^2 then sqrt(IMaxPu^2 - iqConvRefPu^2) else 0);
   Iqmax_pPu = 0;
   if iqConvRefPu > Iqmax_qPu then
       iqConvRefLimPu = Iqmax_qPu;

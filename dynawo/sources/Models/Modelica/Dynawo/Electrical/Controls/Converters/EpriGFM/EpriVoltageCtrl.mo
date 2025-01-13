@@ -102,8 +102,6 @@ model EpriVoltageCtrl
     Placement(visible = true, transformation(origin = {11, 109}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.IntegratorSetFreeze integratorSetFreezePiP(K = Kip, UseFreeze = true, Y0 = 0.5, y(start = 0.5)) annotation(
     Placement(visible = true, transformation(origin = {10, 199}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.BooleanOutput LvrtFrz annotation(
-    Placement(visible = true, transformation(origin = {258, -226}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {59, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Dynawo.Electrical.Controls.Converters.EpriGFM.CurrentLimiter currentLimiter(IMaxPu = IMaxPu, PQflag = PQflag, idConvRefLimPu(start = 0.5), idConvRefPu(start = 0.5), iqConvRefLimPu(start = 0), iqConvRefPu(start = 0))  annotation(
     Placement(visible = true, transformation(origin = {190, 9}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch(nu = 2) annotation(
@@ -112,6 +110,8 @@ model EpriVoltageCtrl
     Placement(visible = true, transformation(origin = {235, -6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.IntegerStep integerStep(startTime = 2)  annotation(
     Placement(visible = true, transformation(origin = {159, 43}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput FrzReal annotation(
+    Placement(visible = true, transformation(origin = {260, -226}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {73, -110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 equation
   connect(feedbackP.u1, PRef) annotation(
     Line(points = {{-142, 180}, {-260, 180}}, color = {0, 0, 127}));
@@ -209,8 +209,6 @@ equation
     Line(points = {{-76, -170}, {-54, -170}, {-54, -155}, {-32, -155}}, color = {0, 0, 127}));
   connect(sqrt1.y, lvrtFrz.VPu) annotation(
     Line(points = {{-118, -225}, {-74, -225}}, color = {0, 0, 127}));
-  connect(lvrtFrz.Frz, integratorSetFreezePiVq.freeze) annotation(
-    Line(points = {{-52, -225}, {-28, -225}, {-28, -198}}, color = {255, 0, 255}));
   connect(integratorSetFreezePiVq.u, feedback4.y) annotation(
     Line(points = {{-34, -186}, {-76, -186}, {-76, -170}}, color = {0, 0, 127}));
   connect(integratorSetFreezePiVq.y, add5.u2) annotation(
@@ -227,14 +225,6 @@ equation
     Line(points = {{21, 199}, {29, 199}, {29, 192}, {38, 192}}, color = {0, 0, 127}));
   connect(integratorSetFreezePiP.u, addPAux.y) annotation(
     Line(points = {{-2, 199}, {-25, 199}, {-25, 186}, {-44, 186}}, color = {0, 0, 127}));
-  connect(lvrtFrz.Frz, integratorSetFreezePiQ.freeze) annotation(
-    Line(points = {{-52, -225}, {-48, -225}, {-48, -44}, {-29, -44}}, color = {255, 0, 255}));
-  connect(lvrtFrz.Frz, integratorSetFreezePiV.freeze) annotation(
-    Line(points = {{-52, -225}, {-48, -225}, {-48, 97}, {5, 97}}, color = {255, 0, 255}));
-  connect(integratorSetFreezePiP.freeze, lvrtFrz.Frz) annotation(
-    Line(points = {{4, 187}, {-11, 187}, {-11, 97}, {-48, 97}, {-48, -225}, {-52, -225}}, color = {255, 0, 255}));
-  connect(lvrtFrz.Frz, LvrtFrz) annotation(
-    Line(points = {{-52, -225}, {104.5, -225}, {104.5, -226}, {258, -226}}, color = {255, 0, 255}));
   connect(currentLimiter.idConvRefPu, multiSwitchD.y) annotation(
     Line(points = {{179, 13}, {115, 13}, {115, 83}}, color = {0, 0, 127}));
   connect(currentLimiter.iqConvRefPu, multiSwitchQ.y) annotation(
@@ -247,14 +237,20 @@ equation
     Line(points = {{260, -78}, {246, -78}, {246, -6}}, color = {0, 0, 127}));
   connect(idConvRefPu, multiSwitch.y) annotation(
     Line(points = {{260, 60}, {245, 60}, {245, 30}}, color = {0, 0, 127}));
-  connect(limiterD.y, multiSwitch.u[1]) annotation(
-    Line(points = {{159, 85}, {224, 85}, {224, 30}}, color = {0, 0, 127}));
   connect(limiterQ.y, multiSwitch1.u[1]) annotation(
     Line(points = {{205, -77}, {225, -77}, {225, -6}}, color = {0, 0, 127}));
-  connect(currentLimiter.iqConvRefLimPu, multiSwitch.u[2]) annotation(
-    Line(points = {{201, 13}, {224, 13}, {224, 30}}, color = {0, 0, 127}));
-  connect(currentLimiter.idConvRefLimPu, multiSwitch1.u[2]) annotation(
-    Line(points = {{201, 5}, {214, 5}, {214, -6}, {225, -6}}, color = {0, 0, 127}));
+  connect(limiterD.y, multiSwitch.u[1]) annotation(
+    Line(points = {{159, 85}, {224, 85}, {224, 30}}, color = {0, 0, 127}));
+  connect(currentLimiter.iqConvRefLimPu, multiSwitch1.u[2]) annotation(
+    Line(points = {{201, 13}, {225, 13}, {225, -6}}, color = {0, 0, 127}));
+  connect(currentLimiter.idConvRefLimPu, multiSwitch.u[2]) annotation(
+    Line(points = {{201, 5}, {224, 5}, {224, 30}}, color = {0, 0, 127}));
+  connect(lvrtFrz.Frz, integratorSetFreezePiVq.freeze) annotation(
+    Line(points = {{-52, -220}, {-28, -220}, {-28, -198}}, color = {255, 0, 255}));
+  connect(integratorSetFreezePiQ.freeze, lvrtFrz.Frz) annotation(
+    Line(points = {{-29, -44}, {-35, -44}, {-35, -104}, {-38, -104}, {-38, -220}, {-52, -220}}, color = {255, 0, 255}));
+  connect(lvrtFrz.FrzReal, FrzReal) annotation(
+    Line(points = {{-52, -229}, {260, -229}, {260, -226}}, color = {0, 0, 127}));
   annotation(
     Icon(coordinateSystem(grid = {1, 1}), graphics = {Rectangle(extent = {{-100, 99}, {100, -99}}), Text(origin = {-2, 4}, extent = {{-87, 70}, {87, -70}}, textString = "EPRI
 voltage
