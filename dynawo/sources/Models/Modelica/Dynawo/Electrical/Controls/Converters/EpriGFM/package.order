@@ -5,3 +5,5 @@ EpriVoltageCtrl
 EpriCurrentCtrl
 DQTrafo
 Comptodq
+LvrtFrz
+CurrentLimiter

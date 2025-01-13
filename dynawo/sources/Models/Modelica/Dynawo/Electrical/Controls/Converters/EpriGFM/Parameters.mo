@@ -12,6 +12,8 @@ end Pll;
 
 record VoltageCtrl
   extends OmegaFlag;
+  extends LvrtFrz;
+  extends CurrentLimiter;
   parameter Types.PerUnit Kpv "Proportional gain of the voltage loop" annotation(Dialog(tab = "VoltageCtrl"));
   parameter Types.PerUnit Kiv "Integral gain of the voltage loop" annotation(Dialog(tab = "VoltageCtrl"));
   parameter Types.PerUnit CFilter "Filter capacitance in pu (base UNom, SNom)" annotation(Dialog(tab = "VoltageCtrl"));
@@ -113,5 +115,15 @@ record Circuit
   parameter Types.PerUnit GPu "Half-conductance in pu (base SnRef)" annotation(Dialog(tab = "Circuit"));
   parameter Types.PerUnit BPu "Half-susceptance in pu (base SnRef)" annotation(Dialog(tab = "Circuit"));
 end Circuit;
+
+record LvrtFrz
+  parameter Types.PerUnit VDipPu "Freeze voltage in pu" annotation(Dialog(tab = "VoltageCtrl"));
+end LvrtFrz;
+
+record CurrentLimiter
+  parameter Types.PerUnit IMaxPu "max current in pu" annotation(Dialog(tab = "VoltageCtrl"));
+  parameter Types.PerUnit PQflag "PQflag" annotation(Dialog(tab = "VoltageCtrl"));
+end CurrentLimiter;
+
 
 end Parameters;

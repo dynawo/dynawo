@@ -12,6 +12,7 @@ model EpriGFM
   extends Parameters.InitialVoltageCtrl;
   extends Parameters.Pll;
   extends Parameters.Pref0Pu_;
+
   Dynawo.Electrical.Sources.InjectorURI injectorURI(i0Pu = i0Pu, u0Pu = u0Pu, uiPu(start = 0), urPu(start = 1)) annotation(
     Placement(visible = true, transformation(origin = {190, 30}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.Utilities.Measurements measurements(SNom = SNom) annotation(
@@ -36,7 +37,7 @@ model EpriGFM
     Placement(visible = true, transformation(origin = {130, 30}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
   EpriCurrentCtrl epriCurrentCtrl(IdConv0Pu = 0, IqConv0Pu = 0, Kii = Kii, Kpi = Kpi, LFilter = LFilter, Pref0Pu = Pref0Pu, RFilter = RFilter, tE = tE, UdConv0Pu = UdConv0Pu, UdFilter0Pu = 1, UqConv0Pu = UqConv0Pu, UqFilter0Pu = 0, idConvPu(start = 0), idConvRefPu(start = 0), udConvRefPu(start = 1), uqConvRefPu(start = 0.5 * 0.1)) annotation(
     Placement(visible = true, transformation(origin = {44, 28}, extent = {{-26, -26}, {26, 26}}, rotation = 0)));
-  EpriVoltageCtrl epriVoltageCtrl(CFilter = CFilter, IdConv0Pu = IdConv0Pu, IdPcc0Pu = IdPcc0Pu, IqConv0Pu = IqConv0Pu, IqPcc0Pu = IqPcc0Pu, Kip = Kip, Kiv = Kiv, Kpp = Kpp, Kpv = Kpv, QDroop = QDroop, UdFilter0Pu = UdFilter0Pu, UqFilter0Pu = UqFilter0Pu, wDroop = wDroop, wflag = wflag) annotation(
+  EpriVoltageCtrl epriVoltageCtrl(CFilter = CFilter, IdConv0Pu = IdConv0Pu, IdPcc0Pu = IdPcc0Pu, IqConv0Pu = IqConv0Pu, IqPcc0Pu = IqPcc0Pu, Kip = Kip, Kiv = Kiv, Kpp = Kpp, Kpv = Kpv, QDroop = QDroop, UdFilter0Pu = UdFilter0Pu, UqFilter0Pu = UqFilter0Pu, VDipPu = VDipPu, wDroop = wDroop, wflag = wflag) annotation(
     Placement(visible = true, transformation(origin = {-99, 35}, extent = {{-25, -25}, {25, 25}}, rotation = 0)));
   // EpriVoltageCtrl test annotation(
   // Placement(visible = true, transformation(origin = {58, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -44,6 +45,7 @@ model EpriGFM
     Placement(visible = true, transformation(origin = {-250, 30}, extent = {{-23, -23}, {23, 23}}, rotation = 0)));
   Modelica.Blocks.Sources.Step PAux(height = 0.001, startTime = 70) annotation(
     Placement(visible = true, transformation(origin = {-368, -82}, extent = {{-11, -11}, {11, 11}}, rotation = 0)));
+
 equation
   injectorURI.switchOffSignal1.value = false;
   injectorURI.switchOffSignal2.value = false;
@@ -124,6 +126,8 @@ equation
     Line(points = {{-224, 30}, {-210, 30}, {-210, -12}, {172, -12}, {172, -46}, {148, -46}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(gfm.theta, dQTrafo.theta) annotation(
     Line(points = {{-224, 30}, {-210, 30}, {-210, -12}, {100, -12}, {100, 24}, {112, 24}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
+  connect(epriVoltageCtrl.LvrtFrz, comptodq.u) annotation(
+    Line(points = {{-84, 62}, {-22, 62}, {-22, -88}, {126, -88}}, color = {255, 0, 255}));
 protected
   annotation(
     Diagram(coordinateSystem(extent = {{-400, -200}, {400, 200}})),

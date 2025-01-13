@@ -24,16 +24,12 @@ model EpriVoltageCtrl
 
   Modelica.Blocks.Math.Gain gainPiP(k = Kpp) annotation(
     Placement(visible = true, transformation(origin = {10, 170}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integratorPiP(k = Kip, y_start = 0.5) annotation(
-    Placement(visible = true, transformation(origin = {10, 200}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedbackP annotation(
     Placement(visible = true, transformation(origin = {-134, 180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedbackV annotation(
     Placement(visible = true, transformation(origin = {-175, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gainPiQ(k = Kpv) annotation(
     Placement(visible = true, transformation(origin = {-20, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integratorPiQ(k = Kiv, y_start = 0) annotation(
-    Placement(visible = true, transformation(origin = {-20, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add addPiP annotation(
     Placement(visible = true, transformation(origin = {50, 186}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add addPiQ annotation(
@@ -59,15 +55,13 @@ model EpriVoltageCtrl
   Modelica.Blocks.Math.Add addQAux annotation(
     Placement(visible = true, transformation(origin = {-135, -5}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add addQu annotation(
-    Placement(visible = true, transformation(origin = {-70, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-82, -11}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gainInvertSign(k = -1) annotation(
     Placement(visible = true, transformation(origin = {55, -15}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.IntegerConstant integerConstant1(k = wflag) annotation(
     Placement(visible = true, transformation(origin = {89, 31}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitchQ(nu = 4) annotation(
     Placement(visible = true, transformation(origin = {159, -77}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integratorPiV(k = Kip, y_start = 0.5) annotation(
-    Placement(visible = true, transformation(origin = {10, 107}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add addPiV annotation(
     Placement(visible = true, transformation(origin = {50, 83}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gainPiV(k = Kpp) annotation(
@@ -76,8 +70,6 @@ model EpriVoltageCtrl
     Placement(visible = true, transformation(origin = {20, -170}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain7(k = Kpv) annotation(
     Placement(visible = true, transformation(origin = {-20, -155}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integrator1(k = Kiv, y_start = 0) annotation(
-    Placement(visible = true, transformation(origin = {-20, -185}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput vQConvPu(start = UqFilter0Pu) annotation(
     Placement(visible = true, transformation(origin = {-265, -145}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin={-110,-10}, extent = {{-10,-10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback4 annotation(
@@ -92,6 +84,34 @@ model EpriVoltageCtrl
     Placement(visible = true, transformation(origin = {194, -77}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitchD(nu = 4) annotation(
     Placement(visible = true, transformation(origin = {104, 83}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Sqrt sqrt1 annotation(
+    Placement(visible = true, transformation(origin = {-129, -225}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Add add annotation(
+    Placement(visible = true, transformation(origin = {-167, -225}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Product product annotation(
+    Placement(visible = true, transformation(origin = {-216, -249}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Product product1 annotation(
+    Placement(visible = true, transformation(origin = {-217, -210}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Controls.Converters.EpriGFM.LvrtFrz lvrtFrz(VDipPu = VDipPu)  annotation(
+    Placement(visible = true, transformation(origin = {-63, -225}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.Continuous.IntegratorSetFreeze integratorSetFreezePiVq(K = Kiv, UseFreeze = true, Y0 = 0, y(start = 0)) annotation(
+    Placement(visible = true, transformation(origin = {-22, -186}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.Continuous.IntegratorSetFreeze integratorSetFreezePiQ(K = Kiv, UseFreeze = true, y(start = 0)) annotation(
+    Placement(visible = true, transformation(origin = {-23, -32}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.Continuous.IntegratorSetFreeze integratorSetFreezePiV(K = Kip, UseFreeze = true, Y0 = 0.5, y(start = 0.5)) annotation(
+    Placement(visible = true, transformation(origin = {11, 109}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.Continuous.IntegratorSetFreeze integratorSetFreezePiP(K = Kip, UseFreeze = true, Y0 = 0.5, y(start = 0.5)) annotation(
+    Placement(visible = true, transformation(origin = {10, 199}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.BooleanOutput LvrtFrz annotation(
+    Placement(visible = true, transformation(origin = {258, -226}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {59, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Dynawo.Electrical.Controls.Converters.EpriGFM.CurrentLimiter currentLimiter(IMaxPu = IMaxPu, PQflag = PQflag, idConvRefLimPu(start = 0.5), idConvRefPu(start = 0.5), iqConvRefLimPu(start = 0), iqConvRefPu(start = 0))  annotation(
+    Placement(visible = true, transformation(origin = {190, 9}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch(nu = 2) annotation(
+    Placement(visible = true, transformation(origin = {234, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch1(nu = 2) annotation(
+    Placement(visible = true, transformation(origin = {235, -6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.IntegerStep integerStep(startTime = 2)  annotation(
+    Placement(visible = true, transformation(origin = {159, 43}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
   connect(feedbackP.u1, PRef) annotation(
     Line(points = {{-142, 180}, {-260, 180}}, color = {0, 0, 127}));
@@ -103,10 +123,6 @@ equation
     Line(points = {{38, 180}, {29.5, 180}, {29.5, 170}, {21, 170}}, color = {0, 0, 127}));
   connect(addPiQ.u1, gainPiQ.y) annotation(
     Line(points = {{3, -9}, {-4, -9}, {-4, 0}, {-12, 0}}, color = {0, 0, 127}));
-  connect(integratorPiQ.y, addPiQ.u2) annotation(
-    Line(points = {{-9, -30}, {0, -30}, {0, -21}, {6, -21}}, color = {0, 0, 127}));
-  connect(integratorPiP.y, addPiP.u1) annotation(
-    Line(points = {{21, 200}, {30, 200}, {30, 192}, {38, 192}}, color = {0, 0, 127}));
   connect(deltaOmega, gainDroop.u) annotation(
     Line(points = {{-260, 145}, {-134, 145}}, color = {0, 0, 127}));
   connect(p, feedbackP.u2) annotation(
@@ -122,9 +138,7 @@ equation
   connect(feedbackV.y, addQAux.u1) annotation(
     Line(points = {{-166, 0}, {-146, 0}}, color = {0, 0, 127}));
   connect(addQu.y, gainPiQ.u) annotation(
-    Line(points = {{-59, -10}, {-40.5, -10}, {-40.5, 6}, {-31, 6}}, color = {0, 0, 127}));
-  connect(integratorPiQ.u, addQu.y) annotation(
-    Line(points = {{-32, -30}, {-42, -30}, {-42, -11}, {-59, -11}}, color = {0, 0, 127}));
+    Line(points = {{-71, -11}, {-40.5, -11}, {-40.5, 6}, {-31, 6}}, color = {0, 0, 127}));
   connect(q, feedbackQ.u2) annotation(
     Line(points = {{-260, -70}, {-192.5, -70}, {-192.5, -68}, {-180, -68}}, color = {0, 0, 127}));
   connect(QRef, feedbackQ.u1) annotation(
@@ -133,32 +147,20 @@ equation
     Line(points = {{26, -15}, {43, -15}}, color = {0, 0, 127}));
   connect(addPiV.u2, gainPiV.y) annotation(
     Line(points = {{38, 77}, {21, 77}}, color = {0, 0, 127}));
-  connect(integratorPiV.y, addPiV.u1) annotation(
-    Line(points = {{21, 107}, {30, 107}, {30, 89}, {38, 89}}, color = {0, 0, 127}));
   connect(add5.y, gainInvertSign2.u) annotation(
     Line(points = {{31, -170}, {42, -170}}, color = {0, 0, 127}));
   connect(add5.u1, gain7.y) annotation(
     Line(points = {{8, -164}, {-0.5, -164}, {-0.5, -155}, {-9, -155}}, color = {0, 0, 127}));
   connect(constant1.y, feedback4.u1) annotation(
     Line(points = {{-214, -170}, {-93, -170}}, color = {0, 0, 127}));
-  connect(integrator1.y, add5.u2) annotation(
-    Line(points = {{-9, -185}, {0, -185}, {0, -176}, {8, -176}}, color = {0, 0, 127}));
-  connect(integrator1.u, feedback4.y) annotation(
-    Line(points = {{-32, -185}, {-54, -185}, {-54, -170}, {-76, -170}}, color = {0, 0, 127}));
   connect(feedback4.u2, vQConvPu) annotation(
     Line(points = {{-85, -162}, {-85, -147}, {-264, -147}}, color = {0, 0, 127}));
-  connect(feedback4.y, gain7.u) annotation(
-    Line(points = {{-76, -170}, {-54, -170}, {-54, -155}, {-32, -155}}, color = {0, 0, 127}));
-  connect(limiterD.y, idConvRefPu) annotation(
-    Line(points = {{159, 85}, {171, 85}, {171, 60}, {260, 60}}, color = {0, 0, 127}));
   connect(multiSwitchQ.y, limiterQ.u) annotation(
     Line(points = {{170, -77}, {184, -77}, {184, -78}}, color = {0, 0, 127}));
-  connect(limiterQ.y, iqConvRefPu) annotation(
-    Line(points = {{205, -77}, {260, -77}, {260, -78}}, color = {0, 0, 127}));
   connect(addQAux.y, addQu.u1) annotation(
-    Line(points = {{-124, -5}, {-82, -5}}, color = {0, 0, 127}));
+    Line(points = {{-124, -5}, {-94, -5}}, color = {0, 0, 127}));
   connect(gainQDroop.y, addQu.u2) annotation(
-    Line(points = {{-129, -60}, {-100, -60}, {-100, -17}, {-82, -17}}, color = {0, 0, 127}));
+    Line(points = {{-129, -60}, {-100, -60}, {-100, -17}, {-94, -17}}, color = {0, 0, 127}));
   connect(QAux, addQAux.u2) annotation(
     Line(points = {{-260, -15}, {-175, -15}, {-175, -11}, {-147, -11}}, color = {0, 0, 127}));
   connect(addPiP.y, multiSwitchD.u[1]) annotation(
@@ -167,14 +169,10 @@ equation
     Line(points = {{115, 83}, {126.5, 83}, {126.5, 85}, {136, 85}}, color = {0, 0, 127}));
   connect(PAux, addPAux.u1) annotation(
     Line(points = {{-260, 200}, {-99, 200}, {-99, 192}, {-67, 192}}, color = {0, 0, 127}));
-  connect(addPAux.y, integratorPiP.u) annotation(
-    Line(points = {{-44, 186}, {-24, 186}, {-24, 200}, {-2, 200}}, color = {0, 0, 127}));
   connect(addPAux.y, gainPiP.u) annotation(
     Line(points = {{-44, 186}, {-24, 186}, {-24, 170}, {-2, 170}}, color = {0, 0, 127}));
-  connect(feedbackV.y, integratorPiV.u) annotation(
-    Line(points = {{-166, 0}, {-160, 0}, {-160, 93}, {-21, 93}, {-21, 107}, {-2, 107}}, color = {0, 0, 127}));
   connect(feedbackV.y, gainPiV.u) annotation(
-    Line(points = {{-166, 0}, {-160, 0}, {-160, 93}, {-21, 93}, {-21, 77}, {-2, 77}}, color = {0, 0, 127}));
+    Line(points = {{-166, 0}, {-157, 0}, {-157, 76}, {-21, 76}, {-21, 77}, {-2, 77}}, color = {0, 0, 127}));
   connect(addPiV.y, multiSwitchD.u[2]) annotation(
     Line(points = {{61, 83}, {94, 83}}, color = {0, 0, 127}));
   connect(addPiV.y, multiSwitchD.u[3]) annotation(
@@ -193,8 +191,74 @@ equation
     Line(points = {{100, 31}, {119, 31}, {119, 109}, {104, 109}, {104, 95}}, color = {255, 127, 0}));
   connect(integerConstant1.y, multiSwitchQ.f) annotation(
     Line(points = {{100, 31}, {119, 31}, {119, -45}, {159, -45}, {159, -65}}, color = {255, 127, 0}));
+  connect(add.y, sqrt1.u) annotation(
+    Line(points = {{-156, -225}, {-141, -225}}, color = {0, 0, 127}));
+  connect(product.y, add.u2) annotation(
+    Line(points = {{-205, -249}, {-190, -249}, {-190, -231}, {-179, -231}}, color = {0, 0, 127}));
+  connect(product1.y, add.u1) annotation(
+    Line(points = {{-206, -210}, {-179, -210}, {-179, -219}}, color = {0, 0, 127}));
+  connect(product1.u1, vQConvPu) annotation(
+    Line(points = {{-229, -204}, {-265, -204}, {-265, -145}}, color = {0, 0, 127}));
+  connect(product1.u2, vQConvPu) annotation(
+    Line(points = {{-229, -216}, {-265, -216}, {-265, -145}}, color = {0, 0, 127}));
+  connect(product.u1, vd) annotation(
+    Line(points = {{-228, -243}, {-285, -243}, {-285, 15}, {-260, 15}}, color = {0, 0, 127}));
+  connect(product.u2, vd) annotation(
+    Line(points = {{-228, -255}, {-285, -255}, {-285, 15}, {-260, 15}}, color = {0, 0, 127}));
+  connect(feedback4.y, gain7.u) annotation(
+    Line(points = {{-76, -170}, {-54, -170}, {-54, -155}, {-32, -155}}, color = {0, 0, 127}));
+  connect(sqrt1.y, lvrtFrz.VPu) annotation(
+    Line(points = {{-118, -225}, {-74, -225}}, color = {0, 0, 127}));
+  connect(lvrtFrz.Frz, integratorSetFreezePiVq.freeze) annotation(
+    Line(points = {{-52, -225}, {-28, -225}, {-28, -198}}, color = {255, 0, 255}));
+  connect(integratorSetFreezePiVq.u, feedback4.y) annotation(
+    Line(points = {{-34, -186}, {-76, -186}, {-76, -170}}, color = {0, 0, 127}));
+  connect(integratorSetFreezePiVq.y, add5.u2) annotation(
+    Line(points = {{-11, -186}, {1, -186}, {1, -176}, {8, -176}}, color = {0, 0, 127}));
+  connect(integratorSetFreezePiQ.y, addPiQ.u2) annotation(
+    Line(points = {{-12, -32}, {-4, -32}, {-4, -21}, {3, -21}}, color = {0, 0, 127}));
+  connect(integratorSetFreezePiQ.u, addQu.y) annotation(
+    Line(points = {{-35, -32}, {-52, -32}, {-52, -11}, {-71, -11}}, color = {0, 0, 127}));
+  connect(integratorSetFreezePiV.y, addPiV.u1) annotation(
+    Line(points = {{22, 109}, {31, 109}, {31, 89}, {38, 89}}, color = {0, 0, 127}));
+  connect(integratorSetFreezePiV.u, feedbackV.y) annotation(
+    Line(points = {{-1, 109}, {-157, 109}, {-157, 0}, {-166, 0}}, color = {0, 0, 127}));
+  connect(integratorSetFreezePiP.y, addPiP.u1) annotation(
+    Line(points = {{21, 199}, {29, 199}, {29, 192}, {38, 192}}, color = {0, 0, 127}));
+  connect(integratorSetFreezePiP.u, addPAux.y) annotation(
+    Line(points = {{-2, 199}, {-25, 199}, {-25, 186}, {-44, 186}}, color = {0, 0, 127}));
+  connect(lvrtFrz.Frz, integratorSetFreezePiQ.freeze) annotation(
+    Line(points = {{-52, -225}, {-48, -225}, {-48, -44}, {-29, -44}}, color = {255, 0, 255}));
+  connect(lvrtFrz.Frz, integratorSetFreezePiV.freeze) annotation(
+    Line(points = {{-52, -225}, {-48, -225}, {-48, 97}, {5, 97}}, color = {255, 0, 255}));
+  connect(integratorSetFreezePiP.freeze, lvrtFrz.Frz) annotation(
+    Line(points = {{4, 187}, {-11, 187}, {-11, 97}, {-48, 97}, {-48, -225}, {-52, -225}}, color = {255, 0, 255}));
+  connect(lvrtFrz.Frz, LvrtFrz) annotation(
+    Line(points = {{-52, -225}, {104.5, -225}, {104.5, -226}, {258, -226}}, color = {255, 0, 255}));
+  connect(currentLimiter.idConvRefPu, multiSwitchD.y) annotation(
+    Line(points = {{179, 13}, {115, 13}, {115, 83}}, color = {0, 0, 127}));
+  connect(currentLimiter.iqConvRefPu, multiSwitchQ.y) annotation(
+    Line(points = {{179, 5}, {170, 5}, {170, -77}}, color = {0, 0, 127}));
+  connect(integerStep.y, multiSwitch.f) annotation(
+    Line(points = {{170, 43}, {201.5, 43}, {201.5, 42}, {234, 42}}, color = {255, 127, 0}));
+  connect(multiSwitch1.f, integerStep.y) annotation(
+    Line(points = {{235, 6}, {211, 6}, {211, 43}, {170, 43}}, color = {255, 127, 0}));
+  connect(iqConvRefPu, multiSwitch1.y) annotation(
+    Line(points = {{260, -78}, {246, -78}, {246, -6}}, color = {0, 0, 127}));
+  connect(idConvRefPu, multiSwitch.y) annotation(
+    Line(points = {{260, 60}, {245, 60}, {245, 30}}, color = {0, 0, 127}));
+  connect(limiterD.y, multiSwitch.u[1]) annotation(
+    Line(points = {{159, 85}, {224, 85}, {224, 30}}, color = {0, 0, 127}));
+  connect(limiterQ.y, multiSwitch1.u[1]) annotation(
+    Line(points = {{205, -77}, {225, -77}, {225, -6}}, color = {0, 0, 127}));
+  connect(currentLimiter.iqConvRefLimPu, multiSwitch.u[2]) annotation(
+    Line(points = {{201, 13}, {224, 13}, {224, 30}}, color = {0, 0, 127}));
+  connect(currentLimiter.idConvRefLimPu, multiSwitch1.u[2]) annotation(
+    Line(points = {{201, 5}, {214, 5}, {214, -6}, {225, -6}}, color = {0, 0, 127}));
   annotation(
-    Icon(coordinateSystem(grid = {1, 1}), graphics = {Rectangle(extent = {{-100, 99}, {100, -99}}), Text(origin = {-2, 4}, extent = {{-87, 70}, {87, -70}}, textString = "EPRI\nvoltage\ncontrol")}),
+    Icon(coordinateSystem(grid = {1, 1}), graphics = {Rectangle(extent = {{-100, 99}, {100, -99}}), Text(origin = {-2, 4}, extent = {{-87, 70}, {87, -70}}, textString = "EPRI
+voltage
+control")}),
     preferredView = "diagram",
     Diagram(coordinateSystem(grid = {1, 1}, extent = {{-250, -250}, {250, 250}})));
 end EpriVoltageCtrl;

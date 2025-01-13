@@ -36,6 +36,8 @@ model Comptodq
     Placement(visible = true, transformation(origin = {-10, -44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
  Modelica.Blocks.Sources.IntegerConstant integerConstant(k = wflag)  annotation(
     Placement(visible = true, transformation(origin = {-48, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+ Modelica.Blocks.Interfaces.BooleanInput u annotation(
+    Placement(visible = true, transformation(origin = {-116, 56}, extent = {{-16, -16}, {16, 16}}, rotation = 0), iconTransformation(origin = {-28, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
 equation
  connect(OmegaRefPu.y, pll.omegaRefPu) annotation(
     Line(points = {{-69, -4}, {-51, -4}}, color = {0, 0, 127}));
@@ -70,5 +72,7 @@ equation
  connect(integerConstant.y, multiSwitch.f) annotation(
     Line(points = {{-36, -30}, {-23, -30}, {-23, -32}, {-10, -32}}, color = {255, 127, 0}));
 annotation(
-    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {1, 3}, extent = {{-83, 65}, {83, -65}}, textString = "computation\nto\ndq")}));
+    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {1, 3}, extent = {{-83, 65}, {83, -65}}, textString = "computation
+to
+dq")}));
 end Comptodq;
