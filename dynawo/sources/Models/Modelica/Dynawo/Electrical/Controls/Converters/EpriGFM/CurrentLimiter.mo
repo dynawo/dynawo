@@ -22,7 +22,7 @@ Real Ipmax_qPu;
 
 equation 
 
-if PQflag == 0 then
+if not(PQflag) then
 
   //    ----- P Priority -----
   
