@@ -346,6 +346,8 @@ def get_div_block_sim(line, start_pos):
        current_pos += 1
     if "DIVISION_SIM" in line:
         return "DIVISION_SIM(" + line[start_pos:end_pos] + ")"
+    if "div(" in line:
+        return "div(" + line[start_pos:end_pos] + ")"
     return "DIVISION(" + line[start_pos:end_pos] + ")"
 
 ##
@@ -360,6 +362,9 @@ def get_argument(line, start_pos):
     current_pos = start_pos
     for char in line[start_pos:]:
        if char == "(" : nb_brackets += 1
+       if char == ")" and nb_brackets == 0 :
+           end_pos = current_pos
+           break
        if char == ")" : nb_brackets -= 1
        if char == "," and nb_brackets == 0:
            end_pos = current_pos
@@ -444,7 +449,7 @@ def replace_dynamic_indexing(body):
 # @returns : the line with the new expression
 def sub_division_sim(line):
     line_to_return = line
-    ptrn_div = re.compile(r'DIVISION_SIM\(|DIVISION\(')
+    ptrn_div = re.compile(r'DIVISION_SIM\(|DIVISION\(|[^l]div\(')
     nb_iter = 0
     while True:
         match = ptrn_div.search(line_to_return)
