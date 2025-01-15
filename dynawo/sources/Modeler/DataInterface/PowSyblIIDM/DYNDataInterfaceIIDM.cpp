@@ -531,16 +531,25 @@ DataInterfaceIIDM::importDanglingLine(powsybl::iidm::DanglingLine& danglingLineI
     // permanent limit
     if (!std::isnan(currentLimits.getPermanentLimit())) {
       std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(),
-                                                        std::numeric_limits<unsigned long>::max()));
+                                                                                      std::numeric_limits<unsigned long>::max(),
+                                                                                      false));
       danglingLine->addCurrentLimitInterface(std::move(cLimit));
     }
 
     // temporary limit
     for (auto& currentLimit : currentLimits.getTemporaryLimits()) {
       if (!currentLimit.isFictitious()) {
-        std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
+        std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(),
+                                                                                        currentLimit.getAcceptableDuration(),
+                                                                                        currentLimit.isFictitious()));
         danglingLine->addCurrentLimitInterface(std::move(cLimit));
       }
+    }
+    // fictitious limit
+    for (auto& currentLimit : currentLimits.getFictitiousLimits()) {
+      std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration(),
+          currentLimit.isFictitious()));
+      danglingLine->addCurrentLimitInterface(std::move(cLimit));
     }
   }
   return danglingLine;
@@ -587,16 +596,25 @@ DataInterfaceIIDM::importTwoWindingsTransformer(powsybl::iidm::TwoWindingsTransf
     // permanent limit
     if (!std::isnan(currentLimits.getPermanentLimit())) {
       std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(),
-                                                          std::numeric_limits<unsigned long>::max()));
+                                                                                       std::numeric_limits<unsigned long>::max(),
+                                                                                       false));
       twoWTfo->addCurrentLimitInterface1(std::move(cLimit));
     }
 
     // temporary limit
     for (auto& currentLimit : currentLimits.getTemporaryLimits()) {
       if (!currentLimit.isFictitious()) {
-        std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
+        std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(),
+                                                                                          currentLimit.getAcceptableDuration(),
+                                                                                          currentLimit.isFictitious()));
         twoWTfo->addCurrentLimitInterface1(std::move(cLimit));
       }
+    }
+    // fictitious limit
+    for (auto& currentLimit : currentLimits.getFictitiousLimits()) {
+      std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration(),
+          currentLimit.isFictitious()));
+      twoWTfo->addCurrentLimitInterface1(std::move(cLimit));
     }
   }
 
@@ -606,16 +624,25 @@ DataInterfaceIIDM::importTwoWindingsTransformer(powsybl::iidm::TwoWindingsTransf
     // permanent limit
     if (!std::isnan(currentLimits.getPermanentLimit())) {
       std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(),
-                                                        std::numeric_limits<unsigned long>::max()));
+                                                                                                      std::numeric_limits<unsigned long>::max(),
+                                                                                                      false));
       twoWTfo->addCurrentLimitInterface2(std::move(cLimit));
     }
 
     // temporary limit
     for (auto& currentLimit : currentLimits.getTemporaryLimits()) {
       if (!currentLimit.isFictitious()) {
-        std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
+        std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(),
+                                                                                                        currentLimit.getAcceptableDuration(),
+                                                                                                        currentLimit.isFictitious()));
         twoWTfo->addCurrentLimitInterface2(std::move(cLimit));
       }
+    }
+    // fictitious limit
+    for (auto& currentLimit : currentLimits.getFictitiousLimits()) {
+      std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration(),
+          currentLimit.isFictitious()));
+      twoWTfo->addCurrentLimitInterface2(std::move(cLimit));
     }
   }
   return twoWTfo;
@@ -684,16 +711,24 @@ DataInterfaceIIDM::convertThreeWindingsTransformers(powsybl::iidm::ThreeWindings
       // permanent limit
       if (!std::isnan(currentLimits.getPermanentLimit())) {
         std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(),
-                                                          std::numeric_limits<unsigned long>::max()));
+                                                                                                        std::numeric_limits<unsigned long>::max(),
+                                                                                                        false));
         fictTwoWTransf->addCurrentLimitInterface2(std::move(cLimit));
       }
       // temporary limit
       for (auto& currentLimit : currentLimits.getTemporaryLimits()) {
         if (!currentLimit.isFictitious()) {
           std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(),
-                                                            currentLimit.getAcceptableDuration()));
+                                                                                                          currentLimit.getAcceptableDuration(),
+                                                                                                          currentLimit.isFictitious()));
           fictTwoWTransf->addCurrentLimitInterface2(std::move(cLimit));
         }
+      }
+      // fictitious limit
+      for (auto& currentLimit : currentLimits.getFictitiousLimits()) {
+        std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration(),
+            currentLimit.isFictitious()));
+        fictTwoWTransf->addCurrentLimitInterface2(std::move(cLimit));
       }
     }
     network_->addTwoWTransformer(fictTwoWTransf);
@@ -717,15 +752,24 @@ DataInterfaceIIDM::importLine(powsybl::iidm::Line& lineIIDM) {
     powsybl::iidm::CurrentLimits& currentLimits1 = lineIIDM.getCurrentLimits1().get();
     if (!std::isnan(currentLimits1.getPermanentLimit())) {
       std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits1.getPermanentLimit(),
-          std::numeric_limits<unsigned long>::max()));
+                                                                                                      std::numeric_limits<unsigned long>::max(),
+                                                                                                      false));
       line->addCurrentLimitInterface1(std::move(cLimit));
     }
     // temporary limit on side 1
     for (auto& currentLimit : currentLimits1.getTemporaryLimits()) {
       if (!currentLimit.isFictitious()) {
-        std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
+        std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(),
+                                                                                                        currentLimit.getAcceptableDuration(),
+                                                                                                        currentLimit.isFictitious()));
         line->addCurrentLimitInterface1(std::move(cLimit));
       }
+    }
+    // fictitious limit on side 1
+    for (auto& currentLimit : currentLimits1.getFictitiousLimits()) {
+      std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration(),
+          currentLimit.isFictitious()));
+      line->addCurrentLimitInterface1(std::move(cLimit));
     }
   }
 
@@ -734,15 +778,24 @@ DataInterfaceIIDM::importLine(powsybl::iidm::Line& lineIIDM) {
     powsybl::iidm::CurrentLimits& currentLimits2 = lineIIDM.getCurrentLimits2().get();
     if (!std::isnan(currentLimits2.getPermanentLimit())) {
       std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits2.getPermanentLimit(),
-          std::numeric_limits<unsigned long>::max()));
+                                                                                                      std::numeric_limits<unsigned long>::max(),
+                                                                                                      false));
       line->addCurrentLimitInterface2(std::move(cLimit));
     }
     // temporary limit on side 12
     for (auto& currentLimit : currentLimits2.getTemporaryLimits()) {
       if (!currentLimit.isFictitious()) {
-        std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
+        std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(),
+                                                                                                        currentLimit.getAcceptableDuration(),
+                                                                                                        currentLimit.isFictitious()));
         line->addCurrentLimitInterface2(std::move(cLimit));
       }
+    }
+    // fictitious limit on side 2
+    for (auto& currentLimit : currentLimits2.getFictitiousLimits()) {
+      std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration(),
+          currentLimit.isFictitious()));
+      line->addCurrentLimitInterface1(std::move(cLimit));
     }
   }
   return line;
