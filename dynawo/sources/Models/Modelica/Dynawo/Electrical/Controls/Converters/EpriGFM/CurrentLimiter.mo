@@ -15,8 +15,8 @@ model CurrentLimiter
   Modelica.Blocks.Interfaces.RealOutput idConvRefLimPu(start = 1) "limited d-axis current in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-260, -15}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110,-40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-parameter Real Ipmax_pPu = 1;
-parameter Real Iqmax_qPu = 1;
+parameter Real Ipmax_pPu = IMaxPu;
+parameter Real Iqmax_qPu = IMaxPu;
 Real Iqmax_pPu;
 Real Ipmax_qPu;
 

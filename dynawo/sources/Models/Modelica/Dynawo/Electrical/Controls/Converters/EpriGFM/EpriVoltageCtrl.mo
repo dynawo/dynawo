@@ -108,7 +108,7 @@ model EpriVoltageCtrl
     Placement(visible = true, transformation(origin = {234, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch1(nu = 2) annotation(
     Placement(visible = true, transformation(origin = {235, -6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.IntegerStep integerStep(startTime = 2)  annotation(
+  Modelica.Blocks.Sources.IntegerStep integerStep(offset = 1, startTime = 200)  annotation(
     Placement(visible = true, transformation(origin = {159, 43}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.BooleanOutput Frz annotation(
     Placement(visible = true, transformation(origin = {259, -225}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {74, -110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
