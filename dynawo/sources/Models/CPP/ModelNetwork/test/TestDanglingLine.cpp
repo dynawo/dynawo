@@ -79,6 +79,8 @@ createModelDanglingLine(bool open, bool initModel) {
   dlIIDM.getTerminal().setQ(90.);
   dlIIDM.newCurrentLimits().setPermanentLimit(200)
       .beginTemporaryLimit().setName("MyLimit").setValue(10.).setAcceptableDuration(5.).endTemporaryLimit()
+      .beginTemporaryLimit().setName("MyLimit").setValue(8.).setAcceptableDuration(std::numeric_limits<unsigned long>::max())
+        .setFictitious(true).endTemporaryLimit()
       .beginTemporaryLimit().setName("MyLimit2").setValue(15.).setAcceptableDuration(10.).endTemporaryLimit()
       .add();
   if (open)
@@ -93,7 +95,7 @@ createModelDanglingLine(bool open, bool initModel) {
   // permanent limit
   if (!std::isnan(currentLimits.getPermanentLimit())) {
     std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit = DYN::make_unique<CurrentLimitInterfaceIIDM>(currentLimits.getPermanentLimit(),
-                                                                                                    std::numeric_limits<unsigned long>::max());
+                                                                                                    std::numeric_limits<unsigned long>::max(), false);
     dlItfIIDM->addCurrentLimitInterface(std::move(cLimit));
   }
 
@@ -101,7 +103,8 @@ createModelDanglingLine(bool open, bool initModel) {
   for (auto& currentLimit : currentLimits.getTemporaryLimits()) {
     if (!currentLimit.isFictitious()) {
       std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit = DYN::make_unique<CurrentLimitInterfaceIIDM>(currentLimit.getValue(),
-                                                                                                      currentLimit.getAcceptableDuration());
+                                                                                                      currentLimit.getAcceptableDuration(),
+                                                                                                      currentLimit.isFictitious());
       dlItfIIDM->addCurrentLimitInterface(std::move(cLimit));
     }
   }
