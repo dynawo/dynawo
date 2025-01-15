@@ -122,7 +122,7 @@ end LvrtFrz;
 
 record CurrentLimiter
   parameter Types.PerUnit IMaxPu "max current in pu" annotation(Dialog(tab = "VoltageCtrl"));
-  parameter Types.PerUnit PQflag "PQflag" annotation(Dialog(tab = "VoltageCtrl"));
+  parameter Boolean PQflag "PQflag" annotation(Dialog(tab = "VoltageCtrl"));
 end CurrentLimiter;
 
 
