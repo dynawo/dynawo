@@ -88,6 +88,9 @@ XmlExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& constr
         case ConstraintData::USupUmax:
           attrs.add("kind", "USupUmax");
           break;
+        case ConstraintData::FictLim:
+          attrs.add("kind", "Fictitious");
+          break;
         case ConstraintData::Undefined:
           break;
       }

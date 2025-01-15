@@ -48,6 +48,12 @@ class CurrentLimitInterface {
    * @return The acceptable duration in s
    */
   virtual int getAcceptableDuration() const = 0;
+
+  /**
+   * @brief Getter for the fictitious status of the current limit
+   * @return whether the current limit is fictitious
+   */
+  virtual bool isFictitious() const = 0;
 };  ///< class for current limit interface
 
 #ifdef __clang__
