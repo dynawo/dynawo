@@ -31,6 +31,7 @@
 #include "DYNSparseMatrix.h"
 #include "DYNVariable.h"
 
+#include "make_unique.hpp"
 #include "gtest_dynawo.h"
 
 
@@ -112,7 +113,7 @@ createModelThreeWindingsTransformer(bool open, bool initModel) {
     transformer.getLeg2().getTerminal().disconnect();
     transformer.getLeg3().getTerminal().disconnect();
   }
-  std::unique_ptr<ThreeWTransformerInterfaceIIDM> tw3ItfIIDM = std::unique_ptr<ThreeWTransformerInterfaceIIDM>(new ThreeWTransformerInterfaceIIDM(transformer));
+  std::unique_ptr<ThreeWTransformerInterfaceIIDM> tw3ItfIIDM = DYN::make_unique<ThreeWTransformerInterfaceIIDM>(transformer);
   std::shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = std::make_shared<VoltageLevelInterfaceIIDM>(vlIIDM);
   std::shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = std::make_shared<BusInterfaceIIDM>(iidmBus);
   std::shared_ptr<BusInterfaceIIDM> bus2ItfIIDM = std::make_shared<BusInterfaceIIDM>(iidmBus2);
@@ -127,9 +128,9 @@ createModelThreeWindingsTransformer(bool open, bool initModel) {
   network->setIsInitModel(initModel);
   t3w->setNetwork(network);
   std::shared_ptr<ModelVoltageLevel> vl = std::make_shared<ModelVoltageLevel>(vlItfIIDM);
-  std::unique_ptr<ModelBus> bus1 = std::unique_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
-  std::unique_ptr<ModelBus> bus2 = std::unique_ptr<ModelBus>(new ModelBus(bus2ItfIIDM, false));
-  std::unique_ptr<ModelBus> bus3 = std::unique_ptr<ModelBus>(new ModelBus(bus3ItfIIDM, false));
+  std::unique_ptr<ModelBus> bus1 = DYN::make_unique<ModelBus>(bus1ItfIIDM, false);
+  std::unique_ptr<ModelBus> bus2 = DYN::make_unique<ModelBus>(bus2ItfIIDM, false);
+  std::unique_ptr<ModelBus> bus3 = DYN::make_unique<ModelBus>(bus3ItfIIDM, false);
   t3w->setModelBus1(std::move(bus1));
   t3w->setModelBus2(std::move(bus2));
   t3w->setModelBus3(std::move(bus3));

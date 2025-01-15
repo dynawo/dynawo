@@ -34,6 +34,7 @@
 #include "DYNSparseMatrix.h"
 #include "DYNVariable.h"
 
+#include "make_unique.hpp"
 #include "gtest_dynawo.h"
 
 using boost::shared_ptr;
@@ -91,20 +92,21 @@ createModelDanglingLine(bool open, bool initModel) {
 
   // permanent limit
   if (!std::isnan(currentLimits.getPermanentLimit())) {
-    std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(),
-                                                                                    std::numeric_limits<unsigned long>::max()));
+    std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit = DYN::make_unique<CurrentLimitInterfaceIIDM>(currentLimits.getPermanentLimit(),
+                                                                                                    std::numeric_limits<unsigned long>::max());
     dlItfIIDM->addCurrentLimitInterface(std::move(cLimit));
   }
 
   // temporary limit
   for (auto& currentLimit : currentLimits.getTemporaryLimits()) {
     if (!currentLimit.isFictitious()) {
-      std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
+      std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit = DYN::make_unique<CurrentLimitInterfaceIIDM>(currentLimit.getValue(),
+                                                                                                      currentLimit.getAcceptableDuration());
       dlItfIIDM->addCurrentLimitInterface(std::move(cLimit));
     }
   }
 
-  std::unique_ptr<ModelDanglingLine> dl = std::unique_ptr<ModelDanglingLine>(new ModelDanglingLine(dlItfIIDM));
+  std::unique_ptr<ModelDanglingLine> dl = DYN::make_unique<ModelDanglingLine>(dlItfIIDM);
   ModelNetwork* network = new ModelNetwork();
   network->setIsInitModel(initModel);
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));

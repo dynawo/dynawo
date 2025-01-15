@@ -44,6 +44,7 @@
 #include "CSTRConstraint.h"
 
 #include "DYNModelHvdcLink.h"
+#include "make_unique.hpp"
 #include "gtest_dynawo.h"
 
 using boost::shared_ptr;
@@ -178,25 +179,23 @@ createModelHvdcLink(bool initModel, bool withVsc, powsybl::iidm::Network& networ
   std::shared_ptr<HvdcLineInterfaceIIDM> hvdcItfIIDM;
   if (withVsc) {
     for (auto& vscConverterIIDM : vlIIDM.getVscConverterStations()) {
-      std::unique_ptr<VscConverterInterfaceIIDM> vsc(new VscConverterInterfaceIIDM(vscConverterIIDM));
+      std::unique_ptr<VscConverterInterfaceIIDM> vsc = DYN::make_unique<VscConverterInterfaceIIDM>(vscConverterIIDM);
       vsc->setVoltageLevelInterface(vlItfIIDM);
       vsc->setBusInterface(bus1ItfIIDM);
       vlItfIIDM->addVscConverter(std::move(vsc));
     }
     const std::vector<std::shared_ptr<VscConverterInterface> >& vscConverters = vlItfIIDM->getVscConverters();
-    hvdcItfIIDM = std::shared_ptr<HvdcLineInterfaceIIDM>(new HvdcLineInterfaceIIDM(networkIIDM.getHvdcLine("MyHvdcLine"),
-                                                                                    vscConverters[0], vscConverters[1]));
+    hvdcItfIIDM = std::make_shared<HvdcLineInterfaceIIDM>(networkIIDM.getHvdcLine("MyHvdcLine"), vscConverters[0], vscConverters[1]);
     hvdc = std::make_shared<ModelHvdcLink>(hvdcItfIIDM);
   } else {
     for (auto& lccConverterIIDM : vlIIDM.getLccConverterStations()) {
-      std::unique_ptr<LccConverterInterfaceIIDM> lcc(new LccConverterInterfaceIIDM(lccConverterIIDM));
+      std::unique_ptr<LccConverterInterfaceIIDM> lcc = DYN::make_unique<LccConverterInterfaceIIDM>(lccConverterIIDM);
       lcc->setVoltageLevelInterface(vlItfIIDM);
       lcc->setBusInterface(bus1ItfIIDM);
       vlItfIIDM->addLccConverter(std::move(lcc));
     }
     const std::vector<std::shared_ptr<LccConverterInterface> >& lccConverters = vlItfIIDM->getLccConverters();
-    hvdcItfIIDM = std::shared_ptr<HvdcLineInterfaceIIDM>(new HvdcLineInterfaceIIDM(networkIIDM.getHvdcLine("MyHvdcLine"),
-                                                                                    lccConverters[0], lccConverters[1]));
+    hvdcItfIIDM = std::make_shared<HvdcLineInterfaceIIDM>(networkIIDM.getHvdcLine("MyHvdcLine"), lccConverters[0], lccConverters[1]);
     hvdc = std::make_shared<ModelHvdcLink>(hvdcItfIIDM);
   }
   networkItfIIDM->addHvdcLine(hvdcItfIIDM);
@@ -222,7 +221,7 @@ createModelHvdcLink(bool initModel, bool withVsc, powsybl::iidm::Network& networ
   int offset = 0;
   bus1->init(offset);
   bus1->setVoltageLevel(vl);
-  std::unique_ptr<ModelBus> bus2 = std::unique_ptr<ModelBus>(new ModelBus(bus2ItfIIDM, false));
+  std::unique_ptr<ModelBus> bus2 = DYN::make_unique<ModelBus>(bus2ItfIIDM, false);
   bus2->setNetwork(network);
   bus2->initSize();
   // There is a memory leak here, but whatever ...
