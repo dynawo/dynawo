@@ -91,9 +91,13 @@ createModelLine(bool open, bool initModel, bool closed1 = true, bool closed2 = t
   lIIDM.getTerminal2().setQ(45.);
   lIIDM.newCurrentLimits1().setPermanentLimit(200)
       .beginTemporaryLimit().setName("MyLimit").setValue(10.).setAcceptableDuration(5.).endTemporaryLimit()
+      .beginTemporaryLimit().setName("MyLimit").setValue(8.).setAcceptableDuration(std::numeric_limits<unsigned long>::max())
+        .setFictitious(true).endTemporaryLimit()
       .add();
   lIIDM.newCurrentLimits2()
       .beginTemporaryLimit().setName("MyLimit2").setValue(15.).setAcceptableDuration(10.).endTemporaryLimit()
+      .beginTemporaryLimit().setName("MyLimit2").setValue(13.).setAcceptableDuration(std::numeric_limits<unsigned long>::max())
+        .setFictitious(true).endTemporaryLimit()
       .add();
   if (open || !closed1) {
     lIIDM.getTerminal1().disconnect();
@@ -119,26 +123,30 @@ createModelLine(bool open, bool initModel, bool closed1 = true, bool closed2 = t
   powsybl::iidm::CurrentLimits& currentLimits1 = lIIDM.getCurrentLimits1();
   if (!std::isnan(currentLimits1.getPermanentLimit())) {
     std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit = DYN::make_unique<CurrentLimitInterfaceIIDM>(currentLimits1.getPermanentLimit(),
-                                                                                                    std::numeric_limits<unsigned long>::max());
+        std::numeric_limits<unsigned long>::max(),
+        false);
     dlItfIIDM->addCurrentLimitInterface1(std::move(cLimit));
   }
   for (auto& currentLimit : currentLimits1.getTemporaryLimits()) {
     if (!currentLimit.isFictitious()) {
       std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit = DYN::make_unique<CurrentLimitInterfaceIIDM>(currentLimit.getValue(),
-                                                                                                      currentLimit.getAcceptableDuration());
+          currentLimit.getAcceptableDuration(),
+          currentLimit.isFictitious());
       dlItfIIDM->addCurrentLimitInterface1(std::move(cLimit));
     }
   }
   powsybl::iidm::CurrentLimits& currentLimits2 = lIIDM.getCurrentLimits2();
   if (!std::isnan(currentLimits2.getPermanentLimit())) {
     std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit = DYN::make_unique<CurrentLimitInterfaceIIDM>(currentLimits2.getPermanentLimit(),
-                                                                                                    std::numeric_limits<unsigned long>::max());
+        std::numeric_limits<unsigned long>::max(),
+        false);
     dlItfIIDM->addCurrentLimitInterface1(std::move(cLimit));
   }
   for (auto& currentLimit : currentLimits2.getTemporaryLimits()) {
     if (!currentLimit.isFictitious()) {
       std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit = DYN::make_unique<CurrentLimitInterfaceIIDM>(currentLimit.getValue(),
-                                                                                                      currentLimit.getAcceptableDuration());
+          currentLimit.getAcceptableDuration(),
+          currentLimit.isFictitious());
       dlItfIIDM->addCurrentLimitInterface1(std::move(cLimit));
     }
   }
