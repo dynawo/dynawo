@@ -137,9 +137,9 @@ TEST(DataInterfaceTest, TwoWTransformer_1) {
 
   ASSERT_EQ(tfoInterface.getCurrentLimitInterfaces1().size(), 0);
   ASSERT_EQ(tfoInterface.getCurrentLimitInterfaces2().size(), 0);
-  std::unique_ptr<CurrentLimitInterface> curLimItf1 = DYN::make_unique<CurrentLimitInterfaceIIDM>(1, 1);
+  std::unique_ptr<CurrentLimitInterface> curLimItf1 = DYN::make_unique<CurrentLimitInterfaceIIDM>(1, 1, false);
   tfoInterface.addCurrentLimitInterface1(std::move(curLimItf1));
-  std::unique_ptr<CurrentLimitInterface> curLimItf2 = DYN::make_unique<CurrentLimitInterfaceIIDM>(2, 2);
+  std::unique_ptr<CurrentLimitInterface> curLimItf2 = DYN::make_unique<CurrentLimitInterfaceIIDM>(2, 2, false);
   tfoInterface.addCurrentLimitInterface2(std::move(curLimItf2));
   ASSERT_EQ(tfoInterface.getCurrentLimitInterfaces1().size(), 1);
   ASSERT_EQ(tfoInterface.getCurrentLimitInterfaces2().size(), 1);

@@ -98,12 +98,20 @@ modelType_("DanglingLine")  {
     // Due to IIDM convention
     if (cLimit[0]->getLimit() < maximumValueCurrentLimit) {
       double limit = cLimit[0]->getLimit() / factorPuToA;
-      currentLimits_->addLimit(limit, cLimit[0]->getAcceptableDuration());
+      currentLimits_->addLimit(limit, cLimit[0]->getAcceptableDuration(), false);
     }
     for (unsigned int i = 1; i < cLimit.size(); ++i) {
+      if (cLimit[i]->isFictitious()) continue;
       if (cLimit[i-1]->getLimit() < maximumValueCurrentLimit) {
         double limit = cLimit[i-1]->getLimit() / factorPuToA;
-        currentLimits_->addLimit(limit, cLimit[i]->getAcceptableDuration());
+        currentLimits_->addLimit(limit, cLimit[i]->getAcceptableDuration(), false);
+      }
+    }
+    for (unsigned int i = 1; i < cLimit.size(); ++i) {
+      if (!cLimit[i]->isFictitious()) continue;
+      if (cLimit[i]->getLimit() < maximumValueCurrentLimit) {
+        double limit = cLimit[i]->getLimit() / factorPuToA;
+        currentLimits_->addLimit(limit, cLimit[i]->getAcceptableDuration(), true);
       }
     }
   }

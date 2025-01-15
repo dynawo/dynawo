@@ -125,9 +125,14 @@ TEST(DataInterfaceTest, DanglingLine_1) {
   danglingLineIfce.setVoltageLevelInterface(voltageLevelIfce);
   ASSERT_DOUBLE_EQ(danglingLineIfce.getVNom(), 380);
 
-  std::unique_ptr<CurrentLimitInterface> currentLimitIfce = DYN::make_unique<CurrentLimitInterfaceIIDM>(1.0, 99);
+  std::unique_ptr<CurrentLimitInterface> currentLimitIfce = DYN::make_unique<CurrentLimitInterfaceIIDM>(1.0, 99, false);
   danglingLineIfce.addCurrentLimitInterface(std::move(currentLimitIfce));
   ASSERT_EQ(danglingLineIfce.getCurrentLimitInterfaces().size(), 1);
+
+  std::unique_ptr<CurrentLimitInterface> currentLimitIfceFictitious = DYN::make_unique<CurrentLimitInterfaceIIDM>(1.0,
+      std::numeric_limits<unsigned long>::max(), true);
+  danglingLineIfce.addCurrentLimitInterface(std::move(currentLimitIfceFictitious));
+  ASSERT_EQ(danglingLineIfce.getCurrentLimitInterfaces().size(), 2);
 
   vl1.newDanglingLine()
        .setId("DANGLING_LINE2")
