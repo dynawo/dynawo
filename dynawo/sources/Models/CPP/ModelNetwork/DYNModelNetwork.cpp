@@ -1264,6 +1264,11 @@ ModelNetwork::defineVariables(vector<boost::shared_ptr<Variable> >& variables) {
 }
 
 void
+ModelNetwork::defineVariablesInit(std::vector<boost::shared_ptr<Variable> >& variables) {
+  defineVariables(variables);
+}
+
+void
 ModelNetwork::defineParameters(vector<ParameterModeler>& parameters) {
   ModelVoltageLevel::defineParameters(parameters);
   ModelLine::defineParameters(parameters);
