@@ -196,6 +196,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <tr class="memitem:a5508dfb602727f582cb44109b94cd4c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d38/a03259.html#a5508dfb602727f582cb44109b94cd4c4">defineVariables</a> (std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../de/dc8/a02791.html">Variable</a> &gt; &gt; &amp;variables) override</td></tr>
 <tr class="memdesc:a5508dfb602727f582cb44109b94cd4c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">define variables  <a href="#a5508dfb602727f582cb44109b94cd4c4">More...</a><br /></td></tr>
 <tr class="separator:a5508dfb602727f582cb44109b94cd4c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae814ab4178cdb94ae26e79ccba1b7c0c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d38/a03259.html#ae814ab4178cdb94ae26e79ccba1b7c0c">defineVariablesInit</a> (std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../de/dc8/a02791.html">Variable</a> &gt; &gt; &amp;variables) override</td></tr>
+<tr class="memdesc:ae814ab4178cdb94ae26e79ccba1b7c0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">define each variables of the init model  <a href="#ae814ab4178cdb94ae26e79ccba1b7c0c">More...</a><br /></td></tr>
+<tr class="separator:ae814ab4178cdb94ae26e79ccba1b7c0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07a34ce17ec575c50098c40d269d8c7a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d38/a03259.html#a07a34ce17ec575c50098c40d269d8c7a">fillCalculatedVarsComponentAndIndex</a> (const boost::shared_ptr&lt; <a class="el" href="../../dc/dc1/a03307.html">NetworkComponent</a> &gt; &amp;component)</td></tr>
 <tr class="memdesc:a07a34ce17ec575c50098c40d269d8c7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">fill calculated variable and index for one component  <a href="#a07a34ce17ec575c50098c40d269d8c7a">More...</a><br /></td></tr>
 <tr class="separator:a07a34ce17ec575c50098c40d269d8c7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -291,9 +294,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dd4/a03151.html#a0f2ece638e8fe78f76e86ef81b6aa1c8">rotateBuffers</a> () override</td></tr>
 <tr class="memdesc:a0f2ece638e8fe78f76e86ef81b6aa1c8 inherit pub_methods_a03151"><td class="mdescLeft">&#160;</td><td class="mdescRight">rotate buffers <br /></td></tr>
 <tr class="separator:a0f2ece638e8fe78f76e86ef81b6aa1c8 inherit pub_methods_a03151"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a403c066215afc62e1d8fe113472adbe9 inherit pub_methods_a03151"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dd4/a03151.html#a403c066215afc62e1d8fe113472adbe9">defineVariablesInit</a> (std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../de/dc8/a02791.html">Variable</a> &gt; &gt; &amp;variables) override</td></tr>
-<tr class="memdesc:a403c066215afc62e1d8fe113472adbe9 inherit pub_methods_a03151"><td class="mdescLeft">&#160;</td><td class="mdescRight">define each variables of the init model  <a href="../../d3/dd4/a03151.html#a403c066215afc62e1d8fe113472adbe9">More...</a><br /></td></tr>
-<tr class="separator:a403c066215afc62e1d8fe113472adbe9 inherit pub_methods_a03151"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a49e1ee1e3b1052228db89ab38a89a54c inherit pub_methods_a03151"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dd4/a03151.html#a49e1ee1e3b1052228db89ab38a89a54c">defineParametersInit</a> (std::vector&lt; <a class="el" href="../../da/d8e/a02759.html">ParameterModeler</a> &gt; &amp;parameters) override</td></tr>
 <tr class="memdesc:a49e1ee1e3b1052228db89ab38a89a54c inherit pub_methods_a03151"><td class="mdescLeft">&#160;</td><td class="mdescRight">define each parameters of the init model  <a href="../../d3/dd4/a03151.html#a49e1ee1e3b1052228db89ab38a89a54c">More...</a><br /></td></tr>
 <tr class="separator:a49e1ee1e3b1052228db89ab38a89a54c inherit pub_methods_a03151"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1148,6 +1148,42 @@ std::shared_ptr&lt; <a class="el" href="../../d1/d04/a02443.html">parameters::Pa
 </dl>
 
 <p>Implements <a class="el" href="../../d0/dbd/a02771.html#a4255181ea3608419322c5c830bbcfc6d">DYN::SubModel</a>.</p>
+
+</div>
+</div>
+<a id="ae814ab4178cdb94ae26e79ccba1b7c0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae814ab4178cdb94ae26e79ccba1b7c0c">&#9670;&nbsp;</a></span>defineVariablesInit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::ModelNetwork::defineVariablesInit </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../de/dc8/a02791.html">Variable</a> &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>variables</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>define each variables of the init model </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">variables</td><td>vector of variables to fullfill </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented from <a class="el" href="../../d3/dd4/a03151.html#a403c066215afc62e1d8fe113472adbe9">DYN::ModelCPP</a>.</p>
 
 </div>
 </div>
@@ -2406,7 +2442,7 @@ std::shared_ptr&lt; <a class="el" href="../../d1/d04/a02443.html">parameters::Pa
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d6/d38/a03259.html">ModelNetwork</a></li>
-    <li class="footer">Generated on Wed Jan 15 2025 10:08:57 for Dynawo by
+    <li class="footer">Generated on Thu Jan 16 2025 13:25:45 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

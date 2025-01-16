@@ -10,6 +10,7 @@ var a03259 =
     [ "defineElements", "d6/d38/a03259.html#a7b3558375e12403c2a35c82da205c8b7", null ],
     [ "defineParameters", "d6/d38/a03259.html#a8414d5b9f211b5202b002f2d6cff1b0a", null ],
     [ "defineVariables", "d6/d38/a03259.html#a5508dfb602727f582cb44109b94cd4c4", null ],
+    [ "defineVariablesInit", "d6/d38/a03259.html#ae814ab4178cdb94ae26e79ccba1b7c0c", null ],
     [ "dumpInternalVariables", "d6/d38/a03259.html#a8982e58540cb28c3229f092418dd4bf4", null ],
     [ "dumpUserReadableElementList", "d6/d38/a03259.html#a249bc38eb234bf57e1892db28e2163df", null ],
     [ "evalCalculatedVarI", "d6/d38/a03259.html#aba04ff6939530dc724730322ea52aa53", null ],
