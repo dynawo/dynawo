@@ -211,11 +211,13 @@ ModelSwitch::evalDerivatives(const double /*cj*/) {
   Timer timer3("ModelSwitch::evalDerivatives");
 #endif
   if (getConnectionState() == CLOSED) {
-    modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, irYNum_, 1.);
-    modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, iiYNum_, 1.);
+    auto& derivatives1 = modelBus1_->derivatives();
+    derivatives1->addDerivative(IR_DERIVATIVE, irYNum_, 1.);
+    derivatives1->addDerivative(II_DERIVATIVE, iiYNum_, 1.);
 
-    modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, irYNum_, -1.);
-    modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, iiYNum_, -1.);
+    auto& derivatives2 = modelBus2_->derivatives();
+    derivatives2->addDerivative(IR_DERIVATIVE, irYNum_, -1.);
+    derivatives2->addDerivative(II_DERIVATIVE, iiYNum_, -1.);
   }
 }
 

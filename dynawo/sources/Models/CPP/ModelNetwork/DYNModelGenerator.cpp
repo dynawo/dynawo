@@ -22,6 +22,7 @@
 
 #include "DYNModelGenerator.h"
 
+#include <DYNNumericalUtils.h>
 #include <DYNTimer.h>
 
 #include "DYNModelBus.h"
@@ -50,6 +51,9 @@ Pc_(0.),
 Qc_(0.),
 ir0_(0.),
 ii0_(0.),
+alpha_(1.),
+beta_(1.),
+isVoltageDependant_(false),
 stateModified_(false),
 startingPointMode_(WARM) {
   connectionState_ = generator->getInitialConnected() ? CLOSED : OPEN;
@@ -80,15 +84,27 @@ ModelGenerator::evalNodeInjection() {
     modelBus_->irAdd(ir0_);
     modelBus_->iiAdd(ii0_);
   } else if (isConnected() && !modelBus_->getSwitchOff()) {
-     double U2 = modelBus_->getCurrentU(ModelBus::U2PuType_);
-     if (doubleIsZero(U2))
+    double U2 = modelBus_->getCurrentU(ModelBus::U2PuType_);
+    if (doubleIsZero(U2))
       return;
-     double Pc = PcPu();
-     double Qc = QcPu();
-     double ur = modelBus_->ur();
-     double ui = modelBus_->ui();
-     modelBus_->irAdd(ir(ur, ui, U2, Pc, Qc));
-     modelBus_->iiAdd(ii(ur, ui, U2, Pc, Qc));
+    if (isVoltageDependant_) {
+      const double uPuOverU0PuSquare = U2 / U0Pu_square_;
+      const double P = P0_ * pow_dynawo(uPuOverU0PuSquare, halfAlpha_);
+      const double Q = Q0_ * pow_dynawo(uPuOverU0PuSquare, halfBeta_);
+      const double ur = modelBus_->ur();
+      const double ui = modelBus_->ui();
+      const double ir = -(P * ur + Q * ui) / U2;
+      const double ii = -(P * ui - Q * ur) / U2;
+      modelBus_->irAdd(ir);
+      modelBus_->iiAdd(ii);
+    } else {
+      double Pc = PcPu();
+      double Qc = QcPu();
+      double ur = modelBus_->ur();
+      double ui = modelBus_->ui();
+      modelBus_->irAdd(ir(ur, ui, U2, Pc, Qc));
+      modelBus_->iiAdd(ii(ur, ui, U2, Pc, Qc));
+    }
   }
 }
 
@@ -96,26 +112,53 @@ void
 ModelGenerator::evalDerivatives(const double /*cj*/) {
   auto& modelBus = *modelBus_;
   if (!network_->isInitModel() && isConnected() && modelBus.getSwitchOff()) {
-    double ur = modelBus.ur();
-    double ui = modelBus.ui();
-    double U2 = ur * ur + ui * ui;
+    const double ur = modelBus.ur();
+    const double ui = modelBus.ui();
+    const double U2 = ur * ur + ui * ui;
     if (doubleIsZero(U2))
       return;
-    double Pc = PcPu();
-    double Qc = QcPu();
-    int urYNum = modelBus.urYNum();
-    int uiYNum = modelBus.uiYNum();
-    double ir_dUrValue = ir_dUr(ur, ui, U2, Pc, Qc);
-    double ir_dUiValue = ir_dUi(ur, ui, U2, Pc, Qc);
-    double ii_dUrValue = ii_dUr(ur, ui, U2, Pc, Qc);
-    double ii_dUiValue = ii_dUi(ur, ui, U2, Pc, Qc);
-    auto& derivatives = *modelBus.derivatives();
-    auto& irDerivatives = derivatives.getDerivatives(IR_DERIVATIVE);
-    auto& iiDerivatives = derivatives.getDerivatives(II_DERIVATIVE);
-    irDerivatives.addValue(urYNum, ir_dUrValue);
-    irDerivatives.addValue(uiYNum, ir_dUiValue);
-    iiDerivatives.addValue(urYNum, ii_dUrValue);
-    iiDerivatives.addValue(uiYNum, ii_dUiValue);
+    if (isVoltageDependant_) {
+      int urYNum = modelBus.urYNum();
+      int uiYNum = modelBus.uiYNum();
+
+      const double uPuOverU0PuSquare = U2 / U0Pu_square_;
+      const double p = P0_ * pow_dynawo(uPuOverU0PuSquare, halfAlpha_);
+      const double q = Q0_ * pow_dynawo(uPuOverU0PuSquare, halfBeta_);
+
+      double PdUr = 1. / U2 * P0_ * alpha_ * ur * pow_dynawo(uPuOverU0PuSquare, halfAlpha_);
+      double QdUr = 1. / U2 * Q0_ * beta_ * ur * pow_dynawo(uPuOverU0PuSquare, halfBeta_);
+      double PdUi = 1. / U2 * P0_ * alpha_ * ui * pow_dynawo(uPuOverU0PuSquare, halfAlpha_);
+      double QdUi = 1. / U2 * Q0_ * beta_ * ui * pow_dynawo(uPuOverU0PuSquare, halfBeta_);
+
+      double ir_dUrValue = -((PdUr * ur + p) + (QdUr * ui) - 2. * ur * (p * ur + q * ui) / U2) / U2;
+      double ir_dUiValue = -((PdUi * ur) + (QdUi * ui + q) - 2. * ui * (p * ur + q * ui) / U2) / U2;
+      double ii_dUrValue = -((PdUr * ui) - (QdUr * ur + q) - 2. * ur * (p * ui - q * ur) / U2) / U2;
+      double ii_dUiValue = -((PdUi * ui + p) - (QdUi * ur) - 2. * ui * (p * ui - q * ur) / U2) / U2;
+
+      auto& derivatives = *modelBus.derivatives();
+      auto& irDerivatives = derivatives.getDerivatives(IR_DERIVATIVE);
+      auto& iiDerivatives = derivatives.getDerivatives(II_DERIVATIVE);
+      irDerivatives.addValue(urYNum, ir_dUrValue);
+      irDerivatives.addValue(uiYNum, ir_dUiValue);
+      iiDerivatives.addValue(urYNum, ii_dUrValue);
+      iiDerivatives.addValue(uiYNum, ii_dUiValue);
+    } else {
+      double Pc = PcPu();
+      double Qc = QcPu();
+      int urYNum = modelBus.urYNum();
+      int uiYNum = modelBus.uiYNum();
+      double ir_dUrValue = ir_dUr(ur, ui, U2, Pc, Qc);
+      double ir_dUiValue = ir_dUi(ur, ui, U2, Pc, Qc);
+      double ii_dUrValue = ii_dUr(ur, ui, U2, Pc, Qc);
+      double ii_dUiValue = ii_dUi(ur, ui, U2, Pc, Qc);
+      auto& derivatives = *modelBus.derivatives();
+      auto& irDerivatives = derivatives.getDerivatives(IR_DERIVATIVE);
+      auto& iiDerivatives = derivatives.getDerivatives(II_DERIVATIVE);
+      irDerivatives.addValue(urYNum, ir_dUrValue);
+      irDerivatives.addValue(uiYNum, ir_dUiValue);
+      iiDerivatives.addValue(urYNum, ii_dUrValue);
+      iiDerivatives.addValue(uiYNum, ii_dUiValue);
+    }
   }
 }
 
@@ -147,22 +190,44 @@ ModelGenerator::defineVariables(vector<shared_ptr<Variable> >& variables) {
 }
 
 void
-ModelGenerator::defineParameters(vector<ParameterModeler>& /*parameters*/) {
-  // no parameter
+ModelGenerator::defineParameters(vector<ParameterModeler>& parameters) {
+  parameters.push_back(ParameterModeler("generator_alpha", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("generator_beta", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("generator_isVoltageDependant", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
 }
 
 void
-ModelGenerator::defineNonGenericParameters(std::vector<ParameterModeler>& /*parameters*/) {
-  // no parameter
+ModelGenerator::defineNonGenericParameters(std::vector<ParameterModeler>& parameters) {
+  parameters.push_back(ParameterModeler(id_ + "_alpha", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler(id_ + "_beta", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler(id_ + "_isVoltageDependant", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
 }
 
 void
 ModelGenerator::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params) {
+  // All the parameters could be non generic ones
+  vector<string> ids;
+  ids.push_back(id_);
+  ids.push_back("generator");
   bool startingPointModeFound = false;
   std::string startingPointMode = getParameterDynamicNoThrow<string>(params, "startingPointMode", startingPointModeFound);
   if (startingPointModeFound) {
     startingPointMode_ = getStartingPointMode(startingPointMode);
   }
+  try {
+    // Non generic parameters have a higher priority than generic ones
+    isVoltageDependant_ = getParameterDynamic<bool>(params, "isVoltageDependant", ids);
+    if (isVoltageDependant_) {
+      alpha_ = getParameterDynamic<double>(params, "alpha", ids);
+      beta_ = getParameterDynamic<double>(params, "beta", ids);
+      halfAlpha_ = 0.5 * alpha_;
+      halfBeta_ = 0.5 * beta_;
+    }
+  } catch (const DYN::Error& e) {
+    Trace::error() << e.what() << Trace::endline;
+    throw DYNError(Error::MODELER, NetworkParameterNotFoundFor, id_);
+  }
+  return;
 }
 
 void
@@ -215,7 +280,7 @@ ModelGenerator::evalZ(const double& /*t*/) {
     DYNAddTimelineEvent(network_, id_, GeneratorTargetQ, z_[2]);
     Qc_ = z_[2];
   }
-  return stateModified_?NetworkComponent::STATE_CHANGE:NetworkComponent::NO_CHANGE;
+  return stateModified_ ? STATE_CHANGE : NO_CHANGE;
 }
 
 void
@@ -252,13 +317,22 @@ ModelGenerator::evalCalculatedVars() {
     double irCalculated = 0;
     double iiCalculated = 0;
     if (!doubleIsZero(U2)) {
-      double Pc = PcPu();
-      double Qc = QcPu();
-      irCalculated = ir(ur, ui, U2, Pc, Qc);
-      iiCalculated = ii(ur, ui, U2, Pc, Qc);
+      if (isVoltageDependant_) {
+        const double uPuOverU0PuSquare = U2 / U0Pu_square_;
+        const double P = P0_ * pow_dynawo(uPuOverU0PuSquare, halfAlpha_);
+        const double Q = Q0_ * pow_dynawo(uPuOverU0PuSquare, halfBeta_);
+        calculatedVars_[pNum_] = P;
+        calculatedVars_[qNum_] = Q;
+      } else {
+        double Pc = PcPu();
+        double Qc = QcPu();
+        irCalculated = ir(ur, ui, U2, Pc, Qc);
+        iiCalculated = ii(ur, ui, U2, Pc, Qc);
+
+        calculatedVars_[pNum_] = -(ur * irCalculated + ui * iiCalculated);
+        calculatedVars_[qNum_] = -(ui * irCalculated - ur * iiCalculated);
+      }
     }
-    calculatedVars_[pNum_] = -(ur * irCalculated + ui * iiCalculated);
-    calculatedVars_[qNum_] = -(ui * irCalculated - ur * iiCalculated);
   } else {
     calculatedVars_[pNum_] = 0;
     calculatedVars_[qNum_] = 0;
@@ -294,10 +368,19 @@ ModelGenerator::evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<doubl
         double ui = modelBus_->ui();
         double U2 = ur * ur + ui * ui;
         if (!doubleIsZero(U2)) {
-          double Pc = PcPu();
-          double Qc = QcPu();
-          res[0] = -(ir(ur, ui, U2, Pc, Qc) + ur * ir_dUr(ur, ui, U2, Pc, Qc) + ui * ii_dUr(ur, ui, U2, Pc, Qc));  // @P/@ur
-          res[1] = -(ur * ir_dUi(ur, ui, U2, Pc, Qc) + ii(ur, ui, U2, Pc, Qc) + ui * ii_dUi(ur, ui, U2, Pc, Qc));  // @P/@ui
+          if (isVoltageDependant_) {
+            const double uPuOverU0PuSquare = U2 / U0Pu_square_;
+
+            double PdUr = 1. / U2 * P0_ * alpha_ * ur * pow_dynawo(uPuOverU0PuSquare, halfAlpha_);
+            double PdUi = 1. / U2 * P0_ * alpha_ * ui * pow_dynawo(uPuOverU0PuSquare, halfAlpha_);
+            res[0] = PdUr;  // @P/@ur
+            res[1] = PdUi;  // @P/@ui
+          } else {
+            double Pc = PcPu();
+            double Qc = QcPu();
+            res[0] = -(ir(ur, ui, U2, Pc, Qc) + ur * ir_dUr(ur, ui, U2, Pc, Qc) + ui * ii_dUr(ur, ui, U2, Pc, Qc));  // @P/@ur
+            res[1] = -(ur * ir_dUi(ur, ui, U2, Pc, Qc) + ii(ur, ui, U2, Pc, Qc) + ui * ii_dUi(ur, ui, U2, Pc, Qc));  // @P/@ui
+          }
         }
       }
       break;
@@ -309,10 +392,19 @@ ModelGenerator::evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<doubl
         double ui = modelBus_->ui();
         double U2 = ur * ur + ui * ui;
         if (!doubleIsZero(U2)) {
-          double Pc = PcPu();
-          double Qc = QcPu();
-          res[0] = -(ui * ir_dUr(ur, ui, U2, Pc, Qc) - (ii(ur, ui, U2, Pc, Qc) + ur * ii_dUr(ur, ui, U2, Pc, Qc)));  // @Q/@ur
-          res[1] = -(ir(ur, ui, U2, Pc, Qc) + ui * ir_dUi(ur, ui, U2, Pc, Qc) - ur * ii_dUi(ur, ui, U2, Pc, Qc));  // @Q/@ui
+          if (isVoltageDependant_) {
+            const double uPuOverU0PuSquare = U2 / U0Pu_square_;
+
+            double QdUr = 1. / U2 * Q0_ * beta_ * ur * pow_dynawo(uPuOverU0PuSquare, halfBeta_);
+            double QdUi = 1. / U2 * Q0_ * beta_ * ui * pow_dynawo(uPuOverU0PuSquare, halfBeta_);
+            res[0] = QdUr;  // @P/@ur
+            res[1] = QdUi;  // @P/@ui
+          } else {
+            double Pc = PcPu();
+            double Qc = QcPu();
+            res[0] = -(ui * ir_dUr(ur, ui, U2, Pc, Qc) - (ii(ur, ui, U2, Pc, Qc) + ur * ii_dUr(ur, ui, U2, Pc, Qc)));  // @Q/@ur
+            res[1] = -(ir(ur, ui, U2, Pc, Qc) + ui * ir_dUi(ur, ui, U2, Pc, Qc) - ur * ii_dUi(ur, ui, U2, Pc, Qc));  // @Q/@ui
+          }
         }
       }
       break;
@@ -332,11 +424,17 @@ ModelGenerator::evalCalculatedVarI(unsigned numCalculatedVar) const {
         // P = ur*ir + ui* ii
         double U2 = modelBus_->getCurrentU(ModelBus::U2PuType_);
         if (!doubleIsZero(U2)) {
-          double ur = modelBus_->ur();
-          double ui = modelBus_->ui();
-          double Pc = PcPu();
-          double Qc = QcPu();
-          return -(ur * ir(ur, ui, U2, Pc, Qc) + ui * ii(ur, ui, U2, Pc, Qc));
+          if (isVoltageDependant_) {
+            const double uPuOverU0PuSquare = U2 / U0Pu_square_;
+            const double P = P0_ * pow_dynawo(uPuOverU0PuSquare, halfAlpha_);
+            return P;
+          } else {
+            double ur = modelBus_->ur();
+            double ui = modelBus_->ui();
+            double Pc = PcPu();
+            double Qc = QcPu();
+            return -(ur * ir(ur, ui, U2, Pc, Qc) + ui * ii(ur, ui, U2, Pc, Qc));
+          }
         }
       }
       break;
@@ -346,11 +444,17 @@ ModelGenerator::evalCalculatedVarI(unsigned numCalculatedVar) const {
         // q = ui*ir - ur * ii
         double U2 = modelBus_->getCurrentU(ModelBus::U2PuType_);
         if (!doubleIsZero(U2)) {
-          double ur = modelBus_->ur();
-          double ui = modelBus_->ui();
-          double Pc = PcPu();
-          double Qc = QcPu();
-          return -(ui * ir(ur, ui, U2, Pc, Qc) - ur * ii(ur, ui, U2, Pc, Qc));
+          if (isVoltageDependant_) {
+            const double uPuOverU0PuSquare = U2 / U0Pu_square_;
+            const double Q = Q0_ * pow_dynawo(uPuOverU0PuSquare, halfBeta_);
+            return Q;
+          } else {
+            double ur = modelBus_->ur();
+            double ui = modelBus_->ui();
+            double Pc = PcPu();
+            double Qc = QcPu();
+            return -(ui * ir(ur, ui, U2, Pc, Qc) - ur * ii(ur, ui, U2, Pc, Qc));
+          }
         }
       }
       break;
@@ -384,16 +488,24 @@ ModelGenerator::init(int & /*yNum*/) {
     Pc_ = isConnected() ? -1. * generator->getTargetP() : 0.;
     Qc_ = isConnected() ? -1. * generator->getTargetQ() : 0.;
     uNode = generator->getBusInterface()->getVNom();
+    P0_ = isConnected() ? -1. * generator->getTargetP() / SNREF : 0.;
+    Q0_ = isConnected() ? -1. * generator->getTargetQ() / SNREF : 0.;
+    u0_ = uNode / unomNode;
     break;
   case WARM:
     Pc_ = isConnected() ? -1. * generator->getP() : 0.;
     Qc_ = isConnected() ? -1. * generator->getQ() : 0.;
     uNode = generator->getBusInterface()->getV0();
+    P0_ = isConnected() ? -1. * generator->getP() / SNREF : 0.;
+    Q0_ = isConnected() ? -1. * generator->getQ() / SNREF : 0.;
+    u0_ = uNode / unomNode;
     break;
   }
-  double ur0 = uNode / unomNode * cos(thetaNode * DEG_TO_RAD);
-  double ui0 = uNode / unomNode * sin(thetaNode * DEG_TO_RAD);
+  double ur0 = u0_ * cos(thetaNode * DEG_TO_RAD);
+  double ui0 = u0_ * sin(thetaNode * DEG_TO_RAD);
   double U20 = ur0 * ur0 + ui0 * ui0;
+  U0Pu_square_ = U20;
+  assert(doubleEquals(U20, u0_ * u0_));
   if (!doubleIsZero(U20)) {
     ir0_ = (-PcPu() * ur0 - QcPu() * ui0) / U20;
     ii0_ = (-PcPu() * ui0 + QcPu() * ur0) / U20;

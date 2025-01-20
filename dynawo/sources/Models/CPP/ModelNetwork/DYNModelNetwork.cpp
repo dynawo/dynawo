@@ -828,7 +828,7 @@ ModelNetwork::initializeStaticData() {
 void
 ModelNetwork::analyseComponents() {
   // keep the biggest component
-  vector< shared_ptr<SubNetwork> > subNetworks = busContainer_->getSubNetworks();
+  const vector< shared_ptr<SubNetwork> >& subNetworks = busContainer_->getSubNetworks();
   unsigned int nbMaxNode = 0;
   unsigned int maxIndex = 0;
   for (unsigned int i = 0; i < subNetworks.size(); ++i) {
@@ -848,14 +848,11 @@ ModelNetwork::analyseComponents() {
 
 void
 ModelNetwork::computeComponents(double t) {
-#if defined(_DEBUG_)
-  Timer timer1("ModelNetwork::computeComponents");
-#endif
+  // Timer timer1("ModelNetwork::computeComponents");
   busContainer_->resetSubNetwork();
 
-  vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
-  for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent)
-    (*itComponent)->addBusNeighbors();
+  for (const auto& component : getComponents())
+    component->addBusNeighbors();
 
   // connectivity calculation
   busContainer_->exploreNeighbors(t);
@@ -871,15 +868,14 @@ ModelNetwork::getSize() {
   sizeCalculatedVar_ = 0;
   componentIndexByCalculatedVar_.clear();
   unsigned int index = 0;
-  for (vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent = getComponents().begin();
-      itComponent != getComponents().end(); ++itComponent) {
-    (*itComponent)->initSize();
-    sizeY_ += (*itComponent)->sizeY();
-    sizeZ_ += (*itComponent)->sizeZ();
-    sizeMode_ += (*itComponent)->sizeMode();
-    sizeF_ += (*itComponent)->sizeF();
-    (*itComponent)->setOffsetCalculatedVar(sizeCalculatedVar_);
-    sizeCalculatedVar_ += (*itComponent)->sizeCalculatedVar();
+  for (const auto& component : getComponents()) {
+    component->initSize();
+    sizeY_ += component->sizeY();
+    sizeZ_ += component->sizeZ();
+    sizeMode_ += component->sizeMode();
+    sizeF_ += component->sizeF();
+    component->setOffsetCalculatedVar(sizeCalculatedVar_);
+    sizeCalculatedVar_ += component->sizeCalculatedVar();
     componentIndexByCalculatedVar_.resize(sizeCalculatedVar_, index);
     ++index;
   }
@@ -1022,28 +1018,25 @@ ModelNetwork::initSubBuffers() {
 
 void
 ModelNetwork::evalF(double /*t*/, propertyF_t type) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelNetwork::evalF");
-#endif
 
   if (type != DIFFERENTIAL_EQ) {
     // compute nodal current injections (convention: > 0 if the current goes out of the node)
-    busContainer_->resetNodeInjections();
-    busContainer_->resetCurrentUStatus();
+    busContainer_->resetInjections();
+    // busContainer_->resetCurrentUStatus();
 
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
-    Timer timer2("ModelNetwork::evalF_evalNodeInjection");
-#endif
-    for (auto& component : getComponents())
+    Timer* timer2 = new Timer("ModelNetwork::evalF_evalNodeInjection");
+    for (const auto& component : getComponents())
       component->evalNodeInjection();
+
+    delete timer2;
   }
 
   // evaluate F
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
-  Timer timer3("ModelNetwork::evalF_evalF");
-#endif
-  for (auto& component : getComponents())
+  Timer* timer3 = new Timer("ModelNetwork::evalF_evalF");
+  for (const auto& component : getComponents())
     component->evalF(type);
+  delete timer3;
 }
 
 void
@@ -1055,9 +1048,7 @@ ModelNetwork::evalG(const double t) {
 
 void
 ModelNetwork::evalZ(const double t) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer3("ModelNetwork::evalZ");
-#endif
   bool topoChange = false;
   bool stateChange = false;
   for (auto& component : getComponents()) {
@@ -1131,13 +1122,12 @@ ModelNetwork::evalJt(const double /*t*/, const double cj, SparseMatrix& jt, cons
   Timer timer("ModelNetwork::evalJt");
 
   // init bus derivatives
-  Timer* timer2 = new Timer("ModelNetwork::evalJt_initBusDerivatives");
+  Timer* timer2 = new Timer("ModelNetwork::evalJt_initDerivatives");
   busContainer_->initDerivatives();
   delete timer2;
 
   // fill bus derivatives
   Timer* timer3 = new Timer("ModelNetwork::evalJt_evalDerivatives");
-
   for (auto& component : getComponents())
     component->evalDerivatives(cj);
   delete timer3;

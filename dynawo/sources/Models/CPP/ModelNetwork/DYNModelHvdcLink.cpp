@@ -444,10 +444,11 @@ ModelHvdcLink::evalDerivatives(const double /*cj*/) {
     double ur1 = modelBus1_->ur();
     double ui1 = modelBus1_->ui();
     double U1_2 = ur1 * ur1 + ui1 * ui1;
-    modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, urYNum, ir1_dUr(ur1, ui1, U1_2));
-    modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, uiYNum, ir1_dUi(ur1, ui1, U1_2));
-    modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, urYNum, ii1_dUr(ur1, ui1, U1_2));
-    modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, uiYNum, ii1_dUi(ur1, ui1, U1_2));
+    auto& derivatives1 = modelBus1_->derivatives();
+    derivatives1->addDerivative(IR_DERIVATIVE, urYNum, ir1_dUr(ur1, ui1, U1_2));
+    derivatives1->addDerivative(IR_DERIVATIVE, uiYNum, ir1_dUi(ur1, ui1, U1_2));
+    derivatives1->addDerivative(II_DERIVATIVE, urYNum, ii1_dUr(ur1, ui1, U1_2));
+    derivatives1->addDerivative(II_DERIVATIVE, uiYNum, ii1_dUi(ur1, ui1, U1_2));
   }
   if (isConnected2()) {
     int urYNum = modelBus2_->urYNum();
@@ -455,10 +456,11 @@ ModelHvdcLink::evalDerivatives(const double /*cj*/) {
     double ur2 = modelBus2_->ur();
     double ui2 = modelBus2_->ui();
     double U2_2 = ur2 * ur2 + ui2 * ui2;
-    modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, urYNum, ir2_dUr(ur2, ui2, U2_2));
-    modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, uiYNum, ir2_dUi(ur2, ui2, U2_2));
-    modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, urYNum, ii2_dUr(ur2, ui2, U2_2));
-    modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, uiYNum, ii2_dUi(ur2, ui2, U2_2));
+    auto& derivatives2 = modelBus2_->derivatives();
+    derivatives2->addDerivative(IR_DERIVATIVE, urYNum, ir2_dUr(ur2, ui2, U2_2));
+    derivatives2->addDerivative(IR_DERIVATIVE, uiYNum, ir2_dUi(ur2, ui2, U2_2));
+    derivatives2->addDerivative(II_DERIVATIVE, urYNum, ii2_dUr(ur2, ui2, U2_2));
+    derivatives2->addDerivative(II_DERIVATIVE, uiYNum, ii2_dUi(ur2, ui2, U2_2));
   }
 }
 
