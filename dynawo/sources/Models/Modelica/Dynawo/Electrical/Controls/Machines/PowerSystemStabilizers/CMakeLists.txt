@@ -10,7 +10,6 @@
 
 # Power system stabilizers models
 
-add_subdirectory(BaseClasses_INIT B)
 add_subdirectory(Standard St)
 
 set(MODEL_FILES
