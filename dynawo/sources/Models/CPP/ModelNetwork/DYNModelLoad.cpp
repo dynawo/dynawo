@@ -513,6 +513,9 @@ ModelLoad::evalNodeInjection() {
 
 void
 ModelLoad::evalDerivatives(const double /*cj*/) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer3("ModelNetwork::ModelLoad::evalDerivatives");
+#endif
   if (network_->isInitModel())
     return;
   if (isRunning()) {
@@ -530,15 +533,18 @@ ModelLoad::evalDerivatives(const double /*cj*/) {
     double QdUr = Q_dUr(ur, ui, U, U2);
     double PdUi = P_dUi(ur, ui, U, U2);
     double QdUi = Q_dUi(ur, ui, U, U2);
-    modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, urYNum, ir_dUr(ur, ui, U2, p, q, PdUr, QdUr));
-    modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, uiYNum, ir_dUi(ur, ui, U2, p, q, PdUi, QdUi));
-    modelBus_->derivatives()->addDerivative(II_DERIVATIVE, urYNum, ii_dUr(ur, ui, U2, p, q, PdUr, QdUr));
-    modelBus_->derivatives()->addDerivative(II_DERIVATIVE, uiYNum, ii_dUi(ur, ui, U2, p, q, PdUi, QdUi));
+    auto& derivatives = modelBus_->derivatives();
+    derivatives->addDerivative(IR_DERIVATIVE, urYNum, ir_dUr(ur, ui, U2, p, q, PdUr, QdUr));
+    derivatives->addDerivative(IR_DERIVATIVE, uiYNum, ir_dUi(ur, ui, U2, p, q, PdUi, QdUi));
+    derivatives->addDerivative(II_DERIVATIVE, urYNum, ii_dUr(ur, ui, U2, p, q, PdUr, QdUr));
+    derivatives->addDerivative(II_DERIVATIVE, uiYNum, ii_dUi(ur, ui, U2, p, q, PdUi, QdUi));
     if (isRestorative_) {
-      modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, globalYIndex(zPYNum_), ir_dZp(ur, ui, U, U2));
-      modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, globalYIndex(zQYNum_), ir_dZq(ur, ui, U, U2));
-      modelBus_->derivatives()->addDerivative(II_DERIVATIVE, globalYIndex(zPYNum_), ii_dZp(ur, ui, U, U2));
-      modelBus_->derivatives()->addDerivative(II_DERIVATIVE, globalYIndex(zQYNum_), ii_dZq(ur, ui, U, U2));
+      int zPYNumGlobal = globalYIndex(zPYNum_);
+      int zQYNumGlobal = globalYIndex(zQYNum_);
+      derivatives->addDerivative(IR_DERIVATIVE, zPYNumGlobal, ir_dZp(ur, ui, U, U2));
+      derivatives->addDerivative(IR_DERIVATIVE, zQYNumGlobal, ir_dZq(ur, ui, U, U2));
+      derivatives->addDerivative(II_DERIVATIVE, zPYNumGlobal, ii_dZp(ur, ui, U, U2));
+      derivatives->addDerivative(II_DERIVATIVE, zQYNumGlobal, ii_dZq(ur, ui, U, U2));
     }
   }
 }

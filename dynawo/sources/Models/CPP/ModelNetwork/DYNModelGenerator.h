@@ -297,6 +297,43 @@ class ModelGenerator : public NetworkComponent {
     return (-Pc * ui + Qc * ur) / U2;
   }
 
+ /**
+   * @brief calculated value
+   * @param ur real part of the voltage
+   * @param ui imaginary part of the voltage
+   * @param U voltage
+   * @param U2 voltage square
+   * @return value
+   */
+ double P_dUr(double ur, double ui, double U, double U2) const;
+ /**
+  * @brief calculated value
+  * @param ur real part of the voltage
+  * @param ui imaginary part of the voltage
+  * @param U voltage
+  * @param U2 voltage square
+  * @return value
+  */
+ double Q_dUr(double ur, double ui, double U, double U2) const;
+ /**
+  * @brief calculated value
+  * @param ur real part of the voltage
+  * @param ui imaginary part of the voltage
+  * @param U voltage
+  * @param U2 voltage square
+  * @return value
+  */
+ double P_dUi(double ur, double ui, double U, double U2) const;
+ /**
+  * @brief calculated value
+  * @param ur real part of the voltage
+  * @param ui imaginary part of the voltage
+  * @param U voltage
+  * @param U2 voltage square
+  * @return value
+  */
+ double Q_dUi(double ur, double ui, double U, double U2) const;
+
   /**
    * @brief get the partial derivative of ir with respect to Ur
    * @param ur real part of the voltage
@@ -353,8 +390,17 @@ class ModelGenerator : public NetworkComponent {
   std::weak_ptr<GeneratorInterface> generator_;  ///< reference to the generator interface object
   double Pc_;  ///< active power target in MW
   double Qc_;  ///< reactive power target in Mvar
+  double P0_;  ///< initial active power
+  double Q0_;  ///< initial reactive power
+  double u0_;  ///< initial voltage
+  double U0Pu_square_;
   double ir0_;  ///< initial current real part
   double ii0_;  ///< initial current imaginary part
+  double alpha_;  ///< active power exponential sensitivity to voltage
+  double beta_;  ///< reactive power exponential sensitivity to voltage
+  double halfAlpha_;
+  double halfBeta_;
+  bool isVoltageDependant_;  ///< whether the produced energy remains constant
   State connectionState_;  ///< "internal" generator connection status, evaluated at the end of evalZ to detect if the state was modified by another component
   bool stateModified_;  ///< true if the generator connection state was modified
   std::shared_ptr<ModelBus> modelBus_;  ///< model bus

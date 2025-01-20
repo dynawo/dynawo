@@ -333,9 +333,7 @@ ModelMulti::copyDiscreteVariables(const double* z) {
 
 void
 ModelMulti::evalF(const double t, const double* y, const double* yp, double* f) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalF");
-#endif
   copyContinuousVariables(y, yp);
 
 #if defined(_DEBUG_)
@@ -356,9 +354,7 @@ ModelMulti::evalF(const double t, const double* y, const double* yp, double* f) 
 
 void
 ModelMulti::evalFDiff(const double t, const double* y, const double* yp, double* f) {
-#if defined(_DEBUG_)
-  Timer timer("ModelMulti::evalFDiff");
-#endif
+  // Timer timer("ModelMulti::evalFDiff");
   copyContinuousVariables(y, yp);
 
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
@@ -369,9 +365,7 @@ ModelMulti::evalFDiff(const double t, const double* y, const double* yp, double*
 
 void
 ModelMulti::evalFMode(const double t, const double* y, const double* yp, double* f) {
-#if defined(_DEBUG_)
-  Timer timer("ModelMulti::evalFMode");
-#endif
+  // Timer timer("ModelMulti::evalFMode");
   copyContinuousVariables(y, yp);
 
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
@@ -411,7 +405,7 @@ ModelMulti::evalG(double t, double* g) {
 
 void
 ModelMulti::evalJt(const double t, const double cj, SparseMatrix& Jt) {
-  // Timer timer("ModelMulti::evalJt");
+  Timer timer("ModelMulti::evalJt");
   int rowOffset = 0;
   for (const auto& subModel : subModels_) {
     subModel->evalJtSub(t, cj, Jt, rowOffset);
