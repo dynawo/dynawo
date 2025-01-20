@@ -45,6 +45,8 @@ class Derivatives {
    */
   void reset();
 
+  void init();
+
   /**
    * @brief add value
    * @param numVar number of variable
@@ -56,8 +58,15 @@ class Derivatives {
    * @brief get values
    * @return map of variables' values
    */
-  inline const std::map<int, double>& getValues() const {
+  /*inline const std::unordered_map<int, double>& getValues() const {
     return values_;
+  }*/
+  inline const std::vector<double>& getValues() const {
+    return values_;
+  }
+
+  inline const std::vector<int>& getIndices() const {
+    return indices_;
   }
 
   /**
@@ -72,7 +81,9 @@ class Derivatives {
   // values_->first : num of the variable
   // values_->second: value of the derivative
   // @I/@Y[values_->first]= values_->second
-  std::map<int, double> values_;  ///< associated num var with value of the derivative
+  // std::unordered_map<int, double> values_;  ///< associated num var with value of the derivative
+  std::vector<double> values_;
+  std::vector<int> indices_;
 };
 
 /**
@@ -84,6 +95,8 @@ class BusDerivatives {
    * @brief reset
    */
   void reset();
+
+  void init();
 
   /**
    * @brief add derivative
@@ -99,7 +112,11 @@ class BusDerivatives {
    * @param type type of derivatives
    * @return map of variables' values
    */
-  const std::map<int, double>& getValues(typeDerivative_t type) const;
+  // const std::unordered_map<int, double>& getValues(typeDerivative_t type) const;
+
+  const std::vector<double>& getValues(typeDerivative_t type) const;
+
+  const std::vector<int>& getIndices(typeDerivative_t type) const;
 
   /**
    * @brief state whether empty

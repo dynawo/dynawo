@@ -798,6 +798,11 @@ class ModelBusContainer {
    */
   void resetCurrentUStatus();
 
+  /**
+   * @brief reset the bit mask of every bus corresponding to the status of U calculation for the current time step
+   */
+  void resetInjections();
+
  private:
   std::vector<std::shared_ptr<ModelBus> > models_;  ///< model bus
   std::vector<boost::shared_ptr<SubNetwork> > subNetworks_;  ///< sub network

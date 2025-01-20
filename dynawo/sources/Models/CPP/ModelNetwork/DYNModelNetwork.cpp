@@ -794,7 +794,7 @@ ModelNetwork::initializeStaticData() {
 void
 ModelNetwork::analyseComponents() const {
   // keep the biggest component
-  const vector<shared_ptr<SubNetwork> > subNetworks = busContainer_->getSubNetworks();
+  const vector<shared_ptr<SubNetwork> >& subNetworks = busContainer_->getSubNetworks();
   unsigned int nbMaxNode = 0;
   unsigned int maxIndex = 0;
   for (unsigned int i = 0; i < subNetworks.size(); ++i) {
@@ -814,9 +814,7 @@ ModelNetwork::analyseComponents() const {
 
 void
 ModelNetwork::computeComponents(const double t) {
-#if defined(_DEBUG_)
-  Timer timer1("ModelNetwork::computeComponents");
-#endif
+  // Timer timer1("ModelNetwork::computeComponents");
   busContainer_->resetSubNetwork();
 
   for (const auto& component : getComponents())
@@ -978,28 +976,25 @@ ModelNetwork::initSubBuffers() {
 
 void
 ModelNetwork::evalF(double /*t*/, const propertyF_t type) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelNetwork::evalF");
-#endif
 
   if (type != DIFFERENTIAL_EQ) {
     // compute nodal current injections (convention: > 0 if the current goes out of the node)
-    busContainer_->resetNodeInjections();
-    busContainer_->resetCurrentUStatus();
+    busContainer_->resetInjections();
+    // busContainer_->resetCurrentUStatus();
 
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
-    Timer timer2("ModelNetwork::evalF_evalNodeInjection");
-#endif
+    Timer* timer2 = new Timer("ModelNetwork::evalF_evalNodeInjection");
     for (const auto& component : getComponents())
       component->evalNodeInjection();
+
+    delete timer2;
   }
 
   // evaluate F
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
-  Timer timer3("ModelNetwork::evalF_evalF");
-#endif
+  Timer* timer3 = new Timer("ModelNetwork::evalF_evalF");
   for (const auto& component : getComponents())
     component->evalF(type);
+  delete timer3;
 }
 
 void
@@ -1011,9 +1006,7 @@ ModelNetwork::evalG(const double t) {
 
 void
 ModelNetwork::evalZ(const double t) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer3("ModelNetwork::evalZ");
-#endif
   bool topoChange = false;
   bool stateChange = false;
   for (const auto& component : getComponents()) {
@@ -1087,7 +1080,7 @@ ModelNetwork::evalJt(const double /*t*/, const double cj, const int rowOffset, S
   Timer timer("ModelNetwork::evalJt");
 
   // init bus derivatives
-  Timer* timer2 = new Timer("ModelNetwork::evalJt_initBusDerivatives");
+  Timer* timer2 = new Timer("ModelNetwork::evalJt_initDerivatives");
   busContainer_->initDerivatives();
   delete timer2;
 

@@ -27,14 +27,40 @@ namespace DYN {
 
 void
 Derivatives::reset() {
- for (auto& value : values_)
-    value.second = 0.;
+  /*std::cout << "    values_.size() " << values_.size() << std::endl;
+ for (auto& value : values_) {
+   std::cout << "      value " << value.first << " " << value.second << std::endl;
+   value.second = 0.;
+ }*/
   // values_.clear();
+  for (auto& value : values_) {
+    value = 0.;
+  }
+}
+
+void
+Derivatives::init() {
+  values_.reserve(50);
+  indices_.reserve(50);
 }
 
 void
 Derivatives::addValue(const int numVar, const double value) {
-  values_[numVar] += value;
+  // values_[numVar] += value;
+  auto it = std::find(indices_.begin(), indices_.end(), numVar);
+  if (it == indices_.end()) {
+    indices_.push_back(numVar);
+    values_.push_back(value);
+  } else {
+    int index = it - indices_.begin();
+    values_[index] += value;
+  }
+}
+
+void
+BusDerivatives::init() {
+  irDerivatives_.init();
+  iiDerivatives_.init();
 }
 
 void
@@ -57,12 +83,30 @@ BusDerivatives::addDerivative(typeDerivative_t type, const int numVar, const dou
   }
 }
 
-const std::map<int, double>&
+/*const std::unordered_map<int, double>&
 BusDerivatives::getValues(typeDerivative_t type) const {
   if (type == IR_DERIVATIVE)
     return irDerivatives_.getValues();
   else if (type == II_DERIVATIVE)
     return iiDerivatives_.getValues();
+  throw DYNError(Error::MODELER, InvalidDerivativeType, type);
+}*/
+
+const std::vector<double>&
+BusDerivatives::getValues(typeDerivative_t type) const {
+  if (type == IR_DERIVATIVE)
+    return irDerivatives_.getValues();
+  else if (type == II_DERIVATIVE)
+    return iiDerivatives_.getValues();
+  throw DYNError(Error::MODELER, InvalidDerivativeType, type);
+}
+
+const std::vector<int>&
+BusDerivatives::getIndices(typeDerivative_t type) const {
+  if (type == IR_DERIVATIVE)
+    return irDerivatives_.getIndices();
+  else if (type == II_DERIVATIVE)
+    return iiDerivatives_.getIndices();
   throw DYNError(Error::MODELER, InvalidDerivativeType, type);
 }
 

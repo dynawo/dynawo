@@ -98,6 +98,15 @@ ModelBusContainer::resetNodeInjections() {
 }
 
 void
+ModelBusContainer::resetInjections() {
+  for (auto& bus : models_) {
+    bus->resetNodeInjection();
+    bus->resetCurrentUStatus();
+    // bus->initDerivatives();
+  }
+}
+
+void
 ModelBusContainer::exploreNeighbors(const double t) {
   int numSubNetwork = 0;
   shared_ptr<SubNetwork> subNetwork(new SubNetwork(numSubNetwork));
@@ -175,6 +184,8 @@ startingPointMode_(WARM) {
 
   derivatives_.reset(new BusDerivatives());
   derivativesPrim_.reset(new BusDerivatives());
+  derivatives_->init();
+  derivativesPrim_->init();
   unom_ = bus->getVNom();
   uMax_ = bus->getVMax() / unom_;
   uMin_ = bus->getVMin() / unom_;
@@ -348,6 +359,7 @@ ModelBus::setSubModelParameters(const std::unordered_map<std::string, ParameterM
 
 void
 ModelBus::initDerivatives() {
+  //std::cout << "  initDerivatives " << id_ << std::endl;
   derivatives_->reset();
   derivativesPrim_->reset();
 }
@@ -920,18 +932,26 @@ ModelBus::evalJt(const double /*cj*/, const int rowOffset, SparseMatrix& jt) {
     // Switching column
     jt.changeCol();
     const auto& irDerivativesValues = derivatives_->getValues(IR_DERIVATIVE);
-    for (const auto& irDerivativesValue : irDerivativesValues) {
-      jt.addTerm(irDerivativesValue.first + rowOffset, irDerivativesValue.second);
+    const auto& irDerivativesIndices = derivatives_->getIndices(IR_DERIVATIVE);
+    for (unsigned int i = 0 ; i < irDerivativesIndices.size(); ++i) {
+      jt.addTerm(irDerivativesIndices[i] + rowOffset, irDerivativesValues[i]);
     }
+    // for (const auto& irDerivativesValue : irDerivativesValues) {
+    //   jt.addTerm(irDerivativesValue.first + rowOffset, irDerivativesValue.second);
+    // }
 
     // Column for the imaginary part of the node current
     // ---------------------------------------
     // Switching column
     jt.changeCol();
     const auto& iiDerivativesValues = derivatives_->getValues(II_DERIVATIVE);
-    for (const auto& iiDerivativesValue : iiDerivativesValues) {
-      jt.addTerm(iiDerivativesValue.first + rowOffset, iiDerivativesValue.second);
+    const auto& iiDerivativesIndices = derivatives_->getIndices(II_DERIVATIVE);
+    for (unsigned int i = 0 ; i < iiDerivativesIndices.size(); ++i) {
+      jt.addTerm(iiDerivativesIndices[i] + rowOffset, iiDerivativesValues[i]);
     }
+    // for (const auto& iiDerivativesValue : iiDerivativesValues) {
+    //   jt.addTerm(iiDerivativesValue.first + rowOffset, iiDerivativesValue.second);
+    // }
   }
 }
 
@@ -941,15 +961,23 @@ ModelBus::evalJtPrim(const int rowOffset, SparseMatrix& jtPrim) {
   if (hasDifferentialVoltages_ && !getSwitchOff() && !derivativesPrim_->empty()) {
     jtPrim.changeCol();
     const auto& irDerivativesValues = derivativesPrim_->getValues(IR_DERIVATIVE);
-    for (const auto& irDerivativesValue : irDerivativesValues) {
-      jtPrim.addTerm(irDerivativesValue.first + rowOffset, irDerivativesValue.second);
+    const auto& irDerivativesIndices = derivativesPrim_->getIndices(IR_DERIVATIVE);
+    for (unsigned int i = 0 ; i < irDerivativesIndices.size(); ++i) {
+      jt.addTerm(irDerivativesIndices[i] + rowOffset, irDerivativesValues[i]);
     }
+    // for (const auto& irDerivativesValue : irDerivativesValues) {
+    //   jt.addTerm(irDerivativesValue.first + rowOffset, irDerivativesValue.second);
+    // }
 
     jtPrim.changeCol();
     const auto& iiDerivativesValues = derivativesPrim_->getValues(II_DERIVATIVE);
-    for (const auto& iiDerivativesValue : iiDerivativesValues) {
-      jtPrim.addTerm(iiDerivativesValue.first + rowOffset, iiDerivativesValue.second);
+    const auto& iiDerivativesIndices = derivativesPrim_->getIndices(II_DERIVATIVE);
+    for (unsigned int i = 0 ; i < iiDerivativesIndices.size(); ++i) {
+      jt.addTerm(iiDerivativesIndices[i] + rowOffset, iiDerivativesValues[i]);
     }
+    // for (const auto& iiDerivativesValue : iiDerivativesValues) {
+    //   jt.addTerm(iiDerivativesValue.first + rowOffset, iiDerivativesValue.second);
+    // }
   } else {
     // no y' in network equations, we only change the column index in Jacobian
     // column change - real part of the node current

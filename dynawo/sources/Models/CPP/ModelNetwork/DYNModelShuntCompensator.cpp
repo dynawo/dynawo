@@ -166,10 +166,11 @@ ModelShuntCompensator::evalDerivatives(const double /*cj*/) {
   if (isConnected()) {
     const int urYNum = modelBus_->urYNum();
     const int uiYNum = modelBus_->uiYNum();
-    modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, urYNum, ir_dUr());
-    modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, uiYNum, ir_dUi());
-    modelBus_->derivatives()->addDerivative(II_DERIVATIVE, urYNum, ii_dUr());
-    modelBus_->derivatives()->addDerivative(II_DERIVATIVE, uiYNum, ii_dUi());
+    auto& derivatives = modelBus_->derivatives();
+    derivatives->addDerivative(IR_DERIVATIVE, urYNum, ir_dUr());
+    derivatives->addDerivative(IR_DERIVATIVE, uiYNum, ir_dUi());
+    derivatives->addDerivative(II_DERIVATIVE, urYNum, ii_dUr());
+    derivatives->addDerivative(II_DERIVATIVE, uiYNum, ii_dUi());
   }
 }
 
@@ -237,7 +238,7 @@ ModelShuntCompensator::evalZ(const double t) {
     }
     setConnected(currState);
   }
-  return stateModified_ ? NetworkComponent::STATE_CHANGE : NetworkComponent::NO_CHANGE;
+  return stateModified_ ? STATE_CHANGE : NO_CHANGE;
 }
 
 void

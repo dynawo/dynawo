@@ -873,47 +873,55 @@ ModelTwoWindingsTransformer::evalF(propertyF_t /*type*/) {
 
 void
 ModelTwoWindingsTransformer::evalDerivatives(const double /*cj*/) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer3("ModelNetwork::ModelTwoWindingsTransformer::evalDerivatives");
+#endif
   switch (knownBus_) {
     case BUS1_BUS2: {
       const int ur1YNum = modelBus1_->urYNum();
       const int ui1YNum = modelBus1_->uiYNum();
       const int ur2YNum = modelBus2_->urYNum();
       const int ui2YNum = modelBus2_->uiYNum();
-      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUr1_);
-      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ui1YNum, ir1_dUi1_);
-      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ur1YNum, ii1_dUr1_);
-      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ui1YNum, ii1_dUi1_);
-      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ur2YNum, ir1_dUr2_);
-      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ui2YNum, ir1_dUi2_);
-      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ur2YNum, ii1_dUr2_);
-      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ui2YNum, ii1_dUi2_);
+      auto& derivatives1 = modelBus1_->derivatives();
+      auto& derivatives2 = modelBus2_->derivatives();
 
-      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ur2YNum, ir2_dUr2_);
-      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ui2YNum, ir2_dUi2_);
-      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ur2YNum, ii2_dUr2_);
-      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ui2YNum, ii2_dUi2_);
-      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ur1YNum, ir2_dUr1_);
-      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ui1YNum, ir2_dUi1_);
-      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ur1YNum, ii2_dUr1_);
-      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ui1YNum, ii2_dUi1_);
+      derivatives1->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUr1_);
+      derivatives1->addDerivative(IR_DERIVATIVE, ui1YNum, ir1_dUi1_);
+      derivatives1->addDerivative(II_DERIVATIVE, ur1YNum, ii1_dUr1_);
+      derivatives1->addDerivative(II_DERIVATIVE, ui1YNum, ii1_dUi1_);
+      derivatives1->addDerivative(IR_DERIVATIVE, ur2YNum, ir1_dUr2_);
+      derivatives1->addDerivative(IR_DERIVATIVE, ui2YNum, ir1_dUi2_);
+      derivatives1->addDerivative(II_DERIVATIVE, ur2YNum, ii1_dUr2_);
+      derivatives1->addDerivative(II_DERIVATIVE, ui2YNum, ii1_dUi2_);
+
+      derivatives2->addDerivative(IR_DERIVATIVE, ur2YNum, ir2_dUr2_);
+      derivatives2->addDerivative(IR_DERIVATIVE, ui2YNum, ir2_dUi2_);
+      derivatives2->addDerivative(II_DERIVATIVE, ur2YNum, ii2_dUr2_);
+      derivatives2->addDerivative(II_DERIVATIVE, ui2YNum, ii2_dUi2_);
+      derivatives2->addDerivative(IR_DERIVATIVE, ur1YNum, ir2_dUr1_);
+      derivatives2->addDerivative(IR_DERIVATIVE, ui1YNum, ir2_dUi1_);
+      derivatives2->addDerivative(II_DERIVATIVE, ur1YNum, ii2_dUr1_);
+      derivatives2->addDerivative(II_DERIVATIVE, ui1YNum, ii2_dUi1_);
       break;
     }
     case BUS1: {
       const int ur1YNum = modelBus1_->urYNum();
       const int ui1YNum = modelBus1_->uiYNum();
-      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUr1_);
-      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ui1YNum, ir1_dUi1_);
-      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ur1YNum, ii1_dUr1_);
-      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ui1YNum, ii1_dUi1_);
+      auto& derivatives1 = modelBus1_->derivatives();
+      derivatives1->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUr1_);
+      derivatives1->addDerivative(IR_DERIVATIVE, ui1YNum, ir1_dUi1_);
+      derivatives1->addDerivative(II_DERIVATIVE, ur1YNum, ii1_dUr1_);
+      derivatives1->addDerivative(II_DERIVATIVE, ui1YNum, ii1_dUi1_);
       break;
     }
     case BUS2: {
       const int ur2YNum = modelBus2_->urYNum();
       const int ui2YNum = modelBus2_->uiYNum();
-      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ur2YNum, ir2_dUr2_);
-      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ui2YNum, ir2_dUi2_);
-      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ur2YNum, ii2_dUr2_);
-      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ui2YNum, ii2_dUi2_);
+      auto& derivatives2 = modelBus2_->derivatives();
+      derivatives2->addDerivative(IR_DERIVATIVE, ur2YNum, ir2_dUr2_);
+      derivatives2->addDerivative(IR_DERIVATIVE, ui2YNum, ir2_dUi2_);
+      derivatives2->addDerivative(II_DERIVATIVE, ur2YNum, ii2_dUr2_);
+      derivatives2->addDerivative(II_DERIVATIVE, ui2YNum, ii2_dUi2_);
       break;
     }
   }

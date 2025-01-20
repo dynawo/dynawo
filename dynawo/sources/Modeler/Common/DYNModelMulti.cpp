@@ -334,9 +334,7 @@ ModelMulti::copyDiscreteVariables(const double* z) {
 
 void
 ModelMulti::evalF(const double t, const double* y, const double* yp, double* f) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalF");
-#endif
   copyContinuousVariables(y, yp);
 
 #if defined(_DEBUG_)
@@ -357,9 +355,7 @@ ModelMulti::evalF(const double t, const double* y, const double* yp, double* f) 
 
 void
 ModelMulti::evalFDiff(const double t, const double* y, const double* yp, double* f) {
-#if defined(_DEBUG_)
-  Timer timer("ModelMulti::evalFDiff");
-#endif
+  // Timer timer("ModelMulti::evalFDiff");
   copyContinuousVariables(y, yp);
 
   for (const auto& subModel : subModels_)
@@ -370,9 +366,7 @@ ModelMulti::evalFDiff(const double t, const double* y, const double* yp, double*
 
 void
 ModelMulti::evalFMode(const double t, const double* y, const double* yp, double* f) {
-#if defined(_DEBUG_)
-  Timer timer("ModelMulti::evalFMode");
-#endif
+  // Timer timer("ModelMulti::evalFMode");
   copyContinuousVariables(y, yp);
 
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
