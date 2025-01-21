@@ -48,6 +48,7 @@ equation
   connect(fFrt, integerToBoolean.u) annotation(
     Line(points = {{-140, 0}, {-102, 0}}, color = {255, 127, 0}));
 
-annotation(
+  annotation(
+    preferredView = "diagram",
     Icon(graphics = {Text(origin = {-19, -26}, extent = {{-25, 22}, {61, -60}}, textString = "2020")}));
 end QLimiter2020;

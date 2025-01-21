@@ -56,6 +56,7 @@ equation
   end if;
 
   annotation(
+    preferredView = "text",
     Documentation(info= "<html><head></head><body><p>
 This block defines the transfer function between the input
 u and the output y

@@ -86,8 +86,9 @@ equation
   connect(deltaOmegaPu, integrator.y) annotation(
     Line(points = {{150, -6}, {92, -6}, {92, 20}, {86, 20}}, color = {0, 0, 127}));
 
-annotation(preferredView = "diagram",
+  annotation(
+    preferredView = "diagram",
     Documentation(info = "<html><head></head><body>This model is a reduced order model that allows representing the average frequency behaviour of a reheat steam turbine.<div><br><div>It is an implementation of the model described in the following paper:</div><div><br></div><div>P. M. Anderson and M. Mirheydar, \"A low-order system frequency response model,\" in IEEE Transactions on Power Systems, vol. 5, no. 3, pp. 720-729, Aug. 1990, doi: 10.1109/59.65898.<div>keywords: {Frequency response;Power system modeling;Power system dynamics;Frequency estimation;Power generation;Impedance;Frequency synchronization;Nonlinear dynamical systems;Nonlinear equations;Turbines}</div><div><br></div><div><br></div></div></div></body></html>"),
- Icon(graphics = {Text(origin = {-35, 34}, extent = {{-59, 22}, {129, -88}}, textString = "ReducedOrderSFR"), Rectangle(origin = {-1, 0}, extent = {{-140, 100}, {140, -100}})}, coordinateSystem(extent = {{-140, -100}, {140, 100}})),
- Diagram(coordinateSystem(extent = {{-140, -100}, {140, 100}})));
+    Icon(graphics = {Text(origin = {-35, 34}, extent = {{-59, 22}, {129, -88}}, textString = "ReducedOrderSFR"), Rectangle(origin = {-1, 0}, extent = {{-140, 100}, {140, -100}})}, coordinateSystem(extent = {{-140, -100}, {140, 100}})),
+    Diagram(coordinateSystem(extent = {{-140, -100}, {140, 100}})));
 end ReducedOrderSFR;

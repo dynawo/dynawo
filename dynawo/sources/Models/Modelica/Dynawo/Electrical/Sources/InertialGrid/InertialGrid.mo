@@ -68,5 +68,6 @@ equation
     Line(points = {{91.5, -2}, {110, -2}}, color = {0, 0, 255}));
 
   annotation(
+    preferredView = "diagram",
     Icon(graphics = {Text(origin = {-33, 34}, extent = {{-59, 22}, {129, -88}}, textString = "InertialGrid"), Rectangle(extent = {{-100, 100}, {100, -100}})}));
 end InertialGrid;

@@ -61,5 +61,6 @@ equation
     Line(points = {{22, 100}, {40, 100}, {40, 114}, {58, 114}}, color = {0, 0, 127}));
 
   annotation(
+    preferredView = "diagram",
     Icon(graphics = {Text(origin = {83, 35}, extent = {{-14, 21}, {14, -20}}, textString = "B"), Text(origin = {-1, -16}, extent = {{-54, 26}, {54, -23}}, textString = "2015")}));
 end PControl4B2015;

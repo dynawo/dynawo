@@ -11,6 +11,7 @@ within Dynawo.Examples.SystemFrequencyResponse;
 *
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
+
 model SimplifiedSFR
   extends Icons.Example;
 
@@ -23,6 +24,7 @@ equation
   connect(Pe.y, simplifiedSFR.PePu) annotation(
       Line(points = {{-26, 0}, {-4, 0}}, color = {0, 0, 127}));
 
-annotation(preferredView = "diagram",
+  annotation(
+    preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 20, Tolerance = 1e-6, Interval = 0.004));
 end SimplifiedSFR;

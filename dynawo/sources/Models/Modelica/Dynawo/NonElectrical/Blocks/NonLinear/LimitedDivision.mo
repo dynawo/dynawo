@@ -23,6 +23,7 @@ equation
   y = noEvent(if u1 >= u2 * YMax then YMax elseif u1 <= u2 * YMin then YMin else u1 / u2);
 
   annotation(
+    preferredView = "text",
     Documentation(info= "<html><head></head><body><p>
 This block computes the output <strong>y</strong>
 by <em>dividing</em> the two inputs <strong>u1</strong> and <strong>u2</strong> unless the result lies outside the limited range:</p>
