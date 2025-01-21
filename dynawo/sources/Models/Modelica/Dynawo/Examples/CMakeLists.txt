@@ -25,6 +25,7 @@ add_subdirectory(SVarC SV)
 add_subdirectory(SystemFrequencyResponse SFR)
 add_subdirectory(Photovoltaics P)
 add_subdirectory(Wind W)
+add_subdirectory(FiveBus FB)
 
 set(MODEL_FILES
   package.mo
