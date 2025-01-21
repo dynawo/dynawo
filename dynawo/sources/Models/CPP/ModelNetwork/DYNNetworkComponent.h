@@ -26,6 +26,8 @@
 #include <unordered_map>
 
 #include <boost/shared_ptr.hpp>
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
 
 #include "DYNEnumUtils.h"
 #include "DYNBitMask.h"
@@ -420,18 +422,48 @@ class NetworkComponent {  ///< Base class for network component models
   virtual void printInternalParameters(std::ofstream& fstream) const;
 
   /**
+   * @brief get the number of internal variable of the model
+   *
+   * @return the number of internal variable of the model
+   */
+  virtual unsigned getNbInternalVariables() const;
+
+  /**
    * @brief append the internal variables values to a stringstream
    *
    * @param streamVariables : stringstream with binary formated internalVariables
    */
-  virtual void dumpInternalVariables(std::stringstream& streamVariables) const;
+  virtual void dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const;
 
   /**
    * @brief import the internal variables values of the component from stringstream
    *
    * @param streamVariables : stringstream with binary formated internalVariables
    */
-  virtual void loadInternalVariables(std::stringstream& streamVariables);
+  virtual void loadInternalVariables(boost::archive::binary_iarchive& streamVariables);
+
+  /**
+   * @brief export the variables values of the sub model for dump
+   *
+   * @param streamVariables : map associating the file where values should be dumped with the stream of values
+   */
+  virtual void dumpVariables(boost::archive::binary_oarchive& streamVariables) const;
+
+  /**
+   * @brief load the variables values from a previous dump
+   *
+   * @param streamVariables : stream of values where the variables were dumped
+   * @param variablesFileName source of the data
+   * @return success
+   */
+  virtual bool loadVariables(boost::archive::binary_iarchive& streamVariables, const std::string& variablesFileName);
+
+  /**
+   * @brief id getter
+   *
+   * @return the id of this component
+   */
+  inline const std::string& getId() const { return id_;}
 
  protected:
   /**
