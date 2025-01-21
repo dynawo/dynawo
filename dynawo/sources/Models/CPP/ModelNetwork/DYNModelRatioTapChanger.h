@@ -122,14 +122,21 @@ class ModelRatioTapChanger : public ModelTapChanger {
    *
    * @param streamVariables : stringstream with binary formated internalVariables
    */
-  void dumpInternalVariables(std::stringstream& streamVariables) const;
+  void dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const;
 
   /**
    * @brief import the internal variables values of the component from stringstream
    *
    * @param streamVariables : stringstream with binary formated internalVariables
    */
-  void loadInternalVariables(std::stringstream& streamVariables);
+  void loadInternalVariables(boost::archive::binary_iarchive& streamVariables);
+
+  /**
+   * @brief get the number of internal variable of the model
+   *
+   * @return the number of internal variable of the model
+   */
+  unsigned getNbInternalVariables() const;
 
 
  private:
