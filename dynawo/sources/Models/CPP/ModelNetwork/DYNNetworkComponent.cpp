@@ -18,6 +18,11 @@
  *
  */
 #include <iostream>
+
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+#include <boost/serialization/vector.hpp>
+
 #include "PARParametersSet.h"
 
 #include "DYNNetworkComponent.h"
@@ -198,13 +203,80 @@ NetworkComponent::printInternalParameters(std::ofstream& /*fstream*/) const {
 }
 
 void
-NetworkComponent::dumpInternalVariables(stringstream&) const {
+NetworkComponent::dumpInternalVariables(boost::archive::binary_oarchive&) const {
   // not needed: internal variables are specific to child classes
 }
 
 void
-NetworkComponent::loadInternalVariables(stringstream&) {
+NetworkComponent::loadInternalVariables(boost::archive::binary_iarchive&) {
   // not needed: internal variables are specific to child classes
+}
+
+unsigned
+NetworkComponent::getNbInternalVariables() const {
+  return 0;
+}
+
+void
+NetworkComponent::dumpVariables(boost::archive::binary_oarchive& streamVariables) const {
+  vector<double> y(y_, y_ + sizeY());
+  vector<double> yp(yp_, yp_ + sizeY());
+  vector<double> z(z_, z_ + sizeZ());
+  vector<double> g(g_, g_ + sizeG());
+
+  streamVariables << y;
+  streamVariables << yp;
+  streamVariables << z;
+  streamVariables << g;
+
+  streamVariables << getNbInternalVariables();
+  dumpInternalVariables(streamVariables);
+}
+
+bool
+NetworkComponent::loadVariables(boost::archive::binary_iarchive& streamVariables, const std::string&) {
+  vector<double> yValues;
+  vector<double> ypValues;
+  vector<double> zValues;
+  vector<double> gValues;
+  streamVariables >> yValues;
+  streamVariables >> ypValues;
+  streamVariables >> zValues;
+  streamVariables >> gValues;
+
+  unsigned readNbInternalVariables;
+  streamVariables >> readNbInternalVariables;
+
+  if (yValues.size() != static_cast<size_t>(sizeY()) || ypValues.size() != static_cast<size_t>(sizeY()) ||
+      zValues.size() != static_cast<size_t>(sizeZ()) || gValues.size() != static_cast<size_t>(sizeG()) ||
+      readNbInternalVariables != getNbInternalVariables()) {
+    Trace::debug() << DYNLog(WrongParameterNum, id_) << Trace::endline;
+    double dummyValueD;
+    bool dummyValueB;
+    int dummyValueI;
+    char type;
+    for (unsigned j = 0; j < readNbInternalVariables; ++j) {
+      streamVariables >> type;
+      if (type == 'B')
+        streamVariables >> dummyValueB;
+      else if (type == 'D')
+        streamVariables >> dummyValueD;
+      else if (type == 'I')
+        streamVariables >> dummyValueI;
+    }
+    // Fall back on default initialization for this component
+    getY0();
+    return false;
+  }
+
+  loadInternalVariables(streamVariables);
+
+  // loading values
+  std::copy(yValues.begin(), yValues.end(), y_);
+  std::copy(ypValues.begin(), ypValues.end(), yp_);
+  std::copy(zValues.begin(), zValues.end(), z_);
+  std::copy(gValues.begin(), gValues.end(), g_);
+  return true;
 }
 
 }  // namespace DYN

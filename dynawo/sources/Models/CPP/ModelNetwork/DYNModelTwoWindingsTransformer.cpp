@@ -1800,8 +1800,18 @@ ModelTwoWindingsTransformer::printInternalParameters(std::ofstream& fstream) con
   fstream << std::setw(50) << std::left << paramName << std::right << " =" << std::setw(15) << getRho() << std::endl;
 }
 
+unsigned
+ModelTwoWindingsTransformer::getNbInternalVariables() const {
+  unsigned res = 0;
+  if (modelRatioChanger_)
+    res += modelRatioChanger_->getNbInternalVariables();
+  if (modelPhaseChanger_)
+    res += modelPhaseChanger_->getNbInternalVariables();
+  return res;
+}
+
 void
-ModelTwoWindingsTransformer::dumpInternalVariables(stringstream& streamVariables) const {
+ModelTwoWindingsTransformer::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
   if (modelRatioChanger_)
     modelRatioChanger_->dumpInternalVariables(streamVariables);
   if (modelPhaseChanger_)
@@ -1809,7 +1819,7 @@ ModelTwoWindingsTransformer::dumpInternalVariables(stringstream& streamVariables
 }
 
 void
-ModelTwoWindingsTransformer::loadInternalVariables(stringstream& streamVariables) {
+ModelTwoWindingsTransformer::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
   if (modelRatioChanger_)
     modelRatioChanger_->loadInternalVariables(streamVariables);
   if (modelPhaseChanger_)
