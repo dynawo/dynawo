@@ -395,7 +395,11 @@ ModelManager::evalJt(const double t, const double cj, SparseMatrix& jt, const in
 #endif
 
 #ifdef _ADEPT_
-  evalJtAdept(t, yLocal_, ypLocal_, cj, jt, rowOffset, true);
+  if (modelModelica()->isEvalJSymbolic()) {
+    modelModelica()->evalJt(t, cj, jt, rowOffset);
+  } else {
+    evalJtAdept(t, yLocal_, ypLocal_, cj, jt, rowOffset, true);
+  }
 #else
   // Assert when Adept wasn't used
   assert(0 && "evalJt : Adept not used");

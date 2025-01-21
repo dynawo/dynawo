@@ -81,6 +81,18 @@ class ModelModelica {
    */
   virtual void setFomc(double* f, propertyF_t type) = 0;
 
+ /**
+   * @brief ModelGeneratorAlphaBetaOpti transposed jacobian evaluation
+   *
+   * Get the sparse transposed jacobian \f$ Jt=@F/@y + cj*@F/@y' \f$
+   *
+   * @param t Simulation instant
+   * @param cj Jacobian prime coefficient
+   * @param jt jacobian matrix to fullfill
+   * @param rowOffset offset to use to identify the row where data should be added
+   */
+  virtual void evalJt(double t, double cj, SparseMatrix& jt, int rowOffset) = 0;
+
   /**
    * @brief  calculates the roots of the model
    *
@@ -297,8 +309,21 @@ class ModelModelica {
    */
   inline bool hasCheckDataCoherence() const { return hasCheckDataCoherence_; }
 
+ /**
+   * @brief Determines if the sub model has a data check coherence operation (non-empty function)
+   * @return true if the sub model has a data check coherence operation, false if not
+   */
+ inline bool isEvalJSymbolic() const { return symbolicJ_; }
+
+ /**
+   * @brief Determines if the sub model has a data check coherence operation (non-empty function)
+   * @return true if the sub model has a data check coherence operation, false if not
+   */
+ inline void setEvalJIsSymbolic() { symbolicJ_ = true; }
+
  protected:
   bool hasCheckDataCoherence_;  ///< Determines if the modelica model has a data check coherence operation
+  bool symbolicJ_;  ///< Determines if the modelica model has a data check coherence operation
 };
 
 #ifdef __clang__

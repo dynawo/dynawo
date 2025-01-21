@@ -31,6 +31,16 @@
 
 namespace DYN {
 
+static int symbolicFacto = 0;
+
+int SolverCommon::getNumSymbolicFactorization() {
+  return symbolicFacto;
+}
+
+void SolverCommon::resetNumSymbolicFactorization() {
+  symbolicFacto = 0;
+}
+
 bool
 SolverCommon::copySparseToKINSOL(SparseMatrix& smj, SUNMatrix& sundialsMatrix, const std::vector<sunindextype>& lastRowVals) {
   bool matrixStructChange = false;
@@ -93,11 +103,12 @@ void SolverCommon::propagateMatrixStructureChangeToKINSOL(SparseMatrix& smj, SUN
   bool matrixStructChange = copySparseToKINSOL(smj, sundialsMatrix, lastRowVals);
 
   if (matrixStructChange) {
+    ++symbolicFacto;
     SUNLinSol_KLUReInit(LS, sundialsMatrix, SM_NNZ_S(sundialsMatrix), 2);  // reinit symbolic factorisation
     lastRowVals.resize(SM_NNZ_S(sundialsMatrix));
     lastRowVals = smj.getAi();
     if (log)
-      Trace::debug() << DYNLog(MatrixStructureChange) << Trace::endline;
+      Trace::info() << DYNLog(MatrixStructureChange) << Trace::endline;
   }
 }
 

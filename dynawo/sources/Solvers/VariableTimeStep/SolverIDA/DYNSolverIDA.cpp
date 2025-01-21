@@ -548,6 +548,7 @@ SolverIDA::calculateIC(double /*tEnd*/) {
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");
 
   Solver::Impl::resetStats();
+  SolverCommon::resetNumSymbolicFactorization();
 
   // reinit output
   flagInit_ = false;
