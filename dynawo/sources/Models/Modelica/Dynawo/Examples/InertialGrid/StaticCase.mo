@@ -52,7 +52,7 @@ model StaticCase
     Placement(visible = true, transformation(origin = {-26, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-//Switch-off equations inhibitions
+  //Switch-off equations inhibitions
   load.switchOffSignal1.value = false;
   load.switchOffSignal2.value = false;
   loadPQ.switchOffSignal1.value = false;
@@ -67,7 +67,7 @@ equation
   Gen2.switchOffSignal2.value = false;
   Gen2.switchOffSignal3.value = false;
 
-// No variations in the loads
+  // No variations in the loads
   der(load.PRefPu) = 0;
   der(load.QRefPu) = 0;
   load.deltaP = 0;
@@ -98,6 +98,7 @@ equation
   connect(Gen2.terminal, busIG2.terminal) annotation(
     Line(points = {{-26, -40}, {-2, -40}}, color = {0, 0, 255}));
 
-annotation(preferredView = "diagram",
-  Documentation(info = "<html><head></head><body>It is a static version of the double inertia test case to easily calculate initial values for the time-domain example.</body></html>"));
+  annotation(
+    preferredView = "diagram",
+    Documentation(info = "<html><head></head><body>It is a static version of the double inertia test case to easily calculate initial values for the time-domain example.</body></html>"));
 end StaticCase;

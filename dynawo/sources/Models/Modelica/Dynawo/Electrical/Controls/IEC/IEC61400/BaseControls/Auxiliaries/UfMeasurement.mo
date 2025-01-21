@@ -97,6 +97,7 @@ equation
     Line(points = {{-22, -18}, {-12, -18}, {-12, 32}, {-2, 32}}, color = {255, 0, 255}));
 
   annotation(
+    preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-100, -100}, {150, 100}})),
     Icon(coordinateSystem(extent = {{-100, -900}, {100, 900}}), graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 900}, {100, -900}}), Text(origin = {-1, 24}, rotation = -90, extent = {{-441, 82}, {441, -82}}, textString = "Uf measurement")}));
 end UfMeasurement;

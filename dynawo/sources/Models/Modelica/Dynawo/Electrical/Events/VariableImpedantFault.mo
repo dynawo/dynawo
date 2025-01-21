@@ -33,7 +33,7 @@ model VariableImpedantFault "Variable impedant fault with R and X of the fault g
   // Variable
   Types.ComplexImpedancePu ZvPu "The complex variable representing the impedance of the fault";
 
-  Modelica.Blocks.Sources.CombiTimeTable ZvTimeTable(columns = 2:3,fileName = ImpedanceTableFile, tableName = ImpedanceTimeTable, tableOnFile = true)  annotation(
+  Modelica.Blocks.Sources.CombiTimeTable ZvTimeTable(columns = 2:3,fileName = ImpedanceTableFile, tableName = ImpedanceTimeTable, tableOnFile = true) annotation(
     Placement(visible = true, transformation(origin = {-1.77636e-15, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
 equation

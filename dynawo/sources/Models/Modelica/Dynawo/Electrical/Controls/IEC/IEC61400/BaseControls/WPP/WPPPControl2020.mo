@@ -82,6 +82,7 @@ equation
   connect(or1.y, antiWindupIntegrator.fMax) annotation(
     Line(points = {{98, -40}, {80, -40}, {80, -60}, {58, -60}, {58, -52}}, color = {255, 0, 255}));
 
-annotation(
+  annotation(
+    preferredView = "diagram",
     Icon(graphics = {Text(origin = {24, -110}, extent = {{-94, 60}, {48, 12}}, textString = "2020")}));
 end WPPPControl2020;

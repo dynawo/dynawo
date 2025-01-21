@@ -123,6 +123,7 @@ model WPPQControl2020 "Reactive power control module for wind power plants (IEC 
   connect(QWPFiltComPu, gain.u) annotation(
     Line(points = {{-340, -40}, {-140, -40}, {-140, -72}, {-122, -72}}, color = {0, 0, 127}));
 
-annotation(
+  annotation(
+    preferredView = "diagram",
     Icon(graphics = {Text(origin = {22, -108}, extent = {{-94, 60}, {48, 12}}, textString = "2020")}));
 end WPPQControl2020;

@@ -97,4 +97,5 @@ equation
   connect(PWPRefPu, pControl.PWPRefPu) annotation(
     Line(points = {{-200, 86}, {-80, 86}, {-80, 72}, {18, 72}}, color = {0, 0, 127}));
 
+  annotation(preferredView = "diagram");
 end WPPControl2015;

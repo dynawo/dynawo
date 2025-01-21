@@ -22,4 +22,5 @@ model TransformerRatioTapChanger_INIT "Initialization model for TransformerRatio
 
   parameter Integer Tap0 "Start value of transformer tap";
 
+  annotation(preferredView = "text");
 end TransformerRatioTapChanger_INIT;

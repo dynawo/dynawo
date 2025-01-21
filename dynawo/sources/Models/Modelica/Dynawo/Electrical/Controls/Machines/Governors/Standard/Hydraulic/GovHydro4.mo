@@ -207,8 +207,7 @@ equation
     Line(points = {{-98, -40}, {-80, -40}, {-80, -34}, {-60, -34}}, color = {0, 0, 127}));
 
   annotation(
-    uses(Dynawo(version = "1.0.1"), Modelica(version = "3.2.3")),
+    preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-220, -220}, {220, 220}})),
-    Icon(coordinateSystem(extent = {{-220, -220}, {220, 220}}), graphics = {Rectangle(extent = {{-220, 220}, {220, -220}}), Text(origin = {7, 14}, extent = {{255, -48}, {-255, 48}}, textString = "govHydro4")}),
-    version = "");
+    Icon(coordinateSystem(extent = {{-220, -220}, {220, 220}}), graphics = {Rectangle(extent = {{-220, 220}, {220, -220}}), Text(origin = {7, 14}, extent = {{255, -48}, {-255, 48}}, textString = "govHydro4")}));
 end GovHydro4;

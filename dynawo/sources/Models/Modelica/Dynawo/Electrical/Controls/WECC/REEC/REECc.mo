@@ -81,7 +81,7 @@ model REECc "WECC Electrical Control type C"
     Placement(visible = true, transformation(origin = {270, -250}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {320, -210}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter4(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = SOCMaxPu, uMin = SOCMinPu)  annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter4(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = SOCMaxPu, uMin = SOCMinPu) annotation(
     Placement(visible = true, transformation(origin = {360, -210}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter1(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = Iqh1Pu, uMin = Iql1Pu) annotation(
     Placement(visible = true, transformation(origin = {264, 220}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

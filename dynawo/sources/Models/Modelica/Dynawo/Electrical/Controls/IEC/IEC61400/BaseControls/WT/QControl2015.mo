@@ -101,5 +101,6 @@ equation
     Line(points = {{-320, -52}, {-270, -52}, {-270, 0}, {-262, 0}}, color = {0, 0, 127}));
 
   annotation(
+    preferredView = "diagram",
     Icon(graphics = {Text(origin = {-11, -59}, extent = {{-85, -24}, {100, 30}}, textString = "2015")}));
 end QControl2015;
