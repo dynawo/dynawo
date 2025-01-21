@@ -25,6 +25,10 @@
 #include <cmath>
 #include <iomanip>
 
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+#include <boost/serialization/vector.hpp>
+
 #include "DYNModelNetwork.h"
 #include "DYNModelNetwork.hpp"
 
@@ -1462,29 +1466,97 @@ ModelNetwork::printInternalParameters(std::ofstream& fstream) const {
 }
 
 void
-ModelNetwork::dumpInternalVariables(stringstream& streamVariables) const {
-  // Dump internal variables of components
-  for (const auto& component : getComponents()) {
-      component->dumpInternalVariables(streamVariables);
-  }
+ModelNetwork::dumpInternalVariables(boost::archive::binary_oarchive&) const {
+  // not needed
 }
 
-bool
-ModelNetwork::loadInternalVariables(stringstream& streamVariables) {
-  try {
-    for (const auto& component : getComponents()) {
-      component->loadInternalVariables(streamVariables);
-    }
-  } catch (boost::archive::archive_exception&) {
-    // Failure because dump is too short
-    return false;
+void
+ModelNetwork::dumpVariables(map< string, string >& mapVariables) {
+  stringstream values;
+  boost::archive::binary_oarchive os(values);
+  string cSum = getCheckSum();
+
+  os << cSum;
+  os << getComponents().size();
+  // Dump variables of components
+  for (const auto& component : getComponents()) {
+    os << component->getId();
+    component->dumpVariables(os);
   }
 
-  if (streamVariables.peek() != EOF) {
-    // Failure because dump is too large
-    return false;
+  mapVariables[ variablesFileName() ] = values.str();
+}
+
+void
+ModelNetwork::loadVariables(const string& variables) {
+  bool couldBeLoaded = true;
+  stringstream values(variables);
+  boost::archive::binary_iarchive is(values);
+
+  string cSum = getCheckSum();
+  string cSumRead;
+  is >> cSumRead;
+
+  if (cSumRead != cSum) {
+    Trace::warn() << DYNLog(WrongCheckSum, variablesFileName().c_str()) << Trace::endline;
+    return;
   }
-  return true;
+
+  size_t nbComponent;
+  is >> nbComponent;
+  const std::vector<std::shared_ptr<NetworkComponent> >& components = getComponents();
+
+  std::unordered_map<std::string, size_t> ids2Indexes;
+  for (size_t i = 0, itEnd = components.size(); i < itEnd; ++i) {
+    ids2Indexes[components[i]->getId()] = i;
+  }
+
+  // load variables of components
+  for (size_t i = 0; i < nbComponent; ++i) {
+    std::string idRead;
+    is >> idRead;
+    auto it = ids2Indexes.find(idRead);
+    if (it != ids2Indexes.end()) {
+      couldBeLoaded &= components[it->second]->loadVariables(is, variablesFileName());
+    } else {
+      // Not found, skip the component
+      Trace::debug() << DYNLog(NetworkComponentNotFoundInDump, idRead, variablesFileName().c_str()) << Trace::endline;
+      vector<double> yValues;
+      vector<double> ypValues;
+      vector<double> zValues;
+      vector<double> gValues;
+      is >> yValues;
+      is >> ypValues;
+      is >> zValues;
+      is >> gValues;
+      double dummyValueD;
+      bool dummyValueB;
+      int dummyValueI;
+      char type;
+      unsigned nbInternalVar;
+      is >> nbInternalVar;
+      for (unsigned j = 0; j < nbInternalVar; ++j) {
+        is >> type;
+        if (type == 'B')
+          is >> dummyValueB;
+        else if (type == 'D')
+          is >> dummyValueD;
+        else if (type == 'I')
+          is >> dummyValueI;
+      }
+      couldBeLoaded = false;
+    }
+  }
+  if (!couldBeLoaded)
+    Trace::warn() << DYNLog(WrongParameterNum, name()) << Trace::endline;
+
+  // notify we used dumped values
+  isStartingFromDump_ = true;
+}
+
+void
+ModelNetwork::loadInternalVariables(boost::archive::binary_iarchive&) {
+  // not needed
 }
 
 }  // namespace DYN

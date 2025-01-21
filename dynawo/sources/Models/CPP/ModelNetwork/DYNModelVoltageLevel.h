@@ -324,6 +324,23 @@ class ModelVoltageLevel : public NetworkComponent {
    */
   void setReferenceG(state_g* g, const int& offsetG);
 
+  /**
+   * @brief export the variables values of the sub model for dump
+   *
+   * @param streamVariables : map associating the file where values should be dumped with the stream of values
+   */
+  void dumpVariables(boost::archive::binary_oarchive& streamVariables) const override;
+
+  /**
+   * @brief load the variables values from a previous dump
+   *
+   * @param streamVariables stream of values where the variables were dumped
+   * @param variablesFileName file name
+   * @return success
+   */
+  bool loadVariables(boost::archive::binary_iarchive& streamVariables, const std::string& variablesFileName) override;
+
+
  private:
   /**
    * @brief build graph used by the voltage level to deal with topology change
