@@ -441,3 +441,4 @@ warning: return type of member DYN::NetworkComponent::dumpInternalVariables is n
 warning: return type of member DYN::NetworkComponent::loadInternalVariables is not documented
 warning: return type of member DYN::SubModel::printInternalParameters is not documented
 warning: return type of member DYN::ModelCPP::dumpInternalVariables is not documented
+warning: return type of member DYN::NetworkComponent::dumpVariables is not documented
