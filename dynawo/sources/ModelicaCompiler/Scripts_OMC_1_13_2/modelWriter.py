@@ -816,6 +816,16 @@ class ModelWriter(ModelWriterBase):
         self.addLine("}\n")
 
     ##
+    # Add the body of fill_evalJt in the cpp file
+    # @param self : object pointer
+    # @return
+    def fill_evalJt(self):
+        self.addEmptyLine()
+        self.addLine("void Model" + self.className + "::evalJt(double /*t*/, double /*cj*/, SparseMatrix& /*jt*/, int /*rowOffset*/)\n")
+        self.addLine("{\n")
+        self.addLine("}\n")
+
+    ##
     # Define the header file
     # @param self : object pointer
     # @return

@@ -204,9 +204,10 @@ SolverNbSolverRootFuncEval    =             number of solver root functions eval
 SolverNbInternalRootFuncEval  =             number of internal root functions evaluations              = %1%
 SolverNbDiscreteVarsEval      =             number of discrete variables evaluations                   = %1%
 SolverNbModeEval              =             number of mode evaluations                                 = %1%
-SolverNbModeEvalDiff              =         number of differential mode                                = %1%
-SolverNbModeEvalAlg              =          number of algebraic mode                                   = %1%
-SolverNbModeEvalAlgJ              =         number of algebraic J update mode                          = %1%
+SolverNbModeEvalDiff          =             number of differential mode                                = %1%
+SolverNbModeEvalAlg           =             number of algebraic mode                                   = %1%
+SolverNbModeEvalAlgJ          =             number of algebraic J update mode                          = %1%
+SolverNbSymoblicJ             =             number of symbolic J                                       = %1%
 // --> Common to both solvers
 CalculateIC                   =             calculate initial condition of the DAE
 EndCalculateIC                =             end of calculate initial condition of the DAE

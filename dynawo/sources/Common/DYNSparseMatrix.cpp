@@ -267,7 +267,6 @@ SparseMatrix::erase(const std::unordered_set<int>& rows, const std::unordered_se
       }
     }
   }
-  return;
 }
 
 double SparseMatrix::frobeniusNorm() const {
