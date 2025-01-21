@@ -32,6 +32,8 @@
 #include "PARParametersSet.h"
 #include "TLTimeline.h"
 
+#include "DYNSolverCommon.h"
+
 using std::endl;
 using std::make_pair;
 using std::map;
@@ -573,6 +575,7 @@ Solver::Impl::printEnd() const {
   Trace::info() << DYNLog(SolverNbAlgebraicJacEval, stats_.njeAlgebraic_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbAlgebraicPrimResEval, stats_.nreAlgebraicPrim_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbAlgebraicPrimJacEval, stats_.njeAlgebraicPrim_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbSymoblicJ, SolverCommon::getNumSymbolicFactorization()) << Trace::endline;
 }
 
 void
@@ -598,6 +601,7 @@ Solver::Impl::printEndConsole() const {
   std::cout << DYNLog(SolverNbAlgebraicJacEval, stats_.njeAlgebraic_) << std::endl;
   std::cout << DYNLog(SolverNbAlgebraicPrimResEval, stats_.nreAlgebraicPrim_) << std::endl;
   std::cout << DYNLog(SolverNbAlgebraicPrimJacEval, stats_.njeAlgebraicPrim_) << std::endl;
+  std::cout << DYNLog(SolverNbSymoblicJ, SolverCommon::getNumSymbolicFactorization()) << std::endl;
 }
 
 }  // end namespace DYN

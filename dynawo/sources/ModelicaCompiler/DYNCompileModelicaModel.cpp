@@ -184,7 +184,7 @@ int main(int argc, char ** argv) {
           throw DYNError(DYN::Error::MODELER, FileGenerationFailed, lib);
         copyFile(libName, compilationDir, modelDir);
 #ifndef _DEBUG_
-        removeAllInDirectory(compilationDir1);
+        // removeAllInDirectory(compilationDir1);
 #endif
       }
     }

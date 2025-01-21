@@ -147,6 +147,19 @@ class SolverCommon {
    *
    */
   static double weightedL2Norm(const std::vector<double>& vec, const std::vector<int>& vec_index, const std::vector<double>& weights);
+
+ /**
+  * @brief Compute the weighted l2 norm of a sub vector
+  * @return value of the weighted l2 norm of the sub vector
+  *
+  */
+ static int getNumSymbolicFactorization();
+
+ /**
+ * @brief Compute the weighted l2 norm of a sub vector
+ *
+ */
+ static void resetNumSymbolicFactorization();
 };
 
 }  // end of namespace DYN
