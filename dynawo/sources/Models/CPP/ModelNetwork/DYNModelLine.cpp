@@ -287,26 +287,6 @@ ModelLine::evalYMat() {
 }
 
 double
-ModelLine::ir1(double ur1, double ui1, double ur2, double ui2) const {
-  return ir1_dUr1_ * ur1 + ir1_dUi1_ * ui1 + ir1_dUr2_ * ur2 + ir1_dUi2_ * ui2;
-}
-
-double
-ModelLine::ii1(double ur1, double ui1, double ur2, double ui2) const {
-  return ii1_dUr1_ * ur1 + ii1_dUi1_ * ui1 + ii1_dUr2_ * ur2 + ii1_dUi2_ * ui2;
-}
-
-double
-ModelLine::ir2(double ur1, double ui1, double ur2, double ui2) const {
-  return ir2_dUr1_ * ur1 + ir2_dUi1_ * ui1 + ir2_dUr2_ * ur2 + ir2_dUi2_ * ui2;
-}
-
-double
-ModelLine::ii2(double ur1, double ui1, double ur2, double ui2) const {
-  return ii2_dUr1_ * ur1 + ii2_dUi1_ * ui1 + ii2_dUr2_ * ur2 + ii2_dUi2_ * ui2;
-}
-
-double
 ModelLine::ir1_dUr1() const {
   double ir1_dUr1 = 0.;
   if (getConnectionState() == CLOSED) {
