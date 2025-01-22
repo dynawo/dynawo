@@ -1103,12 +1103,14 @@ SolverIDA::errHandlerFn(int error_code, const char* module, const char* function
 void
 SolverIDA::setDifferentialVariablesIndices() {
   const std::vector<propertyContinuousVar_t>& modelYType = model_->getYType();
-
+  numDifferentialVariables_ = model_->sizeY();
   double* idx = NV_DATA_S(sundialsVectorYType_);
   for (int ieq = 0; ieq < model_->sizeY(); ++ieq) {
     idx[ieq] = RCONST(1.);
-    if (modelYType[ieq] != DYN::DIFFERENTIAL)  // Algebraic or external variable
+    if (modelYType[ieq] != DYN::DIFFERENTIAL) {       // Algebraic or external variable
       idx[ieq] = RCONST(0.);
+      --numDifferentialVariables_;
+    }
   }
 }
 

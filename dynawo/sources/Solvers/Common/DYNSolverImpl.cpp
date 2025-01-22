@@ -90,7 +90,8 @@ optimizeReinitAlgebraicResidualsEvaluations_(true),
 minimumModeChangeTypeForAlgebraicRestoration_(ALGEBRAIC_MODE),
 minimumModeChangeTypeForAlgebraicRestorationInit_(NO_MODE),
 tSolve_(0.),
-startFromDump_(false) {
+startFromDump_(false),
+numDifferentialVariables_(0) {
   if (SUNContext_Create(NULL, &sundialsContext_) != 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverContextCreationError);
 }
@@ -145,6 +146,7 @@ Solver::Impl::printHeader() const {
   Trace::info() << DYNLog(SolverNbYVar, model_->sizeY()) << Trace::endline;
   Trace::info() << DYNLog(SolverNbZVar, model_->sizeZ()) << Trace::endline;
   Trace::info() << DYNLog(NbRootFunctions, model_->sizeG()) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbYDiffVar, numDifferentialVariables_) << Trace::endline;
 
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
   stringstream ss;

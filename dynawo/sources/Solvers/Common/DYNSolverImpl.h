@@ -397,6 +397,7 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   BitMask state_;  ///< current state value of the solver
 
   bool startFromDump_;  ///< is solver starting from dump
+  int numDifferentialVariables_;  ///< is solver starting from dump
 };
 
 }  // end of namespace DYN
