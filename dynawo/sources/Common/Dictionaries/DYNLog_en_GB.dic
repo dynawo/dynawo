@@ -188,6 +188,7 @@ WrongStartTime                =             simulation's start time (%1%) should
 SolverInstableRoot            =             instability for the root  :%1% switch from %2% to %3% at time %4%
 SolverInstableRootFound       =             at least one root is not stable
 SolverNbYVar                  =             number of continuous variables : %1%
+SolverNbYDiffVar              =             number of differential variables : %1%
 SolverNbZVar                  =             number of discrete variables : %1%
 SolverExecutionStats          =             execution statistics :
 SolverNbIter                  =             number of time iterations                                  = %1%
