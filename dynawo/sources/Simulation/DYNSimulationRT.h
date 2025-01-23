@@ -26,12 +26,15 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/optional.hpp>
 #include <boost/filesystem.hpp>
+#include <mutex>
+#include <zmqpp/zmqpp.hpp>
 
 #ifdef _MSC_VER
   typedef int pid_t;
 #endif
 
 #include "DYNSimulation.h"
+// #include "DYNModelManager.h"
 // #include "PARParametersSetCollection.h"
 #include "WSCServer.h"
 #include "DYNTimeManager.h"
@@ -80,6 +83,13 @@ class TimeManager;
  */
 class SimulationRT: public Simulation {
  public:
+  struct Action {
+    std::string modelName;                                      ///< Name of the model
+    boost::shared_ptr<SubModel> model;                          ///< Pointer to the model
+    std::shared_ptr<parameters::ParametersSet> parametersSet;   ///< Set of parameters
+  };
+
+ public:
   /**
    * @brief default constructor
    *
@@ -117,16 +127,29 @@ class SimulationRT: public Simulation {
    */
   void terminate();
 
-  // /**
-  //  * @brief run websocket server in a new thread
-  //  */
-  // void runWsServerInThread();
+  void applyActions();
+
+  bool registerAction(const std::string& modelName, std::shared_ptr<parameters::ParametersSet>& parametersSet);
+
+  void messageReceiver();
+
+  std::shared_ptr<parameters::ParametersSet> parseParametersSet(std::string& input);
 
  protected:
   std::shared_ptr<wsc::WebsocketServer> wsServer_;  ///< instance of websocket server >
-  std::thread wsServerThread_;  ///< thread instance for websocket server >
+
   std::shared_ptr<TimeManager> timeManager_;  ///< Time manager >
+
+  std::vector<std::shared_ptr<Action> > actions_;
+
+  std::mutex actions_mutex_;
+  zmqpp::context context_;
+  zmqpp::socket socket_;
+  std::thread receiverThread_;
+  bool useZmq_;
+  bool zmqRunning_;
 };
+
 }  // end of namespace DYN
 
 #endif  // SIMULATION_DYNSIMULATIONRT_H_

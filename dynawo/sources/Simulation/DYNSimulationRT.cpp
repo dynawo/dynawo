@@ -99,6 +99,8 @@
 // #include "JOBAppenderEntry.h"
 // #include "JOBDynModelsEntry.h"
 
+#include "PARParametersSetFactory.h"
+
 // #include "DYNCompiler.h"
 // #include "DYNDynamicData.h"
 #include "DYNModel.h"
@@ -109,7 +111,8 @@
 #include "DYNSolver.h"
 // #include "DYNSolverFactory.h"
 #include "DYNTimer.h"
-// #include "DYNModelMulti.h"
+#include "DYNModelMulti.h"
+#include "DYNSubModel.h"
 // #include "DYNModeler.h"
 // #include "DYNFileSystemUtils.h"
 // #include "DYNTerminate.h"
@@ -144,28 +147,37 @@ using constraints::ConstraintsCollectionFactory;
 using lostEquipments::LostEquipmentsCollectionFactory;
 
 using parameters::ParametersSet;
-using parameters::ParametersSetCollection;
+using parameters::ParametersSetFactory;
 
 static const char TIME_FILENAME[] = "time.bin";  ///< name of the file to dump time at the end of the simulation
 
 namespace DYN {
 
 SimulationRT::SimulationRT(const std::shared_ptr<job::JobEntry>& jobEntry, const std::shared_ptr<SimulationContext>& context, boost::shared_ptr<DataInterface> data = boost::shared_ptr<DataInterface>()) :
-Simulation(jobEntry, context, data) {
+Simulation(jobEntry, context, data),
+socket_(context_, zmqpp::socket_type::reply),
+useZmq_(true) {
   timeManager_ = std::make_shared<TimeManager>(
     jobEntry_->getSimulationEntry()->getTimeSync(),
     jobEntry_->getSimulationEntry()->getTimeSyncAcceleration());
   if (timeManager_->getTimeSync()) {
     wsServer_ = std::make_shared<wsc::WebsocketServer>();
-    std::cout << "will run server" << std::endl;
     wsServer_->run(9001);
-    std::cout << "run server ok" << std::endl;
+    std::cout << "Websocket server started" << std::endl;
   }
 }
 
 void
 SimulationRT::simulate() {
   Timer timer("SimulationRT::simulate()");
+  if (useZmq_) {
+    socket_.bind("tcp://*:5555");
+    zmqRunning_ = true;
+    receiverThread_ = std::thread(&SimulationRT::messageReceiver, this);
+    std::cout << "ZMQ thread started" << std::endl;
+  }
+
+  std::cout << "simulate IN" << std::endl;
   printSolverHeader();
 
   // Printing out the initial solution
@@ -179,13 +191,16 @@ SimulationRT::simulate() {
     initStepDurationCurve();
   updateCurves(updateCalculatedVariable);  // initial curves
 
+  // if (useZmq_)
+  //   receiverThread_ = std::thread(&SimulationRT::messageReceiver, this);
+
   bool criteriaChecked = true;
   try {
     // update state variable only if the IIDM final state is exported, or criteria is checked, or lost equipments are exported
     if (data_ && (finalState_.iidmFile_ || activateCriteria_ || isLostEquipmentsExported())) {
       data_->getStateVariableReference();   // Each state variable in DataInterface has a mapped reference variable in dynamic model,
                                          // either in a modelica model or in a C++ model.
-      // save initial connection state at t0 for each equip ment
+      // save initial connection state at t0 for each equipment
       if (isLostEquipmentsExported()) {
         data_->updateFromModel(false);  // force state variables' init
         connectedComponents_ = data_->findConnectedComponents();
@@ -193,8 +208,8 @@ SimulationRT::simulate() {
     }
 
     std::shared_ptr<job::CurvesEntry> curvesEntry = jobEntry_->getOutputsEntry()->getCurvesEntry();
-    std::optional<int> iterationStep;
-    std::optional<double> timeStep;
+    boost::optional<int> iterationStep;
+    boost::optional<double> timeStep;
     if (curvesEntry != nullptr) {
       iterationStep = curvesEntry->getIterationStep();
       timeStep = curvesEntry->getTimeStep();
@@ -203,12 +218,20 @@ SimulationRT::simulate() {
     double nextTimeStep = 0;
     const auto startTimeSync = std::chrono::system_clock::now();
     std::chrono::time_point<std::chrono::system_clock> afterSleepTime;
+    std::cout << "simulate() start" << std::endl;
+
     if (timeManager_)
       timeManager_->start(tCurrent_);
     while (!end() && !SignalHandler::gotExitSignal() && criteriaChecked) {
       // RT sleep
+      std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+      std::cout << "tCurrent_ = " << tCurrent_ << std::endl;
+
+
       if (timeManager_)
         timeManager_->wait(tCurrent_);
+
+      applyActions();
 
       double elapsed = timer.elapsed();
       double timeout = jobEntry_->getSimulationEntry()->getTimeout();
@@ -418,6 +441,12 @@ SimulationRT::terminate() {
   if (wsServer_)
     wsServer_->stop();
 
+  if (useZmq_) {
+    std::cout << "will stop ZMQ thread" << std::endl;
+    zmqRunning_ = false;
+    receiverThread_.join();
+    std::cout << "ZMQ thread stopped" << std::endl;
+  }
   updateParametersValues();   // update parameter curves' value
 
   if (curvesOutputFile_ != "") {
@@ -482,9 +511,134 @@ SimulationRT::terminate() {
   }
 }
 
-// void
-// SimulationRT::runWebsocketServer() {
-//   wsServer_->run(9001);
-// }
+void
+SimulationRT::applyActions() {
+  std::lock_guard<std::mutex> lock(actions_mutex_);
+  for (std::shared_ptr<Action>& action : actions_) {
+    action->model->updateParameters(action->parametersSet);
+    Trace::info() << "Action: SubModel " << action->modelName << " parameters updated" << Trace::endline;
+    std::cout << "Action: SubModel " << action->modelName << " parameters updated" << std::endl;
+  }
+  actions_.clear();
+}
 
+bool
+SimulationRT::registerAction(const std::string& modelName, std::shared_ptr<parameters::ParametersSet>& parametersSet) {
+  std::lock_guard<std::mutex> lock(actions_mutex_);
+  std::shared_ptr<ModelMulti> model = std::dynamic_pointer_cast<ModelMulti>(model_);
+  boost::shared_ptr<SubModel> subModel = model->findSubModelByName(modelName);
+  if (!subModel) {
+    Trace::error() << "Action: Impossible to register action. Unknown SubModel: " << modelName << Trace::endline;
+    return false;
+  }
+
+  std::shared_ptr<Action> newAction = std::make_shared<Action>();
+  newAction->modelName = modelName;
+  newAction->model = subModel;
+  newAction->parametersSet = parametersSet;
+  actions_.push_back(newAction);
+  Trace::info() << "Action: New action registered on model: " << modelName << Trace::endline;
+  return true;
+}
+
+
+void
+SimulationRT::messageReceiver() {
+  while (zmqRunning_) {
+    // std::cout << "... zmq receiver loop" << std::endl;
+
+    zmqpp::message message;
+
+    // Non-blocking receive
+    if (socket_.receive(message, true)) {
+      std::cout << "Action: message received" << std::endl;
+
+      std::string input;
+      message >> input;
+      std::shared_ptr<ParametersSet> parametersSet = parseParametersSet(input);
+
+      // Register the action
+      zmqpp::message reply;
+      if (registerAction(parametersSet->getId(), parametersSet)) {
+        reply << "OK";
+      } else {
+        reply << "KO";
+      }
+      socket_.send(reply);
+    }
+
+    // Sleep briefly to reduce CPU usage
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+  }
+}
+
+std::shared_ptr<ParametersSet>
+SimulationRT::parseParametersSet(std::string& input) {
+  std::cout << "Action: register: " << input << std::endl;
+  std::istringstream stream(input);
+  std::string token;
+  std::string modelName;
+
+  // Read the id (first part before the first comma)
+  std::getline(stream, modelName, ',');
+
+  std::shared_ptr<ParametersSet> parametersSet = ParametersSetFactory::newParametersSet(modelName);
+
+  // Read the rest of the parameter-value pairs
+  while (std::getline(stream, token, ',')) {
+    // parse the triple
+    std::string parameter = token;
+    std::string type, value;
+
+    if (std::getline(stream, token, ',')) {
+        type = token;
+    } else {
+      Trace::error() << "Action: Could not parse action, incomplete data" << Trace::endline;
+      return std::shared_ptr<ParametersSet>();
+    }
+
+    if (std::getline(stream, token, ',')) {
+        value = token;
+    } else {
+      Trace::error() << "Action: Could not parse action, incomplete data" << Trace::endline;
+      return std::shared_ptr<ParametersSet>();
+    }
+
+    // Cast the value
+    if (type == "int") {
+      try {
+        parametersSet->createParameter(parameter, std::stoi(value));
+        std::cout << "Action: int param: " << parameter << " = " << value << std::endl;
+      } catch (const std::exception&) {
+        Trace::error() << "Action: Could not parse action, Invalid integer value: " << value << Trace::endline;
+        return std::shared_ptr<ParametersSet>();
+      }
+    } else if (type == "double") {
+      try {
+        parametersSet->createParameter(parameter, std::stod(value));
+        std::cout << "Action: double param: " << parameter << " = " << value << std::endl;
+      } catch (const std::exception&) {
+        Trace::error() << "Action: Could not parse action, Invalid double value: " << value << Trace::endline;
+        return std::shared_ptr<ParametersSet>();
+      }
+    } else if (type == "bool") {
+      try {
+        bool bval = std::stoi(value);
+        parametersSet->createParameter(parameter, bval);
+        std::cout << "Action: bool param: " << parameter << " = " << value << std::endl;
+      } catch (const std::exception&) {
+        Trace::error() << "Action: Could not parse action, Invalid double value: " << value << Trace::endline;
+        return std::shared_ptr<ParametersSet>();
+      }
+    } else if (type == "string") {
+      parametersSet->createParameter(parameter, value);
+      std::cout << "Action: string param: " << parameter << " = " << value << std::endl;
+    } else {
+      std::cout << "Action: Could not parse action, unknown type: " << type << std::endl;
+      // Trace::error() << "Action: Could not parse action, unknown type: " << type << Trace::endline;
+      return std::shared_ptr<ParametersSet>();
+    }
+  }
+  return parametersSet;
+}
 }  // end of namespace DYN

@@ -251,6 +251,15 @@ ModelManager::hasDataCheckCoherence() const {
 }
 
 void
+ModelManager::updateParameters(std::shared_ptr<ParametersSet>& parametersSet) {
+  ModelModelica * model = modelModelicaDynamic();
+  const std::shared_ptr<parameters::ParametersSet> sharedParametersInitialValues = model->setSharedParametersDefaultValues();
+  parametersSet->extend(sharedParametersInitialValues);
+  model->setParameters(parametersSet);
+  model->initRpar();
+}
+
+void
 ModelManager::checkDataCoherence(const double t) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelManager::checkDataCoherence");
