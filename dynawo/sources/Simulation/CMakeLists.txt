@@ -25,6 +25,7 @@ set(SIM_INCLUDE_HEADERS
 
 add_library(dynawo_Simulation SHARED ${SIM_SOURCES})
 
+
 target_include_directories(dynawo_Simulation
   INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
@@ -52,6 +53,7 @@ target_link_libraries(dynawo_Simulation
     dynawo_DataInterfaceFactory
     Boost::filesystem
     Boost::serialization
+    zmqpp
   )
 
 set_target_properties(dynawo_Simulation PROPERTIES VERSION ${SIM_VERSION_STRING}

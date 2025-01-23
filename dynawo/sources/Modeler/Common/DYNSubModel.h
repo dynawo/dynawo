@@ -132,6 +132,12 @@ class SubModel {
    */
   virtual void collectSilentZ(BitMask* silentZTable) = 0;
 
+  /**
+   * @brief update parameters of modelica model
+   * @param parameterSet ParametersSet filled with external values
+   */
+  virtual void updateParameters(std::shared_ptr<parameters::ParametersSet>& parametersSet) {}
+
  public:
   /**
    * @brief Model F(t,y,y') function evaluation
