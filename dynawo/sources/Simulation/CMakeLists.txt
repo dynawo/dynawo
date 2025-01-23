@@ -15,13 +15,15 @@ set(SIM_SOURCES
       DYNSimulation.cpp
       DYNSimulationRT.cpp
       DYNSimulationLauncher.cpp
-    )
+      DYNEventSubscriber.cpp
+      )
 
 set(SIM_INCLUDE_HEADERS
       DYNSimulation.h
       DYNSimulationRT.h
       DYNSimulationLauncher.h
-    )
+      DYNEventSubscriber.h
+      )
 
 add_library(dynawo_Simulation SHARED ${SIM_SOURCES})
 
