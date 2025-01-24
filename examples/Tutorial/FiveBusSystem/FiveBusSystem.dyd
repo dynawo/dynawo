@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2025, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="synchronousGenerator" lib="GeneratorSynchronousFourWindingsGovSteamVoltageRegulator" parFile="FiveBusSystem.par" parId="Generator"/>
+  <dyn:blackBoxModel id="OmegaRef" lib="SetPoint" parFile="FiveBusSystem.par" parId="OmegaRef"/>
+  <dyn:blackBoxModel id="line13a" lib="Line" parFile="FiveBusSystem.par" parId="Line13"/>
+  <dyn:blackBoxModel id="line13b" lib="Line" parFile="FiveBusSystem.par" parId="Line13"/>
+  <dyn:blackBoxModel id="line34a" lib="Line" parFile="FiveBusSystem.par" parId="Line34"/>
+  <dyn:blackBoxModel id="line34b" lib="Line" parFile="FiveBusSystem.par" parId="Line34"/>
+  <dyn:blackBoxModel id="infiniteBus" lib="InfiniteBus" parFile="FiveBusSystem.par" parId="InfiniteBus"/>
+  <dyn:blackBoxModel id="tapChangerTransformer" lib="TransformerRatioTapChanger" parFile="FiveBusSystem.par" parId="TapChangerTransformer"/>
+  <dyn:blackBoxModel id="tapChanger" lib="TapChangerAutomaton" parFile="FiveBusSystem.par" parId="tapChanger"/>
+  <dyn:blackBoxModel id="loadAlphaBetaTwoMotors" lib="LoadAlphaBetaTwoMotorSimplified" parFile="FiveBusSystem.par" parId="loadAlphaBetaTwoMotors"/>
+  <dyn:blackBoxModel id="bus2" lib="BusWithInit" parFile="FiveBusSystem.par" parId="Bus2"/>
+  <dyn:connect id1="synchronousGenerator" var1="generator_terminal" id2="line34a" var2="line_terminal2"/>
+  <dyn:connect id1="OmegaRef" var1="setPoint_setPoint" id2="synchronousGenerator" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OmegaRef" var1="setPoint_setPoint" id2="loadAlphaBetaTwoMotors" var2="load_omegaRefPu"/>
+  <dyn:connect id1="line34a" var1="line_terminal2" id2="line34b" var2="line_terminal2"/>
+  <dyn:connect id1="line34a" var1="line_terminal1" id2="line34b" var2="line_terminal1"/>
+  <dyn:connect id1="line34a" var1="line_terminal1" id2="line13a" var2="line_terminal2"/>
+  <dyn:connect id1="line34a" var1="line_terminal1" id2="line13b" var2="line_terminal2"/>
+  <dyn:connect id1="infiniteBus" var1="infiniteBus_terminal" id2="line13a" var2="line_terminal1"/>
+  <dyn:connect id1="infiniteBus" var1="infiniteBus_terminal" id2="line13b" var2="line_terminal1"/>
+  <dyn:connect id1="tapChangerTransformer" var1="transformer_terminal1" id2="line13a" var2="line_terminal2"/>
+  <dyn:connect id1="tapChangerTransformer" var1="transformer_terminal2" id2="bus2" var2="bus_terminal" />
+  <dyn:connect id1="tapChangerTransformer" var1="transformer_tap" id2="tapChanger" var2="tapChanger_tap"/>
+  <dyn:connect id1="tapChanger" var1="tapChanger_UMonitored_value" id2="bus2" var2="bus_U"/>
+  <dyn:connect id1="bus2" var1="bus_terminal" id2="loadAlphaBetaTwoMotors" var2="load_terminal"/>
+</dyn:dynamicModelsArchitecture>

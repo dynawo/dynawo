@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2025, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="Generator">
+    <!--Generator parameters-->
+    <par type="DOUBLE" name="generator_RaPu" value="0"/>
+    <par type="DOUBLE" name="generator_XlPu" value="0.15"/>
+    <par type="DOUBLE" name="generator_md" value="0.10"/>
+    <par type="DOUBLE" name="generator_mq" value="0.10"/>
+    <par type="DOUBLE" name="generator_nd" value="6.0257"/>
+    <par type="DOUBLE" name="generator_nq" value="6.0257"/>
+    <par type="DOUBLE" name="generator_XdPu" value="2.2"/>
+    <par type="DOUBLE" name="generator_XpdPu" value="0.30"/>
+    <par type="DOUBLE" name="generator_XppdPu" value="0.20"/>
+    <par type="DOUBLE" name="generator_XqPu" value="2.00"/>
+    <par type="DOUBLE" name="generator_XpqPu" value="0.40"/>
+    <par type="DOUBLE" name="generator_XppqPu" value="0.20"/>
+    <par type="DOUBLE" name="generator_Tpd0" value="7.00"/>
+    <par type="DOUBLE" name="generator_Tppd0" value="0.05"/>
+    <par type="DOUBLE" name="generator_Tpq0" value="1.50"/>
+    <par type="DOUBLE" name="generator_Tppq0" value="0.05"/>
+    <par type="DOUBLE" name="generator_H" value="4"/>
+    <par type="INT" name="generator_ExcitationPu" value="1"/><!--No value-->
+    <par type="BOOL" name="generator_UseApproximation" value="true"/><!--No value-->
+    <par type="DOUBLE" name="generator_MdPuEfd" value="0"/><!--No value-->
+    <par type="DOUBLE" name="generator_DPu" value="0"/><!--No value-->
+    <par type="DOUBLE" name="generator_UNom" value="15"/>
+    <par type="DOUBLE" name="generator_SNom" value="500"/>
+    <par type="DOUBLE" name="generator_PNomTurb" value="460"/><!--value from governor-->
+    <par type="DOUBLE" name="generator_PNomAlt" value="460"/><!--value from governor-->
+    <!--value of XppPu = 0.20 (as for XppdPu and XppqPu)-->
+    <!--Transformer parameters-->
+    <par type="DOUBLE" name="generator_SnTfo" value="500"/>
+    <par type="DOUBLE" name="generator_UNomHV" value="231.75"/><!--No difference in Nom and Base values-->
+    <par type="DOUBLE" name="generator_UNomLV" value="15"/>
+    <par type="DOUBLE" name="generator_UBaseHV" value="225"/>
+    <par type="DOUBLE" name="generator_UBaseLV" value="15"/>
+    <par type="DOUBLE" name="generator_RTfPu" value="0.0"/>
+    <par type="DOUBLE" name="generator_XTfPu" value="0.15"/>
+    <par type="DOUBLE" name="generator_P0Pu" value="-4.5"/>
+    <par type="DOUBLE" name="generator_Q0Pu" value="-0.06"/>
+    <par type="DOUBLE" name="generator_U0Pu" value="1.0184"/>
+    <par type="DOUBLE" name="generator_UPhase0" value="0.14660765716"/>
+    <!--VoltageRegulator parameters-->
+    <par type="DOUBLE" name="voltageRegulator_G" value="70"/>
+    <par type="DOUBLE" name="voltageRegulator_tA" value="1"/>
+    <par type="DOUBLE" name="voltageRegulator_tB" value="1"/>
+    <par type="DOUBLE" name="voltageRegulator_tE" value="0.4"/>
+    <par type="DOUBLE" name="voltageRegulator_EfdMinPu" value="0"/>
+    <par type="DOUBLE" name="voltageRegulator_EfdMaxPu" value="5"/>
+    <par type="DOUBLE" name="voltageRegulator_KPss" value="50"/>
+    <par type="DOUBLE" name="voltageRegulator_tOmega" value="5"/>
+    <par type="DOUBLE" name="voltageRegulator_t1" value="0.323"/>
+    <par type="DOUBLE" name="voltageRegulator_t2" value="0.0138"/>
+    <par type="DOUBLE" name="voltageRegulator_t3" value="0.323"/>
+    <par type="DOUBLE" name="voltageRegulator_t4" value="0.0138"/>
+    <par type="DOUBLE" name="voltageRegulator_C" value="0.06"/>
+    <par type="DOUBLE" name="voltageRegulator_ifLim1" value="2.9"/>
+    <par type="DOUBLE" name="voltageRegulator_ifLim2" value="1"/>
+    <par type="DOUBLE" name="voltageRegulator_tOel" value="8"/>
+    <par type="DOUBLE" name="voltageRegulator_KOel" value="2"/>
+    <par type="DOUBLE" name="voltageRegulator_L1" value="-1.1"/>
+    <par type="DOUBLE" name="voltageRegulator_L2" value="0.1"/>
+    <par type="DOUBLE" name="voltageRegulator_L3" value="0.2"/>
+    <!--Governor parameters-->
+    <par type="DOUBLE" name="governor_PNom" value="460"/>
+    <par type="DOUBLE" name="governor_Sigma" value="0.04"/>
+    <par type="DOUBLE" name="governor_tMeas" value="0.1"/>
+    <par type="DOUBLE" name="governor_tSm" value="0.4"/>
+    <par type="DOUBLE" name="governor_dZMinPu" value="-0.05"/>
+    <par type="DOUBLE" name="governor_dZMaxPu" value="0.05"/>
+    <par type="DOUBLE" name="governor_ZMinPu" value="0"/>
+    <par type="DOUBLE" name="governor_ZMaxPu" value="1"/>
+    <par type="DOUBLE" name="governor_tHp" value="0.3"/>
+    <par type="DOUBLE" name="governor_FHp" value="0.4"/>
+    <par type="DOUBLE" name="governor_tR" value="5"/>
+    <par type="DOUBLE" name="governor_FMp" value="0.3"/>
+    <par type="DOUBLE" name="governor_tLp" value="0.3"/>
+    <par type="DOUBLE" name="governor_ivo" value="1"/>
+  </set>
+  <set id="Bus2">
+    <par type="DOUBLE" name="bus_U0Pu" value="1.0038"/>
+    <par type="DOUBLE" name="bus_UPhase0" value="0.03141592653"/>
+  </set>
+  <set id="Line13">
+    <par type="DOUBLE" name="line_RPu" value="0.00821728395"/>
+    <par type="DOUBLE" name="line_XPu" value="0.0821728395"/>
+    <par type="DOUBLE" name="line_GPu" value="0"/>
+    <par type="DOUBLE" name="line_BPu" value="0.09871875"/>
+  </set>
+  <set id="Line34">
+    <par type="DOUBLE" name="line_RPu" value="0.00126419753"/>
+    <par type="DOUBLE" name="line_XPu" value="0.0126419753"/>
+    <par type="DOUBLE" name="line_GPu" value="0"/>
+    <par type="DOUBLE" name="line_BPu" value="0.0151875"/>
+  </set>
+  <set id="InfiniteBus">
+    <par type="DOUBLE" name="infiniteBus_UPu" value="1.02"/>
+    <par type="DOUBLE" name="infiniteBus_UPhase" value="0"/>
+    <par type="DOUBLE" name="infiniteBus_UNom" value="225"/>
+  </set>
+  <set id="TapChangerTransformer">
+    <par type="INT" name="transformer_NbTap" value="33"/>
+    <par type="DOUBLE" name="transformer_RatioTfoMinPu" value="0.88"/>
+    <par type="DOUBLE" name="transformer_RatioTfoMaxPu" value="1.2"/>
+    <par type="DOUBLE" name="transformer_RPu" value="0"/>
+    <par type="DOUBLE" name="transformer_XPu" value="0.15"/>
+    <par type="DOUBLE" name="transformer_GPu" value="0"/>
+    <par type="DOUBLE" name="transformer_BPu" value="0"/>
+    <par type="DOUBLE" name="transformer_AlphaTfo0" value="0"/>
+    <par type="DOUBLE" name="transformer_P10Pu" value="1.52"/>
+    <par type="DOUBLE" name="transformer_Q10Pu" value="0.05"/>
+    <par type="DOUBLE" name="transformer_U10Pu" value="1.0154"/>
+    <par type="DOUBLE" name="transformer_U1Phase0" value="0.12042771838"/>
+    <par type="INT" name="transformer_Tap0" value="16"/>
+  </set>
+  <set id="tapChanger">
+    <par type="BOOL" name="tapChanger_regulating0" value="true"/>
+    <par type="DOUBLE" name="tapChanger_t1st" value="25"/>
+    <par type="DOUBLE" name="tapChanger_tNext" value="10"/>
+    <par type="INT" name="tapChanger_tapMax" value="32"/>
+    <par type="INT" name="tapChanger_tapMin" value="0"/>
+    <par type="DOUBLE" name="tapChanger_UTarget" value="1.0038"/>
+    <par type="DOUBLE" name="tapChanger_UDeadBand" value="0.01"/>
+    <par type="DOUBLE" name="tapChanger_U0" value="1.0038"/>
+    <par type="INT" name="tapChanger_tap0" value="16"/>
+  </set>
+  <set id="loadAlphaBetaTwoMotors">
+    <par type="DOUBLE" name="load_Alpha" value="1"/>
+    <par type="DOUBLE" name="load_Beta" value="1"/>
+    <par type="DOUBLE" name="load_ActiveMotorShare_0_" value="0.2"/>
+    <par type="DOUBLE" name="load_RsPu_0_" value="0.031"/>
+    <par type="DOUBLE" name="load_RrPu_0_" value="0.018"/>
+    <par type="DOUBLE" name="load_XsPu_0_" value="0.1"/>
+    <par type="DOUBLE" name="load_XrPu_0_" value="0.18"/>
+    <par type="DOUBLE" name="load_XmPu_0_" value="3.2"/>
+    <par type="DOUBLE" name="load_H_0_" value="0.7"/>
+    <par type="DOUBLE" name="load_torqueExponent_0_" value="2"/>
+    <par type="DOUBLE" name="load_ActiveMotorShare_1_" value="0.2"/>
+    <par type="DOUBLE" name="load_RsPu_1_" value="0.013"/>
+    <par type="DOUBLE" name="load_RrPu_1_" value="0.009"/>
+    <par type="DOUBLE" name="load_XsPu_1_" value="0.067"/>
+    <par type="DOUBLE" name="load_XrPu_1_" value="0.17"/>
+    <par type="DOUBLE" name="load_XmPu_1_" value="3.8"/>
+    <par type="DOUBLE" name="load_H_1_" value="1.5"/>
+    <par type="DOUBLE" name="load_torqueExponent_1_" value="2"/>
+    <par type="DOUBLE" name="load_P0Pu" value="1.5"/>
+    <par type="DOUBLE" name="load_Q0Pu" value="0.3"/>
+    <par type="DOUBLE" name="load_U0Pu" value="1.0038"/>
+    <par type="DOUBLE" name="load_UPhase0" value="0.03141592653"/>
+  </set>
+  <!-- OmegaRef -->
+  <set id="OmegaRef">
+    <par type="DOUBLE" name="setPoint_Value0" value="1"/>
+  </set>
+  <set id="IDA">
+    <par type="INT" name="order" value="1"/>
+    <par type="DOUBLE" name="initStep" value="1e-6"/>
+    <par type="DOUBLE" name="minStep" value="1e-6"/>
+    <par type="DOUBLE" name="minimalAcceptableStep" value="1e-10"/>
+    <par type="DOUBLE" name="maxStep" value="10"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-4"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
+  </set>
+</parametersSet>
