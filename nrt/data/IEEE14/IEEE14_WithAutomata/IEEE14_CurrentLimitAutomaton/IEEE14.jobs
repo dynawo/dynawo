@@ -22,6 +22,7 @@
     </dyn:modeler>
     <dyn:simulation startTime="0" stopTime="50"/>
     <dyn:outputs directory="outputs">
+      <dyn:constraints exportMode="XML"/>
       <dyn:timeline exportMode="TXT"/>
       <dyn:curves inputFile="IEEE14.crv" exportMode="CSV"/>
       <dyn:lostEquipments/>
