@@ -117,8 +117,16 @@ void addLogConstraintBegin_(ModelManager* model, const Message& message) {
   model->addConstraint(model->name(), true, message);
 }
 
+void addLogConstraintBeginData_(ModelManager* model, const Message& message, std::string kind, double limit, double value) {
+  model->addConstraint(model->name(), true,  message, kind, constraints::ConstraintData(constraints::ConstraintData::str2Kind(kind), limit, value));
+}
+
 void addLogConstraintEnd_(ModelManager* model, const Message& message) {
   model->addConstraint(model->name(), false, message);
+}
+
+void addLogConstraintEndData_(ModelManager* model, const Message& message, std::string kind, double limit, double value) {
+  model->addConstraint(model->name(), false,  message, kind, constraints::ConstraintData(constraints::ConstraintData::str2Kind(kind), limit, value));
 }
 
 #ifdef __clang__
