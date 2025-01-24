@@ -305,8 +305,16 @@ inline modelica_boolean GreaterEq<double>(double a, double b) {
 
 #define addLogConstraintBegin(key) \
   addLogConstraintBegin_((this)->getModelManager(), (Message("CONSTRAINT", DYN::KeyConstraint_t::names(DYN::KeyConstraint_t::value(key)))))
+#define addLogConstraintBeginData(key, kind, limit, limitValue, ...) \
+  addLogConstraintBeginData_((this)->getModelManager(), \
+      (DYN::Message(DYN::Message::CONSTRAINT_KEY, DYN::KeyConstraint_t::names(DYN::KeyConstraint_t::value(key))), ##__VA_ARGS__), \
+  kind, limit, limitValue)
 #define addLogConstraintEnd(key) \
   addLogConstraintEnd_((this)->getModelManager(), (Message("CONSTRAINT", DYN::KeyConstraint_t::names(DYN::KeyConstraint_t::value(key)))))
+#define addLogConstraintEndData(key, kind, limit, limitValue, ...) \
+  addLogConstraintEndData_((this)->getModelManager(), \
+      (DYN::Message(DYN::Message::CONSTRAINT_KEY, DYN::KeyConstraint_t::names(DYN::KeyConstraint_t::value(key))), ##__VA_ARGS__), \
+  kind, limit, limitValue)
 
 #ifdef __clang__
 #pragma clang diagnostic push
@@ -564,11 +572,31 @@ void printLogExecution_(ModelManager* model, const std::string& message);
 void addLogConstraintBegin_(ModelManager* model, const Message& message);
 
 /**
+ * @brief add the beginning of a constraint with data
+ * @param model model where the constraint appears
+ * @param message description of the constraint
+ * @param kind string of the constraint type
+ * @param limit maximum value used in the constraint
+ * @param value current value
+ */
+void addLogConstraintBeginData_(ModelManager* model, const Message& message, std::string kind, double limit, double value);
+
+/**
  * @brief add the end of a constraint
  * @param model model where the constraint disappears
  * @param message description of the constraint
  */
 void addLogConstraintEnd_(ModelManager* model, const Message& message);
+
+/**
+ * @brief add the end of a constraint with data
+ * @param model model where the constraint appears
+ * @param message description of the constraint
+ * @param kind string of the constraint type
+ * @param limit maximum value used in the constraint
+ * @param value current value
+ */
+void addLogConstraintEndData_(ModelManager* model, const Message& message, std::string kind, double limit, double value);
 /**
  * @brief add an event log
  * @param model model where the event appears
