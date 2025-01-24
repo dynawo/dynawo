@@ -13,7 +13,9 @@ set(MODEL_FILES
     package.mo
     package.order
     logConstraintBegin.mo
+    logConstraintBeginData.mo
     logConstraintEnd.mo
+    logConstraintEndData.mo
     )
 
 #
