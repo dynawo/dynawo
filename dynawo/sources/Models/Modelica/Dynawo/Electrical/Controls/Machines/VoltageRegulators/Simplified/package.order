@@ -1,4 +1,6 @@
 BaseClasses
+VoltageRegulatorPssOel
+VoltageRegulatorPssOel_INIT
 VRNordic
 VRNordic_INIT
 VRProportional

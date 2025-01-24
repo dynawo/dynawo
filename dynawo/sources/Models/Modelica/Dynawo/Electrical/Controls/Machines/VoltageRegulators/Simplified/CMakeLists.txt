@@ -18,6 +18,9 @@ set(MODEL_FILES
   VRDTRI8.mo
   VRDTRI8.extvar
   VRDTRI8_INIT.mo
+  VoltageRegulatorPssOel.mo
+  VoltageRegulatorPssOel.extvar
+  VoltageRegulatorPssOel_INIT.mo
   VRNordic.mo
   VRNordic.extvar
   VRNordic_INIT.mo
