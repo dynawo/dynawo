@@ -15,6 +15,8 @@ set(MODEL_FILES
   package.order
   Gast.mo
   Gast.extvar
+  GovSteam.mo
+  GovSteam.extvar
   GovSteam1.mo
   GovSteam1.extvar
   GovSteam1_INIT.mo

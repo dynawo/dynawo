@@ -15,6 +15,9 @@ add_subdirectory(BaseClasses B)
 set(MODEL_FILES
   package.mo
   package.order
+  VoltageRegulatorPssOel.mo
+  VoltageRegulatorPssOel.extvar
+  VoltageRegulatorPssOel_INIT.mo
   VRNordic.mo
   VRNordic.extvar
   VRNordic_INIT.mo
