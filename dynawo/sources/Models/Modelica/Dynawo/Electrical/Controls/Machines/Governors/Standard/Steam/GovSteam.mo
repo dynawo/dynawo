@@ -26,18 +26,17 @@ model GovSteam "Speed governor and steam turbine"
   parameter Types.Time tSm;
   parameter Types.PerUnit ZMaxPu;
   parameter Types.PerUnit ZMinPu;
+  parameter Types.PerUnit PNom;
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omega0Pu) "Angular frequency (base omegaNom)"annotation(
     Placement(visible = true, transformation(origin = {-232, 80}, extent = {{-12, -12}, {12, 12}}, rotation = 0), iconTransformation(origin = {-240, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput PRefPu(start = Pm0Pu) "Reference power in pu (base SNom)"annotation(
+  Modelica.Blocks.Interfaces.RealInput PRefPu(start = Pm0Pu) "Reference power in pu (base PNomTurb)"annotation(
     Placement(visible = true, transformation(origin = {-233, 99}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-240, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   // Output variables
-  Modelica.Blocks.Interfaces.RealOutput PmPu(start = Pm0Pu) "Mechanical power in pu (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput PmPu(start = Pm0Pu) "Mechanical power in pu (base PNomTurb)" annotation(
     Placement(visible = true, transformation(origin = {230, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {230, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput TmPu(start = Pm0Pu / SystemBase.omega0Pu) "Mechanical turbine in pu (base SNom, omegaNom)"  annotation(
-    Placement(visible = true, transformation(origin = {230, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {230, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Math.Add add(k2 = -1)  annotation(
     Placement(visible = true, transformation(origin = {-130, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -73,14 +72,11 @@ model GovSteam "Speed governor and steam turbine"
     Placement(visible = true, transformation(origin = {50, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain4(k = FHp) annotation(
     Placement(visible = true, transformation(origin = {-70, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Division division annotation(
-    Placement(visible = true, transformation(origin = {190, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = ivo)  annotation(
     Placement(visible = true, transformation(origin = {-70, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initial parameters
   parameter Types.ActivePowerPu Pm0Pu;
-
 equation
   connect(omegaPu, add.u1) annotation(
     Line(points = {{-232, 80}, {-160, 80}, {-160, 66}, {-142, 66}}, color = {0, 0, 127}));
@@ -126,16 +122,9 @@ equation
     Line(points = {{-58, -80}, {120, -80}, {120, -60}, {138, -60}}, color = {0, 0, 127}));
   connect(sum1.y, PmPu) annotation(
     Line(points = {{162, -60}, {230, -60}}, color = {0, 0, 127}));
-  connect(sum1.y, division.u1) annotation(
-    Line(points = {{162, -60}, {170, -60}, {170, -94}, {178, -94}}, color = {0, 0, 127}));
-  connect(omegaPu, division.u2) annotation(
-    Line(points = {{-232, 80}, {-200, 80}, {-200, -106}, {178, -106}}, color = {0, 0, 127}));
-  connect(division.y, TmPu) annotation(
-    Line(points = {{202, -100}, {230, -100}}, color = {0, 0, 127}));
   connect(const.y, product.u2) annotation(
     Line(points = {{-59, -50}, {-40, -50}, {-40, -26}, {-22, -26}}, color = {0, 0, 127}));
-
-annotation(
+  annotation(
     Diagram(coordinateSystem(extent = {{-220, -160}, {220, 160}})),
     Icon(coordinateSystem(extent = {{-220, -160}, {220, 160}})));
 end GovSteam;
