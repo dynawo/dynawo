@@ -261,7 +261,7 @@ std::string verifyModelListFile(const string & modelList, const string & outputP
 
   // scriptVerifyModelList.py
   std::cout << "Create file: " << dydFileName << std::endl;
-  string verifymodellistcommand = pythonCmd + " " + scriptsDir1 + "/scriptVerifyModelList.py --dyd=" + dydFileName + " --model=" + modelList;
+  string verifymodellistcommand = pythonCmd + " " + scriptsDir1 + "/scriptVerifyModelList.py --dyd=" + dydFileName + " --model='" + modelList + "'";
   executeCommand1(verifymodellistcommand);
   return dydFileName;
 }

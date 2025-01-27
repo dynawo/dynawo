@@ -216,7 +216,8 @@ GDBSERVER)
   ;;
 GENERATE_PREASSEMBLED)
   if [ -x "$(command -v $GENERATE_PREASSEMBLED)" ]; then
-    ${GENERATE_PREASSEMBLED} ${ARGS}
+    shift  # remove '--generate-preassembled' flag to only pass the arguments
+    ${GENERATE_PREASSEMBLED} "$@"
     RETURN_CODE=$?
   else
     echo "--generate-preassembled mode not available."
