@@ -13,7 +13,7 @@ within Dynawo.NonElectrical.Logs.Constraint;
 * of simulation tools for power systems.
 */
 
-function logConstraintBeginData "Create a begin constraint"
+function logConstraintBeginData "Create a begin constraint with data"
   extends Icons.Function;
 
   input Integer key;
