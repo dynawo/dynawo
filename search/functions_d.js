@@ -54,7 +54,7 @@ var searchData=
   ['modeldanglingline',['ModelDanglingLine',['../dd/d87/a03235.html#a87b7939d025fb3cbe378651688cebc58',1,'DYN::ModelDanglingLine']]],
   ['modeldata',['modelData',['../d7/d36/a03135.html#a8354b4e8aee4f5291229149e6ecaa3be',1,'DYN::ModelManager']]],
   ['modeldescription',['ModelDescription',['../df/dee/a02743.html#a63742a7c302736bcf14c70d6d567c88b',1,'DYN::ModelDescription::ModelDescription()'],['../df/dee/a02743.html#a66468e9a002112edb6497afd0f685758',1,'DYN::ModelDescription::ModelDescription(const std::shared_ptr&lt; dynamicdata::Model &gt; &amp;model)']]],
-  ['modeler',['modeler',['../d8/dc9/a02671.html#a2dc793e91044d1105e542dbef99554fc',1,'DYN::Trace::modeler()'],['../de/d8c/a02747.html#a61da828d12270b7b38fcbdce5c1eba2c',1,'DYN::Modeler::Modeler()']]],
+  ['modeler',['Modeler',['../de/d8c/a02747.html#a61da828d12270b7b38fcbdce5c1eba2c',1,'DYN::Modeler::Modeler()'],['../d8/dc9/a02671.html#a2dc793e91044d1105e542dbef99554fc',1,'DYN::Trace::modeler()']]],
   ['modelerentry',['ModelerEntry',['../dd/d51/a02223.html#a3699c6cd3f298329fd5cc54554910e28',1,'job::ModelerEntry::ModelerEntry()=default'],['../dd/d51/a02223.html#ab3e9a2e8f4c2a0bb8bd66ac9ffc7019e',1,'job::ModelerEntry::ModelerEntry(const ModelerEntry &amp;other)']]],
   ['modelerhandler',['ModelerHandler',['../d9/d5e/a02355.html#a93e3e6e8f248fe61f6d840cc220170d5',1,'job::ModelerHandler']]],
   ['modelgenerator',['ModelGenerator',['../db/d5f/a03239.html#a2145ca57499119a95a7347130459f680',1,'DYN::ModelGenerator']]],

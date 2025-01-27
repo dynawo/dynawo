@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: constraints::ConstraintData Struct Reference</title>
+<title>Dynawo: constraints::ConstraintData Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -97,10 +97,11 @@ $(document).ready(function(){initNavTree('d1/d46/a01739.html','../../');});
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="../../de/daf/a01736.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">constraints::ConstraintData Struct Reference</div>  </div>
+<div class="title">constraints::ConstraintData Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -117,7 +118,8 @@ Public Types</h2></td></tr>
 <b>OverloadOpen</b>, 
 <b>UInfUmin</b>, 
 <br />
-&#160;&#160;<b>USupUmax</b>
+&#160;&#160;<b>USupUmax</b>, 
+<b>Undefined</b>
 <br />
  }</td></tr>
 <tr class="memdesc:a6207b5c13ad5fa57b92d6477f533d387"><td class="mdescLeft">&#160;</td><td class="mdescRight">possible values for kind <br /></td></tr>
@@ -128,6 +130,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac71b70d0292e91cc8a65e35563f9bce8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d46/a01739.html#ac71b70d0292e91cc8a65e35563f9bce8">ConstraintData</a> (<a class="el" href="../../d1/d46/a01739.html#a6207b5c13ad5fa57b92d6477f533d387">kind_t</a> constraintKind, double constraintLimit, double constraintValue, boost::optional&lt; int &gt; constraintSide=boost::none, boost::optional&lt; double &gt; constraintAcceptableDuration=boost::none)</td></tr>
 <tr class="memdesc:ac71b70d0292e91cc8a65e35563f9bce8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="../../d5/d34/a01743.html" title="Constraint. ">Constraint</a> Data object.  <a href="#ac71b70d0292e91cc8a65e35563f9bce8">More...</a><br /></td></tr>
 <tr class="separator:ac71b70d0292e91cc8a65e35563f9bce8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:abc95299213056e24e48d450bf111b540"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/d46/a01739.html#a6207b5c13ad5fa57b92d6477f533d387">kind_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d46/a01739.html#abc95299213056e24e48d450bf111b540">str2Kind</a> (std::string <a class="el" href="../../d1/d46/a01739.html#ad02b1b78371283242dcb02205e187d9e">kind</a>)</td></tr>
+<tr class="memdesc:abc95299213056e24e48d450bf111b540"><td class="mdescLeft">&#160;</td><td class="mdescRight">get a kind from a string  <a href="#abc95299213056e24e48d450bf111b540">More...</a><br /></td></tr>
+<tr class="separator:abc95299213056e24e48d450bf111b540"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -221,7 +229,43 @@ boost::optional&lt; double &gt;&#160;</td><td class="memItemRight" valign="botto
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="abc95299213056e24e48d450bf111b540"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc95299213056e24e48d450bf111b540">&#9670;&nbsp;</a></span>str2Kind()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="../../d1/d46/a01739.html#a6207b5c13ad5fa57b92d6477f533d387">kind_t</a> constraints::ConstraintData::str2Kind </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>kind</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get a kind from a string </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">kind</td><td>in a string format </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the corresponding kind or Undefined if none found </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="../../da/d24/a00068_source.html">CSTRConstraint.h</a></li>
 </ul>
 </div><!-- contents -->
@@ -241,7 +285,7 @@ boost::optional&lt; double &gt;&#160;</td><td class="memItemRight" valign="botto
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>constraints</b></li><li class="navelem"><a class="el" href="../../d1/d46/a01739.html">ConstraintData</a></li>
-    <li class="footer">Generated on Wed Jan 22 2025 11:08:53 for Dynawo by
+    <li class="footer">Generated on Mon Jan 27 2025 17:35:54 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
