@@ -2,28 +2,28 @@
 <timeline xmlns="http://www.rte-france.com/dynawo">
   <event time="100.0000" modelName="Line2" message="LINE : opening both sides"/>
   <event time="120.0000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.22"/>
-  <event time="160.0000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.23"/>
+  <event time="180.0000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.23"/>
   <event time="240.0000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.24"/>
   <event time="300.0000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.25"/>
   <event time="380.0000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.26"/>
-  <event time="440.0000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.27"/>
-  <event time="520.0000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.28"/>
-  <event time="620.0000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.29"/>
+  <event time="460.0000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.27"/>
+  <event time="540.0000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.28"/>
+  <event time="640.0000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.29"/>
   <event time="760.0000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.30"/>
-  <event time="910.0000" modelName="Hvdc1" message="HVDC : maximum reactive power limit reached for converter 1"/>
-  <event time="920.0000" modelName="Hvdc1" message="HVDC : back to voltage / reactive power regulation for converter 1"/>
-  <event time="920.0000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.31"/>
   <event time="930.0000" modelName="Hvdc1" message="HVDC : maximum reactive power limit reached for converter 1"/>
-  <event time="960.0000" modelName="Hvdc1" message="HVDC : back to voltage / reactive power regulation for converter 1"/>
-  <event time="970.0000" modelName="Hvdc1" message="HVDC : maximum reactive power limit reached for converter 1"/>
-  <event time="1040.0000" modelName="Hvdc1" message="HVDC : back to voltage / reactive power regulation for converter 1"/>
-  <event time="1050.0000" modelName="Hvdc1" message="HVDC : maximum reactive power limit reached for converter 1"/>
-  <event time="1140.0000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.32"/>
-  <event time="1230.0000" modelName="Hvdc1" message="HVDC : back to voltage / reactive power regulation for converter 1"/>
-  <event time="1240.0000" modelName="Hvdc1" message="HVDC : maximum reactive power limit reached for converter 1"/>
-  <event time="1440.0000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.33"/>
-  <event time="1770.0000" modelName="Hvdc1" message="HVDC : back to voltage / reactive power regulation for converter 1"/>
-  <event time="1780.0000" modelName="Hvdc1" message="HVDC : maximum reactive power limit reached for converter 1"/>
-  <event time="1860.0000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.34"/>
-  <event time="2600.0000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.35"/>
+  <event time="940.0000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.31"/>
+  <event time="950.0000" modelName="Hvdc1" message="HVDC : back to voltage / reactive power regulation for converter 1"/>
+  <event time="960.0000" modelName="Hvdc1" message="HVDC : maximum reactive power limit reached for converter 1"/>
+  <event time="990.0000" modelName="Hvdc1" message="HVDC : back to voltage / reactive power regulation for converter 1"/>
+  <event time="1000.0000" modelName="Hvdc1" message="HVDC : maximum reactive power limit reached for converter 1"/>
+  <event time="1090.0000" modelName="Hvdc1" message="HVDC : back to voltage / reactive power regulation for converter 1"/>
+  <event time="1100.0000" modelName="Hvdc1" message="HVDC : maximum reactive power limit reached for converter 1"/>
+  <event time="1180.0000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.32"/>
+  <event time="1330.0000" modelName="Hvdc1" message="HVDC : back to voltage / reactive power regulation for converter 1"/>
+  <event time="1340.0000" modelName="Hvdc1" message="HVDC : maximum reactive power limit reached for converter 1"/>
+  <event time="1500.0000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.33"/>
+  <event time="1960.0000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.34"/>
+  <event time="2080.0000" modelName="Hvdc1" message="HVDC : back to voltage / reactive power regulation for converter 1"/>
+  <event time="2090.0000" modelName="Hvdc1" message="HVDC : maximum reactive power limit reached for converter 1"/>
+  <event time="2880.0000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.35"/>
 </timeline>

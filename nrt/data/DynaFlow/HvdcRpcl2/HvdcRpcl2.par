@@ -109,6 +109,7 @@
     <par type="DOUBLE" name="secondaryVoltageControl_Beta" value="1"/>
     <par type="DOUBLE" name="secondaryVoltageControl_DerLevelMaxPu" value="0.085"/>
     <par type="BOOL" name="secondaryVoltageControl_FreezingActivated" value="true"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_UDeadBandPu" value="0.0001"/>
   </set>
   <set id="DisconnectLine">
     <par type="DOUBLE" name="event_tEvent" value="100"/>
