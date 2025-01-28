@@ -22,9 +22,9 @@
 
 #include "EXTVARVariable.h"
 
-#include <boost/shared_ptr.hpp>
 #include <map>
 #include <string>
+#include <memory>
 
 namespace externalVariables {
 
@@ -100,17 +100,17 @@ class variable_iterator {
    *
    * @returns Variable pointed to by this
    */
-  boost::shared_ptr<Variable>& operator*() const;
+  std::shared_ptr<Variable>& operator*() const;
 
   /**
    * @brief Structure dereference operator
    *
    * @returns Variable pointed to by this
    */
-  boost::shared_ptr<Variable>* operator->() const;
+  std::shared_ptr<Variable>* operator->() const;
 
  private:
-  std::map<std::string, boost::shared_ptr<Variable> >::iterator current_;  ///< current map iterator
+  std::map<std::string, std::shared_ptr<Variable> >::iterator current_;  ///< current map iterator
 };
 
 /**
@@ -183,17 +183,17 @@ class variable_const_iterator {
    *
    * @returns Variable pointed to by this
    */
-  const boost::shared_ptr<Variable>& operator*() const;
+  const std::shared_ptr<Variable>& operator*() const;
 
   /**
    * @brief Structure dereference operator
    *
    * @returns Variable pointed to by this
    */
-  const boost::shared_ptr<Variable>* operator->() const;
+  const std::shared_ptr<Variable>* operator->() const;
 
  private:
-  std::map<std::string, boost::shared_ptr<Variable> >::const_iterator current_;  ///< current vector const iterator
+  std::map<std::string, std::shared_ptr<Variable> >::const_iterator current_;  ///< current vector const iterator
 };
 
 }  // namespace externalVariables

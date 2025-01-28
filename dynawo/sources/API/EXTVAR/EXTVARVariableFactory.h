@@ -20,9 +20,10 @@
 #ifndef API_EXTVAR_EXTVARVARIABLEFACTORY_H_
 #define API_EXTVAR_EXTVARVARIABLEFACTORY_H_
 
-#include <boost/shared_ptr.hpp>
-
 #include "EXTVARVariable.h"
+
+#include <memory>
+
 
 namespace externalVariables {
 
@@ -40,9 +41,9 @@ class VariableFactory {
    *
    * @param[in] id ID for new Variable instance
    * @param[in] type the variable type
-   * @returns Shared pointer to a new @p Variable with given ID and type
+   * @returns Unique pointer to a new @p Variable with given ID and type
    */
-  static boost::shared_ptr<Variable> newVariable(const std::string& id, Variable::Type type);
+  static std::unique_ptr<Variable> newVariable(const std::string& id, Variable::Type type);
 };
 
 }  // namespace externalVariables

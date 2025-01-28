@@ -30,11 +30,7 @@
 
 using std::fstream;
 using std::ostream;
-using std::map;
 using std::string;
-
-using boost::dynamic_pointer_cast;
-using boost::shared_ptr;
 
 using xml::sax::formatter::AttributeList;
 using xml::sax::formatter::Formatter;
@@ -71,7 +67,7 @@ XmlExporter::exportToStream(const VariablesCollection& collection, ostream& stre
 }
 
 void
-XmlExporter::writeVariable(const shared_ptr<Variable>& variable, Formatter& formatter) const {
+XmlExporter::writeVariable(const std::shared_ptr<Variable>& variable, Formatter& formatter) const {
   AttributeList attrs;
   attrs.add("id", variable->getId());
   std::string type;

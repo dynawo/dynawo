@@ -20,7 +20,6 @@
 #ifndef API_EXTVAR_EXTVARXMLHANDLER_H_
 #define API_EXTVAR_EXTVARXMLHANDLER_H_
 
-#include <boost/shared_ptr.hpp>
 #include <xml/sax/parser/ComposableDocumentHandler.h>
 #include <xml/sax/parser/ComposableElementHandler.h>
 
@@ -49,7 +48,7 @@ class VariableHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief Variable getter
    * @return the Variable object
    */
-  boost::shared_ptr<Variable> get() const;
+  std::shared_ptr<Variable> get() const;
 
  private:
   /**
@@ -58,7 +57,7 @@ class VariableHandler : public xml::sax::parser::ComposableElementHandler {
    */
   void create(attributes_type const& attributes);
 
-  boost::shared_ptr<Variable> variable_;  ///< current external variable object
+  std::shared_ptr<Variable> variable_;  ///< current external variable object
 };
 
 /**
@@ -85,7 +84,7 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
    *
    * @return Parameters set collection parsed.
    */
-  boost::shared_ptr<VariablesCollection> getVariablesCollection();
+  std::shared_ptr<VariablesCollection> getVariablesCollection();
 
   /**
    * @brief Set root directory
@@ -100,7 +99,7 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
    */
   void addVariable();
 
-  boost::shared_ptr<VariablesCollection> variablesCollection_;  ///< external variables collection parsed
+  std::shared_ptr<VariablesCollection> variablesCollection_;  ///< external variables collection parsed
   VariableHandler variablesHandler_;  ///< handler used to read external variables
 };
 

@@ -21,7 +21,7 @@
 
 #include "EXTVARVariablesCollection.h"
 
-using boost::shared_ptr;
+using std::shared_ptr;
 using std::map;
 using std::string;
 

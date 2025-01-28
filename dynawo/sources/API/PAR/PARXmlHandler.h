@@ -383,7 +383,7 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
    *
    * @return Parameters set collection parsed.
    */
-  boost::shared_ptr<ParametersSetCollection> getParametersSetCollection();
+  std::shared_ptr<ParametersSetCollection> getParametersSetCollection();
 
   /**
    * @brief add a set of parameter to the parameters set collection
@@ -397,7 +397,7 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
 
  private:
   SetHandler setHandler_;  ///< handler used to read a set of parameter element
-  boost::shared_ptr<ParametersSetCollection> parametersSetCollection_;  ///< Parameters sets collection parsed
+  std::shared_ptr<ParametersSetCollection> parametersSetCollection_;  ///< Parameters sets collection parsed
   MacroParameterSetHandler macroParameterSetHandler_;  ///< handler used to read a macroParameterSet element
 };
 

@@ -49,7 +49,7 @@ class Importer {
    * @param fileName File name
    * @returns Collection imported
    */
-  virtual boost::shared_ptr<VariablesCollection> importFromFile(const std::string& fileName) const = 0;
+  virtual std::shared_ptr<VariablesCollection> importFromFile(const std::string& fileName) const = 0;
 
   /**
    * @brief Import external (i.e. C++-connected) variables
@@ -57,7 +57,7 @@ class Importer {
    * @param stream Stream to import
    * @returns Collection imported
    */
-  virtual boost::shared_ptr<VariablesCollection> importFromStream(std::istream& stream) const = 0;
+  virtual std::shared_ptr<VariablesCollection> importFromStream(std::istream& stream) const = 0;
 };
 
 #ifdef __clang__

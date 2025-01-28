@@ -33,7 +33,6 @@
 #include "EXTVARVariablesCollection.h"
 
 using std::string;
-using boost::shared_ptr;
 
 namespace lambda = boost::phoenix;
 namespace lambda_args = lambda::placeholders;
@@ -57,18 +56,18 @@ variablesHandler_(parser::ElementName(namespace_uri(), "variable")) {
 
 XmlHandler::~XmlHandler() {}
 
-boost::shared_ptr<VariablesCollection>
+std::shared_ptr<VariablesCollection>
 XmlHandler::getVariablesCollection() {
   return variablesCollection_;
 }
 
 void
 XmlHandler::addVariable() {
-  shared_ptr<Variable> variable = variablesHandler_.get();
+  std::shared_ptr<Variable> variable = variablesHandler_.get();
   variablesCollection_->addVariable(variable);
 }
 
-shared_ptr<Variable>
+std::shared_ptr<Variable>
 VariableHandler::get() const {
   return variable_;
 }

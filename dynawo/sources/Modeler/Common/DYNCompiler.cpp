@@ -467,7 +467,7 @@ Compiler::concatModel(const std::shared_ptr<ModelDescription>& modelicaModelDesc
   }
 
   ///< all external variables (including ones which may have been internally connected)
-  map<string, shared_ptr<externalVariables::VariablesCollection> > allExternalVariables;
+  map<string, std::shared_ptr<externalVariables::VariablesCollection> > allExternalVariables;
   bool hasInit = false;
   // Go through unit dynamic models to get init models and external variables files
   map<string, std::shared_ptr<dynamicdata::UnitDynamicModel> >::const_iterator itUnitDynamicModel;
@@ -477,7 +477,7 @@ Compiler::concatModel(const std::shared_ptr<ModelDescription>& modelicaModelDesc
     if (extVarFiles_.find(modelName) != extVarFiles_.end()) {
       Trace::info(Trace::compile()) << DYNLog(ParsingExtVarFile, extVarFiles_[modelName]) << Trace::endline;
       externalVariables::XmlImporter extVarImporter;
-      shared_ptr<externalVariables::VariablesCollection> unitModelExternalVariables = extVarImporter.importFromFile(extVarFiles_[modelName]);
+      std::shared_ptr<externalVariables::VariablesCollection> unitModelExternalVariables = extVarImporter.importFromFile(extVarFiles_[modelName]);
 
       allExternalVariables[unitDynamicModel->getId()] = unitModelExternalVariables;
     } else {
@@ -606,9 +606,9 @@ Compiler::collectConnectedExtVar(string itUnitDynamicModelName,
 struct DiscreteExtVar {
   size_t connectionId;
   string fullVarId;
-  shared_ptr<externalVariables::Variable> correspondingVar;
+  std::shared_ptr<externalVariables::Variable> correspondingVar;
 
-  DiscreteExtVar(size_t id, string varId, shared_ptr<externalVariables::Variable> var):
+  DiscreteExtVar(size_t id, string varId, std::shared_ptr<externalVariables::Variable> var):
     connectionId(id), fullVarId(varId), correspondingVar(var) {}
 
   DiscreteExtVar():fullVarId(0) {}
@@ -618,12 +618,12 @@ Compiler::writeExtvarFile(const std::shared_ptr<ModelDescription>& modelicaModel
     const vector<shared_ptr<dynamicdata::Connector> >& macroConnection,
     const map<string, std::shared_ptr<dynamicdata::UnitDynamicModel> >& unitDynamicModels,
     const vector<std::shared_ptr<dynamicdata::Connector> >& internalConnects,
-    const map<string, shared_ptr<externalVariables::VariablesCollection> >& allExternalVariables) const {
+    const map<string, std::shared_ptr<externalVariables::VariablesCollection> >& allExternalVariables) const {
   // only keep external variables for which no internal connect has already been conducted
   shared_ptr<externalVariables::VariablesCollection> modelExternalvariables = externalVariables::VariablesCollectionFactory::newCollection();
   bool atLeastOneExternalVariable = false;
   unordered_set<string> extvarIds;
-  unordered_map<string, shared_ptr<externalVariables::Variable> > connectedDiscreteExtVar;
+  unordered_map<string, std::shared_ptr<externalVariables::Variable> > connectedDiscreteExtVar;
   for (map<string, std::shared_ptr<dynamicdata::UnitDynamicModel> >::const_iterator itUnitDynamicModel = unitDynamicModels.begin();
       itUnitDynamicModel != unitDynamicModels.end(); ++itUnitDynamicModel) {
     string itUnitDynamicModelName = itUnitDynamicModel->first;
@@ -631,7 +631,7 @@ Compiler::writeExtvarFile(const std::shared_ptr<ModelDescription>& modelicaModel
     collectConnectedExtVar(itUnitDynamicModelName, macroConnection, internalConnects, extVarConnected);
 
     if (allExternalVariables.find(itUnitDynamicModelName) != allExternalVariables.end()) {
-      shared_ptr<externalVariables::VariablesCollection> unitModelExternalVariables = allExternalVariables.find(itUnitDynamicModelName)->second;
+      std::shared_ptr<externalVariables::VariablesCollection> unitModelExternalVariables = allExternalVariables.find(itUnitDynamicModelName)->second;
       for (externalVariables::variable_iterator itExternalVariable = unitModelExternalVariables->beginVariable();
           itExternalVariable != unitModelExternalVariables->endVariable(); ++itExternalVariable) {
         const string& variableName = (*itExternalVariable)->getId();
@@ -665,7 +665,7 @@ Compiler::writeExtvarFile(const std::shared_ptr<ModelDescription>& modelicaModel
           foundConnectedExtVar = true;
         }
         if (!foundConnectedExtVar) {
-          shared_ptr<externalVariables::Variable> variable = *itExternalVariable;
+          std::shared_ptr<externalVariables::Variable> variable = *itExternalVariable;
           variable->setId(itUnitDynamicModelName + "." + variableName);
           if (extvarIds.find(variable->getId()) == extvarIds.end()) {
             modelExternalvariables->addVariable(variable);
@@ -684,9 +684,9 @@ Compiler::writeExtvarFile(const std::shared_ptr<ModelDescription>& modelicaModel
   for (vector<std::shared_ptr<dynamicdata::Connector> >::const_iterator itInternConnect = internalConnects.begin();
       itInternConnect != internalConnects.end(); ++itInternConnect) {
     std::string firstVar = (*itInternConnect)->getFirstModelId()+"."+(*itInternConnect)->getFirstVariableId();
-    unordered_map<string, shared_ptr<externalVariables::Variable> >::const_iterator it = connectedDiscreteExtVar.find(firstVar);
+    unordered_map<string, std::shared_ptr<externalVariables::Variable> >::const_iterator it = connectedDiscreteExtVar.find(firstVar);
     std::string secondVar = (*itInternConnect)->getSecondModelId()+"."+(*itInternConnect)->getSecondVariableId();
-    unordered_map<string, shared_ptr<externalVariables::Variable> >::const_iterator it2 = connectedDiscreteExtVar.find(secondVar);
+    unordered_map<string, std::shared_ptr<externalVariables::Variable> >::const_iterator it2 = connectedDiscreteExtVar.find(secondVar);
     if (it != connectedDiscreteExtVar.end() && it2 != connectedDiscreteExtVar.end()) {
       string var1FullName = (*itInternConnect)->getFirstModelId()+"."+it->second->getId();
       string var2FullName = (*itInternConnect)->getSecondModelId()+"."+it2->second->getId();
@@ -715,9 +715,9 @@ Compiler::writeExtvarFile(const std::shared_ptr<ModelDescription>& modelicaModel
   for (vector<shared_ptr<dynamicdata::Connector> >::const_iterator itInternConnect = macroConnection.begin();
       itInternConnect != macroConnection.end(); ++itInternConnect) {
     std::string firstVar = (*itInternConnect)->getFirstModelId()+"."+(*itInternConnect)->getFirstVariableId();
-    unordered_map<string, shared_ptr<externalVariables::Variable> >::const_iterator it = connectedDiscreteExtVar.find(firstVar);
+    unordered_map<string, std::shared_ptr<externalVariables::Variable> >::const_iterator it = connectedDiscreteExtVar.find(firstVar);
     std::string secondVar = (*itInternConnect)->getSecondModelId()+"."+(*itInternConnect)->getSecondVariableId();
-    unordered_map<string, shared_ptr<externalVariables::Variable> >::const_iterator it2 = connectedDiscreteExtVar.find(secondVar);
+    unordered_map<string, std::shared_ptr<externalVariables::Variable> >::const_iterator it2 = connectedDiscreteExtVar.find(secondVar);
     if (it != connectedDiscreteExtVar.end() && it2 != connectedDiscreteExtVar.end()) {
       bool firstVarFound = (varNameToConnIndex.find(firstVar) != varNameToConnIndex.end());
       bool secondVarFound = (varNameToConnIndex.find(secondVar) != varNameToConnIndex.end());
@@ -755,7 +755,7 @@ Compiler::writeExtvarFile(const std::shared_ptr<ModelDescription>& modelicaModel
     if (connectedDiscreteVarNames.size() > 1) {
       string firstVar = connectedDiscreteVarNames[0];
       if (extvarIds.find(firstVar) == extvarIds.end()) {
-        shared_ptr<externalVariables::Variable> variable = varNameToConnIndex[firstVar].correspondingVar;
+        std::shared_ptr<externalVariables::Variable> variable = varNameToConnIndex[firstVar].correspondingVar;
         variable->setId(varNameToConnIndex[firstVar].fullVarId);
         modelExternalvariables->addVariable(variable);
         Trace::info(Trace::compile()) << DYNLog(AddingDiscreteExtVar, variable->getId()) << Trace::endline;
