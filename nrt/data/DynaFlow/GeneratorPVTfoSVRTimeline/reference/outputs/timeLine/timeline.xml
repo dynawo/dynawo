@@ -7,7 +7,7 @@
   <event time="130.000182" modelName="SVC" message="Secondary Voltage Regulation : new level 0.24"/>
   <event time="170.000306" modelName="SVC" message="Secondary Voltage Regulation : new level 0.25"/>
   <event time="210.000462" modelName="SVC" message="Secondary Voltage Regulation : new level 0.26"/>
-  <event time="240.000600" modelName="SVC" message="Secondary Voltage Regulation : new level 0.27"/>
-  <event time="280.464987" modelName="Generator1" message="Generator : maximum reactive power limit reached"/>
-  <event time="280.464987" modelName="SVC" message="Entering in frozen mode"/>
+  <event time="250.000650" modelName="SVC" message="Secondary Voltage Regulation : new level 0.27"/>
+  <event time="283.450558" modelName="Generator1" message="Generator : maximum reactive power limit reached"/>
+  <event time="283.450558" modelName="SVC" message="Entering in frozen mode"/>
 </timeline>
