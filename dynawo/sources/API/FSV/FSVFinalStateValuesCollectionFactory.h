@@ -22,7 +22,6 @@
 
 #include "FSVFinalStateValuesCollection.h"
 
-#include <boost/shared_ptr.hpp>
 
 namespace finalStateValues {
 /**
@@ -39,27 +38,27 @@ class FinalStateValuesCollectionFactory {
    *
    * @param id id of the new instance
    *
-   * @return shared pointer to a new empty @p FinalStateValuesCollection
+   * @return unique pointer to a new empty @p FinalStateValuesCollection
    */
-  static boost::shared_ptr<FinalStateValuesCollection> newInstance(const std::string& id);
+  static std::unique_ptr<FinalStateValuesCollection> newInstance(const std::string& id);
 
   /**
    * @brief Create new FinalStateValuesCollection instance as a clone of given instance
    *
    * @param[in] original FinalStateValuesCollection to be cloned
    *
-   * @return Shared pointer to a new @p FinalStateValuesCollection copied from original
+   * @return Unique pointer to a new @p FinalStateValuesCollection copied from original
    */
-  static boost::shared_ptr<FinalStateValuesCollection> copyInstance(boost::shared_ptr<FinalStateValuesCollection> original);
+  static std::unique_ptr<FinalStateValuesCollection> copyInstance(const std::shared_ptr<FinalStateValuesCollection>& original);
 
   /**
    * @brief Create new FinalStateValuesCollection instance as a clone of given instance
    *
    * @param[in] original FinalStateValuesCollection to be cloned
    *
-   * @return Shared pointer to a new @p FinalStateValuesCollection copied from original
+   * @return Unique pointer to a new @p FinalStateValuesCollection copied from original
    */
-  static boost::shared_ptr<FinalStateValuesCollection> copyInstance(const FinalStateValuesCollection& original);
+  static std::unique_ptr<FinalStateValuesCollection> copyInstance(const FinalStateValuesCollection& original);
 };
 }  // namespace finalStateValues
 

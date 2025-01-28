@@ -24,16 +24,15 @@
 #include "FSVXmlHandler.h"
 
 #include <fstream>
-#include <iostream>
 #include <xml/sax/parser/ParserException.h>
 #include <xml/sax/parser/ParserFactory.h>
 
-using boost::shared_ptr;
+
 using std::string;
 namespace parser = xml::sax::parser;
 namespace finalStateValues {
 
-shared_ptr<FinalStateValuesCollection>
+std::shared_ptr<FinalStateValuesCollection>
 XmlImporter::importFromFile(const string& fileName) const {
   std::ifstream stream(fileName.c_str());
   if (!stream)
@@ -46,7 +45,7 @@ XmlImporter::importFromFile(const string& fileName) const {
   }
 }
 
-boost::shared_ptr<FinalStateValuesCollection>
+std::shared_ptr<FinalStateValuesCollection>
 XmlImporter::importFromStream(std::istream& stream) const {
   XmlHandler finalStateValuesHandler;
 

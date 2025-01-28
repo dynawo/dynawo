@@ -65,7 +65,7 @@ class XmlExporter : public Exporter {
    * @param variable the Variable object
    * @param formatter the destination XML location
    */
-  void writeVariable(const boost::shared_ptr<Variable>& variable, xml::sax::formatter::Formatter& formatter) const;
+  void writeVariable(const std::shared_ptr<Variable>& variable, xml::sax::formatter::Formatter& formatter) const;
 };
 
 }  // namespace externalVariables

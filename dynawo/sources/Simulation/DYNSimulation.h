@@ -687,7 +687,7 @@ class Simulation {
   std::string networkParSet_;  ///< id of the set of parameters to use for the network
   std::string initialStateFile_;  ///< dump to load for each state variable
   std::unordered_map<std::string,
-          boost::shared_ptr<parameters::ParametersSetCollection> > referenceParameters_;  ///< association between file name and parameters collection
+          std::shared_ptr<parameters::ParametersSetCollection> > referenceParameters_;  ///< association between file name and parameters collection
 
   std::string outputsDirectory_;  ///< directory for simulation outputs
 

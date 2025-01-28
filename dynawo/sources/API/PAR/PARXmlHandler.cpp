@@ -71,7 +71,7 @@ macroParameterSetHandler_(parser::ElementName(namespace_uri(), "macroParameterSe
 
 XmlHandler::~XmlHandler() {}
 
-shared_ptr<ParametersSetCollection>
+std::shared_ptr<ParametersSetCollection>
 XmlHandler::getParametersSetCollection() {
   return parametersSetCollection_;
 }
