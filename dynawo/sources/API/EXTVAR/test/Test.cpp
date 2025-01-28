@@ -252,7 +252,7 @@ TEST(APIEXTVARTest, ExternalDiscreteArrayVariable) {
 //-----------------------------------------------------
 
 TEST(APIEXTVARTest, ExternalDuplicateVariable) {
-  boost::shared_ptr<VariablesCollection> collection = VariablesCollectionFactory::newCollection();
+  const std::unique_ptr<VariablesCollection> collection = VariablesCollectionFactory::newCollection();
 
   // create object
   const std::string varId = "discrete_variable_1";
