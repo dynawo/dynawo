@@ -16,8 +16,6 @@
  * @brief Unit tests for API_PAR
  */
 
-#include <boost/shared_ptr.hpp>
-
 #include "gtest_dynawo.h"
 
 #include "PARXmlImporter.h"
@@ -25,7 +23,8 @@
 #include "PARParametersSetCollection.h"
 #include "TestUtil.h"
 
-using boost::shared_ptr;
+#include <memory>
+
 
 namespace parameters {
 
@@ -35,7 +34,7 @@ namespace parameters {
 
 TEST(APIPARTest, XmlExporter) {
   XmlImporter importer;
-  shared_ptr<ParametersSetCollection> collection;
+  std::shared_ptr<ParametersSetCollection> collection;
   ASSERT_NO_THROW(collection = importer.importFromFile("res/fileToImport.par"));
 
   // Export the collection in xml format

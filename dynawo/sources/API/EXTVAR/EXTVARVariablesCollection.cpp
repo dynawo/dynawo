@@ -26,7 +26,7 @@
 using std::map;
 using std::string;
 
-using boost::shared_ptr;
+using std::shared_ptr;
 
 namespace externalVariables {
 
@@ -34,7 +34,7 @@ void VariablesCollection::addVariable(const shared_ptr<Variable>& variable) {
   const string& id = variable->getId();
   // Used instead of variables_[name] = VariableFactory::newvariable(id, type)
   // to avoid necessity to create VariableFactory::Impl default constructor
-  std::pair < map< string, shared_ptr<Variable> >::iterator, bool> ret;
+  std::pair<map<string, shared_ptr<Variable> >::iterator, bool> ret;
   ret = variables_.emplace(id, variable);
   if (!ret.second)
     throw DYNError(DYN::Error::API, ExternalVariableIDNotUnique, id);

@@ -26,6 +26,8 @@
 #include "EXTVARIterators.h"
 #include "EXTVARVariable.h"
 
+#include <memory>
+
 INIT_XML_DYNAWO;
 
 namespace externalVariables {
@@ -39,7 +41,7 @@ TEST(APIEXTVARTest, ExternalContinuousVariable) {
 
   // create object
   const std::string varId = "continuous_variable_1";
-  boost::shared_ptr<Variable> variable;
+  std::shared_ptr<Variable> variable;
   variable = VariableFactory::newVariable(varId, Variable::Type::CONTINUOUS);
 
   ASSERT_NO_THROW(collection->addVariable(variable));
@@ -89,7 +91,7 @@ TEST(APIEXTVARTest, ExternalContinuousVariable) {
   }
 
   for (variable_iterator itVariable = collection->beginVariable(); itVariable != collection->endVariable(); ++itVariable) {
-    boost::shared_ptr<Variable> currentVar = *itVariable;
+    std::shared_ptr<Variable> currentVar = *itVariable;
     ASSERT_EQ((*itVariable)->getId(), variable->getId());
     ASSERT_EQ((*itVariable)->getType(), variable->getType());
     ASSERT_EQ((*itVariable)->hasDefaultValue(), variable->hasDefaultValue());
@@ -106,7 +108,7 @@ TEST(APIEXTVARTest, ExternalDiscreteVariable) {
 
   // create object
   const std::string varId = "discrete_variable_1";
-  boost::shared_ptr<Variable> variable;
+  std::shared_ptr<Variable> variable;
   variable = VariableFactory::newVariable(varId, Variable::Type::DISCRETE);
 
   collection->addVariable(variable);
@@ -143,7 +145,7 @@ TEST(APIEXTVARTest, ExternalBooleanVariable) {
 
   // create object
   const std::string varId = "boolean_variable_1";
-  boost::shared_ptr<Variable> variable;
+  std::shared_ptr<Variable> variable;
   variable = VariableFactory::newVariable(varId, Variable::Type::BOOLEAN);
 
   collection->addVariable(variable);
@@ -180,7 +182,7 @@ TEST(APIEXTVARTest, ExternalContinuousArrayVariable) {
 
   // create object
   const std::string varId = "continuous_array";
-  boost::shared_ptr<Variable> variable;
+  std::shared_ptr<Variable> variable;
   variable = VariableFactory::newVariable(varId, Variable::Type::CONTINUOUS_ARRAY);
 
   collection->addVariable(variable);
@@ -218,7 +220,7 @@ TEST(APIEXTVARTest, ExternalDiscreteArrayVariable) {
 
   // create object
   const std::string varId = "discrete_array";
-  boost::shared_ptr<Variable> variable;
+  std::shared_ptr<Variable> variable;
   variable = VariableFactory::newVariable(varId, Variable::Type::DISCRETE_ARRAY);
 
   collection->addVariable(variable);
@@ -256,13 +258,13 @@ TEST(APIEXTVARTest, ExternalDuplicateVariable) {
 
   // create object
   const std::string varId = "discrete_variable_1";
-  boost::shared_ptr<Variable> variable;
+  std::unique_ptr<Variable> variable;
   variable = VariableFactory::newVariable(varId, Variable::Type::DISCRETE);
 
-  ASSERT_NO_THROW(collection->addVariable(variable));
+  ASSERT_NO_THROW(collection->addVariable(std::move(variable)));
 
   const std::string varId2 = "continuous_variable_1";
-  boost::shared_ptr<Variable> variable2;
+  std::shared_ptr<Variable> variable2;
   variable2 = VariableFactory::newVariable(varId, Variable::Type::CONTINUOUS);
   ASSERT_THROW_DYNAWO(collection->addVariable(variable2), DYN::Error::API,
                       DYN::KeyError_t::ExternalVariableIDNotUnique);  /// variable with same name is not authorized
@@ -285,7 +287,7 @@ TEST(APIEXTVARTest, ExternalVariableExportImport) {
   // create object
   // discrete variable
   const std::string varId1 = "discrete_variable_1";
-  boost::shared_ptr<Variable> variable1;
+  std::shared_ptr<Variable> variable1;
   const std::string defaultVal = "1";
   variable1 = VariableFactory::newVariable(varId1, Variable::Type::DISCRETE);
   variable1->setDefaultValue(defaultVal);
@@ -294,13 +296,13 @@ TEST(APIEXTVARTest, ExternalVariableExportImport) {
 
   // continuous variable
   const std::string varId2 = "continuous_variable_1";
-  boost::shared_ptr<Variable> variable2;
+  std::unique_ptr<Variable> variable2;
   variable2 = VariableFactory::newVariable(varId2, Variable::Type::CONTINUOUS);
-  ASSERT_NO_THROW(collection->addVariable(variable2));
+  ASSERT_NO_THROW(collection->addVariable(std::move(variable2)));
 
   // continous array
   const std::string varId3 = "continuous_array_variable";
-  boost::shared_ptr<Variable> variable3;
+  std::shared_ptr<Variable> variable3;
   variable3 = VariableFactory::newVariable(varId3, Variable::Type::CONTINUOUS_ARRAY);
   variable3->setDefaultValue("0.");
   variable3->setOptional(true);
@@ -309,7 +311,7 @@ TEST(APIEXTVARTest, ExternalVariableExportImport) {
 
   // discrete array
   const std::string varId4 = "discrete_array_variable";
-  boost::shared_ptr<Variable> variable4;
+  std::shared_ptr<Variable> variable4;
   variable4 = VariableFactory::newVariable(varId4, Variable::Type::DISCRETE_ARRAY);
   variable4->setDefaultValue("0.");
   variable4->setSize(10);
@@ -317,7 +319,7 @@ TEST(APIEXTVARTest, ExternalVariableExportImport) {
 
   // boolean variable
   const std::string varId5 = "boolean_variable_1";
-  boost::shared_ptr<Variable> variable5;
+  std::shared_ptr<Variable> variable5;
   const std::string defaultValBool = "true";
   variable5 = VariableFactory::newVariable(varId5, Variable::Type::BOOLEAN);
   variable5->setDefaultValue(defaultValBool);
@@ -331,11 +333,11 @@ TEST(APIEXTVARTest, ExternalVariableExportImport) {
 
   // import
   XmlImporter importer;
-  boost::shared_ptr<VariablesCollection> collection1;
+  std::shared_ptr<VariablesCollection> collection1;
   ASSERT_NO_THROW(collection1 = importer.importFromFile(fileName));
 
   for (variable_iterator itVariable = collection1->beginVariable(); itVariable != collection1->endVariable(); ++itVariable) {
-    const boost::shared_ptr<Variable> variable = *itVariable;
+    const std::shared_ptr<Variable> variable = *itVariable;
     if (variable->getType() == Variable::Type::CONTINUOUS) {
       ASSERT_EQ(variable->getId(), varId2);
       ASSERT_EQ(variable->hasDefaultValue(), false);
