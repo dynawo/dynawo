@@ -22,13 +22,12 @@
 
 #include "TLEvent.h"
 
-#include <boost/none.hpp>
 #include <boost/optional.hpp>
-#include <boost/shared_ptr.hpp>
 #include <string>
 #include <vector>
 #include <unordered_set>
 #include <unordered_map>
+#include <memory>
 
 namespace timeline {
 
@@ -48,6 +47,18 @@ class Timeline {
    * @param id Timeline's id
    */
   explicit Timeline(const std::string& id);
+
+  /**
+   * @brief Copy constructor
+   */
+  Timeline(const Timeline&) = delete;
+
+  /**
+   * @brief Default copy assigment operator
+   *
+   * @return a new parameter
+   */
+  Timeline& operator=(const Timeline&) = delete;
 
   /**
    * @brief Add an event to the timeline
@@ -145,17 +156,17 @@ class Timeline {
      *
      * @returns Event pointed to by this
      */
-    const boost::shared_ptr<Event>& operator*() const;
+    const std::unique_ptr<Event>& operator*() const;
 
     /**
      * @brief Structure dereference operator
      *
      * @returns Pointer to the Event pointed to by this
      */
-    const boost::shared_ptr<Event>* operator->() const;
+    const std::unique_ptr<Event>* operator->() const;
 
    private:
-    std::vector<boost::shared_ptr<Event> >::const_iterator current_;  ///< current set iterator
+    std::vector<std::unique_ptr<Event> >::const_iterator current_;  ///< current set iterator
   };
 
   /**
@@ -189,8 +200,8 @@ class Timeline {
   bool eventEquals(const Event& left, const Event& right) const;
 
  private:
-  std::vector<boost::shared_ptr<Event> > events_;  ///< Array of events
-  std::string id_;                                 ///< Timeline's id
+  std::vector<std::unique_ptr<Event> > events_;  ///< Array of events
+  std::string id_;                               ///< Timeline's id
 };
 
 }  // namespace timeline

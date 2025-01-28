@@ -22,7 +22,8 @@
 
 #include "TLEvent.h"
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
+
 
 namespace timeline {
 /**
@@ -37,9 +38,9 @@ class EventFactory {
   /**
    * @brief Create new Event instance
    *
-   * @return shared pointer to a new @p Event
+   * @return unique pointer to a new @p Event
    */
-  static boost::shared_ptr<Event> newEvent();
+  static std::unique_ptr<Event> newEvent();
 };
 }  // namespace timeline
 
