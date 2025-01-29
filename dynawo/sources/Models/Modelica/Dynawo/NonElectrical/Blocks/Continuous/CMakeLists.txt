@@ -43,6 +43,7 @@ set(MODEL_FILES
   SqrtNoEvent.mo
   TransferFunction.mo
   TransferFunctionBypass.mo
+  VarLimLimDetection.mo
   VarLimPIDFreeze.mo
   Washout.mo
   WeightedDifference.mo
