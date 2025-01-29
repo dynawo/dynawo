@@ -36,7 +36,7 @@ model WT4BCurrentSource2020 "Wind Turbine Type 4B model from IEC 61400-27-1:2020
   Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBusWithVariations(U0Pu = 1.0678, UEvtPu = 0, UPhase = -0.04, omega0Pu = 1, omegaEvtPu = 0.99, tOmegaEvtEnd = 21, tOmegaEvtStart = 20, tUEvtEnd = 0, tUEvtStart = 0) annotation(
     Placement(visible = true, transformation(origin = {140, 0}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Dynawo.Electrical.Events.NodeFault nodeFault(RPu = 0, XPu = 0.09, tBegin = 6, tEnd = 6.25) annotation(
-    Placement(visible = true, transformation(origin = {50, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
+    Placement(visible = true, transformation(origin = {46, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
   Modelica.Blocks.Sources.Step tanPhi(height = 0, offset = -0.21, startTime = 0) annotation(
     Placement(visible = true, transformation(origin = {-170, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step xRefPu(height = 0.41, offset = -0.21, startTime = 4) annotation(
@@ -47,9 +47,9 @@ model WT4BCurrentSource2020 "Wind Turbine Type 4B model from IEC 61400-27-1:2020
     Placement(visible = true, transformation(origin = {-170, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-  wT4BCurrentSource.wT4Injector.switchOffSignal1.value = false;
-  wT4BCurrentSource.wT4Injector.switchOffSignal2.value = false;
-  wT4BCurrentSource.wT4Injector.switchOffSignal3.value = false;
+  wT4BCurrentSource.injector.switchOffSignal1.value = false;
+  wT4BCurrentSource.injector.switchOffSignal2.value = false;
+  wT4BCurrentSource.injector.switchOffSignal3.value = false;
   line.switchOffSignal1.value = false;
   line.switchOffSignal2.value = false;
   line1.switchOffSignal1.value = false;
@@ -83,7 +83,7 @@ equation
   connect(line3.terminal2, line1.terminal1) annotation(
     Line(points = {{60, 20}, {80, 20}, {80, 0}, {100, 0}}, color = {0, 0, 255}));
   connect(nodeFault.terminal, line.terminal2) annotation(
-    Line(points = {{50, -40}, {50, -20}, {40, -20}}, color = {0, 0, 255}));
+    Line(points = {{46, -40}, {46, -20}, {40, -20}}, color = {0, 0, 255}));
   connect(nodeFault1.terminal, wT4BCurrentSource.terminal) annotation(
     Line(points = {{-110, -40}, {-110, 0}, {-119, 0}}, color = {0, 0, 255}));
   connect(omegaRefPu.y, wT4BCurrentSource.omegaRefPu) annotation(

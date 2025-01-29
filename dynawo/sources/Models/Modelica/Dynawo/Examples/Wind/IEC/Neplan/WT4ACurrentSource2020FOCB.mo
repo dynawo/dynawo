@@ -47,9 +47,9 @@ model WT4ACurrentSource2020FOCB "Wind Turbine Type 4A model from IEC 61400-27-1:
     Placement(visible = true, transformation(origin = {-170, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-  wT4ACurrentSource.wT4Injector.switchOffSignal1.value = false;
-  wT4ACurrentSource.wT4Injector.switchOffSignal2.value = false;
-  wT4ACurrentSource.wT4Injector.switchOffSignal3.value = false;
+  wT4ACurrentSource.injector.switchOffSignal1.value = false;
+  wT4ACurrentSource.injector.switchOffSignal2.value = false;
+  wT4ACurrentSource.injector.switchOffSignal3.value = false;
   line.switchOffSignal1.value = false;
   line.switchOffSignal2.value = false;
   line1.switchOffSignal1.value = false;
