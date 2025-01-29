@@ -14,7 +14,7 @@ within Dynawo.Electrical.BESS.WECC;
 
 model BESSCurrentSource "WECC BESS with electrical control model type C, generator/converter model type A and plant control type A "
   extends Dynawo.Electrical.BESS.WECC.BaseClasses.BaseBESSCurrentSource;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREPC;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(
