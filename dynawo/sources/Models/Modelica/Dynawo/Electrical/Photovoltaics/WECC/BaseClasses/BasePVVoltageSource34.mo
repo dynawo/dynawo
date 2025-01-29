@@ -12,18 +12,17 @@ within Dynawo.Electrical.Photovoltaics.WECC.BaseClasses;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-partial model BasePVVoltageSource "Base model for WECC PV with a voltage source as interface with the grid"
+partial model BasePVVoltageSource34 "Base model for WECC PV with a voltage source as interface with the grid (REGC-C)"
 
-/*                uSourcePu                                uInjPu                      uPu
-     --------         |                                       |                         |
-    | Source |--------+---->>--------RSourcePu+jXSourcePu-----+------RPu+jXPu-----<<----+---- terminal
-     --------           iSourcePu                                                 iPu
-*/
-
+  /*                uSourcePu                                uInjPu                      uPu
+       --------         |                                       |                         |
+      | Source |--------+---->>--------RSourcePu+jXSourcePu-----+------RPu+jXPu-----<<----+---- terminal
+       --------           iSourcePu                                                 iPu
+  */
   extends Dynawo.Electrical.Controls.PLL.ParamsPLL;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREEC;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGC;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGCb;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGCc;
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsVSourceRef;
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
@@ -40,11 +39,11 @@ partial model BasePVVoltageSource "Base model for WECC PV with a voltage source 
     Placement(visible = true, transformation(origin = {190, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Lines.Line line(RPu = RPu, XPu = XPu, BPu = 0, GPu = 0) annotation(
     Placement(visible = true, transformation(origin = {130, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.WECC.REGC.REGCb wecc_regc(Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, IqrMaxPu = IqrMaxPu, IqrMinPu = IqrMinPu, QInj0Pu = QInj0Pu, RSourcePu = RSourcePu, RateFlag = RateFlag, RrpwrPu = RrpwrPu, UInj0Pu = UInj0Pu, UdInj0Pu = UdInj0Pu, UqInj0Pu = UqInj0Pu, XSourcePu = XSourcePu, tE = tE, tFilterGC = tFilterGC, tG = tG, uInj0Pu = uInj0Pu, uSource0Pu = uSource0Pu) annotation(
+  Dynawo.Electrical.Controls.WECC.REGC.REGCc wecc_regc(IMaxPu = IMaxPu, Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, IqrMaxPu = IqrMaxPu, IqrMinPu = IqrMinPu, Kii = Kii, Kip = Kip, QInj0Pu = QInj0Pu, RSourcePu = RSourcePu, RateFlag = RateFlag, RrpwrPu = RrpwrPu, SNom = SNom, UInj0Pu = UInj0Pu, UdInj0Pu = UdInj0Pu, UqInj0Pu = UqInj0Pu, XSourcePu = XSourcePu, iInj0Pu = -i0Pu, tE = tE, tFilterGC = tFilterGC, tG = tG, uInj0Pu = uInj0Pu, uSource0Pu = uSource0Pu) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant OmegaRef(k = 1) annotation(
     Placement(visible = true, transformation(origin = {-185, 38}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Dynawo.Electrical.Controls.PLL.PLL pll(Ki = KiPLL, Kp = KpPLL, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, u0Pu = u0Pu) annotation(
+  Dynawo.Electrical.Controls.PLL.PLL pll(Ki = KiPLL, Kp = KpPLL, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, u0Pu = uInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {-160, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.Utilities.Measurements measurements(SNom = SNom) annotation(
     Placement(visible = true, transformation(origin = {160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -52,7 +51,7 @@ partial model BasePVVoltageSource "Base model for WECC PV with a voltage source 
     Placement(visible = true, transformation(origin = {40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.Utilities.Measurements measurements1(SNom = SNom) annotation(
     Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Dynawo.Electrical.Lines.Line source(BPu = 0, GPu = 0, RPu = RSourcePu, XPu = XSourcePu) annotation(
+  Dynawo.Electrical.Lines.Line source(BPu = 0, GPu = 0, RPu = RSourcePu * SystemBase.SnRef / SNom, XPu = XSourcePu * SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initial parameters given by the user
@@ -88,17 +87,19 @@ equation
     Line(points = {{51.5, 0}, {60, 0}}, color = {0, 0, 255}));
   connect(source.terminal2, measurements1.terminal1) annotation(
     Line(points = {{80, 0}, {90, 0}}, color = {0, 0, 255}));
-  connect(measurements.uPu, pll.uPu) annotation(
-    Line(points = {{162, 11}, {162, 60}, {-180, 60}, {-180, 50}, {-171, 50}}, color = {85, 170, 255}));
-  connect(measurements1.uPu, wecc_regc.uInjPu) annotation(
-    Line(points = {{102, -11}, {102, -20}, {-36, -20}, {-36, -11}}, color = {85, 170, 255}));
   connect(wecc_regc.urSource, injector.urPu) annotation(
     Line(points = {{-29, 4}, {29, 4}}, color = {0, 0, 127}));
   connect(wecc_regc.uiSource, injector.uiPu) annotation(
     Line(points = {{-29, -4}, {29, -4}}, color = {0, 0, 127}));
+  connect(measurements1.iPu, wecc_regc.iInjPu) annotation(
+    Line(points = {{106, -11}, {106, -24}, {-40, -24}, {-40, -11}}, color = {85, 170, 255}));
+  connect(measurements1.uPu, wecc_regc.uInjPu) annotation(
+    Line(points = {{102, -11}, {102, -20}, {-32, -20}, {-32, -11}}, color = {85, 170, 255}));
+  connect(measurements1.uPu, pll.uPu) annotation(
+    Line(points = {{102, -11}, {101, -11}, {101, 60}, {-180, 60}, {-180, 50}, {-171, 50}}, color = {85, 170, 255}));
 
   annotation(
     preferredView = "diagram",
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-24, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC PV")}, coordinateSystem(initialScale = 0.1)),
     Diagram(coordinateSystem(grid = {1, 1}, extent = {{-180, -60}, {180, 60}})));
-end BasePVVoltageSource;
+end BasePVVoltageSource34;

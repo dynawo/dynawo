@@ -21,7 +21,7 @@ model PVVoltageSource1NoPlantControl "WECC PV model with a voltage source as int
 */
   extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECa;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
-  extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVVoltageSource;
+  extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVVoltageSource12;
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput PInjRefPu(start = -P0Pu * SystemBase.SnRef / SNom) "Active power reference in pu (generator convention) (base SNom)" annotation(
@@ -53,7 +53,8 @@ equation
     Line(points = {{-190, 20}, {-160, 20}, {-160, 6}, {-91, 6}}, color = {0, 0, 127}));
   connect(QInjRefPu, wecc_reec.QInjRefPu) annotation(
     Line(points = {{-190, -20}, {-160, -20}, {-160, -6}, {-91, -6}}, color = {0, 0, 127}));
-
+  connect(pll.phi, wecc_regc.phi) annotation(
+    Line(points = {{-149, 45}, {-60, 45}, {-60, 9}, {-51, 9}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html>

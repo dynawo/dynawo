@@ -19,7 +19,9 @@ model REGCb "WECC Generator Converter REGC type B"
 
   // Input variable
   Modelica.ComplexBlocks.Interfaces.ComplexInput uInjPu(im(start = uInj0Pu.im), re(start = uInj0Pu.re)) "Complex voltage at injector in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-210, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {40, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+    Placement(visible = true, transformation(origin = {175, -190}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {40, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealInput phi(start = Modelica.ComplexMath.arg(uInj0Pu)) "Voltage phase at injector in rad" annotation(
+    Placement(visible = true, transformation(origin = {-210.5, -0.5}, extent = {{-10.5, -10.5}, {10.5, 10.5}}, rotation = 0), iconTransformation(origin = {-110, 88}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Output variables
   Modelica.Blocks.Interfaces.RealOutput urSource(start = uSource0Pu.re) "Real voltage at source in pu (base UNom)" annotation(
@@ -40,7 +42,7 @@ model REGCb "WECC Generator Converter REGC type B"
   Modelica.Blocks.Math.Division division annotation(
     Placement(visible = true, transformation(origin = {120, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.BaseControls.VSourceRef vSourceRef(Id0Pu = Id0Pu, Iq0Pu = -Iq0Pu, RSourcePu = RSourcePu, UdInj0Pu = UdInj0Pu, UqInj0Pu = UqInj0Pu, XSourcePu = XSourcePu, tE = tE, uInj0Pu = uInj0Pu, uSource0Pu = uSource0Pu) annotation(
-    Placement(visible = true, transformation(origin = {179.5, -4.5}, extent = {{-25.5, -25.5}, {25.5, 25.5}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {175.5, 0.5}, extent = {{-25.5, -25.5}, {25.5, 25.5}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = -1) annotation(
     Placement(visible = true, transformation(origin = {60, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
@@ -67,23 +69,25 @@ equation
     Line(points = {{71, -120}, {92, -120}, {92, -84}, {108, -84}}, color = {0, 0, 127}));
   connect(firstOrder.y, limiter.u) annotation(
     Line(points = {{-139, -40}, {-111, -40}}, color = {0, 0, 127}));
-  connect(uInjPu, vSourceRef.uInjPu) annotation(
-    Line(points = {{-210, -10}, {20, -10}, {20, -50}, {179.5, -50}, {179.5, -33}}, color = {85, 170, 255}));
   connect(division.y, vSourceRef.idPu) annotation(
-    Line(points = {{131, -90}, {140, -90}, {140, -20}, {151, -20}}, color = {0, 0, 127}));
-  connect(gain1.y, vSourceRef.iqPu) annotation(
-    Line(points = {{71, 100}, {140, 100}, {140, 6}, {151, 6}}, color = {0, 0, 127}));
+    Line(points = {{131, -90}, {140, -90}, {140, -15}, {147, -15}}, color = {0, 0, 127}));
   connect(vSourceRef.uiSourcePu, uiSource) annotation(
-    Line(points = {{208, -14}, {210, -14}, {210, -50}, {229, -50}}, color = {0, 0, 127}));
+    Line(points = {{204, -9}, {210, -9}, {210, -50}, {229, -50}}, color = {0, 0, 127}));
   connect(vSourceRef.urSourcePu, urSource) annotation(
-    Line(points = {{208, 6}, {210, 6}, {210, 50}, {230, 50}}, color = {0, 0, 127}));
+    Line(points = {{204, 11}, {210, 11}, {210, 50}, {230, 50}}, color = {0, 0, 127}));
   connect(rateLimFirstOrderFreeze2.y, gain1.u) annotation(
     Line(points = {{21, 100}, {48, 100}}, color = {0, 0, 127}));
   connect(idCmdPu, product.u1) annotation(
     Line(points = {{-210, -120}, {-40, -120}, {-40, -126}, {-31, -126}}, color = {0, 0, 127}));
+  connect(gain1.y, vSourceRef.iqPu) annotation(
+    Line(points = {{71, 100}, {140, 100}, {140, 16}, {147, 16}}, color = {0, 0, 127}));
+  connect(vSourceRef.uInjPu, uInjPu) annotation(
+    Line(points = {{175.5, -28}, {175.5, -111.5}, {175, -111.5}, {175, -190}}, color = {85, 170, 255}));
+  connect(phi, vSourceRef.phi) annotation(
+    Line(points = {{-210, 0}, {147, 0}}, color = {0, 0, 127}));
 
   annotation(
     Diagram(coordinateSystem(extent = {{-200, -180}, {220, 180}}, initialScale = 0.2, grid = {1, 1})),
-    Icon(coordinateSystem(initialScale = 0.1), graphics = {Text(origin = {-25, 20}, extent = {{-53, 60}, {107, -100}}, textString = "REGC B"), Text(origin = {141, 49}, extent = {{-22, 16}, {36, -28}}, textString = "urSourcePu"), Text(origin = {145, -34}, extent = {{-22, 16}, {36, -28}}, textString = "uiSourcePu"), Text(origin = {-6, -112}, extent = {{-19, 14}, {30, -24}}, textString = "uInjPu")}),
+    Icon(coordinateSystem(initialScale = 0.1), graphics = {Text(origin = {-25, 20}, extent = {{-53, 60}, {107, -100}}, textString = "REGC B"), Text(origin = {141, 49}, extent = {{-22, 16}, {36, -28}}, textString = "urSourcePu"), Text(origin = {145, -34}, extent = {{-22, 16}, {36, -28}}, textString = "uiSourcePu"), Text(origin = {-6, -112}, extent = {{-19, 14}, {30, -24}}, textString = "uInjPu"), Text(origin = {-144, 95}, extent = {{-10, 11}, {16, -19}}, textString = "phi")}),
   Documentation(info = "<html><head></head><body><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">The block calculates the final setpoints for Iq and Id while considering ramp rates for reactive current and active current (or active power if RampFlag is true).</span><div><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">It is&nbsp;</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">connected to the grid with a voltage source interface through urSource and uiSource.</span></div></body></html>"));
 end REGCb;

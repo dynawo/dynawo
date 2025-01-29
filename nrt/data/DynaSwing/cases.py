@@ -408,6 +408,16 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 
 test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
 
+##################################
+#     WECC PV Voltage Source 4   #
+##################################
+
+case_name = "DynaSwing - WECC - PV - Voltage Source"
+case_description = "WECC - PV - Voltage Source - REGC-C"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "WECC", "PV", "WECCPVVoltageSource4", "WECCPVVSource.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
 ##########################################
 #     WECC Wind Type 4A Current Source   #
 ##########################################

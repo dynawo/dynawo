@@ -211,6 +211,10 @@ set(MODELICA_PREASSEMBLED_MODELS
   PhotovoltaicsWeccVoltageSource1NoPlantControl.xml
   PhotovoltaicsWeccVoltageSource2.xml
   PhotovoltaicsWeccVoltageSource2NoPlantControl.xml
+  PhotovoltaicsWeccVoltageSource3.xml
+  PhotovoltaicsWeccVoltageSource3NoPlantControl.xml
+  PhotovoltaicsWeccVoltageSource4.xml
+  PhotovoltaicsWeccVoltageSource4NoPlantControl.xml
   PowerTransferHVDCEmulation.xml
   PIAntiWindUpTable.xml
   Ramp.xml

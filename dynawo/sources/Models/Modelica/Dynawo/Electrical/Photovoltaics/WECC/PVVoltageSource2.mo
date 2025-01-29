@@ -21,7 +21,7 @@ model PVVoltageSource2 "WECC PV model with a voltage source as interface with th
 */
   extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECb;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
-  extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVVoltageSource;
+  extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVVoltageSource12;
 
   // Line parameters
   parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef)";
@@ -84,6 +84,8 @@ equation
     Line(points = {{90, -11}, {90, -30}, {-74, -30}, {-74, -11}}, color = {0, 0, 127}));
   connect(PFaRef, wecc_reec.PFaRef) annotation(
     Line(points = {{-79, 70}, {-79, 11}}, color = {0, 0, 127}));
+  connect(pll.phi, wecc_regc.phi) annotation(
+    Line(points = {{-149, 45}, {-60, 45}, {-60, 9}, {-51, 9}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
 
   annotation(
     preferredView = "diagram",

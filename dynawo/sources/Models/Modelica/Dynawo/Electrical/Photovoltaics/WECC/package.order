@@ -6,4 +6,8 @@ PVVoltageSource1
 PVVoltageSource1NoPlantControl
 PVVoltageSource2
 PVVoltageSource2NoPlantControl
+PVVoltageSource3
+PVVoltageSource3NoPlantControl
+PVVoltageSource4
+PVVoltageSource4NoPlantControl
 PVVoltageSource_INIT

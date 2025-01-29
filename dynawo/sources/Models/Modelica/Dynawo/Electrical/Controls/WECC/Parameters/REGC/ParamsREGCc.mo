@@ -14,19 +14,11 @@ within Dynawo.Electrical.Controls.WECC.Parameters.REGC;
 */
 
 record ParamsREGCc "REGC type C parameters"
-  parameter Types.PerUnit IMaxPu "Maximum current rating of the converter in pu (base SNom, UNom)" annotation(
+  parameter Types.CurrentModulePu IMaxPu "Maximum current rating of the converter in pu (base SNom, UNom)" annotation(
   Dialog(tab="Generator Converter", group = "REGCc"));
   parameter Types.PerUnit Kii "Integrator gain of the inner current loop" annotation(
   Dialog(tab="Generator Converter", group = "REGCc"));
   parameter Types.PerUnit Kip "Proportional gain of the inner current loop" annotation(
-  Dialog(tab="Generator Converter", group = "REGCc"));
-  parameter Types.PerUnit KiPLL "PLL integrator gain" annotation(
-  Dialog(tab="Generator Converter", group = "REGCc"));
-  parameter Types.PerUnit KpPLL "PLL proportional gain" annotation(
-  Dialog(tab="Generator Converter", group = "REGCc"));
-  parameter Types.PerUnit OmegaMaxPu "Upper frequency limit in pu (base OmegaNom)" annotation(
-  Dialog(tab="Generator Converter", group = "REGCc"));
-  parameter Types.PerUnit OmegaMinPu "Lower frequency limit in pu (base OmegaNom)" annotation(
   Dialog(tab="Generator Converter", group = "REGCc"));
   parameter Boolean RateFlag "Active current (=false) or active power (=true) ramp (if unkown set to false)" annotation(
   Dialog(tab="Generator Converter", group = "REGCc"));
