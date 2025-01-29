@@ -14,89 +14,43 @@ within Dynawo.Electrical.Wind.IEC.WPP;
 
 model WPP4BCurrentSource2015
   extends Dynawo.Electrical.Wind.IEC.BaseClasses.BaseWPP;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlParameters2015;
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.TableQControl2015;
+  
+  //WT genSystem parameters
+  extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem4;
+  
   //Uf measurement parameters
-  parameter Types.AngularVelocityPu DfMaxPu "Maximum frequency ramp rate in pu/s (base omegaNom)" annotation(
-    Dialog(tab = "UfMeasurement"));
-  parameter Boolean Mzc "Zero crossing measurement mode (true = 1 if the wind turbine protection system uses zero crossings to detect the frequency - otherwise false = 0)" annotation(
-    Dialog(tab = "UfMeasurement"));
-  parameter Types.Time tfFilt "Filter time constant for frequency measurement in s" annotation(
-    Dialog(tab = "UfMeasurement"));
-  parameter Types.Time tphiFilt "Filter time constant for voltage angle measurement in s" annotation(
-    Dialog(tab = "UfMeasurement"));
-  parameter Types.Time tUFilt "Filter time constant for voltage measurement in s" annotation(
-    Dialog(tab = "UfMeasurement"));
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.UfMeasurement2015;
+  
   //WT PControl parameters
-  parameter Types.PerUnit DPMaxP4BPu "Maximum WT power ramp rate in pu/s (base SNom) (generator convention)" annotation(
-    Dialog(tab = "PControl"));
-  parameter Types.PerUnit Kpaw "Anti-windup gain for the integrator of the ramp-limited first order in pu/s (base SNom)" annotation(
-    Dialog(tab = "PControl"));
-  parameter Types.Time tPAero "Aerodynamic power response time constant in s" annotation(
-    Dialog(tab = "PControl"));
-  parameter Types.Time tPOrdP4B "Power order lag time constant in s" annotation(
-    Dialog(tab = "PControl"));
-  parameter Types.Time tUFiltP4B "Filter time constant for voltage measurement in s" annotation(
-    Dialog(tab = "PControl"));
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4Base;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4b2015;
+  
   //Current limiter parameters
-  parameter Types.Time tUFiltcl "Voltage filter time constant in s" annotation(
-    Dialog(tab = "CurrentLimiter"));
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.CurrentLimiter2015;
+  
   //Mechanical parameters
-  parameter Types.PerUnit CdrtPu "Drive train damping in pu (base SNom, omegaNom)" annotation(
-    Dialog(tab = "Mechanical"));
-  parameter Types.Time Hgen "Generator inertia time constant in s" annotation(
-    Dialog(tab = "Mechanical"));
-  parameter Types.Time Hwtr "WT rotor inertia time constant in s" annotation(
-    Dialog(tab = "Mechanical"));
-  parameter Types.PerUnit KdrtPu "Drive train stiffness in pu (base SNom, omegaNom)" annotation(
-    Dialog(tab = "Mechanical"));
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.Mechanical;
+  
   //WT QControl parameters
-  parameter Integer MqUvrt "UVRT Q control modes (0-2) (see Table 23, section 5.6.5.7, page 51 of the IEC norm N°61400-27-1:2015)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.Time tPFiltQ "Active power filter time constant in s" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.Time tUFiltQ "Voltage filter time constant in s" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.VoltageModulePu Udb1Pu "Voltage dead band lower limit in pu (base UNom)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.VoltageModulePu Udb2Pu "Voltage dead band upper limit in pu (base UNom)" annotation(
-    Dialog(tab = "QControl"));
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWT2015;
+  
   //Qlimiter parameters
-  parameter Types.Time tPFiltql "Filter time constant for active power measurement in s" annotation(
-    Dialog(tab = "QLimiter"));
-  parameter Types.Time tUFiltql "Filter time constant for voltage measurement in s" annotation(
-    Dialog(tab = "QLimiter"));
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QLimiter2015;
+  
   //WPP PControl parameters
-  parameter Types.Time tpft "Lead time constant in the reference value transfer function in s" annotation(
-    Dialog(tab = "PControlWP"));
-  parameter Types.Time tpfv "Lag time constant in the reference value transfer function in s" annotation(
-    Dialog(tab = "PControlWP"));
-  parameter Types.Time tWPfFiltP "Filter time constant for frequency measurement in s" annotation(
-    Dialog(tab = "PControlWP"));
-  parameter Types.Time tWPPFiltP "Filter time constant for active power measurement in s" annotation(
-    Dialog(tab = "PControlWP"));
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWPP2015;
+  
   //WPP QControl parameters
-  parameter Types.Time tWPPFiltQ "Filter time constant for active power measurement in s" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.Time tWPQFiltQ "Filter time constant for reactive power measurement in s" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.Time tWPUFiltQ "Filter time constant for voltage measurement in s" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.Time txft "Lead time constant in the reference value transfer function in s" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.Time txfv "Lag time constant in the reference value transfer function in s" annotation(
-    Dialog(tab = "QControlWP"));
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWPP2015;
+  
+  //WT genSystem parameters
+  extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem4;
+  
   //Input variables
-  Modelica.Blocks.Interfaces.RealInput QWPRefPu(start = -Q0Pu*SystemBase.SnRef/SNom) "Reference reactive power in pu (base SNom) (generator convention)" annotation(
-    Placement(visible = true, transformation(origin = {-140, -14}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput QWPRefPu(start = -Q0Pu * SystemBase.SnRef / SNom) "Reference reactive power in pu (base SNom) (generator convention)" annotation(
+    Placement(visible = true, transformation(origin = {-140, -14}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
   Modelica.Blocks.Interfaces.RealInput UWPRefPu(start = U0Pu) "Reference voltage in pu (base UNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-140, 12}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
@@ -132,5 +86,6 @@ equation
     Line(points = {{88, -22}, {88, -34}, {-96, -34}, {-96, -2}, {-82, -2}}, color = {85, 170, 255}));
 
   annotation(
-    preferredView = "diagram");
+    preferredView = "diagram",
+    Icon(graphics = {Text(origin = {1, -30}, extent = {{-73, 35}, {73, -35}}, textString = "Type 4B\n2015")}));
 end WPP4BCurrentSource2015;

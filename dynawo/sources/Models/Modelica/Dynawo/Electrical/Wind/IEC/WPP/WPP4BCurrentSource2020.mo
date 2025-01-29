@@ -14,114 +14,39 @@ within Dynawo.Electrical.Wind.IEC.WPP;
 
 model WPP4BCurrentSource2020 "Wind Power Plant Type 4B model from IEC 61400-27-1:2020 standard : WT4B, communication modules"
   extends Dynawo.Electrical.Wind.IEC.BaseClasses.BaseWPP;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlParameters2020;
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.TableQControl2020;
+  
+  //WT genSystem parameters
+  extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem4;
+  
   //WPP Qcontrol parameters
-  parameter Types.PerUnit RwpDropPu "Resistive component of voltage drop impedance in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.VoltageModulePu UwpqRisePu "Voltage threshold for OVRT detection in pu (base UNom)" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit XErrMaxPu "Maximum reactive power or voltage error input to PI controller in pu (base SNom or UNom) (generator convention)" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit XErrMinPu "Minimum reactive power or voltage error input to PI controller in pu (base SNom or UNom) (generator convention)" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit XwpDropPu "Inductive component of voltage drop impedance in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "QControlWP"));
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWPP2020;
+  
   //WPP PControl parameters
-  parameter Types.ActivePowerPu PErrMaxPu "Maximum control error for power PI controller in pu (base SNom)" annotation(
-    Dialog(tab = "PControlWP"));
-  parameter Types.ActivePowerPu PErrMinPu "Minimum negative control error for power PI controller in pu (base SNom)" annotation(
-    Dialog(tab = "PControlWP"));
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWPP2020;
+  
   //WP Measurement parameters
-  parameter Types.PerUnit DfMaxPu "Maximum frequency ramp rate in pu/s (base fNom)" annotation(
-    Dialog(tab = "MeasurementWP"));
-  parameter Types.Time tfFilt "Filter time constant for frequency measurement in s" annotation(
-    Dialog(tab = "MeasurementWP"));
-  parameter Types.Time tIFilt "Filter time constant for current measurement in s" annotation(
-    Dialog(tab = "MeasurementWP"));
-  parameter Types.Time tPFilt "Filter time constant for active power measurement in s" annotation(
-    Dialog(tab = "MeasurementWP"));
-  parameter Types.Time tQFilt "Filter time constant for reactive power measurement in s" annotation(
-    Dialog(tab = "MeasurementWP"));
-  parameter Types.Time tUFilt "Filter time constant for voltage measurement in s" annotation(
-    Dialog(tab = "MeasurementWP"));
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.GridMeasurementWPP;
+  
   //Linear communication parameters
-  parameter Types.Time tLag "Communication lag time constant in s" annotation(
-    Dialog(tab = "LinearCommunication"));
-  parameter Types.Time tLead "Communication lead time constant in s" annotation(
-    Dialog(tab = "LinearCommunication"));
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.LinearCommunication;
+  
   //Measurement parameters for control
-  parameter Types.PerUnit DfcMaxPu "Maximum frequency control ramp rate in pu/s (base fNom)" annotation(
-    Dialog(tab = "MeasurementC"));
-  parameter Types.Time tfcFilt "Filter time constant for frequency control measurement in s" annotation(
-    Dialog(tab = "MeasurementC"));
-  parameter Types.Time tIcFilt "Filter time constant for current control measurement in s" annotation(
-    Dialog(tab = "MeasurementC"));
-  parameter Types.Time tPcFilt "Filter time constant for active power control measurement in s" annotation(
-    Dialog(tab = "MeasurementC"));
-  parameter Types.Time tQcFilt "Filter time constant for reactive power control measurement in s" annotation(
-    Dialog(tab = "MeasurementC"));
-  parameter Types.Time tUcFilt "Filter time constant for voltage control measurement in s" annotation(
-    Dialog(tab = "MeasurementC"));
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.GridMeasurementControl;
+  
   //Measurement parameters for protection
-  parameter Types.PerUnit DfpMaxPu "Maximum frequency protection ramp rate in pu/s (base fNom)" annotation(
-    Dialog(tab = "MeasurementP"));
-  parameter Types.Time tfpFilt "Filter time constant for frequency protection measurement in s" annotation(
-    Dialog(tab = "MeasurementP"));
-  parameter Types.Time tIpFilt "Filter time constant for current protection measurement in s" annotation(
-    Dialog(tab = "MeasurementP"));
-  parameter Types.Time tPpFilt "Filter time constant for active power protection measurement in s" annotation(
-    Dialog(tab = "MeasurementP"));
-  parameter Types.Time tQpFilt "Filter time constant for reactive power protection measurement in s" annotation(
-    Dialog(tab = "MeasurementP"));
-  parameter Types.Time tUpFilt "Filter time constant for voltage protection measurement in s" annotation(
-    Dialog(tab = "MeasurementP"));
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.GridMeasurementProtection;
+  
   //WT PControl parameters
-  parameter Types.PerUnit DPMaxP4BPu "Maximum WT power ramp rate in pu/s (base SNom) (generator convention)" annotation(
-    Dialog(tab = "PControl"));
-  parameter Types.PerUnit DPRefMax4BPu "Maximum WT reference power ramp rate in pu/s (base SNom) (generator convention)" annotation(
-    Dialog(tab = "PControl"));
-  parameter Types.PerUnit DPRefMin4BPu "Minimum WT reference power ramp rate in pu/s (base SNom) (generator convention)" annotation(
-    Dialog(tab = "PControl"));
-  parameter Boolean MpUScale "Voltage scaling for power reference during voltage dip (true: u scaling, false: no scaling)" annotation(
-    Dialog(tab = "PControl"));
-  parameter Types.Time tPOrdP4B "Power order lag time constant in s" annotation(
-    Dialog(tab = "PControl"));
-  parameter Types.Time tPAero "Reference power order lag time constant in s" annotation(
-    Dialog(tab = "PControl"));
-  parameter Types.VoltageModulePu UpDipPu "Voltage dip threshold for power control in pu (base UNom)" annotation(
-    Dialog(tab = "PControl"));
-
- //WT QControl parameters
-  parameter Types.VoltageModulePu DUdb1Pu "Voltage change dead band lower limit (typically negative) in pu (base UNom)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.VoltageModulePu DUdb2Pu "Voltage change dead band upper limit (typically positive) in pu (base UNom)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.PerUnit Kpufrt "Voltage PI controller proportional gain during FRT in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Integer Mqfrt "FRT Q control modes (0-3) (see Table 29, section 7.7.5, page 60 of the IEC norm N°61400-27-1)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.Time tUss "Steady-state voltage filter time constant in s" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.VoltageModulePu UqRisePu "Voltage threshold for OVRT detection in Q control in pu (base UNom)" annotation(
-    Dialog(tab = "QControl"));
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4Base;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4b;
+  
+  //WT QControl parameters
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWT2020;
+ 
   //Mechanical parameters
-  parameter Types.PerUnit CdrtPu "Drive train damping in pu (base SNom, omegaNom)" annotation(
-    Dialog(tab = "Mechanical"));
-  parameter Types.Time Hgen "Generator inertia time constant in s" annotation(
-    Dialog(tab = "Mechanical"));
-  parameter Types.Time Hwtr "WT rotor inertia time constant in s" annotation(
-    Dialog(tab = "Mechanical"));
-  parameter Types.PerUnit KdrtPu "Drive train stiffness in pu (base SNom, omegaNom)" annotation(
-    Dialog(tab = "Mechanical"));
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.Mechanical;
+  
   //Input variables
   Modelica.Blocks.Interfaces.RealInput xWPRefPu(start = X0Pu) "Reference reactive power or voltage in pu (base SNom or UNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-140, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -19.5}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -155,5 +80,5 @@ equation
 
   annotation(
     preferredView = "diagram",
-    Icon(graphics = {Text(origin = {70, -1}, extent = {{-36, 16}, {36, -16}}, textString = "B")}));
+    Icon(graphics = {Text(origin = {1, -30}, extent = {{-73, 35}, {73, -35}}, textString = "Type 4B\n2020")}));
 end WPP4BCurrentSource2020;

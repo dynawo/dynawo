@@ -16,19 +16,8 @@ model QControl2020 "Reactive power control module for wind turbines (IEC N°6140
   extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseQControl(deadZone.uMax = DUdb2Pu, deadZone.uMin = DUdb1Pu);
 
   //QControl parameters
-  parameter Types.VoltageModulePu DUdb1Pu "Voltage change dead band lower limit (typically negative) in pu (base UNom)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.VoltageModulePu DUdb2Pu "Voltage change dead band upper limit (typically positive) in pu (base UNom)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.PerUnit Kpufrt "Voltage PI controller proportional gain during FRT in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Integer Mqfrt "FRT Q control modes (0-3) (see Table 29, section 7.7.5, page 60 of the IEC norm N°61400-27-1:2020)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.Time tUss "Steady-state voltage filter time constant in s" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.VoltageModulePu UqRisePu "Voltage threshold for OVRT detection in Q control in pu (base UNom)" annotation(
-    Dialog(tab = "QControl"));
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWT2020;
+  
   //Input variables
   Modelica.Blocks.Interfaces.RealInput idfHookPu(start = 0) "User-defined fault current injection in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-320, -220}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {0, 110.5}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));

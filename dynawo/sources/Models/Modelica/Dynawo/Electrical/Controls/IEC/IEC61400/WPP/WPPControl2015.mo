@@ -14,18 +14,11 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.WPP;
 
 model WPPControl2015 "Control model for IEC N°61400-27-1:2015 standard WPP"
   extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseWPPControl;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlParameters2015;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.TableQControl2015;
 
   //PControl parameters
-  parameter Types.Time tpft "Lead time constant in the reference value transfer function in s" annotation(
-    Dialog(tab = "PControlWP"));
-  parameter Types.Time tpfv "Lag time constant in the reference value transfer function in s" annotation(
-    Dialog(tab = "PControlWP"));
-  parameter Types.Time tWPfFiltP "Filter time constant for frequency measurement in s" annotation(
-    Dialog(tab = "PControlWP"));
-  parameter Types.Time tWPPFiltP "Filter time constant for active power measurement in s" annotation(
-    Dialog(tab = "PControlWP"));
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWPP2015;
+  
   //QControl parameters
   parameter Types.Time tWPPFiltQ "Filter time constant for active power measurement in s" annotation(
     Dialog(tab = "QControlWP"));
@@ -44,6 +37,8 @@ model WPPControl2015 "Control model for IEC N°61400-27-1:2015 standard WPP"
   parameter Types.Time tfFilt "Filter time constant for frequency measurement in s" annotation(
     Dialog(tab = "Measurement"));
 
+  //extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWPP2015;
+  
   //Input variables
   Modelica.Blocks.Interfaces.RealInput QWPRefPu(start = -Q0Pu*SystemBase.SnRef/SNom) "Reference reactive power in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-200, 30}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

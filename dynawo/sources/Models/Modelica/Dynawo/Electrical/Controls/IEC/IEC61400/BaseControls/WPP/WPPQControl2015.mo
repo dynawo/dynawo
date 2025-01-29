@@ -14,20 +14,11 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WPP;
 
 model WPPQControl2015 "Reactive power control module for wind power plants (IEC N°61400-27-1:2015)"
   extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseWPPQControl(combiTable1Ds2(table = TableQwpUErr));
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlParameters2015;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.TableQControl2015;
 
   //QControl parameters
-  parameter Types.Time tWPPFiltQ "Filter time constant for active power measurement in s" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.Time tWPQFiltQ "Filter time constant for reactive power measurement in s" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.Time tWPUFiltQ "Filter time constant for voltage measurement in s" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.Time txft "Lead time constant in the reference value transfer function in s" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.Time txfv "Lag time constant in the reference value transfer function in s" annotation(
-    Dialog(tab = "QControlWP"));
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWPP2015;
+  
   //Input variables
   Modelica.Blocks.Interfaces.RealInput PWPPu(start = -P0Pu * SystemBase.SnRef / SNom ) "Active power communicated to WP in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-340, 54}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
