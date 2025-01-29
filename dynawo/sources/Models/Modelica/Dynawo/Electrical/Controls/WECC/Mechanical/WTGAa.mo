@@ -14,7 +14,7 @@ within Dynawo.Electrical.Controls.WECC.Mechanical;
 */
 
 model WTGAa "WECC Aero-Dynamic model"
-  extends Electrical.Controls.WECC.Parameters.ParamsWTGAa;
+  extends Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGAa;
 
   //Input variables
   Modelica.Blocks.Interfaces.RealInput theta(start = Theta0) "Pitch angle in degree" annotation(

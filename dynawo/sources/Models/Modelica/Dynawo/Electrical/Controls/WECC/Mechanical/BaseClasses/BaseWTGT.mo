@@ -14,7 +14,7 @@ within Dynawo.Electrical.Controls.WECC.Mechanical.BaseClasses;
 */
 
 partial model BaseWTGT "Drive Train Control Base Model"
-  extends Parameters.ParamsWTGT;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGT;
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput PePu(start = PInj0Pu) "Electrical active power in pu (base SNom)" annotation(
