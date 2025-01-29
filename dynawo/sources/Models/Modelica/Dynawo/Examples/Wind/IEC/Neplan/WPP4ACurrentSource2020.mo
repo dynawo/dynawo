@@ -165,9 +165,9 @@ model WPP4ACurrentSource2020 "Wind Power Plant Type 4A model from IEC 61400-27-1
     Placement(visible = true, transformation(origin = {-150, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-  wPP4ACurrentSource.wT4ACurrentSource.wT4Injector.switchOffSignal1.value = false;
-  wPP4ACurrentSource.wT4ACurrentSource.wT4Injector.switchOffSignal2.value = false;
-  wPP4ACurrentSource.wT4ACurrentSource.wT4Injector.switchOffSignal3.value = false;
+  wPP4ACurrentSource.wT4ACurrentSource.injector.switchOffSignal1.value = false;
+  wPP4ACurrentSource.wT4ACurrentSource.injector.switchOffSignal2.value = false;
+  wPP4ACurrentSource.wT4ACurrentSource.injector.switchOffSignal3.value = false;
 
   connect(wPP4ACurrentSource.terminal, transformer1.terminal1) annotation(
     Line(points = {{-99, 0}, {-80, 0}}, color = {0, 0, 255}));

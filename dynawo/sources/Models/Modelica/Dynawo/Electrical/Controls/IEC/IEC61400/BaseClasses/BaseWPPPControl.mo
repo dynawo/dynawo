@@ -13,36 +13,15 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses;
 */
 
 model BaseWPPPControl "Base active power control module for wind power plants (IEC N°61400-27-1)"
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlParameters;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.TablePControl;
 
   //Nominal parameter
-  parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
-  parameter Types.Time tS "Integration time step in s";
+  extends Dynawo.Electrical.Wind.IEC.Parameters.SNom_;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.IntegrationTimeStep;
 
   //PControl parameters
-  parameter Types.PerUnit DPRefMaxPu "Maximum positive ramp rate for PD power reference in pu/s (base SNom)" annotation(
-    Dialog(tab = "PControlWP"));
-  parameter Types.PerUnit DPRefMinPu "Minimum negative ramp rate for PD power reference in pu/s (base SNom)" annotation(
-    Dialog(tab = "PControlWP"));
-  parameter Types.PerUnit DPwpRefMaxPu "Maximum positive ramp rate for WP power reference in pu/s (base SNom)" annotation(
-    Dialog(tab = "PControlWP"));
-  parameter Types.PerUnit DPwpRefMinPu "Minimum negative ramp rate for WP power reference in pu/s (base SNom)" annotation(
-    Dialog(tab = "PControlWP"));
-  parameter Types.PerUnit Kiwpp "Power PI controller integration gain in pu/s (base SNom)" annotation(
-    Dialog(tab = "PControlWP"));
-  parameter Types.PerUnit Kpwpp "Power PI controller proportional gain in pu (base SNom)" annotation(
-    Dialog(tab = "PControlWP"));
-  parameter Types.PerUnit KwppRef "Power reference gain in pu (base SNom)" annotation(
-    Dialog(tab = "PControlWP"));
-  parameter Types.ActivePowerPu PKiwppMaxPu "Maximum active power reference from integration in pu (base SNom)" annotation(
-    Dialog(tab = "PControlWP"));
-  parameter Types.ActivePowerPu PKiwppMinPu "Minimum active power reference from integration in pu (base SNom)" annotation(
-    Dialog(tab = "PControlWP"));
-  parameter Types.ActivePowerPu PRefMaxPu "Maximum PD power reference in pu (base SNom)" annotation(
-    Dialog(tab = "PControlWP"));
-  parameter Types.ActivePowerPu PRefMinPu "Minimum PD power reference in pu (base SNom)" annotation(
-    Dialog(tab = "PControlWP"));
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWPP;
+  
   Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds(table = TablePwpBiasfwpFiltCom) annotation(
     Placement(visible = true, transformation(origin = {-102, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
@@ -61,9 +40,8 @@ model BaseWPPPControl "Base active power control module for wind power plants (I
     Placement(visible = true, transformation(origin = {-130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameter
-  parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
-    Dialog(tab = "Operating point"));
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPGrid;
+  
 equation
   connect(gain1.y, add31.u2) annotation(
     Line(points = {{62, 0}, {78, 0}}, color = {0, 0, 127}));
