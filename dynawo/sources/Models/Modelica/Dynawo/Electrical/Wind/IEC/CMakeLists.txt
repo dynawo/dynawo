@@ -16,6 +16,7 @@ add_subdirectory(WT T)
 set(MODEL_FILES
   package.mo
   package.order
+  Parameters.mo
   )
 
 #

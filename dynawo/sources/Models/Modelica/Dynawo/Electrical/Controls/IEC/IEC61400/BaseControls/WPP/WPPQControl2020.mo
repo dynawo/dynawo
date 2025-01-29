@@ -13,21 +13,11 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WPP;
 */
 
 model WPPQControl2020 "Reactive power control module for wind power plants (IEC N°61400-27-1:2020)"
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseWPPQControl(combiTable1Ds2(table = TableQwpUErr));
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlParameters2020;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseWPPQControl(combiTable1Ds2.table = TableQwpUErr);
+  extends Dynawo.Electrical.Wind.IEC.Parameters.TableQControl2020;
 
-  //QControl parameters
-  parameter Types.PerUnit RwpDropPu "Resistive component of voltage drop impedance in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.VoltageModulePu UwpqRisePu "Voltage threshold for OVRT detection in pu (base UNom)" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit XErrMaxPu "Maximum reactive power or voltage error input to PI controller in pu (base SNom or UNom) (generator convention)" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit XErrMinPu "Minimum reactive power or voltage error input to PI controller in pu (base SNom or UNom) (generator convention)" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit XwpDropPu "Inductive component of voltage drop impedance in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "QControlWP"));
-
+//QControl parameters
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWPP2020;
   //Input variables
   Modelica.Blocks.Interfaces.RealInput PWPFiltComPu(start = -P0Pu * SystemBase.SnRef / SNom) "Filtered active power communicated to WP in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-340, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -38,7 +28,7 @@ model WPPQControl2020 "Reactive power control module for wind power plants (IEC 
   Modelica.Blocks.Interfaces.RealInput xWPRefComPu(start = X0Pu) "Reference reactive power or voltage communicated to WP in pu (base SNom or UNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-340, 120}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  //Output variables
+//Output variables
   Modelica.Blocks.Interfaces.BooleanOutput fWPFrt(start = false) "True if fault status" annotation(
     Placement(visible = true, transformation(origin = {360, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 110},extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealOutput xPDRefPu(start = XWT0Pu) "Reference reactive power or voltage communicated to WT in pu (base SNom or UNom) (generator convention)" annotation(
@@ -56,7 +46,7 @@ model WPPQControl2020 "Reactive power control module for wind power plants (IEC 
     Placement(visible = true, transformation(origin = {-10, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.VariableLimiter variableLimiter annotation(
     Placement(visible = true, transformation(origin = {-30, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = XErrMaxPu, uMin = XErrMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = XErrMaxPu, uMin = XErrMinPu) annotation(
     Placement(visible = true, transformation(origin = {110, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   equation
@@ -96,8 +86,6 @@ model WPPQControl2020 "Reactive power control module for wind power plants (IEC 
     Line(points = {{122, 100}, {158, 100}}, color = {0, 0, 127}));
   connect(limiter.y, antiWindupIntegrator.u) annotation(
     Line(points = {{122, 100}, {140, 100}, {140, 60}, {158, 60}}, color = {0, 0, 127}));
-  connect(variableLimiter.y, gain1.u) annotation(
-    Line(points = {{-18, 100}, {-4, 100}, {-4, 140}, {158, 140}}, color = {0, 0, 127}));
   connect(absLimRateLimFeedthroughFreezeLimDetection.y, xPDRefPu) annotation(
     Line(points = {{272, 100}, {360, 100}}, color = {0, 0, 127}));
   connect(or1.y, fWPFrt) annotation(
@@ -122,8 +110,9 @@ model WPPQControl2020 "Reactive power control module for wind power plants (IEC 
     Line(points = {{-198, -120}, {-180, -120}, {-180, -20}, {-220, -20}, {-220, -8}}, color = {0, 0, 127}));
   connect(QWPFiltComPu, gain.u) annotation(
     Line(points = {{-340, -40}, {-140, -40}, {-140, -72}, {-122, -72}}, color = {0, 0, 127}));
+  connect(gain1.u, variableLimiter.y) annotation(
+    Line(points = {{158, 140}, {-4, 140}, {-4, 100}, {-18, 100}}, color = {0, 0, 127}));
 
-  annotation(
-    preferredView = "diagram",
+annotation(
     Icon(graphics = {Text(origin = {22, -108}, extent = {{-94, 60}, {48, 12}}, textString = "2020")}));
 end WPPQControl2020;
