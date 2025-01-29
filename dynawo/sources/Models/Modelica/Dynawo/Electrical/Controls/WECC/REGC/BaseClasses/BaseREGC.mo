@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.WECC.REGC.BaseClasses;
 */
 
 partial model BaseREGC "Base class for WECC Generator Converter REGC"
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREGC;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGC;
 
   // Input variables
   Modelica.Blocks.Interfaces.BooleanInput frtOn(start = false) "Boolean signal for iq ramp after fault: true if FRT detected, false otherwise" annotation(

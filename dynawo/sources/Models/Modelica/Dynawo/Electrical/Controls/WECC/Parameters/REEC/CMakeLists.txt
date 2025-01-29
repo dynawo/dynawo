@@ -1,4 +1,4 @@
-# Copyright (c) 2023, RTE (http://www.rte-france.com)
+# Copyright (c) 2025, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -11,15 +11,13 @@
 
 # Parameters of the PV WECC model
 
-add_subdirectory(Mechanical M)
-add_subdirectory(REEC EC)
-add_subdirectory(REGC GC)
-add_subdirectory(REPC PC)
-
 set(MODEL_FILES
   package.mo
   package.order
-  ParamsVSourceRef.mo
+  ParamsREEC.mo
+  ParamsREECa.mo
+  ParamsREECb.mo
+  ParamsREECc.mo
   )
 
 #
