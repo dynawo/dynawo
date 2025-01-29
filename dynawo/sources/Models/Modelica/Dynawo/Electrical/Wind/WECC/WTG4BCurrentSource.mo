@@ -14,7 +14,7 @@ within Dynawo.Electrical.Wind.WECC;
 
 model WTG4BCurrentSource "WECC Wind Turbine model with a current source as interface with the grid"
   extends Dynawo.Electrical.Controls.PLL.ParamsPLL;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREPC;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BaseWT4B;
 
   // Input variables
