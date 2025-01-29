@@ -12,6 +12,11 @@
 set(MODEL_FILES
   package.mo
   package.order
+  WPP3ACurrentSource2020.mo
+  WPP3ACurrentSource2020.extvar
+  WPP3BCurrentSource2020.mo
+  WPP3BCurrentSource2020.extvar
+  WPP3CurrentSource_INIT.mo
   WPP4ACurrentSource2015.mo
   WPP4ACurrentSource2015.extvar
   WPP4ACurrentSource2015.mandatoryParam

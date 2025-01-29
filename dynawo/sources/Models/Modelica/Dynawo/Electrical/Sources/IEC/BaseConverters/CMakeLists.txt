@@ -12,7 +12,12 @@
 set(MODEL_FILES
   package.mo
   package.order
+  BaseGenSystem3.mo
+  BaseWTInjector.mo
   ElecSystem.mo
+  ElecSystem3.mo
+  GenSystem3a.mo
+  GenSystem3b.mo
   GenSystem4.mo
   RefFrameRotation.mo
   )
