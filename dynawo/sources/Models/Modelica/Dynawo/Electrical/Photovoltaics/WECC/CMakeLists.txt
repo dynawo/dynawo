@@ -16,9 +16,11 @@ set(MODEL_FILES
   PVCurrentSource.mo
   PVCurrentSource.extvar
   PVCurrentSource.mandatoryParam
+  PVCurrentSource_INIT.mo
   PVCurrentSourceNoPlantControl.mo
   PVCurrentSourceNoPlantControl.extvar
   PVCurrentSourceNoPlantControl.mandatoryParam
+  PVCurrentSource2.mo
   PVInverterVoltageSource_INIT.mo
   PVInverterVoltageSource_INIT.mandatoryParam
   PVVoltageSource1.mo

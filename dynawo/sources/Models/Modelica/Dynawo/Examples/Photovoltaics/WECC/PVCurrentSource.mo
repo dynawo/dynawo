@@ -82,7 +82,7 @@ model PVCurrentSource "WECC PV Model on infinite bus"
     QMaxREPCPu = 0.4,
     QMinREECPu = -0.4,
     QMinREPCPu = -0.4,
-    RefFlag = true,
+    RefFlag = 1,
     RrpwrPu = 10,
     SNom = 100,
     U0Pu = 1,
