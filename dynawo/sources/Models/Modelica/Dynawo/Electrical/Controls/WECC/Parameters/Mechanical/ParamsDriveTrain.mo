@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Controls.WECC.Parameters;
+within Dynawo.Electrical.Controls.WECC.Parameters.Mechanical;
 
 /*
 * Copyright (c) 2023, RTE (http://www.rte-france.com)

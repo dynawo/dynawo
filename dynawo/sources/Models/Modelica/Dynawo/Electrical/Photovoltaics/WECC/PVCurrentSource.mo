@@ -14,7 +14,7 @@ within Dynawo.Electrical.Photovoltaics.WECC;
 
 model PVCurrentSource "WECC PV model with a current source as interface with the grid (REPC-A REEC-B REGC-A)"
   extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVCurrentSource;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREPC;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(
