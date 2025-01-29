@@ -22,9 +22,8 @@ model GridProtection2020 "Grid protection system for wind turbines (IEC N°61400
     Placement(visible = true, transformation(origin = {-180, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameter
-  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
-    Dialog(tab = "Operating point"));
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUModuleGrid;
+  
 equation
   connect(omegaFiltPu, lessEqual2.u2) annotation(
     Line(points = {{-180, -80}, {-80, -80}, {-80, -28}, {-62, -28}}, color = {0, 0, 127}));

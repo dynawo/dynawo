@@ -19,7 +19,7 @@
   <variable type="continuous" id="tanPhi" optional="true"/>
   <variable type="continuous" id="QWPRefPu" optional="true"/>
   <variable type="continuous" id="UWPRefPu" optional="true"/>
-  <variable type="discrete" id="wT4BCurrentSource.wT4Injector.switchOffSignal1.value" defaultValue="false"/>
-  <variable type="discrete" id="wT4BCurrentSource.wT4Injector.switchOffSignal2.value" defaultValue="false"/>
-  <variable type="discrete" id="wT4BCurrentSource.wT4Injector.switchOffSignal3.value" defaultValue="false"/>
+  <variable type="discrete" id="wT4BCurrentSource.injector.switchOffSignal1.value" defaultValue="false"/>
+  <variable type="discrete" id="wT4BCurrentSource.injector.switchOffSignal2.value" defaultValue="false"/>
+  <variable type="discrete" id="wT4BCurrentSource.injector.switchOffSignal3.value" defaultValue="false"/>
 </external_variables>

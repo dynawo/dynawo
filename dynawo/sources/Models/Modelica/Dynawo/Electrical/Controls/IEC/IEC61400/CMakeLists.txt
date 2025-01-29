@@ -11,7 +11,7 @@
 
 add_subdirectory(BaseClasses B)
 add_subdirectory(BaseControls C)
-add_subdirectory(Parameters P)
+#add_subdirectory(Parameters P)
 add_subdirectory(WPP W)
 add_subdirectory(WT T)
 

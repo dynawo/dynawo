@@ -19,11 +19,8 @@ model LinearCommunication "Linear communication module (IEC N°61400-27-1)"
     HideResult = true);
 
   //Linear communication parameters
-  parameter Types.Time tLag "Communication lag time constant in s" annotation(
-    Dialog(tab = "LinearCommunication"));
-  parameter Types.Time tLead "Communication lead time constant in s" annotation(
-    Dialog(tab = "LinearCommunication"));
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.LinearCommunication;
+  
   //Input variables
   Modelica.Blocks.Interfaces.RealVectorInput u[nu] "Connector of Real vector input signal" annotation(
     Placement(transformation(extent={{-120,70},{-80,-70}})));

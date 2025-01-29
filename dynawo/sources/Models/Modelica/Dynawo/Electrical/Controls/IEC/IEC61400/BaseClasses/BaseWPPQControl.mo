@@ -15,37 +15,12 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses;
 model BaseWPPQControl "Reactive power control base module for wind power plants (IEC N°61400-27-1)"
 
   //Nominal parameters
-  parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
-  parameter Types.Time tS "Integration time step in s";
+  extends Dynawo.Electrical.Wind.IEC.Parameters.SNom_;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.IntegrationTimeStep;
 
   //QControl parameters
-  parameter Types.PerUnit DXRefMaxPu "Maximum positive ramp rate for WT reactive power or voltage reference in pu/s (base SNom or UNom) (generator convention)" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit DXRefMinPu "Minimum negative ramp rate for WT reactive power or voltage reference in pu/s (base SNom or UNom) (generator convention)" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit Kiwpx "Reactive power or voltage PI controller integral gain in pu/s (base SNom)" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit Kpwpx "Reactive power or voltage PI controller proportional gain in pu (base SNom)" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit KwpqRef "Reactive power reference gain in pu (base SNom)" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit Kwpqu "Voltage controller cross coupling gain in pu (base SNom)" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Integer MwpqMode "Control mode (0 : reactive power reference, 1 : power factor reference, 2 : UQ static, 3 : voltage control)" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.Time tUqFilt "Time constant for the UQ static mode in s" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.VoltageModulePu UwpqDipPu "Voltage threshold for UVRT detection in pu (base UNom)" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit XKiwpxMaxPu "Maximum WT reactive power or voltage reference from integration in pu (base SNom or UNom) (generator convention)" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit XKiwpxMinPu "Minimum WT reactive power or voltage reference from integration in pu (base SNom or UNom) (generator convention)" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit XRefMaxPu "Maximum WT reactive power or voltage reference in pu (base SNom or UNom) (generator convention)" annotation(
-    Dialog(tab = "QControlWP"));
-  parameter Types.PerUnit XRefMinPu "Minimum WT reactive power or voltage reference in pu (base SNom or UNom) (generator convention)" annotation(
-    Dialog(tab = "QControlWP"));
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWPP;
+  
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-220, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds2(extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint) annotation(
@@ -80,21 +55,14 @@ model BaseWPPQControl "Reactive power control base module for wind power plants 
     Placement(visible = true, transformation(origin = {-110, 20}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.MathBoolean.Or or2(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {230, 20}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.AntiWindupIntegrator antiWindupIntegrator(DyMax = 999, Y0 = (1 - KwpqRef) * XWT0Pu, YMax = XKiwpxMaxPu, YMin = XKiwpxMinPu, tI = if Kiwpx > 1e-5 then 1 / Kiwpx else 1 / Modelica.Constants.eps) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.AntiWindupIntegrator antiWindupIntegrator(DyMax = 999, Y0 =  XWT0Pu - KwpqRef * (-Q0Pu * SystemBase.SnRef / SNom), YMax = XKiwpxMaxPu, YMin = XKiwpxMinPu, tI = if Kiwpx > 1e-5 then 1 / Kiwpx else 1 / Modelica.Constants.eps) annotation(
     Placement(visible = true, transformation(origin = {170, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
-  parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
-    Dialog(tab = "Operating point"));
-  parameter Types.ReactivePowerPu Q0Pu "Initial reactive power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
-    Dialog(tab = "Operating point"));
-  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
-    Dialog(tab = "Operating point"));
-  parameter Types.PerUnit X0Pu "Initial reactive power or voltage reference at grid terminal in pu (base SNom or UNom) (generator convention)" annotation(
-    Dialog(tab = "Operating point"));
-  parameter Types.PerUnit XWT0Pu "Initial reactive power or voltage reference at grid terminal in pu (base SNom or UNom) (generator convention)" annotation(
-    Dialog(tab = "Operating point"));
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPqGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUModuleGrid;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialQSetpointWPP;
+  
 equation
   connect(feedback.y, combiTable1Ds2.u) annotation(
     Line(points = {{-211, 0}, {-180, 0}, {-180, 20}, {-162, 20}}, color = {0, 0, 127}));
