@@ -59,7 +59,6 @@
 #endif  // __clang__
 #include "simulation_data.h"
 #ifdef __clang__
-#pragma clang diagnostic pop
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wreserved-id-macro"
 #endif  // __clang__
@@ -811,4 +810,10 @@ void callExternalAutomatonModel(const std::string& modelName, const char* comman
     const std::string& workingDirectory);
 
 }  // namespace DYN
+
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
+
 #endif  // MODELER_MODELMANAGER_DYNMODELMANAGERCOMMON_H_
