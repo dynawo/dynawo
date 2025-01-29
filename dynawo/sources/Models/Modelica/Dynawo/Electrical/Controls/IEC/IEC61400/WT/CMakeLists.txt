@@ -10,6 +10,8 @@
 # of simulation tools for power systems.
 
 set(MODEL_FILES
+  Control3A2020.mo
+  Control3B2020.mo
   Control4A2015.mo
   Control4A2020.mo
   Control4B2015.mo
