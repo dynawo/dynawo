@@ -14,7 +14,7 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries;
 
 model MeasurementsPQ "Measurement module of P and Q for wind turbine (IEC N°61400-27-1)"
 
-  //Nominal parameters
+  //Nominal parameter
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
 
   //Input variables
