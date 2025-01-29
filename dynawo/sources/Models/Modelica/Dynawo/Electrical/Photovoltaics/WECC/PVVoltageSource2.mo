@@ -19,16 +19,13 @@ model PVVoltageSource2 "WECC PV model with a voltage source as interface with th
     | Source |--------+---->>--------RSourcePu+jXSourcePu-----+------RPu+jXPu-----<<----+---- terminal
      --------           iSourcePu                                                 iPu
 */
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREPC;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECb;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
   extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVVoltageSource;
 
   // Line parameters
   parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef)";
   parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SnRef)";
-
-  //REEC-B parameter
-  parameter Types.VoltageModulePu VRef1Pu "User-defined reference/bias on the inner-loop voltage control in pu (base UNom) (typical: 0 pu)" annotation(
-  Dialog(tab="Electrical Control"));
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(

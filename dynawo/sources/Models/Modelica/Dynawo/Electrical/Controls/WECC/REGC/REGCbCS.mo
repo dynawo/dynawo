@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.WECC.REGC;
 */
 
 model REGCbCS "WECC Generator/Converter type B with current source interface"
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREGC;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGC;
 
   // REGC-B Parameters
   parameter Boolean RateFlag "Active current (=false) or active power (=true) ramp (if unkown set to false)" annotation(
