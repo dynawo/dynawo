@@ -21,7 +21,23 @@ model PVCurrentSourceNoPlantControl "WECC PV model with a current source as inte
   Modelica.Blocks.Interfaces.RealInput QInjRefPu(start = -QInj0Pu) "Reactive power setpoint at injector terminal in pu (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
+  Dynawo.Electrical.Controls.WECC.REEC.REECb wecc_reec(DPMaxPu = DPMaxPu, DPMinPu = DPMinPu, Dbd1Pu = Dbd1Pu, Dbd2Pu = Dbd2Pu, IMaxPu = IMaxPu, Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, Iqh1Pu = Iqh1Pu, Iql1Pu = Iql1Pu, Kqi = Kqi, Kqp = Kqp, Kqv = Kqv, Kvi = Kvi, Kvp = Kvp, PF0 = PF0, PInj0Pu = PInj0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, PQFlag = PQFlag, PfFlag = PfFlag, QFlag = QFlag, QInj0Pu = QInj0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, UInj0Pu = UInj0Pu, VDipPu = VDipPu, VFlag = VFlag, VMaxPu = VMaxPu, VMinPu = VMinPu, VRef0Pu = VRef0Pu, VRef1Pu = VRef1Pu, VUpPu = VUpPu, tIq = tIq, tP = tP, tPord = tPord, tRv = tRv) annotation(Placement(visible = true, transformation(origin = {-80.1315, -0.1384}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
 equation
+  connect(wecc_reec.iqCmdPu, wecc_regc.iqCmdPu) annotation(
+    Line(points = {{-69, -6}, {-51, -6}}, color = {0, 0, 127}));
+  connect(wecc_reec.frtOn, wecc_regc.frtOn) annotation(
+    Line(points = {{-69, 0}, {-51, 0}}, color = {255, 0, 255}));
+  connect(wecc_reec.idCmdPu, wecc_regc.idCmdPu) annotation(
+    Line(points = {{-69, 6}, {-51, 6}}, color = {0, 0, 127}));
+  connect(injector.UPu, wecc_reec.UPu) annotation(
+    Line(points = {{11.5, -8}, {20, -8}, {20, -20}, {-74, -20}, {-74, -11}}, color = {0, 0, 127}));
+  connect(injector.PInjPuSn, wecc_reec.PInjPu) annotation(
+    Line(points = {{11.5, -4}, {25, -4}, {25, -25}, {-80, -25}, {-80, -11}}, color = {0, 0, 127}));
+  connect(injector.QInjPuSn, wecc_reec.QInjPu) annotation(
+    Line(points = {{11.5, -0.5}, {30, -0.5}, {30, -30}, {-89, -30}, {-89, -11}}, color = {0, 0, 127}));
+  connect(PFaRef, wecc_reec.PFaRef) annotation(
+    Line(points = {{-79, 70}, {-79, 11}}, color = {0, 0, 127}));
   connect(PInjRefPu, wecc_reec.PInjRefPu) annotation(
     Line(points = {{-190, 20}, {-160, 20}, {-160, 6}, {-91, 6}}, color = {0, 0, 127}));
   connect(QInjRefPu, wecc_reec.QInjRefPu) annotation(
