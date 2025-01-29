@@ -26,6 +26,14 @@ set(MODEL_FILES
   PVVoltageSource2.extvar
   PVVoltageSource2NoPlantControl.mo
   PVVoltageSource2NoPlantControl.extvar
+  PVVoltageSource3.mo
+  PVVoltageSource3.extvar
+  PVVoltageSource3NoPlantControl.mo
+  PVVoltageSource3NoPlantControl.extvar
+  PVVoltageSource4.mo
+  PVVoltageSource4.extvar
+  PVVoltageSource4NoPlantControl.mo
+  PVVoltageSource4NoPlantControl.extvar
   PVVoltageSource_INIT.mo
   )
 

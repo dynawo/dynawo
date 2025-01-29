@@ -18,7 +18,17 @@ model REECc "WECC Electrical Control type C"
 
   // Input variable
   Modelica.Blocks.Interfaces.RealInput PAuxPu(start = 0) "Auxiliary input in pu (base SNom) (generator convention)" annotation(
-    Placement(visible = true, transformation(origin = {227.5, -149.5}, extent = {{-13.5, -13.5}, {13.5, 13.5}}, rotation = 0), iconTransformation(origin = {-30, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+    Placement(visible = true, transformation(origin = {227.5, -149.5}, extent = {{-13.5, -13.5}, {13.5, 13.5}}, rotation = 0), iconTransformation(origin = {-11, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+
+  // Output variables
+  Modelica.Blocks.Interfaces.RealOutput ipMaxPu(start = IMaxPu) "p-axis maximum current in pu (base UNom, SNom)" annotation(
+    Placement(visible = true, transformation(origin = {550, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealOutput ipMinPu(start = - IMaxPu) "p-axis minimum current in pu (base UNom, SNom)" annotation(
+    Placement(visible = true, transformation(origin = {550, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealOutput iqMaxPu(start = IMaxPu) "q-axis maximum current in pu (base UNom, SNom)" annotation(
+    Placement(visible = true, transformation(origin = {550, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {50, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealOutput iqMinPu(start = - IMaxPu) "q-axis minimum current in pu (base UNom, SNom)" annotation(
+    Placement(visible = true, transformation(origin = {550, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
   Modelica.Blocks.Sources.RealExpression IqMax(y = currentLimitsCalculation1.iqMaxPu) annotation(
     Placement(visible = true, transformation(origin = {130, 130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -97,8 +107,16 @@ equation
     Line(points = {{-270, 170}, {-249, 170}, {-249, -250}, {258, -250}}, color = {0, 0, 127}));
   connect(SOCinit.y, feedback.u1) annotation(
     Line(points = {{280, -210}, {312, -210}}, color = {0, 0, 127}));
+  connect(currentLimitsCalculation1.ipMaxPu, ipMaxPu) annotation(
+    Line(points = {{411, 7}, {480, 7}, {480, 30}, {550, 30}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
+  connect(currentLimitsCalculation1.ipMinPu, ipMinPu) annotation(
+    Line(points = {{411, 3}, {480, 3}, {480, 10}, {550, 10}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
+  connect(currentLimitsCalculation1.iqMaxPu, iqMaxPu) annotation(
+    Line(points = {{411, -3}, {480, -3}, {480, -10}, {550, -10}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
+  connect(currentLimitsCalculation1.iqMinPu, iqMinPu) annotation(
+    Line(points = {{411, -7}, {470, -7}, {470, -30}, {550, -30}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
 
   annotation(
   preferredView = "diagram",
-    Icon(graphics = {Text(origin = {-19, 11}, extent = {{-45, 23}, {84, -40}}, textString = "REEC C"), Text(origin = {-48, 129}, extent = {{-18, 6}, {28, -8}}, textString = "PAuxPu")}));
+    Icon(graphics = {Text(origin = {-19, 11}, extent = {{-45, 23}, {84, -40}}, textString = "REEC C"), Text(origin = {-16, 134}, extent = {{-13, 4}, {21, -5}}, textString = "PAuxPu"), Text(origin = {-87, 127}, extent = {{-14, 9}, {21, -14}}, textString = "ipMaxPu"), Text(origin = {48, 128}, extent = {{-12, 8}, {19, -12}}, textString = "iqMaxPu"), Text(origin = {-47, 128}, extent = {{-15, 9}, {23, -15}}, textString = "ipMinPu"), Text(origin = {81, 129}, extent = {{-12, 9}, {19, -15}}, textString = "iqMinPu")}));
 end REECc;
