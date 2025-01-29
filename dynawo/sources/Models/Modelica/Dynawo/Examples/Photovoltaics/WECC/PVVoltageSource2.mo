@@ -83,7 +83,7 @@ model PVVoltageSource2 "WECC PV Vsource Model on infinite bus"
     QMinREPCPu = -0.4,
     RSourcePu = 0,
     RateFlag = false,
-    RefFlag = true,
+    RefFlag = 1,
     RrpwrPu = 10,
     SNom = 100,
     U0Pu = 1.03713742957,
