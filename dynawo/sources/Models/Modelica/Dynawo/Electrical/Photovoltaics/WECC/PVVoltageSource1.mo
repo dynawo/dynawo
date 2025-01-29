@@ -21,7 +21,7 @@ model PVVoltageSource1 "WECC PV model with a voltage source as interface with th
 */
   extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECa;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
-  extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVVoltageSource;
+  extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVVoltageSource12;
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(

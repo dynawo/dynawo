@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Photovoltaics.WECC;
 
 /*
-* Copyright (c) 2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2025, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,7 +12,7 @@ within Dynawo.Electrical.Photovoltaics.WECC;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model PVVoltageSource2 "WECC PV model with a voltage source as interface with the grid (REPC-A REEC-B REGC-B)"
+model PVVoltageSource4 "WECC PV model with a voltage source as interface with the grid (REPC-A REEC-B REGC-C)"
 
 /*                uSourcePu                                uInjPu                      uPu
      --------         |                                       |                         |
@@ -21,7 +21,7 @@ model PVVoltageSource2 "WECC PV model with a voltage source as interface with th
 */
   extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECb;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
-  extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVVoltageSource12;
+  extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVVoltageSource34;
 
   // Line parameters
   parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef)";
@@ -49,7 +49,7 @@ equation
   connect(PRefPu, wecc_repc.PRefPu) annotation(
     Line(points = {{-190, 0}, {-160, 0}, {-160, -2}, {-131, -2}}, color = {0, 0, 127}));
   connect(measurements.PPu, wecc_repc.PRegPu) annotation(
-    Line(points = {{154, 11}, {154, 20}, {-112, 20}, {-112, 11}}, color = {0, 0, 127}));
+    Line(points = {{154, 11}, {154, 21}, {-112, 21}, {-112, 11}}, color = {0, 0, 127}));
   connect(measurements.QPu, wecc_repc.QRegPu) annotation(
     Line(points = {{158, 11}, {158, 30}, {-117, 30}, {-117, 11}}, color = {0, 0, 127}));
   connect(measurements.uPu, wecc_repc.uPu) annotation(
@@ -84,6 +84,14 @@ equation
     Line(points = {{90, -11}, {90, -30}, {-74, -30}, {-74, -11}}, color = {0, 0, 127}));
   connect(PFaRef, wecc_reec.PFaRef) annotation(
     Line(points = {{-79, 70}, {-79, 11}}, color = {0, 0, 127}));
+  connect(wecc_reec.iqMinPu, wecc_regc.iqMinPu) annotation(
+    Line(points = {{-72, 11}, {-72, 15}, {-46, 15}, {-46, 11}}, color = {0, 0, 127}));
+  connect(wecc_reec.iqMaxPu, wecc_regc.iqMaxPu) annotation(
+    Line(points = {{-75, 11}, {-75, 17}, {-42, 17}, {-42, 11}}, color = {0, 0, 127}));
+  connect(wecc_regc.ipMinPu, wecc_reec.ipMinPu) annotation(
+    Line(points = {{-38, 11}, {-38, 19}, {-84, 19}, {-84, 11}}, color = {0, 0, 127}));
+  connect(wecc_regc.ipMaxPu, wecc_reec.ipMaxPu) annotation(
+    Line(points = {{-34, 11}, {-34, 20}, {-88, 20}, {-88, 11}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
@@ -91,4 +99,4 @@ equation
 <p> This block contains the generic WECC PV model according to (in case page cannot be found, copy link in browser): <a href='https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf/'>https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf </a> </p></html>"),
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-24, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC PV")}, coordinateSystem(initialScale = 0.1)),
     Diagram(coordinateSystem(grid = {1, 1}, extent = {{-180, -60}, {180, 60}})));
-end PVVoltageSource2;
+end PVVoltageSource4;

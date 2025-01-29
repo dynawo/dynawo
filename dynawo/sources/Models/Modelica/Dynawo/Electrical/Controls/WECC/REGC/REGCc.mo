@@ -13,29 +13,29 @@ within Dynawo.Electrical.Controls.WECC.REGC;
 */
 
 model REGCc "WECC Generator Converter REGC type C"
-  extends Dynawo.Electrical.Controls.WECC.REGC.BaseClasses.BaseREGC(rateLimFirstOrderFreeze2.T = 1e-5, rateLimFirstOrderFreeze2.UseRateLim = true, rateLimFirstOrderFreeze1.T = 1e-5, rateLimFirstOrderFreeze1.UseRateLim = true, rateLimFirstOrderFreeze1.Y0 = Id0Pu * UInj0Pu, rateLimFirstOrderFreeze2.Y0 = Iq0Pu);
+  extends Dynawo.Electrical.Controls.WECC.REGC.BaseClasses.BaseREGC(rateLimFirstOrderFreeze2.T = 1e-6, rateLimFirstOrderFreeze2.UseRateLim = true, rateLimFirstOrderFreeze1.T = 1e-6, rateLimFirstOrderFreeze1.UseRateLim = true, rateLimFirstOrderFreeze1.Y0 = Id0Pu * UInj0Pu, rateLimFirstOrderFreeze2.Y0 = Iq0Pu);
   extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGCc;
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsVSourceRef;
 
   // Input variables
   Modelica.ComplexBlocks.Interfaces.ComplexInput iInjPu(im(start = iInj0Pu.im), re(start = iInj0Pu.re)) "Complex current at injector in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-210, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {70, -111}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+    Placement(visible = true, transformation(origin = {-210, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, -109}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput ipMaxPu(start = IMaxPu) "p-axis maximum current in pu (base UNom, SNom)" annotation(
-    Placement(visible = true, transformation(origin = {160, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {60, 112}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+    Placement(visible = true, transformation(origin = {160, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput ipMinPu(start = -IMaxPu) "p-axis minimum current in pu (base UNom, SNom)" annotation(
-    Placement(visible = true, transformation(origin = {160, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {30, 111}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+    Placement(visible = true, transformation(origin = {160, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {20, 109}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput iqMaxPu(start = IMaxPu) "q-axis maximum current in pu (base UNom, SNom)" annotation(
-    Placement(visible = true, transformation(origin = {120, 130}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-21, 112}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+    Placement(visible = true, transformation(origin = {120, 130}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-21, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput iqMinPu(start = -IMaxPu) "q-axis minimum current in pu (base UNom, SNom)" annotation(
-    Placement(visible = true, transformation(origin = {120, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-51, 112}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+    Placement(visible = true, transformation(origin = {120, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-61, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.ComplexBlocks.Interfaces.ComplexInput uInjPu(im(start = uInj0Pu.im), re(start = uInj0Pu.re)) "Complex voltage at injector in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-210, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {9, -111}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+    Placement(visible = true, transformation(origin = {-210, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {79, -109}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
   // Output variables
   Modelica.Blocks.Interfaces.RealOutput urSource(start = uSource0Pu.re) "Real voltage at source in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {310, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {109, 39}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput uiSource(start = uSource0Pu.im) "Imaginary voltage at source in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {310, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {111, -57}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {310, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {109, -41}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Logical.Switch switch annotation(
     Placement(visible = true, transformation(origin = {-60, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -49,7 +49,7 @@ model REGCc "WECC Generator Converter REGC type C"
     Placement(visible = true, transformation(origin = {-99, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Division division annotation(
     Placement(visible = true, transformation(origin = {120, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.WECC.BaseControls.VSourceRef vSourceRef(Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, RSourcePu = RSourcePu, UdInj0Pu = UdInj0Pu, UqInj0Pu = UqInj0Pu, XSourcePu = XSourcePu, tE = tE, uInj0Pu = uInj0Pu, uSource0Pu = uSource0Pu) annotation(
+  Dynawo.Electrical.Controls.WECC.BaseControls.VSourceRef vSourceRef(Id0Pu =  Id0Pu, Iq0Pu =  Iq0Pu, RSourcePu = RSourcePu, UdInj0Pu = UdInj0Pu, UqInj0Pu = UqInj0Pu, XSourcePu = XSourcePu, tE = tE, uInj0Pu = uInj0Pu, uSource0Pu = uSource0Pu) annotation(
     Placement(visible = true, transformation(origin = {259.5, 4.5}, extent = {{-25.5, -25.5}, {25.5, 25.5}}, rotation = 0)));
   Modelica.Blocks.Math.Add add(k2 = -1)  annotation(
     Placement(visible = true, transformation(origin = {100, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -57,11 +57,11 @@ model REGCc "WECC Generator Converter REGC type C"
     Placement(visible = true, transformation(origin = {159, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.Utilities.TransformRItoDQ transformRItoDQ annotation(
     Placement(visible = true, transformation(origin = {50, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.PIAntiWindupVariableLimits pIAntiWindupVariableLimits(Ki = Kii, Kp = Kip, Y0 = Iq0Pu - IInjq0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.PIAntiWindupVariableLimits pIAntiWindupVariableLimits(Ki = Kii, Kp = Kip, Y0 =  Iq0Pu) annotation(
     Placement(visible = true, transformation(origin = {160, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.PIAntiWindupVariableLimits pIAntiWindupVariableLimits1(Ki = Kii, Kp = Kip, Y0 = Id0Pu - IInjd0Pu)  annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.PIAntiWindupVariableLimits pIAntiWindupVariableLimits1(Ki = Kii, Kp = Kip, Y0 =  Id0Pu)  annotation(
     Placement(visible = true, transformation(origin = {200, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.PLL.PLL pll(Ki = KiPLL, Kp = KpPLL, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, u0Pu = uInj0Pu)  annotation(
+  Dynawo.Electrical.Controls.PLL.PLL pll(Ki = KiPLLInj, Kp = KpPLLInj, OmegaMaxPu = OmegaMaxInjPu, OmegaMinPu = OmegaMinInjPu, u0Pu = uInj0Pu)  annotation(
     Placement(visible = true, transformation(origin = {-19, -5}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant OmegaRefPu(k = SystemBase.omegaRef0Pu)  annotation(
     Placement(visible = true, transformation(origin = {-60, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -137,6 +137,6 @@ equation
 
   annotation(
     Diagram(coordinateSystem(extent = {{-200, -180}, {300, 180}}, initialScale = 0.2, grid = {1, 1})),
-    Icon(coordinateSystem(initialScale = 0.1), graphics = {Text(origin = {-27, 18}, extent = {{-53, 60}, {107, -100}}, textString = "REGC C"), Text(origin = {143, 49}, extent = {{-22, 16}, {36, -28}}, textString = "urSourcePu"), Text(origin = {145, -50}, extent = {{-22, 16}, {36, -28}}, textString = "uiSourcePu"), Text(origin = {4, -134}, extent = {{-19, 14}, {30, -24}}, textString = "uInjPu"), Text(origin = {-167, 103}, extent = {{-22, 16}, {36, -28}}, textString = "OmegaPLLPu"), Text(origin = {74, -135}, extent = {{-19, 14}, {30, -24}}, textString = "iInjPu"), Text(origin = {-96, 143}, extent = {{-22, 16}, {36, -28}}, textString = "iqMaxPu"), Text(origin = {-28, 143}, extent = {{-22, 16}, {36, -28}}, textString = "iqMinPu"), Text(origin = {92, 143}, extent = {{-22, 16}, {36, -28}}, textString = "ipMaxPu"), Text(origin = {33, 142}, extent = {{-22, 16}, {36, -28}}, textString = "ipMinPu")}),
+    Icon(coordinateSystem(initialScale = 0.1), graphics = {Text(origin = {-27, 18}, extent = {{-53, 60}, {107, -100}}, textString = "REGC C"), Text(origin = {143, 49}, extent = {{-22, 16}, {36, -28}}, textString = "urSourcePu"), Text(origin = {143, -34}, extent = {{-22, 16}, {36, -28}}, textString = "uiSourcePu"), Text(origin = {74, -132}, extent = {{-19, 14}, {30, -24}}, textString = "uInjPu"), Text(origin = {-2, -135}, extent = {{-19, 14}, {30, -24}}, textString = "iInjPu"), Text(origin = {-32, 139}, extent = {{-22, 16}, {36, -28}}, textString = "iqMaxPu"), Text(origin = {-94, 137}, extent = {{-22, 16}, {36, -28}}, textString = "iqMinPu"), Text(origin = {86, 137}, extent = {{-22, 16}, {36, -28}}, textString = "ipMaxPu"), Text(origin = {25, 138}, extent = {{-22, 16}, {36, -28}}, textString = "ipMinPu")}),
   Documentation(info = "<html><head></head><body><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">The block calculates the final setpoints for Iq and Id.</span><div><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">It is&nbsp;</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">connected to the grid with a voltage source interface through urSource and uiSource.</span></div></body></html>"));
 end REGCc;

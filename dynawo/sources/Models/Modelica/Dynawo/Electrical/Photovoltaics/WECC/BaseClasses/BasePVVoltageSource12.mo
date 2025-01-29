@@ -12,14 +12,13 @@ within Dynawo.Electrical.Photovoltaics.WECC.BaseClasses;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-partial model BasePVVoltageSource "Base model for WECC PV with a voltage source as interface with the grid"
+partial model BasePVVoltageSource12 "Base model for WECC PV with a voltage source as interface with the grid"
 
-/*                uSourcePu                                uInjPu                      uPu
-     --------         |                                       |                         |
-    | Source |--------+---->>--------RSourcePu+jXSourcePu-----+------RPu+jXPu-----<<----+---- terminal
-     --------           iSourcePu                                                 iPu
-*/
-
+  /*                uSourcePu                                uInjPu                      uPu
+       --------         |                                       |                         |
+      | Source |--------+---->>--------RSourcePu+jXSourcePu-----+------RPu+jXPu-----<<----+---- terminal
+       --------           iSourcePu                                                 iPu
+  */
   extends Dynawo.Electrical.Controls.PLL.ParamsPLL;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREEC;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGC;
@@ -101,4 +100,4 @@ equation
     preferredView = "diagram",
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-24, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC PV")}, coordinateSystem(initialScale = 0.1)),
     Diagram(coordinateSystem(grid = {1, 1}, extent = {{-180, -60}, {180, 60}})));
-end BasePVVoltageSource;
+end BasePVVoltageSource12;
