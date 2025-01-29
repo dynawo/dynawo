@@ -24,6 +24,7 @@
 #include <xml/sax/formatter/Formatter.h>
 
 #include "DYNMacrosMessage.h"
+#include "DYNCommon.h"
 
 #include "CSTRXmlExporter.h"
 #include "CSTRConstraintsCollection.h"
@@ -65,7 +66,7 @@ XmlExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& constr
     attrs.clear();
     attrs.add("modelName", (*itConstraint)->getModelName());
     attrs.add("description", (*itConstraint)->getDescription());
-    attrs.add("time", (*itConstraint)->getTime());
+    attrs.add("time", DYN::double2String((*itConstraint)->getTime()));
     if ((*itConstraint)->hasModelType())
       attrs.add("type", (*itConstraint)->getModelType());
 
