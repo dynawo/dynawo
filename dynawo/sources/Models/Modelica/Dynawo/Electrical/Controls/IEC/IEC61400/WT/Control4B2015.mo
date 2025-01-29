@@ -16,37 +16,17 @@ model Control4B2015 "Whole generator control module for type 4B wind turbines (I
   extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseControl4;
 
   //PControl parameters
-  parameter Types.PerUnit DPMaxP4BPu "Maximum WT power ramp rate in pu/s (base SNom) (generator convention)" annotation(
-    Dialog(tab = "PControl"));
-  parameter Types.Time tPAero "Aerodynamic power response time constant in s" annotation(
-    Dialog(tab = "PControl"));
-  parameter Types.Time tPOrdP4B "Power order lag time constant in s" annotation(
-    Dialog(tab = "PControl"));
-  parameter Types.Time tUFiltP4B "Filter time constant for voltage measurement in s" annotation(
-    Dialog(tab = "PControl"));
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4b2015;
+  
   //Current limiter parameters
-  parameter Types.Time tUFiltcl "Voltage filter time constant in s" annotation(
-    Dialog(tab = "CurrentLimiter"));
+  extends Dynawo.Electrical.Wind.IEC.Parameters.CurrentLimiter2015;
 
   //Q control parameters
-  parameter Integer MqUvrt "UVRT Q control modes (0-2) (see Table 23, section 5.6.5.7, page 51 of the IEC norm N°61400-27-1:2015)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.Time tPFiltQ "Active power filter time constant in s" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.Time tUFiltQ "Voltage filter time constant in s" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.VoltageModulePu Udb1Pu "Voltage dead band lower limit in pu (base UNom)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.VoltageModulePu Udb2Pu "Voltage dead band upper limit in pu (base UNom)" annotation(
-    Dialog(tab = "QControl"));
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWT2015;
+  
   //Qlimiter parameters
-  parameter Types.Time tPFiltql "Filter time constant for active power measurement in s" annotation(
-    Dialog(tab = "QLimiter"));
-  parameter Types.Time tUFiltql "Filter time constant for voltage measurement in s" annotation(
-    Dialog(tab = "QLimiter"));
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QLimiter2015;
+  
   //Input parameters
   Modelica.Blocks.Interfaces.RealInput PWTPu(start = -P0Pu * SystemBase.SnRef / SNom) "Active power at grid terminal in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-180, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

@@ -14,6 +14,8 @@ add_subdirectory(BaseConverters BC)
 set(MODEL_FILES
   package.mo
   package.order
+  WT3AInjector.mo
+  WT3BInjector.mo
   WT4Injector.mo
   )
 
