@@ -35,6 +35,7 @@ set(MODEL_FILES
   PVVoltageSource4NoPlantControl.mo
   PVVoltageSource4NoPlantControl.extvar
   PVVoltageSource_INIT.mo
+  PVVoltageSourceAREPCc.mo
   )
 
 #

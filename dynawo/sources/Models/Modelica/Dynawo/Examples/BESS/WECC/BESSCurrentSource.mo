@@ -66,7 +66,7 @@ model BESSCurrentSource "WECC BESS with REEC-C and REGC-B with a plant controlle
     QMaxPu = 0.75,
     QMinPu = -0.75,
     RPu = 0,
-    RefFlag = false,
+    RefFlag = 0,
     RrpwrPu = 10,
     SNom = 6,
     SOC0Pu = 0.5,
