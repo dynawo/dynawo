@@ -17,10 +17,12 @@ set(MODEL_FILES
   DeadBand.mo
   DeadZone.mo
   DelayFlag.mo
+  FirstOrderVariableLimitsAntiWindup
   FixedBooleanDelay.mo
   FlipFlopR.mo
   FlipFlopS.mo
   IntegratorOrFirstOrder.mo
+  IntegratorVariableLimitsContinuousSetFreeze.mo
   LimitedDivision.mo
   LimitedFirstOrder.mo
   LimitedIntegrator.mo

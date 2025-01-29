@@ -25,6 +25,7 @@ SecondOrder
 SqrtNoEvent
 TransferFunction
 TransferFunctionBypass
+VarLimLimDetection
 VarLimPIDFreeze
 Washout
 WeightedDifference

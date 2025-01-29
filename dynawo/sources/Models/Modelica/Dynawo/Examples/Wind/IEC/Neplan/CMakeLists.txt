@@ -14,12 +14,16 @@ add_subdirectory(BaseClasses B)
 set(MODEL_FILES
   package.mo
   package.order
+  WPP3ACurrentSource2020.mo
+  WPP3BCurrentSource2020.mo
   WPP4ACurrentSource2015.mo
   WPP4ACurrentSource2020.mo
   WPP4ACurrentSource2020FOCB.mo
   WPP4ACurrentSource2020UDip.mo
   WPP4BCurrentSource2020.mo
   WPP4BCurrentSource2020FOCB.mo
+  WT3ACurrentSource2020.mo
+  WT3BCurrentSource2020.mo
   WT4ACurrentSource2015.mo
   WT4ACurrentSource2015FOCB.mo
   WT4ACurrentSource2020.mo
