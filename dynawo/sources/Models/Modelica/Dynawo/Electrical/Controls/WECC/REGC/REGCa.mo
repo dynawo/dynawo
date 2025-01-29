@@ -14,16 +14,7 @@ within Dynawo.Electrical.Controls.WECC.REGC;
 
 model REGCa "WECC Generator Converter REGC type A"
   extends Dynawo.Electrical.Controls.WECC.REGC.BaseClasses.BaseREGC(rateLimFirstOrderFreeze2.T = tG, rateLimFirstOrderFreeze2.UseRateLim = true, rateLimFirstOrderFreeze2.Y0 = Iq0Pu, rateLimFirstOrderFreeze1.T = tG, rateLimFirstOrderFreeze1.UseRateLim = true, rateLimFirstOrderFreeze1.Y0 = Id0Pu);
-
-  // REGC-A parameters
-  parameter Boolean Lvplsw(start = false) "Low voltage power logic switch: 1-enabled/0-disabled" annotation(
-    Dialog(tab = "Generator Converter"));
-  parameter Types.PerUnit zerox(start = 0.0) "LVPL zero crossing in pu (base UNom)" annotation(
-    Dialog(tab = "Generator Converter"));
-  parameter Types.PerUnit brkpt(start = 1.0) "LVPL breakpoint in pu (base UNom)" annotation(
-    Dialog(tab = "Generator Converter"));
-  parameter Types.PerUnit lvpl1(start = 1.0) "LVPL gain breakpoint in pu" annotation(
-    Dialog(tab = "Generator Converter"));
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGCa;
 
   // Output variables
   Modelica.Blocks.Interfaces.RealOutput idRefPu(start = Id0Pu) "idRefPu setpoint to injector in pu (generator convention) (base SNom, UNom)" annotation(

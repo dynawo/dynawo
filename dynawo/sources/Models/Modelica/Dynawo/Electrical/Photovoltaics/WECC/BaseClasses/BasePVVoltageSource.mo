@@ -21,8 +21,9 @@ partial model BasePVVoltageSource "Base model for WECC PV with a voltage source 
 */
 
   extends Dynawo.Electrical.Controls.PLL.ParamsPLL;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREEC;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREGC;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREEC;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGC;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGCb;
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsVSourceRef;
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
@@ -30,10 +31,6 @@ partial model BasePVVoltageSource "Base model for WECC PV with a voltage source 
   // Line parameters
   parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef)";
   parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SnRef)";
-
-  // REGC-B Parameters
-  parameter Boolean RateFlag "Active current (=false) or active power (=true) ramp (if unkown set to false)" annotation(
-  Dialog(tab="Generator Converter"));
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(

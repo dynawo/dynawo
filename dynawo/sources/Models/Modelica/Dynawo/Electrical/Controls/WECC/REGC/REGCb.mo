@@ -14,11 +14,8 @@ within Dynawo.Electrical.Controls.WECC.REGC;
 
 model REGCb "WECC Generator Converter REGC type B"
   extends Dynawo.Electrical.Controls.WECC.REGC.BaseClasses.BaseREGC(rateLimFirstOrderFreeze1.T = tG, rateLimFirstOrderFreeze1.UseRateLim = true, rateLimFirstOrderFreeze1.Y0 = Id0Pu * UInj0Pu, rateLimFirstOrderFreeze2.T = tG, rateLimFirstOrderFreeze2.UseRateLim = true, rateLimFirstOrderFreeze2.Y0 = Iq0Pu);
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGCb;
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsVSourceRef;
-
-  // REGC-B Parameters
-  parameter Boolean RateFlag "Active current (=false) or active power (=true) ramp (if unkown set to false)" annotation(
-  Dialog(tab="Generator Converter"));
 
   // Input variable
   Modelica.ComplexBlocks.Interfaces.ComplexInput uInjPu(im(start = uInj0Pu.im), re(start = uInj0Pu.re)) "Complex voltage at injector in pu (base UNom)" annotation(

@@ -14,68 +14,16 @@ within Dynawo.Electrical.BESS.WECC.BaseClasses;
 
 partial model BaseBESSCurrentSource "Partial base model for WECC BESS with electrical control model type C, generator/converter model type A"
   extends Dynawo.Electrical.Controls.PLL.ParamsPLL;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREEC;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREGC;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREEC;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECc;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGC;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGCa;
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
   // Line parameters
   parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
   parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
-
-  // REEC-C parameters
-  parameter Types.PerUnit SOCMaxPu "Maximum allowable state of charge in pu (base SNom) (typical: 0.8..1)" annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit SOCMinPu "Minimum allowable state of charge in pu (base SNom) (typical: 0..0.2)" annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.Time tBattery "Time it takes for the battery to discharge when putting out 1 pu power, in s (typically set to 9999 since most batteries are large as compared to the typical simulation time in a stability study)" annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp11 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp12 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp21 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp22 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp31 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp32 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp41 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp42 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq11 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq12 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq21 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq22 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq31 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq32 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq41 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq42 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIpPoints[:, :] = [VDLIp11, VDLIp12; VDLIp21, VDLIp22; VDLIp31, VDLIp32; VDLIp41, VDLIp42] "Pair of points for voltage-dependent active current limitation piecewise linear curve [u1,y1; u2,y2;...]" annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIqPoints[:, :] = [VDLIq11, VDLIq12; VDLIq21, VDLIq22; VDLIq31, VDLIq32; VDLIq41, VDLIq42] "Pair of points for voltage-dependent reactive current limitation piecewise linear curve [u1,y1; u2,y2;...]" annotation(
-    Dialog(tab = "Electrical Control"));
-
-  // REGC-A parameters
-  parameter Boolean Lvplsw(start = false) "Low voltage power logic switch: 1-enabled/0-disabled" annotation(
-    Dialog(tab = "Generator Converter"));
-  parameter Types.PerUnit zerox(start = 0.0) "LVPL zero crossing in pu (base UNom)" annotation(
-    Dialog(tab = "Generator Converter"));
-  parameter Types.PerUnit brkpt(start = 1.0) "LVPL breakpoint in pu (base UNom)" annotation(
-    Dialog(tab = "Generator Converter"));
-  parameter Types.PerUnit lvpl1(start = 1.0) "LVPL gain breakpoint in pu" annotation(
-    Dialog(tab = "Generator Converter"));
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput PAuxPu(start = 0) "Auxiliary input in pu (base SNom) (generator convention)" annotation(

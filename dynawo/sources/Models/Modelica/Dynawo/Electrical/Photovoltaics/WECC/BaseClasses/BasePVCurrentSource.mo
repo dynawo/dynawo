@@ -14,28 +14,16 @@ within Dynawo.Electrical.Photovoltaics.WECC.BaseClasses;
 
 partial model BasePVCurrentSource "Base for WECC PV with a current source as interface with the grid"
   extends Dynawo.Electrical.Controls.PLL.ParamsPLL;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREEC;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREGC;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREEC;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECb;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGC;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGCa;
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
   // Line parameters
   parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
   parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
-
-  //REEC-B parameter
-  parameter Types.VoltageModulePu VRef1Pu "User-defined reference/bias on the inner-loop voltage control in pu (base UNom) (typical: 0 pu)" annotation(
-    Dialog(tab = "Electrical Control"));
-
-  // REGC-A parameters
-  parameter Boolean Lvplsw(start = false) "Low voltage power logic switch: 1-enabled/0-disabled" annotation(
-    Dialog(tab = "Generator Converter"));
-  parameter Types.PerUnit zerox(start = 0.0) "LVPL zero crossing in pu (base UNom)" annotation(
-    Dialog(tab = "Generator Converter"));
-  parameter Types.PerUnit brkpt(start = 1.0) "LVPL breakpoint in pu (base UNom)" annotation(
-    Dialog(tab = "Generator Converter"));
-  parameter Types.PerUnit lvpl1(start = 1.0) "LVPL gain breakpoint in pu" annotation(
-    Dialog(tab = "Generator Converter"));
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(

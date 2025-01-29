@@ -14,10 +14,7 @@ within Dynawo.Electrical.Controls.WECC.REEC;
 
 model REECb "WECC Electrical Control type B"
   extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC;
-
-  // REEC-B parameter
-  parameter Types.VoltageModulePu  VRef1Pu "User-defined reference/bias on the inner-loop voltage control in pu (base UNom) (typical: 0 pu)" annotation(
-  Dialog(tab="Electrical Control"));
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECb;
 
   Dynawo.Electrical.Controls.WECC.BaseControls.CurrentLimitsCalculationB currentLimitsCalculation1(IMaxPu = IMaxPu, PQFlag = PQFlag) annotation(
     Placement(visible = true, transformation(origin = {410, 29}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));

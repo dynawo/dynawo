@@ -14,25 +14,8 @@ within Dynawo.Electrical.Controls.WECC.REGC;
 
 model REGCc "WECC Generator Converter REGC type C"
   extends Dynawo.Electrical.Controls.WECC.REGC.BaseClasses.BaseREGC(rateLimFirstOrderFreeze2.T = 1e-5, rateLimFirstOrderFreeze2.UseRateLim = true, rateLimFirstOrderFreeze1.T = 1e-5, rateLimFirstOrderFreeze1.UseRateLim = true, rateLimFirstOrderFreeze1.Y0 = Id0Pu * UInj0Pu, rateLimFirstOrderFreeze2.Y0 = Iq0Pu);
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGCc;
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsVSourceRef;
-
-  // REGC-C Parameters
-  parameter Types.PerUnit IMaxPu "Maximum current rating of the converter in pu (base SNom, UNom)" annotation(
-  Dialog(tab="Generator Converter"));
-  parameter Types.PerUnit Kii "Integrator gain of the inner current loop" annotation(
-  Dialog(tab="Generator Converter"));
-  parameter Types.PerUnit Kip "Proportional gain of the inner current loop" annotation(
-  Dialog(tab="Generator Converter"));
-  parameter Types.PerUnit KiPLL "PLL integrator gain" annotation(
-  Dialog(tab="Generator Converter"));
-  parameter Types.PerUnit KpPLL "PLL proportional gain" annotation(
-  Dialog(tab="Generator Converter"));
-  parameter Types.PerUnit OmegaMaxPu "Upper frequency limit in pu (base OmegaNom)" annotation(
-  Dialog(tab="Generator Converter"));
-  parameter Types.PerUnit OmegaMinPu "Lower frequency limit in pu (base OmegaNom)" annotation(
-  Dialog(tab="Generator Converter"));
-  parameter Boolean RateFlag "Active current (=false) or active power (=true) ramp (if unkown set to false)" annotation(
-  Dialog(tab="Generator Converter"));
 
   // Input variables
   Modelica.ComplexBlocks.Interfaces.ComplexInput iInjPu(im(start = iInj0Pu.im), re(start = iInj0Pu.re)) "Complex current at injector in pu (base UNom)" annotation(
