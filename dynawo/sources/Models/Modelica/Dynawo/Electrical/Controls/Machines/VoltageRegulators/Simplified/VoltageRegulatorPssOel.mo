@@ -1,18 +1,17 @@
 within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified;
 
-/*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-*/
-
 model VoltageRegulatorPssOel "Voltage regulator with excitation system and overexcitation limiter"
+  /*
+  * Copyright (c) 2025, RTE (http://www.rte-france.com)
+  * See AUTHORS.txt
+  * All rights reserved.
+  * This Source Code Form is subject to the terms of the Mozilla Public
+  * License, v. 2.0. If a copy of the MPL was not distributed with this
+  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
+  * SPDX-License-Identifier: MPL-2.0
+  *
+  * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+  */
   parameter Types.PerUnit C;
   parameter Types.PerUnit EfdMinPu;
   parameter Types.PerUnit EfdMaxPu;
@@ -33,64 +32,62 @@ model VoltageRegulatorPssOel "Voltage regulator with excitation system and overe
   parameter Types.Time tE;
   parameter Types.Time tOel;
   parameter Types.Time tOmega;
-
   // Input variables
   Modelica.Blocks.Interfaces.RealInput ifPu(start = If0Pu) annotation(
     Placement(visible = true, transformation(origin = {-300, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omega0Pu) annotation(
     Placement(visible = true, transformation(origin = {-300, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UsPu(start = Us0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-300, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-300, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-230, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UsRefPu(start = UsRef0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-300, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-
+    Placement(transformation(origin = {-300, -30}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-230, 0}, extent = {{-20, -20}, {20, 20}})));
   // Output variable
   Modelica.Blocks.Interfaces.RealOutput EfdPu(start = Efd0Pu) annotation(
-    Placement(visible = true, transformation(origin = {290, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {tB, 1}, b = {tA, 1}, x_start = {Efd0Pu}, y_start = Efd0Pu)  annotation(
+    Placement(visible = true, transformation(origin = {290, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {226, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {tB, 1}, b = {tA, 1}, x_start = {Efd0Pu}, y_start = Efd0Pu) annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain(k = G)  annotation(
+  Modelica.Blocks.Math.Gain gain(k = G) annotation(
     Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain1(k = 1 / tE)  annotation(
+  Modelica.Blocks.Math.Gain gain1(k = 1/tE) annotation(
     Placement(visible = true, transformation(origin = {170, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.LimIntegrator limIntegrator(outMax = EfdMaxPu, outMin = EfdMinPu, y_start = Efd0Pu)  annotation(
+  Modelica.Blocks.Continuous.LimIntegrator limIntegrator(outMax = EfdMaxPu, outMin = EfdMinPu, y_start = Efd0Pu) annotation(
     Placement(visible = true, transformation(origin = {210, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {140, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Sum sum1(k = {1, -1, 1, -1}, nin = 4)  annotation(
+  Modelica.Blocks.Math.Sum sum1(k = {1, -1, 1, -1}, nin = 4) annotation(
     Placement(visible = true, transformation(origin = {10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Derivative derivative(T = tOmega, k = KPss)  annotation(
+  Modelica.Blocks.Continuous.Derivative derivative(T = tOmega, k = KPss) annotation(
     Placement(visible = true, transformation(origin = {-230, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction1(a = {t2, 1}, b = {t1, 1})  annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction1(a = {t2, 1}, b = {t1, 1}) annotation(
     Placement(visible = true, transformation(origin = {-190, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction2(a = {t4, 1}, b = {t3, 1})  annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction2(a = {t4, 1}, b = {t3, 1}) annotation(
     Placement(visible = true, transformation(origin = {-150, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, limitsAtInit = true, uMax = C)  annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, limitsAtInit = true, uMax = C) annotation(
     Placement(visible = true, transformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add add(k2 = -1)  annotation(
+  Modelica.Blocks.Math.Add add(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {-250, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant constant2(k = ifLim1)  annotation(
+  Modelica.Blocks.Sources.Constant constant2(k = ifLim1) annotation(
     Placement(visible = true, transformation(origin = {-290, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constant1(k = ifLim2) annotation(
     Placement(visible = true, transformation(origin = {-250, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Min min annotation(
     Placement(visible = true, transformation(origin = {-190, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.LimIntegrator limIntegrator1(k = 1 / tOel, outMax = L2, outMin = L1, y_start = L1)  annotation(
+  Modelica.Blocks.Continuous.LimIntegrator limIntegrator1(k = 1/tOel, outMax = L2, outMin = L1, y_start = L1) annotation(
     Placement(visible = true, transformation(origin = {-150, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain2(k = KOel)  annotation(
+  Modelica.Blocks.Math.Gain gain2(k = KOel) annotation(
     Placement(visible = true, transformation(origin = {-110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter1(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, limitsAtInit = true, uMax = L3, uMin = 0) annotation(
     Placement(visible = true, transformation(origin = {-70, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
+  Real dvpss;
+  //Modelica.Blocks.Sources.Constant constant3(k = UsRef0Pu) annotation(
+  // Placement(visible = true, transformation(origin = {-130, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   // Initial parameter
   parameter Types.PerUnit Efd0Pu;
   parameter Types.PerUnit If0Pu;
   parameter Types.PerUnit Us0Pu;
-
   final parameter Types.VoltageModulePu UsRef0Pu = Efd0Pu / G + Us0Pu;
-
 equation
+  dvpss = limiter.y;
   connect(gain.y, transferFunction.u) annotation(
     Line(points = {{81, 0}, {97, 0}}, color = {0, 0, 127}));
   connect(transferFunction.y, feedback.u1) annotation(
@@ -134,8 +131,9 @@ equation
   connect(ifPu, add.u1) annotation(
     Line(points = {{-300, -80}, {-272, -80}, {-272, -94}, {-262, -94}}, color = {0, 0, 127}));
   connect(UsRefPu, sum1.u[3]) annotation(
-    Line(points = {{-300, -40}, {-40, -40}, {-40, 0}, {-2, 0}}, color = {0, 0, 127}));
-
+    Line(points = {{-300, -30}, {-40, -30}, {-40, 0}, {-2, 0}}, color = {0, 0, 127}));
+//connect(constant3.y, sum1.u[3]) annotation(
+//  Line(points = {{-118, -40}, {-40, -40}, {-40, 0}, {-2, 0}}, color = {0, 0, 127}));
   annotation(
     Diagram(coordinateSystem(extent = {{-280, -140}, {280, 140}})),
     Icon);
