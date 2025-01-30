@@ -12,7 +12,7 @@ within Dynawo.Examples.FiveBus;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model FiveBusSystem
+model FiveBusSystemCase3
   // Base calculation
   final parameter Modelica.SIunits.Impedance ZBASE225 = 225.0 ^ 2 / Dynawo.Electrical.SystemBase.SnRef;
 
@@ -24,7 +24,7 @@ model FiveBusSystem
   //Dynawo.Electrical.Buses.InfiniteBusWithImpedance grid(RPu = RPu, XPu = XPu, UPhaseBus0(fixed = false), UBus0Pu(fixed = false), iTerminal0Pu(re(fixed = false), im(fixed = false)), uTerminal0Pu(re(fixed = false), im(fixed = false))) annotation(
   //Placement(transformation(origin = {-102, 44}, extent = {{-16, -16}, {16, 16}}, rotation = 90)));
   Dynawo.Electrical.Buses.InfiniteBus grid(UPu = 1.02, UPhase = 0, UNom = 225) annotation(
-    Placement(visible = true, transformation(origin = {-100, 40}, extent = {{-16, -16}, {16, 16}}, rotation = 90)));
+    Placement(visible = true, transformation(origin = {-144, 40}, extent = {{-16, -16}, {16, 16}}, rotation = 90)));
 
   // Buses
   Dynawo.Electrical.Buses.Bus bus_1(UNom = 225) annotation(
@@ -122,6 +122,10 @@ Dynawo.Electrical.Controls.Basics.SetPoint Omega0Pu(Value0 = 1);
   Dynawo.Types.ReactivePower QBusGen;
   Modelica.Blocks.Sources.Constant UsRefPu(k = voltageRegulatorPssOel.UsRef0Pu)  annotation(
     Placement(visible = true, transformation(origin = {36, -76}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Events.NodeFault nodeFault(RPu = 0, XPu = 0, tBegin = 61, tEnd = 61.04)  annotation(
+    Placement(visible = true, transformation(origin = {-86, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+  Dynawo.Electrical.Lines.Line line(BPu = 0, GPu = 0, RPu = 0, XPu = 0.0167)  annotation(
+    Placement(visible = true, transformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 initial algorithm
 //grid.iTerminal0Pu.re := grid_INIT.iTerminal0Pu.re;
 //grid.iTerminal0Pu.im := grid_INIT.iTerminal0Pu.im;
@@ -179,6 +183,8 @@ equation
   line3_4.switchOffSignal2.value = false;
   line3_4b.switchOffSignal1.value = false;
   line3_4b.switchOffSignal2.value = false;
+  line.switchOffSignal1.value = false;
+  line.switchOffSignal2.value = false;
 
   // Tap Changer Automaton
   tap_changer.switchOffSignal1.value = false;
@@ -241,9 +247,6 @@ equation
   QBus43 = line3_4.Q2Pu * Dynawo.Electrical.SystemBase.SnRef;
   QBusGen = gen.sStatorPu.im * Dynawo.Electrical.SystemBase.SnRef;
   QBusLoad = load.QPu * Dynawo.Electrical.SystemBase.SnRef;
-
-  connect(grid.terminal, bus_1.terminal) annotation(
-    Line(points = {{-100, 40}, {-80, 40}}, color = {0, 0, 255}));
   connect(line1_3.terminal1, bus_1.terminal) annotation(
     Line(points = {{-46, 60}, {-60, 60}, {-60, 40}, {-80, 40}}, color = {0, 0, 255}));
   connect(line1_3b.terminal1, bus_1.terminal) annotation(
@@ -276,12 +279,17 @@ equation
     Line(points = {{57, -20}, {66, -20}}, color = {0, 0, 127}));
   connect(voltageRegulatorPssOel.UsRefPu, UsRefPu.y) annotation(
     Line(points = {{72, -76}, {47, -76}}, color = {0, 0, 127}));
-
+  connect(grid.terminal, line.terminal1) annotation(
+    Line(points = {{-144, 40}, {-120, 40}}, color = {0, 0, 255}));
+  connect(bus_1.terminal, line.terminal2) annotation(
+    Line(points = {{-80, 40}, {-100, 40}}, color = {0, 0, 255}));
+  connect(nodeFault.terminal, line.terminal2) annotation(
+    Line(points = {{-86, -8}, {-86, 40}, {-100, 40}}, color = {0, 0, 255}));
 annotation(
     preferredView = "diagram",
-    experiment(StartTime = 0, StopTime = 120, Tolerance = 1e-06),
+    experiment(StartTime = 0, StopTime = 60, Tolerance = 1e-06),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
     __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_NLS", nls = "kinsol", s = "ida", nlsLS = "klu", maxIntegrationOrder = "2", maxStepSize = "10", emit_protected = "()"),
     Diagram(coordinateSystem(extent = {{-160, -100}, {160, 100}})),
     Documentation(info = "<html><head></head><body>toto</body></html>"));
-end FiveBusSystem;
+end FiveBusSystemCase3;

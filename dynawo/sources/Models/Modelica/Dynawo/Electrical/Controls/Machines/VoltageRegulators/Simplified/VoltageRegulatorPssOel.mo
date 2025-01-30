@@ -36,15 +36,17 @@ model VoltageRegulatorPssOel "Voltage regulator with excitation system and overe
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput ifPu(start = If0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-300, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-226, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-300, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omega0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-300, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-226, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-300, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UsPu(start = Us0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-300, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-230, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-300, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput UsRefPu(start = UsRef0Pu) annotation(
+    Placement(visible = true, transformation(origin = {-300, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   // Output variable
   Modelica.Blocks.Interfaces.RealOutput EfdPu(start = Efd0Pu) annotation(
-    Placement(visible = true, transformation(origin = {290, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {226, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {290, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {tB, 1}, b = {tA, 1}, x_start = {Efd0Pu}, y_start = Efd0Pu)  annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -70,8 +72,8 @@ model VoltageRegulatorPssOel "Voltage regulator with excitation system and overe
     Placement(visible = true, transformation(origin = {-250, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constant2(k = ifLim1)  annotation(
     Placement(visible = true, transformation(origin = {-290, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant constant1(k = ifLim1) annotation(
-    Placement(visible = true, transformation(origin = {-250, -48}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant constant1(k = ifLim2) annotation(
+    Placement(visible = true, transformation(origin = {-250, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Min min annotation(
     Placement(visible = true, transformation(origin = {-190, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.LimIntegrator limIntegrator1(k = 1 / tOel, outMax = L2, outMin = L1, y_start = L1)  annotation(
@@ -80,8 +82,6 @@ model VoltageRegulatorPssOel "Voltage regulator with excitation system and overe
     Placement(visible = true, transformation(origin = {-110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter1(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, limitsAtInit = true, uMax = L3, uMin = 0) annotation(
     Placement(visible = true, transformation(origin = {-70, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant constant3(k = UsRef0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-130, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initial parameter
   parameter Types.PerUnit Efd0Pu;
@@ -118,7 +118,7 @@ equation
   connect(constant2.y, add.u2) annotation(
     Line(points = {{-279, -120}, {-269.5, -120}, {-269.5, -106}, {-262, -106}}, color = {0, 0, 127}));
   connect(constant1.y, min.u1) annotation(
-    Line(points = {{-239, -48}, {-221, -48}, {-221, -74}, {-203, -74}}, color = {0, 0, 127}));
+    Line(points = {{-239, -50}, {-221, -50}, {-221, -74}, {-203, -74}}, color = {0, 0, 127}));
   connect(add.y, min.u2) annotation(
     Line(points = {{-239, -100}, {-221, -100}, {-221, -86}, {-203, -86}}, color = {0, 0, 127}));
   connect(min.y, limIntegrator1.u) annotation(
@@ -133,10 +133,10 @@ equation
     Line(points = {{222, 0}, {240, 0}, {240, -40}, {140, -40}, {140, -8}}, color = {0, 0, 127}));
   connect(ifPu, add.u1) annotation(
     Line(points = {{-300, -80}, {-272, -80}, {-272, -94}, {-262, -94}}, color = {0, 0, 127}));
-  connect(constant3.y, sum1.u[3]) annotation(
-    Line(points = {{-118, -40}, {-40, -40}, {-40, 0}, {-2, 0}}, color = {0, 0, 127}));
+  connect(UsRefPu, sum1.u[3]) annotation(
+    Line(points = {{-300, -40}, {-40, -40}, {-40, 0}, {-2, 0}}, color = {0, 0, 127}));
 
   annotation(
     Diagram(coordinateSystem(extent = {{-280, -140}, {280, 140}})),
-    Icon(coordinateSystem(extent = {{-280, -140}, {280, 140}})));
+    Icon);
 end VoltageRegulatorPssOel;
