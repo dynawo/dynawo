@@ -665,7 +665,7 @@ Simulation::setSolver() {
   solver_ = SolverFactory::createSolverFromLib(jobEntry_->getSolverEntry()->getLib() + sharedLibraryExtension());
 
   parameters::XmlImporter importer;
-  boost::shared_ptr<ParametersSetCollection> parameters = importer.importFromFile(solverParFile);
+  std::shared_ptr<ParametersSetCollection> parameters = importer.importFromFile(solverParFile);
   parameters->propagateOriginData(solverParFile);
   referenceParameters_[solverParFile] = parameters;
   string parId = jobEntry_->getSolverEntry()->getParametersId();
@@ -788,7 +788,7 @@ Simulation::initFromData(const shared_ptr<DataInterface>& data, const shared_ptr
     const std::string initParFile = createAbsolutePath(jobEntry_->getLocalInitEntry()->getParFile(), context_->getInputDirectory());
     const std::string parId = jobEntry_->getLocalInitEntry()->getParId();
     parameters::XmlImporter parametersImporter;
-    boost::shared_ptr<ParametersSetCollection> localInitSetCollection = parametersImporter.importFromFile(initParFile);
+    std::shared_ptr<ParametersSetCollection> localInitSetCollection = parametersImporter.importFromFile(initParFile);
     std::shared_ptr<ParametersSet> localInitParameters = localInitSetCollection->getParametersSet(parId);
 
     model_->setLocalInitParameters(localInitParameters);
@@ -1366,11 +1366,11 @@ void Simulation::printFinalStateValues(std::ostream& stream) const {
         (*itCurve)->getExportType() == curves::Curve::EXPORT_AS_BOTH;
       if ((*itCurve)->getAvailable() && isFinalStateValue) {
         curves::Curve::const_iterator lastPoint = --(*itCurve)->cend();
-        boost::shared_ptr<finalStateValues::FinalStateValue> finalStateValue = finalStateValues::FinalStateValueFactory::newFinalStateValue();
+        std::unique_ptr<finalStateValues::FinalStateValue> finalStateValue = finalStateValues::FinalStateValueFactory::newFinalStateValue();
         finalStateValue->setModelName((*itCurve)->getModelName());
         finalStateValue->setVariable((*itCurve)->getVariable());
         finalStateValue->setValue((*lastPoint)->getValue());
-        finalStateValuesCollection->add(finalStateValue);
+        finalStateValuesCollection->add(std::move(finalStateValue));
       }
     }
 

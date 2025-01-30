@@ -20,9 +20,9 @@
 #ifndef API_TL_TLTIMELINEFACTORY_H_
 #define API_TL_TLTIMELINEFACTORY_H_
 
-#include <boost/shared_ptr.hpp>
-
 #include "TLTimeline.h"
+
+
 namespace timeline {
 
 /**
@@ -39,27 +39,9 @@ class TimelineFactory {
    *
    * @param id id of the new instance
    *
-   * @return shared pointer to a new empty @p Timeline
+   * @return unique pointer to a new empty @p Timeline
    */
-  static boost::shared_ptr<Timeline> newInstance(const std::string& id);
-
-  /**
-   * @brief Create new Timeline instance as a clone of given instance
-   *
-   * @param[in] original Timeline to be cloned
-   *
-   * @return Shared pointer to a new @p Timeline copied from original
-   */
-  static boost::shared_ptr<Timeline> copyInstance(boost::shared_ptr<Timeline> original);
-
-  /**
-   * @brief Create new Timeline instance as a clone of given instance
-   *
-   * @param[in] original Timeline to be cloned
-   *
-   * @return Shared pointer to a new @p Timeline copied from original
-   */
-  static boost::shared_ptr<Timeline> copyInstance(const Timeline& original);
+  static std::unique_ptr<Timeline> newInstance(const std::string& id);
 };
 }  // namespace timeline
 

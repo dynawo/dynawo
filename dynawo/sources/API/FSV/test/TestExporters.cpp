@@ -35,18 +35,18 @@ namespace finalStateValues {
 TEST(APIFSVTest, FinalStateValuesCollectionXmlExporter) {
   boost::shared_ptr<FinalStateValuesCollection> finalStateValuesCollection1 = FinalStateValuesCollectionFactory::newInstance("FinalStateValues");
 
-  boost::shared_ptr<FinalStateValue> finalStateValue1 = FinalStateValueFactory::newFinalStateValue();
+  std::unique_ptr<FinalStateValue> finalStateValue1 = FinalStateValueFactory::newFinalStateValue();
 
   finalStateValue1->setModelName("model1");
   finalStateValue1->setVariable("variable1");
   finalStateValue1->setValue(5.0);
-  finalStateValuesCollection1->add(finalStateValue1);
+  finalStateValuesCollection1->add(std::move(finalStateValue1));
 
-  boost::shared_ptr<FinalStateValue> finalStateValue2 = FinalStateValueFactory::newFinalStateValue();
+  std::unique_ptr<FinalStateValue> finalStateValue2 = FinalStateValueFactory::newFinalStateValue();
 
   finalStateValue2->setVariable("variable2");
   finalStateValue2->setValue(7.0);
-  finalStateValuesCollection1->add(finalStateValue2);
+  finalStateValuesCollection1->add(std::move(finalStateValue2));
 
   XmlExporter exporter;
   std::stringstream ss;
@@ -63,18 +63,18 @@ TEST(APIFSVTest, FinalStateValuesCollectionXmlExporter) {
 TEST(APIFSVTest, FinalStateValuesCollectionCsvExporter) {
   boost::shared_ptr<FinalStateValuesCollection> finalStateValuesCollection1 = FinalStateValuesCollectionFactory::newInstance("FinalStateValues");
 
-  boost::shared_ptr<FinalStateValue> finalStateValue1 = FinalStateValueFactory::newFinalStateValue();
+  std::unique_ptr<FinalStateValue> finalStateValue1 = FinalStateValueFactory::newFinalStateValue();
 
   finalStateValue1->setModelName("model1");
   finalStateValue1->setVariable("variable1");
   finalStateValue1->setValue(5.0);
-  finalStateValuesCollection1->add(finalStateValue1);
+  finalStateValuesCollection1->add(std::move(finalStateValue1));
 
-  boost::shared_ptr<FinalStateValue> finalStateValue2 = FinalStateValueFactory::newFinalStateValue();
+  std::unique_ptr<FinalStateValue> finalStateValue2 = FinalStateValueFactory::newFinalStateValue();
 
   finalStateValue2->setVariable("variable2");
   finalStateValue2->setValue(7.0);
-  finalStateValuesCollection1->add(finalStateValue2);
+  finalStateValuesCollection1->add(std::move(finalStateValue2));
 
   CsvExporter exporter;
   std::stringstream ss;
@@ -85,18 +85,18 @@ TEST(APIFSVTest, FinalStateValuesCollectionCsvExporter) {
 TEST(APIFSVTest, FinalStateValuesCollectionTxtExporter) {
   boost::shared_ptr<FinalStateValuesCollection> finalStateValuesCollection1 = FinalStateValuesCollectionFactory::newInstance("FinalStateValues");
 
-  boost::shared_ptr<FinalStateValue> finalStateValue1 = FinalStateValueFactory::newFinalStateValue();
+  std::unique_ptr<FinalStateValue> finalStateValue1 = FinalStateValueFactory::newFinalStateValue();
 
   finalStateValue1->setModelName("model1");
   finalStateValue1->setVariable("variable1");
   finalStateValue1->setValue(5.0);
-  finalStateValuesCollection1->add(finalStateValue1);
+  finalStateValuesCollection1->add(std::move(finalStateValue1));
 
-  boost::shared_ptr<FinalStateValue> finalStateValue2 = FinalStateValueFactory::newFinalStateValue();
+  std::unique_ptr<FinalStateValue> finalStateValue2 = FinalStateValueFactory::newFinalStateValue();
 
   finalStateValue2->setVariable("variable2");
   finalStateValue2->setValue(7.0);
-  finalStateValuesCollection1->add(finalStateValue2);
+  finalStateValuesCollection1->add(std::move(finalStateValue2));
 
   TxtExporter exporter;
   std::stringstream ss;

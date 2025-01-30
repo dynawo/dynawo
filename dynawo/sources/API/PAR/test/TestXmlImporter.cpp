@@ -16,14 +16,11 @@
  * @brief Unit tests for API_PAR
  */
 
-#include <boost/shared_ptr.hpp>
-
 #include "gtest_dynawo.h"
 
 #include "PARXmlImporter.h"
 #include "PARParametersSetCollection.h"
 
-using boost::shared_ptr;
 
 INIT_XML_DYNAWO;
 
@@ -35,7 +32,7 @@ namespace parameters {
 
 TEST(APIPARTest, XmlImporterMissingFile) {
   XmlImporter importer;
-  shared_ptr<ParametersSetCollection> collection;
+  std::shared_ptr<ParametersSetCollection> collection;
   ASSERT_THROW_DYNAWO(collection = importer.importFromFile("res/dummyFile.par"), DYN::Error::API, DYN::KeyError_t::FileSystemItemDoesNotExist);
 }
 
@@ -45,7 +42,7 @@ TEST(APIPARTest, XmlImporterMissingFile) {
 
 TEST(APIPARTest, XmlImporterWrongFile) {
   XmlImporter importer;
-  boost::shared_ptr<ParametersSetCollection> collection;
+  std::shared_ptr<ParametersSetCollection> collection;
   ASSERT_THROW_DYNAWO(collection = importer.importFromFile("res/wrongFile.par"), DYN::Error::API, DYN::KeyError_t::XmlFileParsingError);
 }
 
@@ -55,7 +52,7 @@ TEST(APIPARTest, XmlImporterWrongFile) {
 
 TEST(APIPARTest, XmlImporter) {
   XmlImporter importer;
-  shared_ptr<ParametersSetCollection> collection;
+  std::shared_ptr<ParametersSetCollection> collection;
   ASSERT_NO_THROW(collection = importer.importFromFile("res/fileToImport.par"));
 }
 

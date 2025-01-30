@@ -202,7 +202,7 @@ class Compiler {
         const std::vector<boost::shared_ptr<dynamicdata::Connector> >& macroConnection,
         const std::map<std::string, std::shared_ptr<dynamicdata::UnitDynamicModel> >& unitDynamicModels,
         const std::vector<std::shared_ptr<dynamicdata::Connector> >& internalConnects,
-        const std::map<std::string, boost::shared_ptr<externalVariables::VariablesCollection> >& allExternalVariables) const;
+        const std::map<std::string, std::shared_ptr<externalVariables::VariablesCollection> >& allExternalVariables) const;
 
   /**
    * @brief write concatenate initialization model as modelica file (.mo)

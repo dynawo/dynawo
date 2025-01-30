@@ -30,22 +30,6 @@ using DYN::doubleEquals;
 namespace timeline {
 
 //-----------------------------------------------------
-// TEST check timeline factory
-//-----------------------------------------------------
-
-TEST(APITLTest, TimelineFactory) {
-  boost::shared_ptr<Timeline> timeline1 = TimelineFactory::newInstance("timeline");
-
-  boost::shared_ptr<Timeline> timeline2;
-  boost::shared_ptr<Timeline> timeline3;
-
-  Timeline& refTimeline1(*timeline1);
-
-  ASSERT_NO_THROW(timeline2 = TimelineFactory::copyInstance(timeline1));
-  ASSERT_NO_THROW(timeline3 = TimelineFactory::copyInstance(refTimeline1));
-}
-
-//-----------------------------------------------------
 // TEST add several events to a timeline
 //-----------------------------------------------------
 

@@ -26,19 +26,19 @@ using std::string;
 
 namespace finalStateValues {
 
-boost::shared_ptr<FinalStateValuesCollection>
+std::unique_ptr<FinalStateValuesCollection>
 FinalStateValuesCollectionFactory::newInstance(const string& id) {
-  return boost::shared_ptr<FinalStateValuesCollection>(new FinalStateValuesCollection(id));
+  return std::unique_ptr<FinalStateValuesCollection>(new FinalStateValuesCollection(id));
 }
 
-boost::shared_ptr<FinalStateValuesCollection>
-FinalStateValuesCollectionFactory::copyInstance(boost::shared_ptr<FinalStateValuesCollection> original) {
-  return boost::shared_ptr<FinalStateValuesCollection>(new FinalStateValuesCollection(*original));
+std::unique_ptr<FinalStateValuesCollection>
+FinalStateValuesCollectionFactory::copyInstance(const std::shared_ptr<FinalStateValuesCollection>& original) {
+  return std::unique_ptr<FinalStateValuesCollection>(new FinalStateValuesCollection(*original));
 }
 
-boost::shared_ptr<FinalStateValuesCollection>
+std::unique_ptr<FinalStateValuesCollection>
 FinalStateValuesCollectionFactory::copyInstance(const FinalStateValuesCollection& original) {
-  return boost::shared_ptr<FinalStateValuesCollection>(new FinalStateValuesCollection(original));
+  return std::unique_ptr<FinalStateValuesCollection>(new FinalStateValuesCollection(original));
 }
 
 }  // namespace finalStateValues

@@ -20,18 +20,17 @@
 #include "PARParametersSetCollectionFactory.h"
 #include "PARParametersSetCollection.h"
 
-using boost::shared_ptr;
 
 namespace parameters {
 
-shared_ptr<ParametersSetCollection>
+std::unique_ptr<ParametersSetCollection>
 ParametersSetCollectionFactory::newCollection() {
-  return shared_ptr<ParametersSetCollection>(new ParametersSetCollection());
+  return std::unique_ptr<ParametersSetCollection>(new ParametersSetCollection());
 }
 
-shared_ptr<ParametersSetCollection>
-ParametersSetCollectionFactory::copyCollection(shared_ptr<ParametersSetCollection> original) {
-  return shared_ptr<ParametersSetCollection>(new ParametersSetCollection(*original));
+std::unique_ptr<ParametersSetCollection>
+ParametersSetCollectionFactory::copyCollection(const std::unique_ptr<ParametersSetCollection>& original) {
+  return std::unique_ptr<ParametersSetCollection>(new ParametersSetCollection(*original));
 }
 
 }  // namespace parameters

@@ -23,9 +23,9 @@
 
 namespace timeline {
 
-boost::shared_ptr<Event>
+std::unique_ptr<Event>
 EventFactory::newEvent() {
-  return boost::shared_ptr<Event>(new Event());
+  return std::unique_ptr<Event>(new Event());
 }
 
 }  // namespace timeline
