@@ -25,6 +25,7 @@
 #include <powsybl/iidm/ShuntCompensatorAdder.hpp>
 #include <powsybl/iidm/Substation.hpp>
 
+#include "make_unique.hpp"
 #include "gtest_dynawo.h"
 
 namespace powsybl {
@@ -99,7 +100,7 @@ TEST(DataInterfaceTest, ShuntCompensator_1) {
   ASSERT_TRUE(shuntCompensatorIfce.getInitialConnected());
 
   ASSERT_EQ(shuntCompensatorIfce.getBusInterface().get(), nullptr);
-  std::unique_ptr<BusInterface> busIfce(new BusInterfaceIIDM(bus1));
+  std::unique_ptr<BusInterface> busIfce = DYN::make_unique<BusInterfaceIIDM>(bus1);
   shuntCompensatorIfce.setBusInterface(std::move(busIfce));
   ASSERT_EQ(shuntCompensatorIfce.getBusInterface().get()->getID(), "VL1_BUS1");
 

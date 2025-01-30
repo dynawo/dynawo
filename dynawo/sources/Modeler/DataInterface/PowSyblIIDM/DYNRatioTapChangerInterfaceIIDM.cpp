@@ -22,6 +22,8 @@
 
 #include "DYNStepInterfaceIIDM.h"
 
+#include "make_unique.hpp"
+
 using boost::shared_ptr;
 
 namespace DYN {
@@ -34,7 +36,7 @@ RatioTapChangerInterfaceIIDM::RatioTapChangerInterfaceIIDM(powsybl::iidm::RatioT
     tapChanger.setTapPosition(i);
     const auto& x = tapChanger.getStep(i);
     powsybl::iidm::RatioTapChangerStep R(x.getRho(), x.getR(), x.getX(), x.getG(), x.getB());
-    steps_.push_back(std::unique_ptr<StepInterface>(new StepInterfaceIIDM(R)));
+    steps_.push_back(DYN::make_unique<StepInterfaceIIDM>(R));
   }
   tapChanger.setTapPosition(oldTapPosition);
 }

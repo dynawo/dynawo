@@ -21,12 +21,14 @@
 #include "CSTRConstraintFactory.h"
 #include "CSTRConstraint.h"
 
+#include "make_unique.hpp"
+
 
 namespace constraints {
 
 std::unique_ptr<Constraint>
 ConstraintFactory::newConstraint() {
-  return std::unique_ptr<Constraint>(new Constraint());
+  return DYN::make_unique<Constraint>();
 }
 
 }  // namespace constraints
