@@ -548,7 +548,7 @@ This chapter presents five test cases simulating five models of renewable energi
 \item A PV plant with the injector represented as a voltage source (WECCPVVoltageSource).
 \item A Wind plant of type 4A with the injector represented as a current source (WECCWTG4ACurrentSource).
 \item A Wind plant of type 4B with the injector represented as a current source (WECCWTG4BCurrentSource).
-\item A battery energy storage system (BESS) with the injector represented as current source (WECCBESScbCurrentSource)
+\item A battery energy storage system (BESS) with the injector represented as current source (WECCBESSCurrentSource)
 \end{itemize}
 
 All five models are taken from the WECC standard and can be found here:
@@ -652,11 +652,11 @@ The initial values of P0Pu and Q0Pu are in base SnRef and in receptor convention
 RPu and XPu are set to 0 in the article, considering that we are controling the output at the injector level (not after the line of BESS).
 Numerically, XPu causes simulation failure at initialization, it is thus set to $10^{-6}$.
 
-All the parameters' values are taken from the article. The REGC-A parameters are adapted to the available model in the library REGC-B Current Source.
+All the parameters' values are taken from the article.
 
 \subsubsection{Models}
 
-The BESS (Battery Energy Storage System) is implemented with the combination of the plant control type A (REPC-A) the Generator/converter type B(REGC-B current source) followed by an injector and the electrical control type C (REEC-C) presented in \url{https://www.wecc.org/Reliability/REEC\_C\_031815\_rev3\%2520Model\%2520Spec.pdf}.
+The BESS (Battery Energy Storage System) is implemented with the combination of the plant control type A (REPC-A) the Generator/converter type A(REGC-A) followed by an injector and the electrical control type C (REEC-C) presented in \url{https://www.wecc.org/Reliability/REEC\_C\_031815\_rev3\%2520Model\%2520Spec.pdf}.
 These models are fully described in the Dyna$\omega$o library.
 
 \subsubsection{Solver}
@@ -683,9 +683,9 @@ At t = 1 s, a fault at the infinite bus is simulated and it can be seen that the
   \begin{tikzpicture}
     \begin{axis}[height = 1.5in, yticklabel style={/pgf/number format/.cd,fixed,precision=3}]
         \addplot[color=blue!50]
-        table[x=time,y expr=\thisrow{BESScb_BESScb_injector_UPu}
+        table[x=time,y expr=\thisrow{BESS_BESS_injector_UPu}
         ]
-        {../WECC/BESS/WECCBESScbCurrentSource/reference/outputs/curves/curves.csv};
+        {../WECC/BESS/WECCBESSCurrentSource/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
   }
@@ -694,8 +694,8 @@ At t = 1 s, a fault at the infinite bus is simulated and it can be seen that the
 \begin{tikzpicture}
     \begin{axis}[height = 1.5in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{BESScb_BESScb_injector_PInjPuSn}]
-        {../WECC/BESS/WECCBESScbCurrentSource/reference/outputs/curves/curves.csv};
+        table[x=time, y expr=\thisrow{BESS_BESS_injector_PInjPuSn}]
+        {../WECC/BESS/WECCBESSCurrentSource/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
 }
@@ -704,8 +704,8 @@ At t = 1 s, a fault at the infinite bus is simulated and it can be seen that the
 \begin{tikzpicture}
     \begin{axis}[height = 1.5in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{BESScb_BESScb_injector_QInjPuSn}]
-        {../WECC/BESS/WECCBESScbCurrentSource/reference/outputs/curves/curves.csv};
+        table[x=time, y expr=\thisrow{BESS_BESS_injector_QInjPuSn}]
+        {../WECC/BESS/WECCBESSCurrentSource/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
 }
@@ -714,8 +714,8 @@ At t = 1 s, a fault at the infinite bus is simulated and it can be seen that the
 \begin{tikzpicture}
     \begin{axis}[height = 1.5in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{BESScb_BESScb_reecC_idCmdPu}]
-        {../WECC/BESS/WECCBESScbCurrentSource/reference/outputs/curves/curves.csv};
+        table[x=time, y expr=\thisrow{BESS_BESS_reecC_idCmdPu}]
+        {../WECC/BESS/WECCBESSCurrentSource/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
 }
@@ -724,8 +724,8 @@ At t = 1 s, a fault at the infinite bus is simulated and it can be seen that the
 \begin{tikzpicture}
     \begin{axis}[height = 1.5in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{BESScb_BESScb_reecC_iqCmdPu}]
-        {../WECC/BESS/WECCBESScbCurrentSource/reference/outputs/curves/curves.csv};
+        table[x=time, y expr=\thisrow{BESS_BESS_reecC_iqCmdPu}]
+        {../WECC/BESS/WECCBESSCurrentSource/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
 }
