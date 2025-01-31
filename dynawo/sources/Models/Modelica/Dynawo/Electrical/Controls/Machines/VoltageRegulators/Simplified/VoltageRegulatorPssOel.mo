@@ -68,7 +68,7 @@ model VoltageRegulatorPssOel "Voltage regulator with excitation system and overe
     Placement(visible = true, transformation(origin = {-250, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constant2(k = ifLim1) annotation(
     Placement(visible = true, transformation(origin = {-290, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant constant1(k = ifLim1) annotation(
+  Modelica.Blocks.Sources.Constant constant1(k = ifLim2) annotation(
     Placement(visible = true, transformation(origin = {-250, -48}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Min min annotation(
     Placement(visible = true, transformation(origin = {-190, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
