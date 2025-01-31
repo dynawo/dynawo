@@ -3,25 +3,25 @@
   <event time="2.000000" modelName="Fault" message="Fault (node) : end"/>
   <event time="2.000000" modelName="L4032-4044" message="LINE : opening both sides"/>
   <event time="2.000000" modelName="Fault" message="Fault (node) : end"/>
-  <event time="32.000000" modelName="Tr1-1041" message="Tap -1"/>
-  <event time="32.000000" modelName="Tr3-1043" message="Tap -1"/>
-  <event time="32.000000" modelName="Tr4-1044" message="Tap -1"/>
-  <event time="32.000000" modelName="Tr5-1045" message="Tap -1"/>
-  <event time="32.000000" modelName="Tr41-4041" message="Tap -1"/>
-  <event time="32.000000" modelName="Tr42-4042" message="Tap -1"/>
-  <event time="32.000000" modelName="Tr43-4043" message="Tap -1"/>
-  <event time="32.000000" modelName="Tr46-4046" message="Tap -1"/>
-  <event time="32.000000" modelName="Tr47-4047" message="Tap -1"/>
-  <event time="32.000000" modelName="Tr61-4061" message="Tap -1"/>
-  <event time="42.000000" modelName="Tr1-1041" message="Tap -1"/>
-  <event time="42.000000" modelName="Tr3-1043" message="Tap -1"/>
-  <event time="42.000000" modelName="Tr4-1044" message="Tap -1"/>
-  <event time="42.000000" modelName="Tr5-1045" message="Tap -1"/>
-  <event time="42.000000" modelName="Tr41-4041" message="Tap -1"/>
-  <event time="42.000000" modelName="Tr42-4042" message="Tap -1"/>
-  <event time="42.000000" modelName="Tr43-4043" message="Tap -1"/>
-  <event time="42.000000" modelName="Tr46-4046" message="Tap -1"/>
-  <event time="42.000000" modelName="Tr47-4047" message="Tap -1"/>
-  <event time="42.000000" modelName="Tr61-4061" message="Tap -1"/>
-  <event time="50.000000" modelName="Tr51-4051" message="Tap -1"/>
+  <event time="32.000000" modelName="Tr1-1041" message="Tap position change (decrement)"/>
+  <event time="32.000000" modelName="Tr3-1043" message="Tap position change (decrement)"/>
+  <event time="32.000000" modelName="Tr4-1044" message="Tap position change (decrement)"/>
+  <event time="32.000000" modelName="Tr5-1045" message="Tap position change (decrement)"/>
+  <event time="32.000000" modelName="Tr41-4041" message="Tap position change (decrement)"/>
+  <event time="32.000000" modelName="Tr42-4042" message="Tap position change (decrement)"/>
+  <event time="32.000000" modelName="Tr43-4043" message="Tap position change (decrement)"/>
+  <event time="32.000000" modelName="Tr46-4046" message="Tap position change (decrement)"/>
+  <event time="32.000000" modelName="Tr47-4047" message="Tap position change (decrement)"/>
+  <event time="32.000000" modelName="Tr61-4061" message="Tap position change (decrement)"/>
+  <event time="42.000000" modelName="Tr1-1041" message="Tap position change (decrement)"/>
+  <event time="42.000000" modelName="Tr3-1043" message="Tap position change (decrement)"/>
+  <event time="42.000000" modelName="Tr4-1044" message="Tap position change (decrement)"/>
+  <event time="42.000000" modelName="Tr5-1045" message="Tap position change (decrement)"/>
+  <event time="42.000000" modelName="Tr41-4041" message="Tap position change (decrement)"/>
+  <event time="42.000000" modelName="Tr42-4042" message="Tap position change (decrement)"/>
+  <event time="42.000000" modelName="Tr43-4043" message="Tap position change (decrement)"/>
+  <event time="42.000000" modelName="Tr46-4046" message="Tap position change (decrement)"/>
+  <event time="42.000000" modelName="Tr47-4047" message="Tap position change (decrement)"/>
+  <event time="42.000000" modelName="Tr61-4061" message="Tap position change (decrement)"/>
+  <event time="50.000000" modelName="Tr51-4051" message="Tap position change (decrement)"/>
 </timeline>
