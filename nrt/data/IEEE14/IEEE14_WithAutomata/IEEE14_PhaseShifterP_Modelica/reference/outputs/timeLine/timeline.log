@@ -20,7 +20,7 @@
 21.227306 | GEN____6_SM | PMIN : activation
 21.478946 | GEN____8_SM | PMIN : deactivation
 21.553245 | GEN____6_SM | PMIN : deactivation
-29.999994 | PhaseShifter | Tap -1
+29.999994 | PhaseShifter | Tap position change (decrement)
 30.507332 | GEN____6_SM | PMIN : activation
 30.766467 | GEN____8_SM | PMIN : activation
 30.785752 | GEN____6_SM | PMIN : deactivation
@@ -29,18 +29,18 @@
 31.555622 | GEN____6_SM | PMIN : deactivation
 31.778309 | GEN____8_SM | PMIN : activation
 31.955638 | GEN____8_SM | PMIN : deactivation
-34.999993 | PhaseShifter | Tap -1
+34.999993 | PhaseShifter | Tap position change (decrement)
 35.029389 | PhaseShifter | Phase-shifter : above maximum allowed value
 35.513856 | GEN____6_SM | PMIN : activation
 35.752607 | GEN____6_SM | PMIN : deactivation
 35.869774 | GEN____8_SM | PMIN : activation
 35.942660 | GEN____8_SM | PMIN : deactivation
-45.029387 | PhaseShifter | Tap -1
+45.029387 | PhaseShifter | Tap position change (decrement)
 45.029387 | PhaseShifter | Phase-shifter : below minimum allowed value
 45.171725 | PhaseShifter | Phase-shifter : above maximum allowed value
 45.550456 | GEN____6_SM | PMIN : activation
 45.775086 | GEN____6_SM | PMIN : deactivation
-55.171723 | PhaseShifter | Tap -1
+55.171723 | PhaseShifter | Tap position change (decrement)
 55.171723 | PhaseShifter | Phase-shifter : below minimum allowed value
 55.497682 | PhaseShifter | Phase-shifter : above maximum allowed value
 55.699985 | GEN____6_SM | PMIN : activation
