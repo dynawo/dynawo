@@ -16,9 +16,9 @@
 
 namespace job {
 
-boost::shared_ptr<NetworkEntry>
+std::unique_ptr<NetworkEntry>
 NetworkEntryFactory::newInstance() {
-  return boost::shared_ptr<NetworkEntry>(new NetworkEntry());
+  return std::unique_ptr<NetworkEntry>(new NetworkEntry());
 }
 
 }  // namespace job

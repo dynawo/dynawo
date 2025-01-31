@@ -26,7 +26,7 @@
 namespace job {
 
 TEST(APIJOBTest, testJobCollection) {
-  boost::shared_ptr<JobsCollection> jobsCollection = JobsCollectionFactory::newInstance();
+  const std::unique_ptr<JobsCollection> jobsCollection = JobsCollectionFactory::newInstance();
   boost::shared_ptr<JobEntry> job1 = boost::shared_ptr<JobEntry> ( new JobEntry());
   job1->setName("job1");
   boost::shared_ptr<JobEntry> job2 = boost::shared_ptr<JobEntry> ( new JobEntry());
