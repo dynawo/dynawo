@@ -118,18 +118,18 @@ TEST(APIPARTest, CollectionIterator) {
 
 TEST(APIPARTest, MacroParameterSetTest) {
   shared_ptr<ParametersSetCollection> collection = ParametersSetCollectionFactory::newCollection();
-  shared_ptr<MacroParameterSet> macroParameterSet = shared_ptr<MacroParameterSet>(new MacroParameterSet("macroParameterSet"));
-  shared_ptr<Reference> reference = ReferenceFactory::newReference("reference", Reference::OriginData::IIDM);
-  shared_ptr<Parameter> parameter1 = ParameterFactory::newParameter("parameter1", true);
-  shared_ptr<Parameter> parameter2 = ParameterFactory::newParameter("parameter2", true);
-  macroParameterSet->addParameter(parameter2);
-  macroParameterSet->addReference(reference);
+  std::shared_ptr<MacroParameterSet> macroParameterSet = std::make_shared<MacroParameterSet>("macroParameterSet");
+  std::unique_ptr<Reference> reference = ReferenceFactory::newReference("reference", Reference::OriginData::IIDM);
+  std::unique_ptr<Parameter> parameter1 = ParameterFactory::newParameter("parameter1", true);
+  std::unique_ptr<Parameter> parameter2 = ParameterFactory::newParameter("parameter2", true);
+  macroParameterSet->addParameter(std::move(parameter2));
+  macroParameterSet->addReference(std::move(reference));
   std::shared_ptr<ParametersSet> parametersSet1 = ParametersSetFactory::newParametersSet("parameters1");
-  parametersSet1->addParameter(parameter1);
+  parametersSet1->addParameter(std::move(parameter1));
   ASSERT_NO_THROW(collection->addMacroParameterSet(macroParameterSet));
   ASSERT_THROW_DYNAWO(collection->addMacroParameterSet(macroParameterSet), DYN::Error::API, DYN::KeyError_t::MacroParameterSetAlreadyExists);
-  shared_ptr<MacroParSet> macroParSet = shared_ptr<MacroParSet>(new MacroParSet("macroParameterSet"));
-  ASSERT_NO_THROW(parametersSet1->addMacroParSet(macroParSet));
+  std::unique_ptr<MacroParSet> macroParSet = std::unique_ptr<MacroParSet>(new MacroParSet("macroParameterSet"));
+  ASSERT_NO_THROW(parametersSet1->addMacroParSet(std::move(macroParSet)));
   collection->addParametersSet(parametersSet1);
   ASSERT_NO_THROW(std::shared_ptr<ParametersSet> parametersSetGetter = collection->getParametersSet("parameters1"));
   ASSERT_NO_THROW(collection->getParametersFromMacroParameter());

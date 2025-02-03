@@ -23,22 +23,22 @@
 #include "PARReferenceFactory.h"
 #include "PARParameter.h"
 #include "PARParameterFactory.h"
-#include <boost/shared_ptr.hpp>
+
 
 namespace parameters {
   TEST(APIPARTest, MacroParameterSet) {
-    boost::shared_ptr<MacroParameterSet> macroParameterSet = boost::shared_ptr<MacroParameterSet>(new MacroParameterSet("macroParameterSet"));
+    const std::unique_ptr<MacroParameterSet> macroParameterSet = std::unique_ptr<MacroParameterSet>(new MacroParameterSet("macroParameterSet"));
     ASSERT_EQ(macroParameterSet->getId(), "macroParameterSet");
-    boost::shared_ptr<Reference> reference = ReferenceFactory::newReference("reference", Reference::OriginData::IIDM);
+    std::shared_ptr<Reference> reference = ReferenceFactory::newReference("reference", Reference::OriginData::IIDM);
     ASSERT_NO_THROW(macroParameterSet->addReference(reference));
     ASSERT_THROW_DYNAWO(macroParameterSet->addReference(reference), DYN::Error::API, DYN::KeyError_t::ReferenceAlreadySetInMacroParameterSet);
-    boost::shared_ptr<Reference> reference_2 = ReferenceFactory::newReference("reference_2", Reference::OriginData::IIDM);
-    ASSERT_NO_THROW(macroParameterSet->addReference(reference_2));
-    boost::shared_ptr<Parameter> parameter = ParameterFactory::newParameter("parameter", true);
+    std::unique_ptr<Reference> reference_2 = ReferenceFactory::newReference("reference_2", Reference::OriginData::IIDM);
+    ASSERT_NO_THROW(macroParameterSet->addReference(std::move(reference_2)));
+    std::shared_ptr<Parameter> parameter = ParameterFactory::newParameter("parameter", true);
     ASSERT_NO_THROW(macroParameterSet->addParameter(parameter));
     ASSERT_THROW_DYNAWO(macroParameterSet->addParameter(parameter), DYN::Error::API, DYN::KeyError_t::ParameterAlreadySetInMacroParameterSet);
-    boost::shared_ptr<Parameter> parameter_2 = ParameterFactory::newParameter("parameter_2", true);
-    ASSERT_NO_THROW(macroParameterSet->addParameter(parameter_2));
+    std::unique_ptr<Parameter> parameter_2 = ParameterFactory::newParameter("parameter_2", true);
+    ASSERT_NO_THROW(macroParameterSet->addParameter(std::move(parameter_2)));
     int nbParameters = 0;
     for (MacroParameterSet::parameter_const_iterator itPar = macroParameterSet->cbeginParameter();
     itPar != macroParameterSet->cendParameter();

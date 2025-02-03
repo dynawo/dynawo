@@ -22,9 +22,9 @@
 
 #include "JOBAppenderEntry.h"
 
-#include <boost/shared_ptr.hpp>
-#include <string>
 #include <vector>
+#include <memory>
+
 
 namespace job {
 
@@ -54,13 +54,13 @@ class LogsEntry {
    * @brief Appender entry adder
    * @param appenderEntry : appender for the job
    */
-  void addAppenderEntry(const boost::shared_ptr<AppenderEntry>& appenderEntry);
+  void addAppenderEntry(const std::shared_ptr<AppenderEntry>& appenderEntry);
 
   /**
    * @brief Appender entries getter
    * @return Vector of the appenders for the job
    */
-  const std::vector<boost::shared_ptr<AppenderEntry> >& getAppenderEntries() const;
+  const std::vector<std::shared_ptr<AppenderEntry> >& getAppenderEntries() const;
 
  private:
   /**
@@ -70,7 +70,7 @@ class LogsEntry {
   void copy(const LogsEntry& other);
 
  private:
-  std::vector<boost::shared_ptr<AppenderEntry> > appenders_;  ///< Appenders for the job
+  std::vector<std::shared_ptr<AppenderEntry> > appenders_;  ///< Appenders for the job
 };
 
 }  // namespace job

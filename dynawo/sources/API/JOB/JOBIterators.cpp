@@ -22,8 +22,7 @@
 #include "JOBJobsCollection.h"
 #include "JOBJobsCollection.h"
 
-using boost::shared_ptr;
-using std::vector;
+using std::shared_ptr;
 
 namespace job {
 

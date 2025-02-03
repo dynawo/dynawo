@@ -17,9 +17,9 @@
 
 namespace job {
 
-boost::shared_ptr<DynModelsEntry>
+std::unique_ptr<DynModelsEntry>
 DynModelsEntryFactory::newInstance() {
-  return boost::shared_ptr<DynModelsEntry>(new DynModelsEntry());
+  return std::unique_ptr<DynModelsEntry>(new DynModelsEntry());
 }
 
 }  // namespace job

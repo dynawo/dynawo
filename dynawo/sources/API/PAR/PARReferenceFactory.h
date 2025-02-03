@@ -20,9 +20,10 @@
 #ifndef API_PAR_PARREFERENCEFACTORY_H_
 #define API_PAR_PARREFERENCEFACTORY_H_
 
-#include <boost/shared_ptr.hpp>
-
 #include "PARReference.h"
+
+#include <memory>
+
 
 namespace parameters {
 
@@ -41,9 +42,9 @@ class ReferenceFactory {
    * @param[in] name reference name
    * @param[in] origData origin of the data
    *
-   * @returns Shared pointer to a new @p Reference
+   * @returns Unique pointer to a new @p Reference
    */
-  static boost::shared_ptr<Reference> newReference(const std::string& name, Reference::OriginData origData);
+  static std::unique_ptr<Reference> newReference(const std::string& name, Reference::OriginData origData);
 };
 
 }  // namespace parameters

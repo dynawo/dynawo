@@ -26,15 +26,12 @@
 using std::map;
 using std::string;
 
-using boost::dynamic_pointer_cast;
-using boost::shared_ptr;
-
 using DYN::Error;
 
 namespace parameters {
 
 void
-ParametersSetCollection::addParametersSet(std::shared_ptr<ParametersSet> paramSet, bool force) {
+ParametersSetCollection::addParametersSet(const std::shared_ptr<ParametersSet>& paramSet, bool force) {
   assert(paramSet && "impossible to add null parameter set pointer to collection");
 
   string id = paramSet->getId();
@@ -49,7 +46,7 @@ ParametersSetCollection::addParametersSet(std::shared_ptr<ParametersSet> paramSe
 }
 
 void
-ParametersSetCollection::addMacroParameterSet(shared_ptr<MacroParameterSet> macroParamSet) {
+ParametersSetCollection::addMacroParameterSet(const std::shared_ptr<MacroParameterSet>& macroParamSet) {
   assert(macroParamSet && "impossible to add null macro parameter set pointer to collection");
   string id = macroParamSet->getId();
   if (hasMacroParametersSet(id)) {
@@ -219,12 +216,12 @@ ParametersSetCollection::macroparameterset_const_iterator::operator!=(const Para
   return current_ != other.current_;
 }
 
-const shared_ptr<MacroParameterSet>&
+const std::shared_ptr<MacroParameterSet>&
 ParametersSetCollection::macroparameterset_const_iterator::operator*() const {
   return current_->second;
 }
 
-const shared_ptr<MacroParameterSet>*
+const std::shared_ptr<MacroParameterSet>*
 ParametersSetCollection::macroparameterset_const_iterator::operator->() const {
   return &(current_->second);
 }

@@ -22,7 +22,9 @@
 
 #include "JOBFinalStateEntry.h"
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
+
+
 namespace job {
 
 /**
@@ -38,7 +40,7 @@ class FinalStateEntryFactory {
    *
    * @return dynamic model entry
    */
-  static boost::shared_ptr<FinalStateEntry> newInstance();
+  static std::unique_ptr<FinalStateEntry> newInstance();
 };
 
 }  // namespace job
