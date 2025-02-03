@@ -16,9 +16,9 @@
 
 namespace job {
 
-boost::shared_ptr<InitialStateEntry>
+std::unique_ptr<InitialStateEntry>
 InitialStateEntryFactory::newInstance() {
-  return boost::shared_ptr<InitialStateEntry>(new InitialStateEntry());
+  return std::unique_ptr<InitialStateEntry>(new InitialStateEntry());
 }
 
 }  // namespace job

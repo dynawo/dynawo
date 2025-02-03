@@ -17,9 +17,8 @@
 #ifndef COMMON_DYNCLONE_HPP_
 #define COMMON_DYNCLONE_HPP_
 
-#include <boost/make_shared.hpp>
-#include <boost/shared_ptr.hpp>
-#include <vector>
+#include <memory>
+
 
 namespace DYN {
 
@@ -29,13 +28,13 @@ namespace DYN {
  * @returns the new shared pointer
  */
 template<class T>
-inline boost::shared_ptr<T>
-clone(const boost::shared_ptr<T>& other) {
+inline std::shared_ptr<T>
+clone(const std::shared_ptr<T>& other) {
   if (!other) {
-    return boost::shared_ptr<T>();
+    return std::shared_ptr<T>();
   }
 
-  return boost::make_shared<T>(*other);
+  return std::make_shared<T>(*other);
 }
 
 }  // namespace DYN

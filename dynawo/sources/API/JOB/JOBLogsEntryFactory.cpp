@@ -16,9 +16,9 @@
 
 namespace job {
 
-boost::shared_ptr<LogsEntry>
+std::unique_ptr<LogsEntry>
 LogsEntryFactory::newInstance() {
-  return boost::shared_ptr<LogsEntry>(new LogsEntry());
+  return std::unique_ptr<LogsEntry>(new LogsEntry());
 }
 
 }  // namespace job

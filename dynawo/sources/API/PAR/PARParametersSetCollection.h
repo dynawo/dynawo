@@ -23,7 +23,6 @@
 #include "PARParametersSet.h"
 #include "PARMacroParameterSet.h"
 
-#include <boost/shared_ptr.hpp>
 #include <map>
 #include <string>
 
@@ -48,7 +47,7 @@ class ParametersSetCollection {
    * @throws Error::API exception if force is false and a set with given
    * ID already exists.
    */
-  void addParametersSet(std::shared_ptr<ParametersSet> paramSet, bool force = false);
+  void addParametersSet(const std::shared_ptr<ParametersSet>& paramSet, bool force = false);
 
   /**
    * @brief Get parameters set with current id if available in the collection
@@ -95,7 +94,7 @@ class ParametersSetCollection {
    * @throws Error::API exception if a macroParameterSet with given
    * ID already exists.
    */
-  void addMacroParameterSet(boost::shared_ptr<MacroParameterSet> macroParamSet);
+  void addMacroParameterSet(const std::shared_ptr<MacroParameterSet>& macroParamSet);
 
  public:
   /**
@@ -263,17 +262,17 @@ class ParametersSetCollection {
      *
      * @returns MacroParameters' set pointed to by this
      */
-    const boost::shared_ptr<MacroParameterSet>& operator*() const;
+    const std::shared_ptr<MacroParameterSet>& operator*() const;
 
     /**
      * @brief Structure dereference operator
      *
      * @returns Pointer to the MacroParameters pointed to by this
      */
-    const boost::shared_ptr<MacroParameterSet>* operator->() const;
+    const std::shared_ptr<MacroParameterSet>* operator->() const;
 
    private:
-    std::map<std::string, boost::shared_ptr<MacroParameterSet> >::const_iterator current_; /**< Hidden map iterator */
+    std::map<std::string, std::shared_ptr<MacroParameterSet> >::const_iterator current_; /**< Hidden map iterator */
   };
 
   /**
@@ -290,7 +289,7 @@ class ParametersSetCollection {
 
  private:
   std::map<std::string, std::shared_ptr<ParametersSet> > parametersSets_; /**< Map of the parameters set */
-  std::map<std::string, boost::shared_ptr<MacroParameterSet> > macroParametersSets_;  ///< Map of macroParametersSet (key->id, value->MacroParameterSet)
+  std::map<std::string, std::shared_ptr<MacroParameterSet> > macroParametersSets_;  ///< Map of macroParametersSet (key->id, value->MacroParameterSet)
 };
 
 }  // namespace parameters

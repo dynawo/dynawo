@@ -24,7 +24,6 @@
 #include "PARReference.h"
 #include "PARMacroParSet.h"
 
-#include <boost/shared_ptr.hpp>
 #include <unordered_map>
 #include <map>
 #include <string>
@@ -190,7 +189,7 @@ class ParametersSet : public std::enable_shared_from_this<ParametersSet> {
    * @param[in] param Parameter to add to the set
    * @returns Reference to current ParametersSet instance
    */
-  std::shared_ptr<ParametersSet> addParameter(const boost::shared_ptr<Parameter>& param);
+  std::shared_ptr<ParametersSet> addParameter(const std::shared_ptr<Parameter>& param);
 
   /**
    * @brief Add a new macroParSet
@@ -199,7 +198,7 @@ class ParametersSet : public std::enable_shared_from_this<ParametersSet> {
    * @returns Reference to current ParametersSet instance
    * @throws API exception if the macroParSet is already in the map
    */
-  std::shared_ptr<ParametersSet> addMacroParSet(const boost::shared_ptr<MacroParSet>& macroParSet);
+  std::shared_ptr<ParametersSet> addMacroParSet(const std::shared_ptr<MacroParSet>& macroParSet);
 
   /**
    * @brief Add a new reference in the map
@@ -209,7 +208,7 @@ class ParametersSet : public std::enable_shared_from_this<ParametersSet> {
    * @param[in] ref Reference to add to the set
    * @returns Reference to current ParametersSet instance
    */
-  std::shared_ptr<ParametersSet> addReference(boost::shared_ptr<Reference> ref);
+  std::shared_ptr<ParametersSet> addReference(const std::shared_ptr<Reference>& ref);
 
   /**
    * @brief Get a parameter from the parameters set
@@ -220,7 +219,7 @@ class ParametersSet : public std::enable_shared_from_this<ParametersSet> {
    * @returns Shared pointer to the parameter
    * @throws API exception if the parameter is not found
    */
-  const boost::shared_ptr<Parameter> getParameter(const std::string& name) const;
+  const std::shared_ptr<Parameter> getParameter(const std::string& name) const;
 
   /**
    * @brief Get a reference from the parameters set
@@ -231,7 +230,7 @@ class ParametersSet : public std::enable_shared_from_this<ParametersSet> {
    * @returns Shared pointer to the reference
    * @throws API exception if the reference is not found
    */
-  const boost::shared_ptr<Reference> getReference(const std::string& name) const;
+  const std::shared_ptr<Reference> getReference(const std::string& name) const;
 
   /**
    * @brief Check if a parameter is in the parameters set
@@ -305,14 +304,14 @@ class ParametersSet : public std::enable_shared_from_this<ParametersSet> {
    *
    * @returns Reference to the map of parameters
    */
-  std::map<std::string, boost::shared_ptr<Parameter> >& getParameters();
+  std::map<std::string, std::shared_ptr<Parameter> >& getParameters();
 
   /**
    * @brief Get a reference to the map of references
    *
    * @returns Reference to the map of references
    */
-  std::unordered_map<std::string, boost::shared_ptr<Reference> >& getReferences();
+  std::unordered_map<std::string, std::shared_ptr<Reference> >& getReferences();
 
  public:
   /**
@@ -385,17 +384,17 @@ class ParametersSet : public std::enable_shared_from_this<ParametersSet> {
      *
      * @returns Parameter pointed to by this
      */
-    const boost::shared_ptr<Parameter>& operator*() const;
+    const std::shared_ptr<Parameter>& operator*() const;
 
     /**
      * @brief Structure dereference operator
      *
      * @returns Pointer to the Parameter pointed to by this
      */
-    const boost::shared_ptr<Parameter>* operator->() const;
+    const std::shared_ptr<Parameter>* operator->() const;
 
    private:
-    std::map<std::string, boost::shared_ptr<Parameter> >::const_iterator current_; /**< Hidden map iterator */
+    std::map<std::string, std::shared_ptr<Parameter> >::const_iterator current_; /**< Hidden map iterator */
   };
 
   /**
@@ -466,17 +465,17 @@ class ParametersSet : public std::enable_shared_from_this<ParametersSet> {
      *
      * @returns Reference pointed to by this
      */
-    const boost::shared_ptr<Reference>& operator*() const;
+    const std::shared_ptr<Reference>& operator*() const;
 
     /**
      * @brief Structure dereference operator
      *
      * @returns Pointer to the Reference pointed to by this
      */
-    const boost::shared_ptr<Reference>* operator->() const;
+    const std::shared_ptr<Reference>* operator->() const;
 
    private:
-    std::unordered_map<std::string, boost::shared_ptr<Reference> >::const_iterator current_; /**< Hidden map iterator */
+    std::unordered_map<std::string, std::shared_ptr<Reference> >::const_iterator current_; /**< Hidden map iterator */
   };
 
   /**
@@ -547,17 +546,17 @@ class ParametersSet : public std::enable_shared_from_this<ParametersSet> {
      *
      * @returns MacroParSet pointed to by this
      */
-    const boost::shared_ptr<MacroParSet>& operator*() const;
+    const std::shared_ptr<MacroParSet>& operator*() const;
 
     /**
      * @brief Structure dereference operator
      *
      * @returns Pointer to the MacroParSet pointed to by this
      */
-    const boost::shared_ptr<MacroParSet>* operator->() const;
+    const std::shared_ptr<MacroParSet>* operator->() const;
 
    private:
-    std::map<std::string, boost::shared_ptr<MacroParSet> >::const_iterator current_; /**< Hidden map iterator */
+    std::map<std::string, std::shared_ptr<MacroParSet> >::const_iterator current_; /**< Hidden map iterator */
   };
 
   /**
@@ -606,11 +605,11 @@ class ParametersSet : public std::enable_shared_from_this<ParametersSet> {
   std::vector<std::string> tableParameterNames(const std::string& name, const std::string& row, const std::string& column) const;
 
  private:
-  std::string id_;                                                              /**< Parameters' set id */
-  std::string filepath_;                                                        /**< Parameters' set filepath */
-  std::map<std::string, boost::shared_ptr<Parameter> > parameters_;             /**< Map of the parameters */
-  std::unordered_map<std::string, boost::shared_ptr<Reference> > references_; /**< Map of the references */
-  std::map<std::string, boost::shared_ptr<MacroParSet> > macroParSets_;         ///< Map of the macroParSet
+  std::string id_;                                                           /**< Parameters' set id */
+  std::string filepath_;                                                     /**< Parameters' set filepath */
+  std::map<std::string, std::shared_ptr<Parameter> > parameters_;            /**< Map of the parameters */
+  std::unordered_map<std::string, std::shared_ptr<Reference> > references_;  /**< Map of the references */
+  std::map<std::string, std::shared_ptr<MacroParSet> > macroParSets_;        ///< Map of the macroParSet
 };
 
 }  // namespace parameters

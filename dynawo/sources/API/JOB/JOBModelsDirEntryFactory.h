@@ -22,7 +22,7 @@
 
 #include "JOBModelsDirEntry.h"
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 namespace job {
 
@@ -39,7 +39,7 @@ class ModelsDirEntryFactory {
    *
    * @return dynamic model entry
    */
-  static boost::shared_ptr<ModelsDirEntry> newInstance();
+  static std::unique_ptr<ModelsDirEntry> newInstance();
 };
 
 }  // namespace job

@@ -22,7 +22,8 @@
 
 #include "JOBJobsCollection.h"
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
+
 
 namespace job {
 
@@ -36,7 +37,7 @@ class JobsCollectionFactory {
    *
    * @return Final state collection
    */
-  static boost::shared_ptr<JobsCollection> newInstance();
+  static std::unique_ptr<JobsCollection> newInstance();
 };  ///< Class for creation of jobs collection
 
 }  // namespace job

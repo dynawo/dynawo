@@ -32,42 +32,42 @@
 namespace job {
 
 TEST(APIJOBTest, testOutputsEntry) {
-  boost::shared_ptr<OutputsEntry> outputs = boost::shared_ptr<OutputsEntry>(new OutputsEntry());
+  std::shared_ptr<OutputsEntry> outputs = std::make_shared<OutputsEntry>();
   // check default attributes
   ASSERT_EQ(outputs->getOutputsDirectory(), "");
-  ASSERT_EQ(outputs->getInitValuesEntry(), boost::shared_ptr<InitValuesEntry>());
-  ASSERT_EQ(outputs->getFinalValuesEntry(), boost::shared_ptr<FinalValuesEntry>());
-  ASSERT_EQ(outputs->getConstraintsEntry(), boost::shared_ptr<ConstraintsEntry>());
-  ASSERT_EQ(outputs->getTimelineEntry(), boost::shared_ptr<TimelineEntry>());
+  ASSERT_EQ(outputs->getInitValuesEntry(), std::shared_ptr<InitValuesEntry>());
+  ASSERT_EQ(outputs->getFinalValuesEntry(), std::shared_ptr<FinalValuesEntry>());
+  ASSERT_EQ(outputs->getConstraintsEntry(), std::shared_ptr<ConstraintsEntry>());
+  ASSERT_EQ(outputs->getTimelineEntry(), std::shared_ptr<TimelineEntry>());
   ASSERT_EQ(outputs->getFinalStateEntries().empty(), true);
-  ASSERT_EQ(outputs->getCurvesEntry(), boost::shared_ptr<CurvesEntry>());
-  ASSERT_EQ(outputs->getLostEquipmentsEntry(), boost::shared_ptr<LostEquipmentsEntry>());
-  ASSERT_EQ(outputs->getLogsEntry(), boost::shared_ptr<LogsEntry>());
+  ASSERT_EQ(outputs->getCurvesEntry(), std::shared_ptr<CurvesEntry>());
+  ASSERT_EQ(outputs->getLostEquipmentsEntry(), std::shared_ptr<LostEquipmentsEntry>());
+  ASSERT_EQ(outputs->getLogsEntry(), std::shared_ptr<LogsEntry>());
 
   outputs->setOutputsDirectory("/tmp/outputs");
 
-  boost::shared_ptr<InitValuesEntry> initValues = boost::shared_ptr<InitValuesEntry>(new InitValuesEntry());
+  std::shared_ptr<InitValuesEntry> initValues = std::make_shared<InitValuesEntry>();
   outputs->setInitValuesEntry(initValues);
 
-  boost::shared_ptr<FinalValuesEntry> finalValues = boost::shared_ptr<FinalValuesEntry>(new FinalValuesEntry());
+  std::shared_ptr<FinalValuesEntry> finalValues = std::make_shared<FinalValuesEntry>();
   outputs->setFinalValuesEntry(finalValues);
 
-  boost::shared_ptr<ConstraintsEntry> constraints = boost::shared_ptr<ConstraintsEntry>(new ConstraintsEntry());
+  std::shared_ptr<ConstraintsEntry> constraints = std::make_shared<ConstraintsEntry>();
   outputs->setConstraintsEntry(constraints);
 
-  boost::shared_ptr<TimelineEntry> timeline = boost::shared_ptr<TimelineEntry>(new TimelineEntry());
+  std::shared_ptr<TimelineEntry> timeline = std::make_shared<TimelineEntry>();
   outputs->setTimelineEntry(timeline);
 
-  boost::shared_ptr<FinalStateEntry> finalState = boost::shared_ptr<FinalStateEntry>(new FinalStateEntry());
+  std::shared_ptr<FinalStateEntry> finalState = std::make_shared<FinalStateEntry>();
   outputs->addFinalStateEntry(finalState);
 
-  boost::shared_ptr<CurvesEntry> curves = boost::shared_ptr<CurvesEntry>(new CurvesEntry());
+  std::shared_ptr<CurvesEntry> curves = std::make_shared<CurvesEntry>();
   outputs->setCurvesEntry(curves);
 
-  boost::shared_ptr<LostEquipmentsEntry> lostEquipments = boost::shared_ptr<LostEquipmentsEntry>(new LostEquipmentsEntry());
+  std::shared_ptr<LostEquipmentsEntry> lostEquipments = std::make_shared<LostEquipmentsEntry>();
   outputs->setLostEquipmentsEntry(lostEquipments);
 
-  boost::shared_ptr<LogsEntry> logs = boost::shared_ptr<LogsEntry>(new LogsEntry());
+  std::shared_ptr<LogsEntry> logs = std::make_shared<LogsEntry>();
   outputs->setLogsEntry(logs);
 
 
@@ -82,7 +82,7 @@ TEST(APIJOBTest, testOutputsEntry) {
   ASSERT_EQ(outputs->getLostEquipmentsEntry(), lostEquipments);
   ASSERT_EQ(outputs->getLogsEntry(), logs);
 
-  boost::shared_ptr<OutputsEntry> outputs_bis = DYN::clone(outputs);
+  std::shared_ptr<OutputsEntry> outputs_bis = DYN::clone(outputs);
   ASSERT_EQ(outputs_bis->getOutputsDirectory(), "/tmp/outputs");
   ASSERT_NE(outputs_bis->getInitValuesEntry(), initValues);
   ASSERT_NE(outputs_bis->getFinalValuesEntry(), finalValues);
