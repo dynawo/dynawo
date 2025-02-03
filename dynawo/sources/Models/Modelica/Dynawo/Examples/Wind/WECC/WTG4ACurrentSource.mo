@@ -47,8 +47,8 @@ model WTG4ACurrentSource "WECC Wind Type 4A Model (including the plant controlle
     Hg = 1,
     Ht = 5,
     IMaxPu = 1.3,
-    Id0Pu = 0.67611,
-    Iq0Pu = 0.26996,
+    Id0Pu(fixed = false),
+    Iq0Pu(fixed = false),
     IqFrzPu = 0,
     Iqh1Pu = 1.1,
     Iql1Pu = -1.1,
@@ -70,16 +70,16 @@ model WTG4ACurrentSource "WECC Wind Type 4A Model (including the plant controlle
     OmegaMaxPu = 1.5,
     OmegaMinPu = 0.5,
     P0Pu = -0.7,
-    PF0 = 0.92871,
+    PF0(fixed = false),
     PFlag = true,
-    PInj0Pu = 0.7,
+    PInj0Pu(fixed = false),
     PMaxPu = 1,
     PMinPu = 0,
     PQFlag = false,
     PfFlag = false,
     Q0Pu = -0.2,
     QFlag = true,
-    QInj0Pu = 0.2795,
+    QInj0Pu(fixed = false),
     QMaxPu = 0.4,
     QMinPu = -0.4,
     RPu = 0,
@@ -88,8 +88,8 @@ model WTG4ACurrentSource "WECC Wind Type 4A Model (including the plant controlle
     RrpwrPu = 10,
     SNom = 100,
     U0Pu = 1,
-    UInj0Pu = 1.03534,
-    UPhaseInj0 = 0.10159,
+    UInj0Pu(fixed = false),
+    UPhaseInj0(fixed = false),
     VCompFlag = false,
     VDLIp11 = 1.1,
     VDLIp12 = 1.1,
@@ -116,9 +116,9 @@ model WTG4ACurrentSource "WECC Wind Type 4A Model (including the plant controlle
     VRef1Pu = 0,
     VUpPu = 1.1,
     XPu = 0.15,
-    i0Pu = Complex(-0.7, 0.2),
-    iInj0Pu = Complex(0.7, -0.2),
-    s0Pu = Complex(-0.7, -0.2),
+    i0Pu(re(fixed = false), im(fixed = false)),
+    iInj0Pu (re(fixed = false), im(fixed = false)),
+    s0Pu(re(fixed = false), im(fixed = false)),
     tFilterGC = 0.02,
     tFilterPC = 0.04,
     tFt = 1e-10,
@@ -131,8 +131,8 @@ model WTG4ACurrentSource "WECC Wind Type 4A Model (including the plant controlle
     tP = 0.05,
     tPord = 0.01,
     tRv = 0.01,
-    u0Pu = Complex(1, 0),
-    uInj0Pu = Complex(1.03, 0.105)) annotation(
+    u0Pu(re(fixed = false), im(fixed = false)),
+    uInj0Pu(re(fixed = false), im(fixed = false))) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
 
   Modelica.Blocks.Sources.Constant PRefPu(k = 0.7) annotation(
@@ -145,6 +145,36 @@ model WTG4ACurrentSource "WECC Wind Type 4A Model (including the plant controlle
     Placement(visible = true, transformation(origin = {90, 80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PFaRef(k = acos(WTG4A.PF0)) annotation(
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
+
+  // Initialization
+  Dynawo.Electrical.Wind.WECC.WT4CurrentSource_INIT wt4CurrentSource_INIT(
+    P0Pu = WTG4A.P0Pu,
+    Q0Pu = WTG4A.Q0Pu,
+    RPu = WTG4A.RPu,
+    SNom = WTG4A.SNom,
+    U0Pu = WTG4A.U0Pu,
+    UPhase0 = 1.4461e-06,
+    XPu = WTG4A.XPu) annotation(
+    Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+initial algorithm
+  WTG4A.Id0Pu := wt4CurrentSource_INIT.Id0Pu;
+  WTG4A.Iq0Pu := wt4CurrentSource_INIT.Iq0Pu;
+  WTG4A.PF0 := wt4CurrentSource_INIT.PF0;
+  WTG4A.PInj0Pu := wt4CurrentSource_INIT.PInj0Pu;
+  WTG4A.QInj0Pu := wt4CurrentSource_INIT.QInj0Pu;
+  WTG4A.UInj0Pu := wt4CurrentSource_INIT.UInj0Pu;
+  WTG4A.UPhaseInj0 := wt4CurrentSource_INIT.UPhaseInj0;
+  WTG4A.i0Pu.re := wt4CurrentSource_INIT.i0Pu.re;
+  WTG4A.i0Pu.im := wt4CurrentSource_INIT.i0Pu.im;
+  WTG4A.iInj0Pu.re := wt4CurrentSource_INIT.iInj0Pu.re;
+  WTG4A.iInj0Pu.im := wt4CurrentSource_INIT.iInj0Pu.im;
+  WTG4A.s0Pu.re := wt4CurrentSource_INIT.s0Pu.re;
+  WTG4A.s0Pu.im := wt4CurrentSource_INIT.s0Pu.im;
+  WTG4A.u0Pu.re := wt4CurrentSource_INIT.u0Pu.re;
+  WTG4A.u0Pu.im := wt4CurrentSource_INIT.u0Pu.im;
+  WTG4A.uInj0Pu.re := wt4CurrentSource_INIT.uInj0Pu.re;
+  WTG4A.uInj0Pu.im := wt4CurrentSource_INIT.uInj0Pu.im;
 
 equation
   line.switchOffSignal1.value = false;

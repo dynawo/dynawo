@@ -24,15 +24,15 @@ model WT4ACurrentSource2015 "Wind Turbine Type 4A model from IEC 61400-27-1:2015
     DiqMaxPu = 100,
     DiqMinPu = -100,
     GesPu = 0,
-    IGsIm0Pu = 0.423168,
-    IGsRe0Pu = 0.930069,
+    IGsIm0Pu(fixed = false),// = 0.423168,
+    IGsRe0Pu(fixed = false),// = 0.930069,
     IMaxDipPu = 1.3,
     IMaxPu = 1.3,
-    IpMax0Pu = 1.2,
+    IpMax0Pu(fixed = false),// = 1.2,
     IqH1Pu = 1.05,
-    IqMax0Pu = 0.4,
+    IqMax0Pu(fixed = false),// = 0.4,
     IqMaxPu = 1.05,
-    IqMin0Pu = -0.4,
+    IqMin0Pu(fixed = false),// = -0.4,
     IqMinPu = -1.05,
     IqPostPu = 0,
     Kipaw = 100,
@@ -50,19 +50,19 @@ model WT4ACurrentSource2015 "Wind Turbine Type 4A model from IEC 61400-27-1:2015
     Mqpri = true,
     Mzc = false,
     P0Pu = -1,
-    PAg0Pu = 1,
+    PAg0Pu(fixed = false),// = 1,
     Q0Pu = 0.21,
-    QMax0Pu = 0.8,
+    QMax0Pu(fixed = false),// = 0.8,
     QMaxPu = 0.8,
-    QMin0Pu = -0.8,
+    QMin0Pu(fixed = false),// = -0.8,
     QMinPu = -0.8,
     QlConst = true,
     RDropPu = 0,
     ResPu = 0,
     SNom = 100,
     U0Pu = 1,
-    UGsIm0Pu = 0.21823,
-    UGsRe0Pu = 0.975897,
+    UGsIm0Pu(fixed = false),// = 0.21823,
+    UGsRe0Pu(fixed = false),// = 0.975897,
     UMaxPu = 1.1,
     UMinPu = 0.9,
     UOverPu = 1.1,
@@ -76,11 +76,11 @@ model WT4ACurrentSource2015 "Wind Turbine Type 4A model from IEC 61400-27-1:2015
     UpquMaxPu = 1.1,
     UqDipPu = 0.9,
     XDropPu = 0,
-    XWT0Pu = -0.21,
+    XWT0Pu(fixed = false),// = -0.21,
     XesPu = 0,
     fOverPu = 1.1,
     fUnderPu = 0.9,
-    i0Pu = Complex(-0.930069, -0.423168),
+    i0Pu(re(fixed = false), im(fixed = false)),// = Complex(-0.930069, -0.423168),
     tG = 0.01,
     tPFiltQ = 0.01,
     tPFiltql = 0.01,
@@ -96,7 +96,7 @@ model WT4ACurrentSource2015 "Wind Turbine Type 4A model from IEC 61400-27-1:2015
     tUFiltql = 0.01,
     tfFilt = 0.01,
     tphiFilt = 0.02,
-    u0Pu = Complex(0.975897, 0.2183)) annotation(
+    u0Pu(re(fixed = false), im(fixed = false))) annotation(
     Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Faults
@@ -114,6 +114,43 @@ model WT4ACurrentSource2015 "Wind Turbine Type 4A model from IEC 61400-27-1:2015
     Placement(visible = true, transformation(origin = {-150, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step tanPhi(height = 0, offset = -0.21, startTime = 0) annotation(
     Placement(visible = true, transformation(origin = {-150, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  // Initialization
+  Dynawo.Electrical.Wind.IEC.WT.WT4CurrentSource_INIT wT4CurrentSource_INIT(
+    BesPu = wT4ACurrentSource.BesPu,
+    GesPu = wT4ACurrentSource.GesPu,
+    IMaxPu = wT4ACurrentSource.IMaxPu,
+    Kpqu = wT4ACurrentSource.Kpqu,
+    MqG = wT4ACurrentSource.MqG,
+    P0Pu = wT4ACurrentSource.P0Pu,
+    Q0Pu = wT4ACurrentSource.Q0Pu,
+    QMaxPu = wT4ACurrentSource.QMaxPu,
+    QMinPu = wT4ACurrentSource.QMinPu,
+    QlConst = wT4ACurrentSource.QlConst,
+    ResPu = wT4ACurrentSource.ResPu,
+    SNom = wT4ACurrentSource.SNom,
+    U0Pu = wT4ACurrentSource.U0Pu,
+    UPhase0 = wT4ACurrentSource.UPhase0,
+    UpquMaxPu = wT4ACurrentSource.UpquMaxPu,
+    XesPu = wT4ACurrentSource.XesPu) annotation(
+    Placement(visible = true, transformation(origin = {130, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+initial algorithm
+  wT4ACurrentSource.IGsIm0Pu := wT4CurrentSource_INIT.IGsIm0Pu;
+  wT4ACurrentSource.IGsRe0Pu := wT4CurrentSource_INIT.IGsRe0Pu;
+  wT4ACurrentSource.IpMax0Pu := wT4CurrentSource_INIT.IpMax0Pu;
+  wT4ACurrentSource.IqMax0Pu := wT4CurrentSource_INIT.IqMax0Pu;
+  wT4ACurrentSource.IqMin0Pu := wT4CurrentSource_INIT.IqMin0Pu;
+  wT4ACurrentSource.PAg0Pu := wT4CurrentSource_INIT.PAg0Pu;
+  wT4ACurrentSource.QMax0Pu := wT4CurrentSource_INIT.QMax0Pu;
+  wT4ACurrentSource.QMin0Pu := wT4CurrentSource_INIT.QMin0Pu;
+  wT4ACurrentSource.UGsIm0Pu := wT4CurrentSource_INIT.UGsIm0Pu;
+  wT4ACurrentSource.UGsRe0Pu := wT4CurrentSource_INIT.UGsRe0Pu;
+  wT4ACurrentSource.XWT0Pu := wT4CurrentSource_INIT.XWT0Pu;
+  wT4ACurrentSource.i0Pu.re := wT4CurrentSource_INIT.i0Pu.re;
+  wT4ACurrentSource.i0Pu.im := wT4CurrentSource_INIT.i0Pu.im;
+  wT4ACurrentSource.u0Pu.re := wT4CurrentSource_INIT.u0Pu.re;
+  wT4ACurrentSource.u0Pu.im := wT4CurrentSource_INIT.u0Pu.im;
 
 equation
   wT4ACurrentSource.wT4Injector.switchOffSignal1.value = false;

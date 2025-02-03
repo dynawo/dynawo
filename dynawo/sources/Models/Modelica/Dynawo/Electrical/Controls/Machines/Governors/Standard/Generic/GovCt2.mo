@@ -137,19 +137,19 @@ model GovCt2 "Governor type GovCT2"
 
   // Inputs
   Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omega0Pu) "Rotor speed in pu (base omegaNom)" annotation(
-    Placement(visible = true, transformation(origin = {-333, -21}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-333, 100}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-333, -21}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-340, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Rotor speed set-point in pu (base omegaNom)" annotation(
-    Placement(visible = true, transformation(origin = {-333, 9}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-333, 181}, extent = {{-23, -23}, {23, 23}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-333, 9}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-340, 160}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput PGenPu(start = PGen0Pu) "Generated electrical active power in pu (base PGenBaseMw (system base)) (generator convention)" annotation(
-    Placement(visible = true, transformation(origin = {-333, -181}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-343, -161}, extent = {{-23, -23}, {23, 23}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-333, -181}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-340, -160}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput PMwSetPu(start = PGen0Pu * PGenBaseMw / PBaseMw) "Supervisory power controller set-point / automatic generation control (base PBaseMw) (generator convention)" annotation(
-    Placement(visible = true, transformation(origin = {-333, -141}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-344, -80}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-333, -141}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-340, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = PRef0Pu) "Power set-point in pu (base PBaseMw/RDroop) (generator convention)" annotation(
-    Placement(visible = true, transformation(origin = {-333, -87}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-346, 10}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-333, -87}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-340, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   // Output
   Modelica.Blocks.Interfaces.RealOutput PmPu(start = Pm0Pu) "Mechanical power output in pu (base PBaseMw) (generator convention)" annotation(
-    Placement(visible = true, transformation(origin = {330, 132}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {350, 2}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {330, 132}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {350, 0}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
 
   // Blocks
   Modelica.Blocks.Math.Add add(k1 = -1) annotation(
@@ -475,7 +475,7 @@ load
 controller", textStyle = {TextStyle.Bold}), Rectangle(origin = {159, 23}, lineColor = {23, 156, 125}, fillColor = {166, 187, 200}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-49, 69}, {49, -69}}), Text(origin = {183, 53}, lineColor = {0, 8, 11}, lineThickness = 2, extent = {{-32, -15}, {32, 15}}, textString = "frequency-
 dependent
 limit", textStyle = {TextStyle.Bold})}),
-    Icon(coordinateSystem(extent = {{-320, -200}, {320, 220}}), graphics = {Text(origin = {7, 7}, extent = {{-279, 123}, {279, -123}}, textString = "GovCT2"), Rectangle(origin = {0, 10}, extent = {{-320, 210}, {320, -210}})}),
+    Icon(coordinateSystem(extent = {{-320, -200}, {320, 200}}), graphics = {Text(origin = {7, 7}, extent = {{-279, 123}, {279, -123}}, textString = "GovCT2"), Rectangle(extent = {{-320, 200}, {320, -200}})}),
     experiment(StartTime = 0, StopTime = 10.5, Tolerance = 0.001, Interval = 0.002),
     __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "rungekutta"),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian");
