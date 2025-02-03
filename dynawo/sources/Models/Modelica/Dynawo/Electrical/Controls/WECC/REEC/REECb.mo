@@ -75,7 +75,7 @@ equation
 <p> Following control modes can be activated:
 <li> local coordinated V/Q control: QFlag = true, VFlag = true </li>
 <li> only plant level control active: QFlag = false, VFlag = false</li>
-<li> if plant level control not connected: local powerfactor control: PfFlag = true, otherwise PfFlag = false.</li>
+<li> if plant level control not connected: local power factor control: PfFlag = true, otherwise PfFlag = false.</li>
 <p> The block calculates the idCmdPu and iqCmdPu setpoint values for the generator control based on the selected control algorithm.
 </ul> </p></html>"),
     Diagram(coordinateSystem(initialScale = 0.2)),
