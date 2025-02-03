@@ -47,8 +47,8 @@ TEST(APIDYDTest, CollectionCreate) {
   boost::shared_ptr<DynamicModelsCollection> collection;
   collection = boost::shared_ptr<DynamicModelsCollection>(DynamicModelsCollectionFactory::newCollection());
 
-  boost::shared_ptr<BlackBoxModel> model = BlackBoxModelFactory::newModel("blackBoxModel");
-  boost::shared_ptr<ModelTemplate> model1 = ModelTemplateFactory::newModel("modelTemplate");
+  std::shared_ptr<BlackBoxModel> model = BlackBoxModelFactory::newModel("blackBoxModel");
+  std::shared_ptr<ModelTemplate> model1 = ModelTemplateFactory::newModel("modelTemplate");
 
   collection->addModel(model);
   collection->addModel(model1);
@@ -70,11 +70,11 @@ TEST(APIDYDTest, CollectionCopy) {
   boost::shared_ptr<DynamicModelsCollection> collection;
   collection = boost::shared_ptr<DynamicModelsCollection>(DynamicModelsCollectionFactory::newCollection());
 
-  boost::shared_ptr<BlackBoxModel> model = BlackBoxModelFactory::newModel("blackBoxModel");
-  boost::shared_ptr<ModelTemplate> model1 = ModelTemplateFactory::newModel("modelTemplate");
+  std::unique_ptr<BlackBoxModel> model = BlackBoxModelFactory::newModel("blackBoxModel");
+  std::unique_ptr<ModelTemplate> model1 = ModelTemplateFactory::newModel("modelTemplate");
 
-  collection->addModel(model);
-  collection->addModel(model1);
+  collection->addModel(std::move(model));
+  collection->addModel(std::move(model1));
 
   boost::shared_ptr<DynamicModelsCollection> collection1;
   collection1 = DynamicModelsCollectionFactory::copyCollection(collection);
@@ -100,7 +100,7 @@ TEST(APIDYDTest, CollectionSameModel) {
   boost::shared_ptr<DynamicModelsCollection> collection;
   collection = boost::shared_ptr<DynamicModelsCollection>(DynamicModelsCollectionFactory::newCollection());
 
-  boost::shared_ptr<BlackBoxModel> model = BlackBoxModelFactory::newModel("blackBoxModel");
+  std::shared_ptr<BlackBoxModel> model = BlackBoxModelFactory::newModel("blackBoxModel");
   collection->addModel(model);
   ASSERT_THROW_DYNAWO(collection->addModel(model), DYN::Error::API, DYN::KeyError_t::ModelIDNotUnique);  // model already stored
 }
@@ -140,11 +140,11 @@ TEST(APIDYDTest, CollectionAddMacroConnector) {
   boost::shared_ptr<DynamicModelsCollection> collection;
   collection = boost::shared_ptr<DynamicModelsCollection>(DynamicModelsCollectionFactory::newCollection());
 
-  boost::shared_ptr<MacroConnector> mc1 = MacroConnectorFactory::newMacroConnector("mc1");
-  boost::shared_ptr<MacroConnector> mc2 = MacroConnectorFactory::newMacroConnector("mc2");
+  std::unique_ptr<MacroConnector> mc1 = MacroConnectorFactory::newMacroConnector("mc1");
+  std::unique_ptr<MacroConnector> mc2 = MacroConnectorFactory::newMacroConnector("mc2");
 
-  collection->addMacroConnector(mc1);
-  collection->addMacroConnector(mc2);
+  collection->addMacroConnector(std::move(mc1));
+  collection->addMacroConnector(std::move(mc2));
 
   int nbMacroConnectors = 0;
   for (macroConnector_iterator itMC = collection->beginMacroConnector();
@@ -172,24 +172,24 @@ TEST(APIDYDTest, CollectionAddMacroConnectorNotUnique) {
   boost::shared_ptr<DynamicModelsCollection> collection;
   collection = boost::shared_ptr<DynamicModelsCollection>(DynamicModelsCollectionFactory::newCollection());
 
-  boost::shared_ptr<MacroConnector> mc1 = MacroConnectorFactory::newMacroConnector("mc1");
-  boost::shared_ptr<MacroConnector> mc2 = MacroConnectorFactory::newMacroConnector("mc1");
+  std::unique_ptr<MacroConnector> mc1 = MacroConnectorFactory::newMacroConnector("mc1");
+  std::unique_ptr<MacroConnector> mc2 = MacroConnectorFactory::newMacroConnector("mc1");
 
-  collection->addMacroConnector(mc1);
-  ASSERT_THROW_DYNAWO(collection->addMacroConnector(mc2), DYN::Error::API, DYN::KeyError_t::MacroConnectorIDNotUnique);
+  collection->addMacroConnector(std::move(mc1));
+  ASSERT_THROW_DYNAWO(collection->addMacroConnector(std::move(mc2)), DYN::Error::API, DYN::KeyError_t::MacroConnectorIDNotUnique);
 }
 
 TEST(APIDYDTest, CollectionFindMacroConnector) {
   boost::shared_ptr<DynamicModelsCollection> collection;
   collection = boost::shared_ptr<DynamicModelsCollection>(DynamicModelsCollectionFactory::newCollection());
 
-  boost::shared_ptr<MacroConnector> mc1 = MacroConnectorFactory::newMacroConnector("mc1");
-  boost::shared_ptr<MacroConnector> mc2 = MacroConnectorFactory::newMacroConnector("mc2");
-  boost::shared_ptr<MacroConnector> mc3 = MacroConnectorFactory::newMacroConnector("mc3");
+  std::unique_ptr<MacroConnector> mc1 = MacroConnectorFactory::newMacroConnector("mc1");
+  std::unique_ptr<MacroConnector> mc2 = MacroConnectorFactory::newMacroConnector("mc2");
+  std::unique_ptr<MacroConnector> mc3 = MacroConnectorFactory::newMacroConnector("mc3");
 
-  collection->addMacroConnector(mc1);
-  collection->addMacroConnector(mc2);
-  collection->addMacroConnector(mc3);
+  collection->addMacroConnector(std::move(mc1));
+  collection->addMacroConnector(std::move(mc2));
+  collection->addMacroConnector(std::move(mc3));
   ASSERT_NO_THROW(collection->findMacroConnector("mc2"));
   ASSERT_THROW_DYNAWO(collection->findMacroConnector("mc4"), DYN::Error::API, DYN::KeyError_t::MacroConnectorUndefined);
 }
@@ -198,11 +198,11 @@ TEST(APIDYDTest, CollectionAddMacroConnect) {
   boost::shared_ptr<DynamicModelsCollection> collection;
   collection = boost::shared_ptr<DynamicModelsCollection>(DynamicModelsCollectionFactory::newCollection());
 
-  boost::shared_ptr<MacroConnect> mc1 = MacroConnectFactory::newMacroConnect("mc1", "model1", "model2");
-  boost::shared_ptr<MacroConnect> mc2 = MacroConnectFactory::newMacroConnect("mc2", "model1", "model2");
+  std::unique_ptr<MacroConnect> mc1 = MacroConnectFactory::newMacroConnect("mc1", "model1", "model2");
+  std::unique_ptr<MacroConnect> mc2 = MacroConnectFactory::newMacroConnect("mc2", "model1", "model2");
 
-  collection->addMacroConnect(mc1);
-  collection->addMacroConnect(mc2);
+  collection->addMacroConnect(std::move(mc1));
+  collection->addMacroConnect(std::move(mc2));
 
   int nbMacroConnects = 0;
   for (macroConnect_iterator itMC = collection->beginMacroConnect();
@@ -230,16 +230,16 @@ TEST(APIDYDTest, CollectionMacroStaticReference) {
   boost::shared_ptr<DynamicModelsCollection> collection;
   collection = boost::shared_ptr<DynamicModelsCollection>(DynamicModelsCollectionFactory::newCollection());
 
-  boost::shared_ptr<MacroStaticReference> mStRef1 = MacroStaticReferenceFactory::newMacroStaticReference("mStRef1");
-  boost::shared_ptr<MacroStaticReference> mStRef2 = MacroStaticReferenceFactory::newMacroStaticReference("mStRef2");
-  boost::shared_ptr<MacroStaticReference> mStRef3 = MacroStaticReferenceFactory::newMacroStaticReference("mStRef3");
-  boost::shared_ptr<MacroStaticReference> mStRef11 = MacroStaticReferenceFactory::newMacroStaticReference("mStRef1");
+  std::shared_ptr<MacroStaticReference> mStRef1 = MacroStaticReferenceFactory::newMacroStaticReference("mStRef1");
+  std::shared_ptr<MacroStaticReference> mStRef2 = MacroStaticReferenceFactory::newMacroStaticReference("mStRef2");
+  std::unique_ptr<MacroStaticReference> mStRef3 = MacroStaticReferenceFactory::newMacroStaticReference("mStRef3");
+  std::unique_ptr<MacroStaticReference> mStRef11 = MacroStaticReferenceFactory::newMacroStaticReference("mStRef1");
 
   // addMacroStaticReference
   ASSERT_NO_THROW(collection->addMacroStaticReference(mStRef1));
   ASSERT_NO_THROW(collection->addMacroStaticReference(mStRef2));
-  ASSERT_NO_THROW(collection->addMacroStaticReference(mStRef3));
-  ASSERT_THROW_DYNAWO(collection->addMacroStaticReference(mStRef11), DYN::Error::API, DYN::KeyError_t::MacroStaticReferenceNotUnique);
+  ASSERT_NO_THROW(collection->addMacroStaticReference(std::move(mStRef3)));
+  ASSERT_THROW_DYNAWO(collection->addMacroStaticReference(std::move(mStRef11)), DYN::Error::API, DYN::KeyError_t::MacroStaticReferenceNotUnique);
 
   int nbMacroStaticReferences = 0;
   for (macroStaticReference_iterator itMStRef = collection->beginMacroStaticReference();
@@ -269,7 +269,7 @@ TEST(APIDYDTest, StaticRefIterators) {
   boost::shared_ptr<DynamicModelsCollection> collection;
   collection = boost::shared_ptr<DynamicModelsCollection>(DynamicModelsCollectionFactory::newCollection());
 
-  boost::shared_ptr<BlackBoxModel> model = BlackBoxModelFactory::newModel("blackBoxModel");
+  std::shared_ptr<BlackBoxModel> model = BlackBoxModelFactory::newModel("blackBoxModel");
 
   collection->addModel(model);
   model->addStaticRef("MyVar", "MyStaticVar");
@@ -295,13 +295,13 @@ TEST(APIDYDTest, MacroStaticRefIterators) {
   boost::shared_ptr<DynamicModelsCollection> collection;
   collection = boost::shared_ptr<DynamicModelsCollection>(DynamicModelsCollectionFactory::newCollection());
 
-  boost::shared_ptr<BlackBoxModel> model = BlackBoxModelFactory::newModel("blackBoxModel");
+  std::shared_ptr<BlackBoxModel> model = BlackBoxModelFactory::newModel("blackBoxModel");
 
   collection->addModel(model);
-  boost::shared_ptr<MacroStaticRef> macroStaticRef = MacroStaticRefFactory::newMacroStaticRef("MyMacroStaticRef");
-  model->addMacroStaticRef(macroStaticRef);
-  boost::shared_ptr<MacroStaticRef> macroStaticRef2 = MacroStaticRefFactory::newMacroStaticRef("MyMacroStaticRef2");
-  model->addMacroStaticRef(macroStaticRef2);
+  std::unique_ptr<MacroStaticRef> macroStaticRef = MacroStaticRefFactory::newMacroStaticRef("MyMacroStaticRef");
+  model->addMacroStaticRef(std::move(macroStaticRef));
+  std::unique_ptr<MacroStaticRef> macroStaticRef2 = MacroStaticRefFactory::newMacroStaticRef("MyMacroStaticRef2");
+  model->addMacroStaticRef(std::move(macroStaticRef2));
 
   int nbMacroStaticReferences = 0;
   for (macroStaticRef_iterator it = model->beginMacroStaticRef(), itEnd = model->endMacroStaticRef(); it != itEnd; ++it)

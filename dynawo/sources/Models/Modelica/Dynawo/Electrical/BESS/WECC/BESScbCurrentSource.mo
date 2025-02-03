@@ -58,6 +58,8 @@ equation
   connect(pll.omegaPLLPu, repcA.omegaPu) annotation(
     Line(points = {{-149, 49}, {-140, 49}, {-140, 8}, {-131, 8}}, color = {0, 0, 127}));
 
-annotation(Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-24, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC BESS CB")}, coordinateSystem(initialScale = 0.1)),
+  annotation(
+    preferredView = "diagram",
+    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-24, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC BESS CB")}, coordinateSystem(initialScale = 0.1)),
     Diagram(coordinateSystem(grid = {1, 1}, extent = {{-180, -60}, {120, 60}})));
 end BESScbCurrentSource;

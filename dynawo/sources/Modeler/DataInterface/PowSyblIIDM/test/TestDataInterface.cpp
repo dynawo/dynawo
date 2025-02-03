@@ -75,6 +75,8 @@
 #include <powsybl/iidm/StaticVarCompensator.hpp>
 #include <powsybl/iidm/StaticVarCompensatorAdder.hpp>
 #include <powsybl/iidm/CurrentLimitsAdder.hpp>
+#include <powsybl/iidm/extensions/iidm/ActivePowerControl.hpp>
+#include <powsybl/iidm/extensions/iidm/ActivePowerControlAdder.hpp>
 
 #include <thread>
 
@@ -225,6 +227,7 @@ struct BusBreakerNetworkProperty {
   bool instantiatePhaseTapChanger;
   bool instantiateDanglingLine;
   bool instantiateGenerator;
+  bool instantiateGeneratorWithExtensions;
   bool instantiateLccConverterWithConnectedHvdc;
   bool instantiateLccConverterWithDisconnectedHvdc;
   bool instantiateLine;
@@ -380,7 +383,7 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
         .add();
   }
 
-  if (properties.instantiateGenerator) {
+  if (properties.instantiateGenerator || properties.instantiateGeneratorWithExtensions) {
     powsybl::iidm:: Generator& gen = vl1.newGenerator()
         .setId("MyGenerator")
         .setName("MyGenerator_NAME")
@@ -398,6 +401,8 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
     gen.getTerminal().setP(-105.);
     gen.getTerminal().setQ(-90.);
     gen.newMinMaxReactiveLimits().setMinQ(1.).setMaxQ(20.).add();
+    if (properties.instantiateGeneratorWithExtensions) {
+    gen.newExtension<powsybl::iidm::extensions::iidm::ActivePowerControlAdder>().withDroop(4.0).withParticipate(true).add(); }
   }
 
   if (properties.instantiateBattery) {
@@ -810,6 +815,7 @@ TEST(DataInterfaceIIDMTest, testBusIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       false /*instantiateLccConverterWithConnectedHvdc*/,
       false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
@@ -850,6 +856,7 @@ TEST(DataInterfaceIIDMTest, testDanglingLineIIDMAndStaticParameters) {
       false /*instantiatePhaseTapChanger*/,
       true /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       false /*instantiateLccConverterWithConnectedHvdc*/,
       false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
@@ -895,6 +902,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       true /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       false /*instantiateLccConverterWithConnectedHvdc*/,
       false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
@@ -935,6 +943,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorIIDM) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "targetP"), 105.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "targetQ_pu"), 90. / SNREF);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "targetQ"), 90.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "kGover"), 0.);
   ASSERT_EQ(data->getBusName("MyGenerator", ""), "MyBus");
   powsybl::iidm::Generator& genIIDM = network.getGenerator("MyGenerator");
   ASSERT_DOUBLE_EQUALS_DYNAWO(genIIDM.getTerminal().getP(), -105.);
@@ -953,6 +962,32 @@ TEST(DataInterfaceIIDMTest, testGeneratorIIDM) {
   ASSERT_TRUE(genIIDM.getTerminal().isConnected());
 }
 
+TEST(DataInterfaceIIDMTest, testGeneratorIIDMWithExtensions) {
+  const BusBreakerNetworkProperty properties = {
+      false /*instantiateCapacitorShuntCompensator*/,
+      false /*instantiateStaticVarCompensator*/,
+      false /*instantiateTwoWindingTransformer*/,
+      false /*instantiateRatioTapChanger*/,
+      false /*instantiatePhaseTapChanger*/,
+      false /*instantiateDanglingLine*/,
+      false /*instantiateGenerator*/,
+      true /*instantiateGeneratorWithExtensions*/,
+      false /*instantiateLccConverterWithConnectedHvdc*/,
+      false /*instantiateLccConverterWithDisconnectedHvdc*/,
+      false /*instantiateLine*/,
+      false /*instantiateLoad*/,
+      false /*instantiateSwitch*/,
+      false /*instantiateVscConverterWithConnectedHvdc*/,
+      false /*instantiateVscConverterWithDisconnectedHvdc*/,
+      false /*instantiateThreeWindingTransformer*/,
+      false /*instantiateBattery*/
+  };
+  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
+  exportStateVariables(data);
+
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "kGover"), 0.25);
+}
+
 TEST(DataInterfaceIIDMTest, testBatteryIIDM) {
   const BusBreakerNetworkProperty properties = {
       false /*instantiateCapacitorShuntCompensator*/,
@@ -962,6 +997,7 @@ TEST(DataInterfaceIIDMTest, testBatteryIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       false /*instantiateLccConverterWithConnectedHvdc*/,
       false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
@@ -1029,6 +1065,7 @@ TEST(DataInterfaceIIDMTest, testConnectedHvdcLineVscConvertersIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       false /*instantiateLccConverterWithConnectedHvdc*/,
       false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
@@ -1146,6 +1183,7 @@ TEST(DataInterfaceIIDMTest, testDisconnectedHvdcLineVscConvertersIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       false /*instantiateLccConverterWithConnectedHvdc*/,
       false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
@@ -1199,6 +1237,7 @@ TEST(DataInterfaceIIDMTest, testConnectedHvdcLineLccConvertersIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       true /*instantiateLccConverterWithConnectedHvdc*/,
       false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
@@ -1316,6 +1355,7 @@ TEST(DataInterfaceIIDMTest, testDisconnectedHvdcLineLccConvertersIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       false /*instantiateLccConverterWithConnectedHvdc*/,
       true /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
@@ -1370,6 +1410,7 @@ TEST(DataInterfaceIIDMTest, testLineIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       false /*instantiateLccConverterWithConnectedHvdc*/,
       false /*instantiateLccConverterWithDisconnectedHvdc*/,
       true /*instantiateLine*/,
@@ -1445,6 +1486,7 @@ TEST(DataInterfaceIIDMTest, testLoadInterfaceIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       false /*instantiateLccConverterWithConnectedHvdc*/,
       false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
@@ -1500,6 +1542,7 @@ TEST(DataInterfaceIIDMTest, testShuntCompensatorIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       false /*instantiateLccConverterWithConnectedHvdc*/,
       false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
@@ -1546,6 +1589,7 @@ TEST(DataInterfaceIIDMTest, testStaticVarCompensatorIIDM) {
     false /*instantiatePhaseTapChanger*/,
     false /*instantiateDanglingLine*/,
     false /*instantiateGenerator*/,
+    false /*instantiateGeneratorWithExtensions*/,
     false /*instantiateLccConverterWithConnectedHvdc*/,
     false /*instantiateLccConverterWithDisconnectedHvdc*/,
     false /*instantiateLine*/,
@@ -1598,6 +1642,7 @@ TEST(DataInterfaceIIDMTest, testSwitchIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       false /*instantiateLccConverterWithConnectedHvdc*/,
       false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
@@ -1633,6 +1678,7 @@ TEST(DataInterfaceIIDMTest, testRatioTwoWindingTransformerIIDM) {
       true /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       false /*instantiateLccConverterWithConnectedHvdc*/,
       false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
@@ -1714,6 +1760,7 @@ TEST(DataInterfaceIIDMTest, testTwoWindingTransformerIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       false /*instantiateLccConverterWithConnectedHvdc*/,
       false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
@@ -1809,6 +1856,7 @@ TEST(DataInterfaceIIDMTest, testThreeWindingTransformerIIDM) {
       true /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       false /*instantiateLccConverterWithConnectedHvdc*/,
       false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
@@ -1907,6 +1955,7 @@ TEST(DataInterfaceIIDMTest, testBadlyFormedStaticRefModel) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       false /*instantiateLccConverterWithConnectedHvdc*/,
       false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
@@ -2092,6 +2141,7 @@ TEST(DataInterfaceIIDMTest, testFindLostEquipments) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       true /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       false /*instantiateLccConverterWithConnectedHvdc*/,
       false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,

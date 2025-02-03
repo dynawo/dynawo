@@ -22,7 +22,7 @@
 
 #include "DYDIdentifiable.h"
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 namespace dynamicdata {
 
@@ -39,9 +39,9 @@ class IdentifiableFactory {
    * @brief Create new Identifiable instance
    *
    * @param[in] id ID for new Identifiable instance
-   * @returns Shared pointer to a new @p Identifiable with given ID
+   * @returns Unique pointer to a new @p Identifiable with given ID
    */
-  static boost::shared_ptr<Identifiable> newIdentifiable(const std::string& id);
+  static std::unique_ptr<Identifiable> newIdentifiable(const std::string& id);
 };
 
 }  // namespace dynamicdata

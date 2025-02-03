@@ -334,6 +334,14 @@ class Simulation {
   }
 
   /**
+   * @brief getter for the constraints' output file
+   * @return constraints' output file
+   */
+  inline const std::string& getContraintsOutputFile() const {
+    return constraintsOutputFile_;
+  }
+
+  /**
    * @brief setter for the constraints' export mode
    * @param mode constraints' export mode
    */
@@ -347,6 +355,14 @@ class Simulation {
    */
   inline void setLostEquipmentsOutputFile(const std::string& outputFile) {
     lostEquipmentsOutputFile_ = outputFile;
+  }
+
+  /**
+   * @brief getter for the lost equipments' output file
+   * @return lost equipments' output file
+   */
+  inline const std::string& getLostEquipmentsOutputFile() const {
+    return lostEquipmentsOutputFile_;
   }
 
   /**
@@ -468,6 +484,14 @@ class Simulation {
    */
   inline void setExportIIDMFile(const std::string& file) {
     finalState_.iidmFile_ = file;
+  }
+
+  /**
+   * @brief getter for the final state IIDM output file
+   * @return final state IIDM output file
+   */
+  inline const boost::optional<boost::filesystem::path>& getExportIIDMFile() const {
+    return finalState_.iidmFile_;
   }
 
   /**

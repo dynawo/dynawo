@@ -132,4 +132,5 @@ equation
   connect(elecMeasurements.uPu, wPPControl2015.uPu) annotation(
     Line(points = {{88, -22}, {88, -34}, {-96, -34}, {-96, -2}, {-82, -2}}, color = {85, 170, 255}));
 
+  annotation(preferredView = "diagram");
 end WPP4BCurrentSource2015;

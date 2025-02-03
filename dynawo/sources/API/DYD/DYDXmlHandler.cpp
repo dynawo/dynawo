@@ -21,7 +21,6 @@
  *
  */
 
-#include <vector>
 #include <xml/sax/parser/Attributes.h>
 
 #include <boost/phoenix/core.hpp>
@@ -51,10 +50,6 @@
 #include "DYDModelicaModel.h"
 #include "DYDDynamicModelsCollection.h"
 
-using std::map;
-using std::string;
-using std::vector;
-using boost::shared_ptr;
 
 namespace lambda = boost::phoenix;
 namespace lambda_args = lambda::placeholders;
@@ -106,13 +101,13 @@ XmlHandler::getDynamicModelsCollection() {
 
 void
 XmlHandler::addModelicaModel() {
-  shared_ptr<ModelicaModel> model = modelicaModelHandler_.get();
+  std::shared_ptr<ModelicaModel> model = modelicaModelHandler_.get();
   dynamicModelsCollection_->addModel(model);
 }
 
 void
 XmlHandler::addModelTemplate() {
-  shared_ptr<ModelTemplate> model = modelTemplateHandler_.get();
+  std::shared_ptr<ModelTemplate> model = modelTemplateHandler_.get();
   dynamicModelsCollection_->addModel(model);
 }
 
@@ -187,7 +182,7 @@ ModelicaModelHandler::create(attributes_type const& attributes) {
   modelicaModel_->setCompilationOptions(useAliasing, genCalcVars);
 }
 
-shared_ptr<ModelicaModel>
+std::shared_ptr<ModelicaModel>
 ModelicaModelHandler::get() const {
   return modelicaModel_;
 }
@@ -264,7 +259,7 @@ ModelTemplateHandler::create(attributes_type const& attributes) {
   modelTemplate_->setCompilationOptions(useAliasing, genCalcVars);
 }
 
-shared_ptr<ModelTemplate>
+std::shared_ptr<ModelTemplate>
 ModelTemplateHandler::get() const {
   return modelTemplate_;
 }
@@ -342,7 +337,7 @@ BlackBoxModelHandler::addMacroStaticRef() {
   blackBoxModel_->addMacroStaticRef(macroStaticRefHandler_.get());
 }
 
-shared_ptr<BlackBoxModel>
+std::shared_ptr<BlackBoxModel>
 BlackBoxModelHandler::get() const {
   return blackBoxModel_;
 }
@@ -387,7 +382,7 @@ ModelTemplateExpansionHandler::addMacroStaticRef() {
   modelTemplateExpansion_->addMacroStaticRef(macroStaticRefHandler_.get());
 }
 
-shared_ptr<ModelTemplateExpansion>
+std::shared_ptr<ModelTemplateExpansion>
 ModelTemplateExpansionHandler::get() const {
   return modelTemplateExpansion_;
 }
@@ -430,7 +425,7 @@ MacroConnectHandler::create(attributes_type const& attributes) {
     macroConnect_->setName2(attributes["name2"]);
 }
 
-shared_ptr<MacroConnect>
+std::shared_ptr<MacroConnect>
 MacroConnectHandler::get() const {
   return macroConnect_;
 }
@@ -466,7 +461,7 @@ MacroConnectorHandler::addInitConnect() {
   macroConnector_->addInitConnect(c.var1, c.var2);
 }
 
-shared_ptr<MacroConnector>
+std::shared_ptr<MacroConnector>
 MacroConnectorHandler::get() const {
   return macroConnector_;
 }
@@ -516,7 +511,7 @@ MacroStaticRefHandler::create(attributes_type const& attributes) {
   macroStaticRef_ = MacroStaticRefFactory::newMacroStaticRef(attributes["id"]);
 }
 
-shared_ptr<MacroStaticRef>
+std::shared_ptr<MacroStaticRef>
 MacroStaticRefHandler::get() const {
   return macroStaticRef_;
 }
@@ -543,7 +538,7 @@ MacroStaticReferenceHandler::addStaticRef() {
   macroStaticReference_->addStaticRef(c.var, c.staticVar);
 }
 
-shared_ptr<MacroStaticReference>
+std::shared_ptr<MacroStaticReference>
 MacroStaticReferenceHandler::get() const {
   return macroStaticReference_;
 }
@@ -578,7 +573,7 @@ UnitDynamicModelHandler::create(attributes_type const& attributes) {
     unitDynamicModel_->setParId(attributes["parId"]);
 }
 
-shared_ptr<UnitDynamicModel>
+std::shared_ptr<UnitDynamicModel>
 UnitDynamicModelHandler::get() const {
   return unitDynamicModel_;
 }

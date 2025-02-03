@@ -55,6 +55,7 @@ equation
     Line(points = {{-238, -60}, {-46, -60}, {-46, 108}, {58, 108}}, color = {0, 0, 127}));
 
   annotation(
+    preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-300, -160}, {300, 160}})),
     Icon(graphics = {Text(origin = {60, -63}, extent = {{-42, 28}, {36, -16}}, textString = "2015")}));
 end CurrentLimiter2015;

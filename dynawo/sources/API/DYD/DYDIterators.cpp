@@ -23,10 +23,6 @@
 #include "DYDMacroStaticReference.h"
 #include "DYDModel.h"
 
-using boost::shared_ptr;
-using std::map;
-using std::string;
-using std::vector;
 
 namespace dynamicdata {
 
@@ -69,11 +65,11 @@ dynamicModel_const_iterator::operator!=(const dynamicModel_const_iterator& other
   return current_ != other.current_;
 }
 
-const shared_ptr<Model>& dynamicModel_const_iterator::operator*() const {
+const std::shared_ptr<Model>& dynamicModel_const_iterator::operator*() const {
   return current_->second;
 }
 
-const shared_ptr<Model>* dynamicModel_const_iterator::operator->() const {
+const std::shared_ptr<Model>* dynamicModel_const_iterator::operator->() const {
   return &(current_->second);
 }
 
@@ -116,11 +112,11 @@ connector_const_iterator::operator!=(const connector_const_iterator& other) cons
   return current_ != other.current_;
 }
 
-const shared_ptr<Connector>& connector_const_iterator::operator*() const {
+const std::shared_ptr<Connector>& connector_const_iterator::operator*() const {
   return *current_;
 }
 
-const shared_ptr<Connector>* connector_const_iterator::operator->() const {
+const std::shared_ptr<Connector>* connector_const_iterator::operator->() const {
   return &(*current_);
 }
 
@@ -163,11 +159,11 @@ dynamicModel_iterator::operator!=(const dynamicModel_iterator& other) const {
   return current_ != other.current_;
 }
 
-shared_ptr<Model>& dynamicModel_iterator::operator*() const {
+std::shared_ptr<Model>& dynamicModel_iterator::operator*() const {
   return current_->second;
 }
 
-shared_ptr<Model>* dynamicModel_iterator::operator->() const {
+std::shared_ptr<Model>* dynamicModel_iterator::operator->() const {
   return &(current_->second);
 }
 
@@ -210,11 +206,11 @@ connector_iterator::operator!=(const connector_iterator& other) const {
   return current_ != other.current_;
 }
 
-shared_ptr<Connector>& connector_iterator::operator*() const {
+std::shared_ptr<Connector>& connector_iterator::operator*() const {
   return *current_;
 }
 
-shared_ptr<Connector>* connector_iterator::operator->() const {
+std::shared_ptr<Connector>* connector_iterator::operator->() const {
   return &(*current_);
 }
 
@@ -257,11 +253,11 @@ macroConnector_iterator::operator!=(const macroConnector_iterator& other) const 
   return current_ != other.current_;
 }
 
-shared_ptr<MacroConnector>& macroConnector_iterator::operator*() const {
+std::shared_ptr<MacroConnector>& macroConnector_iterator::operator*() const {
   return current_->second;
 }
 
-shared_ptr<MacroConnector>* macroConnector_iterator::operator->() const {
+std::shared_ptr<MacroConnector>* macroConnector_iterator::operator->() const {
   return &(current_->second);
 }
 
@@ -304,11 +300,11 @@ macroConnector_const_iterator::operator!=(const macroConnector_const_iterator& o
   return current_ != other.current_;
 }
 
-const shared_ptr<MacroConnector>& macroConnector_const_iterator::operator*() const {
+const std::shared_ptr<MacroConnector>& macroConnector_const_iterator::operator*() const {
   return current_->second;
 }
 
-const shared_ptr<MacroConnector>* macroConnector_const_iterator::operator->() const {
+const std::shared_ptr<MacroConnector>* macroConnector_const_iterator::operator->() const {
   return &(current_->second);
 }
 
@@ -351,11 +347,11 @@ macroConnect_iterator::operator!=(const macroConnect_iterator& other) const {
   return current_ != other.current_;
 }
 
-shared_ptr<MacroConnect>& macroConnect_iterator::operator*() const {
+std::shared_ptr<MacroConnect>& macroConnect_iterator::operator*() const {
   return *current_;
 }
 
-shared_ptr<MacroConnect>* macroConnect_iterator::operator->() const {
+std::shared_ptr<MacroConnect>* macroConnect_iterator::operator->() const {
   return &(*current_);
 }
 
@@ -398,11 +394,11 @@ macroConnect_const_iterator::operator!=(const macroConnect_const_iterator& other
   return current_ != other.current_;
 }
 
-const shared_ptr<MacroConnect>& macroConnect_const_iterator::operator*() const {
+const std::shared_ptr<MacroConnect>& macroConnect_const_iterator::operator*() const {
   return *current_;
 }
 
-const shared_ptr<MacroConnect>* macroConnect_const_iterator::operator->() const {
+const std::shared_ptr<MacroConnect>* macroConnect_const_iterator::operator->() const {
   return &(*current_);
 }
 
@@ -447,11 +443,11 @@ staticRef_iterator::operator!=(const staticRef_iterator& other) const {
   return current_ != other.current_;
 }
 
-shared_ptr<StaticRef>& staticRef_iterator::operator*() const {
+std::unique_ptr<StaticRef>& staticRef_iterator::operator*() const {
   return current_->second;
 }
 
-shared_ptr<StaticRef>* staticRef_iterator::operator->() const {
+std::unique_ptr<StaticRef>* staticRef_iterator::operator->() const {
   return &(current_->second);
 }
 
@@ -497,11 +493,11 @@ staticRef_const_iterator::operator!=(const staticRef_const_iterator& other) cons
   return current_ != other.current_;
 }
 
-const shared_ptr<StaticRef>& staticRef_const_iterator::operator*() const {
+const std::unique_ptr<StaticRef>& staticRef_const_iterator::operator*() const {
   return current_->second;
 }
 
-const shared_ptr<StaticRef>* staticRef_const_iterator::operator->() const {
+const std::unique_ptr<StaticRef>* staticRef_const_iterator::operator->() const {
   return &(current_->second);
 }
 
@@ -544,11 +540,11 @@ macroStaticRef_iterator::operator!=(const macroStaticRef_iterator& other) const 
   return current_ != other.current_;
 }
 
-shared_ptr<MacroStaticRef>& macroStaticRef_iterator::operator*() const {
+std::shared_ptr<MacroStaticRef>& macroStaticRef_iterator::operator*() const {
   return current_->second;
 }
 
-shared_ptr<MacroStaticRef>* macroStaticRef_iterator::operator->() const {
+std::shared_ptr<MacroStaticRef>* macroStaticRef_iterator::operator->() const {
   return &(current_->second);
 }
 
@@ -591,11 +587,11 @@ macroStaticRef_const_iterator::operator!=(const macroStaticRef_const_iterator& o
   return current_ != other.current_;
 }
 
-const shared_ptr<MacroStaticRef>& macroStaticRef_const_iterator::operator*() const {
+const std::shared_ptr<MacroStaticRef>& macroStaticRef_const_iterator::operator*() const {
   return current_->second;
 }
 
-const shared_ptr<MacroStaticRef>* macroStaticRef_const_iterator::operator->() const {
+const std::shared_ptr<MacroStaticRef>* macroStaticRef_const_iterator::operator->() const {
   return &(current_->second);
 }
 
@@ -638,11 +634,11 @@ macroStaticReference_iterator::operator!=(const macroStaticReference_iterator& o
   return current_ != other.current_;
 }
 
-shared_ptr<MacroStaticReference>& macroStaticReference_iterator::operator*() const {
+std::shared_ptr<MacroStaticReference>& macroStaticReference_iterator::operator*() const {
   return current_->second;
 }
 
-shared_ptr<MacroStaticReference>* macroStaticReference_iterator::operator->() const {
+std::shared_ptr<MacroStaticReference>* macroStaticReference_iterator::operator->() const {
   return &(current_->second);
 }
 
@@ -685,11 +681,11 @@ macroStaticReference_const_iterator::operator!=(const macroStaticReference_const
   return current_ != other.current_;
 }
 
-const shared_ptr<MacroStaticReference>& macroStaticReference_const_iterator::operator*() const {
+const std::shared_ptr<MacroStaticReference>& macroStaticReference_const_iterator::operator*() const {
   return current_->second;
 }
 
-const shared_ptr<MacroStaticReference>* macroStaticReference_const_iterator::operator->() const {
+const std::shared_ptr<MacroStaticReference>* macroStaticReference_const_iterator::operator->() const {
   return &(current_->second);
 }
 

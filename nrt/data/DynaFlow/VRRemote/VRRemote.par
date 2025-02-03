@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
     Copyright (c) 2022, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -34,6 +34,8 @@
     <par type="DOUBLE" name="generator_PNom" value="1"/>
     <par type="DOUBLE" name="generator_KGover" value="1"/>
     <par type="DOUBLE" name="generator_QPercent" value="1"/>
+    <par type="DOUBLE" name="generator_QDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
   </set>
   <set id="Generator2">
     <par type="DOUBLE" name="generator_QMin0" value="-185"/>
@@ -54,6 +56,8 @@
     <par name="generator_QMinTableName" type="STRING" value="tableqmin"/>
     <par name="generator_QMaxTableName" type="STRING" value="tableqmax"/>
     <par type="DOUBLE" name="generator_QPercent" value="1"/>
+    <par type="DOUBLE" name="generator_QDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
   </set>
   <set id="SignalN">
     <par type="DOUBLE" name="step_Height" value="0.1"/>

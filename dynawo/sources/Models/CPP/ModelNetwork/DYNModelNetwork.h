@@ -204,6 +204,11 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
   void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) override;
 
   /**
+   * @copydoc SubModel::defineVariablesInit(std::vector<boost::shared_ptr<Variable> >& variables)
+   */
+  void defineVariablesInit(std::vector<boost::shared_ptr<Variable> >& variables) override;
+
+  /**
    * @brief fill calculated variable and index for one component
    * @param component for which to add calculated variables
    */

@@ -99,7 +99,7 @@ class Modeler {
    * @param model submodel
    * @param modelDescription dynamic model
    */
-  void initStaticRefs(const boost::shared_ptr<SubModel>& model, const boost::shared_ptr<ModelDescription>& modelDescription);
+  void initStaticRefs(const boost::shared_ptr<SubModel>& model, const std::shared_ptr<ModelDescription>& modelDescription);
 
   /**
    * @brief find a node connector name
@@ -122,7 +122,7 @@ class Modeler {
    * @param model : model to analyze
    * @param variablesConnectedInternally : output, at the end of the called will contain the connected variables of the model
    */
-  void collectAllInternalConnections(boost::shared_ptr<dynamicdata::ModelicaModel> model,
+  void collectAllInternalConnections(std::shared_ptr<dynamicdata::ModelicaModel> model,
       std::vector<std::pair<std::string, std::string> >& variablesConnectedInternally) const;
 
   /**
@@ -140,7 +140,7 @@ class Modeler {
    * @brief Initialization of parameters of a dynamic model
    * @param modelDescription dynamic model
    */
-  void initParamDescription(const boost::shared_ptr<ModelDescription>& modelDescription);
+  void initParamDescription(const std::shared_ptr<ModelDescription>& modelDescription);
 
   /**
    * @brief replace \@NODE\@, \@NODE1\@, \@NODE2\@ with the id of the bus the component is connected to

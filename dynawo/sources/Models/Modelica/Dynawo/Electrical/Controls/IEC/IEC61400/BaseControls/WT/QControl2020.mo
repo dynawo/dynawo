@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT;
 */
 
 model QControl2020 "Reactive power control module for wind turbines (IEC N°61400-27-1:2020)"
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseQControl(deadZone.deadZoneAtInit = true, deadZone.uMax = DUdb2Pu, deadZone.uMin = DUdb1Pu);
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseQControl(deadZone.uMax = DUdb2Pu, deadZone.uMin = DUdb1Pu);
 
   //QControl parameters
   parameter Types.VoltageModulePu DUdb1Pu "Voltage change dead band lower limit (typically negative) in pu (base UNom)" annotation(

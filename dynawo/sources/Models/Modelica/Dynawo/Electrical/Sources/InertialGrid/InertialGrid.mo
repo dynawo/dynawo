@@ -22,7 +22,7 @@ model InertialGrid
 
   Dynawo.Electrical.Controls.Frequency.SystemFrequencyResponse.ReducedOrderSFR reducedOrderSFR(DPu = DPu, Fh = Fh, H = H, Km = Km, Pe0Pu = P0Pu * SystemBase.SnRef / SNom, R = R, Tr = Tr) annotation(
     Placement(visible = true, transformation(origin = {-73, 1}, extent = {{-13, -13}, {13, 13}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integrator(k = SystemBase.omegaNom, y_start = 0) annotation(
+  Modelica.Blocks.Continuous.Integrator integrator(k = SystemBase.omegaNom) annotation(
     Placement(visible = true, transformation(origin = {-26, -4}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
   Modelica.Blocks.Math.PolarToRectangular polarToRectangular annotation(
     Placement(visible = true, transformation(origin = {46, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -68,5 +68,6 @@ equation
     Line(points = {{91.5, -2}, {110, -2}}, color = {0, 0, 255}));
 
   annotation(
+    preferredView = "diagram",
     Icon(graphics = {Text(origin = {-33, 34}, extent = {{-59, 22}, {129, -88}}, textString = "InertialGrid"), Rectangle(extent = {{-100, 100}, {100, -100}})}));
 end InertialGrid;

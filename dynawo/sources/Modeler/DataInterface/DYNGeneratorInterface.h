@@ -200,18 +200,6 @@ class GeneratorInterface : public ComponentInterface, public ReactiveCurvePoints
   virtual double getCoordinatedReactiveControlPercentage() const = 0;
 
   /**
-   * @brief Get the droop parameter
-   * @returns the droop parameter value, or nullopt if the parameter is not found
-   */
-  virtual boost::optional<double> getDroop() const = 0;
-
-  /**
-   * @brief Determines if the generator is participate
-   * @returns true if the generator is participate, false if not, or nullopt if the parameter is not found
-   */
-  virtual boost::optional<bool> isParticipate() const = 0;
-
-  /**
    * @brief Getter for energy source type
    * @returns energy source type
    */

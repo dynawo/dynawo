@@ -10,7 +10,8 @@
 
     This file is part of Dynawo, an hybrid C++/Modelica open source suite of
     simulation tools for power systems.
---><jobs xmlns="http://www.rte-france.com/dynawo">
+-->
+<jobs xmlns="http://www.rte-france.com/dynawo">
     <job name="WECCPV">
         <solver lib="dynawo_SolverIDA" parFile="WECCPV.par" parId="Solver"/>
         <modeler compileDir="outputs/compilation">

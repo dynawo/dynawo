@@ -26,10 +26,8 @@
 #include "DYDMacroStaticRef.h"
 #include "DYDStaticRef.h"
 
-#include <boost/shared_ptr.hpp>
 #include <map>
 #include <string>
-#include <vector>
 
 namespace dynamicdata {
 
@@ -85,7 +83,7 @@ class Model {
    * @param macroStaticRef macroStaticRef to add to the model
    * @throws Error::API exception if macroStaticRef already exists
    */
-  void addMacroStaticRef(const boost::shared_ptr<MacroStaticRef>& macroStaticRef);
+  void addMacroStaticRef(const std::shared_ptr<MacroStaticRef>& macroStaticRef);
 
   /**
    * @brief staticRef iterator : beginning of staticRefs
@@ -141,7 +139,7 @@ class Model {
    * @throws Error::API exception if staticRef doesn't exist
    * @return the staticRef associated to the key
    */
-  const boost::shared_ptr<StaticRef>& findStaticRef(const std::string& key);
+  const std::unique_ptr<StaticRef>& findStaticRef(const std::string& key);
 
   /**
    * @brief find a macroStaticRef thanks to its id
@@ -149,7 +147,7 @@ class Model {
    * @throws Error::API exception if macroStaticRef doesn't exist
    * @return the macroStaticRef associated to the id
    */
-  const boost::shared_ptr<MacroStaticRef>& findMacroStaticRef(const std::string& id);
+  const std::shared_ptr<MacroStaticRef>& findMacroStaticRef(const std::string& id);
 
   friend class staticRef_iterator;
   friend class staticRef_const_iterator;
@@ -166,10 +164,10 @@ class Model {
   Model(const std::string& id, ModelType type);
 
  protected:
-  boost::shared_ptr<Identifiable> id_;                                         ///< Model's ID
+  std::unique_ptr<Identifiable> id_;                                           ///< Model's ID
   ModelType type_;                                                             ///< Model's type
-  std::map<std::string, boost::shared_ptr<StaticRef> > staticRefs_;            ///< map of static ref
-  std::map<std::string, boost::shared_ptr<MacroStaticRef> > macroStaticRefs_;  ///< map of the macroStaticRef
+  std::map<std::string, std::unique_ptr<StaticRef> > staticRefs_;              ///< map of static ref
+  std::map<std::string, std::shared_ptr<MacroStaticRef> > macroStaticRefs_;    ///< map of the macroStaticRef
 };
 
 }  // namespace dynamicdata

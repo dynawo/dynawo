@@ -36,7 +36,7 @@
 
 // definitions of typedef alias to hide boost types
 typedef boost::property<boost::edge_weight_t, float, boost::property<boost::edge_name_t, std::string> > EdgeProperty;  ///< properties associated to an edge
-typedef boost::property<boost::vertex_name_t, std::string> VertexProperty;  ///< property associated to a vertex
+typedef boost::property<boost::vertex_name_t, int> VertexProperty;  ///< property associated to a vertex
 typedef boost::adjacency_list <boost::vecS, boost::vecS, boost::undirectedS, VertexProperty, EdgeProperty> BoostGraph;  ///< graph description
 typedef boost::graph_traits < BoostGraph >::vertex_descriptor Vertex;  ///< vertex description
 typedef BoostGraph::edge_descriptor Edge;  ///< edge description
@@ -165,7 +165,6 @@ class Graph {
  private:
   BoostGraph internalGraph_;  ///< graph description
   std::unordered_map<unsigned int, Vertex> vertices_;  ///< association between vertices and their id
-  std::vector<unsigned int> verticesIds_;  ///< Vertices ids to link to an index
   std::unordered_map<std::string, Edge> edges_;  ///< association between edges and their id
 };
 

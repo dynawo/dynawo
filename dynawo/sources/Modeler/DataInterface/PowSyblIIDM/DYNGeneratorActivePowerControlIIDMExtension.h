@@ -41,6 +41,12 @@ class GeneratorActivePowerControlIIDMExtension {
    * @returns true if the generatpr is participate, false if not, or nullopt if the parameter is not found
    */
   virtual boost::optional<bool> isParticipate() const = 0;
+
+  /**
+   * @brief Determines if the extension exists
+   * @returns whether the extension exists
+   */
+  virtual bool exists() const = 0;
 };
 }  // namespace DYN
 

@@ -128,7 +128,7 @@ Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10},
     Placement(visible = true, transformation(origin = {-70, -50}, extent = {{10, 10}, {-10, -10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch2 annotation(
     Placement(visible = true, transformation(origin = {150, -50}, extent = {{10, 10}, {-10, -10}}, rotation = 180)));
-  Modelica.Blocks.Continuous.TransferFunction transferFunction(a = {t1, 1}, b = K * {t2, 1}) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {t1, 1}, b = K * {t2, 1}) annotation(
     Placement(visible = true, transformation(origin = {-270, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters

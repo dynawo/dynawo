@@ -1,6 +1,9 @@
 BaseClasses
 PVCurrentSourceB
+PVCurrentSourceBNoPlantControl
 PVCurrentSource_INIT
 PVVoltageSourceA
+PVVoltageSourceANoPlantControl
 PVVoltageSourceB
+PVVoltageSourceBNoPlantControl
 PVVoltageSource_INIT

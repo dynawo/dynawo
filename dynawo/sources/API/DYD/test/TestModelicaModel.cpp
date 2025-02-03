@@ -46,7 +46,7 @@ namespace dynamicdata {
 TEST(APIDYDTest, ModelicaModel) {
   boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();
 
-  boost::shared_ptr<ModelicaModel> model;
+  std::unique_ptr<ModelicaModel> model;
   model = ModelicaModelFactory::newModel("ModelicaModel");
   model->setStaticId("staticId");
   ASSERT_TRUE(model->getUseAliasing());
@@ -54,16 +54,16 @@ TEST(APIDYDTest, ModelicaModel) {
   model->setCompilationOptions(false, false);
 
   // <dyn:unitDynamicModel id="component1" name="model1" initName="model1_init"/>
-  boost::shared_ptr<UnitDynamicModel> udm1;
+  std::shared_ptr<UnitDynamicModel> udm1;
   udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
   udm1->setInitModelName("model1_init");
   // <dyn:unitDynamicModel id="component2" name="model2" initName="model2_init"/>
-  boost::shared_ptr<UnitDynamicModel> udm2;
+  std::unique_ptr<UnitDynamicModel> udm2;
   udm2 = UnitDynamicModelFactory::newModel("component2", "model2");
   udm2->setInitModelName("model2_init");
 
   model->addUnitDynamicModel(udm1);
-  model->addUnitDynamicModel(udm2);
+  model->addUnitDynamicModel(std::move(udm2));
   ASSERT_THROW_DYNAWO(model->addUnitDynamicModel(udm1), DYN::Error::API, DYN::KeyError_t::ModelIDNotUnique);  // component already exist
 
   model->addConnect("component1", "var1", "component2", "var2");
@@ -81,7 +81,7 @@ TEST(APIDYDTest, ModelicaModel) {
   ASSERT_EQ(model->getStaticId(), "staticId");
   ASSERT_FALSE(model->getUseAliasing());
   ASSERT_FALSE(model->getGenerateCalculatedVariables());
-  std::map<std::string, boost::shared_ptr<UnitDynamicModel> > udms = model->getUnitDynamicModels();
+  std::map<std::string, std::shared_ptr<UnitDynamicModel> > udms = model->getUnitDynamicModels();
   ASSERT_EQ(udms.size(), 2);
 }
 
@@ -112,12 +112,12 @@ TEST(APIDYDTest, ModelicaModelMissingInitName) {
 TEST(APIDYDTest, ModelicaModelBadConnectors) {
   boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();  // reset identifiable
 
-  boost::shared_ptr<ModelicaModel> model;
+  std::unique_ptr<ModelicaModel> model;
   model = ModelicaModelFactory::newModel("modelTemplate");
-  boost::shared_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
-  boost::shared_ptr<UnitDynamicModel> udm2 = UnitDynamicModelFactory::newModel("component2", "model2");
-  model->addUnitDynamicModel(udm1);
-  model->addUnitDynamicModel(udm2);
+  std::unique_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
+  std::unique_ptr<UnitDynamicModel> udm2 = UnitDynamicModelFactory::newModel("component2", "model2");
+  model->addUnitDynamicModel(std::move(udm1));
+  model->addUnitDynamicModel(std::move(udm2));
 
   ASSERT_THROW_DYNAWO(model->addConnect("component1", "var1", "component3", "var2"), DYN::Error::API,
           DYN::KeyError_t::ConnectorNotPartofModel);  // component3 does not exist
@@ -142,17 +142,17 @@ TEST(APIDYDTest, ModelicaModel_1UDM_EqualsFromXml) {
   files.push_back("res/sameModelicaModel.xml");
   ASSERT_NO_THROW(collection = importer.importFromDydFiles(files));
 
-  std::vector<boost::shared_ptr<ModelicaModel> >models;
+  std::vector<std::shared_ptr<ModelicaModel> >models;
 
   for (dynamicModel_iterator itModel = collection->beginModel();
           itModel != collection->endModel();
           ++itModel) {
-    models.push_back(boost::dynamic_pointer_cast<ModelicaModel>(*itModel));
+    models.push_back(std::dynamic_pointer_cast<ModelicaModel>(*itModel));
   }
 
   ASSERT_EQ(models.size(), 2);
 
-  std::map<boost::shared_ptr<UnitDynamicModel>, boost::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
+  std::map<std::shared_ptr<UnitDynamicModel>, std::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
   ASSERT_EQ(models[0]->hasSameStructureAs(models[1], tmpUnitDynamicModelsMap), true);
 }
 
@@ -168,17 +168,17 @@ TEST(APIDYDTest, ModelicaModel_1UDM_DifferentFromXml) {
   files.push_back("res/differentModelicaModel.xml");
   ASSERT_NO_THROW(collection = importer.importFromDydFiles(files));
 
-  std::vector<boost::shared_ptr<ModelicaModel> >models;
+  std::vector<std::shared_ptr<ModelicaModel> >models;
 
   for (dynamicModel_iterator itModel = collection->beginModel();
           itModel != collection->endModel();
           ++itModel) {
-    models.push_back(boost::dynamic_pointer_cast<ModelicaModel>(*itModel));
+    models.push_back(std::dynamic_pointer_cast<ModelicaModel>(*itModel));
   }
 
   ASSERT_EQ(models.size(), 2);
 
-  std::map<boost::shared_ptr<UnitDynamicModel>, boost::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
+  std::map<std::shared_ptr<UnitDynamicModel>, std::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
   ASSERT_EQ(models[0]->hasSameStructureAs(models[1], tmpUnitDynamicModelsMap), false);
 }
 
@@ -194,17 +194,17 @@ TEST(APIDYDTest, ModelicaModel_3UDMsNoConnections_EqualsFromXml) {
   files.push_back("res/3UDMsameModelicaModel.xml");
   ASSERT_NO_THROW(collection = importer.importFromDydFiles(files));
 
-  std::vector<boost::shared_ptr<ModelicaModel> >models;
+  std::vector<std::shared_ptr<ModelicaModel> >models;
 
   for (dynamicModel_iterator itModel = collection->beginModel();
           itModel != collection->endModel();
           ++itModel) {
-    models.push_back(boost::dynamic_pointer_cast<ModelicaModel>(*itModel));
+    models.push_back(std::dynamic_pointer_cast<ModelicaModel>(*itModel));
   }
 
   ASSERT_EQ(models.size(), 2);
 
-  std::map<boost::shared_ptr<UnitDynamicModel>, boost::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
+  std::map<std::shared_ptr<UnitDynamicModel>, std::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
   ASSERT_EQ(models[0]->hasSameStructureAs(models[1], tmpUnitDynamicModelsMap), true);
 }
 
@@ -220,17 +220,17 @@ TEST(APIDYDTest, ModelicaModel_3UDMsNoConnections_DifferentFromXml) {
   files.push_back("res/3UDMdifferentModelicaModel.xml");
   ASSERT_NO_THROW(collection = importer.importFromDydFiles(files));
 
-  std::vector<boost::shared_ptr<ModelicaModel> >models;
+  std::vector<std::shared_ptr<ModelicaModel> >models;
 
   for (dynamicModel_iterator itModel = collection->beginModel();
           itModel != collection->endModel();
           ++itModel) {
-    models.push_back(boost::dynamic_pointer_cast<ModelicaModel>(*itModel));
+    models.push_back(std::dynamic_pointer_cast<ModelicaModel>(*itModel));
   }
 
   ASSERT_EQ(models.size(), 2);
 
-  std::map<boost::shared_ptr<UnitDynamicModel>, boost::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
+  std::map<std::shared_ptr<UnitDynamicModel>, std::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
   ASSERT_EQ(models[0]->hasSameStructureAs(models[1], tmpUnitDynamicModelsMap), false);
 }
 
@@ -246,17 +246,17 @@ TEST(APIDYDTest, ModelicaModelSameModelFromXml) {
   files.push_back("res/modelicaModel.xml");
   ASSERT_NO_THROW(collection = importer.importFromDydFiles(files));
 
-  std::vector<boost::shared_ptr<ModelicaModel> >models;
+  std::vector<std::shared_ptr<ModelicaModel> >models;
 
   for (dynamicModel_iterator itModel = collection->beginModel();
           itModel != collection->endModel();
           ++itModel) {
-    models.push_back(boost::dynamic_pointer_cast<ModelicaModel>(*itModel));
+    models.push_back(std::dynamic_pointer_cast<ModelicaModel>(*itModel));
   }
 
   ASSERT_EQ(models.size(), 1);
 
-  std::map<boost::shared_ptr<UnitDynamicModel>, boost::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
+  std::map<std::shared_ptr<UnitDynamicModel>, std::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
   ASSERT_EQ(models[0]->hasSameStructureAs(models[0], tmpUnitDynamicModelsMap), true);
 }
 
@@ -268,20 +268,20 @@ TEST(APIDYDTest, ModelicaModelDifferentSize) {
   boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();
 
   // first model
-  boost::shared_ptr<ModelicaModel> model;
+  std::unique_ptr<ModelicaModel> model;
   model = ModelicaModelFactory::newModel("ModelicaModel");
-  boost::shared_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
-  boost::shared_ptr<UnitDynamicModel> udm2 = UnitDynamicModelFactory::newModel("component2", "model2");
+  std::shared_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
+  std::unique_ptr<UnitDynamicModel> udm2 = UnitDynamicModelFactory::newModel("component2", "model2");
   model->addUnitDynamicModel(udm1);
-  model->addUnitDynamicModel(udm2);
+  model->addUnitDynamicModel(std::move(udm2));
 
   // second model
-  boost::shared_ptr<ModelicaModel> model1;
+  std::unique_ptr<ModelicaModel> model1;
   model1 = ModelicaModelFactory::newModel("ModelicaModel1");
   model1->addUnitDynamicModel(udm1);
 
-  std::map<boost::shared_ptr<UnitDynamicModel>, boost::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
-  ASSERT_EQ(model->hasSameStructureAs(model1, tmpUnitDynamicModelsMap), false);
+  std::map<std::shared_ptr<UnitDynamicModel>, std::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
+  ASSERT_EQ(model->hasSameStructureAs(std::move(model1), tmpUnitDynamicModelsMap), false);
 }
 
 //=======================================================================
@@ -292,25 +292,25 @@ TEST(APIDYDTest, ModelicaModelDifferentInitConnects) {
   boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();
 
   // first model
-  boost::shared_ptr<ModelicaModel> model;
+  std::unique_ptr<ModelicaModel> model;
   model = ModelicaModelFactory::newModel("ModelicaModel");
-  boost::shared_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
-  boost::shared_ptr<UnitDynamicModel> udm2 = UnitDynamicModelFactory::newModel("component2", "model2");
+  std::shared_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
+  std::shared_ptr<UnitDynamicModel> udm2 = UnitDynamicModelFactory::newModel("component2", "model2");
   model->addUnitDynamicModel(udm1);
   model->addUnitDynamicModel(udm2);
   model->addInitConnect("component1", "var1", "component2", "var2");
   model->addInitConnect("component2", "var1", "component1", "var2");
 
   // second model
-  boost::shared_ptr<ModelicaModel> model1;
+  std::unique_ptr<ModelicaModel> model1;
   model1 = ModelicaModelFactory::newModel("ModelicaModel1");
   model1->addUnitDynamicModel(udm1);
   model1->addUnitDynamicModel(udm2);
   model1->addInitConnect("component1", "var2", "component2", "var1");
   model1->addInitConnect("component2", "var2", "component1", "var2");
 
-  std::map<boost::shared_ptr<UnitDynamicModel>, boost::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
-  ASSERT_EQ(model->hasSameStructureAs(model1, tmpUnitDynamicModelsMap), false);
+  std::map<std::shared_ptr<UnitDynamicModel>, std::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
+  ASSERT_EQ(model->hasSameStructureAs(std::move(model1), tmpUnitDynamicModelsMap), false);
 }
 
 //==================================================================
@@ -321,25 +321,25 @@ TEST(APIDYDTest, ModelicaModelDifferentConnects) {
   boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();
 
   // first model
-  boost::shared_ptr<ModelicaModel> model;
+  std::unique_ptr<ModelicaModel> model;
   model = ModelicaModelFactory::newModel("ModelicaModel");
-  boost::shared_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
-  boost::shared_ptr<UnitDynamicModel> udm2 = UnitDynamicModelFactory::newModel("component2", "model2");
+  std::shared_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
+  std::shared_ptr<UnitDynamicModel> udm2 = UnitDynamicModelFactory::newModel("component2", "model2");
   model->addUnitDynamicModel(udm1);
   model->addUnitDynamicModel(udm2);
   model->addConnect("component1", "var1", "component2", "var2");
   model->addConnect("component2", "var1", "component1", "var2");
 
   // second model
-  boost::shared_ptr<ModelicaModel> model1;
+  std::unique_ptr<ModelicaModel> model1;
   model1 = ModelicaModelFactory::newModel("ModelicaModel1");
   model1->addUnitDynamicModel(udm1);
   model1->addUnitDynamicModel(udm2);
   model1->addConnect("component1", "var2", "component2", "var1");
   model1->addConnect("component2", "var2", "component1", "var2");
 
-  std::map<boost::shared_ptr<UnitDynamicModel>, boost::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
-  ASSERT_EQ(model->hasSameStructureAs(model1, tmpUnitDynamicModelsMap), false);
+  std::map<std::shared_ptr<UnitDynamicModel>, std::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
+  ASSERT_EQ(model->hasSameStructureAs(std::move(model1), tmpUnitDynamicModelsMap), false);
 }
 
 //=======================================================================================
@@ -350,31 +350,31 @@ TEST(APIDYDTest, ModelicaModelDifferentInitUDM) {
   boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();
 
   // first model
-  boost::shared_ptr<ModelicaModel> model;
+  std::unique_ptr<ModelicaModel> model;
   model = ModelicaModelFactory::newModel("ModelicaModel");
-  boost::shared_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
-  boost::shared_ptr<UnitDynamicModel> udm2 = UnitDynamicModelFactory::newModel("component2", "model2");
+  std::unique_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
+  std::unique_ptr<UnitDynamicModel> udm2 = UnitDynamicModelFactory::newModel("component2", "model2");
   udm1->setInitModelName("model_init1");
   udm2->setInitModelName("model_init2");
-  model->addUnitDynamicModel(udm1);
-  model->addUnitDynamicModel(udm2);
+  model->addUnitDynamicModel(std::move(udm1));
+  model->addUnitDynamicModel(std::move(udm2));
   model->addConnect("component1", "var1", "component2", "var2");
   model->addConnect("component2", "var1", "component1", "var2");
 
   // second model
-  boost::shared_ptr<ModelicaModel> model1;
+  std::unique_ptr<ModelicaModel> model1;
   model1 = ModelicaModelFactory::newModel("ModelicaModel1");
-  boost::shared_ptr<UnitDynamicModel> udm3 = UnitDynamicModelFactory::newModel("component3", "model1");
-  boost::shared_ptr<UnitDynamicModel> udm4 = UnitDynamicModelFactory::newModel("component4", "model2");
+  std::unique_ptr<UnitDynamicModel> udm3 = UnitDynamicModelFactory::newModel("component3", "model1");
+  std::unique_ptr<UnitDynamicModel> udm4 = UnitDynamicModelFactory::newModel("component4", "model2");
   udm3->setInitModelName("model_init3");
   udm4->setInitModelName("model_init4");
-  model1->addUnitDynamicModel(udm3);
-  model1->addUnitDynamicModel(udm4);
+  model1->addUnitDynamicModel(std::move(udm3));
+  model1->addUnitDynamicModel(std::move(udm4));
   model1->addConnect("component3", "var1", "component4", "var2");
   model1->addConnect("component4", "var1", "component3", "var2");
 
-  std::map<boost::shared_ptr<UnitDynamicModel>, boost::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
-  ASSERT_EQ(model->hasSameStructureAs(model1, tmpUnitDynamicModelsMap), false);
+  std::map<std::shared_ptr<UnitDynamicModel>, std::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
+  ASSERT_EQ(model->hasSameStructureAs(std::move(model1), tmpUnitDynamicModelsMap), false);
 }
 
 //=======================================================================================
@@ -385,31 +385,31 @@ TEST(APIDYDTest, ModelicaModelDifferentInitUDM_2) {
   boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();
 
   // first model
-  boost::shared_ptr<ModelicaModel> model;
+  std::unique_ptr<ModelicaModel> model;
   model = ModelicaModelFactory::newModel("ModelicaModel");
-  boost::shared_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
-  boost::shared_ptr<UnitDynamicModel> udm2 = UnitDynamicModelFactory::newModel("component2", "model2");
+  std::unique_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
+  std::unique_ptr<UnitDynamicModel> udm2 = UnitDynamicModelFactory::newModel("component2", "model2");
   udm1->setInitModelName("model_init1");
   udm2->setInitModelName("model_init2");
-  model->addUnitDynamicModel(udm1);
-  model->addUnitDynamicModel(udm2);
+  model->addUnitDynamicModel(std::move(udm1));
+  model->addUnitDynamicModel(std::move(udm2));
   model->addConnect("component1", "var1", "component2", "var2");
   model->addConnect("component2", "var1", "component1", "var2");
 
   // second model
-  boost::shared_ptr<ModelicaModel> model1;
+  std::unique_ptr<ModelicaModel> model1;
   model1 = ModelicaModelFactory::newModel("ModelicaModel1");
-  boost::shared_ptr<UnitDynamicModel> udm3 = UnitDynamicModelFactory::newModel("component3", "model1");
-  boost::shared_ptr<UnitDynamicModel> udm4 = UnitDynamicModelFactory::newModel("component4", "model2");
+  std::unique_ptr<UnitDynamicModel> udm3 = UnitDynamicModelFactory::newModel("component3", "model1");
+  std::unique_ptr<UnitDynamicModel> udm4 = UnitDynamicModelFactory::newModel("component4", "model2");
   udm3->setInitModelName("model_init3");
   udm4->setInitModelName("model_init4");
-  model1->addUnitDynamicModel(udm3);
-  model1->addUnitDynamicModel(udm4);
+  model1->addUnitDynamicModel(std::move(udm3));
+  model1->addUnitDynamicModel(std::move(udm4));
   model1->addConnect("component4", "var2", "component3", "var1");
   model1->addConnect("component4", "var1", "component3", "var2");
 
-  std::map<boost::shared_ptr<UnitDynamicModel>, boost::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
-  ASSERT_EQ(model->hasSameStructureAs(model1, tmpUnitDynamicModelsMap), false);
+  std::map<std::shared_ptr<UnitDynamicModel>, std::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
+  ASSERT_EQ(model->hasSameStructureAs(std::move(model1), tmpUnitDynamicModelsMap), false);
 }
 
 //================================================================================================================================================
@@ -420,43 +420,43 @@ TEST(APIDYDTest, ModelicaModelSameConnectsButDifferentConnectionGraph) {
   boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();
 
   // first model
-  boost::shared_ptr<ModelicaModel> model;
+  std::unique_ptr<ModelicaModel> model;
   model = ModelicaModelFactory::newModel("ModelicaModel");
-  boost::shared_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
-  boost::shared_ptr<UnitDynamicModel> udm2 = UnitDynamicModelFactory::newModel("component2", "model1");
-  boost::shared_ptr<UnitDynamicModel> udm3 = UnitDynamicModelFactory::newModel("component3", "model2");
-  boost::shared_ptr<UnitDynamicModel> udm4 = UnitDynamicModelFactory::newModel("component4", "model2");
+  std::unique_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
+  std::unique_ptr<UnitDynamicModel> udm2 = UnitDynamicModelFactory::newModel("component2", "model1");
+  std::unique_ptr<UnitDynamicModel> udm3 = UnitDynamicModelFactory::newModel("component3", "model2");
+  std::unique_ptr<UnitDynamicModel> udm4 = UnitDynamicModelFactory::newModel("component4", "model2");
   udm1->setInitModelName("model_init1");
   udm2->setInitModelName("model_init2");
   udm3->setInitModelName("model_init3");
   udm4->setInitModelName("model_init4");
-  model->addUnitDynamicModel(udm1);
-  model->addUnitDynamicModel(udm2);
-  model->addUnitDynamicModel(udm3);
-  model->addUnitDynamicModel(udm4);
+  model->addUnitDynamicModel(std::move(udm1));
+  model->addUnitDynamicModel(std::move(udm2));
+  model->addUnitDynamicModel(std::move(udm3));
+  model->addUnitDynamicModel(std::move(udm4));
   model->addConnect("component1", "var1", "component3", "var2");
   model->addConnect("component2", "var1", "component4", "var2");
 
   // second model
-  boost::shared_ptr<ModelicaModel> model1;
+  std::unique_ptr<ModelicaModel> model1;
   model1 = ModelicaModelFactory::newModel("ModelicaModel1");
-  boost::shared_ptr<UnitDynamicModel> udm11 = UnitDynamicModelFactory::newModel("component11", "model1");
-  boost::shared_ptr<UnitDynamicModel> udm21 = UnitDynamicModelFactory::newModel("component21", "model1");
-  boost::shared_ptr<UnitDynamicModel> udm31 = UnitDynamicModelFactory::newModel("component31", "model2");
-  boost::shared_ptr<UnitDynamicModel> udm41 = UnitDynamicModelFactory::newModel("component41", "model2");
+  std::unique_ptr<UnitDynamicModel> udm11 = UnitDynamicModelFactory::newModel("component11", "model1");
+  std::unique_ptr<UnitDynamicModel> udm21 = UnitDynamicModelFactory::newModel("component21", "model1");
+  std::unique_ptr<UnitDynamicModel> udm31 = UnitDynamicModelFactory::newModel("component31", "model2");
+  std::unique_ptr<UnitDynamicModel> udm41 = UnitDynamicModelFactory::newModel("component41", "model2");
   udm11->setInitModelName("model_init1");
   udm21->setInitModelName("model_init2");
   udm31->setInitModelName("model_init3");
   udm41->setInitModelName("model_init4");
-  model1->addUnitDynamicModel(udm11);
-  model1->addUnitDynamicModel(udm21);
-  model1->addUnitDynamicModel(udm31);
-  model1->addUnitDynamicModel(udm41);
+  model1->addUnitDynamicModel(std::move(udm11));
+  model1->addUnitDynamicModel(std::move(udm21));
+  model1->addUnitDynamicModel(std::move(udm31));
+  model1->addUnitDynamicModel(std::move(udm41));
   model1->addConnect("component11", "var1", "component31", "var2");
   model1->addConnect("component11", "var1", "component41", "var2");
 
-  std::map<boost::shared_ptr<UnitDynamicModel>, boost::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
-  ASSERT_EQ(model->hasSameStructureAs(model1, tmpUnitDynamicModelsMap), false);
+  std::map<std::shared_ptr<UnitDynamicModel>, std::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
+  ASSERT_EQ(model->hasSameStructureAs(std::move(model1), tmpUnitDynamicModelsMap), false);
 }
 
 //=========================================================================================================================================
@@ -467,43 +467,43 @@ TEST(APIDYDTest, ModelicaModelSameInitConnectsButDifferentInitConnectionGraph) {
   boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();
 
   // first model
-  boost::shared_ptr<ModelicaModel> model;
+  std::unique_ptr<ModelicaModel> model;
   model = ModelicaModelFactory::newModel("ModelicaModel");
-  boost::shared_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
-  boost::shared_ptr<UnitDynamicModel> udm2 = UnitDynamicModelFactory::newModel("component2", "model1");
-  boost::shared_ptr<UnitDynamicModel> udm3 = UnitDynamicModelFactory::newModel("component3", "model2");
-  boost::shared_ptr<UnitDynamicModel> udm4 = UnitDynamicModelFactory::newModel("component4", "model2");
+  std::unique_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
+  std::unique_ptr<UnitDynamicModel> udm2 = UnitDynamicModelFactory::newModel("component2", "model1");
+  std::unique_ptr<UnitDynamicModel> udm3 = UnitDynamicModelFactory::newModel("component3", "model2");
+  std::unique_ptr<UnitDynamicModel> udm4 = UnitDynamicModelFactory::newModel("component4", "model2");
   udm1->setInitModelName("model_init1");
   udm2->setInitModelName("model_init2");
   udm3->setInitModelName("model_init3");
   udm4->setInitModelName("model_init4");
-  model->addUnitDynamicModel(udm1);
-  model->addUnitDynamicModel(udm2);
-  model->addUnitDynamicModel(udm3);
-  model->addUnitDynamicModel(udm4);
+  model->addUnitDynamicModel(std::move(udm1));
+  model->addUnitDynamicModel(std::move(udm2));
+  model->addUnitDynamicModel(std::move(udm3));
+  model->addUnitDynamicModel(std::move(udm4));
   model->addInitConnect("component1", "var1", "component3", "var2");
   model->addInitConnect("component2", "var1", "component4", "var2");
 
   // second model
-  boost::shared_ptr<ModelicaModel> model1;
+  std::unique_ptr<ModelicaModel> model1;
   model1 = ModelicaModelFactory::newModel("ModelicaModel1");
-  boost::shared_ptr<UnitDynamicModel> udm11 = UnitDynamicModelFactory::newModel("component11", "model1");
-  boost::shared_ptr<UnitDynamicModel> udm21 = UnitDynamicModelFactory::newModel("component21", "model1");
-  boost::shared_ptr<UnitDynamicModel> udm31 = UnitDynamicModelFactory::newModel("component31", "model2");
-  boost::shared_ptr<UnitDynamicModel> udm41 = UnitDynamicModelFactory::newModel("component41", "model2");
+  std::unique_ptr<UnitDynamicModel> udm11 = UnitDynamicModelFactory::newModel("component11", "model1");
+  std::unique_ptr<UnitDynamicModel> udm21 = UnitDynamicModelFactory::newModel("component21", "model1");
+  std::unique_ptr<UnitDynamicModel> udm31 = UnitDynamicModelFactory::newModel("component31", "model2");
+  std::unique_ptr<UnitDynamicModel> udm41 = UnitDynamicModelFactory::newModel("component41", "model2");
   udm11->setInitModelName("model_init1");
   udm21->setInitModelName("model_init2");
   udm31->setInitModelName("model_init3");
   udm41->setInitModelName("model_init4");
-  model1->addUnitDynamicModel(udm11);
-  model1->addUnitDynamicModel(udm21);
-  model1->addUnitDynamicModel(udm31);
-  model1->addUnitDynamicModel(udm41);
+  model1->addUnitDynamicModel(std::move(udm11));
+  model1->addUnitDynamicModel(std::move(udm21));
+  model1->addUnitDynamicModel(std::move(udm31));
+  model1->addUnitDynamicModel(std::move(udm41));
   model1->addInitConnect("component11", "var1", "component31", "var2");
   model1->addInitConnect("component11", "var1", "component41", "var2");
 
-  std::map<boost::shared_ptr<UnitDynamicModel>, boost::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
-  ASSERT_EQ(model->hasSameStructureAs(model1, tmpUnitDynamicModelsMap), false);
+  std::map<std::shared_ptr<UnitDynamicModel>, std::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
+  ASSERT_EQ(model->hasSameStructureAs(std::move(model1), tmpUnitDynamicModelsMap), false);
 }
 
 //=======================================================================================
@@ -514,59 +514,59 @@ TEST(APIDYDTest, ModelicaModelSameInitUDM) {
   boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();
 
   // first model
-  boost::shared_ptr<ModelicaModel> model;
+  std::unique_ptr<ModelicaModel> model;
   model = ModelicaModelFactory::newModel("ModelicaModel");
-  boost::shared_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
-  boost::shared_ptr<UnitDynamicModel> udm2 = UnitDynamicModelFactory::newModel("component2", "model2");
+  std::unique_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
+  std::unique_ptr<UnitDynamicModel> udm2 = UnitDynamicModelFactory::newModel("component2", "model2");
   udm1->setInitModelName("model_init1");
   udm2->setInitModelName("model_init2");
-  model->addUnitDynamicModel(udm1);
-  model->addUnitDynamicModel(udm2);
+  model->addUnitDynamicModel(std::move(udm1));
+  model->addUnitDynamicModel(std::move(udm2));
   model->addConnect("component1", "var1", "component2", "var2");
   model->addConnect("component2", "var1", "component1", "var2");
 
   // second model
-  boost::shared_ptr<ModelicaModel> model1;
+  std::unique_ptr<ModelicaModel> model1;
   model1 = ModelicaModelFactory::newModel("ModelicaModel1");
-  boost::shared_ptr<UnitDynamicModel> udm3 = UnitDynamicModelFactory::newModel("component3", "model1");
-  boost::shared_ptr<UnitDynamicModel> udm4 = UnitDynamicModelFactory::newModel("component4", "model2");
+  std::unique_ptr<UnitDynamicModel> udm3 = UnitDynamicModelFactory::newModel("component3", "model1");
+  std::unique_ptr<UnitDynamicModel> udm4 = UnitDynamicModelFactory::newModel("component4", "model2");
   udm3->setInitModelName("model_init1");
   udm4->setInitModelName("model_init2");
-  model1->addUnitDynamicModel(udm3);
-  model1->addUnitDynamicModel(udm4);
+  model1->addUnitDynamicModel(std::move(udm3));
+  model1->addUnitDynamicModel(std::move(udm4));
   model1->addConnect("component4", "var2", "component3", "var1");
   model1->addConnect("component4", "var1", "component3", "var2");
 
-  std::map<boost::shared_ptr<UnitDynamicModel>, boost::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
-  ASSERT_EQ(model->hasSameStructureAs(model1, tmpUnitDynamicModelsMap), true);
+  std::map<std::shared_ptr<UnitDynamicModel>, std::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
+  ASSERT_EQ(model->hasSameStructureAs(std::move(model1), tmpUnitDynamicModelsMap), true);
 }
 
 TEST(APIDYDTest, ModelicaModelWithMacroConnect) {
   boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();  // reset identifiable
 
-  boost::shared_ptr<ModelicaModel> model;
+  std::unique_ptr<ModelicaModel> model;
   model = ModelicaModelFactory::newModel("ModelicaModel");
-  boost::shared_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
-  boost::shared_ptr<UnitDynamicModel> udm2 = UnitDynamicModelFactory::newModel("component2", "model2");
-  boost::shared_ptr<UnitDynamicModel> udm3 = UnitDynamicModelFactory::newModel("component3", "model3");
-  model->addUnitDynamicModel(udm1);
-  model->addUnitDynamicModel(udm2);
-  model->addUnitDynamicModel(udm3);
+  std::unique_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
+  std::unique_ptr<UnitDynamicModel> udm2 = UnitDynamicModelFactory::newModel("component2", "model2");
+  std::unique_ptr<UnitDynamicModel> udm3 = UnitDynamicModelFactory::newModel("component3", "model3");
+  model->addUnitDynamicModel(std::move(udm1));
+  model->addUnitDynamicModel(std::move(udm2));
+  model->addUnitDynamicModel(std::move(udm3));
 
-  boost::shared_ptr<MacroConnect> mc1 = MacroConnectFactory::newMacroConnect("mc1", "component1", "component2");
-  boost::shared_ptr<MacroConnect> mc2 = MacroConnectFactory::newMacroConnect("mc2", "component3", "component2");
-  boost::shared_ptr<MacroConnect> mc3 = MacroConnectFactory::newMacroConnect("mc3", "component4", "component2");  // model4 does not exist
-  boost::shared_ptr<MacroConnect> mc4 = MacroConnectFactory::newMacroConnect("mc4", "component2", "component4");  // model4 does not exist
-  ASSERT_NO_THROW(model->addMacroConnect(mc1));
-  ASSERT_NO_THROW(model->addMacroConnect(mc2));
+  std::unique_ptr<MacroConnect> mc1 = MacroConnectFactory::newMacroConnect("mc1", "component1", "component2");
+  std::unique_ptr<MacroConnect> mc2 = MacroConnectFactory::newMacroConnect("mc2", "component3", "component2");
+  std::unique_ptr<MacroConnect> mc3 = MacroConnectFactory::newMacroConnect("mc3", "component4", "component2");  // model4 does not exist
+  std::unique_ptr<MacroConnect> mc4 = MacroConnectFactory::newMacroConnect("mc4", "component2", "component4");  // model4 does not exist
+  ASSERT_NO_THROW(model->addMacroConnect(std::move(mc1)));
+  ASSERT_NO_THROW(model->addMacroConnect(std::move(mc2)));
 
-  ASSERT_THROW_DYNAWO(model->addMacroConnect(mc3), DYN::Error::API, DYN::KeyError_t::MacroConnectNotPartofModel);
-  ASSERT_THROW_DYNAWO(model->addMacroConnect(mc4), DYN::Error::API, DYN::KeyError_t::MacroConnectNotPartofModel);
+  ASSERT_THROW_DYNAWO(model->addMacroConnect(std::move(mc3)), DYN::Error::API, DYN::KeyError_t::MacroConnectNotPartofModel);
+  ASSERT_THROW_DYNAWO(model->addMacroConnect(std::move(mc4)), DYN::Error::API, DYN::KeyError_t::MacroConnectNotPartofModel);
 
-  std::map<std::string, boost::shared_ptr<MacroConnect> > macroConnects = model->getMacroConnects();
+  std::map<std::string, std::shared_ptr<MacroConnect> > macroConnects = model->getMacroConnects();
   ASSERT_EQ(macroConnects.size(), 2);
 
-  std::map<std::string, boost::shared_ptr<MacroConnect > >::const_iterator iter = macroConnects.begin();
+  std::map<std::string, std::shared_ptr<MacroConnect > >::const_iterator iter = macroConnects.begin();
   int index = 0;
   for (; iter != macroConnects.end(); ++iter) {
     if (index == 0)
@@ -585,21 +585,21 @@ TEST(APIDYDTest, ModelicaModelSameMacroConnects) {
   boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();
 
   // first model
-  boost::shared_ptr<ModelicaModel> model;
+  std::unique_ptr<ModelicaModel> model;
   model = ModelicaModelFactory::newModel("ModelicaModel");
-  boost::shared_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
-  boost::shared_ptr<UnitDynamicModel> udm2 = UnitDynamicModelFactory::newModel("component2", "model2");
-  boost::shared_ptr<UnitDynamicModel> udm3 = UnitDynamicModelFactory::newModel("component3", "model3");
+  std::shared_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
+  std::shared_ptr<UnitDynamicModel> udm2 = UnitDynamicModelFactory::newModel("component2", "model2");
+  std::shared_ptr<UnitDynamicModel> udm3 = UnitDynamicModelFactory::newModel("component3", "model3");
   model->addUnitDynamicModel(udm1);
   model->addUnitDynamicModel(udm2);
   model->addUnitDynamicModel(udm3);
-  boost::shared_ptr<MacroConnect> mc1 = MacroConnectFactory::newMacroConnect("mc1", "component1", "component2");
-  boost::shared_ptr<MacroConnect> mc2 = MacroConnectFactory::newMacroConnect("mc2", "component3", "component2");
+  std::shared_ptr<MacroConnect> mc1 = MacroConnectFactory::newMacroConnect("mc1", "component1", "component2");
+  std::shared_ptr<MacroConnect> mc2 = MacroConnectFactory::newMacroConnect("mc2", "component3", "component2");
   model->addMacroConnect(mc1);
   model->addMacroConnect(mc2);
 
   // second model
-  boost::shared_ptr<ModelicaModel> model1;
+  std::unique_ptr<ModelicaModel> model1;
   model1 = ModelicaModelFactory::newModel("ModelicaModel1");
   model1->addUnitDynamicModel(udm1);
   model1->addUnitDynamicModel(udm2);
@@ -607,8 +607,8 @@ TEST(APIDYDTest, ModelicaModelSameMacroConnects) {
   model1->addMacroConnect(mc1);
   model1->addMacroConnect(mc2);
 
-  std::map<boost::shared_ptr<UnitDynamicModel>, boost::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
-  ASSERT_EQ(model->hasSameStructureAs(model1, tmpUnitDynamicModelsMap), true);
+  std::map<std::shared_ptr<UnitDynamicModel>, std::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
+  ASSERT_EQ(model->hasSameStructureAs(std::move(model1), tmpUnitDynamicModelsMap), true);
 }
 
 //======================================================================
@@ -619,31 +619,31 @@ TEST(APIDYDTest, ModelicaModelDifferentMacroConnects) {
   boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();
 
   // first model
-  boost::shared_ptr<ModelicaModel> model;
+  std::unique_ptr<ModelicaModel> model;
   model = ModelicaModelFactory::newModel("ModelicaModel");
-  boost::shared_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
-  boost::shared_ptr<UnitDynamicModel> udm2 = UnitDynamicModelFactory::newModel("component2", "model2");
-  boost::shared_ptr<UnitDynamicModel> udm3 = UnitDynamicModelFactory::newModel("component3", "model3");
+  std::shared_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
+  std::shared_ptr<UnitDynamicModel> udm2 = UnitDynamicModelFactory::newModel("component2", "model2");
+  std::shared_ptr<UnitDynamicModel> udm3 = UnitDynamicModelFactory::newModel("component3", "model3");
   model->addUnitDynamicModel(udm1);
   model->addUnitDynamicModel(udm2);
   model->addUnitDynamicModel(udm3);
-  boost::shared_ptr<MacroConnect> mc1 = MacroConnectFactory::newMacroConnect("mc1", "component1", "component2");
-  boost::shared_ptr<MacroConnect> mc2 = MacroConnectFactory::newMacroConnect("mc2", "component3", "component2");
+  std::shared_ptr<MacroConnect> mc1 = MacroConnectFactory::newMacroConnect("mc1", "component1", "component2");
+  std::unique_ptr<MacroConnect> mc2 = MacroConnectFactory::newMacroConnect("mc2", "component3", "component2");
   model->addMacroConnect(mc1);
-  model->addMacroConnect(mc2);
+  model->addMacroConnect(std::move(mc2));
 
   // second model
-  boost::shared_ptr<ModelicaModel> model1;
+  std::unique_ptr<ModelicaModel> model1;
   model1 = ModelicaModelFactory::newModel("ModelicaModel1");
   model1->addUnitDynamicModel(udm1);
   model1->addUnitDynamicModel(udm2);
   model1->addUnitDynamicModel(udm3);
-  boost::shared_ptr<MacroConnect> mc3 = MacroConnectFactory::newMacroConnect("mc3", "component3", "component1");
+  std::unique_ptr<MacroConnect> mc3 = MacroConnectFactory::newMacroConnect("mc3", "component3", "component1");
   model1->addMacroConnect(mc1);
-  model1->addMacroConnect(mc3);
+  model1->addMacroConnect(std::move(mc3));
 
-  std::map<boost::shared_ptr<UnitDynamicModel>, boost::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
-  ASSERT_EQ(model->hasSameStructureAs(model1, tmpUnitDynamicModelsMap), false);
+  std::map<std::shared_ptr<UnitDynamicModel>, std::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
+  ASSERT_EQ(model->hasSameStructureAs(std::move(model1), tmpUnitDynamicModelsMap), false);
 }
 
 //=================================================================================
@@ -654,32 +654,32 @@ TEST(APIDYDTest, ModelicaModelDifferentMacroConnectsConnection) {
   boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();
 
   // first model
-  boost::shared_ptr<ModelicaModel> model;
+  std::unique_ptr<ModelicaModel> model;
   model = ModelicaModelFactory::newModel("ModelicaModel");
-  boost::shared_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
-  boost::shared_ptr<UnitDynamicModel> udm2 = UnitDynamicModelFactory::newModel("component2", "model2");
-  boost::shared_ptr<UnitDynamicModel> udm3 = UnitDynamicModelFactory::newModel("component3", "model3");
+  std::shared_ptr<UnitDynamicModel> udm1 = UnitDynamicModelFactory::newModel("component1", "model1");
+  std::shared_ptr<UnitDynamicModel> udm2 = UnitDynamicModelFactory::newModel("component2", "model2");
+  std::shared_ptr<UnitDynamicModel> udm3 = UnitDynamicModelFactory::newModel("component3", "model3");
   model->addUnitDynamicModel(udm1);
   model->addUnitDynamicModel(udm2);
   model->addUnitDynamicModel(udm3);
-  boost::shared_ptr<MacroConnect> mc1 = MacroConnectFactory::newMacroConnect("mc1", "component1", "component2");
-  boost::shared_ptr<MacroConnect> mc2 = MacroConnectFactory::newMacroConnect("mc2", "component3", "component2");
-  model->addMacroConnect(mc1);
-  model->addMacroConnect(mc2);
+  std::unique_ptr<MacroConnect> mc1 = MacroConnectFactory::newMacroConnect("mc1", "component1", "component2");
+  std::unique_ptr<MacroConnect> mc2 = MacroConnectFactory::newMacroConnect("mc2", "component3", "component2");
+  model->addMacroConnect(std::move(mc1));
+  model->addMacroConnect(std::move(mc2));
 
   // second model
-  boost::shared_ptr<ModelicaModel> model1;
+  std::unique_ptr<ModelicaModel> model1;
   model1 = ModelicaModelFactory::newModel("ModelicaModel1");
   model1->addUnitDynamicModel(udm1);
   model1->addUnitDynamicModel(udm2);
   model1->addUnitDynamicModel(udm3);
-  boost::shared_ptr<MacroConnect> mc3 = MacroConnectFactory::newMacroConnect("mc1", "component2", "component1");
-  boost::shared_ptr<MacroConnect> mc4 = MacroConnectFactory::newMacroConnect("mc3", "component2", "component3");
-  model1->addMacroConnect(mc3);
-  model1->addMacroConnect(mc4);
+  std::unique_ptr<MacroConnect> mc3 = MacroConnectFactory::newMacroConnect("mc1", "component2", "component1");
+  std::unique_ptr<MacroConnect> mc4 = MacroConnectFactory::newMacroConnect("mc3", "component2", "component3");
+  model1->addMacroConnect(std::move(mc3));
+  model1->addMacroConnect(std::move(mc4));
 
-  std::map<boost::shared_ptr<UnitDynamicModel>, boost::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
-  ASSERT_EQ(model->hasSameStructureAs(model1, tmpUnitDynamicModelsMap), false);
+  std::map<std::shared_ptr<UnitDynamicModel>, std::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
+  ASSERT_EQ(model->hasSameStructureAs(std::move(model1), tmpUnitDynamicModelsMap), false);
 }
 
 //=======================================================================================
@@ -687,21 +687,21 @@ TEST(APIDYDTest, ModelicaModelDifferentMacroConnectsConnection) {
 //=======================================================================================
 
 TEST(APIDYDTest, ModelicaModelRefIterators) {
-  boost::shared_ptr<ModelicaModel> model;
+  std::unique_ptr<ModelicaModel> model;
   model = ModelicaModelFactory::newModel("ModelicaModel");
-  boost::shared_ptr<MacroStaticRef> macroStaticRef = MacroStaticRefFactory::newMacroStaticRef("MyMacroStaticRef");
-  model->addMacroStaticRef(macroStaticRef);
+  std::unique_ptr<MacroStaticRef> macroStaticRef = MacroStaticRefFactory::newMacroStaticRef("MyMacroStaticRef");
+  model->addMacroStaticRef(std::move(macroStaticRef));
 
   model->addStaticRef("MyVar", "MyStaticVar");
   ASSERT_NO_THROW(model->findMacroStaticRef("MyMacroStaticRef"));
   ASSERT_NO_THROW(model->findStaticRef("MyVar_MyStaticVar"));
   for (staticRef_iterator it = model->beginStaticRef(), itEnd = model->endStaticRef(); it != itEnd; ++it) {
-    boost::shared_ptr<StaticRef> ref = *it;
+    const std::unique_ptr<StaticRef>& ref = *it;
     ASSERT_EQ(ref->getModelVar(), "MyVar");
     ASSERT_EQ(ref->getStaticVar(), "MyStaticVar");
   }
   for (macroStaticRef_iterator it = model->beginMacroStaticRef(), itEnd = model->endMacroStaticRef(); it != itEnd; ++it) {
-    boost::shared_ptr<MacroStaticRef> ref = *it;
+    std::shared_ptr<MacroStaticRef> ref = *it;
     ASSERT_EQ(ref->getId(), "MyMacroStaticRef");
   }
 }

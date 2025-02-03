@@ -51,7 +51,7 @@ model IEEET1 "IEEE type 1 Exciter (IEEET1)"
 
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.SatChar satChar(Asq = EfdThresholdPu, Bsq = Bsq, Sq = Sq, UHigh = EfdHighPu, ULow = EfdLowPu, YHigh = EfdSatHighPu, YLow = EfdSatLowPu) annotation(
     Placement(visible = true, transformation(origin = {130, 60}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(initType = Modelica.Blocks.Types.Init.InitialState, k = 1, T = tR, y_start = Us0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(initType = Modelica.Blocks.Types.Init.InitialState, T = tR, y_start = Us0Pu) annotation(
     Placement(visible = true, transformation(origin = {-150, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.LimitedFirstOrder limitedFirstOrder(K = Ka, tFilter = tA, Y0 = EfdRaw0Pu, YMax = EfdRawMaxPu, YMin = EfdRawMinPu) annotation(
     Placement(visible = true, transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

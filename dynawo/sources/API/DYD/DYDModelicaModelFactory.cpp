@@ -20,15 +20,12 @@
 #include "DYDModelicaModelFactory.h"
 #include "DYDModelicaModel.h"
 
-using std::string;
-
-using boost::shared_ptr;
 
 namespace dynamicdata {
 
-shared_ptr<ModelicaModel>
+std::unique_ptr<ModelicaModel>
 ModelicaModelFactory::newModel(const std::string& modelId) {
-  return shared_ptr<ModelicaModel>(new ModelicaModel(modelId));
+  return std::unique_ptr<ModelicaModel>(new ModelicaModel(modelId));
 }
 
 }  // namespace dynamicdata

@@ -157,20 +157,20 @@
 50 | _LOAD___1_EC | Tap-changer : below minimum allowed value
 50 | _LOAD___3_EC | Tap-changer : below minimum allowed value
 50 | _LOAD___9_EC | Tap-changer : below minimum allowed value
-80 | _LOAD__10_EC | Tap +1
-80 | _LOAD__12_EC | Tap +1
-80 | _LOAD__13_EC | Tap +1
-80 | _LOAD__14_EC | Tap +1
-80 | _LOAD__15_EC | Tap +1
-80 | _LOAD__16_EC | Tap +1
-80 | _LOAD__17_EC | Tap +1
-80 | _LOAD__10_EC | Tap +1
-80 | _LOAD__12_EC | Tap +1
-80 | _LOAD__13_EC | Tap +1
-80 | _LOAD__14_EC | Tap +1
-80 | _LOAD__15_EC | Tap +1
-80 | _LOAD__16_EC | Tap +1
-80 | _LOAD__17_EC | Tap +1
+80 | _LOAD__10_EC | Tap position change (increment)
+80 | _LOAD__12_EC | Tap position change (increment)
+80 | _LOAD__13_EC | Tap position change (increment)
+80 | _LOAD__14_EC | Tap position change (increment)
+80 | _LOAD__15_EC | Tap position change (increment)
+80 | _LOAD__16_EC | Tap position change (increment)
+80 | _LOAD__17_EC | Tap position change (increment)
+80 | _LOAD__10_EC | Tap position change (increment)
+80 | _LOAD__12_EC | Tap position change (increment)
+80 | _LOAD__13_EC | Tap position change (increment)
+80 | _LOAD__14_EC | Tap position change (increment)
+80 | _LOAD__15_EC | Tap position change (increment)
+80 | _LOAD__16_EC | Tap position change (increment)
+80 | _LOAD__17_EC | Tap position change (increment)
 80 | _LOAD___1_EC | Tap-changer : below minimum allowed value
 80 | _LOAD___9_EC | Tap-changer : below minimum allowed value
 80 | _LOAD___1_EC | Tap-changer : below minimum allowed value
@@ -179,190 +179,190 @@
 80 | _LOAD___9_EC | Tap-changer : below minimum allowed value
 80 | _LOAD___1_EC | Tap-changer : below minimum allowed value
 80 | _LOAD___9_EC | Tap-changer : below minimum allowed value
-90 | _LOAD__10_EC | Tap +1
-90 | _LOAD__12_EC | Tap +1
-90 | _LOAD__13_EC | Tap +1
-90 | _LOAD__14_EC | Tap +1
-90 | _LOAD__15_EC | Tap +1
-90 | _LOAD__16_EC | Tap +1
-90 | _LOAD__17_EC | Tap +1
-90 | _LOAD__10_EC | Tap +1
-90 | _LOAD__12_EC | Tap +1
-90 | _LOAD__13_EC | Tap +1
-90 | _LOAD__14_EC | Tap +1
-90 | _LOAD__15_EC | Tap +1
-90 | _LOAD__16_EC | Tap +1
-90 | _LOAD__17_EC | Tap +1
-100 | _LOAD__10_EC | Tap +1
-100 | _LOAD__12_EC | Tap +1
-100 | _LOAD__13_EC | Tap +1
-100 | _LOAD__14_EC | Tap +1
-100 | _LOAD__15_EC | Tap +1
-100 | _LOAD__16_EC | Tap +1
-100 | _LOAD__17_EC | Tap +1
-100 | _LOAD__10_EC | Tap +1
-100 | _LOAD__12_EC | Tap +1
-100 | _LOAD__13_EC | Tap +1
-100 | _LOAD__14_EC | Tap +1
-100 | _LOAD__15_EC | Tap +1
-100 | _LOAD__16_EC | Tap +1
-100 | _LOAD__17_EC | Tap +1
-110 | _LOAD__10_EC | Tap +1
-110 | _LOAD__12_EC | Tap +1
-110 | _LOAD__13_EC | Tap +1
-110 | _LOAD__14_EC | Tap +1
-110 | _LOAD__16_EC | Tap +1
-110 | _LOAD__17_EC | Tap +1
-110 | _LOAD__19_EC | Tap +1
-110 | _LOAD__20_EC | Tap +1
-110 | _LOAD__23_EC | Tap +1
-110 | _LOAD__25_EC | Tap +1
-110 | _LOAD__27_EC | Tap +1
-110 | _LOAD__30_EC | Tap +1
-110 | _LOAD__31_EC | Tap +1
-110 | _LOAD__33_EC | Tap +1
-110 | _LOAD__35_EC | Tap +1
-110 | _LOAD__38_EC | Tap +1
-110 | _LOAD__41_EC | Tap +1
-110 | _LOAD__42_EC | Tap +1
-110 | _LOAD__43_EC | Tap +1
-110 | _LOAD__44_EC | Tap +1
-110 | _LOAD__47_EC | Tap +1
-110 | _LOAD__49_EC | Tap +1
-110 | _LOAD__50_EC | Tap +1
-110 | _LOAD__51_EC | Tap +1
-110 | _LOAD__52_EC | Tap +1
-110 | _LOAD__53_EC | Tap +1
-110 | _LOAD__55_EC | Tap +1
-110 | _LOAD__56_EC | Tap +1
-110 | _LOAD__57_EC | Tap +1
-110 | _LOAD___1_EC | Tap +1
-110 | _LOAD___9_EC | Tap +1
-110 | _LOAD__10_EC | Tap +1
-110 | _LOAD__12_EC | Tap +1
-110 | _LOAD__13_EC | Tap +1
-110 | _LOAD__14_EC | Tap +1
-110 | _LOAD__16_EC | Tap +1
-110 | _LOAD__17_EC | Tap +1
-110 | _LOAD__19_EC | Tap +1
-110 | _LOAD__20_EC | Tap +1
-110 | _LOAD__23_EC | Tap +1
-110 | _LOAD__25_EC | Tap +1
-110 | _LOAD__27_EC | Tap +1
-110 | _LOAD__30_EC | Tap +1
-110 | _LOAD__31_EC | Tap +1
-110 | _LOAD__33_EC | Tap +1
-110 | _LOAD__35_EC | Tap +1
-110 | _LOAD__38_EC | Tap +1
-110 | _LOAD__41_EC | Tap +1
-110 | _LOAD__42_EC | Tap +1
-110 | _LOAD__43_EC | Tap +1
-110 | _LOAD__44_EC | Tap +1
-110 | _LOAD__47_EC | Tap +1
-110 | _LOAD__49_EC | Tap +1
-110 | _LOAD__50_EC | Tap +1
-110 | _LOAD__51_EC | Tap +1
-110 | _LOAD__52_EC | Tap +1
-110 | _LOAD__53_EC | Tap +1
-110 | _LOAD__55_EC | Tap +1
-110 | _LOAD__56_EC | Tap +1
-110 | _LOAD__57_EC | Tap +1
-110 | _LOAD___1_EC | Tap +1
-110 | _LOAD___9_EC | Tap +1
+90 | _LOAD__10_EC | Tap position change (increment)
+90 | _LOAD__12_EC | Tap position change (increment)
+90 | _LOAD__13_EC | Tap position change (increment)
+90 | _LOAD__14_EC | Tap position change (increment)
+90 | _LOAD__15_EC | Tap position change (increment)
+90 | _LOAD__16_EC | Tap position change (increment)
+90 | _LOAD__17_EC | Tap position change (increment)
+90 | _LOAD__10_EC | Tap position change (increment)
+90 | _LOAD__12_EC | Tap position change (increment)
+90 | _LOAD__13_EC | Tap position change (increment)
+90 | _LOAD__14_EC | Tap position change (increment)
+90 | _LOAD__15_EC | Tap position change (increment)
+90 | _LOAD__16_EC | Tap position change (increment)
+90 | _LOAD__17_EC | Tap position change (increment)
+100 | _LOAD__10_EC | Tap position change (increment)
+100 | _LOAD__12_EC | Tap position change (increment)
+100 | _LOAD__13_EC | Tap position change (increment)
+100 | _LOAD__14_EC | Tap position change (increment)
+100 | _LOAD__15_EC | Tap position change (increment)
+100 | _LOAD__16_EC | Tap position change (increment)
+100 | _LOAD__17_EC | Tap position change (increment)
+100 | _LOAD__10_EC | Tap position change (increment)
+100 | _LOAD__12_EC | Tap position change (increment)
+100 | _LOAD__13_EC | Tap position change (increment)
+100 | _LOAD__14_EC | Tap position change (increment)
+100 | _LOAD__15_EC | Tap position change (increment)
+100 | _LOAD__16_EC | Tap position change (increment)
+100 | _LOAD__17_EC | Tap position change (increment)
+110 | _LOAD__10_EC | Tap position change (increment)
+110 | _LOAD__12_EC | Tap position change (increment)
+110 | _LOAD__13_EC | Tap position change (increment)
+110 | _LOAD__14_EC | Tap position change (increment)
+110 | _LOAD__16_EC | Tap position change (increment)
+110 | _LOAD__17_EC | Tap position change (increment)
+110 | _LOAD__19_EC | Tap position change (increment)
+110 | _LOAD__20_EC | Tap position change (increment)
+110 | _LOAD__23_EC | Tap position change (increment)
+110 | _LOAD__25_EC | Tap position change (increment)
+110 | _LOAD__27_EC | Tap position change (increment)
+110 | _LOAD__30_EC | Tap position change (increment)
+110 | _LOAD__31_EC | Tap position change (increment)
+110 | _LOAD__33_EC | Tap position change (increment)
+110 | _LOAD__35_EC | Tap position change (increment)
+110 | _LOAD__38_EC | Tap position change (increment)
+110 | _LOAD__41_EC | Tap position change (increment)
+110 | _LOAD__42_EC | Tap position change (increment)
+110 | _LOAD__43_EC | Tap position change (increment)
+110 | _LOAD__44_EC | Tap position change (increment)
+110 | _LOAD__47_EC | Tap position change (increment)
+110 | _LOAD__49_EC | Tap position change (increment)
+110 | _LOAD__50_EC | Tap position change (increment)
+110 | _LOAD__51_EC | Tap position change (increment)
+110 | _LOAD__52_EC | Tap position change (increment)
+110 | _LOAD__53_EC | Tap position change (increment)
+110 | _LOAD__55_EC | Tap position change (increment)
+110 | _LOAD__56_EC | Tap position change (increment)
+110 | _LOAD__57_EC | Tap position change (increment)
+110 | _LOAD___1_EC | Tap position change (increment)
+110 | _LOAD___9_EC | Tap position change (increment)
+110 | _LOAD__10_EC | Tap position change (increment)
+110 | _LOAD__12_EC | Tap position change (increment)
+110 | _LOAD__13_EC | Tap position change (increment)
+110 | _LOAD__14_EC | Tap position change (increment)
+110 | _LOAD__16_EC | Tap position change (increment)
+110 | _LOAD__17_EC | Tap position change (increment)
+110 | _LOAD__19_EC | Tap position change (increment)
+110 | _LOAD__20_EC | Tap position change (increment)
+110 | _LOAD__23_EC | Tap position change (increment)
+110 | _LOAD__25_EC | Tap position change (increment)
+110 | _LOAD__27_EC | Tap position change (increment)
+110 | _LOAD__30_EC | Tap position change (increment)
+110 | _LOAD__31_EC | Tap position change (increment)
+110 | _LOAD__33_EC | Tap position change (increment)
+110 | _LOAD__35_EC | Tap position change (increment)
+110 | _LOAD__38_EC | Tap position change (increment)
+110 | _LOAD__41_EC | Tap position change (increment)
+110 | _LOAD__42_EC | Tap position change (increment)
+110 | _LOAD__43_EC | Tap position change (increment)
+110 | _LOAD__44_EC | Tap position change (increment)
+110 | _LOAD__47_EC | Tap position change (increment)
+110 | _LOAD__49_EC | Tap position change (increment)
+110 | _LOAD__50_EC | Tap position change (increment)
+110 | _LOAD__51_EC | Tap position change (increment)
+110 | _LOAD__52_EC | Tap position change (increment)
+110 | _LOAD__53_EC | Tap position change (increment)
+110 | _LOAD__55_EC | Tap position change (increment)
+110 | _LOAD__56_EC | Tap position change (increment)
+110 | _LOAD__57_EC | Tap position change (increment)
+110 | _LOAD___1_EC | Tap position change (increment)
+110 | _LOAD___9_EC | Tap position change (increment)
 110 | _LOAD__54_EC | Tap-changer : below minimum allowed value
-120 | _LOAD__10_EC | Tap +1
-120 | _LOAD__12_EC | Tap +1
-120 | _LOAD__13_EC | Tap +1
-120 | _LOAD__16_EC | Tap +1
-120 | _LOAD__17_EC | Tap +1
-120 | _LOAD__19_EC | Tap +1
-120 | _LOAD__23_EC | Tap +1
-120 | _LOAD__25_EC | Tap +1
-120 | _LOAD__31_EC | Tap +1
-120 | _LOAD__33_EC | Tap +1
-120 | _LOAD__38_EC | Tap +1
-120 | _LOAD__41_EC | Tap +1
-120 | _LOAD__43_EC | Tap +1
-120 | _LOAD__44_EC | Tap +1
-120 | _LOAD__47_EC | Tap +1
-120 | _LOAD__49_EC | Tap +1
-120 | _LOAD__50_EC | Tap +1
-120 | _LOAD__51_EC | Tap +1
-120 | _LOAD__55_EC | Tap +1
-120 | _LOAD__10_EC | Tap +1
-120 | _LOAD__12_EC | Tap +1
-120 | _LOAD__13_EC | Tap +1
-120 | _LOAD__16_EC | Tap +1
-120 | _LOAD__17_EC | Tap +1
-120 | _LOAD__19_EC | Tap +1
-120 | _LOAD__23_EC | Tap +1
-120 | _LOAD__25_EC | Tap +1
-120 | _LOAD__31_EC | Tap +1
-120 | _LOAD__33_EC | Tap +1
-120 | _LOAD__38_EC | Tap +1
-120 | _LOAD__41_EC | Tap +1
-120 | _LOAD__43_EC | Tap +1
-120 | _LOAD__44_EC | Tap +1
-120 | _LOAD__47_EC | Tap +1
-120 | _LOAD__49_EC | Tap +1
-120 | _LOAD__50_EC | Tap +1
-120 | _LOAD__51_EC | Tap +1
-120 | _LOAD__55_EC | Tap +1
-130 | _LOAD__10_EC | Tap +1
-130 | _LOAD__12_EC | Tap +1
-130 | _LOAD__16_EC | Tap +1
-130 | _LOAD__23_EC | Tap +1
-130 | _LOAD__25_EC | Tap +1
-130 | _LOAD__31_EC | Tap +1
-130 | _LOAD__33_EC | Tap +1
-130 | _LOAD__38_EC | Tap +1
-130 | _LOAD__41_EC | Tap +1
-130 | _LOAD__43_EC | Tap +1
-130 | _LOAD__44_EC | Tap +1
-130 | _LOAD__47_EC | Tap +1
-130 | _LOAD__49_EC | Tap +1
-130 | _LOAD__50_EC | Tap +1
-130 | _LOAD__51_EC | Tap +1
-130 | _LOAD__10_EC | Tap +1
-130 | _LOAD__12_EC | Tap +1
-130 | _LOAD__16_EC | Tap +1
-130 | _LOAD__23_EC | Tap +1
-130 | _LOAD__25_EC | Tap +1
-130 | _LOAD__31_EC | Tap +1
-130 | _LOAD__33_EC | Tap +1
-130 | _LOAD__38_EC | Tap +1
-130 | _LOAD__41_EC | Tap +1
-130 | _LOAD__43_EC | Tap +1
-130 | _LOAD__44_EC | Tap +1
-130 | _LOAD__47_EC | Tap +1
-130 | _LOAD__49_EC | Tap +1
-130 | _LOAD__50_EC | Tap +1
-130 | _LOAD__51_EC | Tap +1
+120 | _LOAD__10_EC | Tap position change (increment)
+120 | _LOAD__12_EC | Tap position change (increment)
+120 | _LOAD__13_EC | Tap position change (increment)
+120 | _LOAD__16_EC | Tap position change (increment)
+120 | _LOAD__17_EC | Tap position change (increment)
+120 | _LOAD__19_EC | Tap position change (increment)
+120 | _LOAD__23_EC | Tap position change (increment)
+120 | _LOAD__25_EC | Tap position change (increment)
+120 | _LOAD__31_EC | Tap position change (increment)
+120 | _LOAD__33_EC | Tap position change (increment)
+120 | _LOAD__38_EC | Tap position change (increment)
+120 | _LOAD__41_EC | Tap position change (increment)
+120 | _LOAD__43_EC | Tap position change (increment)
+120 | _LOAD__44_EC | Tap position change (increment)
+120 | _LOAD__47_EC | Tap position change (increment)
+120 | _LOAD__49_EC | Tap position change (increment)
+120 | _LOAD__50_EC | Tap position change (increment)
+120 | _LOAD__51_EC | Tap position change (increment)
+120 | _LOAD__55_EC | Tap position change (increment)
+120 | _LOAD__10_EC | Tap position change (increment)
+120 | _LOAD__12_EC | Tap position change (increment)
+120 | _LOAD__13_EC | Tap position change (increment)
+120 | _LOAD__16_EC | Tap position change (increment)
+120 | _LOAD__17_EC | Tap position change (increment)
+120 | _LOAD__19_EC | Tap position change (increment)
+120 | _LOAD__23_EC | Tap position change (increment)
+120 | _LOAD__25_EC | Tap position change (increment)
+120 | _LOAD__31_EC | Tap position change (increment)
+120 | _LOAD__33_EC | Tap position change (increment)
+120 | _LOAD__38_EC | Tap position change (increment)
+120 | _LOAD__41_EC | Tap position change (increment)
+120 | _LOAD__43_EC | Tap position change (increment)
+120 | _LOAD__44_EC | Tap position change (increment)
+120 | _LOAD__47_EC | Tap position change (increment)
+120 | _LOAD__49_EC | Tap position change (increment)
+120 | _LOAD__50_EC | Tap position change (increment)
+120 | _LOAD__51_EC | Tap position change (increment)
+120 | _LOAD__55_EC | Tap position change (increment)
+130 | _LOAD__10_EC | Tap position change (increment)
+130 | _LOAD__12_EC | Tap position change (increment)
+130 | _LOAD__16_EC | Tap position change (increment)
+130 | _LOAD__23_EC | Tap position change (increment)
+130 | _LOAD__25_EC | Tap position change (increment)
+130 | _LOAD__31_EC | Tap position change (increment)
+130 | _LOAD__33_EC | Tap position change (increment)
+130 | _LOAD__38_EC | Tap position change (increment)
+130 | _LOAD__41_EC | Tap position change (increment)
+130 | _LOAD__43_EC | Tap position change (increment)
+130 | _LOAD__44_EC | Tap position change (increment)
+130 | _LOAD__47_EC | Tap position change (increment)
+130 | _LOAD__49_EC | Tap position change (increment)
+130 | _LOAD__50_EC | Tap position change (increment)
+130 | _LOAD__51_EC | Tap position change (increment)
+130 | _LOAD__10_EC | Tap position change (increment)
+130 | _LOAD__12_EC | Tap position change (increment)
+130 | _LOAD__16_EC | Tap position change (increment)
+130 | _LOAD__23_EC | Tap position change (increment)
+130 | _LOAD__25_EC | Tap position change (increment)
+130 | _LOAD__31_EC | Tap position change (increment)
+130 | _LOAD__33_EC | Tap position change (increment)
+130 | _LOAD__38_EC | Tap position change (increment)
+130 | _LOAD__41_EC | Tap position change (increment)
+130 | _LOAD__43_EC | Tap position change (increment)
+130 | _LOAD__44_EC | Tap position change (increment)
+130 | _LOAD__47_EC | Tap position change (increment)
+130 | _LOAD__49_EC | Tap position change (increment)
+130 | _LOAD__50_EC | Tap position change (increment)
+130 | _LOAD__51_EC | Tap position change (increment)
 130 | _LOAD__29_EC | Tap-changer : below minimum allowed value
-140 | _LOAD__10_EC | Tap +1
-140 | _LOAD__12_EC | Tap +1
-140 | _LOAD__16_EC | Tap +1
-140 | _LOAD__23_EC | Tap +1
-140 | _LOAD__38_EC | Tap +1
-140 | _LOAD__41_EC | Tap +1
-140 | _LOAD__43_EC | Tap +1
-140 | _LOAD__44_EC | Tap +1
-140 | _LOAD__47_EC | Tap +1
-140 | _LOAD__49_EC | Tap +1
-140 | _LOAD__50_EC | Tap +1
-140 | _LOAD__51_EC | Tap +1
-140 | _LOAD__10_EC | Tap +1
-140 | _LOAD__12_EC | Tap +1
-140 | _LOAD__16_EC | Tap +1
-140 | _LOAD__23_EC | Tap +1
-140 | _LOAD__38_EC | Tap +1
-140 | _LOAD__41_EC | Tap +1
-140 | _LOAD__43_EC | Tap +1
-140 | _LOAD__44_EC | Tap +1
-140 | _LOAD__47_EC | Tap +1
-140 | _LOAD__49_EC | Tap +1
-140 | _LOAD__50_EC | Tap +1
-140 | _LOAD__51_EC | Tap +1
+140 | _LOAD__10_EC | Tap position change (increment)
+140 | _LOAD__12_EC | Tap position change (increment)
+140 | _LOAD__16_EC | Tap position change (increment)
+140 | _LOAD__23_EC | Tap position change (increment)
+140 | _LOAD__38_EC | Tap position change (increment)
+140 | _LOAD__41_EC | Tap position change (increment)
+140 | _LOAD__43_EC | Tap position change (increment)
+140 | _LOAD__44_EC | Tap position change (increment)
+140 | _LOAD__47_EC | Tap position change (increment)
+140 | _LOAD__49_EC | Tap position change (increment)
+140 | _LOAD__50_EC | Tap position change (increment)
+140 | _LOAD__51_EC | Tap position change (increment)
+140 | _LOAD__10_EC | Tap position change (increment)
+140 | _LOAD__12_EC | Tap position change (increment)
+140 | _LOAD__16_EC | Tap position change (increment)
+140 | _LOAD__23_EC | Tap position change (increment)
+140 | _LOAD__38_EC | Tap position change (increment)
+140 | _LOAD__41_EC | Tap position change (increment)
+140 | _LOAD__43_EC | Tap position change (increment)
+140 | _LOAD__44_EC | Tap position change (increment)
+140 | _LOAD__47_EC | Tap position change (increment)
+140 | _LOAD__49_EC | Tap position change (increment)
+140 | _LOAD__50_EC | Tap position change (increment)
+140 | _LOAD__51_EC | Tap position change (increment)
 140 | _LOAD__10_EC | Tap-changer : above maximum allowed value
 140 | _LOAD__17_EC | Tap-changer : below minimum allowed value
 140 | _LOAD__27_EC | Tap-changer : below minimum allowed value
@@ -383,22 +383,22 @@
 140 | _LOAD__27_EC | Tap-changer : below minimum allowed value
 140 | _LOAD__29_EC | Tap-changer : below minimum allowed value
 140 | _LOAD__33_EC | Tap-changer : below minimum allowed value
-150 | _LOAD__12_EC | Tap +1
-150 | _LOAD__16_EC | Tap +1
-150 | _LOAD__23_EC | Tap +1
-150 | _LOAD__38_EC | Tap +1
-150 | _LOAD__47_EC | Tap +1
-150 | _LOAD__49_EC | Tap +1
-150 | _LOAD__50_EC | Tap +1
-150 | _LOAD__51_EC | Tap +1
-150 | _LOAD__12_EC | Tap +1
-150 | _LOAD__16_EC | Tap +1
-150 | _LOAD__23_EC | Tap +1
-150 | _LOAD__38_EC | Tap +1
-150 | _LOAD__47_EC | Tap +1
-150 | _LOAD__49_EC | Tap +1
-150 | _LOAD__50_EC | Tap +1
-150 | _LOAD__51_EC | Tap +1
+150 | _LOAD__12_EC | Tap position change (increment)
+150 | _LOAD__16_EC | Tap position change (increment)
+150 | _LOAD__23_EC | Tap position change (increment)
+150 | _LOAD__38_EC | Tap position change (increment)
+150 | _LOAD__47_EC | Tap position change (increment)
+150 | _LOAD__49_EC | Tap position change (increment)
+150 | _LOAD__50_EC | Tap position change (increment)
+150 | _LOAD__51_EC | Tap position change (increment)
+150 | _LOAD__12_EC | Tap position change (increment)
+150 | _LOAD__16_EC | Tap position change (increment)
+150 | _LOAD__23_EC | Tap position change (increment)
+150 | _LOAD__38_EC | Tap position change (increment)
+150 | _LOAD__47_EC | Tap position change (increment)
+150 | _LOAD__49_EC | Tap position change (increment)
+150 | _LOAD__50_EC | Tap position change (increment)
+150 | _LOAD__51_EC | Tap position change (increment)
 150 | _LOAD__10_EC | Tap-changer : below minimum allowed value
 150 | _LOAD__12_EC | Tap-changer : above maximum allowed value
 150 | _LOAD__13_EC | Tap-changer : below minimum allowed value
@@ -419,18 +419,18 @@
 150 | _LOAD__13_EC | Tap-changer : below minimum allowed value
 150 | _LOAD__14_EC | Tap-changer : below minimum allowed value
 150 | _LOAD__17_EC | Tap-changer : below minimum allowed value
-160 | _LOAD__12_EC | Tap +1
-160 | _LOAD__16_EC | Tap +1
-160 | _LOAD__38_EC | Tap +1
-160 | _LOAD__49_EC | Tap +1
-160 | _LOAD__50_EC | Tap +1
-160 | _LOAD__51_EC | Tap +1
-160 | _LOAD__12_EC | Tap +1
-160 | _LOAD__16_EC | Tap +1
-160 | _LOAD__38_EC | Tap +1
-160 | _LOAD__49_EC | Tap +1
-160 | _LOAD__50_EC | Tap +1
-160 | _LOAD__51_EC | Tap +1
+160 | _LOAD__12_EC | Tap position change (increment)
+160 | _LOAD__16_EC | Tap position change (increment)
+160 | _LOAD__38_EC | Tap position change (increment)
+160 | _LOAD__49_EC | Tap position change (increment)
+160 | _LOAD__50_EC | Tap position change (increment)
+160 | _LOAD__51_EC | Tap position change (increment)
+160 | _LOAD__12_EC | Tap position change (increment)
+160 | _LOAD__16_EC | Tap position change (increment)
+160 | _LOAD__38_EC | Tap position change (increment)
+160 | _LOAD__49_EC | Tap position change (increment)
+160 | _LOAD__50_EC | Tap position change (increment)
+160 | _LOAD__51_EC | Tap position change (increment)
 160 | _LOAD__16_EC | Tap-changer : above maximum allowed value
 160 | _LOAD__23_EC | Tap-changer : below minimum allowed value
 160 | _LOAD__43_EC | Tap-changer : below minimum allowed value
@@ -447,14 +447,14 @@
 160 | _LOAD__23_EC | Tap-changer : below minimum allowed value
 160 | _LOAD__43_EC | Tap-changer : below minimum allowed value
 160 | _LOAD__47_EC | Tap-changer : below minimum allowed value
-170 | _LOAD__12_EC | Tap +1
-170 | _LOAD__49_EC | Tap +1
-170 | _LOAD__51_EC | Tap +1
-170 | _LOAD__54_EC | Tap +1
-170 | _LOAD__12_EC | Tap +1
-170 | _LOAD__49_EC | Tap +1
-170 | _LOAD__51_EC | Tap +1
-170 | _LOAD__54_EC | Tap +1
+170 | _LOAD__12_EC | Tap position change (increment)
+170 | _LOAD__49_EC | Tap position change (increment)
+170 | _LOAD__51_EC | Tap position change (increment)
+170 | _LOAD__54_EC | Tap position change (increment)
+170 | _LOAD__12_EC | Tap position change (increment)
+170 | _LOAD__49_EC | Tap position change (increment)
+170 | _LOAD__51_EC | Tap position change (increment)
+170 | _LOAD__54_EC | Tap position change (increment)
 170 | _LOAD__16_EC | Tap-changer : below minimum allowed value
 170 | _LOAD__44_EC | Tap-changer : below minimum allowed value
 170 | _LOAD__16_EC | Tap-changer : below minimum allowed value
@@ -463,43 +463,43 @@
 170 | _LOAD__44_EC | Tap-changer : below minimum allowed value
 170 | _LOAD__16_EC | Tap-changer : below minimum allowed value
 170 | _LOAD__44_EC | Tap-changer : below minimum allowed value
-180 | _LOAD__10_EC | Tap +1
-180 | _LOAD__13_EC | Tap +1
-180 | _LOAD__14_EC | Tap +1
-180 | _LOAD__17_EC | Tap +1
-180 | _LOAD__51_EC | Tap +1
-180 | _LOAD__10_EC | Tap +1
-180 | _LOAD__13_EC | Tap +1
-180 | _LOAD__14_EC | Tap +1
-180 | _LOAD__17_EC | Tap +1
-180 | _LOAD__51_EC | Tap +1
+180 | _LOAD__10_EC | Tap position change (increment)
+180 | _LOAD__13_EC | Tap position change (increment)
+180 | _LOAD__14_EC | Tap position change (increment)
+180 | _LOAD__17_EC | Tap position change (increment)
+180 | _LOAD__51_EC | Tap position change (increment)
+180 | _LOAD__10_EC | Tap position change (increment)
+180 | _LOAD__13_EC | Tap position change (increment)
+180 | _LOAD__14_EC | Tap position change (increment)
+180 | _LOAD__17_EC | Tap position change (increment)
+180 | _LOAD__51_EC | Tap position change (increment)
 180 | _LOAD__13_EC | Tap-changer : above maximum allowed value
-190 | _LOAD__51_EC | Tap +1
-200 | _LOAD__10_EC | Tap -1
-200 | _LOAD__16_EC | Tap +1
-200 | _LOAD__27_EC | Tap +1
-200 | _LOAD__29_EC | Tap +1
-200 | _LOAD__33_EC | Tap +1
-200 | _LOAD__10_EC | Tap -1
-200 | _LOAD__16_EC | Tap +1
-200 | _LOAD__27_EC | Tap +1
-200 | _LOAD__29_EC | Tap +1
-200 | _LOAD__33_EC | Tap +1
-210 | _LOAD__10_EC | Tap -1
-210 | _LOAD__12_EC | Tap -1
-210 | _LOAD__10_EC | Tap -1
-210 | _LOAD__12_EC | Tap -1
-220 | _LOAD__12_EC | Tap -1
-220 | _LOAD__16_EC | Tap -1
-220 | _LOAD__23_EC | Tap +1
-220 | _LOAD__43_EC | Tap +1
-220 | _LOAD__47_EC | Tap +1
-220 | _LOAD__12_EC | Tap -1
-220 | _LOAD__16_EC | Tap -1
-220 | _LOAD__23_EC | Tap +1
-220 | _LOAD__43_EC | Tap +1
-220 | _LOAD__47_EC | Tap +1
+190 | _LOAD__51_EC | Tap position change (increment)
+200 | _LOAD__10_EC | Tap position change (decrement)
+200 | _LOAD__16_EC | Tap position change (increment)
+200 | _LOAD__27_EC | Tap position change (increment)
+200 | _LOAD__29_EC | Tap position change (increment)
+200 | _LOAD__33_EC | Tap position change (increment)
+200 | _LOAD__10_EC | Tap position change (decrement)
+200 | _LOAD__16_EC | Tap position change (increment)
+200 | _LOAD__27_EC | Tap position change (increment)
+200 | _LOAD__29_EC | Tap position change (increment)
+200 | _LOAD__33_EC | Tap position change (increment)
+210 | _LOAD__10_EC | Tap position change (decrement)
+210 | _LOAD__12_EC | Tap position change (decrement)
+210 | _LOAD__10_EC | Tap position change (decrement)
+210 | _LOAD__12_EC | Tap position change (decrement)
+220 | _LOAD__12_EC | Tap position change (decrement)
+220 | _LOAD__16_EC | Tap position change (decrement)
+220 | _LOAD__23_EC | Tap position change (increment)
+220 | _LOAD__43_EC | Tap position change (increment)
+220 | _LOAD__47_EC | Tap position change (increment)
+220 | _LOAD__12_EC | Tap position change (decrement)
+220 | _LOAD__16_EC | Tap position change (decrement)
+220 | _LOAD__23_EC | Tap position change (increment)
+220 | _LOAD__43_EC | Tap position change (increment)
+220 | _LOAD__47_EC | Tap position change (increment)
 220 | _LOAD__17_EC | Tap-changer : above maximum allowed value
-230 | _LOAD__16_EC | Tap -1
-240 | _LOAD__13_EC | Tap -1
-280 | _LOAD__17_EC | Tap -1
+230 | _LOAD__16_EC | Tap position change (decrement)
+240 | _LOAD__13_EC | Tap position change (decrement)
+280 | _LOAD__17_EC | Tap position change (decrement)

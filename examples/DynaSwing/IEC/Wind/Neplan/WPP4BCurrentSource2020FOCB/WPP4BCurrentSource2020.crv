@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
     Copyright (c) 2023, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -12,8 +12,8 @@
     simulation tools for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-  <curve model="WPP4B" variable="WPP_wPPControl_measurements_PGenNomPu"/>
-  <curve model="WPP4B" variable="WPP_wPPControl_measurements_QGenNomPu"/>
+  <curve model="WPP4B" variable="WPP_wPPControl_measurements_PPu"/>
+  <curve model="WPP4B" variable="WPP_wPPControl_measurements_QPu"/>
   <curve model="WPP4B" variable="WPP_wPPControl_measurements_UPu"/>
   <curve model="WPP4B" variable="WPP_terminal_V_re"/>
   <curve model="WPP4B" variable="WPP_terminal_V_im"/>

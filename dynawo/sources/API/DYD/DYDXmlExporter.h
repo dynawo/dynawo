@@ -71,7 +71,7 @@ class XmlExporter : public Exporter {
    * @param[in] model Model to write
    * @param[out] formatter Output formatter
    */
-  void writeModel(const boost::shared_ptr<Model>& model, xml::sax::formatter::Formatter& formatter) const;
+  void writeModel(const std::shared_ptr<Model>& model, xml::sax::formatter::Formatter& formatter) const;
 
   /**
    * @brief Write given BlackBoxModel in given formatter
@@ -79,7 +79,7 @@ class XmlExporter : public Exporter {
    * @param[in] bbm BlackBoxModel to write
    * @param[out] formatter Output formatter
    */
-  void writeBlackBoxModel(const boost::shared_ptr<BlackBoxModel>& bbm, xml::sax::formatter::Formatter& formatter) const;
+  void writeBlackBoxModel(const std::shared_ptr<BlackBoxModel>& bbm, xml::sax::formatter::Formatter& formatter) const;
 
   /**
    * @brief Write given ModelTemplateExpansion in given formatter
@@ -87,7 +87,7 @@ class XmlExporter : public Exporter {
    * @param[in] mte ModelTemplateExpansion to write
    * @param[out] formatter Output formatter
    */
-  void writeModelTemplateExpansion(const boost::shared_ptr<ModelTemplateExpansion>& mte, xml::sax::formatter::Formatter& formatter) const;
+  void writeModelTemplateExpansion(const std::shared_ptr<ModelTemplateExpansion>& mte, xml::sax::formatter::Formatter& formatter) const;
 
   /**
    * @brief Write given UnitDynamicModel in given formatter
@@ -95,7 +95,7 @@ class XmlExporter : public Exporter {
    * @param[in] mm UnitDynamicModel to write
    * @param[out] formatter Output formatter
    */
-  void writeUnitDynamicModel(const boost::shared_ptr<UnitDynamicModel>& mm, xml::sax::formatter::Formatter& formatter) const;
+  void writeUnitDynamicModel(const std::shared_ptr<UnitDynamicModel>& mm, xml::sax::formatter::Formatter& formatter) const;
 
   /**
    * @brief Write given ModelTemplate in given formatter
@@ -103,7 +103,7 @@ class XmlExporter : public Exporter {
    * @param[in] mt ModelTemplate to write
    * @param[out] formatter Output formatter
    */
-  void writeModelTemplate(const boost::shared_ptr<ModelTemplate>& mt, xml::sax::formatter::Formatter& formatter) const;
+  void writeModelTemplate(const std::shared_ptr<ModelTemplate>& mt, xml::sax::formatter::Formatter& formatter) const;
 
   /**
    * @brief Write given ModelicaModel in given formatter
@@ -111,7 +111,7 @@ class XmlExporter : public Exporter {
    * @param[in] cm ModelicaModel to write
    * @param[out] formatter Output formatter
    */
-  void writeModelicaModel(const boost::shared_ptr<ModelicaModel>& cm, xml::sax::formatter::Formatter& formatter) const;
+  void writeModelicaModel(const std::shared_ptr<ModelicaModel>& cm, xml::sax::formatter::Formatter& formatter) const;
 
   /**
    * @brief Write given InitConnector in given formatter
@@ -119,7 +119,7 @@ class XmlExporter : public Exporter {
    * @param[in] ic Initialization Connector to write
    * @param[out] formatter Output formatter
    */
-  void writeInitConnector(const boost::shared_ptr<Connector>& ic, xml::sax::formatter::Formatter& formatter) const;
+  void writeInitConnector(const std::shared_ptr<Connector>& ic, xml::sax::formatter::Formatter& formatter) const;
 
   /**
    * @brief Write given static reference in given formatter
@@ -127,7 +127,7 @@ class XmlExporter : public Exporter {
    * @param[in] sr static reference to write
    * @param[out] formatter Output formatter
    */
-  void writeStaticRef(const boost::shared_ptr<StaticRef>& sr, xml::sax::formatter::Formatter& formatter) const;
+  void writeStaticRef(const std::unique_ptr<StaticRef>& sr, xml::sax::formatter::Formatter& formatter) const;
 
   /**
    * @brief write given macroStaticRef in given formatter
@@ -135,7 +135,7 @@ class XmlExporter : public Exporter {
    * @param[in] macroStaticRef MacroStaticRef object to write
    * @param[out] formatter Output formatter
    */
-  void writeMacroStaticRef(const boost::shared_ptr<MacroStaticRef>& macroStaticRef, xml::sax::formatter::Formatter& formatter) const;
+  void writeMacroStaticRef(const std::shared_ptr<MacroStaticRef>& macroStaticRef, xml::sax::formatter::Formatter& formatter) const;
 
   /**
    * @brief write given macroStaticReference in given formatter
@@ -143,7 +143,7 @@ class XmlExporter : public Exporter {
    * @param[in] macroStaticReference MacroStaticReference object to write
    * @param[out] formatter Output formatter
    */
-  void writeMacroStaticReference(const boost::shared_ptr<MacroStaticReference>& macroStaticReference, xml::sax::formatter::Formatter& formatter) const;
+  void writeMacroStaticReference(const std::shared_ptr<MacroStaticReference>& macroStaticReference, xml::sax::formatter::Formatter& formatter) const;
 
   /**
    * @brief Write given Connector in given formatter
@@ -151,7 +151,7 @@ class XmlExporter : public Exporter {
    * @param[in] c Connector to write
    * @param[out] formatter Output formatter
    */
-  void writeConnector(const boost::shared_ptr<Connector>& c, xml::sax::formatter::Formatter& formatter) const;
+  void writeConnector(const std::shared_ptr<Connector>& c, xml::sax::formatter::Formatter& formatter) const;
 
   /**
    * @brief write given macro connect in given formatter
@@ -159,7 +159,7 @@ class XmlExporter : public Exporter {
    * @param[in] mc Macro connect to write
    * @param[out] formatter Output formatter
    */
-  void writeMacroConnect(const boost::shared_ptr<MacroConnect>& mc, xml::sax::formatter::Formatter& formatter) const;
+  void writeMacroConnect(const std::shared_ptr<MacroConnect>& mc, xml::sax::formatter::Formatter& formatter) const;
 
   /**
    * @brief write given macro connector in given formatter
@@ -167,7 +167,7 @@ class XmlExporter : public Exporter {
    * @param[in] mc Macro connector to write
    * @param[out] formatter Output formatter
    */
-  void writeMacroConnector(const boost::shared_ptr<MacroConnector>& mc, xml::sax::formatter::Formatter& formatter) const;
+  void writeMacroConnector(const std::shared_ptr<MacroConnector>& mc, xml::sax::formatter::Formatter& formatter) const;
 
   /**
    * @brief write given macro connection in given formatter
@@ -175,7 +175,7 @@ class XmlExporter : public Exporter {
    * @param[in] mc Macro connection to write
    * @param[out] formatter Output formatter
    */
-  void writeMacroConnection(const boost::shared_ptr<MacroConnection>& mc, xml::sax::formatter::Formatter& formatter) const;
+  void writeMacroConnection(const std::unique_ptr<MacroConnection>& mc, xml::sax::formatter::Formatter& formatter) const;
 
   /**
    * @brief write given init macro connection in given formatter
@@ -183,7 +183,7 @@ class XmlExporter : public Exporter {
    * @param[in] mc Init macro connection to write
    * @param[out] formatter Output formatter
    */
-  void writeInitMacroConnection(const boost::shared_ptr<MacroConnection>& mc, xml::sax::formatter::Formatter& formatter) const;
+  void writeInitMacroConnection(const std::unique_ptr<MacroConnection>& mc, xml::sax::formatter::Formatter& formatter) const;
 };
 
 }  // namespace dynamicdata

@@ -17,7 +17,7 @@ model DriveTrainPeFiltered "Drive train control with a mechanical power derived 
 
   parameter Types.Time tP "Filter time constant for mechanical power calculation in seconds (typical:0.01..0.02)";
 
-  Modelica.Blocks.Continuous.FirstOrder Pmech(T = tP, k = 1, y(start = PInj0Pu), y_start = PInj0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder Pmech(T = tP, y_start = PInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {-170, 4}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
 equation

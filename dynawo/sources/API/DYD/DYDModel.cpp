@@ -29,9 +29,6 @@
 
 using std::map;
 using std::string;
-using std::vector;
-
-using boost::shared_ptr;
 
 namespace dynamicdata {
 
@@ -53,8 +50,8 @@ Model&
 Model::addStaticRef(const string& var, const string& staticVar) {
   // The staticRef key in the map is var_staticVar
   string key = var + '_' + staticVar;
-  std::pair<std::map<std::string, boost::shared_ptr<StaticRef> >::iterator, bool> ret;
-  ret = staticRefs_.emplace(key, shared_ptr<StaticRef>(StaticRefFactory::newStaticRef(var, staticVar)));
+  std::pair<std::map<std::string, std::unique_ptr<StaticRef> >::iterator, bool> ret;
+  ret = staticRefs_.emplace(key, StaticRefFactory::newStaticRef(var, staticVar));
   if (!ret.second)
     throw DYNError(DYN::Error::API, StaticRefNotUnique, getId(), var, staticVar);
 
@@ -62,9 +59,9 @@ Model::addStaticRef(const string& var, const string& staticVar) {
 }
 
 void
-Model::addMacroStaticRef(const boost::shared_ptr<MacroStaticRef>& macroStaticRef) {
+Model::addMacroStaticRef(const std::shared_ptr<MacroStaticRef>& macroStaticRef) {
   const string& id = macroStaticRef->getId();
-  std::pair<std::map<std::string, boost::shared_ptr<MacroStaticRef> >::iterator, bool> ret;
+  std::pair<std::map<std::string, std::shared_ptr<MacroStaticRef> >::iterator, bool> ret;
   ret = macroStaticRefs_.emplace(id, macroStaticRef);
   if (!ret.second)
     throw DYNError(DYN::Error::API, MacroStaticRefNotUnique, getId(), id);
@@ -110,18 +107,18 @@ Model::endMacroStaticRef() {
   return macroStaticRef_iterator(this, false);
 }
 
-const shared_ptr<StaticRef>&
+const std::unique_ptr<StaticRef>&
 Model::findStaticRef(const string& key) {
-  map<string, shared_ptr<StaticRef> >::const_iterator iter = staticRefs_.find(key);
+  map<string, std::unique_ptr<StaticRef> >::const_iterator iter = staticRefs_.find(key);
   if (iter == staticRefs_.end())
     throw DYNError(DYN::Error::API, StaticRefUndefined, key);
 
   return iter->second;
 }
 
-const shared_ptr<MacroStaticRef>&
+const std::shared_ptr<MacroStaticRef>&
 Model::findMacroStaticRef(const string& id) {
-  map<string, shared_ptr<MacroStaticRef> >::const_iterator iter = macroStaticRefs_.find(id);
+  map<string, std::shared_ptr<MacroStaticRef> >::const_iterator iter = macroStaticRefs_.find(id);
   if (iter == macroStaticRefs_.end())
     throw DYNError(DYN::Error::API, MacroStaticRefUndefined, id);
 

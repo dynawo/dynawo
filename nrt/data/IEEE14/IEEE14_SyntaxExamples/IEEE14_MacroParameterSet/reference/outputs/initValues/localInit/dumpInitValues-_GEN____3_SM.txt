@@ -18,11 +18,11 @@ generator_tableQMax_u_0_                          : alias of generator_PGenPu
 generator_tableQMax_y_0_                          : alias of generator_QMaxPu
 generator_tableQMin_u_0_                          : alias of generator_PGenPu
 generator_tableQMin_y_0_                          : alias of generator_QMinPu
- ====== INIT CALCULATED VARIABLES VALUES ======
+ ====== CALCULATED VARIABLES VALUES ======
 generator_PGen                                    : y =       0.000000
 generator_QStatorPu                               : y =       0.611463
 generator_genState                                : y =       2.000000
- ====== INIT DISCRETE VARIABLES VALUES ======
+ ====== DISCRETE VARIABLES VALUES ======
 generator_limUQDown                               : z =      -1.000000
 generator_limUQUp                                 : z =      -1.000000
 generator_running_value                           : z =       1.000000
@@ -41,11 +41,13 @@ generator_PMaxPu                                   =      99.990000
 generator_PMinPu                                   =     -99.990000
 generator_PNom                                     =      99.990000
 generator_PRef0Pu                                  =      -0.000000
+generator_QDeadBandPu                              =       0.000100
 generator_QGen0Pu                                  =       0.250700
 generator_QMax0Pu                                  =       0.410000
 generator_QMin0Pu                                  =      -0.010000
 generator_QNomAlt                                  =      41.000000
 generator_U0Pu                                     =       1.010000
+generator_UDeadBandPu                              =       0.000100
 generator_URef0Pu                                  =       1.010000
 generator_i0Pu_im                                  =       0.242116
 generator_i0Pu_re                                  =       0.054697

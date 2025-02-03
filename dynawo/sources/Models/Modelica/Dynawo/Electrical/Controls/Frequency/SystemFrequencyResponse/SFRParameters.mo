@@ -21,5 +21,5 @@ record SFRParameters
   parameter Types.PerUnit R "Governor droop in pu (base omegaNom/SNom)";
   parameter Types.Time Tr "Reheat time constant in s";
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end SFRParameters;

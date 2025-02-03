@@ -20,7 +20,8 @@
 #ifndef API_DYD_DYDMODELICAMODELFACTORY_H_
 #define API_DYD_DYDMODELICAMODELFACTORY_H_
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
+#include <string>
 
 
 namespace dynamicdata {
@@ -39,9 +40,9 @@ class ModelicaModelFactory {
    * @brief Create new ModelicaModel instance
    *
    * @param[in] modelId ID for new ModelicaModel instance
-   * @returns Shared pointer to a new @p ModelicaModel with given ID
+   * @returns Unique pointer to a new @p ModelicaModel with given ID
    */
-  static boost::shared_ptr<ModelicaModel> newModel(const std::string& modelId);
+  static std::unique_ptr<ModelicaModel> newModel(const std::string& modelId);
 };
 
 }  // namespace dynamicdata

@@ -111,5 +111,6 @@ equation
     Line(points = {{42, -84}, {170, -84}}, color = {0, 0, 127}));
 
   annotation(
+    preferredView = "diagram",
     Icon(graphics = {Text(origin = {-12, -4}, extent = {{-58, -10}, {75, 20}}, textString = "2015"), Text(origin = {74, 29}, extent = {{-52, -13}, {67, 27}}, textString = "A")}));
 end Control4A2015;

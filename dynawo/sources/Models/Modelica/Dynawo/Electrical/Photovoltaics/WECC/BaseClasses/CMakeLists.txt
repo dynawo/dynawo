@@ -12,6 +12,7 @@
 set(MODEL_FILES
   package.mo
   package.order
+  BasePVCurrentSource.mo
   BasePVVoltageSource.mo
   )
 

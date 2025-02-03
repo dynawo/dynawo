@@ -8,11 +8,11 @@
 51.000000 | CLA_2_3 | CLA : arming by over-current constraint
 51.000000 | GEN____3_SM | Voltage regulator : upper limit reached (Efd)
 51.000000 | _LOAD___4_EC | Tap-changer : below minimum allowed value
-80.000000 | _LOAD___5_EC | Tap +1
-110.000000 | _LOAD___9_EC | Tap +1
+80.000000 | _LOAD___5_EC | Tap position change (increment)
+110.000000 | _LOAD___9_EC | Tap position change (increment)
 111.000000 | _BUS____2-BUS____3-1_AC | LINE : opening both sides
 111.000000 | CLA_2_3 | CLA : order to change topology
-111.000000 | _LOAD___4_EC | Tap +1
+111.000000 | _LOAD___4_EC | Tap position change (increment)
 112.000000 | CLA_2_4 | CLA : arming by over-current constraint
 112.000000 | CLA_2_5 | CLA : arming by over-current constraint
 112.000000 | _LOAD__10_EC | Tap-changer : below minimum allowed value
@@ -25,12 +25,12 @@
 113.000000 | _LOAD___4_EC | Tap-changer : below minimum allowed value
 113.000000 | _LOAD___9_EC | Tap-changer : below minimum allowed value
 117.000000 | _LOAD___9_EC | Tap-changer : below minimum allowed value
-142.000000 | _LOAD___3_EC | Tap +1
-142.000000 | _LOAD___4_EC | Tap +1
-142.000000 | _LOAD___5_EC | Tap +1
-152.000000 | _LOAD___3_EC | Tap +1
-152.000000 | _LOAD___4_EC | Tap +1
-162.000000 | _LOAD___3_EC | Tap +1
+142.000000 | _LOAD___3_EC | Tap position change (increment)
+142.000000 | _LOAD___4_EC | Tap position change (increment)
+142.000000 | _LOAD___5_EC | Tap position change (increment)
+152.000000 | _LOAD___3_EC | Tap position change (increment)
+152.000000 | _LOAD___4_EC | Tap position change (increment)
+162.000000 | _LOAD___3_EC | Tap position change (increment)
 162.000000 | _LOAD__12_EC | Tap-changer : below minimum allowed value
 172.000000 | _BUS____2-BUS____4-1_AC | LINE : opening both sides
 172.000000 | _BUS____2-BUS____5-1_AC | LINE : opening both sides
@@ -38,13 +38,13 @@
 172.000000 | CLA_2_5 | CLA : order to change topology
 172.000000 | GEN____1_SM | GENERATOR : disconnecting
 172.000000 | GEN____2_SM | GENERATOR : disconnecting
-172.000000 | _LOAD__10_EC | Tap +1
-172.000000 | _LOAD__11_EC | Tap +1
-172.000000 | _LOAD__14_EC | Tap +1
+172.000000 | _LOAD__10_EC | Tap position change (increment)
+172.000000 | _LOAD__11_EC | Tap position change (increment)
+172.000000 | _LOAD__14_EC | Tap position change (increment)
 172.000000 | _LOAD___2_EC | Transformer : switched off
 172.000000 | _LOAD___2_EC | Tap-changer : switched off
 172.000000 | _LOAD___2_EC | LOAD : disconnecting
-172.000000 | _LOAD___6_EC | Tap +1
+172.000000 | _LOAD___6_EC | Tap position change (increment)
 172.000000 | GEN____1_SM | Voltage regulator : upper limit reached (Efd)
 172.000000 | GEN____2_SM | Voltage regulator : upper limit reached (Efd)
 172.000000 | _LOAD___2_EC | Tap-changer : below minimum allowed value
@@ -58,23 +58,23 @@
 173.000000 | _LOAD___4_EC | Tap-changer : below minimum allowed value
 173.000000 | _LOAD___5_EC | Tap-changer : below minimum allowed value
 173.000000 | _LOAD___6_EC | Tap-changer : below minimum allowed value
-177.000000 | _LOAD___9_EC | Tap +1
+177.000000 | _LOAD___9_EC | Tap position change (increment)
 179.000000 | _LOAD___6_EC | Tap-changer : below minimum allowed value
-187.000000 | _LOAD___9_EC | Tap +1
-203.000000 | _LOAD___4_EC | Tap +1
-203.000000 | _LOAD___5_EC | Tap +1
-213.000000 | _LOAD___4_EC | Tap +1
-213.000000 | _LOAD___5_EC | Tap +1
-223.000000 | _LOAD___5_EC | Tap +1
-233.000000 | _LOAD__10_EC | Tap +1
-233.000000 | _LOAD__11_EC | Tap +1
-233.000000 | _LOAD__12_EC | Tap +1
-233.000000 | _LOAD__13_EC | Tap +1
-233.000000 | _LOAD__14_EC | Tap +1
-239.000000 | _LOAD___6_EC | Tap +1
+187.000000 | _LOAD___9_EC | Tap position change (increment)
+203.000000 | _LOAD___4_EC | Tap position change (increment)
+203.000000 | _LOAD___5_EC | Tap position change (increment)
+213.000000 | _LOAD___4_EC | Tap position change (increment)
+213.000000 | _LOAD___5_EC | Tap position change (increment)
+223.000000 | _LOAD___5_EC | Tap position change (increment)
+233.000000 | _LOAD__10_EC | Tap position change (increment)
+233.000000 | _LOAD__11_EC | Tap position change (increment)
+233.000000 | _LOAD__12_EC | Tap position change (increment)
+233.000000 | _LOAD__13_EC | Tap position change (increment)
+233.000000 | _LOAD__14_EC | Tap position change (increment)
+239.000000 | _LOAD___6_EC | Tap position change (increment)
 239.000000 | _LOAD__13_EC | Tap-changer : below minimum allowed value
-243.000000 | _LOAD__12_EC | Tap +1
-243.000000 | _LOAD__14_EC | Tap +1
-299.000000 | _LOAD__13_EC | Tap +1
+243.000000 | _LOAD__12_EC | Tap position change (increment)
+243.000000 | _LOAD__14_EC | Tap position change (increment)
+299.000000 | _LOAD__13_EC | Tap position change (increment)
 299.000000 | _LOAD___4_EC | Tap-changer : below minimum allowed value
-329.000000 | _LOAD___4_EC | Tap +1
+329.000000 | _LOAD___4_EC | Tap position change (increment)

@@ -1264,6 +1264,11 @@ ModelNetwork::defineVariables(vector<boost::shared_ptr<Variable> >& variables) {
 }
 
 void
+ModelNetwork::defineVariablesInit(std::vector<boost::shared_ptr<Variable> >& variables) {
+  defineVariables(variables);
+}
+
+void
 ModelNetwork::defineParameters(vector<ParameterModeler>& parameters) {
   ModelVoltageLevel::defineParameters(parameters);
   ModelLine::defineParameters(parameters);
@@ -1470,7 +1475,7 @@ ModelNetwork::loadInternalVariables(stringstream& streamVariables) {
     for (const auto& component : getComponents()) {
       component->loadInternalVariables(streamVariables);
     }
-  } catch (boost::archive::archive_exception& exc) {
+  } catch (boost::archive::archive_exception&) {
     // Failure because dump is too short
     return false;
   }

@@ -22,7 +22,7 @@
 
 #include "DYDModelTemplate.h"
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 namespace dynamicdata {
 
@@ -39,9 +39,9 @@ class ModelTemplateFactory {
    * @brief Create new ModelTemplate instance
    *
    * @param[in] modelId ID for new ModelTemplate instance
-   * @returns Shared pointer to a new @p ModelTemplate with given ID
+   * @returns Unique pointer to a new @p ModelTemplate with given ID
    */
-  static boost::shared_ptr<ModelTemplate> newModel(const std::string& modelId);
+  static std::unique_ptr<ModelTemplate> newModel(const std::string& modelId);
 };
 
 }  // namespace dynamicdata

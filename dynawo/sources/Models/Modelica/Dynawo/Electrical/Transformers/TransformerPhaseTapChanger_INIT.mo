@@ -22,4 +22,5 @@ model TransformerPhaseTapChanger_INIT "Initialization model for TransformerPhase
 
   parameter Integer Tap0 "Start value of transformer tap";
 
+  annotation(preferredView = "text");
 end TransformerPhaseTapChanger_INIT;

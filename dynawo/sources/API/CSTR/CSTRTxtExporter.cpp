@@ -21,6 +21,7 @@
 #include <sstream>
 
 #include "DYNMacrosMessage.h"
+#include "DYNCommon.h"
 
 #include "CSTRTxtExporter.h"
 #include "CSTRConstraintsCollection.h"
@@ -51,7 +52,7 @@ TxtExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& constr
           ++itConstraint) {
     stream << (*itConstraint)->getModelName()
             << TXTEXPORTER_SEPARATOR
-            << (*itConstraint)->getTime()
+            << DYN::double2String((*itConstraint)->getTime())
             << TXTEXPORTER_SEPARATOR
             << (*itConstraint)->getDescription();
     if ((*itConstraint)->hasModelType())
@@ -80,6 +81,8 @@ TxtExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& constr
         case ConstraintData::USupUmax:
           stream << TXTEXPORTER_SEPARATOR
                  << "USupUmax";
+          break;
+        case ConstraintData::Undefined:
           break;
       }
       stream << TXTEXPORTER_SEPARATOR

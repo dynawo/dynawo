@@ -30,11 +30,12 @@ namespace constraints {
 /**
  * @brief Constraint data definition
  */
-struct ConstraintData {
+class ConstraintData {
+ public:
   /**
    * @brief possible values for kind
    */
-  typedef enum { PATL = 0, OverloadUp, OverloadOpen, UInfUmin, USupUmax } kind_t;
+  typedef enum { PATL = 0, OverloadUp, OverloadOpen, UInfUmin, USupUmax, Undefined } kind_t;
 
   kind_t kind;                                 ///< Kind of constraint
   double limit;                                ///< Limit of the constraint
@@ -58,6 +59,20 @@ struct ConstraintData {
       value(constraintValue),
       side(constraintSide),
       acceptableDuration(constraintAcceptableDuration) {}
+
+  /**
+   * @brief get a kind from a string
+   *
+   * @param kind in a string format
+   * @return the corresponding kind or Undefined if none found
+   */
+  static inline kind_t str2Kind(std::string kind) {
+    if (kind == "PATL") return ConstraintData::PATL;
+    if (kind == "OverloadUp") return ConstraintData::OverloadUp;
+    if (kind == "OverloadOpen") return ConstraintData::OverloadOpen;
+    if (kind == "UInfUmin") return ConstraintData::UInfUmin;
+    return ConstraintData::Undefined;
+  }
 };
 
 /**

@@ -26,8 +26,6 @@
 #include "DYDWhiteBoxModelCommon.h"
 #include "DYNMacrosMessage.h"
 
-#include <algorithm>
-#include <boost/lexical_cast.hpp>
 #include <fstream>
 #include <iomanip>
 #include <list>
@@ -35,10 +33,9 @@
 #include <set>
 #include <sstream>
 
-using boost::dynamic_pointer_cast;
-using boost::shared_ptr;
+
+using std::shared_ptr;
 using std::list;
-using std::make_pair;
 using std::map;
 using std::pair;
 using std::set;
@@ -116,9 +113,9 @@ ModelicaModel::addConnect(const string& model1, const string& var1, const string
   // Used instead of map_[connectionId] = Connector::Impl(model1, var1, model2, var2)
   // to avoid necessity to create Connector::Impl default constructor
   pair<map<string, shared_ptr<Connector> >::iterator, bool> ret;
-  ret = connectorsMap_.emplace(connectionId, shared_ptr<Connector>(ConnectorFactory::newConnector(model1, var1, model2, var2)));
+  ret = connectorsMap_.emplace(connectionId, ConnectorFactory::newConnector(model1, var1, model2, var2));
   if (!ret.second)
-    throw DYNError(DYN::Error::API, ConnectorIDNotUnique, id_, model1 + '_' + var1, model2 + '_' + var2);
+    throw DYNError(DYN::Error::API, ConnectorIDNotUnique, id_.get(), model1 + '_' + var1, model2 + '_' + var2);
   return *this;
 }
 
@@ -128,9 +125,9 @@ ModelicaModel::addInitConnect(const string& model1, const string& var1, const st
   // Used instead of initConnectorsMap_[ic_Id] = Connector::Impl(model1, var1, model2, var2)
   // to avoid necessity to create Connector::Impl default constructor
   pair<map<string, shared_ptr<Connector> >::iterator, bool> ret;
-  ret = initConnectorsMap_.emplace(ic_Id, shared_ptr<Connector>(ConnectorFactory::newConnector(model1, var1, model2, var2)));
+  ret = initConnectorsMap_.emplace(ic_Id, ConnectorFactory::newConnector(model1, var1, model2, var2));
   if (!ret.second)
-    throw DYNError(DYN::Error::API, ConnectorIDNotUnique, id_, model1 + '_' + var1, model2 + '_' + var2);
+    throw DYNError(DYN::Error::API, ConnectorIDNotUnique, id_.get(), model1 + '_' + var1, model2 + '_' + var2);
   return *this;
 }
 

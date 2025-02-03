@@ -26,9 +26,7 @@
 #include "DYDMacroStaticRefFactory.h"
 #include "DYDMacroStaticRef.h"
 #include "DYDIterators.h"
-#include "DYDMacroStaticRefFactory.h"
 #include "DYDStaticRef.h"
-#include "DYDMacroStaticRef.h"
 
 #include "TestUtil.h"
 
@@ -39,7 +37,7 @@ namespace dynamicdata {
 
 TEST(APIDYDTest, BlackBoxModelCreate) {
   // create object
-  boost::shared_ptr<BlackBoxModel> model;
+  std::unique_ptr<BlackBoxModel> model;
   model = BlackBoxModelFactory::newModel("blackBoxModel");
   model->setLib("model");
   model->setStaticId("staticId");
@@ -70,19 +68,19 @@ TEST(APIDYDTest, BlackBoxModelImport_export) {
 }
 
 TEST(APIDYDTest, BlackBoxModelWithMacroStaticRef) {
-  boost::shared_ptr<BlackBoxModel> model;
+  std::unique_ptr<BlackBoxModel> model;
   model = BlackBoxModelFactory::newModel("blackBoxModel");
 
-  boost::shared_ptr<MacroStaticRef> mStRef1 = MacroStaticRefFactory::newMacroStaticRef("mStRef1");
-  boost::shared_ptr<MacroStaticRef> mStRef2 = MacroStaticRefFactory::newMacroStaticRef("mStRef2");
-  boost::shared_ptr<MacroStaticRef> mStRef3 = MacroStaticRefFactory::newMacroStaticRef("mStRef3");
-  boost::shared_ptr<MacroStaticRef> mStRef11 = MacroStaticRefFactory::newMacroStaticRef("mStRef1");
+  std::unique_ptr<MacroStaticRef> mStRef1 = MacroStaticRefFactory::newMacroStaticRef("mStRef1");
+  std::unique_ptr<MacroStaticRef> mStRef2 = MacroStaticRefFactory::newMacroStaticRef("mStRef2");
+  std::unique_ptr<MacroStaticRef> mStRef3 = MacroStaticRefFactory::newMacroStaticRef("mStRef3");
+  std::unique_ptr<MacroStaticRef> mStRef11 = MacroStaticRefFactory::newMacroStaticRef("mStRef1");
 
   // addMacroStaticRef
-  ASSERT_NO_THROW(model->addMacroStaticRef(mStRef1));
-  ASSERT_NO_THROW(model->addMacroStaticRef(mStRef2));
-  ASSERT_NO_THROW(model->addMacroStaticRef(mStRef3));
-  ASSERT_THROW_DYNAWO(model->addMacroStaticRef(mStRef11), DYN::Error::API, DYN::KeyError_t::MacroStaticRefNotUnique);
+  ASSERT_NO_THROW(model->addMacroStaticRef(std::move(mStRef1)));
+  ASSERT_NO_THROW(model->addMacroStaticRef(std::move(mStRef2)));
+  ASSERT_NO_THROW(model->addMacroStaticRef(std::move(mStRef3)));
+  ASSERT_THROW_DYNAWO(model->addMacroStaticRef(std::move(mStRef11)), DYN::Error::API, DYN::KeyError_t::MacroStaticRefNotUnique);
 
   int nbMacroStaticRefs = 0;
   for (macroStaticRef_const_iterator itMStRef = model->cbeginMacroStaticRef();
@@ -101,21 +99,21 @@ TEST(APIDYDTest, BlackBoxModelWithMacroStaticRef) {
 //=======================================================================================
 
 TEST(APIDYDTest, BlackBoxModelRefIterators) {
-  boost::shared_ptr<BlackBoxModel> model;
+  std::unique_ptr<BlackBoxModel> model;
   model = BlackBoxModelFactory::newModel("BlackBoxModel");
-  boost::shared_ptr<MacroStaticRef> macroStaticRef = MacroStaticRefFactory::newMacroStaticRef("MyMacroStaticRef");
-  model->addMacroStaticRef(macroStaticRef);
+  std::unique_ptr<MacroStaticRef> macroStaticRef = MacroStaticRefFactory::newMacroStaticRef("MyMacroStaticRef");
+  model->addMacroStaticRef(std::move(macroStaticRef));
 
   model->addStaticRef("MyVar", "MyStaticVar");
   ASSERT_NO_THROW(model->findMacroStaticRef("MyMacroStaticRef"));
   ASSERT_NO_THROW(model->findStaticRef("MyVar_MyStaticVar"));
   for (staticRef_iterator it = model->beginStaticRef(), itEnd = model->endStaticRef(); it != itEnd; ++it) {
-    boost::shared_ptr<StaticRef> ref = *it;
+    const std::unique_ptr<StaticRef>& ref = *it;
     ASSERT_EQ(ref->getModelVar(), "MyVar");
     ASSERT_EQ(ref->getStaticVar(), "MyStaticVar");
   }
   for (macroStaticRef_iterator it = model->beginMacroStaticRef(), itEnd = model->endMacroStaticRef(); it != itEnd; ++it) {
-    boost::shared_ptr<MacroStaticRef> ref = *it;
+    std::shared_ptr<MacroStaticRef> ref = *it;
     ASSERT_EQ(ref->getId(), "MyMacroStaticRef");
   }
 }

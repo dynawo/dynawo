@@ -41,7 +41,7 @@ Graph::Graph() {
 void
 Graph::addVertex(unsigned vertexId) {
   vertices_[vertexId] = add_vertex(internalGraph_);
-  verticesIds_.push_back(vertexId);
+  put(boost::vertex_name_t(), internalGraph_, vertices_[vertexId], vertexId);
 }
 
 void
@@ -61,9 +61,12 @@ Graph::addEdge(unsigned indexVertex1, unsigned indexVertex2, const string& id) {
 
 void
 Graph::setEdgesWeight(const std::unordered_map<string, float>& edgeWeights) {
-  for (std::unordered_map<string, float>::const_iterator iter = edgeWeights.begin(); iter != edgeWeights.end(); ++iter) {
-    Edge edge = edges_[iter->first];
-    put(boost::edge_weight_t(), internalGraph_, edge, iter->second);
+  auto edgeIterators = boost::edges(internalGraph_);
+  for (auto it = edgeIterators.first, itEnd = edgeIterators.second; it != itEnd; ++it) {
+    const auto& edgeName = boost::get(boost::edge_name, internalGraph_, *it);
+    const auto& it2 = edgeWeights.find(edgeName);
+    if (it2 != edgeWeights.end())
+      put(boost::edge_weight_t(), internalGraph_, *it, it2->second);
   }
 }
 
@@ -75,22 +78,36 @@ Graph::dijkstra(const unsigned vertexOrigin, const unsigned vertexExtremity,
     return;
 
   setEdgesWeight(edgeWeights);
-  positive_edge_weight<EdgeWeightMap> filter(get(boost::edge_weight_t(), internalGraph_));
-  FilteredBoostGraph filteredGraph = FilteredBoostGraph(internalGraph_, filter);
   if (hasVertex(vertexOrigin) && hasVertex(vertexExtremity)) {
-    Vertex start = vertices_[vertexOrigin];
+    positive_edge_weight<EdgeWeightMap> filter(get(boost::edge_weight_t(), internalGraph_));
+    FilteredBoostGraph filteredGraph = FilteredBoostGraph(internalGraph_, filter);
+
+    std::unordered_map<unsigned int, Vertex> filteredVertices;
+    auto vs = boost::vertices(filteredGraph);
+    for (auto it = vs.first; it != vs.second; ++it) {
+      filteredVertices[boost::get(boost::vertex_name, filteredGraph, *it)] = *it;
+    }
+
+    Vertex start = filteredVertices[vertexOrigin];
     std::vector<Vertex> predecessor(boost::num_vertices(filteredGraph));
     std::vector<int> distance(boost::num_vertices(filteredGraph));
     dijkstra_shortest_paths(filteredGraph, start, boost::predecessor_map(&predecessor[0]).distance_map(&distance[0]) );
 
-    Vertex node = vertices_[vertexExtremity];
+    Vertex node = filteredVertices[vertexExtremity];
     if (distance[node] == std::numeric_limits<int>::max())
       return;
     while (node != start) {
       Vertex prec = predecessor[node];
-      Edge edge = boost::edge(node, prec, filteredGraph).first;
-      string edgeId = boost::get(boost::edge_name, filteredGraph, edge);
-      path.insert(path.begin(), edgeId);
+      auto edgeIterators = boost::edges(filteredGraph);
+      for (auto it = edgeIterators.first, itEnd = edgeIterators.second; it != itEnd; ++it) {
+        const auto& source = boost::source(*it, filteredGraph);
+        const auto& target = boost::target(*it, filteredGraph);
+        if ((source == node && target == prec) || (source == prec && target == node)) {
+          string edgeId = boost::get(boost::edge_name, filteredGraph, *it);
+          path.insert(path.begin(), edgeId);
+          break;
+        }
+      }
       node = prec;
     }
   }

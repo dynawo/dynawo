@@ -55,6 +55,7 @@ equation
     Line(points = {{-78, 0}, {-70, 0}, {-70, -48}}, color = {255, 0, 255}));
 
   annotation(
+    preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-120, -100}, {120, 100}})),
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-19, -26}, extent = {{-25, 22}, {61, -60}}, textString = "2015")}));
 end QLimiter2015;

@@ -127,4 +127,5 @@ equation
   connect(linearCommunicationWPM.y[4], pControl.omegaWPFiltComPu) annotation(
     Line(points = {{-20, -52}, {-2, -52}, {-2, 60}, {18, 60}}, color = {0, 0, 127}));
 
+  annotation(preferredView = "diagram");
 end WPPControl2020;

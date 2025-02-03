@@ -22,18 +22,13 @@
 #include "DYDIdentifiable.h"
 #include "DYNMacrosMessage.h"
 
-#include <vector>
-
 using std::string;
-using std::vector;
-
-using boost::shared_ptr;
 
 namespace dynamicdata {
 
-shared_ptr<Identifiable>
+std::unique_ptr<Identifiable>
 IdentifiableFactory::newIdentifiable(const string& id) {
-  return shared_ptr<Identifiable>(new Identifiable(id));
+  return std::unique_ptr<Identifiable>(new Identifiable(id));
 }
 
 }  // namespace dynamicdata

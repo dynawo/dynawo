@@ -15,11 +15,17 @@ set(MODEL_FILES
   package.order
   PVCurrentSourceB.mo
   PVCurrentSourceB.extvar
+  PVCurrentSourceBNoPlantControl.mo
+  PVCurrentSourceBNoPlantControl.extvar
   PVCurrentSource_INIT.mo
   PVVoltageSourceA.mo
   PVVoltageSourceA.extvar
+  PVVoltageSourceANoPlantControl.mo
+  PVVoltageSourceANoPlantControl.extvar
   PVVoltageSourceB.mo
   PVVoltageSourceB.extvar
+  PVVoltageSourceBNoPlantControl.mo
+  PVVoltageSourceBNoPlantControl.extvar
   PVVoltageSource_INIT.mo
   )
 

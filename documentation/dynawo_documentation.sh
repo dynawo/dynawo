@@ -28,7 +28,7 @@ echo '%% Except where otherwise noted, content in this documentation is Copyrigh
 
 \begin{document}
 
-\title{\huge{\Dynawo Documentation} \\ \LARGE{v1.7.0} \\
+\title{\huge{\Dynawo Documentation} \\ \LARGE{v1.8.0} \\
 \vspace{10mm}
 \includegraphics[width=0.7\textwidth]{../resources/Dynawo-Logo-Color.png}}
 \date\today

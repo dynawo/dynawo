@@ -22,6 +22,7 @@
 #include "DYNCommonConstants.h"
 #include "DYNStateVariable.h"
 #include "DYNTrace.h"
+#include "DYNCommon.h"
 
 #include <powsybl/iidm/Bus.hpp>
 #include <algorithm>
@@ -147,13 +148,16 @@ CalculatedBusInterfaceIIDM::getComponentVarIndex(const std::string& varName) con
 
 void
 CalculatedBusInterfaceIIDM::exportStateVariablesUnitComponent() {
+  double angle = getStateVarAngle();
+  if (doubleIsZero(angle))
+    angle = 0.;
   for (auto& node : nodes_) {
     const auto& terminal = voltageLevel_.getNodeBreakerView().getTerminal(node);
     if (terminal) {
       const auto& bus = terminal.get().getBusView().getBus();
       if (bus) {
         bus.get().setV(getStateVarV());
-        bus.get().setAngle(getStateVarAngle());
+        bus.get().setAngle(angle);
       }
     }
   }
