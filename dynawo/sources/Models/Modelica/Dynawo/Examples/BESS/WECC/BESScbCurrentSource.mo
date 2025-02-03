@@ -15,8 +15,112 @@ within Dynawo.Examples.BESS.WECC;
 model BESScbCurrentSource "WECC BESS with REEC-C and REGC-B with a plant controller REPC-A on infinite bus"
   extends Icons.Example;
 
-  Dynawo.Electrical.BESS.WECC.BESScbCurrentSource BESScb(DDn = 126,DPMaxPu = 999, DPMinPu = -999, DUp = 126, Dbd1Pu = -0.05, Dbd2Pu = 0.05,DbdPu = 0, EMaxPu = 0.1, EMinPu = -0.1, FDbd1Pu = 0.00083, FDbd2Pu = 0.00083, FEMaxPu = 999, FEMinPu = -999, FreqFlag = true, IMaxPu = 1.11, Id0Pu = 0.5, Iq0Pu = 1.5e-12, Iqh1Pu = 0.75, Iql1Pu = -0.75, IqrMaxPu = 999, IqrMinPu = -999, Kc = 0, Ki = 1e-6, KiPLL = 20, Kig = 1e-6, Kp = 1e-6, KpPLL = 3, Kpg = 1, Kqi = 1, Kqp = 1e-6, Kqv = 15, Kvi = 0.1, Kvp = 1e-6, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, P0Pu = -0.03, PF0 = 1, PInj0Pu = 0.5, PMaxPu = 1, PMinPu = -0.667, PQFlag = false, PfFlag = false, Q0Pu = 0, QFlag = false, QInj0Pu = 1.5e-12, QMaxPu = 0.75, QMinPu = -0.75, RPu = 0, RateFlag = false, RefFlag = false, RrpwrPu = 10, SNom = 6, SOC0Pu = 0.5, SOCMaxPu = 0.8, SOCMinPu = 0.2, U0Pu = 1, UInj0Pu = 1, UPhaseInj0 = 0.00000144621, VCompFlag = true, VDLIp11 = 0.2, VDLIp12 = 1.11, VDLIp21 = 0.5, VDLIp22 = 1.11, VDLIp31 = 0.75, VDLIp32 = 1.11, VDLIp41 = 1, VDLIp42 = 1.11, VDLIq11 = 0, VDLIq12 = 0.75, VDLIq21 = 0.2, VDLIq22 = 0.75, VDLIq31 = 0.5, VDLIq32 = 0.75, VDLIq41 = 1, VDLIq42 = 0.75, VDipPu = -99, VFlag = true, VFrz = 0, VMaxPu = 1.1, VMinPu = 0.9, VRef0Pu = 1, VUpPu = 99, XPu = 1e-10, i0Pu = Complex(-0.03, -4.33863e-8), iInj0Pu = Complex(0.5, 7.23105e-7), s0Pu = Complex(-0.03, 0), tBattery = 999, tFilterGC = 0.02, tFilterPC = 0.02, tFt = 1e-10, tFv = 0.05, tG = 0.017, tIq = 0.017, tLag = 0.1, tP = 0.05, tPord = 0.017, tRv = 0.01, u0Pu = Complex(1, 0.00000144621), uInj0Pu = Complex(1, 0.00000144621)) annotation(
-    Placement(visible = true, transformation(origin = {20, -1.77636e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
+  Dynawo.Electrical.BESS.WECC.BESScbCurrentSource BESScb(
+    DDn = 126,
+    DPMaxPu = 999,
+    DPMinPu = -999,
+    DUp = 126,
+    Dbd1Pu = -0.05,
+    Dbd2Pu = 0.05,
+    DbdPu = 0,
+    EMaxPu = 0.1,
+    EMinPu = -0.1,
+    FDbd1Pu = 0.00083,
+    FDbd2Pu = 0.00083,
+    FEMaxPu = 999,
+    FEMinPu = -999,
+    FreqFlag = true,
+    IMaxPu = 1.11,
+    Id0Pu(fixed = false),
+    Iq0Pu(fixed = false),
+    Iqh1Pu = 0.75,
+    Iql1Pu = -0.75,
+    IqrMaxPu = 999,
+    IqrMinPu = -999,
+    Kc = 0,
+    Ki = 1e-6,
+    KiPLL = 20,
+    Kig = 1e-6,
+    Kp = 1e-6,
+    KpPLL = 3,
+    Kpg = 1,
+    Kqi = 1,
+    Kqp = 1e-6,
+    Kqv = 15,
+    Kvi = 0.1,
+    Kvp = 1e-6,
+    OmegaMaxPu = 1.5,
+    OmegaMinPu = 0.5,
+    P0Pu = -0.03,
+    PF0(fixed = false),
+    PInj0Pu(fixed = false),
+    PMaxPu = 1,
+    PMinPu = -0.667,
+    PQFlag = false,
+    PfFlag = false,
+    Q0Pu = 0,
+    QFlag = false,
+    QInj0Pu(fixed = false),
+    QMaxPu = 0.75,
+    QMinPu = -0.75,
+    RPu = 0,
+    RateFlag = false,
+    RefFlag = false,
+    RrpwrPu = 10,
+    SNom = 6,
+    SOC0Pu = 0.5,
+    SOCMaxPu = 0.8,
+    SOCMinPu = 0.2,
+    U0Pu = 1,
+    UInj0Pu(fixed = false),
+    UPhaseInj0 = 0.00000144621,
+    VCompFlag = true,
+    VDLIp11 = 0.2,
+    VDLIp12 = 1.11,
+    VDLIp21 = 0.5,
+    VDLIp22 = 1.11,
+    VDLIp31 = 0.75,
+    VDLIp32 = 1.11,
+    VDLIp41 = 1,
+    VDLIp42 = 1.11,
+    VDLIq11 = 0,
+    VDLIq12 = 0.75,
+    VDLIq21 = 0.2,
+    VDLIq22 = 0.75,
+    VDLIq31 = 0.5,
+    VDLIq32 = 0.75,
+    VDLIq41 = 1,
+    VDLIq42 = 0.75,
+    VDipPu = -99,
+    VFlag = true,
+    VFrz = 0,
+    VMaxPu = 1.1,
+    VMinPu = 0.9,
+    VRef0Pu = 1,
+    VUpPu = 99,
+    XPu = 1e-10,
+    i0Pu.re(fixed = false),
+    i0Pu.im(fixed = false),
+    iInj0Pu.re(fixed = false),
+    iInj0Pu.im(fixed = false),
+    s0Pu.re(fixed = false),
+    s0Pu.im(fixed = false),
+    tBattery = 999,
+    tFilterGC = 0.02,
+    tFilterPC = 0.02,
+    tFt = 1e-10,
+    tFv = 0.05,
+    tG = 0.017,
+    tIq = 0.017,
+    tLag = 0.1,
+    tP = 0.05,
+    tPord = 0.017,
+    tRv = 0.01,
+    u0Pu.re(fixed = false),
+    u0Pu.im(fixed = false),
+    uInj0Pu.re(fixed = false),
+    uInj0Pu.im(fixed = false)) annotation(
+    Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant URefPu(k = 1) annotation(
     Placement(visible = true, transformation(origin = {80, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 1) annotation(
@@ -29,10 +133,28 @@ model BESScbCurrentSource "WECC BESS with REEC-C and REGC-B with a plant control
     Placement(visible = true, transformation(origin = {80, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Dynawo.Electrical.Lines.Line line(BPu = 0, GPu = 0, RPu = 0, XPu = 0.0000020661) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(U0Pu = 1, UEvtPu = 0.55, UPhase = 0, omega0Pu = 1, omegaEvtPu = 1.01, tOmegaEvtEnd = 6.5, tOmegaEvtStart = 6, tUEvtEnd = 1.5, tUEvtStart = 1) annotation(
+  Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(
+    U0Pu = 1,
+    UEvtPu = 0.55,
+    UPhase = 0,
+    omega0Pu = 1,
+    omegaEvtPu = 1.01,
+    tOmegaEvtEnd = 6.5,
+    tOmegaEvtStart = 6,
+    tUEvtEnd = 1.5,
+    tUEvtStart = 1) annotation(
     Placement(visible = true, transformation(origin = {-82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Modelica.Blocks.Sources.Constant PAuxPu(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.BESS.WECC.BESS_INIT bess_init(
+    P0Pu = BESScb.P0Pu,
+    Q0Pu = BESScb.Q0Pu,
+    RPu = BESScb.RPu,
+    SNom = BESScb.SNom,
+    U0Pu = BESScb.U0Pu,
+    UPhase0 = BESScb.UPhaseInj0,
+    XPu = BESScb.XPu) annotation(
+    Placement(visible = true, transformation(origin = {-50, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
   line.switchOffSignal1.value = false;
@@ -57,6 +179,23 @@ equation
     Line(points = {{-38, -80}, {12, -80}, {12, -22}}, color = {0, 0, 127}));
   connect(line.terminal2, BESScb.terminal) annotation(
     Line(points = {{-20, 0}, {0, 0}}, color = {0, 0, 255}));
+
+initial algorithm
+  BESScb.Id0Pu := bess_init.Id0Pu;
+  BESScb.Iq0Pu := bess_init.Iq0Pu;
+  BESScb.PF0 := bess_init.PF0;
+  BESScb.PInj0Pu := bess_init.PInj0Pu;
+  BESScb.QInj0Pu := bess_init.QInj0Pu;
+  BESScb.i0Pu.re := bess_init.i0Pu.re;
+  BESScb.i0Pu.im := bess_init.i0Pu.im;
+  BESScb.iInj0Pu.re := bess_init.iInj0Pu.re;
+  BESScb.iInj0Pu.im := bess_init.iInj0Pu.im;
+  BESScb.s0Pu.re := bess_init.s0Pu.re;
+  BESScb.s0Pu.im := bess_init.s0Pu.im;
+  BESScb.u0Pu.re := bess_init.u0Pu.re;
+  BESScb.u0Pu.im := bess_init.u0Pu.im;
+  BESScb.uInj0Pu.re := bess_init.uInj0Pu.re;
+  BESScb.uInj0Pu.im := bess_init.uInj0Pu.im;
 
   annotation(
     preferredView = "diagram",
