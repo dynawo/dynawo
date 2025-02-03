@@ -27,12 +27,24 @@ model SVarCLoadVarQLarge
     Placement(visible = true, transformation(origin = {-110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Load
-  Dynawo.Electrical.Loads.LoadPQ loadPQ annotation(
+  Dynawo.Electrical.Loads.LoadPQ loadPQ(i0Pu(re(fixed = false), im(fixed = false)), s0Pu(re(fixed = false), im(fixed = false)), u0Pu(re(fixed = false), im(fixed = false))) annotation(
     Placement(visible = true, transformation(origin = {0, -22}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant PRefPu(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step QRefPu(height = 3, offset = 0, startTime = 1) annotation(
     Placement(visible = true, transformation(origin = {50, -80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+
+  // Initialization
+  Dynawo.Electrical.Loads.Load_INIT load_INIT(P0Pu = PRefPu.k, Q0Pu = QRefPu.offset, U0Pu = sVarCStandard.U0Pu, UPhase0 = 0) annotation(
+    Placement(transformation(origin = {-150, -90}, extent = {{-10, -10}, {10, 10}})));
+
+initial algorithm
+  loadPQ.i0Pu.re := load_INIT.i0Pu.re;
+  loadPQ.i0Pu.im := load_INIT.i0Pu.im;
+  loadPQ.s0Pu.re := load_INIT.s0Pu.re;
+  loadPQ.s0Pu.im := load_INIT.s0Pu.im;
+  loadPQ.u0Pu.re := load_INIT.u0Pu.re;
+  loadPQ.u0Pu.im := load_INIT.u0Pu.im;
 
 equation
   loadPQ.switchOffSignal1.value = false;

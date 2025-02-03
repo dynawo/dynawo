@@ -38,7 +38,7 @@ model SVarCStandard "Standard static var compensator model"
   Modelica.Blocks.Interfaces.RealInput URef(start = URef0) "Voltage reference for the regulation in kV" annotation(
     Placement(visible = true, transformation(origin = {-260, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-115, 80}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
 
-  Dynawo.Electrical.Sources.InjectorBG injector(SNom = SNom, U0Pu = U0Pu, P0Pu = P0Pu, Q0Pu = Q0Pu, u0Pu = u0Pu, s0Pu = s0Pu, i0Pu = i0Pu) "Controlled injector BG" annotation(
+  Dynawo.Electrical.Sources.InjectorBG injector(SNom = SNom, B0Pu = B0Pu, G0Pu = G0Pu, P0Pu = P0Pu, Q0Pu = Q0Pu, U0Pu = U0Pu, u0Pu = u0Pu, s0Pu = s0Pu, i0Pu = i0Pu) "Controlled injector BG" annotation(
     Placement(visible = true, transformation(origin = {140, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant GPuCst(k = G0Pu) annotation(
     Placement(visible = true, transformation(origin = {-10, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

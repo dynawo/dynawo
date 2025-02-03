@@ -18,53 +18,24 @@ model GovSteamEuSt4b "Active power variation on the load with governor GovSteamE
 
   // Generator and regulations
   Dynawo.Examples.BaseClasses.GeneratorSynchronousInterfaces generatorSynchronous(
-    Ce0Pu = 0.76,
-    Cm0Pu = 0.8,
-    Cos2Eta0 = 0.459383,
     DPu = 0,
-    Efd0Pu = 1.81724,
     ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NoLoad,
     H = 4,
-    IRotor0Pu = 1.81724,
-    IStator0Pu = 3.8,
-    Id0Pu = -0.613552,
-    If0Pu = 0.982291,
-    Iq0Pu = -0.448503,
     LDPPu = 0.2,
     LQ1PPu = 0.444231,
     LQ2PPu = 0.2625,
-    LambdaAD0Pu = 0.682168,
-    LambdaAQ0Pu = -0.740029,
-    LambdaAirGap0Pu = 1.00648,
-    LambdaD0Pu = 0.682168,
-    LambdaQ10Pu = -0.740029,
-    LambdaQ20Pu = -0.740029,
-    Lambdad0Pu = 0.590135,
-    Lambdaf0Pu = 0.902439,
-    Lambdaq0Pu = -0.807305,
     LdPPu = 0.15,
     LfPPu = 0.224242,
     LqPPu = 0.15,
     MdPPu = 1.85,
-    MdPPuEfd = 0.74046,
-    MdPPuEfdNom = 0.740458,
-    MdSat0PPu = 1.85,
-    Mds0Pu = 1.85,
-    Mi0Pu = 1.74188,
+    MdPPuEfd = 1,
     MqPPu = 1.65,
-    MqSat0PPu = 1.65,
-    Mqs0Pu = 1.65,
     MrcPPu = 0,
     MsalPu = 0.2,
     P0Pu = -3.8,
-    PGen0Pu = 3.8,
     PNomAlt = 475,
     PNomTurb = 475,
-    Pm0Pu = 0.8,
     Q0Pu = 0,
-    QGen0Pu = 0,
-    QStator0Pu = 0,
-    QStator0PuQNom = 0,
     RDPPu = 0.0303152,
     RQ1PPu = 0.00308618,
     RQ2PPu = 0.0234897,
@@ -72,10 +43,7 @@ model GovSteamEuSt4b "Active power variation on the load with governor GovSteamE
     RaPPu = 0,
     RfPPu = 0.00128379,
     SNom = 500,
-    Sin2Eta0 = 0.540617,
     SnTfo = 500,
-    Theta0 = 0.93957,
-    ThetaInternal0 = 0.93957,
     U0Pu = 1,
     UBaseHV = 400,
     UBaseLV = 21,
@@ -83,21 +51,11 @@ model GovSteamEuSt4b "Active power variation on the load with governor GovSteamE
     UNomHV = 400,
     UNomLV = 21,
     UPhase0 = 0,
-    UStator0Pu = 1,
-    Ud0Pu = 0.807305,
-    Uf0Pu = 0.00126105,
-    Uq0Pu = 0.590135,
     XTfPu = 0,
-    i0Pu = Complex(-3.8, 0),
-    iStator0Pu = Complex(-3.8, 0),
     md = 0,
     mq = 0,
     nd = 0,
-    nq = 0,
-    s0Pu = Complex(-3.8, 0),
-    sStator0Pu = Complex(-3.8, 0),
-    u0Pu = Complex(1, 0),
-    uStator0Pu = Complex(1, 0)) annotation(
+    nq = 0) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.St4b avr(
     Efd0Pu = generatorSynchronous.Efd0Pu,
@@ -110,7 +68,8 @@ model GovSteamEuSt4b "Active power variation on the load with governor GovSteamE
     Kp = 9.3,
     Kpm = 1,
     Kpr = 10.75,
-    Thetap = 0, UOel0Pu = 10,
+    Thetap = 0,
+    UOel0Pu = 10,
     Us0Pu = generatorSynchronous.UStator0Pu,
     VaMaxPu = 1,
     VaMinPu = -0.87,
@@ -126,7 +85,45 @@ model GovSteamEuSt4b "Active power variation on the load with governor GovSteamE
     tR = 0.02,
     ut0Pu = generatorSynchronous.u0Pu) annotation(
     Placement(visible = true, transformation(origin = {130, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.GovSteamEu governor( CHcPu=-3.3, CHoPu=0.17, CIcPu=-2.2, CIoPu=0.123, DeltaOmegaDbPu=0.0004, DeltafDbPu=0, HHpMaxPu=1, KE=0.65, KFCor=20, KHp=0.277, KLp=0.723, KOmegaCor=20, OmegaFMaxPu=0.05, OmegaFMinPu=-0.05, OmegaMax1Pu=1.025, OmegaMax2Pu=1.05, OmegaOmegaMaxPu=0.1, OmegaOmegaMinPu=-1,PBaseMw = generatorSynchronous.PNomTurb, PGen0Pu = generatorSynchronous.PGen0Pu, PGenBaseMw=SystemBase.SnRef, PMaxPu=1, PRhMaxPu=1.4, Pm0Pu = generatorSynchronous.Pm0Pu, SimxPu=0.425, tB=100, tDp= 1e-9, tEn=0.1, tF= 1e-9, tFp= 1e-9, tHp=0.31, tIp=2, tLp=0.45, tOmega=0.02, tP=0.07, tRh=8, tVHp=0.1, tVLp=0.15) annotation(
+  Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.GovSteamEu governor(
+    CHcPu = -3.3,
+    CHoPu = 0.17,
+    CIcPu = -2.2,
+    CIoPu = 0.123,
+    DeltaOmegaDbPu = 0.0004,
+    DeltafDbPu = 0,
+    HHpMaxPu = 1,
+    KE = 0.65,
+    KFCor = 20,
+    KHp = 0.277,
+    KLp = 0.723,
+    KOmegaCor = 20,
+    OmegaFMaxPu = 0.05,
+    OmegaFMinPu = -0.05,
+    OmegaMax1Pu = 1.025,
+    OmegaMax2Pu = 1.05,
+    OmegaOmegaMaxPu = 0.1,
+    OmegaOmegaMinPu = -1,
+    PBaseMw = generatorSynchronous.PNomTurb,
+    PGen0Pu = generatorSynchronous.PGen0Pu,
+    PGenBaseMw = SystemBase.SnRef,
+    PMaxPu = 1,
+    PRhMaxPu = 1.4,
+    Pm0Pu = generatorSynchronous.Pm0Pu,
+    SimxPu = 0.425,
+    tB = 100,
+    tDp = 1e-9,
+    tEn = 0.1,
+    tF = 1e-9,
+    tFp = 1e-9,
+    tHp = 0.31,
+    tIp = 2,
+    tLp = 0.45,
+    tOmega = 0.02,
+    tP = 0.07,
+    tRh = 8,
+    tVHp = 0.1,
+    tVLp = 0.15) annotation(
     Placement(visible = true, transformation(origin = {126, -46}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant PGovernorRefPu(k = governor.PRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {58, -34}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
@@ -142,12 +139,24 @@ model GovSteamEuSt4b "Active power variation on the load with governor GovSteamE
     Placement(visible = true, transformation(origin = {84, 66}, extent = {{-4, -4}, {4, 4}}, rotation = 0)));
 
   // Load
-  Dynawo.Electrical.Loads.LoadAlphaBeta load(alpha = 2, beta = 2, i0Pu = Complex(3.8, 0), s0Pu = Complex(3.8, 0), u0Pu = Complex(1, 0)) annotation(
+  Dynawo.Electrical.Loads.LoadAlphaBeta load(alpha = 2, beta = 2, i0Pu(re(fixed = false), im(fixed = false)), s0Pu(re(fixed = false), im(fixed = false)), u0Pu(re(fixed = false), im(fixed = false))) annotation(
     Placement(visible = true, transformation(origin = {-40, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant QRefPu(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-10, -50}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step PRefPu(height = 0.05 * generatorSynchronous.PNomAlt / 100, offset = 3.8, startTime = 0.1) annotation(
     Placement(visible = true, transformation(origin = {-70, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  // Initialization
+  Dynawo.Electrical.Loads.Load_INIT load_INIT(P0Pu = PRefPu.offset, Q0Pu = QRefPu.k, U0Pu = generatorSynchronous.U0Pu, UPhase0 = generatorSynchronous.UPhase0) annotation(
+    Placement(transformation(origin = {-150, -90}, extent = {{-10, -10}, {10, 10}})));
+
+initial algorithm
+  load.i0Pu.re := load_INIT.i0Pu.re;
+  load.i0Pu.im := load_INIT.i0Pu.im;
+  load.s0Pu.re := load_INIT.s0Pu.re;
+  load.s0Pu.im := load_INIT.s0Pu.im;
+  load.u0Pu.re := load_INIT.u0Pu.re;
+  load.u0Pu.im := load_INIT.u0Pu.im;
 
 equation
   generatorSynchronous.switchOffSignal1.value = false;
@@ -186,9 +195,9 @@ equation
   connect(PGovernorRefPu.y, governor.PRefPu) annotation(
     Line(points = {{65, -34}, {104, -34}}, color = {0, 0, 127}));
   connect(OmegaRef.y, governor.fRefPu) annotation(
-    Line(points = {{83, -56}, {96, -56}, {96, -42}, {104, -42}}, color = {0, 0, 127}));
+    Line(points = {{83, -56}, {96, -56}, {96, -42}, {104, -42}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(OmegaRef.y, governor.omegaRefPu) annotation(
-    Line(points = {{83, -56}, {104, -56}}, color = {0, 0, 127}));
+    Line(points = {{83, -56}, {104, -56}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(governor.omegaPu, generatorSynchronous.omegaPu_out) annotation(
     Line(points = {{104, -60}, {98, -60}, {98, -66}, {44, -66}, {44, -6}, {38, -6}}, color = {0, 0, 127}));
   connect(governor.fPu, generatorSynchronous.omegaPu_out) annotation(
