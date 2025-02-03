@@ -93,7 +93,9 @@ class HeaderPatternDefine:
     inline void setModelManager (ModelManager * model) { modelManager_ = model; }
     void checkSum(std::string & checkSum) { checkSum = std::string("__fill_model_checkSum__"); }
     inline bool isDataStructInitialized() const { return dataStructInitialized_; }
-    void evalJt(double t, double cj, SparseMatrix& jt, int rowOffset) override;
+    void evalJt(double cj, SparseMatrix& jt, int rowOffset) override;
+    void evalJtPrim(double cj, SparseMatrix& jt, int rowOffset) override;
+    void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const override;
 
     private:
     DYNDATA * data;
@@ -184,7 +186,9 @@ namespace DYN {
     inline void setModelManager (ModelManager * model) { modelManager_ = model; }
     void checkSum(std::string & checkSum) { checkSum = std::string("__fill_model_checkSum__"); }
     inline bool isDataStructInitialized() const { return dataStructInitialized_; }
-    void evalJt(double t, double cj, SparseMatrix& jt, int rowOffset) override;
+    void evalJt(double cj, SparseMatrix& jt, int rowOffset) override;
+    void evalJtPrim(double cj, SparseMatrix& jt, int rowOffset) override;
+    void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const override;
 
     private:
     DYNDATA * data;

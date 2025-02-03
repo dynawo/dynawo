@@ -963,6 +963,7 @@ def replace_getTable2DValue(match):
 
 def replace_getTimeTableValue(match):
     ptrn_vars = re.compile(r'data->localData\[[0-9]+\]->derivativesVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*[ ]variable[ ]\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*[ ]*\*\/')
+
     text = match.group()
     match_state_var = ptrn_vars.search(match.group('var_input'))
     if match_state_var is not None:
@@ -976,7 +977,7 @@ def replace_combi_table_jacobian_adept(line):
     and "omc_Modelica_Blocks_Tables_Internal_getTimeTableValue" not in line:
         return line
     if "omc_Modelica_Blocks_Tables_Internal_getTable1DValue" in line:
-        table_value_ptrn = re.compile(r'omc_Modelica_Blocks_Tables_Internal_getTable1DValue\(.*,.*,(?P<var_input>.*)\)')
+        table_value_ptrn = re.compile(r"omc_Modelica_Blocks_Tables_Internal_getTable1DValue\([^,]+,[^,]+,\s*(?P<var_input>.*)\)")
         line = re.sub(table_value_ptrn, replace_getTable1DValue, line)
     if "omc_Modelica_Blocks_Tables_Internal_getTable2DValue" in line:
         table_value_ptrn = re.compile(r'omc_Modelica_Blocks_Tables_Internal_getTable2DValue\(.*,(?P<var_input1>.*),(?P<var_input2>.*)\)')
@@ -984,6 +985,13 @@ def replace_combi_table_jacobian_adept(line):
     if "omc_Modelica_Blocks_Tables_Internal_getTimeTableValue" in line:
         table_value_ptrn = re.compile(r'omc_Modelica_Blocks_Tables_Internal_getTimeTableValue\(.*,.*,(?P<var_input>.*),.*,.*\)')
         line = re.sub(table_value_ptrn, replace_getTimeTableValue, line)
+
+    if "omc_Modelica_Blocks_Tables_Internal_getTable1DValue" in line:
+        sys.exit("Issue with the replacement of omc_Modelica_Blocks_Tables_Internal_getTable1DValue in adept Jacobian.")
+    elif "omc_Modelica_Blocks_Tables_Internal_getTable2DValue" in line:
+        sys.exit("Issue with the replacement of omc_Modelica_Blocks_Tables_Internal_getTable2DValue in adept Jacobian.")
+    elif "omc_Modelica_Blocks_Tables_Internal_getTimeTableValue" in line:
+        sys.exit("Issue with the replacement of omc_Modelica_Blocks_Tables_Internal_getTimeTableValue in adept Jacobian.")
 
     return line
 ##

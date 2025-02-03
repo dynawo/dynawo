@@ -65,7 +65,8 @@ static void generateModelFile(const string& modelName, const string& compilation
                               const string& additionalHeaderList,
                               const string& packageName,
                               bool genCalcVars);  ///< Rewrite parts of one whole Modelica model C/C++ code to fit Dynawo C/C++ requirements
-
+static void generateEvalJFile(const string& modelName, const string& compilationDir,
+                              bool withInitFile);  ///< Rewrite parts of one whole Modelica model C/C++ code to fit Dynawo C/C++ requirements
 static bool verifySharedObject(const string& library);  ///< Ensure that the generated compiled library can actually run
 
 static void mosAddHeader(const string& mosFilePath, ofstream& mosFile);  ///< Add a header to the .mos file
@@ -166,6 +167,10 @@ int main(int argc, char ** argv) {
     // generate the .cpp file from the previous files
     generateModelFile(modelName, compilationDir1, withInitFile, additionalHeaderList, packageName, genCalcVars);
     if (!exists(absolute(modelName + "_Dyn.cpp", compilationDir1)))
+      throw DYNError(DYN::Error::MODELER, ModelCompilationFailed, modelName);
+
+    generateEvalJFile(modelName, compilationDir1, withInitFile);
+    if (!exists(absolute(modelName + "_Dyn_evalJ.cpp", compilationDir1)))
       throw DYNError(DYN::Error::MODELER, ModelCompilationFailed, modelName);
 
     // Creation of the lib .so
@@ -405,6 +410,25 @@ generateModelFile(const string& modelName, const string& compilationDir, bool& w
     varExtCommand += " --package-name " + packageName;
 
   constexpr bool doPrintLogs = true;
+  string result = executeCommand(varExtCommand, doPrintLogs);
+}
+
+void
+generateEvalJFile(const string& modelName, const string& compilationDir, bool withInitFile) {
+  string scriptsDir1 = getMandatoryEnvVar("DYNAWO_SCRIPTS_DIR");
+  string pythonCmd = "python";
+  if (hasEnvVar("DYNAWO_PYTHON_COMMAND"))
+    pythonCmd = getEnvVar("DYNAWO_PYTHON_COMMAND");
+  // string varExtCommand = pythonCmd + " " + scriptsDir1 + "/writeModel.py -m " + packageName + modelName + " -i " + compilationDir + " -o " + compilationDir;
+
+  string varExtCommand = "/home/bureaugau/Projects/TestGPT/generateEvalJ.sh " + compilationDir + " " + modelName + " " + "Model" + modelName;
+  if (withInitFile)
+    varExtCommand += " true";
+  else
+    varExtCommand += " false";
+
+  bool doPrintLogs = true;
+
   string result = executeCommand(varExtCommand, doPrintLogs);
 }
 
