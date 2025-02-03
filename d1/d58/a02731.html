@@ -134,9 +134,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a946af3582e90f894523265c348be0844"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d1/d04/a02443.html">parameters::ParametersSet</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d58/a02731.html#a946af3582e90f894523265c348be0844">getNetworkParameters</a> () const</td></tr>
 <tr class="memdesc:a946af3582e90f894523265c348be0844"><td class="mdescLeft">&#160;</td><td class="mdescRight">get network parameters  <a href="#a946af3582e90f894523265c348be0844">More...</a><br /></td></tr>
 <tr class="separator:a946af3582e90f894523265c348be0844"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af49e78631efc82ff7dd87ec39a4206e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d58/a02731.html#af49e78631efc82ff7dd87ec39a4206e4">setParametersReference</a> (const std::unordered_map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../dc/d5c/a02459.html">parameters::ParametersSetCollection</a> &gt; &gt; &amp;parametersRef)</td></tr>
-<tr class="memdesc:af49e78631efc82ff7dd87ec39a4206e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialize the parameter sets that were already read  <a href="#af49e78631efc82ff7dd87ec39a4206e4">More...</a><br /></td></tr>
-<tr class="separator:af49e78631efc82ff7dd87ec39a4206e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15f50ca4e17e9a9d8f34bc9ccd1b7de6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d58/a02731.html#a15f50ca4e17e9a9d8f34bc9ccd1b7de6">setParametersReference</a> (const std::unordered_map&lt; std::string, std::shared_ptr&lt; <a class="el" href="../../dc/d5c/a02459.html">parameters::ParametersSetCollection</a> &gt; &gt; &amp;parametersRef)</td></tr>
+<tr class="memdesc:a15f50ca4e17e9a9d8f34bc9ccd1b7de6"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialize the parameter sets that were already read  <a href="#a15f50ca4e17e9a9d8f34bc9ccd1b7de6">More...</a><br /></td></tr>
+<tr class="separator:a15f50ca4e17e9a9d8f34bc9ccd1b7de6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2119afee7e1749312a9cc795b94c255"><td class="memItemLeft" align="right" valign="top">const std::map&lt; std::string, std::shared_ptr&lt; <a class="el" href="../../df/dee/a02743.html">ModelDescription</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d58/a02731.html#ab2119afee7e1749312a9cc795b94c255">getModelDescriptions</a> () const</td></tr>
 <tr class="memdesc:ab2119afee7e1749312a9cc795b94c255"><td class="mdescLeft">&#160;</td><td class="mdescRight">get all dynamic model descriptions  <a href="#ab2119afee7e1749312a9cc795b94c255">More...</a><br /></td></tr>
 <tr class="separator:ab2119afee7e1749312a9cc795b94c255"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -215,10 +215,10 @@ Private Attributes</h2></td></tr>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d58/a02731.html#a9a3152c631edab383227919b36174578">rootDirectory_</a></td></tr>
 <tr class="memdesc:a9a3152c631edab383227919b36174578"><td class="mdescLeft">&#160;</td><td class="mdescRight">directory to use as root when reading file <br /></td></tr>
 <tr class="separator:a9a3152c631edab383227919b36174578"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97238e3935b34ca601623097f185d027"><td class="memItemLeft" align="right" valign="top"><a id="a97238e3935b34ca601623097f185d027"></a>
-std::unordered_map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../dc/d5c/a02459.html">parameters::ParametersSetCollection</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d58/a02731.html#a97238e3935b34ca601623097f185d027">referenceParameters_</a></td></tr>
-<tr class="memdesc:a97238e3935b34ca601623097f185d027"><td class="mdescLeft">&#160;</td><td class="mdescRight">association between file name and parameters collection <br /></td></tr>
-<tr class="separator:a97238e3935b34ca601623097f185d027"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3385fdfdc8c71103063d9328f4c469ae"><td class="memItemLeft" align="right" valign="top"><a id="a3385fdfdc8c71103063d9328f4c469ae"></a>
+std::unordered_map&lt; std::string, std::shared_ptr&lt; <a class="el" href="../../dc/d5c/a02459.html">parameters::ParametersSetCollection</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d58/a02731.html#a3385fdfdc8c71103063d9328f4c469ae">referenceParameters_</a></td></tr>
+<tr class="memdesc:a3385fdfdc8c71103063d9328f4c469ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">association between file name and parameters collection <br /></td></tr>
+<tr class="separator:a3385fdfdc8c71103063d9328f4c469ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad4725d353bb85c8fc776045700c7896f"><td class="memItemLeft" align="right" valign="top"><a id="ad4725d353bb85c8fc776045700c7896f"></a>
 boost::shared_ptr&lt; <a class="el" href="../../d1/dea/a01791.html">dynamicdata::DynamicModelsCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d58/a02731.html#ad4725d353bb85c8fc776045700c7896f">dynamicModelsCollection_</a></td></tr>
 <tr class="memdesc:ad4725d353bb85c8fc776045700c7896f"><td class="mdescLeft">&#160;</td><td class="mdescRight">dynamic models collection, input from API DYD <br /></td></tr>
@@ -916,8 +916,8 @@ std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../df/dee/a02743.html
 
 </div>
 </div>
-<a id="af49e78631efc82ff7dd87ec39a4206e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af49e78631efc82ff7dd87ec39a4206e4">&#9670;&nbsp;</a></span>setParametersReference()</h2>
+<a id="a15f50ca4e17e9a9d8f34bc9ccd1b7de6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15f50ca4e17e9a9d8f34bc9ccd1b7de6">&#9670;&nbsp;</a></span>setParametersReference()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -928,7 +928,7 @@ std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../df/dee/a02743.html
         <tr>
           <td class="memname">void DYN::DynamicData::setParametersReference </td>
           <td>(</td>
-          <td class="paramtype">const std::unordered_map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../dc/d5c/a02459.html">parameters::ParametersSetCollection</a> &gt; &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::unordered_map&lt; std::string, std::shared_ptr&lt; <a class="el" href="../../dc/d5c/a02459.html">parameters::ParametersSetCollection</a> &gt; &gt; &amp;&#160;</td>
           <td class="paramname"><em>parametersRef</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1030,7 +1030,7 @@ std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../df/dee/a02743.html
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d1/d58/a02731.html">DynamicData</a></li>
-    <li class="footer">Generated on Mon Feb 3 2025 16:10:57 for Dynawo by
+    <li class="footer">Generated on Mon Feb 3 2025 17:52:20 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

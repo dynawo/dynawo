@@ -110,9 +110,9 @@ $(document).ready(function(){initNavTree('d4/d2e/a02051.html','../../');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a5efc8af3c14da63991b5a04df091b697"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d2e/a02051.html#a5efc8af3c14da63991b5a04df091b697">addVariable</a> (const boost::shared_ptr&lt; <a class="el" href="../../dc/d05/a02043.html">Variable</a> &gt; &amp;variable)</td></tr>
-<tr class="memdesc:a5efc8af3c14da63991b5a04df091b697"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an external variable in the collection.  <a href="#a5efc8af3c14da63991b5a04df091b697">More...</a><br /></td></tr>
-<tr class="separator:a5efc8af3c14da63991b5a04df091b697"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a445a33d619ed80b5d98a9a0f9752bd2a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d2e/a02051.html#a445a33d619ed80b5d98a9a0f9752bd2a">addVariable</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d05/a02043.html">Variable</a> &gt; &amp;variable)</td></tr>
+<tr class="memdesc:a445a33d619ed80b5d98a9a0f9752bd2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an external variable in the collection.  <a href="#a445a33d619ed80b5d98a9a0f9752bd2a">More...</a><br /></td></tr>
+<tr class="separator:a445a33d619ed80b5d98a9a0f9752bd2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83abbfb47f385994186bc80ced41a738"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d9b/a02039.html">variable_const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d2e/a02051.html#a83abbfb47f385994186bc80ced41a738">cbeginVariable</a> () const</td></tr>
 <tr class="memdesc:a83abbfb47f385994186bc80ced41a738"><td class="mdescLeft">&#160;</td><td class="mdescRight">model iterator: beginning of variable  <a href="#a83abbfb47f385994186bc80ced41a738">More...</a><br /></td></tr>
 <tr class="separator:a83abbfb47f385994186bc80ced41a738"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,17 +128,17 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a3348c6eaa8803da44c08ccca7ca0718a"><td class="memItemLeft" align="right" valign="top"><a id="a3348c6eaa8803da44c08ccca7ca0718a"></a>
-std::map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../dc/d05/a02043.html">Variable</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d2e/a02051.html#a3348c6eaa8803da44c08ccca7ca0718a">variables_</a></td></tr>
-<tr class="memdesc:a3348c6eaa8803da44c08ccca7ca0718a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map of the variables. <br /></td></tr>
-<tr class="separator:a3348c6eaa8803da44c08ccca7ca0718a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac52c0c08a934a7430e2601a3b87b1fea"><td class="memItemLeft" align="right" valign="top"><a id="ac52c0c08a934a7430e2601a3b87b1fea"></a>
+std::map&lt; std::string, std::shared_ptr&lt; <a class="el" href="../../dc/d05/a02043.html">Variable</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d2e/a02051.html#ac52c0c08a934a7430e2601a3b87b1fea">variables_</a></td></tr>
+<tr class="memdesc:ac52c0c08a934a7430e2601a3b87b1fea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map of the variables. <br /></td></tr>
+<tr class="separator:ac52c0c08a934a7430e2601a3b87b1fea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>External variables collection interface class. </p>
 <p><a class="el" href="../../d4/d2e/a02051.html" title="External variables collection interface class. ">VariablesCollection</a> objects describe Modelica models variables for which (C++) connections will be conducted later on, leading to fictitious equations for preassembled models compilation </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a5efc8af3c14da63991b5a04df091b697"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5efc8af3c14da63991b5a04df091b697">&#9670;&nbsp;</a></span>addVariable()</h2>
+<a id="a445a33d619ed80b5d98a9a0f9752bd2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a445a33d619ed80b5d98a9a0f9752bd2a">&#9670;&nbsp;</a></span>addVariable()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -146,7 +146,7 @@ std::map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../dc/d05
         <tr>
           <td class="memname">void externalVariables::VariablesCollection::addVariable </td>
           <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../dc/d05/a02043.html">Variable</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../dc/d05/a02043.html">Variable</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>variable</em></td><td>)</td>
           <td></td>
         </tr>
@@ -269,7 +269,7 @@ std::map&lt; std::string, boost::shared_ptr&lt; <a class="el" href="../../dc/d05
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>externalVariables</b></li><li class="navelem"><a class="el" href="../../d4/d2e/a02051.html">VariablesCollection</a></li>
-    <li class="footer">Generated on Mon Feb 3 2025 16:10:58 for Dynawo by
+    <li class="footer">Generated on Mon Feb 3 2025 17:52:21 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

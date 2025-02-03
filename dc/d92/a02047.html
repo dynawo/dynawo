@@ -109,16 +109,16 @@ $(document).ready(function(){initNavTree('dc/d92/a02047.html','../../');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a03b83df869a514b29eaa74c2f6f1bf4b"><td class="memItemLeft" align="right" valign="top">static boost::shared_ptr&lt; <a class="el" href="../../dc/d05/a02043.html">Variable</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d92/a02047.html#a03b83df869a514b29eaa74c2f6f1bf4b">newVariable</a> (const std::string &amp;id, <a class="el" href="../../dc/d05/a02043.html#a47e7759d5921e5157692324e1947e3be">Variable::Type</a> type)</td></tr>
-<tr class="memdesc:a03b83df869a514b29eaa74c2f6f1bf4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create new <a class="el" href="../../dc/d05/a02043.html" title="Variable interface class. ">Variable</a> instance.  <a href="#a03b83df869a514b29eaa74c2f6f1bf4b">More...</a><br /></td></tr>
-<tr class="separator:a03b83df869a514b29eaa74c2f6f1bf4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61efb44f39f3703d45199b509fc749ef"><td class="memItemLeft" align="right" valign="top">static std::unique_ptr&lt; <a class="el" href="../../dc/d05/a02043.html">Variable</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d92/a02047.html#a61efb44f39f3703d45199b509fc749ef">newVariable</a> (const std::string &amp;id, <a class="el" href="../../dc/d05/a02043.html#a47e7759d5921e5157692324e1947e3be">Variable::Type</a> type)</td></tr>
+<tr class="memdesc:a61efb44f39f3703d45199b509fc749ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create new <a class="el" href="../../dc/d05/a02043.html" title="Variable interface class. ">Variable</a> instance.  <a href="#a61efb44f39f3703d45199b509fc749ef">More...</a><br /></td></tr>
+<tr class="separator:a61efb44f39f3703d45199b509fc749ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="../../dc/d92/a02047.html" title="VariableFactory factory class. ">VariableFactory</a> factory class. </p>
 <p><a class="el" href="../../dc/d92/a02047.html" title="VariableFactory factory class. ">VariableFactory</a> encapsulates methods for creating new <code><a class="el" href="../../dc/d05/a02043.html" title="Variable interface class. ">Variable</a></code> objects. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a03b83df869a514b29eaa74c2f6f1bf4b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03b83df869a514b29eaa74c2f6f1bf4b">&#9670;&nbsp;</a></span>newVariable()</h2>
+<a id="a61efb44f39f3703d45199b509fc749ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61efb44f39f3703d45199b509fc749ef">&#9670;&nbsp;</a></span>newVariable()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -127,7 +127,7 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static boost::shared_ptr&lt;<a class="el" href="../../dc/d05/a02043.html">Variable</a>&gt; externalVariables::VariableFactory::newVariable </td>
+          <td class="memname">static std::unique_ptr&lt;<a class="el" href="../../dc/d05/a02043.html">Variable</a>&gt; externalVariables::VariableFactory::newVariable </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>id</em>, </td>
@@ -159,7 +159,7 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Shared pointer to a new <code><a class="el" href="../../dc/d05/a02043.html" title="Variable interface class. ">Variable</a></code> with given ID and type </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Unique pointer to a new <code><a class="el" href="../../dc/d05/a02043.html" title="Variable interface class. ">Variable</a></code> with given ID and type </dd></dl>
 
 </div>
 </div>
@@ -183,7 +183,7 @@ Static Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>externalVariables</b></li><li class="navelem"><a class="el" href="../../dc/d92/a02047.html">VariableFactory</a></li>
-    <li class="footer">Generated on Mon Feb 3 2025 16:10:58 for Dynawo by
+    <li class="footer">Generated on Mon Feb 3 2025 17:52:21 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

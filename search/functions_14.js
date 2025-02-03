@@ -7,7 +7,7 @@ var searchData=
   ['threewtransformerinterfaceiidm',['ThreeWTransformerInterfaceIIDM',['../d2/df0/a03119.html#a91ef339c1a7cd80d5d40840d0a444a45',1,'DYN::ThreeWTransformerInterfaceIIDM::ThreeWTransformerInterfaceIIDM(powsybl::iidm::ThreeWindingsTransformer &amp;tfo)'],['../d2/df0/a03119.html#adb36174753b00558e998c7372af6a93e',1,'DYN::ThreeWTransformerInterfaceIIDM::ThreeWTransformerInterfaceIIDM(const ThreeWTransformerInterfaceIIDM &amp;other)=delete']]],
   ['throw_5f',['throw_',['../d6/d2f/a00854.html#ab13a552d570a91d4d37a70be723024e2',1,'DYN']]],
   ['throwifallmodelicafilesarenotavailable',['throwIfAllModelicaFilesAreNotAvailable',['../de/dde/a02695.html#a007c8084bc9980aea05e8121642fe328',1,'DYN::Compiler']]],
-  ['timeline',['Timeline',['../da/d96/a02547.html#aa9523afe943277a6874a86dd4676530e',1,'timeline::Timeline']]],
+  ['timeline',['Timeline',['../da/d96/a02547.html#aa9523afe943277a6874a86dd4676530e',1,'timeline::Timeline::Timeline(const std::string &amp;id)'],['../da/d96/a02547.html#a229528bbc93d7def1f760bcee7a2d887',1,'timeline::Timeline::Timeline(const Timeline &amp;)=delete']]],
   ['timelineentry',['TimelineEntry',['../df/d39/a02271.html#af51c75b65cefe1bf51d688e99deda9ec',1,'job::TimelineEntry']]],
   ['timelinehandler',['TimelineHandler',['../d7/d0c/a02315.html#acd3b7dc54c004e81c28862a7fd7959e4',1,'job::TimelineHandler']]],
   ['timer',['Timer',['../dc/d58/a02667.html#a050eb0937c85efe34aa6c228b130adba',1,'DYN::Timer']]],

@@ -123,9 +123,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae13aff9d915064da859f90fce1a63c55"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d96/a02091.html#ae13aff9d915064da859f90fce1a63c55">FinalStateValuesCollection</a> (const std::string &amp;id)</td></tr>
 <tr class="memdesc:ae13aff9d915064da859f90fce1a63c55"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructor  <a href="#ae13aff9d915064da859f90fce1a63c55">More...</a><br /></td></tr>
 <tr class="separator:ae13aff9d915064da859f90fce1a63c55"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a74515e9478cabec0ddd0ddc7bdf5ac88"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d96/a02091.html#a74515e9478cabec0ddd0ddc7bdf5ac88">add</a> (const boost::shared_ptr&lt; <a class="el" href="../../d3/d79/a02083.html">FinalStateValue</a> &gt; &amp;finalStateValue)</td></tr>
-<tr class="memdesc:a74515e9478cabec0ddd0ddc7bdf5ac88"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a final state value to the collection  <a href="#a74515e9478cabec0ddd0ddc7bdf5ac88">More...</a><br /></td></tr>
-<tr class="separator:a74515e9478cabec0ddd0ddc7bdf5ac88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fa5efa592cc2138475f84393e39e057"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d96/a02091.html#a9fa5efa592cc2138475f84393e39e057">add</a> (const std::shared_ptr&lt; <a class="el" href="../../d3/d79/a02083.html">FinalStateValue</a> &gt; &amp;finalStateValue)</td></tr>
+<tr class="memdesc:a9fa5efa592cc2138475f84393e39e057"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a final state value to the collection  <a href="#a9fa5efa592cc2138475f84393e39e057">More...</a><br /></td></tr>
+<tr class="separator:a9fa5efa592cc2138475f84393e39e057"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad54c69c9435b7598997f2fce8b823236"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d96/a02091.html#ad54c69c9435b7598997f2fce8b823236">updateFinalStateValues</a> (double time)</td></tr>
 <tr class="memdesc:ad54c69c9435b7598997f2fce8b823236"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a new point for each final state value  <a href="#ad54c69c9435b7598997f2fce8b823236">More...</a><br /></td></tr>
 <tr class="separator:ad54c69c9435b7598997f2fce8b823236"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -144,10 +144,10 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a61a803a9de8df85113338c2aaad5106e"><td class="memItemLeft" align="right" valign="top"><a id="a61a803a9de8df85113338c2aaad5106e"></a>
-std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d3/d79/a02083.html">FinalStateValue</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d96/a02091.html#a61a803a9de8df85113338c2aaad5106e">finalStateValues_</a></td></tr>
-<tr class="memdesc:a61a803a9de8df85113338c2aaad5106e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector of the final state values object. <br /></td></tr>
-<tr class="separator:a61a803a9de8df85113338c2aaad5106e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad52cf49445ff8b1c13dfa708a2ebf66f"><td class="memItemLeft" align="right" valign="top"><a id="ad52cf49445ff8b1c13dfa708a2ebf66f"></a>
+std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../d3/d79/a02083.html">FinalStateValue</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d96/a02091.html#ad52cf49445ff8b1c13dfa708a2ebf66f">finalStateValues_</a></td></tr>
+<tr class="memdesc:ad52cf49445ff8b1c13dfa708a2ebf66f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector of the final state values object. <br /></td></tr>
+<tr class="separator:ad52cf49445ff8b1c13dfa708a2ebf66f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa21627a77e5e107a489376a39b8f2cc8"><td class="memItemLeft" align="right" valign="top"><a id="aa21627a77e5e107a489376a39b8f2cc8"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d96/a02091.html#aa21627a77e5e107a489376a39b8f2cc8">id_</a></td></tr>
 <tr class="memdesc:aa21627a77e5e107a489376a39b8f2cc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Final state values collections id. <br /></td></tr>
@@ -192,8 +192,8 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a74515e9478cabec0ddd0ddc7bdf5ac88"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a74515e9478cabec0ddd0ddc7bdf5ac88">&#9670;&nbsp;</a></span>add()</h2>
+<a id="a9fa5efa592cc2138475f84393e39e057"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fa5efa592cc2138475f84393e39e057">&#9670;&nbsp;</a></span>add()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -201,7 +201,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
         <tr>
           <td class="memname">void finalStateValues::FinalStateValuesCollection::add </td>
           <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d3/d79/a02083.html">FinalStateValue</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../d3/d79/a02083.html">FinalStateValue</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>finalStateValue</em></td><td>)</td>
           <td></td>
         </tr>
@@ -344,7 +344,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>finalStateValues</b></li><li class="navelem"><a class="el" href="../../d9/d96/a02091.html">FinalStateValuesCollection</a></li>
-    <li class="footer">Generated on Mon Feb 3 2025 16:10:58 for Dynawo by
+    <li class="footer">Generated on Mon Feb 3 2025 17:52:21 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

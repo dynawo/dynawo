@@ -1,7 +1,5 @@
 var NAVTREEINDEX37 =
 {
-"functions_vars_r.html":[1,3,2,17],
-"functions_vars_s.html":[1,3,2,18],
 "functions_vars_t.html":[1,3,2,19],
 "functions_vars_u.html":[1,3,2,20],
 "functions_vars_v.html":[1,3,2,21],

@@ -1,5 +1,5 @@
 var a02527 =
 [
-    [ "importFromFile", "d7/d7d/a02527.html#abd9e7d177c7ee806e0a5445f98f22f12", null ],
-    [ "importFromStream", "d7/d7d/a02527.html#a13d5b5a7ef79e3ce4f4fd211e0cba0b4", null ]
+    [ "importFromFile", "d7/d7d/a02527.html#ac49ea25ad64bf8a78444b43e74ad4fc4", null ],
+    [ "importFromStream", "d7/d7d/a02527.html#a3014f92fcd4f0891761f78f5895e26cf", null ]
 ];

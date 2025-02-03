@@ -121,6 +121,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa9523afe943277a6874a86dd4676530e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d96/a02547.html#aa9523afe943277a6874a86dd4676530e">Timeline</a> (const std::string &amp;id)</td></tr>
 <tr class="memdesc:aa9523afe943277a6874a86dd4676530e"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructor  <a href="#aa9523afe943277a6874a86dd4676530e">More...</a><br /></td></tr>
 <tr class="separator:aa9523afe943277a6874a86dd4676530e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a229528bbc93d7def1f760bcee7a2d887"><td class="memItemLeft" align="right" valign="top"><a id="a229528bbc93d7def1f760bcee7a2d887"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d96/a02547.html#a229528bbc93d7def1f760bcee7a2d887">Timeline</a> (const <a class="el" href="../../da/d96/a02547.html">Timeline</a> &amp;)=delete</td></tr>
+<tr class="memdesc:a229528bbc93d7def1f760bcee7a2d887"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor. <br /></td></tr>
+<tr class="separator:a229528bbc93d7def1f760bcee7a2d887"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0c74f85c3a51958986f0212331af09d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../da/d96/a02547.html">Timeline</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d96/a02547.html#ad0c74f85c3a51958986f0212331af09d">operator=</a> (const <a class="el" href="../../da/d96/a02547.html">Timeline</a> &amp;)=delete</td></tr>
+<tr class="memdesc:ad0c74f85c3a51958986f0212331af09d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default copy assigment operator.  <a href="#ad0c74f85c3a51958986f0212331af09d">More...</a><br /></td></tr>
+<tr class="separator:ad0c74f85c3a51958986f0212331af09d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b9f69caadaf069dfff7660c54af30e7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d96/a02547.html#a9b9f69caadaf069dfff7660c54af30e7">addEvent</a> (const double &amp;time, const std::string &amp;modelName, const std::string &amp;message, const boost::optional&lt; int &gt; &amp;priority, const std::string &amp;key)</td></tr>
 <tr class="memdesc:a9b9f69caadaf069dfff7660c54af30e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an event to the timeline.  <a href="#a9b9f69caadaf069dfff7660c54af30e7">More...</a><br /></td></tr>
 <tr class="separator:a9b9f69caadaf069dfff7660c54af30e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -148,10 +155,10 @@ Private Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a14662055f79e32b7ae43ce03e053e72d"><td class="memItemLeft" align="right" valign="top"><a id="a14662055f79e32b7ae43ce03e053e72d"></a>
-std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d6/d51/a02535.html">Event</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d96/a02547.html#a14662055f79e32b7ae43ce03e053e72d">events_</a></td></tr>
-<tr class="memdesc:a14662055f79e32b7ae43ce03e053e72d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array of events. <br /></td></tr>
-<tr class="separator:a14662055f79e32b7ae43ce03e053e72d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3c0a5b056f0decb9b46869a0fb38ad2"><td class="memItemLeft" align="right" valign="top"><a id="ab3c0a5b056f0decb9b46869a0fb38ad2"></a>
+std::vector&lt; std::unique_ptr&lt; <a class="el" href="../../d6/d51/a02535.html">Event</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d96/a02547.html#ab3c0a5b056f0decb9b46869a0fb38ad2">events_</a></td></tr>
+<tr class="memdesc:ab3c0a5b056f0decb9b46869a0fb38ad2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array of events. <br /></td></tr>
+<tr class="separator:ab3c0a5b056f0decb9b46869a0fb38ad2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af0e844662fdd46177d23db4a7c0a6ba7"><td class="memItemLeft" align="right" valign="top"><a id="af0e844662fdd46177d23db4a7c0a6ba7"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d96/a02547.html#af0e844662fdd46177d23db4a7c0a6ba7">id_</a></td></tr>
 <tr class="memdesc:af0e844662fdd46177d23db4a7c0a6ba7"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../da/d96/a02547.html" title="Timeline interface class. ">Timeline</a>'s id. <br /></td></tr>
@@ -412,6 +419,35 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 
 </div>
 </div>
+<a id="ad0c74f85c3a51958986f0212331af09d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0c74f85c3a51958986f0212331af09d">&#9670;&nbsp;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../da/d96/a02547.html">Timeline</a>&amp; timeline::Timeline::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../da/d96/a02547.html">Timeline</a> &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Default copy assigment operator. </p>
+<dl class="section return"><dt>Returns</dt><dd>a new parameter </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="../../d1/d0b/a00452_source.html">TLTimeline.h</a></li>
 </ul>
@@ -432,7 +468,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>timeline</b></li><li class="navelem"><a class="el" href="../../da/d96/a02547.html">Timeline</a></li>
-    <li class="footer">Generated on Mon Feb 3 2025 16:10:58 for Dynawo by
+    <li class="footer">Generated on Mon Feb 3 2025 17:52:21 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
