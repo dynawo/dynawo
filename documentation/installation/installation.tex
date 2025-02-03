@@ -83,8 +83,11 @@ $> ./dynawo.sh jobs --help
 Download the zip of the distribution and unzip it somewhere. Then open either \textbf{Command Prompt} or \textbf{x64 Native Tools Command Prompt for VS2019} (to be able to use your own models) and use \lstinline[language=bash]{cd} to go into the directory you previously unzipped. You should see a \textbf{dynawo.cmd} file at the top of the folder. You can then launch a simulation with:
 
 \begin{lstlisting}[language=bash, breaklines=true, breakatwhitespace=false]
-> dynawo --jobs-file testcases\IEEE14\IEEE14_BasicTestCases\IEEE14_LoadVariation\IEEE14.jobs
+> dynawo jobs examples\DynaWaltz\IEEE14\IEEE14_GeneratorDisconnections\IEEE14.jobs
+> dynawo jobs-with-curves examples\DynaWaltz\IEEE14\IEEE14_GeneratorDisconnections\IEEE14.jobs
 \end{lstlisting}
+
+You can set up the curves to open in your preferred browser with\newline\textbf{set DYNAWO\_BROWSER=C:\textbackslash Program Files (x86)\textbackslash Mozilla Firefox\textbackslash firefox.exe} for example.
 
 \section{Building requirements}
 
@@ -184,6 +187,8 @@ In the following we give a list of requirements needed to build \Dynawo and its 
   \href{https://visualstudio.microsoft.com}{Visual Studio 2019}, Visual Studio 2015 and 2017 were also tested
 \item
   \href{https://cmake.org}{CMake}
+\item
+  Java (\href{https://openjdk.java.net/}{openjdk} for example) to build OpenModelica Compiler
 \item
   \href{https://www.python.org/ftp/python/2.7.18/python-2.7.18.amd64.msi}{Python2} or \href{https://www.python.org/ftp/python/3.8.2/python-3.8.2-amd64.exe}{Python3}
 \end{itemize}
