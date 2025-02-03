@@ -104,6 +104,7 @@ set(COMMON_INCLUDE_HEADERS
   DYNTrace.h
   DYNTraceStream.h
   DYNClone.hpp
+  make_unique.hpp
   )
 
 add_library(dynawo_Common SHARED ${COMMON_SOURCES})

@@ -17,6 +17,7 @@
 #include "DYNCurrentLimitInterfaceIIDM.h"
 #include "DYNInjectorInterfaceIIDM.h"
 #include "DYNVoltageLevelInterfaceIIDM.h"
+#include "make_unique.hpp"
 
 #include <powsybl/iidm/Bus.hpp>
 #include <powsybl/iidm/DanglingLine.hpp>
@@ -99,7 +100,7 @@ TEST(DataInterfaceTest, DanglingLine_1) {
   ASSERT_TRUE(danglingLineIfce.getInitialConnected());
 
   ASSERT_EQ(danglingLineIfce.getBusInterface().get(), nullptr);
-  std::unique_ptr<BusInterface> busIfce(new BusInterfaceIIDM(bus1));
+  std::unique_ptr<BusInterface> busIfce = DYN::make_unique<BusInterfaceIIDM>(bus1);
   danglingLineIfce.setBusInterface(std::move(busIfce));
   ASSERT_EQ(danglingLineIfce.getBusInterface().get()->getID(), "VL1_BUS1");
 
@@ -124,7 +125,7 @@ TEST(DataInterfaceTest, DanglingLine_1) {
   danglingLineIfce.setVoltageLevelInterface(voltageLevelIfce);
   ASSERT_DOUBLE_EQ(danglingLineIfce.getVNom(), 380);
 
-  std::unique_ptr<CurrentLimitInterface> currentLimitIfce(new CurrentLimitInterfaceIIDM(1.0, 99));
+  std::unique_ptr<CurrentLimitInterface> currentLimitIfce = DYN::make_unique<CurrentLimitInterfaceIIDM>(1.0, 99);
   danglingLineIfce.addCurrentLimitInterface(std::move(currentLimitIfce));
   ASSERT_EQ(danglingLineIfce.getCurrentLimitInterfaces().size(), 1);
 

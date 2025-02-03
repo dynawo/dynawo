@@ -14,12 +14,14 @@
 #include "CRTCriteriaFactory.h"
 #include "CRTCriteria.h"
 
+#include "make_unique.hpp"
+
 
 namespace criteria {
 
 std::unique_ptr<Criteria>
 CriteriaFactory::newCriteria() {
-  return std::unique_ptr<Criteria>(new Criteria());
+  return DYN::make_unique<Criteria>();
 }
 
 }  // namespace criteria
