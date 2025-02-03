@@ -213,6 +213,8 @@ void
 ModelerHandler::create(attributes_type const& attributes) {
   modeler_ = std::make_shared<ModelerEntry>();
   modeler_->setCompileDir(attributes["compileDir"]);
+  if (attributes.has("symbolicJacobian"))
+    modeler_->setSymbolicJacobian(attributes["symbolicJacobian"]);
 }
 
 shared_ptr<ModelerEntry>

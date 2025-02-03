@@ -24,6 +24,7 @@ namespace job {
 
 ModelerEntry::ModelerEntry(const ModelerEntry& other):
     compileDir_(other.compileDir_),
+    symbolicJacobian_(false),
     preCompiledModelsDirEntry_(DYN::clone(other.preCompiledModelsDirEntry_)),
     modelicaModelsDirEntry_(DYN::clone(other.modelicaModelsDirEntry_)),
     networkEntry_(DYN::clone(other.networkEntry_)),
@@ -84,6 +85,16 @@ ModelerEntry::setCompileDir(const std::string& compileDir) {
 const std::string&
 ModelerEntry::getCompileDir() const {
   return compileDir_;
+}
+
+void
+ModelerEntry::setSymbolicJacobian(bool symbolicJacobian) {
+  symbolicJacobian_ = symbolicJacobian;
+}
+
+bool
+ModelerEntry::getSymbolicJacobian() const {
+  return symbolicJacobian_;
 }
 
 void

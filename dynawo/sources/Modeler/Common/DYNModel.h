@@ -529,6 +529,11 @@ class Model {
    * @param localInitParameters local initialization solver parameters set
    */
   virtual void setLocalInitParameters(std::shared_ptr<parameters::ParametersSet> localInitParameters) = 0;
+
+  /**
+  * @brief set the local initialization solver parameters of the model
+  */
+ virtual void setSymbolicJacobian() = 0;
 };  ///< Generic class for Model
 
 #ifdef __clang__

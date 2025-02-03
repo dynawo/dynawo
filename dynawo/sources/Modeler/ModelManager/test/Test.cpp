@@ -283,7 +283,9 @@ class MyModelica: public ModelModelica {
 
   void defineElements(std::vector<Element> &/*elements*/, std::map<std::string, int>& /*mapElement*/) {}
 
-  void evalJt(double /*t*/, double /*cj*/, SparseMatrix& /*jt*/, int /*rowOffset*/) {}
+  void evalJt(double /*cj*/, SparseMatrix& /*jt*/, int /*rowOffset*/) {}
+  void evalJtPrim(double /*cj*/, SparseMatrix& /*jt*/, int /*rowOffset*/) {}
+  void evalJCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<double>& /*res*/) const {}
 
   /**
    * @brief set shared parameters default values
@@ -442,7 +444,9 @@ class MyModelicaInit: public MyModelica {
     data->simulationInfo->extObjs = reinterpret_cast<void**>(calloc(nb, sizeof(void*)));
   }
 
-  void evalJt(double /*t*/, double /*cj*/, SparseMatrix& /*jt*/, int /*rowOffset*/) {}
+  void evalJt(double /*cj*/, SparseMatrix& /*jt*/, int /*rowOffset*/) {}
+  void evalJtPrim(double /*cj*/, SparseMatrix& /*jt*/, int /*rowOffset*/) {}
+  void evalJCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<double>& /*res*/) const {}
 
  private:
   DYNDATA* data_;

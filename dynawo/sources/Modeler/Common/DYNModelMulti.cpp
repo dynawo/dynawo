@@ -1261,4 +1261,10 @@ void ModelMulti::setLocalInitParameters(std::shared_ptr<parameters::ParametersSe
   localInitParameters_ = localInitParameters;
 }
 
+void ModelMulti::setSymbolicJacobian() {
+  for (auto& subModel : subModels_) {
+    subModel->setEvalJIsSymbolic();
+  }
+}
+
 }  // namespace DYN

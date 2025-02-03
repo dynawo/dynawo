@@ -86,12 +86,22 @@ class ModelModelica {
    *
    * Get the sparse transposed jacobian \f$ Jt=@F/@y + cj*@F/@y' \f$
    *
-   * @param t Simulation instant
    * @param cj Jacobian prime coefficient
    * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
    */
-  virtual void evalJt(double t, double cj, SparseMatrix& jt, int rowOffset) = 0;
+  virtual void evalJt(double cj, SparseMatrix& jt, int rowOffset) = 0;
+
+  /**
+   * @brief ModelGeneratorAlphaBetaOpti transposed jacobian evaluation
+   *
+   * Get the sparse transposed jacobian \f$ Jt=@F/@y + cj*@F/@y' \f$
+   *
+   * @param cj Jacobian prime coefficient
+   * @param jt jacobian matrix to fullfill
+   * @param rowOffset offset to use to identify the row where data should be added
+   */
+  virtual void evalJtPrim(double cj, SparseMatrix& jt, int rowOffset) = 0;
 
   /**
    * @brief  calculates the roots of the model
@@ -295,6 +305,14 @@ class ModelModelica {
    * @param indexes vector to fill with the indexes
    */
   virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const = 0;
+
+  /**
+  * @brief evaluate the jacobian associated to a calculated variable based on the current values of continuous variables
+  *
+  * @param iCalculatedVar index of the calculated variable
+  * @param res values of the jacobian
+  */
+  virtual void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const = 0;
 
   /**
    * @brief is the internal modelica structure initialized
