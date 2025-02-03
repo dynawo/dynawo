@@ -17,9 +17,53 @@ model CoordinatedVControl "System with two generators and a coordinated voltage 
   extends Icons.Example;
 
   // Generators
-  Dynawo.Electrical.Machines.SignalN.GeneratorPQProp Generator1(KGover = 1, PGen0Pu = 1.5, PMaxPu = 10000, PMinPu = -10000, PNom = 1, PRef0Pu = -1.5, QGen0Pu = 0.5, QMaxPu = 0.62, QMinPu = -2, QPercent = 1, QRef0Pu = -0.5, U0Pu = 1.05, i0Pu = Complex(-1.42857, 0.47619), limUQDown0 = false, limUQUp0 = false, qStatus0 = Dynawo.Electrical.Machines.SignalN.GeneratorPQPropDiagramPQ.QStatus.Standard, u0Pu = Complex(1.05, 0), QDeadBandPu=1e-4) annotation(
+  Dynawo.Electrical.Machines.SignalN.GeneratorPQProp Generator1(
+    KGover = 1,
+    PGen0Pu = 1.5,
+    PMaxPu = 10000,
+    PMinPu = -10000,
+    PNom = 1,
+    PRef0Pu = -1.5,
+    QGen0Pu = 0.5,
+    QMaxPu = 0.62,
+    QMinPu = -2,
+    QPercent = 1,
+    QRef0Pu = -0.5,
+    U0Pu = 1.05,
+    i0Pu(re(fixed = false), im(fixed = false)),
+    limUQDown0 = false,
+    limUQUp0 = false,
+    qStatus0 = Dynawo.Electrical.Machines.SignalN.GeneratorPQPropDiagramPQ.QStatus.Standard,
+    u0Pu(re(fixed = false), im(fixed = false)),
+    QDeadBandPu = 1e-4) annotation(
     Placement(visible = true, transformation(origin = {-80, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Machines.SignalN.GeneratorPQPropDiagramPQ Generator2(KGover = 1, PGen0Pu = 1.5, PMaxPu = 10000, PMinPu = -10000, PNom = 1, PRef0Pu = -1.5, QGen0Pu = 0.5, QMax0Pu = 2, QPercent = 1, QRef0Pu = -0.5, U0Pu = 1.05, i0Pu = Complex(-1.42857, 0.47619), limUQDown0 = false, limUQUp0 = false, qStatus0 = Dynawo.Electrical.Machines.SignalN.GeneratorPQPropDiagramPQ.QStatus.Standard, tableQMax.table = [0, 2; 1.5, 2; 1.601, 0], tableQMax.tableOnFile = false, tableQMin.table = [0, -2; 2, -1], tableQMin.tableOnFile = false, u0Pu = Complex(1.05, 0), QDeadBandPu=1e-4) annotation(
+  Dynawo.Electrical.Machines.SignalN.GeneratorPQPropDiagramPQ Generator2(
+    KGover = 1,
+    PGen0Pu = 1.5,
+    PMaxPu = 10000,
+    PMinPu = -10000,
+    PNom = 1,
+    PRef0Pu = -1.5,
+    QGen0Pu = 0.5,
+    QMax0Pu = 2,
+    QMaxTableFile = "NoFile",
+    QMaxTableName = "NoName",
+    QMin0Pu = -1.25,
+    QMinTableFile = "NoFile",
+    QMinTableName = "NoName",
+    QPercent = 1,
+    QRef0Pu = -0.5,
+    U0Pu = 1.05,
+    i0Pu(re(fixed = false), im(fixed = false)),
+    limUQDown0 = false,
+    limUQUp0 = false,
+    qStatus0 = Dynawo.Electrical.Machines.SignalN.GeneratorPQPropDiagramPQ.QStatus.Standard,
+    tableQMax.table = [0, 2; 1.5, 2; 1.601, 0],
+    tableQMax.tableOnFile = false,
+    tableQMin.table = [0, -2; 2, -1],
+    tableQMin.tableOnFile = false,
+    u0Pu(re(fixed = false), im(fixed = false)),
+    QDeadBandPu = 1e-4) annotation(
      Placement(visible = true, transformation(origin = {-80, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Lines
@@ -40,6 +84,36 @@ model CoordinatedVControl "System with two generators and a coordinated voltage 
 
   // Event
   Dynawo.Electrical.Events.Event.SingleBooleanEvent DisconnectLine(stateEvent1 = true, tEvent = 50);
+
+  // Initialization
+  Dynawo.Electrical.Machines.SignalN.GeneratorPQProp_INIT Generator1_INIT(
+    P0Pu = -Generator1.PGen0Pu,
+    PMax = Generator1.PMaxPu * SystemBase.SnRef,
+    PMin = Generator1.PMinPu * SystemBase.SnRef,
+    Q0Pu = -Generator1.QGen0Pu,
+    QMax = Generator1.QMaxPu * SystemBase.SnRef,
+    QMin = Generator1.QMinPu * SystemBase.SnRef,
+    U0Pu = Generator1.U0Pu,
+    UPhase0 = 0);
+  Dynawo.Electrical.Machines.SignalN.GeneratorPQPropDiagramPQ_INIT Generator2_INIT(
+    P0Pu = -Generator2.PGen0Pu,
+    PMax = Generator2.PMaxPu * SystemBase.SnRef,
+    PMin = Generator2.PMinPu * SystemBase.SnRef,
+    Q0Pu = -Generator2.QGen0Pu,
+    QMax0 = Generator2.QMax0Pu * SystemBase.SnRef,
+    QMin0 = Generator2.QMin0Pu * SystemBase.SnRef,
+    U0Pu = Generator2.U0Pu,
+    UPhase0 = 0);
+
+initial algorithm
+  Generator1.i0Pu.re := Generator1_INIT.i0Pu.re;
+  Generator1.i0Pu.im := Generator1_INIT.i0Pu.im;
+  Generator1.u0Pu.re := Generator1_INIT.u0Pu.re;
+  Generator1.u0Pu.im := Generator1_INIT.u0Pu.im;
+  Generator2.i0Pu.re := Generator2_INIT.i0Pu.re;
+  Generator2.i0Pu.im := Generator2_INIT.i0Pu.im;
+  Generator2.u0Pu.re := Generator2_INIT.u0Pu.re;
+  Generator2.u0Pu.im := Generator2_INIT.u0Pu.im;
 
 equation
   // SwitchOffSignals
@@ -82,7 +156,8 @@ equation
   connect(Bus.terminal, Line1.terminal1) annotation(
     Line(points = {{-40, 0}, {-20, 0}, {-20, -20}, {0, -20}}, color = {0, 0, 255}));
 
-  annotation(preferredView = "diagram",
+  annotation(
+    preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 3000, Tolerance = 1e-06, Interval = 10),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
     __OpenModelica_simulationFlags(ls = "klu", lv = "LOG_STATS", nls = "kinsol", s = "euler"),

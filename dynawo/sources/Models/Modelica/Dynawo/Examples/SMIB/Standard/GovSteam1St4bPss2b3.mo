@@ -18,53 +18,24 @@ model GovSteam1St4bPss2b3 "Bolted three-phase short circuit at the high-level si
 
   // Generator and regulations
   Dynawo.Examples.BaseClasses.GeneratorSynchronousInterfaces generatorSynchronous(
-    Ce0Pu = 0.95,
-    Cm0Pu = 1,
-    Cos2Eta0 = 0.586492,
     DPu = 0,
-    Efd0Pu = 2.507892,
     ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NoLoad,
     H = 4,
-    i0Pu = Complex(-4.978628, 0.783676),
-    IRotor0Pu = 2.507892,
-    IStator0Pu = 5.039929,
-    iStator0Pu = Complex(-4.978628, 0.783676),
-    Id0Pu = -0.921348,
-    If0Pu = 1.35562,
-    Iq0Pu = -0.408844,
     LDPPu = 0.19063,
     LQ1PPu = 0.51659,
     LQ2PPu = 0.24243,
-    LambdaAD0Pu = 0.803398,
-    LambdaAQ0Pu = -0.674593,
-    LambdaAirGap0Pu = 1.04906,
-    LambdaD0Pu = 0.803398,
-    LambdaQ10Pu = -0.674593,
-    LambdaQ20Pu = -0.674593,
-    Lambdad0Pu = 0.665196,
-    Lambdaf0Pu = 1.10733,
-    Lambdaq0Pu = -0.73592,
     LdPPu = 0.15,
     LfPPu = 0.2242,
     LqPPu = 0.15,
     MdPPu = 1.85,
-    MdSat0PPu = 1.85,
-    Mds0Pu = 1.85,
-    Mi0Pu = 1.7673,
+    MdPPuEfd = 1,
     MqPPu = 1.65,
-    MqSat0PPu = 1.65,
-    Mqs0Pu = 1.65,
     MrcPPu = 0,
     MsalPu = 0.2,
     P0Pu = -4.75,
-    PGen0Pu = 4.75,
     PNomAlt = 475,
     PNomTurb = 475,
-    Pm0Pu = 1,
     Q0Pu = -1.56,
-    QGen0Pu = 1.56,
-    QStator0Pu = 1.56,
-    QStator0PuQNom = 0.992,
     RDPPu = 0.02933,
     RQ1PPu = 0.0035,
     RQ2PPu = 0.02227,
@@ -72,10 +43,7 @@ model GovSteam1St4bPss2b3 "Bolted three-phase short circuit at the high-level si
     RaPPu = 0,
     RfPPu = 0.00128,
     SNom = 500,
-    Sin2Eta0 = 0.413508,
     SnTfo = 500,
-    Theta0 = 0.997028,
-    ThetaInternal0 = 0.835832,
     U0Pu = 0.992,
     UBaseHV = 400,
     UBaseLV = 21,
@@ -83,22 +51,47 @@ model GovSteam1St4bPss2b3 "Bolted three-phase short circuit at the high-level si
     UNomHV = 400,
     UNomLV = 21,
     UPhase0 = 0.161196,
-    UStator0Pu = 0.992,
-    Ud0Pu = 0.73592,
-    Uf0Pu = 0.00173519,
-    Uq0Pu = 0.665196,
     XTfPu = 0,
     md = 0,
     mq = 0,
     nd = 0,
-    nq = 0,
-    s0Pu = Complex(-4.75, -1.56),
-    sStator0Pu = Complex(-4.75, -1.56),
-    u0Pu = Complex(0.979140, 0.159215),
-    uStator0Pu = Complex(0.979140, 0.159215)) annotation(
+    nq = 0) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Controls.Basics.SetPoint Omega0Pu(Value0 = 1);
-  Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.GovSteam1 governor(Db1 = 0, Db2 = 0, Eps = 0, H0 = false, K = 25, K1 = 0.2, K2 = 0, K3 = 0.3, K4 = 0, K5 = 0.5, K6 = 0, K7 = 0, K8 = 0, pgv.table = [0, 0; 0.4, 0.75; 0.5, 0.91; 0.6, 0.98; 1, 1], pgv.tableOnFile = false, PMaxPu = 1, PMinPu = 0, Pm0Pu = generatorSynchronous.Pm0Pu, PmRef0Pu = generatorSynchronous.Pm0Pu, Sdb1 = true, Sdb2 = true, Uc = -10, Uo = 1, ValveOn = true, t1 = 1e-5, t2 = 1e-5, t3 = 0.1, t4 = 0.3, t5 = 5, t6 = 0.5, t7 = 1e-5) annotation(
+  Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.GovSteam1 governor(
+    Db1 = 0,
+    Db2 = 0,
+    Eps = 0,
+    H0 = false,
+    K = 25,
+    K1 = 0.2,
+    K2 = 0,
+    K3 = 0.3,
+    K4 = 0,
+    K5 = 0.5,
+    K6 = 0,
+    K7 = 0,
+    K8 = 0,
+    pgv.table = [0, 0; 0.4, 0.75; 0.5, 0.91; 0.6, 0.98; 1, 1],
+    pgv.tableOnFile = false,
+    PgvTableName = "NoName",
+    PMaxPu = 1,
+    PMinPu = 0,
+    Pm0Pu = generatorSynchronous.Pm0Pu,
+    PmRef0Pu = generatorSynchronous.Pm0Pu,
+    Sdb1 = true,
+    Sdb2 = true,
+    TablesFile = "NoFile",
+    Uc = -10,
+    Uo = 1,
+    ValveOn = true,
+    t1 = 1e-5,
+    t2 = 1e-5,
+    t3 = 0.1,
+    t4 = 0.3,
+    t5 = 5,
+    t6 = 0.5,
+    t7 = 1e-5) annotation(
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.Pss2b pss(
     Ks1 = 12,
@@ -175,7 +168,7 @@ model GovSteam1St4bPss2b3 "Bolted three-phase short circuit at the high-level si
     Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Transformers.TransformerFixedRatio transformer(BPu = 0, GPu = 0, RPu = 0.0003, XPu = 0.032, rTfoPu = 1) annotation(
     Placement(visible = true, transformation(origin = {-32, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Loads.LoadAlphaBeta load(alpha = 2, beta = 2, u0Pu = Complex(0.952267, 0)) annotation(
+  Dynawo.Electrical.Loads.LoadAlphaBeta load(alpha = 2, beta = 2, i0Pu(re(fixed = false), im(fixed = false)), s0Pu(re(fixed = false), im(fixed = false)), u0Pu(re(fixed = false), im(fixed = false))) annotation(
     Placement(visible = true, transformation(origin = {-80, -38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant PRefPu(k = 4.75) annotation(
     Placement(visible = true, transformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -185,6 +178,18 @@ model GovSteam1St4bPss2b3 "Bolted three-phase short circuit at the high-level si
   // Three-phase short circuit
   Dynawo.Electrical.Events.NodeFault nodeFault(RPu = 0.000173, XPu = 0, tBegin = 0.1, tEnd = 0.2) annotation(
     Placement(visible = true, transformation(origin = {-52, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  // Initialization
+  Dynawo.Electrical.Loads.Load_INIT load_INIT(P0Pu = PRefPu.k, Q0Pu = QRefPu.k, U0Pu = 0.952267, UPhase0 = 0) annotation(
+    Placement(transformation(origin = {-150, -90}, extent = {{-10, -10}, {10, 10}})));
+
+initial algorithm
+  load.i0Pu.re := load_INIT.i0Pu.re;
+  load.i0Pu.im := load_INIT.i0Pu.im;
+  load.s0Pu.re := load_INIT.s0Pu.re;
+  load.s0Pu.im := load_INIT.s0Pu.im;
+  load.u0Pu.re := load_INIT.u0Pu.re;
+  load.u0Pu.im := load_INIT.u0Pu.im;
 
 equation
   gridImpedance.switchOffSignal1.value = false;
@@ -220,8 +225,6 @@ equation
     Line(points = {{4, 18}, {4, 30}, {152, 30}, {152, 53}, {142, 53}, {142, 52}}, color = {85, 170, 255}));
   connect(const.y, pss.omegaRefPu) annotation(
     Line(points = {{60, 0}, {78, 0}}, color = {0, 0, 127}));
-  connect(governor.Pm1Pu, generatorSynchronous.PmPu_in) annotation(
-    Line(points = {{100, -36}, {110, -36}, {110, -60}, {32, -60}, {32, -16}}, color = {0, 0, 127}));
   connect(generatorSynchronous.iStatorPu_out, avr.itPu) annotation(
     Line(points = {{12, 18}, {12, 26}, {156, 26}, {156, 56}, {142, 56}}, color = {85, 170, 255}));
   connect(generatorSynchronous.IRotorPu_out, avr.IrPu) annotation(

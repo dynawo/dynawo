@@ -13,7 +13,7 @@ within Dynawo.Examples.IEEE118.BaseClasses;
 * of simulation tools for power systems.
 */
 
-model IEEE118Base "Base class for IEEE 118-bus system benchmark formed with 118 buses, 54 generators, 14 shunts, 9 transformers , 177 lines and 99 loads."
+model IEEE118Base "Base class for IEEE 118-bus system benchmark formed with 118 buses, 54 generators, 14 shunts, 9 transformers, 177 lines and 99 loads"
 
   final parameter Modelica.SIunits.Impedance ZBASE138_0 = 138.0 ^ 2 / SystemBase.SnRef;
 

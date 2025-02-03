@@ -239,8 +239,9 @@ equation
   line_reactor_106.switchOffSignal1.value = if time < event_time_reactor106_sw1 then false else true;
   line_reactor_106.switchOffSignal2.value = if time < event_time_reactor106_sw2 then false else true;
 
-  annotation(preferredView = "diagram",
-    experiment(StartTime = 0, StopTime = 120, Tolerance = 0.001, Interval = 0.01),
+  annotation(
+    preferredView = "diagram",
+    experiment(StartTime = 0, StopTime = 120, Tolerance = 0.01, Interval = 0.01),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
     __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "ida"),
     Diagram(coordinateSystem(extent = {{-340, -340}, {340, 340}})));

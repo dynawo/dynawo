@@ -18,15 +18,15 @@ model HVDC "HVDC link connected to two infinite buses"
 
   Dynawo.Electrical.HVDC.HvdcVsc.HvdcVsc HVDC(
     CDcPu = 1.68,
-    i10Pu = Complex(8.3614, -3.488),
-    i20Pu = Complex(-8.6047, -3.3591),
+    i10Pu(re(fixed = false), im(fixed = false)),
+    i20Pu(re(fixed = false), im(fixed = false)),
     InPu = 1.081,
-    Ip10Pu = -0.8678,
-    Ip20Pu = 0.8846,
+    Ip10Pu(fixed = false),
+    Ip20Pu(fixed = false),
     IpDeadBandPu = 0.01,
     IpMaxPu = 2,
-    Iq10Pu = 0.2603,
-    Iq20Pu = 0.266,
+    Iq10Pu(fixed = false),
+    Iq20Pu(fixed = false),
     IqModTableName = "IqMod",
     KiAc = 33.5,
     KiDc = 20,
@@ -61,6 +61,8 @@ model HVDC "HVDC link connected to two infinite buses"
     SlopeRPFault = 6.7,
     SlopeURefPu = 100,
     SNom = 1000,
+    s10Pu(re(fixed = false), im(fixed = false)),
+    s20Pu(re(fixed = false), im(fixed = false)),
     TablesFile = "None",
     tBlock = 0.1,
     tBlockUnderV = 0.01,
@@ -72,14 +74,14 @@ model HVDC "HVDC link connected to two infinite buses"
     tUnblock = 0.02,
     U10Pu = 1.03714,
     U20Pu = 1.01521,
-    u10Pu = Complex(1.0316, -0.1074),
-    u20Pu = Complex(1.012, 0.0813),
+    u10Pu(re(fixed = false), im(fixed = false)),
+    u20Pu(re(fixed = false), im(fixed = false)),
     UBlockUnderVPu = -1,
-    UDc10Pu = 0.997804,
-    UDc20Pu = 1,
+    UDc10Pu(fixed = false),
+    UDc20Pu(fixed = false),
     UDcMaxPu = 1.05,
     UDcMinPu = 0.95,
-    UDcRef0Pu = 1,
+    UDcRef0Pu(fixed = false),
     UDcRefMaxPu = 1.15,
     UDcRefMinPu = 0.95,
     UMaxDbPu = 1.2,
@@ -133,6 +135,44 @@ model HVDC "HVDC link connected to two infinite buses"
     Placement(visible = true, transformation(origin = {50, 20}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Dynawo.Electrical.Events.NodeFault nodeFault(RPu = 0, XPu = 1e-4, tBegin = 8, tEnd = 9) annotation(
     Placement(visible = true, transformation(origin = {42, -84}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  // Initialization
+  Dynawo.Electrical.HVDC.HvdcVsc.HvdcVsc_INIT hvdcVsc_INIT(
+    LambdaPu = HVDC.LambdaPu,
+    ModeU1Set = HVDC.ModeU10,
+    ModeU2Set = HVDC.ModeU20,
+    P10Pu = HVDC.P10Pu,
+    P20Pu = HVDC.P20Pu,
+    Q10Pu = HVDC.Q10Pu,
+    Q20Pu = HVDC.Q20Pu,
+    RDcPu = HVDC.RDcPu,
+    SNom = HVDC.SNom,
+    U10Pu = HVDC.U10Pu,
+    U20Pu = HVDC.U20Pu,
+    UPhase10 = HVDC.UPhase10,
+    UPhase20 = HVDC.UPhase20) annotation(
+    Placement(visible = true, transformation(origin = {-70, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+initial algorithm
+  HVDC.Ip10Pu := hvdcVsc_INIT.Ip10Pu;
+  HVDC.Ip20Pu := hvdcVsc_INIT.Ip20Pu;
+  HVDC.Iq10Pu := hvdcVsc_INIT.Iq10Pu;
+  HVDC.Iq20Pu := hvdcVsc_INIT.Iq20Pu;
+  HVDC.UDc10Pu := hvdcVsc_INIT.UDc10Pu;
+  HVDC.UDc20Pu := hvdcVsc_INIT.UDc20Pu;
+  HVDC.UDcRef0Pu := hvdcVsc_INIT.UDcRef0Pu;
+  HVDC.i10Pu.re := hvdcVsc_INIT.i10Pu.re;
+  HVDC.i10Pu.im := hvdcVsc_INIT.i10Pu.im;
+  HVDC.i20Pu.re := hvdcVsc_INIT.i20Pu.re;
+  HVDC.i20Pu.im := hvdcVsc_INIT.i20Pu.im;
+  HVDC.s10Pu.re := hvdcVsc_INIT.s10Pu.re;
+  HVDC.s10Pu.im := hvdcVsc_INIT.s10Pu.im;
+  HVDC.s20Pu.re := hvdcVsc_INIT.s20Pu.re;
+  HVDC.s20Pu.im := hvdcVsc_INIT.s20Pu.im;
+  HVDC.u10Pu.re := hvdcVsc_INIT.u10Pu.re;
+  HVDC.u10Pu.im := hvdcVsc_INIT.u10Pu.im;
+  HVDC.u20Pu.re := hvdcVsc_INIT.u20Pu.re;
+  HVDC.u20Pu.im := hvdcVsc_INIT.u20Pu.im;
 
 equation
   line1.switchOffSignal1.value = false;

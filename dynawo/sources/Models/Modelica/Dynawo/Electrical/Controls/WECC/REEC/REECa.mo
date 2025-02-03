@@ -161,7 +161,7 @@ equation
   Following control modes can be activated:</p>
   <li style=\"font-size: 12px;\">Local coordinated V/Q control: QFlag = true, VFlag = true</li>
   <li style=\"font-size: 12px;\">Only plant level control active: QFlag = false, VFlag = false</li>
-  <li style=\"font-size: 12px;\">If plant level control not connected: local powerfactor control: PfFlag = true, otherwise PfFlag = false.</li>
+  <li style=\"font-size: 12px;\">If plant level control not connected: local power factor control: PfFlag = true, otherwise PfFlag = false.</li>
   <li style=\"font-size: 12px;\"> Active power can be dependent or independent on drive train speed by setting PFlag to false (independent from drive train speed) or true. If PFlag is set to false, the model behaves as a Wind turbine generator type 4B, where the drive train is neglected by setting the speed to constant 1 </li>
     <p style=\"font-size: 12px;\">The block calculates the Id and Iq setpoint values for the generator control based on the selected control algorithm.</p></body></html>"),
     Diagram(coordinateSystem(extent = {{-260, -280}, {540, 280}}, grid = {1, 1})),
