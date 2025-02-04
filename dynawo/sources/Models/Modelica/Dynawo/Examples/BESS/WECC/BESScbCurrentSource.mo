@@ -9,7 +9,8 @@ within Dynawo.Examples.BESS.WECC;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model BESScbCurrentSource "WECC BESS with REEC-C and REGC-B with a plant controller REPC-A on infinite bus"
@@ -99,12 +100,9 @@ model BESScbCurrentSource "WECC BESS with REEC-C and REGC-B with a plant control
     VRef0Pu = 1,
     VUpPu = 99,
     XPu = 1e-10,
-    i0Pu.re(fixed = false),
-    i0Pu.im(fixed = false),
-    iInj0Pu.re(fixed = false),
-    iInj0Pu.im(fixed = false),
-    s0Pu.re(fixed = false),
-    s0Pu.im(fixed = false),
+    i0Pu(re(fixed = false), im(fixed = false)),
+    iInj0Pu(re(fixed = false), im(fixed = false)),
+    s0Pu(re(fixed = false), im(fixed = false)),
     tBattery = 999,
     tFilterGC = 0.02,
     tFilterPC = 0.02,
@@ -116,10 +114,8 @@ model BESScbCurrentSource "WECC BESS with REEC-C and REGC-B with a plant control
     tP = 0.05,
     tPord = 0.017,
     tRv = 0.01,
-    u0Pu.re(fixed = false),
-    u0Pu.im(fixed = false),
-    uInj0Pu.re(fixed = false),
-    uInj0Pu.im(fixed = false)) annotation(
+    u0Pu(re(fixed = false), im(fixed = false)),
+    uInj0Pu(re(fixed = false), im(fixed = false))) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant URefPu(k = 1) annotation(
     Placement(visible = true, transformation(origin = {80, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
@@ -156,6 +152,24 @@ model BESScbCurrentSource "WECC BESS with REEC-C and REGC-B with a plant control
     XPu = BESScb.XPu) annotation(
     Placement(visible = true, transformation(origin = {-50, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
+initial algorithm
+  BESScb.Id0Pu := bess_init.Id0Pu;
+  BESScb.Iq0Pu := bess_init.Iq0Pu;
+  BESScb.PF0 := bess_init.PF0;
+  BESScb.PInj0Pu := bess_init.PInj0Pu;
+  BESScb.QInj0Pu := bess_init.QInj0Pu;
+  BESScb.UInj0Pu := bess_init.UInj0Pu;
+  BESScb.i0Pu.re := bess_init.i0Pu.re;
+  BESScb.i0Pu.im := bess_init.i0Pu.im;
+  BESScb.iInj0Pu.re := bess_init.iInj0Pu.re;
+  BESScb.iInj0Pu.im := bess_init.iInj0Pu.im;
+  BESScb.s0Pu.re := bess_init.s0Pu.re;
+  BESScb.s0Pu.im := bess_init.s0Pu.im;
+  BESScb.u0Pu.re := bess_init.u0Pu.re;
+  BESScb.u0Pu.im := bess_init.u0Pu.im;
+  BESScb.uInj0Pu.re := bess_init.uInj0Pu.re;
+  BESScb.uInj0Pu.im := bess_init.uInj0Pu.im;
+
 equation
   line.switchOffSignal1.value = false;
   line.switchOffSignal2.value = false;
@@ -179,23 +193,6 @@ equation
     Line(points = {{-38, -80}, {12, -80}, {12, -22}}, color = {0, 0, 127}));
   connect(line.terminal2, BESScb.terminal) annotation(
     Line(points = {{-20, 0}, {0, 0}}, color = {0, 0, 255}));
-
-initial algorithm
-  BESScb.Id0Pu := bess_init.Id0Pu;
-  BESScb.Iq0Pu := bess_init.Iq0Pu;
-  BESScb.PF0 := bess_init.PF0;
-  BESScb.PInj0Pu := bess_init.PInj0Pu;
-  BESScb.QInj0Pu := bess_init.QInj0Pu;
-  BESScb.i0Pu.re := bess_init.i0Pu.re;
-  BESScb.i0Pu.im := bess_init.i0Pu.im;
-  BESScb.iInj0Pu.re := bess_init.iInj0Pu.re;
-  BESScb.iInj0Pu.im := bess_init.iInj0Pu.im;
-  BESScb.s0Pu.re := bess_init.s0Pu.re;
-  BESScb.s0Pu.im := bess_init.s0Pu.im;
-  BESScb.u0Pu.re := bess_init.u0Pu.re;
-  BESScb.u0Pu.im := bess_init.u0Pu.im;
-  BESScb.uInj0Pu.re := bess_init.uInj0Pu.re;
-  BESScb.uInj0Pu.im := bess_init.uInj0Pu.im;
 
   annotation(
     preferredView = "diagram",

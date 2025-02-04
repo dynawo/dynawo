@@ -16,15 +16,95 @@ within Dynawo.Examples.SMIB.Standard;
 model GovHydro4St4b "Active power variation on the load with governor GovHydro4"
   extends Icons.Example;
 
-  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.St4b avr(Efd0Pu = generatorSynchronous.Efd0Pu, Ir0Pu = generatorSynchronous.IRotor0Pu, it0Pu = generatorSynchronous.i0Pu, Kc = 0.113, Kg = 0, Ki = 0, Kim = 0, Kir = 10.75, Kp = 9.3, Kpm = 1, Kpr = 10.75, tA = 0.02, Thetap = 0, tR = 0.02, UOel0Pu = 10, Us0Pu = generatorSynchronous.U0Pu, ut0Pu = generatorSynchronous.u0Pu, VaMaxPu = 1, VaMinPu = -0.87, Vb0Pu = 10.162168, VbMaxPu = 11.63, VmMaxPu = 99, VmMinPu = -99, VrMaxPu = 1, VrMinPu = -0.87, XlPu = 0.124) annotation(
+  // Generator and regulations
+  Dynawo.Examples.BaseClasses.GeneratorSynchronousThreeWindingsInterfaces generatorSynchronous(
+    DPu = 0,
+    ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NoLoad,
+    H = 4,
+    P0Pu = -3.8,
+    PNomAlt = 475,
+    PNomTurb = 475,
+    Q0Pu = 0,
+    RTfPu = 0,
+    RaPu = 0,
+    SNom = 500,
+    SnTfo = 500,
+    Tpd0 = 5.143,
+    Tppd0 = 0.042,
+    Tppq0 = 0.083,
+    Tpq0 = 2.16,
+    U0Pu = 1,
+    UBaseHV = 400,
+    UBaseLV = 21,
+    UNom = 21,
+    UNomHV = 400,
+    UNomLV = 21,
+    UPhase0 = 0,
+    XTfPu = 0,
+    XdPu = 2,
+    XlPu = 0.15,
+    XpdPu = 0.35,
+    XppdPu = 0.25,
+    XppqPu = 0.3,
+    XpqPu = 0.5,
+    XqPu = 1.8,
+    md = 0,
+    mq = 0,
+    nd = 0,
+    nq = 0) annotation(
+    Placement(visible = true, transformation(origin = {0, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.St4b avr(
+    Efd0Pu = generatorSynchronous.Efd0Pu,
+    Ir0Pu = generatorSynchronous.IRotor0Pu,
+    it0Pu = generatorSynchronous.i0Pu,
+    Kc = 0.113,
+    Kg = 0,
+    Ki = 0,
+    Kim = 0,
+    Kir = 10.75,
+    Kp = 9.3,
+    Kpm = 1,
+    Kpr = 10.75,
+    tA = 0.02,
+    Thetap = 0,
+    tR = 0.02,
+    UOel0Pu = 10,
+    Us0Pu = generatorSynchronous.U0Pu,
+    ut0Pu = generatorSynchronous.u0Pu,
+    VaMaxPu = 1,
+    VaMinPu = -0.87,
+    Vb0Pu = 10.162168,
+    VbMaxPu = 11.63,
+    VmMaxPu = 99,
+    VmMinPu = -99,
+    VrMaxPu = 1,
+    VrMinPu = -0.87,
+    XlPu = 0.124) annotation(
     Placement(visible = true, transformation(origin = {130, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 0) annotation(
     Placement(visible = true, transformation(origin = {156, 80}, extent = {{4, -4}, {-4, 4}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const1(k = avr.UOel0Pu) annotation(
     Placement(visible = true, transformation(origin = {84, 66}, extent = {{-4, -4}, {4, 4}}, rotation = 0)));
-  Dynawo.Examples.BaseClasses.GeneratorSynchronousThreeWindingsInterfaces generatorSynchronous(DPu = 0, ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NoLoad, H = 4, P0Pu = -3.8, PNomAlt = 475, PNomTurb = 475, Q0Pu = 0, RTfPu = 0, RaPu = 0, SNom = 500, SnTfo = 500, Tpd0 = 5.143, Tppd0 = 0.042, Tppq0 = 0.083, Tpq0 = 2.16, U0Pu = 1, UBaseHV = 400, UBaseLV = 21, UNom = 21, UNomHV = 400, UNomLV = 21, UPhase0 = 0, XTfPu = 0, XdPu = 2, XlPu = 0.15, XpdPu = 0.35, XppdPu = 0.25, XppqPu = 0.3, XpqPu = 0.5, XqPu = 1.8, md = 0, mq = 0, nd = 0, nq = 0) annotation(
-    Placement(visible = true, transformation(origin = {0, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.Governors.Standard.Hydraulic.GovHydro4 governor(ATurb = 1.2, DTurb = 1.1, DeltaOmegaDbPu = 0, DeltaOmegaEpsPu = 0, DeltaPDbPu = 0, GMax = 1, GMin = 0, HDam = 1, ModelInt = 1, Pm0Pu = 3.8 * 100 / generatorSynchronous.PNomTurb, QNl = 0, RPerm = 0.05, RTemp = 0.3, UC = -0.2, UO = 0.2, tG = 0.5, tP = 0.1, tR = 5, tW = 1) annotation(
+  Dynawo.Electrical.Controls.Machines.Governors.Standard.Hydraulic.GovHydro4 governor(
+    ATurb = 1.2,
+    DTurb = 1.1,
+    DeltaOmegaDbPu = 0,
+    DeltaOmegaEpsPu = 0,
+    DeltaPDbPu = 0,
+    GMax = 1,
+    GMin = 0,
+    HDam = 1,
+    ModelInt = 1,
+    Pm0Pu = 3.8 * 100 / generatorSynchronous.PNomTurb,
+    QNl = 0,
+    RPerm = 0.05,
+    RTemp = 0.3,
+    UC = -0.2,
+    UO = 0.2,
+    tG = 0.5,
+    tP = 0.1,
+    tR = 5,
+    tW = 1) annotation(
     Placement(visible = true, transformation(origin = {100, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Loads.LoadAlphaBeta load(alpha = 2, beta = 2, u0Pu = Complex(1, 0)) annotation(
     Placement(visible = true, transformation(origin = {-40, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -60,7 +140,7 @@ equation
   connect(const1.y, avr.UOelPu) annotation(
     Line(points = {{88, 66}, {118, 66}}, color = {0, 0, 127}));
   connect(load.terminal, generatorSynchronous.terminal) annotation(
-    Line(points = {{-40, -20}, {-33, -20}, {-33, 0}, {0, 0}}, color = {0, 0, 255}));
+    Line(points = {{-40, -20}, {-40, 0}, {0, 0}}, color = {0, 0, 255}));
   connect(QRefPu.y, load.QRefPu) annotation(
     Line(points = {{-20, -50}, {-34, -50}, {-34, -28}}, color = {0, 0, 127}));
   connect(PRefPu.y, load.PRefPu) annotation(

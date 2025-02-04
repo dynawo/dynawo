@@ -17,51 +17,24 @@ model TestCase2 "Active power variation on the load"
 
   // Generator and regulations
   Dynawo.Examples.BaseClasses.GeneratorSynchronousInterfaces generatorSynchronous(
-    Ce0Pu(fixed = false),
-    Cm0Pu(fixed = false),
-    Cos2Eta0(fixed = false),
     DPu = 0,
-    Efd0Pu(fixed = false),
     ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NoLoad,
     H = 4,
-    IRotor0Pu(fixed = false),
-    IStator0Pu(fixed = false),
-    Id0Pu(fixed = false),
-    If0Pu(fixed = false),
-    Iq0Pu(fixed = false),
     LDPPu = 0.19063,
     LQ1PPu = 0.51659,
     LQ2PPu = 0.24243,
-    LambdaAD0Pu(fixed = false),
-    LambdaAQ0Pu(fixed = false),
-    LambdaAirGap0Pu(fixed = false),
-    LambdaD0Pu(fixed = false),
-    LambdaQ10Pu(fixed = false),
-    LambdaQ20Pu(fixed = false),
-    Lambdad0Pu(fixed = false),
-    Lambdaf0Pu(fixed = false),
-    Lambdaq0Pu(fixed = false),
     LdPPu = 0.15,
     LfPPu = 0.2242,
     LqPPu = 0.15,
     MdPPu = 1.85,
-    MdPPuEfdNom(fixed = false),
-    MdSat0PPu(fixed = false),
-    Mds0Pu(fixed = false),
-    Mi0Pu(fixed = false),
+    MdPPuEfd = 0.74046,
     MqPPu = 1.65,
-    MqSat0PPu(fixed = false),
-    Mqs0Pu(fixed = false),
     MrcPPu = 0,
     MsalPu = 0.2,
     P0Pu = -3.8,
-    PGen0Pu(fixed = false),
     PNomAlt = 475,
     PNomTurb = 475,
-    Pm0Pu(fixed = false),
     Q0Pu = 0,
-    QGen0Pu(fixed = false),
-    QStator0Pu(fixed = false),
     RDPPu = 0.02933,
     RQ1PPu = 0.0035,
     RQ2PPu = 0.02227,
@@ -69,10 +42,7 @@ model TestCase2 "Active power variation on the load"
     RaPPu = 0,
     RfPPu = 0.00128,
     SNom = 500,
-    Sin2Eta0(fixed = false),
     SnTfo = 500,
-    Theta0(fixed = false),
-    ThetaInternal0(fixed = false),
     U0Pu = 1,
     UBaseHV = 400,
     UBaseLV = 21,
@@ -80,10 +50,6 @@ model TestCase2 "Active power variation on the load"
     UNomHV = 400,
     UNomLV = 21,
     UPhase0 = 0,
-    UStator0Pu(fixed = false),
-    Ud0Pu(fixed = false),
-    Uf0Pu(fixed = false),
-    Uq0Pu(fixed = false),
     XTfPu = 0,
     md = 0,
     mq = 0,
@@ -123,47 +89,6 @@ model TestCase2 "Active power variation on the load"
   Modelica.Blocks.Sources.Constant QRefPu(k = 0);
   Modelica.Blocks.Sources.Step PRefPu(height = 0.05 * generatorSynchronous.PNomAlt / 100, offset = 3.8, startTime = 0.1);
 
-  // Initialization
-  Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousInt_INIT generatorSynchronousInt_INIT(
-    DPu = generatorSynchronous.DPu,
-    ExcitationPu = generatorSynchronous.ExcitationPu,
-    H = generatorSynchronous.H,
-    LDPu = generatorSynchronous.LDPPu,
-    LQ1Pu = generatorSynchronous.LQ1PPu,
-    LQ2Pu = generatorSynchronous.LQ2PPu,
-    LdPu = generatorSynchronous.LdPPu,
-    LfPu = generatorSynchronous.LfPPu,
-    LqPu = generatorSynchronous.LqPPu,
-    MdPu = generatorSynchronous.MdPPu,
-    MdPuEfd = generatorSynchronous.MdPPuEfd,
-    MqPu = generatorSynchronous.MqPPu,
-    MrcPu = generatorSynchronous.MrcPPu,
-    P0Pu = generatorSynchronous.P0Pu,
-    PNomAlt = generatorSynchronous.PNomAlt,
-    PNomTurb = generatorSynchronous.PNomTurb,
-    Q0Pu = generatorSynchronous.Q0Pu,
-    RDPu = generatorSynchronous.RDPPu,
-    RQ1Pu = generatorSynchronous.RQ1PPu,
-    RQ2Pu = generatorSynchronous.RQ2PPu,
-    RTfPu = generatorSynchronous.RTfPu,
-    RaPu = generatorSynchronous.RaPPu,
-    RfPu = generatorSynchronous.RfPPu,
-    SNom = generatorSynchronous.SNom,
-    SnTfo = generatorSynchronous.SnTfo,
-    U0Pu = generatorSynchronous.U0Pu,
-    UBaseHV = generatorSynchronous.UBaseHV,
-    UBaseLV = generatorSynchronous.UBaseLV,
-    UNom = generatorSynchronous.UNom,
-    UNomHV = generatorSynchronous.UNomHV,
-    UNomLV = generatorSynchronous.UNomLV,
-    UPhase0 = generatorSynchronous.UPhase0,
-    XTfPu = generatorSynchronous.XTfPu,
-    md = generatorSynchronous.md,
-    mq = generatorSynchronous.mq,
-    nd = generatorSynchronous.nd,
-    nq = generatorSynchronous.nq) annotation(
-    Placement(visible = true, transformation(origin = {-130, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
 equation
   generatorSynchronous.switchOffSignal1.value = false;
   generatorSynchronous.switchOffSignal2.value = false;
@@ -192,43 +117,6 @@ equation
     Line(points = {{21, 60}, {50, 60}, {50, 24}, {118, 24}}, color = {0, 0, 127}));
   connect(avr.EfdPu, generatorSynchronous.efdPu_in) annotation(
     Line(points = {{141, 18}, {152, 18}, {152, -80}, {8, -80}, {8, -16}}, color = {0, 0, 127}));
-
-initial algorithm
-  generatorSynchronous.Ce0Pu := generatorSynchronousInt_INIT.Ce0Pu;
-  generatorSynchronous.Cm0Pu := generatorSynchronousInt_INIT.Cm0Pu;
-  generatorSynchronous.Cos2Eta0 := generatorSynchronousInt_INIT.Cos2Eta0;
-  generatorSynchronous.Efd0Pu := generatorSynchronousInt_INIT.Efd0Pu;
-  generatorSynchronous.IRotor0Pu := generatorSynchronousInt_INIT.IRotor0Pu;
-  generatorSynchronous.IStator0Pu := generatorSynchronousInt_INIT.IStator0Pu;
-  generatorSynchronous.Id0Pu := generatorSynchronousInt_INIT.Id0Pu;
-  generatorSynchronous.If0Pu := generatorSynchronousInt_INIT.If0Pu;
-  generatorSynchronous.Iq0Pu := generatorSynchronousInt_INIT.Iq0Pu;
-  generatorSynchronous.LambdaAD0Pu := generatorSynchronousInt_INIT.LambdaAD0Pu;
-  generatorSynchronous.LambdaAQ0Pu := generatorSynchronousInt_INIT.LambdaAQ0Pu;
-  generatorSynchronous.LambdaAirGap0Pu := generatorSynchronousInt_INIT.LambdaAirGap0Pu;
-  generatorSynchronous.LambdaD0Pu := generatorSynchronousInt_INIT.LambdaD0Pu;
-  generatorSynchronous.LambdaQ10Pu := generatorSynchronousInt_INIT.LambdaQ10Pu;
-  generatorSynchronous.LambdaQ20Pu := generatorSynchronousInt_INIT.LambdaQ20Pu;
-  generatorSynchronous.Lambdad0Pu := generatorSynchronousInt_INIT.Lambdad0Pu;
-  generatorSynchronous.Lambdaf0Pu := generatorSynchronousInt_INIT.Lambdaf0Pu;
-  generatorSynchronous.Lambdaq0Pu := generatorSynchronousInt_INIT.Lambdaq0Pu;
-  generatorSynchronous.MdPPuEfdNom := generatorSynchronousInt_INIT.MdPPuEfdNom;
-  generatorSynchronous.MdSat0PPu := generatorSynchronousInt_INIT.MdSat0PPu;
-  generatorSynchronous.Mds0Pu := generatorSynchronousInt_INIT.Mds0Pu;
-  generatorSynchronous.Mi0Pu := generatorSynchronousInt_INIT.Mi0Pu;
-  generatorSynchronous.MqSat0PPu := generatorSynchronousInt_INIT.MqSat0PPu;
-  generatorSynchronous.Mqs0Pu := generatorSynchronousInt_INIT.Mqs0Pu;
-  generatorSynchronous.PGen0Pu := generatorSynchronousInt_INIT.PGen0Pu;
-  generatorSynchronous.Pm0Pu := generatorSynchronousInt_INIT.Pm0Pu;
-  generatorSynchronous.QGen0Pu := generatorSynchronousInt_INIT.QGen0Pu;
-  generatorSynchronous.QStator0Pu := generatorSynchronousInt_INIT.QStator0Pu;
-  generatorSynchronous.Sin2Eta0 := generatorSynchronousInt_INIT.Sin2Eta0;
-  generatorSynchronous.Theta0 := generatorSynchronousInt_INIT.Theta0;
-  generatorSynchronous.ThetaInternal0 := generatorSynchronousInt_INIT.ThetaInternal0;
-  generatorSynchronous.UStator0Pu := generatorSynchronousInt_INIT.UStator0Pu;
-  generatorSynchronous.Ud0Pu := generatorSynchronousInt_INIT.Ud0Pu;
-  generatorSynchronous.Uf0Pu := generatorSynchronousInt_INIT.Uf0Pu;
-  generatorSynchronous.Uq0Pu := generatorSynchronousInt_INIT.Uq0Pu;
 
   annotation(
     preferredView = "diagram",
