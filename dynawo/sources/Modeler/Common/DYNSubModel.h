@@ -51,6 +51,10 @@ namespace curves {
 class Curve;
 }  // namespace curves
 
+namespace io {
+class Output;
+}  // namespace io
+
 namespace DYN {
 class Message;
 class MessageTimeline;
@@ -851,6 +855,20 @@ class SubModel {
   void updateCalculatedVarForCurve(std::shared_ptr<curves::Curve>& curve);
 
   /**
+   * @brief update the subset of calculated variables needed for outputs
+   *
+   * @param output output whose value needs to be updated
+   */
+  void updateCalculatedVarForOutput(std::shared_ptr<io::Output>& output);
+
+  /**
+   * @brief update parameters of modelica model
+   * @param parameterSet ParametersSet filled with external values
+   */
+  virtual void updateParameters(std::shared_ptr<parameters::ParametersSet>& parametersSet);
+
+
+  /**
    * @brief add a curve of a parameter to store for the model
    *
    * @param curve curve to store
@@ -1528,6 +1546,14 @@ class SubModel {
     else
       setParameterFromSet(parameter, readPARParameters_, PAR);
   }
+
+  /**
+   * @brief update calculated variables based on its name
+   *
+   * @param variableName name of the variable whose value needs to be updated
+   */
+  void updateCalculatedVar(const std::string& variableName);
+
 
  protected:
   std::shared_ptr<parameters::ParametersSet> readPARParameters_;  ///< parameters set read from PAR file

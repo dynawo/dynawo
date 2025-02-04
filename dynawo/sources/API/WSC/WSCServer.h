@@ -20,7 +20,7 @@
 #ifndef API_WSC_WSCSERVER_H_
 #define API_WSC_WSCSERVER_H_
 
-// #include "CRVPoint.h"
+// #include "WSCServer.h"
 
 #include <boost/shared_ptr.hpp>
 // #include <limits>

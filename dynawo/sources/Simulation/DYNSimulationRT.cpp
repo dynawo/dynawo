@@ -39,6 +39,7 @@
 #include "FSVFinalStateValuesCollectionFactory.h"
 #include "FSVFinalStateValuesCollection.h"
 
+
 #include "CSTRConstraintsCollectionFactory.h"
 
 #include "LEQLostEquipmentsCollectionFactory.h"
@@ -139,7 +140,7 @@ SimulationRT::simulate() {
     // update state variable only if the IIDM final state is exported, or criteria is checked, or lost equipments are exported
     if (data_ && (finalState_.iidmFile_ || activateCriteria_ || isLostEquipmentsExported())) {
       data_->getStateVariableReference();   // Each state variable in DataInterface has a mapped reference variable in dynamic model,
-                                         // either in a modelica model or in a C++ model.
+                                            // either in a modelica model or in a C++ model.
       // save initial connection state at t0 for each equipment
       if (isLostEquipmentsExported()) {
         data_->updateFromModel(false);  // force state variables' init
