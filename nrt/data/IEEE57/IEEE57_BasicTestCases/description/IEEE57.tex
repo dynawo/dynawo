@@ -6,7 +6,7 @@
 %% file, you can obtain one at http://mozilla.org/MPL/2.0/.
 %% SPDX-License-Identifier: MPL-2.0
 %%
-%% This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+%% This file is part of Dynawo, a hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 \documentclass[a4paper, 12pt]{report}
 
@@ -121,7 +121,7 @@ The complete set of parameters used for the solvers are available into the solve
 
 At $t=1s$, the active and reactive power set points for the load on node 9 are doubled. The load value on node 9 is initially multiplied by 2 at $t=1s$ as expected and decreases in the next instants to stabilize at a lower value (due to the voltage-dependent model used). \\
 
-The load increase induces an higher active power demand from the network to the generators and causes a speed decrease. The governor's proportional action limits this speed decrease by increasing the final active power delivered by the machines. Without the regulation action, the final active power delivered by the machines - after the transient behavior - would have been similar to the pre-event active power. \\
+The load increase induces a higher active power demand from the network to the generators and causes a speed decrease. The governor's proportional action limits this speed decrease by increasing the final active power delivered by the machines. Without the regulation action, the final active power delivered by the machines - after the transient behavior - would have been similar to the pre-event active power. \\
 
 Regarding reactive power, it increases after the event to compensate for the load increase. The reactive power increase is stabilized at a value enabling to maintain the stator voltage close to its reference value thanks to the voltage regulator action: this action also enables to limit the voltage decrease on the network.
 
