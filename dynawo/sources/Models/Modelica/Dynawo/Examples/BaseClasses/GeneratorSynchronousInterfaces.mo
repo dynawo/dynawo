@@ -12,7 +12,7 @@ within Dynawo.Examples.BaseClasses;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model GeneratorSynchronousInterfaces "Synchronous generator with real interfaces (inputs, outputs)"
+model GeneratorSynchronousInterfaces "Synchronous generator with real interfaces (inputs, outputs) and built-in initialization"
   extends Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous(
     Ce0Pu(fixed = false),
     Cm0Pu(fixed = false),
