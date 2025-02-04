@@ -50,6 +50,7 @@ target_link_libraries(dynawo_Simulation
     dynawo_API_CSTR
     dynawo_API_LEQ
     dynawo_API_WSC
+    dynawo_API_IO
     dynawo_ModelerCommon
     dynawo_DataInterface
     dynawo_DataInterfaceFactory

@@ -29,99 +29,31 @@
 #include <process.h>
 #endif
 
-
-// #include <boost/archive/binary_iarchive.hpp>
-// #include <boost/archive/binary_oarchive.hpp>
-// #include <boost/serialization/vector.hpp>
-// #include <boost/filesystem.hpp>
-// #include <boost/algorithm/string/classification.hpp>
-// #include <boost/algorithm/string/split.hpp>
-
-// #include <libzip/ZipFile.h>
-// #include <libzip/ZipFileFactory.h>
-// #include <libzip/ZipEntry.h>
-// #include <libzip/ZipInputStream.h>
-// #include <libzip/ZipOutputStream.h>
-
 #include "TLTimelineFactory.h"
-// #include "TLTimeline.h"
-// #include "TLTxtExporter.h"
-// #include "TLXmlExporter.h"
-// #include "TLCsvExporter.h"
 
 #include "CRVCurvesCollectionFactory.h"
-// #include "CRVCurvesCollection.h"
-// #include "CRVXmlImporter.h"
 #include "CRVCurveFactory.h"
-// #include "CRVCurve.h"
 #include "CRVPoint.h"
-// #include "CRVXmlExporter.h"
-// #include "CRVCsvExporter.h"
 
 #include "FSVFinalStateValuesCollectionFactory.h"
 #include "FSVFinalStateValuesCollection.h"
-// #include "FSVFinalStateValue.h"
-// #include "FSVFinalStateValueFactory.h"
-// #include "FSVXmlExporter.h"
-// #include "FSVXmlImporter.h"
-// #include "FSVCsvExporter.h"
-// #include "FSVTxtExporter.h"
 
-// #include "CSTRConstraintsCollection.h"
 #include "CSTRConstraintsCollectionFactory.h"
-// #include "CSTRTxtExporter.h"
-// #include "CSTRXmlExporter.h"
 
 #include "LEQLostEquipmentsCollectionFactory.h"
-// #include "LEQXmlExporter.h"
-
-// #include "PARParametersSet.h"
-// #include "PARXmlImporter.h"
-
-// #include "CRTXmlImporter.h"
-// #include "CRTCriteriaCollection.h"
 
 #include "JOBJobEntry.h"
-// #include "JOBSolverEntry.h"
-// #include "JOBModelerEntry.h"
-// #include "JOBModelsDirEntry.h"
-// #include "JOBOutputsEntry.h"
-// #include "JOBNetworkEntry.h"
-// #include "JOBInitialStateEntry.h"
-// #include "JOBInitValuesEntry.h"
-// #include "JOBConstraintsEntry.h"
-// #include "JOBTimelineEntry.h"
-// #include "JOBTimetableEntry.h"
-// #include "JOBFinalStateEntry.h"
 #include "JOBCurvesEntry.h"
-// #include "JOBSimulationEntry.h"
-// #include "JOBLogsEntry.h"
-// #include "JOBAppenderEntry.h"
-// #include "JOBDynModelsEntry.h"
 
 #include "PARParametersSetFactory.h"
 
-// #include "DYNCompiler.h"
-// #include "DYNDynamicData.h"
 #include "DYNModel.h"
 #include "DYNSimulationRT.h"
-// #include "DYNSimulationContext.h"
 #include "DYNTrace.h"
-// #include "DYNMacrosMessage.h"
 #include "DYNSolver.h"
-// #include "DYNSolverFactory.h"
 #include "DYNTimer.h"
 #include "DYNModelMulti.h"
 #include "DYNSubModel.h"
-// #include "DYNModeler.h"
-// #include "DYNFileSystemUtils.h"
-// #include "DYNTerminate.h"
-// #include "DYNDataInterface.h"
-// #include "DYNDataInterfaceFactory.h"
-// #include "DYNExecUtils.h"
-// #include "DYNSignalHandler.h"
-// #include "DYNIoDico.h"
-// #include "DYNBitMask.h"
 
 using std::ofstream;
 using std::fstream;
@@ -175,7 +107,6 @@ SimulationRT::simulate() {
     eventSubscriber_->start();
   }
 
-  std::cout << "simulate IN" << std::endl;
   printSolverHeader();
 
   // Printing out the initial solution
@@ -194,7 +125,7 @@ SimulationRT::simulate() {
     // update state variable only if the IIDM final state is exported, or criteria is checked, or lost equipments are exported
     if (data_ && (finalState_.iidmFile_ || activateCriteria_ || isLostEquipmentsExported())) {
       data_->getStateVariableReference();   // Each state variable in DataInterface has a mapped reference variable in dynamic model,
-                                         // either in a modelica model or in a C++ model.
+                                            // either in a modelica model or in a C++ model.
       // save initial connection state at t0 for each equipment
       if (isLostEquipmentsExported()) {
         data_->updateFromModel(false);  // force state variables' init
@@ -211,18 +142,10 @@ SimulationRT::simulate() {
     }
     int currentIterNb = 0;
     double nextTimeStep = 0;
-    const auto startTimeSync = std::chrono::system_clock::now();
-    std::chrono::time_point<std::chrono::system_clock> afterSleepTime;
-    std::cout << "simulate() start" << std::endl;
 
     if (timeManager_)
       timeManager_->start(tCurrent_);
     while (!end() && !SignalHandler::gotExitSignal() && criteriaChecked) {
-      // RT sleep
-      std::this_thread::sleep_for(std::chrono::milliseconds(2000));
-      std::cout << "tCurrent_ = " << tCurrent_ << std::endl;
-
-
       if (timeManager_)
         timeManager_->wait(tCurrent_);
 
@@ -312,12 +235,7 @@ SimulationRT::simulate() {
         }
         intermediateStates_.pop();
       }
-      // if (timeManager_) {
-      //   const auto afterStepTime = std::chrono::system_clock::now();
-      //   Trace::warn() << "TITI tCurrent_ = " << tCurrent_  << " s; "
-      //   << "step computation time: " << (std::chrono::duration_cast<std::chrono::milliseconds>(afterStepTime - afterSleepTime)).count() << " ms"
-      //   << Trace::endline;
-      // }
+
       if (timeManager_)
         Trace::info() << "TimeManagement: tCurrent_ = " << tCurrent_
         << " s; Step computation time: " << timeManager_->getStepDuration() << "ms" << Trace::endline;
@@ -390,7 +308,6 @@ SimulationRT::curvesToStream() {
           stream << ",\n";
         }
         string curveName =  (*itCurve)->getModelName() + "_" + (*itCurve)->getVariable();
-        double value = point->getValue();
         stream << "\t\t\t" << "\"" << curveName << "\": " << point->getValue();
       }
     }

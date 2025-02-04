@@ -20,7 +20,7 @@
 #ifndef API_WSC_WSCSERVER_H_
 #define API_WSC_WSCSERVER_H_
 
-// #include "CRVPoint.h"
+// #include "WSCServer.h"
 
 #include <boost/shared_ptr.hpp>
 // #include <limits>
@@ -60,13 +60,13 @@ class WebsocketServer {
 
   void stop();
 
-private:
+ private:
   server server_;
   websocketpp::lib::shared_ptr<websocketpp::lib::thread> serverThread_;
   std::set<connection_hdl, std::owner_less<connection_hdl>> connections_;
   std::mutex connectionLock_;
 };
 
-}  // namespace curves
+}  // namespace wsc
 
 #endif  // API_WSC_WSCSERVER_H_

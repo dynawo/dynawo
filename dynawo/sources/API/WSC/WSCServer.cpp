@@ -65,6 +65,8 @@ WebsocketServer::onClose(connection_hdl hdl) {
 void
 WebsocketServer::onMessage(connection_hdl hdl, server::message_ptr msg) {
   // to do: command reception
+  (void)hdl;  // for unused variable warning
+  (void)msg;  // for unused variable warning
 }
 
 void

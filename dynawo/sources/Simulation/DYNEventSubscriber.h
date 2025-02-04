@@ -67,13 +67,13 @@ class EventSubscriber {
 
 
  private:
+  std::shared_ptr<Model> model_;
   std::vector<std::shared_ptr<Action> > actions_;
   std::mutex actions_mutex_;
   zmqpp::context context_;
   zmqpp::socket socket_;
   std::thread receiverThread_;
   bool running_;
-  std::shared_ptr<Model> model_;
 };
 
 }  // end of namespace DYN
