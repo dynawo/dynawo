@@ -22,7 +22,7 @@
 
 #include "JOBNetworkEntry.h"
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 namespace job {
 
@@ -39,7 +39,7 @@ class NetworkEntryFactory {
    *
    * @return dynamic model entry
    */
-  static boost::shared_ptr<NetworkEntry> newInstance();
+  static std::unique_ptr<NetworkEntry> newInstance();
 };
 
 }  // namespace job

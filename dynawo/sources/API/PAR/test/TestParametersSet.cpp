@@ -16,7 +16,6 @@
  * @brief Unit tests for API_PAR
  */
 
-#include <boost/shared_ptr.hpp>
 #include <vector>
 #include <map>
 
@@ -30,7 +29,6 @@
 #include "PARParametersSetFactory.h"
 #include "PARMacroParSet.h"
 
-using boost::shared_ptr;
 using std::string;
 using std::vector;
 using std::map;
@@ -77,12 +75,12 @@ TEST(APIPARTest, ParametersSetAddParameter) {
   std::shared_ptr<ParametersSet> parametersSet = ParametersSetFactory::newParametersSet("parameters");
 
   // Create and add a parameter
-  shared_ptr<Parameter> param = ParameterFactory::newParameter("param", 1);
+  std::shared_ptr<Parameter> param = ParameterFactory::newParameter("param", 1);
   ASSERT_NO_THROW(parametersSet->addParameter(param));
 
   // Create and add a parameter with same name: it should throw an error
-  shared_ptr<Parameter> param2 = ParameterFactory::newParameter("param", 5.7);
-  ASSERT_THROW_DYNAWO(parametersSet->addParameter(param2), DYN::Error::API, DYN::KeyError_t::ParameterAlreadyInSet);
+  std::unique_ptr<Parameter> param2 = ParameterFactory::newParameter("param", 5.7);
+  ASSERT_THROW_DYNAWO(parametersSet->addParameter(std::move(param2)), DYN::Error::API, DYN::KeyError_t::ParameterAlreadyInSet);
 
   // Get the parameter and compare it to the initial one
   ASSERT_EQ(parametersSet->getParameter("param"), param);
@@ -103,12 +101,12 @@ TEST(APIPARTest, ParametersSetAddReference) {
   std::shared_ptr<ParametersSet> parametersSet = ParametersSetFactory::newParametersSet("parameters");
 
   // Create and add a reference
-  shared_ptr<Reference> ref = ReferenceFactory::newReference("ref", Reference::OriginData::IIDM);
+  std::shared_ptr<Reference> ref = ReferenceFactory::newReference("ref", Reference::OriginData::IIDM);
   ASSERT_NO_THROW(parametersSet->addReference(ref));
 
   // Create and add a reference with same name: it should throw an error
-  shared_ptr<Reference> ref2 = ReferenceFactory::newReference("ref", Reference::OriginData::IIDM);
-  ASSERT_THROW_DYNAWO(parametersSet->addReference(ref2), DYN::Error::API, DYN::KeyError_t::ReferenceAlreadySet);
+  std::unique_ptr<Reference> ref2 = ReferenceFactory::newReference("ref", Reference::OriginData::IIDM);
+  ASSERT_THROW_DYNAWO(parametersSet->addReference(std::move(ref2)), DYN::Error::API, DYN::KeyError_t::ReferenceAlreadySet);
 
   // Get the reference and compare it to the initial one
   ASSERT_EQ(parametersSet->getReference("ref"), ref);
@@ -122,14 +120,14 @@ TEST(APIPARTest, ParametersSetAddReference) {
 
   // Test getReferences
   std::shared_ptr<ParametersSet> parametersSet2 = ParametersSetFactory::newParametersSet("parameters2");
-  shared_ptr<Reference> ref3 = ReferenceFactory::newReference("ref3", Reference::OriginData::IIDM);
-  parametersSet2->addReference(ref3);
-  shared_ptr<Reference> ref4 = ReferenceFactory::newReference("ref4", Reference::OriginData::PAR);
-  parametersSet2->addReference(ref4);
-  shared_ptr<Reference> ref5 = ReferenceFactory::newReference("ref5", Reference::OriginData::PAR);
-  parametersSet2->addReference(ref5);
+  std::unique_ptr<Reference> ref3 = ReferenceFactory::newReference("ref3", Reference::OriginData::IIDM);
+  parametersSet2->addReference(std::move(ref3));
+  std::unique_ptr<Reference> ref4 = ReferenceFactory::newReference("ref4", Reference::OriginData::PAR);
+  parametersSet2->addReference(std::move(ref4));
+  std::unique_ptr<Reference> ref5 = ReferenceFactory::newReference("ref5", Reference::OriginData::PAR);
+  parametersSet2->addReference(std::move(ref5));
 
-  std::unordered_map<std::string, boost::shared_ptr<Reference> >& references = parametersSet2->getReferences();
+  std::unordered_map<std::string, std::shared_ptr<Reference> >& references = parametersSet2->getReferences();
   const int nbRefs = 3;
   std::array<std::string, nbRefs> refNamesList = {"ref3", "ref4", "ref5"};
   for (const std::string& refName : refNamesList) {
@@ -146,10 +144,10 @@ TEST(APIPARTest, ParametersSetGetParameters) {
   std::shared_ptr<ParametersSet> parametersSet = ParametersSetFactory::newParametersSet("parameters");
 
   // Create parameters
-  shared_ptr<Parameter> param1 = ParameterFactory::newParameter("param1", 1);
-  shared_ptr<Parameter> param2 = ParameterFactory::newParameter("param2", 1.2);
-  shared_ptr<Parameter> param3 = ParameterFactory::newParameter("param3", true);
-  shared_ptr<Parameter> param4 = ParameterFactory::newParameter("param4", string("myName"));
+  std::shared_ptr<Parameter> param1 = ParameterFactory::newParameter("param1", 1);
+  std::shared_ptr<Parameter> param2 = ParameterFactory::newParameter("param2", 1.2);
+  std::shared_ptr<Parameter> param3 = ParameterFactory::newParameter("param3", true);
+  std::shared_ptr<Parameter> param4 = ParameterFactory::newParameter("param4", string("myName"));
 
   // Add parameters to parameters set
   parametersSet->addParameter(param1);
@@ -158,7 +156,7 @@ TEST(APIPARTest, ParametersSetGetParameters) {
   parametersSet->addParameter(param4);
 
   // Get the map of parameters associated with their names
-  map<string, shared_ptr<Parameter> > paramMap;
+  map<string, std::shared_ptr<Parameter> > paramMap;
   paramMap["param1"] = param1;
   paramMap["param2"] = param2;
   paramMap["param3"] = param3;
@@ -199,13 +197,13 @@ TEST(APIPARTest, ParametersSetGetReferences) {
   std::shared_ptr<ParametersSet> parametersSet = ParametersSetFactory::newParametersSet("parameters");
 
   // Create references
-  shared_ptr<Reference> ref1 = ReferenceFactory::newReference("ref1", Reference::OriginData::IIDM);
-  shared_ptr<Reference> ref2 = ReferenceFactory::newReference("ref2", Reference::OriginData::IIDM);
-  shared_ptr<Reference> ref3 = ReferenceFactory::newReference("ref3", Reference::OriginData::IIDM);
+  std::unique_ptr<Reference> ref1 = ReferenceFactory::newReference("ref1", Reference::OriginData::IIDM);
+  std::unique_ptr<Reference> ref2 = ReferenceFactory::newReference("ref2", Reference::OriginData::IIDM);
+  std::shared_ptr<Reference> ref3 = ReferenceFactory::newReference("ref3", Reference::OriginData::IIDM);
 
   // Add references to parameters set
-  parametersSet->addReference(ref1);
-  parametersSet->addReference(ref2);
+  parametersSet->addReference(std::move(ref1));
+  parametersSet->addReference(std::move(ref2));
   parametersSet->addReference(ref3);
 
   // Test size
@@ -353,7 +351,7 @@ TEST(APIPARTest, ParametersSetCreateTableMatrix) {
 //-----------------------------------------------------
 
 TEST(APIPARTest, MacroParSetIterator) {
-  shared_ptr<MacroParSet> macroParSet = shared_ptr<MacroParSet>(new MacroParSet("macroParSet"));
+  std::shared_ptr<MacroParSet> macroParSet = std::make_shared<MacroParSet>("macroParSet");
   std::shared_ptr<ParametersSet> parametersSet = ParametersSetFactory::newParametersSet("parameters");
   ASSERT_NO_THROW(parametersSet->addMacroParSet(macroParSet));
   ASSERT_THROW_DYNAWO(parametersSet->addMacroParSet(macroParSet), DYN::Error::API, DYN::KeyError_t::MacroParSetAlreadyExists);

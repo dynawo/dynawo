@@ -23,15 +23,18 @@
 #include "JOBJobEntry.h"
 #include "JOBIterators.h"
 
+#include <memory>
+
+
 namespace job {
 
 TEST(APIJOBTest, testJobCollection) {
-  boost::shared_ptr<JobsCollection> jobsCollection = JobsCollectionFactory::newInstance();
-  boost::shared_ptr<JobEntry> job1 = boost::shared_ptr<JobEntry> ( new JobEntry());
+  const std::unique_ptr<JobsCollection> jobsCollection = JobsCollectionFactory::newInstance();
+  std::shared_ptr<JobEntry> job1 = std::make_shared<JobEntry>();
   job1->setName("job1");
-  boost::shared_ptr<JobEntry> job2 = boost::shared_ptr<JobEntry> ( new JobEntry());
+  std::shared_ptr<JobEntry> job2 = std::make_shared<JobEntry>();
   job2->setName("job2");
-  boost::shared_ptr<JobEntry> job3 = boost::shared_ptr<JobEntry> ( new JobEntry());
+  std::shared_ptr<JobEntry> job3 = std::make_shared<JobEntry>();
   job3->setName("job3");
 
   jobsCollection->addJob(job1);

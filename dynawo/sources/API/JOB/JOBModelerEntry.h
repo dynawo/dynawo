@@ -26,7 +26,6 @@
 #include "JOBModelsDirEntry.h"
 #include "JOBNetworkEntry.h"
 
-#include <boost/shared_ptr.hpp>
 #include <string>
 #include <vector>
 
@@ -42,25 +41,25 @@ class ModelerEntry {
    * @brief Precompiled models directories entry setter
    * @param preCompiledModelsDirEntry : PreCompiledModelsDirEntry for the job
    */
-  void setPreCompiledModelsDirEntry(const boost::shared_ptr<ModelsDirEntry>& preCompiledModelsDirEntry);
+  void setPreCompiledModelsDirEntry(const std::shared_ptr<ModelsDirEntry>& preCompiledModelsDirEntry);
 
   /**
    * @brief Modelica models directories entry setter
    * @param modelicaModelsDirEntry : ModelicaModelsDirEntry for the job
    */
-  void setModelicaModelsDirEntry(const boost::shared_ptr<ModelsDirEntry>& modelicaModelsDirEntry);
+  void setModelicaModelsDirEntry(const std::shared_ptr<ModelsDirEntry>& modelicaModelsDirEntry);
 
   /**
    * @brief Precompiled models directories entry getter
    * @return PreCompiledModelsDirEntry for the job
    */
-  boost::shared_ptr<ModelsDirEntry> getPreCompiledModelsDirEntry() const;
+  std::shared_ptr<ModelsDirEntry> getPreCompiledModelsDirEntry() const;
 
   /**
    * @brief Modelica models directories entry getter
    * @return ModelicaModelsDirEntry for the job
    */
-  boost::shared_ptr<ModelsDirEntry> getModelicaModelsDirEntry() const;
+  std::shared_ptr<ModelsDirEntry> getModelicaModelsDirEntry() const;
 
   /**
    * @brief Compiling directory setter
@@ -78,37 +77,37 @@ class ModelerEntry {
    * @brief Network entries container setter
    * @param networkEntry : Network entries container for the job
    */
-  void setNetworkEntry(const boost::shared_ptr<NetworkEntry>& networkEntry);
+  void setNetworkEntry(const std::shared_ptr<NetworkEntry>& networkEntry);
 
   /**
    * @brief Network entries container getter
    * @return Network entries container for the job
    */
-  boost::shared_ptr<NetworkEntry> getNetworkEntry() const;
+  std::shared_ptr<NetworkEntry> getNetworkEntry() const;
 
   /**
    * @brief Dynamic modelisation entries container adder
    * @param dynModelsEntry : Dynamic modelisation entries container for the job
    */
-  void addDynModelsEntry(const boost::shared_ptr<DynModelsEntry>& dynModelsEntry);
+  void addDynModelsEntry(const std::shared_ptr<DynModelsEntry>& dynModelsEntry);
 
   /**
    * @brief Dynamic modelisation entries container getter
    * @return Dynamic modelisation entries container for the job
    */
-  std::vector<boost::shared_ptr<DynModelsEntry> > getDynModelsEntries() const;
+  std::vector<std::shared_ptr<DynModelsEntry> > getDynModelsEntries() const;
 
   /**
    * @brief Initial state entries container setter
    * @param initialStateEntry : initial state entries container for the job
    */
-  void setInitialStateEntry(const boost::shared_ptr<InitialStateEntry>& initialStateEntry);
+  void setInitialStateEntry(const std::shared_ptr<InitialStateEntry>& initialStateEntry);
 
   /**
    * @brief Initial state entries container getter
    * @return Initial state entries container for the job
    */
-  boost::shared_ptr<InitialStateEntry> getInitialStateEntry() const;
+  std::shared_ptr<InitialStateEntry> getInitialStateEntry() const;
 
   /**
    * @brief Default constructor
@@ -129,12 +128,12 @@ class ModelerEntry {
   ModelerEntry& operator=(const ModelerEntry& other);
 
  private:
-  std::string compileDir_;                                            ///< Compiling directory for the simulation
-  boost::shared_ptr<ModelsDirEntry> preCompiledModelsDirEntry_;       ///< preCompiled models directories
-  boost::shared_ptr<ModelsDirEntry> modelicaModelsDirEntry_;          ///< modelica models directories
-  boost::shared_ptr<NetworkEntry> networkEntry_;                      ///< static network description
-  std::vector<boost::shared_ptr<DynModelsEntry> > dynModelsEntries_;  ///< multiple .dyd dynamic modelling files
-  boost::shared_ptr<InitialStateEntry> initialStateEntry_;            ///< initial state data
+  std::string compileDir_;                                          ///< Compiling directory for the simulation
+  std::shared_ptr<ModelsDirEntry> preCompiledModelsDirEntry_;       ///< preCompiled models directories
+  std::shared_ptr<ModelsDirEntry> modelicaModelsDirEntry_;          ///< modelica models directories
+  std::shared_ptr<NetworkEntry> networkEntry_;                      ///< static network description
+  std::vector<std::shared_ptr<DynModelsEntry> > dynModelsEntries_;  ///< multiple .dyd dynamic modelling files
+  std::shared_ptr<InitialStateEntry> initialStateEntry_;            ///< initial state data
 };
 
 }  // namespace job

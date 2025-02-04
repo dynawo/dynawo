@@ -281,9 +281,9 @@ void
 DynamicData::resolveParReferences(std::shared_ptr<Model> model, std::shared_ptr<ParametersSet> modelSet) {
   if (modelSet == nullptr)
     return;
-  std::unordered_map<std::string, boost::shared_ptr<Reference> >& references = modelSet->getReferences();
-  for (const std::pair<const std::string, boost::shared_ptr<Reference> >& ref : references) {
-    const shared_ptr<Reference>& parRef = ref.second;
+  std::unordered_map<std::string, std::shared_ptr<Reference> >& references = modelSet->getReferences();
+  for (const std::pair<const std::string, std::shared_ptr<Reference> >& ref : references) {
+    const std::shared_ptr<Reference>& parRef = ref.second;
     if (parRef->getOrigData() == Reference::OriginData::PAR) {
       if (parRef->getParFile().empty()) {
         if (parRef->getParId().empty()) {
@@ -292,11 +292,11 @@ DynamicData::resolveParReferences(std::shared_ptr<Model> model, std::shared_ptr<
         parRef->setParFile(modelSet->getFilePath());
       }
       const std::shared_ptr<ParametersSet> referencedParametersSet = getParametersSet(model->getId(), parRef->getParFile(), parRef->getParId());
-      const std::unordered_map<std::string, shared_ptr<parameters::Reference> > refParamSetReferences = referencedParametersSet->getReferences();
-      const std::unordered_map<std::string, shared_ptr<Reference> >::const_iterator itRef = refParamSetReferences.find(parRef->getOrigName());
+      const std::unordered_map<std::string, std::shared_ptr<parameters::Reference> > refParamSetReferences = referencedParametersSet->getReferences();
+      const std::unordered_map<std::string, std::shared_ptr<Reference> >::const_iterator itRef = refParamSetReferences.find(parRef->getOrigName());
       if (itRef != references.end())
         throw DYNError(DYN::Error::API, ReferenceToAnotherReference, parRef->getName(), parRef->getOrigName(), parRef->getParId(), parRef->getParFile());
-      shared_ptr<Parameter> referencedParameter = referencedParametersSet->getParameter(parRef->getOrigName());
+      std::shared_ptr<Parameter> referencedParameter = referencedParametersSet->getParameter(parRef->getOrigName());
       if (parRef->getType() == "DOUBLE") {
         modelSet->createParameter(parRef->getName(), referencedParameter->getDouble());
       } else if (parRef->getType() == "INT") {
@@ -407,7 +407,7 @@ DynamicData::mergeParameters(std::shared_ptr<ParametersSet>& concatParams, const
   vector<string> parametersName = udmSet->getParametersNames();
   for (vector<string>::const_iterator itName = parametersName.begin(); itName != parametersName.end(); ++itName) {
     const string parameterName = udmName + "_" + *itName;
-    const shared_ptr<Parameter> par = udmSet->getParameter(*itName);
+    const std::shared_ptr<Parameter> par = udmSet->getParameter(*itName);
 
     switch (par->getType()) {
       case Parameter::BOOL: {
@@ -433,13 +433,13 @@ DynamicData::mergeParameters(std::shared_ptr<ParametersSet>& concatParams, const
   // for references in parameterSet
   const vector<string>& referencesName = udmSet->getReferencesNames();
   for (vector<string>::const_iterator itRefName = referencesName.begin(); itRefName != referencesName.end(); ++itRefName) {
-    const shared_ptr<Reference> ref = udmSet->getReference(*itRefName);
+    const std::shared_ptr<Reference> ref = udmSet->getReference(*itRefName);
     const string referenceName = udmName + "_" + *itRefName;
-    shared_ptr<Reference> reference = ReferenceFactory::newReference(referenceName, ref->getOrigData());
+    std::unique_ptr<Reference> reference = ReferenceFactory::newReference(referenceName, ref->getOrigData());
     reference->setType(ref->getType());
     reference->setOrigName(ref->getOrigName());
     reference->setComponentId(ref->getComponentId());
-    concatParams->addReference(reference);
+    concatParams->addReference(std::move(reference));
   }
 }
 

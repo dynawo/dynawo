@@ -24,24 +24,24 @@ using std::string;
 
 namespace parameters {
 
-boost::shared_ptr<Parameter>
+std::unique_ptr<Parameter>
 ParameterFactory::newParameter(const string& name, const bool boolValue) {
-  return boost::shared_ptr<Parameter>(new Parameter(name, boolValue));
+  return std::unique_ptr<Parameter>(new Parameter(name, boolValue));
 }
 
-boost::shared_ptr<Parameter>
+std::unique_ptr<Parameter>
 ParameterFactory::newParameter(const string& name, const int intValue) {
-  return boost::shared_ptr<Parameter>(new Parameter(name, intValue));
+  return std::unique_ptr<Parameter>(new Parameter(name, intValue));
 }
 
-boost::shared_ptr<Parameter>
+std::unique_ptr<Parameter>
 ParameterFactory::newParameter(const string& name, const double doubleValue) {
-  return boost::shared_ptr<Parameter>(new Parameter(name, doubleValue));
+  return std::unique_ptr<Parameter>(new Parameter(name, doubleValue));
 }
 
-boost::shared_ptr<Parameter>
+std::unique_ptr<Parameter>
 ParameterFactory::newParameter(const string& name, const string& stringValue) {
-  return boost::shared_ptr<Parameter>(new Parameter(name, stringValue));
+  return std::unique_ptr<Parameter>(new Parameter(name, stringValue));
 }
 
 }  // namespace parameters

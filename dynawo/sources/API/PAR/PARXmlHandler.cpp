@@ -41,11 +41,8 @@
 #include "DYNMacrosMessage.h"
 
 
-using std::map;
 using std::string;
 using std::vector;
-
-using boost::shared_ptr;
 
 namespace lambda = boost::phoenix;
 namespace lambda_args = lambda::placeholders;
@@ -224,7 +221,7 @@ ParHandler::create(attributes_type const & attributes) {
   }
 }
 
-shared_ptr<Parameter>
+std::shared_ptr<Parameter>
 ParHandler::get() const {
   return parameter_;
 }
@@ -256,7 +253,7 @@ void RefHandler::create(attributes_type const & attributes) {
     referenceRead_->setParFile(attributes["parFile"]);
 }
 
-shared_ptr<Reference>
+std::shared_ptr<Reference>
 RefHandler::get() const {
   return referenceRead_;
 }
@@ -275,7 +272,7 @@ MacroParameterSetHandler::~MacroParameterSetHandler() {}
 
 void
 MacroParameterSetHandler::create(attributes_type const & attributes) {
-  macroParameterSet_ = shared_ptr<MacroParameterSet>(new MacroParameterSet(attributes["id"].as_string()));
+  macroParameterSet_ = std::make_shared<MacroParameterSet>(attributes["id"].as_string());
 }
 
 void
@@ -288,7 +285,7 @@ MacroParameterSetHandler::addParameter() {
   macroParameterSet_->addParameter(parHandler_.get());
 }
 
-boost::shared_ptr<MacroParameterSet>
+std::shared_ptr<MacroParameterSet>
 MacroParameterSetHandler::get() const {
   return macroParameterSet_;
 }
@@ -301,10 +298,10 @@ MacroParSetHandler::~MacroParSetHandler() {}
 
 void
 MacroParSetHandler::create(attributes_type const & attributes) {
-  macroParSet_ = shared_ptr<MacroParSet>(new MacroParSet(attributes["id"].as_string()));
+  macroParSet_ = std::make_shared<MacroParSet>(attributes["id"].as_string());
 }
 
-boost::shared_ptr<MacroParSet>
+std::shared_ptr<MacroParSet>
 MacroParSetHandler::get() const {
   return macroParSet_;
 }

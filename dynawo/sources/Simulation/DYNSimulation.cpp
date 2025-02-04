@@ -168,7 +168,7 @@ struct StringPairHash {
 
 namespace DYN {
 
-Simulation::Simulation(shared_ptr<job::JobEntry>& jobEntry, shared_ptr<SimulationContext>& context, shared_ptr<DataInterface> data) :
+Simulation::Simulation(const std::shared_ptr<job::JobEntry>& jobEntry, const std::shared_ptr<SimulationContext>& context, shared_ptr<DataInterface> data) :
 context_(context),
 jobEntry_(jobEntry),
 data_(data),
@@ -234,8 +234,8 @@ wasLoggingEnabled_(false) {
 void
 Simulation::configureSimulationInputs() {
   //---- dydFile ----
-  vector <boost::shared_ptr<job::DynModelsEntry> > dynModelsEntries = jobEntry_->getModelerEntry()->getDynModelsEntries();
-  vector <string> dydFiles;
+  vector<std::shared_ptr<job::DynModelsEntry> > dynModelsEntries = jobEntry_->getModelerEntry()->getDynModelsEntries();
+  vector<string> dydFiles;
   for (unsigned int i = 0; i < dynModelsEntries.size(); ++i) {
     string absoluteDirPath = createAbsolutePath(dynModelsEntries[i]->getDydFile(), context_->getInputDirectory());
     if (!exists(absoluteDirPath)) {
@@ -469,14 +469,14 @@ Simulation::configureFinalStateValueOutputs() {
 void
 Simulation::configureFinalStateOutputs() {
   // Final state settings
-  const std::vector<boost::shared_ptr<job::FinalStateEntry> >& finalStateEntries = jobEntry_->getOutputsEntry()->getFinalStateEntries();
+  const std::vector<std::shared_ptr<job::FinalStateEntry> >& finalStateEntries = jobEntry_->getOutputsEntry()->getFinalStateEntries();
 
   string finalStateDir = createAbsolutePath("finalState", outputsDirectory_);
   if (!finalStateEntries.empty() && !is_directory(finalStateDir)) {
     create_directory(finalStateDir);
   }
   std::map<double, ExportStateDefinition> dumpStateDefinitionsMap;
-  for (std::vector<boost::shared_ptr<job::FinalStateEntry> >::const_iterator it = finalStateEntries.begin();
+  for (std::vector<std::shared_ptr<job::FinalStateEntry> >::const_iterator it = finalStateEntries.begin();
     it != finalStateEntries.end(); ++it) {
     boost::optional<double> timestamp = (*it)->getTimestamp();
 
@@ -694,9 +694,9 @@ Simulation::configureLogs() {
       wasLoggingEnabled_ = Trace::isLoggingEnabled();
       Trace::disableLogging();
     } else {
-      vector<shared_ptr<job::AppenderEntry> > appendersEntry = jobEntry_->getOutputsEntry()->getLogsEntry()->getAppenderEntries();
+      vector<std::shared_ptr<job::AppenderEntry> > appendersEntry = jobEntry_->getOutputsEntry()->getLogsEntry()->getAppenderEntries();
       vector<Trace::TraceAppender> appenders;
-      vector<shared_ptr<job::AppenderEntry> >::iterator itApp = appendersEntry.begin();
+      vector<std::shared_ptr<job::AppenderEntry> >::iterator itApp = appendersEntry.begin();
       for (; itApp != appendersEntry.end(); ++itApp) {
         string file = createAbsolutePath((*itApp)->getFilePath(), logsDir);
         // Creates log directory if doesn't exist
@@ -995,7 +995,7 @@ Simulation::simulate() {
       }
     }
 
-    boost::shared_ptr<job::CurvesEntry> curvesEntry = jobEntry_->getOutputsEntry()->getCurvesEntry();
+    std::shared_ptr<job::CurvesEntry> curvesEntry = jobEntry_->getOutputsEntry()->getCurvesEntry();
     boost::optional<int> iterationStep;
     boost::optional<double> timeStep;
     if (curvesEntry != nullptr) {

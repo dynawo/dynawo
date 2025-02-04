@@ -157,15 +157,15 @@ XmlExporter::exportToStream(const std::shared_ptr<ParametersSetCollection>& coll
       formatter->endElement();   // par
     }
      // write references
-    map<string, boost::shared_ptr<Reference> > sortedRef;
+    map<string, std::shared_ptr<Reference> > sortedRef;
     for (ParametersSet::reference_const_iterator itRef = (*itParamSet)->cbeginReference();
             itRef != (*itParamSet)->cendReference();
             ++itRef) {
       sortedRef.insert(std::make_pair((*itRef)->getName(), *itRef));
     }
-    for (map<string, boost::shared_ptr<Reference> >::const_iterator itRef = sortedRef.begin();
+    for (map<string, std::shared_ptr<Reference> >::const_iterator itRef = sortedRef.begin();
             itRef != sortedRef.end(); ++itRef) {
-      const boost::shared_ptr<Reference>& ref = itRef->second;
+      const std::shared_ptr<Reference>& ref = itRef->second;
       attrs.clear();
       attrs.add("type", ref->getType());
       attrs.add("name", ref->getName());

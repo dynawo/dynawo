@@ -32,8 +32,8 @@ using std::vector;
 using std::stringstream;
 using std::unordered_map;
 
-using boost::dynamic_pointer_cast;
-using boost::shared_ptr;
+using std::dynamic_pointer_cast;
+using std::shared_ptr;
 
 namespace parameters {
 
@@ -236,7 +236,7 @@ ParametersSet::getReferencesNames() const {
 }
 
 std::shared_ptr<ParametersSet>
-ParametersSet::addReference(boost::shared_ptr<Reference> ref) {
+ParametersSet::addReference(const std::shared_ptr<Reference>& ref) {
   const string& refName = ref->getName();
   if (hasReference(refName)) {
     throw DYNError(DYN::Error::API, ReferenceAlreadySet, refName);
@@ -250,7 +250,7 @@ ParametersSet::getParameters() {
   return parameters_;
 }
 
-unordered_map<std::string, boost::shared_ptr<Reference> >&
+unordered_map<std::string, std::shared_ptr<Reference> >&
 ParametersSet::getReferences() {
   return references_;
 }

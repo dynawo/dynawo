@@ -16,9 +16,9 @@
 
 namespace job {
 
-boost::shared_ptr<ModelerEntry>
+std::unique_ptr<ModelerEntry>
 ModelerEntryFactory::newInstance() {
-  return boost::shared_ptr<ModelerEntry>(new ModelerEntry());
+  return std::unique_ptr<ModelerEntry>(new ModelerEntry());
 }
 
 }  // namespace job

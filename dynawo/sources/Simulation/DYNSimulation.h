@@ -23,6 +23,7 @@
 #include <vector>
 #include <queue>
 #include <unordered_map>
+#include <memory>
 #include <boost/shared_ptr.hpp>
 #include <boost/optional.hpp>
 #include <boost/filesystem.hpp>
@@ -154,7 +155,8 @@ class Simulation {
    * @param context context of the simulation (configuration, directories, locale, etc...)
    * @param data data interface to use for the simulation (NULL if we build it inside simulation)
    */
-  Simulation(boost::shared_ptr<job::JobEntry>& jobEntry, boost::shared_ptr<SimulationContext>& context,
+  Simulation(const std::shared_ptr<job::JobEntry>& jobEntry,
+              const std::shared_ptr<SimulationContext>& context,
               boost::shared_ptr<DataInterface> data = boost::shared_ptr<DataInterface>());
 
   /**
@@ -668,8 +670,8 @@ class Simulation {
   bool hasIntermediateStateToDump() const;
 
  private:
-  boost::shared_ptr<SimulationContext> context_;  ///< simulation context : configuration of the simulation
-  boost::shared_ptr<job::JobEntry> jobEntry_;  ///< jobs data description
+  std::shared_ptr<SimulationContext> context_;  ///< simulation context : configuration of the simulation
+  std::shared_ptr<job::JobEntry> jobEntry_;  ///< jobs data description
   SolverFactory::SolverPtr solver_;  ///< solver used for the simulation
   std::shared_ptr<Model> model_;  ///< model used for the simulation
   boost::shared_ptr<DataInterface> data_;  ///< Data interface associated to the job

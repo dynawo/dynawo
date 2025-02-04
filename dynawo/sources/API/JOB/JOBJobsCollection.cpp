@@ -22,14 +22,11 @@
 #include "JOBIterators.h"
 #include "JOBJobEntry.h"
 
-using boost::shared_ptr;
-using std::string;
-using std::vector;
 
 namespace job {
 
 void
-JobsCollection::addJob(const shared_ptr<JobEntry>& job) {
+JobsCollection::addJob(const std::shared_ptr<JobEntry>& job) {
   jobs_.push_back(job);
 }
 
