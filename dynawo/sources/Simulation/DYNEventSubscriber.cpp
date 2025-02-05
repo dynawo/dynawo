@@ -23,19 +23,30 @@
 #include "DYNEventSubscriber.h"
 #include "PARParametersSetFactory.h"
 #include "DYNModelMulti.h"
+#include "DYNSignalHandler.h"
 
 using parameters::ParametersSet;
 using parameters::ParametersSetFactory;
 
 namespace DYN {
 
-EventSubscriber::EventSubscriber(std::shared_ptr<Model>& model):
-model_(model),
-socket_(context_, zmqpp::socket_type::reply)
-{socket_.bind("tcp://*:5555");}
+EventSubscriber::EventSubscriber(bool extSync):
+socket_(context_, zmqpp::socket_type::reply),
+extSync_(extSync) {
+  socket_.bind("tcp://*:5555");
+}
+
+void
+EventSubscriber::setModel(std::shared_ptr<Model>& model) {
+  model_ = model;
+}
 
 void
 EventSubscriber::start() {
+  if (!model_) {
+    std::cout << "ZMQ EventSubscriber model not set. Can't start" << std::endl;
+    return;
+  }
   receiverThread_ = std::thread(&EventSubscriber::messageReceiver, this);
   std::cout << "ZMQ thread started" << std::endl;
   running_ = true;
@@ -43,14 +54,16 @@ EventSubscriber::start() {
 
 void
 EventSubscriber::stop() {
-  running_ = false;
+  if (extSync_)
+    simulationStepTriggerCondition_.notify_all();
   receiverThread_.join();
   std::cout << "ZMQ thread stopped" << std::endl;
+  running_ = false;
 }
 
 void
 EventSubscriber::applyActions() {
-  std::lock_guard<std::mutex> lock(actions_mutex_);
+  std::lock_guard<std::mutex> actionLock(actions_mutex_);
   for (std::shared_ptr<Action>& action : actions_) {
     action->model->updateParameters(action->parametersSet);
     Trace::info() << "Action: SubModel " << action->modelName << " parameters updated" << Trace::endline;
@@ -61,7 +74,6 @@ EventSubscriber::applyActions() {
 
 bool
 EventSubscriber::registerAction(const std::string& modelName, std::shared_ptr<parameters::ParametersSet>& parametersSet) {
-  std::lock_guard<std::mutex> lock(actions_mutex_);
   std::shared_ptr<ModelMulti> model = std::dynamic_pointer_cast<ModelMulti>(model_);
   boost::shared_ptr<SubModel> subModel = model->findSubModelByName(modelName);
   if (!subModel) {
@@ -73,7 +85,10 @@ EventSubscriber::registerAction(const std::string& modelName, std::shared_ptr<pa
   newAction->modelName = modelName;
   newAction->model = subModel;
   newAction->parametersSet = parametersSet;
-  actions_.push_back(newAction);
+  {
+    std::lock_guard<std::mutex> actionLock(actions_mutex_);
+    actions_.push_back(newAction);
+  }
   Trace::info() << "Action: New action registered on model: " << modelName << Trace::endline;
   return true;
 }
@@ -81,7 +96,7 @@ EventSubscriber::registerAction(const std::string& modelName, std::shared_ptr<pa
 
 void
 EventSubscriber::messageReceiver() {
-  while (running_) {
+  while (running_ && !SignalHandler::gotExitSignal()) {
     // std::cout << "... zmq receiver loop" << std::endl;
 
     zmqpp::message message;
@@ -92,21 +107,33 @@ EventSubscriber::messageReceiver() {
 
       std::string input;
       message >> input;
-      std::shared_ptr<ParametersSet> parametersSet = parseParametersSet(input);
 
-      // Register the action
       zmqpp::message reply;
-      if (registerAction(parametersSet->getId(), parametersSet)) {
-        reply << "OK";
+      if (input.empty() && extSync_) {
+          // trigger next step
+          std::lock_guard<std::mutex> simulationLock(simulationMutex_);
+          ready_ = true;
+          simulationStepTriggerCondition_.notify_one();
+          reply << "Step triggered";
+          socket_.send(reply);
       } else {
-        reply << "KO";
+        std::shared_ptr<ParametersSet> parametersSet = parseParametersSet(input);
+
+        // Register the action
+        zmqpp::message reply;
+        if (registerAction(parametersSet->getId(), parametersSet)) {
+          reply << "OK";
+        } else {
+          reply << "KO";
+        }
+        socket_.send(reply);
       }
-      socket_.send(reply);
     }
 
     // Sleep briefly to reduce CPU usage
     std::this_thread::sleep_for(std::chrono::milliseconds(10));
   }
+  simulationStepTriggerCondition_.notify_all();
 }
 
 std::shared_ptr<ParametersSet>
@@ -178,4 +205,17 @@ EventSubscriber::parseParametersSet(std::string& input) {
   }
   return parametersSet;
 }
+
+
+
+void
+EventSubscriber::wait() {
+  std::cout << "EventSubscriber: wait for signal " << std::endl;
+  std::cout << "running_ ? " << running_ << std::endl;
+  std::unique_lock<std::mutex> simulationLock(simulationMutex_);
+  simulationStepTriggerCondition_.wait(simulationLock);
+  ready_ = false;
+  std::cout << "EventSubscriber: signal received " << std::endl;
+}
+
 }  // end of namespace DYN

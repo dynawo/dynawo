@@ -150,6 +150,54 @@ class SimulationEntry {
     timeSyncAcceleration_ = timeSyncAcceleration;
   }
 
+  /**
+   * @brief enableZmq getter
+   * @returns enable event subscriber
+   */
+  bool getEnableZmq() const {
+    return enableZmq_;
+  }
+
+  /**
+   * @brief enableZmq setter
+   * @param enableZmq enable event subscriber
+   */
+  void setEnableZmq(bool enableZmq) {
+    enableZmq_ = enableZmq;
+  }
+
+  /**
+   * @brief enableExternalStepTrigger getter
+   * @returns enable external step trigger
+   */
+  bool getEnableExternalStepTrigger() const {
+    return enableExternalStepTrigger_;
+  }
+
+  /**
+   * @brief enableExternalStepTrigger setter
+   * @param enableExternalStepTrigger enable external step trigger
+   */
+  void setEnableExternalStepTrigger(bool enableExternalStepTrigger) {
+    enableExternalStepTrigger_ = enableExternalStepTrigger;
+  }
+
+  /**
+   * @brief externalStepTriggerTimeStepInS getter
+   * @returns simulation output period
+   */
+  double getExternalStepTriggerTimeStepInS() const {
+    return externalStepTriggerTimeStepInS_;
+  }
+
+  /**
+   * @brief externalStepTriggerTimeStepInS setter
+   * @param externalStepTriggerTimeStepInS simulation output period
+   */
+  void setExternalStepTriggerTimeStepInS(double externalStepTriggerTimeStepInS) {
+    externalStepTriggerTimeStepInS_ = externalStepTriggerTimeStepInS_;
+  }
+
  private:
   double startTime_;                        ///< Start time of the simulation
   double stopTime_;                         ///< Stop time of the simulation
@@ -159,8 +207,10 @@ class SimulationEntry {
   double timeout_;                          ///< simulation timeout
   bool timeSync_;                           ///< indicating if simulation must be sync with user clock
   double timeSyncAcceleration_;             ///< simulation timeout
+  bool enableZmq_;                          ///< enables zmq event subscriber
+  bool enableExternalStepTrigger_;          ///< enable extrernal step trigger
+  double externalStepTriggerTimeStepInS_;   ///< simulation refresh rate (zmq enabled)
 };
-
 }  // namespace job
 
 #endif  // API_JOB_JOBSIMULATIONENTRY_H_

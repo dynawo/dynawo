@@ -30,7 +30,11 @@ criteriaStep_(10),
 precision_(1e-6),
 timeout_(std::numeric_limits<double>::max()),
 timeSync_(false),
-timeSyncAcceleration_(1.) {}
+timeSyncAcceleration_(1.),
+enableZmq_(false),
+enableExternalStepTrigger_(false),
+externalStepTriggerTimeStepInS_(1.)
+{}
 
 void
 SimulationEntry::setStartTime(double startTime) {
