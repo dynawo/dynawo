@@ -154,12 +154,16 @@ static const char TIME_FILENAME[] = "time.bin";  ///< name of the file to dump t
 namespace DYN {
 
 SimulationRT::SimulationRT(const std::shared_ptr<job::JobEntry>& jobEntry, const std::shared_ptr<SimulationContext>& context, boost::shared_ptr<DataInterface> data = boost::shared_ptr<DataInterface>()) :
-Simulation(jobEntry, context, data),
-useZmq_(true) {
+Simulation(jobEntry, context, data) {
   timeManager_ = std::make_shared<TimeManager>(
     jobEntry_->getSimulationEntry()->getTimeSync(),
     jobEntry_->getSimulationEntry()->getTimeSyncAcceleration());
-  if (timeManager_->getTimeSync()) {
+  enableZmq_ = jobEntry_->getSimulationEntry()->getEnableZmq();
+  if (enableZmq_) {
+    externalStepTriggerTimeStepInS_ = jobEntry_->getSimulationEntry()->getExternalStepTriggerTimeStepInS();
+    eventSubscriber_ = std::make_shared<EventSubscriber>(jobEntry_->getSimulationEntry()->getEnableExternalStepTrigger());
+  }
+  if (timeManager_->getTimeSync() || (eventSubscriber_ && eventSubscriber_->isExtSync())) {
     wsServer_ = std::make_shared<wsc::WebsocketServer>();
     wsServer_->run(9001);
     std::cout << "Websocket server started" << std::endl;
@@ -169,8 +173,8 @@ useZmq_(true) {
 void
 SimulationRT::simulate() {
   Timer timer("SimulationRT::simulate()");
-  if (useZmq_) {
-    eventSubscriber_ = std::make_shared<EventSubscriber>(model_);
+  if (enableZmq_) {
+    eventSubscriber_->setModel(model_);
     eventSubscriber_->start();
   }
 
@@ -210,21 +214,30 @@ SimulationRT::simulate() {
     }
     int currentIterNb = 0;
     double nextTimeStep = 0;
-    const auto startTimeSync = std::chrono::system_clock::now();
-    std::chrono::time_point<std::chrono::system_clock> afterSleepTime;
     std::cout << "simulate() start" << std::endl;
 
     if (timeManager_)
       timeManager_->start(tCurrent_);
+
+
+    double nextTToTrigger = tCurrent_ + externalStepTriggerTimeStepInS_;  // Only used if (enableZmq_ && eventSubscriber_->isExtSync())
+
     while (!end() && !SignalHandler::gotExitSignal() && criteriaChecked) {
-      // RT sleep
-      std::this_thread::sleep_for(std::chrono::milliseconds(2000));
-      std::cout << "tCurrent_ = " << tCurrent_ << std::endl;
+      // option1: ZMQ --> wait for an empty message before simulating next time step
+      if (eventSubscriber_ && eventSubscriber_->isExtSync()) {
+        if (tCurrent_ > nextTToTrigger) {
+          nextTToTrigger += externalStepTriggerTimeStepInS_;
+          eventSubscriber_ -> wait();
+        }
+      }
 
-
+      // option2: TimeManager --> sleep in the loop
       if (timeManager_)
         timeManager_->wait(tCurrent_);
 
+      std::cout << "tCurrent_ = " << tCurrent_ << std::endl;
+
+      // Apply actions from event subscriber
       if (eventSubscriber_)
         eventSubscriber_->applyActions();
 
@@ -311,12 +324,7 @@ SimulationRT::simulate() {
         }
         intermediateStates_.pop();
       }
-      // if (timeManager_) {
-      //   const auto afterStepTime = std::chrono::system_clock::now();
-      //   Trace::warn() << "TITI tCurrent_ = " << tCurrent_  << " s; "
-      //   << "step computation time: " << (std::chrono::duration_cast<std::chrono::milliseconds>(afterStepTime - afterSleepTime)).count() << " ms"
-      //   << Trace::endline;
-      // }
+
       if (timeManager_)
         Trace::info() << "TimeManagement: tCurrent_ = " << tCurrent_
         << " s; Step computation time: " << timeManager_->getStepDuration() << "ms" << Trace::endline;
@@ -429,14 +437,17 @@ SimulationRT::initStepDurationCurve() {
 }
 
 void
+
+
 SimulationRT::terminate() {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("Simulation::terminate()");
 #endif
+  std::cout << "TERMINATE" << std::endl;
   if (wsServer_)
     wsServer_->stop();
 
-  if (useZmq_)
+  if (enableZmq_)
     eventSubscriber_->stop();
   updateParametersValues();   // update parameter curves' value
 

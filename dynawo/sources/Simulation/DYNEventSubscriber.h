@@ -23,6 +23,7 @@
 #include <mutex>
 #include <vector>
 #include <string>
+#include <condition_variable>
 #include <zmqpp/zmqpp.hpp>
 
 #include "DYNModel.h"
@@ -51,7 +52,9 @@ class EventSubscriber {
   };
 
  public:
-  explicit EventSubscriber(std::shared_ptr<Model>& modelMulti);
+  explicit EventSubscriber(bool extSync);
+
+  void setModel(std::shared_ptr<Model>& modelMulti);
 
   void start();
 
@@ -63,8 +66,11 @@ class EventSubscriber {
 
   void messageReceiver();
 
-  std::shared_ptr<parameters::ParametersSet> parseParametersSet(std::string& input);
+  bool isExtSync() {return extSync_;}
 
+  void wait();
+
+  std::shared_ptr<parameters::ParametersSet> parseParametersSet(std::string& input);
 
  private:
   std::vector<std::shared_ptr<Action> > actions_;
@@ -74,6 +80,10 @@ class EventSubscriber {
   std::thread receiverThread_;
   bool running_;
   std::shared_ptr<Model> model_;
+  bool extSync_;
+  bool ready_;
+  std::mutex simulationMutex_;
+  std::condition_variable simulationStepTriggerCondition_;
 };
 
 }  // end of namespace DYN

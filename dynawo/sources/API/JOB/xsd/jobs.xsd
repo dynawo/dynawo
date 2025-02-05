@@ -106,6 +106,9 @@
     <xs:attribute name="timeout" type="xs:float"/>
     <xs:attribute name="timeSync" type="xs:boolean"/>
     <xs:attribute name="timeSyncAcceleration" type="xs:float"/>
+    <xs:attribute name="enableZmq" type="xs:boolean"/>
+    <xs:attribute name="enableExternalStepTrigger" type="xs:boolean"/>
+    <xs:attribute name="externalStepTriggerTimeStepInS" type="xs:float"/>
   </xs:complexType>
 
   <xs:complexType name="OutputsEntry">

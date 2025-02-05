@@ -125,7 +125,9 @@ class SimulationRT: public Simulation {
   std::shared_ptr<TimeManager> timeManager_;  ///< Time manager >
 
   std::shared_ptr<EventSubscriber> eventSubscriber_;   ///< Event manager >
-  bool useZmq_;
+  bool enableZmq_;
+  bool enableExternalStepTrigger_;
+  double externalStepTriggerTimeStepInS_;
 };
 
 }  // end of namespace DYN
