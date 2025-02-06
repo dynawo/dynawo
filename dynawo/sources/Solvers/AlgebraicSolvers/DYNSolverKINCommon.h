@@ -142,7 +142,7 @@ class SolverKINCommon {
   SUNLinearSolver linearSolver_;  ///< Linear Solver pointer
   SUNMatrix sundialsMatrix_;  ///< sparse SUNMatrix
   N_Vector sundialsVectorY_;  ///< variables values stored in Sundials structure
-  sunindextype* lastRowVals_;  ///< save of last Jacobian structure, to force symbolic factorization if structure change
+  std::vector<sunindextype> lastRowVals_;  ///< save of last Jacobian structure, to force symbolic factorization if structure change
 
   unsigned int numF_;  ///< number of equations to solve
   double t0_;  ///< initial time to use
