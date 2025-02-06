@@ -30,98 +30,31 @@
 #endif
 
 
-// #include <boost/archive/binary_iarchive.hpp>
-// #include <boost/archive/binary_oarchive.hpp>
-// #include <boost/serialization/vector.hpp>
-// #include <boost/filesystem.hpp>
-// #include <boost/algorithm/string/classification.hpp>
-// #include <boost/algorithm/string/split.hpp>
-
-// #include <libzip/ZipFile.h>
-// #include <libzip/ZipFileFactory.h>
-// #include <libzip/ZipEntry.h>
-// #include <libzip/ZipInputStream.h>
-// #include <libzip/ZipOutputStream.h>
-
 #include "TLTimelineFactory.h"
-// #include "TLTimeline.h"
-// #include "TLTxtExporter.h"
-// #include "TLXmlExporter.h"
-// #include "TLCsvExporter.h"
 
 #include "CRVCurvesCollectionFactory.h"
-// #include "CRVCurvesCollection.h"
-// #include "CRVXmlImporter.h"
 #include "CRVCurveFactory.h"
-// #include "CRVCurve.h"
 #include "CRVPoint.h"
-// #include "CRVXmlExporter.h"
-// #include "CRVCsvExporter.h"
 
 #include "FSVFinalStateValuesCollectionFactory.h"
 #include "FSVFinalStateValuesCollection.h"
-// #include "FSVFinalStateValue.h"
-// #include "FSVFinalStateValueFactory.h"
-// #include "FSVXmlExporter.h"
-// #include "FSVXmlImporter.h"
-// #include "FSVCsvExporter.h"
-// #include "FSVTxtExporter.h"
 
-// #include "CSTRConstraintsCollection.h"
 #include "CSTRConstraintsCollectionFactory.h"
-// #include "CSTRTxtExporter.h"
-// #include "CSTRXmlExporter.h"
 
 #include "LEQLostEquipmentsCollectionFactory.h"
-// #include "LEQXmlExporter.h"
-
-// #include "PARParametersSet.h"
-// #include "PARXmlImporter.h"
-
-// #include "CRTXmlImporter.h"
-// #include "CRTCriteriaCollection.h"
 
 #include "JOBJobEntry.h"
-// #include "JOBSolverEntry.h"
-// #include "JOBModelerEntry.h"
-// #include "JOBModelsDirEntry.h"
-// #include "JOBOutputsEntry.h"
-// #include "JOBNetworkEntry.h"
-// #include "JOBInitialStateEntry.h"
-// #include "JOBInitValuesEntry.h"
-// #include "JOBConstraintsEntry.h"
-// #include "JOBTimelineEntry.h"
-// #include "JOBTimetableEntry.h"
-// #include "JOBFinalStateEntry.h"
 #include "JOBCurvesEntry.h"
-// #include "JOBSimulationEntry.h"
-// #include "JOBLogsEntry.h"
-// #include "JOBAppenderEntry.h"
-// #include "JOBDynModelsEntry.h"
 
 #include "PARParametersSetFactory.h"
 
-// #include "DYNCompiler.h"
-// #include "DYNDynamicData.h"
 #include "DYNModel.h"
 #include "DYNSimulationRT.h"
-// #include "DYNSimulationContext.h"
 #include "DYNTrace.h"
-// #include "DYNMacrosMessage.h"
 #include "DYNSolver.h"
-// #include "DYNSolverFactory.h"
 #include "DYNTimer.h"
 #include "DYNModelMulti.h"
 #include "DYNSubModel.h"
-// #include "DYNModeler.h"
-// #include "DYNFileSystemUtils.h"
-// #include "DYNTerminate.h"
-// #include "DYNDataInterface.h"
-// #include "DYNDataInterfaceFactory.h"
-// #include "DYNExecUtils.h"
-// #include "DYNSignalHandler.h"
-// #include "DYNIoDico.h"
-// #include "DYNBitMask.h"
 
 using std::ofstream;
 using std::fstream;
@@ -158,12 +91,14 @@ Simulation(jobEntry, context, data) {
   timeManager_ = std::make_shared<TimeManager>(
     jobEntry_->getSimulationEntry()->getTimeSync(),
     jobEntry_->getSimulationEntry()->getTimeSyncAcceleration());
-  enableZmq_ = jobEntry_->getSimulationEntry()->getEnableZmq();
-  if (enableZmq_) {
-    externalStepTriggerTimeStepInS_ = jobEntry_->getSimulationEntry()->getExternalStepTriggerTimeStepInS();
-    eventSubscriber_ = std::make_shared<EventSubscriber>(jobEntry_->getSimulationEntry()->getEnableExternalStepTrigger());
+  bool subscribeActions = jobEntry_->getSimulationEntry()->getEventSubscriberActions();
+  bool subscribeTrigger = jobEntry_->getSimulationEntry()->getEventSubscriberTrigger();
+  std::cout << "subcribe trigger:  " << subscribeTrigger << " , actions: " << subscribeActions << std::endl;
+  if (subscribeActions || subscribeTrigger) {
+    triggerSimulationTimeStepInS_ = jobEntry_->getSimulationEntry()->getTriggerSimulationTimeStepInS();
+    eventSubscriber_ = std::make_shared<EventSubscriber>(subscribeTrigger, subscribeActions);
   }
-  if (timeManager_->getTimeSync() || (eventSubscriber_ && eventSubscriber_->isExtSync())) {
+  if (timeManager_->getTimeSync() || (eventSubscriber_ && eventSubscriber_->triggerEnabled())) {
     wsServer_ = std::make_shared<wsc::WebsocketServer>();
     wsServer_->run(9001);
     std::cout << "Websocket server started" << std::endl;
@@ -173,12 +108,11 @@ Simulation(jobEntry, context, data) {
 void
 SimulationRT::simulate() {
   Timer timer("SimulationRT::simulate()");
-  if (enableZmq_) {
+  if (eventSubscriber_) {
     eventSubscriber_->setModel(model_);
     eventSubscriber_->start();
   }
 
-  std::cout << "simulate IN" << std::endl;
   printSolverHeader();
 
   // Printing out the initial solution
@@ -214,21 +148,18 @@ SimulationRT::simulate() {
     }
     int currentIterNb = 0;
     double nextTimeStep = 0;
-    std::cout << "simulate() start" << std::endl;
 
     if (timeManager_)
       timeManager_->start(tCurrent_);
 
 
-    double nextTToTrigger = tCurrent_ + externalStepTriggerTimeStepInS_;  // Only used if (enableZmq_ && eventSubscriber_->isExtSync())
+    double nextTToTrigger = tCurrent_ + triggerSimulationTimeStepInS_;  // Only used if (eventSubscriber_ && eventSubscriber_->triggerEnabled())
 
     while (!end() && !SignalHandler::gotExitSignal() && criteriaChecked) {
       // option1: ZMQ --> wait for an empty message before simulating next time step
-      if (eventSubscriber_ && eventSubscriber_->isExtSync()) {
-        if (tCurrent_ > nextTToTrigger) {
-          nextTToTrigger += externalStepTriggerTimeStepInS_;
-          eventSubscriber_ -> wait();
-        }
+      if (eventSubscriber_ && eventSubscriber_->triggerEnabled() && tCurrent_ >= nextTToTrigger) {
+        nextTToTrigger += triggerSimulationTimeStepInS_;
+        eventSubscriber_->wait();
       }
 
       // option2: TimeManager --> sleep in the loop
@@ -238,7 +169,7 @@ SimulationRT::simulate() {
       std::cout << "tCurrent_ = " << tCurrent_ << std::endl;
 
       // Apply actions from event subscriber
-      if (eventSubscriber_)
+      if (eventSubscriber_ && eventSubscriber_->actionsEnabled())
         eventSubscriber_->applyActions();
 
       double elapsed = timer.elapsed();
@@ -433,7 +364,6 @@ SimulationRT::initStepDurationCurve() {
   curve->setAvailable(true);
   curve->setBuffer(timeManager_->getStepDurationAddr());
   curvesCollection_->add(curve);
-  std::cout << "ADDED CURVE TS" << std::endl;
 }
 
 void
@@ -443,11 +373,10 @@ SimulationRT::terminate() {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("Simulation::terminate()");
 #endif
-  std::cout << "TERMINATE" << std::endl;
   if (wsServer_)
     wsServer_->stop();
 
-  if (enableZmq_)
+  if (eventSubscriber_)
     eventSubscriber_->stop();
   updateParametersValues();   // update parameter curves' value
 

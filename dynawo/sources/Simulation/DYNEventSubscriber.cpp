@@ -30,9 +30,12 @@ using parameters::ParametersSetFactory;
 
 namespace DYN {
 
-EventSubscriber::EventSubscriber(bool extSync):
+EventSubscriber::EventSubscriber(bool triggerEnabled, bool actionEnabled):
 socket_(context_, zmqpp::socket_type::reply),
-extSync_(extSync) {
+running_(false),
+ready_(false),
+triggerEnabled_(triggerEnabled),
+actionsEnabled_(actionEnabled) {
   socket_.bind("tcp://*:5555");
 }
 
@@ -44,20 +47,19 @@ EventSubscriber::setModel(std::shared_ptr<Model>& model) {
 void
 EventSubscriber::start() {
   if (!model_) {
-    std::cout << "ZMQ EventSubscriber model not set. Can't start" << std::endl;
+    std::cout << "EventSubscriber: model not set. Can't start" << std::endl;
     return;
   }
-  receiverThread_ = std::thread(&EventSubscriber::messageReceiver, this);
-  std::cout << "ZMQ thread started" << std::endl;
   running_ = true;
+  receiverThread_ = std::thread(&EventSubscriber::messageReceiver, this);
+  std::cout << "EventSubscriber: thread started" << std::endl;
 }
 
 void
 EventSubscriber::stop() {
-  if (extSync_)
-    simulationStepTriggerCondition_.notify_all();
+  simulationStepTriggerCondition_.notify_all();
   receiverThread_.join();
-  std::cout << "ZMQ thread stopped" << std::endl;
+  std::cout << "EventSubscriber: thread stopped" << std::endl;
   running_ = false;
 }
 
@@ -66,8 +68,8 @@ EventSubscriber::applyActions() {
   std::lock_guard<std::mutex> actionLock(actions_mutex_);
   for (std::shared_ptr<Action>& action : actions_) {
     action->model->updateParameters(action->parametersSet);
-    Trace::info() << "Action: SubModel " << action->modelName << " parameters updated" << Trace::endline;
-    std::cout << "Action: SubModel " << action->modelName << " parameters updated" << std::endl;
+    Trace::info() << "EventSubscriber: SubModel " << action->modelName << " parameters updated" << Trace::endline;
+    std::cout << "EventSubscriber: SubModel " << action->modelName << " parameters updated" << std::endl;
   }
   actions_.clear();
 }
@@ -77,7 +79,7 @@ EventSubscriber::registerAction(const std::string& modelName, std::shared_ptr<pa
   std::shared_ptr<ModelMulti> model = std::dynamic_pointer_cast<ModelMulti>(model_);
   boost::shared_ptr<SubModel> subModel = model->findSubModelByName(modelName);
   if (!subModel) {
-    Trace::error() << "Action: Impossible to register action. Unknown SubModel: " << modelName << Trace::endline;
+    Trace::error() << "EventSubscriber: Impossible to register action. Unknown SubModel: " << modelName << Trace::endline;
     return false;
   }
 
@@ -89,7 +91,7 @@ EventSubscriber::registerAction(const std::string& modelName, std::shared_ptr<pa
     std::lock_guard<std::mutex> actionLock(actions_mutex_);
     actions_.push_back(newAction);
   }
-  Trace::info() << "Action: New action registered on model: " << modelName << Trace::endline;
+  Trace::info() << "EventSubscriber: New action registered on model: " << modelName << Trace::endline;
   return true;
 }
 
@@ -97,35 +99,36 @@ EventSubscriber::registerAction(const std::string& modelName, std::shared_ptr<pa
 void
 EventSubscriber::messageReceiver() {
   while (running_ && !SignalHandler::gotExitSignal()) {
-    // std::cout << "... zmq receiver loop" << std::endl;
-
     zmqpp::message message;
 
     // Non-blocking receive
     if (socket_.receive(message, true)) {
-      std::cout << "Action: message received" << std::endl;
+      std::cout << "EventSubscriber: message received" << std::endl;
 
       std::string input;
       message >> input;
 
       zmqpp::message reply;
-      if (input.empty() && extSync_) {
+      if (input.empty() && triggerEnabled_) {
           // trigger next step
+          reply << "Step triggered";
           std::lock_guard<std::mutex> simulationLock(simulationMutex_);
           ready_ = true;
-          simulationStepTriggerCondition_.notify_one();
-          reply << "Step triggered";
           socket_.send(reply);
-      } else {
+          simulationStepTriggerCondition_.notify_one();
+      } else if (actionsEnabled_) {
         std::shared_ptr<ParametersSet> parametersSet = parseParametersSet(input);
 
         // Register the action
         zmqpp::message reply;
         if (registerAction(parametersSet->getId(), parametersSet)) {
-          reply << "OK";
+          reply << "Action registered";
         } else {
-          reply << "KO";
+          reply << "Action registration failed";
         }
+        socket_.send(reply);
+      } else {
+        reply << "Unknown request";
         socket_.send(reply);
       }
     }
@@ -133,12 +136,13 @@ EventSubscriber::messageReceiver() {
     // Sleep briefly to reduce CPU usage
     std::this_thread::sleep_for(std::chrono::milliseconds(10));
   }
+  ready_ = true;
   simulationStepTriggerCondition_.notify_all();
 }
 
 std::shared_ptr<ParametersSet>
 EventSubscriber::parseParametersSet(std::string& input) {
-  std::cout << "Action: register: " << input << std::endl;
+  std::cout << "EventSubscriber: register: " << input << std::endl;
   std::istringstream stream(input);
   std::string token;
   std::string modelName;
@@ -157,14 +161,14 @@ EventSubscriber::parseParametersSet(std::string& input) {
     if (std::getline(stream, token, ',')) {
         type = token;
     } else {
-      Trace::error() << "Action: Could not parse action, incomplete data" << Trace::endline;
+      Trace::error() << "EventSubscriber: Could not parse action, incomplete data" << Trace::endline;
       return std::shared_ptr<ParametersSet>();
     }
 
     if (std::getline(stream, token, ',')) {
         value = token;
     } else {
-      Trace::error() << "Action: Could not parse action, incomplete data" << Trace::endline;
+      Trace::error() << "EventSubscriber: Could not parse action, incomplete data" << Trace::endline;
       return std::shared_ptr<ParametersSet>();
     }
 
@@ -172,34 +176,34 @@ EventSubscriber::parseParametersSet(std::string& input) {
     if (type == "int") {
       try {
         parametersSet->createParameter(parameter, std::stoi(value));
-        std::cout << "Action: int param: " << parameter << " = " << value << std::endl;
+        std::cout << "EventSubscriber: int param: " << parameter << " = " << value << std::endl;
       } catch (const std::exception&) {
-        Trace::error() << "Action: Could not parse action, Invalid integer value: " << value << Trace::endline;
+        Trace::error() << "EventSubscriber: Could not parse action, Invalid integer value: " << value << Trace::endline;
         return std::shared_ptr<ParametersSet>();
       }
     } else if (type == "double") {
       try {
         parametersSet->createParameter(parameter, std::stod(value));
-        std::cout << "Action: double param: " << parameter << " = " << value << std::endl;
+        std::cout << "EventSubscriber: double param: " << parameter << " = " << value << std::endl;
       } catch (const std::exception&) {
-        Trace::error() << "Action: Could not parse action, Invalid double value: " << value << Trace::endline;
+        Trace::error() << "EventSubscriber: Could not parse action, Invalid double value: " << value << Trace::endline;
         return std::shared_ptr<ParametersSet>();
       }
     } else if (type == "bool") {
       try {
         bool bval = std::stoi(value);
         parametersSet->createParameter(parameter, bval);
-        std::cout << "Action: bool param: " << parameter << " = " << value << std::endl;
+        std::cout << "EventSubscriber: bool param: " << parameter << " = " << value << std::endl;
       } catch (const std::exception&) {
-        Trace::error() << "Action: Could not parse action, Invalid double value: " << value << Trace::endline;
+        Trace::error() << "EventSubscriber: Could not parse action, Invalid double value: " << value << Trace::endline;
         return std::shared_ptr<ParametersSet>();
       }
     } else if (type == "string") {
       parametersSet->createParameter(parameter, value);
-      std::cout << "Action: string param: " << parameter << " = " << value << std::endl;
+      std::cout << "EventSubscriber: string param: " << parameter << " = " << value << std::endl;
     } else {
-      std::cout << "Action: Could not parse action, unknown type: " << type << std::endl;
-      // Trace::error() << "Action: Could not parse action, unknown type: " << type << Trace::endline;
+      std::cout << "EventSubscriber: Could not parse action, unknown type: " << type << std::endl;
+      // Trace::error() << "EventSubscriber: Could not parse action, unknown type: " << type << Trace::endline;
       return std::shared_ptr<ParametersSet>();
     }
   }
@@ -211,11 +215,10 @@ EventSubscriber::parseParametersSet(std::string& input) {
 void
 EventSubscriber::wait() {
   std::cout << "EventSubscriber: wait for signal " << std::endl;
-  std::cout << "running_ ? " << running_ << std::endl;
   std::unique_lock<std::mutex> simulationLock(simulationMutex_);
-  simulationStepTriggerCondition_.wait(simulationLock);
+  simulationStepTriggerCondition_.wait(simulationLock, [this] {return ready_;});
   ready_ = false;
-  std::cout << "EventSubscriber: signal received " << std::endl;
+  std::cout << "EventSubscriber: trigger signal received " << std::endl;
 }
 
 }  // end of namespace DYN
