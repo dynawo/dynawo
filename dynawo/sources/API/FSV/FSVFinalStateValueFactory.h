@@ -23,7 +23,8 @@
 
 #include "FSVFinalStateValue.h"
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
+
 
 namespace finalStateValues {
 
@@ -38,9 +39,9 @@ class FinalStateValueFactory {
   /**
    * @brief Create new FinalStateValue instance
    *
-   * @returns a shared pointer to a new @p FinalStateValue
+   * @returns a unique pointer to a new @p FinalStateValue
    */
-  static boost::shared_ptr<FinalStateValue> newFinalStateValue();
+  static std::unique_ptr<FinalStateValue> newFinalStateValue();
 };
 
 }  //  namespace finalStateValues

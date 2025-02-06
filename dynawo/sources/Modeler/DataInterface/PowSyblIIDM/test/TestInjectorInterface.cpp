@@ -31,6 +31,7 @@
 #include <powsybl/iidm/Network.hpp>
 #include <powsybl/iidm/Substation.hpp>
 
+#include "make_unique.hpp"
 #include "gtest_dynawo.h"
 
 TEST(DataInterfaceTest, Injector_1) {
@@ -80,7 +81,7 @@ TEST(DataInterfaceTest, Injector_1) {
   ASSERT_EQ("Name for TRACE", Ifce.getIDInjector());
 
   ASSERT_EQ(Ifce.getBusInterfaceInjector().get(), nullptr);
-  std::unique_ptr<DYN::BusInterface> busIfce(new DYN::BusInterfaceIIDM(bus));
+  std::unique_ptr<DYN::BusInterface> busIfce = DYN::make_unique<DYN::BusInterfaceIIDM>(bus);
   Ifce.setBusInterfaceInjector(std::move(busIfce));
   ASSERT_EQ(Ifce.getBusInterfaceInjector().get()->getID(), "VL1_BUS1");
 

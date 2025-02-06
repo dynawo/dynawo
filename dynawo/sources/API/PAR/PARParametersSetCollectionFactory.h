@@ -22,7 +22,7 @@
 
 #include "PARParametersSetCollection.h"
 
-#include <boost/shared_ptr.hpp>
+
 namespace parameters {
 
 /**
@@ -37,18 +37,18 @@ class ParametersSetCollectionFactory {
   /**
    * @brief Create new ParametersSetCollection instance
    *
-   * @returns Shared pointer to a new empty @p ParametersSetCollection
+   * @returns Unique pointer to a new empty @p ParametersSetCollection
    */
-  static boost::shared_ptr<ParametersSetCollection> newCollection();
+  static std::unique_ptr<ParametersSetCollection> newCollection();
 
   /**
    * @brief Create new ParametersSetCollection instance as a clone of given instance
    *
    * @param[in] original ParametersSetCollection to be cloned
    *
-   * @returns Shared pointer to a new @p ParametersSetCollection copied from original
+   * @returns Unique pointer to a new @p ParametersSetCollection copied from original
    */
-  static boost::shared_ptr<ParametersSetCollection> copyCollection(boost::shared_ptr<ParametersSetCollection> original);
+  static std::unique_ptr<ParametersSetCollection> copyCollection(const std::unique_ptr<ParametersSetCollection>& original);
 };
 
 }  // namespace parameters

@@ -26,7 +26,6 @@
 #include "FSVFinalStateValue.h"
 #include "FSVFinalStateValuesCollection.h"
 
-#include <boost/shared_ptr.hpp>
 #include <xml/sax/parser/ComposableDocumentHandler.h>
 #include <xml/sax/parser/ComposableElementHandler.h>
 
@@ -53,7 +52,7 @@ class FinalStateValueHandler : public xml::sax::parser::ComposableElementHandler
    * @brief return the final state value read in xml file
    * @return final state value object build thanks to infos read in xml file
    */
-  boost::shared_ptr<FinalStateValue> get() const;
+  std::shared_ptr<FinalStateValue> get() const;
 
  protected:
   /**
@@ -63,7 +62,7 @@ class FinalStateValueHandler : public xml::sax::parser::ComposableElementHandler
   void create(attributes_type const& attributes);
 
  private:
-  boost::shared_ptr<FinalStateValue> finalStateValueRead_;  ///< current final state value
+  std::shared_ptr<FinalStateValue> finalStateValueRead_;  ///< current final state value
 };
 
 /**
@@ -90,7 +89,7 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
    *
    * @return Final state values collection parsed.
    */
-  boost::shared_ptr<FinalStateValuesCollection> getFinalStateValuesCollection();
+  std::shared_ptr<FinalStateValuesCollection> getFinalStateValuesCollection();
 
  private:
   /**
@@ -98,8 +97,8 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
    */
   void addFinalStateValue();
 
-  boost::shared_ptr<FinalStateValuesCollection> finalStateValuesCollection_;  ///< Final state values collection parsed
-  FinalStateValueHandler finalStateValueHandler_;                             ///< handler used to read final state value element
+  std::shared_ptr<FinalStateValuesCollection> finalStateValuesCollection_;  ///< Final state values collection parsed
+  FinalStateValueHandler finalStateValueHandler_;                           ///< handler used to read final state value element
 };
 
 }  // namespace finalStateValues

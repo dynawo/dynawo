@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// Copyright (c) 2024, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -11,23 +11,19 @@
 // simulation tool for power systems.
 //
 
-/**
- * @file  TLTimelineFactory.cpp
- *
- * @brief Dynawo timeline factory :  implementation file
- *
- */
+#ifndef COMMON_MAKE_UNIQUE_HPP_
+#define COMMON_MAKE_UNIQUE_HPP_
 
-#include "TLTimelineFactory.h"
-#include "TLTimeline.h"
+#include <memory>
 
-using std::string;
 
-namespace timeline {
+namespace DYN {
 
-std::unique_ptr<Timeline>
-TimelineFactory::newInstance(const string& id) {
-  return std::unique_ptr<Timeline>(new Timeline(id));
+template<typename T, typename ...Args>
+std::unique_ptr<T> make_unique(Args&& ...args) {
+  return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
 }
 
-}  // namespace timeline
+}  // namespace DYN
+
+#endif  // COMMON_MAKE_UNIQUE_HPP_

@@ -23,7 +23,6 @@
 #include "EXTVARIterators.h"
 #include "EXTVARVariable.h"
 
-#include <boost/shared_ptr.hpp>
 
 namespace externalVariables {
 
@@ -43,7 +42,7 @@ class VariablesCollection {
    * @param variable Variable to add
    * @throws Error::API exception if variable id already exists
    */
-  void addVariable(const boost::shared_ptr<Variable>& variable);
+  void addVariable(const std::shared_ptr<Variable>& variable);
 
   /**
    * @brief model iterator: beginning of variable
@@ -73,7 +72,7 @@ class VariablesCollection {
   friend class variable_const_iterator;
 
  private:
-  std::map<std::string, boost::shared_ptr<Variable> > variables_;  ///< Map of the variables
+  std::map<std::string, std::shared_ptr<Variable> > variables_;  ///< Map of the variables
 };
 
 }  // namespace externalVariables

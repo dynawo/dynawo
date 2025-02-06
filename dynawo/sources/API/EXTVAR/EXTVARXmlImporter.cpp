@@ -30,13 +30,12 @@
 
 using std::string;
 using std::vector;
-using boost::shared_ptr;
 
 namespace parser = xml::sax::parser;
 
 namespace externalVariables {
 
-shared_ptr<VariablesCollection>
+std::shared_ptr<VariablesCollection>
 XmlImporter::importFromFile(const string& fileName) const {
   std::ifstream stream(fileName.c_str());
   if (!stream)
@@ -49,7 +48,7 @@ XmlImporter::importFromFile(const string& fileName) const {
   }
 }
 
-boost::shared_ptr<VariablesCollection> XmlImporter::importFromStream(std::istream& stream) const {
+std::shared_ptr<VariablesCollection> XmlImporter::importFromStream(std::istream& stream) const {
   XmlHandler extVarHandler;
   xml::sax::parser::ParserFactory parser_factory;
   xml::sax::parser::ParserPtr parser = parser_factory.createParser();

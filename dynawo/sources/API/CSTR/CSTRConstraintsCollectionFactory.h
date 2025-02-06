@@ -44,24 +44,6 @@ class ConstraintsCollectionFactory {
    * @return unique pointer to a new empty @p ConstraintsCollection
    */
   static std::unique_ptr<ConstraintsCollection> newInstance(const std::string& id);
-
-  /**
-   * @brief Create new ConstraintsCollection instance as a clone of given instance
-   *
-   * @param[in] original ConstraintsCollection to be cloned
-   *
-   * @return Unique pointer to a new @p ConstraintsCollection copied from original
-   */
-  static std::unique_ptr<ConstraintsCollection> copyInstance(const std::shared_ptr<ConstraintsCollection>& original);
-
-  /**
-   * @brief Create new ConstraintsCollection instance as a clone of given instance
-   *
-   * @param[in] original ConstraintsCollection to be cloned
-   *
-   * @return Unique pointer to a new @p ConstraintsCollection copied from original
-   */
-  static std::unique_ptr<ConstraintsCollection> copyInstance(const ConstraintsCollection& original);
 };
 }  // namespace constraints
 

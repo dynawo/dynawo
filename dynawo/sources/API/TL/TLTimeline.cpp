@@ -23,13 +23,9 @@
 #include "TLEvent.h"
 #include "TLEventFactory.h"
 
-#include <boost/none.hpp>
-#include <iostream>
-#include <sstream>
 #include <vector>
 #include <set>
 
-using boost::shared_ptr;
 using std::string;
 using std::vector;
 using std::map;
@@ -44,14 +40,14 @@ Timeline::Timeline(const string& id) : id_(id) {}
 
 void
 Timeline::addEvent(const double& time, const string& modelName, const std::string& message, const boost::optional<int>& priority, const std::string& key) {
-  shared_ptr<Event> event = EventFactory::newEvent();
+  std::unique_ptr<Event> event = EventFactory::newEvent();
   event->setTime(time);
   event->setModelName(modelName);
   event->setMessage(message);
   event->setPriority(priority);
   event->setKey(key);
   if (events_.empty() || !eventEquals(*event, *events_.back()))
-    events_.push_back(event);
+    events_.push_back(std::move(event));
 }
 
 bool
@@ -154,7 +150,7 @@ Timeline::cendEvent() const {
 
 void
 Timeline::eraseEvents(int nbEvents) {
-  std::vector<boost::shared_ptr<Event> >::iterator firstPosition = events_.end();
+  std::vector<std::unique_ptr<Event> >::iterator firstPosition = events_.end();
   for (int i = 0; i < nbEvents; i++)
     firstPosition--;
   events_.erase(firstPosition, events_.end());
@@ -199,11 +195,11 @@ Timeline::event_const_iterator::operator!=(const Timeline::event_const_iterator&
   return current_ != other.current_;
 }
 
-const shared_ptr<Event>& Timeline::event_const_iterator::operator*() const {
+const std::unique_ptr<Event>& Timeline::event_const_iterator::operator*() const {
   return *current_;
 }
 
-const shared_ptr<Event>* Timeline::event_const_iterator::operator->() const {
+const std::unique_ptr<Event>* Timeline::event_const_iterator::operator->() const {
   return &(*current_);
 }
 

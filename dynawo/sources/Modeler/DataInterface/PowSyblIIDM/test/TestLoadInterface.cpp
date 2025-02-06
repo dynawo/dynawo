@@ -23,6 +23,7 @@
 #include <powsybl/iidm/Network.hpp>
 #include <powsybl/iidm/Substation.hpp>
 
+#include "make_unique.hpp"
 #include "gtest_dynawo.h"
 
 namespace powsybl {
@@ -95,7 +96,7 @@ TEST(DataInterfaceTest, Load_1) {
   ASSERT_TRUE(loadIfce.getInitialConnected());
 
   ASSERT_EQ(loadIfce.getBusInterface().get(), nullptr);
-  std::unique_ptr<BusInterface> busIfce(new BusInterfaceIIDM(bus1));
+  std::unique_ptr<BusInterface> busIfce = DYN::make_unique<BusInterfaceIIDM>(bus1);
   loadIfce.setBusInterface(std::move(busIfce));
   ASSERT_EQ(loadIfce.getBusInterface().get()->getID(), "VL1_BUS1");
 

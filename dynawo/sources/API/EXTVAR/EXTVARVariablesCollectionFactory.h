@@ -21,7 +21,6 @@
 #define API_EXTVAR_EXTVARVARIABLESCOLLECTIONFACTORY_H_
 
 #include <string>
-#include <boost/shared_ptr.hpp>
 
 #include "EXTVARVariablesCollection.h"
 
@@ -38,16 +37,16 @@ class VariablesCollectionFactory {
  public:
   /**
    * @brief Create new VariablesCollection instance
-   * @return Shared pointer to a new empty @p VariablesCollection
+   * @return Unique pointer to a new empty @p VariablesCollection
    */
-  static boost::shared_ptr<VariablesCollection> newCollection();
+  static std::unique_ptr<VariablesCollection> newCollection();
 
   /**
    * @brief Create new VariablesCollection instance as a clone of given instance
    * @param[in] original VariablesCollection to be cloned
-   * @return Shared pointer to a new @p VariablesCollection copied from original
+   * @return Unique pointer to a new @p VariablesCollection copied from original
    */
-  static boost::shared_ptr<VariablesCollection> copyCollection(boost::shared_ptr<VariablesCollection> original);
+  static std::unique_ptr<VariablesCollection> copyCollection(const std::unique_ptr<VariablesCollection>& original);
 };
 
 }  // namespace externalVariables
