@@ -16,6 +16,7 @@ set(SIM_SOURCES
       DYNSimulationRT.cpp
       DYNSimulationLauncher.cpp
       DYNEventSubscriber.cpp
+      DYNZmqPublisher.cpp
       )
 
 set(SIM_INCLUDE_HEADERS
@@ -23,6 +24,7 @@ set(SIM_INCLUDE_HEADERS
       DYNSimulationRT.h
       DYNSimulationLauncher.h
       DYNEventSubscriber.h
+      DYNZmqPublisher.h
       )
 
 add_library(dynawo_Simulation SHARED ${SIM_SOURCES})
