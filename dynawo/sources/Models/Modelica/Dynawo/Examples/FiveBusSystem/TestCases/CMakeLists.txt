@@ -11,8 +11,6 @@
 set(MODEL_FILES
   package.mo
   package.order
-  FiveBus.mo
-  FiveBusSystem.mo
   )
 
 #

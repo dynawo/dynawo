@@ -12,8 +12,9 @@ within Dynawo.Examples;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-package FiveBus "Five Bus example test case"
+package FiveBusSystem "Five Bus example test case"
   extends Icons.Package;
+
   annotation(
     Documentation(info = "<html><head></head><body>This package contains test cases that are a base for Dynawo tutorials. </body></html>"));
-end FiveBus;
+end FiveBusSystem;

@@ -29,6 +29,28 @@ model InitializedGeneratorSynchronousFourWindings "Model of synchronous generato
   parameter Types.Time Tpq0 "Open circuit quadrature axis transient time constant in s";
   parameter Types.Time Tppq0 "Open circuit quadrature axis sub-transient time constant in s";
 
+  //Input variables
+  Modelica.Blocks.Interfaces.RealInput efdPu_in annotation(
+    Placement(visible = true, transformation(origin = {-60, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-60, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealInput PmPu_in annotation(
+    Placement(visible = true, transformation(origin = {60, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {60, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
+
+  //Output variables
+  Modelica.Blocks.Interfaces.RealOutput IRotorPu_out annotation(
+    Placement(visible = true, transformation(origin = {40, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {40, 90},extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.ComplexBlocks.Interfaces.ComplexOutput iStatorPu_out annotation(
+    Placement(visible = true, transformation(origin = {-40, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-40, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealOutput omegaPu_out annotation(
+    Placement(visible = true, transformation(origin = {90, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(extent = {{80, -40}, {100, -20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput PGenPu_out annotation(
+    Placement(visible = true, transformation(origin = {90, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(extent = {{80, 40}, {100, 60}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput QGenPu_out annotation(
+    Placement(visible = true, transformation(origin = {90, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(extent = {{80, 0}, {100, 20}}, rotation = 0)));
+  Modelica.ComplexBlocks.Interfaces.ComplexOutput uPu_out annotation(
+    Placement(visible = true, transformation(origin = {-80, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-80, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealOutput UsPu_out annotation(
+    Placement(visible = true, transformation(origin = {90, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(extent = {{80, 80}, {100, 100}}, rotation = 0)));
+
   Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt4W_INIT gen_init4(U0Pu = U0Pu, UPhase0 = UPhase0, P0Pu = P0Pu, Q0Pu = Q0Pu, UNom = UNom, SNom = SNom, H = H, DPu = DPu, PNomTurb = PNomTurb, PNomAlt = PNomAlt, ExcitationPu = ExcitationPu, SnTfo = SnTfo, UNomHV = UNomHV, UNomLV = UNomLV, UBaseHV = UBaseHV, UBaseLV = UBaseLV, RTfPu = RTfPu, XTfPu = XTfPu, md = md, mq = mq, nd = nd, nq = nq, RaPu = RaPu, XlPu = XlPu, XdPu = XdPu, XpdPu = XpdPu, XppdPu = XppdPu, XqPu = XqPu, XppqPu = XppqPu, Tpd0 = Tpd0, Tppd0 = Tppd0, Tppq0 = Tppq0, Tpq0 = Tpq0, XpqPu = XpqPu);
 
 initial algorithm
@@ -102,6 +124,17 @@ initial algorithm
   RQ2PPu := gen_init4.RQ2PPu;
   MsalPu := gen_init4.MsalPu;
   MdPPuEfdNom := gen_init4.MdPPuEfdNom;
+
+equation
+  PmPu.value = PmPu_in;
+  efdPu.value = efdPu_in;
+  UsPu_out = UStatorPu.value;
+  omegaPu_out = omegaPu.value;
+  PGenPu_out = PGenPu;
+  QGenPu_out = QGenPu;
+  uPu_out = uPu;
+  iStatorPu_out = iStatorPu;
+  IRotorPu_out = IRotorPu.value;
 
   annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body>This model implements a four windings synchronous generator which is automatically initialized by an initialization model.<div>The standard parameters are passed to the initialization model, which in turn calculates the necessary operational parameters. The calculated values are then assigned to the respective generator parameters in an initial algorithm section. This way, the generator has appropriate parameters before the simulation starts. The model cannot use equations due to variability conflict (parameters and variables), therefore the assignment operator must be used. This is permissible, because the initial values do not change during simulation.</div></body></html>"));

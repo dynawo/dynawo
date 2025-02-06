@@ -12,6 +12,7 @@ add_subdirectory(BaseClasses B)
 add_subdirectory(SMIB S)
 add_subdirectory(BESS BS)
 add_subdirectory(ENTSOE E)
+add_subdirectory(FiveBusSystem FB)
 add_subdirectory(GridForming G)
 add_subdirectory(IEEE14 I14)
 add_subdirectory(IEEE57 I57)
@@ -25,7 +26,6 @@ add_subdirectory(SVarC SV)
 add_subdirectory(SystemFrequencyResponse SFR)
 add_subdirectory(Photovoltaics P)
 add_subdirectory(Wind W)
-add_subdirectory(FiveBus FB)
 
 set(MODEL_FILES
   package.mo
