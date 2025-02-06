@@ -30,9 +30,11 @@ partial model BaseLoad "Base model for loads"
     Placement(visible = true, transformation(origin = {75, -100}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {60, -84}, extent = {{-16, -16}, {16, 16}}, rotation = 90)));
 
   Dynawo.Connectors.ImPin UPu(value(start = ComplexMath.'abs'(u0Pu))) "Voltage amplitude at load terminal in pu (base UNom)";
+
   Types.ActivePowerPu PPu(start = s0Pu.re) "Active power at load terminal in pu (base SnRef) (receptor convention)";
   Types.ReactivePowerPu QPu(start = s0Pu.im) "Reactive power at load terminal in pu (base SnRef) (receptor convention)";
   Types.ComplexApparentPowerPu SPu(re(start = s0Pu.re), im(start = s0Pu.im)) "Apparent power at load terminal in pu (base SnRef) (receptor convention)";
+  Types.Angle UPhase(start = ComplexMath.arg(u0Pu)) "Voltage angle at terminal in rad";
 
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at load terminal in pu (base UNom)";
   parameter Types.ComplexApparentPowerPu s0Pu "Start value of apparent power at load terminal in pu (base SnRef) (receptor convention)";
@@ -44,8 +46,10 @@ equation
 
   if running.value then
     UPu.value = ComplexMath.'abs'(terminal.V);
+    UPhase = ComplexMath.arg(terminal.V);
   else
     UPu.value = 0;
+    UPhase = 0;
   end if;
 
   annotation(

@@ -29,6 +29,7 @@ partial model BaseGeneratorSimplified "Base model for simplified generator model
   Types.ActivePowerPu PGenPu(start = PGen0Pu) "Active power at terminal in pu (base SnRef) (generator convention)";
   Types.ReactivePowerPu QGenPu(start = QGen0Pu) "Reactive power at terminal in pu (base SnRef) (generator convention)";
   Types.ComplexApparentPowerPu SGenPu(re(start = PGen0Pu), im(start = QGen0Pu)) "Complex apparent power at terminal in pu (base SnRef) (generator convention)";
+  Types.Angle UPhase(start = ComplexMath.arg(u0Pu)) "Voltage angle at terminal in rad";
   Types.VoltageModulePu UPu(start = U0Pu) "Voltage amplitude at terminal in pu (base UNom)";
 
 equation
@@ -38,8 +39,10 @@ equation
 
   if running.value then
     UPu = ComplexMath.'abs'(terminal.V);
+    UPhase = ComplexMath.arg(terminal.V);
   else
     UPu = 0;
+    UPhase = 0;
   end if;
 
   annotation(preferredView = "text");
