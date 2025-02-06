@@ -52,7 +52,7 @@ class EventSubscriber {
   };
 
  public:
-  explicit EventSubscriber(bool extSync);
+  explicit EventSubscriber(bool triggerEnabled, bool actionsEnabled);
 
   void setModel(std::shared_ptr<Model>& modelMulti);
 
@@ -66,7 +66,9 @@ class EventSubscriber {
 
   void messageReceiver();
 
-  bool isExtSync() {return extSync_;}
+  bool triggerEnabled() {return triggerEnabled_;}
+
+  bool actionsEnabled() {return actionsEnabled_;}
 
   void wait();
 
@@ -78,10 +80,11 @@ class EventSubscriber {
   zmqpp::context context_;
   zmqpp::socket socket_;
   std::thread receiverThread_;
-  bool running_;
   std::shared_ptr<Model> model_;
-  bool extSync_;
+  bool running_;
   bool ready_;
+  bool triggerEnabled_;
+  bool actionsEnabled_;
   std::mutex simulationMutex_;
   std::condition_variable simulationStepTriggerCondition_;
 };

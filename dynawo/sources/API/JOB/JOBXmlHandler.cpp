@@ -261,12 +261,12 @@ SimulationHandler::create(attributes_type const& attributes) {
     simulation_->setTimeSync(attributes["timeSync"]);
   if (attributes.has("timeSyncAcceleration"))
     simulation_->setTimeSyncAcceleration(attributes["timeSyncAcceleration"]);
-  if (attributes.has("enableZmq"))
-    simulation_->setEnableZmq(attributes["enableZmq"]);
-  if (attributes.has("enableExternalStepTrigger"))
-    simulation_->setEnableExternalStepTrigger(attributes["enableExternalStepTrigger"]);
-  if (attributes.has("externalStepTriggerTimeStepInS"))
-    simulation_->setExternalStepTriggerTimeStepInS(attributes["externalStepTriggerTimeStepInS"]);
+  if (attributes.has("eventSubscriberActions"))
+    simulation_->setEventSubscriberActions(attributes["eventSubscriberActions"]);
+  if (attributes.has("eventSubscriberTrigger"))
+    simulation_->setEventSubscriberTrigger(attributes["eventSubscriberTrigger"]);
+  if (attributes.has("triggerSimulationTimeStepInS"))
+    simulation_->setTriggerSimulationTimeStepInS(attributes["triggerSimulationTimeStepInS"]);
 }
 
 shared_ptr<SimulationEntry>
