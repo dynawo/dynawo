@@ -198,6 +198,39 @@ class SimulationEntry {
     triggerSimulationTimeStepInS_ = triggerSimulationTimeStepInS_;
   }
 
+  /**
+   * @brief publishToWebsocket getter
+   * @returns publishToWebsocket
+   */
+  bool getPublishToWebsocket() const {
+    return publishToWebsocket_;
+  }
+
+  /**
+   * @brief publishToWebsocket setter
+   * @param publishToWebsocket
+   */
+  void setPublishToWebsocket(bool publishToWebsocket) {
+    publishToWebsocket_ = publishToWebsocket;
+  }
+
+
+  /**
+   * @brief publishToZmq getter
+   * @returns publishToZmq
+   */
+  bool getPublishToZmq() const {
+    return publishToZmq_;
+  }
+
+  /**
+   * @brief publishToZmq setter
+   * @param publishToZmq
+   */
+  void setPublishToZmq(bool publishToZmq) {
+    publishToZmq_ = publishToZmq;
+  }
+
  private:
   double startTime_;                        ///< Start time of the simulation
   double stopTime_;                         ///< Stop time of the simulation
@@ -207,9 +240,11 @@ class SimulationEntry {
   double timeout_;                          ///< simulation timeout
   bool timeSync_;                           ///< indicating if simulation must be sync with user clock
   double timeSyncAcceleration_;             ///< simulation timeout
-  bool eventSubscriberActions_;                          ///< enables zmq event subscriber
-  bool eventSubscriberTrigger_;          ///< enable extrernal step trigger
-  double triggerSimulationTimeStepInS_;   ///< simulation refresh rate (zmq enabled)
+  bool eventSubscriberActions_;             ///< enables zmq event subscriber
+  bool eventSubscriberTrigger_;             ///< enable extrernal step trigger
+  double triggerSimulationTimeStepInS_;     ///< simulation refresh rate (zmq enabled)
+  bool publishToZmq_;                       ///< publish step resuts to ZMQ
+  bool publishToWebsocket_;                 ///< publish curves update to Websocket
 };
 }  // namespace job
 

@@ -33,7 +33,9 @@ timeSync_(false),
 timeSyncAcceleration_(1.),
 eventSubscriberActions_(false),
 eventSubscriberTrigger_(false),
-triggerSimulationTimeStepInS_(1.)
+triggerSimulationTimeStepInS_(1.),
+publishToZmq_(false),
+publishToWebsocket_(false)
 {}
 
 void

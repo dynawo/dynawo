@@ -267,6 +267,10 @@ SimulationHandler::create(attributes_type const& attributes) {
     simulation_->setEventSubscriberTrigger(attributes["eventSubscriberTrigger"]);
   if (attributes.has("triggerSimulationTimeStepInS"))
     simulation_->setTriggerSimulationTimeStepInS(attributes["triggerSimulationTimeStepInS"]);
+  if (attributes.has("publishToZmq"))
+    simulation_->setPublishToZmq(attributes["publishToZmq"]);
+  if (attributes.has("publishToWebsocket"))
+    simulation_->setPublishToWebsocket(attributes["publishToWebsocket"]);
 }
 
 shared_ptr<SimulationEntry>

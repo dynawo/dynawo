@@ -37,6 +37,7 @@
 #include "WSCServer.h"
 #include "DYNTimeManager.h"
 #include "DYNEventSubscriber.h"
+#include "DYNZmqPublisher.h"
 
 namespace websocket {
 class WebsocketServer;
@@ -99,9 +100,14 @@ class SimulationRT: public Simulation {
   void simulate();
 
   /**
-   * @brief update streams : at the end of each iteration, new points are added to curve
+   * @brief push last curves to websocket
    */
-  void curvesToStream();
+  void publishStepOutputs();
+
+  /**
+   * @brief format last curves point in JSON
+   */
+  void curvesToJson(std::string& outputString);
 
   /**
    * @brief update curves : at the end of each iteration, new points are added to curve
@@ -126,6 +132,8 @@ class SimulationRT: public Simulation {
 
   std::shared_ptr<EventSubscriber> eventSubscriber_;   ///< Event manager >
   double triggerSimulationTimeStepInS_;  ///< Event manager >
+
+  std::shared_ptr<ZmqPublisher> stepPublisher_;   ///< result publisher
 };
 
 }  // end of namespace DYN

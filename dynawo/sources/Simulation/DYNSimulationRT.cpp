@@ -55,6 +55,7 @@
 #include "DYNTimer.h"
 #include "DYNModelMulti.h"
 #include "DYNSubModel.h"
+#include "DYNZmqPublisher.h"
 
 using std::ofstream;
 using std::fstream;
@@ -88,6 +89,10 @@ namespace DYN {
 
 SimulationRT::SimulationRT(const std::shared_ptr<job::JobEntry>& jobEntry, const std::shared_ptr<SimulationContext>& context, boost::shared_ptr<DataInterface> data = boost::shared_ptr<DataInterface>()) :
 Simulation(jobEntry, context, data) {
+  if (jobEntry_->getSimulationEntry()->getPublishToZmq()) {
+    stepPublisher_ = std::make_shared<ZmqPublisher>();
+    std::cout << "ZMQ publisher server started" << std::endl;
+  }
   timeManager_ = std::make_shared<TimeManager>(
     jobEntry_->getSimulationEntry()->getTimeSync(),
     jobEntry_->getSimulationEntry()->getTimeSyncAcceleration());
@@ -98,7 +103,7 @@ Simulation(jobEntry, context, data) {
     triggerSimulationTimeStepInS_ = jobEntry_->getSimulationEntry()->getTriggerSimulationTimeStepInS();
     eventSubscriber_ = std::make_shared<EventSubscriber>(subscribeTrigger, subscribeActions);
   }
-  if (timeManager_->getTimeSync() || (eventSubscriber_ && eventSubscriber_->triggerEnabled())) {
+  if (jobEntry_->getSimulationEntry()->getPublishToWebsocket()) {
     wsServer_ = std::make_shared<wsc::WebsocketServer>();
     wsServer_->run(9001);
     std::cout << "Websocket server started" << std::endl;
@@ -259,6 +264,7 @@ SimulationRT::simulate() {
       if (timeManager_)
         Trace::info() << "TimeManagement: tCurrent_ = " << tCurrent_
         << " s; Step computation time: " << timeManager_->getStepDuration() << "ms" << Trace::endline;
+      publishStepOutputs();
     }
 
     // If we haven't evaluated the calculated variables for the last iteration before, we must do it here if it might be used in the post process
@@ -310,7 +316,21 @@ SimulationRT::simulate() {
 }
 
 void
-SimulationRT::curvesToStream() {
+SimulationRT::publishStepOutputs() {
+  string formatedString;
+  curvesToJson(formatedString);
+  if (wsServer_) {
+    wsServer_->sendMessage(formatedString);
+    Trace::info() << "data sent to websocket: \n" << formatedString << Trace::endline;
+  }
+  if (stepPublisher_) {
+    stepPublisher_->sendMessage(formatedString);
+    Trace::info() << "data sent to ZMQ: \n" << formatedString << Trace::endline;
+  }
+}
+
+void
+SimulationRT::curvesToJson(string& jsonCurves) {
   stringstream stream;
   double time = -1;
   stream << "{\n\t\"curves\": {\n";
@@ -339,11 +359,7 @@ SimulationRT::curvesToStream() {
   stream << "\t\t" << "\"time\": " << time << "\n";
   stream << "\t}\n}";
 
-  const string formatedString = stream.str();
-  if (wsServer_) {
-    wsServer_->sendMessage(formatedString);
-    Trace::info() << "sent message: \n" << formatedString << Trace::endline;
-  }
+  jsonCurves = stream.str();
 }
 
 void
@@ -353,7 +369,6 @@ SimulationRT::updateCurves(bool updateCalculateVariable) {
   Simulation::updateCurves(updateCalculateVariable);
   if (timeManager_)
     timeManager_->updateStepDurationValue();
-  curvesToStream();
 }
 
 void
