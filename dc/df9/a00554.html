@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNCommonModeler.h File Reference</title>
+<title>Dynawo: TestUtil.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -97,63 +97,45 @@ $(document).ready(function(){initNavTree('dc/df9/a00554.html','../../');});
   <div class="summary">
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">DYNCommonModeler.h File Reference</div>  </div>
+<div class="title">TestUtil.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Definition of utilities functions to use in modeler : header file.  
+<p>Utility for unit tests.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
-<code>#include &lt;map&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../d8/dc8/a00581_source.html">DYNElement.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;boost/iostreams/device/mapped_file.hpp&gt;</code><br />
 </div>
 <p><a href="../../dc/df9/a00554_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a1cf23a0b4d2b7cdcd0e6d5b75b304de3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/df9/a00554.html#a1cf23a0b4d2b7cdcd0e6d5b75b304de3">DYN::addElement</a> (const std::string &amp;name, const Element::typeElement &amp;type, std::vector&lt; Element &gt; &amp;elements, std::map&lt; std::string, int &gt; &amp;mapElement)</td></tr>
-<tr class="memdesc:a1cf23a0b4d2b7cdcd0e6d5b75b304de3"><td class="mdescLeft">&#160;</td><td class="mdescRight">add an element to existing structure  <a href="../../dc/df9/a00554.html#a1cf23a0b4d2b7cdcd0e6d5b75b304de3">More...</a><br /></td></tr>
-<tr class="separator:a1cf23a0b4d2b7cdcd0e6d5b75b304de3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af79540637f3b08b1085aaaf0c6114421"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/df9/a00554.html#af79540637f3b08b1085aaaf0c6114421">DYN::addSubElement</a> (const std::string &amp;name, const std::string &amp;elementName, const Element::typeElement &amp;type, const std::string parentName, const std::string &amp;parentType, std::vector&lt; Element &gt; &amp;elements, std::map&lt; std::string, int &gt; &amp;mapElement)</td></tr>
-<tr class="memdesc:af79540637f3b08b1085aaaf0c6114421"><td class="mdescLeft">&#160;</td><td class="mdescRight">add an sub-element to existing structure  <a href="../../dc/df9/a00554.html#af79540637f3b08b1085aaaf0c6114421">More...</a><br /></td></tr>
-<tr class="separator:af79540637f3b08b1085aaaf0c6114421"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa91d8c788d4426901ab173149051a531"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/df9/a00554.html#aa91d8c788d4426901ab173149051a531">DYN::replaceMacroInVariableId</a> (const std::string &amp;index, const std::string &amp;name, const std::string &amp;model1, const std::string &amp;model2, const std::string &amp;connector, std::string &amp;variableId)</td></tr>
-<tr class="memdesc:aa91d8c788d4426901ab173149051a531"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collect the existing connected extvar.  <a href="../../dc/df9/a00554.html#aa91d8c788d4426901ab173149051a531">More...</a><br /></td></tr>
-<tr class="separator:aa91d8c788d4426901ab173149051a531"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01ab03a6582f7fdb9e4a6e8c1921acd3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/df9/a00554.html#a01ab03a6582f7fdb9e4a6e8c1921acd3">compareFiles</a> (const std::string &amp;file1, const std::string &amp;file2)</td></tr>
+<tr class="memdesc:a01ab03a6582f7fdb9e4a6e8c1921acd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">operator to compare 2 files  <a href="#a01ab03a6582f7fdb9e4a6e8c1921acd3">More...</a><br /></td></tr>
+<tr class="separator:a01ab03a6582f7fdb9e4a6e8c1921acd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Definition of utilities functions to use in modeler : header file. </p>
+<div class="textblock"><p>Utility for unit tests. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="file_a1cf23a0b4d2b7cdcd0e6d5b75b304de3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#file_a1cf23a0b4d2b7cdcd0e6d5b75b304de3">&#9670;&nbsp;</a></span>addElement()</h2>
+<a id="a01ab03a6582f7fdb9e4a6e8c1921acd3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01ab03a6582f7fdb9e4a6e8c1921acd3">&#9670;&nbsp;</a></span>compareFiles()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void DYN::addElement </td>
+          <td class="memname">bool compareFiles </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
+          <td class="paramname"><em>file1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="../../d6/df4/a02735.html#aafec22d7d8eeb5bbc49fd4686f2a36f5">Element::typeElement</a> &amp;&#160;</td>
-          <td class="paramname"><em>type</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="../../d6/df4/a02735.html">Element</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>elements</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::map&lt; std::string, int &gt; &amp;&#160;</td>
-          <td class="paramname"><em>mapElement</em>&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file2</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -161,155 +143,22 @@ Functions</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>add an element to existing structure </p>
+<p>operator to compare 2 files </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">name</td><td>: name of the element </td></tr>
-    <tr><td class="paramname">type</td><td>: type of the element </td></tr>
-    <tr><td class="paramname">elements</td><td>: vector where the new element should be store </td></tr>
-    <tr><td class="paramname">mapElement</td><td>: map associating name of element and element where the new element should be store </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">file1</td><td>first file to compare </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">file2</td><td>second file to compare </td></tr>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a id="file_af79540637f3b08b1085aaaf0c6114421"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#file_af79540637f3b08b1085aaaf0c6114421">&#9670;&nbsp;</a></span>addSubElement()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::addSubElement </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>elementName</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d6/df4/a02735.html#aafec22d7d8eeb5bbc49fd4686f2a36f5">Element::typeElement</a> &amp;&#160;</td>
-          <td class="paramname"><em>type</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string&#160;</td>
-          <td class="paramname"><em>parentName</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>parentType</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="../../d6/df4/a02735.html">Element</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>elements</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::map&lt; std::string, int &gt; &amp;&#160;</td>
-          <td class="paramname"><em>mapElement</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>add an sub-element to existing structure </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>: name of the sub element </td></tr>
-    <tr><td class="paramname">elementName</td><td>: name of the element </td></tr>
-    <tr><td class="paramname">type</td><td>: type of the sub element </td></tr>
-    <tr><td class="paramname">parentName</td><td>: name of the parent model </td></tr>
-    <tr><td class="paramname">parentType</td><td>: type of the parent model </td></tr>
-    <tr><td class="paramname">elements</td><td>: vector where the new sub element should be store </td></tr>
-    <tr><td class="paramname">mapElement</td><td>: map associating name of element and element where the new sub element should be store </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="file_aa91d8c788d4426901ab173149051a531"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#file_aa91d8c788d4426901ab173149051a531">&#9670;&nbsp;</a></span>replaceMacroInVariableId()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::replaceMacroInVariableId </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>index</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>model1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>model2</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>connector</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string &amp;&#160;</td>
-          <td class="paramname"><em>variableId</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Collect the existing connected extvar. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">index</td><td>string that should be inserted if @INDEX@ is found in variableId </td></tr>
-    <tr><td class="paramname">name</td><td>string that should be inserted if @NAME@ is found in variableId </td></tr>
-    <tr><td class="paramname">model1</td><td>name of the first model connected by this macro connection </td></tr>
-    <tr><td class="paramname">model2</td><td>name of the second model connected by this macro connection </td></tr>
-    <tr><td class="paramname">connector</td><td>macro connection name </td></tr>
-    <tr><td class="paramname">variableId</td><td>after calling this method, contains the variable id with name and index macros replaced </td></tr>
-  </table>
-  </dd>
-</dl>
+<dl class="section return"><dt>Returns</dt><dd><b>true</b> if file1 == file2 <b>false</b> else </dd></dl>
 
 </div>
 </div>
@@ -329,8 +178,8 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_7d7d21115b5241938a60e6b8a57ea766.html">Modeler</a></li><li class="navelem"><a class="el" href="../../dir_a96cc45270be55e9fc3691253afb6f87.html">Common</a></li><li class="navelem"><a class="el" href="../../dc/df9/a00554.html">DYNCommonModeler.h</a></li>
-    <li class="footer">Generated on Mon Feb 3 2025 17:52:20 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c5eaf1ac1cf936f6800d020d474d243d.html">Common</a></li><li class="navelem"><a class="el" href="../../dc/df9/a00554.html">TestUtil.h</a></li>
+    <li class="footer">Generated on Thu Feb 6 2025 14:14:29 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

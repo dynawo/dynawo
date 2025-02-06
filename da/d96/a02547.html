@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: timeline::Timeline Class Reference</title>
+<title>Dynawo: Member List</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('da/d96/a02547.html','../../');});
+$(document).ready(function(){initNavTree('d8/d4a/a02550.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,364 +94,26 @@ $(document).ready(function(){initNavTree('da/d96/a02547.html','../../');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
-<a href="../../d1/df6/a02544.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">timeline::Timeline Class Reference</div>  </div>
+<div class="title">timeline::Timeline Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="../../da/d96/a02547.html" title="Timeline interface class. ">Timeline</a> interface class.  
- <a href="../../da/d96/a02547.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="../../d1/d0b/a00452_source.html">TLTimeline.h</a>&gt;</code></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df2/a02551.html">event_const_iterator</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Const iterator over events.  <a href="../../db/df2/a02551.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:aa9523afe943277a6874a86dd4676530e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d96/a02547.html#aa9523afe943277a6874a86dd4676530e">Timeline</a> (const std::string &amp;id)</td></tr>
-<tr class="memdesc:aa9523afe943277a6874a86dd4676530e"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructor  <a href="#aa9523afe943277a6874a86dd4676530e">More...</a><br /></td></tr>
-<tr class="separator:aa9523afe943277a6874a86dd4676530e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a229528bbc93d7def1f760bcee7a2d887"><td class="memItemLeft" align="right" valign="top"><a id="a229528bbc93d7def1f760bcee7a2d887"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d96/a02547.html#a229528bbc93d7def1f760bcee7a2d887">Timeline</a> (const <a class="el" href="../../da/d96/a02547.html">Timeline</a> &amp;)=delete</td></tr>
-<tr class="memdesc:a229528bbc93d7def1f760bcee7a2d887"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor. <br /></td></tr>
-<tr class="separator:a229528bbc93d7def1f760bcee7a2d887"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0c74f85c3a51958986f0212331af09d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../da/d96/a02547.html">Timeline</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d96/a02547.html#ad0c74f85c3a51958986f0212331af09d">operator=</a> (const <a class="el" href="../../da/d96/a02547.html">Timeline</a> &amp;)=delete</td></tr>
-<tr class="memdesc:ad0c74f85c3a51958986f0212331af09d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default copy assigment operator.  <a href="#ad0c74f85c3a51958986f0212331af09d">More...</a><br /></td></tr>
-<tr class="separator:ad0c74f85c3a51958986f0212331af09d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b9f69caadaf069dfff7660c54af30e7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d96/a02547.html#a9b9f69caadaf069dfff7660c54af30e7">addEvent</a> (const double &amp;time, const std::string &amp;modelName, const std::string &amp;message, const boost::optional&lt; int &gt; &amp;priority, const std::string &amp;key)</td></tr>
-<tr class="memdesc:a9b9f69caadaf069dfff7660c54af30e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an event to the timeline.  <a href="#a9b9f69caadaf069dfff7660c54af30e7">More...</a><br /></td></tr>
-<tr class="separator:a9b9f69caadaf069dfff7660c54af30e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7ffc731a92e1c9836888d6a18311b5c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d96/a02547.html#ab7ffc731a92e1c9836888d6a18311b5c">getSizeEvents</a> ()</td></tr>
-<tr class="memdesc:ab7ffc731a92e1c9836888d6a18311b5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of event getter  <a href="#ab7ffc731a92e1c9836888d6a18311b5c">More...</a><br /></td></tr>
-<tr class="separator:ab7ffc731a92e1c9836888d6a18311b5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7a5b500579c727ca90b72bfe8443e3b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d96/a02547.html#ad7a5b500579c727ca90b72bfe8443e3b">filter</a> (const std::unordered_map&lt; std::string, std::unordered_set&lt; std::string &gt;&gt; &amp;oppositeEventDico)</td></tr>
-<tr class="memdesc:ad7a5b500579c727ca90b72bfe8443e3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">filter the timeline by removing duplicated events and opposed events happening in the same time step  <a href="#ad7a5b500579c727ca90b72bfe8443e3b">More...</a><br /></td></tr>
-<tr class="separator:ad7a5b500579c727ca90b72bfe8443e3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7141dbbaaa3f27bfb8785aeeaad55cca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../db/df2/a02551.html">event_const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d96/a02547.html#a7141dbbaaa3f27bfb8785aeeaad55cca">cbeginEvent</a> () const</td></tr>
-<tr class="memdesc:a7141dbbaaa3f27bfb8785aeeaad55cca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get an <a class="el" href="../../db/df2/a02551.html" title="Const iterator over events. ">event_const_iterator</a> to the beginning of the events' set.  <a href="#a7141dbbaaa3f27bfb8785aeeaad55cca">More...</a><br /></td></tr>
-<tr class="separator:a7141dbbaaa3f27bfb8785aeeaad55cca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a885986233792d0ccfa7e8b7d679525c7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../db/df2/a02551.html">event_const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d96/a02547.html#a885986233792d0ccfa7e8b7d679525c7">cendEvent</a> () const</td></tr>
-<tr class="memdesc:a885986233792d0ccfa7e8b7d679525c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get an <a class="el" href="../../db/df2/a02551.html" title="Const iterator over events. ">event_const_iterator</a> to the end of the parameters' set.  <a href="#a885986233792d0ccfa7e8b7d679525c7">More...</a><br /></td></tr>
-<tr class="separator:a885986233792d0ccfa7e8b7d679525c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2c695a96ca4b900f3b6d5748728a31b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d96/a02547.html#ae2c695a96ca4b900f3b6d5748728a31b">eraseEvents</a> (int nbEvents)</td></tr>
-<tr class="memdesc:ae2c695a96ca4b900f3b6d5748728a31b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erase the nbEvents in the timeline being before lastEventPosition.  <a href="#ae2c695a96ca4b900f3b6d5748728a31b">More...</a><br /></td></tr>
-<tr class="separator:ae2c695a96ca4b900f3b6d5748728a31b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:aca75aef4c4bb324eaa57ea338be5f916"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d96/a02547.html#aca75aef4c4bb324eaa57ea338be5f916">eventEquals</a> (const <a class="el" href="../../d6/d51/a02535.html">Event</a> &amp;left, const <a class="el" href="../../d6/d51/a02535.html">Event</a> &amp;right) const</td></tr>
-<tr class="memdesc:aca75aef4c4bb324eaa57ea338be5f916"><td class="mdescLeft">&#160;</td><td class="mdescRight">compare two events  <a href="#aca75aef4c4bb324eaa57ea338be5f916">More...</a><br /></td></tr>
-<tr class="separator:aca75aef4c4bb324eaa57ea338be5f916"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:ab3c0a5b056f0decb9b46869a0fb38ad2"><td class="memItemLeft" align="right" valign="top"><a id="ab3c0a5b056f0decb9b46869a0fb38ad2"></a>
-std::vector&lt; std::unique_ptr&lt; <a class="el" href="../../d6/d51/a02535.html">Event</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d96/a02547.html#ab3c0a5b056f0decb9b46869a0fb38ad2">events_</a></td></tr>
-<tr class="memdesc:ab3c0a5b056f0decb9b46869a0fb38ad2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array of events. <br /></td></tr>
-<tr class="separator:ab3c0a5b056f0decb9b46869a0fb38ad2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af0e844662fdd46177d23db4a7c0a6ba7"><td class="memItemLeft" align="right" valign="top"><a id="af0e844662fdd46177d23db4a7c0a6ba7"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d96/a02547.html#af0e844662fdd46177d23db4a7c0a6ba7">id_</a></td></tr>
-<tr class="memdesc:af0e844662fdd46177d23db4a7c0a6ba7"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../da/d96/a02547.html" title="Timeline interface class. ">Timeline</a>'s id. <br /></td></tr>
-<tr class="separator:af0e844662fdd46177d23db4a7c0a6ba7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="../../da/d96/a02547.html" title="Timeline interface class. ">Timeline</a> interface class. </p>
-<p>Interface class for timeline object. This a container for events </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aa9523afe943277a6874a86dd4676530e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa9523afe943277a6874a86dd4676530e">&#9670;&nbsp;</a></span>Timeline()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">timeline::Timeline::Timeline </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>constructor </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">id</td><td><a class="el" href="../../da/d96/a02547.html" title="Timeline interface class. ">Timeline</a>'s id </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9b9f69caadaf069dfff7660c54af30e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b9f69caadaf069dfff7660c54af30e7">&#9670;&nbsp;</a></span>addEvent()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void timeline::Timeline::addEvent </td>
-          <td>(</td>
-          <td class="paramtype">const double &amp;&#160;</td>
-          <td class="paramname"><em>time</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>modelName</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>message</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const boost::optional&lt; int &gt; &amp;&#160;</td>
-          <td class="paramname"><em>priority</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>key</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Add an event to the timeline. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">time</td><td>time when the event occurs </td></tr>
-    <tr><td class="paramname">modelName</td><td>model where the event occurs </td></tr>
-    <tr><td class="paramname">message</td><td>event message </td></tr>
-    <tr><td class="paramname">priority</td><td>event priority, optional </td></tr>
-    <tr><td class="paramname">key</td><td>event key, empty if none </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a7141dbbaaa3f27bfb8785aeeaad55cca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7141dbbaaa3f27bfb8785aeeaad55cca">&#9670;&nbsp;</a></span>cbeginEvent()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../db/df2/a02551.html">event_const_iterator</a> timeline::Timeline::cbeginEvent </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Get an <a class="el" href="../../db/df2/a02551.html" title="Const iterator over events. ">event_const_iterator</a> to the beginning of the events' set. </p>
-<dl class="section return"><dt>Returns</dt><dd>beginning of constant iterator </dd></dl>
-
-</div>
-</div>
-<a id="a885986233792d0ccfa7e8b7d679525c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a885986233792d0ccfa7e8b7d679525c7">&#9670;&nbsp;</a></span>cendEvent()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../db/df2/a02551.html">event_const_iterator</a> timeline::Timeline::cendEvent </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Get an <a class="el" href="../../db/df2/a02551.html" title="Const iterator over events. ">event_const_iterator</a> to the end of the parameters' set. </p>
-<dl class="section return"><dt>Returns</dt><dd>end of constant iterator </dd></dl>
-
-</div>
-</div>
-<a id="ae2c695a96ca4b900f3b6d5748728a31b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae2c695a96ca4b900f3b6d5748728a31b">&#9670;&nbsp;</a></span>eraseEvents()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void timeline::Timeline::eraseEvents </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>nbEvents</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Erase the nbEvents in the timeline being before lastEventPosition. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">nbEvents</td><td>number of events to delete from the timeline starting from last event </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="aca75aef4c4bb324eaa57ea338be5f916"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aca75aef4c4bb324eaa57ea338be5f916">&#9670;&nbsp;</a></span>eventEquals()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool timeline::Timeline::eventEquals </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d6/d51/a02535.html">Event</a> &amp;&#160;</td>
-          <td class="paramname"><em>left</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d6/d51/a02535.html">Event</a> &amp;&#160;</td>
-          <td class="paramname"><em>right</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>compare two events </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">left</td><td>first event to compare </td></tr>
-    <tr><td class="paramname">right</td><td>second event to compare </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if left is the same event as right </dd></dl>
-
-</div>
-</div>
-<a id="ad7a5b500579c727ca90b72bfe8443e3b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7a5b500579c727ca90b72bfe8443e3b">&#9670;&nbsp;</a></span>filter()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void timeline::Timeline::filter </td>
-          <td>(</td>
-          <td class="paramtype">const std::unordered_map&lt; std::string, std::unordered_set&lt; std::string &gt;&gt; &amp;&#160;</td>
-          <td class="paramname"><em>oppositeEventDico</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>filter the timeline by removing duplicated events and opposed events happening in the same time step </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">oppositeEventDico</td><td>the opposite event dictionary </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ab7ffc731a92e1c9836888d6a18311b5c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7ffc731a92e1c9836888d6a18311b5c">&#9670;&nbsp;</a></span>getSizeEvents()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int timeline::Timeline::getSizeEvents </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>number of event getter </p>
-<dl class="section return"><dt>Returns</dt><dd>the number of events stored in timeline </dd></dl>
-
-</div>
-</div>
-<a id="ad0c74f85c3a51958986f0212331af09d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0c74f85c3a51958986f0212331af09d">&#9670;&nbsp;</a></span>operator=()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../da/d96/a02547.html">Timeline</a>&amp; timeline::Timeline::operator= </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../da/d96/a02547.html">Timeline</a> &amp;&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Default copy assigment operator. </p>
-<dl class="section return"><dt>Returns</dt><dd>a new parameter </dd></dl>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d1/d0b/a00452_source.html">TLTimeline.h</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="../../d8/d4a/a02550.html">timeline::Timeline</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/d4a/a02550.html#a9b9f69caadaf069dfff7660c54af30e7">addEvent</a>(const double &amp;time, const std::string &amp;modelName, const std::string &amp;message, const boost::optional&lt; int &gt; &amp;priority, const std::string &amp;key)</td><td class="entry"><a class="el" href="../../d8/d4a/a02550.html">timeline::Timeline</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/d4a/a02550.html#a7141dbbaaa3f27bfb8785aeeaad55cca">cbeginEvent</a>() const</td><td class="entry"><a class="el" href="../../d8/d4a/a02550.html">timeline::Timeline</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/d4a/a02550.html#a885986233792d0ccfa7e8b7d679525c7">cendEvent</a>() const</td><td class="entry"><a class="el" href="../../d8/d4a/a02550.html">timeline::Timeline</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/d4a/a02550.html#ae2c695a96ca4b900f3b6d5748728a31b">eraseEvents</a>(int nbEvents)</td><td class="entry"><a class="el" href="../../d8/d4a/a02550.html">timeline::Timeline</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/d4a/a02550.html#aca75aef4c4bb324eaa57ea338be5f916">eventEquals</a>(const Event &amp;left, const Event &amp;right) const</td><td class="entry"><a class="el" href="../../d8/d4a/a02550.html">timeline::Timeline</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/d4a/a02550.html#ab3c0a5b056f0decb9b46869a0fb38ad2">events_</a></td><td class="entry"><a class="el" href="../../d8/d4a/a02550.html">timeline::Timeline</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/d4a/a02550.html#ad7a5b500579c727ca90b72bfe8443e3b">filter</a>(const std::unordered_map&lt; std::string, std::unordered_set&lt; std::string &gt;&gt; &amp;oppositeEventDico)</td><td class="entry"><a class="el" href="../../d8/d4a/a02550.html">timeline::Timeline</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/d4a/a02550.html#ab7ffc731a92e1c9836888d6a18311b5c">getSizeEvents</a>()</td><td class="entry"><a class="el" href="../../d8/d4a/a02550.html">timeline::Timeline</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/d4a/a02550.html#af0e844662fdd46177d23db4a7c0a6ba7">id_</a></td><td class="entry"><a class="el" href="../../d8/d4a/a02550.html">timeline::Timeline</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/d4a/a02550.html#ad0c74f85c3a51958986f0212331af09d">operator=</a>(const Timeline &amp;)=delete</td><td class="entry"><a class="el" href="../../d8/d4a/a02550.html">timeline::Timeline</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/d4a/a02550.html#aa9523afe943277a6874a86dd4676530e">Timeline</a>(const std::string &amp;id)</td><td class="entry"><a class="el" href="../../d8/d4a/a02550.html">timeline::Timeline</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/d4a/a02550.html#a229528bbc93d7def1f760bcee7a2d887">Timeline</a>(const Timeline &amp;)=delete</td><td class="entry"><a class="el" href="../../d8/d4a/a02550.html">timeline::Timeline</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -467,8 +129,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>timeline</b></li><li class="navelem"><a class="el" href="../../da/d96/a02547.html">Timeline</a></li>
-    <li class="footer">Generated on Mon Feb 3 2025 17:52:21 for Dynawo by
+    <li class="footer">Generated on Thu Feb 6 2025 14:14:31 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

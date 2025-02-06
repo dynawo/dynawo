@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNModelBus.h File Reference</title>
+<title>Dynawo: DYNDerivative.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,27 +95,47 @@ $(document).ready(function(){initNavTree('d3/dd1/a00914.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
-<div class="title">DYNModelBus.h File Reference</div>  </div>
+<div class="title">DYNDerivative.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;boost/optional.hpp&gt;</code><br />
-<code>#include &lt;boost/shared_ptr.hpp&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../df/dce/a00974_source.html">DYNNetworkComponent.h</a>&quot;</code><br />
-<code>#include &quot;DYNBitMask.h&quot;</code><br />
+<div class="textblock"><code>#include &lt;map&gt;</code><br />
 </div>
 <p><a href="../../d3/dd1/a00914_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dcf/a03219.html">DYN::ModelBus</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dd5/a03214.html">DYN::Derivatives</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de1/a03223.html">DYN::SubNetwork</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d48/a03218.html">DYN::BusDerivatives</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class for Derivative elements of Bus <a class="el" href="../../d9/db0/a02742.html" title="Generic model Generic class for Model. ">Model</a>.  <a href="../../d1/d48/a03218.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d1b/a03227.html">DYN::ModelBusContainer</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a1005e6185e88f78be2fc883fc2fca6bc"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dd1/a00914.html#a1005e6185e88f78be2fc883fc2fca6bc">DYN::typeDerivative_t</a> { <b>IR_DERIVATIVE</b> = 0, 
+<b>II_DERIVATIVE</b> = 1
+ }</td></tr>
+<tr class="separator:a1005e6185e88f78be2fc883fc2fca6bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="file_a1005e6185e88f78be2fc883fc2fca6bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_a1005e6185e88f78be2fc883fc2fca6bc">&#9670;&nbsp;</a></span>typeDerivative_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="../../d3/dd1/a00914.html#a1005e6185e88f78be2fc883fc2fca6bc">DYN::typeDerivative_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>define derivative Ir, Ii type </p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -132,8 +152,8 @@ Classes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_a4d4f000bd99afbf77ec024c15aebee1.html">Models</a></li><li class="navelem"><a class="el" href="../../dir_1d85a110c1104c8803c230870bb3238d.html">CPP</a></li><li class="navelem"><a class="el" href="../../dir_3973929b854910cd78a606b051bb30eb.html">ModelNetwork</a></li><li class="navelem"><a class="el" href="../../d3/dd1/a00914.html">DYNModelBus.h</a></li>
-    <li class="footer">Generated on Mon Feb 3 2025 17:52:20 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_a4d4f000bd99afbf77ec024c15aebee1.html">Models</a></li><li class="navelem"><a class="el" href="../../dir_1d85a110c1104c8803c230870bb3238d.html">CPP</a></li><li class="navelem"><a class="el" href="../../dir_3973929b854910cd78a606b051bb30eb.html">ModelNetwork</a></li><li class="navelem"><a class="el" href="../../d3/dd1/a00914.html">DYNDerivative.h</a></li>
+    <li class="footer">Generated on Thu Feb 6 2025 14:14:29 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

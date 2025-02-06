@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNSolverImpl.h File Reference</title>
+<title>Dynawo: DYNSolverFactory.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,39 +95,103 @@ $(document).ready(function(){initNavTree('d1/dd8/a01022.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">DYNSolverImpl.h File Reference</div>  </div>
+<div class="title">DYNSolverFactory.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Dynawo solvers : header file.  
+<p>Solver factory header.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
-<code>#include &lt;map&gt;</code><br />
-<code>#include &lt;boost/shared_ptr.hpp&gt;</code><br />
+<div class="textblock"><code>#include &lt;map&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;boost/core/noncopyable.hpp&gt;</code><br />
-<code>#include &lt;sundials/sundials_nvector.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../d7/d59/a01013_source.html">DYNSolver.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d9/d34/a00476_source.html">DYNEnumUtils.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d6/d8d/a01007_source.html">DYNParameterSolver.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../db/d23/a01025_source.html">DYNSolverImpl.hpp</a>&quot;</code><br />
+<code>#include &lt;boost/shared_ptr.hpp&gt;</code><br />
+<code>#include &lt;boost/dll.hpp&gt;</code><br />
+<code>#include &lt;boost/function.hpp&gt;</code><br />
 </div>
 <p><a href="../../d1/dd8/a01022_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d7f/a03367.html">DYN::stat_t</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure for storing solver statistics.  <a href="../../dc/d7f/a03367.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d24/a03358.html">DYN::SolverFactory</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../df/d24/a03358.html" title="SolverFactory class. ">SolverFactory</a> class.  <a href="../../df/d24/a03358.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d58/a03371.html">DYN::Solver::Impl</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d9/dc9/a03347.html" title="Solver interface class. ">Solver</a> implemented class.  <a href="../../d9/d58/a03371.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dce/a03362.html">DYN::SolverFactories</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../de/dce/a03362.html" title="SolverFactories class. ">SolverFactories</a> class.  <a href="../../de/dce/a03362.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d7f/a03366.html">DYN::SolverDelete</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../df/d7f/a03366.html" title="SolverDelete class. ">SolverDelete</a> class.  <a href="../../df/d7f/a03366.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a9a665d86010839a8d1ae953009ab4201"><td class="memItemLeft" align="right" valign="top"><a id="a9a665d86010839a8d1ae953009ab4201"></a>
+typedef void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dd8/a01022.html#a9a665d86010839a8d1ae953009ab4201">DYN::deleteSolverFactory_t</a>(SolverFactory *)</td></tr>
+<tr class="memdesc:a9a665d86010839a8d1ae953009ab4201"><td class="mdescLeft">&#160;</td><td class="mdescRight">function pointer type to destroy a solver. <br /></td></tr>
+<tr class="separator:a9a665d86010839a8d1ae953009ab4201"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a743ccef1ceb9f11929145604b1b12196"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d24/a03358.html">DYN::SolverFactory</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dd8/a01022.html#a743ccef1ceb9f11929145604b1b12196">getFactory</a> ()</td></tr>
+<tr class="memdesc:a743ccef1ceb9f11929145604b1b12196"><td class="mdescLeft">&#160;</td><td class="mdescRight">SolverFactory getter.  <a href="#a743ccef1ceb9f11929145604b1b12196">More...</a><br /></td></tr>
+<tr class="separator:a743ccef1ceb9f11929145604b1b12196"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae06ace1114b6742f6c3f55977e345710"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dd8/a01022.html#ae06ace1114b6742f6c3f55977e345710">deleteFactory</a> (<a class="el" href="../../df/d24/a03358.html">DYN::SolverFactory</a> *factory)</td></tr>
+<tr class="memdesc:ae06ace1114b6742f6c3f55977e345710"><td class="mdescLeft">&#160;</td><td class="mdescRight">SolverFactory destroy method.  <a href="#ae06ace1114b6742f6c3f55977e345710">More...</a><br /></td></tr>
+<tr class="separator:ae06ace1114b6742f6c3f55977e345710"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Dynawo solvers : header file. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Solver factory header. </p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="ae06ace1114b6742f6c3f55977e345710"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae06ace1114b6742f6c3f55977e345710">&#9670;&nbsp;</a></span>deleteFactory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void deleteFactory </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../df/d24/a03358.html">DYN::SolverFactory</a> *&#160;</td>
+          <td class="paramname"><em>factory</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SolverFactory destroy method. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">factory</td><td>the SolverFactory to destroy </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a743ccef1ceb9f11929145604b1b12196"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a743ccef1ceb9f11929145604b1b12196">&#9670;&nbsp;</a></span>getFactory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../df/d24/a03358.html">DYN::SolverFactory</a>* getFactory </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SolverFactory getter. </p>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to a new instance of SolverFactory </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -143,8 +207,8 @@ Classes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_a769528b188158bb44ac136b67c42939.html">Solvers</a></li><li class="navelem"><a class="el" href="../../dir_3c3ef2360bd5ecb4837d8def2fdc339b.html">Common</a></li><li class="navelem"><a class="el" href="../../d1/dd8/a01022.html">DYNSolverImpl.h</a></li>
-    <li class="footer">Generated on Mon Feb 3 2025 17:52:20 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_a769528b188158bb44ac136b67c42939.html">Solvers</a></li><li class="navelem"><a class="el" href="../../dir_3c3ef2360bd5ecb4837d8def2fdc339b.html">Common</a></li><li class="navelem"><a class="el" href="../../d1/dd8/a01022.html">DYNSolverFactory.h</a></li>
+    <li class="footer">Generated on Thu Feb 6 2025 14:14:29 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
