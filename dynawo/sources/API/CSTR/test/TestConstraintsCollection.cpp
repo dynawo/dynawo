@@ -30,18 +30,6 @@ namespace constraints {
 // TEST for ConstraintsCollection
 //-----------------------------------------------------
 
-TEST(APICSTRTest, ConstraintsCollection) {
-  std::shared_ptr<ConstraintsCollection> collection1 = ConstraintsCollectionFactory::newInstance("collection1");
-
-  std::unique_ptr<ConstraintsCollection> collection2;
-  std::unique_ptr<ConstraintsCollection> collection3;
-
-  ConstraintsCollection& refCollection1(*collection1);
-
-  ASSERT_NO_THROW(collection2 = ConstraintsCollectionFactory::copyInstance(collection1));
-  ASSERT_NO_THROW(collection3 = ConstraintsCollectionFactory::copyInstance(refCollection1));
-}
-
 TEST(APICSTRTest, ConstraintsCollectionIterator) {
   const std::unique_ptr<ConstraintsCollection> collection1 = ConstraintsCollectionFactory::newInstance("collection1");
 

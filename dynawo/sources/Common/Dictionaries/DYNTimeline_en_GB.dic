@@ -46,8 +46,8 @@ HVDC2MaxQ           =             HVDC : maximum reactive power limit reached fo
 HVDC2MinQ           =             HVDC : minimum reactive power limit reached for converter 2
 HVDC2BackRegulation =             HVDC : back to voltage / reactive power regulation for converter 2
 // --> BaseTapChangerPhaseShifter
-TapUp                     =             Tap +1
-TapDown                   =             Tap -1
+TapUp                     =             Tap position change (increment)
+TapDown                   =             Tap position change (decrement)
 // --> Tap-Changer
 TapChangerSwitchOn        =             Tap-changer : switched on
 TapChangerSwitchOff       =             Tap-changer : switched off

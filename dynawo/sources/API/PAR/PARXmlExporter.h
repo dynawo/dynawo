@@ -39,7 +39,7 @@ class XmlExporter : public Exporter {
    * @param filePath File to export XML formatted parameters to
    * @param encoding the encoding for xml (parameter is ignored if empty)
    */
-  virtual void exportToFile(const boost::shared_ptr<ParametersSetCollection>& collection, const std::string& filePath, const std::string& encoding = "") const;
+  virtual void exportToFile(const std::shared_ptr<ParametersSetCollection>& collection, const std::string& filePath, const std::string& encoding = "") const;
 
   /**
    * @brief Export method in XML format
@@ -48,7 +48,7 @@ class XmlExporter : public Exporter {
    * @param stream stream to export XML formatted parameters to
    * @param encoding the encoding for xml (parameter is ignored if empty)
    */
-  virtual void exportToStream(const boost::shared_ptr<ParametersSetCollection>& collection, std::ostream& stream, const std::string& encoding = "") const;
+  virtual void exportToStream(const std::shared_ptr<ParametersSetCollection>& collection, std::ostream& stream, const std::string& encoding = "") const;
 };
 
 }  // namespace parameters

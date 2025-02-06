@@ -32,7 +32,7 @@
 #include <boost/phoenix/operator/self.hpp>
 #include <xml/sax/parser/Attributes.h>
 
-using boost::shared_ptr;
+
 using std::map;
 using std::string;
 
@@ -58,7 +58,7 @@ XmlHandler::XmlHandler() :
 
 XmlHandler::~XmlHandler() {}
 
-shared_ptr<FinalStateValuesCollection>
+std::shared_ptr<FinalStateValuesCollection>
 XmlHandler::getFinalStateValuesCollection() {
   return finalStateValuesCollection_;
 }
@@ -81,7 +81,7 @@ FinalStateValueHandler::create(attributes_type const& attributes) {
   finalStateValueRead_->setVariable(attributes["variable"]);
 }
 
-shared_ptr<FinalStateValue>
+std::shared_ptr<FinalStateValue>
 FinalStateValueHandler::get() const {
   return finalStateValueRead_;
 }

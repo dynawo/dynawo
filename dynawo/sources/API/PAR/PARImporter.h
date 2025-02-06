@@ -23,6 +23,8 @@
 #include "PARParametersSetCollection.h"
 
 #include <string>
+#include <memory>
+
 
 namespace parameters {
 
@@ -50,7 +52,7 @@ class Importer {
    * @param fileName File name
    * @returns Collection imported
    */
-  virtual boost::shared_ptr<ParametersSetCollection> importFromFile(const std::string& fileName) const = 0;
+  virtual std::shared_ptr<ParametersSetCollection> importFromFile(const std::string& fileName) const = 0;
 
   /**
    * @brief Import parameters' set collection from stream
@@ -58,7 +60,7 @@ class Importer {
    * @param stream stream to import
    * @returns Collection imported
    */
-  virtual boost::shared_ptr<ParametersSetCollection> importFromStream(std::istream& stream) const = 0;
+  virtual std::shared_ptr<ParametersSetCollection> importFromStream(std::istream& stream) const = 0;
 };
 
 #ifdef __clang__

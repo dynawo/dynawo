@@ -19,10 +19,12 @@
 #ifndef API_EXTVAR_EXTVARXMLIMPORTER_H_
 #define API_EXTVAR_EXTVARXMLIMPORTER_H_
 
-#include <boost/shared_ptr.hpp>
 
 #include "EXTVARImporter.h"
 #include "EXTVARVariablesCollection.h"
+
+#include <memory>
+
 
 namespace externalVariables {
 
@@ -37,12 +39,12 @@ class XmlImporter : public Importer {
   /**
    * @copydoc Importer::importFromFile()
    */
-  boost::shared_ptr<VariablesCollection> importFromFile(const std::string& fileName) const;
+  std::shared_ptr<VariablesCollection> importFromFile(const std::string& fileName) const;
 
   /**
    * @copydoc Importer::importFromStream()
    */
-  boost::shared_ptr<VariablesCollection> importFromStream(std::istream& stream) const;
+  std::shared_ptr<VariablesCollection> importFromStream(std::istream& stream) const;
 };
 
 }  // namespace externalVariables

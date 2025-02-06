@@ -18,6 +18,7 @@
  */
 
 #include "gtest_dynawo.h"
+#include "make_unique.hpp"
 
 #include "CRVXmlImporter.h"
 
@@ -56,7 +57,7 @@ TEST(APICRVTest, testXmlFileImporter) {
 }
 
 TEST(APICRVTest, testXmlStreamImporter) {
-  const std::unique_ptr<XmlImporter> importer = std::unique_ptr<XmlImporter>(new XmlImporter());
+  const std::unique_ptr<XmlImporter> importer = DYN::make_unique<XmlImporter>();
   std::shared_ptr<CurvesCollection> curves;
   std::istringstream goodInputStream(
     "<?xml version='1.0' encoding='UTF-8'?>"

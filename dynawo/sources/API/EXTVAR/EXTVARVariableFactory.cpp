@@ -22,13 +22,11 @@
 
 using std::string;
 
-using boost::shared_ptr;
-
 namespace externalVariables {
 
-shared_ptr<Variable>
+std::unique_ptr<Variable>
 VariableFactory::newVariable(const string& id, Variable::Type type) {
-  return shared_ptr<Variable>(new Variable(id, type));
+  return std::unique_ptr<Variable>(new Variable(id, type));
 }
 
 }  // namespace externalVariables

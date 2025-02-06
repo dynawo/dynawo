@@ -21,6 +21,7 @@
 #include <powsybl/iidm/VoltageLevel.hpp>
 #include <powsybl/iidm/TopologyKind.hpp>
 
+#include "make_unique.hpp"
 #include "gtest_dynawo.h"
 #include "DYNVariable.h"
 #include "DYNSwitchInterfaceIIDM.h"
@@ -71,9 +72,9 @@ createModelSwitch(bool open, bool initModel) {
       .add();
   swIIDM.setOpen(open);
 
-  std::unique_ptr<BusInterfaceIIDM> bus1ItfIIDM = std::unique_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
-  std::unique_ptr<BusInterfaceIIDM> bus2ItfIIDM = std::unique_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus2));
-  std::unique_ptr<SwitchInterfaceIIDM> swItfIIDM = std::unique_ptr<SwitchInterfaceIIDM>(new SwitchInterfaceIIDM(swIIDM));
+  std::unique_ptr<BusInterfaceIIDM> bus1ItfIIDM = DYN::make_unique<BusInterfaceIIDM>(iidmBus);
+  std::unique_ptr<BusInterfaceIIDM> bus2ItfIIDM = DYN::make_unique<BusInterfaceIIDM>(iidmBus2);
+  std::unique_ptr<SwitchInterfaceIIDM> swItfIIDM = DYN::make_unique<SwitchInterfaceIIDM>(swIIDM);
 
   std::shared_ptr<ModelSwitch> sw = ModelSwitchFactory::newInstance(std::move(swItfIIDM));
   std::shared_ptr<ModelBus> bus1 = std::make_shared<ModelBus>(std::move(bus1ItfIIDM), false);
@@ -125,9 +126,9 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchInitializationOpened) {
       .add();
   swIIDM.setOpen(true);
 
-  std::unique_ptr<BusInterfaceIIDM> bus1ItfIIDM = std::unique_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
-  std::unique_ptr<BusInterfaceIIDM> bus2ItfIIDM = std::unique_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus2));
-  std::unique_ptr<SwitchInterfaceIIDM> swItfIIDM = std::unique_ptr<SwitchInterfaceIIDM>(new SwitchInterfaceIIDM(swIIDM));
+  std::unique_ptr<BusInterfaceIIDM> bus1ItfIIDM = DYN::make_unique<BusInterfaceIIDM>(iidmBus);
+  std::unique_ptr<BusInterfaceIIDM> bus2ItfIIDM = DYN::make_unique<BusInterfaceIIDM>(iidmBus2);
+  std::unique_ptr<SwitchInterfaceIIDM> swItfIIDM = DYN::make_unique<SwitchInterfaceIIDM>(swIIDM);
 
   std::shared_ptr<ModelSwitch> sw = ModelSwitchFactory::newInstance(std::move(swItfIIDM));
   ASSERT_EQ(sw->isInLoop(), false);
@@ -181,9 +182,9 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchInitializationClosed) {
       .add();
   swIIDM.setOpen(false);
 
-  std::unique_ptr<BusInterfaceIIDM> bus1ItfIIDM = std::unique_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
-  std::unique_ptr<BusInterfaceIIDM> bus2ItfIIDM = std::unique_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus2));
-  std::unique_ptr<SwitchInterfaceIIDM> swItfIIDM = std::unique_ptr<SwitchInterfaceIIDM>(new SwitchInterfaceIIDM(swIIDM));
+  std::unique_ptr<BusInterfaceIIDM> bus1ItfIIDM = DYN::make_unique<BusInterfaceIIDM>(iidmBus);
+  std::unique_ptr<BusInterfaceIIDM> bus2ItfIIDM = DYN::make_unique<BusInterfaceIIDM>(iidmBus2);
+  std::unique_ptr<SwitchInterfaceIIDM> swItfIIDM = DYN::make_unique<SwitchInterfaceIIDM>(swIIDM);
 
   std::shared_ptr<ModelSwitch> sw = ModelSwitchFactory::newInstance(std::move(swItfIIDM));
   ASSERT_EQ(sw->isInLoop(), false);

@@ -68,14 +68,14 @@ TEST(APIPARTest, CollectionAddParametersSet) {
 
 TEST(APIPARTest, CollectionFactory) {
   // Create a new parameters set collection with a parameters set
-  shared_ptr<ParametersSetCollection> collection1 = ParametersSetCollectionFactory::newCollection();
+  const std::unique_ptr<ParametersSetCollection> collection1 = ParametersSetCollectionFactory::newCollection();
 
   // Add a set of parameters to this collection
   std::shared_ptr<ParametersSet> parametersSet = ParametersSetFactory::newParametersSet("parameters");
   collection1->addParametersSet(parametersSet);
 
   // Copy this collection in a new collection
-  shared_ptr<ParametersSetCollection> collection2;
+  std::unique_ptr<ParametersSetCollection> collection2;
   ASSERT_NO_THROW(collection2 = ParametersSetCollectionFactory::copyCollection(collection1));
 
   // Check that the new collection has the same parameters set than the original

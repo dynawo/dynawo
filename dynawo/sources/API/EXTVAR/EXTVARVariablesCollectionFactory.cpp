@@ -20,18 +20,17 @@
 #include "EXTVARVariablesCollectionFactory.h"
 #include "EXTVARVariablesCollection.h"
 
-using boost::shared_ptr;
 
 namespace externalVariables {
 
-shared_ptr<VariablesCollection>
+std::unique_ptr<VariablesCollection>
 VariablesCollectionFactory::newCollection() {
-  return shared_ptr<VariablesCollection>(new VariablesCollection());
+  return std::unique_ptr<VariablesCollection>(new VariablesCollection());
 }
 
-shared_ptr<VariablesCollection>
-VariablesCollectionFactory::copyCollection(shared_ptr<VariablesCollection> original) {
-  return shared_ptr<VariablesCollection>(new VariablesCollection(*original));
+std::unique_ptr<VariablesCollection>
+VariablesCollectionFactory::copyCollection(const std::unique_ptr<VariablesCollection>& original) {
+  return std::unique_ptr<VariablesCollection>(new VariablesCollection(*original));
 }
 
 }  // namespace externalVariables

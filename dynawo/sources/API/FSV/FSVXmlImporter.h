@@ -40,7 +40,7 @@ class XmlImporter {
    *
    * @return Final state values collection imported
    */
-  boost::shared_ptr<FinalStateValuesCollection> importFromFile(const std::string &fileName) const;
+  std::shared_ptr<FinalStateValuesCollection> importFromFile(const std::string &fileName) const;
 
   /**
    * @brief Import final state values collection from stream
@@ -49,7 +49,7 @@ class XmlImporter {
    *
    * @return Final state values collection imported
    */
-  boost::shared_ptr<FinalStateValuesCollection> importFromStream(std::istream &stream) const;
+  std::shared_ptr<FinalStateValuesCollection> importFromStream(std::istream &stream) const;
 };
 
 }  // namespace finalStateValues
