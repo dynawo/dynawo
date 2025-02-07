@@ -16,7 +16,7 @@
  *
  * @brief DYNMessageTimeline header
  *
- *  Message are used to access to dictionnary log where log are described
+ *  Message are used to access dictionary log where log are described
  *  with the boost::format convention
  */
 
@@ -33,7 +33,7 @@ namespace DYN {
 
 /**
  * @class MessageTimeline
- * @brief  MessageTimeline are used to access to dictionnary log where log are described
+ * @brief  MessageTimeline are used to access dictionary log where log are described
  *  with the boost::format convention
  */
 class MessageTimeline : public Message {
@@ -41,15 +41,15 @@ class MessageTimeline : public Message {
   /**
    * @brief Constructor
    *
-   * @param key key to access to the message description
+   * @param key key to access the message description
    */
   explicit MessageTimeline(const std::string& key);
 
   /**
    * @brief Constructor
    *
-   * @param dicoName name of the dictionnary where the message is described
-   * @param key key to access to the message description
+   * @param dicoName name of the dictionary where the message is described
+   * @param key key to access the message description
    */
   explicit MessageTimeline(const std::string& dicoName, const std::string& key);
 
@@ -93,9 +93,9 @@ class MessageTimeline : public Message {
    *
    * @return reference to the stream instance
    *
-   * @note If the message is not described in the dictionnary, the message
+   * @note If the message is not described in the dictionary, the message
    * return is only the key (thanks to that we can print message without access to
-   * a dictionnary)
+   * a dictionary)
    */
   friend std::ostream& operator<<(std::ostream& os, const MessageTimeline& m) {
     os << static_cast<const Message&>(m);
@@ -114,12 +114,12 @@ class MessageTimeline : public Message {
 
   /**
    * @brief initialize attributes of the message
-   * Creates a message . Try to access the dictionnary named @b dicoName
+   * Creates a message . Try to access the dictionary named @b dicoName
    * and find the message description thanks to @b key.
-   * If there is no dictionnary or message description, we  use key as a message
+   * If there is no dictionary or message description, we use key as a message
    *
    *
-   * @param key  key to access to the message description
+   * @param key  key to access the message description
    */
   void initialize(const std::string& key);
 

@@ -197,7 +197,7 @@ class ReaderOMC:
         # ---------------------------------------
         ## List containing all variables found in *_init.xml file : differential/alegbraic/discrete variables and parameters
         self.list_vars = []
-        ## Dictionnary containing all variables names from self.list_vars and their index
+        ## Dictionary containing all variables names from self.list_vars and their index
         self.dic_vars = {}
 
 

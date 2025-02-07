@@ -16,7 +16,7 @@
  *
  * @brief Message implementation
  *
- *  Message are used to access to dictionnary log where log are described
+ *  Message are used to access dictionary log where log are described
  *  with the boost::format convention
  */
 

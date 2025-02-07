@@ -65,7 +65,7 @@ if __name__ =='__main__':
     path_hpp_in = os.path.abspath(file_name_hpp_in)
     path_hpp = path_hpp_in.replace('.hpp.in','.hpp')
 
-    # create checkSum wich is the combination of cpp file's checkSum and h file's checkSum
+    # create checkSum which is the combination of cpp file's checkSum and h file's checkSum
     ckSum1 = get_checksum(path_cpp)
     ckSum2 = get_checksum(path_h)
     ckSum = str(ckSum1)+'-'+str(ckSum2)
