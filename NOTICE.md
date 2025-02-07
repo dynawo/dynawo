@@ -11,7 +11,7 @@
     simulation tool for power systems.
 -->
 
-# Notice for Dyna&omega;o - An hybrid C++/Modelica suite of simulation tools for power systems
+# Notice for Dyna&omega;o - A hybrid C++/Modelica suite of simulation tools for power systems
 
 ## License
 
