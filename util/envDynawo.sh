@@ -51,7 +51,7 @@ where [option] can be:"
         build-omcDynawo                       build the OpenModelica compiler for Dynawo
         config-3rd-party                      configure 3rd parties build
         build-3rd-party                       build 3rd party softwares
-        config-dynawo                         configure Dynawo's compiling environment using CMake
+        config-dynawo                         configure Dynawo compiling environment using CMake
         build-dynawo                          build Dynawo and install preassembled models (core, models cpp, models and solvers)
         build-dynaflow                        build DynaFlow related models (and core, models cpp and solvers) and install preassembled models (core, models cpp, DynaFlow models and solvers)
         build-dynaswing                       build DynaSwing related models (and core, models cpp and solvers) and install preassembled models (core, models cpp, DynaSwing models and solvers)
@@ -68,13 +68,13 @@ where [option] can be:"
         build-dynawo-solvers                  build Dynawo solver descriptions
         build-all                             call in this order build-3rd-party, config-dynawo, build-dynawo, build-doxygen-doc
         build-nrt                             build dynawo to run nrt
-        build-tests ([args])                  build and launch Dynawo's unittest (launch all tests if [args] is empty)
-        build-tests-coverage ([args])         build/launch Dynawo's unittest and generate code coverage report (launch all tests if [args] is empty)
+        build-tests ([args])                  build and launch Dynawo unittest (launch all tests if [args] is empty)
+        build-tests-coverage ([args])         build/launch Dynawo unittest and generate code coverage report (launch all tests if [args] is empty)
         build-minimal                         build Dynawo and install cpp models (core, cpp models and solvers), no preassembled models
 
         =========== Clean
         clean-3rd-party                       remove all 3rd party softwares objects
-        clean-dynawo                          remove Dynawo's objects
+        clean-dynawo                          remove Dynawo objects
         clean-all                             call clean-3rd-party, clean-dynawo
         clean-models [args]                   clean given preassembled models
         clean-tests                           remove all objects needed for unittest
@@ -132,10 +132,10 @@ where [option] can be:"
 
   export_var_env DYNAWO_DOCUMENTATION_OPTIONS="    =========== Dynawo Documentation
         =========== Launch
-        doc                                   open Dynawo's documentation
-        doxygen-doc                           open Dynawo's Doxygen documentation into chosen browser
-        modelica-doc                          open Dynawo's Modelica models documentation
-        nrt-doc                               open Dynawo's nrt documentation
+        doc                                   open Dynawo documentation
+        doxygen-doc                           open Dynawo Doxygen documentation into chosen browser
+        modelica-doc                          open Dynawo Modelica models documentation
+        nrt-doc                               open Dynawo nrt documentation
 
         =========== Build
         build-doc                             build documentation
@@ -2583,19 +2583,19 @@ case $MODE in
     ;;
 
   nrt)
-    nrt ${ARGS} || error_exit "Error during Dynawo's non-regression tests execution"
+    nrt ${ARGS} || error_exit "Error during Dynawo non-regression tests execution"
     ;;
 
   nrt-clean)
-    nrt_clean || error_exit "Error during Dynawo's non-regression tests clean"
+    nrt_clean || error_exit "Error during Dynawo non-regression tests clean"
     ;;
 
   nrt-diff)
-    nrt_diff ${ARGS} || error_exit "Error during Dynawo's NRT Diff execution"
+    nrt_diff ${ARGS} || error_exit "Error during Dynawo NRT Diff execution"
     ;;
 
   nrt-ref)
-    nrt_ref ${ARGS} || error_exit "Error during Dynawo's NRT ref execution"
+    nrt_ref ${ARGS} || error_exit "Error during Dynawo NRT ref execution"
     ;;
 
   nrt-update)
@@ -2603,7 +2603,7 @@ case $MODE in
     ;;
 
   nrt-xsl)
-    nrt_xsl ${ARGS} || error_exit "Error during Dynawo's NRT xsl execution"
+    nrt_xsl ${ARGS} || error_exit "Error during Dynawo NRT xsl execution"
     ;;
 
   nrt-doc)

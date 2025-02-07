@@ -19,4 +19,4 @@ Scripts:
 * **dynawo_documentation.sh**: merge all LaTex files to create the complete Dyna&omega;o documentation.
 * **clean.sh**: remove all latex temporary files and pdf.
 
-For the moment this scripts should be launched from this directory to work properly.
+For the moment these scripts should be launched from this directory to work properly.
