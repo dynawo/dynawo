@@ -168,8 +168,9 @@ SimulationRT::simulate() {
       }
 
       // option2: TimeManager --> sleep in the loop
-      if (timeManager_)
+      if (timeManager_) {
         timeManager_->wait(tCurrent_);
+      }
 
       std::cout << "tCurrent_ = " << tCurrent_ << std::endl;
 
@@ -261,9 +262,11 @@ SimulationRT::simulate() {
         intermediateStates_.pop();
       }
 
-      if (timeManager_)
+      if (timeManager_) {
+        timeManager_->updateStepDurationValue();
         Trace::info() << "TimeManagement: tCurrent_ = " << tCurrent_
         << " s; Step computation time: " << timeManager_->getStepDuration() << "ms" << Trace::endline;
+      }
       publishStepOutputs();
     }
 
@@ -362,14 +365,6 @@ SimulationRT::curvesToJson(string& jsonCurves) {
   jsonCurves = stream.str();
 }
 
-void
-SimulationRT::updateCurves(bool updateCalculateVariable) {
-  if (exportCurvesMode_ == EXPORT_CURVES_NONE && exportFinalStateValuesMode_ == EXPORT_FINAL_STATE_VALUES_NONE)
-    return;
-  Simulation::updateCurves(updateCalculateVariable);
-  if (timeManager_)
-    timeManager_->updateStepDurationValue();
-}
 
 void
 SimulationRT::initStepDurationCurve() {

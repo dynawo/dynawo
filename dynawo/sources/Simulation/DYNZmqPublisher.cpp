@@ -25,7 +25,7 @@ namespace DYN {
 
 ZmqPublisher::ZmqPublisher():
 socket_(context_, zmqpp::socket_type::req) {
-  socket_.bind("tcp://*:5557");
+  socket_.bind("tcp://*:5556");
 }
 
 void
