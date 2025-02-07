@@ -147,8 +147,8 @@ TEST(DataInterfaceTest, ServiceManager) {
   std::shared_ptr<BusInterface> bus2 = std::make_shared<BusInterfaceIIDM>(b2);
   std::shared_ptr<BusInterface> bus3 = std::make_shared<BusInterfaceIIDM>(b3);
   std::unique_ptr<BusInterface> bus4 = DYN::make_unique<BusInterfaceIIDM>(b4);
-  const std::unique_ptr<SwitchInterface> switch1 = DYN::make_unique<SwitchInterfaceIIDM>(aSwitch);
-  const std::unique_ptr<SwitchInterface> switch2 = DYN::make_unique<SwitchInterfaceIIDM>(aSwitch2);
+  const std::unique_ptr<SwitchInterface> switch1(DYN::make_unique<SwitchInterfaceIIDM>(aSwitch));
+  const std::unique_ptr<SwitchInterface> switch2(DYN::make_unique<SwitchInterfaceIIDM>(aSwitch2));
   switch1->setBusInterface1(bus1);
   switch1->setBusInterface2(bus2);
   switch2->setBusInterface1(bus1);
@@ -528,7 +528,7 @@ TEST(DataInterfaceTest, ServiceManagerRegulatedBus) {
   std::shared_ptr<BusInterface> bus3 = std::make_shared<BusInterfaceIIDM>(b3);
   std::unique_ptr<BusInterface> bus4 = DYN::make_unique<BusInterfaceIIDM>(b4);
   std::shared_ptr<BusInterface> bus5 = std::make_shared<BusInterfaceIIDM>(b5);
-  const std::unique_ptr<SwitchInterface> switch1 = DYN::make_unique<SwitchInterfaceIIDM>(aSwitch);
+  const std::unique_ptr<SwitchInterface> switch1(DYN::make_unique<SwitchInterfaceIIDM>(aSwitch));
 
   switch1->setBusInterface1(bus1);
   switch1->setBusInterface2(bus2);
