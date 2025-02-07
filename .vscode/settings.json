@@ -11,7 +11,7 @@
     // "cmake.sourceDirectory": "${workspaceFolder}/dynawo/3rdParty",
     // "cmake.buildDirectory": "${workspaceFolder}/build-code/build/3rdParty/${buildType}/build",
 
-    // uncomment this to compile dynamo after installing 3rd parties
+    // uncomment this to compile dynawo after installing 3rd parties
     "cmake.sourceDirectory": "${workspaceFolder}/dynawo",
     "cmake.buildDirectory": "${workspaceFolder}/build-code/build/dynawo/${buildType}",
 
@@ -22,7 +22,7 @@
         // To compile 3rd parties
         // "CMAKE_INSTALL_PREFIX": "${workspaceFolder}/build-code/install/3rdParty/${buildType}",
 
-        // To compile dynamo after installing 3rd parties
+        // To compile dynawo after installing 3rd parties
         "CMAKE_INSTALL_PREFIX": "${workspaceFolder}/build-code/install/dynawo/${buildType}",
 
         "DYNAWO_THIRD_PARTY_DIR": "${workspaceFolder}/build-code/install/3rdParty/${buildType}",
