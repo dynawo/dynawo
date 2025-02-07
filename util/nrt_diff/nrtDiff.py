@@ -383,7 +383,7 @@ def main():
 
     listCases.sort (key=lambda x: x.name_.lower())
 
-    # Results are exported as an html file
+    # Results are exported as a html file
     print ("exporting results to html ...")
     exportHTML(output_dir, html_output)
 
@@ -1507,7 +1507,7 @@ def CSVCloseEnough (path_left, path_right, dataWrittenAsRows):
     return (len(times), nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_differences_absolute, nb_differences_relative, curves_different)
 
 ##
-# Make an html report to display diff results
+# Make a html report to display diff results
 # @param output_dir : output directory
 # @param html_output : path of html result file
 def exportHTML(output_dir, html_output):
