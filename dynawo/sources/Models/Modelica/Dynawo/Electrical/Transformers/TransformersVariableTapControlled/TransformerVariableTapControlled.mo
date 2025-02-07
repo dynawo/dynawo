@@ -61,11 +61,11 @@ model TransformerVariableTapControlled
     Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Transformer
-  Dynawo.Electrical.Transformers.TransformersVariableTap.TransformerVariableTap transformerVariableTap(B = B, G = G, NbTap = NbTap, P10Pu = P10Pu, Q10Pu = Q10Pu, R = R, SNom = SNom, Tap0 = Tap0, U10Pu = U10Pu, U20Pu = U20Pu, X = X, i10Pu = i10Pu, i20Pu = i20Pu, rTfo0Pu = rTfo0Pu, rTfoMaxPu = rTfoMaxPu, rTfoMinPu = rTfoMinPu, u10Pu = u10Pu, u20Pu = u20Pu)  annotation(
+  Dynawo.Electrical.Transformers.TransformersVariableTap.TransformerVariableTap transformerVariableTap(B = B, G = G, NbTap = NbTap, P10Pu = P10Pu, Q10Pu = Q10Pu, R = R, SNom = SNom, Tap0 = Tap0, U10Pu = U10Pu, U20Pu = U20Pu, X = X, i10Pu = i10Pu, i20Pu = i20Pu, rTfo0Pu = rTfo0Pu, rTfoMaxPu = rTfoMaxPu, rTfoMinPu = rTfoMinPu, u10Pu = u10Pu, u20Pu = u20Pu) annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Tap changer
-  Dynawo.Electrical.Controls.Transformers.TapChanger tapChanger(U0 = U0, UDeadBand = UDeadBand, UTarget = UTarget, increaseTapToIncreaseValue = increaseTapToIncreaseValue, regulating0 = regulating0, state0 = state0, t1st = t1st, tNext = tNext, tap0 = Tap0, tapMax = tapMax, tapMin = tapMin, UNom = UNom)  annotation(
+  Dynawo.Electrical.Controls.Transformers.TapChanger tapChanger(U0 = U0, UDeadBand = UDeadBand, UTarget = UTarget, increaseTapToIncreaseValue = increaseTapToIncreaseValue, regulating0 = regulating0, state0 = state0, t1st = t1st, tNext = tNext, tap0 = Tap0, tapMax = tapMax, tapMin = tapMin, UNom = UNom) annotation(
     Placement(visible = true, transformation(origin = {0, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Boolean locked(start = tapChanger.locked0) "Whether the tap-changer is locked";
@@ -105,4 +105,5 @@ equation
   connect(transformerVariableTap.terminal2, terminal2) annotation(
     Line(points = {{10, 0}, {100, 0}}, color = {0, 0, 255}));
 
+  annotation(preferredView = "diagram");
 end TransformerVariableTapControlled;

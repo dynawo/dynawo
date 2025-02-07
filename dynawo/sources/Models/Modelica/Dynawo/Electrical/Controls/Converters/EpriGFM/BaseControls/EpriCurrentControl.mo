@@ -18,9 +18,9 @@ model EpriCurrentControl "Current controller in EPRI Grid Forming model"
 
   // Line parameters
   parameter Types.PerUnit RFilterPu "Filter resistance in pu (base UNom, SNom), example value = 0.00015" annotation(
-  Dialog(tab = "Circuit"));
-  parameter Types.PerUnit LFilterPu "Filter inductance in pu (base UNom, SNom), example value = 0.15"  annotation(
-  Dialog(tab = "Circuit"));
+    Dialog(tab = "Circuit"));
+  parameter Types.PerUnit LFilterPu "Filter inductance in pu (base UNom, SNom), example value = 0.15" annotation(
+    Dialog(tab = "Circuit"));
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput idConvPu(start = IdConv0Pu) "D-axis current of the converter in pu (base UNom, SNom) (generator convention)" annotation(
@@ -91,19 +91,19 @@ model EpriCurrentControl "Current controller in EPRI Grid Forming model"
 
   // Initial parameters
   parameter Types.PerUnit IdConv0Pu "Start value of d-axis current of the converter in pu (base UNom, SNom) (generator convention)" annotation(
-  Dialog(tab = "Initial"));
+    Dialog(tab = "Initial"));
   parameter Types.PerUnit IqConv0Pu "Start value of q-axis current of the converter in pu (base UNom, SNom) (generator convention)" annotation(
-  Dialog(tab = "Initial"));
+    Dialog(tab = "Initial"));
   parameter Types.PerUnit UdConv0Pu "Start value of d-axis modulation voltage in pu (base UNom)" annotation(
-  Dialog(tab = "Initial"));
+    Dialog(tab = "Initial"));
   parameter Types.PerUnit UdFilter0Pu "Start value of d-axis voltage at the converter's terminal in pu (base UNom)" annotation(
     Dialog(tab = "Initial"));
   parameter Types.PerUnit UqConv0Pu "Start value of q-axis modulation voltage in pu (base UNom)" annotation(
-  Dialog(tab = "Initial"));
+    Dialog(tab = "Initial"));
   parameter Types.PerUnit UqFilter0Pu "Start value of q-axis voltage at the converter's terminal in pu (base UNom)" annotation(
-  Dialog(tab = "Initial"));
+    Dialog(tab = "Initial"));
   parameter Types.Angle Theta0 "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad" annotation(
-  Dialog(tab = "Initial"));
+    Dialog(tab = "Initial"));
 
 equation
   connect(feedbackd.u1, idConvRefPu) annotation(

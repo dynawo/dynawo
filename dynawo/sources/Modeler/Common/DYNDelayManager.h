@@ -60,7 +60,7 @@ class DelayManager {
   /**
    * @brief Get the delayed value
    *
-   * Retrieves the delayed value of current timepoint refered by variable given at construction of delay @p id , delayed of @p delayValue
+   * Retrieves the delayed value of current timepoint referred by variable given at construction of delay @p id , delayed of @p delayValue
    *
    * Precondition: the id is acceptable (isIdAcceptable returns true)
    *
@@ -113,7 +113,7 @@ class DelayManager {
    * @param values the delays definition, formatted according to the format defined by dumpDelays
    * @param restartTime of the restart
    *
-   * @returns false if an parsing error occurs, true if not
+   * @returns false if a parsing error occurs, true if not
    */
   bool loadDelays(const std::vector<std::string>& values, double restartTime);
 

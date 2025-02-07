@@ -65,7 +65,7 @@ class IIDMExtensions {
   };
 
   /**
-   * @brief Find library path from DYNAMO environment
+   * @brief Find library path from DYNAWO environment
    * @returns the IIDM extension library path
    */
   static boost::filesystem::path findLibraryPath();
