@@ -16,8 +16,8 @@
  *
  * @brief Error implementation
  *
- * Error use the message class to access to the description of the error
- * and access to the description where each error message are described
+ * Error use the message class to access the description of the error
+ * and access the description where each error message are described
  */
 #include <sstream>
 #include <stdio.h>
