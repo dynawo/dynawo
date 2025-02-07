@@ -16,17 +16,8 @@ model QControl2015 "Reactive power control module for wind turbines (IEC N°6140
   extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseQControl(deadZone.uMax = Udb2Pu, deadZone.uMin = Udb1Pu);
 
   //Q control parameters
-  parameter Integer MqUvrt "UVRT Q control modes (0-2) (see Table 23, section 5.6.5.7, page 51 of the IEC norm N°61400-27-1:2015)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.Time tPFiltQ "Active power filter time constant in s" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.Time tUFiltQ "Voltage filter time constant in s" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.VoltageModulePu Udb1Pu "Voltage dead band lower limit in pu (base UNom)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.VoltageModulePu Udb2Pu "Voltage dead band upper limit in pu (base UNom)" annotation(
-    Dialog(tab = "QControl"));
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWT2015;
+  
   //Input variables
   Modelica.Blocks.Interfaces.RealInput PWTPu(start = -P0Pu * SystemBase.SnRef / SNom) "Active power at grid terminal in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-320, -52}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -45}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
