@@ -110,12 +110,6 @@ class SimulationRT: public Simulation {
   void curvesToJson(std::string& outputString);
 
   /**
-   * @brief update curves : at the end of each iteration, new points are added to curve
-   * @param updateCalculateVariable @b true is calculated variables should be updated
-   */
-  void updateCurves(bool updateCalculateVariable = true);
-
-  /**
    * @brief add curve for step duration
    */
   void initStepDurationCurve();
