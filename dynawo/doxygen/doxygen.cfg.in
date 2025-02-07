@@ -51,7 +51,7 @@ PROJECT_NUMBER         = @DYNAWO_VERSION_STRING@
 
 PROJECT_BRIEF          = "Power systems dynamic simulator"
 
-# With the PROJECT_LOGO tag one can specify an logo or icon that is
+# With the PROJECT_LOGO tag one can specify a logo or icon that is
 # included in the documentation. The maximum height of the logo should not
 # exceed 55 pixels and the maximum width should not exceed 200 pixels.
 # Doxygen will copy the logo to the output directory.

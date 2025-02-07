@@ -5,7 +5,7 @@
     <component id="_BUS___10_TN"/>
   </busCriteria>
   <busCriteria>
-    <parameters id ="maximum bus voltage with UNom above 180kV " scope="DYNAMIC" type="LOCAL_VALUE" uNomMin="180" uMaxPu="1.2"/>
+    <parameters id ="maximum bus voltage with UNom above 180 kV " scope="DYNAMIC" type="LOCAL_VALUE" uNomMin="180" uMaxPu="1.2"/>
     <country id="FR"/>
   </busCriteria>
   <loadCriteria>

@@ -16,7 +16,7 @@
  *
  * @brief Terminate header
  *
- * Terminate use the message class to access to the cause of model
+ * Terminate use the message class to access the cause of model
  * interruption
  *
  */
