@@ -103,7 +103,6 @@ Simulation(jobEntry, context, data) {
   }
   bool subscribeActions = jobEntry_->getSimulationEntry()->getEventSubscriberActions();
   bool subscribeTrigger = jobEntry_->getSimulationEntry()->getEventSubscriberTrigger();
-  std::cout << "subcribe trigger:  " << subscribeTrigger << " , actions: " << subscribeActions << std::endl;
   if (subscribeActions || subscribeTrigger) {
     triggerSimulationTimeStepInS_ = jobEntry_->getSimulationEntry()->getTriggerSimulationTimeStepInS();
     eventSubscriber_ = std::make_shared<EventSubscriber>(subscribeTrigger, subscribeActions);
