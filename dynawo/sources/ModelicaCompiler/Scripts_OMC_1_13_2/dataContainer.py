@@ -1802,6 +1802,7 @@ class RootObject:
         # cleaning the block, removing the start and end braces
         new_body = []
         i = 0
+        double_equality_prtn = re.compile(r'\(data->localData\[0\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/ == data->localData\[0\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/\)')
         for line in self.body_for_num_relation:
             line = replace_var_names(line)
             if i == 0 or i == len(self.body_for_num_relation)-1:
@@ -1810,6 +1811,10 @@ class RootObject:
             if not has_omc_trace (line) and not has_omc_equation_indexes (line):
                 line = sub_division_sim(line)
                 line = line.replace('threadData,','')
+                found = re.search(double_equality_prtn, line)
+                if found is not None:
+                    test = "DYN::doubleEquals" + found.group(0).replace (" == ", ",")
+                    line = line.replace(found.group(0), test)
                 new_body.append(line)
             i = i + 1
         self.body_for_num_relation = new_body
