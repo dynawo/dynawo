@@ -83,6 +83,10 @@ using lostEquipments::LostEquipmentsCollectionFactory;
 using parameters::ParametersSet;
 using parameters::ParametersSetFactory;
 
+using std::chrono::system_clock;
+using std::chrono::microseconds;
+using std::chrono::duration_cast;
+
 static const char TIME_FILENAME[] = "time.bin";  ///< name of the file to dump time at the end of the simulation
 
 namespace DYN {
@@ -93,9 +97,10 @@ Simulation(jobEntry, context, data) {
     stepPublisher_ = std::make_shared<ZmqPublisher>();
     std::cout << "ZMQ publisher server started" << std::endl;
   }
-  timeManager_ = std::make_shared<TimeManager>(
-    jobEntry_->getSimulationEntry()->getTimeSync(),
-    jobEntry_->getSimulationEntry()->getTimeSyncAcceleration());
+  if (jobEntry_->getSimulationEntry()->getTimeSync()) {
+    timeManager_ = std::make_shared<TimeManager>(
+      jobEntry_->getSimulationEntry()->getTimeSyncAcceleration());
+  }
   bool subscribeActions = jobEntry_->getSimulationEntry()->getEventSubscriberActions();
   bool subscribeTrigger = jobEntry_->getSimulationEntry()->getEventSubscriberTrigger();
   std::cout << "subcribe trigger:  " << subscribeTrigger << " , actions: " << subscribeActions << std::endl;
@@ -127,8 +132,7 @@ SimulationRT::simulate() {
     model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
   }
   const bool updateCalculatedVariable = false;
-  if (timeManager_)
-    initStepDurationCurve();
+  initComputationTimeCurve();
   updateCurves(updateCalculatedVariable);  // initial curves
 
   bool criteriaChecked = true;
@@ -172,7 +176,7 @@ SimulationRT::simulate() {
         timeManager_->wait(tCurrent_);
       }
 
-      std::cout << "tCurrent_ = " << tCurrent_ << std::endl;
+      updateStepStart();
 
       // Apply actions from event subscriber
       if (eventSubscriber_ && eventSubscriber_->actionsEnabled())
@@ -196,10 +200,10 @@ SimulationRT::simulate() {
       BitMask solverState = solver_->getState();
       bool modifZ = false;
       if (solverState.getFlags(ModeChange)) {
-        if (timeManager_)
-          Trace::info() << "TimeManagement (ModeChange): tCurrent_ = " << tCurrent_
-          << " s; Partial step computation time: " << timeManager_->getStepDuration() << "ms" << Trace::endline;
-        updateCurves(true);
+        // if (timeManager_)
+        //   Trace::info() << "TimeManagement (ModeChange): tCurrent_ = " << tCurrent_
+        //   << " s; Partial step computation time: " << timeManager_->getStepDuration() << "ms" << Trace::endline;
+        // updateCurves(true);
         model_->notifyTimeStep();
         Trace::info() << DYNLog(NewStartPoint) << Trace::endline;
         solver_->reinit();
@@ -209,10 +213,10 @@ SimulationRT::simulate() {
        } else if (solverState.getFlags(NotSilentZChange)
           || solverState.getFlags(SilentZNotUsedInDiscreteEqChange)
           || solverState.getFlags(SilentZNotUsedInContinuousEqChange)) {
-        updateCurves(true);
-        if (timeManager_)
-          Trace::info() << "TimeManagement (SilentZish): tCurrent_ = " << tCurrent_
-          << " s; Partial step computation time: " << timeManager_->getStepDuration() << "ms" << Trace::endline;
+        // updateCurves(true);
+        // if (timeManager_)
+        //   Trace::info() << "TimeManagement (SilentZish): tCurrent_ = " << tCurrent_
+        //   << " s; Partial step computation time: " << timeManager_->getStepDuration() << "ms" << Trace::endline;
         model_->getCurrentZ(zCurrent_);
         modifZ = true;
       }
@@ -220,18 +224,18 @@ SimulationRT::simulate() {
       if (isCheckCriteriaIter)
         model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
 
-      if (iterationStep) {
-        if (currentIterNb % *iterationStep == 0) {
-          updateCurves(!isCheckCriteriaIter && !modifZ);
-        }
-      } else if (timeStep) {
-        if (tCurrent_ >= nextTimeStep) {
-          nextTimeStep = tCurrent_ + *timeStep;
-          updateCurves(!isCheckCriteriaIter && !modifZ);
-        }
-      } else {
-        updateCurves(!isCheckCriteriaIter && !modifZ);
-      }
+      // if (iterationStep) {
+      //   if (currentIterNb % *iterationStep == 0) {
+      //     updateCurves(!isCheckCriteriaIter && !modifZ);
+      //   }
+      // } else if (timeStep) {
+      //   if (tCurrent_ >= nextTimeStep) {
+      //     nextTimeStep = tCurrent_ + *timeStep;
+      //     updateCurves(!isCheckCriteriaIter && !modifZ);
+      //   }
+      // } else {
+      //   updateCurves(!isCheckCriteriaIter && !modifZ);
+      // }
 
       model_->checkDataCoherence(tCurrent_);
       model_->printMessages();
@@ -262,12 +266,29 @@ SimulationRT::simulate() {
         intermediateStates_.pop();
       }
 
-      if (timeManager_) {
-        timeManager_->updateStepDurationValue();
-        Trace::info() << "TimeManagement: tCurrent_ = " << tCurrent_
-        << " s; Step computation time: " << timeManager_->getStepDuration() << "ms" << Trace::endline;
+      // if (timeManager_) {
+      //   timeManager_->updateStepDurationValue();
+      //   Trace::info() << "TimeManagement: tCurrent_ = " << tCurrent_
+      //   << " s; Step computation time: " << timeManager_->getStepDuration() << "ms" << Trace::endline;
+      // }
+
+      // Set up step times
+      updateStepComputationTime();
+      updateCurves(true);
+
+      // Publish values
+      if ((wsServer_ || stepPublisher_) && (!eventSubscriber_->triggerEnabled() || tCurrent_ >= nextTToTrigger)) {
+        string formatedString;
+        curvesToJson(formatedString);
+        if (wsServer_) {
+          wsServer_->sendMessage(formatedString);
+          Trace::info() << "data published to websocket" << Trace::endline;
+        }
+        if (stepPublisher_) {
+          stepPublisher_->sendMessage(formatedString);
+          Trace::info() << "data published to ZMQ" << Trace::endline;
+        }
       }
-      publishStepOutputs();
     }
 
     // If we haven't evaluated the calculated variables for the last iteration before, we must do it here if it might be used in the post process
@@ -319,18 +340,15 @@ SimulationRT::simulate() {
 }
 
 void
-SimulationRT::publishStepOutputs() {
-  string formatedString;
-  curvesToJson(formatedString);
-  if (wsServer_) {
-    wsServer_->sendMessage(formatedString);
-    Trace::info() << "data sent to websocket: \n" << formatedString << Trace::endline;
-  }
-  if (stepPublisher_) {
-    stepPublisher_->sendMessage(formatedString);
-    Trace::info() << "data sent to ZMQ: \n" << formatedString << Trace::endline;
-  }
+SimulationRT::updateStepStart() {
+  stepStart_ = system_clock::now();
 }
+
+void
+SimulationRT::updateStepComputationTime() {
+  stepComputationTime_ = (1./1000)*(duration_cast<microseconds>(system_clock::now() - stepStart_)).count();
+}
+
 
 void
 SimulationRT::curvesToJson(string& jsonCurves) {
@@ -367,18 +385,16 @@ SimulationRT::curvesToJson(string& jsonCurves) {
 
 
 void
-SimulationRT::initStepDurationCurve() {
+SimulationRT::initComputationTimeCurve() {
   shared_ptr<curves::Curve> curve = curves::CurveFactory::newCurve();
   curve->setModelName("Simulation");
   curve->setVariable("stepDurationMs");
   curve->setAvailable(true);
-  curve->setBuffer(timeManager_->getStepDurationAddr());
+  curve->setBuffer(&stepComputationTime_);
   curvesCollection_->add(curve);
 }
 
 void
-
-
 SimulationRT::terminate() {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("Simulation::terminate()");
