@@ -100,9 +100,21 @@ class SimulationRT: public Simulation {
   void simulate();
 
   /**
-   * @brief push last curves to websocket
+   * @brief end the simulation : export data, curves,...
    */
-  void publishStepOutputs();
+  void terminate();
+
+ private:
+   /**
+   * @brief initiate time step value
+   *
+   */
+  void updateStepStart();
+
+  /**
+   * @brief update current step time
+   */
+  void updateStepComputationTime();
 
   /**
    * @brief format last curves point in JSON
@@ -112,14 +124,12 @@ class SimulationRT: public Simulation {
   /**
    * @brief add curve for step duration
    */
-  void initStepDurationCurve();
-
-  /**
-   * @brief end the simulation : export data, curves,...
-   */
-  void terminate();
+  void initComputationTimeCurve();
 
  protected:
+  std::chrono::system_clock::time_point stepStart_;  ///< clock time before step (after sleep) >
+  double stepComputationTime_;
+
   std::shared_ptr<wsc::WebsocketServer> wsServer_;  ///< instance of websocket server >
 
   std::shared_ptr<TimeManager> timeManager_;  ///< Time manager >

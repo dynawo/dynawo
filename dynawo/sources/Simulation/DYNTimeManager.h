@@ -43,7 +43,7 @@ namespace DYN {
  */
 class TimeManager {
  public:
-  TimeManager(bool timeSync, double timeSyncAcceleration);
+  explicit TimeManager(double timeSyncAcceleration);
 
   void pause();
 
@@ -51,20 +51,20 @@ class TimeManager {
 
   void wait(double simuTimeWait);
 
-  void setTimeSync(bool timeSync);
+  // void setTimeSync(bool timeSync);
 
-  bool getTimeSync() {return timeSync_;}
+  // bool getTimeSync() {return timeSync_;}
 
   void setAccelerationFactor(double timeSyncAcceleration);
 
-  int getStepDuration();
+  // int getStepDuration();
 
-  void updateStepDurationValue();
+  // void updateStepDurationValue();
 
-  double* getStepDurationAddr() {return &stepDuration_;}
+  // double* getStepDurationAddr() {return &stepDuration_;}
 
  private:
-  bool timeSync_;  ///< true if simulation time should be synchronized with real clock >
+  // bool timeSync_;  ///< true if simulation time should be synchronized with real clock >
   double timeSyncAcceleration_;  ///< acceleration factor clockTime/simulationTime >
 
   std::chrono::system_clock::time_point referenceClockTime_;  ///< clock reference correponding to referenceSimuTime >
