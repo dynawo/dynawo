@@ -33,7 +33,6 @@ namespace DYN {
 EventSubscriber::EventSubscriber(bool triggerEnabled, bool actionEnabled):
 socket_(context_, zmqpp::socket_type::reply),
 running_(false),
-stepTriggeredCnt_(false),
 triggerEnabled_(triggerEnabled),
 actionsEnabled_(actionEnabled) {
   socket_.bind("tcp://*:5555");
@@ -112,10 +111,10 @@ EventSubscriber::messageReceiver() {
       if (input.empty() && triggerEnabled_) {
           // trigger next step
           reply << "Step triggered";
-          std::lock_guard<std::mutex> simulationLock(simulationMutex_);
-          stepTriggeredCnt_++;
-          socket_.send(reply);
           simulationStepTriggerCondition_.notify_one();
+          std::unique_lock<std::mutex> receptionLock(receptionMutex_);
+          receptionCondition_.wait(receptionLock);
+          socket_.send(reply);
       } else if (actionsEnabled_) {
         std::shared_ptr<ParametersSet> parametersSet = parseParametersSet(input);
 
@@ -136,7 +135,6 @@ EventSubscriber::messageReceiver() {
     // Sleep briefly to reduce CPU usage
     std::this_thread::sleep_for(std::chrono::milliseconds(10));
   }
-  stepTriggeredCnt_++;
   simulationStepTriggerCondition_.notify_all();
 }
 
@@ -210,14 +208,12 @@ EventSubscriber::parseParametersSet(std::string& input) {
   return parametersSet;
 }
 
-
-
 void
 EventSubscriber::wait() {
+  receptionCondition_.notify_one();
   std::cout << "EventSubscriber: wait for signal " << std::endl;
   std::unique_lock<std::mutex> simulationLock(simulationMutex_);
-  simulationStepTriggerCondition_.wait(simulationLock, [this] {return stepTriggeredCnt_;});
-  stepTriggeredCnt_--;
+  simulationStepTriggerCondition_.wait(simulationLock);
   std::cout << "EventSubscriber: trigger signal received " << std::endl;
 }
 

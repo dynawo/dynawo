@@ -166,9 +166,9 @@ void launchSimu(const std::string& jobsFileName) {
 }
 
 
-void launchSimuInterractive(const std::string& jobsFileName) {
+void launchSimuInteractive(const std::string& jobsFileName) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
-  DYN::Timer timer("Main::launchSimuInterractive");
+  DYN::Timer timer("Main::launchSimuInteractive");
 #endif
     // TIME
     std::chrono::system_clock::time_point t_start = system_clock::now();
@@ -281,7 +281,7 @@ void launchSimuInterractive(const std::string& jobsFileName) {
 }
 
 
-// void launchSimuInterractive(const std::string& jobsFileName) {
+// void launchSimuInteractive(const std::string& jobsFileName) {
 // #if defined(_DEBUG_) || defined(PRINT_TIMERS)
 //   DYN::Timer timer("Main::LaunchSimu");
 // #endif
