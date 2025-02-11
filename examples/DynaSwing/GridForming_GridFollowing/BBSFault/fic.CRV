@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
     Copyright (c) 2023, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -12,29 +12,29 @@
     simulation tools for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-    <curve model="HVDC1" variable="converter_omegaPu"/>
-    <curve model="HVDC1" variable="control_PRefPu"/>
-    <curve model="HVDC1" variable="converter_PFilterPu"/>
-    <curve model="HVDC1" variable="converter_QFilterPu"/>
-    <curve model="HVDC1" variable="converter_IConvPu"/>
-    <curve model="HVDC1" variable="converter_UPu"/>
-    <curve model="HVDC2" variable="converter_omegaPu"/>
-    <curve model="HVDC2" variable="converter_PFilterPu"/>
-    <curve model="HVDC2" variable="converter_QFilterPu"/>
-    <curve model="HVDC2" variable="converter_IConvPu"/>
-    <curve model="HVDC2" variable="converter_UPu"/>
-    <curve model="INF" variable="converter_omegaPu"/>
-    <curve model="INF" variable="converter_PFilterPu"/>
-    <curve model="INF" variable="converter_QFilterPu"/>
-    <curve model="INF" variable="converter_IConvPu"/>
-    <curve model="INF" variable="converter_UPu"/>
-    <curve model="WP1" variable="WTG4A_pll_omegaPLLPu"/>
-    <curve model="WP1" variable="WTG4A_injector_PInjPuSn"/>
-    <curve model="WP1" variable="WTG4A_injector_QInjPuSn"/>
-    <curve model="WP1" variable="WTG4A_injector_UPu"/>
-    <curve model="WP2" variable="WTG4A_pll_omegaPLLPu"/>
-    <curve model="WP2" variable="WTG4A_PRefPu"/>
-    <curve model="WP2" variable="WTG4A_injector_PInjPuSn"/>
-    <curve model="WP2" variable="WTG4A_injector_QInjPuSn"/>
-    <curve model="WP2" variable="WTG4A_injector_UPu"/>
+  <curve model="HVDC1" variable="converter_omegaPu"/>
+  <curve model="HVDC1" variable="control_PRefPu"/>
+  <curve model="HVDC1" variable="converter_PFilterPu"/>
+  <curve model="HVDC1" variable="converter_QFilterPu"/>
+  <curve model="HVDC1" variable="converter_IConvPu"/>
+  <curve model="HVDC1" variable="converter_UPu"/>
+  <curve model="HVDC2" variable="converter_omegaPu"/>
+  <curve model="HVDC2" variable="converter_PFilterPu"/>
+  <curve model="HVDC2" variable="converter_QFilterPu"/>
+  <curve model="HVDC2" variable="converter_IConvPu"/>
+  <curve model="HVDC2" variable="converter_UPu"/>
+  <curve model="INF" variable="converter_omegaPu"/>
+  <curve model="INF" variable="converter_PFilterPu"/>
+  <curve model="INF" variable="converter_QFilterPu"/>
+  <curve model="INF" variable="converter_IConvPu"/>
+  <curve model="INF" variable="converter_UPu"/>
+  <curve model="WP1" variable="WTG4A_pll_omegaPLLPu"/>
+  <curve model="WP1" variable="WTG4A_injector_PInjPuSn"/>
+  <curve model="WP1" variable="WTG4A_injector_QInjPuSn"/>
+  <curve model="WP1" variable="WTG4A_injector_UPu"/>
+  <curve model="WP2" variable="WTG4A_pll_omegaPLLPu"/>
+  <curve model="WP2" variable="WTG4A_PRefPu"/>
+  <curve model="WP2" variable="WTG4A_injector_PInjPuSn"/>
+  <curve model="WP2" variable="WTG4A_injector_QInjPuSn"/>
+  <curve model="WP2" variable="WTG4A_injector_UPu"/>
 </curvesInput>

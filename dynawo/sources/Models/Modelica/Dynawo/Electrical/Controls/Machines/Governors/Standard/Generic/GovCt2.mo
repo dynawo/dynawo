@@ -150,7 +150,7 @@ model GovCt2 "Governor type GovCT2"
   // Output
   Modelica.Blocks.Interfaces.RealOutput PmPu(start = Pm0Pu) "Mechanical power output in pu (base PBaseMw) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {330, 132}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {350, 2}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
-  
+
   // Blocks
   Modelica.Blocks.Math.Add add(k1 = -1) annotation(
     Placement(visible = true, transformation(origin = {-244, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -208,13 +208,13 @@ model GovCt2 "Governor type GovCT2"
     Placement(visible = true, transformation(origin = {-132, -92}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.FixedDelay delaytEngine(delayTime = tEngine) annotation(
     Placement(visible = true, transformation(origin = {256, 24}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
-  Modelica.Blocks.Continuous.Derivative derivativetA(T = tA, k = 1) annotation(
+  Modelica.Blocks.Continuous.Derivative derivativetA(T = tA) annotation(
     Placement(visible = true, transformation(origin = {-130, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Derivative derivativeKDGovTDGov(T = tDGov, initType = Modelica.Blocks.Types.Init.InitialState, k = KDGov) annotation(
     Placement(visible = true, transformation(origin = {-50, -128}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze firstOrdertActuatorRatelim(T = tActuator, UseRateLim = true, Y0 = initValvePu, y(fixed = true)) annotation(
     Placement(visible = true, transformation(origin = {214, -88}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.Power expOmegaToTheDm(N = initDmExponent, NInteger = false)  annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.Power expOmegaToTheDm(N = initDmExponent, NInteger = false) annotation(
     Placement(visible = true, transformation(origin = {204, 152}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrdertFLoad(T = tFLoad, initType = Modelica.Blocks.Types.Init.InitialOutput, y_start = initTexPu) annotation(
     Placement(visible = true, transformation(origin = {34, 114}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
@@ -240,17 +240,17 @@ model GovCt2 "Governor type GovCT2"
     Placement(visible = true, transformation(origin = {-172, -124}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
   Modelica.Blocks.Continuous.Integrator integratorKIGov(initType = Modelica.Blocks.Types.Init.InitialState, k = KIGov, y_start = initValvePu) annotation(
     Placement(visible = true, transformation(origin = {-50, -92}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integratorKILoad( initType = Modelica.Blocks.Types.Init.InitialOutput,k = KILoad, y_start = initIntegratorKILoadPu) annotation(
+  Modelica.Blocks.Continuous.Integrator integratorKILoad(initType = Modelica.Blocks.Types.Init.InitialOutput, k = KILoad, y_start = initIntegratorKILoadPu) annotation(
     Placement(visible = true, transformation(origin = {-104, 34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.LimitedIntegrator integratorKIMw(K = KIMw, YMax = 1.1 * RDroop, YMin = -1.1 * RDroop) annotation(
     Placement(visible = true, transformation(origin = {-238, -120}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
   Modelica.Blocks.Continuous.FirstOrder lastValue(T = tLastValue, y(fixed = true), y_start = initValvePu) annotation(
     Placement(visible = true, transformation(origin = {124, -152}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limitDeltaOmegaMinMax(uMax = DeltaOmegaMaxPu, uMin = DeltaOmegaMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limitDeltaOmegaMinMax(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = DeltaOmegaMaxPu, uMin = DeltaOmegaMinPu) annotation(
     Placement(visible = true, transformation(origin = {-100, -92}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limitFsrt(uMax = 1.0, uMin = -9999) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limitFsrt(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = 1.0, uMin = -9999) annotation(
     Placement(visible = true, transformation(origin = {28, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.VariableLimiter limitValveMaxValveMin(limitsAtInit = true, strict = false) annotation(
+  Modelica.Blocks.Nonlinear.VariableLimiter limitValveMaxValveMin(homotopyType = Modelica.Blocks.Types.VariableLimiterHomotopy.NoHomotopy, strict = false) annotation(
     Placement(visible = true, transformation(origin = {130, -88}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Min minLowValueSelect annotation(
     Placement(visible = true, transformation(origin = {72, -22}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -270,17 +270,17 @@ model GovCt2 "Governor type GovCT2"
     Placement(visible = true, transformation(origin = {184, 114}, extent = {{-8, -8}, {8, 8}}, rotation = -180)));
   Modelica.Blocks.Math.Product prodOmegaDm annotation(
     Placement(visible = true, transformation(origin = {236, 202}, extent = {{8, -8}, {-8, 8}}, rotation = 180)));
-  Modelica.Blocks.Nonlinear.SlewRateLimiter rateLimitFsrt(Falling = RDownPu, Rising = RUpPu, Td = tDRatelim, strict = false, y_start = initFsrtPu) annotation(
+  Modelica.Blocks.Nonlinear.SlewRateLimiter rateLimitFsrt(Falling = RDownPu, Rising = RUpPu, Td = tDRatelim, strict = false, y_start = initFsrtPu, y(start = initFsrtPu)) annotation(
     Placement(visible = true, transformation(origin = {-4, 40}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.SlewRateLimiter rateLimitPRate(Rising = PRatePu, Td = tDRatelim, y_start = (ValveMaxPu - WFnlPu) * KTurb) annotation(
+  Modelica.Blocks.Nonlinear.SlewRateLimiter rateLimitPRate(Rising = PRatePu, Td = tDRatelim, y_start = (ValveMaxPu - WFnlPu) * KTurb, y(start = (ValveMaxPu - WFnlPu) * KTurb)) annotation(
     Placement(visible = true, transformation(origin = {138, 14}, extent = {{-8, -8}, {8, 8}}, rotation = -90)));
   Modelica.Blocks.Logical.Switch switchWFSpd annotation(
     Placement(visible = true, transformation(origin = {272, -126}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
   Modelica.Blocks.Tables.CombiTable1Ds tablePLimFromf(extrapolation = Modelica.Blocks.Types.Extrapolation.LastTwoPoints, smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments, table = PLimFromfPoints, tableOnFile = false, verboseRead = false) annotation(
     Placement(visible = true, transformation(origin = {138, 38}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Continuous.TransferFunction transferFunctCtB(a = {tB, 1}, b = {tC, 1}, initType = Modelica.Blocks.Types.Init.InitialState, x_start = {initPMechNoLossPu}, y_start = initPMechNoLossPu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunctCtB(a = {tB, 1}, b = {tC, 1}, x_start = {initPMechNoLossPu}, y_start = initPMechNoLossPu) annotation(
     Placement(visible = true, transformation(origin = {254, 106}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
-  Modelica.Blocks.Continuous.TransferFunction transferFunctSAtSB(a = {tSB, 1}, b = {tSA, 1}, initType = Modelica.Blocks.Types.Init.InitialOutput, x_start = {initTexPu}, y_start = initTexPu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunctSAtSB(a = {tSB, 1}, b = {tSA, 1}, x_start = {initTexPu}, y_start = initTexPu) annotation(
     Placement(visible = true, transformation(origin = {80, 114}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   // Initial parameters
@@ -463,7 +463,7 @@ equation
     Line(points = {{209, 198}, {226, 198}}, color = {0, 0, 127}));
   connect(PGenPu, gainChangeBaseIn.u) annotation(
     Line(points = {{-333, -181}, {-308, -181}, {-308, -182}}, color = {0, 0, 127}));
-  
+
   annotation(
     preferredView = "diagram",
     uses(Modelica(version = "3.2.3")),

@@ -16,11 +16,11 @@
 namespace criteria {
 
 void
-Criteria::setParams(const boost::shared_ptr<CriteriaParams>& params) {
+Criteria::setParams(const std::shared_ptr<CriteriaParams>& params) {
   params_ = params;
 }
 
-const boost::shared_ptr<CriteriaParams>&
+const std::shared_ptr<CriteriaParams>&
 Criteria::getParams() const {
   return params_;
 }

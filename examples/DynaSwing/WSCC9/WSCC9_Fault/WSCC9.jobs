@@ -10,7 +10,8 @@
 
     This file is part of Dynawo, an hybrid C++/Modelica open source suite of
     simulation tools for power systems.
---><dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
+-->
+<dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:job name="WSCC 9 bus system - Fault">
     <dyn:solver lib="dynawo_SolverIDA" parFile="WSCC9.par" parId="IDAOrder2"/>
     <dyn:modeler compileDir="outputs/compilation">

@@ -275,7 +275,7 @@ class SetHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief return the set of parameters read in xml file
    * @return set of parameters object build thanks to infos read in xml file
    */
-  boost::shared_ptr<ParametersSet> get() const;
+  std::shared_ptr<ParametersSet> get() const;
 
   /**
    * @brief  add a reference object to the set of parameters
@@ -305,7 +305,7 @@ class SetHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const & attributes);
 
  private:
-  boost::shared_ptr<ParametersSet> setRead_;  ///< current set of parameters object
+  std::shared_ptr<ParametersSet> setRead_;  ///< current set of parameters object
   ParHandler parHandler_;  ///< handler used to read par element
   ParTableHandler parTableHandler_;  ///< handler used to read parTable element
   RefHandler refHandler_;  ///< handler used to read reference element
@@ -383,7 +383,7 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
    *
    * @return Parameters set collection parsed.
    */
-  boost::shared_ptr<ParametersSetCollection> getParametersSetCollection();
+  std::shared_ptr<ParametersSetCollection> getParametersSetCollection();
 
   /**
    * @brief add a set of parameter to the parameters set collection
@@ -397,7 +397,7 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
 
  private:
   SetHandler setHandler_;  ///< handler used to read a set of parameter element
-  boost::shared_ptr<ParametersSetCollection> parametersSetCollection_;  ///< Parameters sets collection parsed
+  std::shared_ptr<ParametersSetCollection> parametersSetCollection_;  ///< Parameters sets collection parsed
   MacroParameterSetHandler macroParameterSetHandler_;  ///< handler used to read a macroParameterSet element
 };
 

@@ -7,6 +7,7 @@
 #include <math.h>
 
 #include "DYNElement.h"
+#include "PARParametersSetFactory.h"
 
 #include "TestSilentZ_Dyn.h"
 #include "TestSilentZ_Dyn_definition.h"
@@ -310,18 +311,18 @@ void ModelTestSilentZ_Dyn::evalDynamicFType_omc(propertyF_t* fType)
 {
 }
 
-boost::shared_ptr<parameters::ParametersSet> ModelTestSilentZ_Dyn::setSharedParametersDefaultValues()
+std::shared_ptr<parameters::ParametersSet> ModelTestSilentZ_Dyn::setSharedParametersDefaultValues()
 {
 
    // Propagating shared parameters default value 
 
    // This value may be updated later on through *.par/*.iidm data 
-  boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("SharedModelicaParameters"));
+  std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("SharedModelicaParameters");
 
   return parametersSet;
 }
 
-void ModelTestSilentZ_Dyn::setParameters( boost::shared_ptr<parameters::ParametersSet> params )
+void ModelTestSilentZ_Dyn::setParameters( std::shared_ptr<parameters::ParametersSet> params )
 {
 }
 

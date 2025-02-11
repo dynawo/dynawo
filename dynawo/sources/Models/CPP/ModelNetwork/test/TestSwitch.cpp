@@ -21,11 +21,12 @@
 #include <powsybl/iidm/VoltageLevel.hpp>
 #include <powsybl/iidm/TopologyKind.hpp>
 
+#include "make_unique.hpp"
 #include "gtest_dynawo.h"
 #include "DYNVariable.h"
 #include "DYNSwitchInterfaceIIDM.h"
 #include "DYNBusInterfaceIIDM.h"
-#include "DYNModelSwitch.h"
+#include "DYNModelSwitchFactory.h"
 #include "DYNModelNetwork.h"
 #include "DYNSparseMatrix.h"
 #include "TLTimelineFactory.h"
@@ -34,7 +35,7 @@ using boost::shared_ptr;
 
 namespace DYN {
 
-static shared_ptr<ModelSwitch>
+static std::shared_ptr<ModelSwitch>
 createModelSwitch(bool open, bool initModel) {
   powsybl::iidm::Network networkIIDM("test", "test");
 
@@ -71,14 +72,14 @@ createModelSwitch(bool open, bool initModel) {
       .add();
   swIIDM.setOpen(open);
 
-  shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
-  shared_ptr<BusInterfaceIIDM> bus2ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus2));
-  shared_ptr<SwitchInterfaceIIDM> swItfIIDM = shared_ptr<SwitchInterfaceIIDM>(new SwitchInterfaceIIDM(swIIDM));
+  std::unique_ptr<BusInterfaceIIDM> bus1ItfIIDM = DYN::make_unique<BusInterfaceIIDM>(iidmBus);
+  std::unique_ptr<BusInterfaceIIDM> bus2ItfIIDM = DYN::make_unique<BusInterfaceIIDM>(iidmBus2);
+  std::unique_ptr<SwitchInterfaceIIDM> swItfIIDM = DYN::make_unique<SwitchInterfaceIIDM>(swIIDM);
 
-  shared_ptr<ModelSwitch> sw = shared_ptr<ModelSwitch>(new ModelSwitch(swItfIIDM));
-  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
+  std::shared_ptr<ModelSwitch> sw = ModelSwitchFactory::newInstance(std::move(swItfIIDM));
+  std::shared_ptr<ModelBus> bus1 = std::make_shared<ModelBus>(std::move(bus1ItfIIDM), false);
   sw->setModelBus1(bus1);
-  shared_ptr<ModelBus> bus2 = shared_ptr<ModelBus>(new ModelBus(bus2ItfIIDM, false));
+  std::shared_ptr<ModelBus> bus2 = std::make_shared<ModelBus>(std::move(bus2ItfIIDM), false);
   sw->setModelBus2(bus2);
   ModelNetwork* network = new ModelNetwork();
   network->setIsInitModel(initModel);
@@ -125,20 +126,20 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchInitializationOpened) {
       .add();
   swIIDM.setOpen(true);
 
-  shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
-  shared_ptr<BusInterfaceIIDM> bus2ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus2));
-  shared_ptr<SwitchInterfaceIIDM> swItfIIDM = shared_ptr<SwitchInterfaceIIDM>(new SwitchInterfaceIIDM(swIIDM));
+  std::unique_ptr<BusInterfaceIIDM> bus1ItfIIDM = DYN::make_unique<BusInterfaceIIDM>(iidmBus);
+  std::unique_ptr<BusInterfaceIIDM> bus2ItfIIDM = DYN::make_unique<BusInterfaceIIDM>(iidmBus2);
+  std::unique_ptr<SwitchInterfaceIIDM> swItfIIDM = DYN::make_unique<SwitchInterfaceIIDM>(swIIDM);
 
-  shared_ptr<ModelSwitch> sw = shared_ptr<ModelSwitch>(new ModelSwitch(swItfIIDM));
+  std::shared_ptr<ModelSwitch> sw = ModelSwitchFactory::newInstance(std::move(swItfIIDM));
   ASSERT_EQ(sw->isInLoop(), false);
   ASSERT_EQ(sw->getConnectionState(), OPEN);
   ASSERT_EQ(sw->irYNum(), 0);
   ASSERT_EQ(sw->iiYNum(), 0);
   ASSERT_THROW_DYNAWO(sw->getModelBus1(), Error::MODELER, KeyError_t::SwitchMissingBus1);
-  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
+  std::shared_ptr<ModelBus> bus1 = std::make_shared<ModelBus>(std::move(bus1ItfIIDM), false);
   sw->setModelBus1(bus1);
   ASSERT_THROW_DYNAWO(sw->getModelBus2(), Error::MODELER, KeyError_t::SwitchMissingBus2);
-  shared_ptr<ModelBus> bus2 = shared_ptr<ModelBus>(new ModelBus(bus2ItfIIDM, false));
+  std::shared_ptr<ModelBus> bus2 = std::make_shared<ModelBus>(std::move(bus2ItfIIDM), false);
   sw->setModelBus2(bus2);
   ASSERT_EQ(sw->getModelBus1(), bus1);
   ASSERT_EQ(sw->getModelBus2(), bus2);
@@ -181,20 +182,20 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchInitializationClosed) {
       .add();
   swIIDM.setOpen(false);
 
-  shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
-  shared_ptr<BusInterfaceIIDM> bus2ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus2));
-  shared_ptr<SwitchInterfaceIIDM> swItfIIDM = shared_ptr<SwitchInterfaceIIDM>(new SwitchInterfaceIIDM(swIIDM));
+  std::unique_ptr<BusInterfaceIIDM> bus1ItfIIDM = DYN::make_unique<BusInterfaceIIDM>(iidmBus);
+  std::unique_ptr<BusInterfaceIIDM> bus2ItfIIDM = DYN::make_unique<BusInterfaceIIDM>(iidmBus2);
+  std::unique_ptr<SwitchInterfaceIIDM> swItfIIDM = DYN::make_unique<SwitchInterfaceIIDM>(swIIDM);
 
-  shared_ptr<ModelSwitch> sw = shared_ptr<ModelSwitch>(new ModelSwitch(swItfIIDM));
+  std::shared_ptr<ModelSwitch> sw = ModelSwitchFactory::newInstance(std::move(swItfIIDM));
   ASSERT_EQ(sw->isInLoop(), false);
   ASSERT_EQ(sw->getConnectionState(), CLOSED);
   ASSERT_EQ(sw->irYNum(), 0);
   ASSERT_EQ(sw->iiYNum(), 0);
   ASSERT_THROW_DYNAWO(sw->getModelBus1(), Error::MODELER, KeyError_t::SwitchMissingBus1);
-  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
+  std::shared_ptr<ModelBus> bus1 = std::make_shared<ModelBus>(std::move(bus1ItfIIDM), false);
   sw->setModelBus1(bus1);
   ASSERT_THROW_DYNAWO(sw->getModelBus2(), Error::MODELER, KeyError_t::SwitchMissingBus2);
-  shared_ptr<ModelBus> bus2 = shared_ptr<ModelBus>(new ModelBus(bus2ItfIIDM, false));
+  std::shared_ptr<ModelBus> bus2 = std::make_shared<ModelBus>(std::move(bus2ItfIIDM), false);
   sw->setModelBus2(bus2);
   ASSERT_EQ(sw->getModelBus1(), bus1);
   ASSERT_EQ(sw->getModelBus2(), bus2);
@@ -202,7 +203,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchInitializationClosed) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkSwitchCalculatedVariables) {
-  shared_ptr<ModelSwitch> sw = createModelSwitch(false, false);
+  std::shared_ptr<ModelSwitch> sw = createModelSwitch(false, false);
   sw->initSize();
   ASSERT_EQ(sw->sizeCalculatedVar(), ModelSwitch::nbCalculatedVariables_);
 
@@ -225,13 +226,13 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchCalculatedVariables) {
   ASSERT_THROW_DYNAWO(sw->getIndexesOfVariablesUsedForCalculatedVarI(1, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
   ASSERT_NO_THROW(sw->getIndexesOfVariablesUsedForCalculatedVarI(ModelSwitch::swStateNum_, numVars));
 
-  shared_ptr<ModelSwitch> swInit = createModelSwitch(false, true);
+  std::shared_ptr<ModelSwitch> swInit = createModelSwitch(false, true);
   swInit->initSize();
   ASSERT_EQ(swInit->sizeCalculatedVar(), 0);
 }
 
 TEST(ModelsModelNetwork, ModelNetworkSwitchDiscreteVariables) {
-  shared_ptr<ModelSwitch> sw = createModelSwitch(false, false);
+  std::shared_ptr<ModelSwitch> sw = createModelSwitch(false, false);
   sw->initSize();
   unsigned nbZ = 1;
   unsigned nbG = 0;
@@ -273,7 +274,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchDiscreteVariables) {
   ASSERT_EQ(sw->getConnectionState(), CLOSED);
   ASSERT_EQ(z[0], CLOSED);
 
-  shared_ptr<ModelSwitch> swInit = createModelSwitch(false, true);
+  std::shared_ptr<ModelSwitch> swInit = createModelSwitch(false, true);
   swInit->initSize();
   ASSERT_EQ(swInit->sizeZ(), 0);
   ASSERT_EQ(swInit->sizeG(), 0);
@@ -286,7 +287,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchDiscreteVariables) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkSwitchBuses) {
-  shared_ptr<ModelSwitch> sw = createModelSwitch(false, false);
+  std::shared_ptr<ModelSwitch> sw = createModelSwitch(false, false);
   sw->initSize();
   const unsigned nbZ = 1;
   ASSERT_EQ(sw->sizeZ(), nbZ);
@@ -300,7 +301,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchBuses) {
   sw->setReferenceZ(&z[0], zConnected, 0);
   sw->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
 
-  shared_ptr<ModelBus> bus1 = sw->getModelBus1();
+  std::shared_ptr<ModelBus> bus1 = sw->getModelBus1();
   bus1->initSize();
   std::vector<double> y1(bus1->sizeY(), 0.);
   std::vector<double> yp1(bus1->sizeY(), 0.);
@@ -315,7 +316,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchBuses) {
   bus1->setReferenceY(&y1[0], &yp1[0], &f1[0], 0, 0);
   bus1->numSubNetwork(2);
 
-  shared_ptr<ModelBus> bus2 = sw->getModelBus2();
+  std::shared_ptr<ModelBus> bus2 = sw->getModelBus2();
   bus2->initSize();
   std::vector<double> y2(bus2->sizeY(), 0.);
   std::vector<double> yp2(bus2->sizeY(), 0.);
@@ -349,7 +350,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchBuses) {
 
 TEST(ModelsModelNetwork, ModelNetworkSwitchContinuousVariables) {
   // init
-  shared_ptr<ModelSwitch> sw = createModelSwitch(false, false);
+  std::shared_ptr<ModelSwitch> sw = createModelSwitch(false, false);
   sw->initSize();
   unsigned nbY = 2;
   unsigned nbF = 2;
@@ -371,7 +372,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchContinuousVariables) {
   sw->setBufferYType(&yTypes[0], 0);
   sw->setBufferFType(&fTypes[0], 0);
 
-  shared_ptr<ModelBus> bus1 = sw->getModelBus1();
+  std::shared_ptr<ModelBus> bus1 = sw->getModelBus1();
   bus1->initSize();
   std::vector<double> y1(bus1->sizeY(), 0.);
   std::vector<double> yp1(bus1->sizeY(), 0.);
@@ -383,7 +384,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchContinuousVariables) {
   bus1->setReferenceZ(&z1[0], zConnected1, 0);
   bus1->setReferenceY(&y1[0], &yp1[0], &f1[0], 0, 0);
 
-  shared_ptr<ModelBus> bus2 = sw->getModelBus2();
+  std::shared_ptr<ModelBus> bus2 = sw->getModelBus2();
   bus2->initSize();
   std::vector<double> y2(bus2->sizeY(), 0.);
   std::vector<double> yp2(bus2->sizeY(), 0.);
@@ -459,7 +460,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchContinuousVariables) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkSwitchContinuousVariablesInit) {
-  shared_ptr<ModelSwitch> sw = createModelSwitch(false, true);
+  std::shared_ptr<ModelSwitch> sw = createModelSwitch(false, true);
   sw->initSize();
   unsigned nbY = 2;
   unsigned nbF = 2;
@@ -489,7 +490,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchContinuousVariablesInit) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkSwitchDefineInstantiate) {
-  shared_ptr<ModelSwitch> sw = createModelSwitch(false, false);
+  std::shared_ptr<ModelSwitch> sw = createModelSwitch(false, false);
 
   std::vector<shared_ptr<Variable> > definedVariables;
   std::vector<shared_ptr<Variable> > instantiatedVariables;
@@ -513,10 +514,10 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchDefineInstantiate) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkSwitchJt) {
-  shared_ptr<ModelSwitch> sw = createModelSwitch(false, false);
+  std::shared_ptr<ModelSwitch> sw = createModelSwitch(false, false);
   sw->initSize();
 
-  shared_ptr<ModelBus> bus1 = sw->getModelBus1();
+  std::shared_ptr<ModelBus> bus1 = sw->getModelBus1();
   bus1->initSize();
   std::vector<double> y1(bus1->sizeY(), 0.);
   std::vector<double> yp1(bus1->sizeY(), 0.);
@@ -528,7 +529,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchJt) {
   bus1->setReferenceZ(&z1[0], zConnected1, 0);
   bus1->setReferenceY(&y1[0], &yp1[0], &f1[0], 0, 0);
 
-  shared_ptr<ModelBus> bus2 = sw->getModelBus2();
+  std::shared_ptr<ModelBus> bus2 = sw->getModelBus2();
   bus2->initSize();
   std::vector<double> y2(bus2->sizeY(), 0.);
   std::vector<double> yp2(bus2->sizeY(), 0.);

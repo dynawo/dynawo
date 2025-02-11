@@ -1,7 +1,7 @@
-within Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.BaseClasses_INIT;
+within Dynawo.NonElectrical.Logs.Constraint;
 
 /*
-* Copyright (c) 2023, RTE (http://www.rte-france.com)
+* Copyright (c) 2025, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -13,10 +13,17 @@ within Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.BaseClasses_IN
 * of simulation tools for power systems.
 */
 
-model BasePss_INIT "Initialization base model for power system stabilizers"
-  extends AdditionalIcons.Init;
+function logConstraintEndData "Create an end constraint with data"
+  extends Icons.Function;
 
-  Types.ActivePowerPu PGen0Pu "Initial active power in pu (base SnRef) (generator convention)";
+  input Integer key;
+
+  input String kind;
+  input Real limit;
+  input Real value;
+  input String param;
+
+  external "C" addLogConstraintEndData(key, kind, limit, value, param);
 
   annotation(preferredView = "text");
-end BasePss_INIT;
+end logConstraintEndData;

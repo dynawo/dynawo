@@ -74,6 +74,7 @@
 #include "LEQXmlExporter.h"
 
 #include "PARParametersSet.h"
+#include "PARParametersSetFactory.h"
 #include "PARXmlImporter.h"
 
 #include "CRTXmlImporter.h"
@@ -105,7 +106,6 @@
 #include "DYNTrace.h"
 #include "DYNMacrosMessage.h"
 #include "DYNSolver.h"
-#include "DYNSolverFactory.h"
 #include "DYNTimer.h"
 #include "DYNModelMulti.h"
 #include "DYNModeler.h"
@@ -140,9 +140,8 @@ using finalStateValues::FinalStateValuesCollectionFactory;
 
 using constraints::ConstraintsCollectionFactory;
 
-using lostEquipments::LostEquipmentsCollectionFactory;
-
 using parameters::ParametersSet;
+using parameters::ParametersSetFactory;
 using parameters::ParametersSetCollection;
 
 static const char TIME_FILENAME[] = "time.bin";  ///< name of the file to dump time at the end of the simulation
@@ -266,7 +265,7 @@ Simulation::configureCriteria() {
       it != itEnd; ++it) {
     criteria::XmlImporter parser;
     std::string path = createAbsolutePath(*it, context_->getInputDirectory());
-    boost::shared_ptr<criteria::CriteriaCollection> ccollec = parser.importFromFile(path);
+    std::shared_ptr<criteria::CriteriaCollection> ccollec = parser.importFromFile(path);
     if (!criteriaCollection_)
       criteriaCollection_ = ccollec;
     else
@@ -666,13 +665,13 @@ Simulation::setSolver() {
   solver_ = SolverFactory::createSolverFromLib(jobEntry_->getSolverEntry()->getLib() + sharedLibraryExtension());
 
   parameters::XmlImporter importer;
-  boost::shared_ptr<ParametersSetCollection> parameters = importer.importFromFile(solverParFile);
+  std::shared_ptr<ParametersSetCollection> parameters = importer.importFromFile(solverParFile);
   parameters->propagateOriginData(solverParFile);
   referenceParameters_[solverParFile] = parameters;
   string parId = jobEntry_->getSolverEntry()->getParametersId();
   parameters->getParametersFromMacroParameter();
   if (parameters->getParametersSet(parId)) {
-    shared_ptr<ParametersSet> solverParams = boost::shared_ptr<ParametersSet>(new ParametersSet(*parameters->getParametersSet(parId)));
+    std::shared_ptr<ParametersSet> solverParams = ParametersSetFactory::copySet(parameters->getParametersSet(parId));
     solver_->setParameters(solverParams);
 
 #ifdef _DEBUG_
@@ -748,7 +747,7 @@ Simulation::importFinalStateValuesRequest() {
 
   // A map for existing Curves is built so we can locate them fast and update them from the Final State Values
   // A Curve is identified by the pair model name, variable name
-  typedef std::unordered_map<std::pair<std::string, std::string>, boost::shared_ptr<curves::Curve>, StringPairHash> CurvesMap;
+  typedef std::unordered_map<std::pair<std::string, std::string>, std::shared_ptr<curves::Curve>, StringPairHash> CurvesMap;
   CurvesMap curvesMap;
   for (CurvesCollection::const_iterator itCurve = curvesCollection_->cbegin(); itCurve != curvesCollection_->cend(); ++itCurve) {
     curvesMap.insert(std::make_pair(std::make_pair((*itCurve)->getModelName(), (*itCurve)->getVariable()), *itCurve));
@@ -761,11 +760,11 @@ Simulation::importFinalStateValuesRequest() {
     if (entry != curvesMap.end()) {
       entry->second->setExportType(curves::Curve::EXPORT_AS_BOTH);
     } else {
-      boost::shared_ptr<curves::Curve> curve = curves::CurveFactory::newCurve();
+      std::unique_ptr<curves::Curve> curve = curves::CurveFactory::newCurve();
       curve->setModelName((*itFinalStateValue)->getModelName());
       curve->setVariable((*itFinalStateValue)->getVariable());
       curve->setExportType(curves::Curve::EXPORT_AS_FINAL_STATE_VALUE);
-      curvesCollection_->add(curve);
+      curvesCollection_->add(std::move(curve));
     }
   }
 }
@@ -789,8 +788,8 @@ Simulation::initFromData(const shared_ptr<DataInterface>& data, const shared_ptr
     const std::string initParFile = createAbsolutePath(jobEntry_->getLocalInitEntry()->getParFile(), context_->getInputDirectory());
     const std::string parId = jobEntry_->getLocalInitEntry()->getParId();
     parameters::XmlImporter parametersImporter;
-    boost::shared_ptr<ParametersSetCollection> localInitSetCollection = parametersImporter.importFromFile(initParFile);
-    boost::shared_ptr<ParametersSet> localInitParameters = localInitSetCollection->getParametersSet(parId);
+    std::shared_ptr<ParametersSetCollection> localInitSetCollection = parametersImporter.importFromFile(initParFile);
+    std::shared_ptr<ParametersSet> localInitParameters = localInitSetCollection->getParametersSet(parId);
 
     model_->setLocalInitParameters(localInitParameters);
   }
@@ -799,7 +798,7 @@ Simulation::initFromData(const shared_ptr<DataInterface>& data, const shared_ptr
 void
 Simulation::initStructure() {
   model_->initBuffers();
-  shared_ptr<ModelMulti> model = dynamic_pointer_cast<ModelMulti>(model_);
+  std::shared_ptr<ModelMulti> model = std::dynamic_pointer_cast<ModelMulti>(model_);
   if (!model->checkConnects()) {
     throw DYNError(Error::MODELER, WrongConnect);
   }
@@ -891,7 +890,7 @@ Simulation::init() {
   for (CurvesCollection::iterator itCurve = curvesCollection_->begin();
           itCurve != curvesCollection_->end();
           ++itCurve) {
-    shared_ptr<curves::Curve>& curve = *itCurve;
+    std::shared_ptr<curves::Curve>& curve = *itCurve;
     bool added = model_->initCurves(curve);
     if (added)
       ++nbCurves;
@@ -1367,11 +1366,11 @@ void Simulation::printFinalStateValues(std::ostream& stream) const {
         (*itCurve)->getExportType() == curves::Curve::EXPORT_AS_BOTH;
       if ((*itCurve)->getAvailable() && isFinalStateValue) {
         curves::Curve::const_iterator lastPoint = --(*itCurve)->cend();
-        boost::shared_ptr<finalStateValues::FinalStateValue> finalStateValue = finalStateValues::FinalStateValueFactory::newFinalStateValue();
+        std::unique_ptr<finalStateValues::FinalStateValue> finalStateValue = finalStateValues::FinalStateValueFactory::newFinalStateValue();
         finalStateValue->setModelName((*itCurve)->getModelName());
         finalStateValue->setVariable((*itCurve)->getVariable());
         finalStateValue->setValue((*lastPoint)->getValue());
-        finalStateValuesCollection->add(finalStateValue);
+        finalStateValuesCollection->add(std::move(finalStateValue));
       }
     }
 
@@ -1466,6 +1465,12 @@ void
 Simulation::dumpIIDMFile(const boost::filesystem::path& iidmFile) {
   if (data_)
     data_->dumpToFile(iidmFile.generic_string());
+}
+
+void
+Simulation::dumpIIDMFile(std::stringstream& stream) const {
+  if (data_ && finalState_.iidmFile_)
+    data_->dumpToFile(stream);
 }
 
 void

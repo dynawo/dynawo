@@ -19,12 +19,11 @@
  */
 
 #include "DYNPhaseTapChangerInterfaceIIDM.h"
-
 #include "DYNStepInterfaceIIDM.h"
+#include "make_unique.hpp"
 
 #include <powsybl/iidm/TapChanger.hpp>
 
-using boost::shared_ptr;
 
 namespace DYN {
 
@@ -34,17 +33,17 @@ PhaseTapChangerInterfaceIIDM::PhaseTapChangerInterfaceIIDM(powsybl::iidm::PhaseT
     tapChanger.setTapPosition(i);
     const auto& x = tapChanger.getStep(i);
     powsybl::iidm::PhaseTapChangerStep S(x.getAlpha(), x.getRho(), x.getR(), x.getX(), x.getG(), x.getB());
-    steps_.push_back(boost::shared_ptr<StepInterface>(new StepInterfaceIIDM(S)));
+    steps_.push_back(DYN::make_unique<StepInterfaceIIDM>(S));
   }
   tapChanger.setTapPosition(oldTapPosition);
 }
 
 void
-PhaseTapChangerInterfaceIIDM::addStep(const shared_ptr<StepInterface>& step) {
-  steps_.push_back(step);
+PhaseTapChangerInterfaceIIDM::addStep(std::unique_ptr<StepInterface> step) {
+  steps_.push_back(std::move(step));
 }
 
-std::vector<shared_ptr<StepInterface> >
+const std::vector<std::unique_ptr<StepInterface> >&
 PhaseTapChangerInterfaceIIDM::getSteps() const {
   return steps_;
 }

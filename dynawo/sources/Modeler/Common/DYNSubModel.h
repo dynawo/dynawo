@@ -410,7 +410,7 @@ class SubModel {
    * @param t0 time to use when calling initialization
    * @param localInitParameters local initialization solver parameters
    */
-  void initSub(const double t0, boost::shared_ptr<parameters::ParametersSet> localInitParameters);
+  void initSub(const double t0, std::shared_ptr<parameters::ParametersSet> localInitParameters);
 
   /**
    * @brief initialize size and offset to use during the simulation
@@ -807,7 +807,7 @@ class SubModel {
    *
    * @param constraints constraints collections to use
    */
-  void setConstraints(const boost::shared_ptr<constraints::ConstraintsCollection>& constraints);
+  void setConstraints(const std::shared_ptr<constraints::ConstraintsCollection>& constraints);
 
   /**
    * @brief set the simulation working directory to use
@@ -835,21 +835,21 @@ class SubModel {
    *
    * @param curve curve to store
    */
-  void addCurve(boost::shared_ptr<curves::Curve>& curve);
+  void addCurve(std::shared_ptr<curves::Curve>& curve);
 
   /**
    * @brief update the subset of calculated variables needed for curves
    *
    * @param curve curve whose value needs to be updated
    */
-  void updateCalculatedVarForCurve(boost::shared_ptr<curves::Curve>& curve);
+  void updateCalculatedVarForCurve(std::shared_ptr<curves::Curve>& curve);
 
   /**
    * @brief add a curve of a parameter to store for the model
    *
    * @param curve curve to store
    */
-  void addParameterCurve(boost::shared_ptr<curves::Curve>& curve);
+  void addParameterCurve(std::shared_ptr<curves::Curve>& curve);
 
   /**
    * @brief defines all variables for the dynamic model
@@ -895,7 +895,7 @@ class SubModel {
    * @param parametersSet the set to scan for a value
    * @param origin the origin of the set data (MO, PAR, INIT, ...)
    */
-  void setParameterFromSet(ParameterModeler& parameter, const boost::shared_ptr<parameters::ParametersSet>& parametersSet, const parameterOrigin_t& origin);
+  void setParameterFromSet(ParameterModeler& parameter, const std::shared_ptr<parameters::ParametersSet>& parametersSet, const parameterOrigin_t& origin);
 
   /**
    * @brief set all parameters values from a parameters set (API PAR)
@@ -1360,7 +1360,7 @@ class SubModel {
    *
    * @param params parameters set read from PAR file
    */
-  void setPARParameters(const boost::shared_ptr<parameters::ParametersSet>& params);
+  void setPARParameters(const std::shared_ptr<parameters::ParametersSet>& params);
 
   /**
    * @brief retrieve the value of a parameter
@@ -1524,7 +1524,7 @@ class SubModel {
   }
 
  protected:
-  boost::shared_ptr<parameters::ParametersSet> readPARParameters_;  ///< parameters set read from PAR file
+  std::shared_ptr<parameters::ParametersSet> readPARParameters_;  ///< parameters set read from PAR file
 
   // size of subModel
   unsigned int sizeF_;  ///< size of the local F function
@@ -1577,7 +1577,7 @@ class SubModel {
   std::map<int, std::string> fEquationInitIndex_;  ///< for DEBUG log, map of index of equation and equation in string for init model
   std::map<int, std::string> gEquationInitIndex_;  ///< for DEBUG log, map of index of root equation and root equation in string  for init model
 
-  boost::shared_ptr<parameters::ParametersSet> localInitParameters_;  ///< local initialization solver parameters set
+  std::shared_ptr<parameters::ParametersSet> localInitParameters_;  ///< local initialization solver parameters set
 
  private:
   int sizeFSave_;  ///< save of the size of F
@@ -1622,7 +1622,7 @@ class SubModel {
 
   double currentTime_;  ///< current simulation time
   boost::shared_ptr<timeline::Timeline> timeline_;  ///< timeline where event messages should be added
-  boost::shared_ptr<constraints::ConstraintsCollection> constraints_;  ///< constraints collection where constraints should be added
+  std::shared_ptr<constraints::ConstraintsCollection> constraints_;  ///< constraints collection where constraints should be added
 
   std::string workingDirectory_;  ///< Working directory of the simulation (configuration of the simulation)
 

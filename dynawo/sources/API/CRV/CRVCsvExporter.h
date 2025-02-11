@@ -38,7 +38,7 @@ class CsvExporter : public Exporter {
    * @param curves curves to export
    * @param filePath File to export csv formatted curves to
    */
-  void exportToFile(const boost::shared_ptr<CurvesCollection>& curves, const std::string& filePath) const;
+  void exportToFile(const std::shared_ptr<CurvesCollection>& curves, const std::string& filePath) const;
 
   /**
    * @brief Export method in csv format
@@ -46,7 +46,7 @@ class CsvExporter : public Exporter {
    * @param curves curves to export
    * @param stream stream to export csv formatted curves to
    */
-  void exportToStream(const boost::shared_ptr<CurvesCollection>& curves, std::ostream& stream) const;
+  void exportToStream(const std::shared_ptr<CurvesCollection>& curves, std::ostream& stream) const;
 };
 
 }  // namespace curves

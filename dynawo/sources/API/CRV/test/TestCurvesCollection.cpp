@@ -31,10 +31,10 @@ namespace curves {
 //-----------------------------------------------------
 
 TEST(APICRVTest, CurvesCollection) {
-  boost::shared_ptr<CurvesCollection> curvesCollection1 = CurvesCollectionFactory::newInstance("Curves");
+  std::shared_ptr<CurvesCollection> curvesCollection1 = CurvesCollectionFactory::newInstance("Curves");
 
-  boost::shared_ptr<CurvesCollection> curvesCollection2;
-  boost::shared_ptr<CurvesCollection> curvesCollection3;
+  std::unique_ptr<CurvesCollection> curvesCollection2;
+  std::unique_ptr<CurvesCollection> curvesCollection3;
 
   CurvesCollection& refCurvesCollection1(*curvesCollection1);
 
@@ -43,9 +43,9 @@ TEST(APICRVTest, CurvesCollection) {
 }
 
 TEST(APICRVTest, CurvesCollectionIterator) {
-  boost::shared_ptr<CurvesCollection> curvesCollection1 = CurvesCollectionFactory::newInstance("Curves");
+  const std::unique_ptr<CurvesCollection> curvesCollection1 = CurvesCollectionFactory::newInstance("Curves");
 
-  boost::shared_ptr<Curve> curve1 = CurveFactory::newCurve();
+  std::shared_ptr<Curve> curve1 = CurveFactory::newCurve();
 
   curve1->setVariable("variable1");
   curve1->setAvailable(true);
@@ -56,7 +56,7 @@ TEST(APICRVTest, CurvesCollectionIterator) {
   curve1->setBuffer(&variables[0]);
   curvesCollection1->add(curve1);
 
-  boost::shared_ptr<Curve> curve2 = CurveFactory::newCurve();
+  std::shared_ptr<Curve> curve2 = CurveFactory::newCurve();
 
   curve2->setVariable("variable2");
   curve2->setAvailable(true);

@@ -69,8 +69,8 @@ class HeaderPatternDefine:
     void evalStaticFType_omc(propertyF_t* fType);
     void evalDynamicYType_omc(propertyContinuousVar_t* yType);
     void evalDynamicFType_omc(propertyF_t* fType);
-    boost::shared_ptr<parameters::ParametersSet> setSharedParametersDefaultValues();
-    void setParameters( boost::shared_ptr<parameters::ParametersSet> params );
+    std::shared_ptr<parameters::ParametersSet> setSharedParametersDefaultValues();
+    void setParameters( std::shared_ptr<parameters::ParametersSet> params );
     void defineVariables(std::vector< boost::shared_ptr<Variable> >& variables);
     void defineParameters(std::vector<ParameterModeler>& parameters);
     void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
@@ -158,8 +158,8 @@ namespace DYN {
     void evalStaticFType_omc(propertyF_t* fType);
     void evalDynamicYType_omc(propertyContinuousVar_t* yType);
     void evalDynamicFType_omc(propertyF_t* fType);
-    boost::shared_ptr<parameters::ParametersSet> setSharedParametersDefaultValues(); ///< set parameter values based on internal Modelica data
-    void setParameters(boost::shared_ptr<parameters::ParametersSet> params );
+    std::shared_ptr<parameters::ParametersSet> setSharedParametersDefaultValues(); ///< set parameter values based on internal Modelica data
+    void setParameters(std::shared_ptr<parameters::ParametersSet> params );
     void defineVariables(std::vector< boost::shared_ptr<Variable> >& variables);
     void defineParameters(std::vector<ParameterModeler>& parameters);
     void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);

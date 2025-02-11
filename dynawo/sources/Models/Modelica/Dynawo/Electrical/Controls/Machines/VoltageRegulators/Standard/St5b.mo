@@ -13,11 +13,26 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 * of simulation tools for power systems.
 */
 
-model St5b "IEEE exciter type ST5B model"
-  extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.St5c(
-    PositionOel = 2,
-    PositionScl = 0,
-    PositionUel = 2);
+model St5b "IEEE exciter type ST5B model (2005 standard)"
+  extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.BaseSt5(
+    max1.nu = 2,
+    min1.nu = 2);
+
+equation
+  if min1.yMin < max1.yMax then
+    limiter.u = limitedLeadLag2.y;
+  elseif max1.yMax > add3.y then
+    limiter.u = limitedLeadLag1.y;
+  else
+    limiter.u = limitedLeadLag.y;
+  end if;
+
+  connect(add3.y, max1.u[1]) annotation(
+    Line(points = {{-239, -20}, {-160, -20}}, color = {0, 0, 127}));
+  connect(UUelPu, max1.u[2]) annotation(
+    Line(points = {{-380, -80}, {-180, -80}, {-180, -20}, {-160, -20}}, color = {0, 0, 127}));
+  connect(UOelPu, min1.u[2]) annotation(
+    Line(points = {{-380, 80}, {-120, 80}, {-120, -14}, {-100, -14}}, color = {0, 0, 127}, pattern = LinePattern.Dot));
 
   annotation(preferredView = "diagram");
 end St5b;

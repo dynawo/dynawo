@@ -120,15 +120,15 @@ class DataInterface {
    * @brief find connected components
    * @return vector of connected components found
    */
-  virtual const boost::shared_ptr<std::vector<boost::shared_ptr<ComponentInterface> > > findConnectedComponents() = 0;
+  virtual std::shared_ptr<std::vector<std::shared_ptr<ComponentInterface> > > findConnectedComponents() = 0;
 
   /**
    * @brief find lost equipments (equipments which have lost connection)
    * @param connectedComponents vector of components previously connected
    * @return vector of lost equipments found
    */
-  virtual const boost::shared_ptr<lostEquipments::LostEquipmentsCollection>
-    findLostEquipments(const boost::shared_ptr<std::vector<boost::shared_ptr<ComponentInterface> > >& connectedComponents) = 0;
+  virtual std::unique_ptr<lostEquipments::LostEquipmentsCollection>
+    findLostEquipments(const std::shared_ptr<std::vector<std::shared_ptr<ComponentInterface> > >& connectedComponents) = 0;
 
   /**
    * @brief import static parameters
@@ -139,7 +139,7 @@ class DataInterface {
    * @brief set the criteria for this model
    * @param criteria criteria to be used
    */
-  virtual void configureCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria) = 0;
+  virtual void configureCriteria(const std::shared_ptr<criteria::CriteriaCollection>& criteria) = 0;
 
   /**
    * @brief check if criteria for static model is respected
@@ -192,6 +192,12 @@ class DataInterface {
    * @param filepath file to create
    */
   virtual void dumpToFile(const std::string& filepath) const = 0;
+
+  /**
+   * @brief dump the final state of the network in a stream
+   * @param stream the stream to export to
+   */
+  virtual void dumpToFile(std::stringstream& stream) const = 0;
 
   /**
    * @brief Retrieve service manager associated with this data interface

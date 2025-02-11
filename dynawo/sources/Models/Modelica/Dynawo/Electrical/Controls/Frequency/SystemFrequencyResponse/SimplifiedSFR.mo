@@ -25,13 +25,13 @@ model SimplifiedSFR "Simplified system frequency response model, based on the pr
   Modelica.Blocks.Interfaces.RealOutput deltaOmegaPu(start = 0) "Incremental speed in pu (base OmegaNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Continuous.TransferFunction inertia(a = {2 * H, DPu}, b = {1})  annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction inertia(a = {2 * H, DPu}, b = {1}) annotation(
     Placement(visible = true, transformation(origin = {-22, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction feedbackLoop(a = {R * Tr, R}, b = {Km * Fh * Tr, Km})  annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction feedbackLoop(a = {R * Tr, R}, b = {Km * Fh * Tr, Km}) annotation(
     Placement(visible = true, transformation(origin = {-22, -48}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Modelica.Blocks.Math.Gain gain(k = Dynawo.Electrical.SystemBase.fNom)  annotation(
+  Modelica.Blocks.Math.Gain gain(k = Dynawo.Electrical.SystemBase.fNom) annotation(
     Placement(visible = true, transformation(origin = {56, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add add(k2 = -1)  annotation(
+  Modelica.Blocks.Math.Add add(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {-68, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initial parameter
@@ -53,7 +53,8 @@ model SimplifiedSFR "Simplified system frequency response model, based on the pr
   connect(deltaOmegaPu, inertia.y) annotation(
     Line(points = {{110, -40}, {20, -40}, {20, 0}, {-10, 0}}, color = {0, 0, 127}));
 
-annotation(preferredView = "diagram",
+  annotation(
+    preferredView = "diagram",
     Documentation(info = "<html><head></head><body>This model is a simplified model that allows representing the average frequency behaviour of a reheat steam turbine.<div><br><div>It is an implementation of the model described in the following paper:</div><div><br></div><div>P. M. Anderson and M. Mirheydar, \"A low-order system frequency response model,\" in IEEE Transactions on Power Systems, vol. 5, no. 3, pp. 720-729, Aug. 1990, doi: 10.1109/59.65898.<div>keywords: {Frequency response;Power system modeling;Power system dynamics;Frequency estimation;Power generation;Impedance;Frequency synchronization;Nonlinear dynamical systems;Nonlinear equations;Turbines}</div></div></div><div><br></div><div>and is a simplification of the reduced order model described in the same paper which is valid when we are only interested in a variation of Pe for Psp = 0.</div></body></html>"),
-  Icon(graphics = {Text(origin = {-33, 34}, extent = {{-59, 22}, {129, -88}}, textString = "SimplifiedSFR"), Rectangle(extent = {{-100, 100}, {100, -100}})}));
+    Icon(graphics = {Text(origin = {-33, 34}, extent = {{-59, 22}, {129, -88}}, textString = "SimplifiedSFR"), Rectangle(extent = {{-100, 100}, {100, -100}})}));
 end SimplifiedSFR;

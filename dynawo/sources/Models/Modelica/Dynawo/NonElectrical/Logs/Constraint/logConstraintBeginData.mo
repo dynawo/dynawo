@@ -1,7 +1,7 @@
-within Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers;
+within Dynawo.NonElectrical.Logs.Constraint;
 
 /*
-* Copyright (c) 2023, RTE (http://www.rte-france.com)
+* Copyright (c) 2025, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -13,8 +13,17 @@ within Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers;
 * of simulation tools for power systems.
 */
 
-package BaseClasses_INIT "Initialization base models for power system stabilizers"
-  extends Icons.Package;
+function logConstraintBeginData "Create a begin constraint with data"
+  extends Icons.Function;
+
+  input Integer key;
+
+  input String kind;
+  input Real limit;
+  input Real value;
+  input String param;
+
+  external "C" addLogConstraintBeginData(key, kind, limit, value, param);
 
   annotation(preferredView = "text");
-end BaseClasses_INIT;
+end logConstraintBeginData;

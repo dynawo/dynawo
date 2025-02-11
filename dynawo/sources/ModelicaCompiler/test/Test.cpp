@@ -27,8 +27,6 @@
 #include "gtest_dynawo.h"
 
 
-using boost::shared_ptr;
-
 namespace DYN {
 
 TEST(ModelicaCompilerTestSuite, BasicCompilationTest) {

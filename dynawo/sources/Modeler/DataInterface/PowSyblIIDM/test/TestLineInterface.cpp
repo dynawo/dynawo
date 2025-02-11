@@ -17,6 +17,7 @@
 #include "DYNVoltageLevelInterfaceIIDM.h"
 #include "DYNCurrentLimitInterfaceIIDM.h"
 
+#include "make_unique.hpp"
 #include "gtest_dynawo.h"
 
 #include <powsybl/iidm/Bus.hpp>
@@ -135,12 +136,12 @@ TEST(DataInterfaceTest, Line_1) {
 
   ASSERT_EQ(li.getBusInterface1().get(), nullptr);
   ASSERT_EQ(li.getBusInterface2().get(), nullptr);
-  const boost::shared_ptr<BusInterface> x_b1(new BusInterfaceIIDM(vl1Bus1));
-  const boost::shared_ptr<BusInterface> x_b3(new BusInterfaceIIDM(vl3Bus1));
-  const boost::shared_ptr<VoltageLevelInterface> vl1Itf(new VoltageLevelInterfaceIIDM(vl1));
-  const boost::shared_ptr<VoltageLevelInterface> vl3Itf(new VoltageLevelInterfaceIIDM(vl3));
-  li.setBusInterface1(x_b1);
-  li.setBusInterface2(x_b3);
+  std::unique_ptr<BusInterface> x_b1 = DYN::make_unique<BusInterfaceIIDM>(vl1Bus1);
+  std::unique_ptr<BusInterface> x_b3 = DYN::make_unique<BusInterfaceIIDM>(vl3Bus1);
+  const std::shared_ptr<VoltageLevelInterface> vl1Itf = std::make_shared<VoltageLevelInterfaceIIDM>(vl1);
+  const std::shared_ptr<VoltageLevelInterface> vl3Itf = std::make_shared<VoltageLevelInterfaceIIDM>(vl3);
+  li.setBusInterface1(std::move(x_b1));
+  li.setBusInterface2(std::move(x_b3));
   li.setVoltageLevelInterface1(vl1Itf);
   li.setVoltageLevelInterface2(vl3Itf);
   ASSERT_EQ(li.getBusInterface1().get()->getID(), "VL1_BUS1");
@@ -196,10 +197,10 @@ TEST(DataInterfaceTest, Line_1) {
 
   ASSERT_EQ(li.getCurrentLimitInterfaces1().size(), 0);
   ASSERT_EQ(li.getCurrentLimitInterfaces2().size(), 0);
-  const boost::shared_ptr<CurrentLimitInterface> curLimItf1(new CurrentLimitInterfaceIIDM(1, 1));
-  li.addCurrentLimitInterface1(curLimItf1);
-  const boost::shared_ptr<CurrentLimitInterface> curLimItf2(new CurrentLimitInterfaceIIDM(2, 2));
-  li.addCurrentLimitInterface2(curLimItf2);
+  std::unique_ptr<CurrentLimitInterface> curLimItf1 = DYN::make_unique<CurrentLimitInterfaceIIDM>(1, 1);
+  li.addCurrentLimitInterface1(std::move(curLimItf1));
+  std::unique_ptr<CurrentLimitInterface> curLimItf2 = DYN::make_unique<CurrentLimitInterfaceIIDM>(2, 2);
+  li.addCurrentLimitInterface2(std::move(curLimItf2));
   ASSERT_EQ(li.getCurrentLimitInterfaces1().size(), 1);
   ASSERT_EQ(li.getCurrentLimitInterfaces2().size(), 1);
   std::string season = "UNDEFINED";

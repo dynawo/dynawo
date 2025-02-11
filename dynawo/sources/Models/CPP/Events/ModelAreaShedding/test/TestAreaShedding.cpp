@@ -27,6 +27,7 @@
 #include "DYNSubModel.h"
 #include "DYNVariable.h"
 #include "PARParametersSet.h"
+#include "PARParametersSetFactory.h"
 
 #include "gtest_dynawo.h"
 
@@ -38,8 +39,7 @@ static boost::shared_ptr<SubModel> initModelAreaShedding() {
 
   std::vector<ParameterModeler> parameters;
   modelAreaShedding->defineParameters(parameters);
-  boost::shared_ptr<parameters::ParametersSet> parametersSet =
-      boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
+  std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("Parameterset");
   parametersSet->createParameter("nbLoads", 2);
   parametersSet->createParameter("deltaTime", 0.5);
   parametersSet->createParameter("deltaP_0", 0.05);
@@ -67,7 +67,7 @@ TEST(ModelsModelAreaShedding, ModelAreaSheddingDefineMethods) {
   modelAreaShedding->defineParameters(parameters);
   ASSERT_EQ(parameters.size(), 6);
 
-  boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
+  std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("Parameterset");
   parametersSet->createParameter("nbLoads", 2);
   parametersSet->createParameter("deltaTime", 0.);
   parametersSet->createParameter("deltaP_0", 5.);

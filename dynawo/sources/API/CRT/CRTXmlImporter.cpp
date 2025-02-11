@@ -30,11 +30,10 @@
 #include "DYNExecUtils.h"
 
 using std::string;
-using boost::shared_ptr;
 namespace parser = xml::sax::parser;
 namespace criteria {
 
-shared_ptr<CriteriaCollection>
+std::shared_ptr<CriteriaCollection>
 XmlImporter::importFromFile(const string& fileName) const {
   std::ifstream stream(fileName.c_str());
   if (!stream)
@@ -47,7 +46,7 @@ XmlImporter::importFromFile(const string& fileName) const {
   }
 }
 
-boost::shared_ptr<CriteriaCollection>
+std::shared_ptr<CriteriaCollection>
 XmlImporter::importFromStream(std::istream& stream) const {
   XmlHandler criteriaHandler;
 

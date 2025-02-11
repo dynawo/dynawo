@@ -8,15 +8,16 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain suite of simulation tools for power systems.
 
+add_subdirectory(BaseClasses B)
 
 set(MODEL_FILES
   package.mo
   package.order
-  SVarCStepURef.mo
+  SVarCFaultImp.mo
   SVarCLoadVarQ.mo
   SVarCLoadVarQLarge.mo
   SVarCModeChange.mo
-  SVarCFaultImp.mo
+  SVarCStepURef.mo
   )
 
 #

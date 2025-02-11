@@ -47,7 +47,6 @@
 #include "DYNTimer.h"
 #include "DYNDataInterface.h"
 
-using std::ofstream;
 using std::stringstream;
 using std::vector;
 using std::map;
@@ -129,7 +128,7 @@ SubModel::hasTimeline() const {
 }
 
 void
-SubModel::setConstraints(const shared_ptr<ConstraintsCollection>& constraints) {
+SubModel::setConstraints(const std::shared_ptr<ConstraintsCollection>& constraints) {
   constraints_ = constraints;
 }
 
@@ -171,7 +170,7 @@ SubModel::restoreData() {
 }
 
 void
-SubModel::initSub(const double t0, boost::shared_ptr<parameters::ParametersSet> localInitParameters) {
+SubModel::initSub(const double t0, std::shared_ptr<parameters::ParametersSet> localInitParameters) {
   setCurrentTime(t0);
 
   localInitParameters_ = localInitParameters;
@@ -197,7 +196,7 @@ SubModel::initSub(const double t0, boost::shared_ptr<parameters::ParametersSet> 
 }
 
 void
-SubModel::setPARParameters(const shared_ptr<parameters::ParametersSet>& params) {
+SubModel::setPARParameters(const std::shared_ptr<parameters::ParametersSet>& params) {
   readPARParameters_ = params;
 }
 
@@ -480,7 +479,7 @@ SubModel::instantiateNonUnitaryParameters(const bool isInitParam,
 }
 
 void
-SubModel::setParameterFromSet(ParameterModeler& parameter, const shared_ptr<parameters::ParametersSet>& parametersSet,
+SubModel::setParameterFromSet(ParameterModeler& parameter, const std::shared_ptr<parameters::ParametersSet>& parametersSet,
                               const parameterOrigin_t& origin) {
   if (parametersSet) {
     const string& parName = parameter.getName();
@@ -988,7 +987,7 @@ SubModel::getY0Values(vector<double>& y0, vector<double>& yp0, vector<double>& z
 }
 
 void
-SubModel::addCurve(shared_ptr<curves::Curve>& curve) {
+SubModel::addCurve(std::shared_ptr<curves::Curve>& curve) {
   const string variableName = curve->getFoundVariableName();
   const shared_ptr <Variable> variable = getVariable(variableName);
   const int varNum = variable->getIndex();
@@ -1030,7 +1029,7 @@ SubModel::addCurve(shared_ptr<curves::Curve>& curve) {
 }
 
 void
-SubModel::updateCalculatedVarForCurve(shared_ptr<curves::Curve>& curve) {
+SubModel::updateCalculatedVarForCurve(std::shared_ptr<curves::Curve>& curve) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SubModel::updateCalculatedVarForCurve");
   assert(curve);
@@ -1046,7 +1045,7 @@ SubModel::updateCalculatedVarForCurve(shared_ptr<curves::Curve>& curve) {
 }
 
 void
-SubModel::addParameterCurve(shared_ptr<curves::Curve>& curve) {
+SubModel::addParameterCurve(std::shared_ptr<curves::Curve>& curve) {
   curve->setBuffer(NULL);
   curve->setNegated(false);
 }
@@ -1416,6 +1415,7 @@ SubModel::checkDataCoherence(const double) {
 
 void
 SubModel::printInternalParameters(std::ofstream& /*fstream*/) const {
+  // do nothing
 }
 
 }  // namespace DYN

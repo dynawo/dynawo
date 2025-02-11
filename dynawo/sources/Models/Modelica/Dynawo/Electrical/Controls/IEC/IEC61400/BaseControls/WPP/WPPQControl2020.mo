@@ -56,7 +56,7 @@ model WPPQControl2020 "Reactive power control module for wind power plants (IEC 
     Placement(visible = true, transformation(origin = {-10, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.VariableLimiter variableLimiter annotation(
     Placement(visible = true, transformation(origin = {-30, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = XErrMaxPu, uMin = XErrMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = XErrMaxPu, uMin = XErrMinPu) annotation(
     Placement(visible = true, transformation(origin = {110, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   equation
@@ -96,8 +96,8 @@ model WPPQControl2020 "Reactive power control module for wind power plants (IEC 
     Line(points = {{122, 100}, {158, 100}}, color = {0, 0, 127}));
   connect(limiter.y, antiWindupIntegrator.u) annotation(
     Line(points = {{122, 100}, {140, 100}, {140, 60}, {158, 60}}, color = {0, 0, 127}));
-  connect(feedback2.y, gain1.u) annotation(
-    Line(points = {{30, 100}, {34, 100}, {34, 140}, {158, 140}}, color = {0, 0, 127}));
+  connect(variableLimiter.y, gain1.u) annotation(
+    Line(points = {{-18, 100}, {-4, 100}, {-4, 140}, {158, 140}}, color = {0, 0, 127}));
   connect(absLimRateLimFeedthroughFreezeLimDetection.y, xPDRefPu) annotation(
     Line(points = {{272, 100}, {360, 100}}, color = {0, 0, 127}));
   connect(or1.y, fWPFrt) annotation(
@@ -123,6 +123,7 @@ model WPPQControl2020 "Reactive power control module for wind power plants (IEC 
   connect(QWPFiltComPu, gain.u) annotation(
     Line(points = {{-340, -40}, {-140, -40}, {-140, -72}, {-122, -72}}, color = {0, 0, 127}));
 
-annotation(
+  annotation(
+    preferredView = "diagram",
     Icon(graphics = {Text(origin = {22, -108}, extent = {{-94, 60}, {48, 12}}, textString = "2020")}));
 end WPPQControl2020;

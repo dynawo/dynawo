@@ -40,5 +40,5 @@ equation
   u10Pu = ComplexMath.fromPolar(U10Pu, U1Phase0);
   U20Pu = ComplexMath.'abs'(u20Pu);
 
-protected
+  annotation(preferredView = "text");
 end TransformerFixedRatioAndPhase_INIT;

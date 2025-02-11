@@ -37,19 +37,14 @@
 using std::map;
 using std::string;
 
-using boost::dynamic_pointer_cast;
-using boost::shared_ptr;
-
-using DYN::Error;
-
 namespace dynamicdata {
 
 void
-DynamicModelsCollection::addModel(const shared_ptr<Model>& model) {
+DynamicModelsCollection::addModel(const std::shared_ptr<Model>& model) {
   const string& id = model->getId();
   // Used instead of models_[name] = ModelFactory::newModel(id)
   // to avoid necessity to create Model default constructor
-  std::pair<std::map<std::string, boost::shared_ptr<Model> >::iterator, bool> ret;
+  std::pair<std::map<std::string, std::shared_ptr<Model> >::iterator, bool> ret;
   ret = models_.emplace(id, model);
   if (!ret.second)
     throw DYNError(DYN::Error::API, ModelIDNotUnique, id);
@@ -60,27 +55,27 @@ DynamicModelsCollection::addConnect(const string& model1, const string& var1, co
   if (model1 == model2)
     throw DYNError(DYN::Error::API, InternalConnectDoneInSystem, model1, var1, model2, var2);
 
-  connectors_.push_back(shared_ptr<Connector>(ConnectorFactory::newConnector(model1, var1, model2, var2)));
+  connectors_.push_back(ConnectorFactory::newConnector(model1, var1, model2, var2));
 }
 
 void
-DynamicModelsCollection::addMacroConnect(const boost::shared_ptr<MacroConnect>& macroConnect) {
+DynamicModelsCollection::addMacroConnect(const std::shared_ptr<MacroConnect>& macroConnect) {
   macroConnects_.push_back(macroConnect);
 }
 
 void
-DynamicModelsCollection::addMacroConnector(const boost::shared_ptr<MacroConnector>& macroConnector) {
+DynamicModelsCollection::addMacroConnector(const std::shared_ptr<MacroConnector>& macroConnector) {
   const string& id = macroConnector->getId();
-  std::pair<std::map<std::string, boost::shared_ptr<MacroConnector> >::iterator, bool> ret;
+  std::pair<std::map<std::string, std::shared_ptr<MacroConnector> >::iterator, bool> ret;
   ret = macroConnectors_.emplace(id, macroConnector);
   if (!ret.second)
     throw DYNError(DYN::Error::API, MacroConnectorIDNotUnique, id);
 }
 
 void
-DynamicModelsCollection::addMacroStaticReference(const boost::shared_ptr<MacroStaticReference>& macroStaticReference) {
+DynamicModelsCollection::addMacroStaticReference(const std::shared_ptr<MacroStaticReference>& macroStaticReference) {
   const string& id = macroStaticReference->getId();
-  std::pair<std::map<std::string, boost::shared_ptr<MacroStaticReference> >::iterator, bool> ret;
+  std::pair<std::map<std::string, std::shared_ptr<MacroStaticReference> >::iterator, bool> ret;
   ret = macroStaticReferences_.emplace(id, macroStaticReference);
   if (!ret.second)
     throw DYNError(DYN::Error::API, MacroStaticReferenceNotUnique, id);
@@ -186,18 +181,18 @@ DynamicModelsCollection::endMacroStaticReference() {
   return macroStaticReference_iterator(this, false);
 }
 
-const shared_ptr<MacroConnector>&
+const std::shared_ptr<MacroConnector>&
 DynamicModelsCollection::findMacroConnector(const std::string& connector) {
-  map<string, shared_ptr<MacroConnector> >::const_iterator iter = macroConnectors_.find(connector);
+  map<string, std::shared_ptr<MacroConnector> >::const_iterator iter = macroConnectors_.find(connector);
   if (iter == macroConnectors_.end())
     throw DYNError(DYN::Error::API, MacroConnectorUndefined, connector);
 
   return iter->second;
 }
 
-const shared_ptr<MacroStaticReference>&
+const std::shared_ptr<MacroStaticReference>&
 DynamicModelsCollection::findMacroStaticReference(const std::string& id) {
-  map<string, shared_ptr<MacroStaticReference> >::const_iterator iter = macroStaticReferences_.find(id);
+  map<string, std::shared_ptr<MacroStaticReference> >::const_iterator iter = macroStaticReferences_.find(id);
   if (iter == macroStaticReferences_.end())
     throw DYNError(DYN::Error::API, MacroStaticReferenceUndefined, id);
 

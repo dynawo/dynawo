@@ -36,7 +36,7 @@ model GridProtection2015 "Grid protection system for wind turbines (IEC N°61400
   Modelica.ComplexBlocks.Interfaces.ComplexOutput uWtPu(re(start = u0Pu.re), im(start = u0Pu.im)) "Complex voltage at grid terminal in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-170, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries.UfMeasurement ufMeasurement(DfMaxPu = DfMaxPu, Mzc = Mzc, U0Pu = U0Pu, UPhase0 = UPhase0, tS = tS, tUFilt = tUFilt, tfFilt = tfFilt, tphiFilt = tphiFilt, u0Pu = u0Pu)  annotation(
+  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries.UfMeasurement ufMeasurement(DfMaxPu = DfMaxPu, Mzc = Mzc, U0Pu = U0Pu, UPhase0 = UPhase0, tS = tS, tUFilt = tUFilt, tfFilt = tfFilt, tphiFilt = tphiFilt, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {-129.5, -1}, extent = {{-10, -90}, {10, 90}}, rotation = 0)));
 
   //Initial parameters
@@ -70,5 +70,6 @@ equation
     Line(points = {{-170, 80}, {-144, 80}}, color = {85, 170, 255}));
 
   annotation(
+    preferredView = "diagram",
     Icon(graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {10, 5}, extent = {{-52, 43}, {32, 7}}, textString = "Grid"), Text(origin = {-10, -27}, extent = {{-76, 65}, {98, -71}}, textString = "Protection"), Text(origin = {-14, -73}, extent = {{-76, 20}, {100, -23}}, textString = "2015")}));
 end GridProtection2015;

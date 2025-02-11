@@ -21,8 +21,6 @@
 #include "CRVCurve.h"
 
 using std::string;
-using std::vector;
-using boost::shared_ptr;
 
 namespace curves {
 
@@ -31,7 +29,7 @@ id_(id) {
 }
 
 void
-CurvesCollection::add(const shared_ptr<Curve>& curve) {
+CurvesCollection::add(const std::shared_ptr<Curve>& curve) {
   curves_.push_back(curve);
 }
 
@@ -93,12 +91,12 @@ CurvesCollection::const_iterator::operator!=(const CurvesCollection::const_itera
   return current_ != other.current_;
 }
 
-const shared_ptr<Curve>&
+const std::shared_ptr<Curve>&
 CurvesCollection::const_iterator::operator*() const {
   return *current_;
 }
 
-const shared_ptr<Curve>*
+const std::shared_ptr<Curve>*
 CurvesCollection::const_iterator::operator->() const {
   return &(*current_);
 }
@@ -152,12 +150,12 @@ CurvesCollection::iterator::operator!=(const CurvesCollection::iterator& other) 
   return current_ != other.current_;
 }
 
-shared_ptr<Curve>&
+std::shared_ptr<Curve>&
 CurvesCollection::iterator::operator*() const {
   return *current_;
 }
 
-shared_ptr<Curve>*
+std::shared_ptr<Curve>*
 CurvesCollection::iterator::operator->() const {
   return &(*current_);
 }

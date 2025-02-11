@@ -34,6 +34,7 @@
 #include "DYNSignalHandler.h"
 #include "PARParametersSetCollection.h"
 #include "DYNDataInterface.h"
+#include "DYNSolverFactory.h"
 
 namespace timeline {
 class Timeline;
@@ -235,6 +236,12 @@ class Simulation {
   void dumpIIDMFile(const boost::filesystem::path& iidmFile);
 
   /**
+   * @brief dump the final state of the network in a stream
+   * @param stream the stream to export to
+   */
+  void dumpIIDMFile(std::stringstream& stream) const;
+
+  /**
    * @brief import curves request from a file (i.e. curves that the user wants to plot)
    * @warning the file should be set before the call of this method
    */
@@ -327,6 +334,14 @@ class Simulation {
   }
 
   /**
+   * @brief getter for the constraints' output file
+   * @return constraints' output file
+   */
+  inline const std::string& getContraintsOutputFile() const {
+    return constraintsOutputFile_;
+  }
+
+  /**
    * @brief setter for the constraints' export mode
    * @param mode constraints' export mode
    */
@@ -340,6 +355,14 @@ class Simulation {
    */
   inline void setLostEquipmentsOutputFile(const std::string& outputFile) {
     lostEquipmentsOutputFile_ = outputFile;
+  }
+
+  /**
+   * @brief getter for the lost equipments' output file
+   * @return lost equipments' output file
+   */
+  inline const std::string& getLostEquipmentsOutputFile() const {
+    return lostEquipmentsOutputFile_;
   }
 
   /**
@@ -464,6 +487,14 @@ class Simulation {
   }
 
   /**
+   * @brief getter for the final state IIDM output file
+   * @return final state IIDM output file
+   */
+  inline const boost::optional<boost::filesystem::path>& getExportIIDMFile() const {
+    return finalState_.iidmFile_;
+  }
+
+  /**
    * @brief disable IIDM export for final state
    */
   inline void disableExportIIDM() {
@@ -545,7 +576,7 @@ class Simulation {
 
  * @return model used in simulation
  */
-  boost::shared_ptr<Model> getModel() {
+  std::shared_ptr<Model> getModel() {
     return model_;
   }
 
@@ -639,16 +670,16 @@ class Simulation {
  private:
   boost::shared_ptr<SimulationContext> context_;  ///< simulation context : configuration of the simulation
   boost::shared_ptr<job::JobEntry> jobEntry_;  ///< jobs data description
-  boost::shared_ptr<Solver> solver_;  ///< solver used for the simulation
-  boost::shared_ptr<Model> model_;  ///< model used for the simulation
+  SolverFactory::SolverPtr solver_;  ///< solver used for the simulation
+  std::shared_ptr<Model> model_;  ///< model used for the simulation
   boost::shared_ptr<DataInterface> data_;  ///< Data interface associated to the job
   boost::shared_ptr<DynamicData> dyd_;  ///< Dynamic data container associated to the job
   boost::shared_ptr<timeline::Timeline> timeline_;  ///< instance of the timeline where events are stored
-  boost::shared_ptr<curves::CurvesCollection> curvesCollection_;  ///< instance of curves collection where curves are stored
-  boost::shared_ptr<constraints::ConstraintsCollection> constraintsCollection_;  ///< instance of constraints collection where constraints are stored
-  boost::shared_ptr<criteria::CriteriaCollection> criteriaCollection_;  ///< instance of criteria collection where criteria are stored
-  boost::shared_ptr<std::vector<
-          boost::shared_ptr<ComponentInterface> > > connectedComponents_;  ///< instance of vector of connected components at simulation start
+  std::shared_ptr<curves::CurvesCollection> curvesCollection_;  ///< instance of curves collection where curves are stored
+  std::shared_ptr<constraints::ConstraintsCollection> constraintsCollection_;  ///< instance of constraints collection where constraints are stored
+  std::shared_ptr<criteria::CriteriaCollection> criteriaCollection_;  ///< instance of criteria collection where criteria are stored
+  std::shared_ptr<std::vector<
+          std::shared_ptr<ComponentInterface> > > connectedComponents_;  ///< instance of vector of connected components at simulation start
 
   std::vector<std::string> dydFiles_;  ///< list of files to used dynamic data
   std::string iidmFile_;  ///< iidm input file
@@ -656,7 +687,7 @@ class Simulation {
   std::string networkParSet_;  ///< id of the set of parameters to use for the network
   std::string initialStateFile_;  ///< dump to load for each state variable
   std::unordered_map<std::string,
-          boost::shared_ptr<parameters::ParametersSetCollection> > referenceParameters_;  ///< association between file name and parameters collection
+          std::shared_ptr<parameters::ParametersSetCollection> > referenceParameters_;  ///< association between file name and parameters collection
 
   std::string outputsDirectory_;  ///< directory for simulation outputs
 

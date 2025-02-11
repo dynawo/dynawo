@@ -20,7 +20,6 @@
 #ifndef SOLVERS_ALGEBRAICSOLVERS_DYNSOLVERKINALGRESTORATION_H_
 #define SOLVERS_ALGEBRAICSOLVERS_DYNSOLVERKINALGRESTORATION_H_
 
-#include <boost/shared_ptr.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <unordered_set>
 #include <string>
@@ -75,7 +74,7 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
    * @param model the model to simulate
    * @param mode mode of the solver (i.e. algebraic equations or derivative)
    */
-  void init(const boost::shared_ptr<Model>& model, modeKin_t mode);
+  void init(const std::shared_ptr<Model>& model, modeKin_t mode);
 
   /**
   * @brief initialize a new algebraic restoration
@@ -232,7 +231,7 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   void cleanAlgebraicVectors();
 
  private:
-  boost::shared_ptr<Model> model_;  ///< model currently simulated
+  std::shared_ptr<Model> model_;  ///< model currently simulated
 
   std::vector<double> vectorYOrYpSolution_;  ///< Solution of the restoration after the call of the solver
   std::vector<double> vectorYForRestoration_;  ///< variables values during call of the solver

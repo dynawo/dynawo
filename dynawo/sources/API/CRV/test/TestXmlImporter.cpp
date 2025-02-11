@@ -18,6 +18,7 @@
  */
 
 #include "gtest_dynawo.h"
+#include "make_unique.hpp"
 
 #include "CRVXmlImporter.h"
 
@@ -31,19 +32,19 @@ namespace curves {
 
 TEST(APICRVTest, testXmlImporterMissingFile) {
   XmlImporter importer;
-  boost::shared_ptr<CurvesCollection> curves;
+  std::shared_ptr<CurvesCollection> curves;
   ASSERT_THROW_DYNAWO(curves = importer.importFromFile("res/dummmyFile.crv"), DYN::Error::API, DYN::KeyError_t::FileSystemItemDoesNotExist);
 }
 
 TEST(APICRVTest, testXmlWrongFile) {
   XmlImporter importer;
-  boost::shared_ptr<CurvesCollection> curves;
+  std::shared_ptr<CurvesCollection> curves;
   ASSERT_THROW_DYNAWO(curves = importer.importFromFile("res/wrongFile.crv"), DYN::Error::API, DYN::KeyError_t::XmlFileParsingError);
 }
 
 TEST(APICRVTest, testXmlWrongStream) {
   XmlImporter importer;
-  boost::shared_ptr<CurvesCollection> curves;
+  std::shared_ptr<CurvesCollection> curves;
   std::istringstream badInputStream("hello");
   std::istream badStream(badInputStream.rdbuf());
   ASSERT_THROW_DYNAWO(curves = importer.importFromStream(badStream), DYN::Error::API, DYN::KeyError_t::XmlParsingError);
@@ -51,13 +52,13 @@ TEST(APICRVTest, testXmlWrongStream) {
 
 TEST(APICRVTest, testXmlFileImporter) {
   XmlImporter importer;
-  boost::shared_ptr<CurvesCollection> curves;
+  std::shared_ptr<CurvesCollection> curves;
   ASSERT_NO_THROW(curves = importer.importFromFile("res/curves.crv"));
 }
 
 TEST(APICRVTest, testXmlStreamImporter) {
-  boost::shared_ptr<XmlImporter> importer = boost::shared_ptr<XmlImporter>(new XmlImporter());
-  boost::shared_ptr<CurvesCollection> curves;
+  const std::unique_ptr<XmlImporter> importer = DYN::make_unique<XmlImporter>();
+  std::shared_ptr<CurvesCollection> curves;
   std::istringstream goodInputStream(
     "<?xml version='1.0' encoding='UTF-8'?>"
     "<curvesInput xmlns=\"http://www.rte-france.com/dynawo\">"

@@ -50,7 +50,7 @@ SolverKINEuler::~SolverKINEuler() {
 }
 
 void
-SolverKINEuler::init(const boost::shared_ptr<Model>& model, Solver* timeSchemeSolver, double fnormtol,
+SolverKINEuler::init(const std::shared_ptr<Model>& model, Solver* timeSchemeSolver, double fnormtol,
                      double initialaddtol, double scsteptol, double mxnewtstep, int msbset, int mxiter, int printfl, N_Vector sundialsVectorY) {
   clean();
   model_ = model;

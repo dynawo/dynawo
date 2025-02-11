@@ -43,7 +43,7 @@ using xml::sax::formatter::FormatterPtr;
 namespace parameters {
 
 void
-XmlExporter::exportToFile(const boost::shared_ptr<ParametersSetCollection>& collection, const string& filePath, const std::string& encoding) const {
+XmlExporter::exportToFile(const std::shared_ptr<ParametersSetCollection>& collection, const string& filePath, const std::string& encoding) const {
   fstream file;
   file.open(filePath.c_str(), fstream::out);
   if (!file.is_open()) {
@@ -54,7 +54,7 @@ XmlExporter::exportToFile(const boost::shared_ptr<ParametersSetCollection>& coll
 }
 
 void
-XmlExporter::exportToStream(const boost::shared_ptr<ParametersSetCollection>& collection, std::ostream& stream, const std::string& encoding) const {
+XmlExporter::exportToStream(const std::shared_ptr<ParametersSetCollection>& collection, std::ostream& stream, const std::string& encoding) const {
   FormatterPtr formatter = Formatter::createFormatter(stream, "http://www.rte-france.com/dynawo");
   if (!encoding.empty()) {
     formatter->setEncoding(encoding);
@@ -116,7 +116,7 @@ XmlExporter::exportToStream(const boost::shared_ptr<ParametersSetCollection>& co
           ++itParamSet) {
     attrs.clear();
     attrs.add("id", (*itParamSet)->getId());
-    vector <string> paramsExported;  ///< list of already exported parameters, to avoid exporting aliases
+    vector<string> paramsExported;  ///< list of already exported parameters, to avoid exporting aliases
     formatter->startElement("set", attrs);
      // write parameters
     for (ParametersSet::parameter_const_iterator itParam = (*itParamSet)->cbeginParameter();

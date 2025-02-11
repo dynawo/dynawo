@@ -14,12 +14,12 @@ add_subdirectory(BaseClasses_INIT BI)
 set(MODEL_FILES
   package.mo
   package.order
+  Ac168_INIT.mo
   Ac1a.mo
   Ac1a.extvar
   Ac1a_INIT.mo
   Ac1c.mo
   Ac1c.extvar
-  Ac16c_INIT.mo
   Ac6a.mo
   Ac6a.extvar
   Ac6c.mo
@@ -32,7 +32,6 @@ set(MODEL_FILES
   Ac78c_INIT.mo
   Ac8b.mo
   Ac8b.extvar
-  Ac8b_INIT.mo
   Ac8c.mo
   Ac8c.extvar
   BbSex1.mo

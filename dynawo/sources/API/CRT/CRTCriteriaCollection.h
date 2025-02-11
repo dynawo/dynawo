@@ -16,8 +16,8 @@
 
 #include "CRTCriteria.h"
 
-#include <boost/shared_ptr.hpp>
 #include <string>
+
 
 namespace criteria {
 /**
@@ -99,17 +99,17 @@ class CriteriaCollection {
      *
      * @returns Criteria pointed to by this
      */
-    const boost::shared_ptr<Criteria>& operator*() const;
+    const std::shared_ptr<Criteria>& operator*() const;
 
     /**
      * @brief Structure dereference operator
      *
      * @returns Criteria pointed to by this
      */
-    const boost::shared_ptr<Criteria>* operator->() const;
+    const std::shared_ptr<Criteria>* operator->() const;
 
    private:
-    std::vector<boost::shared_ptr<Criteria> >::const_iterator current_;  ///< current vector const iterator
+    std::vector<std::shared_ptr<Criteria> >::const_iterator current_;  ///< current vector const iterator
   };
 
  public:
@@ -119,14 +119,14 @@ class CriteriaCollection {
    * @param type type of component this criteria applies to
    * @param criteria criteria to add to the collection
    */
-  void add(CriteriaCollectionType_t type, const boost::shared_ptr<Criteria>& criteria);
+  void add(CriteriaCollectionType_t type, const std::shared_ptr<Criteria>& criteria);
 
   /**
    * @brief merge this collection with the other one
    *
    * @param other another criteria collection
    */
-  void merge(const boost::shared_ptr<CriteriaCollection>& other);
+  void merge(const std::shared_ptr<CriteriaCollection>& other);
 
   /**
    * @brief Get a CriteriaCollectionConstIterator to the beginning of the criteria' vector
@@ -143,9 +143,9 @@ class CriteriaCollection {
   CriteriaCollectionConstIterator end(CriteriaCollectionType_t type) const;
 
  private:
-  std::vector<boost::shared_ptr<Criteria> > busCriteria_;        ///< Vector of the bus criteria object
-  std::vector<boost::shared_ptr<Criteria> > loadCriteria_;       ///< Vector of the load criteria object
-  std::vector<boost::shared_ptr<Criteria> > generatorCriteria_;  ///< Vector of the generator criteria object
+  std::vector<std::shared_ptr<Criteria> > busCriteria_;        ///< Vector of the bus criteria object
+  std::vector<std::shared_ptr<Criteria> > loadCriteria_;       ///< Vector of the load criteria object
+  std::vector<std::shared_ptr<Criteria> > generatorCriteria_;  ///< Vector of the generator criteria object
 };
 
 }  // namespace criteria

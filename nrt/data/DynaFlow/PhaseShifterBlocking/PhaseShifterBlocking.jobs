@@ -9,7 +9,8 @@
     SPDX-License-Identifier: MPL-2.0
 
     This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
---><dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
+-->
+<dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:job name="PhaseShifterBlocking - PhaseShifterI">
     <dyn:solver lib="dynawo_SolverSIM" parFile="solver.par" parId="SimplifiedSolver"/>
     <dyn:modeler compileDir="outputs/compilation">

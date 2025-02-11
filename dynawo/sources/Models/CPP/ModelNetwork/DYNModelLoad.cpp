@@ -38,7 +38,6 @@
 #include "DYNModelVoltageLevel.h"
 
 
-using std::map;
 using std::string;
 using std::vector;
 
@@ -49,7 +48,7 @@ using parameters::ParametersSet;
 
 namespace DYN {
 
-ModelLoad::ModelLoad(const shared_ptr<LoadInterface>& load) :
+ModelLoad::ModelLoad(const std::shared_ptr<LoadInterface>& load) :
 NetworkComponent(load->getID()),
 load_(load),
 stateModified_(false),
@@ -207,7 +206,7 @@ ModelLoad::setGequations(std::map<int, std::string>& /*gEquationIndex*/) {
 
 void
 ModelLoad::init(int& yNum) {
-  shared_ptr<LoadInterface> load = load_.lock();
+  std::shared_ptr<LoadInterface> load = load_.lock();
   double thetaNode = load->getBusInterface()->getAngle0();
   double unomNode = load->getBusInterface()->getVNom();
   switch (startingPointMode_) {
@@ -222,16 +221,18 @@ ModelLoad::init(int& yNum) {
     u0_ = load->getBusInterface()->getV0() / unomNode;
     break;
   }
-  double ur0 = u0_ * cos(thetaNode * DEG_TO_RAD);
-  double ui0 = u0_ * sin(thetaNode * DEG_TO_RAD);
-  ir0_ = (P0_ * ur0 + Q0_ * ui0) / (ur0 * ur0 + ui0 * ui0);
-  ii0_ = (P0_ * ui0 - Q0_ * ur0) / (ur0 * ur0 + ui0 * ui0);
   if (isConnected() && !doubleIsZero(u0_)) {
+    double ur0 = u0_ * cos(thetaNode * DEG_TO_RAD);
+    double ui0 = u0_ * sin(thetaNode * DEG_TO_RAD);
+    ir0_ = (P0_ * ur0 + Q0_ * ui0) / (ur0 * ur0 + ui0 * ui0);
+    ii0_ = (P0_ * ui0 - Q0_ * ur0) / (ur0 * ur0 + ui0 * ui0);
     kp_ = 1. / pow_dynawo(u0_, alpha_);
     kq_ = 1. / pow_dynawo(u0_, beta_);
   } else {
     kp_ = 0.;
     kq_ = 0.;
+    ir0_ = 0.;
+    ii0_ = 0.;
   }
   if (!network_->isInitModel()) {
     assert(yNum >= 0);

@@ -25,19 +25,9 @@ using std::string;
 
 namespace timeline {
 
-boost::shared_ptr<Timeline>
+std::unique_ptr<Timeline>
 TimelineFactory::newInstance(const string& id) {
-  return boost::shared_ptr<Timeline>(new Timeline(id));
-}
-
-boost::shared_ptr<Timeline>
-TimelineFactory::copyInstance(boost::shared_ptr<Timeline> original) {
-  return boost::shared_ptr<Timeline>(new Timeline(*original));
-}
-
-boost::shared_ptr<Timeline>
-TimelineFactory::copyInstance(const Timeline& original) {
-  return boost::shared_ptr<Timeline>(new Timeline(original));
+  return std::unique_ptr<Timeline>(new Timeline(id));
 }
 
 }  // namespace timeline

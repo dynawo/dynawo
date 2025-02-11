@@ -111,7 +111,7 @@ Solver::Impl::clean() {
 }
 
 void
-Solver::Impl::init(const double t0, const boost::shared_ptr<Model>& model) {
+Solver::Impl::init(const double t0, const std::shared_ptr<Model>& model) {
   model_ = model;
 
   // Problem size
@@ -306,7 +306,7 @@ Solver::Impl::printUnstableRoot(double t, const vector<state_g>& G0, const vecto
 }
 
 void
-Solver::Impl::checkUnusedParameters(const boost::shared_ptr<parameters::ParametersSet>& params) const {
+Solver::Impl::checkUnusedParameters(const std::shared_ptr<parameters::ParametersSet>& params) const {
   vector<string> unusedParamNameList = params->getParamsUnused();
   for (vector<string>::iterator it = unusedParamNameList.begin();
           it != unusedParamNameList.end();
@@ -382,7 +382,7 @@ Solver::Impl::getParametersMap() const {
 }
 
 void
-Solver::Impl::setParameterFromSet(const string& parName, const boost::shared_ptr<parameters::ParametersSet>& parametersSet) {
+Solver::Impl::setParameterFromSet(const string& parName, const std::shared_ptr<parameters::ParametersSet>& parametersSet) {
   if (parametersSet) {
     ParameterSolver& parameter = findParameter(parName);
 
@@ -529,7 +529,7 @@ void Solver::Impl::setSolverCommonParameters() {
 }
 
 void
-Solver::Impl::setParametersFromPARFile(const boost::shared_ptr<parameters::ParametersSet>& params) {
+Solver::Impl::setParametersFromPARFile(const std::shared_ptr<parameters::ParametersSet>& params) {
   // Set values of parameters
   for (map<string, ParameterSolver>::iterator it=parameters_.begin(); it != parameters_.end(); ++it) {
     setParameterFromSet(it->second.getName(), params);
@@ -537,7 +537,7 @@ Solver::Impl::setParametersFromPARFile(const boost::shared_ptr<parameters::Param
 }
 
 void
-Solver::Impl::setParameters(const boost::shared_ptr<parameters::ParametersSet>& params) {
+Solver::Impl::setParameters(const std::shared_ptr<parameters::ParametersSet>& params) {
   parameters_.clear();
   defineParameters();
   setParametersFromPARFile(params);

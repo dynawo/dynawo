@@ -21,23 +21,25 @@
 #include "CRVCurvesCollectionFactory.h"
 #include "CRVCurvesCollection.h"
 
+#include "make_unique.hpp"
+
 using std::string;
 
 namespace curves {
 
-boost::shared_ptr<CurvesCollection>
+std::unique_ptr<CurvesCollection>
 CurvesCollectionFactory::newInstance(const string& id) {
-  return boost::shared_ptr<CurvesCollection>(new CurvesCollection(id));
+  return DYN::make_unique<CurvesCollection>(id);
 }
 
-boost::shared_ptr<CurvesCollection>
-CurvesCollectionFactory::copyInstance(boost::shared_ptr<CurvesCollection> original) {
-  return boost::shared_ptr<CurvesCollection>(new CurvesCollection(*original));
+std::unique_ptr<CurvesCollection>
+CurvesCollectionFactory::copyInstance(const std::shared_ptr<CurvesCollection>& original) {
+  return DYN::make_unique<CurvesCollection>(*original);
 }
 
-boost::shared_ptr<CurvesCollection>
+std::unique_ptr<CurvesCollection>
 CurvesCollectionFactory::copyInstance(const CurvesCollection& original) {
-  return boost::shared_ptr<CurvesCollection>(new CurvesCollection(original));
+  return DYN::make_unique<CurvesCollection>(original);
 }
 
 }  // namespace curves

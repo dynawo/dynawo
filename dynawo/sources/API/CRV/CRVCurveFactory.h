@@ -21,8 +21,6 @@
 #ifndef API_CRV_CRVCURVEFACTORY_H_
 #define API_CRV_CRVCURVEFACTORY_H_
 
-#include <boost/shared_ptr.hpp>
-
 #include "CRVCurve.h"
 
 namespace curves {
@@ -39,9 +37,9 @@ class CurveFactory {
   /**
    * @brief Create new Curve instance
    *
-   * @returns a shared pointer to a new @p Curve
+   * @returns a unique pointer to a new @p Curve
    */
-  static boost::shared_ptr<Curve> newCurve();
+  static std::unique_ptr<Curve> newCurve();
 };
 
 }  //  namespace curves

@@ -19,16 +19,16 @@
  */
 
 #include "LEQLostEquipmentsCollectionFactory.h"
-
 #include "LEQLostEquipmentsCollection.h"
 
-using boost::shared_ptr;
+#include "make_unique.hpp"
+
 
 namespace lostEquipments {
 
-shared_ptr<LostEquipmentsCollection>
+std::unique_ptr<LostEquipmentsCollection>
 LostEquipmentsCollectionFactory::newInstance() {
-  return shared_ptr<LostEquipmentsCollection>(new LostEquipmentsCollection());
+  return DYN::make_unique<LostEquipmentsCollection>();
 }
 
 }  // namespace lostEquipments

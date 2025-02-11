@@ -1,4 +1,4 @@
-# Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+# Copyright (c) 2015-2024, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -79,8 +79,8 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousFourWindingsPmConstDc1a.xml
   GeneratorSynchronousFourWindingsPmConstIEEX2A.xml
   GeneratorSynchronousFourWindingsPmConstSt5bPss2b.xml
-  GeneratorSynchronousFourWindingsPmConstSt5bPss2bScl1c.xml
-  GeneratorSynchronousFourWindingsPmConstSt5bPss2bScl2c.xml
+  GeneratorSynchronousFourWindingsPmConstSt5cPss2bScl1c.xml
+  GeneratorSynchronousFourWindingsPmConstSt5cPss2bScl2c.xml
   GeneratorSynchronousFourWindingsPmConstSt6bPss3b.xml
   GeneratorSynchronousFourWindingsPmConstSt6cPss6c.xml
   GeneratorSynchronousFourWindingsPmConstSt6cPss6cOel2c.xml
@@ -105,6 +105,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousThreeWindingsGoverNordicVRNordic.xml
   GeneratorSynchronousThreeWindingsGoverNordicVRNordicTfo.xml
   GeneratorSynchronousThreeWindingsGoverPropVRPropInt.xml
+  GeneratorSynchronousThreeWindingsGovHydro4St4b.xml
   GeneratorSynchronousThreeWindingsHyGovBbSex1.xml
   GeneratorSynchronousThreeWindingsHyGovScrx.xml
   GeneratorSynchronousThreeWindingsHyGovScrxTfo.xml
@@ -205,8 +206,11 @@ set(MODELICA_PREASSEMBLED_MODELS
   PhaseShifterI.xml
   PhaseShifterP.xml
   PhotovoltaicsWeccCurrentSourceB.xml
+  PhotovoltaicsWeccCurrentSourceBNoPlantControl.xml
   PhotovoltaicsWeccVoltageSourceA.xml
+  PhotovoltaicsWeccVoltageSourceANoPlantControl.xml
   PhotovoltaicsWeccVoltageSourceB.xml
+  PhotovoltaicsWeccVoltageSourceBNoPlantControl.xml
   PowerTransferHVDCEmulation.xml
   PIAntiWindUpTable.xml
   Ramp.xml
@@ -241,6 +245,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   UFLS3Steps.xml
   UFLS10Steps.xml
   UnderVoltageAutomaton.xml
+  VariableImpedantFault.xml
   VRRemote.xml
   WeightedDifference.xml
   WT4AWeccCurrentSource.xml

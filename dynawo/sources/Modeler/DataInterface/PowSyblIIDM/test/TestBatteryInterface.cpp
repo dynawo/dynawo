@@ -16,6 +16,7 @@
 #include "DYNBusInterfaceIIDM.h"
 #include "DYNCommon.h"
 #include "DYNVoltageLevelInterfaceIIDM.h"
+#include "make_unique.hpp"
 
 #include <powsybl/iidm/Bus.hpp>
 #include <powsybl/iidm/Battery.hpp>
@@ -72,7 +73,7 @@ TEST(DataInterfaceTest, Battery_1) {
                       .add();
 
   BatteryInterfaceIIDM batItf(bat);
-  const boost::shared_ptr<VoltageLevelInterface> vlItf(new VoltageLevelInterfaceIIDM(vl1));
+  const std::shared_ptr<VoltageLevelInterface> vlItf = std::make_shared<VoltageLevelInterfaceIIDM>(vl1);
   batItf.setVoltageLevelInterface(vlItf);
   ASSERT_EQ(batItf.getID(), "BAT1");
 
@@ -84,13 +85,13 @@ TEST(DataInterfaceTest, Battery_1) {
   batItf.importStaticParameters();
 
   ASSERT_EQ(batItf.getBusInterface().get(), nullptr);
-  const boost::shared_ptr<BusInterface> busItf(new BusInterfaceIIDM(bus1));
-  batItf.setBusInterface(busItf);
+  std::unique_ptr<BusInterface> busItf = DYN::make_unique<BusInterfaceIIDM>(bus1);
+  batItf.setBusInterface(std::move(busItf));
   ASSERT_EQ(batItf.getBusInterface().get()->getID(), "VL1_BUS1");
 
   batItf.importStaticParameters();
 
-  const boost::shared_ptr<VoltageLevelInterface> voltageLevelItf(new VoltageLevelInterfaceIIDM(vl1));
+  const std::shared_ptr<VoltageLevelInterface> voltageLevelItf = std::make_shared<VoltageLevelInterfaceIIDM>(vl1);
   batItf.setVoltageLevelInterface(voltageLevelItf);
 
   ASSERT_TRUE(batItf.getInitialConnected());

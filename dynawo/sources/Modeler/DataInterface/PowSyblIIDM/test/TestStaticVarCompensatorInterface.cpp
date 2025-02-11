@@ -25,6 +25,7 @@
 #include <powsybl/iidm/extensions/iidm/VoltagePerReactivePowerControl.hpp>
 #include <powsybl/iidm/extensions/iidm/VoltagePerReactivePowerControlAdder.hpp>
 
+#include "make_unique.hpp"
 #include "gtest_dynawo.h"
 
 namespace powsybl {
@@ -82,7 +83,7 @@ TEST(DataInterfaceTest, SVarC_1) {
   powsybl::iidm::StaticVarCompensator& svc = network.getStaticVarCompensator("SVC1");
 
   StaticVarCompensatorInterfaceIIDM svcInterface(svc);
-  const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce(new VoltageLevelInterfaceIIDM(vl1));
+  const std::shared_ptr<VoltageLevelInterface> voltageLevelIfce = std::make_shared<VoltageLevelInterfaceIIDM>(vl1);
   svcInterface.setVoltageLevelInterface(voltageLevelIfce);
 
   ASSERT_EQ(svcInterface.getComponentVarIndex(std::string("p")), StaticVarCompensatorInterfaceIIDM::VAR_P);
@@ -103,8 +104,8 @@ TEST(DataInterfaceTest, SVarC_1) {
 
   ASSERT_EQ(svcInterface.getBusInterface().get(), nullptr);
   svcInterface.importStaticParameters();
-  const boost::shared_ptr<BusInterface> busIfce(new BusInterfaceIIDM(bus1));
-  svcInterface.setBusInterface(busIfce);
+  std::unique_ptr<BusInterface> busIfce = DYN::make_unique<BusInterfaceIIDM>(bus1);
+  svcInterface.setBusInterface(std::move(busIfce));
   ASSERT_EQ(svcInterface.getBusInterface().get()->getID(), "VL1_BUS1");
   ASSERT_DOUBLE_EQ(svcInterface.getVNom(), 382.0);
   ASSERT_EQ(svcInterface.getVoltageLevelInterfaceInjector(), voltageLevelIfce);
@@ -153,7 +154,7 @@ TEST(DataInterfaceTest, SVarC_2) {  // tests assuming getInitialConnected == fal
 
   svc.newExtension<powsybl::iidm::extensions::iidm::VoltagePerReactivePowerControlAdder>().withSlope(0.1).add();
   StaticVarCompensatorInterfaceIIDM svcInterface(svc);
-  const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce(new VoltageLevelInterfaceIIDM(vl1));
+  const std::shared_ptr<VoltageLevelInterface> voltageLevelIfce = std::make_shared<VoltageLevelInterfaceIIDM>(vl1);
   svcInterface.setVoltageLevelInterface(voltageLevelIfce);
   ASSERT_EQ(svcInterface.getID(), "SVC1");
 

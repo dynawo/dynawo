@@ -43,19 +43,19 @@ model UfMeasurement "Measurement module for grid protection (IEC N°61400-27-1:2
 
   Modelica.ComplexBlocks.ComplexMath.ComplexToPolar complexToPolar annotation(
     Placement(visible = true, transformation(origin = {-72, 46}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Derivative derivative(T = tfFilt / 20,k = 1 / SystemBase.omegaNom, x_start = UPhase0, y_start = 0) annotation(
+  Modelica.Blocks.Continuous.Derivative derivative(T = tfFilt / 20,k = 1 / SystemBase.omegaNom, x_start = UPhase0) annotation(
     Placement(visible = true, transformation(origin = {42, 32}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add annotation(
     Placement(visible = true, transformation(origin = {136, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.RampLimiter rampLimiter(DuMax = DfMaxPu, DuMin = -DfMaxPu, Y0 = 0, tS = tS)  annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.RampLimiter rampLimiter(DuMax = DfMaxPu, DuMin = -DfMaxPu, Y0 = 0, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {74, 32}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tfFilt, y_start = 0)  annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tfFilt) annotation(
     Placement(visible = true, transformation(origin = {104, 32}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tUFilt, y_start = U0Pu)  annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tUFilt, y_start = U0Pu) annotation(
     Placement(visible = true, transformation(origin = {-18, 74}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch1 annotation(
     Placement(visible = true, transformation(origin = {10, 32}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder2(T = tphiFilt, k = 1, y_start = UPhase0)  annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder2(T = tphiFilt, y_start = UPhase0) annotation(
     Placement(visible = true, transformation(origin = {-34, 24}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = Mzc) annotation(
     Placement(visible = true, transformation(origin = {-34, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -97,6 +97,7 @@ equation
     Line(points = {{-22, -18}, {-12, -18}, {-12, 32}, {-2, 32}}, color = {255, 0, 255}));
 
   annotation(
+    preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-100, -100}, {150, 100}})),
     Icon(coordinateSystem(extent = {{-100, -900}, {100, 900}}), graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 900}, {100, -900}}), Text(origin = {-1, 24}, rotation = -90, extent = {{-441, 82}, {441, -82}}, textString = "Uf measurement")}));
 end UfMeasurement;

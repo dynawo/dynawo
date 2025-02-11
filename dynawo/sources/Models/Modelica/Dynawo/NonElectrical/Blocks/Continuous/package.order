@@ -24,6 +24,7 @@ RateLimFirstOrderFreeze
 SecondOrder
 SqrtNoEvent
 TransferFunction
+TransferFunctionBypass
 VarLimPIDFreeze
 Washout
 WeightedDifference

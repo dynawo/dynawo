@@ -22,7 +22,6 @@
 #ifndef MODELER_DATAINTERFACE_POWSYBLIIDM_DYNGENERATORINTERFACEIIDM_H_
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNGENERATORINTERFACEIIDM_H_
 
-#include <boost/shared_ptr.hpp>
 #include <boost/noncopyable.hpp>
 
 #include "DYNGeneratorInterface.h"
@@ -78,19 +77,19 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
   bool isConnected() const;
 
   /**
-   * @copydoc GeneratorInterface::setBusInterface(const boost::shared_ptr<BusInterface>& busInterface)
+   * @copydoc GeneratorInterface::setBusInterface(const std::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface(const boost::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface(const std::shared_ptr<BusInterface>& busInterface);
 
   /**
-   * @copydoc GeneratorInterface::setVoltageLevelInterface(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
+   * @copydoc GeneratorInterface::setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
    */
-  void setVoltageLevelInterface(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
+  void setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
 
   /**
    * @copydoc GeneratorInterface::getBusInterface() const
    */
-  boost::shared_ptr<BusInterface> getBusInterface() const;
+  std::shared_ptr<BusInterface> getBusInterface() const;
 
   /**
    * @copydoc GeneratorInterface::getInitialConnected()
@@ -196,16 +195,6 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
    * @copydoc GeneratorInterface::getCoordinatedReactiveControlPercentage() const
    */
   double getCoordinatedReactiveControlPercentage() const;
-
-  /**
-   * @copydoc GeneratorInterface::getDroop() const
-   */
-  boost::optional<double> getDroop() const final;
-
-  /**
-   * @copydoc GeneratorInterface::isParticipate() const
-   */
-  boost::optional<bool> isParticipate() const final;
 
   /**
    * @brief Getter for the generator' country

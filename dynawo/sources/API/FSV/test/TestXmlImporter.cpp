@@ -31,19 +31,19 @@ namespace finalStateValues {
 
 TEST(APIFSVTest, testXmlImporterMissingFile) {
   XmlImporter importer;
-  boost::shared_ptr<FinalStateValuesCollection> finalStateValues;
+  std::shared_ptr<FinalStateValuesCollection> finalStateValues;
   ASSERT_THROW_DYNAWO(finalStateValues = importer.importFromFile("res/dummmyFile.fsv"), DYN::Error::API, DYN::KeyError_t::FileSystemItemDoesNotExist);
 }
 
 TEST(APIFSVTest, testXmlWrongFile) {
   XmlImporter importer;
-  boost::shared_ptr<FinalStateValuesCollection> finalStateValues;
+  std::shared_ptr<FinalStateValuesCollection> finalStateValues;
   ASSERT_THROW_DYNAWO(finalStateValues = importer.importFromFile("res/wrongFile.fsv"), DYN::Error::API, DYN::KeyError_t::XmlFileParsingError);
 }
 
 TEST(APIFSVTest, testXmlWrongStream) {
   XmlImporter importer;
-  boost::shared_ptr<FinalStateValuesCollection> finalStateValues;
+  std::shared_ptr<FinalStateValuesCollection> finalStateValues;
   std::istringstream badInputStream("hello");
   std::istream badStream(badInputStream.rdbuf());
   ASSERT_THROW_DYNAWO(finalStateValues = importer.importFromStream(badStream), DYN::Error::API, DYN::KeyError_t::XmlParsingError);
@@ -51,13 +51,13 @@ TEST(APIFSVTest, testXmlWrongStream) {
 
 TEST(APIFSVTest, testXmlFileImporter) {
   XmlImporter importer;
-  boost::shared_ptr<FinalStateValuesCollection> finalStateValues;
+  std::shared_ptr<FinalStateValuesCollection> finalStateValues;
   ASSERT_NO_THROW(finalStateValues = importer.importFromFile("res/finalStateValues.fsv"));
 }
 
 TEST(APIFSVTest, testXmlStreamImporter) {
-  boost::shared_ptr<XmlImporter> importer = boost::shared_ptr<XmlImporter>(new XmlImporter());
-  boost::shared_ptr<FinalStateValuesCollection> finalStateValues;
+  std::unique_ptr<XmlImporter> importer = std::unique_ptr<XmlImporter>(new XmlImporter());
+  std::shared_ptr<FinalStateValuesCollection> finalStateValues;
   std::istringstream goodInputStream(
       "<?xml version='1.0' encoding='UTF-8'?>"
       "<finalStateValuesInput xmlns=\"http://www.rte-france.com/dynawo\">"

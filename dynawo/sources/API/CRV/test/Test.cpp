@@ -27,22 +27,24 @@
 #include "CRVXmlExporter.h"
 #include "CRVCsvExporter.h"
 
+#include "make_unique.hpp"
+
 namespace curves {
 
 TEST(APICRVTest, test1) {
   // Create new curve collection
-  boost::shared_ptr<CurvesCollection> curves = CurvesCollectionFactory::newInstance("Curves");
+  std::shared_ptr<CurvesCollection> curves = CurvesCollectionFactory::newInstance("Curves");
 
-  boost::shared_ptr<Curve> curve1 = CurveFactory::newCurve();
+  std::unique_ptr<Curve> curve1 = CurveFactory::newCurve();
   curve1->setModelName("model1");
   curve1->setVariable("variable1");
-  boost::shared_ptr<Curve> curve2 = CurveFactory::newCurve();
+  std::unique_ptr<Curve> curve2 = CurveFactory::newCurve();
   curve2->setModelName("model2");
   curve2->setVariable("variable2");
 
   // add curves to curve collection
-  curves->add(curve1);
-  curves->add(curve2);
+  curves->add(std::move(curve1));
+  curves->add(std::move(curve2));
 
   // associate curves to variable and buffer variable
   std::vector<double> variables;
@@ -71,11 +73,11 @@ TEST(APICRVTest, test1) {
   }
 
   // export the curves in xml format
-  boost::shared_ptr<XmlExporter> xmlExporter = boost::shared_ptr<XmlExporter>(new XmlExporter());
+  std::unique_ptr<XmlExporter> xmlExporter = DYN::make_unique<XmlExporter>();
   ASSERT_NO_THROW(xmlExporter->exportToFile(curves, "testXmlCurvesExport.crv"));
 
   // export the curves in xml format
-  boost::shared_ptr<CsvExporter> csvExporter = boost::shared_ptr<CsvExporter>(new CsvExporter());
+  std::unique_ptr<CsvExporter> csvExporter = DYN::make_unique<CsvExporter>();
   ASSERT_NO_THROW(csvExporter->exportToFile(curves, "testCsvCurvesExport.csv"));
 
   // throw

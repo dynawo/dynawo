@@ -13,12 +13,12 @@
 
 #include "CRTCriteriaCollection.h"
 
-using boost::shared_ptr;
+using std::shared_ptr;
 
 namespace criteria {
 
 void
-CriteriaCollection::add(CriteriaCollectionType_t type, const boost::shared_ptr<Criteria> & criteria) {
+CriteriaCollection::add(CriteriaCollectionType_t type, const std::shared_ptr<Criteria>& criteria) {
   switch (type) {
   case CriteriaCollection::BUS:
     busCriteria_.push_back(criteria);
@@ -33,8 +33,8 @@ CriteriaCollection::add(CriteriaCollectionType_t type, const boost::shared_ptr<C
 }
 
 void
-CriteriaCollection::merge(const boost::shared_ptr<CriteriaCollection> & other) {
-  boost::shared_ptr<CriteriaCollection> otherImpl = boost::dynamic_pointer_cast<CriteriaCollection>(other);
+CriteriaCollection::merge(const std::shared_ptr<CriteriaCollection>& other) {
+  std::shared_ptr<CriteriaCollection> otherImpl = std::dynamic_pointer_cast<CriteriaCollection>(other);
   if (!otherImpl) return;
   busCriteria_.insert(busCriteria_.end(), otherImpl->busCriteria_.begin(), otherImpl->busCriteria_.end());
   loadCriteria_.insert(loadCriteria_.end(), otherImpl->loadCriteria_.begin(), otherImpl->loadCriteria_.end());

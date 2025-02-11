@@ -39,7 +39,7 @@ using boost::shared_ptr;
 
 
 namespace DYN {
-static std::pair<shared_ptr<ModelBus>, shared_ptr<VoltageLevelInterfaceIIDM> >  // need to return the voltage level so that it is not destroyed
+static std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> >  // need to return the voltage level so that it is not destroyed
 createModelBus(bool initModel, bool isNodeBreaker, powsybl::iidm::Network& networkIIDM, bool hasConnection = true) {
   powsybl::iidm::Substation& s = networkIIDM.newSubstation()
       .setId("S")
@@ -59,26 +59,26 @@ createModelBus(bool initModel, bool isNodeBreaker, powsybl::iidm::Network& netwo
   iidmBus.setV(100);
   iidmBus.setAngle(90.);
 
-  shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
-  shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
+  std::shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = std::make_shared<VoltageLevelInterfaceIIDM>(vlIIDM);
+  std::shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = std::make_shared<BusInterfaceIIDM>(iidmBus);
   bus1ItfIIDM->hasConnection(hasConnection);
   vlItfIIDM->addBus(bus1ItfIIDM);
 
   ModelNetwork* network = new ModelNetwork();
   network->setIsInitModel(initModel);
-  boost::shared_ptr<constraints::ConstraintsCollection> constraints =
+  std::unique_ptr<constraints::ConstraintsCollection> constraints =
       constraints::ConstraintsCollectionFactory::newInstance("MyConstraintsCollection");
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
-  network->setConstraints(constraints);
-  shared_ptr<ModelVoltageLevel> vl = shared_ptr<ModelVoltageLevel>(new ModelVoltageLevel(vlItfIIDM));
-  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, isNodeBreaker));
+  network->setConstraints(std::move(constraints));
+  std::shared_ptr<ModelVoltageLevel> vl = std::make_shared<ModelVoltageLevel>(vlItfIIDM);
+  std::shared_ptr<ModelBus> bus1 = std::make_shared<ModelBus>(bus1ItfIIDM, isNodeBreaker);
   bus1->setNetwork(network);
   bus1->setVoltageLevel(vl);
   return std::make_pair(bus1, vlItfIIDM);
 }
 
 static void
-fillParameters(shared_ptr<ModelBus> bus, std::string& startingPoint) {
+fillParameters(const std::shared_ptr<ModelBus>& bus, std::string& startingPoint) {
   std::unordered_map<std::string, ParameterModeler> parametersModels;
   {
     ParameterModeler param = ParameterModeler("startingPointMode", VAR_TYPE_STRING, EXTERNAL_PARAMETER);
@@ -100,12 +100,12 @@ TEST(ModelsModelNetwork, ModelNetworkSubNetwork) {
 #ifndef _MSC_VER
   EXPECT_ASSERT_DYNAWO(sub.bus(1));
 
-  EXPECT_ASSERT_DYNAWO(sub.addBus(shared_ptr<ModelBus>()));
+  EXPECT_ASSERT_DYNAWO(sub.addBus(std::shared_ptr<ModelBus>()));
 #endif
 
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelBus>, shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
-  shared_ptr<ModelBus> bus = p.first;
+  std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
+  std::shared_ptr<ModelBus> bus = p.first;
   int offSet = 0;
   bus->init(offSet);
   sub.addBus(bus);
@@ -128,8 +128,8 @@ TEST(ModelsModelNetwork, ModelNetworkSubNetwork) {
 
 TEST(ModelsModelNetwork, ModelNetworkBusInitialization) {
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelBus>, shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
-  shared_ptr<ModelBus> bus = p.first;
+  std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
+  std::shared_ptr<ModelBus> bus = p.first;
   int offSet = 0;
   bus->init(offSet);
   bus->initSize();
@@ -150,8 +150,8 @@ TEST(ModelsModelNetwork, ModelNetworkBusInitialization) {
 
 TEST(ModelsModelNetwork, ModelNetworkBusInitializationFlat) {
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelBus>, shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
-  shared_ptr<ModelBus> bus = p.first;
+  std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
+  std::shared_ptr<ModelBus> bus = p.first;
   int offSet = 0;
   std::string startingPoint = "flat";
   fillParameters(bus, startingPoint);
@@ -177,8 +177,8 @@ TEST(ModelsModelNetwork, ModelNetworkBusInitializationFlat) {
 
 TEST(ModelsModelNetwork, ModelNetworkBusCalculatedVariables) {
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelBus>, shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
-  shared_ptr<ModelBus> bus = p.first;
+  std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
+  std::shared_ptr<ModelBus> bus = p.first;
   int offSet = 0;
   bus->init(offSet);
   bus->initSize();
@@ -285,8 +285,8 @@ TEST(ModelsModelNetwork, ModelNetworkBusCalculatedVariables) {
   }
   numVars.clear();
   powsybl::iidm::Network networkIIDM2("test", "test");
-  std::pair<shared_ptr<ModelBus>, shared_ptr<VoltageLevelInterfaceIIDM> > p2 = createModelBus(true, false, networkIIDM2);
-  shared_ptr<ModelBus> busInit = p2.first;
+  std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p2 = createModelBus(true, false, networkIIDM2);
+  std::shared_ptr<ModelBus> busInit = p2.first;
   busInit->init(offSet);
   busInit->initSize();
   ASSERT_EQ(busInit->sizeCalculatedVar(), 0);
@@ -295,8 +295,8 @@ TEST(ModelsModelNetwork, ModelNetworkBusCalculatedVariables) {
 
 TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelBus>, shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
-  shared_ptr<ModelBus> bus = p.first;
+  std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
+  std::shared_ptr<ModelBus> bus = p.first;
   int offSet = 0;
   bus->init(offSet);
   bus->initSize();
@@ -316,7 +316,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   bus->setReferenceZ(&z[0], zConnected, 0);
   bus->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
   ModelNetwork* network = new ModelNetwork();
-  boost::shared_ptr<constraints::ConstraintsCollection> constraints =
+  std::shared_ptr<constraints::ConstraintsCollection> constraints =
       constraints::ConstraintsCollectionFactory::newInstance("MyConstraintsCollection");
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
   network->setConstraints(constraints);
@@ -340,7 +340,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   unsigned i = 0;
   for (constraints::ConstraintsCollection::const_iterator it = constraints->cbegin(),
       itEnd = constraints->cend(); it != itEnd; ++it) {
-    boost::shared_ptr<constraints::Constraint> constraint = (*it);
+    std::shared_ptr<constraints::Constraint> constraint = (*it);
     if (i == 0) {
       ASSERT_EQ(constraint->getModelName(), "MyBus1");
       ASSERT_EQ(constraint->getDescription(), "UInfUmin");
@@ -363,7 +363,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   network->setCurrentTime(10);
   for (constraints::ConstraintsCollection::const_iterator it = constraints->cbegin(),
       itEnd = constraints->cend(); it != itEnd; ++it) {
-    boost::shared_ptr<constraints::Constraint> constraint = (*it);
+    std::shared_ptr<constraints::Constraint> constraint = (*it);
     assert(0);
   }
 
@@ -390,8 +390,8 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   ASSERT_FALSE(bus->numSubNetworkSet());
 
   powsybl::iidm::Network networkIIDM2("test", "test");
-  std::pair<shared_ptr<ModelBus>, shared_ptr<VoltageLevelInterfaceIIDM> > p2 = createModelBus(true, false, networkIIDM2);
-  shared_ptr<ModelBus> busInit = p2.first;
+  std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p2 = createModelBus(true, false, networkIIDM2);
+  std::shared_ptr<ModelBus> busInit = p2.first;
   busInit->init(offSet);
   busInit->initSize();
   ASSERT_EQ(busInit->sizeZ(), 0);
@@ -401,8 +401,8 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
 
 TEST(ModelsModelNetwork, ModelNetworkBusNodeBreakerDiscreteVariables) {
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelBus>, shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, true, networkIIDM);
-  shared_ptr<ModelBus> bus = p.first;
+  std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, true, networkIIDM);
+  std::shared_ptr<ModelBus> bus = p.first;
   int offSet = 0;
   bus->init(offSet);
   bus->initSize();
@@ -422,10 +422,10 @@ TEST(ModelsModelNetwork, ModelNetworkBusNodeBreakerDiscreteVariables) {
   bus->setReferenceZ(&z[0], zConnected, 0);
   bus->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
   ModelNetwork* network = new ModelNetwork();
-  boost::shared_ptr<constraints::ConstraintsCollection> constraints =
+  std::unique_ptr<constraints::ConstraintsCollection> constraints =
       constraints::ConstraintsCollectionFactory::newInstance("MyConstraintsCollection");
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
-  network->setConstraints(constraints);
+  network->setConstraints(std::move(constraints));
   bus->setNetwork(network);
 
 
@@ -446,8 +446,8 @@ TEST(ModelsModelNetwork, ModelNetworkBusNodeBreakerDiscreteVariables) {
 
 TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariables) {
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelBus>, shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
-  shared_ptr<ModelBus> bus = p.first;
+  std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
+  std::shared_ptr<ModelBus> bus = p.first;
   int offSet = 0;
   bus->init(offSet);
   unsigned nbY = 4;
@@ -554,8 +554,8 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariables) {
 
 TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariablesInitModel) {
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelBus>, shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(true, false, networkIIDM);
-  shared_ptr<ModelBus> bus = p.first;
+  std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(true, false, networkIIDM);
+  std::shared_ptr<ModelBus> bus = p.first;
   int offSet = 0;
   bus->init(offSet);
   unsigned nbY = 2;
@@ -603,8 +603,8 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariablesInitModel) {
 
 TEST(ModelsModelNetwork, ModelNetworkBusDefineInstantiate) {
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelBus>, shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
-  shared_ptr<ModelBus> bus = p.first;
+  std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
+  std::shared_ptr<ModelBus> bus = p.first;
   int offSet = 0;
   bus->init(offSet);
   std::vector<shared_ptr<Variable> > definedVariables;
@@ -656,8 +656,8 @@ TEST(ModelsModelNetwork, ModelNetworkBusDefineInstantiate) {
 
   // The tests on the parameter hasShortCircuitCapabilities are done using the model size.
   powsybl::iidm::Network networkIIDM2("test", "test");
-  std::pair<shared_ptr<ModelBus>, shared_ptr<VoltageLevelInterfaceIIDM> > p2 = createModelBus(false, false, networkIIDM2, false);
-  shared_ptr<ModelBus> bus2 = p2.first;
+  std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p2 = createModelBus(false, false, networkIIDM2, false);
+  std::shared_ptr<ModelBus> bus2 = p2.first;
   bus2->init(offSet);
   bus2->initSize();
   ASSERT_DOUBLE_EQUALS_DYNAWO(bus2->sizeY(), 2.);
@@ -691,8 +691,8 @@ TEST(ModelsModelNetwork, ModelNetworkBusDefineInstantiate) {
 
 TEST(ModelsModelNetwork, ModelNetworkBusJt) {
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelBus>, shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
-  shared_ptr<ModelBus> bus = p.first;
+  std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
+  std::shared_ptr<ModelBus> bus = p.first;
   int offSet = 0;
   bus->init(offSet);
   bus->initSize();
@@ -788,27 +788,27 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
   iidmBus3.setV(90.);
   iidmBus3.setAngle(100);
 
-  shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
-  shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus1));
-  shared_ptr<BusInterfaceIIDM> bus2ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus2));
-  shared_ptr<BusInterfaceIIDM> bus3ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus3));
+  std::shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = std::make_shared<VoltageLevelInterfaceIIDM>(vlIIDM);
+  std::shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = std::make_shared<BusInterfaceIIDM>(iidmBus1);
+  std::shared_ptr<BusInterfaceIIDM> bus2ItfIIDM = std::make_shared<BusInterfaceIIDM>(iidmBus2);
+  std::shared_ptr<BusInterfaceIIDM> bus3ItfIIDM = std::make_shared<BusInterfaceIIDM>(iidmBus3);
   bus1ItfIIDM->hasConnection(true);
   bus2ItfIIDM->hasConnection(true);
   bus3ItfIIDM->hasConnection(true);
 
   ModelNetwork* network = new ModelNetwork();
-  boost::shared_ptr<constraints::ConstraintsCollection> constraints =
+  std::unique_ptr<constraints::ConstraintsCollection> constraints =
       constraints::ConstraintsCollectionFactory::newInstance("MyConstraintsCollection");
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
-  network->setConstraints(constraints);
-  shared_ptr<ModelVoltageLevel> vl = shared_ptr<ModelVoltageLevel>(new ModelVoltageLevel(vlItfIIDM));
-  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
+  network->setConstraints(std::move(constraints));
+  std::shared_ptr<ModelVoltageLevel> vl = std::make_shared<ModelVoltageLevel>(vlItfIIDM);
+  std::shared_ptr<ModelBus> bus1 = std::make_shared<ModelBus>(bus1ItfIIDM, false);
   bus1->setNetwork(network);
   bus1->setVoltageLevel(vl);
-  shared_ptr<ModelBus> bus2 = shared_ptr<ModelBus>(new ModelBus(bus2ItfIIDM, false));
+  std::shared_ptr<ModelBus> bus2 = std::make_shared<ModelBus>(bus2ItfIIDM, false);
   bus2->setNetwork(network);
   bus2->setVoltageLevel(vl);
-  shared_ptr<ModelBus> bus3 = shared_ptr<ModelBus>(new ModelBus(bus3ItfIIDM, false));
+  std::shared_ptr<ModelBus> bus3 = std::make_shared<ModelBus>(bus3ItfIIDM, false);
   bus3->setNetwork(network);
   bus3->setVoltageLevel(vl);
 
@@ -945,8 +945,8 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
 
 TEST(ModelsModelNetwork, ModelNetworkBusCurrentU) {
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<shared_ptr<ModelBus>, shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
-  shared_ptr<ModelBus> bus = p.first;
+  std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
+  std::shared_ptr<ModelBus> bus = p.first;
   int offSet = 0;
   bus->init(offSet);
   bus->initSize();

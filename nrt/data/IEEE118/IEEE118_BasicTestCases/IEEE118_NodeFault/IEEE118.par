@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
     Copyright (c) 2023, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -341,7 +341,7 @@
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
   </set>
   <set id="Generator15">
-   <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <par type="INT" name="generator_ExcitationPu" value="1"/>
     <par type="BOOL" name="generator_UseApproximation" value="true"/>
     <par type="DOUBLE" name="generator_md" value="0"/>
     <par type="DOUBLE" name="generator_mq" value="0"/>
@@ -2791,8 +2791,8 @@
   </set>
   <set id="IDAOrder2">
     <par type="INT" name="order" value="2"/>
-    <par type="DOUBLE" name="initStep" value="0.000001"/>
-    <par type="DOUBLE" name="minStep" value="0.000001"/>
+    <par type="DOUBLE" name="initStep" value="0.00001"/>
+    <par type="DOUBLE" name="minStep" value="0.00001"/>
     <par type="DOUBLE" name="maxStep" value="10"/>
     <par type="DOUBLE" name="absAccuracy" value="1e-3"/>
     <par type="DOUBLE" name="relAccuracy" value="1e-3"/>

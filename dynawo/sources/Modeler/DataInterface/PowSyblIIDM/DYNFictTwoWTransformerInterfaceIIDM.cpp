@@ -33,7 +33,7 @@
 
 #include "DYNTrace.h"
 
-using boost::shared_ptr;
+using std::shared_ptr;
 using std::string;
 using std::vector;
 
@@ -69,46 +69,46 @@ namespace DYN {
   }
 
   void
-  FictTwoWTransformerInterfaceIIDM::addCurrentLimitInterface1(const boost::shared_ptr<CurrentLimitInterface>& /*currentLimitInterface*/) {
+  FictTwoWTransformerInterfaceIIDM::addCurrentLimitInterface1(std::unique_ptr<CurrentLimitInterface> /*currentLimitInterface*/) {
     /* not needed */
   }
 
   void
-  FictTwoWTransformerInterfaceIIDM::addCurrentLimitInterface2(const boost::shared_ptr<CurrentLimitInterface>& currentLimitInterface) {
-    currentLimitInterfaces2_.push_back(currentLimitInterface);
+  FictTwoWTransformerInterfaceIIDM::addCurrentLimitInterface2(std::unique_ptr<CurrentLimitInterface> currentLimitInterface) {
+    currentLimitInterfaces2_.push_back(std::move(currentLimitInterface));
   }
 
-  std::vector<boost::shared_ptr<CurrentLimitInterface> >
+  const std::vector<std::unique_ptr<CurrentLimitInterface> >&
   FictTwoWTransformerInterfaceIIDM::getCurrentLimitInterfaces2() const {
     return currentLimitInterfaces2_;
   }
 
   void
-  FictTwoWTransformerInterfaceIIDM::setBusInterface1(const boost::shared_ptr<BusInterface>& busInterface) {
+  FictTwoWTransformerInterfaceIIDM::setBusInterface1(const std::shared_ptr<BusInterface>& busInterface) {
     busInterface1_ = busInterface;
   }
 
   void
-  FictTwoWTransformerInterfaceIIDM::setVoltageLevelInterface1(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
+  FictTwoWTransformerInterfaceIIDM::setVoltageLevelInterface1(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
     voltageLevelInterface1_ = voltageLevelInterface;
   }
 
   void
-  FictTwoWTransformerInterfaceIIDM::setBusInterface2(const boost::shared_ptr<BusInterface>& busInterface) {
+  FictTwoWTransformerInterfaceIIDM::setBusInterface2(const std::shared_ptr<BusInterface>& busInterface) {
     busInterface2_ = busInterface;
   }
 
   void
-  FictTwoWTransformerInterfaceIIDM::setVoltageLevelInterface2(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
+  FictTwoWTransformerInterfaceIIDM::setVoltageLevelInterface2(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
     voltageLevelInterface2_ = voltageLevelInterface;
   }
 
-  boost::shared_ptr<BusInterface>
+  std::shared_ptr<BusInterface>
   FictTwoWTransformerInterfaceIIDM::getBusInterface1() const {
     return busInterface1_;
   }
 
-  boost::shared_ptr<BusInterface>
+  std::shared_ptr<BusInterface>
   FictTwoWTransformerInterfaceIIDM::getBusInterface2() const {
     return busInterface2_;
   }
@@ -155,24 +155,24 @@ namespace DYN {
     return leg_.get().getRatedU();
   }
 
-  boost::shared_ptr<PhaseTapChangerInterface>
+  const std::unique_ptr<PhaseTapChangerInterface>&
   FictTwoWTransformerInterfaceIIDM::getPhaseTapChanger() const {
     return phaseTapChanger_;
   }
 
-  boost::shared_ptr<RatioTapChangerInterface>
+  const std::unique_ptr<RatioTapChangerInterface>&
   FictTwoWTransformerInterfaceIIDM::getRatioTapChanger() const {
     return ratioTapChanger_;
   }
 
   void
-  FictTwoWTransformerInterfaceIIDM::setPhaseTapChanger(const shared_ptr<PhaseTapChangerInterface>& tapChanger) {
-    phaseTapChanger_ = tapChanger;
+  FictTwoWTransformerInterfaceIIDM::setPhaseTapChanger(std::unique_ptr<PhaseTapChangerInterface> tapChanger) {
+    phaseTapChanger_ = std::move(tapChanger);
   }
 
   void
-  FictTwoWTransformerInterfaceIIDM::setRatioTapChanger(const shared_ptr<RatioTapChangerInterface>& tapChanger) {
-    ratioTapChanger_ = tapChanger;
+  FictTwoWTransformerInterfaceIIDM::setRatioTapChanger(std::unique_ptr<RatioTapChangerInterface> tapChanger) {
+    ratioTapChanger_ = std::move(tapChanger);
   }
 
   double
@@ -268,7 +268,7 @@ namespace DYN {
       staticParameters_.insert(std::make_pair("iStop", StaticParameter("iStop", StaticParameter::DOUBLE).setValue(thresholdI * factorAToPu)));
       staticParameters_.insert(std::make_pair("regulating",
         StaticParameter("regulating", StaticParameter::BOOL).setValue(getPhaseTapChanger()->getRegulating())));
-      vector<shared_ptr<StepInterface> > taps = getPhaseTapChanger()->getSteps();
+      const vector<std::unique_ptr<StepInterface> >& taps = getPhaseTapChanger()->getSteps();
       assert(!taps.empty());
 
       double phaseTapMin = taps[0]->getAlpha();

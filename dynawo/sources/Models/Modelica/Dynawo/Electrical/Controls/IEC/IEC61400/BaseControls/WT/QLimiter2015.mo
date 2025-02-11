@@ -29,7 +29,7 @@ model QLimiter2015 "Reactive power limitation module for wind turbines (IEC N°6
   Modelica.Blocks.Interfaces.RealInput UWTPu(start = U0Pu) "Voltage amplitude at grid terminal in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-140, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFirstOrderFreeze absLimRateLimFirstOrderFreeze(DyMax = 999, Y0 = U0Pu, YMax = 999, tI = tUFiltql)  annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFirstOrderFreeze absLimRateLimFirstOrderFreeze(DyMax = 999, Y0 = U0Pu, YMax = 999, tI = tUFiltql) annotation(
     Placement(visible = true, transformation(origin = {-70, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFirstOrderFreeze absLimRateLimFirstOrderFreeze1(DyMax = 999, Y0 = -P0Pu * SystemBase.SnRef / SNom, YMax = 999, tI = tPFiltql) annotation(
     Placement(visible = true, transformation(origin = {-70, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -55,6 +55,7 @@ equation
     Line(points = {{-78, 0}, {-70, 0}, {-70, -48}}, color = {255, 0, 255}));
 
   annotation(
+    preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-120, -100}, {120, 100}})),
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-19, -26}, extent = {{-25, 22}, {61, -60}}, textString = "2015")}));
 end QLimiter2015;

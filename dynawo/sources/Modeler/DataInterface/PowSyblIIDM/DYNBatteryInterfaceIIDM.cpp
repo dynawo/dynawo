@@ -27,7 +27,6 @@
 
 using std::string;
 using std::vector;
-using boost::shared_ptr;
 
 namespace DYN {
 
@@ -133,16 +132,16 @@ BatteryInterfaceIIDM::importStaticParameters() {
 }
 
 void
-BatteryInterfaceIIDM::setBusInterface(const shared_ptr<BusInterface>& busInterface) {
+BatteryInterfaceIIDM::setBusInterface(const std::shared_ptr<BusInterface>& busInterface) {
   setBusInterfaceInjector(busInterface);
 }
 
 void
-BatteryInterfaceIIDM::setVoltageLevelInterface(const shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
+BatteryInterfaceIIDM::setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
   setVoltageLevelInterfaceInjector(voltageLevelInterface);
 }
 
-shared_ptr<BusInterface>
+std::shared_ptr<BusInterface>
 BatteryInterfaceIIDM::getBusInterface() const {
   return getBusInterfaceInjector();
 }
@@ -329,18 +328,6 @@ BatteryInterfaceIIDM::hasCoordinatedReactiveControl() const {
 double
 BatteryInterfaceIIDM::getCoordinatedReactiveControlPercentage() const {
   return 0.;
-}
-
-boost::optional<double>
-BatteryInterfaceIIDM::getDroop() const {
-  // external IIDM extension is irrelevant for batteries
-  return boost::none;
-}
-
-boost::optional<bool>
-BatteryInterfaceIIDM::isParticipate() const {
-  // external IIDM extension is irrelevant for batteries
-  return boost::none;
 }
 
 GeneratorInterface::EnergySource_t

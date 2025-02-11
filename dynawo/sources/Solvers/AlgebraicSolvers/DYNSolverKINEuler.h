@@ -22,7 +22,6 @@
 #ifndef SOLVERS_ALGEBRAICSOLVERS_DYNSOLVERKINEULER_H_
 #define SOLVERS_ALGEBRAICSOLVERS_DYNSOLVERKINEULER_H_
 
-#include <boost/shared_ptr.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <string>
 
@@ -67,7 +66,7 @@ class SolverKINEuler : public SolverKINCommon, private boost::noncopyable {
    * @param printfl level of verbosity of output
    * @param sundialsVectorY solution of the algebraic resolution
    */
-  void init(const boost::shared_ptr<Model>& model, Solver* timeSchemeSolver, double fnormtol,
+  void init(const std::shared_ptr<Model>& model, Solver* timeSchemeSolver, double fnormtol,
             double initialaddtol, double scsteptol, double mxnewtstep, int msbset, int mxiter, int printfl, N_Vector sundialsVectorY);
 
   /**
@@ -127,7 +126,7 @@ class SolverKINEuler : public SolverKINCommon, private boost::noncopyable {
   }
 
  private:
-  boost::shared_ptr<Model> model_;  ///< instance of model to interact with
+  std::shared_ptr<Model> model_;  ///< instance of model to interact with
   Solver* timeSchemeSolver_;  ///< instance of time-scheme solver to interact with
 };
 

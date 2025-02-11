@@ -20,6 +20,7 @@
 #include "DYNLccConverterInterfaceIIDM.h"
 #include "DYNVscConverterInterfaceIIDM.h"
 
+#include "make_unique.hpp"
 #include "gtest_dynawo.h"
 
 #include <powsybl/iidm/Bus.hpp>
@@ -36,7 +37,6 @@
 #include <powsybl/iidm/LccConverterStation.hpp>
 #include <powsybl/iidm/LccConverterStationAdder.hpp>
 
-using boost::shared_ptr;
 
 namespace DYN {
 
@@ -204,35 +204,35 @@ TEST(DataInterfaceTest, Network) {
   powsybl::iidm::extensions::SlackTerminal::attach(vl1Bus1);
 
   NetworkInterfaceIIDM network(networkIIDM);
-  shared_ptr<LineInterface> li(new LineInterfaceIIDM(MyLine));
-  shared_ptr<VoltageLevelInterface> vl(new VoltageLevelInterfaceIIDM(vl1));
-  shared_ptr<TwoWTransformerInterface> twoWT(new TwoWTransformerInterfaceIIDM(transformer));
-  shared_ptr<ThreeWTransformerInterface> threeWT(new ThreeWTransformerInterfaceIIDM(transformer3));
+  std::unique_ptr<LineInterface> li = DYN::make_unique<LineInterfaceIIDM>(MyLine);
+  std::unique_ptr<VoltageLevelInterface> vl = DYN::make_unique<VoltageLevelInterfaceIIDM>(vl1);
+  std::unique_ptr<TwoWTransformerInterface> twoWT = DYN::make_unique<TwoWTransformerInterfaceIIDM>(transformer);
+  std::unique_ptr<ThreeWTransformerInterface> threeWT = DYN::make_unique<ThreeWTransformerInterfaceIIDM>(transformer3);
   powsybl::iidm::LccConverterStation& lcc = networkIIDM.getLccConverterStation("LCC1");
   powsybl::iidm::VscConverterStation& vsc = networkIIDM.getVscConverterStation("VSC2");
 
-  const boost::shared_ptr<LccConverterInterface> LccIfce(new LccConverterInterfaceIIDM(lcc));
-  const boost::shared_ptr<VscConverterInterface> VscIfce(new VscConverterInterfaceIIDM(vsc));
-  shared_ptr<HvdcLineInterface> hvdc(new HvdcLineInterfaceIIDM(hvdcIIDM, LccIfce, VscIfce));
+  std::unique_ptr<LccConverterInterface> LccIfce = DYN::make_unique<LccConverterInterfaceIIDM>(lcc);
+  std::unique_ptr<VscConverterInterface> VscIfce = DYN::make_unique<VscConverterInterfaceIIDM>(vsc);
+  std::unique_ptr<HvdcLineInterface> hvdc = DYN::make_unique<HvdcLineInterfaceIIDM>(hvdcIIDM, std::move(LccIfce), std::move(VscIfce));
 
   ASSERT_EQ(network.getLines().size(), 0);
-  network.addLine(li);
+  network.addLine(std::move(li));
   ASSERT_EQ(network.getLines().size(), 1);
 
   ASSERT_EQ(network.getVoltageLevels().size(), 0);
-  network.addVoltageLevel(vl);
+  network.addVoltageLevel(std::move(vl));
   ASSERT_EQ(network.getVoltageLevels().size(), 1);
 
   ASSERT_EQ(network.getTwoWTransformers().size(), 0);
-  network.addTwoWTransformer(twoWT);
+  network.addTwoWTransformer(std::move(twoWT));
   ASSERT_EQ(network.getTwoWTransformers().size(), 1);
 
   ASSERT_EQ(network.getThreeWTransformers().size(), 0);
-  network.addThreeWTransformer(threeWT);
+  network.addThreeWTransformer(std::move(threeWT));
   ASSERT_EQ(network.getThreeWTransformers().size(), 1);
 
   ASSERT_EQ(network.getHvdcLines().size(), 0);
-  network.addHvdcLine(hvdc);
+  network.addHvdcLine(std::move(hvdc));
   ASSERT_EQ(network.getHvdcLines().size(), 1);
 
   auto slackBus = network.getSlackNodeBusId();

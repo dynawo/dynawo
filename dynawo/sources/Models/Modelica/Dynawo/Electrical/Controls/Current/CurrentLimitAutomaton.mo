@@ -14,6 +14,8 @@ within Dynawo.Electrical.Controls.Current;
 
 model CurrentLimitAutomaton "Current Limit Automaton (CLA) monitoring one component"
   import Modelica.Constants;
+  import Dynawo.NonElectrical.Logs.Constraint;
+  import Dynawo.NonElectrical.Logs.ConstraintKeys;
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
@@ -35,14 +37,17 @@ protected
 
 equation
   when IMonitored.value > IMax and Running and pre(order.value) <> OrderToEmit then
+    Constraint.logConstraintBeginData(ConstraintKeys.OverloadUpCLA, "OverloadUp", IMax, IMonitored.value, String(tLagBeforeActing, significantDigits = 2));
     tThresholdReached = time;
     Timeline.logEvent1(TimelineKeys.CurrentLimitAutomatonArming);
   elsewhen IMonitored.value < IMax and pre(tThresholdReached) <> Constants.inf and pre(order.value) <> OrderToEmit then
+    Constraint.logConstraintEndData(ConstraintKeys.OverloadUpCLA, "OverloadUp", IMax, IMonitored.value, String(tLagBeforeActing, significantDigits = 2));
     tThresholdReached = Constants.inf;
     Timeline.logEvent1(TimelineKeys.CurrentLimitAutomatonDisarming);
   end when;
 
   when time - tThresholdReached >= tLagBeforeActing then
+    Constraint.logConstraintBeginData(ConstraintKeys.OverloadOpenCLA, "OverloadOpen", IMax, IMonitored.value, String(tLagBeforeActing, significantDigits = 2));
     order.value = OrderToEmit;
     tOrder = time;
     Timeline.logEvent1(TimelineKeys.CurrentLimitAutomatonActing);

@@ -21,7 +21,6 @@
 
 #include "FSVFinalStateValue.h"
 
-using boost::shared_ptr;
 using std::string;
 using std::vector;
 
@@ -30,7 +29,7 @@ namespace finalStateValues {
 FinalStateValuesCollection::FinalStateValuesCollection(const string& id) : id_(id) {}
 
 void
-FinalStateValuesCollection::add(const shared_ptr<FinalStateValue>& finalStateValue) {
+FinalStateValuesCollection::add(const std::shared_ptr<FinalStateValue>& finalStateValue) {
   finalStateValues_.push_back(finalStateValue);
 }
 
@@ -83,11 +82,11 @@ FinalStateValuesCollection::const_iterator::operator!=(const FinalStateValuesCol
   return current_ != other.current_;
 }
 
-const shared_ptr<FinalStateValue>& FinalStateValuesCollection::const_iterator::operator*() const {
+const std::shared_ptr<FinalStateValue>& FinalStateValuesCollection::const_iterator::operator*() const {
   return *current_;
 }
 
-const shared_ptr<FinalStateValue>* FinalStateValuesCollection::const_iterator::operator->() const {
+const std::shared_ptr<FinalStateValue>* FinalStateValuesCollection::const_iterator::operator->() const {
   return &(*current_);
 }
 
@@ -140,11 +139,11 @@ FinalStateValuesCollection::iterator::operator!=(const FinalStateValuesCollectio
   return current_ != other.current_;
 }
 
-shared_ptr<FinalStateValue>& FinalStateValuesCollection::iterator::operator*() const {
+std::shared_ptr<FinalStateValue>& FinalStateValuesCollection::iterator::operator*() const {
   return *current_;
 }
 
-shared_ptr<FinalStateValue>* FinalStateValuesCollection::iterator::operator->() const {
+std::shared_ptr<FinalStateValue>* FinalStateValuesCollection::iterator::operator->() const {
   return &(*current_);
 }
 

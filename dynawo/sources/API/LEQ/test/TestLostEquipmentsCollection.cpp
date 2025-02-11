@@ -30,7 +30,7 @@ namespace lostEquipments {
 //-----------------------------------------------------
 
 TEST(APILEQTest, LostEquipmentsCollection) {
-  boost::shared_ptr<LostEquipmentsCollection> lostEquipments = LostEquipmentsCollectionFactory::newInstance();
+  std::shared_ptr<LostEquipmentsCollection> lostEquipments = LostEquipmentsCollectionFactory::newInstance();
 
   lostEquipments->addLostEquipment("ID1", "type1");
   lostEquipments->addLostEquipment("ID2", "type2");

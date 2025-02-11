@@ -15,11 +15,13 @@ set(MODEL_FILES
   package.order
   BacklashHysteresis.mo
   DeadBand.mo
+  DeadZone.mo
   DelayFlag.mo
   FixedBooleanDelay.mo
   FlipFlopR.mo
   FlipFlopS.mo
   IntegratorOrFirstOrder.mo
+  LimitedDivision.mo
   LimitedFirstOrder.mo
   LimitedIntegrator.mo
   LimitedLeadLag.mo

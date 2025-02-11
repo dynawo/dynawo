@@ -315,7 +315,7 @@ class ModelMulti : public Model, private boost::noncopyable {
   *
   * @param curvesCollection set of curves
   */
-  void updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollection>& curvesCollection) const;
+  void updateCalculatedVarForCurves(std::shared_ptr<curves::CurvesCollection>& curvesCollection) const;
 
   /**
    * @copydoc Model::dumpParameters(std::map< std::string, std::string> & mapParameters)
@@ -358,14 +358,14 @@ class ModelMulti : public Model, private boost::noncopyable {
   void setTimeline(const boost::shared_ptr<timeline::Timeline>& timeline);
 
   /**
-   * @copydoc Model::setConstraints(const boost::shared_ptr<constraints::ConstraintsCollection>& constraints)
+   * @copydoc Model::setConstraints(const std::shared_ptr<constraints::ConstraintsCollection>& constraints)
    */
-  void setConstraints(const boost::shared_ptr<constraints::ConstraintsCollection>& constraints);
+  void setConstraints(const std::shared_ptr<constraints::ConstraintsCollection>& constraints);
 
   /**
-   * @copydoc Model::initCurves(boost::shared_ptr<curves::Curve>& curve)
+   * @copydoc Model::initCurves(std::shared_ptr<curves::Curve>& curve)
    */
-  bool initCurves(boost::shared_ptr<curves::Curve>& curve);
+  bool initCurves(std::shared_ptr<curves::Curve>& curve);
 
  public:
   /**
@@ -472,7 +472,7 @@ class ModelMulti : public Model, private boost::noncopyable {
    *
    * @param localInitParameters local initialization solver parameters
    */
-  void setLocalInitParameters(boost::shared_ptr<parameters::ParametersSet> localInitParameters);
+  void setLocalInitParameters(std::shared_ptr<parameters::ParametersSet> localInitParameters);
 
  private:
   /**
@@ -606,7 +606,7 @@ class ModelMulti : public Model, private boost::noncopyable {
   std::vector<size_t> notUsedInContinuousEqSilentZIndexes_;  ///< indexes of silent discrete variables not used in continuous equations
   std::vector<size_t> nonSilentZIndexes_;  ///< indexes of non silent discrete variables
 
-  boost::shared_ptr<parameters::ParametersSet> localInitParameters_;  ///< local initialization solver parameters set
+  std::shared_ptr<parameters::ParametersSet> localInitParameters_;  ///< local initialization solver parameters set
 };  ///< Class for Multiple-Model
 
 

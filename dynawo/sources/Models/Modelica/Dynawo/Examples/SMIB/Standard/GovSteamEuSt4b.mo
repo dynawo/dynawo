@@ -16,7 +16,7 @@ within Dynawo.Examples.SMIB.Standard;
 model GovSteamEuSt4b "Active power variation on the load with governor GovSteamEU"
   extends Icons.Example;
 
-// Generator and regulations
+  // Generator and regulations
   Dynawo.Examples.BaseClasses.GeneratorSynchronousInterfaces generatorSynchronous(
     Ce0Pu = 0.76,
     Cm0Pu = 0.8,
@@ -141,7 +141,7 @@ model GovSteamEuSt4b "Active power variation on the load with governor GovSteamE
   Modelica.Blocks.Sources.Constant const1(k = avr.UOel0Pu) annotation(
     Placement(visible = true, transformation(origin = {84, 66}, extent = {{-4, -4}, {4, 4}}, rotation = 0)));
 
-// Load
+  // Load
   Dynawo.Electrical.Loads.LoadAlphaBeta load(alpha = 2, beta = 2, i0Pu = Complex(3.8, 0), s0Pu = Complex(3.8, 0), u0Pu = Complex(1, 0)) annotation(
     Placement(visible = true, transformation(origin = {-40, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant QRefPu(k = 0) annotation(
@@ -161,10 +161,6 @@ equation
   connect(generatorSynchronous.omegaPu, generatorSynchronous.omegaRefPu);
   connect(const.y, avr.UUelPu) annotation(
     Line(points = {{152, 80}, {110, 80}, {110, 54}, {118, 54}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
-  connect(const.y, avr.USclOelPu) annotation(
-    Line(points = {{152, 80}, {148, 80}, {148, 68}, {142, 68}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
-  connect(const.y, avr.USclUelPu) annotation(
-    Line(points = {{152, 80}, {148, 80}, {148, 64}, {142, 64}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(UPssPu.y, avr.UPssPu) annotation(
     Line(points = {{101, 0}, {110, 0}, {110, 50}, {118, 50}}, color = {0, 0, 127}));
   connect(UsRefPu.y, avr.UsRefPu) annotation(
@@ -207,8 +203,8 @@ equation
     experiment(StartTime = 0, StopTime = 30, Tolerance = 1e-06, Interval = 0.02),
     __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", nls = "kinsol", s = "ida", nlsLS = "klu", maxIntegrationOrder = "2", maxStepSize = "10", emit_protected = "()"),
     Diagram(coordinateSystem(extent = {{-160, -100}, {160, 100}})),
-  Documentation(info = "<html><head></head><body><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">This test case has been created to test the GovSteamEU governor model.&nbsp;</span><div><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">It has been derived from&nbsp;</span>Dynawo.Examples.SMIB.Standard.GovSteam1St4b2.</div><div><br></div><div><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">It represents a 500 MVA synchronous machine connected to an infinite bus through a transformer and a line, with&nbsp;</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">an active and reactive load between the transformer and the line.</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\"><br><br>A load step is introduced at t=0.1 s.</span></div><div><font face=\"DejaVu Sans Mono\"><br></font></div><div><font face=\"DejaVu Sans Mono\">Below the response of generated active power, mechanical power, voltage and frequency are shown.</font></div><div><br></div><div><font face=\"DejaVu Sans Mono\">
-  <figure>PGenPu:</figure><figure><img width=\"450\" src=\"modelica://Dynawo/Examples/SMIB/Resources/Images/GovSteamEu_PGenPu.jpg\"><br></figure><figure>PmPu:</figure>
+    Documentation(info = "<html><head></head><body><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">This test case has been created to test the GovSteamEU governor model.&nbsp;</span><div><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">It has been derived from&nbsp;</span>Dynawo.Examples.SMIB.Standard.GovSteam1St4b2.</div><div><br></div><div><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">It represents a 500 MVA synchronous machine connected to an infinite bus through a transformer and a line, with&nbsp;</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">an active and reactive load between the transformer and the line.</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\"><br><br>A load step is introduced at t=0.1 s.</span></div><div><font face=\"DejaVu Sans Mono\"><br></font></div><div><font face=\"DejaVu Sans Mono\">Below the response of generated active power, mechanical power, voltage and frequency are shown.</font></div><div><br></div><div><font face=\"DejaVu Sans Mono\">
+    <figure>PGenPu:</figure><figure><img width=\"450\" src=\"modelica://Dynawo/Examples/SMIB/Resources/Images/GovSteamEu_PGenPu.jpg\"><br></figure><figure>PmPu:</figure>
     <figure>
     <img width=\"450\" src=\"modelica://Dynawo/Examples/SMIB/Resources/Images/GovSteamEu_PmPu.jpg\">
     </figure><figure>UPu:</figure>

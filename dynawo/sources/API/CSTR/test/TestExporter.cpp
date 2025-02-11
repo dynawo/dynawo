@@ -27,7 +27,7 @@
 namespace constraints {
 
 TEST(APICSTRTest, ConstraintsCollectionXmlExporter) {
-  boost::shared_ptr<ConstraintsCollection> constraintsCollection1 = ConstraintsCollectionFactory::newInstance("Constraints");
+  std::unique_ptr<ConstraintsCollection> constraintsCollection1 = ConstraintsCollectionFactory::newInstance("Constraints");
 
   constraintsCollection1->addConstraint("model", "USupUmax", 80, CONSTRAINT_BEGIN, "Bus");
   constraintsCollection1->addConstraint("model", "OverloadUp", 80, CONSTRAINT_BEGIN, "Line");
@@ -44,18 +44,18 @@ TEST(APICSTRTest, ConstraintsCollectionXmlExporter) {
 
   XmlExporter exporter;
   std::stringstream ss;
-  exporter.exportToStream(constraintsCollection1, ss);
+  exporter.exportToStream(std::move(constraintsCollection1), ss);
   ASSERT_EQ(ss.str(), "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>\n"
-      "<constraints xmlns=\"http://www.rte-france.com/dynawo\">\n"
-      "  <constraint modelName=\"model\" description=\"OverloadUp\" time=\"80\" type=\"Line\"/>\n"
-      "  <constraint modelName=\"model\" description=\"PATL\" time=\"80\" type=\"Line\"/>\n"
-      "  <constraint modelName=\"model\" description=\"USupUmax\" time=\"80\" type=\"Bus\"/>\n"
-      "  <constraint modelName=\"modelDetail\" description=\"desc OverloadUp\" time=\"90\" "
-      "type=\"Line\" kind=\"OverloadUp\" limit=\"1000\" value=\"1001\" side=\"1\" acceptableDuration=\"60\"/>\n"
-      "  <constraint modelName=\"modelDetail\" description=\"desc PATL\" time=\"90\" "
-      "type=\"Line\" kind=\"PATL\" limit=\"1100\" value=\"1111\" side=\"1\"/>\n"
-      "  <constraint modelName=\"modelDetail\" description=\"desc UInfUmin\" time=\"90\" "
-      "type=\"Bus\" kind=\"UInfUmin\" limit=\"132\" value=\"130\"/>\n"
+      "<constraints xmlns=\"http://www.rte-france.com/dynawo\">\n  "
+      "<constraint modelName=\"model\" description=\"OverloadUp\" time=\"80.000000\" type=\"Line\"/>\n  "
+      "<constraint modelName=\"model\" description=\"PATL\" time=\"80.000000\" type=\"Line\"/>\n  "
+      "<constraint modelName=\"model\" description=\"USupUmax\" time=\"80.000000\" type=\"Bus\"/>\n  "
+      "<constraint modelName=\"modelDetail\" description=\"desc OverloadUp\" time=\"90.000000\" type=\"Line\" "
+      "kind=\"OverloadUp\" limit=\"1000\" value=\"1001\" side=\"1\" acceptableDuration=\"60\"/>\n  "
+      "<constraint modelName=\"modelDetail\" description=\"desc PATL\" time=\"90.000000\" type=\"Line\" "
+      "kind=\"PATL\" limit=\"1100\" value=\"1111\" side=\"1\"/>\n  "
+      "<constraint modelName=\"modelDetail\" description=\"desc UInfUmin\" time=\"90.000000\" type=\"Bus\" "
+      "kind=\"UInfUmin\" limit=\"132\" value=\"130\"/>\n"
       "</constraints>\n");
 }
 

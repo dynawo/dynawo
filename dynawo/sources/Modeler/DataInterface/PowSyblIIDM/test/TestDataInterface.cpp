@@ -42,6 +42,9 @@
 #include "DYNModelConstants.h"
 #include "DYNVoltageLevelInterfaceIIDM.h"
 #include "DYNLoadInterfaceIIDM.h"
+#include "PARParametersSetFactory.h"
+
+#include "TestUtil.h"
 
 #include <powsybl/iidm/Network.hpp>
 #include <powsybl/iidm/Substation.hpp>
@@ -72,6 +75,8 @@
 #include <powsybl/iidm/StaticVarCompensator.hpp>
 #include <powsybl/iidm/StaticVarCompensatorAdder.hpp>
 #include <powsybl/iidm/CurrentLimitsAdder.hpp>
+#include <powsybl/iidm/extensions/iidm/ActivePowerControl.hpp>
+#include <powsybl/iidm/extensions/iidm/ActivePowerControlAdder.hpp>
 
 #include <thread>
 
@@ -222,6 +227,7 @@ struct BusBreakerNetworkProperty {
   bool instantiatePhaseTapChanger;
   bool instantiateDanglingLine;
   bool instantiateGenerator;
+  bool instantiateGeneratorWithExtensions;
   bool instantiateLccConverterWithConnectedHvdc;
   bool instantiateLccConverterWithDisconnectedHvdc;
   bool instantiateLine;
@@ -377,7 +383,7 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
         .add();
   }
 
-  if (properties.instantiateGenerator) {
+  if (properties.instantiateGenerator || properties.instantiateGeneratorWithExtensions) {
     powsybl::iidm:: Generator& gen = vl1.newGenerator()
         .setId("MyGenerator")
         .setName("MyGenerator_NAME")
@@ -395,6 +401,8 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
     gen.getTerminal().setP(-105.);
     gen.getTerminal().setQ(-90.);
     gen.newMinMaxReactiveLimits().setMinQ(1.).setMaxQ(20.).add();
+    if (properties.instantiateGeneratorWithExtensions) {
+    gen.newExtension<powsybl::iidm::extensions::iidm::ActivePowerControlAdder>().withDroop(4.0).withParticipate(true).add(); }
   }
 
   if (properties.instantiateBattery) {
@@ -691,7 +699,7 @@ initializeModel(shared_ptr<DataInterface> data) {
   modelNetwork->initFromData(data);
   data->setModelNetwork(modelNetwork);
   modelNetwork->name("NETWORK");
-  shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
+  std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("Parameterset");
   parametersSet->createParameter("bus_uMax", 0.);
   parametersSet->createParameter("capacitor_no_reclosing_delay", 0.);
   parametersSet->createParameter("load_alpha", 0.);
@@ -754,29 +762,29 @@ TEST(DataInterfaceIIDMTest, testNodeBreakerBusIIDM) {
   powsybl::iidm::Bus& busIIDM4 = network.getVoltageLevel("MyVoltageLevel").getBusBreakerView().getBus("MyVoltageLevel_4");
   ASSERT_DOUBLE_EQUALS_DYNAWO(busIIDM4.getV(), 220.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(busIIDM4.getAngle(), 3.);
-  boost::shared_ptr<CalculatedBusInterfaceIIDM> bus4 =
-      boost::dynamic_pointer_cast<CalculatedBusInterfaceIIDM>(data->findComponent("calculatedBus_MyVoltageLevel_4"));
+  std::shared_ptr<CalculatedBusInterfaceIIDM> bus4 =
+      std::dynamic_pointer_cast<CalculatedBusInterfaceIIDM>(data->findComponent("calculatedBus_MyVoltageLevel_4"));
   bus4->setValue(BusInterfaceIIDM::VAR_V, 100.);
   bus4->setValue(BusInterfaceIIDM::VAR_ANGLE, 90.);
-  boost::shared_ptr<CalculatedBusInterfaceIIDM> bus1 =
-      boost::dynamic_pointer_cast<CalculatedBusInterfaceIIDM>(data->findComponent("calculatedBus_MyVoltageLevel_1"));
+  std::shared_ptr<CalculatedBusInterfaceIIDM> bus1 =
+      std::dynamic_pointer_cast<CalculatedBusInterfaceIIDM>(data->findComponent("calculatedBus_MyVoltageLevel_1"));
   bus1->setValue(BusInterfaceIIDM::VAR_V, 100.);
   bus1->setValue(BusInterfaceIIDM::VAR_ANGLE, 90.);
 
-  boost::shared_ptr<VoltageLevelInterfaceIIDM> vl =
-      boost::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(data->getNetwork()->getVoltageLevels()[0]);
+  std::shared_ptr<VoltageLevelInterfaceIIDM> vl =
+      std::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(data->getNetwork()->getVoltageLevels()[0]);
   data->exportStateVariablesNoReadFromModel();
   ASSERT_DOUBLE_EQUALS_DYNAWO(busIIDM4.getV(), 100.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(busIIDM4.getAngle(), 90.);
 
-  boost::shared_ptr<SwitchInterfaceIIDM> switchBK2 =
-      boost::dynamic_pointer_cast<SwitchInterfaceIIDM>(data->findComponent("BK2"));
-  boost::shared_ptr<SwitchInterfaceIIDM> switchBK1 =
-      boost::dynamic_pointer_cast<SwitchInterfaceIIDM>(data->findComponent("BK1"));
-  boost::shared_ptr<SwitchInterfaceIIDM> switchDC11 =
-      boost::dynamic_pointer_cast<SwitchInterfaceIIDM>(data->findComponent("DC11"));
-  boost::shared_ptr<SwitchInterfaceIIDM> switchBK11 =
-      boost::dynamic_pointer_cast<SwitchInterfaceIIDM>(data->findComponent("BK11"));
+  std::shared_ptr<SwitchInterfaceIIDM> switchBK2 =
+      std::dynamic_pointer_cast<SwitchInterfaceIIDM>(data->findComponent("BK2"));
+  std::shared_ptr<SwitchInterfaceIIDM> switchBK1 =
+      std::dynamic_pointer_cast<SwitchInterfaceIIDM>(data->findComponent("BK1"));
+  std::shared_ptr<SwitchInterfaceIIDM> switchDC11 =
+      std::dynamic_pointer_cast<SwitchInterfaceIIDM>(data->findComponent("DC11"));
+  std::shared_ptr<SwitchInterfaceIIDM> switchBK11 =
+      std::dynamic_pointer_cast<SwitchInterfaceIIDM>(data->findComponent("BK11"));
   ASSERT_FALSE(switchBK2->isOpen());
   ASSERT_TRUE(switchBK1->isOpen());
   ASSERT_TRUE(switchDC11->isOpen());
@@ -807,6 +815,7 @@ TEST(DataInterfaceIIDMTest, testBusIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       false /*instantiateLccConverterWithConnectedHvdc*/,
       false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
@@ -830,7 +839,7 @@ TEST(DataInterfaceIIDMTest, testBusIIDM) {
   powsybl::iidm::Bus& busIIDM = network.getVoltageLevel("VL1").getBusBreakerView().getBus("MyBus");
   ASSERT_DOUBLE_EQUALS_DYNAWO(busIIDM.getV(), 150.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(busIIDM.getAngle(), 1.5);
-  boost::shared_ptr<BusInterfaceIIDM> bus = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("MyBus"));
+  std::shared_ptr<BusInterfaceIIDM> bus = std::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("MyBus"));
   bus->setValue(BusInterfaceIIDM::VAR_V, 200.);
   bus->setValue(BusInterfaceIIDM::VAR_ANGLE, 3.14);
   data->exportStateVariablesNoReadFromModel();
@@ -847,6 +856,7 @@ TEST(DataInterfaceIIDMTest, testDanglingLineIIDMAndStaticParameters) {
       false /*instantiatePhaseTapChanger*/,
       true /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       false /*instantiateLccConverterWithConnectedHvdc*/,
       false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
@@ -870,7 +880,7 @@ TEST(DataInterfaceIIDMTest, testDanglingLineIIDMAndStaticParameters) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(dlIIDM.getTerminal().getP(), 105.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(dlIIDM.getTerminal().getQ(), 90.);
   ASSERT_TRUE(dlIIDM.getTerminal().isConnected());
-  boost::shared_ptr<DanglingLineInterfaceIIDM> dl = boost::dynamic_pointer_cast<DanglingLineInterfaceIIDM>(data->findComponent("MyDanglingLine"));
+  std::shared_ptr<DanglingLineInterfaceIIDM> dl = std::dynamic_pointer_cast<DanglingLineInterfaceIIDM>(data->findComponent("MyDanglingLine"));
   dl->setValue(DanglingLineInterfaceIIDM::VAR_P, 2.);
   dl->setValue(DanglingLineInterfaceIIDM::VAR_Q, 4.);
   dl->setValue(DanglingLineInterfaceIIDM::VAR_STATE, OPEN);
@@ -892,6 +902,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       true /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       false /*instantiateLccConverterWithConnectedHvdc*/,
       false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
@@ -932,12 +943,13 @@ TEST(DataInterfaceIIDMTest, testGeneratorIIDM) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "targetP"), 105.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "targetQ_pu"), 90. / SNREF);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "targetQ"), 90.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "kGover"), 0.);
   ASSERT_EQ(data->getBusName("MyGenerator", ""), "MyBus");
   powsybl::iidm::Generator& genIIDM = network.getGenerator("MyGenerator");
   ASSERT_DOUBLE_EQUALS_DYNAWO(genIIDM.getTerminal().getP(), -105.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(genIIDM.getTerminal().getQ(), -90.);
   ASSERT_TRUE(genIIDM.getTerminal().isConnected());
-  boost::shared_ptr<GeneratorInterfaceIIDM> gen = boost::dynamic_pointer_cast<GeneratorInterfaceIIDM>(data->findComponent("MyGenerator"));
+  std::shared_ptr<GeneratorInterfaceIIDM> gen = std::dynamic_pointer_cast<GeneratorInterfaceIIDM>(data->findComponent("MyGenerator"));
   gen->setValue(GeneratorInterfaceIIDM::VAR_P, 2.);
   gen->setValue(GeneratorInterfaceIIDM::VAR_Q, 4.);
   gen->setValue(GeneratorInterfaceIIDM::VAR_STATE, OPEN);
@@ -950,6 +962,32 @@ TEST(DataInterfaceIIDMTest, testGeneratorIIDM) {
   ASSERT_TRUE(genIIDM.getTerminal().isConnected());
 }
 
+TEST(DataInterfaceIIDMTest, testGeneratorIIDMWithExtensions) {
+  const BusBreakerNetworkProperty properties = {
+      false /*instantiateCapacitorShuntCompensator*/,
+      false /*instantiateStaticVarCompensator*/,
+      false /*instantiateTwoWindingTransformer*/,
+      false /*instantiateRatioTapChanger*/,
+      false /*instantiatePhaseTapChanger*/,
+      false /*instantiateDanglingLine*/,
+      false /*instantiateGenerator*/,
+      true /*instantiateGeneratorWithExtensions*/,
+      false /*instantiateLccConverterWithConnectedHvdc*/,
+      false /*instantiateLccConverterWithDisconnectedHvdc*/,
+      false /*instantiateLine*/,
+      false /*instantiateLoad*/,
+      false /*instantiateSwitch*/,
+      false /*instantiateVscConverterWithConnectedHvdc*/,
+      false /*instantiateVscConverterWithDisconnectedHvdc*/,
+      false /*instantiateThreeWindingTransformer*/,
+      false /*instantiateBattery*/
+  };
+  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
+  exportStateVariables(data);
+
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "kGover"), 0.25);
+}
+
 TEST(DataInterfaceIIDMTest, testBatteryIIDM) {
   const BusBreakerNetworkProperty properties = {
       false /*instantiateCapacitorShuntCompensator*/,
@@ -959,6 +997,7 @@ TEST(DataInterfaceIIDMTest, testBatteryIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       false /*instantiateLccConverterWithConnectedHvdc*/,
       false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
@@ -1004,7 +1043,7 @@ TEST(DataInterfaceIIDMTest, testBatteryIIDM) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(batIIDM.getTerminal().getP(), -105.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(batIIDM.getTerminal().getQ(), -90.);
   ASSERT_TRUE(batIIDM.getTerminal().isConnected());
-  boost::shared_ptr<BatteryInterfaceIIDM> bat = boost::dynamic_pointer_cast<BatteryInterfaceIIDM>(data->findComponent("MyBattery"));
+  std::shared_ptr<BatteryInterfaceIIDM> bat = std::dynamic_pointer_cast<BatteryInterfaceIIDM>(data->findComponent("MyBattery"));
   bat->setValue(BatteryInterfaceIIDM::VAR_P, 2.);
   bat->setValue(BatteryInterfaceIIDM::VAR_Q, 4.);
   bat->setValue(BatteryInterfaceIIDM::VAR_STATE, OPEN);
@@ -1026,6 +1065,7 @@ TEST(DataInterfaceIIDMTest, testConnectedHvdcLineVscConvertersIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       false /*instantiateLccConverterWithConnectedHvdc*/,
       false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
@@ -1079,9 +1119,9 @@ TEST(DataInterfaceIIDMTest, testConnectedHvdcLineVscConvertersIIDM) {
   ASSERT_EQ(data->getBusName("MyVscConverter", ""), "MyBus");
   ASSERT_EQ(data->getBusName("MyVscConverter2", ""), "MyBus");
 
-  boost::shared_ptr<HvdcLineInterfaceIIDM> hvdc = boost::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(data->findComponent("MyHvdcLine"));
-  boost::shared_ptr<VscConverterInterfaceIIDM> vsc1 = boost::dynamic_pointer_cast<VscConverterInterfaceIIDM>(hvdc->getConverter1());
-  boost::shared_ptr<VscConverterInterfaceIIDM> vsc2 = boost::dynamic_pointer_cast<VscConverterInterfaceIIDM>(hvdc->getConverter2());
+  std::shared_ptr<HvdcLineInterfaceIIDM> hvdc = std::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(data->findComponent("MyHvdcLine"));
+  std::shared_ptr<VscConverterInterfaceIIDM> vsc1 = std::dynamic_pointer_cast<VscConverterInterfaceIIDM>(hvdc->getConverter1());
+  std::shared_ptr<VscConverterInterfaceIIDM> vsc2 = std::dynamic_pointer_cast<VscConverterInterfaceIIDM>(hvdc->getConverter2());
   ASSERT_DOUBLE_EQUALS_DYNAWO(vsc1->getVscIIDM().getTerminal().getP(), 150.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(vsc1->getVscIIDM().getTerminal().getQ(), 90.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(vsc2->getVscIIDM().getTerminal().getP(), 150.);
@@ -1124,7 +1164,7 @@ TEST(DataInterfaceIIDMTest, testConnectedHvdcLineVscConvertersIIDM) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(vsc2->getVscIIDM().getTerminal().getP(), -600.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(vsc2->getVscIIDM().getTerminal().getQ(), -800.);
 
-  boost::shared_ptr<BusInterfaceIIDM> bus = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("MyBus"));
+  std::shared_ptr<BusInterfaceIIDM> bus = std::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("MyBus"));
   ASSERT_FALSE(bus->hasConnection());
   hvdc->hasDynamicModel(true);
   ASSERT_FALSE(bus->hasConnection());
@@ -1143,6 +1183,7 @@ TEST(DataInterfaceIIDMTest, testDisconnectedHvdcLineVscConvertersIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       false /*instantiateLccConverterWithConnectedHvdc*/,
       false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
@@ -1155,9 +1196,9 @@ TEST(DataInterfaceIIDMTest, testDisconnectedHvdcLineVscConvertersIIDM) {
   };
   shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
-  boost::shared_ptr<HvdcLineInterfaceIIDM> hvdc = boost::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(data->findComponent("MyHvdcLine"));
-  boost::shared_ptr<VscConverterInterfaceIIDM> vsc1 = boost::dynamic_pointer_cast<VscConverterInterfaceIIDM>(hvdc->getConverter1());
-  boost::shared_ptr<VscConverterInterfaceIIDM> vsc2 = boost::dynamic_pointer_cast<VscConverterInterfaceIIDM>(hvdc->getConverter2());
+  std::shared_ptr<HvdcLineInterfaceIIDM> hvdc = std::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(data->findComponent("MyHvdcLine"));
+  std::shared_ptr<VscConverterInterfaceIIDM> vsc1 = std::dynamic_pointer_cast<VscConverterInterfaceIIDM>(hvdc->getConverter1());
+  std::shared_ptr<VscConverterInterfaceIIDM> vsc2 = std::dynamic_pointer_cast<VscConverterInterfaceIIDM>(hvdc->getConverter2());
 
   ASSERT_TRUE(std::isnan(vsc1->getVscIIDM().getTerminal().getP()));
   ASSERT_TRUE(std::isnan(vsc1->getVscIIDM().getTerminal().getQ()));
@@ -1196,6 +1237,7 @@ TEST(DataInterfaceIIDMTest, testConnectedHvdcLineLccConvertersIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       true /*instantiateLccConverterWithConnectedHvdc*/,
       false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
@@ -1249,9 +1291,9 @@ TEST(DataInterfaceIIDMTest, testConnectedHvdcLineLccConvertersIIDM) {
   ASSERT_EQ(data->getBusName("MyLccConverter", ""), "MyBus");
   ASSERT_EQ(data->getBusName("MyLccConverter2", ""), "MyBus");
 
-  boost::shared_ptr<HvdcLineInterfaceIIDM> hvdc = boost::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(data->findComponent("MyHvdcLine"));
-  boost::shared_ptr<LccConverterInterfaceIIDM> lcc1 = boost::dynamic_pointer_cast<LccConverterInterfaceIIDM>(hvdc->getConverter1());
-  boost::shared_ptr<LccConverterInterfaceIIDM> lcc2 = boost::dynamic_pointer_cast<LccConverterInterfaceIIDM>(hvdc->getConverter2());
+  std::shared_ptr<HvdcLineInterfaceIIDM> hvdc = std::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(data->findComponent("MyHvdcLine"));
+  std::shared_ptr<LccConverterInterfaceIIDM> lcc1 = std::dynamic_pointer_cast<LccConverterInterfaceIIDM>(hvdc->getConverter1());
+  std::shared_ptr<LccConverterInterfaceIIDM> lcc2 = std::dynamic_pointer_cast<LccConverterInterfaceIIDM>(hvdc->getConverter2());
   ASSERT_DOUBLE_EQUALS_DYNAWO(lcc1->getLccIIDM().getTerminal().getP(), 105.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(lcc1->getLccIIDM().getTerminal().getQ(), 90.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(lcc2->getLccIIDM().getTerminal().getP(), 105.);
@@ -1294,7 +1336,7 @@ TEST(DataInterfaceIIDMTest, testConnectedHvdcLineLccConvertersIIDM) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(lcc2->getLccIIDM().getTerminal().getP(), -600.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(lcc2->getLccIIDM().getTerminal().getQ(), -800.);
 
-  boost::shared_ptr<BusInterfaceIIDM> bus = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("MyBus"));
+  std::shared_ptr<BusInterfaceIIDM> bus = std::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("MyBus"));
   ASSERT_FALSE(bus->hasConnection());
   hvdc->hasDynamicModel(true);
   ASSERT_FALSE(bus->hasConnection());
@@ -1313,6 +1355,7 @@ TEST(DataInterfaceIIDMTest, testDisconnectedHvdcLineLccConvertersIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       false /*instantiateLccConverterWithConnectedHvdc*/,
       true /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
@@ -1326,9 +1369,9 @@ TEST(DataInterfaceIIDMTest, testDisconnectedHvdcLineLccConvertersIIDM) {
 
   shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
-  boost::shared_ptr<HvdcLineInterfaceIIDM> hvdc = boost::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(data->findComponent("MyHvdcLine"));
-  boost::shared_ptr<LccConverterInterfaceIIDM> lcc1 = boost::dynamic_pointer_cast<LccConverterInterfaceIIDM>(hvdc->getConverter1());
-  boost::shared_ptr<LccConverterInterfaceIIDM> lcc2 = boost::dynamic_pointer_cast<LccConverterInterfaceIIDM>(hvdc->getConverter2());
+  std::shared_ptr<HvdcLineInterfaceIIDM> hvdc = std::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(data->findComponent("MyHvdcLine"));
+  std::shared_ptr<LccConverterInterfaceIIDM> lcc1 = std::dynamic_pointer_cast<LccConverterInterfaceIIDM>(hvdc->getConverter1());
+  std::shared_ptr<LccConverterInterfaceIIDM> lcc2 = std::dynamic_pointer_cast<LccConverterInterfaceIIDM>(hvdc->getConverter2());
 
   ASSERT_TRUE(std::isnan(lcc1->getLccIIDM().getTerminal().getP()));
   ASSERT_TRUE(std::isnan(lcc1->getLccIIDM().getTerminal().getQ()));
@@ -1367,6 +1410,7 @@ TEST(DataInterfaceIIDMTest, testLineIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       false /*instantiateLccConverterWithConnectedHvdc*/,
       false /*instantiateLccConverterWithDisconnectedHvdc*/,
       true /*instantiateLine*/,
@@ -1392,7 +1436,7 @@ TEST(DataInterfaceIIDMTest, testLineIIDM) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(lineIIDM.getTerminal2().getQ(), -8998.1927452102718);
   ASSERT_TRUE(lineIIDM.getTerminal1().isConnected());
   ASSERT_TRUE(lineIIDM.getTerminal2().isConnected());
-  boost::shared_ptr<LineInterfaceIIDM> line = boost::dynamic_pointer_cast<LineInterfaceIIDM>(data->findComponent("VL1_VL2"));
+  std::shared_ptr<LineInterfaceIIDM> line = std::dynamic_pointer_cast<LineInterfaceIIDM>(data->findComponent("VL1_VL2"));
   line->setValue(LineInterfaceIIDM::VAR_P1, 2.);
   line->setValue(LineInterfaceIIDM::VAR_Q1, 4.);
   line->setValue(LineInterfaceIIDM::VAR_P2, 6.);
@@ -1418,8 +1462,8 @@ TEST(DataInterfaceIIDMTest, testLineIIDM) {
   ASSERT_FALSE(lineIIDM.getTerminal1().isConnected());
   ASSERT_TRUE(lineIIDM.getTerminal2().isConnected());
 
-  boost::shared_ptr<BusInterfaceIIDM> bus1 = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("MyBus"));
-  boost::shared_ptr<BusInterfaceIIDM> bus2 = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("VL2_BUS1"));
+  std::shared_ptr<BusInterfaceIIDM> bus1 = std::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("MyBus"));
+  std::shared_ptr<BusInterfaceIIDM> bus2 = std::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("VL2_BUS1"));
   ASSERT_FALSE(bus1->hasConnection());
   ASSERT_FALSE(bus2->hasConnection());
   line->hasDynamicModel(true);
@@ -1442,6 +1486,7 @@ TEST(DataInterfaceIIDMTest, testLoadInterfaceIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       false /*instantiateLccConverterWithConnectedHvdc*/,
       false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
@@ -1475,7 +1520,7 @@ TEST(DataInterfaceIIDMTest, testLoadInterfaceIIDM) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(loadIIDM.getTerminal().getP(), 105.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(loadIIDM.getTerminal().getQ(), 90.);
   ASSERT_TRUE(loadIIDM.getTerminal().isConnected());
-  boost::shared_ptr<LoadInterfaceIIDM> load = boost::dynamic_pointer_cast<LoadInterfaceIIDM>(data->findComponent("MyLoad"));
+  std::shared_ptr<LoadInterfaceIIDM> load = std::dynamic_pointer_cast<LoadInterfaceIIDM>(data->findComponent("MyLoad"));
   load->setValue(LoadInterfaceIIDM::VAR_P, 2.);
   load->setValue(LoadInterfaceIIDM::VAR_Q, 4.);
   load->setValue(LoadInterfaceIIDM::VAR_STATE, OPEN);
@@ -1497,6 +1542,7 @@ TEST(DataInterfaceIIDMTest, testShuntCompensatorIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       false /*instantiateLccConverterWithConnectedHvdc*/,
       false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
@@ -1520,8 +1566,8 @@ TEST(DataInterfaceIIDMTest, testShuntCompensatorIIDM) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(shuntIIDM.getTerminal().getQ(), -90000.);
   ASSERT_EQ(shuntIIDM.getSectionCount(), 2UL);
   ASSERT_TRUE(shuntIIDM.getTerminal().isConnected());
-  boost::shared_ptr<ShuntCompensatorInterfaceIIDM> shunt =
-      boost::dynamic_pointer_cast<ShuntCompensatorInterfaceIIDM>(data->findComponent("MyCapacitorShuntCompensator"));
+  std::shared_ptr<ShuntCompensatorInterfaceIIDM> shunt =
+      std::dynamic_pointer_cast<ShuntCompensatorInterfaceIIDM>(data->findComponent("MyCapacitorShuntCompensator"));
   shunt->setValue(ShuntCompensatorInterfaceIIDM::VAR_Q, 4.);
   shunt->setValue(ShuntCompensatorInterfaceIIDM::VAR_CURRENTSECTION, 1);
   shunt->setValue(ShuntCompensatorInterfaceIIDM::VAR_STATE, OPEN);
@@ -1543,6 +1589,7 @@ TEST(DataInterfaceIIDMTest, testStaticVarCompensatorIIDM) {
     false /*instantiatePhaseTapChanger*/,
     false /*instantiateDanglingLine*/,
     false /*instantiateGenerator*/,
+    false /*instantiateGeneratorWithExtensions*/,
     false /*instantiateLccConverterWithConnectedHvdc*/,
     false /*instantiateLccConverterWithDisconnectedHvdc*/,
     false /*instantiateLine*/,
@@ -1569,8 +1616,8 @@ TEST(DataInterfaceIIDMTest, testStaticVarCompensatorIIDM) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "angle"), 1.5);
 
   powsybl::iidm::StaticVarCompensator& svcIIDM = network.getStaticVarCompensator("MyStaticVarCompensator");
-  boost::shared_ptr<StaticVarCompensatorInterfaceIIDM> svc =
-    boost::dynamic_pointer_cast<StaticVarCompensatorInterfaceIIDM>(data->findComponent("MyStaticVarCompensator"));
+  std::shared_ptr<StaticVarCompensatorInterfaceIIDM> svc =
+    std::dynamic_pointer_cast<StaticVarCompensatorInterfaceIIDM>(data->findComponent("MyStaticVarCompensator"));
   ASSERT_DOUBLE_EQUALS_DYNAWO(svcIIDM.getTerminal().getP(), 5.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(svcIIDM.getTerminal().getQ(), 85.);
   ASSERT_TRUE(svcIIDM.getTerminal().isConnected());
@@ -1595,6 +1642,7 @@ TEST(DataInterfaceIIDMTest, testSwitchIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       false /*instantiateLccConverterWithConnectedHvdc*/,
       false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
@@ -1612,7 +1660,7 @@ TEST(DataInterfaceIIDMTest, testSwitchIIDM) {
 
   powsybl::iidm::Switch& switchIIDM = network.getSwitch("Sw");
   ASSERT_FALSE(switchIIDM.isOpen());
-  boost::shared_ptr<SwitchInterfaceIIDM> sw = boost::dynamic_pointer_cast<SwitchInterfaceIIDM>(data->findComponent("Sw"));
+  std::shared_ptr<SwitchInterfaceIIDM> sw = std::dynamic_pointer_cast<SwitchInterfaceIIDM>(data->findComponent("Sw"));
   sw->setValue(SwitchInterfaceIIDM::VAR_STATE, OPEN);
   data->exportStateVariablesNoReadFromModel();
   ASSERT_TRUE(switchIIDM.isOpen());
@@ -1630,6 +1678,7 @@ TEST(DataInterfaceIIDMTest, testRatioTwoWindingTransformerIIDM) {
       true /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       false /*instantiateLccConverterWithConnectedHvdc*/,
       false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
@@ -1672,8 +1721,8 @@ TEST(DataInterfaceIIDMTest, testRatioTwoWindingTransformerIIDM) {
   ASSERT_EQ(twoWTIIDM.getPhaseTapChanger().getTapPosition(), 2);
   ASSERT_TRUE(twoWTIIDM.getTerminal1().isConnected());
   ASSERT_TRUE(twoWTIIDM.getTerminal2().isConnected());
-  boost::shared_ptr<TwoWTransformerInterfaceIIDM> twoWT =
-      boost::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(data->findComponent("MyTransformer2Winding"));
+  std::shared_ptr<TwoWTransformerInterfaceIIDM> twoWT =
+      std::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(data->findComponent("MyTransformer2Winding"));
   twoWT->setValue(TwoWTransformerInterfaceIIDM::VAR_P1, 2.);
   twoWT->setValue(TwoWTransformerInterfaceIIDM::VAR_Q1, 4.);
   twoWT->setValue(TwoWTransformerInterfaceIIDM::VAR_P2, 6.);
@@ -1711,6 +1760,7 @@ TEST(DataInterfaceIIDMTest, testTwoWindingTransformerIIDM) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       false /*instantiateLccConverterWithConnectedHvdc*/,
       false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
@@ -1753,8 +1803,8 @@ TEST(DataInterfaceIIDMTest, testTwoWindingTransformerIIDM) {
   ASSERT_EQ(twoWTIIDM.getRatioTapChanger().getTapPosition(), 1);
   ASSERT_TRUE(twoWTIIDM.getTerminal1().isConnected());
   ASSERT_TRUE(twoWTIIDM.getTerminal2().isConnected());
-  boost::shared_ptr<TwoWTransformerInterfaceIIDM> twoWT =
-      boost::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(data->findComponent("MyTransformer2Winding"));
+  std::shared_ptr<TwoWTransformerInterfaceIIDM> twoWT =
+      std::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(data->findComponent("MyTransformer2Winding"));
   twoWT->setValue(TwoWTransformerInterfaceIIDM::VAR_P1, 2.);
   twoWT->setValue(TwoWTransformerInterfaceIIDM::VAR_Q1, 4.);
   twoWT->setValue(TwoWTransformerInterfaceIIDM::VAR_P2, 6.);
@@ -1782,8 +1832,8 @@ TEST(DataInterfaceIIDMTest, testTwoWindingTransformerIIDM) {
   ASSERT_FALSE(twoWTIIDM.getTerminal1().isConnected());
   ASSERT_TRUE(twoWTIIDM.getTerminal2().isConnected());
 
-  boost::shared_ptr<BusInterfaceIIDM> bus1 = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("MyBus"));
-  boost::shared_ptr<BusInterfaceIIDM> bus2 = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("VL2_BUS1"));
+  std::shared_ptr<BusInterfaceIIDM> bus1 = std::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("MyBus"));
+  std::shared_ptr<BusInterfaceIIDM> bus2 = std::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("VL2_BUS1"));
   ASSERT_FALSE(bus1->hasConnection());
   ASSERT_FALSE(bus2->hasConnection());
   twoWT->hasDynamicModel(true);
@@ -1806,6 +1856,7 @@ TEST(DataInterfaceIIDMTest, testThreeWindingTransformerIIDM) {
       true /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       false /*instantiateLccConverterWithConnectedHvdc*/,
       false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
@@ -1818,26 +1869,26 @@ TEST(DataInterfaceIIDMTest, testThreeWindingTransformerIIDM) {
   };
   shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
-  boost::shared_ptr<BusInterface> fictBus =
-      boost::dynamic_pointer_cast<BusInterface>(data->findComponent("MyTransformer3Winding_FictBUS"));
-  boost::shared_ptr<BusInterface> bus1 = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("MyBus"));
-  boost::shared_ptr<BusInterface> bus2 = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("VL2_BUS1"));
-  boost::shared_ptr<BusInterface> bus3 = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("VL3_BUS1"));
-  std::vector<boost::shared_ptr<VoltageLevelInterface> > Vls = data->getNetwork()->getVoltageLevels();
+  std::shared_ptr<BusInterface> fictBus =
+      std::dynamic_pointer_cast<BusInterface>(data->findComponent("MyTransformer3Winding_FictBUS"));
+  std::shared_ptr<BusInterface> bus1 = std::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("MyBus"));
+  std::shared_ptr<BusInterface> bus2 = std::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("VL2_BUS1"));
+  std::shared_ptr<BusInterface> bus3 = std::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("VL3_BUS1"));
+  std::vector<std::shared_ptr<VoltageLevelInterface> > Vls = data->getNetwork()->getVoltageLevels();
   std::string FictVLId = "MyTransformer3Winding_FictVL";
-  auto it_vl = std::find_if(Vls.begin(), Vls.end(), [&FictVLId](boost::shared_ptr<VoltageLevelInterface>& vl) {return vl->getID() == FictVLId;});
+  auto it_vl = std::find_if(Vls.begin(), Vls.end(), [&FictVLId](std::shared_ptr<VoltageLevelInterface>& vl) {return vl->getID() == FictVLId;});
   ASSERT_TRUE(it_vl != Vls.end());
   powsybl::iidm::Network& network = data->getNetworkIIDM();
   powsybl::iidm::ThreeWindingsTransformer& threeWTIIDM = network.getThreeWindingsTransformer("MyTransformer3Winding");
   std::string FictTwoWTransf1_Id = "MyTransformer3Winding_1";
   std::string FictTwoWTransf2_Id = "MyTransformer3Winding_2";
   std::string FictTwoWTransf3_Id = "MyTransformer3Winding_3";
-  boost::shared_ptr<TwoWTransformerInterface> FictTwoWTransf1 =
-      boost::dynamic_pointer_cast<TwoWTransformerInterface>(data->findComponent(FictTwoWTransf1_Id));
-  boost::shared_ptr<TwoWTransformerInterface> FictTwoWTransf2 =
-      boost::dynamic_pointer_cast<TwoWTransformerInterface>(data->findComponent(FictTwoWTransf2_Id));
-  boost::shared_ptr<TwoWTransformerInterface> FictTwoWTransf3 =
-      boost::dynamic_pointer_cast<TwoWTransformerInterface>(data->findComponent(FictTwoWTransf3_Id));
+  std::shared_ptr<TwoWTransformerInterface> FictTwoWTransf1 =
+      std::dynamic_pointer_cast<TwoWTransformerInterface>(data->findComponent(FictTwoWTransf1_Id));
+  std::shared_ptr<TwoWTransformerInterface> FictTwoWTransf2 =
+      std::dynamic_pointer_cast<TwoWTransformerInterface>(data->findComponent(FictTwoWTransf2_Id));
+  std::shared_ptr<TwoWTransformerInterface> FictTwoWTransf3 =
+      std::dynamic_pointer_cast<TwoWTransformerInterface>(data->findComponent(FictTwoWTransf3_Id));
 
   ASSERT_EQ(data->getBusName(FictTwoWTransf1_Id, "@NODE1@"), "MyTransformer3Winding_FictBUS");
   ASSERT_EQ(data->getBusName(FictTwoWTransf1_Id, "@NODE2@"), "MyBus");
@@ -1904,6 +1955,7 @@ TEST(DataInterfaceIIDMTest, testBadlyFormedStaticRefModel) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       false /*instantiateLccConverterWithConnectedHvdc*/,
       false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
@@ -1917,7 +1969,7 @@ TEST(DataInterfaceIIDMTest, testBadlyFormedStaticRefModel) {
   shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
 
-  boost::shared_ptr<LoadInterface> loadItf = data->getNetwork()->getVoltageLevels()[0]->getLoads()[0];
+  std::shared_ptr<LoadInterface> loadItf = data->getNetwork()->getVoltageLevels()[0]->getLoads()[0];
   ASSERT_NO_THROW(data->setReference("p", "MyLoad", "MyLoad", "P_value"));
   ASSERT_THROW_DYNAWO(data->setReference("badParam", loadItf->getID(), "MyLoad", "p_pu"), Error::MODELER, KeyError_t::UnknownStateVariable);
   ASSERT_THROW_DYNAWO(data->setReference("p", "", "MyLoad", "p_pu"), Error::MODELER, KeyError_t::WrongReferenceId);
@@ -1949,17 +2001,26 @@ TEST(DataInterfaceIIDMTest, testImportExport) {
   auto network = createNodeBreakerNetworkIIDM();
 
   shared_ptr<DataInterfaceIIDM> dataOutput = createDataItfFromNetwork(createNodeBreakerNetworkIIDM());
-  ASSERT_NO_THROW(dataOutput->dumpToFile("network.xml"));
+  ASSERT_NO_THROW(dataOutput->dumpToFile("network1.xml"));
   const powsybl::iidm::Network& outputNetwork = dataOutput->getNetworkIIDM();
   ASSERT_THROW_DYNAWO(dataOutput->dumpToFile(".."), Error::GENERAL, KeyError_t::XmlFileParsingError);
 
-  shared_ptr<DataInterface> dataInput = DataInterfaceIIDM::build("network.xml");
+  shared_ptr<DataInterface> dataInput = DataInterfaceIIDM::build("network1.xml");
   shared_ptr<DataInterfaceIIDM> dataInputIIDM = boost::dynamic_pointer_cast<DataInterfaceIIDM>(dataInput);
   const powsybl::iidm::Network& inputNetwork = dataInputIIDM->getNetworkIIDM();
 
   ASSERT_EQ(outputNetwork.getId(), inputNetwork.getId());
   ASSERT_EQ(outputNetwork.getId(), network->getId());
   ASSERT_EQ(inputNetwork.getId(), network->getId());
+
+  std::stringstream ss;
+  ASSERT_NO_THROW(dataOutput->dumpToFile(ss));
+
+  std::ofstream outputIIDMFile("network2.xml");
+  outputIIDMFile << ss.str();
+  outputIIDMFile.close();
+
+  ASSERT_TRUE(compareFiles("network1.xml", "network2.xml"));
 }
 
 TEST(DataInterfaceIIDMTest, testClone) {
@@ -1982,31 +2043,31 @@ TEST(DataInterfaceIIDMTest, testClone) {
   ASSERT_EQ(network_interface->getVoltageLevels().size(), network_interface2->getVoltageLevels().size());
   for (unsigned int i = 0; i < network_interface->getVoltageLevels().size(); i++) {
     ASSERT_NE(network_interface->getVoltageLevels().at(i), network_interface2->getVoltageLevels().at(i));
-    ASSERT_EQ(boost::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(network_interface->getVoltageLevels().at(i))->getID(),
-              boost::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(network_interface2->getVoltageLevels().at(i))->getID());
-    ASSERT_EQ(boost::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(network_interface->getVoltageLevels().at(i))->getVNom(),
-              boost::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(network_interface2->getVoltageLevels().at(i))->getVNom());
-    ASSERT_EQ(boost::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(network_interface->getVoltageLevels().at(i))->getVoltageLevelTopologyKind(),
-              boost::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(network_interface2->getVoltageLevels().at(i))->getVoltageLevelTopologyKind());
+    ASSERT_EQ(std::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(network_interface->getVoltageLevels().at(i))->getID(),
+              std::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(network_interface2->getVoltageLevels().at(i))->getID());
+    ASSERT_EQ(std::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(network_interface->getVoltageLevels().at(i))->getVNom(),
+              std::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(network_interface2->getVoltageLevels().at(i))->getVNom());
+    ASSERT_EQ(std::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(network_interface->getVoltageLevels().at(i))->getVoltageLevelTopologyKind(),
+              std::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(network_interface2->getVoltageLevels().at(i))->getVoltageLevelTopologyKind());
 
-    const std::vector<boost::shared_ptr<LoadInterface> >& loads = network_interface->getVoltageLevels().at(i)->getLoads();
-    const std::vector<boost::shared_ptr<LoadInterface> >& loads2 = network_interface2->getVoltageLevels().at(i)->getLoads();
+    const std::vector<std::shared_ptr<LoadInterface> >& loads = network_interface->getVoltageLevels().at(i)->getLoads();
+    const std::vector<std::shared_ptr<LoadInterface> >& loads2 = network_interface2->getVoltageLevels().at(i)->getLoads();
     ASSERT_EQ(loads.size(), loads2.size());
     for (unsigned int j = 0; j < loads.size(); j++) {
-      ASSERT_EQ(boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads[j])->getInitialConnected(),
-                boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads2[j])->getInitialConnected());
-      ASSERT_EQ(boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads[j])->getP(), boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads2[j])->getP());
-      ASSERT_EQ(boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads[j])->getP0(), boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads2[j])->getP0());
-      ASSERT_EQ(boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads[j])->getQ(), boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads2[j])->getQ());
-      ASSERT_EQ(boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads[j])->getQ0(), boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads2[j])->getQ0());
-      ASSERT_EQ(boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads[j])->getID(), boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads2[j])->getID());
-      ASSERT_EQ(boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads[j])->getPUnderVoltage(),
-                boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads2[j])->getPUnderVoltage());
-      ASSERT_EQ(boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads[j])->getCountry(),
-                boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads2[j])->getCountry());
+      ASSERT_EQ(std::dynamic_pointer_cast<LoadInterfaceIIDM>(loads[j])->getInitialConnected(),
+                std::dynamic_pointer_cast<LoadInterfaceIIDM>(loads2[j])->getInitialConnected());
+      ASSERT_EQ(std::dynamic_pointer_cast<LoadInterfaceIIDM>(loads[j])->getP(), std::dynamic_pointer_cast<LoadInterfaceIIDM>(loads2[j])->getP());
+      ASSERT_EQ(std::dynamic_pointer_cast<LoadInterfaceIIDM>(loads[j])->getP0(), std::dynamic_pointer_cast<LoadInterfaceIIDM>(loads2[j])->getP0());
+      ASSERT_EQ(std::dynamic_pointer_cast<LoadInterfaceIIDM>(loads[j])->getQ(), std::dynamic_pointer_cast<LoadInterfaceIIDM>(loads2[j])->getQ());
+      ASSERT_EQ(std::dynamic_pointer_cast<LoadInterfaceIIDM>(loads[j])->getQ0(), std::dynamic_pointer_cast<LoadInterfaceIIDM>(loads2[j])->getQ0());
+      ASSERT_EQ(std::dynamic_pointer_cast<LoadInterfaceIIDM>(loads[j])->getID(), std::dynamic_pointer_cast<LoadInterfaceIIDM>(loads2[j])->getID());
+      ASSERT_EQ(std::dynamic_pointer_cast<LoadInterfaceIIDM>(loads[j])->getPUnderVoltage(),
+                std::dynamic_pointer_cast<LoadInterfaceIIDM>(loads2[j])->getPUnderVoltage());
+      ASSERT_EQ(std::dynamic_pointer_cast<LoadInterfaceIIDM>(loads[j])->getCountry(),
+                std::dynamic_pointer_cast<LoadInterfaceIIDM>(loads2[j])->getCountry());
     }
-    const std::vector<boost::shared_ptr<DYN::BusInterface> >& buses = network_interface->getVoltageLevels().at(i)->getBuses();
-    const std::vector<boost::shared_ptr<DYN::BusInterface> >& buses2 = network_interface2->getVoltageLevels().at(i)->getBuses();
+    const std::vector<std::shared_ptr<DYN::BusInterface> >& buses = network_interface->getVoltageLevels().at(i)->getBuses();
+    const std::vector<std::shared_ptr<DYN::BusInterface> >& buses2 = network_interface2->getVoltageLevels().at(i)->getBuses();
     ASSERT_EQ(buses.size(), buses2.size());
     for (unsigned int j = 0; j < buses.size(); j++) {
       const std::vector<std::string>& ids = buses[j]->getBusBarSectionIdentifiers();
@@ -2016,8 +2077,8 @@ TEST(DataInterfaceIIDMTest, testClone) {
         ASSERT_EQ(ids[k], ids2[k]);
       }
     }
-    const std::vector<boost::shared_ptr<DYN::SwitchInterface> >& switches = network_interface->getVoltageLevels().at(i)->getSwitches();
-    const std::vector<boost::shared_ptr<DYN::SwitchInterface> >& switches2 = network_interface2->getVoltageLevels().at(i)->getSwitches();
+    const std::vector<std::shared_ptr<DYN::SwitchInterface> >& switches = network_interface->getVoltageLevels().at(i)->getSwitches();
+    const std::vector<std::shared_ptr<DYN::SwitchInterface> >& switches2 = network_interface2->getVoltageLevels().at(i)->getSwitches();
     ASSERT_EQ(switches.size(), switches2.size());
     for (unsigned int j = 0; j < switches.size(); j++) {
       ASSERT_EQ(switches[j]->getID(), switches2[j]->getID());
@@ -2080,6 +2141,7 @@ TEST(DataInterfaceIIDMTest, testFindLostEquipments) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       true /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
       false /*instantiateLccConverterWithConnectedHvdc*/,
       false /*instantiateLccConverterWithDisconnectedHvdc*/,
       false /*instantiateLine*/,
@@ -2095,12 +2157,12 @@ TEST(DataInterfaceIIDMTest, testFindLostEquipments) {
   exportStateVariables(data);
   powsybl::iidm::Network& network = data->getNetworkIIDM();
 
-  boost::shared_ptr<std::vector<boost::shared_ptr<ComponentInterface> > > connectedComponents = data->findConnectedComponents();
+  std::shared_ptr<std::vector<std::shared_ptr<ComponentInterface> > > connectedComponents = data->findConnectedComponents();
   ASSERT_EQ(connectedComponents->size(), 3);
-  boost::shared_ptr<lostEquipments::LostEquipmentsCollection> lostEquipments = data->findLostEquipments(connectedComponents);
+  std::shared_ptr<lostEquipments::LostEquipmentsCollection> lostEquipments = data->findLostEquipments(connectedComponents);
   ASSERT_TRUE(lostEquipments->cbegin() == lostEquipments->cend());
 
-  boost::shared_ptr<GeneratorInterfaceIIDM> gen = boost::dynamic_pointer_cast<GeneratorInterfaceIIDM>(data->findComponent("MyGenerator"));
+  std::shared_ptr<GeneratorInterfaceIIDM> gen = std::dynamic_pointer_cast<GeneratorInterfaceIIDM>(data->findComponent("MyGenerator"));
   powsybl::iidm::Generator& genIIDM = network.getGenerator("MyGenerator");
   gen->setValue(GeneratorInterfaceIIDM::VAR_STATE, OPEN);
   data->exportStateVariablesNoReadFromModel();

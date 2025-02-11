@@ -23,6 +23,7 @@
 #include "DYNModelVoltageMeasurementsUtilities.hpp"
 #include "DYNVariable.h"
 #include "PARParametersSet.h"
+#include "PARParametersSetFactory.h"
 #include "DYNParameterModeler.h"
 #include "DYNSparseMatrix.h"
 #include "DYNElement.h"
@@ -38,7 +39,7 @@ static boost::shared_ptr<SubModel> createModelVoltageMeasurementsUtilities(unsig
     voltmu->init(0.);  // Harmless coverage
     std::vector<ParameterModeler> parameters;
     voltmu->defineParameters(parameters);  // stands for VOLTage Measurement Utilities
-    boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
+    std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("Parameterset");
     parametersSet->createParameter("nbInputs", static_cast<int>(nbVoltages_));
     parametersSet->createParameter("updateStep", step_);
     voltmu->setPARParameters(parametersSet);
@@ -78,7 +79,7 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesDefineMe
     // Define the model parameters
     double step = 12;
     unsigned int nbVoltages = 2;
-    boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
+    std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("Parameterset");
     parametersSet->createParameter("nbInputs", static_cast<int>(nbVoltages));
     parametersSet->createParameter("updateStep", step);
     ASSERT_NO_THROW(voltmu->setPARParameters(parametersSet));
@@ -118,7 +119,7 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesDefineMe
     ASSERT_EQ(parameters.size(), 2);
     // Define the model parameters
     double step = 12;
-    boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
+    std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("Parameterset");
     parametersSet->createParameter("updateStep", step);
     ASSERT_NO_THROW(voltmu->setPARParameters(parametersSet));
     voltmu->addParameters(parameters, false);

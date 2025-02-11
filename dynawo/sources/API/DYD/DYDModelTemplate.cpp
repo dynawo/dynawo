@@ -27,30 +27,11 @@
 #include "DYDWhiteBoxModelCommon.h"
 #include "DYNMacrosMessage.h"
 
-#include <algorithm>
-#include <boost/lexical_cast.hpp>
-#include <fstream>
-#include <iomanip>
-#include <list>
 #include <memory>
-#include <set>
-#include <sstream>
-
-using boost::dynamic_pointer_cast;
-using boost::shared_ptr;
-using boost::weak_ptr;
-using std::list;
-using std::map;
-using std::pair;
-using std::set;
-using std::string;
-using std::vector;
 
 using std::map;
 using std::string;
-using std::vector;
 
-using boost::shared_ptr;
 
 namespace dynamicdata {
 
@@ -74,28 +55,28 @@ ModelTemplate::getGenerateCalculatedVariables() const {
   return generateCalculatedVariables_;
 }
 
-const map<string, shared_ptr<UnitDynamicModel> >&
+const map<string, std::shared_ptr<UnitDynamicModel> >&
 ModelTemplate::getUnitDynamicModels() const {
   return unitDynamicModelsMap_;
 }
 
-const map<string, shared_ptr<Connector> >&
+const map<string, std::shared_ptr<Connector> >&
 ModelTemplate::getConnectors() const {
   return connectorsMap_;
 }
 
-const map<std::string, shared_ptr<Connector> >&
+const map<std::string, std::shared_ptr<Connector> >&
 ModelTemplate::getInitConnectors() const {
   return initConnectorsMap_;
 }
 
-const map<std::string, shared_ptr<MacroConnect> >&
+const map<std::string, std::shared_ptr<MacroConnect> >&
 ModelTemplate::getMacroConnects() const {
   return macroConnectsMap_;
 }
 
 ModelTemplate&
-ModelTemplate::addUnitDynamicModel(const shared_ptr<UnitDynamicModel>& model) {
+ModelTemplate::addUnitDynamicModel(const std::shared_ptr<UnitDynamicModel>& model) {
   if (unitDynamicModelsMap_.find(model->getId()) != unitDynamicModelsMap_.end())
     throw DYNError(DYN::Error::API, ModelIDNotUnique, model->getId());
   unitDynamicModelsMap_[model->getId()] = model;
@@ -107,10 +88,10 @@ ModelTemplate::addConnect(const string& model1, const string& var1, const string
   string connectionId = getConnectionId(model1, var1, model2, var2, getId(), unitDynamicModelsMap_);
   // Used instead of map_[connectionId] = Connector::Impl(model1, var1, model2, var2)
   // to avoid necessity to create Connector::Impl default constructor
-  std::pair<std::map<std::string, boost::shared_ptr<Connector> >::iterator, bool> ret;
-  ret = connectorsMap_.emplace(connectionId, shared_ptr<Connector>(ConnectorFactory::newConnector(model1, var1, model2, var2)));
+  std::pair<std::map<std::string, std::shared_ptr<Connector> >::iterator, bool> ret;
+  ret = connectorsMap_.emplace(connectionId, ConnectorFactory::newConnector(model1, var1, model2, var2));
   if (!ret.second)
-    throw DYNError(DYN::Error::API, ConnectorIDNotUnique, id_, model1 + '_' + var1, model2 + '_' + var2);
+    throw DYNError(DYN::Error::API, ConnectorIDNotUnique, id_.get(), model1 + '_' + var1, model2 + '_' + var2);
   return *this;
 }
 
@@ -119,17 +100,17 @@ ModelTemplate::addInitConnect(const string& model1, const string& var1, const st
   string ic_Id = getConnectionId(model1, var1, model2, var2, getId(), unitDynamicModelsMap_);
   // Used instead of initConnectorsMap_[ic_Id] = Connector::Impl(model1, var1, model2, var2)
   // to avoid necessity to create Connector::Impl default constructor
-  std::pair<std::map<std::string, boost::shared_ptr<Connector> >::iterator, bool> ret;
-  ret = initConnectorsMap_.emplace(ic_Id, shared_ptr<Connector>(ConnectorFactory::newConnector(model1, var1, model2, var2)));
+  std::pair<std::map<std::string, std::shared_ptr<Connector> >::iterator, bool> ret;
+  ret = initConnectorsMap_.emplace(ic_Id, ConnectorFactory::newConnector(model1, var1, model2, var2));
   if (!ret.second)
-    throw DYNError(DYN::Error::API, ConnectorIDNotUnique, id_, model1 + '_' + var1, model2 + '_' + var2);
+    throw DYNError(DYN::Error::API, ConnectorIDNotUnique, id_.get(), model1 + '_' + var1, model2 + '_' + var2);
   return *this;
 }
 
 ModelTemplate&
-ModelTemplate::addMacroConnect(const boost::shared_ptr<MacroConnect>& macroConnect) {
+ModelTemplate::addMacroConnect(const std::shared_ptr<MacroConnect>& macroConnect) {
   string id = getMacroConnectionId(macroConnect->getFirstModelId(), macroConnect->getSecondModelId(), getId(), unitDynamicModelsMap_);
-  std::pair<std::map<std::string, boost::shared_ptr<MacroConnect> >::iterator, bool> ret;
+  std::pair<std::map<std::string, std::shared_ptr<MacroConnect> >::iterator, bool> ret;
   ret = macroConnectsMap_.emplace(id, macroConnect);
   if (!ret.second)
     throw DYNError(DYN::Error::API, MacroConnectIDNotUnique, id);

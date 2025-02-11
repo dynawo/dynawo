@@ -73,7 +73,7 @@ class Modeler {
    * @brief get the model created thanks to data
    * @return model created thanks to data
    */
-  boost::shared_ptr<ModelMulti> getModel() const {
+  std::shared_ptr<ModelMulti> getModel() const {
     return model_;
   }
 
@@ -99,7 +99,7 @@ class Modeler {
    * @param model submodel
    * @param modelDescription dynamic model
    */
-  void initStaticRefs(const boost::shared_ptr<SubModel>& model, const boost::shared_ptr<ModelDescription>& modelDescription);
+  void initStaticRefs(const boost::shared_ptr<SubModel>& model, const std::shared_ptr<ModelDescription>& modelDescription);
 
   /**
    * @brief find a node connector name
@@ -122,7 +122,7 @@ class Modeler {
    * @param model : model to analyze
    * @param variablesConnectedInternally : output, at the end of the called will contain the connected variables of the model
    */
-  void collectAllInternalConnections(boost::shared_ptr<dynamicdata::ModelicaModel> model,
+  void collectAllInternalConnections(std::shared_ptr<dynamicdata::ModelicaModel> model,
       std::vector<std::pair<std::string, std::string> >& variablesConnectedInternally) const;
 
   /**
@@ -140,7 +140,7 @@ class Modeler {
    * @brief Initialization of parameters of a dynamic model
    * @param modelDescription dynamic model
    */
-  void initParamDescription(const boost::shared_ptr<ModelDescription>& modelDescription);
+  void initParamDescription(const std::shared_ptr<ModelDescription>& modelDescription);
 
   /**
    * @brief replace \@NODE\@, \@NODE1\@, \@NODE2\@ with the id of the bus the component is connected to
@@ -156,7 +156,7 @@ class Modeler {
  private:
   boost::shared_ptr<DataInterface> data_;  ///< data used to build the model multi
   boost::shared_ptr<DynamicData> dyd_;  ///< dynamic data used to build the model multi
-  boost::shared_ptr<ModelMulti> model_;  ///< model created thanks to previous data
+  std::shared_ptr<ModelMulti> model_;  ///< model created thanks to previous data
 
   std::map<std::string, boost::shared_ptr<SubModel> > subModels_;  ///< association between name and subModel : usefull when the connectors should be created
 };

@@ -21,13 +21,14 @@
 #include "CRVPointFactory.h"
 #include "CRVPoint.h"
 
-using boost::shared_ptr;
+#include "make_unique.hpp"
+
 
 namespace curves {
 
-shared_ptr<Point>
+std::unique_ptr<Point>
 PointFactory::newPoint(const double& time, const double& value) {
-  return shared_ptr<Point>(new Point(time, value));
+  return DYN::make_unique<Point>(time, value);
 }
 
 }  // namespace curves

@@ -143,7 +143,7 @@ SolverCommonFixedTimeStep::setSolverSpecificParametersCommon() {
 }
 
 void
-SolverCommonFixedTimeStep::initCommon(const shared_ptr<Model> &model, const double t0, const double tEnd) {
+SolverCommonFixedTimeStep::initCommon(const std::shared_ptr<Model> &model, const double t0, const double tEnd) {
   tSolve_ = t0;
   tEnd_ = tEnd;
   h_ = hMax_;

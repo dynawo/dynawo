@@ -61,19 +61,19 @@ class GeneratorInterface : public ComponentInterface, public ReactiveCurvePoints
    * @brief Setter for the generator's bus interface
    * @param busInterface of the bus where the generator is connected
    */
-  virtual void setBusInterface(const boost::shared_ptr<BusInterface>& busInterface) = 0;
+  virtual void setBusInterface(const std::shared_ptr<BusInterface>& busInterface) = 0;
 
   /**
    * @brief Setter for the generator's voltage interface
    * @param voltageLevelInterface of the voltageLevel where the generator is connected
    */
-  virtual void setVoltageLevelInterface(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) = 0;
+  virtual void setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) = 0;
 
   /**
    * @brief Getter for the generator's bus interface
    * @return busInterface of the bus where the generator is connected
    */
-  virtual boost::shared_ptr<BusInterface> getBusInterface() const = 0;
+  virtual std::shared_ptr<BusInterface> getBusInterface() const = 0;
 
   /**
    * @brief Getter for the active power of the generator
@@ -198,18 +198,6 @@ class GeneratorInterface : public ComponentInterface, public ReactiveCurvePoints
    * @returns reactive power control percentage of participation value
    */
   virtual double getCoordinatedReactiveControlPercentage() const = 0;
-
-  /**
-   * @brief Get the droop parameter
-   * @returns the droop parameter value, or nullopt if the parameter is not found
-   */
-  virtual boost::optional<double> getDroop() const = 0;
-
-  /**
-   * @brief Determines if the generator is participate
-   * @returns true if the generator is participate, false if not, or nullopt if the parameter is not found
-   */
-  virtual boost::optional<bool> isParticipate() const = 0;
 
   /**
    * @brief Getter for energy source type

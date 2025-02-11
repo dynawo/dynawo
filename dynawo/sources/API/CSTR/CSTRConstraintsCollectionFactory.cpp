@@ -21,25 +21,15 @@
 #include "CSTRConstraintsCollectionFactory.h"
 
 #include "CSTRConstraintsCollection.h"
+#include "make_unique.hpp"
 
-using boost::shared_ptr;
 using std::string;
 
 namespace constraints {
 
-shared_ptr<ConstraintsCollection>
+std::unique_ptr<ConstraintsCollection>
 ConstraintsCollectionFactory::newInstance(const string& id) {
-  return shared_ptr<ConstraintsCollection>(new ConstraintsCollection(id));
-}
-
-shared_ptr<ConstraintsCollection>
-ConstraintsCollectionFactory::copyInstance(boost::shared_ptr<ConstraintsCollection> original) {
-  return shared_ptr<ConstraintsCollection>(new ConstraintsCollection(*original));
-}
-
-shared_ptr<ConstraintsCollection>
-ConstraintsCollectionFactory::copyInstance(const ConstraintsCollection& original) {
-  return shared_ptr<ConstraintsCollection>(new ConstraintsCollection(original));
+  return DYN::make_unique<ConstraintsCollection>(id);
 }
 
 }  // namespace constraints

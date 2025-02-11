@@ -23,6 +23,7 @@
 #include <powsybl/iidm/Network.hpp>
 #include <powsybl/iidm/Substation.hpp>
 
+#include "make_unique.hpp"
 #include "gtest_dynawo.h"
 
 namespace powsybl {
@@ -75,7 +76,7 @@ TEST(DataInterfaceTest, Load_1) {
   powsybl::iidm::Load& load = network.getLoad("LOAD1");
 
   LoadInterfaceIIDM loadIfce(load);
-  const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce(new VoltageLevelInterfaceIIDM(vl1));
+  const std::shared_ptr<VoltageLevelInterface> voltageLevelIfce = std::make_shared<DYN::VoltageLevelInterfaceIIDM>(vl1);
   loadIfce.setVoltageLevelInterface(voltageLevelIfce);
 
   ASSERT_EQ(loadIfce.getComponentVarIndex(std::string("p")), LoadInterfaceIIDM::VAR_P);
@@ -95,8 +96,8 @@ TEST(DataInterfaceTest, Load_1) {
   ASSERT_TRUE(loadIfce.getInitialConnected());
 
   ASSERT_EQ(loadIfce.getBusInterface().get(), nullptr);
-  const boost::shared_ptr<BusInterface> busIfce(new BusInterfaceIIDM(bus1));
-  loadIfce.setBusInterface(busIfce);
+  std::unique_ptr<BusInterface> busIfce = DYN::make_unique<BusInterfaceIIDM>(bus1);
+  loadIfce.setBusInterface(std::move(busIfce));
   ASSERT_EQ(loadIfce.getBusInterface().get()->getID(), "VL1_BUS1");
 
   ASSERT_FALSE(load.getTerminal().isConnected());
@@ -151,7 +152,7 @@ TEST(DataInterfaceTest, Load_2) {  // tests assuming getInitialConnected == fals
   powsybl::iidm::Load& load = network.getLoad("LOAD");
 
   LoadInterfaceIIDM loadIfce(load);
-  const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce(new VoltageLevelInterfaceIIDM(vl1));
+  const std::shared_ptr<VoltageLevelInterface> voltageLevelIfce = std::make_shared<DYN::VoltageLevelInterfaceIIDM>(vl1);
   loadIfce.setVoltageLevelInterface(voltageLevelIfce);
   ASSERT_EQ(loadIfce.getID(), "LOAD");
 

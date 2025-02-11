@@ -37,17 +37,17 @@ model WPPPControl2015 "Active power control module for wind power plants (IEC NÂ
   Modelica.Blocks.Interfaces.RealOutput PWTRefPu(start = -P0Pu * SystemBase.SnRef / SNom) "Reference active power communicated to PD in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {240, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tWPPFiltP, k = 1, y_start = -P0Pu * SystemBase.SnRef / SNom) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tWPPFiltP, y_start = -P0Pu * SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {-130, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add annotation(
     Placement(visible = true, transformation(origin = {-70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tWPfFiltP, k = 1, y_start = SystemBase.omegaRef0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tWPfFiltP, y_start = SystemBase.omegaRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {-136, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = false) annotation(
     Placement(visible = true, transformation(origin = {110, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.MathBoolean.Or or1(nu = 2) annotation(
     Placement(visible = true, transformation(origin = {110, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction transferFunction( a = {tpfv, 1},b = {tpft, 1}, x_start = {-P0Pu*SystemBase.SnRef/SNom}, y_start = -P0Pu * SystemBase.SnRef / SNom)  annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {tpfv, 1},b = {tpft, 1}, x_start = {-P0Pu*SystemBase.SnRef/SNom}, y_start = -P0Pu * SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {170, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFeedthroughFreeze absLimRateLimFeedthroughFreeze(DyMax = DPRefMaxPu, DyMin = DPRefMinPu, U0 = -P0Pu*SystemBase.SnRef/SNom, Y0 = -P0Pu*SystemBase.SnRef/SNom, YMax = PRefMaxPu, YMin = PRefMinPu, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {204, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
@@ -95,6 +95,7 @@ equation
     Line(points = {{122, -90}, {204, -90}, {204, -11}}, color = {255, 0, 255}));
 
   annotation(
+    preferredView = "diagram",
     Icon(graphics = {Text(origin = {24, -110}, extent = {{-94, 60}, {48, 12}}, textString = "2015")}),
     Diagram(coordinateSystem(extent = {{-160, -100}, {230, 100}})));
 end WPPPControl2015;

@@ -2,11 +2,13 @@ BaseClasses
 BacklashHysteresis
 ConditionalForward
 DeadBand
+DeadZone
 DelayFlag
 FixedBooleanDelay
 FlipFlopR
 FlipFlopS
 IntegratorOrFirstOrder
+LimitedDivision
 LimitedFirstOrder
 LimitedIntegrator
 LimitedLeadLag

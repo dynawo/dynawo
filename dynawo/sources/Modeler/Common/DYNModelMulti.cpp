@@ -87,7 +87,7 @@ ModelMulti::setTimeline(const shared_ptr<Timeline>& timeline) {
 }
 
 void
-ModelMulti::setConstraints(const shared_ptr<ConstraintsCollection>& constraints) {
+ModelMulti::setConstraints(const std::shared_ptr<ConstraintsCollection>& constraints) {
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
     (*it)->setConstraints(constraints);
 }
@@ -256,7 +256,7 @@ ModelMulti::init(const double t0) {
     for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
       (*it)->evalZSub(t0);
 
-    for (unsigned j = 0; j < 10 && propagateZModif(); ++j) {
+    for (unsigned j = 0; j < 10 && propagateZModif() != NO_Z_CHANGE; ++j) {
       for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
         (*it)->evalGSub(t0);
       for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
@@ -1009,7 +1009,7 @@ ModelMulti::collectSilentZ() {
 }
 
 bool
-ModelMulti::initCurves(shared_ptr<curves::Curve>& curve) {
+ModelMulti::initCurves(std::shared_ptr<curves::Curve>& curve) {
   const string modelName = curve->getModelName();
   const string variable = curve->getVariable();
   const string variableNameBis = variable + "_value";
@@ -1070,13 +1070,13 @@ ModelMulti::initCurves(shared_ptr<curves::Curve>& curve) {
 }
 
 void
-ModelMulti::updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollection>& curvesCollection) const {
+ModelMulti::updateCalculatedVarForCurves(std::shared_ptr<curves::CurvesCollection>& curvesCollection) const {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::updateCurves");
 #endif
   for (curves::CurvesCollection::iterator itCurve = curvesCollection->begin(), itCurveEnd = curvesCollection->end();
       itCurve != itCurveEnd; ++itCurve) {
-    boost::shared_ptr<Curve> curve = *itCurve;
+    std::shared_ptr<Curve> curve = *itCurve;
     shared_ptr<SubModel> subModel = findSubModel(curve->getModelName(), curve->getVariable()).subModel_;
     if (subModel) {
       subModel->updateCalculatedVarForCurve(curve);
@@ -1265,7 +1265,7 @@ void ModelMulti::setCurrentZ(const vector<double>& z) {
   std::copy(z.begin(), z.end(), zLocal_.begin());
 }
 
-void ModelMulti::setLocalInitParameters(boost::shared_ptr<parameters::ParametersSet> localInitParameters) {
+void ModelMulti::setLocalInitParameters(std::shared_ptr<parameters::ParametersSet> localInitParameters) {
   localInitParameters_ = localInitParameters;
 }
 

@@ -22,13 +22,12 @@
 
 #include "FSVFinalStateValue.h"
 
-using boost::shared_ptr;
 
 namespace finalStateValues {
 
-shared_ptr<FinalStateValue>
+std::unique_ptr<FinalStateValue>
 FinalStateValueFactory::newFinalStateValue() {
-  return shared_ptr<FinalStateValue>(new FinalStateValue());
+  return std::unique_ptr<FinalStateValue>(new FinalStateValue());
 }
 
 }  // namespace finalStateValues

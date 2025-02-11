@@ -126,25 +126,25 @@ class Compiler {
    * @brief compile a black box model 's model description.
    * @param blackBoxModelDescription black box Model Description to compile
    */
-  void compileBlackBoxModelDescription(const boost::shared_ptr<ModelDescription>& blackBoxModelDescription);
+  void compileBlackBoxModelDescription(const std::shared_ptr<ModelDescription>& blackBoxModelDescription);
 
   /**
    * @brief compile a modelica Model 's model description.
    * @param modelicaModelDescription modelica Model Description to compile
    */
-  void compileModelicaModelDescription(const boost::shared_ptr<ModelDescription>& modelicaModelDescription);
+  void compileModelicaModelDescription(const std::shared_ptr<ModelDescription>& modelicaModelDescription);
 
   /**
    * @brief compile a model template's model description.
    * @param modelTemplateExpansionDescription modelica Model Description to compile
    */
-  void compileModelTemplateExpansionDescription(const boost::shared_ptr<ModelDescription>& modelTemplateExpansionDescription);
+  void compileModelTemplateExpansionDescription(const std::shared_ptr<ModelDescription>& modelTemplateExpansionDescription);
 
   /**
    * @brief concatenation a modelica model description
    * @param modelicaModelDescription modelica Model Description to concatenate
    */
-  void concatModel(const boost::shared_ptr<ModelDescription>& modelicaModelDescription);
+  void concatModel(const std::shared_ptr<ModelDescription>& modelicaModelDescription);
 
   /**
    * @brief get dynamic data base and external variables
@@ -157,7 +157,7 @@ class Compiler {
    * @param rawVariableName the variable name as written in the .dyd file
    * @returns the full internal variable name to use for the connect
    */
-  std::string connectVariableName(const boost::shared_ptr<ModelDescription>& model, const std::string& rawVariableName);
+  std::string connectVariableName(const std::shared_ptr<ModelDescription>& model, const std::string& rawVariableName);
 
   /**
    * @brief compute a Modelica model variable name (based on possible model aliasing)
@@ -167,14 +167,14 @@ class Compiler {
    * @returns the full internal variable name to use for the connect
    */
   std::string modelicaModelVariableName(const std::string& rawVariableName, const std::string& modelId,
-                                        const std::map<std::string, boost::shared_ptr<dynamicdata::UnitDynamicModel> > & unitDynamicModels);
+                                        const std::map<std::string, std::shared_ptr<dynamicdata::UnitDynamicModel> >& unitDynamicModels);
 
  private:
   /**
   * @brief test if all the modelica models file required to compile a model are available and throws otherwise
   * @param unitDynamicModels a map of unit dynamic models withint the model
   */
-  void throwIfAllModelicaFilesAreNotAvailable(const std::map<std::string, boost::shared_ptr<dynamicdata::UnitDynamicModel> >& unitDynamicModels) const;
+  void throwIfAllModelicaFilesAreNotAvailable(const std::map<std::string, std::shared_ptr<dynamicdata::UnitDynamicModel> >& unitDynamicModels) const;
 
   /**
    * @brief write concatenate model as modelica file (.mo)
@@ -185,10 +185,10 @@ class Compiler {
    * @param internalConnects modelica Model internal connections
    * @returns the the path to the model concat file
    */
-  const std::string writeConcatModelicaFile(const std::string& modelID, const boost::shared_ptr<ModelDescription>& modelicaModelDescription,
+  const std::string writeConcatModelicaFile(const std::string& modelID, const std::shared_ptr<ModelDescription>& modelicaModelDescription,
       const std::vector<boost::shared_ptr<dynamicdata::Connector> >& macroConnection,
-      const std::map<std::string, boost::shared_ptr<dynamicdata::UnitDynamicModel> >& unitDynamicModels,
-      const std::vector<boost::shared_ptr<dynamicdata::Connector> >& internalConnects) const;
+      const std::map<std::string, std::shared_ptr<dynamicdata::UnitDynamicModel> >& unitDynamicModels,
+      const std::vector<std::shared_ptr<dynamicdata::Connector> >& internalConnects) const;
 
   /**
    * @brief write concatenate model extvar file
@@ -198,11 +198,11 @@ class Compiler {
    * @param internalConnects modelica Model internal connections
    * @param allExternalVariables concatenation of all external variables of the models
    */
-  void writeExtvarFile(const boost::shared_ptr<ModelDescription>& modelicaModelDescription,
+  void writeExtvarFile(const std::shared_ptr<ModelDescription>& modelicaModelDescription,
         const std::vector<boost::shared_ptr<dynamicdata::Connector> >& macroConnection,
-        const std::map<std::string, boost::shared_ptr<dynamicdata::UnitDynamicModel> >& unitDynamicModels,
-        const std::vector<boost::shared_ptr<dynamicdata::Connector> >& internalConnects,
-        const std::map<std::string, boost::shared_ptr<externalVariables::VariablesCollection> >& allExternalVariables) const;
+        const std::map<std::string, std::shared_ptr<dynamicdata::UnitDynamicModel> >& unitDynamicModels,
+        const std::vector<std::shared_ptr<dynamicdata::Connector> >& internalConnects,
+        const std::map<std::string, std::shared_ptr<externalVariables::VariablesCollection> >& allExternalVariables) const;
 
   /**
    * @brief write concatenate initialization model as modelica file (.mo)
@@ -211,16 +211,16 @@ class Compiler {
    * @param macroConnects modelica Model macro connections map
    * @returns the the path to the init concat file
    */
-  const std::string writeInitFile(const boost::shared_ptr<ModelDescription>& modelicaModelDescription,
-      const std::map<std::string, boost::shared_ptr<dynamicdata::UnitDynamicModel> >& unitDynamicModels,
-      const std::map<std::string, boost::shared_ptr<dynamicdata::MacroConnect> >& macroConnects) const;
+  const std::string writeInitFile(const std::shared_ptr<ModelDescription>& modelicaModelDescription,
+      const std::map<std::string, std::shared_ptr<dynamicdata::UnitDynamicModel> >& unitDynamicModels,
+      const std::map<std::string, std::shared_ptr<dynamicdata::MacroConnect> >& macroConnects) const;
 
   /**
    * @brief collect all macro connections of the model and stores it into a vector
    * @param macroConnects modelica Model macro connections map
    * @param macroConnection modelica Model macro connections
    */
-  void collectMacroConnections(const std::map<std::string, boost::shared_ptr<dynamicdata::MacroConnect> >& macroConnects,
+  void collectMacroConnections(const std::map<std::string, std::shared_ptr<dynamicdata::MacroConnect> >& macroConnects,
       std::vector<boost::shared_ptr<dynamicdata::Connector> >& macroConnection) const;
 
   /**
@@ -232,15 +232,15 @@ class Compiler {
    */
   void collectConnectedExtVar(std::string itUnitDynamicModelName,
       const std::vector<boost::shared_ptr<dynamicdata::Connector> >& macroConnection,
-      const std::vector<boost::shared_ptr<dynamicdata::Connector> >& internalConnects, std::set<std::string>& extVarConnected) const;
+      const std::vector<std::shared_ptr<dynamicdata::Connector> >& internalConnects, std::set<std::string>& extVarConnected) const;
 
  private:
   boost::shared_ptr<DynamicData> dyd_;  ///< dynamic data instance where data of models are stored
-  std::map< std::string, boost::shared_ptr<ModelDescription> > modelTemplateDescriptions_;  ///< modelTemplateDescriptions by ID, for internal use
-  std::map< boost::shared_ptr<dynamicdata::UnitDynamicModel>,
-            boost::shared_ptr<dynamicdata::UnitDynamicModel> > unitDynamicModelsMap_;  ///< map of unit dynamic model between two composed modelica models
+  std::map< std::string, std::shared_ptr<ModelDescription> > modelTemplateDescriptions_;  ///< modelTemplateDescriptions by ID, for internal use
+  std::map< std::shared_ptr<dynamicdata::UnitDynamicModel>,
+            std::shared_ptr<dynamicdata::UnitDynamicModel> > unitDynamicModelsMap_;  ///< map of unit dynamic model between two composed modelica models
 
-  std::map<std::string, boost::shared_ptr<ModelDescription> > compiledModelDescriptions_;  ///< model description already compiled
+  std::map<std::string, std::shared_ptr<ModelDescription> > compiledModelDescriptions_;  ///< model description already compiled
 
   bool useStandardPrecompiledModels_;  ///< whether to rely on DDB precompiled models
   std::vector <UserDefinedDirectory> precompiledModelsDirsPaths_;  ///< absolute paths to precompiled models directories

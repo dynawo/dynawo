@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
     Copyright (c) 2024, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -89,7 +89,8 @@
     <par type="DOUBLE" name="voltageRegulator_Kp" value="1"/>
     <par type="DOUBLE" name="voltageRegulator_Kpa" value="18.038"/>
     <par type="INT" name="voltageRegulator_PositionOel" value="0"/>
-    <par type="DOUBLE" name="voltageRegulator_tA" value="1e-4"/><!-- Necessary to avoid a simulation failure. -->
+    <par type="DOUBLE" name="voltageRegulator_tA" value="1e-4"/>
+    <!-- Necessary to avoid a simulation failure. -->
     <par type="DOUBLE" name="voltageRegulator_tG" value="0.02"/>
     <par type="DOUBLE" name="voltageRegulator_Thetap" value="0"/>
     <par type="DOUBLE" name="voltageRegulator_tR" value="1e-5"/>

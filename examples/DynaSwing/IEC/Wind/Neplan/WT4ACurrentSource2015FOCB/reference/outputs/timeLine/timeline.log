@@ -1,5 +1,5 @@
 5.999999 | Fault1 | Fault (node) : beginning
-6.335531 | WT4A | IEC WT disconnected due to undervoltage protection (minimum allowed voltage : 0.900000 p.u)
+6.335531 | WT4A | IEC WT disconnected due to undervoltage protection (minimum allowed voltage : 0.900000 pu)
 6.399999 | Fault1 | Fault (node) : end
 11.999998 | Fault | Fault (node) : beginning
 12.149998 | Fault | Fault (node) : end

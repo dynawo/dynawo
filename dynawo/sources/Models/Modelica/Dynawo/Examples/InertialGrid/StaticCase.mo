@@ -48,11 +48,11 @@ model StaticCase
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Dynawo.Electrical.Buses.InfiniteBus slackBus(UPhase = 0, UPu = 1) annotation(
     Placement(visible = true, transformation(origin = {-36, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Dynawo.Electrical.Machines.Simplified.GeneratorFictitious Gen2(Alpha = 0, Beta = 0, PGen0Pu = 3.3, QGen0Pu = 0, U0Pu = 1, i0Pu = ComplexMath.conj(Complex(Gen2.PGen0Pu, Gen2.QGen0Pu) / Gen2.u0Pu), u0Pu = Complex(1, 0))  annotation(
+  Dynawo.Electrical.Machines.Simplified.GeneratorFictitious Gen2(Alpha = 0, Beta = 0, PGen0Pu = 3.3, QGen0Pu = 0, U0Pu = 1, i0Pu = ComplexMath.conj(Complex(Gen2.PGen0Pu, Gen2.QGen0Pu) / Gen2.u0Pu), u0Pu = Complex(1, 0)) annotation(
     Placement(visible = true, transformation(origin = {-26, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-//Switch-off equations inhibitions
+  //Switch-off equations inhibitions
   load.switchOffSignal1.value = false;
   load.switchOffSignal2.value = false;
   loadPQ.switchOffSignal1.value = false;
@@ -67,7 +67,7 @@ equation
   Gen2.switchOffSignal2.value = false;
   Gen2.switchOffSignal3.value = false;
 
-// No variations in the loads
+  // No variations in the loads
   der(load.PRefPu) = 0;
   der(load.QRefPu) = 0;
   load.deltaP = 0;
@@ -98,6 +98,7 @@ equation
   connect(Gen2.terminal, busIG2.terminal) annotation(
     Line(points = {{-26, -40}, {-2, -40}}, color = {0, 0, 255}));
 
-annotation(preferredView = "diagram",
-  Documentation(info = "<html><head></head><body>It is a static version of the double inertia test case to easily calculate initial values for the time-domain example.</body></html>"));
+  annotation(
+    preferredView = "diagram",
+    Documentation(info = "<html><head></head><body>It is a static version of the double inertia test case to easily calculate initial values for the time-domain example.</body></html>"));
 end StaticCase;

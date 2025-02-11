@@ -13,7 +13,17 @@ set(MODEL_FILES
   package.mo
   package.order
   AcRotatingExciter.mo
+  BaseAc1.mo
+  BaseAc6.mo
+  BaseAc7.mo
+  BaseAc8.mo
+  BaseDc1.mo
   BaseIEEEX.mo
+  BaseSt1.mo
+  BaseSt4.mo
+  BaseSt5.mo
+  BaseSt6.mo
+  BaseSt7.mo
   PotentialCircuit.mo
   RectifierRegulationCharacteristic.mo
   SatChar.mo
