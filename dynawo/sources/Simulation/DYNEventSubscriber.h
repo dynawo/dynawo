@@ -52,7 +52,7 @@ class EventSubscriber {
   };
 
  public:
-  explicit EventSubscriber(bool triggerEnabled, bool actionsEnabled);
+  explicit EventSubscriber(bool triggerEnabled, bool actionsEnabled, bool asyncMode = false);
 
   void setModel(std::shared_ptr<Model>& modelMulti);
 
@@ -64,7 +64,11 @@ class EventSubscriber {
 
   bool registerAction(const std::string& modelName, std::shared_ptr<parameters::ParametersSet>& parametersSet);
 
-  void messageReceiver();
+  void sendReply(const std::string& msg);
+
+  void receiveMessages();
+
+  void messageReceiverAsync();
 
   bool triggerEnabled() {return triggerEnabled_;}
 
@@ -84,10 +88,15 @@ class EventSubscriber {
   bool running_;
   bool triggerEnabled_;
   bool actionsEnabled_;
+  bool asyncMode_;
+
+  // Sync variables
+  bool pendingReply_;
+
+  // Async variables
   std::mutex simulationMutex_;
   std::condition_variable simulationStepTriggerCondition_;
-  std::mutex receptionMutex_;
-  std::condition_variable receptionCondition_;
+  int stepTriggeredCnt_;
 };
 
 }  // end of namespace DYN

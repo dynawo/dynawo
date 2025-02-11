@@ -30,11 +30,14 @@ using parameters::ParametersSetFactory;
 
 namespace DYN {
 
-EventSubscriber::EventSubscriber(bool triggerEnabled, bool actionEnabled):
+EventSubscriber::EventSubscriber(bool triggerEnabled, bool actionEnabled, bool asyncMode):
 socket_(context_, zmqpp::socket_type::reply),
 running_(false),
+stepTriggeredCnt_(false),
 triggerEnabled_(triggerEnabled),
-actionsEnabled_(actionEnabled) {
+actionsEnabled_(actionEnabled),
+asyncMode_(asyncMode),
+pendingReply_(false) {
   socket_.bind("tcp://*:5555");
 }
 
@@ -50,8 +53,10 @@ EventSubscriber::start() {
     return;
   }
   running_ = true;
-  receiverThread_ = std::thread(&EventSubscriber::messageReceiver, this);
-  std::cout << "EventSubscriber: thread started" << std::endl;
+  if (asyncMode_) {
+    receiverThread_ = std::thread(&EventSubscriber::messageReceiverAsync, this);
+    std::cout << "EventSubscriber: thread started" << std::endl;
+  }
 }
 
 void
@@ -94,9 +99,61 @@ EventSubscriber::registerAction(const std::string& modelName, std::shared_ptr<pa
   return true;
 }
 
+void
+EventSubscriber::sendReply(const std::string& msg) {
+  if (!asyncMode_ && pendingReply_) {
+    zmqpp::message reply;
+    reply << msg;
+    socket_.send(reply);
+  }
+}
 
 void
-EventSubscriber::messageReceiver() {
+EventSubscriber::receiveMessages() {
+  sendReply("trigger reply");
+  pendingReply_ = false;
+
+  while (running_ && !SignalHandler::gotExitSignal()) {
+    zmqpp::message message;
+
+    // Non-blocking receive
+    if (socket_.receive(message, true)) {
+      std::cout << "EventSubscriber: message received" << std::endl;
+
+      std::string input;
+      message >> input;
+
+      if (input.empty() && triggerEnabled_) {
+          // trigger next step
+          pendingReply_ = true;
+          return;
+
+      } else if (actionsEnabled_) {
+        std::shared_ptr<ParametersSet> parametersSet = parseParametersSet(input);
+
+        // Register the action
+        zmqpp::message reply;
+        if (registerAction(parametersSet->getId(), parametersSet)) {
+          reply << "Action registered";
+        } else {
+          reply << "Action registration failed";
+        }
+        socket_.send(reply);
+      } else {
+        zmqpp::message reply;
+        reply << "Unknown request";
+        socket_.send(reply);
+      }
+    }
+
+    // Sleep briefly to reduce CPU usage
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+  }
+}
+
+
+void
+EventSubscriber::messageReceiverAsync() {
   while (running_ && !SignalHandler::gotExitSignal()) {
     zmqpp::message message;
 
@@ -111,9 +168,9 @@ EventSubscriber::messageReceiver() {
       if (input.empty() && triggerEnabled_) {
           // trigger next step
           reply << "Step triggered";
+          std::lock_guard<std::mutex> simulationLock(simulationMutex_);
+          stepTriggeredCnt_++;
           simulationStepTriggerCondition_.notify_one();
-          std::unique_lock<std::mutex> receptionLock(receptionMutex_);
-          receptionCondition_.wait(receptionLock);
           socket_.send(reply);
       } else if (actionsEnabled_) {
         std::shared_ptr<ParametersSet> parametersSet = parseParametersSet(input);
@@ -135,6 +192,7 @@ EventSubscriber::messageReceiver() {
     // Sleep briefly to reduce CPU usage
     std::this_thread::sleep_for(std::chrono::milliseconds(10));
   }
+  stepTriggeredCnt_++;
   simulationStepTriggerCondition_.notify_all();
 }
 
@@ -210,11 +268,14 @@ EventSubscriber::parseParametersSet(std::string& input) {
 
 void
 EventSubscriber::wait() {
-  receptionCondition_.notify_one();
   std::cout << "EventSubscriber: wait for signal " << std::endl;
-  std::unique_lock<std::mutex> simulationLock(simulationMutex_);
-  simulationStepTriggerCondition_.wait(simulationLock);
+  if (asyncMode_) {
+    std::unique_lock<std::mutex> simulationLock(simulationMutex_);
+    simulationStepTriggerCondition_.wait(simulationLock, [this] {return stepTriggeredCnt_;});
+    stepTriggeredCnt_--;
+  } else {
+    receiveMessages();
+  }
   std::cout << "EventSubscriber: trigger signal received " << std::endl;
 }
-
 }  // end of namespace DYN
