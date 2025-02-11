@@ -30,6 +30,7 @@
 #include "DYNExecUtils.h"
 #include "DYNFileSystemUtils.h"
 #include "DYNMacrosMessage.h"
+#include "make_unique.hpp"
 using std::string;
 using std::ifstream;
 using std::vector;
@@ -147,7 +148,7 @@ void IoDicos::addDico(const string& name, const string& baseName, const string& 
     std::shared_ptr<IoDico> dico = getIoDico(name);
     dico->readFile(file);  // new key/sentence added to the existing dico
   } else {
-    std::unique_ptr<IoDico> dico(new IoDico(name));
+    std::unique_ptr<IoDico> dico = DYN::make_unique<IoDico>(name);
     dico->readFile(file);
     instance().dicos_[name] = std::move(dico);
   }
@@ -159,7 +160,7 @@ void IoDicos::addDico(const string& name, const string& baseName, const string& 
     throw MessageError("Multiple occurrences of the opposite event dictionary : " + fileName);
   }
   if (!files.empty()) {
-    std::unique_ptr<OppositeEventDico> dico(new OppositeEventDico(name));
+    std::unique_ptr<OppositeEventDico> dico = DYN::make_unique<OppositeEventDico>(name);
     dico->readFile(files[0]);
     instance().oppositeEventsDicos_[name] = std::move(dico);
   }
@@ -177,7 +178,7 @@ void IoDicos::addDicos(const string& dictionariesMappingFile, const string& loca
   if (files.empty())
     throw MessageError("Impossible to find the dictionary mapping file : " + fileName);
 
-  const std::unique_ptr<IoDico> dico(new IoDico("MAPPING"));
+  const std::unique_ptr<IoDico> dico = DYN::make_unique<IoDico>("MAPPING");
   for (vector<string>::const_iterator it = files.begin(), itEnd = files.end(); it != itEnd; ++it) {
     dico->readFile(*it);
   }

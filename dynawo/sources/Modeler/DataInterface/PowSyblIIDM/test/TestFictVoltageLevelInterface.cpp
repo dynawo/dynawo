@@ -24,6 +24,7 @@
 #include "DYNShuntCompensatorInterfaceIIDM.h"
 #include "DYNStaticVarCompensatorInterfaceIIDM.h"
 
+#include "make_unique.hpp"
 #include "gtest_dynawo.h"
 #include "DYNCommon.h"
 
@@ -65,7 +66,7 @@ TEST(DataInterfaceTest, testFictVoltageLevelInterface) {
   std::string Id = "fictBus_Id";
   double VNom = 400.;
   std::string country = "FRANCE";
-  const std::unique_ptr<VoltageLevelInterface> FictVl(new FictVoltageLevelInterfaceIIDM(Id, VNom, country));
+  const std::unique_ptr<VoltageLevelInterface> FictVl(DYN::make_unique<FictVoltageLevelInterfaceIIDM>(Id, VNom, country));
   ASSERT_EQ(FictVl->getID(), Id);
   ASSERT_DOUBLE_EQUALS_DYNAWO(FictVl->getVNom(), VNom);
   ASSERT_EQ(FictVl->getVoltageLevelTopologyKind(), VoltageLevelInterface::BUS_BREAKER);
@@ -183,7 +184,7 @@ TEST(DataInterfaceTest, testFictVoltageLevelInterface) {
   powsybl::iidm::StaticVarCompensator& svcIIDM = vlIIDM1.newStaticVarCompensator().setId("SVC1").setBmin(0).setBmax(0)
     .setRegulationMode(powsybl::iidm::StaticVarCompensator::RegulationMode::OFF)
     .setConnectableBus(b9.getId()).add();
-  std::unique_ptr<StaticVarCompensatorInterface> svc(new StaticVarCompensatorInterfaceIIDM(svcIIDM));
+  std::unique_ptr<StaticVarCompensatorInterface> svc = DYN::make_unique<StaticVarCompensatorInterfaceIIDM>(svcIIDM);
 
   VoltageLevel& vlIIDM2 = s.newVoltageLevel()
                           .setId("VL2")
@@ -195,27 +196,27 @@ TEST(DataInterfaceTest, testFictVoltageLevelInterface) {
   VoltageLevelInterfaceIIDM vl(vlIIDM1);
   VoltageLevelInterfaceIIDM vl2(vlIIDM2);
   std::shared_ptr<BusInterface> bus1 = std::make_shared<BusInterfaceIIDM>(b1);
-  std::unique_ptr<BusInterface> bus2(new BusInterfaceIIDM(b2));
-  std::unique_ptr<BusInterface> bus3(new BusInterfaceIIDM(iidmBus));
-  std::unique_ptr<BusInterface> bus4(new BusInterfaceIIDM(b4));
-  std::unique_ptr<BusInterface> bus5(new BusInterfaceIIDM(b5));
-  std::unique_ptr<BusInterface> bus6(new BusInterfaceIIDM(b6));
-  std::unique_ptr<BusInterface> bus7(new BusInterfaceIIDM(b7));
-  std::unique_ptr<BusInterface> bus8(new BusInterfaceIIDM(b8));
+  std::unique_ptr<BusInterface> bus2 = DYN::make_unique<BusInterfaceIIDM>(b2);
+  std::unique_ptr<BusInterface> bus3 = DYN::make_unique<BusInterfaceIIDM>(iidmBus);
+  std::unique_ptr<BusInterface> bus4 = DYN::make_unique<BusInterfaceIIDM>(b4);
+  std::unique_ptr<BusInterface> bus5 = DYN::make_unique<BusInterfaceIIDM>(b5);
+  std::unique_ptr<BusInterface> bus6 = DYN::make_unique<BusInterfaceIIDM>(b6);
+  std::unique_ptr<BusInterface> bus7 = DYN::make_unique<BusInterfaceIIDM>(b7);
+  std::unique_ptr<BusInterface> bus8 = DYN::make_unique<BusInterfaceIIDM>(b8);
   std::shared_ptr<SwitchInterface> switch1 = std::make_shared<SwitchInterfaceIIDM>(aSwitch);
-  std::unique_ptr<LoadInterface> load1(new LoadInterfaceIIDM(loadIIDM1));
+  std::unique_ptr<LoadInterface> load1 = DYN::make_unique<LoadInterfaceIIDM>(loadIIDM1);
   switch1->setBusInterface1(std::move(bus2));
   switch1->setBusInterface2(std::move(bus3));
   load1->setBusInterface(bus1);
-  std::unique_ptr<VscConverterInterface> vsc1(new VscConverterInterfaceIIDM(vscIIDM1));
+  std::unique_ptr<VscConverterInterface> vsc1 = DYN::make_unique<VscConverterInterfaceIIDM>(vscIIDM1);
   vsc1->setBusInterface(std::move(bus4));
-  std::unique_ptr<LccConverterInterfaceIIDM> lcc1(new LccConverterInterfaceIIDM(lccIIDM1));
+  std::unique_ptr<LccConverterInterfaceIIDM> lcc1 = DYN::make_unique<LccConverterInterfaceIIDM>(lccIIDM1);
   lcc1->setBusInterface(std::move(bus5));
-  std::unique_ptr<DanglingLineInterface> danglingLine(new DanglingLineInterfaceIIDM(dl));
+  std::unique_ptr<DanglingLineInterface> danglingLine = DYN::make_unique<DanglingLineInterfaceIIDM>(dl);
   danglingLine->setBusInterface(std::move(bus6));
-  std::unique_ptr<ShuntCompensatorInterface> shunt(new ShuntCompensatorInterfaceIIDM(shuntIIDM));
+  std::unique_ptr<ShuntCompensatorInterface> shunt = DYN::make_unique<ShuntCompensatorInterfaceIIDM>(shuntIIDM);
   shunt->setBusInterface(std::move(bus7));
-  std::unique_ptr<GeneratorInterface> gen(new GeneratorInterfaceIIDM(genIIDM));
+  std::unique_ptr<GeneratorInterface> gen = DYN::make_unique<GeneratorInterfaceIIDM>(genIIDM);
   gen->setBusInterface(std::move(bus8));
 
   FictVl->addSwitch(switch1);

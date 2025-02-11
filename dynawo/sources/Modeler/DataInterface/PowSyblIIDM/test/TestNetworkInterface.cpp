@@ -20,6 +20,7 @@
 #include "DYNLccConverterInterfaceIIDM.h"
 #include "DYNVscConverterInterfaceIIDM.h"
 
+#include "make_unique.hpp"
 #include "gtest_dynawo.h"
 
 #include <powsybl/iidm/Bus.hpp>
@@ -203,16 +204,16 @@ TEST(DataInterfaceTest, Network) {
   powsybl::iidm::extensions::SlackTerminal::attach(vl1Bus1);
 
   NetworkInterfaceIIDM network(networkIIDM);
-  std::unique_ptr<LineInterface> li(new LineInterfaceIIDM(MyLine));
-  std::unique_ptr<VoltageLevelInterface> vl(new VoltageLevelInterfaceIIDM(vl1));
-  std::unique_ptr<TwoWTransformerInterface> twoWT(new TwoWTransformerInterfaceIIDM(transformer));
-  std::unique_ptr<ThreeWTransformerInterface> threeWT(new ThreeWTransformerInterfaceIIDM(transformer3));
+  std::unique_ptr<LineInterface> li = DYN::make_unique<LineInterfaceIIDM>(MyLine);
+  std::unique_ptr<VoltageLevelInterface> vl = DYN::make_unique<VoltageLevelInterfaceIIDM>(vl1);
+  std::unique_ptr<TwoWTransformerInterface> twoWT = DYN::make_unique<TwoWTransformerInterfaceIIDM>(transformer);
+  std::unique_ptr<ThreeWTransformerInterface> threeWT = DYN::make_unique<ThreeWTransformerInterfaceIIDM>(transformer3);
   powsybl::iidm::LccConverterStation& lcc = networkIIDM.getLccConverterStation("LCC1");
   powsybl::iidm::VscConverterStation& vsc = networkIIDM.getVscConverterStation("VSC2");
 
-  std::unique_ptr<LccConverterInterface> LccIfce(new LccConverterInterfaceIIDM(lcc));
-  std::unique_ptr<VscConverterInterface> VscIfce(new VscConverterInterfaceIIDM(vsc));
-  std::unique_ptr<HvdcLineInterface> hvdc(new HvdcLineInterfaceIIDM(hvdcIIDM, std::move(LccIfce), std::move(VscIfce)));
+  std::unique_ptr<LccConverterInterface> LccIfce = DYN::make_unique<LccConverterInterfaceIIDM>(lcc);
+  std::unique_ptr<VscConverterInterface> VscIfce = DYN::make_unique<VscConverterInterfaceIIDM>(vsc);
+  std::unique_ptr<HvdcLineInterface> hvdc = DYN::make_unique<HvdcLineInterfaceIIDM>(hvdcIIDM, std::move(LccIfce), std::move(VscIfce));
 
   ASSERT_EQ(network.getLines().size(), 0);
   network.addLine(std::move(li));

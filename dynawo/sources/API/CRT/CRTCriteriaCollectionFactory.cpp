@@ -21,11 +21,14 @@
 #include "CRTCriteriaCollectionFactory.h"
 #include "CRTCriteriaCollection.h"
 
+#include "make_unique.hpp"
+
+
 namespace criteria {
 
 std::unique_ptr<CriteriaCollection>
 CriteriaCollectionFactory::newInstance() {
-  return std::unique_ptr<CriteriaCollection>(new CriteriaCollection());
+  return DYN::make_unique<CriteriaCollection>();
 }
 
 }  // namespace criteria
