@@ -12,64 +12,64 @@ within Dynawo.Electrical.Controls.Converters.EpriGFM.BaseControls;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model DQTrafo "Dq transformation in EPRI Grid Forming model" 
-  extends Parameters.OmegaFlag_;
-  extends Parameters.InitialUdqConv;
-  extends Parameters.InitialTerminalU;
-  extends Parameters.InitialTheta;
+model DQTrafo "Dq transformation in EPRI Grid Forming model"
+  extends Parameters.OmegaFlag;
 
-  //inputs
+  // Input variables
+  Modelica.Blocks.Interfaces.RealInput phi(start = Modelica.ComplexMath.arg(u0Pu)) "Voltage phase at injector in rad" annotation(
+    Placement(visible = true, transformation(origin = {-110, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {30, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput theta(start = Theta0) "Phase shift between the converter's rotating frame and the grid rotating frame in rad" annotation(
-    Placement(visible = true, transformation(origin = {-110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-50, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput udConvRefPu(start = UdConv0Pu) "D-axis reference modulation voltage in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.ComplexBlocks.Interfaces.ComplexInput uInjPu(re(start = u0Pu.re), im(start = u0Pu.im)) "Complex voltage in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-110, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput uqConvRefPu(start = UqConv0Pu) "Q-axis reference modulation voltage in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  //outputs
+    Placement(visible = true, transformation(origin = {-110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  // Output variables
   Modelica.Blocks.Interfaces.RealOutput uiSourcePu(start = u0Pu.im) "Voltage imaginary part in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -39}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -41}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput urSourcePu(start = u0Pu.re) "Voltage real part in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  
+    Placement(visible = true, transformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
   Modelica.Blocks.Sources.IntegerConstant integerConstant6(k = OmegaFlag) annotation(
-    Placement(visible = true, transformation(origin = {32, -22}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+    Placement(visible = true, transformation(origin = {30, -12}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch6(nu = 4) annotation(
-    Placement(visible = true, transformation(origin = {32, -52}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant OmegaRefPu(k = 1) annotation(
-    Placement(visible = true, transformation(origin = {-60, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.PLL.PLL pll(Ki = 700, Kp = 20, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, u0Pu = Complex(1.0, 0)) annotation(
-    Placement(visible = true, transformation(origin = {-30, -38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {30, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.Utilities.TransformDQtoRI transformDQtoRI annotation(
-    Placement(visible = true, transformation(origin = {80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {70, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  // Initial parameters
+  parameter Types.Angle Theta0 "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad" annotation(
+  Dialog(tab = "Initial"));
+  parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at converter's terminal in pu (base UNom)" annotation(
+  Dialog(tab = "Initial"));
+  parameter Types.PerUnit UdConv0Pu "Start value of d-axis modulation voltage in pu (base UNom)" annotation(
+  Dialog(tab = "Initial"));
+  parameter Types.PerUnit UqConv0Pu "Start value of q-axis modulation voltage in pu (base UNom)" annotation(
+  Dialog(tab = "Initial"));
 
 equation
   connect(transformDQtoRI.uiPu, uiSourcePu) annotation(
-    Line(points = {{91, -6}, {94, -6}, {94, -20}, {110, -20}}, color = {0, 0, 127}));
+    Line(points = {{81, 4}, {94, 4}, {94, -20}, {110, -20}}, color = {0, 0, 127}));
   connect(transformDQtoRI.urPu, urSourcePu) annotation(
-    Line(points = {{91, 6}, {94, 6}, {94, 20}, {110, 20}}, color = {0, 0, 127}));
-  connect(OmegaRefPu.y, pll.omegaRefPu) annotation(
-    Line(points = {{-49, -50}, {-44, -50}, {-44, -42}, {-39, -42}}, color = {0, 0, 127}));
+    Line(points = {{81, 16}, {94, 16}, {94, 40}, {110, 40}}, color = {0, 0, 127}));
   connect(uqConvRefPu, transformDQtoRI.uqPu) annotation(
-    Line(points = {{-110, 30}, {8, 30}, {8, 3}, {69, 3}}, color = {0, 0, 127}));
-  connect(pll.phi, multiSwitch6.u[1]) annotation(
-    Line(points = {{-19, -37}, {0, -37}, {0, -52}, {22, -52}}, color = {0, 0, 127}));
+    Line(points = {{-110, 20}, {0, 20}, {0, 13}, {59, 13}}, color = {0, 0, 127}));
   connect(integerConstant6.y, multiSwitch6.f) annotation(
-    Line(points = {{32, -33}, {32, -40}}, color = {255, 127, 0}));
+    Line(points = {{30, -23}, {30, -48}}, color = {255, 127, 0}));
   connect(multiSwitch6.y, transformDQtoRI.phi) annotation(
-    Line(points = {{43, -52}, {54, -52}, {54, -6}, {69, -6}}, color = {0, 0, 127}));
+    Line(points = {{41, -60}, {54, -60}, {54, 4}, {59, 4}}, color = {0, 0, 127}));
+  connect(phi, multiSwitch6.u[1]) annotation(
+    Line(points = {{-110, -50}, {-39, -50}, {-39, -60}, {20, -60}}, color = {0, 0, 127}));
   connect(theta, multiSwitch6.u[2]) annotation(
-    Line(points = {{-110, -80}, {22, -80}, {22, -52}}, color = {0, 0, 127}));
+    Line(points = {{-110, -80}, {20, -80}, {20, -60}}, color = {0, 0, 127}));
   connect(theta, multiSwitch6.u[3]) annotation(
-    Line(points = {{-110, -80}, {22, -80}, {22, -52}}, color = {0, 0, 127}));
+    Line(points = {{-110, -80}, {20, -80}, {20, -60}}, color = {0, 0, 127}));
   connect(theta, multiSwitch6.u[4]) annotation(
-    Line(points = {{-110, -80}, {22, -80}, {22, -52}}, color = {0, 0, 127}));
+    Line(points = {{-110, -80}, {20, -80}, {20, -60}}, color = {0, 0, 127}));
   connect(udConvRefPu, transformDQtoRI.udPu) annotation(
-    Line(points = {{-110, 60}, {42, 60}, {42, 7}, {69, 7}}, color = {0, 0, 127}));
-  connect(uInjPu, pll.uPu) annotation(
-    Line(points = {{-110, -10}, {-70, -10}, {-70, -32}, {-41, -32}}, color = {85, 170, 255}));
-  
+    Line(points = {{-110, 60}, {40, 60}, {40, 17}, {59, 17}}, color = {0, 0, 127}));
+
   annotation(
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Line(origin = {-1, 0}, points = {{-99, -100}, {101, 100}}), Text(origin = {-41, 51}, extent = {{-33, 25}, {33, -25}}, textString = "dq"), Text(origin = {34, -47}, extent = {{-24, 25}, {24, -25}}, textString = "ri")}));
 end DQTrafo;
