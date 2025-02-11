@@ -125,6 +125,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   GridFormingConverterDroopControl.xml
   GridFormingConverterMatchingControl.xml
   GridFormingConverterDispatchableVirtualOscillatorControl.xml
+  GridFormingEpri.xml
   HvdcPQProp.xml
   HvdcPQPropEmulation.xml
   HvdcPQPropEmulationSet.xml
