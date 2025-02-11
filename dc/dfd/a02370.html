@@ -126,9 +126,9 @@ Public Member Functions</h2></td></tr>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dfd/a02370.html#a1b162a86c367e61bee62e075d0bde567">~JobHandler</a> ()</td></tr>
 <tr class="memdesc:a1b162a86c367e61bee62e075d0bde567"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
 <tr class="separator:a1b162a86c367e61bee62e075d0bde567"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeea40d2a6555952e2123b07c8c36119b"><td class="memItemLeft" align="right" valign="top">boost::shared_ptr&lt; <a class="el" href="../../d0/db2/a02194.html">JobEntry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dfd/a02370.html#aeea40d2a6555952e2123b07c8c36119b">get</a> () const</td></tr>
-<tr class="memdesc:aeea40d2a6555952e2123b07c8c36119b"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the job read in xml file  <a href="#aeea40d2a6555952e2123b07c8c36119b">More...</a><br /></td></tr>
-<tr class="separator:aeea40d2a6555952e2123b07c8c36119b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51bfdba8cbc9f21f57f9802c10d0b6df"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d0/db2/a02194.html">JobEntry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dfd/a02370.html#a51bfdba8cbc9f21f57f9802c10d0b6df">get</a> () const</td></tr>
+<tr class="memdesc:a51bfdba8cbc9f21f57f9802c10d0b6df"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the job read in xml file  <a href="#a51bfdba8cbc9f21f57f9802c10d0b6df">More...</a><br /></td></tr>
+<tr class="separator:a51bfdba8cbc9f21f57f9802c10d0b6df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20fe61cbdaacf12d6b0507dbc1ca3d00"><td class="memItemLeft" align="right" valign="top"><a id="a20fe61cbdaacf12d6b0507dbc1ca3d00"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dfd/a02370.html#a20fe61cbdaacf12d6b0507dbc1ca3d00">addSolver</a> ()</td></tr>
 <tr class="memdesc:a20fe61cbdaacf12d6b0507dbc1ca3d00"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a solver object to the current job <br /></td></tr>
@@ -158,10 +158,10 @@ Protected Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:adcc07dea11570d83171513644bfda4a0"><td class="memItemLeft" align="right" valign="top"><a id="adcc07dea11570d83171513644bfda4a0"></a>
-boost::shared_ptr&lt; <a class="el" href="../../d0/db2/a02194.html">JobEntry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dfd/a02370.html#adcc07dea11570d83171513644bfda4a0">job_</a></td></tr>
-<tr class="memdesc:adcc07dea11570d83171513644bfda4a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">job object created by the handler <br /></td></tr>
-<tr class="separator:adcc07dea11570d83171513644bfda4a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4c3694527f5b40712d37c56afb04289"><td class="memItemLeft" align="right" valign="top"><a id="ad4c3694527f5b40712d37c56afb04289"></a>
+std::shared_ptr&lt; <a class="el" href="../../d0/db2/a02194.html">JobEntry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dfd/a02370.html#ad4c3694527f5b40712d37c56afb04289">job_</a></td></tr>
+<tr class="memdesc:ad4c3694527f5b40712d37c56afb04289"><td class="mdescLeft">&#160;</td><td class="mdescRight">job object created by the handler <br /></td></tr>
+<tr class="separator:ad4c3694527f5b40712d37c56afb04289"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a66835f59f7e22af8ff92b0285f683448"><td class="memItemLeft" align="right" valign="top"><a id="a66835f59f7e22af8ff92b0285f683448"></a>
 <a class="el" href="../../d2/d3d/a02362.html">SolverHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dfd/a02370.html#a66835f59f7e22af8ff92b0285f683448">solverHandler_</a></td></tr>
 <tr class="memdesc:a66835f59f7e22af8ff92b0285f683448"><td class="mdescLeft">&#160;</td><td class="mdescRight">handler used to read solver element <br /></td></tr>
@@ -255,14 +255,14 @@ boost::shared_ptr&lt; <a class="el" href="../../d0/db2/a02194.html">JobEntry</a>
 
 </div>
 </div>
-<a id="aeea40d2a6555952e2123b07c8c36119b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeea40d2a6555952e2123b07c8c36119b">&#9670;&nbsp;</a></span>get()</h2>
+<a id="a51bfdba8cbc9f21f57f9802c10d0b6df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51bfdba8cbc9f21f57f9802c10d0b6df">&#9670;&nbsp;</a></span>get()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">boost::shared_ptr&lt;<a class="el" href="../../d0/db2/a02194.html">JobEntry</a>&gt; job::JobHandler::get </td>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d0/db2/a02194.html">JobEntry</a>&gt; job::JobHandler::get </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -295,7 +295,7 @@ boost::shared_ptr&lt; <a class="el" href="../../d0/db2/a02194.html">JobEntry</a>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>job</b></li><li class="navelem"><a class="el" href="../../dc/dfd/a02370.html">JobHandler</a></li>
-    <li class="footer">Generated on Mon Feb 10 2025 13:45:28 for Dynawo by
+    <li class="footer">Generated on Tue Feb 11 2025 17:33:23 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

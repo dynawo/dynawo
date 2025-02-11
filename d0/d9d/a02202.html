@@ -110,9 +110,9 @@ $(document).ready(function(){initNavTree('d0/d9d/a02202.html','../../');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0012d5fe2fecb213314f741fb8bb595f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d9d/a02202.html#a0012d5fe2fecb213314f741fb8bb595f">addJob</a> (const boost::shared_ptr&lt; <a class="el" href="../../d0/db2/a02194.html">JobEntry</a> &gt; &amp;jobEntry)</td></tr>
-<tr class="memdesc:a0012d5fe2fecb213314f741fb8bb595f"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a job to the jobs collection  <a href="#a0012d5fe2fecb213314f741fb8bb595f">More...</a><br /></td></tr>
-<tr class="separator:a0012d5fe2fecb213314f741fb8bb595f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7a0ccfd742595bb2259b138e8aa6786"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d9d/a02202.html#aa7a0ccfd742595bb2259b138e8aa6786">addJob</a> (const std::shared_ptr&lt; <a class="el" href="../../d0/db2/a02194.html">JobEntry</a> &gt; &amp;jobEntry)</td></tr>
+<tr class="memdesc:aa7a0ccfd742595bb2259b138e8aa6786"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a job to the jobs collection  <a href="#aa7a0ccfd742595bb2259b138e8aa6786">More...</a><br /></td></tr>
+<tr class="separator:aa7a0ccfd742595bb2259b138e8aa6786"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a5fef46645d150f2d2b93fdb59074b4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dc3/a02190.html">job_const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d9d/a02202.html#a4a5fef46645d150f2d2b93fdb59074b4">cbegin</a> () const</td></tr>
 <tr class="memdesc:a4a5fef46645d150f2d2b93fdb59074b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a const_iterator to the beginning of the jobs' vector.  <a href="#a4a5fef46645d150f2d2b93fdb59074b4">More...</a><br /></td></tr>
 <tr class="separator:a4a5fef46645d150f2d2b93fdb59074b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,17 +128,17 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a7a52159225b59b2f62152ac3cf864b96"><td class="memItemLeft" align="right" valign="top"><a id="a7a52159225b59b2f62152ac3cf864b96"></a>
-std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d0/db2/a02194.html">JobEntry</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d9d/a02202.html#a7a52159225b59b2f62152ac3cf864b96">jobs_</a></td></tr>
-<tr class="memdesc:a7a52159225b59b2f62152ac3cf864b96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector of the jobs object. <br /></td></tr>
-<tr class="separator:a7a52159225b59b2f62152ac3cf864b96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e5366ce7b63ef6bdeda3ee8c56505fe"><td class="memItemLeft" align="right" valign="top"><a id="a4e5366ce7b63ef6bdeda3ee8c56505fe"></a>
+std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../d0/db2/a02194.html">JobEntry</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d9d/a02202.html#a4e5366ce7b63ef6bdeda3ee8c56505fe">jobs_</a></td></tr>
+<tr class="memdesc:a4e5366ce7b63ef6bdeda3ee8c56505fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector of the jobs object. <br /></td></tr>
+<tr class="separator:a4e5366ce7b63ef6bdeda3ee8c56505fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>jobs collection interface class </p>
 <p>Interface class for jobs collection object. This a container for jobs description </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a0012d5fe2fecb213314f741fb8bb595f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0012d5fe2fecb213314f741fb8bb595f">&#9670;&nbsp;</a></span>addJob()</h2>
+<a id="aa7a0ccfd742595bb2259b138e8aa6786"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7a0ccfd742595bb2259b138e8aa6786">&#9670;&nbsp;</a></span>addJob()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -146,7 +146,7 @@ std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d0/db2/a02194.ht
         <tr>
           <td class="memname">void job::JobsCollection::addJob </td>
           <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d0/db2/a02194.html">JobEntry</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../d0/db2/a02194.html">JobEntry</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>jobEntry</em></td><td>)</td>
           <td></td>
         </tr>
@@ -263,7 +263,7 @@ std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d0/db2/a02194.ht
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>job</b></li><li class="navelem"><a class="el" href="../../d0/d9d/a02202.html">JobsCollection</a></li>
-    <li class="footer">Generated on Mon Feb 10 2025 13:45:28 for Dynawo by
+    <li class="footer">Generated on Tue Feb 11 2025 17:33:23 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

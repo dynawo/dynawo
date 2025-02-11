@@ -70,7 +70,7 @@ var searchData=
   ['clearlogfile_5f',['clearLogFile_',['../d5/dc3/a02674.html#a34a846264cffadc0debbcf69a6f11885',1,'DYN::Trace']]],
   ['clearneighbors',['clearNeighbors',['../d5/d2f/a03222.html#a10a559d6fd2930637fa99889ad882749',1,'DYN::ModelBus']]],
   ['clearnumsubnetwork',['clearNumSubNetwork',['../d5/d2f/a03222.html#a64de77a9dd4c17a58b14df01c9e9c05e',1,'DYN::ModelBus']]],
-  ['clone',['clone',['../d6/d92/a02890.html#a486f40ff74deb16fc05a1010049994f2',1,'DYN::DataInterface::clone()'],['../de/df2/a03018.html#a26c3759895620606003d611d010e0bc9',1,'DYN::DataInterfaceIIDM::clone()'],['../d7/d5e/a00467.html#a9e670c9d3aa5a5238f74fd0dc6d79325',1,'DYN::clone()']]],
+  ['clone',['clone',['../d6/d92/a02890.html#a486f40ff74deb16fc05a1010049994f2',1,'DYN::DataInterface::clone()'],['../de/df2/a03018.html#a26c3759895620606003d611d010e0bc9',1,'DYN::DataInterfaceIIDM::clone()'],['../d7/d5e/a00467.html#adc91d85681973bb3066148ef94ac2fbd',1,'DYN::clone()']]],
   ['close',['close',['../df/d81/a02966.html#adbfa7cb8947709a26dcdfda10365b723',1,'DYN::SwitchInterface::close()'],['../dc/d00/a03118.html#a0df384e28c8868d2ae5dbe95ad036305',1,'DYN::SwitchInterfaceIIDM::close()'],['../d4/d1b/a03282.html#a5965e0d4ea1e8b578d4c1f704f8e1e30',1,'DYN::ModelSwitch::close()']]],
   ['collectallinternalconnections',['collectAllInternalConnections',['../d7/d14/a02750.html#a88398c11a1b14e65460f64ae262a9394',1,'DYN::Modeler']]],
   ['collectconnectedextvar',['collectConnectedExtVar',['../da/d22/a02698.html#a3d5604e54fa6720237478b9806e7e6dc',1,'DYN::Compiler']]],

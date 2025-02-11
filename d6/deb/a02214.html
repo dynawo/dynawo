@@ -121,12 +121,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab244135c4ef554ff6dd997b0339cb1d6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/deb/a02214.html">LogsEntry</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/deb/a02214.html#ab244135c4ef554ff6dd997b0339cb1d6">operator=</a> (const <a class="el" href="../../d6/deb/a02214.html">LogsEntry</a> &amp;other)</td></tr>
 <tr class="memdesc:ab244135c4ef554ff6dd997b0339cb1d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignement OPerator.  <a href="#ab244135c4ef554ff6dd997b0339cb1d6">More...</a><br /></td></tr>
 <tr class="separator:ab244135c4ef554ff6dd997b0339cb1d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad85fb9d347f23eee7fcfa7edc13b9581"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/deb/a02214.html#ad85fb9d347f23eee7fcfa7edc13b9581">addAppenderEntry</a> (const boost::shared_ptr&lt; <a class="el" href="../../db/d6c/a02130.html">AppenderEntry</a> &gt; &amp;appenderEntry)</td></tr>
-<tr class="memdesc:ad85fb9d347f23eee7fcfa7edc13b9581"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appender entry adder.  <a href="#ad85fb9d347f23eee7fcfa7edc13b9581">More...</a><br /></td></tr>
-<tr class="separator:ad85fb9d347f23eee7fcfa7edc13b9581"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a830c58d417a462217cb43915c226d63d"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../db/d6c/a02130.html">AppenderEntry</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/deb/a02214.html#a830c58d417a462217cb43915c226d63d">getAppenderEntries</a> () const</td></tr>
-<tr class="memdesc:a830c58d417a462217cb43915c226d63d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appender entries getter.  <a href="#a830c58d417a462217cb43915c226d63d">More...</a><br /></td></tr>
-<tr class="separator:a830c58d417a462217cb43915c226d63d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbf800c9e0794bea55972cd97ec580e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/deb/a02214.html#abbf800c9e0794bea55972cd97ec580e6">addAppenderEntry</a> (const std::shared_ptr&lt; <a class="el" href="../../db/d6c/a02130.html">AppenderEntry</a> &gt; &amp;appenderEntry)</td></tr>
+<tr class="memdesc:abbf800c9e0794bea55972cd97ec580e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appender entry adder.  <a href="#abbf800c9e0794bea55972cd97ec580e6">More...</a><br /></td></tr>
+<tr class="separator:abbf800c9e0794bea55972cd97ec580e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53e80739cdaa0388f61a05c3cc5c2793"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../db/d6c/a02130.html">AppenderEntry</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/deb/a02214.html#a53e80739cdaa0388f61a05c3cc5c2793">getAppenderEntries</a> () const</td></tr>
+<tr class="memdesc:a53e80739cdaa0388f61a05c3cc5c2793"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appender entries getter.  <a href="#a53e80739cdaa0388f61a05c3cc5c2793">More...</a><br /></td></tr>
+<tr class="separator:a53e80739cdaa0388f61a05c3cc5c2793"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -136,10 +136,10 @@ Private Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:af9f17766a9a3651fdab2202cab74da28"><td class="memItemLeft" align="right" valign="top"><a id="af9f17766a9a3651fdab2202cab74da28"></a>
-std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../db/d6c/a02130.html">AppenderEntry</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/deb/a02214.html#af9f17766a9a3651fdab2202cab74da28">appenders_</a></td></tr>
-<tr class="memdesc:af9f17766a9a3651fdab2202cab74da28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appenders for the job. <br /></td></tr>
-<tr class="separator:af9f17766a9a3651fdab2202cab74da28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d404fb1e1eb4acdeb69263f08bf5ecb"><td class="memItemLeft" align="right" valign="top"><a id="a3d404fb1e1eb4acdeb69263f08bf5ecb"></a>
+std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../db/d6c/a02130.html">AppenderEntry</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/deb/a02214.html#a3d404fb1e1eb4acdeb69263f08bf5ecb">appenders_</a></td></tr>
+<tr class="memdesc:a3d404fb1e1eb4acdeb69263f08bf5ecb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appenders for the job. <br /></td></tr>
+<tr class="separator:a3d404fb1e1eb4acdeb69263f08bf5ecb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Logs entries container class. </p>
@@ -171,8 +171,8 @@ std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../db/d6c/a02130.ht
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ad85fb9d347f23eee7fcfa7edc13b9581"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad85fb9d347f23eee7fcfa7edc13b9581">&#9670;&nbsp;</a></span>addAppenderEntry()</h2>
+<a id="abbf800c9e0794bea55972cd97ec580e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbf800c9e0794bea55972cd97ec580e6">&#9670;&nbsp;</a></span>addAppenderEntry()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -180,7 +180,7 @@ std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../db/d6c/a02130.ht
         <tr>
           <td class="memname">void job::LogsEntry::addAppenderEntry </td>
           <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../db/d6c/a02130.html">AppenderEntry</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../db/d6c/a02130.html">AppenderEntry</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>appenderEntry</em></td><td>)</td>
           <td></td>
         </tr>
@@ -231,14 +231,14 @@ std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../db/d6c/a02130.ht
 
 </div>
 </div>
-<a id="a830c58d417a462217cb43915c226d63d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a830c58d417a462217cb43915c226d63d">&#9670;&nbsp;</a></span>getAppenderEntries()</h2>
+<a id="a53e80739cdaa0388f61a05c3cc5c2793"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53e80739cdaa0388f61a05c3cc5c2793">&#9670;&nbsp;</a></span>getAppenderEntries()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const std::vector&lt;boost::shared_ptr&lt;<a class="el" href="../../db/d6c/a02130.html">AppenderEntry</a>&gt; &gt;&amp; job::LogsEntry::getAppenderEntries </td>
+          <td class="memname">const std::vector&lt;std::shared_ptr&lt;<a class="el" href="../../db/d6c/a02130.html">AppenderEntry</a>&gt; &gt;&amp; job::LogsEntry::getAppenderEntries </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -298,7 +298,7 @@ std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../db/d6c/a02130.ht
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>job</b></li><li class="navelem"><a class="el" href="../../d6/deb/a02214.html">LogsEntry</a></li>
-    <li class="footer">Generated on Mon Feb 10 2025 13:45:28 for Dynawo by
+    <li class="footer">Generated on Tue Feb 11 2025 17:33:23 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
