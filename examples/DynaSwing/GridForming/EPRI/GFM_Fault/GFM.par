@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2025, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="Solver">
+    <par type="INT" name="order" value="2"/>
+    <par type="DOUBLE" name="initStep" value="1e-8"/>
+    <par type="DOUBLE" name="minStep" value="1e-8"/>
+    <par type="DOUBLE" name="maxStep" value="10"/>
+    <par type="DOUBLE" name="minimalAcceptableStep" value="1e-10"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-3"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-3"/>
+  </set>
+  <set id="1">
+    <par type="DOUBLE" name="infiniteBus_U0Pu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_UEvtPu" value="0.5"/>
+    <par type="DOUBLE" name="infiniteBus_UPhase" value="0"/>
+    <par type="DOUBLE" name="infiniteBus_omega0Pu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_omegaEvtPu" value="0.999"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtStart" value="90"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtEnd" value="100"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtStart" value="0.5"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtEnd" value="4"/>
+  </set>
+  <set id="2">
+    <par type="DOUBLE" name="line_XPu" value="0.097614"/>
+    <par type="DOUBLE" name="line_RPu" value="0.009851"/>
+    <par type="DOUBLE" name="line_BPu" value="0.0"/>
+    <par type="DOUBLE" name="line_GPu" value="0.0"/>
+  </set>
+  <set id="3">
+    <par type="DOUBLE" name="line_XPu" value="0.18699"/>
+    <par type="DOUBLE" name="line_RPu" value="0.000199"/>
+    <par type="DOUBLE" name="line_BPu" value="0.0"/>
+    <par type="DOUBLE" name="line_GPu" value="0.0"/>
+  </set>
+  <set id="4">
+    <par type="DOUBLE" name="gfm_DD" value="0.11"/>
+    <par type="DOUBLE" name="gfm_DeltaOmegaMaxPu" value="0.238739456"/>
+    <par type="DOUBLE" name="gfm_DeltaOmegaMinPu" value="-0.238739456"/>
+    <par type="DOUBLE" name="gfm_IMaxPu" value="1.05"/>
+    <par type="DOUBLE" name="gfm_K1" value="0.05"/>
+    <par type="DOUBLE" name="gfm_K2" value="0.2"/>
+    <par type="DOUBLE" name="gfm_K2Dvoc" value="1e-5"/>
+    <par type="DOUBLE" name="gfm_KD" value="0"/>
+    <par type="DOUBLE" name="gfm_KIPll" value="700"/>
+    <par type="DOUBLE" name="gfm_KIi" value="5"/>
+    <par type="DOUBLE" name="gfm_KIp" value="10"/>
+    <par type="DOUBLE" name="gfm_KIv" value="10"/>
+    <par type="DOUBLE" name="gfm_KPPll" value="20"/>
+    <par type="DOUBLE" name="gfm_KPi" value="0.5"/>
+    <par type="DOUBLE" name="gfm_KPp" value="2"/>
+    <par type="DOUBLE" name="gfm_KPv" value="2"/>
+    <par type="DOUBLE" name="gfm_LFilterPu" value="0.15"/>
+    <par type="DOUBLE" name="gfm_MF" value="0.15"/>
+    <par type="DOUBLE" name="gfm_OmegaDroopPu" value="0.05"/>
+    <par type="INT" name="gfm_OmegaFlag" value="1"/>
+    <par type="DOUBLE" name="gfm_OmegaMaxPu" value="1.5"/>
+    <par type="DOUBLE" name="gfm_OmegaMinPu" value="0.5"/>
+    <par type="BOOL" name="gfm_PQFlag" value="true"/>
+    <par type="DOUBLE" name="gfm_QDroopPu" value="0.2"/>
+    <par type="DOUBLE" name="gfm_RFilterPu" value="0.00015"/>
+    <par type="DOUBLE" name="gfm_RSourcePu" value="0.00015"/>
+    <par type="DOUBLE" name="gfm_SNom" value="100"/>
+    <par type="DOUBLE" name="gfm_UDipPu" value="0.8"/>
+    <par type="DOUBLE" name="gfm_XSourcePu" value="0.15"/>
+    <par type="DOUBLE" name="gfm_tE" value="0.01"/>
+    <par type="DOUBLE" name="gfm_tF" value="1e-5"/>
+    <par type="DOUBLE" name="gfm_tR" value="0.005"/>
+    <par type="DOUBLE" name="gfm_tV" value="1e-5"/>
+    <par type="DOUBLE" name="gfm_P0Pu" value="-0.657"/>
+    <par type="DOUBLE" name="gfm_Q0Pu" value="-0.0228928"/>
+    <par type="DOUBLE" name="gfm_U0Pu" value="0.995421"/>
+    <par type="DOUBLE" name="gfm_Theta0" value="0.188732"/>
+  </set>
+  <set id="5">
+    <par type="DOUBLE" name="fault_RPu" value="0"/>
+    <par type="DOUBLE" name="fault_XPu" value="0.0014056"/>
+    <par type="DOUBLE" name="fault_tBegin" value="6"/>
+    <par type="DOUBLE" name="fault_tEnd" value="6.2"/>
+  </set>
+</parametersSet>

@@ -1,4 +1,4 @@
-# Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+# Copyright (c) 2025, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,13 +8,16 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-add_subdirectory(Resources R)
+add_subdirectory(BaseControls B)
+add_subdirectory(Parameters P)
 
 set(MODEL_FILES
+  # Converter control models
   package.mo
   package.order
-  EpriSmib.mo
-  GridForming.mo
+  EpriGFM.mo
+  EpriGFM.extvar
+  EpriGFM_INIT.mo
   )
 
 #
