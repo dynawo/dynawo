@@ -58,6 +58,17 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 test_cases.append((case_name, case_description, job_file, 2, standardReturnCodeType, standardReturnCode))
 
 #############################
+#     GFM EPRI - Fault      #
+#############################
+
+case_name = "DynaSwing - GFM EPRI - Fault"
+case_description = "GFM EPRI - Fault"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "GridForming", "EPRI", "GFM_Fault", "GFM.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+
+#############################
 #     GFM / GFL - Steps     #
 #############################
 

@@ -733,6 +733,63 @@ At t = 1 s, a fault at the infinite bus is simulated and it can be seen that the
 
 \newpage
 
+\chapter{Grid Forming}
+This test case comprises two lines, an infinite bus and a grid-forming converter based on the EPRI model.
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{GFMEPRI.png}
+  \caption{Test case diagram}
+\end{figure}
+
+The EPRI model has 4 control modes (1-3 are grid-forming):
+\begin{itemize}
+\item 0 - PLL based current control
+\item 1 - Droop control
+\item 2 - Virtual synchronous machine
+\item 3 - Virtual oscillator control
+\end{itemize}
+
+In this test case, droop control is used. The grid-forming converters controls come from the EPRI website: https://www.epri.com/research/products/000000003002021403.
+
+At t = 0.5 s the grid frequency is decreased by 0.005 pu and brought back to normal at 4s. At t = 6 s, a short-circuit occurs between the lines. It is cleared after 150ms.
+
+The following figures show the evolution of active and reactive power and frequency for the converter during simulation.
+
+\begin{figure}[H]
+\subfigure[Frequency in pu (base OmegaNom)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 1.5in, yticklabel style={/pgf/number format/.cd,fixed,precision=3}]
+        \addplot[color=blue!50]
+        table[x=time,y expr=\thisrow{GfmEPRI_gfm_pll_omegaPLLPu}
+        ]
+        {../GridForming/EPRI/GFM_Fault/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+  }
+\subfigure[Active power of the converter in pu (base SNom)]
+{%
+\begin{tikzpicture}
+    \begin{axis}[height = 1.5in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{GfmEPRI_gfm_epriVoltageControl_PPu}]
+        {../GridForming/EPRI/GFM_Fault/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Reactive power of the converter in pu (base SNom)]
+{%
+\begin{tikzpicture}
+    \begin{axis}[height = 1.5in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{GfmEPRI_gfm_epriVoltageControl_QPu}]
+        {../GridForming/EPRI/GFM_Fault/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+
+\end{figure}
+
 \chapter{Grid Forming - Grid Following}
 
 This chapter presents three test cases that simulate a 5-machine all-converter-interfaced power system.

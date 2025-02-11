@@ -1,7 +1,7 @@
 Comptodq
-CurrentLimiter
+CurrentLimitsCalculation
 DQTrafo
-EpriCurrentCtrl
-EpriVoltageCtrl
+EpriCurrentControl
+EpriVoltageControl
 GFM
 LvrtFrz
