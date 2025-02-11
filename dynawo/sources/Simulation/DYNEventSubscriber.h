@@ -82,11 +82,12 @@ class EventSubscriber {
   std::thread receiverThread_;
   std::shared_ptr<Model> model_;
   bool running_;
-  int stepTriggeredCnt_;
   bool triggerEnabled_;
   bool actionsEnabled_;
   std::mutex simulationMutex_;
   std::condition_variable simulationStepTriggerCondition_;
+  std::mutex receptionMutex_;
+  std::condition_variable receptionCondition_;
 };
 
 }  // end of namespace DYN
