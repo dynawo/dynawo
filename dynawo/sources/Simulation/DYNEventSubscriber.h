@@ -82,7 +82,7 @@ class EventSubscriber {
   std::thread receiverThread_;
   std::shared_ptr<Model> model_;
   bool running_;
-  bool ready_;
+  int stepTriggeredCnt_;
   bool triggerEnabled_;
   bool actionsEnabled_;
   std::mutex simulationMutex_;

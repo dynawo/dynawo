@@ -1,0 +1,50 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f9;
+}
+
+.container {
+  display: flex;
+  width: 80%;
+  max-width: 1200px;
+}
+
+.chart-container {
+  flex: 3;
+  padding: 20px;
+}
+
+.checkbox-container {
+  flex: 1;
+  height: 500px;
+  padding: 20px;
+  background-color: #fff;
+  border-left: 1px solid #ddd;
+  overflow:hidden;
+  overflow-y:scroll;
+}
+
+h3 {
+  margin-bottom: 15px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+label {
+  cursor: pointer;
+}

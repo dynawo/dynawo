@@ -33,7 +33,7 @@ namespace DYN {
 EventSubscriber::EventSubscriber(bool triggerEnabled, bool actionEnabled):
 socket_(context_, zmqpp::socket_type::reply),
 running_(false),
-ready_(false),
+stepTriggeredCnt_(false),
 triggerEnabled_(triggerEnabled),
 actionsEnabled_(actionEnabled) {
   socket_.bind("tcp://*:5555");
@@ -113,7 +113,7 @@ EventSubscriber::messageReceiver() {
           // trigger next step
           reply << "Step triggered";
           std::lock_guard<std::mutex> simulationLock(simulationMutex_);
-          ready_ = true;
+          stepTriggeredCnt_++;
           socket_.send(reply);
           simulationStepTriggerCondition_.notify_one();
       } else if (actionsEnabled_) {
@@ -136,7 +136,7 @@ EventSubscriber::messageReceiver() {
     // Sleep briefly to reduce CPU usage
     std::this_thread::sleep_for(std::chrono::milliseconds(10));
   }
-  ready_ = true;
+  stepTriggeredCnt_++;
   simulationStepTriggerCondition_.notify_all();
 }
 
@@ -216,8 +216,8 @@ void
 EventSubscriber::wait() {
   std::cout << "EventSubscriber: wait for signal " << std::endl;
   std::unique_lock<std::mutex> simulationLock(simulationMutex_);
-  simulationStepTriggerCondition_.wait(simulationLock, [this] {return ready_;});
-  ready_ = false;
+  simulationStepTriggerCondition_.wait(simulationLock, [this] {return stepTriggeredCnt_;});
+  stepTriggeredCnt_--;
   std::cout << "EventSubscriber: trigger signal received " << std::endl;
 }
 
