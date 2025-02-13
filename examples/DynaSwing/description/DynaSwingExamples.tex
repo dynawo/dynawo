@@ -859,7 +859,6 @@ The initial values of P0Pu and Q0Pu are in base SnRef and in receptor convention
 \end{center}
 
 RPu and XPu are set to 0 in the article, considering that we are controling the output at the injector level (not after the line of BESS).
-Numerically, XPu causes simulation failure at initialization, it is thus set to $10^{-6}$.
 
 All the parameters' values are taken from the article.
 
@@ -881,7 +880,7 @@ These models are fully described in the Dyna$\omega$o library.
 The obtained results match the ones presented in the article for "a 3-phase to ground fault on the high-side of the step-up transformer". In the model, we applied a fault at the infinite bus level (no step-up transformer) with a voltage dip at 0.55 pu.
 
 
-At initial time, the active power demanded by the battery is 0.5 pu (base SNom = 6MVA) and the reactive power is 0 pu (base SNom = 6MVA).
+At initial time, the active power demanded by the battery is 0.5 pu (base SNom = 6 MVA) and the reactive power is 0 pu (base SNom = 6 MVA).
 
 The BESS is able to discharge since the initial state of charge SOC0Pu = 0.5 is between the accepted range [SOCMinPu = 0.2 , SOCMaxPu = 0.8]. Since the simulation is only for 3 s, and the discharge time is considered much longer, the state of charge SOCPu is considered constant all along the simulation time.
 
