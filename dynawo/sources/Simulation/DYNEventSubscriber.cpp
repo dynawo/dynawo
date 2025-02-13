@@ -36,8 +36,7 @@ running_(false),
 stepTriggeredCnt_(false),
 triggerEnabled_(triggerEnabled),
 actionsEnabled_(actionEnabled),
-asyncMode_(asyncMode),
-pendingReply_(false) {
+asyncMode_(asyncMode) {
   socket_.bind("tcp://*:5555");
 }
 
@@ -61,6 +60,7 @@ EventSubscriber::start() {
 
 void
 EventSubscriber::stop() {
+  receiveMessages(true);
   simulationStepTriggerCondition_.notify_all();
   receiverThread_.join();
   std::cout << "EventSubscriber: thread stopped" << std::endl;
@@ -99,6 +99,7 @@ EventSubscriber::registerAction(const std::string& modelName, std::shared_ptr<pa
   return true;
 }
 
+/*
 void
 EventSubscriber::sendReply(const std::string& msg) {
   if (!asyncMode_ && pendingReply_) {
@@ -107,12 +108,10 @@ EventSubscriber::sendReply(const std::string& msg) {
     socket_.send(reply);
   }
 }
+*/
 
 void
-EventSubscriber::receiveMessages() {
-  sendReply("trigger reply");
-  pendingReply_ = false;
-
+EventSubscriber::receiveMessages(bool stop) {
   while (running_ && !SignalHandler::gotExitSignal()) {
     zmqpp::message message;
 
@@ -125,7 +124,15 @@ EventSubscriber::receiveMessages() {
 
       if (input.empty() && triggerEnabled_) {
           // trigger next step
-          pendingReply_ = true;
+          zmqpp::message reply;
+          if (stop) {
+            reply << "simulation ended";
+            std::cout << "Reply: simulation ended" << std::endl;
+          } else {
+            reply << "trigger reply";
+            std::cout << "Reply: trigger reply" << std::endl;
+          }
+          socket_.send(reply);
           return;
 
       } else if (actionsEnabled_) {
