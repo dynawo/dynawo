@@ -289,9 +289,6 @@ SimulationRT::simulate() {
         }
       }
     }
-    if (eventSubscriber_) {
-      eventSubscriber_->sendReply("simulation ended");
-    }
 
     // If we haven't evaluated the calculated variables for the last iteration before, we must do it here if it might be used in the post process
     if (finalState_.iidmFile_ || exportCurvesMode_ != EXPORT_CURVES_NONE || activateCriteria_)

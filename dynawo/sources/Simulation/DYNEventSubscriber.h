@@ -64,9 +64,9 @@ class EventSubscriber {
 
   bool registerAction(const std::string& modelName, std::shared_ptr<parameters::ParametersSet>& parametersSet);
 
-  void sendReply(const std::string& msg);
+  // void sendReply(const std::string& msg);
 
-  void receiveMessages();
+  void receiveMessages(bool stop = false);
 
   void messageReceiverAsync();
 

@@ -24,7 +24,7 @@
 namespace DYN {
 
 ZmqPublisher::ZmqPublisher():
-socket_(context_, zmqpp::socket_type::req) {
+socket_(context_, zmqpp::socket_type::pub) {
   socket_.bind("tcp://*:5556");
 }
 
@@ -34,10 +34,10 @@ ZmqPublisher::sendMessage(std::string& data) {
   message << data;
   socket_.send(message);
   std::cout << "ZmqPublisher: data sent" << std::endl;
-  zmqpp::message reply;
+  /* zmqpp::message reply;
   socket_.receive(reply);
   std::string reply_text;
   reply >> reply_text;
-  std::cout << "Received: " << reply_text << std::endl;
+  std::cout << "Received: " << reply_text << std::endl; */
 }
 }  // end of namespace DYN
