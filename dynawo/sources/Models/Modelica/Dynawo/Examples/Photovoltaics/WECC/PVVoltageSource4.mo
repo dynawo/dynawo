@@ -74,8 +74,6 @@ equation
     Line(points = {{70, -80}, {20, -80}, {20, -22}}, color = {0, 0, 127}));
   connect(PV.PFaRef, PFaRef.y) annotation(
     Line(points = {{20, -22}, {20, -80}, {70, -80}}, color = {0, 0, 127}));
-  connect(line.terminal2, PV.terminal) annotation(
-    Line(points = {{-20, 0}, {0, 0}}, color = {0, 0, 255}));
 
   annotation(
     preferredView = "diagram",

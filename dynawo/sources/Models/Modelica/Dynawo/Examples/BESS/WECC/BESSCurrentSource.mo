@@ -99,12 +99,12 @@ model BESSCurrentSource "WECC BESS with REEC-C and REGC-B with a plant controlle
     VMinPu = 0.9,
     VRef0Pu = 1,
     VUpPu = 99,
-    XPu = 1e-10,
+    XPu = 0,
     brkpt = 0.1,
-    i0Pu( im(fixed = false),re(fixed = false)),
-    iInj0Pu( im(fixed = false),re(fixed = false)),
+    i0Pu(im(fixed = false), re(fixed = false)),
+    iInj0Pu( im(fixed = false), re(fixed = false)),
     lvpl1 = 1.22,
-    s0Pu( im(fixed = false),re(fixed = false)),
+    s0Pu(im(fixed = false), re(fixed = false)),
     tBattery = 999,
     tFilterGC = 0.02,
     tFilterPC = 0.02,
@@ -116,8 +116,8 @@ model BESSCurrentSource "WECC BESS with REEC-C and REGC-B with a plant controlle
     tP = 0.05,
     tPord = 0.017,
     tRv = 0.01,
-    u0Pu( im(fixed = false),re(fixed = false)),
-    uInj0Pu( im(fixed = false),re(fixed = false)),
+    u0Pu(im(fixed = false), re(fixed = false)),
+    uInj0Pu(im(fixed = false), re(fixed = false)),
     zerox = 0.05) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant URefPu(k = 1) annotation(
