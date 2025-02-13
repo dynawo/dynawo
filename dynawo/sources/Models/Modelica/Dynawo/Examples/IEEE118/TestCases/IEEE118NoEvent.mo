@@ -13,7 +13,7 @@ within Dynawo.Examples.IEEE118.TestCases;
 * of simulation tools for power systems.
 */
 
-model IEEE118NoEvent "Base class for IEEE 118-bus system benchmark formed with 118 buses, 54 generators, 14 shunts, 9 transformers , 177 lines and 99 loads."
+model IEEE118NoEvent "Base class for IEEE 118-bus system benchmark formed with 118 buses, 54 generators, 14 shunts, 9 transformers, 177 lines and 99 loads."
   extends Dynawo.Examples.IEEE118.BaseClasses.IEEE118Base;
   extends Icons.Example;
 
