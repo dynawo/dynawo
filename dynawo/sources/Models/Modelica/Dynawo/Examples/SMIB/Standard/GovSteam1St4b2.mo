@@ -73,12 +73,14 @@ model GovSteam1St4b2 "Active power variation on the load"
     K8 = 0,
     pgv.table = [0, 0; 0.4, 0.75; 0.5, 0.91; 0.6, 0.98; 1, 1],
     pgv.tableOnFile = false,
+    PgvTableName = "NoName",
     PMaxPu = 1,
     PMinPu = 0,
     Pm0Pu = generatorSynchronous.Pm0Pu,
     PmRef0Pu = 0.43125,
     Sdb1 = true,
     Sdb2 = true,
+    TablesFile = "NoFile",
     Uc = -10,
     Uo = 1,
     ValveOn = true,
@@ -130,12 +132,24 @@ model GovSteam1St4b2 "Active power variation on the load"
     Placement(visible = true, transformation(origin = {84, 66}, extent = {{-4, -4}, {4, 4}}, rotation = 0)));
 
   // Load
-  Dynawo.Electrical.Loads.LoadAlphaBeta load(alpha = 2, beta = 2, u0Pu = Complex(1, 0)) annotation(
+  Dynawo.Electrical.Loads.LoadAlphaBeta load(alpha = 2, beta = 2, i0Pu(re(fixed = false), im(fixed = false)), s0Pu(re(fixed = false), im(fixed = false)), u0Pu(re(fixed = false), im(fixed = false))) annotation(
     Placement(visible = true, transformation(origin = {-40, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant QRefPu(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-10, -50}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step PRefPu(height = 0.05 * generatorSynchronous.PNomAlt / 100, offset = 3.8, startTime = 0.1) annotation(
     Placement(visible = true, transformation(origin = {-70, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  // Initialization
+  Dynawo.Electrical.Loads.Load_INIT load_INIT(P0Pu = PRefPu.offset, Q0Pu = QRefPu.k, U0Pu = generatorSynchronous.U0Pu, UPhase0 = generatorSynchronous.UPhase0) annotation(
+    Placement(transformation(origin = {-150, -90}, extent = {{-10, -10}, {10, 10}})));
+
+initial algorithm
+  load.i0Pu.re := load_INIT.i0Pu.re;
+  load.i0Pu.im := load_INIT.i0Pu.im;
+  load.s0Pu.re := load_INIT.s0Pu.re;
+  load.s0Pu.im := load_INIT.s0Pu.im;
+  load.u0Pu.re := load_INIT.u0Pu.re;
+  load.u0Pu.im := load_INIT.u0Pu.im;
 
 equation
   generatorSynchronous.switchOffSignal1.value = false;
@@ -161,8 +175,6 @@ equation
     Line(points = {{38, -6}, {60, -6}, {60, -40}, {80, -40}}, color = {0, 0, 127}));
   connect(generatorSynchronous.uPu_out, avr.utPu) annotation(
     Line(points = {{4, 18}, {4, 30}, {152, 30}, {152, 53}, {142, 53}, {142, 52}}, color = {85, 170, 255}));
-  connect(governor.Pm1Pu, generatorSynchronous.PmPu_in) annotation(
-    Line(points = {{100, -36}, {110, -36}, {110, -60}, {32, -60}, {32, -16}}, color = {0, 0, 127}));
   connect(generatorSynchronous.iStatorPu_out, avr.itPu) annotation(
     Line(points = {{12, 18}, {12, 26}, {156, 26}, {156, 56}, {142, 56}}, color = {85, 170, 255}));
   connect(generatorSynchronous.IRotorPu_out, avr.IrPu) annotation(
