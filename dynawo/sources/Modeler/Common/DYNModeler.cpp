@@ -135,7 +135,7 @@ Modeler::initParamDescription(const std::shared_ptr<ModelDescription>& modelDesc
 
   // params can be a nullptr if no parFile was given for the model
   if (params) {
-    // if there are references in external parameters, retrieve the parameters' value from IIDM
+    // if there are references in external parameters, retrieve the parameter value from IIDM
     vector<string> referencesNames = params->getReferencesNames();
 
     for (vector<string>::const_iterator itRef = referencesNames.begin(); itRef != referencesNames.end(); ++itRef) {
