@@ -231,7 +231,7 @@ The solver used is the variable time step solver IDA with the following paramete
 \newpage
 \subsection{Results}
 
-At t=20s, the line is disconnected. Following the topology modification, the current through the transformer monitored by the phase shifter I becomes higher than its threshold $I_{Max}$. After a time delay of 10s, the phase shifter changes its first step, which results in a step decrease of the transformer's current. Then, step are changed every 5s and the process repeats until the current reaches $I_{Stop}$ and don't cross $I_{Max}$ again. \\
+At t=20s, the line is disconnected. Following the topology modification, the current through the transformer monitored by the phase shifter I becomes higher than its threshold $I_{Max}$. After a time delay of 10s, the phase shifter changes its first step, which results in a step decrease of the transformer's current. Then, step are changed every 5 s and the process repeats until the current reaches $I_{Stop}$ and don't cross $I_{Max}$ again. \\
 
 \begin{figure}[H]
 \subfigure[Transformer's current (pu)]
@@ -308,7 +308,7 @@ The solver used is the variable time step solver IDA with the following paramete
 \newpage
 \subsection{Results}
 
-At t=20s, the line is disconnected. Following the topology modification, the current through the transformer monitored by the phase shifter goes out of the tolerated range around $P_{Target}$.  10 seconds later, the transformer tap is changed which results in a step decrease of transiting active power. Though, it is still not in the tolerated range so the phase-shifter increases the tap again, this time only waiting for 5 seconds. Consequently, the active power transit drops and transiently falls back into the dead-band before going out of it again. Therefore, the phase-shifter P first temporarily stops taking steps, and then starts again waiting for a 10s delay before shifting to the next tap. This process repeats two times more and the automaton stops acting once the active power transit finally stabilizes in the range around $P_{Target}$. \\
+At t=20s, the line is disconnected. Following the topology modification, the current through the transformer monitored by the phase shifter goes out of the tolerated range around $P_{Target}$.  10 seconds later, the transformer tap is changed which results in a step decrease of transiting active power. Though, it is still not in the tolerated range so the phase-shifter increases the tap again, this time only waiting for 5 seconds. Consequently, the active power transit drops and transiently falls back into the dead-band before going out of it again. Therefore, the phase-shifter P first temporarily stops taking steps, and then starts again waiting for a 10 s delay before shifting to the next tap. This process repeats two times more and the automaton stops acting once the active power transit finally stabilizes in the range around $P_{Target}$. \\
 
 \begin{figure}[H]
 \subfigure[Transformer's transiting active power (pu)]
@@ -392,8 +392,8 @@ The solver used is the variable time step solver IDA with the following paramete
 \newpage
 \subsection{Results}
 
-At t=5s, the line 1-5 is disconnected. Following this topology change, the current value on the line 2-5 monitored by the first current limit automaton becomes higher than its threshold $I_{Max}$=600 A. After the time delay (5s), and as the current didn't go back under $I_{Max}$, the automaton then opens line 2-5.
-As a consequence, the transit on line 2-4 increases and exceeds the second current limit automaton threshold $I_{Max}$=1000 A . After the time delay (10s), and as the current didn't go back under $I_{Max}$, the automaton opens line 2-4. \\
+At t=5 s, the line 1-5 is disconnected. Following this topology change, the current value on the line 2-5 monitored by the first current limit automaton becomes higher than its threshold $I_{Max}$=600 A. After the time delay (5 s), and as the current didn't go back under $I_{Max}$, the automaton then opens line 2-5.
+As a consequence, the transit on line 2-4 increases and exceeds the second current limit automaton threshold $I_{Max}$=1000 A . After the time delay (10 s), and as the current didn't go back under $I_{Max}$, the automaton opens line 2-4. \\
 
 \begin{figure}[H]
 \subfigure[Currents monitored by the automata (A)]
@@ -782,10 +782,10 @@ The distance protection parameters are:
    $t_{Zone_1}=0.30s$ & $R_{Zone_0}=0.203pu$ & $X_{Zone_0}=0.203pu$ & $Tripping_{Zone_0}$ = True  \\
 \end{tabular}
 \end{center}
-and the circuit breaker time is 0.08s. The zone 0 protects 80\% of the line but is not connected to a circuit breaker, and the zone 1 protects 120\% of the line and is connected to a circuit breaker.
+and the circuit breaker time is 0.08 s. The zone 0 protects 80\% of the line but is not connected to a circuit breaker, and the zone 1 protects 120\% of the line and is connected to a circuit breaker.
 
 \subsection{Scenario}
-At $t=5s$, a 500ms three-phase fault is triggered at bus 8.
+At $t=5s$, a 500 ms three-phase fault is triggered at bus 8.
 
 \subsection{Solver}
 The solver used is the variable time step solver IDA with the following parameters:
@@ -798,7 +798,7 @@ The solver used is the variable time step solver IDA with the following paramete
 \newpage
 \subsection{Results}
 
-The simulated fault appears in zone 1 of the distance relay which thus trips after 0.3s\\
+The simulated fault appears in zone 1 of the distance relay which thus trips after 0.3 s\\
 
 \begin{figure}[H]
 \subfigure[Active and reactive powers measured by the distance relay (pu)]
@@ -859,7 +859,7 @@ The loss of synchronism protection parameters are:
 \end{center}
 
 \subsection{Scenario}
-At $t=5s$, a 1500ms three-phase fault is triggered at generator 1. This very high duration fault causes the generator to lose synchronism.
+At $t=5s$, a 1500 ms three-phase fault is triggered at generator 1. This very high duration fault causes the generator to lose synchronism.
 
 \subsection{Solver}
 The solver used is the variable time step solver IDA with the following parameters:
@@ -872,7 +872,7 @@ The solver used is the variable time step solver IDA with the following paramete
 \newpage
 \subsection{Results}
 
-The simulated fault makes the generator 1 lose synchronism with the rest of the network leading to a continuous increase of its angle with respect to the rest of the grid. The protection triggers 100ms after the angle goes above \(2\pi\).
+The simulated fault makes the generator 1 lose synchronism with the rest of the network leading to a continuous increase of its angle with respect to the rest of the grid. The protection triggers 100 ms after the angle goes above \(2\pi\).
 
 \begin{figure}[H]
 \subfigure[Generator 1 angle (rad)]
@@ -924,7 +924,7 @@ The speed protection parameters are:
 \end{center}
 
 \subsection{Scenario}
-At $t=5s$, a 1000ms three-phase fault is triggered at generator 1. This very high duration fault causes the generator to lose synchronism, and thus to accelerate.
+At $t=5s$, a 1000 ms three-phase fault is triggered at generator 1. This very high duration fault causes the generator to lose synchronism, and thus to accelerate.
 
 \subsection{Solver}
 The solver used is the variable time step solver IDA with the following parameters:
@@ -937,7 +937,7 @@ The solver used is the variable time step solver IDA with the following paramete
 \newpage
 \subsection{Results}
 
-The simulated fault makes the generator 1 lose synchronism with the rest of the network causing it to accelerate. The protection triggers 100ms after the angular speed of the generator goes above 1.01pu.
+The simulated fault makes the generator 1 lose synchronism with the rest of the network causing it to accelerate. The protection triggers 100 ms after the angular speed of the generator goes above 1.01 pu.
 
 \begin{figure}[H]
 \subfigure[Generator 1 angular speed (pu)]
@@ -1013,7 +1013,7 @@ The solver used is the variable time step solver IDA with the following paramete
 \newpage
 \subsection{Results}
 
-The generator disconnection lead to a decrease in frequency. The UFLS scheme disconnects 10\% of all loads 100ms after the frequency drops below 0.99pu which stabilises the frequency.
+The generator disconnection leads to a decrease in frequency. The UFLS scheme disconnects 10\% of all loads 100 ms after the frequency drops below 0.99 pu which stabilises the frequency.
 
 \begin{figure}[H]
 \subfigure[System frequency (pu)]
