@@ -11,7 +11,7 @@
 */
 
 var datasRead=[];
-var colors=["#0000CC","#FF0000","#FF9900","#9900FF","#6600FF","#000000"];
+var colors=["#0000CC","#FF0000","#FF9900","#009e73","#56b4e9","#000000"];
 var colorUsed=[false,false,false,false,false,false];
 $(function () {
   @DATA_TO_PRINT@
