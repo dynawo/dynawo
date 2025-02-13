@@ -78,12 +78,24 @@ model SMIBStepEfdPm "Synchronous machine infinite bus with steps on Efd and Pm"
     Placement(visible = true, transformation(origin = {36, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   // Load
-  Dynawo.Electrical.Loads.LoadAlphaBeta load(alpha = 2, beta = 2, u0Pu = Complex(0.952267, 0)) annotation(
+  Dynawo.Electrical.Loads.LoadAlphaBeta load(alpha = 2, beta = 2, i0Pu(re(fixed = false), im(fixed = false)), s0Pu(re(fixed = false), im(fixed = false)), u0Pu(re(fixed = false), im(fixed = false))) annotation(
     Placement(visible = true, transformation(origin = {0, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant PRefPu(k = 4.75) annotation(
     Placement(visible = true, transformation(origin = {-30, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant QRefPu(k = 0.76) annotation(
     Placement(visible = true, transformation(origin = {30, -70}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+
+  // Initialization
+  Dynawo.Electrical.Loads.Load_INIT load_INIT(P0Pu = PRefPu.k, Q0Pu = QRefPu.k, U0Pu = 0.952267, UPhase0 = 0) annotation(
+    Placement(transformation(origin = {-90, -90}, extent = {{-10, -10}, {10, 10}})));
+
+initial algorithm
+  load.i0Pu.re := load_INIT.i0Pu.re;
+  load.i0Pu.im := load_INIT.i0Pu.im;
+  load.s0Pu.re := load_INIT.s0Pu.re;
+  load.s0Pu.im := load_INIT.s0Pu.im;
+  load.u0Pu.re := load_INIT.u0Pu.re;
+  load.u0Pu.im := load_INIT.u0Pu.im;
 
 initial equation
   der(generatorSynchronous.lambdafPu) = 0;

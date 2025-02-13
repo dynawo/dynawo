@@ -115,7 +115,7 @@ model TestCase3 "Bolted three-phase short circuit at the high-level side of the 
     Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Transformers.TransformerFixedRatio transformer(BPu = 0, GPu = 0, RPu = 0.0003, XPu = 0.032, rTfoPu = 1) annotation(
     Placement(visible = true, transformation(origin = {-32, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Loads.LoadAlphaBeta load(alpha = 2, beta = 2, u0Pu = Complex(0.952267, 0)) annotation(
+  Dynawo.Electrical.Loads.LoadAlphaBeta load(alpha = 2, beta = 2, i0Pu(re(fixed = false), im(fixed = false)), s0Pu(re(fixed = false), im(fixed = false)), u0Pu(re(fixed = false), im(fixed = false))) annotation(
     Placement(visible = true, transformation(origin = {-80, -38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant PRefPu(k = 4.75);
   Modelica.Blocks.Sources.Constant QRefPu(k = 0.76);
@@ -123,6 +123,18 @@ model TestCase3 "Bolted three-phase short circuit at the high-level side of the 
   // Three-phase short circuit
   Dynawo.Electrical.Events.NodeFault nodeFault(RPu = 0.000173, XPu = 0, tBegin = 0.1, tEnd = 0.2) annotation(
     Placement(visible = true, transformation(origin = {-52, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  // Initialization
+  Dynawo.Electrical.Loads.Load_INIT load_INIT(P0Pu = PRefPu.k, Q0Pu = QRefPu.k, U0Pu = 0.952267, UPhase0 = 0) annotation(
+    Placement(transformation(origin = {-150, -90}, extent = {{-10, -10}, {10, 10}})));
+
+initial algorithm
+  load.i0Pu.re := load_INIT.i0Pu.re;
+  load.i0Pu.im := load_INIT.i0Pu.im;
+  load.s0Pu.re := load_INIT.s0Pu.re;
+  load.s0Pu.im := load_INIT.s0Pu.im;
+  load.u0Pu.re := load_INIT.u0Pu.re;
+  load.u0Pu.im := load_INIT.u0Pu.im;
 
 equation
   load.PRefPu = PRefPu.y;
@@ -166,7 +178,7 @@ equation
   connect(const.y, avr.UsRefPu) annotation(
     Line(points = {{81, 60}, {100, 60}, {100, 24}, {118, 24}}, color = {0, 0, 127}));
   connect(governor.PmPu, generatorSynchronous.PmPu_in) annotation(
-    Line(points = {{101, -40}, {110, -40}, {110, -60}, {32, -60}, {32, -16}}, color = {0, 0, 127}));
+    Line(points = {{101, -30}, {110, -30}, {110, -60}, {32, -60}, {32, -16}}, color = {0, 0, 127}));
   connect(avr.EfdPu, generatorSynchronous.efdPu_in) annotation(
     Line(points = {{141, 18}, {150, 18}, {150, -80}, {8, -80}, {8, -16}}, color = {0, 0, 127}));
 
@@ -193,5 +205,5 @@ equation
     <img width=\"450\" src=\"modelica://Dynawo/Examples/ENTSOE/Resources/UpssPuTestCase3.png\">
     </figure>
 
-</body></html>"));
+    </body></html>"));
 end TestCase3;

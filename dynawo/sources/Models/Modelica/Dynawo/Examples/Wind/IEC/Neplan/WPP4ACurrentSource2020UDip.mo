@@ -172,6 +172,7 @@ model WPP4ACurrentSource2020UDip "Wind Power Plant Type 4A model from IEC 61400-
     IMaxPu = wPP4ACurrentSource.IMaxPu,
     Kpqu = wPP4ACurrentSource.Kpqu,
     MqG = wPP4ACurrentSource.MqG,
+    MwpqMode = wPP4ACurrentSource.MwpqMode,
     P0Pu = wPP4ACurrentSource.P0Pu,
     Q0Pu = wPP4ACurrentSource.Q0Pu,
     QMaxPu = wPP4ACurrentSource.QMaxPu,

@@ -175,6 +175,7 @@ model WPP4BCurrentSource2020FOCB "Wind Power Plant Type 4B model from IEC 61400-
     IMaxPu = wPP4BCurrentSource.IMaxPu,
     Kpqu = wPP4BCurrentSource.Kpqu,
     MqG = wPP4BCurrentSource.MqG,
+    MwpqMode = wPP4BCurrentSource.MwpqMode,
     P0Pu = wPP4BCurrentSource.P0Pu,
     Q0Pu = wPP4BCurrentSource.Q0Pu,
     QMaxPu = wPP4BCurrentSource.QMaxPu,
