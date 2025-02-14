@@ -16,10 +16,10 @@ within Dynawo.Electrical.Controls.Machines.StatorCurrentLimiters.Standard;
 model Scl2c_INIT "IEEE overexcitation limiter type SCL2C initialization model"
   extends AdditionalIcons.Init;
 
-  Types.ComplexCurrentPu it0Pu "Initial complex stator current in pu (base SnRef, UNom)";
-  Types.ActivePowerPu PGen0Pu "Initial active power in pu (base SnRef) (generator convention)";
-  Types.ReactivePowerPu QGen0Pu "Initial reactive power in pu (base SnRef) (generator convention)";
-  Types.ComplexVoltagePu ut0Pu "Initial complex stator voltage in pu (base UNom)";
+  Types.ComplexCurrentPuConnector it0Pu "Initial complex stator current in pu (base SnRef, UNom)";
+  Types.ActivePowerPuConnector PGen0Pu "Initial active power in pu (base SnRef) (generator convention)";
+  Types.ReactivePowerPuConnector QGen0Pu "Initial reactive power in pu (base SnRef) (generator convention)";
+  Types.ComplexVoltagePuConnector ut0Pu "Initial complex stator voltage in pu (base UNom)";
 
   annotation(preferredView = "text");
 end Scl2c_INIT;

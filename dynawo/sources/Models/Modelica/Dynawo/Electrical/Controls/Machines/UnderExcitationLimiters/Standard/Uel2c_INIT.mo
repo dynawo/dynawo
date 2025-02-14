@@ -25,12 +25,12 @@ model Uel2c_INIT "IEEE overexcitation limiter type UEL2C initialization model"
   parameter String FPQTableName "Name of table in text file for the reactive power as a function of active power";
   parameter String TablesFile "Text file that contains the table for the fpq function";
 
-  Types.ActivePowerPu PGen0Pu "Initial active power in pu (base SnRef) (generator convention)";
-  Types.ReactivePowerPu QGen0Pu "Initial reactive power in pu (base SnRef) (generator convention)";
+  Types.ActivePowerPuConnector PGen0Pu "Initial active power in pu (base SnRef) (generator convention)";
+  Types.ReactivePowerPuConnector QGen0Pu "Initial reactive power in pu (base SnRef) (generator convention)";
   Types.ReactivePowerPu QRef0Pu "Initial reference reactive power in pu (base SnRef) (generator convention)";
   Types.VoltageModulePu U0Pu "Initial voltage amplitude at terminal in pu (base UNom)";
-  Types.VoltageModulePu UsRef0Pu "Initial reference stator voltage in pu (base UNom)";
-  Types.ComplexVoltagePu ut0Pu "Initial complex stator voltage in pu (base UNom)";
+  Types.VoltageModulePuConnector UsRef0Pu "Initial reference stator voltage in pu (base UNom)";
+  Types.ComplexVoltagePuConnector ut0Pu "Initial complex stator voltage in pu (base UNom)";
   Types.VoltageModulePu VBias0Pu "Initial calculated voltage bias in pu (base UNom)";
 
   Modelica.Blocks.Tables.CombiTable1Ds combiTable1DsInit(fileName = TablesFile, tableName = FPQTableName, tableOnFile = true);
