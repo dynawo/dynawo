@@ -65,7 +65,7 @@ partial model BaseDc1 "IEEE excitation system type DC1 base model"
     Placement(visible = true, transformation(origin = {-170, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.Max3 max1 annotation(
     Placement(visible = true, transformation(origin = {-30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Power power(base = exp(BEx)) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.PowerExp power(base = exp(BEx)) annotation(
     Placement(visible = true, transformation(origin = {250, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = Ke) annotation(
     Placement(visible = true, transformation(origin = {250, -80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
