@@ -67,7 +67,7 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
 
   Types.PerUnit If0Pu "Start value of current of excitation winding in pu";
   Types.PerUnit Uf0Pu "Start value of exciter voltage in pu (Kundur base)";
-  Types.PerUnit Efd0Pu "Start value of input exciter voltage in pu (user-selected base)";
+  Types.VoltageModulePuConnector Efd0Pu "Start value of input exciter voltage in pu (user-selected base)";
 
   Types.PerUnit Lambdad0Pu "Start value of flux of direct axis in pu";
   Types.PerUnit Lambdaq0Pu "Start value of flux of quadrature axis in pu";
@@ -78,13 +78,13 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
 
   Types.PerUnit Ce0Pu "Start value of electrical torque in pu (base SNom/omegaNom)";
   Types.PerUnit Cm0Pu "Start value of mechanical torque in pu (base PNomTurb/omegaNom)";
-  Types.PerUnit Pm0Pu "Start value of mechanical power in pu (base PNomTurb/omegaNom)";
+  Types.PerUnitConnector Pm0Pu "Start value of mechanical power in pu (base PNomTurb/omegaNom)";
 
-  Types.VoltageModulePu UStator0Pu "Start value of stator voltage amplitude in pu (base UNom)";
+  Types.VoltageModulePuConnector UStator0Pu "Start value of stator voltage amplitude in pu (base UNom)";
   Types.CurrentModulePu IStator0Pu "Start value of stator current amplitude in pu (base SnRef)";
   Types.ReactivePowerPu QStator0Pu "Start value of stator reactive power generated in pu (base SnRef)";
   Types.ReactivePowerPu QStator0PuQNom "Start value of stator reactive power generated in pu (base QNomAlt)";
-  Types.CurrentModulePu IRotor0Pu "Start value of rotor current in pu (base SNom, user-selected base voltage)";
+  Types.CurrentModulePuConnector IRotor0Pu "Start value of rotor current in pu (base SNom, user-selected base voltage)";
   Types.Angle ThetaInternal0 "Start value of internal angle in rad";
 
   Types.PerUnit MsalPu "Constant difference between direct and quadrature axis saturated mutual inductances in pu";

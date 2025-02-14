@@ -24,13 +24,13 @@
     <dyn:initConnect id1="voltageRegulator" var1="Ut0Pu" id2="generator" var2="U0Pu"/>
     <dyn:initConnect id1="overExcitationLimiter" var1="Ifd0Pu" id2="generator" var2="IRotor0Pu"/>
     <dyn:initConnect id1="governor" var1="Pm0Pu" id2="generator" var2="Pm0Pu"/>
-    <dyn:connect id1="voltageRegulator" var1="EfdPu" id2="generator" var2="efdPu.value"/>
-    <dyn:connect id1="voltageRegulator" var1="IRotorPu" id2="generator" var2="IRotorPu.value"/>
+    <dyn:connect id1="voltageRegulator" var1="EfdPu" id2="generator" var2="efdPu"/>
+    <dyn:connect id1="voltageRegulator" var1="IRotorPu" id2="generator" var2="IRotorPu"/>
     <dyn:connect id1="voltageRegulator" var1="UOelPu" id2="overExcitationLimiter" var2="UOelPu"/>
-    <dyn:connect id1="voltageRegulator" var1="UStatorPu" id2="generator" var2="UStatorPu.value"/>
+    <dyn:connect id1="voltageRegulator" var1="UStatorPu" id2="generator" var2="UStatorPu"/>
     <dyn:connect id1="voltageRegulator" var1="UtPu" id2="generator" var2="UPu"/>
-    <dyn:connect id1="overExcitationLimiter" var1="IfdPu" id2="generator" var2="IRotorPu.value"/>
-    <dyn:connect id1="governor" var1="omegaPu" id2="generator" var2="omegaPu.value"/>
-    <dyn:connect id1="governor" var1="PmPu" id2="generator" var2="PmPu.value"/>
+    <dyn:connect id1="overExcitationLimiter" var1="IfdPu" id2="generator" var2="IRotorPu"/>
+    <dyn:connect id1="governor" var1="omegaPu" id2="generator" var2="omegaPu"/>
+    <dyn:connect id1="governor" var1="PmPu" id2="generator" var2="PmPu"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
