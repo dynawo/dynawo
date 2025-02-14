@@ -10,123 +10,29 @@ extern "C" {
 /*residual equations*/
 
 /*
+equation index: 7
+type: SIMPLE_ASSIGN
+$DAEres1 = generator.u0Pu.im * generator.i0Pu.im + generator.u0Pu.re * generator.i0Pu.re - generator.P0Pu
+*/
+OMC_DISABLE_OPT
+void GeneratorPQ_INIT_eqFunction_7(DATA *data, threadData_t *threadData)
+{
+  TRACE_PUSH
+  const int equationIndexes[2] = {1,7};
+  (data->simulationInfo->daeModeData->residualVars[1]) /* $DAEres1 DAE_RESIDUAL_VAR */ = ((data->localData[0]->realVars[2] /* generator.u0Pu.im variable */)) * ((data->localData[0]->realVars[0] /* generator.i0Pu.im variable */)) + ((data->localData[0]->realVars[3] /* generator.u0Pu.re variable */)) * ((data->localData[0]->realVars[1] /* generator.i0Pu.re variable */)) - (data->simulationInfo->realParameter[0] /* generator.P0Pu PARAM */);
+  TRACE_POP
+}
+/*
 equation index: 8
 type: SIMPLE_ASSIGN
-generator._QGen0Pu = -generator.Q0Pu
+$DAEres0 = generator.u0Pu.im * generator.i0Pu.re + (-generator.u0Pu.re) * generator.i0Pu.im - generator.Q0Pu
 */
+OMC_DISABLE_OPT
 void GeneratorPQ_INIT_eqFunction_8(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
   const int equationIndexes[2] = {1,8};
-  data->localData[0]->realVars[1] /* generator.QGen0Pu variable */ = (-data->simulationInfo->realParameter[1] /* generator.Q0Pu PARAM */);
-  TRACE_POP
-}
-/*
-equation index: 9
-type: SIMPLE_ASSIGN
-generator._PGen0Pu = -generator.P0Pu
-*/
-void GeneratorPQ_INIT_eqFunction_9(DATA *data, threadData_t *threadData)
-{
-  TRACE_PUSH
-  const int equationIndexes[2] = {1,9};
-  data->localData[0]->realVars[0] /* generator.PGen0Pu variable */ = (-data->simulationInfo->realParameter[0] /* generator.P0Pu PARAM */);
-  TRACE_POP
-}
-/*
-equation index: 10
-type: SIMPLE_ASSIGN
-generator._s0Pu._re = generator.P0Pu
-*/
-void GeneratorPQ_INIT_eqFunction_10(DATA *data, threadData_t *threadData)
-{
-  TRACE_PUSH
-  const int equationIndexes[2] = {1,10};
-  data->localData[0]->realVars[5] /* generator.s0Pu.re variable */ = data->simulationInfo->realParameter[0] /* generator.P0Pu PARAM */;
-  TRACE_POP
-}
-/*
-equation index: 11
-type: SIMPLE_ASSIGN
-generator._s0Pu._im = generator.Q0Pu
-*/
-void GeneratorPQ_INIT_eqFunction_11(DATA *data, threadData_t *threadData)
-{
-  TRACE_PUSH
-  const int equationIndexes[2] = {1,11};
-  data->localData[0]->realVars[4] /* generator.s0Pu.im variable */ = data->simulationInfo->realParameter[1] /* generator.Q0Pu PARAM */;
-  TRACE_POP
-}
-/*
-equation index: 12
-type: SIMPLE_ASSIGN
-$cse2 = cos(generator.UPhase0)
-*/
-void GeneratorPQ_INIT_eqFunction_12(DATA *data, threadData_t *threadData)
-{
-  TRACE_PUSH
-  const int equationIndexes[2] = {1,12};
-  $P$cse2 = cos(data->simulationInfo->realParameter[3] /* generator.UPhase0 PARAM */);
-  TRACE_POP
-}
-/*
-equation index: 13
-type: SIMPLE_ASSIGN
-generator._u0Pu._re = generator.U0Pu * $cse2
-*/
-void GeneratorPQ_INIT_eqFunction_13(DATA *data, threadData_t *threadData)
-{
-  TRACE_PUSH
-  const int equationIndexes[2] = {1,13};
-  data->localData[0]->realVars[7] /* generator.u0Pu.re variable */ = (data->simulationInfo->realParameter[2] /* generator.U0Pu PARAM */) * ($P$cse2);
-  TRACE_POP
-}
-/*
-equation index: 14
-type: SIMPLE_ASSIGN
-$cse1 = sin(generator.UPhase0)
-*/
-void GeneratorPQ_INIT_eqFunction_14(DATA *data, threadData_t *threadData)
-{
-  TRACE_PUSH
-  const int equationIndexes[2] = {1,14};
-  $P$cse1 = sin(data->simulationInfo->realParameter[3] /* generator.UPhase0 PARAM */);
-  TRACE_POP
-}
-/*
-equation index: 15
-type: SIMPLE_ASSIGN
-generator._u0Pu._im = generator.U0Pu * $cse1
-*/
-void GeneratorPQ_INIT_eqFunction_15(DATA *data, threadData_t *threadData)
-{
-  TRACE_PUSH
-  const int equationIndexes[2] = {1,15};
-  data->localData[0]->realVars[6] /* generator.u0Pu.im variable */ = (data->simulationInfo->realParameter[2] /* generator.U0Pu PARAM */) * ($P$cse1);
-  TRACE_POP
-}
-/*
-equation index: 16
-type: SIMPLE_ASSIGN
-$DAEres0 = generator.u0Pu.im * generator.i0Pu.re + (-generator.u0Pu.re) * generator.i0Pu.im - generator.s0Pu.im
-*/
-void GeneratorPQ_INIT_eqFunction_16(DATA *data, threadData_t *threadData)
-{
-  TRACE_PUSH
-  const int equationIndexes[2] = {1,16};
-  $P$DAEres0 = (data->localData[0]->realVars[6] /* generator.u0Pu.im variable */) * (data->localData[0]->realVars[3] /* generator.i0Pu.re variable */) + ((-data->localData[0]->realVars[7] /* generator.u0Pu.re variable */)) * (data->localData[0]->realVars[2] /* generator.i0Pu.im variable */) - data->localData[0]->realVars[4] /* generator.s0Pu.im variable */;
-  TRACE_POP
-}
-/*
-equation index: 17
-type: SIMPLE_ASSIGN
-$DAEres1 = generator.u0Pu.im * generator.i0Pu.im + generator.u0Pu.re * generator.i0Pu.re - generator.s0Pu.re
-*/
-void GeneratorPQ_INIT_eqFunction_17(DATA *data, threadData_t *threadData)
-{
-  TRACE_PUSH
-  const int equationIndexes[2] = {1,17};
-  $P$DAEres1 = (data->localData[0]->realVars[6] /* generator.u0Pu.im variable */) * (data->localData[0]->realVars[2] /* generator.i0Pu.im variable */) + (data->localData[0]->realVars[7] /* generator.u0Pu.re variable */) * (data->localData[0]->realVars[3] /* generator.i0Pu.re variable */) - data->localData[0]->realVars[5] /* generator.s0Pu.re variable */;
+  (data->simulationInfo->daeModeData->residualVars[0]) /* $DAEres0 DAE_RESIDUAL_VAR */ = ((data->localData[0]->realVars[2] /* generator.u0Pu.im variable */)) * ((data->localData[0]->realVars[1] /* generator.i0Pu.re variable */)) + ((-(data->localData[0]->realVars[3] /* generator.u0Pu.re variable */))) * ((data->localData[0]->realVars[0] /* generator.i0Pu.im variable */)) - (data->simulationInfo->realParameter[1] /* generator.Q0Pu PARAM */);
   TRACE_POP
 }
 
@@ -138,59 +44,46 @@ int GeneratorPQ_INIT_evaluateDAEResiduals(DATA *data, threadData_t *threadData, 
   int evalStages;
   data->simulationInfo->callStatistics.functionEvalDAE++;
 
-  evalStages = 0+2+8;
-  if ((evalStages & currentEvalStage) && !((currentEvalStage!=EVAL_DISCRETE)?(0):0))
+#if !defined(OMC_MINIMAL_RUNTIME)
+  if (measure_time_flag) rt_tick(SIM_TIMER_DAE);
+#endif
+
+  evalStages = 0+1+8;
+  if ((evalStages & currentEvalStage) && !((currentEvalStage!=EVAL_DISCRETE)?(0):0)) {
+    GeneratorPQ_INIT_eqFunction_7(data, threadData);
+    threadData->lastEquationSolved = 7;
+  }
+  evalStages = 0+1+8;
+  if ((evalStages & currentEvalStage) && !((currentEvalStage!=EVAL_DISCRETE)?(0):0)) {
     GeneratorPQ_INIT_eqFunction_8(data, threadData);
-  evalStages = 0+2+8;
-  if ((evalStages & currentEvalStage) && !((currentEvalStage!=EVAL_DISCRETE)?(0):0))
-    GeneratorPQ_INIT_eqFunction_9(data, threadData);
-  evalStages = 0+1+2+8;
-  if ((evalStages & currentEvalStage) && !((currentEvalStage!=EVAL_DISCRETE)?(0):0))
-    GeneratorPQ_INIT_eqFunction_10(data, threadData);
-  evalStages = 0+1+2+8;
-  if ((evalStages & currentEvalStage) && !((currentEvalStage!=EVAL_DISCRETE)?(0):0))
-    GeneratorPQ_INIT_eqFunction_11(data, threadData);
-  evalStages = 0+1+2+8;
-  if ((evalStages & currentEvalStage) && !((currentEvalStage!=EVAL_DISCRETE)?(0):0))
-    GeneratorPQ_INIT_eqFunction_12(data, threadData);
-  evalStages = 0+1+2+8;
-  if ((evalStages & currentEvalStage) && !((currentEvalStage!=EVAL_DISCRETE)?(0):0))
-    GeneratorPQ_INIT_eqFunction_13(data, threadData);
-  evalStages = 0+1+2+8;
-  if ((evalStages & currentEvalStage) && !((currentEvalStage!=EVAL_DISCRETE)?(0):0))
-    GeneratorPQ_INIT_eqFunction_14(data, threadData);
-  evalStages = 0+1+2+8;
-  if ((evalStages & currentEvalStage) && !((currentEvalStage!=EVAL_DISCRETE)?(0):0))
-    GeneratorPQ_INIT_eqFunction_15(data, threadData);
-  evalStages = 0+1+8;
-  if ((evalStages & currentEvalStage) && !((currentEvalStage!=EVAL_DISCRETE)?(0):0))
-    GeneratorPQ_INIT_eqFunction_16(data, threadData);
-  evalStages = 0+1+8;
-  if ((evalStages & currentEvalStage) && !((currentEvalStage!=EVAL_DISCRETE)?(0):0))
-    GeneratorPQ_INIT_eqFunction_17(data, threadData);
-  
+    threadData->lastEquationSolved = 8;
+  }
+
+#if !defined(OMC_MINIMAL_RUNTIME)
+  if (measure_time_flag) rt_accumulate(SIM_TIMER_DAE);
+#endif
+
   TRACE_POP
   return 0;
 }
 
 /* initialize the daeMode variables */
 OMC_DISABLE_OPT
-int GeneratorPQ_INIT_initializeDAEmodeData(DATA *inData, DAEMODE_DATA* daeModeData)
+int GeneratorPQ_INIT_initializeDAEmodeData(DATA* data, DAEMODE_DATA* daeModeData)
 {
   TRACE_PUSH
-  DATA* data = ((DATA*)inData);
   /* sparse patterns */
   const int colPtrIndex[1+2] = {0,2,2};
   const int rowIndex[4] = {0,1,0,1};
-  const int algIndexes[2] = {2,3};
+  const int algIndexes[2] = {0,1};
   int i = 0;
   
   daeModeData->nResidualVars = 2;
   daeModeData->nAlgebraicDAEVars = 2;
-  daeModeData->nAuxiliaryVars = 2;
+  daeModeData->nAuxiliaryVars = 0;
   
   daeModeData->residualVars = (double*) malloc(sizeof(double)*2);
-  daeModeData->auxiliaryVars = (double*) malloc(sizeof(double)*2);
+  daeModeData->auxiliaryVars = (double*) malloc(sizeof(double)*0);
   
   /* set the function pointer */
   daeModeData->evaluateDAEResiduals = GeneratorPQ_INIT_evaluateDAEResiduals;
@@ -199,13 +92,7 @@ int GeneratorPQ_INIT_initializeDAEmodeData(DATA *inData, DAEMODE_DATA* daeModeDa
   daeModeData->algIndexes = (int*) malloc(sizeof(int)*2);
   memcpy(daeModeData->algIndexes, algIndexes, 2*sizeof(int));
   /* intialize sparse pattern */
-  daeModeData->sparsePattern = (SPARSE_PATTERN*) malloc(sizeof(SPARSE_PATTERN));
-  
-  daeModeData->sparsePattern->leadindex = (unsigned int*) malloc((2+1)*sizeof(int));
-  daeModeData->sparsePattern->index = (unsigned int*) malloc(4*sizeof(int));
-  daeModeData->sparsePattern->numberOfNoneZeros = 4;
-  daeModeData->sparsePattern->colorCols = (unsigned int*) malloc(2*sizeof(int));
-  daeModeData->sparsePattern->maxColors = 2;
+  daeModeData->sparsePattern = allocSparsePattern(2, 4, 2);
   
   /* write lead index of compressed sparse column */
   memcpy(daeModeData->sparsePattern->leadindex, colPtrIndex, (1+2)*sizeof(int));
@@ -216,8 +103,15 @@ int GeneratorPQ_INIT_initializeDAEmodeData(DATA *inData, DAEMODE_DATA* daeModeDa
   memcpy(daeModeData->sparsePattern->index, rowIndex, 4*sizeof(int));
   
   /* write color array */
-  daeModeData->sparsePattern->colorCols[1] = 1;
-  daeModeData->sparsePattern->colorCols[0] = 2;
+  /* color 1 with 1 columns */
+  const int indices_1[1] = {0};
+  for(i=0; i<1; i++)
+    daeModeData->sparsePattern->colorCols[indices_1[i]] = 1;
+
+  /* color 2 with 1 columns */
+  const int indices_2[1] = {1};
+  for(i=0; i<1; i++)
+    daeModeData->sparsePattern->colorCols[indices_2[i]] = 2;
   TRACE_POP
   return 0;
 }

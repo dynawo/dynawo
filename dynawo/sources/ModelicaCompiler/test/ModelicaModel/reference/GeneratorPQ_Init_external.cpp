@@ -14,91 +14,46 @@ ModelGeneratorPQ_Init::Complex ModelGeneratorPQ_Init::omc_Complex( modelica_real
   return tmp1;
 }
 
-ModelGeneratorPQ_Init::Complex ModelGeneratorPQ_Init::omc_Complex__omcQuot_2B( Complex _c1, Complex _c2)
-{
-  Complex _c3;
-  Complex tmp1;
-  _tailrecursive: OMC_LABEL_UNUSED
-  tmp1 = omc_Complex( _c1._re + _c2._re, _c1._im + _c2._im);
-  _c3._re = tmp1._re;
-  _c3._im = tmp1._im;
-  _return: OMC_LABEL_UNUSED
-  return _c3;
-}
-
-ModelGeneratorPQ_Init::Complex ModelGeneratorPQ_Init::omc_Complex__omcQuot_2A_multiply( Complex _c1, Complex _c2)
-{
-  Complex _c3;
-  Complex tmp1;
-  _tailrecursive: OMC_LABEL_UNUSED
-  tmp1 = omc_Complex( (_c1._re) * (_c2._re) - ((_c1._im) * (_c2._im)), (_c1._re) * (_c2._im) + (_c1._im) * (_c2._re));
-  _c3._re = tmp1._re;
-  _c3._im = tmp1._im;
-  _return: OMC_LABEL_UNUSED
-  return _c3;
-}
-
-ModelGeneratorPQ_Init::Complex ModelGeneratorPQ_Init::omc_Complex__omcQuot_2A_scalarProduct( Complex_array _c1, Complex_array _c2)
-{
-  Complex _c3;
-  Complex tmp1;
-  Complex tmp2;
-  Complex tmp3;
-  modelica_integer tmp4;
-  modelica_integer tmp5;
-  modelica_integer tmp6;
-  modelica_integer tmp7;
-  _tailrecursive: OMC_LABEL_UNUSED
-  tmp1._re = 0.0;
-  tmp1._im = 0.0;
-  tmp2 = tmp1;
-  _c3._re = tmp2._re;
-  _c3._im = tmp2._im;
-
-  tmp7 = size_of_dimension_base_array(_c1, ((modelica_integer) 1));
-  tmp4 = ((modelica_integer) 1); tmp5 = 1; tmp6 = tmp7;
-  if(!(((tmp5 > 0) && (tmp4 > tmp6)) || ((tmp5 < 0) && (tmp4 < tmp6))))
-  {
-    modelica_integer _i;
-    for(_i = ((modelica_integer) 1); in_range_integer(_i, tmp4, tmp6); _i += tmp5)
-    {
-      tmp3 = omc_Complex__omcQuot_2B( _c3, omc_Complex__omcQuot_2A_multiply(  (*((Complex*)(generic_array_element_addr(&_c1, sizeof(Complex), 1, /* modelica_integer */ (modelica_integer)_i)))),  (*((Complex*)(generic_array_element_addr(&_c2, sizeof(Complex), 1, /* modelica_integer */ (modelica_integer)_i))))));
-      _c3._re = tmp3._re;
-      _c3._im = tmp3._im;
-    }
-  }
-  _return: OMC_LABEL_UNUSED
-  return _c3;
-}
-
-ModelGeneratorPQ_Init::Complex ModelGeneratorPQ_Init::omc_Complex__omcQuot_636F6E7374727563746F72_fromReal( modelica_real _re, modelica_real _im)
+ModelGeneratorPQ_Init::Complex ModelGeneratorPQ_Init::omc_Complex__omcQ_27constructor_27_fromReal( modelica_real _re, modelica_real _im) const
 {
   Complex _result;
   _tailrecursive: OMC_LABEL_UNUSED
-  _result = omc_Complex( _re, _im);
+  Complex_1_2_construct( _result, _re, _im); // _result has no default value.
   _return: OMC_LABEL_UNUSED
   return _result;
 }
 
-ModelGeneratorPQ_Init::Dynawo_Types_AC_ApparentPower ModelGeneratorPQ_Init::omc_Dynawo_Types_AC_ApparentPower( modelica_real omc_re, modelica_real omc_im)
+ModelGeneratorPQ_Init::Dynawo_Connectors_ComplexCurrentPuConnector ModelGeneratorPQ_Init::omc_Dynawo_Connectors_ComplexCurrentPuConnector( modelica_real omc_re, modelica_real omc_im)
 {
-  Dynawo_Types_AC_ApparentPower tmp1;
+  Dynawo_Connectors_ComplexCurrentPuConnector tmp1;
   tmp1._re = omc_re;
   tmp1._im = omc_im;
   return tmp1;
 }
 
-ModelGeneratorPQ_Init::Dynawo_Types_AC_Current ModelGeneratorPQ_Init::omc_Dynawo_Types_AC_Current( modelica_real omc_re, modelica_real omc_im)
+ModelGeneratorPQ_Init::Dynawo_Connectors_ComplexVoltagePuConnector ModelGeneratorPQ_Init::omc_Dynawo_Connectors_ComplexVoltagePuConnector( modelica_real omc_re, modelica_real omc_im)
 {
-  Dynawo_Types_AC_Current tmp1;
+  Dynawo_Connectors_ComplexVoltagePuConnector tmp1;
   tmp1._re = omc_re;
   tmp1._im = omc_im;
   return tmp1;
 }
 
-ModelGeneratorPQ_Init::Dynawo_Types_AC_Voltage ModelGeneratorPQ_Init::omc_Dynawo_Types_AC_Voltage( modelica_real omc_re, modelica_real omc_im)
+ModelGeneratorPQ_Init::Complex ModelGeneratorPQ_Init::omc_Dynawo_Connectors_ComplexVoltagePuConnector__omcQ_27_2A_27_multiply( Complex _c1, Complex _c2)
 {
-  Dynawo_Types_AC_Voltage tmp1;
+  Complex _c3;
+  Complex tmp1;
+  _tailrecursive: OMC_LABEL_UNUSED
+  Complex_construct( _c3); // _c3 has no default value.
+  tmp1 = omc_Complex__omcQ_27constructor_27_fromReal( (_c1._re) * (_c2._re) - ((_c1._im) * (_c2._im)), (_c1._re) * (_c2._im) + (_c1._im) * (_c2._re));
+  Complex_copy(tmp1, _c3);;
+  _return: OMC_LABEL_UNUSED
+  return _c3;
+}
+
+ModelGeneratorPQ_Init::Dynawo_Types_ComplexApparentPowerPu ModelGeneratorPQ_Init::omc_Dynawo_Types_ComplexApparentPowerPu( modelica_real omc_re, modelica_real omc_im)
+{
+  Dynawo_Types_ComplexApparentPowerPu tmp1;
   tmp1._re = omc_re;
   tmp1._im = omc_im;
   return tmp1;
@@ -109,9 +64,9 @@ ModelGeneratorPQ_Init::Complex ModelGeneratorPQ_Init::omc_Modelica_ComplexMath_c
   Complex _c2;
   Complex tmp1;
   _tailrecursive: OMC_LABEL_UNUSED
-  tmp1 = omc_Complex( _c1._re, (-_c1._im));
-  _c2._re = tmp1._re;
-  _c2._im = tmp1._im;
+  Complex_construct( _c2); // _c2 has no default value.
+  tmp1 = omc_Complex__omcQ_27constructor_27_fromReal( _c1._re, (-_c1._im));
+  Complex_copy(tmp1, _c2);;
   _return: OMC_LABEL_UNUSED
   return _c2;
 }
@@ -121,33 +76,93 @@ ModelGeneratorPQ_Init::Complex ModelGeneratorPQ_Init::omc_Modelica_ComplexMath_f
   Complex _c;
   Complex tmp1;
   _tailrecursive: OMC_LABEL_UNUSED
-  tmp1 = omc_Complex( (_len) * (cos(_phi)), (_len) * (sin(_phi)));
-  _c._re = tmp1._re;
-  _c._im = tmp1._im;
+  Complex_construct( _c); // _c has no default value.
+  tmp1 = omc_Complex__omcQ_27constructor_27_fromReal( (_len) * (cos(_phi)), (_len) * (sin(_phi)));
+  Complex_copy(tmp1, _c);;
   _return: OMC_LABEL_UNUSED
   return _c;
 }
 
-modelica_real ModelGeneratorPQ_Init::omc_Modelica_Math_cos( modelica_real _u)
-{
-  double _u_ext;
-  double _y_ext;
-  modelica_real _y;
-  _u_ext = (double)_u;
-  _y_ext = cos(_u_ext);
-  _y = (modelica_real)_y_ext;
-  return _y;
+void ModelGeneratorPQ_Init::Complex_construct_p( void* v_ths ) const {
+  Complex* ths = (Complex*)(v_ths);
+  // ths->_re has no default value.
+  // ths->_im has no default value.
 }
 
-modelica_real ModelGeneratorPQ_Init::omc_Modelica_Math_sin( modelica_real _u)
-{
-  double _u_ext;
-  double _y_ext;
-  modelica_real _y;
-  _u_ext = (double)_u;
-  _y_ext = sin(_u_ext);
-  _y = (modelica_real)_y_ext;
-  return _y;
+void ModelGeneratorPQ_Init::Complex_wrap_vars_p( void* v_dst , modelica_real in_re, modelica_real in_im) const {
+  Complex* dst = (Complex*)(v_dst);
+  dst->_re = in_re;
+  dst->_im = in_im;
+}
+
+void ModelGeneratorPQ_Init::Complex_copy_p(void* v_src, void* v_dst) const {
+  Complex* src = (Complex*)(v_src);
+  Complex* dst = (Complex*)(v_dst);
+  dst->_re = src->_re;
+  dst->_im = src->_im;
+}
+
+void ModelGeneratorPQ_Init::Complex_1_2_construct_p( void* v_ths , modelica_real in_re, modelica_real in_im) const {
+  Complex* ths = (Complex*)(v_ths);
+  ths->_re = in_re;
+  ths->_im = in_im;
+}
+
+void ModelGeneratorPQ_Init::Dynawo_Connectors_ComplexCurrentPuConnector_construct_p( void* v_ths ) {
+  Dynawo_Connectors_ComplexCurrentPuConnector* ths = (Dynawo_Connectors_ComplexCurrentPuConnector*)(v_ths);
+  // ths->_re has no default value.
+  // ths->_im has no default value.
+}
+
+void ModelGeneratorPQ_Init::Dynawo_Connectors_ComplexCurrentPuConnector_wrap_vars_p( void* v_dst , modelica_real in_re, modelica_real in_im) {
+  Dynawo_Connectors_ComplexCurrentPuConnector* dst = (Dynawo_Connectors_ComplexCurrentPuConnector*)(v_dst);
+  dst->_re = in_re;
+  dst->_im = in_im;
+}
+
+void ModelGeneratorPQ_Init::Dynawo_Connectors_ComplexCurrentPuConnector_copy_p(void* v_src, void* v_dst) {
+  Dynawo_Connectors_ComplexCurrentPuConnector* src = (Dynawo_Connectors_ComplexCurrentPuConnector*)(v_src);
+  Dynawo_Connectors_ComplexCurrentPuConnector* dst = (Dynawo_Connectors_ComplexCurrentPuConnector*)(v_dst);
+  dst->_re = src->_re;
+  dst->_im = src->_im;
+}
+
+void ModelGeneratorPQ_Init::Dynawo_Connectors_ComplexVoltagePuConnector_construct_p( void* v_ths ) {
+  Dynawo_Connectors_ComplexVoltagePuConnector* ths = (Dynawo_Connectors_ComplexVoltagePuConnector*)(v_ths);
+  // ths->_re has no default value.
+  // ths->_im has no default value.
+}
+
+void ModelGeneratorPQ_Init::Dynawo_Connectors_ComplexVoltagePuConnector_wrap_vars_p( void* v_dst , modelica_real in_re, modelica_real in_im) {
+  Dynawo_Connectors_ComplexVoltagePuConnector* dst = (Dynawo_Connectors_ComplexVoltagePuConnector*)(v_dst);
+  dst->_re = in_re;
+  dst->_im = in_im;
+}
+
+void ModelGeneratorPQ_Init::Dynawo_Connectors_ComplexVoltagePuConnector_copy_p(void* v_src, void* v_dst) {
+  Dynawo_Connectors_ComplexVoltagePuConnector* src = (Dynawo_Connectors_ComplexVoltagePuConnector*)(v_src);
+  Dynawo_Connectors_ComplexVoltagePuConnector* dst = (Dynawo_Connectors_ComplexVoltagePuConnector*)(v_dst);
+  dst->_re = src->_re;
+  dst->_im = src->_im;
+}
+
+void ModelGeneratorPQ_Init::Dynawo_Types_ComplexApparentPowerPu_construct_p( void* v_ths ) {
+  Dynawo_Types_ComplexApparentPowerPu* ths = (Dynawo_Types_ComplexApparentPowerPu*)(v_ths);
+  // ths->_re has no default value.
+  // ths->_im has no default value.
+}
+
+void ModelGeneratorPQ_Init::Dynawo_Types_ComplexApparentPowerPu_wrap_vars_p( void* v_dst , modelica_real in_re, modelica_real in_im) {
+  Dynawo_Types_ComplexApparentPowerPu* dst = (Dynawo_Types_ComplexApparentPowerPu*)(v_dst);
+  dst->_re = in_re;
+  dst->_im = in_im;
+}
+
+void ModelGeneratorPQ_Init::Dynawo_Types_ComplexApparentPowerPu_copy_p(void* v_src, void* v_dst) {
+  Dynawo_Types_ComplexApparentPowerPu* src = (Dynawo_Types_ComplexApparentPowerPu*)(v_src);
+  Dynawo_Types_ComplexApparentPowerPu* dst = (Dynawo_Types_ComplexApparentPowerPu*)(v_dst);
+  dst->_re = src->_re;
+  dst->_im = src->_im;
 }
 
 }
