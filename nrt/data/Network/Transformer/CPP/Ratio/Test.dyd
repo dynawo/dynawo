@@ -25,7 +25,7 @@
   </dyn:blackBoxModel>
   <dyn:connect id1="Generator" var1="generator_terminal" id2="NETWORK" var2="@Generator@@NODE@_ACPIN"/>
   <dyn:blackBoxModel id="OmegaRef" lib="SetPoint" parFile="Test.par" parId="OmegaRef"/>
-  <dyn:connect id1="Generator" var1="generator_omegaRefPu" id2="OmegaRef" var2="setPoint_setPoint"/>
+  <dyn:connect id1="Generator" var1="generator_omegaRefPu" id2="OmegaRef" var2="setPoint_setPoint_value"/>
   <dyn:blackBoxModel id="Disconnect_Load4" lib="EventConnectedStatus" parFile="Test.par" parId="Disconnect_Load4"/>
   <dyn:connect id1="Disconnect_Load4" var1="event_state1_value" id2="NETWORK" var2="Load4_state_value"/>
   <dyn:blackBoxModel id="Connect_Load4" lib="EventConnectedStatus" parFile="Test.par" parId="Connect_Load4"/>

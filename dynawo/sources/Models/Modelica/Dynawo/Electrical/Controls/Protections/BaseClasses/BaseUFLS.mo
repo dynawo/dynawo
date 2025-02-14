@@ -12,7 +12,7 @@ within Dynawo.Electrical.Controls.Protections.BaseClasses;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-partial model BaseUFLS "Base model for under-frequency load shedding relays"
+model BaseUFLS "Base model for under-frequency load shedding relays"
   import Modelica.Constants;
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;

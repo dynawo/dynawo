@@ -36,6 +36,7 @@ package Types "Standard types for electrical variables"
 
   // Angle
   type Angle = Real(final unit = "rad") "Angle";
+  connector AngleConnector = Real(final unit = "rad") "Angle";
   type AngularVelocity = Real(final unit = "rad/s") "Angular velocity";
   type AngularAcceleration = Real(final unit = "rad/s2") "Angular acceleration";
 
@@ -63,6 +64,19 @@ package Types "Standard types for electrical variables"
   type ApparentPowerPu = PerUnit;
   type AngularVelocityPu = PerUnit;
   type AngularAccelerationPu = PerUnit;
+
+  record ComplexPerUnitConnector = Complex(redeclare PerUnit re "Real part of complex per unit quantity",
+                                  redeclare PerUnit im "Imaginary part of complex per unit quantity") "Complex per unit";
+  record ComplexVoltagePuConnector = ComplexPerUnitConnector;
+  record ComplexCurrentPuConnector = ComplexPerUnitConnector;
+
+
+  connector PerUnitConnector = Real(unit = "1") "Per unit quantity";
+  connector VoltageModulePuConnector = PerUnitConnector;
+  connector CurrentModulePuConnector = PerUnitConnector;
+  connector ActivePowerPuConnector = PerUnitConnector;
+  connector ReactivePowerPuConnector = PerUnitConnector;
+  connector AngularVelocityPuConnector = PerUnitConnector;
 
   // Percent
   type Percent = Real(unit = "100") "Percent quantity";

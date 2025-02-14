@@ -25,5 +25,5 @@
   <dyn:connect id1="line2" var1="line_terminal2" id2="tfo" var2="transformer_terminal1"/>
   <dyn:connect id1="tfo" var1="transformer_terminal1" id2="fault1" var2="fault_terminal"/>
   <dyn:connect id1="tfo" var1="transformer_terminal2" id2="SM" var2="generator_terminal"/>
-  <dyn:connect id1="OmegaRef" var1="setPoint_setPoint" id2="SM" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OmegaRef" var1="setPoint_setPoint_value" id2="SM" var2="generator_omegaRefPu"/>
 </dyn:dynamicModelsArchitecture>
