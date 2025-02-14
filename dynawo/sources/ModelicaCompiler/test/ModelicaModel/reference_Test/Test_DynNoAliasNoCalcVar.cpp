@@ -57,14 +57,18 @@ void ModelTest_Dyn::setupDataStruc()
   data->modelData->nLinearSystems = 0;
   data->modelData->nNonLinearSystems = 0;
   data->modelData->nStateSets = 0;
-  data->modelData->nJacobians = 4;
+  data->modelData->nJacobians = 6;
   data->modelData->nOptimizeConstraints = 0;
   data->modelData->nOptimizeFinalConstraints = 0;
   data->modelData->nDelayExpressions = 0;
-  data->modelData->nClocks = 0;
-  data->modelData->nSubClocks = 0;
+  data->modelData->nBaseClocks = 0;
+  data->modelData->nSpatialDistributions = 0;
   data->modelData->nSensitivityVars = 0;
   data->modelData->nSensitivityParamVars = 0;
+  data->modelData->nSetcVars = 0;
+  data->modelData->ndataReconVars = 0;
+  data->modelData->nSetbVars = 0;
+  data->modelData->nRelatedBoundaryConditions = 0;
   data->simulationInfo->daeModeData->nResidualVars = 1;
   data->simulationInfo->daeModeData->nAuxiliaryVars = 0;
 
@@ -194,21 +198,21 @@ void ModelTest_Dyn::setFomc(double * f, propertyF_t type)
   if (type != DIFFERENTIAL_EQ) {
   {
   // ----- Test.Test_eqFunction_7 -----
-  f[1] = data->localData[0]->realVars[1] /*  x variable  */ - ( (2.0) * (data->localData[0]->realVars[0] /* u STATE(1) */) );
+  f[1] = data->localData[0]->realVars[1] /*  x variable  */ - ( (2.0) * ((data->localData[0]->realVars[0] /* u STATE(1) */)) );
 
   }
 
 
   {
   // ----- Test.Test_eqFunction_8 -----
-  f[2] = data->localData[0]->realVars[2] /*  y variable  */ - ( data->localData[0]->realVars[1] /* x variable */ );
+  f[2] = data->localData[0]->realVars[2] /*  y variable  */ - ( (data->localData[0]->realVars[1] /* x variable */) );
 
   }
 
 
   {
   // ----- Test.Test_eqFunction_9 -----
-  f[3] = data->localData[0]->realVars[3] /*  z variable  */ - ( (4.0) * ((data->localData[0]->realVars[1] /* x variable */) * (data->localData[0]->realVars[0] /* u STATE(1) */)) );
+  f[3] = data->localData[0]->realVars[3] /*  z variable  */ - ( (4.0) * (((data->localData[0]->realVars[1] /* x variable */)) * ((data->localData[0]->realVars[0] /* u STATE(1) */))) );
 
   }
 
@@ -217,8 +221,8 @@ void ModelTest_Dyn::setFomc(double * f, propertyF_t type)
   if (type != ALGEBRAIC_EQ) {
   {
   // ----- Test.Test_eqFunction_6 -----
-  $P$DAEres0 = ((-data->simulationInfo->realParameter[1] /* b PARAM */)) * (data->localData[0]->realVars[0] /* u STATE(1) */) - ((data->simulationInfo->realParameter[0] /* a PARAM */) * (data->localData[0]->derivativesVars[0] /* der(u) STATE_DER */));
-  f[0] = $P$DAEres0;
+  (data->simulationInfo->daeModeData->residualVars[0]) /* $DAEres0 DAE_RESIDUAL_VAR */ = ((-(data->simulationInfo->realParameter[1] /* b PARAM */))) * ((data->localData[0]->realVars[0] /* u STATE(1) */)) - (((data->simulationInfo->realParameter[0] /* a PARAM */)) * ((data->localData[0]->derivativesVars[0] /* der(u) STATE_DER */)));
+    f[0] = data->simulationInfo->daeModeData->residualVars[0] /* $DAEres0 DAE_RESIDUAL_VAR */;
 
   }
 
@@ -245,9 +249,11 @@ void ModelTest_Dyn::collectSilentZ(BitMask* silentZTable)
 void ModelTest_Dyn::setGomc(state_g * gout)
 {
   data->simulationInfo->discreteCall = 1;
-  
-  
-  
+
+
+
+
+
 
   data->simulationInfo->discreteCall = 0;
 }
@@ -256,13 +262,13 @@ void ModelTest_Dyn::setY0omc()
 {
   data->localData[0]->realVars[0] /* u */ = 1.0;
   {
-    data->localData[0]->realVars[1] /* x variable */ = (2.0) * (data->localData[0]->realVars[0] /* u STATE(1) */);
+    (data->localData[0]->realVars[1] /* x variable */) = (2.0) * ((data->localData[0]->realVars[0] /* u STATE(1) */));
   }
   {
-    data->localData[0]->realVars[2] /* y variable */ = data->localData[0]->realVars[1] /* x variable */;
+    (data->localData[0]->realVars[3] /* z variable */) = (4.0) * (((data->localData[0]->realVars[1] /* x variable */)) * ((data->localData[0]->realVars[0] /* u STATE(1) */)));
   }
   {
-    data->localData[0]->realVars[3] /* z variable */ = (4.0) * ((data->localData[0]->realVars[1] /* x variable */) * (data->localData[0]->realVars[0] /* u STATE(1) */));
+    (data->localData[0]->realVars[2] /* y variable */) = (data->localData[0]->realVars[1] /* x variable */);
   }
 }
 
@@ -361,8 +367,7 @@ void ModelTest_Dyn::evalFAdept(const std::vector<adept::adouble> & x,
   adept::adouble $DAEres0;
   // ----- Test.Test_eqFunction_6 -----
   {
-  $DAEres0 = ((-data->simulationInfo->realParameter[1] /* b PARAM */)) * (x[0]) - ((data->simulationInfo->realParameter[0] /* a PARAM */) * (xd[0]));
-  res[0] = $DAEres0;
+    res[0] = ((-(data->simulationInfo->realParameter[1] /* b PARAM */))) * (x[0]) - (((data->simulationInfo->realParameter[0] /* a PARAM */)) * (xd[0]));
 
   }
 

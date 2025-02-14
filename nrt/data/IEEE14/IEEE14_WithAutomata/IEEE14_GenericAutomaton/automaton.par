@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2025, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="1">
+    <par type="INT" name="automaton_NbInputs" value="3"/>
+    <par type="INT" name="automaton_NbOutputs" value="0"/>
+    <par type="INT" name="automaton_NbIntOutputs" value="1"/>
+    <par type="DOUBLE" name="automaton_SamplingTime" value="2"/>
+    <par type="STRING" name="automaton_Command" value="${DYNAWO_PYTHON_COMMAND} ${AUTOMATON_WORKING_DIR}/../../smallAutomaton.py --repertory=${AUTOMATON_WORKING_DIR}"/>
+    <par type="STRING" name="automaton_InputsName_0_" value="_BUS___10_TN;V"/>
+    <par type="STRING" name="automaton_InputsName_1_" value="_GEN____2_SM;P"/>
+    <par type="STRING" name="automaton_InputsName_2_" value="_BUS___10-BUS___11-1_AC;S"/>
+    <par type="STRING" name="automaton_IntOutputsName_0_" value="_BUS___10-BUS___11-1_AC;S"/>
+  </set>
+</parametersSet>
