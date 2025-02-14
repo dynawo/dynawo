@@ -25,10 +25,10 @@
     <dyn:initConnect id1="underExcitationLimiter" var1="QGen0Pu" id2="generator" var2="QGen0Pu"/>
     <dyn:initConnect id1="underExcitationLimiter" var1="UsRef0Pu" id2="voltageRegulator" var2="UsRef0Pu"/>
     <dyn:initConnect id1="underExcitationLimiter" var1="ut0Pu" id2="generator" var2="u0Pu"/>
-    <dyn:connect id1="voltageRegulator" var1="EfdPu" id2="generator" var2="efdPu.value"/>
+    <dyn:connect id1="voltageRegulator" var1="EfdPu" id2="generator" var2="efdPu"/>
     <dyn:connect id1="voltageRegulator" var1="UPssPu" id2="powerSystemStabilizer" var2="VPssPu"/>
-    <dyn:connect id1="voltageRegulator" var1="UsPu" id2="generator" var2="UStatorPu.value"/>
-    <dyn:connect id1="powerSystemStabilizer" var1="omegaPu" id2="generator" var2="omegaPu.value"/>
+    <dyn:connect id1="voltageRegulator" var1="UsPu" id2="generator" var2="UStatorPu"/>
+    <dyn:connect id1="powerSystemStabilizer" var1="omegaPu" id2="generator" var2="omegaPu"/>
     <dyn:connect id1="powerSystemStabilizer" var1="PGenPu" id2="generator" var2="PGenPu"/>
     <dyn:connect id1="underExcitationLimiter" var1="PGenPu" id2="generator" var2="PGenPu"/>
     <dyn:connect id1="underExcitationLimiter" var1="QGenPu" id2="generator" var2="QGenPu"/>

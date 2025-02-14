@@ -12,7 +12,7 @@ within Dynawo.Electrical.Controls.Protections.BaseClasses;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-partial model BaseDistanceProtectionLine "Base model for line distance protection"
+model BaseDistanceProtectionLine "Base model for line distance protection"
   import Modelica.Constants;
   import Modelica.Math.BooleanVectors.anyTrue;
   import Dynawo.NonElectrical.Logs.Timeline;
