@@ -1,59 +1,43 @@
  ====== INIT VARIABLES VALUES ======
-generator_Bd                                      : y =     821.151086 yp =       0.000000
 generator_Cos2Eta0                                : y =       1.000000 yp =       0.000000
-generator_E1d                                     : y =    1125.317795 yp =       0.000000
-generator_E2d                                     : y =      60.131460 yp =       0.000000
-generator_Ed                                      : y =    1125.317795 yp =       0.000000
-generator_Efd0Pu                                  : y =       1.458932 yp =       0.000000
 generator_Id0Pu                                   : y =      -0.148675 yp =       0.000000
 generator_If0Pu                                   : y =       2.251438 yp =       0.000000
 generator_Iq0Pu                                   : y =      -0.000079 yp =       0.000000
-generator_Kuf                                     : y =       0.001310 yp =       0.000000
 generator_LambdaAD0Pu                             : y =       1.085455 yp =       0.000000
 generator_LambdaAQ0Pu                             : y =      -0.000017 yp =       0.000000
 generator_LambdaAirGap0Pu                         : y =       1.085455 yp =       0.000000
 generator_Lambdad0Pu                              : y =       1.070290 yp =       0.000000
-generator_LfPu                                    : y =       0.151817 yp =       0.000000
-generator_LfPuPrecise                             : y =       0.161413 yp =       0.000000
 generator_MdSat0PPu                               : y =       0.516198 yp =       0.000000
 generator_Mds0Pu                                  : y =       0.516198 yp =       0.000000
 generator_Mi0Pu                                   : y =       0.516198 yp =       0.000000
 generator_MqSat0PPu                               : y =       0.216198 yp =       0.000000
 generator_Mqs0Pu                                  : y =       0.277217 yp =       0.000000
 generator_MsalPu                                  : y =       0.300000 yp =       0.000000
-generator_Pd                                      : y =   -1832.088720 yp =       0.000000
-generator_RADd                                    : y =       0.944001 yp =       0.000000
-generator_Rf1                                     : y =       0.000889 yp =       0.000000
-generator_Rf2                                     : y =       0.016630 yp =       0.000000
-generator_RfPPu                                   : y =       0.000849 yp =       0.000000
-generator_RfPu                                    : y =       0.000849 yp =       0.000000
-generator_RfPuPrecise                             : y =       0.000889 yp =       0.000000
 generator_Sin2Eta0                                : y =       0.000000 yp =       0.000000
 generator_Theta0                                  : y =      -0.248718 yp =       0.000000
-generator_U1d                                     : y =       5.232342 yp =       0.000000
-generator_U2d                                     : y =     181.640707 yp =       0.000000
-generator_Ud                                      : y =       5.232342 yp =       0.000000
 generator_Ud0Pu                                   : y =      -0.000570 yp =       0.000000
 generator_Uf0Pu                                   : y =       0.001911 yp =       0.000000
 generator_Uq0Pu                                   : y =       1.070290 yp =       0.000000
-generator_V1d                                     : y =     181.640707 yp =       0.000000
-generator_V2d                                     : y =       5.232342 yp =       0.000000
-generator_Vd                                      : y =     181.640707 yp =       0.000000
-generator_Z1d                                     : y =   12380.358154 yp =       0.000000
-generator_Z2d                                     : y =     437.973296 yp =       0.000000
 generator_i0Pu_im                                 : y =       0.115295 yp =       0.000000
 generator_i0Pu_re                                 : y =       0.029217 yp =       0.000000
 voltageRegulator_Efd0Pu                           : y =       1.458932 yp =       0.000000
+voltageRegulator_limiterWithLag_y0LF              : y =       1.458932 yp =       0.000000
  ====== INIT CALCULATED VARIABLES VALUES ======
 generator_B1d                                     : y =     955.044167
 generator_B2d                                     : y =     291.344321
+generator_Bd                                      : y =     821.151086
 generator_C1d                                     : y =   11843.525281
 generator_C2d                                     : y =    2431.870524
 generator_Ce0Pu                                   : y =       0.000088
+generator_Cm0Pu                                   : y =       0.000095
+generator_E1d                                     : y =    1125.317795
+generator_E2d                                     : y =      60.131460
+generator_Ed                                      : y =    1125.317795
 generator_Fd                                      : y =      60.131460
 generator_I0Pu                                    : y =       0.148675
 generator_IRotor0Pu                               : y =       1.458932
 generator_IStator0Pu                              : y =       0.118940
+generator_Kuf                                     : y =       0.001310
 generator_LDPPu                                   : y =       0.090085
 generator_LDPu                                    : y =       0.090085
 generator_LDPuPrecise                             : y =       0.087015
@@ -67,7 +51,9 @@ generator_Lambdaf0Pu                              : y =       1.427248
 generator_Lambdaq0Pu                              : y =      -0.000025
 generator_LdPPu                                   : y =       0.102000
 generator_LfPPu                                   : y =       0.151817
+generator_LfPu                                    : y =       0.151817
 generator_LfPuApprox                              : y =       0.151817
+generator_LfPuPrecise                             : y =       0.161413
 generator_LqPPu                                   : y =       0.102000
 generator_MdPPu                                   : y =       0.648000
 generator_MdPPuEfd                                : y =       0.000000
@@ -75,10 +61,11 @@ generator_MdPPuEfdNom                             : y =       0.398168
 generator_MqPPu                                   : y =       0.348000
 generator_MrcPPu                                  : y =       0.000000
 generator_MrcPu                                   : y =       0.000000
-generator_Pm0Pu                                   : y =       0.000095
+generator_Pd                                      : y =   -1832.088720
 generator_QStator0Pu                              : y =       0.127300
 generator_QStator0PuQNom                          : y =       0.432923
 generator_Qd                                      : y =       9.803922
+generator_RADd                                    : y =       0.944001
 generator_RDPPu                                   : y =       0.016957
 generator_RDPu                                    : y =       0.016957
 generator_RDPuPrecise                             : y =       0.016630
@@ -87,7 +74,12 @@ generator_RQ1Pu                                   : y =       0.038549
 generator_RQ2PPu                                  : y =       0.000000
 generator_RQ2Pu                                   : y =       0.000000
 generator_RaPPu                                   : y =       0.004000
+generator_Rf1                                     : y =       0.000889
+generator_Rf2                                     : y =       0.016630
+generator_RfPPu                                   : y =       0.000849
+generator_RfPu                                    : y =       0.000849
 generator_RfPuApprox                              : y =       0.000849
+generator_RfPuPrecise                             : y =       0.000889
 generator_S0Pu                                    : y =       0.159125
 generator_T1dPu                                   : y =     942.477796
 generator_T3dPu                                   : y =      12.566371
@@ -99,7 +91,14 @@ generator_ThetaInternal0                          : y =      -0.000532
 generator_Tpd                                     : y =       0.900000
 generator_Tppd                                    : y =       0.027378
 generator_Tppq                                    : y =       0.017778
-generator_UStator0Pu                              : y =       1.070290
+generator_U1d                                     : y =       5.232342
+generator_U2d                                     : y =     181.640707
+generator_Ud                                      : y =       5.232342
+generator_V1d                                     : y =     181.640707
+generator_V2d                                     : y =       5.232342
+generator_Vd                                      : y =     181.640707
+generator_Z1d                                     : y =   12380.358154
+generator_Z2d                                     : y =     437.973296
 generator_iStator0Pu_im                           : y =       0.115295
 generator_iStator0Pu_re                           : y =       0.029217
 generator_sStator0Pu_re                           : y =       0.000000
@@ -108,6 +107,7 @@ generator_u0Pu_re                                 : y =       1.037496
 generator_uStator0Pu_im                           : y =      -0.262912
 generator_uStator0Pu_re                           : y =       1.037496
 generator_xd                                      : y =       0.088128
+voltageRegulator_Us0Pu                            : y =       1.070290
 voltageRegulator_UsRef0Pu                         : y =       1.143236
 generator_PGen0Pu                                 : y =       0.000000
 generator_QGen0Pu                                 : y =       0.127300
