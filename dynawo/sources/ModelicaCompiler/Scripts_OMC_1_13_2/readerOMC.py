@@ -118,8 +118,16 @@ class ReaderOMC:
         exist_file(self._05evt_c_file)
 
         ## Full name of the _16dae.c file
-        self._16dae_c_file = os.path.join (input_dir, self.mod_name + "_16dae.c")
-        exist_file(self._16dae_c_file)
+        self._16dae_c_file = []
+        file_name = os.path.join (input_dir, self.mod_name + "_16dae.c")
+        exist_file(file_name)
+        self._16dae_c_file.append(file_name)
+        idx = 0
+        file_name = os.path.join (input_dir, self.mod_name + "_16dae_part"+str(idx)+".c")
+        while os.path.isfile(file_name):
+            self._16dae_c_file.append(file_name)
+            idx +=1
+            file_name = os.path.join (input_dir, self.mod_name + "_16dae_part"+str(idx)+".c")
         ## Full name of the _16dae.h file
         self._16dae_h_file = os.path.join (input_dir, self.mod_name + "_16dae.h")
         exist_file(self._16dae_h_file)
@@ -138,6 +146,7 @@ class ReaderOMC:
         self._functions_header = os.path.join (input_dir, self.mod_name + "_functions.h")
         ## Full name of the _functions.c file
         self._functions_c_file  = os.path.join (input_dir, self.mod_name + "_functions.c")
+        self._records_c_file  = os.path.join (input_dir, self.mod_name + "_records.c")
         ## Full name of the _literals.h file
         self._literals_file = os.path.join (input_dir, self.mod_name + "_literals.h")
         ## List of constant strings literal names
@@ -301,6 +310,8 @@ class ReaderOMC:
         self.list_internal_functions = []
         ## List of omc functions
         self.list_omc_functions = []
+        ## List of define
+        self.list_functions_define = []
 
         # --------------------------------------------------------------------
         # Attribute for reading *_literals.h file
@@ -569,7 +580,7 @@ class ReaderOMC:
                 (final_expr, idx, no_event_found) = self.find_value(idx, splitted_eq)
                 self.analyse_eq_expr(final_expr, node, no_event_found)
             else:
-                (final_expr, idx, _) = self.find_value(idx, splitted_eq)
+                (final_expr, idx, no_event_found) = self.find_value(idx, splitted_eq)
                 root.eq = final_expr
                 root.no_event = no_event_found_parent
                 if "der(" in final_expr or "der (" in final_expr:
@@ -610,7 +621,7 @@ class ReaderOMC:
             root.children.append(node2)
 
     def find_expr_in_min_max(self, initial_idx, splitted_eq, expr):
-        nb_parenthesis =  expr.count("(")
+        nb_parenthesis =  expr.count("min(") + expr.count("max(")
         idx = initial_idx
         idx+=1
         sub_eq = expr
@@ -651,7 +662,7 @@ class ReaderOMC:
                 idx+=1
             return (sub_eq[:-1], idx, no_event_found)
         elif splitted_eq[idx].startswith("min(") or splitted_eq[idx].startswith("max("):
-            nb_parenthesis = splitted_eq[idx].count("(")
+            nb_parenthesis = splitted_eq[idx].count("min(") + splitted_eq[idx].count("max(")
             sub_eq= splitted_eq[idx]
             idx+=1
             while nb_parenthesis > 0:
@@ -740,11 +751,19 @@ class ReaderOMC:
         for dae_var in self.residual_vars_to_address_map:
             if self.var_name_to_eq_type[dae_var] == DIFFERENTIAL:
                 list_depend_vars = self.map_vars_depend_vars[dae_var]
-                if len(list_depend_vars) == 1 and "der("+list_depend_vars[0]+")" in self.fictive_continuous_vars_der:
+                if len(list_depend_vars) == 1 and list_depend_vars[0] in self.fictive_continuous_vars_der:
                     key_to_remove.append(dae_var)
         for dae_var in key_to_remove:
             del self.var_name_to_eq_type[dae_var]
             del self.residual_vars_to_address_map[dae_var]
+
+        index_aux_var = 0
+        list_residual_vars_for_sys_build = sorted(self.residual_vars_to_address_map.keys())
+        for dae_var in list_residual_vars_for_sys_build:
+            self.residual_vars_to_address_map[dae_var] = "data->simulationInfo->daeModeData->residualVars["+str(index_aux_var)+"]"
+            set_param_address(dae_var,  "data->simulationInfo->daeModeData->residualVars["+str(index_aux_var)+"]")
+            index_aux_var+=1
+
         map_dep = self.get_map_dep_vars_for_func()
         for var in map_dep:
             if self.is_auxiliary_vars(var) :
@@ -809,7 +828,7 @@ class ReaderOMC:
             var = Variable()
             var.set_name(node.getAttribute('name'))
             var.set_variability(node.getAttribute('variability')) # "continuous", "discrete"
-            var.set_causality(node.getAttribute('causality')) # "output" or "internal"
+            var.set_causality(node.getAttribute('causality')) # "output", "parameter" or "internal"
 
             class_type = node.getAttribute('classType')
             var.set_type(class_type)
@@ -832,7 +851,8 @@ class ReaderOMC:
                         sys.exit()
                 start = list_real[0].getAttribute('start')
                 fixed = list_real[0].getAttribute('fixed')
-                var.set_fixed(fixed == "true" or var.get_variability() == "parameter")
+                is_value_changeable =  node.getAttribute('isValueChangeable')
+                var.set_fixed((fixed == "true" and is_value_changeable == "false") or var.get_variability() == "parameter")
                 if start != '':
                     var.set_start_text( [start] )
                     var.set_use_start(list_real[0].getAttribute('useStart'))
@@ -884,24 +904,6 @@ class ReaderOMC:
             # Vars after the read of *_init.xml
             self.list_vars.append(var)
             self.dic_vars[var.get_name()] = len(self.list_vars) - 1
-
-        ## Need to go over again to propagate fixed property: an alias on a fixed variable should be set as fixed
-        modified = True
-        while modified:
-            modified = False
-            for var in self.list_vars:
-                if var.get_alias_name() != "":
-                    alias_var = self.find_variable_from_name(var.get_alias_name())
-                    assert(alias_var != None)
-                    if alias_var.is_fixed() and not var.is_fixed():
-                        var.set_fixed(True)
-                        print_info("variable " + var.get_name() + " is considered as fixed (alias of fixed variable " + var.get_alias_name()+").")
-                        modified = True
-                    if is_discrete_real_var(var) and ((is_real_var(alias_var)  and not alias_var.is_fixed()) or is_der_real_var(alias_var)):
-                        error_msg = "    Error: Found an alias that assigns the continuous variable " + alias_var.get_name()+\
-                            " to the discrete real variable " + var.get_name() +\
-                            " outside of the scope of a when or a if. Please rewrite the equation or check that you didn't connect a zPin to a ImPin.\n"
-                        error_exit(error_msg)
 
     ##
     # Read the *.extvar defining the fictitious equations
@@ -956,23 +958,32 @@ class ReaderOMC:
     # @return
     def read_16dae_c_file(self):
         # Reading of functions "..._eqFunction_${num}(...)"
-        self.list_func_16dae_c = self.read_functions(self._16dae_c_file, self.ptrn_func_decl_main_c, self.functions_root_name)
+        for file in self._16dae_c_file:
+            self.list_func_16dae_c.extend(self.read_functions(file, self.ptrn_func_decl_main_c, self.functions_root_name))
 
-        ptrn_comments = re.compile(self.regular_expr_equation_index)
-        comment_opening = "/*"
-        comments_end = "*/"
-        with open(self._16dae_c_file, 'r') as f:
-            while True:
-                it = itertools.dropwhile(lambda line: comment_opening not in line, f)
-                next_iter = next(it, None)
-                if next_iter is None: break
-                list_body = list(itertools.takewhile(lambda line: comments_end not in line, f))
-                for line in list_body:
-                    if ptrn_comments.search(line) is not None:
-                        match = re.search(ptrn_comments, line)
-                        index = match.group('index')
-                        self.map_equation_formula[index] = list_body[-1].lstrip().strip('\n')
-                        break
+            ptrn_comments = re.compile(self.regular_expr_equation_index)
+            comment_opening = "/*"
+            comments_end = "*/"
+            with open(file, 'r') as f:
+                while True:
+                    it = itertools.dropwhile(lambda line: comment_opening not in line, f)
+                    next_iter = next(it, None)
+                    if next_iter is None: break
+                    list_body = list(itertools.takewhile(lambda line: comments_end not in line, f))
+                    for line in list_body:
+                        if ptrn_comments.search(line) is not None:
+                            match = re.search(ptrn_comments, line)
+                            index = match.group('index')
+                            self.map_equation_formula[index] = list_body[-1].lstrip().strip('\n')
+                            break
+
+            # Reading the function ..._setupDataStruc(...)
+            file_to_read = file
+            function_name = self.mod_name + "_initializeDAEmodeData"
+            ptrn_func_to_read = re.compile(self.regular_expr_function_name % ("int", function_name))
+            func = self.read_function(file_to_read, ptrn_func_to_read, function_name)
+            if func is not None:
+                self.setup_dae_data_struc_raw_func = func
 
         for f in self.list_func_16dae_c:
             (body, depend) = replace_dynamic_indexing(f.body)
@@ -984,11 +995,6 @@ class ReaderOMC:
                 name_var_eval = self.map_num_eq_vars_defined[f.get_num_omc()] [0]
             if name_var_eval is not None and len(depend) > 0:
                 self.map_vars_depend_vars[name_var_eval].extend(depend)
-        # Reading the function ..._setupDataStruc(...)
-        file_to_read = self._16dae_c_file
-        function_name = self.mod_name + "_initializeDAEmodeData"
-        ptrn_func_to_read = re.compile(self.regular_expr_function_name % ("int", function_name))
-        self.setup_dae_data_struc_raw_func = self.read_function(file_to_read, ptrn_func_to_read, function_name)
 
 
     ##
@@ -997,8 +1003,8 @@ class ReaderOMC:
     # @return
     def read_16dae_h_file(self):
         # look for variables definitions
-        auxiliary_var = r'#define \$P(?P<var>.*) data->simulationInfo->daeModeData->auxiliaryVars\[(?P<num>\d+)\]$'
-        residuals_var = r'#define \$P(?P<var>.*) data->simulationInfo->daeModeData->residualVars\[(?P<num>\d+)\]$'
+        auxiliary_var = r'.*#define \$P(?P<var>.*) \(data->simulationInfo->daeModeData->auxiliaryVars\[(?P<num>\d+)\]$'
+        residuals_var = r'.*#define \(data->simulationInfo->daeModeData->residualVars\[(?P<num>\d+)\].*'
         with open(self._16dae_h_file, 'r') as f:
             for line in f:
                 match = re.search(auxiliary_var, line)
@@ -1006,7 +1012,7 @@ class ReaderOMC:
                     self.auxiliary_vars_to_address_map[match.group("var")] = "data->simulationInfo->daeModeData->auxiliaryVars["+match.group("num")+"]"
                 match = re.search(residuals_var, line)
                 if match is not None:
-                    self.residual_vars_to_address_map[match.group("var")] = "data->simulationInfo->daeModeData->residualVars["+match.group("num")+"]"
+                    self.residual_vars_to_address_map["$DAEres"+match.group("num")] = "data->simulationInfo->daeModeData->residualVars["+match.group("num")+"]"
 
     ##
     # Read the *_06inz.c to find initial value of variables
@@ -1017,11 +1023,37 @@ class ReaderOMC:
         global crossed_opening_braces
         global stop_at_next_call
 
+
+        # Look for functions used in initialization, not lambda0
+        ptrn_initial_equations_function_name = re.compile(r'_functionInitialEquations_[0-9]+(DATA *data, threadData_t *threadData)')
+        ptrn_initial_equations_function_name2 = re.compile(r'_functionInitialEquations_lambda[0-9]+(DATA *data, threadData_t *threadData)')
+        initial_equations_function_index = "_eqFunction_(?P<index>[0-9]+)\(data"
+        index_of_initial_equations = []
+        for init_file in self._06inz_c_file:
+            with open(init_file, 'r') as f:
+                while True:
+                    nb_braces_opened = 0
+                    crossed_opening_braces = False
+                    stop_at_next_call = False
+
+                    it = itertools.dropwhile(lambda line: ptrn_initial_equations_function_name.search(line) is not None \
+                                             or ptrn_initial_equations_function_name2.search(line) is not None, f)
+                    next_iter = next(it, None) # Line on which "dropwhile" stopped
+                    if next_iter is None: break # If we reach the end of the file, exit loop
+
+                    # "takewhile" only stops when the whole body of the function is read
+                    list_body = list(itertools.takewhile(stop_reading_function, it))
+
+                    for line in list_body:
+                        match_func = re.search(initial_equations_function_index,line)
+                        if (match_func is not None):
+                            index_of_initial_equations.append(match_func.group('index'))
+
         # Find functions of type MODEL_NAME_eqFunction_N and variable assignment expressions
         # Regular expression to recognize a line of type var = rhs
-        ptrn_assign_var = re.compile(r'^[ ]*data->localData(?P<var>\S*)[ ]*\/\* (?P<varName>[\w\$\.()\[\],]*) [\w(),\.]+ \*\/[ ]*=[ ]*(?P<rhs>[^;]+);')
-        ptrn_assign_var_complex = re.compile(r'^[ ]*data->modelData->\S*\.attribute[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w(),\.\[\]]+ \*\/.start[ ]*=[^;]*;$')
-        ptrn_param = re.compile(r'^[ ]*data->simulationInfo->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/[ ]*=[ ]*(?P<rhs>[^;]+);')
+        ptrn_assign_var = re.compile(r'^[ ]*\(data->localData(?P<var>\S*)[ ]*\/\* (?P<varName>[\w\$\.()\[\],]*) [\w(),\.]+ \*\/\)[ ]*=[ ]*(?P<rhs>[^;]+);')
+        ptrn_assign_var_complex = re.compile(r'^[ ]*\(data->modelData->\S*\.attribute[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w(),\.\[\]]+ \*\/.start\)[ ]*=[^;]*;$')
+        ptrn_param = re.compile(r'^[ ]*\(data->simulationInfo->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/\)[ ]*=[ ]*(?P<rhs>[^;]+);')
         for init_file in self._06inz_c_file:
             with open(init_file, 'r') as f:
                 while True:
@@ -1034,6 +1066,8 @@ class ReaderOMC:
                     if next_iter is None: break # If we reach the end of the file, exit loop
                     match = re.search(self.ptrn_func_decl_main_c, next_iter)
                     num_function = match.group('num')
+
+                    if (num_function not in index_of_initial_equations) : continue
 
                     # "takewhile" only stops when the whole body of the function is read
                     list_body = list(itertools.takewhile(stop_reading_function, it))
@@ -1053,7 +1087,11 @@ class ReaderOMC:
                             var = str(match.group('varName'))
                             rhs = match.group('rhs')
                             # rejection of inits of type var = ..attribute
-                            if 'attribute' not in rhs and 'aux_x' not in rhs and "linearSystemData" not in rhs:
+                            if 'attribute' not in rhs and 'VarsPre' not in rhs and 'aux_x' not in rhs and "linearSystemData" not in rhs:
+                                self.var_init_val_06inz[ var ] = list_body
+                                self.var_num_init_val_06inz[var] = num_function
+                                break
+                            elif 'omc_Modelica_Blocks_Tables_Internal_getTimeTableValueNoDer' in rhs:
                                 self.var_init_val_06inz[ var ] = list_body
                                 self.var_num_init_val_06inz[var] = num_function
                                 break
@@ -1062,7 +1100,7 @@ class ReaderOMC:
                             var = str(match.group('varName'))
                             rhs = match.group('rhs')
                             # rejection of inits of type var = ..attribute
-                            if 'attribute' not in rhs  and 'aux_x' not in rhs and "linearSystemData" not in rhs:
+                            if 'attribute' not in rhs  and 'VarsPre' not in rhs and 'aux_x' not in rhs and "linearSystemData" not in rhs:
                                 self.var_init_val_06inz[ var ] = list_body
                                 self.var_num_init_val_06inz[var] = num_function
 
@@ -1201,12 +1239,12 @@ class ReaderOMC:
         global crossed_opening_braces
         global stop_at_next_call
         # Regular expression to recognize a line of type $Pvar = $Prhs
-        ptrn_assign_var = re.compile(r'^[ ]*data->modelData->(?P<var>\S*)\.attribute[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w(),\.\[\]]+ \*\/.start[ ]*=[^;]*;$')
-        ptrn_param = re.compile(r'data->simulationInfo->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/[ ]*=[^;]*;')
-        ptrn_param_boolean_test = re.compile(r'data->simulationInfo->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/[ ]*==[^;]*;')
-        ptrn_param_bool_assignment = re.compile(r'data->simulationInfo->booleanParameter\[(?P<var>\S*)\][ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/[ ]*=[^;]*;')
-        ptrn_assign_auxiliary_var = re.compile(r'^[ ]*data->localData(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w(),\.]+ \*\/[ ]*=[^;]*;')
-        ptrn_assign_extobjs = re.compile(r'^[ ]*data->simulationInfo->extObjs\[(?P<var>[0-9]+)\][ ]*=[^;]*;$')
+        ptrn_assign_var = re.compile(r'^[ ]*\(data->modelData->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w(),\.\[\]]+ \*\/\)\.attribute[ ]*.start[ ]*=[^;]*;')
+        ptrn_param = re.compile(r'\(data->simulationInfo->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/\)[ ]*=[^;]*;')
+        ptrn_tmp_assign = re.compile(r'\s*tmp[0-9]+\s*=[^;]*==[^;]*;')
+        ptrn_param_bool_assignment = re.compile(r'\(data->simulationInfo->booleanParameter\[(?P<var>\S*)\][ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/[ ]*=[^;]*;')
+        ptrn_assign_auxiliary_var = re.compile(r'^[ ]*\(data->localData(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w(),\.]+ \*\/\)[ ]*=[^;]*;')
+        ptrn_assign_extobjs = re.compile(r'^[ ]*\(data->simulationInfo->extObjs\[(?P<var>[0-9]+)\]\)[ ]*=[^;]*;$')
 
         for init_file in self._08bnd_c_file:
             with open(init_file, 'r') as f:
@@ -1228,19 +1266,19 @@ class ReaderOMC:
                             match = re.search(ptrn_assign_var, line)
                             var = match.group('varName')
                             self.var_init_val[ var ] = list_body
-                        if ptrn_param_bool_assignment.search(line) is not None:
+                        elif ptrn_param_bool_assignment.search(line) is not None:
                             match = re.search(ptrn_param, line)
                             var = match.group('varName')
                             self.var_init_val[ var ] = list_body
-                        if ptrn_param.search(line) is not None and ptrn_param_boolean_test.search(line) is None:
+                        elif ptrn_param.search(line) is not None and ptrn_tmp_assign.search(line) is None:
                             match = re.search(ptrn_param, line)
                             var = match.group('varName')
                             self.var_init_val[ var ] = list_body
-                        if ptrn_assign_auxiliary_var.search(line) is not None:
+                        elif ptrn_assign_auxiliary_var.search(line) is not None:
                             match = re.search(ptrn_assign_auxiliary_var, line)
                             var = match.group('varName')
                             self.var_init_val[ var ] = list_body
-                        if ptrn_assign_extobjs.search(line) is not None:
+                        elif ptrn_assign_extobjs.search(line) is not None:
                             match = re.search(ptrn_assign_extobjs, line)
                             var_add = "data->simulationInfo->extObjs["+match.group('var')+"]"
                             for var_name, address in get_map_var_name_2_addresses().items():
@@ -1251,7 +1289,6 @@ class ReaderOMC:
                     for line in list_body:
                         if 'omc_assert_warning_withEquationIndexes(' in line:
                             self.warnings.append(list_body)
-
         ptrn_comments = re.compile(r'\sequation index:[ ]*(?P<index>.*)[ ]*\n')
         comments_opening = "/*"
         comments_end = "*/"
@@ -1271,8 +1308,8 @@ class ReaderOMC:
 
     def read_07dly_c_file(self):
         if os.path.isfile(self._07dly_c_file):
-            pattern_with_parameters = re.compile(r"storeDelayedExpression\(data,\s*threadData,\s*(?P<exprId>\d+), data->localData\[(?P<localId>\d+)\]->realVars\[\d+\]\s*\/\*\s*(?P<name>[\w.\[\]]+).*?\s*\*\/, data->localData\[(?P<timeId>\d*)\]->timeValue.*,.*?\/\*\s*(?P<delayMaxName>[\w.\[\]]+).*\)")
-            pattern = re.compile(r"storeDelayedExpression\(data,\s*threadData,\s*(?P<exprId>\d+), data->localData\[\d+\]->realVars\[\d+\]\s*\/\*\s*(?P<name>[\w.\[\]]+).*?\s*\*\/, data->localData\[(?P<timeId>\d*)\]->timeValue.*,\s*(?P<delayMax>\d+\.\d+)\)")
+            pattern_with_parameters = re.compile(r"storeDelayedExpression\(data,\s*threadData,\s*(?P<exprId>\d+), \(data->localData\[(?P<localId>\d+)\]->realVars\[\d+\]\s*\/\*\s*(?P<name>[\w.\[\]]+).*?\s*\*\/\),.*?\/\*\s*(?P<delayMaxName>[\w.\[\]]+).*\)")
+            pattern = re.compile(r"storeDelayedExpression\(data,\s*threadData,\s*(?P<exprId>\d+), \(data->localData\[\d+\]->realVars\[\d+\]\s*\/\*\s*(?P<name>[\w.\[\]]+).*?\s*\*\/\).*,\s*(?P<delayMax>\d+\.\d+)\)")
             with open(self._07dly_c_file, 'r') as f:
                 for line in f:
                     match = re.search(pattern, line)
@@ -1280,7 +1317,6 @@ class ReaderOMC:
                         self.list_delay_defs.append({
                             "exprId": match.group("exprId"),
                             "name": match.group("name"),
-                            "timeId": match.group("timeId"),
                             "delayMax": match.group("delayMax"),
                         })
                         continue
@@ -1290,7 +1326,6 @@ class ReaderOMC:
                         self.list_delay_defs.append({
                             "exprId": match.group("exprId"),
                             "name": match.group("name"),
-                            "timeId": match.group("timeId"),
                             "delayMaxName": match.group("delayMaxName"),
                         })
     ##
@@ -1427,8 +1462,8 @@ class ReaderOMC:
         ptrn_func_extern = re.compile(r'extern .*;')
         ptrn_func = re.compile(r'.*;')
         ptrn_not_func = re.compile(r'static const MMC_.*;')
-        ptrn_struct = re.compile(r'.*typedef struct .* {.*')
-
+        ptrn_struct = re.compile(r'.*typedef struct .*{.*')
+        ptrn_define = re.compile(r'#define .*\)')
         file_to_read = self._functions_header
         if not os.path.isfile(file_to_read) :
             return
@@ -1446,7 +1481,15 @@ class ReaderOMC:
                 next_iter = next(it,None) # Line on which "dropwhile" stopped
                 if next_iter is None: break # If we reach the end of the file, exit loop
                 if next_iter not in self.list_external_functions and ptrn_not_func.search(next_iter) is None:
-                        self.list_internal_functions.append(next_iter)
+                    self.list_internal_functions.append(next_iter)
+
+        with open(file_to_read,'r') as f:
+            while True:
+                it = itertools.dropwhile(lambda line: ptrn_define.search(line) is None, f)
+                next_iter = next(it,None) # Line on which "dropwhile" stopped
+                if next_iter is None: break # If we reach the end of the file, exit loop
+                self.list_functions_define.append(next_iter)
+
 
 
     ##
@@ -1462,7 +1505,7 @@ class ReaderOMC:
         ptrn_var1 = re.compile(r'static const MMC_DEFSTRINGLIT*')
         ptrn_var2 = re.compile(r'static const modelica_integer _OMC_LIT.*')
         ptrn_table_size= re.compile(r'static _index_t _OMC_LIT[0-9]+_dims*')
-        ptrn_table= re.compile(r'static base_array_t const _OMC_LIT*')
+        ptrn_table= re.compile(r'static base_array_t const _OMC_LIT*|static integer_array const _OMC_LIT*')
         ptrn_real_array= re.compile(r'static const modelica_real _OMC_LIT[0-9]+_data*')
 
         with open(file_to_read,'r') as f:
@@ -1513,7 +1556,7 @@ class ReaderOMC:
             return
 
         index_extobjs = 0
-        ptrn_var = re.compile(r'type: (?P<type>.*) index: (?P<index>.*): (?P<name>.*) \(.* valueType: (?P<valueType>.*) initial:.*')
+        ptrn_var = re.compile(r'type: (?P<type>.*) index:(?P<index>.*): (?P<name>.*) \(.* valueType: (?P<valueType>.*) initial:.*')
         alternative_way_to_declare_der = "$DER."
         with open(file_to_read,'r') as f:
             while True:
@@ -1545,10 +1588,8 @@ class ReaderOMC:
                     var.set_type("rAlg")
                     self.list_vars.append(var)
                 elif re.search(r'stateVars \([0-9]+\)',var_type) or re.search(r'algVars \([0-9]+\)',var_type):
-                    if not var.is_fixed():
-                        set_param_address(name,  "realVars")
-                    else:
-                        set_param_address(name,  "constVars")
+                    set_param_address(name,  "realVars")
+                    var.set_fixed(False)
                 elif var_type == "discreteAlgVars":
                     set_param_address(name,  "discreteVars")
                 elif var_type == "constVars":
@@ -1561,8 +1602,9 @@ class ReaderOMC:
                     else:
                         set_param_address(name,  "discreteVars")
                 elif var_type == "aliasVars":
+                    aliased = self.find_variable_from_name(var.get_alias_name())
                     # fixed discrete real vars are not aliased and are initialized in Y0
-                    if is_discrete_real_var(var) and var.is_fixed():
+                    if is_discrete_real_var(var) and (var.is_fixed() or is_param_var(aliased)):
                         set_param_address(name,  "discreteVars")
                     # Aliased non-fixed vars should never be used in equations independently from their type
                     elif not var.is_fixed():
@@ -1571,12 +1613,14 @@ class ReaderOMC:
                     else:
                         set_param_address(name,  "constVars")
                 elif var_type == "intAliasVars":
-                    if var.is_fixed():
+                    aliased = self.find_variable_from_name(var.get_alias_name())
+                    if var.is_fixed() or is_param_var(aliased):
                         set_param_address(name,  "integerDoubleVars")
                     else:
                         set_param_address(name,  "SHOULD NOT BE USED - INT ALIAS VAR")
                 elif var_type == "boolAliasVars":
-                    if var.is_fixed():
+                    aliased = self.find_variable_from_name(var.get_alias_name())
+                    if var.is_fixed() or is_param_var(aliased):
                         set_param_address(name,  "discreteVars")
                     else:
                         set_param_address(name,  "SHOULD NOT BE USED - BOOL ALIAS VAR")
@@ -1601,24 +1645,100 @@ class ReaderOMC:
 
 
     def correct_fixed_status(self):
-        for var_name in self.map_vars_depend_vars:
-            var = self.find_variable_from_name(var_name)
-            if var is not None and var.get_variability() == "continuous" and var.is_fixed():
-                for dep_var_name in self.map_vars_depend_vars[var_name]:
-                    dep_var = self.find_variable_from_name(dep_var_name)
-                    if dep_var is not None and not dep_var.is_fixed():
+        modified = True
+        while modified:
+            modified = False
+            for var_name in self.map_vars_depend_vars:
+                #if is_when_condition(var_name) : continue
+                var = self.find_variable_from_name(var_name)
+                if var is not None and var.get_variability() == "discrete" and var.is_fixed():
+                    if var_name in self.fictive_discrete_vars:
                         var.set_fixed(False)
-                        print_info("Removing fixed flag from variable " + var.get_name())
-                        set_param_address(var.get_name(),  "realVars")
                         modified = True
-                        while modified:
-                            modified = False
+                        print_info("Removing fixed flag from variable " + var.get_name())
+                        alias_modified = True
+                        while alias_modified:
+                            alias_modified = False
                             for var2 in self.list_vars:
                                 if var2.get_alias_name() == var_name and var2.is_fixed():
                                     var2.set_fixed(False)
                                     print_info("Removing fixed flag from alias variable " + var2.get_name())
-                                    modified = True
+                                    alias_modified = True
                         break
+                    for dep_var_name in self.map_vars_depend_vars[var_name]:
+                        dep_var = self.find_variable_from_name(dep_var_name)
+                        if dep_var is not None and not dep_var.is_fixed():
+                            var.set_fixed(False)
+                            modified = True
+                            print_info("Removing fixed flag from variable " + var.get_name())
+                            alias_modified = True
+                            while alias_modified:
+                                alias_modified = False
+                                for var2 in self.list_vars:
+                                    if var2.get_alias_name() == var_name and var2.is_fixed():
+                                        var2.set_fixed(False)
+                                        print_info("Removing fixed flag from alias variable " + var2.get_name())
+                                        alias_modified = True
+                            break
+                    for var2 in self.list_vars:
+                        if var2.get_alias_name() == var_name and not var2.is_fixed():
+                            print_info("Removing fixed flag from variable " + var.get_name() +" (alias of non fixed variable " + var2.get_name()+")")
+                            var.set_fixed(False)
+                            modified = True
+                            break
+                if var is not None and var.get_variability() == "continuous" and var.is_fixed():
+                    for dep_var_name in self.map_vars_depend_vars[var_name]:
+                        dep_var = self.find_variable_from_name(dep_var_name)
+                        if dep_var is not None and not dep_var.is_fixed() and not is_when_condition(dep_var_name):
+                            var.set_fixed(False)
+                            modified = True
+                            print_info("Removing fixed flag from variable " + var.get_name())
+                            set_param_address(var.get_name(),  "realVars")
+                            alias_modified = True
+                            while alias_modified:
+                                alias_modified = False
+                                for var2 in self.list_vars:
+                                    if var2.get_alias_name() == var_name and var2.is_fixed():
+                                        var2.set_fixed(False)
+                                        print_info("Removing fixed flag from alias variable " + var2.get_name())
+                                        alias_modified = True
+                            break
+                if var is not None and var.get_variability() == "continuous" and not var.is_fixed():
+                    do_it = True
+                    for dep_var_name in self.map_vars_depend_vars[var_name]:
+                        if dep_var_name == "time":
+                            do_it = False
+                            break
+                        dep_var = self.find_variable_from_name(dep_var_name)
+                        if dep_var is not None and (not dep_var.is_fixed() \
+                        or dep_var.get_name() in self.fictive_continuous_vars\
+                        or dep_var.get_name() in self.fictive_optional_continuous_vars\
+                        or dep_var.get_name() in self.fictive_discrete_vars):
+                            do_it = False
+                            break
+                    if do_it:
+                        # Only depends on fixed variables
+                        var.set_fixed(True)
+                        modified = True
+                        print_info("Adding fixed flag to variable " + var.get_name())
+                        set_param_address(var.get_name(),  "constVars")
+        ## Need to go over again to propagate fixed property: an alias on a fixed variable should be set as fixed
+        modified = True
+        while modified:
+            modified = False
+            for var in self.list_vars:
+                if var.get_alias_name() != "":
+                    alias_var = self.find_variable_from_name(var.get_alias_name())
+                    assert(alias_var != None)
+                    if alias_var.is_fixed() and not var.is_fixed():
+                        var.set_fixed(True)
+                        print_info("variable " + var.get_name() + " is considered as fixed (alias of fixed variable " + var.get_alias_name()+").")
+                        modified = True
+                    if is_discrete_real_var(var) and ((is_real_var(alias_var)  and not alias_var.is_fixed()) or is_der_real_var(alias_var)):
+                        error_msg = "    Error: Found an alias that assigns the continuous variable " + alias_var.get_name()+\
+                            " to the discrete real variable " + var.get_name() +\
+                            " outside of the scope of a when or a if. Please rewrite the equation or check that you didn't connect a zPin to a ImPin.\n"
+                        error_exit(error_msg)
     ##
     # Assign the final type and index to the variables
     # @param self : object pointer
@@ -1795,6 +1915,7 @@ class ReaderOMC:
         for func in self.list_omc_functions:
             if "omc_Modelica_" in func.get_name() and "omc_Modelica_Blocks_Tables_Internal_getTable" not in func.get_name() \
             and "omc_Modelica_Blocks_Tables_Internal_getTimeTable" not in func.get_name(): continue
+            if "array_alloc_scalar_real_array" in func.get_name(): continue
             name_func_to_search[func.get_name()] = func
 
         # dictionary that stores the number of equations that depends on a specific variable
@@ -1817,11 +1938,15 @@ class ReaderOMC:
             #derivative variables should be kept in f
             if name_var_eval is not None and "der("+name_var_eval+")" in get_map_var_name_2_addresses():
                 is_eligible = False
+            #constant variables shouldn't become calculated variables
+            base_var = self.find_variable_from_name(name_var_eval)
+            if base_var is not None and base_var.is_fixed():
+                is_eligible = False
             for line in f.get_body():
                 if "STATE_DER" in line or "DUMMY_DER" in line:
                     # equations with derivatives should be kept in F
                     is_eligible = False
-                if "RELATIONHYSTERESIS" in line:
+                if "relationhysteresis" in line:
                     # equations with potential mode change should be kept in F
                     is_eligible = False
                 for func_name in name_func_to_search:
@@ -1902,7 +2027,7 @@ class ReaderOMC:
                     set_param_address(var.get_name(), "data->constCalcVars["+str(len(self.list_complex_const_vars))+"]")
                     self.list_complex_const_vars.append(var)
 
-        ptrn_evaluated_var = re.compile(r'data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*(?P<rhs>[^;]+);')
+        ptrn_evaluated_var = re.compile(r'\(data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/\)[ ]* = [ ]*(?P<rhs>[^;]+);')
         map_dep = self.get_map_dep_vars_for_func()
         for var in self.list_vars:
             if var in self.list_complex_calculated_vars:
@@ -1970,27 +2095,25 @@ class ReaderOMC:
         # Add in hard the delayImpl signature
         func = RawOmcFunctions()
         func.set_name("delayImpl")
-        func.set_signature("modelica_real delayImpl(DATA* data, int exprNumber, modelica_real exprValue, modelica_real time, modelica_real delayTime, modelica_real delayMax)")
+        func.set_signature("modelica_real delayImpl(DATA* data, int exprNumber, modelica_real exprValue, modelica_real delayTime, modelica_real delayMax)")
         func.set_return_type("modelica_real")
         func.add_params(OmcFunctionParameter("data", "DATA*", 0, True))
         func.add_params(OmcFunctionParameter("exprNumber", "int", 1, True))
         func.add_params(OmcFunctionParameter("exprValue", "modelica_real", 2, True))
-        func.add_params(OmcFunctionParameter("time", "modelica_real", 3, True))
-        func.add_params(OmcFunctionParameter("delayTime", "modelica_real", 4, True))
-        func.add_params(OmcFunctionParameter("delayMax", "modelica_real", 5, True))
+        func.add_params(OmcFunctionParameter("delayTime", "modelica_real", 3, True))
+        func.add_params(OmcFunctionParameter("delayMax", "modelica_real", 4, True))
         self.list_omc_functions.append(func)
 
-        # Add in hard the derDelayImpl signature
+         # Add in hard the derDelayImpl signature
         func = RawOmcFunctions()
         func.set_name("derDelayImpl")
-        func.set_signature("modelica_real derDelayImpl(DATA* data, int exprNumber, modelica_real exprValue, modelica_real time, modelica_real delayTime, modelica_real delayMax)")
+        func.set_signature("modelica_real derDelayImpl(DATA* data, int exprNumber, modelica_real exprValue, modelica_real delayTime, modelica_real delayMax)")
         func.set_return_type("modelica_real")
         func.add_params(OmcFunctionParameter("data", "DATA*", 0, True))
         func.add_params(OmcFunctionParameter("exprNumber", "int", 1, True))
         func.add_params(OmcFunctionParameter("exprValue", "modelica_real", 2, True))
-        func.add_params(OmcFunctionParameter("time", "modelica_real", 3, True))
-        func.add_params(OmcFunctionParameter("delayTime", "modelica_real", 4, True))
-        func.add_params(OmcFunctionParameter("delayMax", "modelica_real", 5, True))
+        func.add_params(OmcFunctionParameter("delayTime", "modelica_real", 3, True))
+        func.add_params(OmcFunctionParameter("delayMax", "modelica_real", 4, True))
         self.list_omc_functions.append(func)
 
         func = RawOmcFunctions()
@@ -2001,6 +2124,20 @@ class ReaderOMC:
         func.add_params(OmcFunctionParameter("n", "int", 1, True))
         for i in range(100):
             func.add_params(OmcFunctionParameter("%dth" % (i), "modelica_real", 2, True))
+        self.list_omc_functions.append(func)
+
+        func = RawOmcFunctions()
+        func.set_name("max_real_array")
+        func.set_signature("modelica_real max_real_array(const real_array_t a)")
+        func.set_return_type("modelica_real")
+        func.add_params(OmcFunctionParameter("a", "real_array_t", 0, True))
+        self.list_omc_functions.append(func)
+
+        func = RawOmcFunctions()
+        func.set_name("min_real_array")
+        func.set_signature("modelica_real min_real_array(const real_array_t a)")
+        func.set_return_type("modelica_real")
+        func.add_params(OmcFunctionParameter("a", "real_array_t", 0, True))
         self.list_omc_functions.append(func)
 
         func = RawOmcFunctions()
@@ -2064,6 +2201,7 @@ class ReaderOMC:
         global crossed_opening_braces
         global stop_at_next_call
         ptrn_func = re.compile(r'^(?![\/]).* (?P<var>.*)\((?P<params>.*)\)')
+        functions_found = []
 
         with open(file_to_read, 'r') as f:
             while True:
@@ -2094,6 +2232,46 @@ class ReaderOMC:
                     # "takewhile" only stops when the whole body of the function is read
                     func.set_body( list(itertools.takewhile(stop_reading_function, it)) )
                     self.list_omc_functions.append(func)
+                    functions_found.append(func.get_name())
+
+        file_to_read = self._records_c_file
+        with open(file_to_read, 'r') as f:
+            while True:
+                nb_braces_opened = 0
+                crossed_opening_braces = False
+                stop_at_next_call = False
+
+                it = itertools.dropwhile(lambda line: ptrn_func.search(line) is None, f)
+                next_iter = next(it, None) # Line on which "dropwhile" stopped
+                if next_iter is None: break # If we reach the end of the file, exit loop
+
+                if "{" in next_iter: nb_braces_opened+=1
+                match = re.search(ptrn_func, next_iter)
+
+                if ";" not in next_iter: # it is a function declaration
+                    func = RawOmcFunctions()
+                    func.set_name(match.group('var'))
+                    generic_param = None
+                    if func.get_name().endswith("_construct_p") or func.get_name().endswith("_wrap_vars_p") or func.get_name().endswith("_copy_p"):
+                        generic_param = func.get_name().replace("_construct_p", "").replace("_wrap_vars_p", "").replace("_copy_p", "").replace("Complex_1_2", "Complex")
+                    func.set_signature(next_iter)
+                    func.set_return_type(next_iter.split()[0])
+                    index = 0
+                    for params in match.group('params').split(','):
+                        if(params.startswith("threadData_t")): continue
+                        param_type = params.split()[0]
+                        if param_type == "void*" and generic_param is not None:
+                            param_type = generic_param+"*"
+                        name = params.split()[1]
+                        is_input = not name.startswith("*out_")
+                        func.add_params(OmcFunctionParameter(name, param_type, index, is_input))
+                        index +=1
+
+                    # "takewhile" only stops when the whole body of the function is read
+                    func.set_body( list(itertools.takewhile(stop_reading_function, it)) )
+                    if func.get_name() not in functions_found:
+                        self.list_omc_functions.append(func)
+                        functions_found.append(func.get_name())
 
         self.add_delay_func()
 

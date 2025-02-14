@@ -34,10 +34,19 @@ int GeneratorPQ_INIT_function_ZeroCrossingsEquations(DATA *data, threadData_t *t
 int GeneratorPQ_INIT_function_ZeroCrossings(DATA *data, threadData_t *threadData, double *gout)
 {
   TRACE_PUSH
-  
+  const int *equationIndexes = NULL;
+
+
+#if !defined(OMC_MINIMAL_RUNTIME)
+  if (measure_time_flag) rt_tick(SIM_TIMER_ZC);
+#endif
   data->simulationInfo->callStatistics.functionZeroCrossings++;
-  
-  
+
+
+#if !defined(OMC_MINIMAL_RUNTIME)
+  if (measure_time_flag) rt_accumulate(SIM_TIMER_ZC);
+#endif
+
   TRACE_POP
   return 0;
 }
@@ -50,6 +59,8 @@ const char *GeneratorPQ_INIT_relationDescription(int i)
 int GeneratorPQ_INIT_function_updateRelations(DATA *data, threadData_t *threadData, int evalforZeroCross)
 {
   TRACE_PUSH
+  const int *equationIndexes = NULL;
+
   
   if(evalforZeroCross) {
   } else {

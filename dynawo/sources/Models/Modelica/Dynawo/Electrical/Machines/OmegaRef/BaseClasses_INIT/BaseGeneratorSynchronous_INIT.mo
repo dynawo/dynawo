@@ -62,7 +62,7 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
 
   Types.PerUnit Ud0Pu "Start value of voltage of direct axis in pu";
   Types.PerUnit Uq0Pu "Start value of voltage of quadrature axis in pu";
-  Dynawo.Connectors.PerUnitConnector Id0Pu "Start value of current of direct axis in pu";
+  Dynawo.Connectors.CurrentModulePuConnector Id0Pu "Start value of current of direct axis in pu";
   Types.PerUnit Iq0Pu "Start value of current of quadrature axis in pu";
 
   Types.PerUnit If0Pu "Start value of current of excitation winding in pu";
