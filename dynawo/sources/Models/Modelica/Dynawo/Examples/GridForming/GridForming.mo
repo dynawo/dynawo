@@ -609,11 +609,11 @@ equation
   connect(Line23Bis1.terminal2, Line23Bis2.terminal1) annotation(
     Line(points = {{-20, 14}, {20, 14}}, color = {0, 0, 255}));
   connect(Matching.omegaPu, dVOC.omegaRefPu) annotation(
-    Line(points = {{-91.25, -46.5}, {-91.25, 56}, {93.25, 56}, {93.25, 59}}, color = {0, 0, 127}));
+    Line(points = {{-80, -46.5}, {-80, 56}, {93.25, 56}, {93.25, 59}}, color = {0, 0, 127}));
   connect(Load.terminal, Line23.terminal1) annotation(
     Line(points = {{-15, 40}, {-15, 47}}, color = {0, 0, 255}));
   connect(Matching.omegaPu, Matching.omegaRefPu) annotation(
-    Line(points = {{-91, 13.5}, {-91, 20}, {-93.5, 20}, {-93.5, 16}}, color = {0, 0, 127}));
+    Line(points = {{-80, -46.5}, {-80, -40}, {-93.5, -40}, {-93.5, -44}}, color = {0, 0, 127}));
   connect(Droop.UdcSourceRefOutPu, Conv250.UdcSourceRefPu) annotation(
     Line(points = {{-91.25, 64.5}, {-78.25, 64.5}}, color = {0, 0, 127}));
   connect(dVOC.UdcSourceRefOutPu, Conv500.UdcSourceRefPu) annotation(
@@ -621,7 +621,7 @@ equation
   connect(Matching.UdcSourceRefOutPu, Conv1000.UdcSourceRefPu) annotation(
     Line(points = {{-91.25, -49.5}, {-78.25, -49.5}}, color = {0, 0, 127}));
   connect(Matching.omegaPu, Droop.omegaRefPu) annotation(
-    Line(points = {{-91.25, -46.5}, {-91.25, 56}, {-93.75, 56}, {-93.75, 59}}, color = {0, 0, 127}));
+    Line(points = {{-80, -46.5}, {-80, 56}, {-93.75, 56}, {-93.75, 59}}, color = {0, 0, 127}));
   connect(UFilterRef250Pu.y, Droop.UFilterRefPu) annotation(
     Line(points = {{-139.5, 75}, {-123.5, 75}}, color = {0, 0, 127}));
   connect(IdcSourceRef250Pu.y, Droop.IdcSourceRefPu) annotation(
