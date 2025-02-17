@@ -51,34 +51,23 @@ model GridForming "Grid Forming converters test case"
     UFilterRef0Pu = 1,
     UdConv0Pu(fixed = false),
     UdFilter0Pu(fixed = false),
-    UdcSource0Pu = 1.01369,//(fixed = false),
-//    UdcSourcePu(fixed = true, start = 1.01369),
+    UdcSource0Pu = Conv250.UdcSource0Pu,
     UdcSourceRef0Pu = UdcSourceRef250Pu.offset,
     UqConv0Pu(fixed = false),
     UqFilter0Pu(fixed = false),
     Wf = 60,
     Wff = 16.66,
     XRratio = 5,
-    XVI0(fixed = false),
-    currentLoop(integratord(y_start = 0.00323126),
-    integratorq(y_start = -0.000164394)),
-    droopControl(firstOrder(y_start = -7.3445e-5),
-    firstOrder1(y_start = 0.102988),
-    firstOrder2(y_start = 0.00622874),
-    firstOrder3(y_start = -0.0010158),
-    integrator(y_start = -0.0502873)),
-    idConvPu(fixed = true, start = 0.622806),
-    idPccPu(fixed = true, start = 0.622873),
-    iqConvPu(fixed = true, start = -0.035099),
-    iqPccPu(fixed = true, start = -0.101592),
-    udFilterPu(fixed = true, start = 1.00755),
-    uqFilterPu(fixed = true, start = 0.00101415)) "Droop controlled grid-forming converter" annotation(
+    XVI0(fixed = false)) "Droop controlled grid-forming converter" annotation(
     Placement(visible = true, transformation(origin = {-107, 75}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
   Dynawo.Electrical.Sources.Converter Conv250(
     Cdc = 0.01,
     CFilter = 0.066,
     IConv0Pu(fixed = false),
+    IdConv0Pu(fixed = false),
     IdPcc0Pu(fixed = false),
+    IdcSource0Pu(fixed = false),
+    IqConv0Pu(fixed = false),
     IqPcc0Pu(fixed = false),
     LFilter = 0.15,
     LTransformer = 0.2,
@@ -92,19 +81,16 @@ model GridForming "Grid Forming converters test case"
     Theta0 = -0.0502912,
     U0Pu = 0.988625,
     UPhase0 = -0.174549,
+    UdConv0Pu(fixed = false),
+    UdFilter0Pu(fixed = false),
     UdPcc0Pu(fixed = false),
+    UdcSource0Pu = 1.01369,
+    UqConv0Pu(fixed = false),
+    UqFilter0Pu(fixed = false),
     UqPcc0Pu(fixed = false),
     i0Pu(re(fixed = false), im(fixed = false)),
     u0Pu(re(fixed = false), im(fixed = false))) annotation(
     Placement(visible = true, transformation(origin = {-62, 75}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
-  //    IdConv0Pu(fixed = false),
-  //    IdcSource0Pu(fixed = false),
-  //    IqConv0Pu(fixed = false),
-  //    UdConv0Pu(fixed = false),
-  //    UdFilter0Pu(fixed = false),
-  //    UdcSource0Pu(fixed = false),
-  //    UqConv0Pu(fixed = false),
-  //    UqFilter0Pu(fixed = false),
   Modelica.Blocks.Sources.Step PRef250Pu(height = 0, offset = 0.6238, startTime = 1) annotation(
     Placement(visible = true, transformation(origin = {-145, 109}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Modelica.Blocks.Sources.Step QRef250Pu(height = 0, offset = 0.0769, startTime = 1) annotation(
@@ -149,28 +135,21 @@ model GridForming "Grid Forming converters test case"
     UFilterRef0Pu = 1.0131,
     UdConv0Pu(fixed = false),
     UdFilter0Pu(fixed = false),
-    UdcSource0Pu = 1.01259,//(fixed = false),
-//    UdcSourcePu(fixed = true, start = 1.01259),
+    UdcSource0Pu = Conv500.UdcSource0Pu,
     UdcSourceRef0Pu = UdcSourceRef500Pu.offset,
     UqConv0Pu(fixed = false),
     UqFilter0Pu(fixed = false),
     XRratio = 5,
-    XVI0(fixed = false),
-    currentLoop(integratord(y_start = 0.00360768),
-    integratorq(y_start = -0.0001349)),
-    dispatchableVirtualOscillatorControl(integrator(y_start = -0.00153422)),
-    idConvPu(fixed = true, start = 0.619091),
-    idPccPu(fixed = true, start = 0.618988),
-    iqConvPu(fixed = true, start = -0.036119),
-    iqPccPu(fixed = true, start = -0.102981),
-    udFilterPu(fixed = true, start = 1.01312),
-    uqFilterPu(fixed = true, start = -0.00155433)) "dVOC controlled grid-forming converter" annotation(
+    XVI0(fixed = false)) "dVOC controlled grid-forming converter" annotation(
     Placement(visible = true, transformation(origin = {107, 75}, extent = {{15, -15}, {-15, 15}}, rotation = 0)));
   Dynawo.Electrical.Sources.Converter Conv500(
     Cdc = 0.01,
     CFilter = 0.066,
     IConv0Pu(fixed = false),
+    IdConv0Pu(fixed = false),
     IdPcc0Pu(fixed = false),
+    IdcSource0Pu(fixed = false),
+    IqConv0Pu(fixed = false),
     IqPcc0Pu(fixed = false),
     LFilter = 0.15,
     LTransformer = 0.2,
@@ -184,19 +163,16 @@ model GridForming "Grid Forming converters test case"
     Theta0 = -0.00153083,
     U0Pu = 0.99413,
     UPhase0 = -0.126905,
+    UdConv0Pu(fixed = false),
+    UdFilter0Pu(fixed = false),
     UdPcc0Pu(fixed = false),
+    UdcSource0Pu = 1.01259,
+    UqConv0Pu(fixed = false),
+    UqFilter0Pu(fixed = false),
     UqPcc0Pu(fixed = false),
     i0Pu(re(fixed = false), im(fixed = false)),
     u0Pu(re(fixed = false), im(fixed = false))) annotation(
     Placement(visible = true, transformation(origin = {63, 75}, extent = {{15, -15}, {-15, 15}}, rotation = 0)));
-  //    IdConv0Pu(fixed = false),
-  //    IdcSource0Pu(fixed = false),
-  //    IqConv0Pu(fixed = false),
-  //    UdConv0Pu(fixed = false),
-  //    UdFilter0Pu(fixed = false),
-  //    UdcSource0Pu(fixed = false),
-  //    UqConv0Pu(fixed = false),
-  //    UqFilter0Pu(fixed = false),
   Modelica.Blocks.Sources.Step PRef500Pu(height = 0, offset = 0.6036, startTime = 1) annotation(
     Placement(visible = true, transformation(origin = {145, 109}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
   Modelica.Blocks.Sources.Step QRef500Pu(height = 0, offset = 0.072, startTime = 1) annotation(
@@ -239,27 +215,21 @@ model GridForming "Grid Forming converters test case"
     UFilterRef0Pu = 1,
     UdConv0Pu(fixed = false),
     UdFilter0Pu(fixed = false),
-    UdcSource0Pu = 1.0143,//(fixed = false),
-//    UdcSourcePu(fixed = true, start = 1.0143),
+    UdcSource0Pu = Conv1000.UdcSource0Pu,
     UdcSourceRef0Pu = UdcSourceRef1000Pu.offset,
     UqConv0Pu(fixed = false),
     UqFilter0Pu(fixed = false),
     XRratio = 5,
-    XVI0(fixed = false),
-    currentLoop(integratord(y_start = 0.00323221),
-    integratorq(y_start = -0.000197609)),
-    idConvPu(fixed = true, start = 0.63165),
-    idPccPu(fixed = false, start = 0.631649),
-    iqConvPu(fixed = true, start = -0.0410358),
-    iqPccPu(fixed = true, start = -0.1079),
-    udFilterPu(fixed = true, start = 1.0143),
-    uqFilterPu(fixed = true, start = 0)) "Matching control controlled grid-forming converter" annotation(
+    XVI0(fixed = false)) "Matching control controlled grid-forming converter" annotation(
     Placement(visible = true, transformation(origin = {-107, -60}, extent = {{-15, 15}, {15, -15}}, rotation = 0)));
   Dynawo.Electrical.Sources.Converter Conv1000(
     Cdc = 0.01,
     CFilter = 0.066,
     IConv0Pu(fixed = false),
+    IdConv0Pu(fixed = false),
     IdPcc0Pu(fixed = false),
+    IdcSource0Pu(fixed = false),
+    IqConv0Pu(fixed = false),
     IqPcc0Pu(fixed = false),
     LFilter = 0.15,
     LTransformer = 0.2,
@@ -273,19 +243,16 @@ model GridForming "Grid Forming converters test case"
     Theta0 = 0,
     U0Pu = 0.994308,
     UPhase0 = -0.126293,
+    UdConv0Pu(fixed = false),
+    UdFilter0Pu(fixed = false),
     UdPcc0Pu(fixed = false),
+    UdcSource0Pu = 1.0143,
+    UqConv0Pu(fixed = false),
+    UqFilter0Pu(fixed = false),
     UqPcc0Pu(fixed = false),
     i0Pu(re(fixed = false), im(fixed = false)),
     u0Pu(re(fixed = false), im(fixed = false))) annotation(
     Placement(visible = true, transformation(origin = {-62, -60}, extent = {{-15, 15}, {15, -15}}, rotation = 0)));
-  //    IdConv0Pu(fixed = false),
-  //    IdcSource0Pu(fixed = false),
-  //    IqConv0Pu(fixed = false),
-  //    UdConv0Pu(fixed = false),
-  //    UdFilter0Pu(fixed = false),
-  //    UdcSource0Pu(fixed = false),
-  //    UqConv0Pu(fixed = false),
-  //    UqFilter0Pu(fixed = false),
   Modelica.Blocks.Sources.Step UFilterRef1000Pu(height = 0, offset = 1.0143, startTime = 1) annotation(
     Placement(visible = true, transformation(origin = {-145, -77}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Modelica.Blocks.Sources.Step IdcSourceRef1000Pu(height = 0, offset = 0.63, startTime = 1) annotation(
@@ -306,14 +273,10 @@ model GridForming "Grid Forming converters test case"
   Dynawo.Electrical.Loads.LoadAlphaBeta Load(
     alpha = 2,
     beta = 0,
-    PPu(fixed = true, start = 10.9955),
-    QPu(fixed = false, start = 0),
-    u0Pu = Complex(1, 0)) annotation(
+    i0Pu(re(fixed = false), im(fixed = false)),
+    s0Pu(re(fixed = false), im(fixed = false)),
+    u0Pu(re(fixed = false), im(fixed = false))) annotation(
     Placement(visible = true, transformation(origin = {-15, 40}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
-
-//    i0Pu(re(fixed = false), im(fixed = false)),
-  //    s0Pu(re(fixed = false), im(fixed = false)),
-  //    u0Pu(re(fixed = false), im(fixed = false))
   Dynawo.Electrical.Events.NodeFault Fault(RPu = 0.0001, XPu = 0.001, tBegin = 1.5, tEnd = 1.65) annotation(
     Placement(visible = true, transformation(origin = {0, -16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanStep Disconnection(startValue = false, startTime = 0.5);
@@ -382,33 +345,31 @@ initial algorithm
   Droop.DeltaVVId0 := gridFormingControl250_INIT.DeltaVVId0;
   Droop.DeltaVVIq0 := gridFormingControl250_INIT.DeltaVVIq0;
   Droop.IConvSquare0Pu := gridFormingControl250_INIT.IConvSquare0Pu;
-  Droop.IdConv0Pu := gridFormingControl250_INIT.IdConv0Pu;
-  Droop.IdPcc0Pu := gridFormingControl250_INIT.IdPcc0Pu;
-  Droop.IdcSource0Pu := gridFormingControl250_INIT.IdcSource0Pu;
-  Droop.IqConv0Pu := gridFormingControl250_INIT.IqConv0Pu;
-  Droop.IqPcc0Pu := gridFormingControl250_INIT.IqPcc0Pu;
+  Droop.IdConv0Pu := converter250_INIT.IdConv0Pu;
+  Droop.IdPcc0Pu := converter250_INIT.IdPcc0Pu;
+  Droop.IdcSource0Pu := converter250_INIT.IdcSource0Pu;
+  Droop.IqConv0Pu := converter250_INIT.IqConv0Pu;
+  Droop.IqPcc0Pu := converter250_INIT.IqPcc0Pu;
   Droop.PFilter0Pu := converter250_INIT.PFilter0Pu;
   Droop.QFilter0Pu := converter250_INIT.QFilter0Pu;
   Droop.RVI0 := gridFormingControl250_INIT.RVI0;
-  Droop.UdConv0Pu := gridFormingControl250_INIT.UdConv0Pu;
-  Droop.UdFilter0Pu := gridFormingControl250_INIT.UdFilter0Pu;
-//  Droop.UdcSource0Pu := gridFormingControl250_INIT.UdcSource0Pu;
-  Droop.UqConv0Pu := gridFormingControl250_INIT.UqConv0Pu;
-  Droop.UqFilter0Pu := gridFormingControl250_INIT.UqFilter0Pu;
+  Droop.UdConv0Pu := converter250_INIT.UdConv0Pu;
+  Droop.UdFilter0Pu := converter250_INIT.UdFilter0Pu;
+  Droop.UqConv0Pu := converter250_INIT.UqConv0Pu;
+  Droop.UqFilter0Pu := converter250_INIT.UqFilter0Pu;
   Droop.XVI0 := gridFormingControl250_INIT.XVI0;
-//  Conv250.IdConv0Pu := converter250_INIT.IdConv0Pu;
+  Conv250.IdConv0Pu := converter250_INIT.IdConv0Pu;
   Conv250.IdPcc0Pu := converter250_INIT.IdPcc0Pu;
-//  Conv250.IdcSource0Pu := converter250_INIT.IdcSource0Pu;
-//  Conv250.IqConv0Pu := converter250_INIT.IqConv0Pu;
+  Conv250.IdcSource0Pu := converter250_INIT.IdcSource0Pu;
+  Conv250.IqConv0Pu := converter250_INIT.IqConv0Pu;
   Conv250.IqPcc0Pu := converter250_INIT.IqPcc0Pu;
   Conv250.PFilter0Pu := converter250_INIT.PFilter0Pu;
   Conv250.QFilter0Pu := converter250_INIT.QFilter0Pu;
-//  Conv250.UdConv0Pu := converter250_INIT.UdConv0Pu;
-//  Conv250.UdFilter0Pu := converter250_INIT.UdFilter0Pu;
+  Conv250.UdConv0Pu := converter250_INIT.UdConv0Pu;
+  Conv250.UdFilter0Pu := converter250_INIT.UdFilter0Pu;
   Conv250.UdPcc0Pu := converter250_INIT.UdPcc0Pu;
-//  Conv250.UdcSource0Pu := converter250_INIT.UdcSource0Pu;
-//  Conv250.UqConv0Pu := converter250_INIT.UqConv0Pu;
-//  Conv250.UqFilter0Pu := converter250_INIT.UqFilter0Pu;
+  Conv250.UqConv0Pu := converter250_INIT.UqConv0Pu;
+  Conv250.UqFilter0Pu := converter250_INIT.UqFilter0Pu;
   Conv250.UqPcc0Pu := converter250_INIT.UqPcc0Pu;
   Conv250.i0Pu.re := converter250_INIT.i0Pu.re;
   Conv250.i0Pu.im := converter250_INIT.i0Pu.im;
@@ -418,33 +379,31 @@ initial algorithm
   dVOC.DeltaVVId0 := gridFormingControl500_INIT.DeltaVVId0;
   dVOC.DeltaVVIq0 := gridFormingControl500_INIT.DeltaVVIq0;
   dVOC.IConvSquare0Pu := gridFormingControl500_INIT.IConvSquare0Pu;
-  dVOC.IdConv0Pu := gridFormingControl500_INIT.IdConv0Pu;
-  dVOC.IdPcc0Pu := gridFormingControl500_INIT.IdPcc0Pu;
-  dVOC.IdcSource0Pu := gridFormingControl500_INIT.IdcSource0Pu;
-  dVOC.IqConv0Pu := gridFormingControl500_INIT.IqConv0Pu;
-  dVOC.IqPcc0Pu := gridFormingControl500_INIT.IqPcc0Pu;
+  dVOC.IdConv0Pu := converter500_INIT.IdConv0Pu;
+  dVOC.IdPcc0Pu := converter500_INIT.IdPcc0Pu;
+  dVOC.IdcSource0Pu := converter500_INIT.IdcSource0Pu;
+  dVOC.IqConv0Pu := converter500_INIT.IqConv0Pu;
+  dVOC.IqPcc0Pu := converter500_INIT.IqPcc0Pu;
   dVOC.PFilter0Pu := converter500_INIT.PFilter0Pu;
   dVOC.QFilter0Pu := converter500_INIT.QFilter0Pu;
   dVOC.RVI0 := gridFormingControl500_INIT.RVI0;
-  dVOC.UdConv0Pu := gridFormingControl500_INIT.UdConv0Pu;
-  dVOC.UdFilter0Pu := gridFormingControl500_INIT.UdFilter0Pu;
-//  dVOC.UdcSource0Pu := gridFormingControl500_INIT.UdcSource0Pu;
-  dVOC.UqConv0Pu := gridFormingControl500_INIT.UqConv0Pu;
-  dVOC.UqFilter0Pu := gridFormingControl500_INIT.UqFilter0Pu;
+  dVOC.UdConv0Pu := converter500_INIT.UdConv0Pu;
+  dVOC.UdFilter0Pu := converter500_INIT.UdFilter0Pu;
+  dVOC.UqConv0Pu := converter500_INIT.UqConv0Pu;
+  dVOC.UqFilter0Pu := converter500_INIT.UqFilter0Pu;
   dVOC.XVI0 := gridFormingControl500_INIT.XVI0;
-//  Conv500.IdConv0Pu := converter500_INIT.IdConv0Pu;
+  Conv500.IdConv0Pu := converter500_INIT.IdConv0Pu;
   Conv500.IdPcc0Pu := converter500_INIT.IdPcc0Pu;
-//  Conv500.IdcSource0Pu := converter500_INIT.IdcSource0Pu;
-//  Conv500.IqConv0Pu := converter500_INIT.IqConv0Pu;
+  Conv500.IdcSource0Pu := converter500_INIT.IdcSource0Pu;
+  Conv500.IqConv0Pu := converter500_INIT.IqConv0Pu;
   Conv500.IqPcc0Pu := converter500_INIT.IqPcc0Pu;
   Conv500.PFilter0Pu := converter500_INIT.PFilter0Pu;
   Conv500.QFilter0Pu := converter500_INIT.QFilter0Pu;
-//  Conv500.UdConv0Pu := converter500_INIT.UdConv0Pu;
-//  Conv500.UdFilter0Pu := converter500_INIT.UdFilter0Pu;
+  Conv500.UdConv0Pu := converter500_INIT.UdConv0Pu;
+  Conv500.UdFilter0Pu := converter500_INIT.UdFilter0Pu;
   Conv500.UdPcc0Pu := converter500_INIT.UdPcc0Pu;
-//  Conv500.UdcSource0Pu := converter500_INIT.UdcSource0Pu;
-//  Conv500.UqConv0Pu := converter500_INIT.UqConv0Pu;
-//  Conv500.UqFilter0Pu := converter500_INIT.UqFilter0Pu;
+  Conv500.UqConv0Pu := converter500_INIT.UqConv0Pu;
+  Conv500.UqFilter0Pu := converter500_INIT.UqFilter0Pu;
   Conv500.UqPcc0Pu := converter500_INIT.UqPcc0Pu;
   Conv500.i0Pu.re := converter500_INIT.i0Pu.re;
   Conv500.i0Pu.im := converter500_INIT.i0Pu.im;
@@ -454,44 +413,42 @@ initial algorithm
   Matching.DeltaVVId0 := gridFormingControl1000_INIT.DeltaVVId0;
   Matching.DeltaVVIq0 := gridFormingControl1000_INIT.DeltaVVIq0;
   Matching.IConvSquare0Pu := gridFormingControl1000_INIT.IConvSquare0Pu;
-  Matching.IdConv0Pu := gridFormingControl1000_INIT.IdConv0Pu;
-  Matching.IdPcc0Pu := gridFormingControl1000_INIT.IdPcc0Pu;
-  Matching.IdcSource0Pu := gridFormingControl1000_INIT.IdcSource0Pu;
-  Matching.IqConv0Pu := gridFormingControl1000_INIT.IqConv0Pu;
-  Matching.IqPcc0Pu := gridFormingControl1000_INIT.IqPcc0Pu;
+  Matching.IdConv0Pu := converter1000_INIT.IdConv0Pu;
+  Matching.IdPcc0Pu := converter1000_INIT.IdPcc0Pu;
+  Matching.IdcSource0Pu := converter1000_INIT.IdcSource0Pu;
+  Matching.IqConv0Pu := converter1000_INIT.IqConv0Pu;
+  Matching.IqPcc0Pu := converter1000_INIT.IqPcc0Pu;
   Matching.PFilter0Pu := converter1000_INIT.PFilter0Pu;
   Matching.QFilter0Pu := converter1000_INIT.PFilter0Pu;
   Matching.RVI0 := gridFormingControl1000_INIT.RVI0;
-  Matching.UdConv0Pu := gridFormingControl1000_INIT.UdConv0Pu;
-  Matching.UdFilter0Pu := gridFormingControl1000_INIT.UdFilter0Pu;
-//  Matching.UdcSource0Pu := gridFormingControl1000_INIT.UdcSource0Pu;
-  Matching.UqConv0Pu := gridFormingControl1000_INIT.UqConv0Pu;
-  Matching.UqFilter0Pu := gridFormingControl1000_INIT.UqFilter0Pu;
+  Matching.UdConv0Pu := converter1000_INIT.UdConv0Pu;
+  Matching.UdFilter0Pu := converter1000_INIT.UdFilter0Pu;
+  Matching.UqConv0Pu := converter1000_INIT.UqConv0Pu;
+  Matching.UqFilter0Pu := converter1000_INIT.UqFilter0Pu;
   Matching.XVI0 := gridFormingControl1000_INIT.XVI0;
-//  Conv1000.IdConv0Pu := converter1000_INIT.IdConv0Pu;
+  Conv1000.IdConv0Pu := converter1000_INIT.IdConv0Pu;
   Conv1000.IdPcc0Pu := converter1000_INIT.IdPcc0Pu;
-//  Conv1000.IdcSource0Pu := converter1000_INIT.IdcSource0Pu;
-//  Conv1000.IqConv0Pu := converter1000_INIT.IqConv0Pu;
+  Conv1000.IdcSource0Pu := converter1000_INIT.IdcSource0Pu;
+  Conv1000.IqConv0Pu := converter1000_INIT.IqConv0Pu;
   Conv1000.IqPcc0Pu := converter1000_INIT.IqPcc0Pu;
   Conv1000.PFilter0Pu := converter1000_INIT.PFilter0Pu;
   Conv1000.QFilter0Pu := converter1000_INIT.QFilter0Pu;
-//  Conv1000.UdConv0Pu := converter1000_INIT.UdConv0Pu;
-//  Conv1000.UdFilter0Pu := converter1000_INIT.UdFilter0Pu;
+  Conv1000.UdConv0Pu := converter1000_INIT.UdConv0Pu;
+  Conv1000.UdFilter0Pu := converter1000_INIT.UdFilter0Pu;
   Conv1000.UdPcc0Pu := converter1000_INIT.UdPcc0Pu;
-//  Conv1000.UdcSource0Pu := converter1000_INIT.UdcSource0Pu;
-//  Conv1000.UqConv0Pu := converter1000_INIT.UqConv0Pu;
-//  Conv1000.UqFilter0Pu := converter1000_INIT.UqFilter0Pu;
+  Conv1000.UqConv0Pu := converter1000_INIT.UqConv0Pu;
+  Conv1000.UqFilter0Pu := converter1000_INIT.UqFilter0Pu;
   Conv1000.UqPcc0Pu := converter1000_INIT.UqPcc0Pu;
   Conv1000.i0Pu.re := converter1000_INIT.i0Pu.re;
   Conv1000.i0Pu.im := converter1000_INIT.i0Pu.im;
   Conv1000.u0Pu.re := converter1000_INIT.u0Pu.re;
   Conv1000.u0Pu.im := converter1000_INIT.u0Pu.im;
-//  Load.i0Pu.re := load_INIT.i0Pu.re;
-//  Load.i0Pu.im := load_INIT.i0Pu.im;
-//  Load.s0Pu.re := load_INIT.s0Pu.re;
-//  Load.s0Pu.im := load_INIT.s0Pu.im;
-//  Load.u0Pu.re := load_INIT.u0Pu.re;
-//  Load.u0Pu.im := load_INIT.u0Pu.im;
+  Load.i0Pu.re := load_INIT.i0Pu.re;
+  Load.i0Pu.im := load_INIT.i0Pu.im;
+  Load.s0Pu.re := load_INIT.s0Pu.re;
+  Load.s0Pu.im := load_INIT.s0Pu.im;
+  Load.u0Pu.re := load_INIT.u0Pu.re;
+  Load.u0Pu.im := load_INIT.u0Pu.im;
 
 equation
   converter250_INIT.Theta0 = Conv250.Theta0;
@@ -702,7 +659,7 @@ equation
     experiment(StartTime = 0, StopTime = 3, Tolerance = 1e-6, Interval = 0.006),
     __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", s = "ida", maxIntegrationOrder = "2", maxStepSize = "10", emit_protected = "()"),
     Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\">
-    This test case consists in three different grid-forming converters (one with a droop control, one with a dispatchable virtual oscillator control and one with a matching control) connected to a load. At t = 0.5 s the line connecting the 250 MVA (droop) and the 1000 MVA (matching) converters is opened. At t = 1.5 s, a short-circuit occurs in the middle of one of the lines connecting the 250 MVA (droop) and the 500 MVA (dVOC) converters. It is cleared after 150ms. This test case and the grid-forming converters controls come from the Horizon 2020 European project MIGRATE, and more precisely from its Deliverables 3.2 and 3.3 that can be found on the project website : https://www.h2020-migrate.eu/downloads.html.
+    This test case consists in three different grid-forming converters (one with a droop control, one with a dispatchable virtual oscillator control and one with a matching control) connected to a load. At t = 0.5 s the line connecting the 250 MVA (droop) and the 1000 MVA (matching) converters is opened. At t = 1.5 s, a short-circuit occurs in the middle of one of the lines connecting the 250 MVA (droop) and the 500 MVA (dVOC) converters. It is cleared after 150 ms. This test case and the grid-forming converters controls come from the Horizon 2020 European project MIGRATE, and more precisely from its Deliverables 3.2 and 3.3 that can be found on the project website : https://www.h2020-migrate.eu/downloads.html.
     </div><div><br></div><div>The two following figures show the expected evolution of the frequency and the current for each converter during the simulation.
     <figure>
     <img width=\"450\" src=\"modelica://Dynawo/Examples/GridForming/Resources/Images/frequency.png\">
