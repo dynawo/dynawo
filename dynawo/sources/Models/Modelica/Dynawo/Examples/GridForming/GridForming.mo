@@ -51,8 +51,8 @@ model GridForming "Grid Forming converters test case"
     UFilterRef0Pu = 1,
     UdConv0Pu(fixed = false),
     UdFilter0Pu(fixed = false),
-    UdcSource0Pu(fixed = false),
-    UdcSourcePu(fixed = true, start = 1.01369),
+    UdcSource0Pu = 1.01369,//(fixed = false),
+//    UdcSourcePu(fixed = true, start = 1.01369),
     UdcSourceRef0Pu = UdcSourceRef250Pu.offset,
     UqConv0Pu(fixed = false),
     UqFilter0Pu(fixed = false),
@@ -149,8 +149,8 @@ model GridForming "Grid Forming converters test case"
     UFilterRef0Pu = 1.0131,
     UdConv0Pu(fixed = false),
     UdFilter0Pu(fixed = false),
-    UdcSource0Pu(fixed = false),
-    UdcSourcePu(fixed = true, start = 1.01259),
+    UdcSource0Pu = 1.01259,//(fixed = false),
+//    UdcSourcePu(fixed = true, start = 1.01259),
     UdcSourceRef0Pu = UdcSourceRef500Pu.offset,
     UqConv0Pu(fixed = false),
     UqFilter0Pu(fixed = false),
@@ -239,8 +239,8 @@ model GridForming "Grid Forming converters test case"
     UFilterRef0Pu = 1,
     UdConv0Pu(fixed = false),
     UdFilter0Pu(fixed = false),
-    UdcSource0Pu(fixed = false),
-    UdcSourcePu(fixed = true, start = 1.0143),
+    UdcSource0Pu = 1.0143,//(fixed = false),
+//    UdcSourcePu(fixed = true, start = 1.0143),
     UdcSourceRef0Pu = UdcSourceRef1000Pu.offset,
     UqConv0Pu(fixed = false),
     UqFilter0Pu(fixed = false),
@@ -392,7 +392,7 @@ initial algorithm
   Droop.RVI0 := gridFormingControl250_INIT.RVI0;
   Droop.UdConv0Pu := gridFormingControl250_INIT.UdConv0Pu;
   Droop.UdFilter0Pu := gridFormingControl250_INIT.UdFilter0Pu;
-  Droop.UdcSource0Pu := gridFormingControl250_INIT.UdcSource0Pu;
+//  Droop.UdcSource0Pu := gridFormingControl250_INIT.UdcSource0Pu;
   Droop.UqConv0Pu := gridFormingControl250_INIT.UqConv0Pu;
   Droop.UqFilter0Pu := gridFormingControl250_INIT.UqFilter0Pu;
   Droop.XVI0 := gridFormingControl250_INIT.XVI0;
@@ -428,7 +428,7 @@ initial algorithm
   dVOC.RVI0 := gridFormingControl500_INIT.RVI0;
   dVOC.UdConv0Pu := gridFormingControl500_INIT.UdConv0Pu;
   dVOC.UdFilter0Pu := gridFormingControl500_INIT.UdFilter0Pu;
-  dVOC.UdcSource0Pu := gridFormingControl500_INIT.UdcSource0Pu;
+//  dVOC.UdcSource0Pu := gridFormingControl500_INIT.UdcSource0Pu;
   dVOC.UqConv0Pu := gridFormingControl500_INIT.UqConv0Pu;
   dVOC.UqFilter0Pu := gridFormingControl500_INIT.UqFilter0Pu;
   dVOC.XVI0 := gridFormingControl500_INIT.XVI0;
@@ -464,7 +464,7 @@ initial algorithm
   Matching.RVI0 := gridFormingControl1000_INIT.RVI0;
   Matching.UdConv0Pu := gridFormingControl1000_INIT.UdConv0Pu;
   Matching.UdFilter0Pu := gridFormingControl1000_INIT.UdFilter0Pu;
-  Matching.UdcSource0Pu := gridFormingControl1000_INIT.UdcSource0Pu;
+//  Matching.UdcSource0Pu := gridFormingControl1000_INIT.UdcSource0Pu;
   Matching.UqConv0Pu := gridFormingControl1000_INIT.UqConv0Pu;
   Matching.UqFilter0Pu := gridFormingControl1000_INIT.UqFilter0Pu;
   Matching.XVI0 := gridFormingControl1000_INIT.XVI0;
@@ -495,7 +495,7 @@ initial algorithm
 
 equation
   converter250_INIT.Theta0 = Conv250.Theta0;
-  converter250_INIT.UdcSource0Pu = gridFormingControl250_INIT.UdcSource0Pu;
+  converter250_INIT.UdcSource0Pu = Conv250.UdcSource0Pu;
   gridFormingControl250_INIT.IdConv0Pu = Conv250.IdConv0Pu;
   gridFormingControl250_INIT.IdPcc0Pu = Conv250.IdPcc0Pu;
   gridFormingControl250_INIT.IdcSource0Pu = Conv250.IdcSource0Pu;
@@ -508,7 +508,7 @@ equation
   gridFormingControl250_INIT.UdConv0Pu = Conv250.UdConv0Pu;
   gridFormingControl250_INIT.UqConv0Pu = Conv250.UqConv0Pu;
   converter500_INIT.Theta0 = Conv500.Theta0;
-  converter500_INIT.UdcSource0Pu = gridFormingControl500_INIT.UdcSource0Pu;
+  converter500_INIT.UdcSource0Pu = Conv500.UdcSource0Pu;
   gridFormingControl500_INIT.IdConv0Pu = Conv500.IdConv0Pu;
   gridFormingControl500_INIT.IdPcc0Pu = Conv500.IdPcc0Pu;
   gridFormingControl500_INIT.IdcSource0Pu = Conv500.IdcSource0Pu;
@@ -521,7 +521,7 @@ equation
   gridFormingControl500_INIT.UdConv0Pu = Conv500.UdConv0Pu;
   gridFormingControl500_INIT.UqConv0Pu = Conv500.UqConv0Pu;
   converter1000_INIT.Theta0 = Conv1000.Theta0;
-  converter1000_INIT.UdcSource0Pu = gridFormingControl1000_INIT.UdcSource0Pu;
+  converter1000_INIT.UdcSource0Pu = Conv1000.UdcSource0Pu;
   gridFormingControl1000_INIT.IdConv0Pu = Conv1000.IdConv0Pu;
   gridFormingControl1000_INIT.IdPcc0Pu = Conv1000.IdPcc0Pu;
   gridFormingControl1000_INIT.IdcSource0Pu = Conv1000.IdcSource0Pu;
