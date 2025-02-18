@@ -79,8 +79,8 @@ equation
     QLoadCmdPu = QRefPu * (1 + deltaQ) - sum(motors.s0Pu.im) * (PRefPu / s0Pu.re) * (1 + deltaP); // s0Pu.re = PRef0Pu (if PRefPu increases but QRefPu stays constant, the reactive power consumed by the motor increases, so the reactive power of the load is reduced to keep the total constant).
     PPu = PLoadPu + sum(motors.PPu);
     QPu = QLoadPu + sum(motors.QPu);
-    PLoadPu = PLoadCmdPu * ((ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ Alpha);
-    QLoadPu = QLoadCmdPu * ((ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ Beta);
+    PLoadPu = PLoadCmdPu * ((ComplexMath.abs (terminal.V) / ComplexMath.abs (u0Pu)) ^ Alpha);
+    QLoadPu = QLoadCmdPu * ((ComplexMath.abs (terminal.V) / ComplexMath.abs (u0Pu)) ^ Beta);
   else
     PLoadCmdPu = 0;
     QLoadCmdPu = 0;

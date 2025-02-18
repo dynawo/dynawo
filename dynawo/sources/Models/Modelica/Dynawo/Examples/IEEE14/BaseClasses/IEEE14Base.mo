@@ -16,8 +16,8 @@ within Dynawo.Examples.IEEE14.BaseClasses;
 model IEEE14Base "Base class for IEEE 14-bus system benchmark formed with 14 buses, 5 generators (2 generators and 3 synchronous condensers), 1 shunt, 3 transformers, 17 lines and 11 loads"
 
   // Base Calculation
-  final parameter Modelica.SIunits.Impedance ZBASE1 = 69 ^ 2 / SystemBase.SnRef;
-  final parameter Modelica.SIunits.Impedance ZBASE2 = 13.8 ^ 2 / SystemBase.SnRef;
+  final parameter Modelica.Units.SI.Impedance ZBASE1 = 69 ^ 2 / SystemBase.SnRef;
+  final parameter Modelica.Units.SI.Impedance ZBASE2 = 13.8 ^ 2 / SystemBase.SnRef;
 
   // Load parameters
   parameter Real alpha = 1.5 "Active load sensitivity to voltage";

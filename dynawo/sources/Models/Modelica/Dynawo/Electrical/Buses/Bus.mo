@@ -26,7 +26,7 @@ model Bus "Bus"
 
 equation
   terminal.i = Complex(0);
-  UPu = ComplexMath.'abs'(terminal.V);
+  UPu = ComplexMath.abs(terminal.V);
   UPhase = ComplexMath.arg(terminal.V);
   U = UPu * UNom;
 

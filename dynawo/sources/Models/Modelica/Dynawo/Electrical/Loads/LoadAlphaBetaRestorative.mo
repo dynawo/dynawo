@@ -23,15 +23,15 @@ model LoadAlphaBetaRestorative "Generic model of a restorative Alpha-Beta load."
   parameter Real Beta "Reactive load sensitivity to voltage";
 
 protected
-  Types.VoltageModulePu UFilteredRawPu(start = ComplexMath.'abs'(u0Pu)) "Filtered voltage amplitude at terminal in pu (base UNom)";
-  Types.VoltageModulePu UFilteredPu(start = ComplexMath.'abs'(u0Pu)) "Bounded filtered voltage amplitude at terminal in pu (base UNom)";
+  Types.VoltageModulePu UFilteredRawPu(start = ComplexMath.abs(u0Pu)) "Filtered voltage amplitude at terminal in pu (base UNom)";
+  Types.VoltageModulePu UFilteredPu(start = ComplexMath.abs(u0Pu)) "Bounded filtered voltage amplitude at terminal in pu (base UNom)";
 
 equation
   if (running.value) then
-    tFilter * der(UFilteredRawPu) = ComplexMath.'abs'(terminal.V) - UFilteredRawPu;
+    tFilter * der(UFilteredRawPu) = ComplexMath.abs(terminal.V) - UFilteredRawPu;
     UFilteredPu = if UFilteredRawPu >= UMaxPu then UMaxPu elseif UFilteredRawPu <= UMinPu then UMinPu else UFilteredRawPu;
-    PPu = PRefPu * (1 + deltaP) * ((ComplexMath.'abs'(terminal.V) / UFilteredPu) ^ Alpha);
-    QPu = QRefPu * (1 + deltaQ) * ((ComplexMath.'abs'(terminal.V) / UFilteredPu) ^ Beta);
+    PPu = PRefPu * (1 + deltaP) * ((ComplexMath.abs(terminal.V) / UFilteredPu) ^ Alpha);
+    QPu = QRefPu * (1 + deltaQ) * ((ComplexMath.abs(terminal.V) / UFilteredPu) ^ Beta);
   else
     UFilteredRawPu = 0;
     UFilteredPu = 0;

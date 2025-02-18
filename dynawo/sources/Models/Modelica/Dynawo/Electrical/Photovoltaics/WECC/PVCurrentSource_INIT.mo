@@ -49,9 +49,9 @@ equation
   sInj0Pu = uInj0Pu * ComplexMath.conj(iInj0Pu);
   PInj0Pu = ComplexMath.real(sInj0Pu);
   QInj0Pu = ComplexMath.imag(sInj0Pu);
-  UInj0Pu = ComplexMath.'abs'(uInj0Pu);
+  UInj0Pu = ComplexMath.abs(uInj0Pu);
   UPhaseInj0 = ComplexMath.arg(uInj0Pu);
-  PF0 = if (not(ComplexMath.'abs'(sInj0Pu) == 0)) then PInj0Pu / ComplexMath.'abs'(sInj0Pu) else 0;
+  PF0 = if (not(ComplexMath.abs(sInj0Pu) == 0)) then PInj0Pu / ComplexMath.abs(sInj0Pu) else 0;
   Id0Pu = Modelica.Math.cos(UPhaseInj0) * iInj0Pu.re + Modelica.Math.sin(UPhaseInj0) * iInj0Pu.im;
   Iq0Pu = Modelica.Math.sin(UPhaseInj0) * iInj0Pu.re - Modelica.Math.cos(UPhaseInj0) * iInj0Pu.im;
 

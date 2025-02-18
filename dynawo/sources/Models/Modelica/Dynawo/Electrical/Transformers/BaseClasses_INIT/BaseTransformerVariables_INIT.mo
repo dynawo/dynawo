@@ -22,7 +22,7 @@ partial model BaseTransformerVariables_INIT "Base model for initialization of tr
   Types.ReactivePowerPu Q10Pu "Start value of reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
 
 equation
-  U10Pu = ComplexMath.'abs'(u10Pu);
+  U10Pu = ComplexMath.abs(u10Pu);
   P10Pu = ComplexMath.real(u10Pu * ComplexMath.conj(i10Pu));
   Q10Pu = ComplexMath.imag(u10Pu * ComplexMath.conj(i10Pu));
 

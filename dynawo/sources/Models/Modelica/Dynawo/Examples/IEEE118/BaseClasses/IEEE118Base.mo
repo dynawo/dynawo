@@ -15,7 +15,7 @@ within Dynawo.Examples.IEEE118.BaseClasses;
 
 model IEEE118Base "Base class for IEEE 118-bus system benchmark formed with 118 buses, 54 generators, 14 shunts, 9 transformers, 177 lines and 99 loads"
 
-  final parameter Modelica.SIunits.Impedance ZBASE138_0 = 138.0 ^ 2 / SystemBase.SnRef;
+  final parameter Modelica.Units.SI.Impedance ZBASE138_0 = 138.0 ^ 2 / SystemBase.SnRef;
 
   // Load parameters
   parameter Real alpha = 1.5 "Active load sensitivity to voltage";

@@ -34,6 +34,6 @@ SPDX-License-Identifier: MPL-2.0<p></p>
 <p>If you want to have more detail on the library, please have a look to the <a href=\"modelica://Dynawo.UsersGuide\"> User's Guide. </a> </p>
 
 <p>If you want to learn more about the Dynawo projet in general, please visit <a href=\"http://www.dynawo.org\"> our website</a> or send us an <a href=\"mailto:rte-dynawo@rte-france.com\">e-mail.</a></p></body></html>"),
-    uses(Modelica(version = "3.2.3")),
+    uses(Modelica(version = "4.0.0")),
     preferredView = "info");
 end Dynawo;

@@ -155,7 +155,6 @@ equation
   annotation(preferredView = "diagram",
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {0, 120}, lineColor = {0, 0, 255}, fillColor = {0, 0, 255}, extent = {{-60, 20}, {60, -20}}, textString = "%name"), Text(extent = {{-97, 117}, {97, -117}}, textString = "AVR, EXC,
 OEL, PSS")}),
-    uses(Modelica(version = "3.2.3")),
     Documentation(info = "<html><head></head><body>This model implements the AVR, PSS and overexcitation limiter of the generator frames in the Nordic 32 test system used for voltage stability studies.<div>The overexcitation limiter uses a delayed activation with specifics depending on the generator.&nbsp;</div><div>Certain generators reduce the delay by assigning a linear function to the error signal of the excitation current and its limit, this is implemented in the overexcitation limitation model.</div></body></html>"),
     Diagram(coordinateSystem(extent = {{-280, -140}, {280, 140}})));
 end VRNordic;

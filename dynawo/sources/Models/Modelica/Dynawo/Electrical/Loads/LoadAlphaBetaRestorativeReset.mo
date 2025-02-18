@@ -45,8 +45,8 @@ equation
     else
       der(KqMlt) = Kq * (QRefPu - QPu) / QRefPu;
     end if;
-    PPu = PRefPu * (1 + deltaP) * ((ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ Alpha) * KpMlt;
-    QPu = QRefPu * (1 + deltaQ) * ((ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ Beta) * KqMlt;
+    PPu = PRefPu * (1 + deltaP) * ((ComplexMath.abs(terminal.V) / ComplexMath.abs(u0Pu)) ^ Alpha) * KpMlt;
+    QPu = QRefPu * (1 + deltaQ) * ((ComplexMath.abs(terminal.V) / ComplexMath.abs(u0Pu)) ^ Beta) * KqMlt;
   else
     der(KpMlt) = 0;
     der(KqMlt) = 0;

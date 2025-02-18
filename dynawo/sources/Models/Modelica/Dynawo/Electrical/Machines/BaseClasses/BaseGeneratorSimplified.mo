@@ -37,7 +37,7 @@ equation
   SGenPu = -terminal.V * ComplexMath.conj(terminal.i);
 
   if running.value then
-    UPu = ComplexMath.'abs'(terminal.V);
+    UPu = ComplexMath.abs(terminal.V);
   else
     UPu = 0;
   end if;

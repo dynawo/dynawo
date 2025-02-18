@@ -162,7 +162,7 @@ endif()
 set(openmodelica_git     ${openmodelica_prefix_url}/OpenModelica/OpenModelica.git)
 set(openmodelica_tag     v${openmodelica_version})
 
-set(modelicalib_version  3.2.3)
+set(modelicalib_version  4.0.0)
 set(modelicalib_name     ModelicaStandardLibrary-${modelicalib_version}.tar.gz)
 if(DEFINED ENV{DYNAWO_MODELICALIB_DOWNLOAD_URL})
   set(modelicalib_prefix_url $ENV{DYNAWO_MODELICALIB_DOWNLOAD_URL})

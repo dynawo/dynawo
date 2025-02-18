@@ -44,7 +44,7 @@ equation
     VBias0Pu = 1;
   end if;
 
-  U0Pu = Modelica.ComplexMath.'abs'(ut0Pu);
+  U0Pu = Modelica.ComplexMath.abs(ut0Pu);
   combiTable1DsInit.u = PGen0Pu / (VBias0Pu ^ K1);
   QRef0Pu = (VBias0Pu ^ K2) * combiTable1DsInit.y[1];
 

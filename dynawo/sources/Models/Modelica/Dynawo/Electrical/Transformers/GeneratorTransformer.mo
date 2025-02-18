@@ -73,12 +73,12 @@ equation
   end if;
 
   if (running.value) then
-    U1Pu = ComplexMath.'abs'(terminal1.V);
+    U1Pu = ComplexMath.abs(terminal1.V);
     P1Pu = ComplexMath.real(terminal1.V * ComplexMath.conj(terminal1.i));
     Q1Pu = ComplexMath.imag(terminal1.V * ComplexMath.conj(terminal1.i));
     P1GenPu = - P1Pu;
     Q1GenPu = - Q1Pu;
-    U2Pu = ComplexMath.'abs'(terminal2.V);
+    U2Pu = ComplexMath.abs(terminal2.V);
     P2Pu = ComplexMath.real(terminal2.V * ComplexMath.conj(terminal2.i));
     Q2Pu = ComplexMath.imag(terminal2.V * ComplexMath.conj(terminal2.i));
   else

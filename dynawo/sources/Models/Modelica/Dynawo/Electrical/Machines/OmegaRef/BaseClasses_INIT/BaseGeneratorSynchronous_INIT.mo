@@ -124,14 +124,14 @@ equation
   Pm0Pu = Cm0Pu*SystemBase.omega0Pu;
 
   // Output variables for external controlers
-  UStator0Pu = ComplexMath.'abs'(uStator0Pu);
+  UStator0Pu = ComplexMath.abs(uStator0Pu);
   IStator0Pu = rTfoPu * I0Pu * SNom/SystemBase.SnRef;
   QStator0Pu = - ComplexMath.imag(sStator0Pu);
   QStator0PuQNom = QStator0Pu * SystemBase.SnRef / QNomAlt;
   IRotor0Pu = RfPPu / (Kuf * rTfoPu) * If0Pu;
   ThetaInternal0 = ComplexMath.arg(Complex(Uq0Pu, Ud0Pu));
-  S0Pu = ComplexMath.'abs'(s0Pu)*SystemBase.SnRef/SNom;
-  I0Pu = ComplexMath.'abs'(i0Pu)*SystemBase.SnRef/SNom;
+  S0Pu = ComplexMath.abs(s0Pu)*SystemBase.SnRef/SNom;
+  I0Pu = ComplexMath.abs(i0Pu)*SystemBase.SnRef/SNom;
 
   annotation(preferredView = "text");
 end BaseGeneratorSynchronous_INIT;

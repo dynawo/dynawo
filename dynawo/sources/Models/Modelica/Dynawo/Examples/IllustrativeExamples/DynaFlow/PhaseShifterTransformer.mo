@@ -17,7 +17,7 @@ model PhaseShifterTransformer "Elementary system with one infinite bus, one load
   extends Icons.Example;
 
   // Base calculation
-  final parameter Modelica.SIunits.Impedance ZBASE69_0 = 69.0 ^ 2 / Dynawo.Electrical.SystemBase.SnRef;
+  final parameter Modelica.Units.SI.Impedance ZBASE69_0 = 69.0 ^ 2 / Dynawo.Electrical.SystemBase.SnRef;
 
   // gen01 init values:
   parameter Dynawo.Types.VoltageModulePu U0PuGen01 = 1.;

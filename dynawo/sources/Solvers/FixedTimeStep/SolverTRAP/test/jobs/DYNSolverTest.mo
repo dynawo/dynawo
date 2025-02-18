@@ -155,7 +155,7 @@ model DYNInfiniteBus "Infinite bus"
 
   import Complex "Complex numbers foundation class";
   import Modelica.ComplexMath "Complex numbers operators (+, - , *, exp, abs...)";
-  import Modelica.SIunits "Modelica SI units";
+  import Modelica.Units.SI "Modelica SI units";
 
   ACPower terminal;
   parameter Real U = 1;

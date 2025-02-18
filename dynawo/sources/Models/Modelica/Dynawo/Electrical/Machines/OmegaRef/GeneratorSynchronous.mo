@@ -67,7 +67,7 @@ model GeneratorSynchronous "Synchronous machine"
 
 equation
   if running.value then
-    UPu = ComplexMath.'abs'(terminal.V);
+    UPu = ComplexMath.abs(terminal.V);
     uPu = terminal.V;
 
     // Active and reactive power at terminal
@@ -82,8 +82,8 @@ equation
     sStatorPu = uStatorPu * ComplexMath.conj(iStatorPu);
 
     // Output variables for external controllers
-    UStatorPu = ComplexMath.'abs'(uStatorPu);
-    IStatorPu.value = ComplexMath.'abs'(iStatorPu);
+    UStatorPu.value = ComplexMath.abs(uStatorPu);
+    IStatorPu.value = ComplexMath.abs(iStatorPu);
     QStatorPu.value = - ComplexMath.imag(sStatorPu);
     QStatorPuQNom.value = QStatorPu.value * SystemBase.SnRef / QNomAlt;
     IRotorPu = RfPPu / (Kuf * rTfoPu) * ifPu;

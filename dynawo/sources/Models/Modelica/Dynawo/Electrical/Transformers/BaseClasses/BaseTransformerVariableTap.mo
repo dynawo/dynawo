@@ -66,8 +66,8 @@ equation
     // Variables for display or connection to another model (tap-changer for example)
     P1Pu.value = ComplexMath.real(terminal1.V * ComplexMath.conj(terminal1.i));
     Q1Pu.value = ComplexMath.imag(terminal1.V * ComplexMath.conj(terminal1.i));
-    U1Pu.value = ComplexMath.'abs'(terminal1.V);
-    U2Pu.value = ComplexMath.'abs'(terminal2.V);
+    U1Pu.value = ComplexMath.abs(terminal1.V);
+    U2Pu.value = ComplexMath.abs(terminal2.V);
   else
     P1Pu.value = 0;
     Q1Pu.value = 0;
