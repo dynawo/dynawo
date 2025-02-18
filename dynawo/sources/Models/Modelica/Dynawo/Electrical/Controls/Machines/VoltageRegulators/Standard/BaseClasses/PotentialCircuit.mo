@@ -37,7 +37,7 @@ protected
 equation
   v1 = uT * Complex(Kp * cos(Theta), Kp * sin(Theta));
   v2 = iT * Complex(Ki + X * Kp * cos(Theta), X * Kp * sin(Theta));
-  vE = Modelica.ComplexMath.'abs'(v1 + j * v2);
+  vE = Modelica.ComplexMath.abs(v1 + j * v2);
 
   annotation(
     preferredView = "text",

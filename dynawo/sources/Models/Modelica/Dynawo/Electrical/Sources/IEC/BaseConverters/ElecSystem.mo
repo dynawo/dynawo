@@ -86,8 +86,8 @@ equation
   Complex(iWtRePu, iWtImPu) = -terminal2.i * (SystemBase.SnRef / SNom);
   Complex(uWtRePu, uWtImPu) = Complex(uGsRePu, uGsImPu) - Complex(ResPu, XesPu) * Complex(iWtRePu, iWtImPu);
   Complex(iGsRePu, iGsImPu) = Complex(iWtRePu, iWtImPu) + Complex(GesPu, BesPu) * Complex(uGsRePu, uGsImPu);
-  UGsPu = Modelica.ComplexMath.'abs'(terminal1.V);
-  IGsPu = Modelica.ComplexMath.'abs'(terminal1.i) * (SystemBase.SnRef / SNom);
+  UGsPu = Modelica.ComplexMath.abs(terminal1.V);
+  IGsPu = Modelica.ComplexMath.abs(terminal1.i) * (SystemBase.SnRef / SNom);
 
   annotation(
     preferredView = "text",

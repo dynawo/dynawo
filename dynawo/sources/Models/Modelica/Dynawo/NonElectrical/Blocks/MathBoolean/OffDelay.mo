@@ -15,11 +15,11 @@ within Dynawo.NonElectrical.Blocks.MathBoolean;
 model OffDelay "Delay a falling edge of the input, but do not delay a rising edge."
   extends Modelica.Blocks.Interfaces.PartialBooleanSISO_small;
 
-  parameter Modelica.SIunits.Time tDelay "Delay time in s";
+  parameter Modelica.Units.SI.Time tDelay "Delay time in s";
 
 protected
   Boolean delaySignal(start = false);
-  discrete Modelica.SIunits.Time tNext;
+  discrete Modelica.Units.SI.Time tNext;
 
 algorithm
   when initial() then

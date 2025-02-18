@@ -38,7 +38,7 @@ equation
   P10Pu = ComplexMath.real(u10Pu * ComplexMath.conj(i10Pu));
   Q10Pu = ComplexMath.imag(u10Pu * ComplexMath.conj(i10Pu));
   u10Pu = ComplexMath.fromPolar(U10Pu, U1Phase0);
-  U20Pu = ComplexMath.'abs'(u20Pu);
+  U20Pu = ComplexMath.abs(u20Pu);
 
   annotation(preferredView = "text");
 end TransformerFixedRatioAndPhase_INIT;

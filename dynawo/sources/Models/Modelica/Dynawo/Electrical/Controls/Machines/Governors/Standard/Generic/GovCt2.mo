@@ -466,7 +466,6 @@ equation
 
   annotation(
     preferredView = "diagram",
-    uses(Modelica(version = "3.2.3")),
     Documentation(info = "<html><head></head><body>This generic governor model (CIM name GovCT2) can be used to represent a variety of prime movers controlled by PID governors. For more information, see IEC 61970-302.</body></html>"),
     Diagram(coordinateSystem(extent = {{-320, -200}, {320, 220}}), graphics = {Text(origin = {248, -35}, extent = {{-7, -3}, {7, 3}}, textString = "cfe"), Text(origin = {158, -84}, extent = {{-17, -4}, {17, 4}}, textString = "fsr"), Text(origin = {135, -194}, extent = {{-44, -4}, {44, 4}}, textString = "valve stroke"), Text(origin = {85, -184}, extent = {{-30, -4}, {30, 4}}, textString = "governor output"), Rectangle(origin = {70, -20}, lineColor = {0, 91, 127}, lineThickness = 0.75, extent = {{-24, 86}, {24, -86}}), Text(origin = {73, 44}, lineColor = {0, 91, 127}, extent = {{-20, -18}, {20, 18}}, textString = "Low
 Value

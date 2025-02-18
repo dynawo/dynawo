@@ -140,7 +140,7 @@ equation
 
     /* Phase calculation */
     UPhase = Modelica.ComplexMath.arg(terminal.V);
-    UPu = Modelica.ComplexMath.'abs'(terminal.V);
+    UPu = Modelica.ComplexMath.abs(terminal.V);
 
   else
     udPccPu = 0;

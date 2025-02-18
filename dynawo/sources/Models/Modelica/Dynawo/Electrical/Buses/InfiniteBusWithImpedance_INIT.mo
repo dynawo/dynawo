@@ -42,7 +42,7 @@ equation
   sTerminal0Pu = Complex(P0Pu, Q0Pu);
   sTerminal0Pu = uTerminal0Pu * ComplexMath.conj(iTerminal0Pu);
   uTerminal0Pu - uBus0Pu = ZPu * iTerminal0Pu;
-  UBus0Pu = ComplexMath.'abs'(uBus0Pu);
+  UBus0Pu = ComplexMath.abs(uBus0Pu);
   UPhaseBus0 = ComplexMath.arg(uBus0Pu);
 
   annotation(

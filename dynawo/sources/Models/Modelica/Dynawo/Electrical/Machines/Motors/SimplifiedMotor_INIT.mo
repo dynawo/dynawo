@@ -43,7 +43,7 @@ equation
   s0Pu = u0Pu * ComplexMath.conj(is0Pu) * (SNom / SystemBase.SnRef);
 
   s0 = (SystemBase.omegaRef0Pu - omegaR0Pu) / SystemBase.omegaRef0Pu;
-  ce0Pu = RrPu * ComplexMath.'abs'(ir0Pu ^ 2) / (SystemBase.omegaRef0Pu * s0);
+  ce0Pu = RrPu * ComplexMath.abs(ir0Pu ^ 2) / (SystemBase.omegaRef0Pu * s0);
 
   annotation(preferredView = "text");
 end SimplifiedMotor_INIT;

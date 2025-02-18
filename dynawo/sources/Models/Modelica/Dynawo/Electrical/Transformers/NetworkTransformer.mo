@@ -59,13 +59,13 @@ model NetworkTransformer "Two windings transformer with a fixed ratio, same mode
 
   final parameter Types.PerUnit rTfoPu = RatedU2 / RatedU1 * U1Nom / U2Nom "Transformation ratio in pu: U2/U1 in no load conditions";
 
-  parameter Modelica.SIunits.Resistance R "Resistance of the transformer in ohm";
-  parameter Modelica.SIunits.Reactance X "Reactance of the transformer in ohm";
-  parameter Modelica.SIunits.Conductance G "Conductance of the transformer in S";
-  parameter Modelica.SIunits.Susceptance B "Susceptance of the transformer in S";
+  parameter Modelica.Units.SI.Resistance R "Resistance of the transformer in ohm";
+  parameter Modelica.Units.SI.Reactance X "Reactance of the transformer in ohm";
+  parameter Modelica.Units.SI.Conductance G "Conductance of the transformer in S";
+  parameter Modelica.Units.SI.Susceptance B "Susceptance of the transformer in S";
 
-  final parameter Modelica.SIunits.ComplexImpedance Z = Complex(R, X) "Impedance of the transformer";
-  final parameter Modelica.SIunits.ComplexAdmittance Y = Complex(G, B) "Admittance of the transformer";
+  final parameter Modelica.Units.SI.ComplexImpedance Z = Complex(R, X) "Impedance of the transformer";
+  final parameter Modelica.Units.SI.ComplexAdmittance Y = Complex(G, B) "Admittance of the transformer";
 
   final parameter Types.ComplexImpedancePu ZPu = Complex(R / (U2Nom * U2Nom / SystemBase.SnRef), X / (U2Nom * U2Nom / SystemBase.SnRef)) "Impedance in pu (base U2Nom, SnRef)";
   final parameter Types.ComplexAdmittancePu YPu = Complex(G * (U2Nom * U2Nom / SystemBase.SnRef), B * (U2Nom * U2Nom / SystemBase.SnRef)) "Admittance in pu (base U2Nom, SnRef)";
@@ -91,10 +91,10 @@ equation
   Q2Pu = ComplexMath.imag(terminal2.V * ComplexMath.conj(terminal2.i));
 
   if (running.value) then
-    U1Pu = ComplexMath.'abs'(terminal1.V);
-    U2Pu = ComplexMath.'abs'(terminal2.V);
-    I1Pu = ComplexMath.'abs'(terminal1.i);
-    I2Pu = ComplexMath.'abs'(terminal2.i);
+    U1Pu = ComplexMath.abs(terminal1.V);
+    U2Pu = ComplexMath.abs(terminal2.V);
+    I1Pu = ComplexMath.abs(terminal1.i);
+    I2Pu = ComplexMath.abs(terminal2.i);
   else
     U1Pu = 0;
     U2Pu = 0;

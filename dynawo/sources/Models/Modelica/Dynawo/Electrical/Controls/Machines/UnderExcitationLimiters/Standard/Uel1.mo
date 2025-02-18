@@ -71,7 +71,7 @@ model Uel1 "IEEE (2016) underexcitation limiter type UEL1 model"
   parameter Types.ComplexCurrentPu it0Pu "Initial complex stator current in pu (base SnRef, UNom)";
   parameter Types.ComplexVoltagePu ut0Pu "Initial complex stator voltage in pu (base UNom)";
 
-  final parameter Types.VoltageModulePu Vf0Pu = (Modelica.ComplexMath.'abs'(Kuc * ut0Pu - Complex(0, 1) * it0Pu) - Kur * Modelica.ComplexMath.'abs'(ut0Pu)) / Kuf "Initial input stabilizer signal";
+  final parameter Types.VoltageModulePu Vf0Pu = (Modelica.ComplexMath.abs(Kuc * ut0Pu - Complex(0, 1) * it0Pu) - Kur * Modelica.ComplexMath.abs(ut0Pu)) / Kuf "Initial input stabilizer signal";
 
 equation
   connect(limiter.y, UUelPu) annotation(

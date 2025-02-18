@@ -34,12 +34,12 @@ protected
 
 equation
   if (running.value) then
-    Tp * der(zPRaw) = (ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ alphaLong - zPRaw * (ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ alpha;
-    Tq * der(zQRaw) = (ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ betaLong - zQRaw * (ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ beta;
+    Tp * der(zPRaw) = (ComplexMath.abs(terminal.V) / ComplexMath.abs(u0Pu)) ^ alphaLong - zPRaw * (ComplexMath.abs(terminal.V) / ComplexMath.abs(u0Pu)) ^ alpha;
+    Tq * der(zQRaw) = (ComplexMath.abs(terminal.V) / ComplexMath.abs(u0Pu)) ^ betaLong - zQRaw * (ComplexMath.abs(terminal.V) / ComplexMath.abs(u0Pu)) ^ beta;
     zP = if zPRaw >= zPMax then zPMax elseif zPRaw <= 0. then 0. else zPRaw;
     zQ = if zQRaw >= zQMax then zQMax elseif zQRaw <= 0. then 0. else zQRaw;
-    PPu = zP * PRefPu * (1. + deltaP) * ((ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ alpha);
-    QPu = zQ * QRefPu * (1. + deltaQ) * ((ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ beta);
+    PPu = zP * PRefPu * (1. + deltaP) * ((ComplexMath.abs(terminal.V) / ComplexMath.abs(u0Pu)) ^ alpha);
+    QPu = zQ * QRefPu * (1. + deltaQ) * ((ComplexMath.abs(terminal.V) / ComplexMath.abs(u0Pu)) ^ beta);
   else
     Tp * der(zPRaw) = 0.;
     Tq * der(zQRaw) = 0.;

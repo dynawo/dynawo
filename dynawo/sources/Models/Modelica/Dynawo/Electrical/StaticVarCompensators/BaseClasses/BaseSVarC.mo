@@ -56,7 +56,7 @@ equation
   end when;
 
   if (running.value) then
-    UPu = Modelica.ComplexMath.'abs'(terminal.V);
+    UPu = Modelica.ComplexMath.abs(terminal.V);
     terminal.i = terminal.V * Complex(0, BPu);
   else
     UPu = 0;

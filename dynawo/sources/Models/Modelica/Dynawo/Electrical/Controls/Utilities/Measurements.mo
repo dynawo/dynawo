@@ -50,11 +50,11 @@ equation
   terminal1.i = iPu;
   terminal1.V = uPu;
   IPhase = ComplexMath.arg(iPu);
-  IPu = ComplexMath.'abs'(iPu);
+  IPu = ComplexMath.abs(iPu);
   PPu = ComplexMath.real(uPu * ComplexMath.conj(iPu));
   QPu = ComplexMath.imag(uPu * ComplexMath.conj(iPu));
   UPhase = ComplexMath.arg(uPu);
-  UPu = ComplexMath.'abs'(uPu);
+  UPu = ComplexMath.abs(uPu);
 
   annotation(
     preferredView = "text");

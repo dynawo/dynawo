@@ -269,9 +269,9 @@ model Network "Nordic test grid with buses and lines"
   Dynawo.Electrical.Lines.Line line_4071_4072b(BPu = 9.3777e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 4.80 / XBase_400, XPu = 48.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {-79, 105}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
 
-  final parameter Modelica.SIunits.Impedance XBase_130 = 130 ^ 2 / Dynawo.Electrical.SystemBase.SnRef;
-  final parameter Modelica.SIunits.Impedance XBase_220 = 220 ^ 2 / Dynawo.Electrical.SystemBase.SnRef;
-  final parameter Modelica.SIunits.Impedance XBase_400 = 400 ^ 2 / Dynawo.Electrical.SystemBase.SnRef;
+  final parameter Modelica.Units.SI.Impedance XBase_130 = 130 ^ 2 / Dynawo.Electrical.SystemBase.SnRef;
+  final parameter Modelica.Units.SI.Impedance XBase_220 = 220 ^ 2 / Dynawo.Electrical.SystemBase.SnRef;
+  final parameter Modelica.Units.SI.Impedance XBase_400 = 400 ^ 2 / Dynawo.Electrical.SystemBase.SnRef;
 
 equation
   line_1011_1013a.switchOffSignal1.value = false;

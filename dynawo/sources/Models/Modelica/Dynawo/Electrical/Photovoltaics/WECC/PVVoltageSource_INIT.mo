@@ -59,12 +59,12 @@ equation
   iSource0Pu = - i0Pu * SystemBase.SnRef / SNom;
   uSource0Pu = u0Pu - Complex(RPu + RSourcePu, XPu + XSourcePu) * i0Pu;
   uInj0Pu = u0Pu - Complex(RPu, XPu) * i0Pu;
-  UInj0Pu = ComplexMath.'abs'(uInj0Pu);
+  UInj0Pu = ComplexMath.abs(uInj0Pu);
   UInjPhase0 = ComplexMath.arg(uInj0Pu);
   sInj0Pu = uInj0Pu * ComplexMath.conj(iSource0Pu);
   PInj0Pu = ComplexMath.real(sInj0Pu);
   QInj0Pu = ComplexMath.imag(sInj0Pu);
-  PF0 = if (not(ComplexMath.'abs'(sInj0Pu) == 0)) then PInj0Pu / ComplexMath.'abs'(sInj0Pu) else 0;
+  PF0 = if (not(ComplexMath.abs(sInj0Pu) == 0)) then PInj0Pu / ComplexMath.abs(sInj0Pu) else 0;
   UdInj0Pu = cos(UInjPhase0) * uInj0Pu.re + sin(UInjPhase0) * uInj0Pu.im;
   UqInj0Pu = - sin(UInjPhase0) * uInj0Pu.re + cos(UInjPhase0) * uInj0Pu.im;
   Id0Pu = cos(UInjPhase0) * iSource0Pu.re + sin(UInjPhase0) * iSource0Pu.im;
