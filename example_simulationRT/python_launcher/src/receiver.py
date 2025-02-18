@@ -6,7 +6,7 @@ import zmq
 def main():
     address="tcp://localhost:5556"
     context = zmq.Context()
-    socket = context.socket(zmq.REP)
+    socket = context.socket(zmq.SUB)
     socket.connect(address)
 
     print("Starting receiver loop")

@@ -78,7 +78,7 @@ Curve::updateParameterCurveValue(std::string /*parameterName*/, double parameter
 
 std::unique_ptr<Point>
 Curve::getLastPoint() const {
-  if (points_.size() >= 0)
+  if (points_.size() > 0)
     return PointFactory::newPoint(points_.back()->getTime(), points_.back()->getValue());
   else
     return std::unique_ptr<Point>(nullptr);

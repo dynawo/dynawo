@@ -33,11 +33,14 @@ namespace DYN {
 EventSubscriber::EventSubscriber(bool triggerEnabled, bool actionEnabled, bool asyncMode):
 socket_(context_, zmqpp::socket_type::reply),
 running_(false),
-stepTriggeredCnt_(false),
 triggerEnabled_(triggerEnabled),
 actionsEnabled_(actionEnabled),
-asyncMode_(asyncMode) {
+asyncMode_(asyncMode),
+pollTimeoutMs_(10),
+stepTriggeredCnt_(0) {
   socket_.bind("tcp://*:5555");
+  zmqpp::poller poller_;
+  poller_.add(socket_);
 }
 
 void
@@ -115,8 +118,8 @@ EventSubscriber::receiveMessages(bool stop) {
   while (running_ && !SignalHandler::gotExitSignal()) {
     zmqpp::message message;
 
-    // Non-blocking receive
-    if (socket_.receive(message, true)) {
+    // Polling
+    if (poller_.poll(pollTimeoutMs_)) {
       std::cout << "EventSubscriber: message received" << std::endl;
 
       std::string input;
@@ -152,9 +155,6 @@ EventSubscriber::receiveMessages(bool stop) {
         socket_.send(reply);
       }
     }
-
-    // Sleep briefly to reduce CPU usage
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
   }
 }
 
@@ -164,8 +164,8 @@ EventSubscriber::messageReceiverAsync() {
   while (running_ && !SignalHandler::gotExitSignal()) {
     zmqpp::message message;
 
-    // Non-blocking receive
-    if (socket_.receive(message, true)) {
+    // Polling
+    if (poller_.poll(pollTimeoutMs_)) {
       std::cout << "EventSubscriber: message received" << std::endl;
 
       std::string input;
@@ -195,9 +195,6 @@ EventSubscriber::messageReceiverAsync() {
         socket_.send(reply);
       }
     }
-
-    // Sleep briefly to reduce CPU usage
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
   }
   stepTriggeredCnt_++;
   simulationStepTriggerCondition_.notify_all();

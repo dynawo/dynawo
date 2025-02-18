@@ -136,7 +136,7 @@ class SubModel {
    * @brief update parameters of modelica model
    * @param parameterSet ParametersSet filled with external values
    */
-  virtual void updateParameters(std::shared_ptr<parameters::ParametersSet>& parametersSet) {}
+  virtual void updateParameters(std::shared_ptr<parameters::ParametersSet>&) {}
 
  public:
   /**
