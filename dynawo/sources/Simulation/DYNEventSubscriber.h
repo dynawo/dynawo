@@ -83,20 +83,19 @@ class EventSubscriber {
   std::mutex actions_mutex_;
   zmqpp::context context_;
   zmqpp::socket socket_;
+  zmqpp::poller poller_;
   std::thread receiverThread_;
   std::shared_ptr<Model> model_;
   bool running_;
   bool triggerEnabled_;
   bool actionsEnabled_;
   bool asyncMode_;
-
-  // Sync variables
-  bool pendingReply_;
+  long pollTimeoutMs_;
 
   // Async variables
+  int stepTriggeredCnt_;
   std::mutex simulationMutex_;
   std::condition_variable simulationStepTriggerCondition_;
-  int stepTriggeredCnt_;
 };
 
 }  // end of namespace DYN

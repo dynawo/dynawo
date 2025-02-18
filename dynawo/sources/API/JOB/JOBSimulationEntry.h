@@ -195,7 +195,7 @@ class SimulationEntry {
    * @param triggerSimulationTimeStepInS simulation output period
    */
   void setTriggerSimulationTimeStepInS(double triggerSimulationTimeStepInS) {
-    triggerSimulationTimeStepInS_ = triggerSimulationTimeStepInS_;
+    triggerSimulationTimeStepInS_ = triggerSimulationTimeStepInS;
   }
 
   /**

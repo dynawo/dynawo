@@ -42,7 +42,7 @@ WebsocketServer::WebsocketServer() {
   // Register our handlers
   server_.set_open_handler(bind(&WebsocketServer::onOpen, this, std::placeholders::_1));
   server_.set_close_handler(bind(&WebsocketServer::onClose, this, std::placeholders::_1));
-  server_.set_message_handler(bind(&WebsocketServer::onMessage, this, std::placeholders::_1, std::placeholders::_2));
+  // server_.set_message_handler(bind(&WebsocketServer::onMessage, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 
@@ -62,10 +62,10 @@ WebsocketServer::onClose(connection_hdl hdl) {
   std::cout << "WebsocketServer: Client disconnected!" << std::endl;
 }
 
-void
-WebsocketServer::onMessage(connection_hdl hdl, server::message_ptr msg) {
-  // to do: command reception
-}
+// void
+// WebsocketServer::onMessage(connection_hdl, server::message_ptr) {
+//   // to do: command reception
+// }
 
 void
 WebsocketServer::run(uint16_t port) {

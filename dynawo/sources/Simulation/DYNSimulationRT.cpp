@@ -64,8 +64,8 @@ using std::vector;
 using std::stringstream;
 using std::map;
 using std::setw;
-using std::shared_ptr;
-using std::dynamic_pointer_cast;
+using boost::shared_ptr;
+using boost::dynamic_pointer_cast;
 namespace fs = boost::filesystem;
 
 using timeline::TimelineFactory;
@@ -91,7 +91,7 @@ static const char TIME_FILENAME[] = "time.bin";  ///< name of the file to dump t
 
 namespace DYN {
 
-SimulationRT::SimulationRT(const std::shared_ptr<job::JobEntry>& jobEntry, const std::shared_ptr<SimulationContext>& context, boost::shared_ptr<DataInterface> data = boost::shared_ptr<DataInterface>()) :
+SimulationRT::SimulationRT(const std::shared_ptr<job::JobEntry>& jobEntry, const std::shared_ptr<SimulationContext>& context, shared_ptr<DataInterface> data) :
 Simulation(jobEntry, context, data) {
   if (jobEntry_->getSimulationEntry()->getPublishToZmq()) {
     stepPublisher_ = std::make_shared<ZmqPublisher>();
@@ -155,7 +155,7 @@ SimulationRT::simulate() {
       timeStep = curvesEntry->getTimeStep();
     }
     int currentIterNb = 0;
-    double nextTimeStep = 0;
+    // double nextTimeStep = 0;
 
     if (timeManager_)
       timeManager_->start(tCurrent_);
@@ -197,7 +197,7 @@ SimulationRT::simulate() {
         printHighestDerivativesValues();
 
       BitMask solverState = solver_->getState();
-      bool modifZ = false;
+      // bool modifZ = false;
       if (solverState.getFlags(ModeChange)) {
         // if (timeManager_)
         //   Trace::info() << "TimeManagement (ModeChange): tCurrent_ = " << tCurrent_
@@ -217,7 +217,7 @@ SimulationRT::simulate() {
         //   Trace::info() << "TimeManagement (SilentZish): tCurrent_ = " << tCurrent_
         //   << " s; Partial step computation time: " << timeManager_->getStepDuration() << "ms" << Trace::endline;
         model_->getCurrentZ(zCurrent_);
-        modifZ = true;
+        // modifZ = true;
       }
 
       if (isCheckCriteriaIter)
@@ -368,7 +368,7 @@ SimulationRT::curvesToJson(string& jsonCurves) {
           stream << ",\n";
         }
         string curveName =  (*itCurve)->getModelName() + "_" + (*itCurve)->getVariable();
-        double value = point->getValue();
+        // double value = point->getValue();
         stream << "\t\t\t" << "\"" << curveName << "\": " << point->getValue();
       }
     }
@@ -385,7 +385,7 @@ SimulationRT::curvesToJson(string& jsonCurves) {
 
 void
 SimulationRT::initComputationTimeCurve() {
-  shared_ptr<curves::Curve> curve = curves::CurveFactory::newCurve();
+  std::shared_ptr<curves::Curve> curve = curves::CurveFactory::newCurve();
   curve->setModelName("Simulation");
   curve->setVariable("stepDurationMs");
   curve->setAvailable(true);

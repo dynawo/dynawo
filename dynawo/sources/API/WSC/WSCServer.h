@@ -52,7 +52,7 @@ class WebsocketServer {
 
   void onClose(connection_hdl hdl);
 
-  void onMessage(connection_hdl hdl, server::message_ptr msg);
+  // void onMessage(connection_hdl hdl, server::message_ptr msg);
 
   void run(uint16_t port);
 
@@ -60,13 +60,12 @@ class WebsocketServer {
 
   void stop();
 
-private:
+ private:
   server server_;
   websocketpp::lib::shared_ptr<websocketpp::lib::thread> serverThread_;
   std::set<connection_hdl, std::owner_less<connection_hdl>> connections_;
   std::mutex connectionLock_;
 };
-
-}  // namespace curves
+}  // namespace wsc
 
 #endif  // API_WSC_WSCSERVER_H_
