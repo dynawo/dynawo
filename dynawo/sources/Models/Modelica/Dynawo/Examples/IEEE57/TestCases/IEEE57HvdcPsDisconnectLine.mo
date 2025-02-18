@@ -18,7 +18,7 @@ model IEEE57HvdcPsDisconnectLine "IEEE 57-bus system benchmark formed with 57 bu
   extends Modelica.Icons.Example;
 
 equation
-  //PhaseShifter
+  // PhaseShifter
   PhaseShifterB7B29.locked = false;
   PhaseShifterB7B29.PMonitored.value = TfoB7B29.P1Pu.value * 100;
 
@@ -507,13 +507,14 @@ equation
   Shunt53.switchOffSignal1.value = false;
   Shunt53.switchOffSignal2.value = false;
 
-  annotation(preferredView = "text",
+  annotation(
+    preferredView = "text",
     experiment(StartTime = 0, StopTime = 500, Tolerance = 1e-6, Interval = 1),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
     __OpenModelica_simulationFlags(ls = "klu", lv = "LOG_STATS", nls = "kinsol", s = "euler"),
-  Documentation(info = "<html><head></head><body>In this test case, the interaction between a phase shifter transformer and an HVDC line is shown.<div>For that an HVDC line parallel to the lineB29B52 is added to the original IEEE 57-bus model and the transformer TfoB7B29 is modeled as a phase shifter transformer monitering TfoB7B29.P1Pu.</div><div><div><br></div><div>At t = 150 s, the lineB29B52 is disconnected. It means that the current now will pass through the HVDC line.</div></div><div>Also, the monitored value of the power falls below the minimum range, so the phase shifter will have to react after 25 seconds if PMonitored &lt; PMin.</div><div>Meanwhile the power passing through the HVDC in AC emulation is increasing.</div><div>After 25 s, the phase shifter passes a tap, that changes the phase, resulting in the increase of power.</div><div>With the dynamic of the HVDC, PMonitored is between the accepted range.</div>
-  <figure>
-    <img width=\"450\" src=\"modelica://Dynawo/Examples/IEEE57/Resources/PhaseShifter_PMonitored.png\">
-  </figure>
-</body></html>"));
+    Documentation(info = "<html><head></head><body>In this test case, the interaction between a phase shifter transformer and an HVDC line is shown.<div>For that an HVDC line parallel to the lineB29B52 is added to the original IEEE 57-bus model and the transformer TfoB7B29 is modeled as a phase shifter transformer monitering TfoB7B29.P1Pu.</div><div><div><br></div><div>At t = 150 s, the lineB29B52 is disconnected. It means that the current now will pass through the HVDC line.</div></div><div>Also, the monitored value of the power falls below the minimum range, so the phase shifter will have to react after 25 seconds if PMonitored &lt; PMin.</div><div>Meanwhile the power passing through the HVDC in AC emulation is increasing.</div><div>After 25 s, the phase shifter passes a tap, that changes the phase, resulting in the increase of power.</div><div>With the dynamic of the HVDC, PMonitored is between the accepted range.</div>
+    <figure>
+      <img width=\"450\" src=\"modelica://Dynawo/Examples/IEEE57/Resources/PhaseShifter_PMonitored.png\">
+    </figure>
+    </body></html>"));
 end IEEE57HvdcPsDisconnectLine;
