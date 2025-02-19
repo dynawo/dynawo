@@ -13,3 +13,7 @@ EventQuadripoleStatus
 EventQuadripoleConnection
 EventQuadripoleDisconnection
 EventConnectedStatus
+ContinuousEventEquations
+ContinuousEventReal
+ContinuousSingleRealEvent
+ContinuousDoubleRealEvent

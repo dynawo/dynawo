@@ -27,6 +27,10 @@ set(MODEL_FILES
   EventQuadripoleConnection.mo
   EventQuadripoleDisconnection.mo
   EventConnectedStatus.mo
+  ContinuousEventEquations.mo
+  ContinuousEventReal.mo
+  ContinuousSingleRealEvent.mo
+  ContinuousDoubleRealEvent.mo
   )
 
 #

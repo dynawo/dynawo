@@ -33,6 +33,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   EventSetPointBoolean.xml
   EventSetPointReal.xml
   EventSetPointDoubleReal.xml
+  EventSetPointDoubleRealContinuous.xml
   GeneratorFictitious.xml
   GeneratorPQ.xml
   GeneratorPQPropSignalN.xml
