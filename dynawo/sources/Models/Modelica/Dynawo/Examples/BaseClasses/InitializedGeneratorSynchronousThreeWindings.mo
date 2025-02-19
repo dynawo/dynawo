@@ -29,7 +29,7 @@ model InitializedGeneratorSynchronousThreeWindings "Model of synchronous generat
   parameter Types.Time Tpq0 "Open circuit quadrature axis transient time constant in s";
   parameter Types.Time Tppq0 "Open circuit quadrature axis sub-transient time constant in s";
 
-  Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt3W_INIT gen_init3(U0Pu = U0Pu, UPhase0 = UPhase0, P0Pu = P0Pu, Q0Pu = Q0Pu, UNom = UNom, SNom = SNom, H = H, DPu = DPu, PNomTurb = PNomTurb, PNomAlt = PNomAlt, ExcitationPu = ExcitationPu, SnTfo = SnTfo, UNomHV = UNomHV, UNomLV = UNomLV, UBaseHV = UBaseHV, UBaseLV = UBaseLV, RTfPu = RTfPu, XTfPu = XTfPu, md = md, mq = mq, nd = nd, nq = nq, RaPu = RaPu, XlPu = XlPu, XdPu = XdPu, XpdPu = XpdPu, XppdPu = XppdPu, XqPu = XqPu, XppqPu = XppqPu, Tpd0 = Tpd0, Tppd0 = Tppd0, Tppq0 = Tppq0);
+  Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt3W_INIT gen_init3(U0Pu = U0Pu, UPhase0 = UPhase0, P0Pu = P0Pu, Q0Pu = Q0Pu, UNom = UNom, SNom = SNom, H = H, DPu = DPu, PNomTurb = PNomTurb, PNomAlt = PNomAlt, ExcitationPu = ExcitationPu, SnTfo = SnTfo, UNomHV = UNomHV, UNomLV = UNomLV, UBaseHV = UBaseHV, UBaseLV = UBaseLV, RTfPu = RTfPu, XTfPu = XTfPu, md = md, mq = mq, nd = nd, nq = nq, RaPu = RaPu, XlPu = XlPu, XdPu = XdPu, XpdPu = XpdPu, XppdPu = XppdPu, XqPu = XqPu, XppqPu = XppqPu, Tpd0 = Tpd0, Tppd0 = Tppd0, Tppq0 = Tppq0, MdPuEfd = 1, UseApproximation = true);
 
 initial algorithm
   // Generator init values
@@ -103,6 +103,7 @@ initial algorithm
   MsalPu := gen_init3.MsalPu;
   MdPPuEfdNom := gen_init3.MdPPuEfdNom;
 
-  annotation(preferredView = "text",
+  annotation(
+    preferredView = "text",
     Documentation(info = "<html><head></head><body>This model implements a three windings synchronous generator which is automatically initialized by an initialization model.<div>The standard parameters are passed to the initialization model, which in turn calculates the necessary operational parameters. The calculated values are then assigned to the respective generator parameters in an initial algorithm section. This way, the generator has appropriate parameters before the simulation starts. The model can not use equations due to variability conflict (parameters and variables), therefore the assignment operator must be used. This is permissible, because the initial values do not change during simulation.</div></body></html>"));
 end InitializedGeneratorSynchronousThreeWindings;
