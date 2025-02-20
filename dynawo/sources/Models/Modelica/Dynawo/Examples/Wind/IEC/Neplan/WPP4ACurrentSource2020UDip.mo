@@ -152,7 +152,7 @@ model WPP4ACurrentSource2020UDip "Wind Power Plant Type 4A model from IEC 61400-
     Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Fault
-  Dynawo.Electrical.Events.VariableImpedantFault variableImpedantFault(ImpedanceTableFile = "../dynawo/examples/DynaSwing/IEC/Wind/Neplan/WPP4ACurrentSource2020UDip/TableVariableImpedance.txt", ImpedanceTimeTable = "ImpedanceTable", ZvTimeTable(extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint, smoothness = Modelica.Blocks.Types.Smoothness.ConstantSegments, table = [0, 0, 10000; 10, 0, 0.015; 10.15, 0, 1.17; 15, 0, 10000], tableOnFile = false)) annotation(
+  Dynawo.Electrical.Events.VariableImpedantFault variableImpedantFault(ImpedanceTableFile = "../dynawo/examples/DynaSwing/IEC/Wind/Neplan/WPP4ACurrentSource2020UDip/TableVariableImpedance.txt", ImpedanceTimeTable = "ImpedanceTable", ZvTimeTable(table = [0, 0, 10000; 10, 0, 10000; 10, 0, 0.015; 10.15, 0, 0.015; 11.15, 0, 1.17; 15, 0, 1.17; 15, 0, 10000; 25, 0, 10000], tableOnFile = false)) annotation(
     Placement(visible = true, transformation(origin = {-50, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Reference inputs
@@ -187,7 +187,7 @@ equation
 
   annotation(
     preferredView = "diagram",
-    experiment(StartTime = 0, StopTime = 20, Tolerance = 1e-06, Interval = 0.0001),
+    experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-6, Interval = 0.0001),
     __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", nls = "kinsol", s = "ida", nlsLS = "klu", maxIntegrationOrder = "2", maxStepSize = "10", emit_protected = "()"),
     Diagram(coordinateSystem(extent = {{-160, -100}, {160, 100}})),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode");
