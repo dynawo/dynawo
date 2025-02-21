@@ -27,8 +27,7 @@ model IntegerTable "Generate an Integer output signal based on a table stored in
   Modelica.Blocks.Sources.IntegerTable integerTable(
     combiTimeTable(fileName = FileName, tableName = TableName, tableOnFile = true),
     extrapolation = Extrapolation,
-    shiftTime = 0,
-    startTime = -Modelica.Constants.inf) annotation(
+    table = [0, 0]) annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
