@@ -35,6 +35,7 @@ NetworkElementCompNotFound    =             unable to show the network component
 CalcVarConnectionIgnored      =             connection between calculated variables %1% and %2% will be ignored
 WrongCheckSum                 =             unable to load dump state : Checksum is different from the registered state (%1%)
 WrongParameterNum             =             unable to load dump state : Number of parameters has changed in comparison with the registered state (%1%)
+NetworkComponentNotFoundInDump =            ignoring dump state of component %1% as not found in current network (%2%)
 SubModelFeqFormulaNotExist    =             failed to retrieve equation %2% of submodel %1%
 SubModelGeqFormulaNotExist    =             failed to retrieve root equation %2% of submodel %1%
 IIDMExtensionNoCreate         =             iidm extension %1% from library %2% has no create function %3%
