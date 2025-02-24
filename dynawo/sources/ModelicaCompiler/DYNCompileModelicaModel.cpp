@@ -412,13 +412,12 @@ generateModelFile(const string& modelName, const string& compilationDir, bool& w
 
 void
 generateEvalJFile(const string& modelName, const string& compilationDir, bool withInitFile) {
-  string scriptsDir1 = getMandatoryEnvVar("DYNAWO_SCRIPTS_DIR");
+  string scriptsDir = getMandatoryEnvVar("DYNAWO_SCRIPTS_DIR");
   string pythonCmd = "python";
   if (hasEnvVar("DYNAWO_PYTHON_COMMAND"))
     pythonCmd = getEnvVar("DYNAWO_PYTHON_COMMAND");
-  // string varExtCommand = pythonCmd + " " + scriptsDir1 + "/writeModel.py -m " + packageName + modelName + " -i " + compilationDir + " -o " + compilationDir;
 
-  string varExtCommand = "/home/bureaugau/Projects/TestGPT/generateEvalJ.sh " + compilationDir + " " + modelName + " " + "Model" + modelName;
+  string varExtCommand = scriptsDir + "/generateEvalJ.sh " + compilationDir + " " + modelName + " " + "Model" + modelName;
   if (withInitFile)
     varExtCommand += " true";
   else
