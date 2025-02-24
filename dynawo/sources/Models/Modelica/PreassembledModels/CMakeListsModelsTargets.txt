@@ -32,6 +32,7 @@ file(GLOB SVarc StaticVarCompensator*.xml)
 file(GLOB TapChangers TapChanger*.xml)
 file(GLOB Transformer TransformerFixedRatio.xml)
 file(GLOB SecondaryControl Secondary*.xml)
+file(GLOB IEC IEC*.xml)
 
 ## Generators
 add_custom_target(GENERATOR_MODELS)
@@ -47,6 +48,14 @@ add_custom_target(LOAD_MODELS)
 foreach(load IN LISTS Loads)
   get_filename_component(name ${load} NAME_WE)
   add_dependencies(LOAD_MODELS ${name})
+endforeach()
+
+## IEC
+add_custom_target(IEC_MODELS)
+
+foreach(iec IN LISTS IEC)
+  get_filename_component(name ${iec} NAME_WE)
+  add_dependencies(IEC_MODELS ${name})
 endforeach()
 
 ## SMIB
@@ -93,14 +102,14 @@ endforeach()
 add_custom_target(NRT_MODELS)
 file(STRINGS "NrtModels.txt" NRT_MODELS_LIST)
 foreach(nrt_model IN LISTS NRT_MODELS_LIST)
-  add_dependencies(NRT_MODELS ${nrt_model})
+  #add_dependencies(NRT_MODELS ${nrt_model})
 endforeach()
 
 ## Nrt-extend models
 add_custom_target(NRT_EXTEND_MODELS)
 file(STRINGS "NrtExtendModels.txt" NRT_EXTEND_MODELS_LIST)
 foreach(nrt_extend_model IN LISTS NRT_EXTEND_MODELS_LIST)
-  add_dependencies(NRT_EXTEND_MODELS ${nrt_extend_model})
+  #add_dependencies(NRT_EXTEND_MODELS ${nrt_extend_model})
 endforeach()
 
 ## Nrt dynawo-algorithms

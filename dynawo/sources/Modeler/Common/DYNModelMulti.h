@@ -578,6 +578,11 @@ class ModelMulti : public Model, private boost::noncopyable {
  */
  void setSymbolicJacobian();
 
+ /**
+ * @brief set the local initialization solver parameters of the model
+ */
+ void setSymbolicResidual();
+
  private:
   std::unordered_map<int, int> mapAssociationF_;  ///< association between an index of f functions and a subModel
   std::unordered_map<int, int> mapAssociationG_;  ///< association between an index of g functions and a subModel

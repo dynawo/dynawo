@@ -282,7 +282,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::evalZ(double t)
    */
-  NetworkComponent::StateChange_t evalZ(double t) override;  // compute the Z function
+  NetworkComponent::StateChange_t evalZ(double t, bool deactivateRootFunctions) override;  // compute the Z function
 
   /**
    * @brief evaluation G

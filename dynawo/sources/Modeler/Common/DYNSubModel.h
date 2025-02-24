@@ -297,6 +297,12 @@ class SubModel {
    */
   virtual void setEvalJIsSymbolic() {}
 
+ /**
+   * @brief turns on symbolic evalJ
+   *
+   */
+ virtual void setEvalFIsSymbolic() {}
+
   /**
    * @brief write initial values of a model in a file
    *

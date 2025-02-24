@@ -471,11 +471,11 @@ ModelVoltageLevel::setGequations(map<int, string>& gEquationIndex) {
 }
 
 NetworkComponent::StateChange_t
-ModelVoltageLevel::evalZ(const double t) {
+ModelVoltageLevel::evalZ(const double t, bool deactivateRootFunctions) {
   bool topoChange = false;
   bool stateChange = false;
   for (const auto& component : components_) {
-    switch (component->evalZ(t)) {
+    switch (component->evalZ(t, bool deactivateRootFunctions)) {
     case NetworkComponent::TOPO_CHANGE:
       topoChange = true;
       break;

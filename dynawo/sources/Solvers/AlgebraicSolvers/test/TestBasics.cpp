@@ -163,28 +163,29 @@ TEST(AlgebraicSolvers, testInit) {
   boost::shared_ptr<SolverKINEuler> solverEuler(new SolverKINEuler());
   Solver* timeSchemeSolver = new SolverMock();
   N_Vector sundialsVectorY = N_VNew_Serial(model->sizeY(), sundialsContext);
+  bool allLogs = false;
   // KINSetFuncNormTol
-  ASSERT_THROW_DYNAWO(solverEuler->init(model, timeSchemeSolver, -1, 1, 1, 1, 1, 1, 1, sundialsVectorY), Error::SUNDIALS_ERROR,
+  ASSERT_THROW_DYNAWO(solverEuler->init(model, timeSchemeSolver, -1, 1, 1, 1, 1, 1, 1, sundialsVectorY, allLogs), Error::SUNDIALS_ERROR,
                       KeyError_t::SolverFuncErrorKINSOL);
   // KINSetInitialAdditionalTolerance
-  ASSERT_THROW_DYNAWO(solverEuler->init(model, timeSchemeSolver, 1, -1, 1, 1, 1, 1, 1, sundialsVectorY), Error::SUNDIALS_ERROR,
+  ASSERT_THROW_DYNAWO(solverEuler->init(model, timeSchemeSolver, 1, -1, 1, 1, 1, 1, 1, sundialsVectorY, allLogs), Error::SUNDIALS_ERROR,
                       KeyError_t::SolverFuncErrorKINSOL);
   // KINSetScaledStepTol
-  ASSERT_THROW_DYNAWO(solverEuler->init(model, timeSchemeSolver, 1, 1, -1, 1, 1, 1, 1, sundialsVectorY), Error::SUNDIALS_ERROR,
+  ASSERT_THROW_DYNAWO(solverEuler->init(model, timeSchemeSolver, 1, 1, -1, 1, 1, 1, 1, sundialsVectorY, allLogs), Error::SUNDIALS_ERROR,
                       KeyError_t::SolverFuncErrorKINSOL);
   // KINSetMaxNewtonStep
-  ASSERT_THROW_DYNAWO(solverEuler->init(model, timeSchemeSolver, 1, 1, 1, -1, 1, 1, 1, sundialsVectorY), Error::SUNDIALS_ERROR,
+  ASSERT_THROW_DYNAWO(solverEuler->init(model, timeSchemeSolver, 1, 1, 1, -1, 1, 1, 1, sundialsVectorY, allLogs), Error::SUNDIALS_ERROR,
                       KeyError_t::SolverFuncErrorKINSOL);
   // KINSetMaxSetupCalls
-  ASSERT_THROW_DYNAWO(solverEuler->init(model, timeSchemeSolver, 1, 1, 1, 1, -1, 1, 1, sundialsVectorY), Error::SUNDIALS_ERROR,
+  ASSERT_THROW_DYNAWO(solverEuler->init(model, timeSchemeSolver, 1, 1, 1, 1, -1, 1, 1, sundialsVectorY, allLogs), Error::SUNDIALS_ERROR,
                       KeyError_t::SolverFuncErrorKINSOL);
   // KINSetNumMaxIters
-  ASSERT_THROW_DYNAWO(solverEuler->init(model, timeSchemeSolver, 1, 1, 1, 1, 1, -1, 1, sundialsVectorY), Error::SUNDIALS_ERROR,
+  ASSERT_THROW_DYNAWO(solverEuler->init(model, timeSchemeSolver, 1, 1, 1, 1, 1, -1, 1, sundialsVectorY, allLogs), Error::SUNDIALS_ERROR,
                       KeyError_t::SolverFuncErrorKINSOL);
   // KINSetPrintLevel
-  ASSERT_THROW_DYNAWO(solverEuler->init(model, timeSchemeSolver, 1, 1, 1, 1, 1, 1, -1, sundialsVectorY), Error::SUNDIALS_ERROR,
+  ASSERT_THROW_DYNAWO(solverEuler->init(model, timeSchemeSolver, 1, 1, 1, 1, 1, 1, -1, sundialsVectorY, allLogs), Error::SUNDIALS_ERROR,
                       KeyError_t::SolverFuncErrorKINSOL);
-  ASSERT_NO_THROW(solverEuler->init(model, timeSchemeSolver, 1, 1, 1, 1, 1, 1, 1, sundialsVectorY));
+  ASSERT_NO_THROW(solverEuler->init(model, timeSchemeSolver, 1, 1, 1, 1, 1, 1, 1, sundialsVectorY, allLogs));
   if (sundialsVectorY != NULL) {
     N_VDestroy_Serial(sundialsVectorY);
     sundialsVectorY = NULL;

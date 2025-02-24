@@ -901,7 +901,17 @@ Simulation::init() {
 
 void
 Simulation::calculateIC() {
+  Timer timer("Simulation::calculateIC");
   bool symbolicJacobian = jobEntry_->getModelerEntry()->getSymbolicJacobian();
+  if (hasEnvVar("DYNAWO_SYMBOLIC_JACOBIAN")) {
+    if (getEnvVar("DYNAWO_SYMBOLIC_JACOBIAN") == "true")
+      symbolicJacobian = true;
+  }
+  bool symbolicResidual = jobEntry_->getModelerEntry()->getSymbolicResidual();
+  if (hasEnvVar("DYNAWO_SYMBOLIC_RESIDUAL")) {
+    if (getEnvVar("DYNAWO_SYMBOLIC_RESIDUAL") == "true")
+      symbolicResidual = true;
+  }
 
   // ensure locally satisfactory values for initial models
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
@@ -911,6 +921,10 @@ Simulation::calculateIC() {
 
   /*if (symbolicJacobian) {
     model_->setSymbolicJacobian();
+  }*/
+
+  /*if (symbolicResidual) {
+    model_->setSymbolicResidual();
   }*/
 
   model_->init(tStart_);
@@ -945,6 +959,10 @@ Simulation::calculateIC() {
 
   if (symbolicJacobian) {
     model_->setSymbolicJacobian();
+  }
+
+  if (symbolicResidual) {
+    model_->setSymbolicResidual();
   }
 
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;

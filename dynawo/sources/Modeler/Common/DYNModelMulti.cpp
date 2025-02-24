@@ -1248,4 +1248,10 @@ void ModelMulti::setSymbolicJacobian() {
   }
 }
 
+void ModelMulti::setSymbolicResidual() {
+  for (auto& subModel : subModels_) {
+    subModel->setEvalFIsSymbolic();
+  }
+}
+
 }  // namespace DYN

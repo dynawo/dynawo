@@ -312,8 +312,8 @@ compare(const std::vector<std::string>& lhs, const std::vector<std::string>& rhs
 }
 
 TEST(CommonTest, testDelayManagerClassParameters) {
-  std::string formatted1 = "10:1.5:1.000000,1.100000;2.000000,2.200000;3.000000,3.300000;4.000000,4.400000;5.000000,5.500000;";
-  std::string formatted2 = "20:3:1.000000,1.100000;2.000000,2.200000;3.000000,3.300000;4.000000,4.400000;5.000000,5.500000;";
+  std::string formatted1 = "10:1.500000:1.000000,1.100000;2.000000,2.200000;3.000000,3.300000;4.000000,4.400000;5.000000,5.500000;";
+  std::string formatted2 = "20:3.000000:1.000000,1.100000;2.000000,2.200000;3.000000,3.300000;4.000000,4.400000;5.000000,5.500000;";
   std::vector<std::string> format;
   format.push_back(formatted1);
   format.push_back(formatted2);
@@ -326,7 +326,7 @@ TEST(CommonTest, testDelayManagerClassParameters) {
   std::vector<std::string> formatted = manager.dumpDelays();
   ASSERT_TRUE(compare(formatted, format));
 
-  std::string formatted3 = "10:1.5:1.000000,1.100000;1.000000,1.100000;2.000000,2.200000;3.000000,3.300000;4.000000,4.400000;5.000000,5.500000;";
+  std::string formatted3 = "10:1.500000:1.000000,1.100000;1.000000,1.100000;2.000000,2.200000;3.000000,3.300000;4.000000,4.400000;5.000000,5.500000;";
   std::vector<std::string> format2;
   format2.push_back(formatted3);
 
@@ -334,7 +334,7 @@ TEST(CommonTest, testDelayManagerClassParameters) {
   ok = manager2.loadDelays(format2, 5.5);
   ASSERT_TRUE(ok);
 
-  std::string formatted4 = "10:1.5:1.100000,1.100000;1.000000,1.100000;";
+  std::string formatted4 = "10:1.500000:1.100000,1.100000;1.000000,1.100000;";
   std::vector<std::string> format3;
   format3.push_back(formatted4);
 

@@ -298,7 +298,7 @@ SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
   return 0;
 }
 
-#if _DEBUG_
+// #if _DEBUG_
 void
 SolverKINAlgRestoration::checkJacobian(const SparseMatrix& smj, Model& model) {
   SparseMatrix::CheckError error = smj.check();
@@ -317,7 +317,7 @@ SolverKINAlgRestoration::checkJacobian(const SparseMatrix& smj, Model& model) {
     break;
   }
 }
-#endif
+// #endif
 
 int
 SolverKINAlgRestoration::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
@@ -331,16 +331,21 @@ SolverKINAlgRestoration::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
   constexpr double cj = 1.;
   smj.init(model.sizeY(), model.sizeY());
   model.evalJt(solver->t0_, cj, smj);
+  // smj.printToFile(true);
+
+  /*if (solver->checkJacobian_) {
+    checkJacobian(smj, model);
+  }*/
 
   // Erase useless values in the jacobian
   const int size = static_cast<int>(solver->indexY_.size());
   smjKin.reserve(size);
   smj.erase(solver->ignoreY_, solver->ignoreF_, smjKin);
-#if _DEBUG_
+// #if _DEBUG_
   if (solver->checkJacobian_) {
     checkJacobian(smjKin, model);
   }
-#endif
+// #endif
   SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, solver->lastRowVals_, solver->linearSolver_, true);
 
   return 0;

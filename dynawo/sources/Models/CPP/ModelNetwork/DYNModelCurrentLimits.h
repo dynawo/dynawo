@@ -74,11 +74,12 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
    * @param desactivate @b true if the current limits is off
    * @param modelType type of the model
    * @param network model of network
+   * @param network model of deactivateRootFunctions
    *
    * @return the state of the current limits
    */
   state_t evalZ(const std::string& componentName, double t, const state_g* g, double desactivate,
-    const std::string& modelType, ModelNetwork* network);  // compute the local Z function
+    const std::string& modelType, ModelNetwork* network, bool deactivateRootFunctions);  // compute the local Z function
 
   /**
    * @brief add a new current limit (pu base UNom, base SNRef)
@@ -109,7 +110,8 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
    * @brief get G size
    * @return size of G
    */
-  int sizeG() const;
+  int sizeG();
+
   /**
    * @brief get size of Z
    * @return size of Z
@@ -131,6 +133,7 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
   double maxTimeOperation_;  ///< maximum time operation, if limits duration is over this time, the current limit does not operate
   double lastCurrentValue_;  ///< last value of the current, kept to be reported in constraints
   double factorPuToA_;  ///< factor to convert pu values to Amperes
+  boost::optional<int> sizeG_;  ///< factor to convert pu values to Amperes
 
   std::vector<double> limits_;  ///< vector of current limits (pu base UNom, base SNRef)
   std::vector<double> acceptableDurations_;  ///< vector of limits duration (unit : s)

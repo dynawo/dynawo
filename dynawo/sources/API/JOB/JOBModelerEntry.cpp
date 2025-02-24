@@ -96,6 +96,16 @@ ModelerEntry::getSymbolicJacobian() const {
 }
 
 void
+ModelerEntry::setSymbolicResidual(bool symbolicResidual) {
+  symbolicResidual_ = symbolicResidual;
+}
+
+bool
+ModelerEntry::getSymbolicResidual() const {
+  return symbolicResidual_;
+}
+
+void
 ModelerEntry::setNetworkEntry(const std::shared_ptr<NetworkEntry>& networkEntry) {
   networkEntry_ = networkEntry;
 }

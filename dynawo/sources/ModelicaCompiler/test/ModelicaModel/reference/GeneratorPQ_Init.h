@@ -21,6 +21,8 @@ namespace DYN {
     ModelGeneratorPQ_Init() {
         dataStructInitialized_ = false;
         hasCheckDataCoherence_ = false;
+        symbolicJ_ = false;
+        symbolicF_ = false;
     }
     ~ModelGeneratorPQ_Init() {if (dataStructInitialized_) deInitializeDataStruc();}
 
@@ -62,6 +64,10 @@ namespace DYN {
     inline void setModelManager (ModelManager * model) { modelManager_ = model; }
     void checkSum(std::string & checkSum) { checkSum = std::string("96944ff6f8df698d2b20d3bb7a28dbd5"); }
     inline bool isDataStructInitialized() const { return dataStructInitialized_; }
+    void evalJt(double cj, SparseMatrix& jt, int rowOffset) override;
+    void evalJtPrim(double cj, SparseMatrix& jt, int rowOffset) override;
+    void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const override;
+    void evalF(double* f, propertyF_t type) override;
 
     private:
     DYNDATA * data;

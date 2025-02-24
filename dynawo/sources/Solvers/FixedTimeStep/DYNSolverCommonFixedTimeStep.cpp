@@ -76,6 +76,7 @@ mxnewtstep_(100000),
 msbset_(0),
 mxiter_(15),
 printfl_(0),
+allLogs_(false),
 skipNextNR_(false),
 skipAlgebraicResidualsEvaluation_(false),
 optimizeAlgebraicResidualsEvaluations_(true),
@@ -104,6 +105,7 @@ SolverCommonFixedTimeStep::defineSpecificParametersCommon() {
   parameters_.insert(make_pair("printfl", ParameterSolver("printfl", VAR_TYPE_INT, optional)));
   parameters_.insert(make_pair("optimizeAlgebraicResidualsEvaluations", ParameterSolver("optimizeAlgebraicResidualsEvaluations", VAR_TYPE_BOOL, optional)));
   parameters_.insert(make_pair("skipNRIfInitialGuessOK", ParameterSolver("skipNRIfInitialGuessOK", VAR_TYPE_BOOL, optional)));
+  parameters_.insert(make_pair("allLogs", ParameterSolver("allLogs", VAR_TYPE_BOOL, optional)));
 }
 
 void
@@ -140,6 +142,9 @@ SolverCommonFixedTimeStep::setSolverSpecificParametersCommon() {
   const ParameterSolver& skipNRIfInitialGuessOK = findParameter("skipNRIfInitialGuessOK");
   if (skipNRIfInitialGuessOK.hasValue())
     skipNRIfInitialGuessOK_ = skipNRIfInitialGuessOK.getValue<bool>();
+  const ParameterSolver& allLogs = findParameter("allLogs");
+  if (allLogs.hasValue())
+    allLogs_ = allLogs.getValue<bool>();
 }
 
 void
@@ -159,7 +164,7 @@ SolverCommonFixedTimeStep::initCommon(const std::shared_ptr<Model> &model, const
 
   if (model->sizeY() != 0) {
     solverKINEuler_.reset(new SolverKINEuler());
-    solverKINEuler_->init(model, this, fnormtol_, initialaddtol_, scsteptol_, mxnewtstep_, msbset_, mxiter_, printfl_, sundialsVectorY_);
+    solverKINEuler_->init(model, this, fnormtol_, initialaddtol_, scsteptol_, mxnewtstep_, msbset_, mxiter_, printfl_, sundialsVectorY_, allLogs_);
   }
 
   solverKINAlgRestoration_.reset(new SolverKINAlgRestoration());

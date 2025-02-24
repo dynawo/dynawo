@@ -40,8 +40,23 @@ factorPuToA_(1.) {
 }
 
 int
-ModelCurrentLimits::sizeG() const {
-  return static_cast<int>(2 * limits_.size());
+ModelCurrentLimits::sizeG() {
+  static int nbUseless = 0;
+  static int nbCalls = 0;
+  if (!sizeG_) {
+    for (auto acceptableDuration : acceptableDurations_)
+      if (acceptableDuration > maxTimeOperation_)
+        ++nbUseless;
+
+    sizeG_ = static_cast<int>(2 * limits_.size());
+  } else {
+    if (nbCalls == 0) {
+      std::cout << "nbUseless " << nbUseless << std::endl;
+      nbCalls++;
+    }
+  }
+
+  return sizeG_.get();
 }
 
 int
@@ -77,6 +92,7 @@ ModelCurrentLimits::addLimit(const double limit, const int acceptableDuration) {
       openingAuthorized_.push_back(true);
       nbTemporaryLimits_++;
     }
+    sizeG_.reset();
   }
 }
 
@@ -107,9 +123,11 @@ ModelCurrentLimits::constraintData(const constraints::ConstraintData::kind_t& ki
 
 ModelCurrentLimits::state_t
 ModelCurrentLimits::evalZ(const string& componentName, const double t, const state_g* g, const double desactivate,
-    const string& modelType, ModelNetwork* network) {
+    const string& modelType, ModelNetwork* network, bool deactivateRootFunctions) {
   state_t state = COMPONENT_CLOSE;
   using constraints::ConstraintData;
+  if (deactivateRootFunctions)
+    return state;
 
   for (unsigned int i = 0; i < limits_.size(); ++i) {
     if (!(desactivate > 0)) {

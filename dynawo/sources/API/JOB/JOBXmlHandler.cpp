@@ -217,6 +217,8 @@ ModelerHandler::create(attributes_type const& attributes) {
   modeler_->setCompileDir(attributes["compileDir"]);
   if (attributes.has("symbolicJacobian"))
     modeler_->setSymbolicJacobian(attributes["symbolicJacobian"]);
+  if (attributes.has("symboliResidual"))
+    modeler_->setSymbolicResidual(attributes["symbolicResidual"]);
 }
 
 shared_ptr<ModelerEntry>

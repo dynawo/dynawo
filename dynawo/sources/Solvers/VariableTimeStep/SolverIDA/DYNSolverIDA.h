@@ -274,6 +274,10 @@ class SolverIDA : public Solver::Impl {
   */
   int solveTaskToInt();
 
+ bool getAllLogs() const {
+  return allLogs_;
+ }
+
  private:
   void* IDAMem_;  ///< IDA internal memory structure
   SUNLinearSolver linearSolver_;  ///< Linear Solver pointer
@@ -298,6 +302,7 @@ class SolverIDA : public Solver::Impl {
   int maxncf_;  ///< test
   double nlscoef_;  ///< test
   bool restorationYPrim_;  ///< test
+  bool activateCheckJacobian_;  ///< test
 
   bool flagInit_;  ///< @b true if the solver is in initialization mode
   int nbLastTimeSimulated_;  ///< nb times of simulation of the latest time (to see if the solver succeed to pass through event at one point)

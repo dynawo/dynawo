@@ -85,6 +85,18 @@ class ModelerEntry {
   */
   bool getSymbolicJacobian() const;
 
+ /**
+   * @brief Compiling directory setter
+   * @param compileDir : Compiling directory for the job
+   */
+ void setSymbolicResidual(bool symbolicResidual);
+
+  /**
+  * @brief Compiling directory getter
+  * @return Compiling directory for the job
+  */
+  bool getSymbolicResidual() const;
+
   /**
    * @brief Network entries container setter
    * @param networkEntry : Network entries container for the job
@@ -142,6 +154,7 @@ class ModelerEntry {
  private:
   std::string compileDir_;                                          ///< Compiling directory for the simulation
   bool symbolicJacobian_;                                             ///< Use symbolic jacobian
+  bool symbolicResidual_;                                             ///< Use symbolic jacobian
   std::shared_ptr<ModelsDirEntry> preCompiledModelsDirEntry_;       ///< preCompiled models directories
   std::shared_ptr<ModelsDirEntry> modelicaModelsDirEntry_;          ///< modelica models directories
   std::shared_ptr<NetworkEntry> networkEntry_;                      ///< static network description
