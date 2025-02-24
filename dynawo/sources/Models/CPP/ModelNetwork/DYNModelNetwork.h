@@ -401,11 +401,6 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
   */
   void printInternalParameters(std::ofstream& fstream) const override;
 
-  /**
-  * @copydoc SubModel::defineVariablesInit(std::vector<boost::shared_ptr<Variable> >& variables)
-  */
-  void defineVariablesInit(std::vector<boost::shared_ptr<Variable> >& /*variables*/) override;
-
  private:
   double* calculatedVarBuffer_;  ///< calculated variable buffer
 
