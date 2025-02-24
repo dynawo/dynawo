@@ -102,6 +102,7 @@ maxcor_(4),
 maxncf_(10),
 nlscoef_(0.33),
 restorationYPrim_(true),
+activateCheckJacobian_(false),
 flagInit_(false),
 nbLastTimeSimulated_(0),
 allLogs_(false) {
@@ -153,6 +154,7 @@ SolverIDA::defineSpecificParameters() {
   parameters_.insert(make_pair("nlscoef", ParameterSolver("nlscoef", VAR_TYPE_DOUBLE, notMandatory)));
   parameters_.insert(make_pair("allLogs", ParameterSolver("allLogs", VAR_TYPE_BOOL, notMandatory)));
   parameters_.insert(make_pair("restorationYPrim", ParameterSolver("restorationYPrim", VAR_TYPE_BOOL, notMandatory)));
+  parameters_.insert(make_pair("activateCheckJacobian", ParameterSolver("activateCheckJacobian", VAR_TYPE_BOOL, notMandatory)));
 }
 
 void
@@ -193,6 +195,9 @@ SolverIDA::setSolverSpecificParameters() {
   const ParameterSolver& restorationYPrim = findParameter("restorationYPrim");
   if (restorationYPrim.hasValue())
     restorationYPrim_ = restorationYPrim.getValue<bool>();
+  const ParameterSolver& activateCheckJacobian = findParameter("activateCheckJacobian");
+  if (activateCheckJacobian.hasValue())
+    activateCheckJacobian_ = activateCheckJacobian.getValue<bool>();
 }
 
 std::string
@@ -407,6 +412,7 @@ SolverIDA::init(const std::shared_ptr<Model>& model, const double t0, const doub
 
 void
 SolverIDA::calculateIC(double /*tEnd*/) {
+  Timer timer("SolverIDA::calculateIC");
 #ifdef _DEBUG_
   vector<double> y0;
   y0.assign(vectorY_.begin(), vectorY_.end());
@@ -455,9 +461,13 @@ SolverIDA::calculateIC(double /*tEnd*/) {
                                               msbsetAlgInit_, mxiterAlgInit_, printflAlgInit_);
   }
 
-#if _DEBUG_
-  solverKINNormal_->setCheckJacobian(true);
-#endif
+// #if _DEBUG_
+  if (activateCheckJacobian_) {
+    solverKINNormal_->setCheckJacobian(true);
+  } else {
+    solverKINNormal_->setCheckJacobian(false);
+  }
+// #endif
   do {
     Trace::debug() << "Start algebraic restoration" << Trace::endline;
     // call to solver KIN in order to find the new (adequate) algebraic variables' values
@@ -541,7 +551,7 @@ SolverIDA::calculateIC(double /*tEnd*/) {
   updateStatistics();
 
   printEnd();
-  printEndConsole();
+  // printEndConsole();
 
   int flag0 = IDAReInit(IDAMem_, tSolve_, sundialsVectorY_, sundialsVectorYp_);  // required to relaunch the simulation
   if (flag0 < 0)
@@ -552,9 +562,9 @@ SolverIDA::calculateIC(double /*tEnd*/) {
 
   // reinit output
   flagInit_ = false;
-#if _DEBUG_
+// #if _DEBUG_
   solverKINNormal_->setCheckJacobian(false);
-#endif
+// #endif
 }
 
 void
@@ -639,21 +649,23 @@ SolverIDA::evalF(realtype tres, N_Vector yy, N_Vector yp,
     }
   }
 #endif
-  /*std::vector<double> vectorF(model.sizeY());
-  std::vector<double> vectorFScale(model.sizeY(), 1.);
-  memcpy(&vectorF[0], irr, vectorF.size() * sizeof(vectorF[0]));
-  double weightedInfNorm = SolverCommon::weightedInfinityNorm(vectorF, vectorFScale);
-  double wL2Norm = SolverCommon::weightedL2Norm(vectorF, vectorFScale);
-  long int current_nni = 0;
-  Trace::debug() << DYNLog(SolverKINResidualNorm, current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
+  if (solver->getAllLogs()) {
+    std::vector<double> vectorF(model.sizeY());
+    std::vector<double> vectorFScale(model.sizeY(), 1.);
+    memcpy(&vectorF[0], irr, vectorF.size() * sizeof(vectorF[0]));
+    double weightedInfNorm = SolverCommon::weightedInfinityNorm(vectorF, vectorFScale);
+    double wL2Norm = SolverCommon::weightedL2Norm(vectorF, vectorFScale);
+    long int current_nni = 0;
+    Trace::debug() << DYNLog(SolverKINResidualNorm, current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
 
-  int nbErr = 10;
-  Trace::debug() << DYNLog(KinLargestErrors, nbErr) << Trace::endline;
-  vector<std::pair<double, size_t> > fErr;
-  fErr.reserve(nbErr);
-  for (size_t i = 0; i < static_cast<size_t>(model.sizeF()); ++i)
-    fErr.push_back(std::pair<double, size_t>(vectorF[i], i));
-  SolverCommon::printLargestErrors(fErr, model, nbErr);*/
+    int nbErr = 10;
+    Trace::debug() << DYNLog(KinLargestErrors, nbErr) << Trace::endline;
+    vector<std::pair<double, size_t> > fErr;
+    fErr.reserve(nbErr);
+    for (size_t i = 0; i < static_cast<size_t>(model.sizeF()); ++i)
+      fErr.push_back(std::pair<double, size_t>(vectorF[i], i));
+    SolverCommon::printLargestErrors(fErr, model, nbErr);
+  }
 
   // if (!solver->flagInit()) {
   //   /* The convergence criterion in IDA is associated to the weighted RMS norm of the delta between two Newton iterations.

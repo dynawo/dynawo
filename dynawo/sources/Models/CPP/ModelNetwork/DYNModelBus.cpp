@@ -695,10 +695,10 @@ ModelBus::defineElementsById(const std::string& id, std::vector<Element>& elemen
 }
 
 NetworkComponent::StateChange_t
-ModelBus::evalZ(const double& /*t*/) {
+ModelBus::evalZ(const double& /*t*/, bool deactivateRootFunctions) {
   using constraints::ConstraintData;
 
-  if (network_->hasConstraints()) {
+  if (network_->hasConstraints() && !deactivateRootFunctions) {
     if (g_[0] == ROOT_UP && !stateUmax_) {
       DYNAddConstraintWithData(network_, constraintId_, true, modelType_,
         ConstraintData(ConstraintData::USupUmax, uMax_*unom_, getCurrentU(ModelBus::UType_)), USupUmax);

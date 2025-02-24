@@ -110,9 +110,8 @@ ModelRatioTapChanger::evalG(double t, double uValue, bool nodeOff, state_g* g, d
 }
 
 void
-ModelRatioTapChanger::evalZ(double t, state_g* g, ModelNetwork* network, double disable, bool nodeOff, double locked, bool tfoClosed) {
-  return;
-  if (!(disable > 0) && !nodeOff && !(locked > 0) && tfoClosed) {
+ModelRatioTapChanger::evalZ(double t, state_g* g, ModelNetwork* network, double disable, bool nodeOff, double locked, bool tfoClosed, bool deactivateRootFunctions) {
+  if (!(disable > 0) && !nodeOff && !(locked > 0) && tfoClosed && !deactivateRootFunctions) {
     if (g[0] == ROOT_UP && !uMaxState_) {  // U > UMax
       if (!getUpIncreaseTargetU()) {
         whenUp_ = t;

@@ -131,7 +131,7 @@ class ModelHvdcLink : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::evalZ()
    */
-  NetworkComponent::StateChange_t evalZ(const double& t);
+  NetworkComponent::StateChange_t evalZ(const double& t, bool deactivateRootFunctions);
 
   /**
    * @copydoc NetworkComponent::setGequations( std::map<int,std::string>& gEquationIndex )

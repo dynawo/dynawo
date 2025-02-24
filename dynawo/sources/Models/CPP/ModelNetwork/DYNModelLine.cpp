@@ -138,7 +138,7 @@ modelType_("Line") {
   currentLimitsDesactivate_ = 0.;
 
   // current limits side 1
-  /*const vector<std::unique_ptr<CurrentLimitInterface> >& cLimit1 = line->getCurrentLimitInterfaces1();
+  const vector<std::unique_ptr<CurrentLimitInterface> >& cLimit1 = line->getCurrentLimitInterfaces1();
   if (cLimit1.size() > 0) {
     currentLimits1_.reset(new ModelCurrentLimits());
     currentLimits1_->setSide(ModelCurrentLimits::SIDE_1);
@@ -154,10 +154,10 @@ modelType_("Line") {
         currentLimits1_->addLimit(limit, cLimit1[i]->getAcceptableDuration());
       }
     }
-  }*/
+  }
 
   // current limits side 2
-  /*const vector<std::unique_ptr<CurrentLimitInterface> >& cLimit2 = line->getCurrentLimitInterfaces2();
+  const vector<std::unique_ptr<CurrentLimitInterface> >& cLimit2 = line->getCurrentLimitInterfaces2();
   if (cLimit2.size() > 0) {
     currentLimits2_.reset(new ModelCurrentLimits());
     currentLimits2_->setSide(ModelCurrentLimits::SIDE_2);
@@ -173,7 +173,7 @@ modelType_("Line") {
         currentLimits2_->addLimit(limit, cLimit2[i]->getAcceptableDuration());
       }
     }
-  }*/
+  }
 
   ir01_ = 0;
   ii01_ = 0;
@@ -880,19 +880,19 @@ ModelLine::defineElements(std::vector<Element>& elements, std::map<std::string, 
 }
 
 NetworkComponent::StateChange_t
-ModelLine::evalZ(const double& t) {
+ModelLine::evalZ(const double& t, bool deactivateRootFunctions) {
   int offsetRoot = 0;
   ModelCurrentLimits::state_t currentLimitState;
 
-  if (currentLimits1_) {
-    currentLimitState = currentLimits1_->evalZ(id(), t, &(g_[offsetRoot]), network_, currentLimitsDesactivate_, modelType_);
+  if (currentLimits1_ && !deactivateRootFunctions) {
+    currentLimitState = currentLimits1_->evalZ(id(), t, &(g_[offsetRoot]), network_, currentLimitsDesactivate_, modelType_, deactivateRootFunctions);
     offsetRoot += currentLimits1_->sizeG();
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
       z_[0] = OPEN;
   }
 
-  if (currentLimits2_) {
-    currentLimitState = currentLimits2_->evalZ(id(), t, &(g_[offsetRoot]), network_, currentLimitsDesactivate_, modelType_);
+  if (currentLimits2_ && !deactivateRootFunctions) {
+    currentLimitState = currentLimits2_->evalZ(id(), t, &(g_[offsetRoot]), network_, currentLimitsDesactivate_, modelType_, deactivateRootFunctions);
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
       z_[0] = OPEN;
   }

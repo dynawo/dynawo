@@ -366,6 +366,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadCalculatedVariables) {
 
 TEST(ModelsModelNetwork, ModelNetworkLoadDiscreteVariables) {
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
+  bool deactivateRootFunctions = false;
   std::tuple<std::shared_ptr<ModelLoad>,
   std::shared_ptr<ModelVoltageLevel>, std::shared_ptr<ModelBus>, std::shared_ptr<BusInterfaceIIDM>,
   std::shared_ptr<VoltageLevelInterfaceIIDM>> myTuple = createModelLoad(false, false, networkIIDM);
@@ -400,14 +401,14 @@ TEST(ModelsModelNetwork, ModelNetworkLoadDiscreteVariables) {
   load->setConnected(CLOSED);
 
   z[0] = OPEN;
-  load->evalZ(0.);
+  load->evalZ(0., deactivateRootFunctions);
   ASSERT_EQ(load->getConnected(), OPEN);
   ASSERT_EQ(z[0], OPEN);
 
   ASSERT_EQ(load->evalState(0.), NetworkComponent::STATE_CHANGE);
   ASSERT_EQ(load->getConnected(), OPEN);
   z[0] = CLOSED;
-  load->evalZ(0.);
+  load->evalZ(0., deactivateRootFunctions);
   ASSERT_EQ(load->evalState(0.), NetworkComponent::STATE_CHANGE);
   ASSERT_EQ(load->getConnected(), CLOSED);
   ASSERT_EQ(load->evalState(0.), NetworkComponent::NO_CHANGE);

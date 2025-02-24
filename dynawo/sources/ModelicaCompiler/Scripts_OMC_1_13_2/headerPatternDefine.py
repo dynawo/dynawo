@@ -51,6 +51,7 @@ class HeaderPatternDefine:
         dataStructInitialized_ = false;
         hasCheckDataCoherence_ = __fill_has_check_data_coherence__;
         symbolicJ_ = false;
+        symbolicF_ = false;
     }
     ~Model__fill_model_name___Dyn() {if (dataStructInitialized_) deInitializeDataStruc();}
 
@@ -96,6 +97,7 @@ class HeaderPatternDefine:
     void evalJt(double cj, SparseMatrix& jt, int rowOffset) override;
     void evalJtPrim(double cj, SparseMatrix& jt, int rowOffset) override;
     void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const override;
+    void evalF(double* f, propertyF_t type) override;
 
     private:
     DYNDATA * data;
@@ -145,6 +147,7 @@ namespace DYN {
         dataStructInitialized_ = false;
         hasCheckDataCoherence_ = __fill_has_check_data_coherence__;
         symbolicJ_ = false;
+        symbolicF_ = false;
     }
     ~Model__fill_model_name___Init() {if (dataStructInitialized_) deInitializeDataStruc();}
 
@@ -189,6 +192,7 @@ namespace DYN {
     void evalJt(double cj, SparseMatrix& jt, int rowOffset) override;
     void evalJtPrim(double cj, SparseMatrix& jt, int rowOffset) override;
     void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const override;
+    void evalF(double* f, propertyF_t type) override;
 
     private:
     DYNDATA * data;

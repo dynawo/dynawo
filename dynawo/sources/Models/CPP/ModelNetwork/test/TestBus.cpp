@@ -295,6 +295,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusCalculatedVariables) {
 
 TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   powsybl::iidm::Network networkIIDM("test", "test");
+  bool deactivateRootFunctions = false;
   std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
   std::shared_ptr<ModelBus> bus = p.first;
   int offSet = 0;
@@ -335,7 +336,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   ASSERT_EQ(bus->getConnectionState(), CLOSED);
   g[0] = ROOT_UP;
   g[1] = ROOT_UP;
-  bus->evalZ(0.);
+  bus->evalZ(0., deactivateRootFunctions);
   ASSERT_EQ(bus->getConnectionState(), OPEN);
   unsigned i = 0;
   for (constraints::ConstraintsCollection::const_iterator it = constraints->cbegin(),
@@ -359,7 +360,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   ASSERT_EQ(i, 2);
   g[0] = ROOT_DOWN;
   g[1] = ROOT_DOWN;
-  bus->evalZ(10.);
+  bus->evalZ(10., deactivateRootFunctions);
   network->setCurrentTime(10);
   for (constraints::ConstraintsCollection::const_iterator it = constraints->cbegin(),
       itEnd = constraints->cend(); it != itEnd; ++it) {
@@ -370,7 +371,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   ASSERT_EQ(bus->evalState(0.), NetworkComponent::TOPO_CHANGE);
   ASSERT_EQ(bus->getConnectionState(), OPEN);
   z[2] = CLOSED;
-  bus->evalZ(0.);
+  bus->evalZ(0., deactivateRootFunctions);
   ASSERT_EQ(bus->evalState(0.), NetworkComponent::TOPO_CHANGE);
   ASSERT_EQ(bus->getConnectionState(), CLOSED);
   ASSERT_EQ(bus->evalState(0.), NetworkComponent::NO_CHANGE);
@@ -401,6 +402,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
 
 TEST(ModelsModelNetwork, ModelNetworkBusNodeBreakerDiscreteVariables) {
   powsybl::iidm::Network networkIIDM("test", "test");
+  bool deactivateRootFunctions = false;
   std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, true, networkIIDM);
   std::shared_ptr<ModelBus> bus = p.first;
   int offSet = 0;
@@ -441,7 +443,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusNodeBreakerDiscreteVariables) {
   ASSERT_EQ(bus->getConnectionState(), CLOSED);
   g[0] = ROOT_UP;
   g[1] = ROOT_UP;
-  ASSERT_THROW_DYNAWO(bus->evalZ(0.), Error::MODELER, KeyError_t::CalculatedBusNoSwitchStateChange);
+  ASSERT_THROW_DYNAWO(bus->evalZ(0., deactivateRootFunctions), Error::MODELER, KeyError_t::CalculatedBusNoSwitchStateChange);
 }
 
 TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariables) {

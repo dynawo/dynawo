@@ -534,6 +534,11 @@ class Model {
   * @brief set the local initialization solver parameters of the model
   */
  virtual void setSymbolicJacobian() = 0;
+
+ /**
+  * @brief set the local initialization solver parameters of the model
+  */
+ virtual void setSymbolicResidual() = 0;
 };  ///< Generic class for Model
 
 #ifdef __clang__

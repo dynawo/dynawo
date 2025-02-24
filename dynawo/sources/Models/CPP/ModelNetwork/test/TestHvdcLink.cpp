@@ -507,6 +507,7 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkCalculatedVariables) {
 
 TEST(ModelsModelNetwork, ModelNetworkHvdcLinkDiscreteVariables) {
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
+  bool deactivateRootFunctions = false;
   std::tuple<std::shared_ptr<ModelHvdcLink>, std::shared_ptr<NetworkInterfaceIIDM>, std::shared_ptr<ModelVoltageLevel> > p
       = createModelHvdcLink(false, VSC, networkIIDM);
   std::shared_ptr<ModelHvdcLink> hvdc = std::get<0>(p);
@@ -537,7 +538,7 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkDiscreteVariables) {
   z[1] = OPEN;
   ASSERT_EQ(hvdc->getConnected1(), CLOSED);
   ASSERT_EQ(hvdc->getConnected2(), CLOSED);
-  hvdc->evalZ(0.);
+  hvdc->evalZ(0., deactivateRootFunctions);
   ASSERT_EQ(hvdc->getConnected1(), OPEN);
   ASSERT_EQ(hvdc->getConnected2(), OPEN);
 
@@ -545,10 +546,10 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkDiscreteVariables) {
   ASSERT_EQ(hvdc->getConnected1(), OPEN);
   ASSERT_EQ(hvdc->getConnected2(), OPEN);
   z[0] = CLOSED;
-  hvdc->evalZ(0.);
+  hvdc->evalZ(0., deactivateRootFunctions);
   ASSERT_EQ(hvdc->evalState(0.), NetworkComponent::STATE_CHANGE);
   z[1] = CLOSED;
-  hvdc->evalZ(0.);
+  hvdc->evalZ(0., deactivateRootFunctions);
   ASSERT_EQ(hvdc->evalState(0.), NetworkComponent::STATE_CHANGE);
   ASSERT_EQ(hvdc->getConnected1(), CLOSED);
   ASSERT_EQ(hvdc->getConnected2(), CLOSED);

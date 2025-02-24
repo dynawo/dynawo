@@ -27,12 +27,6 @@ namespace DYN {
 
 void
 Derivatives::reset() {
-  /*std::cout << "    values_.size() " << values_.size() << std::endl;
- for (auto& value : values_) {
-   std::cout << "      value " << value.first << " " << value.second << std::endl;
-   value.second = 0.;
- }*/
-  // values_.clear();
   for (auto& value : values_) {
     value = 0.;
   }
@@ -46,7 +40,6 @@ Derivatives::init() {
 
 void
 Derivatives::addValue(const int numVar, const double value) {
-  // values_[numVar] += value;
   auto it = std::find(indices_.begin(), indices_.end(), numVar);
   if (it == indices_.end()) {
     indices_.push_back(numVar);
@@ -82,15 +75,6 @@ BusDerivatives::addDerivative(typeDerivative_t type, const int numVar, const dou
       throw DYNError(Error::MODELER, InvalidDerivativeType, type);
   }
 }
-
-/*const std::unordered_map<int, double>&
-BusDerivatives::getValues(typeDerivative_t type) const {
-  if (type == IR_DERIVATIVE)
-    return irDerivatives_.getValues();
-  else if (type == II_DERIVATIVE)
-    return iiDerivatives_.getValues();
-  throw DYNError(Error::MODELER, InvalidDerivativeType, type);
-}*/
 
 const std::vector<double>&
 BusDerivatives::getValues(typeDerivative_t type) const {

@@ -183,7 +183,7 @@ class ModelLine : public NetworkComponent {
   /**
   * @copydoc NetworkComponent::evalZ()
   */
-  NetworkComponent::StateChange_t evalZ(const double& t);  // get the local Z function for time t
+  NetworkComponent::StateChange_t evalZ(const double& t, bool deactivateRootFunctions);  // get the local Z function for time t
 
   /**
    * @brief evaluation G

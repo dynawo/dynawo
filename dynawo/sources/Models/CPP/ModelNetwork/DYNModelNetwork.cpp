@@ -126,7 +126,8 @@ ModelCPP("NETWORK"),
 calculatedVarBuffer_(NULL),
 isInit_(false) ,
 isInitModel_(false),
-withNodeBreakerTopology_(false) {
+withNodeBreakerTopology_(false),
+deactivateRootFunctions_(false) {
   busContainer_.reset(new ModelBusContainer());
 }
 
@@ -188,7 +189,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
       Trace::debug(Trace::network()) << DYNLog(AddingBusToNetwork, id) << Trace::endline;
       modelVoltageLevel->addBus(modelBus);
       busContainer_->add(modelBus);
-      // evalGComponents_.push_back(modelBus);
+      evalGComponents_.push_back(modelBus);
       // declare reference between subModel and static data
       data->setReference("v", id, id, "U_value");
       data->setReference("angle", id, id, "phi_value");
@@ -308,7 +309,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
       // add to containers
       modelVoltageLevel->addComponent(modelShuntCompensator);
       modelVoltageLevel->addComponentEvalG(modelShuntCompensator);
-      // evalGComponents_.push_back(modelShuntCompensator);
+      evalGComponents_.push_back(modelShuntCompensator);
       // declare reference between subModel and static data
       data->setReference("q", id, id, "Q_value");
       data->setReference("state", id, id, "state_value");
@@ -371,7 +372,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
       // add to containers
       modelVoltageLevel->addComponent(modelDanglingLine);
       modelVoltageLevel->addComponentEvalG(modelDanglingLine);
-      // evalGComponents_.push_back(modelDanglingLine);
+      evalGComponents_.push_back(modelDanglingLine);
       // declare reference between subModel and static data
       data->setReference("p", id, id, "P_value");
       data->setReference("q", id, id, "Q_value");
@@ -409,7 +410,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
     Trace::debug(Trace::network()) << DYNLog(AddingLineToNetwork, id) << Trace::endline;
     // add to containers
     components_.push_back(modelLine);
-    // evalGComponents_.push_back(modelLine);
+    evalGComponents_.push_back(modelLine);
     // declare reference between subModel and static data
     data->setReference("p1", id, id, "P1_value");
     data->setReference("q1", id, id, "Q1_value");
@@ -450,7 +451,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
 
     // add to containers
     components_.push_back(modelTwoWindingsTransformer);
-    // evalGComponents_.push_back(modelTwoWindingsTransformer);
+    evalGComponents_.push_back(modelTwoWindingsTransformer);
 
     // declare reference between subModel and static data
     data->setReference("p1", id, id, "P1_value");
@@ -500,7 +501,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
 
     // add to containers
     components_.push_back(modelThreeWindingsTransformer);
-    // evalGComponents_.push_back(modelThreeWindingsTransformer);
+    evalGComponents_.push_back(modelThreeWindingsTransformer);
   }
 
   for (iVL = voltageLevels.begin(); iVL != voltageLevels.end(); ++iVL) {
@@ -879,8 +880,10 @@ ModelNetwork::getSize() {
     componentIndexByCalculatedVar_.resize(sizeCalculatedVar_, index);
     ++index;
   }
-  for (const auto& component : getEvalGComponents()) {
-    sizeG_ += component->sizeG();
+  if (!deactivateRootFunctions_) {
+    for (const auto& component : getComponents()) {
+      sizeG_ += component->sizeG();
+    }
   }
 }
 
@@ -1041,8 +1044,10 @@ ModelNetwork::evalF(double /*t*/, propertyF_t type) {
 
 void
 ModelNetwork::evalG(const double t) {
+  if (deactivateRootFunctions_)
+    return;
   // Timer timer3("ModelNetwork::evalG");
-  for (const auto& component : getEvalGComponents())
+  for (const auto& component : getComponents())
     component->evalG(t);
 }
 
@@ -1052,7 +1057,7 @@ ModelNetwork::evalZ(const double t) {
   bool topoChange = false;
   bool stateChange = false;
   for (auto& component : getComponents()) {
-    switch (component->evalZ(t)) {
+    switch (component->evalZ(t, deactivateRootFunctions_)) {
     case NetworkComponent::TOPO_CHANGE:
       topoChange = true;
       break;
@@ -1295,6 +1300,7 @@ ModelNetwork::defineParameters(vector<ParameterModeler>& parameters) {
   ModelTwoWindingsTransformer::defineParameters(parameters);
   ModelHvdcLink::defineParameters(parameters);
   parameters.push_back(ParameterModeler("startingPointMode", VAR_TYPE_STRING, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("deactivateRootFunctions", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
 
   vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent) {
@@ -1367,6 +1373,10 @@ ModelNetwork::defineElements(vector<Element>& elements, map<string, int>& mapEle
 
 void
 ModelNetwork::setSubModelParameters() {
+  const auto& deactivateRootFunctions = findParameter("deactivateRootFunctions", false);
+  deactivateRootFunctions_ = false;
+  if (deactivateRootFunctions.hasValue())
+    deactivateRootFunctions_ = deactivateRootFunctions.getValue<bool>();
   vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent) {
     (*itComponent)->setSubModelParameters(parametersDynamic_);

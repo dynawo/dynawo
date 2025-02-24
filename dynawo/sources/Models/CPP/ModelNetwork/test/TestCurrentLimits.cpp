@@ -25,6 +25,7 @@ namespace DYN {
 
 TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   ModelCurrentLimits mcl;
+  bool deactivateRootFunctions = false;
   ASSERT_EQ(mcl.sizeZ(), 0);
   ASSERT_EQ(mcl.sizeG(), 0);
 
@@ -70,7 +71,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
     else
       ASSERT_EQ(states[i], ROOT_DOWN);
   }
-  mcl.evalZ("MY COMP", t, &states[0], &network, desactivate, modelType);
+  mcl.evalZ("MY COMP", t, &states[0], &network, desactivate, modelType, deactivateRootFunctions);
 
   current = 11.;
   mcl.evalG(t, current, &states[0], desactivate);
@@ -81,7 +82,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
       ASSERT_EQ(states[i], NO_ROOT);
     }
   }
-  mcl.evalZ("MY COMP", t, &states[0], &network, desactivate, modelType);
+  mcl.evalZ("MY COMP", t, &states[0], &network, desactivate, modelType, deactivateRootFunctions);
 
   unsigned n = 0;
   for (constraints::ConstraintsCollection::const_iterator it = constraints->cbegin(),
@@ -117,7 +118,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
       ASSERT_EQ(states[i], ROOT_UP);
   }
   network.setCurrentTime(5.1);
-  mcl.evalZ("MY COMP", t, &states[0], &network, desactivate, modelType);
+  mcl.evalZ("MY COMP", t, &states[0], &network, desactivate, modelType, deactivateRootFunctions);
 
   n = 0;
   for (constraints::ConstraintsCollection::const_iterator it = constraints->cbegin(),

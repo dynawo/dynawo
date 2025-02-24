@@ -211,7 +211,7 @@ ModelShuntCompensator::evalG(const double& t) {
 }
 
 NetworkComponent::StateChange_t
-ModelShuntCompensator::evalZ(const double& t) {
+ModelShuntCompensator::evalZ(const double& t, bool /*deactivateRootFunctions*/) {
   z_[isCapacitorNum_] = isCapacitor() ? 1. : 0.;
   z_[isAvailableNum_] = isAvailable() ? 1. : 0.;
   z_[currentSectionNum_] = getCurrentSection();

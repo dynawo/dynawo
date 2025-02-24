@@ -242,7 +242,11 @@ ModelManager::evalF(double t, propertyF_t type) {
 #endif
   setManagerTime(t);
 
-  modelModelica()->setFomc(fLocal_, type);
+  if (modelModelica()->isEvalFSymbolic()) {
+    modelModelica()->evalF(fLocal_, type);
+  } else {
+    modelModelica()->setFomc(fLocal_, type);
+  }
 }
 
 bool

@@ -236,7 +236,7 @@ modelType_("TwoWindingsTransformer") {
   factorPuToASide2_ = 1000. * SNREF / (sqrt(3.) * vNom2_);
 
   // current limits side 1
-  /*const vector<std::unique_ptr<CurrentLimitInterface> >& cLimit1 = tfo->getCurrentLimitInterfaces1();
+  const vector<std::unique_ptr<CurrentLimitInterface> >& cLimit1 = tfo->getCurrentLimitInterfaces1();
   if (cLimit1.size() > 0) {
     currentLimits1_.reset(new ModelCurrentLimits());
     currentLimits1_->setSide(ModelCurrentLimits::SIDE_1);
@@ -252,10 +252,10 @@ modelType_("TwoWindingsTransformer") {
         currentLimits1_->addLimit(limit, cLimit1[i]->getAcceptableDuration());
       }
     }
-  }*/
+  }
 
   // current limits side 2
-  /*const vector<std::unique_ptr<CurrentLimitInterface> >& cLimit2 = tfo->getCurrentLimitInterfaces2();
+  const vector<std::unique_ptr<CurrentLimitInterface> >& cLimit2 = tfo->getCurrentLimitInterfaces2();
   if (cLimit2.size() > 0) {
     currentLimits2_.reset(new ModelCurrentLimits());
     currentLimits2_->setSide(ModelCurrentLimits::SIDE_2);
@@ -271,7 +271,7 @@ modelType_("TwoWindingsTransformer") {
         currentLimits2_->addLimit(limit, cLimit2[i]->getAcceptableDuration());
       }
     }
-  }*/
+  }
 
   ir01_ = 0;
   ii01_ = 0;
@@ -1135,31 +1135,31 @@ ModelTwoWindingsTransformer::defineElements(std::vector<Element>& elements, std:
 }
 
 NetworkComponent::StateChange_t
-ModelTwoWindingsTransformer::evalZ(const double& t) {
+ModelTwoWindingsTransformer::evalZ(const double& t, bool deactivateRootFunctions) {
   int offsetRoot = 0;
   ModelCurrentLimits::state_t currentLimitState;
 
-  if (currentLimits1_) {
-    currentLimitState = currentLimits1_->evalZ(id(), t, &(g_[offsetRoot]), network_, currentLimitsDesactivate_, modelType_);
+  if (currentLimits1_ && !deactivateRootFunctions) {
+    currentLimitState = currentLimits1_->evalZ(id(), t, &(g_[offsetRoot]), network_, currentLimitsDesactivate_, modelType_, deactivateRootFunctions);
     offsetRoot += currentLimits1_->sizeG();
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
       z_[connectionStateNum_] = OPEN;
   }
 
-  if (currentLimits2_) {
-    currentLimitState = currentLimits2_->evalZ(id(), t, &(g_[offsetRoot]), network_, currentLimitsDesactivate_, modelType_);
+  if (currentLimits2_ && !deactivateRootFunctions) {
+    currentLimitState = currentLimits2_->evalZ(id(), t, &(g_[offsetRoot]), network_, currentLimitsDesactivate_, modelType_, deactivateRootFunctions);
     offsetRoot += currentLimits2_->sizeG();
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
       z_[connectionStateNum_] = OPEN;
   }
 
-  if (modelRatioChanger_ && modelBusMonitored_) {
+  if (modelRatioChanger_ && modelBusMonitored_ && !deactivateRootFunctions) {
     modelRatioChanger_->evalZ(t, &(g_[offsetRoot]), network_, disableInternalTapChanger_, modelBusMonitored_->getSwitchOff(), tapChangerLocked_,
-        getConnectionState() == CLOSED);
+        getConnectionState() == CLOSED, deactivateRootFunctions);
     offsetRoot += modelRatioChanger_->sizeG();
   }
 
-  if (modelPhaseChanger_) {
+  if (modelPhaseChanger_ && !deactivateRootFunctions) {
     double ur1Val = ur1();
     double ui1Val = ui1();
     double ur2Val = ur2();
@@ -1167,7 +1167,7 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
     double pSide1 = P1(ur1Val, ui1Val, ur2Val, ui2Val);
     double pSide2 = P2(ur1Val, ui1Val, ur2Val, ui2Val);
     bool P1SupP2 = (pSide1 > pSide2);
-    modelPhaseChanger_->evalZ(t, &(g_[offsetRoot]), network_, disableInternalTapChanger_, P1SupP2, tapChangerLocked_, getConnectionState() == CLOSED);
+    modelPhaseChanger_->evalZ(t, &(g_[offsetRoot]), network_, disableInternalTapChanger_, P1SupP2, tapChangerLocked_, getConnectionState() == CLOSED, deactivateRootFunctions);
   }
 
   switch (knownBus_) {

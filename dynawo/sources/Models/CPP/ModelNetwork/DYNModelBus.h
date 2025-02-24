@@ -171,7 +171,7 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
   /**
    * @copydoc NetworkComponent::evalZ()
    */
-  NetworkComponent::StateChange_t evalZ(const double& t);
+  NetworkComponent::StateChange_t evalZ(const double& t, bool deactivateRootFunctions);
 
   /**
    * @brief compute the local G function

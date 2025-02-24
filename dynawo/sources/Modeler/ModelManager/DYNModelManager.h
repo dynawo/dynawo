@@ -550,6 +550,14 @@ class ModelManager : public SubModel, private boost::noncopyable {
     modelModelica()->setEvalJIsSymbolic();
   }
 
+ /**
+  * @brief turns on symbolic evalJ
+  *
+  */
+ void setEvalFIsSymbolic() override {
+   modelModelica()->setEvalFIsSymbolic();
+  }
+
  private:
   /**
    * @brief fill a parameters' value set

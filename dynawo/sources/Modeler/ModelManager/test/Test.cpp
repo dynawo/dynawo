@@ -286,6 +286,7 @@ class MyModelica: public ModelModelica {
   void evalJt(double /*cj*/, SparseMatrix& /*jt*/, int /*rowOffset*/) {}
   void evalJtPrim(double /*cj*/, SparseMatrix& /*jt*/, int /*rowOffset*/) {}
   void evalJCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<double>& /*res*/) const {}
+  void evalF(double* /*f*/, DYN::propertyF_t /*type*/) {}
 
   /**
    * @brief set shared parameters default values
