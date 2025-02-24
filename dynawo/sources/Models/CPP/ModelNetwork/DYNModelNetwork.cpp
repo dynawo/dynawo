@@ -1516,11 +1516,11 @@ ModelNetwork::loadInternalVariables(stringstream& streamVariables) {
   return true;
 }
 
-void
+/*void
 ModelNetwork::defineVariablesInit(std::vector<boost::shared_ptr<Variable> >& variables) {
   for (const auto& component : initComponents_) {
     component->instantiateVariables(variables);
   }
-}
+}*/
 
 }  // namespace DYN
