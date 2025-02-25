@@ -11,18 +11,23 @@ def parse_cpp_file(file_path):
     adept_includes = os.environ['DYNAWO_ADEPT_INSTALL_DIR'] + "/include"
     xerces_includes = os.environ['DYNAWO_XERCESC_INSTALL_DIR'] + "/include"
     libxml_includes = os.environ['DYNAWO_LIBXML_HOME'] + "/include"
+    boost_includes = os.environ['DYNAWO_BOOST_HOME'] + "/include"
     dynawo_includes = os.environ['DYNAWO_INSTALL_DIR'] + "/include"
-    additional_include = None
+    additional_includes = []
     if 'ADDITIONAL_INCLUDE_FOLDER' in os.environ:
-        additional_include = os.environ['ADDITIONAL_INCLUDE_FOLDER']
+        folders = os.environ['ADDITIONAL_INCLUDE_FOLDER'].split(";")
+        for folder in folders:
+            additional_includes.append(folder)
     options = ["-D_ADEPT_=1", "-E", "-P",
          "-I" + omc_includes,
          "-I" + adept_includes,
          "-I" + xerces_includes,
          "-I" + libxml_includes,
+         "-I" + boost_includes,
          "-I" + dynawo_includes]
-    if additional_include is not None:
-        options.append("-I" + additional_include)
+    if additional_includes:
+        for additional_include in additional_includes:
+            options.append("-I" + additional_include)
     if 'DYNAWO_ADDITIONAL_INCLUDE_FOR_PREASSEMBLED' in os.environ:
         dynawo_additional_includes = os.environ['DYNAWO_ADDITIONAL_INCLUDE_FOR_PREASSEMBLED']
         options.append("-I" + dynawo_additional_includes)
