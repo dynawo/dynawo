@@ -357,12 +357,14 @@ void SolverCommonFixedTimeStep::updateZAndMode(SolverStatus_t& status) {
 
 void
 SolverCommonFixedTimeStep::updateStatistics() {
-  long int nre = 0;
-  long int nje = 0;
-  solverKINEuler_->updateStatistics(nNewt_, nre, nje);
-  stats_.nre_ += nre;
-  stats_.nni_ += nNewt_;
-  stats_.nje_ += nje;
+  if (solverKINEuler_) {
+    long int nre = 0;
+    long int nje = 0;
+    solverKINEuler_->updateStatistics(nNewt_, nre, nje);
+    stats_.nre_ += nre;
+    stats_.nni_ += nNewt_;
+    stats_.nje_ += nje;
+  }
 }
 
 void SolverCommonFixedTimeStep::handleDivergence(bool& redoStep) {
