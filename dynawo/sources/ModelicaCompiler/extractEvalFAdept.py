@@ -57,7 +57,7 @@ def main(input_file, model_name, model_type):
     func_cursor = find_evalFAdept_function(cursor)
 
     if not func_cursor:
-        print("Fonction evalFAdept non trouvée.")
+        print("evalFAdept function not found.")
         return
 
     initial_code = get_code_snippet(func_cursor)
