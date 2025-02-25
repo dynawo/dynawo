@@ -24,6 +24,7 @@ partial model FiveBusSystemBase "Five-bus system base class"
   parameter Types.VoltageModule U2BaseTfo = 15 "Generator transfomer base voltage at bus 2 in kV";
   parameter Types.VoltageModule U2NomTfo = 15 "Generator transfomer nominal voltage at bus 2 in kV";
   parameter Types.PerUnit XPuTfo = 0.15 "Reactance of the generator transformer in pu (base U2Nom, SNomTfo)";
+
   // Load parameters
   parameter Real ActiveMotorShare[2] = {0.2, 0.2};
   parameter Dynawo.Types.PerUnit RsPu[2] = {0.031, 0.013};
@@ -37,8 +38,8 @@ partial model FiveBusSystemBase "Five-bus system base class"
   parameter Real Beta = 2;
 
   // Grid
-  Dynawo.Electrical.Buses.InfiniteBus grid(UNom = 225, UPhase = 0) annotation(
-                Placement(visible = true, transformation(origin = {-160, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBusWithVariations(U0Pu = 1.02, UPhase = 0, omega0Pu = 1, omegaEvtPu = 1, tOmegaEvtEnd = 0, tOmegaEvtStart = 0) annotation(
+    Placement(visible = true, transformation(origin = {-196, 60}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
   // Buses
   Dynawo.Electrical.Buses.Bus bus_1(UNom = 225) annotation(
@@ -65,7 +66,7 @@ partial model FiveBusSystemBase "Five-bus system base class"
   // Tap Changer Transformer
   Dynawo.Electrical.Transformers.TransformerVariableTap tfo(B = 0, G = 0, NbTap = 33, P10Pu(fixed = false), Q10Pu(fixed = false), R = 0, SNom = 250, Tap0 = 14, U10Pu(fixed = false), U20Pu(fixed = false), X = 0.15 * 100, i10Pu(re(fixed = false), im(fixed = false)), i20Pu(re(fixed = false), im(fixed = false)), rTfo0Pu = 1.01, rTfoMaxPu = 1.2, rTfoMinPu = 0.88, u10Pu(re(fixed = false), im(fixed = false)), u20Pu(re(fixed = false), im(fixed = false))) annotation(
     Placement(visible = true, transformation(origin = {-40, 10}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Controls.Transformers.TapChanger tap_changer(regulating0 = true, t1st = 25., tNext = 10., tapMax = 32, tapMin = 0, UDeadBand = 0.01, UTarget = 1.00, U0 = 1.00, tap0 = 14, state0 = Dynawo.Electrical.Controls.Transformers.BaseClasses.TapChangerPhaseShifterParams.State.Standard, increaseTapToIncreaseValue = true);
+  Dynawo.Electrical.Controls.Transformers.TapChanger tap_changer(regulating0 = true, t1st = 25., tNext = 10., tapMax = 32, tapMin = 0, UDeadBand = 0.01, UTarget = 1.0038, U0 = 1.0038, tap0 = 14, state0 = Dynawo.Electrical.Controls.Transformers.BaseClasses.TapChangerPhaseShifterParams.State.Standard, increaseTapToIncreaseValue = true);
 
   // Load
   Dynawo.Electrical.Loads.LoadAlphaBetaTwoMotorSimplified load(ActiveMotorShare = ActiveMotorShare, Alpha = Alpha, Beta = Beta, H = H, PLoad0Pu(fixed = false), QLoad0Pu(fixed = false), RrPu = RrPu, RsPu = RsPu, XmPu = XmPu, XrPu = XrPu, XsPu = XsPu, ce0Pu(each fixed = false), i0Pu(re(fixed = false), im(fixed = false)), im0Pu(each re(fixed = false), each im(fixed = false)), ir0Pu(each re(fixed = false), each im(fixed = false)), is0Pu(each re(fixed = false), each im(fixed = false)), motori0Pu(each re(fixed = false), each im(fixed = false)), motors0Pu(each re(fixed = false), each im(fixed = false)), omegaR0Pu(each fixed = false), s0(each fixed = false), s0Pu(re(fixed = false), im(fixed = false)), torqueExponent = torqueExponent, u0Pu(re(fixed = false), im(fixed = false))) annotation(
@@ -91,30 +92,30 @@ partial model FiveBusSystemBase "Five-bus system base class"
     Placement(visible = true, transformation(origin = {110, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 
   // Voltage Regulator
-  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified.VoltageRegulatorPssOel voltageRegulatorPssOel(VPssMaxPu = 0.06, Efd0Pu = gen.Efd0Pu, EfdMaxPu = 5, EfdMinPu = 0, G = 70, If0Pu = gen.If0Pu, KOel = 2, KPss = 50, VOel1MinPu = -1.1, VOel1MaxPu = 0.1, VOel2MaxPu = 0.2, Us0Pu = gen.UStator0Pu, ifLim1Pu = 2.9, ifLim2Pu = 1, t1 = 0.323, t2 = 0.0138, t3 = 0.323, t4 = 0.0138, tA = 1, tB = 1, tE = 0.4, tOel = 8, tOmega = 5) annotation(
+  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified.VoltageRegulatorPssOel voltageRegulatorPssOel(VPssMaxPu = 0.06, Efd0Pu = gen.Efd0Pu, EfdMaxPu = 5, EfdMinPu = 0, G = 70, If0Pu = gen.IRotor0Pu, KOel = 2, KPss = 50, VOel1MinPu = -1.1, VOel1MaxPu = 0.1, VOel2MaxPu = 0.2, Us0Pu = gen.UStator0Pu, ifLim1Pu = 2.9, ifLim2Pu = 1, t1 = 0.323, t2 = 0.0138, t3 = 0.323, t4 = 0.0138, tA = 1, tB = 1, tE = 0.4, tOel = 8, tOmega = 5) annotation(
     Placement(visible = true, transformation(origin = {50, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Plot
-  Dynawo.Types.VoltageModulePu uBus1;
-  Dynawo.Types.VoltageModulePu uBus2;
-  Dynawo.Types.VoltageModulePu uBus3;
-  Dynawo.Types.VoltageModulePu uBus4;
-  Dynawo.Types.VoltageModulePu uBus5;
-  Real phaseBus1;
-  Real phaseBus2;
-  Real phaseBus3;
-  Real phaseBus4;
-  Real phaseBus5;
-  Dynawo.Types.ActivePower PBus13;
-  Dynawo.Types.ActivePower PBus31;
-  Dynawo.Types.ActivePower PBus43;
-  Dynawo.Types.ActivePower PBusLoad;
-  Dynawo.Types.ActivePower PBusGen;
-  Dynawo.Types.ReactivePower QBus13;
-  Dynawo.Types.ReactivePower QBus31;
-  Dynawo.Types.ReactivePower QBus43;
-  Dynawo.Types.ReactivePower QBusLoad;
-  Dynawo.Types.ReactivePower QBusGen;
+  /*Dynawo.Types.VoltageModulePu uBus1;
+      Dynawo.Types.VoltageModulePu uBus2;
+      Dynawo.Types.VoltageModulePu uBus3;
+      Dynawo.Types.VoltageModulePu uBus4;
+      Dynawo.Types.VoltageModulePu uBus5;
+      Real phaseBus1;
+      Real phaseBus2;
+      Real phaseBus3;
+      Real phaseBus4;
+      Real phaseBus5;
+      Dynawo.Types.ActivePower PBus13;
+      Dynawo.Types.ActivePower PBus31;
+      Dynawo.Types.ActivePower PBus43;
+      Dynawo.Types.ActivePower PBusLoad;
+      Dynawo.Types.ActivePower PBusGen;
+      Dynawo.Types.ReactivePower QBus13;
+      Dynawo.Types.ReactivePower QBus31;
+      Dynawo.Types.ReactivePower QBus43;
+      Dynawo.Types.ReactivePower QBusLoad;
+      Dynawo.Types.ReactivePower QBusGen;*/
 
 equation
   // Tap Changer Automaton
@@ -125,8 +126,8 @@ equation
     tfo.tap.value = tap_changer.tap.value;
   end when;
 
-   // Plot
-  uBus1 = bus_1.UPu;
+  // Plot
+/*uBus1 = bus_1.UPu;
   uBus2 = bus_2.UPu;
   uBus3 = bus_3.UPu;
   uBus4 = bus_4.UPu;
@@ -145,7 +146,7 @@ equation
   QBus31 = line1_3.Q2Pu * Dynawo.Electrical.SystemBase.SnRef;
   QBus43 = line3_4.Q2Pu * Dynawo.Electrical.SystemBase.SnRef;
   QBusGen = gen.sStatorPu.im * Dynawo.Electrical.SystemBase.SnRef;
-  QBusLoad = load.QPu * Dynawo.Electrical.SystemBase.SnRef;
+  QBusLoad = load.QPu * Dynawo.Electrical.SystemBase.SnRef;*/
 
   connect(load.terminal, bus_2.terminal) annotation(
     Line(points = {{-40, -70}, {-40, -40}}, color = {0, 0, 255}));
@@ -191,8 +192,8 @@ equation
     Line(points = {{-100, 40}, {-120, 40}, {-120, 60}, {-140, 60}}, color = {0, 0, 255}));
   connect(tfo.terminal2, bus_2.terminal) annotation(
     Line(points = {{-40, 0}, {-40, -40}}, color = {0, 0, 255}));
-  connect(grid.terminal, bus_1.terminal) annotation(
-    Line(points = {{-160, 60}, {-140, 60}}, color = {0, 0, 255}));
+  connect(infiniteBusWithVariations.terminal, bus_1.terminal) annotation(
+    Line(points = {{-196, 60}, {-140, 60}}, color = {0, 0, 255}));
 
   annotation(
     preferredView = "diagram",
