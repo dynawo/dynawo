@@ -17,6 +17,7 @@ set(MODEL_FILES
   FiveBus.mo
   FiveBusSystem.mo
   FiveBusSystemOp1.mo
+  FiveBusSystemOperatingPoint1.mo
   )
 
 #

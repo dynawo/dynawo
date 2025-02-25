@@ -11,6 +11,9 @@
 set(MODEL_FILES
   package.mo
   package.order
+  FiveBusSystemCase2.mo
+  FiveBusSystemCase3.mo
+  FiveBusSystemCase4.mo
   )
 
 #

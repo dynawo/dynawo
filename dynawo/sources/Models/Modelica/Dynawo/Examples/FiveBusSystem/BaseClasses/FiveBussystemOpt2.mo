@@ -1,9 +1,21 @@
 within Dynawo.Examples.FiveBusSystem.BaseClasses;
 
-model FiveBussystemOpt2
+/*
+* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+*/
+
+partial model FiveBussystemOpt2
 extends Dynawo.Examples.FiveBusSystem.BaseClasses.FiveBusSystemBase(gen.P0Pu = P0Gen2Pu, gen.Q0Pu = Q0Gen2Pu, gen.U0Pu = U0Gen2Pu, gen.UPhase0 = UPhase0Gen2, grid.UPhase = UPhaseGrid2, grid.UPu = UGrid2Pu);
 
-  // Operating point 2
+  // Operating point 2 : TO DO
   parameter Types.PerUnit P0Gen2Pu = -4.5;
   parameter Types.PerUnit Q0Gen2Pu = -0.68;
   parameter Types.PerUnit U0Gen2Pu = 1;

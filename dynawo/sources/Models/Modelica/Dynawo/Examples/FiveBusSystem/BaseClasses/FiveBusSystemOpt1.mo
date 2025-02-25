@@ -1,7 +1,20 @@
 within Dynawo.Examples.FiveBusSystem.BaseClasses;
 
-model FiveBusSystemOpt1
-  extends Dynawo.Examples.FiveBusSystem.BaseClasses.FiveBusSystemBase(gen.P0Pu = P0Gen1Pu, gen.Q0Pu = Q0Gen1Pu, gen.U0Pu = U0Gen1Pu, gen.UPhase0 = UPhase0Gen1, grid.UPu.start = 1.02);
+/*
+* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+*/
+
+partial model FiveBusSystemOpt1 "Five-bus system operating point 1"
+  extends Dynawo.Examples.FiveBusSystem.BaseClasses.FiveBusSystemBase(gen.P0Pu = P0Gen1Pu, gen.Q0Pu = Q0Gen1Pu, gen.U0Pu = U0Gen1Pu, gen.UPhase0 = UPhase0Gen1);
+
   // Operating point 1
   parameter Types.ActivePowerPu P0Gen1Pu = -4.5;
   parameter Types.ReactivePowerPu Q0Gen1Pu = -0.68;
@@ -17,11 +30,12 @@ model FiveBusSystemOpt1
   parameter Types.Angle U1Phase0TapTfo1 = 0.1204;
   parameter Types.VoltageModulePu UGrid1Pu = 1.02;
   parameter Types.Angle UPhaseGrid1 = 0;
+
   // Load initialization model
   Dynawo.Electrical.Loads.LoadAlphaBetaTwoMotorSimplified_INIT load_INIT(ActiveMotorShare = ActiveMotorShare, RsPu = RsPu, RrPu = RrPu, XsPu = XsPu, XrPu = XrPu, XmPu = XmPu, P0Pu = P0Load1Pu, Q0Pu = Q0Load1Pu, U0Pu = U0Load1Pu, UPhase0 = UPhase0Load1);
   // Tap changer transformer initialization model
-  //Dynawo.Electrical.Transformers.TransformerVariableTapPQ_INIT tfo_INIT(R = 0, X = 0.15 * 100, G = 0, B = 0, P10Pu = P10TapTfo1Pu, Q10Pu = Q10TapTfo1Pu, U10Pu = U10TapTfo1Pu, U1Phase0 = U1Phase0TapTfo1, NbTap = 33, SNom = 250, Uc20Pu = 1.0038, rTfoMaxPu = 1.2, rTfoMinPu = 0.88);
-  Dynawo.Electrical.Transformers.TransformerVariableTapPQ_INIT tfo_INIT(R = 0, X = 0.15 * 100, G = 0, B = 0, P10Pu = 1.52, Q10Pu = 0.5, U10Pu = 1.0154, U1Phase0 = 0.1204, NbTap = 33, SNom = 250, Uc20Pu = 1.0038, rTfoMaxPu = 1.2, rTfoMinPu = 0.88);
+  Dynawo.Electrical.Transformers.TransformerVariableTapPQ_INIT tfo_INIT(R = 0, X = 0.15 * 100, G = 0, B = 0, P10Pu = P10TapTfo1Pu, Q10Pu = Q10TapTfo1Pu, U10Pu = U10TapTfo1Pu, U1Phase0 = U1Phase0TapTfo1, NbTap = 33, SNom = 250, Uc20Pu = 1.0038, rTfoMaxPu = 1.2, rTfoMinPu = 0.88);
+  //Dynawo.Electrical.Transformers.TransformerVariableTapPQ_INIT tfo_INIT(R = 0, X = 0.15 * 100, G = 0, B = 0, P10Pu = 1.52, Q10Pu = 0.5, U10Pu = 1.0154, U1Phase0 = 0.1204, NbTap = 33, SNom = 250, Uc20Pu = 1.0038, rTfoMaxPu = 1.2, rTfoMinPu = 0.88);
 
 initial algorithm
   load.ir0Pu[1].re := load_INIT.ir0Pu[1].re;
@@ -70,24 +84,25 @@ initial algorithm
 //tfo.rTfo0Pu := tfo_INIT.rTfo0Pu;
 
 equation
-
-grid.UPu = 1.02;
 // Lines
-  line1_3.switchOffSignal1.value = false;
-  line1_3.switchOffSignal2.value = false;
   line1_3b.switchOffSignal1.value = false;
   line1_3b.switchOffSignal2.value = false;
   line3_4.switchOffSignal1.value = false;
   line3_4.switchOffSignal2.value = false;
   line3_4b.switchOffSignal1.value = false;
   line3_4b.switchOffSignal2.value = false;
+  //thevenin.switchOffSignal1.value = false;
+  //thevenin.switchOffSignal2.value = false;
+
 // Tap Changer Automaton
   tap_changer.switchOffSignal1.value = false;
   tap_changer.switchOffSignal2.value = false;
+
 // Tap Changer Transformer
   tfo.switchOffSignal1.value = false;
   tfo.switchOffSignal2.value = false;
   tap_changer.locked = if time < 1e-6 then true else false;
+
 // Load
   load.switchOffSignal1.value = false;
   load.switchOffSignal2.value = false;
@@ -96,12 +111,15 @@ grid.UPu = 1.02;
   load.deltaP = 0;
   load.deltaQ = 0;
   load.omegaRefPu = Omega0Pu.setPoint;
+
 // Generator and regulations
   gen.switchOffSignal1.value = false;
   gen.switchOffSignal2.value = false;
   gen.switchOffSignal3.value = false;
   gen.omegaRefPu = Omega0Pu.setPoint;
+
 // Generator Transformer
   generatorTransformer.switchOffSignal1.value = false;
   generatorTransformer.switchOffSignal2.value = false;
+
 end FiveBusSystemOpt1;
