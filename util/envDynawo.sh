@@ -1674,6 +1674,10 @@ nrt_update() {
   $DYNAWO_PYTHON_COMMAND $DYNAWO_HOME/util/updateXML/content/updateDynawoNRT/updateDynawoNRT.py $@
 }
 
+update_xml() {
+  $DYNAWO_PYTHON_COMMAND $DYNAWO_HOME/util/updateXML/update.py $@
+}
+
 check_coding_files() {
   # html escape .dic files for dictionary
   for dicfile in $(find $DYNAWO_INSTALL_DIR -iname '*.dic')
@@ -1952,6 +1956,9 @@ deploy_dynawo() {
   mkdir -p sbin
   echo "deploying Dynawo utils"
   cp $DYNAWO_INSTALL_DIR/sbin/*.py sbin/
+  cp $DYNAWO_INSTALL_DIR/sbin/generateEvalJ.sh sbin/
+  cp $DYNAWO_INSTALL_DIR/sbin/remove_comments.pl sbin/
+  cp $DYNAWO_INSTALL_DIR/sbin/methodsEvalFAdept.cpp sbin/
   cp $DYNAWO_INSTALL_DIR/sbin/compileCppModelicaModelInDynamicLib.cmake sbin/
   cp $DYNAWO_INSTALL_DIR/sbin/PreloadCache.cmake sbin/
   cp $DYNAWO_INSTALL_DIR/sbin/compileModelicaModel sbin/
@@ -2125,6 +2132,11 @@ create_distrib() {
   zip -r -g -y $ZIP_FILE dynawo/sbin/curvesToHtml
   zip -r -g -y $ZIP_FILE dynawo/sbin/xsl
   zip -r -g -y $ZIP_FILE dynawo/sbin/nrt
+  zip -r -g -y $ZIP_FILE dynawo/sbin/computeJacobian.py
+  zip -r -g -y $ZIP_FILE dynawo/sbin/extractEvalFAdept.py
+  zip -r -g -y $ZIP_FILE dynawo/sbin/generateEvalJ.sh
+  zip -r -g -y $ZIP_FILE dynawo/sbin/methodsEvalFAdept.cpp
+  zip -r -g -y $ZIP_FILE dynawo/sbin/remove_comments.pl
 
   # move distribution in distribution directory
   mv $ZIP_FILE $DISTRIB_DIR
@@ -2632,6 +2644,10 @@ case $MODE in
 
   unittest-gdb)
     unittest_gdb ${ARGS} || error_exit "Error during the run unittest in gdb"
+    ;;
+
+  update-xml)
+    update_xml ${ARGS} || error_exit "Error during update xml"
     ;;
 
   version)
