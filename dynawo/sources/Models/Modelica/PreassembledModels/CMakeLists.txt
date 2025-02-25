@@ -35,10 +35,10 @@ set(MODELICA_PREASSEMBLED_MODELS
   EventSetPointDoubleReal.xml
   GeneratorFictitious.xml
   GeneratorPQ.xml
-  GeneratorPQPropSignalN.xml
-  GeneratorPQPropSignalNSFR.xml
-  GeneratorPQPropDiagramPQSignalN.xml
-  GeneratorPQPropDiagramPQSignalNSFR.xml
+#  GeneratorPQPropSignalN.xml
+#  GeneratorPQPropSignalNSFR.xml
+#  GeneratorPQPropDiagramPQSignalN.xml
+#  GeneratorPQPropDiagramPQSignalNSFR.xml
   GeneratorPV.xml
   GeneratorPVFixed.xml
   GeneratorPVDiagramPQ.xml
@@ -270,7 +270,7 @@ foreach( FILE ${MODELICA_PREASSEMBLED_MODELS} )
   compile_preassembled_model(${FILE})
 endforeach( FILE )
 
-include(CMakeListsModelsTargets.txt)
+#include(CMakeListsModelsTargets.txt)
 
 if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
   add_subdirectory(test)
