@@ -23,6 +23,9 @@
 #include "PARParametersSet.h"
 
 #include "DYNModelLoad.h"
+
+#include <DYNTimer.h>
+
 #include "DYNCommon.h"
 #include "DYNNumericalUtils.h"
 #include "DYNMacrosMessage.h"
@@ -261,6 +264,9 @@ ModelLoad::init(int& yNum) {
 
 void
 ModelLoad::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer3("ModelNetwork::ModelLoad::evalJt");
+#endif
   if (network_->isInitModel())
     return;
 
@@ -358,12 +364,12 @@ ModelLoad::evalJtPrim(SparseMatrix& jt, const int& rowOffset) {
 }
 
 double
-ModelLoad::P(const double& /*ur*/, const double& /*ui*/, const double& U) const {
+ModelLoad::P(double /*ur*/, double /*ui*/, double U) const {
   return zP() * P0_ * (1. + deltaPc()) * pow_dynawo(U, alpha_) * kp_;
 }
 
 double
-ModelLoad::Q(const double& /*ur*/, const double& /*ui*/, const double& U) const {
+ModelLoad::Q(double /*ur*/, double /*ui*/, double U) const {
   return zQ() * Q0_ * (1. + deltaQc()) * pow_dynawo(U, beta_) * kq_;
 }
 
@@ -444,42 +450,42 @@ ModelLoad::getI(double ur, double ui, double U, double U2, double& ir, double& i
 }
 
 double
-ModelLoad::ir_dZp(const double& ur, const double& /*ui*/, const double& U, const double& U2) const {
+ModelLoad::ir_dZp(double ur, double /*ui*/, double U, double U2) const {
   return 1. / U2 * (P0_ * (1. + deltaPc()) * kp_) * pow_dynawo(U, alpha_) * ur;
 }
 
 double
-ModelLoad::ir_dZq(const double& /*ur*/, const double& ui, const double& U, const double& U2) const {
+ModelLoad::ir_dZq(double /*ur*/, double ui, double U, double U2) const {
   return 1. / U2 * (Q0_ * (1. + deltaQc()) * kq_) * pow_dynawo(U, beta_) * ui;
 }
 
 double
-ModelLoad::ii_dZp(const double& /*ur*/, const double& ui, const double& U, const double& U2) const {
+ModelLoad::ii_dZp(double /*ur*/, double ui, double U, double U2) const {
   return 1. / U2 * (P0_ * (1. + deltaPc()) * kp_) * pow_dynawo(U, alpha_) * ui;
 }
 
 double
-ModelLoad::ii_dZq(const double& ur, const double& /*ui*/, const double& U, const double& U2) const {
+ModelLoad::ii_dZq(double ur, double /*ui*/, double U, double U2) const {
   return 1. / U2 * (-1. * Q0_ * (1. + deltaQc()) * kq_) * pow_dynawo(U, beta_) * ur;
 }
 
 double
-ModelLoad::P_dUr(const double& ur, const double& /*ui*/, const double& U, const double& U2) const {
+ModelLoad::P_dUr(double ur, double /*ui*/, double U, double U2) const {
   return 1. / U2 * zP() * P0_ * (1. + deltaPc()) * kp_ * alpha_ * ur * pow_dynawo(U, alpha_);
 }
 
 double
-ModelLoad::P_dUi(const double& /*ur*/, const double& ui, const double& U, const double& U2) const {
+ModelLoad::P_dUi(double /*ur*/, double ui, double U, double U2) const {
   return 1. / U2 * zP() * P0_ * (1. + deltaPc()) * kp_ * alpha_ * ui * pow_dynawo(U, alpha_);
 }
 
 double
-ModelLoad::Q_dUr(const double& ur, const double& /*ui*/, const double& U, const double& U2) const {
+ModelLoad::Q_dUr(double ur, double /*ui*/, double U, double U2) const {
   return 1. / U2 * zQ() * Q0_ * (1. + deltaQc()) * kq_ * beta_ * ur * pow_dynawo(U, beta_);
 }
 
 double
-ModelLoad::Q_dUi(const double& /*ur*/, const double& ui, const double& U, const double& U2) const {
+ModelLoad::Q_dUi(double /*ur*/, double ui, double U, double U2) const {
   return 1. / U2 * zQ() * Q0_ * (1. + deltaQc()) * kq_ * beta_ * ui * pow_dynawo(U, beta_);
 }
 
@@ -507,6 +513,9 @@ ModelLoad::evalNodeInjection() {
 
 void
 ModelLoad::evalDerivatives(const double /*cj*/) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer3("ModelNetwork::ModelLoad::evalDerivatives");
+#endif
   if (network_->isInitModel())
     return;
   if (isRunning()) {
@@ -524,15 +533,18 @@ ModelLoad::evalDerivatives(const double /*cj*/) {
     double QdUr = Q_dUr(ur, ui, U, U2);
     double PdUi = P_dUi(ur, ui, U, U2);
     double QdUi = Q_dUi(ur, ui, U, U2);
-    modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, urYNum, ir_dUr(ur, ui, U2, p, q, PdUr, QdUr));
-    modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, uiYNum, ir_dUi(ur, ui, U2, p, q, PdUi, QdUi));
-    modelBus_->derivatives()->addDerivative(II_DERIVATIVE, urYNum, ii_dUr(ur, ui, U2, p, q, PdUr, QdUr));
-    modelBus_->derivatives()->addDerivative(II_DERIVATIVE, uiYNum, ii_dUi(ur, ui, U2, p, q, PdUi, QdUi));
+    auto& derivatives = modelBus_->derivatives();
+    derivatives->addDerivative(IR_DERIVATIVE, urYNum, ir_dUr(ur, ui, U2, p, q, PdUr, QdUr));
+    derivatives->addDerivative(IR_DERIVATIVE, uiYNum, ir_dUi(ur, ui, U2, p, q, PdUi, QdUi));
+    derivatives->addDerivative(II_DERIVATIVE, urYNum, ii_dUr(ur, ui, U2, p, q, PdUr, QdUr));
+    derivatives->addDerivative(II_DERIVATIVE, uiYNum, ii_dUi(ur, ui, U2, p, q, PdUi, QdUi));
     if (isRestorative_) {
-      modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, globalYIndex(zPYNum_), ir_dZp(ur, ui, U, U2));
-      modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, globalYIndex(zQYNum_), ir_dZq(ur, ui, U, U2));
-      modelBus_->derivatives()->addDerivative(II_DERIVATIVE, globalYIndex(zPYNum_), ii_dZp(ur, ui, U, U2));
-      modelBus_->derivatives()->addDerivative(II_DERIVATIVE, globalYIndex(zQYNum_), ii_dZq(ur, ui, U, U2));
+      int zPYNumGlobal = globalYIndex(zPYNum_);
+      int zQYNumGlobal = globalYIndex(zQYNum_);
+      derivatives->addDerivative(IR_DERIVATIVE, zPYNumGlobal, ir_dZp(ur, ui, U, U2));
+      derivatives->addDerivative(IR_DERIVATIVE, zQYNumGlobal, ir_dZq(ur, ui, U, U2));
+      derivatives->addDerivative(II_DERIVATIVE, zPYNumGlobal, ii_dZp(ur, ui, U, U2));
+      derivatives->addDerivative(II_DERIVATIVE, zQYNumGlobal, ii_dZq(ur, ui, U, U2));
     }
   }
 }
@@ -596,7 +608,7 @@ ModelLoad::defineElements(std::vector<Element>& elements, std::map<std::string, 
 }
 
 NetworkComponent::StateChange_t
-ModelLoad::evalZ(const double& /*t*/) {
+ModelLoad::evalZ(const double& /*t*/, bool /*deactivateRootFunctions*/) {
   if (modelBus_->getConnectionState() == OPEN)
     z_[0] = OPEN;
 

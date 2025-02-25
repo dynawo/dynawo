@@ -292,6 +292,18 @@ class SubModel {
   virtual void initializeFromData(const boost::shared_ptr<DataInterface>& data) = 0;
 
   /**
+   * @brief turns on symbolic evalJ
+   *
+   */
+  virtual void setEvalJIsSymbolic() {}
+
+ /**
+   * @brief turns on symbolic evalJ
+   *
+   */
+ virtual void setEvalFIsSymbolic() {}
+
+  /**
    * @brief write initial values of a model in a file
    *
    * @param directory directory where the file should be printed
@@ -1345,7 +1357,7 @@ class SubModel {
    * @param index WARNING index is local index in this submodel, not global index
    * @return string of equation
    */
-  std::string getFequationByLocalIndex(const int index);
+  std::string getFequationByLocalIndex(const int index) const;
 
   /**
    * @brief get root equation string for debug log

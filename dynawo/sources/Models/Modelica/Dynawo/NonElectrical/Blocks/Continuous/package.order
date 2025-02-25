@@ -11,6 +11,8 @@ IncreaseDetection
 IntegratorWithReset
 IntegratorSetFreeze
 IntegratorVariableLimits
+IntegratorVariableLimitsAntiWindup
+IntegratorVariableLimitsContinuous
 LeadMOrderLag
 LimitedPI
 LimPIDFreeze

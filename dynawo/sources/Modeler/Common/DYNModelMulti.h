@@ -78,6 +78,11 @@ class ModelMulti : public Model, private boost::noncopyable {
    */
   void evalG(double t, std::vector<state_g>& g);
 
+ /**
+   * @copydoc Model::evalG(double t, std::vector<state_g> &g)
+   */
+ void evalG(double t, double* g);
+
   /**
    * @copydoc Model::evalZ(double t)
    */
@@ -567,6 +572,16 @@ class ModelMulti : public Model, private boost::noncopyable {
    * @brief set the silent flag for discrete variables
    */
   void collectSilentZ();
+
+ /**
+ * @brief set the local initialization solver parameters of the model
+ */
+ void setSymbolicJacobian();
+
+ /**
+ * @brief set the local initialization solver parameters of the model
+ */
+ void setSymbolicResidual();
 
  private:
   std::unordered_map<int, int> mapAssociationF_;  ///< association between an index of f functions and a subModel

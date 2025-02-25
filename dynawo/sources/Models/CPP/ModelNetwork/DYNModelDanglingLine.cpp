@@ -23,6 +23,9 @@
 #include "PARParametersSet.h"
 
 #include "DYNModelDanglingLine.h"
+
+#include <DYNTimer.h>
+
 #include "DYNModelConstants.h"
 #include "DYNModelBus.h"
 #include "DYNModelCurrentLimits.h"
@@ -258,6 +261,9 @@ ModelDanglingLine::setFequations(std::map<int, std::string>& fEquationIndex) {
 
 void
 ModelDanglingLine::evalG(const double& t) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer3("ModelNetwork::ModelDanglingLine::evalG");
+#endif
   if (currentLimits_) {
     int offset = 0;
     currentLimits_->evalG(t, i1(), &(g_[offset]), currentLimitsDesactivate_);
@@ -550,14 +556,15 @@ ModelDanglingLine::evalDerivatives(const double /*cj*/) {
 
   // jacobian for sum current for node
   if (connectionState_ == CLOSED) {
-    modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUr_);
-    modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, ui1YNum, ir1_dUi_);
-    modelBus_->derivatives()->addDerivative(II_DERIVATIVE, ur1YNum, ii1_dUr_);
-    modelBus_->derivatives()->addDerivative(II_DERIVATIVE, ui1YNum, ii1_dUi_);
-    modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, ur2YNum, ir1_dUrFict_);
-    modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, ui2YNum, ir1_dUiFict_);
-    modelBus_->derivatives()->addDerivative(II_DERIVATIVE, ur2YNum, ii1_dUrFict_);
-    modelBus_->derivatives()->addDerivative(II_DERIVATIVE, ui2YNum, ii1_dUiFict_);
+    auto& derivatives = modelBus_->derivatives();
+    derivatives->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUr_);
+    derivatives->addDerivative(IR_DERIVATIVE, ui1YNum, ir1_dUi_);
+    derivatives->addDerivative(II_DERIVATIVE, ur1YNum, ii1_dUr_);
+    derivatives->addDerivative(II_DERIVATIVE, ui1YNum, ii1_dUi_);
+    derivatives->addDerivative(IR_DERIVATIVE, ur2YNum, ir1_dUrFict_);
+    derivatives->addDerivative(IR_DERIVATIVE, ui2YNum, ir1_dUiFict_);
+    derivatives->addDerivative(II_DERIVATIVE, ur2YNum, ii1_dUrFict_);
+    derivatives->addDerivative(II_DERIVATIVE, ui2YNum, ii1_dUiFict_);
   }
 }
 
@@ -676,10 +683,10 @@ ModelDanglingLine::defineElements(std::vector<Element> &elements, std::map<std::
 }
 
 NetworkComponent::StateChange_t
-ModelDanglingLine::evalZ(const double& t) {
-  if (currentLimits_) {
+ModelDanglingLine::evalZ(const double& t, bool deactivateRootFunctions) {
+  if (currentLimits_ && !deactivateRootFunctions) {
     ModelCurrentLimits::state_t currentLimitState;
-    currentLimitState = currentLimits_->evalZ(id(), t, &(g_[0]), network_, currentLimitsDesactivate_, modelType_);
+    currentLimitState = currentLimits_->evalZ(id(), t, &(g_[0]), network_, currentLimitsDesactivate_, modelType_, deactivateRootFunctions);
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
       z_[0] = OPEN;
   }

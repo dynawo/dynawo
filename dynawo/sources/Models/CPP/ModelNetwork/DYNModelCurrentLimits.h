@@ -63,7 +63,7 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
    * @param g value of the root function
    * @param desactivate @b true if the current limits is off
    */
-  void evalG(const double& t, const double& current, state_g* g, const double& desactivate);
+  void evalG(double t, double current, state_g* g, double desactivate);
 
   /**
    * @brief compute the state of the current limits
@@ -78,20 +78,20 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
    * @return the state of the current limits
    */
   state_t evalZ(const std::string& componentName, const double& t, state_g * g, ModelNetwork* network,
-                const double& desactivate, const std::string& modelType);  // compute the local Z function
+                const double& desactivate, const std::string& modelType, bool deactivateRootFunctions);  // compute the local Z function
 
   /**
    * @brief add a new current limit (pu base UNom, base SNRef)
    * @param limit new current limit
    * @param acceptableDuration acceptable duration
    */
-  void addLimit(const double& limit, const int& acceptableDuration);
+  void addLimit(double limit, int acceptableDuration);
 
   /**
    * @brief set side
    * @param side side
    */
-  void setSide(const side_t side);
+  void setSide(side_t side);
 
   /**
    * @brief set factor to convert from pu to Amperes
@@ -103,13 +103,14 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
    * @brief set the max time operation
    * @param maxTimeOperation max time operation
    */
-  void setMaxTimeOperation(const double& maxTimeOperation);
+  void setMaxTimeOperation(double maxTimeOperation);
 
   /**
    * @brief get G size
    * @return size of G
    */
-  int sizeG() const;
+  int sizeG();
+
   /**
    * @brief get size of Z
    * @return size of Z
@@ -131,6 +132,7 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
   double maxTimeOperation_;  ///< maximum time operation, if limits duration is over this time, the current limit does not operate
   double lastCurrentValue_;  ///< last value of the current, kept to be reported in constraints
   double factorPuToA_;  ///< factor to convert pu values to Amperes
+  boost::optional<int> sizeG_;  ///< factor to convert pu values to Amperes
 
   std::vector<double> limits_;  ///< vector of current limits (pu base UNom, base SNRef)
   std::vector<double> acceptableDurations_;  ///< vector of limits duration (unit : s)

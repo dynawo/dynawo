@@ -76,7 +76,7 @@ class ModelRatioTapChanger : public ModelTapChanger {
    * @param tfoClosed :is the transformer connected ?
    */
   void evalZ(double t, state_g* g, ModelNetwork* network, double disable,
-             bool nodeOff, double locked, bool tfoClosed);
+             bool nodeOff, double locked, bool tfoClosed, bool deactivateRootFunctions);
 
   /**
    * @brief  get the size of the local G function

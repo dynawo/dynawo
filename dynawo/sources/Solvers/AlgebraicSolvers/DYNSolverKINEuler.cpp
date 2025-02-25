@@ -43,7 +43,8 @@ namespace DYN {
 
 SolverKINEuler::SolverKINEuler() :
 SolverKINCommon(),
-timeSchemeSolver_(NULL) { }
+timeSchemeSolver_(NULL),
+allLogs_(false) { }
 
 SolverKINEuler::~SolverKINEuler() {
   timeSchemeSolver_ = NULL;
@@ -51,10 +52,11 @@ SolverKINEuler::~SolverKINEuler() {
 
 void
 SolverKINEuler::init(const std::shared_ptr<Model>& model, Solver* timeSchemeSolver, double fnormtol,
-                     double initialaddtol, double scsteptol, double mxnewtstep, int msbset, int mxiter, int printfl, N_Vector sundialsVectorY) {
+                     double initialaddtol, double scsteptol, double mxnewtstep, int msbset, int mxiter, int printfl, N_Vector sundialsVectorY, bool allLogs) {
   clean();
   model_ = model;
   timeSchemeSolver_ = timeSchemeSolver;
+  allLogs_ = allLogs;
 
   // Problem size
   // ----------------
@@ -67,6 +69,9 @@ SolverKINEuler::init(const std::shared_ptr<Model>& model, Solver* timeSchemeSolv
   numF_ = model_->sizeF();
 
   initCommon(fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalF_KIN, evalJ_KIN, sundialsVectorY);
+
+  smj_.init(numF_, numF_);
+  SolverCommon::copySparseMatrixToSUNMatrix(smj_, sundialsMatrix_);
 }
 
 int
@@ -100,24 +105,26 @@ SolverKINEuler::evalF_KIN(N_Vector yy, N_Vector rr, void* data) {
     }
   }
 
-#ifdef _DEBUG_
-  // Print the current residual norms, the first one is used as a stopping criterion
-  if (!solver->getFirstIteration()) {
-    memcpy(&solver->vectorF_[0], irr, solver->vectorF_.size() * sizeof(solver->vectorF_[0]));
-  }
-  double weightedInfNorm = SolverCommon::weightedInfinityNorm(solver->vectorF_, solver->vectorFScale_);
-  double wL2Norm = SolverCommon::weightedL2Norm(solver->vectorF_, solver->vectorFScale_);
-  long int current_nni = 0;
-  KINGetNumNonlinSolvIters(solver->KINMem_, &current_nni);
-  Trace::debug() << DYNLog(SolverKINResidualNorm, current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
+// #ifdef _DEBUG_
+  if (solver->getAllLogs()) {
+    // Print the current residual norms, the first one is used as a stopping criterion
+    if (!solver->getFirstIteration()) {
+      memcpy(&solver->vectorF_[0], irr, solver->vectorF_.size() * sizeof(solver->vectorF_[0]));
+    }
+    double weightedInfNorm = SolverCommon::weightedInfinityNorm(solver->vectorF_, solver->vectorFScale_);
+    double wL2Norm = SolverCommon::weightedL2Norm(solver->vectorF_, solver->vectorFScale_);
+    long int current_nni = 0;
+    KINGetNumNonlinSolvIters(solver->KINMem_, &current_nni);
+    Trace::debug() << DYNLog(SolverKINResidualNorm, current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
 
-  const int nbErr = 10;
-  Trace::debug() << DYNLog(KinLargestErrors, nbErr) << Trace::endline;
-  vector<std::pair<double, size_t> > fErr;
-  for (size_t i = 0; i < solver->numF_; ++i)
-    fErr.push_back(std::pair<double, size_t>(solver->vectorF_[i], i));
-  SolverCommon::printLargestErrors(fErr, model, nbErr);
-#endif
+    const int nbErr = 10;
+    Trace::debug() << DYNLog(KinLargestErrors, nbErr) << Trace::endline;
+    vector<std::pair<double, size_t> > fErr;
+    for (size_t i = 0; i < solver->numF_; ++i)
+      fErr.push_back(std::pair<double, size_t>(solver->vectorF_[i], i));
+    SolverCommon::printLargestErrors(fErr, model, nbErr);
+  }
+// #endif
 
   return 0;
 }
@@ -131,6 +138,7 @@ SolverKINEuler::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
 
   SolverKINEuler* solver = reinterpret_cast<SolverKINEuler*> (data);
   Model& model = solver->getModel();
+  SparseMatrix& smj = solver->getMatrix();
 
   // cj = 1/h
   const double h0 = solver->getTimeSchemeSolver().getTimeStep();
@@ -138,11 +146,10 @@ SolverKINEuler::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
 
   // Sparse matrix version
   // ----------------------
-  SparseMatrix smj;
   const int size = model.sizeY();
   smj.init(size, size);
   model.evalJt(solver->t0_ + h0, cj, smj);
-  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, &solver->lastRowVals_, solver->linearSolver_, true);
+  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, solver->lastRowVals_, solver->linearSolver_, true);
 
   return 0;
 }

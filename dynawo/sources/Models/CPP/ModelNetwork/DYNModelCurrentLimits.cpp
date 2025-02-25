@@ -20,6 +20,9 @@
 #include <limits>
 #include <iostream>
 #include "DYNModelCurrentLimits.h"
+
+#include <DYNTimer.h>
+
 #include "DYNModelNetwork.h"
 #include "DYNMacrosMessage.h"
 #include "DYNModelConstants.h"
@@ -35,8 +38,23 @@ nbTemporaryLimits_(0) {
 }
 
 int
-ModelCurrentLimits::sizeG() const {
-  return static_cast<int>(2 * limits_.size());
+ModelCurrentLimits::sizeG() {
+  static int nbUseless = 0;
+  static int nbCalls = 0;
+  if (!sizeG_) {
+    for (auto acceptableDuration : acceptableDurations_)
+      if (acceptableDuration > maxTimeOperation_)
+        ++nbUseless;
+
+    sizeG_ = static_cast<int>(2 * limits_.size());
+  } else {
+    if (nbCalls == 0) {
+      std::cout << "nbUseless " << nbUseless << std::endl;
+      nbCalls++;
+    }
+  }
+
+  return sizeG_.get();
 }
 
 int
@@ -55,12 +73,12 @@ ModelCurrentLimits::setFactorPuToA(double factorPuToA) {
 }
 
 void
-ModelCurrentLimits::setMaxTimeOperation(const double& maxTimeOperation) {
+ModelCurrentLimits::setMaxTimeOperation(double maxTimeOperation) {
   maxTimeOperation_ = maxTimeOperation;
 }
 
 void
-ModelCurrentLimits::addLimit(const double& limit, const int& acceptableDuration) {
+ModelCurrentLimits::addLimit(double limit, int acceptableDuration) {
   if (!std::isnan(limit)) {
     limits_.push_back(limit);
     activated_.push_back(false);
@@ -72,11 +90,15 @@ ModelCurrentLimits::addLimit(const double& limit, const int& acceptableDuration)
       openingAuthorized_.push_back(true);
       nbTemporaryLimits_++;
     }
+    sizeG_.reset();
   }
 }
 
 void
-ModelCurrentLimits::evalG(const double& t, const double& current, state_g* g, const double& desactivate) {
+ModelCurrentLimits::evalG(double t, double current, state_g* g, double desactivate) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer3("ModelNetwork::ModelCurrentLimits::evalG");
+#endif
   lastCurrentValue_ = current;
   for (unsigned int i = 0; i < limits_.size(); ++i) {
     g[0 + 2 * i] = (current > limits_[i] && !(desactivate > 0)) ? ROOT_UP : ROOT_DOWN;  // I > Imax
@@ -99,9 +121,11 @@ ModelCurrentLimits::constraintData(const constraints::ConstraintData::kind_t& ki
 
 ModelCurrentLimits::state_t
 ModelCurrentLimits::evalZ(const string& componentName, const double& t, state_g* g, ModelNetwork* network, const double& desactivate,
-    const string& modelType) {
+    const string& modelType, bool deactivateRootFunctions) {
   state_t state = ModelCurrentLimits::COMPONENT_CLOSE;
   using constraints::ConstraintData;
+  if (deactivateRootFunctions)
+    return state;
 
   for (unsigned int i = 0; i < limits_.size(); ++i) {
     if (!(desactivate > 0)) {

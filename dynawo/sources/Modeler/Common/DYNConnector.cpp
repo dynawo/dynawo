@@ -521,7 +521,7 @@ ConnectorContainer::setBufferZ(double* z, bool* zConnected) {
 
 void
 ConnectorContainer::evalFConnector(const double /*t*/) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("ConnectorContainer::evalF");
 #endif
 
@@ -588,7 +588,7 @@ ConnectorContainer::multiplyAndAdd(const vector<unsigned int>& index, const vect
 
 void
 ConnectorContainer::evalJtConnector(SparseMatrix& jt) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("ConnectorContainer::evalJ");
 #endif
 
@@ -781,7 +781,7 @@ ConnectorContainer::evalStaticFType() const {
 
 void
 ConnectorContainer::propagateZDiff(const vector<int>& indicesDiff, double* z) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("ConnectorContainer::propagateZDiff");
 #endif
   // z modified, it is necessary to propagate the differences if we have a connector for each indicesDiff

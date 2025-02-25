@@ -111,6 +111,14 @@ class Model {
    */
   virtual void evalG(double t, std::vector<state_g>& g) = 0;
 
+ /**
+   * @brief evaluate the root functions of the model based on the variable values contained in the model
+   *
+   * @param t current time
+   * @param g values of the root functions
+   */
+  virtual void evalG(double t, double* g) = 0;
+
   /**
    * @brief evaluate the discrete variables of the model based on the variable values contained in the model
    *
@@ -521,6 +529,16 @@ class Model {
    * @param localInitParameters local initialization solver parameters set
    */
   virtual void setLocalInitParameters(std::shared_ptr<parameters::ParametersSet> localInitParameters) = 0;
+
+  /**
+  * @brief set the local initialization solver parameters of the model
+  */
+ virtual void setSymbolicJacobian() = 0;
+
+ /**
+  * @brief set the local initialization solver parameters of the model
+  */
+ virtual void setSymbolicResidual() = 0;
 };  ///< Generic class for Model
 
 #ifdef __clang__

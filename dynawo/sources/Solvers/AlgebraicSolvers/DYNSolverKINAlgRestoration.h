@@ -125,7 +125,7 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
    */
   void setInitialValues(const double t, const std::vector<double>& y, const std::vector<double>& yp);
 
-#if _DEBUG_
+// #if _DEBUG_
   /**
    * @brief set check jacobian during evalF
    * @param checkJacobian enable or disable the jacobian sanity check
@@ -133,7 +133,7 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   void setCheckJacobian(bool checkJacobian) {
     checkJacobian_ = checkJacobian;
   }
-#endif
+// #endif
 
   /**
   * @brief clean sundials structures to force a new algebraic restoration setup
@@ -206,7 +206,7 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   void updateKINSOLSettings(double fnormtol, double initialaddtol, double scsteptol, double mxnewtstep,
                             int msbset, int mxiter, int printfl);
 
-#if _DEBUG_
+// #if _DEBUG_
   /**
    * @brief Check jacobian
    *
@@ -216,7 +216,7 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
    * @param model the model currelty used
    */
   static void checkJacobian(const SparseMatrix& smj, Model& model);
-#endif
+// #endif
 
   /**
   * @brief get mode
@@ -230,6 +230,24 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   */
   void cleanAlgebraicVectors();
 
+  /**
+  * @brief get Complete Jacobian matrix
+  *
+  * @return the Complete Jacobian matrix
+  */
+  inline SparseMatrix& getMatrix() {
+    return smj_;
+  }
+
+  /**
+  * @brief get Jacobian matrix only on algebraic variables
+  *
+  * @return the Jacobian matrix only on algebraic variables
+  */
+  inline SparseMatrix& getMatrixAlgebraic() {
+    return smjKin_;
+  }
+
  private:
   std::shared_ptr<Model> model_;  ///< model currently simulated
 
@@ -242,9 +260,12 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   std::vector<int> indexY_;  ///< variables to keep form the initial set of variables
   modeKin_t mode_;  ///< mode of the solver (i.e. algebraic equations or derivative)
 
-#if _DEBUG_
+  SparseMatrix smj_;  ///< Complete Jacobian matrix
+  SparseMatrix smjKin_;  ///< Jacobian matrix only on algebraic variables
+
+// #if _DEBUG_
   bool checkJacobian_;  ///< Check jacobian
-#endif
+// #endif
 };
 
 }  // end of namespace DYN

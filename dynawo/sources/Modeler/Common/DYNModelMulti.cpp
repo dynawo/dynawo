@@ -214,7 +214,7 @@ ModelMulti::initBuffers() {
 
 void
 ModelMulti::init(const double t0) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer1("ModelMulti::init");
 #endif
 
@@ -269,7 +269,7 @@ ModelMulti::init(const double t0) {
 
 void
 ModelMulti::printModel() const {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("ModelMulti::printModel");
 #endif
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it)
@@ -280,7 +280,7 @@ ModelMulti::printModel() const {
 
 void
 ModelMulti::printParameterValues() const {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("ModelMulti::printParameterValues");
 #endif
   Trace::debug(Trace::parameters()) << "This file is organized as follows: "<< Trace::endline <<
@@ -333,19 +333,17 @@ ModelMulti::copyDiscreteVariables(const double* z) {
 
 void
 ModelMulti::evalF(const double t, const double* y, const double* yp, double* f) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalF");
-#endif
   copyContinuousVariables(y, yp);
 
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer* timer2 = new Timer("ModelMulti::evalF_subModels");
 #endif
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
     if ((*it)->sizeF() != 0)
       (*it)->evalFSub(t);
   }
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   delete timer2;
 #endif
 
@@ -356,9 +354,7 @@ ModelMulti::evalF(const double t, const double* y, const double* yp, double* f) 
 
 void
 ModelMulti::evalFDiff(const double t, const double* y, const double* yp, double* f) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
-  Timer timer("ModelMulti::evalFDiff");
-#endif
+  // Timer timer("ModelMulti::evalFDiff");
   copyContinuousVariables(y, yp);
 
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
@@ -369,9 +365,7 @@ ModelMulti::evalFDiff(const double t, const double* y, const double* yp, double*
 
 void
 ModelMulti::evalFMode(const double t, const double* y, const double* yp, double* f) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
-  Timer timer("ModelMulti::evalFMode");
-#endif
+  // Timer timer("ModelMulti::evalFMode");
   copyContinuousVariables(y, yp);
 
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
@@ -394,9 +388,7 @@ ModelMulti::evalFMode(const double t, const double* y, const double* yp, double*
 
 void
 ModelMulti::evalG(double t, vector<state_g>& g) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalG");
-#endif
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
     (*it)->evalGSub(t);
 
@@ -404,49 +396,53 @@ ModelMulti::evalG(double t, vector<state_g>& g) {
 }
 
 void
+ModelMulti::evalG(double t, double* g) {
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
+    (*it)->evalGSub(t);
+
+  std::copy(gLocal_.begin(), gLocal_.end(), g);
+}
+
+void
 ModelMulti::evalJt(const double t, const double cj, SparseMatrix& Jt) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalJt");
-#endif
   int rowOffset = 0;
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    (*it)->evalJtSub(t, cj, Jt, rowOffset);
+  for (const auto& subModel : subModels_) {
+    subModel->evalJtSub(t, cj, Jt, rowOffset);
     if (!Jt.withoutNan() || !Jt.withoutInf()) {
-      throw DYNError(Error::MODELER, SparseMatrixWithNanInf, (*it)->modelType(), (*it)->name());
+      throw DYNError(Error::MODELER, SparseMatrixWithNanInf, subModel->modelType(), subModel->name());
     }
   }
 
   connectorContainer_->evalJtConnector(Jt);
 
   // add Jacobian for optional variables X = 0
-  for (set<int>::const_iterator it = numVarsOptional_.begin();
-       it != numVarsOptional_.end(); ++it) {
+  for (const auto numVarsOptional : numVarsOptional_) {
     Jt.changeCol();
-    Jt.addTerm(*it, +1);  // d(f)/d(Y) = +1;
+    Jt.addTerm(numVarsOptional, +1);  // d(f)/d(Y) = +1;
   }
 }
 
 void
 ModelMulti::evalJtPrim(const double t, const double cj, SparseMatrix& JtPrim) {
+  // Timer timer("ModelMulti::evalJtPrim");
   int rowOffset = 0;
-  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
-    (*it)->evalJtPrimSub(t, cj, JtPrim, rowOffset);
+  for (const auto& subModel : subModels_) {
+    subModel->evalJtPrimSub(t, cj, JtPrim, rowOffset);
     if (!JtPrim.withoutNan() || !JtPrim.withoutInf()) {
-      throw DYNError(Error::MODELER, SparseMatrixWithNanInf, (*it)->modelType(), (*it)->name());
+      throw DYNError(Error::MODELER, SparseMatrixWithNanInf, subModel->modelType(), subModel->name());
     }
   }
 
   connectorContainer_->evalJtPrimConnector(JtPrim);
 
-  for (unsigned int i =0; i < numVarsOptional_.size(); ++i)
+  for (unsigned int i = 0; i < numVarsOptional_.size(); ++i)
     JtPrim.changeCol();
 }
 
 void
 ModelMulti::evalZ(double t) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalZ");
-#endif
   if (sizeZ() == 0) return;
   // calculate Z by model
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
@@ -511,9 +507,7 @@ ModelMulti::propagateZModif() {
 
 void
 ModelMulti::evalMode(double t) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalMode");
-#endif
   /* modeChange_ has to be set at each evalMode call
    *  -> it indicates if there has been a mode change for this call
    * modeChangeType_ is the worst mode change for a complete time step (possibly several evalMode calls)
@@ -562,7 +556,7 @@ ModelMulti::notifyTimeStep() {
 
 void
 ModelMulti::evalCalculatedVariables(const double t, const vector<double>& y, const vector<double>& yp, const vector<double>& z) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("ModelMulti::evalCalculatedVariables");
 #endif
   yLocal_.assign(y.begin(), y.end());
@@ -581,9 +575,7 @@ ModelMulti::checkParametersCoherence() const {
 
 void
 ModelMulti::checkDataCoherence(const double t) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
-  Timer timer("ModelMulti::checkDataCoherence");
-#endif
+  // Timer timer("ModelMulti::checkDataCoherence");
 
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
     (*it)->checkDataCoherenceSub(t);
@@ -924,7 +916,7 @@ ModelMulti::getGInfos(const int globalGIndex, string& subModelName, int& localGI
 
 void
 ModelMulti::setIsInitProcess(bool isInitProcess) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("ModelMulti::setIsInitProcess");
 #endif
 
@@ -1071,7 +1063,7 @@ ModelMulti::initCurves(std::shared_ptr<curves::Curve>& curve) {
 
 void
 ModelMulti::updateCalculatedVarForCurves(std::shared_ptr<curves::CurvesCollection>& curvesCollection) const {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("ModelMulti::updateCurves");
 #endif
   for (curves::CurvesCollection::iterator itCurve = curvesCollection->begin(), itCurveEnd = curvesCollection->end();
@@ -1267,6 +1259,18 @@ void ModelMulti::setCurrentZ(const vector<double>& z) {
 
 void ModelMulti::setLocalInitParameters(std::shared_ptr<parameters::ParametersSet> localInitParameters) {
   localInitParameters_ = localInitParameters;
+}
+
+void ModelMulti::setSymbolicJacobian() {
+  for (auto& subModel : subModels_) {
+    subModel->setEvalJIsSymbolic();
+  }
+}
+
+void ModelMulti::setSymbolicResidual() {
+  for (auto& subModel : subModels_) {
+    subModel->setEvalFIsSymbolic();
+  }
 }
 
 }  // namespace DYN
