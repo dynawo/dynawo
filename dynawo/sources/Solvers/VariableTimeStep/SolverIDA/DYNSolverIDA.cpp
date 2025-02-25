@@ -787,7 +787,7 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
       break;
     case IDA_TSTOP_RETURN:
       msg = "IDA_TSTOP_RETURN";
-      // updateStatistics();
+      updateStatistics();
       break;
     default:
       analyseFlag(flag);
