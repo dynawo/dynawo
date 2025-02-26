@@ -13,7 +13,7 @@ within Dynawo.Examples.Wind.IEC.Neplan;
 * of simulation tools for power systems.
 */
 
-package BaseClasses "Base classes of Neplan test models for type 4 WT"
+package BaseClasses "Base classes of Neplan test models for type 4 wind turbines and power plants"
   extends Icons.BasesPackage;
 
 end BaseClasses;

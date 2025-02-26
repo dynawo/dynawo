@@ -14,7 +14,7 @@ within Dynawo.Electrical.StaticVarCompensators;
 */
 
 model SVarCPVNoLimits "PV static var compensator model without mode handling and with no limits on susceptance"
-  extends BaseClasses.BaseSVarC;
+  extends BaseClasses.BaseSVarC(BMaxPu = 0, BMinPu = 0);
 
 equation
   if running.value then
