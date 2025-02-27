@@ -13,6 +13,7 @@ IntegratorSetFreeze
 IntegratorVariableLimits
 IntegratorVariableLimitsAntiWindup
 IntegratorVariableLimitsContinuous
+IntegratorVariableLimitsNonWindup
 LeadMOrderLag
 LimitedPI
 LimPIDFreeze
