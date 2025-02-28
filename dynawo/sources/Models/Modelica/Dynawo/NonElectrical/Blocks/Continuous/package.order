@@ -12,6 +12,7 @@ IntegratorWithReset
 IntegratorSetFreeze
 IntegratorVariableLimits
 IntegratorVariableLimitsAntiWindup
+IntegratorVariableLimitsAntiWindupContinuous
 IntegratorVariableLimitsContinuous
 IntegratorVariableLimitsNonWindup
 LeadMOrderLag

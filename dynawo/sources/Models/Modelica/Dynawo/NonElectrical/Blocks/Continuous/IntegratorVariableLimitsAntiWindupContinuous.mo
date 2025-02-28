@@ -13,51 +13,41 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 * of simulation tools for power systems.
 */
 
-model IntegratorVariableLimitsContinuous "Integrator with limited value of output (variable limits) and freeze"
+model IntegratorVariableLimitsAntiWindupContinuous "Integrator with limited value of output (variable limits) and anti-windup"
   extends Dynawo.NonElectrical.Blocks.Continuous.BaseClasses.BaseIntegratorVariableLimits;
 
-  parameter Types.Time tDer = 1e-3 "Time constant of derivative filter for limits in s";
-  parameter Real TolInput = 1e-5 "Tolerance on limit crossing for integrator input";
-  parameter Real TolOutput = 1e-5 "Tolerance on limit crossing for integrator output";
-
-  Modelica.Blocks.Continuous.Derivative derivativeLimitMax(T = tDer, x_start = LimitMax0);
-  Modelica.Blocks.Continuous.Derivative derivativeLimitMin(T = tDer, x_start = LimitMin0);
+  parameter Types.PerUnit Kaw "Antiwindup gain";
+  parameter Real TolInput "Tolerance on limit crossing for integrator input";
+  parameter Real TolOutput "Tolerance on limit crossing for integrator output";
 
 protected
-  Real derLimitMax(start = 0) "Filtered derivative of upper limit";
-  Real derLimitMin(start = 0) "Filtered derivative of lower limit";
   Types.PerUnit kFreezeMax "Freeze coefficient for upper limit";
   Types.PerUnit kFreezeMin "Freeze coefficient for lower limit";
 
 equation
-  limitMax = derivativeLimitMax.u;
-  limitMin = derivativeLimitMin.u;
-  derLimitMax = derivativeLimitMax.y;
-  derLimitMin = derivativeLimitMin.y;
+  v = K * u + Kaw * (y - w);
 
-  v = K * u;
+  kFreezeMax = (1 / 4) * (1 + tanh((w - limitMax) / TolOutput)) * (1 + tanh(v / TolInput));
+  kFreezeMin = (1 / 4) * (1 + tanh((limitMin - w) / TolOutput)) * (1 - tanh(v / TolInput));
 
-  kFreezeMax = (1 / 4) * (1 + tanh((w - limitMax) / TolOutput)) * (1 + tanh((v - derLimitMax) / TolInput));
-  kFreezeMin = (1 / 4) * (1 + tanh((limitMin - w) / TolOutput)) * (1 + tanh((derLimitMin - v) / TolInput));
-
-  der(w) = derLimitMax * kFreezeMax + derLimitMin * kFreezeMin + v * (1 - kFreezeMax - kFreezeMin);
+  der(w) = v * (1 - kFreezeMax - kFreezeMin);
 
   annotation(
     preferredView = "text",
     Documentation(info= "<html><head></head><body><p>
-This blocks computes <strong>w</strong> as integral
-of the input <strong>u</strong> multiplied by the gain <em>K</em>, with v = K * u<em>.</em></p>
+This blocks computes <strong>w</strong> as <em>integral</em>
+of variable&nbsp;<strong>v&nbsp;</strong>which is equal to input <b>u</b> multiplied by gain <em>K</em> added to an antiwindup term.</p>
 
 <p>If the integral reaches a given upper limit <b>limitMax</b> or lower limit&nbsp;<b>limitMin</b>, the integration is halted and only restarted if the input drives
 the integral away from the bounds.</p>
 
-<p>This freeze is imposed through two coefficients <b>kFreezeMax</b> and <b>kFreezeMin</b>, each defined by a continuous expression involving the hyperbolic tangent, the integrator input <b>v</b>, the integrator output <b>w</b>, the limit <b>limitMax</b> or <b>limitMin</b> and its filtered derivative <b>derLimitMax</b> or <b>derLimitMin</b>.</p>
+<p>This freeze is imposed through two coefficients <b>kFreezeMax</b> and <b>kFreezeMin</b>, each defined by a continuous expression involving the hyperbolic tangent, the integrator input <b>v</b>, the integrator output <b>w</b>, the limit <b>limitMax</b> or <b>limitMin</b>.</p>
 
-<p>w &gt; limitMax and v &gt; derLimitMax =&gt; kFreezeMax = 1, kFreezeMin = 0 =&gt; der(w) = derLimitMax</p>
+<p>w &gt; limitMax and v &gt; 0 =&gt; kFreezeMax = 1, kFreezeMin = 0 =&gt; der(w) = 0</p>
 
-<p>w &lt; limitMin and v &lt; derLimitMin =&gt; kFreezeMax = 0, kFreezeMin = 1 =&gt; der(w) = derLimitMin</p>
+<p>w &lt; limitMin and v &lt; 0 =&gt; kFreezeMax = 0, kFreezeMin = 1 =&gt; der(w) = 0</p>
 
-<p>limitMax &gt; w &gt; limitMin or derLimitMax &gt; v &gt; derLimitMin =&gt; kFreezeMax = kFreezeMin = 0 =&gt; der(w) = v</p>
+<p>limitMax &gt; w &gt; limitMin =&gt; kFreezeMax = kFreezeMin = 0 =&gt; der(w) = v</p>
 
 <p>The parameters <i>TolInput</i> and <i>TolOutput</i> determine the width of the transition zone from one domain to another.</p>
 
@@ -65,7 +55,7 @@ the integral away from the bounds.</p>
 
 <p>If the \"upper\" limit is smaller than the \"lower\" one, the output <i>y</i> is ruled by the parameter <i>DefaultLimitMax</i>: <i>y</i> is equal to either&nbsp;<b>limitMax&nbsp;</b>or&nbsp;<b>limitMin</b>.</p>
 
-<p>The integrator is initialized with the value <em>Y0</em>.</p>
+<p>The integrator output is initialized with the parameter <em>Y0</em>.</p>
 </body></html>"),
     Icon(coordinateSystem(
         preserveAspectRatio=true,
@@ -86,7 +76,7 @@ the integral away from the bounds.</p>
     Diagram(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
-        Rectangle( lineColor={0,0,255}, extent={{-60,60},{60,-60}}),
+        Rectangle(lineColor={0,0,255}, extent={{-60,60},{60,-60}}),
         Text(
           extent={{-54,46},{-4,-48}},
           textString="lim"),
@@ -99,4 +89,4 @@ the integral away from the bounds.</p>
           extent={{-8,-2},{60,-60}},
           textString="s"),
         Line(points={{4,0},{46,0}})}));
-end IntegratorVariableLimitsContinuous;
+end IntegratorVariableLimitsAntiWindupContinuous;

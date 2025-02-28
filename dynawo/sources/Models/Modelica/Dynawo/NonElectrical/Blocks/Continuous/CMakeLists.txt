@@ -27,6 +27,7 @@ set(MODEL_FILES
   IntegratorSetFreeze.mo
   IntegratorVariableLimits.mo
   IntegratorVariableLimitsAntiWindup.mo
+  IntegratorVariableLimitsAntiWindupContinuous.mo
   IntegratorVariableLimitsContinuous.mo
   IntegratorVariableLimitsNonWindup.mo
   LeadMOrderLag.mo

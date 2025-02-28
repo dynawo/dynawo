@@ -55,9 +55,10 @@ equation
 This blocks computes <strong>w</strong> as <em>integral</em>
 of variable&nbsp;<strong>v&nbsp;</strong>which is equal to input <b>u</b> multiplied by gain <em>K</em> added to an antiwindup term.</p>
 
-<p>If the integral reaches a given upper or lower <b>limit</b>, the
-integration is halted and only restarted if the input drives
-the integral away from the bounds, with a sufficient margin defined by <em>Tol</em>.</p><p>This margin is aimed at avoiding chattering i.e. rapid swings between frozen and unfrozen sates.</p>
+<p>If the integral reaches a given upper limit <b>limitMax</b> or lower limit&nbsp;<b>limitMin</b>, the integration is halted and only restarted if the input drives
+the integral away from the bounds, with a sufficient margin defined by <em>Tol</em>.</p>
+
+<p>This margin is aimed at avoiding chattering i.e. rapid swings between frozen and unfrozen sates.</p>
 
 <p>If the integration is halted, the integrator output follows the variable limit it has reached.</p>
 
