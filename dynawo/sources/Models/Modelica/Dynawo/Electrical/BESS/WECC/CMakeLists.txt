@@ -14,10 +14,10 @@ add_subdirectory(BaseClasses B)
 set(MODEL_FILES
   package.mo
   package.order
-  BESScbCurrentSource.mo
-  BESScbCurrentSource.extvar
-  BESScbCurrentSourceNoPlantControl.mo
-  BESScbCurrentSourceNoPlantControl.extvar
+  BESSCurrentSource.mo
+  BESSCurrentSource.extvar
+  BESSCurrentSourceNoPlantControl.mo
+  BESSCurrentSourceNoPlantControl.extvar
   BESS_INIT.mo
   )
 
