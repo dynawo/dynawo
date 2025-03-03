@@ -242,7 +242,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   TapChangerBlockingAutomaton5.xml
   TransformerFixedRatio.xml
   TransformerFixedRatioAndPhase.xml
-  TransformerPhaseTapChanger.xml
+  TransformerPhaseTapChangerP.xml
   TransformerRatioTapChanger.xml
   UFLS3Steps.xml
   UFLS10Steps.xml

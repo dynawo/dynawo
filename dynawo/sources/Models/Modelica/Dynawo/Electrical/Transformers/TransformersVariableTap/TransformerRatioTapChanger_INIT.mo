@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Transformers;
+within Dynawo.Electrical.Transformers.TransformersVariableTap;
 
 /*
 * Copyright (c) 2024, RTE (http://www.rte-france.com)
@@ -13,14 +13,14 @@ within Dynawo.Electrical.Transformers;
 * of simulation tools for power systems.
 */
 
-model TransformerPhaseTapChanger_INIT "Initialization model for TransformerPhaseTapChanger"
-  extends TransformerFixedRatioAndPhase_INIT(AlphaTfo0 = AlphaTfoMin + (AlphaTfoMax - AlphaTfoMin) * (Tap0 / (NbTap - 1)));
+model TransformerRatioTapChanger_INIT "Initialization model for TransformerRatioTapChanger"
+  extends TransformersFixedTap.TransformerFixedRatioAndPhase_INIT(RatioTfo0Pu = RatioTfoMinPu + (RatioTfoMaxPu - RatioTfoMinPu) * (Tap0 / (NbTap - 1))) ;
 
   parameter Integer NbTap "Number of taps";
-  parameter Types.Angle AlphaTfoMin "Minimum phase shift in rad";
-  parameter Types.Angle AlphaTfoMax "Maximum phase shift in rad";
+  parameter Types.PerUnit RatioTfoMinPu "Minimum transformation ratio in pu: U2/U1 in no load conditions";
+  parameter Types.PerUnit RatioTfoMaxPu "Maximum transformation ratio in pu: U2/U1 in no load conditions";
 
   parameter Integer Tap0 "Start value of transformer tap";
 
   annotation(preferredView = "text");
-end TransformerPhaseTapChanger_INIT;
+end TransformerRatioTapChanger_INIT;

@@ -31,6 +31,15 @@
     <par type="DOUBLE" name="transformer_rTfoMaxPu" value="1.10"/>
     <par type="DOUBLE" name="transformer_rTfoMinPu" value="0.90"/>
     <par type="DOUBLE" name="transformer_Uc20Pu" value="1"/>
+    <par type="BOOL" name="transformer_regulating0" value="true"/>
+    <par type="DOUBLE" name="transformer_t1st" value="60"/>
+    <par type="DOUBLE" name="transformer_tNext" value="10"/>
+    <par type="INT" name="transformer_tapMax" value="10"/>
+    <par type="INT" name="transformer_tapMin" value="0"/>
+    <par type="DOUBLE" name="transformer_UTarget" value="1"/>
+    <par type="DOUBLE" name="transformer_UDeadBand" value="0.01"/>
+    <par type="DOUBLE" name="transformer_U0" value="1"/>
+    <!--par type="INT" name="transformer_tap0" value="5"/-->
     <reference type="DOUBLE" name="transformer_SNom" origData="IIDM" origName="sn"/>
     <reference type="DOUBLE" name="transformer_P10Pu" origData="IIDM" origName="p_pu"/>
     <reference type="DOUBLE" name="transformer_Q10Pu" origData="IIDM" origName="q_pu"/>
@@ -317,16 +326,5 @@
     <par type="DOUBLE" name="step_Value0" value="0.064395"/>
     <par type="DOUBLE" name="step_tStep" value="20"/>
     <par type="DOUBLE" name="step_Height" value="0.235605"/>
-  </set>
-  <set id="11">
-    <par type="BOOL" name="tapChanger_regulating0" value="true"/>
-    <par type="DOUBLE" name="tapChanger_t1st" value="60"/>
-    <par type="DOUBLE" name="tapChanger_tNext" value="10"/>
-    <par type="INT" name="tapChanger_tapMax" value="10"/>
-    <par type="INT" name="tapChanger_tapMin" value="0"/>
-    <par type="DOUBLE" name="tapChanger_UTarget" value="1"/>
-    <par type="DOUBLE" name="tapChanger_UDeadBand" value="0.01"/>
-    <par type="DOUBLE" name="tapChanger_U0" value="1"/>
-    <par type="INT" name="tapChanger_tap0" value="5"/>
   </set>
 </parametersSet>
