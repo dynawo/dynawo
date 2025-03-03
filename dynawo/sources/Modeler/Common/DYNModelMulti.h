@@ -69,6 +69,20 @@ class ModelMulti : public Model, private boost::noncopyable {
   void copyContinuousVariables(const double* y, const double* yp) override;
 
   /**
+   * @brief restore the residual to a previous state
+   *
+   * @param f current values of the residual
+   */
+  void restoreResidual(const std::vector<double>& f);
+
+  /**
+   * @brief save the residual
+   *
+   * @param f
+   */
+  void saveResidual(std::vector<double>& f);
+
+  /**
    * @copydoc Model::copyDiscreteVariables(const double* z)
    */
   void copyDiscreteVariables(const double* z) override;

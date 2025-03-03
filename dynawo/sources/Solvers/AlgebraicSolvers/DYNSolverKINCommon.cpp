@@ -182,8 +182,8 @@ SolverKINCommon::initCommon(const double fnormtol, const double initialaddtol, c
 }
 
 int
-SolverKINCommon::solveCommon() {
-  const int flag = KINSol(KINMem_, sundialsVectorY_, KIN_NONE, sundialsVectorYScale_, sundialsVectorFScale_);
+SolverKINCommon::solveCommon(const int strategy) {
+  const int flag = KINSol(KINMem_, sundialsVectorY_, strategy, sundialsVectorYScale_, sundialsVectorFScale_);
   analyseFlag(flag);
 
   return flag;
