@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Transformers;
+within Dynawo.Electrical.Transformers.TransformersVariableTap;
 
 /*
 * Copyright (c) 2024, RTE (http://www.rte-france.com)
@@ -13,7 +13,7 @@ within Dynawo.Electrical.Transformers;
 * of simulation tools for power systems.
 */
 
-model TransformerRatioTapChanger "Two winding transformer with a fixed phase and variable ratio"
+model TransformerPhaseTapChanger "Two winding transformer with a fixed ratio and variable phase"
 
 
 /* Equivalent circuit and conventions:
@@ -26,18 +26,18 @@ model TransformerRatioTapChanger "Two winding transformer with a fixed phase and
                                ---
 */
   extends Dynawo.AdditionalIcons.Transformer;
-  extends Dynawo.Electrical.Transformers.BaseClasses.BaseTransformer(RatioTfo0Pu = RatioTfoMinPu + (RatioTfoMaxPu - RatioTfoMinPu) * (Tap0 / (NbTap - 1)));
+  extends Dynawo.Electrical.Transformers.BaseClasses.BaseTransformer(AlphaTfo0 = AlphaTfoMin + (AlphaTfoMax - AlphaTfoMin) * (Tap0 / (NbTap - 1)));
 
-  // Ratio variation discrete scale
+  // Phase variation discrete scale
   parameter Integer NbTap "Number of taps";
-  parameter Types.PerUnit RatioTfoMinPu "Minimum transformation ratio in pu: U2/U1 in no load conditions";
-  parameter Types.PerUnit RatioTfoMaxPu "Maximum transformation ratio in pu: U2/U1 in no load conditions";
-
-  // Transformation phase shift
-  parameter Types.Angle AlphaTfo = AlphaTfo0 "Transformation phase shift in rad";
+  parameter Types.Angle AlphaTfoMin "Minimum phase shift in rad";
+  parameter Types.Angle AlphaTfoMax "Maximum phase shift in rad";
 
   // Transformation ratio
-  Types.PerUnit ratioTfoPu(start = RatioTfo0Pu) "Transformation ratio in pu: U2/U1 in no load conditions";
+  parameter Types.PerUnit RatioTfoPu = RatioTfo0Pu "Transformation ratio in pu: U2/U1 in no load conditions";
+
+  // Transformation phase shift
+  Types.Angle alphaTfo(start = AlphaTfo0) "Transformation phase shift in rad";
 
   // Input connector
   Dynawo.Connectors.ZPin tap(value(start = Tap0)) "Current transformer tap (between 0 and NbTap - 1)";
@@ -47,15 +47,15 @@ model TransformerRatioTapChanger "Two winding transformer with a fixed phase and
 
 equation
   when (tap.value <> pre(tap.value)) then
-    // Transformation ratio calculation
+    // Transformation phase shift calculation
     if (NbTap == 1) then
-      ratioTfoPu = RatioTfoMinPu;
+      alphaTfo = AlphaTfoMin;
     else
-      ratioTfoPu = RatioTfoMinPu + (RatioTfoMaxPu - RatioTfoMinPu) * (tap.value / (NbTap - 1));
+      alphaTfo = AlphaTfoMin + (AlphaTfoMax - AlphaTfoMin) * (tap.value / (NbTap - 1));
     end if;
   end when;
 
-  rTfoPu = ComplexMath.fromPolar(ratioTfoPu, AlphaTfo);
+  rTfoPu = ComplexMath.fromPolar(RatioTfoPu, alphaTfo);
 
   annotation(preferredView = "text",
       Documentation(info = "<html><head></head><body>The transformer has the following equivalent circuit and conventions:<div><br></div><div>
@@ -66,4 +66,4 @@ equation
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                               G+jB</span></pre>
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                                |</span></pre>
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                               ---</span><!--EndFragment--></pre></div><div><br></div></body></html>"));
-end TransformerRatioTapChanger;
+end TransformerPhaseTapChanger;

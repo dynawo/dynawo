@@ -210,23 +210,23 @@ model IEEE57Base "Base class for IEEE 57-bus system benchmark formed with 57 bus
   Dynawo.Electrical.Lines.Line LineB57B56(BPu = 0.0 * ZBASE13_8, GPu = 0.0 * ZBASE13_8, RPu = 0.331366 / ZBASE13_8, XPu = 0.495144 / ZBASE13_8);
 
   // Transformers
-  Dynawo.Electrical.Transformers.TransformerFixedRatio TfoB10B51(BPu = 0.0 * ZBASE18_0, GPu = 0.0 * ZBASE18_0, RPu = 0.0 / ZBASE18_0, XPu = 0.23068786 / ZBASE18_0, rTfoPu = 1.0752689);
-  Dynawo.Electrical.Transformers.TransformerFixedRatio TfoB13B49(BPu = 0.0 * ZBASE18_0, GPu = 0.0 * ZBASE18_0, RPu = 0.0 / ZBASE18_0, XPu = 0.6188399 / ZBASE18_0, rTfoPu = 1.1173183);
-  Dynawo.Electrical.Transformers.TransformerFixedRatio TfoB14B46(BPu = 0.0 * ZBASE18_0, GPu = 0.0 * ZBASE18_0, RPu = 0.0 / ZBASE18_0, XPu = 0.23814033 / ZBASE18_0, rTfoPu = 1.1111112);
-  Dynawo.Electrical.Transformers.TransformerFixedRatio TfoB15B45(BPu = 0.0 * ZBASE18_0, GPu = 0.0 * ZBASE18_0, RPu = 0.0 / ZBASE18_0, XPu = 0.33760783 / ZBASE18_0, rTfoPu = 1.0471204);
-  Dynawo.Electrical.Transformers.TransformerFixedRatio TfoB21B20(BPu = 0.0 * ZBASE13_8, GPu = 0.0 * ZBASE13_8, RPu = 0.0 / ZBASE13_8, XPu = 1.4791485 / ZBASE13_8, rTfoPu = 0.9587727);
-  Dynawo.Electrical.Transformers.TransformerFixedRatio TfoB24B26(BPu = 0.0 * ZBASE13_8, GPu = 0.0 * ZBASE13_8, RPu = 0.0 / ZBASE13_8, XPu = 0.090078115 / ZBASE13_8, rTfoPu = 0.9587727);
-  Dynawo.Electrical.Transformers.TransformerFixedRatio TfoB24B25_1(BPu = 0.0 * ZBASE13_8, GPu = 0.0 * ZBASE13_8, RPu = 0.0 / ZBASE13_8, XPu = 2.2510006 / ZBASE13_8, rTfoPu = 1.0);
-  Dynawo.Electrical.Transformers.TransformerFixedRatio TfoB24B25_2(BPu = 0.0 * ZBASE13_8, GPu = 0.0 * ZBASE13_8, RPu = 0.0 / ZBASE13_8, XPu = 2.3424118 / ZBASE13_8, rTfoPu = 1.0);
-  Dynawo.Electrical.Transformers.TransformerFixedRatio TfoB34B32(BPu = 0.0 * ZBASE13_8, GPu = 0.0 * ZBASE13_8, RPu = 0.0 / ZBASE13_8, XPu = 1.814893 / ZBASE13_8, rTfoPu = 1.025641);
-  Dynawo.Electrical.Transformers.TransformerFixedRatio TfoB39B57(BPu = 0.0 * ZBASE13_8, GPu = 0.0 * ZBASE13_8, RPu = 0.0 / ZBASE13_8, XPu = 2.580462 / ZBASE13_8, rTfoPu = 1.0204082);
-  Dynawo.Electrical.Transformers.TransformerFixedRatio TfoB40B56(BPu = 0.0 * ZBASE13_8, GPu = 0.0 * ZBASE13_8, RPu = 0.0 / ZBASE13_8, XPu = 2.2757578 / ZBASE13_8, rTfoPu = 1.0438413);
-  Dynawo.Electrical.Transformers.TransformerFixedRatio TfoB9B55(BPu = 0.0 * ZBASE13_8, GPu = 0.0 * ZBASE13_8, RPu = 0.0 / ZBASE13_8, XPu = 0.22948042 / ZBASE13_8, rTfoPu = 1.0638298);
-  Dynawo.Electrical.Transformers.TransformerFixedRatio TfoB4B18_1(BPu = 0.0 * ZBASE13_8, GPu = 0.0 * ZBASE13_8, RPu = 0.0 / ZBASE13_8, XPu = 1.0569401 / ZBASE13_8, rTfoPu = 1.0309278);
-  Dynawo.Electrical.Transformers.TransformerFixedRatio TfoB4B18_2(BPu = 0.0 * ZBASE13_8, GPu = 0.0 * ZBASE13_8, RPu = 0.0 / ZBASE13_8, XPu = 0.81889206 / ZBASE13_8, rTfoPu = 1.0224948);
-  Dynawo.Electrical.Transformers.TransformerFixedRatio TfoB11B43(BPu = 0.0 * ZBASE13_8, GPu = 0.0 * ZBASE13_8, RPu = 0.0 / ZBASE13_8, XPu = 0.29137322 / ZBASE13_8, rTfoPu = 1.0438413);
-  Dynawo.Electrical.Transformers.TransformerFixedRatio TfoB11B41(BPu = 0.0 * ZBASE13_8, GPu = 0.0 * ZBASE13_8, RPu = 0.0 / ZBASE13_8, XPu = 1.4263961 / ZBASE13_8, rTfoPu = 1.0471204);
-  replaceable Dynawo.Electrical.Transformers.TransformerFixedRatio TfoB7B29(BPu = 0.0 * ZBASE13_8, GPu = 0.0 * ZBASE13_8, RPu = 0.0 / ZBASE13_8, XPu = 0.12340521 / ZBASE13_8, rTfoPu = 1.0341261) constrainedby Dynawo.Electrical.Transformers.BaseClasses.BaseTransformer annotation(choicesAllMatching = true);
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio TfoB10B51(BPu = 0.0 * ZBASE18_0, GPu = 0.0 * ZBASE18_0, RPu = 0.0 / ZBASE18_0, XPu = 0.23068786 / ZBASE18_0, rTfoPu = 1.0752689);
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio TfoB13B49(BPu = 0.0 * ZBASE18_0, GPu = 0.0 * ZBASE18_0, RPu = 0.0 / ZBASE18_0, XPu = 0.6188399 / ZBASE18_0, rTfoPu = 1.1173183);
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio TfoB14B46(BPu = 0.0 * ZBASE18_0, GPu = 0.0 * ZBASE18_0, RPu = 0.0 / ZBASE18_0, XPu = 0.23814033 / ZBASE18_0, rTfoPu = 1.1111112);
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio TfoB15B45(BPu = 0.0 * ZBASE18_0, GPu = 0.0 * ZBASE18_0, RPu = 0.0 / ZBASE18_0, XPu = 0.33760783 / ZBASE18_0, rTfoPu = 1.0471204);
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio TfoB21B20(BPu = 0.0 * ZBASE13_8, GPu = 0.0 * ZBASE13_8, RPu = 0.0 / ZBASE13_8, XPu = 1.4791485 / ZBASE13_8, rTfoPu = 0.9587727);
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio TfoB24B26(BPu = 0.0 * ZBASE13_8, GPu = 0.0 * ZBASE13_8, RPu = 0.0 / ZBASE13_8, XPu = 0.090078115 / ZBASE13_8, rTfoPu = 0.9587727);
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio TfoB24B25_1(BPu = 0.0 * ZBASE13_8, GPu = 0.0 * ZBASE13_8, RPu = 0.0 / ZBASE13_8, XPu = 2.2510006 / ZBASE13_8, rTfoPu = 1.0);
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio TfoB24B25_2(BPu = 0.0 * ZBASE13_8, GPu = 0.0 * ZBASE13_8, RPu = 0.0 / ZBASE13_8, XPu = 2.3424118 / ZBASE13_8, rTfoPu = 1.0);
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio TfoB34B32(BPu = 0.0 * ZBASE13_8, GPu = 0.0 * ZBASE13_8, RPu = 0.0 / ZBASE13_8, XPu = 1.814893 / ZBASE13_8, rTfoPu = 1.025641);
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio TfoB39B57(BPu = 0.0 * ZBASE13_8, GPu = 0.0 * ZBASE13_8, RPu = 0.0 / ZBASE13_8, XPu = 2.580462 / ZBASE13_8, rTfoPu = 1.0204082);
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio TfoB40B56(BPu = 0.0 * ZBASE13_8, GPu = 0.0 * ZBASE13_8, RPu = 0.0 / ZBASE13_8, XPu = 2.2757578 / ZBASE13_8, rTfoPu = 1.0438413);
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio TfoB9B55(BPu = 0.0 * ZBASE13_8, GPu = 0.0 * ZBASE13_8, RPu = 0.0 / ZBASE13_8, XPu = 0.22948042 / ZBASE13_8, rTfoPu = 1.0638298);
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio TfoB4B18_1(BPu = 0.0 * ZBASE13_8, GPu = 0.0 * ZBASE13_8, RPu = 0.0 / ZBASE13_8, XPu = 1.0569401 / ZBASE13_8, rTfoPu = 1.0309278);
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio TfoB4B18_2(BPu = 0.0 * ZBASE13_8, GPu = 0.0 * ZBASE13_8, RPu = 0.0 / ZBASE13_8, XPu = 0.81889206 / ZBASE13_8, rTfoPu = 1.0224948);
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio TfoB11B43(BPu = 0.0 * ZBASE13_8, GPu = 0.0 * ZBASE13_8, RPu = 0.0 / ZBASE13_8, XPu = 0.29137322 / ZBASE13_8, rTfoPu = 1.0438413);
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio TfoB11B41(BPu = 0.0 * ZBASE13_8, GPu = 0.0 * ZBASE13_8, RPu = 0.0 / ZBASE13_8, XPu = 1.4263961 / ZBASE13_8, rTfoPu = 1.0471204);
+  replaceable Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio TfoB7B29(BPu = 0.0 * ZBASE13_8, GPu = 0.0 * ZBASE13_8, RPu = 0.0 / ZBASE13_8, XPu = 0.12340521 / ZBASE13_8, rTfoPu = 1.0341261) constrainedby Dynawo.Electrical.Transformers.BaseClasses.BaseTransformer annotation(choicesAllMatching = true);
 
   // Shunts
   Dynawo.Electrical.Shunts.ShuntB Shunt18(BPu = -0.05251 * ZBASE13_8, u0Pu = Complex(1.0001351780054528, -0.0336171937555912), s0Pu = Complex(0, 0.1001), i0Pu = Complex(-0.0033603749234581257, 0.09997351940415553));

@@ -13,6 +13,6 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:modelicaModel id="TransformerFixedRatio">
-    <dyn:unitDynamicModel id="transformer" name="Dynawo.Electrical.Transformers.TransformerFixedRatio"/>
+    <dyn:unitDynamicModel id="transformer" name="Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
