@@ -39,7 +39,7 @@ nbTemporaryLimits_(0) {
 
 int
 ModelCurrentLimits::sizeG() {
-  static int nbUseless = 0;
+  /*static int nbUseless = 0;
   static int nbCalls = 0;
   if (!sizeG_) {
     for (auto acceptableDuration : acceptableDurations_)
@@ -49,12 +49,12 @@ ModelCurrentLimits::sizeG() {
     sizeG_ = static_cast<int>(2 * limits_.size());
   } else {
     if (nbCalls == 0) {
-      std::cout << "nbUseless " << nbUseless << std::endl;
+      // std::cout << "nbUseless " << nbUseless << std::endl;
       nbCalls++;
     }
-  }
+  }*/
 
-  return sizeG_.get();
+  return 2 * limits_.size();
 }
 
 int
@@ -90,7 +90,7 @@ ModelCurrentLimits::addLimit(double limit, int acceptableDuration) {
       openingAuthorized_.push_back(true);
       nbTemporaryLimits_++;
     }
-    sizeG_.reset();
+    // sizeG_.reset();
   }
 }
 
