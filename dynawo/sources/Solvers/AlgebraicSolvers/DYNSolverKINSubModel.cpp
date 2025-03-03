@@ -178,6 +178,6 @@ SolverKINSubModel::solve() {
 
   // SubModel initialization can fail, especially on switch currents.
   // This failure shouldn't be stopping the simulation.
-  return solveCommon();
+  return solveCommon(KIN_NONE);
 }
 }  // namespace DYN

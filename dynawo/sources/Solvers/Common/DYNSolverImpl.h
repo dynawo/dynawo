@@ -379,6 +379,7 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   modeChangeType_t minimumModeChangeTypeForAlgebraicRestoration_;  ///< parameter to set the minimum mode level at which algebraic restoration will occur
   modeChangeType_t minimumModeChangeTypeForAlgebraicRestorationInit_;  ///< parameter to set the minimum mode level
                                                                        ///< at which algebraic restoration will occur at init
+ bool multipleStrategiesForAlgebraicRestoration_;  ///< parameter to activate multi strategy for algebraic restoration
 
   stat_t stats_;  ///< execution statistics of the solver
   double tSolve_;  ///< current internal time of the solver

@@ -183,8 +183,8 @@ SolverKINCommon::initCommon(double fnormtol, double initialaddtol, double scstep
 }
 
 int
-SolverKINCommon::solveCommon() {
-  int flag = KINSol(KINMem_, sundialsVectorY_, KIN_NONE, sundialsVectorYScale_, sundialsVectorFScale_);
+SolverKINCommon::solveCommon(int strategy) {
+  int flag = KINSol(KINMem_, sundialsVectorY_, strategy, sundialsVectorYScale_, sundialsVectorFScale_);
   analyseFlag(flag);
 
   return flag;

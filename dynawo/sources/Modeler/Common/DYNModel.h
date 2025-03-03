@@ -97,6 +97,20 @@ class Model {
   virtual void copyContinuousVariables(const double* y, const double* yp) = 0;
 
   /**
+   * @brief restore the residual to a previous state
+   *
+   * @param f current values of the residual
+   */
+  virtual void restoreResidual(const std::vector<double>& f) = 0;
+
+  /**
+   * @brief save the residual
+   *
+   * @param f
+   */
+  virtual void saveResidual(std::vector<double>& f) = 0;
+
+  /**
    * @brief get the current value of the discrete variables
    *
    * @param z current values of discrete variables

@@ -718,7 +718,7 @@ SolverIDA::reinit() {
           vectorYp_[i] = 0;
 
       solverKINNormal_->setInitialValues(tSolve_, vectorY_, vectorYp_);
-      solverKINNormal_->solve(noInitSetup, evaluateOnlyMode);
+      solverKINNormal_->solve(noInitSetup, evaluateOnlyMode, multipleStrategiesForAlgebraicRestoration_);
       solverKINNormal_->getValues(vectorY_, vectorYp_);
 
       // Recomputation of differential variables' values
