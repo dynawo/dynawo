@@ -110,9 +110,7 @@ modelica_boolean GreaterEq<double>(double a, double b) {
   return a > b;
 }
 
-double RELATIONHYSTERESIS(double res, double exp1, double exp2, double index, double op_w) {
-  return res;
-}
+#define RELATIONHYSTERESIS(res, exp1, exp2, index, op_w) (exp1)
 
 double derDelayImpl(int exprNumber, double exprValue, double time, double delayTime, double delayMax) {
   return exprValue;
@@ -126,10 +124,13 @@ double ModelicaStandardTables_CombiTable1D_getDerValue_adept(double _tableID, in
   return der_u;
 }
 
+double omc_Modelica_Blocks_Tables_Internal_getTable1DValueNoDer(double _tableID, int _icol, double _u) {
+  return _u;
+}
+
 double omc_Modelica_Blocks_Tables_Internal_getTable2DValue(double a, int b , double c, double d) {
   return a;
 }
-
 
 double ModelicaStandardTables_CombiTable2D_getDerValue_adept(double _tableID, double der_u1, double der_u2) {
   return der_u1;
