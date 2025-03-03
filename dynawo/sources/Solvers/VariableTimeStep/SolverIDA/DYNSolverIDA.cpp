@@ -949,7 +949,7 @@ SolverIDA::reinit() {
           vectorYp_[i] = 0;
 
       solverKINNormal_->setInitialValues(tSolve_, vectorY_, vectorYp_);
-      solverKINNormal_->solve(noInitSetup, evaluateOnlyMode);
+      solverKINNormal_->solve(noInitSetup, evaluateOnlyMode, multipleStrategiesForAlgebraicRestoration_);
       solverKINNormal_->getValues(vectorY_, vectorYp_);
 
       if (restorationYPrim_) {
@@ -959,7 +959,7 @@ SolverIDA::reinit() {
             vectorYp_[i] = 0;
 
         solverKINYPrim_->setInitialValues(tSolve_, vectorY_, vectorYp_);
-        solverKINYPrim_->solve(noInitSetup, evaluateOnlyMode);
+        solverKINYPrim_->solve(noInitSetup, evaluateOnlyMode, multipleStrategiesForAlgebraicRestoration_);
         solverKINYPrim_->getValues(vectorY_, vectorYp_);
       }
 

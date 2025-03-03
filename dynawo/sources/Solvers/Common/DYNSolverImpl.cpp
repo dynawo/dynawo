@@ -89,6 +89,7 @@ enableSilentZ_(true),
 optimizeReinitAlgebraicResidualsEvaluations_(true),
 minimumModeChangeTypeForAlgebraicRestoration_(ALGEBRAIC_MODE),
 minimumModeChangeTypeForAlgebraicRestorationInit_(NO_MODE),
+multipleStrategiesForAlgebraicRestoration_(false),
 tSolve_(0.),
 startFromDump_(false),
 numDifferentialVariables_(0) {
@@ -371,6 +372,8 @@ Solver::Impl::defineCommonParameters() {
       ParameterSolver("minimumModeChangeTypeForAlgebraicRestoration", VAR_TYPE_STRING, optional)));
   parameters_.insert(make_pair("minimumModeChangeTypeForAlgebraicRestorationInit",
       ParameterSolver("minimumModeChangeTypeForAlgebraicRestorationInit", VAR_TYPE_STRING, optional)));
+  parameters_.insert(make_pair("multipleStrategiesForAlgebraicRestoration",
+      ParameterSolver("multipleStrategiesForAlgebraicRestoration", VAR_TYPE_BOOL, optional)));
 }
 
 bool
@@ -537,6 +540,10 @@ void Solver::Impl::setSolverCommonParameters() {
     else
       Trace::warn() << DYNLog(IncoherentParamMinimumModeChangeType, value) << Trace::endline;
   }
+
+  const ParameterSolver& multipleStrategiesForAlgebraicRestoration = findParameter("multipleStrategiesForAlgebraicRestoration");
+  if (multipleStrategiesForAlgebraicRestoration.hasValue())
+    multipleStrategiesForAlgebraicRestoration_ = multipleStrategiesForAlgebraicRestoration.getValue<bool>();
 }
 
 void

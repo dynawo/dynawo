@@ -288,7 +288,7 @@ SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
   KINGetNumNonlinSolvIters(solver->KINMem_, &current_nni);
   Trace::debug() << DYNLog(SolverKINResidualNormAlg, stringFromMode(solver->getMode()), current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
 
-  const int nbErr = 50;
+  const int nbErr = 10;
   Trace::debug() << DYNLog(KinLargestErrors, nbErr) << Trace::endline;
   vector<std::pair<double, size_t> > fErr;
   for (size_t i = 0; i < solver->indexF_.size(); ++i)
@@ -331,11 +331,13 @@ SolverKINAlgRestoration::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
   double cj = 1.;
   smj.init(model.sizeY(), model.sizeY());
   model.evalJt(solver->t0_, cj, smj);
-  // smj.printToFile(true);
 
   /*if (solver->checkJacobian_) {
     checkJacobian(smj, model);
   }*/
+
+  /*model.printEquations(solver->ignoreF_);
+  model.printVariableNames(solver->ignoreY_);*/
 
   // Erase useless values in the jacobian
   int size = static_cast<int>(solver->indexY_.size());
@@ -374,11 +376,21 @@ SolverKINAlgRestoration::evalJPrim_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
   return 0;
 }
 
-int
-SolverKINAlgRestoration::solve(bool noInitSetup, bool evaluateOnlyModeAtFirstIter) {
-  if (numF_ == 0)
-    return KIN_SUCCESS;
+void SolverKINAlgRestoration::saveState() {
+  vectorYForRestorationSave_.assign(vectorYForRestoration_.begin(), vectorYForRestoration_.end());
+  vectorYpForRestorationSave_.assign(vectorYpForRestoration_.begin(), vectorYpForRestoration_.end());
+  vectorYOrYpSolutionSave_.assign(vectorYOrYpSolution_.begin(), vectorYOrYpSolution_.end());
+  model_->saveResidual(vectorFSave_);
+}
 
+void SolverKINAlgRestoration::restoreState() {
+  vectorYForRestoration_.assign(vectorYForRestorationSave_.begin(), vectorYForRestorationSave_.end());
+  vectorYpForRestoration_.assign(vectorYpForRestorationSave_.begin(), vectorYpForRestorationSave_.end());
+  vectorYOrYpSolution_.assign(vectorYOrYpSolutionSave_.begin(), vectorYOrYpSolutionSave_.end());
+  model_->restoreResidual(vectorFSave_);
+}
+
+int SolverKINAlgRestoration::solveStrategy(const bool noInitSetup, const bool evaluateOnlyModeAtFirstIter, const int kinsolStategy) {
   int flag = KINSetNoInitSetup(KINMem_, noInitSetup);
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetNoInitSetup");
@@ -389,6 +401,8 @@ SolverKINAlgRestoration::solve(bool noInitSetup, bool evaluateOnlyModeAtFirstIte
     model_->evalFMode(t0_, &vectorYForRestoration_[0], &vectorYpForRestoration_[0], &vectorF_[0]);
   else
     model_->evalF(t0_, &vectorYForRestoration_[0], &vectorYpForRestoration_[0], &vectorF_[0]);
+
+  vectorFSave_.assign(vectorF_.begin(), vectorF_.end());
 
   // fScale
   vectorFScale_.assign(indexF_.size(), 1.);
@@ -405,7 +419,28 @@ SolverKINAlgRestoration::solve(bool noInitSetup, bool evaluateOnlyModeAtFirstIte
     }
   }
 
-  flag = solveCommon();
+  flag = solveCommon(kinsolStategy);
+
+  return flag;
+}
+
+int
+SolverKINAlgRestoration::solve(bool noInitSetup, bool evaluateOnlyModeAtFirstIter, bool multipleStrategiesForAlgebraicRestoration) {
+  if (numF_ == 0)
+    return KIN_SUCCESS;
+
+  if (multipleStrategiesForAlgebraicRestoration)
+    saveState();
+
+  int flag = solveStrategy(noInitSetup, evaluateOnlyModeAtFirstIter, KIN_NONE);
+
+  if (flag  < 0 && multipleStrategiesForAlgebraicRestoration) {
+    Trace::debug() << DYNLog(KinRestart) << Trace::endline;
+    restoreState();
+
+    flag = solveStrategy(noInitSetup, evaluateOnlyModeAtFirstIter, KIN_LINESEARCH);
+  }
+
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverSolveErrorKINSOL);
 

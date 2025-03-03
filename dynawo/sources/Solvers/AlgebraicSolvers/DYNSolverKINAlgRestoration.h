@@ -96,8 +96,9 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
    * @return the flag value
    * @param noInitSetup indicates if the J should be evaluated or not at the first iteration
    * @param evaluateOnlyModeAtFirstIter indicates if only residuals of models with mode change should be evaluated
+   * @param multipleStrategiesForAlgebraicRestoration indicates if we try to use mutliple strategies for restoration
    */
-  int solve(bool noInitSetup = true, bool evaluateOnlyModeAtFirstIter = false);
+  int solve(bool noInitSetup = true, bool evaluateOnlyModeAtFirstIter = false, bool multipleStrategiesForAlgebraicRestoration = false);
 
   /**
    * @brief getter for the model currently simulated
@@ -124,6 +125,16 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
    * @param yp value of derivatives of variables
    */
   void setInitialValues(const double t, const std::vector<double>& y, const std::vector<double>& yp);
+
+  /**
+   * @brief set the initial conditions of the equations to solve
+   *
+   * @param kinsolStategy time to use in equations
+   * @param noInitSetup indicates if the J should be evaluated or not at the first iteration
+  * @param evaluateOnlyModeAtFirstIter indicates if only residuals of models with mode change should be evaluated
+  * @return the flag value
+  */
+  int solveStrategy(bool noInitSetup, bool evaluateOnlyModeAtFirstIter, int kinsolStategy);
 
 // #if _DEBUG_
   /**
@@ -219,6 +230,16 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
 // #endif
 
   /**
+  * @brief save state before performing algebraic restoration
+  */
+  void saveState();
+
+  /**
+  * @brief restore state before performing algebraic restoration to use a new strategy
+  */
+  void restoreState();
+
+  /**
   * @brief get mode
   *
   * @return the mode of the restoration
@@ -254,6 +275,10 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   std::vector<double> vectorYOrYpSolution_;  ///< Solution of the restoration after the call of the solver
   std::vector<double> vectorYForRestoration_;  ///< variables values during call of the solver
   std::vector<double> vectorYpForRestoration_;  ///< derivative variables during call of the solver
+  std::vector<double> vectorYOrYpSolutionSave_;  ///< Solution of the restoration after the call of the solver
+  std::vector<double> vectorYForRestorationSave_;  ///< variables values during call of the solver
+  std::vector<double> vectorYpForRestorationSave_;  ///< derivative variables during call of the solver
+  std::vector<double> vectorFSave_;  ///< derivative variables during call of the solver
   std::unordered_set<int> ignoreF_;  ///< equations to erase from the initial set of equations
   std::unordered_set<int> ignoreY_;  ///< variables to erase form the initial set of variables
   std::vector<int> indexF_;  ///< equations to keep from the initial set of equations

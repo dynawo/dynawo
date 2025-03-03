@@ -268,6 +268,7 @@ KinFirstSysFuncErr            =             the system function failed recoverab
 KinReptdSysfuncErr            =             the system function had repeated recoverable errors
 KinLargestErrors              =             largest errors (truncated to the first %1%) at the current iteration
 KinErrorValue                 =             F[%1%]=%2% (model=%3% index=%4% equation:%5%)
+KinRestart                    =             restart algebraic restoration with new strategy
 SolverEquationsType           =             equation %1% has type %2% (equation:%3%)
 SolverVariablesType           =             variable %1% with index %2% has type %3%
 // --> others...

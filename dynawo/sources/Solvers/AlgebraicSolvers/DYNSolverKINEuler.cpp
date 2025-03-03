@@ -186,7 +186,7 @@ SolverKINEuler::solve(bool noInitSetup, bool skipAlgebraicResidualsEvaluation) {
       vectorYScale_[i] = 1. / std::abs(currentY[i]);
   }
 
-  flag = solveCommon();
+  flag = solveCommon(KIN_NONE);
 
   return flag;
 }
