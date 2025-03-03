@@ -90,6 +90,7 @@ LoadAlphaBetaTwoMotorFifthOrder
 LoadOneTransformer
 LoadOneTransformerTapChanger
 LoadPQ
+LoadTwoTransformers
 LoadTwoTransformersTapChangers
 LossOfSynchronismProtection
 NetworkTransformer
