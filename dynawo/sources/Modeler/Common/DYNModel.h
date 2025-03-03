@@ -23,6 +23,7 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <unordered_set>
 #include <boost/shared_ptr.hpp>
 #include "DYNEnumUtils.h"
 #include "PARParametersSet.h"
@@ -493,6 +494,18 @@ class Model {
    * @brief Print all equations.
    */
   virtual void printEquations() = 0;
+
+  /**
+  * @brief Print all equations.
+  * @param ignoreF
+  */
+  virtual void printEquations(const std::unordered_set<int>& ignoreF) = 0;
+
+  /**
+  * @brief Print all equations.
+  * @param ignoreY
+  */
+  virtual void printVariableNames(const std::unordered_set<int>& ignoreY) = 0;
 
   /**
   * @brief Print all parameters values

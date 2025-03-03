@@ -460,6 +460,18 @@ class ModelMulti : public Model, private boost::noncopyable {
   void printEquations();
 
   /**
+  * @brief Print all equations.
+  * @param ignoreF
+  */
+  void printEquations(const std::unordered_set<int>& ignoreF);
+
+  /**
+  * @brief Print all equations.
+  * @param ignoreY
+  */
+  void printVariableNames(const std::unordered_set<int>& ignoreY);
+
+  /**
    * @copydoc Model::printParameterValues() const
    */
   void printParameterValues() const;

@@ -1094,7 +1094,7 @@ void ModelMulti::printVariableNames(bool withVariableType) {
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
     const std::vector<std::string>& xNames = (*it)->xNamesInit();
     for (unsigned int j = 0; j < xNames.size(); ++j) {
-       Trace::debug(Trace::variables()) << nVar << " " << (*it)->name() << " | " << xNames[j] << Trace::endline;
+       Trace::debug(Trace::variables()) << nVar << " " << (*it)->name() << " | " << xNames[j] << " (local " << j << ")" << Trace::endline;
        ++nVar;
     }
   }
@@ -1105,7 +1105,7 @@ void ModelMulti::printVariableNames(bool withVariableType) {
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
     const std::vector<std::string>& xNames = (*it)->getCalculatedVarNamesInit();
     for (unsigned int j = 0; j < xNames.size(); ++j) {
-       Trace::debug(Trace::variables()) << nVar << " " << (*it)->name() << " | " << xNames[j] << Trace::endline;
+       Trace::debug(Trace::variables()) << nVar << " " << (*it)->name() << " | " << xNames[j] << " (local " << j << ")" << Trace::endline;
        ++nVar;
     }
   }
@@ -1116,7 +1116,7 @@ void ModelMulti::printVariableNames(bool withVariableType) {
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
     const std::vector<std::string>& zNames = (*it)->zNamesInit();
     for (unsigned int j = 0; j < zNames.size(); ++j) {
-      Trace::debug(Trace::variables()) << nVar << " " << (*it)->name() << " | " << zNames[j] << Trace::endline;
+      Trace::debug(Trace::variables()) << nVar << " " << (*it)->name() << " | " << zNames[j] << " (local " << j << ")" << Trace::endline;
       ++nVar;
     }
   }
@@ -1133,9 +1133,9 @@ void ModelMulti::printVariableNames(bool withVariableType) {
     for (unsigned int j = 0; j < xNames.size(); ++j) {
       std::string varName = (*it)->name() + " | " + xNames[j];
       if (withVariableType) {
-        Trace::debug(Trace::variables()) << nVar << " " << varName << " | " << propertyVar2Str(modelYType[nVar]) << Trace::endline;
+        Trace::debug(Trace::variables()) << nVar << " " << varName << " (local " << j << ")" << " | " << propertyVar2Str(modelYType[nVar]) << Trace::endline;
       } else {
-        Trace::debug(Trace::variables()) << nVar << " " << varName << Trace::endline;
+        Trace::debug(Trace::variables()) << nVar << " " << varName << " (local " << j << ")" << Trace::endline;
       }
       ++nVar;
     }
@@ -1155,7 +1155,7 @@ void ModelMulti::printVariableNames(bool withVariableType) {
     const std::vector<std::string>& xNames = (*it)->getCalculatedVarNames();
     for (unsigned int j = 0; j < xNames.size(); ++j) {
       std::string varName = (*it)->name() + " | " + xNames[j];
-      Trace::debug(Trace::variables()) << nVar << " " << varName << Trace::endline;
+      Trace::debug(Trace::variables()) << nVar << " " << varName << " (local " << j << ")" << Trace::endline;
       ++nVar;
     }
   }
@@ -1166,7 +1166,7 @@ void ModelMulti::printVariableNames(bool withVariableType) {
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
     const std::vector<std::string>& zNames = (*it)->zNames();
     for (unsigned int j = 0; j < zNames.size(); ++j) {
-       Trace::debug(Trace::variables()) << nVar << " " << (*it)->name() << " | " << zNames[j] << Trace::endline;
+       Trace::debug(Trace::variables()) << nVar << " " << (*it)->name() << " | " << zNames[j] << " (local " << j << ")" << Trace::endline;
        ++nVar;
     }
   }
@@ -1189,7 +1189,7 @@ void ModelMulti::printEquations() {
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
     for (unsigned int j = 0 ; j < (*it)->sizeFInit() ; ++j) {
       Trace::debug(Trace::equations()) << nVar << " " << (*it)->getFequationByLocalIndex(j) <<
-          " model: " << (*it)->name() <<  Trace::endline;
+          " model: " << (*it)->name() << " (local " << j << ")" <<  Trace::endline;
       ++nVar;
     }
   }
@@ -1201,7 +1201,7 @@ void ModelMulti::printEquations() {
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
     for (unsigned int j = 0 ; j < (*it)->sizeF() ; ++j) {
       Trace::debug(Trace::equations()) << nVar << " " << (*it)->getFequationByLocalIndex(j) <<
-          " model: " << (*it)->name() << Trace::endline;
+          " model: " << (*it)->name() << " (local " << j << ")" << Trace::endline;
       ++nVar;
     }
   }
@@ -1215,7 +1215,7 @@ void ModelMulti::printEquations() {
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
     for (unsigned int j = 0 ; j < (*it)->sizeGInit() ; ++j) {
       Trace::debug(Trace::equations()) << nVar << " " << (*it)->getGequationByLocalIndex(j) <<
-          " model: " << (*it)->name() <<  Trace::endline;
+          " model: " << (*it)->name() << " (local " << j << ")" <<  Trace::endline;
       ++nVar;
     }
   }
@@ -1227,11 +1227,49 @@ void ModelMulti::printEquations() {
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
     for (unsigned int j = 0 ; j < (*it)->sizeG() ; ++j) {
       Trace::debug(Trace::equations()) << nVar << " " << (*it)->getGequationByLocalIndex(j) <<
-          " model: " << (*it)->name() << Trace::endline;
+          " model: " << (*it)->name() << " (local " << j << ")" << Trace::endline;
       ++nVar;
     }
   }
   setIsInitProcess(isInitProcessBefore);
+}
+
+void ModelMulti::printEquations(const std::unordered_set<int>& ignoreF) {
+  int nVar = 0;
+  static int nbPrint = 0;
+  Trace::debug(Trace::equations()) << "------------------------------" << Trace::endline;
+  Trace::debug(Trace::equations()) << "Algebraic Equations " << nbPrint << Trace::endline;
+  Trace::debug(Trace::equations()) << "------------------------------" << Trace::endline;
+  for (const auto& subModel : subModels_) {
+    for (unsigned int j = 0 ; j < subModel->sizeF() ; ++j) {
+      if (ignoreF.find(j) == ignoreF.end()) {
+        Trace::debug(Trace::equations()) << nVar << " " << subModel->getFequationByLocalIndex(j) <<
+    " model: " << subModel->name() << " (local " << j << ")" << Trace::endline;
+        ++nVar;
+      }
+    }
+  }
+  connectorContainer_->printEquations();
+  ++nbPrint;
+}
+
+void ModelMulti::printVariableNames(const std::unordered_set<int>& ignoreY) {
+  int nVar = 0;
+  static int nbPrint = 0;
+  Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
+  Trace::debug(Trace::variables()) << "Algebraic variables " << nbPrint << Trace::endline;
+  Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
+  for (const auto& subModel : subModels_) {
+    const std::vector<std::string>& xNames = subModel->xNames();
+    for (unsigned int j = 0; j < xNames.size(); ++j) {
+      if (ignoreY.find(j) == ignoreY.end()) {
+        std::string varName = subModel->name() + " | " + xNames[j];
+        Trace::debug(Trace::variables()) << nVar << " " << varName << " (local " << j << ")" << Trace::endline;
+        ++nVar;
+      }
+    }
+  }
+  ++nbPrint;
 }
 
 void ModelMulti::printLocalInitParametersValues() const {
