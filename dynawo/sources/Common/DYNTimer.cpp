@@ -27,12 +27,12 @@
 namespace DYN {
 
 Timers::~Timers() {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+// #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   std::map<std::string, double>::const_iterator itT;
   for (itT = timers_.begin(); itT != timers_.end(); ++itT) {
     std::cout << "TIMER[" << itT->first << "] = " << itT->second << " seconds in " << nbAppels_[itT->first] << " calls" << std::endl;
   }
-#endif
+// #endif
 }
 
 Timers&
@@ -64,10 +64,10 @@ isStopped_(false) {
 
 void
 Timer::stop() {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+// #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   double elapsedTime = elapsed();
   Timers::add(name_, elapsedTime);
-#endif
+// #endif
   isStopped_ = true;
 }
 

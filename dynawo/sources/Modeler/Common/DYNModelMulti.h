@@ -69,6 +69,20 @@ class ModelMulti : public Model, private boost::noncopyable {
   void copyContinuousVariables(const double* y, const double* yp);
 
   /**
+   * @brief restore the residual to a previous state
+   *
+   * @param f current values of the residual
+   */
+  void restoreResidual(const std::vector<double>& f);
+
+  /**
+   * @brief save the residual
+   *
+   * @param f
+   */
+  void saveResidual(std::vector<double>& f);
+
+  /**
    * @copydoc Model::copyDiscreteVariables(const double* z)
    */
   void copyDiscreteVariables(const double* z);
@@ -77,6 +91,11 @@ class ModelMulti : public Model, private boost::noncopyable {
    * @copydoc Model::evalG(double t, std::vector<state_g> &g)
    */
   void evalG(double t, std::vector<state_g>& g);
+
+ /**
+   * @copydoc Model::evalG(double t, std::vector<state_g> &g)
+   */
+ void evalG(double t, double* g);
 
   /**
    * @copydoc Model::evalZ(double t)
@@ -441,6 +460,18 @@ class ModelMulti : public Model, private boost::noncopyable {
   void printEquations();
 
   /**
+  * @brief Print all equations.
+  * @param ignoreF
+  */
+  void printEquations(const std::unordered_set<int>& ignoreF);
+
+  /**
+  * @brief Print all equations.
+  * @param ignoreY
+  */
+  void printVariableNames(const std::unordered_set<int>& ignoreY);
+
+  /**
    * @copydoc Model::printParameterValues() const
    */
   void printParameterValues() const;
@@ -567,6 +598,16 @@ class ModelMulti : public Model, private boost::noncopyable {
    * @brief set the silent flag for discrete variables
    */
   void collectSilentZ();
+
+ /**
+ * @brief set the local initialization solver parameters of the model
+ */
+ void setSymbolicJacobian();
+
+ /**
+ * @brief set the local initialization solver parameters of the model
+ */
+ void setSymbolicResidual();
 
  private:
   std::unordered_map<int, int> mapAssociationF_;  ///< association between an index of f functions and a subModel

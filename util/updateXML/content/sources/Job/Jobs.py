@@ -218,7 +218,8 @@ class Jobs:
     def get_networks(self):
         networks = list()
         for job in self.__jobs_collection:
-            networks.append(job.network)
+            if hasattr(job, 'network'):
+                networks.append(job.network)
         return networks
 
     def get_solvers(self):

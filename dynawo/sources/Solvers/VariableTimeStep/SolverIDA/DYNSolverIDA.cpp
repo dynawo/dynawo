@@ -93,14 +93,25 @@ minStep_(0.),
 maxStep_(0.),
 absAccuracy_(0.),
 relAccuracy_(0.),
+deltacj_(0.25),
+uround_(false),
+newReinit_(false),
+solveTask_("ONE_STEP"),
+maxnef_(10),
+maxcor_(4),
+maxncf_(10),
+nlscoef_(0.33),
+restorationYPrim_(true),
+activateCheckJacobian_(false),
 flagInit_(false),
 nbLastTimeSimulated_(0),
-lastRowVals_(NULL) {
+allLogs_(false) {
 }
 
 void
 SolverIDA::cleanIDA() {
   if (sundialsMatrix_ != NULL) {
+    SolverCommon::cleanSUNMatrix(sundialsMatrix_);
     SUNMatDestroy(sundialsMatrix_);
     sundialsMatrix_ = NULL;
   }
@@ -111,10 +122,6 @@ SolverIDA::cleanIDA() {
   if (IDAMem_ != NULL) {
     IDAFree(&IDAMem_);
     IDAMem_ = NULL;
-  }
-  if (lastRowVals_ != NULL) {
-    free(lastRowVals_);
-    lastRowVals_ = NULL;
   }
   if (sundialsVectorYType_ != NULL) {
     N_VDestroy_Serial(sundialsVectorYType_);
@@ -129,6 +136,7 @@ SolverIDA::~SolverIDA() {
 void
 SolverIDA::defineSpecificParameters() {
   const bool mandatory = true;
+  const bool notMandatory = false;
   // Time-domain part parameters
   parameters_.insert(make_pair("order", ParameterSolver("order", VAR_TYPE_INT, mandatory)));
   parameters_.insert(make_pair("initStep", ParameterSolver("initStep", VAR_TYPE_DOUBLE, mandatory)));
@@ -136,6 +144,17 @@ SolverIDA::defineSpecificParameters() {
   parameters_.insert(make_pair("maxStep", ParameterSolver("maxStep", VAR_TYPE_DOUBLE, mandatory)));
   parameters_.insert(make_pair("absAccuracy", ParameterSolver("absAccuracy", VAR_TYPE_DOUBLE, mandatory)));
   parameters_.insert(make_pair("relAccuracy", ParameterSolver("relAccuracy", VAR_TYPE_DOUBLE, mandatory)));
+  parameters_.insert(make_pair("deltacj", ParameterSolver("deltacj", VAR_TYPE_DOUBLE, notMandatory)));
+  parameters_.insert(make_pair("uround", ParameterSolver("uround", VAR_TYPE_BOOL, notMandatory)));
+  parameters_.insert(make_pair("newReinit", ParameterSolver("newReinit", VAR_TYPE_BOOL, notMandatory)));
+  parameters_.insert(make_pair("solveTask", ParameterSolver("solveTask", VAR_TYPE_STRING, notMandatory)));
+  parameters_.insert(make_pair("maxnef", ParameterSolver("maxnef", VAR_TYPE_INT, notMandatory)));
+  parameters_.insert(make_pair("maxcor", ParameterSolver("maxcor", VAR_TYPE_INT, notMandatory)));
+  parameters_.insert(make_pair("maxncf", ParameterSolver("maxncf", VAR_TYPE_INT, notMandatory)));
+  parameters_.insert(make_pair("nlscoef", ParameterSolver("nlscoef", VAR_TYPE_DOUBLE, notMandatory)));
+  parameters_.insert(make_pair("allLogs", ParameterSolver("allLogs", VAR_TYPE_BOOL, notMandatory)));
+  parameters_.insert(make_pair("restorationYPrim", ParameterSolver("restorationYPrim", VAR_TYPE_BOOL, notMandatory)));
+  parameters_.insert(make_pair("activateCheckJacobian", ParameterSolver("activateCheckJacobian", VAR_TYPE_BOOL, notMandatory)));
 }
 
 void
@@ -146,6 +165,39 @@ SolverIDA::setSolverSpecificParameters() {
   maxStep_ = findParameter("maxStep").getValue<double>();
   absAccuracy_ = findParameter("absAccuracy").getValue<double>();
   relAccuracy_ = findParameter("relAccuracy").getValue<double>();
+  const ParameterSolver& deltacj = findParameter("deltacj");
+  if (deltacj.hasValue())
+    deltacj_ = deltacj.getValue<double>();
+  const ParameterSolver& uround = findParameter("uround");
+  if (uround.hasValue())
+    uround_ = uround.getValue<bool>();
+  const ParameterSolver& newReinit = findParameter("newReinit");
+  if (newReinit.hasValue())
+    newReinit_ = newReinit.getValue<bool>();
+  const ParameterSolver& solveTask = findParameter("solveTask");
+  if (solveTask.hasValue())
+    solveTask_ = solveTask.getValue<string>();
+  const ParameterSolver& maxnef = findParameter("maxnef");
+  if (maxnef.hasValue())
+    maxnef_ = maxnef.getValue<int>();
+  const ParameterSolver& maxcor = findParameter("maxcor");
+  if (maxcor.hasValue())
+    maxcor_ = maxcor.getValue<int>();
+  const ParameterSolver& maxncf = findParameter("maxncf");
+  if (maxncf.hasValue())
+    maxncf_ = maxncf.getValue<int>();
+  const ParameterSolver& nlscoef = findParameter("nlscoef");
+  if (nlscoef.hasValue())
+    nlscoef_ = nlscoef.getValue<double>();
+  const ParameterSolver& allLogs = findParameter("allLogs");
+  if (allLogs.hasValue())
+    allLogs_ = allLogs.getValue<bool>();
+  const ParameterSolver& restorationYPrim = findParameter("restorationYPrim");
+  if (restorationYPrim.hasValue())
+    restorationYPrim_ = restorationYPrim.getValue<bool>();
+  const ParameterSolver& activateCheckJacobian = findParameter("activateCheckJacobian");
+  if (activateCheckJacobian.hasValue())
+    activateCheckJacobian_ = activateCheckJacobian.getValue<bool>();
 }
 
 std::string
@@ -252,10 +304,12 @@ SolverIDA::init(const std::shared_ptr<Model>& model, const double t0, const doub
 
   // (8) Solver choice
   // -------------------
-  sundialsMatrix_ = SUNSparseMatrix(model->sizeY(), model->sizeY(), 10., CSR_MAT, sundialsContext_);
+  sundialsMatrix_ = SUNSparseMatrix(model->sizeY(), model->sizeY(), 0, CSR_MAT, sundialsContext_);
   if (sundialsMatrix_ == NULL)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "SUNSparseMatrix");
-
+  SolverCommon::freeSUNMatrix(sundialsMatrix_);
+  smj_.init(model->sizeY(), model->sizeY());
+  SolverCommon::copySparseMatrixToSUNMatrix(smj_, sundialsMatrix_);
   /* Create KLU SUNLinearSolver object */
   linearSolver_ = SUNLinSol_KLU(sundialsVectorY_, sundialsMatrix_, sundialsContext_);
   if (linearSolver_ == NULL)
@@ -290,6 +344,16 @@ SolverIDA::init(const std::shared_ptr<Model>& model, const double t0, const doub
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetNoInactiveRootWarn");
 
+  flag = IDASetDeltaCjLSetup(IDAMem_, deltacj_);
+  if (flag < 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetDeltaCjLSetup");
+
+  if (uround_) {
+    flag = IDASetURound(IDAMem_, getCurrentPrecision() / (100. * minStep_));
+    if (flag < 0)
+      throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetURound");
+  }
+
   Solver::Impl::resetStats();
   g0_.assign(model_->sizeG(), ROOT_DOWN);
   g1_.assign(model_->sizeG(), ROOT_DOWN);
@@ -320,16 +384,35 @@ SolverIDA::init(const std::shared_ptr<Model>& model, const double t0, const doub
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetMaxNumJacsIC");
 
+  flag = IDASetMaxErrTestFails(IDAMem_, maxnef_);
+  if (flag < 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetMaxErrTestFails");
+
+  flag = IDASetMaxNonlinIters(IDAMem_, maxcor_);
+  if (flag < 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetMaxNonlinIters");
+
+  flag = IDASetMaxConvFails(IDAMem_, maxncf_);
+  if (flag < 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetMaxConvFails");
+
+  flag = IDASetNonlinConvCoef(IDAMem_, nlscoef_);
+  if (flag < 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetNonlinConvCoef");
+
   // KINSOL solver Init
   //-----------------------
   solverKINNormal_.reset(new SolverKINAlgRestoration());
-  solverKINYPrim_.reset(new SolverKINAlgRestoration());
   solverKINNormal_->init(model_, SolverKINAlgRestoration::KIN_ALGEBRAIC);
-  solverKINYPrim_->init(model_, SolverKINAlgRestoration::KIN_DERIVATIVES);
+  if (restorationYPrim_) {
+    solverKINYPrim_.reset(new SolverKINAlgRestoration());
+    solverKINYPrim_->init(model_, SolverKINAlgRestoration::KIN_DERIVATIVES);
+  }
 }
 
 void
-SolverIDA::calculateIC(double tEnd) {
+SolverIDA::calculateIC(double /*tEnd*/) {
+  Timer timer("SolverIDA::calculateIC");
 #ifdef _DEBUG_
   vector<double> y0;
   y0.assign(vectorY_.begin(), vectorY_.end());
@@ -352,9 +435,14 @@ SolverIDA::calculateIC(double tEnd) {
 #endif
 
   // Updating discrete variable values and mode
+  Trace::debug() << "Updating discrete variable values and mode" << Trace::endline;
   model_->copyContinuousVariables(&vectorY_[0], &vectorYp_[0]);
-  model_->evalG(tSolve_, g0_);
+  Trace::debug() << "Updating evalG" << Trace::endline;
+  model_->evalG(tSolve_, g1_);
+  ++stats_.ngeInternal_;
+  Trace::debug() << "Updating evalZMode" << Trace::endline;
   evalZMode(g0_, g1_, tSolve_);
+  Trace::debug() << "End Updating discrete variable values and mode" << Trace::endline;
 
   model_->rotateBuffers();
   state_.reset();
@@ -368,15 +456,35 @@ SolverIDA::calculateIC(double tEnd) {
                                                   msbsetAlgInit_, mxiterAlgInit_, printflAlgInit_);
 
   setDifferentialVariablesIndices();
+  if (restorationYPrim_) {
+    solverKINYPrim_->setupNewAlgebraicRestoration(fnormtolAlgInit_, initialaddtolAlgInit_, scsteptolAlgInit_, mxnewtstepAlgInit_,
+                                              msbsetAlgInit_, mxiterAlgInit_, printflAlgInit_);
+  }
 
-#if _DEBUG_
-  solverKINNormal_->setCheckJacobian(true);
-#endif
+// #if _DEBUG_
+  if (activateCheckJacobian_) {
+    solverKINNormal_->setCheckJacobian(true);
+  } else {
+    solverKINNormal_->setCheckJacobian(false);
+  }
+// #endif
   do {
+    Trace::debug() << "Start algebraic restoration" << Trace::endline;
     // call to solver KIN in order to find the new (adequate) algebraic variables' values
     solverKINNormal_->setInitialValues(tSolve_, vectorY_, vectorYp_);
     solverKINNormal_->solve();
     solverKINNormal_->getValues(vectorY_, vectorYp_);
+
+    if (restorationYPrim_) {
+      solverKINYPrim_->setInitialValues(tSolve_, vectorY_, vectorYp_);
+      solverKINYPrim_->solve();
+      solverKINYPrim_->getValues(vectorY_, vectorYp_);
+    }
+
+    updateAlgebraicRestorationStatistics();
+    updateStatistics();
+
+    Trace::debug() << "End algebraic restoration" << Trace::endline;
 
     // Reinitialization (forced to start over with a small time step)
     // -------------------------------------------------------
@@ -391,8 +499,10 @@ SolverIDA::calculateIC(double tEnd) {
     }
 #endif
     flagInit_ = true;
-    int flag = IDACalcIC(IDAMem_, IDA_YA_YDP_INIT, startFromDump() ? initStep_ : tEnd);
+    Trace::debug() << "Start IDACalcIC" << Trace::endline;
+    int flag = IDACalcIC(IDAMem_, IDA_YA_YDP_INIT, initStep_);
     analyseFlag(flag);
+    Trace::debug() << "End IDACalcIC" << Trace::endline;
 
     // gathering of values computed by IDACalcIC
     flag = IDAGetConsistentIC(IDAMem_, sundialsVectorY_, sundialsVectorYp_);
@@ -415,13 +525,18 @@ SolverIDA::calculateIC(double tEnd) {
     // Root stabilization
     change = false;
     model_->copyContinuousVariables(&vectorY_[0], &vectorYp_[0]);
+    Trace::debug() << "Start calculateIC evalG" << Trace::endline;
     model_->evalG(tSolve_, g1_);
+    ++stats_.ngeInternal_;
+    Trace::debug() << "End calculateIC evalG" << Trace::endline;
     if (!(std::equal(g0_.begin(), g0_.end(), g1_.begin()))) {
 #ifdef _DEBUG_
         printUnstableRoot(tSolve_, g0_, g1_);
 #endif
       g0_.assign(g1_.begin(), g1_.end());
+      Trace::debug() << "Start calculateIC evalZMode" << Trace::endline;
       change = evalZMode(g0_, g1_, tSolve_);
+      Trace::debug() << "End calculateIC evalZMode" << Trace::endline;
     }
 
     model_->rotateBuffers();
@@ -433,11 +548,23 @@ SolverIDA::calculateIC(double tEnd) {
       throw DYNError(Error::SOLVER_ALGO, SolverIDAUnstableRoots);
   } while (change);
 
+  updateStatistics();
+
+  printEnd();
+  // printEndConsole();
+
+  int flag0 = IDAReInit(IDAMem_, tSolve_, sundialsVectorY_, sundialsVectorYp_);  // required to relaunch the simulation
+  if (flag0 < 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");
+
+  Solver::Impl::resetStats();
+  SolverCommon::resetNumSymbolicFactorization();
+
   // reinit output
   flagInit_ = false;
-#if _DEBUG_
+// #if _DEBUG_
   solverKINNormal_->setCheckJacobian(false);
-#endif
+// #endif
 }
 
 void
@@ -504,9 +631,7 @@ SolverIDA::analyseFlag(const int & flag) {
 int
 SolverIDA::evalF(realtype tres, N_Vector yy, N_Vector yp,
         N_Vector rr, void* data) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SolverIDA::evalF");
-#endif
   SolverIDA* solver = reinterpret_cast<SolverIDA*> (data);
   Model& model = solver->getModel();
 
@@ -516,36 +641,102 @@ SolverIDA::evalF(realtype tres, N_Vector yy, N_Vector yp,
   model.evalF(tres, iyy, iyp, irr);
 #ifdef _DEBUG_
   if (solver->flagInit()) {
-    Trace::debug() << "===== " << DYNLog(SolverIDADebugResidual) << " =====" << Trace::endline;
+    Trace::debug(Trace::solver()) << "===== " << DYNLog(SolverIDADebugResidual) << " =====" << Trace::endline;
     for (int i = 0; i < model.sizeF(); ++i) {
       if (std::abs(irr[i]) > 1e-04) {
-        Trace::debug() << "  f[" << i << "]=" << irr[i] << Trace::endline;
+        Trace::debug(Trace::solver()) << "  f[" << i << "]=" << irr[i] << Trace::endline;
       }
     }
   }
 #endif
+  if (solver->getAllLogs()) {
+    std::vector<double> vectorF(model.sizeY());
+    std::vector<double> vectorFScale(model.sizeY(), 1.);
+    memcpy(&vectorF[0], irr, vectorF.size() * sizeof(vectorF[0]));
+    double weightedInfNorm = SolverCommon::weightedInfinityNorm(vectorF, vectorFScale);
+    double wL2Norm = SolverCommon::weightedL2Norm(vectorF, vectorFScale);
+    long int current_nni = 0;
+    Trace::debug() << DYNLog(SolverKINResidualNorm, current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
+
+    int nbErr = 10;
+    Trace::debug() << DYNLog(KinLargestErrors, nbErr) << Trace::endline;
+    vector<std::pair<double, size_t> > fErr;
+    fErr.reserve(nbErr);
+    for (size_t i = 0; i < static_cast<size_t>(model.sizeF()); ++i)
+      fErr.push_back(std::pair<double, size_t>(vectorF[i], i));
+    SolverCommon::printLargestErrors(fErr, model, nbErr);
+  }
+
+  // if (!solver->flagInit()) {
+  //   /* The convergence criterion in IDA is associated to the weighted RMS norm of the delta between two Newton iterations.
+  //    * Indeed, the correction step is successful if sqrt(Sum(w*(y(k+1)-y(k))^2)/n) < tolerance where k is the kth Newton iteration and n the number of variables
+  //    * The weights (w) used are inversely proportional to the relative accuracy multiplied by the value variable and the absolute accuracy.
+  //    * The local errors are the sum of the differences between y before and after the Newton iteration (errors += y(k+1) - y(k)).
+  //    * => Therefore the errors multiplied by the weights are a good indicator of the variables that evolve the more during the Newton iterations.
+  //    */
+  //   int nbY = model.sizeY();
+  //   double thresholdErr = 1;
+  //
+  //   if (nbErr > nbY)
+  //     nbErr = nbY;
+  //
+  //   // Defining necessary data structure and retrieving information from IDA
+  //   N_Vector nvWeights = N_VNew_Serial(nbY, solver->sundialsContext_);
+  //   N_Vector nvErrors = N_VNew_Serial(nbY, solver->sundialsContext_);
+  //   if (IDAGetErrWeights(solver->IDAMem_, nvWeights) < 0)
+  //     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetErrWeights");
+  //
+  //   if (IDAGetEstLocalErrors(solver->IDAMem_, nvErrors) < 0)
+  //     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetEstLocalErrors");
+  //
+  //   double *weights = NV_DATA_S(nvWeights);
+  //   double *errors = NV_DATA_S(nvErrors);
+  //   std::vector<double> weightedErrors(nbY);
+  //
+  //   for (int i = 0; i < nbY; ++i)
+  //     weightedErrors[i] = fabs(weights[i] * errors[i]);
+  //
+  //   // Filling and sorting the vector
+  //   vector<std::pair<double, int> > yErr;
+  //   for (int i = 0; i < nbY; ++i) {
+  //     // Tolerances (RTOL and ATOL) are 1e-04 by default so weights are around 1e4 therefore 1 is a relatively small value
+  //     if (weightedErrors[i] > thresholdErr) {
+  //       yErr.push_back(std::pair<double, int>(weightedErrors[i], i));
+  //     }
+  //   }
+  //   std::sort(yErr.begin(), yErr.end(), mapcompabs());
+  //
+  //   if (!yErr.empty()) {
+  //     Trace::debug() << DYNLog(SolverIDALargestErrors, nbErr) << Trace::endline;
+  //     int i = 0;
+  //     for (vector<std::pair<double, int> >::iterator it = yErr.begin(); it != yErr.end() && i < nbErr; ++it, ++i)
+  //       Trace::debug() << DYNLog(SolverIDAErrorValue, thresholdErr, it->second, it->first) << Trace::endline;
+  //   }
+  //
+  //   // Destroying the specific data structures
+  //   N_VDestroy_Serial(nvWeights);
+  //   N_VDestroy_Serial(nvErrors);
+  // }
 return 0;
 }
 
 int
 SolverIDA::evalG(realtype tres, N_Vector yy, N_Vector yp, realtype* gout,
         void* data) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SolverIDA::evalG");
-#endif
   SolverIDA* solver = reinterpret_cast<SolverIDA*> (data);
   Model& model = solver->getModel();
   realtype* iyy = NV_DATA_S(yy);
   realtype* iyp = NV_DATA_S(yp);
 
-  std::vector<state_g>& g1 = solver->getG1();
+  // std::vector<state_g>& g1 = solver->getG1();
 
   model.copyContinuousVariables(iyy, iyp);
-  model.evalG(tres, g1);
+  model.evalG(tres, gout);
 
-  for (unsigned int i = 0 ; i < g1.size(); ++i) {
+  /*for (unsigned int i = 0 ; i < g1.size(); ++i) {
     gout[i] = g1[i];
-  }
+  }*/
 
   return 0;
 }
@@ -555,28 +746,32 @@ SolverIDA::evalJ(realtype tt, realtype cj,
         N_Vector yy, N_Vector yp, N_Vector /*rr*/,
         SUNMatrix JJ, void* data,
         N_Vector /*tmp1*/, N_Vector /*tmp2*/, N_Vector /*tmp3*/) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SolverIDA::evalJ");
-#endif
   SolverIDA* solver = reinterpret_cast<SolverIDA*> (data);
   Model& model = solver->getModel();
+  SparseMatrix& smj = solver->getMatrix();
 
   realtype* iyy = NV_DATA_S(yy);
   realtype* iyp = NV_DATA_S(yp);
 
-  SparseMatrix smj;
   const int size = model.sizeY();
   smj.init(size, size);
   model.copyContinuousVariables(iyy, iyp);
   model.evalJt(tt, cj, smj);
-  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, &solver->lastRowVals_, solver->linearSolver_, true);
+  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, solver->lastRowVals_, solver->linearSolver_, true);
 
   return 0;
 }
 
 void
 SolverIDA::solveStep(double tAim, double& tNxt) {
-  int flag = IDASolve(IDAMem_, tAim, &tNxt, sundialsVectorY_, sundialsVectorYp_, IDA_ONE_STEP);
+  int flag = IDASolve(IDAMem_, tAim, &tNxt, sundialsVectorY_, sundialsVectorYp_, solveTaskToInt());
+  if (uround_) {
+    int flag1 = IDASetURound(IDAMem_, getCurrentPrecision() / (100. * (getTimeStep() + tNxt)));
+    // std::cout << "uround " << getCurrentPrecision() / (100. * (getTimeStep() + tNxt)) << std::endl;
+    if (flag1 < 0)
+      throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetURound");
+  }
 
   string msg;
   switch (flag) {
@@ -587,7 +782,7 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
       msg = "IDA_ROOT_RETURN";
       model_->copyContinuousVariables(&vectorY_[0], &vectorYp_[0]);
       model_->evalG(tNxt, g1_);
-      ++stats_.nge_;
+      ++stats_.ngeInternal_;
       evalZMode(g0_, g1_, tNxt);
       break;
     case IDA_TSTOP_RETURN:
@@ -606,10 +801,17 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
     nbLastTimeSimulated_ = 0;
   }
 
-#ifdef _DEBUG_
-  // A root has been found at tNxt
+if (allLogs_) {
+    // A root has been found at tNxt
   if (flag == IDA_ROOT_RETURN) {
     vector<state_g> rootsFound = getRootsFound();
+    int numRoots = 0;
+    for (const auto root : rootsFound) {
+      if (std::fabs(root) > 0) {
+        ++numRoots;
+      }
+    }
+    Trace::debug() << "SolverIDA: numRoots rootsfound " << numRoots << Trace::endline;
     for (unsigned int i = 0; i < rootsFound.size(); i++) {
       if (rootsFound[i] != NO_ROOT) {
         Trace::debug() << "SolverIDA: rootsfound ->  g[" << i << "]=" << rootsFound[i] << Trace::endline;
@@ -671,23 +873,42 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
   // Destroying the specific data structures
   N_VDestroy_Serial(nvWeights);
   N_VDestroy_Serial(nvErrors);
-#endif
+}
 }
 
 bool SolverIDA::setupNewAlgRestoration(modeChangeType_t modeChangeType) {
   if (modeChangeType == ALGEBRAIC_MODE) {
     solverKINNormal_->setupNewAlgebraicRestoration(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
     setDifferentialVariablesIndices();
-    solverKINYPrim_->setupNewAlgebraicRestoration(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
+    if (restorationYPrim_) {
+      solverKINYPrim_->setupNewAlgebraicRestoration(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
+    }
     return false;  // no J factorization
   } else if (modeChangeType == ALGEBRAIC_J_UPDATE_MODE) {
     solverKINNormal_->setupNewAlgebraicRestoration(fnormtolAlgJ_, initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_,
                                                    printflAlgJ_);
     setDifferentialVariablesIndices();
-    solverKINYPrim_->setupNewAlgebraicRestoration(fnormtolAlgJ_, initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
+    if (restorationYPrim_) {
+      solverKINYPrim_->setupNewAlgebraicRestoration(fnormtolAlgJ_, initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
+    }
     return true;  // new J factorization
   }
   return false;  // no J factorization
+}
+
+void SolverIDA::updateAlgebraicRestorationStatistics() {
+  long int nNewt = 0;
+  long int nre = 0;
+  long int nje = 0;
+  solverKINNormal_->updateStatistics(nNewt, nre, nje);
+  stats_.nreAlgebraic_ += nre;
+  stats_.njeAlgebraic_ += nje;
+
+  if (restorationYPrim_) {
+    solverKINYPrim_->updateStatistics(nNewt, nre, nje);
+    stats_.nreAlgebraicPrim_ += nre;
+    stats_.njeAlgebraicPrim_ += nje;
+  }
 }
 
 /*
@@ -697,12 +918,22 @@ bool SolverIDA::setupNewAlgRestoration(modeChangeType_t modeChangeType) {
  */
 void
 SolverIDA::reinit() {
+  Timer timer("SolverIDA::reinit");
   int counter = 0;
   modeChangeType_t modeChangeType = model_->getModeChangeType();
   if (modeChangeType == NO_MODE) return;
 
+  if (modeChangeType == DIFFERENTIAL_MODE) {
+    ++stats_.nmeDiff_;
+  } else if (modeChangeType == ALGEBRAIC_MODE) {
+    ++stats_.nmeAlg_;
+  } else if (modeChangeType == ALGEBRAIC_J_UPDATE_MODE) {
+    ++stats_.nmeAlgJ_;
+  }
+
   const bool evaluateOnlyMode = optimizeReinitAlgebraicResidualsEvaluations_;
   if (modeChangeType >= minimumModeChangeTypeForAlgebraicRestoration_) {
+    Trace::info() << DYNLog(NewStartPoint) << Trace::endline;
     do {
       model_->rotateBuffers();
       state_.reset();
@@ -718,41 +949,35 @@ SolverIDA::reinit() {
           vectorYp_[i] = 0;
 
       solverKINNormal_->setInitialValues(tSolve_, vectorY_, vectorYp_);
-      solverKINNormal_->solve(noInitSetup, evaluateOnlyMode);
+      solverKINNormal_->solve(noInitSetup, evaluateOnlyMode, multipleStrategiesForAlgebraicRestoration_);
       solverKINNormal_->getValues(vectorY_, vectorYp_);
 
-      // Recomputation of differential variables' values
-      for (unsigned int i = 0; i < modelYType.size(); i++)
-        if (modelYType[i] != DYN::DIFFERENTIAL)
-          vectorYp_[i] = 0;
+      if (restorationYPrim_) {
+        // Recomputation of differential variables' values
+        for (unsigned int i = 0; i < modelYType.size(); i++)
+          if (modelYType[i] != DYN::DIFFERENTIAL)
+            vectorYp_[i] = 0;
 
-      solverKINYPrim_->setInitialValues(tSolve_, vectorY_, vectorYp_);
-      solverKINYPrim_->solve(noInitSetup, evaluateOnlyMode);
-      solverKINYPrim_->getValues(vectorY_, vectorYp_);
+        solverKINYPrim_->setInitialValues(tSolve_, vectorY_, vectorYp_);
+        solverKINYPrim_->solve(noInitSetup, evaluateOnlyMode, multipleStrategiesForAlgebraicRestoration_);
+        solverKINYPrim_->getValues(vectorY_, vectorYp_);
+      }
+
       model_->reinitMode();
 
       // Update statistics
-      long int nNewt = 0;
-      long int nre = 0;
-      long int nje = 0;
-      solverKINNormal_->updateStatistics(nNewt, nre, nje);
-      stats_.nre_ += nre;
-      stats_.nni_ += nNewt;
-      stats_.nje_ += nje;
-      solverKINYPrim_->updateStatistics(nNewt, nre, nje);
-      stats_.nre_ += nre;
-      stats_.nni_ += nNewt;
-      stats_.nje_ += nje;
+      updateAlgebraicRestorationStatistics();
 
       // Root stabilization
       model_->evalG(tSolve_, g1_);
-      ++stats_.nge_;
+      ++stats_.ngeInternal_;
       if (std::equal(g0_.begin(), g0_.end(), g1_.begin())) {
         break;
       } else {
-#ifdef _DEBUG_
-        printUnstableRoot(tSolve_, g0_, g1_);
-#endif
+// #ifdef _DEBUG_
+        if (allLogs_)
+          printUnstableRoot(tSolve_, g0_, g1_);
+// #endif
         g0_.assign(g1_.begin(), g1_.end());
         evalZMode(g0_, g1_, tSolve_);
         modeChangeType = model_->getModeChangeType();
@@ -763,18 +988,28 @@ SolverIDA::reinit() {
         throw DYNError(Error::SOLVER_ALGO, SolverIDAUnstableRoots);
     } while (modeChangeType >= minimumModeChangeTypeForAlgebraicRestoration_);
 
-    updateStatistics();
+    if (newReinit_) {
+      updateStatistics();
+
+      int flag0 = IDAReInit(IDAMem_, tSolve_, sundialsVectorY_, sundialsVectorYp_);  // required to relaunch the simulation
+      if (flag0 < 0)
+        throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");
+    }
   }
 
-  int flag0 = IDAReInit(IDAMem_, tSolve_, sundialsVectorY_, sundialsVectorYp_);  // required to relaunch the simulation
-  if (flag0 < 0)
-    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");
+  if (!newReinit_) {
+    updateStatistics();
+
+    int flag0 = IDAReInit(IDAMem_, tSolve_, sundialsVectorY_, sundialsVectorYp_);  // required to relaunch the simulation
+    if (flag0 < 0)
+      throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");
+  }
 }
 
-#ifdef _DEBUG_
+// #ifdef _DEBUG_
 vector<state_g>
 SolverIDA::getRootsFound() const {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("SolverIDA::getRootsFound()");
 #endif
   vector<state_g> rootsFound(model_->sizeG(), NO_ROOT);
@@ -784,7 +1019,7 @@ SolverIDA::getRootsFound() const {
 
   return rootsFound;
 }
-#endif
+// #endif
 
 double SolverIDA::getTimeStep() const {
   double hused = 0.;
@@ -863,7 +1098,7 @@ SolverIDA::updateStatistics() {
   stats_.nni_ += nni;
   stats_.netf_ += netf;
   stats_.ncfn_ += ncfn;
-  stats_.nge_ += nge;
+  stats_.ngeSolver_ += nge;
 }
 
 void
@@ -879,13 +1114,24 @@ SolverIDA::errHandlerFn(int error_code, const char* module, const char* function
 void
 SolverIDA::setDifferentialVariablesIndices() {
   const std::vector<propertyContinuousVar_t>& modelYType = model_->getYType();
-
+  numDifferentialVariables_ = model_->sizeY();
   double* idx = NV_DATA_S(sundialsVectorYType_);
   for (int ieq = 0; ieq < model_->sizeY(); ++ieq) {
     idx[ieq] = RCONST(1.);
-    if (modelYType[ieq] != DYN::DIFFERENTIAL)  // Algebraic or external variable
+    if (modelYType[ieq] != DYN::DIFFERENTIAL) {       // Algebraic or external variable
       idx[ieq] = RCONST(0.);
+      --numDifferentialVariables_;
+    }
   }
+}
+
+int SolverIDA::solveTaskToInt() {
+  if (solveTask_ == "NORMAL") {
+    return IDA_NORMAL;
+  } else if (solveTask_ == "ONE_STEP") {
+    return IDA_ONE_STEP;
+  }
+  return IDA_ONE_STEP;
 }
 
 }  // end namespace DYN

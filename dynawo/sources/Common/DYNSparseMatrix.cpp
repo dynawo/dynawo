@@ -180,7 +180,7 @@ void SparseMatrix::printToFile(bool sparse) const {
 
     for (int iCol = 0; iCol < nbCol_; ++iCol) {
       for (unsigned ind = Ap_[iCol]; ind < Ap_[iCol + 1]; ++ind) {
-        int iRow = Ai_[ind];
+        int iRow = static_cast<int>(Ai_[ind]);
         double val = Ax_[ind];
         matrix[iRow][iCol] = val;
       }
@@ -201,7 +201,7 @@ void SparseMatrix::printToFile(bool sparse) const {
     stringstream val;
     for (int iCol = 0; iCol < nbCol_; ++iCol) {
       for (unsigned ind = Ap_[iCol]; ind < Ap_[iCol + 1]; ++ind) {
-        int iRow = Ai_[ind];
+        int iRow = static_cast<int>(Ai_[ind]);
         val.str("");
         val.clear();
         val << std::setprecision(16) << Ax_[ind];
@@ -267,7 +267,6 @@ SparseMatrix::erase(const std::unordered_set<int>& rows, const std::unordered_se
       }
     }
   }
-  return;
 }
 
 double SparseMatrix::frobeniusNorm() const {
@@ -312,8 +311,8 @@ double SparseMatrix::infinityNorm() const {
 
 void SparseMatrix::getRowColIndicesFromPosition(unsigned int position, int& iRow, int& jCol) const {
   assert(position < static_cast<unsigned int>(nbTerm_) && "Position must be lower than number of terms");
-  std::vector<unsigned>::const_iterator lower = std::upper_bound(Ap_.begin(), Ap_.end(), position);
-  iRow = Ai_[position];
+  auto lower = std::upper_bound(Ap_.begin(), Ap_.end(), position);
+  iRow = static_cast<int>(Ai_[position]);
   jCol = static_cast<int>(lower-Ap_.begin()) - 1;
 }
 

@@ -183,7 +183,7 @@ class ModelLine : public NetworkComponent {
   /**
   * @copydoc NetworkComponent::evalZ()
   */
-  NetworkComponent::StateChange_t evalZ(const double& t);  // get the local Z function for time t
+  NetworkComponent::StateChange_t evalZ(const double& t, bool deactivateRootFunctions);  // get the local Z function for time t
 
   /**
    * @brief evaluation G
@@ -297,6 +297,13 @@ class ModelLine : public NetworkComponent {
    */
   void initSize();
 
+  /**
+  * @brief write initial values internal parameters of a model in a file
+  *
+  * @param fstream the file to stream parameters to
+  */
+  void printInternalParameters(std::ofstream& fstream) const override;
+
  private:
   KnownBus_t knownBus_;  ///< known bus
   boost::shared_ptr<ModelCurrentLimits> currentLimits1_;  ///< current limit side 1
@@ -310,7 +317,9 @@ class ModelLine : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the real part of the current on side 1
    */
-  double ir1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  inline double ir1(double ur1, double ui1, double ur2, double ui2) const {
+   return ir1_dUr1_ * ur1 + ir1_dUi1_ * ui1 + ir1_dUr2_ * ur2 + ir1_dUi2_ * ui2;
+ }
 
   /**
    * @brief compute the imaginary part of the current on side 1
@@ -320,7 +329,9 @@ class ModelLine : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the imaginary part of the current on side 1
    */
-  double ii1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+ double ii1(const double ur1, const double ui1, const double ur2, const double ui2) const {
+   return ii1_dUr1_ * ur1 + ii1_dUi1_ * ui1 + ii1_dUr2_ * ur2 + ii1_dUi2_ * ui2;
+  }
 
   /**
    * @brief compute the real part of the current on side 2
@@ -330,7 +341,9 @@ class ModelLine : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the real part of the current on side 2
    */
-  double ir2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+ double ir2(const double ur1, const double ui1, const double ur2, const double ui2) const {
+   return ir2_dUr1_ * ur1 + ir2_dUi1_ * ui1 + ir2_dUr2_ * ur2 + ir2_dUi2_ * ui2;
+  }
 
   /**
    * @brief compute the imaginary part of the current on side 2
@@ -340,7 +353,9 @@ class ModelLine : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the imaginary part of the current on side 2
    */
-  double ii2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+ double ii2(const double ur1, const double ui1, const double ur2, const double ui2) const {
+   return ii2_dUr1_ * ur1 + ii2_dUi1_ * ui1 + ii2_dUr2_ * ur2 + ii2_dUi2_ * ui2;
+  }
 
   /**
    * @brief compute the magnitude of the current on side 1
@@ -350,7 +365,7 @@ class ModelLine : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the magnitude of the current on side 1
    */
-  double i1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double i1(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief compute the magnitude of the current on side 2
@@ -360,7 +375,7 @@ class ModelLine : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the magnitude of the current on side 2
    */
-  double i2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double i2(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief get the partial derivative of ir1 with respect to Ur1

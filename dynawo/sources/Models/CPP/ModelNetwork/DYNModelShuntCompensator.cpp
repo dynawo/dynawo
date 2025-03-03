@@ -19,6 +19,8 @@
  */
 #include "DYNModelShuntCompensator.h"
 
+#include <DYNTimer.h>
+
 #include "PARParametersSet.h"
 
 #include "DYNModelBus.h"
@@ -83,7 +85,7 @@ ModelShuntCompensator::initSize() {
 }
 
 double
-ModelShuntCompensator::ir(const double& ui) const {
+ModelShuntCompensator::ir(double ui) const {
   double ir = 0.;
   if (isConnected()) {
     ir = -suscepPu_ * ui;
@@ -92,7 +94,7 @@ ModelShuntCompensator::ir(const double& ui) const {
 }
 
 double
-ModelShuntCompensator::ii(const double& ur) const {
+ModelShuntCompensator::ii(double ur) const {
   double ii = 0.;
   if (isConnected()) {
     ii = suscepPu_ * ur;
@@ -163,10 +165,11 @@ ModelShuntCompensator::evalDerivatives(const double /*cj*/) {
   if (isConnected()) {
     int urYNum = modelBus_->urYNum();
     int uiYNum = modelBus_->uiYNum();
-    modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, urYNum, ir_dUr());
-    modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, uiYNum, ir_dUi());
-    modelBus_->derivatives()->addDerivative(II_DERIVATIVE, urYNum, ii_dUr());
-    modelBus_->derivatives()->addDerivative(II_DERIVATIVE, uiYNum, ii_dUi());
+    auto& derivatives = modelBus_->derivatives();
+    derivatives->addDerivative(IR_DERIVATIVE, urYNum, ir_dUr());
+    derivatives->addDerivative(IR_DERIVATIVE, uiYNum, ir_dUi());
+    derivatives->addDerivative(II_DERIVATIVE, urYNum, ii_dUr());
+    derivatives->addDerivative(II_DERIVATIVE, uiYNum, ii_dUi());
   }
 }
 
@@ -200,12 +203,15 @@ ModelShuntCompensator::defineElements(std::vector<Element>& elements, std::map<s
 
 void
 ModelShuntCompensator::evalG(const double& t) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer3("ModelNetwork::ModelShuntCompensator::evalG");
+#endif
   // Time out reached for availability
   g_[0] = (doubleEquals(tLastOpening_, VALDEF) || t >= tLastOpening_ + noReclosingDelay_) ? ROOT_UP : ROOT_DOWN;
 }
 
 NetworkComponent::StateChange_t
-ModelShuntCompensator::evalZ(const double& t) {
+ModelShuntCompensator::evalZ(const double& t, bool /*deactivateRootFunctions*/) {
   z_[isCapacitorNum_] = isCapacitor() ? 1. : 0.;
   z_[isAvailableNum_] = isAvailable() ? 1. : 0.;
   z_[currentSectionNum_] = getCurrentSection();

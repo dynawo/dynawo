@@ -32,6 +32,7 @@
 
 #include "DYNModelTwoWindingsTransformer.h"
 
+#include <DYNTimer.h>
 #include <iomanip>
 
 #include "DYNCommon.h"
@@ -430,26 +431,6 @@ ModelTwoWindingsTransformer::evalNodeInjection() {
       }
     }
   }
-}
-
-double
-ModelTwoWindingsTransformer::ir1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
-  return ir1_dUr1_ * ur1 + ir1_dUi1_ * ui1 + ir1_dUr2_ * ur2 + ir1_dUi2_ * ui2;
-}
-
-double
-ModelTwoWindingsTransformer::ii1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
-  return ii1_dUr1_ * ur1 + ii1_dUi1_ * ui1 + ii1_dUr2_ * ur2 + ii1_dUi2_ * ui2;
-}
-
-double
-ModelTwoWindingsTransformer::ir2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
-  return ir2_dUr1_ * ur1 + ir2_dUi1_ * ui1 + ir2_dUr2_ * ur2 + ir2_dUi2_ * ui2;
-}
-
-double
-ModelTwoWindingsTransformer::ii2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
-  return ii2_dUr1_ * ur1 + ii2_dUi1_ * ui1 + ii2_dUr2_ * ur2 + ii2_dUi2_ * ui2;
 }
 
 void
@@ -873,47 +854,55 @@ ModelTwoWindingsTransformer::evalF(propertyF_t /*type*/) {
 
 void
 ModelTwoWindingsTransformer::evalDerivatives(const double /*cj*/) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer3("ModelNetwork::ModelTwoWindingsTransformer::evalDerivatives");
+#endif
   switch (knownBus_) {
     case BUS1_BUS2: {
       int ur1YNum = modelBus1_->urYNum();
       int ui1YNum = modelBus1_->uiYNum();
       int ur2YNum = modelBus2_->urYNum();
       int ui2YNum = modelBus2_->uiYNum();
-      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUr1_);
-      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ui1YNum, ir1_dUi1_);
-      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ur1YNum, ii1_dUr1_);
-      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ui1YNum, ii1_dUi1_);
-      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ur2YNum, ir1_dUr2_);
-      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ui2YNum, ir1_dUi2_);
-      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ur2YNum, ii1_dUr2_);
-      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ui2YNum, ii1_dUi2_);
+      auto& derivatives1 = modelBus1_->derivatives();
+      auto& derivatives2 = modelBus2_->derivatives();
 
-      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ur2YNum, ir2_dUr2_);
-      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ui2YNum, ir2_dUi2_);
-      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ur2YNum, ii2_dUr2_);
-      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ui2YNum, ii2_dUi2_);
-      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ur1YNum, ir2_dUr1_);
-      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ui1YNum, ir2_dUi1_);
-      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ur1YNum, ii2_dUr1_);
-      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ui1YNum, ii2_dUi1_);
+      derivatives1->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUr1_);
+      derivatives1->addDerivative(IR_DERIVATIVE, ui1YNum, ir1_dUi1_);
+      derivatives1->addDerivative(II_DERIVATIVE, ur1YNum, ii1_dUr1_);
+      derivatives1->addDerivative(II_DERIVATIVE, ui1YNum, ii1_dUi1_);
+      derivatives1->addDerivative(IR_DERIVATIVE, ur2YNum, ir1_dUr2_);
+      derivatives1->addDerivative(IR_DERIVATIVE, ui2YNum, ir1_dUi2_);
+      derivatives1->addDerivative(II_DERIVATIVE, ur2YNum, ii1_dUr2_);
+      derivatives1->addDerivative(II_DERIVATIVE, ui2YNum, ii1_dUi2_);
+
+      derivatives2->addDerivative(IR_DERIVATIVE, ur2YNum, ir2_dUr2_);
+      derivatives2->addDerivative(IR_DERIVATIVE, ui2YNum, ir2_dUi2_);
+      derivatives2->addDerivative(II_DERIVATIVE, ur2YNum, ii2_dUr2_);
+      derivatives2->addDerivative(II_DERIVATIVE, ui2YNum, ii2_dUi2_);
+      derivatives2->addDerivative(IR_DERIVATIVE, ur1YNum, ir2_dUr1_);
+      derivatives2->addDerivative(IR_DERIVATIVE, ui1YNum, ir2_dUi1_);
+      derivatives2->addDerivative(II_DERIVATIVE, ur1YNum, ii2_dUr1_);
+      derivatives2->addDerivative(II_DERIVATIVE, ui1YNum, ii2_dUi1_);
       break;
     }
     case BUS1: {
       int ur1YNum = modelBus1_->urYNum();
       int ui1YNum = modelBus1_->uiYNum();
-      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUr1_);
-      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ui1YNum, ir1_dUi1_);
-      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ur1YNum, ii1_dUr1_);
-      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ui1YNum, ii1_dUi1_);
+      auto& derivatives1 = modelBus1_->derivatives();
+      derivatives1->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUr1_);
+      derivatives1->addDerivative(IR_DERIVATIVE, ui1YNum, ir1_dUi1_);
+      derivatives1->addDerivative(II_DERIVATIVE, ur1YNum, ii1_dUr1_);
+      derivatives1->addDerivative(II_DERIVATIVE, ui1YNum, ii1_dUi1_);
       break;
     }
     case BUS2: {
       int ur2YNum = modelBus2_->urYNum();
       int ui2YNum = modelBus2_->uiYNum();
-      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ur2YNum, ir2_dUr2_);
-      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ui2YNum, ir2_dUi2_);
-      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ur2YNum, ii2_dUr2_);
-      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ui2YNum, ii2_dUi2_);
+      auto& derivatives2 = modelBus2_->derivatives();
+      derivatives2->addDerivative(IR_DERIVATIVE, ur2YNum, ir2_dUr2_);
+      derivatives2->addDerivative(IR_DERIVATIVE, ui2YNum, ir2_dUi2_);
+      derivatives2->addDerivative(II_DERIVATIVE, ur2YNum, ii2_dUr2_);
+      derivatives2->addDerivative(II_DERIVATIVE, ui2YNum, ii2_dUi2_);
       break;
     }
   }
@@ -1146,31 +1135,31 @@ ModelTwoWindingsTransformer::defineElements(std::vector<Element>& elements, std:
 }
 
 NetworkComponent::StateChange_t
-ModelTwoWindingsTransformer::evalZ(const double& t) {
+ModelTwoWindingsTransformer::evalZ(const double& t, bool deactivateRootFunctions) {
   int offsetRoot = 0;
   ModelCurrentLimits::state_t currentLimitState;
 
-  if (currentLimits1_) {
-    currentLimitState = currentLimits1_->evalZ(id(), t, &(g_[offsetRoot]), network_, currentLimitsDesactivate_, modelType_);
+  if (currentLimits1_ && !deactivateRootFunctions) {
+    currentLimitState = currentLimits1_->evalZ(id(), t, &(g_[offsetRoot]), network_, currentLimitsDesactivate_, modelType_, deactivateRootFunctions);
     offsetRoot += currentLimits1_->sizeG();
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
       z_[connectionStateNum_] = OPEN;
   }
 
-  if (currentLimits2_) {
-    currentLimitState = currentLimits2_->evalZ(id(), t, &(g_[offsetRoot]), network_, currentLimitsDesactivate_, modelType_);
+  if (currentLimits2_ && !deactivateRootFunctions) {
+    currentLimitState = currentLimits2_->evalZ(id(), t, &(g_[offsetRoot]), network_, currentLimitsDesactivate_, modelType_, deactivateRootFunctions);
     offsetRoot += currentLimits2_->sizeG();
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
       z_[connectionStateNum_] = OPEN;
   }
 
-  if (modelRatioChanger_ && modelBusMonitored_) {
+  if (modelRatioChanger_ && modelBusMonitored_ && !deactivateRootFunctions) {
     modelRatioChanger_->evalZ(t, &(g_[offsetRoot]), network_, disableInternalTapChanger_, modelBusMonitored_->getSwitchOff(), tapChangerLocked_,
-        getConnectionState() == CLOSED);
+        getConnectionState() == CLOSED, deactivateRootFunctions);
     offsetRoot += modelRatioChanger_->sizeG();
   }
 
-  if (modelPhaseChanger_) {
+  if (modelPhaseChanger_ && !deactivateRootFunctions) {
     double ur1Val = ur1();
     double ui1Val = ui1();
     double ur2Val = ur2();
@@ -1178,7 +1167,7 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
     double pSide1 = P1(ur1Val, ui1Val, ur2Val, ui2Val);
     double pSide2 = P2(ur1Val, ui1Val, ur2Val, ui2Val);
     bool P1SupP2 = (pSide1 > pSide2);
-    modelPhaseChanger_->evalZ(t, &(g_[offsetRoot]), network_, disableInternalTapChanger_, P1SupP2, tapChangerLocked_, getConnectionState() == CLOSED);
+    modelPhaseChanger_->evalZ(t, &(g_[offsetRoot]), network_, disableInternalTapChanger_, P1SupP2, tapChangerLocked_, getConnectionState() == CLOSED, deactivateRootFunctions);
   }
 
   switch (knownBus_) {
@@ -1419,14 +1408,14 @@ ModelTwoWindingsTransformer::ui2() const {
 }
 
 double
-ModelTwoWindingsTransformer::P1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+ModelTwoWindingsTransformer::P1(double ur1, double ui1, double ur2, double ui2) const {
   double irBus1 = ir1(ur1, ui1, ur2, ui2);
   double iiBus1 = ii1(ur1, ui1, ur2, ui2);
   return ur1 * irBus1 + ui1 * iiBus1;
 }
 
 double
-ModelTwoWindingsTransformer::P2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+ModelTwoWindingsTransformer::P2(double ur1, double ui1, double ur2, double ui2) const {
   const double irBus2 = ir2(ur1, ui1, ur2, ui2);
   const double iiBus2 = ii2(ur1, ui1, ur2, ui2);
   return ur2 * irBus2 + ui2 * iiBus2;
@@ -1434,6 +1423,9 @@ ModelTwoWindingsTransformer::P2(const double& ur1, const double& ui1, const doub
 
 void
 ModelTwoWindingsTransformer::evalG(const double& t) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer3("ModelNetwork::ModelTwoWindingsTransformer::evalG");
+#endif
   int offset = 0;
   double ur1Val = 0.;
   double ui1Val = 0.;
@@ -1507,14 +1499,14 @@ ModelTwoWindingsTransformer::setGequations(std::map<int, std::string>& gEquation
 }
 
 double
-ModelTwoWindingsTransformer::i1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+ModelTwoWindingsTransformer::i1(double ur1, double ui1, double ur2, double ui2) const {
   double irBus1 = ir1(ur1, ui1, ur2, ui2);
   double iiBus1 = ii1(ur1, ui1, ur2, ui2);
   return sqrt(irBus1 * irBus1 + iiBus1 * iiBus1);
 }
 
 double
-ModelTwoWindingsTransformer::i2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+ModelTwoWindingsTransformer::i2(double ur1, double ui1, double ur2, double ui2) const {
   double irBus2 = ir2(ur1, ui1, ur2, ui2);
   double iiBus2 = ii2(ur1, ui1, ur2, ui2);
   return sqrt(irBus2 * irBus2 + iiBus2 * iiBus2);

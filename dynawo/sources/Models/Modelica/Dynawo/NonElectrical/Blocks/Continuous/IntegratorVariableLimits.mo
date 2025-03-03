@@ -14,38 +14,26 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 */
 
 model IntegratorVariableLimits "Integrator with limited value of output (variable limits) and freeze"
-  extends Modelica.Blocks.Interfaces.SISO(y(start = Y0));
+  extends Dynawo.NonElectrical.Blocks.Continuous.BaseClasses.BaseIntegratorVariableLimits;
 
-  parameter Boolean DefaultLimitMax = true "If limitMin > limitMax : if true, y = limitMax, if false, y = limitMin";
-  parameter Types.PerUnit K = 1 "Integrator gain";
   parameter Types.Time tDer = 0.01 "Time constant of derivative filters for limits, in s";
   parameter Types.PerUnit Tol "Tolerance on limit crossing as a fraction of the difference between initial limits";
 
-  Modelica.Blocks.Interfaces.RealInput limitMax(start = LimitMax0) "Connector of Real input signal used as maximum of output y" annotation(
-    Placement(transformation(extent={{-140,60},{-100,100}})));
-  Modelica.Blocks.Interfaces.RealInput limitMin(start = LimitMin0) "Connector of Real input signal used as minimum of output y" annotation(
-    Placement(transformation(extent={{-140,-100},{-100,-60}})));
-
   Modelica.Blocks.Continuous.Derivative derivativeLimitMax(T = tDer, x_start = LimitMax0);
   Modelica.Blocks.Continuous.Derivative derivativeLimitMin(T = tDer, x_start = LimitMin0);
-
-  parameter Types.PerUnit LimitMax0 "Initial value of upper limit";
-  parameter Types.PerUnit LimitMin0 "Initial value of lower limit";
-  parameter Types.PerUnit Y0 = 0 "Initial or guess value of output";
 
   final parameter Boolean FrozenMax0 = Y0 > LimitMax0 - Tol * abs(LimitMax0 - LimitMin0) "If true, integration is initially frozen at upper limit";
   final parameter Boolean FrozenMin0 = Y0 < LimitMin0 + Tol * abs(LimitMax0 - LimitMin0) "If true, integration is initially frozen at lower limit";
 
 protected
-  Real derLimitMax(start = 0) "Derivative of upper limit";
-  Real derLimitMin(start = 0) "Derivative of lower limit";
+  Real derLimitMax(start = 0) "Filtered derivative of upper limit";
+  Real derLimitMin(start = 0) "Filtered derivative of lower limit";
   Boolean isFrozenMax(start = FrozenMax0) "If true, integration is frozen at upper limit";
   Boolean isFrozenMin(start = FrozenMin0) "If true, integration is frozen at lower limit";
   Boolean keepFreezingMax(start = FrozenMax0) "If true, integration stays frozen at upper limit";
   Boolean keepFreezingMin(start = FrozenMin0) "If true, integration stays frozen at lower limit";
   Boolean startFreezingMax(start = FrozenMax0) "If true, integration becomes frozen at upper limit";
   Boolean startFreezingMin(start = FrozenMin0) "If true, integration becomes frozen at lower limit";
-  Types.PerUnit w(start = Y0) "Non-limited integrator output";
 
 equation
   limitMax = derivativeLimitMax.u;
@@ -53,12 +41,14 @@ equation
   derLimitMax = derivativeLimitMax.y;
   derLimitMin = derivativeLimitMin.y;
 
-  startFreezingMax = w > limitMax and K * u > derLimitMax;
-  keepFreezingMax = w > limitMax - Tol * abs(LimitMax0 - LimitMin0) and K * u > derLimitMax and pre(isFrozenMax);
+  v = K * u;
+
+  startFreezingMax = w > limitMax and v > derLimitMax;
+  keepFreezingMax = w > limitMax - Tol * abs(LimitMax0 - LimitMin0) and v > derLimitMax and pre(isFrozenMax);
   isFrozenMax = startFreezingMax or keepFreezingMax;
 
-  startFreezingMin = w < limitMin and K * u < derLimitMin;
-  keepFreezingMin = w < limitMin + Tol * abs(LimitMax0 - LimitMin0) and K * u < derLimitMin and pre(isFrozenMin);
+  startFreezingMin = w < limitMin and v < derLimitMin;
+  keepFreezingMin = w < limitMin + Tol * abs(LimitMax0 - LimitMin0) and v < derLimitMin and pre(isFrozenMin);
   isFrozenMin = startFreezingMin or keepFreezingMin;
 
   if isFrozenMax then
@@ -66,29 +56,19 @@ equation
   elseif isFrozenMin then
     w = limitMin;
   else
-    der(w) = K * u;
+    der(w) = v;
   end if;
 
-  if limitMin > limitMax and DefaultLimitMax then
-    y = limitMax;
-  elseif limitMin > limitMax then
-    y = limitMin;
-  elseif w < limitMin then
-    y = limitMin;
-  elseif w > limitMax then
-    y = limitMax;
-  else
-    y = w;
-  end if;
-
-  annotation(preferredView = "text",
+  annotation(
+    preferredView = "text",
     Documentation(info= "<html><head></head><body><p>
 This blocks computes <strong>w</strong> as <em>integral</em>
 of the input <strong>u</strong> multiplied by the gain <em>K</em>.</p>
 
-<p>If the integral reaches a given upper or lower <b>limit</b>, the
-integration is halted and only restarted if the input drives
-the integral away from the bounds, with a sufficient margin defined by <em>Tol</em>.</p><p>This margin is aimed at avoiding chattering i.e. rapid swings between frozen and unfrozen sates.</p>
+<p>If the integral reaches a given upper limit <b>limitMax</b> or lower limit&nbsp;<b>limitMin</b>, the integration is halted and only restarted if the input drives
+the integral away from the bounds, with a sufficient margin defined by <em>Tol</em>.</p>
+
+<p>This margin is aimed at avoiding chattering i.e. rapid swings between frozen and unfrozen sates.</p>
 
 <p>If the integration is halted, the integrator output follows the variable limit it has reached.</p>
 
