@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--
-    Copyright (c) 2024, RTE (http://www.rte-france.com)
+    Copyright (c) 2025, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
     This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,7 +12,7 @@
     simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:modelicaModel id="TransformerPhaseTapChanger">
-    <dyn:unitDynamicModel id="transformer" name="Dynawo.Electrical.Transformers.TransformerPhaseTapChanger" initName="Dynawo.Electrical.Transformers.TransformerPhaseTapChanger_INIT"/>
+  <dyn:modelicaModel id="TransformerPhaseTapChangerP">
+    <dyn:unitDynamicModel id="transformer" name="Dynawo.Electrical.Transformers.TransformersVariableTapControlled.TransformerPhaseTapChangerControlled" initName="Dynawo.Electrical.Transformers.TransformersVariableTapControlled.TransformerPhaseTapChangerPControlled_INIT"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

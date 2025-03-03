@@ -19,8 +19,8 @@
   <curve model="TfoTest" variable="transformer_P1Pu"/>
   <curve model="TfoTest" variable="transformer_tap"/>
   <curve model="TfoTest" variable="transformer_alphaTfo"/>
-  <curve model="PhaseShifter" variable="phaseShifter_state"/>
-  <curve model="PhaseShifter" variable="phaseShifter_valueMax"/>
-  <curve model="PhaseShifter" variable="phaseShifter_valueMin"/>
-  <curve model="PhaseShifter" variable="phaseShifter_PMonitored"/>
+  <curve model="TfoTest" variable="transformer_phaseShifterP_state"/>
+  <curve model="TfoTest" variable="transformer_phaseShifterP_valueMax"/>
+  <curve model="TfoTest" variable="transformer_phaseShifterP_valueMin"/>
+  <curve model="TfoTest" variable="transformer_phaseShifterP_PMonitored"/>
 </curvesInput>
