@@ -31,7 +31,7 @@ model PVVoltageSource4 "WECC PV Vsource Model on infinite bus"
     Placement(visible = true, transformation(origin = {80, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PFaRef(k = acos(PV.PF0)) annotation(
     Placement(visible = true, transformation(origin = {80, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Photovoltaics.WECC.PVVoltageSource_INIT pVVoltageSource_INIT(P0Pu = -0.7, Q0Pu = -0.2, RPu = 0, RSourcePu = 0, SNom = 100, U0Pu = 1, UPhase0 = 0.00000144621, XPu = 0.15, XSourcePu = 0.1) annotation(
+  Dynawo.Electrical.Photovoltaics.WECC.PVVoltageSource_INIT pVVoltageSource_INIT(P0Pu = PV.P0Pu, Q0Pu = PV.Q0Pu, RPu = PV.RPu, RSourcePu = PV.RSourcePu, SNom = PV.SNom, U0Pu = PV.U0Pu, UPhase0 = 0.00000144621, XPu = PV.XPu, XSourcePu = PV.XSourcePu) annotation(
     Placement(visible = true, transformation(origin = {-76, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 initial algorithm
