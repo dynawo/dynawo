@@ -133,7 +133,7 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
   double maxTimeOperation_;  ///< maximum time operation, if limits duration is over this time, the current limit does not operate
   double lastCurrentValue_;  ///< last value of the current, kept to be reported in constraints
   double factorPuToA_;  ///< factor to convert pu values to Amperes
-  boost::optional<int> sizeG_;  ///< factor to convert pu values to Amperes
+  // boost::optional<int> sizeG_;  ///< factor to convert pu values to Amperes
 
   std::vector<double> limits_;  ///< vector of current limits (pu base UNom, base SNRef)
   std::vector<double> acceptableDurations_;  ///< vector of limits duration (unit : s)
