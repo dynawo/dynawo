@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dynawoSequence>
+    <step stopTime="50">
+    </step>
+    <step stopTime="100">
+        <mod file="Events.par" id="DisconnectLine" name="event_tEvent" value="60"/>
+        <mod file="Events.par" id="DisconnectLine" name="event_disconnectOrigin" value="true"/>
+        <mod file="Events.par" id="DisconnectLine" name="event_disconnectExtremity" value="true"/>
+        <mod file="Network.par" id="Network" name="transformer_t1st_HT" value="10"/>
+        <mod file="Network.par" id="Network" name="transformer_t1st_THT" value="10"/>
+    </step>
+    <step stopTime="175">
+        <mod file="Events.par" id="DisconnectLine" name="event_tEvent" value="20000"/>
+        <mod file="Events.par" id="DisconnectLine" name="event_disconnectOrigin" value="false"/>
+        <mod file="Events.par" id="DisconnectLine" name="event_disconnectExtremity" value="false"/>
+    </step>
+</dynawoSequence>
