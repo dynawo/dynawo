@@ -100,5 +100,6 @@ equation
 
   annotation(
     preferredView = "diagram",
+    experiment(StartTime = 0, StopTime = 1),
     Documentation(info = "<html><head></head><body>It is a static version of the double inertia test case to easily calculate initial values for the time-domain example.</body></html>"));
 end StaticCase;
