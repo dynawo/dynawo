@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Transformers;
+within Dynawo.Electrical.Transformers.TransformersVariableTap;
 
 /*
 * Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -12,9 +12,9 @@ within Dynawo.Electrical.Transformers;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model TransformerVariableTapI_INIT "Initialization for transformer based on the network voltage and current"
+model TransformerVariableTapPQ_INIT "Initialization for transformer based on the network voltage, active and reactive power"
   extends BaseClasses_INIT.BaseTransformerVariableTap_INIT;
-  extends BaseClasses_INIT.BaseTransformerVariables_INIT;
+  extends BaseClasses_INIT.BaseTransformerParameters_INIT;
   extends AdditionalIcons.Init;
 
 equation
@@ -26,4 +26,4 @@ equation
   rTfo0Pu * rTfo0Pu * u10Pu = rTfo0Pu * u20Pu + ZPu * i10Pu;
 
   annotation(preferredView = "text");
-end TransformerVariableTapI_INIT;
+end TransformerVariableTapPQ_INIT;

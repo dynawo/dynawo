@@ -31,9 +31,7 @@
   <dyn:blackBoxModel id="OMEGA_REF" lib="DYNModelOmegaRef" parFile="IEEE14.par" parId="7"/>
   <dyn:blackBoxModel id="LOADVAR_LOAD5_Q" lib="Step" parFile="IEEE14.par" parId="10"/>
   <dyn:blackBoxModel id="TfoTest" lib="TransformerRatioTapChanger" parFile="IEEE14.par" parId="12"/>
-  <dyn:blackBoxModel id="Tap_changer" lib="TapChangerAutomaton" parFile="IEEE14.par" parId="11"/>
-  <dyn:connect id1="TfoTest" var1="transformer_tap" id2="Tap_changer" var2="tapChanger_tap"/>
-  <dyn:connect id1="NETWORK" var1="@_BUS____5_TN@@NODE@_Upu" id2="Tap_changer" var2="tapChanger_UMonitored"/>
+  <!--dyn:blackBoxModel id="Tap_changer" lib="TapChangerAutomaton" parFile="IEEE14.par" parId="11"/-->
   <dyn:connect id1="OMEGA_REF" var1="omega_grp_0_value" id2="GEN____1_SM" var2="generator_omegaPu"/>
   <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_0_value" id2="GEN____1_SM" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_0" id2="NETWORK" var2="@_GEN____1_SM@@NODE@_numcc"/>

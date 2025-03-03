@@ -50,6 +50,6 @@
   <curve model="_LOAD___3_EC" variable="transformer_U1Pu"/>
   <curve model="_LOAD___3_EC" variable="transformer_U2Pu"/>
   <curve model="_LOAD___3_EC" variable="transformer_tap"/>
-  <curve model="TAP_CHANGER_LOAD_3" variable="tapChanger_valueMin"/>
-  <curve model="TAP_CHANGER_LOAD_3" variable="tapChanger_valueMax"/>
+  <curve model="_LOAD___3_EC" variable="transformer_tapChanger_valueMin"/>
+  <curve model="_LOAD___3_EC" variable="transformer_tapChanger_valueMax"/>
 </curvesInput>

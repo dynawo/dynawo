@@ -120,7 +120,7 @@ Step
 TapChangerAutomaton
 TapChangerBlockingAutomaton1
 TransformerFixedRatio
-TransformerPhaseTapChanger
+TransformerPhaseTapChangerP
 TransformerRatioTapChanger
 UFLS10Steps
 UnderVoltageAutomaton
