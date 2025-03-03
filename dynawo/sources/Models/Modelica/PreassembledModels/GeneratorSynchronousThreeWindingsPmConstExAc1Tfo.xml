@@ -18,7 +18,7 @@
     <dyn:unitDynamicModel id="voltageRegulator" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.ExAc1" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.ExAc1_INIT"/>
     <dyn:unitDynamicModel id="overExcitationLimiter" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.MAXEX2" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.MAXEX2_INIT"/>
     <dyn:unitDynamicModel id="powerSystemStabilizer" name="Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.Pss2b" initName="Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Pss_INIT"/>
-    <dyn:unitDynamicModel id="transformer" name="Dynawo.Electrical.Transformers.GeneratorTransformer" initName="Dynawo.Electrical.Transformers.GeneratorTransformer_INIT"/>
+    <dyn:unitDynamicModel id="transformer" name="Dynawo.Electrical.Transformers.TransformersFixedTap.GeneratorTransformer" initName="Dynawo.Electrical.Transformers.TransformersFixedTap.GeneratorTransformer_INIT"/>
     <dyn:initConnect id1="voltageRegulator" var1="Efd0Pu" id2="generator" var2="Efd0Pu"/>
     <dyn:initConnect id1="voltageRegulator" var1="Ir0Pu" id2="generator" var2="IRotor0Pu"/>
     <dyn:initConnect id1="voltageRegulator" var1="Us0Pu" id2="generator" var2="UStator0Pu"/>

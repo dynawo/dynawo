@@ -241,7 +241,7 @@ equation
 
   annotation(
     preferredView = "diagram",
-    experiment(StartTime = 0, StopTime = 120, Tolerance = 0.01, Interval = 0.01),
+    experiment(StartTime = 0, StopTime = 120, Tolerance = 0.001, Interval = 0.01),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
     __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "ida"),
     Diagram(coordinateSystem(extent = {{-340, -340}, {340, 340}})));
