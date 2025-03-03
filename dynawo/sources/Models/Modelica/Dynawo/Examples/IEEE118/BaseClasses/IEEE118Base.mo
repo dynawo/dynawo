@@ -324,15 +324,15 @@ model IEEE118Base "Base class for IEEE 118-bus system benchmark formed with 118 
   Dynawo.Electrical.Lines.Line L_114_115_1(BPu = 0.0 * ZBASE138_0, GPu = 0.0 * ZBASE138_0, RPu = 0.438012 / ZBASE138_0, XPu = 1.9805760000000001 / ZBASE138_0);
 
   //Transformers
-  Dynawo.Electrical.Transformers.TransformerFixedRatio T_8_5_1(BPu = 0.0 * ZBASE138_0, GPu = 0.0 * ZBASE138_0, RPu = 0.0 / ZBASE138_0, XPu = 5.084748 / ZBASE138_0, rTfoPu = 1.015228426395939);
-  Dynawo.Electrical.Transformers.TransformerFixedRatio T_30_17_1(BPu = 0.0 * ZBASE138_0, GPu = 0.0 * ZBASE138_0, RPu = 0.0 / ZBASE138_0, XPu = 7.3890720000000005 / ZBASE138_0, rTfoPu = 1.0416666666666667);
-  Dynawo.Electrical.Transformers.TransformerFixedRatio T_26_25_1(BPu = 0.0 * ZBASE138_0, GPu = 0.0 * ZBASE138_0, RPu = 0.0 / ZBASE138_0, XPu = 7.274807999999999 / ZBASE138_0, rTfoPu = 1.0416666666666667);
-  Dynawo.Electrical.Transformers.TransformerFixedRatio T_38_37_1(BPu = 0.0 * ZBASE138_0, GPu = 0.0 * ZBASE138_0, RPu = 0.0 / ZBASE138_0, XPu = 7.1415 / ZBASE138_0, rTfoPu = 1.06951871657754);
-  Dynawo.Electrical.Transformers.TransformerFixedRatio T_63_59_1(BPu = 0.0 * ZBASE138_0, GPu = 0.0 * ZBASE138_0, RPu = 0.0 / ZBASE138_0, XPu = 7.350984 / ZBASE138_0, rTfoPu = 1.0416666666666667);
-  Dynawo.Electrical.Transformers.TransformerFixedRatio T_64_61_1(BPu = 0.0 * ZBASE138_0, GPu = 0.0 * ZBASE138_0, RPu = 0.0 / ZBASE138_0, XPu = 5.103792 / ZBASE138_0, rTfoPu = 1.015228426395939);
-  Dynawo.Electrical.Transformers.TransformerFixedRatio T_65_66_1(BPu = 0.0 * ZBASE138_0, GPu = 0.0 * ZBASE138_0, RPu = 0.0 / ZBASE138_0, XPu = 7.046279999999999 / ZBASE138_0, rTfoPu = 1.06951871657754);
-  Dynawo.Electrical.Transformers.TransformerFixedRatio T_68_69_1(BPu = 0.0 * ZBASE138_0, GPu = 0.0 * ZBASE138_0, RPu = 0.0 / ZBASE138_0, XPu = 7.046279999999999 / ZBASE138_0, rTfoPu = 1.06951871657754);
-  Dynawo.Electrical.Transformers.TransformerFixedRatio T_81_80_1(BPu = 0.0 * ZBASE138_0, GPu = 0.0 * ZBASE138_0, RPu = 0.0 / ZBASE138_0, XPu = 7.046279999999999 / ZBASE138_0, rTfoPu = 1.06951871657754);
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio T_8_5_1(BPu = 0.0 * ZBASE138_0, GPu = 0.0 * ZBASE138_0, RPu = 0.0 / ZBASE138_0, XPu = 5.084748 / ZBASE138_0, rTfoPu = 1.015228426395939);
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio T_30_17_1(BPu = 0.0 * ZBASE138_0, GPu = 0.0 * ZBASE138_0, RPu = 0.0 / ZBASE138_0, XPu = 7.3890720000000005 / ZBASE138_0, rTfoPu = 1.0416666666666667);
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio T_26_25_1(BPu = 0.0 * ZBASE138_0, GPu = 0.0 * ZBASE138_0, RPu = 0.0 / ZBASE138_0, XPu = 7.274807999999999 / ZBASE138_0, rTfoPu = 1.0416666666666667);
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio T_38_37_1(BPu = 0.0 * ZBASE138_0, GPu = 0.0 * ZBASE138_0, RPu = 0.0 / ZBASE138_0, XPu = 7.1415 / ZBASE138_0, rTfoPu = 1.06951871657754);
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio T_63_59_1(BPu = 0.0 * ZBASE138_0, GPu = 0.0 * ZBASE138_0, RPu = 0.0 / ZBASE138_0, XPu = 7.350984 / ZBASE138_0, rTfoPu = 1.0416666666666667);
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio T_64_61_1(BPu = 0.0 * ZBASE138_0, GPu = 0.0 * ZBASE138_0, RPu = 0.0 / ZBASE138_0, XPu = 5.103792 / ZBASE138_0, rTfoPu = 1.015228426395939);
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio T_65_66_1(BPu = 0.0 * ZBASE138_0, GPu = 0.0 * ZBASE138_0, RPu = 0.0 / ZBASE138_0, XPu = 7.046279999999999 / ZBASE138_0, rTfoPu = 1.06951871657754);
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio T_68_69_1(BPu = 0.0 * ZBASE138_0, GPu = 0.0 * ZBASE138_0, RPu = 0.0 / ZBASE138_0, XPu = 7.046279999999999 / ZBASE138_0, rTfoPu = 1.06951871657754);
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio T_81_80_1(BPu = 0.0 * ZBASE138_0, GPu = 0.0 * ZBASE138_0, RPu = 0.0 / ZBASE138_0, XPu = 7.046279999999999 / ZBASE138_0, rTfoPu = 1.06951871657754);
 
   //Frequency
   Dynawo.Electrical.Controls.Frequency.SignalN Model_Signal_N;

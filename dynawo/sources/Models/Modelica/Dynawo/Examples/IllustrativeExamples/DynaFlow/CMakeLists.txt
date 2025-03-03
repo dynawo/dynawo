@@ -13,6 +13,7 @@ set(MODEL_FILES
   package.order
   CoordinatedVControl.mo
   PhaseShifterTransformer.mo
+  VariableTapTransformer.mo
   )
 
 #

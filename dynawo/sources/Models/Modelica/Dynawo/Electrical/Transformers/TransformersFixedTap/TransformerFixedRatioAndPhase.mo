@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Transformers;
+within Dynawo.Electrical.Transformers.TransformersFixedTap;
 
 /*
 * Copyright (c) 2024, RTE (http://www.rte-france.com)
