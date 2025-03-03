@@ -61,16 +61,16 @@ model REGCc "WECC Generator Converter REGC type C"
     Placement(visible = true, transformation(origin = {159, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.Utilities.TransformRItoDQ transformRItoDQ annotation(
     Placement(visible = true, transformation(origin = {50, 14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.PIAntiWindupVariableLimits pIAntiWindupVariableLimits(Ki = Kii, Kp = Kip, Y0 =  Iq0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.PIAntiWindupVariableLimits pIAntiWindupVariableLimits(Ki = Kii, Kp = Kip, Y0 =  -Iq0Pu) annotation(
     Placement(visible = true, transformation(origin = {160, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.PIAntiWindupVariableLimits pIAntiWindupVariableLimits1(Ki = Kii, Kp = Kip, Y0 =  Id0Pu)  annotation(
     Placement(visible = true, transformation(origin = {200, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {109, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain1(k = -SystemBase.SnRef / SNom) annotation(
+  Modelica.Blocks.Math.Gain gain1(k = SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {69, 52}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Math.Gain gain2(k = -1)  annotation(
-    Placement(visible = true, transformation(origin = {200, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Gain gain3(k = -1) annotation(
+    Placement(visible = true, transformation(origin = {50, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initial parameters
   parameter Types.ComplexCurrentPu iInj0Pu "Start value of complex current at injector in pu (base SnRef, UNom) (generator convention)";
@@ -100,8 +100,6 @@ equation
     Line(points = {{257, -190}, {257, -68}, {255.5, -68}, {255.5, -28}}, color = {85, 170, 255}));
   connect(iInjPu, transformRItoDQ.uPu) annotation(
     Line(points = {{-210, 20}, {39, 20}}, color = {85, 170, 255}));
-  connect(rateLimFirstOrderFreeze2.y, add.u1) annotation(
-    Line(points = {{21, 100}, {60, 100}, {60, 106}, {88, 106}}, color = {0, 0, 127}));
   connect(vSourceRef.uiSourcePu, uiSource) annotation(
     Line(points = {{284, -9}, {284, -9.75}, {290, -9.75}, {290, -60}, {310, -60}}, color = {0, 0, 127}));
   connect(vSourceRef.urSourcePu, urSource) annotation(
@@ -136,10 +134,12 @@ equation
     Line(points = {{61, 20}, {97, 20}}, color = {0, 0, 127}));
   connect(gain.y, add1.u1) annotation(
     Line(points = {{120, 20}, {140, 20}, {140, -84}, {147, -84}}, color = {0, 0, 127}));
-  connect(pIAntiWindupVariableLimits.y, gain2.u) annotation(
-    Line(points = {{171, 100}, {188, 100}}, color = {0, 0, 127}));
-  connect(gain2.y, vSourceRef.iqPu) annotation(
-    Line(points = {{211, 100}, {220, 100}, {220, 16}, {227, 16}}, color = {0, 0, 127}));
+  connect(rateLimFirstOrderFreeze2.y, gain3.u) annotation(
+    Line(points = {{21, 100}, {38, 100}}, color = {0, 0, 127}));
+  connect(gain3.y, add.u1) annotation(
+    Line(points = {{61, 100}, {72, 100}, {72, 106}, {88, 106}}, color = {0, 0, 127}));
+  connect(pIAntiWindupVariableLimits.y, vSourceRef.iqPu) annotation(
+    Line(points = {{171, 100}, {220, 100}, {220, 16}, {227, 16}}, color = {0, 0, 127}));
 
   annotation(
     Diagram(coordinateSystem(extent = {{-200, -180}, {300, 180}}, initialScale = 0.2, grid = {1, 1})),
