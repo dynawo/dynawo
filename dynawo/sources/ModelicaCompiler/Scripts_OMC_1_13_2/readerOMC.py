@@ -1020,7 +1020,7 @@ class ReaderOMC:
         # Find functions of type MODEL_NAME_eqFunction_N and variable assignment expressions
         # Regular expression to recognize a line of type var = rhs
         ptrn_assign_var = re.compile(r'^[ ]*data->localData(?P<var>\S*)[ ]*\/\* (?P<varName>[\w\$\.()\[\],]*) [\w(),\.]+ \*\/[ ]*=[ ]*(?P<rhs>[^;]+);')
-        ptrn_assign_var_complex = re.compile(r'^[ ]*data->modelData->(?P<var>\S*)\.attribute[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w(),\.\[\]]+ \*\/.start[ ]*=[^;]*;$')
+        ptrn_assign_var_complex = re.compile(r'^[ ]*data->modelData->\S*\.attribute[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w(),\.\[\]]+ \*\/.start[ ]*=[^;]*;$')
         ptrn_param = re.compile(r'^[ ]*data->simulationInfo->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/[ ]*=[ ]*(?P<rhs>[^;]+);')
         for init_file in self._06inz_c_file:
             with open(init_file, 'r') as f:
@@ -1045,8 +1045,8 @@ class ReaderOMC:
                         #data->localData[0]->realVars[...]  = data->modelData->realVarsData[...].attribute.start;
                         if ptrn_assign_var_complex.search(line) is not None:
                             match = re.search(ptrn_assign_var_complex, line)
-                            var = str(match.group('varName'))
-                            self.var_init_val[ var ] = list_body
+                            var_name = str(match.group('varName'))
+                            self.var_init_val[ var_name ] = list_body
                             break
                         if ptrn_assign_var.search(line) is not None:
                             match = re.search(ptrn_assign_var, line)
