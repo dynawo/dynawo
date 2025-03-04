@@ -132,9 +132,9 @@ model WT4BCurrentSource2020FOCB "Wind Turbine Type 4B model from IEC 61400-27-1 
     Placement(visible = true, transformation(origin = {-150, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-  wT4BCurrentSource.wT4Injector.switchOffSignal1.value = false;
-  wT4BCurrentSource.wT4Injector.switchOffSignal2.value = false;
-  wT4BCurrentSource.wT4Injector.switchOffSignal3.value = false;
+  wT4BCurrentSource.injector.switchOffSignal1.value = false;
+  wT4BCurrentSource.injector.switchOffSignal2.value = false;
+  wT4BCurrentSource.injector.switchOffSignal3.value = false;
 
   connect(wT4BCurrentSource.terminal, transformer1.terminal1) annotation(
     Line(points = {{-99, 0}, {-80, 0}}, color = {0, 0, 255}));
