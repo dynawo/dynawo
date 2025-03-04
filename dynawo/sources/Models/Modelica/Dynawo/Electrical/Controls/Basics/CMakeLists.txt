@@ -17,6 +17,7 @@ set(MODEL_FILES
   CombiTimeTable.mo
   DoubleStep.mo
   IntegerDoubleStep.mo
+  IntegerTable.mo
   Perturbation.mo
   Perturbation_INIT.mo
   SetPoint.mo
