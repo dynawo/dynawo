@@ -36,7 +36,9 @@ target_include_directories(dynawo_Simulation
     $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
   )
 
-target_link_libraries(dynawo_Simulation
+  find_package(ZMQPP REQUIRED)
+
+  target_link_libraries(dynawo_Simulation
   PUBLIC
     dynawo_SolverCommon
     libZIP::libZIP
@@ -57,7 +59,7 @@ target_link_libraries(dynawo_Simulation
     dynawo_DataInterfaceFactory
     Boost::filesystem
     Boost::serialization
-    zmqpp
+    ${ZMQPP_LIBRARIES}
   )
 
 set_target_properties(dynawo_Simulation PROPERTIES VERSION ${SIM_VERSION_STRING}
@@ -88,6 +90,7 @@ target_include_directories(dynawo_SimulationCommon
   INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
+    ${ZMQPP_INCLUDE_DIRS}
   )
 
 target_link_libraries(dynawo_SimulationCommon
