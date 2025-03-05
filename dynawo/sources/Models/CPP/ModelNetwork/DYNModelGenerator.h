@@ -131,7 +131,7 @@ class ModelGenerator : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::evalZ()
    */
-  NetworkComponent::StateChange_t evalZ(const double& t);
+  NetworkComponent::StateChange_t evalZ(const double& t, bool deactivateRootFunctions);
 
   /**
    * @brief evaluation G
@@ -280,7 +280,7 @@ class ModelGenerator : public NetworkComponent {
    * @param Qc reactive power set point
    * @return the real part of the current
    */
-  inline double ir(const double& ur, const double& ui, const double& U2, const double& Pc, const double& Qc) const {
+  inline double ir(double ur, double ui, double U2, double Pc, double Qc) const {
     return (-Pc * ur - Qc * ui) / U2;
   }
 
@@ -293,9 +293,46 @@ class ModelGenerator : public NetworkComponent {
    * @param Qc reactive power set point
    * @return the imaginary part of the current
    */
-  inline double ii(const double& ur, const double& ui, const double& U2, const double& Pc, const double& Qc) const {
+  inline double ii(double ur, double ui, double U2, double Pc, double Qc) const {
     return (-Pc * ui + Qc * ur) / U2;
   }
+
+ /**
+   * @brief calculated value
+   * @param ur real part of the voltage
+   * @param ui imaginary part of the voltage
+   * @param U voltage
+   * @param U2 voltage square
+   * @return value
+   */
+ double P_dUr(double ur, double ui, double U, double U2) const;
+ /**
+  * @brief calculated value
+  * @param ur real part of the voltage
+  * @param ui imaginary part of the voltage
+  * @param U voltage
+  * @param U2 voltage square
+  * @return value
+  */
+ double Q_dUr(double ur, double ui, double U, double U2) const;
+ /**
+  * @brief calculated value
+  * @param ur real part of the voltage
+  * @param ui imaginary part of the voltage
+  * @param U voltage
+  * @param U2 voltage square
+  * @return value
+  */
+ double P_dUi(double ur, double ui, double U, double U2) const;
+ /**
+  * @brief calculated value
+  * @param ur real part of the voltage
+  * @param ui imaginary part of the voltage
+  * @param U voltage
+  * @param U2 voltage square
+  * @return value
+  */
+ double Q_dUi(double ur, double ui, double U, double U2) const;
 
   /**
    * @brief get the partial derivative of ir with respect to Ur
@@ -306,7 +343,7 @@ class ModelGenerator : public NetworkComponent {
    * @param Qc reactive power set point
    * @return the partial derivative of ir with respect to Ur
    */
-  inline double ir_dUr(const double& ur, const double& ui, const double& U2, const double& Pc, const double& Qc) const {
+  inline double ir_dUr(double ur, double ui, double U2, double Pc, double Qc) const {
     return (-Pc - 2. * ur * (-Pc * ur - Qc * ui) / U2) / U2;
   }
 
@@ -319,7 +356,7 @@ class ModelGenerator : public NetworkComponent {
    * @param Qc reactive power set point
    * @return the partial derivative of ir with respect to Ui
    */
-  inline double ir_dUi(const double& ur, const double& ui, const double& U2, const double& Pc, const double& Qc) const {
+  inline double ir_dUi(double ur, double ui, double U2, double Pc, double Qc) const {
     return (-Qc - 2. * ui * (-Pc * ur - Qc * ui) / U2) / U2;
   }
 
@@ -345,7 +382,7 @@ class ModelGenerator : public NetworkComponent {
    * @param Qc reactive power set point
    * @return the partial derivative of ii with respect to Ui
    */
-  inline double ii_dUi(const double& ur, const double& ui, const double& U2, const double& Pc, const double& Qc) const {
+  inline double ii_dUi(double ur, double ui, double U2, double Pc, double Qc) const {
     return (-Pc - 2 * ui * (-Pc * ui + Qc * ur) / U2) / U2;
   }
 
@@ -353,8 +390,17 @@ class ModelGenerator : public NetworkComponent {
   std::weak_ptr<GeneratorInterface> generator_;  ///< reference to the generator interface object
   double Pc_;  ///< active power target in MW
   double Qc_;  ///< reactive power target in Mvar
+  double P0_;  ///< initial active power
+  double Q0_;  ///< initial reactive power
+  double u0_;  ///< initial voltage
+  double U0Pu_square_;
   double ir0_;  ///< initial current real part
   double ii0_;  ///< initial current imaginary part
+  double alpha_;  ///< active power exponential sensitivity to voltage
+  double beta_;  ///< reactive power exponential sensitivity to voltage
+  double halfAlpha_;
+  double halfBeta_;
+  bool isVoltageDependant_;  ///< whether the produced energy remains constant
   State connectionState_;  ///< "internal" generator connection status, evaluated at the end of evalZ to detect if the state was modified by another component
   bool stateModified_;  ///< true if the generator connection state was modified
   std::shared_ptr<ModelBus> modelBus_;  ///< model bus

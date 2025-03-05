@@ -295,6 +295,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusCalculatedVariables) {
 
 TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   powsybl::iidm::Network networkIIDM("test", "test");
+  bool deactivateRootFunctions = false;
   std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
   std::shared_ptr<ModelBus> bus = p.first;
   int offSet = 0;
@@ -335,7 +336,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   ASSERT_EQ(bus->getConnectionState(), CLOSED);
   g[0] = ROOT_UP;
   g[1] = ROOT_UP;
-  bus->evalZ(0.);
+  bus->evalZ(0., deactivateRootFunctions);
   ASSERT_EQ(bus->getConnectionState(), OPEN);
   unsigned i = 0;
   for (constraints::ConstraintsCollection::const_iterator it = constraints->cbegin(),
@@ -359,7 +360,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   ASSERT_EQ(i, 2);
   g[0] = ROOT_DOWN;
   g[1] = ROOT_DOWN;
-  bus->evalZ(10.);
+  bus->evalZ(10., deactivateRootFunctions);
   network->setCurrentTime(10);
   for (constraints::ConstraintsCollection::const_iterator it = constraints->cbegin(),
       itEnd = constraints->cend(); it != itEnd; ++it) {
@@ -370,7 +371,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   ASSERT_EQ(bus->evalState(0.), NetworkComponent::TOPO_CHANGE);
   ASSERT_EQ(bus->getConnectionState(), OPEN);
   z[2] = CLOSED;
-  bus->evalZ(0.);
+  bus->evalZ(0., deactivateRootFunctions);
   ASSERT_EQ(bus->evalState(0.), NetworkComponent::TOPO_CHANGE);
   ASSERT_EQ(bus->getConnectionState(), CLOSED);
   ASSERT_EQ(bus->evalState(0.), NetworkComponent::NO_CHANGE);
@@ -401,6 +402,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
 
 TEST(ModelsModelNetwork, ModelNetworkBusNodeBreakerDiscreteVariables) {
   powsybl::iidm::Network networkIIDM("test", "test");
+  bool deactivateRootFunctions = false;
   std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, true, networkIIDM);
   std::shared_ptr<ModelBus> bus = p.first;
   int offSet = 0;
@@ -441,7 +443,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusNodeBreakerDiscreteVariables) {
   ASSERT_EQ(bus->getConnectionState(), CLOSED);
   g[0] = ROOT_UP;
   g[1] = ROOT_UP;
-  ASSERT_THROW_DYNAWO(bus->evalZ(0.), Error::MODELER, KeyError_t::CalculatedBusNoSwitchStateChange);
+  ASSERT_THROW_DYNAWO(bus->evalZ(0., deactivateRootFunctions), Error::MODELER, KeyError_t::CalculatedBusNoSwitchStateChange);
 }
 
 TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariables) {
@@ -713,8 +715,8 @@ TEST(ModelsModelNetwork, ModelNetworkBusJt) {
   smj.init(size, size);
   bus->evalJt(smj, 1., 0);
   ASSERT_EQ(smj.nbElem(), 0);
-  ASSERT_EQ(smj.Ap_[0], 0);
-  ASSERT_EQ(smj.Ap_[1], 0);
+  ASSERT_EQ(smj.getAp()[0], 0);
+  ASSERT_EQ(smj.getAp()[1], 0);
 
   int yNum = 2;
   bus->init(yNum);
@@ -729,11 +731,11 @@ TEST(ModelsModelNetwork, ModelNetworkBusJt) {
   smj2.changeCol();
   smj2.changeCol();
   ASSERT_EQ(smj2.nbElem(), 2);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[0], -1.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[1], -1.);
-  ASSERT_EQ(smj2.Ap_[0], 0);
-  ASSERT_EQ(smj2.Ap_[1], 1);
-  ASSERT_EQ(smj2.Ap_[2], 2);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.getAx()[0], -1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.getAx()[1], -1.);
+  ASSERT_EQ(smj2.getAp()[0], 0);
+  ASSERT_EQ(smj2.getAp()[1], 1);
+  ASSERT_EQ(smj2.getAp()[2], 2);
 
   bus->switchOff();
   SparseMatrix smj3;
@@ -743,10 +745,10 @@ TEST(ModelsModelNetwork, ModelNetworkBusJt) {
   smj3.changeCol();
   smj3.changeCol();
   ASSERT_EQ(smj3.nbElem(), 2);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj3.Ax_[0], 1.0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj3.Ax_[1], 1.0);
-  ASSERT_EQ(smj3.Ap_[0], 0);
-  ASSERT_EQ(smj3.Ap_[1], 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj3.getAx()[0], 1.0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj3.getAx()[1], 1.0);
+  ASSERT_EQ(smj3.getAp()[0], 0);
+  ASSERT_EQ(smj3.getAp()[1], 1);
 
   SparseMatrix smjPrime;
   smjPrime.init(size, size);
@@ -909,19 +911,19 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
   smj.changeCol();
   smj.changeCol();
   ASSERT_EQ(smj.nbElem(), 6);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[0], -1.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[1], -1.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[2], -1.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[3], -1.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[4], -1.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[5], -1.);
-  ASSERT_EQ(smj.Ap_[0], 0);
-  ASSERT_EQ(smj.Ap_[1], 1);
-  ASSERT_EQ(smj.Ap_[2], 2);
-  ASSERT_EQ(smj.Ap_[3], 3);
-  ASSERT_EQ(smj.Ap_[4], 4);
-  ASSERT_EQ(smj.Ap_[5], 5);
-  ASSERT_EQ(smj.Ap_[6], 6);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAx()[0], -1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAx()[1], -1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAx()[2], -1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAx()[3], -1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAx()[4], -1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAx()[5], -1.);
+  ASSERT_EQ(smj.getAp()[0], 0);
+  ASSERT_EQ(smj.getAp()[1], 1);
+  ASSERT_EQ(smj.getAp()[2], 2);
+  ASSERT_EQ(smj.getAp()[3], 3);
+  ASSERT_EQ(smj.getAp()[4], 4);
+  ASSERT_EQ(smj.getAp()[5], 5);
+  ASSERT_EQ(smj.getAp()[6], 6);
   container.initDerivatives();
   SparseMatrix smj2;
   smj2.init(size, size);

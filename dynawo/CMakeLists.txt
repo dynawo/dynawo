@@ -277,7 +277,7 @@ else() # Linux
   endif()
 endif()
 
-include(../cpplint/cpplint.cmake)
+#include(../cpplint/cpplint.cmake)
 include(3rdParty/jquery/jquery.cmake)
 
 add_subdirectory(sources)

@@ -609,7 +609,7 @@ Simulation::compileModels() {
 
 void
 Simulation::loadDynamicData() {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("Simulation::loadDynamicData()");
 #endif
   // Load model
@@ -771,7 +771,7 @@ Simulation::importFinalStateValuesRequest() {
 
 void
 Simulation::initFromData(const shared_ptr<DataInterface>& data, const shared_ptr<DynamicData>& dyd) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("Simulation::initFromData()");
 #endif
   Modeler modeler;
@@ -806,9 +806,7 @@ Simulation::initStructure() {
 
 void
 Simulation::init() {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("Simulation::init()");
-#endif
   Trace::info() << Trace::endline << "-----------------------------------------------------------------------" << Trace::endline;
   Trace::info() << DYNLog(ModelBuilding) << Trace::endline;
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
@@ -841,10 +839,10 @@ Simulation::init() {
     model_->setGequationsModel();  ///< set formula for modelica models' root equations and Network models' equations
     model_->printEquations();
   }
-#ifdef _DEBUG_
+// #ifdef _DEBUG_
   model_->setFequationsModel();  ///< set formula for modelica models' equations and Network models' equations
   model_->setGequationsModel();  ///< set formula for modelica models' root equations and Network models' equations
-#endif
+// #endif
 
   tCurrent_ = tStart_;
 
@@ -910,11 +908,32 @@ Simulation::init() {
 
 void
 Simulation::calculateIC() {
+  Timer timer("Simulation::calculateIC");
+  bool symbolicJacobian = jobEntry_->getModelerEntry()->getSymbolicJacobian();
+  if (hasEnvVar("DYNAWO_SYMBOLIC_JACOBIAN")) {
+    if (getEnvVar("DYNAWO_SYMBOLIC_JACOBIAN") == "true")
+      symbolicJacobian = true;
+  }
+  bool symbolicResidual = jobEntry_->getModelerEntry()->getSymbolicResidual();
+  if (hasEnvVar("DYNAWO_SYMBOLIC_RESIDUAL")) {
+    if (getEnvVar("DYNAWO_SYMBOLIC_RESIDUAL") == "true")
+      symbolicResidual = true;
+  }
+
   // ensure locally satisfactory values for initial models
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
   Trace::info() << DYNLog(ModelLocalInit) << Trace::endline;
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
   model_->setIsInitProcess(true);
+
+  /*if (symbolicJacobian) {
+    model_->setSymbolicJacobian();
+  }*/
+
+  /*if (symbolicResidual) {
+    model_->setSymbolicResidual();
+  }*/
+
   model_->init(tStart_);
   model_->rotateBuffers();
   model_->printMessages();
@@ -944,6 +963,14 @@ Simulation::calculateIC() {
 
   model_->evalDynamicYType();
   model_->evalDynamicFType();
+
+  if (symbolicJacobian) {
+    model_->setSymbolicJacobian();
+  }
+
+  if (symbolicResidual) {
+    model_->setSymbolicResidual();
+  }
 
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
   Trace::info() << DYNLog(ModelGlobalInit) << Trace::endline;
@@ -1025,7 +1052,6 @@ Simulation::simulate() {
       if (solverState.getFlags(ModeChange)) {
         updateCurves(true);
         model_->notifyTimeStep();
-        Trace::info() << DYNLog(NewStartPoint) << Trace::endline;
         solver_->reinit();
         model_->getCurrentZ(zCurrent_);
         solver_->printSolve();
@@ -1083,6 +1109,8 @@ Simulation::simulate() {
         intermediateStates_.pop();
       }
     }
+
+    // solver_->updateStatistics();
 
     // If we haven't evaluated the calculated variables for the last iteration before, we must do it here if it might be used in the post process
     if (finalState_.iidmFile_ || exportCurvesMode_ != EXPORT_CURVES_NONE || activateCriteria_)
@@ -1158,7 +1186,7 @@ Simulation::endSimulationWithError(bool criteria, bool isSimulationDiverging) {
 
 bool
 Simulation::checkCriteria(double t, bool finalStep) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("Simulation::checkCriteria()");
 #endif
   const bool filterForCriteriaCheck = true;
@@ -1166,7 +1194,6 @@ Simulation::checkCriteria(double t, bool finalStep) {
   bool criteriaChecked = data_->checkCriteria(t, finalStep);
   return criteriaChecked;
 }
-
 
 void
 Simulation::getFailingCriteria(std::vector<std::pair<double, std::string> >& failingCriteria) const {
@@ -1199,9 +1226,7 @@ Simulation::updateParametersValues() {
 
 void
 Simulation::updateCurves(bool updateCalculateVariable) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
-  Timer timer("Simulation::updateCurves()");
-#endif
+  // Timer timer("Simulation::updateCurves()");
   if (exportCurvesMode_ == EXPORT_CURVES_NONE && exportFinalStateValuesMode_ == EXPORT_FINAL_STATE_VALUES_NONE)
     return;
 
@@ -1248,6 +1273,7 @@ Simulation::printHighestDerivativesValues() {
 void
 Simulation::printEnd() {
   solver_->printEnd();
+  solver_->printEndConsole();
 }
 
 void
@@ -1259,7 +1285,7 @@ Simulation::setCriteriaStep(const int step) {
 
 void
 Simulation::terminate() {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("Simulation::terminate()");
 #endif
   updateParametersValues();   // update parameter curves' value

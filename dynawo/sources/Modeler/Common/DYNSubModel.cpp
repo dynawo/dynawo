@@ -1030,7 +1030,7 @@ SubModel::addCurve(std::shared_ptr<curves::Curve>& curve) {
 
 void
 SubModel::updateCalculatedVarForCurve(std::shared_ptr<curves::Curve>& curve) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_)
   Timer timer("SubModel::updateCalculatedVarForCurve");
   assert(curve);
 #endif
@@ -1285,7 +1285,7 @@ SubModel::hasConstraints() const {
 }
 
 string
-SubModel::getFequationByLocalIndex(const int index) {
+SubModel::getFequationByLocalIndex(const int index) const {
   map<int, string>::const_iterator it = fEquationIndex().find(index);
   if (it != fEquationIndex().end()) {
     return it->second;
@@ -1389,9 +1389,11 @@ void
 SubModel::printInitValuesVariables(std::ofstream& fstream) {
   fstream << " ====== INIT VARIABLES VALUES ======\n";
   const vector<string>& xNames = (*this).xNamesInit();
-  for (unsigned int i = 0; i < yLocalInit_.size(); ++i)
-    fstream << std::setw(50) << std::left << xNames[i] << std::right << ": y =" << std::setw(15) << DYN::double2String(yLocalInit_[i])
-      << " yp =" << std::setw(15) << DYN::double2String(ypLocalInit_[i]) << "\n";
+  if (xNames.size() > 0) {
+    for (unsigned int i = 0; i < yLocalInit_.size(); ++i)
+      fstream << std::setw(50) << std::left << xNames[i] << std::right << ": y =" << std::setw(15) << DYN::double2String(yLocalInit_[i])
+        << " yp =" << std::setw(15) << DYN::double2String(ypLocalInit_[i]) << "\n";
+  }
 
   if (calculatedVarsInit_.size() > 0) {
     fstream << " ====== INIT CALCULATED VARIABLES VALUES ======\n";

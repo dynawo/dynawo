@@ -21,6 +21,7 @@
 #define MODELS_CPP_MODELNETWORK_DYNDERIVATIVE_H_
 
 #include <map>
+#include <unordered_map>
 
 namespace DYN {
 // Structure dedicated to the network Jacobian filling
@@ -43,19 +44,29 @@ class Derivatives {
    * @brief reset
    */
   void reset();
+
+  void init();
+
   /**
    * @brief add value
    * @param numVar number of variable
    * @param value value
    */
-  void addValue(const int& numVar, const double& value);
+  void addValue(int numVar, double value);
 
   /**
    * @brief get values
    * @return map of variables' values
    */
-  inline const std::map<int, double>& getValues() const {
+  /*inline const std::unordered_map<int, double>& getValues() const {
     return values_;
+  }*/
+  inline const std::vector<double>& getValues() const {
+    return values_;
+  }
+
+  inline const std::vector<int>& getIndices() const {
+    return indices_;
   }
 
   /**
@@ -70,7 +81,9 @@ class Derivatives {
   // values_->first : num of the variable
   // values_->second: value of the derivative
   // @I/@Y[values_->first]= values_->second
-  std::map<int, double> values_;  ///< associated num var with value of the derivative
+  // std::unordered_map<int, double> values_;  ///< associated num var with value of the derivative
+  std::vector<double> values_;
+  std::vector<int> indices_;
 };
 
 /**
@@ -82,6 +95,9 @@ class BusDerivatives {
    * @brief reset
    */
   void reset();
+
+  void init();
+
   /**
    * @brief add derivative
    *
@@ -89,13 +105,18 @@ class BusDerivatives {
    * @param numVar number of variable
    * @param value number of value
    */
-  void addDerivative(typeDerivative_t type, const int& numVar, const double& value);
+  void addDerivative(typeDerivative_t type, int numVar, double value);
+
   /**
    * @brief get values
    * @param type type of derivatives
    * @return map of variables' values
    */
-  const std::map<int, double>& getValues(typeDerivative_t type) const;
+  // const std::unordered_map<int, double>& getValues(typeDerivative_t type) const;
+
+  const std::vector<double>& getValues(typeDerivative_t type) const;
+
+  const std::vector<int>& getIndices(typeDerivative_t type) const;
 
   /**
    * @brief state whether empty
@@ -104,6 +125,13 @@ class BusDerivatives {
   inline bool empty() const {
     return irDerivatives_.empty() && iiDerivatives_.empty();
   }
+
+  /**
+   * @brief get values
+   * @param type derivative type
+   * @return Derivatives of variables' values
+   */
+  Derivatives& getDerivatives(typeDerivative_t type);
 
  private:
   Derivatives irDerivatives_;  ///< ir derivative

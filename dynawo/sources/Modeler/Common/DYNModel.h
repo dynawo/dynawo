@@ -23,6 +23,7 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <unordered_set>
 #include <boost/shared_ptr.hpp>
 #include "DYNEnumUtils.h"
 #include "PARParametersSet.h"
@@ -97,6 +98,20 @@ class Model {
   virtual void copyContinuousVariables(const double* y, const double* yp) = 0;
 
   /**
+   * @brief restore the residual to a previous state
+   *
+   * @param f current values of the residual
+   */
+  virtual void restoreResidual(const std::vector<double>& f) = 0;
+
+  /**
+   * @brief save the residual
+   *
+   * @param f
+   */
+  virtual void saveResidual(std::vector<double>& f) = 0;
+
+  /**
    * @brief get the current value of the discrete variables
    *
    * @param z current values of discrete variables
@@ -110,6 +125,14 @@ class Model {
    * @param g values of the root functions
    */
   virtual void evalG(double t, std::vector<state_g>& g) = 0;
+
+ /**
+   * @brief evaluate the root functions of the model based on the variable values contained in the model
+   *
+   * @param t current time
+   * @param g values of the root functions
+   */
+  virtual void evalG(double t, double* g) = 0;
 
   /**
    * @brief evaluate the discrete variables of the model based on the variable values contained in the model
@@ -473,6 +496,18 @@ class Model {
   virtual void printEquations() = 0;
 
   /**
+  * @brief Print all equations.
+  * @param ignoreF
+  */
+  virtual void printEquations(const std::unordered_set<int>& ignoreF) = 0;
+
+  /**
+  * @brief Print all equations.
+  * @param ignoreY
+  */
+  virtual void printVariableNames(const std::unordered_set<int>& ignoreY) = 0;
+
+  /**
   * @brief Print all parameters values
   */
   virtual void printParameterValues() const = 0;
@@ -521,6 +556,16 @@ class Model {
    * @param localInitParameters local initialization solver parameters set
    */
   virtual void setLocalInitParameters(std::shared_ptr<parameters::ParametersSet> localInitParameters) = 0;
+
+  /**
+  * @brief set the local initialization solver parameters of the model
+  */
+ virtual void setSymbolicJacobian() = 0;
+
+ /**
+  * @brief set the local initialization solver parameters of the model
+  */
+ virtual void setSymbolicResidual() = 0;
 };  ///< Generic class for Model
 
 #ifdef __clang__

@@ -283,6 +283,11 @@ class MyModelica: public ModelModelica {
 
   void defineElements(std::vector<Element> &/*elements*/, std::map<std::string, int>& /*mapElement*/) {}
 
+  void evalJt(double /*cj*/, SparseMatrix& /*jt*/, int /*rowOffset*/) {}
+  void evalJtPrim(double /*cj*/, SparseMatrix& /*jt*/, int /*rowOffset*/) {}
+  void evalJCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<double>& /*res*/) const {}
+  void evalF(double* /*f*/, DYN::propertyF_t /*type*/) {}
+
   /**
    * @brief set shared parameters default values
    *
@@ -439,6 +444,10 @@ class MyModelicaInit: public MyModelica {
     nb = (data->modelData->nExtObjs > 0) ? data->modelData->nExtObjs : 0;
     data->simulationInfo->extObjs = reinterpret_cast<void**>(calloc(nb, sizeof(void*)));
   }
+
+  void evalJt(double /*cj*/, SparseMatrix& /*jt*/, int /*rowOffset*/) {}
+  void evalJtPrim(double /*cj*/, SparseMatrix& /*jt*/, int /*rowOffset*/) {}
+  void evalJCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<double>& /*res*/) const {}
 
  private:
   DYNDATA* data_;
@@ -607,23 +616,23 @@ TEST(TestModelManager, TestModelManagerBasics) {
   smj.init(size, size);
   mm->evalJt(0., 1., smj, 0);
   ASSERT_EQ(smj.nbElem(), 4);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[0], 2.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[1], 1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[2], -1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[3], .5);
-  ASSERT_EQ(smj.Ap_[0], 0);
-  ASSERT_EQ(smj.Ap_[1], 2);
-  ASSERT_EQ(smj.Ap_[2], 4);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAx()[0], 2.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAx()[1], 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAx()[2], -1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAx()[3], .5);
+  ASSERT_EQ(smj.getAp()[0], 0);
+  ASSERT_EQ(smj.getAp()[1], 2);
+  ASSERT_EQ(smj.getAp()[2], 4);
 
   SparseMatrix smj2;
   smj2.init(size, size);
   mm->evalJtPrim(0., 1., smj2, 0);
   ASSERT_EQ(smj2.nbElem(), 2);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[0], 1.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[1], -1.);
-  ASSERT_EQ(smj2.Ap_[0], 0);
-  ASSERT_EQ(smj2.Ap_[1], 1);
-  ASSERT_EQ(smj2.Ap_[2], 2);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.getAx()[0], 1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.getAx()[1], -1.);
+  ASSERT_EQ(smj2.getAp()[0], 0);
+  ASSERT_EQ(smj2.getAp()[1], 1);
+  ASSERT_EQ(smj2.getAp()[2], 2);
 
   mm->setSharedParametersDefaultValues();
   mm->setSharedParametersDefaultValuesInit();

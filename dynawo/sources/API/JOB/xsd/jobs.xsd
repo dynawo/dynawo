@@ -55,6 +55,7 @@
       <xs:element name="modelicaModels" type="dyn:ModelicaModelsDirEntry"/>
     </xs:sequence>
     <xs:attribute name="compileDir" use="required" type="xs:string"/>
+    <xs:attribute name="symbolicJacobian" use="optional" type="xs:boolean"/>
   </xs:complexType>
 
   <xs:complexType name="NetworkEntry">

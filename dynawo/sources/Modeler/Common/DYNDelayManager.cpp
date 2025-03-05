@@ -24,6 +24,7 @@
 
 #include <boost/optional.hpp>
 #include <cassert>
+#include "DYNTrace.h"
 #include <limits>
 #include <sstream>
 
@@ -76,7 +77,7 @@ DelayManager::dumpDelays() const {
     it->second.points(values);
 
     ss << it->first << ":";
-    ss << it->second.getDelayMax() << ":";
+    ss << DYN::double2String(it->second.getDelayMax()) << ":";
     for (std::vector<std::pair<double, double> >::const_iterator itvec = values.begin(); itvec != values.end(); ++itvec) {
       ss << DYN::double2String(itvec->first) << "," << DYN::double2String(itvec->second) << ";";
     }
@@ -176,13 +177,14 @@ DelayManager::setGomc(state_g* const p_glocal, size_t offset, const double time)
 }
 
 modeChangeType_t
-DelayManager::evalMode(const double time) {
+DelayManager::evalMode(const double time, const std::string& modelName) {
   std::unordered_map<size_t, Delay>::iterator it;
   modeChangeType_t delay_mode = NO_MODE;
   for (it = delays_.begin(); it != delays_.end(); ++it) {
     double delayTime = it->second.getDelayTime();
     if (!(time < delayTime || doubleEquals(time, delayTime)) && !it->second.isTriggered()) {
       it->second.trigger();
+      Trace::debug() << modelName << " mode for delay " << it->first << " delayTime " << delayTime << Trace::endline;
       delay_mode = ALGEBRAIC_J_UPDATE_MODE;
     }
   }

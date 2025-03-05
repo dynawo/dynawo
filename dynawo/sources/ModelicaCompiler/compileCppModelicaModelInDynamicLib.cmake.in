@@ -116,12 +116,14 @@ set(MODEL_SOURCES
   ${MODEL_NAME}.cpp
   ${MODEL_NAME}_Dyn.cpp
   ${MODEL_NAME}_Dyn_external.cpp
+  ${MODEL_NAME}_Dyn_evalJ.cpp
   )
 
 if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${MODEL_NAME}_Init.cpp)
   list(APPEND MODEL_SOURCES
     ${MODEL_NAME}_Init.cpp
     ${MODEL_NAME}_Init_external.cpp
+    ${MODEL_NAME}_Init_evalJ.cpp
     )
 endif()
 

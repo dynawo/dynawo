@@ -153,7 +153,7 @@ ModelStaticVarCompensator::Q() const {
 }
 
 double
-ModelStaticVarCompensator::ir(const double& ui) const {
+ModelStaticVarCompensator::ir(double ui) const {
   double ir = 0.;
   if (network_->isInitModel()) {
     ir = ir0_;
@@ -166,7 +166,7 @@ ModelStaticVarCompensator::ir(const double& ui) const {
 }
 
 double
-ModelStaticVarCompensator::ii(const double& ur) const {
+ModelStaticVarCompensator::ii(double ur) const {
   double ii = 0.;
   if (network_->isInitModel()) {
     ii = ii0_;
@@ -225,7 +225,7 @@ ModelStaticVarCompensator::getY0() {
 }
 
 NetworkComponent::StateChange_t
-ModelStaticVarCompensator::evalZ(const double& /*t*/) {
+ModelStaticVarCompensator::evalZ(const double& /*t*/, bool /*deactivateRootFunctions*/) {
   mode_ = static_cast<StaticVarCompensatorInterface::RegulationMode_t>(static_cast<int>(z_[modeNum_]));
 
   if (modelBus_->getConnectionState() == OPEN)
@@ -362,10 +362,11 @@ ModelStaticVarCompensator::evalDerivatives(const double /*cj*/) {
   if (isConnected()) {
     int urYNum = modelBus_->urYNum();
     int uiYNum = modelBus_->uiYNum();
-    modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, urYNum, ir_dUr());
-    modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, uiYNum, ir_dUi());
-    modelBus_->derivatives()->addDerivative(II_DERIVATIVE, urYNum, ii_dUr());
-    modelBus_->derivatives()->addDerivative(II_DERIVATIVE, uiYNum, ii_dUi());
+    auto& derivatives = modelBus_->derivatives();
+    derivatives->addDerivative(IR_DERIVATIVE, urYNum, ir_dUr());
+    derivatives->addDerivative(IR_DERIVATIVE, uiYNum, ir_dUi());
+    derivatives->addDerivative(II_DERIVATIVE, urYNum, ii_dUr());
+    derivatives->addDerivative(II_DERIVATIVE, uiYNum, ii_dUi());
   }
 }
 
