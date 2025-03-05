@@ -171,7 +171,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   IECWPP4BCurrentSource2015.xml
   IECWPP4BCurrentSource2020.xml
   IECWT3ACurrentSource2020.xml
-  IECWT4BCurrentSource2020.xml
+  IECWT3BCurrentSource2020.xml
   IECWT4ACurrentSource2015.xml
   IECWT4ACurrentSource2020.xml
   IECWT4BCurrentSource2015.xml

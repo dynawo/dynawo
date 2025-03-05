@@ -17,7 +17,7 @@ set(MODEL_FILES
   DeadBand.mo
   DeadZone.mo
   DelayFlag.mo
-  FirstOrderVariableLimitsAntiWindup
+  FirstOrderVariableLimitsAntiWindup.mo
   FixedBooleanDelay.mo
   FlipFlopR.mo
   FlipFlopS.mo
