@@ -39,8 +39,6 @@ asyncMode_(asyncMode),
 pollTimeoutMs_(10),
 stepTriggeredCnt_(0) {
   socket_.bind("tcp://*:5555");
-  zmqpp::poller poller_;
-  poller_.add(socket_);
 }
 
 void
@@ -115,44 +113,49 @@ EventSubscriber::sendReply(const std::string& msg) {
 
 void
 EventSubscriber::receiveMessages(bool stop) {
-  while (running_ && !SignalHandler::gotExitSignal()) {
-    zmqpp::message message;
+  zmqpp::poller poller;
+  poller.add(socket_);
 
+  while (running_ && !SignalHandler::gotExitSignal()) {
     // Polling
-    if (poller_.poll(pollTimeoutMs_)) {
+    if (poller.poll(pollTimeoutMs_)) {
       std::cout << "EventSubscriber: message received" << std::endl;
 
-      std::string input;
-      message >> input;
+      if (poller.has_input(socket_)) {
+        zmqpp::message message;
+        socket_.receive(message);
+        std::string input;
+        message >> input;
 
-      if (input.empty() && triggerEnabled_) {
-          // trigger next step
+        if (input.empty() && triggerEnabled_) {
+            // trigger next step
+            zmqpp::message reply;
+            if (stop) {
+              reply << "simulation ended";
+              std::cout << "Reply: simulation ended" << std::endl;
+            } else {
+              reply << "trigger reply";
+              std::cout << "Reply: trigger reply" << std::endl;
+            }
+            socket_.send(reply);
+            return;
+
+        } else if (actionsEnabled_) {
+          std::shared_ptr<ParametersSet> parametersSet = parseParametersSet(input);
+
+          // Register the action
           zmqpp::message reply;
-          if (stop) {
-            reply << "simulation ended";
-            std::cout << "Reply: simulation ended" << std::endl;
+          if (registerAction(parametersSet->getId(), parametersSet)) {
+            reply << "Action registered";
           } else {
-            reply << "trigger reply";
-            std::cout << "Reply: trigger reply" << std::endl;
+            reply << "Action registration failed";
           }
           socket_.send(reply);
-          return;
-
-      } else if (actionsEnabled_) {
-        std::shared_ptr<ParametersSet> parametersSet = parseParametersSet(input);
-
-        // Register the action
-        zmqpp::message reply;
-        if (registerAction(parametersSet->getId(), parametersSet)) {
-          reply << "Action registered";
         } else {
-          reply << "Action registration failed";
+          zmqpp::message reply;
+          reply << "Unknown request";
+          socket_.send(reply);
         }
-        socket_.send(reply);
-      } else {
-        zmqpp::message reply;
-        reply << "Unknown request";
-        socket_.send(reply);
       }
     }
   }
@@ -161,38 +164,45 @@ EventSubscriber::receiveMessages(bool stop) {
 
 void
 EventSubscriber::messageReceiverAsync() {
+  zmqpp::poller poller;
+  poller.add(socket_);
+
   while (running_ && !SignalHandler::gotExitSignal()) {
     zmqpp::message message;
 
     // Polling
-    if (poller_.poll(pollTimeoutMs_)) {
+    if (poller.poll(pollTimeoutMs_)) {
       std::cout << "EventSubscriber: message received" << std::endl;
 
-      std::string input;
-      message >> input;
+      if (poller.has_input(socket_)) {
+        zmqpp::message message;
+        socket_.receive(message);
+        std::string input;
+        message >> input;
 
-      zmqpp::message reply;
-      if (input.empty() && triggerEnabled_) {
-          // trigger next step
-          reply << "Step triggered";
-          std::lock_guard<std::mutex> simulationLock(simulationMutex_);
-          stepTriggeredCnt_++;
-          simulationStepTriggerCondition_.notify_one();
-          socket_.send(reply);
-      } else if (actionsEnabled_) {
-        std::shared_ptr<ParametersSet> parametersSet = parseParametersSet(input);
-
-        // Register the action
         zmqpp::message reply;
-        if (registerAction(parametersSet->getId(), parametersSet)) {
-          reply << "Action registered";
+        if (input.empty() && triggerEnabled_) {
+            // trigger next step
+            reply << "Step triggered";
+            std::lock_guard<std::mutex> simulationLock(simulationMutex_);
+            stepTriggeredCnt_++;
+            simulationStepTriggerCondition_.notify_one();
+            socket_.send(reply);
+        } else if (actionsEnabled_) {
+          std::shared_ptr<ParametersSet> parametersSet = parseParametersSet(input);
+
+          // Register the action
+          zmqpp::message reply;
+          if (registerAction(parametersSet->getId(), parametersSet)) {
+            reply << "Action registered";
+          } else {
+            reply << "Action registration failed";
+          }
+          socket_.send(reply);
         } else {
-          reply << "Action registration failed";
+          reply << "Unknown request";
+          socket_.send(reply);
         }
-        socket_.send(reply);
-      } else {
-        reply << "Unknown request";
-        socket_.send(reply);
       }
     }
   }
