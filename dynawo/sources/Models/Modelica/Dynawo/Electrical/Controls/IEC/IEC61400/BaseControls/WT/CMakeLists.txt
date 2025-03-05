@@ -16,7 +16,7 @@ set(MODEL_FILES
   Mechanical.mo
   package.mo
   package.order
-  PControl3B2020.mo
+  PControl3AB2020.mo
   PControl4A2015.mo
   PControl4A2020.mo
   PControl4B2015.mo
