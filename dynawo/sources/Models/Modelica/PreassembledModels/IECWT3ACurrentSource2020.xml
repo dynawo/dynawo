@@ -12,7 +12,7 @@
     of simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:modelicaModel id="IECWT4ACurrentSource2020">
+  <dyn:modelicaModel id="IECWT3ACurrentSource2020">
     <dyn:unitDynamicModel id="WT" name="Dynawo.Electrical.Wind.IEC.WT.WT3ACurrentSource2020" initName="Dynawo.Electrical.Wind.IEC.WT.WT3CurrentSource_INIT"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

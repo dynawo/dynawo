@@ -17,22 +17,22 @@ model WT4BCurrentSource2015 "Wind Turbine Type 4B model from IEC 61400-27-1:2015
 
   //Uf measurement parameters
   extends Dynawo.Electrical.Wind.IEC.Parameters.UfMeasurement2015;
-  
+
   //PControl parameters
   extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4b2015;
-  
+
   //Current limiter parameters
   extends Dynawo.Electrical.Wind.IEC.Parameters.CurrentLimiter2015;
-  
+
   //Mechanical parameters
   extends Dynawo.Electrical.Wind.IEC.Parameters.Mechanical;
-  
+
   //QControl parameters
   extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWT2015;
-  
+
   //Qlimiter parameters
   extends Dynawo.Electrical.Wind.IEC.Parameters.QLimiter2015;
-  
+
 
   Dynawo.Electrical.Controls.IEC.IEC61400.WT.Control4B2015 control4B( DPMaxP4BPu = DPMaxP4BPu, Udb1Pu = Udb1Pu, Udb2Pu = Udb2Pu, IMaxDipPu = IMaxDipPu, IMaxPu = IMaxPu, IpMax0Pu = IpMax0Pu, IqH1Pu = IqH1Pu, IqMax0Pu = IqMax0Pu, IqMaxPu = IqMaxPu, IqMin0Pu = IqMin0Pu, IqMinPu = IqMinPu, IqPostPu = IqPostPu, Kiq = Kiq, Kiu = Kiu, Kpaw = Kpaw, Kpq = Kpq, Kpqu = Kpqu, Kpu = Kpu, Kqv = Kqv, MdfsLim = MdfsLim, MqG = MqG, MqUvrt = MqUvrt, Mqpri = Mqpri, P0Pu = P0Pu, Q0Pu = Q0Pu, QMax0Pu = QMax0Pu, QMaxPu = QMaxPu, QMin0Pu = QMin0Pu, QMinPu = QMinPu, QlConst = QlConst, RDropPu = RDropPu, SNom = SNom,TableIpMaxUwt = TableIpMaxUwt, TableIpMaxUwt11 = TableIpMaxUwt11, TableIpMaxUwt12 = TableIpMaxUwt12, TableIpMaxUwt21 = TableIpMaxUwt21, TableIpMaxUwt22 = TableIpMaxUwt22, TableIpMaxUwt31 = TableIpMaxUwt31, TableIpMaxUwt32 = TableIpMaxUwt32, TableIpMaxUwt41 = TableIpMaxUwt41, TableIpMaxUwt42 = TableIpMaxUwt42, TableIpMaxUwt51 = TableIpMaxUwt51, TableIpMaxUwt52 = TableIpMaxUwt52, TableIpMaxUwt61 = TableIpMaxUwt61, TableIpMaxUwt62 = TableIpMaxUwt62, TableIpMaxUwt71 = TableIpMaxUwt71, TableIpMaxUwt72 = TableIpMaxUwt72, TableIqMaxUwt = TableIqMaxUwt, TableIqMaxUwt11 = TableIqMaxUwt11, TableIqMaxUwt12 = TableIqMaxUwt12, TableIqMaxUwt21 = TableIqMaxUwt21, TableIqMaxUwt22 = TableIqMaxUwt22, TableIqMaxUwt31 = TableIqMaxUwt31, TableIqMaxUwt32 = TableIqMaxUwt32, TableIqMaxUwt41 = TableIqMaxUwt41, TableIqMaxUwt42 = TableIqMaxUwt42, TableIqMaxUwt51 = TableIqMaxUwt51, TableIqMaxUwt52 = TableIqMaxUwt52, TableIqMaxUwt61 = TableIqMaxUwt61, TableIqMaxUwt62 = TableIqMaxUwt62, TableIqMaxUwt71 = TableIqMaxUwt71, TableIqMaxUwt72 = TableIqMaxUwt72, TableIqMaxUwt81 = TableIqMaxUwt81, TableIqMaxUwt82 = TableIqMaxUwt82, TableQMaxPwtcFilt = TableQMaxPwtcFilt, TableQMaxPwtcFilt11 = TableQMaxPwtcFilt11, TableQMaxPwtcFilt12 = TableQMaxPwtcFilt12, TableQMaxPwtcFilt21 = TableQMaxPwtcFilt21, TableQMaxPwtcFilt22 = TableQMaxPwtcFilt22, TableQMaxPwtcFilt31 = TableQMaxPwtcFilt31, TableQMaxPwtcFilt32 = TableQMaxPwtcFilt32, TableQMaxPwtcFilt41 = TableQMaxPwtcFilt41, TableQMaxPwtcFilt42 = TableQMaxPwtcFilt42, TableQMaxUwtcFilt = TableQMaxUwtcFilt, TableQMaxUwtcFilt11 = TableQMaxUwtcFilt11, TableQMaxUwtcFilt12 = TableQMaxUwtcFilt12, TableQMaxUwtcFilt21 = TableQMaxUwtcFilt21, TableQMaxUwtcFilt22 = TableQMaxUwtcFilt22, TableQMaxUwtcFilt31 = TableQMaxUwtcFilt31, TableQMaxUwtcFilt32 = TableQMaxUwtcFilt32, TableQMaxUwtcFilt41 = TableQMaxUwtcFilt41, TableQMaxUwtcFilt42 = TableQMaxUwtcFilt42, TableQMaxUwtcFilt51 = TableQMaxUwtcFilt51, TableQMaxUwtcFilt52 = TableQMaxUwtcFilt52, TableQMaxUwtcFilt61 = TableQMaxUwtcFilt61, TableQMaxUwtcFilt62 = TableQMaxUwtcFilt62, TableQMinPwtcFilt = TableQMinPwtcFilt, TableQMinPwtcFilt11 = TableQMinPwtcFilt11, TableQMinPwtcFilt12 = TableQMinPwtcFilt12, TableQMinPwtcFilt21 = TableQMinPwtcFilt21, TableQMinPwtcFilt22 = TableQMinPwtcFilt22, TableQMinPwtcFilt31 = TableQMinPwtcFilt31, TableQMinPwtcFilt32 = TableQMinPwtcFilt32, TableQMinPwtcFilt41 = TableQMinPwtcFilt41, TableQMinPwtcFilt42 = TableQMinPwtcFilt42, TableQMinUwtcFilt = TableQMinUwtcFilt, TableQMinUwtcFilt11 = TableQMinUwtcFilt11, TableQMinUwtcFilt12 = TableQMinUwtcFilt12, TableQMinUwtcFilt21 = TableQMinUwtcFilt21, TableQMinUwtcFilt22 = TableQMinUwtcFilt22, TableQMinUwtcFilt31 = TableQMinUwtcFilt31, TableQMinUwtcFilt32 = TableQMinUwtcFilt32, TableQMinUwtcFilt41 = TableQMinUwtcFilt41, TableQMinUwtcFilt42 = TableQMinUwtcFilt42, U0Pu = U0Pu, UMaxPu = UMaxPu, UMinPu = UMinPu, UPhase0 = UPhase0, URef0Pu = URef0Pu, UpquMaxPu = UpquMaxPu, UqDipPu = UqDipPu, XDropPu = XDropPu, XWT0Pu = XWT0Pu, tPAero = tPAero, tPFiltQ = tPFiltQ, tPFiltql = tPFiltql, tPOrdP4B = tPOrdP4B, tPost = tPost, tQord = tQord, tS = tS, tUFiltP4B = tUFiltP4B, tUFiltQ = tUFiltQ, tUFiltcl = tUFiltcl, tUFiltql = tUFiltql)  annotation(
     Placement(visible = true, transformation(origin = {-58, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -42,8 +42,8 @@ model WT4BCurrentSource2015 "Wind Turbine Type 4B model from IEC 61400-27-1:2015
     Placement(visible = true, transformation(origin = {10, 30}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT.Mechanical mechanical(CdrtPu = CdrtPu, Hgen = Hgen, Hwtr = Hwtr, KdrtPu = KdrtPu, P0Pu = P0Pu, PAg0Pu = PAg0Pu, SNom = SNom)  annotation(
     Placement(visible = true, transformation(origin = {63, -101}, extent = {{-11, 11}, {11, -11}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries.PQCalculus pQCalculus annotation(
-    Placement(visible = true, transformation(origin = {10, -84}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+    Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries.MeasurementsPQ measurementsPQ(P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, i0Pu = i0Pu, u0Pu = u0Pu) annotation(
+    Placement(visible = true, transformation(origin = {-8, -90}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
 equation
   connect(control4B.ipMaxPu, injector.ipMaxPu) annotation(
@@ -82,14 +82,14 @@ equation
     Line(points = {{42, -56}, {46, -56}, {46, -97}, {51, -97}}, color = {0, 0, 127}));
   connect(mechanical.omegaGenPu, control4B.omegaGenPu) annotation(
     Line(points = {{75, -97}, {76, -97}, {76, -14}, {-58, -14}, {-58, -18}}, color = {0, 0, 127}));
-  connect(injector.uWtPu, pQCalculus.uWtPu) annotation(
-    Line(points = {{42, -28}, {50, -28}, {50, -82}, {22, -82}}, color = {85, 170, 255}));
-  connect(injector.iWtPu, pQCalculus.iWtPu) annotation(
-    Line(points = {{42, -24}, {58, -24}, {58, -86}, {22, -86}}, color = {85, 170, 255}));
-  connect(pQCalculus.QWtPu, control4B.QWTPu) annotation(
-    Line(points = {{0, -82}, {-86, -82}, {-86, -58}, {-80, -58}}, color = {0, 0, 127}));
-  connect(pQCalculus.PWtPu, control4B.PWTPu) annotation(
-    Line(points = {{0, -86}, {-90, -86}, {-90, -46}, {-80, -46}}, color = {0, 0, 127}));
+  connect(injector.uWtPu, measurementsPQ.uPu) annotation(
+    Line(points = {{42, -28}, {50, -28}, {50, -84}, {3, -84}}, color = {85, 170, 255}));
+  connect(injector.iWtPu, measurementsPQ.iPu) annotation(
+    Line(points = {{42, -24}, {58, -24}, {58, -90}, {3, -90}}, color = {85, 170, 255}));
+  connect(measurementsPQ.PPu, control4B.PWTPu) annotation(
+    Line(points = {{-11, -79}, {-10.5, -79}, {-10.5, -75}, {-92, -75}, {-92, -46}, {-80, -46}}, color = {0, 0, 127}));
+  connect(measurementsPQ.QPu, control4B.QWTPu) annotation(
+    Line(points = {{-5, -79}, {-5.5, -79}, {-5.5, -69}, {-86, -69}, {-86, -58}, {-80, -58}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

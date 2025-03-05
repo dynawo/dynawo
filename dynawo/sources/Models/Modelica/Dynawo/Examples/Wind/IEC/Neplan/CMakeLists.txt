@@ -23,7 +23,9 @@ set(MODEL_FILES
   WPP4BCurrentSource2020.mo
   WPP4BCurrentSource2020FOCB.mo
   WT3ACurrentSource2020.mo
+  WT3ACurrentSource2020UDrop.mo
   WT3BCurrentSource2020.mo
+  WT3BCurrentSource2020UDrop.mo
   WT4ACurrentSource2015.mo
   WT4ACurrentSource2015FOCB.mo
   WT4ACurrentSource2020.mo
