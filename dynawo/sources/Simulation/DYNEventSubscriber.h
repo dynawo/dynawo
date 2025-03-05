@@ -83,7 +83,6 @@ class EventSubscriber {
   std::mutex actions_mutex_;
   zmqpp::context context_;
   zmqpp::socket socket_;
-  zmqpp::poller poller_;
   std::thread receiverThread_;
   std::shared_ptr<Model> model_;
   bool running_;
