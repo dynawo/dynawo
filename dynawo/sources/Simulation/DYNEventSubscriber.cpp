@@ -112,7 +112,7 @@ EventSubscriber::sendReply(const std::string& msg) {
 */
 
 void
-EventSubscriber::receiveMessages(bool stop) {
+EventSubscriber::receiveMessages(bool stop = false) {
   zmqpp::poller poller;
   poller.add(socket_);
 
@@ -126,10 +126,9 @@ EventSubscriber::receiveMessages(bool stop) {
         socket_.receive(message);
         std::string input;
         message >> input;
-
+        zmqpp::message reply;
         if (input.empty() && triggerEnabled_) {
             // trigger next step
-            zmqpp::message reply;
             if (stop) {
               reply << "simulation ended";
               std::cout << "Reply: simulation ended" << std::endl;
@@ -140,11 +139,17 @@ EventSubscriber::receiveMessages(bool stop) {
             socket_.send(reply);
             return;
 
+        } else if (!input.compare(STOP_KEY)) {
+          running_ = false;
+          reply << "stop signal";
+          socket_.send(reply);
+          std::cout << "Stop signal received. Ending simulation." << std::endl;
+          kill(getpid(), SIGINT);
+
         } else if (actionsEnabled_) {
           std::shared_ptr<ParametersSet> parametersSet = parseParametersSet(input);
 
           // Register the action
-          zmqpp::message reply;
           if (registerAction(parametersSet->getId(), parametersSet)) {
             reply << "Action registered";
           } else {
@@ -188,6 +193,12 @@ EventSubscriber::messageReceiverAsync() {
             stepTriggeredCnt_++;
             simulationStepTriggerCondition_.notify_one();
             socket_.send(reply);
+        } else if (!input.compare(STOP_KEY)) {
+          running_ = false;
+          reply << "stop signal";
+          socket_.send(reply);
+          std::cout << "Stop signal received. Ending simulation." << std::endl;
+          kill(getppid(), SIGINT);
         } else if (actionsEnabled_) {
           std::shared_ptr<ParametersSet> parametersSet = parseParametersSet(input);
 
@@ -282,7 +293,6 @@ EventSubscriber::parseParametersSet(std::string& input) {
 
 void
 EventSubscriber::wait() {
-  std::cout << "EventSubscriber: wait for signal " << std::endl;
   if (asyncMode_) {
     std::unique_lock<std::mutex> simulationLock(simulationMutex_);
     simulationStepTriggerCondition_.wait(simulationLock, [this] {return stepTriggeredCnt_;});
@@ -290,6 +300,5 @@ EventSubscriber::wait() {
   } else {
     receiveMessages();
   }
-  std::cout << "EventSubscriber: trigger signal received " << std::endl;
 }
 }  // end of namespace DYN

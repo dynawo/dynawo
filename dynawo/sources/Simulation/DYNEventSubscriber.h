@@ -25,6 +25,7 @@
 #include <string>
 #include <condition_variable>
 #include <zmqpp/zmqpp.hpp>
+#include <signal.h>
 
 #include "DYNModel.h"
 #include "DYNSubModel.h"
@@ -66,7 +67,7 @@ class EventSubscriber {
 
   // void sendReply(const std::string& msg);
 
-  void receiveMessages(bool stop = false);
+  void receiveMessages(bool stop);
 
   void messageReceiverAsync();
 
@@ -79,6 +80,7 @@ class EventSubscriber {
   std::shared_ptr<parameters::ParametersSet> parseParametersSet(std::string& input);
 
  private:
+  const std::string STOP_KEY = "stop";
   std::vector<std::shared_ptr<Action> > actions_;
   std::mutex actions_mutex_;
   zmqpp::context context_;
