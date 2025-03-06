@@ -1,0 +1,40 @@
+#1
+double InertialTable(2,2)
+-1 -1
+1  1
+
+double FFRTable(2,2)
+-1 -1
+1  1
+
+double QMaxtoPTable(2,2)
+-1 -1
+1  1
+
+double QMintoPTable(2,2)
+-1 -1
+1  1
+
+double QMaxtoUTable(2,2)
+-1 -1
+1  1
+
+double QMintoUTable(2,2)
+-1 -1
+1  1
+
+double FaultImpedanceTable(6,3)
+0.000 0 10000
+5.00 0 10000
+5.00 0 0.2
+5.5 0 0.2
+5.5 0 1000
+10.00 0 1000
+
+double FaultImpedanceTable(6,3)
+5.00 0 -10000
+6.00 0 -10000
+6.00 0 -0.2
+6.50 0 -0.2
+6.50 0 -10000
+15.00 0 -10000

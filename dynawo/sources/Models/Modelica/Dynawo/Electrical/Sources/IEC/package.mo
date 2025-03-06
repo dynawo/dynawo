@@ -12,6 +12,6 @@ within Dynawo.Electrical.Sources;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-package IEC "WT converter models from IEC N°61400-27-1 standard"
+package IEC "WT converter models from IEC N°61400-27-1 and 63406 standard"
   extends Icons.Package;
 end IEC;
