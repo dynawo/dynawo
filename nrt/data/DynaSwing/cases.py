@@ -109,6 +109,16 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
 
 ######################################################
+#     IEC Converter Based Generation Unit Current Source #
+######################################################
+
+case_name = "DynaSwing - IEC - Converter Based Generation Unit - Current source"
+case_description = "IEC - Converter Based Generation Unit - Current source - Pref, Qref and faults"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "IEC", "Converter", "IEC63406CurrentSourceUCPO", "IEC63406CurrentSource.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+######################################################
 #     IEC Wind Turbine Type 4A 2015 Current Source Q      #
 ######################################################
 
