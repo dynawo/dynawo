@@ -21,10 +21,8 @@
 #include "PARReference.h"
 #include "DYNMacrosMessage.h"
 
-using boost::shared_ptr;
-using std::map;
+using std::shared_ptr;
 using std::string;
-using std::vector;
 
 namespace parameters {
 
@@ -36,18 +34,18 @@ MacroParameterSet::getId() const {
 }
 
 void
-MacroParameterSet::addReference(boost::shared_ptr<Reference> reference) {
+MacroParameterSet::addReference(const std::shared_ptr<Reference>& reference) {
   std::string name = reference->getName();
-  std::pair<std::map<std::string, boost::shared_ptr<Reference> >::iterator, bool> ret;
+  std::pair<std::map<std::string, std::shared_ptr<Reference> >::iterator, bool> ret;
   ret = references_.emplace(name, reference);
   if (!ret.second)
     throw DYNError(DYN::Error::API, ReferenceAlreadySetInMacroParameterSet, reference->getName(), getId());
 }
 
 void
-MacroParameterSet::addParameter(boost::shared_ptr<Parameter> parameter) {
+MacroParameterSet::addParameter(const std::shared_ptr<Parameter>& parameter) {
   std::string name = parameter->getName();
-  std::pair<std::map<std::string, boost::shared_ptr<Parameter> >::iterator, bool> ret;
+  std::pair<std::map<std::string, std::shared_ptr<Parameter> >::iterator, bool> ret;
   ret = parameters_.emplace(name, parameter);
   if (!ret.second)
     throw DYNError(DYN::Error::API, ParameterAlreadySetInMacroParameterSet, parameter->getName(), getId());

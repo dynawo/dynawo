@@ -44,7 +44,6 @@
 #include "JOBTimetableEntry.h"
 #include "JOBLocalInitEntry.h"
 
-#include <boost/shared_ptr.hpp>
 #include <string>
 #include <vector>
 #include <xml/sax/parser/ComposableDocumentHandler.h>
@@ -73,7 +72,7 @@ class AppenderHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief return the appender read in xml file
    * @return appender object build thanks to infos read in xml file
    */
-  boost::shared_ptr<AppenderEntry> get() const;
+  std::shared_ptr<AppenderEntry> get() const;
 
  protected:
   /**
@@ -83,7 +82,7 @@ class AppenderHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const& attributes);
 
  private:
-  boost::shared_ptr<AppenderEntry> appender_;  ///< current appender
+  std::shared_ptr<AppenderEntry> appender_;  ///< current appender
 };
 
 /**
@@ -146,7 +145,7 @@ class ModelsDirHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief  get the models objects read in xml file
    * @return models objects build thanks to infos read in xml file
    */
-  boost::shared_ptr<ModelsDirEntry> get() const;
+  std::shared_ptr<ModelsDirEntry> get() const;
 
  protected:
   /**
@@ -156,8 +155,8 @@ class ModelsDirHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const& attributes);
 
  private:
-  boost::shared_ptr<ModelsDirEntry> modelsDir_;  ///< current modelsDirEntry object
-  DirectoryHandler directoryHandler_;            ///< handler used to parse directory element
+  std::shared_ptr<ModelsDirEntry> modelsDir_;  ///< current modelsDirEntry object
+  DirectoryHandler directoryHandler_;          ///< handler used to parse directory element
 };
 
 /**
@@ -181,7 +180,7 @@ class InitialStateHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief get the initial state element read in xml file
    * @return initial state object build thanks to infos read in xml file
    */
-  boost::shared_ptr<InitialStateEntry> get() const;
+  std::shared_ptr<InitialStateEntry> get() const;
 
  protected:
   /**
@@ -191,7 +190,7 @@ class InitialStateHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const& attributes);
 
  private:
-  boost::shared_ptr<InitialStateEntry> initialState_;  ///< current initial state object
+  std::shared_ptr<InitialStateEntry> initialState_;  ///< current initial state object
 };
 
 /**
@@ -215,7 +214,7 @@ class DynModelsHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief get the dynModels objects read in xml file
    * @return dynModels objects build thanks to infos read in xml file
    */
-  boost::shared_ptr<DynModelsEntry> get() const;
+  std::shared_ptr<DynModelsEntry> get() const;
 
  protected:
   /**
@@ -225,7 +224,7 @@ class DynModelsHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const& attributes);
 
  private:
-  boost::shared_ptr<DynModelsEntry> dynModels_;  ///< current dynModels object
+  std::shared_ptr<DynModelsEntry> dynModels_;  ///< current dynModels object
 };
 
 /**
@@ -249,7 +248,7 @@ class NetworkHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief return the network entry element read in xml file
    * @return network entry object builds thanks to infos read in xml file
    */
-  boost::shared_ptr<NetworkEntry> get() const;
+  std::shared_ptr<NetworkEntry> get() const;
 
  protected:
   /**
@@ -259,7 +258,7 @@ class NetworkHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const& attributes);
 
  private:
-  boost::shared_ptr<NetworkEntry> network_;  ///< current network entry object
+  std::shared_ptr<NetworkEntry> network_;  ///< current network entry object
 };
 
 /**
@@ -283,7 +282,7 @@ class InitValuesHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief return the init values entry read in xml file
    * @return init values entry object build thanks to infos read in xml file
    */
-  boost::shared_ptr<InitValuesEntry> get() const;
+  std::shared_ptr<InitValuesEntry> get() const;
 
  protected:
   /**
@@ -293,7 +292,7 @@ class InitValuesHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const& attributes);
 
  private:
-  boost::shared_ptr<InitValuesEntry> initValuesEntry_;  ///< current init values entry object
+  std::shared_ptr<InitValuesEntry> initValuesEntry_;  ///< current init values entry object
 };
 
 /**
@@ -317,7 +316,7 @@ class FinalValuesHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief return the final values entry read in xml file
    * @return final values entry object build thanks to infos read in xml file
    */
-  boost::shared_ptr<FinalValuesEntry> get() const;
+  std::shared_ptr<FinalValuesEntry> get() const;
 
  protected:
   /**
@@ -327,7 +326,7 @@ class FinalValuesHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const& attributes);
 
  private:
-  boost::shared_ptr<FinalValuesEntry> finalValuesEntry_;  ///< current final values entry object
+  std::shared_ptr<FinalValuesEntry> finalValuesEntry_;  ///< current final values entry object
 };
 
 /**
@@ -351,7 +350,7 @@ class ConstraintsHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief return the constraints entry read in xml file
    * @return constraints entry object build thanks to infos read in xml file
    */
-  boost::shared_ptr<ConstraintsEntry> get() const;
+  std::shared_ptr<ConstraintsEntry> get() const;
 
  protected:
   /**
@@ -361,7 +360,7 @@ class ConstraintsHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const& attributes);
 
  private:
-  boost::shared_ptr<ConstraintsEntry> constraints_;  ///< current constraints entry object
+  std::shared_ptr<ConstraintsEntry> constraints_;  ///< current constraints entry object
 };
 
 /**
@@ -385,7 +384,7 @@ class TimelineHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief return the timeline entry read in xml file
    * @return timeline entry object build thanks to infos read in xml file
    */
-  boost::shared_ptr<TimelineEntry> get() const;
+  std::shared_ptr<TimelineEntry> get() const;
 
  protected:
   /**
@@ -395,7 +394,7 @@ class TimelineHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const& attributes);
 
  private:
-  boost::shared_ptr<TimelineEntry> timeline_;  ///< current timeline entry object
+  std::shared_ptr<TimelineEntry> timeline_;  ///< current timeline entry object
 };
 
 /**
@@ -419,7 +418,7 @@ class TimetableHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief return the timetable entry read in xml file
    * @return timetable entry object build thanks to infos read in xml file
    */
-  boost::shared_ptr<TimetableEntry> get() const;
+  std::shared_ptr<TimetableEntry> get() const;
 
  protected:
   /**
@@ -429,7 +428,7 @@ class TimetableHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const& attributes);
 
  private:
-  boost::shared_ptr<TimetableEntry> timetable_;  ///< current timetable entry object
+  std::shared_ptr<TimetableEntry> timetable_;  ///< current timetable entry object
 };
 
 /**
@@ -453,7 +452,7 @@ class FinalStateHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief return the final state entry read in xml file
    * @return final state entry object build thanks to infos read in xml file
    */
-  boost::shared_ptr<FinalStateEntry> get() const;
+  std::shared_ptr<FinalStateEntry> get() const;
 
  protected:
   /**
@@ -463,7 +462,7 @@ class FinalStateHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const& attributes);
 
  private:
-  boost::shared_ptr<FinalStateEntry> finalState_;  ///< current final state entry object
+  std::shared_ptr<FinalStateEntry> finalState_;  ///< current final state entry object
 };
 
 /**
@@ -487,7 +486,7 @@ class CurvesHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief return the curves entry read in xml file
    * @return curves entry object build thanks to infos read in xml file
    */
-  boost::shared_ptr<CurvesEntry> get() const;
+  std::shared_ptr<CurvesEntry> get() const;
 
  protected:
   /**
@@ -497,7 +496,7 @@ class CurvesHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const& attributes);
 
  private:
-  boost::shared_ptr<CurvesEntry> curves_;  ///< current curves entry object
+  std::shared_ptr<CurvesEntry> curves_;  ///< current curves entry object
 };
 
 /**
@@ -521,7 +520,7 @@ class FinalStateValuesHandler : public xml::sax::parser::ComposableElementHandle
    * @brief return the final state values entry read in xml file
    * @return Final state values entry object built from the info read in xml file
    */
-  boost::shared_ptr<FinalStateValuesEntry> get() const;
+  std::shared_ptr<FinalStateValuesEntry> get() const;
 
  protected:
   /**
@@ -531,7 +530,7 @@ class FinalStateValuesHandler : public xml::sax::parser::ComposableElementHandle
   void create(attributes_type const& attributes);
 
  private:
-  boost::shared_ptr<FinalStateValuesEntry> finalStateValues_;  ///< current final state values entry object
+  std::shared_ptr<FinalStateValuesEntry> finalStateValues_;  ///< current final state values entry object
 };
 
 /**
@@ -555,7 +554,7 @@ class LostEquipmentsHandler : public xml::sax::parser::ComposableElementHandler 
    * @brief return the lostEquipments entry read in xml file
    * @return curves entry object build thanks to infos read in xml file
    */
-  boost::shared_ptr<LostEquipmentsEntry> get() const;
+  std::shared_ptr<LostEquipmentsEntry> get() const;
 
  protected:
   /**
@@ -565,7 +564,7 @@ class LostEquipmentsHandler : public xml::sax::parser::ComposableElementHandler 
   void create(attributes_type const& attributes);
 
  private:
-  boost::shared_ptr<LostEquipmentsEntry> lostEquipments_;  ///< current lostEquipments entry object
+  std::shared_ptr<LostEquipmentsEntry> lostEquipments_;  ///< current lostEquipments entry object
 };
 
 /**
@@ -589,7 +588,7 @@ class LogsHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief return the logs entry read in xml file
    * @return logs entry object build thanks to infos read in xml file
    */
-  boost::shared_ptr<LogsEntry> get() const;
+  std::shared_ptr<LogsEntry> get() const;
 
   /**
    * @brief add an appender in logs object
@@ -604,8 +603,8 @@ class LogsHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const& attributes);
 
  private:
-  boost::shared_ptr<LogsEntry> logs_;  ///< current logs entry object
-  AppenderHandler appenderHandler_;    ///< handler used to read appender element
+  std::shared_ptr<LogsEntry> logs_;  ///< current logs entry object
+  AppenderHandler appenderHandler_;  ///< handler used to read appender element
 };
 
 /**
@@ -629,7 +628,7 @@ class OutputsHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief return the outputs entry read in xml file
    * @return outputs entry object build thanks to infos read in xml file
    */
-  boost::shared_ptr<OutputsEntry> get() const;
+  std::shared_ptr<OutputsEntry> get() const;
 
   /**
    * @brief add an init values object to the current job
@@ -689,7 +688,7 @@ class OutputsHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const& attributes);
 
  private:
-  boost::shared_ptr<OutputsEntry> outputs_;          ///< current outputs entry object
+  std::shared_ptr<OutputsEntry> outputs_;            ///< current outputs entry object
   InitValuesHandler initValuesHandler_;              ///< handler used to read init values element
   FinalValuesHandler finalValuesHandler_;            ///< handler used to read final values element
   ConstraintsHandler constraintsHandler_;            ///< handler used to read constraints element
@@ -757,7 +756,7 @@ class SimulationHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief return the simulation entry read in xml file
    * @return simulation entry object build thanks to infos read in xml file
    */
-  boost::shared_ptr<SimulationEntry> get() const;
+  std::shared_ptr<SimulationEntry> get() const;
 
  protected:
   /**
@@ -772,8 +771,8 @@ class SimulationHandler : public xml::sax::parser::ComposableElementHandler {
   void addCriteriaFile();
 
  private:
-  boost::shared_ptr<SimulationEntry> simulation_;  ///< current simulation entry object
-  CriteriaFileHandler criteriaFileHandler_;        ///< handler used to read criteriaFiles element
+  std::shared_ptr<SimulationEntry> simulation_;  ///< current simulation entry object
+  CriteriaFileHandler criteriaFileHandler_;      ///< handler used to read criteriaFiles element
 };
 
 /**
@@ -797,7 +796,7 @@ class ModelerHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief return the modeler entry read in xml file
    * @return modeler entry object build thanks to infos read in xml file
    */
-  boost::shared_ptr<ModelerEntry> get() const;
+  std::shared_ptr<ModelerEntry> get() const;
 
   /**
    * @brief add a modelica model object to the modeler entry
@@ -832,7 +831,7 @@ class ModelerHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const& attributes);
 
  private:
-  boost::shared_ptr<ModelerEntry> modeler_;    ///< current modeler object
+  std::shared_ptr<ModelerEntry> modeler_;      ///< current modeler object
   NetworkHandler networkHandler_;              ///< handler used to read network element
   DynModelsHandler dynModelsHandler_;          ///< handler used to read dynModels element
   InitialStateHandler initialStateHandler_;    ///< handler used to read initial state element
@@ -861,7 +860,7 @@ class SolverHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief return the solver entry read in xml file
    * @return solver entry object build thanks to infos read in xml file
    */
-  boost::shared_ptr<SolverEntry> get() const;
+  std::shared_ptr<SolverEntry> get() const;
 
  protected:
   /**
@@ -871,7 +870,7 @@ class SolverHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const& attributes);
 
  private:
-  boost::shared_ptr<SolverEntry> solver_;  ///< current solver object
+  std::shared_ptr<SolverEntry> solver_;  ///< current solver object
 };
 
 /**
@@ -895,7 +894,7 @@ class LocalInitHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief return the local init entry read in xml file
    * @return local init entry object build thanks to infos read in xml file
    */
-  boost::shared_ptr<LocalInitEntry> get() const;
+  std::shared_ptr<LocalInitEntry> get() const;
 
  protected:
   /**
@@ -905,7 +904,7 @@ class LocalInitHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const& attributes);
 
  private:
-  boost::shared_ptr<LocalInitEntry> localInit_;  ///< current local init object
+  std::shared_ptr<LocalInitEntry> localInit_;  ///< current local init object
 };
 
 /**
@@ -929,7 +928,7 @@ class JobHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief return the job read in xml file
    * @return job object build thanks to infos read in xml file
    */
-  boost::shared_ptr<JobEntry> get() const;
+  std::shared_ptr<JobEntry> get() const;
 
   /**
    * @brief add a solver object to the current job
@@ -964,7 +963,7 @@ class JobHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const& attributes);
 
  private:
-  boost::shared_ptr<JobEntry> job_;      ///< job object created by the handler
+  std::shared_ptr<JobEntry> job_;        ///< job object created by the handler
   SolverHandler solverHandler_;          ///< handler used to read solver element
   ModelerHandler modelerHandler_;        ///< handler used to read modeler element
   SimulationHandler simulationHandler_;  ///< handler used to read simulation element
@@ -1000,10 +999,10 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
    * @brief returns the jobs collection read in jobs file
    * @return jobs collection created thanks to the jobs file
    */
-  boost::shared_ptr<JobsCollection> getJobsCollection() const;
+  std::shared_ptr<JobsCollection> getJobsCollection() const;
 
  private:
-  boost::shared_ptr<JobsCollection> jobsCollection_;  ///< jobs collection parsed
+  std::shared_ptr<JobsCollection> jobsCollection_;  ///< jobs collection parsed
   JobHandler jobHandler_;                             ///< handler used to read job element
 };
 

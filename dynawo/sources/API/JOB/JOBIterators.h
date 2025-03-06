@@ -22,8 +22,9 @@
 
 #include "JOBJobEntry.h"
 
-#include <boost/shared_ptr.hpp>
 #include <vector>
+#include <memory>
+
 
 namespace job {
 
@@ -99,17 +100,17 @@ class job_iterator {
    *
    * @returns Job pointed to by this
    */
-  boost::shared_ptr<JobEntry>& operator*() const;
+  std::shared_ptr<JobEntry>& operator*() const;
 
   /**
    * @brief Structure dereference operator
    *
    * @returns Job pointed to by this
    */
-  boost::shared_ptr<JobEntry>* operator->() const;
+  std::shared_ptr<JobEntry>* operator->() const;
 
  private:
-  std::vector<boost::shared_ptr<JobEntry> >::iterator current_;  ///< current iterator
+  std::vector<std::shared_ptr<JobEntry> >::iterator current_;  ///< current iterator
 };
 
 /**
@@ -182,17 +183,17 @@ class job_const_iterator {
    *
    * @returns Job pointed to by this
    */
-  const boost::shared_ptr<JobEntry>& operator*() const;
+  const std::shared_ptr<JobEntry>& operator*() const;
 
   /**
    * @brief Structure dereference operator
    *
    * @returns Job pointed to by this
    */
-  const boost::shared_ptr<JobEntry>* operator->() const;
+  const std::shared_ptr<JobEntry>* operator->() const;
 
  private:
-  std::vector<boost::shared_ptr<JobEntry> >::const_iterator current_;  ///< current const iterator
+  std::vector<std::shared_ptr<JobEntry> >::const_iterator current_;  ///< current const iterator
 };
 
 }  // namespace job

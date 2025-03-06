@@ -21,18 +21,17 @@
 #include "LEQLostEquipmentFactory.h"
 #include "LEQLostEquipment.h"
 
-using boost::shared_ptr;
 
 namespace lostEquipments {
 
-shared_ptr<LostEquipment>
+std::unique_ptr<LostEquipment>
 LostEquipmentFactory::newLostEquipment() {
-  return shared_ptr<LostEquipment>(new LostEquipment());
+  return std::unique_ptr<LostEquipment>(new LostEquipment());
 }
 
-shared_ptr<LostEquipment>
+std::unique_ptr<LostEquipment>
 LostEquipmentFactory::newLostEquipment(const std::string& id, const std::string& type) {
-  return shared_ptr<LostEquipment>(new LostEquipment(id, type));
+  return std::unique_ptr<LostEquipment>(new LostEquipment(id, type));
 }
 
 }  // namespace lostEquipments

@@ -22,7 +22,9 @@
 
 #include "JOBInitialStateEntry.h"
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
+
+
 namespace job {
 
 /**
@@ -38,7 +40,7 @@ class InitialStateEntryFactory {
    *
    * @return dynamic model entry
    */
-  static boost::shared_ptr<InitialStateEntry> newInstance();
+  static std::unique_ptr<InitialStateEntry> newInstance();
 };
 
 }  // namespace job

@@ -20,10 +20,9 @@
 #ifndef API_PAR_PARMACROPARAMETERSET_H_
 #define API_PAR_PARMACROPARAMETERSET_H_
 
-#include <boost/shared_ptr.hpp>
 #include <map>
 #include <string>
-#include <vector>
+#include <memory>
 
 #include "PARReference.h"
 #include "PARParameter.h"
@@ -51,13 +50,13 @@ class MacroParameterSet {
    * @brief reference adder
    * @param[in] reference to be added
    */
-  void addReference(boost::shared_ptr<Reference> reference);
+  void addReference(const std::shared_ptr<Reference>& reference);
 
   /**
    * @brief parameter adder
    * @param[in] parameter to be added
    */
-  void addParameter(boost::shared_ptr<Parameter> parameter);
+  void addParameter(const std::shared_ptr<Parameter>& parameter);
 
   /**
    * @class parameter_const_iterator
@@ -129,17 +128,17 @@ class MacroParameterSet {
      *
      * @returns Parameter pointed to by this
      */
-    const boost::shared_ptr<Parameter>& operator*() const;
+    const std::shared_ptr<Parameter>& operator*() const;
 
     /**
      * @brief Structure dereference operator
      *
      * @returns Pointer to the Parameter pointed to by this
      */
-    const boost::shared_ptr<Parameter>* operator->() const;
+    const std::shared_ptr<Parameter>* operator->() const;
 
    private:
-    std::map<std::string, boost::shared_ptr<Parameter> >::const_iterator current_; /**< Hidden map iterator */
+    std::map<std::string, std::shared_ptr<Parameter> >::const_iterator current_; /**< Hidden map iterator */
   };
 
   /**
@@ -210,17 +209,17 @@ class MacroParameterSet {
      *
      * @returns Reference pointed to by this
      */
-    const boost::shared_ptr<Reference>& operator*() const;
+    const std::shared_ptr<Reference>& operator*() const;
 
     /**
      * @brief Structure dereference operator
      *
      * @returns Pointer to the Reference pointed to by this
      */
-    const boost::shared_ptr<Reference>* operator->() const;
+    const std::shared_ptr<Reference>* operator->() const;
 
    private:
-    std::map<std::string, boost::shared_ptr<Reference> >::const_iterator current_; /**< Hidden map iterator */
+    std::map<std::string, std::shared_ptr<Reference> >::const_iterator current_; /**< Hidden map iterator */
   };
 
   /**
@@ -236,9 +235,9 @@ class MacroParameterSet {
   reference_const_iterator cendReference() const;
 
  private:
-  std::string id_;                                                   ///< id of the macroParameterSet
-  std::map<std::string, boost::shared_ptr<Reference> > references_;  ///< map of references (key->name, value->reference)
-  std::map<std::string, boost::shared_ptr<Parameter> > parameters_;  ///< map of parameters (key->name, value->parameter)
+  std::string id_;                                                 ///< id of the macroParameterSet
+  std::map<std::string, std::shared_ptr<Reference> > references_;  ///< map of references (key->name, value->reference)
+  std::map<std::string, std::shared_ptr<Parameter> > parameters_;  ///< map of parameters (key->name, value->parameter)
 };
 }  // namespace parameters
 

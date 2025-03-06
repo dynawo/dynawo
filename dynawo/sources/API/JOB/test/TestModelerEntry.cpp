@@ -29,32 +29,32 @@
 namespace job {
 
 TEST(APIJOBTest, testModelerEntry) {
-  boost::shared_ptr<ModelerEntry> modeler = boost::shared_ptr<ModelerEntry>(new ModelerEntry());
+  std::shared_ptr<ModelerEntry> modeler = std::make_shared<ModelerEntry>();
   // check default attributes
-  ASSERT_EQ(modeler->getPreCompiledModelsDirEntry(), boost::shared_ptr<ModelsDirEntry>());
-  ASSERT_EQ(modeler->getModelicaModelsDirEntry(), boost::shared_ptr<ModelsDirEntry>());
+  ASSERT_EQ(modeler->getPreCompiledModelsDirEntry(), std::shared_ptr<ModelsDirEntry>());
+  ASSERT_EQ(modeler->getModelicaModelsDirEntry(), std::shared_ptr<ModelsDirEntry>());
   ASSERT_EQ(modeler->getCompileDir(), "");
-  ASSERT_EQ(modeler->getNetworkEntry(), boost::shared_ptr<NetworkEntry>());
+  ASSERT_EQ(modeler->getNetworkEntry(), std::shared_ptr<NetworkEntry>());
   ASSERT_EQ(modeler->getDynModelsEntries().size(), 0);
-  ASSERT_EQ(modeler->getInitialStateEntry(), boost::shared_ptr<InitialStateEntry>());
+  ASSERT_EQ(modeler->getInitialStateEntry(), std::shared_ptr<InitialStateEntry>());
 
-  boost::shared_ptr<ModelsDirEntry> preCompiledModelsDirEntry = boost::shared_ptr<ModelsDirEntry>(new ModelsDirEntry());
+  std::shared_ptr<ModelsDirEntry> preCompiledModelsDirEntry = std::make_shared<ModelsDirEntry>();
   modeler->setPreCompiledModelsDirEntry(preCompiledModelsDirEntry);
 
-  boost::shared_ptr<ModelsDirEntry> modelicaModelsDirEntry = boost::shared_ptr<ModelsDirEntry>(new ModelsDirEntry());
+  std::shared_ptr<ModelsDirEntry> modelicaModelsDirEntry = std::make_shared<ModelsDirEntry>();
   modeler->setModelicaModelsDirEntry(modelicaModelsDirEntry);
 
   modeler->setCompileDir("/tmp/compilation");
 
-  boost::shared_ptr<NetworkEntry> network = boost::shared_ptr<NetworkEntry>(new NetworkEntry());
+  std::shared_ptr<NetworkEntry> network = std::make_shared<NetworkEntry>();
   modeler->setNetworkEntry(network);
 
-  boost::shared_ptr<DynModelsEntry> dynModels1 = boost::shared_ptr<DynModelsEntry>(new DynModelsEntry());
-  boost::shared_ptr<DynModelsEntry> dynModels2 = boost::shared_ptr<DynModelsEntry>(new DynModelsEntry());
-  modeler->addDynModelsEntry(dynModels1);
-  modeler->addDynModelsEntry(dynModels2);
+  std::unique_ptr<DynModelsEntry> dynModels1 = std::unique_ptr<DynModelsEntry>(new DynModelsEntry());
+  std::unique_ptr<DynModelsEntry> dynModels2 = std::unique_ptr<DynModelsEntry>(new DynModelsEntry());
+  modeler->addDynModelsEntry(std::move(dynModels1));
+  modeler->addDynModelsEntry(std::move(dynModels2));
 
-  boost::shared_ptr<InitialStateEntry> initialState = boost::shared_ptr<InitialStateEntry>(new InitialStateEntry());
+  std::shared_ptr<InitialStateEntry> initialState = std::make_shared<InitialStateEntry>();
   modeler->setInitialStateEntry(initialState);
 
   ASSERT_EQ(modeler->getPreCompiledModelsDirEntry(), preCompiledModelsDirEntry);
@@ -64,7 +64,7 @@ TEST(APIJOBTest, testModelerEntry) {
   ASSERT_EQ(modeler->getDynModelsEntries().size(), 2);
   ASSERT_EQ(modeler->getInitialStateEntry(), initialState);
 
-  boost::shared_ptr<ModelerEntry> modeler_bis = DYN::clone(modeler);
+  std::shared_ptr<ModelerEntry> modeler_bis = DYN::clone(modeler);
   ASSERT_EQ(modeler_bis->getCompileDir(), "/tmp/compilation");
   ASSERT_EQ(modeler_bis->getDynModelsEntries().size(), 2);
   ASSERT_NE(modeler_bis->getPreCompiledModelsDirEntry(), preCompiledModelsDirEntry);

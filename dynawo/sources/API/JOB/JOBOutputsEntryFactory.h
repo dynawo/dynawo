@@ -22,7 +22,7 @@
 
 #include "JOBOutputsEntry.h"
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 namespace job {
 /**
@@ -38,7 +38,7 @@ class OutputsEntryFactory {
    *
    * @return dynamic model entry
    */
-  static boost::shared_ptr<OutputsEntry> newInstance();
+  static std::unique_ptr<OutputsEntry> newInstance();
 };
 
 }  // namespace job

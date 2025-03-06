@@ -24,7 +24,8 @@
 #include "JOBIterators.h"
 #include "JOBJobEntry.h"
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
+
 
 namespace job {
 
@@ -41,7 +42,7 @@ class JobsCollection {
    *
    * @param jobEntry job to add to the structure
    */
-  void addJob(const boost::shared_ptr<JobEntry>& jobEntry);
+  void addJob(const std::shared_ptr<JobEntry>& jobEntry);
 
   /**
    * @brief Get a const_iterator to the beginning of the jobs' vector
@@ -71,7 +72,7 @@ class JobsCollection {
   friend class job_iterator;
 
  private:
-  std::vector<boost::shared_ptr<JobEntry> > jobs_;  ///< Vector of the jobs object
+  std::vector<std::shared_ptr<JobEntry> > jobs_;  ///< Vector of the jobs object
 };
 
 }  // namespace job

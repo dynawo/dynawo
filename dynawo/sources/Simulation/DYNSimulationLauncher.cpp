@@ -17,9 +17,6 @@
  * @brief SimulationLauncher implementation
  *
  */
-
-#include <string>
-
 #include <xml/sax/parser/ParserFactory.h>
 
 #include "DYNSimulationLauncher.h"
@@ -35,6 +32,9 @@
 #include "JOBJobsCollection.h"
 #include "JOBJobEntry.h"
 #include "JOBOutputsEntry.h"
+
+#include <string>
+#include <memory>
 
 namespace parser = xml::sax::parser;
 
@@ -75,7 +75,7 @@ void launchSimu(const std::string& jobsFileName) {
 #endif
 
   job::XmlImporter importer;
-  boost::shared_ptr<job::JobsCollection> jobsCollection = importer.importFromFile(jobsFileName);
+  std::shared_ptr<job::JobsCollection> jobsCollection = importer.importFromFile(jobsFileName);
   std::string prefixJobFile = absolute(remove_file_name(jobsFileName));
   if (jobsCollection->begin() == jobsCollection->end())
     throw DYNError(DYN::Error::SIMULATION, NoJobDefined);
@@ -86,15 +86,15 @@ void launchSimu(const std::string& jobsFileName) {
       ++itJobEntry) {
     print(DYNLog(LaunchingJob, (*itJobEntry)->getName()));
 
-    boost::shared_ptr<SimulationContext> context = boost::shared_ptr<SimulationContext>(new SimulationContext());
+    std::shared_ptr<SimulationContext> context = std::make_shared<SimulationContext>();
     context->setResourcesDirectory(getMandatoryEnvVar("DYNAWO_RESOURCES_DIR"));
     context->setLocale(getMandatoryEnvVar("DYNAWO_LOCALE"));
     context->setInputDirectory(prefixJobFile);
     context->setWorkingDirectory(prefixJobFile);
 
-    boost::shared_ptr<Simulation> simulation;
+    std::unique_ptr<Simulation> simulation;
     try {
-      simulation = boost::shared_ptr<Simulation>(new Simulation((*itJobEntry), context));
+      simulation = std::unique_ptr<Simulation>(new Simulation((*itJobEntry), context));
       simulation->init();
     } catch (const DYN::Error& err) {
       print(err.what(), DYN::ERROR);

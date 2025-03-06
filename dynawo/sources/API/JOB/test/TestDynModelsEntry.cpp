@@ -24,7 +24,7 @@
 namespace job {
 
 TEST(APIJOBTest, testDynModelsEntry) {
-  boost::shared_ptr<DynModelsEntry> dynModels = DynModelsEntryFactory::newInstance();
+  const std::unique_ptr<DynModelsEntry> dynModels = DynModelsEntryFactory::newInstance();
   // check default attributes
   ASSERT_EQ(dynModels->getDydFile(), "");
 

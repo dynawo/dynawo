@@ -29,21 +29,21 @@
 namespace job {
 
 TEST(APIJOBTest, testJobEntry) {
-  boost::shared_ptr<JobEntry> job = boost::shared_ptr<JobEntry>(new JobEntry());
+  std::shared_ptr<JobEntry> job = std::make_shared<JobEntry>();
   // check default attributes
   ASSERT_EQ(job->getName(), "");
-  ASSERT_EQ(job->getModelerEntry(), boost::shared_ptr<ModelerEntry>());
-  ASSERT_EQ(job->getSolverEntry(), boost::shared_ptr<SolverEntry>());
-  ASSERT_EQ(job->getSimulationEntry(), boost::shared_ptr<SimulationEntry>());
-  ASSERT_EQ(job->getOutputsEntry(), boost::shared_ptr<OutputsEntry>());
-  ASSERT_EQ(job->getLocalInitEntry(), boost::shared_ptr<LocalInitEntry>());
+  ASSERT_EQ(job->getModelerEntry(), std::shared_ptr<ModelerEntry>());
+  ASSERT_EQ(job->getSolverEntry(), std::shared_ptr<SolverEntry>());
+  ASSERT_EQ(job->getSimulationEntry(), std::shared_ptr<SimulationEntry>());
+  ASSERT_EQ(job->getOutputsEntry(), std::shared_ptr<OutputsEntry>());
+  ASSERT_EQ(job->getLocalInitEntry(), std::shared_ptr<LocalInitEntry>());
 
 
-  boost::shared_ptr<ModelerEntry> modeler = boost::shared_ptr<ModelerEntry>(new ModelerEntry());
-  boost::shared_ptr<SolverEntry> solver = boost::shared_ptr<SolverEntry>(new SolverEntry());
-  boost::shared_ptr<SimulationEntry> simulation = boost::shared_ptr<SimulationEntry>(new SimulationEntry());
-  boost::shared_ptr<OutputsEntry> outputs = boost::shared_ptr<OutputsEntry>(new OutputsEntry());
-  boost::shared_ptr<LocalInitEntry> localInit = boost::shared_ptr<LocalInitEntry>(new LocalInitEntry());
+  std::shared_ptr<ModelerEntry> modeler = std::make_shared<ModelerEntry>();
+  std::shared_ptr<SolverEntry> solver = std::make_shared<SolverEntry>();
+  std::shared_ptr<SimulationEntry> simulation = std::make_shared<SimulationEntry>();
+  std::shared_ptr<OutputsEntry> outputs = std::make_shared<OutputsEntry>();
+  std::shared_ptr<LocalInitEntry> localInit = std::make_shared<LocalInitEntry>();
 
 
   job->setName("job1");
@@ -60,7 +60,7 @@ TEST(APIJOBTest, testJobEntry) {
   ASSERT_EQ(job->getOutputsEntry(), outputs);
   ASSERT_EQ(job->getLocalInitEntry(), localInit);
 
-  boost::shared_ptr<JobEntry> job_bis = DYN::clone(job);
+  std::shared_ptr<JobEntry> job_bis = DYN::clone(job);
   ASSERT_EQ(job_bis->getName(), "job1");
   ASSERT_NE(job_bis->getModelerEntry(), modeler);
   ASSERT_NE(job_bis->getSolverEntry(), solver);
