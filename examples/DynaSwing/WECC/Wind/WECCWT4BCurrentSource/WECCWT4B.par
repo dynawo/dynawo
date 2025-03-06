@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2021, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="Solver">
+    <par type="INT" name="order" value="2"/>
+    <par type="DOUBLE" name="initStep" value="1e-9"/>
+    <par type="DOUBLE" name="minStep" value="1e-9"/>
+    <par type="DOUBLE" name="maxStep" value="1"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-3"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-3"/>
+    <par type="DOUBLE" name="minimalAcceptableStep" value="1e-10"/>
+  </set>
+  <set id="1">
+    <par type="DOUBLE" name="infiniteBus_U0Pu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_UEvtPu" value="0"/>
+    <par type="DOUBLE" name="infiniteBus_UPhase" value="0"/>
+    <par type="DOUBLE" name="infiniteBus_omega0Pu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_omegaEvtPu" value="1.01"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtStart" value="0"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtEnd" value="0"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtStart" value="0"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtEnd" value="0"/>
+  </set>
+  <set id="2">
+    <par type="DOUBLE" name="line_XPu" value="0.05"/>
+    <par type="DOUBLE" name="line_RPu" value="0.0"/>
+    <par type="DOUBLE" name="line_BPu" value="0.0"/>
+    <par type="DOUBLE" name="line_GPu" value="0.0"/>
+  </set>
+  <set id="Inverter">
+    <par type="DOUBLE" name="WT4B_P0Pu" value="-1"/>
+    <par type="DOUBLE" name="WT4B_Q0Pu" value="0"/>
+    <par type="DOUBLE" name="WT4B_U0Pu" value="1.0"/>
+    <par type="DOUBLE" name="WT4B_UPhase0" value="0.00996"/>
+
+    <!-- Electrical Control -->
+    <par type="BOOL" name="WT4B_QFlag" value="false"/>
+    <par type="BOOL" name="WT4B_VFlag" value="false"/>
+    <par type="BOOL" name="WT4B_VCompFlag" value="false"/>
+    <par type="BOOL" name="WT4B_PfFlag" value="false"/>
+    <par type="BOOL" name="WT4B_PQFlag" value="false"/>
+    <par type="BOOL" name="WT4B_PPriority" value="false"/>
+    <par type="DOUBLE" name="WT4B_tRv" value="0.01"/>
+    <par type="DOUBLE" name="WT4B_UMinPu" value="0.9"/>
+    <par type="DOUBLE" name="WT4B_UMaxPu" value="1.1"/>
+    <par type="DOUBLE" name="WT4B_VUpPu" value="1.1"/>
+    <par type="DOUBLE" name="WT4B_VDipPu" value="0.9"/>
+    <par type="DOUBLE" name="WT4B_VRef0Pu" value="1"/>
+    <par type="DOUBLE" name="WT4B_Dbd1Pu" value="-0.1"/>
+    <par type="DOUBLE" name="WT4B_Dbd2Pu" value="0.1"/>
+    <par type="DOUBLE" name="WT4B_Kqv" value="1.95"/>
+    <par type="DOUBLE" name="WT4B_Iqh1Pu" value="1.05"/>
+    <par type="DOUBLE" name="WT4B_Iql1Pu" value="-1.05"/>
+    <par type="DOUBLE" name="WT4B_tP" value="0.02"/>
+    <par type="DOUBLE" name="WT4B_QMaxPu" value="0.6"/>
+    <par type="DOUBLE" name="WT4B_QMinPu" value="-0.6"/>
+    <par type="DOUBLE" name="WT4B_Kqp" value="1e-3"/>
+    <par type="DOUBLE" name="WT4B_Kqi" value="1e-3"/>
+    <par type="DOUBLE" name="WT4B_VMaxPu" value="1"/>
+    <par type="DOUBLE" name="WT4B_VMinPu" value="1e-3"/>
+    <par type="DOUBLE" name="WT4B_Kvp" value="5"/>
+    <par type="DOUBLE" name="WT4B_Kvi" value="0.1"/>
+    <par type="DOUBLE" name="WT4B_tIq" value="0.15"/>
+    <par type="DOUBLE" name="WT4B_tPord" value="0.12"/>
+    <par type="DOUBLE" name="WT4B_PMaxPu" value="1.1"/>
+    <par type="DOUBLE" name="WT4B_PMinPu" value="1e-3"/>
+    <par type="DOUBLE" name="WT4B_DPMaxPu" value="1"/>
+    <par type="DOUBLE" name="WT4B_DPMinPu" value="-1"/>
+    <par type="DOUBLE" name="WT4B_IMaxPu" value="1"/>
+
+    <!-- Generator Control -->
+    <par type="DOUBLE" name="WT4B_tG" value="0.001"/>
+    <par type="DOUBLE" name="WT4B_tFilterGC" value="0.02"/>
+    <par type="DOUBLE" name="WT4B_IqrMinPu" value="-99"/>
+    <par type="DOUBLE" name="WT4B_IqrMaxPu" value="99"/>
+    <par type="DOUBLE" name="WT4B_RrpwrPu" value="1"/>
+    <par type="BOOL" name="WT4B_RateFlag" value="false"/>
+
+    <par type="BOOL" name="WT4B_Lvplsw" value="false"/>
+    <par type="DOUBLE" name="WT4B_zerox" value="0.4"/>
+    <par type="DOUBLE" name="WT4B_brkpt" value="0.9"/>
+    <par type="DOUBLE" name="WT4B_lvpl1" value="1.22"/>
+
+    <!-- PLL Control -->
+    <par type="DOUBLE" name="WT4B_KiPLL" value="1500"/>
+    <par type="DOUBLE" name="WT4B_KpPLL" value="30"/>
+    <par type="DOUBLE" name="WT4B_OmegaMaxPu" value="1.5"/>
+    <par type="DOUBLE" name="WT4B_OmegaMinPu" value="0.5"/>
+
+    <!-- BaseWT4 -->
+    <par type="DOUBLE" name="WT4B_SNom" value="100"/>
+    <par type="DOUBLE" name="WT4B_RPu" value="1e-4"/>
+    <par type="DOUBLE" name="WT4B_XPu" value="1e-4"/>
+    <par type="DOUBLE" name="WT4B_VDLIp11" value="1.1"/>
+    <par type="DOUBLE" name="WT4B_VDLIp12" value="1.1"/>
+    <par type="DOUBLE" name="WT4B_VDLIp21" value="1.15"/>
+    <par type="DOUBLE" name="WT4B_VDLIp22" value="1"/>
+    <par type="DOUBLE" name="WT4B_VDLIp31" value="1.16"/>
+    <par type="DOUBLE" name="WT4B_VDLIp32" value="1"/>
+    <par type="DOUBLE" name="WT4B_VDLIp41" value="1.17"/>
+    <par type="DOUBLE" name="WT4B_VDLIp42" value="1"/>
+    <par type="DOUBLE" name="WT4B_VDLIq11" value="1.1"/>
+    <par type="DOUBLE" name="WT4B_VDLIq12" value="1.1"/>
+    <par type="DOUBLE" name="WT4B_VDLIq21" value="1.15"/>
+    <par type="DOUBLE" name="WT4B_VDLIq22" value="1"/>
+    <par type="DOUBLE" name="WT4B_VDLIq31" value="1.16"/>
+    <par type="DOUBLE" name="WT4B_VDLIq32" value="1"/>
+    <par type="DOUBLE" name="WT4B_VDLIq41" value="1.17"/>
+    <par type="DOUBLE" name="WT4B_VDLIq42" value="1"/>
+    <par type="DOUBLE" name="WT4B_VRef1Pu" value="1"/>
+    <par type="DOUBLE" name="WT4B_tHoldIpMax" value="0"/>
+    <par type="DOUBLE" name="WT4B_tHoldIq" value="0"/>
+    <par type="DOUBLE" name="WT4B_IqFrzPu" value="0"/>
+    <par type="BOOL" name="WT4B_PFlag" value="false"/>
+  </set>
+  <set id="4">
+    <par type="DOUBLE" name="setPoint_Value0" value="1"/>
+  </set>
+</parametersSet>
