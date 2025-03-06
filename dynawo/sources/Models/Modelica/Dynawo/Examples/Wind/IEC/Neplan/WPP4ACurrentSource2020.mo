@@ -16,7 +16,7 @@ model WPP4ACurrentSource2020 "Wind Power Plant Type 4A model from IEC 61400-27-1
   extends Icons.Example;
   extends Dynawo.Examples.Wind.IEC.Neplan.BaseClasses.BaseWindNeplan;
 
-  Dynawo.Electrical.Wind.IEC.WPP.WPP4ACurrentSource2020 wPP4ACurrentSource(
+  Dynawo.Electrical.PEIR.Plants.Wind.IEC.WPP.WPP4ACurrentSource2020 wPP4ACurrentSource(
     BesPu = 0,
     DPMaxP4APu = 1,
     DPRefMax4APu = 100,
@@ -165,7 +165,7 @@ model WPP4ACurrentSource2020 "Wind Power Plant Type 4A model from IEC 61400-27-1
     Placement(visible = true, transformation(origin = {-150, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initialization
-  Dynawo.Electrical.Wind.IEC.WPP.WPP4CurrentSource_INIT wPP4CurrentSource_INIT(
+  Dynawo.Electrical.PEIR.Plants.Wind.IEC.WPP.WPP4CurrentSource_INIT wPP4CurrentSource_INIT(
     BesPu = wPP4ACurrentSource.BesPu,
     GesPu = wPP4ACurrentSource.GesPu,
     IMaxPu = wPP4ACurrentSource.IMaxPu,

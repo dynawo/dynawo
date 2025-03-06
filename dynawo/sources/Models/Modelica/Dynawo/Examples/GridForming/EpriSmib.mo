@@ -18,7 +18,7 @@ model EpriSmib "Single machine infinite bus test case for EPRI Grid Forming mode
 
   Modelica.Blocks.Sources.Step deltaOmega(height = 0, offset = 0, startTime = 1e9) annotation(
     Placement(visible = true, transformation(origin = {120, -50}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Converters.EpriGFM.EpriGFM epriGfm(DD = 0.11, DeltaOmegaMaxPu = 75 / SystemBase.omegaNom, DeltaOmegaMinPu = -75 / SystemBase.omegaNom, IMaxPu = 1.05, IdConv0Pu(fixed = false), IqConv0Pu(fixed = false), K1 = 0.05, K2 = 0.2, K2Dvoc = 1e-9, KD = 0, KIPll = 700, KIi = 5, KIp = 10, KIv = 10, KPPll = 20, KPi = 0.5, KPp = 2, KPv = 2, MF = 0.15, OmegaDroopPu = 0.05, OmegaFlag = 1, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, P0Pu = -0.657, PQFlag = true, Q0Pu = -0.0228928, QDroopPu = 0.2, RSourcePu = 0.00015, SNom = 100, Theta0 = 0.188732, U0Pu = 0.995421, UDipPu = 0.8, UdConv0Pu(fixed = false), UdFilter0Pu(fixed = false), UqConv0Pu(fixed = false), UqFilter0Pu(fixed = false), XSourcePu = 0.15, i0Pu(im(fixed = false), re(fixed = false)), tE = 0.01, tF = 1e-9, tR = 0.005, tV = 1e-9, u0Pu(im(fixed = false), re(fixed = false))) annotation(
+  Dynawo.Electrical.PEIR.Converters.General.EPRI.EpriGFM epriGfm(DD = 0.11, DeltaOmegaMaxPu = 75 / SystemBase.omegaNom, DeltaOmegaMinPu = -75 / SystemBase.omegaNom, IMaxPu = 1.05, IdConv0Pu(fixed = false), IqConv0Pu(fixed = false), K1 = 0.05, K2 = 0.2, K2Dvoc = 1e-9, KD = 0, KIPll = 700, KIi = 5, KIp = 10, KIv = 10, KPPll = 20, KPi = 0.5, KPp = 2, KPv = 2, MF = 0.15, OmegaDroopPu = 0.05, OmegaFlag = 1, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, P0Pu = -0.657, PQFlag = true, Q0Pu = -0.0228928, QDroopPu = 0.2, RSourcePu = 0.00015, SNom = 100, Theta0 = 0.188732, U0Pu = 0.995421, UDipPu = 0.8, UdConv0Pu(fixed = false), UdFilter0Pu(fixed = false), UqConv0Pu(fixed = false), UqFilter0Pu(fixed = false), XSourcePu = 0.15, i0Pu(im(fixed = false), re(fixed = false)), tE = 0.01, tF = 1e-9, tR = 0.005, tV = 1e-9, u0Pu(im(fixed = false), re(fixed = false))) annotation(
     Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(U0Pu = 1, UEvtPu = 0.5, UPhase = 0, omega0Pu = 1, omegaEvtPu = 0.999, tOmegaEvtEnd = 4, tOmegaEvtStart = 0.5, tUEvtEnd = 100, tUEvtStart = 90) annotation(
     Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
@@ -38,7 +38,7 @@ model EpriSmib "Single machine infinite bus test case for EPRI Grid Forming mode
     Placement(visible = true, transformation(origin = {120, -18}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step UdFilterRef(height = 0, offset = epriGfm.U0Pu, startTime = 1e9) annotation(
     Placement(visible = true, transformation(origin = {120, -80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Converters.EpriGFM.EpriGFM_INIT epriGFM_INIT(OmegaFlag = 1,P0Pu = -0.657, Q0Pu = -0.0228928, RSourcePu = 0.00015, SNom = 100, Theta0 = 0.188732, U0Pu = 0.995421, XSourcePu = 0.15) annotation(
+  Dynawo.Electrical.PEIR.Converters.General.EPRI.EpriGFM_INIT epriGFM_INIT(OmegaFlag = 1,P0Pu = -0.657, Q0Pu = -0.0228928, RSourcePu = 0.00015, SNom = 100, Theta0 = 0.188732, U0Pu = 0.995421, XSourcePu = 0.15) annotation(
     Placement(visible = true, transformation(origin = {-70, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 initial algorithm

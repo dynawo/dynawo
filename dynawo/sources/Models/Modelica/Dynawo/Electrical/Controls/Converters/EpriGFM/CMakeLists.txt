@@ -15,9 +15,6 @@ set(MODEL_FILES
   # Converter control models
   package.mo
   package.order
-  EpriGFM.mo
-  EpriGFM.extvar
-  EpriGFM_INIT.mo
   )
 
 #
