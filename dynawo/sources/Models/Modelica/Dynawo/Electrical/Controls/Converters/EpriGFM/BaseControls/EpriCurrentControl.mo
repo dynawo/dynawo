@@ -24,19 +24,19 @@ model EpriCurrentControl "Current controller in EPRI Grid Forming model"
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput idConvPu(start = IdConv0Pu) "D-axis current of the converter in pu (base UNom, SNom) (generator convention)" annotation(
-    Placement(visible = true, transformation(origin = {-150, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-190, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput idConvRefPu(start = IdConv0Pu) "D-axis current reference of the converter in pu (base UNom, SNom) (generator convention)" annotation(
-    Placement(visible = true, transformation(origin = {-150, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-190, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput iqConvPu(start = IqConv0Pu) "Q-axis current of the converter in pu (base UNom, SNom) (generator convention)" annotation(
-    Placement(visible = true, transformation(origin = {-150, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-190, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput iqConvRefPu(start = (if OmegaFlag == 0 then -1 else 1) * IqConv0Pu) "Q-axis current reference of the converter in pu (base UNom, SNom) (generator convention)" annotation(
-    Placement(visible = true, transformation(origin = {-150, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-190, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omega0Pu) "Converter's frequency in pu (base omegaNom)" annotation(
-    Placement(visible = true, transformation(origin = {-150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput udFilterPu(start = UdFilter0Pu) "Measured d-axis voltage at the converter's terminal in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-149, 130}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-190, 130}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput uqFilterPu(start = UqFilter0Pu) "Measured q-axis voltage at the converter's terminal in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-150, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-190, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Output Variables
   Modelica.Blocks.Interfaces.RealOutput udConvRefPu(start = UdConv0Pu) "D-axis modulation voltage reference in pu (base UNom)" annotation(
@@ -88,6 +88,10 @@ model EpriCurrentControl "Current controller in EPRI Grid Forming model"
     Placement(visible = true, transformation(origin = {-80, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product1 annotation(
     Placement(visible = true, transformation(origin = {-80, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Product product2 annotation(
+    Placement(visible = true, transformation(origin = {-140, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.RealExpression GFLMode(y = (if OmegaFlag == 0 then -1 else 1))  annotation(
+    Placement(visible = true, transformation(origin = {-190, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initial parameters
   parameter Types.PerUnit IdConv0Pu "Start value of d-axis current of the converter in pu (base UNom, SNom) (generator convention)" annotation(
@@ -107,11 +111,11 @@ model EpriCurrentControl "Current controller in EPRI Grid Forming model"
 
 equation
   connect(feedbackd.u1, idConvRefPu) annotation(
-    Line(points = {{-128, 80}, {-150, 80}}, color = {0, 0, 127}));
+    Line(points = {{-128, 80}, {-190, 80}}, color = {0, 0, 127}));
   connect(feedbackd.u2, idConvPu) annotation(
-    Line(points = {{-120, 72}, {-120, 50}, {-150, 50}}, color = {0, 0, 127}));
+    Line(points = {{-120, 72}, {-120, 50}, {-190, 50}}, color = {0, 0, 127}));
   connect(feedbackq.u1, iqConvRefPu) annotation(
-    Line(points = {{-128, -80}, {-150, -80}}, color = {0, 0, 127}));
+    Line(points = {{-128, -80}, {-190, -80}}, color = {0, 0, 127}));
   connect(gaind.u, feedbackd.y) annotation(
     Line(points = {{-72, 80}, {-111, 80}}, color = {0, 0, 127}));
   connect(gainq.u, feedbackq.y) annotation(
@@ -139,13 +143,11 @@ equation
   connect(feedbackLwq.y, addd2.u2) annotation(
     Line(points = {{61, 80}, {69.5, 80}, {69.5, 84}, {78, 84}}, color = {0, 0, 127}));
   connect(udFilterPu, addd2.u1) annotation(
-    Line(points = {{-149, 130}, {70, 130}, {70, 96}, {78, 96}}, color = {0, 0, 127}));
+    Line(points = {{-190, 130}, {70, 130}, {70, 96}, {78, 96}}, color = {0, 0, 127}));
   connect(GainLfd.y, feedbackLwd.u1) annotation(
     Line(points = {{1, 20}, {10, 20}, {10, -74}, {38, -74}}, color = {0, 0, 127}));
   connect(uqFilterPu, addq2.u2) annotation(
-    Line(points = {{-150, -130}, {70, -130}, {70, -92}, {78, -92}}, color = {0, 0, 127}));
-  connect(gain.u, iqConvPu) annotation(
-    Line(points = {{-52, -50}, {-150, -50}}, color = {0, 0, 127}));
+    Line(points = {{-190, -130}, {70, -130}, {70, -92}, {78, -92}}, color = {0, 0, 127}));
   connect(add.u1, gain.y) annotation(
     Line(points = {{120, -54}, {109.5, -54}, {109.5, -50}, {-29, -50}}, color = {0, 0, 127}));
   connect(add.u2, addq2.y) annotation(
@@ -153,7 +155,7 @@ equation
   connect(add1.u1, addd2.y) annotation(
     Line(points = {{119, 66}, {110, 66}, {110, 90}, {101, 90}}, color = {0, 0, 127}));
   connect(gain1.u, idConvPu) annotation(
-    Line(points = {{-58, 50}, {-150, 50}}, color = {0, 0, 127}));
+    Line(points = {{-58, 50}, {-190, 50}}, color = {0, 0, 127}));
   connect(add1.u2, gain1.y) annotation(
     Line(points = {{119, 54}, {110.5, 54}, {110.5, 50}, {-35, 50}}, color = {0, 0, 127}));
   connect(firstOrder.u, add1.y) annotation(
@@ -165,24 +167,30 @@ equation
   connect(udConvRefPu, firstOrder.y) annotation(
     Line(points = {{210, 60}, {181, 60}}, color = {0, 0, 127}));
   connect(idConvPu, product.u1) annotation(
-    Line(points = {{-150, 50}, {-120, 50}, {-120, 26}, {-92, 26}}, color = {0, 0, 127}));
+    Line(points = {{-190, 50}, {-120, 50}, {-120, 26}, {-92, 26}}, color = {0, 0, 127}));
   connect(omegaPu, product.u2) annotation(
-    Line(points = {{-150, 0}, {-120, 0}, {-120, 14}, {-92, 14}}, color = {0, 0, 127}));
+    Line(points = {{-190, 0}, {-120, 0}, {-120, 14}, {-92, 14}}, color = {0, 0, 127}));
   connect(product.y, GainLfd.u) annotation(
     Line(points = {{-69, 20}, {-22, 20}}, color = {0, 0, 127}));
   connect(omegaPu, product1.u1) annotation(
-    Line(points = {{-150, 0}, {-120, 0}, {-120, -14}, {-92, -14}}, color = {0, 0, 127}));
-  connect(iqConvPu, product1.u2) annotation(
-    Line(points = {{-150, -50}, {-120, -50}, {-120, -26}, {-92, -26}}, color = {0, 0, 127}));
+    Line(points = {{-190, 0}, {-120, 0}, {-120, -14}, {-92, -14}}, color = {0, 0, 127}));
   connect(product1.y, GainLfq.u) annotation(
     Line(points = {{-69, -20}, {-22, -20}}, color = {0, 0, 127}));
   connect(iqConvPu, feedbackq.u2) annotation(
-    Line(points = {{-150, -50}, {-120, -50}, {-120, -72}}, color = {0, 0, 127}));
+    Line(points = {{-190, -50}, {-120, -50}, {-120, -72}}, color = {0, 0, 127}));
+  connect(iqConvPu, product2.u2) annotation(
+    Line(points = {{-190, -50}, {-170, -50}, {-170, -36}, {-152, -36}}, color = {0, 0, 127}));
+  connect(GFLMode.y, product2.u1) annotation(
+    Line(points = {{-179, -20}, {-170, -20}, {-170, -24}, {-152, -24}}, color = {0, 0, 127}));
+  connect(product2.y, product1.u2) annotation(
+    Line(points = {{-129, -30}, {-120, -30}, {-120, -26}, {-92, -26}}, color = {0, 0, 127}));
+  connect(product2.y, gain.u) annotation(
+    Line(points = {{-129, -30}, {-120, -30}, {-120, -50}, {-52, -50}}, color = {0, 0, 127}));
 
   annotation(
     Icon(graphics = {Text(origin = {1, -15}, extent = {{-103, 84}, {103, -84}}, textString = "EPRI
 current
 control"), Rectangle(extent = {{-100, 100}, {100, -100}})}),
     preferredView = "diagram",
-    Diagram(coordinateSystem(grid = {1, 1}, extent = {{-140, -140}, {200, 140}})));
+    Diagram(coordinateSystem(grid = {1, 1}, extent = {{-180, -140}, {200, 140}})));
 end EpriCurrentControl;
