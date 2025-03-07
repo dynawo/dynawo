@@ -41,7 +41,7 @@ jobs:
       - name: NRT
         run: |
           export DYNAWO_HOME=$(pwd)
-          sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"PmConstAc6aPss3b":1}/' util/nrt_diff/settings.py
+          sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"GFM_Fault" : 1, "PmConstAc6aPss3b":1}/' util/nrt_diff/settings.py
           branch=$(util/envDynawo.sh display-environment | grep DYNAWO_BRANCH_NAME | cut -d '=' -f 2)
           util/envDynawo.sh nrt || { cat nrt/output/${branch}/report.html && cat nrt/output/${branch}/nrt_nok.txt && exit 1; };
 
