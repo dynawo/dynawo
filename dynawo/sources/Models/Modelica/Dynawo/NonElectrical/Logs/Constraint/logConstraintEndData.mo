@@ -23,7 +23,7 @@ function logConstraintEndData "Create an end constraint with data"
   input Real value;
   input String param;
 
-  external "C" addLogConstraintEndData(key, kind, limit, value, param);
+  external "C" addLogConstraintEndData(key, kind, limit, value, param) annotation(Include = "#include \"logConstraint.h\"");
 
   annotation(preferredView = "text");
 end logConstraintEndData;
