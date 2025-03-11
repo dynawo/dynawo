@@ -530,12 +530,12 @@ SolverCommonFixedTimeStep::setDifferentialVariablesIndices() {
 
 void
 SolverCommonFixedTimeStep::printHeaderSpecific(std::stringstream& ss) const {
-  ss << "| iter num   Nonlinear iter   jac eval      time step (h)";
+  ss << "¦ iter num   Nonlinear iter   jac eval      time step (h)";
 }
 
 void
 SolverCommonFixedTimeStep::printSolveSpecific(std::stringstream& msg) const {
-  msg << "| " << setw(8) << stats_.nst_ << " "
+  msg << "¦ " << setw(8) << stats_.nst_ << " "
           << setw(16) << stats_.nni_ << " "
           << setw(10) << stats_.nje_ << " "
           << setw(18) << h_ << " ";

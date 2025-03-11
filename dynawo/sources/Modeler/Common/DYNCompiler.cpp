@@ -209,9 +209,9 @@ Compiler::compileModelTemplateExpansionDescription(const std::shared_ptr<ModelDe
   string id = DYNLog(CompilingModel, modelTemplateExpansionDescription->getID()).str();
   int l = static_cast<int>(id.size() / 2);
   Trace::info(Trace::compile()) << "====================================================================================================" << Trace::endline;
-  Trace::info(Trace::compile()) << "|                                                                                                  |" << Trace::endline;
-  Trace::info(Trace::compile()) << "|" << std::setw(50 + l) << id << std::setw(50 - l - 1) << "|" << Trace::endline;
-  Trace::info(Trace::compile()) << "|                                                                                                  |" << Trace::endline;
+  Trace::info(Trace::compile()) << "¦                                                                                                  ¦" << Trace::endline;
+  Trace::info(Trace::compile()) << "¦" << std::setw(50 + l) << id << std::setw(50 - l - 1) << "¦" << Trace::endline;
+  Trace::info(Trace::compile()) << "¦                                                                                                  ¦" << Trace::endline;
   Trace::info(Trace::compile()) << "====================================================================================================" << Trace::endline;
   string modelID(modelTemplateExpansionDescription->getID());
   if (compiledModelDescriptions_.find(modelID) != compiledModelDescriptions_.end()) {
@@ -249,9 +249,9 @@ Compiler::compileBlackBoxModelDescription(const std::shared_ptr<ModelDescription
   string id = DYNLog(CompilingModel, blackBoxModelDescription->getID()).str();
   int l = static_cast<int>(id.size() / 2);
   Trace::info(Trace::compile()) << "====================================================================================================" << Trace::endline;
-  Trace::info(Trace::compile()) << "|                                                                                                  |" << Trace::endline;
-  Trace::info(Trace::compile()) << "|" << std::setw(50 + l) << id << std::setw(50 - l - 1) << "|" << Trace::endline;
-  Trace::info(Trace::compile()) << "|                                                                                                  |" << Trace::endline;
+  Trace::info(Trace::compile()) << "¦                                                                                                  ¦" << Trace::endline;
+  Trace::info(Trace::compile()) << "¦" << std::setw(50 + l) << id << std::setw(50 - l - 1) << "¦" << Trace::endline;
+  Trace::info(Trace::compile()) << "¦                                                                                                  ¦" << Trace::endline;
   Trace::info(Trace::compile()) << "====================================================================================================" << Trace::endline;
   string modelID(blackBoxModelDescription->getID());
   if (compiledModelDescriptions_.find(modelID) != compiledModelDescriptions_.end()) {
@@ -315,9 +315,9 @@ Compiler::compileModelicaModelDescription(const std::shared_ptr<ModelDescription
   string id = DYNLog(CompilingModel, modelDescription->getID()).str();
   int l = static_cast<int>(id.size() / 2);
   Trace::info(Trace::compile()) << "====================================================================================================" << Trace::endline;
-  Trace::info(Trace::compile()) << "|                                                                                                  |" << Trace::endline;
-  Trace::info(Trace::compile()) << "|" << std::setw(50 + l) << id << std::setw(50 - l - 1) << "|" << Trace::endline;
-  Trace::info(Trace::compile()) << "|                                                                                                  |" << Trace::endline;
+  Trace::info(Trace::compile()) << "¦                                                                                                  ¦" << Trace::endline;
+  Trace::info(Trace::compile()) << "¦" << std::setw(50 + l) << id << std::setw(50 - l - 1) << "¦" << Trace::endline;
+  Trace::info(Trace::compile()) << "¦                                                                                                  ¦" << Trace::endline;
   Trace::info(Trace::compile()) << "====================================================================================================" << Trace::endline;
 
   // concat models
