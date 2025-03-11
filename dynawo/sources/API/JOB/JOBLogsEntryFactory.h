@@ -22,7 +22,8 @@
 
 #include "JOBLogsEntry.h"
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
+
 
 namespace job {
 
@@ -39,7 +40,7 @@ class LogsEntryFactory {
    *
    * @return dynamic model entry
    */
-  static boost::shared_ptr<LogsEntry> newInstance();
+  static std::unique_ptr<LogsEntry> newInstance();
 };
 
 }  // namespace job

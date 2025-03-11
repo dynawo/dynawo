@@ -29,12 +29,11 @@
 #include "DYNExecUtils.h"
 
 using std::string;
-using boost::shared_ptr;
 namespace parser = xml::sax::parser;
 
 namespace job {
 
-shared_ptr<JobsCollection>
+std::shared_ptr<JobsCollection>
 XmlImporter::importFromFile(const string& fileName) const {
   std::ifstream stream(fileName.c_str());
   if (!stream)
@@ -47,7 +46,7 @@ XmlImporter::importFromFile(const string& fileName) const {
   }
 }
 
-boost::shared_ptr<JobsCollection> XmlImporter::importFromStream(std::istream& stream) const {
+std::shared_ptr<JobsCollection> XmlImporter::importFromStream(std::istream& stream) const {
   XmlHandler jobsHandler;
   xml::sax::parser::ParserFactory parser_factory;
   xml::sax::parser::ParserPtr parser = parser_factory.createParser();

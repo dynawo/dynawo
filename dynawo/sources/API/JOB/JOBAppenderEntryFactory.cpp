@@ -16,9 +16,9 @@
 
 namespace job {
 
-boost::shared_ptr<AppenderEntry>
+std::unique_ptr<AppenderEntry>
 AppenderEntryFactory::newInstance() {
-  return boost::shared_ptr<AppenderEntry>(new AppenderEntry());
+  return std::unique_ptr<AppenderEntry>(new AppenderEntry());
 }
 
 }  // namespace job

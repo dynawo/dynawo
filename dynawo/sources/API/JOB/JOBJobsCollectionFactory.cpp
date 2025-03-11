@@ -23,9 +23,9 @@
 
 namespace job {
 
-boost::shared_ptr<JobsCollection>
+std::unique_ptr<JobsCollection>
 JobsCollectionFactory::newInstance() {
-  return boost::shared_ptr<JobsCollection>(new JobsCollection());
+  return std::unique_ptr<JobsCollection>(new JobsCollection());
 }
 
 }  // namespace job
