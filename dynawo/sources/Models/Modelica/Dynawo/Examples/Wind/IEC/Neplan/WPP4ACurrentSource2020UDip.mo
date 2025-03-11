@@ -205,9 +205,9 @@ initial algorithm
   wPP4ACurrentSource.u0Pu.im := wPP4CurrentSource_INIT.u0Pu.im;
 
 equation
-  wPP4ACurrentSource.wT4ACurrentSource.wT4Injector.switchOffSignal1.value = false;
-  wPP4ACurrentSource.wT4ACurrentSource.wT4Injector.switchOffSignal2.value = false;
-  wPP4ACurrentSource.wT4ACurrentSource.wT4Injector.switchOffSignal3.value = false;
+  wPP4ACurrentSource.wT4ACurrentSource.injector.switchOffSignal1.value = false;
+  wPP4ACurrentSource.wT4ACurrentSource.injector.switchOffSignal2.value = false;
+  wPP4ACurrentSource.wT4ACurrentSource.injector.switchOffSignal3.value = false;
   variableImpedantFault.switchOffSignal1.value = false;
   variableImpedantFault.switchOffSignal2.value = false;
 
