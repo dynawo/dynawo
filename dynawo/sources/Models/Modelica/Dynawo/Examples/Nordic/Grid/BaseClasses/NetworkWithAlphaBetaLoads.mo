@@ -517,7 +517,7 @@ equation
   load_01.switchOffSignal1.value = false;
   load_01.switchOffSignal2.value = false;
   load_02.switchOffSignal1.value = false;
-  load_02.switchOffSignal2.value = false;
+  //load_02.switchOffSignal2.value = false;
   load_03.switchOffSignal1.value = false;
   load_03.switchOffSignal2.value = false;
   load_04.switchOffSignal1.value = false;

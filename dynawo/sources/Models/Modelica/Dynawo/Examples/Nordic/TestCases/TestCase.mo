@@ -245,7 +245,12 @@ model TestCase "Nordic test system case with variable reference frequency"
   Dynawo.Electrical.Events.NodeFault nodeFault(RPu = 40 / 400 ^ 2 * SystemBase.SnRef, XPu = 40 / 400 ^ 2 * SystemBase.SnRef, tBegin = 1, tEnd = 1.1);
   Dynawo.Electrical.Events.Event.SingleBooleanEvent disconnection(stateEvent1 = true, tEvent = 1.1);
 
+  Dynawo.Electrical.Controls.Protections.UnderVoltageLoadShedding UVA(UMinPu = 0.95, tLagAction = 1);
+
 equation
+  UVA.UMonitoredPu = bus_1042.UPu;
+  load_02.switchOffSignal2.value = UVA.switchOffSignal.value;
+
   check_UPu_bus_1041 = ComplexMath.'abs'(bus_1041.terminal.V);
   check_UPu_bus_1042 = ComplexMath.'abs'(bus_1042.terminal.V);
   check_UPu_bus_4012 = ComplexMath.'abs'(bus_4012.terminal.V);
