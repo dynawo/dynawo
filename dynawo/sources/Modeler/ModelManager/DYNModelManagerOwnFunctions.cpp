@@ -44,6 +44,8 @@
 #define MMC_HDRSTRINGSLOTS(hdr)   ((hdr) >> (3+MMC_LOG2_SIZE_INT))
 #define MMC_HDRSLOTS(hdr)         ((MMC_HDRISSTRING(hdr)) ? (MMC_HDRSTRINGSLOTS(hdr)) : ((hdr) >> 10))
 #define MMC_TAGPTR(p)             (reinterpret_cast<void*>(reinterpret_cast<char*>(p) + 0))
+#define MMC_UNTAGPTR(x)           (reinterpret_cast<void*>(reinterpret_cast<char*>(x) - 0))
+#define MMC_STRINGDATA(x)         (((struct mmc_string*)MMC_UNTAGPTR(x))->data)
 #define MMC_REFSTRINGLIT(NAME) MMC_TAGPTR(&(NAME).header)
 #define MMC_DEFSTRINGLIT(NAME, LEN, VAL)  \
     struct {        \
@@ -596,15 +598,14 @@ static inline size_t base_array_nr_of_elements(const base_array_t a) {
   return nr_of_elements;
 }
 
-const char** data_of_string_c89_array(const string_array_t *a) {
-  size_t sz = base_array_nr_of_elements(*a);
-  const char **res = new const char*[sz]();
-  for (unsigned int i=0; i< sz; ++i) {
-    res[i] = (reinterpret_cast<modelica_string *> (a->data))[i];
+const char** data_of_string_c89_array(const string_array_t a) {
+  size_t sz = base_array_nr_of_elements(a);
+  const char **res = (const char**) malloc(sz*sizeof(const char*));
+  for (size_t i=0; i < sz; i++) {
+    res[i] = MMC_STRINGDATA((reinterpret_cast<void**>(a.data))[i]);
   }
   return res;
 }
-
 void* mmc_mk_scon(const char *s) {
     size_t nbytes = strlen(s);
     size_t header = MMC_STRINGHDR(nbytes);
@@ -743,6 +744,19 @@ void alloc_string_array(string_array_t *dest, int ndims, ...) {
   dest->data = new m_string[elements]();
 }
 
+/** function: string_array_create
+ **
+ ** sets all fields in a string_array, i.e. data, ndims and dim_size.
+ **/
+void string_array_create(string_array_t *dest, modelica_string *data,
+                         int ndims, ...) {
+    va_list ap;
+    va_start(ap, ndims);
+    base_array_create(dest, data, ndims, ap);
+    va_end(ap);
+}
+
+
 void check_base_array_dim_sizes(const base_array_t *elts, int n) {
   int ndims = elts[0].ndims;
   for (int i = 1; i < n; ++i) {
@@ -806,8 +820,63 @@ void array_alloc_scalar_real_array(real_array_t* dest, int n, modelica_real firs
   va_end(ap);
 }
 
+
+static int generic_array_dimsizes_eq(const base_array_t* src, const base_array_t* dst, int /*print_error*/) {
+    int i;
+    for (i = 0; i < src->ndims; ++i) {
+        if (src->dim_size[i] != dst->dim_size[i]) {
+            return 0;
+        }
+    }
+
+    return 1;
+}
+
+static size_t check_copy_sanity(const base_array_t* src, base_array_t* dst, size_t sze) {
+    int i;
+    assert(base_array_ok(src));
+    assert(generic_array_dimsizes_eq(src, dst, 0));
+
+    size_t nr_of_elements = base_array_nr_of_elements(*src);
+
+    // Check if shape is equal.
+    int shape_eq = generic_array_dimsizes_eq(src, dst, 0 /*do not print error yet*/);
+
+    if (shape_eq) {
+        return nr_of_elements;
+    }
+
+    // Shape not equal and destination is flexible array.
+    // Adjust the dim sizes and realloc the destination
+    if (dst->flexible) {
+        for (i = 0; i < dst->ndims; ++i) {
+          dst->dim_size[i] = src->dim_size[i];
+        }
+        // let GC collect the old data.
+        dst->data = generic_alloc(nr_of_elements, sze);
+
+        return nr_of_elements;
+    }
+    return -1;
+}
+
+void simple_array_copy_data(const base_array_t src_cp, base_array_t* dst, size_t sze) {
+    const base_array_t* src = &src_cp;
+
+    size_t nr_of_elements = check_copy_sanity(src, dst, sze);
+    memcpy(dst->data, src->data, sze*nr_of_elements);
+}
+
 static inline void* generic_ptrget(const base_array_t *a, size_t sze, size_t i) {
   return (reinterpret_cast<char*>(a->data)) + (i*sze);
+}
+
+void* generic_array_get(const base_array_t* src, size_t sze, ...) {
+  va_list ap;
+  va_start(ap, sze);
+  void* trgt = generic_ptrget(src, calc_base_index_va(src, src->ndims, ap), sze);
+  va_end(ap);
+  return trgt;
 }
 
 size_t calc_base_index_va(const base_array_t *source, int ndims, va_list ap) {
@@ -845,6 +914,73 @@ void pack_integer_array(integer_array_t *a) {
     }
   }
 }
+
+/** function: base_array_create
+ **
+ ** sets all fields in a base_array, i.e. data, ndims and dim_size.
+ **/
+
+void base_array_create(base_array_t *dest, void *data, int ndims, va_list ap) {
+    int i;
+
+    dest->data = data;
+    dest->ndims = ndims;
+
+    dest->dim_size = size_alloc(ndims);
+
+    for (i = 0; i < ndims; ++i) {
+        dest->dim_size[i] = va_arg(ap, _index_t);
+    }
+
+    dest->flexible = 0;
+
+    /* uncomment for debugging!
+    fprintf(stderr, "created array ndims[%d] (", ndims);
+    for(i = 0; i < ndims; ++i) {
+      fprintf(stderr, "size(%d)=[%d], ", i, (int)dest->dim_size[i]);
+    }
+    fprintf(stderr, ")\n"); fflush(stderr);
+    */
+}
+
+void alloc_integer_array_data(integer_array_t* a) {
+    a->data = integer_alloc(base_array_nr_of_elements(*a));
+}
+
+/* Returns a modelica_integer array that can be treated as an int array. If the
+ * size of int and modelica_integer is the same this means simply returning the
+ * given array, but if int is smaller than modelica_integer a new array is
+ * allocated and filled with the data from given array as if it was an int array.
+ *
+ * I.e. if int is 32 bit and modelica_integer is 64 bit then the data will be
+ * packed into the first half of the new array.
+ *
+ * The case where int is larger than modelica_integer is not implemented. */
+void pack_alloc_integer_array(integer_array_t *a, integer_array_t *dest) {
+  if (sizeof(int) == sizeof(modelica_integer)) {
+    *dest = *a;
+  } else {
+    /* We only handle the case where int is smaller than modelica_integer. */
+    assert(sizeof(int) < sizeof(modelica_integer));
+
+    /* Allocate a new array. */
+    clone_integer_array_spec(a, dest);
+    alloc_integer_array_data(dest);
+
+    /* Pretend that the new array is an int array and fill it with the values
+     * from the given array. */
+    int *int_data = reinterpret_cast<int*>(dest->data);
+    size_t i;
+    size_t n = base_array_nr_of_elements(*a);
+
+    for (i = 0; i < n; ++i) {
+      int_data[i] = static_cast<int>(integer_get(*a, i));
+    }
+  }
+}
+
+
+
 
 void put_real_matrix_element(modelica_real value, int r, int c, real_array_t* dest) {
     /* Assert that dest hast correct dimension */
@@ -943,32 +1079,6 @@ void put_boolean_element(m_boolean value, int i1, boolean_array_t *dest) {
     /* Assert that dest has correct dimension */
     /* Assert that i1 is a valid index */
     boolean_set(dest, i1, value);
-}
-
-/** function: base_array_create
- **
- ** sets all fields in a base_array, i.e. data, ndims and dim_size.
- **/
-
-void base_array_create(base_array_t *dest, void *data, int ndims, va_list ap) {
-    int i;
-
-    dest->data = data;
-    dest->ndims = ndims;
-
-    dest->dim_size = size_alloc(ndims);
-
-    for (i = 0; i < ndims; ++i) {
-        dest->dim_size[i] = va_arg(ap, int);
-    }
-
-    /* uncomment for debugging!
-    fprintf(stderr, "created array ndims[%d] (", ndims);
-    for(i = 0; i < ndims; ++i) {
-      fprintf(stderr, "size(%d)=[%d], ", i, (int)dest->dim_size[i]);
-    }
-    fprintf(stderr, ")\n"); fflush(stderr);
-    */
 }
 
 
@@ -1088,10 +1198,6 @@ void unpack_integer_array(integer_array_t *a) {
       integer_set(a, i, int_data[i]);
     }
   }
-}
-
-void alloc_integer_array_data(integer_array_t* a) {
-    a->data = integer_alloc(static_cast<int>(base_array_nr_of_elements(*a)));
 }
 
 void copy_integer_array(const integer_array_t source, integer_array_t *dest) {
