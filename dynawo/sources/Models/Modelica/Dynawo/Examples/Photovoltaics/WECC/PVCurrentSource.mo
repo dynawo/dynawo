@@ -33,9 +33,9 @@ model PVCurrentSource "WECC PV Model on infinite bus"
     DPMaxPu = 999,
     DPMinPu = -999,
     DUp = 0.001,
-    DbdPu = 0.01,
     Dbd1Pu = -0.1,
     Dbd2Pu = 0.1,
+    DbdPu = 0.01,
     EMaxPu = 999,
     EMinPu = -999,
     FDbd1Pu = 0.004,
@@ -62,6 +62,7 @@ model PVCurrentSource "WECC PV Model on infinite bus"
     Kqv = 2,
     Kvi = 1,
     Kvp = 1,
+    Lvplsw = false,
     OmegaMaxPu = 1.5,
     OmegaMinPu = 0.5,
     P0Pu = -0.7,
@@ -77,7 +78,6 @@ model PVCurrentSource "WECC PV Model on infinite bus"
     QMaxPu = 0.4,
     QMinPu = -0.4,
     RPu = 0,
-    RateFlag = false,
     RefFlag = true,
     RrpwrPu = 10,
     SNom = 100,
@@ -95,9 +95,11 @@ model PVCurrentSource "WECC PV Model on infinite bus"
     VRef1Pu = 0,
     VUpPu = 1.1,
     XPu = 0.15,
-    i0Pu(re(fixed = false), im(fixed = false)),
-    iInj0Pu(re(fixed = false), im(fixed = false)),
-    s0Pu(re(fixed = false), im(fixed = false)),
+    brkpt = 0.1,
+    i0Pu( im(fixed = false),re(fixed = false)),
+    iInj0Pu( im(fixed = false),re(fixed = false)),
+    lvpl1 = 1.22,
+    s0Pu( im(fixed = false),re(fixed = false)),
     tFilterGC = 0.02,
     tFilterPC = 0.04,
     tFt = 1e-10,
@@ -108,8 +110,9 @@ model PVCurrentSource "WECC PV Model on infinite bus"
     tP = 0.04,
     tPord = 0.02,
     tRv = 0.02,
-    u0Pu(re(fixed = false), im(fixed = false)),
-    uInj0Pu(re(fixed = false), im(fixed = false))) annotation(
+    u0Pu( im(fixed = false),re(fixed = false)),
+    uInj0Pu( im(fixed = false),re(fixed = false)),
+    zerox = 0.05) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PRefPu(k = 0.7) annotation(
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
