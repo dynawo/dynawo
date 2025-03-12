@@ -1,8 +1,8 @@
 diff --git a/Makefile.in b/Makefile.in
-index f6bc18ab2e..6eccb4f6ec 100644
+index 1a766f96c17..2d80cad373d 100644
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -129,7 +129,7 @@ install: install-dirs
+@@ -196,7 +196,7 @@ install: install-dirs
  	# License
  	cp -p OMCompiler/COPYING ${INSTALL_DOCDIR}/omc/
  	# Documents
@@ -11,23 +11,9 @@ index f6bc18ab2e..6eccb4f6ec 100644
  	cp -p "@OMBUILDDIR@"/share/doc/omc/testmodels/* ${INSTALL_DOCDIR}/omc/testmodels/
  	# man pages
  	# cp -p "@OMBUILDDIR@"/share/man/man1/*.gz ${INSTALL_MANDIR}/man1/
-Submodule OMCompiler contains modified content
-diff --git a/OMCompiler/Compiler/BackEnd/DAEMode.mo b/OMCompiler/Compiler/BackEnd/DAEMode.mo
-index bb1afc643..c48a18fd5 100644
---- a/OMCompiler/Compiler/BackEnd/DAEMode.mo
-+++ b/OMCompiler/Compiler/BackEnd/DAEMode.mo
-@@ -242,6 +242,8 @@ algorithm
-   // create residual system
-   retSystem := BackendDAEUtil.createEqSystem(travArgs.newDAEVars);
-   retSystem := BackendDAEUtil.setEqSystEqs(retSystem, travArgs.newDAEEquations);
-+  retSystem := BackendDAEUtil.setEqSystRemovedEqns(retSystem, syst.removedEqs);
-+  retSystem := BackendEquation.requationsAddDAE(ExpandableArray.toList(shared.removedEqs), retSystem);
-   if exec then execStat("DAEmode: created system:  " + intString(BackendDAEUtil.systemSize(retSystem)) + ": " );  end if;
- 
-   syst := retSystem;
 diff --git a/OMCompiler/Compiler/BackEnd/XMLCreateDynawo.mo b/OMCompiler/Compiler/BackEnd/XMLCreateDynawo.mo
 new file mode 100644
-index 000000000..d9c2e1570
+index 00000000000..35fbdbe9173
 --- /dev/null
 +++ b/OMCompiler/Compiler/BackEnd/XMLCreateDynawo.mo
 @@ -0,0 +1,2236 @@
@@ -413,7 +399,7 @@ index 000000000..d9c2e1570
 +      case {} then ();
 +      case (ap :: apLst)
 +      equation
-+        str=Absyn.pathStringNoQual(ap);
++        str=AbsynUtil.pathStringNoQual(ap);
 +        dumpStrTagContent(ELEMENT,str);
 +        dumpAbsynPathLst2(apLst);
 +      then();
@@ -673,7 +659,7 @@ index 000000000..d9c2e1570
 +    case (DAE.CALL(path = fcn,expLst = args))
 +      equation
 +        // Add the ref to path
-+        fs = Absyn.pathStringNoQual(fcn);
++        fs = AbsynUtil.pathStringNoQual(fcn);
 +        dumpStrOpenTag(MathMLApply);
 +        dumpStrVoidTag(fs);
 +        dumpList(args,dumpExp2);
@@ -792,7 +778,7 @@ index 000000000..d9c2e1570
 +      then ();
 +    case (DAE.ENUM_LITERAL(name = fcn))
 +      equation
-+        dumpStrMathMLVariable(Absyn.pathStringNoQual(fcn));
++        dumpStrMathMLVariable(AbsynUtil.pathStringNoQual(fcn));
 +      then ();
 +    case (DAE.SIZE(exp = cr,sz = SOME(dim)))
 +      equation
@@ -878,7 +864,7 @@ index 000000000..d9c2e1570
 +    case BackendDAE.PARAM()        then (VARIABILITY_PARAMETER);
 +    case BackendDAE.CONST()        then (VARIABILITY_CONSTANT);
 +    case BackendDAE.EXTOBJ(path)
-+      then (stringAppend(VARIABILITY_EXTERNALOBJECT,stringAppend(":",Absyn.pathStringNoQual(path))));
++      then (stringAppend(VARIABILITY_EXTERNALOBJECT,stringAppend(":",AbsynUtil.pathStringNoQual(path))));
 +    else
 +      equation
 +        error_msg = "in XMLCreateDynawo.dumpKind - Unknown kind";
@@ -1681,7 +1667,7 @@ index 000000000..d9c2e1570
 +    case (_)
 +     equation
 +        paths     = ElementSource.getElementSourceTypes(source);
-+        paths_lst = list(Absyn.pathString(p) for p in paths);
++        paths_lst = list(AbsynUtil.pathString(p) for p in paths);
 +        name = if listLength(paths_lst) >= 2 then List.second(paths_lst) else "";
 +     then
 +        name;
@@ -2267,24 +2253,11 @@ index 000000000..d9c2e1570
 +
 +annotation(__OpenModelica_Interface="backend");
 +end XMLCreateDynawo;
-diff --git a/OMCompiler/Compiler/CMakeLists.txt b/OMCompiler/Compiler/CMakeLists.txt
-index 779ae843c..e203619ff 100644
---- a/OMCompiler/Compiler/CMakeLists.txt
-+++ b/OMCompiler/Compiler/CMakeLists.txt
-@@ -17,7 +17,7 @@ SET(SRCMO Absyn.mo AbsynDep.mo Algorithm.mo Builtin.mo
- 		  TplParser.mo TplMain.mo Util.mo UnitAbsyn.mo
- 		  UnitAbsynBuilder.mo UnitChecker.mo Values.mo ValuesUtil.mo
- 		  VarTransform.mo BackendVarTransform.mo Refactor.mo
--		  DAEQuery.mo XMLDump.mo InstanceHierarchy.mo InnerOuter.mo
-+		  DAEQuery.mo XMLDump.mo XMLCreateDynawo.mo InstanceHierarchy.mo InnerOuter.mo
- 		  ConnectUtil.mo Dependency.mo)
- 
- SET(ALLMO ${SRCMO} DAEEXT.mo DynLoad.mo Print.mo System.mo Parser.mo
 diff --git a/OMCompiler/Compiler/FrontEnd/ModelicaBuiltin.mo b/OMCompiler/Compiler/FrontEnd/ModelicaBuiltin.mo
-index b13fabcfd..7f1bbc800 100644
+index 380c5d9f51d..d5d9e264d0c 100644
 --- a/OMCompiler/Compiler/FrontEnd/ModelicaBuiltin.mo
 +++ b/OMCompiler/Compiler/FrontEnd/ModelicaBuiltin.mo
-@@ -2165,6 +2165,16 @@ annotation(Documentation(info="<html>
+@@ -2247,6 +2247,16 @@ annotation(Documentation(info="<html>
  </html>"),preferredView="text");
  end dumpXMLDAE;
  
@@ -2301,130 +2274,11 @@ index b13fabcfd..7f1bbc800 100644
  function convertUnits
    input String s1;
    input String s2;
-diff --git a/OMCompiler/Compiler/NFFrontEnd/NFConvertDAE.mo b/OMCompiler/Compiler/NFFrontEnd/NFConvertDAE.mo
-index 8b2f8b2d1..86837b55c 100644
---- a/OMCompiler/Compiler/NFFrontEnd/NFConvertDAE.mo
-+++ b/OMCompiler/Compiler/NFFrontEnd/NFConvertDAE.mo
-@@ -91,20 +91,37 @@ algorithm
- end convert;
- 
- protected
-+uniontype VariableConversionSettings
-+  record VARIABLE_CONVERSION_SETTINGS
-+    Boolean useLocalDirection;
-+    Boolean isFunctionParameter;
-+    Boolean addTypeToSource;
-+  end VARIABLE_CONVERSION_SETTINGS;
-+end VariableConversionSettings;
-+
-+constant VariableConversionSettings FUNCTION_VARIABLE_CONVERSION_SETTINGS =
-+  VARIABLE_CONVERSION_SETTINGS(false, true, false);
-+
- function convertVariables
-   input list<Variable> variables;
-   input output list<DAE.Element> elements;
- protected
--  Boolean localDir = Flags.getConfigBool(Flags.USE_LOCAL_DIRECTION);
-+  VariableConversionSettings settings;
- algorithm
-+  settings := VariableConversionSettings.VARIABLE_CONVERSION_SETTINGS(
-+    useLocalDirection = Flags.getConfigBool(Flags.USE_LOCAL_DIRECTION),
-+    isFunctionParameter = false,
-+    addTypeToSource = Flags.isSet(Flags.INFO_XML_OPERATIONS) or Flags.isSet(Flags.VISUAL_XML)
-+  );
-+
-   for var in listReverse(variables) loop
--    elements := convertVariable(var, localDir) :: elements;
-+  elements := convertVariable(var, settings) :: elements;
-   end for;
- end convertVariables;
- 
- function convertVariable
-   input Variable var;
--  input Boolean useLocalDir;
-+  input VariableConversionSettings settings;
-   output DAE.Element daeVar;
- protected
-   Option<DAE.VariableAttributes> var_attr;
-@@ -113,7 +130,7 @@ algorithm
-   binding_exp := Binding.toDAEExp(var.binding);
-   var_attr := convertVarAttributes(var.typeAttributes, var.ty, var.attributes);
-   daeVar := makeDAEVar(var.name, var.ty, binding_exp, var.attributes,
--    var.visibility, var_attr, var.comment, useLocalDir, false, var.info);
-+    var.visibility, var_attr, var.comment, settings, var.info);
- end convertVariable;
- 
- function makeDAEVar
-@@ -124,8 +141,7 @@ function makeDAEVar
-   input Visibility vis;
-   input Option<DAE.VariableAttributes> vattr;
-   input Option<SCode.Comment> comment;
--  input Boolean useLocalDir;
--  input Boolean isFunctionParam;
-+  input VariableConversionSettings settings;
-   input SourceInfo info;
-   output DAE.Element var;
- protected
-@@ -135,15 +151,19 @@ protected
-   Direction dir;
- algorithm
-   dcref := ComponentRef.toDAE(cref);
--  dty := Type.toDAE(if isFunctionParam then Type.arrayElementType(ty) else ty);
-+  dty := Type.toDAE(if settings.isFunctionParameter then Type.arrayElementType(ty) else ty);
-   source := ElementSource.createElementSource(info);
- 
-+  if settings.addTypeToSource then
-+    source := addComponentTypeToSource(cref, source);
-+  end if;
-+
-   var := match attr
-     case Component.Attributes.ATTRIBUTES()
-       algorithm
-         // Strip input/output from non top-level components unless
-         // --useLocalDirection=true has been set.
--        if attr.direction == Direction.NONE or useLocalDir then
-+        if attr.direction == Direction.NONE or settings.useLocalDirection then
-           dir := attr.direction;
-         else
-           dir := getComponentDirection(attr.direction, cref);
-@@ -174,6 +194,22 @@ algorithm
-   end match;
- end makeDAEVar;
- 
-+function addComponentTypeToSource
-+  input ComponentRef cref;
-+  input output DAE.ElementSource source;
-+algorithm
-+  source := match cref
-+    case ComponentRef.CREF()
-+      algorithm
-+        source := ElementSource.addElementSourceType(source,
-+          InstNode.scopePath(InstNode.classScope(InstNode.parent(cref.node))));
-+      then
-+        addComponentTypeToSource(cref.restCref, source);
-+
-+    else source;
-+  end match;
-+end addComponentTypeToSource;
-+
- function getComponentDirection
-   "Returns the given direction if the cref refers to a top-level component or to
-    a component in a top-level connector, otherwise returns Direction.NONE."
-@@ -1006,7 +1042,8 @@ algorithm
-         attr := comp.attributes;
-         var_attr := convertVarAttributes(ty_attr, ty, attr);
-       then
--        makeDAEVar(cref, ty, binding, attr, InstNode.visibility(node), var_attr, comp.comment, true, true, info);
-+        makeDAEVar(cref, ty, binding, attr, InstNode.visibility(node), var_attr,
-+          comp.comment, FUNCTION_VARIABLE_CONVERSION_SETTINGS, info);
- 
-     else
-       algorithm
 diff --git a/OMCompiler/Compiler/NFFrontEnd/NFModelicaBuiltin.mo b/OMCompiler/Compiler/NFFrontEnd/NFModelicaBuiltin.mo
-index 9dadaf54d..70275cf53 100644
+index 77276916e99..10ec28ae162 100644
 --- a/OMCompiler/Compiler/NFFrontEnd/NFModelicaBuiltin.mo
 +++ b/OMCompiler/Compiler/NFFrontEnd/NFModelicaBuiltin.mo
-@@ -2347,6 +2347,17 @@ annotation(Documentation(info="<html>
+@@ -2501,6 +2501,17 @@ annotation(Documentation(info="<html>
  </html>"),preferredView="text");
  end dumpXMLDAE;
  
@@ -2443,74 +2297,76 @@ index 9dadaf54d..70275cf53 100644
    input String s1;
    input String s2;
 diff --git a/OMCompiler/Compiler/Script/CevalScriptBackend.mo b/OMCompiler/Compiler/Script/CevalScriptBackend.mo
-index ec38761ad..e2313c9ad 100644
+index d4e6748e897..1abb3768c50 100644
 --- a/OMCompiler/Compiler/Script/CevalScriptBackend.mo
 +++ b/OMCompiler/Compiler/Script/CevalScriptBackend.mo
-@@ -114,6 +114,7 @@ import Types;
+@@ -139,6 +139,7 @@ import UnitParserExt;
  import Util;
  import ValuesUtil;
  import XMLDump;
 +import XMLCreateDynawo;
- import ComponentReference;
- import Uncertainties;
- import OpenTURNS;
-@@ -2901,6 +2902,16 @@ algorithm
-         v = ValuesUtil.makeArray(List.map(realVals,ValuesUtil.makeReal));
-       then (cache,Values.TUPLE({v,Values.INTEGER(i)}));
  
-+    case (cache,env,"createXML2RTE",vals,_)
+ 
+ protected constant DAE.Type simulationResultType_rtest = DAE.T_COMPLEX(ClassInf.RECORD(Absyn.IDENT("SimulationResult")),{
+@@ -3017,7 +3018,17 @@ algorithm
+     case ("dumpXMLDAE",_)
+       then
+         ValuesUtil.makeTuple({Values.BOOL(false),Values.STRING("")});
++        
++    case ("createXML2RTE",vals)
 +      equation
-+        (cache,xml_filename) = createXML2RTE(cache,env,vals,msg);
++        (outCache,xml_filename) = createXML2RTE(outCache,inEnv,vals,msg);
 +      then
-+        (cache,ValuesUtil.makeTuple({Values.BOOL(true),Values.STRING(xml_filename)}));
-+
-+    case (cache,_,"createXML2RTE",_,_)
++        ValuesUtil.makeTuple({Values.BOOL(true),Values.STRING(xml_filename)});
+ 
++    case ("createXML2RTE",_)
 +      then
-+        (cache,ValuesUtil.makeTuple({Values.BOOL(false),Values.STRING("New openModelica API : Xml creation for Dynawo error.")}));
-+
-     case (cache,_,"solveLinearSystem",{Values.ARRAY(valueLst=vals),v,Values.ENUM_LITERAL(index=2 /*lpsolve55*/),Values.ARRAY(valueLst=vals2)},_)
++        ValuesUtil.makeTuple({Values.BOOL(false),Values.STRING("New openModelica API : Xml creation for Dynawo error.")});    
++    
+     case ("solveLinearSystem",{Values.ARRAY(valueLst=vals),v})
        equation
-         (realVals,i) = System.lpsolve55(List.map(vals,ValuesUtil.arrayValueReals),ValuesUtil.arrayValueReals(v),List.map(vals2,ValuesUtil.valueInteger));
-@@ -5569,6 +5580,113 @@ algorithm
+         (realVals,i) = System.dgesv(List.map(vals,ValuesUtil.arrayValueReals),ValuesUtil.arrayValueReals(v));
+@@ -6079,6 +6090,115 @@ algorithm
    end matchcontinue;
  end dumpXMLDAE;
  
 +protected function createXMLDAE2DynawoFrontEnd
 +" This function runs the front-end for the createXML2RTE function"
-+  input FCore.Cache inCache;
-+  input FCore.Graph   inEnv;
-+  input Absyn.Path inClassName;
-+  input String rewriteRulesFile;
-+  output FCore.Cache outCache;
-+  output FCore.Graph   outEnv;
-+  output DAE.DAElist outDae;
++  input output FCore.Cache inCache;
++  input output FCore.Graph inEnv;
++  input list<Values.Value> vals;
++  output DAE.DAElist dae;
 +algorithm
-+  (outCache, outEnv, outDae) := matchcontinue(inCache, inEnv, inClassName, rewriteRulesFile)
++  (inCache,inEnv, dae) :=
++  matchcontinue (inCache,inEnv,vals)
 +    local
 +      Absyn.Program p;
 +      SCode.Program scode;
++      String filenameprefix,rewriteRulesFile;
++      Absyn.Path classname;
++      Boolean addOriginalAdjacencyMatrix,addSolvingInfo,addMathMLCode,dumpResiduals;
 +
-+    case (_, _, _, _)
++    case (_, _, {Values.CODE(Absyn.C_TYPENAME(classname)),Values.STRING(rewriteRulesFile)})
 +      equation
 +        // set the rewrite rules flag
-+        Flags.setConfigString(Flags.REWRITE_RULES_FILE, rewriteRulesFile);
++        FlagsUtil.setConfigString(Flags.REWRITE_RULES_FILE, rewriteRulesFile);
 +        // load the rewrite rules
 +        RewriteRules.loadRules();
 +
-+        (outCache, outEnv, _, outDae) = Inst.instantiateClass(inCache, InnerOuter.emptyInstHierarchy, SymbolTable.getSCode(), inClassName);
++        (inCache, inEnv, _, dae) = Inst.instantiateClass(inCache, InnerOuter.emptyInstHierarchy, SymbolTable.getSCode(), classname);
 +
-+        outDae = DAEUtil.transformationsBeforeBackend(outCache,outEnv,outDae);
++        dae = DAEUtil.transformationsBeforeBackend(inCache,inEnv,dae);
 +
 +        // clear the rewrite rules after running the front-end
-+        Flags.setConfigString(Flags.REWRITE_RULES_FILE, "");
++        FlagsUtil.setConfigString(Flags.REWRITE_RULES_FILE, "");
 +        RewriteRules.clearRules();
 +     then
-+       (outCache, outEnv, outDae);
++       (inCache, inEnv, dae);
 +
-+    case (_, _, _, _)
++    case (_, _, _)
 +      equation
 +        // clear the rewrite rules if we fail!
-+        Flags.setConfigString(Flags.REWRITE_RULES_FILE, "");
++        FlagsUtil.setConfigString(Flags.REWRITE_RULES_FILE, "");
 +        RewriteRules.clearRules();
 +     then
 +       fail();
@@ -2531,7 +2387,7 @@ index ec38761ad..e2313c9ad 100644
 +  match (inCache,inEnv,vals,inMsg)
 +    local
 +      FCore.Cache cache;
-+      FCore.Graph graph;
++      FCore.Graph env;
 +      DAE.DAElist dae;
 +      BackendDAE.BackendDAE dlow;
 +
@@ -2542,7 +2398,7 @@ index ec38761ad..e2313c9ad 100644
 +
 +      String cname_str,compileDir,description;
 +
-+    case (cache,graph,
++    case (cache,env,
 +          {Values.CODE(Absyn.C_TYPENAME(classname)),Values.STRING(rewriteRulesFile)},
 +          msg)
 +      equation
@@ -2551,17 +2407,17 @@ index ec38761ad..e2313c9ad 100644
 +        System.startTimer();
 +	      Error.clearMessages() "Clear messages";
 +
-+        compileDir = System.pwd() + System.pathDelimiter();
-+        cname_str  = Absyn.pathString(classname);
++        compileDir = System.pwd() + Autoconf.pathDelimiter;
++        cname_str  = AbsynUtil.pathString(classname);
 +
 +	      // Generation of the DAE structure
 +        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-+        (cache, graph, dae) = createXMLDAE2DynawoFrontEnd(cache, graph, classname, rewriteRulesFile);
++        (outCache, env, dae) = createXMLDAE2DynawoFrontEnd(cache, inEnv, vals);
 +
 +        // Generation of the DAE Lower structure
 +        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 +	      description = DAEUtil.daeDescription(dae);
-+        dlow = BackendDAECreate.lower(dae,cache,graph,BackendDAE.EXTRA_INFO(description,cname_str));
++        dlow = BackendDAECreate.lower(dae,cache,env,BackendDAE.EXTRA_INFO(description,cname_str));
 +
 +        // Call of the new Metamodelica sub-method
 +        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2574,7 +2430,7 @@ index ec38761ad..e2313c9ad 100644
 +        Print.writeBuf(xml_filename);
 +
 +        Print.clearBuf();
-+        compileDir = if Config.getRunningTestsuite() then "" else compileDir;
++        compileDir = if Testsuite.isRunning() then "" else compileDir;
 +        System.stopTimer();
 +      then
 +        (cache,stringAppendList({compileDir,xml_filename}));
@@ -2582,54 +2438,25 @@ index ec38761ad..e2313c9ad 100644
 +  end match;
 +end createXML2RTE;
 +
++
  protected function applyRewriteRulesOnBackend
    input BackendDAE.BackendDAE inBackendDAE;
    output BackendDAE.BackendDAE outBackendDAE;
 diff --git a/OMCompiler/Compiler/SimCode/SimCodeUtil.mo b/OMCompiler/Compiler/SimCode/SimCodeUtil.mo
-index 0a490c796..6aa6d60d9 100644
+index 2bf62ff1a12..ef9e4cad0fd 100644
 --- a/OMCompiler/Compiler/SimCode/SimCodeUtil.mo
 +++ b/OMCompiler/Compiler/SimCode/SimCodeUtil.mo
-@@ -7194,36 +7194,50 @@ algorithm
-     SimCodeVar.AliasVariable aliasvar;
-     String s1, s2, s3, sProt, sRes;
-     list<String> numArrayElement;
--    case (SimCodeVar.SIMVAR(name= name, aliasvar = SimCodeVar.NOALIAS(), index = i, initialValue=init, arrayCref=arrCref, variable_index=variable_index, numArrayElement=numArrayElement, isProtected=isProtected, hideResult=hideResult))
-+    DAE.Type type_;
-+    case (SimCodeVar.SIMVAR(name= name, aliasvar = SimCodeVar.NOALIAS(), index = i, initialValue=init, arrayCref=arrCref, variable_index=variable_index, numArrayElement=numArrayElement, isProtected=isProtected, hideResult=hideResult, type_=type_))
-     equation
-         s1 = ComponentReference.printComponentRefStr(name);
-         if Util.isSome(arrCref) then s3 = " \tarrCref:"+ComponentReference.printComponentRefStr(Util.getOption(arrCref)); else s3="\tno arrCref"; end if;
-         sProt = if isProtected then " protected " else "";
-         sRes = if hideResult then " hideResult " else "";
--        s = "index: "+intString(i)+": "+s1+" (no alias) "+sProt+sRes+" initial: "+ExpressionDump.printOptExpStr(init) + s3 + " index:("+printVarIndx(variable_index)+")" +" [" + stringDelimitList(numArrayElement,",")+"] ";
-+        s = "index: "+intString(i)+": "+s1+" (no alias) "+sProt+sRes+"valueType: "+DaeTypeToStr(type_)+" initial: "+ExpressionDump.printOptExpStr(init) + s3 + " index:("+printVarIndx(variable_index)+")" +" [" + stringDelimitList(numArrayElement,",")+"] ";
-      then s;
--    case (SimCodeVar.SIMVAR(name= name, aliasvar = SimCodeVar.ALIAS(varName = name2), index = i, initialValue=init, arrayCref=arrCref, variable_index=variable_index, numArrayElement=numArrayElement, isProtected=isProtected, hideResult=hideResult))
-+    case (SimCodeVar.SIMVAR(name= name, aliasvar = SimCodeVar.ALIAS(varName = name2), index = i, initialValue=init, arrayCref=arrCref, variable_index=variable_index, numArrayElement=numArrayElement, isProtected=isProtected, hideResult=hideResult, type_=type_))
-     equation
-         s1 = ComponentReference.printComponentRefStr(name);
-         s2 = ComponentReference.printComponentRefStr(name2);
-         sProt = if isProtected then " protected "else "";
-         sRes = if hideResult then " hideResult " else "";
-         if Util.isSome(arrCref) then s3 = " \tarrCref:"+ComponentReference.printComponentRefStr(Util.getOption(arrCref)); else s3="\tno arrCref"; end if;
--        s = "index: "+intString(i)+": "+s1+" (alias: "+s2+") "+sProt+sRes+" initial: "+ExpressionDump.printOptExpStr(init) + s3 + " index:("+printVarIndx(variable_index)+")" +" [" + stringDelimitList(numArrayElement,",")+"] ";
-+        s = "index: "+intString(i)+": "+s1+" (alias: "+s2+") "+sProt+sRes+"valueType: "+DaeTypeToStr(type_)+" initial: "+ExpressionDump.printOptExpStr(init) + s3 + " index:("+printVarIndx(variable_index)+")" +" [" + stringDelimitList(numArrayElement,",")+"] ";
-     then s;
--    case (SimCodeVar.SIMVAR(name= name, aliasvar = SimCodeVar.NEGATEDALIAS(varName = name2), index = i, initialValue=init, arrayCref=arrCref,variable_index=variable_index, numArrayElement=numArrayElement, isProtected=isProtected, hideResult=hideResult))
-+    case (SimCodeVar.SIMVAR(name= name, aliasvar = SimCodeVar.NEGATEDALIAS(varName = name2), index = i, initialValue=init, arrayCref=arrCref,variable_index=variable_index, numArrayElement=numArrayElement, isProtected=isProtected, hideResult=hideResult, type_=type_))
-     equation
-         s1 = ComponentReference.printComponentRefStr(name);
-         s2 = ComponentReference.printComponentRefStr(name2);
-         sProt = if isProtected then " protected "else "";
-         sRes = if hideResult then " hideResult " else "";
-         if Util.isSome(arrCref) then s3 = " \tarrCref:"+ComponentReference.printComponentRefStr(Util.getOption(arrCref)); else s3="\tno arrCref"; end if;
--        s = "index: "+intString(i)+": "+s1+" (negated alias: "+s2+") "+sProt+sRes+" initial: "+ExpressionDump.printOptExpStr(init) + s3 + " index:("+printVarIndx(variable_index)+")" +" [" + stringDelimitList(numArrayElement,",")+"] ";
-+        s = "index: "+intString(i)+": "+s1+" (negated alias: "+s2+") "+sProt+sRes+"valueType: "+DaeTypeToStr(type_)+" initial: "+ExpressionDump.printOptExpStr(init) + s3 + " index:("+printVarIndx(variable_index)+")" +" [" + stringDelimitList(numArrayElement,",")+"] ";
-      then s;
-    end match;
+@@ -8833,12 +8833,27 @@ algorithm
+     case SOME(bval) then (if bval then " hideResult " else "");
+     else "";
+   end match);
++  s := s + ("valueType: "+DaeTypeToStr(inVar.type_));
+   s := s + " initial: " + (if Util.isSome(inVar.initialValue) then ExpressionDump.printOptExpStr(inVar.initialValue) else "");
+   s := s + (if Util.isSome(inVar.arrayCref) then "\tarrCref:" + ComponentReference.printComponentRefStr(Util.getOption(inVar.arrayCref)) else "\tno arrCref");
+   s := s + " index:(" + (if Util.isSome(inVar.variable_index) then intString(Util.getOption(inVar.variable_index)) else "") + ")";
+   s := s + " [" + stringDelimitList(inVar.numArrayElement, ",") + "]";
  end simVarString;
  
--
 +public function DaeTypeToStr
 +  input DAE.Type type_;
 +  output String s;
@@ -2643,32 +2470,33 @@ index 0a490c796..6aa6d60d9 100644
 +    else then "others";
 +    end match;
 +end DaeTypeToStr;
-+ 
- protected function printVarIndx
-   input Option<Integer> i;
-   output String s;
-@@ -7246,6 +7260,20 @@ algorithm
++
+ public function dumpVarLst"dumps a list of SimVars to stdout.
+ author:Waurich TUD 2014-05"
+   input list<SimCodeVar.SimVar> varLst;
+@@ -8854,6 +8869,21 @@ algorithm
    end if;
  end dumpVarLst;
  
 +public function dumpVarLstFile"dumps a list of SimVars to a file."
-+  input list<SimCodeVar.SimVar> varLst;
-+  input String header;
-+  input File.File file;
++    input list<SimCodeVar.SimVar> varLst;
++    input String header;
++    input File.File file;
 +protected
-+  SimCodeVar.SimVar var;
++    SimCodeVar.SimVar var;
 +algorithm
-+  if not listEmpty(varLst) then
-+     File.write(file,"//"+header+"\n//----------------------\n");
-+  for var in varLst loop
-+     File.write(file, "type: " + header +" " + simVarString(var)+"\n");
-+  end for;
-+  end if;
++    if not listEmpty(varLst) then
++       File.write(file,"//"+header+"\n//----------------------\n");
++      for var in varLst loop
++         File.write(file, "type: " + header +" " + simVarString(var)+"\n");
++      end for;
++    end if;
 +end dumpVarLstFile;
- 
++
  public function printVarLstCrefs
      input list<SimCodeVar.SimVar> inVars;
-@@ -7336,6 +7364,58 @@ algorithm
+     output String str;
+@@ -8950,6 +8980,59 @@ algorithm
    dumpFunctions(functions);
  end dumpModelInfo;
  
@@ -2699,7 +2527,7 @@ index 0a490c796..6aa6d60d9 100644
 +  list<SimCodeFunction.Function> functions;
 +  File.File file = File.File();
 +algorithm
-+  File.open(file,Absyn.pathString(modelInfo.name)+"_variables.txt",File.Mode.Write);
++  File.open(file,AbsynUtil.pathString(modelInfo.name)+"_variables.txt",File.Mode.Write);
 +  SimCode.MODELINFO(vars=simVars, varInfo=varInfo, functions=functions) := modelInfo;
 +  SimCodeVar.SIMVARS(stateVars=stateVars,derivativeVars=derivativeVars,algVars=algVars,boolAlgVars=boolAlgVars,intAlgVars=intAlgVars,discreteAlgVars=discreteAlgVars,aliasVars=aliasVars,intAliasVars=intAliasVars,boolAliasVars=boolAliasVars,
 +  paramVars=paramVars,intParamVars=intParamVars,boolParamVars=boolParamVars, stringParamVars=stringParamVars, extObjVars=extObjVars,constVars=constVars,intConstVars=intConstVars,stringConstVars=stringConstVars) := simVars;
@@ -2724,30 +2552,23 @@ index 0a490c796..6aa6d60d9 100644
 +end dumpModelInfoToFile;
 +
 +
++
  protected function dumpFunctions
    input list<SimCodeFunction.Function> functions;
  algorithm
-@@ -7523,7 +7603,6 @@ algorithm
-         s = s +dumpWhenOps(whenStmtLst);
-         if isSome(elseWhen) then
-           s = s + " ELSEWHEN: ";
--          dumpSimEqSystem(Util.getOption(elseWhen));
-           s = s + simEqSystemString(Util.getOption(elseWhen));
-         end if;
-       then s;
-@@ -7843,6 +7922,7 @@ algorithm
+@@ -9502,6 +9585,7 @@ algorithm
    List.map_0(jacObs,dumpJacobianMatrix);
-   print("\nmodelInfo: \n" + UNDERLINE + "\n");
+   print("\nmodelInfo:\n" + UNDERLINE + "\n");
    dumpModelInfo(simCode.modelInfo);
 +  dumpModelInfoToFile(simCode.modelInfo);
    dumpSimCodeDAEmodeDataString(simCode.daeModeData);
  end dumpSimCodeDebug;
  
 diff --git a/OMCompiler/Compiler/Template/CodegenCFunctions.tpl b/OMCompiler/Compiler/Template/CodegenCFunctions.tpl
-index 1a45ff82b..6946776fc 100644
+index 40b648ba044..5339b56e822 100644
 --- a/OMCompiler/Compiler/Template/CodegenCFunctions.tpl
 +++ b/OMCompiler/Compiler/Template/CodegenCFunctions.tpl
-@@ -4960,13 +4960,7 @@ case BINARY(__) then
+@@ -5731,17 +5731,7 @@ case BINARY(__) then
    case POW(__) then
      if isHalf(exp2) then
        let tmp = tempDecl(expTypeFromExpModelica(exp1),&varDecls)
@@ -2755,14 +2576,18 @@ index 1a45ff82b..6946776fc 100644
 -      let &preExp +=
 -        <<
 -        <%tmp%> = <%e1%>;
--        <%assertCommonVar('<%tmp%> >= 0.0', '"Model error: Argument of sqrt(<%Util.escapeModelicaStringToCString(cstr)%>) was %g should be >= 0", <%tmp%>', context, &varDecls, dummyInfo)%>
+-        if(<%tmp%> < 0.0) {
+-          <%if acceptMetaModelicaGrammar()
+-            then '<%generateThrow()%>;<%\n%>'
+-            else 'throwStreamPrint(threadData, "%s:%d: Invalid root: (%g)^(%g)", __FILE__, __LINE__, <%tmp%>, 0.5);<%\n%>'%>
+-        }
 -        >>
 -      'sqrt(<%tmp%>)'
 +      'sqrt(<%e1%>)'
      else match realExpIntLit(exp2)
        case SOME(2) then
          let tmp = tempDecl("modelica_real", &varDecls)
-@@ -4985,72 +4979,7 @@ case BINARY(__) then
+@@ -5760,72 +5750,7 @@ case BINARY(__) then
            >>
          '(<%tmp%> * <%tmp%>)'
        case SOME(i) then 'real_int_pow(threadData, <%e1%>, <%i%>)'
@@ -2836,111 +2661,32 @@ index 1a45ff82b..6946776fc 100644
  
    case UMINUS(__) then daeExpUnary(exp, context, &preExp, &varDecls, &auxFunction)
    case ADD_ARR(__) then
-@@ -5441,7 +5370,7 @@ case IFEXP(__) then
+@@ -6185,7 +6110,7 @@ case IFEXP(__) then
    let eThen = daeExp(expThen, context, &preExpThen, &varDecls, &auxFunction)
    let &preExpElse = buffer ""
    let eElse = daeExp(expElse, context, &preExpElse, &varDecls, &auxFunction)
--  let shortIfExp = if preExpThen then "" else if preExpElse then "" else if isArrayType(typeof(exp)) then "" else "x"
+-  let shortIfExp = if preExpThen then "" else if preExpElse then "" else if isArrayType(typeof(exp)) then "" else if isRecordType(typeof(exp)) then "" else "x"
 +  let shortIfExp = ""
-   (if shortIfExp
-     then
-       // Safe to do if eThen and eElse don't emit pre-expressions
-@@ -5610,7 +5539,16 @@ template daeExpCall(Exp call, Context context, Text &preExp, Text &varDecls, Tex
-   case CALL(path=IDENT(name="max"), attr=CALL_ATTR(ty = T_REAL(__)), expLst={e1,e2}) then
-     let var1 = daeExp(e1, context, &preExp, &varDecls, &auxFunction)
-     let var2 = daeExp(e2, context, &preExp, &varDecls, &auxFunction)
--    'fmax(<%var1%>,<%var2%>)'
-+    let tmp = tempDecl(expTypeFromExpModelica(e1), &varDecls)
-+    let &preExp +=
-+    <<
-+    if ( <%var1%> > <%var2%> )
-+     <%tmp%> = <%var1%>;
-+    else
-+     <%tmp%> = <%var2%>;
-+     <%\n%>
-+     >>
-+    '<%tmp%>'
- 
-   case CALL(path=IDENT(name="max"), expLst={e1,e2}) then
-     let var1 = daeExp(e1, context, &preExp, &varDecls, &auxFunction)
-@@ -5630,7 +5568,16 @@ template daeExpCall(Exp call, Context context, Text &preExp, Text &varDecls, Tex
-   case CALL(path=IDENT(name="min"), attr=CALL_ATTR(ty = T_REAL(__)), expLst={e1,e2}) then
-     let var1 = daeExp(e1, context, &preExp, &varDecls, &auxFunction)
-     let var2 = daeExp(e2, context, &preExp, &varDecls, &auxFunction)
--    'fmin(<%var1%>,<%var2%>)'
-+    let tmp = tempDecl(expTypeFromExpModelica(e1), &varDecls)
-+    let &preExp +=
-+    <<
-+    if ( <%var1%> > <%var2%> )
-+     <%tmp%> = <%var2%>;
-+    else
-+     <%tmp%> = <%var1%>;
-+     <%\n%>
-+     >>
-+    '<%tmp%>'
- 
-   case CALL(path=IDENT(name="min"), expLst={e1,e2}) then
-     let var1 = daeExp(e1, context, &preExp, &varDecls, &auxFunction)
-@@ -7005,7 +6952,7 @@ template varArrayNameValues(SimVar var, Integer ix, Boolean isPre, Boolean isSta
-   match var
-   case SIMVAR(varKind=PARAM())
-   case SIMVAR(varKind=OPT_TGRID())
--  then 'data->simulationInfo-><%crefShortType(name)%>Parameter[<%index%>]'
-+  then 'data->simulationInfo-><%crefShortType(name)%>Parameter[<%index%>] /* <%escapeCComments(crefStrNoUnderscore(name))%> <%variabilityString(varKind)%> */'
-   case SIMVAR(varKind=EXTOBJ()) then 'data->simulationInfo->extObjs[<%index%>]'
-   case SIMVAR(__) then '<%if isStart then '<%varAttributes(var)%>.start' else if isPre then 'data->simulationInfo-><%crefShortType(name)%>VarsPre[<%index%>] /* <%escapeCComments(crefStrNoUnderscore(name))%> <%variabilityString(varKind)%> */' else 'data->localData[<%ix%>]-><%crefShortType(name)%>Vars[<%index%>] /* <%escapeCComments(crefStrNoUnderscore(name))%> <%variabilityString(varKind)%> */'%>'
- end varArrayNameValues;
+   (if shortIfExp then
+     // Safe to do if eThen and eElse don't emit pre-expressions
+     '(<%condExp%>?<%eThen%>:<%eElse%>)'
 diff --git a/OMCompiler/Compiler/boot/LoadCompilerSources.mos b/OMCompiler/Compiler/boot/LoadCompilerSources.mos
-index 18e53bed5..adf873f0d 100644
+index 2c54903e7a2..15680262376 100644
 --- a/OMCompiler/Compiler/boot/LoadCompilerSources.mos
 +++ b/OMCompiler/Compiler/boot/LoadCompilerSources.mos
-@@ -269,6 +269,7 @@ if true then /* Suppress output */
+@@ -278,6 +278,7 @@ if true then /* Suppress output */
      "../BackEnd/Vectorization.mo",
      "../BackEnd/VisualXML.mo",
      "../BackEnd/XMLDump.mo",
 +    "../BackEnd/XMLCreateDynawo.mo",
      "../BackEnd/ZeroCrossings.mo",
  
-     "../FFrontEnd/FGraphDump.mo",
-diff --git a/OMCompiler/Makefile.common b/OMCompiler/Makefile.common
-index 038fa11e3..9144cafe4 100644
---- a/OMCompiler/Makefile.common
-+++ b/OMCompiler/Makefile.common
-@@ -153,7 +153,7 @@ $(OMBUILDDIR)/include/omc/c/gc_pthread_redirects.h: 3rdParty/gc/include/gc_pthre
- 
- 3rdParty/Ipopt/Makefile: $(LAPACK_TARGET)
- 	@# Note: CXX is passed LDFLAGS, which is wrong. However, Ipopt does not respect LDFLAGS and fails to link OSX C++ code if we do not do this.
--	(cd 3rdParty/Ipopt && ./configure --prefix="`pwd`" --with-pic "CC=$(CC)" CFLAGS="$(CFLAGS) $(EXTRA_LDFLAGS)" CXX="$(CXX) $(LDFLAGS_LIBSTDCXX)" CXXFLAGS="$(CXXFLAGS)" F77="$(FC)" LDFLAGS="-L$(OMBUILDDIR)/$(LIB_OMC) $(LDFLAGS)" --with-lapack-lib="$(LD_LAPACK)" --with-blas-lib="$(LD_LAPACK)" "--host=$(host)" --without-metis --without-HSLold --without-HSL)
-+	(cd 3rdParty/Ipopt && ./configure --prefix="`pwd`" --with-pic "CC=$(CC)" CFLAGS="$(CFLAGS) $(EXTRA_LDFLAGS)" CXX="$(CXX) $(LDFLAGS_LIBSTDCXX)" CXXFLAGS="$(CXXFLAGS)" F77="$(FC)" FFLAGS="$(FCFLAGS)" LDFLAGS="-L$(OMBUILDDIR)/$(LIB_OMC) $(LDFLAGS)" --with-lapack-lib="$(LD_LAPACK)" --with-blas-lib="$(LD_LAPACK)" "--host=$(host)" --without-metis --without-HSLold --without-HSL)
- 
- $(OMBUILDDIR)/$(LIB_OMC)/libipopt.la: 3rdParty/Ipopt/Makefile
- 	$(MAKE) -C 3rdParty/Ipopt 'MAKEOVERRIDES='
-@@ -196,7 +196,7 @@ umfpack-clean:
- 	rm -f $(OMBUILDDIR)/$(LIB_OMC)/libcolamd$(SHREXT)
- 
- $(OMBUILDDIR)/$(LIB_OMC)/libopenblas_openmodelica.a:
--	$(MAKE) -C 3rdParty/OpenBLAS-0.2.8 CC="$(CC)" CXX="$(CXX)" FC="$(FC)" USE_THREAD=0 NO_LAPACKE=1 LIBNAMESUFFIX=openmodelica $(OPENBLAS_EXTRA_ARGS)
-+	$(MAKE) -C 3rdParty/OpenBLAS-0.2.8 CC="$(CC)" CXX="$(CXX)" FC="$(FC)" FCFLAGS="$(FCFLAGS)" USE_THREAD=0 NO_LAPACKE=1 LIBNAMESUFFIX=openmodelica $(OPENBLAS_EXTRA_ARGS)
- 	$(MAKE) -C 3rdParty/OpenBLAS-0.2.8 PREFIX=$(OMBUILDDIR) OPENBLAS_LIBRARY_DIR="$(OMBUILDDIR)/$(LIB_OMC) OPENBLAS_INCLUDE_DIR="$(OMBUILDDIR)/3rdParty/build/install-includes/ NO_LAPACKE=1 LIBNAMESUFFIX=openmodelica install
- openblas: $(OMBUILDDIR)/$(LIB_OMC)/libopenblas_openmodelica.a
- 
-diff --git a/OMCompiler/Makefile.in b/OMCompiler/Makefile.in
-index 8190f56c8..104713dd0 100644
---- a/OMCompiler/Makefile.in
-+++ b/OMCompiler/Makefile.in
-@@ -20,6 +20,7 @@ AR = @AR@
- host = @host@
- host_short = @host_short@
- FC = @FC@
-+FCFLAGS = @FCFLAGS@
- 
- defaultMakefileTarget = Makefile
- MAKEFILE_BOOT = LinkMain.makefile
+   // "NBackend Classes"
 diff --git a/OMCompiler/SimulationRuntime/c/simulation_data.h b/OMCompiler/SimulationRuntime/c/simulation_data.h
-index da1ea2442..4643ece83 100644
+index d72dbd20dd3..40599d0fb09 100644
 --- a/OMCompiler/SimulationRuntime/c/simulation_data.h
 +++ b/OMCompiler/SimulationRuntime/c/simulation_data.h
-@@ -637,7 +637,10 @@ typedef struct SIMULATION_INFO
+@@ -769,7 +769,10 @@ typedef struct SIMULATION_INFO
    modelica_string* stringVarsOld;
  
    modelica_real* realVarsPre;
@@ -2951,7 +2697,7 @@ index da1ea2442..4643ece83 100644
    modelica_boolean* booleanVarsPre;
    modelica_string* stringVarsPre;
  
-@@ -684,6 +687,9 @@ typedef struct SIMULATION_DATA
+@@ -819,6 +822,9 @@ typedef struct SIMULATION_DATA
    modelica_real timeValue;
  
    modelica_real* realVars;
@@ -2962,1297 +2708,67 @@ index da1ea2442..4643ece83 100644
    modelica_boolean* booleanVars;
    modelica_string* stringVars;
 diff --git a/OMCompiler/configure.ac b/OMCompiler/configure.ac
-index af5db0678..efc4ef6c3 100644
+index 9486ef53bf7..89c79ed6115 100644
 --- a/OMCompiler/configure.ac
 +++ b/OMCompiler/configure.ac
-@@ -239,6 +239,20 @@ for flag in -Werror=implicit-function-declaration -Werror=incompatible-pointer-t
- done
- CFLAGS="$OLD_CFLAGS"
- 
-+AC_LANG([Fortran])
-+OLD_FCFLAGS="$FCFLAGS"
-+EXTRA_FCFLAGS=""
-+AC_MSG_CHECKING([for flags to append to FCFLAGS])
-+for flag in -fallow-argument-mismatch; do
-+  FCFLAGS="$flag -Werror"
-+  AC_TRY_LINK([], [], [
-+    EXTRA_FCFLAGS="$EXTRA_FCFLAGS $flag"
-+  ],[])
-+done
-+AC_MSG_RESULT([$EXTRA_FCFLAGS])
-+FCFLAGS="$OLD_FCFLAGS $EXTRA_FCFLAGS"
-+AC_LANG([C])
-+
- if test ! "$DARWIN" = "1"; then
- 
- if test "`getconf LONG_BIT`" = "64"; then
-diff --git a/configure.ac b/configure.ac
-index 5ad36c454f..62d5dff01a 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -69,7 +69,7 @@ if test ! -z "$USE_CORBA"; then
-   CORBA_TARGETS="OMOptim-omoptim"
+@@ -310,7 +310,7 @@ AC_LANG_POP([C++])
  fi
  
--for dir_target in OMCompiler-omc OMPlot-omplot OMEdit-omedit OMNotebook-omnotebook OMShell-omshell $CORBA_TARGETS; do
-+for dir_target in OMCompiler-omc $CORBA_TARGETS; do
-   dir=`echo $dir_target | cut -d- -f1`
-   if test ! -f "$dir/configure.ac"; then
-     AC_MSG_NOTICE("Subproject $dir does not exist")
-@@ -87,7 +87,7 @@ if test -f testsuite/Makefile; then
- fi
+ m4_include([common/m4/ax_cxx_compile_stdcxx.m4])
+-AX_CXX_COMPILE_STDCXX(17,[noext],[mandatory])
++AX_CXX_COMPILE_STDCXX(11,[noext],[mandatory])
  
+ if test "`getconf LONG_BIT`" = "32"; then
+ dnl Simulations spin forever unless -msse2 -mfpmath=sse is set
+diff --git a/OMEdit/configure.ac b/OMEdit/configure.ac
+index 409a6355db5..08372643d26 100644
+--- a/OMEdit/configure.ac
++++ b/OMEdit/configure.ac
+@@ -29,7 +29,7 @@ test -z "$CXXFLAGS" && CXXFLAGS="$CFLAGS"
+ AC_LANG([C++])
+ AC_PROG_CC
+ AC_PROG_CXX
+-AX_CXX_COMPILE_STDCXX(17, [noext],[mandatory])
++AX_CXX_COMPILE_STDCXX(11, [noext],[mandatory])
+ host_short=$host_cpu-$host_os
  
--AC_CONFIG_SUBDIRS([OMCompiler OMPlot OMEdit OMNotebook OMShell])
-+AC_CONFIG_SUBDIRS([OMCompiler])
- if test ! -z "$USE_CORBA"; then
-   AC_CONFIG_SUBDIRS([OMOptim])
- fi
-Submodule libraries contains modified content
-diff --git a/libraries/Makefile b/libraries/Makefile
-index 5e379d8..44efa07 100644
---- a/libraries/Makefile
-+++ b/libraries/Makefile
-@@ -1,6 +1,30 @@
-+# Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
-+# Patch for OpenModelica 1.13.2 (https://www.openmodelica.org)
-+#
-+# All rights reserved.
-+#
-+# THIS PROGRAM IS PROVIDED UNDER THE TERMS OF GPL VERSION 3 LICENSE OR
-+# THIS OSMC PUBLIC LICENSE (OSMC-PL) VERSION 1.2.
-+# ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS PROGRAM CONSTITUTES RECIPIENT'S ACCEPTANCE
-+# OF THE OSMC PUBLIC LICENSE OR THE GPL VERSION 3, ACCORDING TO RECIPIENTS CHOICE.
-+#
-+# The OpenModelica software and the Open Source Modelica
-+# Consortium (OSMC) Public License (OSMC-PL) are obtained
-+# from OSMC, either from the above address,
-+# from the URLs: http://www.ida.liu.se/projects/OpenModelica or
-+# http://www.openmodelica.org, and in the OpenModelica distribution.
-+# GNU version 3 is obtained from: http://www.gnu.org/copyleft/gpl.html.
-+#
-+# This program is distributed WITHOUT ANY WARRANTY; without
-+# even the implied warranty of  MERCHANTABILITY or FITNESS
-+# FOR A PARTICULAR PURPOSE, EXCEPT AS EXPRESSLY SET FORTH
-+# IN THE BY RECIPIENT SELECTED SUBSIDIARY LICENSE CONDITIONS OF OSMC-PL.
-+#
-+# See the full OSMC Public License conditions for more details.
-+# SPDX-License-Identifier: GPL-3.0 OR LicenseRef-OSMC-PL
- BUILD_DIR=build/
- OMC=omc
--SVN_DIRS="MSL 3.2.1" "MSL 3.1" "MSL 2.2.2" "MSL 1.6" "Biochem" "NewTables" "Modelica_EmbeddedSystems" "ADGenKinetics" "BondGraph" "Buildings" "IndustrialControlSystems" "LinearMPC" "OpenHydraulics" "RealTimeCoordinationLibrary" "PowerFlow" "EEnStorage" "InstantaneousSymmetricalComponents"
-+SVN_DIRS="MSL 3.2.1" "MSL 3.1" "MSL 2.2.2" "MSL 1.6" "Biochem" "NewTables" "Modelica_EmbeddedSystems" "Modelica3D" "ADGenKinetics" "BondGraph" "Buildings" "IndustrialControlSystems" "LinearMPC" "OpenHydraulics" "RealTimeCoordinationLibrary" "PowerFlow" "EEnStorage" "InstantaneousSymmetricalComponents"
- host_short=no
- RPATH_QMAKE=
- CMAKE_RPATH = CC="$(CC)" CXX="$(CXX)" CFLAGS="$(CFLAGS)" CXXFLAGS="$(CXXFLAGS)" CPPFLAGS="$(CPPFLAGS)" LDFLAGS="$(RPATH_QMAKE)" cmake
-@@ -14,7 +38,8 @@ core: $(CORE_TARGET)
- $(CORE_TARGET):
- 	rm -rf $(BUILD_DIR) build
- 	mkdir -p $(BUILD_DIR)
--	$(MAKE) $(CORE_LIBS)
-+	$(MAKE) $(CORE_LIBS) modelica3d
-+	test -z "$(MODELICA3D_TARGET)" || $(MAKE) modelica3d-binary
- 	touch $@
+ m4_include([common/m4/qmake.m4])
+diff --git a/OMNotebook/configure.ac b/OMNotebook/configure.ac
+index 090fcea0e12..b9498197ead 100644
+--- a/OMNotebook/configure.ac
++++ b/OMNotebook/configure.ac
+@@ -23,7 +23,7 @@ AC_LANG([C++])
+ test -z "$CXXFLAGS" && CXXFLAGS="$CFLAGS"
+ AC_PROG_CC
+ AC_PROG_CXX
+-AX_CXX_COMPILE_STDCXX(14,[noext],[mandatory])
++AX_CXX_COMPILE_STDCXX(11,[noext],[mandatory])
  
- all: $(ALL_TARGET)
-@@ -27,8 +52,8 @@ $(ALL_TARGET):
- python-update: Makefile.numjobs config.done
- 	rm -rf $(BUILD_DIR) build
- 	rm -f *.uses
--	# Tags are fetched by check-update
- 	$(MAKE) all-work
-+	$(MAKE) modelica3d-internal
- 	@# Could run uses and test at the same time, but this way we get nicer error-messages and a faster error if the uses fail (they are a lot faster than test)
- 	$(MAKE) uses
- all-work: config.done Makefile.numjobs
-@@ -47,6 +72,45 @@ Makefile.numjobs:
- 	@echo 7 > $@
- 	@echo "*** Setting number of jobs to 5. 1 makes things too slow and 5 threads. Set $@ if you want to change it ***"
+ host_short=$host_cpu-$host_os
  
-+MODELICA3D_DIR=git/Modelica3D
-+modelica3d: MSL
-+	$(MAKE) modelica3d-internal
-+modelica3d-internal:
-+	@echo Much more work is needed for Modelica3D. For now the native builds are part of the omc packages
-+	install -m755 -d "$(BUILD_DIR)/ModelicaServices 3.2.1 modelica3d/"
-+	install -m755 -d "$(BUILD_DIR)/ModelicaServices 3.2.1 modelica3d/modbus"
-+	install -m755 -d "$(BUILD_DIR)/ModelicaServices 3.2.1 modelica3d/modcount"
-+	install -m755 -d "$(BUILD_DIR)/ModelicaServices 3.2.1 modelica3d/Modelica3D"
-+	install -p -m644 "$(MODELICA3D_DIR)/lib/modbus/src/modelica/modbus/package.mo" "$(BUILD_DIR)/ModelicaServices 3.2.1 modelica3d/modbus/package.mo"
-+	install -p -m644 "$(MODELICA3D_DIR)/lib/mod3d/src/modelica/Modelica3D 3.2.1/package.mo" "$(BUILD_DIR)/ModelicaServices 3.2.1 modelica3d/Modelica3D/package.mo"
-+	install -p -m644 "$(MODELICA3D_DIR)/lib/modcount/src/modelica/modcount/package.mo" "$(BUILD_DIR)/ModelicaServices 3.2.1 modelica3d/modcount/package.mo"
-+	install -p -m644 "$(BUILD_DIR)/ModelicaServices 3.2.1/package.mo" "$(BUILD_DIR)/ModelicaServices 3.2.1 modelica3d/package.mo"
-+	patch "$(BUILD_DIR)/ModelicaServices 3.2.1 modelica3d/package.mo" -p1 < "ModelicaServices 3.2.1 modelica3d.patch"
-+	find "$(BUILD_DIR)/ModelicaServices 3.2.1 modelica3d" -name "*.orig" -exec rm -f "{}" ";"
-+	echo `cat "$(BUILD_DIR)/ModelicaServices 3.2.1.last_change"`-m3d`cd "$(MODELICA3D_DIR)" ; git rev-list HEAD --count`-om3d`git rev-list HEAD --count "ModelicaServices 3.2.1 modelica3d.patch" Makefile`-p1 > "$(BUILD_DIR)/ModelicaServices 3.2.1 modelica3d.last_change"
-+	cp "$(BUILD_DIR)/ModelicaServices 3.2.1.license" "$(BUILD_DIR)/ModelicaServices 3.2.1 modelica3d.license"
-+	mkdir -p "$(BUILD_DIR)/ModelicaServices 3.2.1 modelica3d/Resources/Include"
-+	cp "$(MODELICA3D_DIR)/lib/modbus/src/c/modbus.h" "$(MODELICA3D_DIR)/lib/modcount/src/c/modcount.h" "$(BUILD_DIR)/ModelicaServices 3.2.1 modelica3d/Resources/Include/"
-+	echo ok > "$(BUILD_DIR)/ModelicaServices 3.2.1 modelica3d.ok"
-+	echo "https://github.com/OpenModelica/modelica3d.git" > "$(BUILD_DIR)/ModelicaServices 3.2.1 modelica3d.url"
-+modelica3d-binary:
-+	@test ! "$(host_short)" = "no" || (echo You need to pass host_short in order to run the modelica3d target; false)
-+	@test ! -z "$(RPATH_QMAKE)" || (echo You need to pass RPATH_QMAKE in order to run the modelica3d target; false)
-+	@test ! -z "$(SHREXT)" || (echo You need to pass SHREXT in order to run the modelica3d target; false)
-+	cd "$(MODELICA3D_DIR)" && mkdir -p build
-+	test -z "$(MODELICA3D_TARGET)" || mkdir -p "$(BUILD_DIR)/../$(host_short)/"
-+	cd "$(MODELICA3D_DIR)/build" && $(CMAKE_RPATH) -DCMAKE_VERBOSE_MAKEFILE:Bool=ON -DCMAKE_COLOR_MAKEFILE:Bool=OFF -DOSG_BACKEND=1 -DUSE_OMC=0 $(BOOST_INCLUDE) ..
-+	$(MAKE) -C "$(MODELICA3D_DIR)/build"
-+	cp -p "$(MODELICA3D_DIR)/build/backends/osg-gtk/libm3d-osg-gtk$(SHREXT)" "$(MODELICA3D_DIR)/build/lib/proc3d/libproc3d$(SHREXT)" "$(BUILD_DIR)/../$(host_short)"
-+	test ! `uname` = Darwin || install_name_tool -id @rpath/libproc3d.dylib "$(BUILD_DIR)/../$(host_short)/libproc3d.dylib"
-+	test ! `uname` = Darwin || install_name_tool -id @rpath/libm3d-osg-gtk.dylib "$(BUILD_DIR)/../$(host_short)/libm3d-osg-gtk.dylib"
-+	test ! `uname` = Darwin || install_name_tool -change "`pwd`/$(MODELICA3D_DIR)/build/lib/proc3d/libproc3d.dylib" "@rpath/libproc3d.dylib" "$(BUILD_DIR)/../$(host_short)/libm3d-osg-gtk.dylib"
-+	cp -p "$(MODELICA3D_DIR)/build/lib/modcount/libmodcount.a" "$(MODELICA3D_DIR)/build/lib/modbus/libmodbus.a" "$(BUILD_DIR)/../$(host_short)/omc/"
-+	mkdir -p "$(BUILD_DIR)/../omlibrary-modelica3d/blender2.59" "$(BUILD_DIR)/../omlibrary-modelica3d/osg-gtk/"
-+	cp -p "$(MODELICA3D_DIR)/examples/multibody/src/modelica/"*.mo "$(BUILD_DIR)/../omlibrary-modelica3d/"
-+	cp -p "$(MODELICA3D_DIR)/backends/blender2.59/dbus-server.py" "$(BUILD_DIR)/../omlibrary-modelica3d/blender2.59/"
-+	cp -p "$(MODELICA3D_DIR)/backends/osg-gtk/python/dbus-server.py" "$(BUILD_DIR)/../omlibrary-modelica3d/osg-gtk/"
-+
- test: config.done Makefile.numjobs
- 	rm -f error.log test-valid.*.mos
- 	find $(BUILD_DIR)/*.mo $(BUILD_DIR)/*/package.mo -print0 | xargs -0 -n 1 -P `cat Makefile.numjobs` sh -c './test-valid.sh "$(OMC)" "$(BUILD_DIR)" "$$1"' sh
-@@ -61,8 +125,8 @@ clean:
+diff --git a/OMPlot/configure.ac b/OMPlot/configure.ac
+index f5601bc7bed..d508a863860 100644
+--- a/OMPlot/configure.ac
++++ b/OMPlot/configure.ac
+@@ -26,7 +26,7 @@ test -z "$CXXFLAGS" && CXXFLAGS="$CFLAGS"
+ AC_LANG([C++])
+ AC_PROG_CC
+ AC_PROG_CXX
+-AX_CXX_COMPILE_STDCXX(14,[noext],[mandatory])
++AX_CXX_COMPILE_STDCXX(11,[noext],[mandatory])
  
- check-latest: config.done Makefile.numjobs
- 	@echo "Looking for more recent versions of packages"
--	rm -rf build .customBuild
--	mkdir -p build
-+	rm -rf $(BUILD_DIR) build .customBuild
-+	mkdir -p $(BUILD_DIR)
- 	./update-library.py -n `cat Makefile.numjobs` --check-latest
- 	rm -rf .customBuild
- add-missing: config.done Makefile.numjobs
-@@ -119,6 +183,7 @@ rpm: config.done .remote/rpmpool .remote/pool
- upload: config.done .remote/control-files .remote/pool
- 	diff -u .remote/nightly-library-files nightly-library-files || (! stat -t debian-build/*.deb >/dev/null 2>&1) || rsync --ignore-existing debian-build/*.deb debian-build/*.tar.gz debian-build/*.tar.xz debian-build/*.dsc "`cat .remote/pool`"
- 	scp nightly-library-files nightly-library-sources "`cat .remote/control-files`"
-+	`cat .remote/release-command`
- 	scp "`cat .remote/control-files`/nightly-library-files" .remote/nightly-library-files
- 	scp "`cat .remote/control-files`/nightly-library-sources" .remote/nightly-library-sources
- 	./check-debian.sh
-@@ -126,42 +191,42 @@ upload-rpm: .remote/rpmpool
- 	(! stat -t rpm-build/*.rpm >/dev/null 2>&1) || rsync --ignore-existing rpm-build/*.rpm "`cat .remote/rpmpool`"
+ host_short=$host_cpu-$host_os
  
- Modelica\ 3.2.1.patch:
--	-diff -u -x .svn -x .git -x Library -r git/Modelica/Modelica build/Modelica\ 3.2.1 > "$@.tmp"
-+	-diff -u -x .svn -x .git -x Library -r git/MSL/Modelica build/Modelica\ 3.2.1 > "$@.tmp"
- 	sed -i /^Only.in/d "$@.tmp"
- 	sed -i 's/^\([+-][+-][+-]\) "\([^"]*\)"/\1 \2/' "$@.tmp"
- 	mv "$@.tmp" "$@"
- Modelica\ 1.6.patch:
--	-diff -u -x .svn -x .git -x Library -r "git/Modelica/Modelica 1.6" "build/Modelica 1.6" > "$@.tmp"
-+	-diff -u -x .svn -x .git -x Library -r "git/MSL/Modelica 1.6" "build/Modelica 1.6" > "$@.tmp"
- 	sed -i /^Only.in/d "$@.tmp"
- 	sed -i 's/^\([+-][+-][+-]\) "\([^"]*\)"/\1 \2/' "$@.tmp"
- 	mv "$@.tmp" "$@"
- Modelica\ trunk.patch:
--	-diff -u -x .svn -x .git -x Library -r "git/Modelica/Modelica" "build/Modelica trunk" > "$@.tmp"
-+	-diff -u -x .svn -x .git -x Library -r "git/MSL/Modelica" "build/Modelica trunk" > "$@.tmp"
- 	sed -i /^Only.in/d "$@.tmp"
- 	sed -i 's/^\([+-][+-][+-]\) "\([^"]*\)"/\1 \2/' "$@.tmp"
- 	mv "$@.tmp" "$@"
- ModelicaTest\ trunk.patch:
--	-diff -u -x .svn -x .git -x Library -r "git/Modelica/ModelicaTest" "build/ModelicaTest trunk" > "$@.tmp"
-+	-diff -u -x .svn -x .git -x Library -r "git/MSL/ModelicaTest" "build/ModelicaTest trunk" > "$@.tmp"
- 	sed -i /^Only.in/d "$@.tmp"
- 	sed -i 's/^\([+-][+-][+-]\) "\([^"]*\)"/\1 \2/' "$@.tmp"
- 	mv "$@.tmp" "$@"
- ModelicaServices\ trunk.patch:
--	-diff -u -x .svn -x .git -x Library -r "git/Modelica/ModelicaServices" "build/ModelicaServices trunk" > "$@.tmp"
-+	-diff -u -x .svn -x .git -x Library -r "git/MSL/ModelicaServices" "build/ModelicaServices trunk" > "$@.tmp"
- 	sed -i /^Only.in/d "$@.tmp"
- 	sed -i 's/^\([+-][+-][+-]\) "\([^"]*\)"/\1 \2/' "$@.tmp"
- 	mv "$@.tmp" "$@"
- Complex\ trunk.patch:
--	-diff -u "git/Modelica/Complex.mo" "build/Complex trunk.mo" > "$@.tmp"
-+	-diff -u "git/MSL/Complex.mo" "build/Complex trunk.mo" > "$@.tmp"
- 	sed -i /^Only.in/d "$@.tmp"
- 	sed -i 's/^\([+-][+-][+-]\) "\([^"]*\)"/\1 \2/' "$@.tmp"
- 	mv "$@.tmp" "$@"
- Modelica\ 3.2.2.patch:
--	-diff -u -x .svn -x .git -x Library -r "git/Modelica/Modelica" "build/Modelica 3.2.2" > "$@.tmp"
-+	-diff -u -x .svn -x .git -x Library -r "git/MSL/Modelica" "build/Modelica 3.2.2" > "$@.tmp"
- 	sed -i /^Only.in/d "$@.tmp"
- 	sed -i 's/^\([+-][+-][+-]\) "\([^"]*\)"/\1 \2/' "$@.tmp"
- 	mv "$@.tmp" "$@"
- ModelicaServices\ 3.2.2.patch:
--	-diff -u -w -x .svn -x .git -x Library -r "git/Modelica/ModelicaServices" "build/ModelicaServices 3.2.2" > "$@.tmp"
-+	-diff -u -w -x .svn -x .git -x Library -r "git/MSL/ModelicaServices" "build/ModelicaServices 3.2.2" > "$@.tmp"
- 	sed -i /^Only.in/d "$@.tmp"
- 	sed -i 's/^\([+-][+-][+-]\) "\([^"]*\)"/\1 \2/' "$@.tmp"
- 	mv "$@.tmp" "$@"
-diff --git a/libraries/Makefile.libs b/libraries/Makefile.libs
-index 7d5212e..9473b1c 100644
---- a/libraries/Makefile.libs
-+++ b/libraries/Makefile.libs
-@@ -1,1036 +1,36 @@
--.PHONY: ADGenKinetics ADMSL AdvancedNoise AixLib Annex60 BioChem BondGraph BondLib BrineProp BuildingSystems Buildings Chemical ComplexLib ConPNlib DESLib DriveControl EMOTH ElectricalEnergyStorage ElectroMechanicalDrives ExtendedPetriNets ExternData ExternalMedia ExternalMemoryLib FCSys FastBuildings FaultTriggering FeedDriveLibrary FractionalOrder FuzzyControl HanserModelica HelmholtzMedia IdealizedContact IndustrialControlSystems InstantaneousSymmetricalComponents KeyWordIO LibRAS LinearMPC ManualTracking Modelica Modelica-MVEM ModelicaADS ModelicaAdditions ModelicaBook ModelicaCompliance ModelicaDEVS ModelicaDFR Modelica_DeviceDrivers Modelica_LinearSystems2 Modelica_StateGraph2 Modelica_Synchronous MotorcycleDynamics MultiPhaseMixtureMedia NCLib NeuralNetwork Noise ObjectStab OpenHydraulics OpenIPSL PNlib PVSystems PhotoVoltaics Physiolibrary Physiomodel PlanarMechanics PowerFlow PowerSystems PowerSystems-latest PraxisSimulationstechnik QSSFluidFlow RealTimeCoordinationLibrary ScalableTestSuite Servomechanisms SiemensPower SolarTherm Spot SystemDynamics ThermalSeparation ThermoPower ThermoSysPro VVDRlib VehicleInterfaces WasteWater Wavelet WindPowerPlants XogenyTest buildsyspro ipsl modelica-flight msgpack-modelica netCDF-DataReader open-bldc-modelica openfdm
--CORE_TARGET=$(BUILD_DIR)/20181220_190605.core
--ALL_TARGET=$(BUILD_DIR)/20181220_190605.all
--CORE_LIBS=BioChem Modelica Modelica_DeviceDrivers Modelica_Synchronous SiemensPower ThermoPower ThermoSysPro VVDRlib WasteWater
--OTHER_LIBS=ADGenKinetics ADMSL AdvancedNoise AixLib Annex60 BondGraph BondLib BrineProp BuildingSystems Buildings Chemical ComplexLib ConPNlib DESLib DriveControl EMOTH ElectricalEnergyStorage ElectroMechanicalDrives ExtendedPetriNets ExternData ExternalMedia ExternalMemoryLib FCSys FastBuildings FaultTriggering FeedDriveLibrary FractionalOrder FuzzyControl HanserModelica HelmholtzMedia IdealizedContact IndustrialControlSystems InstantaneousSymmetricalComponents KeyWordIO LibRAS LinearMPC ManualTracking Modelica-MVEM ModelicaADS ModelicaAdditions ModelicaBook ModelicaCompliance ModelicaDEVS ModelicaDFR Modelica_LinearSystems2 Modelica_StateGraph2 MotorcycleDynamics MultiPhaseMixtureMedia NCLib NeuralNetwork Noise ObjectStab OpenHydraulics OpenIPSL PNlib PVSystems PhotoVoltaics Physiolibrary Physiomodel PlanarMechanics PowerFlow PowerSystems PowerSystems-latest PraxisSimulationstechnik QSSFluidFlow RealTimeCoordinationLibrary ScalableTestSuite Servomechanisms SolarTherm Spot SystemDynamics ThermalSeparation VehicleInterfaces Wavelet WindPowerPlants XogenyTest buildsyspro ipsl modelica-flight msgpack-modelica netCDF-DataReader open-bldc-modelica openfdm
-+# Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
-+# Patch for OpenModelica 1.13.2 (https://www.openmodelica.org)
-+#
-+# All rights reserved.
-+#
-+# THIS PROGRAM IS PROVIDED UNDER THE TERMS OF GPL VERSION 3 LICENSE OR
-+# THIS OSMC PUBLIC LICENSE (OSMC-PL) VERSION 1.2.
-+# ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS PROGRAM CONSTITUTES RECIPIENT'S ACCEPTANCE
-+# OF THE OSMC PUBLIC LICENSE OR THE GPL VERSION 3, ACCORDING TO RECIPIENTS CHOICE.
-+#
-+# The OpenModelica software and the Open Source Modelica
-+# Consortium (OSMC) Public License (OSMC-PL) are obtained
-+# from OSMC, either from the above address,
-+# from the URLs: http://www.ida.liu.se/projects/OpenModelica or
-+# http://www.openmodelica.org, and in the OpenModelica distribution.
-+# GNU version 3 is obtained from: http://www.gnu.org/copyleft/gpl.html.
-+#
-+# This program is distributed WITHOUT ANY WARRANTY; without
-+# even the implied warranty of  MERCHANTABILITY or FITNESS
-+# FOR A PARTICULAR PURPOSE, EXCEPT AS EXPRESSLY SET FORTH
-+# IN THE BY RECIPIENT SELECTED SUBSIDIARY LICENSE CONDITIONS OF OSMC-PL.
-+#
-+# See the full OSMC Public License conditions for more details.
-+# SPDX-License-Identifier: GPL-3.0 OR LicenseRef-OSMC-PL
-+.PHONY: MSL
-+CORE_TARGET=$(BUILD_DIR)/20160731_190425.core
-+ALL_TARGET=$(BUILD_DIR)/20160731_190425.all
-+CORE_LIBS=MSL
-+OTHER_LIBS=
- ALL_LIBS=$(CORE_LIBS) $(OTHER_LIBS)
+diff --git a/OMShell/configure.ac b/OMShell/configure.ac
+index 279d1c17d01..7a687e78609 100644
+--- a/OMShell/configure.ac
++++ b/OMShell/configure.ac
+@@ -24,7 +24,7 @@ test -z "$CXXFLAGS" && CXXFLAGS="$CFLAGS"
+ AC_LANG([C++])
+ AC_PROG_CXX
+ AC_PROG_CC
+-AX_CXX_COMPILE_STDCXX(14,[noext],[mandatory])
++AX_CXX_COMPILE_STDCXX(11,[noext],[mandatory])
  
--TIMESTAMP=20181220_190605
--ADGenKinetics:
--	# Building git/ADGenKinetics
--	./checkout-git.sh 'git/ADGenKinetics' 'https://github.com/modelica-3rdparty/ADGenKinetics.git' 'master' '9bdfd968c5b85609956aa9929be8a6b8027b22cf'
--	test ! -f 'build//ADGenKinetics.mo'
--	cp -a 'git/ADGenKinetics/ADGenKinetics.mo' "$(BUILD_DIR)/ADGenKinetics.mo"
--	echo 'Modelica 3.2' >> "$(BUILD_DIR)/ADGenKinetics.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/ADGenKinetics.license"
--	echo '20181110-143351~git~master' > "$(BUILD_DIR)/ADGenKinetics.last_change"
--ADMSL:
--	# Building git/ADMSL
--	./checkout-git.sh 'git/ADMSL' 'https://github.com/modelica-3rdparty/ADMSL.git' 'master' 'ed0305603f86b46d9af03e7d37dcb8b6704915b4'
--	test ! -d 'build//ADMSL'
--	cp -a 'git/ADMSL' "$(BUILD_DIR)/ADMSL"
--	echo 'Modelica 3.2' >> "$(BUILD_DIR)/ADMSL.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/ADMSL.license"
--	echo '20140309-171025~git~master' > "$(BUILD_DIR)/ADMSL.last_change"
--	rm -rf "$(BUILD_DIR)/ADMSL/.git"*
--AdvancedNoise:
--	# Building git/AdvancedNoise
--	./checkout-git.sh 'git/AdvancedNoise' 'https://github.com/modelica-3rdparty/AdvancedNoise.git' 'master' '7036d6f8a372147b1298502df9c12e1d1d70876f'
--	test ! -d 'build//AdvancedNoise 1.0.0'
--	cp -a 'git/AdvancedNoise/AdvancedNoise 1.0.0' "$(BUILD_DIR)/AdvancedNoise 1.0.0"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/AdvancedNoise 1.0.0.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/AdvancedNoise 1.0.0.license"
--	echo '1.0.0-35-g7036d6f' > "$(BUILD_DIR)/AdvancedNoise 1.0.0.last_change"
--AixLib:
--	# Building git/AixLib
--	./checkout-git.sh 'git/AixLib' 'https://github.com/RWTH-EBC/AixLib.git' 'master' 'f7212bda66f6abcdf94535be5602c549792e2d22'
--	test ! -d 'build//AixLib 0.7.3'
--	cp -a 'git/AixLib/AixLib' "$(BUILD_DIR)/AixLib 0.7.3"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/AixLib 0.7.3.uses"
--	echo 'Modelica_DeviceDrivers 1.4.4' >> "$(BUILD_DIR)/AixLib 0.7.3.uses"
--	echo 'Modelica_Synchronous 0.92.1' >> "$(BUILD_DIR)/AixLib 0.7.3.uses"
--	echo 'NcDataReader2 2.4.0' >> "$(BUILD_DIR)/AixLib 0.7.3.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/AixLib 0.7.3.license"
--	echo '0.7.3' > "$(BUILD_DIR)/AixLib 0.7.3.last_change"
--	# Building git/AixLib
--	./checkout-git.sh 'git/AixLib' 'https://github.com/RWTH-EBC/AixLib.git' 'v0.4.0' 'v0.4.0'
--	test ! -d 'build//AixLib 0.4.0'
--	cp -a 'git/AixLib/AixLib' "$(BUILD_DIR)/AixLib 0.4.0"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/AixLib 0.4.0.uses"
--	echo 'Modelica_Synchronous 0.92.1' >> "$(BUILD_DIR)/AixLib 0.4.0.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/AixLib 0.4.0.license"
--	echo '0.4.0' > "$(BUILD_DIR)/AixLib 0.4.0.last_change"
--Annex60:
--	# Building git/Annex60
--	./checkout-git.sh 'git/Annex60' 'https://github.com/ibpsa/modelica.git' 'master' 'ab689f7167be27819c9eec4af4081b4d46f7813a'
--	test ! -d 'build//IBPSA latest'
--	cp -a 'git/Annex60/IBPSA' "$(BUILD_DIR)/IBPSA latest"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/IBPSA latest.uses"
--	echo 'buildings' > "$(BUILD_DIR)/IBPSA latest.license"
--	echo '20181220-095721~git~master' > "$(BUILD_DIR)/IBPSA latest.last_change"
--	# Building git/Annex60
--	./checkout-git.sh 'git/Annex60' 'https://github.com/ibpsa/modelica.git' 'v1.0.0' 'v1.0.0'
--	test ! -d 'build//Annex60 1.0.0'
--	cp -a 'git/Annex60/Annex60' "$(BUILD_DIR)/Annex60 1.0.0"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/Annex60 1.0.0.uses"
--	echo 'buildings' > "$(BUILD_DIR)/Annex60 1.0.0.license"
--	echo '1.0.0' > "$(BUILD_DIR)/Annex60 1.0.0.last_change"
--BioChem:
--	# Building git/BioChem
--	./checkout-git.sh 'git/BioChem' 'https://github.com/OpenModelica/BioChem.git' 'master' 'b5f3cb999f3cfad2bbb6fb429b496f61ecf2f628'
--	test ! -d 'build//BioChem 1.0.1'
--	cp -a 'git/BioChem/BioChem' "$(BUILD_DIR)/BioChem 1.0.1"
--	echo 'Modelica 3.2.1' >> "$(BUILD_DIR)/BioChem 1.0.1.uses"
--	echo 'mpl2' > "$(BUILD_DIR)/BioChem 1.0.1.license"
--	echo '1.0.1-8-gb5f3cb9' > "$(BUILD_DIR)/BioChem 1.0.1.last_change"
--BondGraph:
--	# Building git/BondGraph
--	./checkout-git.sh 'git/BondGraph' 'https://github.com/modelica-3rdparty/BondGraph.git' 'master' '20c23e60d12989bd4668ccac47659d82d39d29cc'
--	test ! -f 'build//BondGraph.mo'
--	cp -a 'git/BondGraph/BondGraph.mo' "$(BUILD_DIR)/BondGraph.mo"
--	echo 'Modelica 3.2' >> "$(BUILD_DIR)/BondGraph.uses"
--	echo 'lgpl3+' > "$(BUILD_DIR)/BondGraph.license"
--	echo '20131202-150206~git~master' > "$(BUILD_DIR)/BondGraph.last_change"
--BondLib:
--	# Building git/BondLib
--	./checkout-git.sh 'git/BondLib' 'https://github.com/modelica-3rdparty/BondLib.git' 'release' 'df7a40fe612617da22e27d39edfa4b27d65f23d0'
--	test ! -d 'build//BondLib 2.3'
--	cp -a 'git/BondLib/BondLib 2.3' "$(BUILD_DIR)/BondLib 2.3"
--	echo 'Modelica 2.2.1' >> "$(BUILD_DIR)/BondLib 2.3.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/BondLib 2.3.license"
--	echo '2.3' > "$(BUILD_DIR)/BondLib 2.3.last_change"
--	echo 'Windows-1252' > "$(BUILD_DIR)/BondLib 2.3/package.encoding"
--BrineProp:
--	# Building git/BrineProp
--	./checkout-git.sh 'git/BrineProp' 'https://github.com/modelica-3rdparty/BrineProp.git' 'master' '954ae654fe7a84177e6220465ed8af5d39628823'
--	test ! -d 'build//BrineProp 0.5.5'
--	cp -a 'git/BrineProp/BrineProp' "$(BUILD_DIR)/BrineProp 0.5.5"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/BrineProp 0.5.5.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/BrineProp 0.5.5.license"
--	echo '0.5.5-15-g954ae65' > "$(BUILD_DIR)/BrineProp 0.5.5.last_change"
--BuildingSystems:
--	# Building git/BuildingSystems
--	./checkout-git.sh 'git/BuildingSystems' 'https://github.com/modelica-3rdparty/BuildingSystems.git' 'master' 'd278a0423336c212e9336107f596a27ab82d846f'
--	test ! -d 'build//BuildingSystems 2.0.0-beta'
--	cp -a 'git/BuildingSystems/BuildingSystems' "$(BUILD_DIR)/BuildingSystems 2.0.0-beta"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/BuildingSystems 2.0.0-beta.uses"
--	echo 'NcDataReader2 2.4.0' >> "$(BUILD_DIR)/BuildingSystems 2.0.0-beta.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/BuildingSystems 2.0.0-beta.license"
--	echo '2.0.0-beta2-262-gd278a04' > "$(BUILD_DIR)/BuildingSystems 2.0.0-beta.last_change"
--Buildings:
--	# Building git/Buildings
--	./checkout-git.sh 'git/Buildings' 'https://github.com/lbl-srg/modelica-buildings.git' 'master' 'c1dfc20296558fa4eeb11cb07e8be75ffc579588'
--	test ! -d 'build//Buildings latest'
--	cp -a 'git/Buildings/Buildings' "$(BUILD_DIR)/Buildings latest"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/Buildings latest.uses"
--	echo 'buildings' > "$(BUILD_DIR)/Buildings latest.license"
--	echo '20181219-155018~git~master' > "$(BUILD_DIR)/Buildings latest.last_change"
--	# Building git/Buildings
--	./checkout-git.sh 'git/Buildings' 'https://github.com/lbl-srg/modelica-buildings.git' 'v1.4_build1' 'v1.4_build1'
--	test ! -d 'build//Buildings 1.4'
--	cp -a 'git/Buildings/Buildings 1.4' "$(BUILD_DIR)/Buildings 1.4"
--	echo 'Modelica 3.2' >> "$(BUILD_DIR)/Buildings 1.4.uses"
--	echo 'buildings' > "$(BUILD_DIR)/Buildings 1.4.license"
--	echo '1.4-build1' > "$(BUILD_DIR)/Buildings 1.4.last_change"
--	# Building git/Buildings
--	./checkout-git.sh 'git/Buildings' 'https://github.com/lbl-srg/modelica-buildings.git' 'v1.5+build.3' 'v1.5+build.3'
--	test ! -d 'build//Buildings 1.5'
--	cp -a 'git/Buildings/Buildings 1.5' "$(BUILD_DIR)/Buildings 1.5"
--	echo 'Modelica 3.2' >> "$(BUILD_DIR)/Buildings 1.5.uses"
--	echo 'buildings' > "$(BUILD_DIR)/Buildings 1.5.license"
--	echo '1.5+build.3' > "$(BUILD_DIR)/Buildings 1.5.last_change"
--	# Building git/Buildings
--	./checkout-git.sh 'git/Buildings' 'https://github.com/lbl-srg/modelica-buildings.git' 'v1.6+build.1' 'v1.6+build.1'
--	test ! -d 'build//Buildings 1.6'
--	cp -a 'git/Buildings/Buildings 1.6' "$(BUILD_DIR)/Buildings 1.6"
--	echo 'Modelica 3.2.1' >> "$(BUILD_DIR)/Buildings 1.6.uses"
--	echo 'buildings' > "$(BUILD_DIR)/Buildings 1.6.license"
--	echo '1.6+build.1' > "$(BUILD_DIR)/Buildings 1.6.last_change"
--	# Building git/Buildings
--	./checkout-git.sh 'git/Buildings' 'https://github.com/lbl-srg/modelica-buildings.git' 'v2.0.0' 'v2.0.0'
--	test ! -d 'build//Buildings 2.0.0'
--	cp -a 'git/Buildings/Buildings 2.0.0' "$(BUILD_DIR)/Buildings 2.0.0"
--	echo 'Modelica 3.2.1' >> "$(BUILD_DIR)/Buildings 2.0.0.uses"
--	echo 'Modelica_StateGraph2 2.0.2' >> "$(BUILD_DIR)/Buildings 2.0.0.uses"
--	echo 'buildings' > "$(BUILD_DIR)/Buildings 2.0.0.license"
--	echo '2.0.0' > "$(BUILD_DIR)/Buildings 2.0.0.last_change"
--	# Building git/Buildings
--	./checkout-git.sh 'git/Buildings' 'https://github.com/lbl-srg/modelica-buildings.git' 'v2.1.0' 'v2.1.0'
--	test ! -d 'build//Buildings 2.1.0'
--	cp -a 'git/Buildings/Buildings 2.1.0' "$(BUILD_DIR)/Buildings 2.1.0"
--	echo 'Modelica 3.2.1' >> "$(BUILD_DIR)/Buildings 2.1.0.uses"
--	echo 'Modelica_StateGraph2 2.0.2' >> "$(BUILD_DIR)/Buildings 2.1.0.uses"
--	echo 'buildings' > "$(BUILD_DIR)/Buildings 2.1.0.license"
--	echo '2.1.0' > "$(BUILD_DIR)/Buildings 2.1.0.last_change"
--	# Building git/Buildings
--	./checkout-git.sh 'git/Buildings' 'https://github.com/lbl-srg/modelica-buildings.git' 'v3.0.0' 'v3.0.0'
--	test ! -d 'build//Buildings 3.0.0'
--	cp -a 'git/Buildings/Buildings' "$(BUILD_DIR)/Buildings 3.0.0"
--	echo 'Modelica 3.2.1' >> "$(BUILD_DIR)/Buildings 3.0.0.uses"
--	echo 'Modelica_StateGraph2 2.0.2' >> "$(BUILD_DIR)/Buildings 3.0.0.uses"
--	echo 'buildings' > "$(BUILD_DIR)/Buildings 3.0.0.license"
--	echo '3.0.0' > "$(BUILD_DIR)/Buildings 3.0.0.last_change"
--	# Building git/Buildings
--	./checkout-git.sh 'git/Buildings' 'https://github.com/lbl-srg/modelica-buildings.git' 'v4.0.0' 'v4.0.0'
--	test ! -d 'build//Buildings 4.0.0'
--	cp -a 'git/Buildings/Buildings' "$(BUILD_DIR)/Buildings 4.0.0"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/Buildings 4.0.0.uses"
--	echo 'buildings' > "$(BUILD_DIR)/Buildings 4.0.0.license"
--	echo '4.0.0' > "$(BUILD_DIR)/Buildings 4.0.0.last_change"
--	# Building git/Buildings
--	./checkout-git.sh 'git/Buildings' 'https://github.com/lbl-srg/modelica-buildings.git' 'v5.0.1' 'v5.0.1'
--	test ! -d 'build//Buildings 5.0.1'
--	cp -a 'git/Buildings/Buildings' "$(BUILD_DIR)/Buildings 5.0.1"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/Buildings 5.0.1.uses"
--	echo 'buildings' > "$(BUILD_DIR)/Buildings 5.0.1.license"
--	echo '5.0.1' > "$(BUILD_DIR)/Buildings 5.0.1.last_change"
--	# Building git/Buildings
--	./checkout-git.sh 'git/Buildings' 'https://github.com/lbl-srg/modelica-buildings.git' 'v5.1.0' 'v5.1.0'
--	test ! -d 'build//Buildings 5.1.0'
--	cp -a 'git/Buildings/Buildings' "$(BUILD_DIR)/Buildings 5.1.0"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/Buildings 5.1.0.uses"
--	echo 'buildings' > "$(BUILD_DIR)/Buildings 5.1.0.license"
--	echo '5.1.0' > "$(BUILD_DIR)/Buildings 5.1.0.last_change"
--Chemical:
--	# Building git/Chemical
--	./checkout-git.sh 'git/Chemical' 'https://github.com/modelica-3rdparty/Chemical.git' 'master' '7b8e10c50f845fc6819bf36caa5bb1a33bf87cb9'
--	test ! -d 'build//Chemical 1.2.0-alpha'
--	cp -a 'git/Chemical/Chemical' "$(BUILD_DIR)/Chemical 1.2.0-alpha"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/Chemical 1.2.0-alpha.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/Chemical 1.2.0-alpha.license"
--	echo '20180525-142843~git~master' > "$(BUILD_DIR)/Chemical 1.2.0-alpha.last_change"
--ComplexLib:
--	# Building git/ComplexLib
--	./checkout-git.sh 'git/ComplexLib' 'https://github.com/modelica-3rdparty/ComplexLib.git' 'master' '0b78942ee4fa95ae71347a0d552dd869fdf4c708'
--	test ! -f 'build//ComplexLib.mo'
--	cp -a 'git/ComplexLib/ComplexLib.mo' "$(BUILD_DIR)/ComplexLib.mo"
--	echo 'Modelica 3.0' >> "$(BUILD_DIR)/ComplexLib.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/ComplexLib.license"
--	echo '20080518-080000~git~master' > "$(BUILD_DIR)/ComplexLib.last_change"
--ConPNlib:
--	# Building git/ConPNlib
--	./checkout-git.sh 'git/ConPNlib' 'https://github.com/lochel/ConPNlib.git' 'master' 'f635b8b4144eb46ff6711b1566c34405df58cda1'
--	test ! -d 'build//ConPNlib'
--	cp -a 'git/ConPNlib/ConPNlib' "$(BUILD_DIR)/ConPNlib"
--	echo '' > "$(BUILD_DIR)/ConPNlib.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/ConPNlib.license"
--	echo '20151027-102722~git~master' > "$(BUILD_DIR)/ConPNlib.last_change"
--DESLib:
--	# Building git/DESLib
--	./checkout-git.sh 'git/DESLib' 'https://github.com/modelica-3rdparty/DESLib.git' 'release' '7a473d8d16b118c3ea05761c6f43b17fd9838e4e'
--	test ! -d 'build//DESLib 1.6.1'
--	cp -a 'git/DESLib/DESLib 1.6.1' "$(BUILD_DIR)/DESLib 1.6.1"
--	echo 'Modelica 2.2.1' >> "$(BUILD_DIR)/DESLib 1.6.1.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/DESLib 1.6.1.license"
--	echo '1.6.1' > "$(BUILD_DIR)/DESLib 1.6.1.last_change"
--DriveControl:
--	# Building git/DriveControl
--	./checkout-git.sh 'git/DriveControl' 'https://github.com/AHaumer/DriveControl.git' 'release' 'b7233fd97a92867bb4ec2c3647c7f7e888398644'
--	test ! -d 'build//DriveControl 3.1.0'
--	cp -a 'git/DriveControl/DriveControl' "$(BUILD_DIR)/DriveControl 3.1.0"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/DriveControl 3.1.0.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/DriveControl 3.1.0.license"
--	echo '3.1.0-20181117-174044~git~release' > "$(BUILD_DIR)/DriveControl 3.1.0.last_change"
--EMOTH:
--	# Building git/EMOTH
--	./checkout-git.sh 'git/EMOTH' 'https://github.com/AHaumer/EMOTH.git' 'release' 'fa890c8c2781f0c0b2f8efe955ed8a27875dd9ac'
--	test ! -d 'build//EMOTH 1.4.0'
--	cp -a 'git/EMOTH/EMOTH' "$(BUILD_DIR)/EMOTH 1.4.0"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/EMOTH 1.4.0.uses"
--	echo 'VehicleInterfaces 1.2.4' >> "$(BUILD_DIR)/EMOTH 1.4.0.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/EMOTH 1.4.0.license"
--	echo '1.4.0-20170626-211752~git~release' > "$(BUILD_DIR)/EMOTH 1.4.0.last_change"
--ElectricalEnergyStorage:
--	# Building git/ElectricalEnergyStorage
--	./checkout-git.sh 'git/ElectricalEnergyStorage' 'https://github.com/modelica/ElectricalEnergyStorage.git' 'master' '096db4d2411f02e0e4e07823c09ea05437e778e6'
--	test ! -f 'build//ElectricalEnergyStorage 3.2.2.mo'
--	cp -a 'git/ElectricalEnergyStorage/ElectricalEnergyStorage.mo' "$(BUILD_DIR)/ElectricalEnergyStorage 3.2.2.mo"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/ElectricalEnergyStorage 3.2.2.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/ElectricalEnergyStorage 3.2.2.license"
--	echo '3.2.2-20170208-125627~git~master' > "$(BUILD_DIR)/ElectricalEnergyStorage 3.2.2.last_change"
--ElectroMechanicalDrives:
--	# Building git/ElectroMechanicalDrives
--	./checkout-git.sh 'git/ElectroMechanicalDrives' 'https://github.com/christiankral/ElectroMechanicalDrives.git' 'release' 'f41991f30765ee94faf1ebb317dd3b1e9b136d25'
--	test ! -d 'build//ElectroMechanicalDrives 2.0.1'
--	cp -a 'git/ElectroMechanicalDrives/ElectroMechanicalDrives' "$(BUILD_DIR)/ElectroMechanicalDrives 2.0.1"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/ElectroMechanicalDrives 2.0.1.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/ElectroMechanicalDrives 2.0.1.license"
--	echo '2.0.1' > "$(BUILD_DIR)/ElectroMechanicalDrives 2.0.1.last_change"
--ExtendedPetriNets:
--	# Building git/ExtendedPetriNets
--	./checkout-git.sh 'git/ExtendedPetriNets' 'https://github.com/modelica-3rdparty/ExtendedPetriNets.git' 'release' '2f4eac0651c1ab0ed56b75ec61424e0ef15181d3'
--	test ! -d 'build//ExtendedPetriNets 1.0'
--	cp -a 'git/ExtendedPetriNets/ExtendedPetriNets 1.0' "$(BUILD_DIR)/ExtendedPetriNets 1.0"
--	echo '' > "$(BUILD_DIR)/ExtendedPetriNets 1.0.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/ExtendedPetriNets 1.0.license"
--	echo '1.0-20020411-080000~git~release' > "$(BUILD_DIR)/ExtendedPetriNets 1.0.last_change"
--ExternData:
--	# Building git/ExternData
--	./checkout-git.sh 'git/ExternData' 'https://github.com/modelica-3rdparty/ExternData.git' 'master' '486e62d5b558dc273c63803ace811af2655fd318'
--	test ! -d 'build//ExternData 2.3.4'
--	cp -a 'git/ExternData/ExternData' "$(BUILD_DIR)/ExternData 2.3.4"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/ExternData 2.3.4.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/ExternData 2.3.4.license"
--	echo '2.3.4-9-g486e62d' > "$(BUILD_DIR)/ExternData 2.3.4.last_change"
--ExternalMedia:
--	# Building git/ExternalMedia
--	./checkout-git.sh 'git/ExternalMedia' 'https://github.com/modelica/ExternalMedia.git' 'master' '159518edd538b64e28cd70983a9cc47730323cc4'
--ExternalMemoryLib:
--	# Building git/ExternalMemoryLib
--	./checkout-git.sh 'git/ExternalMemoryLib' 'https://github.com/modelica-3rdparty/ExternalMemoryLib.git' 'master' '6488d5815bda23c665123baa916789e283e16d2c'
--	test ! -f 'build//ExternalMemoryLib.mo'
--	cp -a 'git/ExternalMemoryLib/ExternalMemoryLib.mo' "$(BUILD_DIR)/ExternalMemoryLib.mo"
--	echo 'Modelica 3.2.1' >> "$(BUILD_DIR)/ExternalMemoryLib.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/ExternalMemoryLib.license"
--	echo '20160809-140026~git~master' > "$(BUILD_DIR)/ExternalMemoryLib.last_change"
--FCSys:
--	# Building git/FCSys
--	./checkout-git.sh 'git/FCSys' 'https://github.com/kdavies4/FCSys.git' 'master' 'cb4b17f34313b9d8f2d4223d5365684b4dc1ab65'
--	test ! -d 'build//FCSys 0.2.6'
--	cp -a 'git/FCSys/FCSys 0.2.6' "$(BUILD_DIR)/FCSys 0.2.6"
--	rm -rf "$(BUILD_DIR)/FCSys 0.2.6/Resources/Source/Python/doc"
--	echo 'Modelica 3.2.1' >> "$(BUILD_DIR)/FCSys 0.2.6.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/FCSys 0.2.6.license"
--	echo '0.2.6' > "$(BUILD_DIR)/FCSys 0.2.6.last_change"
--	test ! -d 'build//FCSysTest'
--	cp -a 'git/FCSys/FCSysTest' "$(BUILD_DIR)/FCSysTest"
--	echo 'Modelica 3.2.1' >> "$(BUILD_DIR)/FCSysTest.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/FCSysTest.license"
--	echo '0.2.6' > "$(BUILD_DIR)/FCSysTest.last_change"
--FastBuildings:
--	# Building git/FastBuildings
--	./checkout-git.sh 'git/FastBuildings' 'https://github.com/open-ideas/FastBuildings.git' 'master' '1f5cfebc2f42c13e272bff639ffa3449d5740bf7'
--	test ! -d 'build//FastBuildings 0.0'
--	cp -a 'git/FastBuildings/FastBuildings' "$(BUILD_DIR)/FastBuildings 0.0"
--	echo 'Modelica 3.2' >> "$(BUILD_DIR)/FastBuildings 0.0.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/FastBuildings 0.0.license"
--	echo '0.0-20150111-223732~git~master' > "$(BUILD_DIR)/FastBuildings 0.0.last_change"
--FaultTriggering:
--	# Building git/FaultTriggering
--	./checkout-git.sh 'git/FaultTriggering' 'https://github.com/modelica-3rdparty/FaultTriggering.git' 'master' '251892e06eb33189dc11dd254ea067041fc8150b'
--	test ! -d 'build//FaultTriggering 0.6.6'
--	cp -a 'git/FaultTriggering/FaultTriggering' "$(BUILD_DIR)/FaultTriggering 0.6.6"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/FaultTriggering 0.6.6.uses"
--	echo 'AdvancedNoise 1.0.0' >> "$(BUILD_DIR)/FaultTriggering 0.6.6.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/FaultTriggering 0.6.6.license"
--	echo '0.6.6-54-g251892e' > "$(BUILD_DIR)/FaultTriggering 0.6.6.last_change"
--FeedDriveLibrary:
--	# Building git/FeedDriveLibrary
--	./checkout-git.sh 'git/FeedDriveLibrary' 'https://github.com/modelica-3rdparty/FeedDriveLibrary.git' 'master' 'b25dd3ef582872ac6ed5f5e15cbac9e9a6df194a'
--	test ! -f 'build//FeedDriveLibrary.mo'
--	cp -a 'git/FeedDriveLibrary/FeedDriveLibrary.mo' "$(BUILD_DIR)/FeedDriveLibrary.mo"
--	echo 'Modelica 3.2.1' >> "$(BUILD_DIR)/FeedDriveLibrary.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/FeedDriveLibrary.license"
--	echo '20161016-160335~git~master' > "$(BUILD_DIR)/FeedDriveLibrary.last_change"
--FractionalOrder:
--	# Building git/FractionalOrder
--	./checkout-git.sh 'git/FractionalOrder' 'https://github.com/DLR-SR/FractionalOrder.git' 'master' '99918820e346c362c3ad52d782c8215e5deeac4c'
--	test ! -f 'build//FractionalOrder.mo'
--	cp -a 'git/FractionalOrder/FractionalOrder.mo' "$(BUILD_DIR)/FractionalOrder.mo"
--	echo 'Modelica 3.2.1' >> "$(BUILD_DIR)/FractionalOrder.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/FractionalOrder.license"
--	echo '20151007-174822~git~master' > "$(BUILD_DIR)/FractionalOrder.last_change"
--FuzzyControl:
--	# Building git/FuzzyControl
--	./checkout-git.sh 'git/FuzzyControl' 'https://github.com/modelica-3rdparty/FuzzyControl.git' 'master' '19ff67ff129a440482cc85f216f287b05ea6ec0d'
--	test ! -d 'build//FuzzyControl'
--	cp -a 'git/FuzzyControl/FuzzyControl' "$(BUILD_DIR)/FuzzyControl"
--	echo '' > "$(BUILD_DIR)/FuzzyControl.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/FuzzyControl.license"
--	echo '20021101-080000~git~master' > "$(BUILD_DIR)/FuzzyControl.last_change"
--HanserModelica:
--	# Building git/HanserModelica
--	./checkout-git.sh 'git/HanserModelica' 'https://github.com/christiankral/HanserModelica.git' 'release' 'e125e3a544550ab03fba0b82dc7a969e0e67d3be'
--	test ! -d 'build//HanserModelica 1.0.1'
--	cp -a 'git/HanserModelica/HanserModelica' "$(BUILD_DIR)/HanserModelica 1.0.1"
--	echo 'Complex 3.2.2' >> "$(BUILD_DIR)/HanserModelica 1.0.1.uses"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/HanserModelica 1.0.1.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/HanserModelica 1.0.1.license"
--	echo '1.0.1' > "$(BUILD_DIR)/HanserModelica 1.0.1.last_change"
--HelmholtzMedia:
--	# Building git/HelmholtzMedia
--	./checkout-git.sh 'git/HelmholtzMedia' 'https://github.com/modelica-3rdparty/HelmholtzMedia.git' 'master' '31a5ae702a25a9411c44976e2787a37a439d5edb'
--	test ! -d 'build//HelmholtzMedia'
--	cp -a 'git/HelmholtzMedia/HelmholtzMedia' "$(BUILD_DIR)/HelmholtzMedia"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/HelmholtzMedia.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/HelmholtzMedia.license"
--	echo '20181108-110714~git~master' > "$(BUILD_DIR)/HelmholtzMedia.last_change"
--IdealizedContact:
--	# Building git/IdealizedContact
--	./checkout-git.sh 'git/IdealizedContact' 'https://github.com/modelica-3rdparty/IdealizedContact.git' 'master' 'ae8b0397ea8207bc4327bea1e81ac09c6d4bcea9'
--	test ! -d 'build//IdealizedContact 0.2.0'
--	cp -a 'git/IdealizedContact/IdealizedContact' "$(BUILD_DIR)/IdealizedContact 0.2.0"
--	echo 'Modelica 3.2.1' >> "$(BUILD_DIR)/IdealizedContact 0.2.0.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/IdealizedContact 0.2.0.license"
--	echo '0.2.0-20150910-122235~git~master' > "$(BUILD_DIR)/IdealizedContact 0.2.0.last_change"
--IndustrialControlSystems:
--	# Building git/IndustrialControlSystems
--	./checkout-git.sh 'git/IndustrialControlSystems' 'https://github.com/modelica-3rdparty/IndustrialControlSystems.git' 'master' 'c4a2a9a1974bd6dca68774e841fee2ce926e1dd2'
--	test ! -d 'build//IndustrialControlSystems 1'
--	cp -a 'git/IndustrialControlSystems/IndustrialControlSystems' "$(BUILD_DIR)/IndustrialControlSystems 1"
--	echo 'Modelica 3.2' >> "$(BUILD_DIR)/IndustrialControlSystems 1.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/IndustrialControlSystems 1.license"
--	echo '1.0-13-gc4a2a9aom1' > "$(BUILD_DIR)/IndustrialControlSystems 1.last_change"
--InstantaneousSymmetricalComponents:
--	# Building svn/InstantaneousSymmetricalComponents
--	./checkout-svn.sh 'svn/InstantaneousSymmetricalComponents' 'https://svn.modelica.org/projects/Modelica_ElectricalSystems/InstantaneousSymmetricalComponents' '7978'
--	test ! -f 'build//InstantaneousSymmetricalComponents.mo'
--	cp -a 'svn/InstantaneousSymmetricalComponents/InstantaneousSymmetricalComponents.mo' "$(BUILD_DIR)/InstantaneousSymmetricalComponents.mo"
--	echo 'Modelica 3.2.1' >> "$(BUILD_DIR)/InstantaneousSymmetricalComponents.uses"
--	echo 'Complex 3.2.1' >> "$(BUILD_DIR)/InstantaneousSymmetricalComponents.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/InstantaneousSymmetricalComponents.license"
--	echo '7978' > "$(BUILD_DIR)/InstantaneousSymmetricalComponents.last_change"
--KeyWordIO:
--	# Building git/KeyWordIO
--	./checkout-git.sh 'git/KeyWordIO' 'https://github.com/christiankral/KeyWordIO.git' 'release' 'c8feef60e8a999a8a05fc56733968cac920b0bd1'
--	test ! -d 'build//KeyWordIO 0.8.0'
--	cp -a 'git/KeyWordIO/KeyWordIO' "$(BUILD_DIR)/KeyWordIO 0.8.0"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/KeyWordIO 0.8.0.uses"
--	echo 'modelica1.1' > "$(BUILD_DIR)/KeyWordIO 0.8.0.license"
--	echo '0.8.0' > "$(BUILD_DIR)/KeyWordIO 0.8.0.last_change"
--LibRAS:
--	# Building git/LibRAS
--	./checkout-git.sh 'git/LibRAS' 'https://github.com/FishSim/LibRAS.git' 'master' 'c108bf54790022c1bbf35ff9894de0d5a1c425ae'
--	test ! -d 'build//LibRAS'
--	cp -a 'git/LibRAS/LibRAS' "$(BUILD_DIR)/LibRAS"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/LibRAS.uses"
--	echo 'gpl3' > "$(BUILD_DIR)/LibRAS.license"
--	echo '20181015-081845~git~master' > "$(BUILD_DIR)/LibRAS.last_change"
--LinearMPC:
--	# Building git/LinearMPC
--	./checkout-git.sh 'git/LinearMPC' 'https://github.com/modelica-3rdparty/LinearMPC.git' 'master' 'c16ad1c1970ea581c51158cca0647e165dc4c3b9'
--	test ! -f 'build//LinearMPC 1.mo'
--	cp -a 'git/LinearMPC/LinearMPC.mo' "$(BUILD_DIR)/LinearMPC 1.mo"
--	echo 'Modelica 3.2' >> "$(BUILD_DIR)/LinearMPC 1.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/LinearMPC 1.license"
--	echo '1.0-16-gc16ad1c' > "$(BUILD_DIR)/LinearMPC 1.last_change"
--ManualTracking:
--	# Building git/ManualTracking
--	./checkout-git.sh 'git/ManualTracking' 'https://github.com/jjpotterkowski/ManualTracking.git' 'master' 'ab15d4cae19b5e4a1148d1d4b2a05c50864599ba'
--	test ! -f 'build//ManualTracking.mo'
--	cp -a 'git/ManualTracking/ManualTracking.mo' "$(BUILD_DIR)/ManualTracking.mo"
--	echo '' > "$(BUILD_DIR)/ManualTracking.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/ManualTracking.license"
--	echo '20150801-224607~git~master' > "$(BUILD_DIR)/ManualTracking.last_change"
--Modelica:
--	# Building git/Modelica
--	./checkout-git.sh 'git/Modelica' 'https://github.com/modelica/Modelica.git' 'v1.6' 'v1.6'
--	test ! -d 'build//Modelica 1.6'
--	cp -a 'git/Modelica' "$(BUILD_DIR)/Modelica 1.6"
--	patch -l -d "$(BUILD_DIR)/" -f -p1 < 'Modelica 1.6.patch'
--	echo '' > "$(BUILD_DIR)/Modelica 1.6.uses"
--	echo 'modelica1.1' > "$(BUILD_DIR)/Modelica 1.6.license"
--	echo '1.6-om1' > "$(BUILD_DIR)/Modelica 1.6.last_change"
--	rm -rf "$(BUILD_DIR)/Modelica 1.6/.git"*
--	# Building git/Modelica
--	./checkout-git.sh 'git/Modelica' 'https://github.com/modelica/Modelica.git' 'maint/2.2.2' 'd442bcd461b8db9873e33b6141bdbd37bcff9de8'
--	test ! -d 'build//Modelica 2.2.2'
--	cp -a 'git/Modelica/Modelica' "$(BUILD_DIR)/Modelica 2.2.2"
--	patch -l -d "$(BUILD_DIR)/" -f -p1 < 'Modelica 2.2.2.patch'
--	echo '' > "$(BUILD_DIR)/Modelica 2.2.2.uses"
--	echo 'modelica1.1' > "$(BUILD_DIR)/Modelica 2.2.2.license"
--	echo '2.2.2-20140315-143534~git~maint-2.2.2-om1' > "$(BUILD_DIR)/Modelica 2.2.2.last_change"
--	echo 'omlibrary-msl222' > "$(BUILD_DIR)/Modelica 2.2.2.breaks"
--	# Building git/Modelica
--	./checkout-git.sh 'git/Modelica' 'https://github.com/modelica/Modelica.git' 'maint/3.1' 'af2a3e1597d648d6826665c89cf9eaf5c2a632bc'
--	test ! -d 'build//Modelica 3.1'
--	cp -a 'git/Modelica/Modelica' "$(BUILD_DIR)/Modelica 3.1"
--	patch -l -d "$(BUILD_DIR)/" -f -p1 < 'Modelica 3.1.patch'
--	echo 'ModelicaServices 1.0' >> "$(BUILD_DIR)/Modelica 3.1.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/Modelica 3.1.license"
--	echo '3.1-20140322-174148~git~maint-3.1-om1' > "$(BUILD_DIR)/Modelica 3.1.last_change"
--	echo 'omlibrary-msl31' > "$(BUILD_DIR)/Modelica 3.1.breaks"
--	test ! -d 'build//ModelicaServices 1.0'
--	cp -a 'git/Modelica/ModelicaServices' "$(BUILD_DIR)/ModelicaServices 1.0"
--	patch -l -d "$(BUILD_DIR)/" -f -p1 < 'ModelicaServices 1.0.patch'
--	echo > "$(BUILD_DIR)/ModelicaServices 1.0.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/ModelicaServices 1.0.license"
--	echo '1.0-20140322-174148~git~maint-3.1-om1' > "$(BUILD_DIR)/ModelicaServices 1.0.last_change"
--	echo 'omlibrary-msl31' > "$(BUILD_DIR)/ModelicaServices 1.0.breaks"
--	# Building git/Modelica
--	./checkout-git.sh 'git/Modelica' 'https://github.com/modelica/Modelica.git' 'maint/3.2.1' '60cb4e48077fa22cc97d02e767baa83ec78aadf9'
--	test ! -f 'build//Complex 3.2.1.mo'
--	cp -a 'git/Modelica/Complex.mo' "$(BUILD_DIR)/Complex 3.2.1.mo"
--	echo '' > "$(BUILD_DIR)/Complex 3.2.1.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/Complex 3.2.1.license"
--	echo '3.2.1+build.4-18-g60cb4e4-om1' > "$(BUILD_DIR)/Complex 3.2.1.last_change"
--	echo 'omlibrary-msl32,omlibrary-reference' > "$(BUILD_DIR)/Complex 3.2.1.breaks"
--	test ! -d 'build//Modelica 3.2.1'
--	cp -a 'git/Modelica/Modelica' "$(BUILD_DIR)/Modelica 3.2.1"
--	rm -rf "$(BUILD_DIR)/Modelica 3.2.1/Resources/Library"
--	patch -l -d "$(BUILD_DIR)/" -f -p1 < 'Modelica 3.2.1.patch'
--	echo 'Complex 3.2.1' >> "$(BUILD_DIR)/Modelica 3.2.1.uses"
--	echo 'ModelicaServices 3.2.1' >> "$(BUILD_DIR)/Modelica 3.2.1.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/Modelica 3.2.1.license"
--	echo '3.2.1+build.4-18-g60cb4e4-om1' > "$(BUILD_DIR)/Modelica 3.2.1.last_change"
--	echo 'omlibrary-msl32,omlibrary-reference' > "$(BUILD_DIR)/Modelica 3.2.1.breaks"
--	test ! -d 'build//ModelicaServices 3.2.1'
--	cp -a 'git/Modelica/ModelicaServices' "$(BUILD_DIR)/ModelicaServices 3.2.1"
--	patch -l -d "$(BUILD_DIR)/" -f -p1 < 'ModelicaServices 3.2.1.patch'
--	echo > "$(BUILD_DIR)/ModelicaServices 3.2.1.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/ModelicaServices 3.2.1.license"
--	echo '3.2.1+build.4-18-g60cb4e4-om1' > "$(BUILD_DIR)/ModelicaServices 3.2.1.last_change"
--	echo 'omlibrary-msl32,omlibrary-reference' > "$(BUILD_DIR)/ModelicaServices 3.2.1.breaks"
--	test ! -d 'build//ModelicaTest 3.2.1'
--	cp -a 'git/Modelica/ModelicaTest' "$(BUILD_DIR)/ModelicaTest 3.2.1"
--	echo 'Modelica 3.2.1' >> "$(BUILD_DIR)/ModelicaTest 3.2.1.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/ModelicaTest 3.2.1.license"
--	echo '3.2.1+build.4-18-g60cb4e4' > "$(BUILD_DIR)/ModelicaTest 3.2.1.last_change"
--	echo 'omlibrary-msl32,omlibrary-reference' > "$(BUILD_DIR)/ModelicaTest 3.2.1.breaks"
--	# Building git/Modelica
--	./checkout-git.sh 'git/Modelica' 'https://github.com/modelica/Modelica.git' 'maint/3.2.2' 'd992c34ed978241214b4c079fb8ee6cc9e33d909'
--	test ! -f 'build//Complex 3.2.2.mo'
--	cp -a 'git/Modelica/Complex.mo' "$(BUILD_DIR)/Complex 3.2.2.mo"
--	echo '' > "$(BUILD_DIR)/Complex 3.2.2.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/Complex 3.2.2.license"
--	echo '3.2.2-237-gd992c34-om1' > "$(BUILD_DIR)/Complex 3.2.2.last_change"
--	test ! -d 'build//Modelica 3.2.2'
--	cp -a 'git/Modelica/Modelica' "$(BUILD_DIR)/Modelica 3.2.2"
--	rm -rf "$(BUILD_DIR)/Modelica 3.2.2/Resources/Library"
--	patch -l -d "$(BUILD_DIR)/" -f -p1 < 'Modelica 3.2.2.patch'
--	echo 'Complex 3.2.2' >> "$(BUILD_DIR)/Modelica 3.2.2.uses"
--	echo 'ModelicaServices 3.2.2' >> "$(BUILD_DIR)/Modelica 3.2.2.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/Modelica 3.2.2.license"
--	echo '3.2.2-237-gd992c34-om3' > "$(BUILD_DIR)/Modelica 3.2.2.last_change"
--	test ! -d 'build//ModelicaReference'
--	cp -a 'git/Modelica/ModelicaReference' "$(BUILD_DIR)/ModelicaReference"
--	echo '' > "$(BUILD_DIR)/ModelicaReference.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/ModelicaReference.license"
--	echo '20181207-094108~git~maint-3.2.2' > "$(BUILD_DIR)/ModelicaReference.last_change"
--	test ! -d 'build//ModelicaServices 3.2.2'
--	cp -a 'git/Modelica/ModelicaServices' "$(BUILD_DIR)/ModelicaServices 3.2.2"
--	patch -l -d "$(BUILD_DIR)/" -f -p1 < 'ModelicaServices 3.2.2.patch'
--	echo > "$(BUILD_DIR)/ModelicaServices 3.2.2.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/ModelicaServices 3.2.2.license"
--	echo '3.2.2-237-gd992c34-om1' > "$(BUILD_DIR)/ModelicaServices 3.2.2.last_change"
--	test ! -d 'build//ModelicaTest 3.2.2'
--	cp -a 'git/Modelica/ModelicaTest' "$(BUILD_DIR)/ModelicaTest 3.2.2"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/ModelicaTest 3.2.2.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/ModelicaTest 3.2.2.license"
--	echo '3.2.2-237-gd992c34' > "$(BUILD_DIR)/ModelicaTest 3.2.2.last_change"
--	test ! -f 'build//ModelicaTestOverdetermined 3.2.2.mo'
--	cp -a 'git/Modelica/ModelicaTestOverdetermined.mo' "$(BUILD_DIR)/ModelicaTestOverdetermined 3.2.2.mo"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/ModelicaTestOverdetermined 3.2.2.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/ModelicaTestOverdetermined 3.2.2.license"
--	echo '3.2.2-237-gd992c34' > "$(BUILD_DIR)/ModelicaTestOverdetermined 3.2.2.last_change"
--	test ! -f 'build//ObsoleteModelica3.mo'
--	cp -a 'git/Modelica/ObsoleteModelica3.mo' "$(BUILD_DIR)/ObsoleteModelica3.mo"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/ObsoleteModelica3.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/ObsoleteModelica3.license"
--	echo '3.2.2-237-gd992c34' > "$(BUILD_DIR)/ObsoleteModelica3.last_change"
--	# Building git/Modelica
--	./checkout-git.sh 'git/Modelica' 'https://github.com/modelica/Modelica.git' 'master' '04edf76bec1b8bd961838848c3ab2d5e49b76ef3'
--	test ! -f 'build//Complex trunk.mo'
--	cp -a 'git/Modelica/Complex.mo' "$(BUILD_DIR)/Complex trunk.mo"
--	patch -l -d "$(BUILD_DIR)/" -f -p1 < 'Complex trunk.patch'
--	echo '' > "$(BUILD_DIR)/Complex trunk.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/Complex trunk.license"
--	echo '20181212-140117~git~master-om1' > "$(BUILD_DIR)/Complex trunk.last_change"
--	echo 'omlibrary-msl32,omlibrary-reference' > "$(BUILD_DIR)/Complex trunk.breaks"
--	test ! -d 'build//Modelica trunk'
--	cp -a 'git/Modelica/Modelica' "$(BUILD_DIR)/Modelica trunk"
--	rm -rf "$(BUILD_DIR)/Modelica trunk/Resources/Library"
--	patch -l -d "$(BUILD_DIR)/" -f -p1 < 'Modelica trunk.patch'
--	echo 'Complex trunk' >> "$(BUILD_DIR)/Modelica trunk.uses"
--	echo 'ModelicaServices trunk' >> "$(BUILD_DIR)/Modelica trunk.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/Modelica trunk.license"
--	echo '20181212-140117~git~master-om2' > "$(BUILD_DIR)/Modelica trunk.last_change"
--	echo 'omlibrary-msl32,omlibrary-reference' > "$(BUILD_DIR)/Modelica trunk.breaks"
--	test ! -d 'build//ModelicaReference trunk'
--	cp -a 'git/Modelica/ModelicaReference' "$(BUILD_DIR)/ModelicaReference trunk"
--	echo '' > "$(BUILD_DIR)/ModelicaReference trunk.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/ModelicaReference trunk.license"
--	echo '20181212-140117~git~master' > "$(BUILD_DIR)/ModelicaReference trunk.last_change"
--	echo 'omlibrary-msl32,omlibrary-reference' > "$(BUILD_DIR)/ModelicaReference trunk.breaks"
--	test ! -d 'build//ModelicaServices trunk'
--	cp -a 'git/Modelica/ModelicaServices' "$(BUILD_DIR)/ModelicaServices trunk"
--	patch -l -d "$(BUILD_DIR)/" -f -p1 < 'ModelicaServices trunk.patch'
--	echo > "$(BUILD_DIR)/ModelicaServices trunk.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/ModelicaServices trunk.license"
--	echo '20181212-140117~git~master-om1' > "$(BUILD_DIR)/ModelicaServices trunk.last_change"
--	echo 'omlibrary-msl32,omlibrary-reference' > "$(BUILD_DIR)/ModelicaServices trunk.breaks"
--	test ! -d 'build//ModelicaTest trunk'
--	cp -a 'git/Modelica/ModelicaTest' "$(BUILD_DIR)/ModelicaTest trunk"
--	patch -l -d "$(BUILD_DIR)/" -f -p1 < 'ModelicaTest trunk.patch'
--	echo 'Modelica trunk' >> "$(BUILD_DIR)/ModelicaTest trunk.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/ModelicaTest trunk.license"
--	echo '20181212-140117~git~master-om154' > "$(BUILD_DIR)/ModelicaTest trunk.last_change"
--	echo 'omlibrary-msl32,omlibrary-reference' > "$(BUILD_DIR)/ModelicaTest trunk.breaks"
--Modelica-MVEM:
--	# Building git/Modelica-MVEM
--	./checkout-git.sh 'git/Modelica-MVEM' 'https://github.com/modelica-3rdparty/Modelica-MVEM.git' 'master' '57c7aa394d70bffe6106afb2703b92bc532a05d1'
--	test ! -d 'build//MVEMLib 1.0.1'
--	cp -a 'git/Modelica-MVEM/MVEMLib' "$(BUILD_DIR)/MVEMLib 1.0.1"
--	echo 'Modelica 3.2.1' >> "$(BUILD_DIR)/MVEMLib 1.0.1.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/MVEMLib 1.0.1.license"
--	echo '1.0.1-1-g57c7aa3' > "$(BUILD_DIR)/MVEMLib 1.0.1.last_change"
--ModelicaADS:
--	# Building git/ModelicaADS
--	./checkout-git.sh 'git/ModelicaADS' 'https://github.com/modelica-3rdparty/ModelicaADS.git' 'master' '56eb724769bf9296c89fc91ea9274c6b477d76fa'
--	test ! -d 'build//ModelicaADS'
--	cp -a 'git/ModelicaADS/ModelicaADS' "$(BUILD_DIR)/ModelicaADS"
--	echo 'Modelica 3.2.1' >> "$(BUILD_DIR)/ModelicaADS.uses"
--	echo 'AixLib 0.3.0' >> "$(BUILD_DIR)/ModelicaADS.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/ModelicaADS.license"
--	echo '20180910-130630~git~master' > "$(BUILD_DIR)/ModelicaADS.last_change"
--ModelicaAdditions:
--	# Building git/ModelicaAdditions
--	./checkout-git.sh 'git/ModelicaAdditions' 'https://github.com/modelica-deprecated/ModelicaAdditions.git' 'release' '568db43766186826b880f9d4bfafeff25cc2c4ab'
--	test ! -d 'build//ModelicaAdditions 1.5'
--	cp -a 'git/ModelicaAdditions/ModelicaAdditions 1.5' "$(BUILD_DIR)/ModelicaAdditions 1.5"
--	echo 'Modelica 1.6' >> "$(BUILD_DIR)/ModelicaAdditions 1.5.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/ModelicaAdditions 1.5.license"
--	echo '1.5' > "$(BUILD_DIR)/ModelicaAdditions 1.5.last_change"
--ModelicaBook:
--	# Building git/ModelicaBook
--	./checkout-git.sh 'git/ModelicaBook' 'https://github.com/xogeny/ModelicaBook.git' 'master' '939da035afd1de28c7f27c3aa1312380455a79ba'
--	test ! -d 'build//ModelicaByExample 0.5.0'
--	cp -a 'git/ModelicaBook/ModelicaByExample' "$(BUILD_DIR)/ModelicaByExample 0.5.0"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/ModelicaByExample 0.5.0.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/ModelicaByExample 0.5.0.license"
--	echo '0.5.0-34-g939da03' > "$(BUILD_DIR)/ModelicaByExample 0.5.0.last_change"
--ModelicaCompliance:
--	# Building git/ModelicaCompliance
--	./checkout-git.sh 'git/ModelicaCompliance' 'https://github.com/modelica-compliance/compliance.git' 'master' '5c13f92f061d2184167538e9c9d8d2efdd1423fa'
--	test ! -d 'build//ModelicaCompliance 3.2'
--	cp -a 'git/ModelicaCompliance/ModelicaCompliance' "$(BUILD_DIR)/ModelicaCompliance 3.2"
--	echo '' > "$(BUILD_DIR)/ModelicaCompliance 3.2.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/ModelicaCompliance 3.2.license"
--	echo '3.2-20170918-090846~git~master' > "$(BUILD_DIR)/ModelicaCompliance 3.2.last_change"
--ModelicaDEVS:
--	# Building git/ModelicaDEVS
--	./checkout-git.sh 'git/ModelicaDEVS' 'https://github.com/modelica-3rdparty/ModelicaDEVS.git' 'master' 'a987aa9552fbbe71b2ee2e8c28958f9d213087ae'
--	test ! -f 'build//ModelicaDEVS 1.mo'
--	cp -a 'git/ModelicaDEVS/ModelicaDEVS.mo' "$(BUILD_DIR)/ModelicaDEVS 1.mo"
--	echo 'Modelica 2.2' >> "$(BUILD_DIR)/ModelicaDEVS 1.uses"
--	echo 'ModelicaDEVS 1' >> "$(BUILD_DIR)/ModelicaDEVS 1.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/ModelicaDEVS 1.license"
--	echo '1.0' > "$(BUILD_DIR)/ModelicaDEVS 1.last_change"
--ModelicaDFR:
--	# Building git/ModelicaDFR
--	./checkout-git.sh 'git/ModelicaDFR' 'https://github.com/modelica-3rdparty/ModelicaDFR.git' 'master' '37a441934d05330cf3d13e9ec551954d27eca84c'
--	test ! -f 'build//Nuclear.mo'
--	cp -a 'git/ModelicaDFR/Nuclear.mo' "$(BUILD_DIR)/Nuclear.mo"
--	echo 'Modelica 3.2.1' >> "$(BUILD_DIR)/Nuclear.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/Nuclear.license"
--	echo '20160806-130022~git~master' > "$(BUILD_DIR)/Nuclear.last_change"
--Modelica_DeviceDrivers:
--	# Building git/Modelica_DeviceDrivers
--	./checkout-git.sh 'git/Modelica_DeviceDrivers' 'https://github.com/modelica/Modelica_DeviceDrivers.git' 'master' '49152bc2373d09bddf6a185727fcdda8b83d18d6'
--	test ! -d 'build//Modelica_DeviceDrivers 1.6.0'
--	cp -a 'git/Modelica_DeviceDrivers/Modelica_DeviceDrivers' "$(BUILD_DIR)/Modelica_DeviceDrivers 1.6.0"
--	echo 'Modelica_Synchronous 0.92.1' >> "$(BUILD_DIR)/Modelica_DeviceDrivers 1.6.0.uses"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/Modelica_DeviceDrivers 1.6.0.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/Modelica_DeviceDrivers 1.6.0.license"
--	echo '1.6.0-13-g49152bc' > "$(BUILD_DIR)/Modelica_DeviceDrivers 1.6.0.last_change"
--Modelica_LinearSystems2:
--	# Building git/Modelica_LinearSystems2
--	./checkout-git.sh 'git/Modelica_LinearSystems2' 'https://github.com/modelica/Modelica_LinearSystems2.git' 'master' '165795f8d23137e726188db21bc1229129ba5e30'
--	test ! -d 'build//Modelica_LinearSystems2 2.3.4'
--	cp -a 'git/Modelica_LinearSystems2/Modelica_LinearSystems2' "$(BUILD_DIR)/Modelica_LinearSystems2 2.3.4"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/Modelica_LinearSystems2 2.3.4.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/Modelica_LinearSystems2 2.3.4.license"
--	echo '2.3.4-109-g165795f' > "$(BUILD_DIR)/Modelica_LinearSystems2 2.3.4.last_change"
--Modelica_StateGraph2:
--	# Building svn/Modelica_StateGraph2
--	./checkout-svn.sh 'svn/Modelica_StateGraph2' 'https://svn.modelica.org/projects/Modelica_EmbeddedSystems/trunk/Modelica_StateGraph2' '9594'
--	test ! -d 'build//Modelica_StateGraph2 2.0.3'
--	cp -a 'svn/Modelica_StateGraph2' "$(BUILD_DIR)/Modelica_StateGraph2 2.0.3"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/Modelica_StateGraph2 2.0.3.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/Modelica_StateGraph2 2.0.3.license"
--	echo '9594' > "$(BUILD_DIR)/Modelica_StateGraph2 2.0.3.last_change"
--	rm -rf "$(BUILD_DIR)/Modelica_StateGraph2 2.0.3/.svn"
--Modelica_Synchronous:
--	# Building git/Modelica_Synchronous
--	./checkout-git.sh 'git/Modelica_Synchronous' 'https://github.com/modelica/Modelica_Synchronous.git' 'master' '6a9b3145042a76638380834eb2a74fa74d8f30d6'
--	test ! -d 'build//Modelica_Synchronous 0.92.1'
--	cp -a 'git/Modelica_Synchronous/Modelica_Synchronous' "$(BUILD_DIR)/Modelica_Synchronous 0.92.1"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/Modelica_Synchronous 0.92.1.uses"
--	echo 'ModelicaServices 3.2.2' >> "$(BUILD_DIR)/Modelica_Synchronous 0.92.1.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/Modelica_Synchronous 0.92.1.license"
--	echo '0.92.1-48-g6a9b314' > "$(BUILD_DIR)/Modelica_Synchronous 0.92.1.last_change"
--MotorcycleDynamics:
--	# Building git/MotorcycleDynamics
--	./checkout-git.sh 'git/MotorcycleDynamics' 'https://github.com/modelica-3rdparty/MotorcycleDynamics.git' 'master' '2be2667f9936d88ffb9b8a8246c5af9ccb0b307f'
--	test ! -d 'build//MotorcycleDynamics'
--	cp -a 'git/MotorcycleDynamics/MotorcycleDynamics' "$(BUILD_DIR)/MotorcycleDynamics"
--	echo 'Modelica 2.2.1' >> "$(BUILD_DIR)/MotorcycleDynamics.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/MotorcycleDynamics.license"
--	echo '20130416-040318~git~master' > "$(BUILD_DIR)/MotorcycleDynamics.last_change"
--MultiPhaseMixtureMedia:
--	# Building git/MultiPhaseMixtureMedia
--	./checkout-git.sh 'git/MultiPhaseMixtureMedia' 'https://github.com/jwindahlModelon/MultiPhaseMixtureMedia.git' 'master' '0bda0c58af6384f8e0edf7aa7520afb369af3e38'
--NCLib:
--	# Building git/NCLib
--	./checkout-git.sh 'git/NCLib' 'https://github.com/modelica-3rdparty/NCLib.git' 'release' 'ed3d72f176ac6b7031ce73be9d80101141e74a69'
--NeuralNetwork:
--	# Building git/NeuralNetwork
--	./checkout-git.sh 'git/NeuralNetwork' 'https://github.com/modelica-3rdparty/NeuralNetwork.git' 'release' 'c44e4d1fe97fd4f86dafcd05ad3713692e3f1806'
--	test ! -d 'build//NeuralNetwork 1.0'
--	cp -a 'git/NeuralNetwork/NeuralNetwork 1.0' "$(BUILD_DIR)/NeuralNetwork 1.0"
--	echo 'Modelica 2.2' >> "$(BUILD_DIR)/NeuralNetwork 1.0.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/NeuralNetwork 1.0.license"
--	echo '1.0' > "$(BUILD_DIR)/NeuralNetwork 1.0.last_change"
--	echo 'Windows-1252' > "$(BUILD_DIR)/NeuralNetwork 1.0/package.encoding"
--Noise:
--	# Building git/Noise
--	./checkout-git.sh 'git/Noise' 'https://github.com/DLR-SR/Noise.git' 'master' '891468c5c25c39f49c785bbdb853a386a4d0e889'
--	test ! -d 'build//Modelica_Noise 1.0 Beta.1'
--	cp -a 'git/Noise/Modelica_Noise 1.0 Beta.1' "$(BUILD_DIR)/Modelica_Noise 1.0 Beta.1"
--	echo 'Modelica 3.2.1' >> "$(BUILD_DIR)/Modelica_Noise 1.0 Beta.1.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/Modelica_Noise 1.0 Beta.1.license"
--	echo '20180918-163409~git~master' > "$(BUILD_DIR)/Modelica_Noise 1.0 Beta.1.last_change"
--ObjectStab:
--	# Building git/ObjectStab
--	./checkout-git.sh 'git/ObjectStab' 'https://github.com/modelica-3rdparty/ObjectStab.git' 'master' '14a178c837390a0411613f85b11372503ee067ea'
--	test ! -d 'build//ObjectStab 1.1 Dev'
--	cp -a 'git/ObjectStab/ObjectStab' "$(BUILD_DIR)/ObjectStab 1.1 Dev"
--	echo 'Modelica 3.2.1' >> "$(BUILD_DIR)/ObjectStab 1.1 Dev.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/ObjectStab 1.1 Dev.license"
--	echo '20150923-145139~git~master' > "$(BUILD_DIR)/ObjectStab 1.1 Dev.last_change"
--OpenHydraulics:
--	# Building git/OpenHydraulics
--	./checkout-git.sh 'git/OpenHydraulics' 'https://github.com/cparedis/OpenHydraulics.git' 'master' '3485cf4ae0449f1a76af737b7705879f8f08c14f'
--	test ! -d 'build//OpenHydraulics 1.0'
--	cp -a 'git/OpenHydraulics/OpenHydraulics' "$(BUILD_DIR)/OpenHydraulics 1.0"
--	echo 'Modelica 3.2' >> "$(BUILD_DIR)/OpenHydraulics 1.0.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/OpenHydraulics 1.0.license"
--	echo '1.0.1-23-g3485cf4' > "$(BUILD_DIR)/OpenHydraulics 1.0.last_change"
--OpenIPSL:
--	# Building git/OpenIPSL
--	./checkout-git.sh 'git/OpenIPSL' 'https://github.com/SmarTS-Lab/OpenIPSL.git' 'master' 'de811927d6a9854322d3d90ec1d103371042e9c6'
--	test ! -d 'build//OpenIPSL 1.5.0'
--	cp -a 'git/OpenIPSL/OpenIPSL' "$(BUILD_DIR)/OpenIPSL 1.5.0"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/OpenIPSL 1.5.0.uses"
--	echo 'Complex 3.2.2' >> "$(BUILD_DIR)/OpenIPSL 1.5.0.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/OpenIPSL 1.5.0.license"
--	echo '1.5.0-21-gde81192' > "$(BUILD_DIR)/OpenIPSL 1.5.0.last_change"
--PNlib:
--	# Building git/PNlib
--	./checkout-git.sh 'git/PNlib' 'https://github.com/lochel/PNlib.git' 'master' '7a664725a745476d0bf451ede22d90591dbf6fa6'
--	test ! -d 'build//PNlib 2.1'
--	cp -a 'git/PNlib/PNlib' "$(BUILD_DIR)/PNlib 2.1"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/PNlib 2.1.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/PNlib 2.1.license"
--	echo '2.1-3-g7a66472' > "$(BUILD_DIR)/PNlib 2.1.last_change"
--PVSystems:
--	# Building git/PVSystems
--	./checkout-git.sh 'git/PVSystems' 'https://github.com/modelica-3rdparty/PVSystems.git' 'master' '12d2090204e397f160d9f885d66c6c279fc8e626'
--	test ! -d 'build//PVSystems 0.6.3'
--	cp -a 'git/PVSystems/PVSystems' "$(BUILD_DIR)/PVSystems 0.6.3"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/PVSystems 0.6.3.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/PVSystems 0.6.3.license"
--	echo '0.6.3-20171021-211106~git~master' > "$(BUILD_DIR)/PVSystems 0.6.3.last_change"
--PhotoVoltaics:
--	# Building git/PhotoVoltaics
--	./checkout-git.sh 'git/PhotoVoltaics' 'https://github.com/modelica-3rdparty/PhotoVoltaics.git' 'release' '2a14e123b46e30424bc72489a95489681731baf6'
--	test ! -d 'build//PhotoVoltaics 1.3.1'
--	cp -a 'git/PhotoVoltaics/PhotoVoltaics' "$(BUILD_DIR)/PhotoVoltaics 1.3.1"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/PhotoVoltaics 1.3.1.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/PhotoVoltaics 1.3.1.license"
--	echo '1.3.1' > "$(BUILD_DIR)/PhotoVoltaics 1.3.1.last_change"
--	test ! -d 'build//PhotoVoltaics_TGM 1.3.1'
--	cp -a 'git/PhotoVoltaics/PhotoVoltaics_TGM' "$(BUILD_DIR)/PhotoVoltaics_TGM 1.3.1"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/PhotoVoltaics_TGM 1.3.1.uses"
--	echo 'Buildings 5.1.0' >> "$(BUILD_DIR)/PhotoVoltaics_TGM 1.3.1.uses"
--	echo 'PhotoVoltaics 1.3.0' >> "$(BUILD_DIR)/PhotoVoltaics_TGM 1.3.1.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/PhotoVoltaics_TGM 1.3.1.license"
--	echo '1.3.1' > "$(BUILD_DIR)/PhotoVoltaics_TGM 1.3.1.last_change"
--Physiolibrary:
--	# Building git/Physiolibrary
--	./checkout-git.sh 'git/Physiolibrary' 'https://github.com/MarekMatejak/Physiolibrary.git' 'master' 'e3d2828145089dcdd543b332d670259899de80b1'
--	test ! -d 'build//Physiolibrary 2.3.2-beta'
--	cp -a 'git/Physiolibrary/Physiolibrary' "$(BUILD_DIR)/Physiolibrary 2.3.2-beta"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/Physiolibrary 2.3.2-beta.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/Physiolibrary 2.3.2-beta.license"
--	echo '20181006-022425~git~master' > "$(BUILD_DIR)/Physiolibrary 2.3.2-beta.last_change"
--Physiomodel:
--	# Building git/Physiomodel
--	./checkout-git.sh 'git/Physiomodel' 'https://github.com/modelica-3rdparty/Physiomodel.git' 'master' '40d8ae7386643db2ffb9f3305f9e00928652f399'
--	test ! -d 'build//Physiomodel 1.0.1-beta'
--	cp -a 'git/Physiomodel/Physiomodel' "$(BUILD_DIR)/Physiomodel 1.0.1-beta"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/Physiomodel 1.0.1-beta.uses"
--	echo 'Physiolibrary 2.3.2' >> "$(BUILD_DIR)/Physiomodel 1.0.1-beta.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/Physiomodel 1.0.1-beta.license"
--	echo '20181122-162953~git~master' > "$(BUILD_DIR)/Physiomodel 1.0.1-beta.last_change"
--PlanarMechanics:
--	# Building git/PlanarMechanics
--	./checkout-git.sh 'git/PlanarMechanics' 'https://github.com/dzimmer/PlanarMechanics.git' 'master' '0cec8e63cc75168e19e634f22ea445a57e3b117d'
--	test ! -d 'build//PlanarMechanics 1.4.0'
--	cp -a 'git/PlanarMechanics/PlanarMechanics' "$(BUILD_DIR)/PlanarMechanics 1.4.0"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/PlanarMechanics 1.4.0.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/PlanarMechanics 1.4.0.license"
--	echo '1.4.0-20181018-105527~git~master' > "$(BUILD_DIR)/PlanarMechanics 1.4.0.last_change"
--PowerFlow:
--	# Building svn/PowerFlow
--	./checkout-svn.sh 'svn/PowerFlow' 'https://svn.modelica.org/projects/Modelica_ElectricalSystems/Modelica_PowerFlow/trunk' '3174'
--	test ! -d 'build//PowerFlow 0.3'
--	cp -a 'svn/PowerFlow/PowerFlow' "$(BUILD_DIR)/PowerFlow 0.3"
--	echo 'Modelica 3.1' >> "$(BUILD_DIR)/PowerFlow 0.3.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/PowerFlow 0.3.license"
--	echo '3174' > "$(BUILD_DIR)/PowerFlow 0.3.last_change"
--PowerSystems:
--	# Building git/PowerSystems
--	./checkout-git.sh 'git/PowerSystems' 'https://github.com/modelica/PowerSystems.git' 'release' '44ecf8d170c5ce80281b306e706058329e706966'
--	test ! -d 'build//PowerSystems 0.6.0'
--	cp -a 'git/PowerSystems/PowerSystems 0.6.0' "$(BUILD_DIR)/PowerSystems 0.6.0"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/PowerSystems 0.6.0.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/PowerSystems 0.6.0.license"
--	echo '0.6.0' > "$(BUILD_DIR)/PowerSystems 0.6.0.last_change"
--PowerSystems-latest:
--	# Building git/PowerSystems-latest
--	./checkout-git.sh 'git/PowerSystems-latest' 'https://github.com/modelica/PowerSystems.git' 'master' '3bdc215576fd325ad6e715a9a5c0318593b69fd1'
--	test ! -d 'build//PowerSystems latest'
--	cp -a 'git/PowerSystems-latest/PowerSystems' "$(BUILD_DIR)/PowerSystems latest"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/PowerSystems latest.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/PowerSystems latest.license"
--	echo '20181112-220900~git~master' > "$(BUILD_DIR)/PowerSystems latest.last_change"
--PraxisSimulationstechnik:
--	# Building git/PraxisSimulationstechnik
--	./checkout-git.sh 'git/PraxisSimulationstechnik' 'https://github.com/modelica-3rdparty/PraxisSimulationstechnik.git' 'master' '7446be67ec1c931b1d43fb51721b23b495916c1f'
--	test ! -d 'build//PraxisSimulationstechnik'
--	cp -a 'git/PraxisSimulationstechnik/PraxisSimulationstechnik' "$(BUILD_DIR)/PraxisSimulationstechnik"
--	echo 'Modelica 3.2.1' >> "$(BUILD_DIR)/PraxisSimulationstechnik.uses"
--	echo 'gpl3' > "$(BUILD_DIR)/PraxisSimulationstechnik.license"
--	echo '20151001-163027~git~master' > "$(BUILD_DIR)/PraxisSimulationstechnik.last_change"
--QSSFluidFlow:
--	# Building git/QSSFluidFlow
--	./checkout-git.sh 'git/QSSFluidFlow' 'https://github.com/modelica-3rdparty/QSSFluidFlow.git' 'release' 'd84a2c107132f2cd47ea3c3751238d69e4b1f64b'
--	test ! -d 'build//QSSFluidFlow 1.0'
--	cp -a 'git/QSSFluidFlow/QSSFluidFlow 1.0' "$(BUILD_DIR)/QSSFluidFlow 1.0"
--	echo '' > "$(BUILD_DIR)/QSSFluidFlow 1.0.uses"
--	echo 'modelica1.1' > "$(BUILD_DIR)/QSSFluidFlow 1.0.license"
--	echo '1.0' > "$(BUILD_DIR)/QSSFluidFlow 1.0.last_change"
--	echo 'Windows-1252' > "$(BUILD_DIR)/QSSFluidFlow 1.0/package.encoding"
--RealTimeCoordinationLibrary:
--	# Building git/RealTimeCoordinationLibrary
--	./checkout-git.sh 'git/RealTimeCoordinationLibrary' 'https://github.com/modelica-3rdparty/RealTimeCoordinationLibrary.git' 'master' '5aaf3c3971850ff7ecdb1392b8ef020b605235e8'
--	test ! -d 'build//RealTimeCoordinationLibrary 1.0.4'
--	cp -a 'git/RealTimeCoordinationLibrary' "$(BUILD_DIR)/RealTimeCoordinationLibrary 1.0.4"
--	echo 'Modelica 3.2.1' >> "$(BUILD_DIR)/RealTimeCoordinationLibrary 1.0.4.uses"
--	echo 'Modelica_StateGraph2 2.0.2' >> "$(BUILD_DIR)/RealTimeCoordinationLibrary 1.0.4.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/RealTimeCoordinationLibrary 1.0.4.license"
--	echo '1.0.4-20160203-174055~git~master' > "$(BUILD_DIR)/RealTimeCoordinationLibrary 1.0.4.last_change"
--	rm -rf "$(BUILD_DIR)/RealTimeCoordinationLibrary 1.0.4/.git"*
--	echo 'Windows-1252' > "$(BUILD_DIR)/RealTimeCoordinationLibrary 1.0.4/package.encoding"
--ScalableTestSuite:
--	# Building git/ScalableTestSuite
--	./checkout-git.sh 'git/ScalableTestSuite' 'https://github.com/casella/ScalableTestSuite.git' 'master' 'd21658efc9238d5b19f556601a8a40bce2306944'
--	test ! -d 'build//ScalableTestSuite 1.11.4'
--	cp -a 'git/ScalableTestSuite/ScalableTestSuite' "$(BUILD_DIR)/ScalableTestSuite 1.11.4"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/ScalableTestSuite 1.11.4.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/ScalableTestSuite 1.11.4.license"
--	echo '1.11.4' > "$(BUILD_DIR)/ScalableTestSuite 1.11.4.last_change"
--Servomechanisms:
--	# Building git/Servomechanisms
--	./checkout-git.sh 'git/Servomechanisms' 'https://github.com/modelica-3rdparty/Servomechanisms.git' 'master' '3bf82ba5d3f31b4a0ae05f99ae690037358e153e'
--	test ! -d 'build//Servomechanisms 1.0'
--	cp -a 'git/Servomechanisms/Servomechanisms 1.0' "$(BUILD_DIR)/Servomechanisms 1.0"
--	echo '' > "$(BUILD_DIR)/Servomechanisms 1.0.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/Servomechanisms 1.0.license"
--	echo '1.0-20181206-130737~git~master' > "$(BUILD_DIR)/Servomechanisms 1.0.last_change"
--SiemensPower:
--	# Building git/SiemensPower
--	./checkout-git.sh 'git/SiemensPower' 'https://openmodelica.org/git/SiemensPower.git' 'omctest' '73a3bfc6d2ddd72165bb0f3e7e9df48b643a5ed0'
--	test ! -d 'build//SiemensPower OMCtest'
--	cp -a 'git/SiemensPower/SiemensPower' "$(BUILD_DIR)/SiemensPower OMCtest"
--	echo 'Modelica 3.1' >> "$(BUILD_DIR)/SiemensPower OMCtest.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/SiemensPower OMCtest.license"
--	echo '20150519-092836~git~omctest' > "$(BUILD_DIR)/SiemensPower OMCtest.last_change"
--	# Building git/SiemensPower
--	./checkout-git.sh 'git/SiemensPower' 'https://openmodelica.org/git/SiemensPower.git' '2.1/beta' '5ef2e38b64ff481801c0db19d52f0bef21f85f77'
--	test ! -d 'build//SiemensPower 2.1 beta'
--	cp -a 'git/SiemensPower/SiemensPower' "$(BUILD_DIR)/SiemensPower 2.1 beta"
--	echo 'Modelica 3.2.1' >> "$(BUILD_DIR)/SiemensPower 2.1 beta.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/SiemensPower 2.1 beta.license"
--	echo '20150519-095758~git~2.1-beta' > "$(BUILD_DIR)/SiemensPower 2.1 beta.last_change"
--	# Building git/SiemensPower
--	./checkout-git.sh 'git/SiemensPower' 'https://openmodelica.org/git/SiemensPower.git' 'master' '88e758037da4a8ca1b21b468409b15417a27d992'
--	test ! -d 'build//SiemensPower 2.2'
--	cp -a 'git/SiemensPower/SiemensPower' "$(BUILD_DIR)/SiemensPower 2.2"
--	echo 'Modelica 3.2.1' >> "$(BUILD_DIR)/SiemensPower 2.2.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/SiemensPower 2.2.license"
--	echo '2.2-20160429-215511~git~master' > "$(BUILD_DIR)/SiemensPower 2.2.last_change"
--SolarTherm:
--	# Building git/SolarTherm
--	./checkout-git.sh 'git/SolarTherm' 'https://github.com/SolarTherm/SolarTherm.git' 'master' '5d59986646b968514da517ebdda96267da8bc737'
--	test ! -d 'build//SolarTherm 0.2'
--	cp -a 'git/SolarTherm/SolarTherm' "$(BUILD_DIR)/SolarTherm 0.2"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/SolarTherm 0.2.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/SolarTherm 0.2.license"
--	echo '0.2-20181213-124338~git~master' > "$(BUILD_DIR)/SolarTherm 0.2.last_change"
--	test ! -d 'build//examples'
--	cp -a 'git/SolarTherm/examples' "$(BUILD_DIR)/examples"
--	echo 'SolarTherm 0.2' >> "$(BUILD_DIR)/examples.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/examples.license"
--	echo '0.2-20181213-124338~git~master' > "$(BUILD_DIR)/examples.last_change"
--	# Building git/SolarTherm
--	./checkout-git.sh 'git/SolarTherm' 'https://github.com/SolarTherm/SolarTherm.git' 'alberto-merge' '7c1ddcd95378793b10e3727607c53be24f9f94fd'
--	test ! -d 'build//SolarTherm alberto-merge'
--	cp -a 'git/SolarTherm/SolarTherm' "$(BUILD_DIR)/SolarTherm alberto-merge"
--	echo 'Modelica 3.2.1' >> "$(BUILD_DIR)/SolarTherm alberto-merge.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/SolarTherm alberto-merge.license"
--	echo '20180322-141458~git~alberto-merge' > "$(BUILD_DIR)/SolarTherm alberto-merge.last_change"
--Spot:
--	# Building git/Spot
--	./checkout-git.sh 'git/Spot' 'https://github.com/modelica-3rdparty/Spot.git' 'master' 'b5c084ca0cbb13ba137ac2c449240410cecfaaf1'
--	test ! -d 'build//Spot 0.706.1'
--	cp -a 'git/Spot/Spot' "$(BUILD_DIR)/Spot 0.706.1"
--	echo 'Modelica 3.2.1' >> "$(BUILD_DIR)/Spot 0.706.1.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/Spot 0.706.1.license"
--	echo '0.706.1-20151216-135817~git~master' > "$(BUILD_DIR)/Spot 0.706.1.last_change"
--	test ! -d 'build//SpotExamples 0.706.1'
--	cp -a 'git/Spot/SpotExamples' "$(BUILD_DIR)/SpotExamples 0.706.1"
--	echo 'Modelica 3.2.1' >> "$(BUILD_DIR)/SpotExamples 0.706.1.uses"
--	echo 'Spot 0.706.1' >> "$(BUILD_DIR)/SpotExamples 0.706.1.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/SpotExamples 0.706.1.license"
--	echo '0.706.1-20151216-135817~git~master' > "$(BUILD_DIR)/SpotExamples 0.706.1.last_change"
--SystemDynamics:
--	# Building git/SystemDynamics
--	./checkout-git.sh 'git/SystemDynamics' 'https://github.com/modelica-3rdparty/SystemDynamics.git' 'master' 'b0347610cb57ecec6756e78cb51ab5e94eb7b176'
--	test ! -d 'build//SystemDynamics 2.1'
--	cp -a 'git/SystemDynamics/SystemDynamics 2.1' "$(BUILD_DIR)/SystemDynamics 2.1"
--	echo 'Modelica 3.2.1' >> "$(BUILD_DIR)/SystemDynamics 2.1.uses"
--	echo 'modelica1.1' > "$(BUILD_DIR)/SystemDynamics 2.1.license"
--	echo '2.1-9-gb034761' > "$(BUILD_DIR)/SystemDynamics 2.1.last_change"
--ThermalSeparation:
--	# Building git/ThermalSeparation
--	./checkout-git.sh 'git/ThermalSeparation' 'https://github.com/adrpo/ThermalSeparation.git' 'master' 'dfc92e343d139a56ff767d77bbb37b257d784e27'
--	test ! -d 'build//ThermalSeparation 0.2'
--	cp -a 'git/ThermalSeparation/ThermalSeparation' "$(BUILD_DIR)/ThermalSeparation 0.2"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/ThermalSeparation 0.2.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/ThermalSeparation 0.2.license"
--	echo '0.2-20181214-110933~git~master' > "$(BUILD_DIR)/ThermalSeparation 0.2.last_change"
--ThermoPower:
--	# Building git/ThermoPower
--	./checkout-git.sh 'git/ThermoPower' 'https://github.com/casella/ThermoPower.git' 'master' '66fa9aa2fca229efebf06c0d00c2fcc8db92bb00'
--	test ! -d 'build//ThermoPower 3.1'
--	cp -a 'git/ThermoPower/ThermoPower' "$(BUILD_DIR)/ThermoPower 3.1"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/ThermoPower 3.1.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/ThermoPower 3.1.license"
--	echo '3.1-20181218-114659~git~master' > "$(BUILD_DIR)/ThermoPower 3.1.last_change"
--ThermoSysPro:
--	# Building git/ThermoSysPro
--	./checkout-git.sh 'git/ThermoSysPro' 'https://openmodelica.org/git/ThermoSysPro.git' 'maint/3.0' 'd4f9c3ed35f7520f82439eb6e9f4057ae0f82b73'
--	test ! -d 'build//ThermoSysPro 3.0'
--	cp -a 'git/ThermoSysPro/ThermoSysPro' "$(BUILD_DIR)/ThermoSysPro 3.0"
--	echo 'Modelica 3.2.1' >> "$(BUILD_DIR)/ThermoSysPro 3.0.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/ThermoSysPro 3.0.license"
--	echo '3.0+OSR-21-gd4f9c3e' > "$(BUILD_DIR)/ThermoSysPro 3.0.last_change"
--	# Building git/ThermoSysPro
--	./checkout-git.sh 'git/ThermoSysPro' 'https://openmodelica.org/git/ThermoSysPro.git' 'master' 'db81ae1b5a6a85f6c6c7693244cafa6087e18ff5'
--	test ! -d 'build//ThermoSysPro 3.1'
--	cp -a 'git/ThermoSysPro/ThermoSysPro' "$(BUILD_DIR)/ThermoSysPro 3.1"
--	echo 'Modelica 3.2.1' >> "$(BUILD_DIR)/ThermoSysPro 3.1.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/ThermoSysPro 3.1.license"
--	echo '3.1+OSR-18-gdb81ae1' > "$(BUILD_DIR)/ThermoSysPro 3.1.last_change"
--VVDRlib:
--	# Building git/VVDRlib
--	./checkout-git.sh 'git/VVDRlib' 'https://github.com/lenaRB/VVDRlib.git' 'master' 'eae4981674642eddffc7f2aa3690320fcaddee0e'
--	test ! -d 'build//VVDRlib'
--	cp -a 'git/VVDRlib' "$(BUILD_DIR)/VVDRlib"
--	echo '' > "$(BUILD_DIR)/VVDRlib.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/VVDRlib.license"
--	echo '20170912-142014~git~master' > "$(BUILD_DIR)/VVDRlib.last_change"
--	rm -rf "$(BUILD_DIR)/VVDRlib/.git"*
--VehicleInterfaces:
--	# Building git/VehicleInterfaces
--	./checkout-git.sh 'git/VehicleInterfaces' 'https://github.com/modelica/VehicleInterfaces.git' 'release' 'ad956a35643d53e207ee126d67ea1f3f38337a39'
--	test ! -d 'build//VehicleInterfaces 1.2.2'
--	cp -a 'git/VehicleInterfaces/VehicleInterfaces 1.2.2' "$(BUILD_DIR)/VehicleInterfaces 1.2.2"
--	echo 'Modelica 3.2.1' >> "$(BUILD_DIR)/VehicleInterfaces 1.2.2.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/VehicleInterfaces 1.2.2.license"
--	echo '1.2.2' > "$(BUILD_DIR)/VehicleInterfaces 1.2.2.last_change"
--	# Building git/VehicleInterfaces
--	./checkout-git.sh 'git/VehicleInterfaces' 'https://github.com/modelica/VehicleInterfaces.git' 'v1.2.4' 'v1.2.4'
--	test ! -d 'build//VehicleInterfaces 1.2.4'
--	cp -a 'git/VehicleInterfaces/VehicleInterfaces' "$(BUILD_DIR)/VehicleInterfaces 1.2.4"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/VehicleInterfaces 1.2.4.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/VehicleInterfaces 1.2.4.license"
--	echo '1.2.4' > "$(BUILD_DIR)/VehicleInterfaces 1.2.4.last_change"
--WasteWater:
--	# Building git/WasteWater
--	./checkout-git.sh 'git/WasteWater' 'https://github.com/modelica-3rdparty/WasteWater.git' 'master' '0c5eecaadf82cd9e3a6a4ffa6241903e38fd1946'
--	test ! -d 'build//WasteWater 2.1.0'
--	cp -a 'git/WasteWater/WasteWater' "$(BUILD_DIR)/WasteWater 2.1.0"
--	echo 'Modelica 3.2.1' >> "$(BUILD_DIR)/WasteWater 2.1.0.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/WasteWater 2.1.0.license"
--	echo '2.1.0-20151102-100529~git~master' > "$(BUILD_DIR)/WasteWater 2.1.0.last_change"
--Wavelet:
--	# Building git/Wavelet
--	./checkout-git.sh 'git/Wavelet' 'https://github.com/modelica-3rdparty/Wavelet.git' 'master' '0efd31402f62014dc8f4774e043b45428f390156'
--	test ! -f 'build//Wavelet.mo'
--	cp -a 'git/Wavelet/Wavelet.mo' "$(BUILD_DIR)/Wavelet.mo"
--	echo 'Modelica 3.2' >> "$(BUILD_DIR)/Wavelet.uses"
--	echo 'Complex 1.0' >> "$(BUILD_DIR)/Wavelet.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/Wavelet.license"
--	echo '20140312-120000~git~master' > "$(BUILD_DIR)/Wavelet.last_change"
--WindPowerPlants:
--	# Building git/WindPowerPlants
--	./checkout-git.sh 'git/WindPowerPlants' 'https://github.com/modelica-3rdparty/WindPowerPlants.git' 'release' '5f97dc877e13fc91773a893827f6bc074a9f5a83'
--	test ! -d 'build//WindPowerPlants 1.1.1'
--	cp -a 'git/WindPowerPlants/WindPowerPlants' "$(BUILD_DIR)/WindPowerPlants 1.1.1"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/WindPowerPlants 1.1.1.uses"
--	echo 'Complex 3.2.2' >> "$(BUILD_DIR)/WindPowerPlants 1.1.1.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/WindPowerPlants 1.1.1.license"
--	echo '1.1.1' > "$(BUILD_DIR)/WindPowerPlants 1.1.1.last_change"
--XogenyTest:
--	# Building git/XogenyTest
--	./checkout-git.sh 'git/XogenyTest' 'https://github.com/xogeny/XogenyTest.git' 'master' '4410a3224e1803565d57ff323c3bef5a4bfd6b4d'
--	test ! -d 'build//XogenyTest 1.1'
--	cp -a 'git/XogenyTest/XogenyTest' "$(BUILD_DIR)/XogenyTest 1.1"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/XogenyTest 1.1.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/XogenyTest 1.1.license"
--	echo '1.1-20181019-075951~git~master' > "$(BUILD_DIR)/XogenyTest 1.1.last_change"
--buildsyspro:
--	# Building git/buildsyspro
--	./checkout-git.sh 'git/buildsyspro' 'https://github.com/modelica-3rdparty/buildsyspro.git' 'master' '232d51c4fe28ce79cc12b58167ebaf98c2b74010'
--	test ! -d 'build//BuildSysPro 3.2.0'
--	cp -a 'git/buildsyspro/BuildSysPro' "$(BUILD_DIR)/BuildSysPro 3.2.0"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/BuildSysPro 3.2.0.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/BuildSysPro 3.2.0.license"
--	echo '3.2.0-2-g232d51c' > "$(BUILD_DIR)/BuildSysPro 3.2.0.last_change"
--ipsl:
--	# Building git/ipsl
--	./checkout-git.sh 'git/ipsl' 'https://github.com/modelica-3rdparty/ipsl.git' 'master' 'e0e3ea079a0398a3b0b094baaa3736350faa525b'
--	test ! -d 'build//iPSL 1.1.0'
--	cp -a 'git/ipsl/iPSL' "$(BUILD_DIR)/iPSL 1.1.0"
--	echo 'Modelica 3.2.1' >> "$(BUILD_DIR)/iPSL 1.1.0.uses"
--	echo 'Complex 3.2.1' >> "$(BUILD_DIR)/iPSL 1.1.0.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/iPSL 1.1.0.license"
--	echo '1.1.0-38-ge0e3ea0' > "$(BUILD_DIR)/iPSL 1.1.0.last_change"
--modelica-flight:
--	# Building git/modelica-flight
--	./checkout-git.sh 'git/modelica-flight' 'https://github.com/modelica-3rdparty/modelica-flight.git' 'master' 'f3ae1c3ebe1b33921654a0e0d59d6e65f0bcfe84'
--	test ! -f 'build//Flight.mo'
--	cp -a 'git/modelica-flight/Flight.mo' "$(BUILD_DIR)/Flight.mo"
--	echo '' > "$(BUILD_DIR)/Flight.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/Flight.license"
--	echo '20150119-093303~git~master' > "$(BUILD_DIR)/Flight.last_change"
--msgpack-modelica:
--	# Building git/msgpack-modelica
--	./checkout-git.sh 'git/msgpack-modelica' 'https://github.com/modelica-3rdparty/msgpack-modelica.git' 'master' '594179d1625947e7da82e6f92a7cb61c6bb9859f'
--	test ! -d 'build//MessagePack 0.1'
--	cp -a 'git/msgpack-modelica/MessagePack' "$(BUILD_DIR)/MessagePack 0.1"
--	echo '' > "$(BUILD_DIR)/MessagePack 0.1.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/MessagePack 0.1.license"
--	echo '0.1-42-g594179d' > "$(BUILD_DIR)/MessagePack 0.1.last_change"
--netCDF-DataReader:
--	# Building git/netCDF-DataReader
--	./checkout-git.sh 'git/netCDF-DataReader' 'https://github.com/modelica-3rdparty/netCDF-DataReader.git' 'master' 'd08cc3471e85b4f50b04e2e41b1886825af83eaf'
--	test ! -d 'build//NcDataReader2 2.4.0'
--	cp -a 'git/netCDF-DataReader/NcDataReader2' "$(BUILD_DIR)/NcDataReader2 2.4.0"
--	echo 'Modelica 3.2.1' >> "$(BUILD_DIR)/NcDataReader2 2.4.0.uses"
--	echo 'lgpl2.1+' > "$(BUILD_DIR)/NcDataReader2 2.4.0.license"
--	echo '2.4.0' > "$(BUILD_DIR)/NcDataReader2 2.4.0.last_change"
--open-bldc-modelica:
--	# Building git/open-bldc-modelica
--	./checkout-git.sh 'git/open-bldc-modelica' 'https://github.com/joewa/open-bldc-modelica.git' 'master' '58a83b5b36f267613de4676c95163489b1ddc2e7'
--	test ! -d 'build//OpenBLDC'
--	cp -a 'git/open-bldc-modelica/OpenBLDC' "$(BUILD_DIR)/OpenBLDC"
--	echo 'Modelica 3.2.2' >> "$(BUILD_DIR)/OpenBLDC.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/OpenBLDC.license"
--	echo '20170913-145654~git~master' > "$(BUILD_DIR)/OpenBLDC.last_change"
--openfdm:
--	# Building git/openfdm
--	./checkout-git.sh 'git/openfdm' 'https://github.com/modelica-3rdparty/openfdm.git' 'master' '382562b4b3a499472017977e52e62b6ac2f88baa'
--	test ! -d 'build//OpenFDM'
--	cp -a 'git/openfdm/OpenFDM' "$(BUILD_DIR)/OpenFDM"
--	echo '' > "$(BUILD_DIR)/OpenFDM.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/OpenFDM.license"
--	echo '20120902-165856~git~master' > "$(BUILD_DIR)/OpenFDM.last_change"
--	test ! -d 'build//test'
--	cp -a 'git/openfdm/test' "$(BUILD_DIR)/test"
--	echo '' > "$(BUILD_DIR)/test.uses"
--	echo 'modelica2' > "$(BUILD_DIR)/test.license"
--	echo '20120902-165856~git~master' > "$(BUILD_DIR)/test.last_change"
-+MSL:
-+	# Building git/MSL
-+	cp -ur 'Modelica/Complex.mo' "$(BUILD_DIR)/Complex 3.2.2.mo"
-+	cp -ur 'Modelica/Modelica 3.2.2' "$(BUILD_DIR)/"
-+	cp -ur 'Modelica/ModelicaServices 3.2.2' "$(BUILD_DIR)/"
+ host_short=$host_cpu-$host_os
+ 
