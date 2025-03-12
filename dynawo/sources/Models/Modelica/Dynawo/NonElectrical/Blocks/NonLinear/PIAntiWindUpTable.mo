@@ -42,11 +42,9 @@ model PIAntiWindUpTable "Proportional Integrator with anti-windup and table-base
   parameter Real Y0 "Start value of output";
 
 equation
-  if time >= 0 then
+  when time >= 0 then
     y.value = combiTable1D.y[1];
-  else
-    y.value = pre(y.value);
-  end if;
+  end when;
 
   connect(add1.y, integrator.u) annotation(
     Line(points = {{-59, -20}, {-41, -20}}, color = {0, 0, 127}));
