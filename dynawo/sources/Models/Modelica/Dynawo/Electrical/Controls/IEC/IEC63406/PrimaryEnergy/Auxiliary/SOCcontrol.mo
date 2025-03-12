@@ -15,7 +15,7 @@ within Dynawo.Electrical.Controls.IEC.IEC63406.PrimaryEnergy.Auxiliary;
 model SOCcontrol "Module to limit output power depending on SOC (IEC 63406)"
 
   // Parameters
-  parameter Types.PerUnit PMaxPu "Maximum active power at converter terminal in pu (base SNom)" annotation(
+  parameter Types.ActivePowerPu PMaxPu "Maximum active power at converter terminal in pu (base SNom)" annotation(
     Dialog(tab = "SOCcontrol"));
   parameter Types.Percent SOCMax "Maximum SOC amount for charging in %" annotation(
     Dialog(tab = "SOCcontrol"));
@@ -27,14 +27,12 @@ model SOCcontrol "Module to limit output power depending on SOC (IEC 63406)"
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   //Output variables
-  Modelica.Blocks.Interfaces.RealOutput pAvailInPu(start = PAvailIn0Pu) "Minimum output electrical power available to the active power control module in pu (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput pAvailInPu(start = -PMaxPu) "Minimum output electrical power available to the active power control module in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 22}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 22}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput pAvailOutPu(start = PMaxPu) "Maximum output electrical power available to the active power control module in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
-  parameter Types.PerUnit PAvailIn0Pu "Initial minimum output electrical power available to the active power control module in pu (base SNom)" annotation(
-    Dialog(tab = "Operating point"));
   parameter Types.Percent SOCInit "Initial SOC amount in %" annotation(
     Dialog(tab = "StorageSys"));
 

@@ -8,24 +8,24 @@
     file, you can obtain one at http://mozilla.org/MPL/2.0/.
     SPDX-License-Identifier: MPL-2.0
 
-    This file is part of Dynawo, a hybrid C++/Modelica open source suite of
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
     simulation tools for power systems.
 -->
 <dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:job name="IEC63406CurrentSource">
-    <dyn:solver lib="dynawo_SolverSIM" parFile="IEC63406CurrentSource.par" parId="Solver"/>
+  <dyn:job name="WPP4ACurrentSource2015">
+    <dyn:solver lib="dynawo_SolverIDA" parFile="WPP4ACurrentSource2015.par" parId="IDA"/>
     <dyn:modeler compileDir="outputs/compilation">
-      <dyn:dynModels dydFile="IEC63406CurrentSource.dyd"/>
+      <dyn:dynModels dydFile="WPP4ACurrentSource2015.dyd"/>
       <dyn:precompiledModels useStandardModels="true"/>
       <dyn:modelicaModels useStandardModels="true"/>
     </dyn:modeler>
-    <dyn:simulation startTime="0" stopTime="5"/>
+    <dyn:simulation startTime="0" stopTime="15"/>
     <dyn:outputs directory="outputs">
       <dyn:dumpInitValues local="true" global="true"/>
       <dyn:timeline exportMode="TXT"/>
-      <dyn:curves inputFile="IEC63406CurrentSource.crv" exportMode="CSV"/>
+      <dyn:curves inputFile="WPP4ACurrentSource2015.crv" exportMode="CSV"/>
       <dyn:logs>
-        <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
+        <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
       </dyn:logs>
     </dyn:outputs>
   </dyn:job>

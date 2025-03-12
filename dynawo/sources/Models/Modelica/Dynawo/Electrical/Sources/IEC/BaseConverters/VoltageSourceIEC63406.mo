@@ -40,7 +40,15 @@ modulation/switching process." annotation(Dialog(tab = "Source"));
   Modelica.Blocks.Interfaces.RealInput thetaPLL(start = UPhase0) "Phase shift between the converter and the grid rotating frames in rad" annotation(
     Placement(visible = true, transformation(origin = {-210, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 110}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
   Modelica.ComplexBlocks.Interfaces.ComplexInput uPu(re(start = u0Pu.re), im(start = u0Pu.im)) "Complex voltage at grid terminal in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {210, -80}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {110, -80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {210, -80}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {110, -90}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+
+  //Output variables
+  Modelica.Blocks.Interfaces.RealOutput PInjPu "Active power injected at converter terminal (before RLC filter or internal network) in pu (base SNom) (generator convention)" annotation(
+    Placement(visible = true, transformation(origin = {210, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {105, -41}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput QInjPu "Reactive power injected at converter terminal (before RLC filter or internal network) in pu (base SNom) (generator convention)" annotation(
+    Placement(visible = true, transformation(origin = {210, -36}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {105, -61}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput uBT "Voltage magnitude at converter terminal (before RLC filter or internal network) in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {210, -54}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {105, -21}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
 
   Modelica.ComplexBlocks.ComplexMath.RealToComplex realToComplex annotation(
     Placement(visible = true, transformation(origin = {110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -58,6 +66,16 @@ modulation/switching process." annotation(Dialog(tab = "Source"));
     Placement(visible = true, transformation(origin = {-40, -72}, extent = {{20, 20}, {-20, -20}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.Utilities.TransformDQtoRI transformDQtoRI annotation(
     Placement(visible = true, transformation(origin = {40, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.ComplexBlocks.ComplexMath.ComplexToPolar complexToPolar annotation(
+    Placement(visible = true, transformation(origin = {130, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.ComplexBlocks.Sources.ComplexExpression uGs(y = terminal.V) annotation(
+    Placement(visible = true, transformation(origin = {70, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.ComplexBlocks.ComplexMath.Product product(useConjugateInput2 = true) annotation(
+    Placement(visible = true, transformation(origin = {130, -30}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
+  Modelica.ComplexBlocks.Sources.ComplexExpression iGs(y = -terminal.i * (SystemBase.SnRef / SNom)) annotation(
+    Placement(visible = true, transformation(origin = {130, -10}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+  Modelica.ComplexBlocks.ComplexMath.ComplexToReal complexToReal annotation(
+    Placement(visible = true, transformation(origin = {170, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
   parameter Types.PerUnit IsIm0Pu "Initial imaginary component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
@@ -74,13 +92,17 @@ modulation/switching process." annotation(Dialog(tab = "Source"));
     Dialog(tab = "Operating point"));
   parameter Types.ComplexVoltagePu u0Pu "Initial complex voltage at grid terminal in pu (base UNom)" annotation(
     Dialog(group = "Operating point"));
-  parameter Types.PerUnit Ued0Pu "Initial direct component of the voltage at converter terminal in pu (base UNom)";
-  parameter Types.PerUnit Ueq0Pu "Initial direct component of the voltage at converter terminal in pu (base UNom)";
-  parameter Types.PerUnit UeIm0Pu "Initial imaginary component of the voltage at converter terminal in pu (base UNom)";
-  parameter Types.PerUnit UeRe0Pu "Initial real component of the voltage at converter terminal in pu (base UNom)";
+  parameter Types.PerUnit  Ued0Pu "Initial direct component of the voltage at converter terminal in pu (base UNom)" annotation(
+    Dialog(tab = "Operating point"));
+  parameter Types.PerUnit Ueq0Pu "Initial quadratic component of the voltage at converter terminal in pu (base UNom)" annotation(
+    Dialog(tab = "Operating point"));
+  parameter Types.PerUnit UeIm0Pu "Initial imaginary component of the voltage at converter terminal in pu (base UNom)" annotation(
+    Dialog(tab = "Operating point"));
+  parameter Types.PerUnit UeRe0Pu "Initial real component of the voltage at converter terminal in pu (base UNom)" annotation(
+    Dialog(tab = "Operating point"));
 
 equation
-  Complex(transformDQtoRI.urPu, transformDQtoRI.uiPu) = terminal.V * (SystemBase.SnRef / SNom);
+  Complex(transformDQtoRI.urPu, transformDQtoRI.uiPu) = terminal.V;
 
   connect(ipRefPu, firstOrder.u) annotation(
     Line(points = {{-210, 60}, {-182, 60}}, color = {0, 0, 127}));
@@ -112,7 +134,20 @@ equation
     Line(points = {{62, 8}, {80, 8}, {80, 14}, {98, 14}}, color = {0, 0, 127}));
   connect(uPu, transformRItoDQ.uPu) annotation(
     Line(points = {{210, -80}, {-14, -80}, {-14, -84}, {-18, -84}}, color = {85, 170, 255}));
-
+  connect(complexToReal.im, QInjPu) annotation(
+    Line(points = {{182, -36}, {210, -36}}, color = {0, 0, 127}));
+  connect(iGs.y, product.u2) annotation(
+    Line(points = {{119, -10}, {101, -10}, {101, -24}, {117, -24}}, color = {85, 170, 255}));
+  connect(complexToPolar.len, uBT) annotation(
+    Line(points = {{142, -54}, {210, -54}}, color = {0, 0, 127}));
+  connect(uGs.y, product.u1) annotation(
+    Line(points = {{81, -60}, {100, -60}, {100, -36}, {118, -36}}, color = {85, 170, 255}));
+  connect(complexToReal.re, PInjPu) annotation(
+    Line(points = {{182, -24}, {196, -24}, {196, -20}, {210, -20}}, color = {0, 0, 127}));
+  connect(product.y, complexToReal.u) annotation(
+    Line(points = {{141, -30}, {157, -30}}, color = {85, 170, 255}));
+  connect(uGs.y, complexToPolar.u) annotation(
+    Line(points = {{81, -60}, {117, -60}}, color = {85, 170, 255}));
   annotation(
     preferredView = "diagram",
     Diagram(graphics = {Line(origin = {130.991, 20.068}, points = {{-9, 0}, {9, 0}, {69, 0}}, color = {114, 159, 207})}, coordinateSystem(extent = {{-200, -100}, {200, 100}})),

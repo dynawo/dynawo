@@ -15,55 +15,55 @@ within Dynawo.Electrical.Controls.IEC.IEC63406.Protections;
 model Protection "Protection module (IEC63406)"
 
   // Voltage protection parameters
-  parameter Real TLVP3 "Disconnection time for high voltage level 3" annotation(
+  parameter Types.Time TLVP3 "Disconnection time for high voltage level 3" annotation(
     Dialog(tab = "Protection"));
-  parameter Real TLVP2 "Disconnection time for high voltage level 2" annotation(
+  parameter Types.Time TLVP2 "Disconnection time for high voltage level 2" annotation(
     Dialog(tab = "Protection"));
-  parameter Real TLVP1 "Disconnection time for high voltage level 1" annotation(
+  parameter Types.Time TLVP1 "Disconnection time for high voltage level 1" annotation(
     Dialog(tab = "Protection"));
-  parameter Real THVP1 "Disconnection time for low voltage level 1" annotation(
+  parameter Types.Time THVP1 "Disconnection time for low voltage level 1" annotation(
     Dialog(tab = "Protection"));
-  parameter Real THVP2 "Disconnection time for low voltage level 2" annotation(
+  parameter Types.Time THVP2 "Disconnection time for low voltage level 2" annotation(
     Dialog(tab = "Protection"));
-  parameter Real THVP3 "Disconnection time for low voltage level 3" annotation(
+  parameter Types.Time THVP3 "Disconnection time for low voltage level 3" annotation(
     Dialog(tab = "Protection"));
-  parameter Real ULVP3 "Low voltage level 3 in pu (base UNom)" annotation(
+  parameter Types.VoltageModulePu ULVP3 "Low voltage level 3 in pu (base UNom)" annotation(
     Dialog(tab = "Protection"));
-  parameter Real ULVP2 "Low voltage level 2 in pu (base UNom)" annotation(
+  parameter Types.VoltageModulePu ULVP2 "Low voltage level 2 in pu (base UNom)" annotation(
     Dialog(tab = "Protection"));
-  parameter Real ULVP1 "Low voltage level 1 in pu (base UNom)" annotation(
+  parameter Types.VoltageModulePu ULVP1 "Low voltage level 1 in pu (base UNom)" annotation(
     Dialog(tab = "Protection"));
-  parameter Real UHVP1 "High voltage level 1 in pu (base UNom)" annotation(
+  parameter Types.VoltageModulePu UHVP1 "High voltage level 1 in pu (base UNom)" annotation(
     Dialog(tab = "Protection"));
-  parameter Real UHVP2 "High voltage level 2 in pu (base UNom)" annotation(
+  parameter Types.VoltageModulePu UHVP2 "High voltage level 2 in pu (base UNom)" annotation(
     Dialog(tab = "Protection"));
-  parameter Real UHVP3 "High voltage level 3 in pu (base UNom)" annotation(
+  parameter Types.VoltageModulePu UHVP3 "High voltage level 3 in pu (base UNom)" annotation(
     Dialog(tab = "Protection"));
 
   // Frequency protection parameters
-  parameter Real fLfP3 "Low frequency level 3 in pu (base nominal frequency)" annotation(
+  parameter Types.Frequency fLfP3 "Low frequency level 3 in pu (base nominal frequency)" annotation(
     Dialog(tab = "Protection"));
-  parameter Real fLfP2 "Low frequency level 2 in pu (base nominal frequency)" annotation(
+  parameter Types.Frequency fLfP2 "Low frequency level 2 in pu (base nominal frequency)" annotation(
     Dialog(tab = "Protection"));
-  parameter Real fLfP1 "Low frequency level 1 in pu (base nominal frequency)" annotation(
+  parameter Types.Frequency fLfP1 "Low frequency level 1 in pu (base nominal frequency)" annotation(
     Dialog(tab = "Protection"));
-  parameter Real fHfP1 "High frequency level 1 in pu (base nominal frequency)" annotation(
+  parameter Types.Frequency fHfP1 "High frequency level 1 in pu (base nominal frequency)" annotation(
     Dialog(tab = "Protection"));
-  parameter Real fHfP2 "High frequency level 2 in pu (base nominal frequency)" annotation(
+  parameter Types.Frequency fHfP2 "High frequency level 2 in pu (base nominal frequency)" annotation(
     Dialog(tab = "Protection"));
-  parameter Real fHfP3 "High frequency level 3 in pu (base nominal frequency)" annotation(
+  parameter Types.Frequency fHfP3 "High frequency level 3 in pu (base nominal frequency)" annotation(
     Dialog(tab = "Protection"));
-  parameter Real TLfP3 "Disconnection time for low frequency level 3" annotation(
+  parameter Types.Time TLfP3 "Disconnection time for low frequency level 3" annotation(
     Dialog(tab = "Protection"));
-  parameter Real TLfP2 "Disconnection time for low frequency level 3" annotation(
+  parameter Types.Time TLfP2 "Disconnection time for low frequency level 3" annotation(
     Dialog(tab = "Protection"));
-  parameter Real TLfP1 "Disconnection time for low frequency level 3" annotation(
+  parameter Types.Time TLfP1 "Disconnection time for low frequency level 3" annotation(
     Dialog(tab = "Protection"));
-  parameter Real THfP1 "Disconnection time for high frequency level 3" annotation(
+  parameter Types.Time THfP1 "Disconnection time for high frequency level 3" annotation(
     Dialog(tab = "Protection"));
-  parameter Real THfP2 "Disconnection time for high frequency level 3" annotation(
+  parameter Types.Time THfP2 "Disconnection time for high frequency level 3" annotation(
     Dialog(tab = "Protection"));
-  parameter Real THfP3 "Disconnection time for high frequency level 3" annotation(
+  parameter Types.Time THfP3 "Disconnection time for high frequency level 3" annotation(
     Dialog(tab = "Protection"));
 
   // Other protection parameters
@@ -71,15 +71,15 @@ model Protection "Protection module (IEC63406)"
     Dialog(tab = "Protection"));
   parameter Real DerThetaMax "Maximum level of angle variation in rad/s" annotation(
     Dialog(tab = "Protection"));
-  parameter Real TDerfMax "Disconnection time for high level of frequency variation" annotation(
+  parameter Types.Time TDerfMax "Disconnection time for high level of frequency variation" annotation(
     Dialog(tab = "Protection"));
-  parameter Real TDerThetaMax "Disconnection time for high level of angle variation" annotation(
+  parameter Types.Time TDerThetaMax "Disconnection time for high level of angle variation" annotation(
     Dialog(tab = "Protection"));
 
   //Input variables
-  Modelica.Blocks.Interfaces.RealInput fMeasPu(start = 1) "Measured frequency outputted by the phase-locked loop  in pu (base nominal frequency in Hz)" annotation(
+  Modelica.Blocks.Interfaces.RealInput fMeasPu(start = 1) "Measured frequency outputted by the phase-locked loop in pu (base fNom)" annotation(
     Placement(visible = true, transformation(origin = {-220, -100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-239, -1}, extent = {{-39, -39}, {39, 39}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput thetaPLL(start = UPhase0) "Phase angle outputted by phase-locked loop" annotation(
+  Modelica.Blocks.Interfaces.RealInput thetaPLL(start = UPhase0) "Phase angle outputted by phase-locked loop (in rad)" annotation(
     Placement(visible = true, transformation(origin = {-220, -320}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-239, -159}, extent = {{-39, -39}, {39, 39}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput uMeasPu(start = U0Pu) "Filtered voltage amplitude at grid terminal in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-220, 200}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-239, 161}, extent = {{-39, -39}, {39, 39}}, rotation = 0)));
@@ -91,7 +91,7 @@ model Protection "Protection module (IEC63406)"
   //Initial parameters
   parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
     Dialog(group = "Operating point"));
-  parameter Types.Angle UPhase0 "Initial Phase angle outputted by phase-locked loop" annotation(
+  parameter Types.Angle UPhase0 "Initial Phase angle outputted by phase-locked loop (in rad)" annotation(
     Dialog(group = "Operating point"));
 
   Modelica.Blocks.Logical.Timer timer annotation(

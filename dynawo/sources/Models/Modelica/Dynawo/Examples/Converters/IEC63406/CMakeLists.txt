@@ -1,4 +1,4 @@
-# Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+# Copyright (c) 2025, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -11,13 +11,9 @@
 set(MODEL_FILES
   package.mo
   package.order
-  LoadflowSimple.mo
-  CurrentSourceIEC63406.mo
-  CurrentSourceIEC63406_BESS.mo
-  CurrentSourceIEC63406_INIT.mo
-  VoltageSourceIEC63406.mo
-  VoltageSourceIEC63406_BESS.mo
-  VoltageSourceIEC63406_INIT.mo
+  LoadFlowSimple.mo
+  FaultCurrentSource.mo
+  FaultVoltageSource.mo
   )
 
 #

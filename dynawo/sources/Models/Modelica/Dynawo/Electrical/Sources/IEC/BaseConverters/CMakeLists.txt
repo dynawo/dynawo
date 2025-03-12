@@ -12,12 +12,12 @@
 set(MODEL_FILES
   package.mo
   package.order
+  CurrentSourceIEC63406.mo
   ElecSystem.mo
   GenSystem4.mo
   RefFrameRotation.mo
-  CurrentSourceIEC63406.mo
-  VoltageSourceIEC63406.mo
   UgridToUconverter.mo
+  VoltageSourceIEC63406.mo
   )
 
 #

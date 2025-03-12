@@ -34,14 +34,32 @@ model CurrentSourceIEC63406 "Converter system module with current source interfa
   Modelica.Blocks.Interfaces.RealInput thetaPLL(start = UPhase0) "Phase shift between the converter and the grid rotating frames in rad" annotation(
     Placement(visible = true, transformation(origin = {-150, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 110}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
 
+  //Output variables
+  Modelica.Blocks.Interfaces.RealOutput PInjPu "Active power injected at converter terminal (before RLC filter or internal network) in pu (base SNom) (generator convention)" annotation(
+    Placement(visible = true, transformation(origin = {150, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {105, -55}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput QInjPu "Reactive power injected at converter terminal (before RLC filter or internal network) in pu (base SNom) (generator convention)" annotation(
+    Placement(visible = true, transformation(origin = {150, -66}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {105, -75}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput uBT "Voltage magnitude at converter terminal (before RLC filter or internal network) in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {150, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {105, -35}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
+
+  Modelica.ComplexBlocks.ComplexMath.ComplexToPolar complexToPolar annotation(
+    Placement(visible = true, transformation(origin = {70, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.RealToComplex realToComplex annotation(
     Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Sources.IEC.BaseConverters.RefFrameRotation iECFrameRotation(IGsIm0Pu = IGsIm0Pu, IGsRe0Pu = IGsRe0Pu, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0) annotation(
     Placement(visible = true, transformation(origin = {1.58946e-07, -4.76837e-07}, extent = {{-20, -60}, {20, 60}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = Tg, y_start = -P0Pu * SystemBase.SnRef / (SNom * U0Pu))  annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = Tg, y_start = -P0Pu * SystemBase.SnRef / (SNom * U0Pu)) annotation(
     Placement(visible = true, transformation(origin = {-90, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = Tg, y_start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu))  annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = Tg, y_start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) annotation(
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.ComplexBlocks.Sources.ComplexExpression iGs(y = -terminal.i * (SystemBase.SnRef / SNom)) annotation(
+    Placement(visible = true, transformation(origin = {70, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+  Modelica.ComplexBlocks.Sources.ComplexExpression uGs(y = terminal.V) annotation(
+    Placement(visible = true, transformation(origin = {10, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.ComplexBlocks.ComplexMath.Product product(useConjugateInput2 = true) annotation(
+    Placement(visible = true, transformation(origin = {70, -60}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
+  Modelica.ComplexBlocks.ComplexMath.ComplexToReal complexToReal annotation(
+    Placement(visible = true, transformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
   parameter Types.PerUnit IGsIm0Pu "Initial imaginary component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
@@ -74,11 +92,24 @@ equation
     Line(points = {{-78, 0}, {-26, 0}}, color = {0, 0, 127}));
   connect(ipRefPu, firstOrder.u) annotation(
     Line(points = {{-150, 60}, {-102, 60}}, color = {0, 0, 127}));
- connect(iqRefPu, firstOrder1.u) annotation(
+  connect(iqRefPu, firstOrder1.u) annotation(
     Line(points = {{-150, 0}, {-102, 0}}, color = {0, 0, 127}));
- connect(thetaPLL, iECFrameRotation.theta) annotation(
+  connect(thetaPLL, iECFrameRotation.theta) annotation(
     Line(points = {{-150, -60}, {-60, -60}, {-60, -54}, {-26, -54}}, color = {0, 0, 127}));
-
+  connect(uGs.y, product.u1) annotation(
+    Line(points = {{21, -90}, {40, -90}, {40, -66}, {58, -66}}, color = {85, 170, 255}));
+  connect(complexToReal.re, PInjPu) annotation(
+    Line(points = {{122, -54}, {136, -54}, {136, -40}, {150, -40}}, color = {0, 0, 127}));
+  connect(product.y, complexToReal.u) annotation(
+    Line(points = {{82, -60}, {98, -60}}, color = {85, 170, 255}));
+  connect(iGs.y, product.u2) annotation(
+    Line(points = {{60, -40}, {40, -40}, {40, -54}, {58, -54}}, color = {85, 170, 255}));
+  connect(complexToReal.im, QInjPu) annotation(
+    Line(points = {{122, -66}, {150, -66}}, color = {0, 0, 127}));
+  connect(uGs.y, complexToPolar.u) annotation(
+    Line(points = {{22, -90}, {58, -90}}, color = {85, 170, 255}));
+  connect(complexToPolar.len, uBT) annotation(
+    Line(points = {{82, -84}, {100, -84}, {100, -90}, {150, -90}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     Diagram(graphics = {Line(origin = {90.7207, -0.279255}, points = {{-9, 0}, {9, 0}, {51, 0}}, color = {114, 159, 207})}, coordinateSystem(extent = {{-140, -100}, {140, 100}})),

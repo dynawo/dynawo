@@ -16,15 +16,15 @@ block SwitchComplex "Switch between two Complex signals"
   extends Modelica.Blocks.Icons.PartialBooleanBlock;
 
   //Input variables
-  Modelica.ComplexBlocks.Interfaces.ComplexInput u1 annotation(
+  Modelica.ComplexBlocks.Interfaces.ComplexInput u1 "Connector of first Complex input signal" annotation(
     Placement(visible = true, transformation(origin = {-120, 58}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.BooleanInput u2 annotation(
+  Modelica.Blocks.Interfaces.BooleanInput u2 "Connector of Boolean input signal" annotation(
     Placement(visible = true, transformation(extent = {{-140, -20}, {-100, 20}}, rotation = 0), iconTransformation(extent = {{-140, -20}, {-100, 20}}, rotation = 0)));
-  Modelica.ComplexBlocks.Interfaces.ComplexInput u3 annotation(
+  Modelica.ComplexBlocks.Interfaces.ComplexInput u3 "Connector of second Complex input signal" annotation(
     Placement(visible = true, transformation(origin = {-122, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   //Output variables
-  Modelica.ComplexBlocks.Interfaces.ComplexOutput y annotation(
+  Modelica.ComplexBlocks.Interfaces.ComplexOutput y "Connector of Real output signal" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation

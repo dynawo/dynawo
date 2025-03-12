@@ -25,16 +25,22 @@ model UgridToUconverter "Block to go from grid voltage to converter terminal vol
     Placement(visible = true, transformation(origin = {-120, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput iqPu "Quadratic current component at grid or converter terminal in pu (base SNom, UNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput ugdPu "Direct voltage component at grid terminal in pu (base SNom, UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput ugdPu "Direct voltage component at grid terminal in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {40, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {40, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput ugqPu "Quadratic voltage component at grid terminal in pu (base SNom, UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput ugqPu "Quadratic voltage component at grid terminal in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-40, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-40, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
 
   //Output variable
-  Modelica.Blocks.Interfaces.RealOutput uedPu "Direct voltage component at converter terminal in pu (base SNom, UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput uedPu(start = Ued0Pu) "Direct voltage component at converter terminal in pu (base SNom, UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput ueqPu "Quadratic voltage component at converter terminal in pu (base SNom, UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput ueqPu(start = Ueq0Pu) "Quadratic voltage component at converter terminal in pu (base SNom, UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  //Initial parameters
+  parameter Types.PerUnit  Ued0Pu "Initial direct component of the voltage at converter terminal in pu (base UNom)" annotation(
+    Dialog(tab = "Operating point"));
+  parameter Types.PerUnit Ueq0Pu "Initial quadratic component of the voltage at converter terminal in pu (base UNom)" annotation(
+    Dialog(tab = "Operating point"));
 
 equation
   uedPu = ugdPu + idPu * ResPu - iqPu * XesPu;

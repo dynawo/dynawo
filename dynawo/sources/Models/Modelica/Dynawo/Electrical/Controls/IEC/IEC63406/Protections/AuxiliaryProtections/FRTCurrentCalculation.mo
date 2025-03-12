@@ -18,37 +18,35 @@ model FRTCurrentCalculation "Current orders calculation during FRT (IEC63406)"
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
 
   //Parameters
-  parameter Types.PerUnit iPSetPu "Active current setting during LVRT or HVRT" annotation(
+  parameter Types.PerUnit iPSetPu "Active current setting during LVRT or HVRT in pu (base UNom, SNom)" annotation(
     Dialog(tab = "FRT"));
-  parameter Types.PerUnit iQSetPu "Reactive current setting during LVRT or HVRT" annotation(
+  parameter Types.PerUnit iQSetPu "Reactive current setting during LVRT or HVRT in pu (base UNom, SNom)" annotation(
     Dialog(tab = "FRT"));
-  parameter Real K1Ip "Active current factor 1 during LVRT or HVRT" annotation(
+  parameter Types.PerUnit K1Ip "Active current factor 1 during LVRT or HVRT" annotation(
     Dialog(tab = "FRT"));
-  parameter Real K2Ip "Active current factor 2 during LVRT or HVRT" annotation(
+  parameter Types.PerUnit K2Ip "Active current factor 2 during LVRT or HVRT" annotation(
     Dialog(tab = "FRT"));
-  parameter Real K1Iq "Reactive current factor 1 during LVRT or HVRT" annotation(
+  parameter Types.PerUnit K1Iq "Reactive current factor 1 during LVRT or HVRT" annotation(
     Dialog(tab = "FRT"));
-  parameter Real K2Iq "Reactive current factor 2 during LVRT or HVRT" annotation(
+  parameter Types.PerUnit K2Iq "Reactive current factor 2 during LVRT or HVRT" annotation(
     Dialog(tab = "FRT"));
-  parameter Real KpRT "Active power factor during LVRT or HVRT" annotation(
+  parameter Types.PerUnit KpRT "Active power factor during LVRT or HVRT" annotation(
     Dialog(tab = "FRT"));
-  parameter Real KqRT "Reactive power factor during LVRT or HVRT" annotation(
+  parameter Types.PerUnit KqRT "Reactive power factor during LVRT or HVRT" annotation(
     Dialog(tab = "FRT"));
-  Types.PerUnit pPreFaultPu(start = 0) "Active power measured on the time step preceding a fault in pu (base SNom)";
-  Types.PerUnit qPreFaultPu(start = 0) "Reactive power measured on the time step preceding a fault in pu (base SNom)";
-  parameter Types.PerUnit pSetPu "Active power setting during LVRT or HVRT" annotation(
+  parameter Types.ActivePowerPu pSetPu "Active power setting during LVRT or HVRT in pu (base SNom)" annotation(
     Dialog(tab = "FRT"));
-  parameter Types.PerUnit qSetPu "Reactive power setting during LVRT or HVRT" annotation(
+  parameter Types.ReactivePowerPu qSetPu "Reactive power setting during LVRT or HVRT in pu (base SNom)" annotation(
     Dialog(tab = "FRT"));
-  parameter Types.PerUnit uHVRTPu "HVRT threshold value" annotation(
+  parameter Types.PerUnit uHVRTPu "HVRT threshold value in pu (base UNom)" annotation(
     Dialog(tab = "FRT"));
-  parameter Types.PerUnit uLVRTPu "LVRT threshold value" annotation(
+  parameter Types.PerUnit uLVRTPu "LVRT threshold value in pu (base UNom)" annotation(
     Dialog(tab = "FRT"));
-  parameter Types.PerUnit uRTPu "LVRT or HVRT threshold value" annotation(
+  parameter Types.PerUnit uRTPu "LVRT or HVRT threshold value in pu (base UNom)" annotation(
     Dialog(tab = "FRT"));
 
   //Input variables
-  Modelica.Blocks.Interfaces.RealInput iPcmdPu(start = P0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Active current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput iPcmdPu(start = -P0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Active current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput iQcmdPu(start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Reactive current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-120, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -60,14 +58,17 @@ model FRTCurrentCalculation "Current orders calculation during FRT (IEC63406)"
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   //Output variables
-  Modelica.Blocks.Interfaces.RealOutput ipRTPu0(start = -P0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Active current in pu (base SNom, UNom) calculated by the FRT module and used if H/LVRT_IN_PFlag = 0" annotation(
+  Modelica.Blocks.Interfaces.RealOutput ipRTPu0(start = -P0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Active current in pu (base SNom, UNom) calculated by the FRT module and used if H/LVRT_IN_PFlag = 0 (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput ipRTPu1(start = -P0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Active current in pu (base SNom, UNom) calculated by the FRT module and used if H/LVRT_IN_PFlag = 1" annotation(
+  Modelica.Blocks.Interfaces.RealOutput ipRTPu1(start = -P0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Active current in pu (base SNom, UNom) calculated by the FRT module and used if H/LVRT_IN_PFlag = 1 (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput iqRTPu0(start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Reactive current in pu (base SNom, UNom) calculated by the FRT module and used if H/LVRT_IN_QFlag = 0" annotation(
+  Modelica.Blocks.Interfaces.RealOutput iqRTPu0(start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Reactive current in pu (base SNom, UNom) calculated by the FRT module and used if H/LVRT_IN_QFlag = 0 (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput iqRTPu1(start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Reactive current in pu (base SNom, UNom) calculated by the FRT module and used if H/LVRT_IN_QFlag = 1" annotation(
+  Modelica.Blocks.Interfaces.RealOutput iqRTPu1(start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Reactive current in pu (base SNom, UNom) calculated by the FRT module and used if H/LVRT_IN_QFlag = 1 (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  Types.ActivePowerPu pPreFaultPu(start = 0) "Active power measured on the time step preceding a fault in pu (base SNom)";
+  Types.ReactivePowerPu qPreFaultPu(start = 0) "Reactive power measured on the time step preceding a fault in pu (base SNom)";
 
   //Initial parameters
   parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(

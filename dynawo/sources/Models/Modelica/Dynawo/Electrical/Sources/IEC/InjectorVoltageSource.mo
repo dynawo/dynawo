@@ -33,7 +33,7 @@ modulation/switching process." annotation(Dialog(tab = "Source"));
     Placement(visible = true, transformation(origin = {-120, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 50}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput iqRefPu(start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Reactive current reference order in pu (base SNom, UNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -50}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput thetaPLL(start = UPhase0) "Phase angle outputted by phase-locked loop" annotation(
+  Modelica.Blocks.Interfaces.RealInput thetaPLL(start = UPhase0) "Phase angle outputted by phase-locked loop (in rad)" annotation(
     Placement(visible = true, transformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {0, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
 
   //Output variables
@@ -41,6 +41,9 @@ modulation/switching process." annotation(Dialog(tab = "Source"));
     Placement(visible = true, transformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.Interfaces.ComplexOutput uPu(re(start = u0Pu.re), im(start = u0Pu.im)) "Complex voltage at grid terminal in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  Types.ActivePowerPu PGenPu(start = -P0Pu) "Active power at terminal in pu (base SnRef) (generator convention)";
+  Types.ReactivePowerPu QGenPu(start = -Q0Pu) "Reactive power at terminal in pu (base SnRef) (generator convention)";
 
   //Interfaces
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Grid terminal, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(
@@ -50,7 +53,7 @@ modulation/switching process." annotation(Dialog(tab = "Source"));
     Placement(visible = true, transformation(origin = {60, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.RealToComplex realToComplex1 annotation(
     Placement(visible = true, transformation(origin = {60, -70}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Dynawo.Electrical.Sources.IEC.BaseConverters.ElecSystem elecSystem(BesPu = 0, GesPu = 0, IGsIm0Pu = IsIm0Pu, IGsRe0Pu = IsRe0Pu, ResPu = ResPu, SNom = SNom, UGsIm0Pu = UeIm0Pu, UGsRe0Pu = UeRe0Pu, XesPu = XesPu, i0Pu = i0Pu, u0Pu = u0Pu) annotation(
+  Dynawo.Electrical.Sources.IEC.BaseConverters.ElecSystem elecSystem(BesPu = 10e-6, GesPu = 10e-6, IGsIm0Pu = IsIm0Pu, IGsRe0Pu = IsRe0Pu, ResPu = ResPu, SNom = SNom, UGsIm0Pu = UeIm0Pu, UGsRe0Pu = UeRe0Pu, XesPu = XesPu, i0Pu = i0Pu, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {40, 1.77636e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Sources.IEC.BaseConverters.VoltageSourceIEC63406 voltageSourceIEC63406(IsIm0Pu = IsIm0Pu, IsRe0Pu = IsRe0Pu, P0Pu = P0Pu, Q0Pu = Q0Pu, ResPu = ResPu, SNom = SNom, Te = Te, Tg = Tg, U0Pu = U0Pu, UPhase0 = UPhase0, UeIm0Pu = UeIm0Pu, UeRe0Pu = UeRe0Pu, Ued0Pu = Ued0Pu, Ueq0Pu = Ueq0Pu, XesPu = XesPu)  annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-40, -20}, {40, 20}}, rotation = 0)));
@@ -70,14 +73,20 @@ modulation/switching process." annotation(Dialog(tab = "Source"));
     Dialog(group = "Operating point"));
   parameter Types.ComplexVoltagePu u0Pu "Initial complex voltage at grid terminal in pu (base UNom)" annotation(
     Dialog(group = "Operating point"));
-  parameter Types.PerUnit Ued0Pu "Initial direct component of the voltage at converter terminal in pu (base UNom)";
-  parameter Types.PerUnit Ueq0Pu "Initial direct component of the voltage at converter terminal in pu (base UNom)";
-  parameter Types.PerUnit UeIm0Pu "Initial imaginary component of the voltage at converter terminal in pu (base UNom)";
-  parameter Types.PerUnit UeRe0Pu "Initial real component of the voltage at converter terminal in pu (base UNom)";
-  parameter Types.Angle UPhase0 "Initial Phase angle outputted by phase-locked loop" annotation(
+  parameter Types.PerUnit  Ued0Pu "Initial direct component of the voltage at converter terminal in pu (base UNom)" annotation(
+    Dialog(tab = "Operating point"));
+  parameter Types.PerUnit Ueq0Pu "Initial quadratic component of the voltage at converter terminal in pu (base UNom)" annotation(
+    Dialog(tab = "Operating point"));
+  parameter Types.PerUnit UeIm0Pu "Initial imaginary component of the voltage at converter terminal in pu (base UNom)" annotation(
+    Dialog(tab = "Operating point"));
+  parameter Types.PerUnit UeRe0Pu "Initial real component of the voltage at converter terminal in pu (base UNom)" annotation(
+    Dialog(tab = "Operating point"));
+  parameter Types.Angle UPhase0 "Initial Phase angle outputted by phase-locked loop (in rad)" annotation(
     Dialog(group = "Operating point"));
 
 equation
+  PGenPu = ComplexMath.real(terminal.V * ComplexMath.conj(-terminal.i));
+  QGenPu = ComplexMath.imag(terminal.V * ComplexMath.conj(-terminal.i));
   voltageSourceIEC63406.running = running.value;
 
   connect(realToComplex1.y, uPu) annotation(

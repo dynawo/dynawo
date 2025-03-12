@@ -12,5 +12,5 @@
     simulation tools for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-  <curve model="Converter" variable="Converter_gridMeasurement_PFiltPu"/>
+  <curve model="Converter" variable="Converter_gridMeasurement_PMeasPu"/>
 </curvesInput>

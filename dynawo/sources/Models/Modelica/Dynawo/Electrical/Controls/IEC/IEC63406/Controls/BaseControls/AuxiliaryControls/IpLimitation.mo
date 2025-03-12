@@ -18,8 +18,8 @@ model IpLimitation "Active current limitation block (IEC 63406)"
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
 
   //General parameters
-  parameter Types.PerUnit IMaxPu "Maximum current at converter terminal in pu (base in UNom, SNom) (generator convention)" annotation(
-    Dialog(tab = "General"));
+  parameter Types.PerUnit IMaxPu "Maximum current at converter terminal in pu (base in UNom, SNom) (generator convention)";
+  parameter Boolean PriorityFlag "0 for active current priority, 1 for reactive current priority";
 
   //Input variables
   Modelica.Blocks.Interfaces.RealInput iQcmdPu(start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Reactive current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
@@ -32,9 +32,9 @@ model IpLimitation "Active current limitation block (IEC 63406)"
     Placement(visible = true, transformation(origin = {120, -50}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {110, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
-  parameter Types.PerUnit IPMax0Pu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.PerUnit IPMax0Pu = if PriorityFlag then sqrt(IMaxPu ^ 2 - (Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) ^ 2) else IMaxPu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
       Dialog(tab = "Operating point"));
-  parameter Types.PerUnit IPMin0Pu "Initial minimum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.PerUnit IPMin0Pu = if PriorityFlag then -sqrt(IMaxPu ^ 2 - (Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) ^ 2) else -IMaxPu "Initial minimum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
       Dialog(tab = "Operating point"));
   parameter Types.ReactivePowerPu Q0Pu "Initial reactive power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));
@@ -42,7 +42,7 @@ model IpLimitation "Active current limitation block (IEC 63406)"
     Dialog(group="Operating point"));
 
 equation
-  iPMaxPu = sqrt(max(0.001, IMaxPu ^ 2 - iQcmdPu ^ 2));
+  iPMaxPu = noEvent(if IMaxPu ^ 2 > iQcmdPu ^ 2 then sqrt(IMaxPu ^ 2 - iQcmdPu ^ 2) else 0);
   iPMinPu = -iPMaxPu;
 
 annotation(

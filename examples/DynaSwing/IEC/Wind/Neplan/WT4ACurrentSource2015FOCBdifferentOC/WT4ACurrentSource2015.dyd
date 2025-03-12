@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2024, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="WT4A" lib="IECWT4ACurrentSource2015" parFile="WT4ACurrentSource2015.par" parId="WT4A"/>
+  <dyn:blackBoxModel id="PRefPu" lib="Step" parFile="WT4ACurrentSource2015.par" parId="PRefPu"/>
+  <dyn:blackBoxModel id="InfBus" lib="InfiniteBusWithVariations" parFile="WT4ACurrentSource2015.par" parId="InfiniteBus"/>
+  <dyn:blackBoxModel id="Line" lib="Line" parFile="WT4ACurrentSource2015.par" parId="Line"/>
+  <dyn:connect id1="WT4A" var1="WT_PWTRefPu" id2="PRefPu" var2="step_step_value"/>
+  <dyn:connect id1="WT4A" var1="WT_terminal" id2="Line" var2="line_terminal1"/>
+  <dyn:connect id1="Line" var1="line_terminal2" id2="InfBus" var2="infiniteBus_terminal"/>
+</dyn:dynamicModelsArchitecture>

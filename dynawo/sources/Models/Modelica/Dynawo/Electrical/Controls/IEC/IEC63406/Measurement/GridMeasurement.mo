@@ -33,9 +33,9 @@ model GridMeasurement "Representation of the measurements of electrical magnitud
     Dialog(tab = "PLL"));
   parameter Types.AngularVelocityPu DfMaxPu "Maximum angle rotation ramp rate in rad/s" annotation(
     Dialog(tab = "PLL"));
-  parameter Real KPpll "Proportional gain in PI controller" annotation(
+  parameter Types.PerUnit KPpll "Proportional gain in PI controller" annotation(
     Dialog(tab = "PLL"));
-  parameter Real KIpll "Integral gain in PI controller" annotation(
+  parameter Types.PerUnit KIpll "Integral gain in PI controller" annotation(
     Dialog(tab = "PLL"));
   parameter Integer PLLFlag "0 for the case when the phase angle can be read from the calculation result of the simulation program, 1 for the case of adding a filter based on case 1, 2 for the case where the dynamics of the PLL need to be considered" annotation(
     Dialog(tab = "PLL"));
@@ -57,17 +57,19 @@ model GridMeasurement "Representation of the measurements of electrical magnitud
     Placement(visible = true, transformation(origin = {-160, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Output variables
-  Modelica.Blocks.Interfaces.RealOutput fFiltPu(start=1) "Measured frequency outputted by the phase-locked loop" annotation(
+  Modelica.Blocks.Interfaces.RealOutput fMeasPu(start=1) "Measured frequency outputted by the phase-locked loop" annotation(
     Placement(visible = true, transformation(origin = {150, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput IFiltPu(start = ComplexMath.'abs'(i0Pu) * SystemBase.SnRef / SNom) "Filtered current module at grid terminal in pu (base UNom, SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput IFiltPu(start = ComplexMath.'abs'(i0Pu) * SystemBase.SnRef / SNom) "Filtered current module at grid terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {150, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput PFiltPu(start = -P0Pu * SystemBase.SnRef / SNom) "Filtered active power at grid terminal in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput PMeasPu(start = -P0Pu * SystemBase.SnRef / SNom) "Filtered active power at grid terminal in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {150, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput QFiltPu(start = -Q0Pu * SystemBase.SnRef / SNom) "Filtered reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput QMeasPu(start = -Q0Pu * SystemBase.SnRef / SNom) "Filtered reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {150, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput UFiltPu(start = U0Pu) "Filtered voltage amplitude at grid terminal in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput UMeasPu(start = U0Pu) "Filtered voltage amplitude at grid terminal in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {150, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput thetaPLL(start = UPhase0) "Phase angle outputted by phase-locked loop" annotation(
+  Modelica.Blocks.Interfaces.RealOutput UPu(start = U0Pu) "Voltage amplitude at grid terminal in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput thetaPLL(start = UPhase0) "Phase angle outputted by phase-locked loop (in rad)" annotation(
     Placement(visible = true, transformation(origin = {150, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tPFilt, y_start = -P0Pu * SystemBase.SnRef / SNom) annotation(
@@ -86,7 +88,7 @@ model GridMeasurement "Representation of the measurements of electrical magnitud
     Placement(visible = true, transformation(origin = {-10, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolar1 annotation(
     Placement(visible = true, transformation(origin = {-70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-    PLL pll(DeltaT = DeltaT, DfMaxPu = DfMaxPu, KIpll = KIpll, KPpll = KPpll, PLLFlag = PLLFlag, TfFilt = TfFilt, TpllFilt = TpllFilt, UPhase0 = UPhase0, UpllPu = UpllPu, WMaxPu = WMaxPu, WMinPu = WMinPu, tS = tS, u0Pu = u0Pu) annotation(
+  PLL pll(DeltaT = DeltaT, DfMaxPu = DfMaxPu, KIpll = KIpll, KPpll = KPpll, PLLFlag = PLLFlag, TfFilt = TfFilt, TpllFilt = TpllFilt, UPhase0 = UPhase0, UpllPu = UpllPu, WMaxPu = WMaxPu, WMinPu = WMinPu, tS = tS, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {3.55271e-15, -100}, extent = {{-40, -40}, {40, 40}}, rotation = 0)));
 
   //Initial parameters
@@ -114,9 +116,9 @@ equation
     Line(points = {{2, 106}, {40, 106}, {40, 120}, {78, 120}}, color = {0, 0, 127}));
   connect(complexToReal.im, firstOrder1.u) annotation(
     Line(points = {{2, 94}, {40, 94}, {40, 80}, {78, 80}}, color = {0, 0, 127}));
-  connect(firstOrder.y, PFiltPu) annotation(
+  connect(firstOrder.y, PMeasPu) annotation(
     Line(points = {{102, 120}, {150, 120}}, color = {0, 0, 127}));
-  connect(firstOrder1.y, QFiltPu) annotation(
+  connect(firstOrder1.y, QMeasPu) annotation(
     Line(points = {{102, 80}, {150, 80}}, color = {0, 0, 127}));
   connect(iPu, complexToPolar.u) annotation(
     Line(points = {{-160, 80}, {-120, 80}, {-120, 40}, {-22, 40}}, color = {85, 170, 255}));
@@ -124,7 +126,7 @@ equation
     Line(points = {{-160, 0}, {-82, 0}}, color = {85, 170, 255}));
   connect(complexToPolar1.len, firstOrder3.u) annotation(
     Line(points = {{-58, 6}, {40, 6}, {40, -40}, {78, -40}}, color = {0, 0, 127}));
-  connect(firstOrder3.y, UFiltPu) annotation(
+  connect(firstOrder3.y, UMeasPu) annotation(
     Line(points = {{102, -40}, {150, -40}}, color = {0, 0, 127}));
   connect(complexToPolar.len, firstOrder2.u) annotation(
     Line(points = {{2, 46}, {40, 46}, {40, 40}, {78, 40}}, color = {0, 0, 127}));
@@ -134,9 +136,10 @@ equation
     Line(points = {{-160, 0}, {-100, 0}, {-100, -100}, {-48, -100}}, color = {85, 170, 255}));
   connect(pll.thetaPLL, thetaPLL) annotation(
     Line(points = {{44, -80}, {150, -80}}, color = {0, 0, 127}));
-  connect(pll.fMeasPu, fFiltPu) annotation(
+  connect(pll.fMeasPu, fMeasPu) annotation(
     Line(points = {{44, -120}, {150, -120}}, color = {0, 0, 127}));
-
+  connect(complexToPolar1.len, UPu) annotation(
+    Line(points = {{-58, 6}, {40, 6}, {40, 0}, {150, 0}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-140, -140}, {140, 140}})),
