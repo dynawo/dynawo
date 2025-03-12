@@ -11,7 +11,7 @@
 // simulation tool for power systems.
 //
 
-#include "STPOutputConnectorInterface.h"
+#include "IOOutputConnectorInterface.h"
 
 namespace io {
 
