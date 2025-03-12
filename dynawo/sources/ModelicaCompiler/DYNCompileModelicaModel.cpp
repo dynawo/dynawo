@@ -326,7 +326,8 @@ string
 runOptions(bool useAliasing) {
   return string("simCodeTarget=C +showErrorMessages -g=Modelica "
       "-d=visxml,infoXmlOperations,initialization,disableSingleFlowEq,failtrace,dumpSimCode --postOptmodules-=wrapFunctionCalls")
-      + (useAliasing?string():string(" --preOptModules-=comSubExp,removeSimpleEquations")) +string(" +numProcs=1 +daeMode ");
+      + (useAliasing?string():string(" --preOptModules-=comSubExp,removeSimpleEquations")) +string(" +numProcs=1 +daeMode "
+          "--allowNonStandardModelica=implicitParameterStartAttribute");
 }
 
 string
@@ -432,7 +433,8 @@ compileLib(const string& modelName, const string& compilationDir) {
 
   string compileLibCommand = "cmake -B" + compilationDir + " -H" + compilationDir + " -C" + absolute("PreloadCache.cmake", scriptsDir)
 #if __linux__
-                           + " -DMODEL_NAME=" + modelName + " -DCMAKE_SKIP_BUILD_RPATH=True && { cmake --build " + compilationDir + " || cmake --build " + compilationDir + " > /dev/null; }";
+                           + " -DMODEL_NAME=" + modelName + " -DCMAKE_SKIP_BUILD_RPATH=True && { cmake --build " + \
+                           compilationDir + " || cmake --build " + compilationDir + " > /dev/null; }";
 #else
                            + " -DMODEL_NAME=" + modelName + " && cmake --build " + compilationDir;
 #endif
