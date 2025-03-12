@@ -12,6 +12,6 @@ within Dynawo.Examples.Converters;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-package IEC
+package IEC63406
   extends Icons.Package;
-end IEC;
+end IEC63406;

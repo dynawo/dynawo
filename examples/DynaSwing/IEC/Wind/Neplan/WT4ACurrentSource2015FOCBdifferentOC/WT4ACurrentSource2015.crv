@@ -21,5 +21,9 @@
   <curve model="WT4A" variable="WT_control4A_PWTPu"/>
   <curve model="WT4A" variable="WT_control4A_QWTPu"/>
   <curve model="WT4A" variable="WT_wT4Injector_PGenPu"/>
+  <curve model="WT4A" variable="WT_wT4Injector_PAgPu"/>
   <curve model="WT4A" variable="WT_wT4Injector_QGenPu"/>
+  <curve model="WT4A" variable="WT_wT4Injector_genSystem_complexToReal_im"/>
+  <curve model="WT4A" variable="WT_wT4Injector_ipCmdPu"/>
+  <curve model="WT4A" variable="WT_wT4Injector_iqCmdPu"/>
 </curvesInput>

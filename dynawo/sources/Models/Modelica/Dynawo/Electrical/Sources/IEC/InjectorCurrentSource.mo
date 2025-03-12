@@ -35,7 +35,7 @@ model InjectorCurrentSource "Converter model and grid interface (IEC63406)"
     Placement(visible = true, transformation(origin = {-120, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 50}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput iqRefPu(start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Reactive current reference order in pu (base SNom, UNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -50}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput thetaPLL(start = UPhase0) "Phase angle outputted by phase-locked loop" annotation(
+  Modelica.Blocks.Interfaces.RealInput thetaPLL(start = UPhase0) "Phase angle outputted by phase-locked loop (in rad)" annotation(
     Placement(visible = true, transformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {0, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
 
   //Output variables
@@ -43,6 +43,9 @@ model InjectorCurrentSource "Converter model and grid interface (IEC63406)"
     Placement(visible = true, transformation(origin = {108, -66}, extent = {{-8, -8}, {8, 8}}, rotation = 0), iconTransformation(origin = {110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.Interfaces.ComplexOutput uPu(re(start = u0Pu.re), im(start = u0Pu.im)) "Complex voltage at grid terminal in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {108, -88}, extent = {{-8, -8}, {8, 8}}, rotation = 0), iconTransformation(origin = {110, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  Types.ActivePowerPu PGenPu(start = -P0Pu) "Active power at terminal in pu (base SnRef) (generator convention)";
+  Types.ReactivePowerPu QGenPu(start = -Q0Pu) "Reactive power at terminal in pu (base SnRef) (generator convention)";
 
   //Interfaces
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Grid terminal, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(
@@ -76,10 +79,12 @@ model InjectorCurrentSource "Converter model and grid interface (IEC63406)"
     Dialog(group = "Operating point"));
   parameter Types.PerUnit UsRe0Pu "Initial real component of the voltage at converter terminal in pu (base UNom)" annotation(
     Dialog(group = "Operating point"));
-  parameter Types.Angle UPhase0 "Initial Phase angle outputted by phase-locked loop" annotation(
+  parameter Types.Angle UPhase0 "Initial Phase angle outputted by phase-locked loop (in rad)" annotation(
     Dialog(group = "Operating point"));
 
 equation
+  PGenPu = ComplexMath.real(terminal.V * ComplexMath.conj(-terminal.i));
+  QGenPu = ComplexMath.imag(terminal.V * ComplexMath.conj(-terminal.i));
   currentSourceIEC63406.running = running.value;
 
   connect(realToComplex1.y, uPu) annotation(

@@ -14,16 +14,24 @@ within Dynawo.Electrical.Controls.IEC.IEC63406.AuxiliaryBlocks;
 
 model StrongDelay "Block that models, in the Laplace domain, the function 1-exp(-T.s)/s"
 
-  parameter Types.Time T(start=1) "Time Constant";
+  parameter Types.Time T(start=1) "Delay time in s";
 
-  Modelica.Blocks.Interfaces.RealInput u annotation(
+  Modelica.Blocks.Interfaces.RealInput u "Connector of Real input signal" annotation(
       Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput y annotation(
+  Modelica.Blocks.Interfaces.RealOutput y "Connector of Real output signal" annotation(
       Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
   der(y) = u - delay(u,T);
 
   annotation(
-    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(extent = {{-100, 100}, {100, -100}}, textString = "1 - e(-T.s) \n ___________\n\ns")}));
+    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(extent = {{-100, 100}, {100, -100}}, textString = "1 - e(-T.s) \n ___________\n\ns")}),
+    Documentation(info = "<html><p>
+    This block represents the following transfer function:
+    <p>
+ <pre>
+         1 - e ^ (-T s)
+ y(s) = ---------------- * u(s)
+             s
+</pre></html>"));
 end StrongDelay;

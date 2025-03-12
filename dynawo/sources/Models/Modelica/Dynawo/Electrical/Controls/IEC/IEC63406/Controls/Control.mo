@@ -14,10 +14,12 @@ within Dynawo.Electrical.Controls.IEC.IEC63406.Controls;
 
 model Control "Global control (IEC 63406)"
 
-  //Nominal parameter
-  parameter Types.PerUnit PMaxPu "Maximum active power at converter terminal in pu (base SNom)" annotation(
+  //General parameters
+  parameter Types.ActivePowerPu PMaxPu "Maximum active power at converter terminal in pu (base SNom)" annotation(
     Dialog(tab = "StorageSys"));
+  parameter Boolean PriorityFlag "0 for active current priority, 1 for reactive current priority";
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
+  parameter Boolean StorageFlag "1 if it is a storage unit, 0 if not";
   parameter String TableFileName "Name given to the general file containing all tables" annotation(
     Dialog(tab = "General"));
 
@@ -32,23 +34,23 @@ model Control "Global control (IEC 63406)"
     Dialog(tab = "FFR"));
   parameter String InertialTableName "Name given to the inertial table in the table file" annotation(
     Dialog(tab = "FFR"));
-  parameter Types.PerUnit PffrMaxPu "Maximum active power utilized for FFR control in pu (base SNom)" annotation(
+  parameter Types.ActivePowerPu PffrMaxPu "Maximum active power utilized for FFR control in pu (base SNom)" annotation(
     Dialog(tab = "FFR"));
-  parameter Types.PerUnit PffrMinPu "Maximum absorbing active power utilized for FFR control in pu (base SNom)" annotation(
+  parameter Types.ActivePowerPu PffrMinPu "Maximum absorbing active power utilized for FFR control in pu (base SNom)" annotation(
     Dialog(tab = "FFR"));
   parameter Types.Time Trocof "Time constant for frequency differential operation" annotation(
     Dialog(tab = "FFR"));
 
   //FRT parameters
-  parameter Types.PerUnit uHVRTPu "HVRT threshold value" annotation(
+  parameter Types.PerUnit uHVRTPu "HVRT threshold value in pu (base UNom)" annotation(
     Dialog(tab = "FRT"));
-parameter Types.PerUnit uLVRTPu "LVRT threshold value" annotation(
+  parameter Types.PerUnit uLVRTPu "LVRT threshold value in pu (base UNom)" annotation(
     Dialog(tab = "FRT"));
 
   //PControl parameters
-  parameter Real KIp "Integral gain in the active power PI controller" annotation(
+  parameter Types.PerUnit KIp "Integral gain in the active power PI controller" annotation(
     Dialog(tab = "PControl"));
-  parameter Real KPp "Proportional gain in the active power PI controller" annotation(
+  parameter Types.PerUnit KPp "Proportional gain in the active power PI controller" annotation(
     Dialog(tab = "PControl"));
   parameter Boolean PFlag "1 for closed-loop active power control, 0 for open-loop active power control" annotation(
     Dialog(tab = "PControl"));
@@ -78,9 +80,9 @@ parameter Types.PerUnit uLVRTPu "LVRT threshold value" annotation(
     Dialog(tab = "QControl"));
   parameter Types.PerUnit KDroop "Q/U droop gain" annotation(
     Dialog(tab = "QControl"));
-  parameter Integer LFlag "One of the 3 reactive control flags" annotation(
+  parameter Integer LFlag "One of the 3 reactive control flags, possible values : 0, 1 and 2" annotation(
     Dialog(tab = "QControl"));
-  parameter Integer PFFlag "One of the 3 reactive control flags" annotation(
+  parameter Integer PFFlag "One of the 3 reactive control flags, possible values : 0, 1, 2 and 3" annotation(
     Dialog(tab = "QControl"));
   parameter String QMaxtoPTableName "Table giving the maximum reactive power depending on the measured active power" annotation(
     Dialog(tab = "QControl"));
@@ -104,17 +106,15 @@ parameter Types.PerUnit uLVRTPu "LVRT threshold value" annotation(
   //Current and Q limitation parameters
   parameter Types.PerUnit IMaxPu "Maximum current at converter terminal in pu (base in UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "Current and Q limitation"));
-  parameter Boolean PriorityFlag "0 for active current priority, 1 for reactive current priority" annotation(
-    Dialog(tab = "Current and Q limitation"));
   parameter Boolean QLimFlag "0 to use the defined lookup tables, 1 to use the constant values" annotation(
     Dialog(tab = "Current and Q limitation"));
-  parameter Types.PerUnit QMaxPu "Maximum reactive power defined by users in pu (base SNom)" annotation(
+  parameter Types.ReactivePowerPu QMaxPu "Maximum reactive power defined by users in pu (base SNom)" annotation(
     Dialog(tab = "Current and Q limitation"));
-  parameter Types.PerUnit QMinPu "Minimum reactive power defined by users in pu (base SNom)" annotation(
+  parameter Types.ReactivePowerPu QMinPu "Minimum reactive power defined by users in pu (base SNom)" annotation(
     Dialog(tab = "Current and Q limitation"));
 
   //Input variables
-  Modelica.Blocks.Interfaces.RealInput fMeasPu(start = 1) "Measured frequency outputted by the phase-locked loop  in pu (base nominal frequency in Hz)" annotation(
+  Modelica.Blocks.Interfaces.RealInput fMeasPu(start = 1) "Measured frequency outputted by the phase-locked loop in pu (base fNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, 90}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput pAvailInPu(start = PAvailIn0Pu) "Minimum output electrical power available to the active power control module in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-9, 111}, extent = {{-11, -11}, {11, 11}}, rotation = -90), iconTransformation(origin = {-30, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
@@ -134,7 +134,7 @@ parameter Types.PerUnit uLVRTPu "LVRT threshold value" annotation(
     Placement(visible = true, transformation(origin = {-120, -30}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Output variables
-  Modelica.Blocks.Interfaces.RealOutput iPcmdPu(start = P0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Active current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput iPcmdPu(start = - P0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Active current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {115, 61}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput iQcmdPu(start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Reactive current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {115, -41}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
@@ -142,13 +142,13 @@ parameter Types.PerUnit uLVRTPu "LVRT threshold value" annotation(
   //Variables
   Boolean FFlag(start = false) "Flag indicating the generating unit operating condition";
 
-  Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls.PControl pControl(IPMax0Pu = IPMax0Pu, IPMin0Pu = IPMin0Pu, KIp = KIp, KPp = KPp, P0Pu = P0Pu, PAvailIn0Pu = PAvailIn0Pu, PFlag = PFlag, PMaxPu = PMaxPu, SNom = SNom, TpRef = TpRef, U0Pu = U0Pu)  annotation(
+  Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls.PControl pControl(IMaxPu = IMaxPu, KIp = KIp, KPp = KPp, P0Pu = P0Pu, PFlag = PFlag, PMaxPu = PMaxPu, PriorityFlag = PriorityFlag, Q0Pu = Q0Pu, SNom = SNom, StorageFlag = StorageFlag, TpRef = TpRef, U0Pu = U0Pu)  annotation(
     Placement(visible = true, transformation(origin = {20.2, 59.2223}, extent = {{-40.2, -22.3333}, {40.2, 22.3333}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls.QControl qControl(DUdb1Pu = DUdb1Pu, DUdb2Pu = DUdb2Pu, IQMax0Pu = IQMax0Pu, IQMin0Pu = IQMin0Pu, KDroop = KDroop, KIqi = KIqi, KIqu = KIqu, KIui = KIui, KIuq = KIuq, KPqi = KPqi, KPqu = KPqu, KPui = KPui, KPuq = KPuq, LFlag = LFlag, P0Pu = P0Pu, PFFlag = PFFlag, Q0Pu = Q0Pu, QMax0Pu = QMax0Pu, QMin0Pu = QMin0Pu, SNom = SNom, TanPhi = TanPhi, Tiq = Tiq, U0Pu = U0Pu, UFlag = UFlag, UMaxPu = UMaxPu, UMinPu = UMinPu)  annotation(
+  Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls.QControl qControl(DUdb1Pu = DUdb1Pu, DUdb2Pu = DUdb2Pu, IMaxPu = IMaxPu, KDroop = KDroop, KIqi = KIqi, KIqu = KIqu, KIui = KIui, KIuq = KIuq, KPqi = KPqi, KPqu = KPqu, KPui = KPui, KPuq = KPuq, LFlag = LFlag, P0Pu = P0Pu, PFFlag = PFFlag, PriorityFlag = PriorityFlag, Q0Pu = Q0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, SNom = SNom, TanPhi = TanPhi, Tiq = Tiq, U0Pu = U0Pu, UFlag = UFlag, UMaxPu = UMaxPu, UMinPu = UMinPu)  annotation(
     Placement(visible = true, transformation(origin = {0.8, -60}, extent = {{-59.6, -18.625}, {59.6, 18.625}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls.CurrentLimitation currentLimitation(IMaxPu = IMaxPu, IPMax0Pu = IPMax0Pu, IPMin0Pu = IPMin0Pu, IQMax0Pu = IQMax0Pu, IQMin0Pu = IQMin0Pu, P0Pu = P0Pu, PriorityFlag = PriorityFlag, Q0Pu = Q0Pu, QMax0Pu = QMax0Pu, QMin0Pu = QMin0Pu, SNom = SNom, U0Pu = U0Pu)  annotation(
+  Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls.CurrentLimitation currentLimitation(IMaxPu = IMaxPu, P0Pu = P0Pu, PriorityFlag = PriorityFlag, Q0Pu = Q0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, SNom = SNom, U0Pu = U0Pu)  annotation(
     Placement(visible = true, transformation(origin = {20, 3.55271e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls.QLimitation qLimitation(IQMax0Pu = IQMax0Pu, IQMin0Pu = IQMin0Pu, P0Pu = P0Pu, Q0Pu = Q0Pu, QLimFlag = QLimFlag, QMax0Pu = QMax0Pu, QMaxPu = QMaxPu, QMaxtoPTableName = QMaxtoPTableName, QMaxtoUTableName = QMaxtoUTableName, QMin0Pu = QMin0Pu, QMinPu = QMinPu, QMintoPTableName = QMintoPTableName, QMintoUTableName = QMintoUTableName, SNom = SNom, TableFileName = TableFileName, U0Pu = U0Pu)  annotation(
+  Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls.QLimitation qLimitation(P0Pu = P0Pu, Q0Pu = Q0Pu, QLimFlag = QLimFlag, QMaxPu = QMaxPu, QMaxtoPTableName = QMaxtoPTableName, QMaxtoUTableName = QMaxtoUTableName, QMinPu = QMinPu, QMintoPTableName = QMintoPTableName, QMintoUTableName = QMintoUTableName, SNom = SNom, TableFileName = TableFileName, U0Pu = U0Pu)  annotation(
     Placement(visible = true, transformation(origin = {-60, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls.FFR ffr(FFRTableName = FFRTableName,FFRflag = FFRflag, InertialTableName = InertialTableName, PffrMaxPu = PffrMaxPu, PffrMinPu = PffrMinPu, TableFileName = TableFileName, Trocof = Trocof, f0Pu = f0Pu, fThresholdPu = fThresholdPu)  annotation(
     Placement(visible = true, transformation(origin = {-70, 90}, extent = {{-12, -10}, {12, 10}}, rotation = 0)));
@@ -156,24 +156,12 @@ parameter Types.PerUnit uLVRTPu "LVRT threshold value" annotation(
     Placement(visible = true, transformation(origin = {110, 30}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   //Initial parameters
-  parameter Types.PerUnit IPMin0Pu "Initial minimum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "Operating point"));
-  parameter Types.PerUnit IPMax0Pu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "Operating point"));
-  parameter Types.PerUnit IQMax0Pu "Initial maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "Operating point"));
-  parameter Types.PerUnit IQMin0Pu "Initial minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "Operating point"));
-  parameter Types.PerUnit PAvailIn0Pu "Initial minimum output electrical power available to the active power control module in pu (base SNom)" annotation(
-    Dialog(tab = "Operating point"));
   parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
+    Dialog(tab = "Operating point"));
+  parameter Types.ActivePowerPu PAvailIn0Pu = if StorageFlag then -PMaxPu else 0 "Initial minimum output electrical power available to the active power control module in pu (base SNom)" annotation(
     Dialog(tab = "Operating point"));
   parameter Types.ReactivePowerPu Q0Pu "Initial reactive power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));
-  parameter Types.PerUnit QMax0Pu "Initial maximum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
-      Dialog(tab = "Operating point"));
-  parameter Types.PerUnit QMin0Pu "Initial minimum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
-      Dialog(tab = "Operating point"));
   parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
     Dialog(group="Operating point"));
 
@@ -242,7 +230,6 @@ equation
     Line(points = {{100, 30}, {20, 30}, {20, 24}}, color = {255, 0, 255}));
   connect(booleanExpression.y, qControl.FFlag) annotation(
     Line(points = {{100, 30}, {84, 30}, {84, -32}, {1, -32}, {1, -38}}, color = {255, 0, 255}));
-
   annotation(
     Icon(graphics = {Rectangle(extent = {{100, 100}, {-100, -100}}), Text(extent = {{-100, 100}, {100, -100}}, textString = "Control")}));
 end Control;
