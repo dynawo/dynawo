@@ -330,7 +330,8 @@ string
 runOptions(const bool useAliasing) {
   return string("simCodeTarget=C +showErrorMessages -g=Modelica "
       "-d=visxml,infoXmlOperations,initialization,disableSingleFlowEq,failtrace,dumpSimCode --postOptmodules-=wrapFunctionCalls")
-      + (useAliasing ? string() : string(" --preOptModules-=comSubExp,removeSimpleEquations")) + string(" +numProcs=1 +daeMode ");
+      + (useAliasing ? string() : string(" --preOptModules-=comSubExp,removeSimpleEquations")) + string(" +numProcs=1 +daeMode "
+          "--allowNonStandardModelica=implicitParameterStartAttribute");
 }
 
 string
