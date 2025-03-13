@@ -39,8 +39,8 @@ ModelCPP::ModelCPP() {
 }
 
 ModelCPP::ModelCPP(std::string modelType) :
-modelType_(modelType),
-isStartingFromDump_(false) {
+isStartingFromDump_(false),
+modelType_(modelType) {
 }
 
 void
@@ -70,13 +70,13 @@ ModelCPP::dumpVariables(map< string, string >& mapVariables) {
   os << z;
   os << g;
 
-  dumpInternalVariables(values);
+  dumpInternalVariables(os);
 
   mapVariables[ variablesFileName() ] = values.str();
 }
 
 void
-ModelCPP::dumpInternalVariables(stringstream&) const {
+ModelCPP::dumpInternalVariables(boost::archive::binary_oarchive&) const {
   // no internal variables
 }
 
@@ -117,8 +117,9 @@ ModelCPP::loadVariables(const string& variables) {
     return;
   }
 
-  bool res = loadInternalVariables(values);
-  if (!res) {
+  try {
+    loadInternalVariables(is);
+  } catch (std::exception& e) {
     // If loadInternalVariables fails, the internal variables of some the models may still be loaded, and will be reset
     // with getY0 during model initialization.
     Trace::warn() << DYNLog(WrongParameterNum, variablesFileName().c_str()) << Trace::endline;
@@ -135,10 +136,9 @@ ModelCPP::loadVariables(const string& variables) {
   isStartingFromDump_ = true;
 }
 
-bool
-ModelCPP::loadInternalVariables(stringstream& /*streamVariables*/) {
+void
+ModelCPP::loadInternalVariables(boost::archive::binary_iarchive& /*streamVariables*/) {
   // no internal variables
-  return true;
 }
 
 void
