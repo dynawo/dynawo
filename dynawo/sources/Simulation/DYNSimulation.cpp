@@ -1253,12 +1253,13 @@ Simulation::printHighestDerivativesValues() const {
 
   std::sort(derivValues.begin(), derivValues.end(), mapcompabs());
 
-  const unsigned nbDeriv = std::min(10, model_->sizeY());
+  const unsigned nbDeriv = std::min(100, model_->sizeY());
   Trace::debug() << DYNLog(SolverLargestDeriv, nbDeriv) << Trace::endline;
   for (size_t i = 0; i < nbDeriv; ++i) {
     Trace::debug() << DYNLog(SolverLargestDerivValue, derivValues[i].second, derivValues[i].first,
                              model_->getVariableName(derivValues[i].second)) << Trace::endline;
   }
+  Trace::debug() << Trace::endline;
 }
 
 void

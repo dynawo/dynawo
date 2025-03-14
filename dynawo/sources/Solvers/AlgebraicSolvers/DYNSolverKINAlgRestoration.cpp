@@ -54,9 +54,10 @@ SolverKINAlgRestoration::stringFromMode(const modeKin_t mode) {
   }
 }
 
-SolverKINAlgRestoration::SolverKINAlgRestoration() :
+SolverKINAlgRestoration::SolverKINAlgRestoration(const bool printReinitResiduals) :
 SolverKINCommon(),
-mode_(KIN_ALGEBRAIC) {
+mode_(KIN_ALGEBRAIC),
+printReinitResiduals_(printReinitResiduals) {
 #if _DEBUG_
   checkJacobian_ = false;
 #endif
@@ -280,21 +281,23 @@ SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
     irr[i] = solver->vectorF_[solver->indexF_[i]];
   }
 
-#ifdef _DEBUG_
-  // Print the current residual norms, the first one is used as a stopping criterion
-  double weightedInfNorm = SolverCommon::weightedInfinityNorm(solver->vectorF_, solver->indexF_, solver->vectorFScale_);
-  double wL2Norm = SolverCommon::weightedL2Norm(solver->vectorF_, solver->indexF_, solver->vectorFScale_);
-  long int current_nni = 0;
-  KINGetNumNonlinSolvIters(solver->KINMem_, &current_nni);
-  Trace::debug() << DYNLog(SolverKINResidualNormAlg, stringFromMode(solver->getMode()), current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
+// #ifdef _DEBUG_
+  if (solver->printResiduals()) {
+    // Print the current residual norms, the first one is used as a stopping criterion
+    double weightedInfNorm = SolverCommon::weightedInfinityNorm(solver->vectorF_, solver->indexF_, solver->vectorFScale_);
+    double wL2Norm = SolverCommon::weightedL2Norm(solver->vectorF_, solver->indexF_, solver->vectorFScale_);
+    long int current_nni = 0;
+    KINGetNumNonlinSolvIters(solver->KINMem_, &current_nni);
+    Trace::debug() << DYNLog(SolverKINResidualNormAlg, stringFromMode(solver->getMode()), current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
 
-  const int nbErr = 10;
-  Trace::debug() << DYNLog(KinLargestErrors, nbErr) << Trace::endline;
-  vector<std::pair<double, size_t> > fErr;
-  for (size_t i = 0; i < solver->indexF_.size(); ++i)
-    fErr.push_back(std::pair<double, size_t>(solver->vectorF_[solver->indexF_[i]], solver->indexF_[i]));
-  SolverCommon::printLargestErrors(fErr, model, nbErr);
-#endif
+    const int nbErr = 10;
+    Trace::debug() << DYNLog(KinLargestErrors, nbErr) << Trace::endline;
+    vector<std::pair<double, size_t> > fErr;
+    for (size_t i = 0; i < solver->indexF_.size(); ++i)
+      fErr.push_back(std::pair<double, size_t>(solver->vectorF_[solver->indexF_[i]], solver->indexF_[i]));
+    SolverCommon::printLargestErrors(fErr, model, nbErr);
+  }
+// #endif
   return 0;
 }
 

@@ -43,7 +43,7 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   /**
    * @brief default constructor
    */
-  SolverKINAlgRestoration();
+  SolverKINAlgRestoration(bool printReinitResiduals);
 
   /**
    * @brief destructor
@@ -269,6 +269,10 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
     return smjKin_;
   }
 
+  bool printResiduals() {
+   return printReinitResiduals_;
+  }
+
  private:
   std::shared_ptr<Model> model_;  ///< model currently simulated
 
@@ -291,6 +295,7 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
 // #if _DEBUG_
   bool checkJacobian_;  ///< Check jacobian
 // #endif
+  bool printReinitResiduals_;  ///< Check jacobian
 };
 
 }  // end of namespace DYN

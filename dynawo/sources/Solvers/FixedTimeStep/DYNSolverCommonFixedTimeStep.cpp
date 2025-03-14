@@ -167,10 +167,10 @@ SolverCommonFixedTimeStep::initCommon(const std::shared_ptr<Model> &model, const
     solverKINEuler_->init(model, this, fnormtol_, initialaddtol_, scsteptol_, mxnewtstep_, msbset_, mxiter_, printfl_, sundialsVectorY_, allLogs_);
   }
 
-  solverKINAlgRestoration_.reset(new SolverKINAlgRestoration());
+  solverKINAlgRestoration_.reset(new SolverKINAlgRestoration(false));
   solverKINAlgRestoration_->init(model_, SolverKINAlgRestoration::KIN_ALGEBRAIC);
   if (hasPrediction()) {
-    solverKINYPrim_.reset(new SolverKINAlgRestoration());
+    solverKINYPrim_.reset(new SolverKINAlgRestoration(false));
     getSolverKINYPrim().init(model_, SolverKINAlgRestoration::KIN_DERIVATIVES);
   }
 

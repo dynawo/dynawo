@@ -268,10 +268,11 @@ Solver::Impl::evalZMode(vector<state_g>& G0, vector<state_g>& G1, const double t
       ++stats_.ngeInternal_;
       nonSilentZChange = true;
       change = true;
-#ifdef _DEBUG_
-      printUnstableRoot(time, G0, G1);
-      std::copy(G1.begin(), G1.end(), G0.begin());
-#endif
+// #ifdef _DEBUG_
+      if (printUnstableRoot_)
+        printUnstableRoot(time, G0, G1);
+      // std::copy(G1.begin(), G1.end(), G0.begin());
+// #endif
     }
 
     if (zChangeType == NOT_SILENT_Z_CHANGE) {
@@ -370,6 +371,8 @@ Solver::Impl::defineCommonParameters() {
       ParameterSolver("minimumModeChangeTypeForAlgebraicRestorationInit", VAR_TYPE_STRING, optional)));
   parameters_.insert(make_pair("multipleStrategiesForAlgebraicRestoration",
       ParameterSolver("multipleStrategiesForAlgebraicRestoration", VAR_TYPE_BOOL, optional)));
+
+  parameters_.insert(make_pair("printUnstableRoot", ParameterSolver("printUnstableRoot", VAR_TYPE_BOOL, optional)));
 }
 
 bool
@@ -522,6 +525,8 @@ void Solver::Impl::setSolverCommonParameters() {
       minimumModeChangeTypeForAlgebraicRestoration_ = ALGEBRAIC_MODE;
     else if (value == "ALGEBRAIC_J_UPDATE")
       minimumModeChangeTypeForAlgebraicRestoration_ = ALGEBRAIC_J_UPDATE_MODE;
+    else if (value == "ALGEBRAIC_J_J_UPDATE")
+      minimumModeChangeTypeForAlgebraicRestoration_ = ALGEBRAIC_J_J_UPDATE_MODE;
     else
       Trace::warn() << DYNLog(IncoherentParamMinimumModeChangeType, value) << Trace::endline;
   }
@@ -539,6 +544,10 @@ void Solver::Impl::setSolverCommonParameters() {
   const ParameterSolver& multipleStrategiesForAlgebraicRestoration = findParameter("multipleStrategiesForAlgebraicRestoration");
   if (multipleStrategiesForAlgebraicRestoration.hasValue())
     multipleStrategiesForAlgebraicRestoration_ = multipleStrategiesForAlgebraicRestoration.getValue<bool>();
+
+  const ParameterSolver& printUnstableRoot = findParameter("printUnstableRoot");
+  if (printUnstableRoot.hasValue())
+    printUnstableRoot_ = printUnstableRoot.getValue<bool>();
 }
 
 void
@@ -580,6 +589,7 @@ Solver::Impl::printEnd() const {
   Trace::info() << DYNLog(SolverNbModeEvalDiff, stats_.nmeDiff_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbModeEvalAlg, stats_.nmeAlg_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbModeEvalAlgJ, stats_.nmeAlgJ_) << Trace::endline;
+  Trace::info() <<  "number of algebraic JJ update mode                         = " << stats_.nmeAlgJ_ << Trace::endline;
   Trace::info() << DYNLog(SolverNbAlgebraicResEval, stats_.nreAlgebraic_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbAlgebraicJacEval, stats_.njeAlgebraic_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbAlgebraicPrimResEval, stats_.nreAlgebraicPrim_) << Trace::endline;
@@ -606,6 +616,7 @@ Solver::Impl::printEndConsole() const {
   std::cout << DYNLog(SolverNbModeEvalDiff, stats_.nmeDiff_) << std::endl;
   std::cout << DYNLog(SolverNbModeEvalAlg, stats_.nmeAlg_) << std::endl;
   std::cout << DYNLog(SolverNbModeEvalAlgJ, stats_.nmeAlgJ_) << std::endl;
+  std::cout <<  "number of algebraic JJ update mode                         = " << stats_.nmeAlgJJ_ << std::endl;
   std::cout << DYNLog(SolverNbAlgebraicResEval, stats_.nreAlgebraic_) << std::endl;
   std::cout << DYNLog(SolverNbAlgebraicJacEval, stats_.njeAlgebraic_) << std::endl;
   std::cout << DYNLog(SolverNbAlgebraicPrimResEval, stats_.nreAlgebraicPrim_) << std::endl;
