@@ -3546,7 +3546,7 @@ class Factory:
                     if "return " in line:
                         line = line.replace("return ",  "calculatedVars[" + str(calc_var_2_index[var.get_name()])+closing_bracket + var.get_name() + "*/ = ")
                     line_tmp = transform_line(line)
-                    line_tmp = throw_stream_indexes(line)
+                    line_tmp = throw_stream_indexes(line_tmp)
                     match = ptrn_calc_var.findall(line_tmp)
                     for name in match:
                         line_tmp = line_tmp.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
@@ -3555,6 +3555,7 @@ class Factory:
                 convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], body)
                 self.list_for_evalcalculatedvars.extend(body)
             else:
+                expr = transform_line(expr)
                 self.list_for_evalcalculatedvars.append("  calculatedVars[" + str(calc_var_2_index[var.get_name()])+closing_bracket + var.get_name() + "*/ = " + expr+";\n")
 
 
