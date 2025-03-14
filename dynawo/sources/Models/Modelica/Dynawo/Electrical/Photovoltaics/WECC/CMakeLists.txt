@@ -13,19 +13,27 @@ add_subdirectory(BaseClasses B)
 set(MODEL_FILES
   package.mo
   package.order
-  PVCurrentSourceB.mo
-  PVCurrentSourceB.extvar
-  PVCurrentSourceBNoPlantControl.mo
-  PVCurrentSourceBNoPlantControl.extvar
+  PVCurrentSource.mo
+  PVCurrentSource.extvar
+  PVCurrentSourceNoPlantControl.mo
+  PVCurrentSourceNoPlantControl.extvar
   PVCurrentSource_INIT.mo
-  PVVoltageSourceA.mo
-  PVVoltageSourceA.extvar
-  PVVoltageSourceANoPlantControl.mo
-  PVVoltageSourceANoPlantControl.extvar
-  PVVoltageSourceB.mo
-  PVVoltageSourceB.extvar
-  PVVoltageSourceBNoPlantControl.mo
-  PVVoltageSourceBNoPlantControl.extvar
+  PVVoltageSource1.mo
+  PVVoltageSource1.extvar
+  PVVoltageSource1NoPlantControl.mo
+  PVVoltageSource1NoPlantControl.extvar
+  PVVoltageSource2.mo
+  PVVoltageSource2.extvar
+  PVVoltageSource2NoPlantControl.mo
+  PVVoltageSource2NoPlantControl.extvar
+  PVVoltageSource3.mo
+  PVVoltageSource3.extvar
+  PVVoltageSource3NoPlantControl.mo
+  PVVoltageSource3NoPlantControl.extvar
+  PVVoltageSource4.mo
+  PVVoltageSource4.extvar
+  PVVoltageSource4NoPlantControl.mo
+  PVVoltageSource4NoPlantControl.extvar
   PVVoltageSource_INIT.mo
   )
 
