@@ -185,7 +185,7 @@ initial algorithm
   load.u0Pu.im := load_INIT.u0Pu.im;
 
 initial equation
-  generatorSynchronous.omegaPu.value = SystemBase.omega0Pu;
+  generatorSynchronous.omegaPu = SystemBase.omega0Pu;
 
 equation
   generatorSynchronous.switchOffSignal1.value = false;

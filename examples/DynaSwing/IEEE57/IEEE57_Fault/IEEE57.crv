@@ -40,11 +40,11 @@
   <curve model="GEN____3_SM" variable="generator_omegaPu"/>
   <curve model="GEN____8_SM" variable="generator_omegaPu"/>
   <curve model="GEN____2_SM" variable="generator_omegaPu"/>
-  <curve model="GEN____6_SM" variable="generator_efdPu_value"/>
-  <curve model="GEN____9_SM" variable="generator_efdPu_value"/>
-  <curve model="GEN____1_SM" variable="generator_efdPu_value"/>
-  <curve model="GEN___12_SM" variable="generator_efdPu_value"/>
-  <curve model="GEN____3_SM" variable="generator_efdPu_value"/>
-  <curve model="GEN____8_SM" variable="generator_efdPu_value"/>
-  <curve model="GEN____2_SM" variable="generator_efdPu_value"/>
+  <curve model="GEN____6_SM" variable="generator_efdPu"/>
+  <curve model="GEN____9_SM" variable="generator_efdPu"/>
+  <curve model="GEN____1_SM" variable="generator_efdPu"/>
+  <curve model="GEN___12_SM" variable="generator_efdPu"/>
+  <curve model="GEN____3_SM" variable="generator_efdPu"/>
+  <curve model="GEN____8_SM" variable="generator_efdPu"/>
+  <curve model="GEN____2_SM" variable="generator_efdPu"/>
 </curvesInput>

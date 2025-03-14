@@ -20,16 +20,16 @@
   <dyn:blackBoxModel id="B3-G1 " lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="WSCC9.par" parId="Generator3" staticId="B3-G1 "/>
   <dyn:blackBoxModel id="FAULT_GEN_2" lib="NodeFault" parFile="WSCC9.par" parId="Fault"/>
   <dyn:blackBoxModel id="OMEGA_REF" lib="DYNModelOmegaRef" parFile="WSCC9.par" parId="OmegaRef"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_0" id2="B1-G1 " var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_0" id2="B1-G1 " var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_0_value" id2="B1-G1 " var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_0_value" id2="B1-G1 " var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_0" id2="NETWORK" var2="B1_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_0" id2="B1-G1 " var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_1" id2="B2-G1 " var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_1" id2="B2-G1 " var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_1_value" id2="B2-G1 " var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_1_value" id2="B2-G1 " var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_1" id2="NETWORK" var2="B2_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_1" id2="B2-G1 " var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_2" id2="B3-G1 " var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_2" id2="B3-G1 " var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_2_value" id2="B3-G1 " var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_2_value" id2="B3-G1 " var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_2" id2="NETWORK" var2="B3_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_2" id2="B3-G1 " var2="generator_running"/>
   <dyn:connect id1="B5-L1 " var1="load_terminal" id2="NETWORK" var2="B5_ACPIN"/>

@@ -18,6 +18,6 @@
   <dyn:blackBoxModel id="OMEGA_REF" lib="DYNModelOmegaRef" parFile="TestCaseGovSteamEuSt4b.par" parId="OmegaRef"/>
   <dyn:connect id1="Load" var1="load_PRefPu" id2="StepP" var2="step_step_value"/>
   <dyn:connect id1="Load" var1="load_terminal" id2="SynchronousGenerator" var2="generator_terminal"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_0" id2="SynchronousGenerator" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_0" id2="SynchronousGenerator" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_0_value" id2="SynchronousGenerator" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_0_value" id2="SynchronousGenerator" var2="generator_omegaRefPu"/>
 </dyn:dynamicModelsArchitecture>

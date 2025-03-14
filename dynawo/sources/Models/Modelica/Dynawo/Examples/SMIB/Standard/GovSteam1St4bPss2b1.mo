@@ -57,7 +57,7 @@ model GovSteam1St4bPss2b1 "Voltage reference step on the synchronous machine (an
     nd = 0,
     nq = 0) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Basics.SetPoint Omega0Pu(Value0 = 1);
+  Modelica.Blocks.Sources.Constant Omega0Pu(k = 1);
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.St4b avr(
     Efd0Pu = generatorSynchronous.Efd0Pu,
     Ir0Pu = generatorSynchronous.IRotor0Pu,
@@ -170,7 +170,7 @@ equation
   generatorSynchronous.switchOffSignal2.value = false;
   generatorSynchronous.switchOffSignal3.value = false;
 
-  connect(Omega0Pu.setPoint, generatorSynchronous.omegaRefPu);
+  connect(Omega0Pu.y, generatorSynchronous.omegaRefPu);
   connect(const.y, avr.UUelPu) annotation(
     Line(points = {{152, 80}, {110, 80}, {110, 54}, {118, 54}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(pss.VPssPu, avr.UPssPu) annotation(

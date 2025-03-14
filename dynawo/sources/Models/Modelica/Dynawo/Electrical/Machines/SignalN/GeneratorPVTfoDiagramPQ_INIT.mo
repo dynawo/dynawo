@@ -23,12 +23,12 @@ model GeneratorPVTfoDiagramPQ_INIT "Initialisation model for generator PV based 
   parameter Types.VoltageModulePu URef0Pu "Start value of the voltage regulation set point at terminal in pu (base UNom)";
 
   Types.ComplexCurrentPu iStator0Pu "Start value of complex current at stator in pu (base UNom, SNom) (generator convention)";
-  Types.ReactivePowerPu QStator0Pu "Start value of stator reactive power in pu (base QNomAlt) (generator convention)";
+  Types.ReactivePowerPuConnector QStator0Pu "Start value of stator reactive power in pu (base QNomAlt) (generator convention)";
   Types.ComplexApparentPowerPu sStator0Pu "Start value of complex apparent power at stator in pu (base UNom, SNom) (generator convention)";
   Types.ComplexVoltagePu uStator0Pu "Start value of complex voltage at stator in pu (base UNom)";
   Types.VoltageModulePu UStator0Pu "Start value of voltage module at stator in pu (base UNom)";
   Types.ComplexVoltagePu uStatorRef0Pu "Start value of complex voltage regulation set point at stator in pu (base UNom)";
-  Types.VoltageModulePu UStatorRef0Pu "Start value of voltage regulation set point at stator in pu (base UNom)";
+  Types.VoltageModulePuConnector UStatorRef0Pu "Start value of voltage regulation set point at stator in pu (base UNom)";
 
 protected
   Types.ComplexCurrentPu iRef0Pu "Start value of complex current reference at terminal in pu (base UNom, SnRef) (receptor convention)";

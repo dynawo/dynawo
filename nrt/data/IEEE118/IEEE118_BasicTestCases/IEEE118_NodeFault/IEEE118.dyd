@@ -167,220 +167,220 @@
   <dyn:blackBoxModel id="B116-G1" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE118.par" parId="Generator116" staticId="B116-G1"/>
   <dyn:blackBoxModel id="OMEGA_REF" lib="DYNModelOmegaRef" parFile="IEEE118.par" parId="OmegaRef"/>
   <dyn:blackBoxModel id="FAULT_GEN_19" lib="NodeFault" parFile="IEEE118.par" parId="Fault"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_0" id2="B1-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_0" id2="B1-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_0_value" id2="B1-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_0_value" id2="B1-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_0" id2="NETWORK" var2="B1_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_0" id2="B1-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_1" id2="B4-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_1" id2="B4-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_1_value" id2="B4-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_1_value" id2="B4-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_1" id2="NETWORK" var2="B4_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_1" id2="B4-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_2" id2="B6-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_2" id2="B6-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_2_value" id2="B6-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_2_value" id2="B6-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_2" id2="NETWORK" var2="B6_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_2" id2="B6-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_3" id2="B8-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_3" id2="B8-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_3_value" id2="B8-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_3_value" id2="B8-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_3" id2="NETWORK" var2="B8_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_3" id2="B8-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_53" id2="B10-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_53" id2="B10-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_53_value" id2="B10-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_53_value" id2="B10-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_53" id2="NETWORK" var2="B10_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_53" id2="B10-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_4" id2="B12-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_4" id2="B12-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_4_value" id2="B12-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_4_value" id2="B12-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_4" id2="NETWORK" var2="B12_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_4" id2="B12-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_5" id2="B15-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_5" id2="B15-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_5_value" id2="B15-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_5_value" id2="B15-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_5" id2="NETWORK" var2="B15_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_5" id2="B15-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_6" id2="B18-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_6" id2="B18-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_6_value" id2="B18-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_6_value" id2="B18-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_6" id2="NETWORK" var2="B18_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_6" id2="B18-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_7" id2="B19-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_7" id2="B19-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_7_value" id2="B19-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_7_value" id2="B19-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_7" id2="NETWORK" var2="B19_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_7" id2="B19-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_8" id2="B24-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_8" id2="B24-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_8_value" id2="B24-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_8_value" id2="B24-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_8" id2="NETWORK" var2="B24_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_8" id2="B24-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_9" id2="B25-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_9" id2="B25-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_9_value" id2="B25-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_9_value" id2="B25-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_9" id2="NETWORK" var2="B25_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_9" id2="B25-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_10" id2="B26-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_10" id2="B26-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_10_value" id2="B26-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_10_value" id2="B26-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_10" id2="NETWORK" var2="B26_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_10" id2="B26-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_11" id2="B27-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_11" id2="B27-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_11_value" id2="B27-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_11_value" id2="B27-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_11" id2="NETWORK" var2="B27_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_11" id2="B27-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_12" id2="B31-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_12" id2="B31-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_12_value" id2="B31-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_12_value" id2="B31-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_12" id2="NETWORK" var2="B31_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_12" id2="B31-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_13" id2="B32-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_13" id2="B32-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_13_value" id2="B32-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_13_value" id2="B32-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_13" id2="NETWORK" var2="B32_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_13" id2="B32-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_14" id2="B34-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_14" id2="B34-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_14_value" id2="B34-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_14_value" id2="B34-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_14" id2="NETWORK" var2="B34_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_14" id2="B34-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_15" id2="B36-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_15" id2="B36-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_15_value" id2="B36-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_15_value" id2="B36-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_15" id2="NETWORK" var2="B36_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_15" id2="B36-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_16" id2="B40-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_16" id2="B40-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_16_value" id2="B40-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_16_value" id2="B40-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_16" id2="NETWORK" var2="B40_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_16" id2="B40-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_17" id2="B42-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_17" id2="B42-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_17_value" id2="B42-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_17_value" id2="B42-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_17" id2="NETWORK" var2="B42_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_17" id2="B42-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_18" id2="B46-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_18" id2="B46-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_18_value" id2="B46-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_18_value" id2="B46-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_18" id2="NETWORK" var2="B46_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_18" id2="B46-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_19" id2="B49-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_19" id2="B49-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_19_value" id2="B49-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_19_value" id2="B49-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_19" id2="NETWORK" var2="B49_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_19" id2="B49-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_20" id2="B54-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_20" id2="B54-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_20_value" id2="B54-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_20_value" id2="B54-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_20" id2="NETWORK" var2="B54_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_20" id2="B54-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_21" id2="B55-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_21" id2="B55-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_21_value" id2="B55-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_21_value" id2="B55-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_21" id2="NETWORK" var2="B55_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_21" id2="B55-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_22" id2="B56-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_22" id2="B56-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_22_value" id2="B56-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_22_value" id2="B56-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_22" id2="NETWORK" var2="B56_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_22" id2="B56-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_23" id2="B59-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_23" id2="B59-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_23_value" id2="B59-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_23_value" id2="B59-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_23" id2="NETWORK" var2="B59_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_23" id2="B59-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_24" id2="B61-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_24" id2="B61-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_24_value" id2="B61-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_24_value" id2="B61-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_24" id2="NETWORK" var2="B61_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_24" id2="B61-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_25" id2="B62-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_25" id2="B62-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_25_value" id2="B62-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_25_value" id2="B62-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_25" id2="NETWORK" var2="B62_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_25" id2="B62-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_26" id2="B65-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_26" id2="B65-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_26_value" id2="B65-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_26_value" id2="B65-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_26" id2="NETWORK" var2="B65_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_26" id2="B65-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_27" id2="B66-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_27" id2="B66-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_27_value" id2="B66-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_27_value" id2="B66-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_27" id2="NETWORK" var2="B66_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_27" id2="B66-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_28" id2="B69-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_28" id2="B69-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_28_value" id2="B69-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_28_value" id2="B69-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_28" id2="NETWORK" var2="B69_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_28" id2="B69-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_29" id2="B70-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_29" id2="B70-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_29_value" id2="B70-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_29_value" id2="B70-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_29" id2="NETWORK" var2="B70_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_29" id2="B70-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_30" id2="B72-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_30" id2="B72-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_30_value" id2="B72-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_30_value" id2="B72-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_30" id2="NETWORK" var2="B72_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_30" id2="B72-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_31" id2="B73-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_31" id2="B73-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_31_value" id2="B73-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_31_value" id2="B73-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_31" id2="NETWORK" var2="B73_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_31" id2="B73-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_32" id2="B74-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_32" id2="B74-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_32_value" id2="B74-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_32_value" id2="B74-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_32" id2="NETWORK" var2="B74_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_32" id2="B74-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_33" id2="B76-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_33" id2="B76-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_33_value" id2="B76-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_33_value" id2="B76-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_33" id2="NETWORK" var2="B76_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_33" id2="B76-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_34" id2="B77-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_34" id2="B77-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_34_value" id2="B77-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_34_value" id2="B77-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_34" id2="NETWORK" var2="B77_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_34" id2="B77-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_35" id2="B80-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_35" id2="B80-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_35_value" id2="B80-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_35_value" id2="B80-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_35" id2="NETWORK" var2="B80_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_35" id2="B80-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_36" id2="B85-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_36" id2="B85-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_36_value" id2="B85-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_36_value" id2="B85-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_36" id2="NETWORK" var2="B85_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_36" id2="B85-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_37" id2="B87-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_37" id2="B87-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_37_value" id2="B87-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_37_value" id2="B87-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_37" id2="NETWORK" var2="B87_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_37" id2="B87-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_38" id2="B89-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_38" id2="B89-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_38_value" id2="B89-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_38_value" id2="B89-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_38" id2="NETWORK" var2="B89_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_38" id2="B89-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_39" id2="B90-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_39" id2="B90-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_39_value" id2="B90-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_39_value" id2="B90-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_39" id2="NETWORK" var2="B90_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_39" id2="B90-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_40" id2="B91-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_40" id2="B91-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_40_value" id2="B91-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_40_value" id2="B91-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_40" id2="NETWORK" var2="B91_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_40" id2="B91-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_41" id2="B92-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_41" id2="B92-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_41_value" id2="B92-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_41_value" id2="B92-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_41" id2="NETWORK" var2="B92_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_41" id2="B92-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_42" id2="B99-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_42" id2="B99-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_42_value" id2="B99-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_42_value" id2="B99-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_42" id2="NETWORK" var2="B99_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_42" id2="B99-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_43" id2="B100-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_43" id2="B100-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_43_value" id2="B100-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_43_value" id2="B100-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_43" id2="NETWORK" var2="B100_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_43" id2="B100-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_44" id2="B103-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_44" id2="B103-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_44_value" id2="B103-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_44_value" id2="B103-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_44" id2="NETWORK" var2="B103_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_44" id2="B103-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_45" id2="B104-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_45" id2="B104-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_45_value" id2="B104-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_45_value" id2="B104-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_45" id2="NETWORK" var2="B104_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_45" id2="B104-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_46" id2="B105-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_46" id2="B105-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_46_value" id2="B105-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_46_value" id2="B105-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_46" id2="NETWORK" var2="B105_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_46" id2="B105-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_47" id2="B107-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_47" id2="B107-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_47_value" id2="B107-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_47_value" id2="B107-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_47" id2="NETWORK" var2="B107_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_47" id2="B107-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_48" id2="B110-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_48" id2="B110-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_48_value" id2="B110-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_48_value" id2="B110-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_48" id2="NETWORK" var2="B110_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_48" id2="B110-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_49" id2="B111-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_49" id2="B111-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_49_value" id2="B111-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_49_value" id2="B111-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_49" id2="NETWORK" var2="B111_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_49" id2="B111-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_50" id2="B112-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_50" id2="B112-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_50_value" id2="B112-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_50_value" id2="B112-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_50" id2="NETWORK" var2="B112_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_50" id2="B112-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_51" id2="B113-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_51" id2="B113-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_51_value" id2="B113-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_51_value" id2="B113-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_51" id2="NETWORK" var2="B113_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_51" id2="B113-G1" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_52" id2="B116-G1" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_52" id2="B116-G1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_52_value" id2="B116-G1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_52_value" id2="B116-G1" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_52" id2="NETWORK" var2="B116_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_52" id2="B116-G1" var2="generator_running"/>
   <dyn:connect id1="B1-G1" var1="generator_terminal" id2="NETWORK" var2="B1_ACPIN"/>

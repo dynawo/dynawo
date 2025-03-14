@@ -56,7 +56,7 @@ model SMIBStepPm "Synchronous machine infinite bus - Step on Pm"
     nd = 6.93,
     nq = 6.93) annotation(
     Placement(visible = true, transformation(origin = {82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Basics.SetPoint Omega0Pu(Value0 = 1);
+  Modelica.Blocks.Sources.Constant Omega0Pu(k = 1);
 
   // Generator speed control
   Modelica.Blocks.Sources.Step PmPu(height = 0.02, offset = 0.903, startTime = 1) annotation(
@@ -84,10 +84,10 @@ initial equation
   der(generatorSynchronous.lambdaQ1Pu) = 0;
   der(generatorSynchronous.lambdaQ2Pu) = 0;
   der(generatorSynchronous.theta) = 0;
-  der(generatorSynchronous.omegaPu.value) = 0;
+  der(generatorSynchronous.omegaPu) = 0;
 
 equation
-  connect(generatorSynchronous.omegaRefPu, Omega0Pu.setPoint);
+  connect(Omega0Pu.y, generatorSynchronous.omegaRefPu);
   connect(transformer.terminal2, generatorSynchronous.terminal) annotation(
     Line(points = {{56, 0}, {82, 0}}, color = {0, 0, 255}));
   connect(line2.terminal2, transformer.terminal1) annotation(

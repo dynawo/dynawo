@@ -21,11 +21,11 @@
     <dyn:initConnect id1="voltageRegulator" var1="Ir0Pu" id2="generator" var2="IRotor0Pu"/>
     <dyn:initConnect id1="voltageRegulator" var1="Us0Pu" id2="generator" var2="UStator0Pu"/>
     <dyn:initConnect id1="powerSystemStabilizer" var1="PGen0Pu" id2="generator" var2="PGen0Pu"/>
-    <dyn:connect id1="voltageRegulator" var1="EfdPu" id2="generator" var2="efdPu.value"/>
-    <dyn:connect id1="voltageRegulator" var1="IrPu" id2="generator" var2="IRotorPu.value"/>
+    <dyn:connect id1="voltageRegulator" var1="EfdPu" id2="generator" var2="efdPu"/>
+    <dyn:connect id1="voltageRegulator" var1="IrPu" id2="generator" var2="IRotorPu"/>
     <dyn:connect id1="voltageRegulator" var1="UPssPu" id2="powerSystemStabilizer" var2="VPssPu"/>
-    <dyn:connect id1="voltageRegulator" var1="UsPu" id2="generator" var2="UStatorPu.value"/>
-    <dyn:connect id1="powerSystemStabilizer" var1="omegaPu" id2="generator" var2="omegaPu.value"/>
+    <dyn:connect id1="voltageRegulator" var1="UsPu" id2="generator" var2="UStatorPu"/>
+    <dyn:connect id1="powerSystemStabilizer" var1="omegaPu" id2="generator" var2="omegaPu"/>
     <dyn:connect id1="powerSystemStabilizer" var1="PGenPu" id2="generator" var2="PGenPu"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

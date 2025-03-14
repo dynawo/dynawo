@@ -146,18 +146,18 @@
     <dyn:connect var1="generator_switchOffSignal1" var2="@NAME@_switchOff"/>
   </dyn:macroConnector>
   <dyn:macroConnector id="MC_DYNModelOmegaRef-GeneratorSynchronousThreeWindingsGoverNordicVRNordic">
-    <dyn:connect var1="omega_grp_@INDEX@" var2="generator_omegaPu"/>
-    <dyn:connect var1="omegaRef_grp_@INDEX@" var2="generator_omegaRefPu"/>
+    <dyn:connect var1="omega_grp_@INDEX@_value" var2="generator_omegaPu"/>
+    <dyn:connect var1="omegaRef_grp_@INDEX@_value" var2="generator_omegaRefPu"/>
     <dyn:connect var1="running_grp_@INDEX@" var2="generator_running"/>
   </dyn:macroConnector>
   <dyn:macroConnector id="MC_DYNModelOmegaRef-GeneratorSynchronousFourWindingsPmConstVRNordic">
-    <dyn:connect var1="omega_grp_@INDEX@" var2="generator_omegaPu"/>
-    <dyn:connect var1="omegaRef_grp_@INDEX@" var2="generator_omegaRefPu"/>
+    <dyn:connect var1="omega_grp_@INDEX@_value" var2="generator_omegaPu"/>
+    <dyn:connect var1="omegaRef_grp_@INDEX@_value" var2="generator_omegaRefPu"/>
     <dyn:connect var1="running_grp_@INDEX@" var2="generator_running"/>
   </dyn:macroConnector>
   <dyn:macroConnector id="MC_DYNModelOmegaRef-GeneratorSynchronousThreeWindingsPmConstVRNordic">
-    <dyn:connect var1="omega_grp_@INDEX@" var2="generator_omegaPu"/>
-    <dyn:connect var1="omegaRef_grp_@INDEX@" var2="generator_omegaRefPu"/>
+    <dyn:connect var1="omega_grp_@INDEX@_value" var2="generator_omegaPu"/>
+    <dyn:connect var1="omegaRef_grp_@INDEX@_value" var2="generator_omegaRefPu"/>
     <dyn:connect var1="running_grp_@INDEX@" var2="generator_running"/>
   </dyn:macroConnector>
   <dyn:macroConnector id="MC_DYNModelOmegaRef-NetworkBus">

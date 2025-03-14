@@ -15,8 +15,8 @@ within Dynawo.Electrical.Controls.Machines.Governors;
 model GovernorPmPGen_INIT "Initialisation model for governors with generated electric active power input PGenPu"
   extends AdditionalIcons.Init;
 
-  Types.ActivePowerPu PGen0Pu "Initial generated electric active power in pu (base SnRef (system base)) (generator convention)";
-  Types.ActivePowerPu Pm0Pu "Initial mechanical power in pu (base PNomTurb)";
+  Types.ActivePowerPuConnector PGen0Pu "Initial generated electric active power in pu (base SnRef (system base)) (generator convention)";
+  Types.ActivePowerPuConnector Pm0Pu "Initial mechanical power in pu (base PNomTurb)";
 
   annotation(preferredView = "text");
 end GovernorPmPGen_INIT;

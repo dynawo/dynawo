@@ -57,7 +57,7 @@ model SMIBStepEfdPm "Synchronous machine infinite bus with steps on Efd and Pm"
     nd = 0,
     nq = 0) annotation(
     Placement(visible = true, transformation(origin = {82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Basics.SetPoint Omega0Pu(Value0 = 1);
+  Modelica.Blocks.Sources.Constant Omega0Pu(k = 1);
 
   // Generator speed control
   Modelica.Blocks.Sources.Step PmPu(height = 0.1, offset = 0.948104, startTime = 5) annotation(
@@ -103,7 +103,7 @@ initial equation
   der(generatorSynchronous.lambdaQ1Pu) = 0;
   der(generatorSynchronous.lambdaQ2Pu) = 0;
   der(generatorSynchronous.theta) = 0;
-  der(generatorSynchronous.omegaPu.value) = 0;
+  der(generatorSynchronous.omegaPu) = 0;
 
 equation
   gridImpedance.switchOffSignal1.value = false;
@@ -118,7 +118,7 @@ equation
   generatorSynchronous.switchOffSignal2.value = false;
   generatorSynchronous.switchOffSignal3.value = false;
 
-  connect(generatorSynchronous.omegaRefPu, Omega0Pu.setPoint);
+  connect(Omega0Pu.y, generatorSynchronous.omegaRefPu);
   connect(transformer.terminal2, generatorSynchronous.terminal) annotation(
     Line(points = {{56, 0}, {82, 0}}, color = {0, 0, 255}));
   connect(gridImpedance.terminal2, transformer.terminal1) annotation(

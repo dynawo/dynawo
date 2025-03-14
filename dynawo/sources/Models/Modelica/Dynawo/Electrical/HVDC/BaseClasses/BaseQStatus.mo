@@ -19,8 +19,8 @@ partial model BaseQStatus "Base dynamic model QStatus"
 
   extends BaseClasses.BaseQStatusDangling;
 
-  Boolean limUQDown2(start = limUQDown20) "Whether the minimum reactive power limits are reached or not at terminal 2";
-  Boolean limUQUp2(start = limUQUp20) "Whether the maximum reactive power limits are reached or not at terminal 2";
+  Modelica.Blocks.Interfaces.BooleanOutput limUQDown2(start = limUQDown20) "Whether the minimum reactive power limits are reached or not at terminal 2";
+  Modelica.Blocks.Interfaces.BooleanOutput limUQUp2(start = limUQUp20) "Whether the maximum reactive power limits are reached or not at terminal 2";
   QStatus q2Status(start = q2Status0) "Voltage regulation status of terminal 2: Standard, AbsorptionMax or GenerationMax";
 
   parameter Boolean limUQDown20 "Whether the minimum reactive power limits are reached or not at terminal 2, start value";

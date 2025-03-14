@@ -260,32 +260,32 @@ equation
   check_IrPu_g15 = g15.vrNordic.IrPu;
   check_IrPu_g16 = g16.vrNordic.IrPu;
   check_IrPu_g18 = g18.vrNordic.IrPu;
-  check_f_g06 = g06.generatorSynchronous.omegaPu.value;
-  check_f_g07 = g07.generatorSynchronous.omegaPu.value;
-  check_f_g17 = g17.generatorSynchronous.omegaPu.value;
+  check_f_g06 = g06.generatorSynchronous.omegaPu;
+  check_f_g07 = g07.generatorSynchronous.omegaPu;
+  check_f_g17 = g17.generatorSynchronous.omegaPu;
   check_UtPu_g06 = g06.generatorSynchronous.UPu;
   check_UtPu_g07 = g07.generatorSynchronous.UPu;
 
-  omegaCOI = (g01.generatorSynchronous.omegaPu.value * g01.generatorSynchronous.H * g01.generatorSynchronous.SNom +
-              g02.generatorSynchronous.omegaPu.value * g02.generatorSynchronous.H * g02.generatorSynchronous.SNom +
-              g03.generatorSynchronous.omegaPu.value * g03.generatorSynchronous.H * g03.generatorSynchronous.SNom +
-              g04.generatorSynchronous.omegaPu.value * g04.generatorSynchronous.H * g04.generatorSynchronous.SNom +
-              g05.generatorSynchronous.omegaPu.value * g05.generatorSynchronous.H * g05.generatorSynchronous.SNom +
-              g06.generatorSynchronous.omegaPu.value * g06.generatorSynchronous.H * g06.generatorSynchronous.SNom +
-              g07.generatorSynchronous.omegaPu.value * g07.generatorSynchronous.H * g07.generatorSynchronous.SNom +
-              g08.generatorSynchronous.omegaPu.value * g08.generatorSynchronous.H * g08.generatorSynchronous.SNom +
-              g09.generatorSynchronous.omegaPu.value * g09.generatorSynchronous.H * g09.generatorSynchronous.SNom +
-              g10.generatorSynchronous.omegaPu.value * g10.generatorSynchronous.H * g10.generatorSynchronous.SNom +
-              g11.generatorSynchronous.omegaPu.value * g11.generatorSynchronous.H * g11.generatorSynchronous.SNom +
-              g12.generatorSynchronous.omegaPu.value * g12.generatorSynchronous.H * g12.generatorSynchronous.SNom +
-              g13.generatorSynchronous.omegaPu.value * g13.generatorSynchronous.H * g13.generatorSynchronous.SNom +
-              g14.generatorSynchronous.omegaPu.value * g14.generatorSynchronous.H * g14.generatorSynchronous.SNom +
-              g15.generatorSynchronous.omegaPu.value * g15.generatorSynchronous.H * g15.generatorSynchronous.SNom +
-              g16.generatorSynchronous.omegaPu.value * g16.generatorSynchronous.H * g16.generatorSynchronous.SNom +
-              g17.generatorSynchronous.omegaPu.value * g17.generatorSynchronous.H * g17.generatorSynchronous.SNom +
-              g18.generatorSynchronous.omegaPu.value * g18.generatorSynchronous.H * g18.generatorSynchronous.SNom +
-              g19.generatorSynchronous.omegaPu.value * g19.generatorSynchronous.H * g19.generatorSynchronous.SNom +
-              g20.generatorSynchronous.omegaPu.value * g20.generatorSynchronous.H * g20.generatorSynchronous.SNom
+  omegaCOI = (g01.generatorSynchronous.omegaPu * g01.generatorSynchronous.H * g01.generatorSynchronous.SNom +
+              g02.generatorSynchronous.omegaPu * g02.generatorSynchronous.H * g02.generatorSynchronous.SNom +
+              g03.generatorSynchronous.omegaPu * g03.generatorSynchronous.H * g03.generatorSynchronous.SNom +
+              g04.generatorSynchronous.omegaPu * g04.generatorSynchronous.H * g04.generatorSynchronous.SNom +
+              g05.generatorSynchronous.omegaPu * g05.generatorSynchronous.H * g05.generatorSynchronous.SNom +
+              g06.generatorSynchronous.omegaPu * g06.generatorSynchronous.H * g06.generatorSynchronous.SNom +
+              g07.generatorSynchronous.omegaPu * g07.generatorSynchronous.H * g07.generatorSynchronous.SNom +
+              g08.generatorSynchronous.omegaPu * g08.generatorSynchronous.H * g08.generatorSynchronous.SNom +
+              g09.generatorSynchronous.omegaPu * g09.generatorSynchronous.H * g09.generatorSynchronous.SNom +
+              g10.generatorSynchronous.omegaPu * g10.generatorSynchronous.H * g10.generatorSynchronous.SNom +
+              g11.generatorSynchronous.omegaPu * g11.generatorSynchronous.H * g11.generatorSynchronous.SNom +
+              g12.generatorSynchronous.omegaPu * g12.generatorSynchronous.H * g12.generatorSynchronous.SNom +
+              g13.generatorSynchronous.omegaPu * g13.generatorSynchronous.H * g13.generatorSynchronous.SNom +
+              g14.generatorSynchronous.omegaPu * g14.generatorSynchronous.H * g14.generatorSynchronous.SNom +
+              g15.generatorSynchronous.omegaPu * g15.generatorSynchronous.H * g15.generatorSynchronous.SNom +
+              g16.generatorSynchronous.omegaPu * g16.generatorSynchronous.H * g16.generatorSynchronous.SNom +
+              g17.generatorSynchronous.omegaPu * g17.generatorSynchronous.H * g17.generatorSynchronous.SNom +
+              g18.generatorSynchronous.omegaPu * g18.generatorSynchronous.H * g18.generatorSynchronous.SNom +
+              g19.generatorSynchronous.omegaPu * g19.generatorSynchronous.H * g19.generatorSynchronous.SNom +
+              g20.generatorSynchronous.omegaPu * g20.generatorSynchronous.H * g20.generatorSynchronous.SNom
               ) / (
               g01.generatorSynchronous.SNom * g01.generatorSynchronous.H +
               g02.generatorSynchronous.SNom * g02.generatorSynchronous.H +
@@ -308,26 +308,26 @@ equation
               g19.generatorSynchronous.SNom * g19.generatorSynchronous.H +
               g20.generatorSynchronous.SNom * g20.generatorSynchronous.H);
 
-  g01.generatorSynchronous.omegaRefPu.value = omegaCOI;
-  g02.generatorSynchronous.omegaRefPu.value = omegaCOI;
-  g03.generatorSynchronous.omegaRefPu.value = omegaCOI;
-  g04.generatorSynchronous.omegaRefPu.value = omegaCOI;
-  g05.generatorSynchronous.omegaRefPu.value = omegaCOI;
-  g06.generatorSynchronous.omegaRefPu.value = omegaCOI;
-  g07.generatorSynchronous.omegaRefPu.value = omegaCOI;
-  g08.generatorSynchronous.omegaRefPu.value = omegaCOI;
-  g09.generatorSynchronous.omegaRefPu.value = omegaCOI;
-  g10.generatorSynchronous.omegaRefPu.value = omegaCOI;
-  g11.generatorSynchronous.omegaRefPu.value = omegaCOI;
-  g12.generatorSynchronous.omegaRefPu.value = omegaCOI;
-  g13.generatorSynchronous.omegaRefPu.value = omegaCOI;
-  g14.generatorSynchronous.omegaRefPu.value = omegaCOI;
-  g15.generatorSynchronous.omegaRefPu.value = omegaCOI;
-  g16.generatorSynchronous.omegaRefPu.value = omegaCOI;
-  g17.generatorSynchronous.omegaRefPu.value = omegaCOI;
-  g18.generatorSynchronous.omegaRefPu.value = omegaCOI;
-  g19.generatorSynchronous.omegaRefPu.value = omegaCOI;
-  g20.generatorSynchronous.omegaRefPu.value = omegaCOI;
+  g01.generatorSynchronous.omegaRefPu = omegaCOI;
+  g02.generatorSynchronous.omegaRefPu = omegaCOI;
+  g03.generatorSynchronous.omegaRefPu = omegaCOI;
+  g04.generatorSynchronous.omegaRefPu = omegaCOI;
+  g05.generatorSynchronous.omegaRefPu = omegaCOI;
+  g06.generatorSynchronous.omegaRefPu = omegaCOI;
+  g07.generatorSynchronous.omegaRefPu = omegaCOI;
+  g08.generatorSynchronous.omegaRefPu = omegaCOI;
+  g09.generatorSynchronous.omegaRefPu = omegaCOI;
+  g10.generatorSynchronous.omegaRefPu = omegaCOI;
+  g11.generatorSynchronous.omegaRefPu = omegaCOI;
+  g12.generatorSynchronous.omegaRefPu = omegaCOI;
+  g13.generatorSynchronous.omegaRefPu = omegaCOI;
+  g14.generatorSynchronous.omegaRefPu = omegaCOI;
+  g15.generatorSynchronous.omegaRefPu = omegaCOI;
+  g16.generatorSynchronous.omegaRefPu = omegaCOI;
+  g17.generatorSynchronous.omegaRefPu = omegaCOI;
+  g18.generatorSynchronous.omegaRefPu = omegaCOI;
+  g19.generatorSynchronous.omegaRefPu = omegaCOI;
+  g20.generatorSynchronous.omegaRefPu = omegaCOI;
 
   connect(nodeFault.terminal, bus_4032.terminal);
   connect(disconnection.state1, line_4032_4044.switchOffSignal1);

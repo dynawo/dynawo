@@ -60,8 +60,8 @@
     <dyn:connect var1="generator_switchOffSignal1" var2="@STATIC_ID@@NODE@_switchOff"/>
   </dyn:macroConnector>
   <dyn:macroConnector id="GEN_OMEGAREF_CONNECTOR">
-    <dyn:connect var1="omega_grp_@INDEX@" var2="generator_omegaPu"/>
-    <dyn:connect var1="omegaRef_grp_@INDEX@" var2="generator_omegaRefPu"/>
+    <dyn:connect var1="omega_grp_@INDEX@_value" var2="generator_omegaPu"/>
+    <dyn:connect var1="omegaRef_grp_@INDEX@_value" var2="generator_omegaRefPu"/>
     <dyn:connect var1="running_grp_@INDEX@" var2="generator_running"/>
   </dyn:macroConnector>
 </dyn:dynamicModelsArchitecture>

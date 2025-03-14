@@ -56,7 +56,7 @@ model TestCase3 "Bolted three-phase short circuit at the high-level side of the 
     nd = 0,
     nq = 0) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Basics.SetPoint Omega0Pu(Value0 = 1);
+  Modelica.Blocks.Sources.Constant Omega0Pu(k = 1);
   Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.TGov1 governor(
     Dt = 0,
     Pm0Pu = generatorSynchronous.Pm0Pu,
@@ -150,10 +150,10 @@ equation
   generatorSynchronous.switchOffSignal1.value = false;
   generatorSynchronous.switchOffSignal2.value = false;
   generatorSynchronous.switchOffSignal3.value = false;
-  Omega0Pu.setPoint.value = pss.omegaRefPu;
-  Omega0Pu.setPoint.value = governor.omegaRefPu;
 
-  connect(Omega0Pu.setPoint, generatorSynchronous.omegaRefPu);
+  connect(Omega0Pu.y, pss.omegaRefPu);
+  connect(Omega0Pu.y, governor.omegaRefPu);
+  connect(Omega0Pu.y, generatorSynchronous.omegaRefPu);
   connect(PmRefPu.y, governor.PmRefPu);
   connect(transformer.terminal2, generatorSynchronous.terminal) annotation(
     Line(points = {{-12, 0}, {20, 0}}, color = {0, 0, 255}));

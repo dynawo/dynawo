@@ -170,15 +170,15 @@ initial algorithm
   uStator0Pu.im := generatorSynchronousInt_INIT.uStator0Pu.im;
 
 equation
-  PmPu.value = PmPu_in;
-  efdPu.value = efdPu_in;
-  UsPu_out = UStatorPu.value;
-  omegaPu_out = omegaPu.value;
+  PmPu = PmPu_in;
+  efdPu = efdPu_in;
+  UsPu_out = UStatorPu;
+  omegaPu_out = omegaPu;
   PGenPu_out = PGenPu;
   QGenPu_out = QGenPu;
   uPu_out = uPu;
   iStatorPu_out = iStatorPu;
-  IRotorPu_out = IRotorPu.value;
+  IRotorPu_out = IRotorPu;
 
   annotation(preferredView = "text");
 end GeneratorSynchronousInterfaces;

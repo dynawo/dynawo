@@ -31,6 +31,6 @@
   <dyn:connect id1="Transformer" var1="transformer_terminal1" id2="Fault" var2="fault_terminal"/>
   <dyn:connect id1="Transformer" var1="transformer_terminal2" id2="SM" var2="generator_terminal"/>
   <dyn:connect id1="OpenLine" var1="event_state1" id2="Line2" var2="line_switchOffSignal2"/>
-  <dyn:connect id1="OmegaRef" var1="setPoint_setPoint" id2="SM" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OmegaRef" var1="setPoint_setPoint_value" id2="SM" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OmegaRef" var1="setPoint_setPoint_value" id2="SM" var2="pss_omegaRefPu"/>
 </dyn:dynamicModelsArchitecture>
