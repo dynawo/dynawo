@@ -180,6 +180,8 @@ SolverIDA::setSolverSpecificParameters() {
     uroundPrecision_ = uroundPrecision.getValue<double>();
   else
     uroundPrecision_ = getCurrentPrecision();
+  if (getCurrentPrecision() < uroundPrecision_)
+    uroundPrecision_ = getCurrentPrecision();
   const ParameterSolver& newReinit = findParameter("newReinit");
   if (newReinit.hasValue())
     newReinit_ = newReinit.getValue<bool>();
