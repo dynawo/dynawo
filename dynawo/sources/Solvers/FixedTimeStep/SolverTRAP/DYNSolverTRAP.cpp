@@ -79,7 +79,7 @@ void
 SolverTRAP::init(const std::shared_ptr<Model>& model, const double t0, const double tEnd) {
   initCommon(model, t0, tEnd);
 
-  solverKINYPrimInit_.reset(new SolverKINAlgRestoration());
+  solverKINYPrimInit_.reset(new SolverKINAlgRestoration(false));
   solverKINYPrimInit_->init(model_, SolverKINAlgRestoration::KIN_DERIVATIVES);
 }
 

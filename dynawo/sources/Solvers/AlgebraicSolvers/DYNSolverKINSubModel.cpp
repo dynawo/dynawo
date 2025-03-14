@@ -133,30 +133,6 @@ SolverKINSubModel::evalFInit_KIN(N_Vector yy, N_Vector rr, void *data) {
   realtype* irr = NV_DATA_S(rr);
   memcpy(irr, solver->fBuffer_, solver->numF_ * sizeof(solver->fBuffer_[0]));
 
-  /*if (subModel->name() == "NETWORK") {
-    static int nbPrint = 0;
-    static std::string baseY = "tmpSolY/solY-";
-    std::stringstream nomFichierY;
-    nomFichierY << baseY << nbPrint << ".txt";
-
-    if (!exists("tmpSolY")) {
-      create_directory("tmpSolY");
-    }
-
-    const auto& xNames = subModel->xNamesInit();
-
-    std::ofstream fileY;
-    fileY.open(nomFichierY.str().c_str(), std::ofstream::out);
-
-    for (unsigned int i = 0; i < solver->vectorYSubModel_.size(); ++i) {
-      fileY << i << " " << xNames[i] << " " << solver->vectorYSubModel_[i] << "\n";
-    }
-
-    fileY.close();
-
-    ++nbPrint;
-  }*/
-
 #ifdef _DEBUG_
   // Print the current residual norms, the first one is used as a stopping criterion
   solver->vectorF_.resize(solver->numF_);

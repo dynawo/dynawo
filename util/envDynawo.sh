@@ -1050,6 +1050,7 @@ build_minimal() {
   build_dynawo_core || error_exit "Error during build_dynawo_core."
   build_dynawo_models_cpp || error_exit "Error during build_dynawo_models_cpp."
   build_dynawo_solvers || error_exit "Error during build_dynawo_solvers."
+  build_dynawo_target MODEL_FILES_INSTALL || error_exit "Error during build_dynawo_target MODEL_FILES_INSTALL."
 }
 
 # Compile Dynawo and its dependencies

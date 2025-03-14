@@ -63,6 +63,7 @@ typedef struct {
   long int nmeDiff_;  ///< number of mode evaluations
   long int nmeAlg_;  ///< number of mode evaluations
   long int nmeAlgJ_;  ///< number of mode evaluations
+  long int nmeAlgJJ_;  ///< number of mode evaluations
 } stat_t;
 
 class Message;
@@ -392,7 +393,8 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   modeChangeType_t minimumModeChangeTypeForAlgebraicRestoration_;  ///< parameter to set the minimum mode level at which algebraic restoration will occur
   modeChangeType_t minimumModeChangeTypeForAlgebraicRestorationInit_;  ///< parameter to set the minimum mode level
                                                                        ///< at which algebraic restoration will occur at init
- bool multipleStrategiesForAlgebraicRestoration_;  ///< parameter to activate multi strategy for algebraic restoration
+  bool multipleStrategiesForAlgebraicRestoration_;  ///< parameter to activate multi strategy for algebraic restoration
+  bool printUnstableRoot_;  ///< parameter
 
   stat_t stats_;  ///< execution statistics of the solver
   double tSolve_;  ///< current internal time of the solver

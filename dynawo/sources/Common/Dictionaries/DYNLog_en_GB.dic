@@ -231,9 +231,12 @@ IdaBadEwt                     =             IDA_BAD_EWT : Some component of the 
 IdaFirstResFail               =             IDA_FIRST_RES_FAIL : The user's residual function returned a recoverable error flag on the first call, but IDACalcIC was unable to recover.
 IdaResFail                    =             IDA_RES_FAIL : The user's residual function returned a nonrecoverable error flag.
 IdaNoRecovery                 =             IDA_NO_RECOVERY : The user's residual function, or the linear solver's setup or solve function had a recoverable error, but IDACalcIC was unable to recover.
-IdaConstrFail                 =             IDA_CONSTR_FAIL : IDACalcIC was unable to find a solution satisfying the inequality constraints.
+IdaConstrFail                 =             IDA_CONSTR_FAIL : The inequality constraints were violated and the solver was unable to recover.
 IdaLinesearchFail             =             IDA_LINESEARCH_FAIL : The linesearch algorithm failed to find a solution with a step larger than steptol in weighted RMS norm.
-IdaConvFail                   =             IDA_CONV_FAIL : IDACalcIC failed to get convergence of the Newton iterations.
+IdaErrFail                    =             IDA_ERR_FAIL : Error test failures occurred too many times (mxnef) during one internal time step or occurred with h = h_min
+IdaConvFail                   =             IDA_CONV_FAIL : Convergence test failures occurred too many times (mxncf) during one internal time step or occurred with h = h_min
+IdaAccuracyFail               =             IDA_TOO_MUCH_ACC : The solver could not satisfy the accuracy demanded by the user for some internal step.
+IdaTooMuchWork                =             IDA_TOO_MUCH_WORK : The solver took mxstep internal steps but could not reach tout. The default value for mxstep is MXSTEP_DEFAULT = 500.
 SolverIDAUnknownError         =             unknown error during IDA Solve
 SolverIDARestorAlgebraicEqu   =             restoration of the algebraic equations
 SolverIDADebugResidual        =             DEBUG RESIDUAL
