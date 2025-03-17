@@ -25,7 +25,7 @@ model Ac168_INIT "IEEE excitation system types AC1C, AC6A, AC6C and AC8B initial
   parameter Types.VoltageModulePu VfeMaxPu "Maximum exciter field current signal in pu (user-selected base voltage)";
 
   Types.VoltageModulePu Efe0Pu "Initial output voltage of voltage regulator in pu (user-selected base voltage)";
-  Types.CurrentModulePuConnector Ir0Pu "Initial rotor current in pu (base SNom, user-selected base voltage)";
+  Dynawo.Connectors.CurrentModulePuConnector Ir0Pu "Initial rotor current in pu (base SNom, user-selected base voltage)";
   Types.VoltageModulePu Ve0Pu "Initial exciter output voltage in pu (user-selected base voltage)";
   Types.VoltageModulePu VeMax0Pu "Maximum exciter output voltage in pu (user-selected base voltage)";
 

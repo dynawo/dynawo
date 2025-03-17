@@ -19,8 +19,8 @@ model GeneratorPVQNomAltPar_INIT "Initialisation model for generator PV based on
   parameter Types.ReactivePower QNomAlt "Nominal reactive power of the generator on alternator side in Mvar";
   parameter Types.VoltageModulePu URef0Pu "Start value of the voltage regulation set point in pu (base UNom)";
 
-  Types.ReactivePowerPuConnector QStator0Pu "Start value of stator reactive power in pu (base QNomAlt) (generator convention)";
-  Types.VoltageModulePuConnector URef0PuVar "Start value of the voltage regulation set point in pu (base UNom)";
+  Dynawo.Connectors.ReactivePowerPuConnector QStator0Pu "Start value of stator reactive power in pu (base QNomAlt) (generator convention)";
+  Dynawo.Connectors.VoltageModulePuConnector URef0PuVar "Start value of the voltage regulation set point in pu (base UNom)";
 
 equation
   if QGen0Pu <= QMinPu and U0Pu >= URef0Pu then

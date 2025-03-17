@@ -21,7 +21,7 @@ model VRProportional_INIT "Simple proportional voltage regulator initialization 
   parameter Types.VoltageModulePu EfdMinPu "Minimum allowed exciter field voltage in pu (user-selected base voltage)";
   parameter Types.PerUnit Gain "Control gain";
 
-  Types.VoltageModulePuConnector Efd0PuLF "Initial exciter field voltage from LoadFlow in pu (user-selected base voltage)";
+  Dynawo.Connectors.VoltageModulePuConnector Efd0PuLF "Initial exciter field voltage from LoadFlow in pu (user-selected base voltage)";
   Types.VoltageModulePu UsRef0Pu "Initial reference stator voltage in pu (base UNom)";
 
   LimiterWithLag_INIT limiterWithLag(UMax = EfdMaxPu, UMin = EfdMinPu);
