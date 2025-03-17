@@ -72,8 +72,8 @@ model HvdcVsc "HVDC VSC model"
   Modelica.Blocks.Sources.Constant omegaRef2(k = 1) annotation(
     Placement(visible = true, transformation(origin = {125, 36}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
 
-  Types.AngleConnector Theta1(start = UPhase10) "Angle of the voltage at terminal 1 in rad";
-  Types.AngleConnector Theta2(start = UPhase20) "Angle of the voltage at terminal 2 in rad";
+  Dynawo.Connectors.AngleConnector Theta1(start = UPhase10) "Angle of the voltage at terminal 1 in rad";
+  Dynawo.Connectors.AngleConnector Theta2(start = UPhase20) "Angle of the voltage at terminal 2 in rad";
 
   parameter Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base SnRef, UNom) (AC to DC)";
   parameter Types.ComplexCurrentPu i20Pu "Start value of complex current at terminal 2 in pu (base SnRef, UNom) (AC to DC)";

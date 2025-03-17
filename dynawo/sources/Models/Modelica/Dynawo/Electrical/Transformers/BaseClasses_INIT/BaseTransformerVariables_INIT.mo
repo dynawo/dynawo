@@ -14,8 +14,8 @@ within Dynawo.Electrical.Transformers.BaseClasses_INIT;
 */
 
 partial model BaseTransformerVariables_INIT "Base model for initialization of transformers"
-  Types.ComplexVoltagePuConnector u10Pu "Start value of complex voltage at terminal 1 in pu (base UNom)";
-  flow Types.ComplexCurrentPuConnector i10Pu "Start value of complex current at terminal 1 in pu (base UNom, SnRef) (receptor convention)";
+  Dynawo.Connectors.ComplexVoltagePuConnector u10Pu "Start value of complex voltage at terminal 1 in pu (base UNom)";
+  flow Dynawo.Connectors.ComplexCurrentPuConnector i10Pu "Start value of complex current at terminal 1 in pu (base UNom, SnRef) (receptor convention)";
 
   Types.VoltageModulePu U10Pu "Start value of voltage amplitude at terminal 1 in pu (base U1Nom)";
   Types.ActivePowerPu P10Pu "Start value of active power at terminal 1 in pu (base SnRef) (receptor convention)";
