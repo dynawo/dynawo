@@ -16,6 +16,12 @@
     <!-- Nominal -->
     <par type="DOUBLE" name="WPP_SNom" value="100"/>
     <par type="DOUBLE" name="WPP_tS" value="0.001"/>
+    <!-- PCS-->
+    <par type="BOOL" name="WPP_PCSActive" value="true"/>
+    <par type="DOUBLE" name="WPP_BPcsPu" value="0"/>
+    <par type="DOUBLE" name="WPP_GPcsPu" value="0"/>
+    <par type="DOUBLE" name="WPP_RPcsPu" value="0"/>
+    <par type="DOUBLE" name="WPP_XPcsPu" value="0"/>
     <!-- Electrical -->
     <par type="DOUBLE" name="WPP_BesPu" value="0"/>
     <par type="DOUBLE" name="WPP_GesPu" value="0"/>
