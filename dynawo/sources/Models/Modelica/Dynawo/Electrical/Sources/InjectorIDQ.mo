@@ -24,7 +24,7 @@ model InjectorIDQ "Injector controlled by d and q current components idPu and iq
   // Inputs: d-q axis pu variables (base UNom, SNom) and rotor angle
   Modelica.Blocks.Interfaces.RealInput idPu(start = Id0Pu) "Injected d-axis current in pu (base SNom, UNom) (generator convention)" annotation(
     Placement(visible = true, transformation(extent = {{0, 0}, {0, 0}}, rotation = 0), iconTransformation(origin = {-115, 61}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput iqPu(start = Iq0Pu) "Injected q-axis current in pu (base SNom, UNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput iqPu(start = -Iq0Pu) "Injected q-axis current in pu (base SNom, UNom) (generator convention)" annotation(
     Placement(visible = true, transformation(extent = {{0, 0}, {0, 0}}, rotation = 0), iconTransformation(origin = {-115, -41}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UPhase(start = UPhase0) "Rotor angle: angle between machine rotor frame and port phasor frame in rad" annotation(
     Placement(visible = true, transformation(extent = {{0, 0}, {0, 0}}, rotation = 0), iconTransformation(origin = {0, 115}, extent = {{-15, -15}, {15, 15}}, rotation = -90)));

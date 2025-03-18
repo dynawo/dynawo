@@ -64,7 +64,7 @@ model WT4ACurrentSource2020 "Wind Turbine Type 4A model from IEC 61400-27-1 stan
     QMinPu = -0.8,
     QlConst = true,
     RDropPu = 0,
-    ResPu = 0,
+    ResPu = 0.1,
     SNom = 100,
     U0Pu = 1,
     UGsIm0Pu = 0.21823,

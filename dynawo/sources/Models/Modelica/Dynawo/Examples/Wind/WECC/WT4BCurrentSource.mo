@@ -63,7 +63,7 @@ model WT4BCurrentSource "WECC Wind Type 4B Model on infinite bus"
     QMinPu = -0.4,
     RPu = 0,
     RrpwrPu = 10,
-    SNom = 100,
+    SNom = 100, U0Pu = 1,
     UInj0Pu = 1.03534,
     UPhaseInj0 = 0.10159,
     VDLIp11 = 1.1,

@@ -11,11 +11,13 @@
 set(MODEL_FILES
   package.mo
   package.order
+  LoadFlow.mo
   WTG4ACurrentSource.mo
   WTG4BCurrentSource.mo
   WT4ACurrentSource.mo
   WT4BCurrentSource.mo
   Zone1_Fault_Transient.mo
+  Zone1_PSetPoint.mo
   )
 
 #
