@@ -27,6 +27,7 @@
       <dyn:curves inputFile="IEEE14.crv" exportMode="CSV"/>
       <dyn:logs>
         <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
+        <dyn:appender tag="COMPILER" file="dynawoCompil.log" lvlFilter="DEBUG"/>
       </dyn:logs>
     </dyn:outputs>
   </dyn:job>
