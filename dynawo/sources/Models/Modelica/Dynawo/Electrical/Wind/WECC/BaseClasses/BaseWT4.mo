@@ -91,12 +91,14 @@ equation
     Line(points = {{88, 11}, {88, 23}, {73, 23}, {73, -24}, {-89, -24}, {-89, -11}}, color = {0, 0, 127}));
   connect(measurements.uPu, complexToPolar.u) annotation(
     Line(points = {{92, 11}, {92, 31}, {67, 31}, {67, -40}, {47, -40}}, color = {85, 170, 255}));
-  connect(complexToPolar.len, wecc_reec.UPu) annotation(
-    Line(points = {{23, -34}, {-74, -34}, {-74, -11}}, color = {0, 0, 127}));
   connect(measurements.uPu, pll.uPu) annotation(
     Line(points = {{92, 11}, {92, 56}, {-180, 56}, {-180, 50}, {-171, 50}}, color = {85, 170, 255}));
   connect(complexToPolar.len, wecc_regc.UPu) annotation(
     Line(points = {{23, -34}, {-46, -34}, {-46, -11}}, color = {0, 0, 127}));
+  connect(injector.UPu, wecc_reec.UInjPu) annotation(
+    Line(points = {{12, -8}, {17, -8}, {17, -17}, {-72, -17}, {-72, -11}}, color = {0, 0, 127}));
+  connect(complexToPolar.len, wecc_reec.UPu) annotation(
+    Line(points = {{23, -34}, {-77, -34}, {-77, -11}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html><head></head><body><p><br></p><ul>
