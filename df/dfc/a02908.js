@@ -1,0 +1,37 @@
+var a02908 =
+[
+    [ "EnergySource_t", "df/dfc/a02908.html#a872c0d65cf9d9cebb4f650d98e5f49c2", [
+      [ "SOURCE_HYDRO", "df/dfc/a02908.html#a872c0d65cf9d9cebb4f650d98e5f49c2afc493fcfdb54e9e4004b6227ef66772f", null ],
+      [ "SOURCE_NUCLEAR", "df/dfc/a02908.html#a872c0d65cf9d9cebb4f650d98e5f49c2a9b1eb4a18a3cb7b9afd6770111b75851", null ],
+      [ "SOURCE_WIND", "df/dfc/a02908.html#a872c0d65cf9d9cebb4f650d98e5f49c2acd9e518b9f3acf5efe73c04aa2b720a4", null ],
+      [ "SOURCE_THERMAL", "df/dfc/a02908.html#a872c0d65cf9d9cebb4f650d98e5f49c2a07290f6984a5f9f0df95a892909f74e5", null ],
+      [ "SOURCE_SOLAR", "df/dfc/a02908.html#a872c0d65cf9d9cebb4f650d98e5f49c2a16ea54f8174a9c9bb12e06f4de030380", null ],
+      [ "SOURCE_OTHER", "df/dfc/a02908.html#a872c0d65cf9d9cebb4f650d98e5f49c2a107b8d2a8773e2688b9f00a1ac64f521", null ]
+    ] ],
+    [ "GeneratorInterface", "df/dfc/a02908.html#ab78f5ae5390ef042d0b0a36cef9f3e4c", null ],
+    [ "exportStateVariablesUnitComponent", "df/dfc/a02908.html#a2ed809a16c8bfeebaab68ff6396204eb", null ],
+    [ "getActivePowerControlDroop", "df/dfc/a02908.html#ac34a414b8430102497f6db8982e53d88", null ],
+    [ "getBusInterface", "df/dfc/a02908.html#ac7b6e51a6d36f5eaa537161c462370d7", null ],
+    [ "getCoordinatedReactiveControlPercentage", "df/dfc/a02908.html#a70e20753b48f642a1d35396ab7df6102", null ],
+    [ "getEnergySource", "df/dfc/a02908.html#a6a5dfac90bd1fbc6920bcb67a0072a2e", null ],
+    [ "getID", "df/dfc/a02908.html#a32bff2372d8aa397a8c30ef7f4d623a4", null ],
+    [ "getInitialConnected", "df/dfc/a02908.html#a99e95d7e7989c1e67817ad8a25e5a12c", null ],
+    [ "getP", "df/dfc/a02908.html#a38ebbba54ff5715bbe4e9efa5f5ec735", null ],
+    [ "getPMax", "df/dfc/a02908.html#a7b4da0f27414f5ff10266bdd9e72b4e9", null ],
+    [ "getPMin", "df/dfc/a02908.html#ad2936b61ffad79e0b448caf7a95c3510", null ],
+    [ "getQ", "df/dfc/a02908.html#adc718be1b4a71f3d927f7bfde2808ab0", null ],
+    [ "getQMax", "df/dfc/a02908.html#aea945ff05de6a11f23386f9ddf0535d6", null ],
+    [ "getQMin", "df/dfc/a02908.html#a959b6d614c81e93caa39db58504e748e", null ],
+    [ "getQNom", "df/dfc/a02908.html#ad075cfbfc79cc23c87504539d667164f", null ],
+    [ "getReactiveCurvesPoints", "df/dfc/a02908.html#a5ec00ddc15b5678710256ae4936ed6b6", null ],
+    [ "getStateVarP", "df/dfc/a02908.html#a853f05e00e16667b046a699535b331c2", null ],
+    [ "getTargetP", "df/dfc/a02908.html#a338ccd6fb6bad3e0afedd48a046f12ab", null ],
+    [ "getTargetQ", "df/dfc/a02908.html#a9ea7495ce4e64cc077b6a3b9f0d29eeb", null ],
+    [ "getTargetV", "df/dfc/a02908.html#a3f8ffb1c00639dcb595e9207f3317ee4", null ],
+    [ "hasActivePowerControl", "df/dfc/a02908.html#ad8dacd980c0746f93775c085fb4aede9", null ],
+    [ "hasCoordinatedReactiveControl", "df/dfc/a02908.html#a1378c319e18dadee7e5a11405fa6c407", null ],
+    [ "isParticipating", "df/dfc/a02908.html#a7aab15af2c9eb1f1b0cd1b4f63436b3c", null ],
+    [ "isVoltageRegulationOn", "df/dfc/a02908.html#a63f82b6711f2c5af5437703ea25f03da", null ],
+    [ "setBusInterface", "df/dfc/a02908.html#a54e90fda27d6eb58061d8eb135ac0bcc", null ],
+    [ "setVoltageLevelInterface", "df/dfc/a02908.html#abfedcc9fc79bea61f229d11d79e6f4ba", null ]
+];

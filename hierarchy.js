@@ -1,544 +1,544 @@
 var hierarchy =
 [
-    [ "DYN::ActiveSeasonIIDMExtension", "d6/d58/a02993.html", null ],
-    [ "job::AppenderEntry", "da/d67/a02133.html", null ],
-    [ "job::AppenderEntryFactory", "de/d74/a02137.html", null ],
-    [ "DYN::BitMask", "d2/ddf/a02573.html", null ],
-    [ "dynamicdata::BlackBoxModelFactory", "d7/d10/a01785.html", null ],
-    [ "DYN::BusBarSectionInterface", "df/d7d/a02825.html", null ],
-    [ "DYN::BusDerivatives", "d1/da3/a03221.html", null ],
-    [ "DYN::SparseMatrix::CheckError", "da/de8/a02657.html", null ],
-    [ "DYN::Compiler", "da/dd2/a02701.html", null ],
-    [ "criteria::Criteria::component_id_const_iterator", "d6/d6d/a01617.html", null ],
-    [ "criteria::Criteria::ComponentId", "d3/da1/a01613.html", null ],
-    [ "DYN::ComponentInterface", "d0/d2b/a02833.html", [
-      [ "DYN::BusInterface", "db/d4f/a02829.html", [
-        [ "DYN::BusInterfaceIIDM", "d0/db8/a03001.html", null ],
-        [ "DYN::CalculatedBusInterfaceIIDM", "de/da4/a03005.html", null ],
-        [ "DYN::FictBusInterfaceIIDM", "dd/de7/a03025.html", null ]
+    [ "DYN::ActiveSeasonIIDMExtension", "d3/d8b/a02996.html", null ],
+    [ "job::AppenderEntry", "db/ddd/a02136.html", null ],
+    [ "job::AppenderEntryFactory", "de/d81/a02140.html", null ],
+    [ "DYN::BitMask", "d0/df5/a02576.html", null ],
+    [ "dynamicdata::BlackBoxModelFactory", "d4/d77/a01788.html", null ],
+    [ "DYN::BusBarSectionInterface", "d2/d4c/a02828.html", null ],
+    [ "DYN::BusDerivatives", "d7/de1/a03224.html", null ],
+    [ "DYN::SparseMatrix::CheckError", "de/d7b/a02660.html", null ],
+    [ "DYN::Compiler", "d4/d9d/a02704.html", null ],
+    [ "criteria::Criteria::component_id_const_iterator", "da/df2/a01620.html", null ],
+    [ "criteria::Criteria::ComponentId", "db/dad/a01616.html", null ],
+    [ "DYN::ComponentInterface", "d2/ddb/a02836.html", [
+      [ "DYN::BusInterface", "dd/d9b/a02832.html", [
+        [ "DYN::BusInterfaceIIDM", "da/d96/a03004.html", null ],
+        [ "DYN::CalculatedBusInterfaceIIDM", "d8/dbd/a03008.html", null ],
+        [ "DYN::FictBusInterfaceIIDM", "de/dae/a03028.html", null ]
       ] ],
-      [ "DYN::ConverterInterface", "dc/dfd/a02837.html", [
-        [ "DYN::LccConverterInterface", "d8/dea/a02913.html", [
-          [ "DYN::LccConverterInterfaceIIDM", "d7/deb/a03077.html", null ]
+      [ "DYN::ConverterInterface", "d9/d4d/a02840.html", [
+        [ "DYN::LccConverterInterface", "d6/dd2/a02916.html", [
+          [ "DYN::LccConverterInterfaceIIDM", "d1/d7a/a03080.html", null ]
         ] ],
-        [ "DYN::VscConverterInterface", "d4/d69/a02989.html", [
-          [ "DYN::VscConverterInterfaceIIDM", "d2/d0f/a03137.html", null ]
+        [ "DYN::VscConverterInterface", "d6/d5d/a02992.html", [
+          [ "DYN::VscConverterInterfaceIIDM", "da/d72/a03140.html", null ]
         ] ]
       ] ],
-      [ "DYN::DanglingLineInterface", "df/d7d/a02889.html", [
-        [ "DYN::DanglingLineInterfaceIIDM", "dd/dfd/a03017.html", null ]
+      [ "DYN::DanglingLineInterface", "d7/d07/a02892.html", [
+        [ "DYN::DanglingLineInterfaceIIDM", "de/dec/a03020.html", null ]
       ] ],
-      [ "DYN::GeneratorInterface", "d5/d2e/a02905.html", [
-        [ "DYN::BatteryInterfaceIIDM", "d2/daa/a02997.html", null ],
-        [ "DYN::GeneratorInterfaceIIDM", "dc/d23/a03041.html", null ]
+      [ "DYN::GeneratorInterface", "df/dfc/a02908.html", [
+        [ "DYN::BatteryInterfaceIIDM", "dd/d6f/a03000.html", null ],
+        [ "DYN::GeneratorInterfaceIIDM", "d7/d98/a03044.html", null ]
       ] ],
-      [ "DYN::HvdcLineInterface", "dc/d86/a02909.html", [
-        [ "DYN::HvdcLineInterfaceIIDM", "d1/df6/a03045.html", null ]
+      [ "DYN::HvdcLineInterface", "dd/d3f/a02912.html", [
+        [ "DYN::HvdcLineInterfaceIIDM", "dc/d92/a03048.html", null ]
       ] ],
-      [ "DYN::LineInterface", "db/d8d/a02917.html", [
-        [ "DYN::LineInterfaceIIDM", "d5/dc2/a03081.html", null ]
+      [ "DYN::LineInterface", "d1/d77/a02920.html", [
+        [ "DYN::LineInterfaceIIDM", "dc/de6/a03084.html", null ]
       ] ],
-      [ "DYN::LoadInterface", "df/d27/a02921.html", [
-        [ "DYN::LoadInterfaceIIDM", "dc/d45/a03085.html", null ]
+      [ "DYN::LoadInterface", "d9/dc5/a02924.html", [
+        [ "DYN::LoadInterfaceIIDM", "dd/d50/a03088.html", null ]
       ] ],
-      [ "DYN::ShuntCompensatorInterface", "dd/d4c/a02949.html", [
-        [ "DYN::ShuntCompensatorInterfaceIIDM", "d0/d75/a03105.html", null ]
+      [ "DYN::ShuntCompensatorInterface", "d6/d8e/a02952.html", [
+        [ "DYN::ShuntCompensatorInterfaceIIDM", "da/dcd/a03108.html", null ]
       ] ],
-      [ "DYN::StaticVarCompensatorInterface", "da/df1/a02961.html", [
-        [ "DYN::StaticVarCompensatorInterfaceIIDM", "d9/d5f/a03109.html", null ]
+      [ "DYN::StaticVarCompensatorInterface", "db/db9/a02964.html", [
+        [ "DYN::StaticVarCompensatorInterfaceIIDM", "de/dd1/a03112.html", null ]
       ] ],
-      [ "DYN::SwitchInterface", "db/d6c/a02969.html", [
-        [ "DYN::SwitchInterfaceIIDM", "d5/dcb/a03121.html", null ]
+      [ "DYN::SwitchInterface", "d0/daf/a02972.html", [
+        [ "DYN::SwitchInterfaceIIDM", "d6/d1e/a03124.html", null ]
       ] ],
-      [ "DYN::ThreeWTransformerInterface", "dc/dc5/a02977.html", [
-        [ "DYN::ThreeWTransformerInterfaceIIDM", "dc/d0a/a03125.html", null ]
+      [ "DYN::ThreeWTransformerInterface", "d6/db9/a02980.html", [
+        [ "DYN::ThreeWTransformerInterfaceIIDM", "db/d6b/a03128.html", null ]
       ] ],
-      [ "DYN::TwoWTransformerInterface", "d7/d93/a02981.html", [
-        [ "DYN::FictTwoWTransformerInterfaceIIDM", "df/d1b/a03029.html", null ],
-        [ "DYN::TwoWTransformerInterfaceIIDM", "dc/ddf/a03129.html", null ]
+      [ "DYN::TwoWTransformerInterface", "dd/d7e/a02984.html", [
+        [ "DYN::FictTwoWTransformerInterfaceIIDM", "d1/d60/a03032.html", null ],
+        [ "DYN::TwoWTransformerInterfaceIIDM", "df/dbf/a03132.html", null ]
       ] ]
     ] ],
     [ "ComposableDocumentHandler", null, [
-      [ "criteria::XmlHandler", "d9/df5/a01673.html", null ],
-      [ "curves::XmlHandler", "df/d2e/a01737.html", null ],
-      [ "dynamicdata::XmlHandler", "da/d3e/a02025.html", null ],
-      [ "externalVariables::XmlHandler", "de/df8/a02073.html", null ],
-      [ "finalStateValues::XmlHandler", "d8/db2/a02125.html", null ],
-      [ "job::XmlHandler", "dd/d75/a02377.html", null ],
-      [ "parameters::XmlHandler", "dd/dd9/a02529.html", null ]
+      [ "criteria::XmlHandler", "de/d3e/a01676.html", null ],
+      [ "curves::XmlHandler", "df/d8f/a01740.html", null ],
+      [ "dynamicdata::XmlHandler", "db/d68/a02028.html", null ],
+      [ "externalVariables::XmlHandler", "db/d87/a02076.html", null ],
+      [ "finalStateValues::XmlHandler", "d1/d60/a02128.html", null ],
+      [ "job::XmlHandler", "d8/d30/a02380.html", null ],
+      [ "parameters::XmlHandler", "d2/d08/a02532.html", null ]
     ] ],
     [ "ComposableElementHandler", null, [
-      [ "criteria::ComponentHandler", "d3/d21/a01657.html", null ],
-      [ "criteria::CriteriaHandler", "dc/dec/a01669.html", null ],
-      [ "criteria::CriteriaParamsHandler", "d9/d45/a01665.html", null ],
-      [ "criteria::CriteriaParamsVoltageLevelHandler", "d4/d41/a01661.html", null ],
-      [ "criteria::ElementWithIdHandler", "d1/d03/a01653.html", null ],
-      [ "curves::CurveHandler", "d8/d9c/a01733.html", null ],
-      [ "dynamicdata::BlackBoxModelHandler", "d0/dfd/a02017.html", null ],
-      [ "dynamicdata::ConnectHandler", "d0/dc1/a01993.html", null ],
-      [ "dynamicdata::MacroConnectHandler", "d0/d2b/a01997.html", null ],
-      [ "dynamicdata::MacroConnectionHandler", "d8/d24/a02001.html", null ],
-      [ "dynamicdata::MacroConnectorHandler", "d3/d39/a02005.html", null ],
-      [ "dynamicdata::MacroStaticReferenceHandler", "dc/d67/a01989.html", null ],
-      [ "dynamicdata::MacroStaticRefHandler", "d3/def/a01985.html", null ],
-      [ "dynamicdata::ModelicaModelHandler", "d8/d98/a02009.html", null ],
-      [ "dynamicdata::ModelTemplateExpansionHandler", "d8/d45/a02021.html", null ],
-      [ "dynamicdata::ModelTemplateHandler", "d1/dc5/a02013.html", null ],
-      [ "dynamicdata::StaticRefHandler", "df/db2/a01981.html", null ],
-      [ "dynamicdata::UnitDynamicModelHandler", "d5/d92/a01977.html", null ],
-      [ "externalVariables::VariableHandler", "d3/d48/a02069.html", null ],
-      [ "finalStateValues::FinalStateValueHandler", "d6/d3b/a02121.html", null ],
-      [ "job::AppenderHandler", "df/d4d/a02285.html", null ],
-      [ "job::ConstraintsHandler", "da/d68/a02317.html", null ],
-      [ "job::CriteriaFileHandler", "d1/db9/a02353.html", null ],
-      [ "job::CurvesHandler", "d7/dbe/a02333.html", null ],
-      [ "job::DirectoryHandler", "de/d4e/a02289.html", null ],
-      [ "job::DynModelsHandler", "db/db3/a02301.html", null ],
-      [ "job::FinalStateHandler", "d0/d71/a02329.html", null ],
-      [ "job::FinalStateValuesHandler", "d7/d52/a02337.html", null ],
-      [ "job::FinalValuesHandler", "d4/d16/a02313.html", null ],
-      [ "job::InitialStateHandler", "d1/db8/a02297.html", null ],
-      [ "job::InitValuesHandler", "dc/dd6/a02309.html", null ],
-      [ "job::JobHandler", "d7/de7/a02373.html", null ],
-      [ "job::LocalInitHandler", "df/def/a02369.html", null ],
-      [ "job::LogsHandler", "dc/d0a/a02345.html", null ],
-      [ "job::LostEquipmentsHandler", "d4/dfb/a02341.html", null ],
-      [ "job::ModelerHandler", "d5/db0/a02361.html", null ],
-      [ "job::ModelsDirHandler", "dd/dc5/a02293.html", null ],
-      [ "job::NetworkHandler", "d7/dd6/a02305.html", null ],
-      [ "job::OutputsHandler", "dc/de0/a02349.html", null ],
-      [ "job::SimulationHandler", "d8/d26/a02357.html", null ],
-      [ "job::SolverHandler", "d0/dc0/a02365.html", null ],
-      [ "job::TimelineHandler", "d2/d0a/a02321.html", null ],
-      [ "job::TimetableHandler", "db/d2a/a02325.html", null ],
-      [ "parameters::MacroParameterSetHandler", "db/de8/a02525.html", null ],
-      [ "parameters::MacroParSetHandler", "d4/db4/a02517.html", null ],
-      [ "parameters::ParHandler", "d6/d28/a02509.html", null ],
-      [ "parameters::ParInTableHandler", "d1/df7/a02501.html", null ],
-      [ "parameters::ParTableHandler", "d1/d94/a02505.html", null ],
-      [ "parameters::RefHandler", "dc/de1/a02513.html", null ],
-      [ "parameters::SetHandler", "d0/dbf/a02521.html", null ]
+      [ "criteria::ComponentHandler", "d6/d5e/a01660.html", null ],
+      [ "criteria::CriteriaHandler", "d2/d7b/a01672.html", null ],
+      [ "criteria::CriteriaParamsHandler", "d7/d47/a01668.html", null ],
+      [ "criteria::CriteriaParamsVoltageLevelHandler", "dc/d71/a01664.html", null ],
+      [ "criteria::ElementWithIdHandler", "d5/d8d/a01656.html", null ],
+      [ "curves::CurveHandler", "de/daf/a01736.html", null ],
+      [ "dynamicdata::BlackBoxModelHandler", "dc/d62/a02020.html", null ],
+      [ "dynamicdata::ConnectHandler", "d3/dcc/a01996.html", null ],
+      [ "dynamicdata::MacroConnectHandler", "da/d51/a02000.html", null ],
+      [ "dynamicdata::MacroConnectionHandler", "d3/dbb/a02004.html", null ],
+      [ "dynamicdata::MacroConnectorHandler", "d5/d6e/a02008.html", null ],
+      [ "dynamicdata::MacroStaticReferenceHandler", "d6/d33/a01992.html", null ],
+      [ "dynamicdata::MacroStaticRefHandler", "d5/da1/a01988.html", null ],
+      [ "dynamicdata::ModelicaModelHandler", "d5/d2c/a02012.html", null ],
+      [ "dynamicdata::ModelTemplateExpansionHandler", "d7/dbe/a02024.html", null ],
+      [ "dynamicdata::ModelTemplateHandler", "df/df0/a02016.html", null ],
+      [ "dynamicdata::StaticRefHandler", "d0/d38/a01984.html", null ],
+      [ "dynamicdata::UnitDynamicModelHandler", "d5/d70/a01980.html", null ],
+      [ "externalVariables::VariableHandler", "de/d9d/a02072.html", null ],
+      [ "finalStateValues::FinalStateValueHandler", "db/d0e/a02124.html", null ],
+      [ "job::AppenderHandler", "dc/d1a/a02288.html", null ],
+      [ "job::ConstraintsHandler", "df/d2a/a02320.html", null ],
+      [ "job::CriteriaFileHandler", "d6/d3a/a02356.html", null ],
+      [ "job::CurvesHandler", "d3/d9c/a02336.html", null ],
+      [ "job::DirectoryHandler", "d4/d8c/a02292.html", null ],
+      [ "job::DynModelsHandler", "db/d77/a02304.html", null ],
+      [ "job::FinalStateHandler", "d1/d03/a02332.html", null ],
+      [ "job::FinalStateValuesHandler", "df/d49/a02340.html", null ],
+      [ "job::FinalValuesHandler", "d3/d01/a02316.html", null ],
+      [ "job::InitialStateHandler", "d1/d47/a02300.html", null ],
+      [ "job::InitValuesHandler", "df/d73/a02312.html", null ],
+      [ "job::JobHandler", "df/d46/a02376.html", null ],
+      [ "job::LocalInitHandler", "da/d75/a02372.html", null ],
+      [ "job::LogsHandler", "da/db4/a02348.html", null ],
+      [ "job::LostEquipmentsHandler", "d6/d71/a02344.html", null ],
+      [ "job::ModelerHandler", "d1/d8c/a02364.html", null ],
+      [ "job::ModelsDirHandler", "d8/d9a/a02296.html", null ],
+      [ "job::NetworkHandler", "d7/d67/a02308.html", null ],
+      [ "job::OutputsHandler", "da/d6b/a02352.html", null ],
+      [ "job::SimulationHandler", "d3/d35/a02360.html", null ],
+      [ "job::SolverHandler", "d1/da2/a02368.html", null ],
+      [ "job::TimelineHandler", "dd/d6e/a02324.html", null ],
+      [ "job::TimetableHandler", "db/d83/a02328.html", null ],
+      [ "parameters::MacroParameterSetHandler", "d8/d65/a02528.html", null ],
+      [ "parameters::MacroParSetHandler", "dc/dbb/a02520.html", null ],
+      [ "parameters::ParHandler", "db/da2/a02512.html", null ],
+      [ "parameters::ParInTableHandler", "d3/df4/a02504.html", null ],
+      [ "parameters::ParTableHandler", "d9/de2/a02508.html", null ],
+      [ "parameters::RefHandler", "d2/dab/a02516.html", null ],
+      [ "parameters::SetHandler", "de/dec/a02524.html", null ]
     ] ],
-    [ "DYN::SubModel::compStringDist", "d9/d95/a02781.html", null ],
-    [ "DYN::connectedSubModel", "d6/d8f/a02709.html", null ],
-    [ "DYN::ConnectInterface", "da/d28/a02705.html", null ],
-    [ "dynamicdata::Connector", "d6/d53/a01789.html", null ],
-    [ "DYN::Connector", "dc/d1d/a02713.html", null ],
-    [ "dynamicdata::connector_const_iterator", "db/dd5/a01833.html", null ],
-    [ "dynamicdata::connector_iterator", "d6/dbd/a01829.html", null ],
-    [ "DYN::ConnectorContainer", "d0/df8/a02717.html", null ],
-    [ "dynamicdata::ConnectorFactory", "d4/dc6/a01793.html", null ],
-    [ "dynamicdata::ConnectorRead", "d6/d9a/a01965.html", null ],
-    [ "finalStateValues::FinalStateValuesCollection::const_iterator", "db/d7a/a02105.html", null ],
-    [ "curves::Curve::const_iterator", "da/d20/a01689.html", null ],
-    [ "curves::CurvesCollection::const_iterator", "d9/dc5/a01705.html", null ],
-    [ "constraints::ConstraintsCollection::const_iterator", "db/db8/a01761.html", null ],
-    [ "constraints::Constraint", "d5/d77/a01749.html", null ],
-    [ "constraints::ConstraintData", "d0/d78/a01745.html", null ],
-    [ "constraints::ConstraintFactory", "d6/d72/a01753.html", null ],
-    [ "constraints::ConstraintsCollection", "db/dc0/a01757.html", null ],
-    [ "constraints::ConstraintsCollectionFactory", "df/d7b/a01765.html", null ],
-    [ "job::ConstraintsEntry", "d5/d88/a02141.html", null ],
-    [ "criteria::Criteria", "da/d24/a01609.html", null ],
-    [ "DYN::Criteria", "d7/d1c/a02841.html", [
-      [ "DYN::BusCriteria", "d5/dd2/a02849.html", null ],
-      [ "DYN::GeneratorCriteria", "de/d4b/a02865.html", null ],
-      [ "DYN::LoadCriteria", "dd/dc1/a02857.html", null ]
+    [ "DYN::SubModel::compStringDist", "d0/d5a/a02784.html", null ],
+    [ "DYN::connectedSubModel", "df/dc7/a02712.html", null ],
+    [ "DYN::ConnectInterface", "d7/d73/a02708.html", null ],
+    [ "dynamicdata::Connector", "dd/de9/a01792.html", null ],
+    [ "DYN::Connector", "db/d1d/a02716.html", null ],
+    [ "dynamicdata::connector_const_iterator", "db/df3/a01836.html", null ],
+    [ "dynamicdata::connector_iterator", "dc/d06/a01832.html", null ],
+    [ "DYN::ConnectorContainer", "d5/d95/a02720.html", null ],
+    [ "dynamicdata::ConnectorFactory", "d3/d92/a01796.html", null ],
+    [ "dynamicdata::ConnectorRead", "d9/d4f/a01968.html", null ],
+    [ "finalStateValues::FinalStateValuesCollection::const_iterator", "d8/dd8/a02108.html", null ],
+    [ "curves::Curve::const_iterator", "da/dc4/a01692.html", null ],
+    [ "curves::CurvesCollection::const_iterator", "de/d5c/a01708.html", null ],
+    [ "constraints::ConstraintsCollection::const_iterator", "dc/d51/a01764.html", null ],
+    [ "constraints::Constraint", "d3/dbf/a01752.html", null ],
+    [ "constraints::ConstraintData", "d9/d0d/a01748.html", null ],
+    [ "constraints::ConstraintFactory", "d5/d14/a01756.html", null ],
+    [ "constraints::ConstraintsCollection", "d0/d9d/a01760.html", null ],
+    [ "constraints::ConstraintsCollectionFactory", "de/dda/a01768.html", null ],
+    [ "job::ConstraintsEntry", "dc/d29/a02144.html", null ],
+    [ "criteria::Criteria", "d5/d84/a01612.html", null ],
+    [ "DYN::Criteria", "df/de1/a02844.html", [
+      [ "DYN::BusCriteria", "da/de8/a02852.html", null ],
+      [ "DYN::GeneratorCriteria", "d9/df0/a02868.html", null ],
+      [ "DYN::LoadCriteria", "dc/dac/a02860.html", null ]
     ] ],
-    [ "criteria::CriteriaCollection", "dd/dda/a01621.html", null ],
-    [ "criteria::CriteriaCollection::CriteriaCollectionConstIterator", "d3/d2d/a01625.html", null ],
-    [ "criteria::CriteriaCollectionFactory", "dc/d62/a01629.html", null ],
-    [ "criteria::CriteriaFactory", "d6/dd6/a01633.html", null ],
-    [ "criteria::CriteriaParams", "db/d95/a01637.html", null ],
-    [ "criteria::CriteriaParamsFactory", "d0/d90/a01641.html", null ],
-    [ "criteria::CriteriaParamsVoltageLevel", "d7/d53/a01645.html", null ],
-    [ "DYN::CurrentLimit", "d1/dc2/a02877.html", null ],
-    [ "DYN::CurrentLimitInterface", "d4/d69/a02869.html", [
-      [ "DYN::CurrentLimitInterfaceIIDM", "db/dc5/a03009.html", null ]
+    [ "criteria::CriteriaCollection", "de/df9/a01624.html", null ],
+    [ "criteria::CriteriaCollection::CriteriaCollectionConstIterator", "dd/deb/a01628.html", null ],
+    [ "criteria::CriteriaCollectionFactory", "d6/daf/a01632.html", null ],
+    [ "criteria::CriteriaFactory", "dd/d40/a01636.html", null ],
+    [ "criteria::CriteriaParams", "de/d14/a01640.html", null ],
+    [ "criteria::CriteriaParamsFactory", "d3/d3e/a01644.html", null ],
+    [ "criteria::CriteriaParamsVoltageLevel", "da/ddf/a01648.html", null ],
+    [ "DYN::CurrentLimit", "d7/d35/a02880.html", null ],
+    [ "DYN::CurrentLimitInterface", "d9/dcc/a02872.html", [
+      [ "DYN::CurrentLimitInterfaceIIDM", "d5/d99/a03012.html", null ]
     ] ],
-    [ "DYN::CurrentLimits", "da/d3c/a02881.html", null ],
-    [ "DYN::CurrentLimits::CurrentLimitSideHash", "d7/d68/a02885.html", null ],
-    [ "DYN::CurrentLimitsPerSeasonIIDMExtension", "d1/db3/a03013.html", null ],
-    [ "curves::Curve", "de/d96/a01685.html", null ],
-    [ "curves::CurveFactory", "dd/db4/a01693.html", null ],
-    [ "curves::CurvesCollection", "d6/d15/a01697.html", null ],
-    [ "curves::CurvesCollectionFactory", "d1/da7/a01709.html", null ],
-    [ "job::CurvesEntry", "d7/d2d/a02145.html", null ],
+    [ "DYN::CurrentLimits", "d8/d93/a02884.html", null ],
+    [ "DYN::CurrentLimits::CurrentLimitSideHash", "d4/d04/a02888.html", null ],
+    [ "DYN::CurrentLimitsPerSeasonIIDMExtension", "d0/d9d/a03016.html", null ],
+    [ "curves::Curve", "d6/d53/a01688.html", null ],
+    [ "curves::CurveFactory", "d9/d49/a01696.html", null ],
+    [ "curves::CurvesCollection", "d4/d26/a01700.html", null ],
+    [ "curves::CurvesCollectionFactory", "dc/d3e/a01712.html", null ],
+    [ "job::CurvesEntry", "d2/d08/a02148.html", null ],
     [ "DATA", null, [
-      [ "DYNDATA", "dd/d02/a03145.html", null ]
+      [ "DYNDATA", "d0/dcc/a03148.html", null ]
     ] ],
-    [ "DYN::DataInterface", "dd/d44/a02893.html", [
-      [ "DYN::DataInterfaceImpl", "d1/dfc/a02901.html", [
-        [ "DYN::DataInterfaceIIDM", "d2/d76/a03021.html", null ]
+    [ "DYN::DataInterface", "de/dd8/a02896.html", [
+      [ "DYN::DataInterfaceImpl", "d8/d05/a02904.html", [
+        [ "DYN::DataInterfaceIIDM", "d4/dc8/a03024.html", null ]
       ] ]
     ] ],
-    [ "DYN::DataInterfaceFactory", "d2/d4c/a02897.html", null ],
-    [ "DYN::Delay", "dd/d01/a02729.html", null ],
-    [ "DYN::DelayManager", "df/d6f/a02733.html", null ],
-    [ "DYN::Derivatives", "d1/df1/a03217.html", null ],
-    [ "dynamicdata::dynamicModel_const_iterator", "df/dee/a01825.html", null ],
-    [ "dynamicdata::dynamicModel_iterator", "de/d3d/a01821.html", null ],
-    [ "dynamicdata::DynamicModelsCollection", "d4/dd1/a01797.html", null ],
-    [ "dynamicdata::DynamicModelsCollectionFactory", "d2/d42/a01801.html", null ],
-    [ "job::DynModelsEntry", "d2/da0/a02149.html", null ],
-    [ "job::DynModelsEntryFactory", "df/de9/a02153.html", null ],
-    [ "DYN::Element", "d6/d0b/a02741.html", null ],
+    [ "DYN::DataInterfaceFactory", "d3/d5d/a02900.html", null ],
+    [ "DYN::Delay", "d7/d1c/a02732.html", null ],
+    [ "DYN::DelayManager", "da/dd3/a02736.html", null ],
+    [ "DYN::Derivatives", "da/df5/a03220.html", null ],
+    [ "dynamicdata::dynamicModel_const_iterator", "dc/d79/a01828.html", null ],
+    [ "dynamicdata::dynamicModel_iterator", "d2/d77/a01824.html", null ],
+    [ "dynamicdata::DynamicModelsCollection", "d1/d42/a01800.html", null ],
+    [ "dynamicdata::DynamicModelsCollectionFactory", "dc/dec/a01804.html", null ],
+    [ "job::DynModelsEntry", "df/d28/a02152.html", null ],
+    [ "job::DynModelsEntryFactory", "dd/d3f/a02156.html", null ],
+    [ "DYN::Element", "d5/dc7/a02744.html", null ],
     [ "enable_shared_from_this", null, [
-      [ "DYN::ModelSwitch", "d2/dfa/a03285.html", null ],
-      [ "parameters::ParametersSet", "dc/d4e/a02449.html", null ]
+      [ "DYN::ModelSwitch", "db/de4/a03288.html", null ],
+      [ "parameters::ParametersSet", "da/d23/a02452.html", null ]
     ] ],
-    [ "timeline::Event", "de/dd4/a02541.html", null ],
-    [ "timeline::Timeline::event_const_iterator", "dd/d98/a02557.html", null ],
-    [ "timeline::EventFactory", "de/d8b/a02545.html", null ],
+    [ "timeline::Event", "d1/df6/a02544.html", null ],
+    [ "timeline::Timeline::event_const_iterator", "d1/d03/a02560.html", null ],
+    [ "timeline::EventFactory", "da/dc4/a02548.html", null ],
     [ "std::exception", null, [
-      [ "DYN::Error", "d0/dea/a02585.html", null ],
-      [ "DYN::MessageError", "de/d48/a02589.html", null ],
-      [ "DYN::Terminate", "d8/d69/a02661.html", null ]
+      [ "DYN::Error", "d4/d61/a02588.html", null ],
+      [ "DYN::MessageError", "d1/df5/a02592.html", null ],
+      [ "DYN::Terminate", "d6/d18/a02664.html", null ]
     ] ],
-    [ "finalStateValues::Exporter", "d2/dde/a02085.html", [
-      [ "finalStateValues::CsvExporter", "d2/d50/a02081.html", null ],
-      [ "finalStateValues::TxtExporter", "d8/dc6/a02113.html", null ],
-      [ "finalStateValues::XmlExporter", "d0/d79/a02117.html", null ]
+    [ "finalStateValues::Exporter", "d7/db5/a02088.html", [
+      [ "finalStateValues::CsvExporter", "da/dbe/a02084.html", null ],
+      [ "finalStateValues::TxtExporter", "dc/d29/a02116.html", null ],
+      [ "finalStateValues::XmlExporter", "d3/d23/a02120.html", null ]
     ] ],
-    [ "curves::Exporter", "d2/d0c/a01713.html", [
-      [ "curves::CsvExporter", "df/d5a/a01681.html", null ],
-      [ "curves::XmlExporter", "d2/d70/a01729.html", null ]
+    [ "curves::Exporter", "d4/df6/a01716.html", [
+      [ "curves::CsvExporter", "d2/d71/a01684.html", null ],
+      [ "curves::XmlExporter", "de/d25/a01732.html", null ]
     ] ],
-    [ "lostEquipments::Exporter", "dd/da3/a02385.html", [
-      [ "lostEquipments::XmlExporter", "d5/da5/a02413.html", null ]
+    [ "lostEquipments::Exporter", "db/d3b/a02388.html", [
+      [ "lostEquipments::XmlExporter", "d1/da0/a02416.html", null ]
     ] ],
-    [ "parameters::Exporter", "de/d76/a02417.html", [
-      [ "parameters::XmlExporter", "dc/de1/a02493.html", null ]
+    [ "parameters::Exporter", "d5/d2b/a02420.html", [
+      [ "parameters::XmlExporter", "d1/df5/a02496.html", null ]
     ] ],
-    [ "constraints::Exporter", "d7/d6d/a01769.html", [
-      [ "constraints::TxtExporter", "d5/d36/a01773.html", null ],
-      [ "constraints::XmlExporter", "d3/dac/a01777.html", null ]
+    [ "constraints::Exporter", "dd/d20/a01772.html", [
+      [ "constraints::TxtExporter", "dd/d00/a01776.html", null ],
+      [ "constraints::XmlExporter", "d0/dce/a01780.html", null ]
     ] ],
-    [ "timeline::Exporter", "d0/df5/a02549.html", [
-      [ "timeline::CsvExporter", "d1/d2e/a02537.html", null ],
-      [ "timeline::TxtExporter", "d3/dff/a02565.html", null ],
-      [ "timeline::XmlExporter", "df/dd3/a02569.html", null ]
+    [ "timeline::Exporter", "de/d48/a02552.html", [
+      [ "timeline::CsvExporter", "d4/db0/a02540.html", null ],
+      [ "timeline::TxtExporter", "dc/d81/a02568.html", null ],
+      [ "timeline::XmlExporter", "d9/de7/a02572.html", null ]
     ] ],
-    [ "dynamicdata::Exporter", "d7/d62/a01805.html", [
-      [ "dynamicdata::XmlExporter", "d2/d23/a01961.html", null ]
+    [ "dynamicdata::Exporter", "d7/d02/a01808.html", [
+      [ "dynamicdata::XmlExporter", "d6/d90/a01964.html", null ]
     ] ],
-    [ "externalVariables::Exporter", "d6/d94/a02033.html", [
-      [ "externalVariables::XmlExporter", "d0/d67/a02065.html", null ]
+    [ "externalVariables::Exporter", "d7/db2/a02036.html", [
+      [ "externalVariables::XmlExporter", "df/dfb/a02068.html", null ]
     ] ],
-    [ "DYN::Simulation::ExportStateDefinition", "d8/d12/a03325.html", null ],
-    [ "DYN::Criteria::FailingCriteria", "dd/d4f/a02845.html", [
-      [ "DYN::BusCriteria::BusFailingCriteria", "dc/da3/a02853.html", null ],
-      [ "DYN::LoadCriteria::LoadFailingCriteria", "de/d09/a02861.html", null ]
+    [ "DYN::Simulation::ExportStateDefinition", "d3/d5d/a03328.html", null ],
+    [ "DYN::Criteria::FailingCriteria", "d6/dbe/a02848.html", [
+      [ "DYN::BusCriteria::BusFailingCriteria", "d6/dbc/a02856.html", null ],
+      [ "DYN::LoadCriteria::LoadFailingCriteria", "da/d47/a02864.html", null ]
     ] ],
-    [ "job::FinalStateEntry", "db/dcf/a02157.html", null ],
-    [ "job::FinalStateEntryFactory", "df/dbf/a02161.html", null ],
-    [ "finalStateValues::FinalStateValue", "db/ddd/a02089.html", null ],
-    [ "finalStateValues::FinalStateValueFactory", "d3/d1e/a02093.html", null ],
-    [ "finalStateValues::FinalStateValuesCollection", "d4/dbb/a02097.html", null ],
-    [ "finalStateValues::FinalStateValuesCollectionFactory", "d7/d16/a02109.html", null ],
-    [ "job::FinalStateValuesEntry", "d7/d4c/a02165.html", null ],
-    [ "job::FinalValuesEntry", "de/d08/a02169.html", null ],
-    [ "DYN::ModelMulti::findSubModelFromVarName_t", "dd/d4a/a02761.html", null ],
-    [ "DYN::GeneratorActivePowerControlIIDMExtension", "db/ddb/a03037.html", null ],
-    [ "DYN::Graph", "db/d6a/a02613.html", null ],
-    [ "DYN::Trace::Hasher", "df/dff/a02689.html", null ],
-    [ "dynamicdata::Identifiable", "de/d3c/a01809.html", null ],
-    [ "dynamicdata::IdentifiableFactory", "d1/d20/a01813.html", null ],
-    [ "DYN::IIDMExtensions", "d7/d8c/a03049.html", null ],
-    [ "DYN::IIDMExtensionTrait< T >", "d6/dfe/a03053.html", null ],
-    [ "DYN::IIDMExtensionTrait< ActiveSeasonIIDMExtension >", "d6/deb/a03061.html", null ],
-    [ "DYN::IIDMExtensionTrait< CurrentLimitsPerSeasonIIDMExtension >", "d4/d44/a03065.html", null ],
-    [ "DYN::IIDMExtensionTrait< GeneratorActivePowerControlIIDMExtension >", "d7/d5a/a03069.html", null ],
-    [ "DYN::IIDMExtensionTrait< StaticVarCompensatorInterfaceIIDMExtension >", "d2/df1/a03057.html", null ],
-    [ "job::Importer", "d4/d63/a02173.html", [
-      [ "job::XmlImporter", "d7/d1a/a02381.html", null ]
+    [ "job::FinalStateEntry", "dc/d25/a02160.html", null ],
+    [ "job::FinalStateEntryFactory", "d7/daf/a02164.html", null ],
+    [ "finalStateValues::FinalStateValue", "d4/de0/a02092.html", null ],
+    [ "finalStateValues::FinalStateValueFactory", "dd/d77/a02096.html", null ],
+    [ "finalStateValues::FinalStateValuesCollection", "de/dd1/a02100.html", null ],
+    [ "finalStateValues::FinalStateValuesCollectionFactory", "d8/d84/a02112.html", null ],
+    [ "job::FinalStateValuesEntry", "d1/dce/a02168.html", null ],
+    [ "job::FinalValuesEntry", "d9/d03/a02172.html", null ],
+    [ "DYN::ModelMulti::findSubModelFromVarName_t", "df/d25/a02764.html", null ],
+    [ "DYN::GeneratorActivePowerControlIIDMExtension", "de/d0b/a03040.html", null ],
+    [ "DYN::Graph", "d6/dca/a02616.html", null ],
+    [ "DYN::Trace::Hasher", "d2/dba/a02692.html", null ],
+    [ "dynamicdata::Identifiable", "dc/d5b/a01812.html", null ],
+    [ "dynamicdata::IdentifiableFactory", "d6/dc4/a01816.html", null ],
+    [ "DYN::IIDMExtensions", "d4/d15/a03052.html", null ],
+    [ "DYN::IIDMExtensionTrait< T >", "d4/d90/a03056.html", null ],
+    [ "DYN::IIDMExtensionTrait< ActiveSeasonIIDMExtension >", "de/d38/a03064.html", null ],
+    [ "DYN::IIDMExtensionTrait< CurrentLimitsPerSeasonIIDMExtension >", "da/d5d/a03068.html", null ],
+    [ "DYN::IIDMExtensionTrait< GeneratorActivePowerControlIIDMExtension >", "dd/d7c/a03072.html", null ],
+    [ "DYN::IIDMExtensionTrait< StaticVarCompensatorInterfaceIIDMExtension >", "d7/db8/a03060.html", null ],
+    [ "job::Importer", "d6/d34/a02176.html", [
+      [ "job::XmlImporter", "d2/d11/a02384.html", null ]
     ] ],
-    [ "criteria::Importer", "dc/d87/a01649.html", [
-      [ "criteria::XmlImporter", "d2/d44/a01677.html", null ]
+    [ "criteria::Importer", "d0/dc0/a01652.html", [
+      [ "criteria::XmlImporter", "d5/d83/a01680.html", null ]
     ] ],
-    [ "curves::Importer", "dd/ddb/a01717.html", [
-      [ "curves::XmlImporter", "d0/d4e/a01741.html", null ]
+    [ "curves::Importer", "da/d0e/a01720.html", [
+      [ "curves::XmlImporter", "d1/d04/a01744.html", null ]
     ] ],
-    [ "parameters::Importer", "da/d18/a02421.html", [
-      [ "parameters::XmlImporter", "dc/db6/a02533.html", null ]
+    [ "parameters::Importer", "d5/de6/a02424.html", [
+      [ "parameters::XmlImporter", "d6/d24/a02536.html", null ]
     ] ],
-    [ "dynamicdata::Importer", "d4/d29/a01817.html", [
-      [ "dynamicdata::XmlImporter", "d6/d19/a02029.html", null ]
+    [ "dynamicdata::Importer", "d5/dd6/a01820.html", [
+      [ "dynamicdata::XmlImporter", "d1/d99/a02032.html", null ]
     ] ],
-    [ "externalVariables::Importer", "dd/dfc/a02037.html", [
-      [ "externalVariables::XmlImporter", "db/dac/a02077.html", null ]
+    [ "externalVariables::Importer", "d4/ddd/a02040.html", [
+      [ "externalVariables::XmlImporter", "d6/d0c/a02080.html", null ]
     ] ],
-    [ "job::InitialStateEntry", "d3/d90/a02177.html", null ],
-    [ "job::InitialStateEntryFactory", "d5/d85/a02181.html", null ],
-    [ "DYN::InitLibXml2", "d6/d10/a02621.html", null ],
-    [ "job::InitValuesEntry", "dd/d02/a02185.html", null ],
-    [ "DYN::InitXerces", "d0/dce/a02617.html", null ],
-    [ "DYN::InjectorInterfaceIIDM", "da/d64/a03073.html", [
-      [ "DYN::BatteryInterfaceIIDM", "d2/daa/a02997.html", null ],
-      [ "DYN::DanglingLineInterfaceIIDM", "dd/dfd/a03017.html", null ],
-      [ "DYN::GeneratorInterfaceIIDM", "dc/d23/a03041.html", null ],
-      [ "DYN::LccConverterInterfaceIIDM", "d7/deb/a03077.html", null ],
-      [ "DYN::LoadInterfaceIIDM", "dc/d45/a03085.html", null ],
-      [ "DYN::ShuntCompensatorInterfaceIIDM", "d0/d75/a03105.html", null ],
-      [ "DYN::StaticVarCompensatorInterfaceIIDM", "d9/d5f/a03109.html", null ],
-      [ "DYN::VscConverterInterfaceIIDM", "d2/d0f/a03137.html", null ]
+    [ "job::InitialStateEntry", "dd/d09/a02180.html", null ],
+    [ "job::InitialStateEntryFactory", "d5/ddd/a02184.html", null ],
+    [ "DYN::InitLibXml2", "d8/d09/a02624.html", null ],
+    [ "job::InitValuesEntry", "dc/d3c/a02188.html", null ],
+    [ "DYN::InitXerces", "dc/d64/a02620.html", null ],
+    [ "DYN::InjectorInterfaceIIDM", "d5/d83/a03076.html", [
+      [ "DYN::BatteryInterfaceIIDM", "dd/d6f/a03000.html", null ],
+      [ "DYN::DanglingLineInterfaceIIDM", "de/dec/a03020.html", null ],
+      [ "DYN::GeneratorInterfaceIIDM", "d7/d98/a03044.html", null ],
+      [ "DYN::LccConverterInterfaceIIDM", "d1/d7a/a03080.html", null ],
+      [ "DYN::LoadInterfaceIIDM", "dd/d50/a03088.html", null ],
+      [ "DYN::ShuntCompensatorInterfaceIIDM", "da/dcd/a03108.html", null ],
+      [ "DYN::StaticVarCompensatorInterfaceIIDM", "de/dd1/a03112.html", null ],
+      [ "DYN::VscConverterInterfaceIIDM", "da/d72/a03140.html", null ]
     ] ],
-    [ "DYN::IoDico", "d8/d70/a02629.html", null ],
-    [ "finalStateValues::FinalStateValuesCollection::iterator", "da/d71/a02101.html", null ],
-    [ "curves::CurvesCollection::iterator", "d1/db5/a01701.html", null ],
-    [ "job::job_const_iterator", "d5/dbb/a02193.html", null ],
-    [ "job::job_iterator", "d8/d85/a02189.html", null ],
-    [ "job::JobEntry", "de/df6/a02197.html", null ],
-    [ "job::JobEntryFactory", "dd/d14/a02201.html", null ],
-    [ "job::JobsCollection", "dc/d43/a02205.html", null ],
-    [ "job::JobsCollectionFactory", "db/db1/a02209.html", null ],
-    [ "DYN::KeyConstraint_t", "d6/dae/a02581.html", null ],
-    [ "DYN::KeyError_t", "d6/dfc/a02593.html", null ],
-    [ "DYN::KeyLog_t", "d2/de3/a02637.html", null ],
-    [ "DYN::KeyTimeline_t", "d3/d32/a02665.html", null ],
-    [ "job::LocalInitEntry", "de/d8e/a02213.html", null ],
-    [ "job::LogsEntry", "da/da2/a02217.html", null ],
-    [ "job::LogsEntryFactory", "dd/dd6/a02221.html", null ],
-    [ "lostEquipments::LostEquipment", "d3/d53/a02389.html", null ],
-    [ "lostEquipments::LostEquipmentComparator", "dd/d6b/a02397.html", null ],
-    [ "lostEquipments::LostEquipmentFactory", "d1/d29/a02393.html", null ],
-    [ "lostEquipments::LostEquipmentsCollection", "d2/d62/a02401.html", null ],
-    [ "lostEquipments::LostEquipmentsCollection::LostEquipmentsCollectionConstIterator", "dd/d31/a02405.html", null ],
-    [ "lostEquipments::LostEquipmentsCollectionFactory", "d7/d18/a02409.html", null ],
-    [ "job::LostEquipmentsEntry", "d4/dc0/a02225.html", null ],
-    [ "dynamicdata::MacroConnect", "d9/d63/a01877.html", null ],
-    [ "dynamicdata::macroConnect_const_iterator", "db/dd4/a01849.html", null ],
-    [ "dynamicdata::macroConnect_iterator", "da/d8c/a01845.html", null ],
-    [ "dynamicdata::MacroConnectFactory", "de/d9f/a01881.html", null ],
-    [ "dynamicdata::MacroConnection", "d7/d9c/a01885.html", null ],
-    [ "dynamicdata::MacroConnectionFactory", "d9/d9b/a01889.html", null ],
-    [ "dynamicdata::MacroConnectionRead", "d3/d59/a01973.html", null ],
-    [ "dynamicdata::MacroConnector", "dd/d80/a01893.html", null ],
-    [ "dynamicdata::macroConnector_const_iterator", "d2/d5b/a01841.html", null ],
-    [ "dynamicdata::macroConnector_iterator", "d7/db1/a01837.html", null ],
-    [ "dynamicdata::MacroConnectorFactory", "d9/d0c/a01897.html", null ],
-    [ "parameters::MacroParameterSet", "d9/d9d/a02425.html", null ],
-    [ "parameters::ParametersSetCollection::macroparameterset_const_iterator", "d9/dc1/a02473.html", null ],
-    [ "parameters::MacroParSet", "de/da0/a02437.html", null ],
-    [ "parameters::ParametersSet::macroparset_const_iterator", "df/d68/a02461.html", null ],
-    [ "dynamicdata::MacroStaticRef", "d5/d99/a01901.html", null ],
-    [ "dynamicdata::macroStaticRef_const_iterator", "d5/da8/a01865.html", null ],
-    [ "dynamicdata::macroStaticRef_iterator", "d6/d56/a01861.html", null ],
-    [ "dynamicdata::MacroStaticReference", "d9/d65/a01905.html", null ],
-    [ "dynamicdata::macroStaticReference_const_iterator", "de/dd3/a01873.html", null ],
-    [ "dynamicdata::macroStaticReference_iterator", "d8/d3a/a01869.html", null ],
-    [ "dynamicdata::MacroStaticReferenceFactory", "d9/d90/a01909.html", null ],
-    [ "dynamicdata::MacroStaticRefFactory", "d4/d07/a01913.html", null ],
-    [ "DYN::mapcompabs", "da/d03/a02577.html", null ],
-    [ "DYN::memoryManagerChars", "d0/d74/a03149.html", null ],
-    [ "DYN::Message", "de/d4c/a02641.html", [
-      [ "DYN::MessageTimeline", "d2/d80/a02645.html", null ]
+    [ "DYN::IoDico", "dd/dc4/a02632.html", null ],
+    [ "finalStateValues::FinalStateValuesCollection::iterator", "d8/d72/a02104.html", null ],
+    [ "curves::CurvesCollection::iterator", "d0/dbc/a01704.html", null ],
+    [ "job::job_const_iterator", "d8/db0/a02196.html", null ],
+    [ "job::job_iterator", "dc/da6/a02192.html", null ],
+    [ "job::JobEntry", "dd/dce/a02200.html", null ],
+    [ "job::JobEntryFactory", "df/d4a/a02204.html", null ],
+    [ "job::JobsCollection", "d8/d1e/a02208.html", null ],
+    [ "job::JobsCollectionFactory", "d6/dd1/a02212.html", null ],
+    [ "DYN::KeyConstraint_t", "dc/d28/a02584.html", null ],
+    [ "DYN::KeyError_t", "df/d5d/a02596.html", null ],
+    [ "DYN::KeyLog_t", "dd/d5f/a02640.html", null ],
+    [ "DYN::KeyTimeline_t", "d9/d5b/a02668.html", null ],
+    [ "job::LocalInitEntry", "d8/d5f/a02216.html", null ],
+    [ "job::LogsEntry", "d5/de0/a02220.html", null ],
+    [ "job::LogsEntryFactory", "db/da6/a02224.html", null ],
+    [ "lostEquipments::LostEquipment", "d5/df1/a02392.html", null ],
+    [ "lostEquipments::LostEquipmentComparator", "d4/d41/a02400.html", null ],
+    [ "lostEquipments::LostEquipmentFactory", "d5/d10/a02396.html", null ],
+    [ "lostEquipments::LostEquipmentsCollection", "db/db1/a02404.html", null ],
+    [ "lostEquipments::LostEquipmentsCollection::LostEquipmentsCollectionConstIterator", "d4/d2d/a02408.html", null ],
+    [ "lostEquipments::LostEquipmentsCollectionFactory", "d0/da6/a02412.html", null ],
+    [ "job::LostEquipmentsEntry", "de/dfd/a02228.html", null ],
+    [ "dynamicdata::MacroConnect", "d9/d7d/a01880.html", null ],
+    [ "dynamicdata::macroConnect_const_iterator", "da/d5e/a01852.html", null ],
+    [ "dynamicdata::macroConnect_iterator", "da/d4b/a01848.html", null ],
+    [ "dynamicdata::MacroConnectFactory", "dc/d7f/a01884.html", null ],
+    [ "dynamicdata::MacroConnection", "d7/d5f/a01888.html", null ],
+    [ "dynamicdata::MacroConnectionFactory", "dc/d31/a01892.html", null ],
+    [ "dynamicdata::MacroConnectionRead", "d9/da1/a01976.html", null ],
+    [ "dynamicdata::MacroConnector", "d9/d63/a01896.html", null ],
+    [ "dynamicdata::macroConnector_const_iterator", "d2/dbd/a01844.html", null ],
+    [ "dynamicdata::macroConnector_iterator", "d4/d8e/a01840.html", null ],
+    [ "dynamicdata::MacroConnectorFactory", "d5/dcc/a01900.html", null ],
+    [ "parameters::MacroParameterSet", "d5/d04/a02428.html", null ],
+    [ "parameters::ParametersSetCollection::macroparameterset_const_iterator", "d4/d0c/a02476.html", null ],
+    [ "parameters::MacroParSet", "db/d5f/a02440.html", null ],
+    [ "parameters::ParametersSet::macroparset_const_iterator", "d3/d19/a02464.html", null ],
+    [ "dynamicdata::MacroStaticRef", "d4/d0d/a01904.html", null ],
+    [ "dynamicdata::macroStaticRef_const_iterator", "dd/de7/a01868.html", null ],
+    [ "dynamicdata::macroStaticRef_iterator", "dd/d87/a01864.html", null ],
+    [ "dynamicdata::MacroStaticReference", "d8/d45/a01908.html", null ],
+    [ "dynamicdata::macroStaticReference_const_iterator", "de/d23/a01876.html", null ],
+    [ "dynamicdata::macroStaticReference_iterator", "d8/d7b/a01872.html", null ],
+    [ "dynamicdata::MacroStaticReferenceFactory", "df/dd0/a01912.html", null ],
+    [ "dynamicdata::MacroStaticRefFactory", "d0/d36/a01916.html", null ],
+    [ "DYN::mapcompabs", "d7/d66/a02580.html", null ],
+    [ "DYN::memoryManagerChars", "d0/d9f/a03152.html", null ],
+    [ "DYN::Message", "da/d26/a02644.html", [
+      [ "DYN::MessageTimeline", "dc/dcb/a02648.html", null ]
     ] ],
-    [ "DYN::Model", "db/d00/a02745.html", [
-      [ "DYN::ModelMulti", "d9/da5/a02757.html", null ]
+    [ "DYN::Model", "d0/d1f/a02748.html", [
+      [ "DYN::ModelMulti", "d3/d55/a02760.html", null ]
     ] ],
-    [ "dynamicdata::Model", "d2/d54/a01917.html", [
-      [ "dynamicdata::BlackBoxModel", "d6/d27/a01781.html", null ],
-      [ "dynamicdata::ModelicaModel", "da/d6c/a01921.html", null ],
-      [ "dynamicdata::ModelTemplate", "dc/dc8/a01929.html", null ],
-      [ "dynamicdata::ModelTemplateExpansion", "dc/da7/a01933.html", null ]
+    [ "dynamicdata::Model", "d6/da2/a01920.html", [
+      [ "dynamicdata::BlackBoxModel", "d6/d3d/a01784.html", null ],
+      [ "dynamicdata::ModelicaModel", "d0/dde/a01924.html", null ],
+      [ "dynamicdata::ModelTemplate", "d8/d22/a01932.html", null ],
+      [ "dynamicdata::ModelTemplateExpansion", "dd/d20/a01936.html", null ]
     ] ],
-    [ "DYN::ModelBusContainer", "dd/d07/a03233.html", null ],
-    [ "DYN::ModelCurrentLimits", "da/d34/a03237.html", null ],
-    [ "DYN::ModelDescription", "df/d40/a02749.html", null ],
-    [ "DYN::Modeler", "d9/d93/a02753.html", null ],
-    [ "job::ModelerEntry", "da/d3b/a02229.html", null ],
-    [ "job::ModelerEntryFactory", "d5/d3d/a02233.html", null ],
-    [ "dynamicdata::ModelicaModelFactory", "d6/d18/a01925.html", null ],
-    [ "DYN::ModelModelica", "db/d44/a03153.html", null ],
-    [ "job::ModelsDirEntry", "d9/d13/a02237.html", null ],
-    [ "job::ModelsDirEntryFactory", "df/de4/a02241.html", null ],
-    [ "DYN::ModelSwitchFactory", "d0/d9d/a03289.html", null ],
-    [ "DYN::ModelTapChanger", "d2/d74/a03293.html", [
-      [ "DYN::ModelPhaseTapChanger", "d9/d33/a03269.html", null ],
-      [ "DYN::ModelRatioTapChanger", "d3/da0/a03273.html", null ]
+    [ "DYN::ModelBusContainer", "d5/de9/a03236.html", null ],
+    [ "DYN::ModelCurrentLimits", "d9/de5/a03240.html", null ],
+    [ "DYN::ModelDescription", "dc/d3d/a02752.html", null ],
+    [ "DYN::Modeler", "dc/d80/a02756.html", null ],
+    [ "job::ModelerEntry", "db/d14/a02232.html", null ],
+    [ "job::ModelerEntryFactory", "de/d1f/a02236.html", null ],
+    [ "dynamicdata::ModelicaModelFactory", "d1/db0/a01928.html", null ],
+    [ "DYN::ModelModelica", "d7/da0/a03156.html", null ],
+    [ "job::ModelsDirEntry", "dc/d35/a02240.html", null ],
+    [ "job::ModelsDirEntryFactory", "d8/d51/a02244.html", null ],
+    [ "DYN::ModelSwitchFactory", "d7/d52/a03292.html", null ],
+    [ "DYN::ModelTapChanger", "d2/d76/a03296.html", [
+      [ "DYN::ModelPhaseTapChanger", "d4/d1c/a03272.html", null ],
+      [ "DYN::ModelRatioTapChanger", "d0/ded/a03276.html", null ]
     ] ],
-    [ "dynamicdata::ModelTemplateExpansionFactory", "d9/d17/a01937.html", null ],
-    [ "dynamicdata::ModelTemplateFactory", "da/d76/a01941.html", null ],
-    [ "DYN::NetworkComponent", "d8/dde/a03313.html", [
-      [ "DYN::ModelBus", "d5/da4/a03225.html", null ],
-      [ "DYN::ModelDanglingLine", "dc/dc7/a03241.html", null ],
-      [ "DYN::ModelGenerator", "d2/daf/a03245.html", null ],
-      [ "DYN::ModelHvdcLink", "d6/d24/a03249.html", null ],
-      [ "DYN::ModelLine", "d9/d56/a03253.html", null ],
-      [ "DYN::ModelLoad", "df/d62/a03257.html", null ],
-      [ "DYN::ModelShuntCompensator", "d4/d46/a03277.html", null ],
-      [ "DYN::ModelStaticVarCompensator", "d0/d84/a03281.html", null ],
-      [ "DYN::ModelSwitch", "d2/dfa/a03285.html", null ],
-      [ "DYN::ModelThreeWindingsTransformer", "d1/d24/a03301.html", null ],
-      [ "DYN::ModelTwoWindingsTransformer", "d3/d34/a03305.html", null ],
-      [ "DYN::ModelVoltageLevel", "d8/d1e/a03309.html", null ]
+    [ "dynamicdata::ModelTemplateExpansionFactory", "d5/dba/a01940.html", null ],
+    [ "dynamicdata::ModelTemplateFactory", "db/da1/a01944.html", null ],
+    [ "DYN::NetworkComponent", "df/daa/a03316.html", [
+      [ "DYN::ModelBus", "d6/d63/a03228.html", null ],
+      [ "DYN::ModelDanglingLine", "d1/dfa/a03244.html", null ],
+      [ "DYN::ModelGenerator", "d9/d01/a03248.html", null ],
+      [ "DYN::ModelHvdcLink", "d7/d44/a03252.html", null ],
+      [ "DYN::ModelLine", "d3/d55/a03256.html", null ],
+      [ "DYN::ModelLoad", "d1/dda/a03260.html", null ],
+      [ "DYN::ModelShuntCompensator", "de/d7f/a03280.html", null ],
+      [ "DYN::ModelStaticVarCompensator", "d6/d25/a03284.html", null ],
+      [ "DYN::ModelSwitch", "db/de4/a03288.html", null ],
+      [ "DYN::ModelThreeWindingsTransformer", "d2/d14/a03304.html", null ],
+      [ "DYN::ModelTwoWindingsTransformer", "d0/de4/a03308.html", null ],
+      [ "DYN::ModelVoltageLevel", "dc/de8/a03312.html", null ]
     ] ],
-    [ "job::NetworkEntry", "da/d14/a02245.html", null ],
-    [ "job::NetworkEntryFactory", "dd/dc3/a02249.html", null ],
-    [ "DYN::NetworkInterface", "d8/de8/a02925.html", [
-      [ "DYN::NetworkInterfaceIIDM", "d7/d54/a03089.html", null ]
+    [ "job::NetworkEntry", "dc/de2/a02248.html", null ],
+    [ "job::NetworkEntryFactory", "d7/d70/a02252.html", null ],
+    [ "DYN::NetworkInterface", "da/dad/a02928.html", [
+      [ "DYN::NetworkInterfaceIIDM", "d5/d37/a03092.html", null ]
     ] ],
     [ "noncopyable", null, [
-      [ "DYN::DynamicData", "dc/de8/a02737.html", null ],
-      [ "DYN::DYNErrorQueue", "de/d94/a02597.html", null ],
-      [ "DYN::GeneratorInterfaceIIDM", "dc/d23/a03041.html", null ],
-      [ "DYN::HvdcLineInterfaceIIDM", "d1/df6/a03045.html", null ],
-      [ "DYN::IoDicos", "d6/d6a/a02633.html", null ],
-      [ "DYN::LineInterfaceIIDM", "d5/dc2/a03081.html", null ],
-      [ "DYN::ModelManager", "dd/dd1/a03141.html", null ],
-      [ "DYN::ModelMulti", "d9/da5/a02757.html", null ],
-      [ "DYN::ModelNetwork", "d8/d81/a03265.html", null ],
-      [ "DYN::Solver::Impl", "dd/d8e/a03377.html", [
-        [ "DYN::SolverCommonFixedTimeStep", "d3/d0c/a03381.html", [
-          [ "DYN::SolverSIM", "d2/dce/a03389.html", null ],
-          [ "DYN::SolverTRAP", "dd/df1/a03397.html", null ]
+      [ "DYN::DynamicData", "da/d20/a02740.html", null ],
+      [ "DYN::DYNErrorQueue", "d1/d88/a02600.html", null ],
+      [ "DYN::GeneratorInterfaceIIDM", "d7/d98/a03044.html", null ],
+      [ "DYN::HvdcLineInterfaceIIDM", "dc/d92/a03048.html", null ],
+      [ "DYN::IoDicos", "dd/d32/a02636.html", null ],
+      [ "DYN::LineInterfaceIIDM", "dc/de6/a03084.html", null ],
+      [ "DYN::ModelManager", "d2/d19/a03144.html", null ],
+      [ "DYN::ModelMulti", "d3/d55/a02760.html", null ],
+      [ "DYN::ModelNetwork", "d4/dcb/a03268.html", null ],
+      [ "DYN::Solver::Impl", "d0/d57/a03380.html", [
+        [ "DYN::SolverCommonFixedTimeStep", "d7/d22/a03384.html", [
+          [ "DYN::SolverSIM", "d2/d21/a03392.html", null ],
+          [ "DYN::SolverTRAP", "d2/d9b/a03400.html", null ]
         ] ],
-        [ "DYN::SolverIDA", "dd/d0e/a03405.html", null ]
+        [ "DYN::SolverIDA", "d2/d2e/a03408.html", null ]
       ] ],
-      [ "DYN::SolverFactories", "d7/d13/a03365.html", null ],
-      [ "DYN::SolverKINAlgRestoration", "d7/d2c/a03333.html", null ],
-      [ "DYN::SolverKINEuler", "d3/d55/a03341.html", null ],
-      [ "DYN::SolverKINSubModel", "d6/d55/a03345.html", null ],
-      [ "DYN::SubModelFactories", "db/d38/a02789.html", null ],
-      [ "DYN::SubModelFactory", "da/d7d/a02785.html", [
-        [ "DYN::ModelAreaSheddingFactory", "d1/d30/a03185.html", null ],
-        [ "DYN::ModelCentralizedShuntsSectionControlFactory", "dc/d10/a03169.html", null ],
-        [ "DYN::ModelLoadRestorativeWithLimitsFactory", "d0/d04/a03161.html", null ],
-        [ "DYN::ModelNetworkFactory", "dc/df1/a03261.html", null ],
-        [ "DYN::ModelOmegaRefFactory", "d1/d86/a03209.html", null ],
-        [ "DYN::ModelVariationAreaFactory", "d6/d04/a03193.html", null ],
-        [ "DYN::ModelVoltageMeasurementsUtilitiesFactory", "d7/d90/a03177.html", null ],
-        [ "DYN::ModelVoltageSetPointChangeFactory", "d6/df4/a03201.html", null ]
+      [ "DYN::SolverFactories", "d0/d06/a03368.html", null ],
+      [ "DYN::SolverKINAlgRestoration", "d1/d24/a03336.html", null ],
+      [ "DYN::SolverKINEuler", "da/dcf/a03344.html", null ],
+      [ "DYN::SolverKINSubModel", "dd/d68/a03348.html", null ],
+      [ "DYN::SubModelFactories", "de/db6/a02792.html", null ],
+      [ "DYN::SubModelFactory", "dd/dbf/a02788.html", [
+        [ "DYN::ModelAreaSheddingFactory", "da/dfb/a03188.html", null ],
+        [ "DYN::ModelCentralizedShuntsSectionControlFactory", "db/dc1/a03172.html", null ],
+        [ "DYN::ModelLoadRestorativeWithLimitsFactory", "d8/dec/a03164.html", null ],
+        [ "DYN::ModelNetworkFactory", "d4/d1a/a03264.html", null ],
+        [ "DYN::ModelOmegaRefFactory", "df/d1e/a03212.html", null ],
+        [ "DYN::ModelVariationAreaFactory", "dc/ddd/a03196.html", null ],
+        [ "DYN::ModelVoltageMeasurementsUtilitiesFactory", "d6/da1/a03180.html", null ],
+        [ "DYN::ModelVoltageSetPointChangeFactory", "d6/d75/a03204.html", null ]
       ] ],
-      [ "DYN::Timer", "df/d46/a02673.html", null ],
-      [ "DYN::Timers", "d6/dbb/a02669.html", null ],
-      [ "externalVariables::Variable", "d8/d5a/a02049.html", null ]
+      [ "DYN::Timer", "df/d97/a02676.html", null ],
+      [ "DYN::Timers", "d0/d9f/a02672.html", null ],
+      [ "externalVariables::Variable", "d3/df9/a02052.html", null ]
     ] ],
-    [ "DYN::OppositeEventDico", "d5/d95/a02625.html", null ],
-    [ "job::OutputsEntry", "db/d7a/a02253.html", null ],
-    [ "job::OutputsEntryFactory", "de/dad/a02257.html", null ],
-    [ "parameters::Parameter", "d9/dd6/a02441.html", null ],
-    [ "parameters::MacroParameterSet::parameter_const_iterator", "dc/d09/a02429.html", null ],
-    [ "parameters::ParametersSet::parameter_const_iterator", "d3/d27/a02453.html", null ],
-    [ "DYN::ParameterCommon", "d9/dfe/a02649.html", [
-      [ "DYN::ParameterModeler", "da/d73/a02765.html", null ],
-      [ "DYN::ParameterSolver", "d6/df3/a03349.html", null ]
+    [ "DYN::OppositeEventDico", "d4/d7d/a02628.html", null ],
+    [ "job::OutputsEntry", "de/dc3/a02256.html", null ],
+    [ "job::OutputsEntryFactory", "dc/d18/a02260.html", null ],
+    [ "parameters::Parameter", "d4/da8/a02444.html", null ],
+    [ "parameters::MacroParameterSet::parameter_const_iterator", "da/d5c/a02432.html", null ],
+    [ "parameters::ParametersSet::parameter_const_iterator", "d5/dcb/a02456.html", null ],
+    [ "DYN::ParameterCommon", "d2/d5a/a02652.html", [
+      [ "DYN::ParameterModeler", "d3/d7e/a02768.html", null ],
+      [ "DYN::ParameterSolver", "d2/d66/a03352.html", null ]
     ] ],
-    [ "parameters::ParameterFactory", "dd/d26/a02445.html", null ],
-    [ "parameters::ParametersSetCollection::parametersSet_const_iterator", "de/dcb/a02469.html", null ],
-    [ "parameters::ParametersSetCollection", "d4/d73/a02465.html", null ],
-    [ "parameters::ParametersSetCollectionFactory", "d0/dc2/a02477.html", null ],
-    [ "parameters::ParametersSetFactory", "d9/dd8/a02481.html", null ],
-    [ "PathHash", "dd/d05/a02601.html", null ],
-    [ "DYN::PhaseTapChangerInterface", "dd/d0d/a02929.html", [
-      [ "DYN::PhaseTapChangerInterfaceIIDM", "d8/d4b/a03093.html", null ]
+    [ "parameters::ParameterFactory", "d0/dbb/a02448.html", null ],
+    [ "parameters::ParametersSetCollection::parametersSet_const_iterator", "d9/ded/a02472.html", null ],
+    [ "parameters::ParametersSetCollection", "d2/d35/a02468.html", null ],
+    [ "parameters::ParametersSetCollectionFactory", "d2/d35/a02480.html", null ],
+    [ "parameters::ParametersSetFactory", "de/d4e/a02484.html", null ],
+    [ "PathHash", "d7/d13/a02604.html", null ],
+    [ "DYN::PhaseTapChangerInterface", "d2/d0c/a02932.html", [
+      [ "DYN::PhaseTapChangerInterfaceIIDM", "de/d98/a03096.html", null ]
     ] ],
-    [ "curves::Point", "db/d66/a01721.html", null ],
-    [ "curves::PointFactory", "d3/d5e/a01725.html", null ],
-    [ "positive_edge_weight< EdgeWeightMap >", "df/d40/a02609.html", null ],
-    [ "DYN::RatioTapChangerInterface", "df/d5c/a02933.html", [
-      [ "DYN::RatioTapChangerInterfaceIIDM", "df/d92/a03097.html", null ]
+    [ "curves::Point", "d3/d4c/a01724.html", null ],
+    [ "curves::PointFactory", "df/de0/a01728.html", null ],
+    [ "positive_edge_weight< EdgeWeightMap >", "d6/dfc/a02612.html", null ],
+    [ "DYN::RatioTapChangerInterface", "d0/d08/a02936.html", [
+      [ "DYN::RatioTapChangerInterfaceIIDM", "d5/d3a/a03100.html", null ]
     ] ],
-    [ "DYN::ReactiveCurvePointsInterface::ReactiveCurvePoint", "df/d7d/a02941.html", null ],
-    [ "DYN::ReactiveCurvePointsInterface", "d2/d46/a02937.html", [
-      [ "DYN::GeneratorInterface", "d5/d2e/a02905.html", null ],
-      [ "DYN::VscConverterInterface", "d4/d69/a02989.html", null ]
+    [ "DYN::ReactiveCurvePointsInterface::ReactiveCurvePoint", "d3/d8d/a02944.html", null ],
+    [ "DYN::ReactiveCurvePointsInterface", "de/db0/a02940.html", [
+      [ "DYN::GeneratorInterface", "df/dfc/a02908.html", null ],
+      [ "DYN::VscConverterInterface", "d6/d5d/a02992.html", null ]
     ] ],
-    [ "parameters::Reference", "d8/d44/a02485.html", null ],
-    [ "parameters::MacroParameterSet::reference_const_iterator", "d7/d18/a02433.html", null ],
-    [ "parameters::ParametersSet::reference_const_iterator", "d4/d87/a02457.html", null ],
-    [ "parameters::ReferenceFactory", "da/dbe/a02489.html", null ],
-    [ "DYN::RingBuffer", "d1/da5/a02769.html", null ],
-    [ "DYN::ServiceManagerInterface", "d7/d6b/a02945.html", [
-      [ "DYN::ServiceManagerInterfaceIIDM", "d5/d43/a03101.html", null ]
+    [ "parameters::Reference", "d6/d57/a02488.html", null ],
+    [ "parameters::MacroParameterSet::reference_const_iterator", "dd/d0a/a02436.html", null ],
+    [ "parameters::ParametersSet::reference_const_iterator", "d9/d04/a02460.html", null ],
+    [ "parameters::ReferenceFactory", "d6/d90/a02492.html", null ],
+    [ "DYN::RingBuffer", "d9/d4a/a02772.html", null ],
+    [ "DYN::ServiceManagerInterface", "d2/d9c/a02948.html", [
+      [ "DYN::ServiceManagerInterfaceIIDM", "da/dc0/a03104.html", null ]
     ] ],
-    [ "DYN::SignalHandler", "d8/ddd/a03317.html", null ],
-    [ "DYN::Simulation", "df/d15/a03321.html", null ],
-    [ "DYN::SimulationContext", "d8/d5d/a03329.html", null ],
-    [ "job::SimulationEntry", "d7/d24/a02261.html", null ],
-    [ "job::SimulationEntryFactory", "db/d6e/a02265.html", null ],
-    [ "DYN::Solver", "d1/d3a/a03353.html", [
-      [ "DYN::Solver::Impl", "dd/d8e/a03377.html", null ]
+    [ "DYN::SignalHandler", "db/d69/a03320.html", null ],
+    [ "DYN::Simulation", "df/d3e/a03324.html", null ],
+    [ "DYN::SimulationContext", "d6/d83/a03332.html", null ],
+    [ "job::SimulationEntry", "d7/dc8/a02264.html", null ],
+    [ "job::SimulationEntryFactory", "dd/d76/a02268.html", null ],
+    [ "DYN::Solver", "d2/deb/a03356.html", [
+      [ "DYN::Solver::Impl", "d0/d57/a03380.html", null ]
     ] ],
-    [ "DYN::SolverCommon", "d3/dfd/a03357.html", null ],
-    [ "DYN::SolverDelete", "d2/d7f/a03369.html", null ],
-    [ "job::SolverEntry", "de/d1b/a02269.html", null ],
-    [ "job::SolverEntryFactory", "d7/d6e/a02273.html", null ],
-    [ "DYN::SolverFactory", "df/d67/a03361.html", [
-      [ "DYN::SolverIDAFactory", "da/dfd/a03401.html", null ],
-      [ "DYN::SolverSIMFactory", "d9/d35/a03385.html", null ],
-      [ "DYN::SolverTRAPFactory", "d0/d58/a03393.html", null ]
+    [ "DYN::SolverCommon", "d6/da3/a03360.html", null ],
+    [ "DYN::SolverDelete", "d0/db9/a03372.html", null ],
+    [ "job::SolverEntry", "d5/dc0/a02272.html", null ],
+    [ "job::SolverEntryFactory", "d2/d81/a02276.html", null ],
+    [ "DYN::SolverFactory", "d4/dd6/a03364.html", [
+      [ "DYN::SolverIDAFactory", "dc/da7/a03404.html", null ],
+      [ "DYN::SolverSIMFactory", "d6/d8d/a03388.html", null ],
+      [ "DYN::SolverTRAPFactory", "d3/dc2/a03396.html", null ]
     ] ],
-    [ "DYN::SolverKINCommon", "d5/d83/a03337.html", [
-      [ "DYN::SolverKINAlgRestoration", "d7/d2c/a03333.html", null ],
-      [ "DYN::SolverKINEuler", "d3/d55/a03341.html", null ],
-      [ "DYN::SolverKINSubModel", "d6/d55/a03345.html", null ]
+    [ "DYN::SolverKINCommon", "d2/d5b/a03340.html", [
+      [ "DYN::SolverKINAlgRestoration", "d1/d24/a03336.html", null ],
+      [ "DYN::SolverKINEuler", "da/dcf/a03344.html", null ],
+      [ "DYN::SolverKINSubModel", "dd/d68/a03348.html", null ]
     ] ],
-    [ "DYN::SparseMatrix", "db/d0d/a02653.html", null ],
-    [ "DYN::stat_t", "d8/d60/a03373.html", null ],
-    [ "DYN::StateVariable", "dd/d72/a02953.html", null ],
-    [ "DYN::StaticParameter", "dd/d08/a02957.html", null ],
-    [ "dynamicdata::StaticRef", "d5/d39/a01945.html", null ],
-    [ "dynamicdata::staticRef_const_iterator", "de/d51/a01857.html", null ],
-    [ "dynamicdata::staticRef_iterator", "db/d6b/a01853.html", null ],
-    [ "dynamicdata::StaticRefFactory", "dd/d2e/a01949.html", null ],
-    [ "DYN::StaticRefInterface", "db/de5/a02773.html", null ],
-    [ "dynamicdata::StaticRefRead", "db/d49/a01969.html", null ],
-    [ "DYN::StaticVarCompensatorInterfaceIIDMExtension", "d0/dcd/a03113.html", null ],
-    [ "DYN::StepInterface", "d4/d39/a02965.html", [
-      [ "DYN::StepInterfaceIIDM", "d2/da6/a03117.html", null ]
+    [ "DYN::SparseMatrix", "d2/d7d/a02656.html", null ],
+    [ "DYN::stat_t", "d7/d4f/a03376.html", null ],
+    [ "DYN::StateVariable", "d5/d6c/a02956.html", null ],
+    [ "DYN::StaticParameter", "db/d1b/a02960.html", null ],
+    [ "dynamicdata::StaticRef", "d6/db0/a01948.html", null ],
+    [ "dynamicdata::staticRef_const_iterator", "d2/d38/a01860.html", null ],
+    [ "dynamicdata::staticRef_iterator", "da/d66/a01856.html", null ],
+    [ "dynamicdata::StaticRefFactory", "d4/dec/a01952.html", null ],
+    [ "DYN::StaticRefInterface", "d5/dba/a02776.html", null ],
+    [ "dynamicdata::StaticRefRead", "db/d9d/a01972.html", null ],
+    [ "DYN::StaticVarCompensatorInterfaceIIDMExtension", "d8/d96/a03116.html", null ],
+    [ "DYN::StepInterface", "d0/d7b/a02968.html", [
+      [ "DYN::StepInterfaceIIDM", "d3/d45/a03120.html", null ]
     ] ],
-    [ "DYN::SubModel", "d5/db0/a02777.html", [
-      [ "DYN::ConnectorCalculatedDiscreteVariable", "db/d8f/a02721.html", null ],
-      [ "DYN::ConnectorCalculatedVariable", "df/d50/a02725.html", null ],
-      [ "DYN::ModelCPP", "d5/d27/a03157.html", [
-        [ "DYN::ModelAreaShedding", "d1/d5f/a03189.html", null ],
-        [ "DYN::ModelCentralizedShuntsSectionControl", "d3/dcf/a03173.html", null ],
-        [ "DYN::ModelLoadRestorativeWithLimits", "d5/d1d/a03165.html", null ],
-        [ "DYN::ModelNetwork", "d8/d81/a03265.html", null ],
-        [ "DYN::ModelOmegaRef", "d9/d59/a03213.html", null ],
-        [ "DYN::ModelVariationArea", "dd/d61/a03197.html", null ],
-        [ "DYN::ModelVoltageMeasurementsUtilities", "d7/daf/a03181.html", null ],
-        [ "DYN::ModelVoltageSetPointChange", "d7/dee/a03205.html", null ]
+    [ "DYN::SubModel", "df/de4/a02780.html", [
+      [ "DYN::ConnectorCalculatedDiscreteVariable", "d7/deb/a02724.html", null ],
+      [ "DYN::ConnectorCalculatedVariable", "db/d59/a02728.html", null ],
+      [ "DYN::ModelCPP", "d8/d08/a03160.html", [
+        [ "DYN::ModelAreaShedding", "d8/d2a/a03192.html", null ],
+        [ "DYN::ModelCentralizedShuntsSectionControl", "df/d0d/a03176.html", null ],
+        [ "DYN::ModelLoadRestorativeWithLimits", "d8/d87/a03168.html", null ],
+        [ "DYN::ModelNetwork", "d4/dcb/a03268.html", null ],
+        [ "DYN::ModelOmegaRef", "d5/d2f/a03216.html", null ],
+        [ "DYN::ModelVariationArea", "de/d3a/a03200.html", null ],
+        [ "DYN::ModelVoltageMeasurementsUtilities", "d0/d08/a03184.html", null ],
+        [ "DYN::ModelVoltageSetPointChange", "d6/d1a/a03208.html", null ]
       ] ],
-      [ "DYN::ModelManager", "dd/dd1/a03141.html", null ]
+      [ "DYN::ModelManager", "d2/d19/a03144.html", null ]
     ] ],
-    [ "DYN::SubModelDelete", "df/d9c/a02793.html", null ],
-    [ "DYN::SubNetwork", "da/d0c/a03229.html", null ],
-    [ "DYN::SwitchInterfaceHash", "df/d45/a02973.html", null ],
-    [ "parameters::TableParameter", "d1/d73/a02497.html", null ],
-    [ "DYN::Trace::TagAndSeverityLevelHash", "d4/d9d/a02681.html", null ],
-    [ "DYN::TapChangerStep", "da/d0a/a03297.html", null ],
-    [ "DYN::TemporaryLimit", "d7/d13/a02873.html", null ],
-    [ "timeline::Timeline", "dd/d68/a02553.html", null ],
-    [ "job::TimelineEntry", "d0/dc1/a02277.html", null ],
-    [ "timeline::TimelineFactory", "d1/d67/a02561.html", null ],
-    [ "job::TimetableEntry", "d0/d80/a02281.html", null ],
-    [ "DYN::Trace", "d0/da6/a02677.html", null ],
-    [ "DYN::Trace::TraceAppender", "d6/da8/a02693.html", null ],
-    [ "DYN::Trace::TraceSinks", "d8/dd8/a02685.html", null ],
-    [ "DYN::TraceStream", "d5/dbe/a02697.html", null ],
-    [ "dynamicdata::UnitDynamicModel", "d9/d97/a01953.html", null ],
-    [ "dynamicdata::UnitDynamicModelFactory", "d2/d6f/a01957.html", null ],
-    [ "UserDefinedDirectory", "dd/d20/a02605.html", null ],
-    [ "DYN::Variable", "d0/d51/a02797.html", [
-      [ "DYN::VariableAlias", "d8/d1e/a02801.html", null ],
-      [ "DYN::VariableNative", "db/d27/a02817.html", [
-        [ "DYN::VariableMultiple", "d5/d34/a02809.html", null ]
+    [ "DYN::SubModelDelete", "d3/dac/a02796.html", null ],
+    [ "DYN::SubNetwork", "d0/d77/a03232.html", null ],
+    [ "DYN::SwitchInterfaceHash", "d3/dff/a02976.html", null ],
+    [ "parameters::TableParameter", "d4/dad/a02500.html", null ],
+    [ "DYN::Trace::TagAndSeverityLevelHash", "de/db4/a02684.html", null ],
+    [ "DYN::TapChangerStep", "d0/d7c/a03300.html", null ],
+    [ "DYN::TemporaryLimit", "d7/d65/a02876.html", null ],
+    [ "timeline::Timeline", "dc/d32/a02556.html", null ],
+    [ "job::TimelineEntry", "da/d68/a02280.html", null ],
+    [ "timeline::TimelineFactory", "db/d44/a02564.html", null ],
+    [ "job::TimetableEntry", "d3/d81/a02284.html", null ],
+    [ "DYN::Trace", "d5/d6a/a02680.html", null ],
+    [ "DYN::Trace::TraceAppender", "d8/da6/a02696.html", null ],
+    [ "DYN::Trace::TraceSinks", "d4/dfe/a02688.html", null ],
+    [ "DYN::TraceStream", "dd/dee/a02700.html", null ],
+    [ "dynamicdata::UnitDynamicModel", "d0/d59/a01956.html", null ],
+    [ "dynamicdata::UnitDynamicModelFactory", "de/d7f/a01960.html", null ],
+    [ "UserDefinedDirectory", "db/d34/a02608.html", null ],
+    [ "DYN::Variable", "d9/dd1/a02800.html", [
+      [ "DYN::VariableAlias", "df/dd0/a02804.html", null ],
+      [ "DYN::VariableNative", "d8/deb/a02820.html", [
+        [ "DYN::VariableMultiple", "d1/d19/a02812.html", null ]
       ] ]
     ] ],
-    [ "externalVariables::variable_const_iterator", "d7/d13/a02045.html", null ],
-    [ "externalVariables::variable_iterator", "d3/dea/a02041.html", null ],
-    [ "DYN::VariableAliasFactory", "d7/d75/a02805.html", null ],
-    [ "externalVariables::VariableFactory", "d0/d55/a02053.html", null ],
-    [ "DYN::VariableMultipleFactory", "d3/d85/a02813.html", null ],
-    [ "DYN::VariableNativeFactory", "db/de9/a02821.html", null ],
-    [ "externalVariables::VariablesCollection", "d2/dea/a02057.html", null ],
-    [ "externalVariables::VariablesCollectionFactory", "d8/de6/a02061.html", null ],
-    [ "DYN::VoltageLevelInterface", "dd/d5c/a02985.html", [
-      [ "DYN::FictVoltageLevelInterfaceIIDM", "d6/def/a03033.html", null ],
-      [ "DYN::VoltageLevelInterfaceIIDM", "d0/d2a/a03133.html", null ]
+    [ "externalVariables::variable_const_iterator", "d1/d39/a02048.html", null ],
+    [ "externalVariables::variable_iterator", "d8/d22/a02044.html", null ],
+    [ "DYN::VariableAliasFactory", "d1/dd0/a02808.html", null ],
+    [ "externalVariables::VariableFactory", "d9/db6/a02056.html", null ],
+    [ "DYN::VariableMultipleFactory", "d4/d97/a02816.html", null ],
+    [ "DYN::VariableNativeFactory", "dd/dfa/a02824.html", null ],
+    [ "externalVariables::VariablesCollection", "d5/d8b/a02060.html", null ],
+    [ "externalVariables::VariablesCollectionFactory", "de/def/a02064.html", null ],
+    [ "DYN::VoltageLevelInterface", "d8/d7d/a02988.html", [
+      [ "DYN::FictVoltageLevelInterfaceIIDM", "d5/d7f/a03036.html", null ],
+      [ "DYN::VoltageLevelInterfaceIIDM", "dc/d28/a03136.html", null ]
     ] ],
-    [ "finalStateValues::XmlImporter", "db/d26/a02129.html", null ]
+    [ "finalStateValues::XmlImporter", "dd/d07/a02132.html", null ]
 ];

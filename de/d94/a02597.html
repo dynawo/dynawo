@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::DYNErrorQueue Class Reference</title>
+<title>Dynawo: Member List</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('de/d94/a02597.html','../../');});
+$(document).ready(function(){initNavTree('d1/d88/a02600.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,136 +94,20 @@ $(document).ready(function(){initNavTree('de/d94/a02597.html','../../');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
-<a href="../../db/d8b/a02594.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::DYNErrorQueue Class Reference</div>  </div>
+<div class="title">DYN::DYNErrorQueue Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>class to register multiple errors before failing  
- <a href="../../de/d94/a02597.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="../../d6/d1a/a00485_source.html">DYNErrorQueue.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for DYN::DYNErrorQueue:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="../../de/d94/a02597.png" usemap="#DYN::DYNErrorQueue_map" alt=""/>
-  <map id="DYN::DYNErrorQueue_map" name="DYN::DYNErrorQueue_map">
-</map>
- </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a8250aa690caece149c5906008a8d1f6d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d94/a02597.html#a8250aa690caece149c5906008a8d1f6d">push</a> (const <a class="el" href="../../d0/dea/a02585.html">DYN::Error</a> &amp;exception)</td></tr>
-<tr class="memdesc:a8250aa690caece149c5906008a8d1f6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">register a new error in the queue  <a href="#a8250aa690caece149c5906008a8d1f6d">More...</a><br /></td></tr>
-<tr class="separator:a8250aa690caece149c5906008a8d1f6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3336f8a5153d955219151f20d4779ab8"><td class="memItemLeft" align="right" valign="top"><a id="a3336f8a5153d955219151f20d4779ab8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d94/a02597.html#a3336f8a5153d955219151f20d4779ab8">flush</a> ()</td></tr>
-<tr class="memdesc:a3336f8a5153d955219151f20d4779ab8"><td class="mdescLeft">&#160;</td><td class="mdescRight">throw errors if the queue is not empty, otherwise do nothing <br /></td></tr>
-<tr class="separator:a3336f8a5153d955219151f20d4779ab8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf9b3536a556df59effc860dfa4df386"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d94/a02597.html#adf9b3536a556df59effc860dfa4df386">getMaxDisplayedError</a> () const</td></tr>
-<tr class="memdesc:adf9b3536a556df59effc860dfa4df386"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the maximum number of errors displayed.  <a href="#adf9b3536a556df59effc860dfa4df386">More...</a><br /></td></tr>
-<tr class="separator:adf9b3536a556df59effc860dfa4df386"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a13d9e74aabbec14768a7cf28bf1b83ac"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../de/d94/a02597.html">DYNErrorQueue</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d94/a02597.html#a13d9e74aabbec14768a7cf28bf1b83ac">instance</a> ()</td></tr>
-<tr class="memdesc:a13d9e74aabbec14768a7cf28bf1b83ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">get singleton  <a href="#a13d9e74aabbec14768a7cf28bf1b83ac">More...</a><br /></td></tr>
-<tr class="separator:a13d9e74aabbec14768a7cf28bf1b83ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a9b425df6470b9ef7f8f3045071db6556"><td class="memItemLeft" align="right" valign="top"><a id="a9b425df6470b9ef7f8f3045071db6556"></a>
-std::queue&lt; <a class="el" href="../../d0/dea/a02585.html">DYN::Error</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d94/a02597.html#a9b425df6470b9ef7f8f3045071db6556">exceptionQueue_</a></td></tr>
-<tr class="memdesc:a9b425df6470b9ef7f8f3045071db6556"><td class="mdescLeft">&#160;</td><td class="mdescRight">error queue <br /></td></tr>
-<tr class="separator:a9b425df6470b9ef7f8f3045071db6556"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>class to register multiple errors before failing </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="adf9b3536a556df59effc860dfa4df386"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf9b3536a556df59effc860dfa4df386">&#9670;&nbsp;</a></span>getMaxDisplayedError()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">size_t DYN::DYNErrorQueue::getMaxDisplayedError </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Get the maximum number of errors displayed. </p>
-<dl class="section return"><dt>Returns</dt><dd>maximum number of errors displayed </dd></dl>
-
-</div>
-</div>
-<a id="a13d9e74aabbec14768a7cf28bf1b83ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13d9e74aabbec14768a7cf28bf1b83ac">&#9670;&nbsp;</a></span>instance()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="../../de/d94/a02597.html">DYNErrorQueue</a>&amp; DYN::DYNErrorQueue::instance </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>get singleton </p>
-<dl class="section return"><dt>Returns</dt><dd>singleton </dd></dl>
-
-</div>
-</div>
-<a id="a8250aa690caece149c5906008a8d1f6d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8250aa690caece149c5906008a8d1f6d">&#9670;&nbsp;</a></span>push()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::DYNErrorQueue::push </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d0/dea/a02585.html">DYN::Error</a> &amp;&#160;</td>
-          <td class="paramname"><em>exception</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>register a new error in the queue </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">exception</td><td>error to register </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d6/d1a/a00485_source.html">DYNErrorQueue.h</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="../../d1/d88/a02600.html">DYN::DYNErrorQueue</a>, including all inherited members.</p>
+<table class="directory">
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>DYNErrorQueue</b>()=default (defined in <a class="el" href="../../d1/d88/a02600.html">DYN::DYNErrorQueue</a>)</td><td class="entry"><a class="el" href="../../d1/d88/a02600.html">DYN::DYNErrorQueue</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d1/d88/a02600.html#a9b425df6470b9ef7f8f3045071db6556">exceptionQueue_</a></td><td class="entry"><a class="el" href="../../d1/d88/a02600.html">DYN::DYNErrorQueue</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d1/d88/a02600.html#a3336f8a5153d955219151f20d4779ab8">flush</a>()</td><td class="entry"><a class="el" href="../../d1/d88/a02600.html">DYN::DYNErrorQueue</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d1/d88/a02600.html#adf9b3536a556df59effc860dfa4df386">getMaxDisplayedError</a>() const</td><td class="entry"><a class="el" href="../../d1/d88/a02600.html">DYN::DYNErrorQueue</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d1/d88/a02600.html#a13d9e74aabbec14768a7cf28bf1b83ac">instance</a>()</td><td class="entry"><a class="el" href="../../d1/d88/a02600.html">DYN::DYNErrorQueue</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d1/d88/a02600.html#a8250aa690caece149c5906008a8d1f6d">push</a>(const DYN::Error &amp;exception)</td><td class="entry"><a class="el" href="../../d1/d88/a02600.html">DYN::DYNErrorQueue</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -239,8 +123,7 @@ std::queue&lt; <a class="el" href="../../d0/dea/a02585.html">DYN::Error</a> &gt;
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../de/d94/a02597.html">DYNErrorQueue</a></li>
-    <li class="footer">Generated on Tue Mar 18 2025 15:40:29 for Dynawo by
+    <li class="footer">Generated on Wed Mar 19 2025 16:39:34 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

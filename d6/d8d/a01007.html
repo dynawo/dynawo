@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNSolverKINEuler.h File Reference</title>
+<title>Dynawo: DYNSolverKINCommon.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -97,29 +97,29 @@ $(document).ready(function(){initNavTree('d6/d8d/a01007.html','../../');});
   <div class="summary">
 <a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">DYNSolverKINEuler.h File Reference</div>  </div>
+<div class="title">DYNSolverKINCommon.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Solver euler file header.  
+<p>Common class for all algebraic solvers based on sundials/KINSOL.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;boost/core/noncopyable.hpp&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
+<div class="textblock"><code>#include &lt;kinsol/kinsol.h&gt;</code><br />
+<code>#include &lt;sundials/sundials_linearsolver.h&gt;</code><br />
 <code>#include &lt;sundials/sundials_nvector.h&gt;</code><br />
 <code>#include &lt;sundials/sundials_matrix.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../df/dbc/a01004_source.html">DYNSolverKINCommon.h</a>&quot;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 </div>
 <p><a href="../../d6/d8d/a01007_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d55/a03341.html">DYN::SolverKINEuler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d1/d3a/a03353.html" title="Solver interface class. ">Solver</a> euler class.  <a href="../../d3/d55/a03341.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d5b/a03340.html">DYN::SolverKINCommon</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">class <a class="el" href="../../d2/d5b/a03340.html" title="class SolverKINCommon: common part of all the KINSOL-based solvers Generic class for KINSOL-based sol...">SolverKINCommon</a>: common part of all the KINSOL-based solvers Generic class for KINSOL-based solver  <a href="../../d2/d5b/a03340.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Solver euler file header. </p>
-<p>SolverKINEuler is the implementation of a solver with euler method based on KINSOL solver. </p>
+<div class="textblock"><p>Common class for all algebraic solvers based on sundials/KINSOL. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -136,8 +136,8 @@ Classes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_a769528b188158bb44ac136b67c42939.html">Solvers</a></li><li class="navelem"><a class="el" href="../../dir_d00bb33c142b7149cd0b208ba1e7d1c9.html">AlgebraicSolvers</a></li><li class="navelem"><a class="el" href="../../d6/d8d/a01007.html">DYNSolverKINEuler.h</a></li>
-    <li class="footer">Generated on Tue Mar 18 2025 15:40:29 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_a769528b188158bb44ac136b67c42939.html">Solvers</a></li><li class="navelem"><a class="el" href="../../dir_d00bb33c142b7149cd0b208ba1e7d1c9.html">AlgebraicSolvers</a></li><li class="navelem"><a class="el" href="../../d6/d8d/a01007.html">DYNSolverKINCommon.h</a></li>
+    <li class="footer">Generated on Wed Mar 19 2025 16:39:33 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
