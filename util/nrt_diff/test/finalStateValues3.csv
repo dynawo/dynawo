@@ -1,0 +1,7 @@
+model;variable;value
+modelEqual;variable;5.000000
+modelDifferentName2;variable;7.000000
+modelNotThere;variable;7.000000
+modelDifferentVariable;variable2;9.000000
+modelDifferentValue;variable;14.000000
+modelDifferentValueWithinTol;variable;13.000001
