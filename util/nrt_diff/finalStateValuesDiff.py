@@ -48,7 +48,7 @@ def get_xml_fsv_info(filename):
         fsv_by_id[my_object.get_unique_id()] = my_object
     return fsv_by_id
 
-# Read a XML FSV file name and build a dictionary object id => values
+# Read a CSV FSV file name and build a dictionary object id => values
 def get_csv_fsv_info(filename):
     fsv_by_id = {}
     with open (filename, "rt") as file:
@@ -115,7 +115,7 @@ def output_xml_fsv_close_enough (path_left, path_right):
     right_file_info = get_xml_fsv_info(path_right)
     return compare_fsv_info(left_file_info, right_file_info)
 
-# Check whether two xml output fsv files are close enough
+# Check whether two csv output fsv files are close enough
 # @param path_left : the absolute path to the left-side file
 # @param path_right : the absolute path to the right-side file
 def output_csv_fsv_close_enough (path_left, path_right):
@@ -130,9 +130,9 @@ if __name__ == "__main__":
     path_right = sys.argv[2]
     nb_differences = 0
     print("Comparing " + path_left + " and " + path_right)
-    if (".xml" in path_left and ".xml" in path_right):
+    if (path_left.endswith(".xml") and path_right.endswith(".xml")):
         nb_differences, msg = output_xml_fsv_close_enough(path_left, path_right)
-    elif (".csv" in path_left and ".csv" in path_right):
+    elif (path_left.endswith(".csv") and path_right.endswith(".csv")):
         nb_differences, msg = output_csv_fsv_close_enough(path_left, path_right)
     else:
         print ("[ERROR] Could not compare files " + path_left + " and " + path_right)

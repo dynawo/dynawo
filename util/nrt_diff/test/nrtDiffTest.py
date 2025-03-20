@@ -16,14 +16,10 @@ import sys
 import unittest
 
 
-try:
-    nrtDiff_dir = os.environ["DYNAWO_NRT_DIFF_DIR"]
-    sys.path.append(nrtDiff_dir)
-    import nrtDiff
-    import settings
-except:
-    print ("Failed to import non-regression test diff")
-    sys.exit(1)
+nrtDiff_dir = os.environ["DYNAWO_NRT_DIFF_DIR"]
+sys.path.append(nrtDiff_dir)
+import nrtDiff
+import settings
 
 class TestnrtDiffCompareTwoFiles(unittest.TestCase):
     def test_log(self):
@@ -168,15 +164,31 @@ class TestnrtDiffCompareTwoFiles(unittest.TestCase):
 [ERROR] object BUS_TYPE_DIFF_787_U &lt; Umin has different types in the two files\n\
 [ERROR] values of object BUS_LARGE_VALUE_DIFF_778_U &lt; Umin are different (delta = 2.0) \n")
 
-    def test_fqv_xml(self):
+    def test_fsv_xml(self):
         dir_path = os.path.dirname(os.path.realpath(__file__))
-        (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "finalStateValues.fsv"), '|', os.path.join(dir_path, "finalStateValues2.fsv"), '|')
+        (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "finalStateValues.xml"), '|', os.path.join(dir_path, "finalStateValues2.xml"), '|')
         self.assertEqual(return_value, nrtDiff.IDENTICAL)
-        (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "finalStateValues.fsv"), '|', os.path.join(dir_path, "finalStateValues3.fsv"), '|')
+        (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "finalStateValues.xml"), '|', os.path.join(dir_path, "finalStateValues3.xml"), '|')
         self.assertEqual(return_value, nrtDiff.DIFFERENT)
         message = message.replace("<font color=\"red\">", "")
         message = message.replace("</font>", "")
-        self.assertEqual(message, "nrt_diff/test/finalStateValues.fsv: 6 different output values\n\
+        self.assertEqual(message, "nrt_diff/test/finalStateValues.xml: 6 different output values\n\
+[ERROR] object modelDifferentName_variable is in left path but not in right one\n\
+[ERROR] object modelDifferentVariable_variable is in left path but not in right one\n\
+[ERROR] object modelDifferentName2_variable is in right path but not in left one\n\
+[ERROR] object modelDifferentVariable_variable2 is in right path but not in left one\n\
+[ERROR] object modelNotThere_variable is in right path but not in left one\n\
+[ERROR] values of object modelDifferentValue_variable are different (delta = 3.0) \n")
+
+    def test_fsv_csv(self):
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "finalStateValues.csv"), '|', os.path.join(dir_path, "finalStateValues2.csv"), '|')
+        self.assertEqual(return_value, nrtDiff.IDENTICAL)
+        (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "finalStateValues.csv"), '|', os.path.join(dir_path, "finalStateValues3.csv"), '|')
+        self.assertEqual(return_value, nrtDiff.DIFFERENT)
+        message = message.replace("<font color=\"red\">", "")
+        message = message.replace("</font>", "")
+        self.assertEqual(message, "nrt_diff/test/finalStateValues.csv: 6 different output values\n\
 [ERROR] object modelDifferentName_variable is in left path but not in right one\n\
 [ERROR] object modelDifferentVariable_variable is in left path but not in right one\n\
 [ERROR] object modelDifferentName2_variable is in right path but not in left one\n\
