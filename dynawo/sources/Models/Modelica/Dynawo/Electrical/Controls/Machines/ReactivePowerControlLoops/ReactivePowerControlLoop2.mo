@@ -24,7 +24,6 @@ model ReactivePowerControlLoop2 "Simplified Reactive Power Control Loop model fo
   parameter Types.Time Ti "Filters' time constant in s";
   parameter Types.VoltageModulePu UStatorRefMinPu = 0.85 "Minimum reference voltage for the generator voltage regulator in pu (base UNom)";
   parameter Types.VoltageModulePu UStatorRefMaxPu = 1.15 "Maximum reference voltage for the generator voltage regulator in pu (base UNom)";
-
   type UStatus = enumeration(Standard, LimitUMin, LimitUMax);
 
   // Input variables
@@ -46,9 +45,7 @@ model ReactivePowerControlLoop2 "Simplified Reactive Power Control Loop model fo
     Placement(visible = true, transformation(origin = {-130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback errQ annotation(
     Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integrator(k = 1 / Tech2, y_start = UStatorRef0Pu) annotation(
-    Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gainIntegrator(k = 1 / CqMaxPu) annotation(
+  Modelica.Blocks.Math.Gain gainIntegrator(k = 1/CqMaxPu) annotation(
     Placement(visible = true, transformation(origin = {-70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.VariableLimiter rampLim(homotopyType = Modelica.Blocks.Types.VariableLimiterHomotopy.NoHomotopy) annotation(
     Placement(visible = true, transformation(origin = {10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -70,10 +67,12 @@ model ReactivePowerControlLoop2 "Simplified Reactive Power Control Loop model fo
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = Ti) annotation(
     Placement(visible = true, transformation(origin = {50, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain(k = Ti / Tech) annotation(
+  Modelica.Blocks.Math.Gain gain(k = Ti/Tech) annotation(
     Placement(visible = true, transformation(origin = {10, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter_UStatorRefMinMaxPu(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = UStatorRefMaxPu, uMin = UStatorRefMinPu) annotation(
     Placement(visible = true, transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.LimitedIntegrator limitedIntegrator(K = 1/Tech2, Y0 = UStatorRef0Pu, YMax = UStatorRefMaxPu, YMin = UStatorRefMinPu)  annotation(
+    Placement(transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
 
   parameter Boolean limUQDown0 "Whether the minimum reactive power limits are reached or not (from generator voltage regulator), start value";
   parameter Boolean limUQUp0 "Whether the maximum reactive power limits are reached or not (from generator voltage regulator), start value";
@@ -98,8 +97,6 @@ equation
     Timeline.logEvent1(TimelineKeys.RPCLStandard);
   end when;
 
-  connect(integrator.u, rampLim.y) annotation(
-    Line(points = {{98, 0}, {21, 0}}, color = {0, 0, 127}));
   connect(errQ.u1, participation.y) annotation(
     Line(points = {{-108, 0}, {-119, 0}}, color = {0, 0, 127}));
   connect(level, participation.u) annotation(
@@ -136,12 +133,14 @@ equation
     Line(points = {{40, -40}, {22, -40}}, color = {0, 0, 127}));
   connect(gain.y, feedback.u2) annotation(
     Line(points = {{0, -40}, {-40, -40}, {-40, -8}}, color = {0, 0, 127}, pattern = LinePattern.Dot));
-  connect(integrator.y, limiter_UStatorRefMinMaxPu.u) annotation(
-    Line(points = {{122, 0}, {134, 0}}, color = {0, 0, 127}));
   connect(limiter_UStatorRefMinMaxPu.y, UStatorRefPu) annotation(
     Line(points = {{158, 0}, {190, 0}}, color = {0, 0, 127}));
-
-  annotation(preferredView = "diagram",
+  connect(rampLim.y, limitedIntegrator.u) annotation(
+    Line(points = {{22, 0}, {98, 0}}, color = {0, 0, 127}));
+  connect(limitedIntegrator.y, limiter_UStatorRefMinMaxPu.u) annotation(
+    Line(points = {{122, 0}, {138, 0}}, color = {0, 0, 127}));
+  annotation(
+    preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-160, -180}, {180, 140}})),
     Documentation(info = "<html><body>The reactive control loop gets a level K from the secondary voltage control and transforms it into a voltage reference for the generator voltage regulator</body></html>"));
 end ReactivePowerControlLoop2;
