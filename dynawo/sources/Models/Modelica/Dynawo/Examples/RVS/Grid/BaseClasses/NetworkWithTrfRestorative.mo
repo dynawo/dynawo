@@ -132,6 +132,24 @@ model NetworkWithTrfRestorative "RVS test grid with buses, lines, shunts, restor
     Placement(visible = true, transformation(origin = {28, 16}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
 equation
+  connect(tfo_1101_101.terminal20, load_1101_ABEL_INIT.terminal0);
+  connect(tfo_1102_102.terminal20, load_1102_ADAMS_INIT.terminal0);
+  connect(tfo_1103_103.terminal20, load_1103_ADLER_INIT.terminal0);
+  connect(tfo_1104_104.terminal20, load_1104_AGRICOLA_INIT.terminal0);
+  connect(tfo_1105_105.terminal20, load_1105_AIKEN_INIT.terminal0);
+  connect(tfo_1106_106.terminal20, load_1106_ALBER_INIT.terminal0);
+  connect(tfo_1107_107.terminal20, load_1107_ALDER_INIT.terminal0);
+  connect(tfo_1108_108.terminal20, load_1108_ALGER_INIT.terminal0);
+  connect(tfo_1109_109.terminal20, load_1109_ALI_INIT.terminal0);
+  connect(tfo_1110_110.terminal20, load_1110_ALLEN_INIT.terminal0);
+  connect(tfo_1113_113.terminal20, load_1113_ARNE_INIT.terminal0);
+  connect(tfo_1114_114.terminal20, load_1114_ARNOLD_INIT.terminal0);
+  connect(tfo_1115_115.terminal20, load_1115_ARTHUR_INIT.terminal0);
+  connect(tfo_1116_116.terminal20, load_1116_ASSER_INIT.terminal0);
+  connect(tfo_1118_118.terminal20, load_1118_ASTOR_INIT.terminal0);
+  connect(tfo_1119_119.terminal20, load_1119_ATTAR_INIT.terminal0);
+  connect(tfo_1120_120.terminal20, load_1120_ATTILA_INIT.terminal0);
+
   when time >= 0 then
     tfo_103_124.tap.value = tfo_103_124.Tap0;
     tfo_109_111.tap.value = tfo_109_111.Tap0;
