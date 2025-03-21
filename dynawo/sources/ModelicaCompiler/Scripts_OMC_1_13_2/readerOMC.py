@@ -1221,7 +1221,7 @@ class ReaderOMC:
         global crossed_opening_braces
         global stop_at_next_call
         # Regular expression to recognize a line of type $Pvar = $Prhs
-        ptrn_assign_var = re.compile(r'^[ ]*\(data->modelData->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w(),\.\[\]]+ \*\/\)\.attribute[ ]*.start[ ]*=[^;]*;$')
+        ptrn_assign_var = re.compile(r'^[ ]*\(data->modelData->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w(),\.\[\]]+ \*\/\)\.attribute[ ]*.start[ ]*=[^;]*;')
         ptrn_param = re.compile(r'\(data->simulationInfo->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/\)[ ]*=[^;]*;')
         ptrn_tmp_assign = re.compile(r'\s*tmp[0-9]+\s*=[^;]*==[^;]*;')
         ptrn_param_bool_assignment = re.compile(r'\(data->simulationInfo->booleanParameter\[(?P<var>\S*)\][ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/[ ]*=[^;]*;')
@@ -1248,19 +1248,19 @@ class ReaderOMC:
                             match = re.search(ptrn_assign_var, line)
                             var = match.group('varName')
                             self.var_init_val[ var ] = list_body
-                        if ptrn_param_bool_assignment.search(line) is not None:
+                        elif ptrn_param_bool_assignment.search(line) is not None:
                             match = re.search(ptrn_param, line)
                             var = match.group('varName')
                             self.var_init_val[ var ] = list_body
-                        if ptrn_param.search(line) is not None and ptrn_tmp_assign.search(line) is None:
+                        elif ptrn_param.search(line) is not None and ptrn_tmp_assign.search(line) is None:
                             match = re.search(ptrn_param, line)
                             var = match.group('varName')
                             self.var_init_val[ var ] = list_body
-                        if ptrn_assign_auxiliary_var.search(line) is not None:
+                        elif ptrn_assign_auxiliary_var.search(line) is not None:
                             match = re.search(ptrn_assign_auxiliary_var, line)
                             var = match.group('varName')
                             self.var_init_val[ var ] = list_body
-                        if ptrn_assign_extobjs.search(line) is not None:
+                        elif ptrn_assign_extobjs.search(line) is not None:
                             match = re.search(ptrn_assign_extobjs, line)
                             var_add = "data->simulationInfo->extObjs["+match.group('var')+"]"
                             for var_name, address in get_map_var_name_2_addresses().items():
@@ -1290,8 +1290,8 @@ class ReaderOMC:
 
     def read_07dly_c_file(self):
         if os.path.isfile(self._07dly_c_file):
-            pattern_with_parameters = re.compile(r"storeDelayedExpression\(data,\s*threadData,\s*(?P<exprId>\d+), data->localData\[(?P<localId>\d+)\]->realVars\[\d+\]\s*\/\*\s*(?P<name>[\w.\[\]]+).*?\s*\*\/, data->localData\[(?P<timeId>\d*)\]->timeValue.*,.*?\/\*\s*(?P<delayMaxName>[\w.\[\]]+).*\)")
-            pattern = re.compile(r"storeDelayedExpression\(data,\s*threadData,\s*(?P<exprId>\d+), data->localData\[\d+\]->realVars\[\d+\]\s*\/\*\s*(?P<name>[\w.\[\]]+).*?\s*\*\/, data->localData\[(?P<timeId>\d*)\]->timeValue.*,\s*(?P<delayMax>\d+\.\d+)\)")
+            pattern_with_parameters = re.compile(r"storeDelayedExpression\(data,\s*threadData,\s*(?P<exprId>\d+), \(data->localData\[(?P<localId>\d+)\]->realVars\[\d+\]\s*\/\*\s*(?P<name>[\w.\[\]]+).*?\s*\*\/\),.*?\/\*\s*(?P<delayMaxName>[\w.\[\]]+).*\)")
+            pattern = re.compile(r"storeDelayedExpression\(data,\s*threadData,\s*(?P<exprId>\d+), \(data->localData\[\d+\]->realVars\[\d+\]\s*\/\*\s*(?P<name>[\w.\[\]]+).*?\s*\*\/\),\s*(?P<delayMax>\d+\.\d+)\)")
             with open(self._07dly_c_file, 'r') as f:
                 for line in f:
                     match = re.search(pattern, line)
@@ -1299,7 +1299,6 @@ class ReaderOMC:
                         self.list_delay_defs.append({
                             "exprId": match.group("exprId"),
                             "name": match.group("name"),
-                            "timeId": match.group("timeId"),
                             "delayMax": match.group("delayMax"),
                         })
                         continue
@@ -1309,7 +1308,6 @@ class ReaderOMC:
                         self.list_delay_defs.append({
                             "exprId": match.group("exprId"),
                             "name": match.group("name"),
-                            "timeId": match.group("timeId"),
                             "delayMaxName": match.group("delayMaxName"),
                         })
     ##

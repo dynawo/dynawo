@@ -1096,7 +1096,7 @@ class Factory:
             # when the whenCondition is checked.
             r_obj.filter_when_cond_blocks( list_func_bodies_discr )
 
-            if re.search(r'relationhysteresis\(tmp[0-9]+, data->localData\[0\]->timeValue, 999999.0, [0-9]+, Greater\);',transform_rawbody_to_string(r_obj.get_body_for_num_relation())):
+            if re.search(r'relationhysteresis\(tmp[0-9]+, data->localData\[0\]->timeValue, 999999.0, tmp[0-9]+, tmp[0-9]+, [0-9]+, Greater\);',transform_rawbody_to_string(r_obj.get_body_for_num_relation())):
                 r_obj.set_num_dyn(-1)
                 self.list_when_eq_to_filter.append(str(r_obj.get_when_var_name())+" ")
                 continue
@@ -1203,9 +1203,9 @@ class Factory:
         map_relations = {}
         # finding existing relations in system equations
         for eq in self.list_eq_syst:
-            relations_found = re.findall(r'relationhysteresis\(data, &tmp[0-9]+, .*?, .*?, [0-9]+, .*?\);', transform_rawbody_to_string(eq.get_raw_body()))
+            relations_found = re.findall(r'relationhysteresis\(data, &tmp[0-9]+, .*?, .*?, .*?, [0-9]+, .*?\);', transform_rawbody_to_string(eq.get_raw_body()))
             for relation in relations_found:
-                index_relation = relation.split(", ")[4]
+                index_relation = relation.split(", ")[6]
                 eq_type = ALGEBRAIC
                 if eq.get_type() == DIFFERENTIAL:
                     eq_type = DIFFERENTIAL
@@ -1367,7 +1367,7 @@ class Factory:
                     self.modes.modes_discretes[var].add_eq(eq.get_src_fct_name())
 
         for eq in self.list_int_equations:
-            relations_found = re.findall(r'relationhysteresis\(tmp[0-9]+, .*?, .*?, [0-9]+, .*?\);', transform_rawbody_to_string(eq.get_body()))
+            relations_found = re.findall(r'relationhysteresis\(tmp[0-9]+, .*?, .*?, .*?, [0-9]+, .*?\);', transform_rawbody_to_string(eq.get_body()))
             for _ in relations_found:
                 self.modes.modes_discretes[eq.get_name()] = ModeDiscrete(ALGEBRAIC, False)
 
@@ -1568,7 +1568,7 @@ class Factory:
             if "delayMaxName" in item:
                 item["delayMax"] = to_param_address(item["delayMaxName"])
             line_tmp = "  createDelay(" + item["exprId"] + \
-            ", &(data->localData[" + item["timeId"] + "]->timeValue)" + \
+            ", &(data->localData[0]->timeValue)" + \
             ", &(" + to_param_address(item["name"]) + ")" + \
             ", " + item["delayMax"] + ");\n"
             self.list_for_callcustomparametersconstructors.append(line_tmp)
@@ -2866,7 +2866,7 @@ class Factory:
         for func in self.reader.list_omc_functions:
             # if function does not start with omc_ we do not add it
             name = func.get_name()
-            if name[0:4] != 'omc_' and not name.startswith("Complex_")and not name.startswith("Dynawo_Types_"):
+            if name[0:4] != 'omc_' and not name.startswith("Complex_")and not name.startswith("Dynawo_Types_")and not name.startswith("Dynawo_Connectors_"):
                 self.erase_func.append(name)
                 continue
 
