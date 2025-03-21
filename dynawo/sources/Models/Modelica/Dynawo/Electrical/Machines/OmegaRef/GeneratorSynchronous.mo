@@ -64,6 +64,8 @@ model GeneratorSynchronous "Synchronous machine"
   Types.ComplexVoltagePu uStatorPu(re(start = uStator0Pu.re), im(start = uStator0Pu.im)) "Complex voltage at stator side in pu (base UNom)";
   Dynawo.Connectors.ComplexVoltagePuConnector uPu(re(start = u0Pu.re), im(start = u0Pu.im)) "Complex voltage at terminal in pu (base UNom)";
   Dynawo.Connectors.ComplexCurrentPuConnector iStatorPu(re(start = iStator0Pu.re), im(start = iStator0Pu.im)) "Complex current at stator side in pu (base UNom, SnRef)";
+  //Dynawo.Types.ComplexPerUnit uPu(re(start = u0Pu.re), im(start = u0Pu.im)) "Complex voltage at terminal in pu (base UNom)";
+  //Dynawo.Types.ComplexPerUnit iStatorPu(re(start = iStator0Pu.re), im(start = iStator0Pu.im)) "Complex current at stator side in pu (base UNom, SnRef)";
 
 equation
   if running.value then
