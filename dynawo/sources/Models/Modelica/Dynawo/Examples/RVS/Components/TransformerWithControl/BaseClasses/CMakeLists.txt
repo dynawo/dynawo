@@ -14,6 +14,7 @@ set(MODEL_FILES
   package.order
   TransformerParameters.mo
   InitializedTransformerVariableTap.mo
+  testinit.mo
   )
 
 #

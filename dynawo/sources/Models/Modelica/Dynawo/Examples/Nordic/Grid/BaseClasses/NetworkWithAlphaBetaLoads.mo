@@ -133,6 +133,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_01 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_01_INIT;
   parameter Types.ActivePowerPu P0Pu_load_01;
   parameter Types.ReactivePowerPu Q0Pu_load_01;
   parameter Types.VoltageModulePu U0Pu_load_01;
@@ -143,6 +144,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_02 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_02_INIT;
   parameter Types.ActivePowerPu P0Pu_load_02;
   parameter Types.ReactivePowerPu Q0Pu_load_02;
   parameter Types.VoltageModulePu U0Pu_load_02;
@@ -153,6 +155,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_03 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_03_INIT;
   parameter Types.ActivePowerPu P0Pu_load_03;
   parameter Types.ReactivePowerPu Q0Pu_load_03;
   parameter Types.VoltageModulePu U0Pu_load_03;
@@ -163,6 +166,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_04 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_04_INIT;
   parameter Types.ActivePowerPu P0Pu_load_04;
   parameter Types.ReactivePowerPu Q0Pu_load_04;
   parameter Types.VoltageModulePu U0Pu_load_04;
@@ -173,6 +177,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_05 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_05_INIT;
   parameter Types.ActivePowerPu P0Pu_load_05;
   parameter Types.ReactivePowerPu Q0Pu_load_05;
   parameter Types.VoltageModulePu U0Pu_load_05;
@@ -183,6 +188,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_11 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_11_INIT;
   parameter Types.ActivePowerPu P0Pu_load_11;
   parameter Types.ReactivePowerPu Q0Pu_load_11;
   parameter Types.VoltageModulePu U0Pu_load_11;
@@ -193,6 +199,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_12 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_12_INIT;
   parameter Types.ActivePowerPu P0Pu_load_12;
   parameter Types.ReactivePowerPu Q0Pu_load_12;
   parameter Types.VoltageModulePu U0Pu_load_12;
@@ -203,6 +210,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_13 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_13_INIT;
   parameter Types.ActivePowerPu P0Pu_load_13;
   parameter Types.ReactivePowerPu Q0Pu_load_13;
   parameter Types.VoltageModulePu U0Pu_load_13;
@@ -213,6 +221,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_22 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_22_INIT;
   parameter Types.ActivePowerPu P0Pu_load_22;
   parameter Types.ReactivePowerPu Q0Pu_load_22;
   parameter Types.VoltageModulePu U0Pu_load_22;
@@ -223,6 +232,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_31 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_31_INIT;
   parameter Types.ActivePowerPu P0Pu_load_31;
   parameter Types.ReactivePowerPu Q0Pu_load_31;
   parameter Types.VoltageModulePu U0Pu_load_31;
@@ -233,6 +243,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_32 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_32_INIT;
   parameter Types.ActivePowerPu P0Pu_load_32;
   parameter Types.ReactivePowerPu Q0Pu_load_32;
   parameter Types.VoltageModulePu U0Pu_load_32;
@@ -243,6 +254,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_41 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_41_INIT;
   parameter Types.ActivePowerPu P0Pu_load_41;
   parameter Types.ReactivePowerPu Q0Pu_load_41;
   parameter Types.VoltageModulePu U0Pu_load_41;
@@ -253,6 +265,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_42 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_42_INIT;
   parameter Types.ActivePowerPu P0Pu_load_42;
   parameter Types.ReactivePowerPu Q0Pu_load_42;
   parameter Types.VoltageModulePu U0Pu_load_42;
@@ -263,6 +276,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_43 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_43_INIT;
   parameter Types.ActivePowerPu P0Pu_load_43;
   parameter Types.ReactivePowerPu Q0Pu_load_43;
   parameter Types.VoltageModulePu U0Pu_load_43;
@@ -273,6 +287,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_46 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_46_INIT;
   parameter Types.ActivePowerPu P0Pu_load_46;
   parameter Types.ReactivePowerPu Q0Pu_load_46;
   parameter Types.VoltageModulePu U0Pu_load_46;
@@ -283,6 +298,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_47 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_47_INIT;
   parameter Types.ActivePowerPu P0Pu_load_47;
   parameter Types.ReactivePowerPu Q0Pu_load_47;
   parameter Types.VoltageModulePu U0Pu_load_47;
@@ -293,6 +309,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_51 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_51_INIT;
   parameter Types.ActivePowerPu P0Pu_load_51;
   parameter Types.ReactivePowerPu Q0Pu_load_51;
   parameter Types.VoltageModulePu U0Pu_load_51;
@@ -303,6 +320,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_61 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_61_INIT;
   parameter Types.ActivePowerPu P0Pu_load_61;
   parameter Types.ReactivePowerPu Q0Pu_load_61;
   parameter Types.VoltageModulePu U0Pu_load_61;
@@ -313,6 +331,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_62 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_62_INIT;
   parameter Types.ActivePowerPu P0Pu_load_62;
   parameter Types.ReactivePowerPu Q0Pu_load_62;
   parameter Types.VoltageModulePu U0Pu_load_62;
@@ -323,6 +342,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_63 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_63_INIT;
   parameter Types.ActivePowerPu P0Pu_load_63;
   parameter Types.ReactivePowerPu Q0Pu_load_63;
   parameter Types.VoltageModulePu U0Pu_load_63;
@@ -333,6 +353,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_71 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_71_INIT;
   parameter Types.ActivePowerPu P0Pu_load_71;
   parameter Types.ReactivePowerPu Q0Pu_load_71;
   parameter Types.VoltageModulePu U0Pu_load_71;
@@ -343,6 +364,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_72 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_72_INIT;
   parameter Types.ActivePowerPu P0Pu_load_72;
   parameter Types.ReactivePowerPu Q0Pu_load_72;
   parameter Types.VoltageModulePu U0Pu_load_72;

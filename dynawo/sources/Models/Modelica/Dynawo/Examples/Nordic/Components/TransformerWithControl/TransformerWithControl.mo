@@ -39,6 +39,9 @@ model TransformerWithControl "Model of transformer with variable tap, for the No
     P10Pu = P10Pu, Q10Pu = Q10Pu, U10Pu = U10Pu, U1Phase0 = U1Phase0) annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-50, -50}, {50, 50}}, rotation = 0)));
 
+  flow Dynawo.Connectors.ComplexCurrentPuConnector init_tfo_i20Pu;
+  Dynawo.Connectors.ComplexCurrentPuConnector init_tfo_u20Pu;
+
   parameter Types.ActivePowerPu P10Pu;
   parameter Types.ReactivePowerPu Q10Pu;
   parameter Types.VoltageModulePu U10Pu;
@@ -67,6 +70,9 @@ equation
     Line(points = {{-50, 0}, {-110, 0}}, color = {0, 0, 255}));
   connect(tfoVariableTap.terminal2, terminal2) annotation(
     Line(points = {{50, 0}, {110, 0}}, color = {0, 0, 255}));
+
+  connect(init_tfo_i20Pu, tfoVariableTap.init_i20Pu);
+  connect(init_tfo_u20Pu, tfoVariableTap.init_u20Pu);
 
   annotation(preferredView = "text",
     Icon(graphics = {Rectangle(lineThickness = 0.75, extent = {{-100, 100}, {100, -100}})}),

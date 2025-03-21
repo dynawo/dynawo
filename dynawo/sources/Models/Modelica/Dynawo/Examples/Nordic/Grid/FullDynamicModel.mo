@@ -303,6 +303,52 @@ model FullDynamicModel "Nordic test grid with buses, lines, shunts, loads, trans
   parameter Types.Angle UPhase0_g20;
 
 equation
+  connect(trafo_1_1041.init_tfo_i20Pu, load_01_INIT.i0Pu);
+  connect(trafo_2_1042.init_tfo_i20Pu, load_02_INIT.i0Pu);
+  connect(trafo_3_1043.init_tfo_i20Pu, load_03_INIT.i0Pu);
+  connect(trafo_4_1044.init_tfo_i20Pu, load_04_INIT.i0Pu);
+  connect(trafo_5_1045.init_tfo_i20Pu, load_05_INIT.i0Pu);
+  connect(trafo_11_1011.init_tfo_i20Pu, load_11_INIT.i0Pu);
+  connect(trafo_12_1012.init_tfo_i20Pu, load_12_INIT.i0Pu);
+  connect(trafo_13_1013.init_tfo_i20Pu, load_13_INIT.i0Pu);
+  connect(trafo_22_1022.init_tfo_i20Pu, load_22_INIT.i0Pu);
+  connect(trafo_31_2031.init_tfo_i20Pu, load_31_INIT.i0Pu);
+  connect(trafo_32_2032.init_tfo_i20Pu, load_32_INIT.i0Pu);
+  connect(trafo_41_4041.init_tfo_i20Pu, load_41_INIT.i0Pu);
+  connect(trafo_42_4042.init_tfo_i20Pu, load_42_INIT.i0Pu);
+  connect(trafo_43_4043.init_tfo_i20Pu, load_43_INIT.i0Pu);
+  connect(trafo_46_4046.init_tfo_i20Pu, load_46_INIT.i0Pu);
+  connect(trafo_47_4047.init_tfo_i20Pu, load_47_INIT.i0Pu);
+  connect(trafo_51_4051.init_tfo_i20Pu, load_51_INIT.i0Pu);
+  connect(trafo_61_4061.init_tfo_i20Pu, load_61_INIT.i0Pu);
+  connect(trafo_62_4062.init_tfo_i20Pu, load_62_INIT.i0Pu);
+  connect(trafo_63_4063.init_tfo_i20Pu, load_63_INIT.i0Pu);
+  connect(trafo_71_4071.init_tfo_i20Pu, load_71_INIT.i0Pu);
+  connect(trafo_72_4072.init_tfo_i20Pu, load_72_INIT.i0Pu);
+
+  connect(trafo_1_1041.init_tfo_u20Pu, load_01_INIT.u0Pu);
+  connect(trafo_2_1042.init_tfo_u20Pu, load_02_INIT.u0Pu);
+  connect(trafo_3_1043.init_tfo_u20Pu, load_03_INIT.u0Pu);
+  connect(trafo_4_1044.init_tfo_u20Pu, load_04_INIT.u0Pu);
+  connect(trafo_5_1045.init_tfo_u20Pu, load_05_INIT.u0Pu);
+  connect(trafo_11_1011.init_tfo_u20Pu, load_11_INIT.u0Pu);
+  connect(trafo_12_1012.init_tfo_u20Pu, load_12_INIT.u0Pu);
+  connect(trafo_13_1013.init_tfo_u20Pu, load_13_INIT.u0Pu);
+  connect(trafo_22_1022.init_tfo_u20Pu, load_22_INIT.u0Pu);
+  connect(trafo_31_2031.init_tfo_u20Pu, load_31_INIT.u0Pu);
+  connect(trafo_32_2032.init_tfo_u20Pu, load_32_INIT.u0Pu);
+  connect(trafo_41_4041.init_tfo_u20Pu, load_41_INIT.u0Pu);
+  connect(trafo_42_4042.init_tfo_u20Pu, load_42_INIT.u0Pu);
+  connect(trafo_43_4043.init_tfo_u20Pu, load_43_INIT.u0Pu);
+  connect(trafo_46_4046.init_tfo_u20Pu, load_46_INIT.u0Pu);
+  connect(trafo_47_4047.init_tfo_u20Pu, load_47_INIT.u0Pu);
+  connect(trafo_51_4051.init_tfo_u20Pu, load_51_INIT.u0Pu);
+  connect(trafo_61_4061.init_tfo_u20Pu, load_61_INIT.u0Pu);
+  connect(trafo_62_4062.init_tfo_u20Pu, load_62_INIT.u0Pu);
+  connect(trafo_63_4063.init_tfo_u20Pu, load_63_INIT.u0Pu);
+  connect(trafo_71_4071.init_tfo_u20Pu, load_71_INIT.u0Pu);
+  connect(trafo_72_4072.init_tfo_u20Pu, load_72_INIT.u0Pu);
+
   trafo_g1_1012.switchOffSignal1.value = false;
   trafo_g1_1012.switchOffSignal2.value = false;
   trafo_g2_1013.switchOffSignal1.value = false;
