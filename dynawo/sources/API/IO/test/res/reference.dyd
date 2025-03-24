@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<dynamicModelsArchitecture xmlns="http://www.rte-france.com/dynawo">
+  <macroConnector id="MC1">
+    <connect var1="var1" var2="var2"/>
+    <initConnect var1="var10" var2="var20"/>
+  </macroConnector>
+  <macroConnector id="MC2">
+    <connect var1="var1_@INDEX@" var2="var2_@NAME@"/>
+    <connect var1="var1" var2="var2"/>
+  </macroConnector>
+  <blackBoxModel id="BlackBoxModel1" staticId="bbmId1" lib="model1" parFile="myPAR.par" parId="1">
+    <staticRef var="var" staticVar="staticVar"/>
+  </blackBoxModel>
+  <blackBoxModel id="BlackBoxModel2" staticId="bbmId2" lib="model2" parFile="myPAR.par" parId="2">
+    <staticRef var="var" staticVar="staticVar"/>
+  </blackBoxModel>
+  <modelTemplate id="ModelTemplate">
+    <unitDynamicModel id="UDM1" name="unitModel1" initName="unitModel1_INIT"/>
+    <unitDynamicModel id="UDM2" name="unitModel2" initName="unitModel2_INIT"/>
+    <macroConnect connector="MC1" id1="UDM1" id2="UDM2"/>
+  </modelTemplate>
+  <modelicaModel id="ModelicaModel">
+    <unitDynamicModel id="UDM1" name="unitModel1" initName="unitModel1_INIT" parFile="myPAR.par" parId="56"/>
+    <unitDynamicModel id="UDM2" name="unitModel2" initName="unitModel2_INIT" parFile="myPAR.par" parId="56"/>
+    <macroConnect connector="MC1" id1="UDM1" id2="UDM2"/>
+  </modelicaModel>
+  <macroConnect connector="MC2" id1="BlackBoxModel1" id2="BlackBoxModel2" index1="0" name1="bbmId1" index2="1" name2="bbmId2"/>
+</dynamicModelsArchitecture>
