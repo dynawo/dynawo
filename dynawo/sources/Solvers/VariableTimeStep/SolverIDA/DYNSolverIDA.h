@@ -298,6 +298,7 @@ class SolverIDA : public Solver::Impl {
   double deltacj_;  ///< the cj change threshold that requires a linear solver setup call
   bool uround_;  ///< to activate change on uround
   double uroundPrecision_;  ///< to activate change on uround
+  bool uroundPrecisionAlignedPrecision_;  ///< to activate change on uround
   bool newReinit_;  ///< test
   std::string solveTask_;  ///< test
   int maxnef_;  ///< test

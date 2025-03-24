@@ -96,6 +96,7 @@ relAccuracy_(0.),
 deltacj_(0.25),
 uround_(false),
 uroundPrecision_(std::numeric_limits<double>::min()),
+uroundPrecisionAlignedPrecision_(true),
 newReinit_(false),
 solveTask_("ONE_STEP"),
 maxnef_(10),
@@ -149,6 +150,7 @@ SolverIDA::defineSpecificParameters() {
   parameters_.insert(make_pair("deltacj", ParameterSolver("deltacj", VAR_TYPE_DOUBLE, notMandatory)));
   parameters_.insert(make_pair("uround", ParameterSolver("uround", VAR_TYPE_BOOL, notMandatory)));
   parameters_.insert(make_pair("uroundPrecision", ParameterSolver("uroundPrecision", VAR_TYPE_DOUBLE, notMandatory)));
+  parameters_.insert(make_pair("uroundPrecisionAlignedPrecision", ParameterSolver("uroundPrecisionAlignedPrecision", VAR_TYPE_BOOL, notMandatory)));
   parameters_.insert(make_pair("newReinit", ParameterSolver("newReinit", VAR_TYPE_BOOL, notMandatory)));
   parameters_.insert(make_pair("solveTask", ParameterSolver("solveTask", VAR_TYPE_STRING, notMandatory)));
   parameters_.insert(make_pair("maxnef", ParameterSolver("maxnef", VAR_TYPE_INT, notMandatory)));
@@ -180,7 +182,10 @@ SolverIDA::setSolverSpecificParameters() {
     uroundPrecision_ = uroundPrecision.getValue<double>();
   else
     uroundPrecision_ = getCurrentPrecision();
-  if (getCurrentPrecision() < uroundPrecision_)
+  const ParameterSolver& uroundPrecisionAlignedPrecision = findParameter("uroundPrecisionAlignedPrecision");
+  if (uroundPrecisionAlignedPrecision.hasValue())
+    uroundPrecisionAlignedPrecision_ = uround.getValue<bool>();
+  if (uroundPrecisionAlignedPrecision_ && getCurrentPrecision() < uroundPrecision_)
     uroundPrecision_ = getCurrentPrecision();
   const ParameterSolver& newReinit = findParameter("newReinit");
   if (newReinit.hasValue())

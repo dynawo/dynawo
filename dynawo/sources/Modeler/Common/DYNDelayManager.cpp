@@ -186,7 +186,7 @@ DelayManager::evalMode(const double time) {
     if (!(time < delayTime || doubleEquals(time, delayTime)) && !delay.isTriggered()) {
       delay.trigger();
       Trace::debug() << modelName << " mode for delay " << it->first << " delayTime " << delayTime << Trace::endline;
-      delay_mode = ALGEBRAIC_J_UPDATE_MODE;
+      delay_mode = ALGEBRAIC_J_J_UPDATE_MODE;
     }
   }
   return delay_mode;
