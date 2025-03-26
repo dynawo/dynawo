@@ -68,7 +68,7 @@ model PControl4B2020 "Active power control module for type 4B wind turbines (IEC
 equation
   connect(UWTCPu, product1.u2) annotation(
     Line(points = {{-180, 100}, {-20, 100}, {-20, 66}, {-2, 66}}, color = {0, 0, 127}));
-  connect(UWTCFiltPu, max.u2) annotation(
+  connect(UWTCFiltPu, max1.u2) annotation(
     Line(points = {{-180, 140}, {-80, 140}, {-80, 114}, {58, 114}}, color = {0, 0, 127}));
   connect(less.y, and1.u1) annotation(
     Line(points = {{-78, -40}, {-62, -40}}, color = {255, 0, 255}));

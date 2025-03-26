@@ -15,9 +15,6 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 
 model St4b "IEEE exciter type ST4B model (2005 standard)"
   extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.BaseSt4(
-    max1.nu = 1,
-    max2.nu = 1,
-    min2.nu = 2,
     sum1.k = {-1, 1, 1, 1, 1},
     sum1.nin = 5);
 
@@ -25,6 +22,8 @@ model St4b "IEEE exciter type ST4B model (2005 standard)"
     Placement(visible = true, transformation(origin = {250, 180}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tA, y_start = Kg * Efd0Pu) annotation(
     Placement(visible = true, transformation(origin = {-10, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.Min2 min2 annotation(
+    Placement(visible = true, transformation(origin = {210, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
   add.u2 = 0;
@@ -40,18 +39,22 @@ equation
     Line(points = {{322, 0}, {360, 0}, {360, 180}, {262, 180}}, color = {0, 0, 127}));
   connect(gain.y, feedback.u2) annotation(
     Line(points = {{239, 180}, {40, 180}, {40, 88}}, color = {0, 0, 127}));
-  connect(min2.yMin, product.u1) annotation(
+  connect(min2.y, product.u1) annotation(
     Line(points = {{222, 80}, {300, 80}, {300, 6}, {318, 6}}, color = {0, 0, 127}));
   connect(UPssPu, sum1.u[3]) annotation(
     Line(points = {{-400, 40}, {-320, 40}, {-320, 80}, {-302, 80}}, color = {0, 0, 127}));
   connect(UUelPu, sum1.u[5]) annotation(
     Line(points = {{-400, 0}, {-320, 0}, {-320, 80}, {-302, 80}}, color = {0, 0, 127}));
-  connect(UOelPu, min2.u[2]) annotation(
+  connect(UOelPu, min2.u1) annotation(
     Line(points = {{-400, 160}, {180, 160}, {180, 86}, {200, 86}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(limPI1.y, firstOrder1.u) annotation(
     Line(points = {{-38, 80}, {-22, 80}}, color = {0, 0, 127}));
   connect(firstOrder1.y, feedback.u1) annotation(
     Line(points = {{2, 80}, {32, 80}}, color = {0, 0, 127}));
+  connect(sum1.y, add.u1) annotation(
+    Line(points = {{-279, 80}, {-200, 80}, {-200, 86}, {-183, 86}}, color = {0, 0, 127}));
+  connect(limPI2.y, min2.u2) annotation(
+    Line(points = {{101, 80}, {180, 80}, {180, 74}, {199, 74}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram");
 end St4b;
