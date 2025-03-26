@@ -88,7 +88,7 @@ model GovSteamEu "Governor type GovSteamEU"
   parameter Types.Time tVLp "Intercept valves servo time constant in s, typical value = 0.15" annotation(
     Dialog(tab = "Valves"));
 
-// Inputs
+  // Inputs
   Modelica.Blocks.Interfaces.RealInput fPu(start = SystemBase.omega0Pu) "Measured frequency of the grid in pu (base fNom (systemBase.fNom))" annotation(
     Placement(visible = true, transformation(origin = {-151, 39}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-109, -5}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput fRefPu(start = SystemBase.omegaRef0Pu) "Reference frequency in pu (base fNom (systemBase.fNom))" annotation(

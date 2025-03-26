@@ -67,10 +67,10 @@ partial model BaseSt5 "IEEE excitation system type ST5 base model"
     Placement(visible = true, transformation(origin = {270, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain2(k = VrMinPu) annotation(
     Placement(visible = true, transformation(origin = {270, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax max1(nu = 3) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Max3 max1 annotation(
     Placement(visible = true, transformation(origin = {-150, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax min1(nu = 3) annotation(
-    Placement(visible = true, transformation(origin = {-90, -14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.Min3 min1 annotation(
+    Placement(visible = true, transformation(origin = {-90, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add1 annotation(
     Placement(visible = true, transformation(origin = {-30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add3(k2 = -1) annotation(
@@ -117,15 +117,15 @@ equation
     Line(points = {{281, -120}, {300, -120}, {300, -8}, {318, -8}}, color = {0, 0, 127}));
   connect(variableLimiter.y, EfdPu) annotation(
     Line(points = {{341, 0}, {370, 0}}, color = {0, 0, 127}));
-  connect(max1.yMax, min1.u[1]) annotation(
-    Line(points = {{-139, -14}, {-100, -14}}, color = {0, 0, 127}));
+  connect(max1.y, min1.u[1]) annotation(
+    Line(points = {{-139, -20}, {-100, -20}}, color = {0, 0, 127}));
   connect(UsRefPu, add3.u1) annotation(
     Line(points = {{-380, 0}, {-280, 0}, {-280, -14}, {-262, -14}}, color = {0, 0, 127}));
   connect(firstOrder.y, add3.u2) annotation(
     Line(points = {{-299, -40}, {-280, -40}, {-280, -26}, {-263, -26}}, color = {0, 0, 127}));
   connect(UPssPu, add1.u1) annotation(
     Line(points = {{-380, 40}, {-60, 40}, {-60, 6}, {-42, 6}}, color = {0, 0, 127}));
-  connect(min1.yMin, add1.u2) annotation(
+  connect(min1.y, add1.u2) annotation(
     Line(points = {{-79, -20}, {-60, -20}, {-60, -6}, {-42, -6}}, color = {0, 0, 127}));
   connect(limiter.y, feedback1.u1) annotation(
     Line(points = {{181, 0}, {212, 0}}, color = {0, 0, 127}));
