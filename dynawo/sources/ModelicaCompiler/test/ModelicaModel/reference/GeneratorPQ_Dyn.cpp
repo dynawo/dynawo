@@ -569,19 +569,19 @@ void ModelGeneratorPQ_Dyn::setY0omc()
   data->localData[0]->realVars[2] /* generator.terminal.V.re */ = data->simulationInfo->realParameter[13] /* generator.u0Pu.re PARAM */;
   data->localData[0]->realVars[9] /* generator.terminal.i.im */ = data->simulationInfo->realParameter[10] /* generator.i0Pu.im PARAM */;
   data->localData[0]->realVars[10] /* generator.terminal.i.re */ = data->simulationInfo->realParameter[11] /* generator.i0Pu.re PARAM */;
-  data->localData[0]->discreteVars[0] /* generator.running.value */ = fromNativeBool ( true);
+  data->localData[0]->realVars[8] /* generator.UPu */ = data->simulationInfo->realParameter[7] /* generator.U0Pu PARAM */;
   data->localData[0]->discreteVars[1] /* generator.switchOffSignal1.value */ = fromNativeBool ( false);
   data->localData[0]->discreteVars[2] /* generator.switchOffSignal2.value */ = fromNativeBool ( false);
   data->localData[0]->discreteVars[3] /* generator.switchOffSignal3.value */ = fromNativeBool ( false);
   data->localData[0]->integerDoubleVars[0] /* generator.pStatus */ = 1;
-  data->localData[0]->integerDoubleVars[1] /* generator.qStatus */ = 1;
-  data->localData[0]->integerDoubleVars[2] /* generator.state */ = (modelica_integer)data->simulationInfo->integerParameter[1] /* generator.State0 PARAM */;
-  data->localData[0]->realVars[8] /* generator.UPu */ = data->simulationInfo->realParameter[7] /* generator.U0Pu PARAM */;
+  data->localData[0]->discreteVars[0] /* generator.running.value */ = fromNativeBool ( true);
   data->localData[0]->realVars[4] /* generator.PGenRawPu */ = data->simulationInfo->realParameter[1] /* generator.PGen0Pu PARAM */;
   data->localData[0]->realVars[3] /* generator.PGenPu */ = data->simulationInfo->realParameter[1] /* generator.PGen0Pu PARAM */;
   data->localData[0]->realVars[7] /* generator.SGenPu.re */ = data->simulationInfo->realParameter[1] /* generator.PGen0Pu PARAM */;
   data->localData[0]->realVars[5] /* generator.QGenPu */ = data->simulationInfo->realParameter[4] /* generator.QGen0Pu PARAM */;
   data->localData[0]->realVars[6] /* generator.SGenPu.im */ = data->simulationInfo->realParameter[4] /* generator.QGen0Pu PARAM */;
+  data->localData[0]->integerDoubleVars[1] /* generator.qStatus */ = 1;
+  data->localData[0]->integerDoubleVars[2] /* generator.state */ = (modelica_integer)data->simulationInfo->integerParameter[1] /* generator.State0 PARAM */;
 }
 
 void ModelGeneratorPQ_Dyn::callCustomParametersConstructors()
