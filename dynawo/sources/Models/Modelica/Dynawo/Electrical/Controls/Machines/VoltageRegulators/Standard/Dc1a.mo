@@ -14,14 +14,13 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 */
 
 model Dc1a "IEEE excitation system type DC1A model (2005 standard)"
-  extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.BaseDc1(
-    max1.nu = 2,
-    sum1.nin = 3);
+  extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.BaseDc1(sum1.nin = 3);
 
   Modelica.Blocks.Continuous.Integrator integrator(k = 1 / tE, y_start = Efd0Pu) annotation(
     Placement(visible = true, transformation(origin = {190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
+  max1.u[3] = max1.u[1];
   sum1.u[2] = 0;
 
   connect(feedback1.y, integrator.u) annotation(
@@ -34,8 +33,8 @@ equation
     Line(points = {{202, 0}, {280, 0}, {280, -40}, {262, -40}}, color = {0, 0, 127}));
   connect(integrator.y, product.u2) annotation(
     Line(points = {{202, 0}, {280, 0}, {280, -100}, {160, -100}, {160, -86}, {142, -86}}, color = {0, 0, 127}));
-  connect(max1.yMax, limitedFirstOrder.u) annotation(
-    Line(points = {{-18, 6}, {0, 6}, {0, 0}, {38, 0}}, color = {0, 0, 127}));
+  connect(max1.y, limitedFirstOrder.u) annotation(
+    Line(points = {{-18, 0}, {38, 0}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram");
 end Dc1a;
