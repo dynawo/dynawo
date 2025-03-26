@@ -1848,7 +1848,7 @@ class Factory:
         self.list_for_evalmode.extend("  modeChangeType_t modeChangeType = NO_MODE;\n \n")
 
         ## adding first the modes related to relations
-        self.list_for_evalmode.extend(self.modes.get_body_for_evalmode())
+        self.list_for_evalmode.extend(self.modes.get_body_for_evalmode(self.reader.mod_name))
 
         if (self.keep_continous_modelica_reinit()):
             for var_name, eq_list in self.get_map_eq_reinit_continuous().iteritems():
