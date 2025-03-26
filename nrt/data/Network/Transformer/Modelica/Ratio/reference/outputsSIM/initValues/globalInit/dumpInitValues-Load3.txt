@@ -3,17 +3,17 @@ load_PRefPu                                       : y =   0.0200000000 yp =   0.
 load_QRefPu                                       : y =   0.0050000000 yp =   0.0000000000
 load_deltaP                                       : y =   0.0000000000 yp =   0.0000000000
 load_deltaQ                                       : y =   0.0000000000 yp =   0.0000000000
-load_terminal_V_im                                : y =  -0.0002432862 yp =   0.0000000000
-load_terminal_V_re                                : y =   1.0007580224 yp =   0.0000000000
-load_PPu                                          : y =   0.0200151610 yp =   0.0000000000
-load_QPu                                          : y =   0.0050075834 yp =   0.0000000000
-load_terminal_i_im                                : y =  -0.0050086522 yp =   0.0000000000
-load_terminal_i_re                                : y =   0.0199987830 yp =   0.0000000000
+load_terminal_V_im                                : y =  -0.0002462152 yp =   0.0000000000
+load_terminal_V_re                                : y =   1.0007594225 yp =   0.0000000000
+load_PPu                                          : y =   0.0200151885 yp =   0.0000000000
+load_QPu                                          : y =   0.0050075942 yp =   0.0000000000
+load_terminal_i_im                                : y =  -0.0050087214 yp =   0.0000000000
+load_terminal_i_re                                : y =   0.0199987689 yp =   0.0000000000
 load_SPu_im                                       : alias of load_QPu
 load_SPu_re                                       : alias of load_PPu
- ====== INIT CALCULATED VARIABLES VALUES ======
-load_UPu_value                                    : y =   1.0007580520
- ====== INIT DISCRETE VARIABLES VALUES ======
+ ====== CALCULATED VARIABLES VALUES ======
+load_UPu_value                                    : y =   1.0007594528
+ ====== DISCRETE VARIABLES VALUES ======
 load_running_value                                : z =   1.0000000000
 load_switchOffSignal1_value                       : z =  -1.0000000000
 load_switchOffSignal2_value                       : z =  -1.0000000000
