@@ -18,6 +18,8 @@ LimiterWithLag
 LimiterWithLag_INIT
 LimRateLimFirstOrder
 MinDynawo
+MinMaxDynawo
+MinMaxDynawo3
 MaxDynawo
 MaxThresholdSwitch
 MinThresholdSwitch
