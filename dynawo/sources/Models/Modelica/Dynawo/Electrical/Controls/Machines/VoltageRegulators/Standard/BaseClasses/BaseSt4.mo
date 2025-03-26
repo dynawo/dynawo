@@ -62,7 +62,7 @@ partial model BaseSt4 "IEEE exciter type ST4 base model"
     Placement(visible = true, transformation(origin = {210, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Division division annotation(
     Placement(visible = true, transformation(origin = {110, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Min min3 annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Min2 min3 annotation(
     Placement(visible = true, transformation(origin = {270, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product1 annotation(
     Placement(visible = true, transformation(origin = {210, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -84,14 +84,8 @@ partial model BaseSt4 "IEEE exciter type ST4 base model"
     Placement(visible = true, transformation(origin = {-290, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.PotentialCircuit potentialCircuit(Ki = Ki, Kp = Kp, Theta = Thetap, X = XlPu) annotation(
     Placement(visible = true, transformation(origin = {-310, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax max1(nu = 3) annotation(
-    Placement(visible = true, transformation(origin = {-230, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add annotation(
     Placement(visible = true, transformation(origin = {-170, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax max2(nu = 3) annotation(
-    Placement(visible = true, transformation(origin = {150, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax min2(nu = 3) annotation(
-    Placement(visible = true, transformation(origin = {210, 86}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Generator initial parameters
   parameter Types.VoltageModulePu Efd0Pu "Initial excitation voltage in pu (user-selected base voltage)";
@@ -136,14 +130,6 @@ equation
     Line(points = {{-400, -120}, {-340, -120}, {-340, -136}, {-322, -136}}, color = {85, 170, 255}));
   connect(itPu, potentialCircuit.iT) annotation(
     Line(points = {{-400, -160}, {-340, -160}, {-340, -144}, {-322, -144}}, color = {85, 170, 255}));
-  connect(sum1.y, max1.u[1]) annotation(
-    Line(points = {{-279, 80}, {-241, 80}}, color = {0, 0, 127}));
-  connect(max1.yMax, add.u1) annotation(
-    Line(points = {{-219, 86}, {-183, 86}}, color = {0, 0, 127}));
-  connect(limPI2.y, max2.u[1]) annotation(
-    Line(points = {{101, 80}, {139, 80}}, color = {0, 0, 127}));
-  connect(max2.yMax, min2.u[1]) annotation(
-    Line(points = {{161, 86}, {199, 86}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

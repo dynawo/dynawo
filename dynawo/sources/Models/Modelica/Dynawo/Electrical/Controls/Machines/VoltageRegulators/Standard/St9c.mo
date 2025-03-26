@@ -79,9 +79,9 @@ model St9c "IEEE exciter type ST9C model (2016 standard)"
     Placement(visible = true, transformation(origin = {-170, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = Ka) annotation(
     Placement(visible = true, transformation(origin = {-70, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax max1(nu = 3) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Max3 max1 annotation(
     Placement(visible = true, transformation(origin = {-10, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax min1(nu = 3) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Min3 min1 annotation(
     Placement(visible = true, transformation(origin = {170, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = VrMaxPu, uMin = VrMinPu) annotation(
     Placement(visible = true, transformation(origin = {110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -111,7 +111,7 @@ model St9c "IEEE exciter type ST9C model (2016 standard)"
     Placement(visible = true, transformation(origin = {-10, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product2 annotation(
     Placement(visible = true, transformation(origin = {50, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Min min2 annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Min2 min2 annotation(
     Placement(visible = true, transformation(origin = {110, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const2(k = VbMaxPu) annotation(
     Placement(visible = true, transformation(origin = {50, 180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -123,7 +123,7 @@ model St9c "IEEE exciter type ST9C model (2016 standard)"
     Placement(visible = true, transformation(origin = {110, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add1 annotation(
     Placement(visible = true, transformation(origin = {170, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression realExpression(y = if (PositionUel == 2 or PositionScl == 2) then max1.yMax - gain.y else 0) annotation(
+  Modelica.Blocks.Sources.RealExpression realExpression(y = if (PositionUel == 2 or PositionScl == 2) then max1.y - gain.y else 0) annotation(
     Placement(visible = true, transformation(origin = {-160, -120}, extent = {{-140, -10}, {140, 10}}, rotation = 0)));
 
   //Generator initial parameters
@@ -189,10 +189,10 @@ equation
     Line(points = {{301, 80}, {329, 80}}, color = {0, 0, 127}));
   connect(firstOrder1.y, product.u2) annotation(
     Line(points = {{241, 20}, {260, 20}, {260, 74}, {278, 74}}, color = {0, 0, 127}));
-  connect(min1.yMin, firstOrder1.u) annotation(
-    Line(points = {{181, 14}, {200, 14}, {200, 20}, {218, 20}}, color = {0, 0, 127}));
-  connect(min1.yMin, feedback.u1) annotation(
-    Line(points = {{181, 14}, {200, 14}, {200, -12}}, color = {0, 0, 127}));
+  connect(min1.y, firstOrder1.u) annotation(
+    Line(points = {{181, 20}, {218, 20}}, color = {0, 0, 127}));
+  connect(min1.y, feedback.u1) annotation(
+    Line(points = {{181, 20}, {200, 20}, {200, -12}}, color = {0, 0, 127}));
   connect(feedback.y, product1.u1) annotation(
     Line(points = {{200, -29}, {200, -54}, {182, -54}}, color = {0, 0, 127}));
   connect(product1.y, integrator.u) annotation(
@@ -205,8 +205,8 @@ equation
     Line(points = {{99, -60}, {40, -60}, {40, 14}, {58, 14}}, color = {0, 0, 127}));
   connect(integrator.y, feedback.u2) annotation(
     Line(points = {{99, -60}, {40, -60}, {40, -20}, {192, -20}}, color = {0, 0, 127}));
-  connect(max1.yMax, add.u1) annotation(
-    Line(points = {{1, -14}, {20.5, -14}, {20.5, 26}, {58, 26}}, color = {0, 0, 127}));
+  connect(max1.y, add.u1) annotation(
+    Line(points = {{1, -20}, {20, -20}, {20, 26}, {58, 26}}, color = {0, 0, 127}));
   connect(gain.y, max1.u[1]) annotation(
     Line(points = {{-59, -20}, {-21, -20}}, color = {0, 0, 127}));
   connect(firstOrder.y, derivative.u) annotation(

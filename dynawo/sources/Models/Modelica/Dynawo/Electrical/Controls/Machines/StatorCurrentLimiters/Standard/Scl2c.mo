@@ -136,7 +136,7 @@ model Scl2c "IEEE (2016) stator current limiter type SCL2C model"
     Placement(visible = true, transformation(origin = {170, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add3 add31(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {170, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Min min1 annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Min2 min1 annotation(
     Placement(visible = true, transformation(origin = {230, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.MinMax max1(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {230, -46}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
