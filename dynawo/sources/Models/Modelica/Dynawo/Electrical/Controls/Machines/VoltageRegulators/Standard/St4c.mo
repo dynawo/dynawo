@@ -41,7 +41,7 @@ model St4c "IEEE exciter type ST4C model (2016 standard)"
     Placement(visible = true, transformation(origin = {-250, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = Sw1) annotation(
     Placement(visible = true, transformation(origin = {-310, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Min min4 annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MinDynawo min4 annotation(
     Placement(visible = true, transformation(origin = {70, 180}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const2(k = VgMaxPu) annotation(
     Placement(visible = true, transformation(origin = {130, 200}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));

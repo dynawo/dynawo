@@ -31,6 +31,8 @@ set(MODEL_FILES
   LimiterWithLag.mo
   LimiterWithLag_INIT.mo
   LimRateLimFirstOrder.mo
+  MinDynawo.mo
+  MaxDynawo.mo
   MaxThresholdSwitch.mo
   MinThresholdSwitch.mo
   MultiSwitch.mo
