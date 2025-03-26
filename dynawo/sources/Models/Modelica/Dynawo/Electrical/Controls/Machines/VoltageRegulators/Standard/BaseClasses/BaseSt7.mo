@@ -74,17 +74,17 @@ partial model BaseSt7 "IEEE excitation system type ST7 base model"
     Placement(visible = true, transformation(origin = {-90, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Sum sum1(nin = 4) annotation(
     Placement(visible = true, transformation(origin = {-330, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax max1(nu = 3) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Max3 max1 annotation(
     Placement(visible = true, transformation(origin = {-290, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax min1(nu = 3) annotation(
-    Placement(visible = true, transformation(origin = {-250, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax max2(nu = 3) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Min3 min1 annotation(
+    Placement(visible = true, transformation(origin = {-250, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.Max3 max2 annotation(
     Placement(visible = true, transformation(origin = {170, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax min2(nu = 3) annotation(
-    Placement(visible = true, transformation(origin = {210, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Max max3 annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Min3 min2 annotation(
+    Placement(visible = true, transformation(origin = {210, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.Max2 max3 annotation(
     Placement(visible = true, transformation(origin = {-30, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Min min3 annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Min2 min3 annotation(
     Placement(visible = true, transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add3 add3(k3 = -1) annotation(
     Placement(visible = true, transformation(origin = {-130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -181,13 +181,13 @@ equation
     Line(points = {{-79, -140}, {280, -140}, {280, -8}, {298, -8}}, color = {0, 0, 127}));
   connect(variableLimiter.y, EfdPu) annotation(
     Line(points = {{321, 0}, {370, 0}}, color = {0, 0, 127}));
-  connect(max1.yMax, min1.u[1]) annotation(
-    Line(points = {{-279, 6}, {-261, 6}}, color = {0, 0, 127}));
-  connect(max2.yMax, min2.u[1]) annotation(
-    Line(points = {{181, 6}, {200, 6}}, color = {0, 0, 127}));
+  connect(max1.y, min1.u[1]) annotation(
+    Line(points = {{-279, 0}, {-261, 0}}, color = {0, 0, 127}));
+  connect(max2.y, min2.u[1]) annotation(
+    Line(points = {{181, 0}, {200, 0}}, color = {0, 0, 127}));
   connect(sum1.y, max1.u[1]) annotation(
     Line(points = {{-319, 0}, {-301, 0}}, color = {0, 0, 127}));
-  connect(min1.yMin, limiter.u) annotation(
+  connect(min1.y, limiter.u) annotation(
     Line(points = {{-238, 0}, {-222, 0}}, color = {0, 0, 127}));
   connect(limiter.y, add3.u2) annotation(
     Line(points = {{-199, 0}, {-142, 0}}, color = {0, 0, 127}));

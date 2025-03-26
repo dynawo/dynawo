@@ -82,7 +82,7 @@ equation
   connect(UsRefPu, sum1.u[4]) annotation(
     Line(points = {{-220, -40}, {-140, -40}, {-140, 0}, {-102, 0}}, color = {0, 0, 127}));
   connect(firstOrder1.y, sum1.u[5]) annotation(
-    Line(points = {{-180, -80}, {-140, -80}, {-140, 0}, {-102, 0}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
+    Line(points = {{-160, -80}, {-140, -80}, {-140, 0}, {-102, 0}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(sum1.y, transferFunction.u) annotation(
     Line(points = {{-79, 0}, {-63, 0}}, color = {0, 0, 127}));
   connect(firstOrder.y, gain2.u) annotation(
@@ -96,9 +96,9 @@ equation
   connect(transferFunction.y, add.u1) annotation(
     Line(points = {{-39, 0}, {-20, 0}, {-20, -14}, {-3, -14}}, color = {0, 0, 127}));
   connect(firstOrder1.y, gain3.u) annotation(
-    Line(points = {{-180, -80}, {-120, -80}, {-120, 80}, {-102, 80}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
+    Line(points = {{-160, -80}, {-120, -80}, {-120, 80}, {-102, 80}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(firstOrder1.y, gain4.u) annotation(
-    Line(points = {{-180, -80}, {-102, -80}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
+    Line(points = {{-160, -80}, {-102, -80}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(gain3.y, variableLimiter.limit1) annotation(
     Line(points = {{-79, 80}, {140, 80}, {140, 8}, {157, 8}}, color = {0, 0, 127}));
   connect(gain4.y, variableLimiter.limit2) annotation(

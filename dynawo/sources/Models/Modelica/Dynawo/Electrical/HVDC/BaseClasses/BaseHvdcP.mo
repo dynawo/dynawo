@@ -44,13 +44,14 @@ equation
   Theta2 = Modelica.Math.atan2(terminal2.V.im, terminal2.V.re);
 
   if running.value then
-    P1Pu = max(min(PMaxPu, P1RefPu), - PMaxPu);
+    P1Pu = if P1RefPu > PMaxPu then PMaxPu elseif P1RefPu < -PMaxPu then -PMaxPu else P1RefPu;
     P2Pu = if P1Pu > 0 then - KLosses * P1Pu else - P1Pu / KLosses;
   else
     P1Pu = 0;
     P2Pu = 0;
   end if;
 
-  annotation(preferredView = "text",
+  annotation(
+    preferredView = "text",
     Documentation(info = "<html><head></head><body> This HVDC link regulates the active power flowing through itself. The active power reference is given as an input and can be changed during the simulation.</div></body></html>"));
 end BaseHvdcP;
