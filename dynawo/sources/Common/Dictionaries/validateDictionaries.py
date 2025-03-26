@@ -89,6 +89,9 @@ class DictionariesPool:
         if set(dictionary1.messages) != set(dictionary2.messages):
             print("Error: " + str(dictionary1.paths) + " and "
                   + str(dictionary2.paths) + " have not the same entries.")
+            print("Missing entries:")
+            for entry in set(dictionary1.messages).difference(set(dictionary2.messages)):
+                print("  " + entry)
             return False
 
         return True
