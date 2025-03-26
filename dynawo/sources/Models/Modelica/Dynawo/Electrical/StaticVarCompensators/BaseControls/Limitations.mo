@@ -23,9 +23,9 @@ model Limitations "Variable susceptance limits computation"
   Modelica.Blocks.Interfaces.RealOutput BVarMinPu(start = BMinPu) "Minimum value for the variable susceptance in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -48}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -48}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Math.Min min annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MinDynawo min annotation(
     Placement(visible = true, transformation(origin = {30, 54}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Max max annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MaxDynawo max annotation(
     Placement(visible = true, transformation(origin = {30, -54}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant bMaxPu(k = BMaxPu) annotation(
     Placement(visible = true, transformation(origin = {-10, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -43,9 +43,9 @@ model Limitations "Variable susceptance limits computation"
     Placement(visible = true, transformation(origin = {-86, 76}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant iMinPu(k = IMinPu) annotation(
     Placement(visible = true, transformation(origin = {-86, -76}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Max max1 annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MaxDynawo max1 annotation(
     Placement(visible = true, transformation(origin = {70, 48}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Min min1 annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MinDynawo min1 annotation(
     Placement(visible = true, transformation(origin = {70, -48}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
   connect(bMaxPu.y, min.u2) annotation(
