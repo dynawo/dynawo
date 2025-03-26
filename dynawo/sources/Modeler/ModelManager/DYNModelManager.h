@@ -517,7 +517,7 @@ class ModelManager : public SubModel, private boost::noncopyable {
 
  private:
   /**
-   * @brief fill a parameters' value set
+   * @brief fill a parameter value set
    *
    * @param parameters the parameters from which to extract the values
    * @param parametersSet the parameters' set to fill
