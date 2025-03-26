@@ -79,10 +79,10 @@ partial model BaseAc1 "IEEE excitation system type AC1 base model"
     VeMinPu = VeMinPu,
     VfeMaxPu = VfeMaxPu) annotation(
     Placement(visible = true, transformation(origin = {240, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax max1(nu = 3) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Max3 max1 annotation(
     Placement(visible = true, transformation(origin = {70, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax min1(nu = 3) annotation(
-    Placement(visible = true, transformation(origin = {130, -14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.Min3 min1 annotation(
+    Placement(visible = true, transformation(origin = {130, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Derivative derivative(k = Kf, T = tF, x_start = Efe0Pu) annotation(
     Placement(visible = true, transformation(origin = {10, -140}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.LimitedFirstOrder limitedFirstOrder(K = Ka, Y0 = Efe0Pu, YMax = VaMaxPu, YMin = VaMinPu, tFilter = tA) annotation(
@@ -119,15 +119,15 @@ equation
     Line(points = {{262, 0}, {290, 0}}, color = {0, 0, 127}));
   connect(IrPu, acRotatingExciter.IrPu) annotation(
     Line(points = {{-300, 140}, {200, 140}, {200, 16}, {216, 16}}, color = {0, 0, 127}));
-  connect(max1.yMax, min1.u[1]) annotation(
-    Line(points = {{81, -14}, {119, -14}}, color = {0, 0, 127}));
+  connect(max1.y, min1.u[1]) annotation(
+    Line(points = {{81, -20}, {119, -20}}, color = {0, 0, 127}));
   connect(feedback.y, transferFunction.u) annotation(
     Line(points = {{-70, -20}, {-42, -20}}, color = {0, 0, 127}));
   connect(transferFunction.y, limitedFirstOrder.u) annotation(
     Line(points = {{-18, -20}, {-2, -20}}, color = {0, 0, 127}));
   connect(limitedFirstOrder.y, max1.u[1]) annotation(
     Line(points = {{22, -20}, {60, -20}}, color = {0, 0, 127}));
-  connect(min1.yMin, limiter.u) annotation(
+  connect(min1.y, limiter.u) annotation(
     Line(points = {{142, -20}, {158, -20}}, color = {0, 0, 127}));
   connect(limiter.y, acRotatingExciter.EfePu) annotation(
     Line(points = {{181, -20}, {200, -20}, {200, 0}, {215, 0}}, color = {0, 0, 127}));

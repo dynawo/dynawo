@@ -66,18 +66,18 @@ model Ac8c "IEEE exciter type AC8C model (2016 standard)"
     Placement(visible = true, transformation(origin = {-270, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const2(k = VbMaxPu) annotation(
     Placement(visible = true, transformation(origin = {-30, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Min min3 annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Min2 min3 annotation(
     Placement(visible = true, transformation(origin = {30, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax max1(nu = 3) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Max3 max1 annotation(
     Placement(visible = true, transformation(origin = {-150, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax min1(nu = 3) annotation(
-    Placement(visible = true, transformation(origin = {-30, -34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.Min3 min1 annotation(
+    Placement(visible = true, transformation(origin = {-30, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add2 annotation(
     Placement(visible = true, transformation(origin = {-90, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax max2(nu = 3) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Max3 max2 annotation(
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax min2(nu = 3) annotation(
-    Placement(visible = true, transformation(origin = {130, -34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.Min3 min2 annotation(
+    Placement(visible = true, transformation(origin = {130, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Generator initial parameters
   parameter Types.ComplexCurrentPu it0Pu "Initial complex stator current in pu (base SNom, UNom)";
@@ -198,19 +198,19 @@ equation
     Line(points = {{-19, 100}, {0, 100}, {0, 114}, {17, 114}}, color = {0, 0, 127}));
   connect(min3.y, product.u1) annotation(
     Line(points = {{41, 120}, {200, 120}, {200, 6}, {218, 6}}, color = {0, 0, 127}));
-  connect(max1.yMax, add2.u1) annotation(
-    Line(points = {{-139, -34}, {-103, -34}}, color = {0, 0, 127}));
+  connect(max1.y, add2.u1) annotation(
+    Line(points = {{-139, -40}, {-120, -40}, {-120, -34}, {-103, -34}}, color = {0, 0, 127}));
   connect(add2.y, min1.u[1]) annotation(
-    Line(points = {{-79, -40}, {-60, -40}, {-60, -34}, {-41, -34}}, color = {0, 0, 127}));
-  connect(min1.yMin, pid.u_s) annotation(
+    Line(points = {{-79, -40}, {-42, -40}}, color = {0, 0, 127}));
+  connect(min1.y, pid.u_s) annotation(
     Line(points = {{-19, -40}, {18, -40}}, color = {0, 0, 127}));
   connect(pid.y, max2.u[1]) annotation(
     Line(points = {{41, -40}, {80, -40}}, color = {0, 0, 127}));
-  connect(max2.yMax, min2.u[1]) annotation(
-    Line(points = {{101, -34}, {120, -34}}, color = {0, 0, 127}));
+  connect(max2.y, min2.u[1]) annotation(
+    Line(points = {{101, -40}, {118, -40}}, color = {0, 0, 127}));
   connect(sum1.y, max1.u[1]) annotation(
     Line(points = {{-199, -40}, {-160, -40}}, color = {0, 0, 127}));
-  connect(min2.yMin, limitedFirstOrder.u) annotation(
+  connect(min2.y, limitedFirstOrder.u) annotation(
     Line(points = {{141, -40}, {158, -40}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram");
