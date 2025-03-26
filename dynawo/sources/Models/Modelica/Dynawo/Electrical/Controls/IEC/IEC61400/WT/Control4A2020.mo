@@ -14,37 +14,13 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.WT;
 
 model Control4A2020 "Whole generator control module for type 4A wind turbines (IEC N°61400-27-1:2020)"
   extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseControl4;
-
+  
   //PControl parameters
-  parameter Types.PerUnit DPMaxP4APu "Maximum WT power ramp rate in pu/s (base SNom) (generator convention)" annotation(
-    Dialog(tab = "PControl"));
-  parameter Types.PerUnit DPRefMax4APu "Maximum WT reference power ramp rate in pu/s (base SNom) (generator convention)" annotation(
-    Dialog(tab = "PControl"));
-  parameter Types.PerUnit DPRefMin4APu "Minimum WT reference power ramp rate in pu/s (base SNom) (generator convention)" annotation(
-    Dialog(tab = "PControl"));
-  parameter Boolean MpUScale "Voltage scaling for power reference during voltage dip (true: u scaling, false: no scaling)" annotation(
-    Dialog(tab = "PControl"));
-  parameter Types.Time tPOrdP4A "Power order lag time constant in s" annotation(
-    Dialog(tab = "PControl"));
-  parameter Types.Time tPWTRef4A "Reference power order lag time constant in s" annotation(
-    Dialog(tab = "PControl"));
-  parameter Types.VoltageModulePu UpDipPu "Voltage threshold to activate voltage scaling for power reference during voltage dip in pu (base UNom)" annotation(
-    Dialog(tab = "PControl"));
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4a;
+  
   //QControl parameters
-  parameter Types.VoltageModulePu DUdb1Pu "Voltage change dead band lower limit (typically negative) in pu (base UNom)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.VoltageModulePu DUdb2Pu "Voltage change dead band upper limit (typically positive) in pu (base UNom)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.PerUnit Kpufrt "Voltage PI controller proportional gain during FRT in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Integer Mqfrt "FRT Q control modes (0-3) (see Table 29, section 7.7.5, page 60 of the IEC norm N°61400-27-1)" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.Time tUss "Steady-state voltage filter time constant in s" annotation(
-    Dialog(tab = "QControl"));
-  parameter Types.VoltageModulePu UqRisePu "Voltage threshold for OVRT detection in Q control in pu (base UNom) (typically equal to UpquMaxPu)" annotation(
-    Dialog(tab = "QControl"));
-
+  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWT2020;
+  
   //Input variables
   Modelica.Blocks.Interfaces.RealInput PWTCFiltPu(start = -P0Pu * SystemBase.SnRef / SNom) "Filtered active power at grid terminal in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-180, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
