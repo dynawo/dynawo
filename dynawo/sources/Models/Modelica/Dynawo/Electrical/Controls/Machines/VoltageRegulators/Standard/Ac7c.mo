@@ -61,13 +61,13 @@ model Ac7c "IEEE exciter type AC7C model (2016 standard)"
     Placement(visible = true, transformation(origin = {390, 60}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.MinMax max1(nu = 2) annotation(
     Placement(visible = true, transformation(origin = {-230, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax min1(nu = 2) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MinMaxDynawo min1 annotation(
     Placement(visible = true, transformation(origin = {-110, -34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add2 annotation(
     Placement(visible = true, transformation(origin = {-170, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.MinMax max2(nu = 2) annotation(
     Placement(visible = true, transformation(origin = {-10, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax min2(nu = 2) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MinMaxDynawo min2 annotation(
     Placement(visible = true, transformation(origin = {50, -34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.MinDynawo min3 annotation(
     Placement(visible = true, transformation(origin = {210, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

@@ -31,7 +31,7 @@ model Dc1c "IEEE excitation system type DC1C model (2016 standard)"
 
   Modelica.Blocks.Continuous.LimIntegrator limIntegrator(k = 1 / tE, outMax = 999, outMin = EfdMinPu, y_start = Efd0Pu) annotation(
     Placement(visible = true, transformation(origin = {190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax min1(nu = 3) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MinMaxDynawo3 min1 annotation(
     Placement(visible = true, transformation(origin = {10, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters (inputs)

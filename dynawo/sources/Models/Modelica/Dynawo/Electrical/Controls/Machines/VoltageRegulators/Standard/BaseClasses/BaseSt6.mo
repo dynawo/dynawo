@@ -112,9 +112,9 @@ partial model BaseSt6 "IEEE exciter type ST6 base model"
     Placement(visible = true, transformation(origin = {-110, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.MinMax max1(nu = 2) annotation(
     Placement(visible = true, transformation(origin = {-230, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax min1(nu = 2) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MinMaxDynawo min1 annotation(
     Placement(visible = true, transformation(origin = {-170, -54}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax min2(nu = 2) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MinMaxDynawo min2 annotation(
     Placement(visible = true, transformation(origin = {210, -74}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Generator initial parameters

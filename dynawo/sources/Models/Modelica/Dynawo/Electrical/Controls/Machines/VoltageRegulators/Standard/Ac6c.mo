@@ -31,7 +31,7 @@ model Ac6c "IEEE excitation system type AC6C model (2016 standard)"
 
   Modelica.Blocks.Math.MinMax max1(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax min1(nu = 3) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MinMaxDynawo3 min1 annotation(
     Placement(visible = true, transformation(origin = {70, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters (inputs)
