@@ -120,6 +120,11 @@ class SimulationRT: public Simulation {
   void curvesToJson(std::string& outputString);
 
   /**
+   * @brief format last curves point in CSV
+   */
+  void curvesToCsv(std::string& outputString);
+
+  /**
    * @brief add curve for step duration
    */
   void initComputationTimeCurve();
