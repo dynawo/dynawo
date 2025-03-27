@@ -119,8 +119,16 @@ class ReaderOMC:
         exist_file(self._05evt_c_file)
 
         ## Full name of the _16dae.c file
-        self._16dae_c_file = os.path.join (input_dir, self.mod_name + "_16dae.c")
-        exist_file(self._16dae_c_file)
+        self._16dae_c_file = []
+        file_name = os.path.join (input_dir, self.mod_name + "_16dae.c")
+        exist_file(file_name)
+        self._16dae_c_file.append(file_name)
+        idx = 0
+        file_name = os.path.join (input_dir, self.mod_name + "_16dae_part"+str(idx)+".c")
+        while os.path.isfile(file_name):
+            self._16dae_c_file.append(file_name)
+            idx +=1
+            file_name = os.path.join (input_dir, self.mod_name + "_16dae_part"+str(idx)+".c")
         ## Full name of the _16dae.h file
         self._16dae_h_file = os.path.join (input_dir, self.mod_name + "_16dae.h")
         exist_file(self._16dae_h_file)
@@ -950,23 +958,32 @@ class ReaderOMC:
     # @return
     def read_16dae_c_file(self):
         # Reading of functions "..._eqFunction_${num}(...)"
-        self.list_func_16dae_c = self.read_functions(self._16dae_c_file, self.ptrn_func_decl_main_c, self.functions_root_name)
+        for file in self._16dae_c_file:
+            self.list_func_16dae_c.extend(self.read_functions(file, self.ptrn_func_decl_main_c, self.functions_root_name))
 
-        ptrn_comments = re.compile(self.regular_expr_equation_index)
-        comment_opening = "/*"
-        comments_end = "*/"
-        with open(self._16dae_c_file, 'r') as f:
-            while True:
-                it = itertools.dropwhile(lambda line: comment_opening not in line, f)
-                next_iter = next(it, None)
-                if next_iter is None: break
-                list_body = list(itertools.takewhile(lambda line: comments_end not in line, f))
-                for line in list_body:
-                    if ptrn_comments.search(line) is not None:
-                        match = re.search(ptrn_comments, line)
-                        index = match.group('index')
-                        self.map_equation_formula[index] = list_body[-1].lstrip().strip('\n')
-                        break
+            ptrn_comments = re.compile(self.regular_expr_equation_index)
+            comment_opening = "/*"
+            comments_end = "*/"
+            with open(file, 'r') as f:
+                while True:
+                    it = itertools.dropwhile(lambda line: comment_opening not in line, f)
+                    next_iter = next(it, None)
+                    if next_iter is None: break
+                    list_body = list(itertools.takewhile(lambda line: comments_end not in line, f))
+                    for line in list_body:
+                        if ptrn_comments.search(line) is not None:
+                            match = re.search(ptrn_comments, line)
+                            index = match.group('index')
+                            self.map_equation_formula[index] = list_body[-1].lstrip().strip('\n')
+                            break
+
+            # Reading the function ..._setupDataStruc(...)
+            file_to_read = file
+            function_name = self.mod_name + "_initializeDAEmodeData"
+            ptrn_func_to_read = re.compile(self.regular_expr_function_name % ("int", function_name))
+            func = self.read_function(file_to_read, ptrn_func_to_read, function_name)
+            if func is not None:
+                self.setup_dae_data_struc_raw_func = func
 
         for f in self.list_func_16dae_c:
             (body, depend) = replace_dynamic_indexing(f.body)
@@ -978,11 +995,6 @@ class ReaderOMC:
                 name_var_eval = self.map_num_eq_vars_defined[f.get_num_omc()] [0]
             if name_var_eval is not None and len(depend) > 0:
                 self.map_vars_depend_vars[name_var_eval].extend(depend)
-        # Reading the function ..._setupDataStruc(...)
-        file_to_read = self._16dae_c_file
-        function_name = self.mod_name + "_initializeDAEmodeData"
-        ptrn_func_to_read = re.compile(self.regular_expr_function_name % ("int", function_name))
-        self.setup_dae_data_struc_raw_func = self.read_function(file_to_read, ptrn_func_to_read, function_name)
 
 
     ##
