@@ -14,30 +14,10 @@
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
   <set id="SIM">
     <par type="DOUBLE" name="hMin" value="0.000001"/>
-    <par type="DOUBLE" name="hMax" value="0.5"/>
+    <par type="DOUBLE" name="minimalAcceptableStep" value="0.001"/>
+    <par type="DOUBLE" name="hMax" value="10"/>
     <par type="DOUBLE" name="kReduceStep" value="0.5"/>
     <par type="INT" name="maxNewtonTry" value="10"/>
-    <par type="STRING" name="linearSolverName" value="KLU"/>
-    <par type="BOOL" name="optimizeAlgebraicResidualsEvaluations" value="false"/>
-    <par type="BOOL" name="skipNRIfInitialGuessOK" value="false"/>
-    <par type="BOOL" name="enableSilentZ" value="false"/>
-    <par type="BOOL" name="optimizeReinitAlgebraicResidualsEvaluations" value="false"/>
-    <par type="STRING" name="minimumModeChangeTypeForAlgebraicRestoration" value="ALGEBRAIC"/>
-    <par type="INT" name="msbset" value="1"/>
-    <par type="INT" name="msbsetAlg" value="1"/>
-    <par type="INT" name="msbsetAlgJ" value="1"/>
-    <par type="INT" name="msbsetAlgInit" value="1"/>
-    <par type="DOUBLE" name="fnormtol" value="1e-6"/>
-    <par type="DOUBLE" name="fnormtolAlg" value="1e-6"/>
-    <par type="DOUBLE" name="fnormtolAlgJ" value="1e-6"/>
-    <par type="DOUBLE" name="fnormtolAlgInit" value="1e-6"/>
-    <par type="DOUBLE" name="initialaddtol" value="0.1"/>
-    <par type="DOUBLE" name="initialaddtolAlgInit" value="0.1"/>
-    <par type="DOUBLE" name="scsteptol" value="1e-4"/>
-    <par type="DOUBLE" name="scsteptolAlgInit" value="1e-4"/>
-    <par type="DOUBLE" name="mxnewtstep" value="100000"/>
-    <par type="DOUBLE" name="mxnewtstepAlgInit" value="100000"/>
-    <par type="DOUBLE" name="minimalAcceptableStep" value="0.001"/>
   </set>
   <set id="IDA">
     <par type="INT" name="order" value="2"/>
