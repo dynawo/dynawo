@@ -278,12 +278,13 @@ SimulationRT::simulate() {
       // Publish values
       if ((wsServer_ || stepPublisher_) && (!eventSubscriber_->triggerEnabled() || tCurrent_ >= nextTToTrigger)) {
         string formatedString;
-        curvesToJson(formatedString);
         if (wsServer_) {
+          curvesToJson(formatedString);
           wsServer_->sendMessage(formatedString);
           Trace::info() << "data published to websocket" << Trace::endline;
         }
         if (stepPublisher_) {
+          curvesToCsv(formatedString);
           stepPublisher_->sendMessage(formatedString);
           Trace::info() << "data published to ZMQ" << Trace::endline;
         }
@@ -380,6 +381,30 @@ SimulationRT::curvesToJson(string& jsonCurves) {
   stream << "\t}\n}";
 
   jsonCurves = stream.str();
+}
+
+
+void
+SimulationRT::curvesToCsv(string& csvCurves) {
+  stringstream stream;
+  double time = -1;
+  for (CurvesCollection::iterator itCurve = curvesCollection_->begin();
+        itCurve != curvesCollection_->end();
+        ++itCurve) {
+    if ((*itCurve)->getAvailable()) {
+      std::shared_ptr<curves::Point> point = (*itCurve)->getLastPoint();
+      if (point) {
+        if (time < 0) {
+          time = point->getTime();
+          stream << "time," << time << "\n";
+        }
+        string curveName =  (*itCurve)->getModelName() + "_" + (*itCurve)->getVariable();
+        // double value = point->getValue();
+        stream << curveName << "," << point->getValue() << "\n";
+      }
+    }
+  }
+  csvCurves = stream.str();
 }
 
 
