@@ -421,7 +421,8 @@ def replace_dynamic_indexing(body):
     integer_array_create_tmp = {}
     for line in body:
         ptrn_boolean_array_create = re.compile(r'boolean_array_create\(&(?P<tmp_index>tmp[0-9]+), \(\(modelica_boolean\*\)&\(\(&data->localData\[[0-9]+\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/[^,]*, [0-9]+, \(_index_t\)(?P<size>[0-9]+)\)')
-        ptrn_var_dynamic_index = re.compile(r'[\(]*&data->localData\[[0-9]+\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/\)\[(?P<expr>.*)\]')
+        ptrn_var_dynamic_index = re.compile(r'[\(]*&data->localData\[[0-9]+\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/\)\[(?P<expr>.*) - 1\]')
+        ptrn_var_discrete = re.compile(r'\(data->localData\[[0-9]+\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/\)')
         ptrn_var_table = re.compile(r'\[(?P<index>[0-9]+)\]')
         match_bool_array = ptrn_boolean_array_create.findall(line)
         if len(match_bool_array) != 0:
@@ -471,6 +472,7 @@ def replace_dynamic_indexing(body):
             for var, var_name, expr in match:
                 expr = filter_expr(expr)
                 ptrn_var_dynamic_index_no_expr = re.compile(r'[\(]*&data->localData\[[0-9]+\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/\)\[\]')
+                match_discrete = ptrn_var_discrete.findall(expr)
                 size = 0
                 while (re.sub(ptrn_var_table, "["+str(size+1)+"]", var_name) in map_var_name_2_addresses):
                     size+=1
@@ -485,6 +487,9 @@ def replace_dynamic_indexing(body):
                     body_to_return.append("    tmp_calc_var_" + str(index_tmp) + " = data->localData[0]->" + var[:index2] + "["+var[index2:-1]+"] /* " + var_name[:index]+"[" + str(i) + "]"+" DISCRETE */;\n")
                     body_to_return.append("  }\n")
                     depend_vars.append(var_name[:index]+"[" + str(i) + "]")
+                for _, discrete_var_name in match_discrete:
+                    if discrete_var_name not in depend_vars:
+                        depend_vars.append(discrete_var_name)
                 body_to_return.append(re.sub(ptrn_var_dynamic_index_no_expr,"tmp_calc_var_" + str(index_tmp), line.replace(expr,"")))
                 index_tmp+=1
 
