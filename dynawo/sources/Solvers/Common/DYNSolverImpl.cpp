@@ -232,6 +232,7 @@ Solver::Impl::resetStats() {
   stats_.nmeDiff_ = 0;
   stats_.nmeAlg_ = 0;
   stats_.nmeAlgJ_ = 0;
+  stats_.nmeAlgJJ_ = 0;
 }
 
 void
@@ -589,7 +590,7 @@ Solver::Impl::printEnd() const {
   Trace::info() << DYNLog(SolverNbModeEvalDiff, stats_.nmeDiff_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbModeEvalAlg, stats_.nmeAlg_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbModeEvalAlgJ, stats_.nmeAlgJ_) << Trace::endline;
-  Trace::info() <<  "number of algebraic JJ update mode                         = " << stats_.nmeAlgJ_ << Trace::endline;
+  Trace::info() <<  "number of algebraic JJ update mode                         = " << stats_.nmeAlgJJ_ << Trace::endline;
   Trace::info() << DYNLog(SolverNbAlgebraicResEval, stats_.nreAlgebraic_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbAlgebraicJacEval, stats_.njeAlgebraic_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbAlgebraicPrimResEval, stats_.nreAlgebraicPrim_) << Trace::endline;
