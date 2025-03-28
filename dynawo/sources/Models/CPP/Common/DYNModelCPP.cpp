@@ -119,7 +119,7 @@ ModelCPP::loadVariables(const string& variables) {
 
   try {
     loadInternalVariables(is);
-  } catch (std::exception& e) {
+  } catch (std::exception&) {
     // If loadInternalVariables fails, the internal variables of some the models may still be loaded, and will be reset
     // with getY0 during model initialization.
     Trace::warn() << DYNLog(WrongParameterNum, variablesFileName().c_str()) << Trace::endline;
