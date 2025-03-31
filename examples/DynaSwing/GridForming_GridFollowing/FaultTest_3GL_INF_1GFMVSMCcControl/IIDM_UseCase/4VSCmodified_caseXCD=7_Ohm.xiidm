@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<iidm:network xmlns:iidm="http://www.itesla_project.eu/schema/iidm/1_0" xmlns:reft="http://www.powsybl.org/schema/iidm/ext/reference_terminals/1_0" id="testeurostag" caseDate="2022-08-24T09:32:00.000+02:00" forecastDistance="0" sourceFormat="NF">
+    <iidm:substation id="AAAAAP7_site" name="undefined" country="FR" tso="RTE">
+        <iidm:voltageLevel id="AAA11P6" nominalV="320.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="AAA11P61" v="301.5101371817473" angle="-8.656400716178133"/>
+            </iidm:busBreakerTopology>
+            <iidm:generator id="HVDC1" energySource="OTHER" minP="-1150.0" maxP="1150.0" voltageRegulatorOn="false" targetP="-1120.0" targetV="320.0" targetQ="55.2" bus="AAA11P61" connectableBus="AAA11P61" p="1120.0" q="-55.2">
+                <iidm:reactiveCapabilityCurve>
+                    <iidm:point p="-1150.0" minQ="-350.0" maxQ="350.0"/>
+                    <iidm:point p="1150.0" minQ="-350.0" maxQ="350.0"/>
+                </iidm:reactiveCapabilityCurve>
+            </iidm:generator>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="AAA22P6" nominalV="225.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="AAA22P61" v="219.36469623809253" angle="7.236017807127042"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="AAAAAP7" nominalV="400.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="AAAAAP71" v="387.7182754007871" angle="0.0"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+        <iidm:twoWindingsTransformer id="AAA11Y761" r="0.6000000238418579" x="20.0" g="0.0" b="0.0" ratedU1="320.0" ratedU2="400.0" voltageLevelId1="AAA11P6" bus1="AAA11P61" connectableBus1="AAA11P61" voltageLevelId2="AAAAAP7" bus2="AAAAAP71" connectableBus2="AAAAAP71" p1="-1119.9998678487764" q1="55.20002482191438" p2="1125.105113915038" q2="114.97483729133482">
+            <iidm:ratioTapChanger lowTapPosition="0" tapPosition="1" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0299999713897705"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0199999809265137"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0099999904632568"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9900000095367432"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9800000190734863"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9700000286102295"/>
+            </iidm:ratioTapChanger>
+        </iidm:twoWindingsTransformer>
+        <iidm:twoWindingsTransformer id="AAA22Y761" r="0.33000001311302185" x="10.0" g="0.0" b="0.0" ratedU1="225.0" ratedU2="400.0" voltageLevelId1="AAA22P6" bus1="AAA22P61" connectableBus1="AAA22P61" voltageLevelId2="AAAAAP7" bus2="AAAAAP71" connectableBus2="AAAAAP71" p1="1957.7272125008265" q1="458.51445419220164" p2="-1949.2953875940393" q2="-203.00461868503973">
+            <iidm:ratioTapChanger lowTapPosition="0" tapPosition="3" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0499999523162842"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0399999618530273"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0299999713897705"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0199999809265137"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0099999904632568"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9900000095367432"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9800000190734863"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9700000286102295"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9599999785423279"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.949999988079071"/>
+            </iidm:ratioTapChanger>
+        </iidm:twoWindingsTransformer>
+    </iidm:substation>
+    <iidm:substation id="BBBBBP7_site" name="undefined" country="FR" tso="RTE">
+        <iidm:voltageLevel id="BBB11P6" nominalV="320.0" topologyKind="NODE_BREAKER">
+            <iidm:nodeBreakerTopology nodeCount="6">
+                <iidm:busbarSection id="BBB11P6_1.1" name="1.1" node="0" v="310.3442915303499" angle="-9.154292528893942"/>
+                <iidm:switch id="BBB11P6_Disj BBB11Y761" name="Disj BBB11Y761" kind="BREAKER" retained="true" open="false" node1="1" node2="2"/>
+                <iidm:switch id="BBB11P6_Sect 1.1 BBB11Y761" name="Sect 1.1 BBB11Y761" kind="DISCONNECTOR" retained="false" open="false" node1="2" node2="0"/>
+                <iidm:switch id="BBB11P6_Disj couplage HVDC2" name="Disj couplage HVDC2" kind="BREAKER" retained="true" open="false" node1="3" node2="4"/>
+                <iidm:switch id="BBB11P6_Disj HVDC2" name="Disj HVDC2" kind="BREAKER" retained="true" open="false" node1="4" node2="5"/>
+                <iidm:switch id="BBB11P6_Sect 1.1 HVDC2" name="Sect 1.1 HVDC2" kind="DISCONNECTOR" retained="false" open="false" node1="5" node2="0"/>
+            </iidm:nodeBreakerTopology>
+            <iidm:generator id="HVDC2" energySource="OTHER" minP="-1630.0" maxP="1630.0" voltageRegulatorOn="false" targetP="-1600.0" targetV="320.0" targetQ="-11.5" node="3" p="1600.0" q="11.5">
+                <iidm:reactiveCapabilityCurve>
+                    <iidm:point p="-1630.0" minQ="-490.0" maxQ="490.0"/>
+                    <iidm:point p="1630.0" minQ="-490.0" maxQ="490.0"/>
+                </iidm:reactiveCapabilityCurve>
+            </iidm:generator>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="BBB22P6" nominalV="225.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="BBB22P61" v="235.96786898983436" angle="6.908071017104071"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="BBBBBP7" nominalV="400.0" topologyKind="NODE_BREAKER">
+            <iidm:nodeBreakerTopology nodeCount="13">
+                <iidm:busbarSection id="BBBBBP7_1.1" name="1.1" node="0" v="387.1490532170096" angle="-0.3394582346793227"/>
+                <iidm:switch id="BBBBBP7_Disj AAAAAL71BBBBB" name="Disj AAAAAL71BBBBB" kind="BREAKER" retained="true" open="false" node1="1" node2="2"/>
+                <iidm:switch id="BBBBBP7_Sect 1.1 AAAAAL71BBBBB" name="Sect 1.1 AAAAAL71BBBBB" kind="DISCONNECTOR" retained="false" open="false" node1="2" node2="0"/>
+                <iidm:switch id="BBBBBP7_Disj AAAAAL72BBBBB" name="Disj AAAAAL72BBBBB" kind="BREAKER" retained="true" open="false" node1="3" node2="4"/>
+                <iidm:switch id="BBBBBP7_Sect 1.1 AAAAAL72BBBBB" name="Sect 1.1 AAAAAL72BBBBB" kind="DISCONNECTOR" retained="false" open="false" node1="4" node2="0"/>
+                <iidm:switch id="BBBBBP7_Disj BBBBBL71CCCCC" name="Disj BBBBBL71CCCCC" kind="BREAKER" retained="true" open="false" node1="5" node2="6"/>
+                <iidm:switch id="BBBBBP7_Sect 1.1 BBBBBL71CCCCC" name="Sect 1.1 BBBBBL71CCCCC" kind="DISCONNECTOR" retained="false" open="false" node1="6" node2="0"/>
+                <iidm:switch id="BBBBBP7_Disj BBBBBL72CCCCC" name="Disj BBBBBL72CCCCC" kind="BREAKER" retained="true" open="false" node1="7" node2="8"/>
+                <iidm:switch id="BBBBBP7_Sect 1.1 BBBBBL72CCCCC" name="Sect 1.1 BBBBBL72CCCCC" kind="DISCONNECTOR" retained="false" open="false" node1="8" node2="0"/>
+                <iidm:switch id="BBBBBP7_Disj BBB11Y761" name="Disj BBB11Y761" kind="BREAKER" retained="true" open="false" node1="9" node2="10"/>
+                <iidm:switch id="BBBBBP7_Sect 1.1 BBB11Y761" name="Sect 1.1 BBB11Y761" kind="DISCONNECTOR" retained="false" open="false" node1="10" node2="0"/>
+                <iidm:switch id="BBBBBP7_Disj BBB22Y761" name="Disj BBB22Y761" kind="BREAKER" retained="true" open="false" node1="11" node2="12"/>
+                <iidm:switch id="BBBBBP7_Sect 1.1 BBB22Y761" name="Sect 1.1 BBB22Y761" kind="DISCONNECTOR" retained="false" open="false" node1="12" node2="0"/>
+            </iidm:nodeBreakerTopology>
+        </iidm:voltageLevel>
+        <iidm:twoWindingsTransformer id="BBB11Y761" r="0.4699999988079071" x="14.100000381469727" g="0.0" b="0.0" ratedU1="320.0" ratedU2="400.0" voltageLevelId1="BBB11P6" node1="1" voltageLevelId2="BBBBBP7" node2="9" p1="-1599.9998152502606" q1="-11.499985731691938" p2="1608.3251257497957" q2="261.2593081083407">
+            <iidm:ratioTapChanger lowTapPosition="0" tapPosition="7" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0499999523162842"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0399999618530273"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0299999713897705"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0199999809265137"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0099999904632568"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9900000095367432"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9800000190734863"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9700000286102295"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9599999785423279"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.949999988079071"/>
+            </iidm:ratioTapChanger>
+        </iidm:twoWindingsTransformer>
+        <iidm:twoWindingsTransformer id="BBB22Y761" r="0.33000001311302185" x="10.0" g="0.0" b="0.0" ratedU1="225.0" ratedU2="400.0" voltageLevelId1="BBB22P6" bus1="BBB22P61" connectableBus1="BBB22P61" voltageLevelId2="BBBBBP7" node2="11" p1="1963.3273292810525" q1="511.7790008838572" p2="-1954.7738702352049" q2="-252.5832825213021">
+            <iidm:ratioTapChanger lowTapPosition="0" tapPosition="10" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0499999523162842"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0399999618530273"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0299999713897705"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0199999809265137"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0099999904632568"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9900000095367432"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9800000190734863"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9700000286102295"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9599999785423279"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.949999988079071"/>
+            </iidm:ratioTapChanger>
+        </iidm:twoWindingsTransformer>
+    </iidm:substation>
+    <iidm:substation id="CCCCCP7_site" name="undefined" country="FR" tso="RTE">
+        <iidm:voltageLevel id="CCCCCP7" nominalV="400.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="CCCCCP71" v="384.6331420796859" angle="-2.573481751941097"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="consotest" loadType="UNDEFINED" p0="1168.0" q0="177.6" bus="CCCCCP71" connectableBus="CCCCCP71" p="1168.0" q="177.6"/>
+            <iidm:shunt id="Condo_C" bPerSection="0.0024999999441206455" maximumSectionCount="1" currentSectionCount="1" connectableBus="CCCCCP71"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="DDDDDP7_site" name="undefined" country="FR" tso="RTE">
+        <iidm:voltageLevel id="DDDDDP7" nominalV="400.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="DDDDDP71" v="384.6331420796859" angle="-2.573481751941097"/>
+            </iidm:busBreakerTopology>
+            <iidm:generator id="INF" energySource="OTHER" minP="-9998.0" maxP="9999.0" voltageRegulatorOn="false" targetP="0.0" targetV="220.0" targetQ="0.0" bus="DDDDDP71" connectableBus="DDDDDP71" p="-0.0" q="-0.0">
+                <iidm:reactiveCapabilityCurve>
+                    <iidm:point p="-9998.0" minQ="-9998.0" maxQ="9999.0"/>
+                    <iidm:point p="9999.0" minQ="-9998.0" maxQ="9999.0"/>
+                </iidm:reactiveCapabilityCurve>
+            </iidm:generator>
+            <iidm:load id="consofic" loadType="UNDEFINED" p0="1168.0" q0="177.6" connectableBus="DDDDDP71"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="WWPP1P2_site" name="undefined" country="FR" tso="RTE">
+        <iidm:voltageLevel id="EEEEEP6" nominalV="225.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="EEEEEP61" v="223.3304713384815" angle="9.124240158003117"/>
+            </iidm:busBreakerTopology>
+            <iidm:shunt id="Self_E" bPerSection="-0.006024" maximumSectionCount="1" currentSectionCount="1" bus="EEEEEP61" connectableBus="EEEEEP61" q="300.45603255588827"/>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="WWPP1P2" nominalV="66.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="WWPP1P21" v="62.699999999999996" angle="15.509320881192663"/>
+            </iidm:busBreakerTopology>
+            <iidm:generator id="WP1" energySource="OTHER" minP="0.0" maxP="2300.0" voltageRegulatorOn="true" targetP="2000.0" targetV="62.699999999999996" targetQ="50.0" bus="WWPP1P21" connectableBus="WWPP1P21" p="-2000.0" q="-166.138204637774">
+                <iidm:reactiveCapabilityCurve>
+                    <iidm:point p="0.0" minQ="-690.0" maxQ="690.0"/>
+                    <iidm:point p="2300.0" minQ="-690.0" maxQ="690.0"/>
+                </iidm:reactiveCapabilityCurve>
+            </iidm:generator>
+        </iidm:voltageLevel>
+        <iidm:twoWindingsTransformer id="EEEEEY621" r="0.00860444363206625" x="0.21769241988658905" g="0.0" b="0.0" ratedU1="225.0" ratedU2="66.0" voltageLevelId1="EEEEEP6" bus1="EEEEEP61" connectableBus1="EEEEEP61" voltageLevelId2="WWPP1P2" bus2="WWPP1P21" connectableBus2="WWPP1P21" p1="-1991.1847536043358" q1="56.88741823298169" p2="1999.9999957772022" q2="166.138204637774">
+            <iidm:ratioTapChanger lowTapPosition="0" tapPosition="10" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0499999523162842"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0399999618530273"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0299999713897705"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0199999809265137"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0099999904632568"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9900000095367432"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9800000190734863"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9700000286102295"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9599999785423279"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.949999988079071"/>
+            </iidm:ratioTapChanger>
+        </iidm:twoWindingsTransformer>
+    </iidm:substation>
+    <iidm:substation id="WWPP2P2_site" name="undefined" country="FR" tso="RTE">
+        <iidm:voltageLevel id="FFFFFP6" nominalV="225.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="FFFFFP61" v="239.59886503522137" angle="8.555177733458967"/>
+            </iidm:busBreakerTopology>
+            <iidm:shunt id="Self_F" bPerSection="-0.003950775105854298" maximumSectionCount="1" currentSectionCount="1" bus="FFFFFP61" connectableBus="FFFFFP61" q="226.80458067769726"/>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="WWPP2P2" nominalV="66.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="WWPP2P21" v="67.32000000000001" angle="14.05889665273724"/>
+            </iidm:busBreakerTopology>
+            <iidm:generator id="WP2" energySource="OTHER" minP="0.0" maxP="2300.0" voltageRegulatorOn="true" targetP="2000.0" targetV="67.32000000000001" targetQ="22.2" bus="WWPP2P21" connectableBus="WWPP2P21" p="-2000.0" q="29.571075854920764">
+                <iidm:reactiveCapabilityCurve>
+                    <iidm:point p="0.0" minQ="-690.0" maxQ="690.0"/>
+                    <iidm:point p="2300.0" minQ="-690.0" maxQ="690.0"/>
+                </iidm:reactiveCapabilityCurve>
+            </iidm:generator>
+        </iidm:voltageLevel>
+        <iidm:twoWindingsTransformer id="FFFFFY621" r="0.00860444363206625" x="0.21769241988658905" g="0.0" b="0.0" ratedU1="225.0" ratedU2="66.0" voltageLevelId1="FFFFFP6" bus1="FFFFFP61" connectableBus1="FFFFFP61" voltageLevelId2="WWPP2P2" bus2="WWPP2P21" connectableBus2="WWPP2P21" p1="-1992.403900684976" q1="221.75188021752805" p2="1999.9999800485327" q2="-29.571075854920764">
+            <iidm:ratioTapChanger lowTapPosition="0" tapPosition="9" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0499999523162842"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0399999618530273"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0299999713897705"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0199999809265137"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0099999904632568"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9900000095367432"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9800000190734863"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9700000286102295"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9599999785423279"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.949999988079071"/>
+            </iidm:ratioTapChanger>
+        </iidm:twoWindingsTransformer>
+    </iidm:substation>
+    <iidm:line id="AAA22L61EEEEE" r="0.41999998688697815" x="0.8299999833106995" g1="0.0" b1="0.008999999612569809" g2="0.0" b2="0.008999999612569809" voltageLevelId1="AAA22P6" bus1="AAA22P61" connectableBus1="AAA22P61" voltageLevelId2="EEEEEP6" bus2="EEEEEP61" connectableBus2="EEEEEP61" p1="-1957.7272737748906" q1="-458.5144416313791" p2="1991.1847702804732" q2="-357.3434581702526"/>
+    <iidm:line id="AAAAAL71BBBBB" r="0.5099999904632568" x="10.239999771118164" g1="0.0" b1="4.800000533577986E-5" g2="0.0" b2="4.800000533577986E-5" voltageLevelId1="AAAAAP7" bus1="AAAAAP71" connectableBus1="AAAAAP71" voltageLevelId2="BBBBBP7" node2="1" p1="87.71582652421365" q1="10.225512889916283" p2="-87.68869131897519" q2="-24.09075496095461"/>
+    <iidm:line id="AAAAAL71CCCCC" r="1.0399999618530273" x="20.799999237060547" g1="0.0" b1="9.7999996796716E-5" g2="0.0" b2="9.7999996796716E-5" voltageLevelId1="AAAAAP7" bus1="AAAAAP71" connectableBus1="AAAAAP71" voltageLevelId2="CCCCCP7" bus2="CCCCCP71" connectableBus2="CCCCCP71" p1="324.3491194367023" q1="33.78938750869647" p2="-323.60500777494667" q2="-48.137428594595136"/>
+    <iidm:line id="AAAAAL72BBBBB" r="0.5099999904632568" x="10.239999771118164" g1="0.0" b1="4.800000533577986E-5" g2="0.0" b2="4.800000533577986E-5" voltageLevelId1="AAAAAP7" bus1="AAAAAP71" connectableBus1="AAAAAP71" voltageLevelId2="BBBBBP7" node2="3" p1="87.71582652421365" q1="10.225512889916283" p2="-87.68869131897519" q2="-24.09075496095461"/>
+    <iidm:line id="AAAAAL72CCCCC" r="1.0399999618530273" x="20.799999237060547" g1="0.0" b1="9.7999996796716E-5" g2="0.0" b2="9.7999996796716E-5" voltageLevelId1="AAAAAP7" bus1="AAAAAP71" connectableBus1="AAAAAP71" voltageLevelId2="CCCCCP7" bus2="CCCCCP71" connectableBus2="CCCCCP71" p1="324.3491194367023" q1="33.78938750869647" p2="-323.60500777494667" q2="-48.137428594595136"/>
+    <iidm:line id="BBB22L61FFFFF" r="0.41999998688697815" x="0.8299999833106995" g1="0.0" b1="0.008999999612569809" g2="0.0" b2="0.008999999612569809" voltageLevelId1="BBB22P6" bus1="BBB22P61" connectableBus1="BBB22P61" voltageLevelId2="FFFFFP6" bus2="FFFFFP61" connectableBus2="FFFFFP61" p1="-1963.3274331779407" q1="-511.77898512596255" p2="1992.4039104019207" q2="-448.5563749462786"/>
+    <iidm:line id="BBBBBL71CCCCC" r="1.1200000047683716" x="22.399999618530273" g1="0.0" b1="1.049999991664663E-4" g2="0.0" b2="1.049999991664663E-4" voltageLevelId1="BBBBBP7" node1="5" voltageLevelId2="CCCCCP7" bus2="CCCCCP71" connectableBus2="CCCCCP71" p1="260.9130387799483" q1="19.752770097498832" p2="-260.394936640264" q2="-40.66256683239979"/>
+    <iidm:line id="BBBBBL72CCCCC" r="1.1200000047683716" x="22.399999618530273" g1="0.0" b1="1.049999991664663E-4" g2="0.0" b2="1.049999991664663E-4" voltageLevelId1="BBBBBP7" node1="7" voltageLevelId2="CCCCCP7" bus2="CCCCCP71" connectableBus2="CCCCCP71" p1="260.9130387799483" q1="19.752770097498832" p2="-260.394936640264" q2="-40.66256683239979"/>
+    <iidm:line id="CCCCCL71DDDDD" r="0.0" x="7.0" g1="0.0" b1="0.0" g2="0.0" b2="0.0" voltageLevelId1="CCCCCP7" bus1="CCCCCP71" connectableBus1="CCCCCP71" voltageLevelId2="DDDDDP7" bus2="DDDDDP71" connectableBus2="DDDDDP71" p1="0.0" q1="0.0" p2="0.0" q2="0.0"/>
+    <iidm:extension id="testeurostag">
+        <reft:referenceTerminals>
+            <reft:referenceTerminal id="AAA11Y761" side="TWO"/>
+        </reft:referenceTerminals>
+    </iidm:extension>
+</iidm:network>

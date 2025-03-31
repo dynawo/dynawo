@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2025, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <!-- InfiniteBus -->
+  <set id="1">
+    <par type="DOUBLE" name="infiniteBus_UPu" value="1.0"/>
+    <par type="DOUBLE" name="infiniteBus_UPhase" value="0.0"/>
+  </set>
+  <!-- line 1 -->
+  <set id="2">
+    <par type="DOUBLE" name="line_RPu" value="0.000166667"/>
+    <par type="DOUBLE" name="line_XPu" value="0.005"/>
+    <par type="DOUBLE" name="line_BPu" value="0.0"/>
+    <par type="DOUBLE" name="line_GPu" value="0.0"/>
+  </set>
+  <set id="3">
+    <par name="GFL_CFilterPu" type="DOUBLE" value="1e-05"/>
+    <par name="GFL_Kfd" type="DOUBLE"  value="0.8"/>
+    <par name="GFL_Kff" type="DOUBLE" value="0"/>
+    <par name="GFL_Kfq" type="DOUBLE"  value="0"/>
+    <par name="GFL_Kic" type="DOUBLE" value="15"/>
+    <par name="GFL_Kpc" type="DOUBLE" value="0.477465"/>
+    <par name="GFL_LFilterPu" type="DOUBLE" value="0.15"/>
+    <par name="GFL_LTransformerPu" type="DOUBLE" value="0.06"/>
+    <par name="GFL_P0Pu" type="DOUBLE" value="-7.4663"/>
+    <par name="GFL_Q0Pu" type="DOUBLE" value="0.4119"/>
+    <par name="GFL_RFilterPu" type="DOUBLE" value="0.015"/>
+    <par name="GFL_RTransformerPu" type="DOUBLE" value="0.006"/>
+    <par name="GFL_SNom" type="DOUBLE" value="1000"/>
+    <par name="GFL_U0Pu" type="DOUBLE" value="0.9984"/>
+    <par name="GFL_UPhase0" type="DOUBLE" value="0.0374"/>
+    <par name="GFL_Ki" type="DOUBLE" value="10"/>
+    <par name="GFL_Kp" type="DOUBLE" value="2"/>
+    <par name="GFL_OmegaMinPu" type="DOUBLE" value="1.1"/>
+    <par name="GFL_OmegaMaxPu" type="DOUBLE" value="0.9"/>
+    <par name="GFL_tVSC" type="DOUBLE" value="0.0004"/>
+    <par name="GFL_Kpd" type="DOUBLE" value="0.12"/>
+    <par name="GFL_Kid" type="DOUBLE" value="2.25"/>
+    <par name="GFL_Kpq" type="DOUBLE" value="0.12"/>
+    <par name="GFL_Kiq" type="DOUBLE" value="2.25"/>
+    <par name="GFL_tPFilt" type="DOUBLE" value="0.02"/>
+    <par name="GFL_tQFilt" type="DOUBLE" value="0.02"/>
+  </set>
+  <set id="4">
+    <par type="INT" name="order" value="2"/>
+    <par type="DOUBLE" name="initStep" value="0.00001"/>
+    <par type="DOUBLE" name="minStep" value="0.000001"/>
+    <par type="DOUBLE" name="maxStep" value="10"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-4"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
+    <par type="STRING" name="minimumModeChangeTypeForAlgebraicRestoration" value="ALGEBRAIC_J_UPDATE"/>
+  </set>
+  <set id="5">
+    <par type="DOUBLE" name="step_Value0" value="0.75"/>
+    <par type="DOUBLE" name="step_Height" value="0.25"/>
+    <par type="DOUBLE" name="step_tStep" value="8"/>
+  </set>
+  <set id="6">
+    <par type="DOUBLE" name="hMin" value="0.000001"/>
+    <par type="DOUBLE" name="hMax" value="0.001"/>
+    <par type="DOUBLE" name="kReduceStep" value="0.5"/>
+    <par type="INT" name="maxNewtonTry" value="10"/>
+    <par type="DOUBLE" name="minimalAcceptableStep" value="1e-7"/>
+  </set>
+</parametersSet>
