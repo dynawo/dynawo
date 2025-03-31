@@ -28,7 +28,7 @@ namespace DYN {
  * @return a^b
  */
 template<typename T>
-T pow_dynawo(T a, T b) {
+inline T pow_dynawo(T a, T b) {
   T value = pow(a, b);
   if (std::isnan(value) || std::isinf(value)) {
     throw(DYN::Error(DYN::Error::NUMERICAL_ERROR, DYN::KeyError_t::NumericalErrorFunction, std::string(__FILE__), __LINE__, \
