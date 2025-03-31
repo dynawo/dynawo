@@ -75,7 +75,6 @@ model GridForming "Grid Forming converters test case"
   Dynawo.Electrical.Events.NodeFault Fault(RPu = 0.0001, XPu = 0.001, tBegin = 1.5, tEnd = 1.65) annotation(
     Placement(visible = true, transformation(origin = {0, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanStep Disconnection(startValue = false, startTime = 0.5);
-
 equation
   Line12.switchOffSignal2.value = Disconnection.y;
   Line12.switchOffSignal1.value = false;

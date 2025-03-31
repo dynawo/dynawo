@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2025, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="busInf" lib="InfiniteBus" parFile="SMIB.par" parId="1"/>
+  <dyn:blackBoxModel id="line" lib="Line" parFile="SMIB.par" parId="2"/>
+  <dyn:blackBoxModel id="GFM" lib="DynGridFormingVirtualSynchronousMachine" parFile="SMIB.par" parId="3"/>
+  <dyn:blackBoxModel id="PFilterRef" lib="Step" parFile="SMIB.par" parId="5"/>
+  <dyn:connect id1="busInf" var1="infiniteBus_terminal" id2="line" var2="line_terminal1"/>
+  <dyn:connect id1="line" var1="line_terminal2" id2="GFM" var2="GFM_terminal"/>
+  <dyn:connect id1="PFilterRef" var1="step_step_value" id2="GFM" var2="GFM_PFilterRefPu"/>
+</dyn:dynamicModelsArchitecture>

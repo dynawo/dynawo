@@ -14,6 +14,8 @@ set(MODEL_FILES
   package.order
   Line.mo
   Line.extvar
+  DynLine.mo
+  DynLine.extvar
   )
 
 #

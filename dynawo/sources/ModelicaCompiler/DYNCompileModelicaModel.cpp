@@ -132,9 +132,7 @@ int main(int argc, char ** argv) {
   // Prepare workspace
   if (!is_directory(modelDir))
     throw DYNError(DYN::Error::MODELER, MissingModelicaInputFolder, modelDir);
-#ifndef _DEBUG_
-  remove_all_in_directory(compilationDir);
-#endif
+
   if (!is_directory(compilationDir))
     create_directory(compilationDir);
   string compilationDir1 = prettyPath(compilationDir);
@@ -173,9 +171,6 @@ int main(int argc, char ** argv) {
         if (!valid)
           throw DYNError(DYN::Error::MODELER, FileGenerationFailed, lib);
         copyFile(libName, compilationDir, modelDir);
-#ifndef _DEBUG_
-        remove_all_in_directory(compilationDir1);
-#endif
       }
     }
 
@@ -432,9 +427,10 @@ compileLib(const string& modelName, const string& compilationDir) {
 
   string compileLibCommand = "cmake -B" + compilationDir + " -H" + compilationDir + " -C" + absolute("PreloadCache.cmake", scriptsDir)
 #if __linux__
-                           + " -DMODEL_NAME=" + modelName + " -DCMAKE_SKIP_BUILD_RPATH=True && { cmake --build " + compilationDir + " || cmake --build " + compilationDir + " > /dev/null; }";
+  + " -DMODEL_NAME=" + modelName
+  + " -DCMAKE_SKIP_BUILD_RPATH=True && { cmake --build " + compilationDir + " || cmake --build " + compilationDir + " > /dev/null; }";
 #else
-                           + " -DMODEL_NAME=" + modelName + " && cmake --build " + compilationDir;
+  + " -DMODEL_NAME=" + modelName + " && cmake --build " + compilationDir;
 #endif
   bool doPrintLogs = true;
   string result = executeCommand(compileLibCommand, doPrintLogs);
