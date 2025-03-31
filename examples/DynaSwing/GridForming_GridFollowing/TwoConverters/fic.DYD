@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2022, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<dynamicModelsArchitecture xmlns="http://www.rte-france.com/dynawo">
+
+
+  <!-- Infinite bus -->
+  <blackBoxModel id="INF_GEN" lib="InfiniteBusWithVariations" parFile="fic.PAR" parId="INF" staticId="INF">
+  </blackBoxModel>
+  <macroConnect connector="INFToNode" id1="INF_GEN" id2="NETWORK"/>
+
+  <blackBoxModel id="WP1" lib="DynGridFollowing" parFile="fic.PAR" parId="GFL" staticId="WP1">
+  </blackBoxModel>
+  <macroConnect connector="GFLToNode" id1="WP1" id2="NETWORK"/>
+  <blackBoxModel id="WP2" lib="DynGridFollowing" parFile="fic.PAR" parId="GFL" staticId="WP2">
+  </blackBoxModel>
+  <macroConnect connector="GFLToNode" id1="WP2" id2="NETWORK"/>
+
+  <!-- Macro-connectors-->
+  <macroConnector id="INFToNode">
+    <connect var1="infiniteBus_terminal" var2="@STATIC_ID@@NODE@_ACPIN"/>
+  </macroConnector>
+  <macroConnector id="GFLToNode">
+    <connect var1="GFL_terminal" var2="@STATIC_ID@@NODE@_ACPIN"/>
+  </macroConnector>
+</dynamicModelsArchitecture>

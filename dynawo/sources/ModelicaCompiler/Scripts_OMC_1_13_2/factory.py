@@ -1426,7 +1426,6 @@ class Factory:
 
             elif var.get_init_by_param (): # If the var was initialized with a param (not with an actual value)
                 var.clean_start_text () # Clean up initialization text before printing
-
                 # Lines for reading comfort at the impression
                 if len(var.get_start_text()) > 1 :
                     if not found_init_by_param_and_at_least2lines:
