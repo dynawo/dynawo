@@ -8,15 +8,15 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-add_subdirectory(IEC I)
 add_subdirectory(InertialGrid IG)
+add_subdirectory(PEIR P)
 
 set(MODEL_FILES
   # Sources models
   package.mo
   package.order
-  Converter.mo
-  Converter.extvar
+  ConverterB.mo
+  ConverterB.extvar
   Converter_INIT.mo
   InjectorBG.mo
   InjectorBG.extvar

@@ -148,7 +148,6 @@ equation
   WTG4B.injector.switchOffSignal1.value = false;
   WTG4B.injector.switchOffSignal2.value = false;
   WTG4B.injector.switchOffSignal3.value = false;
-
   connect(line.terminal2, WTG4B.terminal) annotation(
     Line(points = {{-20, 0}, {0, 0}, {0, 0}, {0, 0}}, color = {0, 0, 255}));
   connect(infiniteBus.terminal, line.terminal1) annotation(

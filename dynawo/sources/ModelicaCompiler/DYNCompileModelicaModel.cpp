@@ -134,6 +134,7 @@ int main(int argc, char ** argv) {
   // Prepare workspace
   if (!is_directory(modelDir))
     throw DYNError(DYN::Error::MODELER, MissingModelicaInputFolder, modelDir);
+
 #ifndef _DEBUG_
   remove_all_in_directory(compilationDir);
 #endif
@@ -179,6 +180,7 @@ int main(int argc, char ** argv) {
         if (!valid)
           throw DYNError(DYN::Error::MODELER, FileGenerationFailed, lib);
         copyFile(libName, compilationDir, modelDir);
+
 #ifndef _DEBUG_
         // remove_all_in_directory(compilationDir1);
 #endif
@@ -458,7 +460,7 @@ compileLib(const string& modelName, const string& compilationDir) {
 #if __linux__
                            + " -DMODEL_NAME=" + modelName + " -DCMAKE_SKIP_BUILD_RPATH=True && { cmake --build " + compilationDir + " || cmake --build " + compilationDir + " > /dev/null; }";
 #else
-                           + " -DMODEL_NAME=" + modelName + " && cmake --build " + compilationDir;
+  + " -DMODEL_NAME=" + modelName + " && cmake --build " + compilationDir;
 #endif
   bool doPrintLogs = true;
   string result = executeCommand(compileLibCommand, doPrintLogs);

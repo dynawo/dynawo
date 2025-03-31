@@ -470,7 +470,7 @@ SolverIDA::calculateIC(double /*tEnd*/) {
   const std::vector<propertyContinuousVar_t>& modelYType = model_->getYType();
   Trace::debug(Trace::solver()) << DYNLog(SolverIDAStartCalculateIC) << Trace::endline;
   for (int i = 0; i < model_->sizeY(); ++i) {
-    Trace::debug(Trace::solver()) << "Y[" << std::setw(3) << i << "] = "
+    Trace::debug() << "Y[" << std::setw(3) << i << "] = "
                    << std::setw(15) << vectorY_[i]
                    << " Yp[" << std::setw(2) << i << "] = "
                    << std::setw(15) << vectorYp_[i]
@@ -1181,6 +1181,10 @@ void
 SolverIDA::reinit() {
   Timer timer("SolverIDA::reinit");
   int counter = 0;
+  int flag0 = IDAReInit(IDAMem_, tSolve_, sundialsVectorY_, sundialsVectorYp_);  // required to relaunch the simulation
+  if (flag0 < 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");
+  return;
   modeChangeType_t modeChangeType = model_->getModeChangeType();
   if (modeChangeType == NO_MODE) return;
 

@@ -14,6 +14,18 @@ set(MODEL_FILES
   package.mo
   package.order
   GridForming.mo
+  ENTSOE.mo
+  ENTSOE2.mo
+  ENTSOE3.mo
+  ENTSOE4.mo
+  ENTSOE5_GFL.mo
+  ENTSOE_csGFL.mo
+  ENTSOE_DynLine.mo
+  ENTSOE_DynVcGFMVSM.mo
+  TP_GFL_SMIB.mo
+  TP_GFM_Droop_SMIB.mo
+  TP_2GFM_Droop.mo
+  TP_2GFM_NOFR.mo
   )
 
 #

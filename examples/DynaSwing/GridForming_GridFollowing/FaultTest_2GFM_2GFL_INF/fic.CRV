@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2022, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="NETWORK" variable="AAAAAP71_Upu_value"/>
+  <curve model="NETWORK" variable="DDDDDP71_Upu_value"/>
+  <curve model="HVDC1" variable="GFM_Control_PFilterPu"/>
+  <curve model="HVDC2" variable="GFM_Control_PFilterPu"/>
+  <curve model="INF" variable="GFM_Control_PFilterPu"/>
+  <curve model="HVDC1" variable="GFM_Control_QFilterPu"/>
+  <curve model="HVDC2" variable="GFM_Control_QFilterPu"/>
+  <curve model="INF" variable="GFM_Control_QFilterPu"/>
+  <curve model="HVDC1" variable="GFM_UFilterRefPu"/>
+  <curve model="HVDC2" variable="GFM_UFilterRefPu"/>
+  <curve model="INF" variable="GFM_UFilterRefPu"/>
+  <curve model="HVDC1" variable="GFM_Converter_theta"/>
+  <curve model="HVDC2" variable="GFM_Converter_theta"/>
+  <curve model="INF" variable="GFM_Converter_theta"/>
+  <curve model="OMEGAREF" variable="omegaRef_0_value"/>
+  <curve model="OMEGAREF" variable="omegaRef_grp_0_value"/>
+  <curve model="OMEGAREF" variable="omega_grp_0_value"/>
+  <curve model="HVDC1" variable="GFM_Converter_omegaPu"/>
+  <curve model="HVDC1" variable="GFM_Control_omegaRefPu"/>
+  <curve model="HVDC2" variable="GFM_Control_omegaRefPu"/>
+  <curve model="HVDC2" variable="GFM_Converter_omegaPu"/>
+  <curve model="NETWORK" variable="AAAAAL72BBBBB_P1_value"/>
+  <curve model="NETWORK" variable="AAAAAL71BBBBB_P1_value"/>
+  <curve model="INF" variable="GFM_Control_omegaRefPu"/>
+  <curve model="INF" variable="GFM_Converter_omegaPu"/>
+  <curve model="INF_GEN" variable="infiniteBus_PPu"/>
+  <curve model="INF_GEN" variable="infiniteBus_QPu"/>
+  <curve model="WP1" variable="GFL_Measurements_PFilterPu"/>
+  <curve model="WP2" variable="GFL_Measurements_PFilterPu"/>
+  <curve model="WP1" variable="GFL_Measurements_QFilterPu"/>
+  <curve model="WP2" variable="GFL_Measurements_QFilterPu"/>
+</curvesInput>
