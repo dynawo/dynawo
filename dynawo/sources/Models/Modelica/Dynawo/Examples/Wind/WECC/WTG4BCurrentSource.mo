@@ -181,7 +181,6 @@ equation
   WTG4B.injector.switchOffSignal1.value = false;
   WTG4B.injector.switchOffSignal2.value = false;
   WTG4B.injector.switchOffSignal3.value = false;
-
   connect(line.terminal2, WTG4B.terminal) annotation(
     Line(points = {{-20, 0}, {0, 0}, {0, 0}, {0, 0}}, color = {0, 0, 255}));
   connect(infiniteBus.terminal, line.terminal1) annotation(
@@ -191,12 +190,20 @@ equation
   connect(QRefPu.y, WTG4B.QRefPu) annotation(
     Line(points = {{79, 0}, {42, 0}}, color = {0, 0, 127}));
   connect(PRefPu.y, WTG4B.PRefPu) annotation(
+<<<<<<< HEAD
     Line(points = {{79, -40}, {60, -40}, {60, -12}, {42, -12}}, color = {0, 0, 127}));
   connect(URefPu.y, WTG4B.URefPu) annotation(
     Line(points = {{79, 80}, {20, 80}, {20, 22}}, color = {0, 0, 127}));
   connect(PFaRef.y, WTG4B.PFaRef) annotation(
     Line(points = {{79, -80}, {20, -80}, {20, -22}}, color = {0, 0, 127}));
 
+=======
+    Line(points = {{69, -40}, {60, -40}, {60, -12}, {42, -12}}, color = {0, 0, 127}));
+  connect(PFaRef.y, WTG4B.PFaRef) annotation(
+    Line(points = {{70, -80}, {20, -80}, {20, -22}}, color = {0, 0, 127}));
+  connect(step.y, WTG4B.URefPu) annotation(
+    Line(points = {{50, 82}, {20, 82}, {20, 22}}, color = {0, 0, 127}));
+>>>>>>> 923c5d00429 (#1253 : Initial commit)
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 20, Tolerance = 1e-05, Interval = 0.001),

@@ -185,6 +185,8 @@ void ModelManager::setSubModelParameters() {
     for (int i = 0; i < 2; ++i) {
       modelModelica()->initRpar();
     }
+
+    std::cout << "Adrien ++ - test init " << std::endl;
   }
 }
 

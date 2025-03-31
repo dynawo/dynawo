@@ -331,14 +331,13 @@ SolverIDA::init(const std::shared_ptr<Model>& model, const double t0, const doub
 
 void
 SolverIDA::calculateIC(double tEnd) {
-#ifdef _DEBUG_
   vector<double> y0;
   y0.assign(vectorY_.begin(), vectorY_.end());
 
   const std::vector<propertyContinuousVar_t>& modelYType = model_->getYType();
   Trace::debug(Trace::solver()) << DYNLog(SolverIDAStartCalculateIC) << Trace::endline;
   for (int i = 0; i < model_->sizeY(); ++i) {
-    Trace::debug(Trace::solver()) << "Y[" << std::setw(3) << i << "] = "
+    Trace::debug() << "Y[" << std::setw(3) << i << "] = "
                    << std::setw(15) << vectorY_[i]
                    << " Yp[" << std::setw(2) << i << "] = "
                    << std::setw(15) << vectorYp_[i]
@@ -350,7 +349,6 @@ SolverIDA::calculateIC(double tEnd) {
   // --------------------------------
   vector<double> ySave;
   ySave.assign(vectorY_.begin(), vectorY_.end());
-#endif
 
   // Updating discrete variable values and mode
   model_->copyContinuousVariables(&vectorY_[0], &vectorYp_[0]);

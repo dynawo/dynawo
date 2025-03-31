@@ -142,11 +142,13 @@ int main(int argc, char ** argv) {
   // Prepare workspace
   if (!isDirectory(modelDir))
     throw DYNError(DYN::Error::MODELER, MissingModelicaInputFolder, modelDir);
+
 #ifndef _DEBUG_
   removeAllInDirectory(compilationDir);
 #endif
   if (!isDirectory(compilationDir))
     createDirectory(compilationDir);
+
   string compilationDir1 = prettyPath(compilationDir);
 
   copyFile(modelName + ".mo", modelDir, compilationDir);
@@ -183,6 +185,7 @@ int main(int argc, char ** argv) {
         if (!valid)
           throw DYNError(DYN::Error::MODELER, FileGenerationFailed, lib);
         copyFile(libName, compilationDir, modelDir);
+
 #ifndef _DEBUG_
         removeAllInDirectory(compilationDir1);
 #endif
@@ -436,10 +439,15 @@ compileLib(const string& modelName, const string& compilationDir) {
 
   string compileLibCommand = "cmake -B" + compilationDir + " -H" + compilationDir + " -C" + absolute("PreloadCache.cmake", scriptsDir)
 #if __linux__
+<<<<<<< HEAD
                            + " -DMODEL_NAME=" + modelName + " -DCMAKE_SKIP_BUILD_RPATH=True && { cmake --build " + compilationDir + " || cmake --build "
                             + compilationDir + " > /dev/null; }";
+=======
+  + " -DMODEL_NAME=" + modelName
+  + " -DCMAKE_SKIP_BUILD_RPATH=True && { cmake --build " + compilationDir + " || cmake --build " + compilationDir + " > /dev/null; }";
+>>>>>>> 923c5d00429 (#1253 : Initial commit)
 #else
-                           + " -DMODEL_NAME=" + modelName + " && cmake --build " + compilationDir;
+  + " -DMODEL_NAME=" + modelName + " && cmake --build " + compilationDir;
 #endif
   bool doPrintLogs = true;
   string result = executeCommand(compileLibCommand, doPrintLogs);

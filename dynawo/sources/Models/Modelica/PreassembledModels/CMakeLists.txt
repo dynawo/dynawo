@@ -26,6 +26,10 @@ set(MODELICA_PREASSEMBLED_MODELS
   DistanceProtectionLineTwoZones.xml
   DistanceProtectionLineTwoZonesWithBlinder.xml
   DoubleStep.xml
+  DynGridFollowing.xml
+  DynGridFormingDroop.xml
+  DynGridFormingVirtualSynchronousMachine.xml
+  DynVcGridFormingVirtualSynchronousMachine.xml
   ElectronicLoad.xml
   EventConnectedStatus.xml
   EventQuadripoleConnection.xml
@@ -122,10 +126,12 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousThreeWindingsPmConstVRNordicTfo.xml
   GeneratorSynchronousThreeWindingsProportionalRegulations.xml
   GenericAutomaton.xml
-  GridFormingConverterDroopControl.xml
-  GridFormingConverterMatchingControl.xml
-  GridFormingConverterDispatchableVirtualOscillatorControl.xml
+  #GridFollowing.xml
   GridFormingEpri.xml
+  GridFormingVirtualSynchronousMachine.xml
+  #GridFormingConverterDroopControl.xml
+  #GridFormingConverterMatchingControl.xml
+  #GridFormingConverterDispatchableVirtualOscillatorControl.xml
   HvdcPQProp.xml
   HvdcPQPropEmulation.xml
   HvdcPQPropEmulationSet.xml
@@ -164,14 +170,14 @@ set(MODELICA_PREASSEMBLED_MODELS
   HvdcVscDanglingP.xml
   HvdcVscDanglingUDc.xml
   HvdcVscEmulation.xml
-  IECWPP4ACurrentSource2015.xml
-  IECWPP4ACurrentSource2020.xml
-  IECWPP4BCurrentSource2015.xml
-  IECWPP4BCurrentSource2020.xml
-  IECWT4ACurrentSource2015.xml
-  IECWT4ACurrentSource2020.xml
-  IECWT4BCurrentSource2015.xml
-  IECWT4BCurrentSource2020.xml
+  #IECWPP4ACurrentSource2015.xml
+  #IECWPP4ACurrentSource2020.xml
+  #IECWPP4BCurrentSource2015.xml
+  #IECWPP4BCurrentSource2020.xml
+  #IECWT4ACurrentSource2015.xml
+  #IECWT4ACurrentSource2020.xml
+  #IECWT4BCurrentSource2015.xml
+  #IECWT4BCurrentSource2020.xml
   InertialGrid.xml
   InfiniteBus.xml
   InfiniteBusFromTable.xml
