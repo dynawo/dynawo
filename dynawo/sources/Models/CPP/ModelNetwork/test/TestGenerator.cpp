@@ -121,7 +121,7 @@ createModelGenerator(bool open, bool initModel, powsybl::iidm::Network& networkI
 
 static void
 fillParameters(shared_ptr<ModelGenerator> gen, std::string& startingPoint) {
-  std::unordered_map<std::string, ParameterModeler> parametersModels;
+  boost::unordered_map<std::string, ParameterModeler> parametersModels;
   {
     ParameterModeler param = ParameterModeler("startingPointMode", VAR_TYPE_STRING, EXTERNAL_PARAMETER);
     param.setValue<std::string>(startingPoint, PAR);
@@ -445,7 +445,7 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorDefineInstantiate) {
   std::vector<ParameterModeler> parameters;
   gen->defineNonGenericParameters(parameters);
   ASSERT_TRUE(parameters.empty());
-  std::unordered_map<std::string, ParameterModeler> parametersModels;
+  boost::unordered_map<std::string, ParameterModeler> parametersModels;
   ASSERT_NO_THROW(gen->setSubModelParameters(parametersModels));
 }
 

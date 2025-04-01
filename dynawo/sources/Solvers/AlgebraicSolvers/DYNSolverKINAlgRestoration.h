@@ -22,7 +22,7 @@
 
 #include <boost/shared_ptr.hpp>
 #include <boost/core/noncopyable.hpp>
-#include <unordered_set>
+#include <boost/unordered_set.hpp>
 #include <string>
 #include <vector>
 
@@ -237,8 +237,8 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   std::vector<double> vectorYOrYpSolution_;  ///< Solution of the restoration after the call of the solver
   std::vector<double> vectorYForRestoration_;  ///< variables values during call of the solver
   std::vector<double> vectorYpForRestoration_;  ///< derivative variables during call of the solver
-  std::unordered_set<int> ignoreF_;  ///< equations to erase from the initial set of equations
-  std::unordered_set<int> ignoreY_;  ///< variables to erase form the initial set of variables
+  boost::unordered_set<int> ignoreF_;  ///< equations to erase from the initial set of equations
+  boost::unordered_set<int> ignoreY_;  ///< variables to erase form the initial set of variables
   std::vector<int> indexF_;  ///< equations to keep from the initial set of equations
   std::vector<int> indexY_;  ///< variables to keep form the initial set of variables
   modeKin_t mode_;  ///< mode of the solver (i.e. algebraic equations or derivative)

@@ -24,14 +24,11 @@
 #include "DYNStaticParameter.h"
 #include "DYNMacrosMessage.h"
 
-#include <unordered_map>
-
-
 namespace DYN {
 
 template <typename T>
 T ComponentInterface::getStaticParameterValue(const std::string& name) const {
-  std::unordered_map<std::string, StaticParameter>::const_iterator iter = staticParameters_.find(name);
+  boost::unordered_map<std::string, StaticParameter>::const_iterator iter = staticParameters_.find(name);
   if (iter != staticParameters_.end()) {
     StaticParameter::StaticParameterType type = iter->second.getType();
     if (!iter->second.valueAffected()) {

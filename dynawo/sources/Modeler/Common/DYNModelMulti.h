@@ -23,7 +23,7 @@
 #include <string>
 #include <vector>
 #include <boost/core/noncopyable.hpp>
-#include <unordered_map>
+#include <boost/unordered_map.hpp>
 
 #include "DYNModel.h"
 #include "DYNVariable.h"
@@ -569,13 +569,19 @@ class ModelMulti : public Model, private boost::noncopyable {
   void collectSilentZ();
 
  private:
-  std::unordered_map<int, int> mapAssociationF_;  ///< association between an index of f functions and a subModel
-  std::unordered_map<int, int> mapAssociationG_;  ///< association between an index of g functions and a subModel
+  /**
+   * @brief delete all informations about the local buffers (size, buffers, etc...)
+   *
+   */
+  void cleanBuffers();
+
+  boost::unordered_map<int, int> mapAssociationF_;  ///< association between an index of f functions and a subModel
+  boost::unordered_map<int, int> mapAssociationG_;  ///< association between an index of g functions and a subModel
   std::vector<std::string> yNames_;  ///< names of all variables y
   std::vector<boost::shared_ptr<SubModel> > subModels_;  ///< list of each sub models
-  std::unordered_map<std::string, size_t > subModelByName_;  ///< map associating a sub model name to its index in subModels_
-  std::unordered_map<std::string, std::vector<boost::shared_ptr<SubModel> > > subModelByLib_;  ///< associates a lib and each SubModel created with it
-  std::unordered_map<size_t, std::vector<size_t > >
+  boost::unordered_map<std::string, size_t > subModelByName_;  ///< map associating a sub model name to its index in subModels_
+  boost::unordered_map<std::string, std::vector<boost::shared_ptr<SubModel> > > subModelByLib_;  ///< associates a lib and each SubModel created with it
+  boost::unordered_map<size_t, std::vector<size_t > >
     subModelIdxToConnectorCalcVarsIdx_;  ///< associates a subModel index to the associated calculated variables connectors indexes
   boost::shared_ptr<ConnectorContainer> connectorContainer_;  ///< list of each connector
   std::vector<double> zSave_;  ///< save of the last discrete values

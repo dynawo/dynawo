@@ -117,7 +117,7 @@ ModelManager::initializeStaticData() {
 }
 
 void
-ModelManager::createParametersValueSet(const std::unordered_map<string, ParameterModeler>& parameters, shared_ptr<ParametersSet>& parametersSet) {
+ModelManager::createParametersValueSet(const boost::unordered_map<string, ParameterModeler>& parameters, shared_ptr<ParametersSet>& parametersSet) {
   for (ParamIterator it = parameters.begin(), itEnd = parameters.end(); it != itEnd; ++it) {
     const ParameterModeler& parameter = it->second;
     const string& parameterName = parameter.getName();
@@ -170,7 +170,7 @@ void ModelManager::setSubModelParameters() {
   if (modelModelica()->isDataStructInitialized()) {
     shared_ptr<ParametersSet> mergedParametersSet(boost::shared_ptr<ParametersSet>(new ParametersSet("merged_" + name())));
 
-    const std::unordered_map<string, ParameterModeler>& parameters = getParametersDynamic();
+    const boost::unordered_map<string, ParameterModeler>& parameters = getParametersDynamic();
 
     createParametersValueSet(parameters, mergedParametersSet);
 
@@ -472,7 +472,7 @@ void
 ModelManager::setSharedParametersDefaultValues(const bool isInit, const parameterOrigin_t& origin) {
   ModelModelica * model = isInit ? modelModelicaInit() : modelModelicaDynamic();
   const shared_ptr<parameters::ParametersSet> sharedParametersInitialValues = model->setSharedParametersDefaultValues();
-  const std::unordered_map<string, ParameterModeler>& parameters = isInit ? getParametersInit() : getParametersDynamic();
+  const boost::unordered_map<string, ParameterModeler>& parameters = isInit ? getParametersInit() : getParametersDynamic();
 
   for (ParamIterator it = parameters.begin(), itEnd = parameters.end(); it != itEnd; ++it) {
     const ParameterModeler& currentParameter = it->second;
@@ -519,7 +519,7 @@ ModelManager::initParams() {
   }
 
   shared_ptr<ParametersSet> mergedParametersSet(boost::shared_ptr<ParametersSet>(new ParametersSet("merged_" + name())));
-  const std::unordered_map<string, ParameterModeler>& parametersInit = getParametersInit();
+  const boost::unordered_map<string, ParameterModeler>& parametersInit = getParametersInit();
   createParametersValueSet(parametersInit, mergedParametersSet);
 
   modelModelica()->setParameters(mergedParametersSet);
@@ -603,7 +603,7 @@ ModelManager::dumpParameters(map< string, string >& mapParameters) {
 }
 
 void ModelManager::writeParametersFinalValues() {
-  const std::unordered_map<string, ParameterModeler>& parameters = getParametersDynamic();
+  const boost::unordered_map<string, ParameterModeler>& parameters = getParametersDynamic();
   // in the OpenModelica-generated code
   // parameters are ordered as real first, then boolean, then integer
   const unsigned int nbParamsReal = static_cast<unsigned int>(modelData()->nParametersReal);
@@ -841,7 +841,7 @@ ModelManager::loadParameters(const string& parameters) {
   delayManager_.evalMode(getCurrentTime());
 
   // copy of loaded parameters in the map
-  const std::unordered_map<string, ParameterModeler>& parametersMap = (this)->getParametersDynamic();
+  const boost::unordered_map<string, ParameterModeler>& parametersMap = (this)->getParametersDynamic();
   // We need ordered parameters as Modelica structures are ordered in a certain way and we want to stick to this order to recover the param
   vector<string> parametersList(parametersMap.size(), "TMP");
   for (ParamIterator it = parametersMap.begin(), itEnd = parametersMap.end(); it != itEnd; ++it) {
@@ -1046,7 +1046,7 @@ void
 ModelManager::setCalculatedParameters(vector<double>& y, vector<double>& z, const vector<double>& calculatedVars) {
   // Creates reversed alias map
   map<string, vector< shared_ptr <VariableAlias> > > reversedAlias;
-  for (std::unordered_map<string, shared_ptr<Variable> >::const_iterator it = variablesByNameInit_.begin();
+  for (boost::unordered_map<string, shared_ptr<Variable> >::const_iterator it = variablesByNameInit_.begin();
           it != variablesByNameInit_.end();
           ++it) {
     // map of nativeVarName -> aliasNames
@@ -1098,7 +1098,7 @@ ModelManager::setZCalculatedParameters(vector<double>& z,
     const map<string, vector< shared_ptr <VariableAlias> > >& reversedAlias) {
   const vector<string>& zNamesInitial = zNamesInit();
 
-  const std::unordered_map<string, shared_ptr<Variable> >& initVariables = variablesByNameInit();
+  const boost::unordered_map<string, shared_ptr<Variable> >& initVariables = variablesByNameInit();
 
   assert(zNamesInitial.size() == z.size());
   for (unsigned int i = 0; i < zNamesInitial.size(); ++i) {
@@ -1160,7 +1160,7 @@ ModelManager::setZCalculatedParameters(vector<double>& z,
 
 void
 ModelManager::setInitialCalculatedParameters() {
-  const std::unordered_map<string, ParameterModeler>& parametersMap = getParametersInit();
+  const boost::unordered_map<string, ParameterModeler>& parametersMap = getParametersInit();
   // We need ordered parameters as Modelica structures are ordered in a certain way and we want to stick to this order to recover the param
   vector<string> parametersInitial(parametersMap.size(), "TMP");
   for (ParamIterator it = parametersMap.begin(), itEnd = parametersMap.end(); it != itEnd; ++it) {
@@ -1262,7 +1262,7 @@ ModelManager::createCalculatedParametersFromInitialCalculatedVariables(const vec
 void
 ModelManager::printValuesParameters(std::ofstream& fstream) {
   fstream << " ====== PARAMETERS VALUES ======\n";
-  const std::unordered_map<string, ParameterModeler>& parametersMap = (*this).getParametersDynamic();
+  const boost::unordered_map<string, ParameterModeler>& parametersMap = (*this).getParametersDynamic();
   // We need ordered parameters as Modelica structures are ordered in a certain way and we want to stick to this order to recover the param
   vector<string> parameters(parametersMap.size(), "TMP");
   for (ParamIterator it = parametersMap.begin(), itEnd = parametersMap.end(); it != itEnd; ++it) {

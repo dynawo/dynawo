@@ -24,27 +24,27 @@ namespace DYN {
 
 template <>
 double
-NetworkComponent::getParameterDynamicNoThrow(const std::unordered_map<std::string, ParameterModeler>&,
+NetworkComponent::getParameterDynamicNoThrow(const boost::unordered_map<std::string, ParameterModeler>&,
                                                    const std::string&, bool&, const std::vector<std::string>&) const;
 
 template <>
 int
-NetworkComponent::getParameterDynamicNoThrow(const std::unordered_map<std::string, ParameterModeler>&,
+NetworkComponent::getParameterDynamicNoThrow(const boost::unordered_map<std::string, ParameterModeler>&,
                                                    const std::string&, bool&, const std::vector<std::string>&) const;
 
 template <>
 bool
-NetworkComponent::getParameterDynamicNoThrow(const std::unordered_map<std::string, ParameterModeler>&,
+NetworkComponent::getParameterDynamicNoThrow(const boost::unordered_map<std::string, ParameterModeler>&,
                                                    const std::string&, bool&, const std::vector<std::string>&) const;
 
 template <>
 std::string
-NetworkComponent::getParameterDynamicNoThrow(const std::unordered_map<std::string, ParameterModeler>&,
+NetworkComponent::getParameterDynamicNoThrow(const boost::unordered_map<std::string, ParameterModeler>&,
                                                    const std::string&, bool&, const std::vector<std::string>&) const;
 
 template<typename T>
 T
-inline NetworkComponent::getParameterDynamic(const std::unordered_map<std::string, ParameterModeler>& params,
+inline NetworkComponent::getParameterDynamic(const boost::unordered_map<std::string, ParameterModeler>& params,
     const std::string& id, const std::vector<std::string>& ids) const {
   bool foundParam = false;
   T value = getParameterDynamicNoThrow<T>(params, id, foundParam, ids);
@@ -56,7 +56,7 @@ inline NetworkComponent::getParameterDynamic(const std::unordered_map<std::strin
 
 template<typename T>
 void
-inline NetworkComponent::findParameterDynamicNoThrow(const std::unordered_map<std::string, ParameterModeler>& params,
+inline NetworkComponent::findParameterDynamicNoThrow(const boost::unordered_map<std::string, ParameterModeler>& params,
     const std::string& id, bool& foundParam, const std::vector<std::string>& ids, T& value) const {
   foundParam = false;
   if (ids.empty()) {

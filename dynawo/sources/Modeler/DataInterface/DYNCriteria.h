@@ -15,7 +15,7 @@
 #define MODELER_DATAINTERFACE_DYNCRITERIA_H_
 
 #include <boost/shared_ptr.hpp>
-#include <unordered_set>
+#include <boost/unordered_set.hpp>
 #include "CRTCriteriaParams.h"
 #include "DYNBusInterface.h"
 #include "DYNLoadInterface.h"

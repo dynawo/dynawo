@@ -89,8 +89,8 @@ static Graph defineGraph() {
   return graph;
 }
 
-static std::unordered_map<string, float> defineWeights() {
-  std::unordered_map<string, float> weights;
+static boost::unordered_map<string, float> defineWeights() {
+  boost::unordered_map<string, float> weights;
   weights["0-1"] = 1;
   weights["0-2"] = 1;
   weights["0-3"] = 1;
@@ -115,7 +115,7 @@ TEST(CommonTest, testPathExistGraph) {
   graph.addVertex(10);
 
   // use all edge : weights equals to 1
-  std::unordered_map<string, float> weights = defineWeights();
+  boost::unordered_map<string, float> weights = defineWeights();
 
   ASSERT_EQ(graph.pathExist(1, 1, weights), true);
   ASSERT_EQ(graph.pathExist(1, 5, weights), true);
@@ -130,7 +130,7 @@ TEST(CommonTest, testshortestPathGraph) {
   graph.addVertex(10);
 
   // use all edge : weights equals to 1
-  std::unordered_map<string, float> weights = defineWeights();
+  boost::unordered_map<string, float> weights = defineWeights();
 
   // shortest path between 0 -0 : empty path
   vector<string> path0;
@@ -171,7 +171,7 @@ TEST(CommonTest, testshortestPathGraph) {
 TEST(CommonTest, testComponentGraph) {
   Graph graph = defineGraph();
   // use all edge : weights equals to 1
-  std::unordered_map<string, float> weights = defineWeights();
+  boost::unordered_map<string, float> weights = defineWeights();
 
   std::pair<unsigned int, std::vector<unsigned int> > components = graph.calculateComponents(weights);
   ASSERT_EQ(components.first, 1);
@@ -221,7 +221,7 @@ TEST(CommonTest, testGraphWithLoop) {
   graph.addEdge(3, 5, "3-5");
   graph.addEdge(6, 0, "6-0");
 
-  std::unordered_map<string, float> weights;
+  boost::unordered_map<string, float> weights;
   weights["0-1"] = 1;
   weights["0-2"] = 1;
   weights["0-3"] = 1;

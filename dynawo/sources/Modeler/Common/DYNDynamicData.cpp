@@ -285,7 +285,7 @@ void
 DynamicData::resolveParReferences(shared_ptr<Model> model, shared_ptr<ParametersSet> modelSet) {
   if (modelSet == nullptr)
     return;
-  std::unordered_map<std::string, boost::shared_ptr<Reference> >& references = modelSet->getReferences();
+  boost::unordered_map<std::string, boost::shared_ptr<Reference> >& references = modelSet->getReferences();
   for (const std::pair<const std::string, boost::shared_ptr<Reference> >& ref : references) {
     const shared_ptr<Reference>& parRef = ref.second;
     if (parRef->getOrigData() == Reference::OriginData::PAR) {
@@ -296,8 +296,8 @@ DynamicData::resolveParReferences(shared_ptr<Model> model, shared_ptr<Parameters
         parRef->setParFile(modelSet->getFilePath());
       }
       const shared_ptr<ParametersSet> referencedParametersSet = getParametersSet(model->getId(), parRef->getParFile(), parRef->getParId());
-      const std::unordered_map<std::string, shared_ptr<parameters::Reference> > refParamSetReferences = referencedParametersSet->getReferences();
-      const std::unordered_map<std::string, shared_ptr<Reference> >::const_iterator itRef = refParamSetReferences.find(parRef->getOrigName());
+      const boost::unordered_map<std::string, shared_ptr<parameters::Reference> > refParamSetReferences = referencedParametersSet->getReferences();
+      const boost::unordered_map<std::string, shared_ptr<Reference> >::const_iterator itRef = refParamSetReferences.find(parRef->getOrigName());
       if (itRef != references.end())
         throw DYNError(DYN::Error::API, ReferenceToAnotherReference, parRef->getName(), parRef->getOrigName(), parRef->getParId(), parRef->getParFile());
       shared_ptr<Parameter> referencedParameter = referencedParametersSet->getParameter(parRef->getOrigName());

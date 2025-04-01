@@ -23,8 +23,7 @@
 #include "DYNDelay.h"
 #include "DYNEnumUtils.h"
 
-#include <unordered_map>
-
+#include <boost/unordered_map.hpp>
 
 namespace DYN {
 /**
@@ -169,7 +168,7 @@ class DelayManager {
   }
 
  private:
-  std::unordered_map<size_t, Delay> delays_;  ///< list of registered delayed values
+  boost::unordered_map<size_t, Delay> delays_;  ///< list of registered delayed values
 };
 }  // namespace DYN
 

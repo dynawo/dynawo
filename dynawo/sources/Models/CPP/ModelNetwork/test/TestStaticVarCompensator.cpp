@@ -115,7 +115,7 @@ createModelStaticVarCompensator(bool open, bool initModel, powsybl::iidm::Networ
 
 static void
 fillParameters(shared_ptr<ModelStaticVarCompensator> svc, std::string& startingPoint) {
-  std::unordered_map<std::string, ParameterModeler> parametersModels;
+  boost::unordered_map<std::string, ParameterModeler> parametersModels;
   {
     ParameterModeler param = ParameterModeler("startingPointMode", VAR_TYPE_STRING, EXTERNAL_PARAMETER);
     param.setValue<std::string>(startingPoint, PAR);
@@ -365,7 +365,7 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorDefineInstantiate) {
   std::vector<ParameterModeler> parameters;
   svc->defineNonGenericParameters(parameters);
   ASSERT_EQ(parameters.size(), 0);
-  std::unordered_map<std::string, ParameterModeler> parametersModels;
+  boost::unordered_map<std::string, ParameterModeler> parametersModels;
   ASSERT_NO_THROW(svc->setSubModelParameters(parametersModels));
 }
 

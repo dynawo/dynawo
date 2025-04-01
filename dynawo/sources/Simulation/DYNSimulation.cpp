@@ -24,6 +24,7 @@
 #include <cstdlib>
 #include <sstream>
 #include <fstream>
+#include <boost/unordered_map.hpp>
 #ifdef _MSC_VER
 #include <process.h>
 #endif
@@ -144,26 +145,6 @@ using parameters::ParametersSet;
 using parameters::ParametersSetCollection;
 
 static const char TIME_FILENAME[] = "time.bin";  ///< name of the file to dump time at the end of the simulation
-
-
-/**
- * @brief Hash structure for std::pair<std::string, std::string>
- */
-struct StringPairHash {
-  /**
-   * @brief Operator to retrieve stringPair hash value
-   *
-   * @param stringPair the stringPair to hash
-   * @returns the hash value
-   */
-  size_t operator()(std::pair<std::string, std::string> stringPair) const {
-    size_t seed = 0;
-    boost::hash_combine(seed, stringPair.first);
-    boost::hash_combine(seed, stringPair.second);
-    return seed;
-  }
-};
-
 
 namespace DYN {
 
@@ -746,7 +727,7 @@ Simulation::importFinalStateValuesRequest() {
 
   // A map for existing Curves is built so we can locate them fast and update them from the Final State Values
   // A Curve is identified by the pair model name, variable name
-  typedef std::unordered_map<std::pair<std::string, std::string>, boost::shared_ptr<curves::Curve>, StringPairHash> CurvesMap;
+  typedef boost::unordered_map<std::pair<std::string, std::string>, boost::shared_ptr<curves::Curve> > CurvesMap;
   CurvesMap curvesMap;
   for (CurvesCollection::const_iterator itCurve = curvesCollection_->cbegin(); itCurve != curvesCollection_->cend(); ++itCurve) {
     curvesMap.insert(std::make_pair(std::make_pair((*itCurve)->getModelName(), (*itCurve)->getVariable()), *itCurve));

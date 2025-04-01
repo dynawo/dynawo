@@ -261,9 +261,9 @@ VoltageLevelInterfaceIIDM::calculateBusTopology() {
   if (voltageLevelIIDM_.getTopologyKind() == powsybl::iidm::TopologyKind::BUS_BREAKER)
     return;
   // weight to use for edge to analyse graph and find nodes on the same topological node (switch not open = closed,not retained)
-  std::unordered_map<string, float> topologicalWeights;
+  boost::unordered_map<string, float> topologicalWeights;
   // weight to use for edge to analyse graph and find nodes on the same electrical node (switch not open = closed)
-  std::unordered_map<string, float> electricalWeights;
+  boost::unordered_map<string, float> electricalWeights;
 
   for (const powsybl::iidm::Switch& itSwitch : voltageLevelIIDM_.getSwitches()) {
     if (itSwitch.isOpen() && !itSwitch.isRetained()) {
@@ -298,8 +298,8 @@ VoltageLevelInterfaceIIDM::calculateBusTopology() {
   }
 
   vector<unsigned int> component = topoComponents.second;
-  std::unordered_map<unsigned int, unsigned int> componentIndexToNodeId;
-  std::unordered_map<unsigned int, unsigned int> nodeIdToComponentIndex;
+  boost::unordered_map<unsigned int, unsigned int> componentIndexToNodeId;
+  boost::unordered_map<unsigned int, unsigned int> nodeIdToComponentIndex;
   unsigned int componentIndex = 0;
   for (const auto& nodeId : voltageLevelIIDM_.getNodeBreakerView().getNodes()) {
     componentIndexToNodeId[componentIndex] = static_cast<unsigned int>(nodeId);
@@ -428,7 +428,7 @@ VoltageLevelInterfaceIIDM::disconnectNode(const unsigned int& nodeToDisconnect) 
   // following component (de)connection (only Modelica models)
   assert(voltageLevelIIDM_.getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER);
   // open all paths to bus bar section
-  std::unordered_map<string, float> weights;
+  boost::unordered_map<string, float> weights;
   for (powsybl::iidm::Switch& itSwitch : voltageLevelIIDM_.getNodeBreakerView().getSwitches()) {
     if (itSwitch.isOpen() && !itSwitch.isRetained()) {
       // Opened disconnectors are not in the graph
@@ -482,7 +482,7 @@ VoltageLevelInterfaceIIDM::isNodeConnected(const unsigned int& nodeToCheck) {
   assert(voltageLevelIIDM_.getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER);
 
   // Change weight of edges
-  std::unordered_map<string, float> weights;
+  boost::unordered_map<string, float> weights;
   for (powsybl::iidm::Switch& itSwitch : voltageLevelIIDM_.getNodeBreakerView().getSwitches()) {
     if (itSwitch.isOpen() && !itSwitch.isRetained()) {
       // Opened disconnectors are not in the graph

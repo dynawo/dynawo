@@ -418,7 +418,7 @@ ModelStaticVarCompensator::defineNonGenericParameters(std::vector<ParameterModel
 }
 
 void
-ModelStaticVarCompensator::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params) {
+ModelStaticVarCompensator::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params) {
   bool startingPointModeFound = false;
   std::string startingPointMode = getParameterDynamicNoThrow<string>(params, "startingPointMode", startingPointModeFound);
   if (startingPointModeFound) {

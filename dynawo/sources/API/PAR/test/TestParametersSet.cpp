@@ -128,7 +128,7 @@ TEST(APIPARTest, ParametersSetAddReference) {
   shared_ptr<Reference> ref5 = ReferenceFactory::newReference("ref5", Reference::OriginData::PAR);
   parametersSet2->addReference(ref5);
 
-  std::unordered_map<std::string, boost::shared_ptr<Reference> >& references = parametersSet2->getReferences();
+  boost::unordered_map<std::string, boost::shared_ptr<Reference> >& references = parametersSet2->getReferences();
   const int nbRefs = 3;
   std::array<std::string, nbRefs> refNamesList = {"ref3", "ref4", "ref5"};
   for (const std::string& refName : refNamesList) {
@@ -215,7 +215,8 @@ TEST(APIPARTest, ParametersSetGetReferences) {
     ++nbReferences;
   ASSERT_EQ(nbReferences, 3);
 
-  ASSERT_EQ(ref3->getName(), "ref3");
+  ParametersSet::reference_const_iterator itRef = parametersSet->cbeginReference();
+  ASSERT_EQ(itRef->get()->getName(), "ref3");
 
   ParametersSet::reference_const_iterator itVariablec(parametersSet->cbeginReference());
   ++itVariablec;

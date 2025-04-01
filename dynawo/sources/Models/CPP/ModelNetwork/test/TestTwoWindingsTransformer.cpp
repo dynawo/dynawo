@@ -928,7 +928,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerDefineInstantiate) {
   std::vector<ParameterModeler> parameters;
   t2w->defineNonGenericParameters(parameters);
   ASSERT_EQ(parameters.size(), 4);
-  std::unordered_map<std::string, ParameterModeler> parametersModels;
+  boost::unordered_map<std::string, ParameterModeler> parametersModels;
 
   {
     ParameterModeler param = ParameterModeler("transformer_currentLimit_maxTimeOperation", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);

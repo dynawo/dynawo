@@ -20,7 +20,7 @@
 #ifndef MODELER_COMMON_DYNCONNECTOR_H_
 #define MODELER_COMMON_DYNCONNECTOR_H_
 
-#include <unordered_map>
+#include <boost/unordered_map.hpp>
 #include <vector>
 #include <list>
 #include <boost/shared_ptr.hpp>
@@ -258,7 +258,7 @@ class ConnectorContainer {
    */
   void mergeConnectors(boost::shared_ptr<Connector> connector, boost::shared_ptr<Connector> reference,
                        std::list<boost::shared_ptr<Connector> > &connectorsList,
-                       std::unordered_map<int, boost::shared_ptr<Connector> >& connectorsByVarNum, bool flowConnector = false);
+                       boost::unordered_map<int, boost::shared_ptr<Connector> >& connectorsByVarNum, bool flowConnector = false);
 
   /**
    * @brief collect the indexes of connected discrete variables and set the model accordingly
@@ -453,10 +453,10 @@ class ConnectorContainer {
   std::vector<boost::shared_ptr<Connector> >flowConnectors_;  ///< flow connectors after merge
   std::vector<boost::shared_ptr<Connector> >zConnectors_;  ///< discrete connectors after merge
 
-  std::unordered_map<int, boost::shared_ptr<Connector> > yConnectorByVarNum_;  ///< (global) index of the variable connected -> connector
-  std::unordered_map<int, boost::shared_ptr<Connector> > flowConnectorByVarNum_;  ///< (global) index of the variable connected -> connector
-  std::unordered_map<std::string, int> flowAliasNameToFictitiousVarNum_;  ///< Alias variable name to their fictitious index
-  std::unordered_map<int, boost::shared_ptr<Connector> > zConnectorByVarNum_;  ///< (global) index of the variable connected -> connector
+  boost::unordered_map<int, boost::shared_ptr<Connector> > yConnectorByVarNum_;  ///< (global) index of the variable connected -> connector
+  boost::unordered_map<int, boost::shared_ptr<Connector> > flowConnectorByVarNum_;  ///< (global) index of the variable connected -> connector
+  boost::unordered_map<std::string, int> flowAliasNameToFictitiousVarNum_;  ///< Alias variable name to their fictitious index
+  boost::unordered_map<int, boost::shared_ptr<Connector> > zConnectorByVarNum_;  ///< (global) index of the variable connected -> connector
 
   int offsetModel_;  ///< offset to use when filling the residual's vector
   int sizeY_;  ///<  size of the Y buffer

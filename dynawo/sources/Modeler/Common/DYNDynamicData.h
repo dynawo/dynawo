@@ -25,8 +25,8 @@
 #include <set>
 #include <string>
 #include <vector>
-#include <unordered_map>
 #include <boost/shared_ptr.hpp>
+#include <boost/unordered_map.hpp>
 #include <boost/noncopyable.hpp>
 
 namespace parameters {
@@ -94,7 +94,8 @@ class DynamicData : public boost::noncopyable {
    * @brief initialize the parameter sets that were already read
    * @param parametersRef filepath->parameter sets collection
    */
-  inline void setParametersReference(const std::unordered_map<std::string, boost::shared_ptr<parameters::ParametersSetCollection> >& parametersRef) {
+  inline void setParametersReference(const boost::unordered_map<std::string,
+      boost::shared_ptr<parameters::ParametersSetCollection> >& parametersRef) {
     referenceParameters_ = parametersRef;
   }
 
@@ -257,7 +258,7 @@ class DynamicData : public boost::noncopyable {
 
  private:
   std::string rootDirectory_;  ///< directory to use as root when reading file
-  std::unordered_map<std::string,
+  boost::unordered_map<std::string,
           boost::shared_ptr<parameters::ParametersSetCollection> > referenceParameters_;  ///< association between file name and parameters collection
 
   boost::shared_ptr<dynamicdata::DynamicModelsCollection> dynamicModelsCollection_;  ///< dynamic models collection, input from API DYD

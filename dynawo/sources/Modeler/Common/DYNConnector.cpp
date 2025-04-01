@@ -36,6 +36,7 @@ using std::set;
 using std::list;
 using std::string;
 using boost::shared_ptr;
+using boost::unordered_map;
 
 namespace DYN {
 
@@ -144,7 +145,7 @@ ConnectorContainer::getConnectorVarNum(const shared_ptr<SubModel>& subModel, con
   int numVar;
   if (flowConnector && variable->isAlias()) {
     string id = subModel->name()+"_"+variable->getName();
-    std::unordered_map<std::string, int>::const_iterator aliasIt = flowAliasNameToFictitiousVarNum_.find(id);
+    boost::unordered_map<std::string, int>::const_iterator aliasIt = flowAliasNameToFictitiousVarNum_.find(id);
     if (aliasIt != flowAliasNameToFictitiousVarNum_.end()) {
       numVar = aliasIt->second;
     } else {
@@ -249,7 +250,7 @@ ConnectorContainer::propagateZConnectionInfoToModel() const {
 
 void
 ConnectorContainer::mergeConnectors(shared_ptr<Connector> connector, shared_ptr<Connector> reference, list<shared_ptr<Connector> >& connectorsList,
-                                    std::unordered_map<int, shared_ptr<Connector> >& connectorsByVarNum, bool flowConnector) {
+                                    unordered_map<int, shared_ptr<Connector> >& connectorsByVarNum, bool flowConnector) {
   // Looking for common variable to test the negated attributes
   bool negatedMerge = false;
   for (vector<connectedSubModel>::const_iterator itCon = connector->connectedSubModels().begin();
@@ -787,7 +788,7 @@ ConnectorContainer::propagateZDiff(const vector<int>& indicesDiff, double* z) {
   // z modified, it is necessary to propagate the differences if we have a connector for each indicesDiff
   for (std::size_t i = 0; i < indicesDiff.size(); ++i) {
     int index = indicesDiff[i];
-    std::unordered_map<int, shared_ptr<Connector> >::iterator iter = zConnectorByVarNum_.find(index);  // all discrete variables are not necessarily connected
+    boost::unordered_map<int, shared_ptr<Connector> >::iterator iter = zConnectorByVarNum_.find(index);  // all discrete variables are not necessarily connected
     if (iter == zConnectorByVarNum_.end())
       continue;
 

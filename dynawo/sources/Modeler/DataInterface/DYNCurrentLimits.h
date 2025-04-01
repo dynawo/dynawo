@@ -20,7 +20,7 @@
 #define MODELER_DATAINTERFACE_DYNCURRENTLIMITS_H_
 
 #include <boost/shared_ptr.hpp>
-#include <unordered_map>
+#include <boost/unordered_map.hpp>
 #include <vector>
 
 namespace DYN {
@@ -50,7 +50,7 @@ struct CurrentLimit {
 };
 /// @brief Current limits
 struct CurrentLimits {
-  std::unordered_map<CurrentLimitSide, boost::shared_ptr<CurrentLimit> > currentLimits;  ///< current limits
+  boost::unordered_map<CurrentLimitSide, boost::shared_ptr<CurrentLimit> > currentLimits;  ///< current limits
 };
 }  // namespace DYN
 
