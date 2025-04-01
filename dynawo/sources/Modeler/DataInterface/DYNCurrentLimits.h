@@ -50,22 +50,7 @@ struct CurrentLimit {
 };
 /// @brief Current limits
 struct CurrentLimits {
-  /**
- * @brief Hash structure for CurrentLimitSide
- */
-  struct CurrentLimitSideHash {
-    /**
-   * @brief Operator to retrieve currentLimitSide hash value
-   *
-   * @param currentLimitSide the currentLimitSide to hash
-   * @returns the hash value
-   */
-    size_t operator()(CurrentLimitSide currentLimitSide) const {
-      return static_cast<size_t>(currentLimitSide);
-    }
-  };
-
-  std::unordered_map<CurrentLimitSide, boost::shared_ptr<CurrentLimit>, CurrentLimitSideHash > currentLimits;  ///< current limits
+  std::unordered_map<CurrentLimitSide, boost::shared_ptr<CurrentLimit> > currentLimits;  ///< current limits
 };
 }  // namespace DYN
 
