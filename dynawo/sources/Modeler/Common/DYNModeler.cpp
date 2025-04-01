@@ -88,7 +88,7 @@ Modeler::initNetwork() {
   modelNetwork->initFromData(data_);
   data_->setModelNetwork(modelNetwork);
   modelNetwork->name("NETWORK");
-  std::shared_ptr<ParametersSet> networkParams = dyd_->getNetworkParameters();
+  shared_ptr<ParametersSet> networkParams = dyd_->getNetworkParameters();
   modelNetwork->setPARParameters(networkParams);
 
   model_->addSubModel(modelNetwork, "DYNModelNetwork" + string(sharedLibraryExtension()));
@@ -109,7 +109,7 @@ Modeler::initModelDescription() {
       model = SubModelFactory::createSubModelFromLib(itModelDescription->second->getLib());
       model->name((itModelDescription->second)->getID());
       model->staticId((itModelDescription->second)->getStaticId());
-      std::shared_ptr<ParametersSet> params = (itModelDescription->second)->getParametersSet();
+      shared_ptr<ParametersSet> params = (itModelDescription->second)->getParametersSet();
       initParamDescription(itModelDescription->second);
 
       model->setPARParameters(params);
@@ -131,7 +131,7 @@ Modeler::initModelDescription() {
 
 void
 Modeler::initParamDescription(const shared_ptr<ModelDescription>& modelDescription) {
-  std::shared_ptr<ParametersSet> params = modelDescription->getParametersSet();
+  shared_ptr<ParametersSet> params = modelDescription->getParametersSet();
 
   // params can be a nullptr if no parFile was given for the model
   if (params) {

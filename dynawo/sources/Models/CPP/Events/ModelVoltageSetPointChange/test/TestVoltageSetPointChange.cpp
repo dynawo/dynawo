@@ -27,7 +27,6 @@
 #include "DYNSubModel.h"
 #include "DYNVariable.h"
 #include "PARParametersSet.h"
-#include "PARParametersSetFactory.h"
 
 #include "gtest_dynawo.h"
 
@@ -39,7 +38,7 @@ static boost::shared_ptr<SubModel> initModelVoltageSetPointChange() {
 
   std::vector<ParameterModeler> parameters;
   modelVoltageSetPointChange->defineParameters(parameters);
-  std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("Parameterset");
+  boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
   parametersSet->createParameter("numLoads", 2);
   parametersSet->createParameter("startTime", 1.);
   parametersSet->createParameter("stopTime", 3.);
@@ -62,7 +61,7 @@ TEST(ModelsModelVoltageSetPointChange, ModelVoltageSetPointChangeDefineMethods) 
   modelVoltageSetPointChange->defineParameters(parameters);
   ASSERT_EQ(parameters.size(), 4);
 
-  std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("Parameterset");
+  boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
   parametersSet->createParameter("numLoads", 2);
   parametersSet->createParameter("startTime", 1.);
   parametersSet->createParameter("stopTime", 3.);
@@ -117,7 +116,7 @@ TEST(ModelsModelVoltageSetPointChange, ModelVoltageSetPointChangeNoStopTime) {
   modelVoltageSetPointChange->defineParameters(parameters);
   ASSERT_EQ(parameters.size(), 4);
 
-  std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("Parameterset");
+  boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
   parametersSet->createParameter("numLoads", 2);
   parametersSet->createParameter("startTime", 1.);
   parametersSet->createParameter("voltageSetPointChange", -0.05);

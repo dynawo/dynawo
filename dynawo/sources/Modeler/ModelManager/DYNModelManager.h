@@ -523,7 +523,7 @@ class ModelManager : public SubModel, private boost::noncopyable {
    * @param parametersSet the parameters' set to fill
    */
   void createParametersValueSet(const std::unordered_map<std::string, ParameterModeler>& parameters,
-      std::shared_ptr<parameters::ParametersSet>& parametersSet);
+      boost::shared_ptr<parameters::ParametersSet>& parametersSet);
 
  protected:
   /**

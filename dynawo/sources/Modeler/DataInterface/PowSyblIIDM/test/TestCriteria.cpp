@@ -36,7 +36,6 @@
 #include "CRTCriteriaParamsFactory.h"
 #include "CRTCriteriaCollection.h"
 #include "CRTCriteriaCollectionFactory.h"
-#include "PARParametersSetFactory.h"
 #include "TLTimelineFactory.h"
 #include <boost/algorithm/string.hpp>
 
@@ -752,7 +751,7 @@ initModel(shared_ptr<DataInterface> data) {
   modelNetwork->initFromData(data);
   data->setModelNetwork(modelNetwork);
   modelNetwork->name("NETWORK");
-  std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("Parameterset");
+  shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
   parametersSet->createParameter("bus_uMax", 0.);
   parametersSet->createParameter("capacitor_no_reclosing_delay", 0.);
   parametersSet->createParameter("load_alpha", 0.);

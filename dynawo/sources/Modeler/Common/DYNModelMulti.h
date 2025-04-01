@@ -472,7 +472,7 @@ class ModelMulti : public Model, private boost::noncopyable {
    *
    * @param localInitParameters local initialization solver parameters
    */
-  void setLocalInitParameters(std::shared_ptr<parameters::ParametersSet> localInitParameters);
+  void setLocalInitParameters(boost::shared_ptr<parameters::ParametersSet> localInitParameters);
 
  private:
   /**
@@ -606,7 +606,7 @@ class ModelMulti : public Model, private boost::noncopyable {
   std::vector<size_t> notUsedInContinuousEqSilentZIndexes_;  ///< indexes of silent discrete variables not used in continuous equations
   std::vector<size_t> nonSilentZIndexes_;  ///< indexes of non silent discrete variables
 
-  std::shared_ptr<parameters::ParametersSet> localInitParameters_;  ///< local initialization solver parameters set
+  boost::shared_ptr<parameters::ParametersSet> localInitParameters_;  ///< local initialization solver parameters set
 };  ///< Class for Multiple-Model
 
 

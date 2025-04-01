@@ -17,11 +17,12 @@
  */
 
 #include <sstream>
+#include <list>
+#include <set>
 #include <iomanip>
 
 // files in API parameter
 #include "PARParametersSet.h"
-#include "PARParametersSetFactory.h"
 #include "PARParametersSetCollection.h"
 #include "PARReference.h"
 #include "PARReferenceFactory.h"
@@ -56,13 +57,15 @@
 #include "DYDMacroConnector.h"
 
 using std::vector;
+using std::list;
+using std::pair;
+using std::set;
 using std::string;
 using std::setw;
 using boost::shared_ptr;
 using boost::dynamic_pointer_cast;
 
 using parameters::ParametersSet;
-using parameters::ParametersSetFactory;
 using parameters::Parameter;
 using parameters::ParametersSetCollection;
 using parameters::Reference;
@@ -212,13 +215,13 @@ DynamicData::associateParameters() {
 
         // for Modelica models, add a unit dynamic model (the reference udm) prefix to parameter names
       case Model::MODELICA_MODEL: {
-        std::shared_ptr<ParametersSet> modelSet = ParametersSetFactory::newParametersSet(model->getId());
+        shared_ptr<ParametersSet> modelSet(shared_ptr<ParametersSet>(new ParametersSet(model->getId())));
         shared_ptr<ModelicaModel> modelicaModel = dynamic_pointer_cast<ModelicaModel>(model);
         const std::map<string, shared_ptr<UnitDynamicModel> >& models = modelicaModel->getUnitDynamicModels();
 
         std::map<string, shared_ptr<UnitDynamicModel> >::const_iterator itUDM = models.begin();
         for (; itUDM != models.end(); ++itUDM) {
-          std::shared_ptr<ParametersSet> udmSet = getParametersSet(model->getId(), itUDM->second->getParFile(), itUDM->second->getParId());
+          shared_ptr<ParametersSet> udmSet = getParametersSet(model->getId(), itUDM->second->getParFile(), itUDM->second->getParId());
           resolveParReferences(model, udmSet);
           if (unitDynamicModelsMap_.find(itUDM->second) == unitDynamicModelsMap_.end())
             throw DYNError(Error::MODELER, UDMUndefined, itUDM->first, model->getId());
@@ -234,14 +237,14 @@ DynamicData::associateParameters() {
       }
       case Model::BLACK_BOX_MODEL: {
         shared_ptr<BlackBoxModel> bbm = dynamic_pointer_cast<BlackBoxModel>(model);
-        std::shared_ptr<ParametersSet> modelSet = getParametersSet(bbm->getId(), bbm->getParFile(), bbm->getParId());
+        shared_ptr<ParametersSet> modelSet = getParametersSet(bbm->getId(), bbm->getParFile(), bbm->getParId());
         resolveParReferences(bbm, modelSet);
         (iter->second)->setParametersSet(modelSet);
         break;
       }
       case Model::MODEL_TEMPLATE_EXPANSION: {
         shared_ptr<ModelTemplateExpansion> modelTemplateExp = dynamic_pointer_cast<ModelTemplateExpansion>(model);
-        std::shared_ptr<ParametersSet> modelSet = getParametersSet(modelTemplateExp->getId(), modelTemplateExp->getParFile(), modelTemplateExp->getParId());
+        shared_ptr<ParametersSet> modelSet = getParametersSet(modelTemplateExp->getId(), modelTemplateExp->getParFile(), modelTemplateExp->getParId());
         resolveParReferences(modelTemplateExp, modelSet);
         (iter->second)->setParametersSet(modelSet);
         break;
@@ -251,18 +254,18 @@ DynamicData::associateParameters() {
   DYNErrorQueue::instance().flush();
 }
 
-std::shared_ptr<ParametersSet>
+shared_ptr<ParametersSet>
 DynamicData::getParametersSet(const string& modelId, const string& parFile, const string& parId) {
   if (parFile == "" && parId == "") {
-    return std::shared_ptr<ParametersSet>();
+    return shared_ptr<ParametersSet>();
   }
   if (parFile != "" && parId == "") {
     DYNErrorQueue::instance().push(DYNError(Error::API, MissingParameterId, modelId));
-    return std::shared_ptr<ParametersSet>();
+    return shared_ptr<ParametersSet>();
   }
   if (parFile == "" && parId != "") {
     DYNErrorQueue::instance().push(DYNError(Error::API, MissingParameterFile, modelId));
-    return std::shared_ptr<ParametersSet>();
+    return shared_ptr<ParametersSet>();
   }
 
   std::string canonicalParFilePath = canonical(parFile, rootDirectory_);
@@ -279,7 +282,7 @@ DynamicData::getParametersSet(const string& modelId, const string& parFile, cons
 }
 
 void
-DynamicData::resolveParReferences(shared_ptr<Model> model, std::shared_ptr<ParametersSet> modelSet) {
+DynamicData::resolveParReferences(shared_ptr<Model> model, shared_ptr<ParametersSet> modelSet) {
   if (modelSet == nullptr)
     return;
   std::unordered_map<std::string, boost::shared_ptr<Reference> >& references = modelSet->getReferences();
@@ -292,7 +295,7 @@ DynamicData::resolveParReferences(shared_ptr<Model> model, std::shared_ptr<Param
         }
         parRef->setParFile(modelSet->getFilePath());
       }
-      const std::shared_ptr<ParametersSet> referencedParametersSet = getParametersSet(model->getId(), parRef->getParFile(), parRef->getParId());
+      const shared_ptr<ParametersSet> referencedParametersSet = getParametersSet(model->getId(), parRef->getParFile(), parRef->getParId());
       const std::unordered_map<std::string, shared_ptr<parameters::Reference> > refParamSetReferences = referencedParametersSet->getReferences();
       const std::unordered_map<std::string, shared_ptr<Reference> >::const_iterator itRef = refParamSetReferences.find(parRef->getOrigName());
       if (itRef != references.end())
@@ -403,7 +406,7 @@ DynamicData::createModelDescriptions() {
 }
 
 void
-DynamicData::mergeParameters(std::shared_ptr<ParametersSet>& concatParams, const string& udmName, const std::shared_ptr<ParametersSet>& udmSet) {
+DynamicData::mergeParameters(shared_ptr<ParametersSet>& concatParams, const string& udmName, const shared_ptr<ParametersSet>& udmSet) {
   // for parameters in parameterSet
   vector<string> parametersName = udmSet->getParametersNames();
   for (vector<string>::const_iterator itName = parametersName.begin(); itName != parametersName.end(); ++itName) {
@@ -446,7 +449,7 @@ DynamicData::mergeParameters(std::shared_ptr<ParametersSet>& concatParams, const
 
 void
 DynamicData::getNetworkParameters(const string& parFile, const string& parSet) {
-  std::shared_ptr<ParametersSet> parameters = getParametersSet("network", parFile, parSet);
+  shared_ptr<ParametersSet> parameters = getParametersSet("network", parFile, parSet);
   DYNErrorQueue::instance().flush();
   setNetworkParameters(parameters);
 }

@@ -27,7 +27,6 @@
 #include "DYNSubModel.h"
 #include "DYNVariable.h"
 #include "PARParametersSet.h"
-#include "PARParametersSetFactory.h"
 
 #include "gtest_dynawo.h"
 
@@ -39,7 +38,7 @@ static boost::shared_ptr<SubModel> initModelLoad(double u0Pu) {
 
   std::vector<ParameterModeler> parameters;
   modelLoad->defineParameters(parameters);
-  std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("Parameterset");
+  boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
   parametersSet->createParameter("load_U0Pu", u0Pu);
   parametersSet->createParameter("load_tFilter", 10.);
   parametersSet->createParameter("load_Alpha", 1.5);
@@ -68,7 +67,7 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsDefineMethod
   modelLoad->defineParameters(parameters);
   ASSERT_EQ(parameters.size(), 10);
 
-  std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("Parameterset");
+  boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
   parametersSet->createParameter("load_U0Pu", 1.);
   parametersSet->createParameter("load_tFilter", 10.);
   parametersSet->createParameter("load_Alpha", 1.5);
@@ -102,7 +101,8 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsDefineMethod
   std::vector<ParameterModeler> parameters_missingPar;
   modelLoad_missingPar->defineParameters(parameters_missingPar);
 
-  std::shared_ptr<parameters::ParametersSet> parametersSet_missingPar = parameters::ParametersSetFactory::newParametersSet("Parameterset");
+  boost::shared_ptr<parameters::ParametersSet> parametersSet_missingPar =
+  boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
   parametersSet_missingPar->createParameter("load_U0Pu", 1.);
   ASSERT_NO_THROW(modelLoad_missingPar->setPARParameters(parametersSet_missingPar));
   modelLoad_missingPar->addParameters(parameters_missingPar, false);

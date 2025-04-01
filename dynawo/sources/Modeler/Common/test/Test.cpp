@@ -40,7 +40,6 @@
 #include "DYNModelMulti.h"
 #include "DYNSubModel.h"
 #include "PARParametersSet.h"
-#include "PARParametersSetFactory.h"
 #include "DYNDynamicData.h"
 
 #include "DYNError.h"
@@ -51,7 +50,6 @@ using boost::shared_ptr;
 using boost::dynamic_pointer_cast;
 
 using parameters::ParametersSet;
-using parameters::ParametersSetFactory;
 
 namespace DYN {
 
@@ -457,7 +455,7 @@ TEST(ModelerCommonTest, SetParameterFromPARFile) {
   const bool isInitParam = false;
 
   // Create a parameter set
-  std::shared_ptr<parameters::ParametersSet> parametersSet = ParametersSetFactory::newParametersSet("Parameterset");
+  boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<ParametersSet>(new ParametersSet("Parameterset"));
   std::string string_value = "ok";
   parametersSet->createParameter("name_bool", false)
           ->createParameter("name_int", 2)
@@ -523,7 +521,7 @@ TEST(ModelerCommonTest, SetParametersFromPARFile) {
   const bool isInitParam = false;
 
   // Create parameter set
-  std::shared_ptr<parameters::ParametersSet> parametersSet = ParametersSetFactory::newParametersSet("Parameterset");
+  boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<ParametersSet>(new ParametersSet("Parameterset"));
   const std::string string_value = "ok";
   parametersSet->createParameter("name_bool", false)
           ->createParameter("name_int", 2)
@@ -930,7 +928,7 @@ TEST(ModelerCommonTest, ModelerCommonUtilities) {
 
 TEST(ModelerCommonTest, testNoParFile) {
   boost::shared_ptr<DynamicData> dyd(new DynamicData());
-  std::shared_ptr<parameters::ParametersSet> params;
+  boost::shared_ptr<parameters::ParametersSet> params;
   ASSERT_NO_THROW(params = dyd->getParametersSet("MyModel", "", ""));
   assert(!params);
 }

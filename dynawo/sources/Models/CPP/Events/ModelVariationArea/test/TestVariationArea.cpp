@@ -27,7 +27,6 @@
 #include "DYNSubModel.h"
 #include "DYNVariable.h"
 #include "PARParametersSet.h"
-#include "PARParametersSetFactory.h"
 
 #include "gtest_dynawo.h"
 
@@ -38,7 +37,7 @@ static boost::shared_ptr<SubModel> initModelVariationArea(double deltaPLoad2, do
 
   std::vector<ParameterModeler> parameters;
   modelVariationArea->defineParameters(parameters);
-  std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("Parameterset");
+  boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
   parametersSet->createParameter("nbLoads", 2);
   parametersSet->createParameter("startTime", 0.);
   parametersSet->createParameter("stopTime", 5.);
@@ -63,7 +62,7 @@ TEST(ModelsModelVariationArea, ModelVariationAreaDefineMethods) {
   modelVariationArea->defineParameters(parameters);
   ASSERT_EQ(parameters.size(), 5);
 
-  std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("Parameterset");
+  boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
   parametersSet->createParameter("nbLoads", 2);
   parametersSet->createParameter("startTime", 0.);
   parametersSet->createParameter("stopTime", 5.);

@@ -520,7 +520,7 @@ class Model {
    * @brief set the local initialization solver parameters of the model
    * @param localInitParameters local initialization solver parameters set
    */
-  virtual void setLocalInitParameters(std::shared_ptr<parameters::ParametersSet> localInitParameters) = 0;
+  virtual void setLocalInitParameters(boost::shared_ptr<parameters::ParametersSet> localInitParameters) = 0;
 };  ///< Generic class for Model
 
 #ifdef __clang__

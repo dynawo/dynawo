@@ -27,7 +27,6 @@
 #include "DYNSubModel.h"
 #include "DYNVariable.h"
 #include "PARParametersSet.h"
-#include "PARParametersSetFactory.h"
 
 #include "gtest_dynawo.h"
 
@@ -39,7 +38,7 @@ static boost::shared_ptr<SubModel> initModelShunt(int nbShunts, int section0 = 0
 
   std::vector<ParameterModeler> parameters;
   modelShunt->defineParameters(parameters);
-  std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("Parameterset");
+  boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
   parametersSet->createParameter("nbShunts", nbShunts);
   parametersSet->createParameter("tNext", 10.);
   parametersSet->createParameter("URef0Pu", 0.95);
@@ -77,7 +76,7 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
   std::vector<ParameterModeler> parameters;
   modelShunt->defineParameters(parameters);
   ASSERT_EQ(parameters.size(), 8);
-  std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("Parameterset");
+  boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
   parametersSet->createParameter("nbShunts", 1);
   parametersSet->createParameter("section0_0", 0);
   parametersSet->createParameter("sectionMin_0", 0);
@@ -105,7 +104,8 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
   std::vector<ParameterModeler> parameters_missingPar;
   modelShunt_missingPar->defineParameters(parameters_missingPar);
 
-  std::shared_ptr<parameters::ParametersSet> parametersSet_missingPar = parameters::ParametersSetFactory::newParametersSet("Parameterset");
+  boost::shared_ptr<parameters::ParametersSet> parametersSet_missingPar =
+  boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
   parametersSet_missingPar->createParameter("nbShunts", 1);
   ASSERT_NO_THROW(modelShunt_missingPar->setPARParameters(parametersSet_missingPar));
   modelShunt_missingPar->addParameters(parameters_missingPar, false);

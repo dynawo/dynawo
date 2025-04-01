@@ -47,6 +47,7 @@
 #include "DYNTimer.h"
 #include "DYNDataInterface.h"
 
+using std::ofstream;
 using std::stringstream;
 using std::vector;
 using std::map;
@@ -170,7 +171,7 @@ SubModel::restoreData() {
 }
 
 void
-SubModel::initSub(const double t0, std::shared_ptr<parameters::ParametersSet> localInitParameters) {
+SubModel::initSub(const double t0, boost::shared_ptr<parameters::ParametersSet> localInitParameters) {
   setCurrentTime(t0);
 
   localInitParameters_ = localInitParameters;
@@ -196,7 +197,7 @@ SubModel::initSub(const double t0, std::shared_ptr<parameters::ParametersSet> lo
 }
 
 void
-SubModel::setPARParameters(const std::shared_ptr<parameters::ParametersSet>& params) {
+SubModel::setPARParameters(const shared_ptr<parameters::ParametersSet>& params) {
   readPARParameters_ = params;
 }
 
@@ -479,7 +480,7 @@ SubModel::instantiateNonUnitaryParameters(const bool isInitParam,
 }
 
 void
-SubModel::setParameterFromSet(ParameterModeler& parameter, const std::shared_ptr<parameters::ParametersSet>& parametersSet,
+SubModel::setParameterFromSet(ParameterModeler& parameter, const shared_ptr<parameters::ParametersSet>& parametersSet,
                               const parameterOrigin_t& origin) {
   if (parametersSet) {
     const string& parName = parameter.getName();

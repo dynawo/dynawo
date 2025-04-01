@@ -275,7 +275,7 @@ class SetHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief return the set of parameters read in xml file
    * @return set of parameters object build thanks to infos read in xml file
    */
-  std::shared_ptr<ParametersSet> get() const;
+  boost::shared_ptr<ParametersSet> get() const;
 
   /**
    * @brief  add a reference object to the set of parameters
@@ -305,7 +305,7 @@ class SetHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const & attributes);
 
  private:
-  std::shared_ptr<ParametersSet> setRead_;  ///< current set of parameters object
+  boost::shared_ptr<ParametersSet> setRead_;  ///< current set of parameters object
   ParHandler parHandler_;  ///< handler used to read par element
   ParTableHandler parTableHandler_;  ///< handler used to read parTable element
   RefHandler refHandler_;  ///< handler used to read reference element

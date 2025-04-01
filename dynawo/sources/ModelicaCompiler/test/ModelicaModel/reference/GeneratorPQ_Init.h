@@ -39,8 +39,8 @@ namespace DYN {
     void evalStaticFType_omc(propertyF_t* fType);
     void evalDynamicYType_omc(propertyContinuousVar_t* yType);
     void evalDynamicFType_omc(propertyF_t* fType);
-    std::shared_ptr<parameters::ParametersSet> setSharedParametersDefaultValues(); ///< set parameter values based on internal Modelica data
-    void setParameters(std::shared_ptr<parameters::ParametersSet> params );
+    boost::shared_ptr<parameters::ParametersSet> setSharedParametersDefaultValues(); ///< set parameter values based on internal Modelica data
+    void setParameters(boost::shared_ptr<parameters::ParametersSet> params );
     void defineVariables(std::vector< boost::shared_ptr<Variable> >& variables);
     void defineParameters(std::vector<ParameterModeler>& parameters);
     void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
@@ -60,7 +60,7 @@ namespace DYN {
     inline void setModelType(std::string modelType) { modelType_ = modelType; }
     inline ModelManager * getModelManager() const { return modelManager_; }
     inline void setModelManager (ModelManager * model) { modelManager_ = model; }
-    void checkSum(std::string & checkSum) { checkSum = std::string("96944ff6f8df698d2b20d3bb7a28dbd5"); }
+    void checkSum(std::string & checkSum) { checkSum = std::string("710fb4438768552afaed62d456c8e0a4"); }
     inline bool isDataStructInitialized() const { return dataStructInitialized_; }
 
     private:

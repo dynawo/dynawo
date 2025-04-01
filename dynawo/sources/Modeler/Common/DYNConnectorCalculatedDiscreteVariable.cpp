@@ -37,6 +37,7 @@ using std::vector;
 using std::map;
 using boost::shared_ptr;
 
+using parameters::ParametersSet;
 
 namespace DYN {
 

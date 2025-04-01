@@ -2852,7 +2852,7 @@ class Factory:
         lines_local_par_definition.append('\n')
 
         # create and fill parameters' set
-        self.list_for_setsharedparamsdefault.append('  std::shared_ptr<parameters::ParametersSet> ' + parameters_set_name + ' = parameters::ParametersSetFactory::newParametersSet("SharedModelicaParameters");\n')
+        self.list_for_setsharedparamsdefault.append('  boost::shared_ptr<parameters::ParametersSet> ' + parameters_set_name + ' = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("SharedModelicaParameters"));\n')
 
         line_par_other = []
         for par in filter(lambda x: (param_scope(x) ==  SHARED_PARAMETER), self.list_params_real + self.list_params_bool + self.list_params_integer + self.list_params_string):

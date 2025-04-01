@@ -34,7 +34,7 @@ using DYN::Error;
 namespace parameters {
 
 void
-ParametersSetCollection::addParametersSet(std::shared_ptr<ParametersSet> paramSet, bool force) {
+ParametersSetCollection::addParametersSet(shared_ptr<ParametersSet> paramSet, bool force) {
   assert(paramSet && "impossible to add null parameter set pointer to collection");
 
   string id = paramSet->getId();
@@ -58,9 +58,9 @@ ParametersSetCollection::addMacroParameterSet(shared_ptr<MacroParameterSet> macr
   macroParametersSets_[id] = macroParamSet;
 }
 
-std::shared_ptr<ParametersSet>
+shared_ptr<ParametersSet>
 ParametersSetCollection::getParametersSet(const string& id) {
-  map<string, std::shared_ptr<ParametersSet> >::iterator itParamSet = parametersSets_.find(id);
+  map< string, shared_ptr<ParametersSet> >::iterator itParamSet = parametersSets_.find(id);
   if (itParamSet == parametersSets_.end())
     throw DYNError(DYN::Error::API, ParametersSetNotFound, id);
   return itParamSet->second;
@@ -68,7 +68,7 @@ ParametersSetCollection::getParametersSet(const string& id) {
 
 void
 ParametersSetCollection::getParametersFromMacroParameter() {
-  for (map<string, std::shared_ptr<ParametersSet> >::iterator itParamSet = parametersSets_.begin(), itParamSetEnd = parametersSets_.end();
+  for (map< string, shared_ptr<ParametersSet> >::iterator itParamSet = parametersSets_.begin(), itParamSetEnd = parametersSets_.end();
       itParamSet != itParamSetEnd; ++itParamSet) {
     // if a macroParSet is defined in the set, we add the references and parameters associated
     if (itParamSet->second->hasMacroParSet()) {
@@ -104,7 +104,7 @@ ParametersSetCollection::hasMacroParametersSet(const string& id) const {
 
 void
 ParametersSetCollection::propagateOriginData(const std::string& filepath) {
-  for (map<string, std::shared_ptr<ParametersSet> >::const_iterator itParams = parametersSets_.begin();
+  for (map<string, shared_ptr<ParametersSet> >::const_iterator itParams = parametersSets_.begin();
           itParams != parametersSets_.end();
           ++itParams) {
     itParams->second->setFilePath(filepath);
@@ -160,12 +160,12 @@ ParametersSetCollection::parametersSet_const_iterator::operator!=(const Paramete
   return current_ != other.current_;
 }
 
-const std::shared_ptr<ParametersSet>&
+const shared_ptr<ParametersSet>&
 ParametersSetCollection::parametersSet_const_iterator::operator*() const {
   return current_->second;
 }
 
-const std::shared_ptr<ParametersSet>*
+const shared_ptr<ParametersSet>*
 ParametersSetCollection::parametersSet_const_iterator::operator->() const {
   return &(current_->second);
 }

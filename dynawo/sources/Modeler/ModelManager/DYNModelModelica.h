@@ -125,7 +125,7 @@ class ModelModelica {
    *
    * @param params set of parameters where to read the values of the model's parameters
    */
-  virtual void setParameters(std::shared_ptr<parameters::ParametersSet> params) = 0;
+  virtual void setParameters(boost::shared_ptr<parameters::ParametersSet> params) = 0;
 
   /**
    * @brief defines the variables of the model
@@ -245,7 +245,7 @@ class ModelModelica {
    *
    * @return a parameters set filled with default values
    */
-  virtual std::shared_ptr<parameters::ParametersSet> setSharedParametersDefaultValues() = 0;
+  virtual boost::shared_ptr<parameters::ParametersSet> setSharedParametersDefaultValues() = 0;
 
   /**
    * @brief compute the value of calculated variables

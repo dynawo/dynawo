@@ -26,7 +26,6 @@
 
 #include "DYDModel.h"
 #include "PARParametersSet.h"
-#include "PARParametersSetFactory.h"
 
 
 namespace DYN {
@@ -137,16 +136,16 @@ class ModelDescription {
    * @brief Associate a set of parameters to the model
    * @param params : set of parameters associated to the model
    */
-  inline void setParametersSet(const std::shared_ptr<parameters::ParametersSet>& params) {
+  inline void setParametersSet(const boost::shared_ptr<parameters::ParametersSet>& params) {
     if (params)
-      parameters_ = parameters::ParametersSetFactory::copySet(params);
+      parameters_ = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet(*params));
   }
 
   /**
    * @brief Get the set of parameters associated to the model
    * @return the set of parameters associated to the model
    */
-  inline std::shared_ptr<parameters::ParametersSet> getParametersSet() const {
+  inline boost::shared_ptr<parameters::ParametersSet> getParametersSet() const {
     return parameters_;
   }
 
@@ -202,7 +201,7 @@ class ModelDescription {
  protected:
   boost::shared_ptr<dynamicdata::Model> model_;  ///< dynamic model
   boost::weak_ptr<SubModel> subModel_;  ///< submodel associated to the model description
-  std::shared_ptr<parameters::ParametersSet> parameters_;  ///< set of parameters associated to the model
+  boost::shared_ptr<parameters::ParametersSet> parameters_;  ///< set of parameters associated to the model
   std::vector<boost::shared_ptr<StaticRefInterface> > staticRefInterfaces_;  ///< Static reference
   std::string compiledModelId_;  ///< Compiled Model ID
   std::string lib_;  ///< compiled lib .so

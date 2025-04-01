@@ -7,7 +7,6 @@
 #include <math.h>
 
 #include "DYNElement.h"
-#include "PARParametersSetFactory.h"
 
 #include "GeneratorPQ_Dyn.h"
 #include "GeneratorPQ_Dyn_definition.h"
@@ -623,13 +622,13 @@ void ModelGeneratorPQ_Dyn::evalDynamicFType_omc(propertyF_t* fType)
 {
 }
 
-std::shared_ptr<parameters::ParametersSet> ModelGeneratorPQ_Dyn::setSharedParametersDefaultValues()
+boost::shared_ptr<parameters::ParametersSet> ModelGeneratorPQ_Dyn::setSharedParametersDefaultValues()
 {
 
    // Propagating shared parameters default value 
 
    // This value may be updated later on through *.par/*.iidm data 
-  std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("SharedModelicaParameters");
+  boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("SharedModelicaParameters"));
   int generator_NbSwitchOffSignals_internal;
   int generator_State0_internal;
 
@@ -640,7 +639,7 @@ std::shared_ptr<parameters::ParametersSet> ModelGeneratorPQ_Dyn::setSharedParame
   return parametersSet;
 }
 
-void ModelGeneratorPQ_Dyn::setParameters( std::shared_ptr<parameters::ParametersSet> params )
+void ModelGeneratorPQ_Dyn::setParameters( boost::shared_ptr<parameters::ParametersSet> params )
 {
   generator_AlphaPu_ = params->getParameter("generator_AlphaPu")->getDouble();
   generator_PGen0Pu_ = params->getParameter("generator_PGen0Pu")->getDouble();

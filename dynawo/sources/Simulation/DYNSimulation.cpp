@@ -74,7 +74,6 @@
 #include "LEQXmlExporter.h"
 
 #include "PARParametersSet.h"
-#include "PARParametersSetFactory.h"
 #include "PARXmlImporter.h"
 
 #include "CRTXmlImporter.h"
@@ -141,7 +140,6 @@ using finalStateValues::FinalStateValuesCollectionFactory;
 using constraints::ConstraintsCollectionFactory;
 
 using parameters::ParametersSet;
-using parameters::ParametersSetFactory;
 using parameters::ParametersSetCollection;
 
 static const char TIME_FILENAME[] = "time.bin";  ///< name of the file to dump time at the end of the simulation
@@ -671,7 +669,7 @@ Simulation::setSolver() {
   string parId = jobEntry_->getSolverEntry()->getParametersId();
   parameters->getParametersFromMacroParameter();
   if (parameters->getParametersSet(parId)) {
-    std::shared_ptr<ParametersSet> solverParams = ParametersSetFactory::copySet(parameters->getParametersSet(parId));
+    shared_ptr<ParametersSet> solverParams = boost::shared_ptr<ParametersSet>(new ParametersSet(*parameters->getParametersSet(parId)));
     solver_->setParameters(solverParams);
 
 #ifdef _DEBUG_
@@ -789,7 +787,7 @@ Simulation::initFromData(const shared_ptr<DataInterface>& data, const shared_ptr
     const std::string parId = jobEntry_->getLocalInitEntry()->getParId();
     parameters::XmlImporter parametersImporter;
     boost::shared_ptr<ParametersSetCollection> localInitSetCollection = parametersImporter.importFromFile(initParFile);
-    std::shared_ptr<ParametersSet> localInitParameters = localInitSetCollection->getParametersSet(parId);
+    boost::shared_ptr<ParametersSet> localInitParameters = localInitSetCollection->getParametersSet(parId);
 
     model_->setLocalInitParameters(localInitParameters);
   }

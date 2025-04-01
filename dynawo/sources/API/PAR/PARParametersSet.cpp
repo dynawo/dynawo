@@ -79,7 +79,7 @@ vector<string> ParametersSet::tableParameterNames(const string& name, const stri
   return names;
 }
 
-std::shared_ptr<ParametersSet> ParametersSet::createAlias(const string& aliasName, const string& origName) {
+shared_ptr<ParametersSet> ParametersSet::createAlias(const string& aliasName, const string& origName) {
   if ((!hasParameter(origName)) || (hasParameter(aliasName))) {
     throw DYNError(DYN::Error::API, ParameterAliasFailed, aliasName, origName, id_);
   }
@@ -90,47 +90,47 @@ std::shared_ptr<ParametersSet> ParametersSet::createAlias(const string& aliasNam
 
 // only create one parameter object, then create aliases pointing towards the first object
 
-std::shared_ptr<ParametersSet>
+shared_ptr<ParametersSet>
 ParametersSet::createParameter(const string& name, bool value, const string& row, const string& column) {
   return addParameter<bool>(name, value, row, column);
 }
 
-std::shared_ptr<ParametersSet>
+shared_ptr<ParametersSet>
 ParametersSet::createParameter(const string& name, int value, const string& row, const string& column) {
   return addParameter<int>(name, value, row, column);
 }
 
-std::shared_ptr<ParametersSet>
+shared_ptr<ParametersSet>
 ParametersSet::createParameter(const string& name, double value, const string& row, const string& column) {
   return addParameter<double>(name, value, row, column);
 }
 
-std::shared_ptr<ParametersSet>
+shared_ptr<ParametersSet>
 ParametersSet::createParameter(const string& name, const string& value, const string& row, const string& column) {
   return addParameter<string>(name, value, row, column);
 }
 
-std::shared_ptr<ParametersSet>
+shared_ptr<ParametersSet>
 ParametersSet::createParameter(const string& name, const bool value) {
   return addParameter(ParameterFactory::newParameter(name, value));
 }
 
-std::shared_ptr<ParametersSet>
+shared_ptr<ParametersSet>
 ParametersSet::createParameter(const string& name, const int value) {
   return addParameter(ParameterFactory::newParameter(name, value));
 }
 
-std::shared_ptr<ParametersSet>
+shared_ptr<ParametersSet>
 ParametersSet::createParameter(const string& name, const double value) {
   return addParameter(ParameterFactory::newParameter(name, value));
 }
 
-std::shared_ptr<ParametersSet>
+shared_ptr<ParametersSet>
 ParametersSet::createParameter(const string& name, const string& value) {
   return addParameter(ParameterFactory::newParameter(name, value));
 }
 
-std::shared_ptr<ParametersSet>
+shared_ptr<ParametersSet>
 ParametersSet::addParameter(const shared_ptr<Parameter>& param) {
   const string name = param->getName();
   if (hasParameter(name)) {
@@ -140,7 +140,7 @@ ParametersSet::addParameter(const shared_ptr<Parameter>& param) {
   return shared_from_this();
 }
 
-std::shared_ptr<ParametersSet>
+boost::shared_ptr<ParametersSet>
 ParametersSet::addMacroParSet(const shared_ptr<MacroParSet>& macroParSet) {
   const string id = macroParSet->getId();
   if (hasMacroParSet(id))
@@ -189,7 +189,7 @@ ParametersSet::hasReference(const string& name) const {
 }
 
 void
-ParametersSet::extend(std::shared_ptr<ParametersSet> parametersSet) {
+ParametersSet::extend(shared_ptr<ParametersSet> parametersSet) {
   const map<string, shared_ptr<Parameter> >& mapParameters = dynamic_pointer_cast<ParametersSet>(parametersSet)->getParameters();
   parameters_.insert(mapParameters.begin(), mapParameters.end());
 }
@@ -235,7 +235,7 @@ ParametersSet::getReferencesNames() const {
   return returnVector;
 }
 
-std::shared_ptr<ParametersSet>
+shared_ptr<ParametersSet>
 ParametersSet::addReference(boost::shared_ptr<Reference> ref) {
   const string& refName = ref->getName();
   if (hasReference(refName)) {
