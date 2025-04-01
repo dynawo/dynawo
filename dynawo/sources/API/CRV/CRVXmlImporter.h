@@ -36,12 +36,12 @@ class XmlImporter : public Importer {
   /**
    * @copydoc Importer::importFromFile()
    */
-  std::shared_ptr<CurvesCollection> importFromFile(const std::string& fileName) const;
+  boost::shared_ptr<CurvesCollection> importFromFile(const std::string& fileName) const;
 
    /**
    * @copydoc Importer::importFromStream()
    */
-  std::shared_ptr<CurvesCollection> importFromStream(std::istream& stream) const;
+  boost::shared_ptr<CurvesCollection> importFromStream(std::istream& stream) const;
 };
 
 }  // namespace curves

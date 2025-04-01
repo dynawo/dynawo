@@ -177,9 +177,9 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
     findLostEquipments(const boost::shared_ptr<std::vector<boost::shared_ptr<ComponentInterface> > >& connectedComponents);
 
   /**
-   * @copydoc DataInterface::configureCriteria(const std::shared_ptr<criteria::CriteriaCollection>& criteria)
+   * @copydoc DataInterface::configureCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria)
    */
-  void configureCriteria(const std::shared_ptr<criteria::CriteriaCollection>& criteria);
+  void configureCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria);
 
   /**
    * @copydoc DataInterface::checkCriteria(double t, bool finalStep)
@@ -410,21 +410,21 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
    *
    * @param criteria criteria to be used
    */
-  void configureBusCriteria(const std::shared_ptr<criteria::CriteriaCollection>& criteria);
+  void configureBusCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria);
 
   /**
    * @brief configure the load criteria
    *
    * @param criteria criteria to be used
    */
-  void configureLoadCriteria(const std::shared_ptr<criteria::CriteriaCollection>& criteria);
+  void configureLoadCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria);
 
   /**
    * @brief configure the generator criteria
    *
    * @param criteria criteria to be used
    */
-  void configureGeneratorCriteria(const std::shared_ptr<criteria::CriteriaCollection>& criteria);
+  void configureGeneratorCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria);
 
   /**
    * @brief Copy data interface info

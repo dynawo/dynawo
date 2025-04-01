@@ -21,12 +21,13 @@
 #include "CSTRConstraintFactory.h"
 #include "CSTRConstraint.h"
 
+using boost::shared_ptr;
 
 namespace constraints {
 
-std::unique_ptr<Constraint>
+shared_ptr<Constraint>
 ConstraintFactory::newConstraint() {
-  return std::unique_ptr<Constraint>(new Constraint());
+  return shared_ptr<Constraint>(new Constraint());
 }
 
 }  // namespace constraints

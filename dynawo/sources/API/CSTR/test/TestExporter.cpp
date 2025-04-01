@@ -27,7 +27,7 @@
 namespace constraints {
 
 TEST(APICSTRTest, ConstraintsCollectionXmlExporter) {
-  std::unique_ptr<ConstraintsCollection> constraintsCollection1 = ConstraintsCollectionFactory::newInstance("Constraints");
+  boost::shared_ptr<ConstraintsCollection> constraintsCollection1 = ConstraintsCollectionFactory::newInstance("Constraints");
 
   constraintsCollection1->addConstraint("model", "USupUmax", 80, CONSTRAINT_BEGIN, "Bus");
   constraintsCollection1->addConstraint("model", "OverloadUp", 80, CONSTRAINT_BEGIN, "Line");
@@ -44,7 +44,7 @@ TEST(APICSTRTest, ConstraintsCollectionXmlExporter) {
 
   XmlExporter exporter;
   std::stringstream ss;
-  exporter.exportToStream(std::move(constraintsCollection1), ss);
+  exporter.exportToStream(constraintsCollection1, ss);
   ASSERT_EQ(ss.str(), "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>\n"
       "<constraints xmlns=\"http://www.rte-france.com/dynawo\">\n  "
       "<constraint modelName=\"model\" description=\"OverloadUp\" time=\"80.000000\" type=\"Line\"/>\n  "

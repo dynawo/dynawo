@@ -170,10 +170,10 @@ createModelHvdcLink(bool initModel, bool withVsc, powsybl::iidm::Network& networ
 
   ModelNetwork* network = new ModelNetwork();
   network->setIsInitModel(initModel);
-  std::unique_ptr<constraints::ConstraintsCollection> constraints =
+  boost::shared_ptr<constraints::ConstraintsCollection> constraints =
       constraints::ConstraintsCollectionFactory::newInstance("MyConstraintsCollection");
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
-  network->setConstraints(std::move(constraints));
+  network->setConstraints(constraints);
   shared_ptr<ModelHvdcLink> hvdc;
   shared_ptr<HvdcLineInterfaceIIDM> hvdcItfIIDM;
   if (withVsc) {

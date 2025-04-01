@@ -67,7 +67,7 @@ genCriteriaHandler_(parser::ElementName(namespace_uri(), "generatorCriteria")) {
 
 XmlHandler::~XmlHandler() {}
 
-std::shared_ptr<CriteriaCollection>
+shared_ptr<CriteriaCollection>
 XmlHandler::getCriteriaCollection() {
   return criteriaCollection_;
 }
@@ -164,7 +164,7 @@ CriteriaParamsHandler::addCriteriaParamsVoltageLevel() {
     criteriaParamsRead_->addVoltageLevel(*criteriaParamsVoltageLevelHandler_.get());
 }
 
-std::shared_ptr<CriteriaParams>
+shared_ptr<CriteriaParams>
 CriteriaParamsHandler::get() const {
   return criteriaParamsRead_;
 }

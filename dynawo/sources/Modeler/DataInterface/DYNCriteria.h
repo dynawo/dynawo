@@ -35,7 +35,7 @@ class Criteria {
    * @brief Constructor
    * @param params parameters of the criteria
    */
-  explicit Criteria(const std::shared_ptr<criteria::CriteriaParams>& params);
+  explicit Criteria(const boost::shared_ptr<criteria::CriteriaParams>& params);
 
   /**
    * @brief Destructor
@@ -123,7 +123,7 @@ class Criteria {
                                       const boost::shared_ptr<timeline::Timeline>& timeline,
                                       double currentTime);
 
-  std::shared_ptr<criteria::CriteriaParams> params_;  ///< parameters of this criteria
+  const boost::shared_ptr<criteria::CriteriaParams>& params_;  ///< parameters of this criteria
   std::vector<std::pair<double, std::string> > failingCriteria_;  ///< keeps the ids of the failing criteria
 };
 
@@ -136,14 +136,14 @@ class BusCriteria : public Criteria {
    * @brief Constructor
    * @param params parameters of the criteria
    */
-  explicit BusCriteria(const std::shared_ptr<criteria::CriteriaParams>& params);
+  explicit BusCriteria(const boost::shared_ptr<criteria::CriteriaParams>& params);
 
   /**
    * @brief check that this criteria can be applied to buses
    * @param params parameters of the criteria
    * @return true if this criteria is compatible with buses
    */
-  static bool criteriaEligibleForBus(const std::shared_ptr<criteria::CriteriaParams>& params);
+  static bool criteriaEligibleForBus(const boost::shared_ptr<criteria::CriteriaParams>& params);
 
   /**
    * @brief returns true if the criteria is respected, false otherwise
@@ -232,14 +232,14 @@ class LoadCriteria : public Criteria {
    * @brief Constructor
    * @param params parameters of the criteria
    */
-  explicit LoadCriteria(const std::shared_ptr<criteria::CriteriaParams>& params);
+  explicit LoadCriteria(const boost::shared_ptr<criteria::CriteriaParams>& params);
 
   /**
    * @brief check that this criteria can be applied to loads
    * @param params parameters of the criteria
    * @return true if this criteria is compatible with loads
    */
-  static bool criteriaEligibleForLoad(const std::shared_ptr<criteria::CriteriaParams>& params);
+  static bool criteriaEligibleForLoad(const boost::shared_ptr<criteria::CriteriaParams>& params);
 
   /**
    * @brief returns true if the criteria is respected, false otherwise
@@ -343,14 +343,14 @@ class GeneratorCriteria : public Criteria {
    * @brief Constructor
    * @param params parameters of the criteria
    */
-  explicit GeneratorCriteria(const std::shared_ptr<criteria::CriteriaParams>& params);
+  explicit GeneratorCriteria(const boost::shared_ptr<criteria::CriteriaParams>& params);
 
   /**
    * @brief check that this criteria can be applied to generators
    * @param params parameters of the criteria
    * @return true if this criteria is compatible with generators
    */
-  static bool criteriaEligibleForGenerator(const std::shared_ptr<criteria::CriteriaParams>& params);
+  static bool criteriaEligibleForGenerator(const boost::shared_ptr<criteria::CriteriaParams>& params);
 
   /**
    * @brief returns true if the criteria is respected, false otherwise

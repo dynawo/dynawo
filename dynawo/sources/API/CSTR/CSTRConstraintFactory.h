@@ -20,10 +20,9 @@
 #ifndef API_CSTR_CSTRCONSTRAINTFACTORY_H_
 #define API_CSTR_CSTRCONSTRAINTFACTORY_H_
 
+#include <boost/shared_ptr.hpp>
+
 #include "CSTRConstraint.h"
-
-#include <memory>
-
 
 namespace constraints {
 /**
@@ -38,9 +37,9 @@ class ConstraintFactory {
   /**
    * @brief Create new Constraint instance
    *
-   * @return unique pointer to a new empty @p Constraint
+   * @return shared pointer to a new empty @p Constraint
    */
-  static std::unique_ptr<Constraint> newConstraint();
+  static boost::shared_ptr<Constraint> newConstraint();
 };
 }  // namespace constraints
 

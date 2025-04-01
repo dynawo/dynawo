@@ -23,10 +23,10 @@
 
 #include "CSTRConstraint.h"
 
+#include <boost/shared_ptr.hpp>
 #include <map>
 #include <string>
 #include <vector>
-#include <memory>
 
 namespace constraints {
 
@@ -131,17 +131,17 @@ class ConstraintsCollection {
      *
      * @returns Constraint pointed to by this
      */
-    const std::shared_ptr<Constraint>& operator*() const;
+    const boost::shared_ptr<Constraint>& operator*() const;
 
     /**
      * @brief Structure dereference operator
      *
      * @returns Pointer to the Constraint pointed to by this
      */
-    const std::shared_ptr<Constraint>* operator->() const;
+    const boost::shared_ptr<Constraint>* operator->() const;
 
    private:
-    std::map<std::string, std::shared_ptr<Constraint> >::const_iterator current_;  ///< current map iterator
+    std::map<std::string, boost::shared_ptr<Constraint> >::const_iterator current_;  ///< current map iterator
   };
 
   /**
@@ -158,8 +158,8 @@ class ConstraintsCollection {
 
  private:
   std::string id_;                                                                          ///< ConstraintCollection's id
-  std::map<std::string, std::vector<std::shared_ptr<Constraint> > > constraintsByModel_;  ///< constraint sorted by model
-  std::map<std::string, std::shared_ptr<Constraint> > constraintsById_;                   ///< constraint sorted by id
+  std::map<std::string, std::vector<boost::shared_ptr<Constraint> > > constraintsByModel_;  ///< constraint sorted by model
+  std::map<std::string, boost::shared_ptr<Constraint> > constraintsById_;                   ///< constraint sorted by id
 };
 
 }  // end of namespace constraints

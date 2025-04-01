@@ -1006,14 +1006,14 @@ DataInterfaceIIDM::findLostEquipments(const shared_ptr<vector<shared_ptr<Compone
 }
 
 void
-DataInterfaceIIDM::configureCriteria(const std::shared_ptr<CriteriaCollection>& criteria) {
+DataInterfaceIIDM::configureCriteria(const shared_ptr<CriteriaCollection>& criteria) {
   configureBusCriteria(criteria);
   configureLoadCriteria(criteria);
   configureGeneratorCriteria(criteria);
 }
 
 void
-DataInterfaceIIDM::configureBusCriteria(const std::shared_ptr<criteria::CriteriaCollection>& criteria) {
+DataInterfaceIIDM::configureBusCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria) {
   for (CriteriaCollection::CriteriaCollectionConstIterator it = criteria->begin(CriteriaCollection::BUS),
       itEnd = criteria->end(CriteriaCollection::BUS);
       it != itEnd; ++it) {
@@ -1072,7 +1072,7 @@ DataInterfaceIIDM::configureBusCriteria(const std::shared_ptr<criteria::Criteria
 }
 
 void
-DataInterfaceIIDM::configureLoadCriteria(const std::shared_ptr<criteria::CriteriaCollection>& criteria) {
+DataInterfaceIIDM::configureLoadCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria) {
   for (CriteriaCollection::CriteriaCollectionConstIterator it = criteria->begin(CriteriaCollection::LOAD),
       itEnd = criteria->end(CriteriaCollection::LOAD);
       it != itEnd; ++it) {
@@ -1118,7 +1118,7 @@ DataInterfaceIIDM::configureLoadCriteria(const std::shared_ptr<criteria::Criteri
 }
 
 void
-DataInterfaceIIDM::configureGeneratorCriteria(const std::shared_ptr<criteria::CriteriaCollection>& criteria) {
+DataInterfaceIIDM::configureGeneratorCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria) {
   for (CriteriaCollection::CriteriaCollectionConstIterator it = criteria->begin(CriteriaCollection::GENERATOR),
       itEnd = criteria->end(CriteriaCollection::GENERATOR);
       it != itEnd; ++it) {

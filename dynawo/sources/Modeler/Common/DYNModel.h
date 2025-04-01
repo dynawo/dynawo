@@ -445,7 +445,7 @@ class Model {
    *
    * @param constraints constraints collections to use
    */
-  virtual void setConstraints(const std::shared_ptr<constraints::ConstraintsCollection>& constraints) = 0;
+  virtual void setConstraints(const boost::shared_ptr<constraints::ConstraintsCollection>& constraints) = 0;
 
   /**
    * @brief initialize curve (reference with the variable, variable exists ...)

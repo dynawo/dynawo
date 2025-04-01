@@ -21,6 +21,8 @@
 #ifndef API_CRV_CRVIMPORTER_H_
 #define API_CRV_CRVIMPORTER_H_
 
+#include <boost/shared_ptr.hpp>
+
 #include "CRVCurvesCollection.h"
 
 namespace curves {
@@ -50,7 +52,7 @@ class Importer {
    *
    * @return Curves collection imported
    */
-  virtual std::shared_ptr<CurvesCollection> importFromFile(const std::string& fileName) const = 0;
+  virtual boost::shared_ptr<CurvesCollection> importFromFile(const std::string& fileName) const = 0;
 
   /**
    * @brief Import curves's collection from stream
@@ -59,7 +61,7 @@ class Importer {
    *
    * @return Curves collection imported
    */
-  virtual std::shared_ptr<CurvesCollection> importFromStream(std::istream& stream) const = 0;
+  virtual boost::shared_ptr<CurvesCollection> importFromStream(std::istream& stream) const = 0;
 };
 
 #ifdef __clang__

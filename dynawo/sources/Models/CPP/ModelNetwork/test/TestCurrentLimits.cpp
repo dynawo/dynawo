@@ -11,6 +11,7 @@
 // simulation tool for power systems.
 //
 
+#include <boost/shared_ptr.hpp>
 #include <vector>
 
 #include "DYNModelCurrentLimits.h"
@@ -47,7 +48,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   mcl.setMaxTimeOperation(10.);
   mcl.setSide(ModelCurrentLimits::SIDE_2);
 
-  std::shared_ptr<constraints::ConstraintsCollection> constraints =
+  boost::shared_ptr<constraints::ConstraintsCollection> constraints =
       constraints::ConstraintsCollectionFactory::newInstance("MyConstaintsCollection");
   ModelNetwork network;
   network.setConstraints(constraints);
@@ -86,7 +87,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   unsigned n = 0;
   for (constraints::ConstraintsCollection::const_iterator it = constraints->cbegin(),
       itEnd = constraints->cend(); it != itEnd; ++it) {
-    std::shared_ptr<constraints::Constraint> constraint = (*it);
+    boost::shared_ptr<constraints::Constraint> constraint = (*it);
     if (n == 1) {
       ASSERT_EQ(constraint->getModelName(), "MY COMP");
       ASSERT_EQ(constraint->getDescription(), "PATL 2");
@@ -122,7 +123,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   n = 0;
   for (constraints::ConstraintsCollection::const_iterator it = constraints->cbegin(),
       itEnd = constraints->cend(); it != itEnd; ++it) {
-    std::shared_ptr<constraints::Constraint> constraint = (*it);
+    boost::shared_ptr<constraints::Constraint> constraint = (*it);
     if (n == 0) {
       ASSERT_EQ(constraint->getModelName(), "MY COMP");
       ASSERT_EQ(constraint->getDescription(), "OverloadOpen 5 2");

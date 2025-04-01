@@ -126,7 +126,7 @@ class CriteriaCollection {
    *
    * @param other another criteria collection
    */
-  void merge(const std::shared_ptr<CriteriaCollection>& other);
+  void merge(const boost::shared_ptr<CriteriaCollection>& other);
 
   /**
    * @brief Get a CriteriaCollectionConstIterator to the beginning of the criteria' vector

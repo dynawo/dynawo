@@ -32,6 +32,7 @@
 #include "DYNMacrosMessage.h"
 using std::string;
 using std::ifstream;
+using boost::shared_ptr;
 using std::vector;
 
 
@@ -57,7 +58,7 @@ bool IoDicos::hasOppositeEventsDico(const string& dicoName) {
   return ( instance().oppositeEventsDicos_.find(dicoName) != instance().oppositeEventsDicos_.end());
 }
 
-std::shared_ptr<IoDico> IoDicos::getIoDico(const string& dicoName) {
+boost::shared_ptr<IoDico> IoDicos::getIoDico(const string& dicoName) {
   if (hasIoDico(dicoName)) {
     return instance().dicos_[dicoName];
   } else {
@@ -65,7 +66,7 @@ std::shared_ptr<IoDico> IoDicos::getIoDico(const string& dicoName) {
   }
 }
 
-std::shared_ptr<OppositeEventDico> IoDicos::getOppositeEventsDico(const string& dicoName) {
+boost::shared_ptr<OppositeEventDico> IoDicos::getOppositeEventsDico(const string& dicoName) {
   if (hasOppositeEventsDico(dicoName)) {
     return instance().oppositeEventsDicos_[dicoName];
   } else {
@@ -144,12 +145,12 @@ void IoDicos::addDico(const string& name, const string& baseName, const string& 
   string file = files[0];
 
   if (hasIoDico(name)) {
-    std::shared_ptr<IoDico> dico = getIoDico(name);
+    boost::shared_ptr<IoDico> dico = getIoDico(name);
     dico->readFile(file);  // new key/sentence added to the existing dico
   } else {
-    std::unique_ptr<IoDico> dico(new IoDico(name));
+    boost::shared_ptr<IoDico> dico(new IoDico(name));
     dico->readFile(file);
-    instance().dicos_[name] = std::move(dico);
+    instance().dicos_[name] = dico;
   }
 
   // Opposite event file
@@ -159,9 +160,9 @@ void IoDicos::addDico(const string& name, const string& baseName, const string& 
     throw MessageError("Multiple occurrences of the opposite event dictionary : " + fileName);
   }
   if (!files.empty()) {
-    std::unique_ptr<OppositeEventDico> dico(new OppositeEventDico(name));
+    boost::shared_ptr<OppositeEventDico> dico(new OppositeEventDico(name));
     dico->readFile(files[0]);
-    instance().oppositeEventsDicos_[name] = std::move(dico);
+    instance().oppositeEventsDicos_[name] = dico;
   }
 }
 
@@ -177,7 +178,7 @@ void IoDicos::addDicos(const string& dictionariesMappingFile, const string& loca
   if (files.empty())
     throw MessageError("Impossible to find the dictionary mapping file : " + fileName);
 
-  const std::unique_ptr<IoDico> dico(new IoDico("MAPPING"));
+  boost::shared_ptr<IoDico> dico(new IoDico("MAPPING"));
   for (vector<string>::const_iterator it = files.begin(), itEnd = files.end(); it != itEnd; ++it) {
     dico->readFile(*it);
   }

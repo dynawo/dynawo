@@ -155,7 +155,7 @@ class CriteriaParamsHandler : public xml::sax::parser::ComposableElementHandler 
    * @brief return the criteria params read in xml file
    * @return criteria params  object build thanks to infos read in xml file
    */
-  std::shared_ptr<CriteriaParams> get() const;
+  boost::shared_ptr<CriteriaParams> get() const;
 
  protected:
   /**
@@ -170,7 +170,7 @@ class CriteriaParamsHandler : public xml::sax::parser::ComposableElementHandler 
   void create(attributes_type const& attributes);
 
  private:
-  std::shared_ptr<CriteriaParams> criteriaParamsRead_;  ///< current parameters
+  boost::shared_ptr<CriteriaParams> criteriaParamsRead_;  ///< current parameters
   CriteriaParamsVoltageLevelHandler criteriaParamsVoltageLevelHandler_;  ///< handler used to read voltage level elements
 };
 
@@ -247,7 +247,7 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
    *
    * @return criteria collection parsed.
    */
-  std::shared_ptr<CriteriaCollection> getCriteriaCollection();
+  boost::shared_ptr<CriteriaCollection> getCriteriaCollection();
 
  private:
   /**
@@ -265,7 +265,7 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
    */
   void addGenCriteria();
 
-  std::shared_ptr<CriteriaCollection> criteriaCollection_;  ///< Criteria collection parsed
+  boost::shared_ptr<CriteriaCollection> criteriaCollection_;  ///< Criteria collection parsed
   CriteriaHandler busCriteriaHandler_;  ///< handler used to read bus criteria element
   CriteriaHandler loadCriteriaHandler_;  ///< handler used to read load criteria element
   CriteriaHandler genCriteriaHandler_;  ///< handler used to read generator criteria element

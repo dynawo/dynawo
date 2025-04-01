@@ -20,9 +20,7 @@
 #ifndef API_CSTR_CSTRCONSTRAINTSCOLLECTIONFACTORY_H_
 #define API_CSTR_CSTRCONSTRAINTSCOLLECTIONFACTORY_H_
 
-#include <memory>
-#include <string>
-
+#include <boost/shared_ptr.hpp>
 
 namespace constraints {
 class ConstraintsCollection;
@@ -41,27 +39,27 @@ class ConstraintsCollectionFactory {
    *
    * @param id id of the new instance
    *
-   * @return unique pointer to a new empty @p ConstraintsCollection
+   * @return shared pointer to a new empty @p ConstraintsCollection
    */
-  static std::unique_ptr<ConstraintsCollection> newInstance(const std::string& id);
+  static boost::shared_ptr<ConstraintsCollection> newInstance(const std::string& id);
 
   /**
    * @brief Create new ConstraintsCollection instance as a clone of given instance
    *
    * @param[in] original ConstraintsCollection to be cloned
    *
-   * @return Unique pointer to a new @p ConstraintsCollection copied from original
+   * @return Shared pointer to a new @p ConstraintsCollection copied from original
    */
-  static std::unique_ptr<ConstraintsCollection> copyInstance(const std::shared_ptr<ConstraintsCollection>& original);
+  static boost::shared_ptr<ConstraintsCollection> copyInstance(boost::shared_ptr<ConstraintsCollection> original);
 
   /**
    * @brief Create new ConstraintsCollection instance as a clone of given instance
    *
    * @param[in] original ConstraintsCollection to be cloned
    *
-   * @return Unique pointer to a new @p ConstraintsCollection copied from original
+   * @return Shared pointer to a new @p ConstraintsCollection copied from original
    */
-  static std::unique_ptr<ConstraintsCollection> copyInstance(const ConstraintsCollection& original);
+  static boost::shared_ptr<ConstraintsCollection> copyInstance(const ConstraintsCollection& original);
 };
 }  // namespace constraints
 

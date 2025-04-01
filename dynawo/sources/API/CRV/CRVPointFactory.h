@@ -21,10 +21,9 @@
 #ifndef API_CRV_CRVPOINTFACTORY_H_
 #define API_CRV_CRVPOINTFACTORY_H_
 
+#include <boost/shared_ptr.hpp>
+
 #include "CRVPoint.h"
-
-#include <memory>
-
 
 namespace curves {
 /**
@@ -41,9 +40,9 @@ class PointFactory {
    *
    * @param[in] time : time of the  new Point instance
    * @param[in] value : value of the new Point instance
-   * @returns a unique pointer to a new @p Point
+   * @returns a shared pointer to a new @p Point
    */
-  static std::unique_ptr<Point> newPoint(const double& time, const double& value);
+  static boost::shared_ptr<Point> newPoint(const double& time, const double& value);
 };
 
 }  //  namespace curves

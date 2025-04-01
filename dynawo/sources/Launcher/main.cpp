@@ -21,6 +21,7 @@
 #include <iostream>
 
 #include <boost/program_options.hpp>
+#include <boost/shared_ptr.hpp>
 
 #include <xml/sax/parser/ParserException.h>
 
@@ -38,12 +39,19 @@
 #include "DYNTimer.h"
 
 using std::string;
+using std::exception;
 using std::endl;
+using std::cerr;
 using std::cout;
+using std::vector;
 
+using DYN::Error;
 using DYN::Trace;
+using DYN::IoDico;
 
 namespace po = boost::program_options;
+
+using boost::shared_ptr;
 
 static void usage(const po::options_description& desc) {
   cout << "Usage: dynawo <jobs-file>" << std::endl << std::endl;

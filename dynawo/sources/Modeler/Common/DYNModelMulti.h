@@ -358,9 +358,9 @@ class ModelMulti : public Model, private boost::noncopyable {
   void setTimeline(const boost::shared_ptr<timeline::Timeline>& timeline);
 
   /**
-   * @copydoc Model::setConstraints(const std::shared_ptr<constraints::ConstraintsCollection>& constraints)
+   * @copydoc Model::setConstraints(const boost::shared_ptr<constraints::ConstraintsCollection>& constraints)
    */
-  void setConstraints(const std::shared_ptr<constraints::ConstraintsCollection>& constraints);
+  void setConstraints(const boost::shared_ptr<constraints::ConstraintsCollection>& constraints);
 
   /**
    * @copydoc Model::initCurves(boost::shared_ptr<curves::Curve>& curve)

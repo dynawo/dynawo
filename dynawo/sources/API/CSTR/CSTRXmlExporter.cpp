@@ -34,6 +34,8 @@ using std::fstream;
 using std::ostream;
 using std::string;
 
+using boost::shared_ptr;
+
 using xml::sax::formatter::AttributeList;
 using xml::sax::formatter::Formatter;
 using xml::sax::formatter::FormatterPtr;
@@ -41,7 +43,7 @@ using xml::sax::formatter::FormatterPtr;
 namespace constraints {
 
 void
-XmlExporter::exportToFile(const std::shared_ptr<ConstraintsCollection>& constraints, const string& filePath) const {
+XmlExporter::exportToFile(const boost::shared_ptr<ConstraintsCollection>& constraints, const string& filePath) const {
   fstream file;
   file.open(filePath.c_str(), fstream::out);
   if (!file.is_open()) {
@@ -53,7 +55,7 @@ XmlExporter::exportToFile(const std::shared_ptr<ConstraintsCollection>& constrai
 }
 
 void
-XmlExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints, ostream& stream) const {
+XmlExporter::exportToStream(const boost::shared_ptr<ConstraintsCollection>& constraints, ostream& stream) const {
   FormatterPtr formatter = Formatter::createFormatter(stream, "http://www.rte-france.com/dynawo");
 
   formatter->startDocument();

@@ -35,13 +35,13 @@ class Criteria {
    * @brief Setter for criteria parameters
    * @param params criteria parameters
    */
-  void setParams(const std::shared_ptr<CriteriaParams>& params);
+  void setParams(const boost::shared_ptr<CriteriaParams>& params);
 
   /**
    * @brief Getter for criteria parameters
    * @return criteria parameters
    */
-  const std::shared_ptr<CriteriaParams>& getParams() const;
+  const boost::shared_ptr<CriteriaParams>& getParams() const;
 
   /**
    * @brief Add a component to the component list
@@ -199,7 +199,7 @@ class Criteria {
   bool containsCountry(const std::string& country) const;
 
  private:
-  std::shared_ptr<CriteriaParams> params_;              ///< parameters of this criteria
+  boost::shared_ptr<CriteriaParams> params_;              ///< parameters of this criteria
   std::vector<boost::shared_ptr<ComponentId> > compIds_;  ///< ids of the components
   std::unordered_set<std::string> countryIds_;          ///< ids of the countries
 };

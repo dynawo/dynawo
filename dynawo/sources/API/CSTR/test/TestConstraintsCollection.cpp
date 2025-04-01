@@ -31,10 +31,10 @@ namespace constraints {
 //-----------------------------------------------------
 
 TEST(APICSTRTest, ConstraintsCollection) {
-  std::shared_ptr<ConstraintsCollection> collection1 = ConstraintsCollectionFactory::newInstance("collection1");
+  boost::shared_ptr<ConstraintsCollection> collection1 = ConstraintsCollectionFactory::newInstance("collection1");
 
-  std::unique_ptr<ConstraintsCollection> collection2;
-  std::unique_ptr<ConstraintsCollection> collection3;
+  boost::shared_ptr<ConstraintsCollection> collection2;
+  boost::shared_ptr<ConstraintsCollection> collection3;
 
   ConstraintsCollection& refCollection1(*collection1);
 
@@ -43,7 +43,7 @@ TEST(APICSTRTest, ConstraintsCollection) {
 }
 
 TEST(APICSTRTest, ConstraintsCollectionIterator) {
-  const std::unique_ptr<ConstraintsCollection> collection1 = ConstraintsCollectionFactory::newInstance("collection1");
+  boost::shared_ptr<ConstraintsCollection> collection1 = ConstraintsCollectionFactory::newInstance("collection1");
 
   collection1->addConstraint("model", "constraint1", 1.2, CONSTRAINT_BEGIN);
   collection1->addConstraint("model2", "constraint1", 3.4, CONSTRAINT_BEGIN);

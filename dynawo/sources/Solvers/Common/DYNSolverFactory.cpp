@@ -66,11 +66,10 @@ void SolverFactories::add(const std::string& lib, const boost::function<deleteSo
 
 SolverFactory::~SolverFactory() {}
 
-SolverFactory::SolverPtr
-SolverFactory::createSolverFromLib(const std::string& lib) {
+boost::shared_ptr<Solver> SolverFactory::createSolverFromLib(const std::string& lib) {
   SolverFactories::SolverFactoryIterator iter = SolverFactories::getInstance().find(lib);
   Solver* solver;
-  SolverPtr solverPtr;
+  boost::shared_ptr<Solver> solverShared;
   boost::shared_ptr<boost::dll::shared_library> sharedLib;
 
   if (SolverFactories::getInstance().end(iter)) {
@@ -104,13 +103,13 @@ SolverFactory::createSolverFromLib(const std::string& lib) {
     SolverFactories::getInstance().add(lib, deleteFactory);
     solver = factory->create();
     SolverDelete deleteSolver(factory);
-    solverPtr = SolverPtr(solver, deleteSolver);
+    solverShared.reset(solver, deleteSolver);
   } else {
     solver = iter->second->create();
     SolverDelete deleteSolver(iter->second);
-    solverPtr = SolverPtr(solver, deleteSolver);
+    solverShared.reset(solver, deleteSolver);
   }
-  return solverPtr;
+  return solverShared;
 }
 
 SolverDelete::SolverDelete(SolverFactory* factory) : factory_(factory) {

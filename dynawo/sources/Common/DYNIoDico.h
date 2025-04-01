@@ -25,6 +25,7 @@
 #include <vector>
 #include <unordered_set>
 #include <unordered_map>
+#include <boost/shared_ptr.hpp>
 #include <boost/noncopyable.hpp>
 
 
@@ -145,7 +146,7 @@ class IoDicos : public boost::noncopyable {
    *
    * @return return the dictionary with the desired name
    */
-  static std::shared_ptr<IoDico> getIoDico(const std::string & dicoName);
+  static boost::shared_ptr<IoDico> getIoDico(const std::string & dicoName);
 
   /**
    * @brief try to find a opposite event dictionary with the name @b dicoName
@@ -154,7 +155,7 @@ class IoDicos : public boost::noncopyable {
    *
    * @return return the opposite event dictionary with the desired name
    */
-  static std::shared_ptr<OppositeEventDico> getOppositeEventsDico(const std::string & dicoName);
+  static boost::shared_ptr<OppositeEventDico> getOppositeEventsDico(const std::string & dicoName);
 
   /**
    * @brief check if a dictionary exist thanks to its name
@@ -208,8 +209,8 @@ class IoDicos : public boost::noncopyable {
 
  private:
   std::vector<std::string> paths_;  ///< path where dictionnaries are researched
-  std::map<std::string, std::shared_ptr<IoDico> > dicos_;  ///< map association between dictionary and their name
-  std::map<std::string, std::shared_ptr<OppositeEventDico> > oppositeEventsDicos_;  ///< map association between dictionary and their name
+  std::map<std::string, boost::shared_ptr<IoDico> > dicos_;  ///< map association between dictionary and their name
+  std::map<std::string, boost::shared_ptr<OppositeEventDico> > oppositeEventsDicos_;  ///< map association between dictionary and their name
 };
 
 }  // namespace DYN

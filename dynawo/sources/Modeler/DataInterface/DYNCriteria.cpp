@@ -20,7 +20,7 @@
 
 namespace DYN {
 
-Criteria::Criteria(const std::shared_ptr<criteria::CriteriaParams>& params) :
+Criteria::Criteria(const boost::shared_ptr<criteria::CriteriaParams>& params) :
         params_(params) {}
 
 Criteria::~Criteria() {}
@@ -55,7 +55,7 @@ Criteria::FailingCriteria::FailingCriteria(Bound bound, std::string nodeId, cons
 
 Criteria::FailingCriteria::~FailingCriteria() {}
 
-BusCriteria::BusCriteria(const std::shared_ptr<criteria::CriteriaParams>& params) :
+BusCriteria::BusCriteria(const boost::shared_ptr<criteria::CriteriaParams>& params) :
             Criteria(params) {}
 
 bool
@@ -101,7 +101,7 @@ BusCriteria::checkCriteria(double t, bool finalStep, const boost::shared_ptr<tim
 }
 
 bool
-BusCriteria::criteriaEligibleForBus(const std::shared_ptr<criteria::CriteriaParams>& params) {
+BusCriteria::criteriaEligibleForBus(const boost::shared_ptr<criteria::CriteriaParams>& params) {
   if (params->getType() == criteria::CriteriaParams::SUM) {
     Trace::warn() << DYNLog(SumBusCriteriaIgnored) << Trace::endline;
     return false;
@@ -187,7 +187,7 @@ BusCriteria::BusFailingCriteria::printOneFailingCriteriaIntoTimeline(const boost
   }
 }
 
-LoadCriteria::LoadCriteria(const std::shared_ptr<criteria::CriteriaParams>& params) :
+LoadCriteria::LoadCriteria(const boost::shared_ptr<criteria::CriteriaParams>& params) :
                 Criteria(params) {}
 
 bool
@@ -361,7 +361,7 @@ LoadCriteria::checkCriteriaInLocalValueOrSumType(boost::shared_ptr<DYN::LoadInte
 }
 
 bool
-LoadCriteria::criteriaEligibleForLoad(const std::shared_ptr<criteria::CriteriaParams>& params) {
+LoadCriteria::criteriaEligibleForLoad(const boost::shared_ptr<criteria::CriteriaParams>& params) {
   if (!params->hasPMin() && !params->hasPMax())
     return false;
   return true;
@@ -442,7 +442,7 @@ LoadCriteria::LoadFailingCriteria::printOneFailingCriteriaIntoTimeline(const boo
   }
 }
 
-GeneratorCriteria::GeneratorCriteria(const std::shared_ptr<criteria::CriteriaParams>& params) :
+GeneratorCriteria::GeneratorCriteria(const boost::shared_ptr<criteria::CriteriaParams>& params) :
                 Criteria(params) {}
 
 bool
@@ -617,7 +617,7 @@ GeneratorCriteria::checkCriteriaInLocalValueOrSumType(boost::shared_ptr<DYN::Gen
 }
 
 bool
-GeneratorCriteria::criteriaEligibleForGenerator(const std::shared_ptr<criteria::CriteriaParams>& params) {
+GeneratorCriteria::criteriaEligibleForGenerator(const boost::shared_ptr<criteria::CriteriaParams>& params) {
   if (!params->hasPMin() && !params->hasPMax())
     return false;
   return true;

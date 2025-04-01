@@ -66,10 +66,10 @@ createModelBus(bool initModel, bool isNodeBreaker, powsybl::iidm::Network& netwo
 
   ModelNetwork* network = new ModelNetwork();
   network->setIsInitModel(initModel);
-  std::unique_ptr<constraints::ConstraintsCollection> constraints =
+  boost::shared_ptr<constraints::ConstraintsCollection> constraints =
       constraints::ConstraintsCollectionFactory::newInstance("MyConstraintsCollection");
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
-  network->setConstraints(std::move(constraints));
+  network->setConstraints(constraints);
   shared_ptr<ModelVoltageLevel> vl = shared_ptr<ModelVoltageLevel>(new ModelVoltageLevel(vlItfIIDM));
   shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, isNodeBreaker));
   bus1->setNetwork(network);
@@ -316,7 +316,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   bus->setReferenceZ(&z[0], zConnected, 0);
   bus->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
   ModelNetwork* network = new ModelNetwork();
-  std::shared_ptr<constraints::ConstraintsCollection> constraints =
+  boost::shared_ptr<constraints::ConstraintsCollection> constraints =
       constraints::ConstraintsCollectionFactory::newInstance("MyConstraintsCollection");
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
   network->setConstraints(constraints);
@@ -340,7 +340,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   unsigned i = 0;
   for (constraints::ConstraintsCollection::const_iterator it = constraints->cbegin(),
       itEnd = constraints->cend(); it != itEnd; ++it) {
-    std::shared_ptr<constraints::Constraint> constraint = (*it);
+    boost::shared_ptr<constraints::Constraint> constraint = (*it);
     if (i == 0) {
       ASSERT_EQ(constraint->getModelName(), "MyBus1");
       ASSERT_EQ(constraint->getDescription(), "UInfUmin");
@@ -363,7 +363,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   network->setCurrentTime(10);
   for (constraints::ConstraintsCollection::const_iterator it = constraints->cbegin(),
       itEnd = constraints->cend(); it != itEnd; ++it) {
-    std::shared_ptr<constraints::Constraint> constraint = (*it);
+    boost::shared_ptr<constraints::Constraint> constraint = (*it);
     assert(0);
   }
 
@@ -422,10 +422,10 @@ TEST(ModelsModelNetwork, ModelNetworkBusNodeBreakerDiscreteVariables) {
   bus->setReferenceZ(&z[0], zConnected, 0);
   bus->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
   ModelNetwork* network = new ModelNetwork();
-  std::unique_ptr<constraints::ConstraintsCollection> constraints =
+  boost::shared_ptr<constraints::ConstraintsCollection> constraints =
       constraints::ConstraintsCollectionFactory::newInstance("MyConstraintsCollection");
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
-  network->setConstraints(std::move(constraints));
+  network->setConstraints(constraints);
   bus->setNetwork(network);
 
 
@@ -797,10 +797,10 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
   bus3ItfIIDM->hasConnection(true);
 
   ModelNetwork* network = new ModelNetwork();
-  std::unique_ptr<constraints::ConstraintsCollection> constraints =
+  boost::shared_ptr<constraints::ConstraintsCollection> constraints =
       constraints::ConstraintsCollectionFactory::newInstance("MyConstraintsCollection");
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
-  network->setConstraints(std::move(constraints));
+  network->setConstraints(constraints);
   shared_ptr<ModelVoltageLevel> vl = shared_ptr<ModelVoltageLevel>(new ModelVoltageLevel(vlItfIIDM));
   shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
   bus1->setNetwork(network);
