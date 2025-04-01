@@ -80,7 +80,7 @@ class Compiler {
           const bool useStandardModelicaModels,
           const std::vector <UserDefinedDirectory>& modelicaModelsDirs,
           const std::string& modelicaModelsExtension,
-          const std::unordered_set<boost::filesystem::path, PathHash>& pathsToIgnore,
+          const boost::unordered_set<boost::filesystem::path>& pathsToIgnore,
           const std::vector <std::string>& additionalHeaderFiles,
           const bool rmModels,
           std::string outputDir) :
@@ -247,7 +247,7 @@ class Compiler {
   std::string precompiledModelsExtension_;  ///< file extension to discriminate precompiled models
   bool useStandardModelicaModels_;  ///< whether to rely on DDB Modelica models
   std::vector <UserDefinedDirectory> modelicaModelsDirsPaths_;  ///< absolute paths to Modelica models directories
-  std::unordered_set<boost::filesystem::path, PathHash> pathsToIgnore_;  ///< paths to ignore during exploration
+  boost::unordered_set<boost::filesystem::path> pathsToIgnore_;  ///< paths to ignore during exploration
   std::string modelicaModelsExtension_;  ///< file extension to discriminate Modelica models
 
   std::string modelDirPath_;  ///< model files' directory

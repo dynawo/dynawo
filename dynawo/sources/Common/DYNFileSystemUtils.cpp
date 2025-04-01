@@ -100,7 +100,7 @@ void searchFilesAccordingToExtension(const string & directoryToScan, const strin
 }
 
 void searchModelsFiles(const std::string& directoryToScan, const std::string& fileExtension, const vector<string>& fileExtensionsForbidden,
-                       const std::unordered_set<fs::path, PathHash>& pathsToIgnore, const bool searchInSubDirs,
+                       const boost::unordered_set<fs::path>& pathsToIgnore, const bool searchInSubDirs,
                        const bool packageForcesSubDirsSearch, const bool stopWhenSeePackage,
                        std::map<std::string, std::string>& filesFound) {
   // initialise recursion variables
@@ -128,7 +128,7 @@ static std::string getFullModelName(std::string fileName, const std::vector <std
 }
 
 void searchModelsFilesRec(const std::string& directoryToScan, const std::string& fileExtension, const vector <std::string>& fileExtensionsForbidden,
-                          const std::unordered_set<fs::path, PathHash>& pathsToIgnore, const bool searchInSubDirs,
+                          const boost::unordered_set<fs::path>& pathsToIgnore, const bool searchInSubDirs,
                           const bool /*isPackage*/, const bool packageForcesSubDirsSearch, const bool stopWhenSeePackage,
                           const std::vector<std::string>& namespaces, std::map<std::string, std::string>& filesFound) {
   fs::path root = directoryToScan;
@@ -148,7 +148,7 @@ void searchModelsFilesRec(const std::string& directoryToScan, const std::string&
       // folders scanning
       if (fs::is_directory(*it)) {
         bool ignoredPath = false;
-        for (std::unordered_set<fs::path, PathHash>::const_iterator pathIt = pathsToIgnore.begin(), pathItEnd = pathsToIgnore.end();
+        for (boost::unordered_set<fs::path>::const_iterator pathIt = pathsToIgnore.begin(), pathItEnd = pathsToIgnore.end();
             pathIt != pathItEnd; ++pathIt) {
           if (boost::filesystem::equivalent((*it).path(), *pathIt)) {
             ignoredPath = true;

@@ -171,7 +171,7 @@ int main(int argc, char ** argv) {
       dir.isRecursive = false;
       modelicaModelsDirs.push_back(dir);
     }
-    const std::unordered_set<fs::path, PathHash> pathsToIgnore;
+    const boost::unordered_set<fs::path> pathsToIgnore;
 
     Compiler cf = Compiler(dyd, useStandardPrecompiledModels, precompiledModelsDirs, precompiledModelsExtension,
             useStandardModelicaModels, modelicaModelsDirs, modelicaModelsExtension, pathsToIgnore, additionalHeaderFiles, rmModels, outputDir);

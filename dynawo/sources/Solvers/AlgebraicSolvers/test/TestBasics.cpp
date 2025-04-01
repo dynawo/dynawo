@@ -75,7 +75,7 @@ static boost::shared_ptr<Model> initModelFromDyd(std::string dydFileName) {
   }
 
   const bool rmModels = true;
-  std::unordered_set<boost::filesystem::path, PathHash> pathsToIgnore;
+  boost::unordered_set<boost::filesystem::path> pathsToIgnore;
   Compiler cf = Compiler(dyd, preCompiledUseStandardModels,
             precompiledModelsDirsAbsolute,
             preCompiledModelsExtension,

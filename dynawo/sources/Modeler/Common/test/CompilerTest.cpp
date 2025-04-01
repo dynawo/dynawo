@@ -39,7 +39,7 @@ TEST(CompilerTest, testMissingModelicaFile) {
   std::vector<std::string> additionalHeaderFiles;
 
   const bool rmModels = true;
-  std::unordered_set<boost::filesystem::path, PathHash> pathsToIgnore;
+  boost::unordered_set<boost::filesystem::path> pathsToIgnore;
   Compiler cf = Compiler(dyd, preCompiledUseStandardModels,
             precompiledModelsDirsAbsolute,
             preCompiledModelsExtension,
@@ -73,7 +73,7 @@ TEST(CompilerTest, testFlowConnectionWithinAndOutsideModelicaModel) {
   std::vector<std::string> additionalHeaderFiles;
 
   const bool rmModels = true;
-  std::unordered_set<boost::filesystem::path, PathHash> pathsToIgnore;
+  boost::unordered_set<boost::filesystem::path> pathsToIgnore;
   Compiler cf = Compiler(dyd, preCompiledUseStandardModels,
             precompiledModelsDirsAbsolute,
             preCompiledModelsExtension,

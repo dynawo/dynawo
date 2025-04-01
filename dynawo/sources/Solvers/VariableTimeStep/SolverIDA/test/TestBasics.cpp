@@ -96,7 +96,7 @@ static void compile(boost::shared_ptr<DynamicData> dyd) {
   }
 
   const bool rmModels = true;
-  std::unordered_set<boost::filesystem::path, PathHash> pathsToIgnore;
+  boost::unordered_set<boost::filesystem::path> pathsToIgnore;
   Compiler cf = Compiler(dyd, preCompiledUseStandardModels,
             precompiledModelsDirsAbsolute,
             preCompiledModelsExtension,
