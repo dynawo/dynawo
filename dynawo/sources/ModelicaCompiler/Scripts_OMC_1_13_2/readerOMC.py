@@ -1025,7 +1025,8 @@ class ReaderOMC:
 
 
         # Look for functions used in initialization, not lambda0
-        initial_equations_function_name = "_functionInitialEquations_0(DATA *data, threadData_t *threadData)"
+        ptrn_initial_equations_function_name = re.compile(r'_functionInitialEquations_[0-9]+(DATA *data, threadData_t *threadData)')
+        ptrn_initial_equations_function_name2 = re.compile(r'_functionInitialEquations_lambda[0-9]+(DATA *data, threadData_t *threadData)')
         initial_equations_function_index = "_eqFunction_(?P<index>[0-9]+)\(data"
         index_of_initial_equations = []
         for init_file in self._06inz_c_file:
@@ -1035,7 +1036,8 @@ class ReaderOMC:
                     crossed_opening_braces = False
                     stop_at_next_call = False
 
-                    it = itertools.dropwhile(lambda line: initial_equations_function_name not in line, f)
+                    it = itertools.dropwhile(lambda line: ptrn_initial_equations_function_name.search(line) is not None \
+                                             or ptrn_initial_equations_function_name2.search(line) is not None, f)
                     next_iter = next(it, None) # Line on which "dropwhile" stopped
                     if next_iter is None: break # If we reach the end of the file, exit loop
 
