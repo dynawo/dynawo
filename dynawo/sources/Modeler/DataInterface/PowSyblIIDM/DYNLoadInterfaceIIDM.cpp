@@ -26,6 +26,7 @@
 
 #include <powsybl/iidm/Load.hpp>
 
+using boost::shared_ptr;
 using powsybl::iidm::Load;
 
 namespace DYN {
@@ -133,17 +134,17 @@ LoadInterfaceIIDM::importStaticParameters() {
 }
 
 void
-LoadInterfaceIIDM::setBusInterface(const std::shared_ptr<BusInterface>& busInterface) {
+LoadInterfaceIIDM::setBusInterface(const shared_ptr<BusInterface>& busInterface) {
   setBusInterfaceInjector(busInterface);
 }
 
-std::shared_ptr<BusInterface>
+shared_ptr<BusInterface>
 LoadInterfaceIIDM::getBusInterface() const {
   return getBusInterfaceInjector();
 }
 
 void
-LoadInterfaceIIDM::setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
+LoadInterfaceIIDM::setVoltageLevelInterface(const shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
   setVoltageLevelInterfaceInjector(voltageLevelInterface);
 }
 

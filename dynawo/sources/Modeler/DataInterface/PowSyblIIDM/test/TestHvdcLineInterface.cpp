@@ -97,11 +97,11 @@ TEST(DataInterfaceTest, HvdcLine) {
   powsybl::iidm::VscConverterStation& vsc = network.getVscConverterStation("VSC2");
   powsybl::iidm::VoltageLevel& vl1 = network.getVoltageLevel("VL1");
 
-  const std::shared_ptr<LccConverterInterface> LccIfce = std::make_shared<LccConverterInterfaceIIDM>(lcc);
-  const std::shared_ptr<VscConverterInterface> VscIfce = std::make_shared<VscConverterInterfaceIIDM>(vsc);
+  const boost::shared_ptr<LccConverterInterface> LccIfce(new LccConverterInterfaceIIDM(lcc));
+  const boost::shared_ptr<VscConverterInterface> VscIfce(new VscConverterInterfaceIIDM(vsc));
 
   DYN::HvdcLineInterfaceIIDM Ifce(hvdcLine, LccIfce, VscIfce);
-  const std::shared_ptr<VoltageLevelInterface> vlItf = std::make_shared<VoltageLevelInterfaceIIDM>(vl1);
+  const boost::shared_ptr<VoltageLevelInterface> vlItf(new VoltageLevelInterfaceIIDM(vl1));
   LccIfce->setVoltageLevelInterface(vlItf);
   VscIfce->setVoltageLevelInterface(vlItf);
   ASSERT_EQ(Ifce.getID(), "HVDC1");

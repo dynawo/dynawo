@@ -270,10 +270,10 @@ TEST(DataInterfaceTest, testLostEquipments) {
   data->initFromIIDM();
   exportStateVariables(data);
 
-  std::shared_ptr<SwitchInterface> sw = data->getNetwork()->getVoltageLevels()[0]->getSwitches()[0];
-  std::shared_ptr<LoadInterface> load = data->getNetwork()->getVoltageLevels()[0]->getLoads()[0];
-  std::shared_ptr<LineInterface> line = data->getNetwork()->getLines()[0];
-  std::shared_ptr<TwoWTransformerInterface> tfo = data->getNetwork()->getTwoWTransformers()[0];
+  shared_ptr<SwitchInterface> sw = data->getNetwork()->getVoltageLevels()[0]->getSwitches()[0];
+  shared_ptr<LoadInterface> load = data->getNetwork()->getVoltageLevels()[0]->getLoads()[0];
+  shared_ptr<LineInterface> line = data->getNetwork()->getLines()[0];
+  shared_ptr<TwoWTransformerInterface> tfo = data->getNetwork()->getTwoWTransformers()[0];
 
   const int SWITCH_STATE = sw->getComponentVarIndex("state");
   const int LOAD_STATE = load->getComponentVarIndex("state");
@@ -285,7 +285,7 @@ TEST(DataInterfaceTest, testLostEquipments) {
   ///
 
   // all from CLOSED to CLOSED
-  std::shared_ptr<std::vector<std::shared_ptr<ComponentInterface> > > connectedComponents = data->findConnectedComponents();
+  shared_ptr<std::vector<shared_ptr<ComponentInterface> > > connectedComponents = data->findConnectedComponents();
   shared_ptr<lostEquipments::LostEquipmentsCollection> lostEquipments = data->findLostEquipments(connectedComponents);
   lostEquipments::LostEquipmentsCollection::LostEquipmentsCollectionConstIterator itLostEquipment = lostEquipments->cbegin();
   ASSERT_TRUE(itLostEquipment == lostEquipments->cend());
@@ -449,8 +449,8 @@ TEST(DataInterfaceTest, testLostEquipments) {
   // NODE_BREAKER case
   ///
 
-  std::shared_ptr<SwitchInterface> swNB = data->getNetwork()->getVoltageLevels()[2]->getSwitches()[0];
-  std::shared_ptr<LoadInterface> loadNB = data->getNetwork()->getVoltageLevels()[2]->getLoads()[0];
+  shared_ptr<SwitchInterface> swNB = data->getNetwork()->getVoltageLevels()[2]->getSwitches()[0];
+  shared_ptr<LoadInterface> loadNB = data->getNetwork()->getVoltageLevels()[2]->getLoads()[0];
   connectedComponents = data->findConnectedComponents();
   swNB->setValue(SWITCH_STATE, OPEN);
   data->exportStateVariablesNoReadFromModel();

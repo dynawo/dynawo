@@ -39,9 +39,9 @@ using boost::shared_ptr;
 namespace DYN {
 
 // need to return the voltage level so that it is not destroyed
-static std::tuple<std::shared_ptr<ModelLoad>,
-std::shared_ptr<ModelVoltageLevel>, std::shared_ptr<ModelBus>, std::shared_ptr<BusInterfaceIIDM>,
-std::shared_ptr<VoltageLevelInterfaceIIDM> >
+static std::tuple<shared_ptr<ModelLoad>,
+shared_ptr<ModelVoltageLevel>, shared_ptr<ModelBus>, shared_ptr<BusInterfaceIIDM>,
+shared_ptr<VoltageLevelInterfaceIIDM>>
 createModelLoad(bool open, bool initModel, powsybl::iidm::Network& networkIIDM) {
   powsybl::iidm::Substation& s = networkIIDM.newSubstation()
       .setId("S")
@@ -73,21 +73,21 @@ createModelLoad(bool open, bool initModel, powsybl::iidm::Network& networkIIDM) 
   loadIIDM.getTerminal().setQ(64.);
   if (open)
     loadIIDM.getTerminal().disconnect();
-  std::shared_ptr<LoadInterfaceIIDM> loadItfIIDM = std::make_shared<LoadInterfaceIIDM>(loadIIDM);
-  std::shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = std::make_shared<VoltageLevelInterfaceIIDM>(vlIIDM);
-  std::shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = std::make_shared<BusInterfaceIIDM>(iidmBus);
+  shared_ptr<LoadInterfaceIIDM> loadItfIIDM = shared_ptr<LoadInterfaceIIDM>(new LoadInterfaceIIDM(loadIIDM));
+  shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
+  shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
   loadItfIIDM->setVoltageLevelInterface(vlItfIIDM);
   loadItfIIDM->setBusInterface(bus1ItfIIDM);
   vlItfIIDM->addBus(bus1ItfIIDM);
   vlItfIIDM->addLoad(loadItfIIDM);
 
-  std::shared_ptr<ModelLoad> load = std::make_shared<ModelLoad>(loadItfIIDM);
+  shared_ptr<ModelLoad> load = shared_ptr<ModelLoad>(new ModelLoad(loadItfIIDM));
   ModelNetwork* network = new ModelNetwork();
   network->setIsInitModel(initModel);
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
   load->setNetwork(network);
-  std::shared_ptr<ModelVoltageLevel> vl = std::make_shared<ModelVoltageLevel>(vlItfIIDM);
-  std::shared_ptr<ModelBus> bus1 = std::make_shared<ModelBus>(bus1ItfIIDM, false);
+  shared_ptr<ModelVoltageLevel> vl = shared_ptr<ModelVoltageLevel>(new ModelVoltageLevel(vlItfIIDM));
+  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
   vl->addComponent(load);
   vl->addBus(bus1);
   bus1->setNetwork(network);
@@ -114,7 +114,7 @@ createModelLoad(bool open, bool initModel, powsybl::iidm::Network& networkIIDM) 
 }
 
 static void
-fillParameters(std::shared_ptr<ModelLoad> load, std::string& startingPoint, bool loadIsPControllable = false, bool loadIsQControllable = false) {
+fillParameters(shared_ptr<ModelLoad> load, std::string& startingPoint, bool loadIsPControllable = false, bool loadIsQControllable = false) {
   std::unordered_map<std::string, ParameterModeler> parametersModels;
 
   {
@@ -193,7 +193,7 @@ fillParameters(std::shared_ptr<ModelLoad> load, std::string& startingPoint, bool
 TEST(ModelsModelNetwork, ModelNetworkLoadInitializationClosed) {
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
   auto tuple = createModelLoad(false, false, networkIIDM);
-  std::shared_ptr<ModelLoad> load = std::get<0>(tuple);
+  shared_ptr<ModelLoad> load = std::get<0>(tuple);
   ASSERT_EQ(load->id(), "MyLoad");
   ASSERT_EQ(load->getConnected(), CLOSED);
   ASSERT_TRUE(load->isConnected());
@@ -203,7 +203,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadInitializationClosed) {
 TEST(ModelsModelNetwork, ModelNetworkLoadStartingPointFlat) {
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
   auto tuple = createModelLoad(false, false, networkIIDM);
-  std::shared_ptr<ModelLoad> load = std::get<0>(tuple);
+  shared_ptr<ModelLoad> load = std::get<0>(tuple);
   std::string startingPoint = "flat";
   fillParameters(load, startingPoint);
   load->initSize();
@@ -240,7 +240,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadStartingPointFlat) {
 
 TEST(ModelsModelNetwork, ModelNetworkLoadInitializationOpened) {
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
-  std::shared_ptr<ModelLoad> load = std::get<0>(createModelLoad(true, false, networkIIDM));
+  shared_ptr<ModelLoad> load = std::get<0>(createModelLoad(true, false, networkIIDM));
   ASSERT_EQ(load->id(), "MyLoad");
   ASSERT_EQ(load->getConnected(), OPEN);
   ASSERT_FALSE(load->isConnected());
@@ -250,7 +250,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadInitializationOpened) {
 TEST(ModelsModelNetwork, ModelNetworkLoadCalculatedVariables) {
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
   auto tuple = createModelLoad(false, false, networkIIDM);
-  std::shared_ptr<ModelLoad> load = std::get<0>(tuple);
+  shared_ptr<ModelLoad> load = std::get<0>(tuple);
   std::string startingPoint = "warm";
   fillParameters(load, startingPoint);
   load->initSize();
@@ -358,7 +358,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadCalculatedVariables) {
   ASSERT_TRUE(numVars.empty());
 
   powsybl::iidm::Network networkIIDM2("MyNetwork", "MyNetwork");
-  std::shared_ptr<ModelLoad> loadInit = std::get<0>(createModelLoad(false, true, networkIIDM2));
+  shared_ptr<ModelLoad> loadInit = std::get<0>(createModelLoad(false, true, networkIIDM2));
   loadInit->initSize();
   ASSERT_EQ(loadInit->sizeCalculatedVar(), 0);
   delete[] zConnected;
@@ -366,11 +366,11 @@ TEST(ModelsModelNetwork, ModelNetworkLoadCalculatedVariables) {
 
 TEST(ModelsModelNetwork, ModelNetworkLoadDiscreteVariables) {
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
-  std::tuple<std::shared_ptr<ModelLoad>,
-  std::shared_ptr<ModelVoltageLevel>, std::shared_ptr<ModelBus>, std::shared_ptr<BusInterfaceIIDM>,
-  std::shared_ptr<VoltageLevelInterfaceIIDM>> myTuple = createModelLoad(false, false, networkIIDM);
-  std::shared_ptr<ModelLoad> load = std::get<0>(myTuple);
-  std::shared_ptr<ModelVoltageLevel> vl = std::get<1>(myTuple);
+  std::tuple<shared_ptr<ModelLoad>,
+  shared_ptr<ModelVoltageLevel>, shared_ptr<ModelBus>, shared_ptr<BusInterfaceIIDM>,
+  shared_ptr<VoltageLevelInterfaceIIDM>> myTuple = createModelLoad(false, false, networkIIDM);
+  shared_ptr<ModelLoad> load = std::get<0>(myTuple);
+  shared_ptr<ModelVoltageLevel> vl = std::get<1>(myTuple);
   load->initSize();
   int yNum = 0;
   load->init(yNum);
@@ -419,7 +419,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadDiscreteVariables) {
   ASSERT_NO_THROW(load->evalG(0.));
 
   powsybl::iidm::Network networkIIDM2("MyNetwork", "MyNetwork");
-  std::shared_ptr<ModelLoad> loadInit = std::get<0>(createModelLoad(false, true, networkIIDM2));
+  shared_ptr<ModelLoad> loadInit = std::get<0>(createModelLoad(false, true, networkIIDM2));
   loadInit->initSize();
   ASSERT_EQ(loadInit->sizeZ(), 0);
   ASSERT_EQ(loadInit->sizeG(), 0);
@@ -428,11 +428,11 @@ TEST(ModelsModelNetwork, ModelNetworkLoadDiscreteVariables) {
 
 TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
-  std::tuple<std::shared_ptr<ModelLoad>,
-  std::shared_ptr<ModelVoltageLevel>, std::shared_ptr<ModelBus>, std::shared_ptr<BusInterfaceIIDM>,
-  std::shared_ptr<VoltageLevelInterfaceIIDM>> myTuple = createModelLoad(false, false, networkIIDM);
-  std::shared_ptr<ModelLoad> load = std::get<0>(myTuple);
-  std::shared_ptr<ModelVoltageLevel> vl = std::get<1>(myTuple);
+  std::tuple<shared_ptr<ModelLoad>,
+  shared_ptr<ModelVoltageLevel>, shared_ptr<ModelBus>, shared_ptr<BusInterfaceIIDM>,
+  shared_ptr<VoltageLevelInterfaceIIDM>> myTuple = createModelLoad(false, false, networkIIDM);
+  shared_ptr<ModelLoad> load = std::get<0>(myTuple);
+  shared_ptr<ModelVoltageLevel> vl = std::get<1>(myTuple);
   int yNum = 0;
   std::string startingPoint = "warm";
   fillParameters(load, startingPoint);
@@ -535,7 +535,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
   }
 
   powsybl::iidm::Network networkIIDM2("MyNetwork", "MyNetwork");
-  std::shared_ptr<ModelLoad> loadInit = std::get<0>(createModelLoad(false, true, networkIIDM2));
+  shared_ptr<ModelLoad> loadInit = std::get<0>(createModelLoad(false, true, networkIIDM2));
   loadInit->initSize();
   ASSERT_EQ(loadInit->sizeY(), 0);
   ASSERT_EQ(loadInit->sizeF(), 0);
@@ -548,11 +548,11 @@ TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
 
 TEST(ModelsModelNetwork, ModelNetworkLoadPControllable) {
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
-  std::tuple<std::shared_ptr<ModelLoad>,
-  std::shared_ptr<ModelVoltageLevel>, std::shared_ptr<ModelBus>, std::shared_ptr<BusInterfaceIIDM>,
-  std::shared_ptr<VoltageLevelInterfaceIIDM>> myTuple = createModelLoad(false, false, networkIIDM);
-  std::shared_ptr<ModelLoad> load = std::get<0>(myTuple);
-  std::shared_ptr<ModelVoltageLevel> vl = std::get<1>(myTuple);
+  std::tuple<shared_ptr<ModelLoad>,
+  shared_ptr<ModelVoltageLevel>, shared_ptr<ModelBus>, shared_ptr<BusInterfaceIIDM>,
+  shared_ptr<VoltageLevelInterfaceIIDM>> myTuple = createModelLoad(false, false, networkIIDM);
+  shared_ptr<ModelLoad> load = std::get<0>(myTuple);
+  shared_ptr<ModelVoltageLevel> vl = std::get<1>(myTuple);
   int yNum = 0;
   std::string startingPoint = "warm";
   bool loadIsPControllable = true;
@@ -567,11 +567,11 @@ TEST(ModelsModelNetwork, ModelNetworkLoadPControllable) {
 
 TEST(ModelsModelNetwork, ModelNetworkLoadQControllable) {
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
-  std::tuple<std::shared_ptr<ModelLoad>,
-  std::shared_ptr<ModelVoltageLevel>, std::shared_ptr<ModelBus>, std::shared_ptr<BusInterfaceIIDM>,
-  std::shared_ptr<VoltageLevelInterfaceIIDM>> myTuple = createModelLoad(false, false, networkIIDM);
-  std::shared_ptr<ModelLoad> load = std::get<0>(myTuple);
-  std::shared_ptr<ModelVoltageLevel> vl = std::get<1>(myTuple);
+  std::tuple<shared_ptr<ModelLoad>,
+  shared_ptr<ModelVoltageLevel>, shared_ptr<ModelBus>, shared_ptr<BusInterfaceIIDM>,
+  shared_ptr<VoltageLevelInterfaceIIDM>> myTuple = createModelLoad(false, false, networkIIDM);
+  shared_ptr<ModelLoad> load = std::get<0>(myTuple);
+  shared_ptr<ModelVoltageLevel> vl = std::get<1>(myTuple);
   int yNum = 0;
   std::string startingPoint = "warm";
   bool loadIsPControllable = false;
@@ -587,11 +587,11 @@ TEST(ModelsModelNetwork, ModelNetworkLoadQControllable) {
 
 TEST(ModelsModelNetwork, ModelNetworkLoadDefineInstantiate) {
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
-  std::tuple<std::shared_ptr<ModelLoad>,
-  std::shared_ptr<ModelVoltageLevel>, std::shared_ptr<ModelBus>, std::shared_ptr<BusInterfaceIIDM>,
-  std::shared_ptr<VoltageLevelInterfaceIIDM>> myTuple = createModelLoad(false, false, networkIIDM);
-  std::shared_ptr<ModelLoad> load = std::get<0>(myTuple);
-  std::shared_ptr<ModelVoltageLevel> vl = std::get<1>(myTuple);
+  std::tuple<shared_ptr<ModelLoad>,
+  shared_ptr<ModelVoltageLevel>, shared_ptr<ModelBus>, shared_ptr<BusInterfaceIIDM>,
+  shared_ptr<VoltageLevelInterfaceIIDM>> myTuple = createModelLoad(false, false, networkIIDM);
+  shared_ptr<ModelLoad> load = std::get<0>(myTuple);
+  shared_ptr<ModelVoltageLevel> vl = std::get<1>(myTuple);
   std::string startingPoint = "warm";
   fillParameters(load, startingPoint);
 
@@ -628,11 +628,11 @@ TEST(ModelsModelNetwork, ModelNetworkLoadDefineInstantiate) {
 
 TEST(ModelsModelNetwork, ModelNetworkLoadJt) {
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
-  std::tuple<std::shared_ptr<ModelLoad>,
-  std::shared_ptr<ModelVoltageLevel>, std::shared_ptr<ModelBus>, std::shared_ptr<BusInterfaceIIDM>,
-  std::shared_ptr<VoltageLevelInterfaceIIDM>> myTuple = createModelLoad(false, false, networkIIDM);
-  std::shared_ptr<ModelLoad> load = std::get<0>(myTuple);
-  std::shared_ptr<ModelVoltageLevel> vl = std::get<1>(myTuple);
+  std::tuple<shared_ptr<ModelLoad>,
+  shared_ptr<ModelVoltageLevel>, shared_ptr<ModelBus>, shared_ptr<BusInterfaceIIDM>,
+  shared_ptr<VoltageLevelInterfaceIIDM>> myTuple = createModelLoad(false, false, networkIIDM);
+  shared_ptr<ModelLoad> load = std::get<0>(myTuple);
+  shared_ptr<ModelVoltageLevel> vl = std::get<1>(myTuple);
   std::string startingPoint = "warm";
   fillParameters(load, startingPoint);
   load->initSize();
@@ -697,7 +697,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadJt) {
   ASSERT_EQ(smjPrime.Ap_[2], 2);
 
   powsybl::iidm::Network networkIIDM2("MyNetwork", "MyNetwork");
-  std::shared_ptr<ModelLoad> loadInit = std::get<0>(createModelLoad(false, true, networkIIDM2));
+  shared_ptr<ModelLoad> loadInit = std::get<0>(createModelLoad(false, true, networkIIDM2));
   loadInit->initSize();
   SparseMatrix smjInit;
   smjInit.init(loadInit->sizeY(), loadInit->sizeY());

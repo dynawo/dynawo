@@ -36,13 +36,14 @@
 using boost::shared_ptr;
 
 using std::vector;
+using std::map;
 using std::string;
 
 using parameters::ParametersSet;
 
 namespace DYN {
 
-ModelShuntCompensator::ModelShuntCompensator(const std::shared_ptr<ShuntCompensatorInterface>& shunt) :
+ModelShuntCompensator::ModelShuntCompensator(const shared_ptr<ShuntCompensatorInterface>& shunt) :
 NetworkComponent(shunt->getID()),
 shunt_(shunt),
 modelBus_(),
@@ -130,7 +131,7 @@ ModelShuntCompensator::ii_dUi() const {
 }
 
 void
-ModelShuntCompensator::setModelBus(const std::shared_ptr<ModelBus>& model) {
+ModelShuntCompensator::setModelBus(const boost::shared_ptr<ModelBus>& model) {
   modelBus_ = model;
   cannotBeDisconnected_ = connectionState_ == CLOSED && !modelBus_->getVoltageLevel()->canBeDisconnected(modelBus_->getBusIndex());
 }
@@ -384,7 +385,7 @@ void
 ModelShuntCompensator::init(int& /*yNum*/) {
   double Q = 0.;
   double uNode = 0.;
-  std::shared_ptr<ShuntCompensatorInterface> shunt = shunt_.lock();
+  boost::shared_ptr<ShuntCompensatorInterface> shunt = shunt_.lock();
   double thetaNode = shunt->getBusInterface()->getAngle0();
   double unomNode = shunt->getBusInterface()->getVNom();
   switch (startingPointMode_) {

@@ -37,7 +37,7 @@ class ModelLine : public NetworkComponent {
    * @brief default constructor
    * @param line : line data interface to use to build the model
    */
-  explicit ModelLine(const std::shared_ptr<LineInterface>& line);
+  explicit ModelLine(const boost::shared_ptr<LineInterface>& line);
 
   /**
    * @brief indicate which modelBus are known (case of line without modelBus at one side)
@@ -92,7 +92,7 @@ class ModelLine : public NetworkComponent {
    *
    * @param model model of the bus
    */
-  void setModelBus1(const std::shared_ptr<ModelBus>& model) {
+  void setModelBus1(const boost::shared_ptr<ModelBus>& model) {
     modelBus1_ = model;
   }
 
@@ -101,7 +101,7 @@ class ModelLine : public NetworkComponent {
    *
    * @param model model of the bus
    */
-  void setModelBus2(const std::shared_ptr<ModelBus>& model) {
+  void setModelBus2(const boost::shared_ptr<ModelBus>& model) {
     modelBus2_ = model;
   }
 
@@ -515,8 +515,8 @@ class ModelLine : public NetworkComponent {
     return yOffset_ + localIndex;
   }
 
-  std::shared_ptr<ModelBus> modelBus1_;  ///< model bus 1
-  std::shared_ptr<ModelBus> modelBus2_;  ///< model bus 2
+  boost::shared_ptr<ModelBus> modelBus1_;  ///< model bus 1
+  boost::shared_ptr<ModelBus> modelBus2_;  ///< model bus 2
   State connectionState_;  ///< "internal" line connection status, evaluated at the end of evalZ to detect if the state was modified by another component
   bool topologyModified_;  ///< true if the line connection state was modified
   bool updateYMat_;  ///< true if the YMat need to be updated(= topologyModified)

@@ -13,12 +13,12 @@
 
 #include "CRTCriteriaCollection.h"
 
-using std::shared_ptr;
+using boost::shared_ptr;
 
 namespace criteria {
 
 void
-CriteriaCollection::add(CriteriaCollectionType_t type, const std::shared_ptr<Criteria>& criteria) {
+CriteriaCollection::add(CriteriaCollectionType_t type, const boost::shared_ptr<Criteria> & criteria) {
   switch (type) {
   case CriteriaCollection::BUS:
     busCriteria_.push_back(criteria);

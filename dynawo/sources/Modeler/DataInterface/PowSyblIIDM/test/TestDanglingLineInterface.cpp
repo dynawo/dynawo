@@ -80,7 +80,7 @@ TEST(DataInterfaceTest, DanglingLine_1) {
 
   powsybl::iidm::DanglingLine& danglingLine = network.getDanglingLine("DANGLING_LINE1");
   DanglingLineInterfaceIIDM danglingLineIfce(danglingLine);
-  const std::shared_ptr<VoltageLevelInterface> vlItf = std::make_shared<VoltageLevelInterfaceIIDM>(vl1);
+  const boost::shared_ptr<VoltageLevelInterface> vlItf(new VoltageLevelInterfaceIIDM(vl1));
   danglingLineIfce.setVoltageLevelInterface(vlItf);
 
   ASSERT_EQ(danglingLineIfce.getComponentVarIndex(std::string("p")), DanglingLineInterfaceIIDM::VAR_P);
@@ -99,8 +99,8 @@ TEST(DataInterfaceTest, DanglingLine_1) {
   ASSERT_TRUE(danglingLineIfce.getInitialConnected());
 
   ASSERT_EQ(danglingLineIfce.getBusInterface().get(), nullptr);
-  std::unique_ptr<BusInterface> busIfce(new BusInterfaceIIDM(bus1));
-  danglingLineIfce.setBusInterface(std::move(busIfce));
+  const boost::shared_ptr<BusInterface> busIfce(new BusInterfaceIIDM(bus1));
+  danglingLineIfce.setBusInterface(busIfce);
   ASSERT_EQ(danglingLineIfce.getBusInterface().get()->getID(), "VL1_BUS1");
 
   ASSERT_FALSE(danglingLineIfce.hasInitialConditions());
@@ -120,12 +120,12 @@ TEST(DataInterfaceTest, DanglingLine_1) {
   ASSERT_DOUBLE_EQ(danglingLineIfce.getR(), 5.0);
   ASSERT_DOUBLE_EQ(danglingLineIfce.getX(), 6.0);
 
-  const std::shared_ptr<VoltageLevelInterface> voltageLevelIfce = std::make_shared<VoltageLevelInterfaceIIDM>(vl1);
+  const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce(new VoltageLevelInterfaceIIDM(vl1));
   danglingLineIfce.setVoltageLevelInterface(voltageLevelIfce);
   ASSERT_DOUBLE_EQ(danglingLineIfce.getVNom(), 380);
 
-  std::unique_ptr<CurrentLimitInterface> currentLimitIfce(new CurrentLimitInterfaceIIDM(1.0, 99));
-  danglingLineIfce.addCurrentLimitInterface(std::move(currentLimitIfce));
+  const boost::shared_ptr<CurrentLimitInterface> currentLimitIfce(new CurrentLimitInterfaceIIDM(1.0, 99));
+  danglingLineIfce.addCurrentLimitInterface(currentLimitIfce);
   ASSERT_EQ(danglingLineIfce.getCurrentLimitInterfaces().size(), 1);
 
   vl1.newDanglingLine()

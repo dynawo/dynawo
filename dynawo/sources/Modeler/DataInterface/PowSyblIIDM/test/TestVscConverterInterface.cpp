@@ -94,7 +94,7 @@ TEST(DataInterfaceTest, VscConverter_1) {
   powsybl::iidm::VscConverterStation& vsc = network.getVscConverterStation("VSC1");
 
   VscConverterInterfaceIIDM Ifce(vsc);
-  const std::shared_ptr<VoltageLevelInterface> voltageLevelIfce = std::make_shared<VoltageLevelInterfaceIIDM>(vl1);
+  const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce(new VoltageLevelInterfaceIIDM(vl1));
   Ifce.setVoltageLevelInterface(voltageLevelIfce);
   ASSERT_EQ(Ifce.getID(), "VSC1");
   ASSERT_EQ(Ifce.getComponentVarIndex("nothing"), -1);
@@ -105,7 +105,7 @@ TEST(DataInterfaceTest, VscConverter_1) {
 
   powsybl::iidm::Bus& b1 = vl1.getBusBreakerView().newBus().setId("BUS1").add();
   b1.setV(410.0).setAngle(3.14);
-  const std::shared_ptr<BusInterface> x_b1 = std::make_shared<BusInterfaceIIDM>(b1);
+  const boost::shared_ptr<BusInterface> x_b1(new BusInterfaceIIDM(b1));
 
   ASSERT_EQ(Ifce.getBusInterface(), nullptr);
   Ifce.setBusInterface(x_b1);

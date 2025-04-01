@@ -51,7 +51,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @brief default constructor
    * @param tfo : two windings transformer data interface used to build the model
    */
-  explicit ModelTwoWindingsTransformer(const std::shared_ptr<TwoWTransformerInterface>& tfo);
+  explicit ModelTwoWindingsTransformer(const boost::shared_ptr<TwoWTransformerInterface>& tfo);
 
   /**
    * @brief  indicate which modelBus are known (case of line without modelBus at one side)
@@ -116,7 +116,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    *
    * @param model model of the bus
    */
-  void setModelBus1(const std::shared_ptr<ModelBus>& model) {
+  void setModelBus1(const boost::shared_ptr<ModelBus>& model) {
     modelBus1_ = model;
   }
 
@@ -125,7 +125,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    *
    * @param model model of the bus
    */
-  void setModelBus2(const std::shared_ptr<ModelBus>& model) {
+  void setModelBus2(const boost::shared_ptr<ModelBus>& model) {
     modelBus2_ = model;
   }
 
@@ -133,7 +133,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @brief set monitoring bus
    * @param modelBus monitored bus model
    */
-  void setBusMonitored(const std::shared_ptr<ModelBus>& modelBus) {
+  void setBusMonitored(const boost::shared_ptr<ModelBus>& modelBus) {
     modelBusMonitored_ = modelBus;
   }
 
@@ -717,8 +717,8 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
   double ii01_;  ///< initial imaginary part of the current at side 1
   double ir02_;  ///< initial real part of the current at side 2
   double ii02_;  ///< initial imaginary part of the current at side 2
-  std::shared_ptr<ModelBus> modelBus1_;  ///< model for the bus on side 1
-  std::shared_ptr<ModelBus> modelBus2_;  ///< model for the bus on side 2
+  boost::shared_ptr<ModelBus> modelBus1_;  ///< model for the bus on side 1
+  boost::shared_ptr<ModelBus> modelBus2_;  ///< model for the bus on side 2
 
   // evaluated at the end of evalZ to detect if the state was modified by another component
   State connectionState_;  ///< "internal" 2wt connection state for the transformer
@@ -731,7 +731,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
   boost::shared_ptr<ModelRatioTapChanger> modelRatioChanger_;  ///< model used for the ratio tap-changer
   std::string terminalRefId_;  ///< id of the terminal where the voltage is measured
   std::string side_;  ///< side of the terminal where the voltage is measured
-  std::shared_ptr<ModelBus> modelBusMonitored_;  ///< model of the bus where the voltage is measured
+  boost::shared_ptr<ModelBus> modelBusMonitored_;  ///< model of the bus where the voltage is measured
 
   boost::shared_ptr<ModelPhaseTapChanger> modelPhaseChanger_;  ///< model used for the phase tap changer
   boost::shared_ptr<ModelTapChanger> modelTapChanger_;  ///< generic model used for the tap changer (when there is only one tap)

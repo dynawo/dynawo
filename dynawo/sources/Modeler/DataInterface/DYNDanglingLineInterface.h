@@ -52,31 +52,31 @@ class DanglingLineInterface : public ComponentInterface {
    * @brief Add a curent limit interface
    * @param currentLimitInterface current limit interface for the danglingline
    */
-  virtual void addCurrentLimitInterface(std::unique_ptr<CurrentLimitInterface> currentLimitInterface) = 0;
+  virtual void addCurrentLimitInterface(const boost::shared_ptr<CurrentLimitInterface>& currentLimitInterface) = 0;
 
   /**
    * @brief Getter for the current limit interfaces f
    * @return currentLimitInterface of the danglingline
    */
-  virtual const std::vector<std::unique_ptr<CurrentLimitInterface> >& getCurrentLimitInterfaces() const = 0;
+  virtual std::vector<boost::shared_ptr<CurrentLimitInterface> > getCurrentLimitInterfaces() const = 0;
 
   /**
    * @brief Setter for the danglingLine's bus interface
    * @param busInterface of the bus where the dangling line is connected
    */
-  virtual void setBusInterface(const std::shared_ptr<BusInterface>& busInterface) = 0;
+  virtual void setBusInterface(const boost::shared_ptr<BusInterface>& busInterface) = 0;
 
   /**
    * @brief Setter for the danglingLine's voltage interface
    * @param voltageLevelInterface of the voltageLevel where the dangling line is connected
    */
-  virtual void setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) = 0;
+  virtual void setVoltageLevelInterface(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) = 0;
 
   /**
    * @brief Getter for the danglingLine's bus interface
    * @return busInterface of the bus where the dangling line is connected
    */
-  virtual std::shared_ptr<BusInterface> getBusInterface() const = 0;
+  virtual boost::shared_ptr<BusInterface> getBusInterface() const = 0;
 
   /**
    * @brief Getter for the active power of the dangling line

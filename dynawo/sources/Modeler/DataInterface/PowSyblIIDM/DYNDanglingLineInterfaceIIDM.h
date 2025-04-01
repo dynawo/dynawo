@@ -22,9 +22,10 @@
 #ifndef MODELER_DATAINTERFACE_POWSYBLIIDM_DYNDANGLINGLINEINTERFACEIIDM_H_
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNDANGLINGLINEINTERFACEIIDM_H_
 
+#include <boost/shared_ptr.hpp>
+
 #include "DYNDanglingLineInterface.h"
 #include "DYNInjectorInterfaceIIDM.h"
-#include "DYNCurrentLimitInterface.h"
 #include <powsybl/iidm/DanglingLine.hpp>
 
 namespace DYN {
@@ -66,19 +67,19 @@ class DanglingLineInterfaceIIDM : public DanglingLineInterface, public InjectorI
   bool isConnected() const;
 
   /**
-   * @copydoc DanglingLineInterface::setBusInterface(const std::shared_ptr<BusInterface>& busInterface)
+   * @copydoc DanglingLineInterface::setBusInterface(const boost::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface(const std::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface(const boost::shared_ptr<BusInterface>& busInterface);
 
   /**
-   * @copydoc DanglingLineInterface::setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
+   * @copydoc DanglingLineInterface::setVoltageLevelInterface(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
    */
-  void setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
+  void setVoltageLevelInterface(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
 
   /**
    * @copydoc DanglingLineInterface::getBusInterface() const
    */
-  std::shared_ptr<BusInterface> getBusInterface() const;
+  boost::shared_ptr<BusInterface> getBusInterface() const;
 
   /**
    * @copydoc DanglingLineInterface::getInitialConnected()
@@ -136,14 +137,14 @@ class DanglingLineInterfaceIIDM : public DanglingLineInterface, public InjectorI
   double getB() const;
 
   /**
-   * @copydoc DanglingLineInterface::addCurrentLimitInterface(std::unique_ptr<CurrentLimitInterface> currentLimitInterface)
+   * @copydoc DanglingLineInterface::addCurrentLimitInterface(const boost::shared_ptr<CurrentLimitInterface>& currentLimitInterface)
    */
-  void addCurrentLimitInterface(std::unique_ptr<CurrentLimitInterface> currentLimitInterface);
+  void addCurrentLimitInterface(const boost::shared_ptr<CurrentLimitInterface>& currentLimitInterface);
 
   /**
    * @copydoc DanglingLineInterface::getCurrentLimitInterfaces() const
    */
-  const std::vector<std::unique_ptr<CurrentLimitInterface> >& getCurrentLimitInterfaces() const;
+  std::vector<boost::shared_ptr<CurrentLimitInterface> > getCurrentLimitInterfaces() const;
 
   /**
    * @copydoc ComponentInterface::getComponentVarIndex()
@@ -152,7 +153,7 @@ class DanglingLineInterfaceIIDM : public DanglingLineInterface, public InjectorI
 
  private:
   powsybl::iidm::DanglingLine& danglingLineIIDM_;  ///< reference to the iidm dangling line reference
-  std::vector<std::unique_ptr<CurrentLimitInterface> > currentLimitInterfaces_;  ///< current limit interfaces
+  std::vector<boost::shared_ptr<CurrentLimitInterface> > currentLimitInterfaces_;  ///< current limit interfaces
 };  ///< class for dangling line interface
 }  // namespace DYN
 

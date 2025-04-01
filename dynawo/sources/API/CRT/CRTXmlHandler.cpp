@@ -106,7 +106,7 @@ void CriteriaHandler::create(attributes_type const & /*attributes*/) {
   criteriaRead_ = CriteriaFactory::newCriteria();
 }
 
-std::shared_ptr<Criteria>
+shared_ptr<Criteria>
 CriteriaHandler::get() const {
   return criteriaRead_;
 }

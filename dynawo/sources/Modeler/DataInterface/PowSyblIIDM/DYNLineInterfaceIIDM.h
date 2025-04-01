@@ -21,9 +21,9 @@
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNLINEINTERFACEIIDM_H_
 
 #include <powsybl/iidm/Line.hpp>
+#include <boost/shared_ptr.hpp>
 
 #include "DYNLineInterface.h"
-#include "DYNCurrentLimitInterface.h"
 #include "DYNActiveSeasonIIDMExtension.h"
 #include "DYNCurrentLimitsPerSeasonIIDMExtension.h"
 #include "DYNIIDMExtensions.hpp"
@@ -151,53 +151,53 @@ class LineInterfaceIIDM : public LineInterface, public boost::noncopyable {
    * @brief Setter for the line's voltageLevel interface side 1
    * @param voltageLevelInterface of the bus where the side 1 of the line is connected
    */
-  void setVoltageLevelInterface1(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
+  void setVoltageLevelInterface1(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
 
   /**
-   * @copydoc LineInterface::setBusInterface1(const std::shared_ptr<BusInterface>& busInterface)
+   * @copydoc LineInterface::setBusInterface1(const boost::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface1(const std::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface1(const boost::shared_ptr<BusInterface>& busInterface);
 
   /**
    * @brief Setter for the line's voltageLevel interface side 2
    * @param voltageLevelInterface of the bus where the side 2 of the line is connected
    */
-  void setVoltageLevelInterface2(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
+  void setVoltageLevelInterface2(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
 
   /**
-   * @copydoc LineInterface::setBusInterface2(const std::shared_ptr<BusInterface>& busInterface)
+   * @copydoc LineInterface::setBusInterface2(const boost::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface2(const std::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface2(const boost::shared_ptr<BusInterface>& busInterface);
 
   /**
    * @copydoc LineInterface::getBusInterface1() const
    */
-  std::shared_ptr<BusInterface> getBusInterface1() const;
+  boost::shared_ptr<BusInterface> getBusInterface1() const;
 
   /**
    * @copydoc LineInterface::getBusInterface2() const
    */
-  std::shared_ptr<BusInterface> getBusInterface2() const;
+  boost::shared_ptr<BusInterface> getBusInterface2() const;
 
   /**
-   * @copydoc LineInterface::addCurrentLimitInterface1(std::unique_ptr<CurrentLimitInterface> currentLimitInterface)
+   * @copydoc LineInterface::addCurrentLimitInterface1(const boost::shared_ptr<CurrentLimitInterface>& currentLimitInterface)
    */
-  void addCurrentLimitInterface1(std::unique_ptr<CurrentLimitInterface> currentLimitInterface);
+  void addCurrentLimitInterface1(const boost::shared_ptr<CurrentLimitInterface>& currentLimitInterface);
 
   /**
-   * @copydoc LineInterface::addCurrentLimitInterface2(std::unique_ptr<CurrentLimitInterface> currentLimitInterface)
+   * @copydoc LineInterface::addCurrentLimitInterface2(const boost::shared_ptr<CurrentLimitInterface>& currentLimitInterface)
    */
-  void addCurrentLimitInterface2(std::unique_ptr<CurrentLimitInterface> currentLimitInterface);
+  void addCurrentLimitInterface2(const boost::shared_ptr<CurrentLimitInterface>& currentLimitInterface);
 
   /**
    * @copydoc LineInterface::getCurrentLimitInterfaces1() const
    */
-  const std::vector<std::unique_ptr<CurrentLimitInterface> >& getCurrentLimitInterfaces1() const;
+  std::vector<boost::shared_ptr<CurrentLimitInterface> > getCurrentLimitInterfaces1() const;
 
   /**
    * @copydoc LineInterface::getCurrentLimitInterfaces2() const
    */
-  const std::vector<std::unique_ptr<CurrentLimitInterface> >& getCurrentLimitInterfaces2() const;
+  std::vector<boost::shared_ptr<CurrentLimitInterface> > getCurrentLimitInterfaces2() const;
 
   /**
    * @copydoc LineInterface::getActiveSeason()
@@ -289,13 +289,13 @@ class LineInterfaceIIDM : public LineInterface, public boost::noncopyable {
 
  private:
   powsybl::iidm::Line& lineIIDM_;                                    ///< reference to the iidm line instance
-  std::shared_ptr<BusInterface> busInterface1_;                    ///< busInterface of the bus where the side 1 of the line is connected
-  std::shared_ptr<BusInterface> busInterface2_;                    ///< busInterface of the bus where the side 2 of the line is connected
-  std::shared_ptr<VoltageLevelInterface> voltageLevelInterface1_;  ///< voltageLevel interface where the side 1 of the line is connected
-  std::shared_ptr<VoltageLevelInterface> voltageLevelInterface2_;  ///< voltageLevel interface where the side 2 of the line is connected
+  boost::shared_ptr<BusInterface> busInterface1_;                    ///< busInterface of the bus where the side 1 of the line is connected
+  boost::shared_ptr<BusInterface> busInterface2_;                    ///< busInterface of the bus where the side 2 of the line is connected
+  boost::shared_ptr<VoltageLevelInterface> voltageLevelInterface1_;  ///< voltageLevel interface where the side 1 of the line is connected
+  boost::shared_ptr<VoltageLevelInterface> voltageLevelInterface2_;  ///< voltageLevel interface where the side 2 of the line is connected
 
-  std::vector<std::unique_ptr<CurrentLimitInterface> > currentLimitInterfaces1_;  ///< current limit interfaces for side 1
-  std::vector<std::unique_ptr<CurrentLimitInterface> > currentLimitInterfaces2_;  ///< current limit interfaces for side 2
+  std::vector<boost::shared_ptr<CurrentLimitInterface> > currentLimitInterfaces1_;  ///< current limit interfaces for side 1
+  std::vector<boost::shared_ptr<CurrentLimitInterface> > currentLimitInterfaces2_;  ///< current limit interfaces for side 2
   boost::optional<bool> initialConnected1_;                                         ///< side 1 initially connected
   boost::optional<bool> initialConnected2_;                                         ///< side 2 initially connected
 

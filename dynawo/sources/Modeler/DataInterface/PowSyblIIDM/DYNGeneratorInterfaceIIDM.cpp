@@ -26,6 +26,7 @@
 
 using std::string;
 using std::vector;
+using boost::shared_ptr;
 
 namespace DYN {
 
@@ -155,16 +156,16 @@ GeneratorInterfaceIIDM::importStaticParameters() {
 }
 
 void
-GeneratorInterfaceIIDM::setBusInterface(const std::shared_ptr<BusInterface>& busInterface) {
+GeneratorInterfaceIIDM::setBusInterface(const shared_ptr<BusInterface>& busInterface) {
   setBusInterfaceInjector(busInterface);
 }
 
 void
-GeneratorInterfaceIIDM::setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
+GeneratorInterfaceIIDM::setVoltageLevelInterface(const shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
   setVoltageLevelInterfaceInjector(voltageLevelInterface);
 }
 
-std::shared_ptr<BusInterface>
+shared_ptr<BusInterface>
 GeneratorInterfaceIIDM::getBusInterface() const {
   return getBusInterfaceInjector();
 }

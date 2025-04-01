@@ -22,6 +22,8 @@
 #ifndef MODELER_DATAINTERFACE_POWSYBLIIDM_DYNBATTERYINTERFACEIIDM_H_
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNBATTERYINTERFACEIIDM_H_
 
+#include <boost/shared_ptr.hpp>
+
 #include "DYNGeneratorInterface.h"
 #include "DYNInjectorInterfaceIIDM.h"
 
@@ -63,19 +65,19 @@ class BatteryInterfaceIIDM : public GeneratorInterface, public InjectorInterface
   void importStaticParameters();
 
   /**
-   * @copydoc GeneratorInterface::setBusInterface(const std::shared_ptr<BusInterface>& busInterface)
+   * @copydoc GeneratorInterface::setBusInterface(const boost::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface(const std::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface(const boost::shared_ptr<BusInterface>& busInterface);
 
   /**
-   * @copydoc GeneratorInterface::setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
+   * @copydoc GeneratorInterface::setVoltageLevelInterface(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
    */
-  void setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
+  void setVoltageLevelInterface(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
 
   /**
    * @copydoc GeneratorInterface::getBusInterface() const
    */
-  std::shared_ptr<BusInterface> getBusInterface() const;
+  boost::shared_ptr<BusInterface> getBusInterface() const;
 
   /**
    * @copydoc GeneratorInterface::getInitialConnected()

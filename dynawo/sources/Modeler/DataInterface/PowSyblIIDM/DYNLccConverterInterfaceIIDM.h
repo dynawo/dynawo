@@ -22,6 +22,8 @@
 #ifndef MODELER_DATAINTERFACE_POWSYBLIIDM_DYNLCCCONVERTERINTERFACEIIDM_H_
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNLCCCONVERTERINTERFACEIIDM_H_
 
+#include <boost/shared_ptr.hpp>
+
 #include "DYNLccConverterInterface.h"
 
 #include "DYNInjectorInterfaceIIDM.h"
@@ -29,7 +31,6 @@
 #include <powsybl/iidm/LccConverterStation.hpp>
 
 #include <string>
-
 
 namespace DYN {
 
@@ -60,19 +61,19 @@ class LccConverterInterfaceIIDM : public LccConverterInterface, public InjectorI
   bool isConnected() const;
 
   /**
-   * @copydoc LccConverterInterface::setBusInterface(const std::shared_ptr<BusInterface>& busInterface)
+   * @copydoc LccConverterInterface::setBusInterface(const boost::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface(const std::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface(const boost::shared_ptr<BusInterface>& busInterface);
 
   /**
-   * @copydoc LccConverterInterface::setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
+   * @copydoc LccConverterInterface::setVoltageLevelInterface(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
    */
-  void setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
+  void setVoltageLevelInterface(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
 
   /**
    * @copydoc LccConverterInterface::getBusInterface() const
    */
-  std::shared_ptr<BusInterface> getBusInterface() const;
+  boost::shared_ptr<BusInterface> getBusInterface() const;
 
   /**
    * @copydoc LccConverterInterface::getInitialConnected()

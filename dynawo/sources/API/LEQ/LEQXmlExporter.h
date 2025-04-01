@@ -39,7 +39,7 @@ class XmlExporter : public Exporter {
    * @param lostEquipments Lost equipments to export
    * @param filePath File to export XML formatted lost equipments to
    */
-  void exportToFile(const std::shared_ptr<LostEquipmentsCollection>& lostEquipments, const std::string& filePath) const;
+  void exportToFile(const boost::shared_ptr<LostEquipmentsCollection>& lostEquipments, const std::string& filePath) const;
 
   /**
    * @brief Export method in XML format
@@ -47,7 +47,7 @@ class XmlExporter : public Exporter {
    * @param lostEquipments Lost equipments to export
    * @param stream Stream to export XML formatted lost equipments to
    */
-  void exportToStream(const std::shared_ptr<LostEquipmentsCollection>& lostEquipments, std::ostream& stream) const;
+  void exportToStream(const boost::shared_ptr<LostEquipmentsCollection>& lostEquipments, std::ostream& stream) const;
 };
 
 }  // namespace lostEquipments

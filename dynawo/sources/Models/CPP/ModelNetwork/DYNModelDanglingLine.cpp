@@ -47,7 +47,7 @@ using std::string;
 
 namespace DYN {
 
-ModelDanglingLine::ModelDanglingLine(const std::shared_ptr<DanglingLineInterface>& line) :
+ModelDanglingLine::ModelDanglingLine(const shared_ptr<DanglingLineInterface>& line) :
 NetworkComponent(line->getID()),
 stateModified_(false),
 modelType_("DanglingLine")  {
@@ -89,7 +89,7 @@ modelType_("DanglingLine")  {
 
   double factorPuToA = sqrt(3.) * vNom / (1000. * SNREF);
   // current limits
-  const vector<std::unique_ptr<CurrentLimitInterface> >& cLimit = line->getCurrentLimitInterfaces();
+  vector<shared_ptr<CurrentLimitInterface> > cLimit = line->getCurrentLimitInterfaces();
   if (cLimit.size() > 0) {
     currentLimits_.reset(new ModelCurrentLimits());
     currentLimits_->setSide(ModelCurrentLimits::SIDE_UNDEFINED);

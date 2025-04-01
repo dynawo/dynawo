@@ -90,7 +90,7 @@ TEST(DataInterfaceTest, LccConverter) {
   powsybl::iidm::LccConverterStation& lcc = network.getLccConverterStation("LCC1");
 
   DYN::LccConverterInterfaceIIDM Ifce(lcc);
-  const std::shared_ptr<DYN::VoltageLevelInterface> voltageLevelIfce = std::make_shared<DYN::VoltageLevelInterfaceIIDM>(vl1);
+  const boost::shared_ptr<DYN::VoltageLevelInterface> voltageLevelIfce(new DYN::VoltageLevelInterfaceIIDM(vl1));
   Ifce.setVoltageLevelInterfaceInjector(voltageLevelIfce);
   ASSERT_EQ(Ifce.getID(), "LCC1");
   ASSERT_EQ(Ifce.getComponentVarIndex("nothing"), -1);
@@ -103,7 +103,7 @@ TEST(DataInterfaceTest, LccConverter) {
 
   powsybl::iidm::Bus& b1 = vl1.getBusBreakerView().newBus().setId("BUS1").add();
   b1.setV(410.0).setAngle(3.14);
-  const std::shared_ptr<BusInterface> x_b1 = std::make_shared<BusInterfaceIIDM>(b1);
+  const boost::shared_ptr<BusInterface> x_b1(new BusInterfaceIIDM(b1));
 
   ASSERT_EQ(Ifce.getBusInterface(), nullptr);
   Ifce.setBusInterface(x_b1);

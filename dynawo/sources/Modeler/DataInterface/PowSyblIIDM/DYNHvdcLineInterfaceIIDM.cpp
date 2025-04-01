@@ -30,10 +30,13 @@
 #include "DYNModelConstants.h"
 #include "DYNVscConverterInterfaceIIDM.h"
 
+#include <boost/pointer_cast.hpp>
+#include <boost/shared_ptr.hpp>
+
 #include <string>
 
-using std::dynamic_pointer_cast;
-using std::shared_ptr;
+using boost::dynamic_pointer_cast;
+using boost::shared_ptr;
 using std::string;
 
 namespace DYN {

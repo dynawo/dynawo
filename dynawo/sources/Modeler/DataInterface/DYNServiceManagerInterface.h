@@ -82,7 +82,7 @@ struct ServiceManagerInterface {
    * @param regulatingComponent id of the regulating object
    * @returns regulated bus interface
    */
-  virtual std::shared_ptr<BusInterface> getRegulatedBus(const std::string& regulatingComponent) const = 0;
+  virtual boost::shared_ptr<BusInterface> getRegulatedBus(const std::string& regulatingComponent) const = 0;
 };
 
 #ifdef __clang__

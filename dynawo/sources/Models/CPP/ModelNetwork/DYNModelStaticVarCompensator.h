@@ -39,7 +39,7 @@ class ModelStaticVarCompensator : public NetworkComponent {
    * @brief default constructor
    * @param svc : static var compensator data interface used to build the model
    */
-  explicit ModelStaticVarCompensator(const std::shared_ptr<StaticVarCompensatorInterface>& svc);
+  explicit ModelStaticVarCompensator(const boost::shared_ptr<StaticVarCompensatorInterface>& svc);
 
   /**
    * @brief  calculated variables type
@@ -71,7 +71,7 @@ class ModelStaticVarCompensator : public NetworkComponent {
    *
    * @param model model of the bus
    */
-  void setModelBus(const std::shared_ptr<ModelBus>& model) {
+  void setModelBus(const boost::shared_ptr<ModelBus>& model) {
     modelBus_ = model;
   }
 
@@ -324,7 +324,7 @@ class ModelStaticVarCompensator : public NetworkComponent {
   double ii_dUi() const;
 
  private:
-  std::weak_ptr<StaticVarCompensatorInterface> svc_;  ///< reference to the svc interface object
+  boost::weak_ptr<StaticVarCompensatorInterface> svc_;  ///< reference to the svc interface object
   double gSvc0_;  ///< initial conductance of the svc in pu (base SNREF)
   double bSvc0_;  ///< initial susceptance of the svc in pu (base SNREF)
   double ir0_;  ///< initial current (real part)
@@ -332,7 +332,7 @@ class ModelStaticVarCompensator : public NetworkComponent {
   StaticVarCompensatorInterface::RegulationMode_t mode_;  ///< regulation mode
   State connectionState_;  ///< "internal" compensator connection status, evaluated at the end of evalZ to detect if the state was modified by another component
   bool stateModified_;  ///< true if the compensator connection state was modified
-  std::shared_ptr<ModelBus> modelBus_;  ///< model bus
+  boost::shared_ptr<ModelBus> modelBus_;  ///< model bus
   startingPointMode_t startingPointMode_;  ///< type of starting point for the model (FLAT,WARM)
 };  ///< class for Static Var Compensator model in network
 

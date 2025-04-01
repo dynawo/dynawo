@@ -39,7 +39,7 @@
 using boost::shared_ptr;
 
 namespace DYN {
-static std::pair<std::unique_ptr<ModelDanglingLine>, std::shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
+static std::pair<shared_ptr<ModelDanglingLine>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
 createModelDanglingLine(bool open, bool initModel) {
   powsybl::iidm::Network networkIIDM("test", "test");
 
@@ -82,35 +82,34 @@ createModelDanglingLine(bool open, bool initModel) {
       .add();
   if (open)
     dlIIDM.getTerminal().disconnect();
-  std::shared_ptr<DanglingLineInterfaceIIDM> dlItfIIDM = std::make_shared<DanglingLineInterfaceIIDM>(dlIIDM);
-  std::shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = std::make_shared<VoltageLevelInterfaceIIDM>(vlIIDM);
-  std::shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = std::make_shared<BusInterfaceIIDM>(iidmBus);
+  shared_ptr<DanglingLineInterfaceIIDM> dlItfIIDM = shared_ptr<DanglingLineInterfaceIIDM>(new DanglingLineInterfaceIIDM(dlIIDM));
+  shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
+  shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
   dlItfIIDM->setVoltageLevelInterface(vlItfIIDM);
   dlItfIIDM->setBusInterface(bus1ItfIIDM);
   powsybl::iidm::CurrentLimits& currentLimits = dlIIDM.getCurrentLimits();
 
   // permanent limit
   if (!std::isnan(currentLimits.getPermanentLimit())) {
-    std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(),
-                                                                                    std::numeric_limits<unsigned long>::max()));
-    dlItfIIDM->addCurrentLimitInterface(std::move(cLimit));
+    shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(), std::numeric_limits<unsigned long>::max()));
+    dlItfIIDM->addCurrentLimitInterface(cLimit);
   }
 
   // temporary limit
   for (auto& currentLimit : currentLimits.getTemporaryLimits()) {
     if (!currentLimit.isFictitious()) {
-      std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
-      dlItfIIDM->addCurrentLimitInterface(std::move(cLimit));
+      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
+      dlItfIIDM->addCurrentLimitInterface(cLimit);
     }
   }
 
-  std::unique_ptr<ModelDanglingLine> dl = std::unique_ptr<ModelDanglingLine>(new ModelDanglingLine(dlItfIIDM));
+  shared_ptr<ModelDanglingLine> dl = shared_ptr<ModelDanglingLine>(new ModelDanglingLine(dlItfIIDM));
   ModelNetwork* network = new ModelNetwork();
   network->setIsInitModel(initModel);
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
   dl->setNetwork(network);
-  std::shared_ptr<ModelVoltageLevel> vl = std::make_shared<ModelVoltageLevel>(vlItfIIDM);
-  std::shared_ptr<ModelBus> bus1 = std::make_shared<ModelBus>(bus1ItfIIDM, true);
+  shared_ptr<ModelVoltageLevel> vl = shared_ptr<ModelVoltageLevel>(new ModelVoltageLevel(vlItfIIDM));
+  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, true));
   bus1->setNetwork(network);
   bus1->setVoltageLevel(vl);
   dl->setModelBus(bus1);
@@ -131,12 +130,12 @@ createModelDanglingLine(bool open, bool initModel) {
     z1[ModelBus::switchOffNum_] = -1;
   int offset = 0;
   bus1->init(offset);
-  return std::make_pair(std::move(dl), vl);
+  return std::make_pair(dl, vl);
 }
 
 
 TEST(ModelsModelNetwork, ModelNetworkDanglingLineInitializationClosed) {
-  const std::unique_ptr<ModelDanglingLine> dl = createModelDanglingLine(false, false).first;
+  shared_ptr<ModelDanglingLine> dl = createModelDanglingLine(false, false).first;
   ASSERT_EQ(dl->id(), "MyDanglingLine");
   ASSERT_EQ(dl->getConnectionState(), CLOSED);
   ASSERT_DOUBLE_EQUALS_DYNAWO(dl->getCurrentLimitsDesactivate(), 0.);
@@ -145,7 +144,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineInitializationClosed) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkDanglingLineInitializationOpened) {
-  const std::unique_ptr<ModelDanglingLine> dl = createModelDanglingLine(true, false).first;
+  shared_ptr<ModelDanglingLine> dl = createModelDanglingLine(true, false).first;
   ASSERT_EQ(dl->id(), "MyDanglingLine");
   ASSERT_EQ(dl->getConnectionState(), OPEN);
   ASSERT_DOUBLE_EQUALS_DYNAWO(dl->getCurrentLimitsDesactivate(), 0.);
@@ -154,7 +153,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineInitializationOpened) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkDanglingLineCalculatedVariables) {
-  const std::unique_ptr<ModelDanglingLine> dl = createModelDanglingLine(false, false).first;
+  shared_ptr<ModelDanglingLine> dl = createModelDanglingLine(false, false).first;
   dl->initSize();
   std::vector<double> y(dl->sizeY(), 0.);
   std::vector<double> yp(dl->sizeY(), 0.);
@@ -235,15 +234,15 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineCalculatedVariables) {
   }
   numVars.clear();
 
-  const std::unique_ptr<ModelDanglingLine> dlInit = createModelDanglingLine(false, true).first;
+  shared_ptr<ModelDanglingLine> dlInit = createModelDanglingLine(false, true).first;
   dlInit->initSize();
   ASSERT_EQ(dlInit->sizeCalculatedVar(), 0);
   delete[] zConnected;
 }
 
 TEST(ModelsModelNetwork, ModelNetworkDanglingLineDiscreteVariables) {
-  std::pair<std::unique_ptr<ModelDanglingLine>, std::shared_ptr<ModelVoltageLevel> > p = createModelDanglingLine(false, false);
-  const std::unique_ptr<ModelDanglingLine>& dl = p.first;
+  std::pair<shared_ptr<ModelDanglingLine>, shared_ptr<ModelVoltageLevel> > p = createModelDanglingLine(false, false);
+  shared_ptr<ModelDanglingLine> dl = p.first;
   dl->initSize();
   unsigned nbZ = 2;
   unsigned nbG = 6;
@@ -310,7 +309,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineDiscreteVariables) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(g[4], ROOT_DOWN);
   ASSERT_DOUBLE_EQUALS_DYNAWO(g[5], ROOT_DOWN);
 
-  const std::unique_ptr<ModelDanglingLine> dlInit = createModelDanglingLine(false, true).first;
+  shared_ptr<ModelDanglingLine> dlInit = createModelDanglingLine(false, true).first;
   dlInit->initSize();
   ASSERT_EQ(dlInit->sizeZ(), 0);
   ASSERT_EQ(dlInit->sizeG(), 0);
@@ -318,8 +317,8 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineDiscreteVariables) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkDanglingLineContinuousVariables) {
-  std::pair<std::unique_ptr<ModelDanglingLine>, std::shared_ptr<ModelVoltageLevel> > p = createModelDanglingLine(false, false);
-  const std::unique_ptr<ModelDanglingLine>& dl = p.first;
+  std::pair<shared_ptr<ModelDanglingLine>, shared_ptr<ModelVoltageLevel> > p = createModelDanglingLine(false, false);
+  shared_ptr<ModelDanglingLine> dl = p.first;
   dl->initSize();
   unsigned nbY = 2;
   unsigned nbF = 2;
@@ -393,7 +392,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineContinuousVariables) {
     ASSERT_TRUE(fEquationIndex.find(i) != fEquationIndex.end());
   }
 
-  const std::unique_ptr<ModelDanglingLine> dlInit = createModelDanglingLine(false, true).first;
+  shared_ptr<ModelDanglingLine> dlInit = createModelDanglingLine(false, true).first;
   dlInit->initSize();
   ASSERT_EQ(dlInit->sizeY(), 0);
   ASSERT_EQ(dlInit->sizeF(), 0);
@@ -405,8 +404,8 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineContinuousVariables) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkDanglingLineDefineInstantiate) {
-  std::pair<std::unique_ptr<ModelDanglingLine>, std::shared_ptr<ModelVoltageLevel> > p = createModelDanglingLine(false, false);
-  const std::unique_ptr<ModelDanglingLine>& dl = p.first;
+  std::pair<shared_ptr<ModelDanglingLine>, shared_ptr<ModelVoltageLevel> > p = createModelDanglingLine(false, false);
+  shared_ptr<ModelDanglingLine> dl = p.first;
 
   std::vector<shared_ptr<Variable> > definedVariables;
   std::vector<shared_ptr<Variable> > instantiatedVariables;
@@ -434,8 +433,8 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineDefineInstantiate) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkDanglingLineJt) {
-  std::pair<std::unique_ptr<ModelDanglingLine>, std::shared_ptr<ModelVoltageLevel> > p = createModelDanglingLine(false, false);
-  const std::unique_ptr<ModelDanglingLine>& dl = p.first;
+  std::pair<shared_ptr<ModelDanglingLine>, shared_ptr<ModelVoltageLevel> > p = createModelDanglingLine(false, false);
+  shared_ptr<ModelDanglingLine> dl = p.first;
   dl->initSize();
   std::vector<double> y(dl->sizeY(), 0.);
   std::vector<double> yp(dl->sizeY(), 0.);
@@ -481,7 +480,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineJt) {
   dl->evalJtPrim(smjPrime, 0);
   ASSERT_EQ(smjPrime.nbElem(), 0);
 
-  const std::unique_ptr<ModelDanglingLine> dlInit = createModelDanglingLine(false, true).first;
+  shared_ptr<ModelDanglingLine> dlInit = createModelDanglingLine(false, true).first;
   dlInit->initSize();
   SparseMatrix smjInit;
   smjInit.init(dlInit->sizeY(), dlInit->sizeY());

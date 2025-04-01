@@ -28,6 +28,7 @@
 
 #include <powsybl/iidm/Load.hpp>
 
+#include <boost/shared_ptr.hpp>
 #include <string>
 
 namespace DYN {
@@ -69,19 +70,19 @@ class LoadInterfaceIIDM : public LoadInterface, public InjectorInterfaceIIDM {
   bool isConnected() const;
 
   /**
-   * @copydoc LoadInterface::setBusInterface(const std::shared_ptr<BusInterface>& busInterface)
+   * @copydoc LoadInterface::setBusInterface(const boost::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface(const std::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface(const boost::shared_ptr<BusInterface>& busInterface);
 
   /**
-   * @copydoc LoadInterface::setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
+   * @copydoc LoadInterface::setVoltageLevelInterface(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
    */
-  void setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
+  void setVoltageLevelInterface(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
 
   /**
    * @copydoc LoadInterface::getBusInterface() const
    */
-  std::shared_ptr<BusInterface> getBusInterface() const;
+  boost::shared_ptr<BusInterface> getBusInterface() const;
 
   /**
    * @copydoc LoadInterface::getInitialConnected()

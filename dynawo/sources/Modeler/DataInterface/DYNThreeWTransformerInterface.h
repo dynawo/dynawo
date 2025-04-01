@@ -22,11 +22,10 @@
 
 #include "DYNComponentInterface.hpp"
 
-#include "DYNCurrentLimitInterface.h"
-
 namespace DYN {
 class BusInterface;
 class VoltageLevelInterface;
+class CurrentLimitInterface;
 
 #ifdef __clang__
 #pragma clang diagnostic push
@@ -47,37 +46,37 @@ class ThreeWTransformerInterface : public ComponentInterface {
    * @brief Add a curent limit interface for side 1
    * @param currentLimitInterface current limit interface for the side 1 of the tfo
    */
-  virtual void addCurrentLimitInterface1(std::unique_ptr<CurrentLimitInterface> currentLimitInterface) = 0;
+  virtual void addCurrentLimitInterface1(const boost::shared_ptr<CurrentLimitInterface>& currentLimitInterface) = 0;
 
   /**
    * @brief Add a curent limit interface for side 2
    * @param currentLimitInterface current limit interface for the side 2 of the tfo
    */
-  virtual void addCurrentLimitInterface2(std::unique_ptr<CurrentLimitInterface> currentLimitInterface) = 0;
+  virtual void addCurrentLimitInterface2(const boost::shared_ptr<CurrentLimitInterface>& currentLimitInterface) = 0;
 
   /**
    * @brief Add a curent limit interface for side 3
    * @param currentLimitInterface current limit interface for the side 3 of the tfo
    */
-  virtual void addCurrentLimitInterface3(std::unique_ptr<CurrentLimitInterface> currentLimitInterface) = 0;
+  virtual void addCurrentLimitInterface3(const boost::shared_ptr<CurrentLimitInterface>& currentLimitInterface) = 0;
 
   /**
    * @brief Getter for the current limit interfaces for side 1
    * @return currentLimitInterface of the tfo's side 1
    */
-  virtual const std::vector<std::unique_ptr<CurrentLimitInterface> >& getCurrentLimitInterfaces1() const = 0;
+  virtual std::vector<boost::shared_ptr<CurrentLimitInterface> > getCurrentLimitInterfaces1() const = 0;
 
   /**
    * @brief Getter for the current limit interfaces for side 2
    * @return currentLimitInterface of the tfo's side 2
    */
-  virtual const std::vector<std::unique_ptr<CurrentLimitInterface> >& getCurrentLimitInterfaces2() const = 0;
+  virtual std::vector<boost::shared_ptr<CurrentLimitInterface> > getCurrentLimitInterfaces2() const = 0;
 
   /**
    * @brief Getter for the current limit interfaces for side 3
    * @return currentLimitInterface of the tfo's side 3
    */
-  virtual const std::vector<std::unique_ptr<CurrentLimitInterface> >& getCurrentLimitInterfaces3() const = 0;
+  virtual std::vector<boost::shared_ptr<CurrentLimitInterface> > getCurrentLimitInterfaces3() const = 0;
 
   /**
    * @brief Retrieve active season for the transformer
@@ -89,55 +88,55 @@ class ThreeWTransformerInterface : public ComponentInterface {
    * @brief Setter for the tfo's bus interface side 1
    * @param busInterface of the bus where the side 1 of the tfo is connected
    */
-  virtual void setBusInterface1(const std::shared_ptr<BusInterface>& busInterface) = 0;
+  virtual void setBusInterface1(const boost::shared_ptr<BusInterface>& busInterface) = 0;
 
   /**
    * @brief Setter for the tfo's bus interface side 2
    * @param busInterface of the bus where the side 2 of the tfo is connected
    */
-  virtual void setBusInterface2(const std::shared_ptr<BusInterface>& busInterface) = 0;
+  virtual void setBusInterface2(const boost::shared_ptr<BusInterface>& busInterface) = 0;
 
   /**
    * @brief Setter for the tfo's bus interface side 3
    * @param busInterface of the bus where the side 3 of the tfo is connected
    */
-  virtual void setBusInterface3(const std::shared_ptr<BusInterface>& busInterface) = 0;
+  virtual void setBusInterface3(const boost::shared_ptr<BusInterface>& busInterface) = 0;
 
   /**
    * @brief Setter for the tfo's voltageLevel interface side 1
    * @param voltageLevelInterface of the voltageLevel where the side 1 of the tfo is connected
    */
-  virtual void setVoltageLevelInterface1(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) = 0;
+  virtual void setVoltageLevelInterface1(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) = 0;
 
   /**
    * @brief Setter for the tfo's voltageLevel interface side 2
    * @param voltageLevelInterface of the voltageLevel where the side 2 of the tfo is connected
    */
-  virtual void setVoltageLevelInterface2(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) = 0;
+  virtual void setVoltageLevelInterface2(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) = 0;
 
   /**
    * @brief Setter for the tfo's voltageLevel interface side 3
    * @param voltageLevelInterface of the voltageLevel where the side 3 of the tfo is connected
    */
-  virtual void setVoltageLevelInterface3(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) = 0;
+  virtual void setVoltageLevelInterface3(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) = 0;
 
   /**
    * @brief Getter for the tfo's bus interface side 1
    * @return busInterface of the bus where the side 1 of the tfo is connected
    */
-  virtual std::shared_ptr<BusInterface> getBusInterface1() const = 0;
+  virtual boost::shared_ptr<BusInterface> getBusInterface1() const = 0;
 
   /**
    * @brief Getter for the tfo's bus interface side 2
    * @return busInterface of the bus where the side 2 of the tfo is connected
    */
-  virtual std::shared_ptr<BusInterface> getBusInterface2() const = 0;
+  virtual boost::shared_ptr<BusInterface> getBusInterface2() const = 0;
 
   /**
    * @brief Getter for the tfo's bus interface side 3
    * @return busInterface of the bus where the side 3 of the tfo is connected
    */
-  virtual std::shared_ptr<BusInterface> getBusInterface3() const = 0;
+  virtual boost::shared_ptr<BusInterface> getBusInterface3() const = 0;
 
   /**
    * @brief Getter for the tfo's id

@@ -43,7 +43,7 @@ using std::string;
 
 namespace DYN {
 
-ModelStaticVarCompensator::ModelStaticVarCompensator(const std::shared_ptr<StaticVarCompensatorInterface>& svc) :
+ModelStaticVarCompensator::ModelStaticVarCompensator(const shared_ptr<StaticVarCompensatorInterface>& svc) :
 NetworkComponent(svc->getID()),
 svc_(svc),
 stateModified_(false),
@@ -106,7 +106,7 @@ ModelStaticVarCompensator::init(int& /*yNum*/) {
   double ur0 = 0.;
   double ui0 = 0.;
   double U0 = 0.;
-  std::shared_ptr<StaticVarCompensatorInterface> svc = svc_.lock();
+  shared_ptr<StaticVarCompensatorInterface> svc = svc_.lock();
   double P0 = svc->getP() / SNREF;
   double Q0;
   double unomBus = svc->getBusInterface()->getVNom();

@@ -54,19 +54,19 @@ class ConverterInterface : public ComponentInterface {
    * @brief Setter for the converter bus interface
    * @param busInterface interface of the bus where the converter is connected
    */
-  virtual void setBusInterface(const std::shared_ptr<BusInterface>& busInterface) = 0;
+  virtual void setBusInterface(const boost::shared_ptr<BusInterface>& busInterface) = 0;
 
   /**
    * @brief Setter for the converter voltage interface
    * @param voltageLevelInterface interface of the voltageLevel where the converter is connected
    */
-  virtual void setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) = 0;
+  virtual void setVoltageLevelInterface(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) = 0;
 
   /**
    * @brief Getter for the converter bus interface
    * @return busInterface interface of the bus where the converter is connected
    */
-  virtual std::shared_ptr<BusInterface> getBusInterface() const = 0;
+  virtual boost::shared_ptr<BusInterface> getBusInterface() const = 0;
 
   /**
    * @brief Getter for the initial connection state of the converter

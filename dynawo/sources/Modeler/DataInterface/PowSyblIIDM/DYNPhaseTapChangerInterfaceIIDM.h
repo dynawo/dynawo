@@ -21,9 +21,10 @@
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNPHASETAPCHANGERINTERFACEIIDM_H_
 
 #include "DYNPhaseTapChangerInterface.h"
-#include "DYNStepInterface.h"
 
 #include <powsybl/iidm/PhaseTapChanger.hpp>
+
+#include <boost/shared_ptr.hpp>
 
 #include <vector>
 
@@ -43,12 +44,12 @@ class PhaseTapChangerInterfaceIIDM : public PhaseTapChangerInterface {
   /**
    * @copydoc PhaseTapChangerInterface::getSteps() const
    */
-  const std::vector<std::unique_ptr<StepInterface> >& getSteps() const;
+  std::vector<boost::shared_ptr<StepInterface> > getSteps() const;
 
   /**
-   * @copydoc PhaseTapChangerInterface::addStep(std::unique_ptr<StepInterface> step)
+   * @copydoc PhaseTapChangerInterface::addStep(const boost::shared_ptr<StepInterface>& step)
    */
-  void addStep(std::unique_ptr<StepInterface> step);
+  void addStep(const boost::shared_ptr<StepInterface>& step);
 
   /**
    * @copydoc PhaseTapChangerInterface::getCurrentPosition() const
@@ -121,7 +122,7 @@ class PhaseTapChangerInterfaceIIDM : public PhaseTapChangerInterface {
   double getTargetDeadBand() const;
 
  private:
-  std::vector<std::unique_ptr<StepInterface> > steps_;  ///< steps of the phase tap changer
+  std::vector<boost::shared_ptr<StepInterface> > steps_;  ///< steps of the phase tap changer
   powsybl::iidm::PhaseTapChanger& tapChangerIIDM_;        ///< reference to the iidm phaseTapChanger's instance
 };  // Interface class for phase tap changer
 }   // namespace DYN

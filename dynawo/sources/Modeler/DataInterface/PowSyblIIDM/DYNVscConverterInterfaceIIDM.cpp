@@ -27,9 +27,10 @@
 #include <powsybl/iidm/HvdcLine.hpp>
 #include <powsybl/iidm/VscConverterStation.hpp>
 
+#include <boost/shared_ptr.hpp>
 #include <string>
 
-using std::shared_ptr;
+using boost::shared_ptr;
 
 namespace DYN {
 

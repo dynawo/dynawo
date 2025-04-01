@@ -116,13 +116,13 @@ class HvdcLineInterface : public ComponentInterface {
    * @brief Getter for converter 1
    * @return converter 1
    */
-  virtual const std::shared_ptr<ConverterInterface>& getConverter1() const = 0;
+  virtual const boost::shared_ptr<ConverterInterface>& getConverter1() const = 0;
 
   /**
    * @brief Getter for converter 2
    * @return converter 2
    */
-  virtual const std::shared_ptr<ConverterInterface>& getConverter2() const = 0;
+  virtual const boost::shared_ptr<ConverterInterface>& getConverter2() const = 0;
 
   /**
    * @brief Get droop

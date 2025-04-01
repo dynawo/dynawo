@@ -61,19 +61,19 @@ class ShuntCompensatorInterface : public ComponentInterface {
    * @brief Setter for the shuntCompensator's bus interface
    * @param busInterface of the bus where the shunt compensator is connected
    */
-  virtual void setBusInterface(const std::shared_ptr<BusInterface>& busInterface) = 0;
+  virtual void setBusInterface(const boost::shared_ptr<BusInterface>& busInterface) = 0;
 
   /**
    * @brief Setter for the shuntCompensator's voltage interface
    * @param voltageLevelInterface of the voltageLevel where the shuntCompensator is connected
    */
-  virtual void setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) = 0;
+  virtual void setVoltageLevelInterface(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) = 0;
 
   /**
    * @brief Getter for the shuntCompensator's bus interface
    * @return The busInterface of the bus where the shunt compensator is connected
    */
-  virtual std::shared_ptr<BusInterface> getBusInterface() const = 0;
+  virtual boost::shared_ptr<BusInterface> getBusInterface() const = 0;
 
   /**
    * @brief Getter for the initial connection state of the shunt compensator

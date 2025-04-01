@@ -51,7 +51,7 @@ using powsybl::iidm::LccConverterStation;
 using powsybl::iidm::VscConverterStation;
 using powsybl::iidm::DanglingLine;
 using powsybl::iidm::ShuntCompensator;
-
+using boost::shared_ptr;
 
 namespace DYN {
 
@@ -223,28 +223,28 @@ TEST(DataInterfaceTest, VoltageLevel) {
 
   VoltageLevelInterfaceIIDM vl(vlIIDM1);
   VoltageLevelInterfaceIIDM vl2(vlIIDM2);
-  std::shared_ptr<BusInterface> bus1 = std::make_shared<BusInterfaceIIDM>(b1);
-  std::shared_ptr<BusInterface> bus2 = std::make_shared<BusInterfaceIIDM>(b2);
-  std::shared_ptr<BusInterface> bus3 = std::make_shared<BusInterfaceIIDM>(iidmBus);
-  std::shared_ptr<BusInterface> bus4 = std::make_shared<BusInterfaceIIDM>(b4);
-  std::shared_ptr<BusInterface> bus5 = std::make_shared<BusInterfaceIIDM>(b5);
-  std::shared_ptr<BusInterface> bus6 = std::make_shared<BusInterfaceIIDM>(b6);
-  std::shared_ptr<BusInterface> bus7 = std::make_shared<BusInterfaceIIDM>(b7);
-  std::shared_ptr<BusInterface> bus8 = std::make_shared<BusInterfaceIIDM>(b8);
-  std::shared_ptr<SwitchInterface> switch1 = std::make_shared<SwitchInterfaceIIDM>(aSwitch);
-  std::shared_ptr<LoadInterface> load1 = std::make_shared<LoadInterfaceIIDM>(loadIIDM1);
+  shared_ptr<BusInterface> bus1(new BusInterfaceIIDM(b1));
+  shared_ptr<BusInterface> bus2(new BusInterfaceIIDM(b2));
+  shared_ptr<BusInterface> bus3(new BusInterfaceIIDM(iidmBus));
+  shared_ptr<BusInterface> bus4(new BusInterfaceIIDM(b4));
+  shared_ptr<BusInterface> bus5(new BusInterfaceIIDM(b5));
+  shared_ptr<BusInterface> bus6(new BusInterfaceIIDM(b6));
+  shared_ptr<BusInterface> bus7(new BusInterfaceIIDM(b7));
+  shared_ptr<BusInterface> bus8(new BusInterfaceIIDM(b8));
+  shared_ptr<SwitchInterface> switch1(new SwitchInterfaceIIDM(aSwitch));
+  shared_ptr<LoadInterface> load1(new LoadInterfaceIIDM(loadIIDM1));
   switch1->setBusInterface1(bus2);
   switch1->setBusInterface2(bus3);
   load1->setBusInterface(bus1);
-  std::shared_ptr<VscConverterInterface> vsc1 = std::make_shared<VscConverterInterfaceIIDM>(vscIIDM1);
+  shared_ptr<VscConverterInterface> vsc1(new VscConverterInterfaceIIDM(vscIIDM1));
   vsc1->setBusInterface(bus4);
-  std::shared_ptr<LccConverterInterfaceIIDM> lcc1 = std::make_shared<LccConverterInterfaceIIDM>(lccIIDM1);
+  shared_ptr<LccConverterInterfaceIIDM> lcc1(new LccConverterInterfaceIIDM(lccIIDM1));
   lcc1->setBusInterface(bus5);
-  std::shared_ptr<DanglingLineInterface> danglingLine = std::make_shared<DanglingLineInterfaceIIDM>(dl);
+  shared_ptr<DanglingLineInterface> danglingLine(new DanglingLineInterfaceIIDM(dl));
   danglingLine->setBusInterface(bus6);
-  std::shared_ptr<ShuntCompensatorInterface> shunt = std::make_shared<ShuntCompensatorInterfaceIIDM>(shuntIIDM);
+  shared_ptr<ShuntCompensatorInterface> shunt(new ShuntCompensatorInterfaceIIDM(shuntIIDM));
   shunt->setBusInterface(bus7);
-  std::shared_ptr<GeneratorInterface> gen = std::make_shared<GeneratorInterfaceIIDM>(genIIDM);
+  shared_ptr<GeneratorInterface> gen(new GeneratorInterfaceIIDM(genIIDM));
   gen->setBusInterface(bus8);
 
   ASSERT_EQ(vl.getID(), "VL1");

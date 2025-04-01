@@ -21,14 +21,13 @@
 //======================================================================
 
 #include "DYNDanglingLineInterfaceIIDM.h"
-#include "DYNCurrentLimitInterface.h"
 
 #include <powsybl/iidm/DanglingLine.hpp>
 
 #include "DYNCommon.h"
 
 using std::string;
-using std::shared_ptr;
+using boost::shared_ptr;
 using std::vector;
 
 namespace DYN {
@@ -170,11 +169,11 @@ DanglingLineInterfaceIIDM::getB() const {
 }
 
 void
-DanglingLineInterfaceIIDM::addCurrentLimitInterface(std::unique_ptr<CurrentLimitInterface> currentLimitInterface) {
-  currentLimitInterfaces_.push_back(std::move(currentLimitInterface));
+DanglingLineInterfaceIIDM::addCurrentLimitInterface(const shared_ptr<CurrentLimitInterface>& currentLimitInterface) {
+  currentLimitInterfaces_.push_back(currentLimitInterface);
 }
 
-const vector<std::unique_ptr<CurrentLimitInterface> >&
+vector<shared_ptr<CurrentLimitInterface> >
 DanglingLineInterfaceIIDM::getCurrentLimitInterfaces() const {
   return currentLimitInterfaces_;
 }

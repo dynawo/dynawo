@@ -66,7 +66,7 @@ using boost::shared_ptr;
 
 namespace DYN {
 
-ModelTwoWindingsTransformer::ModelTwoWindingsTransformer(const std::shared_ptr<TwoWTransformerInterface>& tfo) :
+ModelTwoWindingsTransformer::ModelTwoWindingsTransformer(const shared_ptr<TwoWTransformerInterface>& tfo) :
 NetworkComponent(tfo->getID()),
 ir1_dUr1_(0.),
 ir1_dUi1_(0.),
@@ -150,8 +150,8 @@ modelType_("TwoWindingsTransformer") {
   double coeff = vNom2_ * vNom2_ / SNREF;  // PU with respect to the secondary voltage
   double ratio = tfo->getRatedU2() / tfo->getRatedU1() * vNom1_ / vNom2_;
 
-  const std::unique_ptr<PhaseTapChangerInterface>& phaseTapChanger = tfo->getPhaseTapChanger();
-  const std::unique_ptr<RatioTapChangerInterface>& ratioTapChanger = tfo->getRatioTapChanger();
+  shared_ptr<PhaseTapChangerInterface> phaseTapChanger = tfo->getPhaseTapChanger();
+  shared_ptr<RatioTapChangerInterface> ratioTapChanger = tfo->getRatioTapChanger();
   double r = tfo->getR() / coeff;
   double x = tfo->getX() / coeff;
   double g = tfo->getG() * coeff;
@@ -161,7 +161,7 @@ modelType_("TwoWindingsTransformer") {
     const int lowIndex = phaseTapChanger->getLowPosition();
     modelPhaseChanger_.reset(new ModelPhaseTapChanger(tfo->getID(), lowIndex));
 
-    const vector<std::unique_ptr<StepInterface> >& steps = phaseTapChanger->getSteps();
+    vector<shared_ptr<StepInterface> > steps = phaseTapChanger->getSteps();
     double rTapChanger = ratioTapChanger ? ratioTapChanger->getCurrentR() / 100. : 0.;
     double xTapChanger = ratioTapChanger ? ratioTapChanger->getCurrentX() / 100. : 0.;
     double bTapChanger = ratioTapChanger ? ratioTapChanger->getCurrentB() / 100. : 0.;
@@ -191,7 +191,7 @@ modelType_("TwoWindingsTransformer") {
 
       terminalRefId_ = tfo->getRatioTapChanger()->getTerminalRefId();
       side_ = tfo->getRatioTapChanger()->getTerminalRefSide();
-      const vector<std::unique_ptr<StepInterface> >& steps = ratioTapChanger->getSteps();
+      vector<shared_ptr<StepInterface> > steps = ratioTapChanger->getSteps();
       for (unsigned int i = 0; i < steps.size(); ++i) {
         double rho = ratio * steps[i]->getRho();
         double rTap = r * (1. + steps[i]->getR() / 100.);
@@ -210,7 +210,7 @@ modelType_("TwoWindingsTransformer") {
     } else {
       const int currentStepIndex = ratioTapChanger->getCurrentPosition();
       modelTapChanger_.reset(new ModelTapChanger(tfo->getID(), currentStepIndex));
-      const vector<std::unique_ptr<StepInterface> >& steps = ratioTapChanger->getSteps();
+      vector<shared_ptr<StepInterface> > steps = ratioTapChanger->getSteps();
       // The steps law begins at 0 while the lowIndex could have another value.
       int indexInSteps = currentStepIndex - ratioTapChanger->getLowPosition();
       double rho = ratio * steps[indexInSteps]->getRho();
@@ -235,7 +235,7 @@ modelType_("TwoWindingsTransformer") {
   factorPuToASide2_ = 1000. * SNREF / (sqrt(3.) * vNom2_);
 
   // current limits side 1
-  const vector<std::unique_ptr<CurrentLimitInterface> >& cLimit1 = tfo->getCurrentLimitInterfaces1();
+  vector<shared_ptr<CurrentLimitInterface> > cLimit1 = tfo->getCurrentLimitInterfaces1();
   if (cLimit1.size() > 0) {
     currentLimits1_.reset(new ModelCurrentLimits());
     currentLimits1_->setSide(ModelCurrentLimits::SIDE_1);
@@ -254,7 +254,7 @@ modelType_("TwoWindingsTransformer") {
   }
 
   // current limits side 2
-  const vector<std::unique_ptr<CurrentLimitInterface> >& cLimit2 = tfo->getCurrentLimitInterfaces2();
+  vector<shared_ptr<CurrentLimitInterface> > cLimit2 = tfo->getCurrentLimitInterfaces2();
   if (cLimit2.size() > 0) {
     currentLimits2_.reset(new ModelCurrentLimits());
     currentLimits2_->setSide(ModelCurrentLimits::SIDE_2);

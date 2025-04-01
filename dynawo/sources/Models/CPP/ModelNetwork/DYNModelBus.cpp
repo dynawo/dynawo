@@ -39,6 +39,7 @@
 
 using std::vector;
 using boost::shared_ptr;
+using boost::weak_ptr;
 using std::map;
 using std::string;
 
@@ -50,39 +51,39 @@ ModelBusContainer::ModelBusContainer() {
 }
 
 void
-ModelBusContainer::add(const std::shared_ptr<ModelBus>& model) {
+ModelBusContainer::add(const shared_ptr<ModelBus>& model) {
   models_.push_back(model);
 }
 
 void
 ModelBusContainer::resetCurrentUStatus() {
-  for (vector<std::shared_ptr<ModelBus> >::const_iterator itB = models_.begin(); itB != models_.end(); ++itB)
+  for (vector<shared_ptr<ModelBus> >::const_iterator itB = models_.begin(); itB != models_.end(); ++itB)
     (*itB)->resetCurrentUStatus();
 }
 
 void
 ModelBusContainer::evalF(propertyF_t type) {
-  for (vector<std::shared_ptr<ModelBus> >::const_iterator itB = models_.begin(); itB != models_.end(); ++itB)
+  for (vector<shared_ptr<ModelBus> >::const_iterator itB = models_.begin(); itB != models_.end(); ++itB)
     (*itB)->evalF(type);
 }
 
 void
 ModelBusContainer::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) {
-  for (vector<std::shared_ptr<ModelBus> >::const_iterator itB = models_.begin(); itB != models_.end(); ++itB)
+  for (vector<shared_ptr<ModelBus> >::const_iterator itB = models_.begin(); itB != models_.end(); ++itB)
     (*itB)->evalJt(jt, cj, rowOffset);
 }
 
 void
 ModelBusContainer::evalJtPrim(SparseMatrix& jt, const int& rowOffset) {
-  for (vector<std::shared_ptr<ModelBus> >::const_iterator itB = models_.begin(); itB != models_.end(); ++itB)
+  for (vector<shared_ptr<ModelBus> >::const_iterator itB = models_.begin(); itB != models_.end(); ++itB)
     (*itB)->evalJtPrim(jt, rowOffset);
 }
 
 void
 ModelBusContainer::resetSubNetwork() {
   subNetworks_.clear();
-  for (vector<std::shared_ptr<ModelBus> >::iterator itModelBus = models_.begin(); itModelBus != models_.end(); ++itModelBus) {
-    std::shared_ptr<ModelBus> bus = *itModelBus;
+  for (vector<shared_ptr<ModelBus> >::iterator itModelBus = models_.begin(); itModelBus != models_.end(); ++itModelBus) {
+    shared_ptr<ModelBus> bus = *itModelBus;
     bus->clearNeighbors();
     bus->clearNumSubNetwork();
   }
@@ -90,7 +91,7 @@ ModelBusContainer::resetSubNetwork() {
 
 void
 ModelBusContainer::resetNodeInjections() {
-  for (vector<std::shared_ptr<ModelBus> >::iterator itModelBus = models_.begin(); itModelBus != models_.end(); ++itModelBus) {
+  for (vector<shared_ptr<ModelBus> >::iterator itModelBus = models_.begin(); itModelBus != models_.end(); ++itModelBus) {
     (*itModelBus)->resetNodeInjection();
   }
 }
@@ -101,8 +102,8 @@ ModelBusContainer::exploreNeighbors(double t) {
   shared_ptr<SubNetwork> subNetwork(new SubNetwork(numSubNetwork));
   subNetworks_.push_back(subNetwork);
 
-  for (vector<std::shared_ptr<ModelBus> >::iterator itModelBus = models_.begin(); itModelBus != models_.end(); ++itModelBus) {
-    std::shared_ptr<ModelBus> bus = *itModelBus;
+  for (vector<shared_ptr<ModelBus> >::iterator itModelBus = models_.begin(); itModelBus != models_.end(); ++itModelBus) {
+    shared_ptr<ModelBus> bus = *itModelBus;
     if (!bus->numSubNetworkSet()) {  // Bus not yet treated
       bus->numSubNetwork(numSubNetwork);
       subNetwork->addBus(bus);
@@ -131,18 +132,18 @@ ModelBusContainer::exploreNeighbors(double t) {
 
 void
 ModelBusContainer::initRefIslands() {
-  for (std::vector<std::shared_ptr<ModelBus> >::iterator itModelBus = models_.begin(); itModelBus != models_.end(); ++itModelBus) {
+  for (std::vector<boost::shared_ptr<ModelBus> >::iterator itModelBus = models_.begin(); itModelBus != models_.end(); ++itModelBus) {
     (*itModelBus)->setRefIslands(0);
   }
 }
 
 void
 ModelBusContainer::initDerivatives() {
-  for (std::vector<std::shared_ptr<ModelBus> >::iterator itModelBus = models_.begin(); itModelBus != models_.end(); ++itModelBus)
+  for (std::vector<boost::shared_ptr<ModelBus> >::iterator itModelBus = models_.begin(); itModelBus != models_.end(); ++itModelBus)
     (*itModelBus)->initDerivatives();
 }
 
-ModelBus::ModelBus(const std::shared_ptr<BusInterface>& bus, bool isNodeBreaker) :
+ModelBus::ModelBus(const shared_ptr<BusInterface>& bus, bool isNodeBreaker) :
 NetworkComponent(bus->getID()),
 bus_(bus),
 stateUmax_(false),
@@ -353,9 +354,9 @@ ModelBus::initDerivatives() {
 
 void
 ModelBus::exploreNeighbors(const int& numSubNetwork, const shared_ptr<SubNetwork>& subNetwork) {
-  vector<std::weak_ptr<ModelBus> >::iterator itModelBus;
+  vector<weak_ptr<ModelBus> >::iterator itModelBus;
   for (itModelBus = neighbors_.begin(); itModelBus != neighbors_.end(); ++itModelBus) {
-    std::shared_ptr<ModelBus> bus = (*itModelBus).lock();
+    shared_ptr<ModelBus> bus = (*itModelBus).lock();
     if (!bus->numSubNetworkSet()) {  // Bus not yet treated
       bus->numSubNetwork(numSubNetwork);
       subNetwork->addBus(bus);
@@ -365,7 +366,7 @@ ModelBus::exploreNeighbors(const int& numSubNetwork, const shared_ptr<SubNetwork
 }
 
 void
-ModelBus::addNeighbor(std::shared_ptr<ModelBus>& bus) {
+ModelBus::addNeighbor(boost::shared_ptr<ModelBus>& bus) {
   neighbors_.push_back(bus);
 }
 

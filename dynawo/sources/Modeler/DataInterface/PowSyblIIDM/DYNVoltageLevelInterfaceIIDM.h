@@ -79,92 +79,92 @@ class VoltageLevelInterfaceIIDM : public VoltageLevelInterface {
   /**
    * @copydoc VoltageLevelInterface::addSwitch()
    */
-  void addSwitch(const std::shared_ptr<SwitchInterface>& sw);
+  void addSwitch(const boost::shared_ptr<SwitchInterface>& sw);
 
   /**
    * @copydoc VoltageLevelInterface::addBus()
    */
-  void addBus(const std::shared_ptr<BusInterface>& bus);
+  void addBus(const boost::shared_ptr<BusInterface>& bus);
 
   /**
    * @copydoc VoltageLevelInterface::addGenerator()
    */
-  void addGenerator(const std::shared_ptr<GeneratorInterface>& generator);
+  void addGenerator(const boost::shared_ptr<GeneratorInterface>& generator);
 
   /**
    * @copydoc VoltageLevelInterface::addLoad()
    */
-  void addLoad(const std::shared_ptr<LoadInterface>& load);
+  void addLoad(const boost::shared_ptr<LoadInterface>& load);
 
   /**
    * @copydoc VoltageLevelInterface::addShuntCompensator()
    */
-  void addShuntCompensator(const std::shared_ptr<ShuntCompensatorInterface>& shunt);
+  void addShuntCompensator(const boost::shared_ptr<ShuntCompensatorInterface>& shunt);
 
   /**
    * @copydoc VoltageLevelInterface::addDanglingLine()
    */
-  void addDanglingLine(const std::shared_ptr<DanglingLineInterface>& danglingLine);
+  void addDanglingLine(const boost::shared_ptr<DanglingLineInterface>& danglingLine);
 
   /**
    * @copydoc VoltageLevelInterface::addStaticVarCompensator()
    */
-  void addStaticVarCompensator(const std::shared_ptr<StaticVarCompensatorInterface>& svc);
+  void addStaticVarCompensator(const boost::shared_ptr<StaticVarCompensatorInterface>& svc);
 
   /**
    * @copydoc VoltageLevelInterface::addVscConverter()
    */
-  void addVscConverter(const std::shared_ptr<VscConverterInterface>& vsc);
+  void addVscConverter(const boost::shared_ptr<VscConverterInterface>& vsc);
 
   /**
    * @copydoc VoltageLevelInterface::addLccConverter()
    */
-  void addLccConverter(const std::shared_ptr<LccConverterInterface>& lcc);
+  void addLccConverter(const boost::shared_ptr<LccConverterInterface>& lcc);
 
   /**
    * @copydoc VoltageLevelInterface::getBuses()
    */
-  const std::vector<std::shared_ptr<BusInterface> >& getBuses() const;
+  const std::vector< boost::shared_ptr<BusInterface> >& getBuses() const;
 
   /**
    * @copydoc VoltageLevelInterface::getSwitches()
    */
-  const std::vector<std::shared_ptr<SwitchInterface> >& getSwitches() const;
+  const std::vector< boost::shared_ptr<SwitchInterface> >& getSwitches() const;
 
   /**
    * @copydoc VoltageLevelInterface::getLoads()
    */
-  const std::vector<std::shared_ptr<LoadInterface> >& getLoads() const;
+  const std::vector< boost::shared_ptr<LoadInterface> >& getLoads() const;
 
   /**
    * @copydoc VoltageLevelInterface::getShuntCompensators()
    */
-  const std::vector<std::shared_ptr<ShuntCompensatorInterface> >& getShuntCompensators() const;
+  const std::vector< boost::shared_ptr<ShuntCompensatorInterface> >& getShuntCompensators() const;
 
   /**
    * @copydoc VoltageLevelInterface::getStaticVarCompensators()
    */
-  const std::vector<std::shared_ptr<StaticVarCompensatorInterface> >& getStaticVarCompensators() const;
+  const std::vector< boost::shared_ptr<StaticVarCompensatorInterface> >& getStaticVarCompensators() const;
 
   /**
    * @copydoc VoltageLevelInterface::getGenerators()
    */
-  const std::vector<std::shared_ptr<GeneratorInterface> >& getGenerators() const;
+  const std::vector< boost::shared_ptr<GeneratorInterface> >& getGenerators() const;
 
   /**
    * @copydoc VoltageLevelInterface::getDanglingLines()
    */
-  const std::vector<std::shared_ptr<DanglingLineInterface> >& getDanglingLines() const;
+  const std::vector< boost::shared_ptr<DanglingLineInterface> >& getDanglingLines() const;
 
   /**
    * @copydoc VoltageLevelInterface::getVscConverters()
    */
-  const std::vector<std::shared_ptr<VscConverterInterface> >& getVscConverters() const;
+  const std::vector< boost::shared_ptr<VscConverterInterface> >& getVscConverters() const;
 
   /**
    * @copydoc VoltageLevelInterface::getLccConverters()
    */
-  const std::vector<std::shared_ptr<LccConverterInterface> >& getLccConverters() const;
+  const std::vector< boost::shared_ptr<LccConverterInterface> >& getLccConverters() const;
 
   /**
    * @copydoc VoltageLevelInterface::mapConnections()
@@ -180,7 +180,7 @@ class VoltageLevelInterfaceIIDM : public VoltageLevelInterface {
    * @brief get the vector of calculated bus created from the node view
    * @return vector of calculated bus created from the node view
    */
-  inline const std::vector<std::shared_ptr<CalculatedBusInterfaceIIDM> >& getCalculatedBus() const {
+  inline const std::vector<boost::shared_ptr<CalculatedBusInterfaceIIDM> >& getCalculatedBus() const {
     return calculatedBus_;
   }
 
@@ -232,20 +232,20 @@ class VoltageLevelInterfaceIIDM : public VoltageLevelInterface {
  private:
   powsybl::iidm::VoltageLevel& voltageLevelIIDM_;  ///< reference to the iidm voltageLevel instance
   bool isNodeBreakerTopology_;  ///< @b true if the topology of the voltageLevel is node breaker topology
-  std::unordered_map<std::shared_ptr<SwitchInterface>, double, SwitchInterfaceHash> switchState_;  ///< state to apply to switch (due to topology change)
-  std::map<std::string, std::shared_ptr<SwitchInterface> > switchesById_;  ///< switch interface by Id
+  std::unordered_map<boost::shared_ptr<SwitchInterface>, double, SwitchInterfaceHash> switchState_;  ///< state to apply to switch (due to topology change)
+  std::map< std::string, boost::shared_ptr<SwitchInterface> > switchesById_;  ///< switch interface by Id
   Graph graph_;  ///< topology graph to find node connection
   std::unordered_map<std::string, float> weights1_;  ///< weight of 1 for each edge in the graph
-  std::vector<std::shared_ptr<BusInterface> > buses_;  ///< bus interface created
-  std::vector<std::shared_ptr<CalculatedBusInterfaceIIDM> > calculatedBus_;  ///< vector of calculated bus created from the node view
-  std::vector<std::shared_ptr<SwitchInterface> > switches_;  ///< switch interface created
-  std::vector<std::shared_ptr<GeneratorInterface> > generators_;  ///< generator interface created
-  std::vector<std::shared_ptr<LoadInterface> > loads_;  ///< load interface created
-  std::vector<std::shared_ptr<ShuntCompensatorInterface> > shunts_;  ///< shunt compensator interface created
-  std::vector<std::shared_ptr<DanglingLineInterface> > danglingLines_;  ///< dangling line interface created
-  std::vector<std::shared_ptr<StaticVarCompensatorInterface> > staticVarCompensators_;  ///< staticVarCompensator interface created
-  std::vector<std::shared_ptr<VscConverterInterface> > vscConverters_;  ///< vscConverter interface created
-  std::vector<std::shared_ptr<LccConverterInterface> > lccConverters_;  ///< lccConverter interface created
+  std::vector<boost::shared_ptr<BusInterface> > buses_;  ///< bus interface created
+  std::vector<boost::shared_ptr<CalculatedBusInterfaceIIDM> > calculatedBus_;  ///< vector of calculated bus created from the node view
+  std::vector<boost::shared_ptr<SwitchInterface> > switches_;  ///< switch interface created
+  std::vector<boost::shared_ptr<GeneratorInterface> > generators_;  ///< generator interface created
+  std::vector<boost::shared_ptr<LoadInterface> > loads_;  ///< load interface created
+  std::vector<boost::shared_ptr<ShuntCompensatorInterface> > shunts_;  ///< shunt compensator interface created
+  std::vector<boost::shared_ptr<DanglingLineInterface> > danglingLines_;  ///< dangling line interface created
+  std::vector<boost::shared_ptr<StaticVarCompensatorInterface> > staticVarCompensators_;  ///< staticVarCompensator interface created
+  std::vector<boost::shared_ptr<VscConverterInterface> > vscConverters_;  ///< vscConverter interface created
+  std::vector<boost::shared_ptr<LccConverterInterface> > lccConverters_;  ///< lccConverter interface created
   std::string country_;  ///< country of the voltage level
 
   stdcxx::Reference<powsybl::iidm::extensions::SlackTerminal> slackTerminalExtension_;  ///< slack terminal extension

@@ -28,16 +28,29 @@
 #include "DYNMacrosMessage.h"
 
 #include <algorithm>
+#include <boost/lexical_cast.hpp>
 #include <fstream>
 #include <iomanip>
+#include <list>
 #include <memory>
+#include <set>
 #include <sstream>
 
 using boost::dynamic_pointer_cast;
 using boost::shared_ptr;
+using boost::weak_ptr;
+using std::list;
+using std::map;
+using std::pair;
+using std::set;
+using std::string;
+using std::vector;
+
 using std::map;
 using std::string;
+using std::vector;
 
+using boost::shared_ptr;
 
 namespace dynamicdata {
 

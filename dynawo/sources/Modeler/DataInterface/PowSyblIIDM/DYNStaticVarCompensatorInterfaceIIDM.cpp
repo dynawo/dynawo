@@ -30,7 +30,7 @@
 
 using powsybl::iidm::StaticVarCompensator;
 using std::string;
-using std::shared_ptr;
+using boost::shared_ptr;
 
 namespace DYN {
 

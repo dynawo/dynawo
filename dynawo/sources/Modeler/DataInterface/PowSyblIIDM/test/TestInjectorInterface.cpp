@@ -75,13 +75,13 @@ TEST(DataInterfaceTest, Injector_1) {
   const powsybl::iidm::Injection& Inj = load;
 
   DYN::InjectorInterfaceIIDM Ifce(Inj, "Name for TRACE");
-  const std::shared_ptr<DYN::VoltageLevelInterface> voltageLevelIfce = std::make_shared<DYN::VoltageLevelInterfaceIIDM>(vl1);
+  const boost::shared_ptr<DYN::VoltageLevelInterface> voltageLevelIfce(new DYN::VoltageLevelInterfaceIIDM(vl1));
   Ifce.setVoltageLevelInterfaceInjector(voltageLevelIfce);
   ASSERT_EQ("Name for TRACE", Ifce.getIDInjector());
 
   ASSERT_EQ(Ifce.getBusInterfaceInjector().get(), nullptr);
-  std::unique_ptr<DYN::BusInterface> busIfce(new DYN::BusInterfaceIIDM(bus));
-  Ifce.setBusInterfaceInjector(std::move(busIfce));
+  const boost::shared_ptr<DYN::BusInterface> busIfce(new DYN::BusInterfaceIIDM(bus));
+  Ifce.setBusInterfaceInjector(busIfce);
   ASSERT_EQ(Ifce.getBusInterfaceInjector().get()->getID(), "VL1_BUS1");
 
   ASSERT_TRUE(Ifce.getInitialConnectedInjector());
@@ -155,7 +155,7 @@ TEST(DataInterfaceTest, Injector_2) {
   const powsybl::iidm::Injection& Inj = load;
 
   DYN::InjectorInterfaceIIDM IfceNC(Inj, "Injector initially not connected");
-  const std::shared_ptr<DYN::VoltageLevelInterface> voltageLevelIfce = std::make_shared<DYN::VoltageLevelInterfaceIIDM>(vl1);
+  const boost::shared_ptr<DYN::VoltageLevelInterface> voltageLevelIfce(new DYN::VoltageLevelInterfaceIIDM(vl1));
   IfceNC.setVoltageLevelInterfaceInjector(voltageLevelIfce);
   ASSERT_FALSE(IfceNC.getInitialConnectedInjector());
   ASSERT_DOUBLE_EQ(IfceNC.getPInjector(), 0.0);

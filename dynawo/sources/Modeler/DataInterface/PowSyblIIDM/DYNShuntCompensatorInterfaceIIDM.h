@@ -22,6 +22,8 @@
 #ifndef MODELER_DATAINTERFACE_POWSYBLIIDM_DYNSHUNTCOMPENSATORINTERFACEIIDM_H_
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNSHUNTCOMPENSATORINTERFACEIIDM_H_
 
+#include <boost/shared_ptr.hpp>
+
 #include "DYNShuntCompensatorInterface.h"
 #include "DYNInjectorInterfaceIIDM.h"
 #include <powsybl/iidm/ShuntCompensator.hpp>
@@ -65,19 +67,19 @@ class ShuntCompensatorInterfaceIIDM : public ShuntCompensatorInterface, public I
   bool isConnected() const;
 
   /**
-   * @copydoc ShuntCompensatorInterface::setBusInterface(const std::shared_ptr<BusInterface>& busInterface)
+   * @copydoc ShuntCompensatorInterface::setBusInterface(const boost::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface(const std::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface(const boost::shared_ptr<BusInterface>& busInterface);
 
   /**
-   * @copydoc ShuntCompensatorInterface::setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
+   * @copydoc ShuntCompensatorInterface::setVoltageLevelInterface(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
    */
-  void setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
+  void setVoltageLevelInterface(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
 
   /**
    * @copydoc ShuntCompensatorInterface::getBusInterface() const
    */
-  std::shared_ptr<BusInterface> getBusInterface() const;
+  boost::shared_ptr<BusInterface> getBusInterface() const;
 
   /**
    * @copydoc ShuntCompensatorInterface::getInitialConnected()

@@ -82,7 +82,7 @@ TEST(APICRTTest, CriteriaParams) {
 }
 
 TEST(APICRTTest, Criteria) {
-  std::unique_ptr<Criteria> criteria = CriteriaFactory::newCriteria();
+  boost::shared_ptr<Criteria> criteria = CriteriaFactory::newCriteria();
 
   // test default constructor attributes
   assert(criteria->begin() == criteria->end());
@@ -147,18 +147,18 @@ TEST(APICRTTest, CriteriaCollection) {
   assert(criteriaCol->begin(CriteriaCollection::GENERATOR) == criteriaCol->end(CriteriaCollection::GENERATOR));
 
   // set attributes
-  std::shared_ptr<Criteria> criteriaBus = CriteriaFactory::newCriteria();
+  boost::shared_ptr<Criteria> criteriaBus = CriteriaFactory::newCriteria();
   criteriaBus->addComponentId("MyCompBusId1");
   criteriaBus->addComponentId("MyCompBusId2");
   criteriaCol->add(CriteriaCollection::BUS, criteriaBus);
-  std::shared_ptr<Criteria> criteriaLoad = CriteriaFactory::newCriteria();
+  boost::shared_ptr<Criteria> criteriaLoad = CriteriaFactory::newCriteria();
   criteriaLoad->addComponentId("MyCompLoadId1");
   criteriaLoad->addComponentId("MyCompLoadId2");
-  std::shared_ptr<Criteria> criteriaLoad2 = CriteriaFactory::newCriteria();
+  boost::shared_ptr<Criteria> criteriaLoad2 = CriteriaFactory::newCriteria();
   criteriaLoad->addComponentId("MyCompLoadId3");
   criteriaCol->add(CriteriaCollection::LOAD, criteriaLoad);
   criteriaCol->add(CriteriaCollection::LOAD, criteriaLoad2);
-  std::shared_ptr<Criteria> criteriaGen = CriteriaFactory::newCriteria();
+  boost::shared_ptr<Criteria> criteriaGen = CriteriaFactory::newCriteria();
   criteriaLoad->addComponentId("MyCompGenId1");
   criteriaLoad->addComponentId("MyCompGenId2");
   criteriaLoad->addComponentId("MyCompGenId3");
@@ -169,7 +169,7 @@ TEST(APICRTTest, CriteriaCollection) {
   for (CriteriaCollection::CriteriaCollectionConstIterator it = criteriaCol->begin(CriteriaCollection::BUS),
       itEnd = criteriaCol->end(CriteriaCollection::BUS);
       it != itEnd; ++it, ++idx) {
-    std::shared_ptr<Criteria> criteria = *it;
+    boost::shared_ptr<Criteria> criteria = *it;
     if (idx == 0)
       ASSERT_EQ(*it, criteriaBus);
     else
@@ -180,7 +180,7 @@ TEST(APICRTTest, CriteriaCollection) {
   for (CriteriaCollection::CriteriaCollectionConstIterator it = criteriaCol->begin(CriteriaCollection::LOAD),
       itEnd = criteriaCol->end(CriteriaCollection::LOAD);
       it != itEnd; ++it, ++idx) {
-    std::shared_ptr<Criteria> criteria = *it;
+    boost::shared_ptr<Criteria> criteria = *it;
     if (idx == 0)
       ASSERT_EQ(*it, criteriaLoad);
     else if (idx == 1)
@@ -202,7 +202,7 @@ TEST(APICRTTest, CriteriaCollection) {
   for (CriteriaCollection::CriteriaCollectionConstIterator it = criteriaCol->begin(CriteriaCollection::GENERATOR),
       itEnd = criteriaCol->end(CriteriaCollection::GENERATOR);
       it != itEnd; ++it, ++idx) {
-    std::shared_ptr<Criteria> criteria = *it;
+    boost::shared_ptr<Criteria> criteria = *it;
     if (idx == 0)
       ASSERT_EQ(*it, criteriaGen);
     else

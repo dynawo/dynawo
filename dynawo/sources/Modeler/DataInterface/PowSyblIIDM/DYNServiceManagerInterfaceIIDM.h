@@ -57,7 +57,7 @@ class ServiceManagerInterfaceIIDM : public ServiceManagerInterface {
   /**
    * @copydoc ServiceManagerInterface::getRegulatedBus
    */
-  std::shared_ptr<BusInterface> getRegulatedBus(const std::string& regulatingComponent) const;
+  boost::shared_ptr<BusInterface> getRegulatedBus(const std::string& regulatingComponent) const;
 
  private:
   /**
@@ -66,7 +66,7 @@ class ServiceManagerInterfaceIIDM : public ServiceManagerInterface {
    * @param graph Graph to update
    * @param vl the voltage level to process
    */
-  static void buildGraph(Graph& graph, const std::shared_ptr<VoltageLevelInterface>& vl);
+  static void buildGraph(Graph& graph, const boost::shared_ptr<VoltageLevelInterface>& vl);
 
   /**
    * @brief retrieve the regulated bus on the side of the regulated object
@@ -74,7 +74,7 @@ class ServiceManagerInterfaceIIDM : public ServiceManagerInterface {
    * @param terminal regulated terminal
    * @returns regulated bus on the side of the regulated object
    */
-  std::shared_ptr<BusInterface> getRegulatedBusOnSide(const powsybl::iidm::Terminal& terminal) const;
+  boost::shared_ptr<BusInterface> getRegulatedBusOnSide(const powsybl::iidm::Terminal& terminal) const;
 
  private:
   const DataInterfaceIIDM* const dataInterface_;  ///< data interface

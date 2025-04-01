@@ -33,7 +33,7 @@
 
 #include "DYNTrace.h"
 
-using std::shared_ptr;
+using boost::shared_ptr;
 using std::string;
 using std::vector;
 
@@ -166,24 +166,24 @@ TwoWTransformerInterfaceIIDM::getRatedU2() const {
   return tfoIIDM_.getRatedU2();
 }
 
-const std::unique_ptr<PhaseTapChangerInterface>&
+shared_ptr<PhaseTapChangerInterface>
 TwoWTransformerInterfaceIIDM::getPhaseTapChanger() const {
   return phaseTapChanger_;
 }
 
-const std::unique_ptr<RatioTapChangerInterface>&
+shared_ptr<RatioTapChangerInterface>
 TwoWTransformerInterfaceIIDM::getRatioTapChanger() const {
   return ratioTapChanger_;
 }
 
 void
-TwoWTransformerInterfaceIIDM::setPhaseTapChanger(std::unique_ptr<PhaseTapChangerInterface> tapChanger) {
-  phaseTapChanger_ = std::move(tapChanger);
+TwoWTransformerInterfaceIIDM::setPhaseTapChanger(const shared_ptr<PhaseTapChangerInterface>& tapChanger) {
+  phaseTapChanger_ = tapChanger;
 }
 
 void
-TwoWTransformerInterfaceIIDM::setRatioTapChanger(std::unique_ptr<RatioTapChangerInterface> tapChanger) {
-  ratioTapChanger_ = std::move(tapChanger);
+TwoWTransformerInterfaceIIDM::setRatioTapChanger(const shared_ptr<RatioTapChangerInterface>& tapChanger) {
+  ratioTapChanger_ = tapChanger;
 }
 
 double
@@ -207,21 +207,21 @@ TwoWTransformerInterfaceIIDM::getB() const {
 }
 
 void
-TwoWTransformerInterfaceIIDM::addCurrentLimitInterface1(std::unique_ptr<CurrentLimitInterface> currentLimitInterface) {
-  currentLimitInterfaces1_.push_back(std::move(currentLimitInterface));
+TwoWTransformerInterfaceIIDM::addCurrentLimitInterface1(const shared_ptr<CurrentLimitInterface>& currentLimitInterface) {
+  currentLimitInterfaces1_.push_back(currentLimitInterface);
 }
 
 void
-TwoWTransformerInterfaceIIDM::addCurrentLimitInterface2(std::unique_ptr<CurrentLimitInterface> currentLimitInterface) {
-  currentLimitInterfaces2_.push_back(std::move(currentLimitInterface));
+TwoWTransformerInterfaceIIDM::addCurrentLimitInterface2(const shared_ptr<CurrentLimitInterface>& currentLimitInterface) {
+  currentLimitInterfaces2_.push_back(currentLimitInterface);
 }
 
-const vector<std::unique_ptr<CurrentLimitInterface> >&
+vector<shared_ptr<CurrentLimitInterface> >
 TwoWTransformerInterfaceIIDM::getCurrentLimitInterfaces1() const {
   return currentLimitInterfaces1_;
 }
 
-const vector<std::unique_ptr<CurrentLimitInterface> >&
+vector<shared_ptr<CurrentLimitInterface> >
 TwoWTransformerInterfaceIIDM::getCurrentLimitInterfaces2() const {
   return currentLimitInterfaces2_;
 }
@@ -435,7 +435,7 @@ TwoWTransformerInterfaceIIDM::importStaticParameters() {
     staticParameters_.insert(std::make_pair("iStop", StaticParameter("iStop", StaticParameter::DOUBLE).setValue(thresholdI * factorAToPu)));
     staticParameters_.insert(std::make_pair("regulating",
         StaticParameter("regulating", StaticParameter::BOOL).setValue(getPhaseTapChanger()->getRegulating())));
-    const vector<std::unique_ptr<StepInterface> >& taps = getPhaseTapChanger()->getSteps();
+    vector<shared_ptr<StepInterface> > taps = getPhaseTapChanger()->getSteps();
     assert(!taps.empty());
 
     double phaseTapMin = taps[0]->getAlpha();

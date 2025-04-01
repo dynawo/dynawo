@@ -120,15 +120,15 @@ class DataInterface {
    * @brief find connected components
    * @return vector of connected components found
    */
-  virtual std::shared_ptr<std::vector<std::shared_ptr<ComponentInterface> > > findConnectedComponents() = 0;
+  virtual const boost::shared_ptr<std::vector<boost::shared_ptr<ComponentInterface> > > findConnectedComponents() = 0;
 
   /**
    * @brief find lost equipments (equipments which have lost connection)
    * @param connectedComponents vector of components previously connected
    * @return vector of lost equipments found
    */
-  virtual std::unique_ptr<lostEquipments::LostEquipmentsCollection>
-    findLostEquipments(const std::shared_ptr<std::vector<std::shared_ptr<ComponentInterface> > >& connectedComponents) = 0;
+  virtual const boost::shared_ptr<lostEquipments::LostEquipmentsCollection>
+    findLostEquipments(const boost::shared_ptr<std::vector<boost::shared_ptr<ComponentInterface> > >& connectedComponents) = 0;
 
   /**
    * @brief import static parameters

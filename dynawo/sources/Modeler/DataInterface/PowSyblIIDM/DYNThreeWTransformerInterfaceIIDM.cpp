@@ -24,7 +24,7 @@
 #include "DYNBusInterface.h"
 #include "DYNStateVariable.h"
 
-using std::shared_ptr;
+using boost::shared_ptr;
 using std::string;
 using std::vector;
 
@@ -140,31 +140,31 @@ ThreeWTransformerInterfaceIIDM::isConnected3() const {
 }
 
 void
-ThreeWTransformerInterfaceIIDM::addCurrentLimitInterface1(std::unique_ptr<CurrentLimitInterface> currentLimitInterface) {
-  currentLimitInterfaces1_.push_back(std::move(currentLimitInterface));
+ThreeWTransformerInterfaceIIDM::addCurrentLimitInterface1(const shared_ptr<CurrentLimitInterface>& currentLimitInterface) {
+  currentLimitInterfaces1_.push_back(currentLimitInterface);
 }
 
 void
-ThreeWTransformerInterfaceIIDM::addCurrentLimitInterface2(std::unique_ptr<CurrentLimitInterface> currentLimitInterface) {
-  currentLimitInterfaces2_.push_back(std::move(currentLimitInterface));
+ThreeWTransformerInterfaceIIDM::addCurrentLimitInterface2(const shared_ptr<CurrentLimitInterface>& currentLimitInterface) {
+  currentLimitInterfaces2_.push_back(currentLimitInterface);
 }
 
 void
-ThreeWTransformerInterfaceIIDM::addCurrentLimitInterface3(std::unique_ptr<CurrentLimitInterface> currentLimitInterface) {
-  currentLimitInterfaces3_.push_back(std::move(currentLimitInterface));
+ThreeWTransformerInterfaceIIDM::addCurrentLimitInterface3(const shared_ptr<CurrentLimitInterface>& currentLimitInterface) {
+  currentLimitInterfaces3_.push_back(currentLimitInterface);
 }
 
-const vector<std::unique_ptr<CurrentLimitInterface> >&
+vector<shared_ptr<CurrentLimitInterface> >
 ThreeWTransformerInterfaceIIDM::getCurrentLimitInterfaces1() const {
   return currentLimitInterfaces1_;
 }
 
-const vector<std::unique_ptr<CurrentLimitInterface> >&
+vector<shared_ptr<CurrentLimitInterface> >
 ThreeWTransformerInterfaceIIDM::getCurrentLimitInterfaces2() const {
   return currentLimitInterfaces2_;
 }
 
-const vector<std::unique_ptr<CurrentLimitInterface> >&
+vector<shared_ptr<CurrentLimitInterface> >
 ThreeWTransformerInterfaceIIDM::getCurrentLimitInterfaces3() const {
   return currentLimitInterfaces3_;
 }

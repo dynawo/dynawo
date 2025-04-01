@@ -22,12 +22,13 @@
 
 #include "LEQLostEquipmentsCollection.h"
 
+using boost::shared_ptr;
 
 namespace lostEquipments {
 
-std::unique_ptr<LostEquipmentsCollection>
+shared_ptr<LostEquipmentsCollection>
 LostEquipmentsCollectionFactory::newInstance() {
-  return std::unique_ptr<LostEquipmentsCollection>(new LostEquipmentsCollection());
+  return shared_ptr<LostEquipmentsCollection>(new LostEquipmentsCollection());
 }
 
 }  // namespace lostEquipments
