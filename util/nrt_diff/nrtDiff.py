@@ -963,7 +963,7 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
                 if (nb_lines_different > 1):
                     message += "s"
 
-        elif (file_extension == ".csv"):
+        elif (file_name == "curves" and file_extension == ".csv"):
             (nb_points, nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_err_absolute, nb_err_relative, curves_different) = CSVCloseEnough (path_left, path_right, True)
             maximum_curves_names_displayed = 5
             dir = os.path.abspath(os.path.join(path_left, os.pardir))
@@ -1045,8 +1045,18 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
                 message += str(nb_differences) + " different output values\n" + msg
             else:
                 return_value = IDENTICAL
-        elif "finalStateValues" in file_name:
+        elif "finalStateValues" in file_name and file_extension == ".xml":
             (nb_differences, msg) = finalStateValuesDiff.output_xml_fsv_close_enough (path_left, path_right)
+            dir = os.path.abspath(os.path.join(path_left, os.pardir))
+            parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
+            message = "<font color=\"red\">" + os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ":</font> "
+            if (nb_differences > 0):
+                return_value = DIFFERENT
+                message += str(nb_differences) + " different output values\n" + msg
+            else:
+                return_value = IDENTICAL
+        elif "finalStateValues" in file_name and file_extension == ".csv":
+            (nb_differences, msg) = finalStateValuesDiff.output_csv_fsv_close_enough (path_left, path_right)
             dir = os.path.abspath(os.path.join(path_left, os.pardir))
             parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
             message = "<font color=\"red\">" + os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ":</font> "
