@@ -31,6 +31,7 @@
 
 #include <boost/log/sinks.hpp>
 #include <boost/shared_ptr.hpp>
+#include <boost/unordered_map.hpp>
 #include <boost/log/attributes.hpp>
 #include <boost/thread/mutex.hpp>
 #include <boost/optional.hpp>
@@ -591,9 +592,7 @@ class Trace {
   friend class TraceStream;  ///< Class TraceStream must get access to @p log() private function
 
  private:
-  std::unordered_multimap<TagAndSeverityLevel, TraceAppender,
-                                      TagAndSeverityLevelHash> traceAppenders_;  ///< multimap each appender tag to its corresponding boost sink configuration
-  std::unordered_map<boost::log::attributes::current_thread_id::value_type, TraceSinks, Hasher> sinks_;  ///< thread specific sinks
+  boost::unordered_map<boost::log::attributes::current_thread_id::value_type, TraceSinks, Hasher> sinks_;  ///< thread specific sinks
   std::vector< boost::shared_ptr<Trace::TextSink> > originalSinks_;  ///< Original sinks
   boost::mutex mutex_;  ///< mutex to synchronize logs at init
 };

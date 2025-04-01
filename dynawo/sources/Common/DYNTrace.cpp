@@ -211,12 +211,7 @@ void Trace::configureSink(const std::vector<TraceAppender>& appenders, bool eras
 
   {
     boost::lock_guard<boost::mutex> lock(mutex_);
-
-    if (sinks_.find(currentId) != sinks_.end()) {
-      sinks_.at(currentId) = traceSink;
-    } else {
-      sinks_.insert(std::make_pair(currentId, traceSink));
-    }
+    sinks_.insert_or_assign(currentId, traceSink);
   }
 }
 
