@@ -15,14 +15,13 @@
 #define MODELER_DATAINTERFACE_DYNCRITERIA_H_
 
 #include <boost/shared_ptr.hpp>
+#include <unordered_set>
 #include "CRTCriteriaParams.h"
 #include "DYNBusInterface.h"
 #include "DYNLoadInterface.h"
 #include "DYNGeneratorInterface.h"
 #include "TLTimeline.h"
-
 #include <map>
-#include <unordered_set>
 
 namespace DYN {
 
