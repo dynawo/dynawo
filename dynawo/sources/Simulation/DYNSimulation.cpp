@@ -156,7 +156,7 @@ struct StringPairHash {
    * @param stringPair the stringPair to hash
    * @returns the hash value
    */
-  size_t operator()(const std::pair<std::string, std::string>& stringPair) const {
+  size_t operator()(std::pair<std::string, std::string> stringPair) const {
     size_t seed = 0;
     boost::hash_combine(seed, stringPair.first);
     boost::hash_combine(seed, stringPair.second);
