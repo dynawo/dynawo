@@ -22,6 +22,7 @@
 #define SOLVERS_FIXEDTIMESTEP_SOLVERSIM_DYNSOLVERSIM_H_
 
 #include <vector>
+#include <boost/shared_ptr.hpp>
 #include <sundials/sundials_nvector.h>
 
 #include "DYNSolverFactory.h"
@@ -71,9 +72,9 @@ class SolverSIM : public SolverCommonFixedTimeStep {
   std::string solverType() const;
 
   /**
-   * @copydoc Solver::init(const std::shared_ptr<Model>& model, const double t0, const double tEnd)
+   * @copydoc Solver::init(const boost::shared_ptr<Model>& model, const double t0, const double tEnd)
    */
-  void init(const std::shared_ptr<Model>& model, const double t0, const double tEnd);
+  void init(const boost::shared_ptr<Model>& model, const double t0, const double tEnd);
 
   /**
    * @copydoc Solver::Impl::defineSpecificParameters()

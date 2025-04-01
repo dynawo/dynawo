@@ -382,7 +382,7 @@ class Model {
    *
    * @param curvesCollection set of curves
    */
-  virtual void updateCalculatedVarForCurves(std::shared_ptr<curves::CurvesCollection>& curvesCollection) const = 0;
+  virtual void updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollection>& curvesCollection) const = 0;
 
   /**
    * @brief export the parameters of the model for dump
@@ -453,7 +453,7 @@ class Model {
    * @param curve curve to find
    * @return true if the curve was added
    */
-  virtual bool initCurves(std::shared_ptr<curves::Curve>& curve) = 0;
+  virtual bool initCurves(boost::shared_ptr<curves::Curve>& curve) = 0;
 
   /**
    * @brief set the simulation working directory to use

@@ -78,7 +78,7 @@ void SolverKINAlgRestoration::resetAlgebraicRestoration() {
 }
 
 void
-SolverKINAlgRestoration::init(const std::shared_ptr<Model>& model, modeKin_t mode) {
+SolverKINAlgRestoration::init(const boost::shared_ptr<Model>& model, modeKin_t mode) {
   model_ = model;
   mode_ = mode;
 }

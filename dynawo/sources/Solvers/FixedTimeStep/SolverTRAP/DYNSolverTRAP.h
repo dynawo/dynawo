@@ -67,9 +67,9 @@ class SolverTRAP : public SolverCommonFixedTimeStep {
   std::string solverType() const;
 
   /**
-   * @copydoc Solver::init(const std::shared_ptr<Model>& model, const double t0, const double tEnd)
+   * @copydoc Solver::init(const boost::shared_ptr<Model>& model, const double t0, const double tEnd)
   */
-  void init(const std::shared_ptr<Model>& model, const double t0, const double tEnd);
+  void init(const boost::shared_ptr<Model>& model, const double t0, const double tEnd);
 
   /**
    * @copydoc Solver::Impl::defineSpecificParameters()

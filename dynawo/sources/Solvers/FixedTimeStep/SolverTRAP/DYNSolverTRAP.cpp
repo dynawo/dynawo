@@ -27,6 +27,8 @@
 #include <iomanip>
 #include <vector>
 
+#include <boost/shared_ptr.hpp>
+
 #include "PARParametersSet.h"
 #include "PARParameter.h"
 
@@ -36,6 +38,7 @@
 #include "DYNTrace.h"
 #include "DYNModel.h"
 
+using boost::shared_ptr;
 
 /**
  * @brief SolverTRAPFactory getter
@@ -76,7 +79,7 @@ SolverTRAP::solverType() const {
 }
 
 void
-SolverTRAP::init(const std::shared_ptr<Model>& model, const double t0, const double tEnd) {
+SolverTRAP::init(const shared_ptr<Model>& model, const double t0, const double tEnd) {
   initCommon(model, t0, tEnd);
 
   solverKINYPrimInit_.reset(new SolverKINAlgRestoration());

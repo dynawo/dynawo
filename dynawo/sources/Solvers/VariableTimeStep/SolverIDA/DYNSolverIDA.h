@@ -22,6 +22,7 @@
 
 #include <boost/shared_ptr.hpp>
 #include <vector>
+#include <map>
 #include <sundials/sundials_linearsolver.h>
 #include <sundials/sundials_matrix.h>
 #include <sundials/sundials_nvector.h>
@@ -85,9 +86,9 @@ class SolverIDA : public Solver::Impl {
   std::string solverType() const;
 
   /**
-   * @copydoc Solver::init(const std::shared_ptr<Model> & model, const double t0, const double tEnd)
+   * @copydoc Solver::init(const boost::shared_ptr<Model> & model, const double t0, const double tEnd)
    */
-  void init(const std::shared_ptr<Model>& model, const double t0, const double tEnd);
+  void init(const boost::shared_ptr<Model>& model, const double t0, const double tEnd);
 
   /**
    * @copydoc Solver::reinit()

@@ -21,12 +21,13 @@
 #include "CRVCurveFactory.h"
 #include "CRVCurve.h"
 
+using boost::shared_ptr;
 
 namespace curves {
 
-std::unique_ptr<Curve>
+shared_ptr<Curve>
 CurveFactory::newCurve() {
-  return std::unique_ptr<Curve>(new Curve());
+  return shared_ptr<Curve>(new Curve());
 }
 
 }  // namespace curves

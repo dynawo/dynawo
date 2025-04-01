@@ -31,18 +31,18 @@ namespace curves {
 
 TEST(APICRVTest, test1) {
   // Create new curve collection
-  std::shared_ptr<CurvesCollection> curves = CurvesCollectionFactory::newInstance("Curves");
+  boost::shared_ptr<CurvesCollection> curves = CurvesCollectionFactory::newInstance("Curves");
 
-  std::unique_ptr<Curve> curve1 = CurveFactory::newCurve();
+  boost::shared_ptr<Curve> curve1 = CurveFactory::newCurve();
   curve1->setModelName("model1");
   curve1->setVariable("variable1");
-  std::unique_ptr<Curve> curve2 = CurveFactory::newCurve();
+  boost::shared_ptr<Curve> curve2 = CurveFactory::newCurve();
   curve2->setModelName("model2");
   curve2->setVariable("variable2");
 
   // add curves to curve collection
-  curves->add(std::move(curve1));
-  curves->add(std::move(curve2));
+  curves->add(curve1);
+  curves->add(curve2);
 
   // associate curves to variable and buffer variable
   std::vector<double> variables;
@@ -71,11 +71,11 @@ TEST(APICRVTest, test1) {
   }
 
   // export the curves in xml format
-  std::unique_ptr<XmlExporter> xmlExporter = std::unique_ptr<XmlExporter>(new XmlExporter());
+  boost::shared_ptr<XmlExporter> xmlExporter = boost::shared_ptr<XmlExporter>(new XmlExporter());
   ASSERT_NO_THROW(xmlExporter->exportToFile(curves, "testXmlCurvesExport.crv"));
 
   // export the curves in xml format
-  std::unique_ptr<CsvExporter> csvExporter = std::unique_ptr<CsvExporter>(new CsvExporter());
+  boost::shared_ptr<CsvExporter> csvExporter = boost::shared_ptr<CsvExporter>(new CsvExporter());
   ASSERT_NO_THROW(csvExporter->exportToFile(curves, "testCsvCurvesExport.csv"));
 
   // throw

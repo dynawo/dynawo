@@ -21,6 +21,7 @@
 #define API_CRV_CRVEXPORTER_H_
 
 #include <string>
+#include <boost/shared_ptr.hpp>
 
 #include "CRVCurvesCollection.h"
 
@@ -50,7 +51,7 @@ class Exporter {
    * @param curves curvers to export
    * @param filePath file to export to
    */
-  virtual void exportToFile(const std::shared_ptr<CurvesCollection>& curves, const std::string& filePath) const = 0;
+  virtual void exportToFile(const boost::shared_ptr<CurvesCollection>& curves, const std::string& filePath) const = 0;
 
    /**
    * @brief Export method for this exporter
@@ -58,7 +59,7 @@ class Exporter {
    * @param curves curves to export
    * @param stream stream to export to
    */
-  virtual void exportToStream(const std::shared_ptr<CurvesCollection>& curves, std::ostream& stream) const = 0;
+  virtual void exportToStream(const boost::shared_ptr<CurvesCollection>& curves, std::ostream& stream) const = 0;
 };
 
 #ifdef __clang__

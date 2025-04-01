@@ -835,21 +835,21 @@ class SubModel {
    *
    * @param curve curve to store
    */
-  void addCurve(std::shared_ptr<curves::Curve>& curve);
+  void addCurve(boost::shared_ptr<curves::Curve>& curve);
 
   /**
    * @brief update the subset of calculated variables needed for curves
    *
    * @param curve curve whose value needs to be updated
    */
-  void updateCalculatedVarForCurve(std::shared_ptr<curves::Curve>& curve);
+  void updateCalculatedVarForCurve(boost::shared_ptr<curves::Curve>& curve);
 
   /**
    * @brief add a curve of a parameter to store for the model
    *
    * @param curve curve to store
    */
-  void addParameterCurve(std::shared_ptr<curves::Curve>& curve);
+  void addParameterCurve(boost::shared_ptr<curves::Curve>& curve);
 
   /**
    * @brief defines all variables for the dynamic model

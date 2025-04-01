@@ -178,7 +178,7 @@ class Solver {
    * @param t0 start time of the simulation
    * @param tEnd end time of the simulation
    */
-  virtual void init(const std::shared_ptr<Model>& model, double t0, double tEnd) = 0;
+  virtual void init(const boost::shared_ptr<Model>& model, double t0, double tEnd) = 0;
 
   /**
    * @brief Calculate the intial condition of the DAE

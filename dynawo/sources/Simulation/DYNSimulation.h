@@ -576,7 +576,7 @@ class Simulation {
 
  * @return model used in simulation
  */
-  std::shared_ptr<Model> getModel() {
+  boost::shared_ptr<Model> getModel() {
     return model_;
   }
 
@@ -671,11 +671,11 @@ class Simulation {
   boost::shared_ptr<SimulationContext> context_;  ///< simulation context : configuration of the simulation
   boost::shared_ptr<job::JobEntry> jobEntry_;  ///< jobs data description
   SolverFactory::SolverPtr solver_;  ///< solver used for the simulation
-  std::shared_ptr<Model> model_;  ///< model used for the simulation
+  boost::shared_ptr<Model> model_;  ///< model used for the simulation
   boost::shared_ptr<DataInterface> data_;  ///< Data interface associated to the job
   boost::shared_ptr<DynamicData> dyd_;  ///< Dynamic data container associated to the job
   boost::shared_ptr<timeline::Timeline> timeline_;  ///< instance of the timeline where events are stored
-  std::shared_ptr<curves::CurvesCollection> curvesCollection_;  ///< instance of curves collection where curves are stored
+  boost::shared_ptr<curves::CurvesCollection> curvesCollection_;  ///< instance of curves collection where curves are stored
   std::shared_ptr<constraints::ConstraintsCollection> constraintsCollection_;  ///< instance of constraints collection where constraints are stored
   std::shared_ptr<criteria::CriteriaCollection> criteriaCollection_;  ///< instance of criteria collection where criteria are stored
   std::shared_ptr<std::vector<

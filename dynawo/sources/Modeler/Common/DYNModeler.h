@@ -73,7 +73,7 @@ class Modeler {
    * @brief get the model created thanks to data
    * @return model created thanks to data
    */
-  std::shared_ptr<ModelMulti> getModel() const {
+  boost::shared_ptr<ModelMulti> getModel() const {
     return model_;
   }
 
@@ -156,7 +156,7 @@ class Modeler {
  private:
   boost::shared_ptr<DataInterface> data_;  ///< data used to build the model multi
   boost::shared_ptr<DynamicData> dyd_;  ///< dynamic data used to build the model multi
-  std::shared_ptr<ModelMulti> model_;  ///< model created thanks to previous data
+  boost::shared_ptr<ModelMulti> model_;  ///< model created thanks to previous data
 
   std::map<std::string, boost::shared_ptr<SubModel> > subModels_;  ///< association between name and subModel : usefull when the connectors should be created
 };

@@ -33,9 +33,9 @@ namespace curves {
 //-----------------------------------------------------
 
 TEST(APICRVTest, CurvesCollectionCsvExporter) {
-  std::unique_ptr<CurvesCollection> curvesCollection1 = CurvesCollectionFactory::newInstance("Curves");
+  boost::shared_ptr<CurvesCollection> curvesCollection1 = CurvesCollectionFactory::newInstance("Curves");
 
-  std::shared_ptr<Curve> curve1 = CurveFactory::newCurve();
+  boost::shared_ptr<Curve> curve1 = CurveFactory::newCurve();
 
   curve1->setVariable("variable1");
   curve1->setAvailable(true);
@@ -54,7 +54,7 @@ TEST(APICRVTest, CurvesCollectionCsvExporter) {
   // test updateParameterCurveValue (set the value to a given value)
   ASSERT_NO_THROW(curve1->updateParameterCurveValue("variable1", 5));
 
-  std::shared_ptr<Curve> curve2 = CurveFactory::newCurve();
+  boost::shared_ptr<Curve> curve2 = CurveFactory::newCurve();
 
   curve2->setVariable("variable2");
   curve2->setAvailable(true);
@@ -71,14 +71,14 @@ TEST(APICRVTest, CurvesCollectionCsvExporter) {
 
   CsvExporter exporter;
   std::stringstream ss;
-  exporter.exportToStream(std::move(curvesCollection1), ss);
+  exporter.exportToStream(curvesCollection1, ss);
   ASSERT_EQ(ss.str(), "time;_variable1;_variable2;\n0.000000;5.000000;7.000000;\n1.000000;5.000000;7.000000;\n2.000000;5.000000;7.000000;\n");
 }
 
 TEST(APICRVTest, CurvesCollectionXmlExporter) {
-  std::shared_ptr<CurvesCollection> curvesCollection1 = CurvesCollectionFactory::newInstance("Curves");
+  boost::shared_ptr<CurvesCollection> curvesCollection1 = CurvesCollectionFactory::newInstance("Curves");
 
-  std::shared_ptr<Curve> curve1 = CurveFactory::newCurve();
+  boost::shared_ptr<Curve> curve1 = CurveFactory::newCurve();
 
   curve1->setVariable("variable1");
   curve1->setAvailable(true);
@@ -97,7 +97,7 @@ TEST(APICRVTest, CurvesCollectionXmlExporter) {
   // test updateParameterCurveValue (set the value to a given value)
   ASSERT_NO_THROW(curve1->updateParameterCurveValue("--unused--", 5));
 
-  std::shared_ptr<Curve> curve2 = CurveFactory::newCurve();
+  boost::shared_ptr<Curve> curve2 = CurveFactory::newCurve();
 
   curve2->setVariable("variable2");
   curve2->setAvailable(true);
@@ -149,9 +149,9 @@ TEST(APICRVTest, CurvesCollectionXmlExporter) {
 }
 
 TEST(APICRVTest, TestFSVonlyDataAreNotPrintedInOutput) {
-  std::unique_ptr<CurvesCollection> curvesCollection = CurvesCollectionFactory::newInstance("Curves");
+  boost::shared_ptr<CurvesCollection> curvesCollection = CurvesCollectionFactory::newInstance("Curves");
 
-  std::shared_ptr<Curve> curve1 = CurveFactory::newCurve();
+  boost::shared_ptr<Curve> curve1 = CurveFactory::newCurve();
 
   curve1->setVariable("variable1");
   curve1->setAvailable(true);
@@ -165,7 +165,7 @@ TEST(APICRVTest, TestFSVonlyDataAreNotPrintedInOutput) {
   curve1->update(1);
   curve1->update(2);
 
-  std::shared_ptr<Curve> curve2 = CurveFactory::newCurve();
+  boost::shared_ptr<Curve> curve2 = CurveFactory::newCurve();
 
   curve2->setVariable("variable2");
   curve2->setAvailable(true);
@@ -182,15 +182,15 @@ TEST(APICRVTest, TestFSVonlyDataAreNotPrintedInOutput) {
 
   CsvExporter exporter;
   std::stringstream ss;
-  exporter.exportToStream(std::move(curvesCollection), ss);
+  exporter.exportToStream(curvesCollection, ss);
   // Check that variable2 curve is not printed
   ASSERT_EQ(ss.str(), "time;_variable1;\n0.000000;0.000000;\n1.000000;0.000000;\n2.000000;0.000000;\n");
 }
 
 TEST(APICRVTest, CurvesCollectionDontExportUnmarked) {
-  std::unique_ptr<CurvesCollection> curvesCollection1 = CurvesCollectionFactory::newInstance("Curves");
+  boost::shared_ptr<CurvesCollection> curvesCollection1 = CurvesCollectionFactory::newInstance("Curves");
 
-  std::shared_ptr<Curve> curve1 = CurveFactory::newCurve();
+  boost::shared_ptr<Curve> curve1 = CurveFactory::newCurve();
 
   curve1->setVariable("variable1");
   curve1->setAvailable(true);
@@ -212,7 +212,7 @@ TEST(APICRVTest, CurvesCollectionDontExportUnmarked) {
 
   XmlExporter exporter;
   std::stringstream ss;
-  exporter.exportToStream(std::move(curvesCollection1), ss);
+  exporter.exportToStream(curvesCollection1, ss);
   ASSERT_EQ(ss.str(), "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>\n<curvesOutput "
       "xmlns=\"http://www.rte-france.com/dynawo\"/>\n");
 }

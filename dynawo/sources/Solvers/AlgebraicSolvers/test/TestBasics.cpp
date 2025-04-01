@@ -49,7 +49,7 @@ INIT_XML_DYNAWO;
 
 namespace DYN {
 
-static std::shared_ptr<Model> initModelFromDyd(std::string dydFileName) {
+static boost::shared_ptr<Model> initModelFromDyd(std::string dydFileName) {
   // DYD
   boost::shared_ptr<DynamicData> dyd(new DynamicData());
   std::vector <std::string> fileNames;
@@ -95,7 +95,7 @@ static std::shared_ptr<Model> initModelFromDyd(std::string dydFileName) {
   modeler.setDynamicData(dyd);
   modeler.initSystem();
 
-  std::shared_ptr<Model> model = modeler.getModel();
+  boost::shared_ptr<Model> model = modeler.getModel();
   model->initBuffers();
   model->setIsInitProcess(true);
   model->init(0);
@@ -119,7 +119,7 @@ class SolverMock : public Solver::Impl {
 
   void setSolverSpecificParameters() {}
 
-  void init(const std::shared_ptr<Model>& /*model*/, double /*t0*/, double /*tEnd*/) {}
+  void init(const boost::shared_ptr<Model>& /*model*/, double /*t0*/, double /*tEnd*/) {}
 
   void calculateIC(double /*tEnd*/) {}
 
@@ -155,7 +155,7 @@ TEST(AlgebraicSolvers, testInit) {
   ASSERT_THROW_DYNAWO(solver->initCommon(1, 1, 1, 1, 1, 1, 1, NULL, NULL, NULL), Error::SUNDIALS_ERROR,
                       KeyError_t::SolverEmptyYVector);
 
-  std::shared_ptr<Model> model = initModelFromDyd("dyd/solverTestAlpha.dyd");
+  boost::shared_ptr<Model> model = initModelFromDyd("dyd/solverTestAlpha.dyd");
   boost::shared_ptr<SolverKINEuler> solverEuler(new SolverKINEuler());
   Solver* timeSchemeSolver = new SolverMock();
   N_Vector sundialsVectorY = N_VNew_Serial(model->sizeY(), sundialsContext);
@@ -190,7 +190,7 @@ TEST(AlgebraicSolvers, testInit) {
 }
 
 TEST(AlgebraicSolvers, testModifySettings) {
-  std::shared_ptr<Model> model = initModelFromDyd("dyd/solverTestAlpha.dyd");
+  boost::shared_ptr<Model> model = initModelFromDyd("dyd/solverTestAlpha.dyd");
   boost::shared_ptr<SolverKINAlgRestoration> solver(new SolverKINAlgRestoration());
   ASSERT_NO_THROW(solver->init(model, SolverKINAlgRestoration::KIN_ALGEBRAIC));
   ASSERT_NO_THROW(solver->setupNewAlgebraicRestoration(1e-4, 0.1, 1e-4, 1000, 0, 15, 0));

@@ -67,7 +67,7 @@ namespace DYN {
 
 void
 Modeler::initSystem() {
-  model_ = std::make_shared<ModelMulti>();
+  model_ = shared_ptr<ModelMulti>(new ModelMulti());
 
   if (data_ && data_->instantiateNetwork())
     initNetwork();

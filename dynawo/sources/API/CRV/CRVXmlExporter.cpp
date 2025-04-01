@@ -43,7 +43,7 @@ using xml::sax::formatter::FormatterPtr;
 namespace curves {
 
 void
-XmlExporter::exportToFile(const std::shared_ptr<CurvesCollection>& curves, const string& filePath) const {
+XmlExporter::exportToFile(const boost::shared_ptr<CurvesCollection>& curves, const string& filePath) const {
   fstream file;
   file.open(filePath.c_str(), fstream::out);
   if (!file.is_open()) {
@@ -55,7 +55,7 @@ XmlExporter::exportToFile(const std::shared_ptr<CurvesCollection>& curves, const
 }
 
 void
-XmlExporter::exportToStream(const std::shared_ptr<CurvesCollection>& curves, ostream& stream) const {
+XmlExporter::exportToStream(const boost::shared_ptr<CurvesCollection>& curves, ostream& stream) const {
   FormatterPtr formatter = Formatter::createFormatter(stream, "http://www.rte-france.com/dynawo");
 
   formatter->startDocument();

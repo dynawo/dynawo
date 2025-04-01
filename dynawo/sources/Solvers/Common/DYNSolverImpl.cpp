@@ -111,7 +111,7 @@ Solver::Impl::clean() {
 }
 
 void
-Solver::Impl::init(const double t0, const std::shared_ptr<Model>& model) {
+Solver::Impl::init(const double t0, const boost::shared_ptr<Model>& model) {
   model_ = model;
 
   // Problem size

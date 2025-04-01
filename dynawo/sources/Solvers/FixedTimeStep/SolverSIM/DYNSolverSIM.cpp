@@ -27,6 +27,8 @@
 #include <iomanip>
 #include <vector>
 
+#include <boost/shared_ptr.hpp>
+
 #include "PARParametersSet.h"
 #include "PARParameter.h"
 
@@ -36,6 +38,7 @@
 #include "DYNTrace.h"
 #include "DYNModel.h"
 
+using boost::shared_ptr;
 using std::make_pair;
 
 /**
@@ -81,7 +84,7 @@ SolverSIM::solverType() const {
 }
 
 void
-SolverSIM::init(const std::shared_ptr<Model>& model, const double t0, const double tEnd) {
+SolverSIM::init(const boost::shared_ptr<Model>& model, const double t0, const double tEnd) {
   initCommon(model, t0, tEnd);
 }
 
