@@ -25,19 +25,10 @@ model IntegratorVariableLimitsAntiWindup "Integrator with limited value of outpu
 protected
   Boolean isFrozenMax(start = FrozenMax0) "If true, integration is frozen at upper limit";
   Boolean isFrozenMin(start = FrozenMin0) "If true, integration is frozen at lower limit";
-  Boolean keepFreezingMax(start = FrozenMax0) "If true, integration stays frozen at upper limit";
-  Boolean keepFreezingMin(start = FrozenMin0) "If true, integration stays frozen at lower limit";
-  Boolean startFreezingMax(start = FrozenMax0) "If true, integration becomes frozen at upper limit";
-  Boolean startFreezingMin(start = FrozenMin0) "If true, integration becomes frozen at lower limit";
 
 equation
-  startFreezingMax = w > limitMax and v > 0;
-  keepFreezingMax = w > limitMax - Tol * abs(LimitMax0 - LimitMin0) and v > 0 and pre(isFrozenMax);
-  isFrozenMax = startFreezingMax or keepFreezingMax;
-
-  startFreezingMin = w < limitMin and v < 0;
-  keepFreezingMin = w < limitMin + Tol * abs(LimitMax0 - LimitMin0) and v < 0 and pre(isFrozenMin);
-  isFrozenMin = startFreezingMin or keepFreezingMin;
+  isFrozenMax = (w > limitMax and v > 0) or (w > limitMax - Tol * abs(LimitMax0 - LimitMin0) and v > 0 and pre(isFrozenMax));
+  isFrozenMin = (w < limitMin and v < 0) or (w < limitMin + Tol * abs(LimitMax0 - LimitMin0) and v < 0 and pre(isFrozenMin));
 
   v = K * u + Kaw * (y - w);
 

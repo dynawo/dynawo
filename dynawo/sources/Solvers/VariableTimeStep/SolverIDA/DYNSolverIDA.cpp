@@ -106,6 +106,7 @@ nlscoef_(0.33),
 restorationYPrim_(true),
 activateCheckJacobian_(false),
 printReinitResiduals_(false),
+countForceReinit_(0),
 flagInit_(false),
 nbLastTimeSimulated_(0),
 allLogs_(false) {
@@ -184,7 +185,7 @@ SolverIDA::setSolverSpecificParameters() {
     uroundPrecision_ = getCurrentPrecision();
   const ParameterSolver& uroundPrecisionAlignedPrecision = findParameter("uroundPrecisionAlignedPrecision");
   if (uroundPrecisionAlignedPrecision.hasValue())
-    uroundPrecisionAlignedPrecision_ = uround.getValue<bool>();
+    uroundPrecisionAlignedPrecision_ = uroundPrecisionAlignedPrecision.getValue<bool>();
   if (uroundPrecisionAlignedPrecision_ && getCurrentPrecision() < uroundPrecision_)
     uroundPrecision_ = getCurrentPrecision();
   const ParameterSolver& newReinit = findParameter("newReinit");
@@ -803,9 +804,13 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
   switch (flag) {
     case IDA_SUCCESS:
       msg = "IDA_SUCCESS";
+      //std::cout << "IDA_SUCCESS" << std::endl;
+      if (countForceReinit_ == 1)
+        countForceReinit_ = 0;
       break;
     case IDA_ROOT_RETURN:
       msg = "IDA_ROOT_RETURN";
+      //std::cout << "IDA_ROOT_RETURN" << std::endl;
       model_->copyContinuousVariables(&vectorY_[0], &vectorYp_[0]);
       model_->evalG(tNxt, g1_);
       ++stats_.ngeInternal_;
@@ -813,8 +818,18 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
       break;
     case IDA_TSTOP_RETURN:
       msg = "IDA_TSTOP_RETURN";
-      updateStatistics();
+      // updateStatistics();
       break;
+    case IDA_CONV_FAIL:
+      if (countForceReinit_ == 0) {
+        // updateStatistics();
+        // std::cout << "IDA_CONV_FAIL force reinit " << tNxt << std::endl;
+        Trace::info() << "SolverIDA: IDA_CONV_FAIL force reinit" << Trace::endline;
+        model_->setModeChangeType(minimumModeChangeTypeForAlgebraicRestoration_);
+        reinit();
+        ++countForceReinit_;
+        break;
+      }
     default:
       analyseFlag(flag);
   }
@@ -845,7 +860,7 @@ if (allLogs_) {
         int localGIndex(0);
         std::string gEquation("");
         model_->getGInfos(i, subModelName, localGIndex, gEquation);
-        Trace::debug() << DYNLog(RootGeq, i, subModelName, gEquation) << Trace::endline;
+        Trace::debug() << "t " << tNxt << " " << DYNLog(RootGeq, i, subModelName, gEquation) << " localIndex " << localGIndex << Trace::endline;
       }
     }
   }
