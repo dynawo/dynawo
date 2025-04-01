@@ -20,16 +20,14 @@
 #include "DYDConnectorFactory.h"
 #include "DYDConnector.h"
 
-#include <memory>
-
-
 using std::string;
+using boost::shared_ptr;
 
 namespace dynamicdata {
 
-std::unique_ptr<Connector>
+shared_ptr<Connector>
 ConnectorFactory::newConnector(const string & model1, const string & var1, const string & model2, const string & var2) {
-  return std::unique_ptr<Connector>(new Connector(model1, var1, model2, var2));
+  return shared_ptr<Connector>(new Connector(model1, var1, model2, var2));
 }
 
 }  // namespace dynamicdata

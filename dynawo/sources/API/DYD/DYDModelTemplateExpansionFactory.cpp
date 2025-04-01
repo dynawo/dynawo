@@ -21,12 +21,15 @@
 
 #include "DYDModelTemplateExpansion.h"
 
+using std::string;
+
+using boost::shared_ptr;
 
 namespace dynamicdata {
 
-std::unique_ptr<ModelTemplateExpansion>
+shared_ptr<ModelTemplateExpansion>
 ModelTemplateExpansionFactory::newModel(const std::string& modelId) {
-  return std::unique_ptr<ModelTemplateExpansion>(new ModelTemplateExpansion(modelId));
+  return shared_ptr<ModelTemplateExpansion>(new ModelTemplateExpansion(modelId));
 }
 
 }  // namespace dynamicdata

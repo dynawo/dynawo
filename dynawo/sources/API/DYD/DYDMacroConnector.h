@@ -22,9 +22,9 @@
 
 #include "DYDMacroConnection.h"
 
+#include <boost/shared_ptr.hpp>
 #include <map>
 #include <string>
-#include <memory>
 
 namespace dynamicdata {
 
@@ -53,14 +53,14 @@ class MacroConnector {
    *
    * @returns Map of connectors
    */
-  const std::map<std::string, std::unique_ptr<MacroConnection> >& getConnectors() const;
+  const std::map<std::string, boost::shared_ptr<MacroConnection> >& getConnectors() const;
 
   /**
    * @brief Initialization connectors getter
    *
    * @returns Map of initialization connectors
    */
-  const std::map<std::string, std::unique_ptr<MacroConnection> >& getInitConnectors() const;
+  const std::map<std::string, boost::shared_ptr<MacroConnection> >& getInitConnectors() const;
 
   /**
    * @brief Macro connection adder
@@ -81,9 +81,9 @@ class MacroConnector {
   MacroConnector& addInitConnect(const std::string& var1, const std::string& var2);
 
  private:
-  std::string id_;                                                              ///< id of the macro connector
-  std::map<std::string, std::unique_ptr<MacroConnection> > initConnectorsMap_;  ///< MacroConnector initialization connectors
-  std::map<std::string, std::unique_ptr<MacroConnection> > connectorsMap_;      ///<  MacroConnector connectors
+  std::string id_;                                                                ///< id of the macro connector
+  std::map<std::string, boost::shared_ptr<MacroConnection> > initConnectorsMap_;  ///< MacroConnector initialization connectors
+  std::map<std::string, boost::shared_ptr<MacroConnection> > connectorsMap_;      ///<  MacroConnector connectors
 };
 
 }  // namespace dynamicdata

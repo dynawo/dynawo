@@ -31,7 +31,7 @@
 #include "DYDUnitDynamicModel.h"
 
 #include <boost/shared_ptr.hpp>
-
+#include <map>
 #include <xml/sax/parser/ComposableDocumentHandler.h>
 #include <xml/sax/parser/ComposableElementHandler.h>
 
@@ -91,7 +91,7 @@ class UnitDynamicModelHandler : public xml::sax::parser::ComposableElementHandle
    * @brief return the unit dynamic model read in xml file
    * @return unit dynamic model object build thanks to infos read in xml file
    */
-  std::shared_ptr<UnitDynamicModel> get() const;
+  boost::shared_ptr<UnitDynamicModel> get() const;
 
  protected:
   /**
@@ -101,7 +101,7 @@ class UnitDynamicModelHandler : public xml::sax::parser::ComposableElementHandle
   void create(attributes_type const& attributes);
 
  private:
-  std::shared_ptr<UnitDynamicModel> unitDynamicModel_;  ///< current unit dynamic model object
+  boost::shared_ptr<UnitDynamicModel> unitDynamicModel_;  ///< current unit dynamic model object
 };
 
 /**
@@ -159,7 +159,7 @@ class MacroStaticRefHandler : public xml::sax::parser::ComposableElementHandler 
    * return the macroStaticRef read in xml file
    * @return the MacroStaticRef object build thanks to infos read in xml file
    */
-  std::shared_ptr<MacroStaticRef> get() const;
+  boost::shared_ptr<MacroStaticRef> get() const;
 
  protected:
   /**
@@ -169,7 +169,7 @@ class MacroStaticRefHandler : public xml::sax::parser::ComposableElementHandler 
   void create(attributes_type const& attributes);
 
  private:
-  std::shared_ptr<MacroStaticRef> macroStaticRef_;  ///< current MacroStaticRef object
+  boost::shared_ptr<MacroStaticRef> macroStaticRef_;  ///< current MacroStaticRef object
 };
 
 /**
@@ -193,7 +193,7 @@ class MacroStaticReferenceHandler : public xml::sax::parser::ComposableElementHa
    * return the macroStaticReference read in xml file
    * @return MacroStaticReference object build thanks to infos read in xml file
    */
-  std::shared_ptr<MacroStaticReference> get() const;
+  boost::shared_ptr<MacroStaticReference> get() const;
 
   /**
    * @brief add a staticRef to the macroStaticReference
@@ -209,7 +209,7 @@ class MacroStaticReferenceHandler : public xml::sax::parser::ComposableElementHa
 
  private:
   StaticRefHandler staticRefHandler_;                             ///< handler used to read staticRef element
-  std::shared_ptr<MacroStaticReference> macroStaticReference_;    ///< current MacroStaticReference object
+  boost::shared_ptr<MacroStaticReference> macroStaticReference_;  ///< current MacroStaticReference object
 };
 
 /**
@@ -268,7 +268,7 @@ class MacroConnectHandler : public xml::sax::parser::ComposableElementHandler {
    * return the macro connect read in xml file
    * @return macro connect object build thanks to infos read in xml file
    */
-  std::shared_ptr<MacroConnect> get() const;
+  boost::shared_ptr<MacroConnect> get() const;
 
  protected:
   /**
@@ -278,7 +278,7 @@ class MacroConnectHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const& attributes);
 
  private:
-  std::shared_ptr<MacroConnect> macroConnect_;  ///< current macro connect object
+  boost::shared_ptr<MacroConnect> macroConnect_;  ///< current macro connect object
 };
 
 /**
@@ -336,7 +336,7 @@ class MacroConnectorHandler : public xml::sax::parser::ComposableElementHandler 
    * return the macro connector read in xml file
    * @return macro connector object build thanks to infos read in xml file
    */
-  std::shared_ptr<MacroConnector> get() const;
+  boost::shared_ptr<MacroConnector> get() const;
 
   /**
    * @brief add a connector to the macro connector
@@ -358,7 +358,7 @@ class MacroConnectorHandler : public xml::sax::parser::ComposableElementHandler 
  private:
   MacroConnectionHandler macroConnectionHandler_;      ///< handler used to read macroConnection element
   MacroConnectionHandler macroInitConnectionHandler_;  ///< handler used to read macroInitConnection element
-  std::shared_ptr<MacroConnector> macroConnector_;     ///< current macro connector object
+  boost::shared_ptr<MacroConnector> macroConnector_;   ///< current macro connector object
 };
 
 /**
@@ -382,7 +382,7 @@ class ModelicaModelHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief return the modelica model read in xml file
    * @return modelica model object build thanks to infos read in xml file
    */
-  std::shared_ptr<ModelicaModel> get() const;
+  boost::shared_ptr<ModelicaModel> get() const;
 
   /**
    * @brief add a connector to the modelica model
@@ -428,7 +428,7 @@ class ModelicaModelHandler : public xml::sax::parser::ComposableElementHandler {
   StaticRefHandler staticRefHandler_;                ///< handler used to read static ref element
   MacroStaticRefHandler macroStaticRefHandler_;      ///< handler used to read macroStaticRef element
   UnitDynamicModelHandler unitDynamicModelHandler_;  ///< handler used to read unit dynamic model element
-  std::shared_ptr<ModelicaModel> modelicaModel_;     ///< current modelica model
+  boost::shared_ptr<ModelicaModel> modelicaModel_;   ///< current modelica model
 };
 
 /**
@@ -452,7 +452,7 @@ class ModelTemplateHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief return the model template read in xml file
    * @return model template object build thanks to infos read in xml file
    */
-  std::shared_ptr<ModelTemplate> get() const;
+  boost::shared_ptr<ModelTemplate> get() const;
 
   /**
    * @brief add a connector to the model template
@@ -498,7 +498,7 @@ class ModelTemplateHandler : public xml::sax::parser::ComposableElementHandler {
   StaticRefHandler staticRefHandler_;                ///< handler used to read static ref element
   MacroStaticRefHandler macroStaticRefHandler_;      ///< handler used to read macroStaticRef element
   UnitDynamicModelHandler unitDynamicModelHandler_;  ///< handler used to read unit dynamic model element
-  std::shared_ptr<ModelTemplate> modelTemplate_;     ///< current model template
+  boost::shared_ptr<ModelTemplate> modelTemplate_;   ///< current model template
 };
 
 /**
@@ -532,7 +532,7 @@ class BlackBoxModelHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief return the black box model read in xml file
    * @return black box model object build thanks to infos read in xml file
    */
-  std::shared_ptr<BlackBoxModel> get() const;
+  boost::shared_ptr<BlackBoxModel> get() const;
 
  protected:
   /**
@@ -544,7 +544,7 @@ class BlackBoxModelHandler : public xml::sax::parser::ComposableElementHandler {
  private:
   StaticRefHandler staticRefHandler_;               ///< handler used to read static ref element
   MacroStaticRefHandler macroStaticRefHandler_;     ///< handler used to read macroStaticRef element
-  std::shared_ptr<BlackBoxModel> blackBoxModel_;    ///< current black box model
+  boost::shared_ptr<BlackBoxModel> blackBoxModel_;  ///< current black box model
 };
 
 /**
@@ -578,7 +578,7 @@ class ModelTemplateExpansionHandler : public xml::sax::parser::ComposableElement
    * @brief return the model template  expansion read in xml file
    * @return model template expansion object build thanks to infos read in xml file
    */
-  std::shared_ptr<ModelTemplateExpansion> get() const;
+  boost::shared_ptr<ModelTemplateExpansion> get() const;
 
  protected:
   /**
@@ -590,7 +590,7 @@ class ModelTemplateExpansionHandler : public xml::sax::parser::ComposableElement
  private:
   StaticRefHandler staticRefHandler_;                                 ///< handler used to read static ref element
   MacroStaticRefHandler macroStaticRefHandler_;                       ///< handler used to read macroStaticRef element
-  std::shared_ptr<ModelTemplateExpansion> modelTemplateExpansion_;    ///< current model template expansion
+  boost::shared_ptr<ModelTemplateExpansion> modelTemplateExpansion_;  ///< current model template expansion
 };
 
 /**

@@ -23,12 +23,13 @@
 
 using std::string;
 
+using boost::shared_ptr;
 
 namespace dynamicdata {
 
-std::unique_ptr<UnitDynamicModel>
+shared_ptr<UnitDynamicModel>
 UnitDynamicModelFactory::newModel(const string& modelId, const string& modelName) {
-  return std::unique_ptr<UnitDynamicModel>(new UnitDynamicModel(modelId, modelName));
+  return shared_ptr<UnitDynamicModel>(new UnitDynamicModel(modelId, modelName));
 }
 
 }  // namespace dynamicdata

@@ -22,7 +22,7 @@
 
 #include "DYDMacroConnector.h"
 
-#include <memory>
+#include <boost/shared_ptr.hpp>
 
 namespace dynamicdata {
 
@@ -39,9 +39,9 @@ class MacroConnectorFactory {
    * @brief Create new MacroConnector instance
    *
    * @param[in] id : id for new MacroConnector instance
-   * @returns Unique pointer to a new @p MacroConnector with given ID
+   * @returns Shared pointer to a new @p MacroConnector with given ID
    */
-  static std::unique_ptr<MacroConnector> newMacroConnector(const std::string& id);
+  static boost::shared_ptr<MacroConnector> newMacroConnector(const std::string& id);
 };
 
 }  // namespace dynamicdata

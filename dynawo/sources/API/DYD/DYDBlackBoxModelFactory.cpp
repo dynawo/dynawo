@@ -21,12 +21,15 @@
 
 #include "DYDBlackBoxModel.h"
 
+using std::string;
+
+using boost::shared_ptr;
 
 namespace dynamicdata {
 
-std::unique_ptr<BlackBoxModel>
+shared_ptr<BlackBoxModel>
 BlackBoxModelFactory::newModel(const std::string& modelId) {
-  return std::unique_ptr<BlackBoxModel>(new BlackBoxModel(modelId));
+  return shared_ptr<BlackBoxModel>(new BlackBoxModel(modelId));
 }
 
 }  // namespace dynamicdata

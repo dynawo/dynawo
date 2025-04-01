@@ -22,8 +22,7 @@
 
 #include "DYDStaticRef.h"
 
-#include <memory>
-
+#include <boost/shared_ptr.hpp>
 
 namespace dynamicdata {
 
@@ -39,17 +38,17 @@ class StaticRefFactory {
   /**
    * @brief Create new StaticRef instance
    *
-   * @returns Unique pointer to a new @p StaticRef
+   * @returns Shared pointer to a new @p StaticRef
    */
-  static std::unique_ptr<StaticRef> newStaticRef();
+  static boost::shared_ptr<StaticRef> newStaticRef();
   /**
    * @brief Create new StaticRef instance
    *
    * @param[in] modelVar : dynamic model variable
    * @param[in] staticVar : static model variable
-   * @returns Unique pointer to a new @p StaticRef
+   * @returns Shared pointer to a new @p StaticRef
    */
-  static std::unique_ptr<StaticRef> newStaticRef(const std::string& modelVar, const std::string& staticVar);
+  static boost::shared_ptr<StaticRef> newStaticRef(const std::string& modelVar, const std::string& staticVar);
 };
 
 }  // namespace dynamicdata

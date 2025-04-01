@@ -22,7 +22,7 @@
 
 #include "DYDBlackBoxModel.h"
 
-#include <memory>
+#include <boost/shared_ptr.hpp>
 
 namespace dynamicdata {
 /**
@@ -38,9 +38,9 @@ class BlackBoxModelFactory {
    * @brief Create new BlackBoxModel instance
    *
    * @param[in] modelId ID for new BlackBoxModel instance
-   * @returns Unique pointer to a new @p BlackBoxModel with given ID
+   * @returns Shared pointer to a new @p BlackBoxModel with given ID
    */
-  static std::unique_ptr<BlackBoxModel> newModel(const std::string& modelId);
+  static boost::shared_ptr<BlackBoxModel> newModel(const std::string& modelId);
 };
 
 }  // namespace dynamicdata

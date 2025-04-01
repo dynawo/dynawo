@@ -20,10 +20,10 @@
 #ifndef API_DYD_DYDITERATORS_H_
 #define API_DYD_DYDITERATORS_H_
 
+#include <boost/shared_ptr.hpp>
 #include <map>
 #include <string>
 #include <vector>
-#include <memory>
 
 namespace dynamicdata {
 
@@ -110,17 +110,17 @@ class dynamicModel_iterator {
    *
    * @returns Model pointed to by this
    */
-  std::shared_ptr<Model>& operator*() const;
+  boost::shared_ptr<Model>& operator*() const;
 
   /**
    * @brief Structure dereference operator
    *
    * @returns Model pointed to by this
    */
-  std::shared_ptr<Model>* operator->() const;
+  boost::shared_ptr<Model>* operator->() const;
 
  private:
-  std::map<std::string, std::shared_ptr<Model> >::iterator current_;  ///< current map iterator
+  std::map<std::string, boost::shared_ptr<Model> >::iterator current_;  ///< current map iterator
 };
 
 /**
@@ -197,17 +197,17 @@ class dynamicModel_const_iterator {
    *
    * @returns Model pointed to by this
    */
-  const std::shared_ptr<Model>& operator*() const;
+  const boost::shared_ptr<Model>& operator*() const;
 
   /**
    * @brief Structure dereference operator
    *
    * @returns Model pointed to by this
    */
-  const std::shared_ptr<Model>* operator->() const;
+  const boost::shared_ptr<Model>* operator->() const;
 
  private:
-  std::map<std::string, std::shared_ptr<Model> >::const_iterator current_;  ///< current vector const iterator
+  std::map<std::string, boost::shared_ptr<Model> >::const_iterator current_;  ///< current vector const iterator
 };
 
 /**
@@ -280,17 +280,17 @@ class connector_iterator {
    *
    * @returns Connector pointed to by this
    */
-  std::shared_ptr<Connector>& operator*() const;
+  boost::shared_ptr<Connector>& operator*() const;
 
   /**
    * @brief Structure dereference operator
    *
    * @returns Connector pointed to by this
    */
-  std::shared_ptr<Connector>* operator->() const;
+  boost::shared_ptr<Connector>* operator->() const;
 
  private:
-  std::vector<std::shared_ptr<Connector> >::iterator current_;  ///< current vector const iterator
+  std::vector<boost::shared_ptr<Connector> >::iterator current_;  ///< current vector const iterator
 };
 
 /**
@@ -363,17 +363,17 @@ class connector_const_iterator {
    *
    * @returns Connector pointed to by this
    */
-  const std::shared_ptr<Connector>& operator*() const;
+  const boost::shared_ptr<Connector>& operator*() const;
 
   /**
    * @brief Structure dereference operator
    *
    * @returns Connector pointed to by this
    */
-  const std::shared_ptr<Connector>* operator->() const;
+  const boost::shared_ptr<Connector>* operator->() const;
 
  private:
-  std::vector<std::shared_ptr<Connector> >::const_iterator current_;  ///< current vector const iterator
+  std::vector<boost::shared_ptr<Connector> >::const_iterator current_;  ///< current vector const iterator
 };
 
 /**
@@ -446,17 +446,17 @@ class macroConnector_iterator {
    *
    * @returns MacroConnector pointed to by this
    */
-  std::shared_ptr<MacroConnector>& operator*() const;
+  boost::shared_ptr<MacroConnector>& operator*() const;
 
   /**
    * @brief Structure dereference operator
    *
    * @returns MacroConnector pointed to by this
    */
-  std::shared_ptr<MacroConnector>* operator->() const;
+  boost::shared_ptr<MacroConnector>* operator->() const;
 
  private:
-  std::map<std::string, std::shared_ptr<MacroConnector> >::iterator current_;  ///< current map iterator
+  std::map<std::string, boost::shared_ptr<MacroConnector> >::iterator current_;  ///< current map iterator
 };
 
 /**
@@ -529,17 +529,17 @@ class macroConnector_const_iterator {
    *
    * @returns MacroConnector pointed to by this
    */
-  const std::shared_ptr<MacroConnector>& operator*() const;
+  const boost::shared_ptr<MacroConnector>& operator*() const;
 
   /**
    * @brief Structure dereference operator
    *
    * @returns MacroConnector pointed to by this
    */
-  const std::shared_ptr<MacroConnector>* operator->() const;
+  const boost::shared_ptr<MacroConnector>* operator->() const;
 
  private:
-  std::map<std::string, std::shared_ptr<MacroConnector> >::const_iterator current_;  ///< current map const iterator
+  std::map<std::string, boost::shared_ptr<MacroConnector> >::const_iterator current_;  ///< current map const iterator
 };
 
 /**
@@ -612,17 +612,17 @@ class macroConnect_iterator {
    *
    * @returns MacroConnect pointed to by this
    */
-  std::shared_ptr<MacroConnect>& operator*() const;
+  boost::shared_ptr<MacroConnect>& operator*() const;
 
   /**
    * @brief Structure dereference operator
    *
    * @returns MacroConnect pointed to by this
    */
-  std::shared_ptr<MacroConnect>* operator->() const;
+  boost::shared_ptr<MacroConnect>* operator->() const;
 
  private:
-  std::vector<std::shared_ptr<MacroConnect> >::iterator current_;  ///< current vector iterator
+  std::vector<boost::shared_ptr<MacroConnect> >::iterator current_;  ///< current vector iterator
 };
 
 /**
@@ -695,17 +695,17 @@ class macroConnect_const_iterator {
    *
    * @returns MacroConnect pointed to by this
    */
-  const std::shared_ptr<MacroConnect>& operator*() const;
+  const boost::shared_ptr<MacroConnect>& operator*() const;
 
   /**
    * @brief Structure dereference operator
    *
    * @returns MacroConnect pointed to by this
    */
-  const std::shared_ptr<MacroConnect>* operator->() const;
+  const boost::shared_ptr<MacroConnect>* operator->() const;
 
  private:
-  std::vector<std::shared_ptr<MacroConnect> >::const_iterator current_;  ///< current vector const iterator
+  std::vector<boost::shared_ptr<MacroConnect> >::const_iterator current_;  ///< current vector const iterator
 };
 
 /**
@@ -791,17 +791,17 @@ class staticRef_iterator {
    *
    * @returns StaticRef pointed to by this
    */
-  std::unique_ptr<StaticRef>& operator*() const;
+  boost::shared_ptr<StaticRef>& operator*() const;
 
   /**
    * @brief Structure dereference operator
    *
    * @returns StaticRef pointed to by this
    */
-  std::unique_ptr<StaticRef>* operator->() const;
+  boost::shared_ptr<StaticRef>* operator->() const;
 
  private:
-  std::map<std::string, std::unique_ptr<StaticRef> >::iterator current_;  ///< current map iterator
+  std::map<std::string, boost::shared_ptr<StaticRef> >::iterator current_;  ///< current map iterator
 };
 
 /**
@@ -887,17 +887,17 @@ class staticRef_const_iterator {
    *
    * @returns StaticRef pointed to by this
    */
-  const std::unique_ptr<StaticRef>& operator*() const;
+  const boost::shared_ptr<StaticRef>& operator*() const;
 
   /**
    * @brief Structure dereference operator
    *
    * @returns StaticRef pointed to by this
    */
-  const std::unique_ptr<StaticRef>* operator->() const;
+  const boost::shared_ptr<StaticRef>* operator->() const;
 
  private:
-  std::map<std::string, std::unique_ptr<StaticRef> >::const_iterator current_;  ///< current map const iterator
+  std::map<std::string, boost::shared_ptr<StaticRef> >::const_iterator current_;  ///< current map const iterator
 };
 
 /**
@@ -970,17 +970,17 @@ class macroStaticRef_iterator {
    *
    * @returns MacroStaticRef pointed to by this
    */
-  std::shared_ptr<MacroStaticRef>& operator*() const;
+  boost::shared_ptr<MacroStaticRef>& operator*() const;
 
   /**
    * @brief Structure dereference operator
    *
    * @returns MacroStaticRef pointed to by this
    */
-  std::shared_ptr<MacroStaticRef>* operator->() const;
+  boost::shared_ptr<MacroStaticRef>* operator->() const;
 
  private:
-  std::map<std::string, std::shared_ptr<MacroStaticRef> >::iterator current_;  ///< current map iterator
+  std::map<std::string, boost::shared_ptr<MacroStaticRef> >::iterator current_;  ///< current map iterator
 };
 
 /**
@@ -1053,17 +1053,17 @@ class macroStaticRef_const_iterator {
    *
    * @returns MacroStaticRef pointed to by this
    */
-  const std::shared_ptr<MacroStaticRef>& operator*() const;
+  const boost::shared_ptr<MacroStaticRef>& operator*() const;
 
   /**
    * @brief Structure dereference operator
    *
    * @returns MacroStaticRef pointed to by this
    */
-  const std::shared_ptr<MacroStaticRef>* operator->() const;
+  const boost::shared_ptr<MacroStaticRef>* operator->() const;
 
  private:
-  std::map<std::string, std::shared_ptr<MacroStaticRef> >::const_iterator current_;  ///< current map const iterator
+  std::map<std::string, boost::shared_ptr<MacroStaticRef> >::const_iterator current_;  ///< current map const iterator
 };
 
 /**
@@ -1136,17 +1136,17 @@ class macroStaticReference_iterator {
    *
    * @returns MacroStaticReference pointed to by this
    */
-  std::shared_ptr<MacroStaticReference>& operator*() const;
+  boost::shared_ptr<MacroStaticReference>& operator*() const;
 
   /**
    * @brief Structure dereference operator
    *
    * @returns MacroStaticReference pointed to by this
    */
-  std::shared_ptr<MacroStaticReference>* operator->() const;
+  boost::shared_ptr<MacroStaticReference>* operator->() const;
 
  private:
-  std::map<std::string, std::shared_ptr<MacroStaticReference> >::iterator current_;  ///< current map iterator
+  std::map<std::string, boost::shared_ptr<MacroStaticReference> >::iterator current_;  ///< current map iterator
 };
 
 /**
@@ -1219,17 +1219,17 @@ class macroStaticReference_const_iterator {
    *
    * @returns MacroStaticReference pointed to by this
    */
-  const std::shared_ptr<MacroStaticReference>& operator*() const;
+  const boost::shared_ptr<MacroStaticReference>& operator*() const;
 
   /**
    * @brief Structure dereference operator
    *
    * @returns MacroStaticReference pointed to by this
    */
-  const std::shared_ptr<MacroStaticReference>* operator->() const;
+  const boost::shared_ptr<MacroStaticReference>* operator->() const;
 
  private:
-  std::map<std::string, std::shared_ptr<MacroStaticReference> >::const_iterator current_;  ///< current map iterator
+  std::map<std::string, boost::shared_ptr<MacroStaticReference> >::const_iterator current_;  ///< current map iterator
 };
 
 }  // namespace dynamicdata

@@ -22,12 +22,13 @@
 
 using std::string;
 
+using boost::shared_ptr;
 
 namespace dynamicdata {
 
-std::unique_ptr<MacroConnect>
+shared_ptr<MacroConnect>
 MacroConnectFactory::newMacroConnect(const std::string& id, const std::string& model1, const std::string& model2) {
-  return std::unique_ptr<MacroConnect>(new MacroConnect(id, model1, model2));
+  return shared_ptr<MacroConnect>(new MacroConnect(id, model1, model2));
 }
 
 }  // namespace dynamicdata

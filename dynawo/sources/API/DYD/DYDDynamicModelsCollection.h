@@ -26,6 +26,7 @@
 #include "DYDMacroStaticReference.h"
 #include "DYDModel.h"
 
+#include <boost/shared_ptr.hpp>
 #include <map>
 #include <string>
 #include <vector>
@@ -47,7 +48,7 @@ class DynamicModelsCollection {
    * @param model model to add in the collection
    * @throws  Error::API exception if model already exists
    */
-  void addModel(const std::shared_ptr<Model>& model);
+  void addModel(const boost::shared_ptr<Model>& model);
 
   /**
    * @brief Add a new connector in the collection
@@ -67,14 +68,14 @@ class DynamicModelsCollection {
    * @param[in] macroConnector : macro connector to add in the collection
    * @throws  Error::API exception if the macro connector already exists
    */
-  void addMacroConnector(const std::shared_ptr<MacroConnector>& macroConnector);
+  void addMacroConnector(const boost::shared_ptr<MacroConnector>& macroConnector);
 
   /**
    * @brief Add a new macro connect in the collection
    *
    * @param[in] macroConnect : macro connect to add in the collection
    */
-  void addMacroConnect(const std::shared_ptr<MacroConnect>& macroConnect);
+  void addMacroConnect(const boost::shared_ptr<MacroConnect>& macroConnect);
 
   /**
    * @brief Add a new macroStaticReference in the collection
@@ -82,7 +83,7 @@ class DynamicModelsCollection {
    * @param[in] macroStaticReference : macroStaticReference to add in the collection
    * @throws  Error::API exception if the macroStaticReference already exists
    */
-  void addMacroStaticReference(const std::shared_ptr<MacroStaticReference>& macroStaticReference);
+  void addMacroStaticReference(const boost::shared_ptr<MacroStaticReference>& macroStaticReference);
 
   /**
    * @brief Implementation class
@@ -214,14 +215,14 @@ class DynamicModelsCollection {
    * @param connector name of the macroConnector to be found
    * @return the macroConnector associated to the name
    */
-  const std::shared_ptr<MacroConnector>& findMacroConnector(const std::string& connector);
+  const boost::shared_ptr<MacroConnector>& findMacroConnector(const std::string& connector);
 
   /**
    * @brief find a macroStaticReference thanks to its id
    * @param id id of the macroStaticReference to be found
    * @return the macroStaticReference associated to the id
    */
-  const std::shared_ptr<MacroStaticReference>& findMacroStaticReference(const std::string& id);
+  const boost::shared_ptr<MacroStaticReference>& findMacroStaticReference(const std::string& id);
 
   friend class dynamicModel_iterator;
   friend class dynamicModel_const_iterator;
@@ -239,11 +240,11 @@ class DynamicModelsCollection {
   friend class macroStaticReference_const_iterator;
 
  private:
-  std::map<std::string, std::shared_ptr<Model> > models_;                               /**< Map of the models **/
-  std::vector<std::shared_ptr<Connector> > connectors_;                                 /**< Vector of the connectors between models **/
-  std::map<std::string, std::shared_ptr<MacroConnector> > macroConnectors_;             /**< map of the macro connectors **/
-  std::vector<std::shared_ptr<MacroConnect> > macroConnects_;                           /**< vector of the macro connectors between models **/
-  std::map<std::string, std::shared_ptr<MacroStaticReference> > macroStaticReferences_; /**< map of the macro static references **/
+  std::map<std::string, boost::shared_ptr<Model> > models_;                               /**< Map of the models **/
+  std::vector<boost::shared_ptr<Connector> > connectors_;                                 /**< Vector of the connectors between models **/
+  std::map<std::string, boost::shared_ptr<MacroConnector> > macroConnectors_;             /**< map of the macro connectors **/
+  std::vector<boost::shared_ptr<MacroConnect> > macroConnects_;                           /**< vector of the macro connectors between models **/
+  std::map<std::string, boost::shared_ptr<MacroStaticReference> > macroStaticReferences_; /**< map of the macro static references **/
 };
 
 }  // namespace dynamicdata

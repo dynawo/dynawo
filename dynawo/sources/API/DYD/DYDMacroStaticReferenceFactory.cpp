@@ -23,12 +23,13 @@
 
 using std::string;
 
+using boost::shared_ptr;
 
 namespace dynamicdata {
 
-std::unique_ptr<MacroStaticReference>
+shared_ptr<MacroStaticReference>
 MacroStaticReferenceFactory::newMacroStaticReference(const string& id) {
-  return std::unique_ptr<MacroStaticReference>(new MacroStaticReference(id));
+  return shared_ptr<MacroStaticReference>(new MacroStaticReference(id));
 }
 
 }  // namespace dynamicdata

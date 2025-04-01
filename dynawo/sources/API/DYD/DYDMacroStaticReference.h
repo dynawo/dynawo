@@ -23,8 +23,10 @@
 #include "DYDIterators.h"
 #include "DYDStaticRef.h"
 
+#include <boost/shared_ptr.hpp>
 #include <map>
 #include <string>
+#include <vector>
 
 namespace dynamicdata {
 
@@ -87,14 +89,14 @@ class MacroStaticReference {
    * @throws Error::API exception if staticRef doesn't exist
    * @return the staticRef associated to the key
    */
-  const std::unique_ptr<StaticRef>& findStaticRef(const std::string& key);
+  const boost::shared_ptr<StaticRef>& findStaticRef(const std::string& key);
 
   friend class staticRef_const_iterator;
   friend class staticRef_iterator;
 
  private:
   std::string id_;                                                   ///< id of the macroStaticReference
-  std::map<std::string, std::unique_ptr<StaticRef> > staticRefs_;    ///<  map of staticRefs
+  std::map<std::string, boost::shared_ptr<StaticRef> > staticRefs_;  ///<  map of staticRefs
 };
 
 }  // namespace dynamicdata

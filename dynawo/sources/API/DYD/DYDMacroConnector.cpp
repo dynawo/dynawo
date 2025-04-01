@@ -23,6 +23,7 @@
 #include "DYDMacroConnectionFactory.h"
 #include "DYNMacrosMessage.h"
 
+using boost::shared_ptr;
 using std::map;
 using std::string;
 
@@ -35,12 +36,12 @@ MacroConnector::getId() const {
   return id_;
 }
 
-const map<string, std::unique_ptr<MacroConnection> >&
+const map<string, shared_ptr<MacroConnection> >&
 MacroConnector::getInitConnectors() const {
   return initConnectorsMap_;
 }
 
-const map<string, std::unique_ptr<MacroConnection> >&
+const map<string, shared_ptr<MacroConnection> >&
 MacroConnector::getConnectors() const {
   return connectorsMap_;
 }
@@ -55,8 +56,8 @@ MacroConnector::addConnect(const string& var1, const string& var2) {
     connectionId = var2 + '_' + var1;
 
   // to avoid necessity to create MacroConnection::Impl default constructor
-  std::pair<std::map<std::string, std::unique_ptr<MacroConnection> >::iterator, bool> ret;
-  ret = connectorsMap_.emplace(connectionId, MacroConnectionFactory::newMacroConnection(var1, var2));
+  std::pair<std::map<std::string, boost::shared_ptr<MacroConnection> >::iterator, bool> ret;
+  ret = connectorsMap_.emplace(connectionId, shared_ptr<MacroConnection>(MacroConnectionFactory::newMacroConnection(var1, var2)));
   if (!ret.second)
     throw DYNError(DYN::Error::API, MacroConnectionIDNotUnique, connectionId);
   return *this;
@@ -72,8 +73,8 @@ MacroConnector::addInitConnect(const string& var1, const string& var2) {
     connectionId = var2 + '_' + var1;
 
   // to avoid necessity to create MacroConnection::Impl default constructor
-  std::pair<std::map<std::string, std::unique_ptr<MacroConnection> >::iterator, bool> ret;
-  ret = initConnectorsMap_.emplace(connectionId, MacroConnectionFactory::newMacroConnection(var1, var2));
+  std::pair<std::map<std::string, boost::shared_ptr<MacroConnection> >::iterator, bool> ret;
+  ret = initConnectorsMap_.emplace(connectionId, shared_ptr<MacroConnection>(MacroConnectionFactory::newMacroConnection(var1, var2)));
   if (!ret.second)
     throw DYNError(DYN::Error::API, MacroConnectionIDNotUnique, id_, var1, var2);
   return *this;

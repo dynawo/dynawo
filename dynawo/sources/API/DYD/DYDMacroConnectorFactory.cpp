@@ -21,12 +21,15 @@
 
 #include "DYDMacroConnector.h"
 
+using std::string;
+
+using boost::shared_ptr;
 
 namespace dynamicdata {
 
-std::unique_ptr<MacroConnector>
+shared_ptr<MacroConnector>
 MacroConnectorFactory::newMacroConnector(const std::string& id) {
-  return std::unique_ptr<MacroConnector>(new MacroConnector(id));
+  return shared_ptr<MacroConnector>(new MacroConnector(id));
 }
 
 }  // namespace dynamicdata

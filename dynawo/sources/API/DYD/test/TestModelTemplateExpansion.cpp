@@ -40,7 +40,7 @@ TEST(APIDYDTest, ModelTemplateExpansionCreate) {
   boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();
 
   // create object
-  std::unique_ptr<ModelTemplateExpansion> model;
+  boost::shared_ptr<ModelTemplateExpansion> model;
   model = ModelTemplateExpansionFactory::newModel("ModelTemplateExpansion");
   model->setStaticId("staticId");
   model->setParFile("parFile");
@@ -75,21 +75,21 @@ TEST(APIDYDTest, ModelTemplateExpansionImport_export) {
 //=======================================================================================
 
 TEST(APIDYDTest, ModelTemplateExpansionRefIterators) {
-  std::unique_ptr<ModelTemplateExpansion> model;
+  boost::shared_ptr<ModelTemplateExpansion> model;
   model = ModelTemplateExpansionFactory::newModel("ModelTemplateExpansion");
-  std::unique_ptr<MacroStaticRef> macroStaticRef = MacroStaticRefFactory::newMacroStaticRef("MyMacroStaticRef");
-  model->addMacroStaticRef(std::move(macroStaticRef));
+  boost::shared_ptr<MacroStaticRef> macroStaticRef = MacroStaticRefFactory::newMacroStaticRef("MyMacroStaticRef");
+  model->addMacroStaticRef(macroStaticRef);
 
   model->addStaticRef("MyVar", "MyStaticVar");
   ASSERT_NO_THROW(model->findMacroStaticRef("MyMacroStaticRef"));
   ASSERT_NO_THROW(model->findStaticRef("MyVar_MyStaticVar"));
   for (staticRef_iterator it = model->beginStaticRef(), itEnd = model->endStaticRef(); it != itEnd; ++it) {
-    const std::unique_ptr<StaticRef>& ref = *it;
+    boost::shared_ptr<StaticRef> ref = *it;
     ASSERT_EQ(ref->getModelVar(), "MyVar");
     ASSERT_EQ(ref->getStaticVar(), "MyStaticVar");
   }
   for (macroStaticRef_iterator it = model->beginMacroStaticRef(), itEnd = model->endMacroStaticRef(); it != itEnd; ++it) {
-    std::shared_ptr<MacroStaticRef> ref = *it;
+    boost::shared_ptr<MacroStaticRef> ref = *it;
     ASSERT_EQ(ref->getId(), "MyMacroStaticRef");
   }
 }
