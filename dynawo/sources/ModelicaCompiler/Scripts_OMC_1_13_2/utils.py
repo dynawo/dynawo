@@ -471,7 +471,7 @@ def replace_dynamic_indexing(body):
             body_to_return.append("  modelica_real tmp_calc_var_" + str(index_tmp)+";\n")
             for var, var_name, expr in match:
                 expr = filter_expr(expr)
-                ptrn_var_dynamic_index_no_expr = re.compile(r'[\(]*&data->localData\[[0-9]+\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/\)\[\]')
+                ptrn_var_dynamic_index_no_expr = re.compile(r'[\(]*&data->localData\[[0-9]+\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/\)\[ - 1\]')
                 match_discrete = ptrn_var_discrete.findall(expr)
                 size = 0
                 while (re.sub(ptrn_var_table, "["+str(size+1)+"]", var_name) in map_var_name_2_addresses):
