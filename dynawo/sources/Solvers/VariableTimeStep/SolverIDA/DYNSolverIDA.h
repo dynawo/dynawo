@@ -308,6 +308,7 @@ class SolverIDA : public Solver::Impl {
   bool restorationYPrim_;  ///< test
   bool activateCheckJacobian_;  ///< test
   bool printReinitResiduals_;  ///< test
+  int countForceReinit_;  ///< test
 
   bool flagInit_;  ///< @b true if the solver is in initialization mode
   int nbLastTimeSimulated_;  ///< nb times of simulation of the latest time (to see if the solver succeed to pass through event at one point)
