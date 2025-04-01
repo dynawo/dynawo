@@ -99,22 +99,6 @@ class SwitchInterface : public ComponentInterface {
   virtual bool isRetained() const = 0;
 };
 
-/**
- * @brief Hash structure for SwitchInterface
- */
-struct SwitchInterfaceHash {
-  /**
-   * @brief Operator to retrieve SwitchInterface hash value
-   *
-   * @param switchInterface the SwitchInterface to hash
-   * @returns the hash value
-   */
-  size_t operator()(const boost::shared_ptr<SwitchInterface>& switchInterface) const {
-    const std::string id = switchInterface->getID();
-    return std::hash<std::string>()(id);
-  }
-};
-
 #ifdef __clang__
 #pragma clang diagnostic pop
 #endif  // __clang__
