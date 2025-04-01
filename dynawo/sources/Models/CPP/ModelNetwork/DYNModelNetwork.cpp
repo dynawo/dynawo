@@ -35,7 +35,7 @@
 #include "PARParametersSet.h"
 #include "DYNModelConstants.h"
 #include "DYNModelBus.h"
-#include "DYNModelSwitchFactory.h"
+#include "DYNModelSwitch.h"
 #include "DYNModelLine.h"
 #include "DYNModelTwoWindingsTransformer.h"
 #include "DYNModelThreeWindingsTransformer.h"
@@ -201,7 +201,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
     for (iSwitch = switches.begin(); iSwitch != switches.end(); ++iSwitch) {
       string id = (*iSwitch)->getID();
       componentsById[id] = (*iSwitch);
-      std::shared_ptr<ModelSwitch> modelSwitch = ModelSwitchFactory::newInstance(*iSwitch);
+      std::shared_ptr<ModelSwitch> modelSwitch = std::make_shared<ModelSwitch>(*iSwitch);
 
       modelSwitch->setNetwork(this);
       if ((*iSwitch)->getBusInterface1()) {

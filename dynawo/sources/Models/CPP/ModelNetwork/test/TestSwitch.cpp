@@ -25,7 +25,7 @@
 #include "DYNVariable.h"
 #include "DYNSwitchInterfaceIIDM.h"
 #include "DYNBusInterfaceIIDM.h"
-#include "DYNModelSwitchFactory.h"
+#include "DYNModelSwitch.h"
 #include "DYNModelNetwork.h"
 #include "DYNSparseMatrix.h"
 #include "TLTimelineFactory.h"
@@ -75,7 +75,7 @@ createModelSwitch(bool open, bool initModel) {
   std::unique_ptr<BusInterfaceIIDM> bus2ItfIIDM = std::unique_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus2));
   std::unique_ptr<SwitchInterfaceIIDM> swItfIIDM = std::unique_ptr<SwitchInterfaceIIDM>(new SwitchInterfaceIIDM(swIIDM));
 
-  std::shared_ptr<ModelSwitch> sw = ModelSwitchFactory::newInstance(std::move(swItfIIDM));
+  std::shared_ptr<ModelSwitch> sw = std::make_shared<ModelSwitch>(std::move(swItfIIDM));
   std::shared_ptr<ModelBus> bus1 = std::make_shared<ModelBus>(std::move(bus1ItfIIDM), false);
   sw->setModelBus1(bus1);
   std::shared_ptr<ModelBus> bus2 = std::make_shared<ModelBus>(std::move(bus2ItfIIDM), false);
@@ -129,7 +129,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchInitializationOpened) {
   std::unique_ptr<BusInterfaceIIDM> bus2ItfIIDM = std::unique_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus2));
   std::unique_ptr<SwitchInterfaceIIDM> swItfIIDM = std::unique_ptr<SwitchInterfaceIIDM>(new SwitchInterfaceIIDM(swIIDM));
 
-  std::shared_ptr<ModelSwitch> sw = ModelSwitchFactory::newInstance(std::move(swItfIIDM));
+  std::shared_ptr<ModelSwitch> sw = std::make_shared<ModelSwitch>(std::move(swItfIIDM));
   ASSERT_EQ(sw->isInLoop(), false);
   ASSERT_EQ(sw->getConnectionState(), OPEN);
   ASSERT_EQ(sw->irYNum(), 0);
@@ -185,7 +185,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchInitializationClosed) {
   std::unique_ptr<BusInterfaceIIDM> bus2ItfIIDM = std::unique_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus2));
   std::unique_ptr<SwitchInterfaceIIDM> swItfIIDM = std::unique_ptr<SwitchInterfaceIIDM>(new SwitchInterfaceIIDM(swIIDM));
 
-  std::shared_ptr<ModelSwitch> sw = ModelSwitchFactory::newInstance(std::move(swItfIIDM));
+  std::shared_ptr<ModelSwitch> sw = std::make_shared<ModelSwitch>(std::move(swItfIIDM));
   ASSERT_EQ(sw->isInLoop(), false);
   ASSERT_EQ(sw->getConnectionState(), CLOSED);
   ASSERT_EQ(sw->irYNum(), 0);

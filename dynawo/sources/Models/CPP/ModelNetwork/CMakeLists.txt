@@ -21,7 +21,6 @@ set(MODEL_SOURCES
   DYNModelBus.cpp
   DYNModelGenerator.cpp
   DYNModelSwitch.cpp
-  DYNModelSwitchFactory.cpp
   DYNModelLine.cpp
   DYNModelLoad.cpp
   DYNModelShuntCompensator.cpp
