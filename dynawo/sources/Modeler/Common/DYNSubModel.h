@@ -1550,6 +1550,7 @@ class SubModel {
   std::vector<double> fLocalInit_;  ///< local buffer used for the init model
 
   std::vector<double> calculatedVars_;  ///< local buffer to fill when calculating calculated variables
+  std::vector<double> calculatedVarsInit_;  ///< local buffer to fill when calculating calculated variables for init model
   boost::unordered_map<std::string, boost::shared_ptr<Variable> > variablesByName_;  ///< association between variables and its name for dynamic model
   boost::unordered_map<std::string, boost::shared_ptr<Variable> > variablesByNameInit_;  ///< association between variables and its name for init model
 

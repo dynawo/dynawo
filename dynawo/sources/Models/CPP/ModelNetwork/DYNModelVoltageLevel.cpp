@@ -693,7 +693,7 @@ ModelVoltageLevel::loadVariables(boost::archive::binary_iarchive& is, const std:
   bool couldBeLoaded = true;
   size_t nbComponent;
   is >> nbComponent;
-  const std::vector<std::shared_ptr<NetworkComponent> >& components = getComponents();
+  const std::vector<boost::shared_ptr<NetworkComponent> >& components = getComponents();
 
   std::unordered_map<std::string, size_t> ids2Indexes;
   for (size_t i = 0, itEnd = components.size(); i < itEnd; ++i) {

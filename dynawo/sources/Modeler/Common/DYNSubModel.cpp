@@ -410,7 +410,7 @@ SubModel::getVariableValue(const string& nameVariable) const {
 }
 
 bool
-SubModel::hasParameter(const string & nameParameter, const bool isInitParam) {
+SubModel::hasParameter(const string & nameParameter, const bool isInitParam) const {
   const unordered_map<string, ParameterModeler>& parameters = getParameters(isInitParam);
   return (parameters.find(nameParameter) != parameters.end());
 }
