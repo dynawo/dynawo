@@ -64,7 +64,7 @@ model AcRotatingExciter "Rotating exciter model for IEEE regulations type AC"
     Placement(visible = true, transformation(origin = {-150, 20}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const1(k = VeMinPu) annotation(
     Placement(visible = true, transformation(origin = {-130, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Power power(base = exp(BEx)) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.PowerExp power(base = exp(BEx)) annotation(
     Placement(visible = true, transformation(origin = {50, 20}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T = 1e-5, y_start = VeMax0Pu) annotation(
     Placement(visible = true, transformation(origin = {50, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
