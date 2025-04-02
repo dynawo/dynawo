@@ -1087,7 +1087,7 @@ class ReaderOMC:
                             var = str(match.group('varName'))
                             rhs = match.group('rhs')
                             # rejection of inits of type var = ..attribute
-                            if 'attribute' not in rhs and 'aux_x' not in rhs and "linearSystemData" not in rhs:
+                            if 'attribute' not in rhs and 'integerVarsPre' not in rhs and 'aux_x' not in rhs and "linearSystemData" not in rhs:
                                 self.var_init_val_06inz[ var ] = list_body
                                 self.var_num_init_val_06inz[var] = num_function
                                 break
@@ -1096,7 +1096,7 @@ class ReaderOMC:
                             var = str(match.group('varName'))
                             rhs = match.group('rhs')
                             # rejection of inits of type var = ..attribute
-                            if 'attribute' not in rhs  and 'aux_x' not in rhs and "linearSystemData" not in rhs:
+                            if 'attribute' not in rhs  and 'integerVarsPre' not in rhs and 'aux_x' not in rhs and "linearSystemData" not in rhs:
                                 self.var_init_val_06inz[ var ] = list_body
                                 self.var_num_init_val_06inz[var] = num_function
 
