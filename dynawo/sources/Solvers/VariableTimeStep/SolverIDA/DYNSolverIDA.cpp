@@ -822,11 +822,29 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
       break;
     case IDA_CONV_FAIL:
       if (countForceReinit_ == 0) {
-        // updateStatistics();
-        // std::cout << "IDA_CONV_FAIL force reinit " << tNxt << std::endl;
         Trace::info() << "SolverIDA: IDA_CONV_FAIL force reinit" << Trace::endline;
+        int msbsetAlgJSave = msbsetAlgJ_;
+        modeChangeType_t minimumModeChangeTypeForAlgebraicRestorationSave = minimumModeChangeTypeForAlgebraicRestoration_;
+        msbsetAlgJ_ = 1;
+        minimumModeChangeTypeForAlgebraicRestoration_ = ALGEBRAIC_J_J_UPDATE_MODE;
         model_->setModeChangeType(minimumModeChangeTypeForAlgebraicRestoration_);
         reinit();
+        msbsetAlgJ_ = msbsetAlgJSave;
+        minimumModeChangeTypeForAlgebraicRestoration_ = minimumModeChangeTypeForAlgebraicRestorationSave;
+        ++countForceReinit_;
+        break;
+      }
+    case IDA_ERR_FAIL:
+      if (countForceReinit_ == 0) {
+        Trace::info() << "SolverIDA: IDA_ERR_FAIL force reinit" << Trace::endline;
+        int msbsetAlgJSave = msbsetAlgJ_;
+        modeChangeType_t minimumModeChangeTypeForAlgebraicRestorationSave = minimumModeChangeTypeForAlgebraicRestoration_;
+        msbsetAlgJ_ = 1;
+        minimumModeChangeTypeForAlgebraicRestoration_ = ALGEBRAIC_J_J_UPDATE_MODE;
+        model_->setModeChangeType(minimumModeChangeTypeForAlgebraicRestoration_);
+        reinit();
+        msbsetAlgJ_ = msbsetAlgJSave;
+        minimumModeChangeTypeForAlgebraicRestoration_ = minimumModeChangeTypeForAlgebraicRestorationSave;
         ++countForceReinit_;
         break;
       }
