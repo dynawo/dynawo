@@ -419,14 +419,15 @@ Dyna&omega;o is using some external libraries to run simulations:
 
 Dyna&omega;o is currently maintained by the following people in RTE:
 
+* Gilles Aouizerate, [gilles.aouizerate@rte-france.com](mailto:gilles.aouizerate@rte-france.com)
 * Gautier Bureau, [gautier.bureau@rte-france.com](mailto:gautier.bureau@rte-france.com)
 * Marco Chiaramello, [marco.chiaramello@rte-france.com](mailto:marco.chiaramello@rte-france.com)
-* Quentin Cossart, [quentin.cossart@rte-france.com](mailto:quentin.cossart@rte-france.com)
 * Julien De Sloovere, [julien.desloovere@rte-france.com](mailto:julien.desloovere@rte-france.com)
 * Joy El-Feghali, [joy.elfeghali@rte-france.com](mailto:joy.elfeghali@rte-france.com)
 * Baptiste Letellier, [baptiste.letellier@rte-france.com](mailto:baptiste.letellier@rte-france.com)
-* Ian Menezes, [ian.menezes@rte-france.com](mailto:ian.menezes@rte-france.com)
+* Sylvestre Prabakaran, [sylvestre.prabakaran@rte-france.com](mailto:sylvestre.prabakaran@rte-france.com)
 * Florentine Rosiere, [florentine.rosiere@rte-france.com](mailto:florentine.rosiere@rte-france.com)
+* Thibaut Vermeulen, [thibaut.vermeulen@rte-france.com](mailto:thibaut.vermeulen@rte-france.com)
 
 In case of questions or issues, you can also send an e-mail to [rte-dynawo@rte-france.com](mailto:rte-dynawo@rte-france.com).
 
