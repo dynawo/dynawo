@@ -16,7 +16,7 @@ model WT4ACurrentSource2020 "Wind Turbine Type 4A model from IEC 61400-27-1 stan
   extends Icons.Example;
   extends Dynawo.Examples.Wind.IEC.Neplan.BaseClasses.BaseWindNeplan;
 
-  Dynawo.Electrical.Wind.IEC.WT.WT4ACurrentSource2020 wT4ACurrentSource(
+  Dynawo.Electrical.PEIR.Converters.Wind.IEC.WT.WT4ACurrentSource2020 wT4ACurrentSource(
     BesPu = 0,
     DPMaxP4APu = 1,
     DPRefMax4APu = 100,
@@ -125,7 +125,7 @@ model WT4ACurrentSource2020 "Wind Turbine Type 4A model from IEC 61400-27-1 stan
     Placement(visible = true, transformation(origin = {-150, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initialization
-  Dynawo.Electrical.Wind.IEC.WT.WT4CurrentSource_INIT wT4CurrentSource_INIT(
+  Dynawo.Electrical.PEIR.Converters.Wind.IEC.WT.WT4CurrentSource_INIT wT4CurrentSource_INIT(
     BesPu = wT4ACurrentSource.BesPu,
     GesPu = wT4ACurrentSource.GesPu,
     IMaxPu = wT4ACurrentSource.IMaxPu,
