@@ -105,32 +105,32 @@ class ModelThreeWindingsTransformer : public NetworkComponent {
    * @brief evaluate node injection
    *
    */
-  void evalNodeInjection() { /* not needed */ }
+  void evalNodeInjection() override { /* not needed */ }
 
   /**
    * @brief evaluate derivatives
    */
-  void evalDerivatives(const double /*cj*/) { /* not needed */ }
+  void evalDerivatives(const double /*cj*/) override { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::evalDerivativesPrim()
    */
-  void evalDerivativesPrim() { /* not needed */ }
+  void evalDerivativesPrim() override { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::evalF()
    */
-  void evalF(propertyF_t type);
+  void evalF(propertyF_t type) override;
 
   /**
    * @copydoc NetworkComponent::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
    */
-  void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset);
+  void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) override;
 
   /**
    * @copydoc NetworkComponent::evalJtPrim(SparseMatrix& jt, const int& rowOffset)
    */
-  void evalJtPrim(SparseMatrix& jt, const int& rowOffset);
+  void evalJtPrim(SparseMatrix& jt, const int& rowOffset) override;
 
   /**
    * @copydoc NetworkComponent::defineElements()
@@ -140,12 +140,12 @@ class ModelThreeWindingsTransformer : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::evalZ()
    */
-  NetworkComponent::StateChange_t evalZ(const double& t);
+  NetworkComponent::StateChange_t evalZ(const double& t) override;
 
   /**
    * @copydoc NetworkComponent::evalG()
    */
-  void evalG(const double& t);
+  void evalG(const double& t) override;
 
   /**
    * @brief evaluation calculated variables (for outputs)
@@ -179,42 +179,42 @@ class ModelThreeWindingsTransformer : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::evalStaticYType()
    */
-  void evalStaticYType() { /* not needed */ }
+  void evalStaticYType() override { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::evalDynamicYType()
    */
-  void evalDynamicYType() { /* not needed */ }
+  void evalDynamicYType() override { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::evalStaticFType()
    */
-  void evalStaticFType() { /* not needed */ }
+  void evalStaticFType() override { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::evalDynamicFType()
    */
-  void evalDynamicFType() { /* not needed */ }
+  void evalDynamicFType() override { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::collectSilentZ()
    */
-  void collectSilentZ(BitMask* silentZTable);
+  void collectSilentZ(BitMask* silentZTable) override;
 
   /**
    * @copydoc NetworkComponent::evalYMat()
    */
-  void evalYMat();
+  void evalYMat() override;
 
   /**
    * @copydoc NetworkComponent::init(int& yNum)
    */
-  void init(int& yNum);
+  void init(int& yNum) override;
 
   /**
    * @copydoc NetworkComponent::getY0()
    */
-  void getY0() { /* not needed */ }
+  void getY0() override { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params)
@@ -224,17 +224,17 @@ class ModelThreeWindingsTransformer : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::setFequations( std::map<int,std::string>& fEquationIndex )
    */
-  void setFequations(std::map<int, std::string>& fEquationIndex);
+  void setFequations(std::map<int, std::string>& fEquationIndex) override;
 
   /**
    * @copydoc NetworkComponent::setGequations( std::map<int,std::string>& gEquationIndex )
    */
-  void setGequations(std::map<int, std::string>& gEquationIndex);
+  void setGequations(std::map<int, std::string>& gEquationIndex) override;
 
   /**
    * @copydoc NetworkComponent::evalState(const double& time);
    */
-  NetworkComponent::StateChange_t evalState(const double& time);
+  NetworkComponent::StateChange_t evalState(const double& time) override;
 
   /**
    * @brief addBusNeighbors
@@ -243,7 +243,7 @@ class ModelThreeWindingsTransformer : public NetworkComponent {
   /**
    * @brief init size
    */
-  void initSize();
+  void initSize() override;
 
  private:
   std::shared_ptr<ModelBus> modelBus1_;  ///< model bus 1
