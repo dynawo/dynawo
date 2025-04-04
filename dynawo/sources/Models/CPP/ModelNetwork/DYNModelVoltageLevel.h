@@ -135,7 +135,7 @@ class ModelVoltageLevel : public NetworkComponent {
    * @brief evaluation F
    * @param[in] type type of the residues to compute (algebraic, differential or both)
    */
-  void evalF(propertyF_t type);
+  void evalF(propertyF_t type) override;
 
   /**
    * @brief evaluate jacobian \f$( J = @F/@x + cj * @F/@x')\f$
@@ -143,14 +143,14 @@ class ModelVoltageLevel : public NetworkComponent {
    * @param cj jacobian prime coefficient
    * @param rowOffset row offset to use to find the first row to fill
    */
-  void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset);
+  void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) override;
 
   /**
    * @brief evaluate jacobian \f$( J =  @F/@x')\f$
    * @param jt sparse matrix to fill
    * @param rowOffset row offset to use to find the first row to fill
    */
-  void evalJtPrim(SparseMatrix& jt, const int& rowOffset);
+  void evalJtPrim(SparseMatrix& jt, const int& rowOffset) override;
 
   /**
    * @brief define variables
@@ -167,87 +167,87 @@ class ModelVoltageLevel : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::initSize()
    */
-  void initSize();
+  void initSize() override;
 
   /**
    * @copydoc NetworkComponent::init(int& yNum )
    */
-  void init(int& yNum);
+  void init(int& yNum) override;
 
   /**
    * @copydoc NetworkComponent::getY0()
    */
-  void getY0();
+  void getY0() override;
 
   /**
    * @copydoc NetworkComponent::setFequations(std::map<int,std::string>& fEquationIndex)
    */
-  void setFequations(std::map<int, std::string>& fEquationIndex);
+  void setFequations(std::map<int, std::string>& fEquationIndex) override;
 
   /**
    * @copydoc NetworkComponent::evalStaticFType()
    */
-  void evalStaticFType();
+  void evalStaticFType() override;
 
   /**
    * @copydoc NetworkComponent::collectSilentZ()
    */
-  void collectSilentZ(BitMask* silentZTable);
+  void collectSilentZ(BitMask* silentZTable) override;
 
   /**
    * @copydoc NetworkComponent::evalDynamicFType()
    */
-  void evalDynamicFType();
+  void evalDynamicFType() override;
 
   /**
    * @copydoc NetworkComponent::evalYMat()
    */
-  void evalYMat();
+  void evalYMat() override;
 
   /**
    *  @copydoc NetworkComponent::evalStaticYType()
    */
-  void evalStaticYType();
+  void evalStaticYType() override;
 
   /**
    * @copydoc NetworkComponent::evalDynamicYType()
    */
-  void evalDynamicYType();
+  void evalDynamicYType() override;
 
   /**
    * @copydoc NetworkComponent::evalG(const double& t)
    */
-  void evalG(const double& t);
+  void evalG(const double& t) override;
 
   /**
    * @copydoc NetworkComponent::setGequations(std::map<int,std::string>& gEquationIndex)
    */
-  void setGequations(std::map<int, std::string>& gEquationIndex);
+  void setGequations(std::map<int, std::string>& gEquationIndex) override;
 
   /**
    * @copydoc NetworkComponent::evalZ(const double& t)
    */
-  NetworkComponent::StateChange_t evalZ(const double& t);
+  NetworkComponent::StateChange_t evalZ(const double& t) override;
 
   /**
    * @copydoc NetworkComponent::evalState(const double& time)
    */
-  StateChange_t evalState(const double& time);
+  StateChange_t evalState(const double& time) override;
 
   /**
    * @copydoc NetworkComponent::evalNodeInjection()
    */
-  void evalNodeInjection();
+  void evalNodeInjection() override;
 
   /**
    * @copydoc NetworkComponent::evalDerivatives(const double cj)
    */
-  void evalDerivatives(const double cj);
+  void evalDerivatives(const double cj) override;
 
   /**
    * @copydoc NetworkComponent::evalDerivativesPrim()
    */
-  void evalDerivativesPrim() { /* not needed */ }
+  void evalDerivativesPrim() override { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::evalCalculatedVars()

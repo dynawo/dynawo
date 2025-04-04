@@ -146,7 +146,7 @@ class ModelSwitch : public std::enable_shared_from_this<ModelSwitch>, public Net
   /**
    * @brief evaluate node injection
    */
-  void evalNodeInjection();
+  void evalNodeInjection() override;
 
   /**
    * @brief add bus neighbors
@@ -156,12 +156,12 @@ class ModelSwitch : public std::enable_shared_from_this<ModelSwitch>, public Net
    * @brief evaluate derivatives
    * @param cj Jacobian prime coefficient
    */
-  void evalDerivatives(const double cj);
+  void evalDerivatives(const double cj) override;
 
   /**
    * @brief evaluate derivatives prim
    */
-  void evalDerivativesPrim() { /* not needed */ }
+  void evalDerivativesPrim() override { /* not needed */ }
   /**
    * @brief define variables
    * @param variables variables
@@ -197,18 +197,18 @@ class ModelSwitch : public std::enable_shared_from_this<ModelSwitch>, public Net
    * @brief evaluate F
    * @param[in] type type of the residues to compute (algebraic, differential or both)
    */
-  void evalF(propertyF_t type);  ///< compute the local F function
+  void evalF(propertyF_t type) override;  ///< compute the local F function
 
   /**
   * @copydoc NetworkComponent::evalZ()
   */
-  NetworkComponent::StateChange_t evalZ(const double& t);
+  NetworkComponent::StateChange_t evalZ(const double& t) override;
 
   /**
    * @brief evaluate G
    * @param t time
    */
-  void evalG(const double& t);
+  void evalG(const double& t) override;
 
   /**
    * @brief evaluate calculated variables (for outputs)
@@ -242,42 +242,42 @@ class ModelSwitch : public std::enable_shared_from_this<ModelSwitch>, public Net
   /**
    * @copydoc NetworkComponent::evalStaticYType()
    */
-  void evalStaticYType();
+  void evalStaticYType() override;
 
   /**
    * @copydoc NetworkComponent::evalDynamicYType()
    */
-  void evalDynamicYType() { /* not needed */ }
+  void evalDynamicYType() override { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::evalStaticFType()
    */
-  void evalStaticFType();
+  void evalStaticFType() override;
 
   /**
    * @copydoc NetworkComponent::evalDynamicFType()
    */
-  void evalDynamicFType() { /* not needed */ }
+  void evalDynamicFType() override { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::collectSilentZ()
    */
-  void collectSilentZ(BitMask* silentZTable);
+  void collectSilentZ(BitMask* silentZTable) override;
 
   /**
    * @copydoc NetworkComponent::evalYMat()
    */
-  void evalYMat() { /* not needed*/ }
+  void evalYMat() override { /* not needed*/ }
 
   /**
    * @copydoc NetworkComponent::init(int& yNum)
    */
-  void init(int & yNum);
+  void init(int & yNum) override;
 
   /**
    * @copydoc NetworkComponent::getY0()
    */
-  void getY0();
+  void getY0() override;
 
   /**
    * @copydoc NetworkComponent::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params)
@@ -287,34 +287,34 @@ class ModelSwitch : public std::enable_shared_from_this<ModelSwitch>, public Net
   /**
    * @copydoc NetworkComponent::setFequations( std::map<int,std::string>& fEquationIndex )
    */
-  void setFequations(std::map<int, std::string>& fEquationIndex);
+  void setFequations(std::map<int, std::string>& fEquationIndex) override;
 
   /**
    * @copydoc NetworkComponent::setGequations( std::map<int,std::string>& gEquationIndex )
    */
-  void setGequations(std::map<int, std::string>& gEquationIndex);
+  void setGequations(std::map<int, std::string>& gEquationIndex) override;
 
   /**
    * @brief evaluate state
    * @param time time
    * @return state change type
    */
-  NetworkComponent::StateChange_t evalState(const double& time);
+  NetworkComponent::StateChange_t evalState(const double& time) override;
 
   /**
    * @copydoc NetworkComponent::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
    */
-  void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset);
+  void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) override;
 
   /**
    * @copydoc NetworkComponent::evalJtPrim(SparseMatrix& jt, const int& rowOffset)
    */
-  void evalJtPrim(SparseMatrix& jt, const int& rowOffset);
+  void evalJtPrim(SparseMatrix& jt, const int& rowOffset) override;
 
   /**
    * @brief init size
    */
-  void initSize();
+  void initSize() override;
 
   /**
    * @brief open a switch without event (used by model bus)
