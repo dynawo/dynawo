@@ -124,7 +124,7 @@ class ModelLine : public NetworkComponent {
   /**
    * @brief evaluate node injection
    */
-  void evalNodeInjection();
+  void evalNodeInjection() override;
 
   /**
    * @brief  add bus neighbors
@@ -136,12 +136,12 @@ class ModelLine : public NetworkComponent {
    * @brief evaluate derivatives
    * @param cj Jacobian prime coefficient
    */
-  void evalDerivatives(const double cj);
+  void evalDerivatives(const double cj) override;
 
   /**
    * @brief evaluate derivatives prim
    */
-  void evalDerivativesPrim();
+  void evalDerivativesPrim() override;
 
   /**
    * @brief define variables
@@ -178,18 +178,18 @@ class ModelLine : public NetworkComponent {
    * @brief evaluation F
    * @param[in] type type of the residues to compute (algebraic, differential or both)
    */
-  void evalF(propertyF_t type);
+  void evalF(propertyF_t type) override;
 
   /**
   * @copydoc NetworkComponent::evalZ()
   */
-  NetworkComponent::StateChange_t evalZ(const double& t);  // get the local Z function for time t
+  NetworkComponent::StateChange_t evalZ(const double& t) override;  // get the local Z function for time t
 
   /**
    * @brief evaluation G
    * @param t time
    */
-  void evalG(const double& t);
+  void evalG(const double& t) override;
 
   /**
    * @brief evaluation calculated variables (for outputs)
@@ -215,12 +215,12 @@ class ModelLine : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
    */
-  void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset);
+  void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) override;
 
   /**
    * @copydoc NetworkComponent::evalJtPrim(SparseMatrix& jt, const int& rowOffset)
    */
-  void evalJtPrim(SparseMatrix& jt, const int& rowOffset);
+  void evalJtPrim(SparseMatrix& jt, const int& rowOffset) override;
 
   /**
    * @brief evaluate the value of a calculated variable
@@ -234,42 +234,42 @@ class ModelLine : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::evalStaticYType()
    */
-  void evalStaticYType();
+  void evalStaticYType() override;
 
   /**
    * @copydoc NetworkComponent::evalDynamicYType()
    */
-  void evalDynamicYType();
+  void evalDynamicYType() override;
 
   /**
    * @copydoc NetworkComponent::evalStaticFType()
    */
-  void evalStaticFType();
+  void evalStaticFType() override;
 
   /**
    * @copydoc NetworkComponent::evalDynamicFType()
    */
-  void evalDynamicFType();
+  void evalDynamicFType() override;
 
   /**
    * @copydoc NetworkComponent::collectSilentZ()
    */
-  void collectSilentZ(BitMask* silentZTable);
+  void collectSilentZ(BitMask* silentZTable) override;
 
   /**
    * @copydoc NetworkComponent::evalYMat()
    */
-  void evalYMat();
+  void evalYMat() override;
 
   /**
    * @copydoc NetworkComponent::init(int& yNum)
    */
-  void init(int & yNum);
+  void init(int & yNum) override;
 
   /**
    * @copydoc NetworkComponent::getY0()
    */
-  void getY0();
+  void getY0() override;
 
   /**
    * @copydoc NetworkComponent::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params)
@@ -279,23 +279,23 @@ class ModelLine : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::setFequations( std::map<int,std::string>& fEquationIndex )
    */
-  void setFequations(std::map<int, std::string>& fEquationIndex);
+  void setFequations(std::map<int, std::string>& fEquationIndex) override;
 
   /**
    * @copydoc NetworkComponent::setGequations( std::map<int,std::string>& gEquationIndex )
    */
-  void setGequations(std::map<int, std::string>& gEquationIndex);
+  void setGequations(std::map<int, std::string>& gEquationIndex) override;
 
   /**
    * @brief evaluate state
    * @param time time
    * @return state change type
    */
-  NetworkComponent::StateChange_t evalState(const double& time);  // check whether a discrete event happened
+  NetworkComponent::StateChange_t evalState(const double& time) override;  // check whether a discrete event happened
   /**
    * @brief update data
    */
-  void initSize();
+  void initSize() override;
 
  private:
   KnownBus_t knownBus_;  ///< known bus

@@ -144,7 +144,7 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
    * @brief evaluate node injection
    *
    */
-  void evalNodeInjection() { /* not needed */ }
+  void evalNodeInjection() override { /* not needed */ }
 
   /**
    * @brief reset node injection
@@ -155,29 +155,29 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
    * @brief evaluate derivatives for J
    * @param cj Jacobian prime coefficient
    */
-  void evalDerivatives(const double cj);
+  void evalDerivatives(const double cj) override;
 
   /**
    * @brief evaluate derivatives for J'
    */
-  void evalDerivativesPrim() { /* not needed */ }
+  void evalDerivativesPrim() override { /* not needed */ }
 
   /**
    * @brief evaluate F
    * @param[in] type type of the residues to compute (algebraic, differential or both)
    */
-  void evalF(propertyF_t type);
+  void evalF(propertyF_t type) override;
 
   /**
    * @copydoc NetworkComponent::evalZ()
    */
-  NetworkComponent::StateChange_t evalZ(const double& t);
+  NetworkComponent::StateChange_t evalZ(const double& t) override;
 
   /**
    * @brief compute the local G function
    * @param t time
    */
-  void evalG(const double& t);
+  void evalG(const double& t) override;
 
   /**
    * @brief evaluate calculated variables (for outputs)
@@ -213,42 +213,42 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
   /**
    * @copydoc NetworkComponent::evalStaticYType()
    */
-  void evalStaticYType();
+  void evalStaticYType() override;
 
   /**
    * @copydoc NetworkComponent::evalDynamicYType()
    */
-  void evalDynamicYType();
+  void evalDynamicYType() override;
 
   /**
    * @copydoc NetworkComponent::evalStaticFType()
    */
-  void evalStaticFType();
+  void evalStaticFType() override;
 
   /**
    * @copydoc NetworkComponent::collectSilentZ()
    */
-  void collectSilentZ(BitMask* silentZTable);
+  void collectSilentZ(BitMask* silentZTable) override;
 
   /**
    * @copydoc NetworkComponent::evalDynamicFType()
    */
-  void evalDynamicFType();
+  void evalDynamicFType() override;
 
   /**
    * @copydoc NetworkComponent::evalYMat()
    */
-  void evalYMat() { /* not needed*/ }
+  void evalYMat() override { /* not needed*/ }
 
   /**
    * @copydoc NetworkComponent::init(int& yNum)
    */
-  void init(int & yNum);
+  void init(int & yNum) override;
 
   /**
    * @copydoc NetworkComponent::getY0()
    */
-  void getY0();
+  void getY0() override;
 
   /**
    * @copydoc NetworkComponent::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params)
@@ -258,19 +258,19 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
   /**
    * @copydoc NetworkComponent::setFequations( std::map<int, std::string> & fEquationIndex)
    */
-  void setFequations(std::map<int, std::string>& fEquationIndex);
+  void setFequations(std::map<int, std::string>& fEquationIndex) override;
 
   /**
    * @copydoc NetworkComponent::setGequations( std::map<int,std::string>& gEquationIndex )
    */
-  void setGequations(std::map<int, std::string>& gEquationIndex);
+  void setGequations(std::map<int, std::string>& gEquationIndex) override;
 
   /**
    * @brief evaluate state
    * @param time time
    * @return state change type
    */
-  NetworkComponent::StateChange_t evalState(const double& time);
+  NetworkComponent::StateChange_t evalState(const double& time) override;
 
   /**
    * @brief addBusNeighbors
@@ -280,7 +280,7 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
   /**
    * @brief init size
    */
-  void initSize();
+  void initSize() override;
 
   /**
    * @brief add a new real current to the sum of real currents
@@ -404,12 +404,12 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
   /**
    * @copydoc NetworkComponent::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
    */
-  void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset);
+  void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) override;
 
   /**
    * @copydoc NetworkComponent::evalJtPrim(SparseMatrix& jt, const int& rowOffset)
    */
-  void evalJtPrim(SparseMatrix& jt, const int& rowOffset);
+  void evalJtPrim(SparseMatrix& jt, const int& rowOffset) override;
 
   /**
    * @brief retrieve the real part of the voltage

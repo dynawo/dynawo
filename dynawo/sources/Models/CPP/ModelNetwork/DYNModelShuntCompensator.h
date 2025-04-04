@@ -83,33 +83,33 @@ class ModelShuntCompensator : public NetworkComponent {
   /**
    * @brief evaluate node injection
    */
-  void evalNodeInjection();
+  void evalNodeInjection() override;
 
   /**
    * @brief evaluate derivatives
    * @param cj Jacobian prime coefficient
    */
-  void evalDerivatives(const double cj);
+  void evalDerivatives(const double cj) override;
 
   /**
    * @brief evaluate derivatives prim
    */
-  void evalDerivativesPrim() { /* not needed */ }
+  void evalDerivativesPrim() override { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::evalF()
    */
-  void evalF(propertyF_t type);
+  void evalF(propertyF_t type) override;
 
   /**
    * @copydoc NetworkComponent::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
    */
-  void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset);
+  void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) override;
 
   /**
    * @copydoc NetworkComponent::evalJtPrim(SparseMatrix& jt, const int& rowOffset)
    */
-  void evalJtPrim(SparseMatrix& jt, const int& rowOffset);
+  void evalJtPrim(SparseMatrix& jt, const int& rowOffset) override;
 
   /**
    * @brief define variables
@@ -145,18 +145,18 @@ class ModelShuntCompensator : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::evalZ()
    */
-  NetworkComponent::StateChange_t evalZ(const double& t);
+  NetworkComponent::StateChange_t evalZ(const double& t) override;
 
   /**
    * @copydoc NetworkComponent::collectSilentZ()
    */
-  void collectSilentZ(BitMask* silentZTable);
+  void collectSilentZ(BitMask* silentZTable) override;
 
   /**
    * @brief evaluation G
    * @param t time
    */
-  void evalG(const double& t);
+  void evalG(const double& t) override;
 
   /**
    * @brief evaluation of the calculated variables (for outputs)
@@ -190,37 +190,37 @@ class ModelShuntCompensator : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::evalStaticYType()
    */
-  void evalStaticYType() { /* not needed */ }
+  void evalStaticYType() override { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::evalDynamicYType()
    */
-  void evalDynamicYType() { /* not needed */ }
+  void evalDynamicYType() override { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::evalStaticFType()
    */
-  void evalStaticFType() { /* not needed */ }
+  void evalStaticFType() override { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::evalDynamicFType()
    */
-  void evalDynamicFType() { /* not needed */ }
+  void evalDynamicFType() override { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::evalYMat()
    */
-  void evalYMat();
+  void evalYMat() override;
 
   /**
    * @copydoc NetworkComponent::init(int& yNum)
    */
-  void init(int& yNum);
+  void init(int& yNum) override;
 
   /**
    * @copydoc NetworkComponent::getY0()
    */
-  void getY0();
+  void getY0() override;
 
   /**
    * @copydoc NetworkComponent::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params)
@@ -230,19 +230,19 @@ class ModelShuntCompensator : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::setFequations( std::map<int,std::string>& fEquationIndex )
    */
-  void setFequations(std::map<int, std::string>& fEquationIndex);
+  void setFequations(std::map<int, std::string>& fEquationIndex) override;
 
   /**
    * @copydoc NetworkComponent::setGequations( std::map<int,std::string>& gEquationIndex )
    */
-  void setGequations(std::map<int, std::string>& gEquationIndex);
+  void setGequations(std::map<int, std::string>& gEquationIndex) override;
 
   /**
    * @brief evaluate state
    * @param time time
    * @return state change type
    */
-  NetworkComponent::StateChange_t evalState(const double& time);
+  NetworkComponent::StateChange_t evalState(const double& time) override;
 
   /**
    * @brief addBusNeighbors
@@ -252,7 +252,7 @@ class ModelShuntCompensator : public NetworkComponent {
   /**
    * @brief init size
    */
-  void initSize();
+  void initSize() override;
 
   /**
    * @brief get connection status
