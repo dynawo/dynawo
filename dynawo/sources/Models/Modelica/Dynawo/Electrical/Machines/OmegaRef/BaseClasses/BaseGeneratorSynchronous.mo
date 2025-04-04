@@ -16,6 +16,7 @@ within Dynawo.Electrical.Machines.OmegaRef.BaseClasses;
 partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model"
   extends GeneratorSynchronousParameters;
   extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffGenerator;
+  import Modelica.Constants;
 
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the synchronous generator to the grid" annotation(
     Placement(visible = true, transformation(origin = {0, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -204,6 +205,7 @@ equation
     MdSatPPu = MdPPu;
     MqSatPPu = MqPPu;
   end if;
+  assert(not (theta > Constants.pi and time > 0.1), "theta > PI");
 
   annotation(preferredView = "text");
 end BaseGeneratorSynchronous;
