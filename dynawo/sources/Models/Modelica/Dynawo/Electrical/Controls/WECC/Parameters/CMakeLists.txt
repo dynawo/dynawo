@@ -11,13 +11,14 @@
 
 # Parameters of the PV WECC model
 
+add_subdirectory(Mechanical M)
+add_subdirectory(REEC EC)
+add_subdirectory(REGC GC)
+add_subdirectory(REPC PC)
+
 set(MODEL_FILES
   package.mo
   package.order
-  ParamsDriveTrain.mo
-  ParamsREEC.mo
-  ParamsREGC.mo
-  ParamsREPC.mo
   ParamsVSourceRef.mo
   )
 

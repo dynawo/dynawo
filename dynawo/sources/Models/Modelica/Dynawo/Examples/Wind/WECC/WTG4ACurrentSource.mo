@@ -33,9 +33,9 @@ model WTG4ACurrentSource "WECC Wind Type 4A Model (including the plant controlle
     DPMaxPu = 2,
     DPMinPu = -2,
     DUp = 0.001,
-    DbdPu = 0.01,
     Dbd1Pu = -0.05,
     Dbd2Pu = 0.05,
+    DbdPu = 0.01,
     Dshaft = 1.5,
     EMaxPu = 0.5,
     EMinPu = -0.5,
@@ -67,6 +67,7 @@ model WTG4ACurrentSource "WECC Wind Type 4A Model (including the plant controlle
     Kshaft = 200,
     Kvi = 0.7,
     Kvp = 1,
+    Lvplsw = false,
     OmegaMaxPu = 1.5,
     OmegaMinPu = 0.5,
     P0Pu = -0.7,
@@ -83,7 +84,6 @@ model WTG4ACurrentSource "WECC Wind Type 4A Model (including the plant controlle
     QMaxPu = 0.4,
     QMinPu = -0.4,
     RPu = 0,
-    RateFlag = false,
     RefFlag = true,
     RrpwrPu = 10,
     SNom = 100,
@@ -116,9 +116,11 @@ model WTG4ACurrentSource "WECC Wind Type 4A Model (including the plant controlle
     VRef1Pu = 0,
     VUpPu = 1.1,
     XPu = 0.15,
-    i0Pu(re(fixed = false), im(fixed = false)),
-    iInj0Pu (re(fixed = false), im(fixed = false)),
-    s0Pu(re(fixed = false), im(fixed = false)),
+    brkpt = 0.1,
+    i0Pu( im(fixed = false),re(fixed = false)),
+    iInj0Pu ( im(fixed = false),re(fixed = false)),
+    lvpl1 = 1.22,
+    s0Pu( im(fixed = false),re(fixed = false)),
     tFilterGC = 0.02,
     tFilterPC = 0.04,
     tFt = 1e-10,
@@ -131,8 +133,9 @@ model WTG4ACurrentSource "WECC Wind Type 4A Model (including the plant controlle
     tP = 0.05,
     tPord = 0.01,
     tRv = 0.01,
-    u0Pu(re(fixed = false), im(fixed = false)),
-    uInj0Pu(re(fixed = false), im(fixed = false))) annotation(
+    u0Pu( im(fixed = false),re(fixed = false)),
+    uInj0Pu( im(fixed = false),re(fixed = false)),
+    zerox = 0.05) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
 
   Modelica.Blocks.Sources.Constant PRefPu(k = 0.7) annotation(
@@ -140,9 +143,9 @@ model WTG4ACurrentSource "WECC Wind Type 4A Model (including the plant controlle
   Modelica.Blocks.Sources.Constant QRefPu(k = 0.2) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 1) annotation(
-    Placement(visible = true, transformation(origin = {90, 40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
-  Modelica.Blocks.Sources.Constant URefPu(k = 1) annotation(
-    Placement(visible = true, transformation(origin = {90, 80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
+    Placement(visible = true, transformation(origin = {80, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+  Modelica.Blocks.Sources.Constant URefPu(k = WTG4A.URef0Pu) annotation(
+    Placement(visible = true, transformation(origin = {80, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PFaRef(k = acos(WTG4A.PF0)) annotation(
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
 
