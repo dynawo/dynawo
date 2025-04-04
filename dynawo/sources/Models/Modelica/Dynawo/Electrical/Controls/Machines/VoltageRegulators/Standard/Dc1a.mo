@@ -15,7 +15,6 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 
 model Dc1a "IEEE excitation system type DC1A model (2005 standard)"
   extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.BaseDc1(
-    max1.nu = 2,
     sum1.nin = 3);
 
   Modelica.Blocks.Continuous.Integrator integrator(k = 1 / tE, y_start = Efd0Pu) annotation(

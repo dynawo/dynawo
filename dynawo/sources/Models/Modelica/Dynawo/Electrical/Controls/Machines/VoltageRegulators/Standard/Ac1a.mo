@@ -15,8 +15,6 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 
 model Ac1a "IEEE exciter type AC1A model (2005 standard)"
   extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.BaseAc1(
-    max1.nu = 2,
-    min1.nu = 2,
     VeMinPu = 0,
     VfeMaxPu = 999);
 
