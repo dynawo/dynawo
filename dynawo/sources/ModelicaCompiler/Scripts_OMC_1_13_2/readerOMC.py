@@ -1091,6 +1091,10 @@ class ReaderOMC:
                                 self.var_init_val_06inz[ var ] = list_body
                                 self.var_num_init_val_06inz[var] = num_function
                                 break
+                            elif 'omc_Modelica_Blocks_Tables_Internal_getTimeTableValueNoDer' in rhs:
+                                self.var_init_val_06inz[ var ] = list_body
+                                self.var_num_init_val_06inz[var] = num_function
+                                break
                         if ptrn_param.search(line) is not None:
                             match = re.search(ptrn_param, line)
                             var = str(match.group('varName'))
@@ -1647,12 +1651,40 @@ class ReaderOMC:
             for var_name in self.map_vars_depend_vars:
                 var = self.find_variable_from_name(var_name)
                 if var is not None and var.get_variability() == "discrete" and var.is_fixed():
-                        for var2 in self.list_vars:
-                            if var2.get_alias_name() == var_name and not var2.is_fixed():
-                                print_info("Removing fixed flag from variable " + var.get_name() +" (alias of non fixed variable " + var2.get_name()+")")
-                                var.set_fixed(False)
-                                modified = True
-                                break
+                    if var_name in self.fictive_discrete_vars:
+                        var.set_fixed(False)
+                        modified = True
+                        print_info("Removing fixed flag from variable " + var.get_name())
+                        alias_modified = True
+                        while alias_modified:
+                            alias_modified = False
+                            for var2 in self.list_vars:
+                                if var2.get_alias_name() == var_name and var2.is_fixed():
+                                    var2.set_fixed(False)
+                                    print_info("Removing fixed flag from alias variable " + var2.get_name())
+                                    alias_modified = True
+                        break
+                    for dep_var_name in self.map_vars_depend_vars[var_name]:
+                        dep_var = self.find_variable_from_name(dep_var_name)
+                        if dep_var is not None and not dep_var.is_fixed():
+                            var.set_fixed(False)
+                            modified = True
+                            print_info("Removing fixed flag from variable " + var.get_name())
+                            alias_modified = True
+                            while alias_modified:
+                                alias_modified = False
+                                for var2 in self.list_vars:
+                                    if var2.get_alias_name() == var_name and var2.is_fixed():
+                                        var2.set_fixed(False)
+                                        print_info("Removing fixed flag from alias variable " + var2.get_name())
+                                        alias_modified = True
+                            break
+                    for var2 in self.list_vars:
+                        if var2.get_alias_name() == var_name and not var2.is_fixed():
+                            print_info("Removing fixed flag from variable " + var.get_name() +" (alias of non fixed variable " + var2.get_name()+")")
+                            var.set_fixed(False)
+                            modified = True
+                            break
                 if var is not None and var.get_variability() == "continuous" and var.is_fixed():
                     for dep_var_name in self.map_vars_depend_vars[var_name]:
                         dep_var = self.find_variable_from_name(dep_var_name)
