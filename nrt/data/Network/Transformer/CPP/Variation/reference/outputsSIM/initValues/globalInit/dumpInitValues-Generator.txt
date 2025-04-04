@@ -83,7 +83,7 @@ voltageRegulator_rawEfd_u1                        : alias of voltageRegulator_in
 voltageRegulator_rawEfd_u2                        : alias of voltageRegulator_gain_y
  ====== CALCULATED VARIABLES VALUES ======
 generator_IRotorPu                                : y =   2.1359720585
-generator_IStatorPu_value                         : y =   0.0934685729
+generator_IStatorPu                               : y =   0.0934685729
 generator_PGen                                    : y =   9.0735977135
 generator_PGenPu                                  : y =   0.0907359771
 generator_PePu                                    : y =   0.6059921543

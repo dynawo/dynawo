@@ -1433,14 +1433,14 @@ class Factory:
         for var in list_vars :
             if var.is_alias() and  (to_param_address(var.get_name()).startswith("SHOULD NOT BE USED")): continue
             if var in self.reader.list_complex_calculated_vars: continue
-            if var.get_use_start() and not (is_const_var(var) and var.get_init_by_param_in_06inz()):
-                init_val = var.get_start_text()[0]
-                if init_val == "":
-                    init_val = "0.0"
-                test_param_address(var.get_name())
-                line = self.assignment_format % ( to_param_address(var.get_name()) + " /* " + var.get_name() + " */" , init_val )
-                line = replace_var_names(line)
-                self.list_for_sety0.append(line)
+            # if var.get_use_start() and not (is_const_var(var) and var.get_init_by_param_in_06inz()):
+            #     init_val = var.get_start_text()[0]
+            #     if init_val == "":
+            #         init_val = "0.0"
+            #     test_param_address(var.get_name())
+            #     line = self.assignment_format % ( to_param_address(var.get_name()) + " /* " + var.get_name() + " */" , init_val )
+            #     line = replace_var_names(line)
+            #     self.list_for_sety0.append(line)
 
             elif var.get_init_by_param (): # If the var was initialized with a param (not with an actual value)
                 var.clean_start_text () # Clean up initialization text before printing
