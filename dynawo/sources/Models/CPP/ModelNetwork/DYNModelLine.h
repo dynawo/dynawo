@@ -130,7 +130,7 @@ class ModelLine : public NetworkComponent {
    * @brief  add bus neighbors
    *
    */
-  void addBusNeighbors();
+  void addBusNeighbors() override;
 
   /**
    * @brief evaluate derivatives
@@ -153,7 +153,7 @@ class ModelLine : public NetworkComponent {
    * @brief instantiate variables
    * @param variables variables
    */
-  void instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables);
+  void instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables) override;
 
   /**
    * @brief define parameters
@@ -165,14 +165,14 @@ class ModelLine : public NetworkComponent {
    * @brief define non generic parameters
    * @param parameters vector to fill with the non generic parameters
    */
-  void defineNonGenericParameters(std::vector<ParameterModeler>& parameters);
+  void defineNonGenericParameters(std::vector<ParameterModeler>& parameters) override;
 
   /**
    * @brief define elements
    * @param elements vector of elements
    * @param mapElement map of elements
    */
-  void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
+  void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) override;
 
   /**
    * @brief evaluation F
@@ -194,14 +194,14 @@ class ModelLine : public NetworkComponent {
   /**
    * @brief evaluation calculated variables (for outputs)
    */
-  void evalCalculatedVars();
+  void evalCalculatedVars() override;
 
   /**
    * @brief get the index of variables used to define the jacobian associated to a calculated variable
    * @param numCalculatedVar index of the calculated variable
    * @param numVars index of variables used to define the jacobian associated to a calculated variable
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int> & numVars) const;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int> & numVars) const override;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable
@@ -210,7 +210,7 @@ class ModelLine : public NetworkComponent {
 
    * @param res values of the jacobian
    */
-  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double> & res) const;
+  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double> & res) const override;
 
   /**
    * @copydoc NetworkComponent::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
@@ -229,7 +229,7 @@ class ModelLine : public NetworkComponent {
    *
    * @return value of the calculated variable
    */
-  double evalCalculatedVarI(unsigned numCalculatedVar) const;
+  double evalCalculatedVarI(unsigned numCalculatedVar) const override;
 
   /**
    * @copydoc NetworkComponent::evalStaticYType()
@@ -274,7 +274,7 @@ class ModelLine : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params)
    */
-  void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params);
+  void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params) override;
 
   /**
    * @copydoc NetworkComponent::setFequations( std::map<int,std::string>& fEquationIndex )
