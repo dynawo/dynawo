@@ -2107,7 +2107,7 @@ class Factory:
                 if 'equationIndexes' in line:
                     match = re.search(pattern_num, line)
                     if match is not None:
-                        num = match.group('num')
+                        num = int(match.group('num'))
                         break
 
             getattr (par, start_text_cleaner)() # Cleaning part of the start text
