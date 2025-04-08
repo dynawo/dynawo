@@ -295,6 +295,7 @@ class ModelLine : public NetworkComponent {
    * @return state change type
    */
   NetworkComponent::StateChange_t evalState(const double& time) override;  // check whether a discrete event happened
+
   /**
    * @brief update data
    */

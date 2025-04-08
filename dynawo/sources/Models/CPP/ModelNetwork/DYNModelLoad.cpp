@@ -695,11 +695,6 @@ ModelLoad::getY0() {
 
 void
 ModelLoad::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
-  // streamVariables << P0_;
-  // streamVariables << Q0_;
-  // streamVariables << u0_;
-  // streamVariables << ii0_;
-  // streamVariables << ir0_;
   ModelCPP::dumpInStream(streamVariables, P0_);
   ModelCPP::dumpInStream(streamVariables, Q0_);
   ModelCPP::dumpInStream(streamVariables, u0_);
