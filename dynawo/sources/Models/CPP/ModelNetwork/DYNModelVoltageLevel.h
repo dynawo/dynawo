@@ -252,7 +252,7 @@ class ModelVoltageLevel : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::evalCalculatedVars()
    */
-  void evalCalculatedVars();
+  void evalCalculatedVars() override;
 
   /**
    * @brief get the global indexes of the variables used to compute a calculated variable
@@ -261,7 +261,7 @@ class ModelVoltageLevel : public NetworkComponent {
    * @param numVars vector to fill with the indexes
    *
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const override;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable based on the current values of continuous variables
@@ -269,7 +269,7 @@ class ModelVoltageLevel : public NetworkComponent {
    * @param numCalculatedVar index of the calculated variable
    * @param res values of the jacobian
    */
-  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const;
+  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const override;
 
   /**
    * @brief evaluate the value of a calculated variable
@@ -277,32 +277,32 @@ class ModelVoltageLevel : public NetworkComponent {
    * @param numCalculatedVar index of the calculated variable
    * @return value of the calculated variable based on the current values of continuous variables
    */
-  double evalCalculatedVarI(unsigned numCalculatedVar) const;
+  double evalCalculatedVarI(unsigned numCalculatedVar) const override;
 
   /**
    * @copydoc NetworkComponent::instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables)
    */
-  void instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables);
+  void instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables) override;
 
   /**
    * @copydoc NetworkComponent::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params)
    */
-  void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params);
+  void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params) override;
 
   /**
    * @copydoc NetworkComponent::defineNonGenericParameters(std::vector<ParameterModeler>& parameters)
    */
-  void defineNonGenericParameters(std::vector<ParameterModeler>& parameters);
+  void defineNonGenericParameters(std::vector<ParameterModeler>& parameters) override;
 
   /**
    * @copydoc NetworkComponent::defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement)
    */
-  void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement);
+  void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) override;
 
   /**
    * @copydoc NetworkComponent::addBusNeighbors()
    */
-  void addBusNeighbors();
+  void addBusNeighbors() override;
 
   /**
    * @copydoc NetworkComponent::setReferenceY( double* y, double* yp, double* f, const int & offsetY, const int & offsetF)

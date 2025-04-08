@@ -133,7 +133,7 @@ class ModelDanglingLine : public NetworkComponent {
    * @brief instantiate variables
    * @param variables variables
    */
-  void instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables);
+  void instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables) override;
 
   /**
    * @brief define parameters
@@ -145,14 +145,14 @@ class ModelDanglingLine : public NetworkComponent {
    * @brief define non generic parameters
    * @param parameters vector to fill with the non generic parameters
    */
-  void defineNonGenericParameters(std::vector<ParameterModeler>& parameters);
+  void defineNonGenericParameters(std::vector<ParameterModeler>& parameters) override;
 
   /**
    * @brief define elements
    * @param elements vector of elements
    * @param mapElement map of elements
    */
-  void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement);
+  void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) override;
   /**
    *
    * @brief evaluation F
@@ -174,7 +174,7 @@ class ModelDanglingLine : public NetworkComponent {
   /**
    * @brief evaluation calculated variables (for outputs)
    */
-  void evalCalculatedVars();
+  void evalCalculatedVars() override;
 
   /**
    * @brief get the index of variables used to define the jacobian associated to a calculated variable
@@ -183,7 +183,7 @@ class ModelDanglingLine : public NetworkComponent {
    *
    * @param numVars index of variables used to define the jacobian
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const override;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable
@@ -191,7 +191,7 @@ class ModelDanglingLine : public NetworkComponent {
    * @param numCalculatedVar index of the calculated variable
    * @param res values of the jacobian
    */
-  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const;
+  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const override;
 
   /**
    * @brief evaluate the value of a calculated variable
@@ -200,7 +200,7 @@ class ModelDanglingLine : public NetworkComponent {
    *
    * @return value of the calculated variable
    */
-  double evalCalculatedVarI(unsigned numCalculatedVar) const;
+  double evalCalculatedVarI(unsigned numCalculatedVar) const override;
 
   /**
    * @copydoc NetworkComponent::evalStaticYType()
@@ -245,7 +245,7 @@ class ModelDanglingLine : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params)
    */
-  void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params);
+  void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params) override;
 
   /**
    * @copydoc NetworkComponent::setFequations( std::map<int,std::string>& fEquationIndex )
@@ -268,7 +268,7 @@ class ModelDanglingLine : public NetworkComponent {
    * @brief add a bus to the neighbours
    *
    */
-  void addBusNeighbors() { /* not needed */ }
+  void addBusNeighbors() override { /* not needed */ }
 
   /**
    * @brief init size
