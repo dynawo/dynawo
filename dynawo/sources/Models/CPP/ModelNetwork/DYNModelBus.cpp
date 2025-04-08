@@ -22,8 +22,6 @@
 #include <cassert>
 
 #include <boost/algorithm/string/predicate.hpp>
-#include <boost/archive/binary_iarchive.hpp>
-#include <boost/archive/binary_oarchive.hpp>
 
 #include "PARParametersSet.h"
 #include "DYNModelBus.h"
@@ -608,11 +606,6 @@ ModelBus::getY0() {
 
 void
 ModelBus::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
-  // streamVariables << angle0_;
-  // streamVariables << u0_;
-  // streamVariables << U_;
-  // streamVariables << U2Pu_;
-  // streamVariables << UPu_;
   ModelCPP::dumpInStream(streamVariables, angle0_);
   ModelCPP::dumpInStream(streamVariables, u0_);
   ModelCPP::dumpInStream(streamVariables, U_);
