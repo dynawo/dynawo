@@ -276,10 +276,6 @@ ModelShuntCompensator::getY0() {
 
 void
 ModelShuntCompensator::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
-  // streamVariables << ir0_;
-  // streamVariables << ii0_;
-  // streamVariables << suscepPu_;
-  // streamVariables << tLastOpening_;
   ModelCPP::dumpInStream(streamVariables, ir0_);
   ModelCPP::dumpInStream(streamVariables, ii0_);
   ModelCPP::dumpInStream(streamVariables, suscepPu_);

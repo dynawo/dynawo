@@ -222,14 +222,6 @@ ModelHvdcLink::getY0() {
 
 void
 ModelHvdcLink::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
-  // streamVariables << P01_;
-  // streamVariables << Q01_;
-  // streamVariables << P02_;
-  // streamVariables << Q02_;
-  // streamVariables << ir01_;
-  // streamVariables << ii01_;
-  // streamVariables << ir02_;
-  // streamVariables << ii02_;
   ModelCPP::dumpInStream(streamVariables, P01_);
   ModelCPP::dumpInStream(streamVariables, Q01_);
   ModelCPP::dumpInStream(streamVariables, P02_);

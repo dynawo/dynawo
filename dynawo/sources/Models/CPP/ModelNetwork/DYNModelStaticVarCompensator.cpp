@@ -249,10 +249,6 @@ ModelStaticVarCompensator::getY0() {
 
 void
 ModelStaticVarCompensator::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
-  // streamVariables << ir0_;
-  // streamVariables << ii0_;
-  // streamVariables << gSvc0_;
-  // streamVariables << bSvc0_;
   ModelCPP::dumpInStream(streamVariables, ir0_);
   ModelCPP::dumpInStream(streamVariables, ii0_);
   ModelCPP::dumpInStream(streamVariables, gSvc0_);
