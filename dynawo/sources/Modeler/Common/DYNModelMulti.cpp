@@ -913,6 +913,49 @@ ModelMulti::getFInfos(const int globalFIndex, string& subModelName, int& localFI
 }
 
 void
+ModelMulti::getFInfos(const int globalFIndex, string& subModelName, int& localFIndex, string& fEquation, const std::unordered_set<int>& ignoreF) const {
+  if (globalFIndex >= connectorContainer_->getOffsetModel()) {
+    connectorContainer_->getConnectorInfos(globalFIndex, subModelName, localFIndex, fEquation);
+  } else {
+    int numVarFull = 0;
+    int numVarSubset = 0;
+
+    for (const auto& subModel : subModels_) {
+      for (unsigned int j = 0 ; j < subModel->sizeF() ; ++j) {
+        if (ignoreF.find(numVarFull) == ignoreF.end()) {
+          if (globalFIndex == numVarSubset) {
+            fEquation = subModel->getFequationByLocalIndex(j);
+            subModelName = subModel->name();
+            localFIndex = j;
+            break;
+          }
+          ++numVarSubset;
+        }
+        ++numVarFull;
+      }
+      if (globalFIndex == numVarSubset) {
+        break;
+      }
+    }
+  }
+}
+
+std::vector<std::string>
+ModelMulti::getFInfos(const string& subModelName, const string& variable) const {
+  std::vector<std::string> equations;
+
+  const auto& subModel = findSubModelByName(subModelName);
+
+  for (unsigned int j = 0 ; j < subModel->sizeF() ; ++j) {
+    std::string fEquation = subModel->getFequationByLocalIndex(j);
+    if (fEquation.find(variable) != std::string::npos) {
+      equations.push_back(subModelName + ": " + fEquation + " localIndex " + std::to_string(j));
+    }
+  }
+  return equations;
+}
+
+void
 ModelMulti::getGInfos(const int globalGIndex, string& subModelName, int& localGIndex, string& gEquation) const {
   std::unordered_map<int, int>::const_iterator iter = mapAssociationG_.find(globalGIndex);
   if (iter != mapAssociationG_.end()) {
@@ -1235,38 +1278,41 @@ void ModelMulti::printEquations() {
 }
 
 void ModelMulti::printEquations(const std::unordered_set<int>& ignoreF) {
-  int nVar = 0;
+  int numEqFull = 0;
+  int numEqSubset = 0;
   static int nbPrint = 0;
   Trace::debug(Trace::equations()) << "------------------------------" << Trace::endline;
-  Trace::debug(Trace::equations()) << "Algebraic Equations " << nbPrint << Trace::endline;
+  Trace::debug(Trace::equations()) << "Equations (subset) " << nbPrint << Trace::endline;
   Trace::debug(Trace::equations()) << "------------------------------" << Trace::endline;
   for (const auto& subModel : subModels_) {
     for (unsigned int j = 0 ; j < subModel->sizeF() ; ++j) {
-      if (ignoreF.find(j) == ignoreF.end()) {
-        Trace::debug(Trace::equations()) << nVar << " " << subModel->getFequationByLocalIndex(j) <<
+      if (ignoreF.find(numEqFull) == ignoreF.end()) {
+        Trace::debug(Trace::equations()) << numEqSubset << " " << subModel->getFequationByLocalIndex(j) <<
     " model: " << subModel->name() << " (local " << j << ")" << Trace::endline;
-        ++nVar;
+        ++numEqSubset;
       }
+      ++numEqFull;
     }
   }
-  connectorContainer_->printEquations();
   ++nbPrint;
 }
 
 void ModelMulti::printVariableNames(const std::unordered_set<int>& ignoreY) {
-  int nVar = 0;
+  int numVarFull = 0;
+  int numVarSubset = 0;
   static int nbPrint = 0;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
-  Trace::debug(Trace::variables()) << "Algebraic variables " << nbPrint << Trace::endline;
+  Trace::debug(Trace::variables()) << "Variables (subset) " << nbPrint << Trace::endline;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   for (const auto& subModel : subModels_) {
     const std::vector<std::string>& xNames = subModel->xNames();
     for (unsigned int j = 0; j < xNames.size(); ++j) {
-      if (ignoreY.find(j) == ignoreY.end()) {
+      if (ignoreY.find(numVarFull) == ignoreY.end()) {
         std::string varName = subModel->name() + " | " + xNames[j];
-        Trace::debug(Trace::variables()) << nVar << " " << varName << " (local " << j << ")" << Trace::endline;
-        ++nVar;
+        Trace::debug(Trace::variables()) << numVarSubset << " " << varName << " (local " << j << ")" << Trace::endline;
+        ++numVarSubset;
       }
+      ++numVarFull;
     }
   }
   ++nbPrint;
@@ -1292,6 +1338,32 @@ std::string ModelMulti::getVariableName(int index) {
   }
   assert(index < static_cast<int>(yNames_.size()));
   return yNames_[index];
+}
+
+std::string ModelMulti::getVariableName(const int index, const std::unordered_set<int>& ignoreY, std::string& subModelName) {
+  int numVarFull = 0;
+  int numVarSubset = 0;
+  std::string varName;
+  for (const auto& subModel : subModels_) {
+    const std::vector<std::string>& xNames = subModel->xNames();
+    for (const auto& xName : xNames) {
+      if (ignoreY.find(numVarFull) == ignoreY.end()) {
+        if (index == numVarSubset) {
+          if (varName.empty()) {
+            varName = subModel->name() + "_" + xName;
+            subModelName = subModel->name();
+          }
+          break;
+        }
+        ++numVarSubset;
+      }
+      ++numVarFull;
+    }
+    if (index == numVarSubset) {
+      break;
+    }
+  }
+  return varName;
 }
 
 void ModelMulti::getCurrentZ(vector<double>& z) const {

@@ -303,21 +303,37 @@ SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
 
 // #if _DEBUG_
 void
-SolverKINAlgRestoration::checkJacobian(const SparseMatrix& smj, Model& model) {
+SolverKINAlgRestoration::checkJacobian(const SparseMatrix& smj, Model& model, const std::unordered_set<int>& ignoreF, const std::unordered_set<int>& ignoreY) {
   SparseMatrix::CheckError error = smj.check();
-  string sub_model_name;
+  string subModelName;
   string equation;
   string equation_bis;
   int local_index;
+
   switch (error.code) {
-  case SparseMatrix::CHECK_ZERO_ROW:
-    throw DYNError(DYN::Error::SOLVER_ALGO, SolverJacobianWithNulRow, error.info, model.getVariableName(error.info));
-  case SparseMatrix::CHECK_ZERO_COLUMN:
-    model.getFInfos(error.info, sub_model_name, local_index, equation);
-    throw DYNError(DYN::Error::SOLVER_ALGO, SolverJacobianWithNulColumn, error.info, equation);
-  case SparseMatrix::CHECK_OK:
-    // do nothing
-    break;
+    case SparseMatrix::CHECK_ZERO_ROW: {
+      string variable = model.getVariableName(error.info, ignoreY, subModelName);
+      string subModelNameWithUnderscore = subModelName + "_";
+      size_t pos = variable.find(subModelNameWithUnderscore);
+
+      if (pos != std::string::npos) {
+        variable.erase(pos, subModelNameWithUnderscore.length());
+      }
+      std::replace(variable.begin(), variable.end(), '_', '.');
+      std::vector<std::string> equations = model.getFInfos(subModelName, variable);
+      if (!equations.empty())
+        Trace::error() << "Equations containing the ill variable" << Trace::endline;
+      for (const auto& equationVariable : equations) {
+        Trace::error() << equationVariable << Trace::endline;
+      }
+      throw DYNError(DYN::Error::SOLVER_ALGO, SolverJacobianWithNulRow, error.info, model.getVariableName(error.info, ignoreY, subModelName));
+    }
+    case SparseMatrix::CHECK_ZERO_COLUMN:
+      model.getFInfos(error.info, subModelName, local_index, equation, ignoreF);
+      throw DYNError(DYN::Error::SOLVER_ALGO, SolverJacobianWithNulColumn, error.info, equation);
+    case SparseMatrix::CHECK_OK:
+      // do nothing
+      break;
   }
 }
 // #endif
@@ -335,20 +351,13 @@ SolverKINAlgRestoration::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
   smj.init(model.sizeY(), model.sizeY());
   model.evalJt(solver->t0_, cj, smj);
 
-  /*if (solver->checkJacobian_) {
-    checkJacobian(smj, model);
-  }*/
-
-  /*model.printEquations(solver->ignoreF_);
-  model.printVariableNames(solver->ignoreY_);*/
-
   // Erase useless values in the jacobian
   int size = static_cast<int>(solver->indexY_.size());
   smjKin.reserve(size);
   smj.erase(solver->ignoreY_, solver->ignoreF_, smjKin);
 // #if _DEBUG_
   if (solver->checkJacobian_) {
-    checkJacobian(smjKin, model);
+    checkJacobian(smjKin, model, solver->ignoreF_, solver->ignoreY_);
   }
 // #endif
   SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, solver->lastRowVals_, solver->linearSolver_, true);
@@ -374,6 +383,9 @@ SolverKINAlgRestoration::evalJPrim_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
   const int size = static_cast<int>(solver->indexY_.size());
   smjKin.reserve(size);
   smj.erase(solver->ignoreY_, solver->ignoreF_, smjKin);
+  if (solver->checkJacobian_) {
+    checkJacobian(smjKin, model, solver->ignoreF_, solver->ignoreY_);
+  }
   SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, solver->lastRowVals_, solver->linearSolver_, true);
 
   return 0;

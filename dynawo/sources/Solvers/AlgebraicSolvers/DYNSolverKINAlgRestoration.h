@@ -226,7 +226,7 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
    * @param smj the jacobian to check
    * @param model the model currelty used
    */
-  static void checkJacobian(const SparseMatrix& smj, Model& model);
+  static void checkJacobian(const SparseMatrix& smj, Model& model, const std::unordered_set<int>& indexF, const std::unordered_set<int>& indexY);
 // #endif
 
   /**

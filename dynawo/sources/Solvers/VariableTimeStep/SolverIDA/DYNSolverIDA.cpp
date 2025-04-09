@@ -485,8 +485,10 @@ SolverIDA::calculateIC(double /*tEnd*/) {
 // #if _DEBUG_
   if (activateCheckJacobian_) {
     solverKINNormal_->setCheckJacobian(true);
+    solverKINYPrim_->setCheckJacobian(true);
   } else {
     solverKINNormal_->setCheckJacobian(false);
+    solverKINYPrim_->setCheckJacobian(false);
   }
 // #endif
   do {
@@ -585,6 +587,7 @@ SolverIDA::calculateIC(double /*tEnd*/) {
   flagInit_ = false;
 // #if _DEBUG_
   solverKINNormal_->setCheckJacobian(false);
+  solverKINYPrim_->setCheckJacobian(false);
 // #endif
 }
 
@@ -756,14 +759,8 @@ SolverIDA::evalG(realtype tres, N_Vector yy, N_Vector yp, realtype* gout,
   realtype* iyy = NV_DATA_S(yy);
   realtype* iyp = NV_DATA_S(yp);
 
-  // std::vector<state_g>& g1 = solver->getG1();
-
   model.copyContinuousVariables(iyy, iyp);
   model.evalG(tres, gout);
-
-  /*for (unsigned int i = 0 ; i < g1.size(); ++i) {
-    gout[i] = g1[i];
-  }*/
 
   return 0;
 }
@@ -833,7 +830,10 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
         minimumModeChangeTypeForAlgebraicRestoration_ = minimumModeChangeTypeForAlgebraicRestorationSave;
         ++countForceReinit_;
         break;
+      } else {
+        analyseFlag(flag);
       }
+      break;
     case IDA_ERR_FAIL:
       if (countForceReinit_ == 0) {
         Trace::info() << "SolverIDA: IDA_ERR_FAIL force reinit" << Trace::endline;
@@ -847,7 +847,10 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
         minimumModeChangeTypeForAlgebraicRestoration_ = minimumModeChangeTypeForAlgebraicRestorationSave;
         ++countForceReinit_;
         break;
+      } else {
+        analyseFlag(flag);
       }
+    break;
     default:
       analyseFlag(flag);
   }
