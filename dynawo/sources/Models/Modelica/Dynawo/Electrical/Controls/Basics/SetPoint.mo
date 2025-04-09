@@ -14,12 +14,12 @@ within Dynawo.Electrical.Controls.Basics;
 
 model SetPoint "Fixed set-point throughout a simulation"
 
-  Dynawo.Connectors.ImPin setPoint(value(start= Value0)) "Set point value";
+  Modelica.Blocks.Interfaces.RealOutput setPoint(start= Value0) "Set point value";
 
   parameter Real Value0 "Start value of the set-point model";
 
 equation
-  setPoint.value = Value0;
+  setPoint = Value0;
 
   annotation(preferredView = "text");
 end SetPoint;

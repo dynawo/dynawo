@@ -18,6 +18,6 @@
   <dyn:blackBoxModel id="Disconnect_Load" lib="EventConnectedStatus" parFile="DisconnectLoad_VoltageVariation.par" parId="Disconnect_Load"/>
   <dyn:connect id1="InfiniteBus" var1="infiniteBus_terminal" id2="NETWORK" var2="@InfiniteBus@@NODE@_ACPIN"/>
   <dyn:connect id1="Generator" var1="generator_terminal" id2="NETWORK" var2="@Generator@@NODE@_ACPIN"/>
-  <dyn:connect id1="OmegaRef" var1="setPoint_setPoint" id2="Generator" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OmegaRef" var1="setPoint_setPoint" id2="Generator" var2="generator_omegaRefPu_value"/>
   <dyn:connect id1="Disconnect_Load" var1="event_state1_value" id2="NETWORK" var2="Load_state_value"/>
 </dyn:dynamicModelsArchitecture>
