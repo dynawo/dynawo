@@ -52,28 +52,28 @@ equation
   IB1B2 = sqrt(LineB1B2.terminal1.i.re * LineB1B2.terminal1.i.re + LineB1B2.terminal1.i.im * LineB1B2.terminal1.i.im);
   IB2B5 = sqrt(LineB2B5.terminal1.i.re * LineB2B5.terminal1.i.re + LineB2B5.terminal1.i.im * LineB2B5.terminal1.i.im);
 
-  CLAB1B2.IMonitored.value = IB1B2;
+  CLAB1B2.IMonitored = IB1B2;
   when CLAB1B2.order > 3 then
     LineB1B2.switchOffSignal2 = true;
   elsewhen CLAB1B2.order <= 3 then
     LineB1B2.switchOffSignal2 = false;
   end when;
 
-  CLAB2B5.IMonitored.value = IB2B5;
+  CLAB2B5.IMonitored = IB2B5;
   when CLAB2B5.order > 3 then
     LineB2B5.switchOffSignal2 = true;
   elsewhen CLAB2B5.order <= 3 then
     LineB2B5.switchOffSignal2 = false;
   end when;
 
-  CLAB1B5.IMonitored.value = IB1B5;
+  CLAB1B5.IMonitored = IB1B5;
   when CLAB1B5.order > 3 then
     LineB1B5.switchOffSignal2 = true;
   elsewhen CLAB1B5.order <= 3 then
     LineB1B5.switchOffSignal2 = false;
   end when;
 
-// Loads references
+  // Loads references
   Load2.PRefPu = P0Pu_Load2;
   Load2.QRefPu = Q0Pu_Load2;
   Load3.PRefPu = P0Pu_Load3;
@@ -119,7 +119,7 @@ equation
   Load14.deltaP = 0;
   Load14.deltaQ = 0;
 
-// Generators references
+  // Generators references
   Gen1.URefPu = Gen1.URef0Pu;
   Gen1.PRefPu = Gen1.PRef0Pu;
   Gen2.URefPu = Gen2.URef0Pu;
@@ -131,7 +131,7 @@ equation
   Gen8.URefPu = Gen8.URef0Pu;
   Gen8.PRefPu = Gen8.PRef0Pu;
 
-// Switch off signals for generators, loads, lines, transformers and bank
+  // Switch off signals for generators, loads, lines, transformers and bank
   Gen1.switchOffSignal1 = false;
   Gen1.switchOffSignal2 = false;
   Gen1.switchOffSignal3 = false;

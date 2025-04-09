@@ -98,11 +98,6 @@ equation
   end when;
 end DYNSolverTestSilentZNotUsedInContinuous2;
 
-connector ZPin "connector for propagating discrete values (and events)"
-  public
-    discrete Real value;
-end ZPin;
-
 model DYNDisconnection
   Integer switchOff(start = 2);
 equation
@@ -132,14 +127,9 @@ equation
   terminal.V = U * ComplexMath.exp(ComplexMath.j * Theta);
 end DYNInfiniteBus;
 
-connector ImPin "connector for continuous real value"
-  public
-    Real value;
-end ImPin;
-
 model DYNDerivative
-  Real y (start = 0);
-  ImPin x;
+  Real y(start = 0);
+  Real x;
 equation
-  der(y) = x.value;
+  der(y) = x;
 end DYNDerivative;

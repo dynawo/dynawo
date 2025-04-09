@@ -15,8 +15,8 @@
   <curve model="NETWORK" variable="_BUS____7-BUS___10-2_AC_state"/>
   <curve model="NETWORK" variable="_BUS____7-BUS___10-2_AC_i1"/>
   <curve model="NETWORK" variable="_BUS____7-BUS___10-2_AC_i2"/>
-  <curve model="CLA" variable="currentLimitAutomaton_IMonitored1_value"/>
-  <curve model="CLA" variable="currentLimitAutomaton_IMonitored2_value"/>
+  <curve model="CLA" variable="currentLimitAutomaton_IMonitored1"/>
+  <curve model="CLA" variable="currentLimitAutomaton_IMonitored2"/>
   <curve model="CLA" variable="currentLimitAutomaton_IMax1"/>
   <curve model="CLA" variable="currentLimitAutomaton_IMax2"/>
   <curve model="CLA" variable="currentLimitAutomaton_order"/>

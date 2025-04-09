@@ -24,5 +24,5 @@
   <dyn:connect id1="lineDisconnection" var1="event_switchOff" id2="NETWORK" var2="_BUS___1__BUS___2_2_state"/>
   <dyn:connect id1="infiniteBus" var1="InfiniteBus_terminal" id2="NETWORK" var2="TN_ACPIN"/>
   <!-- Adding a connection to a model with a derivative part to test the algebraic mode restoration on differential variable -->
-  <dyn:connect id1="derivative" var1="Derivative_x" id2="NETWORK" var2="_BUS___21_Upu"/>
+  <dyn:connect id1="derivative" var1="Derivative_x" id2="NETWORK" var2="_BUS___21_Upu_value"/>
 </dyn:dynamicModelsArchitecture>

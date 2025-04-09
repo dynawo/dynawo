@@ -14,10 +14,10 @@
 <external_variables xmlns="http://www.rte-france.com/dynawo">
   <variable type="continuous" id="terminal.V.re"/>
   <variable type="continuous" id="terminal.V.im"/>
-  <variable type="continuous" id="omegaRefPu.value"/>
-  <variable type="continuous" id="deltaPmRefPu.value" optional="true"/>
-  <variable type="continuous" id="deltaURefPu.value" optional="true"/>
-  <variable type="continuous" id="URefPu.value" optional="true"/>
+  <variable type="continuous" id="omegaRefPu"/>
+  <variable type="continuous" id="deltaPmRefPu" optional="true"/>
+  <variable type="continuous" id="deltaURefPu" optional="true"/>
+  <variable type="continuous" id="URefPu" optional="true"/>
   <variable type="discrete" id="switchOffSignal1" defaultValue="false"/>
   <variable type="discrete" id="switchOffSignal2" defaultValue="false"/>
   <variable type="discrete" id="switchOffSignal3" defaultValue="false"/>

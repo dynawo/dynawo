@@ -12,11 +12,11 @@
     for power systems.
 -->
 <external_variables xmlns="http://www.rte-france.com/dynawo">
-  <variable type="continuous" id="UMonitored1.value"/>
-  <variable type="continuous" id="UMonitored2.value"/>
-  <variable type="continuous" id="UMonitored3.value"/>
-  <variable type="continuous" id="UMonitored4.value"/>
-  <variable type="continuous" id="UMonitored5.value"/>
+  <variable type="continuous" id="UMonitored1"/>
+  <variable type="continuous" id="UMonitored2"/>
+  <variable type="continuous" id="UMonitored3"/>
+  <variable type="continuous" id="UMonitored4"/>
+  <variable type="continuous" id="UMonitored5"/>
   <variable type="discrete" id="blockOrder" defaultValue="false"/>
   <variable type="discrete" id="unblockOrder" defaultValue="false"/>
 </external_variables>

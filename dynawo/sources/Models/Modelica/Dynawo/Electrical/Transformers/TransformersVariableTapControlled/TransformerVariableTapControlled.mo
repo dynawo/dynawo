@@ -50,9 +50,9 @@ model TransformerVariableTapControlled
   parameter Types.PerUnit rTfoMaxPu "Maximum transformation ratio in pu: U2/U1 in no load conditions";
   parameter Integer NbTap "Number of taps";
 
-  // Output Connectors
-  Dynawo.Connectors.ImPin P1Pu(value(start = P10Pu)) "Active power on side 1";
-  Dynawo.Connectors.ImPin Q1Pu(value(start = Q10Pu)) "Reactive power on side 1";
+  // Output connectors
+  Modelica.Blocks.Interfaces.RealOutput P1Pu(start = P10Pu) "Active power on side 1";
+  Modelica.Blocks.Interfaces.RealOutput Q1Pu(start = Q10Pu) "Reactive power on side 1";
 
   // Terminals
   Dynawo.Connectors.ACPower terminal2(V(re(start = u20Pu.re), im(start = u20Pu.im)), i(re(start = i20Pu.re), im(start = i20Pu.im))) annotation(

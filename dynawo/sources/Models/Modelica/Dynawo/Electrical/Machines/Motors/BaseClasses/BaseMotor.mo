@@ -22,7 +22,7 @@ partial model BaseMotor "Base model for motors"
   parameter Types.ApparentPowerModule SNom "Nominal apparent power of the motor in MVA";
 
   input Types.ComplexVoltagePu V "Complex AC voltage in pu (base UNom)";
-  Connectors.ImPin omegaRefPu(value(start = SystemBase.omegaRef0Pu)) "Network angular reference frequency in pu (base omegaNom)";
+  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Network angular reference frequency in pu (base omegaNom)";
 
   Types.ActivePowerPu PPu(start = s0Pu.re) "Active power at load terminal in pu (base SnRef) (receptor convention)";
   Types.ReactivePowerPu QPu(start = s0Pu.im) "Reactive power at load terminal in pu (base SnRef) (receptor convention)";

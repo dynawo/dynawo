@@ -29,7 +29,7 @@ partial model BaseLoadMotorSimplified "Base model for loads in parallel to simpl
   parameter Real H[NbMotors] "Inertia constant in s";
   parameter Real torqueExponent[NbMotors] "Exponent of the torque speed dependency";
 
-  Connectors.ImPin omegaRefPu(value(start = SystemBase.omegaRef0Pu)) "Network angular reference frequency in pu (base omegaNom)";
+  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Network angular reference frequency in pu (base omegaNom)";
 
   Types.ActivePowerPu PLoadPu(start = PLoad0Pu) "Active power consumed by the load in pu (base SnRef) (receptor convention)";
   Types.ReactivePowerPu QLoadPu(start = QLoad0Pu) "Reactive power consumed by the load in pu (base SnRef) (receptor convention)";

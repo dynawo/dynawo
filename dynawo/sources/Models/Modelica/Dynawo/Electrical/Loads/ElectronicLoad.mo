@@ -27,15 +27,15 @@ model ElectronicLoad "Constant power load with disconnection and reconnections d
 
 equation
   if running and terminal.V <> Complex(0) then
-    UMinPu + tFilter * der(UMinPu) = if (UPu.value < UMinPu and UMinPu > Ud2Pu) then UPu.value else UMinPu;
+    UMinPu + tFilter * der(UMinPu) = if (UPu < UMinPu and UMinPu > Ud2Pu) then UPu else UMinPu;
 
-    if UPu.value < Ud2Pu then
+    if UPu < Ud2Pu then
       connectedShare = 0;
-    elseif UPu.value < Ud1Pu then
-      if UPu.value <= UMinPu then  // Voltage currently decreasing (below UMinPu)
-        connectedShare = (UPu.value - Ud2Pu) / (Ud1Pu - Ud2Pu);
+    elseif UPu < Ud1Pu then
+      if UPu <= UMinPu then  // Voltage currently decreasing (below UMinPu)
+        connectedShare = (UPu - Ud2Pu) / (Ud1Pu - Ud2Pu);
       else  // Voltage recovering, so partial reconnection
-        connectedShare = ((UMinPu - Ud2Pu) + recoveringShare * (UPu.value - UMinPu)) / (Ud1Pu - Ud2Pu);
+        connectedShare = ((UMinPu - Ud2Pu) + recoveringShare * (UPu - UMinPu)) / (Ud1Pu - Ud2Pu);
       end if;
     else
       if UMinPu >= Ud1Pu then  // Voltage never dropped below Ud1Pu

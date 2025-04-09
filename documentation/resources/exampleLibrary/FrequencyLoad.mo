@@ -20,12 +20,12 @@ model FrequencyLoad "Load with frequency-dependent active and reactive power"
     parameter Real Delta "Reactive load sensitivity to voltage";
     parameter Real omegaRef0Pu = 1 "Reference frequency value";
 
-    Connectors.ImPin omegaRefPu "Network angular reference frequency in pu (base OmegaNom)";
+    Modelica.Blocks.Interfaces.RealInput omegaRefPu "Network angular reference frequency in pu (base OmegaNom)";
 
   equation
     if running then
-      PPu = PLoadPu.value * ((omegaRefPu/omegaRef0Pu) ^ Gamma);
-      QPu = QLoadPu.value * ((omegaRefPu/omegaRef0Pu) ^ Delta);
+      PPu = PLoadPu * ((omegaRefPu / omegaRef0Pu) ^ Gamma);
+      QPu = QLoadPu * ((omegaRefPu / omegaRef0Pu) ^ Delta);
     else
       terminal.i = Complex(0);
     end if;

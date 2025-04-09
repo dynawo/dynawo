@@ -28,8 +28,8 @@ model GeneratorPV "Generator with active power / frequency regulation and voltag
                              AbsorptionMax "Reactive power is fixed to its absorption limit",
                              GenerationMax "Reactive power is fixed to its generation limit");
 
-  Dynawo.Connectors.ImPin deltaURefPu(value(start = 0)) "Additional voltage reference in pu (base UNom)";
-  Dynawo.Connectors.ImPin URefPu(value(start = URef0Pu)) "Voltage regulation set point in pu (base UNom)";
+  Modelica.Blocks.Interfaces.RealInput deltaURefPu(start = 0) "Additional voltage reference in pu (base UNom)";
+  Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Voltage regulation set point in pu (base UNom)";
 
   parameter Types.PerUnit LambdaPuSNom "Reactive power sensitivity of the voltage regulation in pu (base UNom, SNom)";
   parameter Types.ReactivePower QMax "Maximum reactive power in Mvar";
@@ -61,7 +61,7 @@ equation
   end when;
 
   if running then
-    URefPu.value + deltaURefPu.value = UPu + LambdaPu * (QGenRefPu + T * der(QGenRefPu));
+    URefPu + deltaURefPu = UPu + LambdaPu * (QGenRefPu + T * der(QGenRefPu));
     QGenPu = if qStatus == QStatus.AbsorptionMax then QMaxPu else if qStatus == QStatus.GenerationMax then QMinPu else QGenRefPu;
   else
     QGenRefPu = 0;

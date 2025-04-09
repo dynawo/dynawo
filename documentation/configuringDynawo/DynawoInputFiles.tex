@@ -784,7 +784,7 @@ The connection between two different dynamic models in the dyd file often needs 
 \begin{lstlisting}[language=XML, morekeywords={macroConnector}]
 <macroConnector id="M1S_OMEGAREF_CONNECTOR">
   <connect var1="omega_grp_@INDEX@" var2="M1S_omega"/>
-  <connect var1="running_grp_@INDEX@" var2="M1S_running"/>
+  <connect var1="running_grp_@INDEX@_value" var2="M1S_running"/>
   <connect var1="omegaRef_grp_@INDEX@" var2="M1S_omegaRef"/>
 </macroConnector>
 \end{lstlisting}
@@ -898,21 +898,11 @@ For example, if the user forgets to set the connection of Generator\_omegaRefPu,
 
 \subsubsection{Invalid connection due to connector's type}
 
-Connected variables should share the same type (basically  Continuous, Discrete, Boolean or Integer). For simplification purposes and in order to identify easily which are the interface variables of the model, the current \Dynawo Modelica library offers to use specific connectors: ImPin whose attribute named value is a Real, ZPin whose attribute named value is a discrete Real, BPin whose attribute named value is a Boolean and ACPower whose attributes are V a complex voltage and i a complex current. \\
+Connected variables should share the same type (basically Boolean, Integer, continuous Real or discrete Real). For simplification purposes and in order to identify easily which are the interface variables of the model, the current \Dynawo Modelica library uses causal connectors from the Modelica Standard Library: BooleanInput or BooleanOutput, IntegerInput or IntegerOutput, RealInput or RealOutput (continuous, unless preceded by the keyword discrete). Moreover, the library uses a non-causal connector: ACPower whose attributes are a complex voltage V (potential variable) and a complex current i (flow variable). \\
 
-For example, if we connect an ImPin connector (let's say SP\_setPoint) to a BPin connector (Generator\_running), we will get the following error message:
+For example, if we connect an RealOutput connector (let's say SP\_setPoint) to a BooleanInput connector (Generator\_running), we will get the following error message:
 
 \lstinputlisting[frame = lines, framesep = 2em, numbers=none]{../resources/exampleErrors/dynawoWrongConnectType.log}
-
-\subsubsection{Invalid connection due to inconsistency}
-
-The connect statements in the dyd file should link two connectors or two variables, but a connection between a connector and a variable is forbidden. \\
-
-For example, if we connect the generator machine speed Generator\_omegaRefPu to a set point thanks to the variable SP\_setPoint\_value instead of using the connector SP\_setPoint, we will get the following error message:
-
-\lstinputlisting[frame = lines, framesep = 2em, numbers=none]{../resources/exampleErrors/dynawoWrongConnect.log}
-
-Here Generator\_omegaRefPu is an ImPin while SP\_setPoint\_value is a Real. The connection is impossible.
 
 \subsection{par file}
 

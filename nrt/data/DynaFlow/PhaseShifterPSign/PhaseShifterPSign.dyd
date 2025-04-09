@@ -22,11 +22,11 @@
   <dyn:connect id1="Generator" var1="generator_N" id2="Signal_N" var2="signalN_N"/>
   <dyn:connect id1="Signal_N" var1="signalN_thetaRef" id2="NETWORK" var2="@Generator@@NODE@_phi_value"/>
   <dyn:connect id1="Load" var1="load_terminal" id2="NETWORK" var2="@Load@@NODE@_ACPIN"/>
-  <dyn:connect id1="StepLoad" var1="doubleStep_step_value" id2="Load" var2="load_PRefPu"/>
+  <dyn:connect id1="StepLoad" var1="doubleStep_step" id2="Load" var2="load_PRefPu"/>
   <dyn:connect id1="PhaseShifter" var1="phaseShifter_tap" id2="NETWORK" var2="PhaseShifter_step_value"/>
-  <dyn:connect id1="PhaseShifter" var1="phaseShifter_PMonitored" id2="NETWORK" var2="PhaseShifter_P1"/>
+  <dyn:connect id1="PhaseShifter" var1="phaseShifter_PMonitored" id2="NETWORK" var2="PhaseShifter_P1_value"/>
   <dyn:connect id1="PhaseShifter" var1="phaseShifter_AutomatonExists" id2="NETWORK" var2="PhaseShifter_disable_internal_tapChanger_value"/>
   <dyn:connect id1="PhaseShifterBis" var1="phaseShifter_tap" id2="NETWORK" var2="PhaseShifterBis_step_value"/>
-  <dyn:connect id1="PhaseShifterBis" var1="phaseShifter_PMonitored" id2="NETWORK" var2="PhaseShifterBis_P1"/>
+  <dyn:connect id1="PhaseShifterBis" var1="phaseShifter_PMonitored" id2="NETWORK" var2="PhaseShifterBis_P1_value"/>
   <dyn:connect id1="PhaseShifterBis" var1="phaseShifter_AutomatonExists" id2="NETWORK" var2="PhaseShifterBis_disable_internal_tapChanger_value"/>
 </dyn:dynamicModelsArchitecture>

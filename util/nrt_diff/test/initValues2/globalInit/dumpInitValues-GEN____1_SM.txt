@@ -8,8 +8,8 @@ generator_omegaRefPu_value                        : y =              1 yp =     
 generator_terminal_V_im                           : y =    5.04164e-06 yp =              0
 generator_terminal_V_re                           : y =        1.06002 yp =              0
 generator_theta                                   : y =       0.387017 yp =    6.69935e-10
-Pm_setPoint_value                                 : y =       0.213301 yp =              0
-URef_setPoint_value                               : y =        1.12279 yp =              0
+Pm_setPoint                                 : y =       0.213301 yp =              0
+URef_setPoint                               : y =        1.12279 yp =              0
 generator_IRotorPu_value                          : y =        1.11287 yp =              0
 generator_IStatorPu_value                         : y =        2.19778 yp =              0
 generator_PGen                                    : y =        232.376 yp =              0

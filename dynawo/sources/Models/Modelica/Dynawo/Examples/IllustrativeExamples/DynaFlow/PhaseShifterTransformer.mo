@@ -61,12 +61,12 @@ model PhaseShifterTransformer "Elementary system with one infinite bus, one load
   Dynawo.Electrical.Controls.Transformers.PhaseShifterP shiftController01(P0 = 0.7, PDeadBand = 0.05, PTarget = 0.7, regulating0 = false, state0 = Dynawo.Electrical.Controls.Transformers.BaseClasses.TapChangerPhaseShifterParams.State.Standard, t1st = 25, tNext = 15, tap0 = 9, tapMax = 18, tapMin = 0, increaseTapToIncreaseValue = false);
 
   // Output connector
-  Dynawo.Connectors.ImPin PPuLine01 "Active power transiting in line 01 in pu (base SnRef)";
+  Modelica.Blocks.Interfaces.RealOutput PPuLine01 "Active power transiting in line 01 in pu (base SnRef)";
 
 equation
   // PhaseShifter
   shiftController01.locked = if time < 50 then true else false;
-  PPuLine01.value = -line01.P2Pu;
+  PPuLine01 = -line01.P2Pu;
 
   when shiftController01.tap <> pre(shiftController01.tap) then
     tfo01.tap = shiftController01.tap;

@@ -31,35 +31,35 @@ model EventEquations
 
 protected
   // Replaceable items in order to allow using this model for various types (integer, boolean, real...)
-  replaceable connector typeConnector = Dynawo.Connectors.ZPin;
+  replaceable connector typeConnector = Modelica.Blocks.Interfaces.RealOutput;
   replaceable type typeParameter = Real;
 
 equation
   when (time >= tEvent) then
-    state1.value = stateEvent1;
+    state1 = stateEvent1;
   end when;
 
   if (nbEventVariables >= 2) then
     when (time >= tEvent) then
-      state2.value = stateEvent2;
+      state2 = stateEvent2;
     end when;
   end if;
 
   if (nbEventVariables >= 3) then
     when (time >= tEvent) then
-      state3.value = stateEvent3;
+      state3 = stateEvent3;
     end when;
   end if;
 
   if (nbEventVariables >= 4) then
     when (time >= tEvent) then
-      state4.value = stateEvent4;
+      state4 = stateEvent4;
     end when;
   end if;
 
   if (nbEventVariables >= 5) then
     when (time >= tEvent) then
-      state5.value = stateEvent5;
+      state5 = stateEvent5;
     end when;
   end if;
 

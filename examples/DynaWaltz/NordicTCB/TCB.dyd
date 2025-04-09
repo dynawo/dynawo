@@ -37,7 +37,7 @@
   <dyn:macroConnect connector="TCB1ToTransformer" id1="TCB" id2="NETWORK" name2="Tr71-4071"/>
   <dyn:macroConnect connector="TCB1ToTransformer" id1="TCB" id2="NETWORK" name2="Tr72-4072"/>
   <dyn:macroConnector id="TCB1ToUMeasurement" name2="true">
-    <dyn:connect var1="tapChangerBlocking_UMonitored" var2="@NAME@_U"/>
+    <dyn:connect var1="tapChangerBlocking_UMonitored" var2="@NAME@_U_value"/>
   </dyn:macroConnector>
   <dyn:macroConnector id="TCB1ToTransformer" name2="true">
     <dyn:connect var1="tapChangerBlocking_blockedT" var2="@NAME@_TAP_CHANGER_locked_value"/>

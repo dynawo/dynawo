@@ -12,6 +12,6 @@
     simulation tools for power systems.
 -->
 <external_variables xmlns="http://www.rte-france.com/dynawo">
-  <variable type="continuous" id="IMonitored1.value"/>
-  <variable type="continuous" id="IMonitored2.value"/>
+  <variable type="continuous" id="IMonitored1"/>
+  <variable type="continuous" id="IMonitored2"/>
 </external_variables>

@@ -8,7 +8,7 @@ load_terminal_V_im                                : y =       0.008746 yp =     
 load_terminal_V_re                                : y =       1.003308 yp =       0.000000
 load_PPu                                          : y =       0.000500 yp =       0.000000
 load_QPu                                          : y =       0.000250 yp =       0.000000
-load_UPu_value                                    : y =       1.003346 yp =       0.000000
+load_UPu                                          : y =       1.003346 yp =       0.000000
 load_connectedShare                               : y =       1.000000 yp =       0.000000
 load_terminal_i_im                                : y =      -0.000245 yp =       0.000000
 load_terminal_i_re                                : y =       0.000500 yp =       0.000000

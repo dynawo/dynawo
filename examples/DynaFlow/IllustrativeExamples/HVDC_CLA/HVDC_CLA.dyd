@@ -39,7 +39,7 @@
   <dyn:connect id1="Load__11" var1="load_terminal" id2="NETWORK" var2="_BUS____8_TN_ACPIN"/>
   <dyn:connect id1="NETWORK" var1="_BUS___10_TN_ACPIN" id2="HVDC" var2="hvdc_terminal2"/>
   <dyn:connect id1="NETWORK" var1="_BUS____8_TN_ACPIN" id2="HVDC" var2="hvdc_terminal1"/>
-  <dyn:connect id1="CLA" var1="currentLimitAutomaton_IMonitored" id2="NETWORK" var2="_BUS____7-BUS___10-2_AC_iSide2"/>
+  <dyn:connect id1="CLA" var1="currentLimitAutomaton_IMonitored" id2="NETWORK" var2="_BUS____7-BUS___10-2_AC_iSide2_value"/>
   <dyn:connect id1="CLA" var1="currentLimitAutomaton_order" id2="NETWORK" var2="_BUS____7-BUS___10-2_AC_state_value"/>
   <dyn:connect id1="CLA" var1="currentLimitAutomaton_AutomatonExists" id2="NETWORK" var2="_BUS____7-BUS___10-2_AC_desactivate_currentLimits_value"/>
   <dyn:connect id1="Disconnect_Line" var1="event_state1" id2="NETWORK" var2="_BUS____8-BUS___10-2_AC_state_value"/>
