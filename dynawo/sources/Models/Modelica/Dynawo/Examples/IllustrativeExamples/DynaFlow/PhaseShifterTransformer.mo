@@ -72,8 +72,8 @@ equation
     tfo01.tap.value = shiftController01.tap.value;
   end when;
 
-  PrefPuLoad01.setPoint.value = load01.PRefPu;
-  QrefPuLoad01.setPoint.value = load01.QRefPu;
+  PrefPuLoad01.setPoint = load01.PRefPu;
+  QrefPuLoad01.setPoint = load01.QRefPu;
   load01.deltaP = 0;
   load01.deltaQ = 0;
 

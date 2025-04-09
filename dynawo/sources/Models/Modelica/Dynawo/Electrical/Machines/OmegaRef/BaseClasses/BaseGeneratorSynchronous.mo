@@ -97,7 +97,7 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
   // d-q axis pu variables (base UNom, SNom)
   Types.PerUnit udPu(start = Ud0Pu) "Voltage of direct axis in pu";
   Types.PerUnit uqPu(start = Uq0Pu) "Voltage of quadrature axis in pu";
-  Types.PerUnit idPu(start = Id0Pu) "Current of direct axis in pu";
+  Dynawo.Connectors.PerUnitConnector idPu(start = Id0Pu) "Current of direct axis in pu";
   Types.PerUnit iqPu(start = Iq0Pu) "Current of quadrature axis in pu";
   Types.PerUnit iDPu(start = 0) "Current of direct axis damper in pu";
   Types.PerUnit iQ1Pu(start = 0) "Current of quadrature axis 1st damper in pu";
@@ -112,7 +112,7 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
   Types.PerUnit lambdaQ2Pu(start = LambdaQ20Pu) "Flux of quadrature axis 2nd damper in pu";
 
   // Other variables
-  Types.Angle theta(start = Theta0) "Rotor angle: angle between machine rotor frame and port phasor frame";
+  Dynawo.Connectors.AngleConnector theta(start = Theta0) "Rotor angle: angle between machine rotor frame and port phasor frame";
   Types.PerUnit cmPu(start = Cm0Pu) "Mechanical torque in pu (base PNomTurb/OmegaNom)";
   Types.PerUnit cePu(start = Ce0Pu) "Electrical torque in pu (base SNom/OmegaNom)";
   Types.PerUnit PePu(start = Ce0Pu * SystemBase.omega0Pu) "Electrical active power in pu (base SNom)";

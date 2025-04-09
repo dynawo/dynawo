@@ -29,7 +29,7 @@ model GeneratorPVDiagramPQ "Generator with active power / frequency regulation a
                              GenerationMax "Reactive power is fixed to its generation limit");
 
   Dynawo.Connectors.ImPin deltaURefPu(value(start = 0)) "Additional voltage reference in pu (base UNom)";
-  Dynawo.Connectors.ImPin URefPu(value(start = URef0Pu)) "Voltage regulation set point in pu (base UNom)";
+  Dynawo.Connectors.VoltageModulePuConnector URefPu(start = URef0Pu) "Voltage regulation set point in pu (base UNom)";
 
   parameter Types.PerUnit LambdaPuSNom "Reactive power sensitivity of the voltage regulation in pu (base UNom, SNom)";
   parameter Types.ApparentPowerModule SNom "Apparent nominal power in MVA";
@@ -79,7 +79,7 @@ equation
   end when;
 
   if running.value then
-    URefPu.value + deltaURefPu.value = UPu + LambdaPu * (QGenRefPu + T * der(QGenRefPu));
+    URefPu + deltaURefPu.value = UPu + LambdaPu * (QGenRefPu + T * der(QGenRefPu));
     QGenPu = if qStatus == QStatus.AbsorptionMax then QMaxPu else if qStatus == QStatus.GenerationMax then QMinPu else QGenRefPu;
   else
     QGenRefPu = 0;

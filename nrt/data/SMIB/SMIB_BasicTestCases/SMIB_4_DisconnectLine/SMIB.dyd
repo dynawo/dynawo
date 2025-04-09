@@ -24,6 +24,6 @@
   <dyn:connect id1="busInf" var1="infiniteBus_terminal" id2="line2" var2="line_terminal1"/>
   <dyn:connect id1="line1" var1="line_terminal2" id2="tfo" var2="transformer_terminal1"/>
   <dyn:connect id1="line2" var1="line_terminal2" id2="tfo" var2="transformer_terminal1"/>
-  <dyn:connect id1="OmegaRef" var1="setPoint_setPoint_value" id2="SM" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OmegaRef" var1="setPoint_setPoint" id2="SM" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OpenLine" var1="event_state1" id2="line2" var2="line_switchOffSignal2"/>
 </dyn:dynamicModelsArchitecture>

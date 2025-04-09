@@ -40,9 +40,9 @@ model GeneratorSynchronous "Synchronous machine"
 
   // Output variables for external controllers
   Dynawo.Connectors.VoltageModulePuConnector UStatorPu(start = UStator0Pu) "Stator voltage amplitude in pu (base UNom)";
-  Dynawo.Connectors.ImPin IStatorPu(value(start = IStator0Pu)) "Stator current amplitude in pu (base UNom, SnRef)";
-  Dynawo.Connectors.ImPin QStatorPu(value(start = QStator0Pu)) "Stator reactive power generated in pu (base SnRef)";
-  Dynawo.Connectors.ImPin QStatorPuQNom(value(start = QStator0PuQNom)) "Stator reactive power generated in pu (base QNomAlt)";
+  Dynawo.Connectors.CurrentModulePuConnector IStatorPu(start = IStator0Pu) "Stator current amplitude in pu (base UNom, SnRef)";
+  Dynawo.Connectors.ReactivePowerPuConnector QStatorPu(start = QStator0Pu) "Stator reactive power generated in pu (base SnRef)";
+  Dynawo.Connectors.ReactivePowerPuConnector QStatorPuQNom(start = QStator0PuQNom) "Stator reactive power generated in pu (base QNomAlt)";
   Dynawo.Connectors.CurrentModulePuConnector IRotorPu(start = IRotor0Pu) "Rotor current in pu (base SNom, user-selected base voltage)";
   Dynawo.Connectors.ImPin thetaInternal(value(start = ThetaInternal0)) "Internal angle in rad";
 
@@ -83,9 +83,9 @@ equation
 
     // Output variables for external controllers
     UStatorPu = ComplexMath.'abs'(uStatorPu);
-    IStatorPu.value = ComplexMath.'abs'(iStatorPu);
-    QStatorPu.value = - ComplexMath.imag(sStatorPu);
-    QStatorPuQNom.value = QStatorPu.value * SystemBase.SnRef / QNomAlt;
+    IStatorPu = ComplexMath.'abs'(iStatorPu);
+    QStatorPu = - ComplexMath.imag(sStatorPu);
+    QStatorPuQNom = QStatorPu * SystemBase.SnRef / QNomAlt;
     IRotorPu = RfPPu / (Kuf * rTfoPu) * ifPu;
     thetaInternal.value = ComplexMath.arg(Complex(uqPu, udPu));
   else
@@ -99,9 +99,9 @@ equation
     iStatorPu = Complex(0,0);
     sStatorPu = Complex(0,0);
     UStatorPu = 0;
-    IStatorPu.value = 0;
-    QStatorPu.value = 0;
-    QStatorPuQNom.value = 0;
+    IStatorPu = 0;
+    QStatorPu = 0;
+    QStatorPuQNom = 0;
     IRotorPu = 0;
     thetaInternal.value = 0;
   end if;
