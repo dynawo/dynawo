@@ -1,318 +1,318 @@
-2025-03-04 16:42:36 | INFO |  ============================================================ 
-2025-03-04 16:42:36 | INFO | DYNAWO VERSION  :     1.8.0
-2025-03-04 16:42:36 | INFO | DYNAWO REVISION :  1272_library_om_1244-0bbc06653c5
-2025-03-04 16:42:36 | INFO |  ============================================================ 
-2025-03-04 16:42:36 | INFO | 
-2025-03-04 16:42:36 | INFO | -----------------------------------------------------------------------
-2025-03-04 16:42:36 | INFO | building model from input files
-2025-03-04 16:42:36 | INFO | -----------------------------------------------------------------------
-2025-03-04 16:42:36 | INFO | model was built successfully
-2025-03-04 16:42:36 | INFO | -----------------------------------------------------------------------
-2025-03-04 16:42:36 | INFO | 
-2025-03-04 16:42:36 | INFO | -----------------------------------------------------------------------
-2025-03-04 16:42:36 | INFO | starting local initialization
-2025-03-04 16:42:36 | INFO | -----------------------------------------------------------------------
-2025-03-04 16:42:36 | INFO | end of local initialization
-2025-03-04 16:42:36 | INFO | -----------------------------------------------------------------------
-2025-03-04 16:42:36 | INFO | 
-2025-03-04 16:42:36 | INFO | -----------------------------------------------------------------------
-2025-03-04 16:42:36 | INFO | starting global initialization
-2025-03-04 16:42:36 | INFO | -----------------------------------------------------------------------
-2025-03-04 16:42:36 | INFO | state of Load Load4 change from 2 to 1
-2025-03-04 16:42:36 | INFO | Algebraic mode change at t = 0
-2025-03-04 16:42:36 | INFO | end of global initialization
-2025-03-04 16:42:36 | INFO | -----------------------------------------------------------------------
-2025-03-04 16:42:36 | INFO | 
-2025-03-04 16:42:36 | INFO | -----------------------------------------------------------------------
-2025-03-04 16:42:36 | INFO | starting curve initialization
-2025-03-04 16:42:36 | INFO | -----------------------------------------------------------------------
-2025-03-04 16:42:36 | WARN | curve not added: Id: NETWORK , name: Load_P
-2025-03-04 16:42:36 | WARN | curve not added: Id: NETWORK , name: Load_Q
-2025-03-04 16:42:36 | INFO | end of curve initialization, added 21 curves
-2025-03-04 16:42:36 | INFO | -----------------------------------------------------------------------
-2025-03-04 16:42:36 | INFO | 
-2025-03-04 16:42:36 | INFO | -----------------------------------------------------------------------
-2025-03-04 16:42:36 | INFO | starting simulation with solver SimplifiedSolver
-2025-03-04 16:42:36 | INFO | -----------------------------------------------------------------------
-2025-03-04 16:42:36 | INFO | -----------------------------------------------------------------------
-2025-03-04 16:42:36 | INFO | number of continuous variables : 62
-2025-03-04 16:42:36 | INFO | number of discrete variables : 39
-2025-03-04 16:42:36 | INFO | number of root functions : 34
-2025-03-04 16:42:36 | INFO | -----------------------------------------------------------------------
-2025-03-04 16:42:36 | INFO |         time | iter num   Nonlinear iter   jac eval      time step (h)
-2025-03-04 16:42:36 | INFO | -----------------------------------------------------------------------
-2025-03-04 16:42:36 | INFO |        0.000 |        0                0          0              0.500 
-2025-03-04 16:42:36 | INFO |        0.500 |        1                2          2              0.500 
-2025-03-04 16:42:36 | INFO |        1.000 |        2                4          4              0.500 
-2025-03-04 16:42:36 | INFO |        1.500 |        3                6          6              0.500 
-2025-03-04 16:42:36 | INFO |        2.000 |        4                8          8              0.500 
-2025-03-04 16:42:36 | INFO |        2.500 |        5               10         10              0.500 
-2025-03-04 16:42:36 | INFO |        3.000 |        6               12         12              0.500 
-2025-03-04 16:42:36 | INFO |        3.500 |        7               14         14              0.500 
-2025-03-04 16:42:36 | INFO |        4.000 |        8               16         16              0.500 
-2025-03-04 16:42:36 | INFO |        4.500 |        9               18         18              0.500 
-2025-03-04 16:42:36 | INFO |        5.000 |       10               20         20              0.500 
-2025-03-04 16:42:36 | INFO |        5.500 |       11               22         22              0.500 
-2025-03-04 16:42:36 | INFO |        6.000 |       12               24         24              0.500 
-2025-03-04 16:42:36 | INFO |        6.500 |       13               26         26              0.500 
-2025-03-04 16:42:36 | INFO |        7.000 |       14               28         28              0.500 
-2025-03-04 16:42:36 | INFO |        7.500 |       15               30         30              0.500 
-2025-03-04 16:42:36 | INFO |        8.000 |       16               32         32              0.500 
-2025-03-04 16:42:36 | INFO |        8.500 |       17               34         34              0.500 
-2025-03-04 16:42:36 | INFO |        9.000 |       18               36         36              0.500 
-2025-03-04 16:42:36 | INFO |        9.500 |       19               38         38              0.500 
-2025-03-04 16:42:36 | INFO | state of Load Load1 change from 2 to 1
-2025-03-04 16:42:36 | INFO | Algebraic mode change at t = 10
-2025-03-04 16:42:36 | INFO |       10.000 |       20               40         40              0.500 
-2025-03-04 16:42:36 | INFO | calculation of the new starting point of the simulation.
-2025-03-04 16:42:36 | INFO |       10.000 |       20               42         42              0.500 
-2025-03-04 16:42:36 | INFO |       10.500 |       21               47         47              0.500 
-2025-03-04 16:42:36 | INFO |       11.000 |       22               54         54              0.500 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       11.250 |       23               66         66              0.250 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       11.500 |       24               75         75              0.250 
-2025-03-04 16:42:36 | WARN | the maximum number of nonlinear iterations has been reached
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       11.625 |       25              106        106              0.125 
-2025-03-04 16:42:36 | WARN | the maximum number of nonlinear iterations has been reached
-2025-03-04 16:42:36 | INFO |       11.750 |       26              125        125              0.125 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       11.875 |       27              135        135              0.125 
-2025-03-04 16:42:36 | WARN | five consecutive steps have been taken that satisfy a scaled step length test
-2025-03-04 16:42:36 | INFO |       12.000 |       28              151        151              0.125 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       12.125 |       29              161        161              0.125 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       12.250 |       30              170        170              0.125 
-2025-03-04 16:42:36 | WARN | five consecutive steps have been taken that satisfy a scaled step length test
-2025-03-04 16:42:36 | INFO |       12.375 |       31              186        186              0.125 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       12.500 |       32              194        194              0.125 
-2025-03-04 16:42:36 | WARN | five consecutive steps have been taken that satisfy a scaled step length test
-2025-03-04 16:42:36 | INFO |       12.625 |       33              210        210              0.125 
-2025-03-04 16:42:36 | WARN | five consecutive steps have been taken that satisfy a scaled step length test
-2025-03-04 16:42:36 | INFO |       12.750 |       34              226        226              0.125 
-2025-03-04 16:42:36 | WARN | five consecutive steps have been taken that satisfy a scaled step length test
-2025-03-04 16:42:36 | INFO |       12.875 |       35              240        240              0.125 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       13.000 |       36              248        248              0.125 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       13.125 |       37              256        256              0.125 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       13.250 |       38              265        265              0.125 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       13.375 |       39              275        275              0.125 
-2025-03-04 16:42:36 | INFO |       13.625 |       40              286        286              0.250 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       13.875 |       41              300        300              0.250 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       14.000 |       42              327        327              0.125 
-2025-03-04 16:42:36 | WARN | the maximum number of nonlinear iterations has been reached
-2025-03-04 16:42:36 | INFO |       14.125 |       43              349        349              0.125 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       14.250 |       44              360        360              0.125 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       14.375 |       45              376        376              0.125 
-2025-03-04 16:42:36 | INFO |       14.625 |       46              385        385              0.250 
-2025-03-04 16:42:36 | INFO |       15.125 |       47              399        399              0.500 
-2025-03-04 16:42:36 | INFO |       15.625 |       48              406        406              0.500 
-2025-03-04 16:42:36 | INFO |       16.125 |       49              412        412              0.500 
-2025-03-04 16:42:36 | INFO |       16.625 |       50              421        421              0.500 
-2025-03-04 16:42:36 | WARN | the maximum number of nonlinear iterations has been reached
-2025-03-04 16:42:36 | INFO |       16.875 |       51              441        441              0.250 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       17.125 |       52              454        454              0.250 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       17.375 |       53              464        464              0.250 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       17.500 |       54              478        478              0.125 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       17.625 |       55              489        489              0.125 
-2025-03-04 16:42:36 | WARN | the maximum number of nonlinear iterations has been reached
-2025-03-04 16:42:36 | INFO |       17.750 |       56              511        511              0.125 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       17.875 |       57              531        531              0.125 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       18.000 |       58              547        547              0.125 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       18.125 |       59              560        560              0.125 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       18.250 |       60              574        574              0.125 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       18.375 |       61              588        588              0.125 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       18.500 |       62              600        600              0.125 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       18.625 |       63              615        615              0.125 
-2025-03-04 16:42:36 | INFO |       18.875 |       64              626        626              0.250 
-2025-03-04 16:42:36 | INFO |       19.375 |       65              633        633              0.500 
-2025-03-04 16:42:36 | INFO |       19.875 |       66              640        640              0.500 
-2025-03-04 16:42:36 | INFO |       20.375 |       67              649        649              0.500 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       20.500 |       68              674        674              0.125 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       20.625 |       69              684        684              0.125 
-2025-03-04 16:42:36 | WARN | the maximum number of nonlinear iterations has been reached
-2025-03-04 16:42:36 | INFO |       20.750 |       70              705        705              0.125 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       20.875 |       71              718        718              0.125 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       21.000 |       72              730        730              0.125 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       21.125 |       73              744        744              0.125 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       21.250 |       74              759        759              0.125 
-2025-03-04 16:42:36 | INFO |       21.500 |       75              769        769              0.250 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | WARN | five consecutive steps have been taken that satisfy a scaled step length test
-2025-03-04 16:42:36 | INFO |       21.625 |       76              799        799              0.125 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       21.750 |       77              810        810              0.125 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       21.875 |       78              820        820              0.125 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       22.000 |       79              830        830              0.125 
-2025-03-04 16:42:36 | WARN | five consecutive steps have been taken that satisfy a scaled step length test
-2025-03-04 16:42:36 | INFO |       22.125 |       80              849        849              0.125 
-2025-03-04 16:42:36 | WARN | the maximum number of nonlinear iterations has been reached
-2025-03-04 16:42:36 | INFO |       22.250 |       81              870        870              0.125 
-2025-03-04 16:42:36 | INFO |       22.500 |       82              879        879              0.250 
-2025-03-04 16:42:36 | WARN | five consecutive steps have been taken that satisfy a scaled step length test
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       22.625 |       83              907        907              0.125 
-2025-03-04 16:42:36 | INFO |       22.875 |       84              917        917              0.250 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       23.125 |       85              931        931              0.250 
-2025-03-04 16:42:36 | INFO |       23.625 |       86              941        941              0.500 
-2025-03-04 16:42:36 | INFO |       24.125 |       87              948        948              0.500 
-2025-03-04 16:42:36 | INFO |       24.625 |       88              954        954              0.500 
-2025-03-04 16:42:36 | INFO |       25.125 |       89              959        959              0.500 
-2025-03-04 16:42:36 | WARN | the maximum number of nonlinear iterations has been reached
-2025-03-04 16:42:36 | INFO |       25.375 |       90              979        979              0.250 
-2025-03-04 16:42:36 | INFO |       25.875 |       91              987        987              0.500 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       26.125 |       92              998        998              0.250 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       26.375 |       93             1014       1014              0.250 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       26.625 |       94             1026       1026              0.250 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       26.875 |       95             1042       1042              0.250 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       27.125 |       96             1052       1052              0.250 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       27.375 |       97             1062       1062              0.250 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       27.500 |       98             1075       1075              0.125 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       27.625 |       99             1085       1085              0.125 
-2025-03-04 16:42:36 | WARN | five consecutive steps have been taken that satisfy a scaled step length test
-2025-03-04 16:42:36 | INFO |       27.750 |      100             1101       1101              0.125 
-2025-03-04 16:42:36 | WARN | five consecutive steps have been taken that satisfy a scaled step length test
-2025-03-04 16:42:36 | INFO |       27.875 |      101             1117       1117              0.125 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       28.000 |      102             1127       1127              0.125 
-2025-03-04 16:42:36 | WARN | the maximum number of nonlinear iterations has been reached
-2025-03-04 16:42:36 | INFO |       28.125 |      103             1147       1147              0.125 
-2025-03-04 16:42:36 | WARN | the maximum number of nonlinear iterations has been reached
-2025-03-04 16:42:36 | INFO |       28.250 |      104             1167       1167              0.125 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       28.375 |      105             1181       1181              0.125 
-2025-03-04 16:42:36 | WARN | the maximum number of nonlinear iterations has been reached
-2025-03-04 16:42:36 | INFO |       28.500 |      106             1201       1201              0.125 
-2025-03-04 16:42:36 | WARN | the maximum number of nonlinear iterations has been reached
-2025-03-04 16:42:36 | INFO |       28.625 |      107             1221       1221              0.125 
-2025-03-04 16:42:36 | WARN | the maximum number of nonlinear iterations has been reached
-2025-03-04 16:42:36 | INFO |       28.750 |      108             1240       1240              0.125 
-2025-03-04 16:42:36 | WARN | the maximum number of nonlinear iterations has been reached
-2025-03-04 16:42:36 | INFO |       28.875 |      109             1259       1259              0.125 
-2025-03-04 16:42:36 | WARN | the system function failed in an unrecoverable manner
-2025-03-04 16:42:36 | INFO |       29.000 |      110             1272       1272              0.125 
-2025-03-04 16:42:36 | WARN | the maximum number of nonlinear iterations has been reached
-2025-03-04 16:42:36 | INFO |       29.125 |      111             1291       1291              0.125 
-2025-03-04 16:42:36 | WARN | the maximum number of nonlinear iterations has been reached
-2025-03-04 16:42:36 | INFO |       29.250 |      112             1310       1310              0.125 
-2025-03-04 16:42:36 | INFO |       29.500 |      113             1321       1321              0.250 
-2025-03-04 16:42:36 | INFO | state of Load Load4 change from 1 to 2
-2025-03-04 16:42:36 | INFO | Algebraic mode change at t = 30
-2025-03-04 16:42:36 | INFO |       30.000 |      114             1331       1331              0.500 
-2025-03-04 16:42:36 | INFO | calculation of the new starting point of the simulation.
-2025-03-04 16:42:36 | INFO |       30.000 |      114             1333       1333              0.500 
-2025-03-04 16:42:36 | INFO |       30.500 |      115             1341       1341              0.500 
-2025-03-04 16:42:36 | INFO |       31.000 |      116             1349       1349              0.500 
-2025-03-04 16:42:36 | INFO |       31.500 |      117             1357       1357              0.500 
-2025-03-04 16:42:36 | INFO |       32.000 |      118             1365       1365              0.500 
-2025-03-04 16:42:36 | INFO |       32.500 |      119             1373       1373              0.500 
-2025-03-04 16:42:36 | INFO |       33.000 |      120             1381       1381              0.500 
-2025-03-04 16:42:36 | INFO |       33.500 |      121             1389       1389              0.500 
-2025-03-04 16:42:36 | INFO |       34.000 |      122             1397       1397              0.500 
-2025-03-04 16:42:36 | INFO |       34.500 |      123             1405       1405              0.500 
-2025-03-04 16:42:36 | INFO |       35.000 |      124             1413       1413              0.500 
-2025-03-04 16:42:36 | INFO |       35.500 |      125             1421       1421              0.500 
-2025-03-04 16:42:36 | INFO |       36.000 |      126             1429       1429              0.500 
-2025-03-04 16:42:36 | INFO |       36.500 |      127             1437       1437              0.500 
-2025-03-04 16:42:36 | INFO |       37.000 |      128             1445       1445              0.500 
-2025-03-04 16:42:36 | INFO |       37.500 |      129             1453       1453              0.500 
-2025-03-04 16:42:36 | INFO |       38.000 |      130             1461       1461              0.500 
-2025-03-04 16:42:36 | INFO |       38.500 |      131             1469       1469              0.500 
-2025-03-04 16:42:36 | INFO |       39.000 |      132             1477       1477              0.500 
-2025-03-04 16:42:36 | INFO |       39.500 |      133             1485       1485              0.500 
-2025-03-04 16:42:36 | INFO |       40.000 |      134             1493       1493              0.500 
-2025-03-04 16:42:36 | INFO |       40.500 |      135             1501       1501              0.500 
-2025-03-04 16:42:36 | INFO |       41.000 |      136             1509       1509              0.500 
-2025-03-04 16:42:36 | INFO |       41.500 |      137             1517       1517              0.500 
-2025-03-04 16:42:36 | INFO |       42.000 |      138             1525       1525              0.500 
-2025-03-04 16:42:36 | INFO |       42.500 |      139             1533       1533              0.500 
-2025-03-04 16:42:36 | INFO |       43.000 |      140             1541       1541              0.500 
-2025-03-04 16:42:36 | INFO |       43.500 |      141             1549       1549              0.500 
-2025-03-04 16:42:36 | INFO |       44.000 |      142             1557       1557              0.500 
-2025-03-04 16:42:36 | INFO |       44.500 |      143             1565       1565              0.500 
-2025-03-04 16:42:36 | INFO |       45.000 |      144             1573       1573              0.500 
-2025-03-04 16:42:36 | INFO |       45.500 |      145             1581       1581              0.500 
-2025-03-04 16:42:36 | INFO |       46.000 |      146             1589       1589              0.500 
-2025-03-04 16:42:36 | INFO |       46.500 |      147             1597       1597              0.500 
-2025-03-04 16:42:36 | INFO |       47.000 |      148             1605       1605              0.500 
-2025-03-04 16:42:36 | INFO |       47.500 |      149             1613       1613              0.500 
-2025-03-04 16:42:36 | INFO |       48.000 |      150             1621       1621              0.500 
-2025-03-04 16:42:36 | INFO |       48.500 |      151             1629       1629              0.500 
-2025-03-04 16:42:36 | INFO |       49.000 |      152             1637       1637              0.500 
-2025-03-04 16:42:36 | INFO |       49.500 |      153             1645       1645              0.500 
-2025-03-04 16:42:36 | INFO |       50.000 |      154             1653       1653              0.500 
-2025-03-04 16:42:36 | INFO |       50.500 |      155             1661       1661              0.500 
-2025-03-04 16:42:36 | INFO |       51.000 |      156             1669       1669              0.500 
-2025-03-04 16:42:36 | INFO |       51.500 |      157             1677       1677              0.500 
-2025-03-04 16:42:36 | INFO |       52.000 |      158             1685       1685              0.500 
-2025-03-04 16:42:36 | INFO |       52.500 |      159             1693       1693              0.500 
-2025-03-04 16:42:36 | INFO |       53.000 |      160             1701       1701              0.500 
-2025-03-04 16:42:36 | INFO |       53.500 |      161             1709       1709              0.500 
-2025-03-04 16:42:36 | INFO |       54.000 |      162             1717       1717              0.500 
-2025-03-04 16:42:36 | INFO |       54.500 |      163             1725       1725              0.500 
-2025-03-04 16:42:36 | INFO |       55.000 |      164             1733       1733              0.500 
-2025-03-04 16:42:36 | INFO |       55.500 |      165             1741       1741              0.500 
-2025-03-04 16:42:36 | INFO |       56.000 |      166             1749       1749              0.500 
-2025-03-04 16:42:36 | INFO |       56.500 |      167             1757       1757              0.500 
-2025-03-04 16:42:36 | INFO |       57.000 |      168             1765       1765              0.500 
-2025-03-04 16:42:36 | INFO |       57.500 |      169             1773       1773              0.500 
-2025-03-04 16:42:36 | INFO |       58.000 |      170             1781       1781              0.500 
-2025-03-04 16:42:36 | INFO |       58.500 |      171             1789       1789              0.500 
-2025-03-04 16:42:36 | INFO |       59.000 |      172             1797       1797              0.500 
-2025-03-04 16:42:36 | INFO |       59.500 |      173             1805       1805              0.500 
-2025-03-04 16:42:36 | INFO |       60.000 |      174             1813       1813              0.500 
-2025-03-04 16:42:36 | INFO | 
-2025-03-04 16:42:36 | INFO | execution statistics :
-2025-03-04 16:42:36 | INFO | 
-2025-03-04 16:42:36 | INFO | number of time iterations                  = 174
-2025-03-04 16:42:36 | INFO | number of residual evaluations             = 2068
-2025-03-04 16:42:36 | INFO | number of Jacobian evaluations             = 1813
-2025-03-04 16:42:36 | INFO | number of nonlinear iterations             = 1813
-2025-03-04 16:42:36 | INFO | number of error test failures              = 0
-2025-03-04 16:42:36 | INFO | number of nonlinear convergence failures   = 79
-2025-03-04 16:42:36 | INFO | number of root functions evaluations       = 179
-2025-03-04 16:42:36 | INFO | number of discrete variables evaluations   = 6
-2025-03-04 16:42:36 | INFO | number of mode evaluations                 = 3
-2025-03-04 16:42:36 | INFO | end of job 'NetworkTransformer'
+2025-04-10 08:44:46 | INFO |  ============================================================ 
+2025-04-10 08:44:46 | INFO | DYNAWO VERSION  :     1.8.0
+2025-04-10 08:44:46 | INFO | DYNAWO REVISION :  1272_preassembled-25f51016b35
+2025-04-10 08:44:46 | INFO |  ============================================================ 
+2025-04-10 08:44:46 | INFO | 
+2025-04-10 08:44:46 | INFO | -----------------------------------------------------------------------
+2025-04-10 08:44:46 | INFO | building model from input files
+2025-04-10 08:44:46 | INFO | -----------------------------------------------------------------------
+2025-04-10 08:44:46 | INFO | model was built successfully
+2025-04-10 08:44:46 | INFO | -----------------------------------------------------------------------
+2025-04-10 08:44:46 | INFO | 
+2025-04-10 08:44:46 | INFO | -----------------------------------------------------------------------
+2025-04-10 08:44:46 | INFO | starting local initialization
+2025-04-10 08:44:46 | INFO | -----------------------------------------------------------------------
+2025-04-10 08:44:46 | INFO | end of local initialization
+2025-04-10 08:44:46 | INFO | -----------------------------------------------------------------------
+2025-04-10 08:44:46 | INFO | 
+2025-04-10 08:44:46 | INFO | -----------------------------------------------------------------------
+2025-04-10 08:44:46 | INFO | starting global initialization
+2025-04-10 08:44:46 | INFO | -----------------------------------------------------------------------
+2025-04-10 08:44:46 | INFO | state of Load Load4 change from 2 to 1
+2025-04-10 08:44:46 | INFO | Algebraic mode change at t = 0
+2025-04-10 08:44:46 | INFO | end of global initialization
+2025-04-10 08:44:46 | INFO | -----------------------------------------------------------------------
+2025-04-10 08:44:46 | INFO | 
+2025-04-10 08:44:46 | INFO | -----------------------------------------------------------------------
+2025-04-10 08:44:46 | INFO | starting curve initialization
+2025-04-10 08:44:46 | INFO | -----------------------------------------------------------------------
+2025-04-10 08:44:46 | WARN | curve not added: Id: NETWORK , name: Load_P
+2025-04-10 08:44:46 | WARN | curve not added: Id: NETWORK , name: Load_Q
+2025-04-10 08:44:46 | INFO | end of curve initialization, added 21 curves
+2025-04-10 08:44:46 | INFO | -----------------------------------------------------------------------
+2025-04-10 08:44:46 | INFO | 
+2025-04-10 08:44:46 | INFO | -----------------------------------------------------------------------
+2025-04-10 08:44:46 | INFO | starting simulation with solver SimplifiedSolver
+2025-04-10 08:44:46 | INFO | -----------------------------------------------------------------------
+2025-04-10 08:44:46 | INFO | -----------------------------------------------------------------------
+2025-04-10 08:44:46 | INFO | number of continuous variables : 62
+2025-04-10 08:44:46 | INFO | number of discrete variables : 39
+2025-04-10 08:44:46 | INFO | number of root functions : 34
+2025-04-10 08:44:46 | INFO | -----------------------------------------------------------------------
+2025-04-10 08:44:46 | INFO |         time ¦ iter num   Nonlinear iter   jac eval      time step (h)
+2025-04-10 08:44:46 | INFO | -----------------------------------------------------------------------
+2025-04-10 08:44:46 | INFO |        0.000 ¦        0                0          0              0.500 
+2025-04-10 08:44:46 | INFO |        0.500 ¦        1                2          2              0.500 
+2025-04-10 08:44:46 | INFO |        1.000 ¦        2                4          4              0.500 
+2025-04-10 08:44:46 | INFO |        1.500 ¦        3                6          6              0.500 
+2025-04-10 08:44:46 | INFO |        2.000 ¦        4                8          8              0.500 
+2025-04-10 08:44:46 | INFO |        2.500 ¦        5               10         10              0.500 
+2025-04-10 08:44:46 | INFO |        3.000 ¦        6               12         12              0.500 
+2025-04-10 08:44:46 | INFO |        3.500 ¦        7               14         14              0.500 
+2025-04-10 08:44:46 | INFO |        4.000 ¦        8               16         16              0.500 
+2025-04-10 08:44:46 | INFO |        4.500 ¦        9               18         18              0.500 
+2025-04-10 08:44:46 | INFO |        5.000 ¦       10               20         20              0.500 
+2025-04-10 08:44:46 | INFO |        5.500 ¦       11               22         22              0.500 
+2025-04-10 08:44:46 | INFO |        6.000 ¦       12               24         24              0.500 
+2025-04-10 08:44:46 | INFO |        6.500 ¦       13               26         26              0.500 
+2025-04-10 08:44:46 | INFO |        7.000 ¦       14               28         28              0.500 
+2025-04-10 08:44:46 | INFO |        7.500 ¦       15               30         30              0.500 
+2025-04-10 08:44:46 | INFO |        8.000 ¦       16               32         32              0.500 
+2025-04-10 08:44:46 | INFO |        8.500 ¦       17               34         34              0.500 
+2025-04-10 08:44:46 | INFO |        9.000 ¦       18               36         36              0.500 
+2025-04-10 08:44:46 | INFO |        9.500 ¦       19               38         38              0.500 
+2025-04-10 08:44:46 | INFO | state of Load Load1 change from 2 to 1
+2025-04-10 08:44:46 | INFO | Algebraic mode change at t = 10
+2025-04-10 08:44:46 | INFO |       10.000 ¦       20               40         40              0.500 
+2025-04-10 08:44:46 | INFO | calculation of the new starting point of the simulation.
+2025-04-10 08:44:46 | INFO |       10.000 ¦       20               42         42              0.500 
+2025-04-10 08:44:46 | INFO |       10.500 ¦       21               47         47              0.500 
+2025-04-10 08:44:46 | INFO |       11.000 ¦       22               54         54              0.500 
+2025-04-10 08:44:46 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:46 | INFO |       11.250 ¦       23               66         66              0.250 
+2025-04-10 08:44:46 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:46 | INFO |       11.500 ¦       24               75         75              0.250 
+2025-04-10 08:44:46 | WARN | the maximum number of nonlinear iterations has been reached
+2025-04-10 08:44:46 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:46 | INFO |       11.625 ¦       25              106        106              0.125 
+2025-04-10 08:44:46 | WARN | the maximum number of nonlinear iterations has been reached
+2025-04-10 08:44:46 | INFO |       11.750 ¦       26              125        125              0.125 
+2025-04-10 08:44:46 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:46 | INFO |       11.875 ¦       27              135        135              0.125 
+2025-04-10 08:44:46 | WARN | five consecutive steps have been taken that satisfy a scaled step length test
+2025-04-10 08:44:46 | INFO |       12.000 ¦       28              151        151              0.125 
+2025-04-10 08:44:46 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:46 | INFO |       12.125 ¦       29              161        161              0.125 
+2025-04-10 08:44:46 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:46 | INFO |       12.250 ¦       30              170        170              0.125 
+2025-04-10 08:44:46 | WARN | five consecutive steps have been taken that satisfy a scaled step length test
+2025-04-10 08:44:46 | INFO |       12.375 ¦       31              186        186              0.125 
+2025-04-10 08:44:46 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:46 | INFO |       12.500 ¦       32              194        194              0.125 
+2025-04-10 08:44:46 | WARN | five consecutive steps have been taken that satisfy a scaled step length test
+2025-04-10 08:44:46 | INFO |       12.625 ¦       33              210        210              0.125 
+2025-04-10 08:44:46 | WARN | five consecutive steps have been taken that satisfy a scaled step length test
+2025-04-10 08:44:46 | INFO |       12.750 ¦       34              226        226              0.125 
+2025-04-10 08:44:46 | WARN | five consecutive steps have been taken that satisfy a scaled step length test
+2025-04-10 08:44:46 | INFO |       12.875 ¦       35              240        240              0.125 
+2025-04-10 08:44:46 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:46 | INFO |       13.000 ¦       36              248        248              0.125 
+2025-04-10 08:44:46 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:46 | INFO |       13.125 ¦       37              256        256              0.125 
+2025-04-10 08:44:46 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:46 | INFO |       13.250 ¦       38              265        265              0.125 
+2025-04-10 08:44:46 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:46 | INFO |       13.375 ¦       39              275        275              0.125 
+2025-04-10 08:44:46 | INFO |       13.625 ¦       40              286        286              0.250 
+2025-04-10 08:44:46 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:46 | INFO |       13.875 ¦       41              300        300              0.250 
+2025-04-10 08:44:46 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:46 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:46 | INFO |       14.000 ¦       42              327        327              0.125 
+2025-04-10 08:44:46 | WARN | the maximum number of nonlinear iterations has been reached
+2025-04-10 08:44:46 | INFO |       14.125 ¦       43              349        349              0.125 
+2025-04-10 08:44:46 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:46 | INFO |       14.250 ¦       44              360        360              0.125 
+2025-04-10 08:44:46 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:46 | INFO |       14.375 ¦       45              376        376              0.125 
+2025-04-10 08:44:46 | INFO |       14.625 ¦       46              385        385              0.250 
+2025-04-10 08:44:46 | INFO |       15.125 ¦       47              399        399              0.500 
+2025-04-10 08:44:46 | INFO |       15.625 ¦       48              406        406              0.500 
+2025-04-10 08:44:46 | INFO |       16.125 ¦       49              412        412              0.500 
+2025-04-10 08:44:46 | INFO |       16.625 ¦       50              421        421              0.500 
+2025-04-10 08:44:46 | WARN | the maximum number of nonlinear iterations has been reached
+2025-04-10 08:44:46 | INFO |       16.875 ¦       51              441        441              0.250 
+2025-04-10 08:44:46 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:46 | INFO |       17.125 ¦       52              454        454              0.250 
+2025-04-10 08:44:46 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:46 | INFO |       17.375 ¦       53              464        464              0.250 
+2025-04-10 08:44:46 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:46 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:46 | INFO |       17.500 ¦       54              478        478              0.125 
+2025-04-10 08:44:46 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:46 | INFO |       17.625 ¦       55              489        489              0.125 
+2025-04-10 08:44:46 | WARN | the maximum number of nonlinear iterations has been reached
+2025-04-10 08:44:46 | INFO |       17.750 ¦       56              511        511              0.125 
+2025-04-10 08:44:46 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:46 | INFO |       17.875 ¦       57              531        531              0.125 
+2025-04-10 08:44:46 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:46 | INFO |       18.000 ¦       58              547        547              0.125 
+2025-04-10 08:44:46 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:46 | INFO |       18.125 ¦       59              560        560              0.125 
+2025-04-10 08:44:46 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:46 | INFO |       18.250 ¦       60              574        574              0.125 
+2025-04-10 08:44:46 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:46 | INFO |       18.375 ¦       61              588        588              0.125 
+2025-04-10 08:44:46 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:46 | INFO |       18.500 ¦       62              600        600              0.125 
+2025-04-10 08:44:46 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:46 | INFO |       18.625 ¦       63              615        615              0.125 
+2025-04-10 08:44:46 | INFO |       18.875 ¦       64              626        626              0.250 
+2025-04-10 08:44:46 | INFO |       19.375 ¦       65              633        633              0.500 
+2025-04-10 08:44:46 | INFO |       19.875 ¦       66              640        640              0.500 
+2025-04-10 08:44:46 | INFO |       20.375 ¦       67              649        649              0.500 
+2025-04-10 08:44:46 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:46 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:46 | INFO |       20.500 ¦       68              674        674              0.125 
+2025-04-10 08:44:47 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:47 | INFO |       20.625 ¦       69              684        684              0.125 
+2025-04-10 08:44:47 | WARN | the maximum number of nonlinear iterations has been reached
+2025-04-10 08:44:47 | INFO |       20.750 ¦       70              705        705              0.125 
+2025-04-10 08:44:47 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:47 | INFO |       20.875 ¦       71              718        718              0.125 
+2025-04-10 08:44:47 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:47 | INFO |       21.000 ¦       72              730        730              0.125 
+2025-04-10 08:44:47 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:47 | INFO |       21.125 ¦       73              744        744              0.125 
+2025-04-10 08:44:47 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:47 | INFO |       21.250 ¦       74              759        759              0.125 
+2025-04-10 08:44:47 | INFO |       21.500 ¦       75              769        769              0.250 
+2025-04-10 08:44:47 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:47 | WARN | five consecutive steps have been taken that satisfy a scaled step length test
+2025-04-10 08:44:47 | INFO |       21.625 ¦       76              799        799              0.125 
+2025-04-10 08:44:47 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:47 | INFO |       21.750 ¦       77              810        810              0.125 
+2025-04-10 08:44:47 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:47 | INFO |       21.875 ¦       78              820        820              0.125 
+2025-04-10 08:44:47 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:47 | INFO |       22.000 ¦       79              830        830              0.125 
+2025-04-10 08:44:47 | WARN | five consecutive steps have been taken that satisfy a scaled step length test
+2025-04-10 08:44:47 | INFO |       22.125 ¦       80              849        849              0.125 
+2025-04-10 08:44:47 | WARN | the maximum number of nonlinear iterations has been reached
+2025-04-10 08:44:47 | INFO |       22.250 ¦       81              870        870              0.125 
+2025-04-10 08:44:47 | INFO |       22.500 ¦       82              879        879              0.250 
+2025-04-10 08:44:47 | WARN | five consecutive steps have been taken that satisfy a scaled step length test
+2025-04-10 08:44:47 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:47 | INFO |       22.625 ¦       83              907        907              0.125 
+2025-04-10 08:44:47 | INFO |       22.875 ¦       84              917        917              0.250 
+2025-04-10 08:44:47 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:47 | INFO |       23.125 ¦       85              931        931              0.250 
+2025-04-10 08:44:47 | INFO |       23.625 ¦       86              941        941              0.500 
+2025-04-10 08:44:47 | INFO |       24.125 ¦       87              948        948              0.500 
+2025-04-10 08:44:47 | INFO |       24.625 ¦       88              954        954              0.500 
+2025-04-10 08:44:47 | INFO |       25.125 ¦       89              959        959              0.500 
+2025-04-10 08:44:47 | WARN | the maximum number of nonlinear iterations has been reached
+2025-04-10 08:44:47 | INFO |       25.375 ¦       90              979        979              0.250 
+2025-04-10 08:44:47 | INFO |       25.875 ¦       91              987        987              0.500 
+2025-04-10 08:44:47 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:47 | INFO |       26.125 ¦       92              998        998              0.250 
+2025-04-10 08:44:47 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:47 | INFO |       26.375 ¦       93             1014       1014              0.250 
+2025-04-10 08:44:47 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:47 | INFO |       26.625 ¦       94             1026       1026              0.250 
+2025-04-10 08:44:47 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:47 | INFO |       26.875 ¦       95             1042       1042              0.250 
+2025-04-10 08:44:47 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:47 | INFO |       27.125 ¦       96             1052       1052              0.250 
+2025-04-10 08:44:47 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:47 | INFO |       27.375 ¦       97             1062       1062              0.250 
+2025-04-10 08:44:47 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:47 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:47 | INFO |       27.500 ¦       98             1075       1075              0.125 
+2025-04-10 08:44:47 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:47 | INFO |       27.625 ¦       99             1085       1085              0.125 
+2025-04-10 08:44:47 | WARN | five consecutive steps have been taken that satisfy a scaled step length test
+2025-04-10 08:44:47 | INFO |       27.750 ¦      100             1101       1101              0.125 
+2025-04-10 08:44:47 | WARN | five consecutive steps have been taken that satisfy a scaled step length test
+2025-04-10 08:44:47 | INFO |       27.875 ¦      101             1117       1117              0.125 
+2025-04-10 08:44:47 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:47 | INFO |       28.000 ¦      102             1127       1127              0.125 
+2025-04-10 08:44:47 | WARN | the maximum number of nonlinear iterations has been reached
+2025-04-10 08:44:47 | INFO |       28.125 ¦      103             1147       1147              0.125 
+2025-04-10 08:44:47 | WARN | the maximum number of nonlinear iterations has been reached
+2025-04-10 08:44:47 | INFO |       28.250 ¦      104             1167       1167              0.125 
+2025-04-10 08:44:47 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:47 | INFO |       28.375 ¦      105             1181       1181              0.125 
+2025-04-10 08:44:47 | WARN | the maximum number of nonlinear iterations has been reached
+2025-04-10 08:44:47 | INFO |       28.500 ¦      106             1201       1201              0.125 
+2025-04-10 08:44:47 | WARN | the maximum number of nonlinear iterations has been reached
+2025-04-10 08:44:47 | INFO |       28.625 ¦      107             1221       1221              0.125 
+2025-04-10 08:44:47 | WARN | the maximum number of nonlinear iterations has been reached
+2025-04-10 08:44:47 | INFO |       28.750 ¦      108             1240       1240              0.125 
+2025-04-10 08:44:47 | WARN | the maximum number of nonlinear iterations has been reached
+2025-04-10 08:44:47 | INFO |       28.875 ¦      109             1259       1259              0.125 
+2025-04-10 08:44:47 | WARN | the system function failed in an unrecoverable manner
+2025-04-10 08:44:47 | INFO |       29.000 ¦      110             1272       1272              0.125 
+2025-04-10 08:44:47 | WARN | the maximum number of nonlinear iterations has been reached
+2025-04-10 08:44:47 | INFO |       29.125 ¦      111             1291       1291              0.125 
+2025-04-10 08:44:47 | WARN | the maximum number of nonlinear iterations has been reached
+2025-04-10 08:44:47 | INFO |       29.250 ¦      112             1310       1310              0.125 
+2025-04-10 08:44:47 | INFO |       29.500 ¦      113             1321       1321              0.250 
+2025-04-10 08:44:47 | INFO | state of Load Load4 change from 1 to 2
+2025-04-10 08:44:47 | INFO | Algebraic mode change at t = 30
+2025-04-10 08:44:47 | INFO |       30.000 ¦      114             1331       1331              0.500 
+2025-04-10 08:44:47 | INFO | calculation of the new starting point of the simulation.
+2025-04-10 08:44:47 | INFO |       30.000 ¦      114             1333       1333              0.500 
+2025-04-10 08:44:47 | INFO |       30.500 ¦      115             1341       1341              0.500 
+2025-04-10 08:44:47 | INFO |       31.000 ¦      116             1349       1349              0.500 
+2025-04-10 08:44:47 | INFO |       31.500 ¦      117             1357       1357              0.500 
+2025-04-10 08:44:47 | INFO |       32.000 ¦      118             1365       1365              0.500 
+2025-04-10 08:44:47 | INFO |       32.500 ¦      119             1373       1373              0.500 
+2025-04-10 08:44:47 | INFO |       33.000 ¦      120             1381       1381              0.500 
+2025-04-10 08:44:47 | INFO |       33.500 ¦      121             1389       1389              0.500 
+2025-04-10 08:44:47 | INFO |       34.000 ¦      122             1397       1397              0.500 
+2025-04-10 08:44:47 | INFO |       34.500 ¦      123             1405       1405              0.500 
+2025-04-10 08:44:47 | INFO |       35.000 ¦      124             1413       1413              0.500 
+2025-04-10 08:44:47 | INFO |       35.500 ¦      125             1421       1421              0.500 
+2025-04-10 08:44:47 | INFO |       36.000 ¦      126             1429       1429              0.500 
+2025-04-10 08:44:47 | INFO |       36.500 ¦      127             1437       1437              0.500 
+2025-04-10 08:44:47 | INFO |       37.000 ¦      128             1445       1445              0.500 
+2025-04-10 08:44:47 | INFO |       37.500 ¦      129             1453       1453              0.500 
+2025-04-10 08:44:47 | INFO |       38.000 ¦      130             1461       1461              0.500 
+2025-04-10 08:44:47 | INFO |       38.500 ¦      131             1469       1469              0.500 
+2025-04-10 08:44:47 | INFO |       39.000 ¦      132             1477       1477              0.500 
+2025-04-10 08:44:47 | INFO |       39.500 ¦      133             1485       1485              0.500 
+2025-04-10 08:44:47 | INFO |       40.000 ¦      134             1493       1493              0.500 
+2025-04-10 08:44:47 | INFO |       40.500 ¦      135             1501       1501              0.500 
+2025-04-10 08:44:47 | INFO |       41.000 ¦      136             1509       1509              0.500 
+2025-04-10 08:44:47 | INFO |       41.500 ¦      137             1517       1517              0.500 
+2025-04-10 08:44:47 | INFO |       42.000 ¦      138             1525       1525              0.500 
+2025-04-10 08:44:47 | INFO |       42.500 ¦      139             1533       1533              0.500 
+2025-04-10 08:44:47 | INFO |       43.000 ¦      140             1541       1541              0.500 
+2025-04-10 08:44:47 | INFO |       43.500 ¦      141             1549       1549              0.500 
+2025-04-10 08:44:47 | INFO |       44.000 ¦      142             1557       1557              0.500 
+2025-04-10 08:44:47 | INFO |       44.500 ¦      143             1565       1565              0.500 
+2025-04-10 08:44:47 | INFO |       45.000 ¦      144             1573       1573              0.500 
+2025-04-10 08:44:47 | INFO |       45.500 ¦      145             1581       1581              0.500 
+2025-04-10 08:44:47 | INFO |       46.000 ¦      146             1589       1589              0.500 
+2025-04-10 08:44:47 | INFO |       46.500 ¦      147             1597       1597              0.500 
+2025-04-10 08:44:47 | INFO |       47.000 ¦      148             1605       1605              0.500 
+2025-04-10 08:44:47 | INFO |       47.500 ¦      149             1613       1613              0.500 
+2025-04-10 08:44:47 | INFO |       48.000 ¦      150             1621       1621              0.500 
+2025-04-10 08:44:47 | INFO |       48.500 ¦      151             1629       1629              0.500 
+2025-04-10 08:44:47 | INFO |       49.000 ¦      152             1637       1637              0.500 
+2025-04-10 08:44:47 | INFO |       49.500 ¦      153             1645       1645              0.500 
+2025-04-10 08:44:47 | INFO |       50.000 ¦      154             1653       1653              0.500 
+2025-04-10 08:44:47 | INFO |       50.500 ¦      155             1661       1661              0.500 
+2025-04-10 08:44:47 | INFO |       51.000 ¦      156             1669       1669              0.500 
+2025-04-10 08:44:47 | INFO |       51.500 ¦      157             1677       1677              0.500 
+2025-04-10 08:44:47 | INFO |       52.000 ¦      158             1685       1685              0.500 
+2025-04-10 08:44:47 | INFO |       52.500 ¦      159             1693       1693              0.500 
+2025-04-10 08:44:47 | INFO |       53.000 ¦      160             1701       1701              0.500 
+2025-04-10 08:44:47 | INFO |       53.500 ¦      161             1709       1709              0.500 
+2025-04-10 08:44:47 | INFO |       54.000 ¦      162             1717       1717              0.500 
+2025-04-10 08:44:47 | INFO |       54.500 ¦      163             1725       1725              0.500 
+2025-04-10 08:44:47 | INFO |       55.000 ¦      164             1733       1733              0.500 
+2025-04-10 08:44:47 | INFO |       55.500 ¦      165             1741       1741              0.500 
+2025-04-10 08:44:47 | INFO |       56.000 ¦      166             1749       1749              0.500 
+2025-04-10 08:44:47 | INFO |       56.500 ¦      167             1757       1757              0.500 
+2025-04-10 08:44:47 | INFO |       57.000 ¦      168             1765       1765              0.500 
+2025-04-10 08:44:47 | INFO |       57.500 ¦      169             1773       1773              0.500 
+2025-04-10 08:44:47 | INFO |       58.000 ¦      170             1781       1781              0.500 
+2025-04-10 08:44:47 | INFO |       58.500 ¦      171             1789       1789              0.500 
+2025-04-10 08:44:47 | INFO |       59.000 ¦      172             1797       1797              0.500 
+2025-04-10 08:44:47 | INFO |       59.500 ¦      173             1805       1805              0.500 
+2025-04-10 08:44:47 | INFO |       60.000 ¦      174             1813       1813              0.500 
+2025-04-10 08:44:47 | INFO | 
+2025-04-10 08:44:47 | INFO | execution statistics :
+2025-04-10 08:44:47 | INFO | 
+2025-04-10 08:44:47 | INFO | number of time iterations                  = 174
+2025-04-10 08:44:47 | INFO | number of residual evaluations             = 2068
+2025-04-10 08:44:47 | INFO | number of Jacobian evaluations             = 1813
+2025-04-10 08:44:47 | INFO | number of nonlinear iterations             = 1813
+2025-04-10 08:44:47 | INFO | number of error test failures              = 0
+2025-04-10 08:44:47 | INFO | number of nonlinear convergence failures   = 79
+2025-04-10 08:44:47 | INFO | number of root functions evaluations       = 179
+2025-04-10 08:44:47 | INFO | number of discrete variables evaluations   = 6
+2025-04-10 08:44:47 | INFO | number of mode evaluations                 = 3
+2025-04-10 08:44:47 | INFO | end of job 'NetworkTransformer'
