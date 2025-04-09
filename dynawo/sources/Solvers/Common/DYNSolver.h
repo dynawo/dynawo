@@ -37,7 +37,7 @@ class Timeline;
 }  // namespace timeline
 
 namespace DYN {
-static const int maxNumberUnstableRoots = 10;  ///< Maximum number of unstable roots for one time step
+static const int maxNumberUnstableRoots = 15;  ///< Maximum number of unstable roots for one time step
 
 /**
  * @brief Flags of the current numerical resolution
