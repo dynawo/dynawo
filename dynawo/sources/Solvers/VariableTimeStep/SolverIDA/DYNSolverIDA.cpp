@@ -492,7 +492,7 @@ SolverIDA::calculateIC(double /*tEnd*/) {
   }
 // #endif
   do {
-    Trace::debug() << "Start algebraic restoration" << Trace::endline;
+    Trace::debug() << "Start algebraic restoration " << counter << Trace::endline;
     // call to solver KIN in order to find the new (adequate) algebraic variables' values
     solverKINNormal_->setInitialValues(tSolve_, vectorY_, vectorYp_);
     solverKINNormal_->solve();
@@ -507,7 +507,7 @@ SolverIDA::calculateIC(double /*tEnd*/) {
     updateAlgebraicRestorationStatistics();
     updateStatistics();
 
-    Trace::debug() << "End algebraic restoration" << Trace::endline;
+    Trace::debug() << "End algebraic restoration " << counter << Trace::endline;
 
     // Reinitialization (forced to start over with a small time step)
     // -------------------------------------------------------
@@ -522,10 +522,10 @@ SolverIDA::calculateIC(double /*tEnd*/) {
     }
 #endif
     flagInit_ = true;
-    Trace::debug() << "Start IDACalcIC" << Trace::endline;
+    Trace::debug() << "Start IDACalcIC " << counter << Trace::endline;
     int flag = IDACalcIC(IDAMem_, IDA_YA_YDP_INIT, initStep_);
     analyseFlag(flag);
-    Trace::debug() << "End IDACalcIC" << Trace::endline;
+    Trace::debug() << "End IDACalcIC " << counter << Trace::endline;
 
     // gathering of values computed by IDACalcIC
     flag = IDAGetConsistentIC(IDAMem_, sundialsVectorY_, sundialsVectorYp_);
@@ -548,18 +548,17 @@ SolverIDA::calculateIC(double /*tEnd*/) {
     // Root stabilization
     change = false;
     model_->copyContinuousVariables(&vectorY_[0], &vectorYp_[0]);
-    Trace::debug() << "Start calculateIC evalG" << Trace::endline;
+    Trace::debug() << "Start calculateIC evalG " << counter << Trace::endline;
     model_->evalG(tSolve_, g1_);
     ++stats_.ngeInternal_;
-    Trace::debug() << "End calculateIC evalG" << Trace::endline;
+    Trace::debug() << "End calculateIC evalG " << counter << Trace::endline;
     if (!(std::equal(g0_.begin(), g0_.end(), g1_.begin()))) {
-#ifdef _DEBUG_
+      if (allLogs_)
         printUnstableRoot(tSolve_, g0_, g1_);
-#endif
       g0_.assign(g1_.begin(), g1_.end());
-      Trace::debug() << "Start calculateIC evalZMode" << Trace::endline;
+      Trace::debug() << "Start calculateIC evalZMode " << counter << Trace::endline;
       change = evalZMode(g0_, g1_, tSolve_);
-      Trace::debug() << "End calculateIC evalZMode" << Trace::endline;
+      Trace::debug() << "End calculateIC evalZMode " << counter << Trace::endline;
     }
 
     model_->rotateBuffers();
