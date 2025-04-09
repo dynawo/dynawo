@@ -307,22 +307,22 @@ class ModelVoltageLevel : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::setReferenceY( double* y, double* yp, double* f, const int & offsetY, const int & offsetF)
    */
-  void setReferenceY(double* y, double* yp, double* f, const int& offsetY, const int& offsetF);
+  void setReferenceY(double* y, double* yp, double* f, const int& offsetY, const int& offsetF) override;
 
   /**
    * @copydoc NetworkComponent::setReferenceZ( double* z, bool* zConnected, const int & offsetZ )
    */
-  void setReferenceZ(double* z, bool* zConnected, const int& offsetZ);
+  void setReferenceZ(double* z, bool* zConnected, const int& offsetZ) override;
 
   /**
    * @copydoc NetworkComponent::setReferenceCalculatedVar( double* calculatedVars, const int & offsetCalculatedVars )
    */
-  void setReferenceCalculatedVar(double* calculatedVars, const int& offsetCalculatedVars);
+  void setReferenceCalculatedVar(double* calculatedVars, const int& offsetCalculatedVars) override;
 
   /**
    * @copydoc NetworkComponent::setReferenceG( state_g* g, const int & offsetG )
    */
-  void setReferenceG(state_g* g, const int& offsetG);
+  void setReferenceG(state_g* g, const int& offsetG) override;
 
   /**
    * @brief export the variables values of the sub model for dump
