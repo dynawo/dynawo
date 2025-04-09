@@ -32,7 +32,7 @@ model HvdcVscDanglingP_INIT "Initialisation model for the HVDC VSC model with te
   Types.ReactivePowerPu QRef10Pu "Start value of reactive power reference at terminal 1 in pu (base SNom) (DC to AC)";
   Types.ComplexApparentPowerPu s10Pu "Start value of complex apparent power at terminal 1 in pu (base SnRef) (AC to DC)";
   Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 in pu (base UNom)";
-  Types.VoltageModulePu URef10Pu "Start value of the voltage reference for the side 1 of the HVDC link in pu (base UNom)";
+  Dynawo.Connectors.VoltageModulePuConnector URef10Pu "Start value of the voltage reference for the side 1 of the HVDC link in pu (base UNom)";
 
 equation
   u10Pu = ComplexMath.fromPolar(U10Pu, UPhase10);
