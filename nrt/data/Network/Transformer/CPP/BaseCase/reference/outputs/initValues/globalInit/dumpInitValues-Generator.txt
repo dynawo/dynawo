@@ -83,14 +83,14 @@ voltageRegulator_rawEfd_u2                        : alias of voltageRegulator_ga
 voltageRegulator_rawEfd_y                         : alias of voltageRegulator_feedbackNonWindUp_u2
  ====== CALCULATED VARIABLES VALUES ======
 generator_IRotorPu                                : y =   2.0311086669
-generator_IStatorPu_value                         : y =   0.0920941267
+generator_IStatorPu                               : y =   0.0920941267
 generator_PGen                                    : y =   9.0849099832
 generator_PGenPu                                  : y =   0.0908490998
 generator_PePu                                    : y =   0.6067146119
 generator_QGen                                    : y =   1.5087830019
 generator_QGenPu                                  : y =   0.0150878300
-generator_QStatorPu_value                         : y =   0.0150878300
-generator_QStatorPuQNom_value                     : y =   0.1349496542
+generator_QStatorPu                               : y =   0.0150878300
+generator_QStatorPuQNom                           : y =   0.1349496542
 generator_UPu                                     : y =   0.9999925350
 generator_genState                                : y =   2.0000000000
 generator_iStatorPu_im                            : y =   0.0150917568

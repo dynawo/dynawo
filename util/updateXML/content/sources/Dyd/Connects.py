@@ -70,11 +70,10 @@ class Connects:
 
             if len(connect_to_modify) == 0:
                 pass  # nothing to do
-            elif len(connect_to_modify) == 1:
-                connect_to_modify[0].attrib['var' + idx] = new_var
-                connect_to_modify.clear()
             else:
-                raise DuplicateConnectorsError(self.__model_id, current_var, self.__parent_xml_tree.base)
+                for connect in connect_to_modify:
+                    connect.attrib['var' + idx] = new_var
+                connect_to_modify.clear()
 
     def add_connect(self, var1, id2, var2):
         """

@@ -35,7 +35,7 @@ model HvdcVscDanglingUDc_INIT "Initialisation model for the HVDC VSC model with 
   Types.PerUnit UDc10Pu "Start value of DC voltage at terminal 1 in pu (base UDcNom)";
   Types.PerUnit UDc20Pu "Start value of DC voltage at terminal 2 in pu (base UDcNom)";
   Types.VoltageModulePu UDcRef0Pu "Start value of DC voltage reference in pu (base UDcNom)";
-  Types.VoltageModulePu URef10Pu "Start value of the voltage reference for the side 1 of the HVDC link in pu (base UNom)";
+  Dynawo.Connectors.VoltageModulePuConnector URef10Pu "Start value of the voltage reference for the side 1 of the HVDC link in pu (base UNom)";
 
 equation
   UDcRef0Pu = 1;

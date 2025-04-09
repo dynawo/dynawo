@@ -24,7 +24,7 @@
     <dyn:staticRef var="generator_state" staticVar="state"/>
   </dyn:blackBoxModel>
   <dyn:blackBoxModel id="OmegaRef" lib="SetPoint" parFile="Test.par" parId="OmegaRef"/>
-  <dyn:connect id1="Generator" var1="generator_omegaRefPu" id2="OmegaRef" var2="setPoint_setPoint_value"/>
+  <dyn:connect id1="Generator" var1="generator_omegaRefPu" id2="OmegaRef" var2="setPoint_setPoint"/>
   <dyn:blackBoxModel id="Bus1" lib="BusWithInit" staticId="VL1_BUS1" parFile="Test.par" parId="Bus1"/>
   <dyn:blackBoxModel id="Bus2" lib="BusWithInit" staticId="VL2_BUS1" parFile="Test.par" parId="Bus2"/>
   <dyn:blackBoxModel id="Transformer" lib="NetworkTransformer" parFile="Test.par" parId="Transformer" staticId="Transformer"/>

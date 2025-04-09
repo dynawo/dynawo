@@ -72,14 +72,14 @@ voltageRegulator_limiterWithLag_u                 : alias of voltageRegulator_ga
 voltageRegulator_limiterWithLag_y                 : alias of generator_efdPu
  ====== CALCULATED VARIABLES VALUES ======
 generator_IRotorPu                                : y =       1.064003
-generator_IStatorPu_value                         : y =       0.007162
+generator_IStatorPu                               : y =       0.007162
 generator_PGen                                    : y =      -0.045843
 generator_PGenPu                                  : y =      -0.000458
 generator_PePu                                    : y =      -0.000028
 generator_QGen                                    : y =      -0.721912
 generator_QGenPu                                  : y =      -0.007219
-generator_QStatorPu_value                         : y =      -0.007219
-generator_QStatorPuQNom_value                     : y =      -0.001004
+generator_QStatorPu                               : y =      -0.007219
+generator_QStatorPuQNom                           : y =      -0.001004
 generator_UPu                                     : y =       1.009992
 generator_genState                                : y =       2.000000
 generator_iStatorPu_im                            : y =      -0.007156
