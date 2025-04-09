@@ -2353,7 +2353,7 @@ index d4e6748e897..1abb3768c50 100644
 +        // load the rewrite rules
 +        RewriteRules.loadRules();
 +
-+        (inCache, inEnv, _, dae) = Inst.instantiateClass(inCache, InnerOuter.emptyInstHierarchy, SymbolTable.getSCode(), classname);
++        (inCache,inEnv,SOME(dae), _) = runFrontEnd(inCache,inEnv,classname,false);
 +
 +        dae = DAEUtil.transformationsBeforeBackend(inCache,inEnv,dae);
 +
