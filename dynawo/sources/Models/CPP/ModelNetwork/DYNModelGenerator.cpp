@@ -217,10 +217,47 @@ ModelGenerator::collectSilentZ(BitMask* silentZTable) {
 void
 ModelGenerator::getY0() {
   if (!network_->isInitModel()) {
-    z_[0] = getConnected();
-    z_[1] = Pc_;
-    z_[2] = Qc_;
+    if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
+      z_[0] = getConnected();
+      z_[1] = Pc_;
+      z_[2] = Qc_;
+    } else {
+      State genCurrState = static_cast<State>(static_cast<int>(z_[0]));
+      if (genCurrState == CLOSED) {
+        if (modelBus_->getConnectionState() != CLOSED) {
+          modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
+          stateModified_ = true;
+        }
+      } else if (genCurrState == OPEN) {
+        if (modelBus_->getConnectionState() != OPEN) {
+          modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
+          stateModified_ = true;
+        }
+      } else if (genCurrState == UNDEFINED_STATE) {
+        throw DYNError(Error::MODELER, UndefinedComponentState, id_);
+      } else {
+        throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
+      }
+      setConnected(genCurrState);
+      Pc_ = z_[1];
+      Qc_ = z_[2];
+    }
   }
+}
+
+void
+ModelGenerator::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
+  ModelCPP::dumpInStream(streamVariables, ir0_);
+  ModelCPP::dumpInStream(streamVariables, ii0_);
+}
+
+void
+ModelGenerator::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
+  char c;
+  streamVariables >> c;
+  streamVariables >> ir0_;
+  streamVariables >> c;
+  streamVariables >> ii0_;
 }
 
 NetworkComponent::StateChange_t
@@ -364,31 +401,33 @@ ModelGenerator::setGequations(std::map<int, std::string>& /*gEquationIndex*/) {
 
 void
 ModelGenerator::init(int & /*yNum*/) {
-  double uNode = 0.;
-  std::shared_ptr<GeneratorInterface> generator = generator_.lock();
-  double thetaNode = generator->getBusInterface()->getAngle0();
-  double unomNode = generator->getBusInterface()->getVNom();
-  switch (startingPointMode_) {
-  case FLAT:
-    Pc_ = isConnected() ? -1. * generator->getTargetP() : 0.;
-    Qc_ = isConnected() ? -1. * generator->getTargetQ() : 0.;
-    uNode = generator->getBusInterface()->getVNom();
-    break;
-  case WARM:
-    Pc_ = isConnected() ? -1. * generator->getP() : 0.;
-    Qc_ = isConnected() ? -1. * generator->getQ() : 0.;
-    uNode = generator->getBusInterface()->getV0();
-    break;
-  }
-  double ur0 = uNode / unomNode * cos(thetaNode * DEG_TO_RAD);
-  double ui0 = uNode / unomNode * sin(thetaNode * DEG_TO_RAD);
-  double U20 = ur0 * ur0 + ui0 * ui0;
-  if (!doubleIsZero(U20)) {
-    ir0_ = (-PcPu() * ur0 - QcPu() * ui0) / U20;
-    ii0_ = (-PcPu() * ui0 + QcPu() * ur0) / U20;
-  } else {
-    ir0_ = 0.;
-    ii0_ = 0.;
+  if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
+    double uNode = 0.;
+    std::shared_ptr<GeneratorInterface> generator = generator_.lock();
+    double thetaNode = generator->getBusInterface()->getAngle0();
+    double unomNode = generator->getBusInterface()->getVNom();
+    switch (startingPointMode_) {
+    case FLAT:
+      Pc_ = isConnected() ? -1. * generator->getTargetP() : 0.;
+      Qc_ = isConnected() ? -1. * generator->getTargetQ() : 0.;
+      uNode = generator->getBusInterface()->getVNom();
+      break;
+    case WARM:
+      Pc_ = isConnected() ? -1. * generator->getP() : 0.;
+      Qc_ = isConnected() ? -1. * generator->getQ() : 0.;
+      uNode = generator->getBusInterface()->getV0();
+      break;
+    }
+    double ur0 = uNode / unomNode * cos(thetaNode * DEG_TO_RAD);
+    double ui0 = uNode / unomNode * sin(thetaNode * DEG_TO_RAD);
+    double U20 = ur0 * ur0 + ui0 * ui0;
+    if (!doubleIsZero(U20)) {
+      ir0_ = (-PcPu() * ur0 - QcPu() * ui0) / U20;
+      ii0_ = (-PcPu() * ui0 + QcPu() * ur0) / U20;
+    } else {
+      ir0_ = 0.;
+      ii0_ = 0.;
+    }
   }
 }
 

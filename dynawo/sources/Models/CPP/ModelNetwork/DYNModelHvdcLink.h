@@ -24,6 +24,9 @@
 
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+
 #include "DYNNetworkComponent.h"
 #include "DYNHvdcLineInterface.h"
 
@@ -325,6 +328,29 @@ class ModelHvdcLink : public NetworkComponent {
   inline const std::shared_ptr<ModelBus>& getModelBus2() {
     return modelBus2_;
   }
+
+  /**
+   * @brief get the number of internal variable of the model
+   *
+   * @return the number of internal variable of the model
+   */
+  inline unsigned getNbInternalVariables() const override {
+    return 8;
+  }
+
+  /**
+   * @brief append the internal variables values to a stringstream
+   *
+   * @param streamVariables : stream with binary formated internalVariables
+   */
+  void dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const override;
+
+  /**
+   * @brief import the internal variables values of the component from stringstream
+   *
+   * @param streamVariables : stream with binary formated internalVariables
+   */
+  void loadInternalVariables(boost::archive::binary_iarchive& streamVariables) override;
 
  private:
   /**

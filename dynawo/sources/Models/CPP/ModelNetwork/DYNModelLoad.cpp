@@ -206,26 +206,34 @@ ModelLoad::setGequations(std::map<int, std::string>& /*gEquationIndex*/) {
 
 void
 ModelLoad::init(int& yNum) {
-  std::shared_ptr<LoadInterface> load = load_.lock();
-  double thetaNode = load->getBusInterface()->getAngle0();
-  double unomNode = load->getBusInterface()->getVNom();
-  switch (startingPointMode_) {
-  case FLAT:
-    P0_ = load->getP0() / SNREF;
-    Q0_ = load->getQ0() / SNREF;
-    u0_ = load->getBusInterface()->getVNom() / unomNode;
-    break;
-  case WARM:
-    P0_ = load->getP() / SNREF;
-    Q0_ = load->getQ() / SNREF;
-    u0_ = load->getBusInterface()->getV0() / unomNode;
-    break;
+  if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
+    std::shared_ptr<LoadInterface> load = load_.lock();
+    double thetaNode = load->getBusInterface()->getAngle0();
+    double unomNode = load->getBusInterface()->getVNom();
+    switch (startingPointMode_) {
+    case FLAT:
+      P0_ = load->getP0() / SNREF;
+      Q0_ = load->getQ0() / SNREF;
+      u0_ = load->getBusInterface()->getVNom() / unomNode;
+      break;
+    case WARM:
+      P0_ = load->getP() / SNREF;
+      Q0_ = load->getQ() / SNREF;
+      u0_ = load->getBusInterface()->getV0() / unomNode;
+      break;
+    }
+
+    if (isConnected() && !doubleIsZero(u0_)) {
+      double ur0 = u0_ * cos(thetaNode * DEG_TO_RAD);
+      double ui0 = u0_ * sin(thetaNode * DEG_TO_RAD);
+      ir0_ = (P0_ * ur0 + Q0_ * ui0) / (ur0 * ur0 + ui0 * ui0);
+      ii0_ = (P0_ * ui0 - Q0_ * ur0) / (ur0 * ur0 + ui0 * ui0);
+    } else {
+      ir0_ = 0.;
+      ii0_ = 0.;
+    }
   }
   if (isConnected() && !doubleIsZero(u0_)) {
-    double ur0 = u0_ * cos(thetaNode * DEG_TO_RAD);
-    double ui0 = u0_ * sin(thetaNode * DEG_TO_RAD);
-    ir0_ = (P0_ * ur0 + Q0_ * ui0) / (ur0 * ur0 + ui0 * ui0);
-    ii0_ = (P0_ * ui0 - Q0_ * ur0) / (ur0 * ur0 + ui0 * ui0);
     kp_ = 1. / pow_dynawo(u0_, alpha_);
     kq_ = 1. / pow_dynawo(u0_, beta_);
   } else {
@@ -624,27 +632,89 @@ ModelLoad::evalG(const double& /*t*/) {
 void
 ModelLoad::getY0() {
   if (!network_->isInitModel()) {
-    unsigned int index = 0;
-    if (isPControllable_ || isControllable_) {
-      y_[index] = DeltaPc0_;
-      ++index;
-    }
-    if (isQControllable_ || isControllable_) {
-      y_[index] = DeltaQc0_;
-      ++index;
-    }
+    if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
+      unsigned int index = 0;
+      if (isPControllable_ || isControllable_) {
+        y_[index] = DeltaPc0_;
+        ++index;
+      }
+      if (isQControllable_ || isControllable_) {
+        y_[index] = DeltaQc0_;
+        ++index;
+      }
 
-    if (isRestorative_) {
-      y_[index] = zP0_;
-      yp_[index] = zPprim0_;
-      ++index;
-      y_[index] = zQ0_;
-      yp_[index] = zQprim0_;
-      ++index;
-    }
+      if (isRestorative_) {
+        y_[index] = zP0_;
+        yp_[index] = zPprim0_;
+        ++index;
+        y_[index] = zQ0_;
+        yp_[index] = zQprim0_;
+        ++index;
+      }
 
-    z_[0] = getConnected();
+      z_[0] = getConnected();
+    } else {
+      unsigned int index = 0;
+      if (isPControllable_ || isControllable_) {
+        DeltaPc0_ = y_[index];
+        ++index;
+      }
+      if (isQControllable_ || isControllable_) {
+        DeltaQc0_ = y_[index];
+        ++index;
+      }
+
+      if (isRestorative_) {
+        zP0_ = y_[index];
+        zPprim0_ = yp_[index];
+        ++index;
+        zQ0_ = y_[index];
+        zQprim0_ = yp_[index];
+        ++index;
+      }
+      State loadCurrState = static_cast<State>(static_cast<int>(z_[0]));
+      if (loadCurrState == CLOSED) {
+        if (modelBus_->getConnectionState() != CLOSED) {
+          modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
+          stateModified_ = true;
+        }
+      } else if (loadCurrState == OPEN) {
+        if (modelBus_->getConnectionState() != OPEN) {
+          modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
+          stateModified_ = true;
+        }
+      } else if (loadCurrState == UNDEFINED_STATE) {
+        throw DYNError(Error::MODELER, UndefinedComponentState, id_);
+      } else {
+        throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
+      }
+      setConnected(loadCurrState);
+    }
   }
+}
+
+void
+ModelLoad::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
+  ModelCPP::dumpInStream(streamVariables, P0_);
+  ModelCPP::dumpInStream(streamVariables, Q0_);
+  ModelCPP::dumpInStream(streamVariables, u0_);
+  ModelCPP::dumpInStream(streamVariables, ii0_);
+  ModelCPP::dumpInStream(streamVariables, ir0_);
+}
+
+void
+ModelLoad::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
+  char c;
+  streamVariables >> c;
+  streamVariables >> P0_;
+  streamVariables >> c;
+  streamVariables >> Q0_;
+  streamVariables >> c;
+  streamVariables >> u0_;
+  streamVariables >> c;
+  streamVariables >> ii0_;
+  streamVariables >> c;
+  streamVariables >> ir0_;
 }
 
 void

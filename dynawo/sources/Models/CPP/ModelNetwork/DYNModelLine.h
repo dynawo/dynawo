@@ -21,6 +21,9 @@
 #define MODELS_CPP_MODELNETWORK_DYNMODELLINE_H_
 
 #include <boost/shared_ptr.hpp>
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+
 #include "DYNNetworkComponent.h"
 
 namespace DYN {
@@ -292,10 +295,34 @@ class ModelLine : public NetworkComponent {
    * @return state change type
    */
   NetworkComponent::StateChange_t evalState(const double& time) override;  // check whether a discrete event happened
+
   /**
    * @brief update data
    */
   void initSize() override;
+
+  /**
+   * @brief get the number of internal variable of the model
+   *
+   * @return the number of internal variable of the model
+   */
+  inline unsigned getNbInternalVariables() const override {
+    return 4;
+  }
+
+  /**
+   * @brief append the internal variables values to a stringstream
+   *
+   * @param streamVariables : stream with binary formated internalVariables
+   */
+  void dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const override;
+
+  /**
+   * @brief import the internal variables values of the component from stringstream
+   *
+   * @param streamVariables : stream with binary formated internalVariables
+   */
+  void loadInternalVariables(boost::archive::binary_iarchive& streamVariables) override;
 
  private:
   KnownBus_t knownBus_;  ///< known bus
