@@ -284,6 +284,25 @@ class ModelMulti : public Model, private boost::noncopyable {
   void getFInfos(int globalFIndex, std::string& subModelName, int& localFIndex, std::string& fEquation) const override;
 
   /**
+   * @brief get informations about residual functions using an ignored set of equations
+   *
+   * @param globalFIndex global index of the residual functions to find
+   * @param subModelName name of the subModel who contains the residual functions
+   * @param localFIndex local index of the residual functions inside the subModel
+   * @param fEquation equation formula related to local index
+   * @param ignoreF equations to erase from the initial set of equations
+   */
+  void getFInfos(int globalFIndex, std::string& subModelName, int& localFIndex, std::string& fEquation, const std::unordered_set<int>& ignoreF) const;
+
+ /**
+ * @brief get informations about equations containing a variable
+ *
+ * @param subModelName name of the subModel who contains the residual functions
+ * @param variable variable to look for in equations
+ */
+  std::vector<std::string> getFInfos(const std::string& subModelName, const std::string& variable) const;
+
+  /**
    * @brief get informations about root functions
    *
    * @param globalGIndex global index of the root functions to find
@@ -460,14 +479,14 @@ class ModelMulti : public Model, private boost::noncopyable {
   void printEquations() override;
 
   /**
-  * @brief Print all equations.
-  * @param ignoreF
+  * @brief Print all equations. Intended to be used in algebraic restoration solver.
+  * @param ignoreF equations to erase from the initial set of equations
   */
   void printEquations(const std::unordered_set<int>& ignoreF);
 
   /**
-  * @brief Print all equations.
-  * @param ignoreY
+  * @brief Print all equations. Intended to be used in algebraic restoration solver.
+  * @param ignoreY variables to erase form the initial set of variables
   */
   void printVariableNames(const std::unordered_set<int>& ignoreY);
 
@@ -485,6 +504,11 @@ class ModelMulti : public Model, private boost::noncopyable {
    * @copydoc Model::getVariableName()
    */
   std::string getVariableName(int index) override;
+
+ /**
+  * @copydoc Model::getVariableName()
+  */
+  std::string getVariableName(int index, const std::unordered_set<int>& ignoreY, std::string& subModelName);
 
   /**
   * @brief Copy the discrete variable values from the model data structure to the solver data structure
