@@ -79,7 +79,7 @@ partial model BaseAc1 "IEEE excitation system type AC1 base model"
     VeMinPu = VeMinPu,
     VfeMaxPu = VfeMaxPu) annotation(
     Placement(visible = true, transformation(origin = {240, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax max1(nu = 3) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MinMaxDynawo3 max1 annotation(
     Placement(visible = true, transformation(origin = {70, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.MinMaxDynawo3 min1 annotation(
     Placement(visible = true, transformation(origin = {130, -14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

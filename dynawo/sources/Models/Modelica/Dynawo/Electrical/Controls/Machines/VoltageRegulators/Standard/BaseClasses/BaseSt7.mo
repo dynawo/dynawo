@@ -74,11 +74,11 @@ partial model BaseSt7 "IEEE excitation system type ST7 base model"
     Placement(visible = true, transformation(origin = {-90, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Sum sum1(nin = 4) annotation(
     Placement(visible = true, transformation(origin = {-330, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax max1(nu = 3) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MinMaxDynawo3 max1 annotation(
     Placement(visible = true, transformation(origin = {-290, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.MinMaxDynawo3 min1 annotation(
     Placement(visible = true, transformation(origin = {-250, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax max2(nu = 3) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MinMaxDynawo3 max2 annotation(
     Placement(visible = true, transformation(origin = {170, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.MinMaxDynawo3 min2 annotation(
     Placement(visible = true, transformation(origin = {210, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

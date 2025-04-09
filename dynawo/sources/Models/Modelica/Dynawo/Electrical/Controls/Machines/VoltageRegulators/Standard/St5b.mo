@@ -14,9 +14,7 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 */
 
 model St5b "IEEE exciter type ST5B model (2005 standard)"
-  extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.BaseSt5(
-    max1.nu = 2,
-    min1.nu = 2);
+  extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.BaseSt5();
 
 equation
   if min1.yMin < max1.yMax then
