@@ -73,10 +73,10 @@ model MotorFifthOrder "Two-cage (or one-cage if Lpp = Lp) induction motor model,
 equation
   assert(shareTrip1Pu + shareTrip2Pu <= 1, "Total share of motors that trip should be lower or equal to 1");
   if running then
-    der(EqPPu) * tP0 = -EqPPu + idPu * (LsPu - LPPu) - EdPPu * SystemBase.omegaNom * omegaRefPu.value * s * tP0;
-    der(EdPPu) * tP0 = -EdPPu - iqPu * (LsPu - LPPu) + EqPPu * SystemBase.omegaNom * omegaRefPu.value * s * tP0;
-    der(EqPPPu) = der(EqPPu) + 1/tPP0 * (EqPPu - EqPPPu + (LPPu - LPPPu) * idPu) + SystemBase.omegaNom * omegaRefPu.value * s * (EdPPu - EdPPPu);
-    der(EdPPPu) = der(EdPPu) + 1/tPP0 * (EdPPu - EdPPPu - (LPPu - LPPPu) * iqPu) - SystemBase.omegaNom * omegaRefPu.value * s * (EqPPu - EqPPPu);
+    der(EqPPu) * tP0 = -EqPPu + idPu * (LsPu - LPPu) - EdPPu * SystemBase.omegaNom * omegaRefPu * s * tP0;
+    der(EdPPu) * tP0 = -EdPPu - iqPu * (LsPu - LPPu) + EqPPu * SystemBase.omegaNom * omegaRefPu * s * tP0;
+    der(EqPPPu) = der(EqPPu) + 1/tPP0 * (EqPPu - EqPPPu + (LPPu - LPPPu) * idPu) + SystemBase.omegaNom * omegaRefPu * s * (EdPPu - EdPPPu);
+    der(EdPPPu) = der(EdPPu) + 1/tPP0 * (EdPPu - EdPPPu - (LPPu - LPPPu) * iqPu) - SystemBase.omegaNom * omegaRefPu * s * (EqPPu - EqPPPu);
 
     V = Complex(EdPPPu, EqPPPu) + Complex(RsPu, LPPPu) * Complex(idPu, iqPu);
     Complex(PRawPu, QRawPu) = V * Complex(idPu, -iqPu) * (SNom / SystemBase.SnRef);
@@ -91,7 +91,7 @@ equation
       Complex(PPu, QPu) = Complex(PRawPu, QRawPu) * (1-shareTrip1Pu-shareTrip2Pu);
     end if;
 
-    s = (omegaRefPu.value - omegaRPu) / omegaRefPu.value;
+    s = (omegaRefPu - omegaRPu) / omegaRefPu;
     cePu = EdPPPu * idPu + EqPPPu * iqPu;
     clPu = ce0Pu * (omegaRPu / omegaR0Pu)^torqueExponent;
     2 * H * der(omegaRPu) = cePu - clPu;

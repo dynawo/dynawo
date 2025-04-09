@@ -37,7 +37,7 @@ INFO | -----------------------------------------------------------------------
 INFO | starting curve initialization
 INFO | -----------------------------------------------------------------------
 DEBUG | adding curve : Id: Generator; curve: generator_UPu found. (exact name)
-DEBUG | adding curve : Id: Generator; output: generator_running found.( generator_running_value )
+DEBUG | adding curve : Id: Generator; output: generator_running found.( generator_running )
 DEBUG | adding curve : Id: Generator; curve: generator_QGenPu found. (exact name)
 DEBUG | adding curve : Id: Generator; curve: generator_PGenPu found. (exact name)
 DEBUG | adding curve : Id: Generator; output: generator_omegaRefPu found.( generator_omegaRefPu_value )

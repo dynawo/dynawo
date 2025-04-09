@@ -1,4 +1,4 @@
-time;svarc_SVarC_UPu;svarc_SVarC_URegulatedPu;svarc_SVarC_BPu;svarc_SVarC_QInjPu;svarc_SVarC_URefPu;load_load_UPu_value;
+time;svarc_SVarC_UPu;svarc_SVarC_URegulatedPu;svarc_SVarC_BPu;svarc_SVarC_QInjPu;svarc_SVarC_URefPu;load_load_UPu;
 0.000000;0.999743;0.999168;0.041635;0.041615;1.000000;0.999168;
 10.000000;0.999743;0.999168;0.041635;0.041615;1.000000;0.999168;
 10.000000;1.028998;1.013805;1.067800;1.130615;1.044000;1.013805;

@@ -44,7 +44,7 @@ model GeneratorSynchronous "Synchronous machine"
   Dynawo.Connectors.ReactivePowerPuConnector QStatorPu(start = QStator0Pu) "Stator reactive power generated in pu (base SnRef)";
   Dynawo.Connectors.ReactivePowerPuConnector QStatorPuQNom(start = QStator0PuQNom) "Stator reactive power generated in pu (base QNomAlt)";
   Dynawo.Connectors.CurrentModulePuConnector IRotorPu(start = IRotor0Pu) "Rotor current in pu (base SNom, user-selected base voltage)";
-  Dynawo.Connectors.ImPin thetaInternal(value(start = ThetaInternal0)) "Internal angle in rad";
+  Modelica.Blocks.Interfaces.RealOutput thetaInternal(start = ThetaInternal0) "Internal angle in rad";
 
   // Start values calculated by the initialization model
   parameter Types.ActivePowerPu PGen0Pu "Start value of active power at terminal in pu (base SnRef) (generator convention)";
@@ -95,7 +95,7 @@ equation
     QStatorPu = - ComplexMath.imag(sStatorPu);
     QStatorPuQNom = QStatorPu * SystemBase.SnRef / QNomAlt;
     IRotorPu = RfPPu / (Kuf * rTfoPu) * ifPu;
-    thetaInternal.value = ComplexMath.arg(Complex(uqPu, udPu));
+    thetaInternal = ComplexMath.arg(Complex(uqPu, udPu));
   else
     uPu = Complex(0,0);
     UPu = 0;
@@ -111,7 +111,7 @@ equation
     QStatorPu = 0;
     QStatorPuQNom = 0;
     IRotorPu = 0;
-    thetaInternal.value = 0;
+    thetaInternal = 0;
   end if;
 
   annotation(preferredView = "text");

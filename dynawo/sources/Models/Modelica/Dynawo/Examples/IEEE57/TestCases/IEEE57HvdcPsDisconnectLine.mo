@@ -20,7 +20,7 @@ model IEEE57HvdcPsDisconnectLine "IEEE 57-bus system benchmark formed with 57 bu
 equation
   // PhaseShifter
   PhaseShifterB7B29.locked = false;
-  PhaseShifterB7B29.PMonitored.value = TfoB7B29.P1Pu.value * 100;
+  PhaseShifterB7B29.PMonitored = TfoB7B29.P1Pu * 100;
 
   when PhaseShifterB7B29.tap <> pre(PhaseShifterB7B29.tap) then
     TfoB7B29.tap = PhaseShifterB7B29.tap;

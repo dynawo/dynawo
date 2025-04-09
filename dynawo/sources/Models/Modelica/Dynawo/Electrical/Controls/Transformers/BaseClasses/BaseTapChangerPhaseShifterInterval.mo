@@ -31,17 +31,17 @@ protected
   Types.Time tValueUnderMinWhileRunning(start = Constants.inf) "Time when the monitored signal went under the minimum limit and the tap-changer/phase-shifter is running, in s";
 
 equation
-  when (valueToMonitor.value < valueMin) and not(locked) and running then
+  when (valueToMonitor < valueMin) and not(locked) and running then
     valueUnderMin = true;
     tValueUnderMinWhileRunning = time;
     valueAboveMax = false;
     tValueAboveMaxWhileRunning = pre(tValueAboveMaxWhileRunning);
-  elsewhen (valueToMonitor.value > valueMax) and not(locked) and running then
+  elsewhen (valueToMonitor > valueMax) and not(locked) and running then
     valueUnderMin = false;
     tValueUnderMinWhileRunning = pre(tValueUnderMinWhileRunning);
     valueAboveMax = true;
     tValueAboveMaxWhileRunning = time;
-  elsewhen (valueToMonitor.value >= valueMin and valueToMonitor.value <= valueMax) and not(locked) and running then
+  elsewhen (valueToMonitor >= valueMin and valueToMonitor <= valueMax) and not(locked) and running then
     valueUnderMin = false;
     tValueUnderMinWhileRunning = pre(tValueUnderMinWhileRunning);
     valueAboveMax = false;
@@ -86,28 +86,28 @@ equation
     tap = pre(tap) - 1;
     tTapUp = pre(tTapUp);
     tTapDown = time;
-    Timeline.logEvent3(TimelineKeys.TapDown, String(valueToMonitor.value * factorValueToDisplay), unitValueToDisplay);
+    Timeline.logEvent3(TimelineKeys.TapDown, String(valueToMonitor * factorValueToDisplay), unitValueToDisplay);
   //Transition to "MoveUp1" (only possible from "WaitingToMoveUp")
   elsewhen pre(state) == State.WaitingToMoveUp and time - (if increaseTapToIncreaseValue then tValueUnderMinWhileRunning else tValueAboveMaxWhileRunning) >= t1st and pre(tap) < tapMax then
     state = State.MoveUp1;
     tap = pre(tap) + 1;
     tTapUp = time;
     tTapDown = pre(tTapDown);
-    Timeline.logEvent3(TimelineKeys.TapUp, String(valueToMonitor.value * factorValueToDisplay), unitValueToDisplay);
+    Timeline.logEvent3(TimelineKeys.TapUp, String(valueToMonitor * factorValueToDisplay), unitValueToDisplay);
   //Transition to "MoveDownN" (only possible from "MoveDown1" or "MoveDownN")
   elsewhen (pre(state) == State.MoveDown1 or pre(state) == State.MoveDownN) and time - pre(tTapDown) >= tNext and pre(tap) > tapMin then
     state = State.MoveDownN;
     tap = pre(tap) - 1;
     tTapUp = pre(tTapUp);
     tTapDown = time;
-    Timeline.logEvent3(TimelineKeys.TapDown, String(valueToMonitor.value * factorValueToDisplay), unitValueToDisplay);
+    Timeline.logEvent3(TimelineKeys.TapDown, String(valueToMonitor * factorValueToDisplay), unitValueToDisplay);
   //Transition to "MoveUpN" (only possible from "MoveUp1" or "MoveUpN")
   elsewhen (pre(state) == State.MoveUp1 or pre(state) == State.MoveUpN) and time - pre(tTapUp) >= tNext and pre(tap) < tapMax then
     state = State.MoveUpN;
     tap = pre(tap) + 1;
     tTapUp = time;
     tTapDown = pre(tTapDown);
-    Timeline.logEvent3(TimelineKeys.TapUp, String(valueToMonitor.value * factorValueToDisplay), unitValueToDisplay);
+    Timeline.logEvent3(TimelineKeys.TapUp, String(valueToMonitor * factorValueToDisplay), unitValueToDisplay);
   end when;
 
   annotation(preferredView = "text");

@@ -12,7 +12,7 @@ load_terminal_i_re                                : y =   0.0059714287 yp =  -0.
 load_SPu_im                                       : alias of load_QPu
 load_SPu_re                                       : alias of load_PPu
  ====== CALCULATED VARIABLES VALUES ======
-load_UPu_value                                    : y =   0.9999998829
+load_UPu                                          : y =   0.9999998829
  ====== DISCRETE VARIABLES VALUES ======
 load_running                                      : z =   1.0000000000
 load_switchOffSignal1                             : z =  -1.0000000000

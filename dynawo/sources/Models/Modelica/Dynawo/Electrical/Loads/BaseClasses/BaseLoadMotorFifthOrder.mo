@@ -42,7 +42,7 @@ partial model BaseLoadMotorFifthOrder "Base model for loads in parallel to fifth
   parameter Types.VoltageModulePu Ureconnect2Pu[NbMotors] "Voltage at which the second block of motors reconnects in pu (base UNom)";
   parameter Types.Time tReconnect2Pu[NbMotors] "Time lag before reconnection of the second block of motors in s";
 
-  Connectors.ImPin omegaRefPu(value(start = SystemBase.omegaRef0Pu)) "Network angular reference frequency in pu (base omegaNom)";
+  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Network angular reference frequency in pu (base omegaNom)";
 
   Types.ActivePowerPu PLoadPu(start = PLoad0Pu) "Active power consumed by the load in pu (base SnRef) (receptor convention)";
   Types.ReactivePowerPu QLoadPu(start = QLoad0Pu) "Reactive power consumed by the load in pu (base SnRef) (receptor convention)";

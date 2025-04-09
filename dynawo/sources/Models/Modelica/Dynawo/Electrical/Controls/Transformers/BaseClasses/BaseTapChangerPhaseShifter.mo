@@ -23,7 +23,7 @@ partial model BaseTapChangerPhaseShifter "Base model for tap-changers and phase-
 
   parameter Real valueMax "Threshold above which the tap-changer/phase-shifter will take action (unit depending on the monitored variable unit)";
 
-  Dynawo.Connectors.ImPin valueToMonitor(value(start = valueToMonitor0)) "Monitored value (unit depending on the monitored variable unit)";
+  Modelica.Blocks.Interfaces.RealInput valueToMonitor(start = valueToMonitor0) "Monitored value (unit depending on the monitored variable unit)";
   discrete Modelica.Blocks.Interfaces.RealInput tap(start = tap0) "Current tap";
   Modelica.Blocks.Interfaces.BooleanInput AutomatonExists = true "Pin to indicate to deactivate internal automaton";
 

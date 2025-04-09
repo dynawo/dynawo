@@ -64,8 +64,8 @@ equation
     isPu = imPu + irPu;
     SPu = V * ComplexMath.conj(isPu) * (SNom / SystemBase.SnRef);
 
-    s = (omegaRefPu.value - omegaRPu) / omegaRefPu.value;
-    cePu = RrPu * ComplexMath.'abs'(irPu ^ 2) / (omegaRefPu.value * s);
+    s = (omegaRefPu - omegaRPu) / omegaRefPu;
+    cePu = RrPu * ComplexMath.'abs'(irPu ^ 2) / (omegaRefPu * s);
     clPu = ce0Pu * (omegaRPu / omegaR0Pu) ^ torqueExponent;
     2 * H * der(omegaRPu) = cePu - clPu;
   else

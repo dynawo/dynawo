@@ -25,5 +25,5 @@
   <dyn:blackBoxModel id="LOAD" lib="LoadAlphaBetaTwoMotorFifthOrder" parFile="SingleMachineSystem.par" parId="LOAD" staticId="LOAD"/>
   <dyn:connect id1="LOAD" var1="load_terminal" id2="NETWORK" var2="NLOAD_ACPIN"/>
   <dyn:connect id1="LOAD" var1="load_switchOffSignal1" id2="NETWORK" var2="NLOAD_switchOff_value"/>
-  <dyn:connect id1="LOAD" var1="load_omegaRefPu" id2="OMEGA_REF" var2="omegaRef_grp_0"/>
+  <dyn:connect id1="LOAD" var1="load_omegaRefPu" id2="OMEGA_REF" var2="omegaRef_grp_0_value"/>
 </dyn:dynamicModelsArchitecture>

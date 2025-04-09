@@ -32,8 +32,6 @@ model GoverNordic "Governor model for the Nordic 32 test system used for voltage
   Modelica.Blocks.Interfaces.RealOutput PmPu(start = Pm0Pu) "Mechanical power in pu (base PNom)" annotation(
     Placement(visible = true, transformation(origin = {290, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Dynawo.Connectors.ImPin PmPuPin(value(start = Pm0Pu)) "Pin for connecting PmPu to the generator";
-
   Modelica.Blocks.Continuous.Integrator waterFlow(y_start = Pm0Pu) annotation(
     Placement(visible = true, transformation(origin = {190, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback dH annotation(
@@ -74,8 +72,6 @@ model GoverNordic "Governor model for the Nordic 32 test system used for voltage
   parameter Types.ActivePowerPu Pm0Pu "Initial mechanical power in pu (base PNom)";
 
 equation
-  PmPuPin.value = PmPu;
-
   connect(waterFlow.y, flowDivGateOpening.u1) annotation(
     Line(points = {{201, -40}, {220, -40}, {220, -20}, {0, -20}, {0, -74}, {18, -74}}, color = {0, 0, 127}));
   connect(govInt.y, govOut.u2) annotation(

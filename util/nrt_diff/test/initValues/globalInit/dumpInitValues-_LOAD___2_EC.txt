@@ -5,7 +5,7 @@ load_PPu                                          : y =       0.216993 yp =     
 load_QPu                                          : y =       0.126993 yp =              0
 load_SPu_im                                       : y =       0.126993 yp =              0
 load_SPu_re                                       : y =       0.216993 yp =              0
-load_UPu_value                                    : y =        1.04505 yp =              0
+load_UPu                                          : y =        1.04505 yp =              0
 load_terminal_i_im                                : y =      -0.139091 yp =              0
 load_terminal_i_re                                : y =       0.196302 yp =              0
  ====== INIT DISCRETE VARIABLES VALUES ======

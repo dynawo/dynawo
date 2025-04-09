@@ -1,4 +1,4 @@
  ====== VARIABLES VALUES ======
 connector_InfiniteBus_infiniteBus_terminal_V_re   : y =       1.000000 yp =       0.000000
- ====== INIT DISCRETE VARIABLES VALUES ======
+ ====== DISCRETE VARIABLES VALUES ======
  ====== PARAMETERS VALUES ======

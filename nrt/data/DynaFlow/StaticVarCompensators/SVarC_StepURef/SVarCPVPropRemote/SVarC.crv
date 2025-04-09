@@ -17,5 +17,5 @@
   <curve model="svarc" variable="SVarC_BPu"/>
   <curve model="svarc" variable="SVarC_QInjPu"/>
   <curve model="svarc" variable="SVarC_URefPu"/>
-  <curve model="load" variable="load_UPu_value"/>
+  <curve model="load" variable="load_UPu"/>
 </curvesInput>

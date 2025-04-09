@@ -23,9 +23,9 @@ partial model BaseTapChangerPhaseShifterMax "Base model for tap-changers and pha
   parameter Real valueStop(max = valueMax) "Value below which the phase-shifter will stop (unit depending on the monitored variable unit)";
   parameter Integer increasePhase "Whether the phase shifting is increased when the tap is increased";
 
-  Dynawo.Connectors.ImPin P(value(start = P0)) "Active power (unit depending on the monitored active power unit)";
+  Modelica.Blocks.Interfaces.RealInput P(start = P0) "Active power (unit depending on the monitored active power unit)";
 
-  Integer sign = if P.value < 0 then 1 else -1 "Sign of the active power flowing through the phase-shifter transformer";
+  Integer sign = if P < 0 then 1 else -1 "Sign of the active power flowing through the phase-shifter transformer";
   Boolean increaseTapToIncreaseValue = sign * increasePhase < 0 "Whether increasing the tap will increase the monitored value";
   Boolean increaseTapToDecreaseValue = not decreaseTapToDecreaseValue "Whether increasing the tap will decrease the monitored value";
   Boolean decreaseTapToIncreaseValue = not increaseTapToIncreaseValue "Whether decreasing the tap will increase the monitored value";
@@ -37,12 +37,12 @@ protected
   Boolean valueUnderStop "Whether the monitored signal is under the stop limit";
 
 equation
-  when (valueToMonitor.value > valueMax) and not(locked) then
+  when (valueToMonitor > valueMax) and not(locked) then
     valueAboveMax = true;
     tValueAboveMaxWhileRunning = time;
     valueUnderStop = false;
     Timeline.logEvent1(TimelineKeys.PhaseShifterAboveMax);
-  elsewhen (valueToMonitor.value <= valueStop) and not(locked) then
+  elsewhen (valueToMonitor <= valueStop) and not(locked) then
     valueAboveMax = false;
     tValueAboveMaxWhileRunning = Constants.inf;
     valueUnderStop = true;
@@ -86,28 +86,28 @@ equation
     tap = pre(tap) - 1;
     tTapUp = pre(tTapUp);
     tTapDown = time;
-    Timeline.logEvent3(TimelineKeys.TapDown, String(valueToMonitor.value * factorValueToDisplay), unitValueToDisplay);
+    Timeline.logEvent3(TimelineKeys.TapDown, String(valueToMonitor * factorValueToDisplay), unitValueToDisplay);
   //Transition to "MoveUp1" (only possible from WaitingToMoveUp)
   elsewhen pre(state) == State.WaitingToMoveUp and time - tValueAboveMaxWhileRunning>= t1st and pre(tap) < tapMax then
     state = State.MoveUp1;
     tap = pre(tap) + 1;
     tTapUp = time;
     tTapDown = pre(tTapDown);
-    Timeline.logEvent3(TimelineKeys.TapUp, String(valueToMonitor.value * factorValueToDisplay), unitValueToDisplay);
+    Timeline.logEvent3(TimelineKeys.TapUp, String(valueToMonitor * factorValueToDisplay), unitValueToDisplay);
   //Transition to "MoveDownN" (only possible from MoveDown1 or MoveDownN)
   elsewhen (pre(state) == State.MoveDown1 or pre(state) == State.MoveDownN) and time - pre(tTapDown) >= tNext and pre(tap) > tapMin then
     state = State.MoveDownN;
     tap = pre(tap) - 1;
     tTapUp = pre(tTapUp);
     tTapDown = time;
-    Timeline.logEvent3(TimelineKeys.TapDown, String(valueToMonitor.value * factorValueToDisplay), unitValueToDisplay);
+    Timeline.logEvent3(TimelineKeys.TapDown, String(valueToMonitor * factorValueToDisplay), unitValueToDisplay);
   //Transition to "MoveUpN" (only possible from MoveUp1 or MoveUpN)
   elsewhen (pre(state) == State.MoveUp1 or pre(state) == State.MoveUpN) and time - pre(tTapUp) >= tNext and pre(tap) < tapMax then
     state = State.MoveUpN;
     tap = pre(tap) + 1;
     tTapUp = time;
     tTapDown = pre(tTapDown);
-    Timeline.logEvent3(TimelineKeys.TapUp, String(valueToMonitor.value * factorValueToDisplay), unitValueToDisplay);
+    Timeline.logEvent3(TimelineKeys.TapUp, String(valueToMonitor * factorValueToDisplay), unitValueToDisplay);
   end when;
 
   annotation(preferredView = "text");

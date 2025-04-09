@@ -18,7 +18,7 @@ generator_PmPu                                    : y =       0.000001 yp =     
 generator_UStatorPu                               : y =       1.011508 yp =       0.000000
 generator_cePu                                    : y =       0.000001 yp =       0.000000
 generator_cmPu                                    : y =       0.000001 yp =      -0.000000
-generator_cos2Eta                                 : y =       1.000000 yp =      -0.000000
+generator_cos2Eta                                 : y =       1.000000 yp =       0.000000
 generator_efdPu                                   : y =       1.112179 yp =      -0.000000
 generator_iDPu                                    : y =      -0.000000 yp =      -0.000000
 generator_iQ1Pu                                   : y =      -0.000000 yp =       0.000000
@@ -86,7 +86,7 @@ generator_iStatorPu_im                            : y =       0.241643
 generator_iStatorPu_re                            : y =       0.054567
 generator_sStatorPu_im                            : y =      -0.250578
 generator_sStatorPu_re                            : y =      -0.000005
-generator_thetaInternal_value                     : y =      -0.000044
+generator_thetaInternal                           : y =      -0.000044
 generator_uPu_im                                  : y =      -0.222494
 generator_uPu_re                                  : y =       0.985196
 governor_limiter_simplifiedExpr                   : y =       0.000000

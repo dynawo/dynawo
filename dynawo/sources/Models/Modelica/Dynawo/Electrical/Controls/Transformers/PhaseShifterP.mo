@@ -20,16 +20,17 @@ model PhaseShifterP "Phase-shifter monitoring the active power so that it remain
 
   parameter Types.ActivePower PTarget "Target active power";
   parameter Types.ActivePower PDeadBand(min = 0) "Active-power dead-band around the target";
-  parameter Types.ActivePower P0 "Initial active power";
 
-  Dynawo.Connectors.ImPin PMonitored(value(start = P0)) "Monitored active power";
+  Modelica.Blocks.Interfaces.RealInput PMonitored(start = P0) "Monitored active power";
+
+  parameter Types.ActivePower P0 "Initial active power";
 
 equation
   connect(PMonitored, valueToMonitor);
 
-  when (valueToMonitor.value < valueMin) and not(locked) then
+  when (valueToMonitor < valueMin) and not(locked) then
     Timeline.logEvent1(TimelineKeys.PhaseShifterBelowMin);
-  elsewhen (valueToMonitor.value > valueMax) and not(locked) then
+  elsewhen (valueToMonitor > valueMax) and not(locked) then
     Timeline.logEvent1(TimelineKeys.PhaseShifterAboveMax);
   end when;
 
