@@ -193,7 +193,7 @@ void launchSimuInteractive(const std::string& jobsFileName) {
     // TIME
     std::chrono::system_clock::time_point t_end = system_clock::now();
     double duration = (1./1000)*(duration_cast<microseconds>(t_end-t_start)).count();
-    Trace::info() << "DYNSimulationLauncher: pre-init duration: " << duration << "ms" << Trace::endline;
+
     t_start = t_end;
     // /TIME
     std::shared_ptr<SimulationRT> simulation;

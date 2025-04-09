@@ -33,7 +33,7 @@
 #include "TLTimeline.h"
 #include "CSTRConstraintsCollection.h"
 #include "CRVCurve.h"
-#include "IOOutput.h"
+// #include "IOOutput.h"
 #include "PARParameter.h"
 
 #include "DYNSubModel.h"
@@ -59,7 +59,7 @@ using boost::dynamic_pointer_cast;
 using timeline::Timeline;
 using constraints::ConstraintsCollection;
 using curves::Curve;
-using io::Output;
+// using io::Output;
 
 namespace DYN {
 
@@ -1041,16 +1041,16 @@ SubModel::updateCalculatedVarForCurve(std::shared_ptr<curves::Curve>& curve) {
   updateCalculatedVar(variableName);
 }
 
-void
-SubModel::updateCalculatedVarForOutput(std::shared_ptr<io::Output>& output) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
-  Timer timer("SubModel::updateCalculatedVarForOutput");
-  assert(output);
-#endif
-  if (output->getOutputType() != Output::CALCULATED_VARIABLE) return;
-  const string variableName = output->getFoundVariableName();
-  updateCalculatedVar(variableName);
-}
+// void
+// SubModel::updateCalculatedVarForOutput(std::shared_ptr<io::Output>& output) {
+// #if defined(_DEBUG_) || defined(PRINT_TIMERS)
+//   Timer timer("SubModel::updateCalculatedVarForOutput");
+//   assert(output);
+// #endif
+//   if (output->getOutputType() != Output::CALCULATED_VARIABLE) return;
+//   const string variableName = output->getFoundVariableName();
+//   updateCalculatedVar(variableName);
+// }
 
 void
 SubModel::updateCalculatedVar(const std::string& variableName) {

@@ -88,7 +88,8 @@ solverHandler_(parser::ElementName(namespace_uri(), "solver")),
 modelerHandler_(parser::ElementName(namespace_uri(), "modeler")),
 simulationHandler_(parser::ElementName(namespace_uri(), "simulation")),
 outputsHandler_(parser::ElementName(namespace_uri(), "outputs")),
-localInitHandler_(parser::ElementName(namespace_uri(), "localInit")) {
+localInitHandler_(parser::ElementName(namespace_uri(), "localInit")),
+interactiveSettingsHandler_(parser::ElementName(namespace_uri(), "interactiveSettings")) {
   onStartElement(root_element, lambda::bind(&JobHandler::create, lambda::ref(*this), lambda_args::arg2));
 
   onElement(root_element + namespace_uri()("solver"), solverHandler_);
@@ -96,12 +97,14 @@ localInitHandler_(parser::ElementName(namespace_uri(), "localInit")) {
   onElement(root_element + namespace_uri()("simulation"), simulationHandler_);
   onElement(root_element + namespace_uri()("outputs"), outputsHandler_);
   onElement(root_element + namespace_uri()("localInit"), localInitHandler_);
+  onElement(root_element + namespace_uri()("interactiveSettings"), interactiveSettingsHandler_);
 
   solverHandler_.onEnd(lambda::bind(&JobHandler::addSolver, lambda::ref(*this)));
   modelerHandler_.onEnd(lambda::bind(&JobHandler::addModeler, lambda::ref(*this)));
   simulationHandler_.onEnd(lambda::bind(&JobHandler::addSimulation, lambda::ref(*this)));
   outputsHandler_.onEnd(lambda::bind(&JobHandler::addOutputs, lambda::ref(*this)));
   localInitHandler_.onEnd(lambda::bind(&JobHandler::addLocalInit, lambda::ref(*this)));
+  interactiveSettingsHandler_.onEnd(lambda::bind(&JobHandler::addInteractiveSettings, lambda::ref(*this)));
 }
 
 JobHandler::~JobHandler() {}
@@ -129,6 +132,11 @@ JobHandler::addOutputs() {
 void
 JobHandler::addLocalInit() {
   job_->setLocalInitEntry(localInitHandler_.get());
+}
+
+void
+JobHandler::addInteractiveSettings() {
+  job_->setInteractiveSettingsEntry(interactiveSettingsHandler_.get());
 }
 
 void
@@ -257,20 +265,6 @@ SimulationHandler::create(attributes_type const& attributes) {
     simulation_->setPrecision(attributes["precision"]);
   if (attributes.has("timeout"))
     simulation_->setTimeout(attributes["timeout"]);
-  if (attributes.has("timeSync"))
-    simulation_->setTimeSync(attributes["timeSync"]);
-  if (attributes.has("timeSyncAcceleration"))
-    simulation_->setTimeSyncAcceleration(attributes["timeSyncAcceleration"]);
-  if (attributes.has("eventSubscriberActions"))
-    simulation_->setEventSubscriberActions(attributes["eventSubscriberActions"]);
-  if (attributes.has("eventSubscriberTrigger"))
-    simulation_->setEventSubscriberTrigger(attributes["eventSubscriberTrigger"]);
-  if (attributes.has("triggerSimulationTimeStepInS"))
-    simulation_->setTriggerSimulationTimeStepInS(attributes["triggerSimulationTimeStepInS"]);
-  if (attributes.has("publishToZmq"))
-    simulation_->setPublishToZmq(attributes["publishToZmq"]);
-  if (attributes.has("publishToWebsocket"))
-    simulation_->setPublishToWebsocket(attributes["publishToWebsocket"]);
 }
 
 shared_ptr<SimulationEntry>
@@ -398,6 +392,68 @@ LocalInitHandler::create(attributes_type const& attributes) {
 shared_ptr<LocalInitEntry>
 LocalInitHandler::get() const {
   return localInit_;
+}
+
+
+InteractiveSettingsHandler::InteractiveSettingsHandler(elementName_type const& root_element):
+periodicOutputsHandler_(parser::ElementName(namespace_uri(), "periodicOutputs")) {
+  onStartElement(root_element, lambda::bind(&InteractiveSettingsHandler::create, lambda::ref(*this), lambda_args::arg2));
+
+  onElement(root_element + namespace_uri()("periodicOutputs"), periodicOutputsHandler_);
+  periodicOutputsHandler_.onEnd(lambda::bind(&InteractiveSettingsHandler::addPeriodicOutputsEntry, lambda::ref(*this)));
+}
+
+InteractiveSettingsHandler::~InteractiveSettingsHandler() {}
+
+void
+InteractiveSettingsHandler::create(attributes_type const& attributes) {
+  interactiveSettings_ = std::make_shared<InteractiveSettingsEntry>();
+  if (attributes.has("timeSync"))
+    interactiveSettings_->setTimeSync(attributes["timeSync"]);
+  if (attributes.has("timeSyncAcceleration"))
+    interactiveSettings_->setTimeSyncAcceleration(attributes["timeSyncAcceleration"]);
+  if (attributes.has("eventSubscriberActions"))
+    interactiveSettings_->setEventSubscriberActions(attributes["eventSubscriberActions"]);
+  if (attributes.has("eventSubscriberTrigger"))
+    interactiveSettings_->setEventSubscriberTrigger(attributes["eventSubscriberTrigger"]);
+  if (attributes.has("triggerSimulationTimeStepInS"))
+    interactiveSettings_->setTriggerSimulationTimeStepInS(attributes["triggerSimulationTimeStepInS"]);
+  if (attributes.has("publishToZmq"))
+    interactiveSettings_->setPublishToZmq(attributes["publishToZmq"]);
+  if (attributes.has("publishToWebsocket"))
+    interactiveSettings_->setPublishToWebsocket(attributes["publishToWebsocket"]);
+}
+
+void
+InteractiveSettingsHandler::addPeriodicOutputsEntry() {
+  interactiveSettings_->setPeriodicOutputsEntry(periodicOutputsHandler_.get());
+}
+
+shared_ptr<InteractiveSettingsEntry>
+InteractiveSettingsHandler::get() const {
+  return interactiveSettings_;
+}
+
+PeriodicOutputsHandler::PeriodicOutputsHandler(elementName_type const& root_element) {
+  onStartElement(root_element, lambda::bind(&PeriodicOutputsHandler::create, lambda::ref(*this), lambda_args::arg2));
+}
+
+PeriodicOutputsHandler::~PeriodicOutputsHandler() {}
+
+void
+PeriodicOutputsHandler::create(attributes_type const& attributes) {
+  periodicOutputs_ = std::make_shared<PeriodicOutputsEntry>();
+  if (attributes.has("file"))
+    periodicOutputs_->setFile(attributes["file"]);
+  if (attributes.has("period"))
+    periodicOutputs_->setPeriod(attributes["period"]);
+  if (attributes.has("adapter"))
+    periodicOutputs_->setAdapter(attributes["adapter"]);
+}
+
+shared_ptr<PeriodicOutputsEntry>
+PeriodicOutputsHandler::get() const {
+  return periodicOutputs_;
 }
 
 InitValuesHandler::InitValuesHandler(elementName_type const& root_element) {

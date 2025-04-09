@@ -24,7 +24,12 @@
 
 using std::string;
 
-namespace io {
+namespace dynio {
+
+std::unique_ptr<Output>
+OutputFactory::newOutput() {
+  return DYN::make_unique<Output>();
+}
 
 Output::Output::Output() :
       modelName_(""),
@@ -116,4 +121,4 @@ Output::getBuffer() const {
   return buffer_;
 }
 
-}  // namespace curves
+}  // namespace dynio

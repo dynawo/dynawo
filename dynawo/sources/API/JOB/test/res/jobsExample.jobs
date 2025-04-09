@@ -51,6 +51,11 @@
       </dyn:logs>
     </dyn:outputs>
     <dyn:localInit parFile="init.par" parId="42"/>
+    <dyn:interactiveSettings>
+      <dyn:periodicOutputs file="outputs.lo">
+        <dyn:periodicOuptutsInterface type="ZMQ" period="1s"/>
+      </dyn:periodicOutputs>
+    </dyn:interactiveSettings>
   </dyn:job>
   <dyn:job name="Job 2">
     <dyn:solver lib="libdynawo_SolverSIM" parFile="solvers.par" parId="3"/>

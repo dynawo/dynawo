@@ -119,7 +119,7 @@ int main(int argc, char ** argv) {
       cout << "[INFO] xsd validation will not be used" << endl;
 
     if (vm.count("interactive")) {
-      cout << ".... <WARNING> Interactive experiment <WARNING>...." << endl;
+      cout << ".... <WARNING> Interactive experiment <WARNING> ...." << endl;
       launchSimuInteractive(jobsFileName);
     } else {
       launchSimu(jobsFileName);

@@ -56,7 +56,8 @@ set(API_JOB_SOURCES
     JOBOutputsEntryFactory.cpp
     JOBSimulationEntryFactory.cpp
     JOBSolverEntryFactory.cpp
-    JOBModelsDirEntryFactory.cpp
+    JOBInteractiveSettingsEntry.cpp
+    JOBPeriodicOutputsEntry.cpp
     )
 
 set(API_JOB_INCLUDE_HEADERS
@@ -100,6 +101,8 @@ set(API_JOB_INCLUDE_HEADERS
     JOBTimelineEntry.h
     JOBTimetableEntry.h
     JOBModelsDirEntry.h
+    JOBInteractiveSettingsEntry.h
+    JOBPeriodicOutputsEntry.h
     )
 
 add_library(dynawo_API_JOB SHARED ${API_JOB_SOURCES})

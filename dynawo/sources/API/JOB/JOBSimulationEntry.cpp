@@ -28,14 +28,7 @@ startTime_(0),
 stopTime_(0),
 criteriaStep_(10),
 precision_(1e-6),
-timeout_(std::numeric_limits<double>::max()),
-timeSync_(false),
-timeSyncAcceleration_(1.),
-eventSubscriberActions_(false),
-eventSubscriberTrigger_(false),
-triggerSimulationTimeStepInS_(1.),
-publishToZmq_(false),
-publishToWebsocket_(false)
+timeout_(std::numeric_limits<double>::max())
 {}
 
 void

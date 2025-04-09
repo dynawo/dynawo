@@ -43,6 +43,8 @@
 #include "JOBTimelineEntry.h"
 #include "JOBTimetableEntry.h"
 #include "JOBLocalInitEntry.h"
+#include "JOBInteractiveSettingsEntry.h"
+#include "JOBPeriodicOutputsEntry.h"
 
 #include <string>
 #include <vector>
@@ -908,6 +910,79 @@ class LocalInitHandler : public xml::sax::parser::ComposableElementHandler {
 };
 
 /**
+ * @class PeriodicOutputsHandler
+ * @brief Handler used to parse periodic outputs element
+ */
+class PeriodicOutputsHandler : public xml::sax::parser::ComposableElementHandler {
+ public:
+  /**
+   * @brief Constructor
+   * @param root_element complete name of the element read by the handler
+   */
+  explicit PeriodicOutputsHandler(elementName_type const& root_element);
+
+  /**
+   * @brief Destructor
+   */
+  virtual ~PeriodicOutputsHandler();
+
+  /**
+   * @brief return the local init entry read in xml file
+   * @return local init entry object build thanks to infos read in xml file
+   */
+  std::shared_ptr<PeriodicOutputsEntry> get() const;
+
+ protected:
+  /**
+   * @brief Called when the XML element opening tag is read
+   * @param attributes attributes of the element
+   */
+  void create(attributes_type const& attributes);
+
+ private:
+  std::shared_ptr<PeriodicOutputsEntry> periodicOutputs_;
+};
+
+/**
+ * @class InteractiveSettingsHandler
+ * @brief Handler used to parse interactive settings element
+ */
+class InteractiveSettingsHandler : public xml::sax::parser::ComposableElementHandler {
+ public:
+  /**
+   * @brief Constructor
+   * @param root_element complete name of the element read by the handler
+   */
+  explicit InteractiveSettingsHandler(elementName_type const& root_element);
+
+  /**
+   * @brief Destructor
+   */
+  virtual ~InteractiveSettingsHandler();
+
+  /**
+  * @brief add a periodic outputs object to the current job
+  */
+  void addPeriodicOutputsEntry();
+  /**
+   * @brief return the local init entry read in xml file
+   * @return local init entry object build thanks to infos read in xml file
+   */
+  std::shared_ptr<InteractiveSettingsEntry> get() const;
+
+ protected:
+  /**
+   * @brief Called when the XML element opening tag is read
+   * @param attributes attributes of the element
+   */
+  void create(attributes_type const& attributes);
+
+ private:
+  std::shared_ptr<InteractiveSettingsEntry> interactiveSettings_;
+  PeriodicOutputsHandler periodicOutputsHandler_;
+};
+
+/**
  * @class JobHandler
  * @brief Handler used to parse job element
  */
@@ -955,6 +1030,11 @@ class JobHandler : public xml::sax::parser::ComposableElementHandler {
    */
   void addLocalInit();
 
+  /**
+   * @brief add an interactive settings object to the current job
+   */
+  void addInteractiveSettings();
+
  protected:
   /**
    * @brief Called when the XML element opening tag is read
@@ -963,12 +1043,13 @@ class JobHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const& attributes);
 
  private:
-  std::shared_ptr<JobEntry> job_;        ///< job object created by the handler
-  SolverHandler solverHandler_;          ///< handler used to read solver element
-  ModelerHandler modelerHandler_;        ///< handler used to read modeler element
-  SimulationHandler simulationHandler_;  ///< handler used to read simulation element
-  OutputsHandler outputsHandler_;        ///< handler used to read outputs element
-  LocalInitHandler localInitHandler_;    ///< handler used to read local init element
+  std::shared_ptr<JobEntry> job_;                            ///< job object created by the handler
+  SolverHandler solverHandler_;                              ///< handler used to read solver element
+  ModelerHandler modelerHandler_;                            ///< handler used to read modeler element
+  SimulationHandler simulationHandler_;                      ///< handler used to read simulation element
+  OutputsHandler outputsHandler_;                            ///< handler used to read outputs element
+  LocalInitHandler localInitHandler_;                        ///< handler used to read local init element
+  InteractiveSettingsHandler interactiveSettingsHandler_;    ///< handler used to read local init element
 };
 
 /**

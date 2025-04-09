@@ -94,26 +94,71 @@ namespace DYN {
 
 SimulationRT::SimulationRT(const std::shared_ptr<job::JobEntry>& jobEntry, const std::shared_ptr<SimulationContext>& context, shared_ptr<DataInterface> data) :
 Simulation(jobEntry, context, data) {
-  if (jobEntry_->getSimulationEntry()->getPublishToZmq()) {
+  if (jobEntry_->getInteractiveSettingsEntry()->getPublishToZmq()) {
     stepPublisher_ = std::make_shared<ZmqPublisher>();
     std::cout << "ZMQ publisher server started" << std::endl;
   }
-  if (jobEntry_->getSimulationEntry()->getTimeSync()) {
+  if (jobEntry_->getInteractiveSettingsEntry()->getTimeSync()) {
     timeManager_ = std::make_shared<TimeManager>(
-      jobEntry_->getSimulationEntry()->getTimeSyncAcceleration());
+      jobEntry_->getInteractiveSettingsEntry()->getTimeSyncAcceleration());
   }
-  bool subscribeActions = jobEntry_->getSimulationEntry()->getEventSubscriberActions();
-  bool subscribeTrigger = jobEntry_->getSimulationEntry()->getEventSubscriberTrigger();
+  bool subscribeActions = jobEntry_->getInteractiveSettingsEntry()->getEventSubscriberActions();
+  bool subscribeTrigger = jobEntry_->getInteractiveSettingsEntry()->getEventSubscriberTrigger();
   if (subscribeActions || subscribeTrigger) {
-    triggerSimulationTimeStepInS_ = jobEntry_->getSimulationEntry()->getTriggerSimulationTimeStepInS();
+    triggerSimulationTimeStepInS_ = jobEntry_->getInteractiveSettingsEntry()->getTriggerSimulationTimeStepInS();
     eventSubscriber_ = std::make_shared<EventSubscriber>(subscribeTrigger, subscribeActions);
   }
-  if (jobEntry_->getSimulationEntry()->getPublishToWebsocket()) {
+  if (jobEntry_->getInteractiveSettingsEntry()->getPublishToWebsocket()) {
     wsServer_ = std::make_shared<wsc::WebsocketServer>();
     wsServer_->run(9001);
     std::cout << "Websocket server started" << std::endl;
   }
 }
+
+// void
+// SimulationRT::init() {
+//   Simulation::init();
+// }
+
+
+// void
+// Simulation::configureCurveOutputs() {
+//   // Curves settings
+//   if (jobEntry_->getOutputsEntry()->getCurvesEntry()) {
+//     string curvesDir = createAbsolutePath("curves", outputsDirectory_);
+//     if (!is_directory(curvesDir))
+//       create_directory(curvesDir);
+
+//     //---- inputFile ----
+//     string curveInputFile = createAbsolutePath(jobEntry_->getOutputsEntry()->getCurvesEntry()->getInputFile(), context_->getInputDirectory());
+//     if (!exists(curveInputFile))
+//       throw DYNError(Error::MODELER, UnknownCurveFile, curveInputFile);
+//     setCurvesInputFile(curveInputFile);
+//     importCurvesRequest();
+
+//     //---- outputFile ---
+//     setCurvesOutputFile(jobEntry_->getOutputsEntry()->getCurvesEntry()->getOutputFile());
+
+//     //---- exportMode ----
+//     string exportMode = jobEntry_->getOutputsEntry()->getCurvesEntry()->getExportMode();
+//     Simulation::exportCurvesMode_t exportModeFlag = Simulation::EXPORT_CURVES_NONE;
+//     string outputFile = "";
+//     if (exportMode == "CSV") {
+//       exportModeFlag = Simulation::EXPORT_CURVES_CSV;
+//       outputFile = createAbsolutePath("curves.csv", curvesDir);
+//     } else if (exportMode == "XML") {
+//       exportModeFlag = Simulation::EXPORT_CURVES_XML;
+//       outputFile = createAbsolutePath("curves.xml", curvesDir);
+//     } else {
+//       throw DYNError(Error::MODELER, UnknownCurvesExport, exportMode);
+//     }
+//     setCurvesExportMode(exportModeFlag);
+//     setCurvesOutputFile(outputFile);
+//   } else {
+//     setCurvesExportMode(Simulation::EXPORT_CURVES_NONE);
+//   }
+// }
+
 
 void
 SimulationRT::simulate() {

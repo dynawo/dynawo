@@ -57,5 +57,10 @@
         "build": true,
         "install": true,
         "deploy": true
+    },
+    "C_Cpp.dimInactiveRegions": false,
+    "C_Cpp.default.compilerPath": "",
+    "files.associations": {
+        "limits": "cpp"
     }
 }

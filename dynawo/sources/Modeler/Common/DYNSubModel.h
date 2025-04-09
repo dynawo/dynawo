@@ -140,7 +140,7 @@ class SubModel {
    * @brief update parameters of modelica model
    * @param parameterSet ParametersSet filled with external values
    */
-  virtual void updateParameters(std::shared_ptr<parameters::ParametersSet>&) {}
+  virtual void updateParameters(std::shared_ptr<parameters::ParametersSet>&);
 
  public:
   /**
@@ -860,13 +860,6 @@ class SubModel {
    * @param output output whose value needs to be updated
    */
   void updateCalculatedVarForOutput(std::shared_ptr<io::Output>& output);
-
-  /**
-   * @brief update parameters of modelica model
-   * @param parameterSet ParametersSet filled with external values
-   */
-  virtual void updateParameters(std::shared_ptr<parameters::ParametersSet>& parametersSet);
-
 
   /**
    * @brief add a curve of a parameter to store for the model

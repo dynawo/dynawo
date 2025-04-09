@@ -11,20 +11,27 @@
     This file is part of Dynawo, an hybrid C++/Modelica open source time domain
     simulation tool for power systems.
 -->
-<inputOutputData xmlns="http://www.rte-france.com/dynawo">
-  <defaultOutput lib="model1">
-    <output var="node" name="toto">
-    <output var="node_@ID@" name="toto">
-    <output var="bus_@INDEX@" name="tutu">
-  </defaultOutput>
-  <macroOutput id="macroOutput">
-    <output var="node" name="toto">
-    <output var="node_@ID@" name="toto">
-    <output var="bus_@INDEX@" name="tutu">
-  </macroOutput>
-  <singleModelOutput id="equipementID">
-    <output var="node" name="toto">
-    <output var="node_@ID@" name="toto">
-    <output var="bus_@INDEX@" name="tutu">
-  </singleModelOutput>
-</inputOutputData>
+<liveOutputs xmlns="http://www.rte-france.com/dynawo">
+  <!-- <macroOutput id="macroOutput1">
+    <output var="var1" alias="toto"/>
+    <output var="node_@ID@" alias="toto"/>
+    <output var="bus_@NAME@" alias="name"/>
+  </macroOutput> -->
+  <defaultModelOutput lib="modelLib1">
+    <output var="var1" alias="toto"/>
+    <output var="node_@ID@" alias="toto"/>
+    <output var="bus_@NAME@" alias="name"/>
+  </defaultModelOutput>
+  <!-- <defaultModelOutput lib="modelLib2">
+    <useMacro ref="macroOutput1"/>
+    <output var="var2" alias="13"/>
+  </defaultModelOutput> -->
+  <modelOutput id="equipement1">
+    <output var="node" alias="toto"/>
+    <output var="node_@ID@" alias="toto"/>
+    <output var="bus_@NAME@" alias="name"/>
+  </modelOutput>
+  <!-- <modelOutput id="equipement2">
+    <useMacro ref="macroOutput1"/>
+  </modelOutput> -->
+</liveOutputs>

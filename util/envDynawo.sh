@@ -128,7 +128,8 @@ where [option] can be:"
         generate-preassembled-gdb             generate a preassembled model with debugger
         dump-model-gdb                        dump model with debugger
         dump-model-valgrind                   dump model with valgrind
-        compileCppModelicaModelInDynamicLib   compile Modelica Model generated for Dynawo"
+        compileCppModelicaModelInDynamicLib   compile Modelica Model generated for Dynawo
+        update-xml [args]                     migrate simulation XML files to a newer version"
 
   export_var_env DYNAWO_DOCUMENTATION_OPTIONS="    =========== Dynawo Documentation
         =========== Launch
@@ -1682,6 +1683,10 @@ nrt_update() {
   $DYNAWO_PYTHON_COMMAND $DYNAWO_HOME/util/updateXML/content/updateDynawoNRT/updateDynawoNRT.py $@
 }
 
+update_xml() {
+  $DYNAWO_PYTHON_COMMAND $DYNAWO_HOME/util/updateXML/update.py $@
+}
+
 check_coding_files() {
   # html escape .dic files for dictionary
   for dicfile in $(find $DYNAWO_INSTALL_DIR -iname '*.dic')
@@ -2616,6 +2621,10 @@ case $MODE in
 
   nrt-doc)
     open_nrt_doc || error_exit "Error during the opening of Dynawo nrt documentation"
+    ;;
+
+  update-xml)
+    update_xml ${ARGS} || error_exit "Error during the update of XML files"
     ;;
 
   reset-environment)

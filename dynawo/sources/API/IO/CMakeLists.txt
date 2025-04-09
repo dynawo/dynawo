@@ -19,12 +19,16 @@ set(API_IO_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 # install(FILES ${API_IO_SHARED} DESTINATION ${SHAREDIR_NAME}/xsd/)
 
 set(API_IO_SOURCES
-  IOOutput.cpp
-  )
+IODefaultModelOutputEntry.cpp
+IOModelOutputEntry.cpp
+IOOutputEntry.cpp
+)
 
 set(API_IO_INCLUDE_HEADERS
-  IOOutput.h
-  )
+IODefaultModelOutputEntry.h
+IOModelOutputEntry.h
+IOOutputEntry.h
+)
 
 add_library(dynawo_API_IO SHARED ${API_IO_SOURCES})
 

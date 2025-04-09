@@ -231,4 +231,23 @@
     <xs:attribute name="parId" use="required" type="xs:string"/>
   </xs:complexType>
 
+  <xs:complexType name="InteractiveSettingsEntry">
+    <xs:sequence>
+      <xs:element name="periodicOutputs" type="dyn:PeriodicOutputsEntry" minOccurs="0" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="timeSync" type="xs:boolean"/>
+    <xs:attribute name="timeSyncAcceleration" type="xs:float"/>
+    <xs:attribute name="eventSubscriberActions" type="xs:boolean"/>
+    <xs:attribute name="eventSubscriberTrigger" type="xs:boolean"/>
+    <xs:attribute name="triggerSimulationTimeStepInS" type="xs:float"/>
+    <xs:attribute name="publishToZmq" type="xs:boolean"/>
+    <xs:attribute name="publishToWebsocket" type="xs:boolean"/>
+  </xs:complexType>
+
+  <xs:complexType name="PeriodicOutputsEntry">
+    <xs:attribute name="file" type="xs:string"/>
+    <xs:attribute name="adapter" type="xs:string"/>
+    <xs:attribute name="period" type="xs:float"/>
+  </xs:complexType>
+
 </xs:schema>

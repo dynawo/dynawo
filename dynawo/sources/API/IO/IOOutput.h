@@ -21,13 +21,33 @@
 #define API_IO_IOOUTPUT_H_
 
 
-#include <limits>
-#include <string>
-#include <vector>
-#include <memory>
+// #include <limits>
+// #include <string>
+// #include <vector>
+// #include <memory>
 
-namespace io {
-/**
+#include "make_unique.hpp"
+
+namespace dynio {
+
+ /**
+  * @class OutputFactory
+  * @brief Output factory class
+  *
+  * OutputFactory encapsulates methods for creating new
+  * @p Output objects.
+  */
+class OutputFactory {
+ public:
+  /**
+  * @brief Create new Output instance
+  *
+  * @returns a unique pointer to a new @p Output
+  */
+  static std::unique_ptr<Output> newOutput();
+};
+
+ /**
  * @class Output
  * @brief Output interface class
  *
@@ -170,11 +190,10 @@ class Output {
   const double* buffer_;                           ///< address buffer where to find value
   double value_;                                    ///< value snapshot at time time
   double time_;                                     ///< t of valut snapshot
-  OutputType_t outputType_;                          ///< @b true if a calculated variable curve, @b false if variable
+  OutputType_t outputType_;                   ///< @b true if a calculated variable curve, @b false if variable
   size_t indexInGlobalTable_;                      ///< curve's index in global table
-
 };
 
-}  // namespace curves
+}  // namespace dynio
 
 #endif  // API_IO_IOOUTPUT_H_
