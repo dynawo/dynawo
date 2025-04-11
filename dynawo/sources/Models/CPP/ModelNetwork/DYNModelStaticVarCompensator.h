@@ -211,7 +211,7 @@ class ModelStaticVarCompensator : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params)
    */
-  void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params);
+  void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params) override;
 
   /**
    * @copydoc NetworkComponent::setFequations( std::map<int,std::string>& fEquationIndex )
@@ -226,7 +226,7 @@ class ModelStaticVarCompensator : public NetworkComponent {
   /**
    * @brief addBusNeighbors
    */
-  void addBusNeighbors() { /* not needed */ }
+  void addBusNeighbors() override { /* not needed */ }
 
   /**
    * @brief evaluate state
