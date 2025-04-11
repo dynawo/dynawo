@@ -91,6 +91,10 @@
     <par type="DOUBLE" name="voltageRegulator_tG" value="1"/>
     <par type="DOUBLE" name="voltageRegulator_tIa" value="3"/>
     <par type="DOUBLE" name="voltageRegulator_tR" value="1e-5"/>
+    <par type="DOUBLE" name="voltageRegulator_UOel0Pu" value="0"/>
+    <par type="DOUBLE" name="voltageRegulator_USclOel0Pu" value="0"/>
+    <par type="DOUBLE" name="voltageRegulator_USclUel0Pu" value="0"/>
+    <par type="DOUBLE" name="voltageRegulator_UUel0Pu" value="0"/>
     <par type="DOUBLE" name="voltageRegulator_VMaxPu" value="1.1"/>
     <par type="DOUBLE" name="voltageRegulator_VMinPu" value="0.9"/>
     <par type="DOUBLE" name="voltageRegulator_VrMaxPu" value="5"/>
