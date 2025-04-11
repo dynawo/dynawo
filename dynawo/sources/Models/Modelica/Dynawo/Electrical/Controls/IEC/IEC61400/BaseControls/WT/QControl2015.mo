@@ -71,7 +71,7 @@ equation
     Line(points = {{-320, 280}, {-180, 280}, {-180, 248}}, color = {0, 0, 127}));
   connect(QWTPu, gain6.u) annotation(
     Line(points = {{-320, 280}, {-296, 280}, {-296, -20}, {-242, -20}}, color = {0, 0, 127}));
-  connect(firstOrder.y, max.u1) annotation(
+  connect(firstOrder.y, max1.u1) annotation(
     Line(points = {{-259, -82}, {-100, -82}, {-100, -34}, {-22, -34}}, color = {0, 0, 127}));
   connect(PWTPu, firstOrder1.u) annotation(
     Line(points = {{-320, -52}, {-286, -52}, {-286, -46}}, color = {0, 0, 127}));

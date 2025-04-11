@@ -23,32 +23,32 @@ model St6b "IEEE exciter type ST6B model (2005 standard)"
 equation
   if PositionOel == 1 then
     sum1.u[2] = UOelPu;
-    min1.u[2] = min1.u[1];
+    min1.u2 = min1.u1;
     sum2.u[3] = 0;
-    min2.u[2] = min2.u[1];
+    min2.u2 = min2.u1;
   elseif PositionOel == 2 then
     sum1.u[2] = 0;
-    min1.u[2] = UOelPu;
+    min1.u2 = UOelPu;
     sum2.u[3] = 0;
-    min2.u[2] = min2.u[1];
+    min2.u2 = min2.u1;
   elseif PositionOel == 3 then
     sum1.u[2] = 0;
-    min1.u[2] = min1.u[1];
+    min1.u2 = min1.u1;
     sum2.u[3] = UOelPu;
-    min2.u[2] = min2.u[1];
+    min2.u2 = min2.u1;
   elseif PositionOel == 4 then
     sum1.u[2] = 0;
-    min1.u[2] = min1.u[1];
+    min1.u2 = min1.u1;
     sum2.u[3] = 0;
-    min2.u[2] = UOelPu;
+    min2.u2 = UOelPu;
   else
     sum1.u[2] = 0;
-    min1.u[2] = min1.u[1];
+    min1.u2 = min1.u1;
     sum2.u[3] = 0;
-    min2.u[2] = min2.u[1];
+    min2.u2 = min2.u1;
   end if;
 
-  connect(limiter.y, min2.u[1]) annotation(
+  connect(limiter.y, min2.u1) annotation(
     Line(points = {{102, -80}, {160, -80}, {160, -74}, {200, -74}}, color = {0, 0, 127}));
   connect(potentialCircuit.vE, division.u2) annotation(
     Line(points = {{-378, 140}, {-200, 140}, {-200, 154}, {-182, 154}}, color = {0, 0, 127}));
@@ -56,7 +56,7 @@ equation
     Line(points = {{-378, 140}, {-200, 140}, {-200, 134}, {-82, 134}}, color = {0, 0, 127}));
   connect(min4.y, product.u2) annotation(
     Line(points = {{281, -20}, {340, -20}, {340, -6}, {358, -6}}, color = {0, 0, 127}));
-  connect(UUelPu, max1.u[2]) annotation(
+  connect(UUelPu, max1.u2) annotation(
     Line(points = {{-460, -120}, {-260, -120}, {-260, -60}, {-240, -60}}, color = {0, 0, 127}));
   connect(const3.y, limPI1.limitMax) annotation(
     Line(points = {{-158, 0}, {-80, 0}, {-80, -94}, {-62, -94}}, color = {0, 0, 127}));

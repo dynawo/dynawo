@@ -41,7 +41,7 @@ model VRNordic "Voltage regulator model for the Nordic 32 test system used for v
 
   Dynawo.Connectors.ImPin efdPuPin(value(start = Efd0Pu)) "Pin for connecting efdPu to the generator";
 
-  Modelica.Blocks.Math.Min min annotation(
+  Modelica.Blocks.Math.Min min1 annotation(
     Placement(visible = true, transformation(origin = {10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const1(k = UsRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {-270, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -113,9 +113,9 @@ equation
     Line(points = {{-99, 40}, {-62, 40}}, color = {255, 0, 255}));
   connect(dIf.y, overExcitationLimitation.u) annotation(
     Line(points = {{-231, 80}, {-220, 80}, {-220, 40}, {-202, 40}}, color = {0, 0, 127}));
-  connect(min.y, kMulDU.u) annotation(
+  connect(min1.y, kMulDU.u) annotation(
     Line(points = {{21, 0}, {38, 0}}, color = {0, 0, 127}));
-  connect(switch.y, min.u1) annotation(
+  connect(switch.y, min1.u1) annotation(
     Line(points = {{-39, 40}, {-20, 40}, {-20, 6}, {-2, 6}}, color = {0, 0, 127}));
   connect(gain1.y, switch.u1) annotation(
     Line(points = {{-139, 80}, {-80, 80}, {-80, 48}, {-62, 48}}, color = {0, 0, 127}));
@@ -149,10 +149,11 @@ equation
     Line(points = {{-211, 0}, {-140, 0}, {-140, -14}, {-122, -14}}, color = {0, 0, 127}));
   connect(add.y, switch.u3) annotation(
     Line(points = {{-99, -20}, {-80, -20}, {-80, 32}, {-62, 32}}, color = {0, 0, 127}));
-  connect(add.y, min.u2) annotation(
+  connect(add.y, min1.u2) annotation(
     Line(points = {{-99, -20}, {-20, -20}, {-20, -6}, {-2, -6}}, color = {0, 0, 127}));
 
-  annotation(preferredView = "diagram",
+  annotation(
+    preferredView = "diagram",
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {0, 120}, lineColor = {0, 0, 255}, fillColor = {0, 0, 255}, extent = {{-60, 20}, {60, -20}}, textString = "%name"), Text(extent = {{-97, 117}, {97, -117}}, textString = "AVR, EXC,
 OEL, PSS")}),
     uses(Modelica(version = "3.2.3")),
