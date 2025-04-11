@@ -98,8 +98,8 @@ partial model BaseSt5 "IEEE excitation system type ST5 base model"
   parameter Types.VoltageModulePu Us0Pu "Initial stator voltage in pu (base UNom)";
 
   //Initial parameters (inputs)
-  parameter Types.VoltageModulePu UOel0Pu = 0 "Overexcitation limitation initial output voltage in pu (base UNom)";
-  parameter Types.VoltageModulePu UUel0Pu = 0 "Underexcitation limitation initial output voltage in pu (base UNom)";
+  parameter Types.VoltageModulePu UOel0Pu "Overexcitation limitation initial output voltage in pu (base UNom)";
+  parameter Types.VoltageModulePu UUel0Pu "Underexcitation limitation initial output voltage in pu (base UNom)";
 
   final parameter Types.VoltageModulePu UsRef0Pu = Us0Pu + Vr0Pu / Kr "Initial reference stator voltage in pu (base UNom)";
   final parameter Types.VoltageModulePu Vr0Pu = Efd0Pu + Kc * Ir0Pu "Initial field voltage in pu (user-selected base voltage)";
