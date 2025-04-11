@@ -68,6 +68,8 @@ model TestCase1 "Voltage reference step on the synchronous machine (and its regu
     Us0Pu = generatorSynchronous.UStator0Pu) annotation(
     Placement(visible = true, transformation(origin = {130, 18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.Pss2a pss(
+    KOmega = 1,
+    KOmegaRef = 0,
     Ks1 = 10,
     Ks2 = 0.1564,
     Ks3 = 1,

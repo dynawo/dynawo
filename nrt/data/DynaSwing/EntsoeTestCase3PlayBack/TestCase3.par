@@ -64,6 +64,8 @@
     <par type="DOUBLE" name="voltageRegulator_Te" value="0.05"/>
     <par type="DOUBLE" name="voltageRegulator_Efd0Pu" value="1"/>
     <par type="DOUBLE" name="voltageRegulator_Us0Pu" value="1"/>
+    <par type="DOUBLE" name="pss_KOmega" value="1"/>
+    <par type="DOUBLE" name="pss_KOmegaRef" value="0"/>
     <par type="DOUBLE" name="pss_Ks1" value="10"/>
     <par type="DOUBLE" name="pss_Ks2" value="0.1564"/>
     <par type="DOUBLE" name="pss_Ks3" value="1"/>
