@@ -1,6 +1,6 @@
  ====== VARIABLES VALUES ======
  ====== CALCULATED VARIABLES VALUES ======
-setPoint_setPoint_value                           : y =       1.000000
+setPoint_setPoint                                 : y =       1.000000
  ====== DISCRETE VARIABLES VALUES ======
  ====== PARAMETERS VALUES ======
 setPoint_Value0                                    =       1.000000
