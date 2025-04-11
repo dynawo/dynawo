@@ -77,7 +77,7 @@ partial model BaseDc1 "IEEE excitation system type DC1 base model"
   parameter Types.VoltageModulePu Us0Pu "Initial stator voltage in pu (base UNom)";
 
   //Initial parameter (input)
-  parameter Types.VoltageModulePu UUel0Pu = 0 "Underexcitation limitation initial output voltage in pu (base UNom)";
+  parameter Types.VoltageModulePu UUel0Pu "Underexcitation limitation initial output voltage in pu (base UNom)";
 
   final parameter Types.VoltageModulePu UsRef0Pu = Va0Pu / Ka + Us0Pu "Initial reference stator voltage in pu (base UNom)";
   final parameter Types.VoltageModulePu Va0Pu = Efd0Pu * (Ke + AEx * exp(BEx * Efd0Pu)) "Initial output voltage of voltage regulator in pu (user-selected base voltage)";
