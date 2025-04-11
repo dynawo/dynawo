@@ -112,6 +112,7 @@ model GovSteamEuSt4b "Active power variation on the load with governor GovSteamE
     Kpr = 10.75,
     Thetap = 0, UOel0Pu = 10,
     Us0Pu = generatorSynchronous.UStator0Pu,
+    UUel0Pu = 0,
     VaMaxPu = 1,
     VaMinPu = -0.87,
     Vb0Pu = 10.162168,

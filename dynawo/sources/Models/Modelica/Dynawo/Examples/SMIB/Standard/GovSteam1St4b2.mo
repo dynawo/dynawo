@@ -112,6 +112,7 @@ model GovSteam1St4b2 "Active power variation on the load"
     UOel0Pu = 10,
     Us0Pu = generatorSynchronous.U0Pu,
     ut0Pu = generatorSynchronous.u0Pu,
+    UUel0Pu = 0,
     VaMaxPu = 1,
     VaMinPu = -0.87,
     Vb0Pu = 10.162168,

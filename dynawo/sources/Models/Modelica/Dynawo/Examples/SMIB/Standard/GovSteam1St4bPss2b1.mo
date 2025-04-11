@@ -110,6 +110,7 @@ model GovSteam1St4bPss2b1 "Voltage reference step on the synchronous machine (an
     UOel0Pu = 10,
     Us0Pu = generatorSynchronous.U0Pu,
     ut0Pu = generatorSynchronous.u0Pu,
+    UUel0Pu = 0,
     VaMaxPu = 1,
     VaMinPu = -0.87,
     Vb0Pu = 9.234759,

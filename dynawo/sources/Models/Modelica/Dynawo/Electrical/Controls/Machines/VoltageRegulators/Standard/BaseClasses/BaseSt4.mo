@@ -101,8 +101,8 @@ partial model BaseSt4 "IEEE exciter type ST4 base model"
   parameter Types.ComplexVoltagePu ut0Pu "Initial complex stator voltage in pu (base UNom)";
 
   //Initial parameters (inputs)
-  parameter Types.VoltageModulePu UOel0Pu = 0 "Overexcitation limitation initial output voltage in pu (base UNom)";
-  parameter Types.VoltageModulePu UUel0Pu = 0 "Underexcitation limitation initial output voltage in pu (base UNom)";
+  parameter Types.VoltageModulePu UOel0Pu "Overexcitation limitation initial output voltage in pu (base UNom)";
+  parameter Types.VoltageModulePu UUel0Pu "Underexcitation limitation initial output voltage in pu (base UNom)";
 
   //Initial parameter (calculated by initialization model)
   parameter Types.VoltageModulePu Vb0Pu "Initial available exciter field voltage in pu (base UNom)";

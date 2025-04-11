@@ -96,6 +96,7 @@
     <par type="DOUBLE" name="voltageRegulator_tK" value="0.18"/>
     <par type="DOUBLE" name="voltageRegulator_TolLi" value="0.01"/>
     <par type="DOUBLE" name="voltageRegulator_tR" value="1e-5"/>
+    <par type="DOUBLE" name="voltageRegulator_UUel0Pu" value="0"/>
     <par type="DOUBLE" name="voltageRegulator_VaMaxPu" value="75"/>
     <par type="DOUBLE" name="voltageRegulator_VaMinPu" value="-75"/>
     <par type="DOUBLE" name="voltageRegulator_VeMinPu" value="1e-4"/>
