@@ -81,7 +81,7 @@ partial model BaseAc1 "IEEE excitation system type AC1 base model"
     Placement(visible = true, transformation(origin = {240, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Math.MinMax max1(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {70, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MinMaxDynawo3 min1 annotation(
+  Modelica.Blocks.Math.MinMax min1(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {130, -14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Derivative derivative(k = Kf, T = tF, x_start = Efe0Pu) annotation(
     Placement(visible = true, transformation(origin = {10, -140}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
