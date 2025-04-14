@@ -14,9 +14,9 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 
 block MinMaxDynawo3 "Output the minimum and the maximum element of the three signals"
   extends Modelica.Blocks.Icons.Block;
-  Modelica.Blocks.Interfaces.RealVectorInput u[3] annotation (Placement(transformation(extent={{-120,70},{-80,-70}})));
-  Modelica.Blocks.Interfaces.RealOutput yMax annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Modelica.Blocks.Interfaces.RealOutput yMin annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
+  Modelica.Blocks.Interfaces.RealVectorInput u[3];
+  Modelica.Blocks.Interfaces.RealOutput yMax;
+  Modelica.Blocks.Interfaces.RealOutput yMin;
 
 equation
   if u[1] < u[2] and u[1] < u[3] then
@@ -35,16 +35,5 @@ equation
     yMax = u[3];
   end if;
 
-  annotation (Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}}), graphics={Text(
-            extent={{-12,80},{100,40}},
-            textString="yMax"), Text(
-            extent={{-10,-40},{100,-80}},
-            textString="yMin")}), Documentation(info="<html>
-<p>
-Determines the minimum and maximum element of the input vector and
-provide both values as output.
-</p>
-</html>"));
+  annotation(preferredView = "text");
 end MinMaxDynawo3;

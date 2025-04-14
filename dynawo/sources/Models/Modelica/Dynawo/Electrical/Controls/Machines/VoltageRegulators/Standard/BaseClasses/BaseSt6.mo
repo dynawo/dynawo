@@ -110,7 +110,7 @@ partial model BaseSt6 "IEEE exciter type ST6 base model"
     Placement(visible = true, transformation(origin = {-290, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Sum sum2(nin = 5) annotation(
     Placement(visible = true, transformation(origin = {-110, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MinMaxDynawo max1 annotation(
+  Modelica.Blocks.Math.MinMax max1(nu = 2) annotation(
     Placement(visible = true, transformation(origin = {-230, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.MinMaxDynawo min1 annotation(
     Placement(visible = true, transformation(origin = {-170, -54}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
