@@ -12,7 +12,7 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-block MinMaxDynawo3 "Output the minimum and the maximum element of the three signals"
+block MinMaxDynawo "Output the minimum and the maximum element of the three signals"
   extends Modelica.Blocks.Icons.Block;
   Modelica.Blocks.Interfaces.RealVectorInput u[3];
   Modelica.Blocks.Interfaces.RealOutput yMax;
@@ -36,4 +36,4 @@ equation
   end if;
 
   annotation(preferredView = "text");
-end MinMaxDynawo3;
+end MinMaxDynawo;
