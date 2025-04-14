@@ -187,9 +187,9 @@ model GovSteamEu "Governor type GovSteamEU"
     Placement(visible = true, transformation(origin = {384, 38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiterP2(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = PMaxPu, uMin = 0) annotation(
     Placement(visible = true, transformation(origin = {460, 32}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MinDynawo minEmergencyBoiler annotation(
+  Modelica.Blocks.Math.Min minEmergencyBoiler annotation(
     Placement(visible = true, transformation(origin = {14, -164}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MinDynawo minEmergencyCv annotation(
+  Modelica.Blocks.Math.Min minEmergencyCv annotation(
     Placement(visible = true, transformation(origin = {424, 32}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product productVHp annotation(
     Placement(visible = true, transformation(origin = {170, -164}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

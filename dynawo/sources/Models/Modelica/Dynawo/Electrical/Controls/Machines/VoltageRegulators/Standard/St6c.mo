@@ -40,7 +40,7 @@ model St6c "IEEE exciter type ST6C model (2016 standard)"
     Placement(visible = true, transformation(origin = {-390, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = Sw1) annotation(
     Placement(visible = true, transformation(origin = {-390, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MinDynawo min3 annotation(
+  Modelica.Blocks.Math.Min min3 annotation(
     Placement(visible = true, transformation(origin = {-110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters (inputs)

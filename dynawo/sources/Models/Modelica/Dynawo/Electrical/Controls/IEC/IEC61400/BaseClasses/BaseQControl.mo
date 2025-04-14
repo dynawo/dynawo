@@ -126,7 +126,7 @@ partial model BaseQControl "Reactive power control base module for wind turbines
     Placement(visible = true, transformation(origin = {150, 260}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const5(k = 0.01) annotation(
     Placement(visible = true, transformation(origin = {-70, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MaxDynawo max annotation(
+  Modelica.Blocks.Math.Max max annotation(
     Placement(visible = true, transformation(origin = {-10, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFirstOrderFreeze absLimRateLimFirstOrderFreeze(DyMax = 999, UseLimits = true, Y0 = XWT0Pu, YMax = 999, tI = tQord) annotation(
     Placement(visible = true, transformation(origin = {-170, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

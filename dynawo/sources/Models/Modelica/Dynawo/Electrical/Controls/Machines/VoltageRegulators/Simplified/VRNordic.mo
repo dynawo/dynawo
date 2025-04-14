@@ -41,7 +41,7 @@ model VRNordic "Voltage regulator model for the Nordic 32 test system used for v
 
   Dynawo.Connectors.ImPin efdPuPin(value(start = Efd0Pu)) "Pin for connecting efdPu to the generator";
 
-  Dynawo.NonElectrical.Blocks.NonLinear.MinDynawo min annotation(
+  Modelica.Blocks.Math.Min min annotation(
     Placement(visible = true, transformation(origin = {10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const1(k = UsRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {-270, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

@@ -53,7 +53,7 @@ model Ac78c_INIT "IEEE exciter types AC7C and AC8C initialization model"
     Placement(visible = true, transformation(origin = {-130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const1Init(k = Kp) annotation(
     Placement(visible = true, transformation(origin = {-130, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MinDynawo min1Init annotation(
+  Modelica.Blocks.Math.Min min1Init annotation(
     Placement(visible = true, transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constInit(k = VbMaxPu) annotation(
     Placement(visible = true, transformation(origin = {90, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

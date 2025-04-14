@@ -40,7 +40,7 @@ partial model BasePControl4 "Base active power control module for type 4 wind tu
     Placement(visible = true, transformation(origin = {10, 60}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Math.Division division annotation(
     Placement(visible = true, transformation(origin = {130, -100}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MaxDynawo max annotation(
+  Modelica.Blocks.Math.Max max annotation(
     Placement(visible = true, transformation(origin = {70, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 0.01) annotation(
     Placement(visible = true, transformation(origin = {10, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
