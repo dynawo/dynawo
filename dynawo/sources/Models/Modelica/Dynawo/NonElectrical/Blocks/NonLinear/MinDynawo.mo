@@ -1,4 +1,4 @@
-within Dynawo.NonElectrical.Blocks.NonLinear;
+within Dynawo.NonElectrical.Blocks;
 
 /*
 * Copyright (c) 2025, RTE (http://www.rte-france.com)
