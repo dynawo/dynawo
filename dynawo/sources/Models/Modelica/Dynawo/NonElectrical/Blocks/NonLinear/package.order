@@ -17,8 +17,6 @@ LimiterAtCurrentValueWithLag_INIT
 LimiterWithLag
 LimiterWithLag_INIT
 LimRateLimFirstOrder
-MinDynawo
-MaxDynawo
 MaxThresholdSwitch
 MinThresholdSwitch
 MultiSwitch

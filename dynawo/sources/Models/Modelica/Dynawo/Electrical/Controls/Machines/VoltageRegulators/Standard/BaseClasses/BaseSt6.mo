@@ -64,7 +64,7 @@ partial model BaseSt6 "IEEE exciter type ST6 base model"
     Placement(visible = true, transformation(origin = {-70, 200}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Division division annotation(
     Placement(visible = true, transformation(origin = {-170, 160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MinDynawo min5 annotation(
+  Modelica.Blocks.Math.Min min5 annotation(
     Placement(visible = true, transformation(origin = {-10, 160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product1 annotation(
     Placement(visible = true, transformation(origin = {-70, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -86,7 +86,7 @@ partial model BaseSt6 "IEEE exciter type ST6 base model"
     Placement(visible = true, transformation(origin = {50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = VrMaxPu, uMin = VrMinPu) annotation(
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MinDynawo min4 annotation(
+  Modelica.Blocks.Math.Min min4 annotation(
     Placement(visible = true, transformation(origin = {270, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tG, k = Kg, y_start = Kg * Efd0Pu) annotation(
     Placement(visible = true, transformation(origin = {310, -200}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
@@ -98,7 +98,7 @@ partial model BaseSt6 "IEEE exciter type ST6 base model"
     Placement(visible = true, transformation(origin = {-330, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = Klr) annotation(
     Placement(visible = true, transformation(origin = {-230, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MaxDynawo max3 annotation(
+  Modelica.Blocks.Math.Max max3 annotation(
     Placement(visible = true, transformation(origin = {-170, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const2(k = VrMinPu) annotation(
     Placement(visible = true, transformation(origin = {-230, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
