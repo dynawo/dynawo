@@ -90,7 +90,7 @@ partial model BaseSt4 "IEEE exciter type ST4 base model"
     Placement(visible = true, transformation(origin = {-170, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.MinMax max2(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {150, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MinMaxDynawo3 min2 annotation(
+  Modelica.Blocks.Math.MinMax min2(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {210, 86}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Generator initial parameters

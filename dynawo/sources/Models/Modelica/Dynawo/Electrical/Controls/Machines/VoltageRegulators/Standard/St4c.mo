@@ -33,7 +33,7 @@ model St4c "IEEE exciter type ST4C model (2016 standard)"
 
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(k = Kg, T = tG, y_start = Kg * Efd0Pu) annotation(
     Placement(visible = true, transformation(origin = {250, 160}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MinMaxDynawo3 min1 annotation(
+  Modelica.Blocks.Math.MinMax min1(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const1(k = Kp) annotation(
     Placement(visible = true, transformation(origin = {-310, -220}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

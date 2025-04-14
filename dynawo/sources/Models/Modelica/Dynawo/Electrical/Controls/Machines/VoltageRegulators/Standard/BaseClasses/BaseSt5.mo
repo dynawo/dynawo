@@ -69,7 +69,7 @@ partial model BaseSt5 "IEEE excitation system type ST5 base model"
     Placement(visible = true, transformation(origin = {270, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.MinMax max1(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {-150, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MinMaxDynawo3 min1 annotation(
+  Modelica.Blocks.Math.MinMax min1(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {-90, -14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add1 annotation(
     Placement(visible = true, transformation(origin = {-30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

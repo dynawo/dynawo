@@ -26,7 +26,7 @@ model St1c "IEEE excitation system type ST1C model (2016 standard)"
   Modelica.Blocks.Interfaces.RealInput USclUelPu(start = USclUel0Pu) "Stator current underexcitation limitation output voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-440, -160}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {120, 40}, extent = {{20, -20}, {-20, 20}}, rotation = 0)));
 
-  Dynawo.NonElectrical.Blocks.NonLinear.MinMaxDynawo3 min1 annotation(
+  Modelica.Blocks.Math.MinMax min1(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {-30, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters (inputs)
