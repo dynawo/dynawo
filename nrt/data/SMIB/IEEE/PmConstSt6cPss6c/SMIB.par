@@ -117,6 +117,8 @@
     <par type="DOUBLE" name="powerSystemStabilizer_K4" value="0"/>
     <par type="DOUBLE" name="powerSystemStabilizer_Ki3" value="1"/>
     <par type="DOUBLE" name="powerSystemStabilizer_Ki4" value="0"/>
+    <par type="DOUBLE" name="powerSystemStabilizer_KOmega" value="1"/>
+    <par type="DOUBLE" name="powerSystemStabilizer_KOmegaRef" value="0"/>
     <par type="DOUBLE" name="powerSystemStabilizer_Ks" value="1"/>
     <par type="DOUBLE" name="powerSystemStabilizer_Ks1" value="1"/>
     <par type="DOUBLE" name="powerSystemStabilizer_Ks2" value="1"/>

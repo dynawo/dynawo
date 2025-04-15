@@ -68,6 +68,8 @@ model TestCase3 "Bolted three-phase short circuit at the high-level side of the 
     VMin = 0) annotation(
     Placement(visible = true, transformation(origin = {90, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.Pss2a pss(
+    KOmega = 1,
+    KOmegaRef = 0,
     Ks1 = 10,
     Ks2 = 0.1564,
     Ks3 = 1,
