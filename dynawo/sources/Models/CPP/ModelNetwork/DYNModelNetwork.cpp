@@ -1061,7 +1061,7 @@ ModelNetwork::evalMode(const double t) {
 
   // recalculate admittance matrix and reevaluate connectivity
   if (topoChange) {
-    modeChangeType = ALGEBRAIC_J_UPDATE_MODE;
+    modeChangeType = ALGEBRAIC_J_J_UPDATE_MODE;
   } else if (stateChange) {
     modeChangeType = ALGEBRAIC_MODE;
   }
