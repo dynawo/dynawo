@@ -92,10 +92,21 @@ class SimulationRT: public Simulation {
               const std::shared_ptr<SimulationContext>& context,
               boost::shared_ptr<DataInterface> data = boost::shared_ptr<DataInterface>());
 
+  /**
+   * @brief init the simulation
+   */
+  void init();
+
+
   // /**
-  //  * @brief init the simulation
+  //  * @brief configure the outputs
   //  */
-  // void init();
+  // void configureRTOutputs();
+
+  // /**
+  //  * @brief import outputs file
+  //  */
+  // void importOutputsRequest(string& outputsFile)
 
   /**
    * @brief launch the simulation

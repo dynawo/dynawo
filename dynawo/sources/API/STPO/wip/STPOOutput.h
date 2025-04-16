@@ -17,8 +17,8 @@
  * @brief Dynawo curve : interface file
  *
  */
-#ifndef API_IO_IOOUTPUT_H_
-#define API_IO_IOOUTPUT_H_
+#ifndef API_STPO_STPOOUTPUT_H_
+#define API_STPO_STPOOUTPUT_H_
 
 
 // #include <limits>
@@ -28,7 +28,7 @@
 
 #include "make_unique.hpp"
 
-namespace dynio {
+namespace stepOutputs {
 
  /**
   * @class OutputFactory
@@ -171,29 +171,26 @@ class Output {
     outputType_ = outputType;
   }
 
-  /**
-   * @brief update parameter curve value
-   * @param parameterName name of parameter
-   * @param parameterValue value of parameter
-   */
-  void updateParameterCurveValue(std::string parameterName, double parameterValue);
+  // /**
+  //  * @brief update parameter curve value
+  //  * @param parameterName name of parameter
+  //  * @param parameterValue value of parameter
+  //  */
+  // void updateParameterCurveValue(std::string parameterName, double parameterValue);
 
  private:
-  // attributes read in input file
-  std::string modelName_;  ///< Model's name for which we want have a curve
-  std::string variable_;   ///< Variable name
-
-  // attributes deduced from models
-  std::string foundName_;                          ///< variable name found in models
-  bool available_;                                 ///< @b true if the variable is available, @b false else
-  bool negated_;                                   ///< @b true if the variable must be negated at the export, @b false else
-  const double* buffer_;                           ///< address buffer where to find value
-  double value_;                                    ///< value snapshot at time time
-  double time_;                                     ///< t of valut snapshot
-  OutputType_t outputType_;                   ///< @b true if a calculated variable curve, @b false if variable
-  size_t indexInGlobalTable_;                      ///< curve's index in global table
+  std::string modelName_;        ///< Model's name for which we want have a curve
+  std::string variable_;         ///< Variable name
+  std::string alias_;            ///< Variable alias
+  bool available_;               ///< @b true if the variable is available, @b false else
+  bool negated_;                 ///< @b true if the variable must be negated at the export, @b false else
+  const double* buffer_;         ///< address buffer where to find value
+  double value_;                 ///< value snapshot at time time
+  double time_;                  ///< time of value snapshot
+  OutputType_t outputType_;      ///< @b true if a calculated variable curve, @b false if variable
+  size_t indexInGlobalTable_;    ///< curve's index in global table
 };
 
-}  // namespace dynio
+}  // namespace stepOutputs
 
-#endif  // API_IO_IOOUTPUT_H_
+#endif  // API_STPO_STPOOUTPUT_H_

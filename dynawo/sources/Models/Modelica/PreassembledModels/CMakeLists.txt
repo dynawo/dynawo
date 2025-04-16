@@ -215,6 +215,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   PowerTransferHVDCEmulation.xml
   PIAntiWindUpTable.xml
   Ramp.xml
+  # RealInput.xml
   ShuntBWithSections.xml
   SecondaryFrequencyRegulation.xml
   SecondaryVoltageControlSimp.xml

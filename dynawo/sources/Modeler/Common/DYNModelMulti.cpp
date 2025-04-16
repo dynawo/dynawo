@@ -1085,6 +1085,66 @@ ModelMulti::updateCalculatedVarForCurves(std::shared_ptr<curves::CurvesCollectio
   }
 }
 
+// bool
+// ModelMulti::initOutputs(std::shared_ptr<curves::Curve>& curve) {
+//   const string modelName = curve->getModelName();
+//   const string variable = curve->getVariable();
+//   const string variableNameBis = variable + "_value";
+
+//   const findSubModelFromVarName_t& props = findSubModel(modelName, variable);
+//   shared_ptr<SubModel> subModel = props.subModel_;
+
+//   curve->setAvailable(false);
+
+//   if (subModel) {
+//     if (!props.isNetwork_) {   // found model's ID in the composed models.
+//       if (props.isDynParam_) {   // case 2: curve's variable curve is a parameter in submodel
+//         Trace::debug() << DYNLog(AddingCurveParam, modelName, variable) << Trace::endline;
+//         curve->setAvailable(true);
+//         curve->setFoundVariableName(variable);
+//         curve->setAsParameterCurve(true);   // This is a parameter curve
+//         subModel->addParameterCurve(curve);
+//         return true;
+//       } else if (props.variableNameInSubModel_ == variable) {   // found exact curve name
+//         Trace::debug() << DYNLog(AddingCurve, modelName, variable) << Trace::endline;
+//         curve->setAvailable(true);
+//         curve->setFoundVariableName(variable);
+//         curve->setAsParameterCurve(false);   // This is a variable curve
+//         subModel->addCurve(curve);
+//         return true;
+//       } else if (props.variableNameInSubModel_ == variableNameBis) {
+//         Trace::debug() << DYNLog(AddingCurveOutput, modelName, variable, variableNameBis) << Trace::endline;
+//         curve->setAvailable(true);
+//         curve->setFoundVariableName(variableNameBis);
+//         subModel->addCurve(curve);
+//         return true;
+//       }
+//     } else {
+//       // BEGIN SEARCH IN NETWORK
+//       shared_ptr<SubModel> modelNetwork = subModel;
+//       string name = modelName + "_" + variable;
+//       if (props.variableNameInSubModel_ == name) {
+//         Trace::debug() << DYNLog(AddingCurveOutput, modelName, variable, name) << Trace::endline;
+//         curve->setAvailable(true);
+//         curve->setFoundVariableName(name);
+//         modelNetwork->addCurve(curve);
+//         return true;
+//       } else {
+//         string name2 = name + "_value";
+//         if (props.variableNameInSubModel_ == name2) {   // find name2 = name_value
+//           Trace::debug() << DYNLog(AddingCurveOutput, modelName, variable, name2) << Trace::endline;
+//           curve->setAvailable(true);
+//           curve->setFoundVariableName(name2);
+//           modelNetwork->addCurve(curve);
+//           return true;
+//         }
+//       }
+//     }
+//   }
+
+//   Trace::warn() << DYNLog(CurveNotAdded, modelName, variable) << Trace::endline;
+//   return false;
+// }
 // vector<shared_ptr<Point> >
 // ModelMulti::getLastCurvesValues(shared_ptr<curves::CurvesCollection>& curvesCollection) const {
 //   vector<shared_ptr<Point>> v;

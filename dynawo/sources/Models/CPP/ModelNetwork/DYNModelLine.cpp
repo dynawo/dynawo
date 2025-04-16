@@ -812,7 +812,7 @@ ModelLine::defineVariables(vector<shared_ptr<Variable> >& variables) {
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_P2_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q1_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_iS1ToS2Side1_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalcuPulated("@ID@_iS1ToS2Side1_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_iS2ToS1Side1_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_iS1ToS2Side2_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_iS2ToS1Side2_value", CONTINUOUS));

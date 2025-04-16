@@ -12,47 +12,47 @@
 //
 
 /**
- * @file  CRVCurve.h
+ * @file  STPOOutput.h
  *
- * @brief Dynawo curve : interface file
+ * @brief Dynawo output : interface file
  *
  */
-#ifndef API_CRV_CRVCURVE_H_
-#define API_CRV_CRVCURVE_H_
+#ifndef API_STPO_STPOOUTPUT_H_
+#define API_STPO_STPOOUTPUT_H_
 
-#include "CRVPoint.h"
+#include "STPOPoint.h"
 
 #include <limits>
 #include <string>
 #include <vector>
 #include <memory>
 
-namespace curves {
+namespace stepOutputs {
 /**
- * @class Curve
- * @brief Curve interface class
+ * @class Output
+ * @brief Output interface class
  *
- * Interface class for curve object.
+ * Interface class for output object.
  */
-class Curve {
+class Output {
  public:
   /**
    * @brief Constructor
    */
-  Curve();
+  Output();
 
   /**
    * defined type of variables
    */
-  typedef enum { UNDEFINED, CALCULATED_VARIABLE, DISCRETE_VARIABLE, CONTINUOUS_VARIABLE } CurveType_t;  ///< type on constraint
+  typedef enum { UNDEFINED, CALCULATED_VARIABLE, DISCRETE_VARIABLE, CONTINUOUS_VARIABLE } OutputType_t;  ///< type on constraint
+
+  // /**
+  //  * ways in which this output can be exported
+  //  */
+  // typedef enum { EXPORT_AS_CURVE, EXPORT_AS_FINAL_STATE_VALUE, EXPORT_AS_BOTH } ExportType_t;
 
   /**
-   * ways in which this curve can be exported
-   */
-  typedef enum { EXPORT_AS_CURVE, EXPORT_AS_FINAL_STATE_VALUE, EXPORT_AS_BOTH } ExportType_t;
-
-  /**
-   * @brief Add a new point to the curve
+   * @brief Add a new point to the output
    * @param time time associated to the new point created
    */
   void update(const double& time);
@@ -63,147 +63,147 @@ class Curve {
   std::unique_ptr<Point> getLastPoint() const;
 
   /**
-   * @brief Setter for curve's model name
-   * @param modelName curve's model name
+   * @brief Setter for output's model name
+   * @param modelName output's model name
    */
   void setModelName(const std::string& modelName);
 
   /**
-   * @brief Setter for curve's variable
-   * @param variable curve's variable
+   * @brief Setter for output's variable
+   * @param variable output's variable
    */
   void setVariable(const std::string& variable);
 
   /**
-   * @brief Setter for curve's name found
-   * @param name curve's name found
+   * @brief Setter for output's name found
+   * @param name output's name found
    */
   void setFoundVariableName(const std::string& name);
 
   /**
-   * @brief Setter for curve's available attribute
-   * @param isAvailable @b true if curve is available, @b false else
+   * @brief Setter for output's available attribute
+   * @param isAvailable @b true if output is available, @b false else
    */
   void setAvailable(bool isAvailable);
 
   /**
-   * @brief Setter for curve's negated attribute
+   * @brief Setter for output's negated attribute
    * @param negated @b true if the variable must be negated at the export, @b false else
    */
   void setNegated(bool negated);
 
   /**
-   * @brief Setter for curve's buffer
-   * @param buffer buffer where the curve should find the value to store
+   * @brief Setter for output's buffer
+   * @param buffer buffer where the output should find the value to store
    */
   void setBuffer(const double* buffer);
 
   /**
-   * @brief Setter for curve's index in global table
-   * @param index curve's index in global table
+   * @brief Setter for output's index in global table
+   * @param index output's index in global table
    */
   void setGlobalIndex(size_t index);
 
   /**
-   * @brief Set if the user wants to export this as curve
-   * @param value a ExportType_t value saying whether we want to export a final state value, a curve or both.
+   * @brief Set if the user wants to export this as output
+   * @param value a ExportType_t value saying whether we want to export a final state value, a output or both.
    */
   void setExportType(ExportType_t value);
 
   /**
-   * @brief Getter for curve's index in global table
-   * @return index curve's index in global table
+   * @brief Getter for output's index in global table
+   * @return index output's index in global table
    */
   size_t getGlobalIndex();
 
   /**
-   * @brief Getter for curve's model name
-   * @return model name associated to this curve
+   * @brief Getter for output's model name
+   * @return model name associated to this output
    */
   const std::string& getModelName() const;
 
   /**
-   * @brief Getter for curve's variable
-   * @return variable name associated to this curve
+   * @brief Getter for output's variable
+   * @return variable name associated to this output
    */
   const std::string& getVariable() const;
 
   /**
-   * @brief Getter for curve's found variable name
-   * @return variable name found in model associated to this curve
+   * @brief Getter for output's found variable name
+   * @return variable name found in model associated to this output
    */
   const std::string& getFoundVariableName() const;
 
   /**
-   * @brief Getter for curve's available attribute
-   * @return @b true if curve is available, @b false else
+   * @brief Getter for output's available attribute
+   * @return @b true if output is available, @b false else
    */
   bool getAvailable() const;
 
   /**
-   * @brief Getter for curve's negated attribute
+   * @brief Getter for output's negated attribute
    * @return @b true if the variable must be negated at the export, @b false else
    */
   bool getNegated() const;
 
   /**
-   * @brief Getter for curve's buffer
-   * @return buffer where the curve should find the value to store
+   * @brief Getter for output's buffer
+   * @return buffer where the output should find the value to store
    */
   const double* getBuffer() const;
 
   /**
-   * @brief curve is for variable or for parameter
+   * @brief output is for variable or for parameter
    * @return @b true if parameter, @b false if variable
    */
-  bool isParameterCurve() const {
-    return isParameterCurve_;
+  bool isParameterOutput() const {
+    return isParameterOutput_;
   }
 
   /**
-   * @brief The data the user wants out of this curve
-   * @return ExportType_t value saying whether we want to export a final state value, a curve or both.
+   * @brief The data the user wants out of this output
+   * @return ExportType_t value saying whether we want to export a final state value, a output or both.
    */
   ExportType_t getExportType() const {
     return exportType_;
   }
 
   /**
-   * @brief set curve for variable or curve for parameter
-   * @param isParameterCurve @b true if curve for parameter, @b false else
+   * @brief set output for variable or output for parameter
+   * @param isParameterOutput @b true if output for parameter, @b false else
    */
-  void setAsParameterCurve(bool isParameterCurve) {
-    isParameterCurve_ = isParameterCurve;
+  void setAsParameterOutput(bool isParameterOutput) {
+    isParameterOutput_ = isParameterOutput;
   }
   /**
-   * @brief Get the curve type (calculated variable, continuous, discrete)
-   * @return the curve type (calculated variable, continuous, discrete)
+   * @brief Get the output type (calculated variable, continuous, discrete)
+   * @return the output type (calculated variable, continuous, discrete)
    */
-  CurveType_t getCurveType() const {
-    return curveType_;
-  }
-
-  /**
-   * @brief Set the curve type (calculated variable, continuous, discrete)
-   * @param curveType : curve type (calculated variable, continuous, discrete)
-   */
-  void setCurveType(CurveType_t curveType) {
-    curveType_ = curveType;
+  OutputType_t getOutputType() const {
+    return outputType_;
   }
 
   /**
-   * @brief update parameter curve value
+   * @brief Set the output type (calculated variable, continuous, discrete)
+   * @param outputType : output type (calculated variable, continuous, discrete)
+   */
+  void setOutputType(OutputType_t outputType) {
+    outputType_ = outputType;
+  }
+
+  /**
+   * @brief update parameter output value
    * @param parameterName name of parameter
    * @param parameterValue value of parameter
    */
-  void updateParameterCurveValue(std::string parameterName, double parameterValue);
+  void updateParameterOutputValue(std::string parameterName, double parameterValue);
 
  public:
   /**
    * @class const_iterator
    * @brief Const iterator over points
    *
-   * Const iterator over points stored in curve
+   * Const iterator over points stored in output
    */
   class const_iterator {
    public:
@@ -218,7 +218,7 @@ class Curve {
      * @param begin Flag indicating if the iterator point to the beginning (true)
      * or the end of the points' container.
      */
-    const_iterator(const Curve* iterated, bool begin);
+    const_iterator(const Output* iterated, bool begin);
     /**
      * @brief Constructor
      *
@@ -231,7 +231,7 @@ class Curve {
      * or the end of the points' container.
      * @param i Relative position of the iterator comparing to the beginning (true) or the ending (false)
      */
-    const_iterator(const Curve* iterated, bool begin, int i);
+    const_iterator(const Output* iterated, bool begin, int i);
 
     /**
      * @brief Prefix-increment operator
@@ -317,23 +317,23 @@ class Curve {
 
  private:
   // attributes read in input file
-  std::string modelName_;  ///< Model's name for which we want have a curve
+  std::string modelName_;  ///< Model's name for which we want have a output
   std::string variable_;   ///< Variable name
-  std::string alias_;
+  std::string alias_;      ///< Alias for variable name in output
 
   // attributes deduced from models
   std::string foundName_;                          ///< variable name found in models
   bool available_;                                 ///< @b true if the variable is available, @b false else
   bool negated_;                                   ///< @b true if the variable must be negated at the export, @b false else
   const double* buffer_;                           ///< address buffer where to find value
-  std::vector<std::unique_ptr<Point> > points_;    ///< vector of each values
-  bool isParameterCurve_;                          ///< @b true if a parameter curve, @b false if variable
-  CurveType_t curveType_;                          ///< @b true if a calculated variable curve, @b false if variable
-  size_t indexInGlobalTable_;                      ///< curve's index in global table
+  // std::vector<std::unique_ptr<Point> > points_;    ///< vector of each values
+  // bool isParameterOutput_;                          ///< @b true if a parameter output, @b false if variable
+  OutputType_t outputType_;                          ///< @b true if a calculated variable output, @b false if variable
+  size_t indexInGlobalTable_;                      ///< output's index in global table
 
-  ExportType_t exportType_;                        ///< Whether this should be exported as a final state value or as a curve
+  // ExportType_t exportType_;                        ///< Whether this should be exported as a final state value or as a output
 };
 
-}  // namespace curves
+}  // namespace stepOutputs
 
-#endif  // API_CRV_CRVCURVE_H_
+#endif  // API_STPO_STPOOUTPUT_H_

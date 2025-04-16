@@ -12,19 +12,19 @@
 //
 
 /**
- * @file  IOOutput.cpp
+ * @file  STPOOutput.cpp
  *
  * @brief Dynawo Output : implementation file
  *
  */
-#include "IOOutput.h"
+#include "STPOOutput.h"
 
 #include <iostream>
 #include <limits>
 
 using std::string;
 
-namespace dynio {
+namespace stepOutputs {
 
 std::unique_ptr<Output>
 OutputFactory::newOutput() {
@@ -34,7 +34,6 @@ OutputFactory::newOutput() {
 Output::Output::Output() :
       modelName_(""),
       variable_(""),
-      foundName_(""),
       available_(false),
       negated_(false),
       buffer_(NULL),
@@ -61,10 +60,10 @@ Output::setVariable(const string& variable) {
   variable_ = variable;
 }
 
-void
-Output::setFoundVariableName(const string& name) {
-  foundName_ = name;
-}
+// void
+// Output::setFoundVariableName(const string& name) {
+//   foundName_ = name;
+// }
 
 void
 Output::setAvailable(bool isAvailable) {
@@ -121,4 +120,4 @@ Output::getBuffer() const {
   return buffer_;
 }
 
-}  // namespace dynio
+}  // namespace stepOutputs

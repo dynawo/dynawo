@@ -115,50 +115,30 @@ Simulation(jobEntry, context, data) {
   }
 }
 
-// void
-// SimulationRT::init() {
-//   Simulation::init();
-// }
+void
+SimulationRT::init() {
+  Simulation::init();
+  // configureRTOutputs();
+}
 
 
 // void
-// Simulation::configureCurveOutputs() {
+// SimulationRT::configureRTOutputs() {
 //   // Curves settings
-//   if (jobEntry_->getOutputsEntry()->getCurvesEntry()) {
-//     string curvesDir = createAbsolutePath("curves", outputsDirectory_);
-//     if (!is_directory(curvesDir))
-//       create_directory(curvesDir);
-
+//   if (jobEntry_->getInteractiveSettingsEntry()->getPeriodicOutputsEntry()) {
 //     //---- inputFile ----
-//     string curveInputFile = createAbsolutePath(jobEntry_->getOutputsEntry()->getCurvesEntry()->getInputFile(), context_->getInputDirectory());
-//     if (!exists(curveInputFile))
-//       throw DYNError(Error::MODELER, UnknownCurveFile, curveInputFile);
-//     setCurvesInputFile(curveInputFile);
-//     importCurvesRequest();
-
-//     //---- outputFile ---
-//     setCurvesOutputFile(jobEntry_->getOutputsEntry()->getCurvesEntry()->getOutputFile());
-
-//     //---- exportMode ----
-//     string exportMode = jobEntry_->getOutputsEntry()->getCurvesEntry()->getExportMode();
-//     Simulation::exportCurvesMode_t exportModeFlag = Simulation::EXPORT_CURVES_NONE;
-//     string outputFile = "";
-//     if (exportMode == "CSV") {
-//       exportModeFlag = Simulation::EXPORT_CURVES_CSV;
-//       outputFile = createAbsolutePath("curves.csv", curvesDir);
-//     } else if (exportMode == "XML") {
-//       exportModeFlag = Simulation::EXPORT_CURVES_XML;
-//       outputFile = createAbsolutePath("curves.xml", curvesDir);
-//     } else {
-//       throw DYNError(Error::MODELER, UnknownCurvesExport, exportMode);
-//     }
-//     setCurvesExportMode(exportModeFlag);
-//     setCurvesOutputFile(outputFile);
-//   } else {
-//     setCurvesExportMode(Simulation::EXPORT_CURVES_NONE);
+//     string outputsFile = createAbsolutePath(jobEntry_->getInteractiveSettingsEntry()->getPeriodicOutputsEntry()->getFile(), context_->getInputDirectory());
+//     if (!exists(outputsFile))
+//       throw DYNError(Error::MODELER, UnknownOutputsFile, outputsFile);
+//     importOutputsRequest(outputsFile);
 //   }
 // }
 
+// void
+// SimulationRT::importOutputsRequest(string& outputsFile) {
+//   dynio::XmlImporter importer;
+//   outputsCollection_ = OutputsCollectionFactory::copyInstance(importer.importFromFile(outputsFile));
+// }
 
 void
 SimulationRT::simulate() {

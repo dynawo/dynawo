@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:job name="Job 1">
+    <dyn:solver lib="libdynawo_SolverSIM" parFile="solvers.par" parId="3"/>
+    <dyn:modeler compileDir="outputs1">
+      <dyn:network iidmFile="myIIDM.iidm" parFile="myPAR.par" parId="1"/>
+      <dyn:dynModels dydFile="myDYD.dyd"/>
+      <dyn:dynModels dydFile="myDYD2.dyd"/>
+      <dyn:initialState file="outputs1/finalState/outputState.dmp"/>
+      <dyn:precompiledModels useStandardModels="true">
+          <dyn:directory path="." recursive="false"/>
+          <dyn:directory path="/tmp/" recursive="true"/>
+      </dyn:precompiledModels>
+      <dyn:modelicaModels useStandardModels="true" modelExtension=".mo">
+          <dyn:directory path="/tmp1/" recursive="false"/>
+          <dyn:directory path="/tmp2/" recursive="true"/>
+      </dyn:modelicaModels>
+    </dyn:modeler>
+    <dyn:simulation startTime="10" stopTime="200" criteriaStep="5">
+      <dyn:criteria criteriaFile="myCriteriaFile.crt"/>
+      <dyn:criteria criteriaFile="myCriteriaFile2.crt"/>
+    </dyn:simulation>
+    <dyn:outputs directory="outputs1">
+      <dyn:dumpInitValues local="true" global="false" init="true"/>
+      <dyn:dumpFinalValues/>
+      <dyn:constraints exportMode="XML"/>
+      <dyn:timeline exportMode="TXT" exportTime="true" maxPriority="2" filter="true"/>
+      <dyn:timetable step="10"/>
+      <dyn:finalState exportDumpFile="true" exportIIDMFile="true"/>
+      <dyn:finalState exportDumpFile="true" exportIIDMFile="true" timestamp="10"/>
+      <dyn:curves inputFile="curves.crv" exportMode="CSV" iterationStep="5"/>
+      <dyn:finalStateValues inputFile="finalStateValues.fsv"/>
+      <dyn:lostEquipments/>
+      <dyn:logs>
+        <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG" separator="-" showLevelTag="false" timeStampFormat="%H:%M:%S"/>
+        <dyn:appender tag="COMPILE" file="dynawoCompiler.log" lvlFilter="INFO"/>
+        <dyn:appender tag="NETWORK" file="dynawoNetwork.log" lvlFilter="DEBUG"/>
+        <dyn:appender tag="MODELER" file="dynawoModeler.log" lvlFilter="ERROR"/>
+      </dyn:logs>
+    </dyn:outputs>
+    <dyn:localInit parFile="init.par" parId="42"/>
+    <dyn:interactiveSettings >
+      <dyn:periodicOutputs file="outputs.xml">
+        <dyn:periodicOuptutsAdapter type="ZMQ" period="1s"/>
+      </dyn:periodicOutputs>
+      <dyn:periodicInputs>
+    </dyn:interactiveSettings>
+  </dyn:job>
+</dyn:jobs>
