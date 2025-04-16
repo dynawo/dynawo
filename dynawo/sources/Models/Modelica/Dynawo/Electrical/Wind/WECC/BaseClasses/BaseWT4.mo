@@ -14,58 +14,16 @@ within Dynawo.Electrical.Wind.WECC.BaseClasses;
 
 partial model BaseWT4 "Partial base model for the WECC Wind Turbine models including the electrical control, the generator control, the injector, the measurements and the equivalent branch connection to the grid"
   extends Dynawo.Electrical.Controls.PLL.ParamsPLL;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREEC;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREGC;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREEC;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECa;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGC;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGCa;
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
   // Line parameters
   parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
   parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
-
-  // REEC-A parameters
-  parameter Types.PerUnit VDLIp11 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp12 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp21 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp22 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp31 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp32 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp41 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp42 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq11 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq12 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq21 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq22 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq31 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq32 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq41 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq42 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.Time tHoldIpMax "Time delay for which the active current limit (ipMaxPu) is held after voltage dip vDip returns to zero for tHoldIpMax seconds at its value during the voltage dip" annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Real tHoldIq "Absolute value of tHoldIq defines seconds to hold current injection after voltage dip ended. tHoldIq > 0 for constant, 0 for no injection after voltage dip, tHoldIq < 0 for voltage-dependent injection (typical: -1 .. 1 s)" annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit IqFrzPu "Constant reactive current injection value (typical: -0.1 .. 0.1 pu)" annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Boolean PFlag "Power reference flag: const. Pref (0) or consider generator speed (1)" annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.VoltageModulePu VRef1Pu "User-defined reference/bias on the inner-loop voltage control (typical: 0 pu)" annotation(
-    Dialog(tab = "Electrical Control"));
 
   // Input variable
   Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(
@@ -77,7 +35,7 @@ partial model BaseWT4 "Partial base model for the WECC Wind Turbine models inclu
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.REEC.REECa wecc_reec(DPMaxPu = DPMaxPu, DPMinPu = DPMinPu, Dbd1Pu = Dbd1Pu, Dbd2Pu = Dbd2Pu, IMaxPu = IMaxPu,Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, IqFrzPu = IqFrzPu, Iqh1Pu = Iqh1Pu, Iql1Pu = Iql1Pu, Kqi = Kqi, Kqp = Kqp, Kqv = Kqv, Kvi = Kvi, Kvp = Kvp, PF0 = PF0, PFlag = PFlag, PInj0Pu = PInj0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, PQFlag = PQFlag, PfFlag = PfFlag, QFlag = QFlag, QInj0Pu = QInj0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, UInj0Pu = UInj0Pu, VDLIp11 = VDLIp11, VDLIp12 = VDLIp12, VDLIp21 = VDLIp21, VDLIp22 = VDLIp22, VDLIp31 = VDLIp31, VDLIp32 = VDLIp32, VDLIp41 = VDLIp41, VDLIp42 = VDLIp42, VDLIq11 = VDLIq11, VDLIq12 = VDLIq12, VDLIq21 = VDLIq21, VDLIq22 = VDLIq22, VDLIq31 = VDLIq31, VDLIq32 = VDLIq32, VDLIq41 = VDLIq41, VDLIq42 = VDLIq42, VDipPu = VDipPu, VFlag = VFlag, VMaxPu = VMaxPu, VMinPu = VMinPu, VRef0Pu = VRef0Pu, VRef1Pu = VRef1Pu, VUpPu = VUpPu, tHoldIpMax = tHoldIpMax, tHoldIq = tHoldIq, tIq = tIq, tP = tP, tPord = tPord, tRv = tRv) annotation(
     Placement(visible = true, transformation(origin = {-80.1315, -0.1384}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.WECC.REGC.REGCbCS wecc_regc(IqrMaxPu = IqrMaxPu, IqrMinPu = IqrMinPu, RateFlag = RateFlag, tFilterGC = tFilterGC, tG = tG, RrpwrPu = RrpwrPu, UInj0Pu = UInj0Pu, Id0Pu = Id0Pu, Iq0Pu = Iq0Pu) annotation(
+  Dynawo.Electrical.Controls.WECC.REGC.REGCa wecc_regc( Id0Pu = Id0Pu, Iq0Pu = Iq0Pu,IqrMaxPu = IqrMaxPu, IqrMinPu = IqrMinPu, Lvplsw = Lvplsw, QInj0Pu = QInj0Pu, RrpwrPu = RrpwrPu, UInj0Pu = UInj0Pu, brkpt = brkpt, lvpl1 = lvpl1, tFilterGC = tFilterGC, tG = tG, zerox = zerox) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Sources.InjectorIDQ injector(Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, P0Pu = - PInj0Pu * (SNom / SystemBase.SnRef), Q0Pu = - QInj0Pu * (SNom / SystemBase.SnRef), SNom = SNom, U0Pu = UInj0Pu, UPhase0 = UPhaseInj0, i0Pu = i0Pu, s0Pu = s0Pu, u0Pu = uInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));

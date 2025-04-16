@@ -79,9 +79,9 @@ model Comptodq "Computation of dq components from grid measurements in EPRI Grid
   Dialog(tab = "Initial"));
 
 equation
-  connect(transformRItoDQ.udPu, udFilterPu) annotation(
+  connect(transformRItoDQ.ydPu, udFilterPu) annotation(
     Line(points = {{41, 96}, {100.5, 96}, {100.5, 120}, {270, 120}}, color = {0, 0, 127}));
-  connect(transformRItoDQ.uqPu, uqFilterPu) annotation(
+  connect(transformRItoDQ.yqPu, uqFilterPu) annotation(
     Line(points = {{41, 84}, {99.5, 84}, {99.5, 60}, {270, 60}}, color = {0, 0, 127}));
   connect(transformRItoDQ1.uPu, iInjPu) annotation(
     Line(points = {{19, 16}, {-11, 16}, {-11, 58}, {-270, 58}}, color = {85, 170, 255}));
@@ -109,13 +109,13 @@ equation
     Line(points = {{178, -94}, {167, -94}, {167, -80}, {161, -80}}, color = {0, 0, 127}));
   connect(iqSquare.y, sumidiq.u2) annotation(
     Line(points = {{161, -130}, {168.5, -130}, {168.5, -106}, {178, -106}}, color = {0, 0, 127}));
-  connect(transformRItoDQ1.udPu, changeOfBaseD.u) annotation(
+  connect(transformRItoDQ1.ydPu, changeOfBaseD.u) annotation(
     Line(points = {{41, 16}, {48.5, 16}, {48.5, 40}, {58, 40}}, color = {0, 0, 127}));
   connect(changeOfBaseD.y, idConvPu) annotation(
     Line(points = {{81, 40}, {270, 40}}, color = {0, 0, 127}));
   connect(idSquare.u1, idSquare.u2) annotation(
     Line(points = {{138, -74}, {128, -74}, {128, -86}, {138, -86}}, color = {0, 0, 127}));
-  connect(transformRItoDQ1.uqPu, changeOfBaseq.u) annotation(
+  connect(transformRItoDQ1.yqPu, changeOfBaseq.u) annotation(
     Line(points = {{42, 4}, {48, 4}, {48, -20}, {58, -20}}, color = {0, 0, 127}));
   connect(changeOfBaseD.y, idSquare.u1) annotation(
     Line(points = {{82, 40}, {128, 40}, {128, -74}, {138, -74}}, color = {0, 0, 127}));
