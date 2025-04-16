@@ -28,7 +28,7 @@ model PVVoltageSourceB "WECC PV Vsource Model on infinite bus"
     Placement(visible = true, transformation(origin = {-82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Dynawo.Electrical.Lines.Line line(RPu = 0, XPu = 0.0000020661, BPu = 0, GPu = 0) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Photovoltaics.WECC.PVVoltageSourceB PV(
+  Dynawo.Electrical.PEIR.Plants.Photovoltaics.WECC.PVVoltageSourceB PV(
     DDn = 20,
     DPMaxPu = 999,
     DPMinPu = -999,
@@ -125,7 +125,7 @@ model PVVoltageSourceB "WECC PV Vsource Model on infinite bus"
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
 
   // Initialization
-  Dynawo.Electrical.Photovoltaics.WECC.PVVoltageSource_INIT pvVoltageSource_INIT(
+  Dynawo.Electrical.PEIR.Converters.Photovoltaics.WECC.PVVoltageSource_INIT pvVoltageSource_INIT(
     P0Pu = PV.P0Pu,
     Q0Pu = PV.Q0Pu,
     RPu = PV.RPu,

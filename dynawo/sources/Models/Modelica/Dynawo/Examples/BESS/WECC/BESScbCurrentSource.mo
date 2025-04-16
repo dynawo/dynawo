@@ -16,7 +16,7 @@ within Dynawo.Examples.BESS.WECC;
 model BESScbCurrentSource "WECC BESS with REEC-C and REGC-B with a plant controller REPC-A on infinite bus"
   extends Icons.Example;
 
-  Dynawo.Electrical.BESS.WECC.BESScbCurrentSource BESScb(
+  Dynawo.Electrical.PEIR.Plants.BESS.WECC.BESScbCurrentSource BESScb(
     DDn = 126,
     DPMaxPu = 999,
     DPMinPu = -999,
