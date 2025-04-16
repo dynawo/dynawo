@@ -105,7 +105,7 @@ Simulation(jobEntry, context, data) {
   bool subscribeTrigger = jobEntry_->getSimulationEntry()->getEventSubscriberTrigger();
   if (subscribeActions || subscribeTrigger) {
     triggerSimulationTimeStepInS_ = jobEntry_->getSimulationEntry()->getTriggerSimulationTimeStepInS();
-    eventSubscriber_ = std::make_shared<EventSubscriber>(subscribeTrigger, subscribeActions);
+    eventSubscriber_ = std::make_shared<EventSubscriber>(subscribeTrigger, subscribeActions, subscribeActions & !subscribeTrigger);
   }
   if (jobEntry_->getSimulationEntry()->getPublishToWebsocket()) {
     wsServer_ = std::make_shared<wsc::WebsocketServer>();
