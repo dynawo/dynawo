@@ -97,6 +97,10 @@
     <par type="DOUBLE" name="voltageRegulator_tG" value="0.02"/>
     <par type="DOUBLE" name="voltageRegulator_Thetap" value="0"/>
     <par type="DOUBLE" name="voltageRegulator_tR" value="1e-5"/>
+    <par type="DOUBLE" name="voltageRegulator_UOel0Pu" value="0"/>
+    <par type="DOUBLE" name="voltageRegulator_USclOel0Pu" value="0"/>
+    <par type="DOUBLE" name="voltageRegulator_USclUel0Pu" value="0"/>
+    <par type="DOUBLE" name="voltageRegulator_UUel0Pu" value="0"/>
     <par type="DOUBLE" name="voltageRegulator_VaMaxPu" value="4.81"/>
     <par type="DOUBLE" name="voltageRegulator_VaMinPu" value="-3.85"/>
     <par type="DOUBLE" name="voltageRegulator_VbMaxPu" value="999"/>
@@ -113,6 +117,8 @@
     <par type="DOUBLE" name="powerSystemStabilizer_K4" value="0"/>
     <par type="DOUBLE" name="powerSystemStabilizer_Ki3" value="1"/>
     <par type="DOUBLE" name="powerSystemStabilizer_Ki4" value="0"/>
+    <par type="DOUBLE" name="powerSystemStabilizer_KOmega" value="1"/>
+    <par type="DOUBLE" name="powerSystemStabilizer_KOmegaRef" value="0"/>
     <par type="DOUBLE" name="powerSystemStabilizer_Ks" value="1"/>
     <par type="DOUBLE" name="powerSystemStabilizer_Ks1" value="1"/>
     <par type="DOUBLE" name="powerSystemStabilizer_Ks2" value="1"/>

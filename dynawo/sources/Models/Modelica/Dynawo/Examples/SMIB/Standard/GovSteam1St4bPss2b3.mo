@@ -94,6 +94,8 @@ model GovSteam1St4bPss2b3 "Bolted three-phase short circuit at the high-level si
     t7 = 1e-5) annotation(
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.Pss2b pss(
+    KOmega = 1,
+    KOmegaRef = 0,
     Ks1 = 12,
     Ks2 = 0.2,
     Ks3 = 1,
@@ -140,6 +142,7 @@ model GovSteam1St4bPss2b3 "Bolted three-phase short circuit at the high-level si
     UOel0Pu = 10,
     Us0Pu = generatorSynchronous.U0Pu,
     ut0Pu = generatorSynchronous.u0Pu,
+    UUel0Pu = 0,
     VaMaxPu = 1,
     VaMinPu = -0.87,
     Vb0Pu = 9.079237,
