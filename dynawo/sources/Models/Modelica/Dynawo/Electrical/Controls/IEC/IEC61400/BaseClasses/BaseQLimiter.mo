@@ -47,9 +47,9 @@ partial model BaseQLimiter "Reactive power limitation base module for wind turbi
     Placement(visible = true, transformation(origin = {-30, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds3(table = TableQMinPwtcFilt) annotation(
     Placement(visible = true, transformation(origin = {-30, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Max max annotation(
+  Modelica.Blocks.Math.Max max1 annotation(
     Placement(visible = true, transformation(origin = {50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Min min annotation(
+  Modelica.Blocks.Math.Min min1 annotation(
     Placement(visible = true, transformation(origin = {50, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch annotation(
     Placement(visible = true, transformation(origin = {90, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -69,13 +69,13 @@ partial model BaseQLimiter "Reactive power limitation base module for wind turbi
     Dialog(tab = "Operating point"));
 
 equation
-  connect(combiTable1Ds3.y[1], max.u2) annotation(
+  connect(combiTable1Ds3.y[1], max1.u2) annotation(
     Line(points = {{-18, -80}, {0, -80}, {0, -86}, {38, -86}}, color = {0, 0, 127}));
-  connect(combiTable1Ds.y[1], min.u1) annotation(
+  connect(combiTable1Ds.y[1], min1.u1) annotation(
     Line(points = {{-18, 80}, {0, 80}, {0, 86}, {38, 86}}, color = {0, 0, 127}));
-  connect(min.y, switch1.u3) annotation(
+  connect(min1.y, switch1.u3) annotation(
     Line(points = {{62, 80}, {70, 80}, {70, 68}, {78, 68}}, color = {0, 0, 127}));
-  connect(max.y, switch.u3) annotation(
+  connect(max1.y, switch.u3) annotation(
     Line(points = {{62, -80}, {70, -80}, {70, -68}, {78, -68}}, color = {0, 0, 127}));
   connect(constant1.y, switch.u1) annotation(
     Line(points = {{62, -40}, {70, -40}, {70, -52}, {78, -52}}, color = {0, 0, 127}));
@@ -85,9 +85,9 @@ equation
     Line(points = {{22, 0}, {30, 0}, {30, -60}, {78, -60}}, color = {255, 0, 255}));
   connect(booleanConstant.y, switch1.u2) annotation(
     Line(points = {{22, 0}, {30, 0}, {30, 60}, {78, 60}}, color = {255, 0, 255}));
-  connect(combiTable1Ds1.y[1], max.u1) annotation(
+  connect(combiTable1Ds1.y[1], max1.u1) annotation(
     Line(points = {{-18, 40}, {-12, 40}, {-12, -74}, {38, -74}}, color = {0, 0, 127}));
-  connect(combiTable1Ds2.y[1], min.u2) annotation(
+  connect(combiTable1Ds2.y[1], min1.u2) annotation(
     Line(points = {{-18, -40}, {-8, -40}, {-8, 74}, {38, 74}}, color = {0, 0, 127}));
   connect(switch.y, QWTMinPu) annotation(
     Line(points = {{102, -60}, {130, -60}}, color = {0, 0, 127}));
