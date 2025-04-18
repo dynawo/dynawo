@@ -51,8 +51,8 @@
     <par type="DOUBLE" name="photovoltaics_IMaxPu" value="1.05"/>
     <par type="DOUBLE" name="photovoltaics_Iqh1Pu" value="2"/>
     <par type="DOUBLE" name="photovoltaics_Iql1Pu" value="-2"/>
-    <par type="DOUBLE" name="photovoltaics_IqrMaxPu" value="20"/>
-    <par type="DOUBLE" name="photovoltaics_IqrMinPu" value="-20"/>
+    <par type="DOUBLE" name="photovoltaics_DerIqrMaxPu" value="20"/>
+    <par type="DOUBLE" name="photovoltaics_DerIqrMinPu" value="-20"/>
     <par type="DOUBLE" name="photovoltaics_Kc" value="0"/>
     <par type="DOUBLE" name="photovoltaics_Ki" value="1.5"/>
     <par type="DOUBLE" name="photovoltaics_Kig" value="2.36"/>

@@ -34,13 +34,13 @@ model InfiniteBusFromTable "Infinite bus with UPu, UPhase and omegaRefPu given b
   Types.ReactivePowerPu QPu "Reactive power in pu (base SnRef) (receptor convention)";
   Types.ComplexApparentPowerPu sPu "Apparent power in pu (base SnRef) (receptor convention)";
   Types.Angle UPhase(start = UPhase0) "Infinite bus voltage angle in rad";
-  Types.PerUnit UPu(start = U0Pu) "Infinite bus voltage module in pu (base UNom)";
+  Types.VoltageModulePu UPu(start = U0Pu) "Infinite bus voltage module in pu (base UNom)";
 
   Modelica.Blocks.Sources.CombiTimeTable tableOmegaRefPu(tableOnFile = true, tableName = OmegaRefPuTableName, fileName = TableFile) "Table to get omegaRefPu from time";
   Modelica.Blocks.Sources.CombiTimeTable tableUPu(tableOnFile = true, tableName = UPuTableName, fileName = TableFile) "Table to get UPu from time";
   Modelica.Blocks.Sources.CombiTimeTable tableUPhase(tableOnFile = true, tableName = UPhaseTableName, fileName = TableFile) "Table to get UPhase from time";
 
-  parameter Types.PerUnit U0Pu "Initial infinite bus voltage module in pu (base UNom)";
+  parameter Types.VoltageModulePu U0Pu "Initial infinite bus voltage module in pu (base UNom)";
   parameter Types.Angle UPhase0 "Initial infinite bus voltage angle in rad";
   parameter Types.AngularVelocityPu OmegaRef0Pu "Initial infinite bus frequency in pu (base omegaNom)";
 

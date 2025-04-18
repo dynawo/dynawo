@@ -21,6 +21,8 @@ model WTG4ACurrentSource1 "WECC Wind Type 4A Model (including the plant controll
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Wind.WECC.WTG4ACurrentSource1 WTG4A(
     DDn = 20,
+    DerIqrMaxPu = 20,
+    DerIqrMinPu = -20,
     DPMaxPu = 2,
     DPMinPu = -2,
     DUp = 0.001,
@@ -43,8 +45,6 @@ model WTG4ACurrentSource1 "WECC Wind Type 4A Model (including the plant controll
     IqFrzPu = 0,
     Iqh1Pu = 1.1,
     Iql1Pu = -1.1,
-    IqrMaxPu = 20,
-    IqrMinPu = -20,
     Kc = 0,
     Ki = 1.5,
     KiPLL = 20,
@@ -75,7 +75,7 @@ model WTG4ACurrentSource1 "WECC Wind Type 4A Model (including the plant controll
     QMaxPu = 0.4,
     QMinPu = -0.4,
     RPu = 0,
-    RefFlag = true,
+    RefFlag = 1,
     RrpwrPu = 10,
     SNom = 100,
     U0Pu = 1,
@@ -108,10 +108,10 @@ model WTG4ACurrentSource1 "WECC Wind Type 4A Model (including the plant controll
     VUpPu = 1.1,
     XPu = 0.15,
     brkpt = 0.1,
-    i0Pu( im(fixed = false),re(fixed = false)),
-    iInj0Pu ( im(fixed = false),re(fixed = false)),
+    i0Pu(im(fixed = false), re(fixed = false)),
+    iInj0Pu(im(fixed = false), re(fixed = false)),
     lvpl1 = 1.22,
-    s0Pu( im(fixed = false),re(fixed = false)),
+    s0Pu(im(fixed = false), re(fixed = false)),
     tFilterGC = 0.02,
     tFilterPC = 0.04,
     tFt = 1e-10,
@@ -124,8 +124,8 @@ model WTG4ACurrentSource1 "WECC Wind Type 4A Model (including the plant controll
     tP = 0.05,
     tPord = 0.01,
     tRv = 0.01,
-    u0Pu( im(fixed = false),re(fixed = false)),
-    uInj0Pu( im(fixed = false),re(fixed = false)),
+    u0Pu(im(fixed = false), re(fixed = false)),
+    uInj0Pu(im(fixed = false), re(fixed = false)),
     zerox = 0.05) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PRefPu(k = 0.7) annotation(

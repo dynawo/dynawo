@@ -15,7 +15,7 @@ within Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.DcVoltageControl;
 model DcVoltageControl "DC voltage control for the HVDC VSC model"
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsDcVoltageControl;
 
-  parameter Types.PerUnit IpMaxPu "Maximum value of the active current in pu (base SNom, UNom) (DC to AC)";
+  parameter Types.CurrentComponentPu IpMaxPu "Maximum value of the active current in pu (base SNom, UNom) (DC to AC)";
   parameter Types.PerUnit RDcPu "Resistance of one cable of DC line in pu (base UDcNom, SnRef)";
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
@@ -60,7 +60,7 @@ model DcVoltageControl "DC voltage control for the HVDC VSC model"
   Modelica.Blocks.Math.Gain gain3(k = SNom / SystemBase.SnRef) annotation(
     Placement(visible = true, transformation(origin = {-50, 80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
-  parameter Types.PerUnit Ip0Pu "Start value of active current in pu (base SNom, UNom) (DC to AC)";
+  parameter Types.CurrentComponentPu Ip0Pu "Start value of active current in pu (base SNom, UNom) (DC to AC)";
   parameter Types.VoltageModulePu U0Pu "Start value of AC voltage in pu (base UNom)";
   parameter Types.VoltageModulePu UDc0Pu "Start value of DC voltage in pu (base UDcNom)";
   parameter Types.VoltageModulePu UDcRef0Pu "Start value of DC voltage reference in pu (base UDcNom)";

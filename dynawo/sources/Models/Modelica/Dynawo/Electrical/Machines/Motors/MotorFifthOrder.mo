@@ -14,9 +14,10 @@ within Dynawo.Electrical.Machines.Motors;
 */
 
 model MotorFifthOrder "Two-cage (or one-cage if Lpp = Lp) induction motor model, based on https://www.powerworld.com/WebHelp/Content/TransientModels_HTML/Load%20Characteristic%20MOTORW.htm, must be incorporated in a load model."
+  import Modelica.Constants;
+
   extends BaseClasses.BaseMotor;
   extends AdditionalIcons.Machine;
-  import Modelica.Constants;
 
   parameter Types.PerUnit RsPu "Stator resistance in pu (base SNom, UNom)";
   parameter Types.PerUnit LsPu "Synchronous reactance in pu (base SNom, UNom)";
@@ -31,24 +32,24 @@ model MotorFifthOrder "Two-cage (or one-cage if Lpp = Lp) induction motor model,
   parameter Types.VoltageModulePu Utrip1Pu "Voltage at which the first block of motors trip in pu (base UNom)";
   parameter Types.Time tTrip1Pu "Time lag before tripping of the first block of motors in s";
   parameter Real shareTrip1Pu(min=0, max=1) "Share of motors in the first block of motors";
-  parameter Types.VoltageModulePu Ureconnect1Pu "Voltage at which the first block of motors reconnects in pu (base Unom)";
+  parameter Types.VoltageModulePu Ureconnect1Pu "Voltage at which the first block of motors reconnects in pu (base UNom)";
   parameter Types.Time tReconnect1Pu "Time lag before reconnection of the first block of motors in s";
   parameter Types.VoltageModulePu Utrip2Pu "Voltage at which the second block of motors trip in pu (base UNom)";
   parameter Types.Time tTrip2Pu "Time lag before tripping of the second block of motors in s";
   parameter Real shareTrip2Pu(min=0, max=1) "Share of motors in the second block of motors";
-  parameter Types.VoltageModulePu Ureconnect2Pu "Voltage at which the second block of motors reconnects in pu (base Unom)";
+  parameter Types.VoltageModulePu Ureconnect2Pu "Voltage at which the second block of motors reconnects in pu (base UNom)";
   parameter Types.Time tReconnect2Pu "Time lag before reconnection of the second block of motors in s";
 
   Types.AngularVelocityPu omegaRPu(start = omegaR0Pu) "Angular velocity of the motor in pu (base omegaNom)";
-  Types.PerUnit EdPPu(start = EdP0Pu) "Voltage behind transient reactance d component in pu (base UNom)";
-  Types.PerUnit EqPPu(start = EqP0Pu) "Voltage behind transient reactance q component in pu (base UNom)";
-  Types.PerUnit EdPPPu(start = EdPP0Pu) "Voltage behind subtransient reactance d component in pu (base UNom)";
-  Types.PerUnit EqPPPu(start = EqPP0Pu) "Voltage behind subtransient reactance q component in pu (base UNom)";
-  Types.PerUnit idPu(start = id0Pu) "Current of direct axis in pu (base SNom, UNom)";
-  Types.PerUnit iqPu(start = iq0Pu) "Current of quadrature axis in pu (base SNom, UNom)";
-  Real s(start = s0) "Slip of the motor";
-  Types.PerUnit cePu(start = ce0Pu) "Electrical torque in pu (base SNom, omegaNom)";
-  Types.PerUnit clPu(start = ce0Pu) "Load torque in pu (base SNom, omegaNom)";
+  Types.VoltageComponentPu EdPPu(start = EdP0Pu) "Voltage behind transient reactance d component in pu (base UNom)";
+  Types.VoltageComponentPu EqPPu(start = EqP0Pu) "Voltage behind transient reactance q component in pu (base UNom)";
+  Types.VoltageComponentPu EdPPPu(start = EdPP0Pu) "Voltage behind subtransient reactance d component in pu (base UNom)";
+  Types.VoltageComponentPu EqPPPu(start = EqPP0Pu) "Voltage behind subtransient reactance q component in pu (base UNom)";
+  Types.CurrentComponentPu idPu(start = Id0Pu) "Current of direct axis in pu (base SNom, UNom)";
+  Types.CurrentComponentPu iqPu(start = Iq0Pu) "Current of quadrature axis in pu (base SNom, UNom)";
+  Real s(start = Slip0) "Slip of the motor";
+  Types.PerUnit cePu(start = Ce0Pu) "Electrical torque in pu (base SNom, omegaNom)";
+  Types.PerUnit clPu(start = Ce0Pu) "Load torque in pu (base SNom, omegaNom)";
   Types.ActivePowerPu PRawPu(start = s0Pu.re) "Active power at load terminal without considering diconnections in pu (base SnRef) (receptor convention)";
   Types.ReactivePowerPu QRawPu(start = s0Pu.im) "Reactive power at load terminal without considering diconnections in pu (base SnRef) (receptor convention)";
   Types.VoltageModulePu UPu(start = ComplexMath.'abs'(u0Pu)) "Voltage amplitude at load terminal in pu (base UNom)";
@@ -60,15 +61,15 @@ model MotorFifthOrder "Two-cage (or one-cage if Lpp = Lp) induction motor model,
   Boolean connected2(start = true) "True if the second block of motors is connected";
 
   // Initial values
-  parameter Types.PerUnit EdP0Pu "Start value of voltage behind transient reactance d component in pu (base UNom)";
-  parameter Types.PerUnit EqP0Pu "Start value of voltage behind transient reactance q component in pu (base UNom)";
-  parameter Types.PerUnit EdPP0Pu "Start value of voltage behind subtransient reactance d component in pu (base UNom)";
-  parameter Types.PerUnit EqPP0Pu "Start value of voltage behind subtransient reactance q component in pu (base UNom)";
-  parameter Types.PerUnit id0Pu "Start value of current of direct axis in pu (base SNom, UNom)";
-  parameter Types.PerUnit iq0Pu "Start value of current of quadrature axis in pu (base SNom, UNom)";
+  parameter Types.PerUnit Ce0Pu "Start value of the electrical torque in pu (base SNom, omegaNom)";
+  parameter Types.VoltageComponentPu EdP0Pu "Start value of voltage behind transient reactance d component in pu (base UNom)";
+  parameter Types.VoltageComponentPu EqP0Pu "Start value of voltage behind transient reactance q component in pu (base UNom)";
+  parameter Types.VoltageComponentPu EdPP0Pu "Start value of voltage behind subtransient reactance d component in pu (base UNom)";
+  parameter Types.VoltageComponentPu EqPP0Pu "Start value of voltage behind subtransient reactance q component in pu (base UNom)";
+  parameter Types.CurrentComponentPu Id0Pu "Start value of current of direct axis in pu (base SNom, UNom)";
+  parameter Types.CurrentComponentPu Iq0Pu "Start value of current of quadrature axis in pu (base SNom, UNom)";
   parameter Types.AngularVelocityPu omegaR0Pu "Start value of the angular velocity of the motor in pu (base omegaNom)";
-  parameter Types.PerUnit ce0Pu "Start value of the electrical torque in pu (base SNom, omegaNom)";
-  parameter Real s0 "Start value of the slip of the motor";
+  parameter Real Slip0 "Start value of the slip of the motor";
 
 equation
   assert(shareTrip1Pu + shareTrip2Pu <= 1, "Total share of motors that trip should be lower or equal to 1");
@@ -93,7 +94,7 @@ equation
 
     s = (omegaRefPu.value - omegaRPu) / omegaRefPu.value;
     cePu = EdPPPu * idPu + EqPPPu * iqPu;
-    clPu = ce0Pu * (omegaRPu / omegaR0Pu)^torqueExponent;
+    clPu = Ce0Pu * (omegaRPu / omegaR0Pu)^torqueExponent;
     2 * H * der(omegaRPu) = cePu - clPu;
   else
     der(EqPPu) = 0;

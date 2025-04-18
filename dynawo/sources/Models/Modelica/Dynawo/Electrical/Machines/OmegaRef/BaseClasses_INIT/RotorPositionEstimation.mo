@@ -34,10 +34,10 @@ function RotorPositionEstimation "Rotor position estimation and saturation initi
 
   output Types.PerUnit MsalPu "Constant difference between direct and quadrature axis saturated mutual inductances in pu";
   output Types.Angle Theta0 "Start value of rotor angle: angle between machine rotor frame and port phasor frame";
-  output Types.VoltageModulePu Ud0Pu "Start value of voltage of direct axis in pu";
-  output Types.VoltageModulePu Uq0Pu "Start value of voltage of quadrature axis in pu";
-  output Types.CurrentModulePu Id0Pu "Start value of current of direct axis in pu";
-  output Types.CurrentModulePu Iq0Pu "Start value of current of quadrature axis in pu";
+  output Types.VoltageComponentPu Ud0Pu "Start value of voltage of direct axis in pu";
+  output Types.VoltageComponentPu Uq0Pu "Start value of voltage of quadrature axis in pu";
+  output Types.CurrentComponentPu Id0Pu "Start value of current of direct axis in pu";
+  output Types.CurrentComponentPu Iq0Pu "Start value of current of quadrature axis in pu";
   output Types.PerUnit LambdaAD0Pu "Start value of common flux of direct axis in pu";
   output Types.PerUnit LambdaAQ0Pu "Start value of common flux of quadrature axis in pu";
   output Types.PerUnit LambdaAirGap0Pu "Start value of total air gap flux in pu";

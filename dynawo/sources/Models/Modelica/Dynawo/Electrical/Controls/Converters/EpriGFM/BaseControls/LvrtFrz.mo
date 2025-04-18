@@ -14,7 +14,7 @@ within Dynawo.Electrical.Controls.Converters.EpriGFM.BaseControls;
 
 model LvrtFrz "Low voltage ride through freeze function of EPRI Grid Forming model"
 
-  parameter Types.PerUnit UDipPu "Freeze voltage in pu (base UNom), example value = 0.85" annotation(
+  parameter Types.VoltageModulePu UDipPu "Freeze voltage in pu (base UNom), example value = 0.85" annotation(
   Dialog(tab = "VoltageControl"));
 
   // Input variables
@@ -26,9 +26,9 @@ model LvrtFrz "Low voltage ride through freeze function of EPRI Grid Forming mod
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initial parameters
-  parameter Types.PerUnit UdFilter0Pu "Start value of d-axis voltage at the converter's terminal in pu (base UNom)" annotation(
+  parameter Types.VoltageComponentPu UdFilter0Pu "Start value of d-axis voltage at the converter's terminal in pu (base UNom)" annotation(
   Dialog(tab = "Initial"));
-  parameter Types.PerUnit UqFilter0Pu "Start value of q-axis voltage at the converter's terminal in pu (base UNom)" annotation(
+  parameter Types.VoltageComponentPu UqFilter0Pu "Start value of q-axis voltage at the converter's terminal in pu (base UNom)" annotation(
   Dialog(tab = "Initial"));
 
 equation

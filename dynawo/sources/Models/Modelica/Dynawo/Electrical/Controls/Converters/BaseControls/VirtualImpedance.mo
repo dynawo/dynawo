@@ -28,8 +28,8 @@ model VirtualImpedance "Virtual impedance model for the current limitation of gr
   Modelica.Blocks.Interfaces.RealOutput DeltaVVIq(start = DeltaVVIq0) "q-axis virtual impedance output in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  parameter Types.PerUnit IdConv0Pu "Start value of d-axis current in the converter in pu (base UNom, SNom) (generator convention)";
-  parameter Types.PerUnit IqConv0Pu "Start value of q-axis current in the converter in pu (base UNom, SNom) (generator convention)";
+  parameter Types.CurrentComponentPu IdConv0Pu "Start value of d-axis current in the converter in pu (base UNom, SNom) (generator convention)";
+  parameter Types.CurrentComponentPu IqConv0Pu "Start value of q-axis current in the converter in pu (base UNom, SNom) (generator convention)";
   parameter Types.CurrentModulePu IConvSquare0Pu "Start value of square current in the converter in pu (base UNom, SNom)";
   parameter Types.CurrentModulePu DeltaIConvSquare0Pu "Start value of extra square current in the converter in pu (base UNom, SNom)";
   parameter Types.PerUnit RVI0 "Start value of virtual resistance in pu (base UNom, SNom)";

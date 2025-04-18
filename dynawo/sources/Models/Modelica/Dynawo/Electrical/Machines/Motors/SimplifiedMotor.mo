@@ -39,9 +39,9 @@ imPu goes downwards through jXm
   Types.ComplexCurrentPu imPu(re(start = im0Pu.re), im(start = im0Pu.im)) "Magnetising current in pu (base UNom, SNom) (receptor convention)";
   Types.ComplexCurrentPu irPu(re(start = ir0Pu.re), im(start = ir0Pu.im)) "Rotor current in pu (base UNom, SNom) (receptor convention)";
 
-  Types.PerUnit cePu(start = ce0Pu) "Electrical torque in pu (base SNom, omegaNom)";
-  Types.PerUnit clPu(start = ce0Pu) "Load torque in pu (base SNom, omegaNom)";
-  Real s(start = s0) "Slip of the motor";
+  Types.PerUnit cePu(start = Ce0Pu) "Electrical torque in pu (base SNom, omegaNom)";
+  Types.PerUnit clPu(start = Ce0Pu) "Load torque in pu (base SNom, omegaNom)";
+  Real slip(start = Slip0) "Slip of the motor";
   Types.AngularVelocityPu omegaRPu(start = omegaR0Pu) "Angular velocity of the motor in pu (base omegaNom)";
 
 protected
@@ -53,20 +53,20 @@ public
   parameter Types.ComplexCurrentPu is0Pu "Start value of the stator current in pu (base SNom, UNom)";
   parameter Types.ComplexCurrentPu im0Pu "Start value of the magnetising current in pu (base SNom, UNom)";
   parameter Types.ComplexCurrentPu ir0Pu "Start value of the rotor current in pu (base SNom, UNom)";
-  parameter Types.PerUnit ce0Pu "Start value of the electrical torque in pu (base SNom)";
-  parameter Real s0 "Start value of the slip of the motor";
+  parameter Types.PerUnit Ce0Pu "Start value of the electrical torque in pu (base SNom)";
+  parameter Real Slip0 "Start value of the slip of the motor";
   parameter Types.AngularVelocityPu omegaR0Pu "Start value of the angular velocity of the motor in pu (base omegaNom)";
 
 equation
   if (running.value) then
     V = ZmPu * imPu + ZsPu * isPu;  // Kirchhoff’s voltage law in the first loop
-    isPu = V / (ZsPu + 1 / (1 / ZmPu + s / Complex(RrPu, XrPu * s)));  // Avoid numerical issues when s = 0
+    isPu = V / (ZsPu + 1 / (1 / ZmPu + slip / Complex(RrPu, XrPu * slip)));  // Avoid numerical issues when s = 0
     isPu = imPu + irPu;
     SPu = V * ComplexMath.conj(isPu) * (SNom / SystemBase.SnRef);
 
-    s = (omegaRefPu.value - omegaRPu) / omegaRefPu.value;
-    cePu = RrPu * ComplexMath.'abs'(irPu ^ 2) / (omegaRefPu.value * s);
-    clPu = ce0Pu * (omegaRPu / omegaR0Pu) ^ torqueExponent;
+    slip = (omegaRefPu.value - omegaRPu) / omegaRefPu.value;
+    cePu = RrPu * ComplexMath.'abs'(irPu ^ 2) / (omegaRefPu.value * slip);
+    clPu = Ce0Pu * (omegaRPu / omegaR0Pu) ^ torqueExponent;
     2 * H * der(omegaRPu) = cePu - clPu;
   else
     der(omegaRPu) = 0;
@@ -75,7 +75,7 @@ equation
     irPu = Complex(0);
     cePu = 0;
     clPu = 0;
-    s = 0;
+    slip = 0;
     SPu = Complex(0);
   end if;
 

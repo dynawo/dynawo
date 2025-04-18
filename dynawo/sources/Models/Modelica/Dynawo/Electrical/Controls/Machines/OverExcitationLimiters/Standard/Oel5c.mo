@@ -17,11 +17,11 @@ model Oel5c "IEEE (2016) overexcitation limiter type OEL5C model"
 
   //Regulation parameters
   parameter Types.VoltageModulePu IBiasPu "OEL reference bias in pu (base UNom)";
-  parameter Types.PerUnit IfdLevelPu "OEL activation logic pickup level in pu";
-  parameter Types.PerUnit IfdLimPu "OEL inverse time limit active level in pu";
-  parameter Types.PerUnit IfdPu "OEL inverse time integrator pickup level in pu";
-  parameter Types.PerUnit IfdRef1Pu "OEL reference 1 in pu";
-  parameter Types.PerUnit IfdRef2Pu "OEL reference 2 in pu";
+  parameter Types.CurrentModulePu IfdLevelPu "OEL activation logic pickup level in pu";
+  parameter Types.CurrentModulePu IfdLimPu "OEL inverse time limit active level in pu";
+  parameter Types.CurrentModulePu IfdPu "OEL inverse time integrator pickup level in pu";
+  parameter Types.CurrentModulePu IfdRef1Pu "OEL reference 1 in pu";
+  parameter Types.CurrentModulePu IfdRef2Pu "OEL reference 2 in pu";
   parameter Types.PerUnit K "OEL lead-lag gain";
   parameter Types.PerUnit K1 "Exponent for inverse time function";
   parameter Types.PerUnit KIfdt "OEL inverse time leak gain";

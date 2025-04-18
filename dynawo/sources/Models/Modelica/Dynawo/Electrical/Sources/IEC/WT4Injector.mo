@@ -85,15 +85,15 @@ model WT4Injector "Converter model and grid interface according to IEC N°61400-
   //Initial parameters
   parameter Types.ComplexCurrentPu i0Pu "Initial complex current at grid terminal in pu (base UNom, SnRef) (receptor convention)" annotation(
     Dialog(group="Initialization"));
-  parameter Types.PerUnit IGsIm0Pu "Initial imaginary component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.CurrentComponentPu IGsIm0Pu "Initial imaginary component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(group="Initialization"));
-  parameter Types.PerUnit IGsRe0Pu "Initial real component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.CurrentComponentPu IGsRe0Pu "Initial real component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(group="Initialization"));
-  parameter Types.PerUnit IpMax0Pu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.CurrentComponentPu IpMax0Pu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
-  parameter Types.PerUnit IqMax0Pu "Initial maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.CurrentComponentPu IqMax0Pu "Initial maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
-  parameter Types.PerUnit IqMin0Pu "Initial minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.CurrentComponentPu IqMin0Pu "Initial minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
   parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));
@@ -105,9 +105,9 @@ model WT4Injector "Converter model and grid interface according to IEC N°61400-
     Dialog(tab = "Operating point"));
   parameter Types.ComplexVoltagePu u0Pu "Initial complex voltage at grid terminal in pu (base UNom)" annotation(
     Dialog(group="Initialization"));
-  parameter Types.PerUnit UGsIm0Pu "Initial imaginary component of the voltage at converter terminal in pu (base UNom)" annotation(
+  parameter Types.VoltageComponentPu UGsIm0Pu "Initial imaginary component of the voltage at converter terminal in pu (base UNom)" annotation(
     Dialog(group="Initialization"));
-  parameter Types.PerUnit UGsRe0Pu "Initial real component of the voltage at converter terminal in pu (base UNom)" annotation(
+  parameter Types.VoltageComponentPu UGsRe0Pu "Initial real component of the voltage at converter terminal in pu (base UNom)" annotation(
     Dialog(group="Initialization"));
   parameter Types.Angle UPhase0 "Initial voltage angle at grid terminal in rad" annotation(
     Dialog(tab = "Operating point"));
