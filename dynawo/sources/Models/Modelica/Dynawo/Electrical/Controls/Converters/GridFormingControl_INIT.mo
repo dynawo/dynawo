@@ -19,10 +19,10 @@ model GridFormingControl_INIT "Initialization model for the grid forming control
   parameter Types.PerUnit XRratio "X/R ratio of the virtual impedance";
   parameter Types.CurrentModulePu IMaxVI "Maximum current before activating the virtual impedance in pu (base UNom, SNom)";
 
-  Types.PerUnit IdcSourceRef0Pu "Start value of DC current reference in pu (base UdcNom, SNom)";
+  Types.CurrentModulePu IdcSourceRef0Pu "Start value of DC current reference in pu (base UdcNom, SNom)";
   Dynawo.Connectors.PerUnitConnector IdcSource0Pu "Start value of DC current in pu (base UdcNom, SNom)";
   Dynawo.Connectors.PerUnitConnector UdcSource0Pu "Start value of DC voltage in pu (base UdcNom)";
-  Types.PerUnit UdcSourceRef0Pu "Start value of DC voltage reference in pu (base UdcNom)";
+  Types.VoltageModulePu UdcSourceRef0Pu "Start value of DC voltage reference in pu (base UdcNom)";
   Dynawo.Connectors.PerUnitConnector UdConv0Pu "Start value of d-axis modulation voltage in pu (base UNom)";
   Dynawo.Connectors.PerUnitConnector UqConv0Pu "Start value of q-axis modulation voltage in pu (base UNom)";
   Dynawo.Connectors.PerUnitConnector IdConv0Pu "Start value of d-axis current in the converter in pu (base UNom, SNom) (generator convention)";

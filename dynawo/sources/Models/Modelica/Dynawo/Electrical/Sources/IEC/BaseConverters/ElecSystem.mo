@@ -74,9 +74,9 @@ model ElecSystem "RLC filter for WT (IEC N°61400-27-1)"
     Dialog(group="Initialization"));
   parameter Types.ComplexVoltagePu u0Pu "Initial complex voltage at grid terminal in pu (base UNom)" annotation(
     Dialog(group="Initialization"));
-  parameter Types.PerUnit UGsIm0Pu "Initial imaginary component of the voltage at converter terminal in pu (base UNom)" annotation(
+  parameter Types.VoltageComponentPu UGsIm0Pu "Initial imaginary component of the voltage at converter terminal in pu (base UNom)" annotation(
     Dialog(group="Initialization"));
-  parameter Types.PerUnit UGsRe0Pu "Initial real component of the voltage at converter terminal in pu (base UNom)" annotation(
+  parameter Types.VoltageComponentPu UGsRe0Pu "Initial real component of the voltage at converter terminal in pu (base UNom)" annotation(
     Dialog(group="Initialization"));
 
 equation

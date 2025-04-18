@@ -15,7 +15,7 @@ within Dynawo.Electrical.Controls.Machines.Governors.Standard.Generic;
 model GovCt2 "Governor type GovCT2"
 
   // Parameters
-  parameter Types.PerUnit aSetPu "Acceleration limiter setpoint in pu/s (base omegaNom), typical value = 10" annotation(
+  parameter Types.AngularAccelerationPu aSetPu "Acceleration limiter setpoint in pu/s (base omegaNom), typical value = 10" annotation(
     Dialog(tab = "Acceleration limiter"));
   parameter Types.AngularVelocityPu DeltaOmegaDbPu "Speed governor deadband in pu (base omegaNom), typical value = 0" annotation(
     Dialog(tab = "Main control path"));

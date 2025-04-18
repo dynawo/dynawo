@@ -173,9 +173,9 @@ partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 st
     Dialog(tab = "Operating point"));
   parameter Types.ComplexVoltagePu u0Pu "Initial complex voltage at grid terminal in pu (base UNom)" annotation(
     Dialog(group = "Initialization"));
-  parameter Types.PerUnit UGsIm0Pu "Initial imaginary component of the voltage at converter terminal in pu (base UNom)" annotation(
+  parameter Types.VoltageComponentPu UGsIm0Pu "Initial imaginary component of the voltage at converter terminal in pu (base UNom)" annotation(
     Dialog(group = "Initialization"));
-  parameter Types.PerUnit UGsRe0Pu "Initial real component of the voltage at converter terminal in pu (base UNom)" annotation(
+  parameter Types.VoltageComponentPu UGsRe0Pu "Initial real component of the voltage at converter terminal in pu (base UNom)" annotation(
     Dialog(group = "Initialization"));
   parameter Types.Angle UPhase0 "Initial voltage angle at grid terminal in rad" annotation(
     Dialog(tab = "Operating point"));

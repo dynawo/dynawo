@@ -51,7 +51,7 @@ model ActivePowerControlSideDangling "Active power control side for the HVDC VSC
     Placement(visible = true, transformation(origin = {-30, -70}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
 
   parameter Types.PerUnit Ip0Pu "Start value of active current in pu (base SNom, UNom) (DC to AC)";
-  parameter Types.PerUnit Iq0Pu "Start value of reactive current in pu (base SNom, UNom) (DC to AC)";
+  parameter Types.CurrentComponentPu Iq0Pu "Start value of reactive current in pu (base SNom, UNom) (DC to AC)";
   parameter Boolean ModeU0 "Initial mode of control : if true, U mode, if false, Q mode";
   parameter Types.ActivePowerPu P0Pu "Start value of active power in pu (base SNom) (DC to AC)";
   parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power in pu (base SNom) (DC to AC)";

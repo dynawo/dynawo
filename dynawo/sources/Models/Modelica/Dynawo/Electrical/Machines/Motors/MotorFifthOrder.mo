@@ -40,12 +40,12 @@ model MotorFifthOrder "Two-cage (or one-cage if Lpp = Lp) induction motor model,
   parameter Types.Time tReconnect2Pu "Time lag before reconnection of the second block of motors in s";
 
   Types.AngularVelocityPu omegaRPu(start = omegaR0Pu) "Angular velocity of the motor in pu (base omegaNom)";
-  Types.PerUnit EdPPu(start = EdP0Pu) "Voltage behind transient reactance d component in pu (base UNom)";
-  Types.PerUnit EqPPu(start = EqP0Pu) "Voltage behind transient reactance q component in pu (base UNom)";
-  Types.PerUnit EdPPPu(start = EdPP0Pu) "Voltage behind subtransient reactance d component in pu (base UNom)";
-  Types.PerUnit EqPPPu(start = EqPP0Pu) "Voltage behind subtransient reactance q component in pu (base UNom)";
-  Types.PerUnit idPu(start = id0Pu) "Current of direct axis in pu (base SNom, UNom)";
-  Types.PerUnit iqPu(start = iq0Pu) "Current of quadrature axis in pu (base SNom, UNom)";
+  Types.VoltageComponentPu EdPPu(start = EdP0Pu) "Voltage behind transient reactance d component in pu (base UNom)";
+  Types.VoltageComponentPu EqPPu(start = EqP0Pu) "Voltage behind transient reactance q component in pu (base UNom)";
+  Types.VoltageComponentPu EdPPPu(start = EdPP0Pu) "Voltage behind subtransient reactance d component in pu (base UNom)";
+  Types.VoltageComponentPu EqPPPu(start = EqPP0Pu) "Voltage behind subtransient reactance q component in pu (base UNom)";
+  Types.CurrentComponentPu idPu(start = id0Pu) "Current of direct axis in pu (base SNom, UNom)";
+  Types.CurrentComponentPu iqPu(start = iq0Pu) "Current of quadrature axis in pu (base SNom, UNom)";
   Real s(start = s0) "Slip of the motor";
   Types.PerUnit cePu(start = ce0Pu) "Electrical torque in pu (base SNom, omegaNom)";
   Types.PerUnit clPu(start = ce0Pu) "Load torque in pu (base SNom, omegaNom)";
@@ -60,12 +60,12 @@ model MotorFifthOrder "Two-cage (or one-cage if Lpp = Lp) induction motor model,
   Boolean connected2(start = true) "True if the second block of motors is connected";
 
   // Initial values
-  parameter Types.PerUnit EdP0Pu "Start value of voltage behind transient reactance d component in pu (base UNom)";
-  parameter Types.PerUnit EqP0Pu "Start value of voltage behind transient reactance q component in pu (base UNom)";
-  parameter Types.PerUnit EdPP0Pu "Start value of voltage behind subtransient reactance d component in pu (base UNom)";
-  parameter Types.PerUnit EqPP0Pu "Start value of voltage behind subtransient reactance q component in pu (base UNom)";
-  parameter Types.PerUnit id0Pu "Start value of current of direct axis in pu (base SNom, UNom)";
-  parameter Types.PerUnit iq0Pu "Start value of current of quadrature axis in pu (base SNom, UNom)";
+  parameter Types.VoltageComponentPu EdP0Pu "Start value of voltage behind transient reactance d component in pu (base UNom)";
+  parameter Types.VoltageComponentPu EqP0Pu "Start value of voltage behind transient reactance q component in pu (base UNom)";
+  parameter Types.VoltageComponentPu EdPP0Pu "Start value of voltage behind subtransient reactance d component in pu (base UNom)";
+  parameter Types.VoltageComponentPu EqPP0Pu "Start value of voltage behind subtransient reactance q component in pu (base UNom)";
+  parameter Types.CurrentComponentPu id0Pu "Start value of current of direct axis in pu (base SNom, UNom)";
+  parameter Types.CurrentComponentPu iq0Pu "Start value of current of quadrature axis in pu (base SNom, UNom)";
   parameter Types.AngularVelocityPu omegaR0Pu "Start value of the angular velocity of the motor in pu (base omegaNom)";
   parameter Types.PerUnit ce0Pu "Start value of the electrical torque in pu (base SNom, omegaNom)";
   parameter Real s0 "Start value of the slip of the motor";
