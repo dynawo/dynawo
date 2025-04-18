@@ -58,11 +58,11 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
   Dynawo.Connectors.ActivePowerPuConnector PGen0Pu "Start value of active power at terminal in pu (base SnRef) (generator convention)";
   Dynawo.Connectors.ReactivePowerPuConnector QGen0Pu "Start value of reactive power at terminal in pu (base SnRef) (generator convention)";
 
-  Types.Angle Theta0 "Start value of rotor angle: angle between machine rotor frame and port phasor frame";
+  Dynawo.Connectors.AngleConnector Theta0 "Start value of rotor angle: angle between machine rotor frame and port phasor frame";
 
   Types.PerUnit Ud0Pu "Start value of voltage of direct axis in pu";
   Types.PerUnit Uq0Pu "Start value of voltage of quadrature axis in pu";
-  Types.PerUnit Id0Pu "Start value of current of direct axis in pu";
+  Dynawo.Connectors.PerUnitConnector Id0Pu "Start value of current of direct axis in pu";
   Types.PerUnit Iq0Pu "Start value of current of quadrature axis in pu";
 
   Types.PerUnit If0Pu "Start value of current of excitation winding in pu";
@@ -81,9 +81,9 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
   Dynawo.Connectors.PerUnitConnector Pm0Pu "Start value of mechanical power in pu (base PNomTurb/omegaNom)";
 
   Dynawo.Connectors.VoltageModulePuConnector UStator0Pu "Start value of stator voltage amplitude in pu (base UNom)";
-  Types.CurrentModulePu IStator0Pu "Start value of stator current amplitude in pu (base SnRef)";
-  Types.ReactivePowerPu QStator0Pu "Start value of stator reactive power generated in pu (base SnRef)";
-  Types.ReactivePowerPu QStator0PuQNom "Start value of stator reactive power generated in pu (base QNomAlt)";
+  Dynawo.Connectors.CurrentModulePuConnector IStator0Pu "Start value of stator current amplitude in pu (base SnRef)";
+  Dynawo.Connectors.ReactivePowerPuConnector QStator0Pu "Start value of stator reactive power generated in pu (base SnRef)";
+  Dynawo.Connectors.ReactivePowerPuConnector QStator0PuQNom "Start value of stator reactive power generated in pu (base QNomAlt)";
   Dynawo.Connectors.CurrentModulePuConnector IRotor0Pu "Start value of rotor current in pu (base SNom, user-selected base voltage)";
   Types.Angle ThetaInternal0 "Start value of internal angle in rad";
 
