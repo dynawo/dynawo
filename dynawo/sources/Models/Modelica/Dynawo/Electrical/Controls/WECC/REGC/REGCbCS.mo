@@ -71,8 +71,8 @@ model REGCbCS "WECC Generator/Converter type B with current source interface"
     Placement(visible = true, transformation(origin = {-120, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.VoltageModulePu UInj0Pu "Start value of voltage amplitude at injector terminal in pu (base UNom)";
-  parameter Types.CurrentModulePu Id0Pu "Start value of d-component current at injector terminal in pu (generator convention) (base SNom, UNom)";
-  parameter Types.CurrentModulePu Iq0Pu "Start value of q-component current at injector terminal in pu (generator convention) (base SNom, UNom)";
+  parameter Types.CurrentComponentPu Id0Pu "Start value of d-component current at injector terminal in pu (generator convention) (base SNom, UNom)";
+  parameter Types.CurrentComponentPu Iq0Pu "Start value of q-component current at injector terminal in pu (generator convention) (base SNom, UNom)";
 
 equation
   connect(frtOn, offDelay.u) annotation(

@@ -37,7 +37,7 @@ model CurrentLimitsCalculation "Current limit calculation in EPRI Grid Forming m
     Placement(visible = true, transformation(origin = {110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initial parameters
-  parameter Types.PerUnit IdConv0Pu "Start value of d-axis current of the converter in pu (base UNom, SNom) (generator convention)" annotation(Dialog(tab = "Initial"));
+  parameter Types.CurrentComponentPu IdConv0Pu "Start value of d-axis current of the converter in pu (base UNom, SNom) (generator convention)" annotation(Dialog(tab = "Initial"));
   parameter Types.PerUnit IqConv0Pu "Start value of q-axis current of the converter in pu (base UNom, SNom) (generator convention)" annotation(Dialog(tab = "Initial"));
 
 equation

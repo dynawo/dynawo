@@ -65,8 +65,8 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
   Dynawo.Connectors.PerUnitConnector Id0Pu "Start value of current of direct axis in pu";
   Types.PerUnit Iq0Pu "Start value of current of quadrature axis in pu";
 
-  Types.PerUnit If0Pu "Start value of current of excitation winding in pu";
-  Types.PerUnit Uf0Pu "Start value of exciter voltage in pu (Kundur base)";
+  Types.CurrentComponentPu If0Pu "Start value of current of excitation winding in pu";
+  Types.VoltageComponentPu Uf0Pu "Start value of exciter voltage in pu (Kundur base)";
   Dynawo.Connectors.VoltageModulePuConnector Efd0Pu "Start value of input exciter voltage in pu (user-selected base)";
 
   Types.PerUnit Lambdad0Pu "Start value of flux of direct axis in pu";

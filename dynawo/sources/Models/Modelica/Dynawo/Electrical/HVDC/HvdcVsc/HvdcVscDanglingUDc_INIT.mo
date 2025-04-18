@@ -32,8 +32,8 @@ model HvdcVscDanglingUDc_INIT "Initialisation model for the HVDC VSC model with 
   Types.ReactivePowerPu QRef10Pu "Start value of reactive power reference at terminal 1 in pu (base SNom) (DC to AC)";
   Types.ComplexApparentPowerPu s10Pu "Start value of complex apparent power at terminal 1 in pu (base SnRef) (AC to DC)";
   Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 in pu (base UNom)";
-  Types.PerUnit UDc10Pu "Start value of DC voltage at terminal 1 in pu (base UDcNom)";
-  Types.PerUnit UDc20Pu "Start value of DC voltage at terminal 2 in pu (base UDcNom)";
+  Types.VoltageModulePu UDc10Pu "Start value of DC voltage at terminal 1 in pu (base UDcNom)";
+  Types.VoltageModulePu UDc20Pu "Start value of DC voltage at terminal 2 in pu (base UDcNom)";
   Types.VoltageModulePu UDcRef0Pu "Start value of DC voltage reference in pu (base UDcNom)";
   Dynawo.Connectors.VoltageModulePuConnector URef10Pu "Start value of the voltage reference for the side 1 of the HVDC link in pu (base UNom)";
 
