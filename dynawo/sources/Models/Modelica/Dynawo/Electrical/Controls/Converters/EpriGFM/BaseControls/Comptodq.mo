@@ -67,7 +67,7 @@ model Comptodq "Computation of dq components from grid measurements in EPRI Grid
   Dialog(tab = "Initial"));
   parameter Types.CurrentComponentPu IdConv0Pu "Start value of d-axis current of the converter in pu (base UNom, SNom) (generator convention)" annotation(
   Dialog(tab = "Initial"));
-  parameter Types.PerUnit IqConv0Pu "Start value of q-axis current of the converter in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.CurrentComponentPu IqConv0Pu "Start value of q-axis current of the converter in pu (base UNom, SNom) (generator convention)" annotation(
   Dialog(tab = "Initial"));
   parameter Types.Angle Theta0 "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad" annotation(
   Dialog(tab = "Initial"));

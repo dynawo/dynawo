@@ -33,9 +33,9 @@ record ParamsREEC
   Dialog(tab="Electrical Control"));
   parameter Types.CurrentModulePu IMaxPu "Maximal apparent current magnitude in pu (base UNom, SNom) (typical: 1..2)" annotation(
   Dialog(tab="Electrical Control"));
-  parameter Types.PerUnit Iqh1Pu "Maximum reactive current injection (typical: 1..1.1) in pu (base UNom, SNom)" annotation(
+  parameter Types.CurrentComponentPu Iqh1Pu "Maximum reactive current injection (typical: 1..1.1) in pu (base UNom, SNom)" annotation(
   Dialog(tab="Electrical Control"));
-  parameter Types.PerUnit Iql1Pu "Minimum reactive current injection (typical: -1.1..-1) in pu (base UNom, SNom)" annotation(
+  parameter Types.CurrentComponentPu Iql1Pu "Minimum reactive current injection (typical: -1.1..-1) in pu (base UNom, SNom)" annotation(
   Dialog(tab="Electrical Control"));
   parameter Types.PerUnit Kqi "Integrator gain local reactive power PI controller" annotation(
   Dialog(tab="Electrical Control"));

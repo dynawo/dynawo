@@ -93,11 +93,11 @@ model GridFormingControlDroopControl "Grid forming control with droop control"
   parameter Types.VoltageComponentPu UdConv0Pu "Start value of d-axis modulation voltage in pu (base UNom)";
   parameter Types.VoltageComponentPu UqConv0Pu "Start value of q-axis modulation voltage in pu (base UNom)";
   parameter Types.CurrentComponentPu IdConv0Pu "Start value of d-axis current in the converter in pu (base UNom, SNom) (generator convention)";
-  parameter Types.PerUnit IqConv0Pu "Start value of q-axis current in the converter in pu (base UNom, SNom) (generator convention)";
+  parameter Types.CurrentComponentPu IqConv0Pu "Start value of q-axis current in the converter in pu (base UNom, SNom) (generator convention)";
   parameter Types.ActivePowerPu PRef0Pu "Start value of the active power reference at the converter's capacitor in pu (base SNom) (generator convention)";
   parameter Types.ReactivePowerPu QRef0Pu "Start value of the reactive power reference at the converter's capacitor in pu (base SNom) (generator convention)";
   parameter Types.CurrentComponentPu IdPcc0Pu "Start value of d-axis current in the grid in pu (base UNom, SNom) (generator convention)";
-  parameter Types.PerUnit IqPcc0Pu "Start value of q-axis current in the grid in pu (base UNom, SNom) (generator convention)";
+  parameter Types.CurrentComponentPu IqPcc0Pu "Start value of q-axis current in the grid in pu (base UNom, SNom) (generator convention)";
   parameter Types.VoltageComponentPu UdFilter0Pu "Start value of d-axis voltage at the converter's capacitor in pu (base UNom)";
   parameter Types.VoltageComponentPu UqFilter0Pu "Start value of q-axis voltage at the converter's capacitor in pu (base UNom)";
   parameter Types.Angle Theta0 "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad";

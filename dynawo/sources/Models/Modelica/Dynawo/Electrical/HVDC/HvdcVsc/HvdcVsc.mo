@@ -23,7 +23,7 @@ model HvdcVsc "HVDC VSC model"
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsDeltaP;
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsLimitsCalculation;
 
-  parameter Types.PerUnit IpDeadBandPu "Deadband for the DeltaP function in pu (base SNom, UNom) (DC to AC)";
+  parameter Types.CurrentComponentPu IpDeadBandPu "Deadband for the DeltaP function in pu (base SNom, UNom) (DC to AC)";
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
   Dynawo.Connectors.ACPower terminal1(V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re), im(start = i10Pu.im))) "Connector used to connect the injector to the grid" annotation(
@@ -77,10 +77,10 @@ model HvdcVsc "HVDC VSC model"
 
   parameter Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base SnRef, UNom) (AC to DC)";
   parameter Types.ComplexCurrentPu i20Pu "Start value of complex current at terminal 2 in pu (base SnRef, UNom) (AC to DC)";
-  parameter Types.PerUnit Ip10Pu "Start value of active current at terminal 1 in pu (base SNom, UNom) (DC to AC)";
-  parameter Types.PerUnit Ip20Pu "Start value of active current at terminal 2 in pu (base SNom, UNom) (DC to AC)";
-  parameter Types.PerUnit Iq10Pu "Start value of reactive current at terminal 1 in pu (base SNom, UNom) (DC to AC)";
-  parameter Types.PerUnit Iq20Pu "Start value of reactive current at terminal 2 in pu (base SNom, UNom) (DC to AC)";
+  parameter Types.CurrentComponentPu Ip10Pu "Start value of active current at terminal 1 in pu (base SNom, UNom) (DC to AC)";
+  parameter Types.CurrentComponentPu Ip20Pu "Start value of active current at terminal 2 in pu (base SNom, UNom) (DC to AC)";
+  parameter Types.CurrentComponentPu Iq10Pu "Start value of reactive current at terminal 1 in pu (base SNom, UNom) (DC to AC)";
+  parameter Types.CurrentComponentPu Iq20Pu "Start value of reactive current at terminal 2 in pu (base SNom, UNom) (DC to AC)";
   parameter Boolean ModeU10 "Initial mode of control on side 1 : if true, U mode, if false, Q mode";
   parameter Boolean ModeU20 "Initial mode of control on side 2 : if true, U mode, if false, Q mode";
   parameter Types.ActivePowerPu P10Pu "Start value of active power at terminal 1 in pu (base SnRef) (AC to DC)";

@@ -60,7 +60,7 @@ partial model BaseWT4 "Partial base model for the WECC Wind Turbine models inclu
     Dialog(tab = "Electrical Control"));
   parameter Real tHoldIq "Absolute value of tHoldIq defines seconds to hold current injection after voltage dip ended. tHoldIq > 0 for constant, 0 for no injection after voltage dip, tHoldIq < 0 for voltage-dependent injection (typical: -1 .. 1 s)" annotation(
     Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit IqFrzPu "Constant reactive current injection value (typical: -0.1 .. 0.1 pu)" annotation(
+  parameter Types.CurrentComponentPu IqFrzPu "Constant reactive current injection value (typical: -0.1 .. 0.1 pu)" annotation(
     Dialog(tab = "Electrical Control"));
   parameter Boolean PFlag "Power reference flag: const. Pref (0) or consider generator speed (1)" annotation(
     Dialog(tab = "Electrical Control"));

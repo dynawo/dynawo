@@ -74,9 +74,9 @@ model VoltageLoop "Voltage loop control for grid forming and grid following conv
   parameter Types.VoltageComponentPu UdFilter0Pu "Start value of d-axis voltage at the converter's capacitor in pu (base UNom)";
   parameter Types.VoltageComponentPu UqFilter0Pu "Start value of q-axis voltage at the converter's capacitor in pu (base UNom)";
   parameter Types.CurrentComponentPu IdConv0Pu "Start value of d-axis current in the converter in pu (base UNom, SNom) (generator convention)";
-  parameter Types.PerUnit IqConv0Pu "Start value of q-axis current in the converter in pu (base UNom, SNom) (generator convention)";
+  parameter Types.CurrentComponentPu IqConv0Pu "Start value of q-axis current in the converter in pu (base UNom, SNom) (generator convention)";
   parameter Types.CurrentComponentPu IdPcc0Pu "Start value of d-axis current in the grid in pu (base UNom, SNom) (generator convention)";
-  parameter Types.PerUnit IqPcc0Pu "Start value of q-axis current in the grid in pu (base UNom, SNom) (generator convention)";
+  parameter Types.CurrentComponentPu IqPcc0Pu "Start value of q-axis current in the grid in pu (base UNom, SNom) (generator convention)";
 
 equation
   connect(feedbackd.u1, udFilterRefPu) annotation(
