@@ -48,7 +48,34 @@ model PhaseShifterTransformer "Elementary system with one infinite bus, one load
     Placement(transformation(origin = {20, 0}, extent = {{-12, -12}, {12, 12}})));
 
   // Phase Tap Changer Transformer
-  Dynawo.Electrical.Transformers.TransformersVariableTap.TransformerPhaseTapChanger tfo01(AlphaTfoMax = 0.19634954084936207, AlphaTfoMin = -0.19634954084936207, BPu = 0.0 * ZBASE69_0, GPu = 0.0 * ZBASE69_0, NbTap = 19, P10Pu = 0.50081, Q10Pu = 0.0984, RPu = 0.0 / ZBASE69_0, RatioTfo0Pu = 1, Tap0 = 9, U10Pu = 1, U20Pu = 1, XPu = 0.0 / ZBASE69_0, i10Pu = Complex(0.50081, 0.0984), i20Pu = Complex(0.50081, 0.0984), u10Pu = Complex(1, 0), u20Pu = Complex(1, 0)) annotation(
+  Dynawo.Electrical.Transformers.TransformersVariableTapControlled.TransformerPhaseTapChangerControlled tfo01(
+    AlphaTfoMax = 0.19634954084936207,
+    AlphaTfoMin = -0.19634954084936207,
+    BPu = 0.0 * ZBASE69_0,
+    GPu = 0.0 * ZBASE69_0,
+    i10Pu = Complex(0.50081, 0.0984),
+    i20Pu = Complex(0.50081, 0.0984),
+    increaseTapToIncreaseValue = false,
+    NbTap = 19,
+    P0 = 0.7,
+    P10Pu = 0.50081,
+    PDeadBand = 0.05,
+    PTarget = 0.7,
+    Q10Pu = 0.0984,
+    RPu = 0.0 / ZBASE69_0,
+    RatioTfo0Pu = 1,
+    regulating0 = false,
+    state0 = Dynawo.Electrical.Controls.Transformers.BaseClasses.TapChangerPhaseShifterParams.State.Standard,
+    t1st = 25,
+    tap0 = 9,
+    tapMax = 18,
+    tapMin = 0,
+    tNext = 15,
+    U10Pu = 1,
+    U20Pu = 1,
+    u10Pu = Complex(1, 0),
+    u20Pu = Complex(1, 0),
+    XPu = 0.0 / ZBASE69_0) annotation(
     Placement(transformation(origin = {20, 20}, extent = {{-12, -12}, {12, 12}}, rotation = -90)));
 
   // Lines
@@ -57,20 +84,13 @@ model PhaseShifterTransformer "Elementary system with one infinite bus, one load
   Dynawo.Electrical.Lines.Line line02(BPu = 0. * ZBASE69_0, GPu = 0. * ZBASE69_0, RPu = 0.15 / ZBASE69_0, XPu = 18 / ZBASE69_0) annotation(
     Placement(transformation(origin = {20, -30}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
-  // Controller
-  Dynawo.Electrical.Controls.Transformers.PhaseShifterP shiftController01(P0 = 0.7, PDeadBand = 0.05, PTarget = 0.7, regulating0 = false, state0 = Dynawo.Electrical.Controls.Transformers.BaseClasses.TapChangerPhaseShifterParams.State.Standard, t1st = 25, tNext = 15, tap0 = 9, tapMax = 18, tapMin = 0, increaseTapToIncreaseValue = false);
-
   // Output connector
   Dynawo.Connectors.ImPin PPuLine01 "Active power transiting in line 01 in pu (base SnRef)";
 
 equation
   // PhaseShifter
-  shiftController01.locked = if time < 50 then true else false;
+  tfo01.locked = if time < 50 then true else false;
   PPuLine01.value = -line01.P2Pu;
-
-  when shiftController01.tap.value <> pre(shiftController01.tap.value) then
-    tfo01.tap.value = shiftController01.tap.value;
-  end when;
 
   PrefPuLoad01.setPoint.value = load01.PRefPu;
   QrefPuLoad01.setPoint.value = load01.QRefPu;
@@ -85,8 +105,6 @@ equation
   line02.switchOffSignal1.value = false;
   line01.switchOffSignal2.value = false;
   line02.switchOffSignal2.value = false;
-  shiftController01.switchOffSignal1.value = false;
-  shiftController01.switchOffSignal2.value = false;
 
   checkGen01P = Dynawo.Electrical.SystemBase.SnRef * Modelica.ComplexMath.real(gen01.terminal.V * Modelica.ComplexMath.conj(gen01.terminal.i));
   checkGen01Q = Dynawo.Electrical.SystemBase.SnRef * Modelica.ComplexMath.imag(gen01.terminal.V * Modelica.ComplexMath.conj(gen01.terminal.i));
@@ -107,7 +125,7 @@ equation
     Line(points = {{20, 8}, {20, 0}}, color = {0, 0, 255}));
   connect(bus03.terminal, line02.terminal1) annotation(
     Line(points = {{20, 0}, {20, -20}}, color = {0, 0, 255}));
-  connect(shiftController01.PMonitored, PPuLine01);
+  tfo01.phaseShifterP.PMonitored = PPuLine01;// needed if first equation of TransformerPhaseTapChangerControlled (line 68) is commented
 
   annotation(
     preferredView = "diagram",

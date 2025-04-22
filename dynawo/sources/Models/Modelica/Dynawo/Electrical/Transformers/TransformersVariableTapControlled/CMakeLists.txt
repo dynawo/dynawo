@@ -27,6 +27,7 @@ set(MODEL_FILES
   TransformerVariableTapControlled.extvar
   TransformerVariableTapIControlled_INIT.mo
   TransformerVariableTapPQControlled_INIT.mo
+  TransformerVariableTapXtdPuControlled.mo
   )
 
 #
