@@ -20,10 +20,10 @@ model REGCbCS "WECC Generator/Converter type B with current source interface"
     Placement(visible = true, transformation(origin = {-160, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput iqCmdPu(start = Iq0Pu) "iqCmdPu setpoint from electrical control in pu (base SNom, UNom)" annotation(
     Placement(visible = true, transformation(origin = {-160, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.BooleanInput frtOn(start = false) "Boolean signal for iq ramp after fault: true if FRT detected, false otherwise" annotation(
+    Placement(visible = true, transformation(origin = {-160, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UPu(start = UInj0Pu) "Inverter terminal voltage magnitude in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-160, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-60, -110}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.BooleanInput frtOn(start = false) "Boolean signal for iq ramp after fault: true if FRT detected, false otherwise " annotation(
-    Placement(visible = true, transformation(origin = {-160, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Outputs
   Modelica.Blocks.Interfaces.RealOutput idRefPu(start = Id0Pu) "idRefPu setpoint to injector in pu (generator convention) (base SNom, UNom)" annotation(
@@ -49,9 +49,9 @@ model REGCbCS "WECC Generator/Converter type B with current source interface"
     Placement(visible = true, transformation(origin = {-80, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze(T = tG, UseRateLim = true, Y0 = Iq0Pu) annotation(
     Placement(visible = true, transformation(origin = {0, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant IqrMaxPu0(k = IqrMaxPu) annotation(
+  Modelica.Blocks.Sources.Constant constant3(k = DerIqrMaxPu) annotation(
     Placement(visible = true, transformation(origin = {-80, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant IqrMinPu0(k = IqrMinPu) annotation(
+  Modelica.Blocks.Sources.Constant constant4(k = DerIqrMinPu) annotation(
     Placement(visible = true, transformation(origin = {-80, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze1(T = tG, UseRateLim = true, Y0 = Id0Pu * UInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {80, -26}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -67,7 +67,7 @@ model REGCbCS "WECC Generator/Converter type B with current source interface"
     Placement(visible = true, transformation(origin = {-80, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constant2(k = -9999) annotation(
     Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.MathBoolean.OffDelay offDelay(tDelay = max(abs(1 / IqrMaxPu), abs(1 / IqrMinPu))) annotation(
+  Dynawo.NonElectrical.Blocks.MathBoolean.OffDelay offDelay(tDelay = max(abs(1 / DerIqrMaxPu), abs(1 / DerIqrMinPu))) annotation(
     Placement(visible = true, transformation(origin = {-120, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.VoltageModulePu UInj0Pu "Start value of voltage amplitude at injector terminal in pu (base UNom)";
@@ -117,13 +117,13 @@ equation
     Line(points = {{-108, 100}, {-52, 100}}, color = {255, 0, 255}));
   connect(offDelay.y, switch2.u2) annotation(
     Line(points = {{-108, 100}, {-100, 100}, {-100, 20}, {-52, 20}}, color = {255, 0, 255}));
-  connect(IqrMinPu0.y, switch2.u1) annotation(
+  connect(constant4.y, switch2.u1) annotation(
     Line(points = {{-69, 40}, {-60, 40}, {-60, 28}, {-52, 28}}, color = {0, 0, 127}));
   connect(constant2.y, switch2.u3) annotation(
     Line(points = {{-69, 0}, {-60, 0}, {-60, 12}, {-52, 12}, {-52, 12}}, color = {0, 0, 127}));
   connect(constant1.y, switch1.u3) annotation(
     Line(points = {{-69, 80}, {-60, 80}, {-60, 92}, {-52, 92}}, color = {0, 0, 127}));
-  connect(IqrMaxPu0.y, switch1.u1) annotation(
+  connect(constant3.y, switch1.u1) annotation(
     Line(points = {{-69, 120}, {-60, 120}, {-60, 108}, {-52, 108}, {-52, 108}}, color = {0, 0, 127}));
 
   annotation(
