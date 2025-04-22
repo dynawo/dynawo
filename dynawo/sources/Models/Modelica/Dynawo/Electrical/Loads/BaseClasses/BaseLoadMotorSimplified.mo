@@ -34,21 +34,21 @@ partial model BaseLoadMotorSimplified "Base model for loads in parallel to simpl
   Types.ActivePowerPu PLoadPu(start = PLoad0Pu) "Active power consumed by the load in pu (base SnRef) (receptor convention)";
   Types.ReactivePowerPu QLoadPu(start = QLoad0Pu) "Reactive power consumed by the load in pu (base SnRef) (receptor convention)";
 
-  Dynawo.Electrical.Machines.Motors.SimplifiedMotor motors[NbMotors](SNom = SNom, RsPu=RsPu, RrPu = RrPu, XsPu = XsPu, XrPu = XrPu, XmPu = XmPu, H = H, torqueExponent = torqueExponent, each NbSwitchOffSignals = 2, is0Pu = is0Pu, im0Pu = im0Pu, ir0Pu = ir0Pu, ce0Pu = ce0Pu, s0 = s0, omegaR0Pu = omegaR0Pu, i0Pu = motori0Pu, s0Pu = motors0Pu, each u0Pu = u0Pu);
+  Dynawo.Electrical.Machines.Motors.SimplifiedMotor motors[NbMotors](SNom = SNom, RsPu = RsPu, RrPu = RrPu, XsPu = XsPu, XrPu = XrPu, XmPu = XmPu, H = H, torqueExponent = torqueExponent, each NbSwitchOffSignals = 2, is0Pu = is0Pu, im0Pu = im0Pu, ir0Pu = ir0Pu, Ce0Pu = Ce0Pu, Slip0 = Slip0, omegaR0Pu = omegaR0Pu, i0Pu = iMotor0Pu, s0Pu = sMotor0Pu, each u0Pu = u0Pu);
   Types.ActivePowerPu PLoadCmdPu(start = PLoad0Pu) "Active power reference for the load in pu (base SnRef) (receptor convention)";
   Types.ReactivePowerPu QLoadCmdPu(start = QLoad0Pu) "Reactive power reference for in pu (base SnRef) (receptor convention)";
 
   // Initial values
+  parameter Types.PerUnit Ce0Pu[NbMotors] "Start value of the electrical torque in pu (base SNom, omegaNom)";
   parameter Types.ActivePowerPu PLoad0Pu "Start value of the active power consumed by the load in pu (base SnRef)";
   parameter Types.ReactivePowerPu QLoad0Pu "Start value of the reactive power consumed by the load in pu (base SnRef)";
+  parameter Real Slip0[NbMotors] "Start value of the slip of the motor";
   parameter Types.ComplexCurrentPu is0Pu[NbMotors] "Start value of the stator current in pu (base SNom, UNom)";
   parameter Types.ComplexCurrentPu im0Pu[NbMotors] "Start value of the magnetising current in pu (base SNom, UNom)";
   parameter Types.ComplexCurrentPu ir0Pu[NbMotors] "Start value of the rotor current in pu (base SNom, UNom)";
-  parameter Types.PerUnit ce0Pu[NbMotors] "Start value of the electrical torque in pu (base SNom, omegaNom)";
-  parameter Real s0[NbMotors] "Start value of the slip of the motor";
   parameter Types.AngularVelocityPu omegaR0Pu[NbMotors] "Start value of the angular velocity of the motor in pu (base omegaNom)";
-  parameter Types.ComplexCurrentPu motori0Pu[NbMotors] "Start value of complex current at load terminal in pu (base UNom, SnRef) (receptor convention)";
-  parameter Types.ComplexApparentPowerPu motors0Pu[NbMotors] "Start value of complex apparent power in pu (base SnRef) (receptor convention)";
+  parameter Types.ComplexCurrentPu iMotor0Pu[NbMotors] "Start value of complex current at load terminal in pu (base UNom, SnRef) (receptor convention)";
+  parameter Types.ComplexApparentPowerPu sMotor0Pu[NbMotors] "Start value of complex apparent power in pu (base SnRef) (receptor convention)";
 
 equation
   for i in 1:NbMotors loop
