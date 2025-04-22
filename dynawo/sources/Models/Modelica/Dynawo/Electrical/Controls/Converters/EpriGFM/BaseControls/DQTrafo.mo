@@ -49,11 +49,11 @@ model DQTrafo "Dq transformation in EPRI Grid Forming model"
   Dialog(tab = "Initial"));
 
 equation
-  connect(transformDQtoRI.uiPu, uiSourcePu) annotation(
+  connect(transformDQtoRI.ui, uiSourcePu) annotation(
     Line(points = {{81, 4}, {94, 4}, {94, -20}, {110, -20}}, color = {0, 0, 127}));
-  connect(transformDQtoRI.urPu, urSourcePu) annotation(
+  connect(transformDQtoRI.ur, urSourcePu) annotation(
     Line(points = {{81, 16}, {94, 16}, {94, 40}, {110, 40}}, color = {0, 0, 127}));
-  connect(uqConvRefPu, transformDQtoRI.uqPu) annotation(
+  connect(uqConvRefPu, transformDQtoRI.uq) annotation(
     Line(points = {{-110, 20}, {0, 20}, {0, 13}, {59, 13}}, color = {0, 0, 127}));
   connect(integerConstant6.y, multiSwitch6.f) annotation(
     Line(points = {{30, -23}, {30, -48}}, color = {255, 127, 0}));
@@ -67,7 +67,7 @@ equation
     Line(points = {{-110, -80}, {20, -80}, {20, -60}}, color = {0, 0, 127}));
   connect(theta, multiSwitch6.u[4]) annotation(
     Line(points = {{-110, -80}, {20, -80}, {20, -60}}, color = {0, 0, 127}));
-  connect(udConvRefPu, transformDQtoRI.udPu) annotation(
+  connect(udConvRefPu, transformDQtoRI.ud) annotation(
     Line(points = {{-110, 60}, {40, 60}, {40, 17}, {59, 17}}, color = {0, 0, 127}));
 
   annotation(

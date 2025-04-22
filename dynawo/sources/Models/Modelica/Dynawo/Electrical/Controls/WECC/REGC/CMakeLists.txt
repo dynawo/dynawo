@@ -16,7 +16,6 @@ set(MODEL_FILES
   package.order
   REGCa.mo
   REGCb.mo
-  REGCbCS.mo
   REGCc.mo
   )
 

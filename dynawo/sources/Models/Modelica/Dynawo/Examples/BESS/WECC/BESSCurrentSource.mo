@@ -129,7 +129,7 @@ model BESSCurrentSource "WECC BESS with REEC-C and REGC-B with a plant controlle
   Modelica.Blocks.Sources.Constant PRefPu(k = 0.5) annotation(
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PFaRef(k = acos(BESS.PF0)) annotation(
-    Placement(visible = true, transformation(origin = {80, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+    Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Dynawo.Electrical.Lines.Line line(BPu = 0, GPu = 0, RPu = 0, XPu = 0.0000020661) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(
@@ -181,15 +181,15 @@ equation
   BESS.injector.switchOffSignal3.value = false;
 
   connect(URefPu.y, BESS.URefPu) annotation(
-    Line(points = {{70, 80}, {20, 80}, {20, 22}}, color = {0, 0, 127}));
+    Line(points = {{80, 80}, {20, 80}, {20, 22}}, color = {0, 0, 127}));
   connect(omegaRefPu.y, BESS.omegaRefPu) annotation(
-    Line(points = {{70, 40}, {60, 40}, {60, 12}, {42, 12}}, color = {0, 0, 127}));
+    Line(points = {{80, 40}, {60, 40}, {60, 12}, {42, 12}}, color = {0, 0, 127}));
   connect(QRefPu.y, BESS.QRefPu) annotation(
-    Line(points = {{70, 0}, {42, 0}}, color = {0, 0, 127}));
+    Line(points = {{80, 0}, {42, 0}}, color = {0, 0, 127}));
   connect(PRefPu.y, BESS.PRefPu) annotation(
     Line(points = {{79, -40}, {60, -40}, {60, -12}, {42, -12}}, color = {0, 0, 127}));
   connect(PFaRef.y, BESS.PFaRef) annotation(
-    Line(points = {{70, -80}, {20, -80}, {20, -22}}, color = {0, 0, 127}));
+    Line(points = {{79, -80}, {20, -80}, {20, -22}}, color = {0, 0, 127}));
   connect(line.terminal1, infiniteBus.terminal) annotation(
     Line(points = {{-60, 0}, {-82, 0}}, color = {0, 0, 255}));
   connect(PAuxPu.y, BESS.PAuxPu) annotation(

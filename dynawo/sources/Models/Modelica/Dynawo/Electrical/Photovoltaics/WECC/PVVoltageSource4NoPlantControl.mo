@@ -20,7 +20,7 @@ model PVVoltageSource4NoPlantControl "WECC PV model with a voltage source as int
        --------           iSourcePu                                                 iPu
   */
   extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECb;
-  extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVVoltageSource34;
+  extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVVoltageSourceC;
 
   // Line parameters
   parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef)";

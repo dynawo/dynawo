@@ -98,7 +98,7 @@ equation
     Line(points = {{-139, -40}, {-111, -40}}, color = {0, 0, 127}));
   connect(uInjPu, vSourceRef.uInjPu) annotation(
     Line(points = {{257, -190}, {257, -68}, {255.5, -68}, {255.5, -28}}, color = {85, 170, 255}));
-  connect(iInjPu, transformRItoDQ.uPu) annotation(
+  connect(iInjPu, transformRItoDQ.u) annotation(
     Line(points = {{-210, 20}, {39, 20}}, color = {85, 170, 255}));
   connect(vSourceRef.uiSourcePu, uiSource) annotation(
     Line(points = {{284, -9}, {284, -9.75}, {290, -9.75}, {290, -60}, {310, -60}}, color = {0, 0, 127}));
@@ -126,11 +126,11 @@ equation
     Line(points = {{-210, 0}, {-85.5, 0}, {-85.5, 8}, {39, 8}}, color = {0, 0, 127}));
   connect(phi, vSourceRef.phi) annotation(
     Line(points = {{-210, 0}, {227, 0}}, color = {0, 0, 127}));
-  connect(transformRItoDQ.yqPu, gain1.u) annotation(
+  connect(transformRItoDQ.uq, gain1.u) annotation(
     Line(points = {{61, 8}, {69, 8}, {69, 40}}, color = {0, 0, 127}));
   connect(gain1.y, add.u2) annotation(
     Line(points = {{69, 63}, {70, 63}, {70, 94}, {88, 94}}, color = {0, 0, 127}));
-  connect(transformRItoDQ.ydPu, gain.u) annotation(
+  connect(transformRItoDQ.ud, gain.u) annotation(
     Line(points = {{61, 20}, {97, 20}}, color = {0, 0, 127}));
   connect(gain.y, add1.u1) annotation(
     Line(points = {{120, 20}, {140, 20}, {140, -84}, {147, -84}}, color = {0, 0, 127}));

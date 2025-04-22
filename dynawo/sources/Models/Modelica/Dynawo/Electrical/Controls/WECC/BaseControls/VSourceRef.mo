@@ -57,27 +57,27 @@ model VSourceRef
   parameter Types.ComplexVoltagePu uSource0Pu "Start value of complex voltage at source in pu (base UNom)";
 
 equation
-  connect(firstOrder1.y, transformDQtoRI.uqPu) annotation(
+  connect(firstOrder1.y, transformDQtoRI.uq) annotation(
     Line(points = {{51, 3}, {79, 3}}, color = {0, 0, 127}));
   connect(udqRef.udSourceRefPu, firstOrder.u) annotation(
     Line(points = {{11, 11}, {20, 11}, {20, 40}, {28, 40}}, color = {0, 0, 127}));
   connect(udqRef.uqSourceRefPu, firstOrder1.u) annotation(
     Line(points = {{11, 3}, {28, 3}}, color = {0, 0, 127}));
-  connect(transformRItoDQ.ydPu, udqRef.udInjPu) annotation(
+  connect(transformRItoDQ.ud, udqRef.udInjPu) annotation(
     Line(points = {{-29, 4}, {-11, 4}}, color = {0, 0, 127}));
-  connect(uInjPu, transformRItoDQ.uPu) annotation(
+  connect(uInjPu, transformRItoDQ.u) annotation(
     Line(points = {{-130, 4}, {-51, 4}}, color = {85, 170, 255}));
   connect(idPu, udqRef.idRefPu) annotation(
     Line(points = {{-130, 60}, {-20, 60}, {-20, 15}, {-11, 15}}, color = {0, 0, 127}));
   connect(iqPu, udqRef.iqRefPu) annotation(
     Line(points = {{-130, 30}, {-30, 30}, {-30, 10}, {-11, 10}}, color = {0, 0, 127}));
-  connect(transformDQtoRI.urPu, urSourcePu) annotation(
+  connect(transformDQtoRI.ur, urSourcePu) annotation(
     Line(points = {{101, 6}, {110, 6}, {110, 20}, {130, 20}}, color = {0, 0, 127}));
-  connect(transformDQtoRI.uiPu, uiSourcePu) annotation(
+  connect(transformDQtoRI.ui, uiSourcePu) annotation(
     Line(points = {{101, -6}, {110, -6}, {110, -20}, {130, -20}}, color = {0, 0, 127}));
-  connect(firstOrder.y, transformDQtoRI.udPu) annotation(
+  connect(firstOrder.y, transformDQtoRI.ud) annotation(
     Line(points = {{51, 40}, {70, 40}, {70, 7}, {79, 7}}, color = {0, 0, 127}));
-  connect(transformRItoDQ.yqPu, udqRef.uqInjPu) annotation(
+  connect(transformRItoDQ.uq, udqRef.uqInjPu) annotation(
     Line(points = {{-29, -8}, {-20, -8}, {-20, -1}, {-11, -1}}, color = {0, 0, 127}));
   connect(phi, transformRItoDQ.phi) annotation(
     Line(points = {{-130, -40}, {-60, -40}, {-60, -8}, {-50, -8}}, color = {0, 0, 127}));
