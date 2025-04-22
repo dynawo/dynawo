@@ -16,17 +16,17 @@ block TransformRItoDQ "Transformation from real/imaginary in stationary referenc
 
   Modelica.Blocks.Interfaces.RealInput phi "Angle of the dq transform in rad" annotation(
     Placement(visible = true, transformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.ComplexBlocks.Interfaces.ComplexInput uPu "Complex input in pu" annotation(
+  Modelica.ComplexBlocks.Interfaces.ComplexInput u "Complex input" annotation(
     Placement(visible = true, transformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Interfaces.RealOutput ydPu "d-axis output in pu" annotation(
+  Modelica.Blocks.Interfaces.RealOutput ud "d-axis output" annotation(
     Placement(visible = true, transformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput yqPu "q-axis output in pu" annotation(
+  Modelica.Blocks.Interfaces.RealOutput uq "q-axis output" annotation(
     Placement(visible = true, transformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-  ydPu = ComplexMath.real(uPu) * cos(phi) + ComplexMath.imag(uPu) * sin(phi);
-  yqPu = (-ComplexMath.real(uPu) * sin(phi)) + ComplexMath.imag(uPu) * cos(phi);
+  ud = ComplexMath.real(u) * cos(phi) + ComplexMath.imag(u) * sin(phi);
+  uq = (-ComplexMath.real(u) * sin(phi)) + ComplexMath.imag(u) * cos(phi);
 
   annotation(
     preferredView = "text",

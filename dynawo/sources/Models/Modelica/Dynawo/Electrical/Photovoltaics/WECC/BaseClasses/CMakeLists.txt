@@ -13,8 +13,8 @@ set(MODEL_FILES
   package.mo
   package.order
   BasePVCurrentSource.mo
-  BasePVVoltageSource12.mo
-  BasePVVoltageSource34.mo
+  BasePVVoltageSourceB.mo
+  BasePVVoltageSourceC.mo
   )
 
 #
