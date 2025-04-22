@@ -14,9 +14,9 @@ within Dynawo.Electrical.Controls.WECC.Parameters;
 */
 
 record ParamsREGC
-  parameter Types.PerUnit IqrMaxPu "Maximum rate-of-change of reactive current after fault in pu (base UNom, SNom) (typical: 1..999)" annotation(
+  parameter Types.PerUnit DerIqrMaxPu "Maximum rate-of-change of reactive current after fault in pu/s (base UNom, SNom) (typical: 1..999)" annotation(
     Dialog(tab="Generator Converter"));
-  parameter Types.PerUnit IqrMinPu "Minimum rate-of-change of reactive current after fault in pu (base UNom, SNom) (typical: -999..-1)" annotation(
+  parameter Types.PerUnit DerIqrMinPu "Minimum rate-of-change of reactive current after fault in pu/s (base UNom, SNom) (typical: -999..-1)" annotation(
   Dialog(tab="Generator Converter"));
   parameter Boolean RateFlag "Active current (=false) or active power (=true) ramp (if unkown set to false)" annotation(
   Dialog(tab="Generator Converter"));

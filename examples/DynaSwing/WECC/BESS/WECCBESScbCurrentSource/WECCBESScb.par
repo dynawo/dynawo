@@ -123,8 +123,8 @@
     <par type="DOUBLE" name="BESScb_VMinPu" value="0.9"/>
     <par type="DOUBLE" name="BESScb_VRef0Pu" value="1"/>
     <!-- REGC-B parameters -->
-    <par type="DOUBLE" name="BESScb_IqrMaxPu" value="999"/>
-    <par type="DOUBLE" name="BESScb_IqrMinPu" value="-999"/>
+    <par type="DOUBLE" name="BESScb_DerIqrMaxPu" value="999"/>
+    <par type="DOUBLE" name="BESScb_DerIqrMinPu" value="-999"/>
     <par type="BOOL" name="BESScb_RateFlag" value="false"/>
     <par type="DOUBLE" name="BESScb_RrpwrPu" value="10"/>
     <par type="DOUBLE" name="BESScb_tFilterGC" value="0.02"/>
