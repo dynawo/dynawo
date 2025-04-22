@@ -92,7 +92,7 @@ model EpriCurrentControl "Current controller in EPRI Grid Forming model"
   // Initial parameters
   parameter Types.CurrentComponentPu IdConv0Pu "Start value of d-axis current of the converter in pu (base UNom, SNom) (generator convention)" annotation(
   Dialog(tab = "Initial"));
-  parameter Types.PerUnit IqConv0Pu "Start value of q-axis current of the converter in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.CurrentComponentPu IqConv0Pu "Start value of q-axis current of the converter in pu (base UNom, SNom) (generator convention)" annotation(
   Dialog(tab = "Initial"));
   parameter Types.VoltageComponentPu UdConv0Pu "Start value of d-axis modulation voltage in pu (base UNom)" annotation(
   Dialog(tab = "Initial"));

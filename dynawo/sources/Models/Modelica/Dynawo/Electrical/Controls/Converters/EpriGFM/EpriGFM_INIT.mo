@@ -33,7 +33,7 @@ model EpriGFM_INIT "Initialization model for EpriGFM"
 
   flow Types.ComplexCurrentPu i0Pu "Start value of complex current at converter's terminal in pu (base UNom, SnRef) (receptor convention)";
   Types.CurrentComponentPu IdConv0Pu "Start value of d-axis current of the converter in pu (base UNom, SNom) (generator convention)";
-  Types.PerUnit IqConv0Pu "Start value of q-axis current of the converter in pu (base UNom, SNom) (generator convention)";
+  Types.CurrentComponentPu IqConv0Pu "Start value of q-axis current of the converter in pu (base UNom, SNom) (generator convention)";
   Types.ComplexPerUnit s0Pu "Start value of complex apparent power at terminal in pu (base SnRef) (receptor convention)";
   Types.ComplexVoltagePu u0Pu "Start value of complex voltage at converter's terminal in pu (base UNom)";
   Types.VoltageComponentPu UdConv0Pu "Start value of d-axis modulation voltage in pu (base UNom)";

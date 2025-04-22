@@ -14,7 +14,7 @@ within Dynawo.Electrical.Controls.WECC.BaseControls;
 
 model CurrentLimitsCalculationC "This block calculates the current limits of the WECC REEC-C regulation"
 
-  parameter Types.PerUnit IMaxPu "Maximum inverter current amplitude in pu (base SNom, UNom)";
+  parameter Types.CurrentModulePu IMaxPu "Maximum inverter current amplitude in pu (base SNom, UNom)";
   parameter Boolean PQFlag "Q/P priority: Q (0) or P (1) priority selection on current limit flag";
   parameter Types.PerUnit SOCMaxPu "Maximum allowable state of charge in pu (base SNom) (typical: 0.8..1)";
   parameter Types.PerUnit SOCMinPu "Minimum allowable state of charge in pu (base SNom) (typical: 0..0.2)";
