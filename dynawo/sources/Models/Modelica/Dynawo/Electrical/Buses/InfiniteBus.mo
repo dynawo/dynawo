@@ -18,7 +18,7 @@ model InfiniteBus "Infinite bus"
   Dynawo.Connectors.ACPower terminal annotation(
     Placement(visible = true, transformation(origin = {0, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  parameter Types.PerUnit UPu "Infinite bus constant voltage module";
+  parameter Types.VoltageModulePu UPu "Infinite bus constant voltage module";
   parameter Types.Angle UPhase "Infinite bus constant voltage angle";
   parameter Types.VoltageModule UNom = 1.0 "Nominal voltage in kV";
 

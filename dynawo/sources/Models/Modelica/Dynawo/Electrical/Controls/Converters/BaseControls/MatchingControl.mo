@@ -55,13 +55,13 @@ model MatchingControl "Matching control for grid forming converters"
   Modelica.Blocks.Math.Gain gain1(k = -1) annotation(
     Placement(visible = true, transformation(origin = {-50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  parameter Types.PerUnit UdFilter0Pu "Start value of d-axis voltage at the converter's capacitor in pu (base UNom)";
-  parameter Types.PerUnit UqFilter0Pu "Start value of q-axis voltage at the converter's capacitor in pu (base UNom)";
+  parameter Types.VoltageComponentPu UdFilter0Pu "Start value of d-axis voltage at the converter's capacitor in pu (base UNom)";
+  parameter Types.VoltageComponentPu UqFilter0Pu "Start value of q-axis voltage at the converter's capacitor in pu (base UNom)";
   parameter Types.Angle Theta0 "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad";
   parameter Types.PerUnit DeltaVVId0 "Start value of d-axis virtual impedance output in pu (base UNom)";
   parameter Types.PerUnit DeltaVVIq0 "Start value of q-axis virtual impedance output in pu (base UNom)";
-  parameter Types.PerUnit UdcSourceRef0Pu "Start value of DC voltage reference in pu (base UdcNom)";
-  parameter Types.PerUnit UdcSource0Pu "Start value of DC voltage in pu (base UdcNom)";
+  parameter Types.VoltageModulePu UdcSourceRef0Pu "Start value of DC voltage reference in pu (base UdcNom)";
+  parameter Types.VoltageModulePu UdcSource0Pu "Start value of DC voltage in pu (base UdcNom)";
   parameter Types.VoltageModulePu UFilterRef0Pu "Start value of voltage module reference at the converter's capacitor in pu (base UNom)";
 
 equation

@@ -16,7 +16,7 @@ within Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.LimitsCalculation;
 model LimitsCalculationUDc "Reactive and active currents limits calculation model for the DC voltage control of the HVDC VSC model"
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.LimitsCalculation.BaseLimitsCalculation;
 
-  parameter Types.PerUnit IpDeadBandPu "Deadband for the DeltaP function in pu (base SNom, UNom) (DC to AC)";
+  parameter Types.CurrentComponentPu IpDeadBandPu "Deadband for the DeltaP function in pu (base SNom, UNom) (DC to AC)";
 
   //Input variable
   Modelica.Blocks.Interfaces.RealInput iqMod1Pu(start = 0) "Additional reactive current at terminal 1 in case of fault or overvoltage in pu (base SNom, UNom) (DC to AC)" annotation(

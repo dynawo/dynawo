@@ -55,10 +55,10 @@ model DispatchableVirtualOscillatorControl "Dispatchable virtual oscillator cont
 
   parameter Types.ActivePowerPu PRef0Pu "Start value of the active power reference at the converter's capacitor in pu (base SNom) (generator convention)";
   parameter Types.ReactivePowerPu QRef0Pu "Start value of the reactive power reference at the converter's capacitor in pu (base SNom) (generator convention)";
-  parameter Types.PerUnit IdPcc0Pu "Start value of d-axis current in the grid in pu (base UNom, SNom) (generator convention)";
-  parameter Types.PerUnit IqPcc0Pu "Start value of q-axis current in the grid in pu (base UNom, SNom) (generator convention)";
-  parameter Types.PerUnit UdFilter0Pu "Start value of d-axis voltage at the converter's capacitor in pu (base UNom)";
-  parameter Types.PerUnit UqFilter0Pu "Start value of q-axis voltage at the converter's capacitor in pu (base UNom)";
+  parameter Types.CurrentComponentPu IdPcc0Pu "Start value of d-axis current in the grid in pu (base UNom, SNom) (generator convention)";
+  parameter Types.CurrentComponentPu IqPcc0Pu "Start value of q-axis current in the grid in pu (base UNom, SNom) (generator convention)";
+  parameter Types.VoltageComponentPu UdFilter0Pu "Start value of d-axis voltage at the converter's capacitor in pu (base UNom)";
+  parameter Types.VoltageComponentPu UqFilter0Pu "Start value of q-axis voltage at the converter's capacitor in pu (base UNom)";
   parameter Types.Angle Theta0 "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad";
   parameter Types.PerUnit DeltaVVId0 "Start value of d-axis virtual impedance output in pu (base UNom)";
   parameter Types.PerUnit DeltaVVIq0 "Start value of q-axis virtual impedance output in pu (base UNom)";
