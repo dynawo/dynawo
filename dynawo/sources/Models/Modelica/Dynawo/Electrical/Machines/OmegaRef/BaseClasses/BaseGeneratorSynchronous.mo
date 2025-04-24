@@ -14,6 +14,8 @@ within Dynawo.Electrical.Machines.OmegaRef.BaseClasses;
 */
 
 partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model"
+  import Modelica.Constants;
+
   extends GeneratorSynchronousParameters;
   extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffGenerator;
 
@@ -93,6 +95,8 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
   parameter Types.PerUnit Cos2Eta0 "Start value of the common flux of direct axis contribution to the total air gap flux in pu";
   parameter Types.PerUnit Sin2Eta0 "Start value of the common flux of quadrature axis contribution to the total air gap flux in pu";
   parameter Types.PerUnit Mi0Pu "Start value of intermediate axis saturated mutual inductance in pu";
+
+  parameter Boolean thetaCheck "To check if theta > 180 deg";
 
   // d-q axis pu variables (base UNom, SNom)
   Types.PerUnit udPu(start = Ud0Pu) "Voltage of direct axis in pu";
@@ -203,6 +207,10 @@ equation
     miPu = 0;
     MdSatPPu = MdPPu;
     MqSatPPu = MqPPu;
+  end if;
+  
+  if thetaCheck then
+    assert(not (theta > Constants.pi and time > 0.1), "theta > PI");
   end if;
 
   annotation(preferredView = "text");
