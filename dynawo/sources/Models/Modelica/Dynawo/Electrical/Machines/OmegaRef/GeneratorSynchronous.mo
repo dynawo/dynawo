@@ -83,7 +83,11 @@ equation
 
     // Output variables for external controllers
     UStatorPu.value = ComplexMath.'abs'(uStatorPu);
-    IStatorPu.value = ComplexMath.'abs'(iStatorPu);
+    if PGenPu <> 0 and QGenPu <> 0 then
+      IStatorPu.value =  ComplexMath.'abs'(iStatorPu);
+    else
+      IStatorPu.value = 0;
+    end if;  
     QStatorPu.value = - ComplexMath.imag(sStatorPu);
     QStatorPuQNom.value = QStatorPu.value * SystemBase.SnRef / QNomAlt;
     IRotorPu.value = RfPPu / (Kuf * rTfoPu) * ifPu;
