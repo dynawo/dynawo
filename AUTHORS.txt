@@ -1,5 +1,6 @@
 Dynawo authors:
 
+Thibault PREVOST
 Gilles AOUIZERATE
 Dimitri BARON
 Thierry BARRÈS
