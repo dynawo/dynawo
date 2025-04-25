@@ -19,7 +19,7 @@ model ENTSOE
     Placement(visible = true, transformation(origin = {-112, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 1) annotation(
     Placement(visible = true, transformation(origin = {-112, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Step PRefPu(height = 0.25, offset = 0.75, startTime = 5)  annotation(
+  Modelica.Blocks.Sources.Step PRefPu(height = 0.25, offset = 0.75, startTime = 7)  annotation(
     Placement(visible = true, transformation(origin = {-112, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
   line.switchOffSignal1.value = false;
