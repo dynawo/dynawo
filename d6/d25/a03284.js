@@ -10,7 +10,7 @@ var a03284 =
       [ "connectionStateNum_", "d6/d25/a03284.html#ab327e80ba7a91ae1f7ebbb822616a714a8140838a53e8cb2c2d4794d1f104e8b3", null ]
     ] ],
     [ "ModelStaticVarCompensator", "d6/d25/a03284.html#aa799d728589d50ce8872c66d03f235c2", null ],
-    [ "addBusNeighbors", "d6/d25/a03284.html#a4ac718f853745f4a2f9dc3bb60c57bb3", null ],
+    [ "addBusNeighbors", "d6/d25/a03284.html#ae6f9bbedf008a575fbf36ff82ad7e0c6", null ],
     [ "collectSilentZ", "d6/d25/a03284.html#a6f8eff58655162915303726dd9cd8512", null ],
     [ "defineElements", "d6/d25/a03284.html#a3d16d687fe34498fbfe04003ddaf7110", null ],
     [ "defineNonGenericParameters", "d6/d25/a03284.html#a97341c876125f912cbc6f134d1820152", null ],
@@ -52,7 +52,7 @@ var a03284 =
     [ "setFequations", "d6/d25/a03284.html#a0466003767f0737a0b73bb45353180ff", null ],
     [ "setGequations", "d6/d25/a03284.html#ace7767e1aef4778369a3749265d3e0bc", null ],
     [ "setModelBus", "d6/d25/a03284.html#ad6663969b7d6e96aa55695a969b1fbdd", null ],
-    [ "setSubModelParameters", "d6/d25/a03284.html#a9862203c04338a7f303cdd7cc026c406", null ],
+    [ "setSubModelParameters", "d6/d25/a03284.html#a42a65c3ad02ea8a8545287986ed52b25", null ],
     [ "bSvc0_", "d6/d25/a03284.html#abc0953104200c407688f9fd8841ce051", null ],
     [ "connectionState_", "d6/d25/a03284.html#a2d17794ce1908db8cd998583f3e62cec", null ],
     [ "gSvc0_", "d6/d25/a03284.html#aa65ba79701ba8e77face68e4b956da1d", null ],

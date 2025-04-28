@@ -101,7 +101,7 @@ $(document).ready(function(){initNavTree('d6/d25/a03284.html','../../');});
 
 <p>This is the complete list of members for <a class="el" href="../../d6/d25/a03284.html">DYN::ModelStaticVarCompensator</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../d6/d25/a03284.html#a4ac718f853745f4a2f9dc3bb60c57bb3">addBusNeighbors</a>()</td><td class="entry"><a class="el" href="../../d6/d25/a03284.html">DYN::ModelStaticVarCompensator</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/d25/a03284.html#ae6f9bbedf008a575fbf36ff82ad7e0c6">addBusNeighbors</a>() override</td><td class="entry"><a class="el" href="../../d6/d25/a03284.html">DYN::ModelStaticVarCompensator</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
   <tr><td class="entry"><a class="el" href="../../df/daa/a03316.html#a7f8fcf4b0468e8cbd6fe7026d0c19c1e">addElementWithValue</a>(const std::string &amp;elementName, const std::string &amp;parentType, std::vector&lt; Element &gt; &amp;elements, std::map&lt; std::string, int &gt; &amp;mapElement)</td><td class="entry"><a class="el" href="../../df/daa/a03316.html">DYN::NetworkComponent</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="../../d6/d25/a03284.html#abc0953104200c407688f9fd8841ce051">bSvc0_</a></td><td class="entry"><a class="el" href="../../d6/d25/a03284.html">DYN::ModelStaticVarCompensator</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr><td class="entry"><a class="el" href="../../d6/d25/a03284.html#a570e3ba4f3c1068e7bcac7821e864e3e">CalculatedVariables_t</a> enum name</td><td class="entry"><a class="el" href="../../d6/d25/a03284.html">DYN::ModelStaticVarCompensator</a></td><td class="entry"></td></tr>
@@ -196,7 +196,7 @@ $(document).ready(function(){initNavTree('d6/d25/a03284.html','../../');});
   <tr class="even"><td class="entry"><a class="el" href="../../df/daa/a03316.html#afe7e0e1c9f7fa61f64b84ef455ffedb3">setReferenceG</a>(state_g *g, const int &amp;offsetG)</td><td class="entry"><a class="el" href="../../df/daa/a03316.html">DYN::NetworkComponent</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
   <tr><td class="entry"><a class="el" href="../../df/daa/a03316.html#a0770b01a8a32b15bdc7ff8a1741ff3d2">setReferenceY</a>(double *y, double *yp, double *f, const int &amp;offsetY, const int &amp;offsetF)</td><td class="entry"><a class="el" href="../../df/daa/a03316.html">DYN::NetworkComponent</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="../../df/daa/a03316.html#a1f2d3b6cfb18843ad783486599ab3c11">setReferenceZ</a>(double *z, bool *zConnected, const int &amp;offsetZ)</td><td class="entry"><a class="el" href="../../df/daa/a03316.html">DYN::NetworkComponent</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d6/d25/a03284.html#a9862203c04338a7f303cdd7cc026c406">setSubModelParameters</a>(const std::unordered_map&lt; std::string, ParameterModeler &gt; &amp;params)</td><td class="entry"><a class="el" href="../../d6/d25/a03284.html">DYN::ModelStaticVarCompensator</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/d25/a03284.html#a42a65c3ad02ea8a8545287986ed52b25">setSubModelParameters</a>(const std::unordered_map&lt; std::string, ParameterModeler &gt; &amp;params) override</td><td class="entry"><a class="el" href="../../d6/d25/a03284.html">DYN::ModelStaticVarCompensator</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="../../df/daa/a03316.html#acd89fa3f501db8efef6442e0c4c6c09e">sizeCalculatedVar</a>() const</td><td class="entry"><a class="el" href="../../df/daa/a03316.html">DYN::NetworkComponent</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr><td class="entry"><a class="el" href="../../df/daa/a03316.html#a32b606cca1fa33f8c42728ee9f029cd6">sizeCalculatedVar_</a></td><td class="entry"><a class="el" href="../../df/daa/a03316.html">DYN::NetworkComponent</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="../../df/daa/a03316.html#a592164a7c9e8ebf64003c10e95b00d70">sizeF</a>() const</td><td class="entry"><a class="el" href="../../df/daa/a03316.html">DYN::NetworkComponent</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
@@ -239,7 +239,7 @@ $(document).ready(function(){initNavTree('d6/d25/a03284.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Fri Apr 25 2025 13:04:12 for Dynawo by
+    <li class="footer">Generated on Mon Apr 28 2025 12:43:46 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
