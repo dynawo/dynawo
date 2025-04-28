@@ -187,8 +187,9 @@ equation
     Line(points = {{42, -40}, {130, -40}}, color = {0, 0, 255}));
   connect(pll.thetaPll, wT4Injector.theta) annotation(
     Line(points = {{-20, 54}, {-20, 0}, {8, 0}, {8, -18}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
     Icon(graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {-1.5, -1}, extent = {{-66.5, 32}, {66.5, -32}}, textString = "IEC WT4")}),
-  Diagram(coordinateSystem(extent = {{-120, -120}, {120, 120}})));
+    Diagram(coordinateSystem(extent = {{-120, -120}, {120, 120}})));
 end BaseWT4;
