@@ -8,26 +8,26 @@
     file, you can obtain one at http://mozilla.org/MPL/2.0/.
     SPDX-License-Identifier: MPL-2.0
 
-    This file is part of Dynawo, a hybrid C++/Modelica open source suite of
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
     simulation tools for power systems.
 -->
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
-  <set id="WPP4B">
+  <set id="WPP4A">
     <!-- Nominal -->
     <par type="DOUBLE" name="WPP_SNom" value="100"/>
     <par type="DOUBLE" name="WPP_tS" value="0.001"/>
     <!-- PCS-->
-    <par type="BOOL" name="WPP_PPCLocal" value="true"/>
+    <par type="BOOL" name="WPP_PPCLocal" value="false"/>
     <par type="DOUBLE" name="WPP_BMvHvPu" value="0"/>
     <par type="DOUBLE" name="WPP_GMvHvPu" value="0"/>
     <par type="DOUBLE" name="WPP_RMvHvPu" value="0"/>
-    <par type="DOUBLE" name="WPP_XMvHvPu" value="0"/>
+    <par type="DOUBLE" name="WPP_XMvHvPu" value="0.01"/>
     <!-- LV Transformer -->
     <par type="BOOL" name="WPP_ConverterLVControl" value="false"/>
     <par type="DOUBLE" name="WPP_BLvTrPu" value="0"/>
     <par type="DOUBLE" name="WPP_GLvTrPu" value="0"/>
     <par type="DOUBLE" name="WPP_RLvTrPu" value="0"/>
-    <par type="DOUBLE" name="WPP_XLvTrPu" value="0"/>
+    <par type="DOUBLE" name="WPP_XLvTrPu" value="0.01"/>
     <!-- Control -->
     <par type="DOUBLE" name="WPP_DipMaxPu" value="1"/>
     <par type="DOUBLE" name="WPP_DiqMaxPu" value="100"/>
@@ -61,13 +61,13 @@
     <par type="DOUBLE" name="WPP_UPll1Pu" value="999"/>
     <par type="DOUBLE" name="WPP_UPll2Pu" value="0.13"/>
     <!-- PControl -->
-    <par type="DOUBLE" name="WPP_DPMaxP4BPu" value="1"/>
-    <par type="DOUBLE" name="WPP_DPRefMax4BPu" value="100"/>
-    <par type="DOUBLE" name="WPP_DPRefMin4BPu" value="-100"/>
+    <par type="DOUBLE" name="WPP_DPMaxP4APu" value="1"/>
+    <par type="DOUBLE" name="WPP_DPRefMax4APu" value="100"/>
+    <par type="DOUBLE" name="WPP_DPRefMin4APu" value="-100"/>
     <par type="DOUBLE" name="WPP_Kpaw" value="1000"/>
     <par type="BOOL" name="WPP_MpUScale" value="false"/>
-    <par type="DOUBLE" name="WPP_tPAero" value="0.1"/>
-    <par type="DOUBLE" name="WPP_tPOrdP4B" value="0.05"/>
+    <par type="DOUBLE" name="WPP_tPOrdP4A" value="0.1"/>
+    <par type="DOUBLE" name="WPP_tPWTRef4A" value="0.01"/>
     <par type="DOUBLE" name="WPP_UpDipPu" value="0"/>
     <!-- CurrentLimiter -->
     <par type="DOUBLE" name="WPP_IMaxDipPu" value="1.3"/>
@@ -110,11 +110,6 @@
     <par type="DOUBLE" name="WPP_fUnderPu" value="0.9"/>
     <par type="DOUBLE" name="WPP_UOverPu" value="1.1"/>
     <par type="DOUBLE" name="WPP_UUnderPu" value="0.9"/>
-    <!-- Mechanical -->
-    <par type="DOUBLE" name="WPP_CdrtPu" value="15"/>
-    <par type="DOUBLE" name="WPP_Hgen" value="1"/>
-    <par type="DOUBLE" name="WPP_Hwtr" value="5"/>
-    <par type="DOUBLE" name="WPP_KdrtPu" value="500"/>
     <!-- LinearCommunication -->
     <par type="DOUBLE" name="WPP_tLag" value="0.01"/>
     <par type="DOUBLE" name="WPP_tLead" value="0.01"/>
@@ -128,9 +123,9 @@
     <par type="DOUBLE" name="WPP_KwppRef" value="1.5"/>
     <par type="DOUBLE" name="WPP_PErrMaxPu" value="1"/>
     <par type="DOUBLE" name="WPP_PErrMinPu" value="-1"/>
-    <par type="DOUBLE" name="WPP_PKiwppMaxPu" value="1"/>
+    <par type="DOUBLE" name="WPP_PKiwppMaxPu" value="1.1"/>
     <par type="DOUBLE" name="WPP_PKiwppMinPu" value="-1"/>
-    <par type="DOUBLE" name="WPP_PRefMaxPu" value="1"/>
+    <par type="DOUBLE" name="WPP_PRefMaxPu" value="1.1"/>
     <par type="DOUBLE" name="WPP_PRefMinPu" value="0"/>
     <!-- QControlWP -->
     <par type="DOUBLE" name="WPP_DXRefMaxPu" value="10"/>
@@ -139,7 +134,7 @@
     <par type="DOUBLE" name="WPP_Kpwpx" value="0.5"/>
     <par type="DOUBLE" name="WPP_KwpqRef" value="0"/>
     <par type="DOUBLE" name="WPP_Kwpqu" value="0"/>
-    <par type="INT" name="WPP_MwpqMode" value="0"/>
+    <par type="INT" name="WPP_MwpqMode" value="3"/>
     <par type="DOUBLE" name="WPP_RwpDropPu" value="0"/>
     <par type="DOUBLE" name="WPP_tUqFilt" value="0.01"/>
     <par type="DOUBLE" name="WPP_UwpqDipPu" value="0.8"/>
@@ -153,13 +148,17 @@
     <par type="DOUBLE" name="WPP_XwpDropPu" value="0"/>
     <!-- Operating Point -->
     <par type="DOUBLE" name="WPP_P0Pu" value="-1"/>
-    <par type="DOUBLE" name="WPP_Q0Pu" value="0.21"/>
-    <par type="DOUBLE" name="WPP_U0Pu" value="1"/>
-    <par type="DOUBLE" name="WPP_UPhase0" value="0.21949"/>
+    <par type="DOUBLE" name="WPP_Q0Pu" value="0.255652"/>
+    <par type="DOUBLE" name="WPP_U0Pu" value="0.985745"/>
+    <par type="DOUBLE" name="WPP_UPhase0" value="0.224232"/>
+    <par type="DOUBLE" name="WPP_PPcc0Pu" value="-1"/>
+    <par type="DOUBLE" name="WPP_QPcc0Pu" value="0.310472"/>
+    <par type="DOUBLE" name="WPP_UPcc0Pu" value="1"/>
+    <par type="DOUBLE" name="WPP_UPccPhase0" value="0.173487"/>
   </set>
   <set id="PRefPu">
     <par type="DOUBLE" name="step_Height" value="-0.5"/>
-    <par type="DOUBLE" name="step_tStep" value="2"/>
+    <par type="DOUBLE" name="step_tStep" value="100"/>
     <par type="DOUBLE" name="step_Value0" value="1"/>
   </set>
   <set id="omegaRefPu">
@@ -226,7 +225,7 @@
   </set>
   <set id="Fault">
     <par type="DOUBLE" name="fault_RPu" value="0"/>
-    <par type="DOUBLE" name="fault_XPu" value="0.36"/>
+    <par type="DOUBLE" name="fault_XPu" value="0.38"/>
     <par type="DOUBLE" name="fault_tBegin" value="12"/>
     <par type="DOUBLE" name="fault_tEnd" value="12.15"/>
   </set>

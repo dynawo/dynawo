@@ -13,7 +13,6 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT;
 */
 
 model Mechanical "Two-mass module for wind turbines (IEC N°61400-27-1)"
-
   //Nominal parameter
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
 
@@ -28,9 +27,9 @@ model Mechanical "Two-mass module for wind turbines (IEC N°61400-27-1)"
     Dialog(tab = "Mechanical"));
 
   //Input variables
-  Modelica.Blocks.Interfaces.RealInput PAeroPu(start = -P0Pu * SystemBase.SnRef / SNom) "Aerodynamic power in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PAeroPu(start = ip0Pu*U0Pu) "Aerodynamic power in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-120, 54}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput PAgPu(start = PAg0Pu) "Generator (air gap) power in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PAgPu(start = ip0Pu*U0Pu) "Generator (air gap) power in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-120, -54}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Output variables
@@ -43,9 +42,9 @@ model Mechanical "Two-mass module for wind turbines (IEC N°61400-27-1)"
     Placement(visible = true, transformation(origin = {-10, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add1(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {-10, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integrator(k = 1 / (2 * Hwtr), y_start = SystemBase.omega0Pu) annotation(
+  Modelica.Blocks.Continuous.Integrator integrator(k = 1/(2*Hwtr), y_start = SystemBase.omega0Pu) annotation(
     Placement(visible = true, transformation(origin = {30, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integrator1(k = 1 / (2 * Hgen), y_start = SystemBase.omega0Pu) annotation(
+  Modelica.Blocks.Continuous.Integrator integrator1(k = 1/(2*Hgen), y_start = SystemBase.omega0Pu) annotation(
     Placement(visible = true, transformation(origin = {30, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Division division annotation(
     Placement(visible = true, transformation(origin = {-70, 60}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
@@ -53,7 +52,7 @@ model Mechanical "Two-mass module for wind turbines (IEC N°61400-27-1)"
     Placement(visible = true, transformation(origin = {-70, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add2(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {30, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.PI pI(Ki = KdrtPu, Kp = CdrtPu, Y0 = PAg0Pu / SystemBase.omega0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.PI pI(Ki = KdrtPu, Kp = CdrtPu, Y0 = ip0Pu*U0Pu/SystemBase.omega0Pu) annotation(
     Placement(visible = true, transformation(origin = {-10, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   //Initial parameters
@@ -61,6 +60,9 @@ model Mechanical "Two-mass module for wind turbines (IEC N°61400-27-1)"
     Dialog(tab = "Operating point"));
   parameter Types.ActivePowerPu PAg0Pu "Initial generator (air gap) power in pu (base SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
+  parameter Types.CurrentModulePu ip0Pu "Initial active current component at converter terminal in pu (base UNom, SNom) (generator convention)";
+  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
+    Dialog(tab = "Operating point"));
 
 equation
   connect(PAgPu, division1.u1) annotation(
