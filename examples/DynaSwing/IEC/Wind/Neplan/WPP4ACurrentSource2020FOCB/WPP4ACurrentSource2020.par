@@ -16,6 +16,12 @@
     <!-- Nominal -->
     <par type="DOUBLE" name="WPP_SNom" value="100"/>
     <par type="DOUBLE" name="WPP_tS" value="0.001"/>
+    <!-- PCS-->
+    <par type="BOOL" name="WPP_PCSActive" value="true"/>
+    <par type="DOUBLE" name="WPP_BPcsPu" value="0"/>
+    <par type="DOUBLE" name="WPP_GPcsPu" value="0"/>
+    <par type="DOUBLE" name="WPP_RPcsPu" value="0"/>
+    <par type="DOUBLE" name="WPP_XPcsPu" value="0"/>
     <!-- Electrical -->
     <par type="DOUBLE" name="WPP_BesPu" value="0"/>
     <par type="DOUBLE" name="WPP_GesPu" value="0"/>
@@ -216,6 +222,9 @@
     <par type="DOUBLE" name="fault_XPu" value="0.18"/>
     <par type="DOUBLE" name="fault_tBegin" value="6"/>
     <par type="DOUBLE" name="fault_tEnd" value="6.4"/>
+  </set>
+  <set id="SetPoint">
+    <par type="DOUBLE" name="setPoint_Value0" value="0"/>
   </set>
   <set id="IDA">
     <par type="INT" name="order" value="2"/>
