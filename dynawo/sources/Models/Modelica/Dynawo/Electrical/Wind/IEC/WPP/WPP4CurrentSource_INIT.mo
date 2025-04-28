@@ -15,13 +15,7 @@ within Dynawo.Electrical.Wind.IEC.WPP;
 model WPP4CurrentSource_INIT "Wind Power Plant Type 4 model from IEC 61400-27-1 standard : initialization model"
   extends Dynawo.Electrical.Wind.IEC.WT.WT4CurrentSource_INIT;
 
-  //QControl parameter
-  parameter Integer MwpqMode "Control mode (0 : reactive power reference, 1 : power factor reference, 2 : UQ static, 3 : voltage control)";
-
-  Dynawo.Types.PerUnit X0Pu "Initial reactive power or voltage reference in pu (base SNom or UNom) (generator convention)";
-
 equation
-  X0Pu = if MwpqMode == 3 then U0Pu else -Q0Pu * SystemBase.SnRef / SNom;
 
   annotation(
     preferredView = "text",

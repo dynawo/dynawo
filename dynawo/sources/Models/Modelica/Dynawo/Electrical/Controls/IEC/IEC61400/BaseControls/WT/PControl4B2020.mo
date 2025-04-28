@@ -41,7 +41,7 @@ model PControl4B2020 "Active power control module for type 4B wind turbines (IEC
     Placement(visible = true, transformation(origin = {-180, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Output variable
-  Modelica.Blocks.Interfaces.RealOutput PAeroPu(start = -P0Pu * SystemBase.SnRef / SNom) "Aerodynamic power in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput PAeroPu(start = ip0Pu*U0Pu) "Aerodynamic power in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {170, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Logical.And and1 annotation(
@@ -50,7 +50,7 @@ model PControl4B2020 "Active power control module for type 4B wind turbines (IEC
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const1(k = UpDipPu) annotation(
     Placement(visible = true, transformation(origin = {-130, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tPAero, y_start = -P0Pu * SystemBase.SnRef / SNom) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tPAero, y_start = ip0Pu*U0Pu) annotation(
     Placement(visible = true, transformation(origin = {110, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Less less annotation(
     Placement(visible = true, transformation(origin = {-90, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -60,7 +60,7 @@ model PControl4B2020 "Active power control module for type 4B wind turbines (IEC
     Placement(visible = true, transformation(origin = {-50, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product2 annotation(
     Placement(visible = true, transformation(origin = {50, -100}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.RampLimiter rampLimiter(DuMax = DPRefMax4BPu, DuMin = DPRefMin4BPu, Y0 = -P0Pu * SystemBase.SnRef / SNom, tS = tS) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.RampLimiter rampLimiter(DuMax = DPRefMax4BPu, DuMin = DPRefMin4BPu, Y0 = -P0Pu*SystemBase.SnRef/SNom, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {-110, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch1 annotation(
     Placement(visible = true, transformation(origin = {10, -100}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
