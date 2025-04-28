@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--
-    Copyright (c) 2025, RTE (http://www.rte-france.com)
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
     This Source Code Form is subject to the terms of the Mozilla Public
@@ -17,17 +17,17 @@
     <par type="DOUBLE" name="WPP_SNom" value="100"/>
     <par type="DOUBLE" name="WPP_tS" value="0.001"/>
     <!-- PCS-->
-    <par type="BOOL" name="WPP_PPCLocal" value="true"/>
+    <par type="BOOL" name="WPP_PPCLocal" value="false"/>
     <par type="DOUBLE" name="WPP_BMvHvPu" value="0"/>
     <par type="DOUBLE" name="WPP_GMvHvPu" value="0"/>
     <par type="DOUBLE" name="WPP_RMvHvPu" value="0"/>
-    <par type="DOUBLE" name="WPP_XMvHvPu" value="0"/>
+    <par type="DOUBLE" name="WPP_XMvHvPu" value="0.01"/>
     <!-- LV Transformer -->
     <par type="BOOL" name="WPP_ConverterLVControl" value="false"/>
     <par type="DOUBLE" name="WPP_BLvTrPu" value="0"/>
     <par type="DOUBLE" name="WPP_GLvTrPu" value="0"/>
     <par type="DOUBLE" name="WPP_RLvTrPu" value="0"/>
-    <par type="DOUBLE" name="WPP_XLvTrPu" value="0"/>
+    <par type="DOUBLE" name="WPP_XLvTrPu" value="0.01"/>
     <!-- Control -->
     <par type="DOUBLE" name="WPP_DipMaxPu" value="1"/>
     <par type="DOUBLE" name="WPP_DiqMaxPu" value="100"/>
@@ -123,9 +123,9 @@
     <par type="DOUBLE" name="WPP_KwppRef" value="1.5"/>
     <par type="DOUBLE" name="WPP_PErrMaxPu" value="1"/>
     <par type="DOUBLE" name="WPP_PErrMinPu" value="-1"/>
-    <par type="DOUBLE" name="WPP_PKiwppMaxPu" value="1"/>
+    <par type="DOUBLE" name="WPP_PKiwppMaxPu" value="1.1"/>
     <par type="DOUBLE" name="WPP_PKiwppMinPu" value="-1"/>
-    <par type="DOUBLE" name="WPP_PRefMaxPu" value="1"/>
+    <par type="DOUBLE" name="WPP_PRefMaxPu" value="1.1"/>
     <par type="DOUBLE" name="WPP_PRefMinPu" value="0"/>
     <!-- QControlWP -->
     <par type="DOUBLE" name="WPP_DXRefMaxPu" value="10"/>
@@ -148,42 +148,42 @@
     <par type="DOUBLE" name="WPP_XwpDropPu" value="0"/>
     <!-- Operating Point -->
     <par type="DOUBLE" name="WPP_P0Pu" value="-1"/>
-    <par type="DOUBLE" name="WPP_Q0Pu" value="0.21"/>
-    <par type="DOUBLE" name="WPP_U0Pu" value="1"/>
-    <par type="DOUBLE" name="WPP_UPhase0" value="0.21949"/>
+    <par type="DOUBLE" name="WPP_Q0Pu" value="0.255652"/>
+    <par type="DOUBLE" name="WPP_U0Pu" value="0.985745"/>
+    <par type="DOUBLE" name="WPP_UPhase0" value="0.224232"/>
+    <par type="DOUBLE" name="WPP_PPcc0Pu" value="-1"/>
+    <par type="DOUBLE" name="WPP_QPcc0Pu" value="0.310472"/>
+    <par type="DOUBLE" name="WPP_UPcc0Pu" value="1"/>
+    <par type="DOUBLE" name="WPP_UPccPhase0" value="0.173487"/>
   </set>
   <set id="PRefPu">
-    <par type="DOUBLE" name="step_Height" value="0"/>
-    <par type="DOUBLE" name="step_tStep" value="0"/>
+    <par type="DOUBLE" name="step_Height" value="-0.5"/>
+    <par type="DOUBLE" name="step_tStep" value="100"/>
     <par type="DOUBLE" name="step_Value0" value="1"/>
   </set>
   <set id="omegaRefPu">
-    <par type="DOUBLE" name="doubleStep_Height1" value="0"/>
-    <par type="DOUBLE" name="doubleStep_Height2" value="0"/>
-    <par type="DOUBLE" name="doubleStep_tStep1" value="0"/>
-    <par type="DOUBLE" name="doubleStep_tStep2" value="0"/>
+    <par type="DOUBLE" name="doubleStep_Height1" value="-0.01"/>
+    <par type="DOUBLE" name="doubleStep_Height2" value="0.01"/>
+    <par type="DOUBLE" name="doubleStep_tStep1" value="20"/>
+    <par type="DOUBLE" name="doubleStep_tStep2" value="21"/>
     <par type="DOUBLE" name="doubleStep_Value0" value="1"/>
   </set>
   <set id="InfiniteBus">
     <par type="DOUBLE" name="infiniteBus_U0Pu" value="1.0678"/>
     <par type="DOUBLE" name="infiniteBus_UEvtPu" value="0"/>
     <par type="DOUBLE" name="infiniteBus_omega0Pu" value="1"/>
-    <par type="DOUBLE" name="infiniteBus_omegaEvtPu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_omegaEvtPu" value="0.99"/>
     <par type="DOUBLE" name="infiniteBus_UPhase" value="-0.04"/>
     <par type="DOUBLE" name="infiniteBus_tUEvtStart" value="0"/>
     <par type="DOUBLE" name="infiniteBus_tUEvtEnd" value="0"/>
-    <par type="DOUBLE" name="infiniteBus_tOmegaEvtStart" value="0"/>
-    <par type="DOUBLE" name="infiniteBus_tOmegaEvtEnd" value="0"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtStart" value="20"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtEnd" value="21"/>
   </set>
   <set id="Line">
     <par type="DOUBLE" name="line_RPu" value="0.015"/>
     <par type="DOUBLE" name="line_XPu" value="0.025"/>
     <par type="DOUBLE" name="line_GPu" value="0"/>
     <par type="DOUBLE" name="line_BPu" value="0.005"/>
-  </set>
-  <set id="VariableImpedantFault">
-    <par type="STRING" name="variableImpedantFault_ImpedanceTimeTable" value="ImpedanceTable"/>
-    <par type="STRING" name="variableImpedantFault_ImpedanceTableFile" value="examples/DynaSwing/IEC/Wind/Neplan/WPP4ACurrentSource2020UDip/TableVariableImpedance.txt"/>
   </set>
   <set id="Line1">
     <par type="DOUBLE" name="line_RPu" value="0.01"/>
@@ -223,13 +223,24 @@
     <par type="DOUBLE" name="transformer_GPu" value="0"/>
     <par type="DOUBLE" name="transformer_BPu" value="0"/>
   </set>
+  <set id="Fault">
+    <par type="DOUBLE" name="fault_RPu" value="0"/>
+    <par type="DOUBLE" name="fault_XPu" value="0.38"/>
+    <par type="DOUBLE" name="fault_tBegin" value="12"/>
+    <par type="DOUBLE" name="fault_tEnd" value="12.15"/>
+  </set>
+  <set id="Fault1">
+    <par type="DOUBLE" name="fault_RPu" value="0"/>
+    <par type="DOUBLE" name="fault_XPu" value="0.18"/>
+    <par type="DOUBLE" name="fault_tBegin" value="6"/>
+    <par type="DOUBLE" name="fault_tEnd" value="6.25"/>
+  </set>
   <set id="IDA">
     <par type="INT" name="order" value="2"/>
-    <par type="DOUBLE" name="initStep" value="1e-7"/>
-    <par type="DOUBLE" name="minStep" value="1e-7"/>
+    <par type="DOUBLE" name="initStep" value="1e-6"/>
+    <par type="DOUBLE" name="minStep" value="1e-6"/>
     <par type="DOUBLE" name="maxStep" value="10"/>
     <par type="DOUBLE" name="absAccuracy" value="1e-6"/>
-    <par type="DOUBLE" name="relAccuracy" value="1e-6"/>
-    <par type="DOUBLE" name="minimalAcceptableStep" value="1e-7"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
   </set>
 </parametersSet>
