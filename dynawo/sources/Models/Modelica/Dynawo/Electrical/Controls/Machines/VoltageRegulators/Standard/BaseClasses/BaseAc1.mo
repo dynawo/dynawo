@@ -96,8 +96,8 @@ partial model BaseAc1 "IEEE excitation system type AC1 base model"
   parameter Types.VoltageModulePu Us0Pu "Initial stator voltage in pu (base UNom)";
 
   //Initial parameters (inputs)
-  parameter Types.VoltageModulePu UOel0Pu = 0 "Overexcitation limitation initial output voltage in pu (base UNom)";
-  parameter Types.VoltageModulePu UUel0Pu = 0 "Underexcitation limitation initial output voltage in pu (base UNom)";
+  parameter Types.VoltageModulePu UOel0Pu "Overexcitation limitation initial output voltage in pu (base UNom)";
+  parameter Types.VoltageModulePu UUel0Pu "Underexcitation limitation initial output voltage in pu (base UNom)";
 
   //Initial parameters (calculated by initialization model)
   parameter Types.VoltageModulePu Efe0Pu "Initial output voltage of voltage regulator in pu (user-selected base voltage)";

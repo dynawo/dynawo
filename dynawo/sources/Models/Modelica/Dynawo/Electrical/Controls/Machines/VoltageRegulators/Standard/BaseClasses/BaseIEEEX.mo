@@ -18,6 +18,7 @@ partial model BaseIEEEX "IEEE excitation system base model"
   //Regulation parameters
   parameter Types.PerUnit AEx "Gain of saturation function";
   parameter Types.PerUnit BEx "Exponential coefficient of saturation function";
+  parameter Types.VoltageModulePu EfdMaxPu "Maximum excitation voltage in pu (user-selected base voltage) (IEEE standard value : 999)";
   parameter Types.VoltageModulePu EfdMinPu "Minimum excitation voltage in pu (user-selected base voltage)";
   parameter Types.PerUnit Ka "Voltage regulator gain";
   parameter Types.PerUnit Ke "Exciter field proportional constant";
@@ -57,7 +58,7 @@ partial model BaseIEEEX "IEEE excitation system base model"
     Placement(visible = true, transformation(origin = {-30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback1 annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.LimIntegrator limIntegrator(k = 1 / tE, outMax = 999, outMin = EfdMinPu, y_start = Efd0Pu) annotation(
+  Modelica.Blocks.Continuous.LimIntegrator limIntegrator(k = 1 / tE, outMax = EfdMaxPu, outMin = EfdMinPu, y_start = Efd0Pu) annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add(k1 = AEx) annotation(
     Placement(visible = true, transformation(origin = {110, -60}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));

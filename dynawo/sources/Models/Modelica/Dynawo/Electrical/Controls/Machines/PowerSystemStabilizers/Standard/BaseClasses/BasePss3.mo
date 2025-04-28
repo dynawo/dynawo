@@ -24,8 +24,8 @@ model BasePss3 "IEEE power system stabilizer type 3 base model"
   parameter Types.PerUnit A6 "Second numerator coefficient of second notch filter in s ^ 2";
   parameter Types.Time A7 "First denominator coefficient of second notch filter in s";
   parameter Types.PerUnit A8 "Second denominator coefficient of second notch filter in s ^ 2";
-  parameter Types.PerUnit KOmega = 1 "Coefficient applied to angular frequency";
-  parameter Types.PerUnit KOmegaRef = 0 "Coefficient applied to reference angular frequency";
+  parameter Types.PerUnit KOmega "Coefficient applied to angular frequency";
+  parameter Types.PerUnit KOmegaRef "Coefficient applied to reference angular frequency";
   parameter Types.PerUnit Ks1 "Gain of active power branch";
   parameter Types.PerUnit Ks2 "Gain of angular frequency branch";
   parameter Types.Time t1 "Transducer time constant (active power branch) in s";

@@ -130,7 +130,7 @@ partial model BaseAc7 "IEEE exciter type AC7 base model"
   parameter Types.ComplexVoltagePu ut0Pu "Initial complex stator voltage in pu (base UNom)";
 
   //Initial parameter (input)
-  parameter Types.VoltageModulePu UUel0Pu = 0 "Underexcitation limitation initial output voltage in pu (base UNom)";
+  parameter Types.VoltageModulePu UUel0Pu "Underexcitation limitation initial output voltage in pu (base UNom)";
 
   //Initial parameters (calculated by initialization model)
   parameter Types.VoltageModulePu Efe0Pu "Initial output voltage of voltage regulator in pu (user-selected base voltage)";
