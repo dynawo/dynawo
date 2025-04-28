@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="WPP4A" variable="WPP_elecMeasurements_PPu"/>
+  <curve model="WPP4A" variable="WPP_elecMeasurements_QPu"/>
+  <curve model="WPP4A" variable="WPP_elecMeasurements_UPu"/>
+  <curve model="WPP4A" variable="WPP_elecMeasurements_UPhase"/>
+
+  <curve model="Tfo" variable="transformer_P1Pu"/>
+  <curve model="Tfo" variable="transformer_Q1Pu"/>
+  <curve model="Tfo" variable="transformer_U1Pu"/>
+
+  <curve model="WPP4A" variable="WPP_wPPControl_measurements_QPu"/>
+  <curve model="WPP4A" variable="WPP_wPPControl_measurements_PPu"/>
+  <curve model="WPP4A" variable="WPP_wPPControl_measurements_theta"/>
+  <curve model="WPP4A" variable="WPP_wPPControl_measurements_UPu"/>
+
+
+
+</curvesInput>
