@@ -13,21 +13,18 @@ within Dynawo.Electrical.Sources.IEC.BaseConverters;
 */
 
 model GenSystem4 "Type 4 generator system module (IEC N°61400-27-1)"
+/*
+Equivalent circuit and conventions:
 
-  /*
-    Equivalent circuit and conventions:
+  __   fOCB     iGs
+ /__\---/------->-- (terminal)
+ \__/--------------
 
-      __   fOCB     iGs
-     /__\---/------->-- (terminal)
-     \__/--------------
-
-    Anti-windup features have been added to the first order filters
-    because the standard does not specify any change of behavior when the limits are reached.
-  */
-
+Anti-windup features have been added to the first order filters
+because the standard does not specify any change of behavior when the limits are reached.
+*/
   //Nominal parameter
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
-
   //Control parameters
   parameter Types.PerUnit DipMaxPu "Maximum active current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "Control"));
@@ -43,17 +40,17 @@ model GenSystem4 "Type 4 generator system module (IEC N°61400-27-1)"
     Dialog(tab = "Control"));
 
   //Interface
-  Dynawo.Connectors.ACPower terminal(V(re(start = UGsRe0Pu), im(start = UGsIm0Pu)), i(re(start = -IGsRe0Pu * SNom / SystemBase.SnRef), im(start = -IGsIm0Pu * SNom / SystemBase.SnRef))) "Converter terminal, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(
+  Dynawo.Connectors.ACPower terminal(V(re(start = uGs0Pu.re), im(start = uGs0Pu.im)), i(re(start = -iGs0Pu.re*SNom/SystemBase.SnRef), im(start = -iGs0Pu.im*SNom/SystemBase.SnRef))) "Converter terminal, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(
     Placement(visible = true, transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Input variables
   Modelica.Blocks.Interfaces.BooleanInput fOCB(start = false) "Open Circuit Breaker flag" annotation(
     Placement(visible = true, transformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput ipCmdPu(start = -P0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Active current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput ipCmdPu(start = ip0Pu) "Active current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-150, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
   Modelica.Blocks.Interfaces.RealInput ipMaxPu(start = IpMax0Pu) "Maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-150, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 80}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
-  Modelica.Blocks.Interfaces.RealInput iqCmdPu(start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Reactive current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput iqCmdPu(start = iq0Pu) "Reactive current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
   Modelica.Blocks.Interfaces.RealInput iqMaxPu(start = IqMax0Pu) "Maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-150, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
@@ -64,14 +61,14 @@ model GenSystem4 "Type 4 generator system module (IEC N°61400-27-1)"
     Placement(visible = true, transformation(origin = {-150, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 110}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
 
   //Output variable
-  Modelica.Blocks.Interfaces.RealOutput PAgPu(start = PAg0Pu) "Generator (air gap) power in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput PAgPu(start = ip0Pu * U0Pu) "Generator (air gap) power in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {150, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Dynawo.Electrical.Sources.IEC.BaseConverters.RefFrameRotation iECFrameRotation(IGsIm0Pu = IGsIm0Pu, IGsRe0Pu = IGsRe0Pu, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0) annotation(
+  Dynawo.Electrical.Sources.IEC.BaseConverters.RefFrameRotation iECFrameRotation(iGs0Pu.im = iGs0Pu.im, iGs0Pu.re = iGs0Pu.re, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, iq0Pu = iq0Pu, iGs0Pu = iGs0Pu, ip0Pu = ip0Pu) annotation(
     Placement(visible = true, transformation(origin = {1.58946e-07, -4.76837e-07}, extent = {{-20, -60}, {20, 60}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFirstOrderAntiWindup absLimRateLimFirstOrderAntiWindup(DyMax = DipMaxPu, DyMin = -999, Kaw = Kipaw, UseLimits = true, Y0 = -P0Pu * SystemBase.SnRef / (SNom * U0Pu), YMax = 999, tI = tG) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFirstOrderAntiWindup absLimRateLimFirstOrderAntiWindup(DyMax = DipMaxPu, DyMin = -999, Kaw = Kipaw, UseLimits = true, Y0 = ip0Pu, YMax = 999, tI = tG) annotation(
     Placement(visible = true, transformation(origin = {-90, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFirstOrderAntiWindup absLimRateLimFirstOrderAntiWindup1(DyMax = DiqMaxPu, DyMin = DiqMinPu, Kaw = Kiqaw, UseLimits = true, Y0 = Q0Pu * SystemBase.SnRef / (SNom * U0Pu), YMax = 999, tI = tG) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFirstOrderAntiWindup absLimRateLimFirstOrderAntiWindup1(DyMax = DiqMaxPu, DyMin = DiqMinPu, Kaw = Kiqaw, UseLimits = true, Y0 = iq0Pu, YMax = 999, tI = tG) annotation(
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = -999) annotation(
     Placement(visible = true, transformation(origin = {-145, 40}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
@@ -83,17 +80,19 @@ model GenSystem4 "Type 4 generator system module (IEC N°61400-27-1)"
     Placement(visible = true, transformation(origin = {70, -60}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.ComplexToReal complexToReal annotation(
     Placement(visible = true, transformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.ComplexBlocks.Sources.ComplexExpression iGs(y = -terminal.i * (SystemBase.SnRef / SNom)) annotation(
+  Modelica.ComplexBlocks.Sources.ComplexExpression iGs(y = -terminal.i*(SystemBase.SnRef/SNom)) annotation(
     Placement(visible = true, transformation(origin = {70, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   //Initial parameters
-  parameter Types.PerUnit IGsIm0Pu "Initial imaginary component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-    Dialog(group = "Initialization"));
-  parameter Types.PerUnit IGsRe0Pu "Initial real component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.ComplexCurrentPu iGs0Pu "Initial complex current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
   parameter Types.PerUnit IpMax0Pu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
   parameter Types.PerUnit IqMax0Pu "Initial maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.CurrentModulePu ip0Pu "Initial active current component at converter terminal in pu (base UNom, SNom) (generator convention)"annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.CurrentModulePu iq0Pu "Initial reactive current component at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
   parameter Types.PerUnit IqMin0Pu "Initial minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
@@ -105,19 +104,18 @@ model GenSystem4 "Type 4 generator system module (IEC N°61400-27-1)"
     Dialog(tab = "Operating point"));
   parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
     Dialog(tab = "Operating point"));
-  parameter Types.PerUnit UGsIm0Pu "Initial imaginary component of the voltage at converter terminal in pu (base UNom)" annotation(
-    Dialog(group = "Initialization"));
-  parameter Types.PerUnit UGsRe0Pu "Initial real component of the voltage at converter terminal in pu (base UNom)" annotation(
+  parameter Types.ComplexVoltagePu uGs0Pu "Initial complex voltage at converter terminal in pu (base UNom)" annotation(
     Dialog(group = "Initialization"));
   parameter Types.Angle UPhase0 "Initial voltage angle at grid terminal in rad" annotation(
     Dialog(tab = "Operating point"));
 
 equation
-  if fOCB or not(running) then
+  if fOCB or not (running) then
     terminal.i = Complex(0, 0);
   else
-    Complex(iECFrameRotation.iGsRePu, iECFrameRotation.iGsImPu) = -terminal.i * (SystemBase.SnRef / SNom);
+    Complex(iECFrameRotation.iGsRePu, iECFrameRotation.iGsImPu) = -terminal.i*(SystemBase.SnRef/SNom);
   end if;
+
   connect(iECFrameRotation.iGsImPu, realToComplex.im) annotation(
     Line(points = {{26, -30}, {40, -30}, {40, -6}, {58, -6}}, color = {0, 0, 127}));
   connect(iECFrameRotation.iGsRePu, realToComplex.re) annotation(
