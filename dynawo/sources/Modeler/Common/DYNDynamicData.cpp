@@ -139,9 +139,9 @@ DynamicData::mappingModelicaModels() {
     const string id = "Mapping Modelica Model " + itModelica->first;
     int l = static_cast<int>(id.size() / 2);
     Trace::info(Trace::compile()) << "====================================================================================================" << Trace::endline;
-    Trace::info(Trace::compile()) << "|                                                                                                  |" << Trace::endline;
-    Trace::info(Trace::compile()) << "|" << setw(50 + l) << id << setw(50 - l - 1) << "|" << Trace::endline;
-    Trace::info(Trace::compile()) << "|                                                                                                  |" << Trace::endline;
+    Trace::info(Trace::compile()) << "¦                                                                                                  ¦" << Trace::endline;
+    Trace::info(Trace::compile()) << "¦" << setw(50 + l) << id << setw(50 - l - 1) << "¦" << Trace::endline;
+    Trace::info(Trace::compile()) << "¦                                                                                                  ¦" << Trace::endline;
     Trace::info(Trace::compile()) << "====================================================================================================" << Trace::endline;
 
     // search in mapped model library, if already mapped, return.

@@ -1248,7 +1248,7 @@ void
 SubModel::printMessages() {
   std::list<string>::const_iterator iter;
   for (iter = messages_.begin(); iter != messages_.end(); ++iter)
-    Trace::info() << getCurrentTime() << " | " << name() << " : " << *iter << Trace::endline;
+    Trace::info() << getCurrentTime() << " ¦ " << name() << " : " << *iter << Trace::endline;
 
   messages_.clear();
 }

@@ -29,9 +29,9 @@
   <curve model="NETWORK" variable="_BUS___14_TN_U_value"/>
   <curve model="GEN____3_SM" variable="generator_UPu"/>
   <curve model="UVA" variable="underVoltageAutomaton_UMinPu"/>
-  <curve model="GEN____1_SM" variable="generator_efdPu_value"/>
+  <curve model="GEN____1_SM" variable="generator_efdPu"/>
   <curve model="GEN____1_SM" variable="voltageRegulator_EfdMaxPu"/>
-  <curve model="GEN____3_SM" variable="generator_efdPu_value"/>
+  <curve model="GEN____3_SM" variable="generator_efdPu"/>
   <curve model="GEN____3_SM" variable="voltageRegulator_EfdMaxPu"/>
   <curve model="_LOAD___2_EC" variable="tapChangerT_UTarget"/>
   <curve model="_LOAD___2_EC" variable="tapChangerT_UMonitored_value"/>

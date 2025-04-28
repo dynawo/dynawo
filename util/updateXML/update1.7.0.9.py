@@ -18,4 +18,4 @@ def update(jobs):
     SVCs = jobs.dyds.get_bbms(lambda bbm: "SecondaryVoltageControlSimp" in bbm.get_lib_name())
     for svc in SVCs:
         if not svc.parset.check_if_param_exists("secondaryVoltageControl_UDeadBandPu"):
-            svc.parset.add_param("DOUBLE", "secondaryVoltageControl_UDeadBandPu", "0.0001")
+            svc.parset.add_param("DOUBLE", "secondaryVoltageControl_UDeadBandPu", 0.0001)

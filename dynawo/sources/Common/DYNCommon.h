@@ -155,6 +155,30 @@ namespace DYN {
   }
 
   /**
+   * @brief return true if a > b
+   *
+   *
+   * @param a first double
+   * @param b second double
+   * @return return true if a > b
+   */
+  static inline bool doubleGreater(double a, double b) {
+    return doubleNotEquals(a, b) && a > b;
+  }
+
+  /**
+   * @brief return true if a < b
+   *
+   *
+   * @param a first double
+   * @param b second double
+   * @return return true if a < b
+   */
+  static inline bool doubleLess(double a, double b) {
+    return doubleNotEquals(a, b) && a < b;
+  }
+
+  /**
    * @brief return true if a == 0.
    *
    *

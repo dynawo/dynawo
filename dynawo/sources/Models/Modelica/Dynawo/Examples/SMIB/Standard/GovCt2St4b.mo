@@ -135,6 +135,7 @@ model GovCt2St4b "Active power variation on the load with governor GovCT2"
     Thetap = 0,
     UOel0Pu = 10,
     Us0Pu = generatorSynchronous.UStator0Pu,
+    UUel0Pu = 0,
     VaMaxPu = 1,
     VaMinPu = -0.87,
     Vb0Pu = 10.162168,
@@ -185,7 +186,7 @@ initial algorithm
   load.u0Pu.im := load_INIT.u0Pu.im;
 
 initial equation
-  generatorSynchronous.omegaPu.value = SystemBase.omega0Pu;
+  generatorSynchronous.omegaPu = SystemBase.omega0Pu;
 
 equation
   generatorSynchronous.switchOffSignal1.value = false;

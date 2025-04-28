@@ -21,12 +21,12 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
     Placement(visible = true, transformation(origin = {0, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Input variables
-  Dynawo.Connectors.ImPin omegaRefPu(value(start = SystemBase.omegaRef0Pu)) "Reference frequency in pu";
-  Dynawo.Connectors.ImPin PmPu(value(start = Pm0Pu)) "Mechanical power in pu (base PNomTurb)";
-  Dynawo.Connectors.ImPin efdPu(value(start = Efd0Pu)) "Input voltage of exciter winding in pu (user-selected base voltage)";
+  input Dynawo.Connectors.AngularVelocityPuConnector omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frequency in pu";
+  input Dynawo.Connectors.ActivePowerPuConnector PmPu(start = Pm0Pu) "Mechanical power in pu (base PNomTurb)";
+  input Dynawo.Connectors.VoltageModulePuConnector efdPu(start = Efd0Pu) "Input voltage of exciter winding in pu (user-selected base voltage)";
 
   // Output variables
-  Dynawo.Connectors.ImPin omegaPu(value(start = SystemBase.omega0Pu)) "Angular frequency in pu";
+  output Dynawo.Connectors.AngularVelocityPuConnector omegaPu(start = SystemBase.omega0Pu) "Angular frequency in pu";
 
   // Internal parameters of the synchronous machine in pu (base UNom, SNom)
   // These parameters are calculated at the initialization stage from the inputs parameters (internal or external)
@@ -146,20 +146,20 @@ equation
     lambdaQ1Pu = MqSatPPu * iqPu + (MqSatPPu + LQ1PPu) * iQ1Pu + MqSatPPu * iQ2Pu;
     lambdaQ2Pu = MqSatPPu * iqPu + MqSatPPu * iQ1Pu + (MqSatPPu + LQ2PPu) * iQ2Pu;
     // Equivalent circuit equations in Park's coordinates
-    udPu = (RaPPu + RTfoPu) * idPu - omegaPu.value * lambdaqPu;
-    uqPu = (RaPPu + RTfoPu) * iqPu + omegaPu.value * lambdadPu;
+    udPu = (RaPPu + RTfoPu) * idPu - omegaPu * lambdaqPu;
+    uqPu = (RaPPu + RTfoPu) * iqPu + omegaPu * lambdadPu;
     ufPu = RfPPu * ifPu + der(lambdafPu) / SystemBase.omegaNom;
     0 = RDPPu * iDPu + der(lambdaDPu) / SystemBase.omegaNom;
     0 = RQ1PPu * iQ1Pu + der(lambdaQ1Pu) / SystemBase.omegaNom;
     0 = RQ2PPu * iQ2Pu + der(lambdaQ2Pu) / SystemBase.omegaNom;
     // Mechanical equations
-    der(theta) = (omegaPu.value - omegaRefPu.value) * SystemBase.omegaNom;
-    2 * H * der(omegaPu.value) = cmPu * PNomTurb / SNom - cePu - DPu * (omegaPu.value - omegaRefPu.value);
+    der(theta) = (omegaPu - omegaRefPu) * SystemBase.omegaNom;
+    2 * H * der(omegaPu) = cmPu * PNomTurb / SNom - cePu - DPu * (omegaPu - omegaRefPu);
     cePu = lambdaqPu * idPu - lambdadPu * iqPu;
-    PePu = cePu * omegaPu.value;
-    PmPu.value = cmPu * omegaPu.value;
+    PePu = cePu * omegaPu;
+    PmPu = cmPu * omegaPu;
     // Excitation voltage pu conversion
-    ufPu = efdPu.value * (Kuf * rTfoPu);
+    ufPu = efdPu * (Kuf * rTfoPu);
     // Mutual inductances saturation
     lambdaADPu = MdSatPPu * (idPu + ifPu + iDPu);
     lambdaAQPu = MqSatPPu * (iqPu + iQ1Pu + iQ2Pu);
@@ -188,7 +188,7 @@ equation
     der(lambdaQ1Pu) = 0;
     der(lambdaQ2Pu) = 0;
     der(theta) = 0;
-    der(omegaPu.value) = 0;
+    der(omegaPu) = 0;
     cePu = 0;
     PePu = 0;
     cmPu = 0;

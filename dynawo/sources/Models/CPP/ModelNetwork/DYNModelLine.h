@@ -124,24 +124,24 @@ class ModelLine : public NetworkComponent {
   /**
    * @brief evaluate node injection
    */
-  void evalNodeInjection();
+  void evalNodeInjection() override;
 
   /**
    * @brief  add bus neighbors
    *
    */
-  void addBusNeighbors();
+  void addBusNeighbors() override;
 
   /**
    * @brief evaluate derivatives
    * @param cj Jacobian prime coefficient
    */
-  void evalDerivatives(const double cj);
+  void evalDerivatives(const double cj) override;
 
   /**
    * @brief evaluate derivatives prim
    */
-  void evalDerivativesPrim();
+  void evalDerivativesPrim() override;
 
   /**
    * @brief define variables
@@ -153,7 +153,7 @@ class ModelLine : public NetworkComponent {
    * @brief instantiate variables
    * @param variables variables
    */
-  void instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables);
+  void instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables) override;
 
   /**
    * @brief define parameters
@@ -165,43 +165,43 @@ class ModelLine : public NetworkComponent {
    * @brief define non generic parameters
    * @param parameters vector to fill with the non generic parameters
    */
-  void defineNonGenericParameters(std::vector<ParameterModeler>& parameters);
+  void defineNonGenericParameters(std::vector<ParameterModeler>& parameters) override;
 
   /**
    * @brief define elements
    * @param elements vector of elements
    * @param mapElement map of elements
    */
-  void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
+  void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) override;
 
   /**
    * @brief evaluation F
    * @param[in] type type of the residues to compute (algebraic, differential or both)
    */
-  void evalF(propertyF_t type);
+  void evalF(propertyF_t type) override;
 
   /**
   * @copydoc NetworkComponent::evalZ()
   */
-  NetworkComponent::StateChange_t evalZ(const double& t);  // get the local Z function for time t
+  NetworkComponent::StateChange_t evalZ(const double& t) override;  // get the local Z function for time t
 
   /**
    * @brief evaluation G
    * @param t time
    */
-  void evalG(const double& t);
+  void evalG(const double& t) override;
 
   /**
    * @brief evaluation calculated variables (for outputs)
    */
-  void evalCalculatedVars();
+  void evalCalculatedVars() override;
 
   /**
    * @brief get the index of variables used to define the jacobian associated to a calculated variable
    * @param numCalculatedVar index of the calculated variable
    * @param numVars index of variables used to define the jacobian associated to a calculated variable
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int> & numVars) const;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int> & numVars) const override;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable
@@ -210,17 +210,17 @@ class ModelLine : public NetworkComponent {
 
    * @param res values of the jacobian
    */
-  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double> & res) const;
+  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double> & res) const override;
 
   /**
    * @copydoc NetworkComponent::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
    */
-  void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset);
+  void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) override;
 
   /**
    * @copydoc NetworkComponent::evalJtPrim(SparseMatrix& jt, const int& rowOffset)
    */
-  void evalJtPrim(SparseMatrix& jt, const int& rowOffset);
+  void evalJtPrim(SparseMatrix& jt, const int& rowOffset) override;
 
   /**
    * @brief evaluate the value of a calculated variable
@@ -229,73 +229,73 @@ class ModelLine : public NetworkComponent {
    *
    * @return value of the calculated variable
    */
-  double evalCalculatedVarI(unsigned numCalculatedVar) const;
+  double evalCalculatedVarI(unsigned numCalculatedVar) const override;
 
   /**
    * @copydoc NetworkComponent::evalStaticYType()
    */
-  void evalStaticYType();
+  void evalStaticYType() override;
 
   /**
    * @copydoc NetworkComponent::evalDynamicYType()
    */
-  void evalDynamicYType();
+  void evalDynamicYType() override;
 
   /**
    * @copydoc NetworkComponent::evalStaticFType()
    */
-  void evalStaticFType();
+  void evalStaticFType() override;
 
   /**
    * @copydoc NetworkComponent::evalDynamicFType()
    */
-  void evalDynamicFType();
+  void evalDynamicFType() override;
 
   /**
    * @copydoc NetworkComponent::collectSilentZ()
    */
-  void collectSilentZ(BitMask* silentZTable);
+  void collectSilentZ(BitMask* silentZTable) override;
 
   /**
    * @copydoc NetworkComponent::evalYMat()
    */
-  void evalYMat();
+  void evalYMat() override;
 
   /**
    * @copydoc NetworkComponent::init(int& yNum)
    */
-  void init(int & yNum);
+  void init(int & yNum) override;
 
   /**
    * @copydoc NetworkComponent::getY0()
    */
-  void getY0();
+  void getY0() override;
 
   /**
    * @copydoc NetworkComponent::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params)
    */
-  void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params);
+  void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params) override;
 
   /**
    * @copydoc NetworkComponent::setFequations( std::map<int,std::string>& fEquationIndex )
    */
-  void setFequations(std::map<int, std::string>& fEquationIndex);
+  void setFequations(std::map<int, std::string>& fEquationIndex) override;
 
   /**
    * @copydoc NetworkComponent::setGequations( std::map<int,std::string>& gEquationIndex )
    */
-  void setGequations(std::map<int, std::string>& gEquationIndex);
+  void setGequations(std::map<int, std::string>& gEquationIndex) override;
 
   /**
    * @brief evaluate state
    * @param time time
    * @return state change type
    */
-  NetworkComponent::StateChange_t evalState(const double& time);  // check whether a discrete event happened
+  NetworkComponent::StateChange_t evalState(const double& time) override;  // check whether a discrete event happened
   /**
    * @brief update data
    */
-  void initSize();
+  void initSize() override;
 
  private:
   KnownBus_t knownBus_;  ///< known bus

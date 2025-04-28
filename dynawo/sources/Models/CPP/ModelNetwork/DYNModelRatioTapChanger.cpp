@@ -174,31 +174,44 @@ ModelRatioTapChanger::evalZ(double t, state_g* g, ModelNetwork* network, double 
   }
 }
 
-void ModelRatioTapChanger::dumpInternalVariables(stringstream& streamVariables) const {
-  boost::archive::binary_oarchive os(streamVariables);
-  os << whenUp_;
-  os << whenDown_;
-  os << whenLastTap_;
-  os << moveUp_;
-  os << moveDown_;
-  os << tapRefDown_;
-  os << tapRefUp_;
-  os << uMaxState_;
-  os << uMinState_;
-  os << uTargetState_;
+unsigned ModelRatioTapChanger::getNbInternalVariables() const {
+  return 10;
 }
 
-void ModelRatioTapChanger::loadInternalVariables(stringstream& streamVariables) {
-  boost::archive::binary_iarchive is(streamVariables);
+void ModelRatioTapChanger::dumpInternalVariables(boost::archive::binary_oarchive& os) const {
+  dumpInternalVariable(os, whenUp_);
+  dumpInternalVariable(os, whenDown_);
+  dumpInternalVariable(os, whenLastTap_);
+  dumpInternalVariable(os, moveUp_);
+  dumpInternalVariable(os, moveDown_);
+  dumpInternalVariable(os, tapRefDown_);
+  dumpInternalVariable(os, tapRefUp_);
+  dumpInternalVariable(os, uMaxState_);
+  dumpInternalVariable(os, uMinState_);
+  dumpInternalVariable(os, uTargetState_);
+}
+
+void ModelRatioTapChanger::loadInternalVariables(boost::archive::binary_iarchive& is) {
+  char c;
+  is >> c;
   is >> whenUp_;
+  is >> c;
   is >> whenDown_;
+  is >> c;
   is >> whenLastTap_;
+  is >> c;
   is >> moveUp_;
+  is >> c;
   is >> moveDown_;
+  is >> c;
   is >> tapRefDown_;
+  is >> c;
   is >> tapRefUp_;
+  is >> c;
   is >> uMaxState_;
+  is >> c;
   is >> uMinState_;
+  is >> c;
   is >> uTargetState_;
 }
 

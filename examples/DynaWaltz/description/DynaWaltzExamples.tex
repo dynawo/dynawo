@@ -228,7 +228,7 @@ For the first phase, the system evolution is mainly driven by the generators beh
   \begin{tikzpicture}
     \begin{axis}[height = 2in]
         \addplot[color=blue!50]
-        table[x=time,y=GEN____1_SM_generator_efdPu_value]
+        table[x=time,y=GEN____1_SM_generator_efdPu]
         {../IEEE14/IEEE14_GeneratorDisconnections/reference/outputs/curves/curves.csv};
         \addplot[dashed, color=red!50]
         table[x=time,y=GEN____1_SM_voltageRegulator_EfdMaxPu]
@@ -242,7 +242,7 @@ For the first phase, the system evolution is mainly driven by the generators beh
   \begin{tikzpicture}
     \begin{axis}[height = 2in]
         \addplot[color=blue!50]
-        table[x=time,y=GEN____3_SM_generator_efdPu_value]
+        table[x=time,y=GEN____3_SM_generator_efdPu]
         {../IEEE14/IEEE14_GeneratorDisconnections/reference/outputs/curves/curves.csv};
         \addplot[dashed, color=red!50]
         table[x=time,y=GEN____3_SM_voltageRegulator_EfdMaxPu]

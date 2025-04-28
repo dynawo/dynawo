@@ -25,6 +25,8 @@
 #include <map>
 #include <set>
 #include <vector>
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
 
 namespace DYN {
 class SparseMatrix;
@@ -328,21 +330,22 @@ class ModelCPP : public SubModel {
    /**
    * @brief export the internal variables values of the sub model for dump in a stream
    *
-   * @param streamVariables : map associating the file where values should be dumped with the stream of values
+   * @param streamVariables : stringstream with binary formated internalVariables
    */
-  virtual void dumpInternalVariables(std::stringstream& streamVariables) const;
+  virtual void dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const;
 
   /**
    * @brief load the internal variables values from a previous dump
    *
-   * @param streamVariables : stream of values where the variables were dumped
-   * @return success
+   * @param streamVariables : stringstream with binary formated internalVariables
    */
-  virtual bool loadInternalVariables(std::stringstream& streamVariables);
+  virtual void loadInternalVariables(boost::archive::binary_iarchive& streamVariables);
+
+ protected:
+  bool isStartingFromDump_;  ///< whether the model is starting from dumped values
 
  private:
   std::string modelType_;  ///< model type
-  bool isStartingFromDump_;  ///< whether the model is starting from dumped values
 };
 
 }  // namespace DYN

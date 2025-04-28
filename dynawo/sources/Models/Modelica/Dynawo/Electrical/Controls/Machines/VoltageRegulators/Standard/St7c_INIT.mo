@@ -20,7 +20,7 @@ model St7c_INIT "IEEE excitation system type ST7C initialization model"
   parameter Types.PerUnit Kia "Voltage regulator feedback gain";
   parameter Types.PerUnit Kpa "Voltage regulator proportional gain";
 
-  Types.VoltageModulePu UsRef0Pu "Initial reference stator voltage in pu (base UNom)";
+  Dynawo.Connectors.VoltageModulePuConnector UsRef0Pu "Initial reference stator voltage in pu (base UNom)";
 
 equation
   UsRef0Pu = (1 + Kia) * Efd0Pu / Kpa + Us0Pu;

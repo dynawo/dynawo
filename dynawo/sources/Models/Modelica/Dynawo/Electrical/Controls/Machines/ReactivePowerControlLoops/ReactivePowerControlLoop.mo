@@ -43,9 +43,7 @@ model ReactivePowerControlLoop "Simplified Reactive Power Control Loop model"
     Placement(visible = true, transformation(origin = {-130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback errQ annotation(
     Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integrator(y_start = UStatorRef0Pu) annotation(
-    Placement(visible = true, transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gainIntegrator(k = 1 / TiQ) annotation(
+  Modelica.Blocks.Math.Gain gainIntegrator(k = 1/TiQ) annotation(
     Placement(visible = true, transformation(origin = {-70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.VariableLimiter rampLim(homotopyType = Modelica.Blocks.Types.VariableLimiterHomotopy.NoHomotopy) annotation(
     Placement(visible = true, transformation(origin = {-10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -63,6 +61,8 @@ model ReactivePowerControlLoop "Simplified Reactive Power Control Loop model"
     Placement(visible = true, transformation(origin = {-170, -160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter_UStatorRefMinMaxPu(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = UStatorRefMaxPu, uMin = UStatorRefMinPu) annotation(
     Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.LimitedIntegrator limitedIntegrator(Y0 = UStatorRef0Pu, YMax = UStatorRefMaxPu, YMin = UStatorRefMinPu)  annotation(
+    Placement(transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}})));
 
   parameter Boolean limUQDown0 "Whether the minimum reactive power limits are reached or not (from generator voltage regulator), start value";
   parameter Boolean limUQUp0 "Whether the maximum reactive power limits are reached or not (from generator voltage regulator), start value";
@@ -89,8 +89,6 @@ equation
 
   connect(rampLim.u, gainIntegrator.y) annotation(
     Line(points = {{-22, 0}, {-59, 0}}, color = {0, 0, 127}));
-  connect(integrator.u, rampLim.y) annotation(
-    Line(points = {{18, 0}, {1, 0}}, color = {0, 0, 127}));
   connect(errQ.u2, QStatorPu) annotation(
     Line(points = {{-100, -8}, {-100, -40}, {-172, -40}}, color = {0, 0, 127}));
   connect(errQ.u1, participation.y) annotation(
@@ -115,12 +113,15 @@ equation
     Line(points = {{-99, 80}, {-40, 80}, {-40, 8}, {-22, 8}}, color = {0, 0, 127}));
   connect(swLimDown.y, rampLim.limit2) annotation(
     Line(points = {{-76, -120}, {-40, -120}, {-40, -8}, {-22, -8}}, color = {0, 0, 127}));
-  connect(integrator.y, limiter_UStatorRefMinMaxPu.u) annotation(
-    Line(points = {{42, 0}, {58, 0}}, color = {0, 0, 127}));
   connect(limiter_UStatorRefMinMaxPu.y, UStatorRefPu) annotation(
     Line(points = {{82, 0}, {110, 0}}, color = {0, 0, 127}));
+  connect(rampLim.y, limitedIntegrator.u) annotation(
+    Line(points = {{2, 0}, {18, 0}}, color = {0, 0, 127}));
+  connect(limitedIntegrator.y, limiter_UStatorRefMinMaxPu.u) annotation(
+    Line(points = {{42, 0}, {58, 0}}, color = {0, 0, 127}));
 
-  annotation(preferredView = "diagram",
+  annotation(
+    preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-160, -180}, {100, 140}})),
     Documentation(info = "<html><body>The reactive control loop gets a level K from the secondary voltage control and transforms it into a voltage reference for the generator voltage regulator</body></html>"));
 end ReactivePowerControlLoop;
