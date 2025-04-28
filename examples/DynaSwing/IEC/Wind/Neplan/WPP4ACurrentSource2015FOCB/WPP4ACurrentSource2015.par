@@ -13,14 +13,21 @@
 -->
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
   <set id="WPP4A">
+    <!-- PCS-->
+    <par type="BOOL" name="WPP_PPCLocal" value="true"/>
+    <par type="DOUBLE" name="WPP_BMvHvPu" value="0"/>
+    <par type="DOUBLE" name="WPP_GMvHvPu" value="0"/>
+    <par type="DOUBLE" name="WPP_RMvHvPu" value="0"/>
+    <par type="DOUBLE" name="WPP_XMvHvPu" value="0"/>
     <!-- Nominal -->
     <par type="DOUBLE" name="WPP_SNom" value="100"/>
     <par type="DOUBLE" name="WPP_tS" value="0.001"/>
-    <!-- Electrical -->
-    <par type="DOUBLE" name="WPP_BesPu" value="0"/>
-    <par type="DOUBLE" name="WPP_GesPu" value="0"/>
-    <par type="DOUBLE" name="WPP_ResPu" value="0"/>
-    <par type="DOUBLE" name="WPP_XesPu" value="0"/>
+    <!-- LV Transformer -->
+    <par type="BOOL" name="WPP_ConverterLVControl" value="false"/>
+    <par type="DOUBLE" name="WPP_BLvTrPu" value="0"/>
+    <par type="DOUBLE" name="WPP_GLvTrPu" value="0"/>
+    <par type="DOUBLE" name="WPP_RLvTrPu" value="0"/>
+    <par type="DOUBLE" name="WPP_XLvTrPu" value="0"/>
     <!-- Control -->
     <par type="DOUBLE" name="WPP_DipMaxPu" value="1"/>
     <par type="DOUBLE" name="WPP_DiqMaxPu" value="100"/>

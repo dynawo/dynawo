@@ -49,7 +49,7 @@ model PControl4A2020 "Active power control module for type 4A wind turbines (IEC
     Placement(visible = true, transformation(origin = {-130, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = MpUScale) annotation(
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFirstOrderAntiWindup absLimRateLimFirstOrderAntiWindup1(DyMax = DPRefMax4APu, DyMin = DPRefMin4APu, Kaw = 0, UseLimits = false, Y0 = -P0Pu * SystemBase.SnRef / SNom, YMax = 999, tI = tPWTRef4A) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFirstOrderAntiWindup absLimRateLimFirstOrderAntiWindup1(DyMax = DPRefMax4APu, DyMin = DPRefMin4APu, Kaw = 0, UseLimits = false, Y0 = ip0Pu*U0Pu, YMax = 999, tI = tPWTRef4A) annotation(
     Placement(visible = true, transformation(origin = {-110, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
