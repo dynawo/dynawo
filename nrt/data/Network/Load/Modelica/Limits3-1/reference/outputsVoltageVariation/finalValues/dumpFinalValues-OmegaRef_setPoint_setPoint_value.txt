@@ -1,4 +1,0 @@
- ====== VARIABLES VALUES ======
-connector_OmegaRef_setPoint_setPoint_value        : y =       1.000000 yp =       0.000000
- ====== DISCRETE VARIABLES VALUES ======
- ====== PARAMETERS VALUES ======
