@@ -13,6 +13,12 @@
 -->
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
   <set id="WPP4A">
+    <!-- PCS-->
+    <par type="BOOL" name="WPP_PCSActive" value="true"/>
+    <par type="DOUBLE" name="WPP_BPcsPu" value="0"/>
+    <par type="DOUBLE" name="WPP_GPcsPu" value="0"/>
+    <par type="DOUBLE" name="WPP_RPcsPu" value="0"/>
+    <par type="DOUBLE" name="WPP_XPcsPu" value="0"/>
     <!-- Nominal -->
     <par type="DOUBLE" name="WPP_SNom" value="100"/>
     <par type="DOUBLE" name="WPP_tS" value="0.001"/>
