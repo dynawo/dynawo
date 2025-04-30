@@ -448,6 +448,7 @@ ModelManager::getY0() {
 
   if (!withLoadedVariables_) {
     modelModelica()->setY0omc();
+    Trace::info() << "setYOomc" << Trace::endline;
   }
 
   simulationInfo()->initial = false;

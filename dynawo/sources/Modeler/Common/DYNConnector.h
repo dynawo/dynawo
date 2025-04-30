@@ -349,6 +349,21 @@ class ConnectorContainer {
    */
   bool isConnected(const int numVariable);
 
+  /**
+   * @brief set the initial values of updatable parameters from connected model
+   */
+  void initUpdatableValues();
+
+  /**
+   * @brief set the initial values of the continuous updatable parameters from connected model
+   */
+  void initYUpdatableValues();
+
+  /**
+   * @brief set the initial values of the discrete updatable parameters from connected model
+   */
+  void initZUpdatableValues();
+
  private:
   /**
    * @brief get Y connector's information according to its index

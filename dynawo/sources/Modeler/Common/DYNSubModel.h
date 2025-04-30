@@ -136,7 +136,13 @@ class SubModel {
    * @brief update parameters of modelica model
    * @param parameterSet ParametersSet filled with external values
    */
-  virtual void updateParameters(std::shared_ptr<parameters::ParametersSet>&) {}
+  virtual void updateParameters(std::shared_ptr<parameters::ParametersSet>& parameterSet) {}
+
+  /**
+   * @brief update parameter of model
+   * @param name name of the parameter
+   */
+  virtual void updateParameter(const std::string& name, double value) {}
 
  public:
   /**
@@ -1346,6 +1352,23 @@ class SubModel {
   }
 
   /**
+   * @brief Set updatable capability
+   *
+   */
+  void setIsUpdatableDuringSimulation(bool isUpdatableDuringSimulation) {
+    isUpdatableDuringSimulation_ = isUpdatableDuringSimulation;
+  }
+
+  /**
+  * @brief Get updatable capability
+  *
+  * @return isUpdatableDuringSimulation
+  */
+  inline bool getIsUpdatableDuringSimulation() const {
+    return isUpdatableDuringSimulation_;
+  }
+
+  /**
    * @brief get equation string for debug log
    *
    * @param index WARNING index is local index in this submodel, not global index
@@ -1584,6 +1607,8 @@ class SubModel {
   std::map<int, std::string> gEquationInitIndex_;  ///< for DEBUG log, map of index of root equation and root equation in string  for init model
 
   std::shared_ptr<parameters::ParametersSet> localInitParameters_;  ///< local initialization solver parameters set
+
+  bool isUpdatableDuringSimulation_;
 
  private:
   int sizeFSave_;  ///< save of the size of F
