@@ -14,7 +14,12 @@
 set(MODEL_FILES
   package.mo
   package.order
-  ParamsDriveTrain.mo
+  ParamsWTGT.mo
+  ParamsWTGTb.mo
+  ParamsWTGP.mo
+  ParamsWTGPb.mo
+  ParamsWTGAa.mo
+  ParamsWTGQa.mo
   )
 
 #

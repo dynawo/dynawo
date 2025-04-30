@@ -20,12 +20,6 @@ set(MODEL_FILES
   package.mo
   package.order
   ParamsVSourceRef.mo
-  ParamsWTGT.mo
-  ParamsWTGTb.mo
-  ParamsWTGP.mo
-  ParamsWTGPb.mo
-  ParamsWTGAa.mo
-  ParamsWTGQa.mo
   )
 
 #

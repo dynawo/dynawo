@@ -99,8 +99,10 @@ PhaseShifterBlockingI
 PhaseShifterI
 PhaseShifterP
 PhotovoltaicsWeccCurrentSource
+PhotovoltaicsWeccVoltageSource1
 PhotovoltaicsWeccVoltageSource2
 PhotovoltaicsWeccVoltageSource3
+PhotovoltaicsWeccVoltageSource4
 PowerTransferHVDCEmulation
 Ramp
 SecondaryVoltageControlSimp

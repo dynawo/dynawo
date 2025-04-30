@@ -14,6 +14,8 @@ within Dynawo.Electrical.Controls.WECC.Parameters.REGC;
 */
 
 record ParamsREGCa "REGC type A parameters"
+  parameter Types.Time tG "Emulated delay in converter controls in s(Cannot be zero, typical: 0.02..0.05)" annotation(
+  Dialog(tab="Generator Converter", group = "REGCa"));
   parameter Types.PerUnit brkpt(start = 1.0) "LVPL breakpoint in pu (base UNom)" annotation(
     Dialog(tab = "Generator Converter", group = "REGCa"));
   parameter Types.PerUnit lvpl1(start = 1.0) "LVPL gain breakpoint in pu" annotation(

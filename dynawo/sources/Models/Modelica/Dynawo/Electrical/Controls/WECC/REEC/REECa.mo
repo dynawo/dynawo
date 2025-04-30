@@ -32,7 +32,7 @@ model REECa "WECC Electrical Control type A"
     Placement(visible = true, transformation(origin = {550, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealOutput POrdPu(start = PInj0Pu) "Active power order in pu (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {551, -153}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, -89}, extent = {{-10, -10}, {10, 10}})));
-    
+
   Modelica.Blocks.Sources.RealExpression UFilteredPu5(y = UFilteredPu) annotation(
     Placement(visible = true, transformation(origin = {249, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression IqMax(y = currentLimitsCalculation1.iqMaxPu) annotation(
@@ -119,10 +119,8 @@ equation
     Line(points = {{-31, 78}, {1, 78}, {1, 104}, {15, 104}}, color = {0, 0, 127}));
   connect(gain.y, limiter1.u) annotation(
     Line(points = {{215, 220}, {252, 220}}, color = {0, 0, 127}));
-<<<<<<< HEAD
   connect(rateLimFirstOrderFreeze.y, POrdPu) annotation(
     Line(points = {{76, -70}, {101, -70}, {101, -153}, {551, -153}}, color = {0, 0, 127}));
-=======
   connect(currentLimitsCalculation1.ipMaxPu, ipMaxPu) annotation(
     Line(points = {{414, 7}, {480, 7}, {480, 30}, {550, 30}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(currentLimitsCalculation1.ipMinPu, ipMinPu) annotation(
@@ -131,7 +129,6 @@ equation
     Line(points = {{414, -3}, {480, -3}, {480, -10}, {550, -10}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(currentLimitsCalculation1.iqMinPu, iqMinPu) annotation(
     Line(points = {{414, -7}, {470, -7}, {470, -30}, {550, -30}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
->>>>>>> cf3481f06d3 (#3443 Add example with REGC-C model)
 
   annotation(
     preferredView = "diagram",

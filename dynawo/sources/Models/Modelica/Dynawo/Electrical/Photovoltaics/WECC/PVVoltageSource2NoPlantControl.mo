@@ -59,6 +59,7 @@ equation
     Line(points = {{-190, -20}, {-150, -20}, {-150, -6}, {-91, -6}}, color = {0, 0, 127}));
   connect(pll.phi, wecc_regc.phi) annotation(
     Line(points = {{-149, 45}, {-59, 45}, {-59, 9}, {-51, 9}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html>

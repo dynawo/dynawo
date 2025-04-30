@@ -26,13 +26,13 @@
     <par type="DOUBLE" name="infiniteBus_UPhase" value="0"/>
     <par type="DOUBLE" name="infiniteBus_omega0Pu" value="1"/>
     <par type="DOUBLE" name="infiniteBus_omegaEvtPu" value="1.01"/>
-    <par type="DOUBLE" name="infiniteBus_tUEvtStart" value="1"/>
-    <par type="DOUBLE" name="infiniteBus_tUEvtEnd" value="2"/>
-    <par type="DOUBLE" name="infiniteBus_tOmegaEvtStart" value="6"/>
-    <par type="DOUBLE" name="infiniteBus_tOmegaEvtEnd" value="6.5"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtStart" value="4"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtEnd" value="8"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtStart" value="16"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtEnd" value="16.5"/>
   </set>
   <set id="2">
-    <par type="DOUBLE" name="line_XPu" value="0.0000020661"/>
+    <par type="DOUBLE" name="line_XPu" value="0.3"/>
     <par type="DOUBLE" name="line_RPu" value="0.0"/>
     <par type="DOUBLE" name="line_BPu" value="0.0"/>
     <par type="DOUBLE" name="line_GPu" value="0.0"/>
@@ -40,8 +40,8 @@
   <set id="3">
     <par type="DOUBLE" name="photovoltaics_P0Pu" value="-0.7"/>
     <par type="DOUBLE" name="photovoltaics_Q0Pu" value="-0.2"/>
-    <par type="DOUBLE" name="photovoltaics_U0Pu" value="1.0"/>
-    <par type="DOUBLE" name="photovoltaics_UPhase0" value="0.00000144621"/>
+    <par type="DOUBLE" name="photovoltaics_U0Pu" value="1.03713742957"/>
+    <par type="DOUBLE" name="photovoltaics_UPhase0" value="0.203890124"/>
     <par type="DOUBLE" name="photovoltaics_SNom" value="100"/>
     <par type="DOUBLE" name="photovoltaics_RPu" value="0"/>
     <par type="DOUBLE" name="photovoltaics_XPu" value="0.15"/>
@@ -76,7 +76,7 @@
     <par type="DOUBLE" name="photovoltaics_tFilterGC" value="0.02"/>
     <par type="DOUBLE" name="photovoltaics_tFt" value="1e-5"/>
     <par type="DOUBLE" name="photovoltaics_tFv" value="0.1"/>
-    <par type="DOUBLE" name="photovoltaics_tG" value="0.02"/>
+    <par type="DOUBLE" name="photovoltaics_tG" value="0.2"/>
     <par type="DOUBLE" name="photovoltaics_tIq" value="0.02"/>
     <par type="DOUBLE" name="photovoltaics_tLag" value="0.1"/>
     <par type="DOUBLE" name="photovoltaics_tP" value="0.04"/>

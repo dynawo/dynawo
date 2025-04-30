@@ -14,7 +14,7 @@ within Dynawo.Electrical.Controls.WECC.Mechanical;
 */
 
 model WTGPb "WECC Pitch Controller Type B"
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsWTGPb;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGPb;
   extends Dynawo.Electrical.Controls.WECC.Mechanical.BaseClasses.BaseWTGP;
 
   Dynawo.NonElectrical.Blocks.Continuous.AntiWindupIntegrator antiWindupIntegrator(tI = 1/Kiw, YMax = ThetaWMax, YMin = ThetaWMin, Y0 = 0, DyMax = 999, DyMin = -999) annotation(
