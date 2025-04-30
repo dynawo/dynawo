@@ -268,7 +268,7 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
     Dialog(group = "Initialization"));
   final parameter Types.ComplexVoltagePu uControl0Pu = if PCSActive then u0Pu else Complex(UPccRe0Pu, UPccIm0Pu) "Initial complex voltage to be controlled by the PPC (base UNom)";
   parameter Types.CurrentComponent UPccIm0Pu = 0 "Initial imaginary voltage component at the external PCC (base UNom) (only if the PCS is defined outside of the model)";
-  parameter Types.CurrentComponent UPccRe0Pu = 0 "Initial real voltage component at the external PCC (base UNom) (only if the PCS is defined outside of the model)";
+  parameter Types.CurrentComponent UPccRe0Pu = 1 "Initial real voltage component at the external PCC (base UNom) (only if the PCS is defined outside of the model)";
   parameter Types.Angle UPhase0 "Initial voltage angle at grid terminal in rad" annotation(
     Dialog(tab = "Operating point"));
   final parameter Types.ComplexVoltagePu uWt0Pu = u0Pu - Complex(RPcsPu, XPcsPu)*i0Pu*SystemBase.SnRef/SNom "Initial complex voltage at WT terminal in pu (base UNom)";
