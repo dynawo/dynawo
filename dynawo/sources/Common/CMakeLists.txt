@@ -61,7 +61,6 @@ set(COMMON_SOURCES
   DYNCommon.cpp
   DYNError.cpp
   DYNTerminate.cpp
-  DYNInterception.cpp
   DYNExecUtils.cpp
   DYNEnumUtils.cpp
   DYNFileSystemUtils.cpp
@@ -83,7 +82,6 @@ set(COMMON_INCLUDE_HEADERS
   DYNCommon.h
   DYNError.h
   DYNTerminate.h
-  DYNInterception.h
   DYNExecUtils.h
   DYNEnumUtils.h
   DYNFileSystemUtils.h

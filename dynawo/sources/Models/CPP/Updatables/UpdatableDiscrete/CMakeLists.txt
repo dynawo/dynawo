@@ -9,14 +9,14 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 
 ##############################################
-#     DYNUpdatableParameterDiscrete          #
+#     DYNUpdatableDiscrete          #
 ##############################################
 set(MODEL_NAME
-  DYNUpdatableParameterDiscrete
+  DYNUpdatableDiscrete
   )
 
 set(MODEL_SOURCES
-  DYNUpdatableParameterDiscrete.cpp
+  DYNUpdatableDiscrete.cpp
   )
 
 compile_cpp_model(${MODEL_NAME} "${MODEL_SOURCES}")

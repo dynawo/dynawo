@@ -12,14 +12,14 @@
 //
 
 /**
- * @file  DYNUpdatableParameterDiscrete.h
+ * @file  DYNUpdatableBoolean.h
  *
  * @brief Continuous updatable parameter header
  *
  */
 
-#ifndef MODELS_CPP_UPDATABLEPARAMETER_UPDATABLEPARAMETERDISCRETE_DYNUPDATABLEPARAMETERDISCRETE_H_
-#define MODELS_CPP_UPDATABLEPARAMETER_UPDATABLEPARAMETERDISCRETE_DYNUPDATABLEPARAMETERDISCRETE_H_
+#ifndef MODELS_CPP_UPDATABLEPARAMETER_UPDATABLEPARAMETERBOOLEAN_DYNUPDATABLEPARAMETERBOOLEAN_H_
+#define MODELS_CPP_UPDATABLEPARAMETER_UPDATABLEPARAMETERBOOLEAN_DYNUPDATABLEPARAMETERBOOLEAN_H_
 
 #include "DYNModelCPP.h"
 #include "DYNModelConstants.h"
@@ -29,38 +29,38 @@
 namespace DYN {
 class DataInterface;
 /**
-* @brief UpdatableParameterDiscrete factory
+* @brief UpdatableBoolean factory
 *
-* Implementation of @p SubModelFactory template for UpdatableParameterDiscrete model
+* Implementation of @p SubModelFactory template for UpdatableBoolean model
 */
-class UpdatableParameterDiscreteFactory : public SubModelFactory {
+class UpdatableBooleanFactory : public SubModelFactory {
  public:
   /**
   * @brief default constructor
   *
   */
-  UpdatableParameterDiscreteFactory() { }
+  UpdatableBooleanFactory() { }
   /**
   * @brief default destructor
   *
   */
-  virtual ~UpdatableParameterDiscreteFactory() = default;
+  virtual ~UpdatableBooleanFactory() = default;
   /**
-  * @brief UpdatableParameterDiscrete getter
+  * @brief UpdatableBoolean getter
   *
-  * @return A pointer to a new instance of UpdatableParameterDiscrete
+  * @return A pointer to a new instance of UpdatableBoolean
   */
   SubModel* create() const;
   /**
-  * @brief UpdatableParameterDiscrete destroy
+  * @brief UpdatableBoolean destroy
   */
   void destroy(SubModel*) const;
 };
 
 /**
- * class UpdatableParameterDiscrete
+ * class UpdatableBoolean
  */
-class UpdatableParameterDiscrete : public ModelCPP {
+class UpdatableBoolean : public ModelCPP {
  public:
    /**
     * @brief define type of calculated variables
@@ -73,25 +73,25 @@ class UpdatableParameterDiscrete : public ModelCPP {
   /**
    * @brief Default constructor
    *
-   * Creates a new UpdatableParameterDiscrete instance.
+   * Creates a new UpdatableBoolean instance.
    */
-  UpdatableParameterDiscrete();
+  UpdatableBoolean();
   // instantiate virtual methods of the Model class
   /**
-   * @brief  UpdatableParameterDiscrete model initialization routine
+   * @brief  UpdatableBoolean model initialization routine
    * @param t0 : initial time of the simulation
    */
   void init(const double t0) override;
   /**
-   * @brief  UpdatableParameterDiscrete model's sizes getter
+   * @brief  UpdatableBoolean model's sizes getter
    *
    * Get the sizes of the vectors and matrixs used by the solver to simulate
-   * Model UpdatableParameterDiscrete instance. Used by @p ModelMulti to generate right size matrixs
+   * Model UpdatableBoolean instance. Used by @p ModelMulti to generate right size matrixs
    * and vector for the solver.
    */
   void getSize() override;
   /**
-   * @brief  UpdatableParameterDiscrete F(t,y,y') function evaluation
+   * @brief  UpdatableBoolean F(t,y,y') function evaluation
    *
    * Get the residues' values at a certain instant time with given state variables,
    * state variables derivatives
@@ -100,14 +100,14 @@ class UpdatableParameterDiscrete : public ModelCPP {
    */
   void evalF(double t, propertyF_t type) override;
   /**
-   * @brief  UpdatableParameterDiscrete G(t,y,y') function evaluation
+   * @brief  UpdatableBoolean G(t,y,y') function evaluation
    *
    * Get the roots' value
    * @param[in] t Simulation instant
    */
   void evalG(const double t) override;
   /**
-   * @brief  UpdatableParameterDiscrete discrete variables evaluation
+   * @brief  UpdatableBoolean discrete variables evaluation
    *
    * Get the discrete variables' value depending on current simulation instant and
    * current state variables values.
@@ -127,7 +127,7 @@ class UpdatableParameterDiscrete : public ModelCPP {
    */
   void evalCalculatedVars() override;
   /**
-   * @brief  UpdatableParameterDiscrete transposed jacobian evaluation
+   * @brief  UpdatableBoolean transposed jacobian evaluation
    *
    * Get the sparse transposed jacobian
    * @param[in] t Simulation instant
@@ -188,13 +188,13 @@ class UpdatableParameterDiscrete : public ModelCPP {
    */
   double evalCalculatedVarI(unsigned iCalculatedVar) const override;
   /**
-   * @brief  UpdatableParameterDiscrete parameters setter
+   * @brief  UpdatableBoolean parameters setter
    */
   void setSubModelParameters() override;
   /**
-   * @brief  UpdatableParameterDiscrete elements initializer
+   * @brief  UpdatableBoolean elements initializer
    *
-   * Define  UpdatableParameterDiscrete elements (connection variables for output and other models).
+   * Define  UpdatableBoolean elements (connection variables for output and other models).
    * @param[out] elements Reference to elements' vector
    * @param[out] mapElement Map associating each element index in the elements vector to its name
    */
@@ -251,4 +251,4 @@ class UpdatableParameterDiscrete : public ModelCPP {
 
 }  // namespace DYN
 
-#endif  // MODELS_CPP_UPDATABLEPARAMETER_UPDATABLEPARAMETERDISCRETE_DYNUPDATABLEPARAMETERDISCRETE_H_
+#endif  // MODELS_CPP_UPDATABLEPARAMETER_UPDATABLEPARAMETERBOOLEAN_DYNUPDATABLEPARAMETERBOOLEAN_H_

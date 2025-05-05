@@ -11,13 +11,13 @@
 //
 
 #include <string>
-#include "DYNUpdatableParameterContinuous.h"
+#include "DYNUpdatableContinuous.h"
 
 namespace DYN
 {
 
 std::string
-UpdatableParameterContinuous::getCheckSum() const
+UpdatableContinuous::getCheckSum() const
 {
   return _CHECKSUM_;
 }

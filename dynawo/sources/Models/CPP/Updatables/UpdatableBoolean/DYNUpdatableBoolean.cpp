@@ -12,7 +12,7 @@
 //
 
 /**
- * @file  DYNUpdatableParameterBoolean.cpp
+ * @file  DYNUpdatableBoolean.cpp
  *
  * @brief Continuous updatable parameter
  *
@@ -27,8 +27,8 @@
 #include "PARParametersSet.h"
 
 #include "DYNNumericalUtils.h"
-#include "DYNUpdatableParameterBoolean.h"
-#include "DYNUpdatableParameterBoolean.hpp"
+#include "DYNUpdatableBoolean.h"
+#include "DYNUpdatableBoolean.hpp"
 #include "DYNSparseMatrix.h"
 #include "DYNMacrosMessage.h"
 #include "DYNElement.h"
@@ -48,48 +48,48 @@ using parameters::Parameter;
 
 
 extern "C" DYN::SubModelFactory* getFactory() {
-  return (new DYN::UpdatableParameterBooleanFactory());
+  return (new DYN::UpdatableBooleanFactory());
 }
 
 extern "C" void deleteFactory(DYN::SubModelFactory* factory) {
   delete factory;
 }
 
-extern "C" DYN::SubModel* DYN::UpdatableParameterBooleanFactory::create() const {
-  DYN::SubModel* model(new DYN::UpdatableParameterBoolean());
+extern "C" DYN::SubModel* DYN::UpdatableBooleanFactory::create() const {
+  DYN::SubModel* model(new DYN::UpdatableBoolean());
   return model;
 }
 
-extern "C" void DYN::UpdatableParameterBooleanFactory::destroy(DYN::SubModel* model) const {
+extern "C" void DYN::UpdatableBooleanFactory::destroy(DYN::SubModel* model) const {
   delete model;
 }
 
 namespace DYN {
 
-UpdatableParameterBoolean::UpdatableParameterBoolean() :
-ModelCPP("UpdatableParameterBoolean"),
+UpdatableBoolean::UpdatableBoolean() :
+ModelCPP("UpdatableBoolean"),
 inputValue_(0.),
 updated_(false) {
   isUpdatableDuringSimulation_ = true;
 }
 
 void
-UpdatableParameterBoolean::init(const double /*t0*/) {
+UpdatableBoolean::init(const double /*t0*/) {
   // not needed
 }
 
 void
-UpdatableParameterBoolean::initializeFromData(const boost::shared_ptr<DataInterface>& /*data*/) {
+UpdatableBoolean::initializeFromData(const boost::shared_ptr<DataInterface>& /*data*/) {
   // not needed
 }
 
 void
-UpdatableParameterBoolean::initializeStaticData() {
+UpdatableBoolean::initializeStaticData() {
   // not needed
 }
 
 void
-UpdatableParameterBoolean::getSize() {
+UpdatableBoolean::getSize() {
   sizeG_ = 1;  // parameter updated
   sizeMode_ = 1;
   calculatedVars_.assign(nbCalculatedVars_, 0);
@@ -97,50 +97,50 @@ UpdatableParameterBoolean::getSize() {
 
 // evaluation of F(t,y,y') function
 void
-UpdatableParameterBoolean::evalF(double /*t*/, propertyF_t type) {
+UpdatableBoolean::evalF(double /*t*/, propertyF_t type) {
 }
 
 
 // evaluation of root functions
 void
-UpdatableParameterBoolean::evalG(const double /*t*/) {
+UpdatableBoolean::evalG(const double /*t*/) {
   gLocal_[0] = (updated_) ? ROOT_UP : ROOT_DOWN;
   updated_ = false;
 }
 
 // evaluation of root functions
 void
-UpdatableParameterBoolean::evalZ(const double /*t*/) {
+UpdatableBoolean::evalZ(const double /*t*/) {
   // not needed
 }
 
 void
-UpdatableParameterBoolean::setFequations() {
+UpdatableBoolean::setFequations() {
 }
 
 void
-UpdatableParameterBoolean::setGequations() {
+UpdatableBoolean::setGequations() {
   gEquationIndex_[0] = std::string("parameter update");
 }
 
 // evaluation of the transpose Jacobian Jt - sparse matrix
 void
-UpdatableParameterBoolean::evalJt(const double /*t*/, const double /*cj*/, SparseMatrix& jt, const int /*rowOffset*/) {
+UpdatableBoolean::evalJt(const double /*t*/, const double /*cj*/, SparseMatrix& jt, const int /*rowOffset*/) {
 }
 
 // evaluation of the transpose Jacobian Jt - sparse matrix
 void
-UpdatableParameterBoolean::evalJtPrim(const double /*t*/, const double /*cj*/, SparseMatrix& jt, const int /*rowOffset*/) {
+UpdatableBoolean::evalJtPrim(const double /*t*/, const double /*cj*/, SparseMatrix& jt, const int /*rowOffset*/) {
 }
 
 void
-UpdatableParameterBoolean::collectSilentZ(BitMask* /*silentZTable*/) {
+UpdatableBoolean::collectSilentZ(BitMask* /*silentZTable*/) {
   // not needed
 }
 
 // evaluation of modes (alternatives) of F(t,y,y') functions
 modeChangeType_t
-UpdatableParameterBoolean::evalMode(const double /*t*/) {
+UpdatableBoolean::evalMode(const double /*t*/) {
   if (gLocal_[0] == ROOT_UP) {
     return ALGEBRAIC_MODE;
   }
@@ -148,76 +148,76 @@ UpdatableParameterBoolean::evalMode(const double /*t*/) {
 }
 
 void
-UpdatableParameterBoolean::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, vector<double>& /*res*/) const {
+UpdatableBoolean::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, vector<double>& /*res*/) const {
   // not needed
 }
 
 void
-UpdatableParameterBoolean::getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<int>& /*indexes*/) const {
+UpdatableBoolean::getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<int>& /*indexes*/) const {
   // not needed
 }
 
 double
-UpdatableParameterBoolean::evalCalculatedVarI(unsigned /*iCalculatedVar*/) const {
+UpdatableBoolean::evalCalculatedVarI(unsigned /*iCalculatedVar*/) const {
   return inputValue_;
 }
 
 void
-UpdatableParameterBoolean::evalCalculatedVars() {
+UpdatableBoolean::evalCalculatedVars() {
   calculatedVars_[inputValueIdx_] = inputValue_;
 }
 
 void
-UpdatableParameterBoolean::getY0() {
+UpdatableBoolean::getY0() {
 }
 
 void
-UpdatableParameterBoolean::evalStaticYType() {
+UpdatableBoolean::evalStaticYType() {
 }
 
 void
-UpdatableParameterBoolean::evalStaticFType() {
+UpdatableBoolean::evalStaticFType() {
 }
 
 void
-UpdatableParameterBoolean::defineVariables(vector<shared_ptr<Variable> >& variables) {
+UpdatableBoolean::defineVariables(vector<shared_ptr<Variable> >& variables) {
   variables.push_back(VariableNativeFactory::createCalculated("input_value", BOOLEAN));
 }
 
 void
-UpdatableParameterBoolean::defineParameters(vector<ParameterModeler>& parameters) {
+UpdatableBoolean::defineParameters(vector<ParameterModeler>& parameters) {
   parameters.push_back(ParameterModeler("external_input", VAR_TYPE_BOOL, INTERNAL_PARAMETER));
 }
 
 void
-UpdatableParameterBoolean::setSubModelParameters() {
+UpdatableBoolean::setSubModelParameters() {
   // not needed
 }
 
 void
-UpdatableParameterBoolean::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
+UpdatableBoolean::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
   addElement("input", Element::STRUCTURE, elements, mapElement);
   addSubElement("value", "input", Element::TERMINAL, name(), modelType(), elements, mapElement);
 }
 
 void
-UpdatableParameterBoolean::updateParameters(std::shared_ptr<ParametersSet>& parametersSet) {
+UpdatableBoolean::updateParameters(std::shared_ptr<ParametersSet>& parametersSet) {
   const std::shared_ptr<Parameter> param = parametersSet->getParameter("external_input");
   if (param->getType() == Parameter::ParameterType::BOOL) {
     inputValue_ = param->getBool();
     updated_ = true;
-    Trace::debug() << "UpdatableParameterBoolean: updated value : " << inputValue_ << Trace::endline;
+    Trace::debug() << "UpdatableBoolean: updated value : " << inputValue_ << Trace::endline;
   } else {
     throw DYNError(Error::MODELER, ParameterBadType, param->getName());
   }
 }
 
 void
-UpdatableParameterBoolean::updateParameter(const std::string& name, double value)  {
+UpdatableBoolean::updateParameter(const std::string& name, double value)  {
   if (!name.compare("external_input")) {
     inputValue_ = value;
     updated_ = true;
-    Trace::debug() << "UpdatableParameterBoolean: updated value : " << inputValue_ << Trace::endline;
+    Trace::debug() << "UpdatableBoolean: updated value : " << inputValue_ << Trace::endline;
   } else {
     throw DYNError(Error::MODELER, ParameterNotDefined, name);
   }

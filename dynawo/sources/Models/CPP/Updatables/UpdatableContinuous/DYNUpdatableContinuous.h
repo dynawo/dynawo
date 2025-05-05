@@ -12,7 +12,7 @@
 //
 
 /**
- * @file  DYNUpdatableParameterContinuous.h
+ * @file  DYNUpdatableContinuous.h
  *
  * @brief Continuous updatable parameter header
  *
@@ -29,38 +29,38 @@
 namespace DYN {
 class DataInterface;
 /**
-* @brief UpdatableParameterContinuous factory
+* @brief UpdatableContinuous factory
 *
-* Implementation of @p SubModelFactory template for UpdatableParameterContinuous model
+* Implementation of @p SubModelFactory template for UpdatableContinuous model
 */
-class UpdatableParameterContinuousFactory : public SubModelFactory {
+class UpdatableContinuousFactory : public SubModelFactory {
  public:
   /**
   * @brief default constructor
   *
   */
-  UpdatableParameterContinuousFactory() { }
+  UpdatableContinuousFactory() { }
   /**
   * @brief default destructor
   *
   */
-  virtual ~UpdatableParameterContinuousFactory() = default;
+  virtual ~UpdatableContinuousFactory() = default;
   /**
-  * @brief UpdatableParameterContinuous getter
+  * @brief UpdatableContinuous getter
   *
-  * @return A pointer to a new instance of UpdatableParameterContinuous
+  * @return A pointer to a new instance of UpdatableContinuous
   */
   SubModel* create() const;
   /**
-  * @brief UpdatableParameterContinuous destroy
+  * @brief UpdatableContinuous destroy
   */
   void destroy(SubModel*) const;
 };
 
 /**
- * class UpdatableParameterContinuous
+ * class UpdatableContinuous
  */
-class UpdatableParameterContinuous : public ModelCPP {
+class UpdatableContinuous : public ModelCPP {
  public:
    /**
     * @brief define type of calculated variables
@@ -73,25 +73,25 @@ class UpdatableParameterContinuous : public ModelCPP {
   /**
    * @brief Default constructor
    *
-   * Creates a new UpdatableParameterContinuous instance.
+   * Creates a new UpdatableContinuous instance.
    */
-  UpdatableParameterContinuous();
+  UpdatableContinuous();
   // instantiate virtual methods of the Model class
   /**
-   * @brief  UpdatableParameterContinuous model initialization routine
+   * @brief  UpdatableContinuous model initialization routine
    * @param t0 : initial time of the simulation
    */
   void init(const double t0) override;
   /**
-   * @brief  UpdatableParameterContinuous model's sizes getter
+   * @brief  UpdatableContinuous model's sizes getter
    *
    * Get the sizes of the vectors and matrixs used by the solver to simulate
-   * Model UpdatableParameterContinuous instance. Used by @p ModelMulti to generate right size matrixs
+   * Model UpdatableContinuous instance. Used by @p ModelMulti to generate right size matrixs
    * and vector for the solver.
    */
   void getSize() override;
   /**
-   * @brief  UpdatableParameterContinuous F(t,y,y') function evaluation
+   * @brief  UpdatableContinuous F(t,y,y') function evaluation
    *
    * Get the residues' values at a certain instant time with given state variables,
    * state variables derivatives
@@ -100,14 +100,14 @@ class UpdatableParameterContinuous : public ModelCPP {
    */
   void evalF(double t, propertyF_t type) override;
   /**
-   * @brief  UpdatableParameterContinuous G(t,y,y') function evaluation
+   * @brief  UpdatableContinuous G(t,y,y') function evaluation
    *
    * Get the roots' value
    * @param[in] t Simulation instant
    */
   void evalG(const double t) override;
   /**
-   * @brief  UpdatableParameterContinuous discrete variables evaluation
+   * @brief  UpdatableContinuous discrete variables evaluation
    *
    * Get the discrete variables' value depending on current simulation instant and
    * current state variables values.
@@ -127,7 +127,7 @@ class UpdatableParameterContinuous : public ModelCPP {
    */
   void evalCalculatedVars() override;
   /**
-   * @brief  UpdatableParameterContinuous transposed jacobian evaluation
+   * @brief  UpdatableContinuous transposed jacobian evaluation
    *
    * Get the sparse transposed jacobian
    * @param[in] t Simulation instant
@@ -188,13 +188,13 @@ class UpdatableParameterContinuous : public ModelCPP {
    */
   double evalCalculatedVarI(unsigned iCalculatedVar) const override;
   /**
-   * @brief  UpdatableParameterContinuous parameters setter
+   * @brief  UpdatableContinuous parameters setter
    */
   void setSubModelParameters() override;
   /**
-   * @brief  UpdatableParameterContinuous elements initializer
+   * @brief  UpdatableContinuous elements initializer
    *
-   * Define  UpdatableParameterContinuous elements (connection variables for output and other models).
+   * Define  UpdatableContinuous elements (connection variables for output and other models).
    * @param[out] elements Reference to elements' vector
    * @param[out] mapElement Map associating each element index in the elements vector to its name
    */

@@ -11,13 +11,13 @@
 //
 
 #include <string>
-#include "DYNUpdatableParameterDiscrete.h"
+#include "DYNUpdatableInteger.h"
 
 namespace DYN
 {
 
 std::string
-UpdatableParameterDiscrete::getCheckSum() const
+UpdatableInteger::getCheckSum() const
 {
   return _CHECKSUM_;
 }

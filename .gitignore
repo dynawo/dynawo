@@ -21,10 +21,10 @@ dynawo/sources/Models/CPP/Controls/Voltage/ModelVoltageMeasurementsUtilities/DYN
 dynawo/sources/Models/CPP/Events/ModelVariationArea/DYNModelVariationArea.hpp
 dynawo/sources/Models/CPP/Events/ModelAreaShedding/DYNModelAreaShedding.hpp
 dynawo/sources/Models/CPP/Events/ModelVoltageSetPointChange/DYNModelVoltageSetPointChange.hpp
-dynawo/sources/Models/CPP/UpdatableParameter/UpdatableParameterContinuous/DYNUpdatableParameterContinuous.hpp
-dynawo/sources/Models/CPP/UpdatableParameter/UpdatableParameterDiscrete/DYNUpdatableParameterDiscrete.hpp
-dynawo/sources/Models/CPP/UpdatableParameter/UpdatableParameterBoolean/DYNUpdatableParameterBoolean.hpp
-dynawo/sources/Models/CPP/UpdatableParameter/UpdatableParameterInteger/DYNUpdatableParameterInteger.hpp
+dynawo/sources/Models/CPP/Updatables/UpdatableContinuous/DYNUpdatableContinuous.hpp
+dynawo/sources/Models/CPP/Updatables/UpdatableDiscrete/DYNUpdatableDiscrete.hpp
+dynawo/sources/Models/CPP/Updatables/UpdatableBoolean/DYNUpdatableBoolean.hpp
+dynawo/sources/Models/CPP/Updatables/UpdatableInteger/DYNUpdatableInteger.hpp
 nrt/output/
 nbproject/*
 util/nrt_diff/output/
