@@ -19,6 +19,7 @@ file(GLOB Basics SetPoint.xml Step.xml DoubleStep.xml)
 file(GLOB Bus Bus.xml)
 file(GLOB Events Event*.xml)
 file(GLOB Generators Generator*.xml)
+file(GLOB SynchronousGenerators GeneratorSynchronous*.xml)
 file(GLOB GridForming GridForming*.xml)
 file(GLOB Hvdcs Hvdc*.xml *HVDC*.xml)
 file(GLOB InfiniteBus InfiniteBus*.xml)
@@ -40,6 +41,14 @@ add_custom_target(GENERATOR_MODELS)
 foreach(generator IN LISTS Generators)
   get_filename_component(name ${generator} NAME_WE)
   add_dependencies(GENERATOR_MODELS ${name})
+endforeach()
+
+## Synchronous Generators
+add_custom_target(SYNCHRONOUS_GENERATOR_MODELS)
+
+foreach(generator IN LISTS SynchronousGenerators)
+  get_filename_component(name ${generator} NAME_WE)
+  add_dependencies(SYNCHRONOUS_GENERATOR_MODELS ${name})
 endforeach()
 
 ## Loads
