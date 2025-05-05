@@ -186,7 +186,7 @@ UpdatableContinuous::defineVariables(vector<shared_ptr<Variable> >& variables) {
 
 void
 UpdatableContinuous::defineParameters(vector<ParameterModeler>& parameters) {
-  parameters.push_back(ParameterModeler("external_input", VAR_TYPE_DOUBLE, INTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("input_value", VAR_TYPE_DOUBLE, INTERNAL_PARAMETER));
 }
 
 void
@@ -202,7 +202,7 @@ UpdatableContinuous::defineElements(std::vector<Element> &elements, std::map<std
 
 void
 UpdatableContinuous::updateParameters(std::shared_ptr<ParametersSet>& parametersSet) {
-  const std::shared_ptr<Parameter> param = parametersSet->getParameter("external_input");
+  const std::shared_ptr<Parameter> param = parametersSet->getParameter("input_value");
   if (param->getType() == Parameter::ParameterType::DOUBLE) {
     inputValue_ = param->getDouble();
     updated_ = true;
@@ -214,7 +214,7 @@ UpdatableContinuous::updateParameters(std::shared_ptr<ParametersSet>& parameters
 
 void
 UpdatableContinuous::updateParameter(const std::string& name, double value)  {
-  if (!name.compare("external_input")) {
+  if (!name.compare("input_value")) {
     inputValue_ = value;
     updated_ = true;
     Trace::debug() << "UpdatableContinuous: updated value : " << inputValue_ << Trace::endline;

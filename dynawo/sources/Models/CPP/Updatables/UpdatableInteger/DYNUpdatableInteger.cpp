@@ -186,7 +186,7 @@ UpdatableInteger::defineVariables(vector<shared_ptr<Variable> >& variables) {
 
 void
 UpdatableInteger::defineParameters(vector<ParameterModeler>& parameters) {
-  parameters.push_back(ParameterModeler("external_input", VAR_TYPE_INT, INTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("input_value", VAR_TYPE_INT, INTERNAL_PARAMETER));
 }
 
 void
@@ -202,7 +202,7 @@ UpdatableInteger::defineElements(std::vector<Element> &elements, std::map<std::s
 
 void
 UpdatableInteger::updateParameters(std::shared_ptr<ParametersSet>& parametersSet) {
-  const std::shared_ptr<Parameter> param = parametersSet->getParameter("external_input");
+  const std::shared_ptr<Parameter> param = parametersSet->getParameter("input_value");
   if (param->getType() == Parameter::ParameterType::INT) {
     inputValue_ = param->getInt();
     updated_ = true;
@@ -214,7 +214,7 @@ UpdatableInteger::updateParameters(std::shared_ptr<ParametersSet>& parametersSet
 
 void
 UpdatableInteger::updateParameter(const std::string& name, double value)  {
-  if (!name.compare("external_input")) {
+  if (!name.compare("input_value")) {
     inputValue_ = value;
     updated_ = true;
     Trace::debug() << "UpdatableInteger: updated value : " << inputValue_ << Trace::endline;

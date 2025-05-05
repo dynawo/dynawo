@@ -186,7 +186,7 @@ UpdatableDiscrete::defineVariables(vector<shared_ptr<Variable> >& variables) {
 
 void
 UpdatableDiscrete::defineParameters(vector<ParameterModeler>& parameters) {
-  parameters.push_back(ParameterModeler("external_input", VAR_TYPE_DOUBLE, INTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("input_value", VAR_TYPE_DOUBLE, INTERNAL_PARAMETER));
 }
 
 void
@@ -202,7 +202,7 @@ UpdatableDiscrete::defineElements(std::vector<Element> &elements, std::map<std::
 
 void
 UpdatableDiscrete::updateParameters(std::shared_ptr<ParametersSet>& parametersSet) {
-  const std::shared_ptr<Parameter> param = parametersSet->getParameter("external_input");
+  const std::shared_ptr<Parameter> param = parametersSet->getParameter("input_value");
   if (param->getType() == Parameter::ParameterType::INT) {
     inputValue_ = param->getInt();
     updated_ = true;
@@ -222,7 +222,7 @@ UpdatableDiscrete::updateParameters(std::shared_ptr<ParametersSet>& parametersSe
 
 void
 UpdatableDiscrete::updateParameter(const std::string& name, double value)  {
-  if (!name.compare("external_input")) {
+  if (!name.compare("input_value")) {
     inputValue_ = value;
     updated_ = true;
     Trace::debug() << "UpdatableDiscrete --> updated value : " << inputValue_ << Trace::endline;

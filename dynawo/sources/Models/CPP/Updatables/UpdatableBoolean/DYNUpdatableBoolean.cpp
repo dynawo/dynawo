@@ -186,7 +186,7 @@ UpdatableBoolean::defineVariables(vector<shared_ptr<Variable> >& variables) {
 
 void
 UpdatableBoolean::defineParameters(vector<ParameterModeler>& parameters) {
-  parameters.push_back(ParameterModeler("external_input", VAR_TYPE_BOOL, INTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("input_value", VAR_TYPE_BOOL, INTERNAL_PARAMETER));
 }
 
 void
@@ -202,7 +202,7 @@ UpdatableBoolean::defineElements(std::vector<Element> &elements, std::map<std::s
 
 void
 UpdatableBoolean::updateParameters(std::shared_ptr<ParametersSet>& parametersSet) {
-  const std::shared_ptr<Parameter> param = parametersSet->getParameter("external_input");
+  const std::shared_ptr<Parameter> param = parametersSet->getParameter("input_value");
   if (param->getType() == Parameter::ParameterType::BOOL) {
     inputValue_ = fromNativeBool(param->getBool());
     updated_ = true;
@@ -214,7 +214,7 @@ UpdatableBoolean::updateParameters(std::shared_ptr<ParametersSet>& parametersSet
 
 void
 UpdatableBoolean::updateParameter(const std::string& name, double value)  {
-  if (!name.compare("external_input")) {
+  if (!name.compare("input_value")) {
     inputValue_ = value;
     updated_ = true;
     Trace::debug() << "UpdatableBoolean: updated value : " << inputValue_ << Trace::endline;

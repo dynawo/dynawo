@@ -798,7 +798,7 @@ ConnectorContainer::initYUpdatableValues() {
         if (it != itInput) {
           double sign = it->negated_ ? -1 : 1;
           double value = yLocal_[it->subModel()->getVariableIndexGlobal(it->variable())];
-          itInput->subModel()->updateParameter("external_input", sign * value);
+          itInput->subModel()->updateParameter("input_value", sign * value);
         }
       }
     }
@@ -846,7 +846,7 @@ ConnectorContainer::initZUpdatableValues() {
       if (it != itInput) {
         double sign = it->negated_ ? -1 : 1;
         double value = zLocal_[it->subModel()->getVariableIndexGlobal(it->variable())];
-        itInput->subModel()->updateParameter("external_input", sign * value);
+        itInput->subModel()->updateParameter("input_value", sign * value);
       }
     }
   }
