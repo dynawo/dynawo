@@ -9,6 +9,13 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 
+function(add_dependencies_if_exists DEPENDENCY_TARGET_NAME TARGET_NAME)
+  if(TARGET ${TARGET_NAME})
+    add_dependencies(${DEPENDENCY_TARGET_NAME} ${TARGET_NAME})
+  else()
+    message(STATUS "Target '${TARGET_NAME}' does not exist. Skipping dependencies.")
+  endif()
+endfunction()
 
 # Define utility targets
 
@@ -40,7 +47,7 @@ add_custom_target(GENERATOR_MODELS)
 
 foreach(generator IN LISTS Generators)
   get_filename_component(name ${generator} NAME_WE)
-  add_dependencies(GENERATOR_MODELS ${name})
+  add_dependencies_if_exists(GENERATOR_MODELS ${name})
 endforeach()
 
 ## Synchronous Generators
@@ -48,7 +55,7 @@ add_custom_target(SYNCHRONOUS_GENERATOR_MODELS)
 
 foreach(generator IN LISTS SynchronousGenerators)
   get_filename_component(name ${generator} NAME_WE)
-  add_dependencies(SYNCHRONOUS_GENERATOR_MODELS ${name})
+  add_dependencies_if_exists(SYNCHRONOUS_GENERATOR_MODELS ${name})
 endforeach()
 
 ## Loads
@@ -56,7 +63,7 @@ add_custom_target(LOAD_MODELS)
 
 foreach(load IN LISTS Loads)
   get_filename_component(name ${load} NAME_WE)
-  add_dependencies(LOAD_MODELS ${name})
+  add_dependencies_if_exists(LOAD_MODELS ${name})
 endforeach()
 
 ## IEC
@@ -64,16 +71,16 @@ add_custom_target(IEC_MODELS)
 
 foreach(iec IN LISTS IEC)
   get_filename_component(name ${iec} NAME_WE)
-  add_dependencies(IEC_MODELS ${name})
+  add_dependencies_if_exists(IEC_MODELS ${name})
 endforeach()
 
 ## SMIB
 
 add_custom_target(SMIB_MODELS)
-add_dependencies(SMIB_MODELS InfiniteBus Bus Line TransformerFixedRatio SetPoint NodeFault EventSetPointBoolean Step LoadAlphaBeta)
+add_dependencies_if_exists(SMIB_MODELS InfiniteBus Bus Line TransformerFixedRatio SetPoint NodeFault EventSetPointBoolean Step LoadAlphaBeta)
 
 add_custom_target(SMIB_MODELS_GENERATORS)
-add_dependencies(SMIB_MODELS_GENERATORS GeneratorSynchronousFourWindingsProportionalRegulations GeneratorSynchronousThreeWindingsGoverNordicVRNordic GeneratorSynchronousFourWindingsPmConstVRNordic GeneratorSynchronousThreeWindingsPmConstVRNordic GeneratorSynchronousFourWindingsGovSteam1St4b GeneratorSynchronousFourWindingsGovSteam1St4bPss2b)
+add_dependencies_if_exists(SMIB_MODELS_GENERATORS GeneratorSynchronousFourWindingsProportionalRegulations GeneratorSynchronousThreeWindingsGoverNordicVRNordic GeneratorSynchronousFourWindingsPmConstVRNordic GeneratorSynchronousThreeWindingsPmConstVRNordic GeneratorSynchronousFourWindingsGovSteam1St4b GeneratorSynchronousFourWindingsGovSteam1St4bPss2b)
 
 ## DYNAFLOW
 
@@ -86,7 +93,7 @@ file(GLOB DynaFlowSVarc StaticVarCompensatorPV*.xml)
 add_custom_target(DYNAFLOW_MODELS)
 foreach(item IN LISTS Basics DynaFlowAutomatons DynaFlowGenerators DynaFlowHvdc DynaFlowLoads DynaFlowSVarc Events InfiniteBus Line PhaseShifters Shunts SecondaryControl)
   get_filename_component(name ${item} NAME_WE)
-  add_dependencies(DYNAFLOW_MODELS ${name})
+  add_dependencies_if_exists(DYNAFLOW_MODELS ${name})
 endforeach()
 
 ## DYNASWING
@@ -97,28 +104,28 @@ file(GLOB DynaSwingSVarC StaticVarCompensator.xml StaticVarCompensatorStepURef.x
 add_custom_target(DYNASWING_MODELS)
 foreach(item IN LISTS Basics Bus DynaSwingGenerators Events Fault Line Loads GridForming DynaSwingHvdcs InfiniteBus DynaSwingSVarC Renewable Transformer)
   get_filename_component(name ${item} NAME_WE)
-  add_dependencies(DYNASWING_MODELS ${name})
+  add_dependencies_if_exists(DYNASWING_MODELS ${name})
 endforeach()
 
 ## DynaWaltz
 add_custom_target(DYNAWALTZ_MODELS)
 file(STRINGS "DynaWaltzModels.txt" DYNAWALTZ_MODELS_LIST)
 foreach(dynawaltz_model IN LISTS DYNAWALTZ_MODELS_LIST)
-  add_dependencies(DYNAWALTZ_MODELS ${dynawaltz_model})
+  add_dependencies_if_exists(DYNAWALTZ_MODELS ${dynawaltz_model})
 endforeach()
 
 ## Nrt models
 add_custom_target(NRT_MODELS)
 file(STRINGS "NrtModels.txt" NRT_MODELS_LIST)
 foreach(nrt_model IN LISTS NRT_MODELS_LIST)
-  #add_dependencies(NRT_MODELS ${nrt_model})
+  #add_dependencies_if_exists(NRT_MODELS ${nrt_model})
 endforeach()
 
 ## Nrt-extend models
 add_custom_target(NRT_EXTEND_MODELS)
 file(STRINGS "NrtExtendModels.txt" NRT_EXTEND_MODELS_LIST)
 foreach(nrt_extend_model IN LISTS NRT_EXTEND_MODELS_LIST)
-  #add_dependencies(NRT_EXTEND_MODELS ${nrt_extend_model})
+  #add_dependencies_if_exists(NRT_EXTEND_MODELS ${nrt_extend_model})
 endforeach()
 
 ## Nrt dynawo-algorithms
