@@ -204,7 +204,7 @@ void
 UpdatableBoolean::updateParameters(std::shared_ptr<ParametersSet>& parametersSet) {
   const std::shared_ptr<Parameter> param = parametersSet->getParameter("external_input");
   if (param->getType() == Parameter::ParameterType::BOOL) {
-    inputValue_ = param->getBool();
+    inputValue_ = fromNativeBool(param->getBool());
     updated_ = true;
     Trace::debug() << "UpdatableBoolean: updated value : " << inputValue_ << Trace::endline;
   } else {
