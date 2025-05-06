@@ -37,7 +37,7 @@ class ModelLoad : public NetworkComponent {
    * @brief default constructor
    * @param load : load data interface used to build the model
    */
-  explicit ModelLoad(const std::shared_ptr<LoadInterface>& load);
+  explicit ModelLoad(const boost::shared_ptr<LoadInterface>& load);
 
   /**
    * @brief  calculated variables type
@@ -45,6 +45,7 @@ class ModelLoad : public NetworkComponent {
   typedef enum {
     pNum_ = 0,
     qNum_ = 1,
+    p0Num_ = 6,
     pcNum_ = 2,
     qcNum_ = 3,
     loadStateNum_ = 4,
@@ -64,7 +65,7 @@ class ModelLoad : public NetworkComponent {
    *
    * @param model model of the bus
    */
-  void setModelBus(const std::shared_ptr<ModelBus>& model) {
+  void setModelBus(const boost::shared_ptr<ModelBus>& model) {
     modelBus_ = model;
   }
 
@@ -73,25 +74,25 @@ class ModelLoad : public NetworkComponent {
    *
    * @return model of the bus
    */
-  const std::shared_ptr<ModelBus>& getModelBus() const {
+  const boost::shared_ptr<ModelBus>& getModelBus() const {
     return modelBus_;
   }
 
   /**
    * @brief evaluate node injection
    */
-  void evalNodeInjection() override;
+  void evalNodeInjection();
 
   /**
    * @brief evaluate derivatives
    * @param cj Jacobian prime coefficient
    */
-  void evalDerivatives(const double cj) override;
+  void evalDerivatives(const double cj);
 
   /**
    * @brief evaluate derivatives prim
    */
-  void evalDerivativesPrim() override { /* not needed */ }
+  void evalDerivativesPrim() { /* not needed */ }
 
   /**
    * @brief define variables
@@ -103,7 +104,7 @@ class ModelLoad : public NetworkComponent {
    * @brief instantiate variables
    * @param variables variables
    */
-  void instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables) override;
+  void instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables);
 
   /**
    * @brief define parameters
@@ -115,43 +116,43 @@ class ModelLoad : public NetworkComponent {
    * @brief define non generic parameters
    * @param parameters vector to fill with the non generic parameters
    */
-  void defineNonGenericParameters(std::vector<ParameterModeler>& parameters) override;
+  void defineNonGenericParameters(std::vector<ParameterModeler>& parameters);
 
   /**
    * @brief define elements
    * @param elements vector of elements
    * @param mapElement map of elements
    */
-  void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) override;
+  void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement);
 
   /**
    * @brief evaluation F
    * @param[in] type type of the residues to compute (algebraic, differential or both)
    */
-  void evalF(propertyF_t type) override;
+  void evalF(propertyF_t type);
 
   /**
    * @copydoc NetworkComponent::evalZ()
    */
-  NetworkComponent::StateChange_t evalZ(const double& t) override;
+  NetworkComponent::StateChange_t evalZ(const double& t);
 
   /**
    * @brief evaluation G
    * @param t time
    */
-  void evalG(const double& t) override;
+  void evalG(const double& t);
 
   /**
    * @brief evaluation calculated variables (for outputs)
    */
-  void evalCalculatedVars() override;
+  void evalCalculatedVars();
 
   /**
    * @brief get the index of variables used to define the jacobian associated to a calculated variable
    * @param numCalculatedVar index of the calculated variable
    * @param numVars index of variables used to define the jacobian associated to a calculated variable
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const override;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable
@@ -159,7 +160,7 @@ class ModelLoad : public NetworkComponent {
    * @param numCalculatedVar index of the calculated variable
    * @param res values of the jacobian
    */
-  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const override;
+  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const;
 
   /**
    * @brief evaluate the value of a calculated variable
@@ -168,79 +169,79 @@ class ModelLoad : public NetworkComponent {
    *
    * @return value of the calculated variable
    */
-  double evalCalculatedVarI(unsigned numCalculatedVar) const override;
+  double evalCalculatedVarI(unsigned numCalculatedVar) const;
 
   /**
    * @copydoc NetworkComponent::evalStaticYType()
    */
-  void evalStaticYType() override;
+  void evalStaticYType();
 
   /**
    * @copydoc NetworkComponent::evalDynamicYType()
    */
-  void evalDynamicYType() override { /* not needed */ }
+  void evalDynamicYType() { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::evalStaticFType()
    */
-  void evalStaticFType() override;
+  void evalStaticFType();
 
   /**
    * @copydoc NetworkComponent::evalDynamicFType()
    */
-  void evalDynamicFType() override { /* not needed */ }
+  void evalDynamicFType() { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::collectSilentZ()
    */
-  void collectSilentZ(BitMask* silentZTable) override;
+  void collectSilentZ(BitMask* silentZTable);
 
   /**
    * @copydoc NetworkComponent::evalYMat()
    */
-  void evalYMat() override { /* not needed*/ }
+  void evalYMat() { /* not needed*/ }
 
   /**
    * @copydoc NetworkComponent::init(int& yNum)
    */
-  void init(int & yNum) override;
+  void init(int & yNum);
 
   /**
    * @copydoc NetworkComponent::getY0()
    */
-  void getY0() override;
+  void getY0();
 
   /**
    * @copydoc NetworkComponent::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params)
    */
-  void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params) override;
+  void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params);
 
   /**
    * @copydoc NetworkComponent::setFequations( std::map<int,std::string>& fEquationIndex )
    */
-  void setFequations(std::map<int, std::string>& fEquationIndex) override;
+  void setFequations(std::map<int, std::string>& fEquationIndex);
 
   /**
    * @copydoc NetworkComponent::setGequations( std::map<int,std::string>& gEquationIndex )
    */
-  void setGequations(std::map<int, std::string>& gEquationIndex) override;
+  void setGequations(std::map<int, std::string>& gEquationIndex);
 
   /**
    * @brief evaluate state
    * @param time time
    * @return state change type
    */
-  NetworkComponent::StateChange_t evalState(const double& time) override;
+  NetworkComponent::StateChange_t evalState(const double& time);
 
   /**
    * @brief addBusNeighbors
    */
-  void addBusNeighbors() override { /* not needed */ }
+  void addBusNeighbors() { /* not needed */ }
 
   /**
    * @brief init size
    */
-  void initSize() override;
+  void initSize();
 
   /**
    * @brief evaluate jacobien \f$( J = @F/@x + cj * @F/@x')\f$
@@ -248,7 +249,7 @@ class ModelLoad : public NetworkComponent {
    * @param cj jacobian prime coefficient
    * @param rowOffset row offset to use to find the first row to fill
    */
-  void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) override;
+  void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset);
 
   /**
    * @brief  evaluate jacobien \f$( J =  @F/@x')\f$
@@ -256,7 +257,7 @@ class ModelLoad : public NetworkComponent {
    * @param jt sparse matrix to fill
    * @param rowOffset row offset to use to find the first row to fill
    */
-  void evalJtPrim(SparseMatrix& jt, const int& rowOffset) override;
+  void evalJtPrim(SparseMatrix& jt, const int& rowOffset);
 
   /**
    * @brief get the connection status of the load
@@ -365,6 +366,11 @@ class ModelLoad : public NetworkComponent {
    * @return value
    */
   double deltaPc() const;
+  /**
+   * @brief compute value
+   * @return value
+   */
+  double P0Input() const;
   /**
    * @brief compute the current real and imaginary values
    * @param ur real part of the voltage
@@ -487,8 +493,8 @@ class ModelLoad : public NetworkComponent {
   }
 
  private:
-  std::weak_ptr<LoadInterface> load_;  ///< reference to the load interface object
-  std::shared_ptr<ModelBus> modelBus_;  ///< model bus
+  boost::weak_ptr<LoadInterface> load_;  ///< reference to the load interface object
+  boost::shared_ptr<ModelBus> modelBus_;  ///< model bus
   State connectionState_;  ///< "internal" load connection status, evaluated at the end of evalZ to detect if the state was modified by another component
   bool stateModified_;  ///< true if the load connection state was modified
   double kp_;  ///< gain kp
@@ -505,6 +511,7 @@ class ModelLoad : public NetworkComponent {
   bool isPControllable_;  ///< whether the load can be controlled on P
   bool isQControllable_;  ///< whether the load can be controlled on Q
   bool isControllable_;  ///< whether the load can be controlled
+  bool isP0Controllable_; ///< whether P0 can be controlled or only the initial value of P0 can be used
   double Tp_;  ///< time constant Tp
   bool TpIsZero_;  ///< true if Tp == 0
   double Tq_;  ///< time constant Tq
@@ -518,6 +525,7 @@ class ModelLoad : public NetworkComponent {
   // Variables
   double DeltaPc0_;  ///< delta pc0
   double DeltaQc0_;  ///< delta qc0
+  double P0Input0_; ///< P0Input0
   double zP0_;  ///< zP0
   double zQ0_;  ///< zQ0
   double zPprim0_;  ///< zPprim0
@@ -525,6 +533,7 @@ class ModelLoad : public NetworkComponent {
   unsigned int yOffset_;  ///< global Y offset at the beginning of the load model
   unsigned int DeltaPcYNum_;  ///< local Y index for DeltaPc
   unsigned int DeltaQcYNum_;  ///< local Y index for DeltaQc
+  unsigned int P0InputYNum_;  ///< local Y index for P0Input
   unsigned int zPYNum_;  ///< local Y index for zP
   unsigned int zQYNum_;  ///< local Y index for zQ
   startingPointMode_t startingPointMode_;  ///< type of starting point for the model (FLAT,WARM)

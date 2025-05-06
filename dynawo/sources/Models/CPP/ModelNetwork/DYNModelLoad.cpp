@@ -38,6 +38,7 @@
 #include "DYNModelVoltageLevel.h"
 
 
+using std::map;
 using std::string;
 using std::vector;
 
@@ -48,7 +49,7 @@ using parameters::ParametersSet;
 
 namespace DYN {
 
-ModelLoad::ModelLoad(const std::shared_ptr<LoadInterface>& load) :
+ModelLoad::ModelLoad(const shared_ptr<LoadInterface>& load) :
 NetworkComponent(load->getID()),
 load_(load),
 stateModified_(false),
@@ -60,6 +61,7 @@ isRestorative_(false),
 isPControllable_(false),
 isQControllable_(false),
 isControllable_(false),
+isP0Controllable_(false),
 Tp_(0.),
 TpIsZero_(true),
 Tq_(0.),
@@ -71,6 +73,7 @@ betaLong_(0.),
 u0_(0.),
 DeltaPc0_(0),
 DeltaQc0_(0),
+P0Input0_(0),
 zP0_(1),
 zQ0_(1),
 zPprim0_(0),
@@ -78,6 +81,7 @@ zQprim0_(0),
 yOffset_(0),
 DeltaPcYNum_(0),
 DeltaQcYNum_(0),
+P0InputYNum_(0),
 zPYNum_(0),
 zQYNum_(0),
 startingPointMode_(WARM) {
@@ -105,6 +109,8 @@ ModelLoad::initSize() {
       sizeY_ += 1;  // DeltaQc
     if (isRestorative_)
       sizeY_ += 2;  // zP and zQ
+    if (isP0Controllable_)
+      sizeY_ += 1;  // P0input
 
     sizeZ_ = 1;
     sizeG_ = 0;
@@ -120,6 +126,10 @@ void ModelLoad::evalStaticYType() {
     ++yTypeIndex;
   }
   if (isQControllable_ || isControllable_) {
+    yType_[yTypeIndex] = EXTERNAL;  // DeltaQc
+    ++yTypeIndex;
+  }
+    if (isP0Controllable_) {
     yType_[yTypeIndex] = EXTERNAL;  // DeltaQc
     ++yTypeIndex;
   }
@@ -206,7 +216,7 @@ ModelLoad::setGequations(std::map<int, std::string>& /*gEquationIndex*/) {
 
 void
 ModelLoad::init(int& yNum) {
-  std::shared_ptr<LoadInterface> load = load_.lock();
+  shared_ptr<LoadInterface> load = load_.lock();
   double thetaNode = load->getBusInterface()->getAngle0();
   double unomNode = load->getBusInterface()->getVNom();
   switch (startingPointMode_) {
@@ -221,18 +231,16 @@ ModelLoad::init(int& yNum) {
     u0_ = load->getBusInterface()->getV0() / unomNode;
     break;
   }
+  double ur0 = u0_ * cos(thetaNode * DEG_TO_RAD);
+  double ui0 = u0_ * sin(thetaNode * DEG_TO_RAD);
+  ir0_ = (P0_ * ur0 + Q0_ * ui0) / (ur0 * ur0 + ui0 * ui0);
+  ii0_ = (P0_ * ui0 - Q0_ * ur0) / (ur0 * ur0 + ui0 * ui0);
   if (isConnected() && !doubleIsZero(u0_)) {
-    double ur0 = u0_ * cos(thetaNode * DEG_TO_RAD);
-    double ui0 = u0_ * sin(thetaNode * DEG_TO_RAD);
-    ir0_ = (P0_ * ur0 + Q0_ * ui0) / (ur0 * ur0 + ui0 * ui0);
-    ii0_ = (P0_ * ui0 - Q0_ * ur0) / (ur0 * ur0 + ui0 * ui0);
     kp_ = 1. / pow_dynawo(u0_, alpha_);
     kq_ = 1. / pow_dynawo(u0_, beta_);
   } else {
     kp_ = 0.;
     kq_ = 0.;
-    ir0_ = 0.;
-    ii0_ = 0.;
   }
   if (!network_->isInitModel()) {
     assert(yNum >= 0);
@@ -245,6 +253,10 @@ ModelLoad::init(int& yNum) {
     }
     if (isQControllable_ || isControllable_) {
       DeltaQcYNum_ = localIndex;
+      ++localIndex;
+    }
+    if (isP0Controllable_) {
+      P0InputYNum_ = localIndex;
       ++localIndex;
     }
 
@@ -359,7 +371,11 @@ ModelLoad::evalJtPrim(SparseMatrix& jt, const int& rowOffset) {
 
 double
 ModelLoad::P(const double& /*ur*/, const double& /*ui*/, const double& U) const {
-  return zP() * P0_ * (1. + deltaPc()) * pow_dynawo(U, alpha_) * kp_;
+  if (isP0Controllable_) {
+    return zP() * P0Input() * (1. + deltaPc()) * pow_dynawo(U, alpha_) * kp_;
+  } else {
+    return zP() * P0_ * (1. + deltaPc()) * pow_dynawo(U, alpha_) * kp_;
+  }
 }
 
 double
@@ -433,6 +449,16 @@ ModelLoad::deltaPc() const {
     return 0.;
   else
     return y_[DeltaPcYNum_];
+}
+
+double
+ModelLoad::P0Input() const {
+  if (network_->isInit())
+    return P0Input0_;
+  else if (!(isP0Controllable_))
+    return 0.;
+  else
+    return y_[P0InputYNum_];
 }
 
 void
@@ -545,6 +571,9 @@ ModelLoad::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
   if (isQControllable_ || isControllable_) {
     variables.push_back(VariableNativeFactory::createState(id_ + "_DeltaQc_value", CONTINUOUS));
   }
+  if (isP0Controllable_) {
+    variables.push_back(VariableNativeFactory::createState(id_ + "_P0Input_value", CONTINUOUS));
+  }
 
   if (isRestorative_) {
     variables.push_back(VariableNativeFactory::createState(id_ + "_zP_value", CONTINUOUS));
@@ -562,6 +591,7 @@ void
 ModelLoad::defineVariables(vector<shared_ptr<Variable> >& variables) {
   variables.push_back(VariableNativeFactory::createState("@ID@_DeltaPc_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState("@ID@_DeltaQc_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createState("@ID@_P0Input_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState("@ID@_zP_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState("@ID@_zQ_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_P_value", CONTINUOUS));
@@ -582,6 +612,9 @@ ModelLoad::defineElements(std::vector<Element>& elements, std::map<std::string, 
   }
   if (isQControllable_ || isControllable_) {
     addElementWithValue(loadName + string("_DeltaQc"), "Load", elements, mapElement);
+  }
+  if (isP0Controllable_) {
+    addElementWithValue(loadName + string("_P0Input"), "Load", elements, mapElement);
   }
   if (isRestorative_) {
     addElementWithValue(loadName + string("_zP"), "Load", elements, mapElement);
@@ -633,6 +666,10 @@ ModelLoad::getY0() {
       y_[index] = DeltaQc0_;
       ++index;
     }
+    if (isP0Controllable_) {
+      y_[index] = P0Input0_;
+      ++index;
+    }
 
     if (isRestorative_) {
       y_[index] = zP0_;
@@ -682,6 +719,13 @@ ModelLoad::setSubModelParameters(const std::unordered_map<std::string, Parameter
           isQControllable_ = getParameterDynamic<bool>(params, "isQControllable", ids);
       }
     }
+    for (const string& id : ids) {
+      if (hasParameter(id + "_isP0Controllable", params)) {
+        const ParameterModeler& isP0Controllable = findParameter(id + "_isP0Controllable", params);
+        if (isP0Controllable.hasValue())
+          isP0Controllable_ = getParameterDynamic<bool>(params, "isP0Controllable", ids);
+      }
+    }
     isControllable_ = getParameterDynamic<bool>(params, "isControllable", ids);
     if (isRestorative_) {
       Tp_ = getParameterDynamic<double>(params, "Tp", ids);
@@ -708,6 +752,7 @@ ModelLoad::defineParameters(vector<ParameterModeler>& parameters) {
   parameters.push_back(ParameterModeler("load_isPControllable", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler("load_isQControllable", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler("load_isControllable", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("load_isP0Controllable", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler("load_Tp", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler("load_Tq", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler("load_zPMax", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
@@ -725,6 +770,7 @@ ModelLoad::defineNonGenericParameters(vector<ParameterModeler>& parameters) {
   parameters.push_back(ParameterModeler(id_ + "_isPControllable", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler(id_ + "_isQControllable", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler(id_ + "_isControllable", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler(id_ + "_isP0Controllable", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler(id_ + "_Tp", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler(id_ + "_Tq", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler(id_ + "_zPMax", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
@@ -787,6 +833,16 @@ ModelLoad::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar,
         numVars.push_back(zQYNum_ + yOffset_);
     }
     break;
+    case p0Num_: {
+      numVars.push_back(modelBus_->urYNum());
+      numVars.push_back(modelBus_->uiYNum());
+      if (isP0Controllable_)
+        numVars.push_back(P0InputYNum_ + yOffset_);
+      if (isRestorative_)
+        numVars.push_back(zPYNum_ + yOffset_);
+        numVars.push_back(zQYNum_ + yOffset_);
+    }
+    break;
     case pcNum_: {
       if (isPControllable_ || isControllable_) {
         numVars.push_back(DeltaPcYNum_ + yOffset_);
@@ -814,9 +870,13 @@ ModelLoad::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) c
         double ur = modelBus_->ur();
         double ui = modelBus_->ui();
         double deltaPcVal = 0.;
+        double P0InputVal = 0.;
         double zPVal = 1.;
         if (isPControllable_ || isControllable_) {
           deltaPcVal = deltaPc();
+        }
+        if (isP0Controllable_) {
+          P0InputVal = P0Input();
         }
         if (isRestorative_) {
           zPVal = zP();
@@ -830,6 +890,10 @@ ModelLoad::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) c
         ++indexRes;
         if (isPControllable_ || isControllable_) {
           res[indexRes] = zPVal * P0_ * pow_dynawo(U, alpha_) * kp_;  // dP/d(deltaPc)
+          ++indexRes;
+        }
+        if (isP0Controllable_) {
+          res[indexRes] = zPVal * P0InputVal * pow_dynawo(U, alpha_) * kp_;  // dP/d(deltaPc)
           ++indexRes;
         }
         if (isRestorative_) {
@@ -923,7 +987,8 @@ ModelLoad::evalCalculatedVarI(unsigned numCalculatedVar) const {
     case pcNum_: {
       if (isRunning()) {
         double deltaPcVal = (isPControllable_ || isControllable_) ? deltaPc() : 0.;
-        output = P0_ * (1. + deltaPcVal) * kp_;
+        double P0InputVal = (isP0Controllable_) ? P0Input() : P0_;
+        output = P0InputVal * (1. + deltaPcVal) * kp_;
       }
     }
     break;
