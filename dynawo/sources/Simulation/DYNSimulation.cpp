@@ -631,7 +631,7 @@ Simulation::loadDynamicData() {
   if (criteriaCollection_)
     data_->configureCriteria(criteriaCollection_);
 
-  data_->importStaticParameters();  // Import static model's parameters' values into DataInterface, these values are useful for referece parameters.
+  data_->importStaticParameters();  // Import static model parameter values into DataInterface, these values are useful for referece parameters.
 
   data_->setTimeline(timeline_);
 
