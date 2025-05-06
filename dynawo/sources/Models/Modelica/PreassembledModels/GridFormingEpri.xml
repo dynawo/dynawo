@@ -13,6 +13,6 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:modelicaModel id="GridFormingEpri">
-    <dyn:unitDynamicModel id="gfm" name="Dynawo.Electrical.Controls.Converters.EpriGFM.EpriGFM" initName="Dynawo.Electrical.Controls.Converters.EpriGFM.EpriGFM_INIT"/>
+    <dyn:unitDynamicModel id="gfm" name="Dynawo.Electrical.PEIR.Converters.General.EPRI.EpriGFM" initName="Dynawo.Electrical.PEIR.Converters.General.EPRI.EpriGFM_INIT"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

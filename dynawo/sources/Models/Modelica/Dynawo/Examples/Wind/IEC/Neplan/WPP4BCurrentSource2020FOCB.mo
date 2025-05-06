@@ -16,7 +16,7 @@ model WPP4BCurrentSource2020FOCB "Wind Power Plant Type 4B model from IEC 61400-
   extends Icons.Example;
   extends Dynawo.Examples.Wind.IEC.Neplan.BaseClasses.BaseWindNeplan;
 
-  Dynawo.Electrical.Wind.IEC.WPP.WPP4BCurrentSource2020 wPP4BCurrentSource(
+  Dynawo.Electrical.PEIR.Plants.Wind.IEC.WPP.WPP4BCurrentSource2020 wPP4BCurrentSource(
     BesPu = 0,
     CdrtPu = 15,
     DPMaxP4BPu = 1,
@@ -169,7 +169,7 @@ model WPP4BCurrentSource2020FOCB "Wind Power Plant Type 4B model from IEC 61400-
     Placement(visible = true, transformation(origin = {-150, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initialization
-  Dynawo.Electrical.Wind.IEC.WPP.WPP4CurrentSource_INIT wPP4CurrentSource_INIT(
+  Dynawo.Electrical.PEIR.Plants.Wind.IEC.WPP.WPP4CurrentSource_INIT wPP4CurrentSource_INIT(
     BesPu = wPP4BCurrentSource.BesPu,
     GesPu = wPP4BCurrentSource.GesPu,
     IMaxPu = wPP4BCurrentSource.IMaxPu,
