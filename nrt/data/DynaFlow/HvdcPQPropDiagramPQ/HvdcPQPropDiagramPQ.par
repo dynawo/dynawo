@@ -105,16 +105,16 @@
     <par type="DOUBLE" name="acemulation_KACEmulation" value="250"/>
   </set>
   <set id="6">
-    <reference type="DOUBLE" name="vrremote_U0Pu" origData="IIDM" origName="Upu" componentId="_BUS____8_TN"/>
-    <reference type="DOUBLE" name="vrremote_URef0Pu" origData="IIDM" origName="Upu" componentId="_BUS____8_TN"/>
+    <reference type="DOUBLE" name="vrremote_U0" origData="IIDM" origName="v" componentId="HVDC1_CONV1"/>
+    <reference type="DOUBLE" name="vrremote_URef0" origData="IIDM" origName="v" componentId="HVDC1_CONV1"/>
     <par type="DOUBLE" name="vrremote_Gain" value="1"/>
-    <par type="DOUBLE" name="vrremote_tIntegral" value="0.01"/>
+    <par type="DOUBLE" name="vrremote_tIntegral" value="1"/>
   </set>
   <set id="7">
-    <reference type="DOUBLE" name="vrremote_U0Pu" origData="IIDM" origName="Upu" componentId="_BUS___10_TN"/>
-    <reference type="DOUBLE" name="vrremote_URef0Pu" origData="IIDM" origName="Upu" componentId="_BUS___10_TN"/>
+    <reference type="DOUBLE" name="vrremote_U0" origData="IIDM" origName="v" componentId="HVDC1_CONV2"/>
+    <reference type="DOUBLE" name="vrremote_URef0" origData="IIDM" origName="v" componentId="HVDC1_CONV2"/>
     <par type="DOUBLE" name="vrremote_Gain" value="1"/>
-    <par type="DOUBLE" name="vrremote_tIntegral" value="0.01"/>
+    <par type="DOUBLE" name="vrremote_tIntegral" value="1"/>
   </set>
   <set id="8">
     <par type="DOUBLE" name="capacitor_no_reclosing_delay" value="300"/>
