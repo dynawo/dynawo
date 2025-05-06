@@ -664,15 +664,15 @@ TEST(ModelsModelNetwork, ModelNetworkLoadJt) {
   smj.changeCol();
   smj.changeCol();
   ASSERT_EQ(smj.nbElem(), 6);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[0], 22.155644370746373);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[1], -153.29392144688848);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[2], -87.596526541079143);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[3],  8.4895038000592429);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[4],  5.2397892818982124);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[5],  2.9941653039418354);
-  ASSERT_EQ(smj.Ap_[0], 0);
-  ASSERT_EQ(smj.Ap_[1], 3);
-  ASSERT_EQ(smj.Ap_[2], 6);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAx()[0], 22.155644370746373);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAx()[1], -153.29392144688848);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAx()[2], -87.596526541079143);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAx()[3],  8.4895038000592429);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAx()[4],  5.2397892818982124);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAx()[5],  2.9941653039418354);
+  ASSERT_EQ(smj.getAp()[0], 0);
+  ASSERT_EQ(smj.getAp()[1], 3);
+  ASSERT_EQ(smj.getAp()[2], 6);
 
   load->getModelBus()->switchOff();
   SparseMatrix smj2;
@@ -681,20 +681,20 @@ TEST(ModelsModelNetwork, ModelNetworkLoadJt) {
   smj2.changeCol();
   smj2.changeCol();
   ASSERT_EQ(smj2.nbElem(), 2);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[0], 1.0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[1], 1.0);
-  ASSERT_EQ(smj2.Ap_[0], 0);
-  ASSERT_EQ(smj2.Ap_[1], 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.getAx()[0], 1.0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.getAx()[1], 1.0);
+  ASSERT_EQ(smj2.getAp()[0], 0);
+  ASSERT_EQ(smj2.getAp()[1], 1);
 
   load->getModelBus()->switchOn();
   SparseMatrix smjPrime;
   smjPrime.init(size, size);
   load->evalJtPrim(smjPrime, 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smjPrime.Ax_[0], 2);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smjPrime.Ax_[1], 4);
-  ASSERT_EQ(smjPrime.Ap_[0], 0);
-  ASSERT_EQ(smjPrime.Ap_[1], 1);
-  ASSERT_EQ(smjPrime.Ap_[2], 2);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smjPrime.getAx()[0], 2);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smjPrime.getAx()[1], 4);
+  ASSERT_EQ(smjPrime.getAp()[0], 0);
+  ASSERT_EQ(smjPrime.getAp()[1], 1);
+  ASSERT_EQ(smjPrime.getAp()[2], 2);
 
   powsybl::iidm::Network networkIIDM2("MyNetwork", "MyNetwork");
   std::shared_ptr<ModelLoad> loadInit = std::get<0>(createModelLoad(false, true, networkIIDM2));
