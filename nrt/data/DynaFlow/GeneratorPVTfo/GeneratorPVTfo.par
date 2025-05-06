@@ -224,8 +224,8 @@
     <par type="DOUBLE" name="infiniteBus_UPhase" value="0"/>
   </set>
   <set id="SignalNQ">
-    <par type="DOUBLE" name="vrremote_U0Pu" value="1.05"/>
-    <par type="DOUBLE" name="vrremote_URef0Pu" value="1.05"/>
+    <par type="DOUBLE" name="vrremote_U0" value="1.05"/>
+    <par type="DOUBLE" name="vrremote_URef0" value="1.05"/>
     <par type="DOUBLE" name="vrremote_Gain" value="1"/>
     <par type="DOUBLE" name="vrremote_tIntegral" value="0.01"/>
   </set>
