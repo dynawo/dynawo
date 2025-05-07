@@ -110,6 +110,7 @@
     <xs:attribute name="eventSubscriberTrigger" type="xs:boolean"/>
     <xs:attribute name="triggerSimulationTimeStepInS" type="xs:float"/>
     <xs:attribute name="publishToZmq" type="xs:boolean"/>
+    <xs:attribute name="publishToZmqCurvesFormat" type="xs:string"/>
     <xs:attribute name="publishToWebsocket" type="xs:boolean"/>
   </xs:complexType>
 

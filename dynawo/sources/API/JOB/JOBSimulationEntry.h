@@ -214,6 +214,22 @@ class SimulationEntry {
     publishToWebsocket_ = publishToWebsocket;
   }
 
+  /**
+   * @brief publishToZmqCurvesFormat getter
+   * @returns publishToZmqCurvesFormat
+   */
+  const std::string& getPublishToZmqCurvesFormat() const {
+    return publishToZmqCurvesFormat_;
+  }
+
+  /**
+   * @brief publishToZmqCurvesFormat setter
+   * @param publishToZmqCurvesFormat
+   */
+  void setPublishToZmqCurvesFormat(const std::string& publishToZmqCurvesFormat) {
+    publishToZmqCurvesFormat_ = publishToZmqCurvesFormat;
+  }
+
 
   /**
    * @brief publishToZmq getter
@@ -244,6 +260,7 @@ class SimulationEntry {
   bool eventSubscriberTrigger_;             ///< enable extrernal step trigger
   double triggerSimulationTimeStepInS_;     ///< simulation refresh rate (zmq enabled)
   bool publishToZmq_;                       ///< publish step resuts to ZMQ
+  std::string publishToZmqCurvesFormat_;    ///< format for courves to publish to ZMQ
   bool publishToWebsocket_;                 ///< publish curves update to Websocket
 };
 }  // namespace job

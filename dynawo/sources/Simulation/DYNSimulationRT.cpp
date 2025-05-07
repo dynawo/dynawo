@@ -284,7 +284,11 @@ SimulationRT::simulate() {
           Trace::info() << "data published to websocket" << Trace::endline;
         }
         if (stepPublisher_) {
-          curvesToCsv(formatedString);
+          if (!jobEntry_->getSimulationEntry()->getPublishToZmqCurvesFormat().compare("CSV")) {
+            curvesToCsv(formatedString);
+          } else if (!wsServer_) {
+            curvesToJson(formatedString);
+          }
           stepPublisher_->sendMessage(formatedString);
           Trace::info() << "data published to ZMQ" << Trace::endline;
         }

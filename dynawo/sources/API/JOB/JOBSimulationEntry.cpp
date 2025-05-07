@@ -35,6 +35,7 @@ eventSubscriberActions_(false),
 eventSubscriberTrigger_(false),
 triggerSimulationTimeStepInS_(1.),
 publishToZmq_(false),
+publishToZmqCurvesFormat_("JSON"),
 publishToWebsocket_(false)
 {}
 
