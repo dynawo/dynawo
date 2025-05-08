@@ -25,6 +25,7 @@
     <par type="DOUBLE" name="maxStep" value="10"/>
     <par type="DOUBLE" name="absAccuracy" value="1e-4"/>
     <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
+    <par type="STRING" name="minimumModeChangeTypeForAlgebraicRestoration" value="ALGEBRAIC_J_UPDATE"/>
   </set>
   <!--Network parameters-->
   <set id="1">
