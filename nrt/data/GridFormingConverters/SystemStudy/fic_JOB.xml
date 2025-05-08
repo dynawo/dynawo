@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- cvgVersion = 8.11.0 -->
+<!-- cvgVersionBuild = CVG_V_8_11_0 -->
+<!-- cvgInfoBuild = CVG_8.11.0_R11-0 (a6cb22f) -->
+<!-- cvgBranchBuild = refs/tags/CVG_8.11.0_R11 -->
+<!-- cvgBddDynaWaltz = VERSION SRC -->
+<!-- cvgAssemblingVersion = 8554363e -->
+<!-- cvgSettingVersion = af6020bc -->
+<!-- cvgDynawoVersion = Dynawo :            1.7.0 (rev:HEAD-a7ae9af), Dynawo algorithms : 1.7.0 (rev:HEAD-ab4f171), Dynawo-RTE :        1.7.0 (rev:HEAD-945bd34), Dynawo-interface :  1.7.0 (rev:HEAD-3f5744a) -->
+<!-- cvgStudy = Ete2030_GFM -->
+<!-- cvgIsStanway = false -->
+<!-- cvgUser = guironnetadr -->
+<!-- cvgOrigin = tree -->
+<!-- cvgCalculationType = simulation_TFIN -->
+<!-- cvgDate = 06/05/2025 17:24 -->
+<jobs xmlns="http://www.rte-france.com/dynawo">
+    <job name="Ete2030_GFM">
+        <solver lib="dynawo_SolverIDA" parFile="fic_PAR.xml" parId="IDA"/>
+        <modeler compileDir="outputs/compilation">
+            <network iidmFile="fic_IIDM.xml" parFile="fic_PAR.xml" parId="1"/>
+            <dynModels dydFile="fic_DYD.xml"/>
+            <precompiledModels useStandardModels="true"/>
+            <modelicaModels useStandardModels="true"/>
+        </modeler>
+        <simulation startTime="0" stopTime="100" precision="1.0E-4"/>
+        <outputs directory=".">
+            <constraints exportMode="XML"/>
+            <timeline exportMode="XML"/>
+            <timetable step="3"/>
+            <finalState exportIIDMFile="false" exportDumpFile="false"/>
+            <curves inputFile="fic_CRV.xml" exportMode="XML"/>
+            <logs>
+                <appender tag="" file="dynamo.log" lvlFilter="INFO"/>
+            </logs>
+        </outputs>
+    </job>
+</jobs>
