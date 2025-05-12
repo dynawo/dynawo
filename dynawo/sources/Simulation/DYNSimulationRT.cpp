@@ -31,6 +31,7 @@
 
 
 #include "TLTimelineFactory.h"
+#include "TLTimeline.h"
 
 #include "CRVCurvesCollectionFactory.h"
 #include "CRVCurveFactory.h"
@@ -69,6 +70,7 @@ using boost::dynamic_pointer_cast;
 namespace fs = boost::filesystem;
 
 using timeline::TimelineFactory;
+using timeline::Timeline;
 
 using curves::CurvesCollection;
 using curves::CurvesCollectionFactory;
@@ -162,6 +164,7 @@ SimulationRT::simulate() {
 
 
     double nextTToTrigger = tCurrent_ + triggerSimulationTimeStepInS_;  // Only used if (eventSubscriber_ && eventSubscriber_->triggerEnabled())
+    double lastTTimelineExport = -1;
 
     while (!end() && !SignalHandler::gotExitSignal() && criteriaChecked) {
       // option1: ZMQ --> wait for an empty message before simulating next time step
@@ -277,19 +280,25 @@ SimulationRT::simulate() {
 
       // Publish values
       if ((wsServer_ || stepPublisher_) && (!eventSubscriber_->triggerEnabled() || tCurrent_ >= nextTToTrigger)) {
-        string formatedString;
+        // Export Curves to ZMQ
+        string formatedCurves;
         if (wsServer_) {
-          curvesToJson(formatedString);
-          wsServer_->sendMessage(formatedString);
+          curvesToJson(formatedCurves);
+          wsServer_->sendMessage(formatedCurves);
           Trace::info() << "data published to websocket" << Trace::endline;
         }
         if (stepPublisher_) {
+          // Export Curves to ZMQ
           if (!jobEntry_->getSimulationEntry()->getPublishToZmqCurvesFormat().compare("CSV")) {
-            curvesToCsv(formatedString);
+            curvesToCsv(formatedCurves);
           } else if (!wsServer_) {
-            curvesToJson(formatedString);
+            curvesToJson(formatedCurves);
           }
-          stepPublisher_->sendMessage(formatedString);
+          stepPublisher_->sendMessage(formatedCurves, "curves");
+          // Export TimeLine
+          std::string formatedTimeline = timelineToJson(lastTTimelineExport);
+          stepPublisher_->sendMessage(formatedTimeline, "timeline");
+          lastTTimelineExport = tCurrent_;
           Trace::info() << "data published to ZMQ" << Trace::endline;
         }
       }
@@ -411,6 +420,32 @@ SimulationRT::curvesToCsv(string& csvCurves) {
   csvCurves = stream.str();
 }
 
+
+const std::string
+SimulationRT::timelineToJson(const double& time) {
+  stringstream stream;
+  stream << "[";
+  bool isFirst = true;
+  for (Timeline::event_const_iterator itEvent = timeline_->cbeginEvent();
+      itEvent != timeline_->cendEvent();
+      ++itEvent) {
+    if ((*itEvent)->getTime() > time) {
+      if (isFirst) {
+        isFirst = false;
+        stream << "\n\t{\n";
+      } else {
+        stream << ",\n\t{\n";
+      }
+      stream << "\t\t\"time\": \"" <<  DYN::double2String((*itEvent)->getTime()) << "\",\n";
+      stream << "\t\t\"modelName\": \"" <<  (*itEvent)->getModelName() << "\",\n";
+      stream << "\t\t\"message\": \"" <<  (*itEvent)->getMessage() << "\",\n";
+      stream << "\t}";
+    }
+  }
+  stream << "\n]";
+  std::cout << stream.str() << std::endl;
+  return stream.str();
+}
 
 void
 SimulationRT::initComputationTimeCurve() {

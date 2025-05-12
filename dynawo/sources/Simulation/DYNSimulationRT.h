@@ -68,10 +68,6 @@ class DataInterface;
 class SimulationContext;
 class TimeManager;
 
-
-
-
-
 /**
  * @brief SimulationRT class
  *
@@ -123,6 +119,11 @@ class SimulationRT: public Simulation {
    * @brief format last curves point in CSV
    */
   void curvesToCsv(std::string& outputString);
+
+  /**
+   * @brief format timeline events as JSON from time time (excluded)
+   */
+  const std::string timelineToJson(const double& time);
 
   /**
    * @brief add curve for step duration

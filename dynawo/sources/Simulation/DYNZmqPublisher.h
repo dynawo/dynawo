@@ -21,6 +21,7 @@
 #define SIMULATION_DYNZMQPUBLISHER_H_
 
 #include <string>
+#include <sstream>
 #include <zmqpp/zmqpp.hpp>
 
 
@@ -41,6 +42,8 @@ class ZmqPublisher {
   ZmqPublisher();
 
   void sendMessage(std::string& data);
+
+  void sendMessage(std::string& data, std::string topic);
 
  private:
   zmqpp::context context_;

@@ -35,4 +35,13 @@ ZmqPublisher::sendMessage(std::string& data) {
   socket_.send(message);
   std::cout << "ZmqPublisher: data sent" << std::endl;
 }
+
+void
+ZmqPublisher::sendMessage(std::string& data, std::string topic) {
+  std::stringstream ss;
+  ss << topic << "\n" << data;
+  std::string dataWithTopic = ss.str();
+  sendMessage(dataWithTopic);
+}
+
 }  // end of namespace DYN
