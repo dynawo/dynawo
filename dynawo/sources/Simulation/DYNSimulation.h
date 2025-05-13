@@ -707,6 +707,7 @@ class Simulation {
 
   exportConstraintsMode_t exportConstraintsMode_;  ///< contstraints' export mode
   std::string constraintsOutputFile_;  ///< constraints' export file
+  bool filterConstraints_;  ///< whether to filter constraints
 
   exportLostEquipmentsMode_t exportLostEquipmentsMode_;  ///< lostEquipments' export mode
   std::string lostEquipmentsOutputFile_;  ///< lost equipments' export file
