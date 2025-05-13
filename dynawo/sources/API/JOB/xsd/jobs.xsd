@@ -132,6 +132,7 @@
 
   <xs:complexType name="ConstraintsEntry">
     <xs:attribute name="exportMode" use="required" type="dyn:ConstraintsExportMode"/>
+    <xs:attribute name="filter" use="optional" type="xs:boolean"/>
   </xs:complexType>
 
   <xs:simpleType name="ConstraintsExportMode">
