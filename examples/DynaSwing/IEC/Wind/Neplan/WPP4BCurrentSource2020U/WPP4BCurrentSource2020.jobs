@@ -24,7 +24,7 @@
       <dyn:dumpInitValues local="true" global="true"/>
       <dyn:curves inputFile="WPP4BCurrentSource2020.crv" exportMode="CSV"/>
       <dyn:logs>
-        <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
+        <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
       </dyn:logs>
     </dyn:outputs>
   </dyn:job>
