@@ -87,7 +87,7 @@ TEST(APICSTRTest, CollectionEraseConstraint) {
   collection = ConstraintsCollectionFactory::newInstance("test");
 
   collection->addConstraint("model", "constraint 1", 0, CONSTRAINT_BEGIN);  // add first constraint
-  collection->addConstraint("model", "constraint 1", 0, CONSTRAINT_END);    // add second constraint with same description and type CONSTRAINT_END
+  collection->addConstraint("model", "constraint 1", 0, CONSTRAINT_END);    // add second constraint with same time and description and type CONSTRAINT_END
 
   int nbConstraint = 0;
   for (ConstraintsCollection::const_iterator itConstraint = collection->cbegin();
@@ -95,7 +95,45 @@ TEST(APICSTRTest, CollectionEraseConstraint) {
           ++itConstraint)
     ++nbConstraint;
 
-  ASSERT_EQ(nbConstraint, 0);  // the constraint has been erased
+  ASSERT_EQ(nbConstraint, 0);  // the constraints are still present
 }
+
+TEST(APICSTRTest, CollectionFilterConstraint) {
+  std::unique_ptr<ConstraintsCollection> collection;
+  collection = ConstraintsCollectionFactory::newInstance("test");
+
+  collection->addConstraint("model", "constraint 1", 0, CONSTRAINT_BEGIN);    // add first constraint
+  collection->addConstraint("model", "constraint 1", 2, CONSTRAINT_END);      // add second constraint with same description and type CONSTRAINT_END
+  collection->addConstraint("model", "constraint 2", 4, CONSTRAINT_END);      // add END constraint (should not happen but who knows...)
+  collection->addConstraint("model", "constraint 3", 7, CONSTRAINT_BEGIN);    // add first constraint 3
+  collection->addConstraint("model", "constraint 1", 8, CONSTRAINT_BEGIN);    // add BEGIN constraint 1
+  collection->addConstraint("model", "constraint 3", 8, CONSTRAINT_END);      // add END constraint 3
+
+  int nbConstraint = 0;
+  for (ConstraintsCollection::const_iterator itConstraint = collection->cbegin();
+          itConstraint != collection->cend();
+          ++itConstraint)
+    ++nbConstraint;
+
+  ASSERT_EQ(nbConstraint, 6);
+
+  collection->filter();
+
+  nbConstraint = 0;
+  for (ConstraintsCollection::const_iterator itConstraint = collection->cbegin();
+          itConstraint != collection->cend();
+          ++itConstraint)
+    ++nbConstraint;
+
+  ASSERT_EQ(nbConstraint, 2);  // the constraints have been removed
+
+  ConstraintsCollection::const_iterator itPtc(collection->cbegin());
+  ASSERT_EQ((itPtc)->get()->getTime(), 4);
+  ASSERT_EQ((itPtc)->get()->getDescription(), "constraint 2");
+  itPtc++;
+  ASSERT_EQ((itPtc)->get()->getTime(), 8);
+  ASSERT_EQ((itPtc)->get()->getDescription(), "constraint 1");
+}
+
 
 }  // namespace constraints
