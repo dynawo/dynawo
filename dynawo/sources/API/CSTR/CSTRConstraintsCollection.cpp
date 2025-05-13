@@ -45,45 +45,17 @@ ConstraintsCollection::addConstraint(
   const string& modelType,
   const boost::optional<constraints::ConstraintData>& data) {
   stringstream id;
-  id << time << "_" << modelName << "_" << description;  // allow to sort constraint by time, then modelName
+  id << time << "_" << modelName << "_" << type << "_" << description;  // allow to sort constraint by time, then modelName, and type
 
-  // find if a constraint of same description and same time already exists
-  // if this is the case, if type are different (and the first is begin), erase constraints of this description
-  bool addConstraint = true;
-  const auto iter = constraintsByModel_.find(modelName);
-  if (iter == constraintsByModel_.end()) {
-    constraintsByModel_[modelName] = vector<std::shared_ptr<Constraint> >();
-  } else {
-    vector<std::shared_ptr<Constraint> > constraints = iter->second;
-    stringstream oldId;
-    for (unsigned int i = 0; i < constraints.size(); ++i) {
-      const string& oldDescription = constraints[i]->getDescription();
-      Type_t oldType = constraints[i]->getType();
-      double oldTime = constraints[i]->getTime();
-      oldId.str("");
-      oldId.clear();
-      oldId << oldTime << "_" << modelName << "_" << oldDescription;
-      if (DYN::doubleEquals(oldTime, time) && oldDescription == description && oldType == CONSTRAINT_BEGIN && type == CONSTRAINT_END) {
-        addConstraint = false;
-        // remove in map
-        iter->second.erase(iter->second.begin() + i);
-        constraintsById_.erase(oldId.str());
-        break;
-      }
-    }
-  }
-
-  if (addConstraint) {
-    std::shared_ptr<Constraint> constraint = ConstraintFactory::newConstraint();
-    constraint->setModelName(modelName);
-    constraint->setDescription(description);
-    constraint->setTime(time);
-    constraint->setType(type);
-    constraint->setData(data);
-    constraint->setModelType(modelType);
-    constraintsByModel_[modelName].push_back(constraint);
-    constraintsById_[id.str()] = constraint;
-  }
+  std::shared_ptr<Constraint> constraint = ConstraintFactory::newConstraint();
+  constraint->setModelName(modelName);
+  constraint->setDescription(description);
+  constraint->setTime(time);
+  constraint->setType(type);
+  constraint->setData(data);
+  constraint->setModelType(modelType);
+  constraintsByModel_[modelName].push_back(constraint);
+  constraintsById_[id.str()] = constraint;
 }
 
 void
@@ -114,7 +86,7 @@ ConstraintsCollection::filter() {
     for (auto it = toRemove.rbegin(); it != toRemove.rend(); ++it) {
       idSs.str(std::string());
       idSs.clear();
-      idSs << constraints[*it]->getTime() << "_" << modelName << "_" << constraints[*it]->getDescription();
+      idSs << constraints[*it]->getTime() << "_" << modelName << "_" << constraints[*it]->getType() << "_" << constraints[*it]->getDescription();
       constraintsById_.erase(idSs.str());
       modelIt.second.erase(modelIt.second.begin() + *it);
     }
