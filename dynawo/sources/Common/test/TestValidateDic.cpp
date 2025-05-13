@@ -60,7 +60,7 @@ TEST(Models, TestBuildCheckSum) {
   boost::erase_all(result, "\n");
   ASSERT_EQ(result, "Executing command : " + cmd +
     "Error: ['dic/differentKeys/DifferentKeys_en_GB.dic'] and "
-    "['dic/differentKeys/DifferentKeys_fr_FR.dic'] have not the same entries.");
+    "['dic/differentKeys/DifferentKeys_fr_FR.dic'] have not the same entries.Missing entries:  Key2");
   ssPython.str(std::string());
 
   cmd = pythonCmd + " validateDictionaries.py --inputDir dic/argsCount/";
