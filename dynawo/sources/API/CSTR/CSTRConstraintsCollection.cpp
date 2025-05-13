@@ -22,6 +22,8 @@
 #include "CSTRConstraint.h"
 #include "CSTRConstraintFactory.h"
 
+#include "DYNCommon.h"
+
 #include <iostream>
 #include <sstream>
 
@@ -45,7 +47,7 @@ ConstraintsCollection::addConstraint(
   stringstream id;
   id << time << "_" << modelName << "_" << description;  // allow to sort constraint by time, then modelName
 
-  // find if a constraint of same description already exists
+  // find if a constraint of same description and same time already exists
   // if this is the case, if type are different (and the first is begin), erase constraints of this description
   bool addConstraint = true;
   map<string, vector<std::shared_ptr<Constraint> > >::iterator iter = constraintsByModel_.find(modelName);
@@ -61,7 +63,7 @@ ConstraintsCollection::addConstraint(
       oldId.str("");
       oldId.clear();
       oldId << oldTime << "_" << modelName << "_" << oldDescription;
-      if (oldDescription == description && oldType == CONSTRAINT_BEGIN && type == CONSTRAINT_END) {
+      if (DYN::doubleEquals(oldTime, time) && oldDescription == description && oldType == CONSTRAINT_BEGIN && type == CONSTRAINT_END) {
         addConstraint = false;
         // remove in map
         iter->second.erase(iter->second.begin() + i);
@@ -84,61 +86,39 @@ ConstraintsCollection::addConstraint(
   }
 }
 
-ConstraintsCollection::const_iterator
-ConstraintsCollection::cbegin() const {
-  return ConstraintsCollection::const_iterator(this, true);
-}
-
-ConstraintsCollection::const_iterator
-ConstraintsCollection::cend() const {
-  return ConstraintsCollection::const_iterator(this, false);
-}
-
-ConstraintsCollection::const_iterator::const_iterator(const ConstraintsCollection* iterated, bool begin) :
-    current_((begin ? iterated->constraintsById_.begin() : iterated->constraintsById_.end())) {}
-
-ConstraintsCollection::const_iterator&
-ConstraintsCollection::const_iterator::operator++() {
-  ++current_;
-  return *this;
-}
-
-ConstraintsCollection::const_iterator
-ConstraintsCollection::const_iterator::operator++(int) {
-  ConstraintsCollection::const_iterator previous = *this;
-  current_++;
-  return previous;
-}
-
-ConstraintsCollection::const_iterator&
-ConstraintsCollection::const_iterator::operator--() {
-  --current_;
-  return *this;
-}
-
-ConstraintsCollection::const_iterator
-ConstraintsCollection::const_iterator::operator--(int) {
-  ConstraintsCollection::const_iterator previous = *this;
-  current_--;
-  return previous;
-}
-
-bool
-ConstraintsCollection::const_iterator::operator==(const ConstraintsCollection::const_iterator& other) const {
-  return current_ == other.current_;
-}
-
-bool
-ConstraintsCollection::const_iterator::operator!=(const ConstraintsCollection::const_iterator& other) const {
-  return current_ != other.current_;
-}
-
-const std::shared_ptr<Constraint>& ConstraintsCollection::const_iterator::operator*() const {
-  return current_->second;
-}
-
-const std::shared_ptr<Constraint>* ConstraintsCollection::const_iterator::operator->() const {
-  return &(current_->second);
+void
+ConstraintsCollection::filter() {
+  for (auto& modelIt : constraintsByModel_) {
+    const string& modelName = modelIt.first;
+    std::vector<std::shared_ptr<Constraint> > constraints = modelIt.second;
+    std::map<std::string, int> beginConstraints;
+    std::map<std::string, int>::iterator beginConstraintsIt;
+    std::vector<size_t> toRemove;
+    // Collect begin/end pairs to remove
+    for (unsigned int i = 0; i < constraints.size(); ++i) {
+      const string& description = constraints[i]->getDescription();
+      Type_t type = constraints[i]->getType();
+      if (type == CONSTRAINT_BEGIN) {
+        beginConstraints.insert({description, i});
+      } else if (type == CONSTRAINT_END) {
+        beginConstraintsIt = beginConstraints.find(description);
+        if (beginConstraintsIt != beginConstraints.end()) {
+          toRemove.push_back(beginConstraintsIt->second);
+          toRemove.push_back(i);
+          beginConstraints.erase(beginConstraintsIt);
+        }
+      }
+    }
+    // Remove elements
+    stringstream idSs;
+    for (auto it = toRemove.rbegin(); it != toRemove.rend(); ++it) {
+      idSs.str(std::string());
+      idSs.clear();
+      idSs << constraints[*it]->getTime() << "_" << modelName << "_" << constraints[*it]->getDescription();
+      constraintsById_.erase(idSs.str());
+      modelIt.second.erase(modelIt.second.begin() + *it);
+    }
+  }
 }
 
 }  // namespace constraints

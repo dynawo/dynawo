@@ -62,87 +62,20 @@ class ConstraintsCollection {
 
  public:
   /**
-   * @class const_iterator
-   * @brief Const iterator over constraints
+   * @brief filter the constraint collection by removing constraints cancelled during the simulation
    *
-   * Const iterator over constraints stored in the collection
    */
-  class const_iterator {
-   public:
-    /**
-     * @brief Constructor
-     *
-     * Constructor based on constraints. Can create an iterator to the
-     * beginning of the constraints' container or to the end. Constraints
-     * cannot be modified.
-     *
-     * @param iterated Pointer to the constraints' map iterated
-     * @param begin Flag indicating if the iterator point to the beginning (true)
-     * or the end of the constraints' container.
-     */
-    const_iterator(const ConstraintsCollection* iterated, bool begin);
+  void filter();
 
-    /**
-     * @brief Prefix-increment operator
-     *
-     * @returns Reference to this const_iterator
-     */
-    const_iterator& operator++();
-
-    /**
-     * @brief Postfix-increment operator
-     *
-     * @returns Copy of this const_iterator
-     */
-    const_iterator operator++(int);
-
-    /**
-     * @brief Prefix-decrement operator
-     *
-     * @returns Reference to this const_iterator
-     */
-    const_iterator& operator--();
-
-    /**
-     * @brief Postfix-decrement operator
-     *
-     * @returns Copy of this const_iterator
-     */
-    const_iterator operator--(int);
-
-    /**
-     * @brief Equal to operator
-     *
-     * @param other Iterator to be compared with this
-     * @returns true if iterators are equals, else false
-     */
-    bool operator==(const const_iterator& other) const;
-
-    /**
-     * @brief Not equal to operator
-     *
-     * @param other Iterator to be compared with this
-     * @returns true if iterators are different, else false
-     */
-    bool operator!=(const const_iterator& other) const;
-
-    /**
-     * @brief Indirection operator
-     *
-     * @returns Constraint pointed to by this
-     */
-    const std::shared_ptr<Constraint>& operator*() const;
-
-    /**
-     * @brief Structure dereference operator
-     *
-     * @returns Pointer to the Constraint pointed to by this
-     */
-    const std::shared_ptr<Constraint>* operator->() const;
-
-   private:
-    std::map<std::string, std::shared_ptr<Constraint> >::const_iterator current_;  ///< current map iterator
-  };
+ public:
+  /**
+  * @brief get constraints by model
+  *
+  * @return constraints by model
+  */
+  const std::map<std::string, std::vector<std::shared_ptr<Constraint> > >& getConstraintsByModel() const {
+    return constraintsByModel_;
+  }
 
   /**
    * @brief Get a const_iterator to the beginning of the constraints' map
