@@ -361,10 +361,34 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   g[1] = ROOT_DOWN;
   bus->evalZ(10.);
   network->setCurrentTime(10);
+  i = 0;
   for (constraints::ConstraintsCollection::const_iterator it = constraints->cbegin(),
       itEnd = constraints->cend(); it != itEnd; ++it) {
     std::shared_ptr<constraints::Constraint> constraint = (*it);
-    assert(0);
+    if (i == 0) {
+      ASSERT_EQ(constraint->getModelName(), "MyBus1");
+      ASSERT_EQ(constraint->getDescription(), "UInfUmin");
+      ASSERT_DOUBLE_EQUALS_DYNAWO(constraint->getTime(), 0.);
+      ASSERT_EQ(constraint->getType(), constraints::CONSTRAINT_BEGIN);
+    } else if (i == 1) {
+      ASSERT_EQ(constraint->getModelName(), "MyBus1");
+      ASSERT_EQ(constraint->getDescription(), "USupUmax");
+      ASSERT_DOUBLE_EQUALS_DYNAWO(constraint->getTime(), 0.);
+      ASSERT_EQ(constraint->getType(), constraints::CONSTRAINT_BEGIN);
+    } else if (i == 2) {
+      ASSERT_EQ(constraint->getModelName(), "MyBus1");
+      ASSERT_EQ(constraint->getDescription(), "UInfUmin");
+      ASSERT_DOUBLE_EQUALS_DYNAWO(constraint->getTime(), 0.);
+      ASSERT_EQ(constraint->getType(), constraints::CONSTRAINT_END);
+    } else if (i == 3) {
+      ASSERT_EQ(constraint->getModelName(), "MyBus1");
+      ASSERT_EQ(constraint->getDescription(), "USupUmax");
+      ASSERT_DOUBLE_EQUALS_DYNAWO(constraint->getTime(), 0.);
+      ASSERT_EQ(constraint->getType(), constraints::CONSTRAINT_END);
+    } else {
+      assert(0);
+    }
+    ++i;
   }
 
   ASSERT_EQ(bus->evalState(0.), NetworkComponent::TOPO_CHANGE);
