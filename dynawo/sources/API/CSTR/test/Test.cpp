@@ -38,14 +38,10 @@ TEST(APICSTRTest, CollectionAddConstraints) {
 
   collection->addConstraint("model", "constraint 1", 0, CONSTRAINT_BEGIN);  // add first constraint
   collection->addConstraint("model", "constraint 2", 0, CONSTRAINT_BEGIN);  // add second constraint with different description
+  collection->addConstraint("model", "constraint 1", 0, CONSTRAINT_END);    // add end constraint (everything should be kept)
 
-  int nbConstraint = 0;
-  for (ConstraintsCollection::const_iterator itConstraint = collection->cbegin();
-          itConstraint != collection->cend();
-          ++itConstraint)
-    ++nbConstraint;
-
-  ASSERT_EQ(nbConstraint, 2);  // the two constraints have been added
+  auto nbConstraint = collection->getConstraintsById().size();
+  ASSERT_EQ(nbConstraint, 3);  // the three constraints have been added
 
   // export
   XmlExporter XmlExporter;
@@ -80,22 +76,6 @@ TEST(APICSTRTest, CollectionAddConstraintsWithDetails) {
   ASSERT_NO_THROW(XmlExporter.exportToFile(collection, "constraint.xml"));
   TxtExporter TxtExporter;
   ASSERT_NO_THROW(TxtExporter.exportToFile(collection, "constraint.txt"));
-}
-
-TEST(APICSTRTest, CollectionEraseConstraint) {
-  std::unique_ptr<ConstraintsCollection> collection;
-  collection = ConstraintsCollectionFactory::newInstance("test");
-
-  collection->addConstraint("model", "constraint 1", 0, CONSTRAINT_BEGIN);  // add first constraint
-  collection->addConstraint("model", "constraint 1", 0, CONSTRAINT_END);    // add second constraint with same time and description and type CONSTRAINT_END
-
-  int nbConstraint = 0;
-  for (ConstraintsCollection::const_iterator itConstraint = collection->cbegin();
-          itConstraint != collection->cend();
-          ++itConstraint)
-    ++nbConstraint;
-
-  ASSERT_EQ(nbConstraint, 0);  // the constraint has been erased
 }
 
 TEST(APICSTRTest, CollectionFilterConstraint) {
