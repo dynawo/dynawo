@@ -29,7 +29,7 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
     Dialog(tab = "PCS"));
   parameter Types.PerUnit GPcsPu = 0 "Shunt conductance of PCS in pu (base UNom, SNom)" annotation(
     Dialog(tab = "PCS"));
-  parameter Boolean PCSActive "Boolean parameter to choose whether the Power Collection System is defined inside the model (True) or not (False)" annotation(
+  parameter Boolean PCSActive = false "Boolean parameter to choose whether the Power Collection System is defined inside the model (True) or not (False)" annotation(
     Dialog(tab = "PCS"));
   parameter Types.PerUnit RPcsPu = 0 "Serial resistance of PCS in pu (base UNom, SNom)" annotation(
     Dialog(tab = "PCS"));
