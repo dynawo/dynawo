@@ -60,6 +60,12 @@ class ConstraintsCollection {
     const std::string& modelType = "",
     const boost::optional<ConstraintData>& data = boost::none);
 
+  /**
+   * @brief filter the constraint collection by removing constraints cancelled during the simulation
+   *
+   */
+  void filter();
+
  public:
   /**
    * @class const_iterator

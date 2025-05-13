@@ -27,12 +27,15 @@ TEST(APIJOBTest, testConstraintsEntry) {
   // check default attributes
   ASSERT_EQ(constraints->getOutputFile(), "");
   ASSERT_EQ(constraints->getExportMode(), "");
+  ASSERT_TRUE(constraints->isFilter());
 
   constraints->setOutputFile("/tmp/exportFile.txt");
   constraints->setExportMode("TXT");
+  constraints->setFilter(false);
 
   ASSERT_EQ(constraints->getOutputFile(), "/tmp/exportFile.txt");
   ASSERT_EQ(constraints->getExportMode(), "TXT");
+  ASSERT_FALSE(constraints->isFilter());
 }
 
 }  // namespace job
