@@ -1,0 +1,543 @@
+ ====== VARIABLES VALUES ======
+_BUS___10_TN_ACPIN_V_re                           : y =       0.981607 yp =       0.000000
+_BUS___10_TN_ACPIN_V_im                           : y =      -0.368757 yp =       0.000000
+_BUS___10_TN_ACPIN_i_re                           : y =      -0.060856 yp =       0.000000
+_BUS___10_TN_ACPIN_i_im                           : y =       0.081867 yp =       0.000000
+_BUS___11_TN_ACPIN_V_re                           : y =       0.989227 yp =       0.000000
+_BUS___11_TN_ACPIN_V_im                           : y =      -0.369179 yp =       0.000000
+_BUS___11_TN_ACPIN_i_re                           : y =      -0.025272 yp =       0.000000
+_BUS___11_TN_ACPIN_i_im                           : y =       0.027883 yp =       0.000000
+_BUS___12_TN_ACPIN_V_re                           : y =       0.985584 yp =       0.000000
+_BUS___12_TN_ACPIN_V_im                           : y =      -0.376644 yp =       0.000000
+_BUS___12_TN_ACPIN_i_re                           : y =      -0.048920 yp =       0.000000
+_BUS___12_TN_ACPIN_i_im                           : y =       0.035127 yp =       0.000000
+_BUS___13_TN_ACPIN_V_re                           : y =       0.980762 yp =       0.000000
+_BUS___13_TN_ACPIN_V_im                           : y =      -0.375658 yp =       0.000000
+_BUS___13_TN_ACPIN_i_re                           : y =      -0.100315 yp =       0.000000
+_BUS___13_TN_ACPIN_i_im                           : y =       0.097595 yp =       0.000000
+_BUS___14_TN_ACPIN_V_re                           : y =       0.961038 yp =       0.000000
+_BUS___14_TN_ACPIN_V_im                           : y =      -0.380856 yp =       0.000000
+_BUS___14_TN_ACPIN_i_re                           : y =      -0.116110 yp =       0.000000
+_BUS___14_TN_ACPIN_i_im                           : y =       0.097985 yp =       0.000000
+_BUS____1_TN_ACPIN_V_re                           : y =       1.060000 yp =       0.000000
+_BUS____1_TN_ACPIN_V_im                           : y =       0.000000 yp =       0.000000
+_BUS____1_TN_ACPIN_i_re                           : y =       2.211359 yp =       0.000000
+_BUS____1_TN_ACPIN_i_im                           : y =       0.347486 yp =       0.000000
+_BUS____2_TN_ACPIN_V_re                           : y =       1.036049 yp =       0.000000
+_BUS____2_TN_ACPIN_V_im                           : y =      -0.137038 yp =       0.000000
+_BUS____2_TN_ACPIN_i_re                           : y =       0.113523 yp =       0.000000
+_BUS____2_TN_ACPIN_i_im                           : y =      -0.613045 yp =       0.000000
+_BUS____3_TN_ACPIN_V_re                           : y =       0.968041 yp =       0.000000
+_BUS____3_TN_ACPIN_V_im                           : y =      -0.288091 yp =       0.000000
+_BUS____3_TN_ACPIN_i_re                           : y =      -0.895617 yp =       0.000000
+_BUS____3_TN_ACPIN_i_im                           : y =       0.165109 yp =       0.000000
+_BUS____9_TN_ACPIN_V_re                           : y =       0.987162 yp =       0.000000
+_BUS____9_TN_ACPIN_V_im                           : y =      -0.366181 yp =       0.000000
+_BUS____9_TN_ACPIN_i_re                           : y =      -0.208565 yp =       0.000000
+_BUS____9_TN_ACPIN_i_im                           : y =       0.246684 yp =       0.000000
+_BUS____7_TN_ACPIN_V_re                           : y =       1.002091 yp =       0.000000
+_BUS____7_TN_ACPIN_V_im                           : y =      -0.338761 yp =       0.000000
+_BUS____4_TN_ACPIN_V_re                           : y =       0.972284 yp =       0.000000
+_BUS____4_TN_ACPIN_V_im                           : y =      -0.269184 yp =       0.000000
+_BUS____4_TN_ACPIN_i_re                           : y =      -0.465399 yp =       0.000000
+_BUS____4_TN_ACPIN_i_im                           : y =       0.088955 yp =       0.000000
+_BUS____6_TN_ACPIN_V_re                           : y =       1.005189 yp =       0.000000
+_BUS____6_TN_ACPIN_V_im                           : y =      -0.367581 yp =       0.000000
+_BUS____6_TN_ACPIN_i_re                           : y =      -0.142448 yp =       0.000000
+_BUS____6_TN_ACPIN_i_im                           : y =      -0.079710 yp =       0.000000
+_BUS____5_TN_ACPIN_V_re                           : y =       0.973240 yp =       0.000000
+_BUS____5_TN_ACPIN_V_im                           : y =      -0.257114 yp =       0.000000
+_BUS____5_TN_ACPIN_i_re                           : y =      -0.068619 yp =       0.000000
+_BUS____5_TN_ACPIN_i_im                           : y =       0.034437 yp =       0.000000
+_BUS____8_TN_ACPIN_V_re                           : y =       1.032680 yp =       0.000000
+_BUS____8_TN_ACPIN_V_im                           : y =      -0.348361 yp =       0.000000
+_BUS____8_TN_ACPIN_i_re                           : y =      -0.054500 yp =       0.000000
+_BUS____8_TN_ACPIN_i_im                           : y =      -0.173655 yp =       0.000000
+ ====== CALCULATED VARIABLES VALUES ======
+_BUS___10_TN_Upu_value                            : y =       1.048587
+_BUS___10_TN_phipu_value                          : y =      -0.359355
+_BUS___10_TN_U_value                              : y =      14.470501
+_BUS___10_TN_phi_value                            : y =     -20.589537
+_BUS___11_TN_Upu_value                            : y =       1.055871
+_BUS___11_TN_phipu_value                          : y =      -0.357191
+_BUS___11_TN_U_value                              : y =      14.571016
+_BUS___11_TN_phi_value                            : y =     -20.465534
+_BUS___12_TN_Upu_value                            : y =       1.055100
+_BUS___12_TN_phipu_value                          : y =      -0.365027
+_BUS___12_TN_U_value                              : y =      14.560376
+_BUS___12_TN_phi_value                            : y =     -20.914501
+_BUS___13_TN_Upu_value                            : y =       1.050245
+_BUS___13_TN_phipu_value                          : y =      -0.365789
+_BUS___13_TN_U_value                              : y =      14.493378
+_BUS___13_TN_phi_value                            : y =     -20.958178
+_BUS___14_TN_Upu_value                            : y =       1.033753
+_BUS___14_TN_phipu_value                          : y =      -0.377309
+_BUS___14_TN_U_value                              : y =      14.265793
+_BUS___14_TN_phi_value                            : y =     -21.618237
+_BUS____1_TN_Upu_value                            : y =       1.060000
+_BUS____1_TN_phipu_value                          : y =       0.000000
+_BUS____1_TN_U_value                              : y =      73.140000
+_BUS____1_TN_phi_value                            : y =       0.000000
+_BUS____2_TN_Upu_value                            : y =       1.045072
+_BUS____2_TN_phipu_value                          : y =      -0.131506
+_BUS____2_TN_U_value                              : y =      72.110000
+_BUS____2_TN_phi_value                            : y =      -7.534761
+_BUS____3_TN_Upu_value                            : y =       1.010000
+_BUS____3_TN_phipu_value                          : y =      -0.289256
+_BUS____3_TN_U_value                              : y =      69.690000
+_BUS____3_TN_phi_value                            : y =     -16.573123
+_BUS____9_TN_Upu_value                            : y =       1.052890
+_BUS____9_TN_phipu_value                          : y =      -0.355209
+_BUS____9_TN_U_value                              : y =      14.529883
+_BUS____9_TN_phi_value                            : y =     -20.351992
+_BANK___9_SC_Q_value                              : y =      -0.210630
+_BUS____7_TN_Upu_value                            : y =       1.057802
+_BUS____7_TN_phipu_value                          : y =      -0.325993
+_BUS____7_TN_U_value                              : y =      14.597669
+_BUS____7_TN_phi_value                            : y =     -18.678009
+_BUS____4_TN_Upu_value                            : y =       1.008859
+_BUS____4_TN_phipu_value                          : y =      -0.270092
+_BUS____4_TN_U_value                              : y =      69.611264
+_BUS____4_TN_phi_value                            : y =     -15.475138
+_BUS____6_TN_Upu_value                            : y =       1.070290
+_BUS____6_TN_phipu_value                          : y =      -0.350578
+_BUS____6_TN_U_value                              : y =      14.770000
+_BUS____6_TN_phi_value                            : y =     -20.086612
+_BUS____5_TN_Upu_value                            : y =       1.006630
+_BUS____5_TN_phipu_value                          : y =      -0.258282
+_BUS____5_TN_U_value                              : y =      69.457471
+_BUS____5_TN_phi_value                            : y =     -14.798479
+_BUS____8_TN_Upu_value                            : y =       1.089855
+_BUS____8_TN_phipu_value                          : y =      -0.325349
+_BUS____8_TN_U_value                              : y =      15.040000
+_BUS____8_TN_phi_value                            : y =     -18.641126
+_BUS___10-BUS___11-1_AC_i1_value                  : y =       0.036538
+_BUS___10-BUS___11-1_AC_i2_value                  : y =       0.036538
+_BUS___10-BUS___11-1_AC_P1_value                  : y =      -0.024911
+_BUS___10-BUS___11-1_AC_P2_value                  : y =       0.025020
+_BUS___10-BUS___11-1_AC_Q1_value                  : y =      -0.029110
+_BUS___10-BUS___11-1_AC_Q2_value                  : y =       0.029366
+_BUS___10-BUS___11-1_AC_iS1ToS2Side1_value        : y =    -152.864446
+_BUS___10-BUS___11-1_AC_iS2ToS1Side1_value        : y =     152.864446
+_BUS___10-BUS___11-1_AC_iS1ToS2Side2_value        : y =    -152.864446
+_BUS___10-BUS___11-1_AC_iS2ToS1Side2_value        : y =     152.864446
+_BUS___10-BUS___11-1_AC_iSide1_value              : y =     152.864446
+_BUS___10-BUS___11-1_AC_iSide2_value              : y =     152.864446
+_BUS___10-BUS___11-1_AC_U1_value                  : y =       1.048587
+_BUS___10-BUS___11-1_AC_U2_value                  : y =       1.055871
+_BUS___10-BUS___11-1_AC_lineState_value           : y =       2.000000
+_BUS___12-BUS___13-1_AC_i1_value                  : y =       0.016517
+_BUS___12-BUS___13-1_AC_i2_value                  : y =       0.016517
+_BUS___12-BUS___13-1_AC_P1_value                  : y =       0.014653
+_BUS___12-BUS___13-1_AC_P2_value                  : y =      -0.014593
+_BUS___12-BUS___13-1_AC_Q1_value                  : y =       0.009434
+_BUS___12-BUS___13-1_AC_Q2_value                  : y =      -0.009379
+_BUS___12-BUS___13-1_AC_iS1ToS2Side1_value        : y =      69.101957
+_BUS___12-BUS___13-1_AC_iS2ToS1Side1_value        : y =     -69.101957
+_BUS___12-BUS___13-1_AC_iS1ToS2Side2_value        : y =      69.101957
+_BUS___12-BUS___13-1_AC_iS2ToS1Side2_value        : y =     -69.101957
+_BUS___12-BUS___13-1_AC_iSide1_value              : y =      69.101957
+_BUS___12-BUS___13-1_AC_iSide2_value              : y =      69.101957
+_BUS___12-BUS___13-1_AC_U1_value                  : y =       1.055100
+_BUS___12-BUS___13-1_AC_U2_value                  : y =       1.050245
+_BUS___12-BUS___13-1_AC_lineState_value           : y =       2.000000
+_BUS___13-BUS___14-1_AC_i1_value                  : y =       0.052608
+_BUS___13-BUS___14-1_AC_i2_value                  : y =       0.052608
+_BUS___13-BUS___14-1_AC_P1_value                  : y =       0.048729
+_BUS___13-BUS___14-1_AC_P2_value                  : y =      -0.048255
+_BUS___13-BUS___14-1_AC_Q1_value                  : y =       0.026042
+_BUS___13-BUS___14-1_AC_Q2_value                  : y =      -0.025079
+_BUS___13-BUS___14-1_AC_iS1ToS2Side1_value        : y =     220.094281
+_BUS___13-BUS___14-1_AC_iS2ToS1Side1_value        : y =    -220.094281
+_BUS___13-BUS___14-1_AC_iS1ToS2Side2_value        : y =     220.094281
+_BUS___13-BUS___14-1_AC_iS2ToS1Side2_value        : y =    -220.094281
+_BUS___13-BUS___14-1_AC_iSide1_value              : y =     220.094281
+_BUS___13-BUS___14-1_AC_iSide2_value              : y =     220.094281
+_BUS___13-BUS___14-1_AC_U1_value                  : y =       1.050245
+_BUS___13-BUS___14-1_AC_U2_value                  : y =       1.033753
+_BUS___13-BUS___14-1_AC_lineState_value           : y =       2.000000
+_BUS____1-BUS____2-1_AC_i1_value                  : y =       2.238494
+_BUS____1-BUS____2-1_AC_i2_value                  : y =       2.226988
+_BUS____1-BUS____2-1_AC_P1_value                  : y =       2.344041
+_BUS____1-BUS____2-1_AC_P2_value                  : y =      -2.247292
+_BUS____1-BUS____2-1_AC_Q1_value                  : y =      -0.368335
+_BUS____1-BUS____2-1_AC_Q2_value                  : y =       0.605227
+_BUS____1-BUS____2-1_AC_iS1ToS2Side1_value        : y =    1873.036605
+_BUS____1-BUS____2-1_AC_iS2ToS1Side1_value        : y =   -1873.036605
+_BUS____1-BUS____2-1_AC_iS1ToS2Side2_value        : y =    1863.408648
+_BUS____1-BUS____2-1_AC_iS2ToS1Side2_value        : y =   -1863.408648
+_BUS____1-BUS____2-1_AC_iSide1_value              : y =    1873.036605
+_BUS____1-BUS____2-1_AC_iSide2_value              : y =    1863.408648
+_BUS____1-BUS____2-1_AC_U1_value                  : y =       1.060000
+_BUS____1-BUS____2-1_AC_U2_value                  : y =       1.045072
+_BUS____1-BUS____2-1_AC_lineState_value           : y =       2.000000
+_BUS____1-BUS____5-1_AC_i1_value                  : y =       0.000000
+_BUS____1-BUS____5-1_AC_i2_value                  : y =       0.000000
+_BUS____1-BUS____5-1_AC_P1_value                  : y =       0.000000
+_BUS____1-BUS____5-1_AC_P2_value                  : y =       0.000000
+_BUS____1-BUS____5-1_AC_Q1_value                  : y =       0.000000
+_BUS____1-BUS____5-1_AC_Q2_value                  : y =       0.000000
+_BUS____1-BUS____5-1_AC_iS1ToS2Side1_value        : y =       0.000000
+_BUS____1-BUS____5-1_AC_iS2ToS1Side1_value        : y =      -0.000000
+_BUS____1-BUS____5-1_AC_iS1ToS2Side2_value        : y =      -0.000000
+_BUS____1-BUS____5-1_AC_iS2ToS1Side2_value        : y =       0.000000
+_BUS____1-BUS____5-1_AC_iSide1_value              : y =       0.000000
+_BUS____1-BUS____5-1_AC_iSide2_value              : y =       0.000000
+_BUS____1-BUS____5-1_AC_U1_value                  : y =       0.000000
+_BUS____1-BUS____5-1_AC_U2_value                  : y =       0.000000
+_BUS____1-BUS____5-1_AC_lineState_value           : y =       1.000000
+_BUS____2-BUS____3-1_AC_i1_value                  : y =       0.813140
+_BUS____2-BUS____3-1_AC_i2_value                  : y =       0.812263
+_BUS____2-BUS____3-1_AC_P1_value                  : y =       0.849398
+_BUS____2-BUS____3-1_AC_P2_value                  : y =      -0.818251
+_BUS____2-BUS____3-1_AC_Q1_value                  : y =       0.025817
+_BUS____2-BUS____3-1_AC_Q2_value                  : y =       0.059149
+_BUS____2-BUS____3-1_AC_iS1ToS2Side1_value        : y =     680.386265
+_BUS____2-BUS____3-1_AC_iS2ToS1Side1_value        : y =    -680.386265
+_BUS____2-BUS____3-1_AC_iS1ToS2Side2_value        : y =     679.652503
+_BUS____2-BUS____3-1_AC_iS2ToS1Side2_value        : y =    -679.652503
+_BUS____2-BUS____3-1_AC_iSide1_value              : y =     680.386265
+_BUS____2-BUS____3-1_AC_iSide2_value              : y =     679.652503
+_BUS____2-BUS____3-1_AC_U1_value                  : y =       1.045072
+_BUS____2-BUS____3-1_AC_U2_value                  : y =       1.010000
+_BUS____2-BUS____3-1_AC_lineState_value           : y =       2.000000
+_BUS____2-BUS____4-1_AC_i1_value                  : y =       0.790546
+_BUS____2-BUS____4-1_AC_i2_value                  : y =       0.788150
+_BUS____2-BUS____4-1_AC_P1_value                  : y =       0.825963
+_BUS____2-BUS____4-1_AC_P2_value                  : y =      -0.789666
+_BUS____2-BUS____4-1_AC_Q1_value                  : y =      -0.018808
+_BUS____2-BUS____4-1_AC_Q2_value                  : y =       0.093074
+_BUS____2-BUS____4-1_AC_iS1ToS2Side1_value        : y =     661.480729
+_BUS____2-BUS____4-1_AC_iS2ToS1Side1_value        : y =    -661.480729
+_BUS____2-BUS____4-1_AC_iS1ToS2Side2_value        : y =     659.475932
+_BUS____2-BUS____4-1_AC_iS2ToS1Side2_value        : y =    -659.475932
+_BUS____2-BUS____4-1_AC_iSide1_value              : y =     661.480729
+_BUS____2-BUS____4-1_AC_iSide2_value              : y =     659.475932
+_BUS____2-BUS____4-1_AC_U1_value                  : y =       1.045072
+_BUS____2-BUS____4-1_AC_U2_value                  : y =       1.008859
+_BUS____2-BUS____4-1_AC_lineState_value           : y =       2.000000
+_BUS____2-BUS____5-1_AC_i1_value                  : y =       0.740228
+_BUS____2-BUS____5-1_AC_i2_value                  : y =       0.739209
+_BUS____2-BUS____5-1_AC_P1_value                  : y =       0.773557
+_BUS____2-BUS____5-1_AC_P2_value                  : y =      -0.742318
+_BUS____2-BUS____5-1_AC_Q1_value                  : y =       0.007352
+_BUS____2-BUS____5-1_AC_Q2_value                  : y =       0.051600
+_BUS____2-BUS____5-1_AC_iS1ToS2Side1_value        : y =     619.377743
+_BUS____2-BUS____5-1_AC_iS2ToS1Side1_value        : y =    -619.377743
+_BUS____2-BUS____5-1_AC_iS1ToS2Side2_value        : y =     618.525196
+_BUS____2-BUS____5-1_AC_iS2ToS1Side2_value        : y =    -618.525196
+_BUS____2-BUS____5-1_AC_iSide1_value              : y =     619.377743
+_BUS____2-BUS____5-1_AC_iSide2_value              : y =     618.525196
+_BUS____2-BUS____5-1_AC_U1_value                  : y =       1.045072
+_BUS____2-BUS____5-1_AC_U2_value                  : y =       1.006630
+_BUS____2-BUS____5-1_AC_lineState_value           : y =       2.000000
+_BUS____3-BUS____4-1_AC_i1_value                  : y =       0.102892
+_BUS____3-BUS____4-1_AC_i2_value                  : y =       0.108300
+_BUS____3-BUS____4-1_AC_P1_value                  : y =      -0.096310
+_BUS____3-BUS____4-1_AC_P2_value                  : y =       0.097056
+_BUS____3-BUS____4-1_AC_Q1_value                  : y =       0.039038
+_BUS____3-BUS____4-1_AC_Q2_value                  : y =      -0.050178
+_BUS____3-BUS____4-1_AC_iS1ToS2Side1_value        : y =     -86.093998
+_BUS____3-BUS____4-1_AC_iS2ToS1Side1_value        : y =      86.093998
+_BUS____3-BUS____4-1_AC_iS1ToS2Side2_value        : y =     -90.618826
+_BUS____3-BUS____4-1_AC_iS2ToS1Side2_value        : y =      90.618826
+_BUS____3-BUS____4-1_AC_iSide1_value              : y =      86.093998
+_BUS____3-BUS____4-1_AC_iSide2_value              : y =      90.618826
+_BUS____3-BUS____4-1_AC_U1_value                  : y =       1.010000
+_BUS____3-BUS____4-1_AC_U2_value                  : y =       1.008859
+_BUS____3-BUS____4-1_AC_lineState_value           : y =       2.000000
+_BUS____4-BUS____5-1_AC_i1_value                  : y =       0.274093
+_BUS____4-BUS____5-1_AC_i2_value                  : y =       0.274093
+_BUS____4-BUS____5-1_AC_P1_value                  : y =      -0.242930
+_BUS____4-BUS____5-1_AC_P2_value                  : y =       0.243933
+_BUS____4-BUS____5-1_AC_Q1_value                  : y =       0.132096
+_BUS____4-BUS____5-1_AC_Q2_value                  : y =      -0.128932
+_BUS____4-BUS____5-1_AC_iS1ToS2Side1_value        : y =    -229.344686
+_BUS____4-BUS____5-1_AC_iS2ToS1Side1_value        : y =     229.344686
+_BUS____4-BUS____5-1_AC_iS1ToS2Side2_value        : y =    -229.344686
+_BUS____4-BUS____5-1_AC_iS2ToS1Side2_value        : y =     229.344686
+_BUS____4-BUS____5-1_AC_iSide1_value              : y =     229.344686
+_BUS____4-BUS____5-1_AC_iSide2_value              : y =     229.344686
+_BUS____4-BUS____5-1_AC_U1_value                  : y =       1.008859
+_BUS____4-BUS____5-1_AC_U2_value                  : y =       1.006630
+_BUS____4-BUS____5-1_AC_lineState_value           : y =       2.000000
+_BUS____6-BUS___11-1_AC_i1_value                  : y =       0.072780
+_BUS____6-BUS___11-1_AC_i2_value                  : y =       0.072780
+_BUS____6-BUS___11-1_AC_P1_value                  : y =       0.060817
+_BUS____6-BUS___11-1_AC_P2_value                  : y =      -0.060314
+_BUS____6-BUS___11-1_AC_Q1_value                  : y =       0.048672
+_BUS____6-BUS___11-1_AC_Q2_value                  : y =      -0.047619
+_BUS____6-BUS___11-1_AC_iS1ToS2Side1_value        : y =     304.489651
+_BUS____6-BUS___11-1_AC_iS2ToS1Side1_value        : y =    -304.489651
+_BUS____6-BUS___11-1_AC_iS1ToS2Side2_value        : y =     304.489651
+_BUS____6-BUS___11-1_AC_iS2ToS1Side2_value        : y =    -304.489651
+_BUS____6-BUS___11-1_AC_iSide1_value              : y =     304.489651
+_BUS____6-BUS___11-1_AC_iSide2_value              : y =     304.489651
+_BUS____6-BUS___11-1_AC_U1_value                  : y =       1.070290
+_BUS____6-BUS___11-1_AC_U2_value                  : y =       1.055871
+_BUS____6-BUS___11-1_AC_lineState_value           : y =       2.000000
+_BUS____6-BUS___12-1_AC_i1_value                  : y =       0.076104
+_BUS____6-BUS___12-1_AC_i2_value                  : y =       0.076104
+_BUS____6-BUS___12-1_AC_P1_value                  : y =       0.076810
+_BUS____6-BUS___12-1_AC_P2_value                  : y =      -0.076098
+_BUS____6-BUS___12-1_AC_Q1_value                  : y =       0.027110
+_BUS____6-BUS___12-1_AC_Q2_value                  : y =      -0.025629
+_BUS____6-BUS___12-1_AC_iS1ToS2Side1_value        : y =     318.397369
+_BUS____6-BUS___12-1_AC_iS2ToS1Side1_value        : y =    -318.397369
+_BUS____6-BUS___12-1_AC_iS1ToS2Side2_value        : y =     318.397369
+_BUS____6-BUS___12-1_AC_iS2ToS1Side2_value        : y =    -318.397369
+_BUS____6-BUS___12-1_AC_iSide1_value              : y =     318.397369
+_BUS____6-BUS___12-1_AC_iSide2_value              : y =     318.397369
+_BUS____6-BUS___12-1_AC_U1_value                  : y =       1.070290
+_BUS____6-BUS___12-1_AC_U2_value                  : y =       1.055100
+_BUS____6-BUS___12-1_AC_lineState_value           : y =       2.000000
+_BUS____6-BUS___13-1_AC_i1_value                  : y =       0.176092
+_BUS____6-BUS___13-1_AC_i2_value                  : y =       0.176092
+_BUS____6-BUS___13-1_AC_P1_value                  : y =       0.171234
+_BUS____6-BUS___13-1_AC_P2_value                  : y =      -0.169183
+_BUS____6-BUS___13-1_AC_Q1_value                  : y =       0.078736
+_BUS____6-BUS___13-1_AC_Q2_value                  : y =      -0.074697
+_BUS____6-BUS___13-1_AC_iS1ToS2Side1_value        : y =     736.713847
+_BUS____6-BUS___13-1_AC_iS2ToS1Side1_value        : y =    -736.713847
+_BUS____6-BUS___13-1_AC_iS1ToS2Side2_value        : y =     736.713847
+_BUS____6-BUS___13-1_AC_iS2ToS1Side2_value        : y =    -736.713847
+_BUS____6-BUS___13-1_AC_iSide1_value              : y =     736.713847
+_BUS____6-BUS___13-1_AC_iSide2_value              : y =     736.713847
+_BUS____6-BUS___13-1_AC_U1_value                  : y =       1.070290
+_BUS____6-BUS___13-1_AC_U2_value                  : y =       1.050245
+_BUS____6-BUS___13-1_AC_lineState_value           : y =       2.000000
+_BUS____7-BUS____8-1_AC_i1_value                  : y =       0.182006
+_BUS____7-BUS____8-1_AC_i2_value                  : y =       0.182006
+_BUS____7-BUS____8-1_AC_P1_value                  : y =      -0.004213
+_BUS____7-BUS____8-1_AC_P2_value                  : y =       0.004213
+_BUS____7-BUS____8-1_AC_Q1_value                  : y =      -0.192480
+_BUS____7-BUS____8-1_AC_Q2_value                  : y =       0.198316
+_BUS____7-BUS____8-1_AC_iS1ToS2Side1_value        : y =    -761.459044
+_BUS____7-BUS____8-1_AC_iS2ToS1Side1_value        : y =     761.459044
+_BUS____7-BUS____8-1_AC_iS1ToS2Side2_value        : y =    -761.459044
+_BUS____7-BUS____8-1_AC_iS2ToS1Side2_value        : y =     761.459044
+_BUS____7-BUS____8-1_AC_iSide1_value              : y =     761.459044
+_BUS____7-BUS____8-1_AC_iSide2_value              : y =     761.459044
+_BUS____7-BUS____8-1_AC_U1_value                  : y =       1.057802
+_BUS____7-BUS____8-1_AC_U2_value                  : y =       1.089855
+_BUS____7-BUS____8-1_AC_lineState_value           : y =       2.000000
+_BUS____7-BUS____9-1_AC_i1_value                  : y =       0.283803
+_BUS____7-BUS____9-1_AC_i2_value                  : y =       0.283803
+_BUS____7-BUS____9-1_AC_P1_value                  : y =       0.295748
+_BUS____7-BUS____9-1_AC_P2_value                  : y =      -0.295748
+_BUS____7-BUS____9-1_AC_Q1_value                  : y =       0.051552
+_BUS____7-BUS____9-1_AC_Q2_value                  : y =      -0.042692
+_BUS____7-BUS____9-1_AC_iS1ToS2Side1_value        : y =    1187.346956
+_BUS____7-BUS____9-1_AC_iS2ToS1Side1_value        : y =   -1187.346956
+_BUS____7-BUS____9-1_AC_iS1ToS2Side2_value        : y =    1187.346956
+_BUS____7-BUS____9-1_AC_iS2ToS1Side2_value        : y =   -1187.346956
+_BUS____7-BUS____9-1_AC_iSide1_value              : y =    1187.346956
+_BUS____7-BUS____9-1_AC_iSide2_value              : y =    1187.346956
+_BUS____7-BUS____9-1_AC_U1_value                  : y =       1.057802
+_BUS____7-BUS____9-1_AC_U2_value                  : y =       1.052890
+_BUS____7-BUS____9-1_AC_lineState_value           : y =       2.000000
+_BUS____9-BUS___10-1_AC_i1_value                  : y =       0.067817
+_BUS____9-BUS___10-1_AC_i2_value                  : y =       0.067817
+_BUS____9-BUS___10-1_AC_P1_value                  : y =       0.065161
+_BUS____9-BUS___10-1_AC_P2_value                  : y =      -0.065015
+_BUS____9-BUS___10-1_AC_Q1_value                  : y =       0.029199
+_BUS____9-BUS___10-1_AC_Q2_value                  : y =      -0.028811
+_BUS____9-BUS___10-1_AC_iS1ToS2Side1_value        : y =     283.727884
+_BUS____9-BUS___10-1_AC_iS2ToS1Side1_value        : y =    -283.727884
+_BUS____9-BUS___10-1_AC_iS1ToS2Side2_value        : y =     283.727884
+_BUS____9-BUS___10-1_AC_iS2ToS1Side2_value        : y =    -283.727884
+_BUS____9-BUS___10-1_AC_iSide1_value              : y =     283.727884
+_BUS____9-BUS___10-1_AC_iSide2_value              : y =     283.727884
+_BUS____9-BUS___10-1_AC_U1_value                  : y =       1.052890
+_BUS____9-BUS___10-1_AC_U2_value                  : y =       1.048587
+_BUS____9-BUS___10-1_AC_lineState_value           : y =       2.000000
+_BUS____9-BUS___14-1_AC_i1_value                  : y =       0.100290
+_BUS____9-BUS___14-1_AC_i2_value                  : y =       0.100290
+_BUS____9-BUS___14-1_AC_P1_value                  : y =       0.101927
+_BUS____9-BUS___14-1_AC_P2_value                  : y =      -0.100649
+_BUS____9-BUS___14-1_AC_Q1_value                  : y =       0.027587
+_BUS____9-BUS___14-1_AC_Q2_value                  : y =      -0.024867
+_BUS____9-BUS___14-1_AC_iS1ToS2Side1_value        : y =     419.582958
+_BUS____9-BUS___14-1_AC_iS2ToS1Side1_value        : y =    -419.582958
+_BUS____9-BUS___14-1_AC_iS1ToS2Side2_value        : y =     419.582958
+_BUS____9-BUS___14-1_AC_iS2ToS1Side2_value        : y =    -419.582958
+_BUS____9-BUS___14-1_AC_iSide1_value              : y =     419.582958
+_BUS____9-BUS___14-1_AC_iSide2_value              : y =     419.582958
+_BUS____9-BUS___14-1_AC_U1_value                  : y =       1.052890
+_BUS____9-BUS___14-1_AC_U2_value                  : y =       1.033753
+_BUS____9-BUS___14-1_AC_lineState_value           : y =       2.000000
+_BUS____4-BUS____9-1_PT_i1_value                  : y =       0.166740
+_BUS____4-BUS____9-1_PT_i2_value                  : y =       0.161571
+_BUS____4-BUS____9-1_PT_P1_value                  : y =       0.167559
+_BUS____4-BUS____9-1_PT_P2_value                  : y =      -0.167559
+_BUS____4-BUS____9-1_PT_Q1_value                  : y =      -0.014871
+_BUS____4-BUS____9-1_PT_Q2_value                  : y =       0.029391
+_BUS____4-BUS____9-1_PT_iS1ToS2Side1_value        : y =     139.518238
+_BUS____4-BUS____9-1_PT_iS2ToS1Side1_value        : y =    -139.518238
+_BUS____4-BUS____9-1_PT_iS1ToS2Side2_value        : y =     675.965893
+_BUS____4-BUS____9-1_PT_iS2ToS1Side2_value        : y =    -675.965893
+_BUS____4-BUS____9-1_PT_iSide1_value              : y =     139.518238
+_BUS____4-BUS____9-1_PT_iSide2_value              : y =     675.965893
+_BUS____4-BUS____9-1_PT_twtState_value            : y =       2.000000
+_BUS____4-BUS____7-1_PT_i1_value                  : y =       0.313003
+_BUS____4-BUS____7-1_PT_i2_value                  : y =       0.306117
+_BUS____4-BUS____7-1_PT_P1_value                  : y =       0.291535
+_BUS____4-BUS____7-1_PT_P2_value                  : y =      -0.291535
+_BUS____4-BUS____7-1_PT_Q1_value                  : y =      -0.121332
+_BUS____4-BUS____7-1_PT_Q2_value                  : y =       0.140928
+_BUS____4-BUS____7-1_PT_iS1ToS2Side1_value        : y =     261.901807
+_BUS____4-BUS____7-1_PT_iS2ToS1Side1_value        : y =    -261.901807
+_BUS____4-BUS____7-1_PT_iS1ToS2Side2_value        : y =    1280.699945
+_BUS____4-BUS____7-1_PT_iS2ToS1Side2_value        : y =   -1280.699945
+_BUS____4-BUS____7-1_PT_iSide1_value              : y =     261.901807
+_BUS____4-BUS____7-1_PT_iSide2_value              : y =    1280.699945
+_BUS____4-BUS____7-1_PT_twtState_value            : y =       2.000000
+_BUS____5-BUS____6-1_PT_i1_value                  : y =       0.424379
+_BUS____5-BUS____6-1_PT_i2_value                  : y =       0.395521
+_BUS____5-BUS____6-1_PT_P1_value                  : y =       0.422749
+_BUS____5-BUS____6-1_PT_P2_value                  : y =      -0.422749
+_BUS____5-BUS____6-1_PT_Q1_value                  : y =       0.061459
+_BUS____5-BUS____6-1_PT_Q2_value                  : y =      -0.022034
+_BUS____5-BUS____6-1_PT_iS1ToS2Side1_value        : y =     355.094859
+_BUS____5-BUS____6-1_PT_iS2ToS1Side1_value        : y =    -355.094859
+_BUS____5-BUS____6-1_PT_iS1ToS2Side2_value        : y =    1654.742002
+_BUS____5-BUS____6-1_PT_iS2ToS1Side2_value        : y =   -1654.742002
+_BUS____5-BUS____6-1_PT_iSide1_value              : y =     355.094859
+_BUS____5-BUS____6-1_PT_iSide2_value              : y =    1654.742002
+_BUS____5-BUS____6-1_PT_twtState_value            : y =       2.000000
+ ====== DISCRETE VARIABLES VALUES ======
+_BUS___10_TN_numcc_value                          : z =       0.000000
+_BUS___10_TN_switchOff_value                      : z =      -1.000000
+_BUS___10_TN_state_value                          : z =       2.000000
+_BUS___11_TN_numcc_value                          : z =       0.000000
+_BUS___11_TN_switchOff_value                      : z =      -1.000000
+_BUS___11_TN_state_value                          : z =       2.000000
+_BUS___12_TN_numcc_value                          : z =       0.000000
+_BUS___12_TN_switchOff_value                      : z =      -1.000000
+_BUS___12_TN_state_value                          : z =       2.000000
+_BUS___13_TN_numcc_value                          : z =       0.000000
+_BUS___13_TN_switchOff_value                      : z =      -1.000000
+_BUS___13_TN_state_value                          : z =       2.000000
+_BUS___14_TN_numcc_value                          : z =       0.000000
+_BUS___14_TN_switchOff_value                      : z =      -1.000000
+_BUS___14_TN_state_value                          : z =       2.000000
+_BUS____1_TN_numcc_value                          : z =       0.000000
+_BUS____1_TN_switchOff_value                      : z =      -1.000000
+_BUS____1_TN_state_value                          : z =       2.000000
+_BUS____2_TN_numcc_value                          : z =       0.000000
+_BUS____2_TN_switchOff_value                      : z =      -1.000000
+_BUS____2_TN_state_value                          : z =       2.000000
+_BUS____3_TN_numcc_value                          : z =       0.000000
+_BUS____3_TN_switchOff_value                      : z =      -1.000000
+_BUS____3_TN_state_value                          : z =       2.000000
+_BUS____9_TN_numcc_value                          : z =       0.000000
+_BUS____9_TN_switchOff_value                      : z =      -1.000000
+_BUS____9_TN_state_value                          : z =       2.000000
+_BANK___9_SC_state_value                          : z =       2.000000
+_BANK___9_SC_isCapacitor_value                    : z =       1.000000
+_BANK___9_SC_isAvailable_value                    : z =       1.000000
+_BANK___9_SC_currentSection_value                 : z =       1.000000
+_BUS____7_TN_numcc_value                          : z =       0.000000
+_BUS____7_TN_switchOff_value                      : z =      -1.000000
+_BUS____7_TN_state_value                          : z =       2.000000
+_BUS____4_TN_numcc_value                          : z =       0.000000
+_BUS____4_TN_switchOff_value                      : z =      -1.000000
+_BUS____4_TN_state_value                          : z =       2.000000
+_BUS____6_TN_numcc_value                          : z =       0.000000
+_BUS____6_TN_switchOff_value                      : z =      -1.000000
+_BUS____6_TN_state_value                          : z =       2.000000
+_BUS____5_TN_numcc_value                          : z =       0.000000
+_BUS____5_TN_switchOff_value                      : z =      -1.000000
+_BUS____5_TN_state_value                          : z =       2.000000
+_BUS____8_TN_numcc_value                          : z =       0.000000
+_BUS____8_TN_switchOff_value                      : z =      -1.000000
+_BUS____8_TN_state_value                          : z =       2.000000
+_BUS___10-BUS___11-1_AC_state_value               : z =       2.000000
+_BUS___10-BUS___11-1_AC_desactivate_currentLimits_value: z =       0.000000
+_BUS___12-BUS___13-1_AC_state_value               : z =       2.000000
+_BUS___12-BUS___13-1_AC_desactivate_currentLimits_value: z =       0.000000
+_BUS___13-BUS___14-1_AC_state_value               : z =       2.000000
+_BUS___13-BUS___14-1_AC_desactivate_currentLimits_value: z =       0.000000
+_BUS____1-BUS____2-1_AC_state_value               : z =       2.000000
+_BUS____1-BUS____2-1_AC_desactivate_currentLimits_value: z =       0.000000
+_BUS____1-BUS____5-1_AC_state_value               : z =       1.000000
+_BUS____1-BUS____5-1_AC_desactivate_currentLimits_value: z =       0.000000
+_BUS____2-BUS____3-1_AC_state_value               : z =       2.000000
+_BUS____2-BUS____3-1_AC_desactivate_currentLimits_value: z =       0.000000
+_BUS____2-BUS____4-1_AC_state_value               : z =       2.000000
+_BUS____2-BUS____4-1_AC_desactivate_currentLimits_value: z =       0.000000
+_BUS____2-BUS____5-1_AC_state_value               : z =       2.000000
+_BUS____2-BUS____5-1_AC_desactivate_currentLimits_value: z =       0.000000
+_BUS____3-BUS____4-1_AC_state_value               : z =       2.000000
+_BUS____3-BUS____4-1_AC_desactivate_currentLimits_value: z =       0.000000
+_BUS____4-BUS____5-1_AC_state_value               : z =       2.000000
+_BUS____4-BUS____5-1_AC_desactivate_currentLimits_value: z =       0.000000
+_BUS____6-BUS___11-1_AC_state_value               : z =       2.000000
+_BUS____6-BUS___11-1_AC_desactivate_currentLimits_value: z =       0.000000
+_BUS____6-BUS___12-1_AC_state_value               : z =       2.000000
+_BUS____6-BUS___12-1_AC_desactivate_currentLimits_value: z =       0.000000
+_BUS____6-BUS___13-1_AC_state_value               : z =       2.000000
+_BUS____6-BUS___13-1_AC_desactivate_currentLimits_value: z =       0.000000
+_BUS____7-BUS____8-1_AC_state_value               : z =       2.000000
+_BUS____7-BUS____8-1_AC_desactivate_currentLimits_value: z =       0.000000
+_BUS____7-BUS____9-1_AC_state_value               : z =       2.000000
+_BUS____7-BUS____9-1_AC_desactivate_currentLimits_value: z =       0.000000
+_BUS____9-BUS___10-1_AC_state_value               : z =       2.000000
+_BUS____9-BUS___10-1_AC_desactivate_currentLimits_value: z =       0.000000
+_BUS____9-BUS___14-1_AC_state_value               : z =       2.000000
+_BUS____9-BUS___14-1_AC_desactivate_currentLimits_value: z =       0.000000
+_BUS____4-BUS____9-1_PT_state_value               : z =       2.000000
+_BUS____4-BUS____9-1_PT_step_value                : z =       4.000000
+_BUS____4-BUS____9-1_PT_desactivate_currentLimits_value: z =       0.000000
+_BUS____4-BUS____9-1_PT_disable_internal_tapChanger_value: z =       0.000000
+_BUS____4-BUS____9-1_PT_TAP_CHANGER_locked_value  : z =       0.000000
+_BUS____4-BUS____9-1_PT_TAP_CHANGER_deltaUTarget_value: z =       0.000000
+_BUS____4-BUS____7-1_PT_state_value               : z =       2.000000
+_BUS____4-BUS____7-1_PT_step_value                : z =       5.000000
+_BUS____4-BUS____7-1_PT_desactivate_currentLimits_value: z =       0.000000
+_BUS____4-BUS____7-1_PT_disable_internal_tapChanger_value: z =       0.000000
+_BUS____4-BUS____7-1_PT_TAP_CHANGER_locked_value  : z =       0.000000
+_BUS____4-BUS____7-1_PT_TAP_CHANGER_deltaUTarget_value: z =       0.000000
+_BUS____5-BUS____6-1_PT_state_value               : z =       2.000000
+_BUS____5-BUS____6-1_PT_step_value                : z =       3.000000
+_BUS____5-BUS____6-1_PT_desactivate_currentLimits_value: z =       0.000000
+_BUS____5-BUS____6-1_PT_disable_internal_tapChanger_value: z =       0.000000
+_BUS____5-BUS____6-1_PT_TAP_CHANGER_locked_value  : z =       0.000000
+_BUS____5-BUS____6-1_PT_TAP_CHANGER_deltaUTarget_value: z =       0.000000
+ ====== PARAMETERS VALUES ======
+capacitor_no_reclosing_delay                       =     300.000000
+dangling_line_currentLimit_maxTimeOperation        =      90.000000
+line_currentLimit_maxTimeOperation                 =      90.000000
+load_Tp                                            =      90.000000
+load_Tq                                            =      90.000000
+load_alpha                                         =       1.000000
+load_alphaLong                                     =       0.000000
+load_beta                                          =       2.000000
+load_betaLong                                      =       0.000000
+load_isControllable                                =      -1.000000
+load_isRestorative                                 =      -1.000000
+load_zPMax                                         =     100.000000
+load_zQMax                                         =     100.000000
+reactance_no_reclosing_delay                       =       0.000000
+transformer_currentLimit_maxTimeOperation          =      90.000000
+transformer_t1st_HT                                =      60.000000
+transformer_t1st_THT                               =      30.000000
+transformer_tNext_HT                               =      10.000000
+transformer_tNext_THT                              =      10.000000
+transformer_tolV                                   =       0.015000
+ ====== INTERNAL PARAMETERS VALUES ======
+_BUS____4-BUS____9-1_PT_R                          =              0
+_BUS____4-BUS____9-1_PT_X                          =       0.556179
+_BUS____4-BUS____9-1_PT_B                          =              0
+_BUS____4-BUS____9-1_PT_G                          =              0
+_BUS____4-BUS____9-1_PT_rho                        =        1.03199
+_BUS____4-BUS____7-1_PT_R                          =              0
+_BUS____4-BUS____7-1_PT_X                          =        0.20912
+_BUS____4-BUS____7-1_PT_B                          =              0
+_BUS____4-BUS____7-1_PT_G                          =              0
+_BUS____4-BUS____7-1_PT_rho                        =        1.02249
+_BUS____5-BUS____6-1_PT_R                          =              0
+_BUS____5-BUS____6-1_PT_X                          =       0.252021
+_BUS____5-BUS____6-1_PT_B                          =              0
+_BUS____5-BUS____6-1_PT_G                          =              0
+_BUS____5-BUS____6-1_PT_rho                        =        1.07296

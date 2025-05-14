@@ -326,6 +326,13 @@ class ModelCPP : public SubModel {
     return isStartingFromDump_;
   }
 
+  /**
+   * @brief dump in a stream the value of a variable after a char indicating its type
+   * @param os stringstream with binary formated internalVariables
+   * @param value value to write
+   */
+  template <typename T> static void dumpInStream(boost::archive::binary_oarchive& os, T value);
+
  protected:
    /**
    * @brief export the internal variables values of the sub model for dump in a stream
@@ -349,5 +356,7 @@ class ModelCPP : public SubModel {
 };
 
 }  // namespace DYN
+
+#include "DYNModelCPP.hpp"
 
 #endif  // MODELS_CPP_COMMON_DYNMODELCPP_H_
