@@ -126,6 +126,11 @@ class SimulationRT: public Simulation {
   const std::string timelineToJson(const double& time);
 
   /**
+   * @brief format constraints as JSON from time time (excluded)
+   */
+  const std::string constraintsToJson(const double& time);
+
+  /**
    * @brief add curve for step duration
    */
   void initComputationTimeCurve();

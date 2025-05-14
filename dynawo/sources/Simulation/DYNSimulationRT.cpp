@@ -164,7 +164,7 @@ SimulationRT::simulate() {
 
 
     double nextTToTrigger = tCurrent_ + triggerSimulationTimeStepInS_;  // Only used if (eventSubscriber_ && eventSubscriber_->triggerEnabled())
-    double lastTTimelineExport = -1;
+    double lastPublicationTime = -1;
 
     while (!end() && !SignalHandler::gotExitSignal() && criteriaChecked) {
       // option1: ZMQ --> wait for an empty message before simulating next time step
@@ -280,9 +280,9 @@ SimulationRT::simulate() {
 
       // Publish values
       if ((wsServer_ || stepPublisher_) && (!eventSubscriber_->triggerEnabled() || tCurrent_ >= nextTToTrigger)) {
-        // Export Curves to ZMQ
         string formatedCurves;
         if (wsServer_) {
+          // Export Curves to WebSocket
           curvesToJson(formatedCurves);
           wsServer_->sendMessage(formatedCurves);
           Trace::info() << "data published to websocket" << Trace::endline;
@@ -295,10 +295,14 @@ SimulationRT::simulate() {
             curvesToJson(formatedCurves);
           }
           stepPublisher_->sendMessage(formatedCurves, "curves");
-          // Export TimeLine
-          std::string formatedTimeline = timelineToJson(lastTTimelineExport);
+          // Export Timeline
+          std::string formatedTimeline = timelineToJson(lastPublicationTime);
           stepPublisher_->sendMessage(formatedTimeline, "timeline");
-          lastTTimelineExport = tCurrent_;
+
+          // Export Constraints
+          std::string formatedConstraints = constraintsToJson(lastPublicationTime);
+          stepPublisher_->sendMessage(formatedConstraints, "constraints");
+          lastPublicationTime = tCurrent_;
           Trace::info() << "data published to ZMQ" << Trace::endline;
         }
       }
@@ -438,7 +442,46 @@ SimulationRT::timelineToJson(const double& time) {
       }
       stream << "\t\t\"time\": \"" <<  DYN::double2String((*itEvent)->getTime()) << "\",\n";
       stream << "\t\t\"modelName\": \"" <<  (*itEvent)->getModelName() << "\",\n";
-      stream << "\t\t\"message\": \"" <<  (*itEvent)->getMessage() << "\",\n";
+      stream << "\t\t\"message\": \"" <<  (*itEvent)->getMessage() << "\"\n";
+      stream << "\t}";
+    }
+  }
+  stream << "\n]";
+  std::cout << stream.str() << std::endl;
+  return stream.str();
+}
+
+const std::string
+SimulationRT::constraintsToJson(const double& time) {
+  stringstream stream;
+  stream << "[";
+  bool isFirst = true;
+  for (constraints::ConstraintsCollection::const_iterator itConstraint = constraintsCollection_->cbegin();
+      itConstraint != constraintsCollection_->cend();
+      ++itConstraint) {
+    if ((*itConstraint)->getTime() > time) {
+      if (isFirst) {
+        isFirst = false;
+        stream << "\n\t{\n";
+      } else {
+        stream << ",\n\t{\n";
+      }
+      std::string constraintType;
+      switch ((*itConstraint)->getType()) {
+        case constraints::Type_t::CONSTRAINT_BEGIN:
+          constraintType = "BEGIN";
+          break;
+        case constraints::Type_t::CONSTRAINT_END:
+          constraintType = "END";
+          break;
+        default:
+          constraintType = "UNDEFINED";
+          break;
+      }
+      stream << "\t\t\"time\": \"" <<  DYN::double2String((*itConstraint)->getTime()) << "\",\n";
+      stream << "\t\t\"modelName\": \"" <<  (*itConstraint)->getModelName() << "\",\n";
+      stream << "\t\t\"type\": \"" <<  constraintType << "\",\n";
+      stream << "\t\t\"description\": \"" <<  (*itConstraint)->getDescription() << "\"\n";
       stream << "\t}";
     }
   }
