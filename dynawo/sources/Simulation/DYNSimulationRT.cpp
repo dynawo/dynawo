@@ -95,6 +95,11 @@ namespace DYN {
 
 SimulationRT::SimulationRT(const std::shared_ptr<job::JobEntry>& jobEntry, const std::shared_ptr<SimulationContext>& context, shared_ptr<DataInterface> data) :
 Simulation(jobEntry, context, data) {
+  configureRT();
+}
+
+void
+SimulationRT::configureRT() {
   if (jobEntry_->getSimulationEntry()->getPublishToZmq()) {
     stepPublisher_ = std::make_shared<ZmqPublisher>();
     std::cout << "ZMQ publisher server started" << std::endl;
@@ -114,7 +119,34 @@ Simulation(jobEntry, context, data) {
     wsServer_->run(9001);
     std::cout << "Websocket server started" << std::endl;
   }
+
+  // Workaround to avoid saving value for each curve:
+  //  - Set all curves as EXPORT_AS_FINAL_STATE_VALUE --> will keep only one Point corresponding to last value
+  //  - Disable export of curves and final state values
+  std::cout << "Real time mode: disabling all curves recording (jobs-with-curves won't work!)" << std::endl;
+  for (CurvesCollection::const_iterator itCurve = curvesCollection_->cbegin();
+      itCurve != curvesCollection_->cend();
+      ++itCurve) {
+    (*itCurve) -> setExportType(curves::Curve::EXPORT_AS_FINAL_STATE_VALUE);
+  }
+  exportCurvesMode_ = EXPORT_CURVES_NONE;
+  exportFinalStateValuesMode_ = EXPORT_FINAL_STATE_VALUES_NONE;
 }
+
+void
+SimulationRT::updateCurves(bool updateCalculateVariable) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer("SimulationRT::updateCurves()");
+#endif
+  // if (exportCurvesMode_ == EXPORT_CURVES_NONE && exportFinalStateValuesMode_ == EXPORT_FINAL_STATE_VALUES_NONE)
+  //   return;
+
+  if (updateCalculateVariable)
+    model_->updateCalculatedVarForCurves(curvesCollection_);
+
+  curvesCollection_->updateCurves(tCurrent_);
+}
+
 
 void
 SimulationRT::simulate() {

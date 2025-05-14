@@ -89,6 +89,17 @@ class SimulationRT: public Simulation {
               boost::shared_ptr<DataInterface> data = boost::shared_ptr<DataInterface>());
 
   /**
+   * @brief configure RT System
+   */
+  void configureRT();
+
+  /**
+   * @brief update curves : at the end of each iteration, new points are added to curve
+   * @param updateCalculateVariable @b true is calculated variables should be updated
+   */
+  void updateCurves(bool updateCalculateVariable = true);
+
+  /**
    * @brief launch the simulation
    */
   void simulate();
