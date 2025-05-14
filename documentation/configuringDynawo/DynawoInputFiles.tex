@@ -395,7 +395,7 @@ Several outputs are available with \Dynawo:
 
 \item \textbf{Constraints}: the user can have access to the list of constraints that happened during the simulation by adding the item ``constraints'' in the jobs file, and by specifying the export mode. Constraints can be filtered at export (default=true), removing constraints cleared during the simulation.
 \begin{lstlisting}[language=XML, morekeywords={constraints},numbers=none]
-<constraints exportMode="TXT" constraints="false"/>
+<constraints exportMode="TXT" filter="false"/>
 \end{lstlisting}
 Two export modes are available for constraints: TXT or XML.
 

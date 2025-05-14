@@ -22,8 +22,6 @@
 #include "CSTRConstraint.h"
 #include "CSTRConstraintFactory.h"
 
-#include "DYNCommon.h"
-
 #include <iostream>
 #include <sstream>
 
@@ -45,7 +43,7 @@ ConstraintsCollection::addConstraint(
   const string& modelType,
   const boost::optional<constraints::ConstraintData>& data) {
   stringstream id;
-  id << time << "_" << modelName << "_" << type << "_" << description;  // allow to sort constraint by time, then modelName, and type
+  id << time << "_" << modelName << "_" << type << "_" << description;  // allow to sort constraint by time, then modelName and type
 
   std::shared_ptr<Constraint> constraint = ConstraintFactory::newConstraint();
   constraint->setModelName(modelName);
