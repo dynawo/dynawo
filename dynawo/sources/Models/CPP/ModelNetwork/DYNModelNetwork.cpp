@@ -610,6 +610,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
     }
 
     initComponents_.push_back(modelHvdcLink);
+    hvdcComponents_.push_back(modelHvdcLink);
 
     // is there a dynamic model?
     if (hvdcLine->hasDynamicModel()) {
@@ -820,6 +821,12 @@ ModelNetwork::computeComponents(const double t) {
 
   for (const auto& component : getComponents())
     component->addBusNeighbors();
+
+  if (!isInitModel_) {
+    for (const auto& hvdcComponent : hvdcComponents_) {
+      hvdcComponent->addBusNeighbors();
+    }
+  }
 
   // connectivity calculation
   busContainer_->exploreNeighbors(t);

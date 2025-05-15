@@ -382,9 +382,9 @@ SolverIDA::init(const std::shared_ptr<Model>& model, const double t0, const doub
 
   Trace::debug() << DYNLog(SolverIDAInitOk) << Trace::endline;
 
-  flag = IDASetStepToleranceIC(IDAMem_, 0.01);
-  if (flag < 0)
-    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetStepToleranceIC");
+  // flag = IDASetStepToleranceIC(IDAMem_, 0.01);
+  // if (flag < 0)
+  //   throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetStepToleranceIC");
 
   flag = IDASetNonlinConvCoefIC(IDAMem_, 0.0033);
   if (flag < 0)
@@ -850,7 +850,7 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
       } else {
         analyseFlag(flag);
       }
-    break;
+      break;
     default:
       analyseFlag(flag);
   }

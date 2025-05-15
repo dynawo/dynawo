@@ -858,4 +858,11 @@ ModelHvdcLink::setSubModelParameters(const std::unordered_map<std::string, Param
   }
 }
 
+void ModelHvdcLink::addBusNeighbors() {
+  if (isConnected1() && isConnected2()) {
+    modelBus1_->addNeighbor(modelBus2_);
+    modelBus2_->addNeighbor(modelBus1_);
+  }
+}
+
 }  // namespace DYN
