@@ -240,7 +240,7 @@ class ModelHvdcLink : public NetworkComponent {
   /**
    * @brief addBusNeighbors
    */
-  void addBusNeighbors() { /* not needed */ }
+  void addBusNeighbors();
 
   /**
    * @brief get connection status
