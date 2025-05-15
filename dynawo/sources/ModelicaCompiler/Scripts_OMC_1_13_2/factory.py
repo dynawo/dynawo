@@ -1685,6 +1685,9 @@ class Factory:
                 self.list_for_warnings.append("\n\n")
                 self.list_for_warnings.append("}\n")
 
+        convert_booleans_body([item.get_name() for item in self.list_all_bool_items], self.list_for_parameters_warnings)
+        convert_booleans_body([item.get_name() for item in self.list_all_bool_items], self.list_for_warnings)
+
     ##
     # dump the lines of the warning in the body of setF
     # @param self : object pointer
