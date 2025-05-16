@@ -51,6 +51,6 @@
         <par type="DOUBLE" name="scsteptolAlg" value="1e-3"/>
         <par type="DOUBLE" name="scsteptolAlgInit" value="1e-3"/>
         <par type="DOUBLE" name="scsteptolAlgJ" value="1e-3"/>
-        <par type="BOOL" name="skipNRIfInitialGuessOK" value="true"/>
+        <par type="BOOL" name="skipNRIfInitialGuessOK" value="false"/>
     </set>
 </parametersSet>

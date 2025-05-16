@@ -332,10 +332,12 @@ SimulationRT::simulate() {
           stepPublisher_->sendMessage(formatedTimeline, "timeline");
 
           // Export Constraints
-          std::string formatedConstraints = constraintsToJson(lastPublicationTime);
-          stepPublisher_->sendMessage(formatedConstraints, "constraints");
-          lastPublicationTime = tCurrent_;
-          Trace::info() << "data published to ZMQ" << Trace::endline;
+          if (constraintsCollection_) {
+            std::string formatedConstraints = constraintsToJson(lastPublicationTime);
+            stepPublisher_->sendMessage(formatedConstraints, "constraints");
+            lastPublicationTime = tCurrent_;
+            Trace::info() << "data published to ZMQ" << Trace::endline;
+        }
         }
       }
     }

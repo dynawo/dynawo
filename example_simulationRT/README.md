@@ -45,9 +45,16 @@ It should be sent with a series of: "<model>,<parameter1>,<type1(bool,int,double
 
 ## Dynawo outputs
 
-Dynawo Curves values (as defined in curves "CRV" file) can be sent through ZMQ or Websocket. Output rate depends on the time management mode:
+Dynawo outputs can be sent during the simulation with a publication rate depending on the time management mode:
 - Internal time management: results sent after each simulation loop;
 - External time management: results sent following the rate defined by triggerSimulationTimeStepInS (send last results before waiting for trigger).
+
+Results can be exported though ZMQ or WebSocket. ZMQ publication use topics for curves, constraints, and timeline (topic is represented by a string at the beggining of the message, separated from the data by a newline char). WebSocket publication only concerns curves where they are sent in JSON format.
+
+Outputs include:
+- Dynawo Curves values (as defined in curves "CRV" file) -> ZMQ (topic "curves") or WebSocket
+- Dynawo Constraints (equipment ID, side, type) -> ZMQ (topic "constraints")
+- Dynawo Timeline (time, model name, message) -> ZMQ (topic "timeline")
 
 | Job Simulation attribute | Value | Description|
 |----------|:-------------:|---|
@@ -55,6 +62,7 @@ Dynawo Curves values (as defined in curves "CRV" file) can be sent through ZMQ o
 | publishToZmqCurvesFormat | ("JSON")/"CSV"| Output curves format |
 | publishToWebsocket | true/(false)| Enable sending results to websocket (port 9001) |
 
+NB: interactive mode disables the recording of curves values for file export at the end of the simulation, hence "jobs-with-curves" launcher won't have any effect.
 
 ## Sumary of new Jobs parameters
 

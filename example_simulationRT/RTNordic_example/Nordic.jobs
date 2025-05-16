@@ -23,6 +23,7 @@
         </dyn:modeler>
         <dyn:simulation startTime="0" stopTime="30000" eventSubscriberActions="true" eventSubscriberTrigger="true" triggerSimulationTimeStepInS="1." publishToZmq="true" publishToWebsocket="true"/>
         <dyn:outputs directory="outputs">
+            <dyn:constraints exportMode="XML"/>
             <dyn:timeline exportMode="XML"/>
             <dyn:finalState exportIIDMFile="true" exportDumpFile="true"/>
             <dyn:curves inputFile="Nordic.crv" exportMode="CSV"/>
