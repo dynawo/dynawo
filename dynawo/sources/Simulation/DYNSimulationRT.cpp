@@ -481,7 +481,6 @@ SimulationRT::timelineToJson(const double& time) {
     }
   }
   stream << "\n]";
-  std::cout << stream.str() << std::endl;
   return stream.str();
 }
 
@@ -520,7 +519,6 @@ SimulationRT::constraintsToJson(const double& time) {
     }
   }
   stream << "\n]";
-  std::cout << stream.str() << std::endl;
   return stream.str();
 }
 
