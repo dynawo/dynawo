@@ -26,11 +26,16 @@ model InfiniteBus "Infinite bus"
   Types.Angle UPhaseVar "Voltage angle at terminal in rad";
   Types.VoltageModule U "Voltage amplitude at terminal in kV";
 
+  Constants.state state(start = Constants.state.Closed) "Bus connection state";
+  Real OutputZero (start = 0) "Variable used to output zero";
+
 equation
   terminal.V = UPu * ComplexMath.exp(ComplexMath.j * UPhase);
   UPuVar = UPu;
   UPhaseVar = UPhase;
   U = UPu * UNom;
+  state = Constants.state.Closed;
+  OutputZero = 0;
 
   annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body>The InfiniteBus model imposes a complex voltage value: the bus voltage magnitude and angle will remain constant throughout the simulation.</body></html>"));
