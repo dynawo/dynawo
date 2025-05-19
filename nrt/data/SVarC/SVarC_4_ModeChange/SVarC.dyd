@@ -19,7 +19,7 @@
   <dyn:blackBoxModel id="URef" lib="Step" parFile="SVarC.par" parId="4"/>
   <dyn:blackBoxModel id="selectModeAuto" lib="BooleanTable" parFile="SVarC.par" parId="5"/>
   <dyn:blackBoxModel id="setModeManual" lib="IntegerDoubleStep" parFile="SVarC.par" parId="6"/>
-  <dyn:connect id1="SVarC" var1="SVarC_URef" id2="URef" var2="step_step_value"/>
+  <dyn:connect id1="SVarC" var1="SVarC_URef" id2="URef" var2="step_step"/>
   <dyn:connect id1="selectModeAuto" var1="booleanTable_source_value" id2="SVarC" var2="SVarC_selectModeAuto"/>
   <dyn:connect id1="setModeManual" var1="integerDoubleStep_step_value" id2="SVarC" var2="SVarC_setModeManual"/>
   <dyn:connect id1="busInf" var1="infiniteBus_terminal" id2="line" var2="line_terminal1"/>

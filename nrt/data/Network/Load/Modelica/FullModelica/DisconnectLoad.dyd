@@ -31,6 +31,6 @@
   <dyn:connect id1="Connect_Load" var1="event_state1" id2="Load" var2="load_switchOffSignal2"/>
   <dyn:connect id1="Disconnect2_Load" var1="event_state1" id2="Load" var2="load_switchOffSignal2"/>
   <dyn:connect id1="Connect2_Load" var1="event_state1" id2="Load" var2="load_switchOffSignal2"/>
-  <dyn:connect id1="PLoad" var1="step_step_value" id2="Load" var2="load_PRefPu"/>
-  <dyn:connect id1="QLoad" var1="step_step_value" id2="Load" var2="load_QRefPu"/>
+  <dyn:connect id1="PLoad" var1="step_step" id2="Load" var2="load_PRefPu"/>
+  <dyn:connect id1="QLoad" var1="step_step" id2="Load" var2="load_QRefPu"/>
 </dyn:dynamicModelsArchitecture>

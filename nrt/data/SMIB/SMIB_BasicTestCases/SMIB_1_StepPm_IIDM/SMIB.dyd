@@ -60,5 +60,5 @@
   <dyn:connect id1="tfo" var1="transformer_terminal2" id2="bus2" var2="bus_terminal"/>
   <dyn:connect id1="sm" var1="generator_terminal" id2="bus2" var2="bus_terminal"/>
   <dyn:connect id1="sm" var1="generator_omegaRefPu" id2="OmegaRef" var2="setPoint_setPoint"/>
-  <dyn:connect id1="sm" var1="governor_PmRefPu" id2="Pm" var2="step_step_value"/>
+  <dyn:connect id1="sm" var1="governor_PmRefPu" id2="Pm" var2="step_step"/>
 </dyn:dynamicModelsArchitecture>
