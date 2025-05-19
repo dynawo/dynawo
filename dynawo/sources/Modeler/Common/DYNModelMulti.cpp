@@ -852,9 +852,6 @@ ModelMulti::createCalculatedVariableConnection(const shared_ptr<SubModel>& subMo
   string calculatedVarName1 = variable1->getName();
   string name = subModel1->name()+"_"+calculatedVarName1;
   bool isUpdatable = subModel1->getIsUpdatableDuringSimulation();
-  Trace::info() << "createCalculatedVariableConnection: name : " << name
-  << ", subModel1->name() ="<< subModel1->name()
-  << ", subModel1->getIsUpdatableDuringSimulation() = " << subModel1->getIsUpdatableDuringSimulation() << Trace::endline;
 
   if (variable1->isAlias())
     name = subModel1->name()+"_"+subModel1->getCalculatedVarName(variable1->getIndex());
