@@ -335,9 +335,9 @@ SimulationRT::simulate() {
           if (constraintsCollection_) {
             std::string formatedConstraints = constraintsToJson(lastPublicationTime);
             stepPublisher_->sendMessage(formatedConstraints, "constraints");
-            lastPublicationTime = tCurrent_;
             Trace::info() << "data published to ZMQ" << Trace::endline;
-        }
+          }
+          lastPublicationTime = tCurrent_;
         }
       }
     }
