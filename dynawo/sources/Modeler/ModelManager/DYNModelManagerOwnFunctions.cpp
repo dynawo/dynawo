@@ -45,7 +45,6 @@
 #define MMC_HDRSLOTS(hdr)         ((MMC_HDRISSTRING(hdr)) ? (MMC_HDRSTRINGSLOTS(hdr)) : ((hdr) >> 10))
 #define MMC_TAGPTR(p)             (reinterpret_cast<void*>(reinterpret_cast<char*>(p) + 0))
 #define MMC_UNTAGPTR(x)           (reinterpret_cast<void*>(reinterpret_cast<char*>(x) - 0))
-#define MMC_STRINGDATA(x)         (((struct mmc_string*)MMC_UNTAGPTR(x))->data)
 #define MMC_REFSTRINGLIT(NAME) MMC_TAGPTR(&(NAME).header)
 #define MMC_DEFSTRINGLIT(NAME, LEN, VAL)  \
     struct {        \
@@ -602,7 +601,7 @@ const char** data_of_string_c89_array(const string_array_t a) {
   size_t sz = base_array_nr_of_elements(a);
   const char **res = (const char**) malloc(sz*sizeof(const char*));
   for (size_t i=0; i < sz; i++) {
-    res[i] = MMC_STRINGDATA((reinterpret_cast<void**>(a.data))[i]);
+    res[i] = (reinterpret_cast<modelica_string *> (a.data))[i];
   }
   return res;
 }
