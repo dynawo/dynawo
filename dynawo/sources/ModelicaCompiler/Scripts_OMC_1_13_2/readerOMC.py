@@ -26,7 +26,6 @@ from xml.dom import minidom
 import scriptVarExt
 from dataContainer import *
 from utils import *
-from pyclbr import Function
 
 
 # ##################################
@@ -1309,7 +1308,7 @@ class ReaderOMC:
     def read_07dly_c_file(self):
         if os.path.isfile(self._07dly_c_file):
             pattern_with_parameters = re.compile(r"storeDelayedExpression\(data,\s*threadData,\s*(?P<exprId>\d+), \(data->localData\[(?P<localId>\d+)\]->realVars\[\d+\]\s*\/\*\s*(?P<name>[\w.\[\]]+).*?\s*\*\/\),.*?\/\*\s*(?P<delayMaxName>[\w.\[\]]+).*\)")
-            pattern = re.compile(r"storeDelayedExpression\(data,\s*threadData,\s*(?P<exprId>\d+), \(data->localData\[\d+\]->realVars\[\d+\]\s*\/\*\s*(?P<name>[\w.\[\]]+).*?\s*\*\/\),\s*(?P<delayMax>\d+\.\d+)\)")
+            pattern = re.compile(r"storeDelayedExpression\(data,\s*threadData,\s*(?P<exprId>\d+), \(data->localData\[\d+\]->realVars\[\d+\]\s*\/\*\s*(?P<name>[\w.\[\]]+).*?\s*\*\/\).*,\s*(?P<delayMax>\d+\.\d+)\)")
             with open(self._07dly_c_file, 'r') as f:
                 for line in f:
                     match = re.search(pattern, line)
@@ -1649,6 +1648,7 @@ class ReaderOMC:
         while modified:
             modified = False
             for var_name in self.map_vars_depend_vars:
+                #if is_when_condition(var_name) : continue
                 var = self.find_variable_from_name(var_name)
                 if var is not None and var.get_variability() == "discrete" and var.is_fixed():
                     if var_name in self.fictive_discrete_vars:
@@ -1688,9 +1688,10 @@ class ReaderOMC:
                 if var is not None and var.get_variability() == "continuous" and var.is_fixed():
                     for dep_var_name in self.map_vars_depend_vars[var_name]:
                         dep_var = self.find_variable_from_name(dep_var_name)
-                        if dep_var is not None and not dep_var.is_fixed():
+                        if dep_var is not None and not dep_var.is_fixed() and not is_when_condition(dep_var_name):
                             var.set_fixed(False)
                             modified = True
+                            print ("BUBU? " + var_name + " " + dep_var_name)
                             print_info("Removing fixed flag from variable " + var.get_name())
                             set_param_address(var.get_name(),  "realVars")
                             alias_modified = True

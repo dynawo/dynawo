@@ -25,5 +25,5 @@
   <dyn:connect id1="Disconnect_Load3" var1="event_state1_value" id2="NETWORK" var2="Load3_state_value"/>
   <dyn:connect id1="Connect_Load3" var1="event_state1_value" id2="NETWORK" var2="Load3_state_value"/>
   <dyn:connect id1="Disconnect_Load" var1="event_state1_value" id2="NETWORK" var2="Load_state_value"/>
-  <dyn:connect id1="SetPointVariation" var1="step_step_value" id2="NETWORK" var2="Load2_DeltaPc_value"/>
+  <dyn:connect id1="SetPointVariation" var1="step_step" id2="NETWORK" var2="Load2_DeltaPc_value"/>
 </dyn:dynamicModelsArchitecture>

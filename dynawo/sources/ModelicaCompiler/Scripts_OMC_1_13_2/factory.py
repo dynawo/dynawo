@@ -108,12 +108,9 @@ class ZeroCrossingFilter:
             else:
                 indexes_to_filter.append(nb_zero_crossing_tot)
                 if "static const char *res[] =" in line and "}" not in line: #this is the first g equation and there is more than 1 equation
-                    new_line = line.replace("\"time > 999999.0\",","")
-                    new_line = new_line.rstrip()
-                    self.function_zero_crossing_description_raw_func.append(new_line)
+                    self.function_zero_crossing_description_raw_func.append("static const char *res[] = {\n")
                 elif "static const char *res[] =" not in line and "}" in line: #this is the last g equation
-                    new_line = line.replace("\"time > 999999.0\"","")
-                    self.function_zero_crossing_description_raw_func.append(new_line)
+                    self.function_zero_crossing_description_raw_func.append("  };\n")
             nb_zero_crossing_tot +=1
         return indexes_to_filter
 
@@ -1442,7 +1439,7 @@ class Factory:
             #     line = replace_var_names(line)
             #     self.list_for_sety0.append(line)
 
-            elif var.get_init_by_param (): # If the var was initialized with a param (not with an actual value)
+            if var.get_init_by_param (): # If the var was initialized with a param (not with an actual value)
                 var.clean_start_text () # Clean up initialization text before printing
 
                 # Lines for reading comfort at the impression
@@ -1468,6 +1465,8 @@ class Factory:
 
             elif var.get_init_by_param_in_06inz():
                 var.clean_start_text_06inz()
+                print ("BUBU INIT2? " + var.get_name())
+
 
                 # Lines for reading comfort at the impression
                 if len(var.get_start_text_06inz()) > 1 :
@@ -1480,10 +1479,13 @@ class Factory:
                 for L in var.get_start_text_06inz() :
                     if "FILE_INFO" not in L and "omc_assert_warning" not in L:
                         L = replace_var_names(L)
+                        print ("BUBU INIT2? " + var.get_name() + " " + L)
+
                         match = ptrn_calc_var.findall(L)
                         for name in match:
                             L = L.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
                                                     "evalCalculatedVarI(" + str(calc_var_2_index[name]) + ") /* " + name)
+                        print ("BUBU INIT2? " + var.get_name() + " " + L)
                         self.list_for_sety0.append("  " + L)
                 self.list_for_sety0.append("  }\n")
 
