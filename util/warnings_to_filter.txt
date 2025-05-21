@@ -446,3 +446,4 @@ warning: return type of member DYN::ModelCPP::loadInternalVariables is not docum
 warning: return type of member DYN::SolverKINCommon::analyseFlag is not documented
 warning: return type of member DYN::SubModel::addParameterCurve is not documented
 warning: return type of member DYN::SubModel::setParameterFromSet is not documented
+warning: return type of member DYN::ModelCPP::dumpInStream is not documented
