@@ -18,6 +18,7 @@ dynawo/sources/Models/CPP/ModelFrequency/ModelSignalN/DYNModelSignalN.hpp
 dynawo/sources/Models/CPP/Components/ModelLoadRestorativeWithLimits/DYNModelLoadRestorativeWithLimits.hpp
 dynawo/sources/Models/CPP/Controls/Shunts/ModelCentralizedShuntsSectionControl/DYNModelCentralizedShuntsSectionControl.hpp
 dynawo/sources/Models/CPP/Controls/Voltage/ModelVoltageMeasurementsUtilities/DYNModelVoltageMeasurementsUtilities.hpp
+dynawo/sources/Models/CPP/Controls/Voltage/ModelSecondaryVoltageControlSimplified/DYNModelSecondaryVoltageControlSimplified.hpp
 dynawo/sources/Models/CPP/Events/ModelVariationArea/DYNModelVariationArea.hpp
 dynawo/sources/Models/CPP/Events/ModelAreaShedding/DYNModelAreaShedding.hpp
 dynawo/sources/Models/CPP/Events/ModelVoltageSetPointChange/DYNModelVoltageSetPointChange.hpp
