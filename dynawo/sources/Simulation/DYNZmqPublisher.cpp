@@ -38,10 +38,20 @@ ZmqPublisher::sendMessage(std::string& data) {
 
 void
 ZmqPublisher::sendMessage(std::string& data, std::string topic) {
-  std::stringstream ss;
-  ss << topic << "\n" << data;
-  std::string dataWithTopic = ss.str();
-  sendMessage(dataWithTopic);
+  zmqpp::message message;
+  message << topic;
+  message << data;
+  socket_.send(message);
+  std::cout << "ZmqPublisher: data sent as string to topic: " << topic << std::endl;
+}
+
+void
+ZmqPublisher::sendMessage(std::vector<std::uint8_t>& data, std::string topic) {
+  zmqpp::message message;
+  message << topic;
+  message.add_raw(reinterpret_cast<const void*>(data.data()), data.size());
+  socket_.send(message);
+  std::cout << "ZmqPublisher: data sent as bytes to topic: " << topic << std::endl;
 }
 
 }  // end of namespace DYN

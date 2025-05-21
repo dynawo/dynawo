@@ -56,6 +56,11 @@ class CurvesCollection {
    */
   void updateCurves(const double& time);
 
+  /**
+   * @brief get size of curves
+   */
+  std::size_t getSize();
+
  public:
   /**
    * @class iterator

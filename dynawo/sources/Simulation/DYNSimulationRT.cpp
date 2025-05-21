@@ -168,6 +168,11 @@ SimulationRT::simulate() {
   initComputationTimeCurve();
   updateCurves(updateCalculatedVariable);  // initial curves
 
+  if (stepPublisher_ && !jobEntry_->getSimulationEntry()->getPublishToZmqCurvesFormat().compare("BYTES")) {
+    string formatedCurvesNames = curvesNamesToCsv();
+    stepPublisher_->sendMessage(formatedCurvesNames, "curves_names");
+  }
+
   bool criteriaChecked = true;
   try {
     // update state variable only if the IIDM final state is exported, or criteria is checked, or lost equipments are exported
@@ -312,28 +317,34 @@ SimulationRT::simulate() {
 
       // Publish values
       if ((wsServer_ || stepPublisher_) && (!eventSubscriber_->triggerEnabled() || tCurrent_ >= nextTToTrigger)) {
-        string formatedCurves;
+        string formatedJsonCurves;
         if (wsServer_) {
           // Export Curves to WebSocket
-          curvesToJson(formatedCurves);
-          wsServer_->sendMessage(formatedCurves);
+          formatedJsonCurves = curvesToJson();
+          wsServer_->sendMessage(formatedJsonCurves);
           Trace::info() << "data published to websocket" << Trace::endline;
         }
         if (stepPublisher_) {
           // Export Curves to ZMQ
           if (!jobEntry_->getSimulationEntry()->getPublishToZmqCurvesFormat().compare("CSV")) {
-            curvesToCsv(formatedCurves);
-          } else if (!wsServer_) {
-            curvesToJson(formatedCurves);
+            string formatedCsvCurves = curvesToCsv();
+            stepPublisher_->sendMessage(formatedCsvCurves, "curves");
+          } else if (!jobEntry_->getSimulationEntry()->getPublishToZmqCurvesFormat().compare("BYTES")) {
+            vector<std::uint8_t> formatedBytesCurves = curvesAsBytes();
+            stepPublisher_->sendMessage(formatedBytesCurves, "curves_values");
+          } else {  // Default is JSON
+            if (formatedJsonCurves.empty())
+              formatedJsonCurves = curvesToJson();
+            stepPublisher_->sendMessage(formatedJsonCurves, "curves");
           }
-          stepPublisher_->sendMessage(formatedCurves, "curves");
+
           // Export Timeline
-          std::string formatedTimeline = timelineToJson(lastPublicationTime);
+          string formatedTimeline = timelineToJson(lastPublicationTime);
           stepPublisher_->sendMessage(formatedTimeline, "timeline");
 
           // Export Constraints
           if (constraintsCollection_) {
-            std::string formatedConstraints = constraintsToJson(lastPublicationTime);
+            string formatedConstraints = constraintsToJson(lastPublicationTime);
             stepPublisher_->sendMessage(formatedConstraints, "constraints");
             Trace::info() << "data published to ZMQ" << Trace::endline;
           }
@@ -401,8 +412,8 @@ SimulationRT::updateStepComputationTime() {
 }
 
 
-void
-SimulationRT::curvesToJson(string& jsonCurves) {
+string
+SimulationRT::curvesToJson() {
   stringstream stream;
   double time = -1;
   stream << "{\n\t\"curves\": {\n";
@@ -431,12 +442,12 @@ SimulationRT::curvesToJson(string& jsonCurves) {
   stream << "\t\t" << "\"time\": " << time << "\n";
   stream << "\t}\n}";
 
-  jsonCurves = stream.str();
+  return stream.str();
 }
 
 
-void
-SimulationRT::curvesToCsv(string& csvCurves) {
+string
+SimulationRT::curvesToCsv() {
   stringstream stream;
   double time = -1;
   for (CurvesCollection::iterator itCurve = curvesCollection_->begin();
@@ -455,11 +466,58 @@ SimulationRT::curvesToCsv(string& csvCurves) {
       }
     }
   }
-  csvCurves = stream.str();
+  return stream.str();
 }
 
+string
+SimulationRT::curvesNamesToCsv() {
+  stringstream stream;
+  double time = -1;
+  for (CurvesCollection::iterator itCurve = curvesCollection_->begin();
+        itCurve != curvesCollection_->end();
+        ++itCurve) {
+    if ((*itCurve)->getAvailable()) {
+      std::shared_ptr<curves::Point> point = (*itCurve)->getLastPoint();
+      if (point) {
+        if (time < 0) {
+          time = point->getTime();
+          stream << "time" << "\n";
+        }
+        string curveName =  (*itCurve)->getModelName() + "_" + (*itCurve)->getVariable();
+        // double value = point->getValue();
+        stream << curveName << "\n";
+      }
+    }
+  }
+  return stream.str();
+}
 
-const std::string
+const vector<std::uint8_t>
+SimulationRT::curvesAsBytes() {
+  vector<std::uint8_t> buffer;
+
+  buffer.reserve((curvesCollection_->getSize() + 1) * sizeof(double));
+  double time = -1;
+  for (CurvesCollection::iterator itCurve = curvesCollection_->begin();
+      itCurve != curvesCollection_->end();
+      ++itCurve) {
+      std::shared_ptr<curves::Point> point = (*itCurve)->getLastPoint();
+      if (point) {
+        if (time < 0) {
+          time = point->getTime();
+          std::uint8_t* rawBytes = reinterpret_cast<std::uint8_t*>(&time);
+          buffer.insert(buffer.end(), rawBytes, rawBytes + sizeof(double));
+        }
+        double value = point->getValue();
+        std::uint8_t* rawBytes = reinterpret_cast<std::uint8_t*>(&value);
+        buffer.insert(buffer.end(), rawBytes, rawBytes + sizeof(double));
+      }
+  }
+
+  return buffer;
+}
+
+const string
 SimulationRT::timelineToJson(const double& time) {
   stringstream stream;
   stream << "[";
@@ -484,7 +542,7 @@ SimulationRT::timelineToJson(const double& time) {
   return stream.str();
 }
 
-const std::string
+const string
 SimulationRT::constraintsToJson(const double& time) {
   stringstream stream;
   stream << "[";
@@ -499,7 +557,7 @@ SimulationRT::constraintsToJson(const double& time) {
       } else {
         stream << ",\n\t{\n";
       }
-      std::string constraintType;
+      string constraintType;
       switch ((*itConstraint)->getType()) {
         case constraints::Type_t::CONSTRAINT_BEGIN:
           constraintType = "BEGIN";
@@ -605,5 +663,4 @@ SimulationRT::terminate() {
     Trace::enableLogging();
   }
 }
-
 }  // end of namespace DYN

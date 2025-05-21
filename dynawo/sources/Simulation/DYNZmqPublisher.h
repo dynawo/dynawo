@@ -22,6 +22,7 @@
 
 #include <string>
 #include <sstream>
+#include <cstdint>
 #include <zmqpp/zmqpp.hpp>
 
 
@@ -44,6 +45,8 @@ class ZmqPublisher {
   void sendMessage(std::string& data);
 
   void sendMessage(std::string& data, std::string topic);
+
+  void sendMessage(std::vector<std::uint8_t>& data, std::string topic);
 
  private:
   zmqpp::context context_;

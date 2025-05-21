@@ -42,6 +42,18 @@ CurvesCollection::updateCurves(const double& time) {
   }
 }
 
+std::size_t
+CurvesCollection::getSize() {
+  size_t size = 0;
+  for (CurvesCollection::iterator iter = begin();
+    iter != end();
+    ++iter) {
+    if ((*iter)->getAvailable())
+      size++;
+  }
+  return size;
+}
+
 CurvesCollection::const_iterator
 CurvesCollection::cbegin() const {
   return CurvesCollection::const_iterator(this, true);

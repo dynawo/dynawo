@@ -26,6 +26,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/optional.hpp>
 #include <boost/filesystem.hpp>
+#include <cstdint>
 
 #ifdef _MSC_VER
   typedef int pid_t;
@@ -124,12 +125,22 @@ class SimulationRT: public Simulation {
   /**
    * @brief format last curves point in JSON
    */
-  void curvesToJson(std::string& outputString);
+  std::string curvesToJson();
 
   /**
    * @brief format last curves point in CSV
    */
-  void curvesToCsv(std::string& outputString);
+  std::string curvesToCsv();
+
+  /**
+  * @brief format curves names in CSV
+  */
+  std::string curvesNamesToCsv();
+
+  /**
+  * @brief format curves as bytes
+  */
+  const std::vector<std::uint8_t> curvesAsBytes();
 
   /**
    * @brief format timeline events as JSON from time time (excluded)
