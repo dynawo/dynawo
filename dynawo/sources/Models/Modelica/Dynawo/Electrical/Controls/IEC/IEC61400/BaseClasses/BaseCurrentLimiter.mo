@@ -13,14 +13,25 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses;
 */
 
 partial model BaseCurrentLimiter "Current limitation base module for wind turbines (IEC N°61400-27-1)"
-  extends Dynawo.Electrical.Wind.IEC.Parameters.TableCurrentLimit;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimitParameters;
 
   //Nominal parameter
-  extends Dynawo.Electrical.Wind.IEC.Parameters.SNom_;
-  
+  parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
+
   //Current limiter parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.CurrentLimiter;
-  
+  parameter Types.CurrentModulePu IMaxPu "Maximum current module at converter terminal in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "CurrentLimiter"));
+  parameter Types.CurrentModulePu IMaxDipPu "Maximum current module during voltage dip at converter terminal in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "CurrentLimiter"));
+  parameter Types.PerUnit Kpqu "Partial derivative of reactive current limit against voltage in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "CurrentLimiter"));
+  parameter Boolean MdfsLim "Limitation of type 3 stator current (false: total current limitation, true: stator current limitation)" annotation(
+    Dialog(tab = "CurrentLimiter"));
+  parameter Boolean Mqpri "Prioritization of reactive power during FRT (false: active power priority, true: reactive power priority)" annotation(
+    Dialog(tab = "CurrentLimiter"));
+  parameter Types.VoltageModulePu UpquMaxPu "WT voltage in the operation point where zero reactive power can be delivered, in pu (base UNom)" annotation(
+    Dialog(tab = "CurrentLimiter"));
+
   //Input variables
   Modelica.Blocks.Interfaces.RealInput ipCmdPu(start = -P0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Active current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-320, 140}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -115,11 +126,21 @@ partial model BaseCurrentLimiter "Current limitation base module for wind turbin
     Placement(visible = true, transformation(origin = {130, -106}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialGenSystemP;
-  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialGenSystemQ;
-  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPqGrid;
-  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGrid;
-  
+  parameter Types.PerUnit IpMax0Pu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.PerUnit IqMax0Pu "Initial maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.PerUnit IqMin0Pu "Initial minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
+    Dialog(tab = "Operating point"));
+  parameter Types.ReactivePowerPu Q0Pu "Initial reactive power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
+    Dialog(tab = "Operating point"));
+  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
+    Dialog(tab = "Operating point"));
+  parameter Types.Angle UPhase0 "Initial voltage angle at grid terminal in rad" annotation(
+    Dialog(tab = "Operating point"));
+
 equation
   connect(booleanConstant1.y, booleanToInteger.u) annotation(
     Line(points = {{-18, 20}, {-2, 20}}, color = {255, 0, 255}));

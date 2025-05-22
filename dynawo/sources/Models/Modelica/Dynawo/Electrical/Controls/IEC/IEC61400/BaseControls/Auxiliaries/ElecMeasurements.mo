@@ -23,8 +23,8 @@ model ElecMeasurements "This block measures the voltage and current in pu (base 
 */
 
   //Nominal parameter
-  extends Dynawo.Electrical.Wind.IEC.Parameters.SNom_;
-  
+  parameter Dynawo.Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
+
   //Interfaces
   Dynawo.Connectors.ACPower terminal1 "Terminal 1, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(
     Placement(visible = true, transformation(origin = {-70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

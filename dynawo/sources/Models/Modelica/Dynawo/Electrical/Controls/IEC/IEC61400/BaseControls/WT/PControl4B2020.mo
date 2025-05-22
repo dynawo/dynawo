@@ -16,11 +16,24 @@ model PControl4B2020 "Active power control module for type 4B wind turbines (IEC
   extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BasePControl4(absLimRateLimFirstOrderAntiWindup.tI = tPOrdP4B, absLimRateLimFirstOrderAntiWindup.DyMax = DPMaxP4BPu, absLimRateLimFirstOrderAntiWindup.UseLimits = true);
 
   //Nominal parameter
-  extends Dynawo.Electrical.Wind.IEC.Parameters.IntegrationTimeStep;
+  parameter Types.Time tS "Integration time step in s";
 
   //PControl parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4b;
-  
+  parameter Types.PerUnit DPMaxP4BPu "Maximum WT power ramp rate in pu/s (base SNom) (generator convention)" annotation(
+    Dialog(tab = "PControl"));
+  parameter Types.PerUnit DPRefMax4BPu "Maximum WT reference power ramp rate in pu/s (base SNom) (generator convention)" annotation(
+    Dialog(tab = "PControl"));
+  parameter Types.PerUnit DPRefMin4BPu "Minimum WT reference power ramp rate in pu/s (base SNom) (generator convention)" annotation(
+    Dialog(tab = "PControl"));
+  parameter Boolean MpUScale "Voltage scaling for power reference during voltage dip (true: u scaling, false: no scaling)" annotation(
+    Dialog(tab = "PControl"));
+  parameter Types.Time tPAero "Aerodynamic power response time constant in s" annotation(
+    Dialog(tab = "PControl"));
+  parameter Types.Time tPOrdP4B "Power order lag time constant in s" annotation(
+    Dialog(tab = "PControl"));
+  parameter Types.VoltageModulePu UpDipPu "Voltage threshold to activate voltage scaling for power reference during voltage dip in pu (base UNom)" annotation(
+    Dialog(tab = "PControl"));
+
   //Input variables
   Modelica.Blocks.Interfaces.RealInput UWTCFiltPu(start = U0Pu) "Filtered voltage amplitude at grid terminal in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-180, 140}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
