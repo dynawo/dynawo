@@ -28,7 +28,6 @@ model QLimiter2020 "Reactive power limitation module for wind turbines (IEC N°6
   Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFeedthroughFreeze absLimRateLimFeedthroughFreeze1(DyMax = 999, U0 = -P0Pu * SystemBase.SnRef / SNom, Y0 = -P0Pu * SystemBase.SnRef / SNom, YMax = 999, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {-70, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-
 equation
   connect(absLimRateLimFeedthroughFreeze1.y, combiTable1Ds3.u) annotation(
     Line(points = {{-58, -60}, {-50, -60}, {-50, -80}, {-42, -80}}, color = {0, 0, 127}));

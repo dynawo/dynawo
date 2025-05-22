@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Sources.IEC;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2022, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,13 +12,14 @@ within Dynawo.Electrical.Sources.IEC;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model WT4Injector
+model WT4Injector "Converter model and grid interface according to IEC N°61400-27-1 standard for type 4A wind turbines"
   extends BaseConverters.BaseWTInjector;
-  
+
   extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem4;
-  
+
   Dynawo.Electrical.Sources.IEC.BaseConverters.GenSystem4 genSystem4(DipMaxPu = DipMaxPu, DiqMaxPu = DiqMaxPu, DiqMinPu = DiqMinPu, IGsIm0Pu = IGsIm0Pu, IGsRe0Pu = IGsRe0Pu, IpMax0Pu = IpMax0Pu, IqMax0Pu = IqMax0Pu, IqMin0Pu = IqMin0Pu, Kipaw = Kipaw, Kiqaw = Kiqaw, P0Pu = P0Pu, PAg0Pu = PAg0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UGsIm0Pu = UGsIm0Pu, UGsRe0Pu = UGsRe0Pu, UPhase0 = UPhase0, tG = tG) annotation(
     Placement(visible = true, transformation(origin = {-44, 0}, extent = {{-18, -18}, {18, 18}}, rotation = 0)));
+
 equation
   genSystem4.running = running.value;
   connect(genSystem4.ipMaxPu, ipMaxPu) annotation(

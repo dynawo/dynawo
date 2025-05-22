@@ -16,8 +16,11 @@ model WPPPControl2020 "Active power control module for wind power plants (IEC NÂ
   extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseWPPPControl;
 
   //PControl parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWPP2020;
-  
+  parameter Types.ActivePowerPu PErrMaxPu "Maximum control error for power PI controller in pu (base SNom)" annotation(
+    Dialog(tab = "PControlWP"));
+  parameter Types.ActivePowerPu PErrMinPu "Minimum negative control error for power PI controller in pu (base SNom)" annotation(
+    Dialog(tab = "PControlWP"));
+
   //Input variables
   Modelica.Blocks.Interfaces.BooleanInput fWPFrt(start = false) "True if fault status" annotation(
     Placement(visible = true, transformation(origin = {0, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));

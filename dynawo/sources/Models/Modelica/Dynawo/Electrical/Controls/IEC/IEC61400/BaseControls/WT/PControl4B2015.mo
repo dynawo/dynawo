@@ -16,8 +16,15 @@ model PControl4B2015 "Active power control module for type 4B wind turbines (IEC
   extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BasePControl4(absLimRateLimFirstOrderAntiWindup.UseLimits = true, absLimRateLimFirstOrderAntiWindup.tI = tPOrdP4B, absLimRateLimFirstOrderAntiWindup.DyMax = DPMaxP4BPu);
 
   //PControl parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4b2015;
-  
+  parameter Types.PerUnit DPMaxP4BPu "Maximum WT power ramp rate in pu/s (base SNom) (generator convention)" annotation(
+    Dialog(tab = "PControl"));
+  parameter Types.Time tPAero "Aerodynamic power response time constant in s" annotation(
+    Dialog(tab = "PControl"));
+  parameter Types.Time tPOrdP4B "Power order lag time constant in s" annotation(
+    Dialog(tab = "PControl"));
+  parameter Types.Time tUFiltP4B "Filter time constant for voltage measurement in s" annotation(
+    Dialog(tab = "PControl"));
+
   //Input variables
   Modelica.Blocks.Interfaces.RealInput omegaGenPu(start = SystemBase.omega0Pu) "Generator angle frequency in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-180, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

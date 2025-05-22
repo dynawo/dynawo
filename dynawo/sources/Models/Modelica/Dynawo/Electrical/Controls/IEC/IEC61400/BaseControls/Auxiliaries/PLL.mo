@@ -15,11 +15,16 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries;
 model PLL "Phase locked loop for angle detection (IEC N°61400-27-1)"
 
   //Nominal parameter
-  extends Dynawo.Electrical.Wind.IEC.Parameters.IntegrationTimeStep;
+  parameter Types.Time tS "Integration time step in s";
 
   //PLL parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.Pll;
-  
+  parameter Types.Time tPll "PLL first order filter time constant in s" annotation(
+    Dialog(tab = "PLL"));
+  parameter Types.VoltageModulePu UPll1Pu "Voltage below which the angle of the voltage is filtered and possibly also frozen, in pu (base UNom)" annotation(
+    Dialog(tab = "PLL"));
+  parameter Types.VoltageModulePu UPll2Pu "Voltage below which the angle of the voltage is frozen, in pu (base UNom) (UPll2Pu < UPll1Pu typically) UPll2 should be very low to avoid numerical problems when voltage is close to zero and then angle is not numerically valid" annotation(
+    Dialog(tab = "PLL"));
+
   //Input variables
   Modelica.Blocks.Interfaces.RealInput theta(start = UPhase0) "Phase shift between the converter and grid rotating frames in rad" annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -44,8 +49,11 @@ model PLL "Phase locked loop for angle detection (IEC N°61400-27-1)"
     Placement(visible = true, transformation(origin = {-10, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGrid;
-  
+  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
+    Dialog(tab = "Operating point"));
+  parameter Types.Angle UPhase0 "Initial voltage angle at grid terminal in rad" annotation(
+    Dialog(tab = "Operating point"));
+
 equation
   connect(theta, switch.u3) annotation(
     Line(points = {{-120, 0}, {40, 0}, {40, 8}, {58, 8}}, color = {0, 0, 127}));

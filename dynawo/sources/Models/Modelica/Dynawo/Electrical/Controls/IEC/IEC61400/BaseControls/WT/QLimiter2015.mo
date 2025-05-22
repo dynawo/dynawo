@@ -16,9 +16,11 @@ model QLimiter2015 "Reactive power limitation module for wind turbines (IEC N°6
   extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseQLimiter;
 
   //Qlimiter parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.QLimiter2015;
-  
-  
+  parameter Types.Time tPFiltql "Filter time constant for active power measurement in s" annotation(
+    Dialog(tab = "QLimiter"));
+  parameter Types.Time tUFiltql "Filter time constant for voltage measurement in s" annotation(
+    Dialog(tab = "QLimiter"));
+
   //Input variables
   Modelica.Blocks.Interfaces.IntegerInput fUvrt(start = 0) "Fault status (0: Normal operation, 1: During fault, 2: Post-fault)" annotation(
     Placement(visible = true, transformation(origin = {-140, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

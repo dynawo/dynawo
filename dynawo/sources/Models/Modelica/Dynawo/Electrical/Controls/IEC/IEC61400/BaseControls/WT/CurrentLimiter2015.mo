@@ -16,8 +16,9 @@ model CurrentLimiter2015 "Current limitation module for wind turbines (IEC N°61
   extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseCurrentLimiter;
 
   //Current limiter parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.CurrentLimiter2015;
-  
+  parameter Types.Time tUFiltcl "Voltage filter time constant in s" annotation(
+    Dialog(tab = "CurrentLimiter"));
+
   //Input variables
   Modelica.Blocks.Interfaces.IntegerInput fUvrt(start = 0) "Fault status (0: Normal operation, 1: During fault, 2: Post fault)" annotation(
     Placement(visible = true, transformation(origin = {-320, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

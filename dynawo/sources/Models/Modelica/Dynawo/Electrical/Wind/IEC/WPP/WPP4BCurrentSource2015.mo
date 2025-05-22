@@ -14,35 +14,85 @@ within Dynawo.Electrical.Wind.IEC.WPP;
 
 model WPP4BCurrentSource2015
   extends Dynawo.Electrical.Wind.IEC.BaseClasses.BaseWPP;
-  extends Dynawo.Electrical.Wind.IEC.Parameters.TableQControl2015;
-
-  //WT genSystem parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem4;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlParameters2015;
 
   //Uf measurement parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.UfMeasurement2015;
+  parameter Types.AngularVelocityPu DfMaxPu "Maximum frequency ramp rate in pu/s (base omegaNom)" annotation(
+    Dialog(tab = "UfMeasurement"));
+  parameter Boolean Mzc "Zero crossing measurement mode (true = 1 if the wind turbine protection system uses zero crossings to detect the frequency - otherwise false = 0)" annotation(
+    Dialog(tab = "UfMeasurement"));
+  parameter Types.Time tfFilt "Filter time constant for frequency measurement in s" annotation(
+    Dialog(tab = "UfMeasurement"));
+  parameter Types.Time tphiFilt "Filter time constant for voltage angle measurement in s" annotation(
+    Dialog(tab = "UfMeasurement"));
+  parameter Types.Time tUFilt "Filter time constant for voltage measurement in s" annotation(
+    Dialog(tab = "UfMeasurement"));
 
   //WT PControl parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4Base;
-  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4b2015;
+  parameter Types.PerUnit DPMaxP4BPu "Maximum WT power ramp rate in pu/s (base SNom) (generator convention)" annotation(
+    Dialog(tab = "PControl"));
+  parameter Types.PerUnit Kpaw "Anti-windup gain for the integrator of the ramp-limited first order in pu/s (base SNom)" annotation(
+    Dialog(tab = "PControl"));
+  parameter Types.Time tPAero "Aerodynamic power response time constant in s" annotation(
+    Dialog(tab = "PControl"));
+  parameter Types.Time tPOrdP4B "Power order lag time constant in s" annotation(
+    Dialog(tab = "PControl"));
+  parameter Types.Time tUFiltP4B "Filter time constant for voltage measurement in s" annotation(
+    Dialog(tab = "PControl"));
 
   //Current limiter parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.CurrentLimiter2015;
+  parameter Types.Time tUFiltcl "Voltage filter time constant in s" annotation(
+    Dialog(tab = "CurrentLimiter"));
 
   //Mechanical parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.Mechanical;
+  parameter Types.PerUnit CdrtPu "Drive train damping in pu (base SNom, omegaNom)" annotation(
+    Dialog(tab = "Mechanical"));
+  parameter Types.Time Hgen "Generator inertia time constant in s" annotation(
+    Dialog(tab = "Mechanical"));
+  parameter Types.Time Hwtr "WT rotor inertia time constant in s" annotation(
+    Dialog(tab = "Mechanical"));
+  parameter Types.PerUnit KdrtPu "Drive train stiffness in pu (base SNom, omegaNom)" annotation(
+    Dialog(tab = "Mechanical"));
 
   //WT QControl parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWT2015;
+  parameter Integer MqUvrt "UVRT Q control modes (0-2) (see Table 23, section 5.6.5.7, page 51 of the IEC norm N°61400-27-1:2015)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.Time tPFiltQ "Active power filter time constant in s" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.Time tUFiltQ "Voltage filter time constant in s" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.VoltageModulePu Udb1Pu "Voltage dead band lower limit in pu (base UNom)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.VoltageModulePu Udb2Pu "Voltage dead band upper limit in pu (base UNom)" annotation(
+    Dialog(tab = "QControl"));
 
   //Qlimiter parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.QLimiter2015;
+  parameter Types.Time tPFiltql "Filter time constant for active power measurement in s" annotation(
+    Dialog(tab = "QLimiter"));
+  parameter Types.Time tUFiltql "Filter time constant for voltage measurement in s" annotation(
+    Dialog(tab = "QLimiter"));
 
   //WPP PControl parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWPP2015;
+  parameter Types.Time tpft "Lead time constant in the reference value transfer function in s" annotation(
+    Dialog(tab = "PControlWP"));
+  parameter Types.Time tpfv "Lag time constant in the reference value transfer function in s" annotation(
+    Dialog(tab = "PControlWP"));
+  parameter Types.Time tWPfFiltP "Filter time constant for frequency measurement in s" annotation(
+    Dialog(tab = "PControlWP"));
+  parameter Types.Time tWPPFiltP "Filter time constant for active power measurement in s" annotation(
+    Dialog(tab = "PControlWP"));
 
   //WPP QControl parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWPP2015;
+  parameter Types.Time tWPPFiltQ "Filter time constant for active power measurement in s" annotation(
+    Dialog(tab = "QControlWP"));
+  parameter Types.Time tWPQFiltQ "Filter time constant for reactive power measurement in s" annotation(
+    Dialog(tab = "QControlWP"));
+  parameter Types.Time tWPUFiltQ "Filter time constant for voltage measurement in s" annotation(
+    Dialog(tab = "QControlWP"));
+  parameter Types.Time txft "Lead time constant in the reference value transfer function in s" annotation(
+    Dialog(tab = "QControlWP"));
+  parameter Types.Time txfv "Lag time constant in the reference value transfer function in s" annotation(
+    Dialog(tab = "QControlWP"));
 
   //WT genSystem parameters
   extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem4;

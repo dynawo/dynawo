@@ -16,8 +16,15 @@ model WPPPControl2015 "Active power control module for wind power plants (IEC NÂ
   extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseWPPPControl;
 
   //PControl parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWPP2015;
-  
+  parameter Types.Time tpft "Lead time constant in the reference value transfer function in s" annotation(
+    Dialog(tab = "PControlWP"));
+  parameter Types.Time tpfv "Lag time constant in the reference value transfer function in s" annotation(
+    Dialog(tab = "PControlWP"));
+  parameter Types.Time tWPfFiltP "Filter time constant for frequency measurement in s" annotation(
+    Dialog(tab = "PControlWP"));
+  parameter Types.Time tWPPFiltP "Filter time constant for active power measurement in s" annotation(
+    Dialog(tab = "PControlWP"));
+
   //Input variables
   Modelica.Blocks.Interfaces.RealInput omegaWPPu(start = SystemBase.omegaRef0Pu) "Angular frequency communicated to WP in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-180, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

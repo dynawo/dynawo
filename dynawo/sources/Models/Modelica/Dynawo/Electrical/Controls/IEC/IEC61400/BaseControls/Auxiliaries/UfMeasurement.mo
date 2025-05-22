@@ -15,11 +15,20 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries;
 model UfMeasurement "Measurement module for grid protection (IEC N°61400-27-1:2015)"
 
   //Nominal parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.IntegrationTimeStep;
+  parameter Types.Time tS "Integration time step in s";
 
   //Uf measurement parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.UfMeasurement2015;
-  
+  parameter Types.AngularVelocityPu DfMaxPu "Maximum frequency ramp rate in pu/s (base omegaNom)" annotation(
+    Dialog(tab = "UfMeasurement"));
+  parameter Boolean Mzc "Zero crossing measurement mode (true = 1 if the wind turbine protection system uses zero crossings to detect the frequency - otherwise false = 0)" annotation(
+    Dialog(tab = "UfMeasurement"));
+  parameter Types.Time tfFilt "Filter time constant for frequency measurement in s" annotation(
+    Dialog(tab = "UfMeasurement"));
+  parameter Types.Time tphiFilt "Filter time constant for voltage angle measurement in s" annotation(
+    Dialog(tab = "UfMeasurement"));
+  parameter Types.Time tUFilt "Filter time constant for voltage measurement in s" annotation(
+    Dialog(tab = "UfMeasurement"));
+
   //Input variables
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = Dynawo.Electrical.SystemBase.omegaRef0Pu) "Grid angular frequency in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-142, -790}, extent = {{-42, -42}, {42, 42}}, rotation = 0)));
@@ -52,9 +61,13 @@ model UfMeasurement "Measurement module for grid protection (IEC N°61400-27-1:2
     Placement(visible = true, transformation(origin = {-34, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialComplexUGrid;
-  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGrid;
-  
+  parameter Dynawo.Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
+    Dialog(tab = "Operating point"));
+  parameter Dynawo.Types.ComplexVoltagePu u0Pu "Initial complex voltage at grid terminal in pu (base UNom)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.Angle UPhase0 "Initial voltage angle at grid terminal in rad" annotation(
+    Dialog(tab = "Operating point"));
+
 equation
   connect(uWTPu, complexToPolar.u) annotation(
     Line(points = {{-120, 48}, {-102, 48}, {-102, 46}, {-84, 46}}, color = {85, 170, 255}));

@@ -24,14 +24,24 @@ model GenSystem4 "Type 4 generator system module (IEC N°61400-27-1)"
     Anti-windup features have been added to the first order filters
     because the standard does not specify any change of behavior when the limits are reached.
   */
-  extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem4;
-  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialGenSystem;
-  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialIGs;
-  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPqGrid;
-  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGrid;
-  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGs;
-  extends Dynawo.Electrical.Wind.IEC.Parameters.SNom_;
-  
+
+  //Nominal parameter
+  parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
+
+  //Control parameters
+  parameter Types.PerUnit DipMaxPu "Maximum active current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "Control"));
+  parameter Types.PerUnit DiqMaxPu "Maximum reactive current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "Control"));
+  parameter Types.PerUnit DiqMinPu "Minimum reactive current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "Control"));
+  parameter Types.PerUnit Kipaw "Anti-windup gain for active current in pu/s (base UNom, SNom)" annotation(
+    Dialog(tab = "Control"));
+  parameter Types.PerUnit Kiqaw "Anti-windup gain for reactive current in pu/s (base UNom, SNom)" annotation(
+    Dialog(tab = "Control"));
+  parameter Types.Time tG "Current generation time constant in s" annotation(
+    Dialog(tab = "Control"));
+
   //Interface
   Dynawo.Connectors.ACPower terminal(V(re(start = UGsRe0Pu), im(start = UGsIm0Pu)), i(re(start = -IGsRe0Pu * SNom / SystemBase.SnRef), im(start = -IGsIm0Pu * SNom / SystemBase.SnRef))) "Converter terminal, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(
     Placement(visible = true, transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -75,6 +85,32 @@ model GenSystem4 "Type 4 generator system module (IEC N°61400-27-1)"
     Placement(visible = true, transformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.Sources.ComplexExpression iGs(y = -terminal.i * (SystemBase.SnRef / SNom)) annotation(
     Placement(visible = true, transformation(origin = {70, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+
+  //Initial parameters
+  parameter Types.PerUnit IGsIm0Pu "Initial imaginary component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.PerUnit IGsRe0Pu "Initial real component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.PerUnit IpMax0Pu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.PerUnit IqMax0Pu "Initial maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.PerUnit IqMin0Pu "Initial minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
+    Dialog(tab = "Operating point"));
+  parameter Types.ActivePowerPu PAg0Pu "Initial generator (air gap) power in pu (base SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.ReactivePowerPu Q0Pu "Initial reactive power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
+    Dialog(tab = "Operating point"));
+  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
+    Dialog(tab = "Operating point"));
+  parameter Types.PerUnit UGsIm0Pu "Initial imaginary component of the voltage at converter terminal in pu (base UNom)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.PerUnit UGsRe0Pu "Initial real component of the voltage at converter terminal in pu (base UNom)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.Angle UPhase0 "Initial voltage angle at grid terminal in rad" annotation(
+    Dialog(tab = "Operating point"));
 
 equation
   if fOCB or not(running) then

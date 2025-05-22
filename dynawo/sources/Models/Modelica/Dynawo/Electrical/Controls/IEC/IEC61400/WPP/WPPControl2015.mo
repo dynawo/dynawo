@@ -14,11 +14,18 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.WPP;
 
 model WPPControl2015 "Control model for IEC N°61400-27-1:2015 standard WPP"
   extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseWPPControl;
-  extends Dynawo.Electrical.Wind.IEC.Parameters.TableQControl2015;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlParameters2015;
 
   //PControl parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWPP2015;
-  
+  parameter Types.Time tpft "Lead time constant in the reference value transfer function in s" annotation(
+    Dialog(tab = "PControlWP"));
+  parameter Types.Time tpfv "Lag time constant in the reference value transfer function in s" annotation(
+    Dialog(tab = "PControlWP"));
+  parameter Types.Time tWPfFiltP "Filter time constant for frequency measurement in s" annotation(
+    Dialog(tab = "PControlWP"));
+  parameter Types.Time tWPPFiltP "Filter time constant for active power measurement in s" annotation(
+    Dialog(tab = "PControlWP"));
+
   //QControl parameters
   parameter Types.Time tWPPFiltQ "Filter time constant for active power measurement in s" annotation(
     Dialog(tab = "QControlWP"));
