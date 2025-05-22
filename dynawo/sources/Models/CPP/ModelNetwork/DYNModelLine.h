@@ -58,17 +58,21 @@ class ModelLine : public NetworkComponent {
     p2Num_ = 3,
     q1Num_ = 4,
     q2Num_ = 5,
+    pRaw1Num_ = 6,
+    pRaw2Num_ = 7,
+    qRaw1Num_ = 8,
+    qRaw2Num_ = 9,
     //  for current Automaton with side monitored
-    iS1ToS2Side1Num_ = 6,  // current oriented from side 1 to side 2 at side 1 (unit A)
-    iS2ToS1Side1Num_ = 7,  // current oriented from side 2 to side 1 at side 1 (unit A)
-    iS1ToS2Side2Num_ = 8,  // current oriented from side 1 to side 2 at side 2 (unit A)
-    iS2ToS1Side2Num_ = 9,  // current oriented from side 2 to side 1 at side 2 (unit A)
-    iSide1Num_ = 10,  // I1 (unit A)
-    iSide2Num_ = 11,  // I2 (unit A)
-    u1Num_ = 12,  // voltage at side 1
-    u2Num_ = 13,  // voltage at side 2
-    lineStateNum_ = 14,  // state of the line (as a continuous variable)
-    nbCalculatedVariables_ = 15
+    iS1ToS2Side1Num_ = 10,  // current oriented from side 1 to side 2 at side 1 (unit A)
+    iS2ToS1Side1Num_ = 11,  // current oriented from side 2 to side 1 at side 1 (unit A)
+    iS1ToS2Side2Num_ = 12,  // current oriented from side 1 to side 2 at side 2 (unit A)
+    iS2ToS1Side2Num_ = 13,  // current oriented from side 2 to side 1 at side 2 (unit A)
+    iSide1Num_ = 14,  // I1 (unit A)
+    iSide2Num_ = 15,  // I2 (unit A)
+    u1Num_ = 16,  // voltage at side 1
+    u2Num_ = 17,  // voltage at side 2
+    lineStateNum_ = 18,  // state of the line (as a continuous variable)
+    nbCalculatedVariables_ = 19
   } CalculatedVariables_t;
 
   /**

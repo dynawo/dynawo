@@ -552,6 +552,8 @@ ModelLoad::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
   }
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_P_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_PRaw_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_QRaw_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Pc_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Qc_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_loadState_value", CONTINUOUS));
@@ -566,6 +568,8 @@ ModelLoad::defineVariables(vector<shared_ptr<Variable> >& variables) {
   variables.push_back(VariableNativeFactory::createState("@ID@_zQ_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_P_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_PRaw_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_QRaw_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_Pc_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_Qc_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_loadState_value", CONTINUOUS));
@@ -590,6 +594,8 @@ ModelLoad::defineElements(std::vector<Element>& elements, std::map<std::string, 
   addElementWithValue(loadName + string("_state"), "Load", elements, mapElement);
   addElementWithValue(loadName + string("_P"), "Load", elements, mapElement);
   addElementWithValue(loadName + string("_Q"), "Load", elements, mapElement);
+  addElementWithValue(loadName + string("_PRaw"), "Load", elements, mapElement);
+  addElementWithValue(loadName + string("_QRaw"), "Load", elements, mapElement);
   addElementWithValue(loadName + string("_Pc"), "Load", elements, mapElement);
   addElementWithValue(loadName + string("_Qc"), "Load", elements, mapElement);
   addElementWithValue(loadName + string("_loadState"), "Load", elements, mapElement);
@@ -750,9 +756,11 @@ ModelLoad::evalCalculatedVars() {
     double U = modelBus_->getCurrentU(ModelBus::UPuType_);
     // P
     calculatedVars_[pNum_] = P(ur, ui, U);
+    calculatedVars_[pRawNum_] = calculatedVars_[pNum_] * SNREF;
 
     // Q
     calculatedVars_[qNum_] = Q(ur, ui, U);
+    calculatedVars_[qRawNum_] = calculatedVars_[qNum_] * SNREF;
 
     calculatedVars_[pcNum_] = P0_ * (1. + deltaPc()) * kp_;
     calculatedVars_[qcNum_] = Q0_ * (1. + deltaQc()) * kq_;
@@ -760,6 +768,8 @@ ModelLoad::evalCalculatedVars() {
   } else {
     calculatedVars_[pNum_] = 0.;
     calculatedVars_[qNum_] = 0.;
+    calculatedVars_[pRawNum_] = 0.;
+    calculatedVars_[qRawNum_] = 0.;
     calculatedVars_[pcNum_] = 0.;
     calculatedVars_[qcNum_] = 0.;
   }
@@ -769,7 +779,8 @@ ModelLoad::evalCalculatedVars() {
 void
 ModelLoad::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& numVars) const {
   switch (numCalculatedVar) {
-    case pNum_: {
+    case pNum_:
+    case pRawNum_: {
       numVars.push_back(modelBus_->urYNum());
       numVars.push_back(modelBus_->uiYNum());
       if (isPControllable_ || isControllable_)
@@ -778,7 +789,8 @@ ModelLoad::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar,
         numVars.push_back(zPYNum_ + yOffset_);
     }
     break;
-    case qNum_: {
+    case qNum_:
+    case qRawNum_: {
       numVars.push_back(modelBus_->urYNum());
       numVars.push_back(modelBus_->uiYNum());
       if (isQControllable_ || isControllable_)
@@ -809,7 +821,8 @@ ModelLoad::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar,
 void
 ModelLoad::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) const {
   switch (numCalculatedVar) {
-    case pNum_: {
+    case pNum_:
+    case pRawNum_: {
       if (isRunning()) {
         double ur = modelBus_->ur();
         double ui = modelBus_->ui();
@@ -838,7 +851,8 @@ ModelLoad::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) c
       }
     }
     break;
-    case qNum_: {
+    case qNum_:
+    case qRawNum_: {
       if (isRunning()) {
         double ur = modelBus_->ur();
         double ui = modelBus_->ui();
@@ -905,6 +919,21 @@ ModelLoad::evalCalculatedVarI(unsigned numCalculatedVar) const {
       }
     }
     break;
+    case pRawNum_: {
+      if (isRunning()) {
+        double U = modelBus_->getCurrentU(ModelBus::UPuType_);
+        double deltaPcVal = 0.;
+        double zPVal = 1.;
+        if (isPControllable_ || isControllable_) {
+          deltaPcVal = deltaPc();
+        }
+        if (isRestorative_) {
+          zPVal = zP();
+        }
+        output = zPVal * P0_ * (1. + deltaPcVal) * pow_dynawo(U, alpha_) * kp_ * SNREF;
+      }
+    }
+    break;
     case qNum_: {
       if (isRunning()) {
         double U = modelBus_->getCurrentU(ModelBus::UPuType_);
@@ -917,6 +946,21 @@ ModelLoad::evalCalculatedVarI(unsigned numCalculatedVar) const {
           zQVal = zQ();
         }
         output = zQVal * Q0_ * (1. + deltaQcVal) * pow_dynawo(U, beta_) * kq_;
+      }
+    }
+    break;
+    case qRawNum_: {
+      if (isRunning()) {
+        double U = modelBus_->getCurrentU(ModelBus::UPuType_);
+        double deltaQcVal = 0.;
+        double zQVal = 1.;
+        if (isQControllable_ || isControllable_) {
+          deltaQcVal = deltaQc();
+        }
+        if (isRestorative_) {
+          zQVal = zQ();
+        }
+        output = zQVal * Q0_ * (1. + deltaQcVal) * pow_dynawo(U, beta_) * kq_* SNREF;
       }
     }
     break;

@@ -45,10 +45,12 @@ class ModelLoad : public NetworkComponent {
   typedef enum {
     pNum_ = 0,
     qNum_ = 1,
-    pcNum_ = 2,
-    qcNum_ = 3,
-    loadStateNum_ = 4,
-    nbCalculatedVariables_ = 5
+    pRawNum_ = 2,
+    qRawNum_ = 3,
+    pcNum_ = 4,
+    qcNum_ = 5,
+    loadStateNum_ = 6,
+    nbCalculatedVariables_ = 7
   } CalculatedVariables_t;
 
   /**

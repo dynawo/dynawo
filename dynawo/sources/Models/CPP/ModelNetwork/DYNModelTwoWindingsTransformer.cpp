@@ -1011,7 +1011,8 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(unsigned numCalculatedVar, vect
       }
       break;
     }
-    case p1Num_: {
+    case p1Num_:
+    case pRaw1Num_: {
       if (closed1) {
         res[0] = Ir1 + ur1 * ir1_dUr1_ + ui1 * ii1_dUr1_;   // dP1/dUr1
         res[1] = ur1 * ir1_dUi1_ + Ii1 + ui1 * ii1_dUi1_;   // dP1/dUi1
@@ -1025,7 +1026,8 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(unsigned numCalculatedVar, vect
       }
       break;
     }
-    case p2Num_: {
+    case p2Num_:
+    case pRaw2Num_: {
       if (closed2) {
         res[0] = ur2 * ir2_dUr1_ + ui2 * ii2_dUr1_;   // dP2/dUr1
         res[1] = ur2 * ir2_dUi1_ + ui2 * ii2_dUi1_;   // dP2/dUi1
@@ -1039,7 +1041,8 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(unsigned numCalculatedVar, vect
       }
       break;
     }
-    case q1Num_: {
+    case q1Num_:
+    case qRaw1Num_: {
       if (closed1) {
         res[0] = ui1 * ir1_dUr1_ - Ii1 - ur1 * ii1_dUr1_;   // dQ1/dUr1
         res[1] = Ir1 + ui1 * ir1_dUi1_ - ur1 * ii1_dUi1_;   // dQ1/dUi1
@@ -1053,7 +1056,8 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(unsigned numCalculatedVar, vect
       }
       break;
     }
-    case q2Num_: {
+    case q2Num_:
+    case qRaw2Num_: {
       if (closed2) {
         res[0] = ui2 * ir2_dUr1_ - ur2 * ii2_dUr1_;   // dQ2/dUr1
         res[1] = ui2 * ir2_dUi1_ - ur2 * ii2_dUi1_;   // dQ2/dUi1
@@ -1082,6 +1086,10 @@ ModelTwoWindingsTransformer::instantiateVariables(vector<shared_ptr<Variable> >&
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_P2_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q1_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q2_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_PRaw1_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_PRaw2_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_QRaw1_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_QRaw2_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iS1ToS2Side1_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iS2ToS1Side1_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iS1ToS2Side2_value", CONTINUOUS));
@@ -1106,6 +1114,10 @@ ModelTwoWindingsTransformer::defineVariables(vector<shared_ptr<Variable> >& vari
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_P2_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q1_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q2_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_PRaw1_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_PRaw2_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_QRaw1_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_QRaw2_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_iS1ToS2Side1_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_iS2ToS1Side1_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_iS1ToS2Side2_value", CONTINUOUS));
@@ -1130,6 +1142,10 @@ ModelTwoWindingsTransformer::defineElements(std::vector<Element>& elements, std:
   addElementWithValue(twtName + string("_P2"), modelType_, elements, mapElement);
   addElementWithValue(twtName + string("_Q1"), modelType_, elements, mapElement);
   addElementWithValue(twtName + string("_Q2"), modelType_, elements, mapElement);
+  addElementWithValue(twtName + string("_PRaw1"), modelType_, elements, mapElement);
+  addElementWithValue(twtName + string("_PRaw2"), modelType_, elements, mapElement);
+  addElementWithValue(twtName + string("_QRaw1"), modelType_, elements, mapElement);
+  addElementWithValue(twtName + string("_QRaw2"), modelType_, elements, mapElement);
   addElementWithValue(twtName + string("_iS1ToS2Side1"), modelType_, elements, mapElement);
   addElementWithValue(twtName + string("_iS2ToS1Side1"), modelType_, elements, mapElement);
   addElementWithValue(twtName + string("_iS1ToS2Side2"), modelType_, elements, mapElement);
@@ -1541,6 +1557,10 @@ ModelTwoWindingsTransformer::evalCalculatedVars() {
   calculatedVars_[p2Num_] = P2;  // Active power side 2
   calculatedVars_[q1Num_] = (irBus1 * ui1Val - iiBus1 * ur1Val);  // Reactive power side 1
   calculatedVars_[q2Num_] = (irBus2 * ui2Val - iiBus2 * ur2Val);  // Reactive power side 2
+  calculatedVars_[pRaw1Num_] = P1 * SNREF;  // Active power side 1
+  calculatedVars_[pRaw2Num_] = P2 * SNREF;  // Active power side 2
+  calculatedVars_[qRaw1Num_] = (irBus1 * ui1Val - iiBus1 * ur1Val) * SNREF;  // Reactive power side 1
+  calculatedVars_[qRaw2Num_] = (irBus2 * ui2Val - iiBus2 * ur2Val) * SNREF;  // Reactive power side 2
 
   calculatedVars_[iS1ToS2Side1Num_] = signP1 * calculatedVars_[i1Num_] * factorPuToASide1_;
   calculatedVars_[iS2ToS1Side1Num_] = -1. * calculatedVars_[iS1ToS2Side1Num_];
@@ -1561,6 +1581,10 @@ ModelTwoWindingsTransformer::getIndexesOfVariablesUsedForCalculatedVarI(unsigned
     case p2Num_:
     case q1Num_:
     case q2Num_:
+    case pRaw1Num_:
+    case pRaw2Num_:
+    case qRaw1Num_:
+    case qRaw2Num_:
     case iS1ToS2Side1Num_:
     case iS2ToS1Side1Num_:
     case iS1ToS2Side2Num_:
@@ -1668,6 +1692,18 @@ ModelTwoWindingsTransformer::evalCalculatedVarI(unsigned numCalculatedVar) const
       break;
     case q2Num_:
       output = (ui2 * Ir2 - ur2 * Ii2);
+      break;
+    case pRaw1Num_:
+      output = (ur1 * Ir1 + ui1 * Ii1) * SNREF;
+      break;
+    case pRaw2Num_:
+      output = (ur2 * Ir2 + ui2 * Ii2) * SNREF;
+      break;
+    case qRaw1Num_:
+      output = (ui1 * Ir1 - ur1 * Ii1) * SNREF;
+      break;
+    case qRaw2Num_:
+      output = (ui2 * Ir2 - ur2 * Ii2) * SNREF;
       break;
     case twtStateNum_:
       output = getConnectionState();

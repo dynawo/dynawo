@@ -14,6 +14,29 @@
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
     <curve model="NETWORK" variable="L4032-4044_state_value"/>
     <curve model="NETWORK" variable="L4032-4042_state_value"/>
+    <curve model="NETWORK" variable="L4032-4042_P1_value"/>
+    <curve model="NETWORK" variable="L4032-4042_PRaw1_value"/>
+    <curve model="NETWORK" variable="L4032-4042_QRaw1_value"/>
+    <curve model="NETWORK" variable="L4032-4042_iS1ToS2Side1_value"/>
+    <curve model="NETWORK" variable="L4032-4042_P2_value"/>
+    <curve model="NETWORK" variable="L4032-4042_PRaw2_value"/>
+    <curve model="NETWORK" variable="L4032-4042_QRaw2_value"/>
+    <curve model="NETWORK" variable="L4032-4042_iS2ToS1Side2_value"/>
+    <curve model="NETWORK" variable="Tr4042-g14_P1_value"/>
+    <curve model="NETWORK" variable="Tr4042-g14_PRaw1_value"/>
+    <curve model="NETWORK" variable="Tr4042-g14_QRaw1_value"/>
+    <curve model="NETWORK" variable="Tr4042-g14_iS1ToS2Side1_value"/>
+    <curve model="NETWORK" variable="Tr4042-g14_P2_value"/>
+    <curve model="NETWORK" variable="Tr4042-g14_PRaw2_value"/>
+    <curve model="NETWORK" variable="Tr4042-g14_QRaw2_value"/>
+    <curve model="NETWORK" variable="Tr4042-g14_iS2ToS1Side2_value"/>
+    <curve model="NETWORK" variable="42_1_P_value"/>
+    <curve model="NETWORK" variable="42_1_Q_value"/>
+    <curve model="NETWORK" variable="42_1_PRaw_value"/>
+    <curve model="NETWORK" variable="42_1_QRaw_value"/>
+    <curve model="g01" variable="generator_PGen"/>
+    <curve model="g01" variable="generator_PGenPu"/>
+    <curve model="g01" variable="generator_P0Pu"/>
     <curve model="NETWORK" variable="61_1_P"/>
     <curve model="NETWORK" variable="61_1_Q"/>
     <curve model="NETWORK" variable="62_1_P"/>
