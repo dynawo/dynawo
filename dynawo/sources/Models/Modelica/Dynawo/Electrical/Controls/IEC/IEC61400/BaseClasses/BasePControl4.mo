@@ -20,11 +20,12 @@ partial model BasePControl4 "Base active power control module for type 4 wind tu
   */
 
   //Nominal parameter
-  extends Dynawo.Electrical.Wind.IEC.Parameters.SNom_;
-  
+  parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
+
   //PControl parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT4Base;
-  
+  parameter Types.PerUnit Kpaw "Anti-windup gain for the integrator of the ramp-limited first order in pu/s (base SNom)" annotation(
+    Dialog(tab = "PControl"));
+
   //Input variables
   Modelica.Blocks.Interfaces.RealInput ipMaxPu(start = IpMax0Pu) "Maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-180, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -49,10 +50,13 @@ partial model BasePControl4 "Base active power control module for type 4 wind tu
     Placement(visible = true, transformation(origin = {50, -68}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialGenSystemP;
-  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPGrid;
-  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUModuleGrid;
-  
+  parameter Types.PerUnit IpMax0Pu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
+    Dialog(tab = "Operating point"));
+  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
+    Dialog(tab = "Operating point"));
+
 equation
   connect(const.y, max.u1) annotation(
     Line(points = {{21, 140}, {40, 140}, {40, 126}, {58, 126}}, color = {0, 0, 127}));

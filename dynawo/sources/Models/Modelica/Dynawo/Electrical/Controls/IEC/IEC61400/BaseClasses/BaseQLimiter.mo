@@ -13,15 +13,20 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses;
 */
 
 partial model BaseQLimiter "Reactive power limitation base module for wind turbines (IEC N°61400-27-1)"
-  extends Dynawo.Electrical.Wind.IEC.Parameters.TableQLimit;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QLimitParameters;
 
   //Nominal parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.SNom_;
-  extends Dynawo.Electrical.Wind.IEC.Parameters.IntegrationTimeStep;
+  parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
+  parameter Types.Time tS "Integration time step in s";
 
   //QLimiter parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.QLimiter;
-  
+  parameter Boolean QlConst "True if limits are constant" annotation(
+    Dialog(tab = "QLimiter"));
+  parameter Types.ReactivePowerPu QMaxPu "Constant maximum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
+    Dialog(tab = "QLimiter"));
+  parameter Types.ReactivePowerPu QMinPu "Constant minimum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
+    Dialog(tab = "QLimiter"));
+
   //Output variables
   Modelica.Blocks.Interfaces.RealOutput QWTMaxPu(start = QMax0Pu) "Maximum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {130, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -54,10 +59,15 @@ partial model BaseQLimiter "Reactive power limitation base module for wind turbi
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialQLimits;
-  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPGrid;
-  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUModuleGrid;
-  
+  parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
+    Dialog(tab = "Operating point"));
+  parameter Types.ReactivePowerPu QMax0Pu "Initial maximum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.ReactivePowerPu QMin0Pu "Initial minimum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
+    Dialog(tab = "Operating point"));
+
 equation
   connect(combiTable1Ds3.y[1], max.u2) annotation(
     Line(points = {{-18, -80}, {0, -80}, {0, -86}, {38, -86}}, color = {0, 0, 127}));

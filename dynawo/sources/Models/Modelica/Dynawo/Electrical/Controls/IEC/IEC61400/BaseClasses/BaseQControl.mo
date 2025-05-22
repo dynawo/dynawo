@@ -15,12 +15,47 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses;
 partial model BaseQControl "Reactive power control base module for wind turbines (IEC N°61400-27-1)"
 
   //Nominal parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.SNom_;
-  extends Dynawo.Electrical.Wind.IEC.Parameters.IntegrationTimeStep;
-  
+  parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
+  parameter Types.Time tS "Integration time step in s";
+
   //QControl parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWTBase;
-  
+  parameter Types.PerUnit IqH1Pu "Maximum reactive current injection during dip in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.PerUnit IqMaxPu "Maximum reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.PerUnit IqMinPu "Minimum reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.PerUnit IqPostPu "Post-fault reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.PerUnit Kiq "Reactive power PI controller integration gain in pu/s (base UNom, SNom)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.PerUnit Kiu "Voltage PI controller integration gain in pu/s (base UNom, SNom)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.PerUnit Kpq "Reactive power PI controller proportional gain in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.PerUnit Kpu "Voltage PI controller proportional gain in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.PerUnit Kqv "Voltage scaling factor for FRT current in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Integer MqG "General Q control mode (0-4) : Voltage control (0), Reactive power control (1), Open loop reactive power control (2), Power factor control (3), Open loop power factor control (4)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.PerUnit RDropPu "Resistive component of voltage drop impedance in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.Time tPost "Length of time period where post-fault reactive power is injected, in s" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.Time tQord "Reactive power order lag time constant in s" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.VoltageModulePu UMaxPu "Maximum voltage in voltage PI controller integral term in pu (base UNom)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.VoltageModulePu UMinPu "Minimum voltage in voltage PI controller integral term in pu (base UNom)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.VoltageModulePu UqDipPu "Voltage threshold for UVRT detection in Q control in pu (base UNom)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.VoltageModulePu URef0Pu "User-defined bias in voltage reference in pu (base UNom)" annotation(
+    Dialog(tab = "QControl"));
+  parameter Types.PerUnit XDropPu "Inductive component of voltage drop impedance in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "QControl"));
+
   //Input variables
   Modelica.Blocks.Interfaces.RealInput QWTMaxPu(start = QMax0Pu) "Maximum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-320, 240}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 45}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -49,7 +84,7 @@ partial model BaseQControl "Reactive power control base module for wind turbines
     Placement(visible = true, transformation(origin = {-130, 220}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add annotation(
     Placement(visible = true, transformation(origin = {-70, 240}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter( homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, limitsAtInit = true,uMax = UMaxPu, uMin = UMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = UMaxPu, uMin = UMinPu) annotation(
     Placement(visible = true, transformation(origin = {30, 240}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback1 annotation(
     Placement(visible = true, transformation(origin = {60, 240}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -65,9 +100,9 @@ partial model BaseQControl "Reactive power control base module for wind turbines
     Placement(visible = true, transformation(origin = {-150, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch switch7(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {250, -200}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter2(uMax = IqH1Pu, uMin = IqMinPu, homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter2(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = IqH1Pu, uMin = IqMinPu) annotation(
     Placement(visible = true, transformation(origin = {190, -200}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter3(uMax = IqH1Pu, uMin = IqMinPu, homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter3(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = IqH1Pu, uMin = IqMinPu) annotation(
     Placement(visible = true, transformation(origin = {190, -240}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add4 annotation(
     Placement(visible = true, transformation(origin = {50, -260}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -117,14 +152,22 @@ partial model BaseQControl "Reactive power control base module for wind turbines
     Placement(visible = true, transformation(origin = {-286, 14}, extent = {{-6, 6}, {6, -6}}, rotation = 90)));
   Modelica.Blocks.Logical.LessThreshold lessThreshold(threshold = UqDipPu) annotation(
     Placement(visible = true, transformation(origin = {-210, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch switch(nu = 5)  annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch switch(nu = 5) annotation(
     Placement(visible = true, transformation(origin = {-24, 240}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPqGrid;
-  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialQLimits;
-  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialQSetpoint;
-  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUModuleGrid;
+  parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
+    Dialog(tab = "Operating point"));
+  parameter Types.ReactivePowerPu Q0Pu "Initial reactive power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
+    Dialog(tab = "Operating point"));
+  parameter Types.ReactivePowerPu QMax0Pu "Initial maximum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.ReactivePowerPu QMin0Pu "Initial minimum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
+    Dialog(tab = "Operating point"));
+  parameter Types.PerUnit XWT0Pu "Initial reactive power or voltage reference at grid terminal in pu (base SNom or UNom) (generator convention)" annotation(
+    Dialog(tab = "Operating point"));
 
 equation
   connect(switch7.y, iqCmdPu) annotation(

@@ -163,7 +163,7 @@ end InitialIGs;
 record InitialPAg "Initial PAg"
     extends InitialIGs;
     extends InitialUGs;
-    protected
+    //protected
       parameter Types.ActivePowerPu PAg0Pu = Modelica.ComplexMath.real(Complex(UGsRe0Pu, UGsIm0Pu)*Complex(IGsRe0Pu, -IGsIm0Pu)) "Initial generator (air gap) power in pu (base SNom) (generator convention)" annotation(
       Dialog(tab = "Initialization"));
 end InitialPAg;
@@ -259,7 +259,7 @@ record PControlWPP2015
   parameter Types.Time tpfv "Lag time constant in the reference value transfer function in s" annotation(Dialog(tab = "PControl", group = "WP"));
   parameter Types.Time tWPfFiltP "Filter time constant for frequency measurement in s" annotation(Dialog(tab = "PControl", group = "WP"));
   parameter Types.Time tWPPFiltP "Filter time constant for active power measurement in s" annotation(Dialog(tab = "PControl", group = "WP"));
-end PControlWPP2015; 
+end PControlWPP2015;
 
 record PControlWT3 "Parameters used in Type 3a P control including torque PI controller"
   extends Dynawo.Electrical.Wind.IEC.Parameters.SNom_;
@@ -300,7 +300,7 @@ record PControlWT3 "Parameters used in Type 3a P control including torque PI con
   final parameter Types.ActivePowerPu PWtcFilt0Pu = -P0Pu "Initial measured active power in pu (base SystemBase.SnRef) (generator convention)" annotation(Dialog(tab = "Initialization"));
   final parameter Types.PerUnit OmegaRef0Pu = Modelica.Math.Vectors.interpolate(TableOmegaPPu[:,1], TableOmegaPPu[:,2], POrd0Pu) "Initial value for omegaRef (output of omega(p) characteristic) in pu (base SystemBase.omegaRef0Pu)" annotation(Dialog(tab = "Initialization"));
   final parameter Types.PerUnit TauEMax0Pu = PWTRef0Pu / (if MOmegaTMax then OmegaRef0Pu else SystemBase.omega0Pu) "Initial value of maximum torque signal tauEMaxPu in pu (base SNom/OmegaNom)" annotation(Dialog(tab = "Initialization"));
-  
+
   // initialization helpers
   final parameter Types.PerUnit Torque0Type3bPu = ((IGsRe0Pu + UGsIm0Pu / XEqv) * cos(UPhase0) + (IGsIm0Pu - UGsRe0Pu / XEqv) * sin(UPhase0)) * U0Pu / SystemBase.omega0Pu;
   final parameter Types.PerUnit Torque0Type3aPu = -P0Pu * SystemBase.SnRef / SNom / SystemBase.omega0Pu "Initialization value of torque PI controller output in pu (base SNom/OmegaNom)";
@@ -324,7 +324,7 @@ record PControlWT4a
   parameter Types.Time tPOrdP4A "Power order lag time constant in s" annotation(Dialog(tab = "PControl", group = "WT"));
   parameter Types.Time tPWTRef4A "Reference power order lag time constant in s" annotation(Dialog(tab = "PControl", group = "WT"));
   parameter Types.VoltageModulePu UpDipPu "Voltage dip threshold for power control in pu (base UNom)" annotation(Dialog(tab = "PControl", group = "WT"));
-end PControlWT4a; 
+end PControlWT4a;
 
 record PControlWT4a2015
   parameter Types.PerUnit DPMaxP4APu "Maximum WT power ramp rate in pu/s (base SNom) (generator convention)" annotation(Dialog(tab = "PControl", group = "WT"));
@@ -475,7 +475,7 @@ record RDropXDrop
   parameter Types.PerUnit RDropPu "Resistive component of voltage drop impedance in pu (base UNom, SNom)" annotation(  Dialog(tab = "QControl", group = "WT"));
   parameter Types.PerUnit XDropPu "Inductive component of voltage drop impedance in pu (base UNom, SNom)" annotation(  Dialog(tab = "QControl", group = "WT"));
 
-end RDropXDrop; 
+end RDropXDrop;
 
 record SNom_ "Nominal parameters for generator system"
     parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
@@ -694,5 +694,5 @@ end UfMeasurement2015;
 record XEqv_
     parameter Types.PerUnit XEqv "Transient reactance (should be calculated from the transient inductance as defined in 'New Generic Model of DFG-Based Wind Turbines for RMS-Type Simulation', Fortmann et al., 2014 (base UNom, SNom), example value = 0.4 (Type 3A) or = 10 (Type 3B)" annotation(Dialog(tab = "genSystem"));
 end XEqv_;
-  
+
 end Parameters;
