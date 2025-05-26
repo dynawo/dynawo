@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.WECC.Mechanical;
 
 /*
-* Copyright (c) 2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2025, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,22 +9,22 @@ within Dynawo.Electrical.Controls.WECC.Mechanical;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
-model DriveTrainPeFiltered "Drive train control with a mechanical power derived from filtered electrical power"
+model WTGTb "Drive train control with a mechanical power derived from filtered electrical power"
   extends Dynawo.Electrical.Controls.WECC.Mechanical.BaseClasses.BaseDriveTrain;
-
-  parameter Types.Time tP "Filter time constant for mechanical power calculation in seconds (typical:0.01..0.02)";
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsWTGTb;
 
   Modelica.Blocks.Continuous.FirstOrder Pmech(T = tP, y_start = PInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {-170, 4}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
 equation
-  connect(PePu, Pmech.u) annotation(
-    Line(points = {{-214, -54}, {-170, -54}, {-170, -8}}, color = {0, 0, 127}));
   connect(Pmech.y, TorqueM.u1) annotation(
     Line(points = {{-170, 16}, {-170, 54}, {-162, 54}}, color = {0, 0, 127}));
+  connect(PePu, Pmech.u) annotation(
+    Line(points = {{-210, -54}, {-170, -54}, {-170, -8}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
@@ -34,4 +34,4 @@ equation
     parameters (and variables) of this simple drive-train model cannot necessarily be compared with
     actual physical quantities directly. </p>
     <p>In this updated version B of the drive train, the mechanical power is derived from the electrical power by filtering with first order delay. </p></html>"));
-end DriveTrainPeFiltered;
+end WTGTb;
