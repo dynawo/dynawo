@@ -65,8 +65,8 @@ model DispatchableVirtualOscillatorControl "Dispatchable virtual oscillator cont
   parameter Types.VoltageModulePu UFilterRef0Pu "Start value of voltage module reference at the converter's capacitor in pu (base UNom)";
 
   Types.VoltageModulePu UFilterRefRawPu(start = UFilterRef0Pu);
-  Types.PerUnit udFilterRefRawPu(start = UdFilter0Pu);
-  Types.PerUnit uqFilterRefRawPu(start = UqFilter0Pu);
+  Types.VoltageComponentPu udFilterRefRawPu(start = UdFilter0Pu);
+  Types.VoltageComponentPu uqFilterRefRawPu(start = UqFilter0Pu);
 
 equation
   udFilterRefRawPu * tan(theta) = uqFilterRefRawPu;

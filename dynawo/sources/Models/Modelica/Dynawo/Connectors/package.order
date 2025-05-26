@@ -9,7 +9,9 @@ AngularVelocityPuConnector
 ComplexCurrentPuConnector
 ComplexPerUnitConnector
 ComplexVoltagePuConnector
+CurrentComponentPuConnector
 CurrentModulePuConnector
 PerUnitConnector
 ReactivePowerPuConnector
 VoltageModulePuConnector
+VoltageComponentPuConnector

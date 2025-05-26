@@ -97,7 +97,7 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
   // d-q axis pu variables (base UNom, SNom)
   Types.VoltageComponentPu udPu(start = Ud0Pu) "Voltage of direct axis in pu";
   Types.VoltageComponentPu uqPu(start = Uq0Pu) "Voltage of quadrature axis in pu";
-  Dynawo.Connectors.PerUnitConnector idPu(start = Id0Pu) "Current of direct axis in pu";
+  Dynawo.Connectors.CurrentComponentPuConnector idPu(start = Id0Pu) "Current of direct axis in pu";
   Types.CurrentComponentPu iqPu(start = Iq0Pu) "Current of quadrature axis in pu";
   Types.CurrentComponentPu iDPu(start = 0) "Current of direct axis damper in pu";
   Types.CurrentComponentPu iQ1Pu(start = 0) "Current of quadrature axis 1st damper in pu";

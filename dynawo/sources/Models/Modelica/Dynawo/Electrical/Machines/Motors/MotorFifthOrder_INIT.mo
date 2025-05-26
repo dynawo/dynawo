@@ -26,12 +26,12 @@ model MotorFifthOrder_INIT "Initialization model for MotorFifthOrder"
   parameter Types.Time tPP0 "Subtransient open circuit time constant in s";
 
   Types.PerUnit Ce0Pu "Start value of the electrical torque in pu (base SNom, omegaNom)";
-  Types.PerUnit EdP0Pu(start = 1) "Start value of voltage behind transient reactance d component in pu (base UNom)";
-  Types.PerUnit EqP0Pu "Start value of voltage behind transient reactance q component in pu (base UNom)";
-  Types.PerUnit EdPP0Pu(start = 1) "Start value of voltage behind subtransient reactance d component in pu (base UNom)";
-  Types.PerUnit EqPP0Pu "Start value of voltage behind subtransient reactance q component in pu (base UNom)";
-  Types.PerUnit Id0Pu "Start value of current of direct axis in pu (base SNom, UNom)";
-  Types.PerUnit Iq0Pu "Start value of current of quadrature axis in pu (base SNom, UNom)";
+  Types.VoltageComponentPu EdP0Pu(start = 1) "Start value of voltage behind transient reactance d component in pu (base UNom)";
+  Types.VoltageComponentPu EqP0Pu "Start value of voltage behind transient reactance q component in pu (base UNom)";
+  Types.VoltageComponentPu EdPP0Pu(start = 1) "Start value of voltage behind subtransient reactance d component in pu (base UNom)";
+  Types.VoltageComponentPu EqPP0Pu "Start value of voltage behind subtransient reactance q component in pu (base UNom)";
+  Types.CurrentComponentPu Id0Pu "Start value of current of direct axis in pu (base SNom, UNom)";
+  Types.CurrentComponentPu Iq0Pu "Start value of current of quadrature axis in pu (base SNom, UNom)";
   Types.AngularVelocityPu omegaR0Pu "Start value of the angular velocity of the motor in pu (base omegaNom)";
   Real Slip0 "Start value of the slip of the motor";
 
