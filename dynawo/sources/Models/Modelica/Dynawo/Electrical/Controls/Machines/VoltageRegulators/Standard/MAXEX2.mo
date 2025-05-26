@@ -23,7 +23,7 @@ model MAXEX2 "Overexcitation limitation for standard voltage regulator"
   parameter Types.Time t1 = 60 "Time of first characteristic point in s";
   parameter Types.Time t2 = 30 "Time of second characteristic point in s";
   parameter Types.Time t3 = 15 "Time of third characteristic point in s";
-  parameter Types.PerUnit ULowPu = -0.05 "Lower limit of overexcitation limitation output voltage in pu (base UNom)";
+  parameter Types.VoltageModulePu ULowPu = -0.05 "Lower limit of overexcitation limitation output voltage in pu (base UNom)";
 
   final parameter Types.PerUnit FOel[:, :] = [t3 - 1, Ifd3Pu; t3, Ifd3Pu; t2, Ifd2Pu; t1, Ifd1Pu; t1 + 1, Ifd1Pu] "Time characteristic of the overexcitation limitation";
 

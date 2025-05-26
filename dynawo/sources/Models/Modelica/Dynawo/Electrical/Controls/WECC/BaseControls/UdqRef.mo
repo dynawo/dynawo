@@ -36,10 +36,10 @@ model UdqRef "Calculation of setpoints udSourceRefPu and uqSourceRefPu with sour
   Modelica.Blocks.Interfaces.RealOutput uqSourceRefPu(start = UqInj0Pu + Iq0Pu * RSourcePu + Id0Pu * XSourcePu) "q-axis reference voltage at source in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  parameter Types.PerUnit Id0Pu "Start value of d-axis current in pu (base UNom, SNom) (generator convention)";
-  parameter Types.PerUnit Iq0Pu "Start value of q-axis current in pu (base UNom, SNom) (generator convention)";
-  parameter Types.PerUnit UdInj0Pu "Start value of d-axis voltage injector in pu (base UNom)";
-  parameter Types.PerUnit UqInj0Pu "Start value of q-axis voltage injector in pu (base UNom)";
+  parameter Types.CurrentComponentPu Id0Pu "Start value of d-axis current in pu (base UNom, SNom) (generator convention)";
+  parameter Types.CurrentComponentPu Iq0Pu "Start value of q-axis current in pu (base UNom, SNom) (generator convention)";
+  parameter Types.VoltageComponentPu UdInj0Pu "Start value of d-axis voltage injector in pu (base UNom)";
+  parameter Types.VoltageComponentPu UqInj0Pu "Start value of q-axis voltage injector in pu (base UNom)";
 
 equation
   udSourceRefPu = udInjPu + idRefPu * RSourcePu - iqRefPu * XSourcePu;

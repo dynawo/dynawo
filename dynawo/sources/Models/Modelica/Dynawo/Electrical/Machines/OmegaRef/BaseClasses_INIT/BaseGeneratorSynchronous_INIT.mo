@@ -60,13 +60,13 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
 
   Dynawo.Connectors.AngleConnector Theta0 "Start value of rotor angle: angle between machine rotor frame and port phasor frame";
 
-  Types.PerUnit Ud0Pu "Start value of voltage of direct axis in pu";
-  Types.PerUnit Uq0Pu "Start value of voltage of quadrature axis in pu";
-  Dynawo.Connectors.PerUnitConnector Id0Pu "Start value of current of direct axis in pu";
-  Types.PerUnit Iq0Pu "Start value of current of quadrature axis in pu";
+  Types.VoltageComponentPu Ud0Pu "Start value of voltage of direct axis in pu";
+  Types.VoltageComponentPu Uq0Pu "Start value of voltage of quadrature axis in pu";
+  Dynawo.Connectors.CurrentComponentPuConnector Id0Pu "Start value of current of direct axis in pu";
+  Types.CurrentComponentPu Iq0Pu "Start value of current of quadrature axis in pu";
 
-  Types.PerUnit If0Pu "Start value of current of excitation winding in pu";
-  Types.PerUnit Uf0Pu "Start value of exciter voltage in pu (Kundur base)";
+  Types.CurrentComponentPu If0Pu "Start value of current of excitation winding in pu";
+  Types.VoltageComponentPu Uf0Pu "Start value of exciter voltage in pu (Kundur base)";
   Dynawo.Connectors.VoltageModulePuConnector Efd0Pu "Start value of input exciter voltage in pu (user-selected base)";
 
   Types.PerUnit Lambdad0Pu "Start value of flux of direct axis in pu";
@@ -78,7 +78,7 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
 
   Types.PerUnit Ce0Pu "Start value of electrical torque in pu (base SNom/omegaNom)";
   Types.PerUnit Cm0Pu "Start value of mechanical torque in pu (base PNomTurb/omegaNom)";
-  Dynawo.Connectors.PerUnitConnector Pm0Pu "Start value of mechanical power in pu (base PNomTurb/omegaNom)";
+  Dynawo.Connectors.ActivePowerPuConnector Pm0Pu "Start value of mechanical power in pu (base PNomTurb/omegaNom)";
 
   Dynawo.Connectors.VoltageModulePuConnector UStator0Pu "Start value of stator voltage amplitude in pu (base UNom)";
   Dynawo.Connectors.CurrentModulePuConnector IStator0Pu "Start value of stator current amplitude in pu (base SnRef)";

@@ -65,17 +65,17 @@ model Comptodq "Computation of dq components from grid measurements in EPRI Grid
   // Initial parameters
   parameter Types.ComplexCurrentPu iInj0Pu "Start value of complex current at converter's terminal in pu (base UNom, SnRef) (generator convention)" annotation(
   Dialog(tab = "Initial"));
-  parameter Types.PerUnit IdConv0Pu "Start value of d-axis current of the converter in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.CurrentComponentPu IdConv0Pu "Start value of d-axis current of the converter in pu (base UNom, SNom) (generator convention)" annotation(
   Dialog(tab = "Initial"));
-  parameter Types.PerUnit IqConv0Pu "Start value of q-axis current of the converter in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.CurrentComponentPu IqConv0Pu "Start value of q-axis current of the converter in pu (base UNom, SNom) (generator convention)" annotation(
   Dialog(tab = "Initial"));
   parameter Types.Angle Theta0 "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad" annotation(
   Dialog(tab = "Initial"));
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at converter's terminal in pu (base UNom)" annotation(
   Dialog(tab = "Initial"));
-  parameter Types.PerUnit UdFilter0Pu "Start value of d-axis voltage at the converter's terminal in pu (base UNom)" annotation(
+  parameter Types.VoltageComponentPu UdFilter0Pu "Start value of d-axis voltage at the converter's terminal in pu (base UNom)" annotation(
   Dialog(tab = "Initial"));
-  parameter Types.PerUnit UqFilter0Pu "Start value of q-axis voltage at the converter's terminal in pu (base UNom)" annotation(
+  parameter Types.VoltageComponentPu UqFilter0Pu "Start value of q-axis voltage at the converter's terminal in pu (base UNom)" annotation(
   Dialog(tab = "Initial"));
 
 equation
