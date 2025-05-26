@@ -28,3 +28,4 @@ StandAloneRampRateLimiter
 SwitchInteger
 VariableDelayFlag
 VariableLimiter
+LimitedIntegratorFreeze

@@ -15,6 +15,9 @@ set(MODEL_FILES
   WTG4BCurrentSource.mo
   WT4ACurrentSource.mo
   WT4BCurrentSource.mo
+  WTG4CurrentSource3.mo
+  WTG3CurrentSource1.mo
+  WTG3CurrentSource2.mo
   )
 
 #
