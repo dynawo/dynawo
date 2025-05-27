@@ -1111,6 +1111,23 @@ class SubModel {
   }
 
   /**
+   * @brief get a formated name of the submodel to generate allowed filename
+   *
+   * @return formated name of the submodel
+   */
+  inline std::string dumpName() const {
+    std::string strDump = name_;
+    size_t index = 0;
+    do {
+      index = strDump.find("/", index);
+      if (index != std::string::npos) {
+        strDump.replace(index++, 1, "_");
+      }
+    } while (index != std::string::npos);
+    return strDump;
+  }
+
+  /**
    * @brief defines the name of the subModel
    *
    * @param name name of the subModel

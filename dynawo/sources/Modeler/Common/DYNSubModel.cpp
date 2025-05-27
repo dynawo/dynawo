@@ -669,28 +669,30 @@ SubModel::defineParameters(const bool isInitParam) {
 
 void
 SubModel::printModelValues(const std::string& directory, const std::string& dumpFileName) {
-  const string& fileName = absolute(dumpFileName + "-" + name() + ".txt", directory);
+  const string& fileName = absolute(dumpFileName + "-" + dumpName() + ".txt", directory);
 
   std::ofstream file;
   file.open(fileName.c_str());
+  if (file.is_open()) {
+    printValuesVariables(file);
+    printValuesParameters(file);
 
-  printValuesVariables(file);
-  printValuesParameters(file);
-
-  file.close();
+    file.close();
+  }
 }
 
 void
 SubModel::printInitModelValues(const std::string& directory, const std::string& dumpFileName) {
-  const string& fileName = absolute(dumpFileName + "-" + name() + ".txt", directory);
+  const string& fileName = absolute(dumpFileName + "-" + dumpName() + ".txt", directory);
 
   std::ofstream file;
   file.open(fileName.c_str());
+  if (file.is_open()) {
+    printInitValuesVariables(file);
+    printInitValuesParameters(file);
 
-  printInitValuesVariables(file);
-  printInitValuesParameters(file);
-
-  file.close();
+    file.close();
+  }
 }
 
 void
