@@ -22,8 +22,6 @@
 namespace job {
 
   ConstraintsEntry::ConstraintsEntry() :
-  outputFile_(""),
-  exportMode_(""),
   filter_(true) {}
 
 void
