@@ -58,7 +58,7 @@ ConstraintsCollection::addConstraint(
 
 void
 ConstraintsCollection::filter() {
-  for (auto& modelIt : constraintsByModel_) {
+  for (auto &modelIt : constraintsByModel_) {
     const string& modelName = modelIt.first;
     std::vector<std::shared_ptr<Constraint> > constraints = modelIt.second;
     std::map<std::string, int> beginConstraints;
