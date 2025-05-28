@@ -1,0 +1,3 @@
+ ====== INIT VARIABLES VALUES ======
+ ====== INIT DISCRETE VARIABLES VALUES ======
+ ====== INIT PARAMETERS VALUES ======
