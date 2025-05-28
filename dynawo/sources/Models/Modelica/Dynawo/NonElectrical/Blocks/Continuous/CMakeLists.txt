@@ -19,6 +19,7 @@ set(MODEL_FILES
   AbsLimRateLimFirstOrderFreeze.mo
   AbsLimRateLimFirstOrderFreezeLimDetection.mo
   AntiWindupIntegrator.mo
+  AntiWindupIntegratorNoDerivative.mo
   DecreaseDetection.mo
   DiscreteIntegrator.mo
   DiscreteIntegrator.extvar
@@ -44,7 +45,6 @@ set(MODEL_FILES
   Washout.mo
   WeightedDifference.mo
   WeightedDifference.extvar
-  AntiWindUpIntegratorNoDerivative.mo
   )
 
 #

@@ -1,29 +1,35 @@
 within Dynawo.NonElectrical.Blocks.Continuous;
 
+/*
+* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+
 block AntiWindupIntegratorNoDerivative "Integrator with absolute and rate limits, anti windup and anti winddown"
-  /*
-  * Copyright (c) 2022, RTE (http://www.rte-france.com)
-  * See AUTHORS.txt
-  * All rights reserved.
-  * This Source Code Form is subject to the terms of the Mozilla Public
-  * License, v. 2.0. If a copy of the MPL was not distributed with this
-  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-  * SPDX-License-Identifier: MPL-2.0
-  *
-  * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-  */
   extends Modelica.Blocks.Icons.Block;
+
   parameter Types.Time tI "Integrator time constant in s";
   parameter Types.PerUnit YMax "Upper limit of output";
   parameter Types.PerUnit YMin = -YMax "Lower limit of output";
+
   Modelica.Blocks.Interfaces.BooleanInput fMax(start = false) "True if anti windup should be applied" annotation(
     Placement(visible = true, transformation(origin = {0, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {80, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
   Modelica.Blocks.Interfaces.BooleanInput fMin(start = false) "True if anti winddown should be applied" annotation(
     Placement(visible = true, transformation(origin = {0, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {40, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput u "Input signal connector" annotation(
     Placement(visible = true, transformation(origin = {-220, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+
   Modelica.Blocks.Interfaces.RealOutput y(start = Y0) "Output signal connector" annotation(
     Placement(visible = true, transformation(origin = {210, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
   Modelica.Blocks.Math.Gain gain(k = 1/tI) annotation(
     Placement(transformation(origin = {-150, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Continuous.Integrator integrator(y_start = Y0) annotation(
@@ -40,7 +46,9 @@ block AntiWindupIntegratorNoDerivative "Integrator with absolute and rate limits
     Placement(visible = true, transformation(origin = {-30, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch2 annotation(
     Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
   parameter Types.PerUnit Y0 "Initial value of output";
+
 equation
   connect(limiter1.y, y) annotation(
     Line(points = {{181, 0}, {210, 0}}, color = {0, 0, 127}));
@@ -70,6 +78,7 @@ equation
     Line(points = {{-138, 0}, {-82, 0}, {-82, -34}}, color = {0, 0, 127}));
   connect(gain.y, switch1.u3) annotation(
     Line(points = {{-138, 0}, {-42, 0}, {-42, 8}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
     Icon(coordinateSystem(grid = {0.1, 0.1}, initialScale = 0.1), graphics = {Line(origin = {-40, 1.06}, points = {{-40, -121.057}, {20, 118.943}}), Line(origin = {40, 1.05741}, points = {{-80, -121.057}, {-40, -121.057}, {20, 118.943}, {60, 118.943}}), Rectangle(lineColor = {0, 0, 127}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {12, 28}, extent = {{-44, 34}, {26, -16}}, textString = "1"), Text(origin = {2, -44}, extent = {{-60, 22}, {60, -22}}, textString = "sT"), Line(origin = {4, 0}, points = {{-86, 0}, {86, 0}})}),

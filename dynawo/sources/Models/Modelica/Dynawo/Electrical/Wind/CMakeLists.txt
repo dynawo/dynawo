@@ -14,10 +14,6 @@ add_subdirectory(WECC W)
 set(MODEL_FILES
   package.mo
   package.order
-  WTG4ACurrentSource3.mo
-WTG3CurrentSource1.mo
-WTG3CurrentSource2.mo
-Tests.mo
   )
 
 #

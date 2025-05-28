@@ -1,10 +1,10 @@
 BaseClasses
-WTG4BCurrentSource
 WTG4ACurrentSource
-WT4CurrentSource_INIT
-WT4BCurrentSource
+WTG4BCurrentSource
 WT4ACurrentSource
-WTG4ACurrentSource3
+WT4BCurrentSource
+WT4CurrentSource_INIT
 WTG3CurrentSource1
 WTG3CurrentSource2
+WTG4ACurrentSource3
 Tests

@@ -1,20 +1,23 @@
 within Dynawo.Electrical.Wind.WECC;
 
+/*
+* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+
 model WTG4ACurrentSource3 "WECC Wind Turbine model with a simplified drive train model (dual-mass model) and with a current source as interface with the grid"
-  /*
-    * Copyright (c) 2021, RTE (http://www.rte-france.com)
-    * See AUTHORS.txt
-    * All rights reserved.
-    * This Source Code Form is subject to the terms of the Mozilla Public
-    * License, v. 2.0. If a copy of the MPL was not distributed with this
-    * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-    * SPDX-License-Identifier: MPL-2.0
-    *
-    * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-    */
   extends Electrical.Controls.PLL.ParamsPLL;
   extends Electrical.Controls.WECC.Parameters.ParamsREPC;
   extends Electrical.Wind.WECC.BaseClasses.BaseWT4A;
+
   // Input variables
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -24,15 +27,17 @@ model WTG4ACurrentSource3 "WECC Wind Turbine model with a simplified drive train
     Placement(visible = true, transformation(origin = {-190, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Voltage setpoint for plant level control in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  
+
   Electrical.Controls.WECC.REPC.REPCa wecc_repc(DDn = DDn, DUp = DUp, FreqFlag = FreqFlag, Kc = Kc, Ki = Ki, Kig = Kig, Kp = Kp, Kpg = Kpg, PGen0Pu = -P0Pu*SystemBase.SnRef/SNom, PInj0Pu = PInj0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, QGen0Pu = -Q0Pu*SystemBase.SnRef/SNom, QInj0Pu = QInj0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, RcPu = RPu, RefFlag = RefFlag, tFilterPC = tFilterPC, tFt = tFt, tFv = tFv, tLag = tLag, tP = tP, U0Pu = U0Pu, UInj0Pu = UInj0Pu, VCompFlag = VCompFlag, VFrz = VFrz, XcPu = XPu, DbdPu = DbdPu, EMaxPu = EMaxPu, EMinPu = EMinPu, FDbd1Pu = FDbd1Pu, FDbd2Pu = FDbd2Pu, FEMaxPu = FEMaxPu, FEMinPu = FEMinPu, iInj0Pu = iInj0Pu, u0Pu = u0Pu) annotation(
     Placement(transformation(origin = {-118, 0}, extent = {{-10, -10}, {10, 10}})));
+
   // Initial parameters
   parameter Types.ComplexPerUnit iInj0Pu "Start value of complex current at injector in pu (base UNom, SNom) (generator convention)";
   parameter Types.PerUnit P0Pu "Start value of active power at regulated bus in pu (receptor convention) (base SnRef)";
   parameter Types.PerUnit Q0Pu "Start value of reactive power at regulated bus in pu (receptor convention) (base SnRef)";
   parameter Types.PerUnit U0Pu "Start value of voltage magnitude at regulated bus in pu (base UNom)";
   final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else (U0Pu + Kc*Q0Pu*SystemBase.SnRef/SNom) "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
+
 equation
   connect(URefPu, wecc_repc.URefPu) annotation(
     Line(points = {{-190, -40}, {-120, -40}, {-120, -11}, {-118, -11}}, color = {0, 0, 127}));
@@ -56,6 +61,7 @@ equation
     Line(points = {{-107, 6}, {-91, 6}}, color = {0, 0, 127}));
   connect(wecc_repc.QInjRefPu, wecc_reec.QInjRefPu) annotation(
     Line(points = {{-107, -6}, {-91, -6}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html>
