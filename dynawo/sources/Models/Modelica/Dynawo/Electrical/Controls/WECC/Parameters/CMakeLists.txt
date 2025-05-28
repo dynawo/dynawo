@@ -19,7 +19,7 @@ set(MODEL_FILES
   ParamsREGC.mo
   ParamsREPC.mo
   ParamsVSourceRef.mo
-  ParamsDriveTrainb
+  ParamsDriveTrainb.mo
   ParamsWTGPA.mo
   ParamsWTGPB.mo
   ParamsWTGAA.mo
