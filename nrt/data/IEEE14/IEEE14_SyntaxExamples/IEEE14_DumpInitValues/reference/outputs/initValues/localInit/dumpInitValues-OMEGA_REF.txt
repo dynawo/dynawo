@@ -1,0 +1,40 @@
+ ====== VARIABLES VALUES ======
+omegaRef_0_value                                  : y =       1.000000 yp =       0.000000
+omegaRef_1_value                                  : y =       1.000000 yp =       0.000000
+omegaRef_2_value                                  : y =       1.000000 yp =       0.000000
+omegaRef_3_value                                  : y =       1.000000 yp =       0.000000
+omegaRef_4_value                                  : y =       1.000000 yp =       0.000000
+omegaRef_5_value                                  : y =       1.000000 yp =       0.000000
+omegaRef_6_value                                  : y =       1.000000 yp =       0.000000
+omegaRef_7_value                                  : y =       1.000000 yp =       0.000000
+omegaRef_8_value                                  : y =       1.000000 yp =       0.000000
+omegaRef_9_value                                  : y =       1.000000 yp =       0.000000
+omega_grp_0_value                                 : y =       1.000000 yp =       0.000000
+omega_grp_1_value                                 : y =       1.000000 yp =       0.000000
+omega_grp_2_value                                 : y =       1.000000 yp =       0.000000
+omega_grp_3_value                                 : y =       1.000000 yp =       0.000000
+omega_grp_4_value                                 : y =       1.000000 yp =       0.000000
+omegaRef_grp_0_value                              : y =       1.000000 yp =       0.000000
+omegaRef_grp_1_value                              : y =       1.000000 yp =       0.000000
+omegaRef_grp_2_value                              : y =       1.000000 yp =       0.000000
+omegaRef_grp_3_value                              : y =       1.000000 yp =       0.000000
+omegaRef_grp_4_value                              : y =       1.000000 yp =       0.000000
+ ====== DISCRETE VARIABLES VALUES ======
+numcc_node_0_value                                : z =       0.000000
+numcc_node_1_value                                : z =       0.000000
+numcc_node_2_value                                : z =       0.000000
+numcc_node_3_value                                : z =       0.000000
+numcc_node_4_value                                : z =       0.000000
+running_grp_0_value                               : z =       1.000000
+running_grp_1_value                               : z =       1.000000
+running_grp_2_value                               : z =       1.000000
+running_grp_3_value                               : z =       1.000000
+running_grp_4_value                               : z =       1.000000
+ ====== PARAMETERS VALUES ======
+nbGen                                              =       5.000000
+weight_gen_0                                       =    1211.000000
+weight_gen_1                                       =    1120.000000
+weight_gen_2                                       =    1650.000000
+weight_gen_3                                       =      80.000000
+weight_gen_4                                       =     250.000000
+ ====== INTERNAL PARAMETERS VALUES ======

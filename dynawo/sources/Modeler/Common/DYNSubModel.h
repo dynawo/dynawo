@@ -1117,13 +1117,7 @@ class SubModel {
    */
   inline std::string dumpName() const {
     std::string strDump = name_;
-    size_t index = 0;
-    do {
-      index = strDump.find("/", index);
-      if (index != std::string::npos) {
-        strDump.replace(index++, 1, "_");
-      }
-    } while (index != std::string::npos);
+    std::replace(strDump.begin(), strDump.end(), '/', '_');
     return strDump;
   }
 
