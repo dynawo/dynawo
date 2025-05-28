@@ -106,7 +106,7 @@ $(document).ready(function(){initNavTree('d9/d01/a03248.html','../../');});
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="../../d8/d38/a00926_source.html">DYNModelGenerator.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../dc/d92/a00929_source.html">DYNModelGenerator.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for DYN::ModelGenerator:</div>
 <div class="dyncontent">
@@ -253,6 +253,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <tr class="memitem:a5b2c83bd3456d95dcdb6c784ecd56bc2"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d01/a03248.html#a5b2c83bd3456d95dcdb6c784ecd56bc2">QcPu</a> () const</td></tr>
 <tr class="memdesc:a5b2c83bd3456d95dcdb6c784ecd56bc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculate the reactive power set point in pu (SNREF)  <a href="#a5b2c83bd3456d95dcdb6c784ecd56bc2">More...</a><br /></td></tr>
 <tr class="separator:a5b2c83bd3456d95dcdb6c784ecd56bc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a949dd57f1c64722448a05ab23f9daefe"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d01/a03248.html#a949dd57f1c64722448a05ab23f9daefe">getNbInternalVariables</a> () const override</td></tr>
+<tr class="memdesc:a949dd57f1c64722448a05ab23f9daefe"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the number of internal variable of the model  <a href="#a949dd57f1c64722448a05ab23f9daefe">More...</a><br /></td></tr>
+<tr class="separator:a949dd57f1c64722448a05ab23f9daefe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4ec36ac3ce7554fb58a4298036bbfb9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d01/a03248.html#ae4ec36ac3ce7554fb58a4298036bbfb9">dumpInternalVariables</a> (boost::archive::binary_oarchive &amp;streamVariables) const override</td></tr>
+<tr class="memdesc:ae4ec36ac3ce7554fb58a4298036bbfb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">append the internal variables values to a stringstream  <a href="#ae4ec36ac3ce7554fb58a4298036bbfb9">More...</a><br /></td></tr>
+<tr class="separator:ae4ec36ac3ce7554fb58a4298036bbfb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f4075d218a2becc4c38cc20ff6b3b5c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d01/a03248.html#a6f4075d218a2becc4c38cc20ff6b3b5c">loadInternalVariables</a> (boost::archive::binary_iarchive &amp;streamVariables) override</td></tr>
+<tr class="memdesc:a6f4075d218a2becc4c38cc20ff6b3b5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">import the internal variables values of the component from stringstream  <a href="#a6f4075d218a2becc4c38cc20ff6b3b5c">More...</a><br /></td></tr>
+<tr class="separator:a6f4075d218a2becc4c38cc20ff6b3b5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_a03316"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a03316')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../df/daa/a03316.html">DYN::NetworkComponent</a></td></tr>
 <tr class="memitem:a58a8a76064424f68a62b9b0ef4d0a3d5 inherit pub_methods_a03316"><td class="memItemLeft" align="right" valign="top"><a id="a58a8a76064424f68a62b9b0ef4d0a3d5"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/daa/a03316.html#a58a8a76064424f68a62b9b0ef4d0a3d5">~NetworkComponent</a> ()</td></tr>
@@ -322,15 +331,6 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <tr class="memitem:a08d23177a6d7155236bd1b04ee179055 inherit pub_methods_a03316"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/daa/a03316.html#a08d23177a6d7155236bd1b04ee179055">printInternalParameters</a> (std::ofstream &amp;fstream) const</td></tr>
 <tr class="memdesc:a08d23177a6d7155236bd1b04ee179055 inherit pub_methods_a03316"><td class="mdescLeft">&#160;</td><td class="mdescRight">write initial values internal parameters of a model in a file  <a href="../../df/daa/a03316.html#a08d23177a6d7155236bd1b04ee179055">More...</a><br /></td></tr>
 <tr class="separator:a08d23177a6d7155236bd1b04ee179055 inherit pub_methods_a03316"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e7ecd21d7eed4135832bfa078159be7 inherit pub_methods_a03316"><td class="memItemLeft" align="right" valign="top">virtual unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/daa/a03316.html#a0e7ecd21d7eed4135832bfa078159be7">getNbInternalVariables</a> () const</td></tr>
-<tr class="memdesc:a0e7ecd21d7eed4135832bfa078159be7 inherit pub_methods_a03316"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the number of internal variable of the model  <a href="../../df/daa/a03316.html#a0e7ecd21d7eed4135832bfa078159be7">More...</a><br /></td></tr>
-<tr class="separator:a0e7ecd21d7eed4135832bfa078159be7 inherit pub_methods_a03316"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33e8b4a00718e68d774db325888afa93 inherit pub_methods_a03316"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/daa/a03316.html#a33e8b4a00718e68d774db325888afa93">dumpInternalVariables</a> (boost::archive::binary_oarchive &amp;streamVariables) const</td></tr>
-<tr class="memdesc:a33e8b4a00718e68d774db325888afa93 inherit pub_methods_a03316"><td class="mdescLeft">&#160;</td><td class="mdescRight">append the internal variables values to a stringstream  <a href="../../df/daa/a03316.html#a33e8b4a00718e68d774db325888afa93">More...</a><br /></td></tr>
-<tr class="separator:a33e8b4a00718e68d774db325888afa93 inherit pub_methods_a03316"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add293adf7750de220782b33cf76009de inherit pub_methods_a03316"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/daa/a03316.html#add293adf7750de220782b33cf76009de">loadInternalVariables</a> (boost::archive::binary_iarchive &amp;streamVariables)</td></tr>
-<tr class="memdesc:add293adf7750de220782b33cf76009de inherit pub_methods_a03316"><td class="mdescLeft">&#160;</td><td class="mdescRight">import the internal variables values of the component from stringstream  <a href="../../df/daa/a03316.html#add293adf7750de220782b33cf76009de">More...</a><br /></td></tr>
-<tr class="separator:add293adf7750de220782b33cf76009de inherit pub_methods_a03316"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21e6d0c83772d0c47fc52c7f3304d9e6 inherit pub_methods_a03316"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/daa/a03316.html#a21e6d0c83772d0c47fc52c7f3304d9e6">dumpVariables</a> (boost::archive::binary_oarchive &amp;streamVariables) const</td></tr>
 <tr class="memdesc:a21e6d0c83772d0c47fc52c7f3304d9e6 inherit pub_methods_a03316"><td class="mdescLeft">&#160;</td><td class="mdescRight">export the variables values of the sub model for dump  <a href="../../df/daa/a03316.html#a21e6d0c83772d0c47fc52c7f3304d9e6">More...</a><br /></td></tr>
 <tr class="separator:a21e6d0c83772d0c47fc52c7f3304d9e6 inherit pub_methods_a03316"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -340,6 +340,9 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <tr class="memitem:a9cb2158c2ae6ec954f0a7d795dd784aa inherit pub_methods_a03316"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/daa/a03316.html#a9cb2158c2ae6ec954f0a7d795dd784aa">getId</a> () const</td></tr>
 <tr class="memdesc:a9cb2158c2ae6ec954f0a7d795dd784aa inherit pub_methods_a03316"><td class="mdescLeft">&#160;</td><td class="mdescRight">id getter  <a href="../../df/daa/a03316.html#a9cb2158c2ae6ec954f0a7d795dd784aa">More...</a><br /></td></tr>
 <tr class="separator:a9cb2158c2ae6ec954f0a7d795dd784aa inherit pub_methods_a03316"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1299a06e8774c87d6cec250fcb31a07 inherit pub_methods_a03316"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/daa/a03316.html#ac1299a06e8774c87d6cec250fcb31a07">setInternalVariablesFoundInDump</a> (bool internalVariablesFoundInDump)</td></tr>
+<tr class="memdesc:ac1299a06e8774c87d6cec250fcb31a07 inherit pub_methods_a03316"><td class="mdescLeft">&#160;</td><td class="mdescRight">set wether the internal variables are found in dumpfile  <a href="../../df/daa/a03316.html#ac1299a06e8774c87d6cec250fcb31a07">More...</a><br /></td></tr>
+<tr class="separator:ac1299a06e8774c87d6cec250fcb31a07 inherit pub_methods_a03316"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a76ca9141fdc5cd8c782af8184df04f3c inherit pub_methods_a03316"><td class="memTemplParams" colspan="2"><a id="a76ca9141fdc5cd8c782af8184df04f3c"></a>
 template&lt;&gt; </td></tr>
 <tr class="memitem:a76ca9141fdc5cd8c782af8184df04f3c inherit pub_methods_a03316"><td class="memTemplItemLeft" align="right" valign="top">double&#160;</td><td class="memTemplItemRight" valign="bottom"><b>getParameterDynamicNoThrow</b> (const std::unordered_map&lt; std::string, <a class="el" href="../../d3/d7e/a02768.html">ParameterModeler</a> &gt; &amp;, const std::string &amp;, bool &amp;, const std::vector&lt; std::string &gt; &amp;) const</td></tr>
@@ -505,6 +508,10 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/daa/a03316.html#a32b606cca1fa33f8c42728ee9f029cd6">sizeCalculatedVar_</a></td></tr>
 <tr class="memdesc:a32b606cca1fa33f8c42728ee9f029cd6 inherit pro_attribs_a03316"><td class="mdescLeft">&#160;</td><td class="mdescRight">size of calculated variables <br /></td></tr>
 <tr class="separator:a32b606cca1fa33f8c42728ee9f029cd6 inherit pro_attribs_a03316"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1036d86b5d5100cbf7343e75b9b07fb7 inherit pro_attribs_a03316"><td class="memItemLeft" align="right" valign="top"><a id="a1036d86b5d5100cbf7343e75b9b07fb7"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/daa/a03316.html#a1036d86b5d5100cbf7343e75b9b07fb7">internalVariablesFoundInDump_</a></td></tr>
+<tr class="memdesc:a1036d86b5d5100cbf7343e75b9b07fb7 inherit pro_attribs_a03316"><td class="mdescLeft">&#160;</td><td class="mdescRight">wether internal variables are found in dump <br /></td></tr>
+<tr class="separator:a1036d86b5d5100cbf7343e75b9b07fb7 inherit pro_attribs_a03316"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae7b43dcf96074ec741effc88f8c0c672 inherit pro_attribs_a03316"><td class="memItemLeft" align="right" valign="top"><a id="ae7b43dcf96074ec741effc88f8c0c672"></a>
 unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/daa/a03316.html#ae7b43dcf96074ec741effc88f8c0c672">offsetCalculatedVar_</a></td></tr>
 <tr class="memdesc:ae7b43dcf96074ec741effc88f8c0c672 inherit pro_attribs_a03316"><td class="mdescLeft">&#160;</td><td class="mdescRight">offset to find the begin of calculated var of the model in the global vector <br /></td></tr>
@@ -740,6 +747,42 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="ae4ec36ac3ce7554fb58a4298036bbfb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4ec36ac3ce7554fb58a4298036bbfb9">&#9670;&nbsp;</a></span>dumpInternalVariables()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::ModelGenerator::dumpInternalVariables </td>
+          <td>(</td>
+          <td class="paramtype">boost::archive::binary_oarchive &amp;&#160;</td>
+          <td class="paramname"><em>streamVariables</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>append the internal variables values to a stringstream </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">streamVariables</td><td>: stream with binary formated internalVariables </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented from <a class="el" href="../../df/daa/a03316.html#a33e8b4a00718e68d774db325888afa93">DYN::NetworkComponent</a>.</p>
 
 </div>
 </div>
@@ -1360,6 +1403,36 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 
 </div>
 </div>
+<a id="a949dd57f1c64722448a05ab23f9daefe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a949dd57f1c64722448a05ab23f9daefe">&#9670;&nbsp;</a></span>getNbInternalVariables()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned DYN::ModelGenerator::getNbInternalVariables </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get the number of internal variable of the model </p>
+<dl class="section return"><dt>Returns</dt><dd>the number of internal variable of the model </dd></dl>
+
+<p>Reimplemented from <a class="el" href="../../df/daa/a03316.html#a0e7ecd21d7eed4135832bfa078159be7">DYN::NetworkComponent</a>.</p>
+
+</div>
+</div>
 <a id="a2a224dc0f52b1e3842a1f904c17b808d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2a224dc0f52b1e3842a1f904c17b808d">&#9670;&nbsp;</a></span>getY0()</h2>
 
@@ -1891,6 +1964,42 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 
 </div>
 </div>
+<a id="a6f4075d218a2becc4c38cc20ff6b3b5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f4075d218a2becc4c38cc20ff6b3b5c">&#9670;&nbsp;</a></span>loadInternalVariables()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::ModelGenerator::loadInternalVariables </td>
+          <td>(</td>
+          <td class="paramtype">boost::archive::binary_iarchive &amp;&#160;</td>
+          <td class="paramname"><em>streamVariables</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>import the internal variables values of the component from stringstream </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">streamVariables</td><td>: stream with binary formated internalVariables </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented from <a class="el" href="../../df/daa/a03316.html#add293adf7750de220782b33cf76009de">DYN::NetworkComponent</a>.</p>
+
+</div>
+</div>
 <a id="a23a77a7e4c88c8ac4125a4bf72db126d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a23a77a7e4c88c8ac4125a4bf72db126d">&#9670;&nbsp;</a></span>PcPu()</h2>
 
@@ -2124,7 +2233,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d8/d38/a00926_source.html">DYNModelGenerator.h</a></li>
+<li><a class="el" href="../../dc/d92/a00929_source.html">DYNModelGenerator.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -2143,7 +2252,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d9/d01/a03248.html">ModelGenerator</a></li>
-    <li class="footer">Generated on Wed May 14 2025 13:09:27 for Dynawo by
+    <li class="footer">Generated on Wed May 28 2025 10:25:07 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -289,7 +289,7 @@ var files_dup =
     [ "DYNDelayManager.h", "dd/d5c/a00578.html", [
       [ "DelayManager", "da/dd3/a02736.html", "da/dd3/a02736" ]
     ] ],
-    [ "DYNDerivative.h", "d3/dd1/a00914.html", "d3/dd1/a00914" ],
+    [ "DYNDerivative.h", "d4/ddc/a00917.html", "d4/ddc/a00917" ],
     [ "DYNDynamicData.h", "d8/dc8/a00581.html", [
       [ "DynamicData", "da/d20/a02740.html", "da/d20/a02740" ]
     ] ],
@@ -383,29 +383,30 @@ var files_dup =
     [ "DYNModel.h", "de/dde/a00587.html", [
       [ "Model", "d0/d1f/a02748.html", "d0/d1f/a02748" ]
     ] ],
-    [ "DYNModelAreaShedding.h", "d7/d46/a00890.html", [
+    [ "DYNModelAreaShedding.h", "dc/d2c/a00893.html", [
       [ "ModelAreaSheddingFactory", "da/dfb/a03188.html", "da/dfb/a03188" ],
       [ "ModelAreaShedding", "d8/d2a/a03192.html", "d8/d2a/a03192" ]
     ] ],
-    [ "DYNModelAreaShedding.hpp", "dc/d2c/a00893_source.html", null ],
-    [ "DYNModelBus.h", "d4/ddc/a00917.html", [
+    [ "DYNModelAreaShedding.hpp", "da/dd6/a00896_source.html", null ],
+    [ "DYNModelBus.h", "d6/d82/a00920.html", [
       [ "ModelBus", "d6/d63/a03228.html", "d6/d63/a03228" ],
       [ "SubNetwork", "d0/d77/a03232.html", "d0/d77/a03232" ],
       [ "ModelBusContainer", "d5/de9/a03236.html", "d5/de9/a03236" ]
     ] ],
-    [ "DYNModelCentralizedShuntsSectionControl.h", "d5/d69/a00878.html", [
+    [ "DYNModelCentralizedShuntsSectionControl.h", "df/d41/a00881.html", [
       [ "ModelCentralizedShuntsSectionControlFactory", "db/dc1/a03172.html", "db/dc1/a03172" ],
       [ "ModelCentralizedShuntsSectionControl", "df/d0d/a03176.html", "df/d0d/a03176" ]
     ] ],
-    [ "DYNModelCentralizedShuntsSectionControl.hpp", "df/d41/a00881_source.html", null ],
+    [ "DYNModelCentralizedShuntsSectionControl.hpp", "dd/d08/a00884_source.html", null ],
     [ "DYNModelConstants.h", "d7/db1/a00590.html", "d7/db1/a00590" ],
     [ "DYNModelCPP.h", "d3/db2/a00869.html", [
       [ "ModelCPP", "d8/d08/a03160.html", "d8/d08/a03160" ]
     ] ],
-    [ "DYNModelCurrentLimits.h", "d6/d82/a00920.html", [
+    [ "DYNModelCPP.hpp", "dc/d17/a00872.html", null ],
+    [ "DYNModelCurrentLimits.h", "df/de9/a00923.html", [
       [ "ModelCurrentLimits", "d9/de5/a03240.html", "d9/de5/a03240" ]
     ] ],
-    [ "DYNModelDanglingLine.h", "df/de9/a00923.html", [
+    [ "DYNModelDanglingLine.h", "d8/d38/a00926.html", [
       [ "ModelDanglingLine", "d1/dfa/a03244.html", "d1/dfa/a03244" ]
     ] ],
     [ "DYNModelDescription.h", "d2/da3/a00593.html", [
@@ -414,23 +415,23 @@ var files_dup =
     [ "DYNModeler.h", "dc/d25/a00596.html", [
       [ "Modeler", "dc/d80/a02756.html", "dc/d80/a02756" ]
     ] ],
-    [ "DYNModelGenerator.h", "d8/d38/a00926.html", [
+    [ "DYNModelGenerator.h", "dc/d92/a00929.html", [
       [ "ModelGenerator", "d9/d01/a03248.html", "d9/d01/a03248" ]
     ] ],
-    [ "DYNModelHvdcLink.h", "dc/d92/a00929.html", [
+    [ "DYNModelHvdcLink.h", "d8/dbb/a00932.html", [
       [ "ModelHvdcLink", "d7/d44/a03252.html", "d7/d44/a03252" ]
     ] ],
-    [ "DYNModelLine.h", "d8/dbb/a00932.html", [
+    [ "DYNModelLine.h", "d8/d19/a00935.html", [
       [ "ModelLine", "d3/d55/a03256.html", "d3/d55/a03256" ]
     ] ],
-    [ "DYNModelLoad.h", "d8/d19/a00935.html", [
+    [ "DYNModelLoad.h", "d5/d54/a00938.html", [
       [ "ModelLoad", "d1/dda/a03260.html", "d1/dda/a03260" ]
     ] ],
-    [ "DYNModelLoadRestorativeWithLimits.h", "dc/d17/a00872.html", [
+    [ "DYNModelLoadRestorativeWithLimits.h", "d1/d93/a00875.html", [
       [ "ModelLoadRestorativeWithLimitsFactory", "d8/dec/a03164.html", "d8/dec/a03164" ],
       [ "ModelLoadRestorativeWithLimits", "d8/d87/a03168.html", "d8/d87/a03168" ]
     ] ],
-    [ "DYNModelLoadRestorativeWithLimits.hpp", "d1/d93/a00875_source.html", null ],
+    [ "DYNModelLoadRestorativeWithLimits.hpp", "d5/d69/a00878_source.html", null ],
     [ "DYNModelManager.h", "d6/d2f/a00854.html", [
       [ "ModelManager", "d2/d19/a03144.html", "d2/d19/a03144" ]
     ] ],
@@ -444,35 +445,34 @@ var files_dup =
       [ "ModelMulti", "d3/d55/a02760.html", "d3/d55/a02760" ],
       [ "findSubModelFromVarName_t", "df/d25/a02764.html", "df/d25/a02764" ]
     ] ],
-    [ "DYNModelNetwork.h", "d5/d54/a00938.html", "d5/d54/a00938" ],
-    [ "DYNModelNetwork.hpp", "d6/dad/a00941_source.html", null ],
-    [ "DYNModelOmegaRef.h", "d0/d85/a00908.html", [
+    [ "DYNModelNetwork.h", "d6/dad/a00941.html", "d6/dad/a00941" ],
+    [ "DYNModelNetwork.hpp", "d9/dce/a00944_source.html", null ],
+    [ "DYNModelOmegaRef.h", "d7/d12/a00911.html", [
       [ "ModelOmegaRefFactory", "df/d1e/a03212.html", "df/d1e/a03212" ],
       [ "ModelOmegaRef", "d5/d2f/a03216.html", "d5/d2f/a03216" ]
     ] ],
-    [ "DYNModelOmegaRef.hpp", "d7/d12/a00911_source.html", null ],
-    [ "DYNModelPhaseTapChanger.h", "d9/dce/a00944.html", [
+    [ "DYNModelOmegaRef.hpp", "d3/dd1/a00914_source.html", null ],
+    [ "DYNModelPhaseTapChanger.h", "d3/d29/a00947.html", [
       [ "ModelPhaseTapChanger", "d4/d1c/a03272.html", "d4/d1c/a03272" ]
     ] ],
-    [ "DYNModelRatioTapChanger.h", "d3/d29/a00947.html", [
+    [ "DYNModelRatioTapChanger.h", "df/d39/a00950.html", [
       [ "ModelRatioTapChanger", "d0/ded/a03276.html", "d0/ded/a03276" ]
     ] ],
-    [ "DYNModelShuntCompensator.h", "df/d39/a00950.html", [
+    [ "DYNModelShuntCompensator.h", "d5/da3/a00953.html", [
       [ "ModelShuntCompensator", "de/d7f/a03280.html", "de/d7f/a03280" ]
     ] ],
-    [ "DYNModelStaticVarCompensator.h", "d5/da3/a00953.html", [
+    [ "DYNModelStaticVarCompensator.h", "d3/de5/a00956.html", [
       [ "ModelStaticVarCompensator", "d6/d25/a03284.html", "d6/d25/a03284" ]
     ] ],
-    [ "DYNModelSwitch.h", "d3/de5/a00956.html", [
+    [ "DYNModelSwitch.h", "db/d40/a00959.html", [
       [ "ModelSwitch", "db/de4/a03288.html", "db/de4/a03288" ]
     ] ],
-    [ "DYNModelSwitchFactory.h", "db/d40/a00959.html", [
+    [ "DYNModelSwitchFactory.h", "df/d88/a00962.html", [
       [ "ModelSwitchFactory", "d7/d52/a03292.html", "d7/d52/a03292" ]
     ] ],
-    [ "DYNModelTapChanger.h", "df/d88/a00962.html", [
+    [ "DYNModelTapChanger.h", "d3/dcd/a00965.html", [
       [ "ModelTapChanger", "d2/d76/a03296.html", "d2/d76/a03296" ]
     ] ],
-    [ "DYNModelTapChanger.hpp", "d3/dcd/a00965.html", null ],
     [ "DYNModelTapChangerStep.h", "d7/dd4/a00968.html", [
       [ "TapChangerStep", "d0/d7c/a03300.html", "d0/d7c/a03300" ]
     ] ],
@@ -483,24 +483,24 @@ var files_dup =
       [ "ModelTwoWindingsTransformer", "d0/de4/a03308.html", "d0/de4/a03308" ]
     ] ],
     [ "DYNModelUtil.h", "d5/d0a/a00602.html", "d5/d0a/a00602" ],
-    [ "DYNModelVariationArea.h", "da/dd6/a00896.html", [
+    [ "DYNModelVariationArea.h", "d3/d8a/a00899.html", [
       [ "ModelVariationAreaFactory", "dc/ddd/a03196.html", "dc/ddd/a03196" ],
       [ "ModelVariationArea", "de/d3a/a03200.html", "de/d3a/a03200" ]
     ] ],
-    [ "DYNModelVariationArea.hpp", "d3/d8a/a00899_source.html", null ],
+    [ "DYNModelVariationArea.hpp", "d5/dd3/a00902_source.html", null ],
     [ "DYNModelVoltageLevel.h", "d5/d6c/a00977.html", [
       [ "ModelVoltageLevel", "dc/de8/a03312.html", "dc/de8/a03312" ]
     ] ],
-    [ "DYNModelVoltageMeasurementsUtilities.h", "dd/d08/a00884.html", [
+    [ "DYNModelVoltageMeasurementsUtilities.h", "d7/d92/a00887.html", [
       [ "ModelVoltageMeasurementsUtilitiesFactory", "d6/da1/a03180.html", "d6/da1/a03180" ],
       [ "ModelVoltageMeasurementsUtilities", "d0/d08/a03184.html", "d0/d08/a03184" ]
     ] ],
-    [ "DYNModelVoltageMeasurementsUtilities.hpp", "d7/d92/a00887_source.html", null ],
-    [ "DYNModelVoltageSetPointChange.h", "d5/dd3/a00902.html", [
+    [ "DYNModelVoltageMeasurementsUtilities.hpp", "d7/d46/a00890_source.html", null ],
+    [ "DYNModelVoltageSetPointChange.h", "da/d5b/a00905.html", [
       [ "ModelVoltageSetPointChangeFactory", "d6/d75/a03204.html", "d6/d75/a03204" ],
       [ "ModelVoltageSetPointChange", "d6/d1a/a03208.html", "d6/d1a/a03208" ]
     ] ],
-    [ "DYNModelVoltageSetPointChange.hpp", "da/d5b/a00905_source.html", null ],
+    [ "DYNModelVoltageSetPointChange.hpp", "d0/d85/a00908_source.html", null ],
     [ "DYNNetworkComponent.h", "db/d20/a00980.html", [
       [ "NetworkComponent", "df/daa/a03316.html", "df/daa/a03316" ]
     ] ],

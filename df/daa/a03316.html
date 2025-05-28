@@ -332,6 +332,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <tr class="memitem:a9cb2158c2ae6ec954f0a7d795dd784aa"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/daa/a03316.html#a9cb2158c2ae6ec954f0a7d795dd784aa">getId</a> () const</td></tr>
 <tr class="memdesc:a9cb2158c2ae6ec954f0a7d795dd784aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">id getter  <a href="#a9cb2158c2ae6ec954f0a7d795dd784aa">More...</a><br /></td></tr>
 <tr class="separator:a9cb2158c2ae6ec954f0a7d795dd784aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1299a06e8774c87d6cec250fcb31a07"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/daa/a03316.html#ac1299a06e8774c87d6cec250fcb31a07">setInternalVariablesFoundInDump</a> (bool internalVariablesFoundInDump)</td></tr>
+<tr class="memdesc:ac1299a06e8774c87d6cec250fcb31a07"><td class="mdescLeft">&#160;</td><td class="mdescRight">set wether the internal variables are found in dumpfile  <a href="#ac1299a06e8774c87d6cec250fcb31a07">More...</a><br /></td></tr>
+<tr class="separator:ac1299a06e8774c87d6cec250fcb31a07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a76ca9141fdc5cd8c782af8184df04f3c"><td class="memTemplParams" colspan="2"><a id="a76ca9141fdc5cd8c782af8184df04f3c"></a>
 template&lt;&gt; </td></tr>
 <tr class="memitem:a76ca9141fdc5cd8c782af8184df04f3c"><td class="memTemplItemLeft" align="right" valign="top">double&#160;</td><td class="memTemplItemRight" valign="bottom"><b>getParameterDynamicNoThrow</b> (const std::unordered_map&lt; std::string, <a class="el" href="../../d3/d7e/a02768.html">ParameterModeler</a> &gt; &amp;, const std::string &amp;, bool &amp;, const std::vector&lt; std::string &gt; &amp;) const</td></tr>
@@ -431,6 +434,10 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/daa/a03316.html#a32b606cca1fa33f8c42728ee9f029cd6">sizeCalculatedVar_</a></td></tr>
 <tr class="memdesc:a32b606cca1fa33f8c42728ee9f029cd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">size of calculated variables <br /></td></tr>
 <tr class="separator:a32b606cca1fa33f8c42728ee9f029cd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1036d86b5d5100cbf7343e75b9b07fb7"><td class="memItemLeft" align="right" valign="top"><a id="a1036d86b5d5100cbf7343e75b9b07fb7"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/daa/a03316.html#a1036d86b5d5100cbf7343e75b9b07fb7">internalVariablesFoundInDump_</a></td></tr>
+<tr class="memdesc:a1036d86b5d5100cbf7343e75b9b07fb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">wether internal variables are found in dump <br /></td></tr>
+<tr class="separator:a1036d86b5d5100cbf7343e75b9b07fb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae7b43dcf96074ec741effc88f8c0c672"><td class="memItemLeft" align="right" valign="top"><a id="ae7b43dcf96074ec741effc88f8c0c672"></a>
 unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/daa/a03316.html#ae7b43dcf96074ec741effc88f8c0c672">offsetCalculatedVar_</a></td></tr>
 <tr class="memdesc:ae7b43dcf96074ec741effc88f8c0c672"><td class="mdescLeft">&#160;</td><td class="mdescRight">offset to find the begin of calculated var of the model in the global vector <br /></td></tr>
@@ -638,7 +645,7 @@ Private Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../d0/de4/a03308.html#a01d446ae6531d17aabd28168b60e9e55">DYN::ModelTwoWindingsTransformer</a>, <a class="el" href="../../db/de4/a03288.html#a45883ee73de87cf0ef67d05769b791d2">DYN::ModelSwitch</a>, <a class="el" href="../../d3/d55/a03256.html#a3d96b0cf4e6a2170db3b9106e847def1">DYN::ModelLine</a>, <a class="el" href="../../d6/d63/a03228.html#af07b8246480bfacd253ad32c162be2f5">DYN::ModelBus</a>, <a class="el" href="../../d1/dfa/a03244.html#a40ba18dd336fad0886544ad07002abb0">DYN::ModelDanglingLine</a>, <a class="el" href="../../d2/d14/a03304.html#a9f1dd6242813a916512aafebf1cd1bf9">DYN::ModelThreeWindingsTransformer</a>, <a class="el" href="../../d1/dda/a03260.html#aea287ddc86f1f8566e833e7af143d469">DYN::ModelLoad</a>, <a class="el" href="../../dc/de8/a03312.html#af39a36473000bb7142f0fa83e20f372a">DYN::ModelVoltageLevel</a>, <a class="el" href="../../d6/d25/a03284.html#a6f8eff58655162915303726dd9cd8512">DYN::ModelStaticVarCompensator</a>, <a class="el" href="../../d9/d01/a03248.html#a9b9c80fac2ba4ea7f06b72f1c9bc10b0">DYN::ModelGenerator</a>, <a class="el" href="../../de/d7f/a03280.html#a6c0d29c4f507315d287aefc2780e64da">DYN::ModelShuntCompensator</a>, and <a class="el" href="../../d7/d44/a03252.html#a877e582c1b1a654e2b4d5c5e9fe3b1a1">DYN::ModelHvdcLink</a>.</p>
+<p>Implemented in <a class="el" href="../../d0/de4/a03308.html#a01d446ae6531d17aabd28168b60e9e55">DYN::ModelTwoWindingsTransformer</a>, <a class="el" href="../../db/de4/a03288.html#a45883ee73de87cf0ef67d05769b791d2">DYN::ModelSwitch</a>, <a class="el" href="../../d3/d55/a03256.html#a3d96b0cf4e6a2170db3b9106e847def1">DYN::ModelLine</a>, <a class="el" href="../../d6/d63/a03228.html#af07b8246480bfacd253ad32c162be2f5">DYN::ModelBus</a>, <a class="el" href="../../d1/dfa/a03244.html#a40ba18dd336fad0886544ad07002abb0">DYN::ModelDanglingLine</a>, <a class="el" href="../../d2/d14/a03304.html#a9f1dd6242813a916512aafebf1cd1bf9">DYN::ModelThreeWindingsTransformer</a>, <a class="el" href="../../d1/dda/a03260.html#aea287ddc86f1f8566e833e7af143d469">DYN::ModelLoad</a>, <a class="el" href="../../d6/d25/a03284.html#a6f8eff58655162915303726dd9cd8512">DYN::ModelStaticVarCompensator</a>, <a class="el" href="../../d9/d01/a03248.html#a9b9c80fac2ba4ea7f06b72f1c9bc10b0">DYN::ModelGenerator</a>, <a class="el" href="../../dc/de8/a03312.html#af39a36473000bb7142f0fa83e20f372a">DYN::ModelVoltageLevel</a>, <a class="el" href="../../de/d7f/a03280.html#a6c0d29c4f507315d287aefc2780e64da">DYN::ModelShuntCompensator</a>, and <a class="el" href="../../d7/d44/a03252.html#a877e582c1b1a654e2b4d5c5e9fe3b1a1">DYN::ModelHvdcLink</a>.</p>
 
 </div>
 </div>
@@ -752,12 +759,12 @@ Private Member Functions</h2></td></tr>
 <p>append the internal variables values to a stringstream </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">streamVariables</td><td>: stringstream with binary formated internalVariables </td></tr>
+    <tr><td class="paramname">streamVariables</td><td>: stream with binary formated internalVariables </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="../../d0/de4/a03308.html#ae7436361bb167afc64a28f6a1d3bf1f0">DYN::ModelTwoWindingsTransformer</a>.</p>
+<p>Reimplemented in <a class="el" href="../../d6/d63/a03228.html#ae9d444b72cfb88b1dc00bbb37617811b">DYN::ModelBus</a>, <a class="el" href="../../d0/de4/a03308.html#ae7436361bb167afc64a28f6a1d3bf1f0">DYN::ModelTwoWindingsTransformer</a>, <a class="el" href="../../dc/de8/a03312.html#a3adb244efaad70c24e50dff308917257">DYN::ModelVoltageLevel</a>, <a class="el" href="../../d7/d44/a03252.html#a3479c44f4ec1e96e122f781bf686f2ea">DYN::ModelHvdcLink</a>, <a class="el" href="../../d1/dfa/a03244.html#a6faa9a275fef8b1e983d13243658f501">DYN::ModelDanglingLine</a>, <a class="el" href="../../d3/d55/a03256.html#ae53ac6d39aef64f2f97ddc344c6af1ae">DYN::ModelLine</a>, <a class="el" href="../../de/d7f/a03280.html#aa3500b2f4d1b5b8de51422e64ac98af8">DYN::ModelShuntCompensator</a>, <a class="el" href="../../d1/dda/a03260.html#a14f87b6216769424681c49197e89ebe5">DYN::ModelLoad</a>, <a class="el" href="../../d6/d25/a03284.html#af90af288cc7d91839c167f2942a9f34e">DYN::ModelStaticVarCompensator</a>, and <a class="el" href="../../d9/d01/a03248.html#ae4ec36ac3ce7554fb58a4298036bbfb9">DYN::ModelGenerator</a>.</p>
 
 </div>
 </div>
@@ -830,7 +837,7 @@ Private Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>value of the calculated variable </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d0/de4/a03308.html#acc74e83e0a36fc8d8a02dbc42f0c1e33">DYN::ModelTwoWindingsTransformer</a>, <a class="el" href="../../dc/de8/a03312.html#a40b2f200796ec6d275f7a555430e6314">DYN::ModelVoltageLevel</a>, <a class="el" href="../../db/de4/a03288.html#ae7f8c3be440834ad74b01cc05aeff0b0">DYN::ModelSwitch</a>, <a class="el" href="../../d3/d55/a03256.html#ac7309c5d08aa6ea49a5bf04049c4c76c">DYN::ModelLine</a>, <a class="el" href="../../d6/d63/a03228.html#ab8776e0f13d54b5cd26be364e79db5c3">DYN::ModelBus</a>, <a class="el" href="../../d1/dfa/a03244.html#a04a6c159e7fce90bcfa903b902b18c85">DYN::ModelDanglingLine</a>, <a class="el" href="../../de/d7f/a03280.html#a04c750980fac27646057c8d5bd4edf0b">DYN::ModelShuntCompensator</a>, <a class="el" href="../../d2/d14/a03304.html#a9744d0d6ac505dc892e71bfddaaffa5e">DYN::ModelThreeWindingsTransformer</a>, <a class="el" href="../../d7/d44/a03252.html#a51565967c7ad02a9a865fbdeaa6d9860">DYN::ModelHvdcLink</a>, <a class="el" href="../../d1/dda/a03260.html#ad120ecee3c590488a96be470869ad2ec">DYN::ModelLoad</a>, <a class="el" href="../../d6/d25/a03284.html#ad4095dfaf51d3347c1351946650096c3">DYN::ModelStaticVarCompensator</a>, and <a class="el" href="../../d9/d01/a03248.html#a6678be8da75bb0c5871485fe41aa1bdc">DYN::ModelGenerator</a>.</p>
+<p>Implemented in <a class="el" href="../../d0/de4/a03308.html#acc74e83e0a36fc8d8a02dbc42f0c1e33">DYN::ModelTwoWindingsTransformer</a>, <a class="el" href="../../dc/de8/a03312.html#a40b2f200796ec6d275f7a555430e6314">DYN::ModelVoltageLevel</a>, <a class="el" href="../../db/de4/a03288.html#ae7f8c3be440834ad74b01cc05aeff0b0">DYN::ModelSwitch</a>, <a class="el" href="../../d3/d55/a03256.html#ac7309c5d08aa6ea49a5bf04049c4c76c">DYN::ModelLine</a>, <a class="el" href="../../d6/d63/a03228.html#ab8776e0f13d54b5cd26be364e79db5c3">DYN::ModelBus</a>, <a class="el" href="../../d1/dfa/a03244.html#a04a6c159e7fce90bcfa903b902b18c85">DYN::ModelDanglingLine</a>, <a class="el" href="../../de/d7f/a03280.html#a04c750980fac27646057c8d5bd4edf0b">DYN::ModelShuntCompensator</a>, <a class="el" href="../../d7/d44/a03252.html#a51565967c7ad02a9a865fbdeaa6d9860">DYN::ModelHvdcLink</a>, <a class="el" href="../../d2/d14/a03304.html#a9744d0d6ac505dc892e71bfddaaffa5e">DYN::ModelThreeWindingsTransformer</a>, <a class="el" href="../../d1/dda/a03260.html#ad120ecee3c590488a96be470869ad2ec">DYN::ModelLoad</a>, <a class="el" href="../../d6/d25/a03284.html#ad4095dfaf51d3347c1351946650096c3">DYN::ModelStaticVarCompensator</a>, and <a class="el" href="../../d9/d01/a03248.html#a6678be8da75bb0c5871485fe41aa1bdc">DYN::ModelGenerator</a>.</p>
 
 </div>
 </div>
@@ -866,7 +873,7 @@ Private Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../dc/de8/a03312.html#ad264fa872fabf9aa6fbfd5ee47c337f0">DYN::ModelVoltageLevel</a>, <a class="el" href="../../d0/de4/a03308.html#ae8d9bf329eee2f4ef751a83b963ab4ae">DYN::ModelTwoWindingsTransformer</a>, <a class="el" href="../../d7/d44/a03252.html#adba55e09b0d4e5e66c70b5a0e3d79991">DYN::ModelHvdcLink</a>, <a class="el" href="../../db/de4/a03288.html#afbc478d86364de3597da7d35f2154ea7">DYN::ModelSwitch</a>, <a class="el" href="../../d6/d63/a03228.html#aa88123ea3f41a55fafe2b192a9e50601">DYN::ModelBus</a>, <a class="el" href="../../d3/d55/a03256.html#a293a54e00dfc4e503a18d6c63e3ad36d">DYN::ModelLine</a>, <a class="el" href="../../d1/dfa/a03244.html#a9593c5e7ef859809db5743de9682a936">DYN::ModelDanglingLine</a>, <a class="el" href="../../d2/d14/a03304.html#a4a33346566f43c53dbe78502a42d077e">DYN::ModelThreeWindingsTransformer</a>, <a class="el" href="../../de/d7f/a03280.html#aca6b9495f953f3c6eb2f7e02e7510fcc">DYN::ModelShuntCompensator</a>, <a class="el" href="../../d1/dda/a03260.html#aee74e3f2f20c9547e8133d71b95d65cc">DYN::ModelLoad</a>, <a class="el" href="../../d6/d25/a03284.html#a1b653eb7bb7671833aadd517e63249da">DYN::ModelStaticVarCompensator</a>, and <a class="el" href="../../d9/d01/a03248.html#a65cf0bf0c528113cc9c9db566b9a6248">DYN::ModelGenerator</a>.</p>
+<p>Implemented in <a class="el" href="../../dc/de8/a03312.html#ad264fa872fabf9aa6fbfd5ee47c337f0">DYN::ModelVoltageLevel</a>, <a class="el" href="../../d0/de4/a03308.html#ae8d9bf329eee2f4ef751a83b963ab4ae">DYN::ModelTwoWindingsTransformer</a>, <a class="el" href="../../d7/d44/a03252.html#adba55e09b0d4e5e66c70b5a0e3d79991">DYN::ModelHvdcLink</a>, <a class="el" href="../../d6/d63/a03228.html#aa88123ea3f41a55fafe2b192a9e50601">DYN::ModelBus</a>, <a class="el" href="../../db/de4/a03288.html#afbc478d86364de3597da7d35f2154ea7">DYN::ModelSwitch</a>, <a class="el" href="../../d3/d55/a03256.html#a293a54e00dfc4e503a18d6c63e3ad36d">DYN::ModelLine</a>, <a class="el" href="../../d1/dfa/a03244.html#a9593c5e7ef859809db5743de9682a936">DYN::ModelDanglingLine</a>, <a class="el" href="../../d2/d14/a03304.html#a4a33346566f43c53dbe78502a42d077e">DYN::ModelThreeWindingsTransformer</a>, <a class="el" href="../../de/d7f/a03280.html#aca6b9495f953f3c6eb2f7e02e7510fcc">DYN::ModelShuntCompensator</a>, <a class="el" href="../../d1/dda/a03260.html#aee74e3f2f20c9547e8133d71b95d65cc">DYN::ModelLoad</a>, <a class="el" href="../../d6/d25/a03284.html#a1b653eb7bb7671833aadd517e63249da">DYN::ModelStaticVarCompensator</a>, and <a class="el" href="../../d9/d01/a03248.html#a65cf0bf0c528113cc9c9db566b9a6248">DYN::ModelGenerator</a>.</p>
 
 </div>
 </div>
@@ -938,7 +945,7 @@ Private Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../d0/de4/a03308.html#a57ec1a532e749a38786472629e9cf732">DYN::ModelTwoWindingsTransformer</a>, <a class="el" href="../../dc/de8/a03312.html#afffdb4885d3ef606492ab851d0ae3301">DYN::ModelVoltageLevel</a>, <a class="el" href="../../db/de4/a03288.html#ad7ed1b2a600cc1b559f58ba421695d30">DYN::ModelSwitch</a>, <a class="el" href="../../d3/d55/a03256.html#ac0f137629cf7237db597d9b6bae67b10">DYN::ModelLine</a>, <a class="el" href="../../d6/d63/a03228.html#a7f001ecb65b27305094e4ad488c91bf9">DYN::ModelBus</a>, <a class="el" href="../../d1/dfa/a03244.html#a232fbc25ce948551619fbf8eb0e39aa2">DYN::ModelDanglingLine</a>, <a class="el" href="../../de/d7f/a03280.html#a13d4f84647def23d5949f908e6b54bd8">DYN::ModelShuntCompensator</a>, <a class="el" href="../../d2/d14/a03304.html#a284dab25d0a4c6185010da773e17b927">DYN::ModelThreeWindingsTransformer</a>, <a class="el" href="../../d7/d44/a03252.html#ad3737bab5fa82db3b1ab9ccdeb22bc88">DYN::ModelHvdcLink</a>, <a class="el" href="../../d1/dda/a03260.html#a12fbba7cbea2cca7560bde2115e3ec5d">DYN::ModelLoad</a>, <a class="el" href="../../d9/d01/a03248.html#a9d23133aee64eae22f427c13e981b08a">DYN::ModelGenerator</a>, and <a class="el" href="../../d6/d25/a03284.html#af38a6c974dca8664146320bcf1460e13">DYN::ModelStaticVarCompensator</a>.</p>
+<p>Implemented in <a class="el" href="../../d0/de4/a03308.html#a57ec1a532e749a38786472629e9cf732">DYN::ModelTwoWindingsTransformer</a>, <a class="el" href="../../dc/de8/a03312.html#afffdb4885d3ef606492ab851d0ae3301">DYN::ModelVoltageLevel</a>, <a class="el" href="../../db/de4/a03288.html#ad7ed1b2a600cc1b559f58ba421695d30">DYN::ModelSwitch</a>, <a class="el" href="../../d3/d55/a03256.html#ac0f137629cf7237db597d9b6bae67b10">DYN::ModelLine</a>, <a class="el" href="../../d6/d63/a03228.html#a7f001ecb65b27305094e4ad488c91bf9">DYN::ModelBus</a>, <a class="el" href="../../d1/dfa/a03244.html#a232fbc25ce948551619fbf8eb0e39aa2">DYN::ModelDanglingLine</a>, <a class="el" href="../../de/d7f/a03280.html#a13d4f84647def23d5949f908e6b54bd8">DYN::ModelShuntCompensator</a>, <a class="el" href="../../d7/d44/a03252.html#ad3737bab5fa82db3b1ab9ccdeb22bc88">DYN::ModelHvdcLink</a>, <a class="el" href="../../d2/d14/a03304.html#a284dab25d0a4c6185010da773e17b927">DYN::ModelThreeWindingsTransformer</a>, <a class="el" href="../../d1/dda/a03260.html#a12fbba7cbea2cca7560bde2115e3ec5d">DYN::ModelLoad</a>, <a class="el" href="../../d9/d01/a03248.html#a9d23133aee64eae22f427c13e981b08a">DYN::ModelGenerator</a>, and <a class="el" href="../../d6/d25/a03284.html#af38a6c974dca8664146320bcf1460e13">DYN::ModelStaticVarCompensator</a>.</p>
 
 </div>
 </div>
@@ -985,7 +992,7 @@ Private Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../d0/de4/a03308.html#a2956720d2d8311392e54b044c5ab532a">DYN::ModelTwoWindingsTransformer</a>, <a class="el" href="../../dc/de8/a03312.html#a6bbe98d1880055c385b708c4f0f81622">DYN::ModelVoltageLevel</a>, <a class="el" href="../../db/de4/a03288.html#a029d9fa383b2e1caec1e6af51b61358d">DYN::ModelSwitch</a>, <a class="el" href="../../d3/d55/a03256.html#a04030be8f2f6850573c87e1baf3f3b4e">DYN::ModelLine</a>, <a class="el" href="../../d6/d63/a03228.html#a9589d25de3be973227577bd68653fde9">DYN::ModelBus</a>, <a class="el" href="../../d1/dfa/a03244.html#ae893ae06d91899a3e8ae755d5ebcff29">DYN::ModelDanglingLine</a>, <a class="el" href="../../de/d7f/a03280.html#ad86d313646fde457870fb88a757e9ae3">DYN::ModelShuntCompensator</a>, <a class="el" href="../../d2/d14/a03304.html#a32e81031c9f97412247541eb2854916e">DYN::ModelThreeWindingsTransformer</a>, <a class="el" href="../../d7/d44/a03252.html#ac965e376c9ce1e520651b7da7d83651b">DYN::ModelHvdcLink</a>, <a class="el" href="../../d1/dda/a03260.html#a248d1f3536fa958c6973befdffdb36b3">DYN::ModelLoad</a>, <a class="el" href="../../d9/d01/a03248.html#ae7b9d105e7be62a587e6415d22c51a37">DYN::ModelGenerator</a>, and <a class="el" href="../../d6/d25/a03284.html#ab24d708b68570192f5699b215862326f">DYN::ModelStaticVarCompensator</a>.</p>
+<p>Implemented in <a class="el" href="../../d0/de4/a03308.html#a2956720d2d8311392e54b044c5ab532a">DYN::ModelTwoWindingsTransformer</a>, <a class="el" href="../../dc/de8/a03312.html#a6bbe98d1880055c385b708c4f0f81622">DYN::ModelVoltageLevel</a>, <a class="el" href="../../db/de4/a03288.html#a029d9fa383b2e1caec1e6af51b61358d">DYN::ModelSwitch</a>, <a class="el" href="../../d3/d55/a03256.html#a04030be8f2f6850573c87e1baf3f3b4e">DYN::ModelLine</a>, <a class="el" href="../../d6/d63/a03228.html#a9589d25de3be973227577bd68653fde9">DYN::ModelBus</a>, <a class="el" href="../../d1/dfa/a03244.html#ae893ae06d91899a3e8ae755d5ebcff29">DYN::ModelDanglingLine</a>, <a class="el" href="../../de/d7f/a03280.html#ad86d313646fde457870fb88a757e9ae3">DYN::ModelShuntCompensator</a>, <a class="el" href="../../d7/d44/a03252.html#ac965e376c9ce1e520651b7da7d83651b">DYN::ModelHvdcLink</a>, <a class="el" href="../../d2/d14/a03304.html#a32e81031c9f97412247541eb2854916e">DYN::ModelThreeWindingsTransformer</a>, <a class="el" href="../../d1/dda/a03260.html#a248d1f3536fa958c6973befdffdb36b3">DYN::ModelLoad</a>, <a class="el" href="../../d9/d01/a03248.html#ae7b9d105e7be62a587e6415d22c51a37">DYN::ModelGenerator</a>, and <a class="el" href="../../d6/d25/a03284.html#ab24d708b68570192f5699b215862326f">DYN::ModelStaticVarCompensator</a>.</p>
 
 </div>
 </div>
@@ -1123,7 +1130,7 @@ Private Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>state change type </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d0/de4/a03308.html#a1baf25ac4f7dec2df7f250951474a614">DYN::ModelTwoWindingsTransformer</a>, <a class="el" href="../../db/de4/a03288.html#a9792427bdfedab735c67c073023f2545">DYN::ModelSwitch</a>, <a class="el" href="../../d3/d55/a03256.html#ad3dec36a6da9697d3e013c96539c847d">DYN::ModelLine</a>, <a class="el" href="../../d6/d63/a03228.html#a16f3b24dd9d635e6463b075ee15d345f">DYN::ModelBus</a>, <a class="el" href="../../d1/dfa/a03244.html#a3f3a93b86af20a94541dfb798da1befa">DYN::ModelDanglingLine</a>, <a class="el" href="../../de/d7f/a03280.html#a604054598c18820dfaef392ce3e564c1">DYN::ModelShuntCompensator</a>, <a class="el" href="../../d2/d14/a03304.html#a70c0c6558d4e64ca32e33db934f06865">DYN::ModelThreeWindingsTransformer</a>, <a class="el" href="../../d6/d25/a03284.html#aee3b1f4e70963503911f5bcd03ebf2da">DYN::ModelStaticVarCompensator</a>, <a class="el" href="../../dc/de8/a03312.html#a199f6588228ab42502c18282a12458a3">DYN::ModelVoltageLevel</a>, <a class="el" href="../../d1/dda/a03260.html#a108cf8d55d70403d9234b823111f3dac">DYN::ModelLoad</a>, <a class="el" href="../../d9/d01/a03248.html#a9b3b5bad25ecda0c4f374f0e59ee4ad7">DYN::ModelGenerator</a>, and <a class="el" href="../../d7/d44/a03252.html#a92e554fbaa533b4eba3535c3b7633a53">DYN::ModelHvdcLink</a>.</p>
+<p>Implemented in <a class="el" href="../../d0/de4/a03308.html#a1baf25ac4f7dec2df7f250951474a614">DYN::ModelTwoWindingsTransformer</a>, <a class="el" href="../../db/de4/a03288.html#a9792427bdfedab735c67c073023f2545">DYN::ModelSwitch</a>, <a class="el" href="../../d3/d55/a03256.html#ad3dec36a6da9697d3e013c96539c847d">DYN::ModelLine</a>, <a class="el" href="../../d6/d63/a03228.html#a16f3b24dd9d635e6463b075ee15d345f">DYN::ModelBus</a>, <a class="el" href="../../d1/dfa/a03244.html#a3f3a93b86af20a94541dfb798da1befa">DYN::ModelDanglingLine</a>, <a class="el" href="../../de/d7f/a03280.html#a604054598c18820dfaef392ce3e564c1">DYN::ModelShuntCompensator</a>, <a class="el" href="../../d6/d25/a03284.html#aee3b1f4e70963503911f5bcd03ebf2da">DYN::ModelStaticVarCompensator</a>, <a class="el" href="../../d2/d14/a03304.html#a70c0c6558d4e64ca32e33db934f06865">DYN::ModelThreeWindingsTransformer</a>, <a class="el" href="../../d1/dda/a03260.html#a108cf8d55d70403d9234b823111f3dac">DYN::ModelLoad</a>, <a class="el" href="../../dc/de8/a03312.html#a199f6588228ab42502c18282a12458a3">DYN::ModelVoltageLevel</a>, <a class="el" href="../../d9/d01/a03248.html#a9b3b5bad25ecda0c4f374f0e59ee4ad7">DYN::ModelGenerator</a>, and <a class="el" href="../../d7/d44/a03252.html#a92e554fbaa533b4eba3535c3b7633a53">DYN::ModelHvdcLink</a>.</p>
 
 </div>
 </div>
@@ -1160,7 +1167,7 @@ Private Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the potential state change type </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d0/de4/a03308.html#a6ad57fb95a3162a34f8c3c4029a7876e">DYN::ModelTwoWindingsTransformer</a>, <a class="el" href="../../dc/de8/a03312.html#a9698a96f749095d8e0daec43329e000e">DYN::ModelVoltageLevel</a>, <a class="el" href="../../db/de4/a03288.html#ac7c8c3edb09aef8f136cbc2e586d5bd5">DYN::ModelSwitch</a>, <a class="el" href="../../d3/d55/a03256.html#aec3f8e204958096f7497b296e7d82350">DYN::ModelLine</a>, <a class="el" href="../../d6/d63/a03228.html#a3dbdc6774edc959700c398e7de20ec77">DYN::ModelBus</a>, <a class="el" href="../../d1/dfa/a03244.html#af11eb46aac87e7f5300c942e690596fd">DYN::ModelDanglingLine</a>, <a class="el" href="../../de/d7f/a03280.html#a078bd129de39b94fe0e1a518ed5d403f">DYN::ModelShuntCompensator</a>, <a class="el" href="../../d2/d14/a03304.html#a087ce9ac141ed6a480268aa34be215be">DYN::ModelThreeWindingsTransformer</a>, <a class="el" href="../../d1/dda/a03260.html#a1ceb99f2b9defe18b15e999695477370">DYN::ModelLoad</a>, <a class="el" href="../../d9/d01/a03248.html#a31a4341b67234736a3e44092cd7cb14b">DYN::ModelGenerator</a>, <a class="el" href="../../d7/d44/a03252.html#a6ea5bf152033678f11b81a7d14a5f46e">DYN::ModelHvdcLink</a>, and <a class="el" href="../../d6/d25/a03284.html#a8621e365f19bdb8bae781e1fa3f4a6e1">DYN::ModelStaticVarCompensator</a>.</p>
+<p>Implemented in <a class="el" href="../../d0/de4/a03308.html#a6ad57fb95a3162a34f8c3c4029a7876e">DYN::ModelTwoWindingsTransformer</a>, <a class="el" href="../../dc/de8/a03312.html#a9698a96f749095d8e0daec43329e000e">DYN::ModelVoltageLevel</a>, <a class="el" href="../../db/de4/a03288.html#ac7c8c3edb09aef8f136cbc2e586d5bd5">DYN::ModelSwitch</a>, <a class="el" href="../../d3/d55/a03256.html#aec3f8e204958096f7497b296e7d82350">DYN::ModelLine</a>, <a class="el" href="../../d6/d63/a03228.html#a3dbdc6774edc959700c398e7de20ec77">DYN::ModelBus</a>, <a class="el" href="../../d1/dfa/a03244.html#af11eb46aac87e7f5300c942e690596fd">DYN::ModelDanglingLine</a>, <a class="el" href="../../de/d7f/a03280.html#a078bd129de39b94fe0e1a518ed5d403f">DYN::ModelShuntCompensator</a>, <a class="el" href="../../d2/d14/a03304.html#a087ce9ac141ed6a480268aa34be215be">DYN::ModelThreeWindingsTransformer</a>, <a class="el" href="../../d1/dda/a03260.html#a1ceb99f2b9defe18b15e999695477370">DYN::ModelLoad</a>, <a class="el" href="../../d7/d44/a03252.html#a6ea5bf152033678f11b81a7d14a5f46e">DYN::ModelHvdcLink</a>, <a class="el" href="../../d9/d01/a03248.html#a31a4341b67234736a3e44092cd7cb14b">DYN::ModelGenerator</a>, and <a class="el" href="../../d6/d25/a03284.html#a8621e365f19bdb8bae781e1fa3f4a6e1">DYN::ModelStaticVarCompensator</a>.</p>
 
 </div>
 </div>
@@ -1341,7 +1348,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../d0/de4/a03308.html#ad351783e0b819c6a822e4eeb467cc0af">DYN::ModelTwoWindingsTransformer</a>, <a class="el" href="../../dc/de8/a03312.html#a1c5419de5f10066d017082558bf48f61">DYN::ModelVoltageLevel</a>, <a class="el" href="../../db/de4/a03288.html#aaa06559eaec0679ad9924e407ad8266d">DYN::ModelSwitch</a>, <a class="el" href="../../d3/d55/a03256.html#a575c765c0110882c0792dd7273f22221">DYN::ModelLine</a>, <a class="el" href="../../d6/d63/a03228.html#ac748a44e3f3fc2e2d0ce5bca006d9e47">DYN::ModelBus</a>, <a class="el" href="../../d1/dfa/a03244.html#affcc129b51a71726479dc4eaa60a19b3">DYN::ModelDanglingLine</a>, <a class="el" href="../../de/d7f/a03280.html#a307405d22aa89fd2a3a8cf3a4d087a98">DYN::ModelShuntCompensator</a>, <a class="el" href="../../d2/d14/a03304.html#a7947ef113930f11ffe99107243b81b23">DYN::ModelThreeWindingsTransformer</a>, <a class="el" href="../../d7/d44/a03252.html#a1f2bd66ee21cd7155de2578db6fd249e">DYN::ModelHvdcLink</a>, <a class="el" href="../../d1/dda/a03260.html#ad9f940e4d0fe5dfc5871cc5d7589b97a">DYN::ModelLoad</a>, <a class="el" href="../../d9/d01/a03248.html#a5133b40c55375d60cdc17fe24566b52f">DYN::ModelGenerator</a>, and <a class="el" href="../../d6/d25/a03284.html#a11061a2fa83882f4934f10b9dab2a4d1">DYN::ModelStaticVarCompensator</a>.</p>
+<p>Implemented in <a class="el" href="../../d0/de4/a03308.html#ad351783e0b819c6a822e4eeb467cc0af">DYN::ModelTwoWindingsTransformer</a>, <a class="el" href="../../dc/de8/a03312.html#a1c5419de5f10066d017082558bf48f61">DYN::ModelVoltageLevel</a>, <a class="el" href="../../db/de4/a03288.html#aaa06559eaec0679ad9924e407ad8266d">DYN::ModelSwitch</a>, <a class="el" href="../../d3/d55/a03256.html#a575c765c0110882c0792dd7273f22221">DYN::ModelLine</a>, <a class="el" href="../../d6/d63/a03228.html#ac748a44e3f3fc2e2d0ce5bca006d9e47">DYN::ModelBus</a>, <a class="el" href="../../d1/dfa/a03244.html#affcc129b51a71726479dc4eaa60a19b3">DYN::ModelDanglingLine</a>, <a class="el" href="../../de/d7f/a03280.html#a307405d22aa89fd2a3a8cf3a4d087a98">DYN::ModelShuntCompensator</a>, <a class="el" href="../../d7/d44/a03252.html#a1f2bd66ee21cd7155de2578db6fd249e">DYN::ModelHvdcLink</a>, <a class="el" href="../../d2/d14/a03304.html#a7947ef113930f11ffe99107243b81b23">DYN::ModelThreeWindingsTransformer</a>, <a class="el" href="../../d1/dda/a03260.html#ad9f940e4d0fe5dfc5871cc5d7589b97a">DYN::ModelLoad</a>, <a class="el" href="../../d9/d01/a03248.html#a5133b40c55375d60cdc17fe24566b52f">DYN::ModelGenerator</a>, and <a class="el" href="../../d6/d25/a03284.html#a11061a2fa83882f4934f10b9dab2a4d1">DYN::ModelStaticVarCompensator</a>.</p>
 
 </div>
 </div>
@@ -1371,7 +1378,7 @@ template&lt;typename T &gt; </div>
 <p>get the number of internal variable of the model </p>
 <dl class="section return"><dt>Returns</dt><dd>the number of internal variable of the model </dd></dl>
 
-<p>Reimplemented in <a class="el" href="../../d0/de4/a03308.html#aedbcc9a203566844d4cd7279259b9da8">DYN::ModelTwoWindingsTransformer</a>.</p>
+<p>Reimplemented in <a class="el" href="../../d6/d63/a03228.html#a7384811fc9be0b0e704af63204a249a9">DYN::ModelBus</a>, <a class="el" href="../../d0/de4/a03308.html#aedbcc9a203566844d4cd7279259b9da8">DYN::ModelTwoWindingsTransformer</a>, <a class="el" href="../../d7/d44/a03252.html#ad8214de30ccc18df7bd1350d797efadb">DYN::ModelHvdcLink</a>, <a class="el" href="../../d1/dfa/a03244.html#a060d5e3e641f22729fa9ee8b0dd9114c">DYN::ModelDanglingLine</a>, <a class="el" href="../../d3/d55/a03256.html#ae7f3c2867c6abf10209eb5c662c1764c">DYN::ModelLine</a>, <a class="el" href="../../de/d7f/a03280.html#a20987b6686b5e1de9da582d5db108602">DYN::ModelShuntCompensator</a>, <a class="el" href="../../d1/dda/a03260.html#a93736c136ca17701843cb5df2ae51e98">DYN::ModelLoad</a>, <a class="el" href="../../d6/d25/a03284.html#aba222beb21555d477b82b3522baa0698">DYN::ModelStaticVarCompensator</a>, and <a class="el" href="../../d9/d01/a03248.html#a949dd57f1c64722448a05ab23f9daefe">DYN::ModelGenerator</a>.</p>
 
 </div>
 </div>
@@ -1720,12 +1727,12 @@ template&lt;typename T &gt; </div>
 <p>import the internal variables values of the component from stringstream </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">streamVariables</td><td>: stringstream with binary formated internalVariables </td></tr>
+    <tr><td class="paramname">streamVariables</td><td>: stream with binary formated internalVariables </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="../../d0/de4/a03308.html#a280ff7d5f741a56843bad6a919aff3fc">DYN::ModelTwoWindingsTransformer</a>.</p>
+<p>Reimplemented in <a class="el" href="../../d6/d63/a03228.html#a02847b6500aa530ebd603ff752736b21">DYN::ModelBus</a>, <a class="el" href="../../d0/de4/a03308.html#a280ff7d5f741a56843bad6a919aff3fc">DYN::ModelTwoWindingsTransformer</a>, <a class="el" href="../../dc/de8/a03312.html#a409cc3c7622973627319cfd72136ba41">DYN::ModelVoltageLevel</a>, <a class="el" href="../../d7/d44/a03252.html#ac9324493f80216090881dc121eaebd98">DYN::ModelHvdcLink</a>, <a class="el" href="../../d1/dfa/a03244.html#a12a3aa91c6ea865344320a91b300d25c">DYN::ModelDanglingLine</a>, <a class="el" href="../../d3/d55/a03256.html#a0636118531493c73c873d79fc29d7b0a">DYN::ModelLine</a>, <a class="el" href="../../de/d7f/a03280.html#af786b9bcbabf2bdffbcb6cc7418bd704">DYN::ModelShuntCompensator</a>, <a class="el" href="../../d1/dda/a03260.html#aa41dd49f6f6c8f3a6e9bc713f71c2674">DYN::ModelLoad</a>, <a class="el" href="../../d6/d25/a03284.html#ad22de6a8b7b8198d49868d9e82cb57c9">DYN::ModelStaticVarCompensator</a>, and <a class="el" href="../../d9/d01/a03248.html#a6f4075d218a2becc4c38cc20ff6b3b5c">DYN::ModelGenerator</a>.</p>
 
 </div>
 </div>
@@ -1990,7 +1997,41 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../d0/de4/a03308.html#a9117946669bf715dd1417a241f9615f3">DYN::ModelTwoWindingsTransformer</a>, <a class="el" href="../../db/de4/a03288.html#a08818f5e3137849fbd605c1d598d514f">DYN::ModelSwitch</a>, <a class="el" href="../../d3/d55/a03256.html#ab5896f613368ab50f14526b94d93e01b">DYN::ModelLine</a>, <a class="el" href="../../d6/d63/a03228.html#a646441d60f12f4532c1fbd03252315a2">DYN::ModelBus</a>, <a class="el" href="../../d1/dfa/a03244.html#aae9b15afad32f24debf201c653b32100">DYN::ModelDanglingLine</a>, <a class="el" href="../../de/d7f/a03280.html#a19a5c24c0b4de34c343c67777df56b38">DYN::ModelShuntCompensator</a>, <a class="el" href="../../d2/d14/a03304.html#a4463ab9f7e850ed357af0ede7a196b57">DYN::ModelThreeWindingsTransformer</a>, <a class="el" href="../../d1/dda/a03260.html#a6ffaa124b7ebdebf932c445ec7f5beb8">DYN::ModelLoad</a>, <a class="el" href="../../dc/de8/a03312.html#ac1043cf50640bb5d066b407364f81560">DYN::ModelVoltageLevel</a>, <a class="el" href="../../d6/d25/a03284.html#ace7767e1aef4778369a3749265d3e0bc">DYN::ModelStaticVarCompensator</a>, <a class="el" href="../../d9/d01/a03248.html#ab11442d3a5cbf7ce5a5a2165c5483c43">DYN::ModelGenerator</a>, and <a class="el" href="../../d7/d44/a03252.html#a4e785c88f85550cb685d087c60c58a29">DYN::ModelHvdcLink</a>.</p>
+<p>Implemented in <a class="el" href="../../d0/de4/a03308.html#a9117946669bf715dd1417a241f9615f3">DYN::ModelTwoWindingsTransformer</a>, <a class="el" href="../../db/de4/a03288.html#a08818f5e3137849fbd605c1d598d514f">DYN::ModelSwitch</a>, <a class="el" href="../../d3/d55/a03256.html#ab5896f613368ab50f14526b94d93e01b">DYN::ModelLine</a>, <a class="el" href="../../d6/d63/a03228.html#a646441d60f12f4532c1fbd03252315a2">DYN::ModelBus</a>, <a class="el" href="../../d1/dfa/a03244.html#aae9b15afad32f24debf201c653b32100">DYN::ModelDanglingLine</a>, <a class="el" href="../../de/d7f/a03280.html#a19a5c24c0b4de34c343c67777df56b38">DYN::ModelShuntCompensator</a>, <a class="el" href="../../d2/d14/a03304.html#a4463ab9f7e850ed357af0ede7a196b57">DYN::ModelThreeWindingsTransformer</a>, <a class="el" href="../../d1/dda/a03260.html#a6ffaa124b7ebdebf932c445ec7f5beb8">DYN::ModelLoad</a>, <a class="el" href="../../d6/d25/a03284.html#ace7767e1aef4778369a3749265d3e0bc">DYN::ModelStaticVarCompensator</a>, <a class="el" href="../../d9/d01/a03248.html#ab11442d3a5cbf7ce5a5a2165c5483c43">DYN::ModelGenerator</a>, <a class="el" href="../../dc/de8/a03312.html#ac1043cf50640bb5d066b407364f81560">DYN::ModelVoltageLevel</a>, and <a class="el" href="../../d7/d44/a03252.html#a4e785c88f85550cb685d087c60c58a29">DYN::ModelHvdcLink</a>.</p>
+
+</div>
+</div>
+<a id="ac1299a06e8774c87d6cec250fcb31a07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1299a06e8774c87d6cec250fcb31a07">&#9670;&nbsp;</a></span>setInternalVariablesFoundInDump()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::NetworkComponent::setInternalVariablesFoundInDump </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>internalVariablesFoundInDump</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>set wether the internal variables are found in dumpfile </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">internalVariablesFoundInDump</td><td>wether the internal variables are found in dumpfile </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -2495,7 +2536,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../df/daa/a03316.html">NetworkComponent</a></li>
-    <li class="footer">Generated on Wed May 14 2025 13:09:27 for Dynawo by
+    <li class="footer">Generated on Wed May 28 2025 10:25:07 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

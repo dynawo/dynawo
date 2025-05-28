@@ -41,7 +41,7 @@ var searchData=
   ['uiynum_5f',['UiYNum_',['../d8/d87/a03168.html#a4646af8ab360389c30c5c2f6ea689b5a',1,'DYN::ModelLoadRestorativeWithLimits::UiYNum_()'],['../d6/d63/a03228.html#a5775c311ea543d26f731998f1d4241c9',1,'DYN::ModelBus::uiYNum_()']]],
   ['umax_5f',['uMax_',['../d6/d63/a03228.html#a758102aec4ea7df47f222f44fc9c0d4e',1,'DYN::ModelBus']]],
   ['umaxpu',['uMaxPu',['../dc/df2/a00656.html#a7c73f32795a103e24f6099683bce9467',1,'DYN']]],
-  ['umaxpu_5f',['uMaxPu_',['../da/ddf/a01648.html#a5014970323102f139d28c7c2c0128f23',1,'criteria::CriteriaParamsVoltageLevel::uMaxPu_()'],['../d8/d87/a03168.html#a9c944f2c96d0e634e2bf6c2f7a3f91ae',1,'DYN::ModelLoadRestorativeWithLimits::UMaxPu_()']]],
+  ['umaxpu_5f',['UMaxPu_',['../d8/d87/a03168.html#a9c944f2c96d0e634e2bf6c2f7a3f91ae',1,'DYN::ModelLoadRestorativeWithLimits::UMaxPu_()'],['../da/ddf/a01648.html#a5014970323102f139d28c7c2c0128f23',1,'criteria::CriteriaParamsVoltageLevel::uMaxPu_()']]],
   ['umaxpureached_5f',['UMaxPuReached_',['../d8/d87/a03168.html#a8cd33c56045cb062e43a0a9c62a856f3',1,'DYN::ModelLoadRestorativeWithLimits']]],
   ['umaxstate_5f',['uMaxState_',['../d0/ded/a03276.html#a230bda68edddc6841375937e6642f83d',1,'DYN::ModelRatioTapChanger']]],
   ['umin_5f',['uMin_',['../d6/d63/a03228.html#a962ec8c10f19a902a350a49d5ff8f6a6',1,'DYN::ModelBus']]],

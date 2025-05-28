@@ -32,7 +32,7 @@ var searchData=
   ['maxdelay_5f',['maxDelay_',['../d9/d4a/a02772.html#a5532385a381f135c208a5047969798fa',1,'DYN::RingBuffer']]],
   ['maximumnumberslowstepincrease_5f',['maximumNumberSlowStepIncrease_',['../d0/d57/a03380.html#a278260c07277f9c8a902f26216e80402',1,'DYN::Solver::Impl']]],
   ['maximumsection_5f',['maximumSection_',['../de/d7f/a03280.html#a64ed5c0994faf9908c2d21d2eb52d205',1,'DYN::ModelShuntCompensator']]],
-  ['maximumvaluecurrentlimit',['maximumValueCurrentLimit',['../d5/d54/a00938.html#a6effe416f854f57d00517e13ae9a73ce',1,'DYN']]],
+  ['maximumvaluecurrentlimit',['maximumValueCurrentLimit',['../d6/dad/a00941.html#a6effe416f854f57d00517e13ae9a73ce',1,'DYN']]],
   ['maxnewtontry_5f',['maxNewtonTry_',['../d7/d22/a03384.html#aa840698f0cf0f12b1f8f3eebcd36388a',1,'DYN::SolverCommonFixedTimeStep']]],
   ['maxnumberunstableroots',['maxNumberUnstableRoots',['../d1/dd8/a01022.html#aa10b15d13b58ee98676c58319df21ff5',1,'DYN']]],
   ['maxpriority_5f',['maxPriority_',['../da/d68/a02280.html#a609fbd41887d0097339fd5898005b48c',1,'job::TimelineEntry::maxPriority_()'],['../de/d48/a02552.html#add563d0da7b15436bd2fe60810e99c4f',1,'timeline::Exporter::maxPriority_()']]],
