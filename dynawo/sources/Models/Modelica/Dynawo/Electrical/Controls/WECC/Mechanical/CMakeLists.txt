@@ -15,7 +15,6 @@ set(MODEL_FILES
   package.mo
   package.order
   DriveTrainPmConstant.mo
-  DriveTrainPeFiltered.mo
   WTGAa.mo
   WTGPa.mo
   WTGPb.mo
