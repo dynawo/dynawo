@@ -2,16 +2,25 @@ within Dynawo.Electrical.Controls.WECC.Mechanical;
 
 model WTGQa "WECC Torque Controller Type A"
 extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsWTGQA;
-  Modelica.Blocks.Tables.CombiTable1D combiTable1D(table = [p1, spd1; p2, spd2; p3, spd3; p4, spd4], smoothness = Modelica.Blocks.Types.Smoothness.ContinuousDerivative, extrapolation = Modelica.Blocks.Types.Extrapolation.LastTwoPoints)  annotation(
-    Placement(transformation(origin = {-32, 28}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(k = 1, T = tp, y_start = PInj0Pu)  annotation(
-    Placement(transformation(origin = {-62, 28}, extent = {{-10, -10}, {10, 10}})));
+//Input Variables
   Modelica.Blocks.Interfaces.RealInput Pe(start=PInj0Pu) annotation(
     Placement(transformation(origin = {-140, 28}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput wg(start=SystemBase.omegaRef0Pu) annotation(
     Placement(transformation(origin = {-140, 88}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput Pref0(start=PInj0Pu) annotation(
     Placement(transformation(origin = {-140, -20}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
+    Modelica.Blocks.Interfaces.BooleanInput freeze annotation(
+    Placement(transformation(origin = {94, 134}, extent = {{-14, -14}, {14, 14}}, rotation = -90), iconTransformation(origin = {20, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+//Output Variables
+ Modelica.Blocks.Interfaces.RealOutput Pref(start=PInj0Pu) annotation(
+    Placement(transformation(origin = {290, 22}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Interfaces.RealOutput wref(start=SystemBase.omegaRef0Pu) annotation(
+    Placement(transformation(origin = {290, -16}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}})));
+    
+  Modelica.Blocks.Tables.CombiTable1D combiTable1D(table = [p1, spd1; p2, spd2; p3, spd3; p4, spd4], smoothness = Modelica.Blocks.Types.Smoothness.ContinuousDerivative, extrapolation = Modelica.Blocks.Types.Extrapolation.LastTwoPoints)  annotation(
+    Placement(transformation(origin = {-32, 28}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(k = 1, T = tp, y_start = PInj0Pu)  annotation(
+    Placement(transformation(origin = {-62, 28}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(k = 1, T = twref)  annotation(
     Placement(transformation(origin = {-2, 28}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Add add(k1 = +1, k2 = -1)  annotation(
@@ -34,13 +43,8 @@ extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsWTGQA;
     Placement(transformation(origin = {184, 16}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.NonElectrical.Blocks.NonLinear.LimitedIntegratorFreeze limitedIntegratorFreeze(K = kip, YMax = temax, YMin = temin, Y0 = PInj0Pu/SystemBase.omegaRef0Pu)  annotation(
     Placement(transformation(origin = {102, 26}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealOutput Pref(start=PInj0Pu) annotation(
-    Placement(transformation(origin = {290, 22}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealOutput wref(start=SystemBase.omegaRef0Pu) annotation(
-    Placement(transformation(origin = {290, -16}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.BooleanInput freeze annotation(
-    Placement(transformation(origin = {94, 134}, extent = {{-14, -14}, {14, 14}}, rotation = -90), iconTransformation(origin = {20, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-equation
+  
+  equation
   connect(wg, add.u1) annotation(
     Line(points = {{-140, 88}, {16, 88}, {16, 40}, {18, 40}}, color = {0, 0, 127}));
   connect(firstOrder1.y, add.u2) annotation(

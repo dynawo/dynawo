@@ -20,25 +20,34 @@ model WTG3CurrentSource1 "WECC Wind Turbine model with a current source as inter
     Dialog(tab = "Electrical Control"));
   parameter Types.VoltageModulePu VRef1Pu "User-defined reference/bias on the inner-loop voltage control (typical: 0 pu)" annotation(
     Dialog(tab = "Electrical Control"));
-  
+ 
+ //Input Variables 
+  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu)  "Frequency reference in pu (base omegaNom)" annotation(
+    Placement(transformation(origin = {34, 30}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));  
+  Modelica.Blocks.Interfaces.RealInput PRefPu(start = -P0Pu*SystemBase.SnRef/SNom) "Active power reference in pu (generator convention) (base SNom)" annotation(
+    Placement(transformation(origin = {35, 15}, extent = {{-11, -11}, {11, 11}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}))); 
+  Modelica.Blocks.Interfaces.RealInput QRefPu(start = -Q0Pu*SystemBase.SnRef/SNom) "Reactive power reference in pu (generator convention) (base SNom)" annotation(
+    Placement(transformation(origin = {34, -2}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));  
+  Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Voltage setpoint for plant level control in pu (base UNom)" annotation(
+    Placement(transformation(origin = {32, -24}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-60, -110}, extent = {{-10, -10}, {10, 10}},rotation=90)));  
+  Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) annotation(
+    Placement(transformation(origin = {140, 100}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}},rotation=-90)));
+  Modelica.Blocks.Interfaces.RealInput PmRef(start=PmRef0) annotation(
+    Placement(transformation(origin = {64, -102}, extent = {{-12, -12}, {12, 12}}, rotation = 90), iconTransformation(origin = {60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+
+
   Electrical.Controls.WECC.Mechanical.WTGPa wecc_wtgp(kiw=kiw,kpw=kpw,kic=kic,kpc=kpc,kcc=kcc,ttheta=ttheta,thetamax=thetamax,thetamin=thetamin,thetarmax=thetarmax,thetarmin=thetarmin, PInj0Pu = PInj0Pu, thetaInit = thetaInit) annotation(
-    Placement(transformation(origin = {9, -57}, extent = {{-13, -13}, {13, 13}})));
-  
+    Placement(transformation(origin = {9, -57}, extent = {{-13, -13}, {13, 13}})));  
   Electrical.Controls.WECC.Mechanical.WTGAa wecc_wtga(theta0=theta0,Ka=Ka,PmRef0=PmRef0, thetaInit = thetaInit) annotation(
-    Placement(transformation(origin = {57, -57}, extent = {{-15, -15}, {15, 15}})));
- 
+    Placement(transformation(origin = {57, -57}, extent = {{-15, -15}, {15, 15}}))); 
   Electrical.Controls.WECC.Mechanical.WTGQa wecc_wtgq(kip=kip,kpp=kpp,tp=tp,twref=twref,temax=temax,temin=temin,p1=p1,spd1=spd1,p2=p2,spd2=spd2,p3=p3,spd3=spd3,p4=p4,spd4=spd4,tflag=tflag, PInj0Pu = PInj0Pu) annotation(
-    Placement(transformation(origin = {-49, -57}, extent = {{-13, 13}, {13, -13}})));
-  
+    Placement(transformation(origin = {-49, -57}, extent = {{-13, 13}, {13, -13}})));  
   Electrical.Controls.WECC.Mechanical.WTGTa wecc_wtgt(Ht=Ht,Hg=Hg,Dshaft=Dshaft,Kshaft=Kshaft, PInj0Pu = PInj0Pu) annotation(
-    Placement(transformation(origin = {106.692, -66.9444}, extent = {{-16.6923, -12.0556}, {16.6923, 12.0556}})));
-  
+    Placement(transformation(origin = {106.692, -66.9444}, extent = {{-16.6923, -12.0556}, {16.6923, 12.0556}})));  
   Electrical.Controls.WECC.REGC.REGCbCS wecc_regc(IqrMaxPu = IqrMaxPu, IqrMinPu = IqrMinPu, tFilterGC = tFilterGC, tG = tG, RrpwrPu = RrpwrPu, UInj0Pu = UInj0Pu, Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, RateFlag = RateFlag) annotation(
-    Placement(transformation(origin = {200, -10}, extent = {{-10, -10}, {10, 10}})));
- 
+    Placement(transformation(origin = {200, -10}, extent = {{-10, -10}, {10, 10}}))); 
   Electrical.Controls.WECC.REPC.REPCa wecc_repc(DDn = DDn, DUp = DUp, FreqFlag = FreqFlag, Kc = Kc, Ki = Ki, Kig = Kig, Kp = Kp, Kpg = Kpg, PGen0Pu = -P0Pu*SystemBase.SnRef/SNom, PInj0Pu = PInj0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, QGen0Pu = -Q0Pu*SystemBase.SnRef/SNom, QInj0Pu = QInj0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, RcPu = RPu, RefFlag = RefFlag, tFilterPC = tFilterPC, tFt = tFt, tFv = tFv, tLag = tLag, tP = tP, U0Pu = U0Pu, UInj0Pu = UInj0Pu, VCompFlag = VCompFlag, VFrz = VFrz, XcPu = XPu, DbdPu = DbdPu, EMaxPu = EMaxPu, EMinPu = EMinPu, FDbd1Pu = FDbd1Pu, FDbd2Pu = FDbd2Pu, FEMaxPu = FEMaxPu, FEMinPu = FEMinPu, iInj0Pu = iInj0Pu, u0Pu = u0Pu) annotation(
-    Placement(transformation(origin = {104, -10}, extent = {{-10, -10}, {10, 10}})));
-  
+    Placement(transformation(origin = {104, -10}, extent = {{-10, -10}, {10, 10}})));  
   Electrical.Sources.InjectorIDQ injector(Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, P0Pu = -PInj0Pu*(SNom/SystemBase.SnRef), Q0Pu = -QInj0Pu*(SNom/SystemBase.SnRef), SNom = SNom, U0Pu = UInj0Pu, UPhase0 = UPhaseInj0, i0Pu = i0Pu, s0Pu = s0Pu, u0Pu = uInj0Pu) annotation(
     Placement(transformation(origin = {236, -10}, extent = {{-10, 10}, {10, -10}}, rotation = -0)));
   Electrical.Controls.PLL.PLL pll(Ki = KiPLL, Kp = KpPLL, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, u0Pu = uInj0Pu) annotation(
@@ -48,30 +57,13 @@ model WTG3CurrentSource1 "WECC Wind Turbine model with a current source as inter
   Electrical.Controls.WECC.Utilities.Measurements measurements(SNom = SNom) annotation(
     Placement(transformation(origin = {302, -10}, extent = {{-10, -10}, {10, 10}})));
   Connectors.ACPower terminal(V(im(start = u0Pu.im), re(start = u0Pu.re)), i(im(start = i0Pu.im), re(start = i0Pu.re))) annotation(
-    Placement(transformation(origin = {338, -10}, extent = {{10, -10}, {-10, 10}}), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}})));
-  
+    Placement(transformation(origin = {338, -10}, extent = {{10, -10}, {-10, 10}}), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}})));  
   Electrical.Controls.WECC.REEC.REECaPortPord wecc_reec(DPMaxPu = DPMaxPu, DPMinPu = DPMinPu, Dbd1Pu = Dbd1Pu, Dbd2Pu = Dbd2Pu, IMaxPu = IMaxPu, Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, IqFrzPu = IqFrzPu, Iqh1Pu = Iqh1Pu, Iql1Pu = Iql1Pu, Kqi = Kqi, Kqp = Kqp, Kqv = Kqv, Kvi = Kvi, Kvp = Kvp, PF0 = PF0, PFlag = PFlag, PInj0Pu = PInj0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, PQFlag = PQFlag, PfFlag = PfFlag, QFlag = QFlag, QInj0Pu = QInj0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, UInj0Pu = UInj0Pu, VDLIp11 = VDLIp11, VDLIp12 = VDLIp12, VDLIp21 = VDLIp21, VDLIp22 = VDLIp22, VDLIp31 = VDLIp31, VDLIp32 = VDLIp32, VDLIp41 = VDLIp41, VDLIp42 = VDLIp42, VDLIq11 = VDLIq11, VDLIq12 = VDLIq12, VDLIq21 = VDLIq21, VDLIq22 = VDLIq22, VDLIq31 = VDLIq31, VDLIq32 = VDLIq32, VDLIq41 = VDLIq41, VDLIq42 = VDLIq42, VDipPu = VDipPu, VFlag = VFlag, VMaxPu = VMaxPu, VMinPu = VMinPu, VRef0Pu = VRef0Pu, VRef1Pu = VRef1Pu, VUpPu = VUpPu, tHoldIpMax = tHoldIpMax, tHoldIq = tHoldIq, tIq = tIq, tP = tP, tPord = tPord, tRv = tRv) annotation(
     Placement(transformation(origin = {140, -10}, extent = {{-10, -10}, {10, 10}})));
-
-  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu)  "Frequency reference in pu (base omegaNom)" annotation(
-    Placement(transformation(origin = {34, 30}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
-  
-  Modelica.Blocks.Interfaces.RealInput PRefPu(start = -P0Pu*SystemBase.SnRef/SNom) "Active power reference in pu (generator convention) (base SNom)" annotation(
-    Placement(transformation(origin = {35, 15}, extent = {{-11, -11}, {11, 11}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
-  
-  Modelica.Blocks.Interfaces.RealInput QRefPu(start = -Q0Pu*SystemBase.SnRef/SNom) "Reactive power reference in pu (generator convention) (base SNom)" annotation(
-    Placement(transformation(origin = {34, -2}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
-  
-  Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Voltage setpoint for plant level control in pu (base UNom)" annotation(
-    Placement(transformation(origin = {32, -24}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-60, -110}, extent = {{-10, -10}, {10, 10}},rotation=90)));
-  
-  Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) annotation(
-    Placement(transformation(origin = {140, 100}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}},rotation=-90)));
-
-  Modelica.Blocks.Interfaces.RealInput PmRef(start=PmRef0) annotation(
-    Placement(transformation(origin = {64, -102}, extent = {{-12, -12}, {12, 12}}, rotation = 90), iconTransformation(origin = {60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-
-// Initial parameters
+Modelica.Blocks.Sources.Constant OmegRef(k = 1)  annotation(
+    Placement(transformation(origin = {-18, 46}, extent = {{-10, -10}, {10, 10}})));
+    
+ // Initial parameters
   parameter Types.ComplexPerUnit i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
   parameter Types.ComplexPerUnit s0Pu "Start value of complex apparent power at terminal in pu (base SnRef) (receptor convention)";
   parameter Types.ComplexPerUnit u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
@@ -83,8 +75,8 @@ model WTG3CurrentSource1 "WECC Wind Turbine model with a current source as inter
   parameter Types.PerUnit U0Pu "Start value of voltage magnitude at regulated bus in pu (base UNom)";
   final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else (U0Pu + Kc*Q0Pu*SystemBase.SnRef/SNom) "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
   parameter Types.PerUnit PmRef0 "start value of mechanical power";
- Modelica.Blocks.Sources.Constant OmegRef(k = 1)  annotation(
-    Placement(transformation(origin = {-18, 46}, extent = {{-10, -10}, {10, 10}})));      equation
+       
+    equation
   line.switchOffSignal1.value = injector.switchOffSignal1.value;
   line.switchOffSignal2.value = injector.switchOffSignal2.value;
   connect(wecc_wtgt.omegaGPu, wecc_wtgq.wg) annotation(
