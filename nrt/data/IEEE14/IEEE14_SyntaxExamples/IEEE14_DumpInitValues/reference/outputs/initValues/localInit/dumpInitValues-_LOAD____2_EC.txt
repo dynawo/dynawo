@@ -1,0 +1,35 @@
+ ====== VARIABLES VALUES ======
+load_PRefPu                                       : y =       0.217000 yp =       0.000000
+load_QRefPu                                       : y =       0.127000 yp =       0.000000
+load_deltaP                                       : y =       0.000000 yp =       0.000000
+load_deltaQ                                       : y =       0.000000 yp =       0.000000
+load_terminal_V_im                                : y =      -0.090721 yp =       0.000000
+load_terminal_V_re                                : y =       1.041127 yp =       0.000000
+load_PPu                                          : y =       0.217000 yp =       0.000000
+load_QPu                                          : y =       0.127000 yp =       0.000000
+load_terminal_i_im                                : y =      -0.139089 yp =       0.000000
+load_terminal_i_re                                : y =       0.196308 yp =       0.000000
+load_SPu_im                                       : alias of load_QPu
+load_SPu_re                                       : alias of load_PPu
+ ====== CALCULATED VARIABLES VALUES ======
+load_UPu_value                                    : y =       1.045072
+ ====== DISCRETE VARIABLES VALUES ======
+load_running_value                                : z =       1.000000
+load_switchOffSignal1_value                       : z =      -1.000000
+load_switchOffSignal2_value                       : z =      -1.000000
+load_state                                        : z =       2.000000
+ ====== PARAMETERS VALUES ======
+load_alpha                                         =       1.500000
+load_beta                                          =       2.500000
+load_i0Pu_im                                       =      -0.139089
+load_i0Pu_re                                       =       0.196308
+load_s0Pu_im                                       =       0.127000
+load_s0Pu_re                                       =       0.217000
+load_u0Pu_im                                       =      -0.090721
+load_u0Pu_re                                       =       1.041127
+load_Running0                                      =       1.000000
+load_SwitchOffSignal10                             =      -1.000000
+load_SwitchOffSignal20                             =      -1.000000
+load_SwitchOffSignal30                             =      -1.000000
+load_NbSwitchOffSignals                            =              2
+load_State0                                        =              2
