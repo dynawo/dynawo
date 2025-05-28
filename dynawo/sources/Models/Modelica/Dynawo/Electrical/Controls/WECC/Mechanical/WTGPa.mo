@@ -2,83 +2,20 @@ within Dynawo.Electrical.Controls.WECC.Mechanical;
 
 model WTGPa "WECC Pitch Controller Type A"
 extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsWTGPA;
-  Modelica.Blocks.Interfaces.RealInput Pord(start=PInj0Pu) annotation(
-    Placement(transformation(origin = {-102, -42}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealInput Pref(start=PInj0Pu) annotation(
-    Placement(transformation(origin = {-60, -88}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput wref(start=SystemBase.omegaRef0Pu) annotation(
-    Placement(transformation(origin = {-102, 66}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealInput wt(start=SystemBase.omegaRef0Pu) annotation(
-    Placement(transformation(origin = {-48, 108}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {-69, 111}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealOutput theta(start=thetaInit) annotation(
-    Placement(transformation(origin = {142, 42}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Math.Feedback sum annotation(
-    Placement(transformation(origin = {-60, -42}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Math.Gain Kcc(k=kcc) annotation(
-    Placement(transformation(origin = {-48, 4}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Math.Sum sum1(nin = 3, each final k = {1, -1, 1})  annotation(
-    Placement(transformation(origin = {-48, 66}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Math.Gain Kpc(k = kpc)  annotation(
-    Placement(transformation(origin = {-22, -58}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Math.Add add annotation(
-    Placement(transformation(origin = {6, -44}, extent = {{-10, -10}, {10, 10}})));
+extends Dynawo.Electrical.Controls.WECC.Mechanical.BaseClasses.BaseWTGP;
   NonElectrical.Blocks.NonLinear.LimitedIntegrator limitedIntegrator(K = kic, YMax = thetamax, YMin = thetamin)  annotation(
     Placement(transformation(origin = {-22, -24}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Math.Gain Kpw(k = kpw)  annotation(
-    Placement(transformation(origin = {-20, 48}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Math.Add add1 annotation(
-    Placement(transformation(origin = {4, 64}, extent = {{-10, -10}, {10, 10}})));
   NonElectrical.Blocks.NonLinear.LimitedIntegrator limitedIntegrator1(K = kiw, YMax = thetamax, YMin = thetamin)  annotation(
     Placement(transformation(origin = {-20, 86}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = thetamax, uMin = thetamin)  annotation(
-    Placement(transformation(origin = {32, 64}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Nonlinear.Limiter limiter1(uMax = thetamax, uMin = thetamin)  annotation(
-    Placement(transformation(origin = {34, -44}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Math.Add add2 annotation(
-    Placement(transformation(origin = {60, 42}, extent = {{-10, -10}, {10, 10}})));
-  NonElectrical.Blocks.NonLinear.LimRateLimFirstOrder limRateLimFirstOrder(DuMax = thetarmax, DuMin = thetarmin, tS = ttheta, YMax = thetamax, YMin = thetamin, Y0 = thetaInit)  annotation(
-    Placement(transformation(origin = {92, 42}, extent = {{-10, -10}, {10, 10}})));
 equation
-  connect(Pord, sum.u1) annotation(
-    Line(points = {{-102, -42}, {-68, -42}}, color = {0, 0, 127}));
-  connect(Pref, sum.u2) annotation(
-    Line(points = {{-60, -88}, {-60, -50}}, color = {0, 0, 127}));
-  connect(sum.y, Kcc.u) annotation(
-    Line(points = {{-50, -42}, {-48, -42}, {-48, -8}}, color = {0, 0, 127}));
-  connect(wt, sum1.u[1]) annotation(
-    Line(points = {{-48, 108}, {-60, 108}, {-60, 66}}, color = {0, 0, 127}));
-  connect(wref, sum1.u[2]) annotation(
-    Line(points = {{-102, 66}, {-60, 66}}, color = {0, 0, 127}));
-  connect(Kcc.y, sum1.u[3]) annotation(
-    Line(points = {{-48, 16}, {-60, 16}, {-60, 66}}, color = {0, 0, 127}));
-  connect(sum.y, Kpc.u) annotation(
-    Line(points = {{-50, -42}, {-34, -42}, {-34, -58}}, color = {0, 0, 127}));
-  connect(Kpc.y, add.u2) annotation(
-    Line(points = {{-11, -58}, {-6, -58}, {-6, -50}}, color = {0, 0, 127}));
-  connect(sum.y, limitedIntegrator.u) annotation(
+ connect(sum.y, limitedIntegrator.u) annotation(
     Line(points = {{-50, -42}, {-34, -42}, {-34, -24}}, color = {0, 0, 127}));
   connect(limitedIntegrator.y, add.u1) annotation(
     Line(points = {{-11, -24}, {-6, -24}, {-6, -38}}, color = {0, 0, 127}));
-  connect(Kpw.y, add1.u2) annotation(
-    Line(points = {{-9, 48}, {-8, 48}, {-8, 58}}, color = {0, 0, 127}));
   connect(limitedIntegrator1.y, add1.u1) annotation(
     Line(points = {{-9, 86}, {-8, 86}, {-8, 70}}, color = {0, 0, 127}));
   connect(sum1.y, limitedIntegrator1.u) annotation(
     Line(points = {{-36, 66}, {-32, 66}, {-32, 86}}, color = {0, 0, 127}));
-  connect(sum1.y, Kpw.u) annotation(
-    Line(points = {{-36, 66}, {-32, 66}, {-32, 48}}, color = {0, 0, 127}));
-  connect(add.y, limiter1.u) annotation(
-    Line(points = {{17, -44}, {22, -44}}, color = {0, 0, 127}));
-  connect(add1.y, limiter.u) annotation(
-    Line(points = {{15, 64}, {20, 64}}, color = {0, 0, 127}));
-  connect(limiter.y, add2.u1) annotation(
-    Line(points = {{44, 64}, {48, 64}, {48, 48}}, color = {0, 0, 127}));
-  connect(limiter1.y, add2.u2) annotation(
-    Line(points = {{46, -44}, {48, -44}, {48, 36}}, color = {0, 0, 127}));
-  connect(add2.y, limRateLimFirstOrder.u) annotation(
-    Line(points = {{72, 42}, {80, 42}}, color = {0, 0, 127}));
-  connect(limRateLimFirstOrder.y, theta) annotation(
-    Line(points = {{104, 42}, {142, 42}}, color = {0, 0, 127}));
   annotation(preferredView = "diagram",
     Documentation(info = "<html><head></head><body><p> This block contains the Pitch controller model Type A for a WindTurbineGenerator Type 3 based on&nbsp;<br><a href=\"3002027129_Model%20User%20Guide%20for%20Generic%20Renewable%20Energy%20Systems.pdf\">https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf</a> </p><p data-start=\"358\" data-end=\"553\" class=\"\">The Pitch Controller is designed to regulate the blade pitch angle, ensuring optimal performance and protection under varying wind conditions. It serves the following primary functions:</p><p><!--StartFragment-->
 <!--EndFragment--></p><ol data-start=\"555\" data-end=\"1421\">

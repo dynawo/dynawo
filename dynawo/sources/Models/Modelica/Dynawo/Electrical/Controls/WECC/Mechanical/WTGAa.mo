@@ -2,10 +2,15 @@ within Dynawo.Electrical.Controls.WECC.Mechanical;
 
 model WTGAa "WECC Aero-Dynamic model"
 extends Electrical.Controls.WECC.Parameters.ParamsWTGAA;
+//Input Variables
   Modelica.Blocks.Interfaces.RealInput Theta(start=thetaInit) annotation(
     Placement(transformation(origin = {-90, -4}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Interfaces.RealInput PmRef(start=PmRef0) annotation(
+    Placement(transformation(origin = {52, 88}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {49, -109}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+//Output Variables
   Modelica.Blocks.Interfaces.RealOutput Pm annotation(
     Placement(transformation(origin = {104, -10}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
+ 
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(transformation(origin = {-50, -4}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant Theta0(k = theta0)  annotation(
@@ -16,8 +21,7 @@ extends Electrical.Controls.WECC.Parameters.ParamsWTGAA;
     Placement(transformation(origin = {24, 2}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Feedback feedback1 annotation(
     Placement(transformation(origin = {52, 2}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput PmRef(start=PmRef0) annotation(
-    Placement(transformation(origin = {52, 88}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {49, -109}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  
 equation
   connect(Theta0.y, feedback.u2) annotation(
     Line(points = {{-50, -47}, {-50, -12}}, color = {0, 0, 127}));

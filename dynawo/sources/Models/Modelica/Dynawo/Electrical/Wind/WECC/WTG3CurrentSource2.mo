@@ -49,6 +49,14 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
     Placement(transformation(origin = {338, -10}, extent = {{10, -10}, {-10, 10}}), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}})));
   Electrical.Controls.WECC.REEC.REECaPortPord wecc_reec(DPMaxPu = DPMaxPu, DPMinPu = DPMinPu, Dbd1Pu = Dbd1Pu, Dbd2Pu = Dbd2Pu, IMaxPu = IMaxPu, Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, IqFrzPu = IqFrzPu, Iqh1Pu = Iqh1Pu, Iql1Pu = Iql1Pu, Kqi = Kqi, Kqp = Kqp, Kqv = Kqv, Kvi = Kvi, Kvp = Kvp, PF0 = PF0, PFlag = PFlag, PInj0Pu = PInj0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, PQFlag = PQFlag, PfFlag = PfFlag, QFlag = QFlag, QInj0Pu = QInj0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, UInj0Pu = UInj0Pu, VDLIp11 = VDLIp11, VDLIp12 = VDLIp12, VDLIp21 = VDLIp21, VDLIp22 = VDLIp22, VDLIp31 = VDLIp31, VDLIp32 = VDLIp32, VDLIp41 = VDLIp41, VDLIp42 = VDLIp42, VDLIq11 = VDLIq11, VDLIq12 = VDLIq12, VDLIq21 = VDLIq21, VDLIq22 = VDLIq22, VDLIq31 = VDLIq31, VDLIq32 = VDLIq32, VDLIq41 = VDLIq41, VDLIq42 = VDLIq42, VDipPu = VDipPu, VFlag = VFlag, VMaxPu = VMaxPu, VMinPu = VMinPu, VRef0Pu = VRef0Pu, VRef1Pu = VRef1Pu, VUpPu = VUpPu, tHoldIpMax = tHoldIpMax, tHoldIq = tHoldIq, tIq = tIq, tP = tP, tPord = tPord, tRv = tRv) annotation(
     Placement(transformation(origin = {140, -10}, extent = {{-10, -10}, {10, 10}})));
+
+  Controls.WECC.Mechanical.WTGPb wecc_wtgp(kiw=kiw,kpw=kpw,kic=kic,kpc=kpc,kcc=kcc,ttheta=ttheta,thetamax=thetamax,thetamin=thetamin,thetarmax=thetarmax, thetarmin = thetarmin,thetawmax=thetawmax,thetacmax=thetacmax,thetacmin=thetacmin, thetawmin = thetawmin, PInj0Pu = PInj0Pu, thetaInit = thetaInit) annotation(
+    Placement(transformation(origin = {16, -56}, extent = {{-14, -14}, {14, 14}})));
+  Controls.WECC.Mechanical.WTGAa wecc_wtga(theta0=theta0,Ka=Ka, PmRef0 = PmRef0, thetaInit = thetaInit) annotation(
+    Placement(transformation(origin = {50, -56}, extent = {{-12, -12}, {12, 12}})));
+  Modelica.Blocks.Sources.Constant OmegRef(k = 1) annotation(
+    Placement(transformation(origin = {-18, 46}, extent = {{-10, -10}, {10, 10}})));
+
   // Initial parameters
   parameter Types.ComplexPerUnit i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
   parameter Types.ComplexPerUnit s0Pu "Start value of complex apparent power at terminal in pu (base SnRef) (receptor convention)";
@@ -61,12 +69,6 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
   parameter Types.PerUnit U0Pu "Start value of voltage magnitude at regulated bus in pu (base UNom)";
   final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else (U0Pu + Kc*Q0Pu*SystemBase.SnRef/SNom) "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
   parameter Types.PerUnit PmRef0 "Start value of mechanical power";
-  Controls.WECC.Mechanical.WTGPb wecc_wtgp(kiw=kiw,kpw=kpw,kic=kic,kpc=kpc,kcc=kcc,ttheta=ttheta,thetamax=thetamax,thetamin=thetamin,thetarmax=thetarmax, thetarmin = thetarmin,thetawmax=thetawmax,thetacmax=thetacmax,thetacmin=thetacmin, thetawmin = thetawmin, PInj0Pu = PInj0Pu, thetaInit = thetaInit) annotation(
-    Placement(transformation(origin = {16, -56}, extent = {{-14, -14}, {14, 14}})));
-  Controls.WECC.Mechanical.WTGAa wecc_wtga(theta0=theta0,Ka=Ka, PmRef0 = PmRef0, thetaInit = thetaInit) annotation(
-    Placement(transformation(origin = {50, -56}, extent = {{-12, -12}, {12, 12}})));
-  Modelica.Blocks.Sources.Constant OmegRef(k = 1) annotation(
-    Placement(transformation(origin = {-18, 46}, extent = {{-10, -10}, {10, 10}})));
 equation
   line.switchOffSignal1.value = injector.switchOffSignal1.value;
   line.switchOffSignal2.value = injector.switchOffSignal2.value;

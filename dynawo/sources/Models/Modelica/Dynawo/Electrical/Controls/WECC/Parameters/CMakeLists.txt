@@ -19,6 +19,12 @@ set(MODEL_FILES
   ParamsREGC.mo
   ParamsREPC.mo
   ParamsVSourceRef.mo
+  ParamsDriveTrainb
+  ParamsWTGPA.mo
+  ParamsWTGPB.mo
+  ParamsWTGAA.mo
+  ParamsWTGQA.mo
+  ParamsREECa.mo
   )
 
 #
