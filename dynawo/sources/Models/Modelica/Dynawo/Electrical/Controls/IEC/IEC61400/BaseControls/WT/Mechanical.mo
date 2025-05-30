@@ -43,9 +43,9 @@ model Mechanical "Two-mass module for wind turbines (IEC N°61400-27-1)"
     Placement(visible = true, transformation(origin = {-10, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add1(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {-10, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integrator(initType = Modelica.Blocks.Types.Init.InitialOutput,k = 1 / (2 * Hwtr), y_start = SystemBase.omega0Pu) annotation(
+  Modelica.Blocks.Continuous.Integrator integrator(k = 1 / (2 * Hwtr), y_start = SystemBase.omega0Pu) annotation(
     Placement(visible = true, transformation(origin = {30, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integrator1(initType = Modelica.Blocks.Types.Init.InitialOutput,k = 1 / (2 * Hgen), y_start = SystemBase.omega0Pu) annotation(
+  Modelica.Blocks.Continuous.Integrator integrator1(k = 1 / (2 * Hgen), y_start = SystemBase.omega0Pu) annotation(
     Placement(visible = true, transformation(origin = {30, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Division division annotation(
     Placement(visible = true, transformation(origin = {-70, 60}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
@@ -61,8 +61,6 @@ model Mechanical "Two-mass module for wind turbines (IEC N°61400-27-1)"
     Dialog(tab = "Operating point"));
   parameter Types.ActivePowerPu PAg0Pu "Initial generator (air gap) power in pu (base SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
-  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialIGs;//not used
-  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGs;//not used
 
 equation
   connect(PAgPu, division1.u1) annotation(
