@@ -11,77 +11,87 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT;
 *
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
-  
+
 model Aerodynamic2D "Two-dimensional aerodynmaic module for type 3 wind turbines (IEC N°61400-27-1:2020)"
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical.Aerodynamic2DParameters;
 
-  // parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.Aerodynamic2D;
-  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPGrid;
-  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPAg;
-
-  // inputs
-  Modelica.Blocks.Interfaces.RealInput omegaWTRPu(start=SystemBase.omega0Pu) "Wind turbine rotor speed in pu (base SystemBase.omegaNom)" annotation(
+  //Input variable
+  Modelica.Blocks.Interfaces.RealInput omegaWTRPu(start = SystemBase.omega0Pu) "Wind turbine rotor speed in pu (base SystemBase.omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput theta(start=Theta0) "Wind turbine pitch angle in degrees" annotation(
+  Modelica.Blocks.Interfaces.RealInput theta(start = Theta0) "Wind turbine pitch angle in degrees" annotation(
     Placement(visible = true, transformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  
-  //outputs
-  Modelica.Blocks.Interfaces.RealOutput pAeroPu(start=PAg0Pu) "Wind turbine aerodynamic power in pu (base SNom)" annotation(
+
+  //Output variable
+  Modelica.Blocks.Interfaces.RealOutput pAeroPu(start = PAg0Pu) "Wind turbine aerodynamic power in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  
+
   Modelica.Blocks.Math.Add addDPOmega(k2 = +1, k1 = -1) annotation(
-    Placement(visible = true, transformation(origin = {-18, -30}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
+    Placement(transformation(origin = {-30, -20}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Add addOmega(k2 = -1) annotation(
-    Placement(visible = true, transformation(origin = {-38, -78}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(transformation(origin = {-30, -80}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Add3 addP annotation(
-    Placement(visible = true, transformation(origin = {68, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Add addTheta(k2 = -1) annotation(
-    Placement(visible = true, transformation(origin = {-36, 54}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(transformation(origin = {-30, 60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant constDPOmega0Pu(k = DPOmega0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-35, -47}, extent = {{-7, -7}, {7, 7}}, rotation = 90)));
+    Placement(transformation(origin = {-50, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Sources.Constant constOmega0Pu(k = SystemBase.omega0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-78, -84}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant constPAvailPu(k =  PAvailPu) annotation(
-    Placement(visible = true, transformation(origin = {19, 1}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
+    Placement(transformation(origin = {-70, -90}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Sources.Constant constPAvailPu(k = PAvailPu) annotation(
+    Placement(transformation(origin = {10, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant constTheta0(k = Theta0) annotation(
-    Placement(visible = true, transformation(origin = {-70, 42}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
+    Placement(transformation(origin = {-70, 40}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Gain gainDPOmegaThetaPu(k = DPOmegaThetaPu) annotation(
-    Placement(visible = true, transformation(origin = {-68, -26}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(transformation(origin = {-70, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Gain gainDPThetaPu(k = DPThetaPu) annotation(
-    Placement(visible = true, transformation(origin = {22, 54}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(transformation(origin = {10, 60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Product productPOmega annotation(
-    Placement(visible = true, transformation(origin = {28, -36}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(transformation(origin = {10, -40}, extent = {{-10, -10}, {10, 10}})));
+
+  //Initial parameters
+  parameter Types.PerUnit IGsIm0Pu "Initial imaginary component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+      Dialog(tab = "Initialization"));
+  parameter Types.PerUnit IGsRe0Pu "Initial real component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+      Dialog(tab = "Initialization"));
+  parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
+      Dialog(tab = "Operating point"));
+  parameter Types.ActivePowerPu PAg0Pu = Modelica.ComplexMath.real(Complex(UGsRe0Pu, UGsIm0Pu)*Complex(IGsRe0Pu, -IGsIm0Pu)) "Initial generator (air gap) power in pu (base SNom) (generator convention)" annotation(
+      Dialog(tab = "Initialization"));
+  parameter Types.PerUnit UGsIm0Pu "Initial imaginary component of the voltage at converter terminal in pu (base UNom)" annotation(
+      Dialog(tab = "Initialization"));
+  parameter Types.PerUnit UGsRe0Pu "Initial real component of the voltage at converter terminal in pu (base UNom)" annotation(
+      Dialog(tab = "Initialization"));
 
 equation
   connect(addTheta.y, gainDPThetaPu.u) annotation(
-    Line(points = {{-25, 54}, {10, 54}}, color = {0, 0, 127}));
+    Line(points = {{-19, 60}, {-2, 60}}, color = {0, 0, 127}));
   connect(constPAvailPu.y, addP.u2) annotation(
-    Line(points = {{27, 1}, {44.5, 1}, {44.5, 0}, {56, 0}}, color = {0, 0, 127}));
+    Line(points = {{21, 0}, {58, 0}}, color = {0, 0, 127}));
   connect(gainDPThetaPu.y, addP.u1) annotation(
-    Line(points = {{33, 54}, {44, 54}, {44, 8}, {56, 8}}, color = {0, 0, 127}));
+    Line(points = {{21, 60}, {40, 60}, {40, 8}, {58, 8}}, color = {0, 0, 127}));
   connect(omegaWTRPu, addOmega.u1) annotation(
-    Line(points = {{-120, -60}, {-94, -60}, {-94, -72}, {-50, -72}}, color = {0, 0, 127}));
+    Line(points = {{-120, -60}, {-94, -60}, {-94, -74}, {-42, -74}}, color = {0, 0, 127}));
   connect(constOmega0Pu.y, addOmega.u2) annotation(
-    Line(points = {{-69, -84}, {-50, -84}}, color = {0, 0, 127}));
+    Line(points = {{-59, -90}, {-55.5, -90}, {-55.5, -86}, {-42, -86}}, color = {0, 0, 127}));
   connect(theta, addTheta.u1) annotation(
-    Line(points = {{-120, 60}, {-48, 60}}, color = {0, 0, 127}));
+    Line(points = {{-120, 60}, {-88, 60}, {-88, 66}, {-42, 66}}, color = {0, 0, 127}));
   connect(addP.y, pAeroPu) annotation(
-    Line(points = {{79, 0}, {110, 0}}, color = {0, 0, 127}));
+    Line(points = {{81, 0}, {110, 0}}, color = {0, 0, 127}));
   connect(theta, gainDPOmegaThetaPu.u) annotation(
-    Line(points = {{-120, 60}, {-88, 60}, {-88, -26}, {-80, -26}}, color = {0, 0, 127}));
+    Line(points = {{-120, 60}, {-88, 60}, {-88, 0}, {-82, 0}}, color = {0, 0, 127}));
   connect(addOmega.y, productPOmega.u2) annotation(
-    Line(points = {{-27, -78}, {-12, -78}, {-12, -42}, {10, -42}}, color = {0, 0, 127}));
+    Line(points = {{-19, -80}, {-12, -80}, {-12, -46}, {-2, -46}}, color = {0, 0, 127}));
   connect(productPOmega.y, addP.u3) annotation(
-    Line(points = {{39, -36}, {46, -36}, {46, -8}, {56, -8}}, color = {0, 0, 127}));
+    Line(points = {{21, -40}, {46, -40}, {46, -8}, {58, -8}}, color = {0, 0, 127}));
   connect(gainDPOmegaThetaPu.y, addDPOmega.u1) annotation(
-    Line(points = {{-57, -26}, {-25, -26}}, color = {0, 0, 127}));
+    Line(points = {{-59, 0}, {-50.5, 0}, {-50.5, -14}, {-42, -14}}, color = {0, 0, 127}));
   connect(constDPOmega0Pu.y, addDPOmega.u2) annotation(
-    Line(points = {{-35, -39}, {-35, -34}, {-25, -34}}, color = {0, 0, 127}));
+    Line(points = {{-50, -39}, {-50, -26.75}, {-42, -26.75}, {-42, -26}}, color = {0, 0, 127}));
   connect(addDPOmega.y, productPOmega.u1) annotation(
-    Line(points = {{-11, -30}, {16, -30}}, color = {0, 0, 127}));
+    Line(points = {{-19, -20}, {-7.5, -20}, {-7.5, -34}, {-2, -34}}, color = {0, 0, 127}));
   connect(constTheta0.y, addTheta.u2) annotation(
-    Line(points = {{-61, 42}, {-54.5, 42}, {-54.5, 48}, {-48, 48}}, color = {0, 0, 127}));
-  
+    Line(points = {{-59, 40}, {-54.5, 40}, {-54.5, 54}, {-42, 54}}, color = {0, 0, 127}));
+
   annotation(
     uses(Modelica(version = "3.2.3")),
     Icon(graphics = {Text(origin = {0, 4}, extent = {{-98, 86}, {98, -86}}, textString = "Aero

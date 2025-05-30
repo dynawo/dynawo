@@ -14,7 +14,7 @@ within Dynawo.Examples.Wind.IEC.Neplan;
 
 model WPP3BCurrentSource2020 "Wind Power Plant model with Turbine Type 3B model from IEC 61400-27-1 standard with infinite bus - voltage drop test."
   extends Icons.Example;
-  
+
   Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBusWithVariations(U0Pu = 1, UEvtPu = 0.2, UPhase = 0, omega0Pu = 1, omegaEvtPu = 1, tOmegaEvtEnd = 999, tOmegaEvtStart = 999, tUEvtEnd = 1.1, tUEvtStart = 1) annotation(
     Placement(visible = true, transformation(origin = {80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Dynawo.Electrical.Wind.IEC.WT.WT3CurrentSource_INIT init(BesPu = wpp.BesPu, GesPu = wpp.GesPu, IMaxDipPu = wpp.IMaxDipPu, IMaxPu = wpp.IMaxPu, Kpqu = wpp.Kpqu, MdfsLim = wpp.MdfsLim, MqG = wpp.MqG, Mqpri = wpp.Mqpri, P0Pu = wpp.P0Pu, Q0Pu = wpp.Q0Pu, QMaxPu = wpp.QMaxPu, QMinPu = wpp.QMinPu, QlConst = wpp.QlConst, ResPu = wpp.ResPu, SNom = wpp.SNom, TableIpMaxUwt = wpp.TableIpMaxUwt, TableIqMaxUwt = wpp.TableIqMaxUwt, TableQMaxPwtcFilt = wpp.TableQMaxPwtcFilt, TableQMaxUwtcFilt = wpp.TableQMaxUwtcFilt, TableQMinPwtcFilt = wpp.TableQMinPwtcFilt, TableQMinUwtcFilt = wpp.TableQMinUwtcFilt, U0Pu = wpp.U0Pu, UPhase0 = wpp.UPhase0, UpquMaxPu = wpp.UpquMaxPu, XesPu = wpp.XesPu) annotation(
@@ -44,7 +44,7 @@ equation
     Line(points = {{-118, -60}, {-76, -60}, {-76, -6}, {-40, -6}}, color = {0, 0, 127}));
   connect(wpp.terminal, infiniteBusWithVariations.terminal) annotation(
     Line(points = {{-18, 0}, {80, 0}}, color = {0, 0, 255}));
-  
+
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 30, Tolerance = 1e-05, Interval = 0.001),
@@ -53,15 +53,15 @@ equation
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
     Documentation(info = "<html><head></head>
   <body><!--StartFragment-->
-    <div style=\"background-color: rgb(255, 255, 255); font-family: Consolas, 'Courier New', monospace; font-size: 14px; line-height: 19px; white-space: pre;\"><div>This test case implements the IEC 61400-27-1 
+    <div style=\"background-color: rgb(255, 255, 255); font-family: Consolas, 'Courier New', monospace; font-size: 14px; line-height: 19px; white-space: pre;\"><div>This test case implements the IEC 61400-27-1
 <b>Type 3 B</b> wind <b>power plant</b> model
-(inner current loop modeled by PT1 lag element, 
+(inner current loop modeled by PT1 lag element,
 with crowbar model)
-in a single machine infinite bus system.</div><div>As an event, a voltage drop to 0.2 pu&nbsp;</div><div>with 100ms duration is used. 
+in a single machine infinite bus system.</div><div>As an event, a voltage drop to 0.2 pu&nbsp;</div><div>with 100ms duration is used.
 
-The following image shows the voltage drop 
-and the model's P and Q responses. 
+The following image shows the voltage drop
+and the model's P and Q responses.
 
-<b>Active power response:</b> <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/IEC/Resources/Images/wppType3bUdropP.png\"></div><div><b><u><br></u></b></div><div><b>Rective power response:</b> <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/IEC/Resources/Images/wppType3bUdropQ.png\"></div></div><div><b><u><br></u></b></div><div><b><u><br></u></b></div><div><b><u><br></u></b></div>
+<b>Active power response:</b> <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/IEC/Resources/Images/wppType3bUdropP.png\"></div><div><b><u><br></u></b></div><div><b>Reactive power response:</b> <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/IEC/Resources/Images/wppType3bUdropQ.png\"></div></div><div><b><u><br></u></b></div><div><b><u><br></u></b></div><div><b><u><br></u></b></div>
 <div><b><u>Bug desription:</u></b></div><div>This model does not behave as exptected.</div><div>please see example WT3BCurrentSource2020.</div><div><br></div><!--EndFragment--></body></html>"));
 end WPP3BCurrentSource2020;

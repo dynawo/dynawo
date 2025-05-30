@@ -1,4 +1,4 @@
-# Copyright (c) 2022, RTE (http://www.rte-france.com)
+# Copyright (c) 2025, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,18 +9,13 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite
 # of simulation tools for power systems.
 
-add_subdirectory(Mechanical M)
-
 set(MODEL_FILES
   package.mo
   package.order
-  CurrentLimitParameters.mo
-  GridProtectionParameters.mo
-  PControlParameters.mo
-  QControlParameters2015.mo
-  QControlParameters2020.mo
-  QLimitParameters.mo
-  PControlWT3.mo
+  Aerodynamic2DParameters.mo
+  MechanicalParameters.mo
+  PitchAngleControlParameters.mo
+  TorquePi.mo
   )
 
 #

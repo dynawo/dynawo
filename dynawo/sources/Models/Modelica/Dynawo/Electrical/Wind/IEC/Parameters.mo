@@ -35,7 +35,7 @@ record Circuit "Circuit parameters for injector"
 end Circuit;
 
 record CurrentLimiter
- parameter Types.CurrentModulePu IMaxDipPu "Maximum current during voltage dip at converter terminal in pu (base UNom, SNom), example value = 1.3" annotation(Dialog(tab = "CurrentLimiter", group = "Parameters"));
+  parameter Types.CurrentModulePu IMaxDipPu "Maximum current during voltage dip at converter terminal in pu (base UNom, SNom), example value = 1.3" annotation(Dialog(tab = "CurrentLimiter", group = "Parameters"));
   parameter Types.CurrentModulePu IMaxPu "Maximum continuous current at converter terminal in pu (base UNom, SNom), example value = 1.3" annotation(Dialog(tab = "CurrentLimiter", group = "Parameters"));
   parameter Types.PerUnit Kpqu "Partial derivative of reactive current limit against voltage in pu (base UNom, SNom), example value = 20" annotation(Dialog(tab = "CurrentLimiter", group = "Parameters"));
   parameter Boolean MdfsLim "Limitation of type 3 stator current (false: total current limitation, true: stator current limitation), example value = false" annotation(Dialog(tab = "CurrentLimiter", group = "Parameters"));
