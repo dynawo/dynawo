@@ -41,6 +41,7 @@ TEST(APICRVTest, test1) {
   std::unique_ptr<Curve> curve2 = CurveFactory::newCurve();
   curve2->setModelName("model2");
   curve2->setVariable("variable2");
+  curve2->setFactor(10);
 
   // add curves to curve collection
   curves->add(std::move(curve1));
