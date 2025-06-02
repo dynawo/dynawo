@@ -29,6 +29,7 @@ var a02780 =
     [ "defineVariables", "df/de4/a02780.html#a26356e905878b5bdecc9b4166f4034c0", null ],
     [ "defineVariablesInit", "df/de4/a02780.html#af7660279e2f56906ff5cfdbf52e26c5b", null ],
     [ "defineVariablesInit", "df/de4/a02780.html#aedb80e8617cc143501bdbc08fc0c7261", null ],
+    [ "dumpName", "df/de4/a02780.html#a547a1d228d59b290b3f94e9602fe02e7", null ],
     [ "dumpParameters", "df/de4/a02780.html#a6a22586ca9a953f89d2903d718020cea", null ],
     [ "dumpUserReadableElementList", "df/de4/a02780.html#a760f00ec138bebb7a54d2edd37dbe876", null ],
     [ "dumpVariables", "df/de4/a02780.html#a13a22ea2409bb899f24a40f1331b3f30", null ],
