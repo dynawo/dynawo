@@ -183,6 +183,16 @@ job_file = os.path.join(os.path.dirname(__file__), "IEEE14_BasicTestCases", "IEE
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
+##############################################
+#      IEEE14 - Start From DumpFile          #
+##############################################
+
+case_name = "IEEE14 - Start From DumpFile"
+case_description = "IEEE14 - Start from dumpfile and check that final values of step 1 are identical to init values of step 2"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE14_BasicTestCases", "IEEE14_StartFromDump", "IEEE14.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
 #########################################
 #      IEEE14 - OVA                     #
 #########################################

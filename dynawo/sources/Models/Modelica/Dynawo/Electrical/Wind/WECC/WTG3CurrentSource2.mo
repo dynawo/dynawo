@@ -1,5 +1,18 @@
 within Dynawo.Electrical.Wind.WECC;
 
+/*
+* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+
 model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as interface with the grid and the mechanical controllers"
   extends Dynawo.Electrical.Controls.PLL.ParamsPLL;
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREEC;
@@ -10,13 +23,15 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsWTGQA;
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsDriveTrain;
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREECa;
-  
+
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
+
   // Line parameters
   parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
   parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
- //Input parameters
-    Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(
+
+  // Input variables
+  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {34, 30}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = -P0Pu*SystemBase.SnRef/SNom) "Active power reference in pu (generator convention) (base SNom)" annotation(
     Placement(transformation(origin = {35, 15}, extent = {{-11, -11}, {11, 11}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
@@ -24,11 +39,11 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
     Placement(transformation(origin = {34, -2}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Voltage setpoint for plant level control in pu (base UNom)" annotation(
     Placement(transformation(origin = {34, -18}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-60, -110}, extent = {{-10, -10}, {10, 10}},rotation=90)));
-     Modelica.Blocks.Interfaces.RealInput PmRef(start=PmRef0) annotation(
+  Modelica.Blocks.Interfaces.RealInput PmRef(start=PmRef0) annotation(
     Placement(transformation(origin = {56, -102}, extent = {{-12, -12}, {12, 12}}, rotation = 90), iconTransformation(origin = {60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-
   Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) annotation(
     Placement(transformation(origin = {140, 100}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}},rotation=-90)));
+
   Electrical.Controls.WECC.Mechanical.WTGQa wecc_wtgq(kip=kip,kpp=kpp,tp=tp,twref=twref,temax=temax,temin=temin,p1=p1,spd1=spd1,p2=p2,spd2=spd2,p3=p3,spd3=spd3,p4=p4,spd4=spd4,tflag=tflag,PInj0Pu = PInj0Pu) annotation(
     Placement(transformation(origin = {-54, -56}, extent = {{-14, 14}, {14, -14}})));
   Electrical.Controls.WECC.Mechanical.WTGTa wecc_wtgt(Ht=Ht,Hg=Hg,Dshaft=Dshaft,Kshaft=Kshaft, PInj0Pu = PInj0Pu) annotation(
@@ -49,7 +64,6 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
     Placement(transformation(origin = {338, -10}, extent = {{10, -10}, {-10, 10}}), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}})));
   Electrical.Controls.WECC.REEC.REECaPortPord wecc_reec(DPMaxPu = DPMaxPu, DPMinPu = DPMinPu, Dbd1Pu = Dbd1Pu, Dbd2Pu = Dbd2Pu, IMaxPu = IMaxPu, Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, IqFrzPu = IqFrzPu, Iqh1Pu = Iqh1Pu, Iql1Pu = Iql1Pu, Kqi = Kqi, Kqp = Kqp, Kqv = Kqv, Kvi = Kvi, Kvp = Kvp, PF0 = PF0, PFlag = PFlag, PInj0Pu = PInj0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, PQFlag = PQFlag, PfFlag = PfFlag, QFlag = QFlag, QInj0Pu = QInj0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, UInj0Pu = UInj0Pu, VDLIp11 = VDLIp11, VDLIp12 = VDLIp12, VDLIp21 = VDLIp21, VDLIp22 = VDLIp22, VDLIp31 = VDLIp31, VDLIp32 = VDLIp32, VDLIp41 = VDLIp41, VDLIp42 = VDLIp42, VDLIq11 = VDLIq11, VDLIq12 = VDLIq12, VDLIq21 = VDLIq21, VDLIq22 = VDLIq22, VDLIq31 = VDLIq31, VDLIq32 = VDLIq32, VDLIq41 = VDLIq41, VDLIq42 = VDLIq42, VDipPu = VDipPu, VFlag = VFlag, VMaxPu = VMaxPu, VMinPu = VMinPu, VRef0Pu = VRef0Pu, VRef1Pu = VRef1Pu, VUpPu = VUpPu, tHoldIpMax = tHoldIpMax, tHoldIq = tHoldIq, tIq = tIq, tP = tP, tPord = tPord, tRv = tRv) annotation(
     Placement(transformation(origin = {140, -10}, extent = {{-10, -10}, {10, 10}})));
-
   Controls.WECC.Mechanical.WTGPb wecc_wtgp(kiw=kiw,kpw=kpw,kic=kic,kpc=kpc,kcc=kcc,ttheta=ttheta,thetamax=thetamax,thetamin=thetamin,thetarmax=thetarmax, thetarmin = thetarmin,thetawmax=thetawmax,thetacmax=thetacmax,thetacmin=thetacmin, thetawmin = thetawmin, PInj0Pu = PInj0Pu, thetaInit = thetaInit) annotation(
     Placement(transformation(origin = {16, -56}, extent = {{-14, -14}, {14, 14}})));
   Controls.WECC.Mechanical.WTGAa wecc_wtga(theta0=theta0,Ka=Ka, PmRef0 = PmRef0, thetaInit = thetaInit) annotation(
@@ -69,6 +83,7 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
   parameter Types.PerUnit U0Pu "Start value of voltage magnitude at regulated bus in pu (base UNom)";
   final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else (U0Pu + Kc*Q0Pu*SystemBase.SnRef/SNom) "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
   parameter Types.PerUnit PmRef0 "Start value of mechanical power";
+
 equation
   line.switchOffSignal1.value = injector.switchOffSignal1.value;
   line.switchOffSignal2.value = injector.switchOffSignal2.value;
@@ -154,10 +169,11 @@ equation
     Line(points = {{-6, 46}, {42, 46}}, color = {0, 0, 127}));
   connect(OmegRef.y, wecc_wtgt.omegaRefPu) annotation(
     Line(points = {{-6, 46}, {16, 46}, {16, -30}, {76, -30}, {76, -64}, {88, -64}}, color = {0, 0, 127}));
+
   annotation(
     Diagram(coordinateSystem(extent = {{-100, 80}, {360, -100}})),
     version = "",
     uses(Dynawo(version = "1.8.0"), Modelica(version = "3.2.3")),
-  Documentation(info = "<html><head></head><body><p style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\">This block contains the generic WECC WTG model according to (in case page cannot be found, copy link in browser):&nbsp;<br><a href=\"https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf\">https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf</a></p><p style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\">The overall model is structured as follows:</p><ul style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\"><li>Main model: WECC_Wind with terminal connection and measurement inputs for P/Q/U/I.&nbsp;</li><li>Plant level control.&nbsp;</li><li>Electrical inverter control.</li><li>Generator control.&nbsp;</li><li>Injector (id,iq).</li><li>Torque control.</li><li>Pitch angle control.</li><li>Aero-Dynamic model.</li><li>Drive-train.</li></ul><div><font face=\"MS Shell Dlg 2\">The only difference with the model Wtg3CurrentSource1 is the change of the pitch controller model, this one offers mor flexibility with the limits of the integrators.</font></div></body></html>"),
- Icon(graphics = {Text(origin = {-26, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC WTG 3 2"), Rectangle(extent = {{-100, 100}, {100, -100}})}));
+    Documentation(info = "<html><head></head><body><p style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\">This block contains the generic WECC WTG model according to (in case page cannot be found, copy link in browser):&nbsp;<br><a href=\"https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf\">https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf</a></p><p style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\">The overall model is structured as follows:</p><ul style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\"><li>Main model: WECC_Wind with terminal connection and measurement inputs for P/Q/U/I.&nbsp;</li><li>Plant level control.&nbsp;</li><li>Electrical inverter control.</li><li>Generator control.&nbsp;</li><li>Injector (id,iq).</li><li>Torque control.</li><li>Pitch angle control.</li><li>Aero-Dynamic model.</li><li>Drive-train.</li></ul><div><font face=\"MS Shell Dlg 2\">The only difference with the model Wtg3CurrentSource1 is the change of the pitch controller model, this one offers mor flexibility with the limits of the integrators.</font></div></body></html>"),
+    Icon(graphics = {Text(origin = {-26, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC WTG 3 2"), Rectangle(extent = {{-100, 100}, {100, -100}})}));
 end WTG3CurrentSource2;

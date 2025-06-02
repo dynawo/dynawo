@@ -1,7 +1,21 @@
 within Dynawo.Electrical.Controls.WECC.Mechanical.BaseClasses;
 
+/*
+* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+
 partial model BaseWTGP
-//Input Variables
+
+  //Input variables
   Modelica.Blocks.Interfaces.RealInput Pord(start=PInj0Pu) annotation(
     Placement(transformation(origin = {-102, -42}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput Pref(start=PInj0Pu) annotation(
@@ -10,32 +24,34 @@ partial model BaseWTGP
     Placement(transformation(origin = {-102, 66}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput wt(start=SystemBase.omegaRef0Pu) annotation(
     Placement(transformation(origin = {-48, 108}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {-69, 111}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-//Output Variable
+
+  //Output variable
   Modelica.Blocks.Interfaces.RealOutput theta(start=thetaInit) annotation(
     Placement(transformation(origin = {142, 42}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
- 
+
   Modelica.Blocks.Math.Feedback sum annotation(
     Placement(transformation(origin = {-60, -42}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Gain Kcc(k=kcc) annotation(
     Placement(transformation(origin = {-48, 4}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Math.Sum sum1(nin = 3, each final k = {1, -1, 1})  annotation(
+  Modelica.Blocks.Math.Sum sum1(nin = 3, each final k = {1, -1, 1}) annotation(
     Placement(transformation(origin = {-48, 66}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Math.Gain Kpc(k = kpc)  annotation(
+  Modelica.Blocks.Math.Gain Kpc(k = kpc) annotation(
     Placement(transformation(origin = {-22, -58}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Add add annotation(
     Placement(transformation(origin = {6, -44}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Math.Gain Kpw(k = kpw)  annotation(
+  Modelica.Blocks.Math.Gain Kpw(k = kpw) annotation(
     Placement(transformation(origin = {-20, 48}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Add add1 annotation(
     Placement(transformation(origin = {4, 64}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = thetamax, uMin = thetamin)  annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = thetamax, uMin = thetamin) annotation(
     Placement(transformation(origin = {32, 64}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Nonlinear.Limiter limiter1(uMax = thetamax, uMin = thetamin)  annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter1(uMax = thetamax, uMin = thetamin) annotation(
     Placement(transformation(origin = {34, -44}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Add add2 annotation(
     Placement(transformation(origin = {60, 42}, extent = {{-10, -10}, {10, 10}})));
-  NonElectrical.Blocks.NonLinear.LimRateLimFirstOrder limRateLimFirstOrder(DuMax = thetarmax, DuMin = thetarmin, tS = ttheta, YMax = thetamax, YMin = thetamin, Y0 = thetaInit)  annotation(
+  NonElectrical.Blocks.NonLinear.LimRateLimFirstOrder limRateLimFirstOrder(DuMax = thetarmax, DuMin = thetarmin, tS = ttheta, YMax = thetamax, YMin = thetamin, Y0 = thetaInit) annotation(
     Placement(transformation(origin = {92, 42}, extent = {{-10, -10}, {10, 10}})));
+
 equation
   connect(Pord, sum.u1) annotation(
     Line(points = {{-102, -42}, {-68, -42}}, color = {0, 0, 127}));
@@ -69,7 +85,9 @@ equation
     Line(points = {{72, 42}, {80, 42}}, color = {0, 0, 127}));
   connect(limRateLimFirstOrder.y, theta) annotation(
     Line(points = {{104, 42}, {142, 42}}, color = {0, 0, 127}));
-  annotation(preferredView = "diagram",
+
+  annotation(
+    preferredView = "diagram",
     Documentation(info = "<html><head></head><body><p> This block contains the Pitch controller model Type A for a WindTurbineGenerator Type 3 based on&nbsp;<br><a href=\"3002027129_Model%20User%20Guide%20for%20Generic%20Renewable%20Energy%20Systems.pdf\">https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf</a> </p><p data-start=\"358\" data-end=\"553\" class=\"\">The Pitch Controller is designed to regulate the blade pitch angle, ensuring optimal performance and protection under varying wind conditions. It serves the following primary functions:</p><p><!--StartFragment-->
 <!--EndFragment--></p><ol data-start=\"555\" data-end=\"1421\">
 <li data-start=\"555\" data-end=\"758\" class=\"\">
@@ -87,6 +105,4 @@ equation
  </p><p></p></body></html>"),
     uses(Modelica(version = "3.2.3"), Dynawo(version = "1.8.0")),
     Icon(graphics = {Text(origin = {118, 18}, extent = {{-14, 8}, {14, -8}}, textString = "theta"), Text(origin = {-40, 112}, extent = {{-22, 14}, {22, -14}}, textString = "wt"), Text(origin = {-113, 92}, extent = {{-15, 14}, {15, -14}}, textString = "wref"), Text(origin = {-120, -30}, extent = {{-16, 10}, {16, -10}}, textString = "Pord"), Text(origin = {-29, -108}, extent = {{-15, 12}, {15, -12}}, textString = "Pref"), Text(origin = {4, 0}, extent = {{-60, 46}, {60, -46}}, textString = "WTGP_A"), Rectangle(extent = {{-100, 100}, {100, -100}})}));
-
-
 end BaseWTGP;

@@ -33,11 +33,10 @@ package Types "Standard types for electrical variables"
   // Frequency
 
   type AngleDegree = Real(final unit = "deg") "Angle in degree";
+  type AngularVelocityDegree = Real(final unit = "deg/s") "Angular velocity in degree/s";
+  type AngularAccelerationDegree = Real(final unit = "deg/s2") "Angular acceleration in degree/s2";
 
-  type AngularVelocityDegree = Real(final unit = "deg/s") "Angular velocity in degrees/sec";
-
-  type AngularAccelerationDegree = Real(final unit = "deg/s2") "Angular acceleration in degree";
-
+  // Frequency
   type Frequency = Real(final unit = "Hz") "Frequency";
   // Time
   type Time = Real(final unit = "s") "Time";

@@ -20,6 +20,7 @@
 #include <cmath>
 #include <vector>
 #include <cassert>
+
 #include "PARParametersSet.h"
 
 #include "DYNModelLine.h"
@@ -1179,11 +1180,11 @@ ModelLine::evalCalculatedVars() {
 
   calculatedVars_[iSide1Num_] = std::abs(calculatedVars_[iS1ToS2Side1Num_]);
   calculatedVars_[iSide2Num_] = std::abs(calculatedVars_[iS1ToS2Side2Num_]);
-  if (modelBus1_)
+  if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_1)
     calculatedVars_[u1Num_] = modelBus1_->getCurrentU(ModelBus::UPuType_);
   else
     calculatedVars_[u1Num_] = 0;
-  if (modelBus2_)
+  if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_2)
     calculatedVars_[u2Num_] = modelBus2_->getCurrentU(ModelBus::UPuType_);
   else
     calculatedVars_[u2Num_] = 0;
@@ -1193,64 +1194,88 @@ ModelLine::evalCalculatedVars() {
 double
 ModelLine::ur1() const {
   double ur1 = 0.;
-  if (modelBus1_)
-    ur1 = modelBus1_->ur();
+  if (modelBus1_) {
+    if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_1) {
+      ur1 = modelBus1_->ur();
+    }
+  }
   return ur1;
 }
 
 double
 ModelLine::ui1() const {
   double ui1 = 0.;
-  if (modelBus1_)
-    ui1 = modelBus1_->ui();
+  if (modelBus1_) {
+    if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_1) {
+      ui1 = modelBus1_->ui();
+    }
+  }
   return ui1;
 }
 
 double
 ModelLine::ur2() const {
   double ur2 = 0.;
-  if (modelBus2_)
-    ur2 = modelBus2_->ur();
+  if (modelBus2_) {
+    if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_2) {
+      ur2 = modelBus2_->ur();
+    }
+  }
   return ur2;
 }
 
 double
 ModelLine::ui2() const {
   double ui2 = 0.;
-  if (modelBus2_)
-    ui2 = modelBus2_->ui();
+  if (modelBus2_) {
+    if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_2) {
+      ui2 = modelBus2_->ui();
+    }
+  }
   return ui2;
 }
 
 double
 ModelLine::urp1() const {
   double urp1 = 0.;
-  if (modelBus1_)
-    urp1 = modelBus1_->urp();
+  if (modelBus1_) {
+    if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_1) {
+      urp1 = modelBus1_->urp();
+    }
+  }
   return urp1;
 }
 
 double
 ModelLine::uip1() const {
   double uip1 = 0.;
-  if (modelBus1_)
-    uip1 = modelBus1_->uip();
+  if (modelBus1_) {
+    if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_1) {
+      uip1 = modelBus1_->uip();
+    }
+  }
   return uip1;
 }
 
 double
 ModelLine::urp2() const {
   double urp2 = 0.;
-  if (modelBus2_)
-    urp2 = modelBus2_->urp();
+  if (modelBus2_) {
+    if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_2) {
+      urp2 = modelBus2_->urp();
+    }
+  }
   return urp2;
 }
 
 double
 ModelLine::uip2() const {
   double uip2 = 0.;
-  if (modelBus2_)
-    uip2 = modelBus2_->uip();
+  if (modelBus2_) {
+    if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_2) {
+      uip2 = modelBus2_->uip();
+    }
+  }
   return uip2;
 }
 
@@ -1691,17 +1716,194 @@ ModelLine::evalCalculatedVarI(unsigned numCalculatedVar) const {
 void
 ModelLine::getY0() {
   if (!network_->isInitModel()) {
-    if (isDynamic_) {
-      y_[0] = ir01_;
-      y_[1] = ii01_;
-      y_[2] = 1;
-      yp_[0] = 0;
-      yp_[1] = 0;
-      yp_[2] = 0;
+    if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
+      if (isDynamic_) {
+        y_[0] = ir01_;
+        y_[1] = ii01_;
+        y_[2] = 1;
+        yp_[0] = 0;
+        yp_[1] = 0;
+        yp_[2] = 0;
+      }
+      z_[0] = getConnectionState();
+      z_[1] = getCurrentLimitsDesactivate();
+    }  else {
+      if (isDynamic_) {
+        ir01_ = y_[0];
+        ii01_ = y_[1];
+      }
+      State curState = static_cast<State>(z_[0]);
+      setConnectionState(static_cast<State>(z_[0]));
+      setCurrentLimitsDesactivate(z_[1]);
+      switch (knownBus_) {
+        case BUS1_BUS2:
+        {
+          switch (curState) {
+            case CLOSED:
+            {
+              if (!((modelBus1_->getConnectionState() == CLOSED) && (modelBus2_->getConnectionState() == CLOSED))) {
+                modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+                modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+                topologyModified_ = true;
+              }
+              break;
+            }
+            case OPEN:
+            {
+              if (!((modelBus1_->getConnectionState() == OPEN) && (modelBus2_->getConnectionState() == OPEN))) {
+                modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
+                modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
+                topologyModified_ = true;
+              }
+              break;
+            }
+            case CLOSED_1:
+            {
+              if (!((modelBus1_->getConnectionState() == CLOSED) && (modelBus2_->getConnectionState() == OPEN))) {
+                modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+                modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
+                topologyModified_ = true;
+              }
+              break;
+            }
+            case CLOSED_2:
+            {
+              if (!((modelBus1_->getConnectionState() == OPEN) && (modelBus2_->getConnectionState() == CLOSED))) {
+                modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
+                modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+                topologyModified_ = true;
+              }
+              break;
+            }
+            case CLOSED_3:
+            {
+              throw DYNError(Error::MODELER, NoThirdSide, id_);
+            }
+            case UNDEFINED_STATE:
+            {
+              throw DYNError(Error::MODELER, UndefinedComponentState, id_);
+            }
+          }
+          break;
+        }
+        case BUS1:
+        {
+          switch (curState) {
+            case CLOSED:
+            {
+              if (modelBus1_->getConnectionState() != CLOSED) {
+                modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+                topologyModified_ = true;
+              }
+              break;
+            }
+            case OPEN:
+            {
+              if (modelBus1_->getConnectionState() != OPEN) {
+                modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
+                topologyModified_ = true;
+              }
+              break;
+            }
+            case CLOSED_1:
+            {
+              if (modelBus1_->getConnectionState() != CLOSED) {
+                modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+                topologyModified_ = true;
+              }
+              break;
+            }
+            case CLOSED_2:
+            {
+              if (modelBus1_->getConnectionState() != OPEN) {
+                modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
+                topologyModified_ = true;
+              }
+              break;
+            }
+            case CLOSED_3:
+            {
+              throw DYNError(Error::MODELER, NoThirdSide, id_);
+            }
+            case UNDEFINED_STATE:
+            {
+              throw DYNError(Error::MODELER, UndefinedComponentState, id_);
+            }
+          }
+          break;
+        }
+        case BUS2:
+        {
+          switch (curState) {
+            case CLOSED:
+            {
+              if (modelBus2_->getConnectionState() != CLOSED) {
+                modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+                topologyModified_ = true;
+              }
+              Trace::warn() << DYNLog(UnableToCloseLine, id_) << Trace::endline;
+              break;
+            }
+            case OPEN:
+            {
+              if (modelBus2_->getConnectionState() != OPEN) {
+                modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
+                topologyModified_ = true;
+              }
+              break;
+            }
+            case CLOSED_2:
+            {
+              if (modelBus1_->getConnectionState() != CLOSED) {
+                modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+                topologyModified_ = true;
+              }
+              break;
+            }
+            case CLOSED_1:
+            {
+              if (modelBus1_->getConnectionState() != OPEN) {
+                modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
+                topologyModified_ = true;
+              }
+              Trace::warn() << DYNLog(UnableToCloseLineSide1, id_) << Trace::endline;
+              break;
+            }
+            case CLOSED_3:
+            {
+              throw DYNError(Error::MODELER, NoThirdSide, id_);
+            }
+            case UNDEFINED_STATE:
+            {
+              throw DYNError(Error::MODELER, UndefinedComponentState, id_);
+            }
+          }
+          break;
+        }
+      }
     }
-    z_[0] = getConnectionState();
-    z_[1] = getCurrentLimitsDesactivate();
   }
+}
+
+void
+ModelLine::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
+  ModelCPP::dumpInStream(streamVariables, ir01_);
+  ModelCPP::dumpInStream(streamVariables, ii01_);
+  ModelCPP::dumpInStream(streamVariables, ir02_);
+  ModelCPP::dumpInStream(streamVariables, ii02_);
+}
+
+void
+ModelLine::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
+  char c;
+  streamVariables >> c;
+  streamVariables >> ir01_;
+  streamVariables >> c;
+  streamVariables >> ii01_;
+  streamVariables >> c;
+  streamVariables >> ir02_;
+  streamVariables >> c;
+  streamVariables >> ii02_;
 }
 
 NetworkComponent::StateChange_t

@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.WECC.Mechanical;
 
 /*
-* Copyright (c) 2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2025, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,14 +9,13 @@ within Dynawo.Electrical.Controls.WECC.Mechanical;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model WTGTb "Drive train control with a mechanical power derived from filtered electrical power"
   extends Dynawo.Electrical.Controls.WECC.Mechanical.BaseClasses.BaseDriveTrain;
-   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsDriveTrainb;
-  
-
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsDriveTrainb;
 
 
   Modelica.Blocks.Continuous.FirstOrder Pmech(T = tP, y_start = PInj0Pu) annotation(

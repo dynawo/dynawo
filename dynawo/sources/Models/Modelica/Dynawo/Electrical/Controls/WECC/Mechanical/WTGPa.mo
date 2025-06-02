@@ -1,14 +1,29 @@
 within Dynawo.Electrical.Controls.WECC.Mechanical;
 
+/*
+* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+
 model WTGPa "WECC Pitch Controller Type A"
-extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsWTGPA;
-extends Dynawo.Electrical.Controls.WECC.Mechanical.BaseClasses.BaseWTGP;
-  NonElectrical.Blocks.NonLinear.LimitedIntegrator limitedIntegrator(K = kic, YMax = thetamax, YMin = thetamin)  annotation(
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsWTGPA;
+  extends Dynawo.Electrical.Controls.WECC.Mechanical.BaseClasses.BaseWTGP;
+
+  NonElectrical.Blocks.NonLinear.LimitedIntegrator limitedIntegrator(K = kic, YMax = thetamax, YMin = thetamin) annotation(
     Placement(transformation(origin = {-22, -24}, extent = {{-10, -10}, {10, 10}})));
-  NonElectrical.Blocks.NonLinear.LimitedIntegrator limitedIntegrator1(K = kiw, YMax = thetamax, YMin = thetamin)  annotation(
+  NonElectrical.Blocks.NonLinear.LimitedIntegrator limitedIntegrator1(K = kiw, YMax = thetamax, YMin = thetamin) annotation(
     Placement(transformation(origin = {-20, 86}, extent = {{-10, -10}, {10, 10}})));
+
 equation
- connect(sum.y, limitedIntegrator.u) annotation(
+  connect(sum.y, limitedIntegrator.u) annotation(
     Line(points = {{-50, -42}, {-34, -42}, {-34, -24}}, color = {0, 0, 127}));
   connect(limitedIntegrator.y, add.u1) annotation(
     Line(points = {{-11, -24}, {-6, -24}, {-6, -38}}, color = {0, 0, 127}));
@@ -16,7 +31,9 @@ equation
     Line(points = {{-9, 86}, {-8, 86}, {-8, 70}}, color = {0, 0, 127}));
   connect(sum1.y, limitedIntegrator1.u) annotation(
     Line(points = {{-36, 66}, {-32, 66}, {-32, 86}}, color = {0, 0, 127}));
-  annotation(preferredView = "diagram",
+
+  annotation(
+    preferredView = "diagram",
     Documentation(info = "<html><head></head><body><p> This block contains the Pitch controller model Type A for a WindTurbineGenerator Type 3 based on&nbsp;<br><a href=\"3002027129_Model%20User%20Guide%20for%20Generic%20Renewable%20Energy%20Systems.pdf\">https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf</a> </p><p data-start=\"358\" data-end=\"553\" class=\"\">The Pitch Controller is designed to regulate the blade pitch angle, ensuring optimal performance and protection under varying wind conditions. It serves the following primary functions:</p><p><!--StartFragment-->
 <!--EndFragment--></p><ol data-start=\"555\" data-end=\"1421\">
 <li data-start=\"555\" data-end=\"758\" class=\"\">
