@@ -48,11 +48,11 @@ SolverFactories& SolverFactories::getInstance() {
 }
 
 SolverFactories::SolverFactoryIterator SolverFactories::find(const std::string& lib) {
-  return (factoryMap_.find(lib));
+  return factoryMap_.find(lib);
 }
 
 bool SolverFactories::end(SolverFactoryIterator& iter) {
-  return (iter == factoryMap_.end());
+  return iter == factoryMap_.end();
 }
 
 void

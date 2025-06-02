@@ -68,60 +68,59 @@ class SolverSIM : public SolverCommonFixedTimeStep {
   /**
    * @copydoc Solver::Impl::solverType()
    */
-  std::string solverType() const;
+  const std::string& solverType() const override;
 
   /**
    * @copydoc Solver::init(const std::shared_ptr<Model>& model, const double t0, const double tEnd)
    */
-  void init(const std::shared_ptr<Model>& model, const double t0, const double tEnd);
+  void init(const std::shared_ptr<Model>& model, double t0, double tEnd) override;
 
   /**
    * @copydoc Solver::Impl::defineSpecificParameters()
    */
-  void defineSpecificParameters();
+  void defineSpecificParameters() override;
 
   /**
    * @copydoc Solver::Impl::setSolverSpecificParameters()
    */
-  void setSolverSpecificParameters();
+  void setSolverSpecificParameters() override;
 
   /**
    * @copydoc Solver::calculateIC()
    */
-  void calculateIC(double tEnd);
+  void calculateIC(double tEnd) override;
 
   /**
    * @brief save the initial values of y before the time step
    */
-  void saveContinuousVariables();
-
+  void saveContinuousVariables() override;
 
   /**
    * @brief restore y to their initial values
    */
-  void restoreContinuousVariables();
+  void restoreContinuousVariables() override;
 
   /**
   * @brief SIM version of computePrediction. We just fill
   * Yp with 0.
   */
-  void computePrediction();
+  void computePrediction() override;
 
   /**
   * @copydoc SolverCommonFixedTimeStep::hasPrediction()
   */
-  bool hasPrediction() const;
+  bool hasPrediction() const override;
 
   /**
   * @copydoc Solver::computeYP()
   */
-  void computeYP(const double* yy);
+  void computeYP(const double* yy) override;
 
   /**
   * @brief name of the solver
   * @return name of the solver
   */
-  inline std::string getName() {
+  inline const std::string& getName() override {
     static std::string name = "SIM";
     return name;
   }
@@ -135,14 +134,14 @@ class SolverSIM : public SolverCommonFixedTimeStep {
   /**
    * @copydoc Solver::getTimeStep()
    */
-  double getTimeStep() const {
+  double getTimeStep() const override {
     return h_;
   }
 
   /**
    * @copydoc Solver::Impl::solveStep(double tAim, double &tNxt)
    */
-  void solveStep(double tAim, double &tNxt);
+  void solveStep(double tAim, double &tNxt) override;
 
   bool order1Prediction_;  ///< enable to use order 1 prediction
 };

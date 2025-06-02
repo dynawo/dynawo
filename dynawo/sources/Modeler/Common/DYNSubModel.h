@@ -90,13 +90,13 @@ class SubModel {
    * @brief initialize all the data for a sub model
    * @param t0 : initial time of the simulation
    */
-  virtual void init(const double t0) = 0;
+  virtual void init(double t0) = 0;
 
   /**
    * @brief get the type of the sub model
    * @return the type of the sub model
    */
-  virtual std::string modelType() const = 0;
+  virtual const std::string& modelType() const = 0;
 
   /**
    * @brief export the parameters of the sub model for dump
@@ -149,7 +149,7 @@ class SubModel {
    * Get the roots' value
    * @param[in] t Simulation instant
    */
-  virtual void evalG(const double t) = 0;
+  virtual void evalG(double t) = 0;
 
   /**
    * @brief Model discrete variables evaluation
@@ -159,7 +159,7 @@ class SubModel {
    * @param[in] t Simulation instant
    * @throws Error::MODELER typed @p Error.
    */
-  virtual void evalZ(const double t) = 0;
+  virtual void evalZ(double t) = 0;
 
   /**
    * @brief compute the value of calculated variables
@@ -171,20 +171,20 @@ class SubModel {
    *
    * @param t time to use for the evaluation
    * @param cj Jacobian prime coefficient
-   * @param Jt jacobian matrix to fullfill
+   * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
    */
-  virtual void evalJt(const double t, const double cj, SparseMatrix& Jt, const int rowOffset) = 0;
+  virtual void evalJt(double t, double cj, int rowOffset, SparseMatrix& jt) = 0;
 
   /**
    * @brief compute the transpose prim jacobian of the sub model \f$ J'= @F/@x' \f$
    *
    * @param t time to use for the evaluation
    * @param cj Jacobian prime coefficient
-   * @param Jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
+   * @param jtPrim jacobian matrix to fullfill
    */
-  virtual void evalJtPrim(const double t, const double cj, SparseMatrix& Jt, const int rowOffset) = 0;
+  virtual void evalJtPrim(double t, double cj, int rowOffset, SparseMatrix& jtPrim) = 0;
 
   /**
    * @brief Model mode change type evaluation
@@ -194,7 +194,7 @@ class SubModel {
    * @param[in] t Simulation instant
    * @return mode change type value
    */
-  virtual modeChangeType_t evalMode(const double t) = 0;
+  virtual modeChangeType_t evalMode(double t) = 0;
 
   /**
    * @brief Coherence check on parameters (min/max values, sanity checks)
@@ -206,7 +206,7 @@ class SubModel {
    *
    * @param t time for which to conduct the data coherence check
    */
-  virtual void checkDataCoherence(const double t);
+  virtual void checkDataCoherence(double t);
 
   /**
    * @brief set formula for modelica models' equation
@@ -277,7 +277,7 @@ class SubModel {
    * @param[out] elements Reference to elements' vector
    * @param[out] mapElement Map associating each element index in the elements vector to its name
    */
-  virtual void defineElements(std::vector<Element> &elements, std::map<std::string, int >& mapElement) = 0;
+  virtual void defineElements(std::vector<Element>& elements, std::map<std::string, int >& mapElement) = 0;
 
   /**
    * @brief initialize static data of the model
@@ -410,7 +410,7 @@ class SubModel {
    * @param t0 time to use when calling initialization
    * @param localInitParameters local initialization solver parameters
    */
-  void initSub(const double t0, std::shared_ptr<parameters::ParametersSet> localInitParameters);
+  void initSub(double t0, const std::shared_ptr<parameters::ParametersSet>& localInitParameters);
 
   /**
    * @brief initialize size and offset to use during the simulation
@@ -429,20 +429,20 @@ class SubModel {
    * state variables derivatives
    * @param t Simulation instant
    */
-  void evalFSub(const double t);
+  void evalFSub(double t);
 
   /**
    * Get the differential residues' values at a certain instant time
    * @param t Simulation instant
    */
-  virtual void evalFDiffSub(const double t);
+  virtual void evalFDiffSub(double t);
 
   /**
    * @brief Model G(t,y,y') function evaluation
    * Get the roots' value
    * @param t Simulation instant
    */
-  void evalGSub(const double t);
+  void evalGSub(double t);
 
   /**
    * @brief Model discrete variables evaluation
@@ -450,14 +450,14 @@ class SubModel {
    * current state variables values.
    * @param t Simulation instant
    */
-  void evalZSub(const double t);
+  void evalZSub(double t);
 
   /**
    * @brief  calculate calculated variables
    *
    * @param t Simulation instant
    */
-  void evalCalculatedVariablesSub(const double t);
+  void evalCalculatedVariablesSub(double t);
 
   /**
    * @brief Model transposed jacobian evaluation
@@ -465,10 +465,10 @@ class SubModel {
    * Get the sparse transposed jacobian
    * @param t Simulation instant
    * @param cj Jacobian prime coefficient
-   * @param Jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
+   * @param jt jacobian matrix to fullfill
    */
-  void evalJtSub(const double t, const double cj, SparseMatrix& Jt, int& rowOffset);
+  void evalJtSub(double t, double cj, int& rowOffset, SparseMatrix& jt);
 
   /**
    * @brief Model transposed jacobian prime matrix evaluation \f$( J = @F/@x' )\f$
@@ -476,10 +476,10 @@ class SubModel {
    * Get the sparse transposed jacobian
    * @param t Simulation instant
    * @param cj Jacobian prime coefficient
-   * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
+   * @param jtPrim jacobian matrix to fullfill
    */
-  void evalJtPrimSub(const double t, const double cj, SparseMatrix& jt, int& rowOffset);
+  void evalJtPrimSub(double t, double cj, int& rowOffset, SparseMatrix& jtPrim);
 
   /**
    * @brief Model mode change type evaluation
@@ -490,7 +490,7 @@ class SubModel {
    * @return mode change type
    */
   //--------------------------------------------------------------------
-  modeChangeType_t evalModeSub(const double t);
+  modeChangeType_t evalModeSub(double t);
 
   /**
   * @brief Get the mode change value
@@ -524,13 +524,14 @@ class SubModel {
    *
    * @param t : time for which to conduct the data coherence check
    */
-  void checkDataCoherenceSub(const double t);
+  void checkDataCoherenceSub(double t);
 
   /**
    * @brief For calling setFequations() in SubModel
    * add equations formula
    */
   void setFequationsSub();
+
   /**
    * @brief For calling setGequations() in SubModel
    * add root equations formula
@@ -544,7 +545,7 @@ class SubModel {
    *
    * @return value of the calculated variable
    */
-  double getCalculatedVar(int indexCalculatedVar);
+  double getCalculatedVar(int indexCalculatedVar) const;
 
   /**
    * @brief get the values of all variables at the initial time
@@ -632,7 +633,7 @@ class SubModel {
    *
    * @param z global vector to fill
    */
-  void getZ(std::vector<double>& z);
+  void getZ(std::vector<double>& z) const;
 
   /**
    * @brief define the elements of the subModel (terminal, structure)
@@ -685,7 +686,7 @@ class SubModel {
    * @return @p towards the variable
    * @throw an assert if the variable does not exist
    */
-  boost::shared_ptr <Variable> getVariable(const std::string& variableName) const;
+  boost::shared_ptr<Variable> getVariable(const std::string& variableName) const;
 
   /**
    * @brief retrieve the current value of a given variable
@@ -722,7 +723,7 @@ class SubModel {
    * @param isInitParam whether to retrieve the initial (or dynamic) parameters
    * @return @b true if the parameter exists inside the model
    */
-  bool hasParameter(const std::string& nameParameter, const bool isInitParam) const;
+  bool hasParameter(const std::string& nameParameter, bool isInitParam) const;
 
   /**
    * @brief check whether the initial parameter is available within the sub-model
@@ -835,21 +836,21 @@ class SubModel {
    *
    * @param curve curve to store
    */
-  void addCurve(std::shared_ptr<curves::Curve>& curve);
+  void addCurve(const std::shared_ptr<curves::Curve>& curve);
 
   /**
    * @brief update the subset of calculated variables needed for curves
    *
    * @param curve curve whose value needs to be updated
    */
-  void updateCalculatedVarForCurve(std::shared_ptr<curves::Curve>& curve);
+  void updateCalculatedVarForCurve(const std::shared_ptr<curves::Curve>& curve);
 
   /**
    * @brief add a curve of a parameter to store for the model
    *
    * @param curve curve to store
    */
-  void addParameterCurve(std::shared_ptr<curves::Curve>& curve);
+  static void addParameterCurve(const std::shared_ptr<curves::Curve>& curve);
 
   /**
    * @brief defines all variables for the dynamic model
@@ -871,7 +872,7 @@ class SubModel {
    * @param nonUnitaryParameters non unitary parameter of this model
    * @param addedParameter parameter added after processing non unitary parameters
    */
-  void instantiateNonUnitaryParameters(const bool isInitParam,
+  void instantiateNonUnitaryParameters(bool isInitParam,
       const std::map<std::string, ParameterModeler>& nonUnitaryParameters,
       std::unordered_set<std::string>& addedParameter);
 
@@ -883,19 +884,20 @@ class SubModel {
    */
   inline void setParameterFromPARFile(const std::string& parameterName, const bool isInitParam) {
     if (readPARParameters_->hasReference(parameterName))
-      setParameterFromSet(findParameterReference(parameterName, isInitParam), readPARParameters_, IIDM);
+      setParameterFromSet(readPARParameters_, IIDM, findParameterReference(parameterName, isInitParam));
     else
-      setParameterFromSet(findParameterReference(parameterName, isInitParam), readPARParameters_, PAR);
+      setParameterFromSet(readPARParameters_, PAR, findParameterReference(parameterName, isInitParam));
   }
 
   /**
    * @brief set a parameter value from a parameters set(only for unitary cardinality)
    *
-   * @param parameter parameter to be set
    * @param parametersSet the set to scan for a value
    * @param origin the origin of the set data (MO, PAR, INIT, ...)
+   * @param parameter parameter to be set
    */
-  void setParameterFromSet(ParameterModeler& parameter, const std::shared_ptr<parameters::ParametersSet>& parametersSet, const parameterOrigin_t& origin);
+  static void setParameterFromSet(const std::shared_ptr<parameters::ParametersSet>& parametersSet, const parameterOrigin_t& origin,
+   ParameterModeler& parameter);
 
   /**
    * @brief set all parameters values from a parameters set (API PAR)
@@ -906,7 +908,7 @@ class SubModel {
    * @brief set all parameters values from a parameters set (API PAR)
    * @param isInitParam whether the parameter is an initParam or a dynamic parameter
    */
-  void setParametersFromPARFile(const bool isInitParam);
+  void setParametersFromPARFile(bool isInitParam);
 
   /**
    * @brief search for a parameter with a given name
@@ -915,7 +917,7 @@ class SubModel {
    * @param isInitParam whether to retrieve the initial (or dynamic) parameters
    * @return desired parameter
    */
-  const ParameterModeler& findParameter(const std::string& name, const bool isInitParam) const;
+  const ParameterModeler& findParameter(const std::string& name, bool isInitParam) const;
 
   /**
    * @brief search for an initial parameter with a given name
@@ -945,7 +947,7 @@ class SubModel {
    * @param value the value to set
    * @param isInitParam whether to retrieve the initial (or dynamic) parameters
    */
-  template <typename T> void setParameterValue(const std::string& name, const parameterOrigin_t& origin, const T& value, const bool isInitParam);
+  template <typename T> void setParameterValue(const std::string& name, const parameterOrigin_t& origin, const T& value, bool isInitParam);
 
 
   /**
@@ -977,7 +979,7 @@ class SubModel {
    * @param parameters vector of parameters to add
    * @param isInitParam whether to retrieve the initial (or dynamic) parameters
    */
-  void addParameters(const std::vector<ParameterModeler>& parameters, const bool isInitParam);
+  void addParameters(const std::vector<ParameterModeler>& parameters, bool isInitParam);
 
   /**
    * @brief Add a parameter
@@ -985,14 +987,14 @@ class SubModel {
    * @param parameter Parameter to add
    * @param isInitParam whether to retrieve the initial (or dynamic) parameters
    */
-  void addParameter(const ParameterModeler& parameter, const bool isInitParam);
+  void addParameter(const ParameterModeler& parameter, bool isInitParam);
 
   /**
    * @brief Reset the parameters
    *
    * @param isInitParam whether to reset the initial (or dynamic) parameters
    */
-  void resetParameters(const bool isInitParam);
+  void resetParameters(bool isInitParam);
 
   /**
    * @brief defines all variables for the init model
@@ -1012,7 +1014,7 @@ class SubModel {
    *
    * @param isInitParam whether to define the initial (or dynamic) parameters
    */
-  void defineParameters(const bool isInitParam);
+  void defineParameters(bool isInitParam);
 
   /**
    * @brief defines the local buffer to use for the evaluation of residual function
@@ -1020,7 +1022,7 @@ class SubModel {
    * @param f global buffer for the evaluation of residual function
    * @param offsetF offset to use to find the beginning of the local buffer
    */
-  void setBufferF(double* f, const int offsetF);
+  void setBufferF(double* f, int offsetF);
 
   /**
    * @brief defines the local buffer to use for the evaluation of root function
@@ -1028,7 +1030,7 @@ class SubModel {
    * @param g global buffer for the evaluation of root function
    * @param offsetG offset to use to find the beginning of the local buffer
    */
-  void setBufferG(state_g* g, const int offsetG);
+  void setBufferG(state_g* g, int offsetG);
 
   /**
    * @brief defines the local buffer to define the continuous variables
@@ -1037,7 +1039,7 @@ class SubModel {
    * @param yp global buffer to define the derivative of the continuous variable
    * @param offsetY offset to use to find the beginning of the local buffer
    */
-  void setBufferY(double* y, double* yp, const int offsetY);
+  void setBufferY(double* y, double* yp, int offsetY);
 
   /**
    * @brief   defines the local buffer to define the discrete variables
@@ -1054,7 +1056,7 @@ class SubModel {
    * @param yType global buffer to define the variable properties
    * @param offsetYType offset to use to find the beginning of the local buffer
    */
-  void setBufferYType(propertyContinuousVar_t* yType, const int offsetYType);
+  void setBufferYType(propertyContinuousVar_t* yType, int offsetYType);
 
   /**
    * @brief   defines the local buffer to define the residual functions properties
@@ -1062,7 +1064,7 @@ class SubModel {
    * @param fType global buffer to define the residual functions properties
    * @param offsetFType offset to use to find the beginning of the local buffer
    */
-  void setBufferFType(propertyF_t* fType, const int offsetFType);
+  void setBufferFType(propertyF_t* fType, int offsetFType);
 
   /**
    * @brief get the index to use to find the discrete values of the model inside the global vector
@@ -1326,7 +1328,7 @@ class SubModel {
    *
    * @param isInitProcess @b true if the initial model is used
    */
-  inline void setIsInitProcess(bool isInitProcess) {
+  inline void setIsInitProcess(const bool isInitProcess) {
     isInitProcess_ = isInitProcess;
   }
 
@@ -1345,7 +1347,7 @@ class SubModel {
    * @param index WARNING index is local index in this submodel, not global index
    * @return string of equation
    */
-  std::string getFequationByLocalIndex(const int index);
+  const std::string& getFequationByLocalIndex(int index) const;
 
   /**
    * @brief get root equation string for debug log
@@ -1353,7 +1355,7 @@ class SubModel {
    * @param index WARNING index is local index in this submodel, not global index
    * @return string of root equation
    */
-  std::string getGequationByLocalIndex(const int index);
+  const std::string& getGequationByLocalIndex(int index) const;
 
   /**
    * @brief setter for the parameters set read from PAR file
@@ -1384,7 +1386,7 @@ class SubModel {
    * @brief get index of this submodel in the global continuous variable table
    * @return index of this submodel in the global continuous variable table
    */
-  int getOffsetY() const {return offsetY_;}
+  int getOffsetY() const { return offsetY_; }
 
  protected:
   /**
@@ -1476,7 +1478,7 @@ class SubModel {
    * @param isInitParam whether to retrieve the initial (or dynamic) parameters
    * @return desired parameter as a reference
    */
-  ParameterModeler& findParameterReference(const std::string& name, const bool isInitParam);
+  ParameterModeler& findParameterReference(const std::string& name, bool isInitParam);
 
   /**
    * @brief save informations about the model (size, current values of buffers, etc..)
@@ -1507,7 +1509,7 @@ class SubModel {
    * @brief get the map of index of root equation and root equation in string format (init or dynamic ones)
    * @return the map of index of root equation and root equation in string format
    */
-  std::map<int, std::string>& gEquationIndex();
+  const std::map<int, std::string>& gEquationIndex() const;
 
   /**
    * @brief set a parameter value from a parameters set (API PAR) (only for unitary cardinality)
@@ -1518,9 +1520,9 @@ class SubModel {
     if (!readPARParameters_)
       return;
     if (readPARParameters_->hasReference(parameter.getName()))
-      setParameterFromSet(parameter, readPARParameters_, IIDM);
+      setParameterFromSet(readPARParameters_, IIDM, parameter);
     else
-      setParameterFromSet(parameter, readPARParameters_, PAR);
+      setParameterFromSet(readPARParameters_, PAR, parameter);
   }
 
  protected:
@@ -1539,7 +1541,7 @@ class SubModel {
   double* fLocal_;  ///< local buffer to fill when calculating residual functions
   state_g* gLocal_;  ///< local buffer to fill when calculating root functions
   double* yLocal_;  ///< local buffer to use when accessing continuous variables
-  int offsetY_;  ///< index in the global variable table
+  unsigned int offsetY_;  ///< index in the global variable table
   double* ypLocal_;  ///< local buffer to use when accessing derivatives of continuous variables
   double* zLocal_;  ///< local buffer to use when accessing discrete variables
   bool* zLocalConnected_;  ///< table to know whether a discrete var is connected or not
@@ -1580,18 +1582,18 @@ class SubModel {
   std::shared_ptr<parameters::ParametersSet> localInitParameters_;  ///< local initialization solver parameters set
 
  private:
-  int sizeFSave_;  ///< save of the size of F
-  int sizeZSave_;  ///< save of the size of Z
-  int sizeGSave_;  ///< save of the size of G
-  int sizeModeSave_;  ///< save of the size of the Mode
-  int sizeYSave_;  ///< save of the size of Y
-  int sizeCalculatedVarSave_;  ///< size of the size of calculated variables
+  unsigned int sizeFSave_;  ///< save of the size of F
+  unsigned int sizeZSave_;  ///< save of the size of Z
+  unsigned int sizeGSave_;  ///< save of the size of G
+  unsigned int sizeModeSave_;  ///< save of the size of the Mode
+  unsigned int sizeYSave_;  ///< save of the size of Y
+  unsigned int sizeCalculatedVarSave_;  ///< size of the size of calculated variables
   double* fLocalSave_;  ///< save of the local buffer of residual functions
   state_g* gLocalSave_;  ///< save of the local buffer of root functions
   double* yLocalSave_;  ///< save of the local buffer for continuous variables
   double* ypLocalSave_;  ///< save of the local buffer for the derivative of continuous variables
   double* zLocalSave_;  ///< save of the local buffer for discrete variables
-  int offsetYSave_;  ///< save of index in the global variable table
+  unsigned int offsetYSave_;  ///< save of index in the global variable table
 
   bool modeChange_;  ///< @b true if one mode has changed
   modeChangeType_t modeChangeType_;  ///< type of mode change

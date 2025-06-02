@@ -30,7 +30,7 @@ DynamicModelsCollectionFactory::newCollection() {
 }
 
 shared_ptr<DynamicModelsCollection>
-DynamicModelsCollectionFactory::copyCollection(shared_ptr<DynamicModelsCollection> original) {
+DynamicModelsCollectionFactory::copyCollection(const shared_ptr<DynamicModelsCollection>& original) {
   return shared_ptr<DynamicModelsCollection>(new DynamicModelsCollection(*original));
 }
 

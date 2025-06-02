@@ -100,7 +100,7 @@ class HeaderPatternDefine:
     std::string modelType_;
 
     private:
-    std::string modelType() const { return modelType_; }
+    const std::string& modelType() const { return modelType_; }
     inline void setData(DYNDATA * d){ data = d; }
     void setupDataStruc();
     void initializeDataStruc();
@@ -189,7 +189,7 @@ namespace DYN {
     std::string modelType_;
 
     private:
-    std::string modelType() const { return modelType_; }
+    const std::string& modelType() const { return modelType_; }
     inline void setData(DYNDATA * d){ data = d; }
     void setupDataStruc();
     void initializeDataStruc();

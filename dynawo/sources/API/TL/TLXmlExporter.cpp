@@ -56,18 +56,16 @@ XmlExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream
   formatter->startDocument();
   AttributeList attrs;
   formatter->startElement("timeline", attrs);
-  for (Timeline::event_const_iterator itEvent = timeline->cbeginEvent();
-          itEvent != timeline->cendEvent();
-          ++itEvent) {
-    if ((*itEvent)->hasPriority() && maxPriority_ != boost::none && (*itEvent)->getPriority() > maxPriority_)
+  for (const auto& event : timeline->getEvents()) {
+    if (event->hasPriority() && maxPriority_ != boost::none && event->getPriority() > maxPriority_)
       continue;
     attrs.clear();
     if (exportWithTime_)
-      attrs.add("time", DYN::double2String((*itEvent)->getTime()));
-    attrs.add("modelName", (*itEvent)->getModelName());
-    attrs.add("message", (*itEvent)->getMessage());
-    if ((*itEvent)->hasPriority()) {
-      attrs.add("priority", (*itEvent)->getPriority());
+      attrs.add("time", DYN::double2String(event->getTime()));
+    attrs.add("modelName", event->getModelName());
+    attrs.add("message", event->getMessage());
+    if (event->hasPriority()) {
+      attrs.add("priority", event->getPriority());
     }
     formatter->startElement("event", attrs);
     formatter->endElement();  // event

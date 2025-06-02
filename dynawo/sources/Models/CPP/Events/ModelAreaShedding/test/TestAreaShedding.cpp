@@ -278,7 +278,7 @@ TEST(ModelsModelAreaShedding, ModelAreaSheddingContinuousAndDiscreteMethods) {
   SparseMatrix smj;
   int size = ModelAreaShedding->sizeF();
   smj.init(size, size);
-  ModelAreaShedding->evalJt(0, 0, smj, 0);
+  ModelAreaShedding->evalJt(0, 0, 0, smj);
   ASSERT_EQ(smj.nbElem(), 4);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[1], 1);
@@ -296,7 +296,7 @@ TEST(ModelsModelAreaShedding, ModelAreaSheddingContinuousAndDiscreteMethods) {
 
   SparseMatrix smjPrim;
   smjPrim.init(size, size);
-  ModelAreaShedding->evalJtPrim(0, 0, smjPrim, 0);
+  ModelAreaShedding->evalJtPrim(0, 0, 0, smjPrim);
   ASSERT_EQ(smjPrim.nbElem(), 0);
   modeChangeType_t mode = ModelAreaShedding->evalMode(1);
   ASSERT_EQ(mode, ALGEBRAIC_MODE);

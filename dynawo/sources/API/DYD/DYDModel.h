@@ -22,11 +22,11 @@
 
 #include "DYDConnector.h"
 #include "DYDIdentifiable.h"
-#include "DYDIterators.h"
 #include "DYDMacroStaticRef.h"
 #include "DYDStaticRef.h"
 
 #include <map>
+#include <memory>
 #include <string>
 
 namespace dynamicdata {
@@ -86,54 +86,6 @@ class Model {
   void addMacroStaticRef(const std::shared_ptr<MacroStaticRef>& macroStaticRef);
 
   /**
-   * @brief staticRef iterator : beginning of staticRefs
-   * @return beginning of staticRefs
-   */
-  staticRef_const_iterator cbeginStaticRef() const;
-
-  /**
-   * @brief staticRef iterator : end of staticRefs
-   * @return end of staticRefs
-   */
-  staticRef_const_iterator cendStaticRef() const;
-
-  /**
-   * @brief macroStaticRef iterator : beginning of macroStaticRefs
-   * @return beginning of macroStaticRefs
-   */
-  macroStaticRef_const_iterator cbeginMacroStaticRef() const;
-
-  /**
-   * @brief macroStaticRef iterator : end of macroStaticRefs
-   * @return end of macroStaticRefs
-   */
-  macroStaticRef_const_iterator cendMacroStaticRef() const;
-
-  /**
-   * @brief staticRef iterator : beginning of staticRefs
-   * @return beginning of staticRefs
-   */
-  staticRef_iterator beginStaticRef();
-
-  /**
-   * @brief staticRef iterator : end of staticRefs
-   * @return end of staticRefs
-   */
-  staticRef_iterator endStaticRef();
-
-  /**
-   * @brief macroStaticRef iterator : beginning of macroStaticRefs
-   * @return beginning of macroStaticRefs
-   */
-  macroStaticRef_iterator beginMacroStaticRef();
-
-  /**
-   * @brief macroStaticRef iterator : end of macroStaticRefs
-   * @return end of macroStaticRefs
-   */
-  macroStaticRef_iterator endMacroStaticRef();
-
-  /**
    * @brief find a staticRef thanks to its key (var_staticVar)
    * @param key key of the staticRef to be found
    * @throws Error::API exception if staticRef doesn't exist
@@ -149,10 +101,23 @@ class Model {
    */
   const std::shared_ptr<MacroStaticRef>& findMacroStaticRef(const std::string& id);
 
-  friend class staticRef_iterator;
-  friend class staticRef_const_iterator;
-  friend class macroStaticRef_iterator;
-  friend class macroStaticRef_const_iterator;
+  /**
+  * @brief get the static refs
+  *
+  * @return static refs
+  */
+  const std::map<std::string, std::unique_ptr<StaticRef>>& getStaticRefs() const {
+    return staticRefs_;
+  }
+
+  /**
+  * @brief get the macro static refs
+  *
+  * @return macro static refs
+  */
+  const std::map<std::string, std::shared_ptr<MacroStaticRef>>& getMacroStaticRefs() const {
+    return macroStaticRefs_;
+  }
 
  protected:
   /**

@@ -70,9 +70,10 @@ extern "C" void DYN::SolverTRAPFactory::destroy(DYN::Solver* solver) const {
 
 namespace DYN {
 
-std::string
+const std::string&
 SolverTRAP::solverType() const {
-  return "TrapezoidalSolver";
+  static std::string solverType = "TrapezoidalSolver";
+  return solverType;
 }
 
 void
@@ -84,7 +85,7 @@ SolverTRAP::init(const std::shared_ptr<Model>& model, const double t0, const dou
 }
 
 void
-SolverTRAP::calculateIC(double /*tEnd*/) {
+SolverTRAP::calculateIC(const double /*tEnd*/) {
   calculateICCommon();
   setDifferentialVariablesIndices();
 
@@ -109,8 +110,8 @@ SolverTRAP::calculateIC(double /*tEnd*/) {
 
     // Velocity initialization with solverKINYPrim_
     solverKINYPrimInit_->setInitialValues(tSolve_, vectorY_, vectorYp_);
-    bool noInitSetup = false;
-    bool evaluateOnlyMode = false;
+    constexpr bool noInitSetup = false;
+    constexpr bool evaluateOnlyMode = false;
     solverKINYPrimInit_->solve(noInitSetup, evaluateOnlyMode);
     solverKINYPrimInit_->getValues(vectorY_, vectorYp_);
     vectorYpSave_.assign(vectorYp_.begin(), vectorYp_.end());
@@ -136,7 +137,7 @@ SolverTRAP::setSolverSpecificParameters() {
   setSolverSpecificParametersCommon();
 }
 
-void SolverTRAP::solveStep(double tAim, double& tNxt) {
+void SolverTRAP::solveStep(const double tAim, double& tNxt) {
   solveStepCommon(tAim, tNxt);
 
   // Velocity recalculated after each time step.

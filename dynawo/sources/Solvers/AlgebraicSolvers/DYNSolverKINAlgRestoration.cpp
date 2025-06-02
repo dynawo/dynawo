@@ -40,7 +40,7 @@ using std::string;
 namespace DYN {
 
 string
-SolverKINAlgRestoration::stringFromMode(modeKin_t mode) {
+SolverKINAlgRestoration::stringFromMode(const modeKin_t mode) {
   switch (mode) {
     case KIN_ALGEBRAIC:
       return "algebraic";
@@ -78,7 +78,7 @@ void SolverKINAlgRestoration::resetAlgebraicRestoration() {
 }
 
 void
-SolverKINAlgRestoration::init(const std::shared_ptr<Model>& model, modeKin_t mode) {
+SolverKINAlgRestoration::init(const std::shared_ptr<Model>& model, const modeKin_t mode) {
   model_ = model;
   mode_ = mode;
 }
@@ -158,13 +158,13 @@ SolverKINAlgRestoration::initVarAndEqTypes() {
 }
 
 void
-SolverKINAlgRestoration::setupNewAlgebraicRestoration(double fnormtol, double initialaddtol, double scsteptol, double mxnewtstep,
-                                  int msbset, int mxiter, int printfl) {
-  unsigned int numFPrevious = numF_;
+SolverKINAlgRestoration::setupNewAlgebraicRestoration(const double fnormtol, const double initialaddtol, const double scsteptol,
+  const double mxnewtstep, const int msbset, const int mxiter, int const printfl) {
+  const unsigned int numFPrevious = numF_;
   numF_ = initVarAndEqTypes();
   if (numF_ == 0)
     return;
-  bool initKinsol = (numFPrevious != numF_);
+  const bool initKinsol = numFPrevious != numF_;
   if (initKinsol) {
     // warning: model_->sizeF() != numF_
     // model_->sizeF() is fixed during the whole simulation
@@ -193,8 +193,8 @@ SolverKINAlgRestoration::setupNewAlgebraicRestoration(double fnormtol, double in
 }
 
 void
-SolverKINAlgRestoration::updateKINSOLSettings(double fnormtol, double initialaddtol, double scsteptol, double mxnewtstep,
-                                              int msbset, int mxiter, int printfl) {
+SolverKINAlgRestoration::updateKINSOLSettings(const double fnormtol, const double initialaddtol, const double scsteptol, const double mxnewtstep,
+                                              const int msbset, const int mxiter, const int printfl) const {
   // Modify tolerances
   int flag = KINSetFuncNormTol(KINMem_, fnormtol);
   if (flag < 0)
@@ -232,7 +232,7 @@ SolverKINAlgRestoration::updateKINSOLSettings(double fnormtol, double initialadd
 
 int
 SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
-  SolverKINAlgRestoration* solver = reinterpret_cast<SolverKINAlgRestoration*> (data);
+  SolverKINAlgRestoration* solver = reinterpret_cast<SolverKINAlgRestoration*>(data);
   Model& model = solver->getModel();
 
   double* irr = NV_DATA_S(rr);
@@ -316,14 +316,14 @@ SolverKINAlgRestoration::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
   SolverKINAlgRestoration* solver = reinterpret_cast<SolverKINAlgRestoration*> (data);
   Model& model = solver->getModel();
 
-  double cj = 1.;
+  constexpr double cj = 1.;
   SparseMatrix smj;
   smj.init(model.sizeY(), model.sizeY());
   model.evalJt(solver->t0_, cj, smj);
 
   // Erase useless values in the jacobian
   SparseMatrix smjKin;
-  int size = static_cast<int>(solver->indexY_.size());
+  const int size = static_cast<int>(solver->indexY_.size());
   smjKin.reserve(size);
   smj.erase(solver->ignoreY_, solver->ignoreF_, smjKin);
 #if _DEBUG_
@@ -342,7 +342,7 @@ SolverKINAlgRestoration::evalJPrim_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
   SolverKINAlgRestoration* solver = reinterpret_cast<SolverKINAlgRestoration*> (data);
   Model& model = solver->getModel();
 
-  const double cj = 1.;
+  constexpr double cj = 1.;
 
   SparseMatrix smj;
   smj.init(model.sizeY(), model.sizeY());
@@ -359,7 +359,7 @@ SolverKINAlgRestoration::evalJPrim_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
 }
 
 int
-SolverKINAlgRestoration::solve(bool noInitSetup, bool evaluateOnlyModeAtFirstIter) {
+SolverKINAlgRestoration::solve(const bool noInitSetup, const bool evaluateOnlyModeAtFirstIter) {
   if (numF_ == 0)
     return KIN_SUCCESS;
 
@@ -419,7 +419,7 @@ SolverKINAlgRestoration::setInitialValues(const double t, const vector<double>& 
 }
 
 void
-SolverKINAlgRestoration::getValues(vector<double>& y, vector<double>& yp) {
+SolverKINAlgRestoration::getValues(vector<double>& y, vector<double>& yp) const {
   switch (mode_) {
     case KIN_ALGEBRAIC: {
       for (unsigned int i = 0; i < indexY_.size(); ++i) {

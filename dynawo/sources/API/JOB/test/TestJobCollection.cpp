@@ -21,7 +21,6 @@
 #include "JOBJobsCollectionFactory.h"
 #include "JOBJobsCollection.h"
 #include "JOBJobEntry.h"
-#include "JOBIterators.h"
 
 #include <memory>
 
@@ -42,50 +41,18 @@ TEST(APIJOBTest, testJobCollection) {
   jobsCollection->addJob(job3);
 
   int nbJobs = 0;
-  for (job_const_iterator itJob = jobsCollection->cbegin();
-          itJob != jobsCollection->cend();
-          ++itJob) {
+  for (const auto& job : jobsCollection->getJobs()) {
     ++nbJobs;
     if (nbJobs == 1) {
-      ASSERT_EQ((*itJob)->getName(), "job1");
+      ASSERT_EQ(job->getName(), "job1");
     } else if (nbJobs == 2) {
-      ASSERT_EQ((*itJob)->getName(), "job2");
+      ASSERT_EQ(job->getName(), "job2");
     } else if (nbJobs == 3) {
-      ASSERT_EQ((*itJob)->getName(), "job3");
+      ASSERT_EQ(job->getName(), "job3");
     }
   }
 
   ASSERT_EQ(nbJobs, 3);
-
-  job_const_iterator itJob1 = jobsCollection->cbegin();
-  ASSERT_EQ((*itJob1)->getName(), "job1");
-
-  nbJobs = 0;
-  for (job_iterator itJob = jobsCollection->begin();
-          itJob != jobsCollection->end();
-          ++itJob) {
-    ++nbJobs;
-    if (nbJobs == 1) {
-      ASSERT_EQ((*itJob)->getName(), "job1");
-    } else if (nbJobs == 2) {
-      ASSERT_EQ((*itJob)->getName(), "job2");
-    } else if (nbJobs == 3) {
-      ASSERT_EQ((*itJob)->getName(), "job3");
-    }
-  }
-
-  ASSERT_EQ(nbJobs, 3);
-  job_iterator itJob1_bis = jobsCollection->begin();
-  ASSERT_EQ((*itJob1_bis)->getName(), "job1");
-
-  job_iterator itVariable(jobsCollection->begin());
-  ASSERT_EQ((++itVariable)->get()->getName(), "job2");
-  ASSERT_EQ((--itVariable)->get()->getName(), "job1");
-  ASSERT_EQ((itVariable++)->get()->getName(), "job1");
-  ASSERT_EQ((itVariable--)->get()->getName(), "job2");
-  job_iterator itVariable2 = jobsCollection->end();
-  itVariable2 = itVariable;
-  ASSERT_TRUE(itVariable2 == itVariable);
 }
 
 }  // namespace job

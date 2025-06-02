@@ -261,7 +261,7 @@ class LoadCriteria : public Criteria {
    * @brief returns true if no load was added
    * @return true if no load was added
    */
-  bool empty() const {return loads_.empty();}
+  bool empty() const { return loads_.empty(); }
 
   /**
    * @brief structure containing information about a failing criteria on a load and related methods

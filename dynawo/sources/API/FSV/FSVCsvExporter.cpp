@@ -49,12 +49,10 @@ CsvExporter::exportToStream(const boost::shared_ptr<FinalStateValuesCollection>&
   stream << "value" << CSVEXPORTER_SEPARATOR;
   stream << "\n";
 
-  for (FinalStateValuesCollection::const_iterator itFsv = finalStateValues->cbegin();
-        itFsv != finalStateValues->cend();
-        ++itFsv) {
-    stream << (*itFsv)->getModelName() << CSVEXPORTER_SEPARATOR;
-    stream << (*itFsv)->getVariable() << CSVEXPORTER_SEPARATOR;
-    stream << DYN::double2String((*itFsv)->getValue()) << CSVEXPORTER_SEPARATOR;
+  for (const auto& finalStateValue : finalStateValues->getFinalStateValues()) {
+    stream << finalStateValue->getModelName() << CSVEXPORTER_SEPARATOR;
+    stream << finalStateValue->getVariable() << CSVEXPORTER_SEPARATOR;
+    stream << DYN::double2String(finalStateValue->getValue()) << CSVEXPORTER_SEPARATOR;
     stream << "\n";
   }
 }

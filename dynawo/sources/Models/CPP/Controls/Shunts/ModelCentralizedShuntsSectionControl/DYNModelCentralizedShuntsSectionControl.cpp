@@ -62,7 +62,7 @@ extern "C" void DYN::ModelCentralizedShuntsSectionControlFactory::destroy(DYN::S
 }
 
 namespace DYN {
-  const unsigned int URefPuIndex = 0;  ///< local Z index for URefPu
+  constexpr unsigned int URefPuIndex = 0;  ///< local Z index for URefPu
 
   ModelCentralizedShuntsSectionControl::ModelCentralizedShuntsSectionControl() : ModelCPP("CentralizedShuntsSectionControl"),
     nbShunts_(0),
@@ -119,8 +119,8 @@ namespace DYN {
         isSelf_.push_back(findParameterDynamic(isSelfName.str()).getValue<bool>());
       }
     } catch (const DYN::Error& e) {
-    Trace::error() << e.what() << Trace::endline;
-    throw DYNError(Error::MODELER, NetworkParameterNotFoundFor, staticId());
+      Trace::error() << e.what() << Trace::endline;
+      throw DYNError(Error::MODELER, NetworkParameterNotFoundFor, staticId());
     }
   }
 
@@ -178,16 +178,14 @@ namespace DYN {
   }
 
   void
-  ModelCentralizedShuntsSectionControl::evalJt(const double /*t*/, const double /*cj*/, SparseMatrix& /*jt*/, const int /*rowOffset*/) {
+  ModelCentralizedShuntsSectionControl::evalJt(const double /*t*/, const double /*cj*/, const int /*rowOffset*/,  SparseMatrix& /*jt*/) {
     /* not need */
   }
 
   void
   ModelCentralizedShuntsSectionControl::evalG(const double t) {
-    double UMonitoredPu = yLocal_[0];
-    double URefPu = zLocal_[URefPuIndex];
-    double minValue;
-    double maxValue;
+    const double UMonitoredPu = yLocal_[0];
+    const double URefPu = zLocal_[URefPuIndex];
     for (int s = 0; s < nbShunts_; ++s) {
       if (zLocal_[nbShunts_ + s + 1] <= 0) {
         gLocal_[0] = ROOT_DOWN;
@@ -197,8 +195,8 @@ namespace DYN {
         changingShunt = -1;
         continue;
       }
-      minValue = URefPu - deadBandsUPu_[s];
-      maxValue = URefPu + deadBandsUPu_[s];
+      const double minValue = URefPu - deadBandsUPu_[s];
+      const double maxValue = URefPu + deadBandsUPu_[s];
       if (isSelf_[s]) {
           if (doubleNotEquals(UMonitoredPu, minValue) &&
             UMonitoredPu < minValue &&
@@ -341,7 +339,7 @@ namespace DYN {
   }
 
   void
-  ModelCentralizedShuntsSectionControl::evalJtPrim(const double /*t*/, const double /*cj*/, SparseMatrix& /*jt*/, const int /*rowOffset*/) {
+  ModelCentralizedShuntsSectionControl::evalJtPrim(const double /*t*/, const double /*cj*/, const int /*rowOffset*/, SparseMatrix& /*jtPrim*/) {
     /* not need */
   }
 

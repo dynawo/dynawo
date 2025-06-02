@@ -78,7 +78,7 @@ class ModelLine : public NetworkComponent {
    * @brief set the connected state (fully connected, one end open, ...) of the line
    * @param state connected state
    */
-  void setConnectionState(State state) {
+  void setConnectionState(const State state) {
     connectionState_ = state;
   }  // set the connected state (fully connected, one end open, ...) of the line
 
@@ -86,7 +86,7 @@ class ModelLine : public NetworkComponent {
    * @brief set CurrentLimits Desactivate
    * @param desactivate CurrentLimits Desactivate
    */
-  void setCurrentLimitsDesactivate(const double& desactivate) {
+  void setCurrentLimitsDesactivate(const double desactivate) {
     currentLimitsDesactivate_ = desactivate;
   }
 
@@ -139,7 +139,7 @@ class ModelLine : public NetworkComponent {
    * @brief evaluate derivatives
    * @param cj Jacobian prime coefficient
    */
-  void evalDerivatives(const double cj) override;
+  void evalDerivatives(double cj) override;
 
   /**
    * @brief evaluate derivatives prim
@@ -186,13 +186,13 @@ class ModelLine : public NetworkComponent {
   /**
   * @copydoc NetworkComponent::evalZ()
   */
-  NetworkComponent::StateChange_t evalZ(const double& t) override;  // get the local Z function for time t
+  NetworkComponent::StateChange_t evalZ(double t) override;  // get the local Z function for time t
 
   /**
    * @brief evaluation G
    * @param t time
    */
-  void evalG(const double& t) override;
+  void evalG(double t) override;
 
   /**
    * @brief evaluation calculated variables (for outputs)
@@ -216,14 +216,14 @@ class ModelLine : public NetworkComponent {
   void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double> & res) const override;
 
   /**
-   * @copydoc NetworkComponent::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJt(double cj, int rowOffset, SparseMatrix& jt)
    */
-  void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) override;
+  void evalJt(double cj, int rowOffset, SparseMatrix& jt) override;
 
   /**
-   * @copydoc NetworkComponent::evalJtPrim(SparseMatrix& jt, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJtPrim(int rowOffset, SparseMatrix& jtPrim)
    */
-  void evalJtPrim(SparseMatrix& jt, const int& rowOffset) override;
+  void evalJtPrim(int rowOffset, SparseMatrix& jtPrim) override;
 
   /**
    * @brief evaluate the value of a calculated variable
@@ -294,7 +294,7 @@ class ModelLine : public NetworkComponent {
    * @param time time
    * @return state change type
    */
-  NetworkComponent::StateChange_t evalState(const double& time) override;  // check whether a discrete event happened
+  StateChange_t evalState(double time) override;  // check whether a discrete event happened
 
   /**
    * @brief update data
@@ -337,7 +337,7 @@ class ModelLine : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the real part of the current on side 1
    */
-  double ir1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double ir1(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief compute the imaginary part of the current on side 1
@@ -347,7 +347,7 @@ class ModelLine : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the imaginary part of the current on side 1
    */
-  double ii1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double ii1(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief compute the real part of the current on side 2
@@ -357,7 +357,7 @@ class ModelLine : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the real part of the current on side 2
    */
-  double ir2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double ir2(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief compute the imaginary part of the current on side 2
@@ -367,7 +367,7 @@ class ModelLine : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the imaginary part of the current on side 2
    */
-  double ii2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double ii2(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief compute the magnitude of the current on side 1
@@ -377,7 +377,7 @@ class ModelLine : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the magnitude of the current on side 1
    */
-  double i1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double i1(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief compute the magnitude of the current on side 2
@@ -387,7 +387,7 @@ class ModelLine : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the magnitude of the current on side 2
    */
-  double i2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double i2(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief get the partial derivative of ir1 with respect to Ur1
@@ -538,7 +538,7 @@ class ModelLine : public NetworkComponent {
    * @param localIndex the local variable index inside the model
    * @return the global variable index
    */
-  inline unsigned int globalYIndex(const unsigned int localIndex) {
+  inline unsigned int globalYIndex(const unsigned int localIndex) const {
     return yOffset_ + localIndex;
   }
 

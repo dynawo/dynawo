@@ -147,7 +147,7 @@ VscConverterInterfaceIIDM::getQ() {
   return getQInjector();
 }
 
-std::string
+const std::string&
 VscConverterInterfaceIIDM::getID() const {
   return vscConverterIIDM_.getId();
 }

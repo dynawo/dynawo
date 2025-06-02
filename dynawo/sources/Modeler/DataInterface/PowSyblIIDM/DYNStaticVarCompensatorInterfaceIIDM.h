@@ -102,7 +102,7 @@ class StaticVarCompensatorInterfaceIIDM : public StaticVarCompensatorInterface, 
   /**
    * @copydoc StaticVarCompensatorInterface::getID() const
    */
-  std::string getID() const;
+  const std::string& getID() const;
 
   /**
    * @copydoc StaticVarCompensatorInterface::getBMin() const

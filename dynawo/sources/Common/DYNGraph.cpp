@@ -39,13 +39,13 @@ Graph::Graph() {
 }
 
 void
-Graph::addVertex(unsigned vertexId) {
+Graph::addVertex(const unsigned vertexId) {
   vertices_[vertexId] = add_vertex(internalGraph_);
   put(boost::vertex_name_t(), internalGraph_, vertices_[vertexId], vertexId);
 }
 
 void
-Graph::addEdge(unsigned indexVertex1, unsigned indexVertex2, const string& id) {
+Graph::addEdge(const unsigned indexVertex1, const unsigned indexVertex2, const string& id) {
   if (!hasVertex(indexVertex1))
     throw DYNError(DYN::Error::GENERAL, UnknownVertex, indexVertex1);
   if (!hasVertex(indexVertex2))
@@ -54,7 +54,7 @@ Graph::addEdge(unsigned indexVertex1, unsigned indexVertex2, const string& id) {
   if (edges_.find(id) != edges_.end())
     throw DYNError(DYN::Error::GENERAL, AlreadyDefinedEdge, id);
 
-  std::pair<Edge, bool> edgePair = add_edge(vertices_[indexVertex1], vertices_[indexVertex2], internalGraph_);
+  const std::pair<Edge, bool> edgePair = add_edge(vertices_[indexVertex1], vertices_[indexVertex2], internalGraph_);
   put(boost::edge_name_t(), internalGraph_, edgePair.first, id);
   edges_[id] = edgePair.first;
 }
@@ -114,16 +114,16 @@ Graph::dijkstra(const unsigned vertexOrigin, const unsigned vertexExtremity,
 }
 
 bool
-Graph::pathExist(unsigned vertexOrigin, unsigned vertexExtremity, const std::unordered_map<string, float> & edgeWeights) {
+Graph::pathExist(const unsigned vertexOrigin, const unsigned vertexExtremity, const std::unordered_map<string, float> & edgeWeights) {
   if (vertexOrigin == vertexExtremity)
     return true;
   PathDescription path;
 
   setEdgesWeight(edgeWeights);
-  positive_edge_weight<EdgeWeightMap> filter(get(boost::edge_weight_t(), internalGraph_));
-  FilteredBoostGraph filteredGraph = FilteredBoostGraph(internalGraph_, filter);
+  const positive_edge_weight<EdgeWeightMap> filter(get(boost::edge_weight_t(), internalGraph_));
+  const FilteredBoostGraph filteredGraph = FilteredBoostGraph(internalGraph_, filter);
   if (hasVertex(vertexOrigin) && hasVertex(vertexExtremity)) {
-    Vertex start = vertices_[vertexOrigin];
+    const Vertex start = vertices_[vertexOrigin];
     std::vector<Vertex> predecessor(boost::num_vertices(filteredGraph));
     std::vector<int> distance(boost::num_vertices(filteredGraph));
     dijkstra_shortest_paths(filteredGraph, start, boost::predecessor_map(&predecessor[0]).distance_map(&distance[0]) );
@@ -133,7 +133,7 @@ Graph::pathExist(unsigned vertexOrigin, unsigned vertexExtremity, const std::uno
 }
 
 void
-Graph::shortestPath(unsigned vertexOrigin, unsigned vertexExtremity,
+Graph::shortestPath(const unsigned vertexOrigin, const unsigned vertexExtremity,
     const std::unordered_map<string, float> & edgeWeights, PathDescription& path) {
   if (vertexOrigin == vertexExtremity)
     return;
@@ -144,8 +144,8 @@ Graph::shortestPath(unsigned vertexOrigin, unsigned vertexExtremity,
 std::pair<unsigned int, vector<unsigned int> >
 Graph::calculateComponents(const std::unordered_map<string, float>& edgeWeights) {
   setEdgesWeight(edgeWeights);
-  positive_edge_weight<EdgeWeightMap> filter(get(boost::edge_weight_t(), internalGraph_));
-  FilteredBoostGraph filteredGraph = FilteredBoostGraph(internalGraph_, filter);
+  const positive_edge_weight<EdgeWeightMap> filter(get(boost::edge_weight_t(), internalGraph_));
+  const FilteredBoostGraph filteredGraph = FilteredBoostGraph(internalGraph_, filter);
 
   vector<unsigned int> component(boost::num_vertices(filteredGraph));
   int nbComponents = boost::connected_components(filteredGraph, &component[0]);

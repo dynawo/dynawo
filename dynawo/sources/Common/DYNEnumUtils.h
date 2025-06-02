@@ -106,7 +106,7 @@ typedef enum {
  * @param modeChangeType mode change type as an enum
  * @return the string associated to the mode change type
  */
-std::string modeChangeType2Str(const modeChangeType_t& modeChangeType);
+std::string modeChangeType2Str(modeChangeType_t modeChangeType);
 
 /**
  * @brief type definition for state of G (zero crossing? )
@@ -121,27 +121,27 @@ static const state_g NO_ROOT = 0;  ///< State of the root is undefined
  * @param property : property of a variable as an enum type
  * @return property of a variable as a string
  */
-std::string propertyVar2Str(const propertyContinuousVar_t& property);
+std::string propertyVar2Str(propertyContinuousVar_t property);
 
 /**
  * @brief return the type of a variable as a string
  * @param type : type of a variable as an enum type
  * @return type of a variable as a string
  */
-std::string typeVar2Str(const typeVar_t& type);
+std::string typeVar2Str(typeVar_t type);
 
 /**
  * @brief convert the variable type from Modelica type to C type
  * @param type : type of a variable as an enum type
  * @return type of a variable as C type (enum)
  */
-typeVarC_t toCTypeVar(const typeVar_t& type);
+typeVarC_t toCTypeVar(typeVar_t type);
 
 /**
  * @brief convert a parameter scope to string
  * @param scope : the parameter origin as an enum
  * @return the converted scope as a string
  */
-std::string paramScope2Str(const parameterScope_t& scope);
+std::string paramScope2Str(parameterScope_t scope);
 }  // namespace DYN
 #endif  // COMMON_DYNENUMUTILS_H_

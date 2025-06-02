@@ -149,7 +149,7 @@ class RingBuffer {
    *
    * @returns true if the time_value is the pair is less than the time_value
    */
-  bool comparePairTime(const std::pair<double, double>& pair, const double& time_value) const;
+  bool comparePairTime(const std::pair<double, double>& pair, double time_value) const;
 
  private:
   std::deque<std::pair<double, double> > queue_;  ///< queue of  (timestamp, value) pairs

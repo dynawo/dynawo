@@ -187,7 +187,7 @@ TEST(CommonTest, testFileSystemUtilsCreateAbsolutePath2) {
 }
 
 TEST(CommonTest, testFileSystemUtilsCurrentPath) {
-  std::string res = current_path();
+  std::string res = currentPath();
   std::size_t pos = res.rfind("test");
   ASSERT_EQ(res.substr(pos), "test");
   ASSERT_EQ(res.size()-4, pos);
@@ -198,7 +198,7 @@ TEST(CommonTest, testFileSystemUtilsExtension) {
 }
 
 TEST(CommonTest, testFileSystemUtilsReplaceExtension) {
-  std::string res = replace_extension("res/folder/MyModel.mo", "txt");
+  std::string res = replaceExtension("res/folder/MyModel.mo", "txt");
   std::size_t pos = res.find("MyModel.txt");
   ASSERT_EQ(res.substr(pos), "MyModel.txt");
 }
@@ -208,31 +208,31 @@ TEST(CommonTest, testFileSystemUtilsExtensionEqualsFail) {
 }
 
 TEST(CommonTest, testFileSystemUtilsCreateDirectoryAndThenDeleteIt) {
-  ASSERT_EQ(is_directory("res/MyFolder"), false);
-  create_directory("res/MyFolder");
-  ASSERT_EQ(is_directory("res/MyFolder"), true);
+  ASSERT_EQ(isDirectory("res/MyFolder"), false);
+  createDirectory("res/MyFolder");
+  ASSERT_EQ(isDirectory("res/MyFolder"), true);
   boost::filesystem::path fspath("res/MyFolder");
   ASSERT_EQ(boost::filesystem::remove(fspath), true);
-  ASSERT_EQ(is_directory("res/MyFolder"), false);
+  ASSERT_EQ(isDirectory("res/MyFolder"), false);
 }
 
 TEST(CommonTest, testFileSystemUtilsExtensionListDirectory) {
-  std::list<std::string> res = list_directory("res/folder/");
+  std::list<std::string> res = listDirectory("res/folder/");
   ASSERT_EQ(res.size(), 4);
 }
 
 TEST(CommonTest, testFileSystemUtilsExtensionRemoveFileName) {
-  ASSERT_EQ(remove_file_name("res/folder/MyModel.mo"), "res/folder");
+  ASSERT_EQ(removeFileName("res/folder/MyModel.mo"), "res/folder");
 }
 
 TEST(CommonTest, testFileSystemUtilsExtensionRemoveAllInDirectory) {
-  ASSERT_EQ(is_directory("res/MyFolder"), false);
-  create_directory("res/MyFolder");
-  create_directory("res/MyFolder/MyFolder");
-  ASSERT_EQ(is_directory("res/MyFolder/MyFolder"), true);
-  remove_all_in_directory("res/MyFolder");
-  ASSERT_EQ(is_directory("res/MyFolder/MyFolder"), false);
-  std::list<std::string> res = list_directory("res/MyFolder");
+  ASSERT_EQ(isDirectory("res/MyFolder"), false);
+  createDirectory("res/MyFolder");
+  createDirectory("res/MyFolder/MyFolder");
+  ASSERT_EQ(isDirectory("res/MyFolder/MyFolder"), true);
+  removeAllInDirectory("res/MyFolder");
+  ASSERT_EQ(isDirectory("res/MyFolder/MyFolder"), false);
+  std::list<std::string> res = listDirectory("res/MyFolder");
   ASSERT_EQ(res.empty(), true);
   boost::filesystem::path fspath("res/MyFolder");
   ASSERT_EQ(boost::filesystem::remove(fspath), true);
@@ -396,7 +396,7 @@ TEST(CommonTest, testSparseMatrix) {
     assert(0);
   }
 
-  remove_all_in_directory("tmpMat");
+  removeAllInDirectory("tmpMat");
   remove("tmpMat");
 
   // erase

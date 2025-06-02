@@ -38,8 +38,9 @@ class ModelLoad : public NetworkComponent {
   /**
    * @brief default constructor
    * @param load : load data interface used to build the model
+   * @param bus : bus data-interface
    */
-  explicit ModelLoad(const std::shared_ptr<LoadInterface>& load);
+  explicit ModelLoad(const LoadInterface& load, const ModelBus& bus);
 
   /**
    * @brief  calculated variables type
@@ -57,17 +58,26 @@ class ModelLoad : public NetworkComponent {
    * @brief set the load connection status
    * @param state load connection status
    */
-  void setConnected(State state) {
+  void setConnected(const State state) {
     connectionState_ = state;
   }  // set the load connection status
 
   /**
-   * @brief set the bus to which the load is connected
-   *
-   * @param model model of the bus
-   */
-  void setModelBus(const std::shared_ptr<ModelBus>& model) {
-    modelBus_ = model;
+  * @brief get the load interface
+  *
+  * @return the load interface
+  */
+  const LoadInterface& getLoadInterface() const {
+    return load_;
+  }
+
+  /**
+  * @brief get the load interface non const version
+  *
+  * @return the load interface
+  */
+  LoadInterface& getNonCstLoadInterface() const {
+    return const_cast<LoadInterface&>(getLoadInterface());
   }
 
   /**
@@ -75,8 +85,17 @@ class ModelLoad : public NetworkComponent {
    *
    * @return model of the bus
    */
-  const std::shared_ptr<ModelBus>& getModelBus() const {
+  const ModelBus& getModelBus() const {
     return modelBus_;
+  }
+
+  /**
+  * @brief get the bus to which the load is connected
+  *
+  * @return model of the bus
+  */
+  ModelBus& getNonCstModelBus() const {
+    return const_cast<ModelBus&>(getModelBus());
   }
 
   /**
@@ -135,13 +154,13 @@ class ModelLoad : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::evalZ()
    */
-  NetworkComponent::StateChange_t evalZ(const double& t) override;
+  NetworkComponent::StateChange_t evalZ(double t) override;
 
   /**
    * @brief evaluation G
    * @param t time
    */
-  void evalG(const double& t) override;
+  void evalG(double t) override;
 
   /**
    * @brief evaluation calculated variables (for outputs)
@@ -205,7 +224,7 @@ class ModelLoad : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::init(int& yNum)
    */
-  void init(int & yNum) override;
+  void init(int& yNum) override;
 
   /**
    * @copydoc NetworkComponent::getY0()
@@ -232,7 +251,7 @@ class ModelLoad : public NetworkComponent {
    * @param time time
    * @return state change type
    */
-  NetworkComponent::StateChange_t evalState(const double& time) override;
+  NetworkComponent::StateChange_t evalState(double time) override;
 
   /**
    * @brief addBusNeighbors
@@ -246,19 +265,19 @@ class ModelLoad : public NetworkComponent {
 
   /**
    * @brief evaluate jacobien \f$( J = @F/@x + cj * @F/@x')\f$
-   * @param jt sparse matrix to fill
    * @param cj jacobian prime coefficient
    * @param rowOffset row offset to use to find the first row to fill
+   * @param jt sparse matrix to fill
    */
-  void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) override;
+  void evalJt(double cj, int rowOffset, SparseMatrix& jt) override;
 
   /**
    * @brief  evaluate jacobien \f$( J =  @F/@x')\f$
    *
-   * @param jt sparse matrix to fill
    * @param rowOffset row offset to use to find the first row to fill
+   * @param jtPrim sparse matrix to fill
    */
-  void evalJtPrim(SparseMatrix& jt, const int& rowOffset) override;
+  void evalJtPrim(int rowOffset, SparseMatrix& jtPrim) override;
 
   /**
    * @brief get the connection status of the load
@@ -281,7 +300,7 @@ class ModelLoad : public NetworkComponent {
    * @return @b whether the load is running
    */
   inline bool isRunning() const {
-    return (isConnected() && !modelBus_->getSwitchOff());
+    return (isConnected() && !modelBus_.getSwitchOff());
   }
 
   /**
@@ -316,7 +335,8 @@ class ModelLoad : public NetworkComponent {
    * @param U2 voltage square
    * @return value
    */
-  double P_dUr(const double& ur, const double& ui, const double& U, const double& U2) const;
+  double P_dUr(double ur, double ui, double U, double U2) const;
+
   /**
    * @brief calculated value
    * @param ur real part of the voltage
@@ -325,7 +345,8 @@ class ModelLoad : public NetworkComponent {
    * @param U2 voltage square
    * @return value
    */
-  double Q_dUr(const double& ur, const double& ui, const double& U, const double& U2) const;
+  double Q_dUr(double ur, double ui, double U, double U2) const;
+
   /**
    * @brief calculated value
    * @param ur real part of the voltage
@@ -334,7 +355,8 @@ class ModelLoad : public NetworkComponent {
    * @param U2 voltage square
    * @return value
    */
-  double P_dUi(const double& ur, const double& ui, const double& U, const double& U2) const;
+  double P_dUi(double ur, double ui, double U, double U2) const;
+
   /**
    * @brief calculated value
    * @param ur real part of the voltage
@@ -343,53 +365,58 @@ class ModelLoad : public NetworkComponent {
    * @param U2 voltage square
    * @return value
    */
-  double Q_dUi(const double& ur, const double& ui, const double& U, const double& U2) const;
+  double Q_dUi(double ur, double ui, double U, double U2) const;
+
   /**
    * @brief compute the active power in pu (SNREF)
-   * @param ur real part of the voltage
-   * @param ui imaginary part of the voltage
    * @param U voltage
    * @return value
    */
-  double P(const double& ur, const double& ui, const double& U) const;  // compute the active power in pu (SNREF)
+  double P(double U) const;  // compute the active power in pu (SNREF)
+
   /**
    * @brief compute the reactive power in pu (SNREF)
-   * @param ur real part of the voltage
-   * @param ui imaginary part of the voltage
    * @param U voltage
    * @return value
    */
-  double Q(const double& ur, const double& ui, const double& U) const;  // compute the reactive power in pu (SNREF)
+  double Q(double U) const;  // compute the reactive power in pu (SNREF)
+
   /**
    * @brief compute value
    * @return value
    */
   double zP() const;
+
   /**
    * @brief compute value
    * @return value
    */
   double zQ() const;
+
   /**
    * @brief compute value
    * @return value
    */
   double zQPrim() const;
+
   /**
    * @brief compute value
    * @return value
    */
   double zPPrim() const;
+
   /**
    * @brief compute value
    * @return value
    */
   double deltaQc() const;
+
   /**
    * @brief compute value
    * @return value
    */
   double deltaPc() const;
+
   /**
    * @brief compute the current real and imaginary values
    * @param ur real part of the voltage
@@ -412,8 +439,8 @@ class ModelLoad : public NetworkComponent {
    * @param QdUr partial derivative of reactive power with respect to ur
    * @return value
    */
-  inline double ir_dUr(const double& ur, const double& ui, const double& U2,
-                       const double& p, const double& q, const double& PdUr, const double& QdUr) const {
+  inline static double ir_dUr(const double ur, const double ui, const double U2,
+                       const double p, const double q, const double PdUr, const double QdUr) {
     return ((PdUr * ur + p) + (QdUr * ui) - 2. * ur * (p * ur + q * ui) / U2) / U2;
   }
 
@@ -428,8 +455,8 @@ class ModelLoad : public NetworkComponent {
    * @param QdUr partial derivative of reactive power with respect to ur
    * @return value
    */
-  inline double ii_dUr(const double& ur, const double& ui, const double& U2,
-                       const double& p, const double& q, const double& PdUr, const double& QdUr) const {
+  inline static double ii_dUr(const double ur, const double ui, const double U2,
+                       const double p, const double q, const double PdUr, const double QdUr) {
     return ((PdUr * ui) - (QdUr * ur + q) - 2. * ur * (p * ui - q * ur) / U2) / U2;
   }
 
@@ -444,8 +471,8 @@ class ModelLoad : public NetworkComponent {
    * @param QdUi partial derivative of reactive power with respect to ui
    * @return value
    */
-  inline double ir_dUi(const double& ur, const double& ui, const double& U2,
-                       const double& p, const double& q, const double& PdUi, const double& QdUi) const {
+  inline static double ir_dUi(const double ur, const double ui, const double U2,
+                       const double p, const double q, const double PdUi, const double QdUi) {
     return ((PdUi * ur) + (QdUi * ui + q) - 2. * ui * (p * ur + q * ui) / U2) / U2;
   }
 
@@ -460,8 +487,8 @@ class ModelLoad : public NetworkComponent {
    * @param QdUi partial derivative of reactive power with respect to ui
    * @return value
    */
-  inline double ii_dUi(const double& ur, const double & ui, const double& U2,
-                       const double& p, const double& q, const double& PdUi, const double& QdUi) const {
+  inline static double ii_dUi(const double ur, const double ui, const double U2,
+                       const double p, const double q, const double PdUi, const double QdUi) {
     return ((PdUi * ui + p) - (QdUi * ur) - 2. * ui * (p * ui - q * ur) / U2) / U2;
   }
 
@@ -473,7 +500,8 @@ class ModelLoad : public NetworkComponent {
    * @param U2 voltage square
    * @return value
    */
-  double ir_dZp(const double& ur, const double& ui, const double& U, const double& U2) const;
+  double ir_dZp(double ur, double ui, double U, double U2) const;
+
   /**
    * @brief compute value
    * @param ur real part of the voltage
@@ -482,7 +510,8 @@ class ModelLoad : public NetworkComponent {
    * @param U2 voltage square
    * @return value
    */
-  double ir_dZq(const double& ur, const double& ui, const double& U, const double& U2) const;
+  double ir_dZq(double ur, double ui, double U, double U2) const;
+
   /**
    * @brief compute value
    * @param ur real part of the voltage
@@ -491,7 +520,8 @@ class ModelLoad : public NetworkComponent {
    * @param U2 voltage square
    * @return value
    */
-  double ii_dZp(const double& ur, const double& ui, const double& U, const double& U2) const;
+  double ii_dZp(double ur, double ui, double U, double U2) const;
+
   /**
    * @brief compute value
    * @param ur real part of the voltage
@@ -500,7 +530,7 @@ class ModelLoad : public NetworkComponent {
    * @param U2 voltage square
    * @return value
    */
-  double ii_dZq(const double& ur, const double& ui, const double& U, const double& U2) const;
+  double ii_dZq(double ur, double ui, double U, double U2) const;
 
   /**
    * @brief compute the global Y index inside the Y matrix
@@ -512,8 +542,8 @@ class ModelLoad : public NetworkComponent {
   }
 
  private:
-  std::weak_ptr<LoadInterface> load_;  ///< reference to the load interface object
-  std::shared_ptr<ModelBus> modelBus_;  ///< model bus
+  const LoadInterface& load_;  ///< reference to the load interface object
+  const ModelBus& modelBus_;  ///< model bus
   State connectionState_;  ///< "internal" load connection status, evaluated at the end of evalZ to detect if the state was modified by another component
   bool stateModified_;  ///< true if the load connection state was modified
   double kp_;  ///< gain kp

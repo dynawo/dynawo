@@ -39,34 +39,10 @@ namespace parameters {
     ASSERT_THROW_DYNAWO(macroParameterSet->addParameter(parameter), DYN::Error::API, DYN::KeyError_t::ParameterAlreadySetInMacroParameterSet);
     std::unique_ptr<Parameter> parameter_2 = ParameterFactory::newParameter("parameter_2", true);
     ASSERT_NO_THROW(macroParameterSet->addParameter(std::move(parameter_2)));
-    int nbParameters = 0;
-    for (MacroParameterSet::parameter_const_iterator itPar = macroParameterSet->cbeginParameter();
-    itPar != macroParameterSet->cendParameter();
-    ++itPar) {
-      nbParameters++;
-    }
+    auto nbParameters = macroParameterSet->getParameters().size();
     ASSERT_EQ(nbParameters, 2);
-    MacroParameterSet::parameter_const_iterator itPar = macroParameterSet->cbeginParameter();
-    ASSERT_NO_THROW(itPar++);
-    ASSERT_NO_THROW(itPar--);
-    ASSERT_NO_THROW(++itPar);
-    ASSERT_NO_THROW(--itPar);
-    ASSERT_NO_THROW(itPar->get()->getBool());
-    ASSERT_NO_THROW((*itPar)->getBool());
-    ASSERT_TRUE(itPar == itPar);
 
-    int nbReferences = 0;
-    for (MacroParameterSet::reference_const_iterator itRef = macroParameterSet->cbeginReference();
-    itRef != macroParameterSet->cendReference();
-    ++itRef) {
-      nbReferences++;
-    }
+    auto nbReferences = macroParameterSet->getReferences().size();
     ASSERT_EQ(nbReferences, 2);
-    MacroParameterSet::reference_const_iterator itRef = macroParameterSet->cbeginReference();
-    ASSERT_NO_THROW(itRef++);
-    ASSERT_NO_THROW(itRef->get()->getName());
-    ASSERT_NO_THROW((*itRef)->getName());
-    ASSERT_TRUE(itRef == itRef);
-    ASSERT_NO_THROW(++itRef);
   }
 }  // namespace parameters

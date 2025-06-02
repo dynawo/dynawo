@@ -48,12 +48,10 @@ TxtExporter::exportToStream(const boost::shared_ptr<FinalStateValuesCollection>&
   stream << "variable" << TXTEXPORTER_SEPARATOR;
   stream << "value" << "\n";
 
-  for (FinalStateValuesCollection::const_iterator itFsv = finalStateValues->cbegin();
-        itFsv != finalStateValues->cend();
-        ++itFsv) {
-    stream << (*itFsv)->getModelName() << TXTEXPORTER_SEPARATOR;
-    stream << (*itFsv)->getVariable() << TXTEXPORTER_SEPARATOR;
-    stream << DYN::double2String((*itFsv)->getValue()) << "\n";
+  for (const auto& finalStateValue : finalStateValues->getFinalStateValues()) {
+    stream << finalStateValue->getModelName() << TXTEXPORTER_SEPARATOR;
+    stream << finalStateValue->getVariable() << TXTEXPORTER_SEPARATOR;
+    stream << DYN::double2String(finalStateValue->getValue()) << "\n";
   }
 }
 

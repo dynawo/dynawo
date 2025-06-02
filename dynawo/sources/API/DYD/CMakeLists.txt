@@ -26,7 +26,6 @@ set(API_DYD_SOURCES
     DYDDynamicModelsCollectionFactory.cpp
     DYDDynamicModelsCollection.cpp
     DYDIdentifiableFactory.cpp
-    DYDIterators.cpp
     DYDMacroConnectFactory.cpp
     DYDMacroConnect.cpp
     DYDMacroConnectionFactory.cpp
@@ -65,7 +64,6 @@ set(API_DYD_INCLUDE_HEADERS
     DYDIdentifiable.h
     DYDIdentifiableFactory.h
     DYDImporter.h
-    DYDIterators.h
     DYDMacroConnect.h
     DYDMacroConnectFactory.h
     DYDMacroConnection.h

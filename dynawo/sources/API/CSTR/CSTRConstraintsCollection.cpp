@@ -48,7 +48,7 @@ ConstraintsCollection::addConstraint(
   // find if a constraint of same description already exists
   // if this is the case, if type are different (and the first is begin), erase constraints of this description
   bool addConstraint = true;
-  map<string, vector<std::shared_ptr<Constraint> > >::iterator iter = constraintsByModel_.find(modelName);
+  const auto iter = constraintsByModel_.find(modelName);
   if (iter == constraintsByModel_.end()) {
     constraintsByModel_[modelName] = vector<std::shared_ptr<Constraint> >();
   } else {
@@ -82,63 +82,6 @@ ConstraintsCollection::addConstraint(
     constraintsByModel_[modelName].push_back(constraint);
     constraintsById_[id.str()] = constraint;
   }
-}
-
-ConstraintsCollection::const_iterator
-ConstraintsCollection::cbegin() const {
-  return ConstraintsCollection::const_iterator(this, true);
-}
-
-ConstraintsCollection::const_iterator
-ConstraintsCollection::cend() const {
-  return ConstraintsCollection::const_iterator(this, false);
-}
-
-ConstraintsCollection::const_iterator::const_iterator(const ConstraintsCollection* iterated, bool begin) :
-    current_((begin ? iterated->constraintsById_.begin() : iterated->constraintsById_.end())) {}
-
-ConstraintsCollection::const_iterator&
-ConstraintsCollection::const_iterator::operator++() {
-  ++current_;
-  return *this;
-}
-
-ConstraintsCollection::const_iterator
-ConstraintsCollection::const_iterator::operator++(int) {
-  ConstraintsCollection::const_iterator previous = *this;
-  current_++;
-  return previous;
-}
-
-ConstraintsCollection::const_iterator&
-ConstraintsCollection::const_iterator::operator--() {
-  --current_;
-  return *this;
-}
-
-ConstraintsCollection::const_iterator
-ConstraintsCollection::const_iterator::operator--(int) {
-  ConstraintsCollection::const_iterator previous = *this;
-  current_--;
-  return previous;
-}
-
-bool
-ConstraintsCollection::const_iterator::operator==(const ConstraintsCollection::const_iterator& other) const {
-  return current_ == other.current_;
-}
-
-bool
-ConstraintsCollection::const_iterator::operator!=(const ConstraintsCollection::const_iterator& other) const {
-  return current_ != other.current_;
-}
-
-const std::shared_ptr<Constraint>& ConstraintsCollection::const_iterator::operator*() const {
-  return current_->second;
-}
-
-const std::shared_ptr<Constraint>* ConstraintsCollection::const_iterator::operator->() const {
-  return &(current_->second);
 }
 
 }  // namespace constraints

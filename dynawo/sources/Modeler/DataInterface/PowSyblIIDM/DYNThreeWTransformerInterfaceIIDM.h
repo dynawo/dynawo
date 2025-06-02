@@ -131,7 +131,7 @@ class ThreeWTransformerInterfaceIIDM : public ThreeWTransformerInterface {
   /**
    * @copydoc ThreeWTransformerInterface::getID() const
    */
-  std::string getID() const;
+  const std::string& getID() const;
 
   /**
    * @copydoc ThreeWTransformerInterface::getInitialConnected1()

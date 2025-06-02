@@ -88,17 +88,17 @@ id_(id),
 network_(NULL) { }
 
 void
-NetworkComponent::setBufferYType(propertyContinuousVar_t* yType, const unsigned int& offset) {
+NetworkComponent::setBufferYType(propertyContinuousVar_t* yType, const unsigned int offset) {
   yType_ = &(yType[offset]);
 }
 
 void
-NetworkComponent::setBufferFType(propertyF_t* fType, const unsigned int& offset) {
+NetworkComponent::setBufferFType(propertyF_t* fType, const unsigned int offset) {
   fType_ = &(fType[offset]);
 }
 
 void
-NetworkComponent::setReferenceY(double* y, double* yp, double* f, const int& offsetY, const int& offsetF) {
+NetworkComponent::setReferenceY(double* y, double* yp, double* f, const int offsetY, const int offsetF) {
   if (sizeY() != 0) {
     y_ = &(y[offsetY]);
     yp_ = &(yp[offsetY]);
@@ -109,7 +109,7 @@ NetworkComponent::setReferenceY(double* y, double* yp, double* f, const int& off
 }
 
 void
-NetworkComponent::setReferenceZ(double* z, bool* zConnected, const int& offsetZ) {
+NetworkComponent::setReferenceZ(double* z, bool* zConnected, const int offsetZ) {
   if (sizeZ() != 0) {
     z_ = &(z[offsetZ]);
     zConnected_ = &(zConnected[offsetZ]);
@@ -117,15 +117,15 @@ NetworkComponent::setReferenceZ(double* z, bool* zConnected, const int& offsetZ)
 }
 
 void
-NetworkComponent::setReferenceG(state_g* g, const int& offsetG) {
+NetworkComponent::setReferenceG(state_g* g, const int offsetG) {
   if (sizeG() != 0)
     g_ = &(g[offsetG]);
 }
 
 void
-NetworkComponent::setReferenceCalculatedVar(double* calculatedVars, const int& offsetCalculatedVar) {
+NetworkComponent::setReferenceCalculatedVar(double* calculatedVars, const int offsetCalculatedVars) {
   if (sizeCalculatedVar() != 0)
-    calculatedVars_ = &(calculatedVars[offsetCalculatedVar]);
+    calculatedVars_ = &(calculatedVars[offsetCalculatedVars]);
 }
 
 void
@@ -134,8 +134,8 @@ NetworkComponent::setNetwork(ModelNetwork* model) {
 }
 
 ParameterModeler
-NetworkComponent::findParameter(const string& name, const std::unordered_map<string, ParameterModeler>& params) const {
-  std::unordered_map<string, ParameterModeler>:: const_iterator it = params.find(name);
+NetworkComponent::findParameter(const string& name, const std::unordered_map<string, ParameterModeler>& params) {
+  const auto it = params.find(name);
   if (it != params.end()) {
     return it->second;
   }
@@ -143,7 +143,7 @@ NetworkComponent::findParameter(const string& name, const std::unordered_map<str
 }
 
 bool
-NetworkComponent::hasParameter(const string& name, const std::unordered_map<string, ParameterModeler>& params) const {
+NetworkComponent::hasParameter(const string& name, const std::unordered_map<string, ParameterModeler>& params) {
   return params.find(name) != params.end();
 }
 
@@ -181,7 +181,7 @@ std::string NetworkComponent::getParameterDynamicNoThrow(const std::unordered_ma
 
 void
 NetworkComponent::addElementWithValue(const string& elementName, const std::string& parentType,
-    vector<Element>& elements, std::map<string, int>& mapElement) {
+    vector<Element>& elements, std::map<string, int>& mapElement) const {
   addElement(elementName, Element::STRUCTURE, elements, mapElement);
   addSubElement("value", elementName, Element::TERMINAL, id(), parentType, elements, mapElement);
 }
@@ -190,7 +190,7 @@ NetworkComponent::startingPointMode_t
 NetworkComponent::getStartingPointMode(const std::string& startingPointMode) {
   std::map<std::string, startingPointMode_t> enumResolver = {{"flat", startingPointMode_t::FLAT},
                                                              {"warm", startingPointMode_t::WARM}};
-  auto it = enumResolver.find(startingPointMode);
+  const auto it = enumResolver.find(startingPointMode);
   if (it != enumResolver.end()) {
     return it->second;
   } else {

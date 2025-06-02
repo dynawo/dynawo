@@ -120,7 +120,7 @@ class VscConverterInterfaceIIDM : public VscConverterInterface, public InjectorI
   /**
    * @copydoc VscConverterInterface::getID() const
    */
-  std::string getID() const;
+  const std::string& getID() const;
 
   /**
    * @copydoc VscConverterInterface::getLossFactor() const

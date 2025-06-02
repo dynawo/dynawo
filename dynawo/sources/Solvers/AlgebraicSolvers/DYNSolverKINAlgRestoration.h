@@ -114,7 +114,7 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
    * @param y value of variables
    * @param yp value of derivatives of variables
    */
-  void getValues(std::vector<double>& y, std::vector<double>& yp);
+  void getValues(std::vector<double>& y, std::vector<double>& yp) const;
 
   /**
    * @brief set the initial conditions of the equations to solve
@@ -123,14 +123,14 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
    * @param y value of variables
    * @param yp value of derivatives of variables
    */
-  void setInitialValues(const double t, const std::vector<double>& y, const std::vector<double>& yp);
+  void setInitialValues(double t, const std::vector<double>& y, const std::vector<double>& yp);
 
 #if _DEBUG_
   /**
    * @brief set check jacobian during evalF
    * @param checkJacobian enable or disable the jacobian sanity check
    */
-  void setCheckJacobian(bool checkJacobian) {
+  void setCheckJacobian(const bool checkJacobian) {
     checkJacobian_ = checkJacobian;
   }
 #endif
@@ -204,7 +204,7 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   * @param printfl level of verbosity of output
   */
   void updateKINSOLSettings(double fnormtol, double initialaddtol, double scsteptol, double mxnewtstep,
-                            int msbset, int mxiter, int printfl);
+                            int msbset, int mxiter, int printfl) const;
 
 #if _DEBUG_
   /**
@@ -223,7 +223,7 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   *
   * @return the mode of the restoration
   */
-  modeKin_t getMode() { return mode_; }
+  modeKin_t getMode() const { return mode_; }
 
   /**
   * @brief clean sundials vectors allocated by this class

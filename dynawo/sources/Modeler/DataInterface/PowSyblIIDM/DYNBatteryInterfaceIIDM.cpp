@@ -275,7 +275,7 @@ BatteryInterfaceIIDM::getTargetV() {
 }
 
 
-string
+const std::string&
 BatteryInterfaceIIDM::getID() const {
   return batteryIIDM_.getId();
 }

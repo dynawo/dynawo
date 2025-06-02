@@ -43,12 +43,12 @@ class ModelAreaSheddingFactory : public SubModelFactory {
    *
    * @return A pointer to a new instance of Model AreaShedding
    */
-  SubModel* create() const;
+  SubModel* create() const override;
 
   /**
    * @brief Model AreaShedding destroy
    */
-  void destroy(SubModel*) const;
+  void destroy(SubModel*) const override;
 };
 
 /**
@@ -75,7 +75,7 @@ class ModelAreaShedding : public ModelCPP {
    * @brief  ModelAreaShedding model initialization routine
    * @param t0 : initial time of the simulation
    */
-  void init(const double t0) override;
+  void init(double t0) override;
 
   /**
    * @brief  ModelAreaShedding model's sizes getter
@@ -95,13 +95,15 @@ class ModelAreaShedding : public ModelCPP {
    * @param[in] type type of the residues to compute (algebraic, differential or both)
    */
   void evalF(double t, propertyF_t type) override;
+
   /**
    * @brief  ModelAreaShedding G(t,y,y') function evaluation
    *
    * Get the roots' value
    * @param[in] t Simulation instant
    */
-  void evalG(const double t) override;
+  void evalG(double t) override;
+
   /**
    * @brief  ModelAreaShedding discrete variables evaluation
    *
@@ -109,7 +111,7 @@ class ModelAreaShedding : public ModelCPP {
    * current state variables values.
    * @param[in] t Simulation instant
    */
-  void evalZ(const double t) override;
+  void evalZ(double t) override;
 
   /**
    * @copydoc SubModel::collectSilentZ()
@@ -119,7 +121,8 @@ class ModelAreaShedding : public ModelCPP {
   /**
    * @copydoc ModelCPP::evalMode(const double t)
    */
-  modeChangeType_t evalMode(const double t) override;
+  modeChangeType_t evalMode(double t) override;
+
   /**
    * @brief calculate calculated variables
    */
@@ -131,19 +134,20 @@ class ModelAreaShedding : public ModelCPP {
    * Get the sparse transposed jacobian
    * @param[in] t Simulation instant
    * @param[in] cj Jacobian prime coefficient
-   * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
+   * @param jt jacobian matrix to fullfill
    */
-  void evalJt(const double t, const double cj, SparseMatrix& jt, const int rowOffset) override;
+  void evalJt(double t, double cj, int rowOffset, SparseMatrix& jt) override;
+
   /**
    * @brief calculate jacobien prime matrix
    *
    * @param[in] t Simulation instant
    * @param[in] cj Jacobian prime coefficient
-   * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
+   * @param jtPrim jacobian matrix to fullfill
    */
-  void evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset) override;
+  void evalJtPrim(double t, double cj, int rowOffset, SparseMatrix& jtPrim) override;
 
   /**
    * @copydoc ModelCPP::evalStaticFType()

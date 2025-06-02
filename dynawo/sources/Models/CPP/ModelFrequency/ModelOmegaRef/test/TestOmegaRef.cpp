@@ -305,7 +305,7 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   SparseMatrix smj;
   int size = modelOmegaRef->sizeY();
   smj.init(size, size);
-  modelOmegaRef->evalJt(0, 0, smj, 0);
+  modelOmegaRef->evalJt(0, 0, 0, smj);
   smj.changeCol();
   smj.changeCol();
   ASSERT_EQ(smj.nbElem(), 16);
@@ -341,7 +341,7 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[11], 1);
   SparseMatrix smjPrim;
   smjPrim.init(size, size);
-  modelOmegaRef->evalJtPrim(0, 0, smjPrim, 0);
+  modelOmegaRef->evalJtPrim(0, 0, 0, smjPrim);
   ASSERT_EQ(smjPrim.nbElem(), 0);
   modeChangeType_t mode = modelOmegaRef->evalMode(1);
   ASSERT_EQ(mode, NO_MODE);
@@ -360,7 +360,7 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[11], 0);
   SparseMatrix smj2;
   smj2.init(size, size);
-  modelOmegaRef->evalJt(2, 0, smj2, 0);
+  modelOmegaRef->evalJt(2, 0, 0, smj2);
   smj2.changeCol();
   smj2.changeCol();
   ASSERT_EQ(smj2.nbElem(), 14);

@@ -28,7 +28,6 @@
 #include "DYNTimer.h"
 #include "DYNExecUtils.h"
 #include "JOBXmlImporter.h"
-#include "JOBIterators.h"
 #include "JOBJobsCollection.h"
 #include "JOBJobEntry.h"
 #include "JOBOutputsEntry.h"
@@ -44,7 +43,7 @@ using DYN::SimulationContext;
 
 // If logging is disabled, Trace::info has no effect so we also print on standard output to have basic information
 template<class T>
-static void print(const T& output, DYN::SeverityLevel level = DYN::INFO) {
+static void print(const T& output, const DYN::SeverityLevel level = DYN::INFO) {
   DYN::TraceStream ss;
   switch (level) {
     case DYN::DEBUG:
@@ -75,18 +74,16 @@ void launchSimu(const std::string& jobsFileName) {
 #endif
 
   job::XmlImporter importer;
-  std::shared_ptr<job::JobsCollection> jobsCollection = importer.importFromFile(jobsFileName);
-  std::string prefixJobFile = absolute(remove_file_name(jobsFileName));
-  if (jobsCollection->begin() == jobsCollection->end())
+  const std::shared_ptr<job::JobsCollection>& jobsCollection = importer.importFromFile(jobsFileName);
+  const std::string prefixJobFile = absolute(removeFileName(jobsFileName));
+  if (jobsCollection->getJobs().empty())
     throw DYNError(DYN::Error::SIMULATION, NoJobDefined);
   Trace::init();
 
-  for (job::job_iterator itJobEntry = jobsCollection->begin();
-      itJobEntry != jobsCollection->end();
-      ++itJobEntry) {
-    print(DYNLog(LaunchingJob, (*itJobEntry)->getName()));
+  for (const auto& job : jobsCollection->getJobs()) {
+    print(DYNLog(LaunchingJob, job->getName()));
 
-    std::shared_ptr<SimulationContext> context = std::make_shared<SimulationContext>();
+    const auto context = std::make_shared<SimulationContext>();
     context->setResourcesDirectory(getMandatoryEnvVar("DYNAWO_RESOURCES_DIR"));
     context->setLocale(getMandatoryEnvVar("DYNAWO_LOCALE"));
     context->setInputDirectory(prefixJobFile);
@@ -94,7 +91,7 @@ void launchSimu(const std::string& jobsFileName) {
 
     std::unique_ptr<Simulation> simulation;
     try {
-      simulation = std::unique_ptr<Simulation>(new Simulation((*itJobEntry), context));
+      simulation = std::unique_ptr<Simulation>(new Simulation(job, context));
       simulation->init();
     } catch (const DYN::Error& err) {
       print(err.what(), DYN::ERROR);
@@ -102,7 +99,7 @@ void launchSimu(const std::string& jobsFileName) {
     } catch (const DYN::MessageError& e) {
       print(e.what(), DYN::ERROR);
       throw;
-    } catch (const char *s) {
+    } catch (const char* s) {
       print(s, DYN::ERROR);
       throw;
     } catch (const std::string& Msg) {
@@ -133,7 +130,7 @@ void launchSimu(const std::string& jobsFileName) {
       print(e.what(), DYN::ERROR);
       simulation->terminate();
       throw;
-    } catch (const char *s) {
+    } catch (const char* s) {
       print(s, DYN::ERROR);
       simulation->terminate();
       throw;
@@ -147,12 +144,12 @@ void launchSimu(const std::string& jobsFileName) {
       throw;
     }
     simulation->clean();
-    print(DYNLog(EndOfJob, (*itJobEntry)->getName()));
+    print(DYNLog(EndOfJob, job->getName()));
     Trace::resetCustomAppenders();
     Trace::init();
-    print(DYNLog(JobSuccess, (*itJobEntry)->getName()));
-    if ((*itJobEntry)->getOutputsEntry()) {
-      std::string outputsDirectory = createAbsolutePath((*itJobEntry)->getOutputsEntry()->getOutputsDirectory(), context->getWorkingDirectory());
+    print(DYNLog(JobSuccess, job->getName()));
+    if (job->getOutputsEntry()) {
+      std::string outputsDirectory = createAbsolutePath(job->getOutputsEntry()->getOutputsDirectory(), context->getWorkingDirectory());
       print(DYNLog(ResultFolder, outputsDirectory));
     }
   }

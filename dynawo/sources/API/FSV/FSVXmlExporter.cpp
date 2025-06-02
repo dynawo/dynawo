@@ -60,11 +60,11 @@ XmlExporter::exportToStream(const boost::shared_ptr<FinalStateValuesCollection>&
   AttributeList attrs;
   formatter->startElement("finalStateValuesOutput", attrs);
 
-  for (FinalStateValuesCollection::const_iterator itFsv = finalStateValues->cbegin(); itFsv != finalStateValues->cend(); ++itFsv) {
+  for (const auto& finalStateValue : finalStateValues->getFinalStateValues()) {
     attrs.clear();
-    attrs.add("model", (*itFsv)->getModelName());
-    attrs.add("variable", (*itFsv)->getVariable());
-    attrs.add("value", DYN::double2String((*itFsv)->getValue()));
+    attrs.add("model", finalStateValue->getModelName());
+    attrs.add("variable", finalStateValue->getVariable());
+    attrs.add("value", DYN::double2String(finalStateValue->getValue()));
     formatter->startElement("finalStateValue", attrs);
     formatter->endElement();  // finalStateValue
   }

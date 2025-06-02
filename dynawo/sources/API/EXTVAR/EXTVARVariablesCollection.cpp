@@ -20,7 +20,6 @@
 #include "DYNMacrosMessage.h"
 
 #include "EXTVARVariablesCollection.h"
-#include "EXTVARIterators.h"
 #include "EXTVARVariable.h"
 
 using std::map;
@@ -38,26 +37,6 @@ void VariablesCollection::addVariable(const shared_ptr<Variable>& variable) {
   ret = variables_.emplace(id, variable);
   if (!ret.second)
     throw DYNError(DYN::Error::API, ExternalVariableIDNotUnique, id);
-}
-
-variable_const_iterator
-VariablesCollection::cbeginVariable() const {
-  return variable_const_iterator(this, true);
-}
-
-variable_const_iterator
-VariablesCollection::cendVariable() const {
-  return variable_const_iterator(this, false);
-}
-
-variable_iterator
-VariablesCollection::beginVariable() {
-  return variable_iterator(this, true);
-}
-
-variable_iterator
-VariablesCollection::endVariable() {
-  return variable_iterator(this, false);
 }
 
 }  // namespace externalVariables

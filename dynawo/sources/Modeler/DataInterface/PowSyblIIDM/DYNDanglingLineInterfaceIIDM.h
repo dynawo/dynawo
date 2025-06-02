@@ -103,7 +103,7 @@ class DanglingLineInterfaceIIDM : public DanglingLineInterface, public InjectorI
   /**
    * @copydoc DanglingLineInterface::getID() const
    */
-  std::string getID() const;
+  const std::string& getID() const;
 
   /**
    * @copydoc DanglingLineInterface::getP0() const

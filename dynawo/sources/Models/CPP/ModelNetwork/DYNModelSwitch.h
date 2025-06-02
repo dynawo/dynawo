@@ -58,7 +58,7 @@ class ModelSwitch : public std::enable_shared_from_this<ModelSwitch>, public Net
    * @brief set the switch connection state
    * @param state connection state
    */
-  void setConnectionState(State state) {
+  void setConnectionState(const State state) {
     connectionState_ = state;
   }
 
@@ -94,7 +94,7 @@ class ModelSwitch : public std::enable_shared_from_this<ModelSwitch>, public Net
    * @brief inLoop or not
    * @param inLoop inLoop
    */
-  void inLoop(bool inLoop) {
+  void inLoop(const bool inLoop) {
     inLoop_ = inLoop;
   }
 
@@ -152,11 +152,12 @@ class ModelSwitch : public std::enable_shared_from_this<ModelSwitch>, public Net
    * @brief add bus neighbors
    */
   void addBusNeighbors() override;
+
   /**
    * @brief evaluate derivatives
    * @param cj Jacobian prime coefficient
    */
-  void evalDerivatives(const double cj) override;
+  void evalDerivatives(double cj) override;
 
   /**
    * @brief evaluate derivatives prim
@@ -202,13 +203,13 @@ class ModelSwitch : public std::enable_shared_from_this<ModelSwitch>, public Net
   /**
   * @copydoc NetworkComponent::evalZ()
   */
-  NetworkComponent::StateChange_t evalZ(const double& t) override;
+  NetworkComponent::StateChange_t evalZ(double t) override;
 
   /**
    * @brief evaluate G
    * @param t time
    */
-  void evalG(const double& t) override;
+  void evalG(double t) override;
 
   /**
    * @brief evaluate calculated variables (for outputs)
@@ -272,7 +273,7 @@ class ModelSwitch : public std::enable_shared_from_this<ModelSwitch>, public Net
   /**
    * @copydoc NetworkComponent::init(int& yNum)
    */
-  void init(int & yNum) override;
+  void init(int& yNum) override;
 
   /**
    * @copydoc NetworkComponent::getY0()
@@ -299,17 +300,17 @@ class ModelSwitch : public std::enable_shared_from_this<ModelSwitch>, public Net
    * @param time time
    * @return state change type
    */
-  NetworkComponent::StateChange_t evalState(const double& time) override;
+  NetworkComponent::StateChange_t evalState(double time) override;
 
   /**
-   * @copydoc NetworkComponent::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJt(double cj, int rowOffset, SparseMatrix& jt)
    */
-  void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) override;
+  void evalJt(double cj, int rowOffset, SparseMatrix& jt) override;
 
   /**
-   * @copydoc NetworkComponent::evalJtPrim(SparseMatrix& jt, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJtPrim(int rowOffset, SparseMatrix& jtPrim)
    */
-  void evalJtPrim(SparseMatrix& jt, const int& rowOffset) override;
+  void evalJtPrim(int rowOffset, SparseMatrix& jtPrim) override;
 
   /**
    * @brief init size

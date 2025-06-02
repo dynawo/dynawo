@@ -91,7 +91,7 @@ class HvdcLineInterfaceIIDM : public HvdcLineInterface, public boost::noncopyabl
   /**
    * @copydoc HvdcLineInterface::getID() const
    */
-  std::string getID() const;
+  const std::string& getID() const;
 
   /**
    * @copydoc HvdcLineInterface::getResistanceDC() const

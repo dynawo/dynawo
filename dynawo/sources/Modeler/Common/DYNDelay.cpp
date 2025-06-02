@@ -23,7 +23,7 @@
 #include "DYNCommon.h"
 
 namespace DYN {
-Delay::Delay(const double* time, const double* value, double delayMax) :
+Delay::Delay(const double* time, const double* value, const double delayMax) :
 time_(time),
 value_(value),
 delayTime_(delayMax),
@@ -32,21 +32,21 @@ buffer_(delayMax),
 initialValue_(),
 delayActivated_(false) {}
 
-Delay::Delay(const std::vector<std::pair<double, double> >& timepoints, double delayMax, double initialTime) :
+Delay::Delay(const std::vector<std::pair<double, double> >& timepoints, const double delayMax, const double initialTime) :
 time_(NULL),
 value_(NULL),
 delayTime_(delayMax),
 delayMax_(delayMax),
 buffer_(delayMax),
 delayActivated_(false) {
-  for (std::vector<std::pair<double, double> >::const_iterator it = timepoints.begin(); it != timepoints.end(); ++it) {
-    buffer_.addNoCheck(it->first, it->second);
+  for (const auto& timepoint : timepoints) {
+    buffer_.addNoCheck(timepoint.first, timepoint.second);
   }
   initialValue_ = buffer_.get(initialTime, delayMax);
 }
 
 void
-Delay::update(const double* time, const double* value, double delayMax) {
+Delay::update(const double* time, const double* value, const double delayMax) {
 #if _DEBUG_
   // shouldn't happen by construction
   assert(time_ == NULL);

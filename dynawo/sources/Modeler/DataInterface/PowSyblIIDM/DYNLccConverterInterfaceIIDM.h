@@ -107,7 +107,7 @@ class LccConverterInterfaceIIDM : public LccConverterInterface, public InjectorI
   /**
    * @copydoc LccConverterInterface::getID() const
    */
-  std::string getID() const;
+  const std::string& getID() const;
 
   /**
    * @copydoc LccConverterInterface::getLossFactor() const

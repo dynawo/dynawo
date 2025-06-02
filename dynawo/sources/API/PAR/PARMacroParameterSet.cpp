@@ -36,8 +36,7 @@ MacroParameterSet::getId() const {
 void
 MacroParameterSet::addReference(const std::shared_ptr<Reference>& reference) {
   std::string name = reference->getName();
-  std::pair<std::map<std::string, std::shared_ptr<Reference> >::iterator, bool> ret;
-  ret = references_.emplace(name, reference);
+  const std::pair<std::map<std::string, std::shared_ptr<Reference> >::iterator, bool> ret = references_.emplace(name, reference);
   if (!ret.second)
     throw DYNError(DYN::Error::API, ReferenceAlreadySetInMacroParameterSet, reference->getName(), getId());
 }
@@ -45,117 +44,9 @@ MacroParameterSet::addReference(const std::shared_ptr<Reference>& reference) {
 void
 MacroParameterSet::addParameter(const std::shared_ptr<Parameter>& parameter) {
   std::string name = parameter->getName();
-  std::pair<std::map<std::string, std::shared_ptr<Parameter> >::iterator, bool> ret;
-  ret = parameters_.emplace(name, parameter);
+  const std::pair<std::map<std::string, std::shared_ptr<Parameter> >::iterator, bool> ret = parameters_.emplace(name, parameter);
   if (!ret.second)
     throw DYNError(DYN::Error::API, ParameterAlreadySetInMacroParameterSet, parameter->getName(), getId());
-}
-
-MacroParameterSet::parameter_const_iterator::parameter_const_iterator(const MacroParameterSet* iterated, bool begin) :
-current_((begin ? iterated->parameters_.begin() : iterated->parameters_.end())) { }
-
-MacroParameterSet::parameter_const_iterator&
-MacroParameterSet::parameter_const_iterator::operator++() {
-  ++current_;
-  return *this;
-}
-
-MacroParameterSet::parameter_const_iterator
-MacroParameterSet::parameter_const_iterator::operator++(int) {
-  MacroParameterSet::parameter_const_iterator previous = *this;
-  current_++;
-  return previous;
-}
-
-MacroParameterSet::parameter_const_iterator&
-MacroParameterSet::parameter_const_iterator::operator--() {
-  --current_;
-  return *this;
-}
-
-MacroParameterSet::parameter_const_iterator
-MacroParameterSet::parameter_const_iterator::operator--(int) {
-  MacroParameterSet::parameter_const_iterator previous = *this;
-  current_--;
-  return previous;
-}
-
-bool
-MacroParameterSet::parameter_const_iterator::operator==(const MacroParameterSet::parameter_const_iterator& other) const {
-  return current_ == other.current_;
-}
-
-bool
-MacroParameterSet::parameter_const_iterator::operator!=(const MacroParameterSet::parameter_const_iterator& other) const {
-  return current_ != other.current_;
-}
-
-const shared_ptr<Parameter>&
-MacroParameterSet::parameter_const_iterator::operator*() const {
-  return current_->second;
-}
-
-const shared_ptr<Parameter>*
-MacroParameterSet::parameter_const_iterator::operator->() const {
-  return &(current_->second);
-}
-
-MacroParameterSet::parameter_const_iterator
-MacroParameterSet::cbeginParameter() const {
-  return MacroParameterSet::parameter_const_iterator(this, true);
-}
-
-MacroParameterSet::parameter_const_iterator
-MacroParameterSet::cendParameter() const {
-  return MacroParameterSet::parameter_const_iterator(this, false);
-}
-
-// for Reference
-
-MacroParameterSet::reference_const_iterator::reference_const_iterator(const MacroParameterSet* iterated, bool begin) :
-current_((begin ? iterated->references_.begin() : iterated->references_.end())) { }
-
-MacroParameterSet::reference_const_iterator&
-MacroParameterSet::reference_const_iterator::operator++() {
-  ++current_;
-  return *this;
-}
-
-MacroParameterSet::reference_const_iterator
-MacroParameterSet::reference_const_iterator::operator++(int) {
-  MacroParameterSet::reference_const_iterator previous = *this;
-  current_++;
-  return previous;
-}
-
-bool
-MacroParameterSet::reference_const_iterator::operator==(const MacroParameterSet::reference_const_iterator& other) const {
-  return current_ == other.current_;
-}
-
-bool
-MacroParameterSet::reference_const_iterator::operator!=(const MacroParameterSet::reference_const_iterator& other) const {
-  return current_ != other.current_;
-}
-
-const shared_ptr<Reference>&
-MacroParameterSet::reference_const_iterator::operator*() const {
-  return current_->second;
-}
-
-const shared_ptr<Reference>*
-MacroParameterSet::reference_const_iterator::operator->() const {
-  return &(current_->second);
-}
-
-MacroParameterSet::reference_const_iterator
-MacroParameterSet::cbeginReference() const {
-  return MacroParameterSet::reference_const_iterator(this, true);
-}
-
-MacroParameterSet::reference_const_iterator
-MacroParameterSet::cendReference() const {
-  return MacroParameterSet::reference_const_iterator(this, false);
 }
 
 }  // namespace parameters

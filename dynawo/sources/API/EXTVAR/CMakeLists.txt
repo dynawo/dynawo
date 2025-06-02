@@ -19,7 +19,6 @@ set(API_EXTVAR_SHARED
 install(FILES ${API_EXTVAR_SHARED} DESTINATION ${SHAREDIR_NAME}/xsd/)
 
 set(API_EXTVAR_SOURCES
-    EXTVARIterators.cpp
     EXTVARVariablesCollectionFactory.cpp
     EXTVARVariablesCollection.cpp
     EXTVARVariableFactory.cpp
@@ -32,7 +31,6 @@ set(API_EXTVAR_SOURCES
 set(API_EXTVAR_INCLUDE_HEADERS
     EXTVARExporter.h
     EXTVARImporter.h
-    EXTVARIterators.h
     EXTVARVariable.h
     EXTVARVariablesCollection.h
     EXTVARVariablesCollectionFactory.h

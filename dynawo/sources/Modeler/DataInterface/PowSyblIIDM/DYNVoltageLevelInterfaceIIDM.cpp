@@ -89,7 +89,7 @@ voltageLevelIIDM_(voltageLevel) {
   slackTerminalExtension_ = voltageLevelIIDM_.findExtension<powsybl::iidm::extensions::SlackTerminal>();
 }
 
-string
+const std::string&
 VoltageLevelInterfaceIIDM::getID() const {
   return voltageLevelIIDM_.getId();
 }
@@ -333,10 +333,10 @@ VoltageLevelInterfaceIIDM::calculateBusTopology() {
 
     // set voltage and angle of bus on the same electrical nodes
     set<int> nodes = electricalNodes[electricalComponent];  // to throw
-    for (set<int>::iterator iter = nodes.begin(); iter != nodes.end(); ++iter) {
+    for (const auto node : nodes) {
       if (bus) {
-        calculatedBus_[component[nodeIdToComponentIndex[*iter]]]->setU0(bus.get().getV());
-        calculatedBus_[component[nodeIdToComponentIndex[*iter]]]->setAngle0(bus.get().getAngle());
+        calculatedBus_[component[nodeIdToComponentIndex[node]]]->setU0(bus.get().getV());
+        calculatedBus_[component[nodeIdToComponentIndex[node]]]->setAngle0(bus.get().getAngle());
       }
     }
   }
@@ -409,10 +409,10 @@ VoltageLevelInterfaceIIDM::connectNode(const unsigned int& nodeToConnect) {
     }
   }
 
-  for (vector<string>::iterator iter = shortestPath.begin(); iter != shortestPath.end(); ++iter) {
-    const auto& sw = voltageLevelIIDM_.getNodeBreakerView().getSwitch(*iter);
+  for (const auto& id : shortestPath) {
+    const auto& sw = voltageLevelIIDM_.getNodeBreakerView().getSwitch(id);
     if (sw && sw.get().isOpen()) {
-      map<string, std::shared_ptr<SwitchInterface> >::iterator itSw = switchesById_.find(*iter);
+      map<string, std::shared_ptr<SwitchInterface> >::iterator itSw = switchesById_.find(id);
       if (itSw != switchesById_.end()) {
         switchState_[itSw->second] = CLOSED;
       }
@@ -452,8 +452,7 @@ VoltageLevelInterfaceIIDM::disconnectNode(const unsigned int& nodeToDisconnect) 
 
         while (!path.empty() && somethingWasDisconnected) {
           somethingWasDisconnected = false;
-          for (vector<string>::const_iterator itSwitch = path.begin(); itSwitch != path.end(); ++itSwitch) {
-            string switchID = *itSwitch;
+          for (const auto& switchID : path) {
             const auto& sw = voltageLevelIIDM_.getNodeBreakerView().getSwitch(switchID);
             if (sw && sw.get().getKind() == powsybl::iidm::SwitchKind::BREAKER) {
               if (!sw.get().isOpen()) {

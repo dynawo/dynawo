@@ -56,7 +56,7 @@ class ModelGenerator : public NetworkComponent {
    * @brief set connection status of the generator
    * @param state connection status
    */
-  void setConnected(State state) {
+  void setConnected(const State state) {
     connectionState_ = state;
   }
 
@@ -77,7 +77,7 @@ class ModelGenerator : public NetworkComponent {
    * @brief evaluate derivatives
    * @param cj Jacobian prime coefficient
    */
-  void evalDerivatives(const double cj) override;
+  void evalDerivatives(double cj) override;
 
   /**
    * @brief evaluate derivatives prim
@@ -90,14 +90,14 @@ class ModelGenerator : public NetworkComponent {
   void evalF(propertyF_t type) override;
 
   /**
-   * @copydoc NetworkComponent::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJt(double cj, int rowOffset, SparseMatrix& jt)
    */
-  void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) override;
+  void evalJt(double cj, int rowOffset, SparseMatrix& jt) override;
 
   /**
-   * @copydoc NetworkComponent::evalJtPrim(SparseMatrix& jt, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJtPrim(int rowOffset, SparseMatrix& jtPrim)
    */
-  void evalJtPrim(SparseMatrix& jt, const int& rowOffset) override;
+  void evalJtPrim(int rowOffset, SparseMatrix& jtPrim) override;
 
   /**
    * @brief define variables
@@ -133,18 +133,19 @@ class ModelGenerator : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::evalZ()
    */
-  NetworkComponent::StateChange_t evalZ(const double& t) override;
+  NetworkComponent::StateChange_t evalZ(double t) override;
 
   /**
    * @brief evaluation G
    * @param t time
    */
-  void evalG(const double& t) override;
+  void evalG(double t) override;
 
   /**
    * @brief evaluation calculated variables (for outputs)
    */
   void evalCalculatedVars() override;  ///< compute calculated variables (for outputs)
+
   /**
    * @brief get the index of variables used to define the jacobian associated to a calculated variable
    *
@@ -153,6 +154,7 @@ class ModelGenerator : public NetworkComponent {
    * @param numVars index of variables used to define the jacobian
    */
   void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const override;
+
   /**
    * @brief evaluate the jacobian associated to a calculated variable
    *
@@ -160,6 +162,7 @@ class ModelGenerator : public NetworkComponent {
    * @param res values of the jacobian
    */
   void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const override;
+
   /**
    * @brief evaluate the value of a calculated variable
    *
@@ -202,7 +205,7 @@ class ModelGenerator : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::init(int& yNum)
    */
-  void init(int & yNum) override;
+  void init(int& yNum) override;
 
   /**
    * @copydoc NetworkComponent::getY0()
@@ -229,12 +232,13 @@ class ModelGenerator : public NetworkComponent {
    * @param time time
    * @return state change type
    */
-  NetworkComponent::StateChange_t evalState(const double& time) override;
+  NetworkComponent::StateChange_t evalState(double time) override;
 
   /**
    * @brief addBusNeighbors
    */
   void addBusNeighbors() override { /* not needed */ }
+
   /**
    * @brief init size
    */
@@ -305,7 +309,7 @@ class ModelGenerator : public NetworkComponent {
    * @param Qc reactive power set point
    * @return the real part of the current
    */
-  inline double ir(const double& ur, const double& ui, const double& U2, const double& Pc, const double& Qc) const {
+  static inline double ir(const double ur, const double ui, const double U2, const double Pc, double const Qc) {
     return (-Pc * ur - Qc * ui) / U2;
   }
 
@@ -318,7 +322,7 @@ class ModelGenerator : public NetworkComponent {
    * @param Qc reactive power set point
    * @return the imaginary part of the current
    */
-  inline double ii(const double& ur, const double& ui, const double& U2, const double& Pc, const double& Qc) const {
+  static inline double ii(const double ur, const double ui, const double U2, const double Pc, const double Qc) {
     return (-Pc * ui + Qc * ur) / U2;
   }
 
@@ -331,7 +335,7 @@ class ModelGenerator : public NetworkComponent {
    * @param Qc reactive power set point
    * @return the partial derivative of ir with respect to Ur
    */
-  inline double ir_dUr(const double& ur, const double& ui, const double& U2, const double& Pc, const double& Qc) const {
+  static inline double ir_dUr(const double ur, const double ui, const double U2, const double Pc, const double Qc) {
     return (-Pc - 2. * ur * (-Pc * ur - Qc * ui) / U2) / U2;
   }
 
@@ -344,7 +348,7 @@ class ModelGenerator : public NetworkComponent {
    * @param Qc reactive power set point
    * @return the partial derivative of ir with respect to Ui
    */
-  inline double ir_dUi(const double& ur, const double& ui, const double& U2, const double& Pc, const double& Qc) const {
+  static inline double ir_dUi(const double ur, const double ui, const double U2, const double Pc, const double Qc) {
     return (-Qc - 2. * ui * (-Pc * ur - Qc * ui) / U2) / U2;
   }
 
@@ -357,7 +361,7 @@ class ModelGenerator : public NetworkComponent {
    * @param Qc reactive power set point
    * @return the partial derivative of ii with respect to Ur
    */
-  inline double ii_dUr(const double& ur, const double& ui, const double& U2, const double& Pc, const double& Qc) const {
+  static inline double ii_dUr(const double ur, const double ui, const double U2, const double Pc, const double Qc) {
     return (Qc - 2. * ur * (-Pc * ui + Qc * ur) / U2) / U2;
   }
 
@@ -370,7 +374,7 @@ class ModelGenerator : public NetworkComponent {
    * @param Qc reactive power set point
    * @return the partial derivative of ii with respect to Ui
    */
-  inline double ii_dUi(const double& ur, const double& ui, const double& U2, const double& Pc, const double& Qc) const {
+  static inline double ii_dUi(const double ur, const double ui, const double U2, const double Pc, const double Qc) {
     return (-Pc - 2 * ui * (-Pc * ui + Qc * ur) / U2) / U2;
   }
 

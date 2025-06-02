@@ -64,7 +64,7 @@ class ModelStaticVarCompensator : public NetworkComponent {
    * @brief set connection status
    * @param state connection status
    */
-  void setConnected(State state) {
+  void setConnected(const State state) {
     connectionState_ = state;
   }
 
@@ -86,7 +86,7 @@ class ModelStaticVarCompensator : public NetworkComponent {
    * @brief evaluate derivatives
    * @param cj Jacobian prime coefficient
    */
-  void evalDerivatives(const double cj) override;
+  void evalDerivatives(double cj) override;
 
   /**
    * @brief evaluate derivatives prim
@@ -133,13 +133,13 @@ class ModelStaticVarCompensator : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::evalZ()
    */
-  NetworkComponent::StateChange_t evalZ(const double& t) override;
+  NetworkComponent::StateChange_t evalZ(double t) override;
 
   /**
    * @brief evaluation G
    * @param t time
    */
-  void evalG(const double& t) override;
+  void evalG(double t) override;
 
   /**
    * @brief evaluation calculated variables (for outputs)
@@ -235,7 +235,7 @@ class ModelStaticVarCompensator : public NetworkComponent {
    * @param time time
    * @return state change type
    */
-  NetworkComponent::StateChange_t evalState(const double& time) override;
+  NetworkComponent::StateChange_t evalState(double time) override;
 
   /**
    * @brief init size
@@ -244,19 +244,19 @@ class ModelStaticVarCompensator : public NetworkComponent {
 
   /**
    * @brief evaluate jacobian \f$( J = @F/@x + cj * @F/@x')\f$
-   * @param jt sparse matrix to fill
    * @param cj jacobian prime coefficient
    * @param rowOffset row offset to use to find the first row to fill
+   * @param jt sparse matrix to fill
    */
-  void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) override;
+  void evalJt(double cj, int rowOffset, SparseMatrix& jt) override;
 
   /**
    * @brief  evaluate jacobian \f$( J =  @F/@x')\f$
    *
-   * @param jt sparse matrix to fill
    * @param rowOffset row offset to use to find the first row to fill
+   * @param jtPrim sparse matrix to fill
    */
-  void evalJtPrim(SparseMatrix& jt, const int& rowOffset) override;
+  void evalJtPrim(int rowOffset, SparseMatrix& jtPrim) override;
 
   /**
    * @brief get connection status
@@ -303,14 +303,14 @@ class ModelStaticVarCompensator : public NetworkComponent {
    * @param ui imaginary part of the voltage
    * @return value
    */
-  double ir(const double& ui) const;
+  double ir(double ui) const;
 
   /**
    * @brief compute value
    * @param ur real part of the voltage
    * @return value
    */
-  double ii(const double& ur) const;
+  double ii(double ur) const;
 
   /**
    * @brief compute value

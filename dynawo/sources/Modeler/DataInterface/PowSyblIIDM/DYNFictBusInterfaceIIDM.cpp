@@ -62,7 +62,7 @@ FictBusInterfaceIIDM::getVNom() const {
   return Vnom_;
 }
 
-string
+const std::string&
 FictBusInterfaceIIDM::getID() const {
   return Id_;
 }

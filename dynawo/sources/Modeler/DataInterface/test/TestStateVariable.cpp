@@ -33,7 +33,7 @@ TEST(DataInterfaceTest, testStateVariable) {
   ASSERT_EQ(stateVariable.valueAffected(), false);
   ASSERT_EQ(stateVariable.getModelId(), "");
   ASSERT_EQ(stateVariable.getVariableId(), "");
-  ASSERT_EQ(stateVariable.getVariable(), shared_ptr<Variable>());
+  ASSERT_EQ(stateVariable.getVariable(), boost::shared_ptr<Variable>());
 
   // check for int type
   StateVariable intVariable("intVariable", StateVariable::INT);

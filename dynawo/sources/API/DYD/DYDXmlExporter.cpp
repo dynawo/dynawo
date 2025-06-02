@@ -28,7 +28,6 @@
 #include "DYDMacroStaticRef.h"
 #include "DYDMacroStaticReference.h"
 #include "DYDDynamicModelsCollection.h"
-#include "DYDIterators.h"
 #include "DYDXmlExporter.h"
 #include "DYDMacroConnection.h"
 #include "DYDMacroConnector.h"
@@ -73,35 +72,21 @@ void XmlExporter::exportToStream(const boost::shared_ptr<DynamicModelsCollection
   formatter->startDocument();
   AttributeList attrs;
   formatter->startElement("dyn", "dynamicModelsArchitecture", attrs);
-  for (macroConnector_iterator itMC = collection->beginMacroConnector();
-          itMC != collection->endMacroConnector();
-          ++itMC) {
-    writeMacroConnector(*itMC, *formatter);
-  }
+  for (const auto&  macroConnectorPair : collection->getMacroConnectors())
+    writeMacroConnector(macroConnectorPair.second, *formatter);
 
-  for (macroStaticReference_const_iterator itMSR = collection->cbeginMacroStaticReference();
-          itMSR != collection->cendMacroStaticReference();
-          ++itMSR) {
-    writeMacroStaticReference(*itMSR, *formatter);
-  }
+  for (const auto&  macroStaticReferencePair : collection->getMacroStaticReferences())
+    writeMacroStaticReference(macroStaticReferencePair.second, *formatter);
 
-  for (dynamicModel_iterator itModel = collection->beginModel();
-          itModel != collection->endModel();
-          ++itModel) {
-    writeModel(*itModel, *formatter);
-  }
+  for (const auto&  modelPair : collection->getModels())
+    writeModel(modelPair.second, *formatter);
 
-  for (macroConnect_iterator itMacroConnect = collection->beginMacroConnect();
-          itMacroConnect != collection->endMacroConnect();
-          ++itMacroConnect) {
-    writeMacroConnect(*itMacroConnect, *formatter);
-  }
+  for (const auto&  macroConnectPair : collection->getMacroConnects())
+    writeMacroConnect(macroConnectPair, *formatter);
 
-  for (connector_iterator itConnect = collection->beginConnector();
-          itConnect != collection->endConnector();
-          ++itConnect) {
-    writeConnector(*itConnect, *formatter);
-  }
+  for (const auto& connectPair : collection->getConnectors())
+    writeConnector(connectPair, *formatter);
+
   formatter->endElement();  // dynamicModelsArchitecture
   formatter->endDocument();
 }
@@ -129,27 +114,21 @@ XmlExporter::writeBlackBoxModel(const std::shared_ptr<BlackBoxModel>& bbm, Forma
   AttributeList attrs;
   attrs.add("id", bbm->getId());
 
-  if (bbm->getStaticId() != "")
+  if (!bbm->getStaticId().empty())
     attrs.add("staticId", bbm->getStaticId());
   attrs.add("lib", bbm->getLib());
-  if (bbm->getParFile() != "")
+  if (!bbm->getParFile().empty())
     attrs.add("parFile", bbm->getParFile());
-  if (bbm->getParId() != "")
+  if (!bbm->getParId().empty())
     attrs.add("parId", bbm->getParId());
 
   formatter.startElement("dyn", "blackBoxModel", attrs);
 
-  for (staticRef_const_iterator itSR = bbm->cbeginStaticRef();
-          itSR != bbm->cendStaticRef();
-          ++itSR) {
-    writeStaticRef(*itSR, formatter);
-  }
+  for (const auto& staticRefPair : bbm->getStaticRefs())
+    writeStaticRef(staticRefPair.second, formatter);
 
-  for (macroStaticRef_const_iterator itMSR = bbm->cbeginMacroStaticRef();
-          itMSR != bbm->cendMacroStaticRef();
-          ++itMSR) {
-    writeMacroStaticRef(*itMSR, formatter);
-  }
+  for (const auto& macroStaticRefPair : bbm->getMacroStaticRefs())
+    writeMacroStaticRef(macroStaticRefPair.second, formatter);
 
   formatter.endElement();  // blackBoxModel
 }
@@ -160,25 +139,21 @@ XmlExporter::writeModelTemplateExpansion(const std::shared_ptr<ModelTemplateExpa
   attrs.add("id", mte->getId());
   attrs.add("templateId", mte->getTemplateId());
 
-  if (mte->getStaticId() != "")
+  if (!mte->getStaticId().empty())
     attrs.add("staticId", mte->getStaticId());
-  if (mte->getParFile() != "")
+  if (!mte->getParFile().empty())
     attrs.add("parFile", mte->getParFile());
-  if (mte->getParId() != "")
+  if (!mte->getParId().empty())
     attrs.add("parId", mte->getParId());
 
   formatter.startElement("dyn", "modelTemplateExpansion", attrs);
 
-  for (staticRef_const_iterator itSR = mte->cbeginStaticRef();
-          itSR != mte->cendStaticRef();
-          ++itSR) {
-    writeStaticRef(*itSR, formatter);
+  for (const auto& staticRefPair : mte->getStaticRefs()) {
+    writeStaticRef(staticRefPair.second, formatter);
   }
 
-  for (macroStaticRef_const_iterator itMSR = mte->cbeginMacroStaticRef();
-          itMSR != mte->cendMacroStaticRef();
-          ++itMSR) {
-    writeMacroStaticRef(*itMSR, formatter);
+  for (const auto& macroStaticRefPair : mte->getMacroStaticRefs()) {
+    writeMacroStaticRef(macroStaticRefPair.second, formatter);
   }
 
   formatter.endElement();  // modelTemplateExpansion
@@ -192,13 +167,13 @@ XmlExporter::writeUnitDynamicModel(const std::shared_ptr<UnitDynamicModel>& mm, 
 
   if (!mm->getDynamicFileName().empty())
     attrs.add("moFile", mm->getDynamicFileName());
-  if (mm->getInitModelName() != "")
+  if (!mm->getInitModelName().empty())
     attrs.add("initName", mm->getInitModelName());
-  if (mm->getInitFileName() != "")
+  if (!mm->getInitFileName().empty())
     attrs.add("initFile", mm->getInitFileName());
-  if (mm->getParFile() != "")
+  if (!mm->getParFile().empty())
     attrs.add("parFile", mm->getParFile());
-  if (mm->getParId() != "")
+  if (!mm->getParId().empty())
     attrs.add("parId", mm->getParId());
 
   formatter.startElement("dyn", "unitDynamicModel", attrs);
@@ -209,7 +184,7 @@ void
 XmlExporter::writeModelicaModel(const std::shared_ptr<ModelicaModel>& cm, Formatter& formatter) const {
   AttributeList attrs;
   attrs.add("id", cm->getId());
-  if (cm->getStaticId() != "")
+  if (!cm->getStaticId().empty())
     attrs.add("staticId", cm->getStaticId());
   if (!cm->getUseAliasing())
     attrs.add("useAliasing", cm->getUseAliasing());
@@ -217,41 +192,23 @@ XmlExporter::writeModelicaModel(const std::shared_ptr<ModelicaModel>& cm, Format
     attrs.add("generateCalculatedVariables", cm->getGenerateCalculatedVariables());
 
   formatter.startElement("dyn", "modelicaModel", attrs);
-  for (map<std::string, std::shared_ptr<UnitDynamicModel> >::const_iterator itModel = cm->getUnitDynamicModels().begin();
-          itModel != cm->getUnitDynamicModels().end();
-          ++itModel) {
-    writeUnitDynamicModel(itModel->second, formatter);
-  }
+  for (const auto& unitDynamicModelPair : cm->getUnitDynamicModels())
+    writeUnitDynamicModel(unitDynamicModelPair.second, formatter);
 
-  for (map<std::string, std::shared_ptr<MacroConnect> >::const_iterator itConnect = cm->getMacroConnects().begin();
-          itConnect != cm->getMacroConnects().end();
-          ++itConnect) {
-    writeMacroConnect(itConnect->second, formatter);
-  }
+  for (const auto& macroConnectPair : cm->getMacroConnects())
+    writeMacroConnect(macroConnectPair.second, formatter);
 
-  for (map<std::string, std::shared_ptr<Connector> >::const_iterator itConnector = cm->getConnectors().begin();
-          itConnector != cm->getConnectors().end();
-          ++itConnector) {
-    writeConnector(itConnector->second, formatter);
-  }
+  for (const auto& connectorPair : cm->getConnectors())
+    writeConnector(connectorPair.second, formatter);
 
-  for (map<std::string, std::shared_ptr<Connector> >::const_iterator itConnector = cm->getInitConnectors().begin();
-          itConnector != cm->getInitConnectors().end();
-          ++itConnector) {
-    writeInitConnector(itConnector->second, formatter);
-  }
+  for (const auto& initConnectorPair : cm->getInitConnectors())
+    writeInitConnector(initConnectorPair.second, formatter);
 
-  for (staticRef_const_iterator itSR = cm->cbeginStaticRef();
-          itSR != cm->cendStaticRef();
-          ++itSR) {
-    writeStaticRef(*itSR, formatter);
-  }
+  for (const auto& staticRefPair : cm->getStaticRefs())
+    writeStaticRef(staticRefPair.second, formatter);
 
-  for (macroStaticRef_const_iterator itMSR = cm->cbeginMacroStaticRef();
-          itMSR != cm->cendMacroStaticRef();
-          ++itMSR) {
-    writeMacroStaticRef(*itMSR, formatter);
-  }
+  for (const auto& macroStaticRefPair : cm->getMacroStaticRefs())
+    writeMacroStaticRef(macroStaticRefPair.second, formatter);
 
   formatter.endElement();  // modelicaModel
 }
@@ -266,41 +223,23 @@ XmlExporter::writeModelTemplate(const std::shared_ptr<ModelTemplate>& mt, Format
     attrs.add("generateCalculatedVariables", mt->getGenerateCalculatedVariables());
 
   formatter.startElement("dyn", "modelTemplate", attrs);
-  for (map<std::string, std::shared_ptr<UnitDynamicModel> >::const_iterator itModel = mt->getUnitDynamicModels().begin();
-          itModel != mt->getUnitDynamicModels().end();
-          ++itModel) {
-    writeUnitDynamicModel(itModel->second, formatter);
-  }
+  for (const auto& unitDynamicModelPair : mt->getUnitDynamicModels())
+    writeUnitDynamicModel(unitDynamicModelPair.second, formatter);
 
-  for (map<std::string, std::shared_ptr<MacroConnect> >::const_iterator itConnect = mt->getMacroConnects().begin();
-          itConnect != mt->getMacroConnects().end();
-          ++itConnect) {
-    writeMacroConnect(itConnect->second, formatter);
-  }
+  for (const auto& macroConnectPair : mt->getMacroConnects())
+    writeMacroConnect(macroConnectPair.second, formatter);
 
-  for (map<std::string, std::shared_ptr<Connector> >::const_iterator itConnector = mt->getConnectors().begin();
-          itConnector != mt->getConnectors().end();
-          ++itConnector) {
-    writeConnector(itConnector->second, formatter);
-  }
+  for (const auto& connectorPair : mt->getConnectors())
+    writeConnector(connectorPair.second, formatter);
 
-  for (map<std::string, std::shared_ptr<Connector> >::const_iterator itConnector = mt->getInitConnectors().begin();
-          itConnector != mt->getInitConnectors().end();
-          ++itConnector) {
-    writeInitConnector(itConnector->second, formatter);
-  }
+  for (const auto& initConnectorPair : mt->getInitConnectors())
+    writeInitConnector(initConnectorPair.second, formatter);
 
-  for (staticRef_const_iterator itSR = mt->cbeginStaticRef();
-          itSR != mt->cendStaticRef();
-          ++itSR) {
-    writeStaticRef(*itSR, formatter);
-  }
+  for (const auto& staticRefPair : mt->getStaticRefs())
+    writeStaticRef(staticRefPair.second, formatter);
 
-  for (macroStaticRef_const_iterator itMSR = mt->cbeginMacroStaticRef();
-          itMSR != mt->cendMacroStaticRef();
-          ++itMSR) {
-    writeMacroStaticRef(*itMSR, formatter);
-  }
+  for (const auto& macroStaticRefPair : mt->getMacroStaticRefs())
+    writeMacroStaticRef(macroStaticRefPair.second, formatter);
 
   formatter.endElement();  // modelTemplate
 }
@@ -322,13 +261,13 @@ XmlExporter::writeMacroConnect(const std::shared_ptr<MacroConnect>& mc, Formatte
   attrs.add("connector", mc->getConnector());
   attrs.add("id1", mc->getFirstModelId());
   attrs.add("id2", mc->getSecondModelId());
-  if (mc->getIndex1() != "")
+  if (!mc->getIndex1().empty())
     attrs.add("index1", mc->getIndex1());
-  if (mc->getName1() != "")
+  if (!mc->getName1().empty())
     attrs.add("name1", mc->getName1());
-  if (mc->getIndex2() != "")
+  if (!mc->getIndex2().empty())
     attrs.add("index2", mc->getIndex2());
-  if (mc->getName2() != "")
+  if (!mc->getName2().empty())
     attrs.add("name2", mc->getName2());
   formatter.startElement("dyn", "macroConnect", attrs);
   formatter.endElement();
@@ -367,11 +306,9 @@ XmlExporter::writeMacroStaticReference(const std::shared_ptr<MacroStaticReferenc
   AttributeList attrs;
   attrs.add("id", macroStaticReference->getId());
   formatter.startElement("dyn", "macroStaticReference", attrs);
-  for (staticRef_const_iterator itSR = macroStaticReference->cbeginStaticRef();
-          itSR != macroStaticReference->cendStaticRef();
-          ++itSR) {
-    writeStaticRef(*itSR, formatter);
-  }
+  for (const auto& staticRefPair : macroStaticReference->getStaticReferences())
+    writeStaticRef(staticRefPair.second, formatter);
+
   formatter.endElement();
 }
 
@@ -380,16 +317,11 @@ XmlExporter::writeMacroConnector(const std::shared_ptr<MacroConnector>& mc, Form
   AttributeList attrs;
   attrs.add("id", mc->getId());
   formatter.startElement("dyn", "macroConnector", attrs);
-  for (map<string, std::unique_ptr<MacroConnection> >::const_iterator itConnector = mc->getConnectors().begin();
-          itConnector != mc->getConnectors().end();
-          ++itConnector) {
-    writeMacroConnection(itConnector->second, formatter);
-  }
-  for (map<string, std::unique_ptr<MacroConnection> >::const_iterator itConnector = mc->getInitConnectors().begin();
-          itConnector != mc->getInitConnectors().end();
-          ++itConnector) {
-    writeInitMacroConnection(itConnector->second, formatter);
-  }
+  for (const auto& connectorPair : mc->getConnectors())
+    writeMacroConnection(connectorPair.second, formatter);
+
+  for (const auto& initConnectorPair : mc->getInitConnectors())
+    writeInitMacroConnection(initConnectorPair.second, formatter);
 
   formatter.endElement();
 }

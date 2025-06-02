@@ -48,9 +48,8 @@ OutputsEntry::copy(const OutputsEntry& other) {
   finalStateValuesEntry_ = DYN::clone(other.finalStateValuesEntry_);
 
   finalStateEntries_.reserve(other.finalStateEntries_.size());
-  for (std::vector<std::shared_ptr<FinalStateEntry> >::const_iterator it = other.finalStateEntries_.begin(); it != other.finalStateEntries_.end(); ++it) {
-    finalStateEntries_.push_back(DYN::clone(*it));
-  }
+  for (const auto& finalStateEntry : other.finalStateEntries_)
+    finalStateEntries_.push_back(DYN::clone(finalStateEntry));
 }
 
 void

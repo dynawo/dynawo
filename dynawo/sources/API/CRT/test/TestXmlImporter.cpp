@@ -61,23 +61,20 @@ TEST(APICRTTest, testXmlFileImporter) {
   ASSERT_NO_THROW(criteriaCollection = importer.importFromFile("res/criteria.crt"));
 
   size_t idx = 0;
-  for (CriteriaCollection::CriteriaCollectionConstIterator it = criteriaCollection->begin(CriteriaCollection::BUS),
-      itEnd = criteriaCollection->end(CriteriaCollection::BUS);
-      it != itEnd; ++it, ++idx) {
-    std::shared_ptr<Criteria> criteria = *it;
+  for (const auto& criteria : criteriaCollection->getBusCriteria()) {
     if (idx == 0) {
       size_t idx2 = 0;
-      for (Criteria::component_id_const_iterator it2 = criteria->begin(), it2End = criteria->end();
-          it2 != it2End; ++it2, ++idx2) {
+      for (const auto& componentId : criteria->getComponentIds()) {
         if (idx2 == 0) {
-          ASSERT_EQ(it2->getId(), "MyId");
-          ASSERT_EQ(it2->getVoltageLevelId(), "MyVoltageLevelId");
+          ASSERT_EQ(componentId->getId(), "MyId");
+          ASSERT_EQ(componentId->getVoltageLevelId(), "MyVoltageLevelId");
         } else if (idx2 == 1) {
-          ASSERT_EQ(it2->getId(), "MyId2");
-          ASSERT_EQ(it2->getVoltageLevelId(), "");
+          ASSERT_EQ(componentId->getId(), "MyId2");
+          ASSERT_EQ(componentId->getVoltageLevelId(), "");
         } else {
           assert(false);
         }
+        ++idx2;
       }
       ASSERT_TRUE(criteria->hasCountryFilter());
       ASSERT_TRUE(criteria->containsCountry("BE"));
@@ -96,45 +93,41 @@ TEST(APICRTTest, testXmlFileImporter) {
     } else {
       assert(false);
     }
+    ++idx;
   }
 
   idx = 0;
-  for (CriteriaCollection::CriteriaCollectionConstIterator it = criteriaCollection->begin(CriteriaCollection::LOAD),
-      itEnd = criteriaCollection->end(CriteriaCollection::LOAD);
-      it != itEnd; ++it, ++idx) {
-    std::shared_ptr<Criteria> criteria = *it;
+  for (const auto& criteria : criteriaCollection->getLoadCriteria()) {
     if (idx == 0) {
-      assert(criteria->begin() == criteria->end());
       ASSERT_EQ(criteria->getParams()->getScope(), CriteriaParams::FINAL);
       ASSERT_EQ(criteria->getParams()->getType(), CriteriaParams::SUM);
       ASSERT_EQ(criteria->getParams()->getId(), "loadCritId");
       ASSERT_DOUBLE_EQUALS_DYNAWO(criteria->getParams()->getPMax(), 200);
       ASSERT_FALSE(criteria->getParams()->hasVoltageLevels());
       ASSERT_FALSE(criteria->getParams()->hasPMin());
-      ASSERT_EQ(criteria->begin() == criteria->end(), true);
+      ASSERT_EQ(criteria->getComponentIds().size(), 0);
       ASSERT_FALSE(criteria->hasCountryFilter());
     } else if (idx == 1) {
-      assert(criteria->begin() == criteria->end());
       ASSERT_EQ(criteria->getParams()->getScope(), CriteriaParams::FINAL);
       ASSERT_EQ(criteria->getParams()->getType(), CriteriaParams::SUM);
       ASSERT_EQ(criteria->getParams()->getId(), "loadCritIdWithCountry");
       ASSERT_DOUBLE_EQUALS_DYNAWO(criteria->getParams()->getPMax(), 300);
       ASSERT_FALSE(criteria->getParams()->hasVoltageLevels());
       ASSERT_FALSE(criteria->getParams()->hasPMin());
-      ASSERT_EQ(criteria->begin() == criteria->end(), true);
+      ASSERT_EQ(criteria->getComponentIds().size(), 0);
       ASSERT_TRUE(criteria->hasCountryFilter());
       ASSERT_TRUE(criteria->containsCountry("EN"));
       ASSERT_TRUE(criteria->containsCountry("IT"));
     } else if (idx == 2) {
       size_t idx2 = 0;
-      for (Criteria::component_id_const_iterator it2 = criteria->begin(), it2End = criteria->end();
-          it2 != it2End; ++it2, ++idx2) {
+      for (const auto& componentId : criteria->getComponentIds()) {
         if (idx2 == 0)
-          ASSERT_EQ(it2->getId(), "MyLoad");
+          ASSERT_EQ(componentId->getId(), "MyLoad");
         else if (idx2 == 1)
-          ASSERT_EQ(it2->getId(), "MyLoad2");
+          ASSERT_EQ(componentId->getId(), "MyLoad2");
         else
           assert(false);
+        ++idx2;
       }
       ASSERT_EQ(criteria->getParams()->getScope(), CriteriaParams::FINAL);
       ASSERT_EQ(criteria->getParams()->getType(), CriteriaParams::SUM);
@@ -155,7 +148,6 @@ TEST(APICRTTest, testXmlFileImporter) {
       ASSERT_FALSE(criteria->getParams()->hasPMin());
       ASSERT_FALSE(criteria->hasCountryFilter());
     } else if (idx == 3) {
-      assert(criteria->begin() == criteria->end());
       ASSERT_EQ(criteria->getParams()->getScope(), CriteriaParams::FINAL);
       ASSERT_EQ(criteria->getParams()->getType(), CriteriaParams::SUM);
       ASSERT_EQ(criteria->getParams()->getId(), "loadCritId3");
@@ -172,6 +164,7 @@ TEST(APICRTTest, testXmlFileImporter) {
     } else {
       assert(false);
     }
+    ++idx;
   }
 }
 

@@ -28,10 +28,8 @@ namespace DYN {
 
 Timers::~Timers() {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
-  std::map<std::string, double>::const_iterator itT;
-  for (itT = timers_.begin(); itT != timers_.end(); ++itT) {
-    std::cout << "TIMER[" << itT->first << "] = " << itT->second << " seconds in " << nbAppels_[itT->first] << " calls" << std::endl;
-  }
+  for (const auto& timer : timers_)
+    std::cout << "TIMER[" << timer.first << "] = " << timer.second << " seconds in " << nbAppels_[timer.first] << " calls" << std::endl;
 #endif
 }
 
@@ -42,13 +40,13 @@ Timers::instance() {
 }
 
 void
-Timers::add(const std::string& name, const double& time) {
+Timers::add(const std::string& name, const double time) {
   Timers& timers = instance();
   timers.add_(name, time);
 }
 
 void
-Timers::add_(const std::string& name, const double& time) {
+Timers::add_(const std::string& name, const double time) {
   std::stringstream ss;
   ss << std::this_thread::get_id() << "_" << name;
   std::string name_formatted = ss.str();
@@ -65,7 +63,7 @@ isStopped_(false) {
 void
 Timer::stop() {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
-  double elapsedTime = elapsed();
+  const double elapsedTime = elapsed();
   Timers::add(name_, elapsedTime);
 #endif
   isStopped_ = true;
@@ -80,7 +78,7 @@ double Timer::elapsed() const {
   if (isStopped_) {
     return 0.;
   }
-  auto duration = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - startPoint_);
+  const auto duration = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - startPoint_);
   return static_cast<double>(duration.count()) / 1000000;  // For the result in seconds
 }
 

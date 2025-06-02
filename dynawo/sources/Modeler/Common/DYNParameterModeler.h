@@ -65,14 +65,14 @@ class ParameterModeler : public ParameterCommon {
    * @throws when it is forbidden to write data for the current parameter and origin
    * @throws when the parameter is not unitary
    */
-  void writeChecks(const parameterOrigin_t& origin) const;
+  void writeChecks(parameterOrigin_t origin) const;
 
   /**
    * @brief checks whether a parameter value may be set for a given origin
    * @param origin tested origin for the parameter
    * @return whether write rights are granted
    */
-  inline bool originWriteAllowed(const parameterOrigin_t& origin) const {
+  inline bool originWriteAllowed(const parameterOrigin_t origin) const {
     return ((writeRights_.find(origin) != writeRights_.end()) && (writeRights_.find(origin)->second));
   }
 
@@ -81,7 +81,7 @@ class ParameterModeler : public ParameterCommon {
    * @param value parameter's value
    * @param origin parameter's origin
    */
-  template<typename T> void setValue(const T& value, const parameterOrigin_t& origin);
+  template<typename T> void setValue(const T& value, parameterOrigin_t origin);
 
   /**
    * @brief Setter for parameter's cardinality
@@ -107,7 +107,7 @@ class ParameterModeler : public ParameterCommon {
    * @brief Update the priority origin of the parameter
    * @param origin origin used to update the priority origin
    */
-  void updateOrigin(const parameterOrigin_t& origin);
+  void updateOrigin(parameterOrigin_t origin);
 
   /**
    * @brief check whether the parameter's origin is set
@@ -121,7 +121,7 @@ class ParameterModeler : public ParameterCommon {
    * @brief Set the priority origin of the parameter
    * @param origin origin used to update the priority origin
    */
-  inline void setOrigin(const parameterOrigin_t& origin) {
+  inline void setOrigin(const parameterOrigin_t origin) {
     origin_ = origin;
   }
 
@@ -129,7 +129,7 @@ class ParameterModeler : public ParameterCommon {
    * @brief indicates whether a parameter has a value
    * @return true if the parameter has a value, false otherwise
    */
-  inline bool hasValue() const {
+  inline bool hasValue() const override {
     return originSet();
   }
 
@@ -138,14 +138,14 @@ class ParameterModeler : public ParameterCommon {
    * @param origin tested origin for the parameter
    * @return true if the parameter has a value associated with the given origin, false otherwise
    */
-  bool hasOrigin(const parameterOrigin_t& origin) const;
+  bool hasOrigin(parameterOrigin_t origin) const;
 
   /**
    * @brief indicates whether a parameter has a value associated with a given origin or a less important origin
    * @param origin tested origin for the parameter
    * @return true if the parameter has a value associated with the given origin or a less important origin, false otherwise
    */
-  inline bool hasAtLeastOrigin(const parameterOrigin_t& origin) const {
+  inline bool hasAtLeastOrigin(const parameterOrigin_t origin) const {
     return (getOrigin() >= origin);
   }
 
@@ -153,7 +153,7 @@ class ParameterModeler : public ParameterCommon {
    * @brief parameter's value intermediary getter
    * @return parameter's value
    */
-  boost::any getAnyValue() const;
+  boost::any getAnyValue() const override;
 
   /**
    * @brief parameter's value getter (converting the value to double)
@@ -227,7 +227,7 @@ class ParameterModeler : public ParameterCommon {
    * @brief TypeError getter
    * @return TypeError getter
    */
-  Error::TypeError_t getTypeError() const;
+  Error::TypeError_t getTypeError() const override;
 
  private:
   ParameterModeler() = delete;  ///< default constructor

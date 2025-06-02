@@ -96,12 +96,12 @@ class LoadInterfaceIIDM : public LoadInterface, public InjectorInterfaceIIDM {
   /**
    * @copydoc LoadInterface::getStateVarP()
    */
-  double getStateVarP();
+  double getStateVarP() const;
 
   /**
    * @copydoc LoadInterface::getP0()
    */
-  double getP0();
+  double getP0() const;
 
   /**
    * @copydoc LoadInterface::getQ()
@@ -111,13 +111,12 @@ class LoadInterfaceIIDM : public LoadInterface, public InjectorInterfaceIIDM {
   /**
    * @copydoc LoadInterface::getQ0()
    */
-  double getQ0();
+  double getQ0() const;
 
   /**
    * @copydoc LoadInterface::getID() const
    */
-  std::string
-  getID() const {
+  const std::string& getID() const {
     return loadIIDM_.getId();
   }
 
