@@ -139,12 +139,12 @@ ModelVoltageSetPointChange::setGequations() {
 }
 
 void
-ModelVoltageSetPointChange::evalJt(const double /*t*/, const double /*cj*/, SparseMatrix& /*jt*/, const int /*rowOffset*/) {
+ModelVoltageSetPointChange::evalJt(const double /*t*/, const double /*cj*/, const int /*rowOffset*/, SparseMatrix& /*jt*/) {
   // not needed
 }
 
 void
-ModelVoltageSetPointChange::evalJtPrim(const double /*t*/, const double /*cj*/, SparseMatrix& /*jt*/, const int /*rowOffset*/) {
+ModelVoltageSetPointChange::evalJtPrim(const double /*t*/, const double /*cj*/, const int /*rowOffset*/,  SparseMatrix& /*jtPrim*/) {
   // not needed
 }
 

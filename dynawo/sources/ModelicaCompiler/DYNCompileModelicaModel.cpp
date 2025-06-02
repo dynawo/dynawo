@@ -45,29 +45,39 @@ static void modelicaCompile(const string& modelName, const string& compilationDi
                             bool& withInitFile,
                             const string& packageName,
                             bool noInit, bool useAliasing);  ///< Convert the whole (INIT when relevant + standard) Modelica model into a C++ model
+
 static void compileLib(const string& modelName, const string& compilationDir);  ///< Compile the C++ model
+
 static string executeCommand(const string& command, const bool printLogs, const string& start_dir = "");  ///< Run a given command and return logs
+
 static string compileModelicaToC(const string& modelName, const string& fileToCompile, const vector<string>& libs,
                                const string& compilationDir,
                                const string& packageName, bool useAliasing);  ///< Convert one (INIT or standard) Modelica model into C code
+
 static string runOptions(bool useAliasing);  ///< Return modelica run options
+
 static void compileModelicaToXML(const string& modelName, const string& fileToCompile, const vector<string>& libs,
                                  const string& compilationDir,
                                  const string& packageName, bool useAliasing);  ///< Generate the .xml file describing the model parameters and variables
+
 static void generateModelFile(const string& modelName, const string& compilationDir,
                               bool& withInitFile,
                               const string& additionalHeaderList,
                               const string& packageName,
                               bool genCalcVars);  ///< Rewrite parts of one whole Modelica model C/C++ code to fit Dynawo C/C++ requirements
+
 static bool verifySharedObject(const string& library);  ///< Ensure that the generated compiled library can actually run
 
 static void mosAddHeader(const string& mosFilePath, ofstream& mosFile);  ///< Add a header to the .mos file
-static void mosAddFilesImport(const bool importModelicaPackage, const vector<string>& filesToImport,
+
+static void mosAddFilesImport(bool importModelicaPackage, const vector<string>& filesToImport,
                               ofstream& mosFile);  ///< Add files import commands to a .mos file
 static string mosRunFile(const string& mosFilePath, const string& path);  ///< Run a given .mos file
+
 static bool copyFile(const string& fileName,
     const string& modelDir,
     const string& compilationDir);  ///< copy file from input folder into output folder, return true if input file is equal to output file
+
 int main(int argc, char ** argv) {
   DYN::InitXerces xerces;
   Trace::init();
@@ -130,13 +140,13 @@ int main(int argc, char ** argv) {
   }
 
   // Prepare workspace
-  if (!is_directory(modelDir))
+  if (!isDirectory(modelDir))
     throw DYNError(DYN::Error::MODELER, MissingModelicaInputFolder, modelDir);
 #ifndef _DEBUG_
-  remove_all_in_directory(compilationDir);
+  removeAllInDirectory(compilationDir);
 #endif
-  if (!is_directory(compilationDir))
-    create_directory(compilationDir);
+  if (!isDirectory(compilationDir))
+    createDirectory(compilationDir);
   string compilationDir1 = prettyPath(compilationDir);
 
   copyFile(modelName + ".mo", modelDir, compilationDir);
@@ -174,7 +184,7 @@ int main(int argc, char ** argv) {
           throw DYNError(DYN::Error::MODELER, FileGenerationFailed, lib);
         copyFile(libName, compilationDir, modelDir);
 #ifndef _DEBUG_
-        remove_all_in_directory(compilationDir1);
+        removeAllInDirectory(compilationDir1);
 #endif
       }
     }
@@ -196,13 +206,12 @@ int main(int argc, char ** argv) {
   return 0;
 }
 
-
 bool
 copyFile(const string& fileName, const string& modelDir, const string& compilationDir) {
-  string compilationDir1 = prettyPath(compilationDir);
-  string modelDir1 = prettyPath(modelDir);
-  string inputFile = absolute(fileName, modelDir1);
-  string outputFile = absolute(fileName, compilationDir1);
+  const string compilationDir1 = prettyPath(compilationDir);
+  const string modelDir1 = prettyPath(modelDir);
+  const string inputFile = absolute(fileName, modelDir1);
+  const string outputFile = absolute(fileName, compilationDir1);
   if (exists(inputFile) && inputFile != outputFile) {
     if (exists(outputFile))
       remove(outputFile);
@@ -213,7 +222,7 @@ copyFile(const string& fileName, const string& modelDir, const string& compilati
 
 void
 modelicaCompile(const string& modelName, const string& compilationDir,
-        const vector<string>&  initFiles, const vector<string>& moFiles, bool& withInitFile, const string& packageName, bool noInit, bool useAliasing) {
+        const vector<string>& initFiles, const vector<string>& moFiles, bool& withInitFile, const string& packageName, bool noInit, bool useAliasing) {
   string compilationDir1 = prettyPath(compilationDir);
   string scriptsDir1 = getMandatoryEnvVar("DYNAWO_SCRIPTS_DIR");
   string pythonCmd = "python";
@@ -253,8 +262,8 @@ modelicaCompile(const string& modelName, const string& compilationDir,
     withInitFile = exists(initFile);
     if (withInitFile) {
       vector<string> libs1 = libs;
-      for (unsigned int i = 0; i < initFiles.size(); ++i)
-        libs1.push_back(initFiles[i]);  // some libs for .mo can be used for _INIT.mo
+      for (const auto& initFileName : initFiles)
+        libs1.push_back(initFileName);  // some libs for .mo can be used for _INIT.mo
 
       error = compileModelicaToC(modelName + "_INIT", initFile, libs1, compilationDir, packageName, useAliasing);
 
@@ -269,7 +278,6 @@ modelicaCompile(const string& modelName, const string& compilationDir,
 
 
 ///< Add a header to a .mos file
-
 void mosAddHeader(const string& mosFilePath, ofstream& mosFile) {
   mosFile << "// File automatically generated by Dynawo (private RTE software)" << std::endl;
   mosFile << "// In order to run this file, run the following command" << std::endl;
@@ -279,9 +287,7 @@ void mosAddHeader(const string& mosFilePath, ofstream& mosFile) {
   mosFile << std::endl;
 }
 
-
 ///< Add files import to a .mos file
-
 void mosAddFilesImport(const bool importModelicaPackage, const vector<string>& filesToImport, ofstream& mosFile) {
   if (importModelicaPackage) {
     mosFile << "// .. Load Modelica package" << std::endl;
@@ -289,18 +295,16 @@ void mosAddFilesImport(const bool importModelicaPackage, const vector<string>& f
     mosFile << std::endl;
   }
 
-  if (filesToImport.size() > 0) {
+  if (!filesToImport.empty()) {
     mosFile << "// .. Load custom files" << std::endl;
-    for (vector<string>::const_iterator itFile = filesToImport.begin(); itFile != filesToImport.end(); ++itFile) {
-      mosFile << "loadFile(\"" << boost::replace_all_copy(*itFile, "\\", "/") << "\"); getErrorString();" << std::endl;
+    for (const auto& fileToImport : filesToImport) {
+      mosFile << "loadFile(\"" << boost::replace_all_copy(fileToImport, "\\", "/") << "\"); getErrorString();" << std::endl;
     }
   }
   mosFile << std::endl;
 }
 
-
 ///< Run a given .mos file
-
 string
 mosRunFile(const string& mosFilePath, const string& path) {
   // OMC generates sources where it runs ... :(
@@ -323,17 +327,17 @@ mosRunFile(const string& mosFilePath, const string& path) {
 }
 
 string
-runOptions(bool useAliasing) {
+runOptions(const bool useAliasing) {
   return string("simCodeTarget=C +showErrorMessages -g=Modelica "
       "-d=visxml,infoXmlOperations,initialization,disableSingleFlowEq,failtrace,dumpSimCode --postOptmodules-=wrapFunctionCalls")
-      + (useAliasing?string():string(" --preOptModules-=comSubExp,removeSimpleEquations")) +string(" +numProcs=1 +daeMode ");
+      + (useAliasing ? string() : string(" --preOptModules-=comSubExp,removeSimpleEquations")) + string(" +numProcs=1 +daeMode ");
 }
 
 string
 compileModelicaToC(const string& modelName, const string& fileToCompile, const vector<string>& libs,
-    const string& compilationDir, const string& packageName, bool useAliasing) {
+    const string& compilationDir, const string& packageName, const bool useAliasing) {
   // Create a .mos file
-  string mosFileName = "compileModelicaToC-" + modelName + ".mos";
+  const string mosFileName = "compileModelicaToC-" + modelName + ".mos";
   ofstream mosFile(absolute(mosFileName, compilationDir).c_str(), ios::out | ios::trunc);
 
   // add header
@@ -386,7 +390,7 @@ compileModelicaToXML(const string& modelName, const string& fileToCompile, const
 void
 generateModelFile(const string& modelName, const string& compilationDir, bool& withInitFile,
     const string& additionalHeaderList, const string& packageName, bool genCalcVars) {
-  string scriptsDir1 = getMandatoryEnvVar("DYNAWO_SCRIPTS_DIR");
+  const string scriptsDir1 = getMandatoryEnvVar("DYNAWO_SCRIPTS_DIR");
   string pythonCmd = "python";
   if (hasEnvVar("DYNAWO_PYTHON_COMMAND"))
     pythonCmd = getEnvVar("DYNAWO_PYTHON_COMMAND");
@@ -400,7 +404,7 @@ generateModelFile(const string& modelName, const string& compilationDir, bool& w
   if (!packageName.empty())
     varExtCommand += " --package-name " + packageName;
 
-  bool doPrintLogs = true;
+  constexpr bool doPrintLogs = true;
   string result = executeCommand(varExtCommand, doPrintLogs);
 }
 
@@ -410,16 +414,16 @@ compileLib(const string& modelName, const string& compilationDir) {
 
   // Check some environment variables that are mandatory for CMake compilation
   vector<string> envVariableToCheck;
-  envVariableToCheck.push_back("DYNAWO_INSTALL_DIR");
-  envVariableToCheck.push_back("DYNAWO_ADEPT_INSTALL_DIR");
-  envVariableToCheck.push_back("DYNAWO_SUITESPARSE_INSTALL_DIR");
-  envVariableToCheck.push_back("DYNAWO_SUNDIALS_INSTALL_DIR");
-  envVariableToCheck.push_back("DYNAWO_INSTALL_OPENMODELICA");
-  envVariableToCheck.push_back("DYNAWO_XERCESC_INSTALL_DIR");
-  envVariableToCheck.push_back("DYNAWO_LIBXML_HOME");
-  for (size_t i = 0, iEnd = envVariableToCheck.size(); i < iEnd; ++i) {
-    if (!hasEnvVar(envVariableToCheck[i]))
-      throw DYNError(DYN::Error::GENERAL, MissingEnvironmentVariable, envVariableToCheck[i]);
+  envVariableToCheck.emplace_back("DYNAWO_INSTALL_DIR");
+  envVariableToCheck.emplace_back("DYNAWO_ADEPT_INSTALL_DIR");
+  envVariableToCheck.emplace_back("DYNAWO_SUITESPARSE_INSTALL_DIR");
+  envVariableToCheck.emplace_back("DYNAWO_SUNDIALS_INSTALL_DIR");
+  envVariableToCheck.emplace_back("DYNAWO_INSTALL_OPENMODELICA");
+  envVariableToCheck.emplace_back("DYNAWO_XERCESC_INSTALL_DIR");
+  envVariableToCheck.emplace_back("DYNAWO_LIBXML_HOME");
+  for (const auto& envVariable : envVariableToCheck) {
+    if (!hasEnvVar(envVariable))
+      throw DYNError(DYN::Error::GENERAL, MissingEnvironmentVariable, envVariable);
   }
 
   ofstream cmakeFile(absolute("CMakeLists.txt", compilationDir).c_str(), ios::out | ios::trunc);
@@ -432,19 +436,18 @@ compileLib(const string& modelName, const string& compilationDir) {
 
   string compileLibCommand = "cmake -B" + compilationDir + " -H" + compilationDir + " -C" + absolute("PreloadCache.cmake", scriptsDir)
 #if __linux__
-                           + " -DMODEL_NAME=" + modelName + " -DCMAKE_SKIP_BUILD_RPATH=True && { cmake --build " + compilationDir + " || cmake --build " + compilationDir + " > /dev/null; }";
+                           + " -DMODEL_NAME=" + modelName + " -DCMAKE_SKIP_BUILD_RPATH=True && { cmake --build " + compilationDir + " || cmake --build "
+                            + compilationDir + " > /dev/null; }";
 #else
                            + " -DMODEL_NAME=" + modelName + " && cmake --build " + compilationDir;
 #endif
   bool doPrintLogs = true;
   string result = executeCommand(compileLibCommand, doPrintLogs);
-
-  return;
 }
 
 bool verifySharedObject(const string& library) {
   try {
-    boost::dll::shared_library lib(library);
+    const boost::dll::shared_library lib(library);
     static_cast<void>(lib);
     // we don't use the lib as we check that the library is loadable, which is done in
     // constructor
@@ -457,9 +460,9 @@ bool verifySharedObject(const string& library) {
 
   // verify links.
 #ifdef __linux__
-  string command = "ldd -r " + library;
-  bool doPrintLogs = true;
-  string result = executeCommand(command, doPrintLogs);
+  const string command = "ldd -r " + library;
+  const bool doPrintLogs = true;
+  const string result = executeCommand(command, doPrintLogs);
   bool valid = result.find("undefined symbol") == string::npos;
 #else
   bool valid = true;

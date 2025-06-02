@@ -182,7 +182,7 @@ StaticVarCompensatorInterfaceIIDM::getVNom() const {
   return getVNomInjector();
 }
 
-string
+const std::string&
 StaticVarCompensatorInterfaceIIDM::getID() const {
   return staticVarCompensatorIIDM_.getId();
 }

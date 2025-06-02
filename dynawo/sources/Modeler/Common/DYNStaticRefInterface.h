@@ -66,7 +66,7 @@ class StaticRefInterface {
    * @brief get model id
    * @returns model ID
    */
-  std::string getModelID() const {
+  const std::string& getModelID() const {
     return modelID_;
   }
 
@@ -74,7 +74,7 @@ class StaticRefInterface {
    * @brief get model var
    * @returns model var
    */
-  std::string getModelVar() const {
+  const std::string& getModelVar() const {
     return modelVar_;
   }
 
@@ -82,7 +82,7 @@ class StaticRefInterface {
    * @brief get static var
    * @returns static var
    */
-  std::string getStaticVar() const {
+  const std::string& getStaticVar() const {
     return staticVar_;
   }
 

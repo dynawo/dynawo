@@ -53,10 +53,8 @@ CsvExporter::exportToStream(const std::shared_ptr<CurvesCollection>& curves, ost
 
   // check if there are curves to be printed
   bool hasAvailableCurves(false);
-  for (CurvesCollection::iterator itCurve = curves->begin();
-          itCurve != curves->end();
-          ++itCurve) {
-    if ((*itCurve)->getAvailable()) {
+  for (const auto& curve : curves->getCurves()) {
+    if (curve->getAvailable()) {
       hasAvailableCurves = true;
       break;
     }
@@ -70,38 +68,31 @@ CsvExporter::exportToStream(const std::shared_ptr<CurvesCollection>& curves, ost
 
   // print title line
   stream << "time" << CSVEXPORTER_SEPARATOR;
-  for (CurvesCollection::iterator itCurve = curves->begin();
-          itCurve != curves->end();
-          ++itCurve) {
-    if ((*itCurve)->getAvailable() && (*itCurve)->getExportType() != curves::Curve::EXPORT_AS_FINAL_STATE_VALUE) {
-      stream << (*itCurve)->getModelName() << "_"
-              << (*itCurve)->getVariable() << CSVEXPORTER_SEPARATOR;
+  for (const auto& curve : curves->getCurves()) {
+    if (curve->getAvailable() && curve->getExportType() != curves::Curve::EXPORT_AS_FINAL_STATE_VALUE) {
+      stream << curve->getModelName() << "_"
+              << curve->getVariable() << CSVEXPORTER_SEPARATOR;
     }
   }
   stream << "\n";
 
   // get time line
   std::vector<double> time;
-  for (CurvesCollection::iterator itCurve = curves->begin();
-          itCurve != curves->end();
-          ++itCurve) {
-    if ((*itCurve)->getAvailable()) {
-      for (Curve::const_iterator itPoint = (*itCurve)->cbegin();
-              itPoint != (*itCurve)->cend();
-              ++itPoint) {
-        time.push_back((*itPoint)->getTime());
+  for (const auto& curve : curves->getCurves()) {
+    if (curve->getAvailable()) {
+      for (const auto& point : curve->getPoints()) {
+        time.push_back(point->getTime());
       }
       break;
     }
   }
-  // for each time point ,print value for all the curves.
+  // for each time point, print value for all the curves.
   for (unsigned int i = 0; i < time.size(); ++i) {
     stream <<  DYN::double2String(time[i]) << CSVEXPORTER_SEPARATOR;
-    for (CurvesCollection::iterator itCurve = curves->begin();
-            itCurve != curves->end();
-            ++itCurve) {
-      if ((*itCurve)->getAvailable() && (*itCurve)->getExportType() != curves::Curve::EXPORT_AS_FINAL_STATE_VALUE) {
-        stream << DYN::double2String((*((*itCurve)->at(i)))->getValue()) << CSVEXPORTER_SEPARATOR;
+    for (const auto& curve : curves->getCurves()) {
+      const auto& points = curve->getPoints();
+      if (curve->getAvailable() && curve->getExportType() != curves::Curve::EXPORT_AS_FINAL_STATE_VALUE) {
+        stream << DYN::double2String(points[i]->getValue()) << CSVEXPORTER_SEPARATOR;
       }
     }
     stream << "\n";

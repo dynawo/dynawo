@@ -65,7 +65,7 @@ ConnectorCalculatedVariable::checkParametersCoherence() const {
 }
 
 void
-ConnectorCalculatedVariable::evalF(double /*t*/, propertyF_t type) {
+ConnectorCalculatedVariable::evalF(const double /*t*/, const propertyF_t type) {
   if (type == DIFFERENTIAL_EQ)
     return;
 
@@ -83,26 +83,26 @@ ConnectorCalculatedVariable::evalG(const double /*t*/) {
 }
 
 void
-ConnectorCalculatedVariable::evalJt(const double /*t*/, const double /*cj*/, SparseMatrix& Jt, const int rowOffset) {
+ConnectorCalculatedVariable::evalJt(const double /*t*/, const double /*cj*/, const int rowOffset, SparseMatrix& jt) {
   // only one equation : 0 = calculatedVariable -y
 
-  const double dMOne(-1.);
+  constexpr double dMOne(-1.);
 
-  Jt.changeCol();
-  Jt.addTerm(rowOffset, dMOne);  // d(f)/d(yLocal) = -1
+  jt.changeCol();
+  jt.addTerm(rowOffset, dMOne);  // d(f)/d(yLocal) = -1
 
-  vector<double> JModel(varExtIndexes_.size());
-  model_->evalJCalculatedVarI(indexCalculatedVariable_, JModel);
+  vector<double> jModel(varExtIndexes_.size());
+  model_->evalJCalculatedVarI(indexCalculatedVariable_, jModel);
 
   for (std::size_t i = 0, iEnd = varExtIndexes_.size(); i < iEnd; ++i) {  // d(f)/dyModel = d(calculatedVariable)/d(yModel)
-    Jt.addTerm(model_->getOffsetY() + varExtIndexes_[i], JModel[i]);
+    jt.addTerm(model_->getOffsetY() + varExtIndexes_[i], jModel[i]);
   }
 }
 
 void
-ConnectorCalculatedVariable::evalJtPrim(const double /*t*/, const double /*cj*/, SparseMatrix& Jt, const int /*rowOffset*/) {
+ConnectorCalculatedVariable::evalJtPrim(const double /*t*/, const double /*cj*/, const int /*rowOffset*/, SparseMatrix& jtPrim) {
   // only one equation : 0 = calculatedVariable  -y
-  Jt.changeCol();
+  jtPrim.changeCol();
   // We assume that calculated variables do not depend on derivatives.
 }
 
@@ -129,7 +129,7 @@ ConnectorCalculatedVariable::evalCalculatedVars() {
 }
 
 void
-ConnectorCalculatedVariable::setParams(const shared_ptr<SubModel>& model, const int indexCalculatedVariable) {
+ConnectorCalculatedVariable::setParams(const boost::shared_ptr<SubModel>& model, const int indexCalculatedVariable) {
   model_ = model;
   indexCalculatedVariable_ = indexCalculatedVariable;
   if (indexCalculatedVariable_ == -1)
@@ -171,9 +171,9 @@ ConnectorCalculatedVariable::evalStaticFType() {
 
 void
 ConnectorCalculatedVariable::defineVariables(vector<boost::shared_ptr<Variable> >& variables) {
-  typeVar_t type = model_->getVariable(variableName_)->getType();
+  const typeVar_t type = model_->getVariable(variableName_)->getType();
   assert(type == CONTINUOUS || type == FLOW);
-  variables.push_back(VariableNativeFactory::createState("connector_" + name(), type));
+  variables.emplace_back(VariableNativeFactory::createState("connector_" + name(), type));
 }
 
 void

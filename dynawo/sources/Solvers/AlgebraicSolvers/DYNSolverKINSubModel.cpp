@@ -56,7 +56,7 @@ SolverKINSubModel::init(SubModel* subModel,
                         const double t0,
                         double* yBuffer,
                         double* fBuffer,
-                        std::shared_ptr<parameters::ParametersSet> localInitParameters) {
+                        const std::shared_ptr<parameters::ParametersSet>& localInitParameters) {
   // (1) Attributes
   // --------------
   clean();
@@ -110,8 +110,8 @@ SolverKINSubModel::init(SubModel* subModel,
 }
 
 int
-SolverKINSubModel::evalFInit_KIN(N_Vector yy, N_Vector rr, void *data) {
-  SolverKINSubModel* solver = reinterpret_cast<SolverKINSubModel*> (data);
+SolverKINSubModel::evalFInit_KIN(N_Vector yy, N_Vector rr, void* data) {
+  SolverKINSubModel* solver = reinterpret_cast<SolverKINSubModel*>(data);
   SubModel* subModel = solver->getSubModel();
 
   // evalF has already been called in the scaling part so it doesn't have to be called again for the first iteration
@@ -120,7 +120,7 @@ SolverKINSubModel::evalFInit_KIN(N_Vector yy, N_Vector rr, void *data) {
   } else {  // update of F
     realtype* iyy = NV_DATA_S(yy);
     const std::size_t yL = NV_LENGTH_S(yy);
-    std::copy(iyy, iyy + yL, solver->yBuffer_);
+    std::copy_n(iyy, yL, solver->yBuffer_);
     subModel->evalF(solver->t0_, UNDEFINED_EQ);
   }
 
@@ -134,12 +134,12 @@ SolverKINSubModel::evalFInit_KIN(N_Vector yy, N_Vector rr, void *data) {
 int
 SolverKINSubModel::evalJInit_KIN(N_Vector yy, N_Vector /*rr*/,
         SUNMatrix JJ, void* data, N_Vector /*tmp1*/, N_Vector /*tmp2*/) {
-  SolverKINSubModel* solver = reinterpret_cast<SolverKINSubModel*> (data);
+  SolverKINSubModel* solver = reinterpret_cast<SolverKINSubModel*>(data);
   SubModel* subModel = solver->getSubModel();
 
-  realtype *iyy = NV_DATA_S(yy);
-  std::size_t yL = NV_LENGTH_S(yy);
-  std::copy(iyy, iyy+yL, solver->yBuffer_);
+  realtype* iyy = NV_DATA_S(yy);
+  const std::size_t yL = NV_LENGTH_S(yy);
+  std::copy_n(iyy, yL, solver->yBuffer_);
 
   // Sparse matrix
   // -------------
@@ -148,8 +148,8 @@ SolverKINSubModel::evalJInit_KIN(N_Vector yy, N_Vector /*rr*/,
   smj.init(size, size);
 
   // Arbitrary value for cj
-  const double cj = 1.;
-  subModel->evalJt(solver->t0_, cj, smj, 0);
+  constexpr double cj = 1.;
+  subModel->evalJt(solver->t0_, cj, 0,  smj);
   SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, &solver->lastRowVals_, solver->linearSolver_, false);
 
   return 0;

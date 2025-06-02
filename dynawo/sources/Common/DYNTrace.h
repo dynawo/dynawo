@@ -333,7 +333,7 @@ class Trace {
    * @param level : String to convert.
    * @return Severity level representation of the string.
    */
-  static SeverityLevel severityLevelFromString(std::string level);
+  static SeverityLevel severityLevelFromString(const std::string& level);
 
   /**
    * @brief Get string representation of a severity level

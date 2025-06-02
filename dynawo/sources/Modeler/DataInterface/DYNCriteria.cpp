@@ -67,17 +67,16 @@ BusCriteria::checkCriteria(double t, bool finalStep, const boost::shared_ptr<tim
   if (!finalStep && params_->getScope() == criteria::CriteriaParams::FINAL)
     return true;
   std::multimap<double, std::unique_ptr<FailingCriteria> > distanceToBusFailingCriteriaMap;
-  for (std::vector<std::shared_ptr<BusInterface> >::const_iterator it = buses_.begin(), itEnd = buses_.end();
-      it != itEnd; ++it) {
-    double v = (*it)->getStateVarV();
+  for (const auto& bus : buses_) {
+    double v = bus->getStateVarV();
     if (doubleIsZero(v)) continue;
     assert(params_->hasVoltageLevels());
     assert(params_->getVoltageLevels().size() == 1);
     const criteria::CriteriaParamsVoltageLevel& vl = params_->getVoltageLevels()[0];
-    double vNom = (*it)->getVNom();
+    double vNom = bus->getVNom();
     if (vl.hasUMaxPu() && v > vl.getUMaxPu()*vNom) {
       std::unique_ptr<FailingCriteria> busFailingCriteria = DYN::make_unique<BusFailingCriteria>(Bound::MAX,
-                                                                                                  (*it)->getID(),
+                                                                                                  bus->getID(),
                                                                                                   v,
                                                                                                   v/vNom,
                                                                                                   vl.getUMaxPu()*vNom,
@@ -87,7 +86,7 @@ BusCriteria::checkCriteria(double t, bool finalStep, const boost::shared_ptr<tim
     }
     if (vl.hasUMinPu() && v < vl.getUMinPu()*vNom) {
       std::unique_ptr<FailingCriteria> busFailingCriteria = DYN::make_unique<BusFailingCriteria>(Bound::MIN,
-                                                                                                  (*it)->getID(),
+                                                                                                  bus->getID(),
                                                                                                   v,
                                                                                                   v/vNom,
                                                                                                   vl.getUMinPu()*vNom,
@@ -209,10 +208,7 @@ LoadCriteria::checkCriteria(double t, bool finalStep, const boost::shared_ptr<ti
     double p = load->getStateVarP() * SNREF;
     if (!params_->getVoltageLevels().empty()) {
       if (alreadyChecked.find(load->getID()) != alreadyChecked.end()) continue;
-      for (std::vector<criteria::CriteriaParamsVoltageLevel>::const_iterator itVl = params_->getVoltageLevels().begin(),
-          itVlEnd = params_->getVoltageLevels().end();
-          itVl != itVlEnd; ++itVl) {
-        const criteria::CriteriaParamsVoltageLevel& vl = *itVl;
+      for (const auto& vl : params_->getVoltageLevels()) {
         if ((vl.hasUMaxPu() || vl.hasUMinPu() || vl.hasUNomMax() || vl.hasUNomMin()) && load->getBusInterface()) {
           double v = load->getBusInterface()->getStateVarV();
           double vNom = load->getBusInterface()->getVNom();
@@ -378,10 +374,7 @@ LoadCriteria::addLoad(const std::shared_ptr<LoadInterface>& load) {
   if (params_->getVoltageLevels().empty()) {
     loads_.push_back(load);
   } else {
-    for (std::vector<criteria::CriteriaParamsVoltageLevel>::const_iterator itVl = params_->getVoltageLevels().begin(),
-        itVlEnd = params_->getVoltageLevels().end();
-        itVl != itVlEnd; ++itVl) {
-      const criteria::CriteriaParamsVoltageLevel& vl = *itVl;
+    for (const auto& vl : params_->getVoltageLevels()) {
       if (vl.hasUNomMin() &&
           load->getBusInterface() &&
           load->getBusInterface()->getVNom() < vl.getUNomMin()) continue;
@@ -465,10 +458,7 @@ GeneratorCriteria::checkCriteria(double t, bool finalStep, const boost::shared_p
     double p = -generator->getStateVarP() * SNREF;
     if (params_->getVoltageLevels().size() != 0) {
       if (alreadyChecked.find(generator->getID()) != alreadyChecked.end()) continue;
-      for (std::vector<criteria::CriteriaParamsVoltageLevel>::const_iterator itVl = params_->getVoltageLevels().begin(),
-          itVlEnd = params_->getVoltageLevels().end();
-          itVl != itVlEnd; ++itVl) {
-        const criteria::CriteriaParamsVoltageLevel& vl = *itVl;
+      for (const auto& vl : params_->getVoltageLevels()) {
         if ((vl.hasUMaxPu() || vl.hasUMinPu() || vl.hasUNomMin() || vl.hasUNomMax()) && generator->getBusInterface()) {
           double v = generator->getBusInterface()->getStateVarV();
           double vNom = generator->getBusInterface()->getVNom();
@@ -632,10 +622,7 @@ GeneratorCriteria::addGenerator(const std::shared_ptr<GeneratorInterface>& gener
   if (params_->getVoltageLevels().empty()) {
     generators_.push_back(generator);
   } else {
-    for (std::vector<criteria::CriteriaParamsVoltageLevel>::const_iterator itVl = params_->getVoltageLevels().begin(),
-        itVlEnd = params_->getVoltageLevels().end();
-        itVl != itVlEnd; ++itVl) {
-      const criteria::CriteriaParamsVoltageLevel& vl = *itVl;
+    for (const auto& vl : params_->getVoltageLevels()) {
       if (vl.hasUNomMin() &&
           generator->getBusInterface() &&
           generator->getBusInterface()->getVNom() < vl.getUNomMin()) continue;

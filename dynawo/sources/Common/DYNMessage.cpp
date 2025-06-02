@@ -66,7 +66,7 @@ Message::initialize(const std::string& dicoName, const std::string& key) {
   fmt_.clear_binds();
   hasFmt_ = false;
   string fmt = "";
-  if (dicoName != "" && IoDicos::hasIoDico(dicoName)) {
+  if (!dicoName.empty() && IoDicos::hasIoDico(dicoName)) {
     try {
       fmt = IoDicos::getIoDico(dicoName)->msg(key);
       hasFmt_ = true;
@@ -101,7 +101,7 @@ Message::str() const {
   } else {
     message << fmtss_.str();
   }
-  return (message.str());
+  return message.str();
 }
 
 }  // namespace DYN

@@ -60,19 +60,18 @@ XmlExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& constr
   AttributeList attrs;
 
   formatter->startElement("constraints", attrs);
-  for (ConstraintsCollection::const_iterator itConstraint = constraints->cbegin();
-          itConstraint != constraints->cend();
-          ++itConstraint) {
+  for (const auto& constraintPair : constraints->getConstraintsById()) {
+    const auto& constraint = constraintPair.second;
     attrs.clear();
-    attrs.add("modelName", (*itConstraint)->getModelName());
-    attrs.add("description", (*itConstraint)->getDescription());
-    attrs.add("time", DYN::double2String((*itConstraint)->getTime()));
-    if ((*itConstraint)->hasModelType())
-      attrs.add("type", (*itConstraint)->getModelType());
+    attrs.add("modelName", constraint->getModelName());
+    attrs.add("description", constraint->getDescription());
+    attrs.add("time", DYN::double2String(constraint->getTime()));
+    if (constraint->hasModelType())
+      attrs.add("type", constraint->getModelType());
 
-    const boost::optional<ConstraintData>& data = (*itConstraint)->getData();
+    const boost::optional<ConstraintData>& data = constraint->getData();
     if (data) {
-      switch ((*data).kind) {
+      switch (data->kind) {
         case ConstraintData::OverloadOpen:
           attrs.add("kind", "OverloadOpen");
           break;
@@ -91,13 +90,13 @@ XmlExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& constr
         case ConstraintData::Undefined:
           break;
       }
-      attrs.add("limit", (*data).limit);
-      attrs.add("value", (*data).value);
-      boost::optional<int> side = (*data).side;
+      attrs.add("limit", data->limit);
+      attrs.add("value", data->value);
+      boost::optional<int> side = data->side;
       if (side) {
         attrs.add("side", side.value());
       }
-      boost::optional<double> acceptableDuration = (*data).acceptableDuration;
+      boost::optional<double> acceptableDuration = data->acceptableDuration;
       if (acceptableDuration) {
         attrs.add("acceptableDuration", acceptableDuration.value());
       }

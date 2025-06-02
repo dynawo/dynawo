@@ -90,7 +90,7 @@ class ParametersSet : public std::enable_shared_from_this<ParametersSet> {
    * @param value : Value of the parameter
    * @returns Shared pointer to current ParametersSet instance
    */
-  std::shared_ptr<ParametersSet> createParameter(const std::string& name, const bool value);
+  std::shared_ptr<ParametersSet> createParameter(const std::string& name, bool value);
 
   /**
    * @brief Adds an int parameter in the parameters set
@@ -101,7 +101,7 @@ class ParametersSet : public std::enable_shared_from_this<ParametersSet> {
    * @param value : Value of the parameter
    * @returns Shared pointer to current ParametersSet instance
    */
-  std::shared_ptr<ParametersSet> createParameter(const std::string& name, const int value);
+  std::shared_ptr<ParametersSet> createParameter(const std::string& name, int value);
 
   /**
    * @brief Adds a double parameter in the parameters set
@@ -112,7 +112,7 @@ class ParametersSet : public std::enable_shared_from_this<ParametersSet> {
    * @param value : Value of the parameter
    * @returns Shared pointer to current ParametersSet instance
    */
-  std::shared_ptr<ParametersSet> createParameter(const std::string& name, const double value);
+  std::shared_ptr<ParametersSet> createParameter(const std::string& name, double value);
 
   /**
    * @brief Adds a string parameter in the parameters set
@@ -137,7 +137,7 @@ class ParametersSet : public std::enable_shared_from_this<ParametersSet> {
    * @param column : column of the parameter inside its array
    * @returns Shared pointer to current ParametersSet instance
    */
-  std::shared_ptr<ParametersSet> createParameter(const std::string& name, const bool value, const std::string& row, const std::string& column);
+  std::shared_ptr<ParametersSet> createParameter(const std::string& name, bool value, const std::string& row, const std::string& column);
 
   /**
    * @brief Adds an int parameter in the parameters set
@@ -151,7 +151,7 @@ class ParametersSet : public std::enable_shared_from_this<ParametersSet> {
    * @param column : column of the parameter inside its array
    * @returns Shared pointer to current ParametersSet instance
    */
-  std::shared_ptr<ParametersSet> createParameter(const std::string& name, const int value, const std::string& row, const std::string& column);
+  std::shared_ptr<ParametersSet> createParameter(const std::string& name, int value, const std::string& row, const std::string& column);
 
   /**
    * @brief Adds a double parameter in the parameters set
@@ -165,7 +165,7 @@ class ParametersSet : public std::enable_shared_from_this<ParametersSet> {
    * @param column : column of the parameter inside its array
    * @returns Shared pointer to current ParametersSet instance
    */
-  std::shared_ptr<ParametersSet> createParameter(const std::string& name, const double value, const std::string& row, const std::string& column);
+  std::shared_ptr<ParametersSet> createParameter(const std::string& name, double value, const std::string& row, const std::string& column);
 
   /**
    * @brief Adds a string parameter in the parameters set
@@ -219,7 +219,7 @@ class ParametersSet : public std::enable_shared_from_this<ParametersSet> {
    * @returns Shared pointer to the parameter
    * @throws API exception if the parameter is not found
    */
-  const std::shared_ptr<Parameter> getParameter(const std::string& name) const;
+  const std::shared_ptr<Parameter>& getParameter(const std::string& name) const;
 
   /**
    * @brief Get a reference from the parameters set
@@ -230,7 +230,7 @@ class ParametersSet : public std::enable_shared_from_this<ParametersSet> {
    * @returns Shared pointer to the reference
    * @throws API exception if the reference is not found
    */
-  const std::shared_ptr<Reference> getReference(const std::string& name) const;
+  const std::shared_ptr<Reference>& getReference(const std::string& name) const;
 
   /**
    * @brief Check if a parameter is in the parameters set
@@ -276,7 +276,7 @@ class ParametersSet : public std::enable_shared_from_this<ParametersSet> {
    *
    * @param parametersSet : ParametersSet to use for extension
    */
-  void extend(std::shared_ptr<ParametersSet> parametersSet);
+  void extend(const std::shared_ptr<ParametersSet>& parametersSet);
 
   /**
    * @brief Get a vector of parameter names
@@ -304,272 +304,21 @@ class ParametersSet : public std::enable_shared_from_this<ParametersSet> {
    *
    * @returns Reference to the map of parameters
    */
-  std::map<std::string, std::shared_ptr<Parameter> >& getParameters();
+  const std::map<std::string, std::shared_ptr<Parameter> >& getParameters();
 
   /**
    * @brief Get a reference to the map of references
    *
    * @returns Reference to the map of references
    */
-  std::unordered_map<std::string, std::shared_ptr<Reference> >& getReferences();
-
- public:
-  /**
-   * @class parameter_const_iterator
-   * @brief Const iterator over parameters
-   *
-   * Const iterator over parameters described in a set of parameters.
-   */
-  class parameter_const_iterator {
-   public:
-    /**
-     * @brief Constructor
-     *
-     * Constructor based on parameter's set. Can create an iterator to the
-     * beginning of the parameters' container or to the end. Parameters
-     * cannot be modified.
-     *
-     * @param iterated Pointer to the parameters' set iterated
-     * @param begin Flag indicating if the iterator point to the beginning (true)
-     * or the end of the parameters' container.
-     */
-    parameter_const_iterator(const ParametersSet* iterated, bool begin);
-
-    /**
-     * @brief Prefix-increment operator
-     *
-     * @returns Reference to this parameter_const_iterator
-     */
-    parameter_const_iterator& operator++();
-
-    /**
-     * @brief Postfix-increment operator
-     *
-     * @returns Copy of this parameter_const_iterator
-     */
-    parameter_const_iterator operator++(int);
-
-    /**
-     * @brief Prefix-decrement operator
-     *
-     * @returns Reference to this parameter_const_iterator
-     */
-    parameter_const_iterator& operator--();
-
-    /**
-     * @brief Postfix-decrement operator
-     *
-     * @returns Copy of this parameter_const_iterator
-     */
-    parameter_const_iterator operator--(int);
-
-    /**
-     * @brief Equal to operator
-     *
-     * @param other Iterator to be compared with this
-     * @returns true if iterators are equals, else false
-     */
-    bool operator==(const parameter_const_iterator& other) const;
-
-    /**
-     * @brief Not equal to operator
-     *
-     * @param other Iterator to be compared with this
-     * @returns true if iterators are different, else false
-     */
-    bool operator!=(const parameter_const_iterator& other) const;
-
-    /**
-     * @brief Indirection operator
-     *
-     * @returns Parameter pointed to by this
-     */
-    const std::shared_ptr<Parameter>& operator*() const;
-
-    /**
-     * @brief Structure dereference operator
-     *
-     * @returns Pointer to the Parameter pointed to by this
-     */
-    const std::shared_ptr<Parameter>* operator->() const;
-
-   private:
-    std::map<std::string, std::shared_ptr<Parameter> >::const_iterator current_; /**< Hidden map iterator */
-  };
+  const std::unordered_map<std::string, std::shared_ptr<Reference> >& getReferences();
 
   /**
-   * @brief Get a parameter_const_iterator to the beginning of the parameters' set
-   * @return beginning of constant iterator
-   */
-  parameter_const_iterator cbeginParameter() const;
-
-  /**
-   * @brief Get a parameter_const_iterator to the end of the parameters' set
-   * @return end of constant iterator
-   */
-  parameter_const_iterator cendParameter() const;
-
-  /**
-   * @class reference_const_iterator
-   * @brief Const iterator over references
-   *
-   * Const iterator over references described in a set of parameters.
-   */
-  class reference_const_iterator {
-   public:
-    /**
-     * @brief Constructor
-     *
-     * Constructor based on parameter's set. Can create an iterator to the
-     * beginning of the references' container or to the end. References
-     * cannot be modified.
-     *
-     * @param iterated Pointer to the references' set iterated
-     * @param begin Flag indicating if the iterator point to the beginning (true)
-     * or the end of the references' container.
-     */
-    reference_const_iterator(const ParametersSet* iterated, bool begin);
-
-    /**
-     * @brief Prefix-increment operator
-     *
-     * @returns Reference to this reference_const_iterator
-     */
-    reference_const_iterator& operator++();
-
-    /**
-     * @brief Postfix-increment operator
-     *
-     * @returns Copy of this reference_const_iterator
-     */
-    reference_const_iterator operator++(int);
-
-    /**
-     * @brief Equal to operator
-     *
-     * @param other Iterator to be compared with this
-     * @returns true if iterators are equals, else false
-     */
-    bool operator==(const reference_const_iterator& other) const;
-
-    /**
-     * @brief Not equal to operator
-     *
-     * @param other Iterator to be compared with this
-     * @returns true if iterators are different, else false
-     */
-    bool operator!=(const reference_const_iterator& other) const;
-
-    /**
-     * @brief Indirection operator
-     *
-     * @returns Reference pointed to by this
-     */
-    const std::shared_ptr<Reference>& operator*() const;
-
-    /**
-     * @brief Structure dereference operator
-     *
-     * @returns Pointer to the Reference pointed to by this
-     */
-    const std::shared_ptr<Reference>* operator->() const;
-
-   private:
-    std::unordered_map<std::string, std::shared_ptr<Reference> >::const_iterator current_; /**< Hidden map iterator */
-  };
-
-  /**
-   * @brief Get a reference_const_iterator to the beginning of the references' set
-   * @return beginning of constant iterator_ref
-   */
-  reference_const_iterator cbeginReference() const;
-
-  /**
-   * @brief Get a reference_const_iterator to the end of the references' set
-   * @return end of constant iterator_ref
-   */
-  reference_const_iterator cendReference() const;
-
-  /**
-   * @class macroparset_const_iterator
-   * @brief Const iterator over macroparsets
-   *
-   * Const iterator over macroparsets described in a set of parameters.
-   */
-  class macroparset_const_iterator {
-   public:
-    /**
-     * @brief Constructor
-     *
-     * Constructor based on parameter's set. Can create an iterator to the
-     * beginning of the macroparsets' container or to the end. macroparsets
-     * cannot be modified.
-     *
-     * @param iterated Pointer to the macroparsets' set iterated
-     * @param begin Flag indicating if the iterator point to the beginning (true)
-     * or the end of the macroparsets' container.
-     */
-    macroparset_const_iterator(const ParametersSet* iterated, bool begin);
-
-    /**
-     * @brief Prefix-increment operator
-     *
-     * @returns reference to this macroparset_const_iterator
-     */
-    macroparset_const_iterator& operator++();
-
-    /**
-     * @brief Postfix-increment operator
-     *
-     * @returns Copy of this macroparset_const_iterator
-     */
-    macroparset_const_iterator operator++(int);
-
-    /**
-     * @brief Equal to operator
-     *
-     * @param other Iterator to be compared with this
-     * @returns true if iterators are equals, else false
-     */
-    bool operator==(const macroparset_const_iterator& other) const;
-
-    /**
-     * @brief Not equal to operator
-     *
-     * @param other Iterator to be compared with this
-     * @returns true if iterators are different, else false
-     */
-    bool operator!=(const macroparset_const_iterator& other) const;
-
-    /**
-     * @brief Indirection operator
-     *
-     * @returns MacroParSet pointed to by this
-     */
-    const std::shared_ptr<MacroParSet>& operator*() const;
-
-    /**
-     * @brief Structure dereference operator
-     *
-     * @returns Pointer to the MacroParSet pointed to by this
-     */
-    const std::shared_ptr<MacroParSet>* operator->() const;
-
-   private:
-    std::map<std::string, std::shared_ptr<MacroParSet> >::const_iterator current_; /**< Hidden map iterator */
-  };
-
-  /**
-   * @brief Get a macroparset_const_iterator to the beginning of the macroparsets' set
-   * @return beginning of constant iterator_ref
-   */
-  macroparset_const_iterator cbeginMacroParSet() const;
-
-  /**
-   * @brief Get a macroparset_const_iterator to the end of the macroparsets' set
-   * @return end of constant iterator_ref
-   */
-  macroparset_const_iterator cendMacroParSet() const;
+  * @brief Get a reference to the map of macroParSets
+  *
+  * @returns Reference to the map of macroParSets
+  */
+  const std::map<std::string, std::shared_ptr<MacroParSet> >& getMacroParSets();
 
  private:
   /**
@@ -580,14 +329,13 @@ class ParametersSet : public std::enable_shared_from_this<ParametersSet> {
     const std::vector<std::string>& parNames = tableParameterNames(name, row, column);
     std::string firstParName;
     bool isFirstParName = true;
-    for (std::vector<std::string>::const_iterator itName = parNames.begin(); itName != parNames.end(); ++itName) {
-      const std::string itParName = *itName;
+    for (const auto& parName : parNames) {
       if (isFirstParName) {
-        createParameter(itParName, value);
-        firstParName = itParName;
+        createParameter(parName, value);
+        firstParName = parName;
         isFirstParName = false;
       } else {
-        createAlias(itParName, firstParName);
+        createAlias(parName, firstParName);
       }
     }
 
@@ -602,7 +350,7 @@ class ParametersSet : public std::enable_shared_from_this<ParametersSet> {
    * @param column the column index
    * @returns the full local value parameter name
    */
-  std::vector<std::string> tableParameterNames(const std::string& name, const std::string& row, const std::string& column) const;
+  static std::vector<std::string> tableParameterNames(const std::string& name, const std::string& row, const std::string& column);
 
  private:
   std::string id_;                                                           /**< Parameters' set id */

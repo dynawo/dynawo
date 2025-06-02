@@ -40,7 +40,7 @@ ModelTemplate::ModelTemplate(const string& id) : Model(id, Model::MODEL_TEMPLATE
 ModelTemplate::~ModelTemplate() {}
 
 void
-ModelTemplate::setCompilationOptions(bool useAliasing, bool generateCalculatedVariables) {
+ModelTemplate::setCompilationOptions(const bool useAliasing, bool const generateCalculatedVariables) {
   useAliasing_ = useAliasing;
   generateCalculatedVariables_ = generateCalculatedVariables;
 }

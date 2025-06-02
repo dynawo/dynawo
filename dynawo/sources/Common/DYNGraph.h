@@ -106,10 +106,10 @@ class Graph {
   /**
    * @brief check if a vertex exists
    *
-   * @param index id of the vertex to check
+   * @param id id of the vertex to check
    * @return @b true if the vertex exists, @b false otherwise
    */
-  bool hasVertex(unsigned int index);
+  bool hasVertex(unsigned int id);
 
   /**
    * @brief check if a path exist between two vertices
@@ -145,9 +145,9 @@ class Graph {
   /**
    * @brief set the weight/mask of each edge
    *
-   * @param weights weight to associate to each edge
+   * @param edgeWeights weight to associate to each edge
    */
-  void setEdgesWeight(const std::unordered_map<std::string, float>& weights);
+  void setEdgesWeight(const std::unordered_map<std::string, float>& edgeWeights);
 
   /**
    * @brief find the shortest path between two vertices

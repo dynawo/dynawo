@@ -23,7 +23,6 @@
 #include "DYDStaticRef.h"
 #include "DYDBlackBoxModelFactory.h"
 #include "DYDBlackBoxModel.h"
-#include "DYDIterators.h"
 
 namespace dynamicdata {
 
@@ -52,15 +51,14 @@ TEST(APIDYDTest, StaticRefWithModel) {
   model->addStaticRef("var2", "staticVar2");
 
   int nbStaticRefs = 0;
-  for (staticRef_const_iterator itSR = model->cbeginStaticRef();
-          itSR != model->cendStaticRef();
-          ++itSR) {
+  for (const auto& staticRefPair : model->getStaticRefs()) {
+    const auto& staticRef = staticRefPair.second;
     if (nbStaticRefs == 0) {
-      ASSERT_EQ((*itSR)->getModelVar(), "var1");
-      ASSERT_EQ((*itSR)->getStaticVar(), "staticVar1");
+      ASSERT_EQ(staticRef->getModelVar(), "var1");
+      ASSERT_EQ(staticRef->getStaticVar(), "staticVar1");
     } else {
-      ASSERT_EQ((*itSR)->getModelVar(), "var2");
-      ASSERT_EQ((*itSR)->getStaticVar(), "staticVar2");
+      ASSERT_EQ(staticRef->getModelVar(), "var2");
+      ASSERT_EQ(staticRef->getStaticVar(), "staticVar2");
     }
     ++nbStaticRefs;
   }

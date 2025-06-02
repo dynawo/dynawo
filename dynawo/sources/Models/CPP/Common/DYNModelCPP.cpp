@@ -35,10 +35,11 @@ using std::vector;
 
 namespace DYN {
 
-ModelCPP::ModelCPP() {
+ModelCPP::ModelCPP() :
+isStartingFromDump_(false) {
 }
 
-ModelCPP::ModelCPP(std::string modelType) :
+ModelCPP::ModelCPP(const std::string& modelType) :
 isStartingFromDump_(false),
 modelType_(modelType) {
 }
@@ -57,12 +58,12 @@ void
 ModelCPP::dumpVariables(map< string, string >& mapVariables) {
   stringstream values;
   boost::archive::binary_oarchive os(values);
-  string cSum = getCheckSum();
+  const string cSum = getCheckSum();
 
-  vector<double> y(yLocal_, yLocal_ + sizeY());
-  vector<double> yp(ypLocal_, ypLocal_ + sizeY());
-  vector<double> z(zLocal_, zLocal_ + sizeZ());
-  vector<double> g(gLocal_, gLocal_ + sizeG());
+  const vector<double> y(yLocal_, yLocal_ + sizeY());
+  const vector<double> yp(ypLocal_, ypLocal_ + sizeY());
+  const vector<double> z(zLocal_, zLocal_ + sizeZ());
+  const vector<double> g(gLocal_, gLocal_ + sizeG());
 
   os << cSum;
   os << y;
@@ -85,7 +86,7 @@ ModelCPP::loadVariables(const string& variables) {
   stringstream values(variables);
   boost::archive::binary_iarchive is(values);
 
-  string cSum = getCheckSum();
+  const string cSum = getCheckSum();
   string cSumRead;
   vector<double> yValues;
   vector<double> ypValues;
@@ -164,7 +165,7 @@ ModelCPP::defineNamesImpl(std::vector<boost::shared_ptr<Variable> >& variables, 
   calculatedVarNames.clear();
 
   for (unsigned int i = 0; i < variables.size(); ++i) {
-    boost::shared_ptr<Variable> currentVariable = variables[i];
+    auto& currentVariable = variables[i];
     const typeVar_t type = currentVariable->getType();
     const string name = currentVariable->getName();
     const bool isState = currentVariable->isState();
@@ -173,7 +174,7 @@ ModelCPP::defineNamesImpl(std::vector<boost::shared_ptr<Variable> >& variables, 
     if (currentVariable->isAlias())  // no alias in names vector
       continue;
 
-    boost::shared_ptr <VariableNative> nativeVariable = boost::dynamic_pointer_cast<VariableNative> (currentVariable);
+    const auto nativeVariable = boost::dynamic_pointer_cast<VariableNative>(currentVariable);
     if (!isState) {
       index = static_cast<int>(calculatedVarNames.size());
       calculatedVarNames.push_back(name);

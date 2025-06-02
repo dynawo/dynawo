@@ -59,180 +59,22 @@ class MacroParameterSet {
   void addParameter(const std::shared_ptr<Parameter>& parameter);
 
   /**
-   * @class parameter_const_iterator
-   * @brief Const iterator over parameters
-   *
-   * Const iterator over parameters described in a set of macroparameters.
-   */
-  class parameter_const_iterator {
-   public:
-    /**
-     * @brief Constructor
-     *
-     * Constructor based on macroparameter's set. Can create an iterator to the
-     * beginning of the parameters' container or to the end. Parameters
-     * cannot be modified.
-     *
-     * @param iterated Pointer to the parameters' set iterated
-     * @param begin Flag indicating if the iterator point to the beginning (true)
-     * or the end of the parameters' container.
-     */
-    parameter_const_iterator(const MacroParameterSet* iterated, bool begin);
-
-    /**
-     * @brief Prefix-increment operator
-     *
-     * @returns Reference to this parameter_const_iterator
-     */
-    parameter_const_iterator& operator++();
-
-    /**
-     * @brief Postfix-increment operator
-     *
-     * @returns Copy of this parameter_const_iterator
-     */
-    parameter_const_iterator operator++(int);
-
-    /**
-     * @brief Prefix-decrement operator
-     *
-     * @returns Reference to this parameter_const_iterator
-     */
-    parameter_const_iterator& operator--();
-
-    /**
-     * @brief Postfix-decrement operator
-     *
-     * @returns Copy of this parameter_const_iterator
-     */
-    parameter_const_iterator operator--(int);
-
-    /**
-     * @brief Equal to operator
-     *
-     * @param other Iterator to be compared with this
-     * @returns true if iterators are equals, else false
-     */
-    bool operator==(const parameter_const_iterator& other) const;
-
-    /**
-     * @brief Not equal to operator
-     *
-     * @param other Iterator to be compared with this
-     * @returns true if iterators are different, else false
-     */
-    bool operator!=(const parameter_const_iterator& other) const;
-
-    /**
-     * @brief Indirection operator
-     *
-     * @returns Parameter pointed to by this
-     */
-    const std::shared_ptr<Parameter>& operator*() const;
-
-    /**
-     * @brief Structure dereference operator
-     *
-     * @returns Pointer to the Parameter pointed to by this
-     */
-    const std::shared_ptr<Parameter>* operator->() const;
-
-   private:
-    std::map<std::string, std::shared_ptr<Parameter> >::const_iterator current_; /**< Hidden map iterator */
-  };
+  * @brief get the macro parameters sets
+  *
+  * @return macro parameters sets
+  */
+  const std::map<std::string, std::shared_ptr<Reference> >& getReferences() const {
+    return references_;
+  }
 
   /**
-   * @brief Get a parameter_const_iterator to the beginning of the parameters' set
-   * @return beginning of constant iterator
-   */
-  parameter_const_iterator cbeginParameter() const;
-
-  /**
-   * @brief Get a parameter_const_iterator to the end of the parameters' set
-   * @return end of constant iterator
-   */
-  parameter_const_iterator cendParameter() const;
-
-  /**
-   * @class reference_const_iterator
-   * @brief Const iterator over references
-   *
-   * Const iterator over references described in a set of macroparameters.
-   */
-  class reference_const_iterator {
-   public:
-    /**
-     * @brief Constructor
-     *
-     * Constructor based on macroparameter's set. Can create an iterator to the
-     * beginning of the references' container or to the end. References
-     * cannot be modified.
-     *
-     * @param iterated Pointer to the references' set iterated
-     * @param begin Flag indicating if the iterator point to the beginning (true)
-     * or the end of the references' container.
-     */
-    reference_const_iterator(const MacroParameterSet* iterated, bool begin);
-
-    /**
-     * @brief Prefix-increment operator
-     *
-     * @returns Reference to this reference_const_iterator
-     */
-    reference_const_iterator& operator++();
-
-    /**
-     * @brief Postfix-increment operator
-     *
-     * @returns Copy of this reference_const_iterator
-     */
-    reference_const_iterator operator++(int);
-
-    /**
-     * @brief Equal to operator
-     *
-     * @param other Iterator to be compared with this
-     * @returns true if iterators are equals, else false
-     */
-    bool operator==(const reference_const_iterator& other) const;
-
-    /**
-     * @brief Not equal to operator
-     *
-     * @param other Iterator to be compared with this
-     * @returns true if iterators are different, else false
-     */
-    bool operator!=(const reference_const_iterator& other) const;
-
-    /**
-     * @brief Indirection operator
-     *
-     * @returns Reference pointed to by this
-     */
-    const std::shared_ptr<Reference>& operator*() const;
-
-    /**
-     * @brief Structure dereference operator
-     *
-     * @returns Pointer to the Reference pointed to by this
-     */
-    const std::shared_ptr<Reference>* operator->() const;
-
-   private:
-    std::map<std::string, std::shared_ptr<Reference> >::const_iterator current_; /**< Hidden map iterator */
-  };
-
-  /**
-   * @brief Get a reference_const_iterator to the beginning of the references' set
-   * @return beginning of constant iterator_ref
-   */
-  reference_const_iterator cbeginReference() const;
-
-  /**
-   * @brief Get a reference_const_iterator to the end of the references' set
-   * @return end of constant iterator_ref
-   */
-  reference_const_iterator cendReference() const;
+  * @brief get the macro parameters sets
+  *
+  * @return macro parameters sets
+  */
+  const std::map<std::string, std::shared_ptr<Parameter> >& getParameters() const {
+    return parameters_;
+  }
 
  private:
   std::string id_;                                                 ///< id of the macroParameterSet

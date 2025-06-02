@@ -454,7 +454,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineJt) {
   SparseMatrix smj;
   int size = dl->sizeY();
   smj.init(size, size);
-  dl->evalJt(smj, 1., 0);
+  dl->evalJt(1., 0, smj);
   ASSERT_EQ(smj.nbElem(), 8);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[0], -0.041666666666666664);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[1], -0.041666666666666671);
@@ -471,7 +471,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineJt) {
   dl->getModelBus()->switchOff();
   SparseMatrix smj2;
   smj2.init(size, size);
-  dl->evalJt(smj2, 1., 0);
+  dl->evalJt(1., 0, smj2);
   ASSERT_EQ(smj2.nbElem(), 2);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[0], 1.0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[1], 1.0);
@@ -480,14 +480,14 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineJt) {
 
   SparseMatrix smjPrime;
   smjPrime.init(size, size);
-  dl->evalJtPrim(smjPrime, 0);
+  dl->evalJtPrim(0, smjPrime);
   ASSERT_EQ(smjPrime.nbElem(), 0);
 
   const std::unique_ptr<ModelDanglingLine> dlInit = createModelDanglingLine(false, true).first;
   dlInit->initSize();
   SparseMatrix smjInit;
   smjInit.init(dlInit->sizeY(), dlInit->sizeY());
-  ASSERT_NO_THROW(dlInit->evalJt(smjInit, 1., 0));
+  ASSERT_NO_THROW(dlInit->evalJt(1., 0, smjInit));
   ASSERT_EQ(smjInit.nbElem(), 0);
   delete[] zConnected;
 }

@@ -150,7 +150,7 @@ class InjectorInterfaceIIDM {
    * @brief Getter for the active power injected/consumed by the injector
    * @return The active power injected/consumed by the injector in MW (following iidm convention)
    */
-  double getPInjector() {
+  inline double getPInjector() {
     if (getInitialConnectedInjector()) {
       if (!hasPInjector()) {
         Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSet, "Injection", getIDInjector(), "P") << Trace::endline;
@@ -166,7 +166,7 @@ class InjectorInterfaceIIDM {
    * @brief Getter for the reactive power injected/consumed by the injector
    * @return The reactive power injected/consumed by the injector in Mvar (following iidm convention)
    */
-  double
+  inline double
   getQInjector() {
     if (getInitialConnectedInjector()) {
       if (!hasQInjector()) {

@@ -115,7 +115,7 @@ class SubModelFactories : private boost::noncopyable {
    * @return A map iterator whose key is the library name and whose value
    * is a pointer to the SubModelFactory.
    */
-  SubmodelFactoryIterator find(const std::string & lib);
+  SubmodelFactoryIterator find(const std::string& lib);
 
   /**
    * @brief Test if a map iterator is the end operator of factories map
@@ -125,7 +125,7 @@ class SubModelFactories : private boost::noncopyable {
    * @return @b true if the iterator is the end operator of the factories,
    * @b false otherwise.
    */
-  bool end(SubmodelFactoryIterator& iter);
+  bool end(const SubmodelFactoryIterator& iter);
 
   /**
    * @brief Add a factory associated to a given given library name

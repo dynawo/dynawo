@@ -11,7 +11,6 @@
 // simulation tool for power systems.
 //
 
-#include <boost/shared_ptr.hpp>
 #include <boost/algorithm/string/replace.hpp>
 
 #include <powsybl/iidm/Bus.hpp>
@@ -1216,7 +1215,7 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
   SparseMatrix smj;
   int size = dl->sizeY() + 1;
   smj.init(size, size);
-  dl->evalJt(smj, 1., 0);
+  dl->evalJt(1., 0, smj);
   smj.changeCol();
   smj.changeCol();
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[2], -smj.Ax_[3]);
@@ -1225,7 +1224,7 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
 
   SparseMatrix smjPrime;
   smjPrime.init(size, size);
-  dl->evalJtPrim(smjPrime, 0);
+  dl->evalJtPrim(0, smjPrime);
   smjPrime.changeCol();
   smjPrime.changeCol();
   ASSERT_DOUBLE_EQUALS_DYNAWO(smjPrime.Ax_[0], smjPrime.Ax_[1]);
@@ -1288,7 +1287,7 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
   SparseMatrix smj3;
   int size3 = dl3->sizeF();
   smj3.init(size3, size3);
-  dl3->evalJt(smj3, 1., 0);
+  dl3->evalJt(1., 0, smj3);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj3.Ax_[0], 1);
   ASSERT_EQ(smj3.nbElem(), 2);
 
@@ -1349,19 +1348,19 @@ TEST(ModelsModelNetwork, ModelNetworkLineJt) {
   SparseMatrix smj;
   int size = dl->sizeY();
   smj.init(size, size);
-  dl->evalJt(smj, 1., 0);
+  dl->evalJt(1., 0, smj);
   ASSERT_EQ(smj.nbElem(), 0);
 
   SparseMatrix smjPrime;
   smjPrime.init(size, size);
-  dl->evalJtPrim(smjPrime, 0);
+  dl->evalJtPrim(0, smjPrime);
   ASSERT_EQ(smjPrime.nbElem(), 0);
 
   const std::unique_ptr<ModelLine> dlInit = createModelLine(false, true).first;
   dlInit->initSize();
   SparseMatrix smjInit;
   smjInit.init(dlInit->sizeY(), dlInit->sizeY());
-  ASSERT_NO_THROW(dlInit->evalJt(smjInit, 1., 0));
+  ASSERT_NO_THROW(dlInit->evalJt(1., 0, smjInit));
   ASSERT_EQ(smjInit.nbElem(), 0);
 }
 

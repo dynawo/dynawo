@@ -31,7 +31,6 @@
 #include "DYDMacroConnect.h"
 #include "DYDXmlImporter.h"
 #include "DYDXmlExporter.h"
-#include "DYDIterators.h"
 #include "DYDMacroStaticRefFactory.h"
 #include "DYDStaticRef.h"
 #include "DYDMacroStaticRef.h"
@@ -144,11 +143,8 @@ TEST(APIDYDTest, ModelicaModel_1UDM_EqualsFromXml) {
 
   std::vector<std::shared_ptr<ModelicaModel> >models;
 
-  for (dynamicModel_iterator itModel = collection->beginModel();
-          itModel != collection->endModel();
-          ++itModel) {
-    models.push_back(std::dynamic_pointer_cast<ModelicaModel>(*itModel));
-  }
+  for (const auto& modelPair : collection->getModels())
+    models.push_back(std::dynamic_pointer_cast<ModelicaModel>(modelPair.second));
 
   ASSERT_EQ(models.size(), 2);
 
@@ -170,11 +166,8 @@ TEST(APIDYDTest, ModelicaModel_1UDM_DifferentFromXml) {
 
   std::vector<std::shared_ptr<ModelicaModel> >models;
 
-  for (dynamicModel_iterator itModel = collection->beginModel();
-          itModel != collection->endModel();
-          ++itModel) {
-    models.push_back(std::dynamic_pointer_cast<ModelicaModel>(*itModel));
-  }
+  for (const auto& modelPair : collection->getModels())
+    models.push_back(std::dynamic_pointer_cast<ModelicaModel>(modelPair.second));
 
   ASSERT_EQ(models.size(), 2);
 
@@ -196,11 +189,8 @@ TEST(APIDYDTest, ModelicaModel_3UDMsNoConnections_EqualsFromXml) {
 
   std::vector<std::shared_ptr<ModelicaModel> >models;
 
-  for (dynamicModel_iterator itModel = collection->beginModel();
-          itModel != collection->endModel();
-          ++itModel) {
-    models.push_back(std::dynamic_pointer_cast<ModelicaModel>(*itModel));
-  }
+  for (const auto& modelPair : collection->getModels())
+    models.push_back(std::dynamic_pointer_cast<ModelicaModel>(modelPair.second));
 
   ASSERT_EQ(models.size(), 2);
 
@@ -222,11 +212,8 @@ TEST(APIDYDTest, ModelicaModel_3UDMsNoConnections_DifferentFromXml) {
 
   std::vector<std::shared_ptr<ModelicaModel> >models;
 
-  for (dynamicModel_iterator itModel = collection->beginModel();
-          itModel != collection->endModel();
-          ++itModel) {
-    models.push_back(std::dynamic_pointer_cast<ModelicaModel>(*itModel));
-  }
+  for (const auto& modelPair : collection->getModels())
+    models.push_back(std::dynamic_pointer_cast<ModelicaModel>(modelPair.second));
 
   ASSERT_EQ(models.size(), 2);
 
@@ -248,11 +235,8 @@ TEST(APIDYDTest, ModelicaModelSameModelFromXml) {
 
   std::vector<std::shared_ptr<ModelicaModel> >models;
 
-  for (dynamicModel_iterator itModel = collection->beginModel();
-          itModel != collection->endModel();
-          ++itModel) {
-    models.push_back(std::dynamic_pointer_cast<ModelicaModel>(*itModel));
-  }
+  for (const auto& modelPair : collection->getModels())
+    models.push_back(std::dynamic_pointer_cast<ModelicaModel>(modelPair.second));
 
   ASSERT_EQ(models.size(), 1);
 
@@ -695,13 +679,13 @@ TEST(APIDYDTest, ModelicaModelRefIterators) {
   model->addStaticRef("MyVar", "MyStaticVar");
   ASSERT_NO_THROW(model->findMacroStaticRef("MyMacroStaticRef"));
   ASSERT_NO_THROW(model->findStaticRef("MyVar_MyStaticVar"));
-  for (staticRef_iterator it = model->beginStaticRef(), itEnd = model->endStaticRef(); it != itEnd; ++it) {
-    const std::unique_ptr<StaticRef>& ref = *it;
+  for (const auto& staticRefPair : model->getStaticRefs()) {
+    const std::unique_ptr<StaticRef>& ref = staticRefPair.second;
     ASSERT_EQ(ref->getModelVar(), "MyVar");
     ASSERT_EQ(ref->getStaticVar(), "MyStaticVar");
   }
-  for (macroStaticRef_iterator it = model->beginMacroStaticRef(), itEnd = model->endMacroStaticRef(); it != itEnd; ++it) {
-    std::shared_ptr<MacroStaticRef> ref = *it;
+  for (const auto& macroStaticRefPair : model->getMacroStaticRefs()) {
+    std::shared_ptr<MacroStaticRef> ref = macroStaticRefPair.second;
     ASSERT_EQ(ref->getId(), "MyMacroStaticRef");
   }
 }

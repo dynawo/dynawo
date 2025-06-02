@@ -123,14 +123,14 @@ class ModelThreeWindingsTransformer : public NetworkComponent {
   void evalF(propertyF_t type) override;
 
   /**
-   * @copydoc NetworkComponent::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJt(double cj, int rowOffset, SparseMatrix& jt)
    */
-  void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) override;
+  void evalJt(double cj, int rowOffset, SparseMatrix& jt) override;
 
   /**
-   * @copydoc NetworkComponent::evalJtPrim(SparseMatrix& jt, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJtPrim(int rowOffset, SparseMatrix& jtPrim)
    */
-  void evalJtPrim(SparseMatrix& jt, const int& rowOffset) override;
+  void evalJtPrim(int rowOffset, SparseMatrix& jtPrim) override;
 
   /**
    * @copydoc NetworkComponent::defineElements()
@@ -140,12 +140,12 @@ class ModelThreeWindingsTransformer : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::evalZ()
    */
-  NetworkComponent::StateChange_t evalZ(const double& t) override;
+  NetworkComponent::StateChange_t evalZ(double t) override;
 
   /**
    * @copydoc NetworkComponent::evalG()
    */
-  void evalG(const double& t) override;
+  void evalG(double t) override;
 
   /**
    * @brief evaluation calculated variables (for outputs)
@@ -232,14 +232,15 @@ class ModelThreeWindingsTransformer : public NetworkComponent {
   void setGequations(std::map<int, std::string>& gEquationIndex) override;
 
   /**
-   * @copydoc NetworkComponent::evalState(const double& time);
+   * @copydoc NetworkComponent::evalState(double time);
    */
-  NetworkComponent::StateChange_t evalState(const double& time) override;
+  NetworkComponent::StateChange_t evalState(double time) override;
 
   /**
    * @brief addBusNeighbors
    */
   void addBusNeighbors() override { /* not needed */ }
+
   /**
    * @brief init size
    */

@@ -31,9 +31,8 @@ ModelerEntry::ModelerEntry(const ModelerEntry& other):
   std::size_t size = other.dynModelsEntries_.size();
   dynModelsEntries_.clear();
   dynModelsEntries_.reserve(size);
-  for (std::vector<std::shared_ptr<DynModelsEntry> >::const_iterator it = other.dynModelsEntries_.begin();
-    it != other.dynModelsEntries_.end(); ++it) {
-    dynModelsEntries_.push_back(DYN::clone(*it));
+  for (const auto& entry : other.dynModelsEntries_) {
+    dynModelsEntries_.push_back(DYN::clone(entry));
   }
 }
 
@@ -48,9 +47,8 @@ ModelerEntry::operator=(const ModelerEntry& other) {
   std::size_t size = other.dynModelsEntries_.size();
   dynModelsEntries_.clear();
   dynModelsEntries_.reserve(size);
-  for (std::vector<std::shared_ptr<DynModelsEntry> >::const_iterator it = other.dynModelsEntries_.begin();
-    it != other.dynModelsEntries_.end(); ++it) {
-    dynModelsEntries_.push_back(DYN::clone(*it));
+  for (const auto& entry : other.dynModelsEntries_) {
+    dynModelsEntries_.push_back(DYN::clone(entry));
   }
 
   return *this;

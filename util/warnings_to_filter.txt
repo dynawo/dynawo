@@ -443,3 +443,6 @@ warning: return type of member DYN::SubModel::printInternalParameters is not doc
 warning: return type of member DYN::ModelCPP::dumpInternalVariables is not documented
 warning: return type of member DYN::NetworkComponent::dumpVariables is not documented
 warning: return type of member DYN::ModelCPP::loadInternalVariables is not documented
+warning: return type of member DYN::SolverKINCommon::analyseFlag is not documented
+warning: return type of member DYN::SubModel::addParameterCurve is not documented
+warning: return type of member DYN::SubModel::setParameterFromSet is not documented

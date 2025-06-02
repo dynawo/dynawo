@@ -97,7 +97,7 @@ class ShuntCompensatorInterfaceIIDM : public ShuntCompensatorInterface, public I
   /**
    * @copydoc ShuntCompensatorInterface::getID() const
    */
-  std::string getID() const;
+  const std::string& getID() const;
 
   /**
    * @copydoc ShuntCompensatorInterface::getCurrentSection() const

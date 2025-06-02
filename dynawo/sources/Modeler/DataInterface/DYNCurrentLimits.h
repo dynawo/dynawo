@@ -65,7 +65,7 @@ struct CurrentLimits {
     }
   };
 
-  std::unordered_map<CurrentLimitSide, boost::shared_ptr<CurrentLimit>, CurrentLimitSideHash > currentLimits;  ///< current limits
+  std::unordered_map<CurrentLimitSide, std::shared_ptr<CurrentLimit>, CurrentLimitSideHash > currentLimits;  ///< current limits
 };
 }  // namespace DYN
 

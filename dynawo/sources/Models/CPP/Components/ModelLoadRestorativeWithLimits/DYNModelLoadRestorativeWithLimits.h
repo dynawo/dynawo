@@ -39,21 +39,24 @@ class ModelLoadRestorativeWithLimitsFactory : public SubModelFactory {
   *
   */
   ModelLoadRestorativeWithLimitsFactory() { }
+
   /**
   * @brief default destructor
   *
   */
-  virtual ~ModelLoadRestorativeWithLimitsFactory() = default;
+  ~ModelLoadRestorativeWithLimitsFactory() override = default;
+
   /**
   * @brief ModelLoadRestorativeWithLimits getter
   *
   * @return A pointer to a new instance of ModelLoadRestorativeWithLimits
   */
-  SubModel* create() const;
+  SubModel* create() const override;
+
   /**
   * @brief ModelLoadRestorativeWithLimits destroy
   */
-  void destroy(SubModel*) const;
+  void destroy(SubModel*) const override;
 };
 
 /**
@@ -65,11 +68,13 @@ class ModelLoadRestorativeWithLimits : public ModelCPP {
   * @brief default constructor
   */
   ModelLoadRestorativeWithLimits();
+
   /**
    * @brief get check sum number
    * @return the check sum number associated to the model
    */
   std::string getCheckSum() const override;
+
   /**
   * @brief  calculated variables type
   */
@@ -91,20 +96,24 @@ class ModelLoadRestorativeWithLimits : public ModelCPP {
     running = 2,
     numZ = 3
   } zInd;
+
   /**
   * @brief define parameters
   * @param parameters vector to fill with the generic parameters
   */
   void defineParameters(std::vector<ParameterModeler>& parameters) override;
+
   /**
   * @brief ModelLoadRestorativeWithLimits parameters setter
   */
   void setSubModelParameters() override;
+
   /**
   * @brief ModelLoadRestorativeWithLimits model initialization
   * @param t0 : initial time of the simulation
   */
-  void init(const double t0) override;
+  void init(double t0) override;
+
   /**
   * @brief check whether the load is connected to the bus
   * @return @b True if the load is connected, @b false else
@@ -112,11 +121,13 @@ class ModelLoadRestorativeWithLimits : public ModelCPP {
   inline bool isConnected() const {
     return (static_cast<int>(zLocal_[running]) == RUNNING_TRUE);
   }
+
   /**
   * @brief set the silent flag for discrete variables
   * @param silentZTable flag table
   */
   void collectSilentZ(BitMask* silentZTable) override;
+
   /**
   * @brief ModelLoadRestorativeWithLimits model's sizes getter
   *
@@ -125,22 +136,27 @@ class ModelLoadRestorativeWithLimits : public ModelCPP {
   * and vector for the solver.
   */
   void getSize() override;
+
   /**
   * @copydoc ModelCPP::evalStaticYType()
   */
   void evalStaticYType() override;
+
   /**
    * @copydoc ModelCPP::evalDynamicYType()
    */
   void evalDynamicYType() override;
+
   /**
   * @copydoc ModelCPP::evalStaticFType()
   */
   void evalStaticFType() override;
+
   /**
    * @copydoc ModelCPP::evalDynamicFType()
    */
   void evalDynamicFType() override;
+
   /**
   * @brief initialize variables of the model
   *
@@ -148,6 +164,7 @@ class ModelLoadRestorativeWithLimits : public ModelCPP {
   * @param variables vector to fill with each variables
   */
   void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) override;
+
   /**
   * @brief ModelLoadRestorativeWithLimits F(t,y,y') function evaluation
   *
@@ -158,10 +175,12 @@ class ModelLoadRestorativeWithLimits : public ModelCPP {
   * @param[in] type type of the residues to compute (algebraic, differential or both)
   */
   void evalF(double t, propertyF_t type) override;
+
   /**
   * @copydoc ModelCPP::setFequations()
   */
   void setFequations() override;
+
   /**
   * @brief ModelLoadRestorativeWithLimits transposed jacobian evaluation
   *
@@ -169,10 +188,11 @@ class ModelLoadRestorativeWithLimits : public ModelCPP {
   *
   * @param t Simulation instant
   * @param cj Jacobian prime coefficient
-  * @param jt jacobian matrix to fullfill
   * @param rowOffset offset to use to identify the row where data should be added
+  * @param jt jacobian matrix to fullfill
   */
-  void evalJt(const double t, const double cj, SparseMatrix& jt, const int rowOffset) override;
+  void evalJt(double t, double cj, int rowOffset, SparseMatrix& jt) override;
+
   /**
   * @brief ModelLoadRestorativeWithLimits G(t,y,y') function evaluation
   *
@@ -180,11 +200,13 @@ class ModelLoadRestorativeWithLimits : public ModelCPP {
   *
   * @param t Simulation instant
   */
-  void evalG(const double t) override;
+  void evalG(double t) override;
+
   /**
   * @copydoc ModelCPP::setGequations()
   */
   void setGequations() override;
+
   /**
   * @brief  ModelLoadRestorativeWithLimits transposed jacobian evaluation
   *
@@ -192,10 +214,11 @@ class ModelLoadRestorativeWithLimits : public ModelCPP {
   *
   * @param t Simulation instant
   * @param cj Jacobian prime coefficient
-  * @param jt jacobian matrix to fullfill
   * @param rowOffset offset to use to identify the row where data should be added
+  * @param jtPrim jacobian matrix to fullfill
   */
-  void evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset) override;
+  void evalJtPrim(double t, double cj, int rowOffset, SparseMatrix& jtPrim) override;
+
   /**
   * @brief Model mode change type evaluation
   *
@@ -204,25 +227,30 @@ class ModelLoadRestorativeWithLimits : public ModelCPP {
   * @param[in] t Simulation instant
   * @return mode change type value
   */
-  modeChangeType_t evalMode(const double t) override;
-  /**
+  modeChangeType_t evalMode(double t) override;
+
+ /**
   * @copydoc ModelCPP::getY0()
   */
   void getY0() override;
+
   /**
   * @copydoc ModelCPP::initParams()
   */
   void initParams() override { /* not needed */ }
+
   /**
   * @brief initialize the model from data interface
   *
   * @param data data interface to use to initialize the model
   */
   void initializeFromData(const boost::shared_ptr<DataInterface>& data) override;
+
   /**
   * @copydoc ModelCPP::initializeStaticData()
   */
   void initializeStaticData() override { /* not needed */ }
+
   /**
   * @brief evaluate the value of a calculated variable
   *
@@ -231,10 +259,12 @@ class ModelLoadRestorativeWithLimits : public ModelCPP {
   * @return value of the calculated variable
   */
   double evalCalculatedVarI(unsigned iCalculatedVar) const override;
+
   /**
   * @brief calculate calculated variables
   */
   void evalCalculatedVars() override;
+
   /**
   * @brief evaluate the jacobian associated to a calculated variable
   *
@@ -242,14 +272,16 @@ class ModelLoadRestorativeWithLimits : public ModelCPP {
   * @param res values of the jacobian
   */
   void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const override;
+
   /**
   * @brief get the global indexes of the variables used to compute a calculated variable
   *
-  * @param iCalculatedVar index of the calculated variable
+  * @param numCalculatedVar index of the calculated variable
   * @param indexes vector to fill with the indexes
   *
   */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const override;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& indexes) const override;
+
   /**
   * @brief ModelLoadRestorativeWithLimits elements initializer
   *
@@ -259,6 +291,7 @@ class ModelLoadRestorativeWithLimits : public ModelCPP {
   * @param mapElement Map associating each element index in the elements vector to its name
   */
   void defineElements(std::vector<Element>& elements, std::map<std::string, int >& mapElement) override;
+
   /**
   * @brief ModelLoadRestorativeWithLimits discrete variables evaluation
   *
@@ -267,7 +300,7 @@ class ModelLoadRestorativeWithLimits : public ModelCPP {
   *
   * @param t Simulation instant
   */
-  void evalZ(const double t) override;
+  void evalZ(double t) override;
 
  private:
   unsigned int UfYNum_;  ///< local Y index for Uf

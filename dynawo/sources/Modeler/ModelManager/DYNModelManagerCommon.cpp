@@ -265,7 +265,7 @@ callExternalAutomatonModel(const std::string& modelName, const char* command, co
   static std::string separator = ";";
   std::string workingDir = workingDirectory + "/execution/" + modelName + "/";
   if (!exists(workingDir))
-    create_directory(workingDir);
+    createDirectory(workingDir);
 
   std::string outputFile = workingDir + "file_in.csv";
 

@@ -51,18 +51,8 @@ TEST(APIPARTest, ParametersSetCreate) {
   ASSERT_EQ(parametersSet->getId(), "parameters");
 
   // Test size
-  int nbParameters = 0;
-  for (ParametersSet::parameter_const_iterator itParam = parametersSet->cbeginParameter();
-        itParam != parametersSet->cendParameter();
-        ++itParam)
-    ++nbParameters;
+  auto nbParameters = parametersSet->getParameters().size();
   ASSERT_EQ(nbParameters, 4);
-
-  ParametersSet::parameter_const_iterator itVariablec(parametersSet->cbeginParameter());
-  ASSERT_EQ((++itVariablec)->get()->getName(), "DoubleParameter");
-  ASSERT_EQ((--itVariablec)->get()->getName(), "BooleanParameter");
-  ASSERT_EQ((itVariablec++)->get()->getName(), "BooleanParameter");
-  ASSERT_EQ((itVariablec--)->get()->getName(), "DoubleParameter");
   ASSERT_NO_THROW(parametersSet->setFilePath("test.par"));
   ASSERT_EQ(parametersSet->getFilePath(), "test.par");
 }
@@ -127,7 +117,7 @@ TEST(APIPARTest, ParametersSetAddReference) {
   std::unique_ptr<Reference> ref5 = ReferenceFactory::newReference("ref5", Reference::OriginData::PAR);
   parametersSet2->addReference(std::move(ref5));
 
-  std::unordered_map<std::string, std::shared_ptr<Reference> >& references = parametersSet2->getReferences();
+  const std::unordered_map<std::string, std::shared_ptr<Reference> >& references = parametersSet2->getReferences();
   const int nbRefs = 3;
   std::array<std::string, nbRefs> refNamesList = {"ref3", "ref4", "ref5"};
   for (const std::string& refName : refNamesList) {
@@ -164,15 +154,8 @@ TEST(APIPARTest, ParametersSetGetParameters) {
   EXPECT_THAT(paramMap, ContainerEq(parametersSet->getParameters()));
 
   // Test size
-  int nbParameters = 0;
-  for (ParametersSet::parameter_const_iterator itParam = parametersSet->cbeginParameter();
-        itParam != parametersSet->cendParameter();
-        ++itParam)
-    ++nbParameters;
+  auto nbParameters = parametersSet->getParameters().size();
   ASSERT_EQ(nbParameters, 4);
-
-  ParametersSet::parameter_const_iterator itParam = parametersSet->cbeginParameter();
-  ASSERT_TRUE(itParam == itParam);
 
   // Get the vector of names
   string namesTab[] = {"param1", "param2", "param3", "param4"};
@@ -207,20 +190,10 @@ TEST(APIPARTest, ParametersSetGetReferences) {
   parametersSet->addReference(ref3);
 
   // Test size
-  int nbReferences = 0;
-  for (ParametersSet::reference_const_iterator itRef = parametersSet->cbeginReference();
-        itRef != parametersSet->cendReference();
-        ++itRef)
-    ++nbReferences;
+  auto nbReferences = parametersSet->getReferences().size();
   ASSERT_EQ(nbReferences, 3);
 
   ASSERT_EQ(ref3->getName(), "ref3");
-
-  ParametersSet::reference_const_iterator itVariablec(parametersSet->cbeginReference());
-  ++itVariablec;
-  itVariablec++;
-  ++itVariablec;
-  ASSERT_TRUE(itVariablec == parametersSet->cendReference());
 
   // Get the vector of names
   string namesTab[] = {"ref1", "ref2", "ref3"};
@@ -355,11 +328,6 @@ TEST(APIPARTest, MacroParSetIterator) {
   std::shared_ptr<ParametersSet> parametersSet = ParametersSetFactory::newParametersSet("parameters");
   ASSERT_NO_THROW(parametersSet->addMacroParSet(macroParSet));
   ASSERT_THROW_DYNAWO(parametersSet->addMacroParSet(macroParSet), DYN::Error::API, DYN::KeyError_t::MacroParSetAlreadyExists);
-  ParametersSet::macroparset_const_iterator macroParSetIt = parametersSet->cbeginMacroParSet();
-  ASSERT_TRUE(macroParSetIt == macroParSetIt);
-  ASSERT_EQ(macroParSetIt->get()->getId(), "macroParSet");
-  ASSERT_NO_THROW(macroParSetIt++);
-  ASSERT_NO_THROW(++macroParSetIt);
 }
 
 }  // namespace parameters

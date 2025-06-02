@@ -93,8 +93,8 @@ modelType_("TwoWindingsTransformer") {
   // ---------
 
   // state
-  bool connected1 = tfo->getInitialConnected1();
-  bool connected2 = tfo->getInitialConnected2();
+  const bool connected1 = tfo->getInitialConnected1();
+  const bool connected2 = tfo->getInitialConnected2();
 
   vNom1_ = std::numeric_limits<double>::quiet_NaN();
   vNom2_ = std::numeric_limits<double>::quiet_NaN();
@@ -147,57 +147,57 @@ modelType_("TwoWindingsTransformer") {
   tapChangerLocked_ = 0.;
 
   // tap changer and tap init
-  double coeff = vNom2_ * vNom2_ / SNREF;  // PU with respect to the secondary voltage
-  double ratio = tfo->getRatedU2() / tfo->getRatedU1() * vNom1_ / vNom2_;
+  const double coeff = vNom2_ * vNom2_ / SNREF;  // PU with respect to the secondary voltage
+  const double ratio = tfo->getRatedU2() / tfo->getRatedU1() * vNom1_ / vNom2_;
 
   const std::unique_ptr<PhaseTapChangerInterface>& phaseTapChanger = tfo->getPhaseTapChanger();
   const std::unique_ptr<RatioTapChangerInterface>& ratioTapChanger = tfo->getRatioTapChanger();
-  double r = tfo->getR() / coeff;
-  double x = tfo->getX() / coeff;
-  double g = tfo->getG() * coeff;
-  double b = tfo->getB() * coeff;
+  const double r = tfo->getR() / coeff;
+  const double x = tfo->getX() / coeff;
+  const double g = tfo->getG() * coeff;
+  const double b = tfo->getB() * coeff;
 
   if (phaseTapChanger) {
     const int lowIndex = phaseTapChanger->getLowPosition();
     modelPhaseChanger_.reset(new ModelPhaseTapChanger(tfo->getID(), lowIndex));
 
     const vector<std::unique_ptr<StepInterface> >& steps = phaseTapChanger->getSteps();
-    double rTapChanger = ratioTapChanger ? ratioTapChanger->getCurrentR() / 100. : 0.;
-    double xTapChanger = ratioTapChanger ? ratioTapChanger->getCurrentX() / 100. : 0.;
-    double bTapChanger = ratioTapChanger ? ratioTapChanger->getCurrentB() / 100. : 0.;
-    double gTapChanger = ratioTapChanger ? ratioTapChanger->getCurrentG() / 100. : 0.;
-    double rhoTapChanger = ratioTapChanger ? ratioTapChanger->getCurrentRho() : 1;
-    for (unsigned int i = 0; i < steps.size(); ++i) {
-      double rho = ratio * rhoTapChanger * steps[i]->getRho();
-      double phaseShift = steps[i]->getAlpha() * DEG_TO_RAD;
-      double rTap = r * (1. + rTapChanger + steps[i]->getR() / 100.);
-      double xTap = x * (1. + xTapChanger + steps[i]->getX() / 100.);
-      double gTap = g * (1. + gTapChanger + steps[i]->getG() / 100.);
-      double bTap = b * (1. + bTapChanger + steps[i]->getB() / 100.);
+    const double rTapChanger = ratioTapChanger ? ratioTapChanger->getCurrentR() / 100. : 0.;
+    const double xTapChanger = ratioTapChanger ? ratioTapChanger->getCurrentX() / 100. : 0.;
+    const double bTapChanger = ratioTapChanger ? ratioTapChanger->getCurrentB() / 100. : 0.;
+    const double gTapChanger = ratioTapChanger ? ratioTapChanger->getCurrentG() / 100. : 0.;
+    const double rhoTapChanger = ratioTapChanger ? ratioTapChanger->getCurrentRho() : 1;
+    for (const auto& step : steps) {
+      const double rho = ratio * rhoTapChanger * step->getRho();
+      const double phaseShift = step->getAlpha() * DEG_TO_RAD;
+      const double rTap = r * (1. + rTapChanger + step->getR() / 100.);
+      const double xTap = x * (1. + xTapChanger + step->getX() / 100.);
+      const double gTap = g * (1. + gTapChanger + step->getG() / 100.);
+      const double bTap = b * (1. + bTapChanger + step->getB() / 100.);
       modelPhaseChanger_->addStep(TapChangerStep(rho, phaseShift, rTap, xTap, gTap, bTap));
     }
     modelPhaseChanger_->setHighStepIndex(phaseTapChanger->getNbTap() + lowIndex - 1);
     modelPhaseChanger_->setCurrentStepIndex(phaseTapChanger->getCurrentPosition());
 
     // At the moment, only current regulation is supported.
-    bool regulating = phaseTapChanger->isCurrentLimiter() && phaseTapChanger->getRegulating();
-    double thresholdI = phaseTapChanger->getRegulationValue();
+    const bool regulating = phaseTapChanger->isCurrentLimiter() && phaseTapChanger->getRegulating();
+    const double thresholdI = phaseTapChanger->getRegulationValue();
     modelPhaseChanger_->setRegulating(regulating);
     modelPhaseChanger_->setThresholdI(thresholdI);
   } else if (ratioTapChanger) {
-    if (tfo->getRatioTapChanger()->hasLoadTapChangingCapabilities() && tfo->getRatioTapChanger()->getTerminalRefSide() != "") {
+    if (tfo->getRatioTapChanger()->hasLoadTapChangingCapabilities() && !tfo->getRatioTapChanger()->getTerminalRefSide().empty()) {
       const int lowIndex = ratioTapChanger->getLowPosition();
       modelRatioChanger_.reset(new ModelRatioTapChanger(tfo->getID(), tfo->getRatioTapChanger()->getTerminalRefSide(), lowIndex));
 
       terminalRefId_ = tfo->getRatioTapChanger()->getTerminalRefId();
       side_ = tfo->getRatioTapChanger()->getTerminalRefSide();
       const vector<std::unique_ptr<StepInterface> >& steps = ratioTapChanger->getSteps();
-      for (unsigned int i = 0; i < steps.size(); ++i) {
-        double rho = ratio * steps[i]->getRho();
-        double rTap = r * (1. + steps[i]->getR() / 100.);
-        double xTap = x * (1. + steps[i]->getX() / 100.);
-        double gTap = g * (1. + steps[i]->getG() / 100.);
-        double bTap = b * (1. + steps[i]->getB() / 100.);
+      for (const auto& step : steps) {
+        const double rho = ratio * step->getRho();
+        const double rTap = r * (1. + step->getR() / 100.);
+        const double xTap = x * (1. + step->getX() / 100.);
+        const double gTap = g * (1. + step->getG() / 100.);
+        const double bTap = b * (1. + step->getB() / 100.);
         modelRatioChanger_->addStep(TapChangerStep(rho, 0, rTap, xTap, gTap, bTap));
       }
       modelRatioChanger_->setHighStepIndex(ratioTapChanger->getNbTap() + lowIndex - 1);
@@ -212,12 +212,12 @@ modelType_("TwoWindingsTransformer") {
       modelTapChanger_.reset(new ModelTapChanger(tfo->getID(), currentStepIndex));
       const vector<std::unique_ptr<StepInterface> >& steps = ratioTapChanger->getSteps();
       // The steps law begins at 0 while the lowIndex could have another value.
-      int indexInSteps = currentStepIndex - ratioTapChanger->getLowPosition();
-      double rho = ratio * steps[indexInSteps]->getRho();
-      double rTap = r * (1. + steps[indexInSteps]->getR() / 100.);
-      double xTap = x * (1. + steps[indexInSteps]->getX() / 100.);
-      double gTap = g * (1. + steps[indexInSteps]->getG() / 100.);
-      double bTap = b * (1. + steps[indexInSteps]->getB() / 100.);
+      const int indexInSteps = currentStepIndex - ratioTapChanger->getLowPosition();
+      const double rho = ratio * steps[indexInSteps]->getRho();
+      const double rTap = r * (1. + steps[indexInSteps]->getR() / 100.);
+      const double xTap = x * (1. + steps[indexInSteps]->getX() / 100.);
+      const double gTap = g * (1. + steps[indexInSteps]->getG() / 100.);
+      const double bTap = b * (1. + steps[indexInSteps]->getB() / 100.);
       modelTapChanger_->addStep(TapChangerStep(rho, 0, rTap, xTap, gTap, bTap));
       modelTapChanger_->setHighStepIndex(currentStepIndex);
       modelTapChanger_->setCurrentStepIndex(currentStepIndex);
@@ -236,18 +236,18 @@ modelType_("TwoWindingsTransformer") {
 
   // current limits side 1
   const vector<std::unique_ptr<CurrentLimitInterface> >& cLimit1 = tfo->getCurrentLimitInterfaces1();
-  if (cLimit1.size() > 0) {
+  if (!cLimit1.empty()) {
     currentLimits1_.reset(new ModelCurrentLimits());
     currentLimits1_->setSide(ModelCurrentLimits::SIDE_1);
     currentLimits1_->setFactorPuToA(factorPuToASide1_);
     // Due to IIDM convention
     if (cLimit1[0]->getLimit() < maximumValueCurrentLimit) {
-      double limit = cLimit1[0]->getLimit() / factorPuToASide1_;
+      const double limit = cLimit1[0]->getLimit() / factorPuToASide1_;
       currentLimits1_->addLimit(limit, cLimit1[0]->getAcceptableDuration());
     }
     for (unsigned int i = 1; i < cLimit1.size(); ++i) {
       if (cLimit1[i-1]->getLimit() < maximumValueCurrentLimit) {
-        double limit = cLimit1[i-1]->getLimit() / factorPuToASide1_;
+        const double limit = cLimit1[i-1]->getLimit() / factorPuToASide1_;
         currentLimits1_->addLimit(limit, cLimit1[i]->getAcceptableDuration());
       }
     }
@@ -255,18 +255,18 @@ modelType_("TwoWindingsTransformer") {
 
   // current limits side 2
   const vector<std::unique_ptr<CurrentLimitInterface> >& cLimit2 = tfo->getCurrentLimitInterfaces2();
-  if (cLimit2.size() > 0) {
+  if (!cLimit2.empty()) {
     currentLimits2_.reset(new ModelCurrentLimits());
     currentLimits2_->setSide(ModelCurrentLimits::SIDE_2);
     currentLimits2_->setFactorPuToA(factorPuToASide2_);
     // Due to IIDM convention
     if (cLimit2[0]->getLimit() < maximumValueCurrentLimit) {
-      double limit = cLimit2[0]->getLimit() / factorPuToASide2_;
+      const double limit = cLimit2[0]->getLimit() / factorPuToASide2_;
       currentLimits2_->addLimit(limit, cLimit2[0]->getAcceptableDuration());
     }
     for (unsigned int i = 1; i < cLimit2.size(); ++i) {
       if (cLimit2[i-1]->getLimit() < maximumValueCurrentLimit) {
-        double limit = cLimit2[i-1]->getLimit() / factorPuToASide2_;
+        const double limit = cLimit2[i-1]->getLimit() / factorPuToASide2_;
         currentLimits2_->addLimit(limit, cLimit2[i]->getAcceptableDuration());
       }
     }
@@ -275,14 +275,14 @@ modelType_("TwoWindingsTransformer") {
   ir01_ = 0;
   ii01_ = 0;
   if (tfo->getBusInterface1()) {
-    double P01 = tfo->getP1() / SNREF;
-    double Q01 = tfo->getQ1() / SNREF;
-    double uNode1 = tfo->getBusInterface1()->getV0();
-    double thetaNode1 = tfo->getBusInterface1()->getAngle0();
-    double unomNode1 = tfo->getBusInterface1()->getVNom();
-    double ur01 = uNode1 / unomNode1 * cos(thetaNode1 * DEG_TO_RAD);
-    double ui01 = uNode1 / unomNode1 * sin(thetaNode1 * DEG_TO_RAD);
-    double U201 = ur01 * ur01 + ui01 * ui01;
+    const double P01 = tfo->getP1() / SNREF;
+    const double Q01 = tfo->getQ1() / SNREF;
+    const double uNode1 = tfo->getBusInterface1()->getV0();
+    const double thetaNode1 = tfo->getBusInterface1()->getAngle0();
+    const double unomNode1 = tfo->getBusInterface1()->getVNom();
+    const double ur01 = uNode1 / unomNode1 * cos(thetaNode1 * DEG_TO_RAD);
+    const double ui01 = uNode1 / unomNode1 * sin(thetaNode1 * DEG_TO_RAD);
+    const double U201 = ur01 * ur01 + ui01 * ui01;
     if (!doubleIsZero(U201)) {
       ir01_ = (P01 * ur01 + Q01 * ui01) / U201;
       ii01_ = (P01 * ui01 - Q01 * ur01) / U201;
@@ -292,14 +292,14 @@ modelType_("TwoWindingsTransformer") {
   ir02_ = 0;
   ii02_ = 0;
   if (tfo->getBusInterface2()) {
-    double P02 = tfo->getP2() / SNREF;
-    double Q02 = tfo->getQ2() / SNREF;
-    double uNode2 = tfo->getBusInterface2()->getV0();
-    double thetaNode2 = tfo->getBusInterface2()->getAngle0();
-    double unomNode2 = tfo->getBusInterface2()->getVNom();
-    double ur02 = uNode2 / unomNode2 * cos(thetaNode2 * DEG_TO_RAD);
-    double ui02 = uNode2 / unomNode2 * sin(thetaNode2 * DEG_TO_RAD);
-    double U202 = ur02 * ur02 + ui02 * ui02;
+    const double P02 = tfo->getP2() / SNREF;
+    const double Q02 = tfo->getQ2() / SNREF;
+    const double uNode2 = tfo->getBusInterface2()->getV0();
+    const double thetaNode2 = tfo->getBusInterface2()->getAngle0();
+    const double unomNode2 = tfo->getBusInterface2()->getVNom();
+    const double ur02 = uNode2 / unomNode2 * cos(thetaNode2 * DEG_TO_RAD);
+    const double ui02 = uNode2 / unomNode2 * sin(thetaNode2 * DEG_TO_RAD);
+    const double U202 = ur02 * ur02 + ui02 * ui02;
     if (!doubleIsZero(U202)) {
       ir02_ = (P02 * ur02 + Q02 * ui02) / U202;
       ii02_ = (P02 * ui02 - Q02 * ur02) / U202;
@@ -377,12 +377,12 @@ ModelTwoWindingsTransformer::init(int& /*yNum*/) {
 }
 
 void
-ModelTwoWindingsTransformer::evalJt(SparseMatrix& /*jt*/, const double& /*cj*/, const int& /*rowOffset*/) {
+ModelTwoWindingsTransformer::evalJt(const double /*cj*/, const int /*rowOffset*/, SparseMatrix& /*jt*/) {
   // not needed
 }
 
 void
-ModelTwoWindingsTransformer::evalJtPrim(SparseMatrix& /*jt*/, const int& /*rowOffset*/) {
+ModelTwoWindingsTransformer::evalJtPrim(const int /*rowOffset*/, SparseMatrix& /*jtPrim*/) {
   // not needed
 }
 
@@ -412,19 +412,19 @@ ModelTwoWindingsTransformer::evalNodeInjection() {
     }
   } else {
     if (modelBus1_ || modelBus2_) {
-      double ur1Val = ur1();
-      double ui1Val = ui1();
-      double ur2Val = ur2();
-      double ui2Val = ui2();
+      const double ur1Val = ur1();
+      const double ui1Val = ui1();
+      const double ur2Val = ur2();
+      const double ui2Val = ui2();
       if (modelBus1_) {
-        double irAdd1 = ir1(ur1Val, ui1Val, ur2Val, ui2Val);
-        double iiAdd1 = ii1(ur1Val, ui1Val, ur2Val, ui2Val);
+        const double irAdd1 = ir1(ur1Val, ui1Val, ur2Val, ui2Val);
+        const double iiAdd1 = ii1(ur1Val, ui1Val, ur2Val, ui2Val);
         modelBus1_->irAdd(irAdd1);
         modelBus1_->iiAdd(iiAdd1);
       }
       if (modelBus2_) {
-        double irAdd2 = ir2(ur1Val, ui1Val, ur2Val, ui2Val);
-        double iiAdd2 = ii2(ur1Val, ui1Val, ur2Val, ui2Val);
+        const double irAdd2 = ir2(ur1Val, ui1Val, ur2Val, ui2Val);
+        const double iiAdd2 = ii2(ur1Val, ui1Val, ur2Val, ui2Val);
         modelBus2_->irAdd(irAdd2);
         modelBus2_->iiAdd(iiAdd2);
       }
@@ -433,27 +433,27 @@ ModelTwoWindingsTransformer::evalNodeInjection() {
 }
 
 double
-ModelTwoWindingsTransformer::ir1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+ModelTwoWindingsTransformer::ir1(const double ur1, const double ui1, const double ur2, const double ui2) const {
   return ir1_dUr1_ * ur1 + ir1_dUi1_ * ui1 + ir1_dUr2_ * ur2 + ir1_dUi2_ * ui2;
 }
 
 double
-ModelTwoWindingsTransformer::ii1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+ModelTwoWindingsTransformer::ii1(const double ur1, const double ui1, const double ur2, const double ui2) const {
   return ii1_dUr1_ * ur1 + ii1_dUi1_ * ui1 + ii1_dUr2_ * ur2 + ii1_dUi2_ * ui2;
 }
 
 double
-ModelTwoWindingsTransformer::ir2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+ModelTwoWindingsTransformer::ir2(const double ur1, const double ui1, const double ur2, const double ui2) const {
   return ir2_dUr1_ * ur1 + ir2_dUi1_ * ui1 + ir2_dUr2_ * ur2 + ir2_dUi2_ * ui2;
 }
 
 double
-ModelTwoWindingsTransformer::ii2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+ModelTwoWindingsTransformer::ii2(const double ur1, const double ui1, const double ur2, const double ui2) const {
   return ii2_dUr1_ * ur1 + ii2_dUi1_ * ui1 + ii2_dUr2_ * ur2 + ii2_dUi2_ * ui2;
 }
 
 void
-ModelTwoWindingsTransformer::setCurrentStepIndex(const int& stepIndex) {
+ModelTwoWindingsTransformer::setCurrentStepIndex(const int stepIndex) {
   if (modelRatioChanger_)
     modelRatioChanger_->setCurrentStepIndex(stepIndex);
   else if (modelPhaseChanger_)
@@ -537,15 +537,15 @@ ModelTwoWindingsTransformer::ir1_dUr1() const {
   double ir1_dUr1 = 0.;
 
   // Get infos from current step
-  double rho = getRho();
-  double r = getR();
-  double x = getX();
-  double g = getG();
+  const double rho = getRho();
+  const double r = getR();
+  const double x = getX();
+  const double g = getG();
 
-  double admittance = 1. / sqrt(r * r + x * x);
-  double lossAngle = atan2(r, x);
+  const double admittance = 1. / sqrt(r * r + x * x);
+  const double lossAngle = atan2(r, x);
   if (getConnectionState() == CLOSED) {
-    double G1 = admittance * sin(lossAngle) + g;
+    const double G1 = admittance * sin(lossAngle) + g;
     ir1_dUr1 = rho * rho * G1;
   } else if (getConnectionState() == CLOSED_1) {
     ir1_dUr1 = rho * rho * g;
@@ -558,15 +558,15 @@ ModelTwoWindingsTransformer::ir1_dUi1() const {
   double ir1_dUi1 = 0.;
 
   // Get infos from current step
-  double rho = getRho();
-  double r = getR();
-  double x = getX();
-  double b = getB();
+  const double rho = getRho();
+  const double r = getR();
+  const double x = getX();
+  const double b = getB();
 
-  double admittance = 1. / sqrt(r * r + x * x);
-  double lossAngle = atan2(r, x);
+  const double admittance = 1. / sqrt(r * r + x * x);
+  const double lossAngle = atan2(r, x);
   if (getConnectionState() == CLOSED) {
-    double B1 = b - admittance * cos(lossAngle);
+    const double B1 = b - admittance * cos(lossAngle);
     ir1_dUi1 = -rho * rho * B1;
   } else if (getConnectionState() == CLOSED_1) {
     ir1_dUi1 = -rho * rho*b;
@@ -579,13 +579,13 @@ ModelTwoWindingsTransformer::ir1_dUr2() const {
   double ir1_dUr2 = 0.;
 
   // Get infos from current step
-  double rho = getRho();
-  double alpha = getAlpha();
-  double r = getR();
-  double x = getX();
+  const double rho = getRho();
+  const double alpha = getAlpha();
+  const double r = getR();
+  const double x = getX();
 
-  double admittance = 1. / sqrt(r * r + x * x);
-  double lossAngle = atan2(r, x);
+  const double admittance = 1. / sqrt(r * r + x * x);
+  const double lossAngle = atan2(r, x);
   if (getConnectionState() == CLOSED) {
     ir1_dUr2 = -rho * admittance * sin(lossAngle - alpha);
   }
@@ -597,14 +597,13 @@ ModelTwoWindingsTransformer::ir1_dUi2() const {
   double ir1_dUi2 = 0.;
 
   // Get infos from current step
-  double rho = getRho();
-  double alpha = getAlpha();
-  double r = getR();
-  double x = getX();
+  const double rho = getRho();
+  const double alpha = getAlpha();
+  const double r = getR();
+  const double x = getX();
 
-
-  double admittance = 1. / sqrt(r * r + x * x);
-  double lossAngle = atan2(r, x);
+  const double admittance = 1. / sqrt(r * r + x * x);
+  const double lossAngle = atan2(r, x);
   if (getConnectionState() == CLOSED) {
     ir1_dUi2 = -rho * admittance * cos(lossAngle - alpha);
   }
@@ -616,15 +615,15 @@ ModelTwoWindingsTransformer::ii1_dUr1() const {
   double ii1_dUr1 = 0.;
 
   // Get infos from current step
-  double rho = getRho();
-  double r = getR();
-  double x = getX();
-  double b = getB();
+  const double rho = getRho();
+  const double r = getR();
+  const double x = getX();
+  const double b = getB();
 
-  double admittance = 1. / sqrt(r * r + x * x);
-  double lossAngle = atan2(r, x);
+  const double admittance = 1. / sqrt(r * r + x * x);
+  const double lossAngle = atan2(r, x);
   if (getConnectionState() == CLOSED) {
-    double B1 = b - admittance * cos(lossAngle);
+    const double B1 = b - admittance * cos(lossAngle);
     ii1_dUr1 = rho * rho * B1;
   } else if (getConnectionState() == CLOSED_1) {
     ii1_dUr1 = rho * rho * b;
@@ -637,15 +636,15 @@ ModelTwoWindingsTransformer::ii1_dUi1() const {
   double ii1_dUi1 = 0.;
 
   // Get infos from current step
-  double rho = getRho();
-  double r = getR();
-  double x = getX();
-  double g = getG();
+  const double rho = getRho();
+  const double r = getR();
+  const double x = getX();
+  const double g = getG();
 
-  double admittance = 1. / sqrt(r * r + x * x);
-  double lossAngle = atan2(r, x);
+  const double admittance = 1. / sqrt(r * r + x * x);
+  const double lossAngle = atan2(r, x);
   if (getConnectionState() == CLOSED) {
-    double G1 = admittance * sin(lossAngle) + g;
+    const double G1 = admittance * sin(lossAngle) + g;
     ii1_dUi1 = rho * rho * G1;
   } else if (getConnectionState() == CLOSED_1) {
     ii1_dUi1 = rho * rho * g;
@@ -659,13 +658,13 @@ ModelTwoWindingsTransformer::ii1_dUr2() const {
   double ii1_dUr2 = 0.;
 
   // Get infos from current step
-  double rho = getRho();
-  double alpha = getAlpha();
-  double r = getR();
-  double x = getX();
+  const double rho = getRho();
+  const double alpha = getAlpha();
+  const double r = getR();
+  const double x = getX();
 
-  double admittance = 1. / sqrt(r * r + x * x);
-  double lossAngle = atan2(r, x);
+  const double admittance = 1. / sqrt(r * r + x * x);
+  const double lossAngle = atan2(r, x);
   if (getConnectionState() == CLOSED) {
     ii1_dUr2 = rho * admittance * cos(lossAngle - alpha);
   }
@@ -677,13 +676,13 @@ ModelTwoWindingsTransformer::ii1_dUi2() const {
   double ii1_dUi2 = 0.;
 
   // Get infos from current step
-  double rho = getRho();
-  double alpha = getAlpha();
-  double r = getR();
-  double x = getX();
+  const double rho = getRho();
+  const double alpha = getAlpha();
+  const double r = getR();
+  const double x = getX();
 
-  double admittance = 1. / sqrt(r * r + x * x);
-  double lossAngle = atan2(r, x);
+  const double admittance = 1. / sqrt(r * r + x * x);
+  const double lossAngle = atan2(r, x);
   if (getConnectionState() == CLOSED) {
     ii1_dUi2 = -rho * admittance * sin(lossAngle - alpha);
   }
@@ -695,13 +694,13 @@ ModelTwoWindingsTransformer::ir2_dUr1() const {
   double ir2_dUr1 = 0.;
 
   // Get infos from current step
-  double rho = getRho();
-  double alpha = getAlpha();
-  double r = getR();
-  double x = getX();
+  const double rho = getRho();
+  const double alpha = getAlpha();
+  const double r = getR();
+  const double x = getX();
 
-  double admittance = 1. / sqrt(r * r + x * x);
-  double lossAngle = atan2(r, x);
+  const double admittance = 1. / sqrt(r * r + x * x);
+  const double lossAngle = atan2(r, x);
   if (getConnectionState() == CLOSED) {
     ir2_dUr1 = -rho * admittance * sin(alpha + lossAngle);
   }
@@ -713,13 +712,13 @@ ModelTwoWindingsTransformer::ir2_dUi1() const {
   double ir2_dUi1 = 0.;
 
   // Get infos from current step
-  double rho = getRho();
-  double alpha = getAlpha();
-  double r = getR();
-  double x = getX();
+  const double rho = getRho();
+  const double alpha = getAlpha();
+  const double r = getR();
+  const double x = getX();
 
-  double admittance = 1. / sqrt(r * r + x * x);
-  double lossAngle = atan2(r, x);
+  const double admittance = 1. / sqrt(r * r + x * x);
+  const double lossAngle = atan2(r, x);
   if (getConnectionState() == CLOSED) {
     ir2_dUi1 = -rho * admittance * cos(alpha + lossAngle);
   }
@@ -731,21 +730,21 @@ ModelTwoWindingsTransformer::ir2_dUr2() const {
   double ir2_dUr2 = 0.;
 
   // Get infos from current step
-  double r = getR();
-  double x = getX();
-  double g = getG();
-  double b = getB();
+  const double r = getR();
+  const double x = getX();
+  const double g = getG();
+  const double b = getB();
 
-  double admittance = 1. / sqrt(r * r + x * x);
-  double lossAngle = atan2(r, x);
+  const double admittance = 1. / sqrt(r * r + x * x);
+  const double lossAngle = atan2(r, x);
   if (getConnectionState() == CLOSED) {
     ir2_dUr2 = admittance * sin(lossAngle);
   } else if (getConnectionState() == CLOSED_2) {
-    double G = admittance * sin(lossAngle) + g;
-    double B = b - admittance * cos(lossAngle);
-    double denom = G * G + B * B;
+    const double G = admittance * sin(lossAngle) + g;
+    const double B = b - admittance * cos(lossAngle);
+    const double denom = G * G + B * B;
 
-    double GT = 1. / denom * (admittance * admittance * g + (admittance * sin(lossAngle) * (g * g + b * b)));
+    const double GT = 1. / denom * (admittance * admittance * g + (admittance * sin(lossAngle) * (g * g + b * b)));
 
     ir2_dUr2 = GT;
   }
@@ -757,21 +756,21 @@ ModelTwoWindingsTransformer::ir2_dUi2() const {
   double ir2_dUi2 = 0.;
 
   // Get infos from current step
-  double r = getR();
-  double x = getX();
-  double g = getG();
-  double b = getB();
+  const double r = getR();
+  const double x = getX();
+  const double g = getG();
+  const double b = getB();
 
-  double admittance = 1. / sqrt(r * r + x * x);
-  double lossAngle = atan2(r, x);
+  const double admittance = 1. / sqrt(r * r + x * x);
+  const double lossAngle = atan2(r, x);
   if (getConnectionState() == CLOSED) {
     ir2_dUi2 = admittance * cos(lossAngle);
   } else if (getConnectionState() == CLOSED_2) {
-    double G = admittance * sin(lossAngle) + g;
-    double B = b - admittance * cos(lossAngle);
-    double denom = G * G + B * B;
+    const double G = admittance * sin(lossAngle) + g;
+    const double B = b - admittance * cos(lossAngle);
+    const double denom = G * G + B * B;
 
-    double BT = 1. / denom * (admittance * admittance * b - admittance * cos(lossAngle) * (g * g + b * b));
+    const double BT = 1. / denom * (admittance * admittance * b - admittance * cos(lossAngle) * (g * g + b * b));
     ir2_dUi2 = -BT;
   }
   return ir2_dUi2;
@@ -782,13 +781,13 @@ ModelTwoWindingsTransformer::ii2_dUr1() const {
   double ii2_dUr1 = 0.;
 
   // Get infos from current step
-  double rho = getRho();
-  double alpha = getAlpha();
-  double r = getR();
-  double x = getX();
+  const double rho = getRho();
+  const double alpha = getAlpha();
+  const double r = getR();
+  const double x = getX();
 
-  double admittance = 1. / sqrt(r * r + x * x);
-  double lossAngle = atan2(r, x);
+  const double admittance = 1. / sqrt(r * r + x * x);
+  const double lossAngle = atan2(r, x);
   if (getConnectionState() == CLOSED) {
     ii2_dUr1 = rho * admittance * cos(alpha + lossAngle);
   }
@@ -800,13 +799,13 @@ ModelTwoWindingsTransformer::ii2_dUi1() const {
   double ii2_dUi1 = 0.;
 
   // Get infos from current step
-  double rho = getRho();
-  double alpha = getAlpha();
-  double r = getR();
-  double x = getX();
+  const double rho = getRho();
+  const double alpha = getAlpha();
+  const double r = getR();
+  const double x = getX();
 
-  double admittance = 1. / sqrt(r * r + x * x);
-  double lossAngle = atan2(r, x);
+  const double admittance = 1. / sqrt(r * r + x * x);
+  const double lossAngle = atan2(r, x);
   if (getConnectionState() == CLOSED) {
     ii2_dUi1 = -rho * admittance * sin(alpha + lossAngle);
   }
@@ -818,21 +817,21 @@ ModelTwoWindingsTransformer::ii2_dUr2() const {
   double ii2_dUr2 = 0.;
 
   // Get infos from current step
-  double r = getR();
-  double x = getX();
-  double g = getG();
-  double b = getB();
+  const double r = getR();
+  const double x = getX();
+  const double g = getG();
+  const double b = getB();
 
-  double admittance = 1. / sqrt(r * r + x * x);
-  double lossAngle = atan2(r, x);
+  const double admittance = 1. / sqrt(r * r + x * x);
+  const double lossAngle = atan2(r, x);
   if (getConnectionState() == CLOSED) {
     ii2_dUr2 = -admittance * cos(lossAngle);
   } else if (getConnectionState() == CLOSED_2) {
-    double G = admittance * sin(lossAngle) + g;
-    double B = b - admittance * cos(lossAngle);
-    double denom = G * G + B * B;
+    const double G = admittance * sin(lossAngle) + g;
+    const double B = b - admittance * cos(lossAngle);
+    const double denom = G * G + B * B;
 
-    double BT = 1. / denom * (admittance * admittance * b - admittance * cos(lossAngle) * (g * g + b * b));
+    const double BT = 1. / denom * (admittance * admittance * b - admittance * cos(lossAngle) * (g * g + b * b));
 
     ii2_dUr2 = BT;
   }
@@ -844,21 +843,21 @@ ModelTwoWindingsTransformer::ii2_dUi2() const {
   double ii2_dUi2 = 0.;
 
   // Get infos from current step
-  double r = getR();
-  double x = getX();
-  double g = getG();
-  double b = getB();
+  const double r = getR();
+  const double x = getX();
+  const double g = getG();
+  const double b = getB();
 
-  double admittance = 1. / sqrt(r * r + x * x);
-  double lossAngle = atan2(r, x);
+  const double admittance = 1. / sqrt(r * r + x * x);
+  const double lossAngle = atan2(r, x);
   if (getConnectionState() == CLOSED) {
     ii2_dUi2 = admittance * sin(lossAngle);
   } else if (getConnectionState() == CLOSED_2) {
-    double G = admittance * sin(lossAngle) + g;
-    double B = b - admittance * cos(lossAngle);
-    double denom = G * G + B * B;
+    const double G = admittance * sin(lossAngle) + g;
+    const double B = b - admittance * cos(lossAngle);
+    const double denom = G * G + B * B;
 
-    double GT = 1. / denom * (admittance * admittance * g + admittance * sin(lossAngle) * (g * g + b * b));
+    const double GT = 1. / denom * (admittance * admittance * g + admittance * sin(lossAngle) * (g * g + b * b));
 
     ii2_dUi2 = GT;
   }
@@ -875,10 +874,10 @@ void
 ModelTwoWindingsTransformer::evalDerivatives(const double /*cj*/) {
   switch (knownBus_) {
     case BUS1_BUS2: {
-      int ur1YNum = modelBus1_->urYNum();
-      int ui1YNum = modelBus1_->uiYNum();
-      int ur2YNum = modelBus2_->urYNum();
-      int ui2YNum = modelBus2_->uiYNum();
+      const int ur1YNum = modelBus1_->urYNum();
+      const int ui1YNum = modelBus1_->uiYNum();
+      const int ur2YNum = modelBus2_->urYNum();
+      const int ui2YNum = modelBus2_->uiYNum();
       modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUr1_);
       modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ui1YNum, ir1_dUi1_);
       modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ur1YNum, ii1_dUr1_);
@@ -899,8 +898,8 @@ ModelTwoWindingsTransformer::evalDerivatives(const double /*cj*/) {
       break;
     }
     case BUS1: {
-      int ur1YNum = modelBus1_->urYNum();
-      int ui1YNum = modelBus1_->uiYNum();
+      const int ur1YNum = modelBus1_->urYNum();
+      const int ui1YNum = modelBus1_->uiYNum();
       modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUr1_);
       modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ui1YNum, ir1_dUi1_);
       modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ur1YNum, ii1_dUr1_);
@@ -908,8 +907,8 @@ ModelTwoWindingsTransformer::evalDerivatives(const double /*cj*/) {
       break;
     }
     case BUS2: {
-      int ur2YNum = modelBus2_->urYNum();
-      int ui2YNum = modelBus2_->uiYNum();
+      const int ur2YNum = modelBus2_->urYNum();
+      const int ui2YNum = modelBus2_->uiYNum();
       modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ur2YNum, ir2_dUr2_);
       modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ui2YNum, ir2_dUi2_);
       modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ur2YNum, ii2_dUr2_);
@@ -947,25 +946,25 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(unsigned numCalculatedVar, vect
     }
   }
 
-  bool closed1 = getConnectionState() == CLOSED || getConnectionState() == CLOSED_1;
-  bool closed2 = getConnectionState() == CLOSED || getConnectionState() == CLOSED_2;
+  const bool closed1 = getConnectionState() == CLOSED || getConnectionState() == CLOSED_1;
+  const bool closed2 = getConnectionState() == CLOSED || getConnectionState() == CLOSED_2;
 
-  double Ir1 = ir1(ur1, ui1, ur2, ui2);
-  double Ii1 = ii1(ur1, ui1, ur2, ui2);
-  double Ir2 = ir2(ur1, ui1, ur2, ui2);
-  double Ii2 = ii2(ur1, ui1, ur2, ui2);
+  const double Ir1 = ir1(ur1, ui1, ur2, ui2);
+  const double Ii1 = ii1(ur1, ui1, ur2, ui2);
+  const double Ir2 = ir2(ur1, ui1, ur2, ui2);
+  const double Ii2 = ii2(ur1, ui1, ur2, ui2);
   switch (numCalculatedVar) {
     case i1Num_:
     case iS1ToS2Side1Num_:
     case iS2ToS1Side1Num_:
     case iSide1Num_: {
-      double I1 = sqrt(Ii1 * Ii1 + Ir1 * Ir1);
+      const double I1 = sqrt(Ii1 * Ii1 + Ir1 * Ir1);
       double factor = 1.;
       if (numCalculatedVar == iS1ToS2Side1Num_) {
-        double P1 = Ir1 * ur1 + Ii1 * ui1;
+        const double P1 = Ir1 * ur1 + Ii1 * ui1;
         factor = sign(P1) * factorPuToASide1_;
       } else if (numCalculatedVar == iS2ToS1Side1Num_) {
-        double P1 = Ir1 * ur1 + Ii1 * ui1;
+        const double P1 = Ir1 * ur1 + Ii1 * ui1;
         factor = sign(-1 * P1) * factorPuToASide1_;
       } else if (numCalculatedVar == iSide1Num_) {
         factor = factorPuToASide1_;
@@ -987,13 +986,13 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(unsigned numCalculatedVar, vect
     case iS2ToS1Side2Num_:
     case iS1ToS2Side2Num_:
     case iSide2Num_: {
-      double I2 = sqrt(Ii2 * Ii2 + Ir2 * Ir2);
+      const double I2 = sqrt(Ii2 * Ii2 + Ir2 * Ir2);
       double factor = 1.;
       if (numCalculatedVar == iS2ToS1Side2Num_) {
-        double P2 = ur2 * Ir2 + ui2 * Ii2;
+        const double P2 = ur2 * Ir2 + ui2 * Ii2;
         factor = sign(P2) * factorPuToASide2_;
       } else if (numCalculatedVar == iS1ToS2Side2Num_) {
-        double P2 = ur2 * Ir2 + ui2 * Ii2;
+        const double P2 = ur2 * Ir2 + ui2 * Ii2;
         factor = sign(-1 * P2) * factorPuToASide2_;
       } else if (numCalculatedVar == iSide2Num_) {
         factor = factorPuToASide2_;
@@ -1123,7 +1122,7 @@ ModelTwoWindingsTransformer::defineVariables(vector<shared_ptr<Variable> >& vari
 
 void
 ModelTwoWindingsTransformer::defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) {
-  string twtName = id();
+  const string twtName = id();
   addElementWithValue(twtName + string("_i1"), modelType_, elements, mapElement);
   addElementWithValue(twtName + string("_i2"), modelType_, elements, mapElement);
   addElementWithValue(twtName + string("_P1"), modelType_, elements, mapElement);
@@ -1146,39 +1145,39 @@ ModelTwoWindingsTransformer::defineElements(std::vector<Element>& elements, std:
 }
 
 NetworkComponent::StateChange_t
-ModelTwoWindingsTransformer::evalZ(const double& t) {
+ModelTwoWindingsTransformer::evalZ(const double t) {
   int offsetRoot = 0;
   ModelCurrentLimits::state_t currentLimitState;
 
   if (currentLimits1_) {
-    currentLimitState = currentLimits1_->evalZ(id(), t, &(g_[offsetRoot]), network_, currentLimitsDesactivate_, modelType_);
+    currentLimitState = currentLimits1_->evalZ(id(), t, &g_[offsetRoot], currentLimitsDesactivate_, modelType_, network_);
     offsetRoot += currentLimits1_->sizeG();
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
       z_[connectionStateNum_] = OPEN;
   }
 
   if (currentLimits2_) {
-    currentLimitState = currentLimits2_->evalZ(id(), t, &(g_[offsetRoot]), network_, currentLimitsDesactivate_, modelType_);
+    currentLimitState = currentLimits2_->evalZ(id(), t, &g_[offsetRoot], currentLimitsDesactivate_, modelType_, network_);
     offsetRoot += currentLimits2_->sizeG();
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
       z_[connectionStateNum_] = OPEN;
   }
 
   if (modelRatioChanger_ && modelBusMonitored_) {
-    modelRatioChanger_->evalZ(t, &(g_[offsetRoot]), network_, disableInternalTapChanger_, modelBusMonitored_->getSwitchOff(), tapChangerLocked_,
-        getConnectionState() == CLOSED);
+    modelRatioChanger_->evalZ(t, &(g_[offsetRoot]), disableInternalTapChanger_, modelBusMonitored_->getSwitchOff(), tapChangerLocked_,
+        getConnectionState() == CLOSED, network_);
     offsetRoot += modelRatioChanger_->sizeG();
   }
 
   if (modelPhaseChanger_) {
-    double ur1Val = ur1();
-    double ui1Val = ui1();
-    double ur2Val = ur2();
-    double ui2Val = ui2();
-    double pSide1 = P1(ur1Val, ui1Val, ur2Val, ui2Val);
-    double pSide2 = P2(ur1Val, ui1Val, ur2Val, ui2Val);
-    bool P1SupP2 = (pSide1 > pSide2);
-    modelPhaseChanger_->evalZ(t, &(g_[offsetRoot]), network_, disableInternalTapChanger_, P1SupP2, tapChangerLocked_, getConnectionState() == CLOSED);
+    const double ur1Val = ur1();
+    const double ui1Val = ui1();
+    const double ur2Val = ur2();
+    const double ui2Val = ui2();
+    const double pSide1 = P1(ur1Val, ui1Val, ur2Val, ui2Val);
+    const double pSide2 = P2(ur1Val, ui1Val, ur2Val, ui2Val);
+    const bool P1SupP2 = (pSide1 > pSide2);
+    modelPhaseChanger_->evalZ(t, &g_[offsetRoot], disableInternalTapChanger_, P1SupP2, tapChangerLocked_, getConnectionState() == CLOSED, network_);
   }
 
   switch (knownBus_) {
@@ -1217,7 +1216,7 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
   }
   }
 
-  State currState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
+  const State currState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
   if (currState != connectionState_) {
     if (currState == CLOSED && knownBus_ != BUS1_BUS2) {
       Trace::warn() << DYNLog(UnableToCloseTfo, id_) << Trace::endline;
@@ -1336,7 +1335,7 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
     }
   }
 
-  int currStateIndex = static_cast<int>(static_cast<int>(z_[currentStepIndexNum_]));
+  const int currStateIndex = static_cast<int>(z_[currentStepIndexNum_]);
   if (currStateIndex != getCurrentStepIndex()) {
     if (disableInternalTapChanger_ > 0.) {
       // external automaton
@@ -1419,21 +1418,21 @@ ModelTwoWindingsTransformer::ui2() const {
 }
 
 double
-ModelTwoWindingsTransformer::P1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
-  double irBus1 = ir1(ur1, ui1, ur2, ui2);
-  double iiBus1 = ii1(ur1, ui1, ur2, ui2);
+ModelTwoWindingsTransformer::P1(const double ur1, const double ui1, const double ur2, const double ui2) const {
+  const double irBus1 = ir1(ur1, ui1, ur2, ui2);
+  const double iiBus1 = ii1(ur1, ui1, ur2, ui2);
   return ur1 * irBus1 + ui1 * iiBus1;
 }
 
 double
-ModelTwoWindingsTransformer::P2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+ModelTwoWindingsTransformer::P2(const double ur1, const double ui1, const double ur2, const double ui2) const {
   const double irBus2 = ir2(ur1, ui1, ur2, ui2);
   const double iiBus2 = ii2(ur1, ui1, ur2, ui2);
   return ur2 * irBus2 + ui2 * iiBus2;
 }
 
 void
-ModelTwoWindingsTransformer::evalG(const double& t) {
+ModelTwoWindingsTransformer::evalG(const double t) {
   int offset = 0;
   double ur1Val = 0.;
   double ui1Val = 0.;
@@ -1446,12 +1445,12 @@ ModelTwoWindingsTransformer::evalG(const double& t) {
     ui2Val = ui2();
   }
   if (currentLimits1_) {
-    currentLimits1_->evalG(t, i1(ur1Val, ui1Val, ur2Val, ui2Val), &(g_[offset]), currentLimitsDesactivate_);
+    currentLimits1_->evalG(t, i1(ur1Val, ui1Val, ur2Val, ui2Val), currentLimitsDesactivate_, &g_[offset]);
     offset += currentLimits1_->sizeG();
   }
 
   if (currentLimits2_) {
-    currentLimits2_->evalG(t, i2(ur1Val, ui1Val, ur2Val, ui2Val), &(g_[offset]), currentLimitsDesactivate_);
+    currentLimits2_->evalG(t, i2(ur1Val, ui1Val, ur2Val, ui2Val), currentLimitsDesactivate_, &g_[offset]);
     offset += currentLimits2_->sizeG();
   }
 
@@ -1462,13 +1461,13 @@ ModelTwoWindingsTransformer::evalG(const double& t) {
       vValue = modelBusMonitored_->getCurrentU(ModelBus::UType_);
       nodeOff = modelBusMonitored_->getSwitchOff();
     }
-    modelRatioChanger_->evalG(t, vValue, nodeOff, &g_[offset], disableInternalTapChanger_, tapChangerLocked_, getConnectionState() == CLOSED, z_[deltaUTarget]);
+    modelRatioChanger_->evalG(t, vValue, nodeOff, disableInternalTapChanger_, tapChangerLocked_, getConnectionState() == CLOSED, z_[deltaUTarget], &g_[offset]);
     offset += modelRatioChanger_->sizeG();
   }
 
   if (modelPhaseChanger_) {
-    double iValue = i2(ur1Val, ui1Val, ur2Val, ui2Val) * factorPuToASide2_;
-    modelPhaseChanger_->evalG(t, iValue, false, &g_[offset], disableInternalTapChanger_, tapChangerLocked_, getConnectionState() == CLOSED);
+    const double iValue = i2(ur1Val, ui1Val, ur2Val, ui2Val) * factorPuToASide2_;
+    modelPhaseChanger_->evalG(t, iValue, false, disableInternalTapChanger_, tapChangerLocked_, getConnectionState() == CLOSED, &g_[offset]);
   }
 }
 
@@ -1507,33 +1506,33 @@ ModelTwoWindingsTransformer::setGequations(std::map<int, std::string>& gEquation
 }
 
 double
-ModelTwoWindingsTransformer::i1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
-  double irBus1 = ir1(ur1, ui1, ur2, ui2);
-  double iiBus1 = ii1(ur1, ui1, ur2, ui2);
+ModelTwoWindingsTransformer::i1(const double ur1, const double ui1, const double ur2, const double ui2) const {
+  const double irBus1 = ir1(ur1, ui1, ur2, ui2);
+  const double iiBus1 = ii1(ur1, ui1, ur2, ui2);
   return sqrt(irBus1 * irBus1 + iiBus1 * iiBus1);
 }
 
 double
-ModelTwoWindingsTransformer::i2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
-  double irBus2 = ir2(ur1, ui1, ur2, ui2);
-  double iiBus2 = ii2(ur1, ui1, ur2, ui2);
+ModelTwoWindingsTransformer::i2(const double ur1, const double ui1, const double ur2, const double ui2) const {
+  const double irBus2 = ir2(ur1, ui1, ur2, ui2);
+  const double iiBus2 = ii2(ur1, ui1, ur2, ui2);
   return sqrt(irBus2 * irBus2 + iiBus2 * iiBus2);
 }
 
 void
 ModelTwoWindingsTransformer::evalCalculatedVars() {
-  double ur1Val = ur1();
-  double ui1Val = ui1();
-  double ur2Val = ur2();
-  double ui2Val = ui2();
-  double irBus1 = ir1(ur1Val, ui1Val, ur2Val, ui2Val);
-  double iiBus1 = ii1(ur1Val, ui1Val, ur2Val, ui2Val);
-  double irBus2 = ir2(ur1Val, ui1Val, ur2Val, ui2Val);
-  double iiBus2 = ii2(ur1Val, ui1Val, ur2Val, ui2Val);
-  double P1 = ur1Val * irBus1 + ui1Val * iiBus1;   // in pu, because u and iBus in pu
-  double P2 = ur2Val * irBus2 + ui2Val * iiBus2;
-  int signP1 = sign(P1);
-  int signP2 = sign(P2);
+  const double ur1Val = ur1();
+  const double ui1Val = ui1();
+  const double ur2Val = ur2();
+  const double ui2Val = ui2();
+  const double irBus1 = ir1(ur1Val, ui1Val, ur2Val, ui2Val);
+  const double iiBus1 = ii1(ur1Val, ui1Val, ur2Val, ui2Val);
+  const double irBus2 = ir2(ur1Val, ui1Val, ur2Val, ui2Val);
+  const double iiBus2 = ii2(ur1Val, ui1Val, ur2Val, ui2Val);
+  const double P1 = ur1Val * irBus1 + ui1Val * iiBus1;   // in pu, because u and iBus in pu
+  const double P2 = ur2Val * irBus2 + ui2Val * iiBus2;
+  const int signP1 = sign(P1);
+  const int signP2 = sign(P2);
 
   calculatedVars_[i1Num_] = sqrt(irBus1 * irBus1 + iiBus1 * iiBus1);  // Current side 1
   calculatedVars_[i2Num_] = sqrt(irBus2 * irBus2 + iiBus2 * iiBus2);  // Current side 2
@@ -1624,14 +1623,14 @@ ModelTwoWindingsTransformer::evalCalculatedVarI(unsigned numCalculatedVar) const
     }
     }
   }
-  double Ir1 = ir1(ur1, ui1, ur2, ui2);
-  double Ii1 = ii1(ur1, ui1, ur2, ui2);
-  double Ir2 = ir2(ur1, ui1, ur2, ui2);
-  double Ii2 = ii2(ur1, ui1, ur2, ui2);
-  double P1 = ur1 * Ir1 + ui1 * Ii1;
-  double P2 = ur2 * Ir2 + ui2 * Ii2;
-  int signP1 = sign(P1);
-  int signP2 = sign(P2);
+  const double Ir1 = ir1(ur1, ui1, ur2, ui2);
+  const double Ii1 = ii1(ur1, ui1, ur2, ui2);
+  const double Ir2 = ir2(ur1, ui1, ur2, ui2);
+  const double Ii2 = ii2(ur1, ui1, ur2, ui2);
+  const double P1 = ur1 * Ir1 + ui1 * Ii1;
+  const double P2 = ur2 * Ir2 + ui2 * Ii2;
+  const int signP1 = sign(P1);
+  const int signP2 = sign(P2);
   switch (numCalculatedVar) {
     case i1Num_:
       output = sqrt(Ir1 * Ir1 + Ii1 * Ii1);
@@ -1695,7 +1694,7 @@ ModelTwoWindingsTransformer::getY0() {
 }
 
 NetworkComponent::StateChange_t
-ModelTwoWindingsTransformer::evalState(const double& /*time*/) {
+ModelTwoWindingsTransformer::evalState(const double /*time*/) {
   NetworkComponent::StateChange_t state = NetworkComponent::NO_CHANGE;
   if (topologyModified_) {
     state = NetworkComponent::TOPO_CHANGE;
@@ -1722,7 +1721,7 @@ void
 ModelTwoWindingsTransformer::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params) {
   // current limits parameter
   bool success = false;
-  double maxTimeOperation = getParameterDynamicNoThrow<double>(params, "transformer_currentLimit_maxTimeOperation", success);
+  const double maxTimeOperation = getParameterDynamicNoThrow<double>(params, "transformer_currentLimit_maxTimeOperation", success);
   if (success) {
     if (currentLimits1_)
       currentLimits1_->setMaxTimeOperation(maxTimeOperation);
@@ -1736,10 +1735,10 @@ ModelTwoWindingsTransformer::setSubModelParameters(const std::unordered_map<std:
       ids.push_back(id_);
       ids.push_back("transformer");
 
-      double t1stTHT = getParameterDynamic<double>(params, "t1st_THT", ids);
-      double tNextTHT = getParameterDynamic<double>(params, "tNext_THT", ids);
-      double t1stHT = getParameterDynamic<double>(params, "t1st_HT", ids);
-      double tNextHT = getParameterDynamic<double>(params, "tNext_HT", ids);
+      const double t1stTHT = getParameterDynamic<double>(params, "t1st_THT", ids);
+      const double tNextTHT = getParameterDynamic<double>(params, "tNext_THT", ids);
+      const double t1stHT = getParameterDynamic<double>(params, "t1st_HT", ids);
+      const double tNextHT = getParameterDynamic<double>(params, "tNext_HT", ids);
 
       const bool bus1VHV = (vNom1_ >= VHV_THRESHOLD);
       const bool bus1HV = (vNom1_ >= HV_THRESHOLD && vNom1_ < VHV_THRESHOLD);
@@ -1748,7 +1747,7 @@ ModelTwoWindingsTransformer::setSubModelParameters(const std::unordered_map<std:
 
       // set modelTapChanger parameters
       if (modelRatioChanger_) {
-        double tolV = getParameterDynamic<double>(params, "tolV", ids);
+        const double tolV = getParameterDynamic<double>(params, "tolV", ids);
 
         if ((bus1VHV && bus2HV) || (bus2VHV && bus1HV)) {
           modelRatioChanger_->setTFirst(t1stTHT);

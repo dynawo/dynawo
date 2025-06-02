@@ -90,7 +90,7 @@ class ModelDanglingLine : public NetworkComponent {
    * @brief set connection state
    * @param state connection state
    */
-  void setConnectionState(State state) {
+  void setConnectionState(const State state) {
     connectionState_ = state;
   }
 
@@ -98,7 +98,7 @@ class ModelDanglingLine : public NetworkComponent {
    * @brief set current limit status
    * @param desactivate currentLimitsDesactivate
    */
-  void setCurrentLimitsDesactivate(const double& desactivate) {
+  void setCurrentLimitsDesactivate(const double desactivate) {
     currentLimitsDesactivate_ = desactivate;
   }
 
@@ -119,7 +119,7 @@ class ModelDanglingLine : public NetworkComponent {
    * @brief evaluate derivatives
    * @param cj Jacobian prime coefficient
    */
-  void evalDerivatives(const double cj) override;
+  void evalDerivatives(double cj) override;
 
   /**
    * @brief evaluate derivatives prim
@@ -166,13 +166,13 @@ class ModelDanglingLine : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::evalZ()
    */
-  NetworkComponent::StateChange_t evalZ(const double& t) override;
+  NetworkComponent::StateChange_t evalZ(double t) override;
 
   /**
    * @brief evaluation G
    * @param t time
    */
-  void evalG(const double& t) override;
+  void evalG(double t) override;
 
   /**
    * @brief evaluation calculated variables (for outputs)
@@ -238,7 +238,7 @@ class ModelDanglingLine : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::init(int& yNum)
    */
-  void init(int & yNum) override;
+  void init(int& yNum) override;
 
   /**
    * @copydoc NetworkComponent::getY0()
@@ -265,7 +265,7 @@ class ModelDanglingLine : public NetworkComponent {
    * @param time time
    * @return state change type
    */
-  NetworkComponent::StateChange_t evalState(const double& time) override;
+  NetworkComponent::StateChange_t evalState(double time) override;
 
   /**
    * @brief add a bus to the neighbours
@@ -279,14 +279,14 @@ class ModelDanglingLine : public NetworkComponent {
   void initSize() override;
 
   /**
-   * @copydoc NetworkComponent::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJt(double cj, int rowOffset, SparseMatrix& jt)
    */
-  void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) override;
+  void evalJt(double cj, int rowOffset, SparseMatrix& jt) override;
 
   /**
-   * @copydoc NetworkComponent::evalJtPrim(SparseMatrix& jt, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJtPrim(int rowOffset, SparseMatrix& jtPrim)
    */
-  void evalJtPrim(SparseMatrix& jt, const int& rowOffset) override;
+  void evalJtPrim(int rowOffset, SparseMatrix& jtPrim) override;
 
   /**
    * @brief get p
@@ -336,59 +336,68 @@ class ModelDanglingLine : public NetworkComponent {
   void loadInternalVariables(boost::archive::binary_iarchive& streamVariables) override;
 
  private:
-  boost::shared_ptr<ModelCurrentLimits> currentLimits_;  ///< current limit
+  std::shared_ptr<ModelCurrentLimits> currentLimits_;  ///< current limit
+
   /**
    * @brief get value
    * @return value
    */
   double ur_Fict() const;
+
   /**
    * @brief get value
    * @return value
    */
   double ui_Fict() const;
+
   /**
    * @brief get ir_Load value
    * @param ur real part of the voltage
    * @param ui imaginary part of the voltage
    * @return value
    */
-  double ir_Load(const double& ur, const double& ui) const;
+  double ir_Load(double ur, double ui) const;
+
   /**
    * @brief get ii_Load value
    * @param ur real part of the voltage
    * @param ui imaginary part of the voltage
    * @return value
    */
-  double ii_Load(const double& ur, const double& ui) const;
+  double ii_Load(double ur, double ui) const;
+
   /**
    * @brief get irLoad_dUr value
    * @param ur real part of the voltage
    * @param ui imaginary part of the voltage
    * @return value
    */
-  double irLoad_dUr(const double& ur, const double& ui) const;
+  double irLoad_dUr(double ur, double ui) const;
+
   /**
    * @brief get irLoad_dUi value
    * @param ur real part of the voltage
    * @param ui imaginary part of the voltage
    * @return value
    */
-  double irLoad_dUi(const double& ur, const double& ui) const;
+  double irLoad_dUi(double ur, double ui) const;
+
   /**
    * @brief get iiLoad_dUr value
    * @param ur real part of the voltage
    * @param ui imaginary part of the voltage
    * @return value
    */
-  double iiLoad_dUr(const double& ur, const double& ui) const;
+  double iiLoad_dUr(double ur, double ui) const;
+
   /**
    * @brief get iiLoad_dUi value
    * @param ur real part of the voltage
    * @param ui imaginary part of the voltage
    * @return value
    */
-  double iiLoad_dUi(const double& ur, const double& ui) const;
+  double iiLoad_dUi(double ur, double ui) const;
+
   // calcul
   /**
    * @brief get ir1 value
@@ -398,7 +407,8 @@ class ModelDanglingLine : public NetworkComponent {
    * @param uiFict uiFict
    * @return value
    */
-  double ir1(const double& ur, const double& ui, const double& urFict, const double& uiFict) const;
+  double ir1(double ur, double ui, double urFict, double uiFict) const;
+
   /**
    * @brief get ii1 value
    * @param ur real part of the voltage
@@ -407,7 +417,8 @@ class ModelDanglingLine : public NetworkComponent {
    * @param uiFict uiFict
    * @return value
    */
-  double ii1(const double& ur, const double& ui, const double& urFict, const double& uiFict) const;
+  double ii1(double ur, double ui, double urFict, double uiFict) const;
+
   /**
    * @brief get ir2 value
    * @param ur real part of the voltage
@@ -416,7 +427,8 @@ class ModelDanglingLine : public NetworkComponent {
    * @param uiFict uiFict
    * @return value
    */
-  double ir2(const double& ur, const double& ui, const double& urFict, const double& uiFict) const;
+  double ir2(double ur, double ui, double urFict, double uiFict) const;
+
   /**
    * @brief get ii2 value
    * @param ur real part of the voltage
@@ -425,93 +437,109 @@ class ModelDanglingLine : public NetworkComponent {
    * @param uiFict uiFict
    * @return value
    */
-  double ii2(const double& ur, const double& ui, const double& urFict, const double& uiFict) const;
+  double ii2(double ur, double ui, double urFict, double uiFict) const;
+
   /**
    * @brief get value
    * @return value
    */
   double i1() const;
+
   /**
    * @brief get value
    * @return value
    */
   double ir1_dUr() const;
+
   /**
    * @brief get value
    * @return value
    */
   double ir1_dUi() const;
+
   /**
    * @brief get value
    * @return value
    */
   double ii1_dUr() const;
+
   /**
    * @brief get value
    * @return value
    */
   double ii1_dUi() const;
+
   /**
    * @brief get value
    * @return value
    */
   double ir1_dUrFict() const;
+
   /**
    * @brief get value
    * @return value
    */
   double ir1_dUiFict() const;
+
   /**
    * @brief get value
    * @return value
    */
   double ii1_dUrFict() const;
+
   /**
    * @brief get value
    * @return value
    */
   double ii1_dUiFict() const;
+
   /**
    * @brief get value
    * @return value
    */
   double ir2_dUr() const;
+
   /**
    * @brief get value
    * @return value
    */
   double ir2_dUi() const;
+
   /**
    * @brief get value
    * @return value
    */
   double ii2_dUr() const;
+
   /**
    * @brief get value
    * @return value
    */
   double ii2_dUi() const;
+
   /**
    * @brief get value
    * @return value
    */
   double ir2_dUrFict() const;
+
   /**
    * @brief get value
    * @return value
    */
   double ir2_dUiFict() const;
+
   /**
    * @brief get value
    * @return value
    */
   double ii2_dUrFict() const;
+
   /**
    * @brief get value
    * @return value
    */
   double ii2_dUiFict() const;
-
 
   std::shared_ptr<ModelBus> modelBus_;  ///< bus
   State connectionState_;  ///< "internal" line connection status, evaluated at the end of evalZ to detect if the state was modified by another component

@@ -37,10 +37,10 @@ SubModelFactory::~SubModelFactory() {}
 SubModelFactories::SubModelFactories() {}
 
 SubModelFactories::~SubModelFactories() {
-  for (SubmodelFactoryIterator iter = factoryMap_.begin(); iter != factoryMap_.end(); ++iter) {
-    boost::function<deleteSubModelFactory_t>& deleteFactory = factoryMapDelete_.find(iter->first)->second;
+  for (const auto& factory : factoryMap_) {
+    boost::function<deleteSubModelFactory_t>& deleteFactory = factoryMapDelete_.find(factory.first)->second;
 
-    deleteFactory(iter->second);
+    deleteFactory(factory.second);
   }
 }
 
@@ -51,12 +51,12 @@ SubModelFactories& SubModelFactories::getInstance() {
 
 SubModelFactories::SubmodelFactoryIterator SubModelFactories::find(const std::string& lib) {
   std::unique_lock<std::mutex> lock(factoriesMutex_);
-  return (factoryMap_.find(lib));
+  return factoryMap_.find(lib);
 }
 
-bool SubModelFactories::end(SubmodelFactoryIterator& iter) {
+bool SubModelFactories::end(const SubmodelFactoryIterator& iter) {
   std::unique_lock<std::mutex> lock(factoriesMutex_);
-  return (iter == factoryMap_.end());
+  return iter == factoryMap_.end();
 }
 
 void
@@ -70,7 +70,7 @@ void SubModelFactories::add(const std::string& lib, const boost::function<delete
   factoryMapDelete_.insert(std::make_pair(lib, deleteFactory));
 }
 
-boost::shared_ptr<SubModel> SubModelFactory::createSubModelFromLib(const std::string & lib) {
+boost::shared_ptr<SubModel> SubModelFactory::createSubModelFromLib(const std::string& lib) {
   SubModelFactories::SubmodelFactoryIterator iter = SubModelFactories::getInstance().find(lib);
   SubModel* subModel;
   boost::shared_ptr<SubModel> subModelShared;

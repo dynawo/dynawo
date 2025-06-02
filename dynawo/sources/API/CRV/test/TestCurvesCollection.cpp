@@ -68,40 +68,15 @@ TEST(APICRVTest, CurvesCollectionIterator) {
   curvesCollection1->add(curve2);
 
   int nbPoints = 0;
-  for (CurvesCollection::const_iterator itPt = curvesCollection1->cbegin();
-            itPt != curvesCollection1->cend();
-            ++itPt) {
+  for (const auto& curve : curvesCollection1->getCurves()) {
     if (nbPoints == 0) {
-      ASSERT_EQ((*itPt), curve1);
+      ASSERT_EQ(curve, curve1);
     } else if (nbPoints == 1) {
-      ASSERT_EQ((*itPt), curve2);
+      ASSERT_EQ(curve, curve2);
     }
     ++nbPoints;
   }
   ASSERT_EQ(nbPoints, 2);
-  CurvesCollection::const_iterator itPtc(curvesCollection1->cbegin());
-  ASSERT_EQ((++itPtc)->get(), curve2.get());
-  ASSERT_EQ((--itPtc)->get(), curve1.get());
-  ASSERT_EQ((itPtc++)->get(), curve1.get());
-  ASSERT_EQ((itPtc--)->get(), curve2.get());
-
-  nbPoints = 0;
-  for (CurvesCollection::iterator itPt = curvesCollection1->begin();
-      itPt != curvesCollection1->end();
-      ++itPt) {
-    if (nbPoints == 0) {
-      ASSERT_EQ((*itPt), curve1);
-    } else if (nbPoints == 1) {
-      ASSERT_EQ((*itPt), curve2);
-    }
-    ++nbPoints;
-  }
-  ASSERT_EQ(nbPoints, 2);
-  CurvesCollection::iterator itPt(curvesCollection1->begin());
-  ASSERT_EQ((++itPt)->get(), curve2.get());
-  ASSERT_EQ((--itPt)->get(), curve1.get());
-  ASSERT_EQ((itPt++)->get(), curve1.get());
-  ASSERT_EQ((itPt--)->get(), curve2.get());
 }
 
 }  // namespace curves

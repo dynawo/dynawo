@@ -51,7 +51,6 @@
 #include "DYDModelTemplateExpansion.h"
 #include "DYDConnector.h"
 #include "DYDMacroConnection.h"
-#include "DYDIterators.h"
 #include "DYDMacroConnect.h"
 #include "DYDMacroConnector.h"
 
@@ -80,7 +79,7 @@ namespace DYN {
 
 void
 DynamicData::initFromDydFiles(const std::vector <string>& fileNames) {
-  dynamicdata::XmlImporter importer;
+  const dynamicdata::XmlImporter importer;
 
   setDynamicModelsCollection(importer.importFromDydFiles(fileNames));
 }
@@ -107,10 +106,9 @@ DynamicData::markModelTemplatesCalledByExpansions() {
   usefulModelTemplates_.clear();
   // get model template list to be compiled, by analyzing templateId in model template expansions
   // update usefulModelTemplates_
-  for (std::map<string, std::shared_ptr<ModelDescription> >::const_iterator itMde = modelTemplateExpansions_.begin();
-        itMde != modelTemplateExpansions_.end(); ++itMde) {
-    std::shared_ptr<ModelTemplateExpansion> mte = std::dynamic_pointer_cast<ModelTemplateExpansion>(itMde->second->getModel());
-    string templateId = mte->getTemplateId();
+  for (const auto& modelTemplateExpansionPair : modelTemplateExpansions_) {
+    const std::shared_ptr<ModelTemplateExpansion> mte = std::dynamic_pointer_cast<ModelTemplateExpansion> (modelTemplateExpansionPair.second->getModel());
+    const string& templateId = mte->getTemplateId();
     if (modelTemplates_.find(templateId) != modelTemplates_.end()) {
       usefulModelTemplates_[templateId] = modelTemplates_[templateId];
     }
@@ -118,9 +116,9 @@ DynamicData::markModelTemplatesCalledByExpansions() {
 
 #ifdef _DEBUG_
   Trace::info(Trace::compile()) << "Model Templates : " << Trace::endline;
-  for (std::map<string, std::shared_ptr<ModelDescription> >::const_iterator itMd = modelTemplates_.begin(); itMd != modelTemplates_.end(); ++itMd) {
-    string modelUsed = usefulModelTemplates_.find(itMd->first) != usefulModelTemplates_.end() ? "useful and compiled" : "useless";
-    Trace::info(Trace::compile()) << " - " << itMd->first << " -> " << modelUsed << Trace::endline;
+  for (const auto& modelTemplatePair : modelTemplates_) {
+    string modelUsed = usefulModelTemplates_.find(modelTemplatePair.first) != usefulModelTemplates_.end() ? "useful and compiled" : "useless";
+    Trace::info(Trace::compile()) << " - " << modelTemplatePair.first << " -> " << modelUsed << Trace::endline;
   }
 #endif
 }
@@ -132,12 +130,12 @@ DynamicData::mappingModelicaModels() {
   modelicaModelReferenceMap_.clear();
   unitDynamicModelsMap_.clear();
 
-  for (std::map<string, std::shared_ptr<ModelDescription> >::const_iterator itModelica = modelicaModels_.begin();
-        itModelica != modelicaModels_.end(); ++itModelica) {
+  for (const auto& modelicaModelPair : modelicaModels_) {
     // for each modelica model, either mark it as a reference model, or refer it to a reference model
+    const auto& modelicaModelDescription = modelicaModelPair.second;
 
-    const string id = "Mapping Modelica Model " + itModelica->first;
-    int l = static_cast<int>(id.size() / 2);
+    const string id = "Mapping Modelica Model " + modelicaModelPair.first;
+    const int l = static_cast<int>(id.size() / 2);
     Trace::info(Trace::compile()) << "====================================================================================================" << Trace::endline;
     Trace::info(Trace::compile()) << "¦                                                                                                  ¦" << Trace::endline;
     Trace::info(Trace::compile()) << "¦" << setw(50 + l) << id << setw(50 - l - 1) << "¦" << Trace::endline;
@@ -145,33 +143,30 @@ DynamicData::mappingModelicaModels() {
     Trace::info(Trace::compile()) << "====================================================================================================" << Trace::endline;
 
     // search in mapped model library, if already mapped, return.
-    vector<std::shared_ptr<ModelDescription> >::const_iterator it;
-    it = find(mappedModelDescriptions_.begin(), mappedModelDescriptions_.end(), itModelica->second);
+    const auto& it = find(mappedModelDescriptions_.begin(), mappedModelDescriptions_.end(), modelicaModelDescription);
     if (it != mappedModelDescriptions_.end()) {
-      Trace::info(Trace::compile()) << DYNLog(AlreadyMappedModel, itModelica->first) << Trace::endline;
+      Trace::info(Trace::compile()) << DYNLog(AlreadyMappedModel, modelicaModelPair.first) << Trace::endline;
       continue;
     }
 
-    itModelica->second->hasCompiledModel(true);
+    modelicaModelDescription->hasCompiledModel(true);
 
     bool alreadyMapped = false;
 
-    std::shared_ptr<ModelicaModel> modelicaModel = std::dynamic_pointer_cast<ModelicaModel>(itModelica->second->getModel());
+    const std::shared_ptr<ModelicaModel>& modelicaModel = std::dynamic_pointer_cast<ModelicaModel> (modelicaModelDescription->getModel());
 
     // Searching if a compiled model with the same structure exists in the reference models
-    vector<std::shared_ptr<ModelDescription> >::const_iterator itrefModelDescriptions;
-    for (itrefModelDescriptions = referenceModelicaModels_.begin(); itrefModelDescriptions != referenceModelicaModels_.end(); ++itrefModelDescriptions) {
-      std::shared_ptr<ModelDescription> tmpModelicaModelDescription = *itrefModelDescriptions;
-      std::shared_ptr<ModelicaModel> tmpModelicaModel = std::dynamic_pointer_cast<ModelicaModel>(tmpModelicaModelDescription->getModel());
+    for (const auto& referenceModelicaModel : referenceModelicaModels_) {
+      std::shared_ptr<ModelicaModel> tmpModelicaModel = std::dynamic_pointer_cast<ModelicaModel> (referenceModelicaModel->getModel());
       // Local unit dynamic models reference map completed in hasSameStructureAs() method
-      std::map<shared_ptr<UnitDynamicModel>, shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
+      std::map<std::shared_ptr<UnitDynamicModel>, std::shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
 
       if (modelicaModel->hasSameStructureAs(tmpModelicaModel, unitDynamicModelsMap_)) {  // modelica model finds a reference model, map them.
         Trace::info(Trace::compile()) << DYNLog(AddingModelToMap, modelicaModel->getId(), tmpModelicaModel->getId()) << Trace::endline;
 
-        modelicaModelReferenceMap_[itModelica->second] = tmpModelicaModelDescription;
+        modelicaModelReferenceMap_[modelicaModelDescription] = referenceModelicaModel;
 
-        Trace::info(Trace::compile()) << DYNLog(CompiledModelID, tmpModelicaModelDescription->getCompiledModelId()) << Trace::endline;
+        Trace::info(Trace::compile()) << DYNLog(CompiledModelID, referenceModelicaModel->getCompiledModelId()) << Trace::endline;
         alreadyMapped = true;
         break;
       }
@@ -180,28 +175,28 @@ DynamicData::mappingModelicaModels() {
 
     if (!alreadyMapped) {
       // not find a reference model. add the modelica model to the reference model lib and refer it to it self
-      modelicaModelReferenceMap_[itModelica->second] = itModelica->second;
-      referenceModelicaModels_.push_back(itModelica->second);  // mark the modelica model as a reference model, add it to the reference model lib
+      modelicaModelReferenceMap_[modelicaModelDescription] = modelicaModelDescription;
+      referenceModelicaModels_.push_back(modelicaModelDescription);  // mark the modelica model as a reference model, add it to the reference model lib
       const std::map<string, std::shared_ptr<UnitDynamicModel> >& unitDynamicModels = modelicaModel->getUnitDynamicModels();
 
       std::map<string, std::shared_ptr<UnitDynamicModel> >::const_iterator itUdm;
       for (itUdm = unitDynamicModels.begin(); itUdm != unitDynamicModels.end(); ++itUdm) {
         unitDynamicModelsMap_[itUdm->second] = itUdm->second;
       }
-      Trace::info(Trace::compile()) << DYNLog(ReferenceModelDesc, itModelica->first) << Trace::endline;
-      Trace::info(Trace::compile()) << DYNLog(CompiledModelID, itModelica->first) << Trace::endline;
-      (itModelica->second)->setCompiledModelId(itModelica->first);
+      Trace::info(Trace::compile()) << DYNLog(ReferenceModelDesc, modelicaModelPair.first) << Trace::endline;
+      Trace::info(Trace::compile()) << DYNLog(CompiledModelID, modelicaModelPair.first) << Trace::endline;
+      modelicaModelDescription->setCompiledModelId(modelicaModelPair.first);
     }
 
-    mappedModelDescriptions_.push_back(itModelica->second);  // mark the modelica model as mapped
+    mappedModelDescriptions_.push_back(modelicaModelDescription);  // mark the modelica model as mapped
   }
 }
 
 void
 DynamicData::associateParameters() {
-  for (std::map<string, std::shared_ptr<ModelDescription> >::const_iterator iter = modelDescriptions_.begin();
-        iter != modelDescriptions_.end(); ++iter) {
-    std::shared_ptr<dynamicdata::Model> model = iter->second->getModel();
+  for (const auto& modelDescriptionPair : modelDescriptions_) {
+    const auto& modelDescription = modelDescriptionPair.second;
+    std::shared_ptr<dynamicdata::Model> model = modelDescription->getModel();
 
     // add parameters to modelDescription
     switch (model->getType()) {
@@ -211,38 +206,38 @@ DynamicData::associateParameters() {
 
         // for Modelica models, add a unit dynamic model (the reference udm) prefix to parameter names
       case Model::MODELICA_MODEL: {
-        std::shared_ptr<ParametersSet> modelSet = ParametersSetFactory::newParametersSet(model->getId());
-        std::shared_ptr<ModelicaModel> modelicaModel = std::dynamic_pointer_cast<ModelicaModel>(model);
+        auto modelSet = std::make_shared<ParametersSet>(model->getId());
+        const std::shared_ptr<ModelicaModel> modelicaModel = std::dynamic_pointer_cast<ModelicaModel>(model);
         const std::map<string, std::shared_ptr<UnitDynamicModel> >& models = modelicaModel->getUnitDynamicModels();
 
-        std::map<string, std::shared_ptr<UnitDynamicModel> >::const_iterator itUDM = models.begin();
-        for (; itUDM != models.end(); ++itUDM) {
-          std::shared_ptr<ParametersSet> udmSet = getParametersSet(model->getId(), itUDM->second->getParFile(), itUDM->second->getParId());
+        for (const auto& unitDynamicModelPair : models) {
+          const auto& unitDynamicModel = unitDynamicModelPair.second;
+          std::shared_ptr<ParametersSet> udmSet = getParametersSet(model->getId(), unitDynamicModel->getParFile(), unitDynamicModel->getParId());
           resolveParReferences(model, udmSet);
-          if (unitDynamicModelsMap_.find(itUDM->second) == unitDynamicModelsMap_.end())
-            throw DYNError(Error::MODELER, UDMUndefined, itUDM->first, model->getId());
+          if (unitDynamicModelsMap_.find(unitDynamicModel) == unitDynamicModelsMap_.end())
+            throw DYNError(Error::MODELER, UDMUndefined, unitDynamicModelPair.first, model->getId());
 
-          std::shared_ptr<UnitDynamicModel> udmRef = unitDynamicModelsMap_[itUDM->second];
+          const std::shared_ptr<UnitDynamicModel> udmRef = unitDynamicModelsMap_[unitDynamicModel];
           const string& udmId = udmRef->getId();
 
           if (udmSet)
             mergeParameters(modelSet, udmId, udmSet);  // create parameters with their new prefixed names in the ParametersSet ModelSet
         }
-        (iter->second)->setParametersSet(modelSet);
+        modelDescription->setParametersSet(modelSet);
         break;
       }
       case Model::BLACK_BOX_MODEL: {
         std::shared_ptr<BlackBoxModel> bbm = std::dynamic_pointer_cast<BlackBoxModel>(model);
         std::shared_ptr<ParametersSet> modelSet = getParametersSet(bbm->getId(), bbm->getParFile(), bbm->getParId());
         resolveParReferences(bbm, modelSet);
-        (iter->second)->setParametersSet(modelSet);
+        modelDescription->setParametersSet(modelSet);
         break;
       }
       case Model::MODEL_TEMPLATE_EXPANSION: {
         std::shared_ptr<ModelTemplateExpansion> modelTemplateExp = std::dynamic_pointer_cast<ModelTemplateExpansion>(model);
         std::shared_ptr<ParametersSet> modelSet = getParametersSet(modelTemplateExp->getId(), modelTemplateExp->getParFile(), modelTemplateExp->getParId());
         resolveParReferences(modelTemplateExp, modelSet);
-        (iter->second)->setParametersSet(modelSet);
+        modelDescription->setParametersSet(modelSet);
         break;
       }
     }
@@ -252,25 +247,25 @@ DynamicData::associateParameters() {
 
 std::shared_ptr<ParametersSet>
 DynamicData::getParametersSet(const string& modelId, const string& parFile, const string& parId) {
-  if (parFile == "" && parId == "") {
+  if (parFile.empty() && parId.empty()) {
     return std::shared_ptr<ParametersSet>();
   }
-  if (parFile != "" && parId == "") {
+  if (!parFile.empty() && parId.empty()) {
     DYNErrorQueue::instance().push(DYNError(Error::API, MissingParameterId, modelId));
     return std::shared_ptr<ParametersSet>();
   }
-  if (parFile == "" && parId != "") {
+  if (parFile.empty() && !parId.empty()) {
     DYNErrorQueue::instance().push(DYNError(Error::API, MissingParameterFile, modelId));
     return std::shared_ptr<ParametersSet>();
   }
 
-  std::string canonicalParFilePath = canonical(parFile, rootDirectory_);
+  const std::string canonicalParFilePath = canonical(parFile, rootDirectory_);
   if (referenceParameters_.find(canonicalParFilePath) != referenceParameters_.end())
     return referenceParameters_[canonicalParFilePath]->getParametersSet(parId);
 
   // Parameters file not already loaded
-  parameters::XmlImporter parametersImporter;
-  std::shared_ptr<ParametersSetCollection> parametersSetCollection = parametersImporter.importFromFile(canonicalParFilePath);
+  const parameters::XmlImporter parametersImporter;
+  const std::shared_ptr<ParametersSetCollection> parametersSetCollection = parametersImporter.importFromFile(canonicalParFilePath);
   parametersSetCollection->propagateOriginData(canonicalParFilePath);
   referenceParameters_[canonicalParFilePath] = parametersSetCollection;
   parametersSetCollection->getParametersFromMacroParameter();
@@ -278,11 +273,11 @@ DynamicData::getParametersSet(const string& modelId, const string& parFile, cons
 }
 
 void
-DynamicData::resolveParReferences(std::shared_ptr<Model> model, std::shared_ptr<ParametersSet> modelSet) {
+DynamicData::resolveParReferences(const std::shared_ptr<Model>& model, const std::shared_ptr<ParametersSet>& modelSet) {
   if (modelSet == nullptr)
     return;
-  std::unordered_map<std::string, std::shared_ptr<Reference> >& references = modelSet->getReferences();
-  for (const std::pair<const std::string, std::shared_ptr<Reference> >& ref : references) {
+  const std::unordered_map<std::string, std::shared_ptr<Reference> >& references = modelSet->getReferences();
+  for (const auto& ref : references) {
     const std::shared_ptr<Reference>& parRef = ref.second;
     if (parRef->getOrigData() == Reference::OriginData::PAR) {
       if (parRef->getParFile().empty()) {
@@ -292,11 +287,11 @@ DynamicData::resolveParReferences(std::shared_ptr<Model> model, std::shared_ptr<
         parRef->setParFile(modelSet->getFilePath());
       }
       const std::shared_ptr<ParametersSet> referencedParametersSet = getParametersSet(model->getId(), parRef->getParFile(), parRef->getParId());
-      const std::unordered_map<std::string, std::shared_ptr<parameters::Reference> > refParamSetReferences = referencedParametersSet->getReferences();
-      const std::unordered_map<std::string, std::shared_ptr<Reference> >::const_iterator itRef = refParamSetReferences.find(parRef->getOrigName());
+      const auto& refParamSetReferences = referencedParametersSet->getReferences();
+      const auto& itRef = refParamSetReferences.find(parRef->getOrigName());
       if (itRef != references.end())
         throw DYNError(DYN::Error::API, ReferenceToAnotherReference, parRef->getName(), parRef->getOrigName(), parRef->getParId(), parRef->getParFile());
-      std::shared_ptr<Parameter> referencedParameter = referencedParametersSet->getParameter(parRef->getOrigName());
+      const std::shared_ptr<Parameter>& referencedParameter = referencedParametersSet->getParameter(parRef->getOrigName());
       if (parRef->getType() == "DOUBLE") {
         modelSet->createParameter(parRef->getName(), referencedParameter->getDouble());
       } else if (parRef->getType() == "INT") {
@@ -317,18 +312,17 @@ DynamicData::createModelDescriptions() {
   modelTemplateExpansions_.clear();
   modelTemplates_.clear();
 
-  for (dynamicdata::dynamicModel_iterator itModel = dynamicModelsCollection_->beginModel();
-          itModel != dynamicModelsCollection_->endModel();
-          ++itModel) {
-    std::shared_ptr<ModelDescription> model = std::make_shared<ModelDescription>(*itModel);
+  for (const auto& dynamicModelPair : dynamicModelsCollection_->getModels()) {
+    const auto& dynamicModel = dynamicModelPair.second;
+    std::shared_ptr<ModelDescription> model = std::make_shared<ModelDescription>(dynamicModel);
     string staticId = "";
 
     // init value will be replaced after
-    std::map<std::string, std::shared_ptr<DYN::ModelDescription> >* mappedModel = NULL;
+    std::map<std::string, std::shared_ptr<DYN::ModelDescription> >* mappedModel = nullptr;
 
-    switch ((*itModel)->getType()) {
+    switch (dynamicModel->getType()) {
       case Model::MODELICA_MODEL: {
-        std::shared_ptr<ModelicaModel> modelicaModel = std::dynamic_pointer_cast<ModelicaModel>(*itModel);
+        std::shared_ptr<ModelicaModel> modelicaModel = std::dynamic_pointer_cast<ModelicaModel>(dynamicModel);
         staticId = modelicaModel->getStaticId();
         mappedModel = &modelicaModels_;
         break;
@@ -337,64 +331,57 @@ DynamicData::createModelDescriptions() {
         mappedModel = &modelTemplates_;
         break;
       case Model::BLACK_BOX_MODEL: {
-        std::shared_ptr<BlackBoxModel> bbm = std::dynamic_pointer_cast<BlackBoxModel>(*itModel);
+        const std::shared_ptr<BlackBoxModel> bbm = std::dynamic_pointer_cast<BlackBoxModel>(dynamicModel);
         staticId = bbm->getStaticId();
         mappedModel = &blackBoxModels_;
         break;
       }
       case Model::MODEL_TEMPLATE_EXPANSION: {
-        std::shared_ptr<ModelTemplateExpansion> modelTemplateExp = std::dynamic_pointer_cast<ModelTemplateExpansion>(*itModel);
+        const std::shared_ptr<ModelTemplateExpansion> modelTemplateExp = std::dynamic_pointer_cast<ModelTemplateExpansion>(dynamicModel);
         staticId = modelTemplateExp->getStaticId();
         mappedModel = &modelTemplateExpansions_;
         break;
       }
     }
     model->setStaticId(staticId);
-    if (staticId != "" && dataInterface_) {
+    if (!staticId.empty() && dataInterface_) {
       dataInterface_->hasDynamicModel(staticId);
     }
     std::pair<std::string, std::shared_ptr<DYN::ModelDescription> > item = std::make_pair(model->getID(), model);
     modelDescriptions_.insert(item);
 
-    if (mappedModel != NULL) {
+    if (mappedModel != nullptr) {
       mappedModel->insert(item);
     }
   }
 
-
   // One by one copy due to the iterators design (no other possibility)
-  for (dynamicdata::connector_iterator itConnector = dynamicModelsCollection_->beginConnector();
-          itConnector != dynamicModelsCollection_->endConnector();
-          ++itConnector) {
-    systemConnects_.push_back(*itConnector);
+  for (const auto& connector : dynamicModelsCollection_->getConnectors()) {
+    systemConnects_.push_back(connector);
   }
 
   static const string indexLabel = "@INDEX@";
   static const string nameLabel = "@NAME@";
   // expand macro connects as connector
   // for internal model macro connects, it's made before the compilation
-  for (dynamicdata::macroConnect_iterator itMacroConnect = dynamicModelsCollection_->beginMacroConnect();
-          itMacroConnect != dynamicModelsCollection_->endMacroConnect();
-          ++itMacroConnect) {
-    string connector = (*itMacroConnect)->getConnector();
-    string model1 = (*itMacroConnect)->getFirstModelId();
-    string model2 = (*itMacroConnect)->getSecondModelId();
+  for (const auto& macroConnect : dynamicModelsCollection_->getMacroConnects()) {
+    const string& connector = macroConnect->getConnector();
+    const string& model1 = macroConnect->getFirstModelId();
+    const string& model2 = macroConnect->getSecondModelId();
 
-    std::shared_ptr<dynamicdata::MacroConnector> macroConnector = dynamicModelsCollection_->findMacroConnector(connector);
+    const std::shared_ptr<dynamicdata::MacroConnector> macroConnector = dynamicModelsCollection_->findMacroConnector(connector);
 
     // check if macroConnector has no init connect
     const std::map<string, std::unique_ptr<dynamicdata::MacroConnection> >& initConnector = macroConnector->getInitConnectors();
-    if (initConnector.size() != 0)
+    if (!initConnector.empty())
       throw DYNError(DYN::Error::MODELER, SystemInitConnectorForbidden, connector);
 
     // for each connect, create a system connect
-    const std::map<string, std::unique_ptr<dynamicdata::MacroConnection> >& connectors = macroConnector->getConnectors();
-    std::map<string, std::unique_ptr<dynamicdata::MacroConnection> >::const_iterator iter = connectors.begin();
-    for (; iter != connectors.end(); ++iter) {
-      string var1 = iter->second->getFirstVariableId();
-      string var2 = iter->second->getSecondVariableId();
-      replaceMacroInVariableId((*itMacroConnect)->getIndex1(), (*itMacroConnect)->getName1(), model1, model2, connector, var1);
-      replaceMacroInVariableId((*itMacroConnect)->getIndex2(), (*itMacroConnect)->getName2(), model1, model2, connector, var2);
+    for (const auto& connectorPair : macroConnector->getConnectors()) {
+      string var1 = connectorPair.second->getFirstVariableId();
+      string var2 = connectorPair.second->getSecondVariableId();
+      replaceMacroInVariableId(macroConnect->getIndex1(), macroConnect->getName1(), model1, model2, connector, var1);
+      replaceMacroInVariableId(macroConnect->getIndex2(), macroConnect->getName2(), model1, model2, connector, var2);
 
       systemConnects_.push_back(std::make_shared<dynamicdata::Connector>(model1, var1, model2, var2));
     }
@@ -402,12 +389,11 @@ DynamicData::createModelDescriptions() {
 }
 
 void
-DynamicData::mergeParameters(std::shared_ptr<ParametersSet>& concatParams, const string& udmName, const std::shared_ptr<ParametersSet>& udmSet) {
+DynamicData::mergeParameters(const std::shared_ptr<ParametersSet>& concatParams, const string& udmName, const std::shared_ptr<ParametersSet>& udmSet) {
   // for parameters in parameterSet
-  vector<string> parametersName = udmSet->getParametersNames();
-  for (vector<string>::const_iterator itName = parametersName.begin(); itName != parametersName.end(); ++itName) {
-    const string parameterName = udmName + "_" + *itName;
-    const std::shared_ptr<Parameter> par = udmSet->getParameter(*itName);
+  for (const auto& name : udmSet->getParametersNames()) {
+    const string parameterName = udmName + "_" + name;
+    const std::shared_ptr<Parameter> par = udmSet->getParameter(name);
 
     switch (par->getType()) {
       case Parameter::BOOL: {
@@ -427,15 +413,14 @@ DynamicData::mergeParameters(std::shared_ptr<ParametersSet>& concatParams, const
         break;
       }
       case Parameter::SIZE_OF_ENUM:
-        throw DYNError(Error::MODELER, ParameterUnknownType, udmName, *itName);
+        throw DYNError(Error::MODELER, ParameterUnknownType, udmName, name);
     }
   }
   // for references in parameterSet
-  const vector<string>& referencesName = udmSet->getReferencesNames();
-  for (vector<string>::const_iterator itRefName = referencesName.begin(); itRefName != referencesName.end(); ++itRefName) {
-    const std::shared_ptr<Reference> ref = udmSet->getReference(*itRefName);
-    const string referenceName = udmName + "_" + *itRefName;
-    std::unique_ptr<Reference> reference = ReferenceFactory::newReference(referenceName, ref->getOrigData());
+  for (const auto& refName : udmSet->getReferencesNames()) {
+    const std::shared_ptr<Reference> ref = udmSet->getReference(refName);
+    const string referenceName = udmName + "_" + refName;
+    const std::shared_ptr<Reference> reference = ReferenceFactory::newReference(referenceName, ref->getOrigData());
     reference->setType(ref->getType());
     reference->setOrigName(ref->getOrigName());
     reference->setComponentId(ref->getComponentId());
@@ -445,7 +430,7 @@ DynamicData::mergeParameters(std::shared_ptr<ParametersSet>& concatParams, const
 
 void
 DynamicData::getNetworkParameters(const string& parFile, const string& parSet) {
-  std::shared_ptr<ParametersSet> parameters = getParametersSet("network", parFile, parSet);
+  const std::shared_ptr<ParametersSet> parameters = getParametersSet("network", parFile, parSet);
   DYNErrorQueue::instance().flush();
   setNetworkParameters(parameters);
 }

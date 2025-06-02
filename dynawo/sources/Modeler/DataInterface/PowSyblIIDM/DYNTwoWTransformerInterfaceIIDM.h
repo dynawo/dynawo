@@ -117,7 +117,7 @@ class TwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
   /**
    * @copydoc TwoWTransformerInterface::getID() const
    */
-  std::string getID() const;
+  const std::string& getID() const;
 
   /**
    * @copydoc TwoWTransformerInterface::getInitialConnected1()

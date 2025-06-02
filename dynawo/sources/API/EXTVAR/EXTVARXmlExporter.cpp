@@ -57,9 +57,8 @@ XmlExporter::exportToStream(const VariablesCollection& collection, ostream& stre
   AttributeList attrs;
   formatter->startElement("external_variables", attrs);
 
-  for (variable_const_iterator itVariable = collection.cbeginVariable();
-          itVariable != collection.cendVariable(); ++itVariable) {
-    writeVariable(*itVariable, *formatter);
+  for (const auto& variablePair : collection.getVariables()) {
+    writeVariable(variablePair.second, *formatter);
   }
 
   formatter->endElement();  // external_variables

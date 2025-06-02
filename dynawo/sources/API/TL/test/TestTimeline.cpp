@@ -46,19 +46,7 @@ TEST(APITLTest, TimelineAddEvent) {
   timeline->addEvent(10, "model2", "event3 at 10s", priority4, "");  // same time, different model
   timeline->addEvent(20, "model2", "event2 at 20s", priorityNone, "");  // different time
 
-  // test const iterator
-  int nbEvents = 0;
-  for (Timeline::event_const_iterator itEvent = timeline->cbeginEvent();
-          itEvent != timeline->cendEvent();
-          ++itEvent)
-    ++nbEvents;
-  ASSERT_EQ(nbEvents, timeline->getSizeEvents());
-
-  Timeline::event_const_iterator itVariablec(timeline->cbeginEvent());
-  ASSERT_EQ((++itVariablec)->get()->getMessage(), "event2 at 10s");
-  ASSERT_EQ((--itVariablec)->get()->getMessage(), "event1 at 10s");
-  ASSERT_EQ((itVariablec++)->get()->getMessage(), "event1 at 10s");
-  ASSERT_EQ((itVariablec--)->get()->getMessage(), "event2 at 10s");
+  ASSERT_EQ(timeline->getSizeEvents(), 4);
 }
 
 //-----------------------------------------------------
@@ -81,16 +69,14 @@ TEST(APITLTest, TimelineEraseEvents) {
 
   // remove events 2 and 3 from the timeline
   ASSERT_EQ(4, timeline->getSizeEvents());
-  Timeline::event_const_iterator startingEvent = timeline->cbeginEvent();
-  ASSERT_EQ(startingEvent->get()->getMessage(), "event1 at 10s");
-  ASSERT_EQ((++startingEvent)->get()->getMessage(), "event2 at 10s");
-  ASSERT_EQ((++startingEvent)->get()->getMessage(), "event3 at 10s");
-  ASSERT_EQ((++startingEvent)->get()->getMessage(), "event2 at 20s");
+  ASSERT_EQ(timeline->getEvents()[0]->getMessage(), "event1 at 10s");
+  ASSERT_EQ(timeline->getEvents()[1]->getMessage(), "event2 at 10s");
+  ASSERT_EQ(timeline->getEvents()[2]->getMessage(), "event3 at 10s");
+  ASSERT_EQ(timeline->getEvents()[3]->getMessage(), "event2 at 20s");
   timeline->eraseEvents(2);
   ASSERT_EQ(2, timeline->getSizeEvents());
-  startingEvent = timeline->cbeginEvent();
-  ASSERT_EQ(startingEvent->get()->getMessage(), "event1 at 10s");
-  ASSERT_EQ((++startingEvent)->get()->getMessage(), "event2 at 10s");
+  ASSERT_EQ(timeline->getEvents()[0]->getMessage(), "event1 at 10s");
+  ASSERT_EQ(timeline->getEvents()[1]->getMessage(), "event2 at 10s");
 }
 
 TEST(APITLTest, TimelineFilter) {
@@ -128,41 +114,39 @@ TEST(APITLTest, TimelineFilter) {
   timeline->filter(oppositeEventDico);
 
   unsigned index = 0;
-  for (Timeline::event_const_iterator itEvent = timeline->cbeginEvent();
-          itEvent != timeline->cendEvent();
-          ++itEvent) {
+  for (const auto& event : timeline->getEvents()) {
     if (index == 0) {
-      ASSERT_DOUBLE_EQUALS_DYNAWO((*itEvent)->getTime(), 0);
-      ASSERT_EQ((*itEvent)->getModelName(), "GEN____8_SM");
-      ASSERT_EQ((*itEvent)->getMessage(), "PMIN : activation");
+      ASSERT_DOUBLE_EQUALS_DYNAWO(event->getTime(), 0);
+      ASSERT_EQ(event->getModelName(), "GEN____8_SM");
+      ASSERT_EQ(event->getMessage(), "PMIN : activation");
     } else if (index == 1) {
-      ASSERT_DOUBLE_EQUALS_DYNAWO((*itEvent)->getTime(), 0.0306911);
-      ASSERT_EQ((*itEvent)->getModelName(), "GEN____3_SM");
-      ASSERT_EQ((*itEvent)->getMessage(), "PMIN : deactivation");
+      ASSERT_DOUBLE_EQUALS_DYNAWO(event->getTime(), 0.0306911);
+      ASSERT_EQ(event->getModelName(), "GEN____3_SM");
+      ASSERT_EQ(event->getMessage(), "PMIN : deactivation");
     } else if (index == 2) {
-      ASSERT_DOUBLE_EQUALS_DYNAWO((*itEvent)->getTime(), 0.348405);
-      ASSERT_EQ((*itEvent)->getModelName(), "GEN____8_SM");
-      ASSERT_EQ((*itEvent)->getMessage(), "PMIN : deactivation");
+      ASSERT_DOUBLE_EQUALS_DYNAWO(event->getTime(), 0.348405);
+      ASSERT_EQ(event->getModelName(), "GEN____8_SM");
+      ASSERT_EQ(event->getMessage(), "PMIN : deactivation");
     } else if (index == 3) {
-      ASSERT_DOUBLE_EQUALS_DYNAWO((*itEvent)->getTime(), 0.348405);
-      ASSERT_EQ((*itEvent)->getModelName(), "GEN____3_SM");
-      ASSERT_EQ((*itEvent)->getMessage(), "PMIN : deactivation");
+      ASSERT_DOUBLE_EQUALS_DYNAWO(event->getTime(), 0.348405);
+      ASSERT_EQ(event->getModelName(), "GEN____3_SM");
+      ASSERT_EQ(event->getMessage(), "PMIN : deactivation");
     } else if (index == 4) {
-      ASSERT_DOUBLE_EQUALS_DYNAWO((*itEvent)->getTime(), 0.828675);
-      ASSERT_EQ((*itEvent)->getModelName(), "GEN____3_SM");
-      ASSERT_EQ((*itEvent)->getMessage(), "PV Generator : back to voltage regulation");
+      ASSERT_DOUBLE_EQUALS_DYNAWO(event->getTime(), 0.828675);
+      ASSERT_EQ(event->getModelName(), "GEN____3_SM");
+      ASSERT_EQ(event->getMessage(), "PV Generator : back to voltage regulation");
     } else if (index == 5) {
-      ASSERT_DOUBLE_EQUALS_DYNAWO((*itEvent)->getTime(), 0.9);
-      ASSERT_EQ((*itEvent)->getModelName(), "GEN____3_SM");
-      ASSERT_EQ((*itEvent)->getMessage(), "PV Generator : back to voltage regulation");
+      ASSERT_DOUBLE_EQUALS_DYNAWO(event->getTime(), 0.9);
+      ASSERT_EQ(event->getModelName(), "GEN____3_SM");
+      ASSERT_EQ(event->getMessage(), "PV Generator : back to voltage regulation");
     } else if (index == 6) {
-      ASSERT_DOUBLE_EQUALS_DYNAWO((*itEvent)->getTime(), 0.91);
-      ASSERT_EQ((*itEvent)->getModelName(), "GEN____3_SM");
-      ASSERT_EQ((*itEvent)->getMessage(), "PV Generator : min reactive power limit reached");
+      ASSERT_DOUBLE_EQUALS_DYNAWO(event->getTime(), 0.91);
+      ASSERT_EQ(event->getModelName(), "GEN____3_SM");
+      ASSERT_EQ(event->getMessage(), "PV Generator : min reactive power limit reached");
     } else if (index == 7) {
-      ASSERT_DOUBLE_EQUALS_DYNAWO((*itEvent)->getTime(), 0.91);
-      ASSERT_EQ((*itEvent)->getModelName(), "GEN____3_SM");
-      ASSERT_EQ((*itEvent)->getMessage(), "PV Generator : max reactive power limit reached");
+      ASSERT_DOUBLE_EQUALS_DYNAWO(event->getTime(), 0.91);
+      ASSERT_EQ(event->getModelName(), "GEN____3_SM");
+      ASSERT_EQ(event->getMessage(), "PV Generator : max reactive power limit reached");
     }
     ++index;
   }

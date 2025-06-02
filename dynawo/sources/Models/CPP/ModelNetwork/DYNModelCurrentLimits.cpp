@@ -29,7 +29,9 @@ using std::string;
 namespace DYN {
 
 ModelCurrentLimits::ModelCurrentLimits() :
-nbTemporaryLimits_(0) {
+nbTemporaryLimits_(0),
+lastCurrentValue_(0.),
+factorPuToA_(1.) {
   side_ = SIDE_UNDEFINED;
   maxTimeOperation_ = VALDEF;
 }
@@ -40,7 +42,7 @@ ModelCurrentLimits::sizeG() const {
 }
 
 int
-ModelCurrentLimits::sizeZ() const {
+ModelCurrentLimits::sizeZ() {
   return 0;
 }
 
@@ -50,17 +52,17 @@ ModelCurrentLimits::setSide(const side_t side) {
 }
 
 void
-ModelCurrentLimits::setFactorPuToA(double factorPuToA) {
+ModelCurrentLimits::setFactorPuToA(const double factorPuToA) {
   factorPuToA_ = factorPuToA;
 }
 
 void
-ModelCurrentLimits::setMaxTimeOperation(const double& maxTimeOperation) {
+ModelCurrentLimits::setMaxTimeOperation(const double maxTimeOperation) {
   maxTimeOperation_ = maxTimeOperation;
 }
 
 void
-ModelCurrentLimits::addLimit(const double& limit, const int& acceptableDuration) {
+ModelCurrentLimits::addLimit(const double limit, const int acceptableDuration) {
   if (!std::isnan(limit)) {
     limits_.push_back(limit);
     activated_.push_back(false);
@@ -76,7 +78,7 @@ ModelCurrentLimits::addLimit(const double& limit, const int& acceptableDuration)
 }
 
 void
-ModelCurrentLimits::evalG(const double& t, const double& current, state_g* g, const double& desactivate) {
+ModelCurrentLimits::evalG(const double t, const double current, const double desactivate, state_g* g) {
   lastCurrentValue_ = current;
   for (unsigned int i = 0; i < limits_.size(); ++i) {
     g[0 + 2 * i] = (current > limits_[i] && !(desactivate > 0)) ? ROOT_UP : ROOT_DOWN;  // I > Imax
@@ -87,9 +89,9 @@ ModelCurrentLimits::evalG(const double& t, const double& current, state_g* g, co
 }
 
 constraints::ConstraintData
-ModelCurrentLimits::constraintData(const constraints::ConstraintData::kind_t& kind, unsigned int i) {
+ModelCurrentLimits::constraintData(const constraints::ConstraintData::kind_t& kind, const unsigned int i) {
   // The value for the limit and the current in SI units (Amperes)
-  bool isTemporary = openingAuthorized_[i];
+  const bool isTemporary = openingAuthorized_[i];
   if (isTemporary) {
     return constraints::ConstraintData(kind, limits_[i]*factorPuToA_, lastCurrentValue_*factorPuToA_, side_, acceptableDurations_[i]);
   } else {
@@ -98,9 +100,9 @@ ModelCurrentLimits::constraintData(const constraints::ConstraintData::kind_t& ki
 }
 
 ModelCurrentLimits::state_t
-ModelCurrentLimits::evalZ(const string& componentName, const double& t, state_g* g, ModelNetwork* network, const double& desactivate,
-    const string& modelType) {
-  state_t state = ModelCurrentLimits::COMPONENT_CLOSE;
+ModelCurrentLimits::evalZ(const string& componentName, const double t, const state_g* g, const double desactivate,
+    const string& modelType, ModelNetwork* network) {
+  state_t state = COMPONENT_CLOSE;
   using constraints::ConstraintData;
 
   for (unsigned int i = 0; i < limits_.size(); ++i) {
@@ -134,7 +136,7 @@ ModelCurrentLimits::evalZ(const string& componentName, const double& t, state_g*
       }
 
       if (openingAuthorized_[i] && g[1 + 2 * i] == ROOT_UP) {  // Warning: openingAuthorized_ = false => no associated g
-        state = ModelCurrentLimits::COMPONENT_OPEN;
+        state = COMPONENT_OPEN;
         if (!DYN::doubleIsZero(lastCurrentValue_)) {
           DYNAddConstraintWithData(network, componentName, true, modelType,
               constraintData(ConstraintData::OverloadOpen, i),

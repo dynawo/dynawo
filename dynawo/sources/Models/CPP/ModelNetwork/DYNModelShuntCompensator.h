@@ -71,7 +71,7 @@ class ModelShuntCompensator : public NetworkComponent {
    * @brief set connection status
    * @param state connection status
    */
-  void setConnected(State state) {
+  void setConnected(const State state) {
     connectionState_ = state;
   }
 
@@ -91,7 +91,7 @@ class ModelShuntCompensator : public NetworkComponent {
    * @brief evaluate derivatives
    * @param cj Jacobian prime coefficient
    */
-  void evalDerivatives(const double cj) override;
+  void evalDerivatives(double cj) override;
 
   /**
    * @brief evaluate derivatives prim
@@ -104,14 +104,14 @@ class ModelShuntCompensator : public NetworkComponent {
   void evalF(propertyF_t type) override;
 
   /**
-   * @copydoc NetworkComponent::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJt(double cj, int rowOffset, SparseMatrix& jt)
    */
-  void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) override;
+  void evalJt(double cj, int rowOffset, SparseMatrix& jt) override;
 
   /**
-   * @copydoc NetworkComponent::evalJtPrim(SparseMatrix& jt, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJtPrim(int rowOffset, SparseMatrix& jtPrim)
    */
-  void evalJtPrim(SparseMatrix& jt, const int& rowOffset) override;
+  void evalJtPrim(int rowOffset, SparseMatrix& jtPrim) override;
 
   /**
    * @brief define variables
@@ -147,7 +147,7 @@ class ModelShuntCompensator : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::evalZ()
    */
-  NetworkComponent::StateChange_t evalZ(const double& t) override;
+  NetworkComponent::StateChange_t evalZ(double t) override;
 
   /**
    * @copydoc NetworkComponent::collectSilentZ()
@@ -158,7 +158,7 @@ class ModelShuntCompensator : public NetworkComponent {
    * @brief evaluation G
    * @param t time
    */
-  void evalG(const double& t) override;
+  void evalG(double t) override;
 
   /**
    * @brief evaluation of the calculated variables (for outputs)
@@ -244,7 +244,7 @@ class ModelShuntCompensator : public NetworkComponent {
    * @param time time
    * @return state change type
    */
-  NetworkComponent::StateChange_t evalState(const double& time) override;
+  NetworkComponent::StateChange_t evalState(double time) override;
 
   /**
    * @brief addBusNeighbors
@@ -317,28 +317,33 @@ class ModelShuntCompensator : public NetworkComponent {
    * @param ui imaginary part of the voltage
    * @return value
    */
-  double ir(const double& ui) const;
+  double ir(double ui) const;
+
   /**
    * @brief compute value
    * @param ur real part of the voltage
    * @return value
    */
-  double ii(const double& ur) const;
+  double ii(double ur) const;
+
   /**
    * @brief compute value
    * @return value
    */
   double ir_dUr() const;
+
   /**
    * @brief compute value
    * @return value
    */
   double ii_dUr() const;
+
   /**
    * @brief compute value
    * @return value
    */
   double ir_dUi() const;
+
   /**
    * @brief compute value
    * @return value

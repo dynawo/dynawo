@@ -70,7 +70,7 @@ CalculatedBusInterfaceIIDM::addNode(const int node) {
   nodes_.insert(node);
 }
 
-string
+const std::string&
 CalculatedBusInterfaceIIDM::getID() const {
   return name_;
 }
@@ -196,8 +196,8 @@ CalculatedBusInterfaceIIDM::getNodes() const {
 std::ostream& operator<<(std::ostream& stream, const CalculatedBusInterfaceIIDM& calculatedBus) {
   stream << calculatedBus.getID() << " nodes : [";
   set<int> nodes = calculatedBus.getNodes();
-  for (set<int>::iterator it = nodes.begin(); it !=nodes.end(); ++it)
-    stream << ' ' << *it;
+  for (const auto node : nodes)
+    stream << ' ' << node;
   stream << " ]; busBarSection : [";
 
   vector<string> bbsIdentifiers = calculatedBus.getBusBarSectionIdentifiers();

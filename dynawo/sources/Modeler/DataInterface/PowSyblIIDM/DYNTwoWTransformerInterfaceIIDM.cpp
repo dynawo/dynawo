@@ -101,7 +101,7 @@ TwoWTransformerInterfaceIIDM::getBusInterface2() const {
   return busInterface2_;
 }
 
-string
+const std::string&
 TwoWTransformerInterfaceIIDM::getID() const {
   return tfoIIDM_.getId();
 }

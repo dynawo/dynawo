@@ -142,7 +142,7 @@ class DanglingLineInterface : public ComponentInterface {
    * @brief Getter for the dangling line's id
    * @return The id of the dangling line
    */
-  virtual std::string getID() const = 0;
+  virtual const std::string& getID() const = 0;
 
   /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()

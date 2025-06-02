@@ -107,8 +107,8 @@ ModelSwitch::evalNodeInjection() {
 }
 
 NetworkComponent::StateChange_t
-ModelSwitch::evalZ(const double& /*t*/) {
-  State currState = static_cast<State>(static_cast<int>(z_[0]));
+ModelSwitch::evalZ(const double /*t*/) {
+  const State currState = static_cast<State>(static_cast<int>(z_[0]));
   if (currState != getConnectionState()) {
     topologyModified_ = true;
     Trace::info() << DYNLog(SwitchStateChange, id_, getConnectionState(), currState) << Trace::endline;
@@ -248,13 +248,13 @@ ModelSwitch::defineParameters(vector<ParameterModeler>& /*parameters*/) {
 
 void
 ModelSwitch::defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) {
-  string switchName = id_;
+  const string switchName = id_;
   addElementWithValue(switchName + string("_state"), "Switch", elements, mapElement);
   addElementWithValue(switchName + string("_swState"), "Switch", elements, mapElement);
 }
 
 NetworkComponent::StateChange_t
-ModelSwitch::evalState(const double& /*time*/) {
+ModelSwitch::evalState(const double /*time*/) {
   if (topologyModified_) {
     topologyModified_ = false;
     return NetworkComponent::TOPO_CHANGE;
@@ -287,7 +287,7 @@ ModelSwitch::addBusNeighbors() {
 }
 
 void
-ModelSwitch::evalJt(SparseMatrix& jt, const double& /*cj*/, const int& rowOffset) {
+ModelSwitch::evalJt(const double /*cj*/, const int rowOffset, SparseMatrix& jt) {
   // Column for node current / real part of the voltage (i depending on re(V))
   // --------------------------------------------------------------------------
 
@@ -324,11 +324,11 @@ ModelSwitch::evalJt(SparseMatrix& jt, const double& /*cj*/, const int& rowOffset
 }
 
 void
-ModelSwitch::evalJtPrim(SparseMatrix& jt, const int& /*rowOffset*/) {
+ModelSwitch::evalJtPrim(const int /*rowOffset*/, SparseMatrix& jtPrim) {
   // Switching column - node current / real part of the voltage
-  jt.changeCol();
+  jtPrim.changeCol();
   // Switching column - node current / imaginary part of the voltage
-  jt.changeCol();
+  jtPrim.changeCol();
 }
 
 void
@@ -372,7 +372,7 @@ ModelSwitch::defineNonGenericParameters(vector<ParameterModeler>& /*parameters*/
 }
 
 void
-ModelSwitch::evalG(const double& /*t*/) {
+ModelSwitch::evalG(const double /*t*/) {
   // not needed
 }
 

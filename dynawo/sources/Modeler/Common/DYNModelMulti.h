@@ -46,113 +46,113 @@ class ModelMulti : public Model, private boost::noncopyable {
   /**
    * @brief default destructor
    */
-  ~ModelMulti();
+  ~ModelMulti() override;
 
   /**
    * @copydoc Model::evalF(const double t, const double* y, const double* yp, double* f)
    */
-  void evalF(const double t, const double* y, const double* yp, double* f);
+  void evalF(double t, const double* y, const double* yp, double* f) override;
 
   /**
    * @copydoc Model::evalFDiff(const double t, const double* y, const double* yp, double* f)
    */
-  void evalFDiff(const double t, const double* y, const double* yp, double* f);
+  void evalFDiff(double t, const double* y, const double* yp, double* f) override;
 
   /**
    * @copydoc Model::evalFMode(const double t, const double* y, const double* yp, double* f)
    */
-  void evalFMode(const double t, const double* y, const double* yp, double* f);
+  void evalFMode(double t, const double* y, const double* yp, double* f) override;
 
   /**
    * @copydoc Model::copyContinuousVariables(const double* y, const double* yp)
    */
-  void copyContinuousVariables(const double* y, const double* yp);
+  void copyContinuousVariables(const double* y, const double* yp) override;
 
   /**
    * @copydoc Model::copyDiscreteVariables(const double* z)
    */
-  void copyDiscreteVariables(const double* z);
+  void copyDiscreteVariables(const double* z) override;
 
   /**
    * @copydoc Model::evalG(double t, std::vector<state_g> &g)
    */
-  void evalG(double t, std::vector<state_g>& g);
+  void evalG(double t, std::vector<state_g>& g) override;
 
   /**
    * @copydoc Model::evalZ(double t)
    */
-  void evalZ(double t);
+  void evalZ(double t) override;
 
   /**
    * @copydoc Model::evalMode(double t)
    */
-  void evalMode(double t);
+  void evalMode(double t) override;
 
   /**
-   * @copydoc Model::evalJt(const double t, const double cj, SparseMatrix& Jt)
+   * @copydoc Model::evalJt(double t, double cj, SparseMatrix& jt)
    */
-  void evalJt(const double t, const double cj, SparseMatrix& Jt);
+  void evalJt(double t, double cj, SparseMatrix& jt) override;
 
   /**
-   * @copydoc Model::evalJtPrim(const double t, const double cj, SparseMatrix& JtPrim)
+   * @copydoc Model::evalJtPrim(const double t, const double cj, SparseMatrix& jtPrim)
    */
-  void evalJtPrim(const double t, const double cj, SparseMatrix& JtPrim);
+  void evalJtPrim(double t, double cj, SparseMatrix& jtPrim) override;
 
   /**
    * @copydoc Model::checkDataCoherence(const double t)
    */
-  void checkDataCoherence(const double t);
+  void checkDataCoherence(double t) override;
 
   /**
    * @copydoc Model::checkParametersCoherence() const
    */
-  void checkParametersCoherence() const;
+  void checkParametersCoherence() const override;
 
   /**
    * @copydoc Model::setFequationsModel()
    */
-  void setFequationsModel();
+  void setFequationsModel() override;
 
   /**
    * @copydoc Model::setGequationsModel()
    */
-  void setGequationsModel();
+  void setGequationsModel() override;
 
   /**
    * @copydoc Model::getY0(const double t0, std::vector<double>& y0, std::vector<double>& yp0)
    */
-  void getY0(const double t0, std::vector<double>& y0, std::vector<double>& yp0);
+  void getY0(double t0, std::vector<double>& y0, std::vector<double>& yp0) override;
 
   /**
    * @copydoc Model::modeChange()
    */
-  inline bool modeChange() const {
+  inline bool modeChange() const override {
     return modeChange_;
   }
 
   /**
    * @copydoc Model::getModeChangeType()
    */
-  inline modeChangeType_t getModeChangeType() const {
+  inline modeChangeType_t getModeChangeType() const override {
     return modeChangeType_;
   }
 
   /**
-   * @copydoc Model::setModeChangeType(const modeChangeType_t& modeChangeType)
+   * @copydoc Model::setModeChangeType(const modeChangeType_t modeChangeType)
    */
-  inline void setModeChangeType(const modeChangeType_t& modeChangeType) {
+  inline void setModeChangeType(const modeChangeType_t modeChangeType) override {
     modeChangeType_ = modeChangeType;
   }
 
   /**
    * @copydoc Model::reinitMode()
    */
-  void reinitMode();
+  void reinitMode() override;
 
   /**
    * @copydoc Model::notifyTimeStep()
    */
-  void notifyTimeStep();
+  void notifyTimeStep() override;
 
   /**
    * @brief retrieve if at least one non-silent discrete variable has changed
@@ -166,91 +166,91 @@ class ModelMulti : public Model, private boost::noncopyable {
    * @brief get the type of z that were modified
    * @return type of z that were modified
    */
-  inline zChangeType_t getSilentZChangeType() const {
+  inline zChangeType_t getSilentZChangeType() const override {
     return silentZChange_;
   }
 
   /**
    * @copydoc Model::initSilentZ(bool enableSilentZ)
    */
-  void initSilentZ(bool enableSilentZ);
+  void initSilentZ(bool enableSilentZ) override;
 
   /**
    * @copydoc Model::getFType() const
    */
-  inline const std::vector<propertyF_t>& getFType() const {
+  inline const std::vector<propertyF_t>& getFType() const override {
     return fType_;
   }
 
   /**
    * @copydoc Model::evalStaticFType()
    */
-  void evalStaticFType();
+  void evalStaticFType() override;
 
   /**
    * @copydoc Model::evalDynamicFType()
    */
-  void evalDynamicFType();
+  void evalDynamicFType() override;
 
   /**
    * @copydoc Model::getYType()
    */
-  inline const std::vector<propertyContinuousVar_t>& getYType() const {
+  inline const std::vector<propertyContinuousVar_t>& getYType() const override {
     return yType_;
   }
 
   /**
    * @copydoc Model::evalStaticYType()
    */
-  void evalStaticYType();
+  void evalStaticYType() override;
 
   /**
    * @copydoc Model::evalStaticYType()
    */
-  void evalDynamicYType();
+  void evalDynamicYType() override;
 
   /**
    * @copydoc Model::setIsInitProcess(bool isInitProcess)
    */
-  void setIsInitProcess(bool isInitProcess);
+  void setIsInitProcess(bool isInitProcess) override;
 
   /**
    * @copydoc Model::setInitialTime(const double t0)
    */
-  void setInitialTime(const double t0);
+  void setInitialTime(double t0) override;
 
   /**
    * @copydoc Model::sizeG() const
    */
-  inline int sizeG() const {
+  inline int sizeG() const override {
     return sizeG_;
   }
 
   /**
    * @copydoc Model::sizeF() const
    */
-  inline int sizeF() const {
+  inline int sizeF() const override {
     return sizeF_;
   }
 
   /**
    * @copydoc Model::sizeMode() const
    */
-  inline int sizeMode() const {
+  inline int sizeMode() const override {
     return sizeMode_;
   }
 
   /**
    * @copydoc Model::sizeZ() const
    */
-  inline int sizeZ() const {
+  inline int sizeZ() const override {
     return sizeZ_;
   }
 
   /**
    * @copydoc Model::sizeY() const
    */
-  inline int sizeY() const {
+  inline int sizeY() const override {
     return sizeY_;
   }
 
@@ -262,7 +262,7 @@ class ModelMulti : public Model, private boost::noncopyable {
    * @param localFIndex local index of the residual functions inside the subModel
    * @param fEquation equation formula related to local index
    */
-  void getFInfos(const int globalFIndex, std::string& subModelName, int& localFIndex, std::string& fEquation) const;
+  void getFInfos(int globalFIndex, std::string& subModelName, int& localFIndex, std::string& fEquation) const override;
 
   /**
    * @brief get informations about root functions
@@ -272,7 +272,7 @@ class ModelMulti : public Model, private boost::noncopyable {
    * @param localGIndex local index of the root functions inside the subModel
    * @param gEquation equation formula related to local index
    */
-  void getGInfos(const int globalGIndex, std::string& subModelName, int& localGIndex, std::string& gEquation) const;
+  void getGInfos(int globalGIndex, std::string& subModelName, int& localGIndex, std::string& gEquation) const override;
 
   // ==============================
   // interface SIMULATION <-> MODEL
@@ -283,89 +283,89 @@ class ModelMulti : public Model, private boost::noncopyable {
    *
    * @param t0 time to use to initialize the model
    */
-  void init(const double t0);
+  void init(double t0) override;
 
   /**
    * @copydoc Model::initBuffers()
    */
-  void initBuffers();
+  void initBuffers() override;
 
   /**
    * @copydoc Model::printModel() const
    */
-  void printModel() const;
+  void printModel() const override;
 
   /**
    * @copydoc Model::printModelValues(const std::string & directory, const std::string& dumpFileName)
    */
-  void printModelValues(const std::string& directory, const std::string& dumpFileName);
+  void printModelValues(const std::string& directory, const std::string& dumpFileName) override;
 
   /**
    * @copydoc Model::printInitModelValues(const std::string & directory, const std::string& dumpFileName)
    */
-  void printInitModelValues(const std::string& directory, const std::string& dumpFileName);
+  void printInitModelValues(const std::string& directory, const std::string& dumpFileName) override;
 
   /**
    * @copydoc Model::evalCalculatedVariables(const double t, const std::vector<double>& y, const std::vector<double>& yp,const std::vector<double>& z)
    */
-  void evalCalculatedVariables(const double t, const std::vector<double>& y, const std::vector<double>& yp, const std::vector<double>& z);
+  void evalCalculatedVariables(double t, const std::vector<double>& y, const std::vector<double>& yp, const std::vector<double>& z) override;
 
   /**
   * @brief update the subset of calculated variables needed for curves
   *
   * @param curvesCollection set of curves
   */
-  void updateCalculatedVarForCurves(std::shared_ptr<curves::CurvesCollection>& curvesCollection) const;
+  void updateCalculatedVarForCurves(const std::shared_ptr<curves::CurvesCollection>& curvesCollection) const override;
 
   /**
    * @copydoc Model::dumpParameters(std::map< std::string, std::string> & mapParameters)
    */
-  void dumpParameters(std::map< std::string, std::string>& mapParameters);
+  void dumpParameters(std::map< std::string, std::string>& mapParameters) override;
 
   /**
    * @copydoc Model::getModelParameterValue(const std::string & curveModelName, const std::string & curveVariable, double & value, bool & found)
    */
-  void getModelParameterValue(const std::string& curveModelName, const std::string& curveVariable, double& value, bool& found);
+  void getModelParameterValue(const std::string& curveModelName, const std::string& curveVariable, double& value, bool& found) override;
 
   /**
    * @copydoc Model::loadParameters(const std::map< std::string, std::string> & mapParameters)
    */
-  void loadParameters(const std::map< std::string, std::string>& mapParameters);
+  void loadParameters(const std::map< std::string, std::string>& mapParameters) override;
 
   /**
    * @copydoc Model::dumpVariables(std::map< std::string, std::string> & mapVariables)
    */
-  void dumpVariables(std::map< std::string, std::string>& mapVariables);
+  void dumpVariables(std::map< std::string, std::string>& mapVariables) override;
 
   /**
    * @copydoc Model::loadVariables(const std::map< std::string, std::string> & mapVariables)
    */
-  void loadVariables(const std::map< std::string, std::string>& mapVariables);
+  void loadVariables(const std::map< std::string, std::string>& mapVariables) override;
 
   /**
    * @copydoc Model::rotateBuffers()
    */
-  void rotateBuffers();
+  void rotateBuffers() override;
 
   /**
    * @copydoc Model::printMessages()
    */
-  void printMessages();
+  void printMessages() override;
 
   /**
-   * @copydoc Model::setTimeline(const boost::shared_ptr<timeline::Timeline>& timeline)
+   * @copydoc Model::setTimeline(const std::shared_ptr<timeline::Timeline>& timeline)
    */
-  void setTimeline(const boost::shared_ptr<timeline::Timeline>& timeline);
+  void setTimeline(const boost::shared_ptr<timeline::Timeline>& timeline) override;
 
   /**
    * @copydoc Model::setConstraints(const std::shared_ptr<constraints::ConstraintsCollection>& constraints)
    */
-  void setConstraints(const std::shared_ptr<constraints::ConstraintsCollection>& constraints);
+  void setConstraints(const std::shared_ptr<constraints::ConstraintsCollection>& constraints) override;
 
   /**
-   * @copydoc Model::initCurves(std::shared_ptr<curves::Curve>& curve)
+   * @copydoc Model::initCurves(const std::shared_ptr<curves::Curve>& curve)
    */
-  bool initCurves(std::shared_ptr<curves::Curve>& curve);
+  bool initCurves(const std::shared_ptr<curves::Curve>& curve) override;
 
  public:
   /**
@@ -374,7 +374,7 @@ class ModelMulti : public Model, private boost::noncopyable {
    * @param sub sub model to add
    * @param libName name of the library used to create the subModel
    */
-  void addSubModel(boost::shared_ptr<SubModel>& sub, const std::string& libName);
+  void addSubModel(const boost::shared_ptr<SubModel>& sub, const std::string& libName);
 
   /**
    * @brief connect a variable of subModel1 to a variable of subModel2
@@ -428,51 +428,51 @@ class ModelMulti : public Model, private boost::noncopyable {
   /**
    * @copydoc Model::setWorkingDirectory()
    */
-  void setWorkingDirectory(const std::string& workingDirectory);
+  void setWorkingDirectory(const std::string& workingDirectory) override;
 
   /**
    * @copydoc Model::printVariableNames()
    */
-  void printVariableNames(bool withVariableType);
+  void printVariableNames(bool withVariableType) override;
 
   /**
    * @copydoc Model::printEquations()
    */
-  void printEquations();
+  void printEquations() override;
 
   /**
    * @copydoc Model::printParameterValues() const
    */
-  void printParameterValues() const;
+  void printParameterValues() const override;
 
   /**
    * @copydoc Model::printLocalInitParametersValues() const;
    */
-  void printLocalInitParametersValues() const;
+  void printLocalInitParametersValues() const override;
 
   /**
    * @copydoc Model::getVariableName()
    */
-  std::string getVariableName(int index);
+  std::string getVariableName(int index) override;
 
   /**
   * @brief Copy the discrete variable values from the model data structure to the solver data structure
   *
   * @param z vector of discrete values from the solver data structure
   */
-  void getCurrentZ(std::vector<double>& z) const;
+  void getCurrentZ(std::vector<double>& z) const override;
 
   /**
    * @copydoc Model::setCurrentZ(const std::vector<double>& z)
    */
-  void setCurrentZ(const std::vector<double>& z);
+  void setCurrentZ(const std::vector<double>& z) override;
 
   /**
    * @brief set local initialization solver parameters
    *
    * @param localInitParameters local initialization solver parameters
    */
-  void setLocalInitParameters(std::shared_ptr<parameters::ParametersSet> localInitParameters);
+  void setLocalInitParameters(const std::shared_ptr<parameters::ParametersSet>& localInitParameters) override;
 
  private:
   /**
@@ -548,8 +548,8 @@ class ModelMulti : public Model, private boost::noncopyable {
      * @param isDynParam true if the variable is a dynamic parameter
      * @param variableNameInSubModel The accurate name of the variable in the subModel
      */
-    findSubModelFromVarName_t(boost::shared_ptr<SubModel>& subModel,
-        bool isNetwork, bool isDynParam, std::string variableNameInSubModel) : subModel_(subModel),
+    findSubModelFromVarName_t(const boost::shared_ptr<SubModel>& subModel,
+        const bool isNetwork, const bool isDynParam, const std::string& variableNameInSubModel) : subModel_(subModel),
             isNetwork_(isNetwork),
             isDynParam_(isDynParam),
             variableNameInSubModel_(variableNameInSubModel) {}

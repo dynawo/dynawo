@@ -665,12 +665,12 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkJt) {
   SparseMatrix smj;
   int size = hvdc->sizeY();
   smj.init(size, size);
-  hvdc->evalJt(smj, 1., 0);
+  hvdc->evalJt(1., 0, smj);
   ASSERT_EQ(smj.nbElem(), 0);
 
   SparseMatrix smjPrime;
   smjPrime.init(size, size);
-  hvdc->evalJtPrim(smjPrime, 0);
+  hvdc->evalJtPrim(0, smjPrime);
   ASSERT_EQ(smjPrime.nbElem(), 0);
 }
 }  // namespace DYN

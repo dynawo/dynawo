@@ -39,19 +39,19 @@ class ModelVoltageMeasurementsUtilitiesFactory : public SubModelFactory {
   /**
    * @brief default destructor
    */
-  virtual ~ModelVoltageMeasurementsUtilitiesFactory() = default;
+  ~ModelVoltageMeasurementsUtilitiesFactory() override = default;
 
   /**
    * @brief ModelVoltageMeasurementsUtilitiesFactory getter
    *
    * @return A pointer to a new instance of ModelVoltageMeasurementsUtilitiesFactory
    */
-  SubModel *create() const;
+  SubModel* create() const override;
 
   /**
    * @brief ModelVoltageMeasurementsUtilitiesFactory destroy
    */
-  void destroy(SubModel *) const;
+  void destroy(SubModel*) const override;
 };
 
 /**
@@ -109,7 +109,7 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
    * @brief ModelVoltageMeasurementsUtilities model initialization
    * @param t0 : initial time of the simulation
    */
-  void init(const double t0) override;
+  void init(double t0) override;
 
   /**
    * @brief ModelVoltageMeasurementsUtilities model's sizes getter
@@ -138,7 +138,7 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
    *
    * @param t Simulation instant
    */
-  void evalG(const double t) override;
+  void evalG(double t) override;
 
   /**
    * @brief ModelVoltageMeasurementsUtilities discrete variables evaluation
@@ -148,7 +148,7 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
    *
    * @param t Simulation instant
    */
-  void evalZ(const double t) override;
+  void evalZ(double t) override;
 
   /**
    * @brief set the silent flag for discrete variables
@@ -157,9 +157,9 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
   void collectSilentZ(BitMask* silentZTable) override;
 
   /**
-   * @copydoc ModelCPP::evalMode(const double t)
+   * @copydoc ModelCPP::evalMode(double t)
    */
-  modeChangeType_t evalMode(const double t) override;
+  modeChangeType_t evalMode(double t) override;
 
   /**
    * @brief ModelVoltageMeasurementsUtilities transposed jacobian evaluation
@@ -168,10 +168,10 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
    *
    * @param t Simulation instant
    * @param cj Jacobian prime coefficient
-   * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
+   * @param jt jacobian matrix to fullfill
    */
-  void evalJt(const double t, const double cj, SparseMatrix& jt, const int rowOffset) override;
+  void evalJt(double t, double cj, int rowOffset, SparseMatrix& jt) override;
 
   /**
    * @brief  ModelVoltageMeasurementsUtilities transposed jacobian evaluation
@@ -180,10 +180,10 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
    *
    * @param t Simulation instant
    * @param cj Jacobian prime coefficient
-   * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
+   * @param jtPrim jacobian matrix to fullfill
    */
-  void evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset) override;
+  void evalJtPrim(double t, double cj, int rowOffset, SparseMatrix& jtPrim) override;
 
   /**
    * @brief calculate calculated variables
@@ -306,9 +306,9 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
   void initParams() override { /* not needed */ }
 
   /**
-   * @copydoc ModelCPP::checkDataCoherence(const double t)
+   * @copydoc ModelCPP::checkDataCoherence(double t)
    */
-  void checkDataCoherence(const double t) override;
+  void checkDataCoherence(double t) override;
 
   /**
    * @copydoc SubModel::hasDataCheckCoherence() const
@@ -321,21 +321,21 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
     * @param minIdx (inout parameter) index achieving the minimum value
     * @return the minimum voltage value among the running inputs
     */
-  double computeMin(unsigned int &minIdx) const;
+  double computeMin(unsigned int& minIdx) const;
 
   /**
    * @brief gets the maximum value of the (connected and active) input voltages
    * @param maxIdx (inout parameter) index achieving the maximum value
    * @return the maximum voltage value among the running inputs
    */
-  double computeMax(unsigned int &maxIdx) const;
+  double computeMax(unsigned int& maxIdx) const;
 
   /**
    * @brief gets the average value of the (connected and active) input voltages
    * @param nbActive (inout parameter) number of running variables
    * @return the average voltage value among the running inputs
    */
-  double computeAverage(unsigned int &nbActive) const;
+  double computeAverage(unsigned int& nbActive) const;
 
   /**
    * @brief returns whether or not an input is running

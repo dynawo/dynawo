@@ -30,12 +30,12 @@ using boost::shared_ptr;
 namespace DYN {
 
 shared_ptr<VariableAlias>
-VariableAliasFactory::create(const string& name, const string& refName, const typeVar_t& type, bool negated) {
+VariableAliasFactory::create(const string& name, const string& refName, const typeVar_t type, const bool negated) {
   return shared_ptr<VariableAlias>(new VariableAlias(name, refName, type, negated));
 }
 
 shared_ptr<VariableAlias>
-VariableAliasFactory::create(const string& name, const shared_ptr<VariableNative> refVar, const typeVar_t& type, bool negated) {
+VariableAliasFactory::create(const string& name, const shared_ptr<VariableNative> refVar, const typeVar_t type, const bool negated) {
   if (refVar->isAlias()) {
     throw DYNError(Error::MODELER, VariableAliasRefNotNative, name, refVar->getName());
   }

@@ -164,7 +164,7 @@ class ComponentInterface {
    * @brief Getter for the component' id
    * @return The id of the component
    */
-  virtual std::string getID() const = 0;
+  virtual const std::string& getID() const = 0;
 
   /**
    * @brief get the index of a state variable thanks to its name
