@@ -73,6 +73,8 @@ void CurveHandler::create(attributes_type const & attributes) {
   curveRead_ = CurveFactory::newCurve();
   curveRead_->setModelName(attributes["model"]);
   curveRead_->setVariable(attributes["variable"]);
+  if (attributes.has("factor"))
+    curveRead_->setFactor(attributes["factor"]);
 }
 
 std::shared_ptr<Curve>

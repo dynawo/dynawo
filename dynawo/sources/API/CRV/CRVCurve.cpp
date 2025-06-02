@@ -32,6 +32,7 @@ namespace curves {
 Curve::Curve::Curve() :
       modelName_(""),
       variable_(""),
+      factor_(1.),
       foundName_(""),
       available_(false),
       negated_(false),
@@ -45,7 +46,7 @@ void
 Curve::update(const double time) {
   if (available_) {
     if (!isParameterCurve_) {  // this is a variable curve
-      double value = buffer_[0];
+      double value = buffer_[0] * factor_;
       if (negated_)
         value = -1 * value;
 
@@ -72,7 +73,7 @@ Curve::update(const double time) {
 void
 Curve::updateParameterCurveValue(std::string /*parameterName*/, double parameterValue) {
   for (const auto& point : points_) {
-    point->setValue(parameterValue);
+    point->setValue(parameterValue * factor_);
   }
 }
 
@@ -84,6 +85,11 @@ Curve::setModelName(const string& modelName) {
 void
 Curve::setVariable(const string& variable) {
   variable_ = variable;
+}
+
+void
+Curve::setFactor(double factor) {
+  factor_ = factor;
 }
 
 void
@@ -129,6 +135,11 @@ Curve::getModelName() const {
 const string&
 Curve::getVariable() const {
   return variable_;
+}
+
+double
+Curve::getFactor() const {
+  return factor_;
 }
 
 const string&
