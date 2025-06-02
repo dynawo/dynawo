@@ -157,6 +157,17 @@ TEST(APICRVTest, CurveUpdateParameterCurveValue) {
   ASSERT_FALSE(itPt == itPt2);
   itPt = itPt2;
   ASSERT_TRUE(itPt == itPt2);
+
+  boost::shared_ptr<Curve> curve3 = CurveFactory::newCurve();
+  double val3 = 3;
+  curve3->setVariable("variable3");
+  curve3->setAvailable(true);
+  curve3->setNegated(false);
+  curve3->setFactor(10);
+  curve3->setBuffer(&val3);
+  curve3->update(2);
+  ASSERT_TRUE(curve3->at(0)->get()->getTime() == 2.);
+  ASSERT_TRUE(curve3->at(0)->get()->getValue() == 30.);
 }
 
 }  // namespace curves
