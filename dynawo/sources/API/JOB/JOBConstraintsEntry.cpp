@@ -21,6 +21,9 @@
 
 namespace job {
 
+  ConstraintsEntry::ConstraintsEntry() :
+  filter_(true) {}
+
 void
 ConstraintsEntry::setOutputFile(const std::string& outputFile) {
   outputFile_ = outputFile;
@@ -41,4 +44,13 @@ ConstraintsEntry::getExportMode() const {
   return exportMode_;
 }
 
+void
+ConstraintsEntry::setFilter(bool filter) {
+  filter_ = filter;
+}
+
+bool
+ConstraintsEntry::isFilter() const {
+  return filter_;
+}
 }  // namespace job

@@ -77,6 +77,8 @@ TEST(TestModelManager, TestModelManagerCommonLogs) {
   assert(it == constraints->cend());
   ASSERT_NO_THROW(addLogConstraintEnd_(&mm, mess));
   it = constraints->cbegin();
+  ++it;
+  ++it;
   assert(it == constraints->cend());
 
   ASSERT_THROW(assert_(&mm, mess), MessageError);
