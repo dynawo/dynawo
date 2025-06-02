@@ -76,7 +76,7 @@ CsvExporter::exportToStream(const std::shared_ptr<CurvesCollection>& curves, ost
     if ((*itCurve)->getAvailable() && (*itCurve)->getExportType() != curves::Curve::EXPORT_AS_FINAL_STATE_VALUE) {
       stream << (*itCurve)->getModelName() << "_"
               << (*itCurve)->getVariable();
-      if ((*itCurve)->getFactor() != 1.)
+      if (DYN::doubleNotEquals((*itCurve)->getFactor(), 1.))
         stream << "_" << (*itCurve)->getFactor() << "x";
       stream << CSVEXPORTER_SEPARATOR;
     }
