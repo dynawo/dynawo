@@ -806,7 +806,7 @@ class Variable:
             self.start_text_06inz.pop(0)
             self.start_text_06inz.pop()
 
-            tmp_abs_var_prtn = re.compile(r'\(\(data->localData\[0\]->realVars\[[0-9+]\][ ]*\/\*\s*\$TMP\$VAR\$[0-9]+\$0X\$ABS\s*variable\s*\*\/\s*\>\= 0.0 \? 1.0\:-1.0\)\)\s*\*')
+            tmp_abs_var_prtn = re.compile(r'[\(]+data->localData\[0\]->realVars\[[0-9+]\][ ]*\/\*\s*\$TMP\$VAR\$[0-9]+\$0X\$ABS\s*variable\s*\*\/[\)]+\s*\>\= 0.0 \? 1.0\:-1.0\)\)\s*\*')
 
             txt_tmp = []
             for line in self.start_text_06inz:
