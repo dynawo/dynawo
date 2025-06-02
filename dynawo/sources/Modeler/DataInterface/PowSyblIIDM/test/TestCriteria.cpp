@@ -839,10 +839,8 @@ TEST(DataInterfaceIIDMTest, Timeline) {
     constexpr int maxNumberOfEvents = 5;
     ASSERT_EQ(timeline->getSizeEvents(), maxNumberOfEvents);  // timeline can't contain more than 5 events for each FailingCriteria
     double busPreviousVoltageDistancePu = std::numeric_limits<double>::max();
-    for (timeline::Timeline::event_const_iterator timelineIt = timeline->cbeginEvent();
-          timelineIt != timeline->cendEvent();
-          ++timelineIt) {
-      const std::string timelineLog = (*timelineIt)->getMessage();
+    for (const auto& event : timeline->getEvents()) {
+      const std::string timelineLog = event->getMessage();
       std::vector<std::string> splitTimelineLog;
       boost::algorithm::split(splitTimelineLog, timelineLog, boost::is_any_of(" "));
       const std::string busErrorLogName = splitTimelineLog[0];
@@ -894,15 +892,13 @@ TEST(DataInterfaceIIDMTest, Timeline) {
     }
     double loadPreviousLoadPowerDistance = std::numeric_limits<double>::max();
     ASSERT_EQ(timeline->getSizeEvents(), maxNumberOfEvents * 2);  // timeline can't contain more than 5 events for each FailingCriteria
-    timeline::Timeline::event_const_iterator firstTimelineLoadEvent = timeline->cbeginEvent();
+    int firstTimelineLoadEvent = 0;
     // increment the iterator to place it on the first load timeline event
     for (int i = 0; i < maxNumberOfEvents; ++i) {
       ++firstTimelineLoadEvent;
     }
-    for (timeline::Timeline::event_const_iterator timelineIt = firstTimelineLoadEvent;
-          timelineIt != timeline->cendEvent();
-          ++timelineIt) {
-      const std::string timelineLog = (*timelineIt)->getMessage();
+    for (int i = firstTimelineLoadEvent; i < timeline->getSizeEvents(); ++i) {
+      const std::string timelineLog = timeline->getEvents()[i]->getMessage();
       std::vector<std::string> splitTimelineLog;
       boost::algorithm::split(splitTimelineLog, timelineLog, boost::is_any_of(" "));
       const std::string loadErrorLogName = splitTimelineLog[0];
@@ -949,15 +945,13 @@ TEST(DataInterfaceIIDMTest, Timeline) {
     }
     double generatorPreviousGeneratorPowerDistance = std::numeric_limits<double>::max();
     ASSERT_EQ(timeline->getSizeEvents(), maxNumberOfEvents * 3);  // timeline can't contain more than 5 events for each FailingCriteria
-    timeline::Timeline::event_const_iterator firstTimelineGeneratorEvent = timeline->cbeginEvent();
+    int firstTimelineGeneratorEvent = 0;
     // increment the iterator to place it on the first generator timeline event
     for (int i = 0; i < maxNumberOfEvents * 2; ++i) {
       ++firstTimelineGeneratorEvent;
     }
-    for (timeline::Timeline::event_const_iterator timelineIt = firstTimelineGeneratorEvent;
-          timelineIt != timeline->cendEvent();
-          ++timelineIt) {
-      const std::string timelineLog = (*timelineIt)->getMessage();
+    for (int i = firstTimelineGeneratorEvent; i < timeline->getSizeEvents(); ++i) {
+      const std::string timelineLog = timeline->getEvents()[i]->getMessage();
       std::vector<std::string> splitTimelineLog;
       boost::algorithm::split(splitTimelineLog, timelineLog, boost::is_any_of(" "));
       const std::string generatorErrorLogName = splitTimelineLog[0];
@@ -1035,24 +1029,24 @@ TEST(DataInterfaceIIDMTest, Timeline) {
       switch (loadPowers.first) {
         case TestCriteriaBound::MAX: {
           ASSERT_EQ(loadTimeline->getSizeEvents(), 7);
-          timeline::Timeline::event_const_iterator maxItLoadEvent = loadTimeline->cbeginEvent();
-          ASSERT_EQ((*maxItLoadEvent++)->getMessage(), "SourcePowerTakenIntoAccount load MyLoad5  250 400");
-          ASSERT_EQ((*maxItLoadEvent++)->getMessage(), "SourcePowerTakenIntoAccount load MyLoad1  211 400");
-          ASSERT_EQ((*maxItLoadEvent++)->getMessage(), "SourcePowerTakenIntoAccount load MyLoad2  145 400");
-          ASSERT_EQ((*maxItLoadEvent++)->getMessage(), "SourcePowerTakenIntoAccount load MyLoad7  115 400");
-          ASSERT_EQ((*maxItLoadEvent++)->getMessage(), "SourcePowerTakenIntoAccount load MyLoad4  105 400");
-          ASSERT_EQ((*maxItLoadEvent++)->getMessage(), "SourcePowerTakenIntoAccount load MyLoad6  1e-06 400");
-          ASSERT_EQ((*maxItLoadEvent)->getMessage(), "SourcePowerAboveMax 826 825 ");
+          const auto& loadEvents = loadTimeline->getEvents();
+          ASSERT_EQ(loadEvents[0]->getMessage(), "SourcePowerTakenIntoAccount load MyLoad5  250 400");
+          ASSERT_EQ(loadEvents[1]->getMessage(), "SourcePowerTakenIntoAccount load MyLoad1  211 400");
+          ASSERT_EQ(loadEvents[2]->getMessage(), "SourcePowerTakenIntoAccount load MyLoad2  145 400");
+          ASSERT_EQ(loadEvents[3]->getMessage(), "SourcePowerTakenIntoAccount load MyLoad7  115 400");
+          ASSERT_EQ(loadEvents[4]->getMessage(), "SourcePowerTakenIntoAccount load MyLoad4  105 400");
+          ASSERT_EQ(loadEvents[5]->getMessage(), "SourcePowerTakenIntoAccount load MyLoad6  1e-06 400");
+          ASSERT_EQ(loadEvents[6]->getMessage(), "SourcePowerAboveMax 826 825 ");
           break;
         }
         case TestCriteriaBound::MIN: {
           ASSERT_EQ(loadTimeline->getSizeEvents(), 5);
-          timeline::Timeline::event_const_iterator minItLoadEvent = loadTimeline->cbeginEvent();
-          ASSERT_EQ((*minItLoadEvent++)->getMessage(), "SourcePowerTakenIntoAccount load MyLoad4  1e-05 400");
-          ASSERT_EQ((*minItLoadEvent++)->getMessage(), "SourcePowerTakenIntoAccount load MyLoad2  29 400");
-          ASSERT_EQ((*minItLoadEvent++)->getMessage(), "SourcePowerTakenIntoAccount load MyLoad5  40 400");
-          ASSERT_EQ((*minItLoadEvent++)->getMessage(), "SourcePowerTakenIntoAccount load MyLoad1  50 400");
-          ASSERT_EQ((*minItLoadEvent)->getMessage(), "SourcePowerBelowMin 119 120 ");
+          const auto& loadEvents = loadTimeline->getEvents();
+          ASSERT_EQ(loadEvents[0]->getMessage(), "SourcePowerTakenIntoAccount load MyLoad4  1e-05 400");
+          ASSERT_EQ(loadEvents[1]->getMessage(), "SourcePowerTakenIntoAccount load MyLoad2  29 400");
+          ASSERT_EQ(loadEvents[2]->getMessage(), "SourcePowerTakenIntoAccount load MyLoad5  40 400");
+          ASSERT_EQ(loadEvents[3]->getMessage(), "SourcePowerTakenIntoAccount load MyLoad1  50 400");
+          ASSERT_EQ(loadEvents[4]->getMessage(), "SourcePowerBelowMin 119 120 ");
           break;
         }
       }
@@ -1078,24 +1072,24 @@ TEST(DataInterfaceIIDMTest, Timeline) {
       switch (loadPowers.first) {
         case TestCriteriaBound::MAX: {
           ASSERT_EQ(generatorTimeline->getSizeEvents(), 7);
-          timeline::Timeline::event_const_iterator maxItGeneratorEvent = generatorTimeline->cbeginEvent();
-          ASSERT_EQ((*maxItGeneratorEvent++)->getMessage(), "SourcePowerTakenIntoAccount generator MyGen5  250 400");
-          ASSERT_EQ((*maxItGeneratorEvent++)->getMessage(), "SourcePowerTakenIntoAccount generator MyGen1  211 400");
-          ASSERT_EQ((*maxItGeneratorEvent++)->getMessage(), "SourcePowerTakenIntoAccount generator MyGen2  145 400");
-          ASSERT_EQ((*maxItGeneratorEvent++)->getMessage(), "SourcePowerTakenIntoAccount generator MyGen7  115 400");
-          ASSERT_EQ((*maxItGeneratorEvent++)->getMessage(), "SourcePowerTakenIntoAccount generator MyGen4  105 400");
-          ASSERT_EQ((*maxItGeneratorEvent++)->getMessage(), "SourcePowerTakenIntoAccount generator MyGen6  1e-06 400");
-          ASSERT_EQ((*maxItGeneratorEvent)->getMessage(), "SourcePowerAboveMax 826 825 ");
+          const auto& generatorEvents = generatorTimeline->getEvents();
+          ASSERT_EQ(generatorEvents[0]->getMessage(), "SourcePowerTakenIntoAccount generator MyGen5  250 400");
+          ASSERT_EQ(generatorEvents[1]->getMessage(), "SourcePowerTakenIntoAccount generator MyGen1  211 400");
+          ASSERT_EQ(generatorEvents[2]->getMessage(), "SourcePowerTakenIntoAccount generator MyGen2  145 400");
+          ASSERT_EQ(generatorEvents[3]->getMessage(), "SourcePowerTakenIntoAccount generator MyGen7  115 400");
+          ASSERT_EQ(generatorEvents[4]->getMessage(), "SourcePowerTakenIntoAccount generator MyGen4  105 400");
+          ASSERT_EQ(generatorEvents[5]->getMessage(), "SourcePowerTakenIntoAccount generator MyGen6  1e-06 400");
+          ASSERT_EQ(generatorEvents[6]->getMessage(), "SourcePowerAboveMax 826 825 ");
           break;
         }
         case TestCriteriaBound::MIN: {
           ASSERT_EQ(generatorTimeline->getSizeEvents(), 5);
-          timeline::Timeline::event_const_iterator minItGeneratorEvent = generatorTimeline->cbeginEvent();
-          ASSERT_EQ((*minItGeneratorEvent++)->getMessage(), "SourcePowerTakenIntoAccount generator MyGen4  1e-05 400");
-          ASSERT_EQ((*minItGeneratorEvent++)->getMessage(), "SourcePowerTakenIntoAccount generator MyGen2  29 400");
-          ASSERT_EQ((*minItGeneratorEvent++)->getMessage(), "SourcePowerTakenIntoAccount generator MyGen5  40 400");
-          ASSERT_EQ((*minItGeneratorEvent++)->getMessage(), "SourcePowerTakenIntoAccount generator MyGen1  50 400");
-          ASSERT_EQ((*minItGeneratorEvent)->getMessage(), "SourcePowerBelowMin 119 120 ");
+          const auto& generatorEvents = generatorTimeline->getEvents();
+          ASSERT_EQ(generatorEvents[0]->getMessage(), "SourcePowerTakenIntoAccount generator MyGen4  1e-05 400");
+          ASSERT_EQ(generatorEvents[1]->getMessage(), "SourcePowerTakenIntoAccount generator MyGen2  29 400");
+          ASSERT_EQ(generatorEvents[2]->getMessage(), "SourcePowerTakenIntoAccount generator MyGen5  40 400");
+          ASSERT_EQ(generatorEvents[3]->getMessage(), "SourcePowerTakenIntoAccount generator MyGen1  50 400");
+          ASSERT_EQ(generatorEvents[4]->getMessage(), "SourcePowerBelowMin 119 120 ");
           break;
         }
       }

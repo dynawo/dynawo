@@ -109,7 +109,7 @@ namespace DYN {
     angleO_ = findParameterDynamic("load_UPhase0").getValue<double>();
     UMinPu_ = findParameterDynamic("load_UMin0Pu").getValue<double>();
     UMaxPu_ = findParameterDynamic("load_UMax0Pu").getValue<double>();
-    double UDeadBandPu = findParameterDynamic("load_UDeadBandPu").getValue<double>();
+    const double UDeadBandPu = findParameterDynamic("load_UDeadBandPu").getValue<double>();
     if ((u0Pu_ - UDeadBandPu) < UMinPu_)
       UMinPu_ = u0Pu_ - UDeadBandPu;
     if ((u0Pu_ + UDeadBandPu) > UMaxPu_)
@@ -191,18 +191,18 @@ namespace DYN {
   }
 
   void
-  ModelLoadRestorativeWithLimits::evalF(double /*t*/, propertyF_t type) {
+  ModelLoadRestorativeWithLimits::evalF(double /*t*/, const propertyF_t type) {
     if (isConnected()) {
       double limitValue = 0;
-      double Ur = yLocal_[UrYNum_];
-      double Ui = yLocal_[UiYNum_];
-      double U2 = Ur * Ur + Ui * Ui;
-      double U = sqrt(U2);
-      double Uf = yLocal_[UfYNum_];
-      double Ir = yLocal_[IrYNum_];
-      double Ii = yLocal_[IiYNum_];
-      double alpha_pow = pow_dynawo(U/Uf, alpha_);
-      double beta_pow = pow_dynawo(U/Uf, beta_);
+      const double Ur = yLocal_[UrYNum_];
+      const double Ui = yLocal_[UiYNum_];
+      const double U2 = Ur * Ur + Ui * Ui;
+      const double U = sqrt(U2);
+      const double Uf = yLocal_[UfYNum_];
+      const double Ir = yLocal_[IrYNum_];
+      const double Ii = yLocal_[IiYNum_];
+      const double alpha_pow = pow_dynawo(U / Uf, alpha_);
+      const double beta_pow = pow_dynawo(U / Uf, beta_);
       if (UMaxPuReached_) {
         limitValue = UMaxPu_;
       }
@@ -271,7 +271,7 @@ namespace DYN {
   }
 
   void
-  ModelLoadRestorativeWithLimits::evalJt(const double /*t*/, const double cj, SparseMatrix& jt, const int rowOffset) {
+  ModelLoadRestorativeWithLimits::evalJt(const double /*t*/, const double cj, const int rowOffset, SparseMatrix& jt) {
     if (!isConnected()) {
       jt.changeCol();  // uf
       jt.addTerm(UfYNum_ + rowOffset, cj);
@@ -280,21 +280,21 @@ namespace DYN {
       jt.changeCol();  // Ii
       jt.addTerm(IiYNum_ + rowOffset, 1);
     } else {
-      double Ur = yLocal_[UrYNum_];
-      double Ui = yLocal_[UiYNum_];
-      double U2 = Ur * Ur + Ui * Ui;
-      double U = sqrt(U2);
-      double Uf = yLocal_[UfYNum_];
-      double alpha_pow = pow_dynawo(U/Uf, alpha_);
-      double beta_pow = pow_dynawo(U/Uf, beta_);
-      double P = P0Pu_ * alpha_pow;
-      double Q = Q0Pu_ * beta_pow;
-      double P_dUr = P0Pu_ * alpha_ * Ur * alpha_pow / U2;
-      double P_dUi = P0Pu_ * alpha_ * Ui * alpha_pow / U2;
-      double P_dUf = -1.0 * alpha_ * P0Pu_ * alpha_pow / Uf;
-      double Q_dUr = Q0Pu_ * beta_ * Ur * beta_pow / U2;
-      double Q_dUi = Q0Pu_ * beta_ * Ui * beta_pow / U2;
-      double Q_dUf = -1.0 * beta_ * Q0Pu_ * beta_pow / Uf;
+      const double Ur = yLocal_[UrYNum_];
+      const double Ui = yLocal_[UiYNum_];
+      const double U2 = Ur * Ur + Ui * Ui;
+      const double U = sqrt(U2);
+      const double Uf = yLocal_[UfYNum_];
+      const double alpha_pow = pow_dynawo(U/Uf, alpha_);
+      const double beta_pow = pow_dynawo(U/Uf, beta_);
+      const double P = P0Pu_ * alpha_pow;
+      const double Q = Q0Pu_ * beta_pow;
+      const double P_dUr = P0Pu_ * alpha_ * Ur * alpha_pow / U2;
+      const double P_dUi = P0Pu_ * alpha_ * Ui * alpha_pow / U2;
+      const double P_dUf = -1.0 * alpha_ * P0Pu_ * alpha_pow / Uf;
+      const double Q_dUr = Q0Pu_ * beta_ * Ur * beta_pow / U2;
+      const double Q_dUi = Q0Pu_ * beta_ * Ui * beta_pow / U2;
+      const double Q_dUf = -1.0 * beta_ * Q0Pu_ * beta_pow / Uf;
       jt.changeCol();  // uf
       if (!UMaxPuReached_ && !UMinPuReached_) {
         jt.addTerm(UfYNum_ + rowOffset, 1.0 + cj * Tf_);
@@ -334,17 +334,17 @@ namespace DYN {
   }
 
   void
-  ModelLoadRestorativeWithLimits::evalJtPrim(const double /*t*/, const double /*cj*/, SparseMatrix& jt, const int rowOffset) {
-    jt.changeCol();
+  ModelLoadRestorativeWithLimits::evalJtPrim(const double /*t*/, const double /*cj*/, const int rowOffset, SparseMatrix& jtPrim) {
+    jtPrim.changeCol();
     if (isConnected()) {
       if (!UMaxPuReached_ && !UMinPuReached_) {
-        jt.addTerm(UfYNum_ + rowOffset, Tf_);
+        jtPrim.addTerm(UfYNum_ + rowOffset, Tf_);
       }
     } else {
-      jt.addTerm(UfYNum_ + rowOffset, 1);
+      jtPrim.addTerm(UfYNum_ + rowOffset, 1);
     }
-    jt.changeCol();
-    jt.changeCol();
+    jtPrim.changeCol();
+    jtPrim.changeCol();
   }
 
   modeChangeType_t
@@ -386,19 +386,19 @@ namespace DYN {
     switch (iCalculatedVar) {
       case PPuNum_:
         if (isConnected()) {
-          double U = sqrt(yLocal_[UrYNum_] * yLocal_[UrYNum_] + yLocal_[UiYNum_] * yLocal_[UiYNum_]);
+          const double U = sqrt(yLocal_[UrYNum_] * yLocal_[UrYNum_] + yLocal_[UiYNum_] * yLocal_[UiYNum_]);
           output = P0Pu_ * pow_dynawo(U/yLocal_[UfYNum_], alpha_);
         }
         break;
       case PNum_:
         if (isConnected()) {
-          double U = sqrt(yLocal_[UrYNum_] * yLocal_[UrYNum_] + yLocal_[UiYNum_] * yLocal_[UiYNum_]);
+          const double U = sqrt(yLocal_[UrYNum_] * yLocal_[UrYNum_] + yLocal_[UiYNum_] * yLocal_[UiYNum_]);
           output = SNREF * P0Pu_ * pow_dynawo(U/yLocal_[UfYNum_], alpha_);
         }
         break;
       case QNum_:
         if (isConnected()) {
-          double U = sqrt(yLocal_[UrYNum_] * yLocal_[UrYNum_] + yLocal_[UiYNum_] * yLocal_[UiYNum_]);
+          const double U = sqrt(yLocal_[UrYNum_] * yLocal_[UrYNum_] + yLocal_[UiYNum_] * yLocal_[UiYNum_]);
           output = Q0Pu_ * pow_dynawo(U/yLocal_[UfYNum_], beta_);
         }
         break;
@@ -424,7 +424,7 @@ namespace DYN {
     calculatedVars_[loadStateNum_] = OPEN;
     calculatedVars_[loadRealStateNum_] = OPEN;
     if (isConnected()) {
-      double U = sqrt(yLocal_[UrYNum_] * yLocal_[UrYNum_] + yLocal_[UiYNum_] * yLocal_[UiYNum_]);
+      const double U = sqrt(yLocal_[UrYNum_] * yLocal_[UrYNum_] + yLocal_[UiYNum_] * yLocal_[UiYNum_]);
       calculatedVars_[PNum_] = SNREF * P0Pu_ * pow_dynawo(U/yLocal_[UfYNum_], alpha_);
       calculatedVars_[PPuNum_] = P0Pu_ * pow_dynawo(U/yLocal_[UfYNum_], alpha_);
       calculatedVars_[QNum_] = Q0Pu_ * pow_dynawo(U/yLocal_[UfYNum_], beta_);
@@ -438,9 +438,9 @@ namespace DYN {
     switch (iCalculatedVar) {
       case PNum_:
         if (isConnected()) {
-          double U2 = yLocal_[UrYNum_] * yLocal_[UrYNum_] + yLocal_[UiYNum_] * yLocal_[UiYNum_];
-          double U = sqrt(U2);
-          double alpha_pow = pow_dynawo(U/yLocal_[UfYNum_], alpha_);
+          const double U2 = yLocal_[UrYNum_] * yLocal_[UrYNum_] + yLocal_[UiYNum_] * yLocal_[UiYNum_];
+          const double U = sqrt(U2);
+          const double alpha_pow = pow_dynawo(U/yLocal_[UfYNum_], alpha_);
           res[0] = SNREF *P0Pu_ * alpha_ * yLocal_[UrYNum_] * alpha_pow / U2;  // P_dUr
           res[1] = SNREF *P0Pu_ * alpha_ * yLocal_[UiYNum_] * alpha_pow / U2;  // P_dUi
           res[2] = -1.0 * alpha_ * SNREF *P0Pu_ * alpha_pow / yLocal_[UfYNum_];  // P_dUf
@@ -448,9 +448,9 @@ namespace DYN {
         break;
       case PPuNum_:
         if (isConnected()) {
-          double U2 = yLocal_[UrYNum_] * yLocal_[UrYNum_] + yLocal_[UiYNum_] * yLocal_[UiYNum_];
-          double U = sqrt(U2);
-          double alpha_pow = pow_dynawo(U/yLocal_[UfYNum_], alpha_);
+          const double U2 = yLocal_[UrYNum_] * yLocal_[UrYNum_] + yLocal_[UiYNum_] * yLocal_[UiYNum_];
+          const double U = sqrt(U2);
+          const double alpha_pow = pow_dynawo(U/yLocal_[UfYNum_], alpha_);
           res[0] = P0Pu_ * alpha_ * yLocal_[UrYNum_] * alpha_pow / U2;  // P_dUr
           res[1] = P0Pu_ * alpha_ * yLocal_[UiYNum_] * alpha_pow / U2;  // P_dUi
           res[2] = -1.0 * alpha_ * P0Pu_ * alpha_pow / yLocal_[UfYNum_];  // P_dUf
@@ -458,9 +458,9 @@ namespace DYN {
         break;
       case QNum_:
         if (isConnected()) {
-          double U2 = yLocal_[UrYNum_] * yLocal_[UrYNum_] + yLocal_[UiYNum_] * yLocal_[UiYNum_];
-          double U = sqrt(U2);
-          double beta_pow = pow_dynawo(U/yLocal_[UfYNum_], beta_);
+          const double U2 = yLocal_[UrYNum_] * yLocal_[UrYNum_] + yLocal_[UiYNum_] * yLocal_[UiYNum_];
+          const double U = sqrt(U2);
+          const double beta_pow = pow_dynawo(U/yLocal_[UfYNum_], beta_);
           res[0] = Q0Pu_ * beta_ * yLocal_[UrYNum_] * beta_pow / U2;  // Q_dUr
           res[1] = Q0Pu_ * beta_ * yLocal_[UiYNum_] * beta_pow / U2;  // Q_dUi
           res[2] = -1.0 * beta_ * Q0Pu_ * beta_pow / yLocal_[UfYNum_];  // Q_dUf
@@ -475,18 +475,18 @@ namespace DYN {
   }
 
   void
-  ModelLoadRestorativeWithLimits::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& numVars) const {
+  ModelLoadRestorativeWithLimits::getIndexesOfVariablesUsedForCalculatedVarI(const unsigned numCalculatedVar, vector<int>& indexes) const {
     switch (numCalculatedVar) {
       case PNum_:
       case PPuNum_:
-        numVars.push_back(UrYNum_);
-        numVars.push_back(UiYNum_);
-        numVars.push_back(UfYNum_);
+        indexes.push_back(UrYNum_);
+        indexes.push_back(UiYNum_);
+        indexes.push_back(UfYNum_);
         break;
       case QNum_:
-        numVars.push_back(UrYNum_);
-        numVars.push_back(UiYNum_);
-        numVars.push_back(UfYNum_);
+        indexes.push_back(UrYNum_);
+        indexes.push_back(UiYNum_);
+        indexes.push_back(UfYNum_);
         break;
       case loadStateNum_:
       case loadRealStateNum_:

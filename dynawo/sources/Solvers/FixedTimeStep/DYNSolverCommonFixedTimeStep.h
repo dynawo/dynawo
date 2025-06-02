@@ -58,7 +58,7 @@ class SolverCommonFixedTimeStep : public Solver::Impl {
   /**
    * @brief default destrcutor
    */
-  virtual ~SolverCommonFixedTimeStep() = default;
+  ~SolverCommonFixedTimeStep() override = default;
 
   /**
    * @brief Common initialization part of calculateIC function.
@@ -95,7 +95,7 @@ class SolverCommonFixedTimeStep : public Solver::Impl {
    * @param tEnd final time value.
    *
    */
-  void initCommon(const std::shared_ptr<Model>& model, const double t0, const double tEnd);
+  void initCommon(const std::shared_ptr<Model>& model, double t0, double tEnd);
 
   /**
    * @copydoc Solver::Impl::defineSpecificParameters()
@@ -110,21 +110,21 @@ class SolverCommonFixedTimeStep : public Solver::Impl {
   /**
    * @copydoc Solver::reinit()
    */
-  void reinit();
+  void reinit() override;
 
   /**
    * @brief print solver specific introduction information
    *
    * @param ss stringstream to modify
    */
-  void printHeaderSpecific(std::stringstream& ss) const;
+  void printHeaderSpecific(std::stringstream& ss) const override;
 
   /**
    * @brief print specific info regarding the latest step made by the solver (i.e. solution)
    *
    * @param msg stringstream to modify
    */
-  void printSolveSpecific(std::stringstream& msg) const;
+  void printSolveSpecific(std::stringstream& msg) const override;
 
  private:
   /**
@@ -205,7 +205,7 @@ class SolverCommonFixedTimeStep : public Solver::Impl {
    */
   void updateTimeStep(double& tNxt);
 
-  inline void setInitStep(double /*initStep*/) {
+  inline void setInitStep(double /*initStep*/) override {
     // do nothing
   }
 
@@ -221,12 +221,12 @@ class SolverCommonFixedTimeStep : public Solver::Impl {
   /**
    * @copydoc Solver::setupNewAlgRestoration(modeChangeType_t modeChangeType)
    */
-  bool setupNewAlgRestoration(modeChangeType_t modeChangeType);
+  bool setupNewAlgRestoration(modeChangeType_t modeChangeType) override;
 
   /**
    * @copydoc Solver::updateStatistics()
    */
-  void updateStatistics();
+  void updateStatistics() override;
 
   /**
   * @brief set the index of each differential variables

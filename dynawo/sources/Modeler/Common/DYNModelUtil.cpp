@@ -46,7 +46,7 @@ void printStructureToFile(Model& model, const SparseMatrix& matrix) {
 #endif
 
   if (!exists(folder.string())) {
-    create_directory(folder.string());
+    createDirectory(folder.string());
   }
 
   std::ofstream file;

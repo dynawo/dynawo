@@ -92,100 +92,6 @@ class Criteria {
 
  public:
   /**
-    * @class component_id_const_iterator
-    * @brief Const iterator over components id
-    *
-    * Const iterator over components id stored in criteria
-    */
-  class component_id_const_iterator {
-   public:
-    /**
-     * @brief Constructor
-     *
-     * Can create a constant iterator to the
-     * beginning of the component ids container or to the end.
-     *
-     * @param iterated Pointer to the component ids iterated
-     * @param begin Flag indicating if the iterator point to the beginning (true)
-     * or the end of the container.
-     */
-    component_id_const_iterator(const Criteria* iterated, bool begin);
-
-    /**
-     * @brief Prefix-increment operator
-     *
-     * @returns Reference to this component_id_const_iterator
-     */
-    component_id_const_iterator& operator++();
-
-    /**
-     * @brief Postfix-increment operator
-     *
-     * @returns Copy of this component_id_const_iterator
-     */
-    component_id_const_iterator operator++(int);
-
-    /**
-     * @brief Prefix-decrement operator
-     *
-     * @returns Reference to this component_id_const_iterator
-     */
-    component_id_const_iterator& operator--();
-
-    /**
-     * @brief Postfix-decrement operator
-     *
-     * @returns Copy of this component_id_const_iterator
-     */
-    component_id_const_iterator operator--(int);
-
-    /**
-     * @brief Equal to operator
-     *
-     * @param other Iterator to be compared with this
-     * @returns true if iterators are equals, else false
-     */
-    bool operator==(const component_id_const_iterator& other) const;
-
-    /**
-     * @brief Not equal to operator
-     *
-     * @param other Iterator to be compared with this
-     * @returns true if iterators are different, else false
-     */
-    bool operator!=(const component_id_const_iterator& other) const;
-
-    /**
-     * @brief Indirection operator
-     *
-     * @returns component id pointed to by this
-     */
-    const ComponentId& operator*() const;
-
-    /**
-     * @brief Structure dereference operator
-     *
-     * @returns Pointer to the component id pointed to by this
-     */
-    const ComponentId* operator->() const;
-
-   private:
-    std::vector<boost::shared_ptr<ComponentId> >::const_iterator current_;  ///< current vector const iterator
-  };
-
-  /**
-   * @brief Get a component_id_const_iterator to the beginning of components ids container
-   * @return a component_id_const_iterator to the beginning of components ids container
-   */
-  component_id_const_iterator begin() const;
-
-  /**
-   * @brief Get a component_id_const_iterator to the end of components ids container
-   * @return a component_id_const_iterator to the end of components ids container
-   */
-  component_id_const_iterator end() const;
-
-  /**
    * @brief Test if this criterion has at least one country filter
    * @return @b true if this criterion has at least one country filter
    */
@@ -197,6 +103,15 @@ class Criteria {
    * @return @b true if this criterion should be limited to this country
    */
   bool containsCountry(const std::string& country) const;
+
+  /**
+  * @brief get component ids
+  *
+  * @return component ids
+  */
+  const std::vector<boost::shared_ptr<ComponentId> >& getComponentIds() const {
+    return compIds_;
+  }
 
  private:
   std::shared_ptr<CriteriaParams> params_;              ///< parameters of this criteria

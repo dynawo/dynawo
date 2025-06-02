@@ -19,6 +19,8 @@
  */
 #include "DYNDataInterfaceIIDM.h"
 
+#include <DYNClone.hpp>
+
 #include "DYNBusInterfaceIIDM.h"
 #include "DYNBatteryInterfaceIIDM.h"
 #include "DYNSwitchInterfaceIIDM.h"
@@ -344,15 +346,14 @@ DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelI
     //===========================
     //  ADD BUS INTERFACE
     //===========================
-    vector<std::shared_ptr<CalculatedBusInterfaceIIDM> > buses = voltageLevel->getCalculatedBus();
-    for (unsigned int i = 0; i < buses.size(); ++i) {
-      components_[buses[i]->getID()] = buses[i];
-      busComponents_[buses[i]->getID()] = buses[i];
-      calculatedBusComponents_[voltageLevel->getID()].push_back(buses[i]);
-      buses[i]->setCountry(countryStr);
-      voltageLevel->addBus(buses[i]);
+    for (auto& bus : voltageLevel->getCalculatedBus()) {
+      const string& busId = bus->getID();
+      components_[busId] = bus;
+      busComponents_[busId] = bus;
+      calculatedBusComponents_[voltageLevel->getID()].push_back(bus);
+      bus->setCountry(countryStr);
+      voltageLevel->addBus(bus);
     }
-
 
     //===========================
     //  ADD SWITCH INTERFACE
@@ -379,8 +380,9 @@ DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelI
       if (country)
         bus->setCountry(countryStr);
       voltageLevel->addBus(bus);
-      components_[bus->getID()] = bus;
-      busComponents_[bus->getID()] = bus;
+      const string& busId = bus->getID();
+      components_[busId] = bus;
+      busComponents_[busId] = bus;
     }
 
     //===========================
@@ -423,8 +425,9 @@ DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelI
   for (auto& genIIDM : voltageLevelIIDM.getGenerators()) {
     std::shared_ptr<GeneratorInterfaceIIDM> generator = importGenerator(genIIDM, countryStr);
     voltageLevel->addGenerator(generator);
-    components_[generator->getID()] = generator;
-    generatorComponents_[generator->getID()] = generator;
+    const string& generatorId = generator->getID();
+    components_[generatorId] = generator;
+    generatorComponents_[generatorId] = generator;
     generator->setVoltageLevelInterface(voltageLevel);
   }
 
@@ -434,8 +437,9 @@ DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelI
   for (auto& batIIDM : voltageLevelIIDM.getBatteries()) {
     std::shared_ptr<BatteryInterfaceIIDM> battery = importBattery(batIIDM, countryStr);
     voltageLevel->addGenerator(battery);
-    components_[battery->getID()] = battery;
-    generatorComponents_[battery->getID()] = battery;
+    const string& batteryId = battery->getID();
+    components_[batteryId] = battery;
+    generatorComponents_[batteryId] = battery;
     battery->setVoltageLevelInterface(voltageLevel);
   }
 
@@ -445,8 +449,9 @@ DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelI
   for (auto& loadIIDM : voltageLevelIIDM.getLoads()) {
     std::shared_ptr<LoadInterfaceIIDM> load = importLoad(loadIIDM, countryStr);
     voltageLevel->addLoad(load);
-    components_[load->getID()] = load;
-    loadComponents_[load->getID()] = load;
+    const string& loadId = load->getID();
+    components_[loadId] = load;
+    loadComponents_[loadId] = load;
     load->setVoltageLevelInterface(voltageLevel);
   }
   // =======================================
@@ -483,7 +488,8 @@ DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelI
 }
 
 std::unique_ptr<SwitchInterfaceIIDM>
-DataInterfaceIIDM::importSwitch(powsybl::iidm::Switch& switchIIDM, const std::shared_ptr<BusInterface>& bus1, const std::shared_ptr<BusInterface>& bus2) {
+DataInterfaceIIDM::importSwitch(powsybl::iidm::Switch& switchIIDM, const std::shared_ptr<BusInterface>& bus1,
+  const std::shared_ptr<BusInterface>& bus2) const {
   std::unique_ptr<SwitchInterfaceIIDM> sw = DYN::make_unique<SwitchInterfaceIIDM>(switchIIDM);
   sw->setBusInterface1(bus1);
   sw->setBusInterface2(bus2);
@@ -491,7 +497,7 @@ DataInterfaceIIDM::importSwitch(powsybl::iidm::Switch& switchIIDM, const std::sh
 }
 
 std::unique_ptr<GeneratorInterfaceIIDM>
-DataInterfaceIIDM::importGenerator(powsybl::iidm::Generator& generatorIIDM, const std::string& country) {
+DataInterfaceIIDM::importGenerator(powsybl::iidm::Generator & generatorIIDM, const std::string& country) const {
   std::unique_ptr<GeneratorInterfaceIIDM> generator = DYN::make_unique<GeneratorInterfaceIIDM>(generatorIIDM);
   generator->setCountry(country);
   generator->setBusInterface(findBusInterface(generatorIIDM.getTerminal()));
@@ -499,7 +505,7 @@ DataInterfaceIIDM::importGenerator(powsybl::iidm::Generator& generatorIIDM, cons
 }
 
 std::unique_ptr<BatteryInterfaceIIDM>
-DataInterfaceIIDM::importBattery(powsybl::iidm::Battery& batteryIIDM, const std::string& country) {
+DataInterfaceIIDM::importBattery(powsybl::iidm::Battery& batteryIIDM, const std::string& country) const {
   std::unique_ptr<BatteryInterfaceIIDM> battery = DYN::make_unique<BatteryInterfaceIIDM>(batteryIIDM);
   battery->setCountry(country);
   battery->setBusInterface(findBusInterface(batteryIIDM.getTerminal()));
@@ -507,7 +513,7 @@ DataInterfaceIIDM::importBattery(powsybl::iidm::Battery& batteryIIDM, const std:
 }
 
 std::unique_ptr<LoadInterfaceIIDM>
-DataInterfaceIIDM::importLoad(powsybl::iidm::Load& loadIIDM, const std::string& country) {
+DataInterfaceIIDM::importLoad(powsybl::iidm::Load& loadIIDM, const std::string& country) const {
   std::unique_ptr<LoadInterfaceIIDM> load = DYN::make_unique<LoadInterfaceIIDM>(loadIIDM);
   load->setCountry(country);
   load->setBusInterface(findBusInterface(loadIIDM.getTerminal()));
@@ -515,14 +521,14 @@ DataInterfaceIIDM::importLoad(powsybl::iidm::Load& loadIIDM, const std::string& 
 }
 
 std::unique_ptr<ShuntCompensatorInterfaceIIDM>
-DataInterfaceIIDM::importShuntCompensator(powsybl::iidm::ShuntCompensator& shuntIIDM) {
+DataInterfaceIIDM::importShuntCompensator(powsybl::iidm::ShuntCompensator& shuntIIDM) const {
   std::unique_ptr<ShuntCompensatorInterfaceIIDM> shunt = DYN::make_unique<ShuntCompensatorInterfaceIIDM>(shuntIIDM);
   shunt->setBusInterface(findBusInterface(shuntIIDM.getTerminal()));
   return shunt;
 }
 
 std::unique_ptr<DanglingLineInterfaceIIDM>
-DataInterfaceIIDM::importDanglingLine(powsybl::iidm::DanglingLine& danglingLineIIDM) {
+DataInterfaceIIDM::importDanglingLine(powsybl::iidm::DanglingLine& danglingLineIIDM) const {
   std::unique_ptr<DanglingLineInterfaceIIDM> danglingLine = DYN::make_unique<DanglingLineInterfaceIIDM>(danglingLineIIDM);
   danglingLine->setBusInterface(findBusInterface(danglingLineIIDM.getTerminal()));
 
@@ -549,14 +555,14 @@ DataInterfaceIIDM::importDanglingLine(powsybl::iidm::DanglingLine& danglingLineI
 }
 
 std::unique_ptr<StaticVarCompensatorInterfaceIIDM>
-DataInterfaceIIDM::importStaticVarCompensator(powsybl::iidm::StaticVarCompensator& svcIIDM) {
+DataInterfaceIIDM::importStaticVarCompensator(powsybl::iidm::StaticVarCompensator& svcIIDM) const {
   std::unique_ptr<StaticVarCompensatorInterfaceIIDM> svc = DYN::make_unique<StaticVarCompensatorInterfaceIIDM>(svcIIDM);
   svc->setBusInterface(findBusInterface(svcIIDM.getTerminal()));
   return svc;
 }
 
 std::unique_ptr<TwoWTransformerInterfaceIIDM>
-DataInterfaceIIDM::importTwoWindingsTransformer(powsybl::iidm::TwoWindingsTransformer& twoWTfoIIDM) {
+DataInterfaceIIDM::importTwoWindingsTransformer(powsybl::iidm::TwoWindingsTransformer& twoWTfoIIDM) const {
   std::unique_ptr<TwoWTransformerInterfaceIIDM> twoWTfo = DYN::make_unique<TwoWTransformerInterfaceIIDM>(twoWTfoIIDM);
 
   // add phase tapChanger and steps if exists
@@ -626,40 +632,40 @@ DataInterfaceIIDM::importTwoWindingsTransformer(powsybl::iidm::TwoWindingsTransf
 }
 
 void
-DataInterfaceIIDM::convertThreeWindingsTransformers(powsybl::iidm::ThreeWindingsTransformer & ThreeWindingTransformer) {
-  const string fictVLId = ThreeWindingTransformer.getId() + "_FictVL";
-  const string fictBusId = ThreeWindingTransformer.getId() + "_FictBUS";
+DataInterfaceIIDM::convertThreeWindingsTransformers(powsybl::iidm::ThreeWindingsTransformer& threeWindingTransformer) {
+  const string fictVLId = threeWindingTransformer.getId() + "_FictVL";
+  const string fictBusId = threeWindingTransformer.getId() + "_FictBUS";
   string countryStr;
-  if (ThreeWindingTransformer.getSubstation().getCountry())
-    countryStr = powsybl::iidm::getCountryName(ThreeWindingTransformer.getSubstation().getCountry().get());
+  if (threeWindingTransformer.getSubstation().getCountry())
+    countryStr = powsybl::iidm::getCountryName(threeWindingTransformer.getSubstation().getCountry().get());
 
   std::vector<stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg> > legs;
-  legs.push_back(stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg>(ThreeWindingTransformer.getLeg1()));
-  legs.push_back(stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg>(ThreeWindingTransformer.getLeg2()));
-  legs.push_back(stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg>(ThreeWindingTransformer.getLeg3()));
+  legs.emplace_back(stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg>(threeWindingTransformer.getLeg1()));
+  legs.emplace_back(stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg>(threeWindingTransformer.getLeg2()));
+  legs.emplace_back(stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg>(threeWindingTransformer.getLeg3()));
 
-  std::shared_ptr<VoltageLevelInterface> vl = std::make_shared<FictVoltageLevelInterfaceIIDM>(fictVLId, ThreeWindingTransformer.getRatedU0(), countryStr);
+  std::shared_ptr<VoltageLevelInterface> vl = std::make_shared<FictVoltageLevelInterfaceIIDM>(fictVLId, threeWindingTransformer.getRatedU0(), countryStr);
   network_->addVoltageLevel(vl);
   voltageLevels_[vl->getID()] = vl;
-  std::shared_ptr<BusInterface> fictBus = std::make_shared<FictBusInterfaceIIDM>(fictBusId, ThreeWindingTransformer.getRatedU0(), countryStr);
+  std::shared_ptr<BusInterface> fictBus = std::make_shared<FictBusInterfaceIIDM>(fictBusId, threeWindingTransformer.getRatedU0(), countryStr);
   vl->addBus(fictBus);
   components_[fictBus->getID()] = fictBus;
   busComponents_[fictBus->getID()] = fictBus;
 
   int legCount = 1;
   const bool initialConnected1 = true;
-  const double VNom1 = ThreeWindingTransformer.getRatedU0();
-  const double ratedU1 = ThreeWindingTransformer.getRatedU0();
+  const double VNom1 = threeWindingTransformer.getRatedU0();
+  const double ratedU1 = threeWindingTransformer.getRatedU0();
 
   auto libPath = IIDMExtensions::findLibraryPath();
   auto activeSeasonExtensionDef = IIDMExtensions::getExtension<ActiveSeasonIIDMExtension>(libPath.generic_string());
-  auto activeSeasonExtension = std::get<IIDMExtensions::CREATE_FUNCTION>(activeSeasonExtensionDef)(ThreeWindingTransformer);
+  auto activeSeasonExtension = std::get<IIDMExtensions::CREATE_FUNCTION>(activeSeasonExtensionDef)(threeWindingTransformer);
   auto destroyActiveSeasonExtension = std::get<IIDMExtensions::DESTROY_FUNCTION>(activeSeasonExtensionDef);
   const string activeSeason = activeSeasonExtension ? activeSeasonExtension->getValue() : std::string("UNDEFINED");
   destroyActiveSeasonExtension(activeSeasonExtension);
 
   for (auto& leg : legs) {
-    string TwoWTransfId = ThreeWindingTransformer.getId() + "_" + std::to_string(legCount);
+    string TwoWTransfId = threeWindingTransformer.getId() + "_" + std::to_string(legCount);
     // We consider the fictitious transformer always connected on the fictitious bus
     std::shared_ptr<TwoWTransformerInterface> fictTwoWTransf = std::make_shared<FictTwoWTransformerInterfaceIIDM>(TwoWTransfId,
                                                                                                                   leg,
@@ -667,10 +673,10 @@ DataInterfaceIIDM::convertThreeWindingsTransformers(powsybl::iidm::ThreeWindings
                                                                                                                   VNom1,
                                                                                                                   ratedU1,
                                                                                                                   activeSeason);
-    fictTwoWTransf.get()->setBusInterface1(fictBus);
-    fictTwoWTransf.get()->setBusInterface2(findBusInterface(leg.get().getTerminal()));
-    fictTwoWTransf.get()->setVoltageLevelInterface1(vl);
-    fictTwoWTransf.get()->setVoltageLevelInterface2(findVoltageLevelInterface(leg.get().getTerminal().getVoltageLevel().getId()));
+    fictTwoWTransf->setBusInterface1(fictBus);
+    fictTwoWTransf->setBusInterface2(findBusInterface(leg.get().getTerminal()));
+    fictTwoWTransf->setVoltageLevelInterface1(vl);
+    fictTwoWTransf->setVoltageLevelInterface2(findVoltageLevelInterface(leg.get().getTerminal().getVoltageLevel().getId()));
     // add phase tapChanger and steps if exists
     if (leg.get().hasPhaseTapChanger()) {
       std::unique_ptr<PhaseTapChangerInterfaceIIDM> tapChanger = DYN::make_unique<PhaseTapChangerInterfaceIIDM>(leg.get().getPhaseTapChanger());
@@ -706,14 +712,13 @@ DataInterfaceIIDM::convertThreeWindingsTransformers(powsybl::iidm::ThreeWindings
     }
     network_->addTwoWTransformer(fictTwoWTransf);
     components_[fictTwoWTransf->getID()] = fictTwoWTransf;
-    fict2wtIDto3wtID_.insert({fictTwoWTransf->getID(), ThreeWindingTransformer.getId()});
+    fict2wtIDto3wtID_.insert({fictTwoWTransf->getID(), threeWindingTransformer.getId()});
     legCount++;
   }
-  return;
 }
 
 std::unique_ptr<LineInterfaceIIDM>
-DataInterfaceIIDM::importLine(powsybl::iidm::Line& lineIIDM) {
+DataInterfaceIIDM::importLine(powsybl::iidm::Line& lineIIDM) const {
   std::unique_ptr<LineInterfaceIIDM> line = DYN::make_unique<LineInterfaceIIDM>(lineIIDM);
   line->setBusInterface1(findBusInterface(lineIIDM.getTerminal1()));
   line->setVoltageLevelInterface1(findVoltageLevelInterface(lineIIDM.getTerminal1().getVoltageLevel().getId()));
@@ -759,21 +764,21 @@ DataInterfaceIIDM::importLine(powsybl::iidm::Line& lineIIDM) {
 }
 
 std::unique_ptr<VscConverterInterfaceIIDM>
-DataInterfaceIIDM::importVscConverter(powsybl::iidm::VscConverterStation& vscIIDM) {
+DataInterfaceIIDM::importVscConverter(powsybl::iidm::VscConverterStation& vscIIDM) const {
   std::unique_ptr<VscConverterInterfaceIIDM> vsc = DYN::make_unique<VscConverterInterfaceIIDM>(vscIIDM);
   vsc->setBusInterface(findBusInterface(vscIIDM.getTerminal()));
   return vsc;
 }
 
 std::unique_ptr<LccConverterInterfaceIIDM>
-DataInterfaceIIDM::importLccConverter(powsybl::iidm::LccConverterStation& lccIIDM) {
+DataInterfaceIIDM::importLccConverter(powsybl::iidm::LccConverterStation& lccIIDM) const {
   std::unique_ptr<LccConverterInterfaceIIDM> lcc = DYN::make_unique<LccConverterInterfaceIIDM>(lccIIDM);
   lcc->setBusInterface(findBusInterface(lccIIDM.getTerminal()));
   return lcc;
 }
 
 std::unique_ptr<HvdcLineInterfaceIIDM>
-DataInterfaceIIDM::importHvdcLine(powsybl::iidm::HvdcLine& hvdcLineIIDM) {
+DataInterfaceIIDM::importHvdcLine(powsybl::iidm::HvdcLine& hvdcLineIIDM) const {
   std::shared_ptr<ConverterInterface> conv1 = std::dynamic_pointer_cast<ConverterInterface>(findComponent(hvdcLineIIDM.getConverterStation1().get().getId()));
   std::shared_ptr<ConverterInterface> conv2 = std::dynamic_pointer_cast<ConverterInterface>(findComponent(hvdcLineIIDM.getConverterStation2().get().getId()));
 
@@ -801,7 +806,7 @@ DataInterfaceIIDM::findBusBreakerBusInterface(const powsybl::iidm::Bus& bus) con
   if (bus.getVoltageLevel().getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER) {
     throw DYNError(Error::MODELER, UnknownBus, id);
   }
-  std::unordered_map<std::string, std::shared_ptr<BusInterface> >::const_iterator iter = busComponents_.find(id);
+  const auto iter = busComponents_.find(id);
   if (iter != busComponents_.end())
     return iter->second;
   else
@@ -814,21 +819,21 @@ DataInterfaceIIDM::findNodeBreakerBusInterface(const powsybl::iidm::VoltageLevel
   if (vl.getTopologyKind() == powsybl::iidm::TopologyKind::BUS_BREAKER) {
     throw DYNError(Error::MODELER, UnknownCalculatedBus, vl.getId(), node);
   }
-  std::unordered_map<string, vector<std::shared_ptr<CalculatedBusInterfaceIIDM> > >::const_iterator iter = calculatedBusComponents_.find(vl.getId());
+  const auto iter = calculatedBusComponents_.find(vl.getId());
   if (iter == calculatedBusComponents_.end())
     throw DYNError(Error::MODELER, UnknownCalculatedBus, vl.getId());
 
   vector<std::shared_ptr<CalculatedBusInterfaceIIDM> > buses = iter->second;
-  for (unsigned int i = 0; i < buses.size(); ++i) {
-    if (buses[i]->hasNode(node))
-      return buses[i];
+  for (const auto& bus : buses) {
+    if (bus->hasNode(node))
+      return bus;
   }
   throw DYNError(Error::MODELER, UnknownCalculatedBus, vl.getId(), node);
 }
 
 std::shared_ptr<VoltageLevelInterface>
 DataInterfaceIIDM::findVoltageLevelInterface(const string& id) const {
-  std::unordered_map<string, std::shared_ptr<VoltageLevelInterface> >::const_iterator iter = voltageLevels_.find(id);
+  const auto iter = voltageLevels_.find(id);
   if (iter != voltageLevels_.end())
     return iter->second;
   else
@@ -837,12 +842,12 @@ DataInterfaceIIDM::findVoltageLevelInterface(const string& id) const {
 
 std::shared_ptr<BusInterface>
 DataInterfaceIIDM::findCalculatedBusInterface(const string& voltageLevelId, const string& bbsId) const {
-  std::unordered_map<string, vector<std::shared_ptr<CalculatedBusInterfaceIIDM> > >::const_iterator iter = calculatedBusComponents_.find(voltageLevelId);
+  const auto iter = calculatedBusComponents_.find(voltageLevelId);
   if (iter != calculatedBusComponents_.end()) {
     vector<std::shared_ptr<CalculatedBusInterfaceIIDM> > buses = iter->second;
-    for (unsigned int i = 0; i < buses.size(); ++i) {
-      if (buses[i]->hasBusBarSection(bbsId))
-        return buses[i];
+    for (const auto& bus : buses) {
+      if (bus->hasBusBarSection(bbsId))
+        return bus;
     }
   }
   return std::shared_ptr<BusInterface>();
@@ -850,7 +855,7 @@ DataInterfaceIIDM::findCalculatedBusInterface(const string& voltageLevelId, cons
 
 const std::shared_ptr<ComponentInterface>&
 DataInterfaceIIDM::findComponent(const std::string& id) const {
-  std::unordered_map<string, std::shared_ptr<ComponentInterface> >::const_iterator iter = components_.find(id);
+  const auto iter = components_.find(id);
   if (iter != components_.end())
     return iter->second;
   else
@@ -859,7 +864,7 @@ DataInterfaceIIDM::findComponent(const std::string& id) const {
 
 std::shared_ptr<ComponentInterface>&
 DataInterfaceIIDM::findComponent(const std::string& id) {
-  std::unordered_map<string, std::shared_ptr<ComponentInterface> >::iterator iter = components_.find(id);
+  const auto iter = components_.find(id);
   if (iter != components_.end())
     return iter->second;
   else
@@ -873,7 +878,7 @@ DataInterfaceIIDM::hasDynamicModel(const string& id) {
 
 void
 DataInterfaceIIDM::setReference(const string& componentVar, const string& staticId, const string& modelId, const string& modelVar) {
-  if (staticId == "")
+  if (staticId.empty())
     throw DYNError(Error::MODELER, WrongReferenceId, staticId);
 
   findComponent(staticId)->setReference(componentVar, modelId, modelVar);
@@ -886,99 +891,82 @@ DataInterfaceIIDM::setDynamicModel(const string& componentId, const shared_ptr<S
 
 void
 DataInterfaceIIDM::setModelNetwork(const shared_ptr<SubModel>& model) {
-  for (std::unordered_map<string, std::shared_ptr<ComponentInterface> >::iterator iter = components_.begin(), iterEnd = components_.end();
-      iter != iterEnd; ++iter) {
-    (iter->second)->setModelDyn(model);
-  }
+  for (const auto& componentPair : components_)
+    componentPair.second->setModelDyn(model);
 }
 
 void
 DataInterfaceIIDM::mapConnections() {
-  const vector<std::shared_ptr<LineInterface> >& lines = network_->getLines();
-  for (vector<std::shared_ptr<LineInterface> >::const_iterator iLine = lines.begin(); iLine != lines.end(); ++iLine) {
-    if ((*iLine)->hasDynamicModel()) {
-      (*iLine)->getBusInterface1()->hasConnection(true);
-      (*iLine)->getBusInterface2()->hasConnection(true);
+  for (const auto& line : network_->getLines()) {
+    if (line->hasDynamicModel()) {
+      line->getBusInterface1()->hasConnection(true);
+      line->getBusInterface2()->hasConnection(true);
     }
   }
 
-  const vector<std::shared_ptr<TwoWTransformerInterface> >& twoWtfos = network_->getTwoWTransformers();
-  for (vector<std::shared_ptr<TwoWTransformerInterface> >::const_iterator i2WTfo = twoWtfos.begin(); i2WTfo != twoWtfos.end(); ++i2WTfo) {
-    if ((*i2WTfo)->hasDynamicModel()) {
-      (*i2WTfo)->getBusInterface1()->hasConnection(true);
-      (*i2WTfo)->getBusInterface2()->hasConnection(true);
+  for (const auto& twoWtfo : network_->getTwoWTransformers()) {
+    if (twoWtfo->hasDynamicModel()) {
+      twoWtfo->getBusInterface1()->hasConnection(true);
+      twoWtfo->getBusInterface2()->hasConnection(true);
     }
   }
 
-  const vector<std::shared_ptr<HvdcLineInterface> >& hvdcs = network_->getHvdcLines();
-  for (vector<std::shared_ptr<HvdcLineInterface> >::const_iterator iHvdc = hvdcs.begin(); iHvdc != hvdcs.end(); ++iHvdc) {
-    if ((*iHvdc)->hasDynamicModel()) {
-      (*iHvdc)->getConverter1()->getBusInterface()->hasConnection(true);
-      (*iHvdc)->getConverter2()->getBusInterface()->hasConnection(true);
+  for (const auto& hvdcLine : network_->getHvdcLines()) {
+    if (hvdcLine->hasDynamicModel()) {
+      hvdcLine->getConverter1()->getBusInterface()->hasConnection(true);
+      hvdcLine->getConverter2()->getBusInterface()->hasConnection(true);
     }
   }
 
-  const vector<std::shared_ptr<VoltageLevelInterface> > voltageLevels = network_->getVoltageLevels();
-  for (vector<std::shared_ptr<VoltageLevelInterface> >::const_iterator iVL = voltageLevels.begin(); iVL != voltageLevels.end(); ++iVL) {
-    (*iVL)->mapConnections();
-  }
+  for (const auto& voltageLevel : network_->getVoltageLevels())
+    voltageLevel->mapConnections();
 }
 
 void
 DataInterfaceIIDM::importStaticParameters() {
-  for (std::unordered_map<string, std::shared_ptr<ComponentInterface> >::iterator iter = components_.begin(), iterEnd = components_.end();
-      iter != iterEnd; ++iter) {
-    (iter->second)->importStaticParameters();
-  }
+  for (const auto& componentPair : components_)
+    componentPair.second->importStaticParameters();
 }
 
 void
 DataInterfaceIIDM::getStateVariableReference() {
-  for (std::unordered_map<string, std::shared_ptr<ComponentInterface> >::iterator iter = components_.begin(), iterEnd = components_.end();
-      iter != iterEnd; ++iter) {
-    (iter->second)->getStateVariableReference();
-  }
+  for (const auto& componentPair : components_)
+    componentPair.second->getStateVariableReference();
 }
 
 void
 DataInterfaceIIDM::updateFromModel(bool filterForCriteriaCheck) {
-  for (std::unordered_map<string, std::shared_ptr<ComponentInterface> >::iterator iter = components_.begin(), iterEnd = components_.end();
-      iter != iterEnd; ++iter) {
-    (iter->second)->updateFromModel(filterForCriteriaCheck);
-  }
+  for (const auto& componentPair : components_)
+    componentPair.second->updateFromModel(filterForCriteriaCheck);
 }
 
 void
 DataInterfaceIIDM::exportStateVariables() {
   const bool filterForCriteriaCheck = false;
-  for (std::unordered_map<string, std::shared_ptr<ComponentInterface> >::iterator iter = components_.begin(), iterEnd = components_.end();
-      iter != iterEnd; ++iter) {
-    (iter->second)->updateFromModel(filterForCriteriaCheck);
-    (iter->second)->exportStateVariables();
+  for (const auto& componentPair : components_) {
+    const auto& component = componentPair.second;
+    component->updateFromModel(filterForCriteriaCheck);
+    component->exportStateVariables();
   }
 
   // loop to update switch state due to topology analysis
   // should be removed once a solution has been found to propagate switches (de)connection
   // following component (de)connection (only Modelica models)
-  for (std::unordered_map<string, std::shared_ptr<VoltageLevelInterface> >::iterator iterVL = voltageLevels_.begin(),
-      iterVLEnd = voltageLevels_.end(); iterVL != iterVLEnd; ++iterVL)
-    (iterVL->second)->exportSwitchesState();
+  for (const auto& voltageLevelPair : voltageLevels_)
+    voltageLevelPair.second->exportSwitchesState();
 }
 
 #ifdef _DEBUG_
 void
-DataInterfaceIIDM::exportStateVariablesNoReadFromModel() {
-  for (std::unordered_map<string, std::shared_ptr<ComponentInterface> >::iterator iter = components_.begin(), iterEnd = components_.end();
-      iter != iterEnd; ++iter) {
-    (iter->second)->exportStateVariables();
-  }
+DataInterfaceIIDM::exportStateVariablesNoReadFromModel() const {
+  for (const auto& componentPair : components_)
+    componentPair.second->exportStateVariables();
 
   // loop to update switch state due to topology analysis
   // should be removed once a solution has been found to propagate switches (de)connection
   // following component (de)connection (only Modelica models)
-  for (std::unordered_map<string, std::shared_ptr<VoltageLevelInterface> >::iterator iterVL = voltageLevels_.begin(),
-      iterVLEnd = voltageLevels_.end(); iterVL != iterVLEnd; ++iterVL)
-    (iterVL->second)->exportSwitchesState();
+  for (const auto& voltageLevelPair : voltageLevels_)
+    voltageLevelPair.second->exportSwitchesState();
 }
 #endif
 
@@ -986,7 +974,7 @@ std::shared_ptr<vector<std::shared_ptr<ComponentInterface> > >
 DataInterfaceIIDM::findConnectedComponents() {
   std::shared_ptr<vector<std::shared_ptr<ComponentInterface> > > connectedComponents(new vector<std::shared_ptr<ComponentInterface> >());
   for (auto& component : components_) {
-    if ((component.second)->isPartiallyConnected()) {
+    if (component.second->isPartiallyConnected()) {
       connectedComponents->push_back(component.second);
     }
   }
@@ -1026,55 +1014,49 @@ DataInterfaceIIDM::configureCriteria(const std::shared_ptr<CriteriaCollection>& 
 
 void
 DataInterfaceIIDM::configureBusCriteria(const std::shared_ptr<criteria::CriteriaCollection>& criteria) {
-  for (CriteriaCollection::CriteriaCollectionConstIterator it = criteria->begin(CriteriaCollection::BUS),
-      itEnd = criteria->end(CriteriaCollection::BUS);
-      it != itEnd; ++it) {
-    std::shared_ptr<criteria::Criteria> crit = *it;
-    if (!BusCriteria::criteriaEligibleForBus(crit->getParams())) continue;
-    std::unique_ptr<BusCriteria> dynCriteria = DYN::make_unique<BusCriteria>(crit->getParams());
-    if (crit->begin() != crit->end()) {
-      for (criteria::Criteria::component_id_const_iterator cmpIt = crit->begin(),
-          cmpItEnd = crit->end();
-          cmpIt != cmpItEnd; ++cmpIt) {
+  for (const auto& busCriteria : criteria->getBusCriteria()) {
+    if (!BusCriteria::criteriaEligibleForBus(busCriteria->getParams())) continue;
+    std::unique_ptr<BusCriteria> dynCriteria = DYN::make_unique<BusCriteria>(busCriteria->getParams());
+    const auto& componentIds = busCriteria->getComponentIds();
+    if (!componentIds.empty()) {
+      for (const auto& componentId : componentIds) {
         std::shared_ptr<BusInterface> bus;
-        if (!cmpIt->getVoltageLevelId().empty()) {
-          bus = findCalculatedBusInterface(cmpIt->getVoltageLevelId(), cmpIt->getId());
+        if (!componentId->getVoltageLevelId().empty()) {
+          bus = findCalculatedBusInterface(componentId->getVoltageLevelId(), componentId->getId());
           if (!bus) {
-            Trace::warn() << DYNLog(CalculatedBusNotFound, cmpIt->getVoltageLevelId(), cmpIt->getId()) << Trace::endline;
+            Trace::warn() << DYNLog(CalculatedBusNotFound, componentId->getVoltageLevelId(), componentId->getId()) << Trace::endline;
             continue;
           }
         } else {
-          std::unordered_map<std::string, std::shared_ptr<ComponentInterface> >::const_iterator busItfIter = components_.find(cmpIt->getId());
+          std::unordered_map<std::string, std::shared_ptr<ComponentInterface> >::const_iterator busItfIter = components_.find(componentId->getId());
           if (busItfIter != components_.end()) {
             const std::shared_ptr<ComponentInterface>& cmp = busItfIter->second;
             if (cmp->getType() != ComponentInterface::BUS) {
-              Trace::warn() << DYNLog(WrongComponentType, cmpIt->getId(), "bus") << Trace::endline;
+              Trace::warn() << DYNLog(WrongComponentType, componentId->getId(), "bus") << Trace::endline;
               continue;
             }
             bus = dynamic_pointer_cast<BusInterface>(cmp);
             assert(bus);
           } else {
-            Trace::warn() << DYNLog(ComponentNotFound, cmpIt->getId()) << Trace::endline;
+            Trace::warn() << DYNLog(ComponentNotFound, componentId->getId()) << Trace::endline;
             continue;
           }
         }
-        if (crit->hasCountryFilter()) {
-          std::shared_ptr<BusInterfaceIIDM> busIIDM = dynamic_pointer_cast<BusInterfaceIIDM>(bus);
-          if (busIIDM && !busIIDM->getCountry().empty() && !crit->containsCountry(busIIDM->getCountry()))
+        if (busCriteria->hasCountryFilter()) {
+          const std::shared_ptr<BusInterfaceIIDM> busIIDM = dynamic_pointer_cast<BusInterfaceIIDM>(bus);
+          if (busIIDM && !busIIDM->getCountry().empty() && !busCriteria->containsCountry(busIIDM->getCountry()))
             continue;
         }
         dynCriteria->addBus(bus);
       }
     } else {
-      for (std::unordered_map<std::string, std::shared_ptr<BusInterface> >::const_iterator cmpIt = busComponents_.begin(),
-          cmpItEnd = busComponents_.end();
-          cmpIt != cmpItEnd; ++cmpIt) {
-        if (crit->hasCountryFilter()) {
-          std::shared_ptr<BusInterfaceIIDM> bus = dynamic_pointer_cast<BusInterfaceIIDM>(cmpIt->second);
-          if (!bus->getCountry().empty() && !crit->containsCountry(bus->getCountry()))
+      for (const auto& busComponent : busComponents_) {
+        if (busCriteria->hasCountryFilter()) {
+          const std::shared_ptr<BusInterfaceIIDM> bus = dynamic_pointer_cast<BusInterfaceIIDM>(busComponent.second);
+          if (!bus->getCountry().empty() && !busCriteria->containsCountry(bus->getCountry()))
             continue;
         }
-        dynCriteria->addBus(cmpIt->second);
+        dynCriteria->addBus(busComponent.second);
       }
     }
     if (!dynCriteria->empty()) {
@@ -1085,42 +1067,37 @@ DataInterfaceIIDM::configureBusCriteria(const std::shared_ptr<criteria::Criteria
 
 void
 DataInterfaceIIDM::configureLoadCriteria(const std::shared_ptr<criteria::CriteriaCollection>& criteria) {
-  for (CriteriaCollection::CriteriaCollectionConstIterator it = criteria->begin(CriteriaCollection::LOAD),
-      itEnd = criteria->end(CriteriaCollection::LOAD);
-      it != itEnd; ++it) {
-    std::shared_ptr<criteria::Criteria> crit = *it;
-    if (!LoadCriteria::criteriaEligibleForLoad(crit->getParams())) continue;
-    std::unique_ptr<LoadCriteria> dynCriteria = DYN::make_unique<LoadCriteria>(crit->getParams());
-    if (crit->begin() != crit->end()) {
-      for (criteria::Criteria::component_id_const_iterator cmpIt = crit->begin(),
-          cmpItEnd = crit->end();
-          cmpIt != cmpItEnd; ++cmpIt) {
-        std::unordered_map<std::string, std::shared_ptr<ComponentInterface> >::const_iterator loadItfIter = components_.find(cmpIt->getId());
+  for (const auto& loadCriteria : criteria->getLoadCriteria()) {
+    if (!LoadCriteria::criteriaEligibleForLoad(loadCriteria->getParams())) continue;
+    std::unique_ptr<LoadCriteria> dynCriteria = DYN::make_unique<LoadCriteria>(loadCriteria->getParams());
+    const auto& componentIds = loadCriteria->getComponentIds();
+    if (!componentIds.empty()) {
+      for (const auto& componentId : componentIds) {
+        const auto loadItfIter = components_.find(componentId->getId());
         if (loadItfIter != components_.end()) {
           const std::shared_ptr<ComponentInterface>& cmp = loadItfIter->second;
           if (cmp->getType() != ComponentInterface::LOAD) {
-            Trace::warn() << DYNLog(WrongComponentType, cmpIt->getId(), "load") << Trace::endline;
+            Trace::warn() << DYNLog(WrongComponentType, componentId->getId(), "load") << Trace::endline;
             continue;
           }
-          if (crit->hasCountryFilter()) {
-            std::shared_ptr<LoadInterfaceIIDM> load = std::dynamic_pointer_cast<LoadInterfaceIIDM>(cmp);
-            if (!load->getCountry().empty() && !crit->containsCountry(load->getCountry()))
+          if (loadCriteria->hasCountryFilter()) {
+            const std::shared_ptr<LoadInterfaceIIDM> load = dynamic_pointer_cast<LoadInterfaceIIDM>(cmp);
+            if (!load->getCountry().empty() && !loadCriteria->containsCountry(load->getCountry()))
               continue;
           }
           std::shared_ptr<LoadInterface> load = std::dynamic_pointer_cast<LoadInterface>(cmp);
           assert(load);
           dynCriteria->addLoad(load);
         } else {
-          Trace::warn() << DYNLog(ComponentNotFound, cmpIt->getId()) << Trace::endline;
+          Trace::warn() << DYNLog(ComponentNotFound, componentId->getId()) << Trace::endline;
         }
       }
     } else {
-      for (std::unordered_map<std::string, std::shared_ptr<LoadInterfaceIIDM> >::const_iterator cmpIt = loadComponents_.begin(),
-          cmpItEnd = loadComponents_.end();
-          cmpIt != cmpItEnd; ++cmpIt) {
-        if (crit->hasCountryFilter() && !cmpIt->second->getCountry().empty() && !crit->containsCountry(cmpIt->second->getCountry()))
+      for (const auto& loadComponentPair : loadComponents_) {
+        const auto& loadComponent = loadComponentPair.second;
+        if (loadCriteria->hasCountryFilter() && !loadComponent->getCountry().empty() && !loadCriteria->containsCountry(loadComponent->getCountry()))
             continue;
-        dynCriteria->addLoad(cmpIt->second);
+        dynCriteria->addLoad(loadComponent);
       }
     }
     if (!dynCriteria->empty()) {
@@ -1131,46 +1108,41 @@ DataInterfaceIIDM::configureLoadCriteria(const std::shared_ptr<criteria::Criteri
 
 void
 DataInterfaceIIDM::configureGeneratorCriteria(const std::shared_ptr<criteria::CriteriaCollection>& criteria) {
-  for (CriteriaCollection::CriteriaCollectionConstIterator it = criteria->begin(CriteriaCollection::GENERATOR),
-      itEnd = criteria->end(CriteriaCollection::GENERATOR);
-      it != itEnd; ++it) {
-    std::shared_ptr<criteria::Criteria> crit = *it;
-    if (!GeneratorCriteria::criteriaEligibleForGenerator(crit->getParams())) continue;
-    std::unique_ptr<GeneratorCriteria> dynCriteria = DYN::make_unique<GeneratorCriteria>(crit->getParams());
-    if (crit->begin() != crit->end()) {
-      for (criteria::Criteria::component_id_const_iterator cmpIt = crit->begin(),
-          cmpItEnd = crit->end();
-          cmpIt != cmpItEnd; ++cmpIt) {
-        std::unordered_map<std::string, std::shared_ptr<ComponentInterface> >::const_iterator generatorItfIter = components_.find(cmpIt->getId());
+  for (const auto& generatorCriteria : criteria->getGeneratorCriteria()) {
+    if (!GeneratorCriteria::criteriaEligibleForGenerator(generatorCriteria->getParams())) continue;
+    std::unique_ptr<GeneratorCriteria> dynCriteria = DYN::make_unique<GeneratorCriteria>(generatorCriteria->getParams());
+    const auto& componentIds = generatorCriteria->getComponentIds();
+    if (!componentIds.empty()) {
+      for (const auto& componentId : componentIds) {
+        const auto generatorItfIter = components_.find(componentId->getId());
         if (generatorItfIter != components_.end()) {
           const std::shared_ptr<ComponentInterface>& cmp = generatorItfIter->second;
           if (cmp->getType() != ComponentInterface::GENERATOR) {
-            Trace::warn() << DYNLog(WrongComponentType, cmpIt->getId(), "generator") << Trace::endline;
+            Trace::warn() << DYNLog(WrongComponentType, componentId->getId(), "generator") << Trace::endline;
             continue;
           }
-          if (crit->hasCountryFilter()) {
-            std::shared_ptr<GeneratorInterfaceIIDM> gen = std::dynamic_pointer_cast<GeneratorInterfaceIIDM>(cmp);
-            if (!gen->getCountry().empty() && !crit->containsCountry(gen->getCountry()))
+          if (generatorCriteria->hasCountryFilter()) {
+            const std::shared_ptr<GeneratorInterfaceIIDM> gen = dynamic_pointer_cast<GeneratorInterfaceIIDM>(cmp);
+            if (!gen->getCountry().empty() && !generatorCriteria->containsCountry(gen->getCountry()))
               continue;
           }
-          std::shared_ptr<GeneratorInterface> gen = std::dynamic_pointer_cast<GeneratorInterface>(cmp);
+          const std::shared_ptr<GeneratorInterface> gen = dynamic_pointer_cast<GeneratorInterface>(cmp);
           assert(gen);
           dynCriteria->addGenerator(gen);
         } else {
-          Trace::warn() << DYNLog(ComponentNotFound, cmpIt->getId()) << Trace::endline;
+          Trace::warn() << DYNLog(ComponentNotFound, componentId->getId()) << Trace::endline;
         }
       }
     } else {
-      for (std::unordered_map<std::string, std::shared_ptr<GeneratorInterface> >::const_iterator cmpIt = generatorComponents_.begin(),
-          cmpItEnd = generatorComponents_.end();
-          cmpIt != cmpItEnd; ++cmpIt) {
-        std::shared_ptr<GeneratorInterfaceIIDM> gen = std::dynamic_pointer_cast<GeneratorInterfaceIIDM>(cmpIt->second);
-        std::shared_ptr<BatteryInterfaceIIDM> bat = std::dynamic_pointer_cast<BatteryInterfaceIIDM>(cmpIt->second);
-        if (gen && crit->hasCountryFilter() && !gen->getCountry().empty() && !crit->containsCountry(gen->getCountry()))
+      for (const auto& generatorComponentPair : generatorComponents_) {
+        const auto& generatorComponent = generatorComponentPair.second;
+        const std::shared_ptr<GeneratorInterfaceIIDM> gen = dynamic_pointer_cast<GeneratorInterfaceIIDM>(generatorComponent);
+        const std::shared_ptr<BatteryInterfaceIIDM> bat = dynamic_pointer_cast<BatteryInterfaceIIDM>(generatorComponent);
+        if (gen && generatorCriteria->hasCountryFilter() && !gen->getCountry().empty() && !generatorCriteria->containsCountry(gen->getCountry()))
             continue;
-        if (bat && crit->hasCountryFilter() && !bat->getCountry().empty() && !crit->containsCountry(bat->getCountry()))
+        if (bat && generatorCriteria->hasCountryFilter() && !bat->getCountry().empty() && !generatorCriteria->containsCountry(bat->getCountry()))
             continue;
-        dynCriteria->addGenerator(cmpIt->second);
+        dynCriteria->addGenerator(generatorComponent);
       }
     }
     if (!dynCriteria->empty()) {
@@ -1180,33 +1152,31 @@ DataInterfaceIIDM::configureGeneratorCriteria(const std::shared_ptr<criteria::Cr
 }
 
 bool
-DataInterfaceIIDM::checkCriteria(double t, bool finalStep) {
+DataInterfaceIIDM::checkCriteria(const double t, const bool finalStep) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("DataInterfaceIIDM::checkCriteria");
 #endif
 #ifdef _DEBUG_
-  for (std::unordered_map<string, std::shared_ptr<ComponentInterface> >::iterator iter = components_.begin(); iter != components_.end(); ++iter) {
-    iter->second->enableCheckStateVariable();
-  }
+  for (const auto& component : components_)
+    component.second->enableCheckStateVariable();
+
 #endif
   bool criteriaOk = true;
-  for (std::vector<std::unique_ptr<Criteria> >::const_iterator it = criteria_.begin(), itEnd = criteria_.end();
-      it != itEnd; ++it) {
-    criteriaOk &= (*it)->checkCriteria(t, finalStep, timeline_);
-  }
+  for (const auto& criteria : criteria_)
+    criteriaOk &= criteria->checkCriteria(t, finalStep, timeline_);
+
 #ifdef _DEBUG_
-  for (std::unordered_map<string, std::shared_ptr<ComponentInterface> >::iterator iter = components_.begin(); iter != components_.end(); ++iter) {
-    iter->second->disableCheckStateVariable();
-  }
+  for (const auto& component : components_)
+    component.second->disableCheckStateVariable();
+
 #endif
   return criteriaOk;
 }
 
 void
 DataInterfaceIIDM::getFailingCriteria(std::vector<std::pair<double, std::string> >& failingCriteria) const {
-  for (std::vector<std::unique_ptr<Criteria> >::const_iterator it = criteria_.begin(), itEnd = criteria_.end();
-      it != itEnd; ++it) {
-    const std::vector<std::pair<double, std::string> >& ids = (*it)->getFailingCriteria();
+  for (const auto& criteria : criteria_) {
+    const std::vector<std::pair<double, std::string> >& ids = criteria->getFailingCriteria();
     failingCriteria.insert(failingCriteria.end(), ids.begin(), ids.end());
   }
 }

@@ -42,7 +42,7 @@ Curve::Curve::Curve() :
       exportType_(EXPORT_AS_CURVE) {}
 
 void
-Curve::update(const double& time) {
+Curve::update(const double time) {
   if (available_) {
     if (!isParameterCurve_) {  // this is a variable curve
       double value = buffer_[0];
@@ -71,8 +71,8 @@ Curve::update(const double& time) {
 
 void
 Curve::updateParameterCurveValue(std::string /*parameterName*/, double parameterValue) {
-  for (std::vector<std::unique_ptr<Point> >::iterator it = points_.begin(); it != points_.end(); ++it) {
-    (*it)->setValue(parameterValue);
+  for (const auto& point : points_) {
+    point->setValue(parameterValue);
   }
 }
 
@@ -117,7 +117,7 @@ Curve::setGlobalIndex(size_t index) {
 }
 
 size_t
-Curve::getGlobalIndex() {
+Curve::getGlobalIndex() const {
   return indexInGlobalTable_;
 }
 
@@ -149,74 +149,6 @@ Curve::getNegated() const {
 const double*
 Curve::getBuffer() const {
   return buffer_;
-}
-
-Curve::const_iterator
-Curve::cbegin() const {
-  return Curve::const_iterator(this, true);
-}
-
-Curve::const_iterator
-Curve::cend() const {
-  return Curve::const_iterator(this, false);
-}
-
-Curve::const_iterator
-Curve::at(int i) const {
-  return Curve::const_iterator(this, true, i);
-}
-
-Curve::const_iterator::const_iterator(const Curve* iterated, bool begin, int i) {
-  if (begin)
-    current_ = iterated->points_.begin() + i;
-  else
-    current_ = iterated->points_.end() - i;
-}
-
-Curve::const_iterator::const_iterator(const Curve* iterated, bool begin) : current_((begin ? iterated->points_.begin() : iterated->points_.end())) {}
-
-Curve::const_iterator&
-Curve::const_iterator::operator++() {
-  ++current_;
-  return *this;
-}
-
-Curve::const_iterator
-Curve::const_iterator::operator++(int) {
-  Curve::const_iterator previous = *this;
-  current_++;
-  return previous;
-}
-
-Curve::const_iterator&
-Curve::const_iterator::operator--() {
-  --current_;
-  return *this;
-}
-
-Curve::const_iterator
-Curve::const_iterator::operator--(int) {
-  Curve::const_iterator previous = *this;
-  current_--;
-  return previous;
-}
-
-bool
-Curve::const_iterator::operator==(const Curve::const_iterator& other) const {
-  return current_ == other.current_;
-}
-
-bool
-Curve::const_iterator::operator!=(const Curve::const_iterator& other) const {
-  return current_ != other.current_;
-}
-
-const std::unique_ptr<Point>& Curve::const_iterator::operator*() const {
-  return *current_;
-}
-
-const std::unique_ptr<Point>* Curve::const_iterator::operator->() const {
-  return &(*current_);
 }
 
 }  // namespace curves

@@ -51,15 +51,13 @@ TEST(APICRVTest, test1) {
   variables.assign(2, 0);
 
   int i = 0;
-  for (CurvesCollection::iterator itCurve = curves->begin();
-          itCurve != curves->end();
-          ++itCurve) {
-    (*itCurve)->setFoundVariableName("model_variable");
-    (*itCurve)->setBuffer(&variables[i]);
+  for (const auto& curve : curves->getCurves()) {
+    curve->setFoundVariableName("model_variable");
+    curve->setBuffer(&variables[i]);
     if (i == 0)
-      (*itCurve)->setNegated(true);  // curve point value = -1*variables value
+      curve->setNegated(true);  // curve point value = -1*variables value
     else
-      (*itCurve)->setNegated(false);
+      curve->setNegated(false);
     ++i;
   }
 

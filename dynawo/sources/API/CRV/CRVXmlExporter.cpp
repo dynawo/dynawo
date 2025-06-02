@@ -62,21 +62,17 @@ XmlExporter::exportToStream(const std::shared_ptr<CurvesCollection>& curves, ost
   AttributeList attrs;
   formatter->startElement("curvesOutput", attrs);
 
-  for (CurvesCollection::iterator itCurve = curves->begin();
-          itCurve != curves->end();
-          ++itCurve) {
-    bool exportAsCurve = (*itCurve)->getExportType() == Curve::EXPORT_AS_CURVE || (*itCurve)->getExportType() == Curve::EXPORT_AS_BOTH;
-    if ((*itCurve)->getAvailable() && exportAsCurve) {
+  for (const auto& curve : curves->getCurves()) {
+    const bool exportAsCurve = curve->getExportType() == Curve::EXPORT_AS_CURVE || curve->getExportType() == Curve::EXPORT_AS_BOTH;
+    if (curve->getAvailable() && exportAsCurve) {
       attrs.clear();
-      attrs.add("model", (*itCurve)->getModelName());
-      attrs.add("variable", (*itCurve)->getVariable());
+      attrs.add("model", curve->getModelName());
+      attrs.add("variable", curve->getVariable());
       formatter->startElement("curve", attrs);
-      for (Curve::const_iterator itPoint = (*itCurve)->cbegin();
-              itPoint != (*itCurve)->cend();
-              ++itPoint) {
+      for (const auto& point : curve->getPoints()) {
         attrs.clear();
-        attrs.add("time", DYN::double2String((*itPoint)->getTime()));
-        attrs.add("value", DYN::double2String((*itPoint)->getValue()));
+        attrs.add("time", DYN::double2String(point->getTime()));
+        attrs.add("value", DYN::double2String(point->getValue()));
         formatter->startElement("point", attrs);
         formatter->endElement();   // point
       }

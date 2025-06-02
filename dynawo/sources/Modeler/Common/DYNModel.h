@@ -66,7 +66,7 @@ class Model {
    * @param yp current values of the derivative of the continuous variables
    * @param f values of the residual functions
    */
-  virtual void evalF(const double t, const double* y, const double* yp, double* f) = 0;
+  virtual void evalF(double t, const double* y, const double* yp, double* f) = 0;
 
   /**
    * @brief evaluate the differential residual functions of the model
@@ -76,7 +76,7 @@ class Model {
    * @param yp current values of the derivative of the continuous variables
    * @param f values of the residual functions
    */
-  virtual void evalFDiff(const double t, const double* y, const double* yp, double* f) = 0;
+  virtual void evalFDiff(double t, const double* y, const double* yp, double* f) = 0;
 
   /**
    * @brief evaluate the differential residual functions of the models for which there was a mode change
@@ -86,7 +86,7 @@ class Model {
    * @param yp current values of the derivative of the continuous variables
    * @param f values of the residual functions
    */
-  virtual void evalFMode(const double t, const double* y, const double* yp, double* f) = 0;
+  virtual void evalFMode(double t, const double* y, const double* yp, double* f) = 0;
 
   /**
    * @brief get the current value of the continuous variables
@@ -130,25 +130,25 @@ class Model {
    *
    * @param t time to use for the evaluation
    * @param cj Jacobian prime coefficient
-   * @param Jt jacobian matrix to fullfill
+   * @param jt jacobian matrix to fullfill
    */
-  virtual void evalJt(const double t, const double cj, SparseMatrix& Jt) = 0;
+  virtual void evalJt(double t, double cj, SparseMatrix& jt) = 0;
 
   /**
    * @brief compute the transpose prim jacobian of the sub model \f$ J'= @F/@x' \f$  based on the variable values contained in the model
    *
    * @param t time to use for the evaluation
    * @param cj Jacobian prime coefficient
-   * @param JtPrim jacobian matrix to fullfill
+   * @param jtPrim jacobian matrix to fullfill
    */
-  virtual void evalJtPrim(const double t, const double cj, SparseMatrix& JtPrim) = 0;
+  virtual void evalJtPrim(double t, double cj, SparseMatrix& jtPrim) = 0;
 
   /**
    * @brief ensure data coherence (asserts, min/max, sanity checks ....)
    *
    * @param t time to use for the evaluation
    */
-  virtual void checkDataCoherence(const double t) = 0;
+  virtual void checkDataCoherence(double t) = 0;
 
   /**
    * @brief Coherence check on parameters (min/max values, sanity checks)
@@ -174,7 +174,7 @@ class Model {
    * @param y0 initial values of the variables
    * @param yp0 initial values of the derivatives of the variables
    */
-  virtual void getY0(const double t0, std::vector<double>& y0, std::vector<double>& yp0) = 0;
+  virtual void getY0(double t0, std::vector<double>& y0, std::vector<double>& yp0) = 0;
 
   /**
    * @brief retrieve mode change information
@@ -196,7 +196,7 @@ class Model {
    *
    * @param modeChangeType overall system mode change type
    */
-  virtual void setModeChangeType(const modeChangeType_t& modeChangeType) = 0;
+  virtual void setModeChangeType(const modeChangeType_t modeChangeType) = 0;
 
   /**
    * @brief reinitialize the mode change and mode change type values to default values (for ModelMulti and each SubModel)
@@ -268,7 +268,7 @@ class Model {
    * @brief set the initial time to use for models
    * @param t0 initial time to use
    */
-  virtual void setInitialTime(const double t0) = 0;
+  virtual void setInitialTime(double t0) = 0;
 
   /**
    * @brief get the number of root functions
@@ -320,7 +320,7 @@ class Model {
    * @param localFIndex local index of the residual functions inside the subModel
    * @param fEquation equation formula related to local index
    */
-  virtual void getFInfos(const int globalFIndex, std::string& subModelName, int& localFIndex, std::string& fEquation) const = 0;
+  virtual void getFInfos(int globalFIndex, std::string& subModelName, int& localFIndex, std::string& fEquation) const = 0;
 
   /**
    * @brief get informations about root functions
@@ -330,14 +330,14 @@ class Model {
    * @param localGIndex local index of the root functions inside the subModel
    * @param gEquation equation formula related to local index
    */
-  virtual void getGInfos(const int globalGIndex, std::string& subModelName, int& localGIndex, std::string& gEquation) const = 0;
+  virtual void getGInfos(int globalGIndex, std::string& subModelName, int& localGIndex, std::string& gEquation) const = 0;
 
   /**
    * @brief initialize the model
    *
    * @param t0 time to use to initialize the model
    */
-  virtual void init(const double t0) = 0;
+  virtual void init(double t0) = 0;
 
   /**
    * @brief initial all the buffers of the model
@@ -375,14 +375,14 @@ class Model {
    * @param yp current values of the derivative of the continuous variables
    * @param z values of the discrete variables
    */
-  virtual void evalCalculatedVariables(const double t, const std::vector<double>& y, const std::vector<double>& yp, const std::vector<double>& z) = 0;
+  virtual void evalCalculatedVariables(double t, const std::vector<double>& y, const std::vector<double>& yp, const std::vector<double>& z) = 0;
 
   /**
    * @brief update the subset of calculated variables needed for curves
    *
    * @param curvesCollection set of curves
    */
-  virtual void updateCalculatedVarForCurves(std::shared_ptr<curves::CurvesCollection>& curvesCollection) const = 0;
+  virtual void updateCalculatedVarForCurves(const std::shared_ptr<curves::CurvesCollection>& curvesCollection) const = 0;
 
   /**
    * @brief export the parameters of the model for dump
@@ -453,7 +453,7 @@ class Model {
    * @param curve curve to find
    * @return true if the curve was added
    */
-  virtual bool initCurves(std::shared_ptr<curves::Curve>& curve) = 0;
+  virtual bool initCurves(const std::shared_ptr<curves::Curve>& curve) = 0;
 
   /**
    * @brief set the simulation working directory to use
@@ -520,7 +520,7 @@ class Model {
    * @brief set the local initialization solver parameters of the model
    * @param localInitParameters local initialization solver parameters set
    */
-  virtual void setLocalInitParameters(std::shared_ptr<parameters::ParametersSet> localInitParameters) = 0;
+  virtual void setLocalInitParameters(const std::shared_ptr<parameters::ParametersSet>& localInitParameters) = 0;
 };  ///< Generic class for Model
 
 #ifdef __clang__

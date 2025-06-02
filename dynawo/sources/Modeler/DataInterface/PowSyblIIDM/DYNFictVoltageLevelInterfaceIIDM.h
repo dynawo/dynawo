@@ -45,7 +45,7 @@ class FictVoltageLevelInterfaceIIDM : public VoltageLevelInterface {
    * @brief Getter for the voltageLevel's id
    * @return The id of the voltageLevel
    */
-  std::string getID() const;
+  const std::string& getID() const;
 
   /**
    * @copydoc VoltageLevelInterface::getVNom() const

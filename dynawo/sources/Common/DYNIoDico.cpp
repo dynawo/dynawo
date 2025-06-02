@@ -25,6 +25,7 @@
 #include <boost/algorithm/string/trim.hpp>
 #include <boost/algorithm/string/split.hpp>
 #include <boost/algorithm/string/predicate.hpp>
+#include <boost/make_shared.hpp>
 
 #include "DYNIoDico.h"
 #include "DYNExecUtils.h"
@@ -35,10 +36,9 @@ using std::string;
 using std::ifstream;
 using std::vector;
 
-
 namespace DYN {
 
-static bool readLine(string& line, string& key, string& phrase);
+static bool readLine(string& line, string& key, string& value);
 
 IoDicos&
 IoDicos::instance() {
@@ -51,11 +51,11 @@ void IoDicos::addPath(const string& path) {
 }
 
 bool IoDicos::hasIoDico(const string& dicoName) {
-  return ( instance().dicos_.find(dicoName) != instance().dicos_.end());
+  return instance().dicos_.find(dicoName) != instance().dicos_.end();
 }
 
 bool IoDicos::hasOppositeEventsDico(const string& dicoName) {
-  return ( instance().oppositeEventsDicos_.find(dicoName) != instance().oppositeEventsDicos_.end());
+  return instance().oppositeEventsDicos_.find(dicoName) != instance().oppositeEventsDicos_.end();
 }
 
 std::shared_ptr<IoDico> IoDicos::getIoDico(const string& dicoName) {
@@ -87,16 +87,14 @@ vector<std::string> IoDicos::findFiles(const string& fileName) {
   splitCharacter = ":";
 #endif
   vector<string> allPaths;
-  for (unsigned int i = 0; i < instance().paths_.size(); ++i) {
+  for (const auto& path : instance().paths_) {
     vector<string> paths;
-    boost::algorithm::split(paths, instance().paths_[i], boost::is_any_of(splitCharacter));
+    boost::algorithm::split(paths, path, boost::is_any_of(splitCharacter));
     allPaths.insert(allPaths.begin(), paths.begin(), paths.end());
   }
 
-  for (vector<string>::const_iterator it = allPaths.begin();
-          it != allPaths.end();
-          ++it) {
-    string fic = createAbsolutePath(fileName, *it);
+  for (const auto& pathDir : allPaths) {
+    string fic = createAbsolutePath(fileName, pathDir);
 
     ifstream in;
     // Test if file exists
@@ -118,7 +116,7 @@ void IoDicos::addDico(const string& name, const string& baseName, const string& 
   vector<string> files;
   string fileName;
   // To deal with a Priority dictionary that does not have a locale.
-  if (locale != "") {
+  if (!locale.empty()) {
     fileName = baseName + string("_") + locale + string(".dic");
   } else {
     fileName = baseName + string(".dic");
@@ -131,7 +129,7 @@ void IoDicos::addDico(const string& name, const string& baseName, const string& 
     files = findFiles(fileName);
   }
 
-  if (files.empty() && locale != "") {
+  if (files.empty() && !locale.empty()) {
     // try no locale
     fileName = baseName + string(".dic");
     files = findFiles(fileName);
@@ -142,10 +140,10 @@ void IoDicos::addDico(const string& name, const string& baseName, const string& 
   if (files.size() != 1) {
     throw MessageError("Multiple occurrences of the dictionary : " + fileName);
   }
-  string file = files[0];
+  const string file = files[0];
 
   if (hasIoDico(name)) {
-    std::shared_ptr<IoDico> dico = getIoDico(name);
+    const std::shared_ptr<IoDico>& dico = getIoDico(name);
     dico->readFile(file);  // new key/sentence added to the existing dico
   } else {
     std::unique_ptr<IoDico> dico = DYN::make_unique<IoDico>(name);
@@ -172,21 +170,18 @@ void IoDicos::addDicos(const string& dictionariesMappingFile, const string& loca
   }
 
   // build name of the file to search
-  string fileName = dictionariesMappingFile + ".dic";
+  const string fileName = dictionariesMappingFile + ".dic";
   const vector<string>& files = findFiles(fileName);
 
   if (files.empty())
     throw MessageError("Impossible to find the dictionary mapping file : " + fileName);
 
-  const std::unique_ptr<IoDico> dico = DYN::make_unique<IoDico>("MAPPING");
-  for (vector<string>::const_iterator it = files.begin(), itEnd = files.end(); it != itEnd; ++it) {
-    dico->readFile(*it);
-  }
+  const auto dico = DYN::make_unique<IoDico>("MAPPING");
+  for (const auto& file : files)
+    dico->readFile(file);
 
-  typedef std::map<string, string>::const_iterator DicoIter;
-  for (DicoIter it = dico->begin(), itEnd = dico->end(); it != itEnd; ++it) {
+  for (auto it = dico->begin(), itEnd = dico->end(); it != itEnd; ++it)
     addDico(it->second, it->first, locale);
-  }
 }
 
 std::unordered_map<std::string, std::unordered_set<std::string>>
@@ -209,13 +204,13 @@ IoDico::IoDico(const string& name) :
 name_(name) {
 }
 
-void IoDico::readFile(const string& file) {
+void IoDico::readFile(const string& fileName) {
   // Open file
-  ifstream in(file.c_str());
+  ifstream in(fileName.c_str());
 
   // Try to read it
   if (in.bad()) {
-    throw MessageError("Error when opening file : " + file);
+    throw MessageError("Error when opening file : " + fileName);
   }
 
   string line;
@@ -228,12 +223,12 @@ void IoDico::readFile(const string& file) {
       if (ok) {
         if (!key.empty()) {
           if (map_.find(key) != map_.end()) {
-            throw MessageError(" Reading of the dictionary " + file + " the key '" + key + "' is not unique");
+            throw MessageError(" Reading of the dictionary " + fileName + " the key '" + key + "' is not unique");
           }
           map_[key] = phrase;
         }
       } else {
-        throw MessageError("Error happened when reading the dictionary " + file);
+        throw MessageError("Error happened when reading the dictionary " + fileName);
       }
     }
     in.close();
@@ -283,7 +278,7 @@ readLine(string& line, string& key, string& value) {
     return true;  // it's not an error
 
   // 2) cut the line in two parts : key and value with separator =
-  found = line1.find("=");
+  found = line1.find('=');
   if (found != string::npos) {
     key = line1.substr(0, found);
     value = line1.substr(found + 1);
@@ -305,13 +300,13 @@ name_(name) {
 }
 
 void
-OppositeEventDico::readFile(const string& file) {
+OppositeEventDico::readFile(const string& fileName) {
   // Open file
-  ifstream in(file.c_str());
+  ifstream in(fileName.c_str());
 
   // Try to read it
   if (in.bad()) {
-    throw MessageError("Error when opening file : " + file);
+    throw MessageError("Error when opening file : " + fileName);
   }
 
   string line;
@@ -327,7 +322,7 @@ OppositeEventDico::readFile(const string& file) {
           map_[oppositeKey].insert(key);
         }
       } else {
-        throw MessageError("Error happened when reading the dictionary " + file);
+        throw MessageError("Error happened when reading the dictionary " + fileName);
       }
     }
     in.close();

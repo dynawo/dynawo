@@ -31,8 +31,8 @@
  * @return @b true if file1 == file2 @b false else
  */
 inline bool compareFiles(const std::string& file1, const std::string& file2) {
-  boost::iostreams::mapped_file_source f1(file1);
-  boost::iostreams::mapped_file_source f2(file2);
+  const boost::iostreams::mapped_file_source f1(file1);
+  const boost::iostreams::mapped_file_source f2(file2);
 
   if (f1.size() == f2.size()
           && std::equal(f1.data(), f1.data() + f1.size(), f2.data())

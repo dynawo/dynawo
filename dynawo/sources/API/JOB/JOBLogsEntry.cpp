@@ -35,9 +35,8 @@ LogsEntry& LogsEntry::operator=(const LogsEntry& other) {
 void
 LogsEntry::copy(const LogsEntry& other) {
   appenders_.reserve(other.appenders_.size());
-  for (std::vector<std::shared_ptr<AppenderEntry> >::const_iterator it = other.appenders_.begin(); it != other.appenders_.end();
-    ++it) {
-      appenders_.push_back(DYN::clone(*it));
+  for (const auto& appender : other.appenders_) {
+      appenders_.push_back(DYN::clone(appender));
   }
 }
 

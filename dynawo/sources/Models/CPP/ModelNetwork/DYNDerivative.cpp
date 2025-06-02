@@ -31,7 +31,7 @@ Derivatives::reset() {
 }
 
 void
-Derivatives::addValue(const int& numVar, const double& value) {
+Derivatives::addValue(const int numVar, const double value) {
   values_[numVar] += value;
 }
 
@@ -42,7 +42,7 @@ BusDerivatives::reset() {
 }
 
 void
-BusDerivatives::addDerivative(typeDerivative_t type, const int& numVar, const double& value) {
+BusDerivatives::addDerivative(typeDerivative_t type, const int numVar, const double value) {
   switch (type) {
     case IR_DERIVATIVE:
       irDerivatives_.addValue(numVar, value);

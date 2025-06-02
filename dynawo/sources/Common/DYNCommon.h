@@ -63,7 +63,7 @@ namespace DYN {
    *
    * @return the value with string format
    */
-  std::string double2String(const double& value);
+  std::string double2String(double value);
 
   /**
    * @brief determines the sign of a double number
@@ -72,7 +72,7 @@ namespace DYN {
    *
    * @return @b -1 if the value is <0, @b 1 otherwise
    */
-  int sign(const double& value);
+  int sign(double value);
 
   /**
    * @brief C type definition for variable
@@ -89,7 +89,7 @@ namespace DYN {
    * @param type : type of a variable as an enum type
    * @return type of a variable as a string
    */
-  std::string typeVarC2Str(const typeVarC_t& type);
+  std::string typeVarC2Str(typeVarC_t type);
 
   /**
    * @brief return the C type of a variable
@@ -134,12 +134,12 @@ namespace DYN {
    * @param b second double
    * @return return true if a == b
    */
-  static inline bool doubleEquals(const double& a, const double& b) {
+  static inline bool doubleEquals(const double a, const double b) {
     if (std::isinf(a) || std::isinf(b)) return false;
     if (std::isnan(a) || std::isnan(b)) return false;
     double diff = std::fabs(a-b);
     if (diff <= getCurrentPrecision()/5) return true;
-    return diff <= std::max(std::fabs(a), std::fabs(b))*getCurrentPrecision()/5;  // Error factor used to add more leeway
+    return diff <= std::max(std::fabs(a), std::fabs(b)) * getCurrentPrecision() / 5.;  // Error factor used to add more leeway
   }
 
   /**
@@ -150,7 +150,7 @@ namespace DYN {
    * @param b second double
    * @return return true if a != b
    */
-  static inline bool doubleNotEquals(const double& a, const double& b) {
+  static inline bool doubleNotEquals(const double a, const double b) {
     return !doubleEquals(a, b);
   }
 
@@ -185,8 +185,8 @@ namespace DYN {
    * @param a double to test
    * @return return true if a == 0.
    */
-  static inline bool doubleIsZero(const double& a) {
-    return std::fabs(a) <= getCurrentPrecision()/5;
+  static inline bool doubleIsZero(const double a) {
+    return std::fabs(a) <= getCurrentPrecision() / 5.;
   }
 
   /**
@@ -196,7 +196,7 @@ namespace DYN {
    * @param dynawoBool the Dynawo boolean value
    * @return the boolean value as a native boolean
    */
-  static inline bool toNativeBool(const double& dynawoBool) {
+  static inline bool toNativeBool(const double dynawoBool) {
     return dynawoBool >  0.0;
   }
 

@@ -35,10 +35,10 @@ TEST(ModelicaCompilerTestSuite, BasicCompilationTest) {
     pythonCmd = getEnvVar("DYNAWO_PYTHON_COMMAND");
   std::string varExtCommand = pythonCmd + " Scripts_OMC_1_13_2/writeModel.py -m GeneratorPQ  -i ModelicaModel/ -o res/ --init";
 
-  remove_all_in_directory("res");
+  removeAllInDirectory("res");
   boost::filesystem::path fspath("res");
   boost::filesystem::remove(fspath);
-  create_directory("res");
+  createDirectory("res");
   std::stringstream ssPython;
   executeCommand(varExtCommand, ssPython);
   std::string result = ssPython.str();
@@ -72,7 +72,7 @@ TEST(ModelicaCompilerTestSuite, BasicCompilationTest) {
   executeCommand("diff ModelicaModel/reference res/", ssDiff);
   std::cout << ssDiff.str() << std::endl;
   ASSERT_EQ(ssDiff.str(), "Executing command : diff ModelicaModel/reference res/\n");
-  remove_all_in_directory("res");
+  removeAllInDirectory("res");
   ASSERT_EQ(boost::filesystem::remove(fspath), true);
 }
 
@@ -80,7 +80,7 @@ TEST(ModelicaCompilerTestSuite, TestPackageOption) {
   std::string varExtCommand = "../compileModelicaModel --model Test --lib Test" + std::string(sharedLibraryExtension()) +
       " --model-dir . --compilation-dir compilation --package-name Test";
 
-  remove_all_in_directory("compilation");
+  removeAllInDirectory("compilation");
   boost::filesystem::path fspath("compilation");
   boost::filesystem::remove(fspath);
   std::stringstream ssCompileModelicaModel;
@@ -97,7 +97,7 @@ TEST(ModelicaCompilerTestSuite, TestPackageNoCalcVar) {
   std::string varExtCommand = "../compileModelicaModel --model Test --lib Test" + std::string(sharedLibraryExtension()) +
       " --model-dir . --compilation-dir compilationNoCalcVar --package-name Test --generateCalculatedVariables false";
 
-  remove_all_in_directory("compilationNoCalcVar");
+  removeAllInDirectory("compilationNoCalcVar");
   boost::filesystem::path fspath("compilationNoCalcVar");
   boost::filesystem::remove(fspath);
   std::stringstream ssCompileModelicaModel;
@@ -115,7 +115,7 @@ TEST(ModelicaCompilerTestSuite, TestPackageNoAlias) {
   std::string varExtCommand = "../compileModelicaModel --model Test --lib Test" + std::string(sharedLibraryExtension()) +
       " --model-dir . --compilation-dir compilationNoAlias --package-name Test --useAliasing false";
 
-  remove_all_in_directory("compilationNoAlias");
+  removeAllInDirectory("compilationNoAlias");
   boost::filesystem::path fspath("compilationNoAlias");
   boost::filesystem::remove(fspath);
   std::stringstream ssCompileModelicaModel;
@@ -133,7 +133,7 @@ TEST(ModelicaCompilerTestSuite, TestPackageNoAliasNoCalcVar) {
   std::string varExtCommand = "../compileModelicaModel --model Test --lib Test" + std::string(sharedLibraryExtension()) +
       " --model-dir . --compilation-dir compilationNoAliasNoCalcVar --package-name Test --useAliasing false --generateCalculatedVariables false";
 
-  remove_all_in_directory("compilationNoAliasNoCalcVar");
+  removeAllInDirectory("compilationNoAliasNoCalcVar");
   boost::filesystem::path fspath("compilationNoAliasNoCalcVar");
   boost::filesystem::remove(fspath);
   std::stringstream ssCompileModelicaModel;
@@ -150,7 +150,7 @@ TEST(ModelicaCompilerTestSuite, TestCompilationSilentZ) {
   std::string varExtCommand = "../compileModelicaModel --model TestSilentZ --lib TestSilentZ" + std::string(sharedLibraryExtension()) +
           " --model-dir . --compilation-dir compilationSilentZ --package-name TestSilentZ";
 
-  remove_all_in_directory("compilationSilentZ");
+  removeAllInDirectory("compilationSilentZ");
   boost::filesystem::path fspath("compilationSilentZ");
   boost::filesystem::remove(fspath);
   std::stringstream ssCompileModelicaModel;

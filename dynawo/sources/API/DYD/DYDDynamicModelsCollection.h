@@ -20,7 +20,6 @@
 #ifndef API_DYD_DYDDYNAMICMODELSCOLLECTION_H_
 #define API_DYD_DYDDYNAMICMODELSCOLLECTION_H_
 
-#include "DYDIterators.h"
 #include "DYDMacroConnect.h"
 #include "DYDMacroConnector.h"
 #include "DYDMacroStaticReference.h"
@@ -85,131 +84,6 @@ class DynamicModelsCollection {
   void addMacroStaticReference(const std::shared_ptr<MacroStaticReference>& macroStaticReference);
 
   /**
-   * @brief Implementation class
-   */
-  class Impl;
-
-  /**
-   * @brief model iterator : begin of model
-   * @return beginning of model
-   */
-  dynamicModel_const_iterator cbeginModel() const;
-
-  /**
-   * @brief model iterator : end of model
-   * @return end of model
-   */
-  dynamicModel_const_iterator cendModel() const;
-
-  /**
-   * @brief connector iterator : beginning of connector
-   * @return beginning of connector
-   */
-  connector_const_iterator cbeginConnector() const;
-
-  /**
-   * @brief connector iterator end of connector
-   * @return end of connector
-   */
-  connector_const_iterator cendConnector() const;
-
-  /**
-   * @brief macroConnector iterator : beginning of macroConnector
-   * @return beginning of macroConnector
-   */
-  macroConnector_const_iterator cbeginMacroConnector() const;
-
-  /**
-   * @brief macroConnector iterator : end of macroConnector
-   * @return end of macroConnector
-   */
-  macroConnector_const_iterator cendMacroConnector() const;
-
-  /**
-   * @brief macroConnect iterator : beginning of macroConnect
-   * @return beginning of macroConnect
-   */
-  macroConnect_const_iterator cbeginMacroConnect() const;
-
-  /**
-   * @brief macroConnect iterator : end of macroConnect
-   * @return end of macroConnect
-   */
-  macroConnect_const_iterator cendMacroConnect() const;
-
-  /**
-   * @brief macroStaticReference iterator : beginning of macroStaticReferences
-   * @return beginning of macroStaticReferences
-   */
-  macroStaticReference_const_iterator cbeginMacroStaticReference() const;
-
-  /**
-   * @brief macroStaticReference iterator : end of macroStaticReferences
-   * @return end of macroStaticReferences
-   */
-  macroStaticReference_const_iterator cendMacroStaticReference() const;
-
-  /**
-   * @brief model iterator: beginning of model
-   * @return beginning of model
-   */
-  dynamicModel_iterator beginModel();
-
-  /**
-   * @brief model iterator: end of model
-   * @return end of model
-   */
-  dynamicModel_iterator endModel();
-
-  /**
-   * @brief connector iterator : beginning of connector
-   * @return beginning of connector iterator
-   */
-  connector_iterator beginConnector();
-
-  /**
-   * @brief connector iterator : end of connector
-   * @return end of connector
-   */
-  connector_iterator endConnector();
-
-  /**
-   * @brief macroConnector iterator : beginning of macroConnector
-   * @return beginning of macroConnector
-   */
-  macroConnector_iterator beginMacroConnector();
-
-  /**
-   * @brief macroConnector iterator : end of macroConnector
-   * @return end of macroConnector
-   */
-  macroConnector_iterator endMacroConnector();
-
-  /**
-   * @brief macroConnect iterator : beginning of macroConnect
-   * @return beginning of macroConnect
-   */
-  macroConnect_iterator beginMacroConnect();
-
-  /**
-   * @brief macroConnect iterator : end of macroConnect
-   * @return end of macroConnect
-   */
-  macroConnect_iterator endMacroConnect();
-
-  /**
-   * @brief macroStaticReference iterator : beginning of macroStaticReferences
-   * @return beginning of macroStaticReferences
-   */
-  macroStaticReference_iterator beginMacroStaticReference();
-
-  /**
-   * @brief macroStaticReference iterator : end of macroStaticReferences
-   * @return end of macroStaticReferences
-   */
-  macroStaticReference_iterator endMacroStaticReference();
-
-  /**
    * @brief find a macroConnector thanks to its name
    * @param connector name of the macroConnector to be found
    * @return the macroConnector associated to the name
@@ -223,20 +97,50 @@ class DynamicModelsCollection {
    */
   const std::shared_ptr<MacroStaticReference>& findMacroStaticReference(const std::string& id);
 
-  friend class dynamicModel_iterator;
-  friend class dynamicModel_const_iterator;
-  friend class connector_iterator;
-  friend class connector_const_iterator;
-  friend class macroConnector_iterator;
-  friend class macroConnector_const_iterator;
-  friend class macroConnect_iterator;
-  friend class macroConnect_const_iterator;
-  friend class staticRef_iterator;
-  friend class staticRef_const_iterator;
-  friend class macroStaticRef_iterator;
-  friend class macroStaticRef_const_iterator;
-  friend class macroStaticReference_iterator;
-  friend class macroStaticReference_const_iterator;
+  /**
+  * @brief get the models
+  *
+  * @return models
+  */
+  const std::map<std::string, std::shared_ptr<Model> >& getModels() const {
+    return models_;
+  }
+
+  /**
+  * @brief get the connectors
+  *
+  * @return connectors
+  */
+  const std::vector<std::shared_ptr<Connector> >& getConnectors() const {
+    return connectors_;
+  }
+
+  /**
+  * @brief get the macro connectors
+  *
+  * @return macroConnectors
+  */
+  const std::map<std::string, std::shared_ptr<MacroConnector> >& getMacroConnectors() const {
+    return macroConnectors_;
+  }
+
+  /**
+  * @brief get the macro connects
+  *
+  * @return macro connects
+  */
+  const std::vector<std::shared_ptr<MacroConnect> >& getMacroConnects() const {
+    return macroConnects_;
+  }
+
+  /**
+  * @brief get the macro static refs
+  *
+  * @return macro static refs
+  */
+  const std::map<std::string, std::shared_ptr<MacroStaticReference> >& getMacroStaticReferences() const {
+    return macroStaticReferences_;
+  }
 
  private:
   std::map<std::string, std::shared_ptr<Model> > models_;                               /**< Map of the models **/

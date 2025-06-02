@@ -133,31 +133,31 @@ class NetworkComponent {  ///< Base class for network component models
 
   /**
    * @brief evaluate jacobian \f$( J = @F/@x + cj * @F/@x')\f$
-   * @param jt sparse matrix to fill
    * @param cj jacobian prime coefficient
    * @param rowOffset row offset to use to find the first row to fill
+   * @param jt sparse matrix to fill
    */
-  virtual void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) = 0;
+  virtual void evalJt(double cj, int rowOffset, SparseMatrix& jt) = 0;
 
   /**
    * @brief evaluate jacobian \f$( J =  @F/@x')\f$
-   * @param jt sparse matrix to fill
    * @param rowOffset row offset to use to find the first row to fill
+   * @param jtPrim sparse matrix to fill
    */
-  virtual void evalJtPrim(SparseMatrix& jt, const int& rowOffset) = 0;
+  virtual void evalJtPrim(int rowOffset, SparseMatrix& jtPrim) = 0;
 
   /**
    * @brief evaluation G
    * @param t time
    */
-  virtual void evalG(const double& t) = 0;
+  virtual void evalG(double t) = 0;
 
   /**
    * @brief evaluation Z
    * @param t time
    * @return the potential state change type
    */
-  virtual NetworkComponent::StateChange_t evalZ(const double& t) = 0;
+  virtual StateChange_t evalZ(double t) = 0;
 
   /**
    * @brief evaluation calculated variables (for outputs)
@@ -204,7 +204,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @param yType global buffer for variable properties
    * @param offset offset to know the beginning position for the component's variable properties
    */
-  void setBufferYType(propertyContinuousVar_t* yType, const unsigned int& offset);
+  void setBufferYType(propertyContinuousVar_t* yType, unsigned int offset);
 
   /**
    * @brief evaluate the residual function property
@@ -228,7 +228,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @param fType global buffer for residual function properties
    * @param offset offset to know the beginning position for the component's residual function properties
    */
-  void setBufferFType(propertyF_t* fType, const unsigned int& offset);
+  void setBufferFType(propertyF_t* fType, unsigned int offset);
 
   /**
    * @brief evalYMat
@@ -250,7 +250,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @param offsetY offset to use to find the beginning of the local buffer
    * @param offsetF offset to use to find the beginning of the local buffer for residual functions
    */
-  virtual void setReferenceY(double* y, double* yp, double* f, const int & offsetY, const int& offsetF);
+  virtual void setReferenceY(double* y, double* yp, double* f, int offsetY, int offsetF);
 
   /**
    * @brief set the local buffer for discrete variables
@@ -259,7 +259,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @param zConnected global buffer for the discrete variables connection status
    * @param offsetZ offset to use to find the beginning of the local buffer
    */
-  virtual void setReferenceZ(double* z, bool* zConnected, const int& offsetZ);
+  virtual void setReferenceZ(double* z, bool* zConnected, int offsetZ);
 
   /**
    * @brief set the local buffer for calculated variables
@@ -267,7 +267,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @param calculatedVars global buffer for the calculated variables
    * @param offsetCalculatedVars offset to use to find the beginning of the local buffer
    */
-  virtual void setReferenceCalculatedVar(double* calculatedVars, const int& offsetCalculatedVars);
+  virtual void setReferenceCalculatedVar(double* calculatedVars, int offsetCalculatedVars);
 
   /**
    * @brief set the local buffer for root values
@@ -275,7 +275,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @param g global buffer for the root values
    * @param offsetG offset to use to find the beginning of the local buffer
    */
-  virtual void setReferenceG(state_g *g, const int& offsetG);
+  virtual void setReferenceG(state_g *g, int offsetG);
 
   /**
    * @brief get the initial values for discrete/continuous variables
@@ -294,7 +294,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @param params vector of parameters
    * @return parameter with the given name
    */
-  ParameterModeler findParameter(const std::string& name, const std::unordered_map<std::string, ParameterModeler>& params) const;
+  static ParameterModeler findParameter(const std::string& name, const std::unordered_map<std::string, ParameterModeler>& params);
 
   /**
    * @brief true if a parameter with a given name is present in a vector of parameters
@@ -302,7 +302,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @param params vector of parameters
    * @return true if the parameter with the given name has been found, false otherwise
    */
-  bool hasParameter(const std::string& name, const std::unordered_map<std::string, ParameterModeler>& params) const;
+  static bool hasParameter(const std::string& name, const std::unordered_map<std::string, ParameterModeler>& params);
 
   /**
    * @brief set equation's formula
@@ -321,7 +321,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @param time time
    * @return state change type
    */
-  virtual StateChange_t evalState(const double& time) = 0;
+  virtual StateChange_t evalState(double time) = 0;
 
   /**
    * @brief set network
@@ -389,7 +389,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @brief set the offset to find the beginning of calculated var of the model in the global vector
    * @param offset to find the beginning of calculated var of the model in the global vector
    */
-  inline void setOffsetCalculatedVar(unsigned int offset) {
+  inline void setOffsetCalculatedVar(const unsigned int offset) {
     offsetCalculatedVar_ = offset;
   }
 
@@ -402,7 +402,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @brief id
    * @return id
    */
-  inline std::string id() const {
+  inline const std::string& id() const {
     return id_;
   }
 
@@ -503,7 +503,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @param mapElement map of elements to fill with new elements
    */
   void addElementWithValue(const std::string& elementName, const std::string& parentType,
-      std::vector<Element>& elements, std::map<std::string, int>& mapElement);
+      std::vector<Element>& elements, std::map<std::string, int>& mapElement) const;
 
  private:
   /**

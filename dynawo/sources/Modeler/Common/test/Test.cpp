@@ -67,9 +67,10 @@ class SubModelMockBase : public SubModel {
     // Dummy class used for testing
   }
 
-  std::string modelType() const {
+  const std::string& modelType() const {
     // Dummy class used for testing
-    return "";
+    static std::string type = "";
+    return type;
   }
 
   void dumpParameters(std::map< std::string, std::string >&) {
@@ -108,11 +109,11 @@ class SubModelMockBase : public SubModel {
     calculatedVars_[0] = getCurrentTime();
   }
 
-  void evalJt(const double, const double, SparseMatrix& , const int) {
+  void evalJt(const double, const double, const int, SparseMatrix&) {
     // Dummy class used for testing
   }
 
-  void evalJtPrim(const double, const double, SparseMatrix&, const int) {
+  void evalJtPrim(const double, const double, const int, SparseMatrix&) {
     // Dummy class used for testing
   }
 
@@ -694,9 +695,9 @@ TEST(ModelerCommonTest, VariableAlias) {
   const std::string aliasName2 = "alias2";
   const std::string aliasName3 = "alias3";
 
-  boost::shared_ptr <VariableAlias> variableAlias1;
-  boost::shared_ptr <VariableAlias> variableAlias2;
-  boost::shared_ptr <VariableAlias> variableAlias3;
+  boost::shared_ptr<VariableAlias> variableAlias1;
+  boost::shared_ptr<VariableAlias> variableAlias2;
+  boost::shared_ptr<VariableAlias> variableAlias3;
 
   ASSERT_NO_THROW(variableAlias1 = VariableAliasFactory::create(aliasName1, varNameInt));
   ASSERT_THROW_DYNAWO(variableAlias1->getIndex(), DYN::Error::MODELER, DYN::KeyError_t::VariableAliasRefNotSet);
@@ -745,7 +746,7 @@ TEST(ModelerCommonTest, VariableAlias) {
   ASSERT_EQ(variableAlias3->getIndex(), varIndex);
 
 #ifndef _MSC_VER
-  EXPECT_ASSERT_DYNAWO(VariableAliasFactory::create(aliasName3, dynamic_pointer_cast<VariableNative> (variableAlias2), DISCRETE));
+  EXPECT_ASSERT_DYNAWO(VariableAliasFactory::create(aliasName3, boost::dynamic_pointer_cast<VariableNative> (variableAlias2), DISCRETE));
 #endif
 
   // Test types compatibility
@@ -889,7 +890,7 @@ TEST(ModelerCommonTest, ModelerCommonUtilities) {
   ASSERT_EQ(typeVar2Str(BOOLEAN), "BOOLEAN");
 
   // toCTypeVar
-  typeVarC_t typeVarC;
+  typeVarC_t typeVarC(VAR_TYPE_DOUBLE);
   ASSERT_NO_THROW(typeVarC = toCTypeVar(DISCRETE));
   ASSERT_EQ(typeVarC, VAR_TYPE_DOUBLE);
   ASSERT_EQ(toCTypeVar(CONTINUOUS), VAR_TYPE_DOUBLE);
@@ -1137,8 +1138,8 @@ TEST(ModelerCommonTest, ConnectionCalculatedVars) {
 
   std::vector<double> y, yp;
   modelMulti->copyContinuousVariables(&y[0], &yp[0]);
-  ASSERT_NO_THROW(modelMulti->connectElements(modelMulti->findSubModelByName("subModel1"), "MyDiscreteVarCalculated_value",
-                              modelMulti->findSubModelByName("subModel2"), "MyDiscreteVar_value"));
+  modelMulti->connectElements(modelMulti->findSubModelByName("subModel1"), "MyDiscreteVarCalculated_value",
+                              modelMulti->findSubModelByName("subModel2"), "MyDiscreteVar_value");
   std::string name = subModel1_->name() + "_MyDiscreteVarCalculated_value";
   ASSERT_NO_THROW(modelMulti->findSubModelByName(name));
   ASSERT_NO_THROW(modelMulti->findSubModelByName(name)->getSize());

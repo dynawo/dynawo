@@ -76,13 +76,13 @@ class LoadInterface : public ComponentInterface {
    * @brief Getter for the state variable "p"
    * @return The value of state variable p of the load in MW
    */
-  virtual double getStateVarP() = 0;
+  virtual double getStateVarP() const = 0;
 
   /**
    * @brief Getter for the initial active power of the load
    * @return The initial active power of the load in MW (load convention)
    */
-  virtual double getP0() = 0;
+  virtual double getP0() const = 0;
 
   /**
    * @brief Getter for the reactive power of the load
@@ -94,7 +94,7 @@ class LoadInterface : public ComponentInterface {
    * @brief Getter for the initial reactive power of the load
    * @return The initial reactive power of the load in Mvar (load convention)
    */
-  virtual double getQ0() = 0;
+  virtual double getQ0() const = 0;
 
   /**
    * @brief Getter for the initial connection state of the load
@@ -106,7 +106,7 @@ class LoadInterface : public ComponentInterface {
    * @brief Getter for the load's id
    * @return The id of the load
    */
-  virtual std::string getID() const = 0;
+  virtual const std::string& getID() const = 0;
 
   /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()

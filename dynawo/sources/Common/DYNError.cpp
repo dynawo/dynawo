@@ -30,27 +30,27 @@ namespace DYN {
 using std::stringstream;
 using std::string;
 
-Error::Error(TypeError_t type, const int& key, const std::string& file, const int& line, const Message& m) :
+Error::Error(const TypeError_t type, const int key, const std::string& file, const int line, const Message& m) :
 std::exception(),
 key_(key),
 type_(type) {
   stringstream msg;
   msg << m.str();
   if (file != "") {
-    std::string fileName = file_name(file);  // to retrieve the filename from the full path
+    const std::string fileName = fileNameFromPath(file);  // to retrieve the filename from the full path
     msg << " ( " << fileName << ":" << line << " )";
   }
   msgToReturn_ = msg.str();
 }
 
-Error::Error(const Error & e) :
+Error::Error(const Error& e) :
 std::exception(e),
 key_(e.key_),
 type_(e.type_),
 msgToReturn_(e.msgToReturn_) {
 }
 
-const char * Error::what() const noexcept {
+const char* Error::what() const noexcept {
   return (msgToReturn_.c_str());
 }
 

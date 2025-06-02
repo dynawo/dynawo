@@ -69,8 +69,8 @@ inline NetworkComponent::findParameterDynamicNoThrow(const std::unordered_map<st
       }
     }
   } else {
-    for (std::vector<std::string>::const_iterator iter = ids.begin(), iterEnd = ids.end(); iter != iterEnd; ++iter) {
-      const std::string& name = (*iter) + "_" + id;
+    for (const auto& anId : ids) {
+      const std::string& name = anId + "_" + id;
       if (hasParameter(name, params)) {
         ParameterModeler pm = findParameter(name, params);
         if (pm.hasOrigin(PAR)) {

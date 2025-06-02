@@ -622,8 +622,8 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesUselessF
     ASSERT_NO_THROW(voltmu->evalF(t0, UNDEFINED_EQ));
     ASSERT_NO_THROW(voltmu->evalG(0.));
     ASSERT_NO_THROW(voltmu->evalZ(0.));
-    ASSERT_NO_THROW(voltmu->evalJt(t0, 0., mat, 0));
-    ASSERT_NO_THROW(voltmu->evalJtPrim(t0, 0., mat, 0));
+    ASSERT_NO_THROW(voltmu->evalJt(t0, 0., 0, mat));
+    ASSERT_NO_THROW(voltmu->evalJtPrim(t0, 0., 0, mat));
 
     BitMask* silentZ = new BitMask[voltmu->sizeZ()];
     ASSERT_NO_THROW(voltmu->collectSilentZ(silentZ));

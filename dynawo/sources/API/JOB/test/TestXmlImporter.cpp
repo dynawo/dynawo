@@ -21,7 +21,6 @@
 #include "JOBXmlImporter.h"
 #include "JOBJobsCollection.h"
 #include "JOBJobEntry.h"
-#include "JOBIterators.h"
 #include "JOBSolverEntry.h"
 #include "JOBModelerEntry.h"
 #include "JOBNetworkEntry.h"
@@ -117,14 +116,12 @@ TEST(APIJOBTest, testXmlImporter) {
   int nbJobs = 0;
   std::shared_ptr<JobEntry> job1;
   std::shared_ptr<JobEntry> job2;
-  for (job_const_iterator itJob = jobsCollection->cbegin();
-          itJob != jobsCollection->cend();
-          ++itJob) {
+  for (const auto& job : jobsCollection->getJobs()) {
     ++nbJobs;
     if (nbJobs == 1)
-      job1 = (*itJob);
+      job1 = job;
     else
-      job2 = (*itJob);
+      job2 = job;
   }
   ASSERT_EQ(nbJobs, 2);
 

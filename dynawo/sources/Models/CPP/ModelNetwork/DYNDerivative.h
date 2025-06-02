@@ -43,12 +43,13 @@ class Derivatives {
    * @brief reset
    */
   void reset();
+
   /**
    * @brief add value
    * @param numVar number of variable
    * @param value value
    */
-  void addValue(const int& numVar, const double& value);
+  void addValue(int numVar, double value);
 
   /**
    * @brief get values
@@ -82,6 +83,7 @@ class BusDerivatives {
    * @brief reset
    */
   void reset();
+
   /**
    * @brief add derivative
    *
@@ -89,7 +91,8 @@ class BusDerivatives {
    * @param numVar number of variable
    * @param value number of value
    */
-  void addDerivative(typeDerivative_t type, const int& numVar, const double& value);
+  void addDerivative(typeDerivative_t type, int numVar, double value);
+
   /**
    * @brief get values
    * @param type type of derivatives

@@ -67,51 +67,51 @@ class SolverIDA : public Solver::Impl {
   /**
    * @brief destructor
    */
-  ~SolverIDA();
+  ~SolverIDA() override;
 
   /**
    * @copydoc Solver::Impl::defineSpecificParameters()
    */
-  void defineSpecificParameters();
+  void defineSpecificParameters() override;
 
   /**
    * @copydoc Solver::Impl::setSolverSpecificParameters()
    */
-  void setSolverSpecificParameters();
+  void setSolverSpecificParameters() override;
 
   /**
    * @copydoc Solver::Impl::solverType()
    */
-  std::string solverType() const;
+  const std::string& solverType() const override;
 
   /**
    * @copydoc Solver::init(const std::shared_ptr<Model> & model, const double t0, const double tEnd)
    */
-  void init(const std::shared_ptr<Model>& model, const double t0, const double tEnd);
+  void init(const std::shared_ptr<Model>& model, double t0, double tEnd) override;
 
   /**
    * @copydoc Solver::reinit()
    */
-  void reinit();
+  void reinit() override;
 
   /**
    * @copydoc Solver::calculateIC()
    */
-  void calculateIC(double tEnd);
+  void calculateIC(double tEnd) override;
 
   /**
    * @brief print solver specific introduction information
    *
    * @param ss stringstream to modify
    */
-  void printHeaderSpecific(std::stringstream& ss) const;
+  void printHeaderSpecific(std::stringstream& ss) const override;
 
   /**
    * @brief print specific info regarding the latest step made by the solver (i.e. solution)
    *
    * @param msg stringstream to modify
    */
-  void printSolveSpecific(std::stringstream& msg) const;
+  void printSolveSpecific(std::stringstream& msg) const override;
 
   /**
    * @brief getter for the state of the solver
@@ -125,7 +125,7 @@ class SolverIDA : public Solver::Impl {
   * @brief print the latest step made by the solver (i.e. solution)
   * @param initStep step for first time step
   */
-  inline void setInitStep(double initStep) {
+  inline void setInitStep(const double initStep) override {
     initStep_ = initStep;
   }
 
@@ -133,7 +133,7 @@ class SolverIDA : public Solver::Impl {
   * @brief name of the solver
   * @return name of the solver
   */
-  inline std::string getName() {
+  inline const std::string& getName() override {
     static std::string name = "IDA";
     return name;
   }
@@ -142,7 +142,7 @@ class SolverIDA : public Solver::Impl {
   /**
    * @brief update statistics of execution of the solver
    */
-  void updateStatistics();
+  void updateStatistics() override;
 
   /**
    * @brief getter for the last configuration used by the solver
@@ -238,18 +238,18 @@ class SolverIDA : public Solver::Impl {
   /**
    * @copydoc Solver::getTimeStep()
    */
-  double getTimeStep() const;
+  double getTimeStep() const override;
 
  protected:
   /**
    * @copydoc Solver::Impl::solveStep(double tAim, double &tNxt)
    */
-  void solveStep(double tAim, double &tNxt);
+  void solveStep(double tAim, double &tNxt) override;
 
   /**
    * @copydoc Solver::setupNewAlgRestoration(modeChangeType_t modeChangeType)
    */
-  bool setupNewAlgRestoration(modeChangeType_t modeChangeType);
+  bool setupNewAlgRestoration(modeChangeType_t modeChangeType) override;
 
   /**
   * @brief set the index of each differential variables

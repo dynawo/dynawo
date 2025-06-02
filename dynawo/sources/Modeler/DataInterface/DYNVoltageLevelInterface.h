@@ -63,7 +63,7 @@ class VoltageLevelInterface {
    * @brief Getter for the voltageLevel's id
    * @return The id of the voltageLevel
    */
-  virtual std::string getID() const = 0;
+  virtual const std::string& getID() const = 0;
 
   /**
    * @brief Getter for the nominal voltage of the voltageLevel

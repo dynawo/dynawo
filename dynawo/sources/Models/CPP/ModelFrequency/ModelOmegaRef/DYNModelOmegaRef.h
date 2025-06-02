@@ -45,12 +45,12 @@ class ModelOmegaRefFactory : public SubModelFactory {
    *
    * @return A pointer to a new instance of ModelOmegaRef
    */
-  SubModel* create() const;
+  SubModel* create() const override;
 
   /**
    * @brief ModelOmegaRef destroy
    */
-  void destroy(SubModel*) const;
+  void destroy(SubModel*) const override;
 };
 
 /**
@@ -79,7 +79,7 @@ class ModelOmegaRef : public ModelCPP {
    * @brief Reference frequency model initialization
    * @param t0 : initial time of the simulation
    */
-  void init(const double t0) override;
+  void init(double t0) override;
 
   /**
    * @brief Reference Frequency model's sizes getter
@@ -89,6 +89,7 @@ class ModelOmegaRef : public ModelCPP {
    * and vector for the solver.
    */
   void getSize() override;
+
   /**
    * @brief Reference Frequency F(t,y,y') function evaluation
    *
@@ -99,6 +100,7 @@ class ModelOmegaRef : public ModelCPP {
    * @param[in] type type of the residues to compute (algebraic, differential or both)
    */
   void evalF(double t, propertyF_t type) override;
+
   /**
    * @brief Reference frequency G(t,y,y') function evaluation
    *
@@ -106,7 +108,8 @@ class ModelOmegaRef : public ModelCPP {
    *
    * @param t Simulation instant
    */
-  void evalG(const double t) override;
+  void evalG(double t) override;
+
   /**
    * @brief Reference frequency discrete variables evaluation
    *
@@ -115,7 +118,7 @@ class ModelOmegaRef : public ModelCPP {
    *
    * @param t Simulation instant
    */
-  void evalZ(const double t) override;
+  void evalZ(double t) override;
 
   /**
    * @brief set the silent flag for discrete variables
@@ -126,7 +129,8 @@ class ModelOmegaRef : public ModelCPP {
   /**
    * @copydoc ModelCPP::evalMode(const double t)
    */
-  modeChangeType_t evalMode(const double t) override;
+  modeChangeType_t evalMode(double t) override;
+
   /**
    * @brief Reference frequency transposed jacobian evaluation
    *
@@ -134,10 +138,10 @@ class ModelOmegaRef : public ModelCPP {
    *
    * @param t Simulation instant
    * @param cj Jacobian prime coefficient
-   * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
+   * @param jt jacobian matrix to fullfill
    */
-  void evalJt(const double t, const double cj, SparseMatrix& jt, const int rowOffset) override;
+  void evalJt(double t, double cj, int rowOffset, SparseMatrix& jt) override;
   /**
    * @brief  Reference frequency transposed jacobian evaluation
    *
@@ -145,10 +149,11 @@ class ModelOmegaRef : public ModelCPP {
    *
    * @param t Simulation instant
    * @param cj Jacobian prime coefficient
-   * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
+   * @param jtPrim jacobian matrix to fullfill
    */
-  void evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset) override;
+  void evalJtPrim(double t, double cj, int rowOffset, SparseMatrix& jtPrim) override;
+
   /**
    * @brief calculate calculated variables
    */
@@ -195,6 +200,7 @@ class ModelOmegaRef : public ModelCPP {
    * @param res values of the jacobian
    */
   void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const override;
+
   /**
    * @brief evaluate the value of a calculated variable
    *
@@ -208,6 +214,7 @@ class ModelOmegaRef : public ModelCPP {
    * @brief Reference frequency parameters setter
    */
   void setSubModelParameters() override;
+
   /**
    * @brief Reference frequency elements initializer
    *
@@ -217,10 +224,12 @@ class ModelOmegaRef : public ModelCPP {
    * @param mapElement Map associating each element index in the elements vector to its name
    */
   void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) override;
+
   /**
    * @copydoc SubModel::dumpUserReadableElementList()
    */
   void dumpUserReadableElementList(const std::string& nameElement) const override;
+
   /**
    * @brief initialize variables of the model
    *
@@ -228,11 +237,13 @@ class ModelOmegaRef : public ModelCPP {
    * @param variables vector to fill with each variables
    */
   void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) override;
+
   /**
    * @brief define parameters
    * @param parameters vector to fill with each parameters
    */
   void defineParameters(std::vector<ParameterModeler>& parameters) override;
+
   /**
    * @brief get check sum number
    * @return the check sum number associated to the model
@@ -267,12 +278,12 @@ class ModelOmegaRef : public ModelCPP {
   /**
    * @copydoc ModelCPP::checkDataCoherence(const double t)
    */
-  void checkDataCoherence(const double t) override;
+  void checkDataCoherence(double t) override;
 
   /**
    * @copydoc SubModel::hasDataCheckCoherence() const
    */
-  bool hasCheckDataCoherence() const { return true; }
+  static bool hasCheckDataCoherence() { return true; }
 
  private:
   /**
@@ -281,6 +292,7 @@ class ModelOmegaRef : public ModelCPP {
    *
    */
   void sortGenByCC();
+
   /**
    * @brief calculate the initial state of the omegaref model
    *

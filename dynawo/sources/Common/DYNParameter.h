@@ -44,7 +44,7 @@ class ParameterCommon {
    * @param valueType type of the parameter (bool, int, string, double)
    * @param mandatory whether the parameter is mandatory or optional
    */
-  ParameterCommon(const std::string& name, const typeVarC_t& valueType, bool mandatory);
+  ParameterCommon(const std::string& name, typeVarC_t valueType, bool mandatory);
 
   /**
    * @brief Default copy Constructor
@@ -98,7 +98,7 @@ class ParameterCommon {
    * @brief index setter
    * @param index the index to set
    */
-  void setIndex(const unsigned int& index);
+  void setIndex(unsigned int index);
 
   /**
    * @brief index getter
@@ -157,7 +157,7 @@ typedef enum {
  * @param origin : the parameter origin as an enum
  * @return the converted origin as a string
  */
-std::string origin2Str(const parameterOrigin_t& origin);
+std::string origin2Str(parameterOrigin_t origin);
 }  // namespace DYN
 
 #include "DYNParameter.hpp"

@@ -187,7 +187,7 @@ class LineInterface : public ComponentInterface {
    * @brief Getter for the line's id
    * @return The id of the line
    */
-  virtual std::string getID() const = 0;
+  virtual const std::string& getID() const = 0;
 
   /**
    * @brief Retrieve active season for the line

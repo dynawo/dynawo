@@ -64,10 +64,10 @@ class SolverKINSubModel : public SolverKINCommon, private boost::noncopyable {
    * @param localInitParameters local initialization solver parameters
    */
   void init(SubModel* subModel,
-            const double t0,
+            double t0,
             double* yBuffer,
             double* fBuffer,
-            std::shared_ptr<parameters::ParametersSet> localInitParameters);
+            const std::shared_ptr<parameters::ParametersSet>& localInitParameters);
 
   /**
    * @brief solve the equations of F(u) = 0 to find the new value of u

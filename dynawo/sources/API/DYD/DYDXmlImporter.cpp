@@ -50,15 +50,15 @@ XmlImporter::importFromDydFiles(const vector<string>& fileNames) const {
     xsdValidation = true;
   }
 
-  for (vector<string>::const_iterator it = fileNames.begin(); it != fileNames.end(); ++it) {
-    std::ifstream stream((*it).c_str());
+  for (const auto& fileName : fileNames) {
+    std::ifstream stream(fileName.c_str());
     if (!stream)
-      throw DYNError(DYN::Error::API, FileSystemItemDoesNotExist, (*it).c_str());
+      throw DYNError(DYN::Error::API, FileSystemItemDoesNotExist, fileName.c_str());
 
     try {
       importFromStream(stream, dydHandler, parser, xsdValidation);
     } catch (const DYN::Error& exp) {
-      throw DYNError(DYN::Error::API, XmlFileParsingError, (*it).c_str(), exp.what());
+      throw DYNError(DYN::Error::API, XmlFileParsingError, fileName.c_str(), exp.what());
     }
   }
 

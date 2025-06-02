@@ -93,7 +93,7 @@ ModelThreeWindingsTransformer::evalCalculatedVarI(unsigned numCalculatedVar) con
 }
 
 NetworkComponent::StateChange_t
-ModelThreeWindingsTransformer::evalState(const double& /*time*/) {
+ModelThreeWindingsTransformer::evalState(const double /*time*/) {
     return NetworkComponent::NO_CHANGE;
 }
 
@@ -113,12 +113,12 @@ ModelThreeWindingsTransformer::evalF(propertyF_t /*type*/) {
 }
 
 void
-ModelThreeWindingsTransformer::evalJt(SparseMatrix& /*jt*/, const double& /*cj*/, const int& /*rowOffset*/) {
+ModelThreeWindingsTransformer::evalJt(const double /*cj*/, const int /*rowOffset*/, SparseMatrix& /*jt*/) {
   // not needed
 }
 
 void
-ModelThreeWindingsTransformer::evalJtPrim(SparseMatrix& /*jt*/, const int& /*rowOffset*/) {
+ModelThreeWindingsTransformer::evalJtPrim(const int /*rowOffset*/, SparseMatrix& /*jtPrim*/) {
   // not needed
 }
 
@@ -132,12 +132,12 @@ ModelThreeWindingsTransformer::collectSilentZ(BitMask* /*silentZTable*/) {
 }
 
 NetworkComponent::StateChange_t
-ModelThreeWindingsTransformer::evalZ(const double& /*t*/) {
+ModelThreeWindingsTransformer::evalZ(const double /*t*/) {
   return NetworkComponent::NO_CHANGE;
 }
 
 void
-ModelThreeWindingsTransformer::evalG(const double& /*t*/) {
+ModelThreeWindingsTransformer::evalG(const double /*t*/) {
   // not needed
 }
 

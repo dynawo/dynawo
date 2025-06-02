@@ -108,7 +108,7 @@ ModelVoltageMeasurementsUtilities::evalF(double /*t*/, propertyF_t /*type*/) {
 
 void
 ModelVoltageMeasurementsUtilities::evalG(const double t) {
-  double elapsed = t-(zLocal_[tLastUpdate_] + step_);
+  const double elapsed = t-(zLocal_[tLastUpdate_] + step_);
   gLocal_[timeToUpdate_] = (doubleIsZero(elapsed) || elapsed > 0) ? ROOT_UP : ROOT_DOWN;
 }
 
@@ -120,12 +120,12 @@ ModelVoltageMeasurementsUtilities::setGequations() {
 }
 
 void
-ModelVoltageMeasurementsUtilities::evalJt(const double /*t*/, const double /*cj*/, SparseMatrix& /*jt*/, const int /*rowOffset*/) {
+ModelVoltageMeasurementsUtilities::evalJt(const double /*t*/, const double /*cj*/, const int /*rowOffset*/, SparseMatrix& /*jt*/) {
   // No evalJt function needed
 }
 
 void
-ModelVoltageMeasurementsUtilities::evalJtPrim(const double /*t*/, const double /*cj*/, SparseMatrix& /*jt*/, const int /*rowOffset*/) {
+ModelVoltageMeasurementsUtilities::evalJtPrim(const double /*t*/, const double /*cj*/, const int /*rowOffset*/, SparseMatrix& /*jtPrim*/) {
   // No evalJtPrim function needed
 }
 
@@ -158,17 +158,17 @@ ModelVoltageMeasurementsUtilities::evalMode(const double /*t*/) {
 }
 
 void
-ModelVoltageMeasurementsUtilities::evalJCalculatedVarI(unsigned iCalculatedVar, vector<double>& /*res*/) const {
+ModelVoltageMeasurementsUtilities::evalJCalculatedVarI(const unsigned iCalculatedVar, vector<double>& /*res*/) const {
   throw DYNError(Error::MODELER, UndefJCalculatedVarI, iCalculatedVar);
 }
 
 void
-ModelVoltageMeasurementsUtilities::getIndexesOfVariablesUsedForCalculatedVarI(unsigned int iCalculatedVar, std::vector<int>& /*indexes*/) const {
+ModelVoltageMeasurementsUtilities::getIndexesOfVariablesUsedForCalculatedVarI(const unsigned int iCalculatedVar, std::vector<int>& /*indexes*/) const {
   throw DYNError(Error::MODELER, UndefJCalculatedVarI, iCalculatedVar);
 }
 
 double
-ModelVoltageMeasurementsUtilities::evalCalculatedVarI(unsigned iCalculatedVar) const {
+ModelVoltageMeasurementsUtilities::evalCalculatedVarI(const unsigned iCalculatedVar) const {
   double out = 0.;
   switch (iCalculatedVar) {
   case minValIdx_:
@@ -327,7 +327,7 @@ ModelVoltageMeasurementsUtilities::checkDataCoherence(const double /*t*/) {
 }
 
 double
-ModelVoltageMeasurementsUtilities::computeMin(unsigned int &minIdx) const {
+ModelVoltageMeasurementsUtilities::computeMin(unsigned int& minIdx) const {
   double minSoFar = maxValueThreshold;
   minIdx = nbConnectedInputs_;
   for (unsigned i = 0; i < nbConnectedInputs_; i++) {
@@ -340,7 +340,7 @@ ModelVoltageMeasurementsUtilities::computeMin(unsigned int &minIdx) const {
 }
 
 double
-ModelVoltageMeasurementsUtilities::computeMax(unsigned int &maxIdx) const {
+ModelVoltageMeasurementsUtilities::computeMax(unsigned int& maxIdx) const {
   double maxSoFar = -maxValueThreshold;
   maxIdx = nbConnectedInputs_;
   for (unsigned i = 0; i < nbConnectedInputs_; i++) {
@@ -353,7 +353,7 @@ ModelVoltageMeasurementsUtilities::computeMax(unsigned int &maxIdx) const {
 }
 
 double
-ModelVoltageMeasurementsUtilities::computeAverage(unsigned int &nbActive) const {
+ModelVoltageMeasurementsUtilities::computeAverage(unsigned int& nbActive) const {
   double totSoFar = 0;
   nbActive = 0;
   for (unsigned i = 0; i < nbConnectedInputs_; i++) {
@@ -362,11 +362,11 @@ ModelVoltageMeasurementsUtilities::computeAverage(unsigned int &nbActive) const 
       ++nbActive;
     }
   }
-  return nbActive == 0 ? 0.0: totSoFar/nbActive;
+  return nbActive == 0 ? 0. : totSoFar / nbActive;
 }
 
 bool
-ModelVoltageMeasurementsUtilities::isRunning(unsigned int inputIdx) const {
+ModelVoltageMeasurementsUtilities::isRunning(const unsigned int inputIdx) const {
   return (inputIdx < nbConnectedInputs_)? isActive_[inputIdx] : false;
 }
 

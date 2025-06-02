@@ -170,7 +170,7 @@ SubModel::restoreData() {
 }
 
 void
-SubModel::initSub(const double t0, std::shared_ptr<parameters::ParametersSet> localInitParameters) {
+SubModel::initSub(const double t0, const std::shared_ptr<parameters::ParametersSet>& localInitParameters) {
   setCurrentTime(t0);
 
   localInitParameters_ = localInitParameters;
@@ -186,10 +186,8 @@ SubModel::initSub(const double t0, std::shared_ptr<parameters::ParametersSet> lo
 #ifdef _DEBUG_
   if (readPARParameters_) {
     vector<string> unusedParamNameList = readPARParameters_->getParamsUnused();
-    for (vector<string>::iterator it = unusedParamNameList.begin();
-            it != unusedParamNameList.end();
-            ++it) {
-      Trace::warn() << DYNLog(ParamUnused, *it, name()) << Trace::endline;
+    for (const auto& unusedParamName : unusedParamNameList) {
+      Trace::warn() << DYNLog(ParamUnused, unusedParamName, name()) << Trace::endline;
     }
   }
 #endif
@@ -202,7 +200,7 @@ SubModel::setPARParameters(const std::shared_ptr<parameters::ParametersSet>& par
 
 void
 SubModel::loadParameters(const map< string, string >& mapParameters) {
-  map<string, string >::const_iterator iter = mapParameters.find(parametersFileName());
+  const auto& iter = mapParameters.find(parametersFileName());
 
   if (iter != mapParameters.end()) {
     withLoadedParameters_ = true;
@@ -212,7 +210,7 @@ SubModel::loadParameters(const map< string, string >& mapParameters) {
 
 void
 SubModel::loadVariables(const map<string, string>& mapVariables) {
-  map<string, string >::const_iterator iter = mapVariables.find(variablesFileName());
+  const auto& iter = mapVariables.find(variablesFileName());
 
   if (iter != mapVariables.end()) {
     withLoadedVariables_ = true;
@@ -258,13 +256,13 @@ SubModel::releaseElements() {
 
 vector<Element>
 SubModel::getElements(const string& nameElement) const {
-  map<string, int>::const_iterator iter = mapElement_.find(nameElement);
+  const auto& iter = mapElement_.find(nameElement);
   if (iter == mapElement_.end()) {
     dumpUserReadableElementList(nameElement);
     throw DYNError(Error::MODELER, SubModelUnknownElement, nameElement, name(), modelType());
   } else {
     vector<Element> elements;
-    Element element = elements_[iter->second];
+    const Element& element = elements_[iter->second];
     if (element.getTypeElement() == Element::STRUCTURE) {
       vector<Element> subElements = getSubElements(element);
       elements.insert(elements.begin(), subElements.begin(), subElements.end());
@@ -278,8 +276,8 @@ SubModel::getElements(const string& nameElement) const {
 vector<Element>
 SubModel::getSubElements(const Element& element) const {
   vector<Element> elements;
-  for (unsigned int i = 0; i < element.subElementsNum().size(); ++i) {
-    Element sub = elements_[element.subElementsNum()[i]];
+  for (const auto subElementsNum : element.subElementsNum()) {
+    Element sub = elements_[subElementsNum];
     if (sub.getTypeElement() == Element::STRUCTURE) {
       vector<Element> subElements = getSubElements(sub);
       elements.insert(elements.begin(), subElements.begin(), subElements.end());
@@ -294,15 +292,14 @@ void
 SubModel::dumpUserReadableElementList(const std::string& nameElement) const {
   Trace::info() << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
   vector< std::pair<size_t, string> > vec;
-  for (unsigned int i = 0; i < elements_.size(); ++i) {
-    const Element& element = elements_[i];
+  for (const auto& element : elements_) {
     if (element.getTypeElement() == Element::TERMINAL) {
       vec.push_back(std::make_pair(LevensteinDistance(element.id(), nameElement, 10, 1, 10), element.id()));
     }
   }
   std::sort(vec.begin(), vec.end() , compStringDist());
-  for (unsigned int i = 0; i < vec.size(); ++i) {
-    Trace::info() << "  ->" << vec[i].second << Trace::endline;
+  for (const auto& vecElement : vec) {
+    Trace::info() << "  ->" << vecElement.second << Trace::endline;
   }
 }
 
@@ -316,9 +313,9 @@ SubModel::hasVariableInit(const string& nameVariable) const {
   return ( variablesByNameInit_.find(nameVariable) != variablesByNameInit_.end());
 }
 
-shared_ptr <Variable>
+shared_ptr<Variable>
 SubModel::getVariable(const string& variableName) const {
-  std::unordered_map<string, shared_ptr<Variable> >::const_iterator iter = variablesByName_.find(variableName);
+  const auto& iter = variablesByName_.find(variableName);
   if (iter == variablesByName_.end()) {
     throw DYNError(Error::MODELER, SubModelUnknownElement, variableName, name(), modelType());
   }
@@ -407,7 +404,7 @@ SubModel::getVariableValue(const string& nameVariable) const {
 }
 
 bool
-SubModel::hasParameter(const string & nameParameter, const bool isInitParam) const {
+SubModel::hasParameter(const string& nameParameter, const bool isInitParam) const {
   const std::unordered_map<string, ParameterModeler>& parameters = getParameters(isInitParam);
   return (parameters.find(nameParameter) != parameters.end());
 }
@@ -418,24 +415,24 @@ SubModel::defineVariables() {
   variablesByName_.clear();
   defineVariables(variables_);
   // sort variable by name
-  for (unsigned int i = 0; i < variables_.size(); ++i) {
-    variablesByName_[variables_[i]->getName()] = variables_[i];
+  for (const auto& variable : variables_) {
+    variablesByName_[variable->getName()] = variable;
   }
 
   // define alias
-  for (unsigned int i = 0; i < variables_.size(); ++i) {
-    if (variables_[i]->isAlias()) {
-      shared_ptr <VariableAlias> variable = dynamic_pointer_cast<VariableAlias> (variables_[i]);
-      if (!variable->referenceVariableSet()) {
-        std::unordered_map<string, shared_ptr<Variable> >::const_iterator iter = variablesByName_.find(variable->getReferenceVariableName());
+  for (auto& variable : variables_) {
+    if (variable->isAlias()) {
+      const shared_ptr<VariableAlias>& variableAlias = boost::dynamic_pointer_cast<VariableAlias>(variable);
+      if (!variableAlias->referenceVariableSet()) {
+        std::unordered_map<string, shared_ptr<Variable> >::const_iterator iter = variablesByName_.find(variableAlias->getReferenceVariableName());
         if (iter == variablesByName_.end()) {
-          throw DYNError(Error::MODELER, AliasNotFound, name(), variable->getReferenceVariableName());
+          throw DYNError(Error::MODELER, AliasNotFound, name(), variableAlias->getReferenceVariableName());
         } else {
-          variable->setReferenceVariable(dynamic_pointer_cast<VariableNative> (iter->second));
+          variableAlias->setReferenceVariable(boost::dynamic_pointer_cast<VariableNative> (iter->second));
           if (iter->second->isState() && (iter->second->getType() == DISCRETE || iter->second->getType() == BOOLEAN))
-            zAliasesNames_.push_back(std::make_pair(variable->getName(), std::make_pair(iter->first, variable->getNegated())));
+            zAliasesNames_.emplace_back(variableAlias->getName(), std::make_pair(iter->first, variableAlias->getNegated()));
           else if (iter->second->isState() && (iter->second->getType() == CONTINUOUS || iter->second->getType() == FLOW))
-            xAliasesNames_.push_back(std::make_pair(variable->getName(), std::make_pair(iter->first, variable->getNegated())));
+            xAliasesNames_.emplace_back(variableAlias->getName(), std::make_pair(iter->first, variableAlias->getNegated()));
         }
       }
     }
@@ -443,13 +440,11 @@ SubModel::defineVariables() {
 }
 
 void
-SubModel::instantiateNonUnitaryParameters(const bool isInitParam,
-    const std::map<string, ParameterModeler>& nonUnitaryParameters,
+SubModel::instantiateNonUnitaryParameters(const bool isInitParam, const std::map<string, ParameterModeler>& nonUnitaryParameters,
     std::unordered_set<string>& addedParameter) {
-  typedef std::map<string, ParameterModeler>::const_iterator ParamIterator;
   stringstream ss;
-  for (ParamIterator it = nonUnitaryParameters.begin(), itEnd = nonUnitaryParameters.end(); it != itEnd; ++it) {
-    const ParameterModeler& parameter = it->second;
+  for (const auto& nonUnitaryParameter : nonUnitaryParameters) {
+    const ParameterModeler& parameter = nonUnitaryParameter.second;
     const string paramName = parameter.getName();
     if (!parameter.isUnitary()) {
       const string cardinalityInformatorName = parameter.getCardinalityInformator();
@@ -469,7 +464,7 @@ SubModel::instantiateNonUnitaryParameters(const bool isInitParam,
         ss << index;
         const string& indexAsString = ss.str();
         const string& newName = paramName + "_" + indexAsString;
-        ParameterModeler newParameter = ParameterModeler(newName, parameter.getValueType(), parameter.getScope());
+        auto newParameter = ParameterModeler(newName, parameter.getValueType(), parameter.getScope());
         newParameter.setIsNonUnitaryParameterInstance(true);
         addParameter(newParameter, isInitParam);
         addedParameter.insert(newName);
@@ -479,8 +474,8 @@ SubModel::instantiateNonUnitaryParameters(const bool isInitParam,
 }
 
 void
-SubModel::setParameterFromSet(ParameterModeler& parameter, const std::shared_ptr<parameters::ParametersSet>& parametersSet,
-                              const parameterOrigin_t& origin) {
+SubModel::setParameterFromSet(const std::shared_ptr<parameters::ParametersSet>& parametersSet, const parameterOrigin_t& origin,
+  ParameterModeler& parameter) {
   if (parametersSet) {
     const string& parName = parameter.getName();
      // Check that parameter cardinality is unitary
@@ -522,18 +517,16 @@ SubModel::setParameterFromSet(ParameterModeler& parameter, const std::shared_ptr
 
 void
 SubModel::setParametersFromPARFile(const bool isInitParam) {
-  typedef std::unordered_map<string, ParameterModeler>::iterator ParamIterator;
-  typedef std::unordered_set<string>::const_iterator ParamNameIterator;
   std::unordered_map<string, ParameterModeler>& parameters = (isInitParam ? parametersInit_ : parametersDynamic_);
 
   std::map<string, ParameterModeler> nonUnitaryParameters;
   // Set values of parameters with unitary cardinality
-  for (ParamIterator it = parameters.begin(), itEnd = parameters.end(); it != itEnd; ++it) {
-    ParameterModeler& currentParameter = it->second;
+  for (auto& parameter : parameters) {
+    ParameterModeler& currentParameter = parameter.second;
     if ((currentParameter.isUnitary()) && (!currentParameter.isFullyInternal())) {
       setParameterFromPARFile(currentParameter);
     } else if (!currentParameter.isUnitary()) {
-      nonUnitaryParameters.insert(std::make_pair(it->first, currentParameter));
+      nonUnitaryParameters.insert(std::make_pair(parameter.first, currentParameter));
     }
   }
 
@@ -543,12 +536,12 @@ SubModel::setParametersFromPARFile(const bool isInitParam) {
   // Example with OmegaRef:
   //    -name of multiple parameter: weight_gen
   //    -name in multiple parameter instances: weight_gen_0, weight_gen_1, ...weight_gen_nbGen,
-  std::unordered_set<string> addedParameter;
-  instantiateNonUnitaryParameters(isInitParam, nonUnitaryParameters, addedParameter);
+  std::unordered_set<string> addedParameters;
+  instantiateNonUnitaryParameters(isInitParam, nonUnitaryParameters, addedParameters);
 
   // set the unitary parameters coming from not-unitary parameters instantiation
-  for (ParamNameIterator  it = addedParameter.begin(), itEnd = addedParameter.end(); it != itEnd; ++it) {
-    ParameterModeler& currentParameter = findParameterReference(*it, isInitParam);
+  for (const auto& addedParameter : addedParameters) {
+    ParameterModeler& currentParameter = findParameterReference(addedParameter, isInitParam);
     if (!currentParameter.isFullyInternal()) {
       setParameterFromPARFile(currentParameter);
     }
@@ -567,7 +560,7 @@ SubModel::setParametersFromPARFile() {
 const ParameterModeler&
 SubModel::findParameter(const string& name, const bool isInitParam) const {
   const std::unordered_map<string, ParameterModeler>& parameters = getParameters(isInitParam);
-  const std::unordered_map<string, ParameterModeler>::const_iterator indexIterator = parameters.find(name);
+  const auto& indexIterator = parameters.find(name);
 
   if (indexIterator == parameters.end()) {
     throw DYNError(Error::MODELER, ParameterNotDefined, name);
@@ -579,7 +572,7 @@ ParameterModeler&
 SubModel::findParameterReference(const string& name, const bool isInitParam) {
   // Cannot use getParameters as we are not const here
   std::unordered_map<string, ParameterModeler>& parameters = (isInitParam ? parametersInit_ : parametersDynamic_);
-  const std::unordered_map<string, ParameterModeler>::iterator indexIterator = parameters.find(name);
+  const auto& indexIterator = parameters.find(name);
 
   if (indexIterator == parameters.end()) {
     throw DYNError(Error::MODELER, ParameterNotDefined, name);
@@ -599,9 +592,9 @@ SubModel::getParametersInit() const {
 
 void
 SubModel::addParameters(const vector<ParameterModeler>& parameters, const bool isInitParam) {
-  for (unsigned int i = 0; i < parameters.size(); ++i) {
-    if (!hasParameter(parameters[i].getName(), isInitParam)) {
-      addParameter(parameters[i], isInitParam);
+  for (const auto& parameter : parameters) {
+    if (!hasParameter(parameter.getName(), isInitParam)) {
+      addParameter(parameter, isInitParam);
     }
   }
 }
@@ -611,7 +604,7 @@ SubModel::addParameter(const ParameterModeler& parameter, const bool isInitParam
   if (hasParameter(parameter.getName(), isInitParam)) {
     throw DYNError(Error::MODELER, ParameterAlreadyExists, parameter.getName());
   }
-  ParameterModeler parameterToAdd = ParameterModeler(parameter);
+  auto parameterToAdd = ParameterModeler(parameter);
   if (isInitParam) {
     parameterToAdd.setIndex(static_cast<unsigned int>(parametersInit_.size()));
     parametersInit_.insert(std::make_pair(parameterToAdd.getName(), parameterToAdd));
@@ -635,19 +628,19 @@ SubModel::defineVariablesInit() {
   variablesByNameInit_.clear();
   defineVariablesInit(variablesInit_);
   // sort variable by name
-  for (unsigned int i = 0; i < variablesInit_.size(); ++i)
-    variablesByNameInit_[variablesInit_[i]->getName()] = variablesInit_[i];
+  for (const auto& variableInit : variablesInit_)
+    variablesByNameInit_[variableInit->getName()] = variableInit;
 
   // define alias
-  for (unsigned int i = 0; i < variablesInit_.size(); ++i) {
-    if (variablesInit_[i]->isAlias()) {
-      shared_ptr <VariableAlias> variableInit = dynamic_pointer_cast<VariableAlias> (variablesInit_[i]);
-      if (!variableInit->referenceVariableSet()) {
-        std::unordered_map<string, shared_ptr<Variable> >::const_iterator iter = variablesByNameInit_.find(variableInit->getReferenceVariableName());
+  for (const auto& variableInit : variablesInit_) {
+    if (variableInit->isAlias()) {
+      const shared_ptr<VariableAlias> variableAliasInit = boost::dynamic_pointer_cast<VariableAlias>(variableInit);
+      if (!variableAliasInit->referenceVariableSet()) {
+        const auto iter = variablesByNameInit_.find(variableAliasInit->getReferenceVariableName());
         if (iter == variablesByNameInit_.end())
-          throw DYNError(Error::MODELER, AliasNotFound, name(), variableInit->getReferenceVariableName());
+          throw DYNError(Error::MODELER, AliasNotFound, name(), variableAliasInit->getReferenceVariableName());
         else
-          variableInit->setReferenceVariable(dynamic_pointer_cast<VariableNative> (iter->second));
+          variableAliasInit->setReferenceVariable(boost::dynamic_pointer_cast<VariableNative> (iter->second));
       }
     }
   }
@@ -697,14 +690,14 @@ SubModel::printInitModelValues(const std::string& directory, const std::string& 
 
 void
 SubModel::printValuesParameters(std::ofstream& fstream) {
-  std::map<std::string, ParameterModeler> sortedParameterDynamic(parametersDynamic_.begin(), parametersDynamic_.end());
+  std::map<std::string, ParameterModeler> sortedParametersDynamic(parametersDynamic_.begin(), parametersDynamic_.end());
   fstream << " ====== PARAMETERS VALUES ======\n";
-  for (std::map<std::string, ParameterModeler>::const_iterator it = sortedParameterDynamic.begin(); it != sortedParameterDynamic.end(); ++it) {
+  for (const auto& sortedParameterDynamic : sortedParametersDynamic) {
     bool found = false;
     std::string value;
-    getSubModelParameterValue(it->first, value, found);
+    getSubModelParameterValue(sortedParameterDynamic.first, value, found);
     if (found) {
-      fstream << std::setw(50) << std::left << it->first << std::right << " =" << std::setw(15) << value << std::endl;
+      fstream << std::setw(50) << std::left <<sortedParameterDynamic.first << std::right << " =" << std::setw(15) << value << std::endl;
     }
   }
   fstream << " ====== INTERNAL PARAMETERS VALUES ======\n";
@@ -713,14 +706,14 @@ SubModel::printValuesParameters(std::ofstream& fstream) {
 
 void
 SubModel::printInitValuesParameters(std::ofstream& fstream) const {
-  std::map<std::string, ParameterModeler> sortedParameterDynamic(parametersInit_.begin(), parametersInit_.end());
+  std::map<std::string, ParameterModeler> sortedParametersDynamic(parametersInit_.begin(), parametersInit_.end());
   fstream << " ====== INIT PARAMETERS VALUES ======\n";
-  for (std::map<std::string, ParameterModeler>::const_iterator it = sortedParameterDynamic.begin(); it != sortedParameterDynamic.end(); ++it) {
+  for (const auto& sortedParameterDynamic : sortedParametersDynamic) {
     bool found = false;
     std::string value;
-    getInitSubModelParameterValue(it->first, value, found);
+    getInitSubModelParameterValue(sortedParameterDynamic.first, value, found);
     if (found) {
-      fstream << std::setw(50) << std::left << it->first << std::right << " =" << std::setw(15) << value << std::endl;
+      fstream << std::setw(50) << std::left << sortedParameterDynamic.first << std::right << " =" << std::setw(15) << value << std::endl;
     }
   }
 }
@@ -730,7 +723,7 @@ void SubModel::defineNamesImpl(vector<shared_ptr<Variable> >& variables, vector<
   zNames.clear();
   xNames.clear();
   calculatedVarNames.clear();
-  vector <std::pair <string, int> > integer_variables;  // integer variables have to be dealt with last
+  vector<std::pair <string, int> > integerVariables;  // integer variables have to be dealt with last
 
 #ifdef _DEBUG_
   // sanity check : integer variables should always be stored after all other discrete variables
@@ -739,7 +732,7 @@ void SubModel::defineNamesImpl(vector<shared_ptr<Variable> >& variables, vector<
 #endif
 
   for (unsigned int i = 0; i < variables.size(); ++i) {
-    shared_ptr<Variable> currentVariable = variables[i];
+    const shared_ptr<Variable>& currentVariable = variables[i];
     const typeVar_t type = currentVariable->getType();
     const string name = currentVariable->getName();
     const bool isState = currentVariable->isState();
@@ -748,7 +741,7 @@ void SubModel::defineNamesImpl(vector<shared_ptr<Variable> >& variables, vector<
     if (currentVariable->isAlias())  // no alias in names vector
       continue;
 
-    shared_ptr <VariableNative> nativeVariable = dynamic_pointer_cast<VariableNative> (currentVariable);
+    const shared_ptr<VariableNative> nativeVariable = dynamic_pointer_cast<VariableNative>(currentVariable);
     if (!isState) {
       index = static_cast<int>(calculatedVarNames.size());
       calculatedVarNames.push_back(name);
@@ -771,7 +764,7 @@ void SubModel::defineNamesImpl(vector<shared_ptr<Variable> >& variables, vector<
           break;
         }
         case INTEGER: {  // Z vector contains DISCRETE variables and then INTEGER variables
-          integer_variables.push_back(make_pair(name, i));
+          integerVariables.emplace_back(name, i);
           break;
         }
         case UNDEFINED_TYPE:
@@ -786,13 +779,13 @@ void SubModel::defineNamesImpl(vector<shared_ptr<Variable> >& variables, vector<
   }
 
   // set integer variables after all other variables have been set
-  for (unsigned int i = 0; i < integer_variables.size(); ++i) {
+  for (const auto& integeVariable : integerVariables) {
     int equation_index = static_cast<int>(zNames.size());  // variable index within equations
-    const string& name = integer_variables[i].first;
-    const int& var_index = integer_variables[i].second;   // variable index within the variables_ table
+    const string& name = integeVariable.first;
+    const int& var_index = integeVariable.second;   // variable index within the variables_ table
 
     zNames.push_back(name);
-    shared_ptr <VariableNative> nativeVariable = dynamic_pointer_cast<VariableNative> (variables[var_index]);
+    const shared_ptr<VariableNative> nativeVariable = dynamic_pointer_cast<VariableNative>(variables[var_index]);
     nativeVariable->setIndex(equation_index);
 
 #ifdef _DEBUG_
@@ -801,7 +794,7 @@ void SubModel::defineNamesImpl(vector<shared_ptr<Variable> >& variables, vector<
   }
 
 #ifdef _DEBUG_
-  if (maxOtherDiscreteVarIndex != -1 && !integer_variables.empty()) {
+  if (maxOtherDiscreteVarIndex != -1 && !integerVariables.empty()) {
     assert(minIntegerIndex > maxOtherDiscreteVarIndex && "bad variables table : integer variables should be at the very end of the discrete variables table");
   }
 #endif
@@ -911,21 +904,21 @@ SubModel::evalCalculatedVariablesSub(const double t) {
 }
 
 double
-SubModel::getCalculatedVar(int indexCalculatedVar) {
+SubModel::getCalculatedVar(const int indexCalculatedVar) const {
   return calculatedVars_[indexCalculatedVar];
 }
 
 void
-SubModel::evalJtSub(const double t, const double cj, SparseMatrix& Jt, int& rowOffset) {
+SubModel::evalJtSub(const double t, const double cj, int& rowOffset, SparseMatrix& jt) {
   setCurrentTime(t);
-  evalJt(t, cj, Jt, rowOffset);
+  evalJt(t, cj, rowOffset, jt);
   rowOffset += sizeY();
 }
 
 void
-SubModel::evalJtPrimSub(const double t, const double cj, SparseMatrix& Jt, int& rowOffset) {
+SubModel::evalJtPrimSub(const double t, const double cj, int& rowOffset, SparseMatrix& jtPrim) {
   setCurrentTime(t);
-  evalJtPrim(t, cj, Jt, rowOffset);
+  evalJtPrim(t, cj,  rowOffset, jtPrim);
   rowOffset += sizeY();
 }
 
@@ -983,15 +976,15 @@ SubModel::getY0Sub() {
 void
 SubModel::getY0Values(vector<double>& y0, vector<double>& yp0, vector<double>& z0) {
   getY0Sub();
-  std::copy(yLocal_, yLocal_ + sizeY_, y0.begin());
-  std::copy(ypLocal_, ypLocal_ + sizeY_, yp0.begin());
-  std::copy(zLocal_, zLocal_ + sizeZ_, z0.begin());
+  std::copy_n(yLocal_, sizeY_, y0.begin());
+  std::copy_n(ypLocal_, sizeY_, yp0.begin());
+  std::copy_n(zLocal_, sizeZ_, z0.begin());
 }
 
 void
-SubModel::addCurve(std::shared_ptr<curves::Curve>& curve) {
+SubModel::addCurve(const std::shared_ptr<curves::Curve>& curve) {
   const string variableName = curve->getFoundVariableName();
-  const shared_ptr <Variable> variable = getVariable(variableName);
+  const shared_ptr<Variable> variable = getVariable(variableName);
   const int varNum = variable->getIndex();
   const typeVar_t typeVar = variable->getType();
   const bool negated = variable->getNegated();
@@ -1031,7 +1024,7 @@ SubModel::addCurve(std::shared_ptr<curves::Curve>& curve) {
 }
 
 void
-SubModel::updateCalculatedVarForCurve(std::shared_ptr<curves::Curve>& curve) {
+SubModel::updateCalculatedVarForCurve(const std::shared_ptr<curves::Curve>& curve) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SubModel::updateCalculatedVarForCurve");
   assert(curve);
@@ -1040,14 +1033,14 @@ SubModel::updateCalculatedVarForCurve(std::shared_ptr<curves::Curve>& curve) {
   const string variableName = curve->getFoundVariableName();
   if (!hasVariable(variableName)) return;
 
-  const shared_ptr <Variable> variable = getVariable(variableName);
+  const shared_ptr<Variable> variable = getVariable(variableName);
 
   const int varNum = variable->getIndex();
   calculatedVars_[varNum] = evalCalculatedVarI(varNum);
 }
 
 void
-SubModel::addParameterCurve(std::shared_ptr<curves::Curve>& curve) {
+SubModel::addParameterCurve(const std::shared_ptr<curves::Curve>& curve) {
   curve->setBuffer(NULL);
   curve->setNegated(false);
 }
@@ -1056,9 +1049,8 @@ void
 SubModel::printLocalInitParametersValues() const {
   const std::unordered_map<string, ParameterModeler>& params = getParametersDynamic();
   set<string> sortedParams;
-  for (std::unordered_map<string, ParameterModeler>::const_iterator it = params.begin(), itEnd = params.end();
-      it != itEnd; ++it) {
-    sortedParams.insert(it->first);
+  for (const auto& param : params) {
+    sortedParams.insert(param.first);
   }
   if (!params.empty()) {
     Trace::debug(Trace::parameters()) << "------------------------------" << Trace::endline;
@@ -1066,8 +1058,8 @@ SubModel::printLocalInitParametersValues() const {
     Trace::debug(Trace::parameters()) << "------------------------------" << Trace::endline;
   }
 
-  for (set<string>::const_iterator it = sortedParams.begin(), itEnd = sortedParams.end(); it != itEnd; ++it) {
-    const ParameterModeler& parameter = params.find(*it)->second;
+  for (const auto& sortedParam : sortedParams) {
+    const ParameterModeler& parameter = params.find(sortedParam)->second;
     if (parameter.originSet() && parameter.getOrigin() != LOCAL_INIT)
       continue;
     if (!parameter.hasValue()) {
@@ -1076,38 +1068,38 @@ SubModel::printLocalInitParametersValues() const {
     switch (parameter.getValueType()) {
       case VAR_TYPE_BOOL: {
         const bool value = parameter.getValue<bool>();
-        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
+        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, sortedParam, origin2Str(parameter.getOrigin()), value) << Trace::endline;
         break;
       }
       case VAR_TYPE_INT: {
         const int value = parameter.getValue<int>();
-        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
+        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, sortedParam, origin2Str(parameter.getOrigin()), value) << Trace::endline;
         break;
       }
       case VAR_TYPE_DOUBLE: {
         const double& value = parameter.getValue<double>();
-        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
+        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, sortedParam, origin2Str(parameter.getOrigin()), value) << Trace::endline;
         break;
       }
       case VAR_TYPE_STRING: {
         const string& value = parameter.getValue<string>();
-        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
+        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, sortedParam, origin2Str(parameter.getOrigin()), value) << Trace::endline;
         break;
       }
       default:
       {
-        throw DYNError(Error::MODELER, ParameterNoTypeDetected, *it);
+        throw DYNError(Error::MODELER, ParameterNoTypeDetected, sortedParam);
       }
     }
   }
 
-  for (set<string>::const_iterator it = sortedParams.begin(), itEnd = sortedParams.end(); it != itEnd; ++it) {
-    const ParameterModeler& parameter = params.find(*it)->second;
+  for (const auto& sortedParam : sortedParams) {
+    const ParameterModeler& parameter = params.find(sortedParam)->second;
     if (!parameter.hasValue()) {
       if (parameter.isFullyInternal()) {
         continue;
       } else {
-        Trace::debug(Trace::parameters()) << DYNLog(ParamNoValueFound, *it) << Trace::endline;
+        Trace::debug(Trace::parameters()) << DYNLog(ParamNoValueFound, sortedParam) << Trace::endline;
       }
     }
   }
@@ -1118,9 +1110,8 @@ void
 SubModel::printParameterValues() const {
   const std::unordered_map<string, ParameterModeler>& initParams = getParametersInit();
   set<string> sortedInitParams;
-  for (std::unordered_map<string, ParameterModeler>::const_iterator it = initParams.begin(), itEnd = initParams.end();
-      it != itEnd; ++it) {
-    sortedInitParams.insert(it->first);
+  for (const auto& initParam : initParams) {
+    sortedInitParams.insert(initParam.first);
   }
   if (!sortedInitParams.empty()) {
     Trace::debug(Trace::parameters()) << "------------------------------" << Trace::endline;
@@ -1128,51 +1119,50 @@ SubModel::printParameterValues() const {
     Trace::debug(Trace::parameters()) << "------------------------------" << Trace::endline;
   }
 
-  for (set<string>::const_iterator it = sortedInitParams.begin(), itEnd = sortedInitParams.end(); it != itEnd; ++it) {
-    const ParameterModeler& parameter = initParams.find(*it)->second;
+  for (const auto& sortedInitParam : sortedInitParams) {
+    const ParameterModeler& parameter = initParams.find(sortedInitParam)->second;
     if (!parameter.hasValue()) {
       continue;
     }
     switch (parameter.getValueType()) {
       case VAR_TYPE_BOOL: {
         const bool value = parameter.getValue<bool>();
-        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
+        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, sortedInitParam, origin2Str(parameter.getOrigin()), value) << Trace::endline;
         break;
       }
       case VAR_TYPE_INT: {
         const int value = parameter.getValue<int>();
-        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
+        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, sortedInitParam, origin2Str(parameter.getOrigin()), value) << Trace::endline;
         break;
       }
       case VAR_TYPE_DOUBLE: {
         const double& value = parameter.getValue<double>();
-        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
+        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, sortedInitParam, origin2Str(parameter.getOrigin()), value) << Trace::endline;
         break;
       }
       case VAR_TYPE_STRING: {
         const string& value = parameter.getValue<string>();
-        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
+        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, sortedInitParam, origin2Str(parameter.getOrigin()), value) << Trace::endline;
         break;
       }
       default:
       {
-        throw DYNError(Error::MODELER, ParameterNoTypeDetected, *it);
+        throw DYNError(Error::MODELER, ParameterNoTypeDetected, sortedInitParam);
       }
     }
   }
 
-  for (set<string>::const_iterator it = sortedInitParams.begin(), itEnd = sortedInitParams.end(); it != itEnd; ++it) {
-    const ParameterModeler& parameter = initParams.find(*it)->second;
+  for (const auto& sortedInitParam : sortedInitParams) {
+    const ParameterModeler& parameter = initParams.find(sortedInitParam)->second;
     if (!parameter.hasValue() && parameter.isFullyInternal()) {
-      Trace::debug(Trace::parameters()) << DYNLog(InternalParam, *it) << Trace::endline;
+      Trace::debug(Trace::parameters()) << DYNLog(InternalParam, sortedInitParam) << Trace::endline;
     }
   }
 
   const std::unordered_map<string, ParameterModeler>& params = getParametersDynamic();
   set<string> sortedParams;
-  for (std::unordered_map<string, ParameterModeler>::const_iterator it = params.begin(), itEnd = params.end();
-      it != itEnd; ++it) {
-    sortedParams.insert(it->first);
+  for (const auto& param : params) {
+    sortedParams.insert(param.first);
   }
   if (!params.empty()) {
     Trace::debug(Trace::parameters()) << "------------------------------" << Trace::endline;
@@ -1180,43 +1170,43 @@ SubModel::printParameterValues() const {
     Trace::debug(Trace::parameters()) << "------------------------------" << Trace::endline;
   }
 
-  for (set<string>::const_iterator it = sortedParams.begin(), itEnd = sortedParams.end(); it != itEnd; ++it) {
-    const ParameterModeler& parameter = params.find(*it)->second;
+  for (const auto& sortedParam : sortedParams) {
+    const ParameterModeler& parameter = params.find(sortedParam)->second;
     if (!parameter.hasValue()) {
       continue;
     }
     switch (parameter.getValueType()) {
       case VAR_TYPE_BOOL: {
         const bool value = parameter.getValue<bool>();
-        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
+        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, sortedParam, origin2Str(parameter.getOrigin()), value) << Trace::endline;
         break;
       }
       case VAR_TYPE_INT: {
         const int value = parameter.getValue<int>();
-        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
+        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, sortedParam, origin2Str(parameter.getOrigin()), value) << Trace::endline;
         break;
       }
       case VAR_TYPE_DOUBLE: {
         const double& value = parameter.getValue<double>();
-        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
+        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, sortedParam, origin2Str(parameter.getOrigin()), value) << Trace::endline;
         break;
       }
       case VAR_TYPE_STRING: {
         const string& value = parameter.getValue<string>();
-        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
+        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, sortedParam, origin2Str(parameter.getOrigin()), value) << Trace::endline;
         break;
       }
       default:
       {
-        throw DYNError(Error::MODELER, ParameterNoTypeDetected, *it);
+        throw DYNError(Error::MODELER, ParameterNoTypeDetected, sortedParam);
       }
     }
   }
 
-  for (set<string>::const_iterator it = sortedParams.begin(), itEnd = sortedParams.end(); it != itEnd; ++it) {
-    const ParameterModeler& parameter = params.find(*it)->second;
+  for (const auto& sortedParam : sortedParams) {
+    const ParameterModeler& parameter = params.find(sortedParam)->second;
     if (!parameter.hasValue() && parameter.isFullyInternal()) {
-      Trace::debug(Trace::parameters()) << DYNLog(InternalParam, *it) << Trace::endline;
+      Trace::debug(Trace::parameters()) << DYNLog(InternalParam, sortedParam) << Trace::endline;
     }
   }
 }
@@ -1242,15 +1232,14 @@ SubModel::printModel() const {
 }
 
 void
-SubModel::getZ(vector<double>& z) {
+SubModel::getZ(vector<double>& z) const {
   z.assign(zLocal_, zLocal_ + sizeZ());
 }
 
 void
 SubModel::printMessages() {
-  std::list<string>::const_iterator iter;
-  for (iter = messages_.begin(); iter != messages_.end(); ++iter)
-    Trace::info() << getCurrentTime() << " ¦ " << name() << " : " << *iter << Trace::endline;
+  for (const auto& message : messages_)
+    Trace::info() << getCurrentTime() << " | " << name() << " : " << message << Trace::endline;
 
   messages_.clear();
 }
@@ -1258,8 +1247,7 @@ SubModel::printMessages() {
 void
 SubModel::addMessage(const string& message) {
   // sometimes, many evalZ may happen for the same time step => only keep non-duplicate messages
-  std::list<string>::iterator iter;
-  iter = std::find(messages_.begin(), messages_.end(), message);
+  const auto iter = std::find(messages_.begin(), messages_.end(), message);
 
   if (iter == messages_.end())
     messages_.push_back(message);
@@ -1273,10 +1261,10 @@ SubModel::addEvent(const string& modelName, const MessageTimeline& messageTimeli
 }
 
 void
-SubModel::addConstraint(const string& modelName, bool begin, const Message& description,
+SubModel::addConstraint(const string& modelName, const bool begin, const Message& description,
   const string& modelType, const boost::optional<constraints::ConstraintData>& constraintData) {
   if (constraints_) {
-    constraints::Type_t type = begin?constraints::CONSTRAINT_BEGIN:constraints::CONSTRAINT_END;
+    const constraints::Type_t type = begin ? constraints::CONSTRAINT_BEGIN : constraints::CONSTRAINT_END;
     constraints_->addConstraint(modelName, description.str(), getCurrentTime(), type, modelType, constraintData);
   }
 }
@@ -1286,25 +1274,27 @@ SubModel::hasConstraints() const {
   return constraints_.use_count() > 0;
 }
 
-string
-SubModel::getFequationByLocalIndex(const int index) {
-  map<int, string>::const_iterator it = fEquationIndex().find(index);
+const string&
+SubModel::getFequationByLocalIndex(const int index) const {
+  const auto it = fEquationIndex().find(index);
   if (it != fEquationIndex().end()) {
     return it->second;
   } else {
     Trace::warn() << DYNLog(SubModelFeqFormulaNotExist, name(), index) << Trace::endline;
-    return "";
+    static string noEquation = "";
+    return noEquation;
   }
 }
 
-string
-SubModel::getGequationByLocalIndex(const int index) {
-  map<int, string>::const_iterator it = gEquationIndex().find(index);
+const string&
+SubModel::getGequationByLocalIndex(const int index) const {
+  const auto it = gEquationIndex().find(index);
   if (it != gEquationIndex().end()) {
     return it->second;
   } else {
     Trace::warn() << DYNLog(SubModelGeqFormulaNotExist, name(), index) << Trace::endline;
-    return "";
+    static string noEquation = "";
+    return noEquation;
   }
 }
 
@@ -1316,8 +1306,8 @@ SubModel::fEquationIndex() const {
     return fEquationIndex_;
 }
 
-map<int, string>&
-SubModel::gEquationIndex() {
+const map<int, string>&
+SubModel::gEquationIndex() const {
   if (isInitProcess_)
     return gEquationInitIndex_;
   else
@@ -1326,7 +1316,7 @@ SubModel::gEquationIndex() {
 
 void
 SubModel::getSubModelParameterValue(const string& nameParameter, std::string& value, bool& found) {
-  const bool isInitParam = false;
+  constexpr bool isInitParam = false;
   const ParameterModeler& parameter = findParameter(nameParameter, isInitParam);
   if (!parameter.hasValue()) {
     found = false;
@@ -1341,7 +1331,7 @@ SubModel::getSubModelParameterValue(const string& nameParameter, std::string& va
 
 void
 SubModel::getInitSubModelParameterValue(const string& nameParameter, std::string& value, bool& found) const {
-  const bool isInitParam = true;
+  constexpr bool isInitParam = true;
   const ParameterModeler& parameter = findParameter(nameParameter, isInitParam);
   if (!parameter.hasValue()) {
     found = false;
@@ -1357,53 +1347,51 @@ SubModel::getInitSubModelParameterValue(const string& nameParameter, std::string
 void
 SubModel::printValuesVariables(std::ofstream& fstream) {
   fstream << " ====== VARIABLES VALUES ======\n";
-  const vector<string>& xNames = (*this).xNames();
+  const vector<string>& xNames = this->xNames();
   for (unsigned int i = 0; i < sizeY(); ++i)
     fstream << std::setw(50) << std::left << xNames[i] << std::right << ": y =" << std::setw(15) << DYN::double2String(yLocal_[i])
       << " yp =" << std::setw(15) << DYN::double2String(ypLocal_[i]) << "\n";
 
-  const vector<std::pair<string, std::pair<string, bool> > >& xAliasesNames = (*this).xAliasesNames();
-  for (std::size_t i = 0, iEnd = xAliasesNames.size(); i < iEnd; ++i)
-    fstream << std::setw(50) << std::left << xAliasesNames[i].first << std::right << ": " <<
-    ((xAliasesNames[i].second.second)?"negated ":"") << "alias of " << xAliasesNames[i].second.first << "\n";
+  for (const auto& xAliasesName : xAliasesNames())
+    fstream << std::setw(50) << std::left << xAliasesName.first << std::right << ": " <<
+    (xAliasesName.second.second ? "negated " : "") << "alias of " << xAliasesName.second.first << "\n";
 
   if (sizeCalculatedVar() > 0) {
     evalCalculatedVars();
     fstream << " ====== CALCULATED VARIABLES VALUES ======\n";
-    const vector<string>& calculatedVarNames = (*this).getCalculatedVarNames();
+    const vector<string>& calculatedVarNames = getCalculatedVarNames();
     for (unsigned int i = 0, iEnd = sizeCalculatedVar(); i < iEnd; ++i)
       fstream << std::setw(50) << std::left << calculatedVarNames[i] << std::right << ": y ="
         << std::setw(15) << DYN::double2String(getCalculatedVar(i)) << "\n";
   }
 
-  const vector<string>& zNames = (*this).zNames();
+  const vector<string>& zNames = this->zNames();
   fstream << " ====== DISCRETE VARIABLES VALUES ======\n";
   for (unsigned int i = 0; i < sizeZ(); ++i)
     fstream << std::setw(50) << std::left << zNames[i] << std::right << ": z =" << std::setw(15) << DYN::double2String(zLocal_[i]) << "\n";
 
-  const vector<std::pair<string, std::pair<string, bool> > >& zAliasesNames = (*this).zAliasesNames();
-  for (std::size_t i = 0, iEnd = zAliasesNames.size(); i < iEnd; ++i)
-    fstream << std::setw(50) << std::left << zAliasesNames[i].first << std::right << ": "<<
-    ((zAliasesNames[i].second.second)?"negated ":"") << "alias of " << zAliasesNames[i].second.first << "\n";
+  for (const auto& zAliasesName : zAliasesNames())
+    fstream << std::setw(50) << std::left << zAliasesName.first << std::right << ": "<<
+    (zAliasesName.second.second ? "negated " : "") << "alias of " << zAliasesName.second.first << "\n";
 }
 
 void
 SubModel::printInitValuesVariables(std::ofstream& fstream) {
   fstream << " ====== INIT VARIABLES VALUES ======\n";
-  const vector<string>& xNames = (*this).xNamesInit();
+  const vector<string>& xNames = xNamesInit();
   for (unsigned int i = 0; i < yLocalInit_.size(); ++i)
     fstream << std::setw(50) << std::left << xNames[i] << std::right << ": y =" << std::setw(15) << DYN::double2String(yLocalInit_[i])
       << " yp =" << std::setw(15) << DYN::double2String(ypLocalInit_[i]) << "\n";
 
-  if (calculatedVarsInit_.size() > 0) {
+  if (!calculatedVarsInit_.empty()) {
     fstream << " ====== INIT CALCULATED VARIABLES VALUES ======\n";
-    const vector<string>& calculatedVarNames = (*this).getCalculatedVarNamesInit();
-    for (size_t i = 0, iEnd = calculatedVarsInit_.size(); i < iEnd; ++i)
+    const vector<string>& calculatedVarNames = getCalculatedVarNamesInit();
+    for (std::size_t i = 0, iEnd = calculatedVarsInit_.size(); i < iEnd; ++i)
       fstream << std::setw(50) << std::left << calculatedVarNames[i] << std::right << ": y ="
         << std::setw(15) << DYN::double2String(calculatedVarsInit_[i]) << "\n";
   }
 
-  const vector<string>& zNames = (*this).zNamesInit();
+  const vector<string>& zNames = zNamesInit();
   fstream << " ====== INIT DISCRETE VARIABLES VALUES ======\n";
   for (unsigned int i = 0; i < zLocalInit_.size(); ++i)
     fstream << std::setw(50) << std::left << zNames[i] << std::right << ": z =" << std::setw(15) << DYN::double2String(zLocalInit_[i]) << "\n";

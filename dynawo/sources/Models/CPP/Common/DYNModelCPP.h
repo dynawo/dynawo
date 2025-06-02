@@ -46,7 +46,7 @@ class ModelCPP : public SubModel {
    * @brief constructor
    * @param modelType model's type
    */
-  explicit ModelCPP(std::string modelType);
+  explicit ModelCPP(const std::string& modelType);
 
   /**
    * @brief Destructor
@@ -58,7 +58,7 @@ class ModelCPP : public SubModel {
    * @brief initialize all the data for a sub model
    * @param t0 initial time of the simulation
    */
-  void init(const double t0) override = 0;
+  void init(double t0) override = 0;
 
   /**
    * @brief get the global indexes of the variables used to compute a calculated variable
@@ -115,7 +115,7 @@ class ModelCPP : public SubModel {
    * Get the roots' value
    * @param[in] t Simulation instant
    */
-  void evalG(const double t) override = 0;
+  void evalG(double t) override = 0;
 
   /**
    * @brief  CPP Model discrete variables evaluation
@@ -126,7 +126,7 @@ class ModelCPP : public SubModel {
    * @throws Error::MODELER typed @p Error. Shouldn't, but if it happens
    * it shows that there is a bug in the selection of activated shunt.
    */
-  void evalZ(const double t) override = 0;
+  void evalZ(double t) override = 0;
 
   /**
    * @brief  CPP Model transposed jacobian evaluation
@@ -134,25 +134,25 @@ class ModelCPP : public SubModel {
    * Get the sparse transposed jacobian
    * @param[in] t Simulation instant
    * @param[in] cj Jacobian prime coefficient
+   * @param[in] rowOffset offset to use to identify the row where data should be added
    * @param jt jacobian matrix to fullfill
-   * @param rowOffset offset to use to identify the row where data should be added
    */
-  void evalJt(const double t, const double cj, SparseMatrix& jt, const int rowOffset) override = 0;
+  void evalJt(double t, double cj, int rowOffset, SparseMatrix& jt) override = 0;
 
   /**
    * @brief calculate jacobien prime matrix
    *
    * @param[in] t Simulation instant
    * @param[in] cj Jacobian prime coefficient
-   * @param jt jacobian matrix to fullfill
-   * @param rowOffset offset to use to identify the row where data should be added
+   * @param[in] rowOffset offset to use to identify the row where data should be added
+   * @param jtPrim jacobian matrix to fullfill
    */
-  void evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset) override = 0;
+  void evalJtPrim(double t, double cj, int rowOffset, SparseMatrix& jtPrim) override = 0;
 
   /**
-   * @copydoc SubModel::evalMode(const double t)
+   * @copydoc SubModel::evalMode(double t)
    */
-  modeChangeType_t evalMode(const double t) override = 0;
+  modeChangeType_t evalMode(double t) override = 0;
 
   /**
    * @brief  CPP Model initial state variables' evaluation
@@ -242,7 +242,6 @@ class ModelCPP : public SubModel {
    */
   void initializeStaticData() override = 0;
 
-
   /**
    * @copydoc SubModel::setFequationsInit()
    */
@@ -269,7 +268,7 @@ class ModelCPP : public SubModel {
    * @brief get model type
    * @return model type
    */
-  inline std::string modelType() const override {
+  inline const std::string& modelType() const override {
     return modelType_;
   }
 

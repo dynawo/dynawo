@@ -23,7 +23,6 @@
 #include <vector>
 #include <string>
 #include <map>
-#include <boost/shared_ptr.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <sundials/sundials_nvector.h>
 
@@ -78,163 +77,163 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   /**
    * @brief Destructor
    */
-  virtual ~Impl();
+  ~Impl() override;
 
   /**
    * @copydoc Solver::getState()
    */
-  inline const BitMask& getState() const {
+  inline const BitMask& getState() const override {
     return state_;
   }
 
   /**
    * @copydoc Solver::setParameters(const std::shared_ptr<parameters::ParametersSet> &params)
    */
-  void setParameters(const std::shared_ptr<parameters::ParametersSet>& params);
+  void setParameters(const std::shared_ptr<parameters::ParametersSet>& params) override;
 
   /**
    * @copydoc Solver::defineParameters()
    */
-  void defineParameters();
+  void defineParameters() override;
 
   /**
    * @copydoc Solver::defineCommonParameters()
    */
-  void defineCommonParameters();
+  void defineCommonParameters() override;
 
   /**
    * @copydoc Solver::defineSpecificParameters()
    */
-  virtual void defineSpecificParameters() = 0;
+  void defineSpecificParameters() override = 0;
 
   /**
    * @copydoc Solver::solverType()
    */
-  virtual std::string solverType() const = 0;
+  const std::string& solverType() const override = 0;
 
   /**
    * @copydoc Solver::hasParameter(const std::string &nameParameter)
    */
-  bool hasParameter(const std::string &nameParameter);
+  bool hasParameter(const std::string &nameParameter) override;
 
   /**
    * @copydoc Solver::getParametersMap()
    */
-  const std::map<std::string, ParameterSolver>& getParametersMap() const;
+  const std::map<std::string, ParameterSolver>& getParametersMap() const override;
 
   /**
    * @copydoc Solver::checkUnusedParameters()
    */
-  void checkUnusedParameters(const std::shared_ptr<parameters::ParametersSet>& params) const;
+  void checkUnusedParameters(const std::shared_ptr<parameters::ParametersSet>& params) const override;
 
   /**
    * @copydoc Solver::findParameter(const std::string &name)
    */
-  ParameterSolver& findParameter(const std::string& name);
+  ParameterSolver& findParameter(const std::string& name) override;
 
   /**
    * @copydoc Solver::setParameterFromSet(const std::string& parName, const std::shared_ptr<parameters::ParametersSet>& parametersSet)
    */
-  void setParameterFromSet(const std::string& parName, const std::shared_ptr<parameters::ParametersSet>& parametersSet);
+  void setParameterFromSet(const std::string& parName, const std::shared_ptr<parameters::ParametersSet>& parametersSet) override;
 
   /**
    * @copydoc Solver::setParametersFromPARFile(const std::shared_ptr<parameters::ParametersSet>& params)
    */
-  void setParametersFromPARFile(const std::shared_ptr<parameters::ParametersSet>& params);
+  void setParametersFromPARFile(const std::shared_ptr<parameters::ParametersSet>& params) override;
 
   /**
    * @copydoc Solver::setSolverParameters()
    */
-  void setSolverParameters();
+  void setSolverParameters() override;
 
   /**
    * @copydoc Solver::setSolverCommonParameters()
    */
-  void setSolverCommonParameters();
+  void setSolverCommonParameters() override;
 
 
   /**
    * @copydoc Solver::silentZEnabled() const
    */
-  bool silentZEnabled() const {
+  bool silentZEnabled() const override {
     return enableSilentZ_;
   }
 
   /**
    * @copydoc Solver::setSolverSpecificParameters()
    */
-  virtual void setSolverSpecificParameters() = 0;
+  void setSolverSpecificParameters() override = 0;
 
   /**
    * @copydoc Solver::init(const std::shared_ptr<Model>& model, double t0, double tEnd)
    */
-  virtual void init(const std::shared_ptr<Model>& model, double t0, double tEnd) = 0;
+  void init(const std::shared_ptr<Model>& model, double t0, double tEnd) override = 0;
 
   /**
    * @copydoc Solver::calculateIC()
    */
-  virtual void calculateIC(double tEnd) = 0;
+  void calculateIC(double tEnd) override = 0;
 
   /**
    * @copydoc Solver::solve(double tAim, double &tNxt)
    */
-  void solve(double tAim, double& tNxt);
+  void solve(double tAim, double& tNxt) override;
 
   /**
    * @copydoc Solver::reinit()
    */
-  virtual void reinit() = 0;
+  void reinit() override = 0;
 
   /**
   * @brief compute time scheme related derivatives
   */
-  virtual void computeYP(const double* /*yy*/) { /* not needed */ }
+  void computeYP(const double* /*yy*/) override { /* not needed */ }
 
   /**
    * @copydoc Solver::printSolve() const
    */
-  void printSolve() const;
+  void printSolve() const override;
 
   /**
    * @copydoc Solver::printHeader() const
    */
-  void printHeader() const;
+  void printHeader() const override;
 
   /**
    * @copydoc Solver::printEnd()
    */
-  void printEnd() const;
+  void printEnd() const override;
 
   /**
    * @copydoc Solver::printParameterValues()
    */
-  void printParameterValues() const;
+  void printParameterValues() const override;
 
   /**
    * @copydoc Solver::getCurrentY()
    */
-  inline const std::vector<double>& getCurrentY() const {
+  inline const std::vector<double>& getCurrentY() const override {
     return vectorY_;
   }
 
   /**
    * @copydoc Solver::getCurrentYP()
    */
-  inline const std::vector<double>& getCurrentYP() const {
+  inline const std::vector<double>& getCurrentYP() const override {
     return vectorYp_;
   }
 
   /**
    * @copydoc Solver::getTSolve()
    */
-  inline double getTSolve() const {
+  inline double getTSolve() const override {
     return tSolve_;
   }
 
   /**
    * @copydoc Solver::setTimeline(const boost::shared_ptr<timeline::Timeline> &timeline)
    */
-  void setTimeline(const boost::shared_ptr<timeline::Timeline>& timeline);
+  void setTimeline(const boost::shared_ptr<timeline::Timeline>& timeline) override;
 
  protected:
   /**
@@ -304,7 +303,7 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   *
   * @param startFromDump is starting from dump
   */
-  void setStartFromDump(bool startFromDump) {
+  void setStartFromDump(const bool startFromDump) override {
     startFromDump_ = startFromDump;
   }
 
@@ -313,7 +312,7 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   *
   * @return is solver starting from dump
   */
-  virtual bool startFromDump() const {
+  bool startFromDump() const override {
     return startFromDump_;
   }
 
@@ -329,7 +328,7 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   /**
    * @copydoc Solver::setupNewAlgRestoration(modeChangeType_t modeChangeType)
    */
-  virtual bool setupNewAlgRestoration(modeChangeType_t modeChangeType) = 0;
+  bool setupNewAlgRestoration(modeChangeType_t modeChangeType) override = 0;
 
   std::map<std::string, ParameterSolver> parameters_;  ///< map between parameters and parameters' names
   std::shared_ptr<Model> model_;  ///< model currently simulated

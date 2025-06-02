@@ -27,7 +27,7 @@ using std::string;
 namespace DYN {
 
 string
-modeChangeType2Str(const modeChangeType_t& modeChangeType) {
+modeChangeType2Str(const modeChangeType_t modeChangeType) {
   switch (modeChangeType) {
     case NO_MODE:
       return "No mode change";
@@ -44,7 +44,7 @@ modeChangeType2Str(const modeChangeType_t& modeChangeType) {
 }
 
 string
-propertyVar2Str(const propertyContinuousVar_t& property) {
+propertyVar2Str(const propertyContinuousVar_t property) {
   switch (property) {
     case DIFFERENTIAL:
       return "DIFFERENTIAL";
@@ -63,7 +63,7 @@ propertyVar2Str(const propertyContinuousVar_t& property) {
 }
 
 string
-typeVar2Str(const typeVar_t& type) {
+typeVar2Str(const typeVar_t type) {
   switch (type) {
     case DISCRETE:
       return "DISCRETE";
@@ -83,7 +83,7 @@ typeVar2Str(const typeVar_t& type) {
   return "";
 }
 
-typeVarC_t toCTypeVar(const typeVar_t& type) {
+typeVarC_t toCTypeVar(const typeVar_t type) {
   switch (type) {
     case DISCRETE:
     case CONTINUOUS:
@@ -101,7 +101,7 @@ typeVarC_t toCTypeVar(const typeVar_t& type) {
   return VAR_TYPE_DOUBLE;
 }
 
-string paramScope2Str(const parameterScope_t& scope) {
+string paramScope2Str(const parameterScope_t scope) {
   switch (scope) {
     case EXTERNAL_PARAMETER:
       return "external parameter";

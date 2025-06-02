@@ -73,12 +73,12 @@ ConnectorCalculatedDiscreteVariable::evalG(const double /*t*/) {
 }
 
 void
-ConnectorCalculatedDiscreteVariable::evalJt(const double /*t*/, const double /*cj*/, SparseMatrix& /*Jt*/, const int /*rowOffset*/) {
+ConnectorCalculatedDiscreteVariable::evalJt(const double /*t*/, const double /*cj*/, const int /*rowOffset*/, SparseMatrix& /*jt*/) {
   /* not needed*/
 }
 
 void
-ConnectorCalculatedDiscreteVariable::evalJtPrim(const double /*t*/, const double /*cj*/, SparseMatrix& /*Jt*/, const int /*rowOffset*/) {
+ConnectorCalculatedDiscreteVariable::evalJtPrim(const double /*t*/, const double /*cj*/, const int /*rowOffset*/, SparseMatrix& /*jtPrim*/) {
   /* not needed*/
 }
 
@@ -133,9 +133,9 @@ ConnectorCalculatedDiscreteVariable::getY0() {
 
 void
 ConnectorCalculatedDiscreteVariable::defineVariables(vector<boost::shared_ptr<Variable> >& variables) {
-  typeVar_t type = model_->getVariable(variableName_)->getType();
+  const typeVar_t type = model_->getVariable(variableName_)->getType();
   assert(type == DISCRETE || type == INTEGER);
-  variables.push_back(VariableNativeFactory::createState("connector_" + name(), type));
+  variables.emplace_back(VariableNativeFactory::createState("connector_" + name(), type));
 }
 
 void

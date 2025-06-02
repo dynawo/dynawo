@@ -28,7 +28,7 @@ using std::stringstream;
 
 namespace DYN {
 
-ModelPhaseTapChanger::ModelPhaseTapChanger(const std::string& id, int lowIndex)
+ModelPhaseTapChanger::ModelPhaseTapChanger(const std::string& id, const int lowIndex)
     : ModelTapChanger(id, lowIndex),
       thresholdI_(0),
       whenUp_(VALDEF),
@@ -53,7 +53,7 @@ void ModelPhaseTapChanger::resetInternalVariables() {
   currentOverThresholdState_ = false;
 }
 
-bool ModelPhaseTapChanger::getIncreaseTap(bool P1SupP2) const {
+bool ModelPhaseTapChanger::getIncreaseTap(const bool P1SupP2) const {
   // decide whether we should increase/decrease tap depending on tap description
   // and power flow
   bool increaseTap = false;
@@ -76,9 +76,9 @@ bool ModelPhaseTapChanger::getIncreaseTap(bool P1SupP2) const {
   return increaseTap;
 }
 
-void ModelPhaseTapChanger::evalG(double t, double iValue, bool /*nodeOff*/,
-                                 state_g* g, double disable, double locked,
-                                 bool tfoClosed) {
+void ModelPhaseTapChanger::evalG(const double t, const double iValue, const bool /*nodeOff*/,
+                                 const double disable, const double locked,
+                                 const bool tfoClosed, state_g* g) {
   g[0] = (iValue >= thresholdI_ && !(disable > 0.) && tfoClosed)
              ? ROOT_UP
              : ROOT_DOWN;  // I > IThreshold
@@ -107,9 +107,9 @@ void ModelPhaseTapChanger::evalG(double t, double iValue, bool /*nodeOff*/,
              : ROOT_DOWN;  // next tap down
 }
 
-void ModelPhaseTapChanger::evalZ(double t, state_g* g, ModelNetwork* network,
-                                 double disable, bool P1SupP2, double locked,
-                                 bool tfoClosed) {
+void ModelPhaseTapChanger::evalZ(const double t, const state_g* g,
+                                 const double disable, const bool P1SupP2, const double locked,
+                                 const bool tfoClosed, ModelNetwork* network) {
   if (!(disable > 0.) && !(locked > 0.) && tfoClosed) {
     if (g[0] == ROOT_UP && !currentOverThresholdState_) {  // I > IThreshold
       if (getIncreaseTap(P1SupP2)) {

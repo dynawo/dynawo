@@ -544,7 +544,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchJt) {
   SparseMatrix smj;
   int size = sw->sizeY();
   smj.init(size, size);
-  sw->evalJt(smj, 1., 0);
+  sw->evalJt(1., 0, smj);
   ASSERT_EQ(smj.nbElem(), 4);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[0], 1.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[1], -1.);
@@ -557,7 +557,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchJt) {
   sw->inLoop(true);
   SparseMatrix smj2;
   smj2.init(size, size);
-  sw->evalJt(smj2, 1., 0);
+  sw->evalJt(1., 0, smj2);
   ASSERT_EQ(smj2.nbElem(), 2);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[0], 1.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[1], 1.);
@@ -568,7 +568,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchJt) {
   sw->setConnectionState(OPEN);
   SparseMatrix smj3;
   smj3.init(size, size);
-  sw->evalJt(smj3, 1., 0);
+  sw->evalJt(1., 0, smj3);
   ASSERT_EQ(smj3.nbElem(), 2);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj3.Ax_[0], 1.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj3.Ax_[1], 1.);
@@ -580,7 +580,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchJt) {
   sw->init(offset);
   SparseMatrix smj4;
   smj4.init(size, size);
-  sw->evalJt(smj4, 1., 0);
+  sw->evalJt(1., 0, smj4);
   ASSERT_EQ(smj.nbElem(), 4);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[0], 1.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[1], -1.);
@@ -593,7 +593,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchJt) {
 
   SparseMatrix smjPrime;
   smjPrime.init(size, size);
-  sw->evalJtPrim(smjPrime, 0);
+  sw->evalJtPrim(0, smjPrime);
   ASSERT_EQ(smjPrime.nbElem(), 0);
   delete[] zConnected1;
   delete[] zConnected2;

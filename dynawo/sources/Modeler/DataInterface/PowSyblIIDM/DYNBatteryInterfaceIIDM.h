@@ -140,7 +140,7 @@ class BatteryInterfaceIIDM : public GeneratorInterface, public InjectorInterface
   /**
    * @copydoc GeneratorInterface::getID() const
    */
-  std::string getID() const;
+  const std::string& getID() const;
 
   /**
    * @copydoc ComponentInterface::getComponentVarIndex()

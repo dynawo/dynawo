@@ -94,23 +94,22 @@ class ModelVoltageLevel : public NetworkComponent {
 
   /**
    * @brief find the shortest path between a node and a bus bar section node, then close all switches between them (if they are breaker)
-   * @param node node to connect to a bus bar section
+   * @param nodeToConnect node to connect to a bus bar section
    */
-  void connectNode(const unsigned int node);
+  void connectNode(unsigned int nodeToConnect);
 
   /**
    * @brief return true if this node can be disconnected
    * @param node node to test
    * @return true if this node can be disconnected
    */
-  bool canBeDisconnected(const unsigned int node);
-
+  bool canBeDisconnected(unsigned int node);
 
   /**
    * @brief find all paths between a node and all bus bar section node, then open the first switches found (if it's a breaker)
    * @param node node to disconnect
    */
-  void disconnectNode(const unsigned int node);
+  void disconnectNode(unsigned int node);
 
   /**
    * @brief find the closest bus bar section of a bus in a voltage level
@@ -118,7 +117,7 @@ class ModelVoltageLevel : public NetworkComponent {
    * @param shortestPath list of switch names that separate the bus bar section from the initial bus
    * @return the closest bus bar section index
    */
-  unsigned int findClosestBBS(const unsigned int node, std::vector<std::string>& shortestPath);
+  unsigned int findClosestBBS(unsigned int node, std::vector<std::string>& shortestPath);
 
   /**
    * @brief return true if the closest bus bar section is switched off or unreachable
@@ -139,18 +138,18 @@ class ModelVoltageLevel : public NetworkComponent {
 
   /**
    * @brief evaluate jacobian \f$( J = @F/@x + cj * @F/@x')\f$
-   * @param jt sparse matrix to fill
    * @param cj jacobian prime coefficient
    * @param rowOffset row offset to use to find the first row to fill
+   * @param jt sparse matrix to fill
    */
-  void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) override;
+  void evalJt(double cj, int rowOffset, SparseMatrix& jt) override;
 
   /**
    * @brief evaluate jacobian \f$( J =  @F/@x')\f$
-   * @param jt sparse matrix to fill
    * @param rowOffset row offset to use to find the first row to fill
+   * @param jtPrim sparse matrix to fill
    */
-  void evalJtPrim(SparseMatrix& jt, const int& rowOffset) override;
+  void evalJtPrim(int rowOffset, SparseMatrix& jtPrim) override;
 
   /**
    * @brief define variables
@@ -215,9 +214,9 @@ class ModelVoltageLevel : public NetworkComponent {
   void evalDynamicYType() override;
 
   /**
-   * @copydoc NetworkComponent::evalG(const double& t)
+   * @copydoc NetworkComponent::evalG(double t)
    */
-  void evalG(const double& t) override;
+  void evalG(double t) override;
 
   /**
    * @copydoc NetworkComponent::setGequations(std::map<int,std::string>& gEquationIndex)
@@ -225,24 +224,24 @@ class ModelVoltageLevel : public NetworkComponent {
   void setGequations(std::map<int, std::string>& gEquationIndex) override;
 
   /**
-   * @copydoc NetworkComponent::evalZ(const double& t)
+   * @copydoc NetworkComponent::evalZ(double t)
    */
-  NetworkComponent::StateChange_t evalZ(const double& t) override;
+  NetworkComponent::StateChange_t evalZ(double t) override;
 
   /**
-   * @copydoc NetworkComponent::evalState(const double& time)
+   * @copydoc NetworkComponent::evalState(double time)
    */
-  StateChange_t evalState(const double& time) override;
+  StateChange_t evalState(double time) override;
 
   /**
    * @copydoc NetworkComponent::evalNodeInjection()
    */
-  void evalNodeInjection() override;
+  void evalNodeInjection()  override;
 
   /**
-   * @copydoc NetworkComponent::evalDerivatives(const double cj)
+   * @copydoc NetworkComponent::evalDerivatives(double cj)
    */
-  void evalDerivatives(const double cj) override;
+  void evalDerivatives(double cj) override;
 
   /**
    * @copydoc NetworkComponent::evalDerivativesPrim()
@@ -305,24 +304,24 @@ class ModelVoltageLevel : public NetworkComponent {
   void addBusNeighbors() override;
 
   /**
-   * @copydoc NetworkComponent::setReferenceY( double* y, double* yp, double* f, const int & offsetY, const int & offsetF)
+   * @copydoc NetworkComponent::setReferenceY( double* y, double* yp, double* f, int offsetY, int offsetF)
    */
-  void setReferenceY(double* y, double* yp, double* f, const int& offsetY, const int& offsetF) override;
+  void setReferenceY(double* y, double* yp, double* f, int offsetY, int offsetF) override;
 
   /**
-   * @copydoc NetworkComponent::setReferenceZ( double* z, bool* zConnected, const int & offsetZ )
+   * @copydoc NetworkComponent::setReferenceZ(double* z, bool* zConnected, int offsetZ )
    */
-  void setReferenceZ(double* z, bool* zConnected, const int& offsetZ) override;
+  void setReferenceZ(double* z, bool* zConnected, int offsetZ) override;
 
   /**
-   * @copydoc NetworkComponent::setReferenceCalculatedVar( double* calculatedVars, const int & offsetCalculatedVars )
+   * @copydoc NetworkComponent::setReferenceCalculatedVar(double* calculatedVars, int offsetCalculatedVars )
    */
-  void setReferenceCalculatedVar(double* calculatedVars, const int& offsetCalculatedVars) override;
+  void setReferenceCalculatedVar(double* calculatedVars, int offsetCalculatedVars) override;
 
   /**
-   * @copydoc NetworkComponent::setReferenceG( state_g* g, const int & offsetG )
+   * @copydoc NetworkComponent::setReferenceG(state_g* g, int offsetG )
    */
-  void setReferenceG(state_g* g, const int& offsetG) override;
+  void setReferenceG(state_g* g, int offsetG) override;
 
   /**
    * @brief export the variables values of the sub model for dump
@@ -362,7 +361,7 @@ class ModelVoltageLevel : public NetworkComponent {
 
   boost::optional<Graph> graph_;  ///< topology graph to find node connection
   std::unordered_map<std::string, float> weights1_;  ///< weight of 1 for each edge in the graph
-  std::unordered_map<unsigned, std::pair<unsigned, std::vector<std::string> > > ClosestBBS_;  ///< node id -> closest bbs + shortest path
+  std::unordered_map<unsigned, std::pair<unsigned, std::vector<std::string> > > closestBBS_;  ///< node id -> closest bbs + shortest path
   VoltageLevelInterface::VoltageLevelTopologyKind_t topologyKind_;  ///< voltage level topology (bus breaker or node breaker)
   std::vector<std::shared_ptr<NetworkComponent> > components_;  ///< all components in a voltage level
   std::map<int, std::shared_ptr<ModelBus> > busesByIndex_;  ///< map of voltage level buses with their index

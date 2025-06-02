@@ -46,7 +46,7 @@ class VariableAliasFactory {
    * @returns Shared pointer to a new @p VariableAlias with given name, reference name, and negated attributes
    */
   static boost::shared_ptr<VariableAlias> create(const std::string& name, const std::string& refName,
-      const typeVar_t& type = UNDEFINED_TYPE, bool negated = false);
+      typeVar_t type = UNDEFINED_TYPE, bool negated = false);
 
   /**
    * @brief Create new VariableAlias instance
@@ -58,7 +58,7 @@ class VariableAliasFactory {
    * @returns Shared pointer to a new @p VariableAlias with given name, reference variable, and negated attributes
    */
   static boost::shared_ptr<VariableAlias> create(const std::string& name, const boost::shared_ptr<VariableNative> refVar,
-      const typeVar_t& type = UNDEFINED_TYPE, bool negated = false);
+      const typeVar_t type = UNDEFINED_TYPE, bool negated = false);
 };
 
 }  // namespace DYN

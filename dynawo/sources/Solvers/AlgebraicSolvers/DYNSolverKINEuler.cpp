@@ -50,8 +50,8 @@ SolverKINEuler::~SolverKINEuler() {
 }
 
 void
-SolverKINEuler::init(const std::shared_ptr<Model>& model, Solver* timeSchemeSolver, double fnormtol,
-                     double initialaddtol, double scsteptol, double mxnewtstep, int msbset, int mxiter, int printfl, N_Vector sundialsVectorY) {
+SolverKINEuler::init(const std::shared_ptr<Model>& model, Solver* timeSchemeSolver, const double fnormtol, const double initialaddtol,
+  const double scsteptol, const double mxnewtstep, const int msbset, const int mxiter, const int printfl, const N_Vector sundialsVectorY) {
   clean();
   model_ = model;
   timeSchemeSolver_ = timeSchemeSolver;
@@ -111,7 +111,7 @@ SolverKINEuler::evalF_KIN(N_Vector yy, N_Vector rr, void* data) {
   KINGetNumNonlinSolvIters(solver->KINMem_, &current_nni);
   Trace::debug() << DYNLog(SolverKINResidualNorm, current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
 
-  const int nbErr = 10;
+  constexpr int nbErr = 10;
   Trace::debug() << DYNLog(KinLargestErrors, nbErr) << Trace::endline;
   vector<std::pair<double, size_t> > fErr;
   for (size_t i = 0; i < solver->numF_; ++i)
@@ -148,7 +148,7 @@ SolverKINEuler::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
 }
 
 int
-SolverKINEuler::solve(bool noInitSetup, bool skipAlgebraicResidualsEvaluation) {
+SolverKINEuler::solve(const bool noInitSetup, const bool skipAlgebraicResidualsEvaluation) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SolverKINEuler::solve");
 #endif

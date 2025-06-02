@@ -48,7 +48,7 @@ class DynamicModelsCollectionFactory {
    *
    * @return Shared pointer to a new @p DynamicModelsCollection copied from original
    */
-  static boost::shared_ptr<DynamicModelsCollection> copyCollection(boost::shared_ptr<DynamicModelsCollection> original);
+  static boost::shared_ptr<DynamicModelsCollection> copyCollection(const boost::shared_ptr<DynamicModelsCollection>& original);
 };
 
 }  // namespace dynamicdata
