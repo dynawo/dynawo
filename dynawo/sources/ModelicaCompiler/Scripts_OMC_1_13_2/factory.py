@@ -1430,16 +1430,15 @@ class Factory:
         for var in list_vars :
             if var.is_alias() and  (to_param_address(var.get_name()).startswith("SHOULD NOT BE USED")): continue
             if var in self.reader.list_complex_calculated_vars: continue
-            # if var.get_use_start() and not (is_const_var(var) and var.get_init_by_param_in_06inz()):
-            #     init_val = var.get_start_text()[0]
-            #     if init_val == "":
-            #         init_val = "0.0"
-            #     test_param_address(var.get_name())
-            #     line = self.assignment_format % ( to_param_address(var.get_name()) + " /* " + var.get_name() + " */" , init_val )
-            #     line = replace_var_names(line)
-            #     self.list_for_sety0.append(line)
-
-            if var.get_init_by_param (): # If the var was initialized with a param (not with an actual value)
+            if var.get_use_start() and not (is_const_var(var) and var.get_init_by_param_in_06inz()):
+                 init_val = var.get_start_text()[0]
+                 if init_val == "":
+                     init_val = "0.0"
+                 test_param_address(var.get_name())
+                 line = self.assignment_format % ( to_param_address(var.get_name()) + " /* " + var.get_name() + " */" , init_val )
+                 line = replace_var_names(line)
+                 self.list_for_sety0.append(line)
+            elif var.get_init_by_param (): # If the var was initialized with a param (not with an actual value)
                 var.clean_start_text () # Clean up initialization text before printing
 
                 # Lines for reading comfort at the impression
@@ -1465,9 +1464,6 @@ class Factory:
 
             elif var.get_init_by_param_in_06inz():
                 var.clean_start_text_06inz()
-                print ("BUBU INIT2? " + var.get_name())
-
-
                 # Lines for reading comfort at the impression
                 if len(var.get_start_text_06inz()) > 1 :
                     if not found_init_by_param_and_at_least2lines:
@@ -1479,13 +1475,11 @@ class Factory:
                 for L in var.get_start_text_06inz() :
                     if "FILE_INFO" not in L and "omc_assert_warning" not in L:
                         L = replace_var_names(L)
-                        print ("BUBU INIT2? " + var.get_name() + " " + L)
 
                         match = ptrn_calc_var.findall(L)
                         for name in match:
                             L = L.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
                                                     "evalCalculatedVarI(" + str(calc_var_2_index[name]) + ") /* " + name)
-                        print ("BUBU INIT2? " + var.get_name() + " " + L)
                         self.list_for_sety0.append("  " + L)
                 self.list_for_sety0.append("  }\n")
 
@@ -2360,6 +2354,8 @@ class Factory:
                     param_type = ADEPT_DOUBLE
                 elif param_type in self.list_adept_structs:
                     param_type += "_adept"
+                elif param_type.replace("*","") in self.list_adept_structs:
+                    param_type = param_type.replace("*","")+"_adept"+"*"
                 last_char = ", "
                 if param.get_index() == len(func.get_params()) - 1 :
                     last_char=") "
@@ -2377,6 +2373,12 @@ class Factory:
                 if "omc_assert" in line or "omc_terminate" in line: continue
                 if ptrn_modelica_integer_cast_adouble.search(line) is not None:
                     line = line.replace("(modelica_integer)","")
+                #do_continue = False
+                #for struct in self.list_adept_structs:
+                #    if "= (" + struct + "*)" in line:
+                #        do_continue = True
+                #        break
+                #if do_continue: continue
                 line = line.replace("modelica_real",ADEPT_DOUBLE).replace(THREAD_DATA_OMC_PARAM,"")
                 for base_type in self.list_adept_structs:
                     line = line.replace(base_type + " ",base_type+ADEPT_SUFFIX)
@@ -2409,8 +2411,9 @@ class Factory:
     # replace function names and double variables by their adept equivalent when required
     # @param self : object pointer
     # @param line : line to analyze
+    # @param , adept_tmp : tmp that should be converted to adept version
     # are you ready??
-    def replace_adept_functions_in_line(self, line):
+    def replace_adept_functions_in_line(self, line, adept_tmp):
         # Map of functions called in this line (function name -> RawOmcFunctions object)
         called_func = {}
         # result line
@@ -2449,7 +2452,7 @@ class Factory:
         for symbolic_func in define_methods:
             func = define_methods[symbolic_func]
             if (symbolic_func + "(" in line or symbolic_func + " (" in line):
-                if not is_adept_func(func, self.list_adept_structs) : continue
+                #if not is_adept_func(func, self.list_adept_structs) : continue
                 called_func[symbolic_func] = func
 
         # step 2: replace whatever needs to be replaced
@@ -2524,14 +2527,15 @@ class Factory:
                     idx+=1
                     continue
 
-                # handle &(output)
+                # handle &(output) and &output
                 if l.startswith("&"):
                     idx+=1
                     l+=line_split[idx].strip()
-                    idx+=1
-                    l+=line_split[idx].strip()
-                    idx+=1
-                    l+=line_split[idx].strip()
+                    if line_split[idx] =="(":
+                        idx+=1
+                        l+=line_split[idx].strip()
+                        idx+=1
+                        l+=line_split[idx].strip()
 
                 #Filter empty indexes
                 if len(l) == 0:
@@ -2560,6 +2564,8 @@ class Factory:
                         break
 
                 if function_found is not None:
+                    if len(adept_tmp) > 0:
+                        print ("BUBU? " + line + " " + str(adept_tmp) + " " + function_found)
                     #First case: there is a function call here.
                     # Push it on the stack
                     stack_func_called.append(function_found)
@@ -2620,7 +2626,7 @@ class Factory:
                     add_comma = True
                     if curr_param_idx == len(func.get_params()) - 1 \
                         or (curr_param_idx > 1 and func.get_name() == "array_alloc_scalar_real_array" \
-                            and curr_param_idx == int(re.search(r'array_alloc_scalar_real_array\(&tmp[0-9]+, (?P<nbparams>[0-9]+)', call_line).group('nbparams')) + 1):
+                            and curr_param_idx == int(re.search(r'array_alloc_scalar_real_array\(&\(tmp[0-9]+\), (?P<nbparams>[0-9]+)', call_line).group('nbparams')) + 1):
                         # This is the last parameter, we need to pop the function
                         stack_func_called.pop()
                         stack_param_idx_func_called.pop()
@@ -2717,6 +2723,25 @@ class Factory:
                 if var_name in self.reader.var_name_to_mixed_residual_vars_types:
                     no_event_nodes = self.reader.var_name_to_mixed_residual_vars_types[var_name].get_no_event()
                 index_if = 0
+
+                tmp_ptrn = re.compile(r'tmp(?P<index>[0-9]+)')
+                adept_tmp = []
+                # We need to know it temporary variables are used as adept or not
+                for line in standard_body_with_standard_external_call:
+                    for func in list_omc_functions:
+                        if (func.get_name() + "(" in line or func.get_name() + " (" in line):
+                            if not is_adept_func(func, self.list_adept_structs) : continue
+                            index = line.find(func.get_name() + "(", 0, len(line))
+                            if index == -1:
+                                index = line.find(func.get_name() + " (", 0, len(line))
+                            if index != -1:
+                                [call, end_pos] = get_argument(line, index)
+                                split_call = call.replace(func.get_name() + "(","").replace(func.get_name() + " (","").split(',')
+                                for param in split_call:
+                                    match = tmp_ptrn.search(param)
+                                    if match is not None:
+                                        adept_tmp.append("tmp" + match.group('index'))
+
                 for line in standard_body_with_standard_external_call:
                     for func in list_omc_functions:
                         if (func.get_name() + "(" in line or func.get_name() + " (" in line):
@@ -2724,16 +2749,18 @@ class Factory:
                             used_functions.append(func)
                     for symbolic_func in define_methods:
                         func = define_methods[symbolic_func]
-                        if (func.get_name() + "(" in line or func.get_name() + " (" in line):
+                        if (symbolic_func + "(" in line or symbolic_func + " (" in line):
                             if not is_adept_func(func, self.list_adept_structs) : continue
                             used_functions.append(func)
-                    line = self.replace_adept_functions_in_line(line)
+                    line = self.replace_adept_functions_in_line(line, adept_tmp)
 
-                    if eq.complex_eq:
-                        ptrn_complex_tmp = re.compile(r'\s*(?P<type>.*)\s* tmp[0-9]+;')
-                        match = ptrn_complex_tmp.search(line)
-                        if match is not None:
-                            if match.group('type') in self.list_adept_structs:
+                    ptrn_complex_tmp = re.compile(r'\s*(?P<type>.*)\s* tmp[0-9]+;')
+                    match = ptrn_complex_tmp.search(line)
+                    if match is not None and match.group('type') in self.list_adept_structs:
+                        if eq.complex_eq:
+                            line = line.replace(match.group('type'), match.group('type')+"_adept")
+                        for tmp in adept_tmp:
+                            if tmp in line:
                                 line = line.replace(match.group('type'), match.group('type')+"_adept")
 
                     if self.create_additional_relations() and (("Greater" in line or "Less" in line) and "relationhysteresis" not in line and not no_event_nodes[index_if]):
@@ -2796,6 +2823,21 @@ class Factory:
             trans.set_txt_list(external_function_call_body)
             external_function_call_body = trans.translate()
             transposed_function_call_body = []
+
+            for line in external_function_call_body:
+                for func in list_omc_functions:
+                    if (func.get_name() + "(" in line or func.get_name() + " (" in line):
+                        if not is_adept_func(func, self.list_adept_structs) : continue
+                        index = line.find(func.get_name() + "(", 0, len(line))
+                        if index == -1:
+                            index = line.find(func.get_name() + " (", 0, len(line))
+                        if index != -1:
+                            [call, end_pos] = get_argument(line, index)
+                            split_call = call.replace(func.get_name() + "(","").replace(func.get_name() + " (","").split(',')
+                            for param in split_call:
+                                match = tmp_ptrn.search(param)
+                                if match is not None:
+                                    adept_tmp.append("tmp" + match.group('index'))
             for line in external_function_call_body:
                 for func in list_omc_functions:
                     if func.get_name() + "(" in line or func.get_name() + " (" in line:
@@ -2806,7 +2848,7 @@ class Factory:
                     if (symbolic_func + "(" in line or symbolic_func + " (" in line):
                         if not is_adept_func(func, self.list_adept_structs) : continue
                         used_functions.append(func)
-                line = self.replace_adept_functions_in_line(line)
+                line = self.replace_adept_functions_in_line(line, adept_tmp)
                 if "double external_call_" in line:
                     line = line.replace("double external_call_","adept::adouble external_call_")
                 for type in self.list_adept_structs:

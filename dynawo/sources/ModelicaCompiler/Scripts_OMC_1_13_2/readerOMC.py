@@ -1691,7 +1691,6 @@ class ReaderOMC:
                         if dep_var is not None and not dep_var.is_fixed() and not is_when_condition(dep_var_name):
                             var.set_fixed(False)
                             modified = True
-                            print ("BUBU? " + var_name + " " + dep_var_name)
                             print_info("Removing fixed flag from variable " + var.get_name())
                             set_param_address(var.get_name(),  "realVars")
                             alias_modified = True
@@ -2236,12 +2235,17 @@ class ReaderOMC:
                 if ";" not in next_iter: # it is a function declaration
                     func = RawOmcFunctions()
                     func.set_name(match.group('var'))
+                    generic_param = None
+                    if func.get_name().endswith("_construct_p") or func.get_name().endswith("_wrap_vars_p") or func.get_name().endswith("_copy_p"):
+                        generic_param = func.get_name().replace("_construct_p", "").replace("_wrap_vars_p", "").replace("_copy_p", "").replace("Complex_1_2", "Complex")
                     func.set_signature(next_iter)
                     func.set_return_type(next_iter.split()[0])
                     index = 0
                     for params in match.group('params').split(','):
                         if(params.startswith("threadData_t")): continue
                         param_type = params.split()[0]
+                        if param_type == "void*" and generic_param is not None:
+                            param_type = generic_param+"*"
                         name = params.split()[1]
                         is_input = not name.startswith("*out_")
                         func.add_params(OmcFunctionParameter(name, param_type, index, is_input))
