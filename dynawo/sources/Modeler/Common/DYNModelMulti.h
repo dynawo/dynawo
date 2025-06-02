@@ -353,7 +353,7 @@ class ModelMulti : public Model, private boost::noncopyable {
   void printMessages() override;
 
   /**
-   * @copydoc Model::setTimeline(const std::shared_ptr<timeline::Timeline>& timeline)
+   * @copydoc Model::setTimeline(const boost::shared_ptr<timeline::Timeline>& timeline)
    */
   void setTimeline(const boost::shared_ptr<timeline::Timeline>& timeline) override;
 

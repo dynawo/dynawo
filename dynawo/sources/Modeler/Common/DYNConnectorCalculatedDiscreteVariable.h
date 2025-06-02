@@ -229,7 +229,7 @@ class ConnectorCalculatedDiscreteVariable : public SubModel {
   void setGequationsInit() override { /* not needed */ }
 
   /**
-   * @copydoc SubModel::initializeFromData(const std::shared_ptr<DataInterface>& data)
+   * @copydoc SubModel::initializeFromData(const boost::shared_ptr<DataInterface>& data)
    */
   void initializeFromData(const boost::shared_ptr<DataInterface>& data) override;
 
