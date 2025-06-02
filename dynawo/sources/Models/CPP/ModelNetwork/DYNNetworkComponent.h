@@ -431,14 +431,14 @@ class NetworkComponent {  ///< Base class for network component models
   /**
    * @brief append the internal variables values to a stringstream
    *
-   * @param streamVariables : stringstream with binary formated internalVariables
+   * @param streamVariables : stream with binary formated internalVariables
    */
   virtual void dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const;
 
   /**
    * @brief import the internal variables values of the component from stringstream
    *
-   * @param streamVariables : stringstream with binary formated internalVariables
+   * @param streamVariables : stream with binary formated internalVariables
    */
   virtual void loadInternalVariables(boost::archive::binary_iarchive& streamVariables);
 
@@ -464,6 +464,14 @@ class NetworkComponent {  ///< Base class for network component models
    * @return the id of this component
    */
   inline const std::string& getId() const { return id_;}
+
+  /**
+   * @brief set wether the internal variables are found in dumpfile
+   * @param internalVariablesFoundInDump wether the internal variables are found in dumpfile
+   */
+  inline void setInternalVariablesFoundInDump(bool internalVariablesFoundInDump) {
+    internalVariablesFoundInDump_ = internalVariablesFoundInDump;
+  }
 
  protected:
   /**
@@ -539,6 +547,7 @@ class NetworkComponent {  ///< Base class for network component models
   int sizeG_;  ///< size of G
   int sizeMode_;  ///< size of Mode
   int sizeCalculatedVar_;  ///< size of calculated variables
+  bool internalVariablesFoundInDump_;  ///< wether internal variables are found in dump
   unsigned int offsetCalculatedVar_;  ///< offset to find the begin of calculated var of the model in the global vector
   std::string id_;  ///< id of the component
   ModelNetwork* network_;  ///< model network

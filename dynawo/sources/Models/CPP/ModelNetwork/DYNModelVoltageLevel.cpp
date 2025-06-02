@@ -53,6 +53,22 @@ graph_(boost::none),
 topologyKind_(voltageLevel->getVoltageLevelTopologyKind()) { }
 
 void
+ModelVoltageLevel::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
+  // Dump internal variables of components
+  for (const auto& component : getComponents()) {
+      component->dumpInternalVariables(streamVariables);
+  }
+}
+
+void
+ModelVoltageLevel::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
+  // Load internal variables of components
+  for (const auto& component : getComponents()) {
+    component->loadInternalVariables(streamVariables);
+  }
+}
+
+void
 ModelVoltageLevel::addComponent(const std::shared_ptr<NetworkComponent>& component) {
   components_.push_back(component);
 }

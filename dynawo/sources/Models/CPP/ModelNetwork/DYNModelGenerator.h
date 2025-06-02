@@ -21,8 +21,10 @@
 #define MODELS_CPP_MODELNETWORK_DYNMODELGENERATOR_H_
 
 #include <boost/shared_ptr.hpp>
-#include "DYNNetworkComponent.h"
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
 
+#include "DYNNetworkComponent.h"
 
 namespace DYN {
 class ModelBus;
@@ -269,6 +271,29 @@ class ModelGenerator : public NetworkComponent {
   inline double QcPu() const {
     return Qc_ / SNREF;
   }
+
+  /**
+   * @brief get the number of internal variable of the model
+   *
+   * @return the number of internal variable of the model
+   */
+  inline unsigned getNbInternalVariables() const override {
+    return 2;
+  }
+
+  /**
+   * @brief append the internal variables values to a stringstream
+   *
+   * @param streamVariables : stream with binary formated internalVariables
+   */
+  void dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const override;
+
+  /**
+   * @brief import the internal variables values of the component from stringstream
+   *
+   * @param streamVariables : stream with binary formated internalVariables
+   */
+  void loadInternalVariables(boost::archive::binary_iarchive& streamVariables) override;
 
  private:
   /**

@@ -340,6 +340,19 @@ class ModelVoltageLevel : public NetworkComponent {
    */
   bool loadVariables(boost::archive::binary_iarchive& streamVariables, const std::string& variablesFileName) override;
 
+  /**
+   * @brief append the internal variables values to a stringstream
+   *
+   * @param streamVariables : map associating the file where values should be dumped with the stream of values
+   */
+  void dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const override;
+
+  /**
+   * @brief import the internal variables values of the component from stringstream
+   *
+   * @param streamVariables : stream with binary formated internalVariables
+   */
+  void loadInternalVariables(boost::archive::binary_iarchive& streamVariables) override;
 
  private:
   /**

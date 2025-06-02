@@ -21,6 +21,8 @@
 #define MODELS_CPP_MODELNETWORK_DYNMODELLOAD_H_
 
 #include <boost/shared_ptr.hpp>
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
 
 #include "DYNModelBus.h"
 #include "DYNNetworkComponent.h"
@@ -281,6 +283,29 @@ class ModelLoad : public NetworkComponent {
   inline bool isRunning() const {
     return (isConnected() && !modelBus_->getSwitchOff());
   }
+
+  /**
+   * @brief get the number of internal variable of the model
+   *
+   * @return the number of internal variable of the model
+   */
+  inline unsigned getNbInternalVariables() const override {
+    return 5;
+  }
+
+  /**
+   * @brief append the internal variables values to a stringstream
+   *
+   * @param streamVariables : stream with binary formated internalVariables
+   */
+  void dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const override;
+
+  /**
+   * @brief import the internal variables values of the component from stringstream
+   *
+   * @param streamVariables : stream with binary formated internalVariables
+   */
+  void loadInternalVariables(boost::archive::binary_iarchive& streamVariables) override;
 
  private:
   /**

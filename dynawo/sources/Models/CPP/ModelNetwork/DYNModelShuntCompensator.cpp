@@ -17,6 +17,7 @@
  * @brief
  *
  */
+
 #include "DYNModelShuntCompensator.h"
 
 #include "PARParametersSet.h"
@@ -245,11 +246,53 @@ ModelShuntCompensator::collectSilentZ(BitMask* silentZTable) {
 void
 ModelShuntCompensator::getY0() {
   if (!network_->isInitModel()) {
-    z_[connectionStateNum_] = getConnected();
-    z_[isCapacitorNum_] = isCapacitor() ? 1. : 0.;
-    z_[isAvailableNum_] = 1.;  // always available at the beginning of the simulation
-    z_[currentSectionNum_] = getCurrentSection();
+    if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
+      z_[connectionStateNum_] = getConnected();
+      z_[isCapacitorNum_] = isCapacitor() ? 1. : 0.;
+      z_[isAvailableNum_] = 1.;  // always available at the beginning of the simulation
+      z_[currentSectionNum_] = getCurrentSection();
+    } else {
+      State shuntCurrState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
+      if (shuntCurrState == CLOSED) {
+        if (modelBus_->getConnectionState() != CLOSED) {
+          modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
+          stateModified_ = true;
+        }
+      } else if (shuntCurrState == OPEN) {
+        if (modelBus_->getConnectionState() != OPEN) {
+          modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
+          stateModified_ = true;
+        }
+      } else if (shuntCurrState == UNDEFINED_STATE) {
+        throw DYNError(Error::MODELER, UndefinedComponentState, id_);
+      } else {
+        throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
+      }
+      connectionState_ = shuntCurrState;
+      currentSection_ = z_[currentSectionNum_];
+    }
   }
+}
+
+void
+ModelShuntCompensator::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
+  ModelCPP::dumpInStream(streamVariables, ir0_);
+  ModelCPP::dumpInStream(streamVariables, ii0_);
+  ModelCPP::dumpInStream(streamVariables, suscepPu_);
+  ModelCPP::dumpInStream(streamVariables, tLastOpening_);
+}
+
+void
+ModelShuntCompensator::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
+  char c;
+  streamVariables >> c;
+  streamVariables >> ir0_;
+  streamVariables >> c;
+  streamVariables >> ii0_;
+  streamVariables >> c;
+  streamVariables >> suscepPu_;
+  streamVariables >> c;
+  streamVariables >> tLastOpening_;
 }
 
 bool
