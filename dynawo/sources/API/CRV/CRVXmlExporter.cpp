@@ -70,6 +70,8 @@ XmlExporter::exportToStream(const std::shared_ptr<CurvesCollection>& curves, ost
       attrs.clear();
       attrs.add("model", (*itCurve)->getModelName());
       attrs.add("variable", (*itCurve)->getVariable());
+      if ((*itCurve)->getFactor() != 1.)
+        attrs.add("factor", (*itCurve)->getFactor());
       formatter->startElement("curve", attrs);
       for (Curve::const_iterator itPoint = (*itCurve)->cbegin();
               itPoint != (*itCurve)->cend();

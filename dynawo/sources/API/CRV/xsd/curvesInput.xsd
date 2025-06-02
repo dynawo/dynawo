@@ -32,5 +32,6 @@
   <xs:complexType name="CurveInput">
     <xs:attribute name="model" use="required" type="xs:string"/>
     <xs:attribute name="variable" use="required" type="xs:string"/>
+    <xs:attribute name="factor" type="xs:float"/>
   </xs:complexType>
 </xs:schema>
