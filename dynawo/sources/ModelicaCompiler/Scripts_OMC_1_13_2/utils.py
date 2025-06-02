@@ -84,8 +84,10 @@ def is_adept_func(func, list_adept_structs):
     if "_event_floor" in func.get_name(): return False
     if "_event_ceil" in func.get_name(): return False
     if func.get_name().startswith("Complex_"): return True
+    if func.get_name().endswith("_construct_p"): return True
+    if func.get_name().endswith("_copy_p"): return True
     if func.get_return_type() == "modelica_real" : return True
-    if func.get_return_type() == "void" and "wrap_vars" in func.get_name() : return True
+    if func.get_return_type() == "void" and "_wrap_vars" in func.get_name() : return True
     if func.get_return_type() in list_adept_structs: return True
     for param in func.get_params():
         if not param.get_is_input() and (param.get_type() == "modelica_real" or param.get_type() in list_adept_structs):
@@ -424,6 +426,7 @@ def replace_dynamic_indexing(body):
         ptrn_boolean_array_create = re.compile(r'boolean_array_create\(&(?P<tmp_index>tmp[0-9]+), \(\(modelica_boolean\*\)&\(\(&data->localData\[[0-9]+\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/[^,]*, [0-9]+, \(_index_t\)(?P<size>[0-9]+)\)')
         ptrn_string_array_create = re.compile(r'string_array_create\(&(?P<tmp_index>tmp[0-9]+), \(\(modelica_string\*\)&\(\(&data->(?P<typeVar>[\w\[\]]+)->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/[^,]*, [0-9]+, \(_index_t\)(?P<size>[0-9]+)\)')
         ptrn_real_array_create = re.compile(r'real_array_create\(&(?P<tmp_index>tmp[0-9]+), \(\(modelica_real\*\)&\(\(&[\(]*data->(?P<typeVar>[\w\[\]]+)->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/[^,]*, [0-9]+, \(_index_t\)(?P<size>[0-9]+)\)')
+        ptrn_integer_array_create = re.compile(r'integer_array_create\(&(?P<tmp_index>tmp[0-9]+), \(\(modelica_integer\*\)&\(\(&[\(]*data->(?P<typeVar>[\w\[\]]+)->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/[^,]*, [0-9]+, \(_index_t\)(?P<size>[0-9]+)\)')
         ptrn_var_dynamic_index = re.compile(r'[\(]*&[\(]*data->(?P<typeVar>[\w\[\]]+)->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/[\)]+\[(?P<expr>.*) - 1\]')
         ptrn_var_discrete = re.compile(r'\(data->localData\[[0-9]+\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/\)')
         ptrn_var_table = re.compile(r'\[(?P<index>[0-9]+)\]')
@@ -443,6 +446,7 @@ def replace_dynamic_indexing(body):
                     new_line+=", (modelica_boolean)(data->localData[0]->"+ var.replace("Vars["+initial_index, "Vars["+str(int(initial_index)+i)).replace("Parameter["+initial_index, "Parameter["+str(int(initial_index)+i)) +"/* " + var_name.replace("["+initial_var_index+']', "["+str(int(initial_var_index)+i)+"]") +" */)"
                 new_line+=");\n"
                 body_to_return.append(new_line)
+            continue
         match_bool_string = ptrn_string_array_create.findall(line)
         if len(match_bool_string) != 0:
             for tmp_index, type_var, var, var_name, size in match_bool_string:
@@ -453,6 +457,28 @@ def replace_dynamic_indexing(body):
                     new_line+=", (modelica_string)(data->localData[0]->"+ var.replace("Vars["+initial_index, "Vars["+str(int(initial_index)+i)).replace("Parameter["+initial_index, "Parameter["+str(int(initial_index)+i)) +"/* " + var_name.replace("["+initial_var_index+']', "["+str(int(initial_var_index)+i)+"]") +" */)"
                 new_line+=");\n"
                 body_to_return.append(new_line)
+                # if "Parameter" in type_var: continue
+                # for type_var, var, var_name, expr in match:
+                #     expr = filter_expr(expr)
+                #     index = -1
+                #     while var_name[index] != '[':
+                #         index -= 1
+                #     index2 = -1
+                #     while var[index2] != '[':
+                #         index2 -= 1
+                #     integer_array_create_tmp[tmp_index] = [type_var, var[:index2], var[index2 + 1:-1], var_name[:index], size]
+            continue
+        match_bool_integer = ptrn_integer_array_create.findall(line)
+        if len(match_bool_integer) != 0:
+            for tmp_index, type_var, var, var_name, size in match_bool_integer:
+                new_line = "    array_alloc_scalar_integer_array(&"+tmp_index+", " + size
+                initial_index = var[(var.find("[")+1):].replace("]","")
+                initial_var_index = var_name[(var_name.find("[")+1):].replace("]","")
+                for i in range(0, int(size)):
+                    new_line+=", (modelica_integer)(data->localData[0]->"+ var.replace("Vars["+initial_index, "Vars["+str(int(initial_index)+i)).replace("Parameter["+initial_index, "Parameter["+str(int(initial_index)+i)) +"/* " + var_name.replace("["+initial_var_index+']', "["+str(int(initial_var_index)+i)+"]") +" */)"
+                new_line+=");\n"
+                body_to_return.append(new_line)
+                if "Parameter" in type_var: continue
                 for type_var, var, var_name, expr in match:
                     expr = filter_expr(expr)
                     index = -1
@@ -462,18 +488,19 @@ def replace_dynamic_indexing(body):
                     while var[index2] != '[':
                         index2 -= 1
                     integer_array_create_tmp[tmp_index] = [type_var, var[:index2], var[index2 + 1:-1], var_name[:index], size]
+            continue
         match_bool_real = ptrn_real_array_create.findall(line)
         index_tmp = 0
         if len(match_bool_real) != 0:
             for tmp_index, type_var, var, var_name, size in match_bool_real:
-                new_line = "    array_alloc_scalar_real_array(&"+tmp_index+", " + size
+                new_line = "    array_alloc_scalar_real_array(&("+tmp_index+"), " + size
                 initial_index = var[(var.find("[")+1):].replace("]","")
                 initial_var_index = var_name[(var_name.find("[")+1):].replace("]","")
                 for i in range(0, int(size)):
                     new_line+=", (modelica_real)(data->localData[0]->"+ var.replace("Vars["+initial_index, "Vars["+str(int(initial_index)+i)).replace("Parameter["+initial_index, "Parameter["+str(int(initial_index)+i)) +"/* " + var_name.replace("["+initial_var_index+']', "["+str(int(initial_var_index)+i)+"]") +" */)"
                 new_line+=");\n"
                 body_to_return.append(new_line)
-                print ("BUBU MATCH " + str(match) + " " + line)
+                if "Parameter" in type_var: continue
                 for type_var, var, var_name, expr in match:
                     expr = filter_expr(expr)
                     index = -1
@@ -482,18 +509,16 @@ def replace_dynamic_indexing(body):
                     index2 = -1
                     while var[index2] != '[':
                         index2 -= 1
-                    print ("BUBU ADD TABLE " + tmp_index + " " + str([var[:index2], var[index2 + 1:-1], var_name[:index], size]))
                     real_array_create_tmp[tmp_index] = [type_var, var[:index2], var[index2 + 1:-1], var_name[:index], size]
-        elif "array_copy_data" in line:
+        elif "real_array_copy_data" in line or "integer_array_copy_data" in line:
             body_to_return.append(line)
-            print ("BUBUBU? " + line)
             for tmp in integer_array_create_tmp:
-                if ", "+ tmp in line:
+                if ", "+ tmp + ")" in line:
                     type_var, table, index, var_name, size = integer_array_create_tmp[tmp]
                     for i in range(0, int(size)):
                         body_to_return.append("    (data->" + type_var + "->" + table + "[" + str(int(index) + i) + "] /* " + var_name + "[" + str(i + 1) +"] DISCRETE */)" + " = integer_get(" + tmp + ", " + str(i) + ");\n")
             for tmp in real_array_create_tmp:
-                if ", "+ tmp in line:
+                if ", "+ tmp + ")" in line:
                     type_var, table, index, var_name, size = real_array_create_tmp[tmp]
                     type = "STATE"
                     if "Parameter" in table:
@@ -719,7 +744,7 @@ class Transpose:
                     if "= modelica_real_to_modelica_string(" in line_tmp:
                         line_tmp = line_tmp.replace(name, "xd[" + match.group('varId')+"].value()")
                     else:
-                        line_tmp = line_tmp.replace(name, "xd[" + match.group('varId')+"]")
+                        line_tmp = line_tmp.replace("(" + name + ")", "xd[" + match.group('varId')+"]").replace(name, "xd[" + match.group('varId')+"]")
             for name in match_global:
                 if 'derivativesVars' in name:
                     continue
@@ -730,7 +755,7 @@ class Transpose:
                     if "= modelica_real_to_modelica_string(" in line_tmp:
                         line_tmp = line_tmp.replace(name, "x[" + match.group('varId')+"].value()")
                     else:
-                        line_tmp = line_tmp.replace(name, "x[" + match.group('varId')+"]")
+                        line_tmp = line_tmp.replace("(" + name + ")", "x[" + match.group('varId')+"]").replace(name, "x[" + match.group('varId')+"]")
 
             for name in self.auxiliary_vars_map.keys():
                 line_tmp = line_tmp.replace("$P"+name, name)
@@ -1457,6 +1482,10 @@ def replace_equations_in_a_if_statement(eq_body, type_tree, line_to_insert_algeb
                         line_to_insert = line_to_insert_differential
                     res_body.append(leading_spaces + line_to_insert)
                     idx+=1
+                if "fmin(" in line:
+                    idx += 1
+                if "fmax(" in line:
+                    idx += 1
             else:
                 res_body.append(leading_spaces_gen + line)
         else:
@@ -1508,7 +1537,7 @@ def replace_equations_in_a_if_statement_y(eq_body, type_tree, alg_vars, diff_var
             if main_tmp in tree_deps_tmp:
                 if re.search(tmp_eq_tmp_ptrn, line) is None:
                     assert(idx < len(equations))
-                    if equations[idx] == "MIN/MAX":
+                    if "MIN/MAX" in equations[idx]:
                         if "fmin(" not in line and "fmax(" not in line:
                             res_body.pop() # remove the corresponding if
                             idx += 1
