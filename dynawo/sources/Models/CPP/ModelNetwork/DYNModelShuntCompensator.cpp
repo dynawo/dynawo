@@ -269,7 +269,7 @@ ModelShuntCompensator::getY0() {
         throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
       }
       connectionState_ = shuntCurrState;
-      currentSection_ = z_[currentSectionNum_];
+      currentSection_ = static_cast<int>(z_[currentSectionNum_]);
     }
   }
 }
