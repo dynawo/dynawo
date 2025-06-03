@@ -199,7 +199,7 @@ ModelSwitch::getY0() {
       z_[0] = getConnectionState();
     } else {
       setInitialCurrents();
-      connectionState_ = static_cast<State>(z_[0]);
+      connectionState_ = static_cast<State>(static_cast<int>(z_[0]));
       topologyModified_ = true;
     }
   }

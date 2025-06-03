@@ -1732,8 +1732,8 @@ ModelLine::getY0() {
         ir01_ = y_[0];
         ii01_ = y_[1];
       }
-      State curState = static_cast<State>(z_[0]);
-      setConnectionState(static_cast<State>(z_[0]));
+      State curState = static_cast<State>(static_cast<int>(z_[0]));
+      setConnectionState(static_cast<State>(static_cast<int>(z_[0])));
       setCurrentLimitsDesactivate(z_[1]);
       switch (knownBus_) {
         case BUS1_BUS2:
