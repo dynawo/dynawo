@@ -15,27 +15,27 @@ model WTGPb " WECC Pitch Controller Type B"
   */
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsWTGPb;
   extends Dynawo.Electrical.Controls.WECC.Mechanical.BaseClasses.BaseWTGP;
-  NonElectrical.Blocks.Continuous.AntiWindupIntegratorNoDerivative antiWindupIntegratorNoDerivative(tI = 1/kiw, YMax = thetaWMax, YMin = thetaWMin, Y0 = 0) annotation(
+  NonElectrical.Blocks.Continuous.AntiWindupIntegratorNoRateLimit antiWindupIntegratorNoRateLimit(tI = 1/kiw, YMax = thetaWMax, YMin = thetaWMin, Y0 = 0) annotation(
     Placement(transformation(origin = {-22, 86}, extent = {{-10, 10}, {10, -10}}, rotation = -0)));
-  NonElectrical.Blocks.Continuous.AntiWindupIntegratorNoDerivative antiWindupIntegratorNoDerivative1(YMax = thetaCMax, YMin = thetaCMin, tI = 1/kic, Y0 = 0) annotation(
+  NonElectrical.Blocks.Continuous.AntiWindupIntegratorNoRateLimit antiWindupIntegratorNoRateLimit1(YMax = thetaCMax, YMin = thetaCMin, tI = 1/kic, Y0 = 0) annotation(
     Placement(transformation(origin = {-20, -26}, extent = {{-10, 10}, {10, -10}}, rotation = -0)));
 
 equation
-  connect(sum1.y, antiWindupIntegratorNoDerivative.u) annotation(
+  connect(sum1.y, antiWindupIntegratorNoRateLimit.u) annotation(
     Line(points = {{-36, 66}, {-34, 66}, {-34, 86}}, color = {0, 0, 127}));
-  connect(antiWindupIntegratorNoDerivative.y, add1.u1) annotation(
+  connect(antiWindupIntegratorNoRateLimit.y, add1.u1) annotation(
     Line(points = {{-11, 86}, {-8, 86}, {-8, 70}}, color = {0, 0, 127}));
-  connect(antiWindupIntegratorNoDerivative1.y, add.u1) annotation(
+  connect(antiWindupIntegratorNoRateLimit1.y, add.u1) annotation(
     Line(points = {{-9, -26}, {-6, -26}, {-6, -38}}, color = {0, 0, 127}));
-  connect(sum.y, antiWindupIntegratorNoDerivative1.u) annotation(
+  connect(sum.y, antiWindupIntegratorNoRateLimit1.u) annotation(
     Line(points = {{-50, -42}, {-32, -42}, {-32, -26}}, color = {0, 0, 127}));
-  connect(absLimRateLimFirstOrderFreezeLimDetection.fMax, antiWindupIntegratorNoDerivative.fMax) annotation(
+  connect(absLimRateLimFirstOrderFreezeLimDetection.fMax, antiWindupIntegratorNoRateLimit.fMax) annotation(
     Line(points = {{98, 48}, {100, 48}, {100, 96}, {-6, 96}, {-6, 108}, {-14, 108}, {-14, 98}}, color = {255, 0, 255}));
-  connect(absLimRateLimFirstOrderFreezeLimDetection.fMin, antiWindupIntegratorNoDerivative.fMin) annotation(
+  connect(absLimRateLimFirstOrderFreezeLimDetection.fMin, antiWindupIntegratorNoRateLimit.fMin) annotation(
     Line(points = {{98, 36}, {100, 36}, {100, 96}, {-6, 96}, {-6, 108}, {-18, 108}, {-18, 98}}, color = {255, 0, 255}));
-  connect(absLimRateLimFirstOrderFreezeLimDetection.fMax, antiWindupIntegratorNoDerivative1.fMax) annotation(
+  connect(absLimRateLimFirstOrderFreezeLimDetection.fMax, antiWindupIntegratorNoRateLimit1.fMax) annotation(
     Line(points = {{98, 48}, {100, 48}, {100, 0}, {-12, 0}, {-12, -14}}, color = {255, 0, 255}));
-  connect(absLimRateLimFirstOrderFreezeLimDetection.fMin, antiWindupIntegratorNoDerivative1.fMin) annotation(
+  connect(absLimRateLimFirstOrderFreezeLimDetection.fMin, antiWindupIntegratorNoRateLimit1.fMin) annotation(
     Line(points = {{98, 36}, {100, 36}, {100, 0}, {-16, 0}, {-16, -14}}, color = {255, 0, 255}));
   annotation(
     preferredView = "diagram",
