@@ -1,37 +1,36 @@
 within Dynawo.Electrical.Controls.WECC.Mechanical.BaseClasses;
 
-/*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, a hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
-partial model BaseWTGP
+partial model BaseWTGP "Base Pitch Controller"
+  /*
+          * Copyright (c) 2025, RTE (http://www.rte-france.com)
+          * See AUTHORS.txt
+          * All rights reserved.
+          * This Source Code Form is subject to the terms of the Mozilla Public
+          * License, v. 2.0. If a copy of the MPL was not distributed with this
+          * file, you can obtain one at http://mozilla.org/MPL/2.0/.
+          * SPDX-License-Identifier: MPL-2.0
+          *
+          * This file is part of Dynawo, a hybrid C++/Modelica open source suite
+          * of simulation tools for power systems.
+          */
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsWTGP;
 
   //Input variables
-  Modelica.Blocks.Interfaces.RealInput Pord(start=PInj0Pu) annotation(
-    Placement(transformation(origin = {-102, -42}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealInput Pref(start=PInj0Pu) annotation(
-    Placement(transformation(origin = {-60, -88}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput wref(start=SystemBase.omegaRef0Pu) annotation(
-    Placement(transformation(origin = {-102, 66}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealInput wt(start=SystemBase.omegaRef0Pu) annotation(
-    Placement(transformation(origin = {-48, 108}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {-69, 111}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.RealInput POrdPu(start = PInj0Pu) "Active power order in pu (base SNom) (generator convention)" annotation(
+    Placement(transformation(origin = {-110, -42}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Interfaces.RealInput PRefPu(start = PInj0Pu) "Reference active power in pu (base SNom) (generator convention)" annotation(
+    Placement(transformation(origin = {-60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference angular frequency in pu (base omegaNom)" annotation(
+    Placement(transformation(origin = {-110, 66}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Interfaces.RealInput omegaTPu(start = SystemBase.omegaRef0Pu) "Turbine frequency in Pu (base omegaNom)" annotation(
+    Placement(transformation(origin = {-62, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {-69, 111}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
   //Output variable
-  Modelica.Blocks.Interfaces.RealOutput theta(start=thetaInit) annotation(
-    Placement(transformation(origin = {142, 42}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
-
+  Modelica.Blocks.Interfaces.RealOutput Theta(start = theta0) " Pitch angle in degrees" annotation(
+    Placement(transformation(origin = {110, 42}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Feedback sum annotation(
     Placement(transformation(origin = {-60, -42}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Math.Gain Kcc(k=kcc) annotation(
+  Modelica.Blocks.Math.Gain Kcc(k = kcc) annotation(
     Placement(transformation(origin = {-48, 4}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Math.Sum sum1(nin = 3, each final k = {1, -1, 1}) annotation(
     Placement(transformation(origin = {-48, 66}, extent = {{-10, -10}, {10, 10}})));
@@ -43,26 +42,28 @@ partial model BaseWTGP
     Placement(transformation(origin = {-20, 48}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Add add1 annotation(
     Placement(transformation(origin = {4, 64}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = thetamax, uMin = thetamin) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = thetaMax, uMin = thetaMin, homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy) annotation(
     Placement(transformation(origin = {32, 64}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Nonlinear.Limiter limiter1(uMax = thetamax, uMin = thetamin) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter1(uMax = thetaMax, uMin = thetaMin, homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy) annotation(
     Placement(transformation(origin = {34, -44}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Add add2 annotation(
     Placement(transformation(origin = {60, 42}, extent = {{-10, -10}, {10, 10}})));
-  NonElectrical.Blocks.NonLinear.LimRateLimFirstOrder limRateLimFirstOrder(DuMax = thetarmax, DuMin = thetarmin, tS = ttheta, YMax = thetamax, YMin = thetamin, Y0 = thetaInit) annotation(
-    Placement(transformation(origin = {92, 42}, extent = {{-10, -10}, {10, 10}})));
+  NonElectrical.Blocks.Continuous.AbsLimRateLimFirstOrderFreezeLimDetection absLimRateLimFirstOrderFreezeLimDetection(DyMax = thetaRMax, DyMin = thetaRMin, tI = tTheta, YMax = thetaMax, YMin = thetaMin, Y0 = theta0) annotation(
+    Placement(transformation(origin = {86, 42}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = false)  annotation(
+    Placement(transformation(origin = {74, 82}, extent = {{-10, -10}, {10, 10}})));
 
 equation
-  connect(Pord, sum.u1) annotation(
-    Line(points = {{-102, -42}, {-68, -42}}, color = {0, 0, 127}));
-  connect(Pref, sum.u2) annotation(
-    Line(points = {{-60, -88}, {-60, -50}}, color = {0, 0, 127}));
+  connect(POrdPu, sum.u1) annotation(
+    Line(points = {{-110, -42}, {-68, -42}}, color = {0, 0, 127}));
+  connect(PRefPu, sum.u2) annotation(
+    Line(points = {{-60, -110}, {-60, -50}}, color = {0, 0, 127}));
   connect(sum.y, Kcc.u) annotation(
     Line(points = {{-50, -42}, {-48, -42}, {-48, -8}}, color = {0, 0, 127}));
-  connect(wt, sum1.u[1]) annotation(
-    Line(points = {{-48, 108}, {-60, 108}, {-60, 66}}, color = {0, 0, 127}));
-  connect(wref, sum1.u[2]) annotation(
-    Line(points = {{-102, 66}, {-60, 66}}, color = {0, 0, 127}));
+  connect(omegaTPu, sum1.u[1]) annotation(
+    Line(points = {{-62, 110}, {-62, 66}, {-60, 66}}, color = {0, 0, 127}));
+  connect(omegaRefPu, sum1.u[2]) annotation(
+    Line(points = {{-110, 66}, {-60, 66}}, color = {0, 0, 127}));
   connect(Kcc.y, sum1.u[3]) annotation(
     Line(points = {{-48, 16}, {-60, 16}, {-60, 66}}, color = {0, 0, 127}));
   connect(sum.y, Kpc.u) annotation(
@@ -81,28 +82,14 @@ equation
     Line(points = {{44, 64}, {48, 64}, {48, 48}}, color = {0, 0, 127}));
   connect(limiter1.y, add2.u2) annotation(
     Line(points = {{46, -44}, {48, -44}, {48, 36}}, color = {0, 0, 127}));
-  connect(add2.y, limRateLimFirstOrder.u) annotation(
-    Line(points = {{72, 42}, {80, 42}}, color = {0, 0, 127}));
-  connect(limRateLimFirstOrder.y, theta) annotation(
-    Line(points = {{104, 42}, {142, 42}}, color = {0, 0, 127}));
-
+  connect(add2.y, absLimRateLimFirstOrderFreezeLimDetection.u) annotation(
+    Line(points = {{72, 42}, {74, 42}}, color = {0, 0, 127}));
+  connect(absLimRateLimFirstOrderFreezeLimDetection.y, Theta) annotation(
+    Line(points = {{98, 42}, {110, 42}}, color = {0, 0, 127}));
+  connect(booleanConstant.y, absLimRateLimFirstOrderFreezeLimDetection.freeze) annotation(
+    Line(points = {{86, 82}, {86, 54}}, color = {255, 0, 255}));
   annotation(
     preferredView = "diagram",
-    Documentation(info = "<html><head></head><body><p> This block contains the Pitch controller model Type A for a WindTurbineGenerator Type 3 based on&nbsp;<br><a href=\"3002027129_Model%20User%20Guide%20for%20Generic%20Renewable%20Energy%20Systems.pdf\">https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf</a> </p><p data-start=\"358\" data-end=\"553\" class=\"\">The Pitch Controller is designed to regulate the blade pitch angle, ensuring optimal performance and protection under varying wind conditions. It serves the following primary functions:</p><p><!--StartFragment-->
-<!--EndFragment--></p><ol data-start=\"555\" data-end=\"1421\">
-<li data-start=\"555\" data-end=\"758\" class=\"\">
-<p data-start=\"558\" data-end=\"758\" class=\"\"><strong data-start=\"558\" data-end=\"597\">Protection against High Wind Speeds</strong>: The controller adjusts the blade pitch to reduce aerodynamic loading during high wind conditions, preventing potential mechanical damage or structural failure.</p>
-</li>
-<li data-start=\"760\" data-end=\"975\" class=\"\">
-<p data-start=\"763\" data-end=\"975\" class=\"\"><strong data-start=\"763\" data-end=\"786\">Energy Optimization</strong>: Under moderate to low wind conditions, the pitch angle is adjusted to maximize the turbine's energy capture by optimizing the angle of attack of the blades relative to the wind direction.</p>
-</li>
-<li data-start=\"977\" data-end=\"1244\" class=\"\">
-<p data-start=\"980\" data-end=\"1244\" class=\"\"><strong data-start=\"980\" data-end=\"1004\">Power Output Control</strong>: The controller also regulates the turbine's power output, especially in higher wind speeds, by adjusting the blade pitch to prevent exceeding the turbine's rated power capacity. This helps ensure the generator operates within safe limits.</p>
-</li>
-<li data-start=\"1246\" data-end=\"1421\" class=\"\">
-<p data-start=\"1249\" data-end=\"1421\" class=\"\"><strong data-start=\"1249\" data-end=\"1271\">Low Wind Operation</strong>: In low wind conditions, the controller adjusts the blade pitch to ensure the turbine starts generating power efficiently, even at lower wind speeds.</p></li></ol>
-<p>
- </p><p></p></body></html>"),
     uses(Modelica(version = "3.2.3"), Dynawo(version = "1.8.0")),
-    Icon(graphics = {Text(origin = {118, 18}, extent = {{-14, 8}, {14, -8}}, textString = "theta"), Text(origin = {-40, 112}, extent = {{-22, 14}, {22, -14}}, textString = "wt"), Text(origin = {-113, 92}, extent = {{-15, 14}, {15, -14}}, textString = "wref"), Text(origin = {-120, -30}, extent = {{-16, 10}, {16, -10}}, textString = "Pord"), Text(origin = {-29, -108}, extent = {{-15, 12}, {15, -12}}, textString = "Pref"), Text(origin = {4, 0}, extent = {{-60, 46}, {60, -46}}, textString = "WTGP_A"), Rectangle(extent = {{-100, 100}, {100, -100}})}));
+    Diagram);
 end BaseWTGP;

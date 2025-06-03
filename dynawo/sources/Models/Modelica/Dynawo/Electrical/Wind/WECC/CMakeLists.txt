@@ -25,7 +25,6 @@ set(MODEL_FILES
   WTG3CurrentSource1.mo
   WTG3CurrentSource2.mo
   WTG4ACurrentSource3.mo
-  Tests.mo
   )
 
 #

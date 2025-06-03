@@ -14,12 +14,11 @@ within Dynawo.Electrical.Controls.WECC.Mechanical;
 */
 
 model WTGPa "WECC Pitch Controller Type A"
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsWTGPA;
   extends Dynawo.Electrical.Controls.WECC.Mechanical.BaseClasses.BaseWTGP;
 
-  NonElectrical.Blocks.NonLinear.LimitedIntegrator limitedIntegrator(K = kic, YMax = thetamax, YMin = thetamin) annotation(
+  NonElectrical.Blocks.NonLinear.LimitedIntegrator limitedIntegrator(K = kic, YMax = thetaMax, YMin = thetaMin) annotation(
     Placement(transformation(origin = {-22, -24}, extent = {{-10, -10}, {10, 10}})));
-  NonElectrical.Blocks.NonLinear.LimitedIntegrator limitedIntegrator1(K = kiw, YMax = thetamax, YMin = thetamin) annotation(
+  NonElectrical.Blocks.NonLinear.LimitedIntegrator limitedIntegrator1(K = kiw, YMax = thetaMax, YMin = thetaMin) annotation(
     Placement(transformation(origin = {-20, 86}, extent = {{-10, -10}, {10, 10}})));
 
 equation

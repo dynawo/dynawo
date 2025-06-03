@@ -15,7 +15,6 @@ set(MODEL_FILES
   package.mo
   package.order
   REECa.mo
-  REECaPortPord.mo
   REECb.mo
   REECc.mo
   )

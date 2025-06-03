@@ -1,32 +1,27 @@
 within Dynawo.Electrical.Controls.WECC.Mechanical;
 
-/*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, a hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model WTGTb "Drive train control with a mechanical power derived from filtered electrical power"
+  /*
+    * Copyright (c) 2025, RTE (http://www.rte-france.com)
+    * See AUTHORS.txt
+    * All rights reserved.
+    * This Source Code Form is subject to the terms of the Mozilla Public
+    * License, v. 2.0. If a copy of the MPL was not distributed with this
+    * file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    * SPDX-License-Identifier: MPL-2.0
+    *
+    * This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    * of simulation tools for power systems.
+    */
   extends Dynawo.Electrical.Controls.WECC.Mechanical.BaseClasses.BaseDriveTrain;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsDriveTrainb;
-
-
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsWTGTb;
   Modelica.Blocks.Continuous.FirstOrder Pmech(T = tP, y_start = PInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {-170, 4}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-
 equation
-  connect(PePu, Pmech.u) annotation(
-    Line(points = {{-214, -54}, {-170, -54}, {-170, -8}}, color = {0, 0, 127}));
   connect(Pmech.y, TorqueM.u1) annotation(
     Line(points = {{-170, 16}, {-170, 54}, {-162, 54}}, color = {0, 0, 127}));
-
+  connect(PePu, Pmech.u) annotation(
+    Line(points = {{-210, -54}, {-170, -54}, {-170, -8}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html>

@@ -1,11 +1,10 @@
 ParamsDriveTrain
-ParamsDriveTrainb
 ParamsREEC
 ParamsREGC
 ParamsREPC
 ParamsVSourceRef
-ParamsWTGPA
-ParamsWTGPB
-ParamsWTGAA
-ParamsWTGQA
-ParamsREECa
+ParamsWTGAa
+ParamsWTGPb
+ParamsWTGQa
+ParamsWTGP
+ParamsWTGTb

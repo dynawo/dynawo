@@ -13,11 +13,11 @@ within Dynawo.Electrical.Controls.WECC.Parameters;
 * of simulation tools for power systems.
 */
 
-record ParamsDriveTrainb
+record ParamsWTGTb
   extends ParamsDriveTrain;
 
   parameter Types.Time tP "Lag Time constant" annotation(
     Dialog(tab="Mechanical"));
 
   annotation(preferredView = "text");
-end ParamsDriveTrainb;
+end ParamsWTGTb;

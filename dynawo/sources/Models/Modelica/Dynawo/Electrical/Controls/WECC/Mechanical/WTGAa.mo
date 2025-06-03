@@ -1,30 +1,29 @@
 within Dynawo.Electrical.Controls.WECC.Mechanical;
 
-/*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, a hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model WTGAa "WECC Aero-Dynamic model"
-  extends Electrical.Controls.WECC.Parameters.ParamsWTGAA;
-
+  /*
+  * Copyright (c) 2025, RTE (http://www.rte-france.com)
+  * See AUTHORS.txt
+  * All rights reserved.
+  * This Source Code Form is subject to the terms of the Mozilla Public
+  * License, v. 2.0. If a copy of the MPL was not distributed with this
+  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
+  * SPDX-License-Identifier: MPL-2.0
+  *
+  * This file is part of Dynawo, a hybrid C++/Modelica open source suite
+  * of simulation tools for power systems.
+  */
+  extends Electrical.Controls.WECC.Parameters.ParamsWTGAa;
+  
   //Input variables
-  Modelica.Blocks.Interfaces.RealInput Theta(start=thetaInit) annotation(
-    Placement(transformation(origin = {-90, -4}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealInput PmRef(start=PmRef0) annotation(
-    Placement(transformation(origin = {52, 88}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {49, -109}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-
+  Modelica.Blocks.Interfaces.RealInput Theta(start = theta0) "Pitch angle in degrees" annotation(
+    Placement(transformation(origin = {-130, -4}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Interfaces.RealInput PmRefPu(start = Pm0Pu) "Reference mechanical power in pu (base SNom)" annotation(
+    Placement(transformation(origin = {52, 90}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {49, -109}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  
   //Output variables
-  Modelica.Blocks.Interfaces.RealOutput Pm annotation(
-    Placement(transformation(origin = {104, -10}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Interfaces.RealOutput PmPu(start = Pm0Pu) "Mechanical power in pu (base SNom)" annotation(
+    Placement(transformation(origin = {130, -11}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
 
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(transformation(origin = {-50, -4}, extent = {{-10, -10}, {10, 10}})));
@@ -33,7 +32,7 @@ model WTGAa "WECC Aero-Dynamic model"
   Modelica.Blocks.Math.Product product annotation(
     Placement(transformation(origin = {-14, 2}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Gain gain(k = Ka) annotation(
-    Placement(transformation(origin = {24, 2}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {22, 2}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Feedback feedback1 annotation(
     Placement(transformation(origin = {52, 2}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
@@ -41,20 +40,19 @@ equation
   connect(Theta0.y, feedback.u2) annotation(
     Line(points = {{-50, -47}, {-50, -12}}, color = {0, 0, 127}));
   connect(Theta, feedback.u1) annotation(
-    Line(points = {{-90, -4}, {-58, -4}}, color = {0, 0, 127}));
+    Line(points = {{-130, -4}, {-58, -4}}, color = {0, 0, 127}));
   connect(feedback.y, product.u2) annotation(
     Line(points = {{-40, -4}, {-26, -4}}, color = {0, 0, 127}));
   connect(Theta, product.u1) annotation(
-    Line(points = {{-90, -4}, {-70, -4}, {-70, 8}, {-26, 8}}, color = {0, 0, 127}));
+    Line(points = {{-130, -4}, {-70, -4}, {-70, 8}, {-26, 8}}, color = {0, 0, 127}));
   connect(product.y, gain.u) annotation(
-    Line(points = {{-2, 2}, {12, 2}}, color = {0, 0, 127}));
-  connect(feedback1.y, Pm) annotation(
-    Line(points = {{52, -7}, {52.625, -7}, {52.625, -11}, {76.5, -11}, {76.5, -10}, {104, -10}}, color = {0, 0, 127}));
+    Line(points = {{-2, 2}, {10, 2}}, color = {0, 0, 127}));
+  connect(feedback1.y, PmPu) annotation(
+    Line(points = {{52, -7}, {52.625, -7}, {52.625, -11}, {131, -11}}, color = {0, 0, 127}));
   connect(gain.y, feedback1.u2) annotation(
-    Line(points = {{36, 2}, {44, 2}}, color = {0, 0, 127}));
-  connect(PmRef, feedback1.u1) annotation(
-    Line(points = {{52, 88}, {52, 10}}, color = {0, 0, 127}));
-
+    Line(points = {{33, 2}, {44, 2}}, color = {0, 0, 127}));
+  connect(PmRefPu, feedback1.u1) annotation(
+    Line(points = {{52, 90}, {52, 10}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html><head></head><body><p> This block contains the Aero-Dynamic Model for a WindTurbineGenerator Type 3 according to <br><a href=\"3002027129_Model%20User%20Guide%20for%20Generic%20Renewable%20Energy%20Systems.pdf\">https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf</a> </p><p>This simple model will give you a value for the mechaniquel power developed by the wind turbine depending on the blade pitch angle.</p>
