@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::FictBusInterfaceIIDM Class Reference</title>
+<title>Dynawo: Member List</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('de/dae/a03028.html','../../');});
+$(document).ready(function(){initNavTree('d4/de4/a03031.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,851 +94,257 @@ $(document).ready(function(){initNavTree('de/dae/a03028.html','../../');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
-<a href="../../dd/de7/a03025.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::FictBusInterfaceIIDM Class Reference</div>  </div>
+<div class="title">DYN::ModelCentralizedShuntsSectionControl Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Interface class for Fictitious Bus <a class="el" href="../../d0/d1f/a02748.html" title="Generic model Generic class for Model. ">Model</a>.  
- <a href="../../de/dae/a03028.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="../../d3/d95/a00779_source.html">DYNFictBusInterfaceIIDM.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for DYN::FictBusInterfaceIIDM:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="../../de/dae/a03028.png" usemap="#DYN::FictBusInterfaceIIDM_map" alt=""/>
-  <map id="DYN::FictBusInterfaceIIDM_map" name="DYN::FictBusInterfaceIIDM_map">
-<area href="../../dd/d9b/a02832.html" title="Bus interface Interface class for Bus model. " alt="DYN::BusInterface" shape="rect" coords="0,56,163,80"/>
-<area href="../../d2/ddb/a02836.html" title="Class describing a component of the network. " alt="DYN::ComponentInterface" shape="rect" coords="0,0,163,24"/>
-</map>
- </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a705481e99dae6b242aaf314cfacca756"><td class="memItemLeft" align="right" valign="top"><a id="a705481e99dae6b242aaf314cfacca756"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dae/a03028.html#a705481e99dae6b242aaf314cfacca756">indexVar_t</a> { <b>VAR_V</b> = 0, 
-<b>VAR_ANGLE</b> = 1
- }</td></tr>
-<tr class="memdesc:a705481e99dae6b242aaf314cfacca756"><td class="mdescLeft">&#160;</td><td class="mdescRight">defines the index of each state variable <br /></td></tr>
-<tr class="separator:a705481e99dae6b242aaf314cfacca756"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_types_a02836"><td colspan="2" onclick="javascript:toggleInherit('pub_types_a02836')"><img src="../../closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="../../d2/ddb/a02836.html">DYN::ComponentInterface</a></td></tr>
-<tr class="memitem:a8089dfd2e85bdc3fc21030715c846872 inherit pub_types_a02836"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddb/a02836.html#a8089dfd2e85bdc3fc21030715c846872">ComponentType_t</a> { <br />
-&#160;&#160;<a class="el" href="../../d2/ddb/a02836.html#a8089dfd2e85bdc3fc21030715c846872a07df56823341ff6a8659eedcaa5ab994">UNKNOWN</a>, 
-<a class="el" href="../../d2/ddb/a02836.html#a8089dfd2e85bdc3fc21030715c846872a58910706220db3aa26ef83cc7e8a26c4">BUS</a>, 
-<a class="el" href="../../d2/ddb/a02836.html#a8089dfd2e85bdc3fc21030715c846872a251f9d96ef4272321e49c7b71a5ea5d7">CALCULATED_BUS</a>, 
-<a class="el" href="../../d2/ddb/a02836.html#a8089dfd2e85bdc3fc21030715c846872a69d91e244e6054c7779d6ec9cf08238e">SWITCH</a>, 
-<br />
-&#160;&#160;<a class="el" href="../../d2/ddb/a02836.html#a8089dfd2e85bdc3fc21030715c846872a1a0f12a58102bd2afd073be90e01af8f">LOAD</a>, 
-<a class="el" href="../../d2/ddb/a02836.html#a8089dfd2e85bdc3fc21030715c846872acd809ebf05c1a6cc4037fd7e429e560c">LINE</a>, 
-<a class="el" href="../../d2/ddb/a02836.html#a8089dfd2e85bdc3fc21030715c846872a1de090a3916e39dc06f8a211e9b89f6c">GENERATOR</a>, 
-<a class="el" href="../../d2/ddb/a02836.html#a8089dfd2e85bdc3fc21030715c846872aff22939164641c88ddca4f3b8f75b7de">SHUNT</a>, 
-<br />
-&#160;&#160;<a class="el" href="../../d2/ddb/a02836.html#a8089dfd2e85bdc3fc21030715c846872a3d56662d9c11ef2905785aacc0c01d6a">DANGLING_LINE</a>, 
-<a class="el" href="../../d2/ddb/a02836.html#a8089dfd2e85bdc3fc21030715c846872aeb32fa0ff31d9b817d2a8299a3f9b153">TWO_WTFO</a>, 
-<a class="el" href="../../d2/ddb/a02836.html#a8089dfd2e85bdc3fc21030715c846872a5d97e6161158480daa64e4094ae21083">THREE_WTFO</a>, 
-<a class="el" href="../../d2/ddb/a02836.html#a8089dfd2e85bdc3fc21030715c846872a4fb7066ad44a2613c8bb0c5219d2466f">SVC</a>, 
-<br />
-&#160;&#160;<a class="el" href="../../d2/ddb/a02836.html#a8089dfd2e85bdc3fc21030715c846872a1d29386c8ebadaaf3b9f3342e131fa68">VSC_CONVERTER</a>, 
-<a class="el" href="../../d2/ddb/a02836.html#a8089dfd2e85bdc3fc21030715c846872a53adb0161b3d082e47d4e0766d2e872f">LCC_CONVERTER</a>, 
-<a class="el" href="../../d2/ddb/a02836.html#a8089dfd2e85bdc3fc21030715c846872a896de4a61821dd8aecb455b1a7bec2ef">HVDC_LINE</a>, 
-<a class="el" href="../../d2/ddb/a02836.html#a8089dfd2e85bdc3fc21030715c846872acb80dacf920e9406c93c024896b877f9">COMPONENT_TYPE_COUNT</a>
-<br />
- }</td></tr>
-<tr class="memdesc:a8089dfd2e85bdc3fc21030715c846872"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of the type of the component.  <a href="../../d2/ddb/a02836.html#a8089dfd2e85bdc3fc21030715c846872">More...</a><br /></td></tr>
-<tr class="separator:a8089dfd2e85bdc3fc21030715c846872 inherit pub_types_a02836"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a3ba00cc3e47788b0a73969bc31fc85d9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dae/a03028.html#a3ba00cc3e47788b0a73969bc31fc85d9">FictBusInterfaceIIDM</a> (const std::string &amp;Id, double VNom, const std::string &amp;country)</td></tr>
-<tr class="memdesc:a3ba00cc3e47788b0a73969bc31fc85d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a3ba00cc3e47788b0a73969bc31fc85d9">More...</a><br /></td></tr>
-<tr class="separator:a3ba00cc3e47788b0a73969bc31fc85d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abdaeba81103104bcbb5ebfb8a18feafd"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dae/a03028.html#abdaeba81103104bcbb5ebfb8a18feafd">getV0</a> () const</td></tr>
-<tr class="memdesc:abdaeba81103104bcbb5ebfb8a18feafd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the voltage magnitude of the bus.  <a href="#abdaeba81103104bcbb5ebfb8a18feafd">More...</a><br /></td></tr>
-<tr class="separator:abdaeba81103104bcbb5ebfb8a18feafd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae196b017aeb2872249eb6683aa2d41ab"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dae/a03028.html#ae196b017aeb2872249eb6683aa2d41ab">getVMin</a> () const</td></tr>
-<tr class="memdesc:ae196b017aeb2872249eb6683aa2d41ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the minimum voltage magnitude of the bus.  <a href="#ae196b017aeb2872249eb6683aa2d41ab">More...</a><br /></td></tr>
-<tr class="separator:ae196b017aeb2872249eb6683aa2d41ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4949cf59435c6551af799551808123ae"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dae/a03028.html#a4949cf59435c6551af799551808123ae">getVMax</a> () const</td></tr>
-<tr class="memdesc:a4949cf59435c6551af799551808123ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the maximum voltage magnitude of the bus.  <a href="#a4949cf59435c6551af799551808123ae">More...</a><br /></td></tr>
-<tr class="separator:a4949cf59435c6551af799551808123ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a738bfabe8273845a94d8b26e7b9395cf"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dae/a03028.html#a738bfabe8273845a94d8b26e7b9395cf">getAngle0</a> () const</td></tr>
-<tr class="memdesc:a738bfabe8273845a94d8b26e7b9395cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the voltage angle of the bus.  <a href="#a738bfabe8273845a94d8b26e7b9395cf">More...</a><br /></td></tr>
-<tr class="separator:a738bfabe8273845a94d8b26e7b9395cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef1d08801d4754fce8f4737b920a72f2"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dae/a03028.html#aef1d08801d4754fce8f4737b920a72f2">getVNom</a> () const</td></tr>
-<tr class="memdesc:aef1d08801d4754fce8f4737b920a72f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the nominal voltage of the bus.  <a href="#aef1d08801d4754fce8f4737b920a72f2">More...</a><br /></td></tr>
-<tr class="separator:aef1d08801d4754fce8f4737b920a72f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2203f809f60fd2c07c70d6f7d34cb5c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dae/a03028.html#aa2203f809f60fd2c07c70d6f7d34cb5c">getStateVarV</a> () const</td></tr>
-<tr class="memdesc:aa2203f809f60fd2c07c70d6f7d34cb5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the state variable "v".  <a href="#aa2203f809f60fd2c07c70d6f7d34cb5c">More...</a><br /></td></tr>
-<tr class="separator:aa2203f809f60fd2c07c70d6f7d34cb5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6735b83e0660e186c39e233cc9375953"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dae/a03028.html#a6735b83e0660e186c39e233cc9375953">getStateVarAngle</a> () const</td></tr>
-<tr class="memdesc:a6735b83e0660e186c39e233cc9375953"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the state variable "angle".  <a href="#a6735b83e0660e186c39e233cc9375953">More...</a><br /></td></tr>
-<tr class="separator:a6735b83e0660e186c39e233cc9375953"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2bec2660a9c5dd89abdbc4eb10ef5ad"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dae/a03028.html#aa2bec2660a9c5dd89abdbc4eb10ef5ad">getID</a> () const</td></tr>
-<tr class="memdesc:aa2bec2660a9c5dd89abdbc4eb10ef5ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the bus' id.  <a href="#aa2bec2660a9c5dd89abdbc4eb10ef5ad">More...</a><br /></td></tr>
-<tr class="separator:aa2bec2660a9c5dd89abdbc4eb10ef5ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac3ff9679eb00698d44170909cbab08b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dae/a03028.html#ac3ff9679eb00698d44170909cbab08b1">hasConnection</a> (bool hasConnection)</td></tr>
-<tr class="memdesc:ac3ff9679eb00698d44170909cbab08b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for bus outside connection attribute.  <a href="#ac3ff9679eb00698d44170909cbab08b1">More...</a><br /></td></tr>
-<tr class="separator:ac3ff9679eb00698d44170909cbab08b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff54c93356f214c9333d582232d3b6fe"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dae/a03028.html#aff54c93356f214c9333d582232d3b6fe">hasConnection</a> () const</td></tr>
-<tr class="memdesc:aff54c93356f214c9333d582232d3b6fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the bus' connection attribute.  <a href="#aff54c93356f214c9333d582232d3b6fe">More...</a><br /></td></tr>
-<tr class="separator:aff54c93356f214c9333d582232d3b6fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b36feff6b4c189144c83c3028188640"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dae/a03028.html#a0b36feff6b4c189144c83c3028188640">importStaticParameters</a> ()</td></tr>
-<tr class="memdesc:a0b36feff6b4c189144c83c3028188640"><td class="mdescLeft">&#160;</td><td class="mdescRight">import static parameters  <a href="#a0b36feff6b4c189144c83c3028188640">More...</a><br /></td></tr>
-<tr class="separator:a0b36feff6b4c189144c83c3028188640"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97e781cd682214d9f143ff169e6d7989"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dae/a03028.html#a97e781cd682214d9f143ff169e6d7989">exportStateVariablesUnitComponent</a> ()</td></tr>
-<tr class="memdesc:a97e781cd682214d9f143ff169e6d7989"><td class="mdescLeft">&#160;</td><td class="mdescRight">update iidm structure from state variables for each unit component  <a href="#a97e781cd682214d9f143ff169e6d7989">More...</a><br /></td></tr>
-<tr class="separator:a97e781cd682214d9f143ff169e6d7989"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b998dbc09500429987dbb995f6de9de"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; std::string &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dae/a03028.html#a3b998dbc09500429987dbb995f6de9de">getBusBarSectionIdentifiers</a> () const</td></tr>
-<tr class="memdesc:a3b998dbc09500429987dbb995f6de9de"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the identifiers of bus bar section associated to the bus  <a href="#a3b998dbc09500429987dbb995f6de9de">More...</a><br /></td></tr>
-<tr class="separator:a3b998dbc09500429987dbb995f6de9de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0aae826c08e958867d251cd40b88c0dc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dae/a03028.html#a0aae826c08e958867d251cd40b88c0dc">isFictitious</a> () const final</td></tr>
-<tr class="memdesc:a0aae826c08e958867d251cd40b88c0dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the bus is fictitious.  <a href="#a0aae826c08e958867d251cd40b88c0dc">More...</a><br /></td></tr>
-<tr class="separator:a0aae826c08e958867d251cd40b88c0dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33f474a5388ebaa931d54f3dbc4f0d14"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dae/a03028.html#a33f474a5388ebaa931d54f3dbc4f0d14">getComponentVarIndex</a> (const std::string &amp;varName) const</td></tr>
-<tr class="memdesc:a33f474a5388ebaa931d54f3dbc4f0d14"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the index of a state variable thanks to its name  <a href="#a33f474a5388ebaa931d54f3dbc4f0d14">More...</a><br /></td></tr>
-<tr class="separator:a33f474a5388ebaa931d54f3dbc4f0d14"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a992685b920d3b05a6a24ac9497629fe4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dae/a03028.html#a992685b920d3b05a6a24ac9497629fe4">getBusIndex</a> () const</td></tr>
-<tr class="memdesc:a992685b920d3b05a6a24ac9497629fe4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the bus index.  <a href="#a992685b920d3b05a6a24ac9497629fe4">More...</a><br /></td></tr>
-<tr class="separator:a992685b920d3b05a6a24ac9497629fe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1fa6c338146164c1f06b48a53c851e8"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dae/a03028.html#af1fa6c338146164c1f06b48a53c851e8">getCountry</a> () const</td></tr>
-<tr class="memdesc:af1fa6c338146164c1f06b48a53c851e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the bus' country.  <a href="#af1fa6c338146164c1f06b48a53c851e8">More...</a><br /></td></tr>
-<tr class="separator:af1fa6c338146164c1f06b48a53c851e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4c6ffedef9e8bfbee1da916946716c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dae/a03028.html#ad4c6ffedef9e8bfbee1da916946716c3">setCountry</a> (const std::string &amp;country)</td></tr>
-<tr class="memdesc:ad4c6ffedef9e8bfbee1da916946716c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the bus' country.  <a href="#ad4c6ffedef9e8bfbee1da916946716c3">More...</a><br /></td></tr>
-<tr class="separator:ad4c6ffedef9e8bfbee1da916946716c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_a02832"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a02832')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../dd/d9b/a02832.html">DYN::BusInterface</a></td></tr>
-<tr class="memitem:a496b1cf709d17989bd5e8a64882dbff5 inherit pub_methods_a02832"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d9b/a02832.html#a496b1cf709d17989bd5e8a64882dbff5">BusInterface</a> (bool <a class="el" href="../../d2/ddb/a02836.html#a9be4aae7894693081ca3436f3d8aa328">hasInitialConditions</a>=true)</td></tr>
-<tr class="memdesc:a496b1cf709d17989bd5e8a64882dbff5 inherit pub_methods_a02832"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="../../dd/d9b/a02832.html#a496b1cf709d17989bd5e8a64882dbff5">More...</a><br /></td></tr>
-<tr class="separator:a496b1cf709d17989bd5e8a64882dbff5 inherit pub_methods_a02832"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acabd7984ef1211dac4d23273b61dfe9f inherit pub_methods_a02832"><td class="memItemLeft" align="right" valign="top"><a id="acabd7984ef1211dac4d23273b61dfe9f"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d9b/a02832.html#acabd7984ef1211dac4d23273b61dfe9f">~BusInterface</a> ()=default</td></tr>
-<tr class="memdesc:acabd7984ef1211dac4d23273b61dfe9f inherit pub_methods_a02832"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:acabd7984ef1211dac4d23273b61dfe9f inherit pub_methods_a02832"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_a02836"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a02836')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d2/ddb/a02836.html">DYN::ComponentInterface</a></td></tr>
-<tr class="memitem:a54a4adcbcd28a26428cafa45a848e172 inherit pub_methods_a02836"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddb/a02836.html#a54a4adcbcd28a26428cafa45a848e172">ComponentInterface</a> (bool <a class="el" href="../../d2/ddb/a02836.html#a9be4aae7894693081ca3436f3d8aa328">hasInitialConditions</a>=true)</td></tr>
-<tr class="memdesc:a54a4adcbcd28a26428cafa45a848e172 inherit pub_methods_a02836"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="../../d2/ddb/a02836.html#a54a4adcbcd28a26428cafa45a848e172">More...</a><br /></td></tr>
-<tr class="separator:a54a4adcbcd28a26428cafa45a848e172 inherit pub_methods_a02836"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaeea1b605a906a6b2772ff8b092dc17b inherit pub_methods_a02836"><td class="memItemLeft" align="right" valign="top"><a id="aaeea1b605a906a6b2772ff8b092dc17b"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddb/a02836.html#aaeea1b605a906a6b2772ff8b092dc17b">~ComponentInterface</a> ()=default</td></tr>
-<tr class="memdesc:aaeea1b605a906a6b2772ff8b092dc17b inherit pub_methods_a02836"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:aaeea1b605a906a6b2772ff8b092dc17b inherit pub_methods_a02836"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2a3edef5ec14f6635bcaa11a5def0c2 inherit pub_methods_a02836"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddb/a02836.html#ae2a3edef5ec14f6635bcaa11a5def0c2">hasDynamicModel</a> (bool hasDynamicModel)</td></tr>
-<tr class="memdesc:ae2a3edef5ec14f6635bcaa11a5def0c2 inherit pub_methods_a02836"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the component's hasDynamicModel_ attribute.  <a href="../../d2/ddb/a02836.html#ae2a3edef5ec14f6635bcaa11a5def0c2">More...</a><br /></td></tr>
-<tr class="separator:ae2a3edef5ec14f6635bcaa11a5def0c2 inherit pub_methods_a02836"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4a2e77952f4983e5705c0feb2ffefd3 inherit pub_methods_a02836"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddb/a02836.html#ad4a2e77952f4983e5705c0feb2ffefd3">setModelDyn</a> (const boost::shared_ptr&lt; <a class="el" href="../../df/de4/a02780.html">SubModel</a> &gt; &amp;model)</td></tr>
-<tr class="memdesc:ad4a2e77952f4983e5705c0feb2ffefd3 inherit pub_methods_a02836"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the component's model attribute.  <a href="../../d2/ddb/a02836.html#ad4a2e77952f4983e5705c0feb2ffefd3">More...</a><br /></td></tr>
-<tr class="separator:ad4a2e77952f4983e5705c0feb2ffefd3 inherit pub_methods_a02836"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4d21f5feedc23bfd0c89f2b32e71746 inherit pub_methods_a02836"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddb/a02836.html#aa4d21f5feedc23bfd0c89f2b32e71746">setReference</a> (const std::string &amp;componentVar, const std::string &amp;modelId, const std::string &amp;modelVar)</td></tr>
-<tr class="memdesc:aa4d21f5feedc23bfd0c89f2b32e71746 inherit pub_methods_a02836"><td class="mdescLeft">&#160;</td><td class="mdescRight">associate a component variable with a model variable  <a href="../../d2/ddb/a02836.html#aa4d21f5feedc23bfd0c89f2b32e71746">More...</a><br /></td></tr>
-<tr class="separator:aa4d21f5feedc23bfd0c89f2b32e71746 inherit pub_methods_a02836"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22ebe68dfef59fe4b694885643908c31 inherit pub_methods_a02836"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddb/a02836.html#a22ebe68dfef59fe4b694885643908c31">hasDynamicModel</a> () const</td></tr>
-<tr class="memdesc:a22ebe68dfef59fe4b694885643908c31 inherit pub_methods_a02836"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the component's hasDynamicModel_ attribute.  <a href="../../d2/ddb/a02836.html#a22ebe68dfef59fe4b694885643908c31">More...</a><br /></td></tr>
-<tr class="separator:a22ebe68dfef59fe4b694885643908c31 inherit pub_methods_a02836"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab673e4fea551130c3776e4a0fda6fea6 inherit pub_methods_a02836"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddb/a02836.html#ab673e4fea551130c3776e4a0fda6fea6">updateFromModel</a> (bool filterForCriteriaCheck)</td></tr>
-<tr class="memdesc:ab673e4fea551130c3776e4a0fda6fea6 inherit pub_methods_a02836"><td class="mdescLeft">&#160;</td><td class="mdescRight">update state variables with data from model (c++ or dynamic model)  <a href="../../d2/ddb/a02836.html#ab673e4fea551130c3776e4a0fda6fea6">More...</a><br /></td></tr>
-<tr class="separator:ab673e4fea551130c3776e4a0fda6fea6 inherit pub_methods_a02836"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa68ff5ea43ce54304c3062f1614213dc inherit pub_methods_a02836"><td class="memItemLeft" align="right" valign="top"><a id="aa68ff5ea43ce54304c3062f1614213dc"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddb/a02836.html#aa68ff5ea43ce54304c3062f1614213dc">getStateVariableReference</a> ()</td></tr>
-<tr class="memdesc:aa68ff5ea43ce54304c3062f1614213dc inherit pub_methods_a02836"><td class="mdescLeft">&#160;</td><td class="mdescRight">get state variable reference in dynamic model <br /></td></tr>
-<tr class="separator:aa68ff5ea43ce54304c3062f1614213dc inherit pub_methods_a02836"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad2b7a24d4bb3aed941d24831988b3da5 inherit pub_methods_a02836"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddb/a02836.html#ad2b7a24d4bb3aed941d24831988b3da5">setType</a> (const <a class="el" href="../../d2/ddb/a02836.html#a8089dfd2e85bdc3fc21030715c846872">ComponentType_t</a> &amp;type)</td></tr>
-<tr class="memdesc:ad2b7a24d4bb3aed941d24831988b3da5 inherit pub_methods_a02836"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the type of the interface.  <a href="../../d2/ddb/a02836.html#ad2b7a24d4bb3aed941d24831988b3da5">More...</a><br /></td></tr>
-<tr class="separator:ad2b7a24d4bb3aed941d24831988b3da5 inherit pub_methods_a02836"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a157a82e17608a36a7965614cde1c6234 inherit pub_methods_a02836"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../d2/ddb/a02836.html#a8089dfd2e85bdc3fc21030715c846872">ComponentType_t</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddb/a02836.html#a157a82e17608a36a7965614cde1c6234">getType</a> () const</td></tr>
-<tr class="memdesc:a157a82e17608a36a7965614cde1c6234 inherit pub_methods_a02836"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter fot the interface's type.  <a href="../../d2/ddb/a02836.html#a157a82e17608a36a7965614cde1c6234">More...</a><br /></td></tr>
-<tr class="separator:a157a82e17608a36a7965614cde1c6234 inherit pub_methods_a02836"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13bc31f9a55abf04ac162196ad6a3ace inherit pub_methods_a02836"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddb/a02836.html#a13bc31f9a55abf04ac162196ad6a3ace">getTypeAsString</a> () const</td></tr>
-<tr class="memdesc:a13bc31f9a55abf04ac162196ad6a3ace inherit pub_methods_a02836"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter fot the interface's type as string.  <a href="../../d2/ddb/a02836.html#a13bc31f9a55abf04ac162196ad6a3ace">More...</a><br /></td></tr>
-<tr class="separator:a13bc31f9a55abf04ac162196ad6a3ace inherit pub_methods_a02836"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22639f8b88b1d70984852928d87676ec inherit pub_methods_a02836"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddb/a02836.html#a22639f8b88b1d70984852928d87676ec">isConnected</a> () const</td></tr>
-<tr class="memdesc:a22639f8b88b1d70984852928d87676ec inherit pub_methods_a02836"><td class="mdescLeft">&#160;</td><td class="mdescRight">check the connection state of the component  <a href="../../d2/ddb/a02836.html#a22639f8b88b1d70984852928d87676ec">More...</a><br /></td></tr>
-<tr class="separator:a22639f8b88b1d70984852928d87676ec inherit pub_methods_a02836"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac298501e2706de0701bcf0405d69780c inherit pub_methods_a02836"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddb/a02836.html#ac298501e2706de0701bcf0405d69780c">isPartiallyConnected</a> () const</td></tr>
-<tr class="memdesc:ac298501e2706de0701bcf0405d69780c inherit pub_methods_a02836"><td class="mdescLeft">&#160;</td><td class="mdescRight">check the connection state of the component  <a href="../../d2/ddb/a02836.html#ac298501e2706de0701bcf0405d69780c">More...</a><br /></td></tr>
-<tr class="separator:ac298501e2706de0701bcf0405d69780c inherit pub_methods_a02836"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b2709afa47d455b8bc9512348d93f30 inherit pub_methods_a02836"><td class="memItemLeft" align="right" valign="top"><a id="a0b2709afa47d455b8bc9512348d93f30"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddb/a02836.html#a0b2709afa47d455b8bc9512348d93f30">exportStateVariables</a> ()</td></tr>
-<tr class="memdesc:a0b2709afa47d455b8bc9512348d93f30 inherit pub_methods_a02836"><td class="mdescLeft">&#160;</td><td class="mdescRight">update iidm structure from state variables <br /></td></tr>
-<tr class="separator:a0b2709afa47d455b8bc9512348d93f30 inherit pub_methods_a02836"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9be4aae7894693081ca3436f3d8aa328 inherit pub_methods_a02836"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddb/a02836.html#a9be4aae7894693081ca3436f3d8aa328">hasInitialConditions</a> () const</td></tr>
-<tr class="memdesc:a9be4aae7894693081ca3436f3d8aa328 inherit pub_methods_a02836"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the component's hasInitialConditions_ attribute.  <a href="../../d2/ddb/a02836.html#a9be4aae7894693081ca3436f3d8aa328">More...</a><br /></td></tr>
-<tr class="separator:a9be4aae7894693081ca3436f3d8aa328 inherit pub_methods_a02836"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22a01ec1b67b1e98e2277d2f1ddcdc4a inherit pub_methods_a02836"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a22a01ec1b67b1e98e2277d2f1ddcdc4a inherit pub_methods_a02836"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d2/ddb/a02836.html#a22a01ec1b67b1e98e2277d2f1ddcdc4a">getStaticParameterValue</a> (const std::string &amp;name) const</td></tr>
-<tr class="memdesc:a22a01ec1b67b1e98e2277d2f1ddcdc4a inherit pub_methods_a02836"><td class="mdescLeft">&#160;</td><td class="mdescRight">retrieve a state variable value thanks to its name  <a href="../../d2/ddb/a02836.html#a22a01ec1b67b1e98e2277d2f1ddcdc4a">More...</a><br /></td></tr>
-<tr class="separator:a22a01ec1b67b1e98e2277d2f1ddcdc4a inherit pub_methods_a02836"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:ad484f5245520789603b72a9910a7e15c"><td class="memItemLeft" align="right" valign="top"><a id="ad484f5245520789603b72a9910a7e15c"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dae/a03028.html#ad484f5245520789603b72a9910a7e15c">Id_</a></td></tr>
-<tr class="memdesc:ad484f5245520789603b72a9910a7e15c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Id of fictitious bus. <br /></td></tr>
-<tr class="separator:ad484f5245520789603b72a9910a7e15c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a53cf102f2c7906f79131701ea6d625a7"><td class="memItemLeft" align="right" valign="top"><a id="a53cf102f2c7906f79131701ea6d625a7"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dae/a03028.html#a53cf102f2c7906f79131701ea6d625a7">Vnom_</a></td></tr>
-<tr class="memdesc:a53cf102f2c7906f79131701ea6d625a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">nominal voltage of fictitious bar in kV <br /></td></tr>
-<tr class="separator:a53cf102f2c7906f79131701ea6d625a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a32182a399c6fb17b463d5ed310b60107"><td class="memItemLeft" align="right" valign="top"><a id="a32182a399c6fb17b463d5ed310b60107"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dae/a03028.html#a32182a399c6fb17b463d5ed310b60107">hasConnection_</a></td></tr>
-<tr class="memdesc:a32182a399c6fb17b463d5ed310b60107"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>true</b> if the bus has an outside connection, <b>false</b> else <br /></td></tr>
-<tr class="separator:a32182a399c6fb17b463d5ed310b60107"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9464870df0900416d1e3f453105ad8a1"><td class="memItemLeft" align="right" valign="top"><a id="a9464870df0900416d1e3f453105ad8a1"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dae/a03028.html#a9464870df0900416d1e3f453105ad8a1">U0_</a></td></tr>
-<tr class="memdesc:a9464870df0900416d1e3f453105ad8a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">initial voltage <br /></td></tr>
-<tr class="separator:a9464870df0900416d1e3f453105ad8a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ba63a6eeeb03db054cf502e0e6fcabf"><td class="memItemLeft" align="right" valign="top"><a id="a1ba63a6eeeb03db054cf502e0e6fcabf"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dae/a03028.html#a1ba63a6eeeb03db054cf502e0e6fcabf">angle0_</a></td></tr>
-<tr class="memdesc:a1ba63a6eeeb03db054cf502e0e6fcabf"><td class="mdescLeft">&#160;</td><td class="mdescRight">initial angle <br /></td></tr>
-<tr class="separator:a1ba63a6eeeb03db054cf502e0e6fcabf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef3b6880b3d318a607b918215fd9e248"><td class="memItemLeft" align="right" valign="top"><a id="aef3b6880b3d318a607b918215fd9e248"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dae/a03028.html#aef3b6880b3d318a607b918215fd9e248">country_</a></td></tr>
-<tr class="memdesc:aef3b6880b3d318a607b918215fd9e248"><td class="mdescLeft">&#160;</td><td class="mdescRight">country of the bus <br /></td></tr>
-<tr class="separator:aef3b6880b3d318a607b918215fd9e248"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pro_methods_a02836"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_a02836')"><img src="../../closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="../../d2/ddb/a02836.html">DYN::ComponentInterface</a></td></tr>
-<tr class="memitem:ac256bc3546483d0c4ccffb61dfa58a3a inherit pro_methods_a02836"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ac256bc3546483d0c4ccffb61dfa58a3a inherit pro_methods_a02836"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d2/ddb/a02836.html#ac256bc3546483d0c4ccffb61dfa58a3a">getValue</a> (const int index) const</td></tr>
-<tr class="memdesc:ac256bc3546483d0c4ccffb61dfa58a3a inherit pro_methods_a02836"><td class="mdescLeft">&#160;</td><td class="mdescRight">retrieve a state variable value thanks to its name  <a href="../../d2/ddb/a02836.html#ac256bc3546483d0c4ccffb61dfa58a3a">More...</a><br /></td></tr>
-<tr class="separator:ac256bc3546483d0c4ccffb61dfa58a3a inherit pro_methods_a02836"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a360fb8d74db3b5e8d1acb4f636c9647d inherit pro_methods_a02836"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddb/a02836.html#a360fb8d74db3b5e8d1acb4f636c9647d">hasInitialConditions</a> (bool hasInitialConditions)</td></tr>
-<tr class="memdesc:a360fb8d74db3b5e8d1acb4f636c9647d inherit pro_methods_a02836"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the component's hasInitialConditions_ attribute.  <a href="../../d2/ddb/a02836.html#a360fb8d74db3b5e8d1acb4f636c9647d">More...</a><br /></td></tr>
-<tr class="separator:a360fb8d74db3b5e8d1acb4f636c9647d inherit pro_methods_a02836"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_attribs_a02836"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_a02836')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../d2/ddb/a02836.html">DYN::ComponentInterface</a></td></tr>
-<tr class="memitem:a4e9a1ad375b2c22292b200713cb94bac inherit pro_attribs_a02836"><td class="memItemLeft" align="right" valign="top"><a id="a4e9a1ad375b2c22292b200713cb94bac"></a>
-std::vector&lt; <a class="el" href="../../d5/d6c/a02956.html">StateVariable</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddb/a02836.html#a4e9a1ad375b2c22292b200713cb94bac">stateVariables_</a></td></tr>
-<tr class="memdesc:a4e9a1ad375b2c22292b200713cb94bac inherit pro_attribs_a02836"><td class="mdescLeft">&#160;</td><td class="mdescRight">state variable <br /></td></tr>
-<tr class="separator:a4e9a1ad375b2c22292b200713cb94bac inherit pro_attribs_a02836"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afba20d4e78f70ec9e147378934d10b33 inherit pro_attribs_a02836"><td class="memItemLeft" align="right" valign="top"><a id="afba20d4e78f70ec9e147378934d10b33"></a>
-std::unordered_map&lt; std::string, <a class="el" href="../../db/d1b/a02960.html">StaticParameter</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddb/a02836.html#afba20d4e78f70ec9e147378934d10b33">staticParameters_</a></td></tr>
-<tr class="memdesc:afba20d4e78f70ec9e147378934d10b33 inherit pro_attribs_a02836"><td class="mdescLeft">&#160;</td><td class="mdescRight">static parameter by name, from iidm data <br /></td></tr>
-<tr class="separator:afba20d4e78f70ec9e147378934d10b33 inherit pro_attribs_a02836"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b7f69e17315c6cb35ffb9231dcb5e6a inherit pro_attribs_a02836"><td class="memItemLeft" align="right" valign="top"><a id="a3b7f69e17315c6cb35ffb9231dcb5e6a"></a>
-<a class="el" href="../../d2/ddb/a02836.html#a8089dfd2e85bdc3fc21030715c846872">ComponentType_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddb/a02836.html#a3b7f69e17315c6cb35ffb9231dcb5e6a">type_</a></td></tr>
-<tr class="memdesc:a3b7f69e17315c6cb35ffb9231dcb5e6a inherit pro_attribs_a02836"><td class="mdescLeft">&#160;</td><td class="mdescRight">type of the interface <br /></td></tr>
-<tr class="separator:a3b7f69e17315c6cb35ffb9231dcb5e6a inherit pro_attribs_a02836"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Interface class for Fictitious Bus <a class="el" href="../../d0/d1f/a02748.html" title="Generic model Generic class for Model. ">Model</a>. </p>
-<p>Specialization of <a class="el" href="../../dd/d9b/a02832.html" title="Bus interface Interface class for Bus model. ">BusInterface</a> class for IIDM. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a3ba00cc3e47788b0a73969bc31fc85d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ba00cc3e47788b0a73969bc31fc85d9">&#9670;&nbsp;</a></span>FictBusInterfaceIIDM()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">DYN::FictBusInterfaceIIDM::FictBusInterfaceIIDM </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>Id</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>VNom</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>country</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Constructor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">Id</td><td>: Id of bus' iidm instance </td></tr>
-    <tr><td class="paramname">VNom</td><td>: nominal voltage of bus' iidm instance </td></tr>
-    <tr><td class="paramname">country</td><td>: country of bus' iidm instance </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a97e781cd682214d9f143ff169e6d7989"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a97e781cd682214d9f143ff169e6d7989">&#9670;&nbsp;</a></span>exportStateVariablesUnitComponent()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::FictBusInterfaceIIDM::exportStateVariablesUnitComponent </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>update iidm structure from state variables for each unit component </p>
-
-<p>Implements <a class="el" href="../../dd/d9b/a02832.html#a5090baf74a3acda795800f9aebcb5f26">DYN::BusInterface</a>.</p>
-
-</div>
-</div>
-<a id="a738bfabe8273845a94d8b26e7b9395cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a738bfabe8273845a94d8b26e7b9395cf">&#9670;&nbsp;</a></span>getAngle0()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::FictBusInterfaceIIDM::getAngle0 </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the voltage angle of the bus. </p>
-<dl class="section return"><dt>Returns</dt><dd>The voltage angle of the bus in degree </dd></dl>
-
-<p>Implements <a class="el" href="../../dd/d9b/a02832.html#a63dfdd48ac5cb8863c5a8027f75b4c5e">DYN::BusInterface</a>.</p>
-
-</div>
-</div>
-<a id="a3b998dbc09500429987dbb995f6de9de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b998dbc09500429987dbb995f6de9de">&#9670;&nbsp;</a></span>getBusBarSectionIdentifiers()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::vector&lt;std::string&gt;&amp; DYN::FictBusInterfaceIIDM::getBusBarSectionIdentifiers </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>get the identifiers of bus bar section associated to the bus </p>
-<dl class="section return"><dt>Returns</dt><dd>identifiers of the bus bar section associated to the bus </dd></dl>
-
-<p>Implements <a class="el" href="../../dd/d9b/a02832.html#a51ecbf88288ebed91dad69b4a49c7f23">DYN::BusInterface</a>.</p>
-
-</div>
-</div>
-<a id="a992685b920d3b05a6a24ac9497629fe4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a992685b920d3b05a6a24ac9497629fe4">&#9670;&nbsp;</a></span>getBusIndex()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int DYN::FictBusInterfaceIIDM::getBusIndex </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the bus index. </p>
-<dl class="section return"><dt>Returns</dt><dd>The index of the bus </dd></dl>
-
-<p>Implements <a class="el" href="../../dd/d9b/a02832.html#a121c0d8892ad82f8d25e0aa3e6d80182">DYN::BusInterface</a>.</p>
-
-</div>
-</div>
-<a id="a33f474a5388ebaa931d54f3dbc4f0d14"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a33f474a5388ebaa931d54f3dbc4f0d14">&#9670;&nbsp;</a></span>getComponentVarIndex()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int DYN::FictBusInterfaceIIDM::getComponentVarIndex </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>varName</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>get the index of a state variable thanks to its name </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">varName</td><td>name of the state variable </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>index of the state variable, <b>-1</b> if the variable does not exist </dd></dl>
-
-<p>Implements <a class="el" href="../../d2/ddb/a02836.html#a6d167dccb153a1ffcee78ad0f2e3a72e">DYN::ComponentInterface</a>.</p>
-
-</div>
-</div>
-<a id="af1fa6c338146164c1f06b48a53c851e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af1fa6c338146164c1f06b48a53c851e8">&#9670;&nbsp;</a></span>getCountry()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::string&amp; DYN::FictBusInterfaceIIDM::getCountry </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the bus' country. </p>
-<dl class="section return"><dt>Returns</dt><dd>the bus country </dd></dl>
-
-</div>
-</div>
-<a id="aa2bec2660a9c5dd89abdbc4eb10ef5ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa2bec2660a9c5dd89abdbc4eb10ef5ad">&#9670;&nbsp;</a></span>getID()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string DYN::FictBusInterfaceIIDM::getID </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the bus' id. </p>
-<dl class="section return"><dt>Returns</dt><dd>The id of the bus </dd></dl>
-
-<p>Implements <a class="el" href="../../dd/d9b/a02832.html#a9a7aec49fb7c52292f0e3b6db2a69cfd">DYN::BusInterface</a>.</p>
-
-</div>
-</div>
-<a id="a6735b83e0660e186c39e233cc9375953"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6735b83e0660e186c39e233cc9375953">&#9670;&nbsp;</a></span>getStateVarAngle()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::FictBusInterfaceIIDM::getStateVarAngle </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the state variable "angle". </p>
-<dl class="section return"><dt>Returns</dt><dd>The value of state variable angle of the bus in degree </dd></dl>
-
-<p>Implements <a class="el" href="../../dd/d9b/a02832.html#ac53c3d4ec936ead027840ecb45f9e37d">DYN::BusInterface</a>.</p>
-
-</div>
-</div>
-<a id="aa2203f809f60fd2c07c70d6f7d34cb5c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa2203f809f60fd2c07c70d6f7d34cb5c">&#9670;&nbsp;</a></span>getStateVarV()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::FictBusInterfaceIIDM::getStateVarV </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the state variable "v". </p>
-<dl class="section return"><dt>Returns</dt><dd>The value of state variable v of the bus in kV </dd></dl>
-
-<p>Implements <a class="el" href="../../dd/d9b/a02832.html#aa3a32b56f9b1760748b83c73d5d97883">DYN::BusInterface</a>.</p>
-
-</div>
-</div>
-<a id="abdaeba81103104bcbb5ebfb8a18feafd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abdaeba81103104bcbb5ebfb8a18feafd">&#9670;&nbsp;</a></span>getV0()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::FictBusInterfaceIIDM::getV0 </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the voltage magnitude of the bus. </p>
-<dl class="section return"><dt>Returns</dt><dd>The voltage magnitude of the bus in kV </dd></dl>
-
-<p>Implements <a class="el" href="../../dd/d9b/a02832.html#a929c447c1c2c3499db103450e406265d">DYN::BusInterface</a>.</p>
-
-</div>
-</div>
-<a id="a4949cf59435c6551af799551808123ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4949cf59435c6551af799551808123ae">&#9670;&nbsp;</a></span>getVMax()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::FictBusInterfaceIIDM::getVMax </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the maximum voltage magnitude of the bus. </p>
-<dl class="section return"><dt>Returns</dt><dd>The maximum voltage magnitude of the bus in kV returns 1.2*vNom if vMax does not exist </dd></dl>
-
-<p>Implements <a class="el" href="../../dd/d9b/a02832.html#aa7bde7df54ad1483067cea5cc9ba6c8b">DYN::BusInterface</a>.</p>
-
-</div>
-</div>
-<a id="ae196b017aeb2872249eb6683aa2d41ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae196b017aeb2872249eb6683aa2d41ab">&#9670;&nbsp;</a></span>getVMin()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::FictBusInterfaceIIDM::getVMin </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the minimum voltage magnitude of the bus. </p>
-<dl class="section return"><dt>Returns</dt><dd>The minimum voltage magnitude of the bus in kV returns 0.8*vNom if vMin does not exist </dd></dl>
-
-<p>Implements <a class="el" href="../../dd/d9b/a02832.html#a877bd3d9a937607dfc11b8580ba86c28">DYN::BusInterface</a>.</p>
-
-</div>
-</div>
-<a id="aef1d08801d4754fce8f4737b920a72f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef1d08801d4754fce8f4737b920a72f2">&#9670;&nbsp;</a></span>getVNom()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::FictBusInterfaceIIDM::getVNom </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the nominal voltage of the bus. </p>
-<dl class="section return"><dt>Returns</dt><dd>The nominal voltage of the bus in kV </dd></dl>
-
-<p>Implements <a class="el" href="../../dd/d9b/a02832.html#ac8382aaf37b7fb8484c6d502e0c9d3d6">DYN::BusInterface</a>.</p>
-
-</div>
-</div>
-<a id="ac3ff9679eb00698d44170909cbab08b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac3ff9679eb00698d44170909cbab08b1">&#9670;&nbsp;</a></span>hasConnection() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::FictBusInterfaceIIDM::hasConnection </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>hasConnection</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Setter for bus outside connection attribute. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">hasConnection</td><td><b>true</b> if the bus has an outside connection, <b>false</b> else</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>the bus has an outside connection if there is at least one dynamic model connected to the bus </p>
-
-<p>Implements <a class="el" href="../../dd/d9b/a02832.html#a971af09967c45693929a5b2685fd5d77">DYN::BusInterface</a>.</p>
-
-</div>
-</div>
-<a id="aff54c93356f214c9333d582232d3b6fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aff54c93356f214c9333d582232d3b6fe">&#9670;&nbsp;</a></span>hasConnection() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool DYN::FictBusInterfaceIIDM::hasConnection </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the bus' connection attribute. </p>
-<dl class="section return"><dt>Returns</dt><dd><b>true</b> if the bus has an outside connection, <b>false</b> else </dd></dl>
-
-<p>Implements <a class="el" href="../../dd/d9b/a02832.html#abac7b1069b0ac6d6464024c8aabb0a70">DYN::BusInterface</a>.</p>
-
-</div>
-</div>
-<a id="a0b36feff6b4c189144c83c3028188640"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0b36feff6b4c189144c83c3028188640">&#9670;&nbsp;</a></span>importStaticParameters()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::FictBusInterfaceIIDM::importStaticParameters </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>import static parameters </p>
-
-<p>Implements <a class="el" href="../../d2/ddb/a02836.html#ac24fd6f4706d72ca980eb5c338f1b642">DYN::ComponentInterface</a>.</p>
-
-</div>
-</div>
-<a id="a0aae826c08e958867d251cd40b88c0dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0aae826c08e958867d251cd40b88c0dc">&#9670;&nbsp;</a></span>isFictitious()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool DYN::FictBusInterfaceIIDM::isFictitious </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Check if the bus is fictitious. </p>
-<dl class="section return"><dt>Returns</dt><dd><b>true</b> if the bus is fictitious, <b>false</b> if not </dd></dl>
-
-<p>Implements <a class="el" href="../../dd/d9b/a02832.html#aefdf4b4245508773fb4b73fa584c6ca3">DYN::BusInterface</a>.</p>
-
-</div>
-</div>
-<a id="ad4c6ffedef9e8bfbee1da916946716c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad4c6ffedef9e8bfbee1da916946716c3">&#9670;&nbsp;</a></span>setCountry()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::FictBusInterfaceIIDM::setCountry </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>country</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Setter for the bus' country. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">country</td><td>bus country </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d3/d95/a00779_source.html">DYNFictBusInterfaceIIDM.h</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a4754b897c4fca929c4ff5fc3860bc33b">addConstraint</a>(const std::string &amp;modelName, bool begin, const Message &amp;description, const std::string &amp;modelType=&quot;&quot;, const boost::optional&lt; constraints::ConstraintData &gt; &amp;constraintData=boost::none)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#aa1907d01bccfb32e5c84ce8922746012">addCurve</a>(const std::shared_ptr&lt; curves::Curve &gt; &amp;curve)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#aa53743a51dd235ef0386b75d3bd0cfdc">addEvent</a>(const std::string &amp;modelName, const MessageTimeline &amp;messageTimeline)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#abd7afebdd5afd987560d1c19384943c5">addMessage</a>(const std::string &amp;message)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a686a4be7ca4cb985eb2244e8a25a8a98">addParameter</a>(const ParameterModeler &amp;parameter, bool isInitParam)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#adbe1cea5bf678780d049489fea800439">addParameterCurve</a>(const std::shared_ptr&lt; curves::Curve &gt; &amp;curve)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a945f8eeafeb2b7865e20cb949972328d">addParameters</a>(const std::vector&lt; ParameterModeler &gt; &amp;parameters, bool isInitParam)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a85fe6b1a98020baf8098c209b8695a87">calculatedVars_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/de4/a03031.html#a0cb543c5199b64ff4f52479347363cb6">CalculatedVars_t</a> enum name</td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a4721fe1e66a9dff0117d5b38e6863af0">calculatedVarsInit_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/de4/a03031.html#a680db1bb3cfa91b4d1a239053e3c4d6d">changingShunt</a></td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#ad7da98bebca2cce6fb5b21f6eb6b605c">checkDataCoherence</a>(double t)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a509adfc9256959cac9ee247b9ecaa1cc">checkDataCoherenceSub</a>(double t)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../de/d1e/a03015.html#aa308ddb8ddc022727b8b15e8fa29099a">checkParametersCoherence</a>() const override</td><td class="entry"><a class="el" href="../../de/d1e/a03015.html">DYN::ModelCPP</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/de4/a03031.html#a3167adc1f8b7c5f1b24fba49bbf94960">collectSilentZ</a>(BitMask *silentZTable) override</td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/de4/a03031.html#a975818c5bccf4e82fc783583db4fc25b">deadBandsUPu_</a></td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/de4/a03031.html#a03a881bc1b234c3dc58b0ef6aa48de5e">defineElements</a>(std::vector&lt; Element &gt; &amp;elements, std::map&lt; std::string, int &gt; &amp;mapElement) override</td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a958f711e45ee059b0dc16838aea0fb00">DYN::SubModel::defineElements</a>()</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a4e3f8753a91f54e3dc54222e6cf124bc">defineNames</a>()</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../de/d1e/a03015.html#ac28254e8f419caf9ff4ef4032c43531d">defineNamesImpl</a>(std::vector&lt; boost::shared_ptr&lt; Variable &gt; &gt; &amp;variables, std::vector&lt; std::string &gt; &amp;zNames, std::vector&lt; std::string &gt; &amp;xNames, std::vector&lt; std::string &gt; &amp;calculatedVarNames) override</td><td class="entry"><a class="el" href="../../de/d1e/a03015.html">DYN::ModelCPP</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#aa8cdd77774175355f5d7c87024783b49">defineNamesInit</a>()</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/de4/a03031.html#abf417eb35ad89a1de2eab60578fb25ba">defineParameters</a>(std::vector&lt; ParameterModeler &gt; &amp;parameters) override</td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a645cbcde26f5db994c7ed125ab9e5c20">DYN::ModelCPP::defineParameters</a>()</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a87e01d750917db47e4d2be130e6f12a5">DYN::ModelCPP::defineParameters</a>(bool isInitParam)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../de/d1e/a03015.html#a49e1ee1e3b1052228db89ab38a89a54c">defineParametersInit</a>(std::vector&lt; ParameterModeler &gt; &amp;parameters) override</td><td class="entry"><a class="el" href="../../de/d1e/a03015.html">DYN::ModelCPP</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a475d4928f8db4f7ec65bf80ad40eae6c">DYN::SubModel::defineParametersInit</a>()</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/de4/a03031.html#ad046a545a87691192e65c88775a5db88">defineVariables</a>(std::vector&lt; boost::shared_ptr&lt; Variable &gt; &gt; &amp;variables) override</td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a26356e905878b5bdecc9b4166f4034c0">DYN::ModelCPP::defineVariables</a>()</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../de/d1e/a03015.html#a403c066215afc62e1d8fe113472adbe9">defineVariablesInit</a>(std::vector&lt; boost::shared_ptr&lt; Variable &gt; &gt; &amp;variables) override</td><td class="entry"><a class="el" href="../../de/d1e/a03015.html">DYN::ModelCPP</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#aedb80e8617cc143501bdbc08fc0c7261">DYN::SubModel::defineVariablesInit</a>()</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../de/d1e/a03015.html#a527c137725e27935ecf7373c60cc435f">dumpInStream</a>(boost::archive::binary_oarchive &amp;os, T value)</td><td class="entry"><a class="el" href="../../de/d1e/a03015.html">DYN::ModelCPP</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../de/d1e/a03015.html#a314691f1e3e2b334af42098dabe692ed">dumpInStream</a>(boost::archive::binary_oarchive &amp;os, bool value)</td><td class="entry"><a class="el" href="../../de/d1e/a03015.html">DYN::ModelCPP</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../de/d1e/a03015.html#a90f80439718b323f2a24dd91096fbb86">dumpInStream</a>(boost::archive::binary_oarchive &amp;os, double value)</td><td class="entry"><a class="el" href="../../de/d1e/a03015.html">DYN::ModelCPP</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../de/d1e/a03015.html#a159c47e6a5cc57a4d05eabac2486f08c">dumpInStream</a>(boost::archive::binary_oarchive &amp;os, int value)</td><td class="entry"><a class="el" href="../../de/d1e/a03015.html">DYN::ModelCPP</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../de/d1e/a03015.html#aebbdd04ce7545a01f0f66f0d93fe619d">dumpInternalVariables</a>(boost::archive::binary_oarchive &amp;streamVariables) const</td><td class="entry"><a class="el" href="../../de/d1e/a03015.html">DYN::ModelCPP</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a547a1d228d59b290b3f94e9602fe02e7">dumpName</a>() const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../de/d1e/a03015.html#adae8d63dac96f590a164a3aab6168ba6">dumpParameters</a>(std::map&lt; std::string, std::string &gt; &amp;mapParameters) override</td><td class="entry"><a class="el" href="../../de/d1e/a03015.html">DYN::ModelCPP</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a760f00ec138bebb7a54d2edd37dbe876">dumpUserReadableElementList</a>(const std::string &amp;nameElement) const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../de/d1e/a03015.html#af33ccbe3835f6aae5431e3af9b110327">dumpVariables</a>(std::map&lt; std::string, std::string &gt; &amp;mapVariables) override</td><td class="entry"><a class="el" href="../../de/d1e/a03015.html">DYN::ModelCPP</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/de4/a03031.html#ad76fa3ff7b0f5f2ce5c9a9ddc9cf18b2">evalCalculatedVarI</a>(unsigned iCalculatedVar) const override</td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a74a62b4f92c980e7de554555f048f84e">evalCalculatedVariablesSub</a>(double t)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/de4/a03031.html#a7096164f2a9e42ae0a3c0f3332e69705">evalCalculatedVars</a>() override</td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/de4/a03031.html#af0617a7df17c378446a7402f927cce46">evalDynamicFType</a>() override</td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/de4/a03031.html#a482213de77d97f82574b5c0812dedcf8">evalDynamicYType</a>() override</td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/de4/a03031.html#a9137ac82c23b82902c7429d37a14d55e">evalF</a>(double t, propertyF_t type) override</td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a591a36807aa4dce94f8bf1d1ee28d30a">evalFDiffSub</a>(double t)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a6ad9bbb8d4635868dbf4796566d396fd">evalFSub</a>(double t)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/de4/a03031.html#af954b5c0371053a32527c2a1c85d7415">evalG</a>(double t) override</td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a38db19c14b7062a6129ff349ad26bced">evalGSub</a>(double t)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/de4/a03031.html#a76ac41add92122ebf5f6c51dbdcd272f">evalJCalculatedVarI</a>(unsigned iCalculatedVar, std::vector&lt; double &gt; &amp;res) const override</td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/de4/a03031.html#a68651132e35fe4055a53609ade46361b">evalJt</a>(double t, double cj, int rowOffset, SparseMatrix &amp;jt) override</td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/de4/a03031.html#abd79286b5fb49fe09088c6de4fcface9">evalJtPrim</a>(double t, double cj, int rowOffset, SparseMatrix &amp;jtPrim) override</td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a55515bb893a4898816d053ddea9cb820">evalJtPrimSub</a>(double t, double cj, int &amp;rowOffset, SparseMatrix &amp;jtPrim)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#ab5b22bb8bd7fbbd97dad4b2f38fc4da5">evalJtSub</a>(double t, double cj, int &amp;rowOffset, SparseMatrix &amp;jt)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/de4/a03031.html#a7a965a6bf87ea02769c7e72762469995">evalMode</a>(double t) override</td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a3d595b0d5f72af7acee7462f65800472">evalModeSub</a>(double t)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/de4/a03031.html#a3ff3f390844bb5bdcf92e583f060cb87">evalStaticFType</a>() override</td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/de4/a03031.html#af9e4734fb0f94c77e0fba93d61ab7202">evalStaticYType</a>() override</td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/de4/a03031.html#a8842840a57b2f32be49d344f36221c5b">evalZ</a>(double t) override</td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a2eb6a733fe9068af9f544a74c7d45145">evalZSub</a>(double t)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a49b2f75e82e82e317315b08d5c697c46">fDeb</a>() const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a4e072b208fe98722710e0bf1ced25e9d">fDeb_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a4144950a2e215502c1471465f934dc3c">fEquationIndex_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#ad0073396aa22dc1df9c4cda71d3bcfb5">fEquationInitIndex_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#ad474e2034e8390b2893fb6cff0f9a380">findParameter</a>(const std::string &amp;name, bool isInitParam) const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#aaa5f372d5af8b2bb6e887cb8418173d5">findParameterDynamic</a>(const std::string &amp;name) const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a02f422b9728ccc4a2a4dd78cfa983f07">findParameterInit</a>(const std::string &amp;name) const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a2e7fbd704c3b41e9d58c963cf48d5e38">fLocal_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a0bf81dae6d784cc120de744752439ea6">fLocalInit_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a41a82f1f3b85b50ebc04e45d1e1a93f9">fType_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#aadac202837bb3dff7d572f482e239871">gDeb</a>() const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a69550a141fdacdffd220fb46e9b4e59a">gDeb_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#ae511ea4542a4da913b86a6e5377d1e14">gEquationIndex_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a8b5503b9c0b5e8b20c32eb5d79a531b2">gEquationInitIndex_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a8545c0f240dd0e513ce3ab74790057a4">getCalculatedVar</a>(int indexCalculatedVar) const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a660d82248e5fe473daebdae96e038e32">getCalculatedVarName</a>(const unsigned int index)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a04738b2b43e8078ec69e071d8177381f">getCalculatedVarNames</a>()</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a0643e88e5a8c82e516ce788fa3a354fd">getCalculatedVarNamesInit</a>()</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/de4/a03031.html#a435d29c57a05f74a196123d8405cbd41">getCheckSum</a>() const override</td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a8e58f132d16f647c0ce71d725ee17193">getCurrentTime</a>() const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a6b29a20466472e45e348133b1b548bfe">getElements</a>(const std::string &amp;name) const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#ace0137d7bd8d8f066869740c7f1fd857">getFequationByLocalIndex</a>(int index) const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#acff33c42641f3433bca1d03f6dc57c6a">getGequationByLocalIndex</a>(int index) const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/de4/a03031.html#af205480e25876b6761b7a01a28e2e9e5">getIndexesOfVariablesUsedForCalculatedVarI</a>(unsigned iCalculatedVar, std::vector&lt; int &gt; &amp;indexes) const override</td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#ab7f9028769433b01a4c7e60bc91655cb">getInitSubModelParameterValue</a>(const std::string &amp;nameParameter, std::string &amp;value, bool &amp;found) const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a59c96c7de310636579afa1f2f04ac14d">getIsInitProcess</a>() const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#aed59444912b966cd6fa30e953fc7fc1d">getOffsetY</a>() const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#aaee1bcb2f2f14773d0dd23d1dd23878a">getParameters</a>(const bool isInitParam) const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a76a35058ea0b23d7e2410395f693b54c">getParametersDynamic</a>() const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a2ff7fe075c6114d5df93ef8bddab5dfa">getParametersInit</a>() const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/de4/a03031.html#aebbf7782212faf7ea5fa65c7902c283b">getSize</a>() override</td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a302c6467e3d026811083b2bade8df020">getSubModelParameterValue</a>(const std::string &amp;nameParameter, std::string &amp;value, bool &amp;found)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a35a6c1f1fa9c2c814e2329e309f44400">getVariable</a>(const std::string &amp;variableName) const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a8d94b92258659cf940738bcdd9149e46">getVariableByName</a>() const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#aac70903e5e87ffc2bf3909eb2083962e">getVariableIndexGlobal</a>(const boost::shared_ptr&lt; Variable &gt; &amp;variable) const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a0795a3e71ed406b4fe55d3d390d82d0a">getVariableValue</a>(const std::string &amp;nameVariable) const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#aa1bcbf7fd7c398d7a8d5a84b6a4c6c81">getVariableValue</a>(const boost::shared_ptr&lt; Variable &gt; &amp;variable) const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#aa03d7cbe19f43e2ae7ba8e8b355c2acd">getWorkingDirectory</a>()</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/de4/a03031.html#ad9b4168fef53e99698074d83e6670dbd">getY0</a>() override</td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a74e38a4a49c6486151e22f2ec7918f08">getY0Sub</a>()</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a8504c3ee781b6c5a7916d161fa479d47">getY0Values</a>(std::vector&lt; double &gt; &amp;y0, std::vector&lt; double &gt; &amp;yp0, std::vector&lt; double &gt; &amp;z0)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#af2ee2911c12160300cb209798afd03ac">getYType</a>() const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a520d7c2c52e6350931dc4f6b42eca0af">getZ</a>(std::vector&lt; double &gt; &amp;z) const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#ad6e7574f5e7c9637ee7c28524774723f">gLocal_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#af45f6172588a5c161cb1a06826f4898b">hasConstraints</a>() const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a72ae69f1d1f8da7ce4245c0c0ae408de">hasDataCheckCoherence</a>() const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a09329281e61388d541baa369df416a6d">hasParameter</a>(const std::string &amp;nameParameter, bool isInitParam) const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#acc2bbac6cdc64aa1a658ad0c4414bc3b">hasParameterDynamic</a>(const std::string &amp;nameParameter) const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a90c634ebcc17ec30de4e6b2777ca2bf0">hasParameterInit</a>(const std::string &amp;nameParameter) const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#ac43c9a5f128f0999f3b4fc061ad8db0d">hasTimeline</a>() const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#aef1fe9fc960a7ab4fbb4f528ef8a12cb">hasVariable</a>(const std::string &amp;nameVariable) const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#af6d1625624aaca3b25a3b749abd150ef">hasVariableInit</a>(const std::string &amp;nameVariable) const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/de4/a03031.html#a9e62e9fe387c99c3cc58816b59c0e61a">init</a>(double t0) override</td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a35a57de8e2623d3ad31c294a34aa1453">initFromData</a>(const boost::shared_ptr&lt; DataInterface &gt; &amp;data)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/de4/a03031.html#acecdc6d27e51b5b9d2ed0f7318e6b852">initializeFromData</a>(const boost::shared_ptr&lt; DataInterface &gt; &amp;data) override</td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/de4/a03031.html#a68338786ea34fdef3e6ad1f32727b6e4">initializeStaticData</a>() override</td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/de4/a03031.html#a644565d3ca703e646c4bcfc8a235e75b">initParams</a>() override</td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a99727f07b192bc54d86a330f59fa3964">initSize</a>(int &amp;sizeYGlob, int &amp;sizeZGlob, int &amp;sizeModeGlob, int &amp;sizeFGlob, int &amp;sizeGGlob)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a0b3b495d1855319c0a4515dcbc43f734">initStaticData</a>()</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#aa15304abb6bb57e6affcf33af0529aa6">initSub</a>(double t0, const std::shared_ptr&lt; parameters::ParametersSet &gt; &amp;localInitParameters)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../de/d1e/a03015.html#a7e21e9de9182d50201404242b1cb42da">initSubBuffers</a>() override</td><td class="entry"><a class="el" href="../../de/d1e/a03015.html">DYN::ModelCPP</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a05b406d82edb6a3afca14a416efe1dc7">instantiateNonUnitaryParameters</a>(bool isInitParam, const std::map&lt; std::string, ParameterModeler &gt; &amp;nonUnitaryParameters, std::unordered_set&lt; std::string &gt; &amp;addedParameter)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/de4/a03031.html#a05f90f6ec9b0ca0a080acde2e8ee61b7">isSelf_</a></td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../de/d1e/a03015.html#ab535104320ef1f24aebae595ae4e8f1b">isStartingFromDump</a>() const</td><td class="entry"><a class="el" href="../../de/d1e/a03015.html">DYN::ModelCPP</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../de/d1e/a03015.html#abb9de82698c67d19a498506b5fba4449">isStartingFromDump_</a></td><td class="entry"><a class="el" href="../../de/d1e/a03015.html">DYN::ModelCPP</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/de4/a03031.html#a4f96c000662cd97aebd142fe4def02b7">lastTime_</a></td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../de/d1e/a03015.html#a5cb2e5dba6edd766110589243c7b84c8">loadInternalVariables</a>(boost::archive::binary_iarchive &amp;streamVariables)</td><td class="entry"><a class="el" href="../../de/d1e/a03015.html">DYN::ModelCPP</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../de/d1e/a03015.html#a3b9790dad578c79f3a4a966aebe99288">loadParameters</a>(const std::string &amp;parameters) override</td><td class="entry"><a class="el" href="../../de/d1e/a03015.html">DYN::ModelCPP</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a07be52500cbfbe5bfb700963f1d81232">DYN::SubModel::loadParameters</a>(const std::map&lt; std::string, std::string &gt; &amp;mapParameters)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../de/d1e/a03015.html#ab32bee854ddf053cf041efeca1ef5914">loadVariables</a>(const std::string &amp;variables) override</td><td class="entry"><a class="el" href="../../de/d1e/a03015.html">DYN::ModelCPP</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a632d46be10667adab02c8bbace0666a9">DYN::SubModel::loadVariables</a>(const std::map&lt; std::string, std::string &gt; &amp;mapVariables)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a42c7ae8c4c2019f4d7e0b08ac20b11a0">localInitParameters_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#aa04bc54826f9fb6e3a4bdb4019a3f0a0">modeChange</a>() const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a7f9e8d40c4a5c5b008b6d568e34b325b">modeChange</a>(const bool modeChange)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#ab801a074af3b41dd8403588a16b81311">modeDeb_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/de4/a03031.html#ad81c10c7050605efaa654b60c90ee3fb">ModelCentralizedShuntsSectionControl</a>()</td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../de/d1e/a03015.html#ab4096df55395b14b32ea402da654e5ca">ModelCPP</a>()</td><td class="entry"><a class="el" href="../../de/d1e/a03015.html">DYN::ModelCPP</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../de/d1e/a03015.html#aaaa0c2093e68df18764201dba13aa3ff">ModelCPP</a>(const std::string &amp;modelType)</td><td class="entry"><a class="el" href="../../de/d1e/a03015.html">DYN::ModelCPP</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../de/d1e/a03015.html#ac0a3a5100adcca7c6589eec0613b9de7">modelType</a>() const override</td><td class="entry"><a class="el" href="../../de/d1e/a03015.html">DYN::ModelCPP</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a04c27cba14804926f308a52c2f763623">name</a>() const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a925f48076202358c5262b933a8386d1d">name</a>(const std::string &amp;name)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>nbCalculatedVariables_</b> enum value (defined in <a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a>)</td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/de4/a03031.html#af6a3016c71e0532a1aacd28d7f9fce81">nbShunts_</a></td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../de/d1e/a03015.html#a9d3e847806ea23de017ca840fb7c9879">notifyTimeStep</a>() override</td><td class="entry"><a class="el" href="../../de/d1e/a03015.html">DYN::ModelCPP</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#aa89366f7b3de10552876c89dde228484">offsetY_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#afb336cce2572005686530ddbf2d81461">operator=</a>(SubModel &amp;&amp;)=default</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#aea1cece12a1062832e2a1a81b777e1d9">parametersDynamic_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#adf72905dfc581f53e294309a39515da3">parametersFileName</a>() const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#af3ac5691ae329b35a122a9da9006ac2a">parametersInit_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a66063ac01714e8e31afdc01b4b922764">printInitModelValues</a>(const std::string &amp;directory, const std::string &amp;dumpFileName)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#af8a5661ba4c31d46000749b6a6674ccf">printInitValuesParameters</a>(std::ofstream &amp;fstream) const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a93c72f8f43cf81b7a3a20105a62a3f6b">printInitValuesVariables</a>(std::ofstream &amp;fstream)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a48324206454f6e414cc98e7decc599e9">printInternalParameters</a>(std::ofstream &amp;fstream) const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a744c9372750ae424bb2bb9d557574a51">printLocalInitParametersValues</a>() const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a30ac8bc3007425c7c224b1e335cd5fcc">printMessages</a>()</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a59604e226486dfac7e660aa6534e8bfe">printModel</a>() const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a1899acfc2d9ec4a8aab429384492a9ad">printModelValues</a>(const std::string &amp;directory, const std::string &amp;dumpFileName)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#addc2bcdffe4ade923ae59a25899fc354">printParameterValues</a>() const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a4f88da1df85decd8a7c6fe9e5c7c2365">printValuesParameters</a>(std::ofstream &amp;fstream)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a15a33fad9a18370f7d50a724d9736993">printValuesVariables</a>(std::ofstream &amp;fstream)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a76ae2b85b94f0f578cf2b6c972be6468">readPARParameters_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a6f4bb70edb67a1642d19ebfece081ade">releaseElements</a>()</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#af266bf3d1520c6c31143716937d264de">resetParameters</a>(bool isInitParam)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../de/d1e/a03015.html#a0f2ece638e8fe78f76e86ef81b6aa1c8">rotateBuffers</a>() override</td><td class="entry"><a class="el" href="../../de/d1e/a03015.html">DYN::ModelCPP</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/de4/a03031.html#a4ff7d6a71cad553b3b0ec262473a5d4d">sections0_</a></td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/de4/a03031.html#a6c1fc0dd767b0e3eca7b9c6211cf095d">sectionsMax_</a></td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/de4/a03031.html#af7bb9377de632e9a3e19a37140a26a74">sectionsMin_</a></td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a972f08104f67c57fb6f7374fbf1670d2">setBufferF</a>(double *f, int offsetF)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a65d49f278dcbc338ec3b02f7974a270b">setBufferFType</a>(propertyF_t *fType, int offsetFType)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a6e2cd1b8f92474cb475b6f55c51d0837">setBufferG</a>(state_g *g, int offsetG)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#adfd07423feacff83752b9ef3725dfccd">setBufferY</a>(double *y, double *yp, int offsetY)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a6d5df06049e84649dd47847c1c4ba84d">setBufferYType</a>(propertyContinuousVar_t *yType, int offsetYType)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#ad74a9ca804bc2641376502f36f27d6bf">setBufferZ</a>(double *z, bool *zConnected, int offsetZ)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a46ccaf0330d24e562cdfa04bf63f5672">setConstraints</a>(const std::shared_ptr&lt; constraints::ConstraintsCollection &gt; &amp;constraints)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a16ce07c46b7fdcbdb766f4523bc3a7e4">setCurrentTime</a>(const double time)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/de4/a03031.html#a3078a835a45e4a68942b7c24d64806ce">setFequations</a>() override</td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../de/d1e/a03015.html#add3f95a3f40f956ab258b85b9a37efd1">setFequationsInit</a>() override</td><td class="entry"><a class="el" href="../../de/d1e/a03015.html">DYN::ModelCPP</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#ada88673887533d61a67192d5e9d25dae">setFequationsSub</a>()</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/de4/a03031.html#a4300cc18320459d9fb4598474a4b7542">setGequations</a>() override</td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../de/d1e/a03015.html#af70b69603ca3bd0113d3650ea4d408f0">setGequationsInit</a>() override</td><td class="entry"><a class="el" href="../../de/d1e/a03015.html">DYN::ModelCPP</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a159abc69341dfa4c740efc00d7281cdb">setGequationsSub</a>()</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#abc46998ef9f1b2f08d75b41c6f85509d">setIsInitProcess</a>(const bool isInitProcess)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#acf103f7fd6d11afdc386716badb42354">setModeChangeType</a>(const modeChangeType_t &amp;modeChangeType)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a3c76487ea6e086a5701f69e25c8cfba5">setParameterFromPARFile</a>(const std::string &amp;parameterName, const bool isInitParam)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a1b628e6d4d2c0053e36eee5974eed816">setParameterFromSet</a>(const std::shared_ptr&lt; parameters::ParametersSet &gt; &amp;parametersSet, const parameterOrigin_t &amp;origin, ParameterModeler &amp;parameter)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a6ccbbe9ea000c846d0f3fcf1f573e4ad">setParametersFromPARFile</a>()</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a7c2e96a1a7a4a1db0da5e9f114e84b41">setParametersFromPARFile</a>(bool isInitParam)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#aa55a306dcbe0f76114e153e3b7967a08">setParameterValue</a>(const std::string &amp;name, const parameterOrigin_t &amp;origin, const T &amp;value, bool isInitParam)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a6b824073147a9f9a2078cd491d442f6b">setPARParameters</a>(const std::shared_ptr&lt; parameters::ParametersSet &gt; &amp;params)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../de/d1e/a03015.html#a3aae336632d189189317267ada0e907d">setSharedParametersDefaultValues</a>() override</td><td class="entry"><a class="el" href="../../de/d1e/a03015.html">DYN::ModelCPP</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../de/d1e/a03015.html#a0bd537b5b7896f0e0aeed60f0e5d31dc">setSharedParametersDefaultValuesInit</a>() override</td><td class="entry"><a class="el" href="../../de/d1e/a03015.html">DYN::ModelCPP</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/de4/a03031.html#ab69beb89504316b17ebadad019d1771f">setSubModelParameters</a>() override</td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a92cfd1aff54e57583c9e27299c7ebfac">setTimeline</a>(const boost::shared_ptr&lt; timeline::Timeline &gt; &amp;timeline)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a334ed0c43b8ce5378d6df19e35b1c227">setWorkingDirectory</a>(const std::string &amp;workingDirectory)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a35ff11ee1608946db55852af1491858f">sizeCalculatedVar</a>() const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a7d89f32133c61d8e2295c5efa893ac47">sizeCalculatedVar_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a55a0f15c850f09186580519c10882e60">sizeF</a>() const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#af57d2b722aa3e20ba42224c1d05ac154">sizeF_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a9fc3b49410eb56662e04c9a9c2070bed">sizeFInit</a>() const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a2cc4c706b85b83c0728ff7adf1cfb1d6">sizeG</a>() const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a07fc8bf5734ec0a5af35fc4e56dbbf29">sizeG_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a78ccd508d67f55435199d521545deac3">sizeGInit</a>() const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#af8fe7bda256449bd3ddbf35cba0efff2">sizeMode</a>() const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a0ae4d10bc32e04bffb317ffda4f60b75">sizeMode_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a54cff26bb4995da5fddd20b82d50654f">sizeY</a>() const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#af631d1ab41e2e0de82e485976731f94b">sizeY_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#adcd711bd82d66e5812dcfe2479462eb6">sizeZ</a>() const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#ae7d999f960a86b76ef512ce22a4cf715">sizeZ_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a57c153cae0c0cc21d41b5542fa5394c1">staticId</a>() const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a0ab5828c68576c9d383883c8ec6179ab">staticId</a>(const std::string &amp;id)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#ad74b53a071129766d2bb9cf432d221f1">SubModel</a>()</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a8b4a440e4a001e0da6890058e853a960">SubModel</a>(SubModel &amp;&amp;)=default</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/de4/a03031.html#a696874e50d389167d6d73712283b689c">tNext_</a></td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#afbba2ca9d382bfa3ea1325851b67d0b4">updateCalculatedVarForCurve</a>(const std::shared_ptr&lt; curves::Curve &gt; &amp;curve)</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/de4/a03031.html#a5c6199c9271ad98ce87ec10bc88ccaff">URef0Pu_</a></td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a5067aa0b9472bd2fc98bcd49d5dcd9b5">variablesByName_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a3814b6d6230398ca03710a7f245d9ec2">variablesByNameInit</a>()</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a45589ceb7c9d03d9a00a647fd4d75950">variablesByNameInit_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a0492a323276da4957bedce0d998d9b7d">variablesFileName</a>() const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/de4/a03031.html#ae9050b497949cc4278d73f5f7c4ec74a">whenDown_</a></td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/de4/a03031.html#a9af97bfe5be773ab29eb67b28fe0511f">whenUp_</a></td><td class="entry"><a class="el" href="../../d4/de4/a03031.html">DYN::ModelCentralizedShuntsSectionControl</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a29bdea291963749b5afbf06a83494bc8">withLoadedParameters_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#af2b6c7d416d3f56d0f9533ff8a8fd0d7">withLoadedVariables_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#ac75c6c0614bb31c1768c8961560cf604">xAliasesNames</a>()</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a2a9551afe323ccccfb6a12897257e12a">xNames</a>()</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a79d011084d19186bf843a6431c57f7d4">xNamesInit</a>()</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#ac40acc09fba92e27bb03f726333328c1">yDeb</a>() const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a06e7da52a8143b6370f24e9b7334b481">yDeb_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a3aeabff5f8a67b1878b6b4054ed42beb">yLocal_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#ac51f74b0780496853cae8cc0434c41ea">yLocalInit_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a528e9b3ca588c396ddb95d3aed861454">ypLocal_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a436353bf09939a34e3bc6d31f7877c59">ypLocalInit_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a4f4bc2692ded0f658542ed94cabf6e35">yType_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a01ae127c90132d1de2cb722abb85c481">zAliasesNames</a>()</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a02ce72a645bae60a41595816d7423346">zDeb</a>() const</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#af15987a7f0fb4064d4d48d39cf7ef93c">zDeb_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#af06a5b214fad1d404889501e3f9c585d">zLocal_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#acec224c631f5e0d483eedccbd9de59a7">zLocalConnected_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a6601f3b7f92f0f4561b7679da3829e5f">zLocalInit_</a></td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a837516a82adc0c016f45490f578fb051">zNames</a>()</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#aa1709a1ce20c764697e6abc23f5c692f">zNamesInit</a>()</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../de/d1e/a03015.html#a2ad0f822c27f250cad7f8cf376ef3524">~ModelCPP</a>() override=default</td><td class="entry"><a class="el" href="../../de/d1e/a03015.html">DYN::ModelCPP</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d07/a02635.html#a1623660130dd5bcd4d4ae84b6b1741d0">~SubModel</a>()=default</td><td class="entry"><a class="el" href="../../d9/d07/a02635.html">DYN::SubModel</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+</table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -954,8 +360,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../db/d1b/a02960.html
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../de/dae/a03028.html">FictBusInterfaceIIDM</a></li>
-    <li class="footer">Generated on Mon Jun 2 2025 11:05:25 for Dynawo by
+    <li class="footer">Generated on Tue Jun 3 2025 09:30:56 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

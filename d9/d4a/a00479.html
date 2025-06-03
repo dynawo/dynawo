@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNError.h File Reference</title>
+<title>Dynawo: DYNExecUtils.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,32 +95,194 @@ $(document).ready(function(){initNavTree('d9/d4a/a00479.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">DYNError.h File Reference</div>  </div>
+<div class="title">DYNExecUtils.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Error header.  
+<p>define utily function  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../df/db6/a00509_source.html">DYNMessage.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;string&gt;</code><br />
+<code>#include &lt;sstream&gt;</code><br />
 </div>
 <p><a href="../../d9/d4a/a00479_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d61/a02588.html">DYN::Error</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic error handler for Dynawo.  <a href="../../d4/d61/a02588.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df5/a02592.html">DYN::MessageError</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic error handler for Dynawo (simple message). Used when dictionaries are not initialized.  <a href="../../d1/df5/a02592.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a6ad40d975ce0190b8c16dae8fb930780"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d4a/a00479.html#a6ad40d975ce0190b8c16dae8fb930780">prettyPath</a> (const std::string &amp;path)</td></tr>
+<tr class="memdesc:a6ad40d975ce0190b8c16dae8fb930780"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the canonical path from a path  <a href="#a6ad40d975ce0190b8c16dae8fb930780">More...</a><br /></td></tr>
+<tr class="separator:a6ad40d975ce0190b8c16dae8fb930780"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa38c6b69c1f300fc7073deb9e93972de"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d4a/a00479.html#aa38c6b69c1f300fc7073deb9e93972de">executeCommand</a> (const std::string &amp;command, std::stringstream &amp;ss, const std::string &amp;startDir=&quot;&quot;)</td></tr>
+<tr class="memdesc:aa38c6b69c1f300fc7073deb9e93972de"><td class="mdescLeft">&#160;</td><td class="mdescRight">execute a command  <a href="#aa38c6b69c1f300fc7073deb9e93972de">More...</a><br /></td></tr>
+<tr class="separator:aa38c6b69c1f300fc7073deb9e93972de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ff5923e5500aa2dba0507dbd347c33a"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d4a/a00479.html#a0ff5923e5500aa2dba0507dbd347c33a">getEnvVar</a> (std::string const &amp;key)</td></tr>
+<tr class="memdesc:a0ff5923e5500aa2dba0507dbd347c33a"><td class="mdescLeft">&#160;</td><td class="mdescRight">retrieve a given environment variable  <a href="#a0ff5923e5500aa2dba0507dbd347c33a">More...</a><br /></td></tr>
+<tr class="separator:a0ff5923e5500aa2dba0507dbd347c33a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71a143f7ac7fcbdf9a8530e767d2e654"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d4a/a00479.html#a71a143f7ac7fcbdf9a8530e767d2e654">getMandatoryEnvVar</a> (const std::string &amp;key)</td></tr>
+<tr class="memdesc:a71a143f7ac7fcbdf9a8530e767d2e654"><td class="mdescLeft">&#160;</td><td class="mdescRight">retrieve a given mandatory environment variable  <a href="#a71a143f7ac7fcbdf9a8530e767d2e654">More...</a><br /></td></tr>
+<tr class="separator:a71a143f7ac7fcbdf9a8530e767d2e654"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acea903b4b06b59a864120f417c3e60f0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d4a/a00479.html#acea903b4b06b59a864120f417c3e60f0">hasEnvVar</a> (const std::string &amp;key)</td></tr>
+<tr class="memdesc:acea903b4b06b59a864120f417c3e60f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">check whether a given environment variable exists  <a href="#acea903b4b06b59a864120f417c3e60f0">More...</a><br /></td></tr>
+<tr class="separator:acea903b4b06b59a864120f417c3e60f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Error header. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>define utily function </p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="aa38c6b69c1f300fc7073deb9e93972de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa38c6b69c1f300fc7073deb9e93972de">&#9670;&nbsp;</a></span>executeCommand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int executeCommand </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>command</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::stringstream &amp;&#160;</td>
+          <td class="paramname"><em>ss</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>startDir</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>execute a command </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">command</td><td>command to execute </td></tr>
+    <tr><td class="paramname">ss</td><td>log from the executed command </td></tr>
+    <tr><td class="paramname">startDir</td><td>optional starting directory (current dir by default) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>return code </dd></dl>
+
+</div>
+</div>
+<a id="a0ff5923e5500aa2dba0507dbd347c33a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ff5923e5500aa2dba0507dbd347c33a">&#9670;&nbsp;</a></span>getEnvVar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string getEnvVar </td>
+          <td>(</td>
+          <td class="paramtype">std::string const &amp;&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>retrieve a given environment variable </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>key of the environment variable</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value of the environment variable </dd></dl>
+
+</div>
+</div>
+<a id="a71a143f7ac7fcbdf9a8530e767d2e654"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71a143f7ac7fcbdf9a8530e767d2e654">&#9670;&nbsp;</a></span>getMandatoryEnvVar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string getMandatoryEnvVar </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>retrieve a given mandatory environment variable </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>key of the mandatory environment variable</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value of the mandatory environment variable </dd></dl>
+
+</div>
+</div>
+<a id="acea903b4b06b59a864120f417c3e60f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acea903b4b06b59a864120f417c3e60f0">&#9670;&nbsp;</a></span>hasEnvVar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hasEnvVar </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>check whether a given environment variable exists </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>key of the environment variable</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><b>true</b> if the variable exists </dd></dl>
+
+</div>
+</div>
+<a id="a6ad40d975ce0190b8c16dae8fb930780"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ad40d975ce0190b8c16dae8fb930780">&#9670;&nbsp;</a></span>prettyPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string prettyPath </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>get the canonical path from a path </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>: path to find the canonical path</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the canonical path </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -136,8 +298,8 @@ Classes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c5eaf1ac1cf936f6800d020d474d243d.html">Common</a></li><li class="navelem"><a class="el" href="../../d9/d4a/a00479.html">DYNError.h</a></li>
-    <li class="footer">Generated on Mon Jun 2 2025 11:05:24 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c5eaf1ac1cf936f6800d020d474d243d.html">Common</a></li><li class="navelem"><a class="el" href="../../d9/d4a/a00479.html">DYNExecUtils.h</a></li>
+    <li class="footer">Generated on Tue Jun 3 2025 09:30:55 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNStaticRefInterface.h File Reference</title>
+<title>Dynawo: DYNSubModelFactory.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,27 +95,104 @@ $(document).ready(function(){initNavTree('d7/d80/a00614.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">DYNStaticRefInterface.h File Reference</div>  </div>
+<div class="title">DYNSubModelFactory.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>static reference interface structure header file  
+<p>SubModel factory header.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;string&gt;</code><br />
+<div class="textblock"><code>#include &lt;map&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;boost/core/noncopyable.hpp&gt;</code><br />
+<code>#include &lt;boost/shared_ptr.hpp&gt;</code><br />
+<code>#include &lt;boost/dll.hpp&gt;</code><br />
+<code>#include &lt;boost/function.hpp&gt;</code><br />
+<code>#include &lt;mutex&gt;</code><br />
 </div>
 <p><a href="../../d7/d80/a00614_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dba/a02776.html">DYN::StaticRefInterface</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">interface class for static reference  <a href="../../d5/dba/a02776.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dd7/a02643.html">DYN::SubModelFactory</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d8/dd7/a02643.html" title="SubModelFactory class. ">SubModelFactory</a> class.  <a href="../../d8/dd7/a02643.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d11/a02647.html">DYN::SubModelFactories</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d2/d11/a02647.html" title="SubModelFactories class. ">SubModelFactories</a> class.  <a href="../../d2/d11/a02647.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/de4/a02651.html">DYN::SubModelDelete</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../df/de4/a02651.html" title="SubModelDelete class. ">SubModelDelete</a> class.  <a href="../../df/de4/a02651.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a245abd79ba65843543bfc98fb1e0a55c"><td class="memItemLeft" align="right" valign="top"><a id="a245abd79ba65843543bfc98fb1e0a55c"></a>
+typedef void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d80/a00614.html#a245abd79ba65843543bfc98fb1e0a55c">DYN::deleteSubModelFactory_t</a>(SubModelFactory *)</td></tr>
+<tr class="memdesc:a245abd79ba65843543bfc98fb1e0a55c"><td class="mdescLeft">&#160;</td><td class="mdescRight">function pointer type to destroy a model. <br /></td></tr>
+<tr class="separator:a245abd79ba65843543bfc98fb1e0a55c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a40d5e9d653602d44d47b4f2aa5acbe5a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d8/dd7/a02643.html">DYN::SubModelFactory</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d80/a00614.html#a40d5e9d653602d44d47b4f2aa5acbe5a">getFactory</a> ()</td></tr>
+<tr class="memdesc:a40d5e9d653602d44d47b4f2aa5acbe5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">SubModelFactory getter.  <a href="#a40d5e9d653602d44d47b4f2aa5acbe5a">More...</a><br /></td></tr>
+<tr class="separator:a40d5e9d653602d44d47b4f2aa5acbe5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8320d33ddf6aa0e1bc97800424da5a3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d80/a00614.html#aa8320d33ddf6aa0e1bc97800424da5a3">deleteFactory</a> (<a class="el" href="../../d8/dd7/a02643.html">DYN::SubModelFactory</a> *factory)</td></tr>
+<tr class="memdesc:aa8320d33ddf6aa0e1bc97800424da5a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">SubModelFactory destroy method.  <a href="#aa8320d33ddf6aa0e1bc97800424da5a3">More...</a><br /></td></tr>
+<tr class="separator:aa8320d33ddf6aa0e1bc97800424da5a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>static reference interface structure header file </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>SubModel factory header. </p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="aa8320d33ddf6aa0e1bc97800424da5a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8320d33ddf6aa0e1bc97800424da5a3">&#9670;&nbsp;</a></span>deleteFactory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void deleteFactory </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d8/dd7/a02643.html">DYN::SubModelFactory</a> *&#160;</td>
+          <td class="paramname"><em>factory</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SubModelFactory destroy method. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">factory</td><td>the SubModelFactory to destroy </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a40d5e9d653602d44d47b4f2aa5acbe5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40d5e9d653602d44d47b4f2aa5acbe5a">&#9670;&nbsp;</a></span>getFactory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d8/dd7/a02643.html">DYN::SubModelFactory</a>* getFactory </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SubModelFactory getter. </p>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to a new instance of SubModelFactory </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -131,8 +208,8 @@ Classes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_7d7d21115b5241938a60e6b8a57ea766.html">Modeler</a></li><li class="navelem"><a class="el" href="../../dir_a96cc45270be55e9fc3691253afb6f87.html">Common</a></li><li class="navelem"><a class="el" href="../../d7/d80/a00614.html">DYNStaticRefInterface.h</a></li>
-    <li class="footer">Generated on Mon Jun 2 2025 11:05:25 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_7d7d21115b5241938a60e6b8a57ea766.html">Modeler</a></li><li class="navelem"><a class="el" href="../../dir_a96cc45270be55e9fc3691253afb6f87.html">Common</a></li><li class="navelem"><a class="el" href="../../d7/d80/a00614.html">DYNSubModelFactory.h</a></li>
+    <li class="footer">Generated on Tue Jun 3 2025 09:30:55 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

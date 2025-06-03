@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::LoadCriteria::LoadFailingCriteria Class Reference</title>
+<title>Dynawo: Member List</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('da/d47/a02864.html','../../');});
+$(document).ready(function(){initNavTree('d6/d92/a02867.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,230 +94,20 @@ $(document).ready(function(){initNavTree('da/d47/a02864.html','../../');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
-<a href="../../de/d09/a02861.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::LoadCriteria::LoadFailingCriteria Class Reference</div>  </div>
+<div class="title">DYN::CurrentLimitInterfaceIIDM Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>structure containing information about a failing criteria on a load and related methods  
- <a href="../../da/d47/a02864.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="../../d0/d5c/a00668_source.html">DYNCriteria.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for DYN::LoadCriteria::LoadFailingCriteria:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="../../da/d47/a02864.png" usemap="#DYN::LoadCriteria::LoadFailingCriteria_map" alt=""/>
-  <map id="DYN::LoadCriteria::LoadFailingCriteria_map" name="DYN::LoadCriteria::LoadFailingCriteria_map">
-<area href="../../d6/dbe/a02848.html" title="structure containing information about a failing criteria and related methods " alt="DYN::Criteria::FailingCriteria" shape="rect" coords="0,0,229,24"/>
-</map>
- </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a5bc7efb4e07af03bcf90abf642c0949d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d47/a02864.html#a5bc7efb4e07af03bcf90abf642c0949d">LoadFailingCriteria</a> (<a class="el" href="../../df/de1/a02844.html#a2a006412a6c16ae87e540f83e99f7ec3">Bound</a> bound, std::string loadId, double p, double pBound, const std::string &amp;criteriaId)</td></tr>
-<tr class="memdesc:a5bc7efb4e07af03bcf90abf642c0949d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a5bc7efb4e07af03bcf90abf642c0949d">More...</a><br /></td></tr>
-<tr class="separator:a5bc7efb4e07af03bcf90abf642c0949d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a623642b5b7834e39862edd3669ea8127"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d47/a02864.html#a623642b5b7834e39862edd3669ea8127">getDistance</a> () const override</td></tr>
-<tr class="memdesc:a623642b5b7834e39862edd3669ea8127"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the distance between the load power in MW and the crossed criteria bound  <a href="#a623642b5b7834e39862edd3669ea8127">More...</a><br /></td></tr>
-<tr class="separator:a623642b5b7834e39862edd3669ea8127"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afda3b37b5952ac8cbeef2bd7e13c03d9"><td class="memItemLeft" align="right" valign="top"><a id="afda3b37b5952ac8cbeef2bd7e13c03d9"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d47/a02864.html#afda3b37b5952ac8cbeef2bd7e13c03d9">printOneFailingCriteriaIntoLog</a> () const override</td></tr>
-<tr class="memdesc:afda3b37b5952ac8cbeef2bd7e13c03d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">print the failing criteria log in the log file <br /></td></tr>
-<tr class="separator:afda3b37b5952ac8cbeef2bd7e13c03d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19e9cdc585d404689bc939214fec0d4e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d47/a02864.html#a19e9cdc585d404689bc939214fec0d4e">printOneFailingCriteriaIntoTimeline</a> (const boost::shared_ptr&lt; <a class="el" href="../../dc/d32/a02556.html">timeline::Timeline</a> &gt; &amp;timeline, std::vector&lt; std::pair&lt; double, std::string &gt; &gt; &amp;failingCriteria, double currentTime) const override</td></tr>
-<tr class="memdesc:a19e9cdc585d404689bc939214fec0d4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">print the failing criteria log in the timeline file  <a href="#a19e9cdc585d404689bc939214fec0d4e">More...</a><br /></td></tr>
-<tr class="separator:a19e9cdc585d404689bc939214fec0d4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_a02848"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a02848')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d6/dbe/a02848.html">DYN::Criteria::FailingCriteria</a></td></tr>
-<tr class="memitem:afda670074d93f6adb4bb677a2be79d55 inherit pub_methods_a02848"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbe/a02848.html#afda670074d93f6adb4bb677a2be79d55">FailingCriteria</a> (<a class="el" href="../../df/de1/a02844.html#a2a006412a6c16ae87e540f83e99f7ec3">Bound</a> bound, std::string nodeId, const std::string &amp;criteriaId)</td></tr>
-<tr class="memdesc:afda670074d93f6adb4bb677a2be79d55 inherit pub_methods_a02848"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructor  <a href="../../d6/dbe/a02848.html#afda670074d93f6adb4bb677a2be79d55">More...</a><br /></td></tr>
-<tr class="separator:afda670074d93f6adb4bb677a2be79d55 inherit pub_methods_a02848"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a26d9113d4d29d7ae2098948989f91a inherit pub_methods_a02848"><td class="memItemLeft" align="right" valign="top"><a id="a5a26d9113d4d29d7ae2098948989f91a"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbe/a02848.html#a5a26d9113d4d29d7ae2098948989f91a">~FailingCriteria</a> ()</td></tr>
-<tr class="memdesc:a5a26d9113d4d29d7ae2098948989f91a inherit pub_methods_a02848"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:a5a26d9113d4d29d7ae2098948989f91a inherit pub_methods_a02848"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:affc8c26736c47ecd0428a98b9297b431"><td class="memItemLeft" align="right" valign="top"><a id="affc8c26736c47ecd0428a98b9297b431"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d47/a02864.html#affc8c26736c47ecd0428a98b9297b431">p_</a></td></tr>
-<tr class="memdesc:affc8c26736c47ecd0428a98b9297b431"><td class="mdescLeft">&#160;</td><td class="mdescRight">load power in MW <br /></td></tr>
-<tr class="separator:affc8c26736c47ecd0428a98b9297b431"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a687ae6618fc9ad3792dd884a985adfd5"><td class="memItemLeft" align="right" valign="top"><a id="a687ae6618fc9ad3792dd884a985adfd5"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d47/a02864.html#a687ae6618fc9ad3792dd884a985adfd5">pBound_</a></td></tr>
-<tr class="memdesc:a687ae6618fc9ad3792dd884a985adfd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">load power limit in MW <br /></td></tr>
-<tr class="separator:a687ae6618fc9ad3792dd884a985adfd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pro_attribs_a02848"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_a02848')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../d6/dbe/a02848.html">DYN::Criteria::FailingCriteria</a></td></tr>
-<tr class="memitem:ac44454bf196561f60aee0ccc895cded8 inherit pro_attribs_a02848"><td class="memItemLeft" align="right" valign="top"><a id="ac44454bf196561f60aee0ccc895cded8"></a>
-<a class="el" href="../../df/de1/a02844.html#a2a006412a6c16ae87e540f83e99f7ec3">Bound</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbe/a02848.html#ac44454bf196561f60aee0ccc895cded8">bound_</a></td></tr>
-<tr class="memdesc:ac44454bf196561f60aee0ccc895cded8 inherit pro_attribs_a02848"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crossed bound : min or max. <br /></td></tr>
-<tr class="separator:ac44454bf196561f60aee0ccc895cded8 inherit pro_attribs_a02848"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77b3855413f7469fb1c6d6fdc3e85a6c inherit pro_attribs_a02848"><td class="memItemLeft" align="right" valign="top"><a id="a77b3855413f7469fb1c6d6fdc3e85a6c"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbe/a02848.html#a77b3855413f7469fb1c6d6fdc3e85a6c">nodeId_</a></td></tr>
-<tr class="memdesc:a77b3855413f7469fb1c6d6fdc3e85a6c inherit pro_attribs_a02848"><td class="mdescLeft">&#160;</td><td class="mdescRight">node id <br /></td></tr>
-<tr class="separator:a77b3855413f7469fb1c6d6fdc3e85a6c inherit pro_attribs_a02848"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af148f22030e0d930120ea21d4f2e489b inherit pro_attribs_a02848"><td class="memItemLeft" align="right" valign="top"><a id="af148f22030e0d930120ea21d4f2e489b"></a>
-const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbe/a02848.html#af148f22030e0d930120ea21d4f2e489b">criteriaId_</a></td></tr>
-<tr class="memdesc:af148f22030e0d930120ea21d4f2e489b inherit pro_attribs_a02848"><td class="mdescLeft">&#160;</td><td class="mdescRight">criteria id <br /></td></tr>
-<tr class="separator:af148f22030e0d930120ea21d4f2e489b inherit pro_attribs_a02848"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>structure containing information about a failing criteria on a load and related methods </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a5bc7efb4e07af03bcf90abf642c0949d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5bc7efb4e07af03bcf90abf642c0949d">&#9670;&nbsp;</a></span>LoadFailingCriteria()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">DYN::LoadCriteria::LoadFailingCriteria::LoadFailingCriteria </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../df/de1/a02844.html#a2a006412a6c16ae87e540f83e99f7ec3">Bound</a>&#160;</td>
-          <td class="paramname"><em>bound</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>loadId</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>p</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>pBound</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>criteriaId</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Constructor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">bound</td><td>Crossed bound for a failing criteria </td></tr>
-    <tr><td class="paramname">loadId</td><td>load id </td></tr>
-    <tr><td class="paramname">p</td><td>load power in MW </td></tr>
-    <tr><td class="paramname">pBound</td><td>load power bound in MW </td></tr>
-    <tr><td class="paramname">criteriaId</td><td>criteria id </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a623642b5b7834e39862edd3669ea8127"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a623642b5b7834e39862edd3669ea8127">&#9670;&nbsp;</a></span>getDistance()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::LoadCriteria::LoadFailingCriteria::getDistance </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>return the distance between the load power in MW and the crossed criteria bound </p>
-<dl class="section return"><dt>Returns</dt><dd>the distance between the load power in MW and the crossed criteria bound </dd></dl>
-
-<p>Implements <a class="el" href="../../d6/dbe/a02848.html#a77928d4048f8890b849c3dd4002a13b4">DYN::Criteria::FailingCriteria</a>.</p>
-
-</div>
-</div>
-<a id="a19e9cdc585d404689bc939214fec0d4e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19e9cdc585d404689bc939214fec0d4e">&#9670;&nbsp;</a></span>printOneFailingCriteriaIntoTimeline()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::LoadCriteria::LoadFailingCriteria::printOneFailingCriteriaIntoTimeline </td>
-          <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../dc/d32/a02556.html">timeline::Timeline</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>timeline</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; std::pair&lt; double, std::string &gt; &gt; &amp;&#160;</td>
-          <td class="paramname"><em>failingCriteria</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>currentTime</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>print the failing criteria log in the timeline file </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">timeline</td><td>timeline </td></tr>
-    <tr><td class="paramname">failingCriteria</td><td>array containing the failing criteria messages </td></tr>
-    <tr><td class="paramname">currentTime</td><td>current simulation time </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="../../d6/dbe/a02848.html#a9c727c23d9a180d3b268a91d91aeabc3">DYN::Criteria::FailingCriteria</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d0/d5c/a00668_source.html">DYNCriteria.h</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="../../d6/d92/a02867.html">DYN::CurrentLimitInterfaceIIDM</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/d92/a02867.html#ae9ba69e688b8a1a642a334cc4a6c0f78">acceptableDuration_</a></td><td class="entry"><a class="el" href="../../d6/d92/a02867.html">DYN::CurrentLimitInterfaceIIDM</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/d92/a02867.html#ae1da763c41d468cc1ea5086c9eeb88c0">CurrentLimitInterfaceIIDM</a>(double limit, unsigned long duration)</td><td class="entry"><a class="el" href="../../d6/d92/a02867.html">DYN::CurrentLimitInterfaceIIDM</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/d92/a02867.html#a3a9e8dc3a2688ef1e4ffb2287b85d0ad">getAcceptableDuration</a>() const</td><td class="entry"><a class="el" href="../../d6/d92/a02867.html">DYN::CurrentLimitInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/d92/a02867.html#a4c582538eb579725b04955f1aa621bd7">getLimit</a>() const</td><td class="entry"><a class="el" href="../../d6/d92/a02867.html">DYN::CurrentLimitInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/d92/a02867.html#a9f6d1b41ae6316c4fb06a9c70c5a7445">limit_</a></td><td class="entry"><a class="el" href="../../d6/d92/a02867.html">DYN::CurrentLimitInterfaceIIDM</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../de/d3e/a02727.html#a2649ad67e2cdcbe0ca67333b56d26d8a">~CurrentLimitInterface</a>()=default</td><td class="entry"><a class="el" href="../../de/d3e/a02727.html">DYN::CurrentLimitInterface</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+</table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -333,8 +123,7 @@ const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../dc/dac/a02860.html">LoadCriteria</a></li><li class="navelem"><a class="el" href="../../da/d47/a02864.html">LoadFailingCriteria</a></li>
-    <li class="footer">Generated on Mon Jun 2 2025 11:05:25 for Dynawo by
+    <li class="footer">Generated on Tue Jun 3 2025 09:30:55 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

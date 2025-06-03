@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNModelConstants.h File Reference</title>
+<title>Dynawo: DYNModelMulti.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,103 +95,37 @@ $(document).ready(function(){initNavTree('d7/db1/a00590.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#enum-members">Enumerations</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">DYNModelConstants.h File Reference</div>  </div>
+<div class="title">DYNModelMulti.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>define constants for models  
+<p>class of model multi (contains all subModels and connectors between them)  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;cmath&gt;</code><br />
+<div class="textblock"><code>#include &lt;set&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;boost/core/noncopyable.hpp&gt;</code><br />
+<code>#include &lt;unordered_map&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../dd/d5c/a00578_source.html">DYNModel.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d4/dc4/a00617_source.html">DYNVariable.h</a>&quot;</code><br />
+<code>#include &quot;DYNBitMask.h&quot;</code><br />
 </div>
 <p><a href="../../d7/db1/a00590_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:abb42cdf729ea47f41ab0af18beb2d352"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db1/a00590.html#abb42cdf729ea47f41ab0af18beb2d352">DYN::State</a> { <br />
-&#160;&#160;<a class="el" href="../../d7/db1/a00590.html#abb42cdf729ea47f41ab0af18beb2d352a0f129348f654b0678641f55cc18b9968">DYN::UNDEFINED_STATE</a> = 0, 
-<a class="el" href="../../d7/db1/a00590.html#abb42cdf729ea47f41ab0af18beb2d352ab0f4701129107d8a72eeb7bf5e7dc17f">DYN::OPEN</a> = 1, 
-<a class="el" href="../../d7/db1/a00590.html#abb42cdf729ea47f41ab0af18beb2d352a5906d356b3493b26cfb47989569a62b4">DYN::CLOSED</a> = 2, 
-<a class="el" href="../../d7/db1/a00590.html#abb42cdf729ea47f41ab0af18beb2d352ac274c12d10ee8067a8573ec90dfbf581">DYN::CLOSED_1</a> = 3, 
-<br />
-&#160;&#160;<a class="el" href="../../d7/db1/a00590.html#abb42cdf729ea47f41ab0af18beb2d352a64f10a9f0fbbfe24630203aff481eab0">DYN::CLOSED_2</a> = 4, 
-<a class="el" href="../../d7/db1/a00590.html#abb42cdf729ea47f41ab0af18beb2d352adb62983b5762b33bc366430c3f04218f">DYN::CLOSED_3</a> = 5
-<br />
- }</td></tr>
-<tr class="memdesc:abb42cdf729ea47f41ab0af18beb2d352"><td class="mdescLeft">&#160;</td><td class="mdescRight">state type : state of a network component  <a href="../../d7/db1/a00590.html#abb42cdf729ea47f41ab0af18beb2d352">More...</a><br /></td></tr>
-<tr class="separator:abb42cdf729ea47f41ab0af18beb2d352"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:ac4a59b22850a3e833c08dd92f7090079"><td class="memItemLeft" align="right" valign="top"><a id="ac4a59b22850a3e833c08dd92f7090079"></a>
-static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db1/a00590.html#ac4a59b22850a3e833c08dd92f7090079">DYN::FNOM</a> = 50.</td></tr>
-<tr class="memdesc:ac4a59b22850a3e833c08dd92f7090079"><td class="mdescLeft">&#160;</td><td class="mdescRight">AC-system frequency. <br /></td></tr>
-<tr class="separator:ac4a59b22850a3e833c08dd92f7090079"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c71d3abc10ab5c319ccef0587e7c5fc"><td class="memItemLeft" align="right" valign="top"><a id="a9c71d3abc10ab5c319ccef0587e7c5fc"></a>
-static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db1/a00590.html#a9c71d3abc10ab5c319ccef0587e7c5fc">DYN::OMEGA_NOM</a> = FNOM * 2 * M_PI</td></tr>
-<tr class="memdesc:a9c71d3abc10ab5c319ccef0587e7c5fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">AC-system angular frequency. <br /></td></tr>
-<tr class="separator:a9c71d3abc10ab5c319ccef0587e7c5fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f428ebe104012f2b6fc4f0cce752529"><td class="memItemLeft" align="right" valign="top"><a id="a1f428ebe104012f2b6fc4f0cce752529"></a>
-static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db1/a00590.html#a1f428ebe104012f2b6fc4f0cce752529">DYN::SNREF</a> = 100.</td></tr>
-<tr class="memdesc:a1f428ebe104012f2b6fc4f0cce752529"><td class="mdescLeft">&#160;</td><td class="mdescRight">per unit base Sn <br /></td></tr>
-<tr class="separator:a1f428ebe104012f2b6fc4f0cce752529"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4f77edc15494e9090dc3a7f87a842ad"><td class="memItemLeft" align="right" valign="top"><a id="aa4f77edc15494e9090dc3a7f87a842ad"></a>
-static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db1/a00590.html#aa4f77edc15494e9090dc3a7f87a842ad">DYN::VALDEF</a> = 999999</td></tr>
-<tr class="memdesc:aa4f77edc15494e9090dc3a7f87a842ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">VALDEF a constant. <br /></td></tr>
-<tr class="separator:aa4f77edc15494e9090dc3a7f87a842ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac587e9acbea7014a53f080ebd663e09f"><td class="memItemLeft" align="right" valign="top"><a id="ac587e9acbea7014a53f080ebd663e09f"></a>
-static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db1/a00590.html#ac587e9acbea7014a53f080ebd663e09f">DYN::DEG_TO_RAD</a> = M_PI / 180.0</td></tr>
-<tr class="memdesc:ac587e9acbea7014a53f080ebd663e09f"><td class="mdescLeft">&#160;</td><td class="mdescRight">degree to radius conversion constant <br /></td></tr>
-<tr class="separator:ac587e9acbea7014a53f080ebd663e09f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16bd724bd6be0d093dce8a1e211b6a99"><td class="memItemLeft" align="right" valign="top"><a id="a16bd724bd6be0d093dce8a1e211b6a99"></a>
-static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db1/a00590.html#a16bd724bd6be0d093dce8a1e211b6a99">DYN::RAD_TO_DEG</a> = 180.0 / M_PI</td></tr>
-<tr class="memdesc:a16bd724bd6be0d093dce8a1e211b6a99"><td class="mdescLeft">&#160;</td><td class="mdescRight">radius to degree conversion constant <br /></td></tr>
-<tr class="separator:a16bd724bd6be0d093dce8a1e211b6a99"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6456be69bcc83ce0341e21262a0e1411"><td class="memItemLeft" align="right" valign="top"><a id="a6456be69bcc83ce0341e21262a0e1411"></a>
-static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db1/a00590.html#a6456be69bcc83ce0341e21262a0e1411">DYN::VHV_THRESHOLD</a> = 130</td></tr>
-<tr class="memdesc:a6456be69bcc83ce0341e21262a0e1411"><td class="mdescLeft">&#160;</td><td class="mdescRight">lower voltage threshold (in kV) for the very high voltage grid <br /></td></tr>
-<tr class="separator:a6456be69bcc83ce0341e21262a0e1411"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaba183b2f282076432f39f220ac8f20a"><td class="memItemLeft" align="right" valign="top"><a id="aaba183b2f282076432f39f220ac8f20a"></a>
-static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db1/a00590.html#aaba183b2f282076432f39f220ac8f20a">DYN::HV_THRESHOLD</a> = 50</td></tr>
-<tr class="memdesc:aaba183b2f282076432f39f220ac8f20a"><td class="mdescLeft">&#160;</td><td class="mdescRight">lower voltage threshold (in kV) for the high voltage grid <br /></td></tr>
-<tr class="separator:aaba183b2f282076432f39f220ac8f20a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dcf/a02615.html">DYN::ModelMulti</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d1/d23/a02603.html" title="Generic model Generic class for Model. ">Model</a> carrying multiple models Class for Multiple-Model.  <a href="../../dc/dcf/a02615.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dfd/a02619.html">DYN::ModelMulti::findSubModelFromVarName_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">struct used identify properties from a subModel found with a variable name  <a href="../../da/dfd/a02619.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>define constants for models </p>
-</div><h2 class="groupheader">Enumeration Type Documentation</h2>
-<a id="file_abb42cdf729ea47f41ab0af18beb2d352"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#file_abb42cdf729ea47f41ab0af18beb2d352">&#9670;&nbsp;</a></span>State</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="../../d7/db1/a00590.html#abb42cdf729ea47f41ab0af18beb2d352">DYN::State</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>state type : state of a network component </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="abb42cdf729ea47f41ab0af18beb2d352a0f129348f654b0678641f55cc18b9968"></a>UNDEFINED_STATE&#160;</td><td class="fielddoc"><p>component status is undefined </p>
-</td></tr>
-<tr><td class="fieldname"><a id="abb42cdf729ea47f41ab0af18beb2d352ab0f4701129107d8a72eeb7bf5e7dc17f"></a>OPEN&#160;</td><td class="fielddoc"><p>component is disconnected </p>
-</td></tr>
-<tr><td class="fieldname"><a id="abb42cdf729ea47f41ab0af18beb2d352a5906d356b3493b26cfb47989569a62b4"></a>CLOSED&#160;</td><td class="fielddoc"><p>component is connected </p>
-</td></tr>
-<tr><td class="fieldname"><a id="abb42cdf729ea47f41ab0af18beb2d352ac274c12d10ee8067a8573ec90dfbf581"></a>CLOSED_1&#160;</td><td class="fielddoc"><p>component is connected at side 1 </p>
-</td></tr>
-<tr><td class="fieldname"><a id="abb42cdf729ea47f41ab0af18beb2d352a64f10a9f0fbbfe24630203aff481eab0"></a>CLOSED_2&#160;</td><td class="fielddoc"><p>component is connected at side 2 </p>
-</td></tr>
-<tr><td class="fieldname"><a id="abb42cdf729ea47f41ab0af18beb2d352adb62983b5762b33bc366430c3f04218f"></a>CLOSED_3&#160;</td><td class="fielddoc"><p>component is connected at side 3 </p>
-</td></tr>
-</table>
-
-</div>
-</div>
-</div><!-- contents -->
+<div class="textblock"><p>class of model multi (contains all subModels and connectors between them) </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -207,8 +141,8 @@ static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_7d7d21115b5241938a60e6b8a57ea766.html">Modeler</a></li><li class="navelem"><a class="el" href="../../dir_a96cc45270be55e9fc3691253afb6f87.html">Common</a></li><li class="navelem"><a class="el" href="../../d7/db1/a00590.html">DYNModelConstants.h</a></li>
-    <li class="footer">Generated on Mon Jun 2 2025 11:05:24 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_7d7d21115b5241938a60e6b8a57ea766.html">Modeler</a></li><li class="navelem"><a class="el" href="../../dir_a96cc45270be55e9fc3691253afb6f87.html">Common</a></li><li class="navelem"><a class="el" href="../../d7/db1/a00590.html">DYNModelMulti.h</a></li>
+    <li class="footer">Generated on Tue Jun 3 2025 09:30:55 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

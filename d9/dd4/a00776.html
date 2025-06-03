@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNDataInterfaceIIDM.h File Reference</title>
+<title>Dynawo: DYNFictVoltageLevelInterfaceIIDM.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -97,44 +97,26 @@ $(document).ready(function(){initNavTree('d9/dd4/a00776.html','../../');});
   <div class="summary">
 <a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">DYNDataInterfaceIIDM.h File Reference</div>  </div>
+<div class="title">DYNFictVoltageLevelInterfaceIIDM.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Data interface : header file of IIDM implementation.  
+<p>Fictitious Voltage Level : header file to create VoltageLevel from scratch.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="../../df/d9e/a00686_source.html">DYNDataInterfaceImpl.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../df/de8/a00839_source.html">DYNSwitchInterfaceIIDM.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../dc/d1b/a00827_source.html">DYNShuntCompensatorInterfaceIIDM.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d8/dba/a00773_source.html">DYNDanglingLineInterfaceIIDM.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d9/daf/a00830_source.html">DYNStaticVarCompensatorInterfaceIIDM.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d7/dcf/a00845_source.html">DYNTwoWTransformerInterfaceIIDM.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d0/d11/a00842_source.html">DYNThreeWTransformerInterfaceIIDM.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../df/d4c/a00851_source.html">DYNVscConverterInterfaceIIDM.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d0/dad/a00806_source.html">DYNLccConverterInterfaceIIDM.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d5/d12/a00794_source.html">DYNHvdcLineInterfaceIIDM.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../dd/d7e/a00809_source.html">DYNLineInterfaceIIDM.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="../../dc/dce/a00740_source.html">DYNVoltageLevelInterface.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d6/d1a/a00485_source.html">DYNGraph.h</a>&quot;</code><br />
 <code>#include &quot;DYNCalculatedBusInterfaceIIDM.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d2/d4a/a00758_source.html">DYNBatteryInterfaceIIDM.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d3/d4f/a00761_source.html">DYNBusInterfaceIIDM.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d8/db7/a00812_source.html">DYNLoadInterfaceIIDM.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d4/d45/a00791_source.html">DYNGeneratorInterfaceIIDM.h</a>&quot;</code><br />
-<code>#include &quot;DYNCriteria.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d8/d2d/a00815_source.html">DYNNetworkInterfaceIIDM.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d8/d1c/a00824_source.html">DYNServiceManagerInterfaceIIDM.h</a>&quot;</code><br />
-<code>#include &lt;powsybl/iidm/Network.hpp&gt;</code><br />
-<code>#include &lt;mutex&gt;</code><br />
 </div>
 <p><a href="../../d9/dd4/a00776_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dc8/a03024.html">DYN::DataInterfaceIIDM</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic data interface for IIDM format files.  <a href="../../d4/dc8/a03024.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d5e/a02891.html">DYN::FictVoltageLevelInterfaceIIDM</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">FictVoltageLevelInterface class for IIDM.  <a href="../../dc/d5e/a02891.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Data interface : header file of IIDM implementation. </p>
+<div class="textblock"><p>Fictitious Voltage Level : header file to create VoltageLevel from scratch. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -151,8 +133,8 @@ Classes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_7d7d21115b5241938a60e6b8a57ea766.html">Modeler</a></li><li class="navelem"><a class="el" href="../../dir_f405ae7c53e4c759cd7436faf72efd90.html">DataInterface</a></li><li class="navelem"><a class="el" href="../../dir_b83efd09d1a32c7e6689e8ffddfcb0cb.html">PowSyblIIDM</a></li><li class="navelem"><a class="el" href="../../d9/dd4/a00776.html">DYNDataInterfaceIIDM.h</a></li>
-    <li class="footer">Generated on Mon Jun 2 2025 11:05:24 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_7d7d21115b5241938a60e6b8a57ea766.html">Modeler</a></li><li class="navelem"><a class="el" href="../../dir_f405ae7c53e4c759cd7436faf72efd90.html">DataInterface</a></li><li class="navelem"><a class="el" href="../../dir_b83efd09d1a32c7e6689e8ffddfcb0cb.html">PowSyblIIDM</a></li><li class="navelem"><a class="el" href="../../d9/dd4/a00776.html">DYNFictVoltageLevelInterfaceIIDM.h</a></li>
+    <li class="footer">Generated on Tue Jun 3 2025 09:30:55 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
