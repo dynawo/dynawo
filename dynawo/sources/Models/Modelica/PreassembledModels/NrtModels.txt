@@ -87,7 +87,6 @@ LoadAlphaBetaRestorative
 LoadAlphaBetaRestorativeLimitsRecalc
 LoadAlphaBetaRestorativeNetwork
 LoadAlphaBetaTwoMotorFifthOrder
-LoadOneTransformer
 LoadOneTransformerTapChanger
 LoadPQ
 LoadTwoTransformersTapChangers

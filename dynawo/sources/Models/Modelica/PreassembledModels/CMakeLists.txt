@@ -190,11 +190,9 @@ set(MODELICA_PREASSEMBLED_MODELS
   LoadAlphaBetaThreeMotorFifthOrder.xml
   LoadAlphaBetaMotorSimplified.xml
   LoadAlphaBetaTwoMotorSimplified.xml
-  LoadOneTransformer.xml
   LoadOneTransformerTapChanger.xml
   LoadPQ.xml
   LoadShedding.xml
-  LoadTwoTransformers.xml
   LoadTwoTransformersTapChangers.xml
   LoadZIP.xml
   LossOfSynchronismProtection.xml

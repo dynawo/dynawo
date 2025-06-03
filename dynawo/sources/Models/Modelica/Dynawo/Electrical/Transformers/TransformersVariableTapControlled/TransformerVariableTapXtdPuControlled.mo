@@ -56,41 +56,11 @@ model TransformerVariableTapXtdPuControlled
     Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Transformer
-  Dynawo.Electrical.Transformers.TransformersVariableTap.TransformerVariableTapXtdPu transformerVariableTap(
-    SNom = SNom,
-    R = R,
-    X = X,
-    G = G,
-    B = B,
-    P10Pu = P10Pu,
-    Q10Pu = Q10Pu,
-    U10Pu = U10Pu,
-    Tap0 = tap0,
-    rTfo0Pu = rTfo0Pu,
-    rTfoMaxPu = rTfoMaxPu,
-    rTfoMinPu = rTfoMinPu,
-    rTfoPu(fixed = true),
-    NbTap = NbTap,
-    U20Pu = U20Pu,
-    u10Pu = u10Pu,
-    i10Pu = i10Pu,
-    u20Pu = u20Pu,
-    i20Pu = i20Pu) annotation(
-    Placement(visible = true, transformation(extent = {{-50, -50}, {50, 50}}, rotation = 0)));
+  Dynawo.Electrical.Transformers.TransformersVariableTap.TransformerVariableTapXtdPu transformerVariableTap(SNom = SNom, R = R, X = X, G = G, B = B, P10Pu = P10Pu, Q10Pu = Q10Pu, U10Pu = U10Pu, Tap0 = tap0, rTfo0Pu = rTfo0Pu, rTfoMaxPu = rTfoMaxPu, rTfoMinPu = rTfoMinPu, rTfoPu(fixed = true), NbTap = NbTap, U20Pu = U20Pu, u10Pu = u10Pu, i10Pu = i10Pu, u20Pu = u20Pu, i20Pu = i20Pu) annotation(
+    Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Tap changer
-  Dynawo.Electrical.Controls.Transformers.TapChanger tapChanger(
-    U0 = U10Pu,
-    UDeadBand = UDeadBand,
-    UTarget = UTarget,
-    increaseTapToIncreaseValue = increaseTapToIncreaseValue,
-    regulating0 = regulating0,
-    state0 = state0,
-    t1st = t1st,
-    tNext = tNext,
-    tap0 = tap0,
-    tapMax = tapMax,
-    tapMin = tapMin) annotation(
+  Dynawo.Electrical.Controls.Transformers.TapChanger tapChanger(U0 = U10Pu, UDeadBand = UDeadBand, UTarget = UTarget, increaseTapToIncreaseValue = increaseTapToIncreaseValue, regulating0 = regulating0, state0 = state0, t1st = t1st, tNext = tNext, tap0 = tap0, tapMax = tapMax, tapMin = tapMin) annotation(
     Placement(visible = true, transformation(origin = {0, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Boolean locked(start = tapChanger.locked0) "Whether the tap-changer is locked";
@@ -123,9 +93,10 @@ equation
   switchOffSignal2.value = transformerVariableTap.switchOffSignal2.value;
 
   connect(transformerVariableTap.terminal1, terminal1) annotation(
-    Line(points = {{-50, 0}, {-100, 0}}, color = {0, 0, 255}));
+    Line(points = {{-10, 0}, {-100, 0}}, color = {0, 0, 255}));
   connect(transformerVariableTap.terminal2, terminal2) annotation(
-    Line(points = {{50, 0}, {100, 0}}, color = {0, 0, 255}));
+    Line(points = {{10, 0}, {100, 0}}, color = {0, 0, 255}));
 
-  annotation(preferredView = "text");
+  annotation(
+    preferredView = "text");
 end TransformerVariableTapXtdPuControlled;

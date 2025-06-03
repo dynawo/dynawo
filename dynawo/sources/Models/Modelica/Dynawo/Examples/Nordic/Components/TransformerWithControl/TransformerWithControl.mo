@@ -14,8 +14,6 @@ within Dynawo.Examples.Nordic.Components.TransformerWithControl;
 */
 
 model TransformerWithControl "Model of transformer with variable tap and built-in initialization, for the Nordic 32 test system"
-  import Dynawo.Examples.Nordic.Components.TransformerWithControl.TransformerParameters;
-
   extends Dynawo.AdditionalIcons.Transformer;
 
   parameter TransformerParameters.tfoPreset tfo;
@@ -26,39 +24,27 @@ model TransformerWithControl "Model of transformer with variable tap and built-i
   Dynawo.Connectors.ACPower terminal2 "Connector used to connect the transformer to the grid" annotation(
     Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {98, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Dynawo.Electrical.Transformers.TransformersVariableTapControlled.TransformerVariableTapXtdPuControlled tfoVariableTap(
-    B = 0,
-    G = 0,
-    i10Pu.re(fixed = false),
-    i10Pu.im(fixed = false),
-    i20Pu.re(fixed = false),
-    i20Pu.im(fixed = false),
-    increaseTapToIncreaseValue = false,
-    NbTap = TransformerParameters.NbTap,
-    P10Pu = P10Pu,
-    Q10Pu = Q10Pu,
-    R = 0,
-    regulating0 = true,
-    rTfo0Pu(fixed = false),
-    rTfoMaxPu = TransformerParameters.rTfoMaxPu,
-    rTfoMinPu = TransformerParameters.rTfoMinPu,
-    SNom = TransformerParameters.tfoParamValues[tfo, TransformerParameters.tfoParams.SNom],
-    state0 = Dynawo.Electrical.Controls.Transformers.BaseClasses.TapChangerPhaseShifterParams.State.Standard,
-    t1st = TransformerParameters.tfoParamValues[tfo, TransformerParameters.tfoParams.t1st],
-    tap0(fixed = false),
-    tapMax = TransformerParameters.NbTap - 1,
-    tapMin = 0,
-    tNext = TransformerParameters.tfoParamValues[tfo, TransformerParameters.tfoParams.tNext],
-    U0 = U10Pu,
-    U10Pu = U10Pu,
-    u10Pu.re(fixed = false),
-    u10Pu.im(fixed = false),
-    U20Pu(fixed = false),
-    u20Pu.re(fixed = false),
-    u20Pu.im(fixed = false),
-    UDeadBand = 0.01,
-    UTarget = 1,
-    X = TransformerParameters.tfoParamValues[tfo, TransformerParameters.tfoParams.X]) annotation(
+  Dynawo.Examples.Nordic.Components.TransformerWithControl.BaseClasses.InitializedTransformerVariableTap tfoVariableTap(
+  B = 0,
+  G = 0,
+  increaseTapToIncreaseValue = false,
+  P10Pu = P10Pu,
+  Q10Pu = Q10Pu,
+  R = 0,
+  regulating0 = true,
+  SNom = TransformerParameters.tfoParamValues[tfo, TransformerParameters.tfoParams.SNom],
+  state0 = Dynawo.Electrical.Controls.Transformers.BaseClasses.TapChangerPhaseShifterParams.State.Standard,
+  t1st = TransformerParameters.tfoParamValues[tfo, TransformerParameters.tfoParams.t1st],
+  tapMax = TransformerParameters.NbTap - 1,
+  tapMin = 0,
+  tNext = TransformerParameters.tfoParamValues[tfo, TransformerParameters.tfoParams.tNext],
+  U0 = U10Pu,
+  U10Pu = U10Pu,
+  U1Phase0 = U1Phase0,
+  Uc20Pu = TransformerParameters.tfoParamValues[tfo, TransformerParameters.tfoParams.Uc20Pu],
+  UDeadBand = 0.01,
+  UTarget = 1,
+  X = TransformerParameters.tfoParamValues[tfo, TransformerParameters.tfoParams.X]) annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-50, -50}, {50, 50}}, rotation = 0)));
 
   parameter Types.ActivePowerPu P10Pu "Initial active power at terminal 1 in pu (base SnRef) (receptor convention)";
@@ -66,33 +52,8 @@ model TransformerWithControl "Model of transformer with variable tap and built-i
   parameter Types.VoltageModulePu U10Pu "Initial voltage amplitude at terminal 1 in pu (base U1Nom)";
   parameter Types.Angle U1Phase0 "Initial voltage angle at terminal 1 in rad";
 
-  Dynawo.Electrical.Transformers.TransformersVariableTap.TransformerVariableTapPQ_INIT tfo_INIT(
-    B = 0,
-    G = 0,
-    NbTap = TransformerParameters.NbTap,
-    P10Pu = P10Pu,
-    Q10Pu = Q10Pu,
-    R = 0,
-    rTfoMinPu = TransformerParameters.rTfoMinPu,
-    rTfoMaxPu = TransformerParameters.rTfoMaxPu,
-    SNom = TransformerParameters.tfoParamValues[tfo, TransformerParameters.tfoParams.SNom],
-    U10Pu = U10Pu,
-    U1Phase0 = U1Phase0,
-    Uc20Pu = TransformerParameters.tfoParamValues[tfo, TransformerParameters.tfoParams.Uc20Pu],
-    X = TransformerParameters.tfoParamValues[tfo, TransformerParameters.tfoParams.X]);
-
 initial algorithm
-  tfoVariableTap.i10Pu.re := tfo_INIT.i10Pu.re;
-  tfoVariableTap.i10Pu.im := tfo_INIT.i10Pu.im;
-  tfoVariableTap.i20Pu.re := tfo_INIT.i20Pu.re;
-  tfoVariableTap.i20Pu.im := tfo_INIT.i20Pu.im;
-  tfoVariableTap.rTfo0Pu := tfo_INIT.rTfo0Pu;
-  tfoVariableTap.tap0 := tfo_INIT.Tap0;
-  tfoVariableTap.u10Pu.re := tfo_INIT.u10Pu.re;
-  tfoVariableTap.u10Pu.im := tfo_INIT.u10Pu.im;
-  tfoVariableTap.U20Pu := tfo_INIT.U20Pu;
-  tfoVariableTap.u20Pu.re := tfo_INIT.u20Pu.re;
-  tfoVariableTap.u20Pu.im := tfo_INIT.u20Pu.im;
+  tfoVariableTap.tapChanger.tap0 := tfoVariableTap.transformerVariableTap.Tap0;
 
 initial equation
   tfoVariableTap.tapChanger.tap.value = tfoVariableTap.tap0;

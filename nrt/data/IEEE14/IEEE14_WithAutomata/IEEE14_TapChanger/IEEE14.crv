@@ -47,9 +47,9 @@
   <curve model="_LOAD___3_EC" variable="load_PPu"/>
   <curve model="_LOAD___3_EC" variable="load_QPu"/>
   <curve model="_LOAD___3_EC" variable="load_UPu"/>
-  <curve model="_LOAD___3_EC" variable="transformer_U1Pu"/>
-  <curve model="_LOAD___3_EC" variable="transformer_U2Pu"/>
-  <curve model="_LOAD___3_EC" variable="transformer_tap"/>
+  <curve model="_LOAD___3_EC" variable="transformer_transformerVariableTap_U1Pu"/>
+  <curve model="_LOAD___3_EC" variable="transformer_transformerVariableTap_U2Pu"/>
+  <curve model="_LOAD___3_EC" variable="transformer_transformerVariableTap_tap"/>
   <curve model="_LOAD___3_EC" variable="transformer_tapChanger_valueMin"/>
   <curve model="_LOAD___3_EC" variable="transformer_tapChanger_valueMax"/>
 </curvesInput>

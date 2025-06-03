@@ -65,7 +65,7 @@ model TransformerPhaseTapChangerControlled
   parameter Types.VoltageModulePu U10Pu "Start value of voltage amplitude at terminal 1 in pu (base U1Nom)";
 
 equation
-//  phaseShifterP.PMonitored = transformerPhaseTapChanger.P1Pu;
+  phaseShifterP.PMonitored = transformerPhaseTapChanger.P1Pu;
   locked = phaseShifterP.locked;
 
   when phaseShifterP.tap.value <> pre(phaseShifterP.tap.value) then
