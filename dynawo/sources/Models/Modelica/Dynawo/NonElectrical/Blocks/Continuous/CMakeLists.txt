@@ -44,7 +44,7 @@ set(MODEL_FILES
   Washout.mo
   WeightedDifference.mo
   WeightedDifference.extvar
-  AntiWindUpIntegratorNoRateLimit.mo
+  AntiWindupIntegratorNoRateLimit.mo
   )
 
 #
