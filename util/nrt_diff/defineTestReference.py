@@ -102,7 +102,6 @@ def redefine_reference(testcase):
 #    - testcases that finish as intended and for which the comparison is within tolerance
 #    - testcases that finish as intended and for which the comparison is KO (difference to be first validated by the user)
 def main():
-    print("toto")
     usage=u""" Usage: %prog --new_reference=<comma separated path list> --update_all_references_within_tolerance --force_reference_update=<comma separated path list>
     (Re)Define automatically the nrt references in the following cases:
      - reference not yet defined
@@ -142,11 +141,9 @@ def main():
     list_cases_no_ref = []
     list_cases_ref_within_tol = []
     list_cases_ref_ko = []
-    print("here")
     for root, dirs, files in os.walk(nrt_results_dir):
         for file in files:
             if "info.txt" == file:
-                print(nrt_results_dir)
                 test_case = TestCase("dummy")
                 test_case.get_case_info(os.path.join(root, file))
                 if define_new_ref and test_case.status_ == "OK" and test_case.cmp_status_ == "NoReference":
