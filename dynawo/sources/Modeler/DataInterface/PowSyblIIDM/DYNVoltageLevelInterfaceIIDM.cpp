@@ -333,10 +333,10 @@ VoltageLevelInterfaceIIDM::calculateBusTopology() {
 
     // set voltage and angle of bus on the same electrical nodes
     set<int> nodes = electricalNodes[electricalComponent];  // to throw
-    for (const auto node : nodes) {
+    for (const auto nodeIndex : nodes) {
       if (bus) {
-        calculatedBus_[component[nodeIdToComponentIndex[node]]]->setU0(bus.get().getV());
-        calculatedBus_[component[nodeIdToComponentIndex[node]]]->setAngle0(bus.get().getAngle());
+        calculatedBus_[component[nodeIdToComponentIndex[nodeIndex]]]->setU0(bus.get().getV());
+        calculatedBus_[component[nodeIdToComponentIndex[nodeIndex]]]->setAngle0(bus.get().getAngle());
       }
     }
   }
