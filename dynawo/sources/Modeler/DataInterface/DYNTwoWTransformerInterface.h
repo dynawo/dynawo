@@ -48,7 +48,7 @@ class TwoWTransformerInterface : public ComponentInterface {
   /**
    * @brief Destructor
    */
-  virtual ~TwoWTransformerInterface() = default;
+  ~TwoWTransformerInterface() override = default;
 
   /**
    * @brief Setter for the tfo's bus interface side 1
@@ -120,7 +120,7 @@ class TwoWTransformerInterface : public ComponentInterface {
    * @brief Getter for the tfo's id
    * @return The id of the tfo
    */
-  virtual const std::string& getID() const = 0;
+  const std::string& getID() const override = 0;
 
   /**
    * @brief Getter for the initial connection state of the tfo's side 1
@@ -232,7 +232,7 @@ class TwoWTransformerInterface : public ComponentInterface {
   /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
-  virtual void exportStateVariablesUnitComponent() = 0;
+  void exportStateVariablesUnitComponent() override = 0;
 };
 
 #ifdef __clang__

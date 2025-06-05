@@ -49,32 +49,32 @@ class StepInterfaceIIDM : public StepInterface {
   /**
    * @copydoc StepInterface::getR() const
    */
-  double getR() const;
+  double getR() const override;
 
   /**
    * @copydoc StepInterface::getX() const
    */
-  double getX() const;
+  double getX() const override;
 
   /**
    * @copydoc StepInterface::getB() const
    */
-  double getB() const;
+  double getB() const override;
 
   /**
    * @copydoc StepInterface::getG() const
    */
-  double getG() const;
+  double getG() const override;
 
   /**
    * @copydoc StepInterface::getRho() const
    */
-  double getRho() const;
+  double getRho() const override;
 
   /**
    * @copydoc StepInterface::getAlpha() const
    */
-  double getAlpha() const;
+  double getAlpha() const override;
 
  private:
   /**

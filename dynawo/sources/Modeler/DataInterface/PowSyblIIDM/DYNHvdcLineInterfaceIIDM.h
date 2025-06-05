@@ -56,7 +56,7 @@ class HvdcLineInterfaceIIDM : public HvdcLineInterface, public boost::noncopyabl
   /**
    * @brief Destructor
    */
-  ~HvdcLineInterfaceIIDM();
+  ~HvdcLineInterfaceIIDM() override;
 
   /**
    * @brief Constructor
@@ -71,77 +71,77 @@ class HvdcLineInterfaceIIDM : public HvdcLineInterface, public boost::noncopyabl
   /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
-  void exportStateVariablesUnitComponent();
+  void exportStateVariablesUnitComponent() override;
 
   /**
    * @copydoc ComponentInterface::importStaticParameters()
    */
-  void importStaticParameters();
+  void importStaticParameters() override;
 
   /**
    * @copydoc ComponentInterface::isConnected()
    */
-  bool isConnected() const;
+  bool isConnected() const override;
 
   /**
    * @copydoc ComponentInterface::isPartiallyConnected()
    */
-  bool isPartiallyConnected() const;
+  bool isPartiallyConnected() const override;
 
   /**
    * @copydoc HvdcLineInterface::getID() const
    */
-  const std::string& getID() const;
+  const std::string& getID() const override;
 
   /**
    * @copydoc HvdcLineInterface::getResistanceDC() const
    */
-  double getResistanceDC() const;
+  double getResistanceDC() const override;
 
   /**
    * @copydoc HvdcLineInterface::getVNom() const
    */
-  double getVNom() const;
+  double getVNom() const override;
 
   /**
    * @copydoc HvdcLineInterface::getActivePowerSetpoint() const
    */
-  double getActivePowerSetpoint() const;
+  double getActivePowerSetpoint() const override;
 
   /**
    * @copydoc HvdcLineInterface::getPmax() const
    */
-  double getPmax() const;
+  double getPmax() const override;
 
   /**
    * @copydoc HvdcLineInterface::getConverterMode() const
    */
-  ConverterMode_t getConverterMode() const;
+  ConverterMode_t getConverterMode() const override;
 
   /**
    * @copydoc HvdcLineInterface::getIdConverter1() const
    */
-  std::string getIdConverter1() const;
+  std::string getIdConverter1() const override;
 
   /**
    * @copydoc HvdcLineInterface::getIdConverter2() const
    */
-  std::string getIdConverter2() const;
+  std::string getIdConverter2() const override;
 
   /**
    * @copydoc ComponentInterface::getComponentVarIndex()
    */
-  int getComponentVarIndex(const std::string& varName) const;
+  int getComponentVarIndex(const std::string& varName) const override;
 
   /**
    * @copydoc HvdcLineInterface::getConverter1() const
    */
-  const std::shared_ptr<ConverterInterface>& getConverter1() const;
+  const std::shared_ptr<ConverterInterface>& getConverter1() const override;
 
   /**
    * @copydoc HvdcLineInterface::getConverter2() const
    */
-  const std::shared_ptr<ConverterInterface>& getConverter2() const;
+  const std::shared_ptr<ConverterInterface>& getConverter2() const override;
 
   /**
    * @copydoc HvdcLineInterface::getDroop() const

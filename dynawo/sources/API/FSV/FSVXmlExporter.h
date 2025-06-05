@@ -39,7 +39,7 @@ class XmlExporter : public Exporter {
    * @param finalStateValues final state values
    * @param filePath file where the final state values must be exported
    */
-  void exportToFile(const boost::shared_ptr<FinalStateValuesCollection>& finalStateValues, const std::string& filePath) const;
+  void exportToFile(const boost::shared_ptr<FinalStateValuesCollection>& finalStateValues, const std::string& filePath) const override;
 
   /**
    * @brief Export method in XML format. Note: Only those marked as final state
@@ -48,7 +48,7 @@ class XmlExporter : public Exporter {
    * @param finalStateValues final state values to export as final state values.
    * @param stream stream where the final state values must be exported
    */
-  void exportToStream(const boost::shared_ptr<FinalStateValuesCollection>& finalStateValues, std::ostream& stream) const;
+  void exportToStream(const boost::shared_ptr<FinalStateValuesCollection>& finalStateValues, std::ostream& stream) const override;
 };
 
 }  // namespace finalStateValues

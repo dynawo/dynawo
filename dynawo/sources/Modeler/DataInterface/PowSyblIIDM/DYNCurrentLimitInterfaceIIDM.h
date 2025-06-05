@@ -40,12 +40,12 @@ class CurrentLimitInterfaceIIDM : public CurrentLimitInterface {
   /**
    * @copydoc CurrentLimitInterface::getLimit() const
    */
-  double getLimit() const;
+  double getLimit() const override;
 
   /**
    * @copydoc CurrentLimitInterface::getAcceptableDuration() const
    */
-  int getAcceptableDuration() const;
+  int getAcceptableDuration() const override;
 
  private:
   double limit_;                             ///< limit of the current limit

@@ -52,63 +52,63 @@ class CalculatedBusInterfaceIIDM : public BusInterface {
   /**
    * @copydoc BusInterface::getV0() const
    */
-  double getV0() const;
+  double getV0() const override;
 
   /**
    * @copydoc BusInterface::getVMin() const
    */
-  double getVMin() const;
+  double getVMin() const override;
 
   /**
    * @copydoc BusInterface::getVMax() const
    */
-  double getVMax() const;
+  double getVMax() const override;
 
   /**
    * @copydoc BusInterface::getAngle0() const
    */
-  double getAngle0() const;
+  double getAngle0() const override;
 
   /**
    * @copydoc BusInterface::getVNom() const
    */
-  double getVNom() const;
+  double getVNom() const override;
 
   /**
    * @copydoc BusInterface::getStateVarV() const
    */
-  double getStateVarV() const;
+  double getStateVarV() const override;
 
   /**
    * @copydoc BusInterface::getStateVarAngle() const
    */
-  double getStateVarAngle() const;
+  double getStateVarAngle() const override;
 
   /**
    * @copydoc BusInterface::getID() const
    */
-  const std::string& getID() const;
+  const std::string& getID() const override;
 
   /**
    * @copydoc BusInterface::hasConnection(bool hasConnection)
    */
-  void hasConnection(bool hasConnection);
+  void hasConnection(bool hasConnection) override;
 
   /**
    * @brief Getter for the bus' connection attribute
    * @return @b true if the bus has an outside connection, @b false else
    */
-  bool hasConnection() const;
+  bool hasConnection() const override;
 
   /**
    * @copydoc BusInterface::importStaticParameters()
    */
-  void importStaticParameters();
+  void importStaticParameters() override;
 
   /**
    * @copydoc BusInterface::exportStateVariablesUnitComponent()
    */
-  void exportStateVariablesUnitComponent();
+  void exportStateVariablesUnitComponent() override;
 
   /**
    * @brief associate a bus bar section interface to the calculated bus
@@ -145,7 +145,7 @@ class CalculatedBusInterfaceIIDM : public BusInterface {
   /**
    * @copydoc BusInterface::getBusBarSectionIdentifiers() const
    */
-  const std::vector<std::string>& getBusBarSectionIdentifiers() const;
+  const std::vector<std::string>& getBusBarSectionIdentifiers() const override;
 
   /**
    * @copydoc BusInterface::isFictitious() const
@@ -169,12 +169,12 @@ class CalculatedBusInterfaceIIDM : public BusInterface {
   /**
    * @copydoc ComponentInterface::getComponentVarIndex()
    */
-  int getComponentVarIndex(const std::string& varName) const;
+  int getComponentVarIndex(const std::string& varName) const override;
 
   /**
    * @copydoc BusInterface::getBusIndex() const
    */
-  inline int getBusIndex() const {
+  inline int getBusIndex() const override {
     return busIndex_;
   }
 

@@ -38,7 +38,7 @@ class XmlExporter : public Exporter {
    * @param curves curves to export
    * @param filePath file where the curves must be exported
    */
-  void exportToFile(const std::shared_ptr<CurvesCollection>& curves, const std::string& filePath) const;
+  void exportToFile(const std::shared_ptr<CurvesCollection>& curves, const std::string& filePath) const override;
 
   /**
    * @brief Export method in XML format
@@ -46,7 +46,7 @@ class XmlExporter : public Exporter {
    * @param curves curves to export
    * @param stream stream where the curves must be exported
    */
-  void exportToStream(const std::shared_ptr<CurvesCollection>& curves, std::ostream& stream) const;
+  void exportToStream(const std::shared_ptr<CurvesCollection>& curves, std::ostream& stream) const override;
 };
 
 }  // namespace curves

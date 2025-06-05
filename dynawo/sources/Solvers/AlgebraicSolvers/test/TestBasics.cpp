@@ -111,38 +111,38 @@ class SolverMock : public Solver::Impl {
  public:
   SolverMock() : Solver::Impl::Impl() {}
 
-  virtual ~SolverMock();
+  ~SolverMock() override;
 
-  void defineSpecificParameters() {}
+  void defineSpecificParameters() override {}
 
-  const std::string& solverType() const {
+  const std::string& solverType() const override {
     static std::string type = "Mock";
     return type;
   }
 
-  void setSolverSpecificParameters() {}
+  void setSolverSpecificParameters() override {}
 
-  void init(const std::shared_ptr<Model>& /*model*/, double /*t0*/, double /*tEnd*/) {}
+  void init(const std::shared_ptr<Model>& /*model*/, double /*t0*/, double /*tEnd*/) override {}
 
-  void calculateIC(double /*tEnd*/) {}
+  void calculateIC(double /*tEnd*/) override {}
 
-  void reinit() {}
+  void reinit() override {}
 
-  void printSolveSpecific(std::stringstream& /*msg*/) const {}
+  void printSolveSpecific(std::stringstream& /*msg*/) const override {}
 
-  void printHeaderSpecific(std::stringstream& /*ss*/) const {}
+  void printHeaderSpecific(std::stringstream& /*ss*/) const override {}
 
-  bool setupNewAlgRestoration(modeChangeType_t /*modeChangeType*/) { return false; }
+  bool setupNewAlgRestoration(modeChangeType_t /*modeChangeType*/) override { return false; }
 
-  void updateStatistics() {}
+  void updateStatistics() override {}
 
-  double getTimeStep() const { return 0.; }
+  double getTimeStep() const override { return 0.; }
 
-  void solveStep(double /*tAim*/, double& /*tNxt*/) {}
+  void solveStep(double /*tAim*/, double& /*tNxt*/) override {}
 
-  inline void setInitStep(double /*initStep*/) {}
+  inline void setInitStep(double /*initStep*/) override {}
 
-  inline const std::string& getName() {
+  inline const std::string& getName() override {
     static std::string name = "SolverMock";
     return name;
   }

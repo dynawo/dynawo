@@ -39,7 +39,7 @@ class SwitchInterface : public ComponentInterface {
   /**
    * @brief Destructor
    */
-  virtual ~SwitchInterface() = default;
+  ~SwitchInterface() override = default;
 
   /**
    * @brief Getter for the switch's state
@@ -61,7 +61,7 @@ class SwitchInterface : public ComponentInterface {
    * @brief Getter for the switch's id
    * @return The id of the switch
    */
-  virtual const std::string& getID() const = 0;
+  const std::string& getID() const override = 0;
 
   /**
    * @brief Setter for the switch's bus interface side 1
@@ -90,7 +90,7 @@ class SwitchInterface : public ComponentInterface {
   /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
-  virtual void exportStateVariablesUnitComponent() = 0;
+  void exportStateVariablesUnitComponent() override = 0;
 
   /**
    * @brief return true if this switch is retained
