@@ -40,23 +40,6 @@ namespace DYN {
   const char* sharedLibraryExtension();
 
   /**
-  * @brief import a shared library function
-  *
-  * @param library the shared library
-  * @param functionName the name of the function to load
-  *
-  * @return function
-  */
-  template <class FunctionT>
-  FunctionT import(const boost::dll::shared_library& library, const std::string& functionName) {
-#if (BOOST_VERSION >= 107600)
-    return boost::dll::import_symbol<FunctionT>(library, functionName.c_str());
-#else
-    return boost::dll::import<FunctionT>(library, functionName.c_str());
-#endif
-  }
-
-  /**
    * @brief transforms a double number to a string
    *
    * @param value : double to transform
