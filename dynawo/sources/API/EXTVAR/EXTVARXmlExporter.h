@@ -48,7 +48,7 @@ class XmlExporter : public Exporter {
    * @param collection Collection to export
    * @param filePath destination XML path
    */
-  void exportToFile(const VariablesCollection& collection, const std::string& filePath) const;
+  void exportToFile(const VariablesCollection& collection, const std::string& filePath) const override;
 
   /**
    * @brief Export method in XML format
@@ -56,7 +56,7 @@ class XmlExporter : public Exporter {
    * @param collection Collection to export
    * @param stream stream where the collection should be exported
    */
-  void exportToStream(const VariablesCollection& collection, std::ostream& stream) const;
+  void exportToStream(const VariablesCollection& collection, std::ostream& stream) const override;
 
  private:
   /**

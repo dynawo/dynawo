@@ -26,19 +26,19 @@ class ParameterCommonMock : public ParameterCommon {
  public:
   ParameterCommonMock(const std::string& name, const typeVarC_t& valueType, bool mandatory);
 
-  virtual ~ParameterCommonMock();
+  ~ParameterCommonMock() override;
 
-  boost::any getAnyValue() const {
+  boost::any getAnyValue() const override {
     // unused
     return boost::any();
   }
 
-  bool hasValue() const {
+  bool hasValue() const override {
     // unused
     return false;
   }
 
-  Error::TypeError_t getTypeError() const {
+  Error::TypeError_t getTypeError() const override {
     // unused
     return Error::UNDEFINED;
   }

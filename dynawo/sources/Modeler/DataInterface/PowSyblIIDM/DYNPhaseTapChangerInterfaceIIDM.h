@@ -43,82 +43,82 @@ class PhaseTapChangerInterfaceIIDM : public PhaseTapChangerInterface {
   /**
    * @copydoc PhaseTapChangerInterface::getSteps() const
    */
-  const std::vector<std::unique_ptr<StepInterface> >& getSteps() const;
+  const std::vector<std::unique_ptr<StepInterface> >& getSteps() const override;
 
   /**
    * @copydoc PhaseTapChangerInterface::addStep(std::unique_ptr<StepInterface> step)
    */
-  void addStep(std::unique_ptr<StepInterface> step);
+  void addStep(std::unique_ptr<StepInterface> step) override;
 
   /**
    * @copydoc PhaseTapChangerInterface::getCurrentPosition() const
    */
-  int getCurrentPosition() const;
+  int getCurrentPosition() const override;
 
   /**
    * @copydoc PhaseTapChangerInterface::setCurrentPosition(const int& position)
    */
-  void setCurrentPosition(const int& position);
+  void setCurrentPosition(const int& position) override;
 
   /**
    * @copydoc PhaseTapChangerInterface::getLowPosition() const
    */
-  int getLowPosition() const;
+  int getLowPosition() const override;
 
   /**
    * @copydoc PhaseTapChangerInterface::getNbTap() const
    */
-  unsigned int getNbTap() const;
+  unsigned int getNbTap() const override;
 
   /**
    * @copydoc PhaseTapChangerInterface::isCurrentLimiter() const
    */
-  bool isCurrentLimiter() const;
+  bool isCurrentLimiter() const override;
 
   /**
    * @copydoc PhaseTapChangerInterface::getRegulating() const
    */
-  bool getRegulating() const;
+  bool getRegulating() const override;
 
   /**
    * @copydoc PhaseTapChangerInterface::getRegulationValue() const
    */
-  double getRegulationValue() const;
+  double getRegulationValue() const override;
 
   /**
    * @copydoc PhaseTapChangerInterface::getCurrentR() const
    */
-  double getCurrentR() const;
+  double getCurrentR() const override;
 
   /**
    * @copydoc PhaseTapChangerInterface::getCurrentX() const
    */
-  double getCurrentX() const;
+  double getCurrentX() const override;
 
   /**
    * @copydoc PhaseTapChangerInterface::getCurrentB() const
    */
-  double getCurrentB() const;
+  double getCurrentB() const override;
 
   /**
    * @copydoc PhaseTapChangerInterface::getCurrentG() const
    */
-  double getCurrentG() const;
+  double getCurrentG() const override;
 
   /**
    * @copydoc PhaseTapChangerInterface::getCurrentRho() const
    */
-  double getCurrentRho() const;
+  double getCurrentRho() const override;
 
   /**
    * @copydoc PhaseTapChangerInterface::getCurrentAlpha() const
    */
-  double getCurrentAlpha() const;
+  double getCurrentAlpha() const override;
 
   /**
    * @copydoc PhaseTapChangerInterface::getTargetDeadBand() const
    */
-  double getTargetDeadBand() const;
+  double getTargetDeadBand() const override;
 
  private:
   std::vector<std::unique_ptr<StepInterface> > steps_;  ///< steps of the phase tap changer

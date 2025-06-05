@@ -51,7 +51,7 @@ class StaticVarCompensatorInterfaceIIDM : public StaticVarCompensatorInterface, 
   /**
    * @brief Destructor
    */
-  ~StaticVarCompensatorInterfaceIIDM();
+  ~StaticVarCompensatorInterfaceIIDM() override;
 
   /**
    * @brief Constructor
@@ -62,132 +62,132 @@ class StaticVarCompensatorInterfaceIIDM : public StaticVarCompensatorInterface, 
   /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
-  void exportStateVariablesUnitComponent();
+  void exportStateVariablesUnitComponent() override;
 
   /**
    * @copydoc ComponentInterface::importStaticParameters()
    */
-  void importStaticParameters();
+  void importStaticParameters() override;
 
   /**
    * @copydoc ComponentInterface::isConnected()
    */
-  bool isConnected() const;
+  bool isConnected() const override;
 
   /**
    * @copydoc StaticVarCompensatorInterface::setBusInterface(const std::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface(const std::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface(const std::shared_ptr<BusInterface>& busInterface) override;
 
   /**
    * @copydoc StaticVarCompensatorInterface::setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
    */
-  void setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
+  void setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) override;
 
   /**
    * @copydoc StaticVarCompensatorInterface::getBusInterface() const
    */
-  std::shared_ptr<BusInterface> getBusInterface() const;
+  std::shared_ptr<BusInterface> getBusInterface() const override;
 
   /**
    * @copydoc StaticVarCompensatorInterface::getInitialConnected()
    */
-  bool getInitialConnected();
+  bool getInitialConnected() override;
 
   /**
    * @copydoc StaticVarCompensatorInterface::getVNom() const
    */
-  double getVNom() const;
+  double getVNom() const override;
 
   /**
    * @copydoc StaticVarCompensatorInterface::getID() const
    */
-  const std::string& getID() const;
+  const std::string& getID() const override;
 
   /**
    * @copydoc StaticVarCompensatorInterface::getBMin() const
    */
-  double getBMin() const;
+  double getBMin() const override;
 
   /**
    * @copydoc StaticVarCompensatorInterface::getUMinActivation() const
    */
-  double getUMinActivation() const;
+  double getUMinActivation() const override;
 
   /**
    * @copydoc StaticVarCompensatorInterface::getUMaxActivation() const
    */
-  double getUMaxActivation() const;
+  double getUMaxActivation() const override;
 
   /**
    * @copydoc StaticVarCompensatorInterface::getUSetPointMin() const
    */
-  double getUSetPointMin() const;
+  double getUSetPointMin() const override;
 
   /**
    * @copydoc StaticVarCompensatorInterface::getUSetPointMax() const
    */
-  double getUSetPointMax() const;
+  double getUSetPointMax() const override;
 
   /**
    * @copydoc StaticVarCompensatorInterface::hasStandbyAutomaton() const
    */
-  bool hasStandbyAutomaton() const;
+  bool hasStandbyAutomaton() const override;
 
   /**
    * @copydoc StaticVarCompensatorInterface::isStandBy() const
    */
-  bool isStandBy() const;
+  bool isStandBy() const override;
 
   /**
    * @copydoc StaticVarCompensatorInterface::getB0() const
    */
-  double getB0() const;
+  double getB0() const override;
 
   /**
    * @copydoc StaticVarCompensatorInterface::getBMax() const
    */
-  double getBMax() const;
+  double getBMax() const override;
 
   /**
    * @copydoc StaticVarCompensatorInterface::getVSetPoint() const
    */
-  double getVSetPoint() const;
+  double getVSetPoint() const override;
 
   /**
    * @copydoc StaticVarCompensatorInterface::getReactivePowerSetPoint() const
    */
-  double getReactivePowerSetPoint() const;
+  double getReactivePowerSetPoint() const override;
 
   /**
    * @copydoc StaticVarCompensatorInterface::getRegulationMode() const
    */
-  StaticVarCompensatorInterface::RegulationMode_t getRegulationMode() const;
+  StaticVarCompensatorInterface::RegulationMode_t getRegulationMode() const override;
 
   /**
    * @copydoc ComponentInterface::getComponentVarIndex()
    */
-  int getComponentVarIndex(const std::string& varName) const;
+  int getComponentVarIndex(const std::string& varName) const override;
 
   /**
    * @copydoc StaticVarCompensatorInterface::getP()
    */
-  double getP();
+  double getP() override;
 
   /**
    * @copydoc StaticVarCompensatorInterface::getQ()
    */
-  double getQ();
+  double getQ() override;
 
   /**
    * @copydoc StaticVarCompensatorInterface::hasVoltagePerReactivePowerControl() const
    */
-  bool hasVoltagePerReactivePowerControl() const;
+  bool hasVoltagePerReactivePowerControl() const override;
 
   /**
    * @copydoc StaticVarCompensatorInterface::getSlope() const
    */
-  double getSlope() const;
+  double getSlope() const override;
 
  private:
   powsybl::iidm::StaticVarCompensator& staticVarCompensatorIIDM_;  ///< reference to the iidm static var compensator instance

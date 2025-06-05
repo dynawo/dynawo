@@ -53,7 +53,7 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
   /**
    * @brief Destructor
    */
-  ~GeneratorInterfaceIIDM();
+  ~GeneratorInterfaceIIDM() override;
 
   /**
    * @brief Constructor
@@ -64,137 +64,137 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
   /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
-  void exportStateVariablesUnitComponent();
+  void exportStateVariablesUnitComponent() override;
 
   /**
    * @copydoc ComponentInterface::importStaticParameters()
    */
-  void importStaticParameters();
+  void importStaticParameters() override;
 
   /**
    * @copydoc ComponentInterface::isConnected()
    */
-  bool isConnected() const;
+  bool isConnected() const override;
 
   /**
    * @copydoc GeneratorInterface::setBusInterface(const std::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface(const std::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface(const std::shared_ptr<BusInterface>& busInterface) override;
 
   /**
    * @copydoc GeneratorInterface::setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
    */
-  void setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
+  void setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) override;
 
   /**
    * @copydoc GeneratorInterface::getBusInterface() const
    */
-  std::shared_ptr<BusInterface> getBusInterface() const;
+  std::shared_ptr<BusInterface> getBusInterface() const override;
 
   /**
    * @copydoc GeneratorInterface::getInitialConnected()
    */
-  bool getInitialConnected();
+  bool getInitialConnected() override;
 
   /**
    * @copydoc GeneratorInterface::getP()
    */
-  double getP();
+  double getP() override;
 
   /**
    * @copydoc GeneratorInterface::getStateVarP()
    */
-  double getStateVarP();
+  double getStateVarP() override;
 
   /**
    * @copydoc GeneratorInterface::getPMin()
    */
-  double getPMin();
+  double getPMin() override;
 
   /**
    * @copydoc GeneratorInterface::getPMax()
    */
-  double getPMax();
+  double getPMax() override;
 
   /**
    * @copydoc GeneratorInterface::getTargetP()
    */
-  double getTargetP();
+  double getTargetP() override;
 
   /**
    * @copydoc GeneratorInterface::getQ()
    */
-  double getQ();
+  double getQ() override;
 
   /**
    * @copydoc GeneratorInterface::getQMax()
    */
-  double getQMax();
+  double getQMax() override;
 
   /**
    * @copydoc GeneratorInterface::getQNom()
    */
-  double getQNom();
+  double getQNom() override;
 
   /**
    * @copydoc GeneratorInterface::getQMin()
    */
-  double getQMin();
+  double getQMin() override;
 
   /**
    * @copydoc GeneratorInterface::getTargetQ()
    */
-  double getTargetQ();
+  double getTargetQ() override;
 
   /**
    * @copydoc GeneratorInterface::getTargetV()
    */
-  double getTargetV();
+  double getTargetV() override;
 
   /**
    * @copydoc GeneratorInterface::getID() const
    */
-  const std::string& getID() const;
+  const std::string& getID() const override;
 
   /**
    * @copydoc ComponentInterface::getComponentVarIndex()
    */
-  int getComponentVarIndex(const std::string& varName) const;
+  int getComponentVarIndex(const std::string& varName) const override;
 
   /**
    * @copydoc GeneratorInterface::getReactiveCurvesPoints() const
    */
-  std::vector<ReactiveCurvePoint> getReactiveCurvesPoints() const;
+  std::vector<ReactiveCurvePoint> getReactiveCurvesPoints() const override;
 
   /**
    * @copydoc GeneratorInterface::isVoltageRegulationOn() const
    */
-  bool isVoltageRegulationOn() const;
+  bool isVoltageRegulationOn() const override;
 
   /**
    * @copydoc GeneratorInterface::hasActivePowerControl() const
    */
-  bool hasActivePowerControl() const;
+  bool hasActivePowerControl() const override;
 
   /**
    * @copydoc GeneratorInterface::isParticipating() const
    */
-  bool isParticipating() const;
+  bool isParticipating() const override;
 
   /**
    * @copydoc GeneratorInterface::getActivePowerControlDroop() const
    */
-  double getActivePowerControlDroop() const;
+  double getActivePowerControlDroop() const override;
 
   /**
    * @copydoc GeneratorInterface::hasCoordinatedReactiveControl() const
    */
-  bool hasCoordinatedReactiveControl() const;
+  bool hasCoordinatedReactiveControl() const override;
 
   /**
    * @copydoc GeneratorInterface::getCoordinatedReactiveControlPercentage() const
    */
-  double getCoordinatedReactiveControlPercentage() const;
+  double getCoordinatedReactiveControlPercentage() const override;
 
   /**
    * @brief Getter for the generator' country
@@ -215,7 +215,7 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
   /**
    * @copydoc GeneratorInterface::getEnergySource() const
    */
-  EnergySource_t getEnergySource() const;
+  EnergySource_t getEnergySource() const override;
 
  private:
   powsybl::iidm::Generator& generatorIIDM_;  ///< reference to the iidm generator instance

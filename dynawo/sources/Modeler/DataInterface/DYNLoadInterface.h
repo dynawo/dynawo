@@ -46,7 +46,7 @@ class LoadInterface : public ComponentInterface {
   /**
    * @brief Destructor
    */
-  virtual ~LoadInterface() = default;
+  ~LoadInterface() override = default;
 
   /**
    * @brief Setter for the load's bus interface
@@ -106,12 +106,12 @@ class LoadInterface : public ComponentInterface {
    * @brief Getter for the load's id
    * @return The id of the load
    */
-  virtual const std::string& getID() const = 0;
+  const std::string& getID() const override = 0;
 
   /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
-  virtual void exportStateVariablesUnitComponent() = 0;
+  void exportStateVariablesUnitComponent() override = 0;
 
   /**
    * @brief load power under voltage threshold

@@ -49,7 +49,7 @@ class MyModelica: public ModelModelica {
    *
    * @param data dyn data to initialize
    */
-  virtual void initData(DYNDATA* data) {
+  void initData(DYNDATA* data) override {
     data->nbF = 2;
     data->nbCalculatedVars = 1;
     data->nbDelays = 0;
@@ -111,9 +111,9 @@ class MyModelica: public ModelModelica {
    * @brief initialize the parameters of the model
    *
    */
-  void initRpar() {}
+  void initRpar() override {}
 
-  virtual void setFomc(double* /*f*/, propertyF_t /*type*/) {
+  void setFomc(double* /*f*/, propertyF_t /*type*/) override {
     ++nbCallF_;
   }
 
@@ -121,7 +121,7 @@ class MyModelica: public ModelModelica {
     return nbCallF_;
   }
 
-  void setGomc(state_g* /*g*/) {
+  void setGomc(state_g* /*g*/) override {
     ++nbCallG_;
   }
 
@@ -129,7 +129,7 @@ class MyModelica: public ModelModelica {
     return nbCallG_;
   }
 
-  modeChangeType_t evalMode(const double /*t*/) const {
+  modeChangeType_t evalMode(const double /*t*/) const override {
     return DIFFERENTIAL_MODE;
   }
 
@@ -137,7 +137,7 @@ class MyModelica: public ModelModelica {
    * @brief calculates the discrete values of the model
    *
    */
-  virtual void setZomc() {
+  void setZomc() override {
     ++nbCallZ_;
   }
 
@@ -145,13 +145,13 @@ class MyModelica: public ModelModelica {
     return nbCallZ_;
   }
 
-  void collectSilentZ(BitMask* /*silentZTable*/) { }
+  void collectSilentZ(BitMask* /*silentZTable*/) override { }
 
   /**
    * @brief calculates the initial values (discrete and continuous) of the model
    *
    */
-  void setY0omc() {
+  void setY0omc() override {
     ++nbCallY0_;
   }
 
@@ -159,33 +159,33 @@ class MyModelica: public ModelModelica {
    * @brief call the constructors of objects that need a custom build based on parameters values
    *
    */
-  void callCustomParametersConstructors() { }
+  void callCustomParametersConstructors() override { }
 
   unsigned getNbCallY0() const {
     return nbCallY0_;
   }
 
-  void setParameters(std::shared_ptr<parameters::ParametersSet> /*params*/) {}
+  void setParameters(std::shared_ptr<parameters::ParametersSet> /*params*/) override {}
 
   /**
    * @brief defines the variables of the model
    *
    * @param variables vector to fill
    */
-  virtual void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables);
+  void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) override;
 
   /**
    * @brief defines the parameters of the model
    *
    * @param parameters vector to fill
    */
-  virtual void defineParameters(std::vector<ParameterModeler>& parameters) {
+  void defineParameters(std::vector<ParameterModeler>& parameters) override {
     parameters.push_back(ParameterModeler("MyParam2", VAR_TYPE_DOUBLE, INTERNAL_PARAMETER));
     parameters.push_back(ParameterModeler("MyParam", VAR_TYPE_INT, INTERNAL_PARAMETER));
   }
 
 
-  void checkSum(std::string & /*checkSum*/) {}
+  void checkSum(std::string & /*checkSum*/) override {}
 
 #ifdef _ADEPT_
   /**
@@ -195,7 +195,7 @@ class MyModelica: public ModelModelica {
    * @param yp values of the derivatives of the continuous variable
    * @param F computes values of the residual functions
    */
-  virtual void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, std::vector<adept::adouble> &F) {
+  void evalFAdept(const std::vector<adept::adouble>& y, const std::vector<adept::adouble>& yp, std::vector<adept::adouble>& F) override {
     ASSERT_EQ(y.size(), 2);
     ASSERT_EQ(yp.size(), 2);
     ASSERT_EQ(F.size(), 2);
@@ -208,11 +208,11 @@ class MyModelica: public ModelModelica {
    * @brief ensure data coherence (asserts, min/max, sanity checks...)
    *
    */
-  void checkDataCoherence() {
+  void checkDataCoherence() override {
     ++nbCallCheckDataCoherence_;
   }
 
-  void checkParametersCoherence() const {
+  void checkParametersCoherence() const override {
     // Dummy class used for testing
   }
 
@@ -224,7 +224,7 @@ class MyModelica: public ModelModelica {
    * @brief set formula for modelica model's equation
    * @param fEquationIndex map of equation's formula by idnex as it key
    */
-  void setFequations(std::map<int, std::string>& fEquationIndex) {
+  void setFequations(std::map<int, std::string>& fEquationIndex) override {
     fEquationIndex[0] = "MyFEq";
   }
 
@@ -232,28 +232,28 @@ class MyModelica: public ModelModelica {
    * @brief set formula for modelica model's root equation
    * @param gEquationIndex map of root equation's formula by idnex as it key
    */
-  void setGequations(std::map<int, std::string>& gEquationIndex) {
+  void setGequations(std::map<int, std::string>& gEquationIndex) override {
     gEquationIndex[0] = "MyGEq";
   }
 
-  void setModelType(std::string /*modelType*/) {}
+  void setModelType(std::string /*modelType*/) override {}
 
   /**
    * @brief get the current model manager used
    *
    * @return the current model manager used
    */
-  ModelManager* getModelManager() const {
+  ModelManager* getModelManager() const override {
     return parent_;
   }
 
-  void setModelManager(ModelManager* /*model*/) {}
+  void setModelManager(ModelManager* /*model*/) override {}
 
-  void evalStaticYType_omc(propertyContinuousVar_t* /*yType*/) {
+  void evalStaticYType_omc(propertyContinuousVar_t* /*yType*/) override {
     ++nbCallStaticYType_;
   }
 
-  void evalDynamicYType_omc(propertyContinuousVar_t* /*yType*/) {
+  void evalDynamicYType_omc(propertyContinuousVar_t* /*yType*/) override {
     ++nbCallDynamicYType_;
   }
 
@@ -265,11 +265,11 @@ class MyModelica: public ModelModelica {
     return nbCallDynamicYType_;
   }
 
-  void evalStaticFType_omc(propertyF_t* /*fType*/) {
+  void evalStaticFType_omc(propertyF_t* /*fType*/) override {
     ++nbCallStaticFType_;
   }
 
-  void evalDynamicFType_omc(propertyF_t* /*fType*/) {
+  void evalDynamicFType_omc(propertyF_t* /*fType*/) override {
     ++nbCallDynamicFType_;
   }
 
@@ -281,21 +281,21 @@ class MyModelica: public ModelModelica {
     return nbCallDynamicFType_;
   }
 
-  void defineElements(std::vector<Element> &/*elements*/, std::map<std::string, int>& /*mapElement*/) {}
+  void defineElements(std::vector<Element> &/*elements*/, std::map<std::string, int>& /*mapElement*/) override {}
 
   /**
    * @brief set shared parameters default values
    *
    * @return a parameters set filled with default values
    */
-  std::shared_ptr<parameters::ParametersSet> setSharedParametersDefaultValues() {
+  std::shared_ptr<parameters::ParametersSet> setSharedParametersDefaultValues() override {
     std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("SharedModelicaParameters");
     parametersSet->createParameter("MyParam", 2);
     parametersSet->createParameter("MyParam2", 1.);
     return parametersSet;
   }
 
-  void evalCalculatedVars(std::vector<double>& /*calculatedVars*/) {
+  void evalCalculatedVars(std::vector<double>& /*calculatedVars*/) override {
     ++nbCallCalcVars_;
   }
 
@@ -303,23 +303,23 @@ class MyModelica: public ModelModelica {
     return nbCallCalcVars_;
   }
 
-  double evalCalculatedVarI(unsigned /*iCalculatedVar*/) const {
+  double evalCalculatedVarI(unsigned /*iCalculatedVar*/) const override {
     return 10.;
   }
 
 #ifdef _ADEPT_
   adept::adouble evalCalculatedVarIAdept(unsigned /*iCalculatedVar*/, unsigned /*indexOffset*/,
-      const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &/*yp*/) const {
+      const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &/*yp*/) const override {
     return 2*y[0];
   }
 #endif
 
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<int>& indexes) const {
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<int>& indexes) const override {
     indexes.push_back(0);
     indexes.push_back(1);
   }
 
-  virtual bool isDataStructInitialized() const {
+  bool isDataStructInitialized() const override {
     return false;
   }
 
@@ -351,12 +351,12 @@ class MyModelicaInit: public MyModelica {
     MyModelica(parent),
     data_(NULL) { }
 
-  void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables);
+  void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) override;
 
-  void defineParameters(std::vector<ParameterModeler>& /*parameters*/) {
+  void defineParameters(std::vector<ParameterModeler>& /*parameters*/) override {
   }
 
-  void setFomc(double* f, propertyF_t /*type*/) {
+  void setFomc(double* f, propertyF_t /*type*/) override {
     f[0] = data_->localData[0]->realVars[0] - 8;
   }
 
@@ -368,7 +368,7 @@ class MyModelicaInit: public MyModelica {
    * @param yp values of the derivatives of the continuous variable
    * @param F computes values of the residual functions
    */
-  void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, std::vector<adept::adouble> &F) {
+  void evalFAdept(const std::vector<adept::adouble>& y, const std::vector<adept::adouble>& yp, std::vector<adept::adouble>& F) override {
     ASSERT_EQ(y.size(), 1);
     ASSERT_EQ(yp.size(), 1);
     ASSERT_EQ(F.size(), 1);
@@ -376,11 +376,11 @@ class MyModelicaInit: public MyModelica {
   }
 #endif
 
-  void setZomc() {
+  void setZomc() override {
     data_->localData[0]->integerDoubleVars[0] = 4;
   }
 
-  virtual void initData(DYNDATA* data) {
+  void initData(DYNDATA* data) override {
     data->nbF = 1;
     data->nbCalculatedVars = 0;
     data->nbDelays = 0;
@@ -460,7 +460,7 @@ class MyModelManager : public ModelManager {
     name("MyModelManager");
   }
 
-  virtual ~MyModelManager();
+  ~MyModelManager() override;
 
   void testSize() {
     ASSERT_EQ(dataInit_->nbF, 1);
@@ -517,7 +517,7 @@ class MyModelManager : public ModelManager {
   }
 
  protected:
-  bool hasInit() const {
+  bool hasInit() const override {
     return true;
   }
 };

@@ -85,7 +85,7 @@ class UnitDynamicModelHandler : public xml::sax::parser::ComposableElementHandle
   /**
    * @brief Destructor
    */
-  virtual ~UnitDynamicModelHandler();
+  ~UnitDynamicModelHandler() override;
 
   /**
    * @brief return the unit dynamic model read in xml file
@@ -119,7 +119,7 @@ class StaticRefHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  virtual ~StaticRefHandler();
+  ~StaticRefHandler() override;
 
   /**
    * @brief return the static ref read in xml file
@@ -153,7 +153,7 @@ class MacroStaticRefHandler : public xml::sax::parser::ComposableElementHandler 
   /**
    * @brief Destructor
    */
-  virtual ~MacroStaticRefHandler();
+  ~MacroStaticRefHandler() override;
 
   /**
    * return the macroStaticRef read in xml file
@@ -187,7 +187,7 @@ class MacroStaticReferenceHandler : public xml::sax::parser::ComposableElementHa
   /**
    * @brief Destructor
    */
-  virtual ~MacroStaticReferenceHandler();
+  ~MacroStaticReferenceHandler() override;
 
   /**
    * return the macroStaticReference read in xml file
@@ -227,7 +227,7 @@ class ConnectHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  virtual ~ConnectHandler();
+  ~ConnectHandler() override;
 
   /**
    * @brief return the connector read in xml file
@@ -262,7 +262,7 @@ class MacroConnectHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  virtual ~MacroConnectHandler();
+  ~MacroConnectHandler() override;
 
   /**
    * return the macro connect read in xml file
@@ -296,7 +296,7 @@ class MacroConnectionHandler : public xml::sax::parser::ComposableElementHandler
   /**
    * @brief Destructor
    */
-  virtual ~MacroConnectionHandler();
+  ~MacroConnectionHandler() override;
 
   /**
    * return the macro connection read in xml file
@@ -330,7 +330,7 @@ class MacroConnectorHandler : public xml::sax::parser::ComposableElementHandler 
   /**
    * @brief Destructor
    */
-  virtual ~MacroConnectorHandler();
+  ~MacroConnectorHandler() override;
 
   /**
    * return the macro connector read in xml file
@@ -376,7 +376,7 @@ class ModelicaModelHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  virtual ~ModelicaModelHandler();
+  ~ModelicaModelHandler() override;
 
   /**
    * @brief return the modelica model read in xml file
@@ -446,7 +446,7 @@ class ModelTemplateHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  virtual ~ModelTemplateHandler();
+  ~ModelTemplateHandler() override;
 
   /**
    * @brief return the model template read in xml file
@@ -516,7 +516,7 @@ class BlackBoxModelHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  virtual ~BlackBoxModelHandler();
+  ~BlackBoxModelHandler() override;
 
   /**
    * @brief add a static reference to the black box model
@@ -562,7 +562,7 @@ class ModelTemplateExpansionHandler : public xml::sax::parser::ComposableElement
   /**
    * @brief Destructor
    */
-  virtual ~ModelTemplateExpansionHandler();
+  ~ModelTemplateExpansionHandler() override;
 
   /**
    * @brief add a static reference to the model template expansion
@@ -610,7 +610,7 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
   /**
    * @brief Destructor
    */
-  virtual ~XmlHandler();
+  ~XmlHandler() override;
 
   /**
    * @brief Parsed parameters set collection getter

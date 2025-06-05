@@ -52,23 +52,23 @@ class HvdcLineInterface : public ComponentInterface {
   /**
    * @brief Destructor
    */
-  virtual ~HvdcLineInterface() = default;
+  ~HvdcLineInterface() override = default;
 
   /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
-  virtual void exportStateVariablesUnitComponent() = 0;
+  void exportStateVariablesUnitComponent() override = 0;
 
   /**
    * @copydoc ComponentInterface::importStaticParameters()
    */
-  virtual void importStaticParameters() = 0;
+  void importStaticParameters() override = 0;
 
   /**
    * @brief Getter for the hvdc line id
    * @return The id of the hvdc line
    */
-  virtual const std::string& getID() const = 0;
+  const std::string& getID() const override = 0;
 
   /**
    * @brief Getter for the dc resistance of the hvdc line

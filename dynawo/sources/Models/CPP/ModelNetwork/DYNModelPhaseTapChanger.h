@@ -41,7 +41,7 @@ class ModelPhaseTapChanger : public ModelTapChanger {
   /**
    * @brief destructor
    */
-  virtual ~ModelPhaseTapChanger();
+  ~ModelPhaseTapChanger() override;
 
   /**
    * @brief reset internal variables values

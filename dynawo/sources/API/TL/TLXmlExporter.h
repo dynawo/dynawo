@@ -37,7 +37,7 @@ class XmlExporter : public Exporter {
    * @param timeline Timeline to export
    * @param filePath File to export XML formatted timeline to
    */
-  void exportToFile(const boost::shared_ptr<Timeline>& timeline, const std::string& filePath) const;
+  void exportToFile(const boost::shared_ptr<Timeline>& timeline, const std::string& filePath) const override;
 
   /**
    * @brief Export method in XML format
@@ -45,7 +45,7 @@ class XmlExporter : public Exporter {
    * @param timeline Timeline to export
    * @param stream stream to export XML formatted timeline to
    */
-  void exportToStream(const boost::shared_ptr<Timeline>& timeline, std::ostream& stream) const;
+  void exportToStream(const boost::shared_ptr<Timeline>& timeline, std::ostream& stream) const override;
 };
 
 }  // namespace timeline

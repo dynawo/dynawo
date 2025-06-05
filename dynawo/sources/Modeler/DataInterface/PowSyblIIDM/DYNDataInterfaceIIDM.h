@@ -67,7 +67,7 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
   /**
    * @brief Destructor
    */
-  ~DataInterfaceIIDM() = default;
+  ~DataInterfaceIIDM() override = default;
 
   /**
    * @brief init dataInterface from iidm network
@@ -90,73 +90,73 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
    * @brief dump the network to a file with the proper format
    * @param filepath file to create
    */
-  void dumpToFile(const std::string& filepath) const;
+  void dumpToFile(const std::string& filepath) const override;
 
   /**
    * @brief dump the final state of the network in a stream
    * @param stream the stream to export to
    */
-  void dumpToFile(std::stringstream& stream) const;
+  void dumpToFile(std::stringstream& stream) const override;
 
   /**
    * @copydoc DataInterface::canUseVariant() const
    */
-  bool canUseVariant() const;
+  bool canUseVariant() const override;
 
   /**
    * @copydoc DataInterface::selectVariant(const std::string& variantName)
    */
-  void selectVariant(const std::string& variantName);
+  void selectVariant(const std::string& variantName) override;
 
   /**
    * @copydoc DataInterface::getNetwork() const
    */
-  boost::shared_ptr<NetworkInterface> getNetwork() const;
+  boost::shared_ptr<NetworkInterface> getNetwork() const override;
 
   /**
    * @copydoc DataInterface::hasDynamicModel(const std::string& id)
    */
-  void hasDynamicModel(const std::string& id);
+  void hasDynamicModel(const std::string& id) override;
 
   /**
    * @copydoc DataInterface::setDynamicModel(const std::string& componentId, const boost::shared_ptr<SubModel>& model)
    */
-  void setDynamicModel(const std::string& componentId, const boost::shared_ptr<SubModel>& model);
+  void setDynamicModel(const std::string& componentId, const boost::shared_ptr<SubModel>& model) override;
 
   /**
    * @copydoc DataInterface::setModelNetwork(const boost::shared_ptr<SubModel>& model)
    */
-  void setModelNetwork(const boost::shared_ptr<SubModel>& model);
+  void setModelNetwork(const boost::shared_ptr<SubModel>& model) override;
 
   /**
    * @copydoc DataInterface::setReference(const std::string& componentVar, const std::string& staticId ,const std::string& modelId, const std::string& modelVar)
    */
-  void setReference(const std::string& componentVar, const std::string& staticId, const std::string& modelId, const std::string& modelVar);
+  void setReference(const std::string& componentVar, const std::string& staticId, const std::string& modelId, const std::string& modelVar) override;
 
   /**
    * @copydoc DataInterface::mapConnections()
    */
-  void mapConnections();
+  void mapConnections() override;
 
   /**
    * @copydoc DataInterface::updateFromModel(bool filterForCriteriaCheck)
    */
-  void updateFromModel(bool filterForCriteriaCheck);
+  void updateFromModel(bool filterForCriteriaCheck) override;
 
   /**
    * @copydoc DataInterface::getStateVariableReference()
    */
-  void getStateVariableReference();
+  void getStateVariableReference() override;
 
   /**
    * @copydoc DataInterface::importStaticParameters()
    */
-  void importStaticParameters();
+  void importStaticParameters() override;
 
   /**
    * @copydoc DataInterface::exportStateVariables()
    */
-  void exportStateVariables();
+  void exportStateVariables() override;
 
 #ifdef _DEBUG_
   /**
@@ -168,49 +168,49 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
   /**
    * @copydoc DataInterface::findConnectedComponents()
    */
-  std::shared_ptr<std::vector<std::shared_ptr<ComponentInterface> > > findConnectedComponents();
+  std::shared_ptr<std::vector<std::shared_ptr<ComponentInterface> > > findConnectedComponents() override;
 
   /**
    * @copydoc DataInterface::findLostEquipments()
    */
   std::unique_ptr<lostEquipments::LostEquipmentsCollection>
-    findLostEquipments(const std::shared_ptr<std::vector<std::shared_ptr<ComponentInterface> > >& connectedComponents);
+    findLostEquipments(const std::shared_ptr<std::vector<std::shared_ptr<ComponentInterface> > >& connectedComponents) override;
 
   /**
    * @copydoc DataInterface::configureCriteria(const std::shared_ptr<criteria::CriteriaCollection>& criteria)
    */
-  void configureCriteria(const std::shared_ptr<criteria::CriteriaCollection>& criteria);
+  void configureCriteria(const std::shared_ptr<criteria::CriteriaCollection>& criteria) override;
 
   /**
    * @copydoc DataInterface::checkCriteria(double t, bool finalStep)
    */
-  bool checkCriteria(double t, bool finalStep);
+  bool checkCriteria(double t, bool finalStep) override;
 
   /**
    * @brief fill a vector with the ids of the failing criteria
    * @param failingCriteria vector to fill
    */
-  void getFailingCriteria(std::vector<std::pair<double, std::string> >& failingCriteria) const;
+  void getFailingCriteria(std::vector<std::pair<double, std::string> >& failingCriteria) const override;
 
   /**
    * @copydoc DataInterface::getStaticParameterDoubleValue(const std::string& staticID, const std::string& refOrigName)
    */
-  double getStaticParameterDoubleValue(const std::string& staticID, const std::string& refOrigName);
+  double getStaticParameterDoubleValue(const std::string& staticID, const std::string& refOrigName) override;
 
   /**
    * @copydoc DataInterface::getStaticParameterIntValue(const std::string& staticID, const std::string& refOrigName)
    */
-  int getStaticParameterIntValue(const std::string& staticID, const std::string& refOrigName);
+  int getStaticParameterIntValue(const std::string& staticID, const std::string& refOrigName) override;
 
   /**
    * @copydoc DataInterface::getStaticParameterBoolValue(const std::string& staticID, const std::string& refOrigName)
    */
-  bool getStaticParameterBoolValue(const std::string& staticID, const std::string& refOrigName);
+  bool getStaticParameterBoolValue(const std::string& staticID, const std::string& refOrigName) override;
 
   /**
    * @copydoc DataInterface::getBusName(const std::string& staticID, const std::string& labelNode)
    */
-  std::string getBusName(const std::string& staticID, const std::string& labelNode);
+  std::string getBusName(const std::string& staticID, const std::string& labelNode) override;
 
   /**
    * @brief find a component thanks to its id
@@ -231,7 +231,7 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
   /**
    * @copydoc DataInterface::getServiceManager
    */
-  boost::shared_ptr<ServiceManagerInterface> getServiceManager() const {
+  boost::shared_ptr<ServiceManagerInterface> getServiceManager() const override {
     return serviceManager_;
   }
 
@@ -465,7 +465,7 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
    * @brief Setter for timeline
    * @param timeline timeline output
    */
-  void setTimeline(const boost::shared_ptr<timeline::Timeline>& timeline);
+  void setTimeline(const boost::shared_ptr<timeline::Timeline>& timeline) override;
 
  private:
   boost::shared_ptr<powsybl::iidm::Network> networkIIDM_;                                          ///< instance of the IIDM network

@@ -43,57 +43,57 @@ class NetworkInterfaceIIDM : public NetworkInterface {
   /**
    * @copydoc NetworkInterface::addLine(const std::shared_ptr<LineInterface>& line)
    */
-  void addLine(const std::shared_ptr<LineInterface>& line);
+  void addLine(const std::shared_ptr<LineInterface>& line) override;
 
   /**
    * @copydoc NetworkInterface::addTwoWTransformer(const std::shared_ptr<TwoWTransformerInterface>& tfo)
    */
-  void addTwoWTransformer(const std::shared_ptr<TwoWTransformerInterface>& tfo);
+  void addTwoWTransformer(const std::shared_ptr<TwoWTransformerInterface>& tfo) override;
 
   /**
    * @copydoc NetworkInterface::addThreeWTransformer(const std::shared_ptr<ThreeWTransformerInterface>& tfo)
    */
-  void addThreeWTransformer(const std::shared_ptr<ThreeWTransformerInterface>& tfo);
+  void addThreeWTransformer(const std::shared_ptr<ThreeWTransformerInterface>& tfo) override;
 
   /**
    * @copydoc NetworkInterface::addVoltageLevel(const std::shared_ptr<VoltageLevelInterface>& voltageLevel)
    */
-  void addVoltageLevel(const std::shared_ptr<VoltageLevelInterface>& voltageLevel);
+  void addVoltageLevel(const std::shared_ptr<VoltageLevelInterface>& voltageLevel) override;
 
   /**
    * @copydoc NetworkInterface::addHvdcLine(const std::shared_ptr<HvdcLineInterface>& hvdc)
    */
-  void addHvdcLine(const std::shared_ptr<HvdcLineInterface>& hvdc);
+  void addHvdcLine(const std::shared_ptr<HvdcLineInterface>& hvdc) override;
 
   /**
    * @copydoc NetworkInterface::getLines() const
    */
-  const std::vector<std::shared_ptr<LineInterface> >& getLines() const;
+  const std::vector<std::shared_ptr<LineInterface> >& getLines() const override;
 
   /**
    * @copydoc NetworkInterface::getTwoWTransformers() const
    */
-  const std::vector<std::shared_ptr<TwoWTransformerInterface> >& getTwoWTransformers() const;
+  const std::vector<std::shared_ptr<TwoWTransformerInterface> >& getTwoWTransformers() const override;
 
   /**
    * @copydoc NetworkInterface::getThreeWTransformers() const
    */
-  const std::vector<std::shared_ptr<ThreeWTransformerInterface> >& getThreeWTransformers() const;
+  const std::vector<std::shared_ptr<ThreeWTransformerInterface> >& getThreeWTransformers() const override;
 
   /**
    * @copydoc NetworkInterface::getVoltageLevels() const
    */
-  const std::vector<std::shared_ptr<VoltageLevelInterface> >& getVoltageLevels() const;
+  const std::vector<std::shared_ptr<VoltageLevelInterface> >& getVoltageLevels() const override;
 
   /**
    * @copydoc NetworkInterface::getHvdcLines() const
    */
-  const std::vector<std::shared_ptr<HvdcLineInterface> >& getHvdcLines() const;
+  const std::vector<std::shared_ptr<HvdcLineInterface> >& getHvdcLines() const override;
 
   /**
    * @copydoc NetworkInterface::getSlackNodeBusId
    */
-  boost::optional<std::string> getSlackNodeBusId() const;
+  boost::optional<std::string> getSlackNodeBusId() const override;
 
  private:
   /**
