@@ -49,3 +49,4 @@ file(WRITE ${OUTPUT_DIR}/gitversion.h.txt
 # reduces needless rebuilds
 execute_process(COMMAND ${CMAKE_COMMAND} -E copy_if_different
                         ${OUTPUT_DIR}/gitversion.h.txt ${OUTPUT_DIR}/gitversion.h)
+message(STATUS "gitversion.h generated in ${OUTPUT_DIR}")

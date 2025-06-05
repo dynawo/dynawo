@@ -28,6 +28,7 @@ set(DYNAWO_INCLUDE_HEADERS
 install(FILES ${DYNAWO_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
 
 add_library(dynawo_Interface INTERFACE)
+add_dependencies(dynawo_Interface revisiontag)
 
 target_compile_definitions(dynawo_Interface
   INTERFACE
