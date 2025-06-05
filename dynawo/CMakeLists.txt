@@ -156,7 +156,7 @@ add_definitions(-DBOOST_ALL_DYN_LINK)
 # Tell BOOST to disable auto linking
 add_definitions(-DBOOST_ALL_NO_LIB)
 
-set(Boost_RequiredVersion  "1.70.0")
+set(Boost_RequiredVersion  "1.70")
 
 if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
   find_package(Boost "${Boost_RequiredVersion}" REQUIRED
