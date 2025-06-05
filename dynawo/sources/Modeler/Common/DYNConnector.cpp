@@ -109,7 +109,7 @@ ConnectorContainer::mergeYConnector() {
   yConnectorByVarNum_.clear();
   list<shared_ptr<Connector> > yConnectorsList;
   for (const auto& yConnectorDeclared : yConnectorsDeclared_) {
-    const auto yc = boost::make_shared<Connector>(*yConnectorDeclared);
+    auto yc = boost::make_shared<Connector>(*yConnectorDeclared);
     bool merged = false;
     for (const auto& connectedSubModel : yc->connectedSubModels()) {
       const int numVar = connectedSubModel.subModel()->getVariableIndexGlobal(connectedSubModel.variable());
@@ -160,7 +160,7 @@ ConnectorContainer::mergeFlowConnector() {
   const bool flowConnector = true;
   list<shared_ptr<Connector> > flowConnectorsList;
   for (const auto& flowConnectorDeclared : flowConnectorsDeclared_) {
-    const auto flowc = boost::make_shared<Connector>(*flowConnectorDeclared);
+    auto flowc = boost::make_shared<Connector>(*flowConnectorDeclared);
     bool merged = false;
     for (const auto& connectedSubModel : flowc->connectedSubModels()) {
       const int numVar = getConnectorVarNum(connectedSubModel.subModel(), connectedSubModel.variable(), flowConnector);
@@ -191,7 +191,7 @@ ConnectorContainer::mergeZConnector() {
   zConnectorByVarNum_.clear();
   list<shared_ptr<Connector> > zConnectorsList;
   for (const auto& zConnectorDeclared : zConnectorsDeclared_) {
-    const auto zc = boost::make_shared<Connector>(*zConnectorDeclared);
+    auto zc = boost::make_shared<Connector>(*zConnectorDeclared);
     bool merged = false;
     for (const auto& connectedSubModel : zc->connectedSubModels()) {
       const int numVar = connectedSubModel.subModel()->getVariableIndexGlobal(connectedSubModel.variable());
@@ -232,7 +232,7 @@ ConnectorContainer::propagateZConnectionInfoToModel() const {
 }
 
 void
-ConnectorContainer::mergeConnectors(const shared_ptr<Connector>& connector, const shared_ptr<Connector>& reference,
+ConnectorContainer::mergeConnectors(shared_ptr<Connector> connector, shared_ptr<Connector>& reference,
   list<shared_ptr<Connector> >& connectorsList, std::unordered_map<int, shared_ptr<Connector> >& connectorsByVarNum, const bool flowConnector) {
   // Looking for common variable to test the negated attributes
   bool negatedMerge = false;

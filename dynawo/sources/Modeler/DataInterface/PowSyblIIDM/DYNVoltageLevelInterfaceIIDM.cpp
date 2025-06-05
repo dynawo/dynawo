@@ -333,10 +333,10 @@ VoltageLevelInterfaceIIDM::calculateBusTopology() {
 
     // set voltage and angle of bus on the same electrical nodes
     set<int> nodes = electricalNodes[electricalComponent];  // to throw
-    for (const auto node : nodes) {
+    for (const auto nodeIndex : nodes) {
       if (bus) {
-        calculatedBus_[component[nodeIdToComponentIndex[node]]]->setU0(bus.get().getV());
-        calculatedBus_[component[nodeIdToComponentIndex[node]]]->setAngle0(bus.get().getAngle());
+        calculatedBus_[component[nodeIdToComponentIndex[nodeIndex]]]->setU0(bus.get().getV());
+        calculatedBus_[component[nodeIdToComponentIndex[nodeIndex]]]->setAngle0(bus.get().getAngle());
       }
     }
   }
@@ -377,7 +377,7 @@ VoltageLevelInterfaceIIDM::countNumberOfSwitchesToClose(const std::vector<std::s
 }
 
 void
-VoltageLevelInterfaceIIDM::connectNode(const unsigned int& nodeToConnect) {
+VoltageLevelInterfaceIIDM::connectNode(unsigned int nodeToConnect) {
   // should be removed once a solution has been found to propagate switches (de)connection
   // following component (de)connection (only Modelica models)
   assert(voltageLevelIIDM_.getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER);
@@ -422,7 +422,7 @@ VoltageLevelInterfaceIIDM::connectNode(const unsigned int& nodeToConnect) {
 }
 
 void
-VoltageLevelInterfaceIIDM::disconnectNode(const unsigned int& nodeToDisconnect) {
+VoltageLevelInterfaceIIDM::disconnectNode(unsigned int nodeToDisconnect) {
   // should be removed once a solution has been found to propagate switches (de)connection
   // following component (de)connection (only Modelica models)
   assert(voltageLevelIIDM_.getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER);
@@ -476,7 +476,7 @@ VoltageLevelInterfaceIIDM::disconnectNode(const unsigned int& nodeToDisconnect) 
 }
 
 bool
-VoltageLevelInterfaceIIDM::isNodeConnected(const unsigned int& nodeToCheck) {
+VoltageLevelInterfaceIIDM::isNodeConnected(unsigned int nodeToCheck) {
   assert(voltageLevelIIDM_.getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER);
 
   // Change weight of edges
