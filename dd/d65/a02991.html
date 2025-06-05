@@ -132,15 +132,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac6822240ecffe77c73e841b385815241"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d45/a02843.html#aa640378559edc3ac305b0dcde5446d68">VoltageLevelTopologyKind_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/a02991.html#ac6822240ecffe77c73e841b385815241">getVoltageLevelTopologyKind</a> () const override</td></tr>
 <tr class="memdesc:ac6822240ecffe77c73e841b385815241"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the voltage level topology kind.  <a href="#ac6822240ecffe77c73e841b385815241">More...</a><br /></td></tr>
 <tr class="separator:ac6822240ecffe77c73e841b385815241"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3627a117fee93eded4d162962ec7c29e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/a02991.html#a3627a117fee93eded4d162962ec7c29e">connectNode</a> (const unsigned int &amp;node) override</td></tr>
-<tr class="memdesc:a3627a117fee93eded4d162962ec7c29e"><td class="mdescLeft">&#160;</td><td class="mdescRight">find the shortest path between a node and a bus bar section node, then close all switches (if they are breaker)  <a href="#a3627a117fee93eded4d162962ec7c29e">More...</a><br /></td></tr>
-<tr class="separator:a3627a117fee93eded4d162962ec7c29e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a579ae2e9521c6f91b8aea9553ae35386"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/a02991.html#a579ae2e9521c6f91b8aea9553ae35386">disconnectNode</a> (const unsigned int &amp;node) override</td></tr>
-<tr class="memdesc:a579ae2e9521c6f91b8aea9553ae35386"><td class="mdescLeft">&#160;</td><td class="mdescRight">find all paths between a node and all bus bar section node, then open the first switches found (if it's a breaker)  <a href="#a579ae2e9521c6f91b8aea9553ae35386">More...</a><br /></td></tr>
-<tr class="separator:a579ae2e9521c6f91b8aea9553ae35386"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b89b17f9a410b5da32f1e8c9888503f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/a02991.html#a7b89b17f9a410b5da32f1e8c9888503f">isNodeConnected</a> (const unsigned int &amp;node) override</td></tr>
-<tr class="memdesc:a7b89b17f9a410b5da32f1e8c9888503f"><td class="mdescLeft">&#160;</td><td class="mdescRight">check if one node is connected to a node where there is a bus bar section  <a href="#a7b89b17f9a410b5da32f1e8c9888503f">More...</a><br /></td></tr>
-<tr class="separator:a7b89b17f9a410b5da32f1e8c9888503f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a175ec9da263d78e66c80d2eb883f3a46"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/a02991.html#a175ec9da263d78e66c80d2eb883f3a46">connectNode</a> (unsigned int node) override</td></tr>
+<tr class="memdesc:a175ec9da263d78e66c80d2eb883f3a46"><td class="mdescLeft">&#160;</td><td class="mdescRight">find the shortest path between a node and a bus bar section node, then close all switches (if they are breaker)  <a href="#a175ec9da263d78e66c80d2eb883f3a46">More...</a><br /></td></tr>
+<tr class="separator:a175ec9da263d78e66c80d2eb883f3a46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9361a1d56a511207a5fe82ed6d41ef10"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/a02991.html#a9361a1d56a511207a5fe82ed6d41ef10">disconnectNode</a> (unsigned int node) override</td></tr>
+<tr class="memdesc:a9361a1d56a511207a5fe82ed6d41ef10"><td class="mdescLeft">&#160;</td><td class="mdescRight">find all paths between a node and all bus bar section node, then open the first switches found (if it's a breaker)  <a href="#a9361a1d56a511207a5fe82ed6d41ef10">More...</a><br /></td></tr>
+<tr class="separator:a9361a1d56a511207a5fe82ed6d41ef10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a218196b27c149d81d441d2d8fa7c2434"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/a02991.html#a218196b27c149d81d441d2d8fa7c2434">isNodeConnected</a> (unsigned int node) override</td></tr>
+<tr class="memdesc:a218196b27c149d81d441d2d8fa7c2434"><td class="mdescLeft">&#160;</td><td class="mdescRight">check if one node is connected to a node where there is a bus bar section  <a href="#a218196b27c149d81d441d2d8fa7c2434">More...</a><br /></td></tr>
+<tr class="separator:a218196b27c149d81d441d2d8fa7c2434"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a67cde977d4ab8d4e5ff68f29baff9618"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/a02991.html#a67cde977d4ab8d4e5ff68f29baff9618">addSwitch</a> (const std::shared_ptr&lt; <a class="el" href="../../d3/df5/a02827.html">SwitchInterface</a> &gt; &amp;sw) override</td></tr>
 <tr class="memdesc:a67cde977d4ab8d4e5ff68f29baff9618"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a new instance of switch interface to the voltageLevel interface.  <a href="#a67cde977d4ab8d4e5ff68f29baff9618">More...</a><br /></td></tr>
 <tr class="separator:a67cde977d4ab8d4e5ff68f29baff9618"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -678,8 +678,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a3627a117fee93eded4d162962ec7c29e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3627a117fee93eded4d162962ec7c29e">&#9670;&nbsp;</a></span>connectNode()</h2>
+<a id="a175ec9da263d78e66c80d2eb883f3a46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a175ec9da263d78e66c80d2eb883f3a46">&#9670;&nbsp;</a></span>connectNode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -690,7 +690,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void DYN::VoltageLevelInterfaceIIDM::connectNode </td>
           <td>(</td>
-          <td class="paramtype">const unsigned int &amp;&#160;</td>
+          <td class="paramtype">unsigned int&#160;</td>
           <td class="paramname"><em>node</em></td><td>)</td>
           <td></td>
         </tr>
@@ -710,7 +710,7 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="../../d0/d45/a02843.html#abf13283e35be8a347c4df61e7515bd25">DYN::VoltageLevelInterface</a>.</p>
+<p>Implements <a class="el" href="../../d0/d45/a02843.html#a2c80fb21478cf39ddc2ead2605d74214">DYN::VoltageLevelInterface</a>.</p>
 
 </div>
 </div>
@@ -749,8 +749,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a579ae2e9521c6f91b8aea9553ae35386"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a579ae2e9521c6f91b8aea9553ae35386">&#9670;&nbsp;</a></span>disconnectNode()</h2>
+<a id="a9361a1d56a511207a5fe82ed6d41ef10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9361a1d56a511207a5fe82ed6d41ef10">&#9670;&nbsp;</a></span>disconnectNode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -761,7 +761,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void DYN::VoltageLevelInterfaceIIDM::disconnectNode </td>
           <td>(</td>
-          <td class="paramtype">const unsigned int &amp;&#160;</td>
+          <td class="paramtype">unsigned int&#160;</td>
           <td class="paramname"><em>node</em></td><td>)</td>
           <td></td>
         </tr>
@@ -781,7 +781,7 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="../../d0/d45/a02843.html#aef151d6e5fb76569d26575fcc55856ff">DYN::VoltageLevelInterface</a>.</p>
+<p>Implements <a class="el" href="../../d0/d45/a02843.html#a4927802c73560d1292ccb2ec4a0f1185">DYN::VoltageLevelInterface</a>.</p>
 
 </div>
 </div>
@@ -1280,8 +1280,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a7b89b17f9a410b5da32f1e8c9888503f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b89b17f9a410b5da32f1e8c9888503f">&#9670;&nbsp;</a></span>isNodeConnected()</h2>
+<a id="a218196b27c149d81d441d2d8fa7c2434"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a218196b27c149d81d441d2d8fa7c2434">&#9670;&nbsp;</a></span>isNodeConnected()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1292,7 +1292,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">bool DYN::VoltageLevelInterfaceIIDM::isNodeConnected </td>
           <td>(</td>
-          <td class="paramtype">const unsigned int &amp;&#160;</td>
+          <td class="paramtype">unsigned int&#160;</td>
           <td class="paramname"><em>node</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1313,7 +1313,7 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><b>true</b> is the node is connected </dd></dl>
 
-<p>Implements <a class="el" href="../../d0/d45/a02843.html#a890d29c8937c24e574bda54f64d10ca5">DYN::VoltageLevelInterface</a>.</p>
+<p>Implements <a class="el" href="../../d0/d45/a02843.html#ad17c6ed50acbd76a8a9a30cf15bad645">DYN::VoltageLevelInterface</a>.</p>
 
 </div>
 </div>
@@ -1400,7 +1400,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../dd/d65/a02991.html">VoltageLevelInterfaceIIDM</a></li>
-    <li class="footer">Generated on Wed Jun 4 2025 11:11:03 for Dynawo by
+    <li class="footer">Generated on Thu Jun 5 2025 13:50:12 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

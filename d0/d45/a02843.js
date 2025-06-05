@@ -14,8 +14,8 @@ var a02843 =
     [ "addStaticVarCompensator", "d0/d45/a02843.html#af91f0b371e8363930051c2c5a6298211", null ],
     [ "addSwitch", "d0/d45/a02843.html#a627ef6e65308bcbbc7b4da2909373c29", null ],
     [ "addVscConverter", "d0/d45/a02843.html#ab9d538eb9ed19c388e26dafbd269ec40", null ],
-    [ "connectNode", "d0/d45/a02843.html#abf13283e35be8a347c4df61e7515bd25", null ],
-    [ "disconnectNode", "d0/d45/a02843.html#aef151d6e5fb76569d26575fcc55856ff", null ],
+    [ "connectNode", "d0/d45/a02843.html#a2c80fb21478cf39ddc2ead2605d74214", null ],
+    [ "disconnectNode", "d0/d45/a02843.html#a4927802c73560d1292ccb2ec4a0f1185", null ],
     [ "exportSwitchesState", "d0/d45/a02843.html#a60adf8e5ea13987d3bd97e0b7baa7f75", null ],
     [ "getBuses", "d0/d45/a02843.html#a765190ac1405ff86111f8c9fd870b917", null ],
     [ "getDanglingLines", "d0/d45/a02843.html#a5fde287e0f96a9c612f5e5e259bfcf36", null ],
@@ -30,6 +30,6 @@ var a02843 =
     [ "getVoltageLevelTopologyKind", "d0/d45/a02843.html#ac9d26e18dbef5399a91dbfe0e04cd01f", null ],
     [ "getVscConverters", "d0/d45/a02843.html#a95aec8034894941471d1c858f87fcdec", null ],
     [ "isNodeBreakerTopology", "d0/d45/a02843.html#af40d1b2100c0c5195d4cf80aa0ce8cba", null ],
-    [ "isNodeConnected", "d0/d45/a02843.html#a890d29c8937c24e574bda54f64d10ca5", null ],
+    [ "isNodeConnected", "d0/d45/a02843.html#ad17c6ed50acbd76a8a9a30cf15bad645", null ],
     [ "mapConnections", "d0/d45/a02843.html#a6e8fb203c27141f98f470c26a3f4afb4", null ]
 ];

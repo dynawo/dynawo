@@ -33,7 +33,7 @@ var searchData=
   ['disabledumpfinalstate',['disableDumpFinalState',['../db/d65/a03179.html#aebbd5c3c9a9e923b3a73dd4921a7fa02',1,'DYN::Simulation']]],
   ['disableexportiidm',['disableExportIIDM',['../db/d65/a03179.html#a1d03381c294a48a7696487fd535e2019',1,'DYN::Simulation']]],
   ['disablelogging',['disableLogging',['../d6/d51/a02535.html#a66640be8ccf953a4aaa3b4856ebdc99a',1,'DYN::Trace']]],
-  ['disconnectnode',['disconnectNode',['../d0/d45/a02843.html#aef151d6e5fb76569d26575fcc55856ff',1,'DYN::VoltageLevelInterface::disconnectNode()'],['../dc/d5e/a02891.html#a4e77f3d9791015e322c313eb6ddb6686',1,'DYN::FictVoltageLevelInterfaceIIDM::disconnectNode()'],['../dd/d65/a02991.html#a579ae2e9521c6f91b8aea9553ae35386',1,'DYN::VoltageLevelInterfaceIIDM::disconnectNode()'],['../d2/d94/a03167.html#a21205a3b35158d0fd04c9ce4e66ab0e1',1,'DYN::ModelVoltageLevel::disconnectNode()']]],
+  ['disconnectnode',['disconnectNode',['../d0/d45/a02843.html#a4927802c73560d1292ccb2ec4a0f1185',1,'DYN::VoltageLevelInterface::disconnectNode()'],['../dc/d5e/a02891.html#afab169ce624e1b1c10d0434ef76118b1',1,'DYN::FictVoltageLevelInterfaceIIDM::disconnectNode()'],['../dd/d65/a02991.html#a9361a1d56a511207a5fe82ed6d41ef10',1,'DYN::VoltageLevelInterfaceIIDM::disconnectNode()'],['../d2/d94/a03167.html#a21205a3b35158d0fd04c9ce4e66ab0e1',1,'DYN::ModelVoltageLevel::disconnectNode()']]],
   ['double2string',['double2String',['../d5/d5f/a00461.html#aa9c5868cda2653bf8007351a438e540d',1,'DYN']]],
   ['doubleequals',['doubleEquals',['../d5/d5f/a00461.html#a8e88576b3e8d0c4775fc2dcbf3246d01',1,'DYN']]],
   ['doublegreater',['doubleGreater',['../d5/d5f/a00461.html#a14e8ca60d84dfae0f0dbdd6ad64b61ab',1,'DYN']]],

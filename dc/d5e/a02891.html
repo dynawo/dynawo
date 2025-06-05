@@ -131,15 +131,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4b7bdc52c4cf23ff4953409fc619e317"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d45/a02843.html#aa640378559edc3ac305b0dcde5446d68">VoltageLevelTopologyKind_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d5e/a02891.html#a4b7bdc52c4cf23ff4953409fc619e317">getVoltageLevelTopologyKind</a> () const</td></tr>
 <tr class="memdesc:a4b7bdc52c4cf23ff4953409fc619e317"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the voltage level topology kind.  <a href="#a4b7bdc52c4cf23ff4953409fc619e317">More...</a><br /></td></tr>
 <tr class="separator:a4b7bdc52c4cf23ff4953409fc619e317"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7fcf8d3e45072156c6bf2c1cb7f982ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d5e/a02891.html#a7fcf8d3e45072156c6bf2c1cb7f982ac">connectNode</a> (const unsigned int &amp;node)</td></tr>
-<tr class="memdesc:a7fcf8d3e45072156c6bf2c1cb7f982ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">find the shortest path between a node and a bus bar section node, then close all switches (if they are breaker)  <a href="#a7fcf8d3e45072156c6bf2c1cb7f982ac">More...</a><br /></td></tr>
-<tr class="separator:a7fcf8d3e45072156c6bf2c1cb7f982ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e77f3d9791015e322c313eb6ddb6686"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d5e/a02891.html#a4e77f3d9791015e322c313eb6ddb6686">disconnectNode</a> (const unsigned int &amp;node)</td></tr>
-<tr class="memdesc:a4e77f3d9791015e322c313eb6ddb6686"><td class="mdescLeft">&#160;</td><td class="mdescRight">find all paths between a node and all bus bar section node, then open the first switches found (if it's a breaker)  <a href="#a4e77f3d9791015e322c313eb6ddb6686">More...</a><br /></td></tr>
-<tr class="separator:a4e77f3d9791015e322c313eb6ddb6686"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a55b5bc59ef2659a90c432914ccf2e8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d5e/a02891.html#a7a55b5bc59ef2659a90c432914ccf2e8">isNodeConnected</a> (const unsigned int &amp;node)</td></tr>
-<tr class="memdesc:a7a55b5bc59ef2659a90c432914ccf2e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">check if one node is connected to a node where there is a bus bar section  <a href="#a7a55b5bc59ef2659a90c432914ccf2e8">More...</a><br /></td></tr>
-<tr class="separator:a7a55b5bc59ef2659a90c432914ccf2e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a589c07a55de246960614ebee6dd0aec3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d5e/a02891.html#a589c07a55de246960614ebee6dd0aec3">connectNode</a> (unsigned int node) override</td></tr>
+<tr class="memdesc:a589c07a55de246960614ebee6dd0aec3"><td class="mdescLeft">&#160;</td><td class="mdescRight">find the shortest path between a node and a bus bar section node, then close all switches (if they are breaker)  <a href="#a589c07a55de246960614ebee6dd0aec3">More...</a><br /></td></tr>
+<tr class="separator:a589c07a55de246960614ebee6dd0aec3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afab169ce624e1b1c10d0434ef76118b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d5e/a02891.html#afab169ce624e1b1c10d0434ef76118b1">disconnectNode</a> (unsigned int node) override</td></tr>
+<tr class="memdesc:afab169ce624e1b1c10d0434ef76118b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">find all paths between a node and all bus bar section node, then open the first switches found (if it's a breaker)  <a href="#afab169ce624e1b1c10d0434ef76118b1">More...</a><br /></td></tr>
+<tr class="separator:afab169ce624e1b1c10d0434ef76118b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a327e09d8ff211d5f642084966406b085"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d5e/a02891.html#a327e09d8ff211d5f642084966406b085">isNodeConnected</a> (unsigned int node) override</td></tr>
+<tr class="memdesc:a327e09d8ff211d5f642084966406b085"><td class="mdescLeft">&#160;</td><td class="mdescRight">check if one node is connected to a node where there is a bus bar section  <a href="#a327e09d8ff211d5f642084966406b085">More...</a><br /></td></tr>
+<tr class="separator:a327e09d8ff211d5f642084966406b085"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a554804ddc745b0cd88562d477a09b3d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d5e/a02891.html#a554804ddc745b0cd88562d477a09b3d9">addSwitch</a> (const std::shared_ptr&lt; <a class="el" href="../../d3/df5/a02827.html">SwitchInterface</a> &gt; &amp;sw)</td></tr>
 <tr class="memdesc:a554804ddc745b0cd88562d477a09b3d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a new instance of switch interface to the voltageLevel interface.  <a href="#a554804ddc745b0cd88562d477a09b3d9">More...</a><br /></td></tr>
 <tr class="separator:a554804ddc745b0cd88562d477a09b3d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -623,8 +623,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a7fcf8d3e45072156c6bf2c1cb7f982ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7fcf8d3e45072156c6bf2c1cb7f982ac">&#9670;&nbsp;</a></span>connectNode()</h2>
+<a id="a589c07a55de246960614ebee6dd0aec3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a589c07a55de246960614ebee6dd0aec3">&#9670;&nbsp;</a></span>connectNode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -635,14 +635,14 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void DYN::FictVoltageLevelInterfaceIIDM::connectNode </td>
           <td>(</td>
-          <td class="paramtype">const unsigned int &amp;&#160;</td>
+          <td class="paramtype">unsigned int&#160;</td>
           <td class="paramname"><em>node</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -655,12 +655,12 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="../../d0/d45/a02843.html#abf13283e35be8a347c4df61e7515bd25">DYN::VoltageLevelInterface</a>.</p>
+<p>Implements <a class="el" href="../../d0/d45/a02843.html#a2c80fb21478cf39ddc2ead2605d74214">DYN::VoltageLevelInterface</a>.</p>
 
 </div>
 </div>
-<a id="a4e77f3d9791015e322c313eb6ddb6686"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e77f3d9791015e322c313eb6ddb6686">&#9670;&nbsp;</a></span>disconnectNode()</h2>
+<a id="afab169ce624e1b1c10d0434ef76118b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afab169ce624e1b1c10d0434ef76118b1">&#9670;&nbsp;</a></span>disconnectNode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -671,14 +671,14 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void DYN::FictVoltageLevelInterfaceIIDM::disconnectNode </td>
           <td>(</td>
-          <td class="paramtype">const unsigned int &amp;&#160;</td>
+          <td class="paramtype">unsigned int&#160;</td>
           <td class="paramname"><em>node</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -691,7 +691,7 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="../../d0/d45/a02843.html#aef151d6e5fb76569d26575fcc55856ff">DYN::VoltageLevelInterface</a>.</p>
+<p>Implements <a class="el" href="../../d0/d45/a02843.html#a4927802c73560d1292ccb2ec4a0f1185">DYN::VoltageLevelInterface</a>.</p>
 
 </div>
 </div>
@@ -1142,8 +1142,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a7a55b5bc59ef2659a90c432914ccf2e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7a55b5bc59ef2659a90c432914ccf2e8">&#9670;&nbsp;</a></span>isNodeConnected()</h2>
+<a id="a327e09d8ff211d5f642084966406b085"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a327e09d8ff211d5f642084966406b085">&#9670;&nbsp;</a></span>isNodeConnected()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1154,14 +1154,14 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">bool DYN::FictVoltageLevelInterfaceIIDM::isNodeConnected </td>
           <td>(</td>
-          <td class="paramtype">const unsigned int &amp;&#160;</td>
+          <td class="paramtype">unsigned int&#160;</td>
           <td class="paramname"><em>node</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1175,7 +1175,7 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><b>true</b> is the node is connected </dd></dl>
 
-<p>Implements <a class="el" href="../../d0/d45/a02843.html#a890d29c8937c24e574bda54f64d10ca5">DYN::VoltageLevelInterface</a>.</p>
+<p>Implements <a class="el" href="../../d0/d45/a02843.html#ad17c6ed50acbd76a8a9a30cf15bad645">DYN::VoltageLevelInterface</a>.</p>
 
 </div>
 </div>
@@ -1262,7 +1262,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../dc/d5e/a02891.html">FictVoltageLevelInterfaceIIDM</a></li>
-    <li class="footer">Generated on Wed Jun 4 2025 11:11:02 for Dynawo by
+    <li class="footer">Generated on Thu Jun 5 2025 13:50:11 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

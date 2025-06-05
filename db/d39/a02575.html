@@ -164,9 +164,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d39/a02575.html#a075d673c555614fbdcc31ccaac26b3b8">mergeConnectors</a> ()</td></tr>
 <tr class="memdesc:a075d673c555614fbdcc31ccaac26b3b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">merge the connectors after each one have been created <br /></td></tr>
 <tr class="separator:a075d673c555614fbdcc31ccaac26b3b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7607e6ce804d137d9ec28a5d26693ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d39/a02575.html#ad7607e6ce804d137d9ec28a5d26693ee">mergeConnectors</a> (const boost::shared_ptr&lt; <a class="el" href="../../d7/d12/a02571.html">Connector</a> &gt; &amp;connector, const boost::shared_ptr&lt; <a class="el" href="../../d7/d12/a02571.html">Connector</a> &gt; &amp;reference, std::list&lt; boost::shared_ptr&lt; <a class="el" href="../../d7/d12/a02571.html">Connector</a> &gt; &gt; &amp;connectorsList, std::unordered_map&lt; int, boost::shared_ptr&lt; <a class="el" href="../../d7/d12/a02571.html">Connector</a> &gt; &gt; &amp;connectorsByVarNum, bool flowConnector=false)</td></tr>
-<tr class="memdesc:ad7607e6ce804d137d9ec28a5d26693ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">merge the connectors : no need to declare two connectors when they represent the same connection  <a href="#ad7607e6ce804d137d9ec28a5d26693ee">More...</a><br /></td></tr>
-<tr class="separator:ad7607e6ce804d137d9ec28a5d26693ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c61b100d89579fc89049c39b894f0cf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d39/a02575.html#a0c61b100d89579fc89049c39b894f0cf">mergeConnectors</a> (boost::shared_ptr&lt; <a class="el" href="../../d7/d12/a02571.html">Connector</a> &gt; connector, boost::shared_ptr&lt; <a class="el" href="../../d7/d12/a02571.html">Connector</a> &gt; &amp;reference, std::list&lt; boost::shared_ptr&lt; <a class="el" href="../../d7/d12/a02571.html">Connector</a> &gt; &gt; &amp;connectorsList, std::unordered_map&lt; int, boost::shared_ptr&lt; <a class="el" href="../../d7/d12/a02571.html">Connector</a> &gt; &gt; &amp;connectorsByVarNum, bool flowConnector=false)</td></tr>
+<tr class="memdesc:a0c61b100d89579fc89049c39b894f0cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">merge the connectors : no need to declare two connectors when they represent the same connection  <a href="#a0c61b100d89579fc89049c39b894f0cf">More...</a><br /></td></tr>
+<tr class="separator:a0c61b100d89579fc89049c39b894f0cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7e37e1c6830c17d4785dc36cc75a1167"><td class="memItemLeft" align="right" valign="top"><a id="a7e37e1c6830c17d4785dc36cc75a1167"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d39/a02575.html#a7e37e1c6830c17d4785dc36cc75a1167">propagateZConnectionInfoToModel</a> () const</td></tr>
 <tr class="memdesc:a7e37e1c6830c17d4785dc36cc75a1167"><td class="mdescLeft">&#160;</td><td class="mdescRight">collect the indexes of connected discrete variables and set the model accordingly <br /></td></tr>
@@ -840,8 +840,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 
 </div>
 </div>
-<a id="ad7607e6ce804d137d9ec28a5d26693ee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7607e6ce804d137d9ec28a5d26693ee">&#9670;&nbsp;</a></span>mergeConnectors()</h2>
+<a id="a0c61b100d89579fc89049c39b894f0cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c61b100d89579fc89049c39b894f0cf">&#9670;&nbsp;</a></span>mergeConnectors()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -849,13 +849,13 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
         <tr>
           <td class="memname">void DYN::ConnectorContainer::mergeConnectors </td>
           <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d7/d12/a02571.html">Connector</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">boost::shared_ptr&lt; <a class="el" href="../../d7/d12/a02571.html">Connector</a> &gt;&#160;</td>
           <td class="paramname"><em>connector</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d7/d12/a02571.html">Connector</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">boost::shared_ptr&lt; <a class="el" href="../../d7/d12/a02571.html">Connector</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>reference</em>, </td>
         </tr>
         <tr>
@@ -887,7 +887,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <p>merge the connectors : no need to declare two connectors when they represent the same connection </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">connector</td><td>the connector to merge </td></tr>
+    <tr><td class="paramname">connector</td><td>the connector to merge (pointer need to be copied to ensure proper functioning of the algo) </td></tr>
     <tr><td class="paramname">reference</td><td>the reference connector (to which to add the connector) </td></tr>
     <tr><td class="paramname">connectorsList</td><td>the list of connectors </td></tr>
     <tr><td class="paramname">connectorsByVarNum</td><td>the association between (global) variable index and connector </td></tr>
@@ -1321,7 +1321,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../db/d39/a02575.html">ConnectorContainer</a></li>
-    <li class="footer">Generated on Wed Jun 4 2025 11:11:02 for Dynawo by
+    <li class="footer">Generated on Thu Jun 5 2025 13:50:11 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
