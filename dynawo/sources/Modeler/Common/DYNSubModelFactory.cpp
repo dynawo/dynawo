@@ -89,9 +89,17 @@ boost::shared_ptr<SubModel> SubModelFactory::createSubModelFromLib(const std::st
     try {
       sharedLib = boost::make_shared<boost::dll::shared_library>(libPath->generic_string());
       func = "getFactory";
-      getFactory = import<getSubModelFactory_t>(*sharedLib, func);
+#if (BOOST_VERSION >= 107600)
+      getFactory = boost::dll::import_symbol<getSubModelFactory_t>(*sharedLib, func.c_str());
+#else
+      getFactory = boost::dll::import<getSubModelFactory_t>(*sharedLib, func.c_str());
+#endif
       func = "deleteFactory";
-      deleteFactory = import<deleteSubModelFactory_t>(*sharedLib, func);
+#if (BOOST_VERSION >= 107600)
+      deleteFactory = boost::dll::import_symbol<deleteSubModelFactory_t>(*sharedLib, func.c_str());
+#else
+      deleteFactory = boost::dll::import<deleteSubModelFactory_t>(*sharedLib, func.c_str());
+#endif
     } catch (const boost::system::system_error& e) {
       Trace::error() << "Load error :" << e.what() << Trace::endline;
       if (func.empty()) {

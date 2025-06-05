@@ -28,6 +28,7 @@
 #include <sstream>
 #include <vector>
 #include <set>
+#include <map>
 
 using boost::shared_ptr;
 using std::string;
