@@ -91,7 +91,7 @@ endif()
 if(MSVC)
   if(CMAKE_CXX_COMPILER_VERSION EQUAL 19.43.34808.0)
     set(boost_version "1.78.0")
-    set(boost_md5          4036cd27ef7548b8d29c30ea10956196)
+    set(boost_md5          c2f6428ac52b0e5a3c9b2e1d8cc832b5)
   endif()
 endif()
 
