@@ -15,7 +15,7 @@ set(MODEL_FILES
   WTG4BCurrentSource.mo
   WT4ACurrentSource.mo
   WT4BCurrentSource.mo
-MechanicalRegulationTests.mo
+  MechanicalRegulationTests.mo
   )
 
 #

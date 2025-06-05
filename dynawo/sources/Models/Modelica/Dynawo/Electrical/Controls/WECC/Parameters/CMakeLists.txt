@@ -21,9 +21,9 @@ set(MODEL_FILES
   ParamsVSourceRef.mo
   ParamsWTGTb.mo
   ParamsWTGP.mo
-  ParamsWTGPB.mo
-  ParamsWTGAA.mo
-  ParamsWTGQA.mo
+  ParamsWTGPb.mo
+  ParamsWTGAa.mo
+  ParamsWTGQa.mo
   )
 
 #
