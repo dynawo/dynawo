@@ -377,7 +377,7 @@ VoltageLevelInterfaceIIDM::countNumberOfSwitchesToClose(const std::vector<std::s
 }
 
 void
-VoltageLevelInterfaceIIDM::connectNode(const unsigned int& nodeToConnect) {
+VoltageLevelInterfaceIIDM::connectNode(unsigned int nodeToConnect) {
   // should be removed once a solution has been found to propagate switches (de)connection
   // following component (de)connection (only Modelica models)
   assert(voltageLevelIIDM_.getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER);
@@ -422,7 +422,7 @@ VoltageLevelInterfaceIIDM::connectNode(const unsigned int& nodeToConnect) {
 }
 
 void
-VoltageLevelInterfaceIIDM::disconnectNode(const unsigned int& nodeToDisconnect) {
+VoltageLevelInterfaceIIDM::disconnectNode(unsigned int nodeToDisconnect) {
   // should be removed once a solution has been found to propagate switches (de)connection
   // following component (de)connection (only Modelica models)
   assert(voltageLevelIIDM_.getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER);
@@ -476,7 +476,7 @@ VoltageLevelInterfaceIIDM::disconnectNode(const unsigned int& nodeToDisconnect) 
 }
 
 bool
-VoltageLevelInterfaceIIDM::isNodeConnected(const unsigned int& nodeToCheck) {
+VoltageLevelInterfaceIIDM::isNodeConnected(unsigned int nodeToCheck) {
   assert(voltageLevelIIDM_.getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER);
 
   // Change weight of edges
