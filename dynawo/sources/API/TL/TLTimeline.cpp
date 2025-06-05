@@ -75,6 +75,7 @@ struct dynawoDoubleLess : std::binary_function<double, vector<size_t>, bool> {
     return !DYN::doubleEquals(left, right) && left < right;
   }
 };
+
 void
 Timeline::filter(const unordered_map<string, unordered_set<string>>& oppositeEventDico) {
   map<double, vector<size_t>, dynawoDoubleLess> timeToEventIndexes;

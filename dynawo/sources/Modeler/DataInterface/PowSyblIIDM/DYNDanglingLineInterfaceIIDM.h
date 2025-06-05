@@ -53,102 +53,102 @@ class DanglingLineInterfaceIIDM : public DanglingLineInterface, public InjectorI
   /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
-  void exportStateVariablesUnitComponent();
+  void exportStateVariablesUnitComponent() override;
 
   /**
    * @copydoc ComponentInterface::importStaticParameters()
    */
-  void importStaticParameters();
+  void importStaticParameters() override;
 
   /**
    * @copydoc ComponentInterface::isConnected()
    */
-  bool isConnected() const;
+  bool isConnected() const override;
 
   /**
    * @copydoc DanglingLineInterface::setBusInterface(const std::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface(const std::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface(const std::shared_ptr<BusInterface>& busInterface) override;
 
   /**
    * @copydoc DanglingLineInterface::setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
    */
-  void setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
+  void setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) override;
 
   /**
    * @copydoc DanglingLineInterface::getBusInterface() const
    */
-  std::shared_ptr<BusInterface> getBusInterface() const;
+  std::shared_ptr<BusInterface> getBusInterface() const override;
 
   /**
    * @copydoc DanglingLineInterface::getInitialConnected()
    */
-  bool getInitialConnected();
+  bool getInitialConnected() override;
 
   /**
    * @copydoc DanglingLineInterface::getVNom() const
    */
-  double getVNom() const;
+  double getVNom() const override;
 
   /**
    * @copydoc DanglingLineInterface::getP()
    */
-  double getP();
+  double getP() override;
 
   /**
    * @copydoc DanglingLineInterface::getQ()
    */
-  double getQ();
+  double getQ() override;
 
   /**
    * @copydoc DanglingLineInterface::getID() const
    */
-  const std::string& getID() const;
+  const std::string& getID() const override;
 
   /**
    * @copydoc DanglingLineInterface::getP0() const
    */
-  double getP0() const;
+  double getP0() const override;
 
   /**
    * @copydoc DanglingLineInterface::getQ0() const
    */
-  double getQ0() const;
+  double getQ0() const override;
 
   /**
    * @copydoc DanglingLineInterface::getR() const
    */
-  double getR() const;
+  double getR() const override;
 
   /**
    * @copydoc DanglingLineInterface::getX() const
    */
-  double getX() const;
+  double getX() const override;
 
   /**
    * @copydoc DanglingLineInterface::getG() const
    */
-  double getG() const;
+  double getG() const override;
 
   /**
    * @copydoc DanglingLineInterface::getB() const
    */
-  double getB() const;
+  double getB() const override;
 
   /**
    * @copydoc DanglingLineInterface::addCurrentLimitInterface(std::unique_ptr<CurrentLimitInterface> currentLimitInterface)
    */
-  void addCurrentLimitInterface(std::unique_ptr<CurrentLimitInterface> currentLimitInterface);
+  void addCurrentLimitInterface(std::unique_ptr<CurrentLimitInterface> currentLimitInterface) override;
 
   /**
    * @copydoc DanglingLineInterface::getCurrentLimitInterfaces() const
    */
-  const std::vector<std::unique_ptr<CurrentLimitInterface> >& getCurrentLimitInterfaces() const;
+  const std::vector<std::unique_ptr<CurrentLimitInterface> >& getCurrentLimitInterfaces() const override;
 
   /**
    * @copydoc ComponentInterface::getComponentVarIndex()
    */
-  int getComponentVarIndex(const std::string& varName) const;
+  int getComponentVarIndex(const std::string& varName) const override;
 
  private:
   powsybl::iidm::DanglingLine& danglingLineIIDM_;  ///< reference to the iidm dangling line reference

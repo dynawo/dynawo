@@ -63,7 +63,7 @@ class Terminate : public std::exception {
    *
    * @return terminate description
    */
-  virtual const char* what() const noexcept;
+  const char* what() const noexcept override;
 
   /**
    * @brief Operator << overload for error

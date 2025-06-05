@@ -42,7 +42,7 @@ class ModelRatioTapChanger : public ModelTapChanger {
   /**
    * @brief destructor
    */
-  virtual ~ModelRatioTapChanger();
+  ~ModelRatioTapChanger() override;
 
   /**
    * @brief reset internal variables values

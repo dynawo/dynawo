@@ -48,7 +48,7 @@ class ConverterInterface : public ComponentInterface {
   /**
    * @brief Destructor
    */
-  virtual ~ConverterInterface() = default;
+  ~ConverterInterface() override = default;
 
   /**
    * @brief Setter for the converter bus interface
@@ -78,7 +78,7 @@ class ConverterInterface : public ComponentInterface {
    * @brief Getter for the converter id
    * @return The id of the converter
    */
-  virtual const std::string& getID() const = 0;
+  const std::string& getID() const override = 0;
 
   /**
    * @brief Getter for the nominal voltage of the bus where the converter is connected

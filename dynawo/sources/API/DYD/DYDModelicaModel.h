@@ -53,7 +53,7 @@ class ModelicaModel : public Model {
   /**
    * @brief Destructor
    */
-  virtual ~ModelicaModel();
+  ~ModelicaModel() override;
 
   /**
    * @brief Network Identifiable device modeled getter

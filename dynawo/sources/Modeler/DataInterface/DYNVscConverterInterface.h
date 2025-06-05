@@ -46,7 +46,7 @@ class VscConverterInterface : public ConverterInterface, public ReactiveCurvePoi
   /**
    * @brief Destructor
    */
-  virtual ~VscConverterInterface() = default;
+  ~VscConverterInterface() override = default;
 
   /**
    * @brief Getter for the boolean indicating if the converter regulates the voltage (otherwise it regulates the reactive power)
@@ -81,7 +81,7 @@ class VscConverterInterface : public ConverterInterface, public ReactiveCurvePoi
   /**
    * @copydoc ReactiveCurvePointsInterface::getReactiveCurvesPoints() const
    */
-  virtual std::vector<ReactiveCurvePoint> getReactiveCurvesPoints() const = 0;
+  std::vector<ReactiveCurvePoint> getReactiveCurvesPoints() const override = 0;
 };  ///< Interface class for Vsc Converter
 
 #ifdef __clang__

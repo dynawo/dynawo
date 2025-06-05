@@ -36,12 +36,12 @@ class XmlImporter : public Importer {
   /**
    * @copydoc Importer::importFromFile()
    */
-  std::shared_ptr<CriteriaCollection> importFromFile(const std::string& fileName) const;
+  std::shared_ptr<CriteriaCollection> importFromFile(const std::string& fileName) const override;
 
    /**
    * @copydoc Importer::importFromStream()
    */
-  std::shared_ptr<CriteriaCollection> importFromStream(std::istream& stream) const;
+  std::shared_ptr<CriteriaCollection> importFromStream(std::istream& stream) const override;
 };
 
 }  // namespace criteria

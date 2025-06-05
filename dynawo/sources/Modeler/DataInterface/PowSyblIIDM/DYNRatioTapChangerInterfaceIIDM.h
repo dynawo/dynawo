@@ -44,87 +44,87 @@ class RatioTapChangerInterfaceIIDM : public RatioTapChangerInterface {
   /**
    * @copydoc RatioTapChangerInterface::getSteps() const
    */
-  const std::vector<std::unique_ptr<StepInterface> >& getSteps() const;
+  const std::vector<std::unique_ptr<StepInterface> >& getSteps() const override;
 
   /**
    * @copydoc RatioTapChangerInterface::addStep(std::unique_ptr<StepInterface> step)
    */
-  void addStep(std::unique_ptr<StepInterface> step);
+  void addStep(std::unique_ptr<StepInterface> step) override;
 
   /**
    * @copydoc RatioTapChangerInterface::getCurrentPosition() const
    */
-  int getCurrentPosition() const;
+  int getCurrentPosition() const override;
 
   /**
    * @copydoc RatioTapChangerInterface::setCurrentPosition(const int& position)
    */
-  void setCurrentPosition(const int& position);
+  void setCurrentPosition(const int& position) override;
 
   /**
    * @copydoc RatioTapChangerInterface::getLowPosition() const
    */
-  int getLowPosition() const;
+  int getLowPosition() const override;
 
   /**
    * @copydoc RatioTapChangerInterface::getNbTap() const
    */
-  unsigned int getNbTap() const;
+  unsigned int getNbTap() const override;
 
   /**
    * @copydoc RatioTapChangerInterface::hasLoadTapChangingCapabilities() const
    */
-  bool hasLoadTapChangingCapabilities() const;
+  bool hasLoadTapChangingCapabilities() const override;
 
   /**
    * @copydoc RatioTapChangerInterface::getRegulating() const
    */
-  bool getRegulating() const;
+  bool getRegulating() const override;
 
   /**
    * @copydoc RatioTapChangerInterface::getTargetV() const
    */
-  double getTargetV() const;
+  double getTargetV() const override;
 
   /**
    * @copydoc RatioTapChangerInterface::getTerminalRefId() const
    */
-  std::string getTerminalRefId() const;
+  std::string getTerminalRefId() const override;
 
   /**
    * @copydoc RatioTapChangerInterface::getTerminalRefSide() const
    */
-  std::string getTerminalRefSide() const;
+  std::string getTerminalRefSide() const override;
 
   /**
    * @copydoc RatioTapChangerInterface::getCurrentR() const
    */
-  double getCurrentR() const;
+  double getCurrentR() const override;
 
   /**
    * @copydoc RatioTapChangerInterface::getCurrentX() const
    */
-  double getCurrentX() const;
+  double getCurrentX() const override;
 
   /**
    * @copydoc RatioTapChangerInterface::getCurrentB() const
    */
-  double getCurrentB() const;
+  double getCurrentB() const override;
 
   /**
    * @copydoc RatioTapChangerInterface::getCurrentG() const
    */
-  double getCurrentG() const;
+  double getCurrentG() const override;
 
   /**
    * @copydoc RatioTapChangerInterface::getCurrentRho() const
    */
-  double getCurrentRho() const;
+  double getCurrentRho() const override;
 
   /**
    * @copydoc RatioTapChangerInterface::getTargetDeadBand() const
    */
-  double getTargetDeadBand() const;
+  double getTargetDeadBand() const override;
 
  private:
   std::vector<std::unique_ptr<StepInterface> > steps_;  ///< steps of the ratio tap changer

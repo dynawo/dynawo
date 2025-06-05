@@ -39,7 +39,7 @@ class XmlExporter : public Exporter {
    * @param constraints Constraints to export
    * @param filePath File to export XML formatted constraints to
    */
-  void exportToFile(const std::shared_ptr<ConstraintsCollection>& constraints, const std::string& filePath) const;
+  void exportToFile(const std::shared_ptr<ConstraintsCollection>& constraints, const std::string& filePath) const override;
 
   /**
    * @brief Export method in XML format
@@ -47,7 +47,7 @@ class XmlExporter : public Exporter {
    * @param constraints Constraints to export
    * @param stream Stream to export XML formatted constraints to
    */
-  void exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints, std::ostream& stream) const;
+  void exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints, std::ostream& stream) const override;
 };
 
 }  // namespace constraints
