@@ -62,19 +62,19 @@ class VoltageLevelInterfaceIIDM : public VoltageLevelInterface {
   VoltageLevelTopologyKind_t getVoltageLevelTopologyKind() const override;
 
   /**
-   * @copydoc VoltageLevelInterface::connectNode(const unsigned int& node)
+   * @copydoc VoltageLevelInterface::connectNode(unsigned int node)
    */
-  void connectNode(const unsigned int& node) override;
+  void connectNode(unsigned int node) override;
 
   /**
-   * @copydoc VoltageLevelInterface::disconnectNode(const unsigned int& node)
+   * @copydoc VoltageLevelInterface::disconnectNode(unsigned int node)
    */
-  void disconnectNode(const unsigned int& node) override;
+  void disconnectNode(unsigned int node) override;
 
   /**
-   * @copydoc VoltageLevelInterface::isNodeConnected(const unsigned int& node)
+   * @copydoc VoltageLevelInterface::isNodeConnected(unsigned int node)
    */
-  bool isNodeConnected(const unsigned int& node) override;
+  bool isNodeConnected(unsigned int node) override;
 
   /**
    * @copydoc VoltageLevelInterface::addSwitch()
