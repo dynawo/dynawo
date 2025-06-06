@@ -1430,7 +1430,7 @@ class Factory:
         for var in list_vars :
             if var.is_alias() and  (to_param_address(var.get_name()).startswith("SHOULD NOT BE USED")): continue
             if var in self.reader.list_complex_calculated_vars: continue
-            if var.get_use_start() and not (is_const_var(var) and var.get_init_by_param_in_06inz()):
+            if var.get_use_start() and (var.get_init_by_param_in_06inz() and var.has_multiple_solution()):
                  init_val = var.get_start_text()[0]
                  if init_val == "":
                      init_val = "0.0"
@@ -2366,7 +2366,7 @@ class Factory:
             if len(corrected_body) > 0 and corrected_body[0] != '{\n':
                 func_body.append(' {\n')
             func_header+= ";\n"
-            if not ("ModelicaStandardTables_" in func_header and "getDerValue" in func_header):
+            if not ("ModelicaStandardTables_" in func_header and "getDerValue" in func_header) and "_real_array"  not in func_header:
                 self.list_for_evalfadept_external_call_headers.append(func_header)
             for line in func.get_corrected_body():
                 if "OMC_LABEL_UNUSED" in line: continue
@@ -2400,7 +2400,7 @@ class Factory:
                             functions_to_dump.append(func[0])
                 func_body.append(line)
             func_body.append("\n\n")
-            if not ("ModelicaStandardTables_" in func_header and "getDerValue" in func_header):
+            if not ("ModelicaStandardTables_" in func_header and "getDerValue" in func_header) and "_real_array"  not in func_header:
                 list_functions_body.append(func_body)
 
         # Need to dump in reversed order to put the functions called by other functions in first
@@ -2528,7 +2528,7 @@ class Factory:
                     continue
 
                 # handle &(output) and &output
-                if l.startswith("&"):
+                if l == "&":
                     idx+=1
                     l+=line_split[idx].strip()
                     if line_split[idx] =="(":
@@ -2564,8 +2564,6 @@ class Factory:
                         break
 
                 if function_found is not None:
-                    if len(adept_tmp) > 0:
-                        print ("BUBU? " + line + " " + str(adept_tmp) + " " + function_found)
                     #First case: there is a function call here.
                     # Push it on the stack
                     stack_func_called.append(function_found)
@@ -2576,11 +2574,17 @@ class Factory:
                     # - the main function has an adept equivalent if this function is called as a parameter
                     # if this is the first function is the stack, set the flag main_func_is_adept
                     if (len(stack_func_called) == 1 or main_func_is_adept) and is_adept_func(called_func[function_found], self.list_adept_structs):
-                        if function_found != "derDelayImpl":
+                        do_it = False
+                        for tmp in adept_tmp:
+                            if (function_found+"( "+tmp in line) or (function_found+"("+tmp in line) :
+                                do_it = True
+                        if not do_it :
+                            do_it = (function_found != "derDelayImpl" and "_wrap_vars" not in function_found)
+                        if do_it:
                             call_line += l.replace(function_found, get_adept_function_name(called_func[function_found]))
                         else:
                             call_line += l
-                        if len(stack_func_called) == 1:
+                        if do_it and len(stack_func_called) == 1:
                             main_func_is_adept = True
                     else:
                         call_line += l
@@ -2626,7 +2630,7 @@ class Factory:
                     add_comma = True
                     if curr_param_idx == len(func.get_params()) - 1 \
                         or (curr_param_idx > 1 and func.get_name() == "array_alloc_scalar_real_array" \
-                            and curr_param_idx == int(re.search(r'array_alloc_scalar_real_array\(&\(tmp[0-9]+\), (?P<nbparams>[0-9]+)', call_line).group('nbparams')) + 1):
+                            and curr_param_idx == int(re.search(r'array_alloc_scalar_real_array_adept\(&[\(]*tmp[0-9]+[\)]*, (?P<nbparams>[0-9]+)', call_line).group('nbparams')) + 1):
                         # This is the last parameter, we need to pop the function
                         stack_func_called.pop()
                         stack_param_idx_func_called.pop()
@@ -2707,6 +2711,7 @@ class Factory:
 
         num_ternary = 0
         used_functions = []
+        tmp_ptrn = re.compile(r'tmp(?P<index>[0-9]+)')
         for eq in self.get_list_eq_syst():
             var_name = eq.get_evaluated_var()
             var_name_without_der = var_name [4 : -1] if 'der(' == var_name [ : 4] else var_name
@@ -2724,7 +2729,6 @@ class Factory:
                     no_event_nodes = self.reader.var_name_to_mixed_residual_vars_types[var_name].get_no_event()
                 index_if = 0
 
-                tmp_ptrn = re.compile(r'tmp(?P<index>[0-9]+)')
                 adept_tmp = []
                 # We need to know it temporary variables are used as adept or not
                 for line in standard_body_with_standard_external_call:
@@ -2739,7 +2743,7 @@ class Factory:
                                 split_call = call.replace(func.get_name() + "(","").replace(func.get_name() + " (","").split(',')
                                 for param in split_call:
                                     match = tmp_ptrn.search(param)
-                                    if match is not None:
+                                    if match is not None and "tmp" + match.group('index') not in adept_tmp:
                                         adept_tmp.append("tmp" + match.group('index'))
 
                 for line in standard_body_with_standard_external_call:
@@ -2824,6 +2828,7 @@ class Factory:
             external_function_call_body = trans.translate()
             transposed_function_call_body = []
 
+            adept_tmp = []
             for line in external_function_call_body:
                 for func in list_omc_functions:
                     if (func.get_name() + "(" in line or func.get_name() + " (" in line):
@@ -2836,7 +2841,7 @@ class Factory:
                             split_call = call.replace(func.get_name() + "(","").replace(func.get_name() + " (","").split(',')
                             for param in split_call:
                                 match = tmp_ptrn.search(param)
-                                if match is not None:
+                                if match is not None and "tmp" + match.group('index') not in adept_tmp:
                                     adept_tmp.append("tmp" + match.group('index'))
             for line in external_function_call_body:
                 for func in list_omc_functions:
@@ -2953,6 +2958,8 @@ class Factory:
             for line in self.reader.list_internal_functions:
                 if func in line:
                     tmp_list.remove(line)
+
+        self.list_adept_structs.append("real_array")
         ptrn_define = re.compile(r'[ ]*#define (?P<symbolic>.*)\(.*\)[ ]+(?P<method>.*)\(.*\)')
         ptrn_define_with_cast = re.compile(r'[ ]*#define (?P<symbolic>.*)\(.*\)[ ]+\(\*\(.*\*\)\((?P<method>.*)\(.*\)\)\)')
         for define in self.reader.list_functions_define:
@@ -2975,6 +2982,7 @@ class Factory:
                 line = line.replace("threadData_t *threadData ,","")
             self.list_for_externalcalls_header.append(line)
             match = ptrn_struct.search(line)
+            print ("BUBU? " + line)
             if match is not None:
                 self.list_for_evalfadept_external_call_headers.append(line)
                 adept_reading_struct = True

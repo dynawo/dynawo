@@ -21,6 +21,9 @@
 #define MODELER_MODELMANAGER_DYNMODELMANAGEROWNFUNCTIONS_H_
 
 #include "DYNModelManagerOwnTypes.h"
+#ifdef _ADEPT_
+#include "adept.h"
+#endif
 
 #include <cstdarg>
 #include <cstdlib>
@@ -511,6 +514,24 @@ inline void create_index_spec(index_spec_t* dest, int nridx, ...) {
   }
   va_end(ap);
 }
+
+
+
+
+#ifdef _ADEPT_
+
+struct real_array_t_adept {
+  int ndims;  ///< number of array
+  _index_t *dim_size;  ///< size for each array
+  adept::adouble *data;  ///< data for each array
+};  ///< structure index_spec_s
+
+typedef real_array_t_adept real_array_adept;
+
+void array_alloc_scalar_real_array_adept(real_array_t_adept* dest, int n, adept::adouble first, ...);
+adept::adouble min_real_array_adept(const real_array_t_adept a);
+adept::adouble max_real_array_adept(const real_array_t_adept a);
+#endif
 
 #endif  // DOXYGEN_SHOULD_SKIP_THIS
 

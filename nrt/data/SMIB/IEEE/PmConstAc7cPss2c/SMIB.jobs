@@ -23,6 +23,7 @@
       </dyn:modeler>
       <dyn:simulation startTime="0" stopTime="15"/>
       <dyn:outputs directory="outputs">
+      <dyn:dumpInitValues global="true" local="true"/>
         <dyn:curves inputFile="SMIB.crv" exportMode="CSV"/>
         <dyn:logs>
           <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>

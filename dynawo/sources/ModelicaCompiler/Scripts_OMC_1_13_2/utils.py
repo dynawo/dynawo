@@ -79,7 +79,8 @@ def is_when_condition(var_name):
 def is_adept_func(func, list_adept_structs):
     if "omc_Modelica_Blocks_Tables_Internal_getTable" in func.get_name(): return False
     if "omc_Modelica_Blocks_Tables_Internal_getTimeTableValue" in func.get_name(): return False
-    if "array_alloc_scalar_real_array" in func.get_name(): return False
+    if "array_alloc_scalar_real_array" in func.get_name(): return True
+    if "max_real_array" in func.get_name() or "min_real_array" in func.get_name(): return True
     if "delay" in func.get_name(): return False # Delay shall not use adept
     if "_event_floor" in func.get_name(): return False
     if "_event_ceil" in func.get_name(): return False
@@ -765,6 +766,7 @@ class Transpose:
                 line_tmp = line_tmp.replace("$P"+name, name)
             assert ("derivativesVars[" not in line_tmp)
             assert ("realVars[" not in line_tmp)
+            line_tmp = line_tmp.replace("(modelica_real)x", "x")
             tmp_txt_list.append(line_tmp)
         return tmp_txt_list
 
