@@ -1,106 +1,106 @@
-2025-04-10 08:45:51 | INFO |  ============================================================ 
-2025-04-10 08:45:51 | INFO | DYNAWO VERSION  :     1.8.0
-2025-04-10 08:45:51 | INFO | DYNAWO REVISION :  1272_preassembled-25f51016b35
-2025-04-10 08:45:51 | INFO |  ============================================================ 
-2025-04-10 08:45:51 | INFO | 
-2025-04-10 08:45:51 | INFO | -----------------------------------------------------------------------
-2025-04-10 08:45:51 | INFO | building model from input files
-2025-04-10 08:45:51 | INFO | -----------------------------------------------------------------------
-2025-04-10 08:45:51 | INFO | model was built successfully
-2025-04-10 08:45:51 | INFO | -----------------------------------------------------------------------
-2025-04-10 08:45:51 | INFO | 
-2025-04-10 08:45:51 | INFO | -----------------------------------------------------------------------
-2025-04-10 08:45:51 | INFO | starting local initialization
-2025-04-10 08:45:51 | INFO | -----------------------------------------------------------------------
-2025-04-10 08:45:51 | INFO | end of local initialization
-2025-04-10 08:45:51 | INFO | -----------------------------------------------------------------------
-2025-04-10 08:45:51 | INFO | 
-2025-04-10 08:45:51 | INFO | -----------------------------------------------------------------------
-2025-04-10 08:45:51 | INFO | starting global initialization
-2025-04-10 08:45:51 | INFO | -----------------------------------------------------------------------
-2025-04-10 08:45:51 | INFO | Algebraic mode change at t = 0
-2025-04-10 08:45:51 | INFO | end of global initialization
-2025-04-10 08:45:51 | INFO | -----------------------------------------------------------------------
-2025-04-10 08:45:51 | INFO | 
-2025-04-10 08:45:51 | INFO | -----------------------------------------------------------------------
-2025-04-10 08:45:51 | INFO | starting curve initialization
-2025-04-10 08:45:51 | INFO | -----------------------------------------------------------------------
-2025-04-10 08:45:51 | INFO | end of curve initialization, added 10 curves
-2025-04-10 08:45:51 | INFO | -----------------------------------------------------------------------
-2025-04-10 08:45:51 | INFO | 
-2025-04-10 08:45:51 | INFO | -----------------------------------------------------------------------
-2025-04-10 08:45:51 | INFO | starting simulation with solver SimplifiedSolver
-2025-04-10 08:45:51 | INFO | -----------------------------------------------------------------------
-2025-04-10 08:45:51 | INFO | -----------------------------------------------------------------------
-2025-04-10 08:45:51 | INFO | number of continuous variables : 38
-2025-04-10 08:45:51 | INFO | number of discrete variables : 19
-2025-04-10 08:45:51 | INFO | number of root functions : 26
-2025-04-10 08:45:51 | INFO | -----------------------------------------------------------------------
-2025-04-10 08:45:51 | INFO |         time ¦ iter num   Nonlinear iter   jac eval      time step (h)
-2025-04-10 08:45:51 | INFO | -----------------------------------------------------------------------
-2025-04-10 08:45:51 | INFO |        0.000 ¦        0                0          0              1.000 
-2025-04-10 08:45:51 | INFO |        1.000 ¦        1                1          1              1.000 
-2025-04-10 08:45:51 | INFO |        2.000 ¦        2                2          1              1.000 
-2025-04-10 08:45:51 | INFO |        3.000 ¦        3                3          1              1.000 
-2025-04-10 08:45:51 | INFO |        4.000 ¦        4                4          1              1.000 
-2025-04-10 08:45:51 | INFO |        5.000 ¦        5                5          1              1.000 
-2025-04-10 08:45:51 | INFO |        6.000 ¦        6                6          1              1.000 
-2025-04-10 08:45:51 | INFO |        7.000 ¦        7                7          1              1.000 
-2025-04-10 08:45:51 | INFO |        8.000 ¦        8                8          1              1.000 
-2025-04-10 08:45:51 | INFO |        9.000 ¦        9                9          1              1.000 
-2025-04-10 08:45:51 | INFO | Algebraic mode change at t = 10
-2025-04-10 08:45:51 | INFO |       10.000 ¦       10               10          1              1.000 
-2025-04-10 08:45:51 | INFO | calculation of the new starting point of the simulation.
-2025-04-10 08:45:51 | INFO |       10.000 ¦       10               11          1              1.000 
-2025-04-10 08:45:51 | INFO |       11.000 ¦       11               12          1              1.000 
-2025-04-10 08:45:51 | INFO |       12.000 ¦       12               13          1              1.000 
-2025-04-10 08:45:51 | INFO |       13.000 ¦       13               14          1              1.000 
-2025-04-10 08:45:51 | INFO |       14.000 ¦       14               15          1              1.000 
-2025-04-10 08:45:51 | INFO |       15.000 ¦       15               16          1              1.000 
-2025-04-10 08:45:51 | INFO |       16.000 ¦       16               17          1              1.000 
-2025-04-10 08:45:51 | INFO |       17.000 ¦       17               18          1              1.000 
-2025-04-10 08:45:51 | INFO |       18.000 ¦       18               19          1              1.000 
-2025-04-10 08:45:51 | INFO |       19.000 ¦       19               20          1              1.000 
-2025-04-10 08:45:51 | INFO | Algebraic mode change at t = 20
-2025-04-10 08:45:51 | INFO |       20.000 ¦       20               21          1              1.000 
-2025-04-10 08:45:51 | INFO | calculation of the new starting point of the simulation.
-2025-04-10 08:45:51 | INFO |       20.000 ¦       20               23          1              1.000 
-2025-04-10 08:45:51 | INFO |       21.000 ¦       21               24          1              1.000 
-2025-04-10 08:45:51 | INFO |       22.000 ¦       22               25          1              1.000 
-2025-04-10 08:45:51 | INFO |       23.000 ¦       23               26          1              1.000 
-2025-04-10 08:45:51 | INFO |       24.000 ¦       24               27          1              1.000 
-2025-04-10 08:45:51 | INFO |       25.000 ¦       25               28          1              1.000 
-2025-04-10 08:45:51 | INFO |       26.000 ¦       26               29          1              1.000 
-2025-04-10 08:45:51 | INFO |       27.000 ¦       27               30          1              1.000 
-2025-04-10 08:45:51 | INFO |       28.000 ¦       28               31          1              1.000 
-2025-04-10 08:45:51 | INFO |       29.000 ¦       29               32          1              1.000 
-2025-04-10 08:45:51 | INFO | Algebraic mode (with J recalculation) change at t = 30
-2025-04-10 08:45:51 | INFO |       30.000 ¦       30               33          1              1.000 
-2025-04-10 08:45:51 | INFO | calculation of the new starting point of the simulation.
-2025-04-10 08:45:51 | INFO |       30.000 ¦       30               35          3              1.000 
-2025-04-10 08:45:51 | INFO |       31.000 ¦       31               35          3              1.000 
-2025-04-10 08:45:51 | INFO |       32.000 ¦       32               35          3              1.000 
-2025-04-10 08:45:51 | INFO |       33.000 ¦       33               35          3              1.000 
-2025-04-10 08:45:51 | INFO |       34.000 ¦       34               35          3              1.000 
-2025-04-10 08:45:51 | INFO | Algebraic mode (with J recalculation) change at t = 35
-2025-04-10 08:45:51 | INFO |       35.000 ¦       35               35          3              1.000 
-2025-04-10 08:45:51 | INFO | calculation of the new starting point of the simulation.
-2025-04-10 08:45:51 | INFO |       35.000 ¦       35               37          5              1.000 
-2025-04-10 08:45:51 | INFO |       36.000 ¦       36               38          6              1.000 
-2025-04-10 08:45:51 | INFO |       37.000 ¦       37               39          6              1.000 
-2025-04-10 08:45:51 | INFO |       38.000 ¦       38               40          6              1.000 
-2025-04-10 08:45:51 | INFO |       39.000 ¦       39               41          6              1.000 
-2025-04-10 08:45:51 | INFO |       40.000 ¦       40               42          6              1.000 
-2025-04-10 08:45:51 | INFO | 
-2025-04-10 08:45:51 | INFO | execution statistics :
-2025-04-10 08:45:51 | INFO | 
-2025-04-10 08:45:51 | INFO | number of time iterations                  = 40
-2025-04-10 08:45:51 | INFO | number of residual evaluations             = 86
-2025-04-10 08:45:51 | INFO | number of Jacobian evaluations             = 6
-2025-04-10 08:45:51 | INFO | number of nonlinear iterations             = 42
-2025-04-10 08:45:51 | INFO | number of error test failures              = 0
-2025-04-10 08:45:51 | INFO | number of nonlinear convergence failures   = 0
-2025-04-10 08:45:51 | INFO | number of root functions evaluations       = 50
-2025-04-10 08:45:51 | INFO | number of discrete variables evaluations   = 16
-2025-04-10 08:45:51 | INFO | number of mode evaluations                 = 10
-2025-04-10 08:45:51 | INFO | end of job 'Disconnect load test'
+INFO |  ============================================================ 
+INFO | DYNAWO VERSION  :     1.8.0
+INFO | DYNAWO REVISION :  1272_preassembled-25f51016b35
+INFO |  ============================================================ 
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | building model from input files
+INFO | -----------------------------------------------------------------------
+INFO | model was built successfully
+INFO | -----------------------------------------------------------------------
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | starting local initialization
+INFO | -----------------------------------------------------------------------
+INFO | end of local initialization
+INFO | -----------------------------------------------------------------------
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | starting global initialization
+INFO | -----------------------------------------------------------------------
+INFO | Algebraic mode change at t = 0
+INFO | end of global initialization
+INFO | -----------------------------------------------------------------------
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | starting curve initialization
+INFO | -----------------------------------------------------------------------
+INFO | end of curve initialization, added 10 curves
+INFO | -----------------------------------------------------------------------
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | starting simulation with solver SimplifiedSolver
+INFO | -----------------------------------------------------------------------
+INFO | -----------------------------------------------------------------------
+INFO | number of continuous variables : 38
+INFO | number of discrete variables : 19
+INFO | number of root functions : 26
+INFO | -----------------------------------------------------------------------
+INFO |         time ¦ iter num   Nonlinear iter   jac eval      time step (h)
+INFO | -----------------------------------------------------------------------
+INFO |        0.000 ¦        0                0          0              1.000 
+INFO |        1.000 ¦        1                1          1              1.000 
+INFO |        2.000 ¦        2                2          1              1.000 
+INFO |        3.000 ¦        3                3          1              1.000 
+INFO |        4.000 ¦        4                4          1              1.000 
+INFO |        5.000 ¦        5                5          1              1.000 
+INFO |        6.000 ¦        6                6          1              1.000 
+INFO |        7.000 ¦        7                7          1              1.000 
+INFO |        8.000 ¦        8                8          1              1.000 
+INFO |        9.000 ¦        9                9          1              1.000 
+INFO | Algebraic mode change at t = 10
+INFO |       10.000 ¦       10               10          1              1.000 
+INFO | calculation of the new starting point of the simulation.
+INFO |       10.000 ¦       10               11          1              1.000 
+INFO |       11.000 ¦       11               12          1              1.000 
+INFO |       12.000 ¦       12               13          1              1.000 
+INFO |       13.000 ¦       13               14          1              1.000 
+INFO |       14.000 ¦       14               15          1              1.000 
+INFO |       15.000 ¦       15               16          1              1.000 
+INFO |       16.000 ¦       16               17          1              1.000 
+INFO |       17.000 ¦       17               18          1              1.000 
+INFO |       18.000 ¦       18               19          1              1.000 
+INFO |       19.000 ¦       19               20          1              1.000 
+INFO | Algebraic mode change at t = 20
+INFO |       20.000 ¦       20               21          1              1.000 
+INFO | calculation of the new starting point of the simulation.
+INFO |       20.000 ¦       20               23          1              1.000 
+INFO |       21.000 ¦       21               24          1              1.000 
+INFO |       22.000 ¦       22               25          1              1.000 
+INFO |       23.000 ¦       23               26          1              1.000 
+INFO |       24.000 ¦       24               27          1              1.000 
+INFO |       25.000 ¦       25               28          1              1.000 
+INFO |       26.000 ¦       26               29          1              1.000 
+INFO |       27.000 ¦       27               30          1              1.000 
+INFO |       28.000 ¦       28               31          1              1.000 
+INFO |       29.000 ¦       29               32          1              1.000 
+INFO | Algebraic mode (with J recalculation) change at t = 30
+INFO |       30.000 ¦       30               33          1              1.000 
+INFO | calculation of the new starting point of the simulation.
+INFO |       30.000 ¦       30               35          3              1.000 
+INFO |       31.000 ¦       31               35          3              1.000 
+INFO |       32.000 ¦       32               35          3              1.000 
+INFO |       33.000 ¦       33               35          3              1.000 
+INFO |       34.000 ¦       34               35          3              1.000 
+INFO | Algebraic mode (with J recalculation) change at t = 35
+INFO |       35.000 ¦       35               35          3              1.000 
+INFO | calculation of the new starting point of the simulation.
+INFO |       35.000 ¦       35               37          5              1.000 
+INFO |       36.000 ¦       36               38          6              1.000 
+INFO |       37.000 ¦       37               39          6              1.000 
+INFO |       38.000 ¦       38               40          6              1.000 
+INFO |       39.000 ¦       39               41          6              1.000 
+INFO |       40.000 ¦       40               42          6              1.000 
+INFO | 
+INFO | execution statistics :
+INFO | 
+INFO | number of time iterations                  = 40
+INFO | number of residual evaluations             = 86
+INFO | number of Jacobian evaluations             = 6
+INFO | number of nonlinear iterations             = 42
+INFO | number of error test failures              = 0
+INFO | number of nonlinear convergence failures   = 0
+INFO | number of root functions evaluations       = 50
+INFO | number of discrete variables evaluations   = 16
+INFO | number of mode evaluations                 = 10
+INFO | end of job 'Disconnect load test'
