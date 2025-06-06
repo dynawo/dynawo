@@ -250,13 +250,13 @@ class ConnectorContainer {
   /**
    * @brief merge the connectors : no need to declare two connectors when they represent the same connection
    *
-   * @param connector the connector to merge
+   * @param connector the connector to merge (pointer need to be copied to ensure proper functioning of the algo)
    * @param reference the reference connector (to which to add the connector)
    * @param connectorsList the list of connectors
    * @param connectorsByVarNum the association between (global) variable index and connector
    * @param flowConnector true if the connector is a flow connector
    */
-  void mergeConnectors(const boost::shared_ptr<Connector>& connector, const boost::shared_ptr<Connector>& reference,
+  void mergeConnectors(boost::shared_ptr<Connector> connector, boost::shared_ptr<Connector>& reference,
                        std::list<boost::shared_ptr<Connector> >& connectorsList,
                        std::unordered_map<int, boost::shared_ptr<Connector> >& connectorsByVarNum, bool flowConnector = false);
 
