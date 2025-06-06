@@ -119,10 +119,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a92b99d241cada6389f005caaf1408b31"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d6a/a02779.html#a92b99d241cada6389f005caaf1408b31">LoadInterface</a> (bool <a class="el" href="../../dc/d8b/a02691.html#a9be4aae7894693081ca3436f3d8aa328">hasInitialConditions</a>=true)</td></tr>
 <tr class="memdesc:a92b99d241cada6389f005caaf1408b31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a92b99d241cada6389f005caaf1408b31">More...</a><br /></td></tr>
 <tr class="separator:a92b99d241cada6389f005caaf1408b31"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1307c8bb49a381e124067b29597ee525"><td class="memItemLeft" align="right" valign="top"><a id="a1307c8bb49a381e124067b29597ee525"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d6a/a02779.html#a1307c8bb49a381e124067b29597ee525">~LoadInterface</a> ()=default</td></tr>
-<tr class="memdesc:a1307c8bb49a381e124067b29597ee525"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:a1307c8bb49a381e124067b29597ee525"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed2b46584a56a9a7ff25ddf4ffe9b9c4"><td class="memItemLeft" align="right" valign="top"><a id="aed2b46584a56a9a7ff25ddf4ffe9b9c4"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d6a/a02779.html#aed2b46584a56a9a7ff25ddf4ffe9b9c4">~LoadInterface</a> () override=default</td></tr>
+<tr class="memdesc:aed2b46584a56a9a7ff25ddf4ffe9b9c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:aed2b46584a56a9a7ff25ddf4ffe9b9c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5e3b3ac999c4a56d931c95f1cc93570"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d6a/a02779.html#ab5e3b3ac999c4a56d931c95f1cc93570">setBusInterface</a> (const std::shared_ptr&lt; <a class="el" href="../../d5/d25/a02687.html">BusInterface</a> &gt; &amp;busInterface)=0</td></tr>
 <tr class="memdesc:ab5e3b3ac999c4a56d931c95f1cc93570"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the load's bus interface.  <a href="#ab5e3b3ac999c4a56d931c95f1cc93570">More...</a><br /></td></tr>
 <tr class="separator:ab5e3b3ac999c4a56d931c95f1cc93570"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -150,12 +150,12 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <tr class="memitem:a13a1327faabc1a8a785ac7ad5af6cc9e"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d6a/a02779.html#a13a1327faabc1a8a785ac7ad5af6cc9e">getInitialConnected</a> ()=0</td></tr>
 <tr class="memdesc:a13a1327faabc1a8a785ac7ad5af6cc9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the initial connection state of the load.  <a href="#a13a1327faabc1a8a785ac7ad5af6cc9e">More...</a><br /></td></tr>
 <tr class="separator:a13a1327faabc1a8a785ac7ad5af6cc9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0b1b7be1b38a7f14082c0170efa16e5"><td class="memItemLeft" align="right" valign="top">virtual const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d6a/a02779.html#ac0b1b7be1b38a7f14082c0170efa16e5">getID</a> () const =0</td></tr>
-<tr class="memdesc:ac0b1b7be1b38a7f14082c0170efa16e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the load's id.  <a href="#ac0b1b7be1b38a7f14082c0170efa16e5">More...</a><br /></td></tr>
-<tr class="separator:ac0b1b7be1b38a7f14082c0170efa16e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a98ebdb653076b8ca9b598fc0f229c84c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d6a/a02779.html#a98ebdb653076b8ca9b598fc0f229c84c">exportStateVariablesUnitComponent</a> ()=0</td></tr>
-<tr class="memdesc:a98ebdb653076b8ca9b598fc0f229c84c"><td class="mdescLeft">&#160;</td><td class="mdescRight">update iidm structure from state variables for each unit component  <a href="#a98ebdb653076b8ca9b598fc0f229c84c">More...</a><br /></td></tr>
-<tr class="separator:a98ebdb653076b8ca9b598fc0f229c84c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedb83f4521610ee239345c4df2bf2dc5"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d6a/a02779.html#aedb83f4521610ee239345c4df2bf2dc5">getID</a> () const override=0</td></tr>
+<tr class="memdesc:aedb83f4521610ee239345c4df2bf2dc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the load's id.  <a href="#aedb83f4521610ee239345c4df2bf2dc5">More...</a><br /></td></tr>
+<tr class="separator:aedb83f4521610ee239345c4df2bf2dc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26fbdb64dad0bf0aa4fd831023ad3ff2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d6a/a02779.html#a26fbdb64dad0bf0aa4fd831023ad3ff2">exportStateVariablesUnitComponent</a> () override=0</td></tr>
+<tr class="memdesc:a26fbdb64dad0bf0aa4fd831023ad3ff2"><td class="mdescLeft">&#160;</td><td class="mdescRight">update iidm structure from state variables for each unit component  <a href="#a26fbdb64dad0bf0aa4fd831023ad3ff2">More...</a><br /></td></tr>
+<tr class="separator:a26fbdb64dad0bf0aa4fd831023ad3ff2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56c72b72f7aee30c56bbe2763aa050e2"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d6a/a02779.html#a56c72b72f7aee30c56bbe2763aa050e2">getPUnderVoltage</a> ()=0</td></tr>
 <tr class="memdesc:a56c72b72f7aee30c56bbe2763aa050e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">load power under voltage threshold  <a href="#a56c72b72f7aee30c56bbe2763aa050e2">More...</a><br /></td></tr>
 <tr class="separator:a56c72b72f7aee30c56bbe2763aa050e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -310,8 +310,8 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a98ebdb653076b8ca9b598fc0f229c84c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a98ebdb653076b8ca9b598fc0f229c84c">&#9670;&nbsp;</a></span>exportStateVariablesUnitComponent()</h2>
+<a id="a26fbdb64dad0bf0aa4fd831023ad3ff2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26fbdb64dad0bf0aa4fd831023ad3ff2">&#9670;&nbsp;</a></span>exportStateVariablesUnitComponent()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -320,7 +320,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::LoadInterface::exportStateVariablesUnitComponent </td>
+          <td class="memname">void DYN::LoadInterface::exportStateVariablesUnitComponent </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -328,7 +328,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -337,7 +337,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 
 <p>Implements <a class="el" href="../../dc/d8b/a02691.html#a24a19ea150b9d118f6b365cdbabcacff">DYN::ComponentInterface</a>.</p>
 
-<p>Implemented in <a class="el" href="../../d4/d48/a02943.html#a4b1edaef9b9ed07c3b0ad8d06d55bc4c">DYN::LoadInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d4/d48/a02943.html#ac6e441f7d8974ccc5a6369f68ea57f49">DYN::LoadInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -367,12 +367,12 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the load's bus interface. </p>
 <dl class="section return"><dt>Returns</dt><dd>busInterface of the bus where the load is connected </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d4/d48/a02943.html#a103960c5b99dad24b641e8fd7abd59ce">DYN::LoadInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d4/d48/a02943.html#a1dfd2a0affbc09d1f24149ce725f783d">DYN::LoadInterfaceIIDM</a>.</p>
 
 </div>
 </div>
-<a id="ac0b1b7be1b38a7f14082c0170efa16e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac0b1b7be1b38a7f14082c0170efa16e5">&#9670;&nbsp;</a></span>getID()</h2>
+<a id="aedb83f4521610ee239345c4df2bf2dc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedb83f4521610ee239345c4df2bf2dc5">&#9670;&nbsp;</a></span>getID()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -381,7 +381,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual const std::string&amp; DYN::LoadInterface::getID </td>
+          <td class="memname">const std::string&amp; DYN::LoadInterface::getID </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -389,7 +389,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -399,7 +399,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 
 <p>Implements <a class="el" href="../../dc/d8b/a02691.html#a452b88bee7f575411dc10043cbc09bd5">DYN::ComponentInterface</a>.</p>
 
-<p>Implemented in <a class="el" href="../../d4/d48/a02943.html#a6ae58384cb73d9bb252b91d7b112e66b">DYN::LoadInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d4/d48/a02943.html#ae3935227d4a303b4ea5270ee5875e76d">DYN::LoadInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -429,7 +429,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the initial connection state of the load. </p>
 <dl class="section return"><dt>Returns</dt><dd><b>true</b> is the load is connected, <b>false</b> else </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d4/d48/a02943.html#a8ff210347b93c2ace0a78ef289f58e80">DYN::LoadInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d4/d48/a02943.html#af06ee83273efdf51ca09fe9524cf1591">DYN::LoadInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -459,7 +459,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the active power of the load. </p>
 <dl class="section return"><dt>Returns</dt><dd>The active power of the load in MW (load convention) </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d4/d48/a02943.html#a2a1c11f67b03ad0f229fe5ff0aa74b8d">DYN::LoadInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d4/d48/a02943.html#aa27fb93521ffe4244b2f290583e299b6">DYN::LoadInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -489,7 +489,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the initial active power of the load. </p>
 <dl class="section return"><dt>Returns</dt><dd>The initial active power of the load in MW (load convention) </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d4/d48/a02943.html#ab104b39bbf1e65c5e2f7b2dfbd46aa37">DYN::LoadInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d4/d48/a02943.html#aeeb84f3e91679062a59f494550ae133a">DYN::LoadInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -519,7 +519,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>load power under voltage threshold </p>
 <dl class="section return"><dt>Returns</dt><dd>value of load power if voltage is under threshold, 0 otherwise </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d4/d48/a02943.html#ac8c42cef6209d2fbdeed357aa52c8038">DYN::LoadInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d4/d48/a02943.html#a885ca094288552341f1a3106c0efff77">DYN::LoadInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -549,7 +549,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the reactive power of the load. </p>
 <dl class="section return"><dt>Returns</dt><dd>The reactive power of the load in Mvar (load convention) </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d4/d48/a02943.html#ab6e2a3377e0d10014748aff4fa05b0a6">DYN::LoadInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d4/d48/a02943.html#ab152cbe05568dfaaf6b6fefdc2be462d">DYN::LoadInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -579,7 +579,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the initial reactive power of the load. </p>
 <dl class="section return"><dt>Returns</dt><dd>The initial reactive power of the load in Mvar (load convention) </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d4/d48/a02943.html#a91bc2fb483b5ffecb1d78458ffd24b4e">DYN::LoadInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d4/d48/a02943.html#a287bc28b43fc843f61e079ffa23dca4e">DYN::LoadInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -609,7 +609,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the state variable "p". </p>
 <dl class="section return"><dt>Returns</dt><dd>The value of state variable p of the load in MW </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d4/d48/a02943.html#aaf257877ad8f02b1420918b4ee4bcce1">DYN::LoadInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d4/d48/a02943.html#a5a4dbf0ba10e5f0f6e2acc19c1baf2af">DYN::LoadInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -639,7 +639,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>determine is a load is fictitious </p>
 <dl class="section return"><dt>Returns</dt><dd><b>true</b> is the load is fictitious, <b>false</b> else </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d4/d48/a02943.html#abdaaf83b67fc5b6afce687dded986ddb">DYN::LoadInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d4/d48/a02943.html#aa596f3fc4c295f2dd07631367a4d4777">DYN::LoadInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -675,7 +675,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../d4/d48/a02943.html#a593858d96d219f12320d673b00aad509">DYN::LoadInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d4/d48/a02943.html#a0aa2fe1eed3e33afa0e7539f062c5116">DYN::LoadInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -711,7 +711,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../d4/d48/a02943.html#a3073314aa28555c43c6934feaba7fa8d">DYN::LoadInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d4/d48/a02943.html#a5a28f2dc21c964a735c12a3c4edf0844">DYN::LoadInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -735,7 +735,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../dc/d6a/a02779.html">LoadInterface</a></li>
-    <li class="footer">Generated on Thu Jun 5 2025 13:50:11 for Dynawo by
+    <li class="footer">Generated on Fri Jun 6 2025 10:06:05 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -1,5 +1,5 @@
 var a02271 =
 [
-    [ "importFromFile", "df/d39/a02271.html#aba5e3d4283c7b21e87aada84cb832a0c", null ],
-    [ "importFromStream", "df/d39/a02271.html#a3102defb5490037358d5f339b9c25ad7", null ]
+    [ "importFromFile", "df/d39/a02271.html#a6225966d57cb9b8c024294e65af36eff", null ],
+    [ "importFromStream", "df/d39/a02271.html#a7d6a5918b26ccf540671e94a97cb8005", null ]
 ];

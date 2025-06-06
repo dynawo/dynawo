@@ -159,10 +159,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5fe1765a604e8c596d2904636a0d1578"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dde/a02695.html#a5fe1765a604e8c596d2904636a0d1578">ConverterInterface</a> (bool <a class="el" href="../../dc/d8b/a02691.html#a9be4aae7894693081ca3436f3d8aa328">hasInitialConditions</a>=true)</td></tr>
 <tr class="memdesc:a5fe1765a604e8c596d2904636a0d1578"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a5fe1765a604e8c596d2904636a0d1578">More...</a><br /></td></tr>
 <tr class="separator:a5fe1765a604e8c596d2904636a0d1578"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ab9164d52112da364b469030d146e7c"><td class="memItemLeft" align="right" valign="top"><a id="a4ab9164d52112da364b469030d146e7c"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dde/a02695.html#a4ab9164d52112da364b469030d146e7c">~ConverterInterface</a> ()=default</td></tr>
-<tr class="memdesc:a4ab9164d52112da364b469030d146e7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:a4ab9164d52112da364b469030d146e7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a20ecde1390fc224404f7622ed6a50c"><td class="memItemLeft" align="right" valign="top"><a id="a8a20ecde1390fc224404f7622ed6a50c"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dde/a02695.html#a8a20ecde1390fc224404f7622ed6a50c">~ConverterInterface</a> () override=default</td></tr>
+<tr class="memdesc:a8a20ecde1390fc224404f7622ed6a50c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:a8a20ecde1390fc224404f7622ed6a50c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab17a5ef15311f6a8c9d2bcf630e6a404"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dde/a02695.html#ab17a5ef15311f6a8c9d2bcf630e6a404">setBusInterface</a> (const std::shared_ptr&lt; <a class="el" href="../../d5/d25/a02687.html">BusInterface</a> &gt; &amp;busInterface)=0</td></tr>
 <tr class="memdesc:ab17a5ef15311f6a8c9d2bcf630e6a404"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the converter bus interface.  <a href="#ab17a5ef15311f6a8c9d2bcf630e6a404">More...</a><br /></td></tr>
 <tr class="separator:ab17a5ef15311f6a8c9d2bcf630e6a404"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -175,9 +175,9 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <tr class="memitem:ac7d0bd1eba8523973400eab30bf342a6"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dde/a02695.html#ac7d0bd1eba8523973400eab30bf342a6">getInitialConnected</a> ()=0</td></tr>
 <tr class="memdesc:ac7d0bd1eba8523973400eab30bf342a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the initial connection state of the converter.  <a href="#ac7d0bd1eba8523973400eab30bf342a6">More...</a><br /></td></tr>
 <tr class="separator:ac7d0bd1eba8523973400eab30bf342a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ea6d54ebc1298a74010de65fca05604"><td class="memItemLeft" align="right" valign="top">virtual const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dde/a02695.html#a1ea6d54ebc1298a74010de65fca05604">getID</a> () const =0</td></tr>
-<tr class="memdesc:a1ea6d54ebc1298a74010de65fca05604"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the converter id.  <a href="#a1ea6d54ebc1298a74010de65fca05604">More...</a><br /></td></tr>
-<tr class="separator:a1ea6d54ebc1298a74010de65fca05604"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad508621557328d1967d8cfa60c69cf09"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dde/a02695.html#ad508621557328d1967d8cfa60c69cf09">getID</a> () const override=0</td></tr>
+<tr class="memdesc:ad508621557328d1967d8cfa60c69cf09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the converter id.  <a href="#ad508621557328d1967d8cfa60c69cf09">More...</a><br /></td></tr>
+<tr class="separator:ad508621557328d1967d8cfa60c69cf09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa29b1be4591f61be93fbdd77bf6b072f"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dde/a02695.html#aa29b1be4591f61be93fbdd77bf6b072f">getVNom</a> () const =0</td></tr>
 <tr class="memdesc:aa29b1be4591f61be93fbdd77bf6b072f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the nominal voltage of the bus where the converter is connected.  <a href="#aa29b1be4591f61be93fbdd77bf6b072f">More...</a><br /></td></tr>
 <tr class="separator:aa29b1be4591f61be93fbdd77bf6b072f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -375,7 +375,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the converter bus interface. </p>
 <dl class="section return"><dt>Returns</dt><dd>busInterface interface of the bus where the converter is connected </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d9/da5/a02935.html#ace3a2b574c13dffa622315f1b8f172ba">DYN::LccConverterInterfaceIIDM</a>, and <a class="el" href="../../de/d4f/a02995.html#ae821ce5e81857253e714434f3e49485a">DYN::VscConverterInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d9/da5/a02935.html#a2a53cd4b3aa31e10f3768c4f8fa9c40d">DYN::LccConverterInterfaceIIDM</a>, and <a class="el" href="../../de/d4f/a02995.html#aa7351feffb417a80fb0c5a6a134aa4d7">DYN::VscConverterInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -407,8 +407,8 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 
 </div>
 </div>
-<a id="a1ea6d54ebc1298a74010de65fca05604"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ea6d54ebc1298a74010de65fca05604">&#9670;&nbsp;</a></span>getID()</h2>
+<a id="ad508621557328d1967d8cfa60c69cf09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad508621557328d1967d8cfa60c69cf09">&#9670;&nbsp;</a></span>getID()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -417,7 +417,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual const std::string&amp; DYN::ConverterInterface::getID </td>
+          <td class="memname">const std::string&amp; DYN::ConverterInterface::getID </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -425,7 +425,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -435,7 +435,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 
 <p>Implements <a class="el" href="../../dc/d8b/a02691.html#a452b88bee7f575411dc10043cbc09bd5">DYN::ComponentInterface</a>.</p>
 
-<p>Implemented in <a class="el" href="../../de/d4f/a02995.html#afe5ddbff7f83f6d1fd51990b4ddcf1a9">DYN::VscConverterInterfaceIIDM</a>, and <a class="el" href="../../d9/da5/a02935.html#a1271478de2ad6f634dc6da288c0160c4">DYN::LccConverterInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../de/d4f/a02995.html#a2a31ef07e454b2d2eeac4235faab0515">DYN::VscConverterInterfaceIIDM</a>, and <a class="el" href="../../d9/da5/a02935.html#a828042de241b80b0820f8d9705a40254">DYN::LccConverterInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -465,7 +465,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the initial connection state of the converter. </p>
 <dl class="section return"><dt>Returns</dt><dd><b>true</b> if the converter is connected, <b>false</b> otherwise </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d9/da5/a02935.html#a4f1db49bc62588c3d4f960c011a0b64d">DYN::LccConverterInterfaceIIDM</a>, and <a class="el" href="../../de/d4f/a02995.html#a57b9aa727fc4024629aea8bf9eeb6bee">DYN::VscConverterInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d9/da5/a02935.html#a7fa8d08b3b20b9c20195215b3893e7b0">DYN::LccConverterInterfaceIIDM</a>, and <a class="el" href="../../de/d4f/a02995.html#a4d8612894bd242d8b67ed1787f5d7682">DYN::VscConverterInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -495,7 +495,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the loss factor of the converter. </p>
 <dl class="section return"><dt>Returns</dt><dd>The loss factor of the converter </dd></dl>
 
-<p>Implemented in <a class="el" href="../../de/d4f/a02995.html#a2a6defdfb685a1875bbdbf830ff49344">DYN::VscConverterInterfaceIIDM</a>, and <a class="el" href="../../d9/da5/a02935.html#a2e62f288dc390abc0d66a4691753c883">DYN::LccConverterInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../de/d4f/a02995.html#a84a98e40d6de0b50b2bc3dafa9d7f71c">DYN::VscConverterInterfaceIIDM</a>, and <a class="el" href="../../d9/da5/a02935.html#ae63223d2c3391623781565b5ef7bd79a">DYN::LccConverterInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -525,7 +525,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the active power of the converter. </p>
 <dl class="section return"><dt>Returns</dt><dd>The active power of the converter in MW (following iidm convention) </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d9/da5/a02935.html#adc636d0fe0feb754a39ea329a367bf0d">DYN::LccConverterInterfaceIIDM</a>, and <a class="el" href="../../de/d4f/a02995.html#a7c760d9b83d37dc59ab407803645e03a">DYN::VscConverterInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d9/da5/a02935.html#a8196ebf14adb0ab5e731fbb3ace749a5">DYN::LccConverterInterfaceIIDM</a>, and <a class="el" href="../../de/d4f/a02995.html#ac7e5e2b775eac770cad31737a9505fa0">DYN::VscConverterInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -555,7 +555,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the reactive power of the converter. </p>
 <dl class="section return"><dt>Returns</dt><dd>The reactive power of the converter in Mvar (following iidm convention) </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d9/da5/a02935.html#a2e5ace23385b1f5bf587851f97066015">DYN::LccConverterInterfaceIIDM</a>, and <a class="el" href="../../de/d4f/a02995.html#a7ea88db1a3d7a4f9b60db16e5ab8d21a">DYN::VscConverterInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d9/da5/a02935.html#ab98caf5dd2c0383b11e0149763ccdd43">DYN::LccConverterInterfaceIIDM</a>, and <a class="el" href="../../de/d4f/a02995.html#a3c5f812f5ed10303d77c0c0d3e50b9d6">DYN::VscConverterInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -585,7 +585,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the nominal voltage of the bus where the converter is connected. </p>
 <dl class="section return"><dt>Returns</dt><dd>The nominal voltage of the bus where the converter is connected in kV </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d9/da5/a02935.html#aa671dfcc9451cf67021e111d3a19d42e">DYN::LccConverterInterfaceIIDM</a>, and <a class="el" href="../../de/d4f/a02995.html#ad571aacfbd48e9bbc331c5f3ad8867d6">DYN::VscConverterInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d9/da5/a02935.html#a7ad914338bf03f8b52d9b7ae5b482d11">DYN::LccConverterInterfaceIIDM</a>, and <a class="el" href="../../de/d4f/a02995.html#a0621774fc34f3cff3927187342d4069c">DYN::VscConverterInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -615,7 +615,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Indicates whether the injector knows its injected/consumed active power. </p>
 <dl class="section return"><dt>Returns</dt><dd>Whether the injector knows its injected/consumed active power </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d9/da5/a02935.html#a61f86270a49ddd06f588067d1d865451">DYN::LccConverterInterfaceIIDM</a>, and <a class="el" href="../../de/d4f/a02995.html#ada606654d36c2cb0b0275732cb45678c">DYN::VscConverterInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d9/da5/a02935.html#a8d4934cbdccb2b4094bcf8e185ab3be7">DYN::LccConverterInterfaceIIDM</a>, and <a class="el" href="../../de/d4f/a02995.html#ac42864192b0b6184971831a74d53d046">DYN::VscConverterInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -645,7 +645,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Indicates whether the injector knows its injected/consumed reactive power. </p>
 <dl class="section return"><dt>Returns</dt><dd>Whether the injector knows its injected/consumed reactive power </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d9/da5/a02935.html#af207e5667a8b6fe271e5be8037dd090e">DYN::LccConverterInterfaceIIDM</a>, and <a class="el" href="../../de/d4f/a02995.html#a717dfcec0cd68ee073d5e58df51ca4ee">DYN::VscConverterInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d9/da5/a02935.html#a903b016a1dd813bc7023aee9811c050d">DYN::LccConverterInterfaceIIDM</a>, and <a class="el" href="../../de/d4f/a02995.html#a1833dd35d126cefa7b135e2c52f11ef1">DYN::VscConverterInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -681,7 +681,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../d9/da5/a02935.html#adf6d011aa16a09125a9dc2c2d7a85570">DYN::LccConverterInterfaceIIDM</a>, and <a class="el" href="../../de/d4f/a02995.html#adc78a2ee2f7618e287df9a85a2af858b">DYN::VscConverterInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d9/da5/a02935.html#aca95b896e6d5b547a9acc09e6696e389">DYN::LccConverterInterfaceIIDM</a>, and <a class="el" href="../../de/d4f/a02995.html#a585a074b24441090ae72bd46332c7d36">DYN::VscConverterInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -717,7 +717,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../d9/da5/a02935.html#ade6a3bdaee21c0aab93854f9d8228cf5">DYN::LccConverterInterfaceIIDM</a>, and <a class="el" href="../../de/d4f/a02995.html#ae168bb00d8250f3184ee3fc7f818aad9">DYN::VscConverterInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d9/da5/a02935.html#a0f3f111b6f6f96d39baac0accba7ead9">DYN::LccConverterInterfaceIIDM</a>, and <a class="el" href="../../de/d4f/a02995.html#a1dbc9784ad8123c01721563e9572bcbf">DYN::VscConverterInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -741,7 +741,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../de/dde/a02695.html">ConverterInterface</a></li>
-    <li class="footer">Generated on Thu Jun 5 2025 13:50:11 for Dynawo by
+    <li class="footer">Generated on Fri Jun 6 2025 10:06:04 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

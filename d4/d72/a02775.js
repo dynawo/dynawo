@@ -1,10 +1,10 @@
 var a02775 =
 [
     [ "LineInterface", "d4/d72/a02775.html#a184d5e2cd21f029ac718f04d0cd2f661", null ],
-    [ "~LineInterface", "d4/d72/a02775.html#aa5614e083428b8f4aefede18a1c376bb", null ],
+    [ "~LineInterface", "d4/d72/a02775.html#a1b8a5194f54a422311a6a3062f38ca7b", null ],
     [ "addCurrentLimitInterface1", "d4/d72/a02775.html#ac631e3948d14ee713436ede3786b4424", null ],
     [ "addCurrentLimitInterface2", "d4/d72/a02775.html#a29e4d2f84edb92c3413c7e98125e82ea", null ],
-    [ "exportStateVariablesUnitComponent", "d4/d72/a02775.html#ac1fb2a087d2668bfd1fc569924ba29f1", null ],
+    [ "exportStateVariablesUnitComponent", "d4/d72/a02775.html#ac04e992cf7b4a99378f23781f81a8f8a", null ],
     [ "getActiveSeason", "d4/d72/a02775.html#a6709b5de94e674447523d3516da7c2ba", null ],
     [ "getB1", "d4/d72/a02775.html#a4fb8b2d2d1baf9c88ece9c04f5bdfb70", null ],
     [ "getB2", "d4/d72/a02775.html#a160477afffdfedd696d8069c5e8d8ad6", null ],
@@ -20,7 +20,7 @@ var a02775 =
     [ "getCurrentLimitTemporaryValue", "d4/d72/a02775.html#a8e4667b162cbf0e2b79796226fb41822", null ],
     [ "getG1", "d4/d72/a02775.html#af00be172cef58512bfb6ae9ae6215bfd", null ],
     [ "getG2", "d4/d72/a02775.html#a529d91828fd6e0bbdccb55e78f239d7b", null ],
-    [ "getID", "d4/d72/a02775.html#a79bc14cf541dbb3901f7e1a001a9ef0f", null ],
+    [ "getID", "d4/d72/a02775.html#a0e422522351467ffa9e8a480c233d87a", null ],
     [ "getInitialConnected1", "d4/d72/a02775.html#ac4b66a913296bc88ec9f9018a162536b", null ],
     [ "getInitialConnected2", "d4/d72/a02775.html#a64f42b8bf5e86fcc8955c4cca71e2206", null ],
     [ "getP1", "d4/d72/a02775.html#a47803af48bad13fc85fa13672df061cf", null ],

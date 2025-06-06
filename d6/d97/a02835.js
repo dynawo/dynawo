@@ -1,10 +1,10 @@
 var a02835 =
 [
-    [ "~ThreeWTransformerInterface", "d6/d97/a02835.html#afb75f36474f44cd04dad27727db07008", null ],
+    [ "~ThreeWTransformerInterface", "d6/d97/a02835.html#ab35dda502b8727cfb78bf6a6c145f73b", null ],
     [ "addCurrentLimitInterface1", "d6/d97/a02835.html#ad881326ccedf7573befa0040f2e5fa0e", null ],
     [ "addCurrentLimitInterface2", "d6/d97/a02835.html#aab3ed47b9a7ad5aec7ab29dafeae03fb", null ],
     [ "addCurrentLimitInterface3", "d6/d97/a02835.html#ae82c5d9e078667d41bd77625d66919a3", null ],
-    [ "exportStateVariablesUnitComponent", "d6/d97/a02835.html#a9a5f175dcf05b628ae4695609ec8c9a3", null ],
+    [ "exportStateVariablesUnitComponent", "d6/d97/a02835.html#a131a373ee8b5baf7c71c3564b33641ca", null ],
     [ "getActiveSeason", "d6/d97/a02835.html#a06b9de3c435cb647621d41bc4a53eab8", null ],
     [ "getBusInterface1", "d6/d97/a02835.html#a87ad2ffdc4f63c8c5dba588d1484d9f5", null ],
     [ "getBusInterface2", "d6/d97/a02835.html#a4e002d0482177dd7a02d7fce4f16bf09", null ],
@@ -12,7 +12,7 @@ var a02835 =
     [ "getCurrentLimitInterfaces1", "d6/d97/a02835.html#aca572ce1fbf98a43f8f685de88e1c618", null ],
     [ "getCurrentLimitInterfaces2", "d6/d97/a02835.html#a146762e044e76c27ef900b51d49cdfee", null ],
     [ "getCurrentLimitInterfaces3", "d6/d97/a02835.html#a5988d96fd2114ed7dee698d50e406f70", null ],
-    [ "getID", "d6/d97/a02835.html#a50c819e439d89f0d7e260ae2a6789376", null ],
+    [ "getID", "d6/d97/a02835.html#ae0ba664ce03f4988f2f6a8d1d5ae99f5", null ],
     [ "getInitialConnected1", "d6/d97/a02835.html#afc5de636ab69d95dd87758e4977949f2", null ],
     [ "getInitialConnected2", "d6/d97/a02835.html#aaf2345d9e4ff8a85383210f6a6a6bebf", null ],
     [ "getInitialConnected3", "d6/d97/a02835.html#a756d71e2facdd1ed54c28067e57fbdcf", null ],

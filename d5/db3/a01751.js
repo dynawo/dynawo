@@ -1,7 +1,7 @@
 var a01751 =
 [
     [ "BlackBoxModel", "d5/db3/a01751.html#afff7696fa0ad1ce4d5a9e2877a132c28", null ],
-    [ "~BlackBoxModel", "d5/db3/a01751.html#aa486937fd33916e6327c80e8fc07bc28", null ],
+    [ "~BlackBoxModel", "d5/db3/a01751.html#aad644b8e666b27d19d8b525d01e92f77", null ],
     [ "getLib", "d5/db3/a01751.html#a796b3bbf282fc2d0ec490a9643e326ae", null ],
     [ "getParFile", "d5/db3/a01751.html#a76f3e249c13c07fdb7fdd9af5e29aad6", null ],
     [ "getParId", "d5/db3/a01751.html#ae75913a7e6648744d1ba847426d42184", null ],

@@ -1,7 +1,7 @@
 var a01875 =
 [
-    [ "exportToFile", "dc/d1e/a01875.html#ad8b91be10ba2e121d3dba90859350e79", null ],
-    [ "exportToStream", "dc/d1e/a01875.html#ac4ebc531ba1370f4464afa61bbbe7cd0", null ],
+    [ "exportToFile", "dc/d1e/a01875.html#adbaf3864ffa21fbf10b118d8a16e6bf5", null ],
+    [ "exportToStream", "dc/d1e/a01875.html#a873b1dc425667f10467ac8c4c1c2a7bd", null ],
     [ "writeBlackBoxModel", "dc/d1e/a01875.html#acd85918864edf3c32612732f171eb513", null ],
     [ "writeConnector", "dc/d1e/a01875.html#a254facc4fa2e2c652cf7128e421a234f", null ],
     [ "writeInitConnector", "dc/d1e/a01875.html#a75ce31467edbbbda4d47e1510c2498d6", null ],

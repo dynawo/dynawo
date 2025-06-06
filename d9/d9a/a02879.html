@@ -127,10 +127,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a50fa5d1ee23212569bb9ccbf49405f67"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a50fa5d1ee23212569bb9ccbf49405f67">DataInterfaceIIDM</a> (const boost::shared_ptr&lt; powsybl::iidm::Network &gt; &amp;networkIIDM)</td></tr>
 <tr class="memdesc:a50fa5d1ee23212569bb9ccbf49405f67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a50fa5d1ee23212569bb9ccbf49405f67">More...</a><br /></td></tr>
 <tr class="separator:a50fa5d1ee23212569bb9ccbf49405f67"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac3341d61ac0368dc6a47949bd92d1076"><td class="memItemLeft" align="right" valign="top"><a id="ac3341d61ac0368dc6a47949bd92d1076"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#ac3341d61ac0368dc6a47949bd92d1076">~DataInterfaceIIDM</a> ()=default</td></tr>
-<tr class="memdesc:ac3341d61ac0368dc6a47949bd92d1076"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:ac3341d61ac0368dc6a47949bd92d1076"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1033dd4dca7d17970f22d8e8a8d1e5e"><td class="memItemLeft" align="right" valign="top"><a id="aa1033dd4dca7d17970f22d8e8a8d1e5e"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#aa1033dd4dca7d17970f22d8e8a8d1e5e">~DataInterfaceIIDM</a> () override=default</td></tr>
+<tr class="memdesc:aa1033dd4dca7d17970f22d8e8a8d1e5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:aa1033dd4dca7d17970f22d8e8a8d1e5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d05811d66938c40b0d51bba1492a17b"><td class="memItemLeft" align="right" valign="top"><a id="a9d05811d66938c40b0d51bba1492a17b"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a9d05811d66938c40b0d51bba1492a17b">initFromIIDM</a> ()</td></tr>
 <tr class="memdesc:a9d05811d66938c40b0d51bba1492a17b"><td class="mdescLeft">&#160;</td><td class="mdescRight">init dataInterface from iidm network <br /></td></tr>
@@ -141,84 +141,84 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <tr class="memitem:aed2138f1c58816500279e91141bb8cb7"><td class="memItemLeft" align="right" valign="top">const powsybl::iidm::Network &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#aed2138f1c58816500279e91141bb8cb7">getNetworkIIDM</a> () const</td></tr>
 <tr class="memdesc:aed2138f1c58816500279e91141bb8cb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">getter for the instance of IIDM network  <a href="#aed2138f1c58816500279e91141bb8cb7">More...</a><br /></td></tr>
 <tr class="separator:aed2138f1c58816500279e91141bb8cb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d9ac642c08aebdb17cf0ab9b7462032"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a7d9ac642c08aebdb17cf0ab9b7462032">dumpToFile</a> (const std::string &amp;filepath) const</td></tr>
-<tr class="memdesc:a7d9ac642c08aebdb17cf0ab9b7462032"><td class="mdescLeft">&#160;</td><td class="mdescRight">dump the network to a file with the proper format  <a href="#a7d9ac642c08aebdb17cf0ab9b7462032">More...</a><br /></td></tr>
-<tr class="separator:a7d9ac642c08aebdb17cf0ab9b7462032"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4d080bbaaa8a95d8e3c2204fa1d74fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#ae4d080bbaaa8a95d8e3c2204fa1d74fb">dumpToFile</a> (std::stringstream &amp;stream) const</td></tr>
-<tr class="memdesc:ae4d080bbaaa8a95d8e3c2204fa1d74fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">dump the final state of the network in a stream  <a href="#ae4d080bbaaa8a95d8e3c2204fa1d74fb">More...</a><br /></td></tr>
-<tr class="separator:ae4d080bbaaa8a95d8e3c2204fa1d74fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abed20de3d818bdd51a1b1a322e36f250"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#abed20de3d818bdd51a1b1a322e36f250">canUseVariant</a> () const</td></tr>
-<tr class="memdesc:abed20de3d818bdd51a1b1a322e36f250"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if variant management is supported.  <a href="#abed20de3d818bdd51a1b1a322e36f250">More...</a><br /></td></tr>
-<tr class="separator:abed20de3d818bdd51a1b1a322e36f250"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82546f1cfb10b2321a06e0f6d54b6a88"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a82546f1cfb10b2321a06e0f6d54b6a88">selectVariant</a> (const std::string &amp;variantName)</td></tr>
-<tr class="memdesc:a82546f1cfb10b2321a06e0f6d54b6a88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Choose which network variant to use.  <a href="#a82546f1cfb10b2321a06e0f6d54b6a88">More...</a><br /></td></tr>
-<tr class="separator:a82546f1cfb10b2321a06e0f6d54b6a88"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a067777f3b20a2c6869a77bc1e6910a9f"><td class="memItemLeft" align="right" valign="top">boost::shared_ptr&lt; <a class="el" href="../../d7/d69/a02783.html">NetworkInterface</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a067777f3b20a2c6869a77bc1e6910a9f">getNetwork</a> () const</td></tr>
-<tr class="memdesc:a067777f3b20a2c6869a77bc1e6910a9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the network interface instance.  <a href="#a067777f3b20a2c6869a77bc1e6910a9f">More...</a><br /></td></tr>
-<tr class="separator:a067777f3b20a2c6869a77bc1e6910a9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aadc40d7ce6f3afab7ee4748348a353da"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#aadc40d7ce6f3afab7ee4748348a353da">hasDynamicModel</a> (const std::string &amp;id)</td></tr>
-<tr class="memdesc:aadc40d7ce6f3afab7ee4748348a353da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate that component has a dynamic model.  <a href="#aadc40d7ce6f3afab7ee4748348a353da">More...</a><br /></td></tr>
-<tr class="separator:aadc40d7ce6f3afab7ee4748348a353da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b9091af6e1b768c1aa6e0811ea05728"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a7b9091af6e1b768c1aa6e0811ea05728">setDynamicModel</a> (const std::string &amp;componentId, const boost::shared_ptr&lt; <a class="el" href="../../d9/d07/a02635.html">SubModel</a> &gt; &amp;model)</td></tr>
-<tr class="memdesc:a7b9091af6e1b768c1aa6e0811ea05728"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associate a dynamic model to a component.  <a href="#a7b9091af6e1b768c1aa6e0811ea05728">More...</a><br /></td></tr>
-<tr class="separator:a7b9091af6e1b768c1aa6e0811ea05728"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1bc31e4cd9bad970c0099fa014ca9d95"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a1bc31e4cd9bad970c0099fa014ca9d95">setModelNetwork</a> (const boost::shared_ptr&lt; <a class="el" href="../../d9/d07/a02635.html">SubModel</a> &gt; &amp;model)</td></tr>
-<tr class="memdesc:a1bc31e4cd9bad970c0099fa014ca9d95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associate the model of network to data.  <a href="#a1bc31e4cd9bad970c0099fa014ca9d95">More...</a><br /></td></tr>
-<tr class="separator:a1bc31e4cd9bad970c0099fa014ca9d95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ffbc47cca34524330e6860754a30a88"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a3ffbc47cca34524330e6860754a30a88">setReference</a> (const std::string &amp;componentVar, const std::string &amp;staticId, const std::string &amp;modelId, const std::string &amp;modelVar)</td></tr>
-<tr class="memdesc:a3ffbc47cca34524330e6860754a30a88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associate a component variable to a model variable.  <a href="#a3ffbc47cca34524330e6860754a30a88">More...</a><br /></td></tr>
-<tr class="separator:a3ffbc47cca34524330e6860754a30a88"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc8af6cbadbc60e0b2dafb817e044c48"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#acc8af6cbadbc60e0b2dafb817e044c48">mapConnections</a> ()</td></tr>
-<tr class="memdesc:acc8af6cbadbc60e0b2dafb817e044c48"><td class="mdescLeft">&#160;</td><td class="mdescRight">for each components, if there is a dynamic model, indicate for nodes where component is connected that there is an outside connection  <a href="#acc8af6cbadbc60e0b2dafb817e044c48">More...</a><br /></td></tr>
-<tr class="separator:acc8af6cbadbc60e0b2dafb817e044c48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aabce84a9e43ef54157219355d8a7fc45"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#aabce84a9e43ef54157219355d8a7fc45">updateFromModel</a> (bool filterForCriteriaCheck)</td></tr>
-<tr class="memdesc:aabce84a9e43ef54157219355d8a7fc45"><td class="mdescLeft">&#160;</td><td class="mdescRight">update from model state variables  <a href="#aabce84a9e43ef54157219355d8a7fc45">More...</a><br /></td></tr>
-<tr class="separator:aabce84a9e43ef54157219355d8a7fc45"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f77812d18e627d889dbdc258e6f0acf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a6f77812d18e627d889dbdc258e6f0acf">getStateVariableReference</a> ()</td></tr>
-<tr class="memdesc:a6f77812d18e627d889dbdc258e6f0acf"><td class="mdescLeft">&#160;</td><td class="mdescRight">get state variable reference in dynamic model  <a href="#a6f77812d18e627d889dbdc258e6f0acf">More...</a><br /></td></tr>
-<tr class="separator:a6f77812d18e627d889dbdc258e6f0acf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad9c72ffab12bf7ab8a8ffe31b058277f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#ad9c72ffab12bf7ab8a8ffe31b058277f">importStaticParameters</a> ()</td></tr>
-<tr class="memdesc:ad9c72ffab12bf7ab8a8ffe31b058277f"><td class="mdescLeft">&#160;</td><td class="mdescRight">import static parameters  <a href="#ad9c72ffab12bf7ab8a8ffe31b058277f">More...</a><br /></td></tr>
-<tr class="separator:ad9c72ffab12bf7ab8a8ffe31b058277f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ca9b7390e8c6f5c6bc8f0e3054f9adb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a2ca9b7390e8c6f5c6bc8f0e3054f9adb">exportStateVariables</a> ()</td></tr>
-<tr class="memdesc:a2ca9b7390e8c6f5c6bc8f0e3054f9adb"><td class="mdescLeft">&#160;</td><td class="mdescRight">export state variables  <a href="#a2ca9b7390e8c6f5c6bc8f0e3054f9adb">More...</a><br /></td></tr>
-<tr class="separator:a2ca9b7390e8c6f5c6bc8f0e3054f9adb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59c889b1efcbb85092a1e5835136a498"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../dc/d8b/a02691.html">ComponentInterface</a> &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a59c889b1efcbb85092a1e5835136a498">findConnectedComponents</a> ()</td></tr>
-<tr class="memdesc:a59c889b1efcbb85092a1e5835136a498"><td class="mdescLeft">&#160;</td><td class="mdescRight">find connected components  <a href="#a59c889b1efcbb85092a1e5835136a498">More...</a><br /></td></tr>
-<tr class="separator:a59c889b1efcbb85092a1e5835136a498"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a4c26bc003072415faede4474b1482d"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="../../dd/d3b/a02291.html">lostEquipments::LostEquipmentsCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a8a4c26bc003072415faede4474b1482d">findLostEquipments</a> (const std::shared_ptr&lt; std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../dc/d8b/a02691.html">ComponentInterface</a> &gt; &gt; &gt; &amp;connectedComponents)</td></tr>
-<tr class="memdesc:a8a4c26bc003072415faede4474b1482d"><td class="mdescLeft">&#160;</td><td class="mdescRight">find lost equipments (equipments which have lost connection)  <a href="#a8a4c26bc003072415faede4474b1482d">More...</a><br /></td></tr>
-<tr class="separator:a8a4c26bc003072415faede4474b1482d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab056a4624329c61d5742e6bdd5ca4d68"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#ab056a4624329c61d5742e6bdd5ca4d68">configureCriteria</a> (const std::shared_ptr&lt; <a class="el" href="../../d3/d79/a01611.html">criteria::CriteriaCollection</a> &gt; &amp;criteria)</td></tr>
-<tr class="memdesc:ab056a4624329c61d5742e6bdd5ca4d68"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the criteria for this model  <a href="#ab056a4624329c61d5742e6bdd5ca4d68">More...</a><br /></td></tr>
-<tr class="separator:ab056a4624329c61d5742e6bdd5ca4d68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a964c9328799eb13cf8f6afc60fb7f488"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a964c9328799eb13cf8f6afc60fb7f488">checkCriteria</a> (double t, bool finalStep)</td></tr>
-<tr class="memdesc:a964c9328799eb13cf8f6afc60fb7f488"><td class="mdescLeft">&#160;</td><td class="mdescRight">check if criteria for static model is respected  <a href="#a964c9328799eb13cf8f6afc60fb7f488">More...</a><br /></td></tr>
-<tr class="separator:a964c9328799eb13cf8f6afc60fb7f488"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0fcde9ac35c6448ae0dce079cc72f012"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a0fcde9ac35c6448ae0dce079cc72f012">getFailingCriteria</a> (std::vector&lt; std::pair&lt; double, std::string &gt; &gt; &amp;failingCriteria) const</td></tr>
-<tr class="memdesc:a0fcde9ac35c6448ae0dce079cc72f012"><td class="mdescLeft">&#160;</td><td class="mdescRight">fill a vector with the ids of the failing criteria  <a href="#a0fcde9ac35c6448ae0dce079cc72f012">More...</a><br /></td></tr>
-<tr class="separator:a0fcde9ac35c6448ae0dce079cc72f012"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a569f1b2969c49a02f3f200d0732d0a19"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a569f1b2969c49a02f3f200d0732d0a19">getStaticParameterDoubleValue</a> (const std::string &amp;staticID, const std::string &amp;refOrigName)</td></tr>
-<tr class="memdesc:a569f1b2969c49a02f3f200d0732d0a19"><td class="mdescLeft">&#160;</td><td class="mdescRight">get static parameter value  <a href="#a569f1b2969c49a02f3f200d0732d0a19">More...</a><br /></td></tr>
-<tr class="separator:a569f1b2969c49a02f3f200d0732d0a19"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad74a379e7a2d97c9e03af1d807883da6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#ad74a379e7a2d97c9e03af1d807883da6">getStaticParameterIntValue</a> (const std::string &amp;staticID, const std::string &amp;refOrigName)</td></tr>
-<tr class="memdesc:ad74a379e7a2d97c9e03af1d807883da6"><td class="mdescLeft">&#160;</td><td class="mdescRight">get static parameter value  <a href="#ad74a379e7a2d97c9e03af1d807883da6">More...</a><br /></td></tr>
-<tr class="separator:ad74a379e7a2d97c9e03af1d807883da6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d00e8f83cb814fc743212cb0309a59d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a5d00e8f83cb814fc743212cb0309a59d">getStaticParameterBoolValue</a> (const std::string &amp;staticID, const std::string &amp;refOrigName)</td></tr>
-<tr class="memdesc:a5d00e8f83cb814fc743212cb0309a59d"><td class="mdescLeft">&#160;</td><td class="mdescRight">get static parameter value  <a href="#a5d00e8f83cb814fc743212cb0309a59d">More...</a><br /></td></tr>
-<tr class="separator:a5d00e8f83cb814fc743212cb0309a59d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a0a9d2f0777b33d5ca62a00794ece0a"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a1a0a9d2f0777b33d5ca62a00794ece0a">getBusName</a> (const std::string &amp;staticID, const std::string &amp;labelNode)</td></tr>
-<tr class="memdesc:a1a0a9d2f0777b33d5ca62a00794ece0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the name of the bus where a component is connected  <a href="#a1a0a9d2f0777b33d5ca62a00794ece0a">More...</a><br /></td></tr>
-<tr class="separator:a1a0a9d2f0777b33d5ca62a00794ece0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c8452b6ea6ebadd91d51bd20fe7edc5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a3c8452b6ea6ebadd91d51bd20fe7edc5">dumpToFile</a> (const std::string &amp;filepath) const override</td></tr>
+<tr class="memdesc:a3c8452b6ea6ebadd91d51bd20fe7edc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">dump the network to a file with the proper format  <a href="#a3c8452b6ea6ebadd91d51bd20fe7edc5">More...</a><br /></td></tr>
+<tr class="separator:a3c8452b6ea6ebadd91d51bd20fe7edc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade0b9a37767e7b8a6f4631d74623d379"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#ade0b9a37767e7b8a6f4631d74623d379">dumpToFile</a> (std::stringstream &amp;stream) const override</td></tr>
+<tr class="memdesc:ade0b9a37767e7b8a6f4631d74623d379"><td class="mdescLeft">&#160;</td><td class="mdescRight">dump the final state of the network in a stream  <a href="#ade0b9a37767e7b8a6f4631d74623d379">More...</a><br /></td></tr>
+<tr class="separator:ade0b9a37767e7b8a6f4631d74623d379"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bcc610e7614cb92e88f063ccf9d5ee1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a7bcc610e7614cb92e88f063ccf9d5ee1">canUseVariant</a> () const override</td></tr>
+<tr class="memdesc:a7bcc610e7614cb92e88f063ccf9d5ee1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if variant management is supported.  <a href="#a7bcc610e7614cb92e88f063ccf9d5ee1">More...</a><br /></td></tr>
+<tr class="separator:a7bcc610e7614cb92e88f063ccf9d5ee1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac42e708733082f029dff91677171bbbf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#ac42e708733082f029dff91677171bbbf">selectVariant</a> (const std::string &amp;variantName) override</td></tr>
+<tr class="memdesc:ac42e708733082f029dff91677171bbbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Choose which network variant to use.  <a href="#ac42e708733082f029dff91677171bbbf">More...</a><br /></td></tr>
+<tr class="separator:ac42e708733082f029dff91677171bbbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed5e6b00232660c71a6730aae30daeee"><td class="memItemLeft" align="right" valign="top">boost::shared_ptr&lt; <a class="el" href="../../d7/d69/a02783.html">NetworkInterface</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#aed5e6b00232660c71a6730aae30daeee">getNetwork</a> () const override</td></tr>
+<tr class="memdesc:aed5e6b00232660c71a6730aae30daeee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the network interface instance.  <a href="#aed5e6b00232660c71a6730aae30daeee">More...</a><br /></td></tr>
+<tr class="separator:aed5e6b00232660c71a6730aae30daeee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f1fff6bd931cc45ba1594ddb0e706fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a1f1fff6bd931cc45ba1594ddb0e706fe">hasDynamicModel</a> (const std::string &amp;id) override</td></tr>
+<tr class="memdesc:a1f1fff6bd931cc45ba1594ddb0e706fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate that component has a dynamic model.  <a href="#a1f1fff6bd931cc45ba1594ddb0e706fe">More...</a><br /></td></tr>
+<tr class="separator:a1f1fff6bd931cc45ba1594ddb0e706fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fbd4397f2fdaafce7f7d1fa209d5267"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a3fbd4397f2fdaafce7f7d1fa209d5267">setDynamicModel</a> (const std::string &amp;componentId, const boost::shared_ptr&lt; <a class="el" href="../../d9/d07/a02635.html">SubModel</a> &gt; &amp;model) override</td></tr>
+<tr class="memdesc:a3fbd4397f2fdaafce7f7d1fa209d5267"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associate a dynamic model to a component.  <a href="#a3fbd4397f2fdaafce7f7d1fa209d5267">More...</a><br /></td></tr>
+<tr class="separator:a3fbd4397f2fdaafce7f7d1fa209d5267"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d5ec5574c5fb8051e4dc037ee63d29b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a1d5ec5574c5fb8051e4dc037ee63d29b">setModelNetwork</a> (const boost::shared_ptr&lt; <a class="el" href="../../d9/d07/a02635.html">SubModel</a> &gt; &amp;model) override</td></tr>
+<tr class="memdesc:a1d5ec5574c5fb8051e4dc037ee63d29b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associate the model of network to data.  <a href="#a1d5ec5574c5fb8051e4dc037ee63d29b">More...</a><br /></td></tr>
+<tr class="separator:a1d5ec5574c5fb8051e4dc037ee63d29b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a29ae032372b129362b0899f93f3886"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a6a29ae032372b129362b0899f93f3886">setReference</a> (const std::string &amp;componentVar, const std::string &amp;staticId, const std::string &amp;modelId, const std::string &amp;modelVar) override</td></tr>
+<tr class="memdesc:a6a29ae032372b129362b0899f93f3886"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associate a component variable to a model variable.  <a href="#a6a29ae032372b129362b0899f93f3886">More...</a><br /></td></tr>
+<tr class="separator:a6a29ae032372b129362b0899f93f3886"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a147327035149187819a653d60601e677"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a147327035149187819a653d60601e677">mapConnections</a> () override</td></tr>
+<tr class="memdesc:a147327035149187819a653d60601e677"><td class="mdescLeft">&#160;</td><td class="mdescRight">for each components, if there is a dynamic model, indicate for nodes where component is connected that there is an outside connection  <a href="#a147327035149187819a653d60601e677">More...</a><br /></td></tr>
+<tr class="separator:a147327035149187819a653d60601e677"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8936e8c27a7af3ffaa6d950536dcbf5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#ad8936e8c27a7af3ffaa6d950536dcbf5">updateFromModel</a> (bool filterForCriteriaCheck) override</td></tr>
+<tr class="memdesc:ad8936e8c27a7af3ffaa6d950536dcbf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">update from model state variables  <a href="#ad8936e8c27a7af3ffaa6d950536dcbf5">More...</a><br /></td></tr>
+<tr class="separator:ad8936e8c27a7af3ffaa6d950536dcbf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace47e78e50f0b4f7648a824991f0b028"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#ace47e78e50f0b4f7648a824991f0b028">getStateVariableReference</a> () override</td></tr>
+<tr class="memdesc:ace47e78e50f0b4f7648a824991f0b028"><td class="mdescLeft">&#160;</td><td class="mdescRight">get state variable reference in dynamic model  <a href="#ace47e78e50f0b4f7648a824991f0b028">More...</a><br /></td></tr>
+<tr class="separator:ace47e78e50f0b4f7648a824991f0b028"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b00d6fedd549bca79cda3a33edf6c63"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a8b00d6fedd549bca79cda3a33edf6c63">importStaticParameters</a> () override</td></tr>
+<tr class="memdesc:a8b00d6fedd549bca79cda3a33edf6c63"><td class="mdescLeft">&#160;</td><td class="mdescRight">import static parameters  <a href="#a8b00d6fedd549bca79cda3a33edf6c63">More...</a><br /></td></tr>
+<tr class="separator:a8b00d6fedd549bca79cda3a33edf6c63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4efa60b54af07cfba7a59a758ddac18b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a4efa60b54af07cfba7a59a758ddac18b">exportStateVariables</a> () override</td></tr>
+<tr class="memdesc:a4efa60b54af07cfba7a59a758ddac18b"><td class="mdescLeft">&#160;</td><td class="mdescRight">export state variables  <a href="#a4efa60b54af07cfba7a59a758ddac18b">More...</a><br /></td></tr>
+<tr class="separator:a4efa60b54af07cfba7a59a758ddac18b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6f2dd48a9c1705fe635ad96e0e73b11"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../dc/d8b/a02691.html">ComponentInterface</a> &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#af6f2dd48a9c1705fe635ad96e0e73b11">findConnectedComponents</a> () override</td></tr>
+<tr class="memdesc:af6f2dd48a9c1705fe635ad96e0e73b11"><td class="mdescLeft">&#160;</td><td class="mdescRight">find connected components  <a href="#af6f2dd48a9c1705fe635ad96e0e73b11">More...</a><br /></td></tr>
+<tr class="separator:af6f2dd48a9c1705fe635ad96e0e73b11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94988892745f69041b03aa57d51cb060"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="../../dd/d3b/a02291.html">lostEquipments::LostEquipmentsCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a94988892745f69041b03aa57d51cb060">findLostEquipments</a> (const std::shared_ptr&lt; std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../dc/d8b/a02691.html">ComponentInterface</a> &gt; &gt; &gt; &amp;connectedComponents) override</td></tr>
+<tr class="memdesc:a94988892745f69041b03aa57d51cb060"><td class="mdescLeft">&#160;</td><td class="mdescRight">find lost equipments (equipments which have lost connection)  <a href="#a94988892745f69041b03aa57d51cb060">More...</a><br /></td></tr>
+<tr class="separator:a94988892745f69041b03aa57d51cb060"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43b14dfc352736b776610ef7a7ce7524"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a43b14dfc352736b776610ef7a7ce7524">configureCriteria</a> (const std::shared_ptr&lt; <a class="el" href="../../d3/d79/a01611.html">criteria::CriteriaCollection</a> &gt; &amp;criteria) override</td></tr>
+<tr class="memdesc:a43b14dfc352736b776610ef7a7ce7524"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the criteria for this model  <a href="#a43b14dfc352736b776610ef7a7ce7524">More...</a><br /></td></tr>
+<tr class="separator:a43b14dfc352736b776610ef7a7ce7524"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad50bbb07b0245cacda1d61eef3e4c480"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#ad50bbb07b0245cacda1d61eef3e4c480">checkCriteria</a> (double t, bool finalStep) override</td></tr>
+<tr class="memdesc:ad50bbb07b0245cacda1d61eef3e4c480"><td class="mdescLeft">&#160;</td><td class="mdescRight">check if criteria for static model is respected  <a href="#ad50bbb07b0245cacda1d61eef3e4c480">More...</a><br /></td></tr>
+<tr class="separator:ad50bbb07b0245cacda1d61eef3e4c480"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a966f1341f9f1b882e942b2e2afcf3732"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a966f1341f9f1b882e942b2e2afcf3732">getFailingCriteria</a> (std::vector&lt; std::pair&lt; double, std::string &gt; &gt; &amp;failingCriteria) const override</td></tr>
+<tr class="memdesc:a966f1341f9f1b882e942b2e2afcf3732"><td class="mdescLeft">&#160;</td><td class="mdescRight">fill a vector with the ids of the failing criteria  <a href="#a966f1341f9f1b882e942b2e2afcf3732">More...</a><br /></td></tr>
+<tr class="separator:a966f1341f9f1b882e942b2e2afcf3732"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc6f1902d4603f8563fa53455ee73734"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#afc6f1902d4603f8563fa53455ee73734">getStaticParameterDoubleValue</a> (const std::string &amp;staticID, const std::string &amp;refOrigName) override</td></tr>
+<tr class="memdesc:afc6f1902d4603f8563fa53455ee73734"><td class="mdescLeft">&#160;</td><td class="mdescRight">get static parameter value  <a href="#afc6f1902d4603f8563fa53455ee73734">More...</a><br /></td></tr>
+<tr class="separator:afc6f1902d4603f8563fa53455ee73734"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0c4b92357021e523101d9c2d5717683"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#ac0c4b92357021e523101d9c2d5717683">getStaticParameterIntValue</a> (const std::string &amp;staticID, const std::string &amp;refOrigName) override</td></tr>
+<tr class="memdesc:ac0c4b92357021e523101d9c2d5717683"><td class="mdescLeft">&#160;</td><td class="mdescRight">get static parameter value  <a href="#ac0c4b92357021e523101d9c2d5717683">More...</a><br /></td></tr>
+<tr class="separator:ac0c4b92357021e523101d9c2d5717683"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3403be00b7d285a28189304c8ae4357a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a3403be00b7d285a28189304c8ae4357a">getStaticParameterBoolValue</a> (const std::string &amp;staticID, const std::string &amp;refOrigName) override</td></tr>
+<tr class="memdesc:a3403be00b7d285a28189304c8ae4357a"><td class="mdescLeft">&#160;</td><td class="mdescRight">get static parameter value  <a href="#a3403be00b7d285a28189304c8ae4357a">More...</a><br /></td></tr>
+<tr class="separator:a3403be00b7d285a28189304c8ae4357a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef1ca2cec800844173751b133055c7c9"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#aef1ca2cec800844173751b133055c7c9">getBusName</a> (const std::string &amp;staticID, const std::string &amp;labelNode) override</td></tr>
+<tr class="memdesc:aef1ca2cec800844173751b133055c7c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the name of the bus where a component is connected  <a href="#aef1ca2cec800844173751b133055c7c9">More...</a><br /></td></tr>
+<tr class="separator:aef1ca2cec800844173751b133055c7c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af4265e47d33af58dcd6e59e4fecd6ff7"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../dc/d8b/a02691.html">ComponentInterface</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#af4265e47d33af58dcd6e59e4fecd6ff7">findComponent</a> (const std::string &amp;id)</td></tr>
 <tr class="memdesc:af4265e47d33af58dcd6e59e4fecd6ff7"><td class="mdescLeft">&#160;</td><td class="mdescRight">find a component thanks to its id  <a href="#af4265e47d33af58dcd6e59e4fecd6ff7">More...</a><br /></td></tr>
 <tr class="separator:af4265e47d33af58dcd6e59e4fecd6ff7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af12a81228100d05c122a79f6fa745767"><td class="memItemLeft" align="right" valign="top">const std::shared_ptr&lt; <a class="el" href="../../dc/d8b/a02691.html">ComponentInterface</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#af12a81228100d05c122a79f6fa745767">findComponent</a> (const std::string &amp;id) const</td></tr>
 <tr class="memdesc:af12a81228100d05c122a79f6fa745767"><td class="mdescLeft">&#160;</td><td class="mdescRight">find a component thanks to its id  <a href="#af12a81228100d05c122a79f6fa745767">More...</a><br /></td></tr>
 <tr class="separator:af12a81228100d05c122a79f6fa745767"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c0d23fbda82df989541662ab2ccdd76"><td class="memItemLeft" align="right" valign="top">boost::shared_ptr&lt; <a class="el" href="../../d6/daf/a02803.html">ServiceManagerInterface</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a7c0d23fbda82df989541662ab2ccdd76">getServiceManager</a> () const</td></tr>
-<tr class="memdesc:a7c0d23fbda82df989541662ab2ccdd76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve service manager associated with this data interface.  <a href="#a7c0d23fbda82df989541662ab2ccdd76">More...</a><br /></td></tr>
-<tr class="separator:a7c0d23fbda82df989541662ab2ccdd76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf46b2b3f632c16fa5e06204a5115b88"><td class="memItemLeft" align="right" valign="top">boost::shared_ptr&lt; <a class="el" href="../../d6/daf/a02803.html">ServiceManagerInterface</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#acf46b2b3f632c16fa5e06204a5115b88">getServiceManager</a> () const override</td></tr>
+<tr class="memdesc:acf46b2b3f632c16fa5e06204a5115b88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve service manager associated with this data interface.  <a href="#acf46b2b3f632c16fa5e06204a5115b88">More...</a><br /></td></tr>
+<tr class="separator:acf46b2b3f632c16fa5e06204a5115b88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a26c3759895620606003d611d010e0bc9"><td class="memItemLeft" align="right" valign="top">boost::shared_ptr&lt; <a class="el" href="../../df/d23/a02751.html">DataInterface</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a26c3759895620606003d611d010e0bc9">clone</a> () const final</td></tr>
 <tr class="memdesc:a26c3759895620606003d611d010e0bc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clone data interface.  <a href="#a26c3759895620606003d611d010e0bc9">More...</a><br /></td></tr>
 <tr class="separator:a26c3759895620606003d611d010e0bc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -315,9 +315,9 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:aed746db050756a0c3eec0c47442cec04"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d9a/a02879.html">DataInterfaceIIDM</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#aed746db050756a0c3eec0c47442cec04">operator=</a> (const <a class="el" href="../../d9/d9a/a02879.html">DataInterfaceIIDM</a> &amp;other)</td></tr>
 <tr class="memdesc:aed746db050756a0c3eec0c47442cec04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignement operator.  <a href="#aed746db050756a0c3eec0c47442cec04">More...</a><br /></td></tr>
 <tr class="separator:aed746db050756a0c3eec0c47442cec04"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20508d855e5c985068d29f917ae4fa46"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a20508d855e5c985068d29f917ae4fa46">setTimeline</a> (const boost::shared_ptr&lt; <a class="el" href="../../de/d6a/a02415.html">timeline::Timeline</a> &gt; &amp;timeline)</td></tr>
-<tr class="memdesc:a20508d855e5c985068d29f917ae4fa46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for timeline.  <a href="#a20508d855e5c985068d29f917ae4fa46">More...</a><br /></td></tr>
-<tr class="separator:a20508d855e5c985068d29f917ae4fa46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07d6315ceb1d782d95fdb2e367454ac9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a02879.html#a07d6315ceb1d782d95fdb2e367454ac9">setTimeline</a> (const boost::shared_ptr&lt; <a class="el" href="../../de/d6a/a02415.html">timeline::Timeline</a> &gt; &amp;timeline) override</td></tr>
+<tr class="memdesc:a07d6315ceb1d782d95fdb2e367454ac9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for timeline.  <a href="#a07d6315ceb1d782d95fdb2e367454ac9">More...</a><br /></td></tr>
+<tr class="separator:a07d6315ceb1d782d95fdb2e367454ac9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
 Static Private Member Functions</h2></td></tr>
@@ -503,8 +503,8 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
-<a id="abed20de3d818bdd51a1b1a322e36f250"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abed20de3d818bdd51a1b1a322e36f250">&#9670;&nbsp;</a></span>canUseVariant()</h2>
+<a id="a7bcc610e7614cb92e88f063ccf9d5ee1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bcc610e7614cb92e88f063ccf9d5ee1">&#9670;&nbsp;</a></span>canUseVariant()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -521,7 +521,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -533,8 +533,8 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
-<a id="a964c9328799eb13cf8f6afc60fb7f488"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a964c9328799eb13cf8f6afc60fb7f488">&#9670;&nbsp;</a></span>checkCriteria()</h2>
+<a id="ad50bbb07b0245cacda1d61eef3e4c480"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad50bbb07b0245cacda1d61eef3e4c480">&#9670;&nbsp;</a></span>checkCriteria()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -562,7 +562,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -646,8 +646,8 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
-<a id="ab056a4624329c61d5742e6bdd5ca4d68"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab056a4624329c61d5742e6bdd5ca4d68">&#9670;&nbsp;</a></span>configureCriteria()</h2>
+<a id="a43b14dfc352736b776610ef7a7ce7524"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43b14dfc352736b776610ef7a7ce7524">&#9670;&nbsp;</a></span>configureCriteria()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -665,7 +665,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -819,8 +819,8 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
-<a id="a7d9ac642c08aebdb17cf0ab9b7462032"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d9ac642c08aebdb17cf0ab9b7462032">&#9670;&nbsp;</a></span>dumpToFile() <span class="overload">[1/2]</span></h2>
+<a id="a3c8452b6ea6ebadd91d51bd20fe7edc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c8452b6ea6ebadd91d51bd20fe7edc5">&#9670;&nbsp;</a></span>dumpToFile() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -838,7 +838,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -855,8 +855,8 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
-<a id="ae4d080bbaaa8a95d8e3c2204fa1d74fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae4d080bbaaa8a95d8e3c2204fa1d74fb">&#9670;&nbsp;</a></span>dumpToFile() <span class="overload">[2/2]</span></h2>
+<a id="ade0b9a37767e7b8a6f4631d74623d379"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade0b9a37767e7b8a6f4631d74623d379">&#9670;&nbsp;</a></span>dumpToFile() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -874,7 +874,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -891,8 +891,8 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
-<a id="a2ca9b7390e8c6f5c6bc8f0e3054f9adb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ca9b7390e8c6f5c6bc8f0e3054f9adb">&#9670;&nbsp;</a></span>exportStateVariables()</h2>
+<a id="a4efa60b54af07cfba7a59a758ddac18b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4efa60b54af07cfba7a59a758ddac18b">&#9670;&nbsp;</a></span>exportStateVariables()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -909,7 +909,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1082,8 +1082,8 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
-<a id="a59c889b1efcbb85092a1e5835136a498"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59c889b1efcbb85092a1e5835136a498">&#9670;&nbsp;</a></span>findConnectedComponents()</h2>
+<a id="af6f2dd48a9c1705fe635ad96e0e73b11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6f2dd48a9c1705fe635ad96e0e73b11">&#9670;&nbsp;</a></span>findConnectedComponents()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1100,7 +1100,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1112,8 +1112,8 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
-<a id="a8a4c26bc003072415faede4474b1482d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a4c26bc003072415faede4474b1482d">&#9670;&nbsp;</a></span>findLostEquipments()</h2>
+<a id="a94988892745f69041b03aa57d51cb060"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94988892745f69041b03aa57d51cb060">&#9670;&nbsp;</a></span>findLostEquipments()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1131,7 +1131,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1230,8 +1230,8 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
-<a id="a1a0a9d2f0777b33d5ca62a00794ece0a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a0a9d2f0777b33d5ca62a00794ece0a">&#9670;&nbsp;</a></span>getBusName()</h2>
+<a id="aef1ca2cec800844173751b133055c7c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef1ca2cec800844173751b133055c7c9">&#9670;&nbsp;</a></span>getBusName()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1259,7 +1259,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1278,8 +1278,8 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
-<a id="a0fcde9ac35c6448ae0dce079cc72f012"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0fcde9ac35c6448ae0dce079cc72f012">&#9670;&nbsp;</a></span>getFailingCriteria()</h2>
+<a id="a966f1341f9f1b882e942b2e2afcf3732"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a966f1341f9f1b882e942b2e2afcf3732">&#9670;&nbsp;</a></span>getFailingCriteria()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1297,7 +1297,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1314,8 +1314,8 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
-<a id="a067777f3b20a2c6869a77bc1e6910a9f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a067777f3b20a2c6869a77bc1e6910a9f">&#9670;&nbsp;</a></span>getNetwork()</h2>
+<a id="aed5e6b00232660c71a6730aae30daeee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed5e6b00232660c71a6730aae30daeee">&#9670;&nbsp;</a></span>getNetwork()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1332,7 +1332,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1384,8 +1384,8 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
-<a id="a7c0d23fbda82df989541662ab2ccdd76"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c0d23fbda82df989541662ab2ccdd76">&#9670;&nbsp;</a></span>getServiceManager()</h2>
+<a id="acf46b2b3f632c16fa5e06204a5115b88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf46b2b3f632c16fa5e06204a5115b88">&#9670;&nbsp;</a></span>getServiceManager()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1402,7 +1402,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1414,8 +1414,8 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
-<a id="a6f77812d18e627d889dbdc258e6f0acf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f77812d18e627d889dbdc258e6f0acf">&#9670;&nbsp;</a></span>getStateVariableReference()</h2>
+<a id="ace47e78e50f0b4f7648a824991f0b028"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace47e78e50f0b4f7648a824991f0b028">&#9670;&nbsp;</a></span>getStateVariableReference()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1432,7 +1432,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1443,8 +1443,8 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
-<a id="a5d00e8f83cb814fc743212cb0309a59d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d00e8f83cb814fc743212cb0309a59d">&#9670;&nbsp;</a></span>getStaticParameterBoolValue()</h2>
+<a id="a3403be00b7d285a28189304c8ae4357a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3403be00b7d285a28189304c8ae4357a">&#9670;&nbsp;</a></span>getStaticParameterBoolValue()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1472,7 +1472,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1491,8 +1491,8 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
-<a id="a569f1b2969c49a02f3f200d0732d0a19"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a569f1b2969c49a02f3f200d0732d0a19">&#9670;&nbsp;</a></span>getStaticParameterDoubleValue()</h2>
+<a id="afc6f1902d4603f8563fa53455ee73734"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc6f1902d4603f8563fa53455ee73734">&#9670;&nbsp;</a></span>getStaticParameterDoubleValue()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1520,7 +1520,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1539,8 +1539,8 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
-<a id="ad74a379e7a2d97c9e03af1d807883da6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad74a379e7a2d97c9e03af1d807883da6">&#9670;&nbsp;</a></span>getStaticParameterIntValue()</h2>
+<a id="ac0c4b92357021e523101d9c2d5717683"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0c4b92357021e523101d9c2d5717683">&#9670;&nbsp;</a></span>getStaticParameterIntValue()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1568,7 +1568,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1587,8 +1587,8 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
-<a id="aadc40d7ce6f3afab7ee4748348a353da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aadc40d7ce6f3afab7ee4748348a353da">&#9670;&nbsp;</a></span>hasDynamicModel()</h2>
+<a id="a1f1fff6bd931cc45ba1594ddb0e706fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f1fff6bd931cc45ba1594ddb0e706fe">&#9670;&nbsp;</a></span>hasDynamicModel()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1606,7 +1606,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1936,8 +1936,8 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
-<a id="ad9c72ffab12bf7ab8a8ffe31b058277f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad9c72ffab12bf7ab8a8ffe31b058277f">&#9670;&nbsp;</a></span>importStaticParameters()</h2>
+<a id="a8b00d6fedd549bca79cda3a33edf6c63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b00d6fedd549bca79cda3a33edf6c63">&#9670;&nbsp;</a></span>importStaticParameters()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1954,7 +1954,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -2203,8 +2203,8 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
-<a id="acc8af6cbadbc60e0b2dafb817e044c48"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acc8af6cbadbc60e0b2dafb817e044c48">&#9670;&nbsp;</a></span>mapConnections()</h2>
+<a id="a147327035149187819a653d60601e677"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a147327035149187819a653d60601e677">&#9670;&nbsp;</a></span>mapConnections()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2221,7 +2221,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -2268,8 +2268,8 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
-<a id="a82546f1cfb10b2321a06e0f6d54b6a88"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a82546f1cfb10b2321a06e0f6d54b6a88">&#9670;&nbsp;</a></span>selectVariant()</h2>
+<a id="ac42e708733082f029dff91677171bbbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac42e708733082f029dff91677171bbbf">&#9670;&nbsp;</a></span>selectVariant()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2287,7 +2287,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -2304,8 +2304,8 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
-<a id="a7b9091af6e1b768c1aa6e0811ea05728"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b9091af6e1b768c1aa6e0811ea05728">&#9670;&nbsp;</a></span>setDynamicModel()</h2>
+<a id="a3fbd4397f2fdaafce7f7d1fa209d5267"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3fbd4397f2fdaafce7f7d1fa209d5267">&#9670;&nbsp;</a></span>setDynamicModel()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2333,7 +2333,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -2351,8 +2351,8 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
-<a id="a1bc31e4cd9bad970c0099fa014ca9d95"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1bc31e4cd9bad970c0099fa014ca9d95">&#9670;&nbsp;</a></span>setModelNetwork()</h2>
+<a id="a1d5ec5574c5fb8051e4dc037ee63d29b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d5ec5574c5fb8051e4dc037ee63d29b">&#9670;&nbsp;</a></span>setModelNetwork()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2370,7 +2370,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -2387,8 +2387,8 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
-<a id="a3ffbc47cca34524330e6860754a30a88"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ffbc47cca34524330e6860754a30a88">&#9670;&nbsp;</a></span>setReference()</h2>
+<a id="a6a29ae032372b129362b0899f93f3886"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a29ae032372b129362b0899f93f3886">&#9670;&nbsp;</a></span>setReference()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2428,7 +2428,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -2448,8 +2448,8 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
-<a id="a20508d855e5c985068d29f917ae4fa46"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a20508d855e5c985068d29f917ae4fa46">&#9670;&nbsp;</a></span>setTimeline()</h2>
+<a id="a07d6315ceb1d782d95fdb2e367454ac9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07d6315ceb1d782d95fdb2e367454ac9">&#9670;&nbsp;</a></span>setTimeline()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2467,7 +2467,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -2484,8 +2484,8 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
-<a id="aabce84a9e43ef54157219355d8a7fc45"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aabce84a9e43ef54157219355d8a7fc45">&#9670;&nbsp;</a></span>updateFromModel()</h2>
+<a id="ad8936e8c27a7af3ffaa6d950536dcbf5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8936e8c27a7af3ffaa6d950536dcbf5">&#9670;&nbsp;</a></span>updateFromModel()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2503,7 +2503,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -2540,7 +2540,7 @@ static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d9/d9a/a02879.html">DataInterfaceIIDM</a></li>
-    <li class="footer">Generated on Thu Jun 5 2025 13:50:11 for Dynawo by
+    <li class="footer">Generated on Fri Jun 6 2025 10:06:04 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

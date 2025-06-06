@@ -1,7 +1,7 @@
 var a01927 =
 [
     [ "ModelTemplateHandler", "da/d52/a01927.html#afaf2a68d8c69821178c310aad11d1137", null ],
-    [ "~ModelTemplateHandler", "da/d52/a01927.html#a06c04b4b92359ce81a717a0e34fcc9f8", null ],
+    [ "~ModelTemplateHandler", "da/d52/a01927.html#ad4f2f1d0c458aacad357592ab62ce8de", null ],
     [ "addConnect", "da/d52/a01927.html#aa95537e2acd61c5c65cee188b58438fa", null ],
     [ "addInitConnect", "da/d52/a01927.html#ac00827c5c20f3fc830c71606bc63ea86", null ],
     [ "addMacroConnect", "da/d52/a01927.html#a3b6ba86f4cf70b4eb08750d4da8c0255", null ],

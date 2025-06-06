@@ -1,7 +1,7 @@
 var a02247 =
 [
     [ "SimulationHandler", "df/d71/a02247.html#a7800ece3ca0c12cf70dd391c7378044b", null ],
-    [ "~SimulationHandler", "df/d71/a02247.html#a20238287b350c5372a5cbe56545c6f4c", null ],
+    [ "~SimulationHandler", "df/d71/a02247.html#a827c8a18b514b40f80da22e674d81447", null ],
     [ "addCriteriaFile", "df/d71/a02247.html#af39ea4a05d74a7f81398527efd3d914d", null ],
     [ "create", "df/d71/a02247.html#a1996f7d69010b36833203ab26dc2cf77", null ],
     [ "get", "df/d71/a02247.html#a92e24099b7ff591f694e8bf7743bcc6a", null ],

@@ -5,10 +5,10 @@ var a02695 =
       [ "LCC_CONVERTER", "de/dde/a02695.html#a2b86b878e89974293374c1c37ed381c9a80b97e7522513dd812973a549bb36f36", null ]
     ] ],
     [ "ConverterInterface", "de/dde/a02695.html#a5fe1765a604e8c596d2904636a0d1578", null ],
-    [ "~ConverterInterface", "de/dde/a02695.html#a4ab9164d52112da364b469030d146e7c", null ],
+    [ "~ConverterInterface", "de/dde/a02695.html#a8a20ecde1390fc224404f7622ed6a50c", null ],
     [ "getBusInterface", "de/dde/a02695.html#a97f4a8485ae1851ffdec2fb2192b6780", null ],
     [ "getConverterType", "de/dde/a02695.html#ae59b0310f6bfd4365bce2d716c240b5a", null ],
-    [ "getID", "de/dde/a02695.html#a1ea6d54ebc1298a74010de65fca05604", null ],
+    [ "getID", "de/dde/a02695.html#ad508621557328d1967d8cfa60c69cf09", null ],
     [ "getInitialConnected", "de/dde/a02695.html#ac7d0bd1eba8523973400eab30bf342a6", null ],
     [ "getLossFactor", "de/dde/a02695.html#afb5b0b1c92a599026e4c2b8dcc19e1d1", null ],
     [ "getP", "de/dde/a02695.html#ab6cadfdee75922542d017c987e772e1a", null ],

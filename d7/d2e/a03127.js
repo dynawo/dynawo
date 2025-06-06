@@ -1,7 +1,7 @@
 var a03127 =
 [
     [ "ModelPhaseTapChanger", "d7/d2e/a03127.html#ae2884c6ffa913078f7d30827a89ec96f", null ],
-    [ "~ModelPhaseTapChanger", "d7/d2e/a03127.html#a0bada648a98ba402e1dc0534c2d6fc71", null ],
+    [ "~ModelPhaseTapChanger", "d7/d2e/a03127.html#a3f7dd9507b46baab3e3c0129c670dbd5", null ],
     [ "dumpInternalVariables", "d7/d2e/a03127.html#af2b28c4ebc370c3aa44217b6c09f9668", null ],
     [ "evalG", "d7/d2e/a03127.html#a70af792a6f59a64f61e4fa7c5123fe6f", null ],
     [ "evalZ", "d7/d2e/a03127.html#ae92a3ffd70641259da7dddb8b1bc7334", null ],

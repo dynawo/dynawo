@@ -118,12 +118,12 @@ Inheritance diagram for dynamicdata::XmlImporter:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:adea09f281612d595da8f520f8367940d"><td class="memItemLeft" align="right" valign="top">boost::shared_ptr&lt; <a class="el" href="../../d1/dab/a01767.html">DynamicModelsCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dd8/a01943.html#adea09f281612d595da8f520f8367940d">importFromDydFiles</a> (const std::vector&lt; std::string &gt; &amp;fileNames) const</td></tr>
-<tr class="memdesc:adea09f281612d595da8f520f8367940d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Import dynamic models collection from files.  <a href="#adea09f281612d595da8f520f8367940d">More...</a><br /></td></tr>
-<tr class="separator:adea09f281612d595da8f520f8367940d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa034c1cbacb40ff279c3873a928bbafb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dd8/a01943.html#aa034c1cbacb40ff279c3873a928bbafb">importFromStream</a> (std::istream &amp;stream, <a class="el" href="../../d4/d25/a01939.html">XmlHandler</a> &amp;dydHandler, xml::sax::parser::ParserPtr &amp;parser, bool xsdValidation) const</td></tr>
-<tr class="memdesc:aa034c1cbacb40ff279c3873a928bbafb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Import dynamic models collection from stream.  <a href="#aa034c1cbacb40ff279c3873a928bbafb">More...</a><br /></td></tr>
-<tr class="separator:aa034c1cbacb40ff279c3873a928bbafb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a563da63d085dba51ae473198183d3964"><td class="memItemLeft" align="right" valign="top">boost::shared_ptr&lt; <a class="el" href="../../d1/dab/a01767.html">DynamicModelsCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dd8/a01943.html#a563da63d085dba51ae473198183d3964">importFromDydFiles</a> (const std::vector&lt; std::string &gt; &amp;fileNames) const override</td></tr>
+<tr class="memdesc:a563da63d085dba51ae473198183d3964"><td class="mdescLeft">&#160;</td><td class="mdescRight">Import dynamic models collection from files.  <a href="#a563da63d085dba51ae473198183d3964">More...</a><br /></td></tr>
+<tr class="separator:a563da63d085dba51ae473198183d3964"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba87c5fa7193b89d9cf1af4c17aa2680"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dd8/a01943.html#aba87c5fa7193b89d9cf1af4c17aa2680">importFromStream</a> (std::istream &amp;stream, <a class="el" href="../../d4/d25/a01939.html">XmlHandler</a> &amp;dydHandler, xml::sax::parser::ParserPtr &amp;parser, bool xsdValidation) const override</td></tr>
+<tr class="memdesc:aba87c5fa7193b89d9cf1af4c17aa2680"><td class="mdescLeft">&#160;</td><td class="mdescRight">Import dynamic models collection from stream.  <a href="#aba87c5fa7193b89d9cf1af4c17aa2680">More...</a><br /></td></tr>
+<tr class="separator:aba87c5fa7193b89d9cf1af4c17aa2680"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_a01787"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a01787')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../de/dc3/a01787.html">dynamicdata::Importer</a></td></tr>
 <tr class="memitem:a7fb7ed178989c1359a2cd67383713b2e inherit pub_methods_a01787"><td class="memItemLeft" align="right" valign="top"><a id="a7fb7ed178989c1359a2cd67383713b2e"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dc3/a01787.html#a7fb7ed178989c1359a2cd67383713b2e">~Importer</a> ()=default</td></tr>
@@ -134,8 +134,8 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <div class="textblock"><p>XML importer interface class. </p>
 <p>XML import class for dynamic models collections. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="adea09f281612d595da8f520f8367940d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adea09f281612d595da8f520f8367940d">&#9670;&nbsp;</a></span>importFromDydFiles()</h2>
+<a id="a563da63d085dba51ae473198183d3964"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a563da63d085dba51ae473198183d3964">&#9670;&nbsp;</a></span>importFromDydFiles()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -153,7 +153,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -171,8 +171,8 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 
 </div>
 </div>
-<a id="aa034c1cbacb40ff279c3873a928bbafb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa034c1cbacb40ff279c3873a928bbafb">&#9670;&nbsp;</a></span>importFromStream()</h2>
+<a id="aba87c5fa7193b89d9cf1af4c17aa2680"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba87c5fa7193b89d9cf1af4c17aa2680">&#9670;&nbsp;</a></span>importFromStream()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -212,7 +212,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -252,7 +252,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>dynamicdata</b></li><li class="navelem"><a class="el" href="../../df/dd8/a01943.html">XmlImporter</a></li>
-    <li class="footer">Generated on Thu Jun 5 2025 13:50:12 for Dynawo by
+    <li class="footer">Generated on Fri Jun 6 2025 10:06:05 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

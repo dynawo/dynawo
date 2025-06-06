@@ -119,10 +119,10 @@ Inheritance diagram for DYN::ThreeWTransformerInterface:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:afb75f36474f44cd04dad27727db07008"><td class="memItemLeft" align="right" valign="top"><a id="afb75f36474f44cd04dad27727db07008"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d97/a02835.html#afb75f36474f44cd04dad27727db07008">~ThreeWTransformerInterface</a> ()=default</td></tr>
-<tr class="memdesc:afb75f36474f44cd04dad27727db07008"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:afb75f36474f44cd04dad27727db07008"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab35dda502b8727cfb78bf6a6c145f73b"><td class="memItemLeft" align="right" valign="top"><a id="ab35dda502b8727cfb78bf6a6c145f73b"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d97/a02835.html#ab35dda502b8727cfb78bf6a6c145f73b">~ThreeWTransformerInterface</a> () override=default</td></tr>
+<tr class="memdesc:ab35dda502b8727cfb78bf6a6c145f73b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:ab35dda502b8727cfb78bf6a6c145f73b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad881326ccedf7573befa0040f2e5fa0e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d97/a02835.html#ad881326ccedf7573befa0040f2e5fa0e">addCurrentLimitInterface1</a> (std::unique_ptr&lt; <a class="el" href="../../de/d3e/a02727.html">CurrentLimitInterface</a> &gt; currentLimitInterface)=0</td></tr>
 <tr class="memdesc:ad881326ccedf7573befa0040f2e5fa0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a curent limit interface for side 1.  <a href="#ad881326ccedf7573befa0040f2e5fa0e">More...</a><br /></td></tr>
 <tr class="separator:ad881326ccedf7573befa0040f2e5fa0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -171,9 +171,9 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <tr class="memitem:a03570e4ebdfdbf1d5a99e15b819fbd1d"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="../../d5/d25/a02687.html">BusInterface</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d97/a02835.html#a03570e4ebdfdbf1d5a99e15b819fbd1d">getBusInterface3</a> () const =0</td></tr>
 <tr class="memdesc:a03570e4ebdfdbf1d5a99e15b819fbd1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the tfo's bus interface side 3.  <a href="#a03570e4ebdfdbf1d5a99e15b819fbd1d">More...</a><br /></td></tr>
 <tr class="separator:a03570e4ebdfdbf1d5a99e15b819fbd1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50c819e439d89f0d7e260ae2a6789376"><td class="memItemLeft" align="right" valign="top">virtual const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d97/a02835.html#a50c819e439d89f0d7e260ae2a6789376">getID</a> () const =0</td></tr>
-<tr class="memdesc:a50c819e439d89f0d7e260ae2a6789376"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the tfo's id.  <a href="#a50c819e439d89f0d7e260ae2a6789376">More...</a><br /></td></tr>
-<tr class="separator:a50c819e439d89f0d7e260ae2a6789376"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0ba664ce03f4988f2f6a8d1d5ae99f5"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d97/a02835.html#ae0ba664ce03f4988f2f6a8d1d5ae99f5">getID</a> () const override=0</td></tr>
+<tr class="memdesc:ae0ba664ce03f4988f2f6a8d1d5ae99f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the tfo's id.  <a href="#ae0ba664ce03f4988f2f6a8d1d5ae99f5">More...</a><br /></td></tr>
+<tr class="separator:ae0ba664ce03f4988f2f6a8d1d5ae99f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afc5de636ab69d95dd87758e4977949f2"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d97/a02835.html#afc5de636ab69d95dd87758e4977949f2">getInitialConnected1</a> ()=0</td></tr>
 <tr class="memdesc:afc5de636ab69d95dd87758e4977949f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the initial connection state of the tfo's side 1.  <a href="#afc5de636ab69d95dd87758e4977949f2">More...</a><br /></td></tr>
 <tr class="separator:afc5de636ab69d95dd87758e4977949f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -183,9 +183,9 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <tr class="memitem:a756d71e2facdd1ed54c28067e57fbdcf"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d97/a02835.html#a756d71e2facdd1ed54c28067e57fbdcf">getInitialConnected3</a> ()=0</td></tr>
 <tr class="memdesc:a756d71e2facdd1ed54c28067e57fbdcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the initial connection state of the tfo's side 3.  <a href="#a756d71e2facdd1ed54c28067e57fbdcf">More...</a><br /></td></tr>
 <tr class="separator:a756d71e2facdd1ed54c28067e57fbdcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a5f175dcf05b628ae4695609ec8c9a3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d97/a02835.html#a9a5f175dcf05b628ae4695609ec8c9a3">exportStateVariablesUnitComponent</a> ()=0</td></tr>
-<tr class="memdesc:a9a5f175dcf05b628ae4695609ec8c9a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">update iidm structure from state variables for each unit component  <a href="#a9a5f175dcf05b628ae4695609ec8c9a3">More...</a><br /></td></tr>
-<tr class="separator:a9a5f175dcf05b628ae4695609ec8c9a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a131a373ee8b5baf7c71c3564b33641ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d97/a02835.html#a131a373ee8b5baf7c71c3564b33641ca">exportStateVariablesUnitComponent</a> () override=0</td></tr>
+<tr class="memdesc:a131a373ee8b5baf7c71c3564b33641ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">update iidm structure from state variables for each unit component  <a href="#a131a373ee8b5baf7c71c3564b33641ca">More...</a><br /></td></tr>
+<tr class="separator:a131a373ee8b5baf7c71c3564b33641ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_a02691"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a02691')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../dc/d8b/a02691.html">DYN::ComponentInterface</a></td></tr>
 <tr class="memitem:a54a4adcbcd28a26428cafa45a848e172 inherit pub_methods_a02691"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d8b/a02691.html#a54a4adcbcd28a26428cafa45a848e172">ComponentInterface</a> (bool <a class="el" href="../../dc/d8b/a02691.html#a9be4aae7894693081ca3436f3d8aa328">hasInitialConditions</a>=true)</td></tr>
 <tr class="memdesc:a54a4adcbcd28a26428cafa45a848e172 inherit pub_methods_a02691"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="../../dc/d8b/a02691.html#a54a4adcbcd28a26428cafa45a848e172">More...</a><br /></td></tr>
@@ -331,7 +331,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#a19907593465a5436c89fadd0f8f7d07c">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#a258575ff296954d07a6300cc4d996833">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -367,7 +367,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#acaae1cc33d9a984f251e576cc276cc45">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#aed59aa54d8c37c32e90d755a90b83fb6">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -403,12 +403,12 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#a6fa7496a2c390c3c6cc07e527681e636">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#ad3818f24eb708384242652d381530645">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
-<a id="a9a5f175dcf05b628ae4695609ec8c9a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9a5f175dcf05b628ae4695609ec8c9a3">&#9670;&nbsp;</a></span>exportStateVariablesUnitComponent()</h2>
+<a id="a131a373ee8b5baf7c71c3564b33641ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a131a373ee8b5baf7c71c3564b33641ca">&#9670;&nbsp;</a></span>exportStateVariablesUnitComponent()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -417,7 +417,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::ThreeWTransformerInterface::exportStateVariablesUnitComponent </td>
+          <td class="memname">void DYN::ThreeWTransformerInterface::exportStateVariablesUnitComponent </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -425,7 +425,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -434,7 +434,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 
 <p>Implements <a class="el" href="../../dc/d8b/a02691.html#a24a19ea150b9d118f6b365cdbabcacff">DYN::ComponentInterface</a>.</p>
 
-<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#af5cf5efa6c7c23b75062c301d8235525">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#af4dbd892206ff6c70084898aa8631897">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -494,7 +494,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the tfo's bus interface side 1. </p>
 <dl class="section return"><dt>Returns</dt><dd>busInterface of the bus where the side 1 of the tfo is connected </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#a07f0a3b2831dfe8809a32601d1f842d7">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#a789150d2bc14b4bdb40c00785a6d2702">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -524,7 +524,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the tfo's bus interface side 2. </p>
 <dl class="section return"><dt>Returns</dt><dd>busInterface of the bus where the side 2 of the tfo is connected </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#af319e3eed24abe63da841be39eccc8f6">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#a40d5953102a53bcf4b55c7335be472b8">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -554,7 +554,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the tfo's bus interface side 3. </p>
 <dl class="section return"><dt>Returns</dt><dd>busInterface of the bus where the side 3 of the tfo is connected </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#af0ba12b2fbe47e94033ae3289972568d">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#ae54059caf78f4b44dcce9eb9c8dc0a06">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -584,7 +584,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the current limit interfaces for side 1. </p>
 <dl class="section return"><dt>Returns</dt><dd>currentLimitInterface of the tfo's side 1 </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#a38776589d87e2c3a6deb9c6b5a92f0cc">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#ad0287808bd55a93f3da885aa8248b0e1">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -614,7 +614,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the current limit interfaces for side 2. </p>
 <dl class="section return"><dt>Returns</dt><dd>currentLimitInterface of the tfo's side 2 </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#ab764a085b59b57c129ae1f14ea4a1591">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#a35ef055bc199ae76f3c675ec3442f00c">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -644,12 +644,12 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the current limit interfaces for side 3. </p>
 <dl class="section return"><dt>Returns</dt><dd>currentLimitInterface of the tfo's side 3 </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#aacf516ff8d2fa0dea73628c25ad4c4f1">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#a571d9a6fa5a2992ecf0a908224845e35">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
-<a id="a50c819e439d89f0d7e260ae2a6789376"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50c819e439d89f0d7e260ae2a6789376">&#9670;&nbsp;</a></span>getID()</h2>
+<a id="ae0ba664ce03f4988f2f6a8d1d5ae99f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0ba664ce03f4988f2f6a8d1d5ae99f5">&#9670;&nbsp;</a></span>getID()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -658,7 +658,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual const std::string&amp; DYN::ThreeWTransformerInterface::getID </td>
+          <td class="memname">const std::string&amp; DYN::ThreeWTransformerInterface::getID </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -666,7 +666,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -676,7 +676,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 
 <p>Implements <a class="el" href="../../dc/d8b/a02691.html#a452b88bee7f575411dc10043cbc09bd5">DYN::ComponentInterface</a>.</p>
 
-<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#aeab36648146d1a3dc92b6662e27c1914">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#a1b9f7de5882d086077d565bc94fb10f4">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -706,7 +706,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the initial connection state of the tfo's side 1. </p>
 <dl class="section return"><dt>Returns</dt><dd><b>true</b> if the tfo's side 1 is connected, <b>false</b> else </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#ad1a0eebba1039c23d715e201a29d90db">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#a9e3830e13b7008a4e5b652562a96f32d">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -736,7 +736,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the initial connection state of the tfo's side 2. </p>
 <dl class="section return"><dt>Returns</dt><dd><b>true</b> if the tfo's side 2 is connected, <b>false</b> else </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#a08a2e31e09e525011658875c48c81b3d">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#aead74a2aaebe0fe7f48f44ec4f4a2895">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -766,7 +766,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the initial connection state of the tfo's side 3. </p>
 <dl class="section return"><dt>Returns</dt><dd><b>true</b> if the tfo's side 3 is connected, <b>false</b> else </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#a3948b31e29ae88872d474ffe859abff2">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#a2780bf8e7d6e22d9026a3057e1bc6d99">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -802,7 +802,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#a96c73b4983b2840243d6020b089a97b8">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#a5018a8f16921edd4e00ce5d0ae5fd5bd">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -838,7 +838,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#aac5e9116021c21f8091f9373dc729f17">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#a604928182e573c13edb789bee276cc70">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -874,7 +874,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#acf566bf3f894188337af308181310cdb">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#a90c9cf6e7b3b014184a57cbdf897feab">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -910,7 +910,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#a72551c54da8e37d191526b309ea16ebb">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#a77e7ee374ca4e24247932bac55b78994">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -946,7 +946,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#a74097cde9e5bd67d27f275e0eeed4fa3">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#aa18f3b1bd17fc738216d10a41c3717a1">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -982,7 +982,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#af8e3648f64aa72707fe7b4cc876b33e5">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d2f/a02983.html#a213d62ae4c62d3bc24827cbb4429eac1">DYN::ThreeWTransformerInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -1006,7 +1006,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d6/d97/a02835.html">ThreeWTransformerInterface</a></li>
-    <li class="footer">Generated on Thu Jun 5 2025 13:50:12 for Dynawo by
+    <li class="footer">Generated on Fri Jun 6 2025 10:06:05 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

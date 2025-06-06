@@ -115,7 +115,7 @@ $(document).ready(function(){initNavTree('de/dde/a02695.html','../../');});
   <tr><td class="entry"><a class="el" href="../../de/dde/a02695.html#a97f4a8485ae1851ffdec2fb2192b6780">getBusInterface</a>() const =0</td><td class="entry"><a class="el" href="../../de/dde/a02695.html">DYN::ConverterInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="../../dc/d8b/a02691.html#a6d167dccb153a1ffcee78ad0f2e3a72e">getComponentVarIndex</a>(const std::string &amp;varName) const =0</td><td class="entry"><a class="el" href="../../dc/d8b/a02691.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
   <tr><td class="entry"><a class="el" href="../../de/dde/a02695.html#ae59b0310f6bfd4365bce2d716c240b5a">getConverterType</a>() const</td><td class="entry"><a class="el" href="../../de/dde/a02695.html">DYN::ConverterInterface</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../de/dde/a02695.html#a1ea6d54ebc1298a74010de65fca05604">getID</a>() const =0</td><td class="entry"><a class="el" href="../../de/dde/a02695.html">DYN::ConverterInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../de/dde/a02695.html#ad508621557328d1967d8cfa60c69cf09">getID</a>() const override=0</td><td class="entry"><a class="el" href="../../de/dde/a02695.html">DYN::ConverterInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
   <tr><td class="entry"><a class="el" href="../../de/dde/a02695.html#ac7d0bd1eba8523973400eab30bf342a6">getInitialConnected</a>()=0</td><td class="entry"><a class="el" href="../../de/dde/a02695.html">DYN::ConverterInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="../../de/dde/a02695.html#afb5b0b1c92a599026e4c2b8dcc19e1d1">getLossFactor</a>() const =0</td><td class="entry"><a class="el" href="../../de/dde/a02695.html">DYN::ConverterInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
   <tr><td class="entry"><a class="el" href="../../de/dde/a02695.html#ab6cadfdee75922542d017c987e772e1a">getP</a>()=0</td><td class="entry"><a class="el" href="../../de/dde/a02695.html">DYN::ConverterInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
@@ -156,7 +156,7 @@ $(document).ready(function(){initNavTree('de/dde/a02695.html','../../');});
   <tr class="even"><td class="entry"><a class="el" href="../../dc/d8b/a02691.html#ab673e4fea551130c3776e4a0fda6fea6">updateFromModel</a>(bool filterForCriteriaCheck)</td><td class="entry"><a class="el" href="../../dc/d8b/a02691.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="../../de/dde/a02695.html#a2b86b878e89974293374c1c37ed381c9a550a6bcb27400d1116fee17ac3c6696c">VSC_CONVERTER</a> enum value</td><td class="entry"><a class="el" href="../../de/dde/a02695.html">DYN::ConverterInterface</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="../../dc/d8b/a02691.html#aaeea1b605a906a6b2772ff8b092dc17b">~ComponentInterface</a>()=default</td><td class="entry"><a class="el" href="../../dc/d8b/a02691.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../de/dde/a02695.html#a4ab9164d52112da364b469030d146e7c">~ConverterInterface</a>()=default</td><td class="entry"><a class="el" href="../../de/dde/a02695.html">DYN::ConverterInterface</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../de/dde/a02695.html#a8a20ecde1390fc224404f7622ed6a50c">~ConverterInterface</a>() override=default</td><td class="entry"><a class="el" href="../../de/dde/a02695.html">DYN::ConverterInterface</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -173,7 +173,7 @@ $(document).ready(function(){initNavTree('de/dde/a02695.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Thu Jun 5 2025 13:50:11 for Dynawo by
+    <li class="footer">Generated on Fri Jun 6 2025 10:06:04 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

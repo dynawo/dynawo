@@ -118,12 +118,12 @@ Inheritance diagram for externalVariables::XmlImporter:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0b582394a22d67040808964d9757efcc"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d3/dce/a01963.html">VariablesCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dd6/a01983.html#a0b582394a22d67040808964d9757efcc">importFromFile</a> (const std::string &amp;fileName) const</td></tr>
-<tr class="memdesc:a0b582394a22d67040808964d9757efcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Import external (i.e. C++-connected) variables.  <a href="#a0b582394a22d67040808964d9757efcc">More...</a><br /></td></tr>
-<tr class="separator:a0b582394a22d67040808964d9757efcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a640c4d90004fec95cb71a65aaf4bb041"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d3/dce/a01963.html">VariablesCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dd6/a01983.html#a640c4d90004fec95cb71a65aaf4bb041">importFromStream</a> (std::istream &amp;stream) const</td></tr>
-<tr class="memdesc:a640c4d90004fec95cb71a65aaf4bb041"><td class="mdescLeft">&#160;</td><td class="mdescRight">Import external (i.e. C++-connected) variables.  <a href="#a640c4d90004fec95cb71a65aaf4bb041">More...</a><br /></td></tr>
-<tr class="separator:a640c4d90004fec95cb71a65aaf4bb041"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af720b43a8f65a2648302b771ed1705d7"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d3/dce/a01963.html">VariablesCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dd6/a01983.html#af720b43a8f65a2648302b771ed1705d7">importFromFile</a> (const std::string &amp;fileName) const override</td></tr>
+<tr class="memdesc:af720b43a8f65a2648302b771ed1705d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Import external (i.e. C++-connected) variables.  <a href="#af720b43a8f65a2648302b771ed1705d7">More...</a><br /></td></tr>
+<tr class="separator:af720b43a8f65a2648302b771ed1705d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af31d1e252b0178f3592ef3504a0facd2"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d3/dce/a01963.html">VariablesCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dd6/a01983.html#af31d1e252b0178f3592ef3504a0facd2">importFromStream</a> (std::istream &amp;stream) const override</td></tr>
+<tr class="memdesc:af31d1e252b0178f3592ef3504a0facd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Import external (i.e. C++-connected) variables.  <a href="#af31d1e252b0178f3592ef3504a0facd2">More...</a><br /></td></tr>
+<tr class="separator:af31d1e252b0178f3592ef3504a0facd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_a01951"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a01951')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d8/ddf/a01951.html">externalVariables::Importer</a></td></tr>
 <tr class="memitem:a93f76660e61ef93618c1ff07a4c11413 inherit pub_methods_a01951"><td class="memItemLeft" align="right" valign="top"><a id="a93f76660e61ef93618c1ff07a4c11413"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/ddf/a01951.html#a93f76660e61ef93618c1ff07a4c11413">~Importer</a> ()=default</td></tr>
@@ -134,8 +134,8 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <div class="textblock"><p>XML importer interface class. </p>
 <p>XML import class for external variables collections. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a0b582394a22d67040808964d9757efcc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0b582394a22d67040808964d9757efcc">&#9670;&nbsp;</a></span>importFromFile()</h2>
+<a id="af720b43a8f65a2648302b771ed1705d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af720b43a8f65a2648302b771ed1705d7">&#9670;&nbsp;</a></span>importFromFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -153,7 +153,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -171,8 +171,8 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 
 </div>
 </div>
-<a id="a640c4d90004fec95cb71a65aaf4bb041"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a640c4d90004fec95cb71a65aaf4bb041">&#9670;&nbsp;</a></span>importFromStream()</h2>
+<a id="af31d1e252b0178f3592ef3504a0facd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af31d1e252b0178f3592ef3504a0facd2">&#9670;&nbsp;</a></span>importFromStream()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -190,7 +190,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -228,7 +228,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>externalVariables</b></li><li class="navelem"><a class="el" href="../../d6/dd6/a01983.html">XmlImporter</a></li>
-    <li class="footer">Generated on Thu Jun 5 2025 13:50:12 for Dynawo by
+    <li class="footer">Generated on Fri Jun 6 2025 10:06:05 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

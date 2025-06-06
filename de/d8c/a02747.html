@@ -122,10 +122,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a19583e84706e1a82b8994a59427b513c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d8c/a02747.html#a19583e84706e1a82b8994a59427b513c">DanglingLineInterface</a> (bool <a class="el" href="../../dc/d8b/a02691.html#a9be4aae7894693081ca3436f3d8aa328">hasInitialConditions</a>=true)</td></tr>
 <tr class="memdesc:a19583e84706e1a82b8994a59427b513c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a19583e84706e1a82b8994a59427b513c">More...</a><br /></td></tr>
 <tr class="separator:a19583e84706e1a82b8994a59427b513c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad51c745da08519b5ca680b76d9cb0829"><td class="memItemLeft" align="right" valign="top"><a id="ad51c745da08519b5ca680b76d9cb0829"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d8c/a02747.html#ad51c745da08519b5ca680b76d9cb0829">~DanglingLineInterface</a> ()=default</td></tr>
-<tr class="memdesc:ad51c745da08519b5ca680b76d9cb0829"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:ad51c745da08519b5ca680b76d9cb0829"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd9cd02814ee4ec259d40141d9a7c110"><td class="memItemLeft" align="right" valign="top"><a id="afd9cd02814ee4ec259d40141d9a7c110"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d8c/a02747.html#afd9cd02814ee4ec259d40141d9a7c110">~DanglingLineInterface</a> () override=default</td></tr>
+<tr class="memdesc:afd9cd02814ee4ec259d40141d9a7c110"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:afd9cd02814ee4ec259d40141d9a7c110"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae93e7bade62a212fa814036236a7932a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d8c/a02747.html#ae93e7bade62a212fa814036236a7932a">addCurrentLimitInterface</a> (std::unique_ptr&lt; <a class="el" href="../../de/d3e/a02727.html">CurrentLimitInterface</a> &gt; currentLimitInterface)=0</td></tr>
 <tr class="memdesc:ae93e7bade62a212fa814036236a7932a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a curent limit interface.  <a href="#ae93e7bade62a212fa814036236a7932a">More...</a><br /></td></tr>
 <tr class="separator:ae93e7bade62a212fa814036236a7932a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -171,12 +171,12 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <tr class="memitem:a9ab5a8d800e6f12ee7bbdb64a5495a0f"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d8c/a02747.html#a9ab5a8d800e6f12ee7bbdb64a5495a0f">getInitialConnected</a> ()=0</td></tr>
 <tr class="memdesc:a9ab5a8d800e6f12ee7bbdb64a5495a0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for initial connection state of the dangling line.  <a href="#a9ab5a8d800e6f12ee7bbdb64a5495a0f">More...</a><br /></td></tr>
 <tr class="separator:a9ab5a8d800e6f12ee7bbdb64a5495a0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03c3d02387f53e6d4aa8d40349fd4518"><td class="memItemLeft" align="right" valign="top">virtual const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d8c/a02747.html#a03c3d02387f53e6d4aa8d40349fd4518">getID</a> () const =0</td></tr>
-<tr class="memdesc:a03c3d02387f53e6d4aa8d40349fd4518"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the dangling line's id.  <a href="#a03c3d02387f53e6d4aa8d40349fd4518">More...</a><br /></td></tr>
-<tr class="separator:a03c3d02387f53e6d4aa8d40349fd4518"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab3a12d65150dedb6b4d968ee0b17e832"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d8c/a02747.html#ab3a12d65150dedb6b4d968ee0b17e832">exportStateVariablesUnitComponent</a> ()=0</td></tr>
-<tr class="memdesc:ab3a12d65150dedb6b4d968ee0b17e832"><td class="mdescLeft">&#160;</td><td class="mdescRight">update iidm structure from state variables for each unit component  <a href="#ab3a12d65150dedb6b4d968ee0b17e832">More...</a><br /></td></tr>
-<tr class="separator:ab3a12d65150dedb6b4d968ee0b17e832"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f28cc4215ad05204be880b12bb23772"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d8c/a02747.html#a4f28cc4215ad05204be880b12bb23772">getID</a> () const override=0</td></tr>
+<tr class="memdesc:a4f28cc4215ad05204be880b12bb23772"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the dangling line's id.  <a href="#a4f28cc4215ad05204be880b12bb23772">More...</a><br /></td></tr>
+<tr class="separator:a4f28cc4215ad05204be880b12bb23772"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8c1400930bae103c32559c88a58c2f0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d8c/a02747.html#ac8c1400930bae103c32559c88a58c2f0">exportStateVariablesUnitComponent</a> () override=0</td></tr>
+<tr class="memdesc:ac8c1400930bae103c32559c88a58c2f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">update iidm structure from state variables for each unit component  <a href="#ac8c1400930bae103c32559c88a58c2f0">More...</a><br /></td></tr>
+<tr class="separator:ac8c1400930bae103c32559c88a58c2f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_a02691"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a02691')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../dc/d8b/a02691.html">DYN::ComponentInterface</a></td></tr>
 <tr class="memitem:a54a4adcbcd28a26428cafa45a848e172 inherit pub_methods_a02691"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d8b/a02691.html#a54a4adcbcd28a26428cafa45a848e172">ComponentInterface</a> (bool <a class="el" href="../../dc/d8b/a02691.html#a9be4aae7894693081ca3436f3d8aa328">hasInitialConditions</a>=true)</td></tr>
 <tr class="memdesc:a54a4adcbcd28a26428cafa45a848e172 inherit pub_methods_a02691"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="../../dc/d8b/a02691.html#a54a4adcbcd28a26428cafa45a848e172">More...</a><br /></td></tr>
@@ -357,12 +357,12 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#a5a47f4738402555123ca1cac62d1a3ac">DYN::DanglingLineInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#a6d448c6de9701fcd704eb480382dfdac">DYN::DanglingLineInterfaceIIDM</a>.</p>
 
 </div>
 </div>
-<a id="ab3a12d65150dedb6b4d968ee0b17e832"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab3a12d65150dedb6b4d968ee0b17e832">&#9670;&nbsp;</a></span>exportStateVariablesUnitComponent()</h2>
+<a id="ac8c1400930bae103c32559c88a58c2f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8c1400930bae103c32559c88a58c2f0">&#9670;&nbsp;</a></span>exportStateVariablesUnitComponent()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -371,7 +371,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::DanglingLineInterface::exportStateVariablesUnitComponent </td>
+          <td class="memname">void DYN::DanglingLineInterface::exportStateVariablesUnitComponent </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -379,7 +379,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -388,7 +388,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 
 <p>Implements <a class="el" href="../../dc/d8b/a02691.html#a24a19ea150b9d118f6b365cdbabcacff">DYN::ComponentInterface</a>.</p>
 
-<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#a7a40c7e7dea3827160d0fb828fe2e68d">DYN::DanglingLineInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#a4d805f1fe795c67c77b2784fa47c6f58">DYN::DanglingLineInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -418,7 +418,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the susceptance of the dangling line. </p>
 <dl class="section return"><dt>Returns</dt><dd>The susceptance of the dangling line in siemens </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#aa408313604aa9dd7636ae0ba328123ec">DYN::DanglingLineInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#aa1bd574dc3a6d8b319f0146d59f8f06e">DYN::DanglingLineInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -448,7 +448,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the danglingLine's bus interface. </p>
 <dl class="section return"><dt>Returns</dt><dd>busInterface of the bus where the dangling line is connected </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#a072f74a4338980eb4dc52301e35bc20c">DYN::DanglingLineInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#ad2bed0edf47a74ede8d13087cd5c5df8">DYN::DanglingLineInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -478,7 +478,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the current limit interfaces f. </p>
 <dl class="section return"><dt>Returns</dt><dd>currentLimitInterface of the danglingline </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#a3e12338efe43d9478f3e750a2af5ffbf">DYN::DanglingLineInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#ac0f409f73f8437337d8e6692d02b14ba">DYN::DanglingLineInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -508,12 +508,12 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the conductance of the dangling line. </p>
 <dl class="section return"><dt>Returns</dt><dd>The conductance of the dangling line in siemens </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#ab38b797ac8d860615f3796b2dbb4e081">DYN::DanglingLineInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#a9de88c8fbcc0b0ad2e81020b0e552a81">DYN::DanglingLineInterfaceIIDM</a>.</p>
 
 </div>
 </div>
-<a id="a03c3d02387f53e6d4aa8d40349fd4518"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03c3d02387f53e6d4aa8d40349fd4518">&#9670;&nbsp;</a></span>getID()</h2>
+<a id="a4f28cc4215ad05204be880b12bb23772"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f28cc4215ad05204be880b12bb23772">&#9670;&nbsp;</a></span>getID()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -522,7 +522,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual const std::string&amp; DYN::DanglingLineInterface::getID </td>
+          <td class="memname">const std::string&amp; DYN::DanglingLineInterface::getID </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -530,7 +530,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -540,7 +540,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 
 <p>Implements <a class="el" href="../../dc/d8b/a02691.html#a452b88bee7f575411dc10043cbc09bd5">DYN::ComponentInterface</a>.</p>
 
-<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#a8af9e2337f29ba03de02b11ec5b5e1c6">DYN::DanglingLineInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#aa0d20c9f3ae7a081904b1350ba478b31">DYN::DanglingLineInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -570,7 +570,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for initial connection state of the dangling line. </p>
 <dl class="section return"><dt>Returns</dt><dd><b>true</b> is the dangling line is connected, <b>false</b> else </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#a26dc13d72ad800d2bed067a7db69d4b8">DYN::DanglingLineInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#aa435e17ce5eff5981440045de9528935">DYN::DanglingLineInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -600,7 +600,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the active power of the dangling line. </p>
 <dl class="section return"><dt>Returns</dt><dd>The active power of the dangling line in MW </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#ab5d03fc663a07af9ae305ee720f8e7f7">DYN::DanglingLineInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#ad842ec6f97b7c3e0914a481a67b1f702">DYN::DanglingLineInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -630,7 +630,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the active power of the load injection. </p>
 <dl class="section return"><dt>Returns</dt><dd>The active power of the load injection in MW </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#a65c8d545b65bdd15c1a890ebda5fac61">DYN::DanglingLineInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#aaceb7cdeb34a8d49aa1a2f901e00f05b">DYN::DanglingLineInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -660,7 +660,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the reactive power of the dangling line. </p>
 <dl class="section return"><dt>Returns</dt><dd>The reactive power of the dangling line in Mvar </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#a3365b5d78643b1fdd374f13b406eaadb">DYN::DanglingLineInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#acbb789a05d87380adc7c378a374a650b">DYN::DanglingLineInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -690,7 +690,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the reactive power of the load injection. </p>
 <dl class="section return"><dt>Returns</dt><dd>The reactive power of the load injection in Mvar </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#a9db6d48600ecd7034a8193b3dd8a806c">DYN::DanglingLineInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#a845e206e65e252459b36fd9e60f7c785">DYN::DanglingLineInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -720,7 +720,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the resistance of the dangling line. </p>
 <dl class="section return"><dt>Returns</dt><dd>The resistance of the dangling line in ohm </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#a8102671bc9216fa97093b59ba7ed948e">DYN::DanglingLineInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#a9904a2703050918309e3251f4657514d">DYN::DanglingLineInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -750,7 +750,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the bus nominal voltage where the dangling line is connected. </p>
 <dl class="section return"><dt>Returns</dt><dd>The bus nominal voltage where the dangling line is connected in kV </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#ab35c7b6bd6a0d999a7b1c5072537e27a">DYN::DanglingLineInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#ac217c5c4255153893aac8a085e4db299">DYN::DanglingLineInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -780,7 +780,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the reactance of the dangling line. </p>
 <dl class="section return"><dt>Returns</dt><dd>The reactance of the dangling line in ohm </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#a3dbfc75aa894f69466f3ba0637a78ff1">DYN::DanglingLineInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#a84d9aabee6dc9d1c1577f5db1bdeaf96">DYN::DanglingLineInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -816,7 +816,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#a863046cc317d65f4146cf5838661e4e1">DYN::DanglingLineInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#a586963f47c64538c7b3017d23a759778">DYN::DanglingLineInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -852,7 +852,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#ab97ab1391812eca86404eee8deaa0f51">DYN::DanglingLineInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d2/d80/a02875.html#a92cacb4ef8773df550025397530f3d0b">DYN::DanglingLineInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -876,7 +876,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../de/d8c/a02747.html">DanglingLineInterface</a></li>
-    <li class="footer">Generated on Thu Jun 5 2025 13:50:11 for Dynawo by
+    <li class="footer">Generated on Fri Jun 6 2025 10:06:04 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

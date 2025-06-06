@@ -116,10 +116,10 @@ Inheritance diagram for DYN::SwitchInterface:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac406180558ca4d76cd0b0806bb51e74a"><td class="memItemLeft" align="right" valign="top"><a id="ac406180558ca4d76cd0b0806bb51e74a"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/df5/a02827.html#ac406180558ca4d76cd0b0806bb51e74a">~SwitchInterface</a> ()=default</td></tr>
-<tr class="memdesc:ac406180558ca4d76cd0b0806bb51e74a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:ac406180558ca4d76cd0b0806bb51e74a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09e8ac014f77d7f705f1fd5a1b482988"><td class="memItemLeft" align="right" valign="top"><a id="a09e8ac014f77d7f705f1fd5a1b482988"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/df5/a02827.html#a09e8ac014f77d7f705f1fd5a1b482988">~SwitchInterface</a> () override=default</td></tr>
+<tr class="memdesc:a09e8ac014f77d7f705f1fd5a1b482988"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:a09e8ac014f77d7f705f1fd5a1b482988"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acdd54991cade55b13dd3d9d611a9d1b3"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/df5/a02827.html#acdd54991cade55b13dd3d9d611a9d1b3">isOpen</a> () const =0</td></tr>
 <tr class="memdesc:acdd54991cade55b13dd3d9d611a9d1b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the switch's state.  <a href="#acdd54991cade55b13dd3d9d611a9d1b3">More...</a><br /></td></tr>
 <tr class="separator:acdd54991cade55b13dd3d9d611a9d1b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -131,9 +131,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/df5/a02827.html#adbfa7cb8947709a26dcdfda10365b723">close</a> ()=0</td></tr>
 <tr class="memdesc:adbfa7cb8947709a26dcdfda10365b723"><td class="mdescLeft">&#160;</td><td class="mdescRight">close the IIDM switch <br /></td></tr>
 <tr class="separator:adbfa7cb8947709a26dcdfda10365b723"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90c7c9704894d9ed70232e040a8fceb6"><td class="memItemLeft" align="right" valign="top">virtual const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/df5/a02827.html#a90c7c9704894d9ed70232e040a8fceb6">getID</a> () const =0</td></tr>
-<tr class="memdesc:a90c7c9704894d9ed70232e040a8fceb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the switch's id.  <a href="#a90c7c9704894d9ed70232e040a8fceb6">More...</a><br /></td></tr>
-<tr class="separator:a90c7c9704894d9ed70232e040a8fceb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5421d59e4ecc906278fdf0c80a5f3c12"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/df5/a02827.html#a5421d59e4ecc906278fdf0c80a5f3c12">getID</a> () const override=0</td></tr>
+<tr class="memdesc:a5421d59e4ecc906278fdf0c80a5f3c12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the switch's id.  <a href="#a5421d59e4ecc906278fdf0c80a5f3c12">More...</a><br /></td></tr>
+<tr class="separator:a5421d59e4ecc906278fdf0c80a5f3c12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e073a3767de3c14b6220efe59d72ea7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/df5/a02827.html#a5e073a3767de3c14b6220efe59d72ea7">setBusInterface1</a> (const std::shared_ptr&lt; <a class="el" href="../../d5/d25/a02687.html">BusInterface</a> &gt; &amp;busInterface)=0</td></tr>
 <tr class="memdesc:a5e073a3767de3c14b6220efe59d72ea7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the switch's bus interface side 1.  <a href="#a5e073a3767de3c14b6220efe59d72ea7">More...</a><br /></td></tr>
 <tr class="separator:a5e073a3767de3c14b6220efe59d72ea7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -146,9 +146,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <tr class="memitem:affe8d98c331718b3241dc3b50a182118"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="../../d5/d25/a02687.html">BusInterface</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/df5/a02827.html#affe8d98c331718b3241dc3b50a182118">getBusInterface2</a> () const =0</td></tr>
 <tr class="memdesc:affe8d98c331718b3241dc3b50a182118"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the switch's bus interface side 2.  <a href="#affe8d98c331718b3241dc3b50a182118">More...</a><br /></td></tr>
 <tr class="separator:affe8d98c331718b3241dc3b50a182118"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d1ced7bffc0a996a09041e548778552"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/df5/a02827.html#a9d1ced7bffc0a996a09041e548778552">exportStateVariablesUnitComponent</a> ()=0</td></tr>
-<tr class="memdesc:a9d1ced7bffc0a996a09041e548778552"><td class="mdescLeft">&#160;</td><td class="mdescRight">update iidm structure from state variables for each unit component  <a href="#a9d1ced7bffc0a996a09041e548778552">More...</a><br /></td></tr>
-<tr class="separator:a9d1ced7bffc0a996a09041e548778552"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab81bc9e5f785ee3cff9b7235666afeb2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/df5/a02827.html#ab81bc9e5f785ee3cff9b7235666afeb2">exportStateVariablesUnitComponent</a> () override=0</td></tr>
+<tr class="memdesc:ab81bc9e5f785ee3cff9b7235666afeb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">update iidm structure from state variables for each unit component  <a href="#ab81bc9e5f785ee3cff9b7235666afeb2">More...</a><br /></td></tr>
+<tr class="separator:ab81bc9e5f785ee3cff9b7235666afeb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad6ec1a8554557b6895cdf0034835a8ff"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/df5/a02827.html#ad6ec1a8554557b6895cdf0034835a8ff">isRetained</a> () const =0</td></tr>
 <tr class="memdesc:ad6ec1a8554557b6895cdf0034835a8ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">return true if this switch is retained  <a href="#ad6ec1a8554557b6895cdf0034835a8ff">More...</a><br /></td></tr>
 <tr class="separator:ad6ec1a8554557b6895cdf0034835a8ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -265,8 +265,8 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>class <a class="el" href="../../d3/df5/a02827.html">SwitchInterface</a> </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9d1ced7bffc0a996a09041e548778552"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d1ced7bffc0a996a09041e548778552">&#9670;&nbsp;</a></span>exportStateVariablesUnitComponent()</h2>
+<a id="ab81bc9e5f785ee3cff9b7235666afeb2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab81bc9e5f785ee3cff9b7235666afeb2">&#9670;&nbsp;</a></span>exportStateVariablesUnitComponent()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -275,7 +275,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::SwitchInterface::exportStateVariablesUnitComponent </td>
+          <td class="memname">void DYN::SwitchInterface::exportStateVariablesUnitComponent </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -283,7 +283,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -292,7 +292,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 
 <p>Implements <a class="el" href="../../dc/d8b/a02691.html#a24a19ea150b9d118f6b365cdbabcacff">DYN::ComponentInterface</a>.</p>
 
-<p>Implemented in <a class="el" href="../../d4/d2b/a02979.html#abac68058155dd92c10debcc2f0049101">DYN::SwitchInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d4/d2b/a02979.html#a086fdc93ae5043f02b92497aed042c46">DYN::SwitchInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -322,7 +322,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the switch's bus interface side 1. </p>
 <dl class="section return"><dt>Returns</dt><dd>busInterface of the bus where the side 1 of the switch is connected </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d4/d2b/a02979.html#a5032aa4d099c55559bb4e78316725b53">DYN::SwitchInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d4/d2b/a02979.html#a06fb2706680fb1a44f9269f637a81670">DYN::SwitchInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -352,12 +352,12 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the switch's bus interface side 2. </p>
 <dl class="section return"><dt>Returns</dt><dd>busInterface of the bus where the side 2 of the switch is connected </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d4/d2b/a02979.html#a76800a2b26e35a8d1877862eb9c484db">DYN::SwitchInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d4/d2b/a02979.html#a6bdae533c3615995516ceb46c8dccf4f">DYN::SwitchInterfaceIIDM</a>.</p>
 
 </div>
 </div>
-<a id="a90c7c9704894d9ed70232e040a8fceb6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90c7c9704894d9ed70232e040a8fceb6">&#9670;&nbsp;</a></span>getID()</h2>
+<a id="a5421d59e4ecc906278fdf0c80a5f3c12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5421d59e4ecc906278fdf0c80a5f3c12">&#9670;&nbsp;</a></span>getID()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -366,7 +366,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual const std::string&amp; DYN::SwitchInterface::getID </td>
+          <td class="memname">const std::string&amp; DYN::SwitchInterface::getID </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -374,7 +374,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -384,7 +384,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 
 <p>Implements <a class="el" href="../../dc/d8b/a02691.html#a452b88bee7f575411dc10043cbc09bd5">DYN::ComponentInterface</a>.</p>
 
-<p>Implemented in <a class="el" href="../../d4/d2b/a02979.html#a83c5f993c074d65a4a0c8a02ce89b9e4">DYN::SwitchInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d4/d2b/a02979.html#ab7927eac54818bb41752aae079df4e70">DYN::SwitchInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -414,7 +414,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the switch's state. </p>
 <dl class="section return"><dt>Returns</dt><dd><b>true</b> if the switch is open, <b>false</b> else </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d4/d2b/a02979.html#a77e333ee494e725906c016e5d0847320">DYN::SwitchInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d4/d2b/a02979.html#a3e1ae8f6ef3c28a32c37f677f48425f6">DYN::SwitchInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -444,7 +444,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>return true if this switch is retained </p>
 <dl class="section return"><dt>Returns</dt><dd>true if this switch is retained </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d4/d2b/a02979.html#af07f25073b41252f5929fd22deb1baee">DYN::SwitchInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d4/d2b/a02979.html#af99eba3e23be7bc650d3d6cb747c01ee">DYN::SwitchInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -480,7 +480,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../d4/d2b/a02979.html#ab64984810e16812bcbed804e921e9417">DYN::SwitchInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d4/d2b/a02979.html#a43c0fe97de0f33823b48334ab9eabc0b">DYN::SwitchInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -516,7 +516,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../d4/d2b/a02979.html#a8585695f0d770117b748fdd26ca6994f">DYN::SwitchInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d4/d2b/a02979.html#a5e954c28b19bb5596d2b221dbe6c00dd">DYN::SwitchInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -540,7 +540,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d3/df5/a02827.html">SwitchInterface</a></li>
-    <li class="footer">Generated on Thu Jun 5 2025 13:50:12 for Dynawo by
+    <li class="footer">Generated on Fri Jun 6 2025 10:06:05 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

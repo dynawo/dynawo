@@ -1,14 +1,14 @@
 var a02747 =
 [
     [ "DanglingLineInterface", "de/d8c/a02747.html#a19583e84706e1a82b8994a59427b513c", null ],
-    [ "~DanglingLineInterface", "de/d8c/a02747.html#ad51c745da08519b5ca680b76d9cb0829", null ],
+    [ "~DanglingLineInterface", "de/d8c/a02747.html#afd9cd02814ee4ec259d40141d9a7c110", null ],
     [ "addCurrentLimitInterface", "de/d8c/a02747.html#ae93e7bade62a212fa814036236a7932a", null ],
-    [ "exportStateVariablesUnitComponent", "de/d8c/a02747.html#ab3a12d65150dedb6b4d968ee0b17e832", null ],
+    [ "exportStateVariablesUnitComponent", "de/d8c/a02747.html#ac8c1400930bae103c32559c88a58c2f0", null ],
     [ "getB", "de/d8c/a02747.html#a6e77a863223e0379f1b60ed2b22b9587", null ],
     [ "getBusInterface", "de/d8c/a02747.html#ac441f3fcd5c5ecc0a8684b8277eb0de1", null ],
     [ "getCurrentLimitInterfaces", "de/d8c/a02747.html#a865c3f453a78e333d7c433f254bf0b3b", null ],
     [ "getG", "de/d8c/a02747.html#a102e66ddccb89df642d678cd69a99b46", null ],
-    [ "getID", "de/d8c/a02747.html#a03c3d02387f53e6d4aa8d40349fd4518", null ],
+    [ "getID", "de/d8c/a02747.html#a4f28cc4215ad05204be880b12bb23772", null ],
     [ "getInitialConnected", "de/d8c/a02747.html#a9ab5a8d800e6f12ee7bbdb64a5495a0f", null ],
     [ "getP", "de/d8c/a02747.html#acf3abeec92885e50c3a87c914855e5cc", null ],
     [ "getP0", "de/d8c/a02747.html#a21ee58a6ba4e752e4edf0fe1d5e2ee15", null ],

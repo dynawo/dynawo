@@ -103,7 +103,7 @@ $(document).ready(function(){initNavTree('d4/dff/a02723.html','../../');});
 <table class="directory">
   <tr class="even"><td class="entry"><a class="el" href="../../d4/dff/a02723.html#a7bf4cad29f2193679c993e5dd2024c7c">addGenerator</a>(const std::shared_ptr&lt; GeneratorInterface &gt; &amp;generator)</td><td class="entry"><a class="el" href="../../d4/dff/a02723.html">DYN::GeneratorCriteria</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a2a006412a6c16ae87e540f83e99f7ec3">Bound</a> enum name</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d4/dff/a02723.html#a1c2fcd1f61a42c0a4c851c083ebe260e">checkCriteria</a>(double t, bool finalStep, const boost::shared_ptr&lt; timeline::Timeline &gt; &amp;timeline=nullptr)</td><td class="entry"><a class="el" href="../../d4/dff/a02723.html">DYN::GeneratorCriteria</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/dff/a02723.html#adef044f9d4a22a2ab6eea1fac9d1cc97">checkCriteria</a>(double t, bool finalStep, const boost::shared_ptr&lt; timeline::Timeline &gt; &amp;timeline=nullptr) override</td><td class="entry"><a class="el" href="../../d4/dff/a02723.html">DYN::GeneratorCriteria</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
   <tr><td class="entry"><a class="el" href="../../d4/dff/a02723.html#a50cfab973ed86c97ae1b456f47ff84a1">checkCriteriaInLocalValueOrSumType</a>(const std::shared_ptr&lt; DYN::GeneratorInterface &gt; &amp;generator, double generatorActivePower, std::multimap&lt; double, std::shared_ptr&lt; GeneratorInterface &gt; &gt; &amp;generatorToSourcesAddedIntoSumMap, std::multimap&lt; double, std::unique_ptr&lt; FailingCriteria &gt; &gt; &amp;distanceToGeneratorFailingCriteriaMap, std::unordered_set&lt; std::string &gt; &amp;alreadyChecked, bool &amp;isCriteriaOk, double &amp;sum, bool &amp;atLeastOneEligibleGeneratorWasFound)</td><td class="entry"><a class="el" href="../../d4/dff/a02723.html">DYN::GeneratorCriteria</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="../../dd/d9a/a02699.html#a04a9d18b48178d64a909cd0dc0e555e5">Criteria</a>(const std::shared_ptr&lt; criteria::CriteriaParams &gt; &amp;params)</td><td class="entry"><a class="el" href="../../dd/d9a/a02699.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
   <tr><td class="entry"><a class="el" href="../../d4/dff/a02723.html#aa4142164c0a89177b21e80495d07ac99">criteriaEligibleForGenerator</a>(const std::shared_ptr&lt; criteria::CriteriaParams &gt; &amp;params)</td><td class="entry"><a class="el" href="../../d4/dff/a02723.html">DYN::GeneratorCriteria</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
@@ -131,7 +131,7 @@ $(document).ready(function(){initNavTree('d4/dff/a02723.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Thu Jun 5 2025 13:50:11 for Dynawo by
+    <li class="footer">Generated on Fri Jun 6 2025 10:06:05 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

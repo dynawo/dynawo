@@ -124,10 +124,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a496b1cf709d17989bd5e8a64882dbff5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d25/a02687.html#a496b1cf709d17989bd5e8a64882dbff5">BusInterface</a> (bool <a class="el" href="../../dc/d8b/a02691.html#a9be4aae7894693081ca3436f3d8aa328">hasInitialConditions</a>=true)</td></tr>
 <tr class="memdesc:a496b1cf709d17989bd5e8a64882dbff5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a496b1cf709d17989bd5e8a64882dbff5">More...</a><br /></td></tr>
 <tr class="separator:a496b1cf709d17989bd5e8a64882dbff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acabd7984ef1211dac4d23273b61dfe9f"><td class="memItemLeft" align="right" valign="top"><a id="acabd7984ef1211dac4d23273b61dfe9f"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d25/a02687.html#acabd7984ef1211dac4d23273b61dfe9f">~BusInterface</a> ()=default</td></tr>
-<tr class="memdesc:acabd7984ef1211dac4d23273b61dfe9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:acabd7984ef1211dac4d23273b61dfe9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4d4505d1048127897bd1dc3098fcaef"><td class="memItemLeft" align="right" valign="top"><a id="af4d4505d1048127897bd1dc3098fcaef"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d25/a02687.html#af4d4505d1048127897bd1dc3098fcaef">~BusInterface</a> () override=default</td></tr>
+<tr class="memdesc:af4d4505d1048127897bd1dc3098fcaef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:af4d4505d1048127897bd1dc3098fcaef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a929c447c1c2c3499db103450e406265d"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d25/a02687.html#a929c447c1c2c3499db103450e406265d">getV0</a> () const =0</td></tr>
 <tr class="memdesc:a929c447c1c2c3499db103450e406265d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the voltage magnitude of the bus.  <a href="#a929c447c1c2c3499db103450e406265d">More...</a><br /></td></tr>
 <tr class="separator:a929c447c1c2c3499db103450e406265d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -149,9 +149,9 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <tr class="memitem:ac53c3d4ec936ead027840ecb45f9e37d"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d25/a02687.html#ac53c3d4ec936ead027840ecb45f9e37d">getStateVarAngle</a> () const =0</td></tr>
 <tr class="memdesc:ac53c3d4ec936ead027840ecb45f9e37d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the state variable "angle".  <a href="#ac53c3d4ec936ead027840ecb45f9e37d">More...</a><br /></td></tr>
 <tr class="separator:ac53c3d4ec936ead027840ecb45f9e37d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63701d44c8f5cea50896151c722b961b"><td class="memItemLeft" align="right" valign="top">virtual const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d25/a02687.html#a63701d44c8f5cea50896151c722b961b">getID</a> () const =0</td></tr>
-<tr class="memdesc:a63701d44c8f5cea50896151c722b961b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the bus' id.  <a href="#a63701d44c8f5cea50896151c722b961b">More...</a><br /></td></tr>
-<tr class="separator:a63701d44c8f5cea50896151c722b961b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad01631f447ec9a500fbc9902434068e7"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d25/a02687.html#ad01631f447ec9a500fbc9902434068e7">getID</a> () const override=0</td></tr>
+<tr class="memdesc:ad01631f447ec9a500fbc9902434068e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the bus' id.  <a href="#ad01631f447ec9a500fbc9902434068e7">More...</a><br /></td></tr>
+<tr class="separator:ad01631f447ec9a500fbc9902434068e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a121c0d8892ad82f8d25e0aa3e6d80182"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d25/a02687.html#a121c0d8892ad82f8d25e0aa3e6d80182">getBusIndex</a> () const =0</td></tr>
 <tr class="memdesc:a121c0d8892ad82f8d25e0aa3e6d80182"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the bus index.  <a href="#a121c0d8892ad82f8d25e0aa3e6d80182">More...</a><br /></td></tr>
 <tr class="separator:a121c0d8892ad82f8d25e0aa3e6d80182"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -161,9 +161,9 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <tr class="memitem:abac7b1069b0ac6d6464024c8aabb0a70"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d25/a02687.html#abac7b1069b0ac6d6464024c8aabb0a70">hasConnection</a> () const =0</td></tr>
 <tr class="memdesc:abac7b1069b0ac6d6464024c8aabb0a70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the bus' connection attribute.  <a href="#abac7b1069b0ac6d6464024c8aabb0a70">More...</a><br /></td></tr>
 <tr class="separator:abac7b1069b0ac6d6464024c8aabb0a70"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5090baf74a3acda795800f9aebcb5f26"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d25/a02687.html#a5090baf74a3acda795800f9aebcb5f26">exportStateVariablesUnitComponent</a> ()=0</td></tr>
-<tr class="memdesc:a5090baf74a3acda795800f9aebcb5f26"><td class="mdescLeft">&#160;</td><td class="mdescRight">update iidm structure from state variables for each unit component  <a href="#a5090baf74a3acda795800f9aebcb5f26">More...</a><br /></td></tr>
-<tr class="separator:a5090baf74a3acda795800f9aebcb5f26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad786b170ee93ca0ee9ff72e07e3773bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d25/a02687.html#ad786b170ee93ca0ee9ff72e07e3773bf">exportStateVariablesUnitComponent</a> () override=0</td></tr>
+<tr class="memdesc:ad786b170ee93ca0ee9ff72e07e3773bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">update iidm structure from state variables for each unit component  <a href="#ad786b170ee93ca0ee9ff72e07e3773bf">More...</a><br /></td></tr>
+<tr class="separator:ad786b170ee93ca0ee9ff72e07e3773bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51ecbf88288ebed91dad69b4a49c7f23"><td class="memItemLeft" align="right" valign="top">virtual const std::vector&lt; std::string &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d25/a02687.html#a51ecbf88288ebed91dad69b4a49c7f23">getBusBarSectionIdentifiers</a> () const =0</td></tr>
 <tr class="memdesc:a51ecbf88288ebed91dad69b4a49c7f23"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the identifiers of bus bar section associated to the bus  <a href="#a51ecbf88288ebed91dad69b4a49c7f23">More...</a><br /></td></tr>
 <tr class="separator:a51ecbf88288ebed91dad69b4a49c7f23"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -318,8 +318,8 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a5090baf74a3acda795800f9aebcb5f26"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5090baf74a3acda795800f9aebcb5f26">&#9670;&nbsp;</a></span>exportStateVariablesUnitComponent()</h2>
+<a id="ad786b170ee93ca0ee9ff72e07e3773bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad786b170ee93ca0ee9ff72e07e3773bf">&#9670;&nbsp;</a></span>exportStateVariablesUnitComponent()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -328,7 +328,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::BusInterface::exportStateVariablesUnitComponent </td>
+          <td class="memname">void DYN::BusInterface::exportStateVariablesUnitComponent </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -336,7 +336,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -345,7 +345,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 
 <p>Implements <a class="el" href="../../dc/d8b/a02691.html#a24a19ea150b9d118f6b365cdbabcacff">DYN::ComponentInterface</a>.</p>
 
-<p>Implemented in <a class="el" href="../../dd/db9/a02883.html#a97e781cd682214d9f143ff169e6d7989">DYN::FictBusInterfaceIIDM</a>, <a class="el" href="../../d9/d8b/a02863.html#a2193738f5a4d249db181d011c892329e">DYN::CalculatedBusInterfaceIIDM</a>, and <a class="el" href="../../d1/d39/a02859.html#a3d434f9d6a0fa3dccda174315da05a1d">DYN::BusInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/db9/a02883.html#aa21958a8cb686fc4eb0596f02ca73644">DYN::FictBusInterfaceIIDM</a>, <a class="el" href="../../d9/d8b/a02863.html#aac0dac96cd899ec53e186e058124cf59">DYN::CalculatedBusInterfaceIIDM</a>, and <a class="el" href="../../d1/d39/a02859.html#ae327e59ff5121a8ad9f34cf0f2b40a88">DYN::BusInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -375,7 +375,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the voltage angle of the bus. </p>
 <dl class="section return"><dt>Returns</dt><dd>The voltage angle of the bus in degree </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d9/d8b/a02863.html#a1a85b86a97d86affb3a991a9b697f99c">DYN::CalculatedBusInterfaceIIDM</a>, <a class="el" href="../../dd/db9/a02883.html#a738bfabe8273845a94d8b26e7b9395cf">DYN::FictBusInterfaceIIDM</a>, and <a class="el" href="../../d1/d39/a02859.html#a687cd20acc0657475ea6f5a37e4173e8">DYN::BusInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d9/d8b/a02863.html#a37ade51255f59f86f70c44658b4a1bb0">DYN::CalculatedBusInterfaceIIDM</a>, <a class="el" href="../../dd/db9/a02883.html#ab924a5388f73e9503b54d40d407592db">DYN::FictBusInterfaceIIDM</a>, and <a class="el" href="../../d1/d39/a02859.html#a1b297cf0527279cf0ac1c23d7e5b91fa">DYN::BusInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -405,7 +405,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>get the identifiers of bus bar section associated to the bus </p>
 <dl class="section return"><dt>Returns</dt><dd>identifiers of the bus bar section associated to the bus </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d9/d8b/a02863.html#a2741f3cc892453c73738ed59221dd418">DYN::CalculatedBusInterfaceIIDM</a>, <a class="el" href="../../dd/db9/a02883.html#a3b998dbc09500429987dbb995f6de9de">DYN::FictBusInterfaceIIDM</a>, and <a class="el" href="../../d1/d39/a02859.html#a20488c3dd6ccd2655db602790cb7a517">DYN::BusInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d9/d8b/a02863.html#a059ac3c861b3d34b33ff1cc5ed72e117">DYN::CalculatedBusInterfaceIIDM</a>, <a class="el" href="../../dd/db9/a02883.html#ac0d686b9200cbb2bf1b3265696e221c8">DYN::FictBusInterfaceIIDM</a>, and <a class="el" href="../../d1/d39/a02859.html#ac68e28cfaacc70c710b805ede63b94b6">DYN::BusInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -435,12 +435,12 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the bus index. </p>
 <dl class="section return"><dt>Returns</dt><dd>The index of the bus </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d9/d8b/a02863.html#a6cd5a9669b92e24e5306acedcd2cc7a1">DYN::CalculatedBusInterfaceIIDM</a>, <a class="el" href="../../dd/db9/a02883.html#a992685b920d3b05a6a24ac9497629fe4">DYN::FictBusInterfaceIIDM</a>, and <a class="el" href="../../d1/d39/a02859.html#a6ad8f98497c2e1c53aa42cec0048728d">DYN::BusInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d9/d8b/a02863.html#a8a76cd461755f988e099561d8966e5df">DYN::CalculatedBusInterfaceIIDM</a>, <a class="el" href="../../dd/db9/a02883.html#a519045c82a8bddd3abd49057286839b3">DYN::FictBusInterfaceIIDM</a>, and <a class="el" href="../../d1/d39/a02859.html#acc2e3e7c7cdd5df347081c9118bb0375">DYN::BusInterfaceIIDM</a>.</p>
 
 </div>
 </div>
-<a id="a63701d44c8f5cea50896151c722b961b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63701d44c8f5cea50896151c722b961b">&#9670;&nbsp;</a></span>getID()</h2>
+<a id="ad01631f447ec9a500fbc9902434068e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad01631f447ec9a500fbc9902434068e7">&#9670;&nbsp;</a></span>getID()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -449,7 +449,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual const std::string&amp; DYN::BusInterface::getID </td>
+          <td class="memname">const std::string&amp; DYN::BusInterface::getID </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -457,7 +457,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -467,7 +467,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 
 <p>Implements <a class="el" href="../../dc/d8b/a02691.html#a452b88bee7f575411dc10043cbc09bd5">DYN::ComponentInterface</a>.</p>
 
-<p>Implemented in <a class="el" href="../../dd/db9/a02883.html#aaeca4e79f4e78365b3f466786e82c8f7">DYN::FictBusInterfaceIIDM</a>, <a class="el" href="../../d9/d8b/a02863.html#a92769f687498e76f09f4d80603055af9">DYN::CalculatedBusInterfaceIIDM</a>, and <a class="el" href="../../d1/d39/a02859.html#a95b37e63f80bfb47b189f808183e261a">DYN::BusInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/db9/a02883.html#ad17f0780b427c9736b6dcd33682fc908">DYN::FictBusInterfaceIIDM</a>, <a class="el" href="../../d9/d8b/a02863.html#a57fd7c4f8dddbbcb9ebb16841a470d44">DYN::CalculatedBusInterfaceIIDM</a>, and <a class="el" href="../../d1/d39/a02859.html#a39bbe3d764af0bb363e8cf77fb366b21">DYN::BusInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -497,7 +497,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the state variable "angle". </p>
 <dl class="section return"><dt>Returns</dt><dd>The value of state variable angle of the bus in degree </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dd/db9/a02883.html#a6735b83e0660e186c39e233cc9375953">DYN::FictBusInterfaceIIDM</a>, <a class="el" href="../../d9/d8b/a02863.html#a49902a4c419f9795bdfa6c45516d3245">DYN::CalculatedBusInterfaceIIDM</a>, and <a class="el" href="../../d1/d39/a02859.html#aac0bd6bbed9748cdea1c893982e26120">DYN::BusInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/db9/a02883.html#af8732749644ae8e3f1b8811c1b04ff25">DYN::FictBusInterfaceIIDM</a>, <a class="el" href="../../d9/d8b/a02863.html#a5ec448f21838106ce670bde1af9fb480">DYN::CalculatedBusInterfaceIIDM</a>, and <a class="el" href="../../d1/d39/a02859.html#a57a3fb9b45f3a45ef623de452c8db174">DYN::BusInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -527,7 +527,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the state variable "v". </p>
 <dl class="section return"><dt>Returns</dt><dd>The value of state variable v of the bus in kV </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d9/d8b/a02863.html#adaa4f8e34b240e6ffc19fb0011facbc3">DYN::CalculatedBusInterfaceIIDM</a>, <a class="el" href="../../dd/db9/a02883.html#aa2203f809f60fd2c07c70d6f7d34cb5c">DYN::FictBusInterfaceIIDM</a>, and <a class="el" href="../../d1/d39/a02859.html#a60a8d7d0b3f9706212f2b74fb8b6bf62">DYN::BusInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d9/d8b/a02863.html#a0fbd9223052ec19ec26292c757c9023b">DYN::CalculatedBusInterfaceIIDM</a>, <a class="el" href="../../dd/db9/a02883.html#a5330d4a7ef3013d76fc9d1346658a8fe">DYN::FictBusInterfaceIIDM</a>, and <a class="el" href="../../d1/d39/a02859.html#a6c9ed9f0d3711c2ffde8492980ac8c2e">DYN::BusInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -557,7 +557,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the voltage magnitude of the bus. </p>
 <dl class="section return"><dt>Returns</dt><dd>The voltage magnitude of the bus in kV </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d9/d8b/a02863.html#acc1f23fa0fb78251eea957d4c4f55246">DYN::CalculatedBusInterfaceIIDM</a>, <a class="el" href="../../dd/db9/a02883.html#abdaeba81103104bcbb5ebfb8a18feafd">DYN::FictBusInterfaceIIDM</a>, and <a class="el" href="../../d1/d39/a02859.html#a798f1a270eec0f2b04bca9e1f0eae12e">DYN::BusInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d9/d8b/a02863.html#abcd15f8d3bd7beb7ac3c9a9ea18b4464">DYN::CalculatedBusInterfaceIIDM</a>, <a class="el" href="../../dd/db9/a02883.html#a7a3ce42ff1eff20a83cd2759cb42513d">DYN::FictBusInterfaceIIDM</a>, and <a class="el" href="../../d1/d39/a02859.html#a3b80202fe4861f06c710e05e69617c03">DYN::BusInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -587,7 +587,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the maximum voltage magnitude of the bus. </p>
 <dl class="section return"><dt>Returns</dt><dd>The maximum voltage magnitude of the bus in kV returns 1.2*vNom if vMax does not exist </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d9/d8b/a02863.html#aaa8fceb8774685413e5f8182010c856e">DYN::CalculatedBusInterfaceIIDM</a>, <a class="el" href="../../dd/db9/a02883.html#a4949cf59435c6551af799551808123ae">DYN::FictBusInterfaceIIDM</a>, and <a class="el" href="../../d1/d39/a02859.html#afea436b4a537445b5ea6ad316bfffd64">DYN::BusInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d9/d8b/a02863.html#ae64e6f04ea270abb9c4a32e8d235f989">DYN::CalculatedBusInterfaceIIDM</a>, <a class="el" href="../../dd/db9/a02883.html#acb32433c3e4b9ffef4e24ea0e10582e4">DYN::FictBusInterfaceIIDM</a>, and <a class="el" href="../../d1/d39/a02859.html#af3d738bca93b6d711f8db21de62577cb">DYN::BusInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -617,7 +617,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the minimum voltage magnitude of the bus. </p>
 <dl class="section return"><dt>Returns</dt><dd>The minimum voltage magnitude of the bus in kV returns 0.8*vNom if vMin does not exist </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d9/d8b/a02863.html#a6d4953b8868e5cd469fa73be6dcb8b27">DYN::CalculatedBusInterfaceIIDM</a>, <a class="el" href="../../dd/db9/a02883.html#ae196b017aeb2872249eb6683aa2d41ab">DYN::FictBusInterfaceIIDM</a>, and <a class="el" href="../../d1/d39/a02859.html#ad07032bbf0fdcfa21ee4c4d080cd00d3">DYN::BusInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d9/d8b/a02863.html#a7d12bb26a036a025aa424171a133bdfe">DYN::CalculatedBusInterfaceIIDM</a>, <a class="el" href="../../dd/db9/a02883.html#aec288c88fa3a11d760b1eb7e0088c1cc">DYN::FictBusInterfaceIIDM</a>, and <a class="el" href="../../d1/d39/a02859.html#aaa15ac7402afbb14427cd5120fbbe1e3">DYN::BusInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -647,7 +647,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the nominal voltage of the bus. </p>
 <dl class="section return"><dt>Returns</dt><dd>The nominal voltage of the bus in kV </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d9/d8b/a02863.html#a4102c4c52af225286de3fc2832592016">DYN::CalculatedBusInterfaceIIDM</a>, <a class="el" href="../../dd/db9/a02883.html#aef1d08801d4754fce8f4737b920a72f2">DYN::FictBusInterfaceIIDM</a>, and <a class="el" href="../../d1/d39/a02859.html#ad565f7d2f1a0471e8be152091b7d05b6">DYN::BusInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../d9/d8b/a02863.html#af2979f0c36f123bb53a139ee1e6bd3b5">DYN::CalculatedBusInterfaceIIDM</a>, <a class="el" href="../../dd/db9/a02883.html#a69d9c3822c56a3b2b6ce290da0918d5a">DYN::FictBusInterfaceIIDM</a>, and <a class="el" href="../../d1/d39/a02859.html#a7f390665d308ffe4641b17ddc2c34067">DYN::BusInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -684,7 +684,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 </dl>
 <p>the bus has an outside connection if there is at least one dynamic model connected to the bus </p>
 
-<p>Implemented in <a class="el" href="../../dd/db9/a02883.html#ac3ff9679eb00698d44170909cbab08b1">DYN::FictBusInterfaceIIDM</a>, <a class="el" href="../../d9/d8b/a02863.html#ad950c9c62842bd48049e07dc4e1bbdba">DYN::CalculatedBusInterfaceIIDM</a>, and <a class="el" href="../../d1/d39/a02859.html#a9f64346463b7d69da6efa7e6845fe1c4">DYN::BusInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/db9/a02883.html#a14615529a6886a73994bcab78fb7ec77">DYN::FictBusInterfaceIIDM</a>, <a class="el" href="../../d9/d8b/a02863.html#a44752690e8dd1407829b35f88d4988aa">DYN::CalculatedBusInterfaceIIDM</a>, and <a class="el" href="../../d1/d39/a02859.html#a4d34afe4573316ebb50c1568ce998a99">DYN::BusInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -714,7 +714,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the bus' connection attribute. </p>
 <dl class="section return"><dt>Returns</dt><dd><b>true</b> if the bus has an outside connection, <b>false</b> else </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dd/db9/a02883.html#aff54c93356f214c9333d582232d3b6fe">DYN::FictBusInterfaceIIDM</a>, <a class="el" href="../../d9/d8b/a02863.html#ad590f2288f2c4e23f45a4ac51cbad84a">DYN::CalculatedBusInterfaceIIDM</a>, and <a class="el" href="../../d1/d39/a02859.html#acade1e9574759e2703a99f1b0cabf637">DYN::BusInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/db9/a02883.html#a163d5efc6d3de3740713763b4431d7ad">DYN::FictBusInterfaceIIDM</a>, <a class="el" href="../../d9/d8b/a02863.html#a7ee0d3a6124e065cb5c93b62208a422b">DYN::CalculatedBusInterfaceIIDM</a>, and <a class="el" href="../../d1/d39/a02859.html#a7ff6cc46336267d90777074ce2e8a132">DYN::BusInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -768,7 +768,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d5/d25/a02687.html">BusInterface</a></li>
-    <li class="footer">Generated on Thu Jun 5 2025 13:50:11 for Dynawo by
+    <li class="footer">Generated on Fri Jun 6 2025 10:06:04 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

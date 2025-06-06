@@ -158,10 +158,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab1e53c543f4716ac198e2694e6770a02"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6c/a02819.html#ab1e53c543f4716ac198e2694e6770a02">StaticVarCompensatorInterface</a> (bool <a class="el" href="../../dc/d8b/a02691.html#a9be4aae7894693081ca3436f3d8aa328">hasInitialConditions</a>=true)</td></tr>
 <tr class="memdesc:ab1e53c543f4716ac198e2694e6770a02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#ab1e53c543f4716ac198e2694e6770a02">More...</a><br /></td></tr>
 <tr class="separator:ab1e53c543f4716ac198e2694e6770a02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58b3a79c7b61641d65f87b79fb405409"><td class="memItemLeft" align="right" valign="top"><a id="a58b3a79c7b61641d65f87b79fb405409"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6c/a02819.html#a58b3a79c7b61641d65f87b79fb405409">~StaticVarCompensatorInterface</a> ()=default</td></tr>
-<tr class="memdesc:a58b3a79c7b61641d65f87b79fb405409"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:a58b3a79c7b61641d65f87b79fb405409"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a785b6bcad54bf271f978e040679783fa"><td class="memItemLeft" align="right" valign="top"><a id="a785b6bcad54bf271f978e040679783fa"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6c/a02819.html#a785b6bcad54bf271f978e040679783fa">~StaticVarCompensatorInterface</a> () override=default</td></tr>
+<tr class="memdesc:a785b6bcad54bf271f978e040679783fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:a785b6bcad54bf271f978e040679783fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a46c8a78b7d6f4aa87fce868605e9a279"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6c/a02819.html#a46c8a78b7d6f4aa87fce868605e9a279">setBusInterface</a> (const std::shared_ptr&lt; <a class="el" href="../../d5/d25/a02687.html">BusInterface</a> &gt; &amp;busInterface)=0</td></tr>
 <tr class="memdesc:a46c8a78b7d6f4aa87fce868605e9a279"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the staticVarCompensator's bus interface.  <a href="#a46c8a78b7d6f4aa87fce868605e9a279">More...</a><br /></td></tr>
 <tr class="separator:a46c8a78b7d6f4aa87fce868605e9a279"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -192,12 +192,12 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <tr class="memitem:a937058af5b610f0b7f6c09116599322c"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6c/a02819.html#a937058af5b610f0b7f6c09116599322c">getInitialConnected</a> ()=0</td></tr>
 <tr class="memdesc:a937058af5b610f0b7f6c09116599322c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the initial connection state of the static var compensator.  <a href="#a937058af5b610f0b7f6c09116599322c">More...</a><br /></td></tr>
 <tr class="separator:a937058af5b610f0b7f6c09116599322c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1bb1b4399acfbf78d9fbe941377e83a"><td class="memItemLeft" align="right" valign="top">virtual const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6c/a02819.html#ae1bb1b4399acfbf78d9fbe941377e83a">getID</a> () const =0</td></tr>
-<tr class="memdesc:ae1bb1b4399acfbf78d9fbe941377e83a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the static var compensator's id.  <a href="#ae1bb1b4399acfbf78d9fbe941377e83a">More...</a><br /></td></tr>
-<tr class="separator:ae1bb1b4399acfbf78d9fbe941377e83a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a0652bc98d15e4a869f56e89bc25a68"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6c/a02819.html#a7a0652bc98d15e4a869f56e89bc25a68">exportStateVariablesUnitComponent</a> ()=0</td></tr>
-<tr class="memdesc:a7a0652bc98d15e4a869f56e89bc25a68"><td class="mdescLeft">&#160;</td><td class="mdescRight">update iidm structure from state variables for each unit component  <a href="#a7a0652bc98d15e4a869f56e89bc25a68">More...</a><br /></td></tr>
-<tr class="separator:a7a0652bc98d15e4a869f56e89bc25a68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a707e86bded1d7bbe3e2c2f478155af85"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6c/a02819.html#a707e86bded1d7bbe3e2c2f478155af85">getID</a> () const override=0</td></tr>
+<tr class="memdesc:a707e86bded1d7bbe3e2c2f478155af85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the static var compensator's id.  <a href="#a707e86bded1d7bbe3e2c2f478155af85">More...</a><br /></td></tr>
+<tr class="separator:a707e86bded1d7bbe3e2c2f478155af85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12716cb386153d5bb6afaf3c27d05960"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6c/a02819.html#a12716cb386153d5bb6afaf3c27d05960">exportStateVariablesUnitComponent</a> () override=0</td></tr>
+<tr class="memdesc:a12716cb386153d5bb6afaf3c27d05960"><td class="mdescLeft">&#160;</td><td class="mdescRight">update iidm structure from state variables for each unit component  <a href="#a12716cb386153d5bb6afaf3c27d05960">More...</a><br /></td></tr>
+<tr class="separator:a12716cb386153d5bb6afaf3c27d05960"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af07ca9e83ecf3c699af4cd71b8f4747f"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6c/a02819.html#af07ca9e83ecf3c699af4cd71b8f4747f">hasStandbyAutomaton</a> () const =0</td></tr>
 <tr class="memdesc:af07ca9e83ecf3c699af4cd71b8f4747f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the extension's presence.  <a href="#af07ca9e83ecf3c699af4cd71b8f4747f">More...</a><br /></td></tr>
 <tr class="separator:af07ca9e83ecf3c699af4cd71b8f4747f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -354,8 +354,8 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a7a0652bc98d15e4a869f56e89bc25a68"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7a0652bc98d15e4a869f56e89bc25a68">&#9670;&nbsp;</a></span>exportStateVariablesUnitComponent()</h2>
+<a id="a12716cb386153d5bb6afaf3c27d05960"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12716cb386153d5bb6afaf3c27d05960">&#9670;&nbsp;</a></span>exportStateVariablesUnitComponent()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -364,7 +364,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::StaticVarCompensatorInterface::exportStateVariablesUnitComponent </td>
+          <td class="memname">void DYN::StaticVarCompensatorInterface::exportStateVariablesUnitComponent </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -372,7 +372,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -381,7 +381,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 
 <p>Implements <a class="el" href="../../dc/d8b/a02691.html#a24a19ea150b9d118f6b365cdbabcacff">DYN::ComponentInterface</a>.</p>
 
-<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#a1aa71628a01bca59c59c5686fa4d34ef">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#a3db9ee59b01b275d1bfaface561fc6b0">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -411,7 +411,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the constant shunt susceptance used in standby mode. </p>
 <dl class="section return"><dt>Returns</dt><dd>the constant shunt susceptance used in standby mode </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#a6a6c1f48d6d745bededfc4c78f2a344d">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#a17e1558070a517ac894738d82b6c80ac">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -441,7 +441,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the maximum susceptance. </p>
 <dl class="section return"><dt>Returns</dt><dd>the maximum susceptance </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#a9d5430b23497b4352426719a761a889d">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#a4be1ec18acb58dfa3fb60eed9652db07">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -471,7 +471,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the minimum susceptance. </p>
 <dl class="section return"><dt>Returns</dt><dd>the minimum susceptance </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#a9ff670023999f6af9d38022122a4c6f4">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#a415a905e0bc0123b023e656b61de8a2a">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -501,12 +501,12 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the staticVarCompensator's bus interface. </p>
 <dl class="section return"><dt>Returns</dt><dd>busInterface of the bus where the static var compensator is connected </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#a252325518f434f08dbaf010f6645b0f9">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#ab955391ae6bf96a934dd6af09bdad0f2">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
 
 </div>
 </div>
-<a id="ae1bb1b4399acfbf78d9fbe941377e83a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae1bb1b4399acfbf78d9fbe941377e83a">&#9670;&nbsp;</a></span>getID()</h2>
+<a id="a707e86bded1d7bbe3e2c2f478155af85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a707e86bded1d7bbe3e2c2f478155af85">&#9670;&nbsp;</a></span>getID()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -515,7 +515,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual const std::string&amp; DYN::StaticVarCompensatorInterface::getID </td>
+          <td class="memname">const std::string&amp; DYN::StaticVarCompensatorInterface::getID </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -523,7 +523,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -533,7 +533,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 
 <p>Implements <a class="el" href="../../dc/d8b/a02691.html#a452b88bee7f575411dc10043cbc09bd5">DYN::ComponentInterface</a>.</p>
 
-<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#a30e503dfd64030d4f1891569cdebb62e">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#ad9656353dffe681b0c19979d97cd3d9e">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -563,7 +563,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the initial connection state of the static var compensator. </p>
 <dl class="section return"><dt>Returns</dt><dd><b>true</b> if the static var compensator is connected, <b>false</b> else </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#ad93239c802ddfc378cc8c8cab445c279">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#afc012baade3c22c19740faa4432bb758">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -593,7 +593,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the active power of static var compensator in MW (Receptor convention) </p>
 <dl class="section return"><dt>Returns</dt><dd>The active power of the static var compensator in MW (Receptor convention) </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#a2d53572f1862108e30cafe0a9cc4ae04">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#a2333dd8b3dc1190b01e83240508a8d54">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -623,7 +623,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the reactive power of static var compensator in Mvar (Receptor convention) </p>
 <dl class="section return"><dt>Returns</dt><dd>The reactive power of the static var compensator in Mvar (Receptor convention) </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#adf9370196c5492f18325ff4f966801af">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#abb9bf772ca9b0e46fd10c3f88fb5ead1">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -653,7 +653,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the reactive power set-point. </p>
 <dl class="section return"><dt>Returns</dt><dd>The reactive power set-point in Mvar </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#ae4152c518cf10b0c6ef0fac6f531f947">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#ac36481ab7201b50c13fea1ee9a503daf">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -683,7 +683,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the regulating mode of the static var compensator. </p>
 <dl class="section return"><dt>Returns</dt><dd>the regulating mode of the static var compensator </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#a822c90e07bed8a7959277c9a7273e875">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#a482abfcf7f0939e73bb06f13afd57238">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -713,7 +713,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for static var compensator slope. </p>
 <dl class="section return"><dt>Returns</dt><dd>static var compensator slope value </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#a09ca23c53a2aecbf558a270cc64b56e7">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#aad5e7d9e5982de76289fb06d00d4fe7d">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -743,7 +743,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the voltage limit sup for running mode activation when in standby. </p>
 <dl class="section return"><dt>Returns</dt><dd>the the voltage limit sup for running mode activation when in standby </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#a05abc3180656c792b935a356b5c6ca01">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#a40f5a241785ca2b91b3f1eb054ccf9e9">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -773,7 +773,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the voltage limit inf for running mode activation when in standby. </p>
 <dl class="section return"><dt>Returns</dt><dd>the the voltage limit inf for running mode activation when in standby </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#aba989b06df0249be87749c7937b4ca0d">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#ab0dd7056572f06f4daec347a482ecbcd">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -803,7 +803,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the voltage target once Umax has been reached. </p>
 <dl class="section return"><dt>Returns</dt><dd>the voltage target once Umax has been reached </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#a51aeeec17a36cc610a875da0036c0830">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#af3b282d4212965820a16e5ee2a7d7a19">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -833,7 +833,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the voltage target once Umin has been reached. </p>
 <dl class="section return"><dt>Returns</dt><dd>the voltage target once Umin has been reached </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#a5e51ce503935484bc55fb3cc4732187c">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#a82f164e67bcc04fc19a14f7350663b14">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -863,7 +863,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the nominal voltage of the bus where the static var compensator is connected. </p>
 <dl class="section return"><dt>Returns</dt><dd>The nominal voltage of the bus where the static var compensator is connected in kV </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#aa2985d0cd81cd49e52719817a137d64b">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#a222ca1ec0a92c1f271c29268aa0baf2e">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -893,7 +893,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the voltage set-point. </p>
 <dl class="section return"><dt>Returns</dt><dd>The voltage set-point in kV </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#ab858ba4dff3ce678ca9e4c3bfb13ec5e">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#a22ab0cf9b820bc9f6258dc4d67042dd1">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -923,7 +923,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the extension's presence. </p>
 <dl class="section return"><dt>Returns</dt><dd>true if the extension is loaded </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#a944a33b1b6bc8f1d9f17734d04ef8748">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#a6b4a25f2ad161d3289acf6200fd4a2af">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -953,7 +953,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Determines if static var compensator has voltage per reactive power control information. </p>
 <dl class="section return"><dt>Returns</dt><dd>whether static var compensator has voltage per reactive power control information </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#a4f50678815c5573e5c4d528689d5251a">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#afed80b973987155ea21cae44fcf793e0">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -983,7 +983,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the standby state of the svc. </p>
 <dl class="section return"><dt>Returns</dt><dd>true if in standby mode </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#a60f6bbf6b48e2bd18b1debb9f09dfb66">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#a58895780832b0ef28b74a350d2400490">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -1019,7 +1019,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#a317c2ddd7e25e922fec0c4fc46fac310">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#a0578d419b07619227973c48d6f1f3849">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -1055,7 +1055,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#a7f0c0ede89308aa18238cf660c683908">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d81/a02967.html#a787d1d1d9f5996661a80aab2b51e47ee">DYN::StaticVarCompensatorInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -1079,7 +1079,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d6/d6c/a02819.html">StaticVarCompensatorInterface</a></li>
-    <li class="footer">Generated on Thu Jun 5 2025 13:50:12 for Dynawo by
+    <li class="footer">Generated on Fri Jun 6 2025 10:06:05 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

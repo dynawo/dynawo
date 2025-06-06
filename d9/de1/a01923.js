@@ -1,7 +1,7 @@
 var a01923 =
 [
     [ "ModelicaModelHandler", "d9/de1/a01923.html#a5fa857b1fb92fdf593ada268e4d8d008", null ],
-    [ "~ModelicaModelHandler", "d9/de1/a01923.html#a96a078419e5ef795fd71f7ea2757db93", null ],
+    [ "~ModelicaModelHandler", "d9/de1/a01923.html#aff89b30268cf3dad50cd2c4e2476219e", null ],
     [ "addConnect", "d9/de1/a01923.html#ad63eea06e32c5808a03f7f9ea9647210", null ],
     [ "addInitConnect", "d9/de1/a01923.html#a65c601cbe39cf27021655812ab19d586", null ],
     [ "addMacroConnect", "d9/de1/a01923.html#a720fb918636a6b835682da7f761d4f49", null ],

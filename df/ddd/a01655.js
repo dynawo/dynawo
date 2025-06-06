@@ -1,7 +1,7 @@
 var a01655 =
 [
     [ "CriteriaHandler", "df/ddd/a01655.html#abc95c828b674c092dcce4bcbf1351844", null ],
-    [ "~CriteriaHandler", "df/ddd/a01655.html#a96227deab7212e509926492d596c1d85", null ],
+    [ "~CriteriaHandler", "df/ddd/a01655.html#ae5a64c17c4888b3dd5d0770d6a0fb920", null ],
     [ "addComponent", "df/ddd/a01655.html#aaaad1f1af344eb8cb7fd822764c3b864", null ],
     [ "addCountry", "df/ddd/a01655.html#a64e7af7c2faea99435ed954e8dad06e8", null ],
     [ "addCriteriaParams", "df/ddd/a01655.html#aa69dcdcaa4a694cd9e3790dec82fa0a0", null ],

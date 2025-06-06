@@ -1,7 +1,7 @@
 var a01835 =
 [
     [ "ModelicaModel", "da/dcd/a01835.html#ad727d45befd8ac0e4353df67c6462ca0", null ],
-    [ "~ModelicaModel", "da/dcd/a01835.html#abc3998a7e604488a0484a9204b7882f9", null ],
+    [ "~ModelicaModel", "da/dcd/a01835.html#ad3a895776abc3281b295cbbac300e065", null ],
     [ "addConnect", "da/dcd/a01835.html#ae07263523579d68dbbbd81532200f5d0", null ],
     [ "addInitConnect", "da/dcd/a01835.html#a39f99edd78f08258370425ca43a31e0e", null ],
     [ "addMacroConnect", "da/dcd/a01835.html#af31f4e84c4265249c2b8ae40be1e3297", null ],

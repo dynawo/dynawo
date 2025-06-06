@@ -1,7 +1,7 @@
 var a03131 =
 [
     [ "ModelRatioTapChanger", "db/d09/a03131.html#aa36990e1447f4747275544727a125d45", null ],
-    [ "~ModelRatioTapChanger", "db/d09/a03131.html#a8a2767f3bc8da8e2a3b0b88338b6d7ec", null ],
+    [ "~ModelRatioTapChanger", "db/d09/a03131.html#aebb068653e961ec34609aa4617cb950c", null ],
     [ "dumpInternalVariables", "db/d09/a03131.html#a797a5f0ce74748b4f2f5fa78f3c40872", null ],
     [ "evalG", "db/d09/a03131.html#aa457248abc300b720e77ff3565147193", null ],
     [ "evalZ", "db/d09/a03131.html#ab2cacd22e42aaf4e8ef3eaf1a4c65c90", null ],

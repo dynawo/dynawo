@@ -119,12 +119,12 @@ Inheritance diagram for externalVariables::XmlExporter:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:afb185a4d6abb137bd0b32da8d4f7619a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d1b/a01971.html#afb185a4d6abb137bd0b32da8d4f7619a">exportToFile</a> (const <a class="el" href="../../d3/dce/a01963.html">VariablesCollection</a> &amp;collection, const std::string &amp;filePath) const</td></tr>
-<tr class="memdesc:afb185a4d6abb137bd0b32da8d4f7619a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export method in XML format.  <a href="#afb185a4d6abb137bd0b32da8d4f7619a">More...</a><br /></td></tr>
-<tr class="separator:afb185a4d6abb137bd0b32da8d4f7619a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4337ff419a376468ce4b2921910ad586"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d1b/a01971.html#a4337ff419a376468ce4b2921910ad586">exportToStream</a> (const <a class="el" href="../../d3/dce/a01963.html">VariablesCollection</a> &amp;collection, std::ostream &amp;stream) const</td></tr>
-<tr class="memdesc:a4337ff419a376468ce4b2921910ad586"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export method in XML format.  <a href="#a4337ff419a376468ce4b2921910ad586">More...</a><br /></td></tr>
-<tr class="separator:a4337ff419a376468ce4b2921910ad586"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade79069dc3a3c4a41c4b0eaf5bf4d350"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d1b/a01971.html#ade79069dc3a3c4a41c4b0eaf5bf4d350">exportToFile</a> (const <a class="el" href="../../d3/dce/a01963.html">VariablesCollection</a> &amp;collection, const std::string &amp;filePath) const override</td></tr>
+<tr class="memdesc:ade79069dc3a3c4a41c4b0eaf5bf4d350"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export method in XML format.  <a href="#ade79069dc3a3c4a41c4b0eaf5bf4d350">More...</a><br /></td></tr>
+<tr class="separator:ade79069dc3a3c4a41c4b0eaf5bf4d350"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72ae89872be0186c54a220cac6108bbd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d1b/a01971.html#a72ae89872be0186c54a220cac6108bbd">exportToStream</a> (const <a class="el" href="../../d3/dce/a01963.html">VariablesCollection</a> &amp;collection, std::ostream &amp;stream) const override</td></tr>
+<tr class="memdesc:a72ae89872be0186c54a220cac6108bbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export method in XML format.  <a href="#a72ae89872be0186c54a220cac6108bbd">More...</a><br /></td></tr>
+<tr class="separator:a72ae89872be0186c54a220cac6108bbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_a01947"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a01947')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d6/d19/a01947.html">externalVariables::Exporter</a></td></tr>
 <tr class="memitem:a86601796a01c98a1cabe16a3b862ca7c inherit pub_methods_a01947"><td class="memItemLeft" align="right" valign="top"><a id="a86601796a01c98a1cabe16a3b862ca7c"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d19/a01947.html#a86601796a01c98a1cabe16a3b862ca7c">~Exporter</a> ()=default</td></tr>
@@ -141,8 +141,8 @@ Private Member Functions</h2></td></tr>
 <div class="textblock"><p>XML exporter interface class. </p>
 <p>XML export class for external variables collections. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="afb185a4d6abb137bd0b32da8d4f7619a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb185a4d6abb137bd0b32da8d4f7619a">&#9670;&nbsp;</a></span>exportToFile()</h2>
+<a id="ade79069dc3a3c4a41c4b0eaf5bf4d350"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade79069dc3a3c4a41c4b0eaf5bf4d350">&#9670;&nbsp;</a></span>exportToFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -170,7 +170,7 @@ Private Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -188,8 +188,8 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a4337ff419a376468ce4b2921910ad586"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4337ff419a376468ce4b2921910ad586">&#9670;&nbsp;</a></span>exportToStream()</h2>
+<a id="a72ae89872be0186c54a220cac6108bbd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72ae89872be0186c54a220cac6108bbd">&#9670;&nbsp;</a></span>exportToStream()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -217,7 +217,7 @@ Private Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -300,7 +300,7 @@ Private Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>externalVariables</b></li><li class="navelem"><a class="el" href="../../d5/d1b/a01971.html">XmlExporter</a></li>
-    <li class="footer">Generated on Thu Jun 5 2025 13:50:12 for Dynawo by
+    <li class="footer">Generated on Fri Jun 6 2025 10:06:05 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

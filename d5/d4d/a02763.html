@@ -210,15 +210,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a99e95d7e7989c1e67817ad8a25e5a12c"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4d/a02763.html#a99e95d7e7989c1e67817ad8a25e5a12c">getInitialConnected</a> ()=0</td></tr>
 <tr class="memdesc:a99e95d7e7989c1e67817ad8a25e5a12c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the initial connection state of the generator.  <a href="#a99e95d7e7989c1e67817ad8a25e5a12c">More...</a><br /></td></tr>
 <tr class="separator:a99e95d7e7989c1e67817ad8a25e5a12c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a88fe5213e03183c8d39337c95496fd32"><td class="memItemLeft" align="right" valign="top">virtual const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4d/a02763.html#a88fe5213e03183c8d39337c95496fd32">getID</a> () const =0</td></tr>
-<tr class="memdesc:a88fe5213e03183c8d39337c95496fd32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the generator's id.  <a href="#a88fe5213e03183c8d39337c95496fd32">More...</a><br /></td></tr>
-<tr class="separator:a88fe5213e03183c8d39337c95496fd32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ed809a16c8bfeebaab68ff6396204eb"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4d/a02763.html#a2ed809a16c8bfeebaab68ff6396204eb">exportStateVariablesUnitComponent</a> ()=0</td></tr>
-<tr class="memdesc:a2ed809a16c8bfeebaab68ff6396204eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">update iidm structure from state variables for each unit component  <a href="#a2ed809a16c8bfeebaab68ff6396204eb">More...</a><br /></td></tr>
-<tr class="separator:a2ed809a16c8bfeebaab68ff6396204eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ec00ddc15b5678710256ae4936ed6b6"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; <a class="el" href="../../d0/dda/a02799.html">ReactiveCurvePoint</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4d/a02763.html#a5ec00ddc15b5678710256ae4936ed6b6">getReactiveCurvesPoints</a> () const =0</td></tr>
-<tr class="memdesc:a5ec00ddc15b5678710256ae4936ed6b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the list of reactive curve points, if any.  <a href="#a5ec00ddc15b5678710256ae4936ed6b6">More...</a><br /></td></tr>
-<tr class="separator:a5ec00ddc15b5678710256ae4936ed6b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83c6aadd110714e0f027820871502854"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4d/a02763.html#a83c6aadd110714e0f027820871502854">getID</a> () const override=0</td></tr>
+<tr class="memdesc:a83c6aadd110714e0f027820871502854"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the generator's id.  <a href="#a83c6aadd110714e0f027820871502854">More...</a><br /></td></tr>
+<tr class="separator:a83c6aadd110714e0f027820871502854"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d96ea161caabbee57e03aaeb6e9bd2e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4d/a02763.html#a1d96ea161caabbee57e03aaeb6e9bd2e">exportStateVariablesUnitComponent</a> () override=0</td></tr>
+<tr class="memdesc:a1d96ea161caabbee57e03aaeb6e9bd2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">update iidm structure from state variables for each unit component  <a href="#a1d96ea161caabbee57e03aaeb6e9bd2e">More...</a><br /></td></tr>
+<tr class="separator:a1d96ea161caabbee57e03aaeb6e9bd2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02cc20de77a4826638b6acea831570e8"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d0/dda/a02799.html">ReactiveCurvePoint</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4d/a02763.html#a02cc20de77a4826638b6acea831570e8">getReactiveCurvesPoints</a> () const override=0</td></tr>
+<tr class="memdesc:a02cc20de77a4826638b6acea831570e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the list of reactive curve points, if any.  <a href="#a02cc20de77a4826638b6acea831570e8">More...</a><br /></td></tr>
+<tr class="separator:a02cc20de77a4826638b6acea831570e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a63f82b6711f2c5af5437703ea25f03da"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4d/a02763.html#a63f82b6711f2c5af5437703ea25f03da">isVoltageRegulationOn</a> () const =0</td></tr>
 <tr class="memdesc:a63f82b6711f2c5af5437703ea25f03da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if voltage regulation is on.  <a href="#a63f82b6711f2c5af5437703ea25f03da">More...</a><br /></td></tr>
 <tr class="separator:a63f82b6711f2c5af5437703ea25f03da"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -368,8 +368,8 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a2ed809a16c8bfeebaab68ff6396204eb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ed809a16c8bfeebaab68ff6396204eb">&#9670;&nbsp;</a></span>exportStateVariablesUnitComponent()</h2>
+<a id="a1d96ea161caabbee57e03aaeb6e9bd2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d96ea161caabbee57e03aaeb6e9bd2e">&#9670;&nbsp;</a></span>exportStateVariablesUnitComponent()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -378,7 +378,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::GeneratorInterface::exportStateVariablesUnitComponent </td>
+          <td class="memname">void DYN::GeneratorInterface::exportStateVariablesUnitComponent </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -386,7 +386,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -395,7 +395,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 
 <p>Implements <a class="el" href="../../dc/d8b/a02691.html#a24a19ea150b9d118f6b365cdbabcacff">DYN::ComponentInterface</a>.</p>
 
-<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a3ac3da878a8a418718af9de7f8fb45df">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#a9fbe39122f833b756a11cf740dd282db">DYN::BatteryInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#aab3658844aa30c4d91a2c23e357b2a11">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#a621a6b71e253f58fcee0b0ef1fb54303">DYN::BatteryInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -425,7 +425,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the active power control droop. </p>
 <dl class="section return"><dt>Returns</dt><dd>active power control droop value </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a26893031fd17d0d404c1f6c972a51ec8">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#a65db5bbcc120b9c1d064b778cc7442c3">DYN::BatteryInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#aee6e8a96c93cf514bc007076434e5107">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#aa022e342d0608868e70efdc6a3f94ab1">DYN::BatteryInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -455,7 +455,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the generator's bus interface. </p>
 <dl class="section return"><dt>Returns</dt><dd>busInterface of the bus where the generator is connected </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a53d81bdf8371269fb24e41863b470776">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#a6ea0a7669c1b37b37b7a9d596cd99f6a">DYN::BatteryInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#ac28e93f0a81417db931698a37a8665cd">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#ac45c6400ac95eb33ad628e05193d7304">DYN::BatteryInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -485,7 +485,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the reactive power control percentage of participation. </p>
 <dl class="section return"><dt>Returns</dt><dd>reactive power control percentage of participation value </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#ade0d9df4fb6d5674e0e291518de9ed8d">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#ac6ef0749a0b38661a92b9f0993965a0c">DYN::BatteryInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a3af7f14ac1bb5ac10654322517b118fa">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#abc115bf0aa01393cbc43803fa9e6d8ca">DYN::BatteryInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -515,12 +515,12 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for energy source type. </p>
 <dl class="section return"><dt>Returns</dt><dd>energy source type </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a5e784307db3e2c2a4e2463d7ebde05e1">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#a869449b8dd9845668e51984d5fcc0add">DYN::BatteryInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#abbba8970de8204f5111b71b668bc1520">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#a04508e1406444cee548f368e7c4de38f">DYN::BatteryInterfaceIIDM</a>.</p>
 
 </div>
 </div>
-<a id="a88fe5213e03183c8d39337c95496fd32"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a88fe5213e03183c8d39337c95496fd32">&#9670;&nbsp;</a></span>getID()</h2>
+<a id="a83c6aadd110714e0f027820871502854"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83c6aadd110714e0f027820871502854">&#9670;&nbsp;</a></span>getID()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -529,7 +529,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual const std::string&amp; DYN::GeneratorInterface::getID </td>
+          <td class="memname">const std::string&amp; DYN::GeneratorInterface::getID </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -537,7 +537,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -547,7 +547,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 
 <p>Implements <a class="el" href="../../dc/d8b/a02691.html#a452b88bee7f575411dc10043cbc09bd5">DYN::ComponentInterface</a>.</p>
 
-<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a60f6eca47f860e621dd7215a5bddab2d">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#aef961437008b63ad6812e241c8e5be14">DYN::BatteryInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a07efd209706b2f34baee985438ceac1c">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#a3bb062a6af9ac2fb9548564b75475174">DYN::BatteryInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -577,7 +577,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the initial connection state of the generator. </p>
 <dl class="section return"><dt>Returns</dt><dd><b>true</b> if the generator is connected, <b>false</b> else </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#ad4eaf7433f23922abe16715a2ffe7757">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#aa65a0d360b151b7cc6944a52328d7f13">DYN::BatteryInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a4c2b8ffc0a86b4dcfc473a749f94b10a">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#a0ec547225ebb7c0ebbba4d9924ca80a2">DYN::BatteryInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -607,7 +607,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the active power of the generator. </p>
 <dl class="section return"><dt>Returns</dt><dd>The active power of the generator in MW (generator convention) </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#af01ab6197d2abe6914bb5736f3c15b73">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#ae672800ac024ce96918eb90b5be9342d">DYN::BatteryInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a83ec72074586977b8743ecfb6d99fd0e">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#a001d49a47516cef304d9691f90e02ac4">DYN::BatteryInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -637,7 +637,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the maximum active power of the generator. </p>
 <dl class="section return"><dt>Returns</dt><dd>The maximum active power of the generator in MW (generator convention) </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a5a747d0437d157f743b9dfab54cee0b4">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#a2d7d587d9711a7d8ce45a23153fe8616">DYN::BatteryInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a71f26adda0708c5a343c4c5b1f890697">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#a5a4ca4861064473c8fe07955bd4d78c5">DYN::BatteryInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -667,7 +667,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the minimum active power of the generator. </p>
 <dl class="section return"><dt>Returns</dt><dd>The minimum active power of the generator in MW (generator convention) </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a3099c82ec53e407913fa0e5e67a504d3">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#a71947659b4e058d65be6ff42eb41e0ef">DYN::BatteryInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a73aeb0278181f42b9cde93f86f68dd8e">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#adfdfe110ad553659c98424d7efd5278a">DYN::BatteryInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -697,7 +697,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the reactive power of the generator. </p>
 <dl class="section return"><dt>Returns</dt><dd>The reactive power of the generator in Mvar (generator convention) </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a15aa272eff64436fee6c122adcbb8376">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#ad1c21dee6ff92275f38dd1bc43c1492c">DYN::BatteryInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a5ee725e50fa560761e420f9aefc1815a">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#a136a07dab4e7014e336b6c915b107a60">DYN::BatteryInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -727,7 +727,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the maximum reactive power of the generator. </p>
 <dl class="section return"><dt>Returns</dt><dd>The maximum reactive power of the generator in Mvar (generator convention) </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a23ae94042b6965334dafdc93fb7d8584">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#a8e10ee6d5a8be0d4e0f17c06b7de2050">DYN::BatteryInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a3262e7a7cda5c6cbee3149f0188b6163">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#abfde407c952a081003b76a2c786b903d">DYN::BatteryInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -757,7 +757,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the minimum reactive power of the generator. </p>
 <dl class="section return"><dt>Returns</dt><dd>The minimum reactive power of the generator in Mvar (generator convention) </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a55e91ecd3291e563428e04b0e0814e79">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#a65adec3508459bae6c28f972579093c0">DYN::BatteryInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#ae353f1b45827a4195d30db84a38d1696">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#aa37f1602f16212fa88afa1f1d5c56b4a">DYN::BatteryInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -787,12 +787,12 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the nominal reactive power of the generator. </p>
 <dl class="section return"><dt>Returns</dt><dd>The nominal reactive power of the generator in Mvar (generator convention), computed as the maximum absolute value of the PQ diagram </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a2e4176b4159b6ae17fd9fdedfd642d37">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#a1610cbd963bf44dc22a6a2afba34548f">DYN::BatteryInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a9412230a062252aadf3aae9adcb5d27a">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#ac23d6a5c30206d360c93d4e12aed7bc9">DYN::BatteryInterfaceIIDM</a>.</p>
 
 </div>
 </div>
-<a id="a5ec00ddc15b5678710256ae4936ed6b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ec00ddc15b5678710256ae4936ed6b6">&#9670;&nbsp;</a></span>getReactiveCurvesPoints()</h2>
+<a id="a02cc20de77a4826638b6acea831570e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02cc20de77a4826638b6acea831570e8">&#9670;&nbsp;</a></span>getReactiveCurvesPoints()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -801,7 +801,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::vector&lt;<a class="el" href="../../d0/dda/a02799.html">ReactiveCurvePoint</a>&gt; DYN::GeneratorInterface::getReactiveCurvesPoints </td>
+          <td class="memname">std::vector&lt;<a class="el" href="../../d0/dda/a02799.html">ReactiveCurvePoint</a>&gt; DYN::GeneratorInterface::getReactiveCurvesPoints </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -809,7 +809,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -819,7 +819,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 
 <p>Implements <a class="el" href="../../de/d05/a02795.html#a350a4f24a851be8819f7d049cb144ebd">DYN::ReactiveCurvePointsInterface</a>.</p>
 
-<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#ac5ea90fe0eeb4b8d3dfc1e7bf7a8a25d">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#acb6312a6593b12740cf46fbe63511b28">DYN::BatteryInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a9fae296fbfe3ea1f995752efadbc135b">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#a0339f56aafb65fd6a9e0e8e2249e0867">DYN::BatteryInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -849,7 +849,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the state variable "p". </p>
 <dl class="section return"><dt>Returns</dt><dd>The value of state variable p of the generator in MW </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a88e9566ba101a0b089729e62431728a4">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#adf2bb340ba8f51e9010f79d6bc7c2240">DYN::BatteryInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a51f0a622e67a5cf850895f292b87ae5a">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#aff4460cd576c450677ffd7bb5e169aa9">DYN::BatteryInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -879,7 +879,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the target active power of the generator. </p>
 <dl class="section return"><dt>Returns</dt><dd>The target active power of the generator in MW (receptor convention) </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a00862185113f1610612bdee0e88aaee4">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#a141c34ff2133ef23d60230ed063622ef">DYN::BatteryInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a9b68e7d45096a0bdfbcd127b09a0e236">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#ac1ef6d2e1c32d6c521d5f0d14c977b84">DYN::BatteryInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -909,7 +909,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the target reactive power of the generator. </p>
 <dl class="section return"><dt>Returns</dt><dd>The target reactive power of the generator in Mvar (receptor convention) </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#aec9a49522ccec6fca23c7b0806a192c1">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#aedca79299c6ccb3d25c6068da04b56dd">DYN::BatteryInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a09c48ae676f89f6ae8277dbe01bbe2fa">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#a5423eae006f6c784067379688acb08ea">DYN::BatteryInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -939,7 +939,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Getter for the target voltage of the generator. </p>
 <dl class="section return"><dt>Returns</dt><dd>The target voltage of the generator in kV </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a942778486822c0d624e35dd702f5614b">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#a0638c4e6fcff751462553ca0c01cfea4">DYN::BatteryInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a4a5140e96c7a3020c93aeb012997bfbb">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#ae139f2ef966b77ca3cdebe1da5b4f062">DYN::BatteryInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -969,7 +969,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Determines if generator has active power control information. </p>
 <dl class="section return"><dt>Returns</dt><dd>whether generator has active power control information </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a10a408944252ca77d39b01502c19bcad">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#a48c946ce40d443c78be57f0d6f66a325">DYN::BatteryInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a78da1fb8e7dc1c1d2ff1800455b06635">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#a72c97acb09deea30eea9d7d59c62022e">DYN::BatteryInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -999,7 +999,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Determines if generator has coordinated reactive power control information. </p>
 <dl class="section return"><dt>Returns</dt><dd>whether generator has coordinated reactive power power control information </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#aca2ef85ada4862d17feaca60185ed3e0">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#a63e572fda03a0793bf2dcc442aa9d4dc">DYN::BatteryInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#ad869cdb44fc70e595ca3ed7c26387789">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#a38e69365da52df9f532896244c02ae52">DYN::BatteryInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -1029,7 +1029,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Determines if generator is participating in active power control. </p>
 <dl class="section return"><dt>Returns</dt><dd>whether generator is participating to active power control </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a5ebce2439a027885c64cee2964eb0687">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#a5286ed1bc5ef92a277bcdea76891b029">DYN::BatteryInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#ae8be6f3342f6456270e7eba8999fcfc5">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#a007b54b48f1be43ac0a13cb6cad513e3">DYN::BatteryInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -1059,7 +1059,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <p>Determines if voltage regulation is on. </p>
 <dl class="section return"><dt>Returns</dt><dd>whether voltage regulation is on </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a9d84fc72d2c38cae759780ae7ed862cf">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#ada522014668991f26a1ab8c2c67ff8e7">DYN::BatteryInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#aaccd5e560c77fc15f761f81942596915">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#a44a85d950325dc3854cf11c86407efaf">DYN::BatteryInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -1095,7 +1095,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a0c9c40623d87037adfbe6da9baafcdac">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#aaa9fa23e26cee5fd1c7827596e495c60">DYN::BatteryInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a586dc1b970b6337e51288ffd8365addb">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#aefe60284169634ea72e8e5ceeda59ec6">DYN::BatteryInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -1131,7 +1131,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#a2f6f29a693c9b2ef64ab4d594ae849fa">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#a2b66db5d429fb7d640da017215b9df79">DYN::BatteryInterfaceIIDM</a>.</p>
+<p>Implemented in <a class="el" href="../../dc/d44/a02899.html#addf7f079f921e679b39cd4ebfe7ee30b">DYN::GeneratorInterfaceIIDM</a>, and <a class="el" href="../../dc/d05/a02855.html#adcd88462d1bf168829d54570938c61e3">DYN::BatteryInterfaceIIDM</a>.</p>
 
 </div>
 </div>
@@ -1155,7 +1155,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d3/da7/a02815.html
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d5/d4d/a02763.html">GeneratorInterface</a></li>
-    <li class="footer">Generated on Thu Jun 5 2025 13:50:11 for Dynawo by
+    <li class="footer">Generated on Fri Jun 6 2025 10:06:05 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
