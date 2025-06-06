@@ -1914,6 +1914,7 @@ class ReaderOMC:
         for func in self.list_omc_functions:
             if "omc_Modelica_" in func.get_name() and "omc_Modelica_Blocks_Tables_Internal_getTable" not in func.get_name() \
             and "omc_Modelica_Blocks_Tables_Internal_getTimeTable" not in func.get_name(): continue
+            if "array_alloc_scalar_real_array" in func.get_name(): continue
             name_func_to_search[func.get_name()] = func
 
         # dictionary that stores the number of equations that depends on a specific variable
@@ -2122,6 +2123,20 @@ class ReaderOMC:
         func.add_params(OmcFunctionParameter("n", "int", 1, True))
         for i in range(100):
             func.add_params(OmcFunctionParameter("%dth" % (i), "modelica_real", 2, True))
+        self.list_omc_functions.append(func)
+
+        func = RawOmcFunctions()
+        func.set_name("max_real_array")
+        func.set_signature("modelica_real max_real_array(const real_array_t a)")
+        func.set_return_type("modelica_real")
+        func.add_params(OmcFunctionParameter("a", "real_array_t", 0, True))
+        self.list_omc_functions.append(func)
+
+        func = RawOmcFunctions()
+        func.set_name("min_real_array")
+        func.set_signature("modelica_real min_real_array(const real_array_t a)")
+        func.set_return_type("modelica_real")
+        func.add_params(OmcFunctionParameter("a", "real_array_t", 0, True))
         self.list_omc_functions.append(func)
 
         func = RawOmcFunctions()
