@@ -52,62 +52,62 @@ class ShuntCompensatorInterfaceIIDM : public ShuntCompensatorInterface, public I
   /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
-  void exportStateVariablesUnitComponent();
+  void exportStateVariablesUnitComponent() override;
 
   /**
    * @copydoc ComponentInterface::importStaticParameters()
    */
-  void importStaticParameters();
+  void importStaticParameters() override;
 
   /**
    * @copydoc ComponentInterface::isConnected()
    */
-  bool isConnected() const;
+  bool isConnected() const override;
 
   /**
    * @copydoc ShuntCompensatorInterface::setBusInterface(const std::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface(const std::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface(const std::shared_ptr<BusInterface>& busInterface) override;
 
   /**
    * @copydoc ShuntCompensatorInterface::setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
    */
-  void setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
+  void setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) override;
 
   /**
    * @copydoc ShuntCompensatorInterface::getBusInterface() const
    */
-  std::shared_ptr<BusInterface> getBusInterface() const;
+  std::shared_ptr<BusInterface> getBusInterface() const override;
 
   /**
    * @copydoc ShuntCompensatorInterface::getInitialConnected()
    */
-  bool getInitialConnected();
+  bool getInitialConnected() override;
 
   /**
    * @copydoc ShuntCompensatorInterface::getVNom() const
    */
-  double getVNom() const;
+  double getVNom() const override;
 
   /**
    * @copydoc ShuntCompensatorInterface::getQ()
    */
-  double getQ();
+  double getQ() override;
 
   /**
    * @copydoc ShuntCompensatorInterface::getID() const
    */
-  const std::string& getID() const;
+  const std::string& getID() const override;
 
   /**
    * @copydoc ShuntCompensatorInterface::getCurrentSection() const
    */
-  int getCurrentSection() const;
+  int getCurrentSection() const override;
 
   /**
    * @copydoc ShuntCompensatorInterface::getMaximumSection() const
    */
-  int getMaximumSection() const;
+  int getMaximumSection() const override;
 
   /**
    * @copydoc ShuntCompensatorInterface::isVoltageRegulationOn() const
@@ -125,18 +125,18 @@ class ShuntCompensatorInterfaceIIDM : public ShuntCompensatorInterface, public I
    * @param section at which calculate the shuntsCompensator's susceptance
    * @return The cumulative susceptance in Siemens, at given section of the shunt compensator
    */
-  double getB(const int section) const;
+  double getB(const int section) const override;
 
   /**
    * @brief Getter for model type of the shunt compensator
    * @return @b true if the shunt compensator is linear, @b false otherwise
    */
-  bool isLinear() const;
+  bool isLinear() const override;
 
   /**
    * @copydoc ComponentInterface::getComponentVarIndex()
    */
-  int getComponentVarIndex(const std::string& varName) const;
+  int getComponentVarIndex(const std::string& varName) const override;
 
  private:
   powsybl::iidm::ShuntCompensator& shuntCompensatorIIDM_;  ///< reference to the iidm shunt compensator instance

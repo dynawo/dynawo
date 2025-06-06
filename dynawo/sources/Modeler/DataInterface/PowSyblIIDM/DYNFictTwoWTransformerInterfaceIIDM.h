@@ -63,17 +63,17 @@ class FictTwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
   /**
    * @copydoc TwoWTransformerInterface::addCurrentLimitInterface1(std::unique_ptr<CurrentLimitInterface> currentLimitInterface)
    */
-  void addCurrentLimitInterface1(std::unique_ptr<CurrentLimitInterface> currentLimitInterface);
+  void addCurrentLimitInterface1(std::unique_ptr<CurrentLimitInterface> currentLimitInterface) override;
 
   /**
    * @copydoc TwoWTransformerInterface::addCurrentLimitInterface2(std::unique_ptr<CurrentLimitInterface> currentLimitInterface)
    */
-  void addCurrentLimitInterface2(std::unique_ptr<CurrentLimitInterface> currentLimitInterface);
+  void addCurrentLimitInterface2(std::unique_ptr<CurrentLimitInterface> currentLimitInterface) override;
 
   /**
    * @copydoc TwoWTransformerInterface::getCurrentLimitInterfaces1() const
    */
-  const std::vector<std::unique_ptr<CurrentLimitInterface> >& getCurrentLimitInterfaces1() const {
+  const std::vector<std::unique_ptr<CurrentLimitInterface> >& getCurrentLimitInterfaces1() const override {
       static std::vector<std::unique_ptr<CurrentLimitInterface> > empty;
       return empty;
   }
@@ -81,132 +81,132 @@ class FictTwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
   /**
    * @copydoc TwoWTransformerInterface::getCurrentLimitInterfaces2() const
    */
-  const std::vector<std::unique_ptr<CurrentLimitInterface> >& getCurrentLimitInterfaces2() const;
+  const std::vector<std::unique_ptr<CurrentLimitInterface> >& getCurrentLimitInterfaces2() const override;
 
   /**
    * @copydoc TwoWTransformerInterface::setBusInterface1(const std::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface1(const std::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface1(const std::shared_ptr<BusInterface>& busInterface) override;
 
   /**
    * @copydoc TwoWTransformerInterface::setVoltageLevelInterface1(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
    */
-  void setVoltageLevelInterface1(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
+  void setVoltageLevelInterface1(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) override;
 
   /**
    * @copydoc TwoWTransformerInterface::setBusInterface2(const std::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface2(const std::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface2(const std::shared_ptr<BusInterface>& busInterface) override;
 
   /**
    * @copydoc TwoWTransformerInterface::setVoltageLevelInterface2(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
    */
-  void setVoltageLevelInterface2(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
+  void setVoltageLevelInterface2(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) override;
 
   /**
    * @copydoc TwoWTransformerInterface::getBusInterface1() const
    */
-  std::shared_ptr<BusInterface> getBusInterface1() const;
+  std::shared_ptr<BusInterface> getBusInterface1() const override;
 
   /**
    * @copydoc TwoWTransformerInterface::getBusInterface2() const
    */
-  std::shared_ptr<BusInterface> getBusInterface2() const;
+  std::shared_ptr<BusInterface> getBusInterface2() const override;
 
   /**
    * @copydoc TwoWTransformerInterface::getID() const
    */
-  const std::string& getID() const;
+  const std::string& getID() const override;
 
   /**
    * @copydoc TwoWTransformerInterface::getInitialConnected1()
    */
-  bool getInitialConnected1();
+  bool getInitialConnected1() override;
 
   /**
    * @copydoc TwoWTransformerInterface::getInitialConnected2()
    */
-  bool getInitialConnected2();
+  bool getInitialConnected2() override;
 
   /**
    * @copydoc TwoWTransformerInterface::getVNom1() const
    */
-  double getVNom1() const;
+  double getVNom1() const override;
 
   /**
    * @copydoc TwoWTransformerInterface::getVNom2() const
    */
-  double getVNom2() const;
+  double getVNom2() const override;
 
   /**
    * @copydoc TwoWTransformerInterface::getRatedU1() const
    */
-  double getRatedU1() const;
+  double getRatedU1() const override;
 
   /**
    * @copydoc TwoWTransformerInterface::getRatedU2() const
    */
-  double getRatedU2() const;
+  double getRatedU2() const override;
 
   /**
    * @copydoc TwoWTransformerInterface::getPhaseTapChanger() const
    */
-  const std::unique_ptr<PhaseTapChangerInterface>& getPhaseTapChanger() const;
+  const std::unique_ptr<PhaseTapChangerInterface>& getPhaseTapChanger() const override;
 
   /**
    * @copydoc TwoWTransformerInterface::getRatioTapChanger() const
    */
-  const std::unique_ptr<RatioTapChangerInterface>& getRatioTapChanger() const;
+  const std::unique_ptr<RatioTapChangerInterface>& getRatioTapChanger() const override;
 
   /**
    * @copydoc TwoWTransformerInterface::setPhaseTapChanger(std::unique_ptr<PhaseTapChangerInterface> tapChanger)
    */
-  void setPhaseTapChanger(std::unique_ptr<PhaseTapChangerInterface> tapChanger);
+  void setPhaseTapChanger(std::unique_ptr<PhaseTapChangerInterface> tapChanger) override;
 
   /**
    * @copydoc TwoWTransformerInterface::setRatioTapChanger(std::unique_ptr<RatioTapChangerInterface> tapChanger)
    */
-  void setRatioTapChanger(std::unique_ptr<RatioTapChangerInterface> tapChanger);
+  void setRatioTapChanger(std::unique_ptr<RatioTapChangerInterface> tapChanger) override;
 
   /**
    * @copydoc TwoWTransformerInterface::getR() const
    */
-  double getR() const;
+  double getR() const override;
 
   /**
    * @copydoc TwoWTransformerInterface::getX() const
    */
-  double getX() const;
+  double getX() const override;
 
   /**
    * @copydoc TwoWTransformerInterface::getG() const
    */
-  double getG() const;
+  double getG() const override;
 
   /**
    * @copydoc TwoWTransformerInterface::getB() const
    */
-  double getB() const;
+  double getB() const override;
 
   /**
    * @copydoc TwoWTransformerInterface::getP1()
    */
-  double getP1();
+  double getP1() override;
 
   /**
    * @copydoc TwoWTransformerInterface::getQ1()
    */
-  double getQ1();
+  double getQ1() override;
 
   /**
    * @copydoc TwoWTransformerInterface::getP2()
    */
-  double getP2();
+  double getP2() override;
 
   /**
    * @copydoc TwoWTransformerInterface::getQ2()
    */
-  double getQ2();
+  double getQ2() override;
 
   /**
    * @copydoc TwoWTransformerInterface::getActiveSeason()
@@ -218,22 +218,22 @@ class FictTwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
   /**
    * @copydoc ComponentInterface::importStaticParameters()
    */
-  void importStaticParameters();
+  void importStaticParameters() override;
 
   /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
-  void exportStateVariablesUnitComponent();
+  void exportStateVariablesUnitComponent() override;
 
   /**
    * @copydoc ComponentInterface::getComponentVarIndex()
    */
-  int getComponentVarIndex(const std::string& varName) const;
+  int getComponentVarIndex(const std::string& varName) const override;
 
   /**
    * @copydoc ComponentInterface::isConnected()
    */
-  bool isConnected() const;
+  bool isConnected() const override;
 
  private:
   stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg> leg_;  ///< reference to original three winding transformer leg

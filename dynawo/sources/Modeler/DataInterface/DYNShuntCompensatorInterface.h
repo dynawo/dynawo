@@ -45,17 +45,17 @@ class ShuntCompensatorInterface : public ComponentInterface {
   /**
    * @brief Destructor
    */
-  virtual ~ShuntCompensatorInterface() = default;
+  ~ShuntCompensatorInterface() override = default;
 
   /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
-  virtual void exportStateVariablesUnitComponent() = 0;
+  void exportStateVariablesUnitComponent() override = 0;
 
   /**
    * @copydoc ComponentInterface::importStaticParameters()
    */
-  virtual void importStaticParameters() = 0;
+  void importStaticParameters() override = 0;
 
   /**
    * @brief Setter for the shuntCompensator's bus interface
@@ -97,7 +97,7 @@ class ShuntCompensatorInterface : public ComponentInterface {
    * @brief Getter for the shunt compensator's id
    * @return The id of the shunt compensator
    */
-  virtual const std::string& getID() const = 0;
+  const std::string& getID() const override = 0;
 
   /**
    * @brief Getter for the shuntCompensator's current number of connected sections

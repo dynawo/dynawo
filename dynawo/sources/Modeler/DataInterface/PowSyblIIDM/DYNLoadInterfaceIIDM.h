@@ -56,84 +56,84 @@ class LoadInterfaceIIDM : public LoadInterface, public InjectorInterfaceIIDM {
   /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
-  void exportStateVariablesUnitComponent();
+  void exportStateVariablesUnitComponent() override;
 
   /**
    * @copydoc ComponentInterface::importStaticParameters()
    */
-  void importStaticParameters();
+  void importStaticParameters() override;
 
   /**
    * @copydoc ComponentInterface::isConnected()
    */
-  bool isConnected() const;
+  bool isConnected() const override;
 
   /**
    * @copydoc LoadInterface::setBusInterface(const std::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface(const std::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface(const std::shared_ptr<BusInterface>& busInterface) override;
 
   /**
    * @copydoc LoadInterface::setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
    */
-  void setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
+  void setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) override;
 
   /**
    * @copydoc LoadInterface::getBusInterface() const
    */
-  std::shared_ptr<BusInterface> getBusInterface() const;
+  std::shared_ptr<BusInterface> getBusInterface() const override;
 
   /**
    * @copydoc LoadInterface::getInitialConnected()
    */
-  bool getInitialConnected();
+  bool getInitialConnected() override;
 
   /**
    * @copydoc LoadInterface::getP()
    */
-  double getP();
+  double getP() override;
 
   /**
    * @copydoc LoadInterface::getStateVarP()
    */
-  double getStateVarP() const;
+  double getStateVarP() const override;
 
   /**
    * @copydoc LoadInterface::getP0()
    */
-  double getP0() const;
+  double getP0() const override;
 
   /**
    * @copydoc LoadInterface::getQ()
    */
-  double getQ();
+  double getQ() override;
 
   /**
    * @copydoc LoadInterface::getQ0()
    */
-  double getQ0() const;
+  double getQ0() const override;
 
   /**
    * @copydoc LoadInterface::getID() const
    */
-  const std::string& getID() const {
+  const std::string& getID() const override {
     return loadIIDM_.getId();
   }
 
   /**
    * @copydoc LoadInterface::getPUnderVoltage()
    */
-  double getPUnderVoltage();
+  double getPUnderVoltage() override;
 
   /**
    * @copydoc LoadInterface::isFictitious()
    */
-  bool isFictitious();
+  bool isFictitious() override;
 
   /**
    * @copydoc ComponentInterface::getComponentVarIndex()
    */
-  int getComponentVarIndex(const std::string& varName) const;
+  int getComponentVarIndex(const std::string& varName) const override;
 
   /**
    * @brief Getter for the load' country

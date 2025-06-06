@@ -47,7 +47,7 @@ class ModelTemplateExpansion : public Model {
   /**
    * @brief Destructor
    */
-  virtual ~ModelTemplateExpansion();
+  ~ModelTemplateExpansion() override;
 
   /**
    * @brief Template Model getter

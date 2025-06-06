@@ -85,7 +85,7 @@ class Error : public std::exception {
    *
    * @return error's description
    */
-  virtual const char* what() const noexcept;
+  const char* what() const noexcept override;
 
   /**
    * @brief returns the error's type
@@ -163,7 +163,7 @@ class MessageError : public std::exception {
    *
    * @return error's description
    */
-  virtual const char* what() const noexcept;
+  const char* what() const noexcept override;
 
   /**
    * @brief returns the error's message

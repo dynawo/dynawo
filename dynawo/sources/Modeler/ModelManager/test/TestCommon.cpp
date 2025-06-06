@@ -31,10 +31,10 @@ class MyEmptyModelManager : public ModelManager {
     ModelManager() {
   }
 
-  virtual ~MyEmptyModelManager();
+  ~MyEmptyModelManager() override;
 
  protected:
-  bool hasInit() const {
+  bool hasInit() const override {
     return false;
   }
 };

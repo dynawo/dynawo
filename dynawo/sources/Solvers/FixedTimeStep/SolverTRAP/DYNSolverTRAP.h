@@ -48,12 +48,12 @@ class SolverTRAPFactory : public SolverFactory {
    * @brief Create an instance of solver
    * @return the new instance of solver created by the factory
    */
-  Solver* create() const;
+  Solver* create() const override;
 
   /**
    * @brief SolverTRAP destroy
    */
-  void destroy(Solver*) const;
+  void destroy(Solver*) const override;
 };
 
 /**

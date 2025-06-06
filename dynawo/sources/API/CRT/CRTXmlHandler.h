@@ -40,7 +40,7 @@ class ElementWithIdHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  virtual ~ElementWithIdHandler();
+  ~ElementWithIdHandler() override;
 
   /**
    * @brief return the id read in xml file
@@ -74,7 +74,7 @@ class ComponentHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  virtual ~ComponentHandler();
+  ~ComponentHandler() override;
 
   /**
    * @brief return the id read in xml file
@@ -115,7 +115,7 @@ class CriteriaParamsVoltageLevelHandler : public xml::sax::parser::ComposableEle
   /**
    * @brief Destructor
    */
-  virtual ~CriteriaParamsVoltageLevelHandler();
+  ~CriteriaParamsVoltageLevelHandler() override;
 
   /**
    * @brief return the criteria params voltage level read in xml file
@@ -149,7 +149,7 @@ class CriteriaParamsHandler : public xml::sax::parser::ComposableElementHandler 
   /**
    * @brief Destructor
    */
-  virtual ~CriteriaParamsHandler();
+  ~CriteriaParamsHandler() override;
 
   /**
    * @brief return the criteria params read in xml file
@@ -189,7 +189,7 @@ class CriteriaHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  virtual ~CriteriaHandler();
+  ~CriteriaHandler() override;
 
   /**
    * @brief return the criteria read in xml file
@@ -240,7 +240,7 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
   /**
    * @brief Destructor
    */
-  virtual ~XmlHandler();
+  ~XmlHandler() override;
 
   /**
    * @brief Parsed criteria collection getter
