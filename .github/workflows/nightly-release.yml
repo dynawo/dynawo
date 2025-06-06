@@ -173,8 +173,8 @@ jobs:
 
   windows:
     if: always() && !cancelled() && !failure() && (github.event_name != 'workflow_dispatch' || inputs.perform-windows)
-    name: Windows 2019 (Release, VS2019)
-    runs-on: windows-2019
+    name: Windows 2022 (Release, VS2022)
+    runs-on: windows-2022
     needs: nightly
     env:
       DYNAWO_VERSION: 1.4.1   # latest release with OpenModelica
@@ -211,7 +211,7 @@ jobs:
         env:
           PATH: C:\Windows\system32;C:\Program Files\Git\cmd;C:\hostedtoolcache\windows\Python\3.9.13\x64
         run: |
-          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
           cd \dynawo
           cmake -Wno-dev -S dynawo/3rdParty -B b-3-p -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../d-3-p -DOPENMODELICA_INSTALL=../OpenModelica/dynawo/OpenModelica -DOPENMODELICA_SRC=../OpenModelica/Source -DOMDEV_HOME=../OMDev -G "Ninja"
           cmake --build b-3-p --target openmodelica
@@ -230,7 +230,7 @@ jobs:
         env:
           PATH: C:\Windows\system32;C:\Program Files\Git\cmd;C:\hostedtoolcache\windows\Python\3.9.13\x64
         run: |
-          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
           cd \dynawo
           cmake -Wno-dev -S dynawo -B b -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../d-i -DDYNAWO_HOME=.. -DINSTALL_OPENMODELICA=../../OpenModelica/dynawo/OpenModelica -DDYNAWO_THIRD_PARTY_DIR=../../d-3-p -G "Ninja"
           cmake --build b --target install || exit /b 1
@@ -241,13 +241,13 @@ jobs:
         if: github.event_name != 'workflow_dispatch' || inputs.perform-nrt
         shell: cmd
         run: |
-          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
           forfiles /p \dynawo\nrt\data /m *.jobs /s /c "cmd /c cd \dynawo & \d-i\dynawo.cmd jobs @path || exit /b 1"
 
       - name: Deploy Dynawo
         shell: cmd
         run: |
-          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
           cd \dynawo
           call util\windows\deploy.cmd ..\d-i ..\d-3-p \OpenModelica\dynawo\OpenModelica || exit /b 1
           move /y *.zip ${{ github.workspace }}
