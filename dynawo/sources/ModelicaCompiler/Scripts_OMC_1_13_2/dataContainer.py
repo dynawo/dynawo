@@ -790,6 +790,12 @@ class Variable:
 
         self.start_text = txt_tmp
 
+    def has_multiple_solution(self):
+        tmp_abs_var_prtn = re.compile(r'[\(]+data->localData\[0\]->realVars\[[0-9+]\][ ]*\/\*\s*\$TMP\$VAR\$[0-9]+\$0X\$ABS\s*variable\s*\*\/[\)]+\s*\>\= 0.0 \? 1.0\:-1.0\)\)\s*\*')
+        for line in self.start_text_06inz:
+            if re.search(tmp_abs_var_prtn, line) is not None:
+                return True
+        return False
     ##
     # Erase some part of the start text used in 06inz file : {/} at the begin/end of the body
     # Replace some macro created by omc (DIVISION(a1,a2,a3) => a1/a2 ...
