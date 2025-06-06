@@ -37,11 +37,9 @@ HvdcVscDanglingUDc
 HvdcVscEmulation
 LoadAlphaBeta
 LoadAlphaBetaRestorative
-LoadOneTransformer
 LoadOneTransformerTapChanger
 LoadPQ
 LoadShedding
-LoadTwoTransformers
 LoadTwoTransformersTapChangers
 NodeFault
 PhaseShifterBlockingI

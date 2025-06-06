@@ -24,11 +24,11 @@ model FullStatic2 "RVS test grid with buses, lines, shunts, PQ loads and transfo
   Dynawo.Electrical.Controls.Basics.SetPoint N(Value0 = 0);
   Dynawo.Electrical.Buses.InfiniteBus infiniteBus(UPhase = from_deg(13.4), UPu = 1.04685) annotation(
     Placement(visible = true, transformation(origin = {-134, 322}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_10121_121(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 471, XPu = 0.15 * 100 / 471, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_10121_121(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 471, XPu = 0.15 * 100 / 471, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-114, 282}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_1118_118(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 450, XPu = 0.15 * 100 / 450, rTfoPu = 1 - 0.1 * (16 - 11) / 16) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_1118_118(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 450, XPu = 0.15 * 100 / 450, rTfoPu = 1 - 0.1 * (16 - 11) / 16) annotation(
     Placement(visible = true, transformation(origin = {26, 260}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_10118_118(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 471, XPu = 0.15 * 100 / 471, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_10118_118(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 471, XPu = 0.15 * 100 / 471, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-14, 200}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Dynawo.Electrical.Machines.Simplified.GeneratorPVFixed gen_10118_ASTOR_G1(PGen0Pu = PGen0Pu_gen_10118, U0Pu = U0Pu_gen_10118) annotation(
     Placement(visible = true, transformation(origin = {-54, 200}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
@@ -46,29 +46,29 @@ model FullStatic2 "RVS test grid with buses, lines, shunts, PQ loads and transfo
     Placement(visible = true, transformation(origin = {-264, 132}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Dynawo.Electrical.Controls.Voltage.VRRemote vRRemote_bus_115(Gain = 1, NbGenMax = 6, U0Pu = URef0Pu_bus_115 * UNom_upper, URef0Pu = URef0Pu_bus_115 * UNom_upper, tIntegral = 0.1) annotation(
     Placement(visible = true, transformation(origin = {-204, 312}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_30115_115(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 14, XPu = 0.15 * 100 / 14, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_30115_115(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 14, XPu = 0.15 * 100 / 14, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-224, 212}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_40115_115(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 14, XPu = 0.15 * 100 / 14, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_40115_115(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 14, XPu = 0.15 * 100 / 14, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-224, 172}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_60115_115(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 182, XPu = 0.15 * 100 / 182, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_60115_115(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 182, XPu = 0.15 * 100 / 182, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-224, 92}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_50115_115(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 14, XPu = 0.15 * 100 / 14, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_50115_115(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 14, XPu = 0.15 * 100 / 14, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-224, 132}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_20115_115(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 14, XPu = 0.15 * 100 / 14, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_20115_115(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 14, XPu = 0.15 * 100 / 14, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-224, 252}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_10115_115(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 14, XPu = 0.15 * 100 / 14, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_10115_115(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 14, XPu = 0.15 * 100 / 14, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-224, 292}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_1115_115(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 400, XPu = 0.15 * 100 / 400, rTfoPu = 1 - 0.1 * (16 - 6) / 16) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_1115_115(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 400, XPu = 0.15 * 100 / 400, rTfoPu = 1 - 0.1 * (16 - 6) / 16) annotation(
     Placement(visible = true, transformation(origin = {-186, 164}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Dynawo.Electrical.StaticVarCompensators.SVarCPV sVarC_10114_ARNOLD_SVC(B0Pu = Q0Pu_sVarC_10114 / 1.05 ^ 2, BMaxPu = 0.5, BMinPu = -2, BShuntPu = 0, U0Pu = 1.05, URef0Pu = 1.05, i0Pu = Complex(0, Q0Pu_sVarC_10114), u0Pu = Complex(1, 0)) annotation(
     Placement(visible = true, transformation(origin = {14, 124}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_10114_114(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 200, XPu = 0.15 * 100 / 200, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_10114_114(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 200, XPu = 0.15 * 100 / 200, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-26, 124}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_1114_114(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 250, XPu = 0.15 * 100 / 250, rTfoPu = 1 - 0.1 * (16 - 6) / 16) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_1114_114(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 250, XPu = 0.15 * 100 / 250, rTfoPu = 1 - 0.1 * (16 - 6) / 16) annotation(
     Placement(visible = true, transformation(origin = {-26, 84}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_10116_116(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 182, XPu = 0.15 * 100 / 182, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_10116_116(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 182, XPu = 0.15 * 100 / 182, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-106, 144}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_1116_116(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 150, XPu = 0.15 * 100 / 150, rTfoPu = 1 - 0.1 * (16 - 8) / 16) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_1116_116(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 150, XPu = 0.15 * 100 / 150, rTfoPu = 1 - 0.1 * (16 - 8) / 16) annotation(
     Placement(visible = true, transformation(origin = {-104, 124}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Voltage.VRRemote vRRemote_bus_116(Gain = 1, NbGenMax = 1, U0Pu = URef0Pu_bus_116 * UNom_upper, URef0Pu = URef0Pu_bus_116 * UNom_upper, tIntegral = 0.1) annotation(
     Placement(visible = true, transformation(origin = {-84, 182}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
@@ -84,25 +84,25 @@ model FullStatic2 "RVS test grid with buses, lines, shunts, PQ loads and transfo
     Placement(visible = true, transformation(origin = {-248, -266}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Machines.Simplified.GeneratorPVFixed gen_30101_ABEL_G3(PGen0Pu = PGen0Pu_gen_30101, U0Pu = U0Pu_gen_30101) annotation(
     Placement(visible = true, transformation(origin = {-168, -266}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_30101_101(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 89, XPu = 0.15 * 100 / 89, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_30101_101(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 89, XPu = 0.15 * 100 / 89, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-168, -226}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_40101_101(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 89, XPu = 0.15 * 100 / 89, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_40101_101(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 89, XPu = 0.15 * 100 / 89, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-128, -226}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_1101_101(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 150, XPu = 0.15 * 100 / 150, rTfoPu = 1 - 0.1 * (16 - 10) / 16) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_1101_101(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 150, XPu = 0.15 * 100 / 150, rTfoPu = 1 - 0.1 * (16 - 10) / 16) annotation(
     Placement(visible = true, transformation(origin = {-248, -186}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_1103_103(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 250, XPu = 0.15 * 100 / 250, rTfoPu = 1 - 0.1 * (16 - 5) / 16) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_1103_103(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 250, XPu = 0.15 * 100 / 250, rTfoPu = 1 - 0.1 * (16 - 5) / 16) annotation(
     Placement(visible = true, transformation(origin = {-208, -126}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_10101_101(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 24, XPu = 0.15 * 100 / 24, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_10101_101(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 24, XPu = 0.15 * 100 / 24, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-248, -226}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_103_124(BPu = 0, GPu = 0, RPu = 0.008 * 100 / 400, XPu = 0.336 * 100 / 400, rTfoPu = 1 - 0.1 * (16 - 1) / 16) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_103_124(BPu = 0, GPu = 0, RPu = 0.008 * 100 / 400, XPu = 0.336 * 100 / 400, rTfoPu = 1 - 0.1 * (16 - 1) / 16) annotation(
     Placement(visible = true, transformation(origin = {-168, 16}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_20101_101(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 24, XPu = 0.15 * 100 / 24, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_20101_101(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 24, XPu = 0.15 * 100 / 24, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-208, -226}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Dynawo.Electrical.Controls.Voltage.VRRemote vRRemote_bus_101(Gain = 1, NbGenMax = 4, U0Pu = URef0Pu_bus_101 * UNom_lower, URef0Pu = URef0Pu_bus_101 * UNom_lower, tIntegral = 0.1) annotation(
     Placement(visible = true, transformation(origin = {-268, -206}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_20102_102(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 24, XPu = 0.15 * 100 / 24, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_20102_102(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 24, XPu = 0.15 * 100 / 24, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-4, -266}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_30102_102(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 89, XPu = 0.15 * 100 / 89, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_30102_102(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 89, XPu = 0.15 * 100 / 89, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {36, -266}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Dynawo.Electrical.Machines.Simplified.GeneratorPVFixed gen_40102_ADAMS_G4(PGen0Pu = PGen0Pu_gen_40102, U0Pu = U0Pu_gen_40102) annotation(
     Placement(visible = true, transformation(origin = {76, -306}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -112,55 +112,55 @@ model FullStatic2 "RVS test grid with buses, lines, shunts, PQ loads and transfo
     Placement(visible = true, transformation(origin = {-44, -306}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Machines.Simplified.GeneratorPVFixed gen_20102_ADAMS_G2(PGen0Pu = PGen0Pu_gen_20102, U0Pu = U0Pu_gen_20102) annotation(
     Placement(visible = true, transformation(origin = {-4, -306}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_10102_102(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 24, XPu = 0.15 * 100 / 24, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_10102_102(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 24, XPu = 0.15 * 100 / 24, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-44, -266}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_40102_102(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 89, XPu = 0.15 * 100 / 89, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_40102_102(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 89, XPu = 0.15 * 100 / 89, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {76, -266}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_1102_102(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 150, XPu = 0.15 * 100 / 150, rTfoPu = 1 - 0.1 * (16 - 11) / 16) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_1102_102(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 150, XPu = 0.15 * 100 / 150, rTfoPu = 1 - 0.1 * (16 - 11) / 16) annotation(
     Placement(visible = true, transformation(origin = {-74, -266}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Voltage.VRRemote vRRemote_bus_102(Gain = 1, NbGenMax = 4, U0Pu = URef0Pu_bus_102 * UNom_lower, URef0Pu = URef0Pu_bus_102 * UNom_lower, tIntegral = 0.1) annotation(
     Placement(visible = true, transformation(origin = {-104, -246}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.StaticVarCompensators.SVarCPV sVarC_10106_ALBER_SVC(B0Pu = Q0Pu_sVarC_10106 / 1.05 ^ 2, BMaxPu = 0.5, BMinPu = -1, BShuntPu = 0, U0Pu = 1.05, URef0Pu = 1.05, i0Pu = Complex(0, Q0Pu_sVarC_10106), u0Pu = Complex(1, 0)) annotation(
     Placement(visible = true, transformation(origin = {172, -226}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_10106_106(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 120, XPu = 0.15 * 100 / 120, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_10106_106(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 120, XPu = 0.15 * 100 / 120, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {132, -226}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_1106_106(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 200, XPu = 0.15 * 100 / 200, rTfoPu = 1 - 0.1 * (16 - 10) / 16) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_1106_106(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 200, XPu = 0.15 * 100 / 200, rTfoPu = 1 - 0.1 * (16 - 10) / 16) annotation(
     Placement(visible = true, transformation(origin = {132, -266}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Dynawo.Electrical.Machines.Simplified.GeneratorPVFixed gen_10122_AUBREY_G1(PGen0Pu = PGen0Pu_gen_10122, U0Pu = U0Pu_gen_10122) annotation(
     Placement(visible = true, transformation(origin = {166, 278}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Dynawo.Electrical.Machines.Simplified.GeneratorPVFixed gen_40122_AUBREY_G4(PGen0Pu = PGen0Pu_gen_40122, U0Pu = U0Pu_gen_40122) annotation(
     Placement(visible = true, transformation(origin = {298, 268}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_30122_122(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 53, XPu = 0.15 * 100 / 53, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_30122_122(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 53, XPu = 0.15 * 100 / 53, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {246, 308}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Machines.Simplified.GeneratorPVFixed gen_60122_AUBREY_G6(PGen0Pu = PGen0Pu_gen_60122, U0Pu = U0Pu_gen_60122) annotation(
     Placement(visible = true, transformation(origin = {298, 188}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_20122_122(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 53, XPu = 0.15 * 100 / 53, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_20122_122(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 53, XPu = 0.15 * 100 / 53, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {206, 238}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_50122_122(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 53, XPu = 0.15 * 100 / 53, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_50122_122(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 53, XPu = 0.15 * 100 / 53, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {246, 228}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Machines.Simplified.GeneratorPVFixed gen_50122_AUBREY_G5(PGen0Pu = PGen0Pu_gen_50122, U0Pu = U0Pu_gen_50122) annotation(
     Placement(visible = true, transformation(origin = {298, 228}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_40122_122(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 53, XPu = 0.15 * 100 / 53, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_40122_122(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 53, XPu = 0.15 * 100 / 53, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {246, 268}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_60122_122(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 53, XPu = 0.15 * 100 / 53, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_60122_122(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 53, XPu = 0.15 * 100 / 53, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {246, 188}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Machines.Simplified.GeneratorPVFixed gen_20122_AUBREY_G2(PGen0Pu = PGen0Pu_gen_20122, U0Pu = U0Pu_gen_20122) annotation(
     Placement(visible = true, transformation(origin = {166, 238}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_10122_122(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 53, XPu = 0.15 * 100 / 53, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_10122_122(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 53, XPu = 0.15 * 100 / 53, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {206, 278}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Dynawo.Electrical.Machines.Simplified.GeneratorPVFixed gen_30122_AUBREY_G3(PGen0Pu = PGen0Pu_gen_30122, U0Pu = U0Pu_gen_30122) annotation(
     Placement(visible = true, transformation(origin = {298, 308}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Dynawo.Electrical.Controls.Voltage.VRRemote vRRemote_bus_122(Gain = 1, NbGenMax = 6, U0Pu = URef0Pu_bus_122 * UNom_upper, URef0Pu = URef0Pu_bus_122 * UNom_upper, tIntegral = 0.1) annotation(
     Placement(visible = true, transformation(origin = {226, 328}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_1120_120(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 200, XPu = 0.15 * 100 / 200, rTfoPu = 1 - 0.1 * (16 - 10) / 16) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_1120_120(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 200, XPu = 0.15 * 100 / 200, rTfoPu = 1 - 0.1 * (16 - 10) / 16) annotation(
     Placement(visible = true, transformation(origin = {146, 106}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_1119_119(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 250, XPu = 0.15 * 100 / 250, rTfoPu = 1 - 0.1 * (16 - 7) / 16) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_1119_119(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 250, XPu = 0.15 * 100 / 250, rTfoPu = 1 - 0.1 * (16 - 7) / 16) annotation(
     Placement(visible = true, transformation(origin = {66, 106}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_20123_123(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 182, XPu = 0.15 * 100 / 182, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_20123_123(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 182, XPu = 0.15 * 100 / 182, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {246, 106}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_30123_123(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 412, XPu = 0.15 * 100 / 412, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_30123_123(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 412, XPu = 0.15 * 100 / 412, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {246, 66}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_10123_123(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 182, XPu = 0.15 * 100 / 182, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_10123_123(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 182, XPu = 0.15 * 100 / 182, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {246, 146}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Machines.Simplified.GeneratorPVFixed gen_10123_AUSTEN_G1(PGen0Pu = PGen0Pu_gen_10123, U0Pu = U0Pu_gen_10123) annotation(
     Placement(visible = true, transformation(origin = {296, 146}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
@@ -174,23 +174,23 @@ model FullStatic2 "RVS test grid with buses, lines, shunts, PQ loads and transfo
     Placement(visible = true, transformation(origin = {186, 46}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Dynawo.Electrical.Machines.Simplified.GeneratorPVFixed gen_30113_ARNE_G3(PGen0Pu = PGen0Pu_gen_30113, U0Pu = U0Pu_gen_30113) annotation(
     Placement(visible = true, transformation(origin = {186, -34}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_10113_113(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 232, XPu = 0.15 * 100 / 232, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_10113_113(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 232, XPu = 0.15 * 100 / 232, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {146, 46}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Voltage.VRRemote vRRemote_bus_113(Gain = 1, NbGenMax = 3, U0Pu = URef0Pu_bus_113 * UNom_upper, URef0Pu = URef0Pu_bus_113 * UNom_upper, tIntegral = 0.1) annotation(
     Placement(visible = true, transformation(origin = {126, -54}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_30113_113(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 232, XPu = 0.15 * 100 / 232, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_30113_113(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 232, XPu = 0.15 * 100 / 232, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {146, -34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Machines.Simplified.GeneratorPVFixed gen_20113_ARNE_G2(PGen0Pu = PGen0Pu_gen_20113, U0Pu = U0Pu_gen_20113) annotation(
     Placement(visible = true, transformation(origin = {186, 6}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_20113_113(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 232, XPu = 0.15 * 100 / 232, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_20113_113(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 232, XPu = 0.15 * 100 / 232, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {146, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_1113_113(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 350, XPu = 0.15 * 100 / 350, rTfoPu = 1 - 0.1 * (16 - 7) / 16) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_1113_113(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 350, XPu = 0.15 * 100 / 350, rTfoPu = 1 - 0.1 * (16 - 7) / 16) annotation(
     Placement(visible = true, transformation(origin = {106, -14}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_30107_107(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 118, XPu = 0.15 * 100 / 118, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_30107_107(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 118, XPu = 0.15 * 100 / 118, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {256, -214}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_20107_107(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 118, XPu = 0.15 * 100 / 118, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_20107_107(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 118, XPu = 0.15 * 100 / 118, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {256, -174}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_10107_107(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 118, XPu = 0.15 * 100 / 118, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_10107_107(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 118, XPu = 0.15 * 100 / 118, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {256, -134}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Machines.Simplified.GeneratorPVFixed gen_10107_ALDER_G1(PGen0Pu = PGen0Pu_gen_10107, U0Pu = U0Pu_gen_10107) annotation(
     Placement(visible = true, transformation(origin = {296, -134}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
@@ -200,25 +200,25 @@ model FullStatic2 "RVS test grid with buses, lines, shunts, PQ loads and transfo
     Placement(visible = true, transformation(origin = {296, -214}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Dynawo.Electrical.Machines.Simplified.GeneratorPVFixed gen_20107_ALDER_G2(PGen0Pu = PGen0Pu_gen_20107, U0Pu = U0Pu_gen_20107) annotation(
     Placement(visible = true, transformation(origin = {296, -174}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_1107_107(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 200, XPu = 0.15 * 100 / 200, rTfoPu = 1 - 0.1 * (16 - 10) / 16) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_1107_107(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 200, XPu = 0.15 * 100 / 200, rTfoPu = 1 - 0.1 * (16 - 10) / 16) annotation(
     Placement(visible = true, transformation(origin = {216, -214}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_1108_108(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 250, XPu = 0.15 * 100 / 250, rTfoPu = 1 - 0.1 * (16 - 7) / 16) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_1108_108(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 250, XPu = 0.15 * 100 / 250, rTfoPu = 1 - 0.1 * (16 - 7) / 16) annotation(
     Placement(visible = true, transformation(origin = {176, -174}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_109_111(BPu = 0, GPu = 0, RPu = 0.008 * 100 / 400, XPu = 0.336 * 100 / 400, rTfoPu = 1 - 0.1 * (16 - 12) / 16) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_109_111(BPu = 0, GPu = 0, RPu = 0.008 * 100 / 400, XPu = 0.336 * 100 / 400, rTfoPu = 1 - 0.1 * (16 - 12) / 16) annotation(
     Placement(visible = true, transformation(origin = {-74, 16}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_1109_109(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 250, XPu = 0.15 * 100 / 250, rTfoPu = 1 - 0.1 * (16 - 7) / 16) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_1109_109(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 250, XPu = 0.15 * 100 / 250, rTfoPu = 1 - 0.1 * (16 - 7) / 16) annotation(
     Placement(visible = true, transformation(origin = {-80, -128}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_1104_104(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 100, XPu = 0.15 * 100 / 100, rTfoPu = 1 - 0.1 * (16 - 4) / 16) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_1104_104(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 100, XPu = 0.15 * 100 / 100, rTfoPu = 1 - 0.1 * (16 - 4) / 16) annotation(
     Placement(visible = true, transformation(origin = {-80, -168}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_110_112(BPu = 0, GPu = 0, RPu = 0.008 * 100 / 400, XPu = 0.336 * 100 / 400, rTfoPu = 1 - 0.1 * (16 - 12) / 16) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_110_112(BPu = 0, GPu = 0, RPu = 0.008 * 100 / 400, XPu = 0.336 * 100 / 400, rTfoPu = 1 - 0.1 * (16 - 12) / 16) annotation(
     Placement(visible = true, transformation(origin = {28, 16}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_110_111(BPu = 0, GPu = 0, RPu = 0.008 * 100 / 400, XPu = 0.336 * 100 / 400, rTfoPu = 1 - 0.1 * (16 - 13) / 16) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_110_111(BPu = 0, GPu = 0, RPu = 0.008 * 100 / 400, XPu = 0.336 * 100 / 400, rTfoPu = 1 - 0.1 * (16 - 13) / 16) annotation(
     Placement(visible = true, transformation(origin = {-24, -44}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_109_112(BPu = 0, GPu = 0, RPu = 0.008 * 100 / 400, XPu = 0.336 * 100 / 400, rTfoPu = 1 - 0.1 * (16 - 0) / 16) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_109_112(BPu = 0, GPu = 0, RPu = 0.008 * 100 / 400, XPu = 0.336 * 100 / 400, rTfoPu = 1 - 0.1 * (16 - 0) / 16) annotation(
     Placement(visible = true, transformation(origin = {-24, -14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_1105_105(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 100, XPu = 0.15 * 100 / 100, rTfoPu = 1 - 0.1 * (16 - 5) / 16) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_1105_105(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 100, XPu = 0.15 * 100 / 100, rTfoPu = 1 - 0.1 * (16 - 5) / 16) annotation(
     Placement(visible = true, transformation(origin = {8, -224}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_1110_110(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 250, XPu = 0.15 * 100 / 250, rTfoPu = 1 - 0.1 * (16 - 6) / 16) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_1110_110(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 250, XPu = 0.15 * 100 / 250, rTfoPu = 1 - 0.1 * (16 - 6) / 16) annotation(
     Placement(visible = true, transformation(origin = {46, -74}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 
   //Buses

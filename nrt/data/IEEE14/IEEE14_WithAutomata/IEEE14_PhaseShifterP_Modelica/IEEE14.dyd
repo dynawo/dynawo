@@ -30,8 +30,7 @@
   <dyn:blackBoxModel id="GEN____8_SM" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE14.par" parId="6" staticId="_GEN____8_SM"/>
   <dyn:blackBoxModel id="OMEGA_REF" lib="DYNModelOmegaRef" parFile="IEEE14.par" parId="7"/>
   <dyn:blackBoxModel id="DISCONNECT_LINE" lib="EventQuadripoleDisconnection" parFile="IEEE14.par" parId="9"/>
-  <dyn:blackBoxModel id="PhaseShifter" lib="PhaseShifterP" parFile="IEEE14.par" parId="11"/>
-  <dyn:blackBoxModel id="TfoTest" lib="TransformerPhaseTapChanger" parFile="IEEE14.par" parId="12"/>
+  <dyn:blackBoxModel id="TfoTest" lib="TransformerPhaseTapChangerP" parFile="IEEE14.par" parId="12"/>
   <dyn:connect id1="OMEGA_REF" var1="omega_grp_0_value" id2="GEN____1_SM" var2="generator_omegaPu"/>
   <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_0_value" id2="GEN____1_SM" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_0" id2="NETWORK" var2="@_GEN____1_SM@@NODE@_numcc"/>
@@ -74,8 +73,6 @@
   <dyn:connect id1="GEN____8_SM" var1="generator_terminal" id2="NETWORK" var2="@_GEN____8_SM@@NODE@_ACPIN"/>
   <dyn:connect id1="GEN____8_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_GEN____8_SM@@NODE@_switchOff"/>
   <dyn:connect id1="DISCONNECT_LINE" var1="event_state1_value" id2="NETWORK" var2="_BUS____9-BUS___10-1_AC_state_value"/>
-  <dyn:connect id1="PhaseShifter" var1="phaseShifter_tap" id2="TfoTest" var2="transformer_tap"/>
-  <dyn:connect id1="PhaseShifter" var1="phaseShifter_PMonitored" id2="TfoTest" var2="transformer_P1Pu"/>
   <dyn:connect id1="TfoTest" var1="transformer_terminal1" id2="NETWORK" var2="_BUS____5_TN_ACPIN"/>
   <dyn:connect id1="TfoTest" var1="transformer_terminal2" id2="NETWORK" var2="_BUS____6_TN_ACPIN"/>
 </dyn:dynamicModelsArchitecture>

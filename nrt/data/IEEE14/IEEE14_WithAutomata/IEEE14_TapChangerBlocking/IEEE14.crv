@@ -46,21 +46,21 @@
   <curve model="_LOAD___2_EC" variable="load_PPu"/>
   <curve model="_LOAD___2_EC" variable="load_QPu"/>
   <curve model="_LOAD___2_EC" variable="load_UPu"/>
-  <curve model="_LOAD___2_EC" variable="transformer_U1Pu"/>
-  <curve model="_LOAD___2_EC" variable="transformer_U2Pu"/>
-  <curve model="_LOAD___2_EC" variable="transformer_tap"/>
+  <curve model="_LOAD___2_EC" variable="transformer_transformerVariableTap_U1Pu"/>
+  <curve model="_LOAD___2_EC" variable="transformer_transformerVariableTap_U2Pu"/>
+  <curve model="_LOAD___2_EC" variable="transformer_transformerVariableTap_tap"/>
   <curve model="_LOAD___3_EC" variable="load_PPu"/>
   <curve model="_LOAD___3_EC" variable="load_QPu"/>
   <curve model="_LOAD___3_EC" variable="load_UPu"/>
-  <curve model="_LOAD___3_EC" variable="transformer_U1Pu"/>
-  <curve model="_LOAD___3_EC" variable="transformer_U2Pu"/>
-  <curve model="_LOAD___3_EC" variable="transformer_tap"/>
-  <curve model="TAP_CHANGER_LOAD_2" variable="tapChanger_valueMin"/>
-  <curve model="TAP_CHANGER_LOAD_2" variable="tapChanger_valueMax"/>
-  <curve model="TAP_CHANGER_LOAD_3" variable="tapChanger_valueMin"/>
-  <curve model="TAP_CHANGER_LOAD_3" variable="tapChanger_valueMax"/>
-  <curve model="TAP_CHANGER_LOAD_2" variable="tapChanger_tap_value"/>
-  <curve model="TAP_CHANGER_LOAD_3" variable="tapChanger_tap_value"/>
+  <curve model="_LOAD___3_EC" variable="transformer_transformerVariableTap_U1Pu"/>
+  <curve model="_LOAD___3_EC" variable="transformer_transformerVariableTap_U2Pu"/>
+  <curve model="_LOAD___3_EC" variable="transformer_transformerVariableTap_tap"/>
+  <curve model="_LOAD___2_EC" variable="transformer_tapChanger_valueMin"/>
+  <curve model="_LOAD___2_EC" variable="transformer_tapChanger_valueMax"/>
+  <curve model="_LOAD___3_EC" variable="transformer_tapChanger_valueMin"/>
+  <curve model="_LOAD___3_EC" variable="transformer_tapChanger_valueMax"/>
+  <curve model="_LOAD___2_EC" variable="transformer_tapChanger_tap_value"/>
+  <curve model="_LOAD___3_EC" variable="transformer_tapChanger_tap_value"/>
   <curve model="TAP_CHANGER_LOCK" variable="tapChangerBlocking_blockedD"/>
   <curve model="TAP_CHANGER_LOCK" variable="tapChangerBlocking_blockedT"/>
   <curve model="TAP_CHANGER_LOCK" variable="tapChangerBlocking_UMin"/>

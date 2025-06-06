@@ -16,9 +16,9 @@ within Dynawo.Examples.Nordic.Components.TransformerWithControl.BaseClasses;
 model InitializedTransformerVariableTap "Model of transformer with variable tap and built-in initialization, for the Nordic 32 test system"
   import Dynawo.Examples.Nordic.Components.TransformerWithControl.TransformerParameters;
 
-  extends Dynawo.Electrical.Transformers.TransformerVariableTapXtdPu(Tap0(fixed = false), rTfo0Pu(fixed = false), rTfoPu(fixed = true), rTfoMinPu = TransformerParameters.rTfoMinPu, rTfoMaxPu = TransformerParameters.rTfoMaxPu, NbTap = TransformerParameters.NbTap, U20Pu(fixed = false), u10Pu.re(fixed = false), u10Pu.im(fixed = false), i10Pu.re(fixed = false), i10Pu.im(fixed = false), u20Pu.re(fixed = false), u20Pu.im(fixed = false), i20Pu.re(fixed = false), i20Pu.im(fixed = false));
+  extends Dynawo.Electrical.Transformers.TransformersVariableTapControlled.TransformerVariableTapXtdPuControlled(tap0(fixed = false), rTfo0Pu(fixed = false), transformerVariableTap.rTfoPu(fixed = true), rTfoMaxPu = TransformerParameters.rTfoMaxPu, rTfoMinPu = TransformerParameters.rTfoMinPu, NbTap = TransformerParameters.NbTap, U20Pu(fixed = false), u10Pu.re(fixed = false), u10Pu.im(fixed = false), i10Pu.re(fixed = false), i10Pu.im(fixed = false), u20Pu.re(fixed = false), u20Pu.im(fixed = false), i20Pu.re(fixed = false), i20Pu.im(fixed = false));
 
-  Dynawo.Electrical.Transformers.TransformerVariableTapPQ_INIT init(
+  Dynawo.Electrical.Transformers.TransformersVariableTap.TransformerVariableTapPQ_INIT init(
     rTfoMinPu = TransformerParameters.rTfoMinPu,
     rTfoMaxPu = TransformerParameters.rTfoMaxPu,
     NbTap = TransformerParameters.NbTap,
@@ -29,7 +29,7 @@ model InitializedTransformerVariableTap "Model of transformer with variable tap 
   parameter Types.Angle U1Phase0 "Start value of voltage angle at terminal 1 in rad";
 
 initial algorithm
-  Tap0 := init.Tap0;
+  tap0 := init.Tap0;
   rTfo0Pu := init.rTfo0Pu;
   u10Pu.re := init.u10Pu.re;
   u10Pu.im := init.u10Pu.im;

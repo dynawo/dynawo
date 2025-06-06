@@ -190,11 +190,9 @@ set(MODELICA_PREASSEMBLED_MODELS
   LoadAlphaBetaThreeMotorFifthOrder.xml
   LoadAlphaBetaMotorSimplified.xml
   LoadAlphaBetaTwoMotorSimplified.xml
-  LoadOneTransformer.xml
   LoadOneTransformerTapChanger.xml
   LoadPQ.xml
   LoadShedding.xml
-  LoadTwoTransformers.xml
   LoadTwoTransformersTapChangers.xml
   LoadZIP.xml
   LossOfSynchronismProtection.xml
@@ -242,7 +240,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   TapChangerBlockingAutomaton5.xml
   TransformerFixedRatio.xml
   TransformerFixedRatioAndPhase.xml
-  TransformerPhaseTapChanger.xml
+  TransformerPhaseTapChangerP.xml
   TransformerRatioTapChanger.xml
   UFLS3Steps.xml
   UFLS10Steps.xml
