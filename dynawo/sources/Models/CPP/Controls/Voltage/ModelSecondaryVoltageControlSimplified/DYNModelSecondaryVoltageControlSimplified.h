@@ -228,9 +228,9 @@ class ModelSecondaryVoltageControlSimplified : public ModelCPP {
    *
    * @param t Simulation instant
    * @param cj Jacobian prime coefficient
-   * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be
    * added
+   * @param jtPrim jacobian matrix to fullfill
    */
   void evalJtPrim(double t, double cj, int rowOffset, SparseMatrix& jtPrim) override;
   /**
