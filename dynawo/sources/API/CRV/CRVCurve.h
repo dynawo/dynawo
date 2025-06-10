@@ -63,6 +63,16 @@ class Curve {
   std::unique_ptr<Point> getLastPoint() const;
 
   /**
+   * @brief get last point value
+   */
+  double getLastValue() const;
+
+  /**
+   * @brief get last point time
+   */
+  double getLastTime() const;
+
+  /**
    * @brief Setter for curve's model name
    * @param modelName curve's model name
    */

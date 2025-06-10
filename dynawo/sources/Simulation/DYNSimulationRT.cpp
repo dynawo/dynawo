@@ -131,6 +131,11 @@ SimulationRT::configureRT() {
   }
   exportCurvesMode_ = EXPORT_CURVES_NONE;
   exportFinalStateValuesMode_ = EXPORT_FINAL_STATE_VALUES_NONE;
+  // Add simulation time to curves
+  bool sendSimulationMetrics_ = true;   // TODO(thibaut) add jobs property
+  if (sendSimulationMetrics_)
+    initComputationTimeCurve();
+  valuesBuffer_.reserve((curvesCollection_->getSize() + 1) * sizeof(double));
 }
 
 void
@@ -330,8 +335,8 @@ SimulationRT::simulate() {
             string formatedCsvCurves = curvesToCsv();
             stepPublisher_->sendMessage(formatedCsvCurves, "curves");
           } else if (!jobEntry_->getSimulationEntry()->getPublishToZmqCurvesFormat().compare("BYTES")) {
-            vector<std::uint8_t> formatedBytesCurves = curvesAsBytes();
-            stepPublisher_->sendMessage(formatedBytesCurves, "curves_values");
+            updateValuesBuffer();
+            stepPublisher_->sendMessage(valuesBuffer_, "curves_values");
           } else {  // Default is JSON
             if (formatedJsonCurves.empty())
               formatedJsonCurves = curvesToJson();
@@ -422,17 +427,16 @@ SimulationRT::curvesToJson() {
         itCurve != curvesCollection_->end();
         ++itCurve) {
     if ((*itCurve)->getAvailable()) {
-      std::shared_ptr<curves::Point> point = (*itCurve)->getLastPoint();
-      if (point) {
+      if ((*itCurve)->cbegin() != (*itCurve)->cend()) {
         if (time < 0) {
-          time = point->getTime();
+          time = (*itCurve)->getLastTime();
           stream << "\n";
         } else {
           stream << ",\n";
         }
         string curveName =  (*itCurve)->getModelName() + "_" + (*itCurve)->getVariable();
         // double value = point->getValue();
-        stream << "\t\t\t" << "\"" << curveName << "\": " << point->getValue();
+        stream << "\t\t\t" << "\"" << curveName << "\": " << (*itCurve)->getLastValue();
       }
     }
   }
@@ -455,14 +459,14 @@ SimulationRT::curvesToCsv() {
         ++itCurve) {
     if ((*itCurve)->getAvailable()) {
       std::shared_ptr<curves::Point> point = (*itCurve)->getLastPoint();
-      if (point) {
+      if ((*itCurve)->cbegin() != (*itCurve)->cend()) {
         if (time < 0) {
-          time = point->getTime();
+          time = (*itCurve)->getLastTime();
           stream << "time," << time << "\n";
         }
         string curveName =  (*itCurve)->getModelName() + "_" + (*itCurve)->getVariable();
         // double value = point->getValue();
-        stream << curveName << "," << point->getValue() << "\n";
+        stream << curveName << "," << (*itCurve)->getLastValue() << "\n";
       }
     }
   }
@@ -492,29 +496,20 @@ SimulationRT::curvesNamesToCsv() {
   return stream.str();
 }
 
-const vector<std::uint8_t>
-SimulationRT::curvesAsBytes() {
-  vector<std::uint8_t> buffer;
-
-  buffer.reserve((curvesCollection_->getSize() + 1) * sizeof(double));
-  double time = -1;
-  for (CurvesCollection::iterator itCurve = curvesCollection_->begin();
-      itCurve != curvesCollection_->end();
-      ++itCurve) {
-      std::shared_ptr<curves::Point> point = (*itCurve)->getLastPoint();
-      if (point) {
-        if (time < 0) {
-          time = point->getTime();
-          std::uint8_t* rawBytes = reinterpret_cast<std::uint8_t*>(&time);
-          buffer.insert(buffer.end(), rawBytes, rawBytes + sizeof(double));
-        }
-        double value = point->getValue();
-        std::uint8_t* rawBytes = reinterpret_cast<std::uint8_t*>(&value);
-        buffer.insert(buffer.end(), rawBytes, rawBytes + sizeof(double));
-      }
+void SimulationRT::updateValuesBuffer() {
+  valuesBuffer_.clear();
+  if (curvesCollection_->cbegin() != curvesCollection_->cend()) {
+    double time = (*curvesCollection_->cbegin())->getLastTime();
+    std::uint8_t* rawBytes = reinterpret_cast<std::uint8_t*>(&time);
+    valuesBuffer_.insert(valuesBuffer_.end(), rawBytes, rawBytes + sizeof(double));
   }
-
-  return buffer;
+  for (CurvesCollection::const_iterator itCurve = curvesCollection_->cbegin();
+      itCurve != curvesCollection_->cend();
+      ++itCurve) {
+    double value = (*itCurve)->getLastValue();
+    std::uint8_t* rawBytes = reinterpret_cast<std::uint8_t*>(&value);
+    valuesBuffer_.insert(valuesBuffer_.end(), rawBytes, rawBytes + sizeof(double));
+  }
 }
 
 const string

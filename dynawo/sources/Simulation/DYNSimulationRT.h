@@ -140,7 +140,7 @@ class SimulationRT: public Simulation {
   /**
   * @brief format curves as bytes
   */
-  const std::vector<std::uint8_t> curvesAsBytes();
+  void updateValuesBuffer();
 
   /**
    * @brief format timeline events as JSON from time time (excluded)
@@ -160,6 +160,8 @@ class SimulationRT: public Simulation {
  protected:
   std::chrono::system_clock::time_point stepStart_;  ///< clock time before step (after sleep) >
   double stepComputationTime_;
+
+  std::vector<std::uint8_t> valuesBuffer_;  ///< curves values buffer
 
   std::shared_ptr<wsc::WebsocketServer> wsServer_;  ///< instance of websocket server >
 
