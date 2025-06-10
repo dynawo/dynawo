@@ -102,3 +102,7 @@ file(STRINGS "NrtExtendModels.txt" NRT_EXTEND_MODELS_LIST)
 foreach(nrt_extend_model IN LISTS NRT_EXTEND_MODELS_LIST)
   add_dependencies(NRT_EXTEND_MODELS ${nrt_extend_model})
 endforeach()
+
+## Nrt dynawo-algorithms
+add_custom_target(DYNAWO_ALGORITHMS_MODELS)
+add_dependencies(DYNAWO_ALGORITHMS_MODELS EventQuadripoleDisconnection EventSetPointBoolean GeneratorSynchronousFourWindingsProportionalRegulations GeneratorSynchronousThreeWindingsProportionalRegulations LoadAlphaBeta NodeFault)
