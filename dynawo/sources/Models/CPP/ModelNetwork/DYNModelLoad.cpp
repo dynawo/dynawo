@@ -819,11 +819,9 @@ ModelLoad::evalState(const double /*time*/) {
 
 void
 ModelLoad::evalCalculatedVars() {
-  const auto& modelBus = getModelBus();
+  auto& modelBus = getNonCstModelBus();
   if (isRunning()) {
-    const double ur = modelBus.ur();
-    const double ui = modelBus.ui();
-    const double U = std::sqrt(ur * ur + ui * ui);
+    const double U = modelBus.getCurrentU(ModelBus::UPuType_);
     // P
     calculatedVars_[pNum_] = P(U);
 
