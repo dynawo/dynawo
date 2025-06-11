@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2025, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="Solver">
+    <par type="INT" name="order" value="2"/>
+    <par type="DOUBLE" name="initStep" value="1e-5"/>
+    <par type="DOUBLE" name="minStep" value="1e-5"/>
+    <par type="DOUBLE" name="maxStep" value="10"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-5"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-3"/>
+  </set>
+  <!-- Infinite bus -->
+  <set id="1">
+    <par type="DOUBLE" name="infiniteBus_U0Pu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_UEvtPu" value="0.55"/>
+    <par type="DOUBLE" name="infiniteBus_UPhase" value="0"/>
+    <par type="DOUBLE" name="infiniteBus_omega0Pu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_omegaEvtPu" value="1.01"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtStart" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtEnd" value="1.5"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtStart" value="6"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtEnd" value="6.5"/>
+  </set>
+  <!-- Line -->
+  <set id="2">
+    <par type="DOUBLE" name="line_XPu" value="0.0000020661"/>
+    <par type="DOUBLE" name="line_RPu" value="0"/>
+    <par type="DOUBLE" name="line_BPu" value="0"/>
+    <par type="DOUBLE" name="line_GPu" value="0"/>
+  </set>
+  <!-- BESS -->
+  <set id="3">
+    <!-- Common parameters -->
+    <par type="DOUBLE" name="BESScb_P0Pu" value="-0.03"/>
+    <par type="DOUBLE" name="BESScb_Q0Pu" value="0"/>
+    <par type="DOUBLE" name="BESScb_U0Pu" value="1"/>
+    <par type="DOUBLE" name="BESScb_UPhase0" value="0.00000144621"/>
+    <par type="DOUBLE" name="BESScb_SNom" value="6"/>
+    <par type="DOUBLE" name="BESScb_RPu" value="0"/>
+    <par type="DOUBLE" name="BESScb_XPu" value="1e-6"/>
+    <par type="DOUBLE" name="BESScb_PMaxPu" value="1"/>
+    <par type="DOUBLE" name="BESScb_PMinPu" value="-0.667"/>
+    <par type="DOUBLE" name="BESScb_QMaxPu" value="0.75"/>
+    <par type="DOUBLE" name="BESScb_QMinPu" value="-0.75"/>
+    <par type="DOUBLE" name="BESScb_tP" value="0.05"/>
+    <!-- REPC-A parameters -->
+    <par type="DOUBLE" name="BESScb_DbdPu" value="0"/>
+    <par type="DOUBLE" name="BESScb_DDn" value="126"/>
+    <par type="DOUBLE" name="BESScb_DUp" value="126"/>
+    <par type="DOUBLE" name="BESScb_EMaxPu" value="0.1"/>
+    <par type="DOUBLE" name="BESScb_EMinPu" value="-0.1"/>
+    <par type="DOUBLE" name="BESScb_FDbd1Pu" value="0.00083"/>
+    <par type="DOUBLE" name="BESScb_FDbd2Pu" value="0.00083"/>
+    <par type="DOUBLE" name="BESScb_FEMaxPu" value="999"/>
+    <par type="DOUBLE" name="BESScb_FEMinPu" value="-999"/>
+    <par type="BOOL" name="BESScb_FreqFlag" value="true"/>
+    <par type="DOUBLE" name="BESScb_Kc" value="0.15"/>
+    <par type="DOUBLE" name="BESScb_Ki" value="1e-6"/>
+    <par type="DOUBLE" name="BESScb_Kig" value="1e-6"/>
+    <par type="DOUBLE" name="BESScb_Kp" value="1e-6"/>
+    <par type="DOUBLE" name="BESScb_Kpg" value="1"/>
+    <par type="BOOL" name="BESScb_RefFlag" value="false"/>
+    <par type="DOUBLE" name="BESScb_tLag" value="0.1"/>
+    <par type="DOUBLE" name="BESScb_tFilterPC" value="0.02"/>
+    <par type="DOUBLE" name="BESScb_tFt" value="1e-10"/>
+    <par type="DOUBLE" name="BESScb_tFv" value="0.05"/>
+    <par type="BOOL" name="BESScb_VCompFlag" value="false"/>
+    <par type="DOUBLE" name="BESScb_VFrz" value="0"/>
+    <!-- REEC-D parameters -->
+    <par type="DOUBLE" name="BESScb_Dbd1Pu" value="-0.05"/>
+    <par type="DOUBLE" name="BESScb_Dbd2Pu" value="0.05"/>
+    <par type="DOUBLE" name="BESScb_DPMaxPu" value="999"/>
+    <par type="DOUBLE" name="BESScb_DPMinPu" value="-999"/>
+    <par type="DOUBLE" name="BESScb_IMaxPu" value="1.11"/>
+    <par type="DOUBLE" name="BESScb_IqFrzPu" value="0"/>
+    <par type="DOUBLE" name="BESScb_Iqh1Pu" value="0.75"/>
+    <par type="DOUBLE" name="BESScb_Iql1Pu" value="-0.75"/>
+    <par type="DOUBLE" name="BESScb_Ke" value="0"/>
+    <par type="DOUBLE" name="BESScb_Kqi" value="1"/>
+    <par type="DOUBLE" name="BESScb_Kqp" value="1e-6"/>
+    <par type="DOUBLE" name="BESScb_Kqv" value="15"/>
+    <par type="DOUBLE" name="BESScb_Kvi" value="0.1"/>
+    <par type="DOUBLE" name="BESScb_Kvp" value="1e-6"/>
+    <par type="BOOL" name="BESScb_PFlag" value="false"/>
+    <par type="BOOL" name="BESScb_PQFlag" value="false"/>
+    <par type="BOOL" name="BESScb_PfFlag" value="false"/>
+    <par type="BOOL" name="BESScb_QFlag" value="false"/>
+    <par type="DOUBLE" name="BESScb_RcPu" value="0.02"/>
+    <par type="DOUBLE" name="BESScb_tBlkDelay" value="0"/>
+    <par type="DOUBLE" name="BESScb_tHoldIpMax" value="0"/>
+    <par type="DOUBLE" name="BESScb_tHoldIq" value="0"/>
+    <par type="DOUBLE" name="BESScb_tIq" value="0.017"/>
+    <par type="DOUBLE" name="BESScb_tPord" value="0.017"/>
+    <par type="DOUBLE" name="BESScb_tR1" value="0.02"/>
+    <par type="DOUBLE" name="BESScb_tRv" value="0.01"/>
+    <par type="DOUBLE" name="BESScb_UBlkHPu" value="999"/>
+    <par type="DOUBLE" name="BESScb_UBlkLPu" value="-999"/>
+    <par type="DOUBLE" name="BESScb_VUpPu" value="99"/>
+    <par type="DOUBLE" name="BESScb_VDipPu" value="-99"/>
+    <par type="DOUBLE" name="BESScb_VDLIp11" value="0.1"/>
+    <par type="DOUBLE" name="BESScb_VDLIp12" value="1.11"/>
+    <par type="DOUBLE" name="BESScb_VDLIp21" value="0.2"/>
+    <par type="DOUBLE" name="BESScb_VDLIp22" value="1.11"/>
+    <par type="DOUBLE" name="BESScb_VDLIp31" value="0.3"/>
+    <par type="DOUBLE" name="BESScb_VDLIp32" value="1.11"/>
+    <par type="DOUBLE" name="BESScb_VDLIp41" value="0.4"/>
+    <par type="DOUBLE" name="BESScb_VDLIp42" value="1.11"/>
+    <par type="DOUBLE" name="BESScb_VDLIp51" value="0.5"/>
+    <par type="DOUBLE" name="BESScb_VDLIp52" value="1.11"/>
+    <par type="DOUBLE" name="BESScb_VDLIp61" value="0.6"/>
+    <par type="DOUBLE" name="BESScb_VDLIp62" value="1.11"/>
+    <par type="DOUBLE" name="BESScb_VDLIp71" value="0.7"/>
+    <par type="DOUBLE" name="BESScb_VDLIp72" value="1.11"/>
+    <par type="DOUBLE" name="BESScb_VDLIp81" value="0.8"/>
+    <par type="DOUBLE" name="BESScb_VDLIp82" value="1.11"/>
+    <par type="DOUBLE" name="BESScb_VDLIp91" value="0.9"/>
+    <par type="DOUBLE" name="BESScb_VDLIp92" value="1.11"/>
+    <par type="DOUBLE" name="BESScb_VDLIp101" value="1"/>
+    <par type="DOUBLE" name="BESScb_VDLIp102" value="1.11"/>
+    <par type="DOUBLE" name="BESScb_VDLIq11" value="0"/>
+    <par type="DOUBLE" name="BESScb_VDLIq12" value="0.75"/>
+    <par type="DOUBLE" name="BESScb_VDLIq21" value="0.2"/>
+    <par type="DOUBLE" name="BESScb_VDLIq22" value="0.75"/>
+    <par type="DOUBLE" name="BESScb_VDLIq31" value="0.3"/>
+    <par type="DOUBLE" name="BESScb_VDLIq32" value="0.75"/>
+    <par type="DOUBLE" name="BESScb_VDLIq41" value="0.4"/>
+    <par type="DOUBLE" name="BESScb_VDLIq42" value="0.75"/>
+    <par type="DOUBLE" name="BESScb_VDLIq51" value="0.5"/>
+    <par type="DOUBLE" name="BESScb_VDLIq52" value="0.75"/>
+    <par type="DOUBLE" name="BESScb_VDLIq61" value="0.6"/>
+    <par type="DOUBLE" name="BESScb_VDLIq62" value="0.75"/>
+    <par type="DOUBLE" name="BESScb_VDLIq71" value="0.7"/>
+    <par type="DOUBLE" name="BESScb_VDLIq72" value="0.75"/>
+    <par type="DOUBLE" name="BESScb_VDLIq81" value="0.8"/>
+    <par type="DOUBLE" name="BESScb_VDLIq82" value="0.75"/>
+    <par type="DOUBLE" name="BESScb_VDLIq91" value="0.9"/>
+    <par type="DOUBLE" name="BESScb_VDLIq92" value="0.75"/>
+    <par type="DOUBLE" name="BESScb_VDLIq101" value="1"/>
+    <par type="DOUBLE" name="BESScb_VDLIq102" value="0.75"/>
+    <par type="BOOL" name="BESScb_VFlag" value="true"/>
+    <par type="DOUBLE" name="BESScb_VMaxPu" value="1.1"/>
+    <par type="DOUBLE" name="BESScb_VMinPu" value="0.9"/>
+    <par type="DOUBLE" name="BESScb_VRef0Pu" value="1"/>
+    <par type="DOUBLE" name="BESScb_VRef1Pu" value="0"/>
+    <par type="DOUBLE" name="BESScb_XcPu" value="0.15"/>
+    <!-- REGC-B parameters -->
+    <par type="DOUBLE" name="BESScb_IqrMaxPu" value="999"/>
+    <par type="DOUBLE" name="BESScb_IqrMinPu" value="-999"/>
+    <par type="BOOL" name="BESScb_RateFlag" value="false"/>
+    <par type="DOUBLE" name="BESScb_RrpwrPu" value="10"/>
+    <par type="DOUBLE" name="BESScb_tFilterGC" value="0.02"/>
+    <par type="DOUBLE" name="BESScb_tG" value="0.017"/>
+    <!-- PLL parameters -->
+    <par type="DOUBLE" name="BESScb_KiPLL" value="20"/>
+    <par type="DOUBLE" name="BESScb_KpPLL" value="3"/>
+    <par type="DOUBLE" name="BESScb_OmegaMaxPu" value="1.5"/>
+    <par type="DOUBLE" name="BESScb_OmegaMinPu" value="0.5"/>
+  </set>
+  <!-- Set Point -->
+  <set id="4">
+    <par type="DOUBLE" name="setPoint_Value0" value="1"/>
+  </set>
+</parametersSet>
