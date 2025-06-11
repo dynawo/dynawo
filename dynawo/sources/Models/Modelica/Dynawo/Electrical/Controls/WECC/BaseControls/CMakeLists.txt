@@ -14,6 +14,9 @@ set(MODEL_FILES
   CurrentLimitsCalculationA.mo
   CurrentLimitsCalculationB.mo
   CurrentLimitsCalculationC.mo
+  CurrentLimitsCalculationD.mo
+  IpCommandBlLogic.mo
+  IqCommandBlLogic.mo
   IqInjectionLogic.mo
   LineDropCompensation.mo
   LowVoltagePowerLogic.mo
