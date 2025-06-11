@@ -28,6 +28,8 @@ model REECc "WECC Electrical Control type C"
     Placement(visible = true, transformation(origin = {279, 22}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Tables.CombiTable1Ds IqmaxFromUPu(extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint, smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments, table = VDLIqPoints, tableOnFile = false, verboseExtrapolation = false, verboseRead = false) annotation(
     Placement(visible = true, transformation(origin = {279, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.RealExpression UFilteredPu3(y = UFilteredPu) annotation(
+    Placement(transformation(origin = {190, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Sources.RealExpression UFilteredPu5(y = UFilteredPu) annotation(
     Placement(visible = true, transformation(origin = {249, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.BaseControls.CurrentLimitsCalculationC currentLimitsCalculation1(IMaxPu = IMaxPu, PQFlag = PQFlag, SOC0Pu = SOC0Pu, SOCMaxPu = SOCMaxPu, SOCMinPu = SOCMinPu) annotation(
@@ -97,8 +99,16 @@ equation
     Line(points = {{-270, 170}, {-249, 170}, {-249, -250}, {258, -250}}, color = {0, 0, 127}));
   connect(SOCinit.y, feedback.u1) annotation(
     Line(points = {{280, -210}, {312, -210}}, color = {0, 0, 127}));
+  connect(UFilteredPu3.y, varLimPIDFreeze.u_m) annotation(
+    Line(points = {{190, 82}, {180, 82}, {180, 100}}, color = {0, 0, 127}));
+  connect(limiter3.y, division1.u1) annotation(
+    Line(points = {{142, -70}, {152, -70}, {152, -114}, {170, -114}}, color = {0, 0, 127}));
+  connect(UPu, voltageCheck.UPu) annotation(
+    Line(points = {{-270, 270}, {132, 270}, {132, 272}}, color = {0, 0, 127}));
+  connect(add1.y, variableLimiter.u) annotation(
+    Line(points = {{342, 110}, {498, 110}}, color = {0, 0, 127}));
 
   annotation(
-  preferredView = "diagram",
+    preferredView = "diagram",
     Icon(graphics = {Text(origin = {-19, 11}, extent = {{-45, 23}, {84, -40}}, textString = "REEC C"), Text(origin = {-48, 129}, extent = {{-18, 6}, {28, -8}}, textString = "PAuxPu")}));
 end REECc;
