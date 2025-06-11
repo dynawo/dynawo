@@ -66,8 +66,17 @@ ComponentInterface::setModelDyn(const shared_ptr<SubModel>& model) {
 void
 ComponentInterface::setReference(const string& componentVar, const string& modelId, const string& modelVar) {
   int index = getComponentVarIndex(componentVar);
-  if (index == -1)
+  if (index == -1) {
+    // quick fix to #3512, encompassing all nrts from dyn and dyn-rte as of 06/2025
+    if ((componentVar == "regulatingMode") && (modelVar == "SVarC_modeHandling_mode_value")) {
+      Trace::warn() << "could not map SVarC_modeHandling_mode_value to regulatingMode on model "
+                    << modelId
+                    << ", probably because standbyAutomaton iidm extension is missing"
+                    << Trace::endline;
+      return;
+    }
     throw DYNError(Error::MODELER, UnknownStateVariable, componentVar, getID());
+  }
   stateVariables_[index].setModelId(modelId);
   stateVariables_[index].setVariableId(modelVar);
 }
