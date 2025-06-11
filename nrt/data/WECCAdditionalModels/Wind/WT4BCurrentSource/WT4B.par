@@ -68,7 +68,7 @@
     <par type="DOUBLE" name="WT4B_PMinPu" value="0"/>
     <par type="BOOL" name="WT4B_PQFlag" value="false"/>
     <par type="BOOL" name="WT4B_PfFlag" value="false"/>
-    <par type="BOOL" name="WT4B_QFlag" value="true"/>
+    <par type="INT" name="WT4B_QFlag" value="1"/>
     <par type="DOUBLE" name="WT4B_QMaxPu" value="0.4"/>
     <par type="DOUBLE" name="WT4B_QMinPu" value="-0.4"/>
     <par type="BOOL" name="WT4B_RateFlag" value="false"/>

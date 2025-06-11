@@ -73,7 +73,7 @@ model PVCurrentSource "WECC PV Model on infinite bus"
     PQFlag = false,
     PfFlag = false,
     Q0Pu = -0.2,
-    QFlag = true,
+    QFlag = 1,
     QInj0Pu(fixed = false),
     QMaxPu = 0.4,
     QMinPu = -0.4,

@@ -57,5 +57,9 @@ record ParamsREECc "REEC type C parameters"
   parameter Types.PerUnit VDLIqPoints[:, :] = [VDLIq11, VDLIq12; VDLIq21, VDLIq22; VDLIq31, VDLIq32; VDLIq41, VDLIq42] "Pair of points for voltage-dependent reactive current limitation piecewise linear curve [u1,y1; u2,y2;...]" annotation(
     Dialog(tab = "Electrical Control", group = "REECc"));
 
+  // Initial parameter
+  parameter Types.PerUnit SOC0Pu "Initial state of charge in pu (base SNom)" annotation(
+    Dialog(tab = "Electrical Control", group = "REECc"));
+
   annotation(preferredView = "text");
 end ParamsREECc;

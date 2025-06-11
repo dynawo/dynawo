@@ -58,7 +58,7 @@ model WT4BCurrentSource "WECC Wind Type 4B Model on infinite bus"
     PMinPu = 0,
     PQFlag = false,
     PfFlag = false,
-    QFlag = true,
+    QFlag = 1,
     QInj0Pu(fixed = false),
     QMaxPu = 0.4,
     QMinPu = -0.4,
