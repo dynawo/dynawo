@@ -435,7 +435,6 @@ SimulationRT::curvesToJson() {
           stream << ",\n";
         }
         string curveName =  (*itCurve)->getModelName() + "_" + (*itCurve)->getVariable();
-        // double value = point->getValue();
         stream << "\t\t\t" << "\"" << curveName << "\": " << (*itCurve)->getLastValue();
       }
     }
@@ -458,14 +457,12 @@ SimulationRT::curvesToCsv() {
         itCurve != curvesCollection_->end();
         ++itCurve) {
     if ((*itCurve)->getAvailable()) {
-      std::shared_ptr<curves::Point> point = (*itCurve)->getLastPoint();
       if ((*itCurve)->cbegin() != (*itCurve)->cend()) {
         if (time < 0) {
           time = (*itCurve)->getLastTime();
           stream << "time," << time << "\n";
         }
         string curveName =  (*itCurve)->getModelName() + "_" + (*itCurve)->getVariable();
-        // double value = point->getValue();
         stream << curveName << "," << (*itCurve)->getLastValue() << "\n";
       }
     }
@@ -481,14 +478,12 @@ SimulationRT::curvesNamesToCsv() {
         itCurve != curvesCollection_->end();
         ++itCurve) {
     if ((*itCurve)->getAvailable()) {
-      std::shared_ptr<curves::Point> point = (*itCurve)->getLastPoint();
-      if (point) {
+      if ((*itCurve)->cbegin() != (*itCurve)->cend()) {
         if (time < 0) {
-          time = point->getTime();
+          time = (*itCurve)->getLastTime();
           stream << "time" << "\n";
         }
         string curveName =  (*itCurve)->getModelName() + "_" + (*itCurve)->getVariable();
-        // double value = point->getValue();
         stream << curveName << "\n";
       }
     }

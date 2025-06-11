@@ -60,11 +60,6 @@ class Curve {
   /**
    * @brief get last point value
    */
-  std::unique_ptr<Point> getLastPoint() const;
-
-  /**
-   * @brief get last point value
-   */
   double getLastValue() const;
 
   /**
