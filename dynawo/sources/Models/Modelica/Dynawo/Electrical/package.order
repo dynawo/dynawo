@@ -1,6 +1,5 @@
 SystemBase
 Constants
-BESS
 Buses
 HVDC
 Lines
@@ -10,8 +9,7 @@ Sources
 Machines
 Controls
 Events
-Photovoltaics
+PEIR
 Shunts
 Switches
 StaticVarCompensators
-Wind

@@ -13,6 +13,6 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:modelicaModel id="PhotovoltaicsWeccCurrentSourceBNoPlantControl">
-    <dyn:unitDynamicModel id="photovoltaics" name="Dynawo.Electrical.Photovoltaics.WECC.PVCurrentSourceBNoPlantControl" initName="Dynawo.Electrical.Photovoltaics.WECC.PVCurrentSource_INIT"/>
+    <dyn:unitDynamicModel id="photovoltaics" name="Dynawo.Electrical.PEIR.Converters.Photovoltaics.WECC.PVCurrentSourceBNoPlantControl" initName="Dynawo.Electrical.PEIR.Converters.Photovoltaics.WECC.PVCurrentSource_INIT"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
