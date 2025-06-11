@@ -18,6 +18,8 @@ set(MODEL_FILES
   BESSCurrentSource.extvar
   BESSCurrentSourceNoPlantControl.mo
   BESSCurrentSourceNoPlantControl.extvar
+  BESScbCurrentSourceREECd.mo
+  BESScbCurrentSourceREECd.extvar
   BESS_INIT.mo
   )
 
