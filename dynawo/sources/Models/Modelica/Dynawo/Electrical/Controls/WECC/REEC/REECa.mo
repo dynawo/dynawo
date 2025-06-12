@@ -1,6 +1,5 @@
 within Dynawo.Electrical.Controls.WECC.REEC;
 
-model REECa "WECC Electrical Control type A"
   /*
   * Copyright (c) 2021, RTE (http://www.rte-france.com)
   * See AUTHORS.txt
@@ -12,7 +11,10 @@ model REECa "WECC Electrical Control type A"
   *
   * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
   */
+  
+model REECa "WECC Electrical Control type A"
   extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC;
+  
   // REEC-A parameters
   parameter Types.PerUnit VDLIp11 annotation(
     Dialog(tab = "Electrical Control"));
@@ -60,9 +62,11 @@ model REECa "WECC Electrical Control type A"
     Dialog(tab = "Electrical Control"));
   parameter Types.VoltageModulePu VRef1Pu "User-defined reference/bias on the inner-loop voltage control in pu (base UNom) (typical: 0 pu)" annotation(
     Dialog(tab = "Electrical Control"));
+  
   // Input variable
   Modelica.Blocks.Interfaces.RealInput omegaGPu(start = SystemBase.omegaRef0Pu) "Generator frequency from drive train control in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-270, -121}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-51, -110}, extent = {{10, 10}, {-10, -10}}, rotation = -90)));
+  
   // Output variable
   Modelica.Blocks.Interfaces.RealOutput POrdPu(start = PInj0Pu) "Active power order in pu (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {551, -153}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, -89}, extent = {{-10, -10}, {10, 10}})));
@@ -96,6 +100,7 @@ model REECa "WECC Electrical Control type A"
     Placement(visible = true, transformation(origin = {309, 190}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Dynawo.Electrical.Controls.WECC.BaseControls.CurrentLimitsCalculationA currentLimitsCalculation1(IMaxPu = IMaxPu, PQFlag = PQFlag, tHoldIpMax = tHoldIpMax) annotation(
     Placement(visible = true, transformation(origin = {403, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
 equation
   connect(FRTOn4.y, currentLimitsCalculation1.vDip) annotation(
     Line(points = {{315, 0}, {392, 0}}, color = {255, 0, 255}));
@@ -153,6 +158,7 @@ equation
     Line(points = {{215, 220}, {252, 220}}, color = {0, 0, 127}));
   connect(rateLimFirstOrderFreeze.y, POrdPu) annotation(
     Line(points = {{76, -70}, {101, -70}, {101, -153}, {551, -153}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html><head></head><body><p style=\"font-size: 12px;\">This block contains the electrical inverter control of the generic WECC Wind (or PV) model according to (in case page cannot be found, copy link in browser):<br><a href=\"https://www.wecc.org/Reliability/WECC%20Wind%20Plant%20Dynamic%20Modeling%20Guidelines.pdf\">https://www.wecc.org/Reliability/WECC%20Wind%20Plant%20Dynamic%20Modeling%20Guidelines.pdf</a></p>

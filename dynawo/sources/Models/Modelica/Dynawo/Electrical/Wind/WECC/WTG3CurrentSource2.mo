@@ -1,18 +1,20 @@
 within Dynawo.Electrical.Wind.WECC;
 
+/*
+* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+  
 model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as interface with the grid and the mechanical controllers"
-  /*
-  * Copyright (c) 2025, RTE (http://www.rte-france.com)
-  * See AUTHORS.txt
-  * All rights reserved.
-  * This Source Code Form is subject to the terms of the Mozilla Public
-  * License, v. 2.0. If a copy of the MPL was not distributed with this
-  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-  * SPDX-License-Identifier: MPL-2.0
-  *
-  * This file is part of Dynawo, a hybrid C++/Modelica open source suite
-  * of simulation tools for power systems.
-  */
+
   extends Dynawo.Electrical.Controls.PLL.ParamsPLL;
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREEC;
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREGC;
@@ -209,6 +211,7 @@ equation
     Line(points = {{-11, 46}, {16, 46}, {16, -30}, {76, -30}, {76, -63}, {97, -63}}, color = {0, 0, 127}));
   connect(PmRefPu, wecc_wtga.PmRefPu) annotation(
     Line(points = {{62, -110}, {60, -110}, {60, -66}}, color = {0, 0, 127}));
+  
   annotation(
     Diagram(coordinateSystem(extent = {{-100, 80}, {360, -100}})),
     version = "",

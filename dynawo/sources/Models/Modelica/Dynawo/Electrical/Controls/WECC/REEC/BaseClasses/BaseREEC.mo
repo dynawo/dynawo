@@ -1,6 +1,5 @@
 within Dynawo.Electrical.Controls.WECC.REEC.BaseClasses;
 
-partial model BaseREEC "WECC Electrical Control REEC common"
   /*
   * Copyright (c) 2021, RTE (http://www.rte-france.com)
   * See AUTHORS.txt
@@ -13,7 +12,10 @@ partial model BaseREEC "WECC Electrical Control REEC common"
   * This file is part of Dynawo, an hybrid C++/Modelica open source suite
   * of simulation tools for power systems.
   */
+  
+partial model BaseREEC "WECC Electrical Control REEC common"
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREEC;
+  
   // Input variables
   Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(
     Placement(visible = true, transformation(origin = {-270, 210}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {9, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
@@ -27,6 +29,7 @@ partial model BaseREEC "WECC Electrical Control REEC common"
     Placement(visible = true, transformation(origin = {-270, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UPu(start = UInj0Pu) "Voltage magnitude at injector terminal in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-270, 270}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {60, -110}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
+  
   // Output variables
   Modelica.Blocks.Interfaces.RealOutput idCmdPu(start = Id0Pu) "idCmdPu setpoint for generator control in pu (base SNom, UNom)" annotation(
     Placement(visible = true, transformation(origin = {551, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -108,6 +111,7 @@ partial model BaseREEC "WECC Electrical Control REEC common"
     Placement(visible = true, transformation(origin = {59, -105}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Math.Add add(k1 = -1) annotation(
     Placement(visible = true, transformation(origin = {125, 220}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
 equation
   connect(variableLimiter.y, iqCmdPu) annotation(
     Line(points = {{521, 110}, {550, 110}}, color = {0, 0, 127}));
@@ -195,6 +199,7 @@ equation
     Line(points = {{61, 200}, {80, 200}, {80, 214}, {113, 214}}, color = {0, 0, 127}));
   connect(max1.y, division1.u2) annotation(
     Line(points = {{61, 40}, {99, 40}, {99, -126}, {169, -126}}, color = {0, 0, 127}));
+  
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html>

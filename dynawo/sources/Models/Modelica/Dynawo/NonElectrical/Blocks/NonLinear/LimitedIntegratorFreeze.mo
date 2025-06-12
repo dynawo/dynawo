@@ -27,11 +27,11 @@ block LimitedIntegratorFreeze "Integrator with limited value of the output and a
     Dialog(group = "Initialization"));
 
 equation
-  if y <= YMin and K*u < 0 then
+  if  freeze == true then
     der(y) = 0;
   elseif y >= YMax and K*u > 0 then
     der(y) = 0;
-  elseif freeze == true then
+  elseif y<= YMin and K*u < 0 then
     der(y) = 0;
   else
     der(y) = K*u;
@@ -39,5 +39,49 @@ equation
 
   annotation(
     uses(Modelica(version = "3.2.3")),
-    Icon(graphics = {Line(origin = {0, 1.05741}, points = {{-80, -121.057}, {-40, -121.057}, {42, 118.943}, {80, 118.943}})}));
+    Icon(coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}}), graphics={
+        Line(points={{-80,78},{-80,-90}}, color={192,192,192}),
+        Polygon(
+          points={{-80,90},{-88,68},{-72,68},{-80,90}},
+          lineColor={192,192,192},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Solid),
+        Line(points={{-90,-80},{82,-80}}, color={192,192,192}),
+        Polygon(
+          points={{90,-80},{68,-72},{68,-88},{90,-80}},
+          lineColor={192,192,192},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points=DynamicSelect({{-80,-80},{20,20},{80,20}}, {{-80,-80},{20,20},{80,20}}),
+          color={0,0,127}),
+        Text(
+          extent={{0,-10},{60,-70}},
+          lineColor={192,192,192},
+          textString="I"),
+        Text(
+          extent={{-150,-150},{150,-110}},
+          textString="K=%K"),
+        Line(
+          points={{60,-100},{60,-80}},
+          color={255,0,255},
+          pattern=LinePattern.Dot)}),
+  Diagram(coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}}), graphics={
+        Rectangle(extent={{-60,60},{60,-60}}, lineColor={0,0,255}),
+        Text(
+          extent={{-54,46},{-4,-48}},
+          textString="lim"),
+        Line(points={{-100,0},{-60,0}}, color={0,0,255}),
+        Line(points={{60,0},{100,0}}, color={0,0,255}),
+        Text(
+          extent={{-8,60},{60,2}},
+          textString="k"),
+        Text(
+          extent={{-8,-2},{60,-60}},
+          textString="s"),
+        Line(points={{4,0},{46,0}})}));
 end LimitedIntegratorFreeze;

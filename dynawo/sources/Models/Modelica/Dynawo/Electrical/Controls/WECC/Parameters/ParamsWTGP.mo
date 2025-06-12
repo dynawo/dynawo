@@ -25,7 +25,7 @@ record ParamsWTGP
   parameter Types.AngularVelocityDegree thetaRMax "Maximun pitch angle rate limit" annotation(Dialog(tab="Pitch Control"));
   parameter Types.AngularVelocityDegree thetaRMin "Maximun pitch angle rate limit" annotation(Dialog(tab="Pitch Control"));
   parameter Types.PerUnit PInj0Pu "Start value of active power at injector terminal in pu (generator convention) (base SNom)";
-  parameter Types.AngleDegree theta0 "Initial pitch angle" annotation (Dialog(tab="Aero-dynamic model"));
+  parameter Types.AngleDegree theta0 "Initial pitch angle" annotation (Dialog(group="Initialization"));
 
   annotation(preferredView = "text");
 end ParamsWTGP;

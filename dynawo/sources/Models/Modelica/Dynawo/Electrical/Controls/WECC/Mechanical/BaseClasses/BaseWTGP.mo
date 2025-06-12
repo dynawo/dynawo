@@ -22,7 +22,7 @@ partial model BaseWTGP "Base Pitch Controller"
     Placement(transformation(origin = {-60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference angular frequency in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {-110, 66}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealInput omegaTPu(start = SystemBase.omegaRef0Pu) "Turbine frequency in Pu (base omegaNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput omegaTPu(start = SystemBase.omegaRef0Pu) "Turbine frequency in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {-62, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {-69, 111}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
   //Output variable

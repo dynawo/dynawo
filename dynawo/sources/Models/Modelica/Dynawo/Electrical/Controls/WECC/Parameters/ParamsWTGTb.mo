@@ -14,7 +14,6 @@ within Dynawo.Electrical.Controls.WECC.Parameters;
 */
 
 record ParamsWTGTb
-  extends ParamsDriveTrain;
 
   parameter Types.Time tP "Lag Time constant" annotation(
     Dialog(tab="Mechanical"));

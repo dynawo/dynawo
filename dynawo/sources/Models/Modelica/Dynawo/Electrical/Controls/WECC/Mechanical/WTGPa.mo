@@ -12,10 +12,10 @@ within Dynawo.Electrical.Controls.WECC.Mechanical;
 * This file is part of Dynawo, a hybrid C++/Modelica open source suite
 * of simulation tools for power systems.
 */
-
+  
 model WTGPa "WECC Pitch Controller Type A"
   extends Dynawo.Electrical.Controls.WECC.Mechanical.BaseClasses.BaseWTGP;
-
+  
   NonElectrical.Blocks.NonLinear.LimitedIntegrator limitedIntegrator(K = kic, YMax = thetaMax, YMin = thetaMin) annotation(
     Placement(transformation(origin = {-22, -24}, extent = {{-10, -10}, {10, 10}})));
   NonElectrical.Blocks.NonLinear.LimitedIntegrator limitedIntegrator1(K = kiw, YMax = thetaMax, YMin = thetaMin) annotation(
@@ -30,7 +30,7 @@ equation
     Line(points = {{-9, 86}, {-8, 86}, {-8, 70}}, color = {0, 0, 127}));
   connect(sum1.y, limitedIntegrator1.u) annotation(
     Line(points = {{-36, 66}, {-32, 66}, {-32, 86}}, color = {0, 0, 127}));
-
+  
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html><head></head><body><p> This block contains the Pitch controller model Type A for a WindTurbineGenerator Type 3 based on&nbsp;<br><a href=\"3002027129_Model%20User%20Guide%20for%20Generic%20Renewable%20Energy%20Systems.pdf\">https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf</a> </p><p data-start=\"358\" data-end=\"553\" class=\"\">The Pitch Controller is designed to regulate the blade pitch angle, ensuring optimal performance and protection under varying wind conditions. It serves the following primary functions:</p><p><!--StartFragment-->
@@ -49,5 +49,5 @@ equation
 <p>
  </p><p></p></body></html>"),
     uses(Modelica(version = "3.2.3"), Dynawo(version = "1.8.0")),
-    Icon(graphics = {Text(origin = {118, 18}, extent = {{-14, 8}, {14, -8}}, textString = "theta"), Text(origin = {-40, 112}, extent = {{-22, 14}, {22, -14}}, textString = "wt"), Text(origin = {-113, 92}, extent = {{-15, 14}, {15, -14}}, textString = "wref"), Text(origin = {-120, -30}, extent = {{-16, 10}, {16, -10}}, textString = "Pord"), Text(origin = {-29, -108}, extent = {{-15, 12}, {15, -12}}, textString = "Pref"), Text(origin = {4, 0}, extent = {{-60, 46}, {60, -46}}, textString = "WTGP_A"), Rectangle(extent = {{-100, 100}, {100, -100}})}));
+    Icon(graphics = {Text(origin = {118, 18}, extent = {{-14, 8}, {14, -8}}, textString = "theta"), Text(origin = {-40, 112}, extent = {{-22, 14}, {22, -14}}, textString = "wt"), Text(origin = {-113, 92}, extent = {{-15, 14}, {15, -14}}, textString = "wref"), Text(origin = {-120, -30}, extent = {{-16, 10}, {16, -10}}, textString = "Pord"), Text(origin = {-29, -108}, extent = {{-15, 12}, {15, -12}}, textString = "Pref"), Text(origin = {4, 0}, extent = {{-60, 46}, {60, -46}}, textString = "WTGP A"), Rectangle(extent = {{-100, 100}, {100, -100}})}));
 end WTGPa;

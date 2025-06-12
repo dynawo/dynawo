@@ -1,20 +1,21 @@
 within Dynawo.Electrical.Controls.WECC.Mechanical;
 
+/*
+* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+    
 model WTGQa "WECC Torque Controller Type A"
-  /*
-  * Copyright (c) 2025, RTE (http://www.rte-france.com)
-  * See AUTHORS.txt
-  * All rights reserved.
-  * This Source Code Form is subject to the terms of the Mozilla Public
-  * License, v. 2.0. If a copy of the MPL was not distributed with this
-  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-  * SPDX-License-Identifier: MPL-2.0
-  *
-  * This file is part of Dynawo, a hybrid C++/Modelica open source suite
-  * of simulation tools for power systems.
-  */
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsWTGQa;
-
+  
   //Input variables
   Modelica.Blocks.Interfaces.RealInput omegaGPu(start = SystemBase.omegaRef0Pu) "Generator frequency in Pu (base omegaNom)" annotation(
     Placement(transformation(origin = {-140, 88}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
@@ -24,7 +25,7 @@ model WTGQa "WECC Torque Controller Type A"
     Placement(transformation(origin = {-140, -20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.BooleanInput freeze(start = false) "Boolean to freeze the regulation" annotation(
     Placement(transformation(origin = {94, 134}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {20, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-
+  
   //Output variables
   Modelica.Blocks.Interfaces.RealOutput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference angular frequency in pu (base omegaNom) " annotation(
     Placement(transformation(origin = {290, -16}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}})));
@@ -52,7 +53,7 @@ model WTGQa "WECC Torque Controller Type A"
     Placement(transformation(origin = {154, 16}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Product product annotation(
     Placement(transformation(origin = {226, 22}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = tEMax, uMin = tEMin) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = tEMax, uMin = tEMin, homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy) annotation(
     Placement(transformation(origin = {188, 16}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.NonElectrical.Blocks.NonLinear.LimitedIntegratorFreeze limitedIntegratorFreeze(K = kip, YMax = tEMax, YMin = tEMin, Y0 = PInj0Pu/SystemBase.omegaRef0Pu) annotation(
     Placement(transformation(origin = {102, 26}, extent = {{-10, -10}, {10, 10}})));
@@ -102,6 +103,7 @@ equation
     Line(points = {{-140, 88}, {12, 88}, {12, -6}, {30, -6}}, color = {0, 0, 127}));
   connect(firstOrder1.y, omegaRefPu) annotation(
     Line(points = {{7, 28}, {14, 28}, {14, -34}, {274, -34}, {274, -16}, {290, -16}}, color = {0, 0, 127}));
+  
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html><head></head><body><p> This block contains the Torque controller model TypeA for a WindTurbineGenerator Type 3 according to <br><a href=\"3002027129_Model%20User%20Guide%20for%20Generic%20Renewable%20Energy%20Systems.pdf\">https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf</a> </p><p>&nbsp;It is a simplified generic
@@ -114,5 +116,5 @@ the speed reference and change in generator speed, or the power reference.</p><!
     uses(Modelica(version = "3.2.3"), Dynawo(version = "1.8.0")),
     Diagram(coordinateSystem(extent = {{-120, 120}, {280, -40}})),
     version = "",
-    Icon(graphics = {Text(origin = {-117, 94}, extent = {{-19, 12}, {19, -12}}, textString = "wg"), Text(origin = {-127, 32}, extent = {{-15, 12}, {15, -12}}, textString = "Pe"), Text(origin = {-126, -38}, extent = {{-22, 16}, {22, -16}}, textString = "Pref0"), Text(origin = {-1, 2}, extent = {{-59, 42}, {59, -42}}, textString = "WTGQ_A"), Text(origin = {119, 84}, extent = {{-19, 12}, {19, -12}}, textString = "Pref"), Text(origin = {121, -37}, extent = {{-23, 11}, {23, -11}}, textString = "wref"), Text(origin = {52, -108}, extent = {{14, 20}, {-14, -20}}, textString = "Freeze"), Rectangle(extent = {{-100, 100}, {100, -100}})}));
+    Icon(graphics = {Text(origin = {-117, 94}, extent = {{-19, 12}, {19, -12}}, textString = "wg"), Text(origin = {-127, 32}, extent = {{-15, 12}, {15, -12}}, textString = "Pe"), Text(origin = {-126, -38}, extent = {{-22, 16}, {22, -16}}, textString = "Pref0"), Text(origin = {-1, 2}, extent = {{-59, 42}, {59, -42}}, textString = "WTGQ A"), Text(origin = {119, 84}, extent = {{-19, 12}, {19, -12}}, textString = "Pref"), Text(origin = {121, -37}, extent = {{-23, 11}, {23, -11}}, textString = "wref"), Text(origin = {52, -108}, extent = {{14, 20}, {-14, -20}}, textString = "Freeze"), Rectangle(extent = {{-100, 100}, {100, -100}})}));
 end WTGQa;
