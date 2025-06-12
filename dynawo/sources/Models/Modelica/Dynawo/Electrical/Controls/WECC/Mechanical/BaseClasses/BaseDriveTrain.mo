@@ -1,30 +1,27 @@
 within Dynawo.Electrical.Controls.WECC.Mechanical.BaseClasses;
 
-/*
-* Copyright (c) 2021, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 partial model BaseDriveTrain "Drive Train Control Base Model"
+  /*
+  * Copyright (c) 2021, RTE (http://www.rte-france.com)
+  * See AUTHORS.txt
+  * All rights reserved.
+  * This Source Code Form is subject to the terms of the Mozilla Public
+  * License, v. 2.0. If a copy of the MPL was not distributed with this
+  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
+  * SPDX-License-Identifier: MPL-2.0
+  *
+  * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+  * This file is part of Dynawo, an hybrid C++/Modelica open source suite
+  * of simulation tools for power systems.
+  */
   extends Parameters.ParamsDriveTrain;
-
   // Inputs
   Modelica.Blocks.Interfaces.RealInput PePu(start = PInj0Pu) "Electrical active power in pu (base SNom)" annotation(
-    Placement(visible = true, transformation(origin = {-220, -54}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {180, 0}, extent = {{20, -20}, {-20, 20}}, rotation = 0)));
+    Placement(transformation(origin = {-210, -54}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {180, 0}, extent = {{20, -20}, {-20, 20}})));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frequency used for Generator and Turbine in pu (base omegaNom)" annotation(
-    Placement(visible = true, transformation(origin = {-220, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-220, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(transformation(origin = {-210, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-220, 0}, extent = {{-20, -20}, {20, 20}})));
   Modelica.Blocks.Interfaces.RealOutput omegaGPu(start = SystemBase.omegaRef0Pu) "Generator frequency used for electrical control in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {170, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {60, 140}, extent = {{20, -20}, {-20, 20}}, rotation = -90)));
-
   // Outputs
   Modelica.Blocks.Interfaces.RealOutput omegaTPu "Turbine frequency in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {170, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 140}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
@@ -32,7 +29,6 @@ partial model BaseDriveTrain "Drive Train Control Base Model"
     Placement(visible = true, transformation(origin = {170, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 123}, extent = {{0, 0}, {0, 0}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealOutput dampingY "Damping value in pu (base SNom, omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {170, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 123}, extent = {{0, 0}, {0, 0}}, rotation = 90)));
-
   Modelica.Blocks.Math.Add OmegaGenerator annotation(
     Placement(visible = true, transformation(origin = {74, -66}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add OmegaTurbine annotation(
@@ -53,11 +49,11 @@ partial model BaseDriveTrain "Drive Train Control Base Model"
     Placement(visible = true, transformation(origin = {-130, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression dampingY2(y = dampingY) annotation(
     Placement(visible = true, transformation(origin = {-130, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator dPhi(y_start = PInj0Pu / Kshaft) annotation(
+  Modelica.Blocks.Continuous.Integrator dPhi(y_start = PInj0Pu/Kshaft) annotation(
     Placement(visible = true, transformation(origin = {90, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator dOmegaTurbine(k = 1 / (2 * Ht)) annotation(
+  Modelica.Blocks.Continuous.Integrator dOmegaTurbine(k = 1/(2*Ht)) annotation(
     Placement(visible = true, transformation(origin = {-30, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator dOmegaGenerator(k = 1 / (2 * Hg)) annotation(
+  Modelica.Blocks.Continuous.Integrator dOmegaGenerator(k = 1/(2*Hg)) annotation(
     Placement(visible = true, transformation(origin = {-30, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add OmegaDiff(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -69,9 +65,7 @@ partial model BaseDriveTrain "Drive Train Control Base Model"
     Placement(visible = true, transformation(origin = {130, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain dTorque(k = Kshaft) annotation(
     Placement(visible = true, transformation(origin = {130, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
   parameter Types.PerUnit PInj0Pu "Initial value of mechanical power in pu (base SNom)";
-
 equation
   connect(dOmegaGenerator.y, OmegaGenerator.u1) annotation(
     Line(points = {{-19, -60}, {62, -60}}, color = {0, 0, 127}));
@@ -94,7 +88,7 @@ equation
   connect(Damping.y, dampingY) annotation(
     Line(points = {{141, -20}, {170, -20}}, color = {0, 0, 127}));
   connect(PePu, TorqueE.u1) annotation(
-    Line(points = {{-220, -54}, {-162, -54}}, color = {0, 0, 127}));
+    Line(points = {{-210, -54}, {-162, -54}}, color = {0, 0, 127}));
   connect(dTorqueY1.y, dTorqueM.u1) annotation(
     Line(points = {{-118, 100}, {-100, 100}, {-100, 68}, {-82, 68}}, color = {0, 0, 127}));
   connect(dampingY1.y, dTorqueE.u1) annotation(
@@ -121,7 +115,6 @@ equation
     Line(points = {{-18, 60}, {58, 60}}, color = {0, 0, 127}));
   connect(omegaRefPu2.y, OmegaTurbine.u1) annotation(
     Line(points = {{22, 100}, {40, 100}, {40, 72}, {58, 72}}, color = {0, 0, 127}));
-
   annotation(
     preferredView = "diagram",
     uses(Modelica(version = "3.2.3")),
