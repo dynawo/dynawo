@@ -185,14 +185,18 @@ void HvdcLineInterfaceIIDM::importStaticParameters() {
   staticParameters_.clear();
 
   bool isACEmulationEnabled = hvdcActivePowerControl_ && hvdcActivePowerControl_.get().isEnabled();
-  double p0ACEmulationPu = 0;
+  double p0ACEmulationPu = 0.;
+  double droop = 0.;
   if (isACEmulationEnabled) {
     double p0ACEmulation = hvdcActivePowerControl_.get().getP0();
     p0ACEmulationPu = p0ACEmulation / SNREF;
+    droop = hvdcActivePowerControl_.get().getDroop();
   }
   staticParameters_.insert(std::make_pair("isACEmulationEnabled", StaticParameter("isACEmulationEnabled",
                              StaticParameter::BOOL).setValue(isACEmulationEnabled)));
   staticParameters_.insert(std::make_pair("p0ACEmulationPu", StaticParameter("p0ACEmulationPu",
+                             StaticParameter::DOUBLE).setValue(p0ACEmulationPu)));
+  staticParameters_.insert(std::make_pair("droop", StaticParameter("droop",
                              StaticParameter::DOUBLE).setValue(p0ACEmulationPu)));
   staticParameters_.insert(std::make_pair("pMax", StaticParameter("pMax", StaticParameter::DOUBLE).setValue(getPmax())));
   staticParameters_.insert(std::make_pair("pMax_pu", StaticParameter("pMax_pu", StaticParameter::DOUBLE).setValue(getPmax() / SNREF)));
