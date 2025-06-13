@@ -308,19 +308,6 @@
     <reference type="BOOL" name="phaseShifter_regulating0" origData="IIDM" origName="regulating" componentId="_BUS____5-BUS____6-1_PS"/>
     <reference type="INT" name="phaseShifter_increasePhase" origData="IIDM" origName="increasePhase" componentId="_BUS____5-BUS____6-1_PS"/>
   </set>
-  <set id="11">
-    <par type="DOUBLE" name="phaseShifter_t1st" value="10"/>
-    <par type="DOUBLE" name="phaseShifter_tNext" value="5"/>
-    <par type="DOUBLE" name="phaseShifter_PDeadBand" value="0.005"/>
-    <par type="DOUBLE" name="phaseShifter_P0" value="0.44"/>
-    <par type="DOUBLE" name="phaseShifter_PTarget" value="0.44"/>
-    <par type="INT" name="phaseShifter_tap0" value="6"/>
-    <par type="INT" name="phaseShifter_tapMin" value="0"/>
-    <par type="INT" name="phaseShifter_tapMax" value="12"/>
-    <par type="INT" name="phaseShifter_state0" value="4"/>
-    <par type="INT" name="phaseShifter_increasePhase" value="1"/>
-    <par type="BOOL" name="phaseShifter_regulating0" value="true"/>
-  </set>
   <set id="12">
     <par type="DOUBLE" name="transformer_RatioTfo0Pu" value="1.0729614"/>
     <par type="DOUBLE" name="transformer_P10Pu" value="0.440906"/>
@@ -335,5 +322,16 @@
     <par type="DOUBLE" name="transformer_XPu" value="0.25202060491493383"/>
     <par type="DOUBLE" name="transformer_GPu" value="0"/>
     <par type="DOUBLE" name="transformer_BPu" value="0"/>
+    <par type="DOUBLE" name="transformer_t1st" value="10"/>
+    <par type="DOUBLE" name="transformer_tNext" value="5"/>
+    <par type="DOUBLE" name="transformer_PDeadBand" value="0.005"/>
+    <par type="DOUBLE" name="transformer_P0" value="0.44"/>
+    <par type="DOUBLE" name="transformer_PTarget" value="0.44"/>
+    <par type="INT" name="transformer_tap0" value="6"/>
+    <par type="INT" name="transformer_tapMin" value="0"/>
+    <par type="INT" name="transformer_tapMax" value="12"/>
+    <par type="INT" name="transformer_state0" value="4"/>
+    <par type="INT" name="transformer_increasePhase" value="1"/>
+    <par type="BOOL" name="transformer_regulating0" value="true"/>
   </set>
 </parametersSet>

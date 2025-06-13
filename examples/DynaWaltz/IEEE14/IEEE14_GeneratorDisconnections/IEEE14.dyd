@@ -54,54 +54,39 @@
   <dyn:connect id1="_LOAD___2_EC" var1="transformerT_terminal1" id2="NETWORK" var2="_BUS____2_TN_ACPIN"/>
   <dyn:connect id1="_LOAD___2_EC" var1="transformerT_switchOffSignal1" id2="NETWORK" var2="_BUS____2_TN_switchOff"/>
   <dyn:connect id1="_LOAD___2_EC" var1="transformerD_switchOffSignal1" id2="NETWORK" var2="_BUS____2_TN_switchOff"/>
-  <dyn:connect id1="_LOAD___2_EC" var1="tapChangerT_switchOffSignal1" id2="NETWORK" var2="_BUS____2_TN_switchOff"/>
-  <dyn:connect id1="_LOAD___2_EC" var1="tapChangerD_switchOffSignal1" id2="NETWORK" var2="_BUS____2_TN_switchOff"/>
   <dyn:connect id1="_LOAD___2_EC" var1="load_switchOffSignal1" id2="NETWORK" var2="_BUS____2_TN_switchOff"/>
   <dyn:connect id1="_LOAD___3_EC" var1="transformerT_terminal1" id2="NETWORK" var2="_BUS____3_TN_ACPIN"/>
   <dyn:connect id1="_LOAD___3_EC" var1="transformerT_switchOffSignal1" id2="NETWORK" var2="_BUS____3_TN_switchOff"/>
   <dyn:connect id1="_LOAD___3_EC" var1="transformerD_switchOffSignal1" id2="NETWORK" var2="_BUS____3_TN_switchOff"/>
-  <dyn:connect id1="_LOAD___3_EC" var1="tapChangerT_switchOffSignal1" id2="NETWORK" var2="_BUS____3_TN_switchOff"/>
-  <dyn:connect id1="_LOAD___3_EC" var1="tapChangerD_switchOffSignal1" id2="NETWORK" var2="_BUS____3_TN_switchOff"/>
   <dyn:connect id1="_LOAD___3_EC" var1="load_switchOffSignal1" id2="NETWORK" var2="_BUS____3_TN_switchOff"/>
   <dyn:connect id1="_LOAD___4_EC" var1="transformerT_terminal1" id2="NETWORK" var2="_BUS____4_TN_ACPIN"/>
   <dyn:connect id1="_LOAD___4_EC" var1="transformerT_switchOffSignal1" id2="NETWORK" var2="_BUS____4_TN_switchOff"/>
   <dyn:connect id1="_LOAD___4_EC" var1="transformerD_switchOffSignal1" id2="NETWORK" var2="_BUS____4_TN_switchOff"/>
-  <dyn:connect id1="_LOAD___4_EC" var1="tapChangerT_switchOffSignal1" id2="NETWORK" var2="_BUS____4_TN_switchOff"/>
-  <dyn:connect id1="_LOAD___4_EC" var1="tapChangerD_switchOffSignal1" id2="NETWORK" var2="_BUS____4_TN_switchOff"/>
   <dyn:connect id1="_LOAD___4_EC" var1="load_switchOffSignal1" id2="NETWORK" var2="_BUS____4_TN_switchOff"/>
   <dyn:connect id1="_LOAD___5_EC" var1="transformerT_terminal1" id2="NETWORK" var2="_BUS____5_TN_ACPIN"/>
   <dyn:connect id1="_LOAD___5_EC" var1="transformerT_switchOffSignal1" id2="NETWORK" var2="_BUS____5_TN_switchOff"/>
   <dyn:connect id1="_LOAD___5_EC" var1="transformerD_switchOffSignal1" id2="NETWORK" var2="_BUS____5_TN_switchOff"/>
-  <dyn:connect id1="_LOAD___5_EC" var1="tapChangerT_switchOffSignal1" id2="NETWORK" var2="_BUS____5_TN_switchOff"/>
-  <dyn:connect id1="_LOAD___5_EC" var1="tapChangerD_switchOffSignal1" id2="NETWORK" var2="_BUS____5_TN_switchOff"/>
   <dyn:connect id1="_LOAD___5_EC" var1="load_switchOffSignal1" id2="NETWORK" var2="_BUS____5_TN_switchOff"/>
   <dyn:connect id1="_LOAD___6_EC" var1="transformer_terminal1" id2="NETWORK" var2="_BUS____6_TN_ACPIN"/>
   <dyn:connect id1="_LOAD___6_EC" var1="transformer_switchOffSignal1" id2="NETWORK" var2="_BUS____6_TN_switchOff"/>
-  <dyn:connect id1="_LOAD___6_EC" var1="tapChanger_switchOffSignal1" id2="NETWORK" var2="_BUS____6_TN_switchOff"/>
   <dyn:connect id1="_LOAD___6_EC" var1="load_switchOffSignal1" id2="NETWORK" var2="_BUS____6_TN_switchOff"/>
   <dyn:connect id1="_LOAD___9_EC" var1="transformer_terminal1" id2="NETWORK" var2="_BUS____9_TN_ACPIN"/>
   <dyn:connect id1="_LOAD___9_EC" var1="transformer_switchOffSignal1" id2="NETWORK" var2="_BUS____9_TN_switchOff"/>
-  <dyn:connect id1="_LOAD___9_EC" var1="tapChanger_switchOffSignal1" id2="NETWORK" var2="_BUS____9_TN_switchOff"/>
   <dyn:connect id1="_LOAD___9_EC" var1="load_switchOffSignal1" id2="NETWORK" var2="_BUS____9_TN_switchOff"/>
   <dyn:connect id1="_LOAD__10_EC" var1="transformer_terminal1" id2="NETWORK" var2="_BUS___10_TN_ACPIN"/>
   <dyn:connect id1="_LOAD__10_EC" var1="transformer_switchOffSignal1" id2="NETWORK" var2="_BUS___10_TN_switchOff"/>
-  <dyn:connect id1="_LOAD__10_EC" var1="tapChanger_switchOffSignal1" id2="NETWORK" var2="_BUS___10_TN_switchOff"/>
   <dyn:connect id1="_LOAD__10_EC" var1="load_switchOffSignal1" id2="NETWORK" var2="_BUS___10_TN_switchOff"/>
   <dyn:connect id1="_LOAD__11_EC" var1="transformer_terminal1" id2="NETWORK" var2="_BUS___11_TN_ACPIN"/>
   <dyn:connect id1="_LOAD__11_EC" var1="transformer_switchOffSignal1" id2="NETWORK" var2="_BUS___11_TN_switchOff"/>
-  <dyn:connect id1="_LOAD__11_EC" var1="tapChanger_switchOffSignal1" id2="NETWORK" var2="_BUS___11_TN_switchOff"/>
   <dyn:connect id1="_LOAD__11_EC" var1="load_switchOffSignal1" id2="NETWORK" var2="_BUS___11_TN_switchOff"/>
   <dyn:connect id1="_LOAD__12_EC" var1="transformer_terminal1" id2="NETWORK" var2="_BUS___12_TN_ACPIN"/>
   <dyn:connect id1="_LOAD__12_EC" var1="transformer_switchOffSignal1" id2="NETWORK" var2="_BUS___12_TN_switchOff"/>
-  <dyn:connect id1="_LOAD__12_EC" var1="tapChanger_switchOffSignal1" id2="NETWORK" var2="_BUS___12_TN_switchOff"/>
   <dyn:connect id1="_LOAD__12_EC" var1="load_switchOffSignal1" id2="NETWORK" var2="_BUS___12_TN_switchOff"/>
   <dyn:connect id1="_LOAD__13_EC" var1="transformer_terminal1" id2="NETWORK" var2="_BUS___13_TN_ACPIN"/>
   <dyn:connect id1="_LOAD__13_EC" var1="transformer_switchOffSignal1" id2="NETWORK" var2="_BUS___13_TN_switchOff"/>
-  <dyn:connect id1="_LOAD__13_EC" var1="tapChanger_switchOffSignal1" id2="NETWORK" var2="_BUS___13_TN_switchOff"/>
   <dyn:connect id1="_LOAD__13_EC" var1="load_switchOffSignal1" id2="NETWORK" var2="_BUS___13_TN_switchOff"/>
   <dyn:connect id1="_LOAD__14_EC" var1="transformer_terminal1" id2="NETWORK" var2="_BUS___14_TN_ACPIN"/>
   <dyn:connect id1="_LOAD__14_EC" var1="transformer_switchOffSignal1" id2="NETWORK" var2="_BUS___14_TN_switchOff"/>
-  <dyn:connect id1="_LOAD__14_EC" var1="tapChanger_switchOffSignal1" id2="NETWORK" var2="_BUS___14_TN_switchOff"/>
   <dyn:connect id1="_LOAD__14_EC" var1="load_switchOffSignal1" id2="NETWORK" var2="_BUS___14_TN_switchOff"/>
   <dyn:connect id1="GEN____1_SM" var1="generator_terminal" id2="NETWORK" var2="_BUS____1_TN_ACPIN"/>
   <dyn:connect id1="GEN____1_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="_BUS____1_TN_switchOff"/>
