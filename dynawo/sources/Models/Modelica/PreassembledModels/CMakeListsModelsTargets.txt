@@ -17,6 +17,13 @@ function(add_dependencies_if_exists DEPENDENCY_TARGET_NAME TARGET_NAME)
   endif()
 endfunction()
 
+function(add_dependencies_if_exists_list DEPENDENCY_TARGET_NAME)
+  set(TARGET_LIST ${ARGN})
+  foreach(TARGET ${TARGET_LIST})
+    add_dependencies_if_exists(${DEPENDENCY_TARGET_NAME} ${TARGET})
+  endforeach()
+endfunction()
+
 # Define utility targets
 
 ## Generics
@@ -77,10 +84,10 @@ endforeach()
 ## SMIB
 
 add_custom_target(SMIB_MODELS)
-add_dependencies_if_exists(SMIB_MODELS InfiniteBus Bus Line TransformerFixedRatio SetPoint NodeFault EventSetPointBoolean Step LoadAlphaBeta)
+add_dependencies_if_exists_list(SMIB_MODELS InfiniteBus Bus Line TransformerFixedRatio SetPoint NodeFault EventSetPointBoolean Step LoadAlphaBeta)
 
 add_custom_target(SMIB_MODELS_GENERATORS)
-add_dependencies_if_exists(SMIB_MODELS_GENERATORS GeneratorSynchronousFourWindingsProportionalRegulations GeneratorSynchronousThreeWindingsGoverNordicVRNordic GeneratorSynchronousFourWindingsPmConstVRNordic GeneratorSynchronousThreeWindingsPmConstVRNordic GeneratorSynchronousFourWindingsGovSteam1St4b GeneratorSynchronousFourWindingsGovSteam1St4bPss2b)
+add_dependencies_if_exists_list(SMIB_MODELS_GENERATORS GeneratorSynchronousFourWindingsProportionalRegulations GeneratorSynchronousThreeWindingsGoverNordicVRNordic GeneratorSynchronousFourWindingsPmConstVRNordic GeneratorSynchronousThreeWindingsPmConstVRNordic GeneratorSynchronousFourWindingsGovSteam1St4b GeneratorSynchronousFourWindingsGovSteam1St4bPss2b)
 
 ## DYNAFLOW
 
