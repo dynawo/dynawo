@@ -17,6 +17,12 @@ set(MODEL_FILES
   IdealTransformerVariableTapControlled.extvar
   IdealTransformerVariableTapIControlled_INIT.mo
   IdealTransformerVariableTapPQControlled_INIT.mo
+  TransformerPhaseTapChangerControlled.mo
+  TransformerPhaseTapChangerControlled.extvar
+  TransformerPhaseTapChangerPControlled_INIT.mo
+  TransformerRatioTapChangerControlled.mo
+  TransformerRatioTapChangerControlled.extvar
+  TransformerRatioTapChangerControlled_INIT.mo
   TransformerVariableTapControlled.mo
   TransformerVariableTapControlled.extvar
   TransformerVariableTapIControlled_INIT.mo
