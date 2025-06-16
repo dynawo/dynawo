@@ -108,13 +108,13 @@ partial model BaseBESScbCurrentSourceREECd "Partial base model for WECC BESS wit
     Dialog(tab = "Electrical Control"));
   parameter Boolean VCompFlag "Type of compensation = 1 - current compensation or 0 reactive droop" annotation(
     Dialog(tab = "Electrical Control"));
-  parameter Real tR1 "Filter time constant" annotation(
+  parameter Types.Time tR1 "Filter time constant" annotation(
     Dialog(tab = "Electrical Control"));
-  parameter Real Ke "Scaling on the Ipmin: 0 < ke ≤ 1, set to 0 for generator and non-zero for a storage device" annotation(
+  parameter Types.PerUnit Ke "Scaling on the Ipmin: 0 < ke ≤ 1, set to 0 for generator and non-zero for a storage device" annotation(
     Dialog(tab = "Electrical Control"));
-  parameter Real XcPu "Current compensation reactance" annotation(
+  parameter Types.PerUnit XcPu "Current compensation reactance" annotation(
     Dialog(tab = "Electrical Control"));
-  parameter Real RcPu "Current compensation resistance" annotation(
+  parameter Types.PerUnit RcPu "Current compensation resistance" annotation(
     Dialog(tab = "Electrical Control"));
   // Input variables
   Modelica.Blocks.Interfaces.RealInput PAuxPu(start = 0) "Auxiliary input in pu (base SNom) (generator convention)" annotation(
