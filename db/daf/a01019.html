@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNSolverFactory.h File Reference</title>
+<title>Dynawo: DYNSolver.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -96,102 +96,60 @@ $(document).ready(function(){initNavTree('db/daf/a01019.html','../../');});
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
-<div class="title">DYNSolverFactory.h File Reference</div>  </div>
+<div class="title">DYNSolver.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Solver factory header.  
+<p>Dynawo solvers : interface file.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;map&gt;</code><br />
-<code>#include &lt;memory&gt;</code><br />
-<code>#include &lt;boost/core/noncopyable.hpp&gt;</code><br />
+<div class="textblock"><code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
 <code>#include &lt;boost/shared_ptr.hpp&gt;</code><br />
-<code>#include &lt;boost/dll.hpp&gt;</code><br />
-<code>#include &lt;boost/function.hpp&gt;</code><br />
+<code>#include &quot;DYNBitMask.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d7/d5e/a00467_source.html">DYNEnumUtils.h</a>&quot;</code><br />
 </div>
 <p><a href="../../db/daf/a01019_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dcf/a03219.html">DYN::SolverFactory</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d6/dcf/a03219.html" title="SolverFactory class. ">SolverFactory</a> class.  <a href="../../d6/dcf/a03219.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de1/a03223.html">DYN::SolverFactories</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../dd/de1/a03223.html" title="SolverFactories class. ">SolverFactories</a> class.  <a href="../../dd/de1/a03223.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d1b/a03227.html">DYN::SolverDelete</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d3/d1b/a03227.html" title="SolverDelete class. ">SolverDelete</a> class.  <a href="../../d3/d1b/a03227.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/da4/a03225.html">DYN::Solver</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d5/da4/a03225.html" title="Solver interface class. ">Solver</a> interface class.  <a href="../../d5/da4/a03225.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a9a665d86010839a8d1ae953009ab4201"><td class="memItemLeft" align="right" valign="top"><a id="a9a665d86010839a8d1ae953009ab4201"></a>
-typedef void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/daf/a01019.html#a9a665d86010839a8d1ae953009ab4201">DYN::deleteSolverFactory_t</a>(SolverFactory *)</td></tr>
-<tr class="memdesc:a9a665d86010839a8d1ae953009ab4201"><td class="mdescLeft">&#160;</td><td class="mdescRight">function pointer type to destroy a solver. <br /></td></tr>
-<tr class="separator:a9a665d86010839a8d1ae953009ab4201"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ae48eb449c5ebb36d96867a60dbda3a1d"><td class="memItemLeft" align="right" valign="top"><a id="ae48eb449c5ebb36d96867a60dbda3a1d"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/daf/a01019.html#ae48eb449c5ebb36d96867a60dbda3a1d">DYN::StateFlags</a> { <br />
+&#160;&#160;<b>NoChange</b> = 0x00, 
+<b>ModeChange</b> = 0x01, 
+<b>NotSilentZChange</b> = 0x02, 
+<b>SilentZNotUsedInDiscreteEqChange</b> = 0x04, 
+<br />
+&#160;&#160;<b>SilentZNotUsedInContinuousEqChange</b> = 0x08
+<br />
+ }</td></tr>
+<tr class="memdesc:ae48eb449c5ebb36d96867a60dbda3a1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flags of the current numerical resolution. <br /></td></tr>
+<tr class="separator:ae48eb449c5ebb36d96867a60dbda3a1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3af48b28f1cebf4b6d5f61a6c0104165"><td class="memItemLeft" align="right" valign="top"><a id="a3af48b28f1cebf4b6d5f61a6c0104165"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/daf/a01019.html#a3af48b28f1cebf4b6d5f61a6c0104165">DYN::SolverType</a> { <b>SolverSimplifie</b> = 0, 
+<b>SolverSundials1</b> = 1, 
+<b>SolverSundials2</b> = 2
+ }</td></tr>
+<tr class="memdesc:a3af48b28f1cebf4b6d5f61a6c0104165"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifier of the current solver used. <br /></td></tr>
+<tr class="separator:a3af48b28f1cebf4b6d5f61a6c0104165"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a743ccef1ceb9f11929145604b1b12196"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/dcf/a03219.html">DYN::SolverFactory</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/daf/a01019.html#a743ccef1ceb9f11929145604b1b12196">getFactory</a> ()</td></tr>
-<tr class="memdesc:a743ccef1ceb9f11929145604b1b12196"><td class="mdescLeft">&#160;</td><td class="mdescRight">SolverFactory getter.  <a href="#a743ccef1ceb9f11929145604b1b12196">More...</a><br /></td></tr>
-<tr class="separator:a743ccef1ceb9f11929145604b1b12196"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae06ace1114b6742f6c3f55977e345710"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/daf/a01019.html#ae06ace1114b6742f6c3f55977e345710">deleteFactory</a> (<a class="el" href="../../d6/dcf/a03219.html">DYN::SolverFactory</a> *factory)</td></tr>
-<tr class="memdesc:ae06ace1114b6742f6c3f55977e345710"><td class="mdescLeft">&#160;</td><td class="mdescRight">SolverFactory destroy method.  <a href="#ae06ace1114b6742f6c3f55977e345710">More...</a><br /></td></tr>
-<tr class="separator:ae06ace1114b6742f6c3f55977e345710"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:aa10b15d13b58ee98676c58319df21ff5"><td class="memItemLeft" align="right" valign="top"><a id="aa10b15d13b58ee98676c58319df21ff5"></a>
+static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/daf/a01019.html#aa10b15d13b58ee98676c58319df21ff5">DYN::maxNumberUnstableRoots</a> = 10</td></tr>
+<tr class="memdesc:aa10b15d13b58ee98676c58319df21ff5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of unstable roots for one time step. <br /></td></tr>
+<tr class="separator:aa10b15d13b58ee98676c58319df21ff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Solver factory header. </p>
-</div><h2 class="groupheader">Function Documentation</h2>
-<a id="ae06ace1114b6742f6c3f55977e345710"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae06ace1114b6742f6c3f55977e345710">&#9670;&nbsp;</a></span>deleteFactory()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void deleteFactory </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d6/dcf/a03219.html">DYN::SolverFactory</a> *&#160;</td>
-          <td class="paramname"><em>factory</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>SolverFactory destroy method. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">factory</td><td>the SolverFactory to destroy </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a743ccef1ceb9f11929145604b1b12196"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a743ccef1ceb9f11929145604b1b12196">&#9670;&nbsp;</a></span>getFactory()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d6/dcf/a03219.html">DYN::SolverFactory</a>* getFactory </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>SolverFactory getter. </p>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to a new instance of SolverFactory </dd></dl>
-
-</div>
-</div>
-</div><!-- contents -->
+<div class="textblock"><p>Dynawo solvers : interface file. </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -207,8 +165,8 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_a769528b188158bb44ac136b67c42939.html">Solvers</a></li><li class="navelem"><a class="el" href="../../dir_3c3ef2360bd5ecb4837d8def2fdc339b.html">Common</a></li><li class="navelem"><a class="el" href="../../db/daf/a01019.html">DYNSolverFactory.h</a></li>
-    <li class="footer">Generated on Fri Jun 6 2025 10:06:04 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_a769528b188158bb44ac136b67c42939.html">Solvers</a></li><li class="navelem"><a class="el" href="../../dir_3c3ef2360bd5ecb4837d8def2fdc339b.html">Common</a></li><li class="navelem"><a class="el" href="../../db/daf/a01019.html">DYNSolver.h</a></li>
+    <li class="footer">Generated on Mon Jun 16 2025 16:14:49 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

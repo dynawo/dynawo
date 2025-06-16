@@ -115,11 +115,11 @@ $(document).ready(function(){initNavTree('db/d8e/a00482.html','../../');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d5c/a02459.html">PathHash</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hash structure for boost::filesystem::path.  <a href="../../dc/d5c/a02459.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d73/a02465.html">PathHash</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hash structure for boost::filesystem::path.  <a href="../../d4/d73/a02465.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d6a/a02463.html">UserDefinedDirectory</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure containing a directory and a boolean indicating whether to recursively scan sub-directories of this directory or not.  <a href="../../dc/d6a/a02463.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dcb/a02469.html">UserDefinedDirectory</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure containing a directory and a boolean indicating whether to recursively scan sub-directories of this directory or not.  <a href="../../de/dcb/a02469.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -133,10 +133,10 @@ Functions</h2></td></tr>
 <tr class="memitem:a4b46588bd7985bb1caea3050e7704ab2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d8e/a00482.html#a4b46588bd7985bb1caea3050e7704ab2">searchFilesAccordingToExtension</a> (const std::string &amp;directoryToScan, const std::string &amp;fileExtensionAllowed, const std::vector&lt; std::string &gt; &amp;fileExtensionsForbidden, bool searchInSubDirs, std::vector&lt; std::string &gt; &amp;filesFound)</td></tr>
 <tr class="memdesc:a4b46588bd7985bb1caea3050e7704ab2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search for a files which have a given file extension within a directory.  <a href="#a4b46588bd7985bb1caea3050e7704ab2">More...</a><br /></td></tr>
 <tr class="separator:a4b46588bd7985bb1caea3050e7704ab2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae726cfecda8f0e5863da373af989f80d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d8e/a00482.html#ae726cfecda8f0e5863da373af989f80d">searchModelsFiles</a> (const std::string &amp;directoryToScan, const std::string &amp;fileExtension, const std::vector&lt; std::string &gt; &amp;fileExtensionsForbidden, const std::unordered_set&lt; boost::filesystem::path, <a class="el" href="../../dc/d5c/a02459.html">PathHash</a> &gt; &amp;pathsToIgnore, bool searchInSubDirs, bool packageForcesSubDirsSearch, bool stopWhenSeePackage, std::map&lt; std::string, std::string &gt; &amp;filesFound)</td></tr>
+<tr class="memitem:ae726cfecda8f0e5863da373af989f80d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d8e/a00482.html#ae726cfecda8f0e5863da373af989f80d">searchModelsFiles</a> (const std::string &amp;directoryToScan, const std::string &amp;fileExtension, const std::vector&lt; std::string &gt; &amp;fileExtensionsForbidden, const std::unordered_set&lt; boost::filesystem::path, <a class="el" href="../../d4/d73/a02465.html">PathHash</a> &gt; &amp;pathsToIgnore, bool searchInSubDirs, bool packageForcesSubDirsSearch, bool stopWhenSeePackage, std::map&lt; std::string, std::string &gt; &amp;filesFound)</td></tr>
 <tr class="memdesc:ae726cfecda8f0e5863da373af989f80d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search for models within a directory.  <a href="#ae726cfecda8f0e5863da373af989f80d">More...</a><br /></td></tr>
 <tr class="separator:ae726cfecda8f0e5863da373af989f80d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4919d02cff1378d10724621e2f6463fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d8e/a00482.html#a4919d02cff1378d10724621e2f6463fc">searchModelsFilesRec</a> (const std::string &amp;directoryToScan, const std::string &amp;fileExtension, const std::vector&lt; std::string &gt; &amp;fileExtensionsForbidden, const std::unordered_set&lt; boost::filesystem::path, <a class="el" href="../../dc/d5c/a02459.html">PathHash</a> &gt; &amp;pathsToIgnore, bool searchInSubDirs, bool isPackage, bool packageForcesSubDirsSearch, bool stopWhenSeePackage, const std::vector&lt; std::string &gt; &amp;namespaces, std::map&lt; std::string, std::string &gt; &amp;filesFound)</td></tr>
+<tr class="memitem:a4919d02cff1378d10724621e2f6463fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d8e/a00482.html#a4919d02cff1378d10724621e2f6463fc">searchModelsFilesRec</a> (const std::string &amp;directoryToScan, const std::string &amp;fileExtension, const std::vector&lt; std::string &gt; &amp;fileExtensionsForbidden, const std::unordered_set&lt; boost::filesystem::path, <a class="el" href="../../d4/d73/a02465.html">PathHash</a> &gt; &amp;pathsToIgnore, bool searchInSubDirs, bool isPackage, bool packageForcesSubDirsSearch, bool stopWhenSeePackage, const std::vector&lt; std::string &gt; &amp;namespaces, std::map&lt; std::string, std::string &gt; &amp;filesFound)</td></tr>
 <tr class="memdesc:a4919d02cff1378d10724621e2f6463fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search recursively for models within a directory.  <a href="#a4919d02cff1378d10724621e2f6463fc">More...</a><br /></td></tr>
 <tr class="separator:a4919d02cff1378d10724621e2f6463fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a805f24c2f4a669bf7cba29fe5fc73e12"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d8e/a00482.html#a805f24c2f4a669bf7cba29fe5fc73e12">searchModelicaModels</a> (const std::string &amp;directoryToScan, const std::string &amp;fileExtension, bool searchInSubDirs, std::vector&lt; std::string &gt; &amp;filesFound)</td></tr>
@@ -1085,7 +1085,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::unordered_set&lt; boost::filesystem::path, <a class="el" href="../../dc/d5c/a02459.html">PathHash</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::unordered_set&lt; boost::filesystem::path, <a class="el" href="../../d4/d73/a02465.html">PathHash</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>pathsToIgnore</em>, </td>
         </tr>
         <tr>
@@ -1165,7 +1165,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::unordered_set&lt; boost::filesystem::path, <a class="el" href="../../dc/d5c/a02459.html">PathHash</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::unordered_set&lt; boost::filesystem::path, <a class="el" href="../../d4/d73/a02465.html">PathHash</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>pathsToIgnore</em>, </td>
         </tr>
         <tr>
@@ -1249,7 +1249,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c5eaf1ac1cf936f6800d020d474d243d.html">Common</a></li><li class="navelem"><a class="el" href="../../db/d8e/a00482.html">DYNFileSystemUtils.h</a></li>
-    <li class="footer">Generated on Fri Jun 6 2025 10:06:04 for Dynawo by
+    <li class="footer">Generated on Mon Jun 16 2025 16:14:49 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

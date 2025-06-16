@@ -1,7 +1,7 @@
 var a00485 =
 [
-    [ "positive_edge_weight", "da/dae/a02467.html", "da/dae/a02467" ],
-    [ "Graph", "d1/ded/a02471.html", "d1/ded/a02471" ],
+    [ "positive_edge_weight", "d9/dc1/a02473.html", "d9/dc1/a02473" ],
+    [ "Graph", "d0/dc2/a02477.html", "d0/dc2/a02477" ],
     [ "adjacency_iterator", "d6/d1a/a00485.html#a8e22c033e5d0f185db348167415d2602", null ],
     [ "adjacency_iterator_filtered", "d6/d1a/a00485.html#a2cbd2cacebaf6e38c75bce0ab353db5f", null ],
     [ "BoostGraph", "d6/d1a/a00485.html#a8b45114031aeed966d2b92a12cc720e3", null ],

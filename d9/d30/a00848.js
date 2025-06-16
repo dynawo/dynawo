@@ -1,7 +1,7 @@
 var a00848 =
 [
-    [ "DYNDATA", "dd/d26/a03003.html", "dd/d26/a03003" ],
-    [ "memoryManagerChars", "db/d52/a03007.html", "db/d52/a03007" ],
+    [ "DYNDATA", "db/dc5/a03009.html", "db/dc5/a03009" ],
+    [ "memoryManagerChars", "d1/db3/a03013.html", "d1/db3/a03013" ],
     [ "BASE_ARRAY_H_", "d9/d30/a00848.html#a39f076128be5e0868fc138bfdd438448", null ],
     [ "BOOLEAN_ARRAY_H_", "d9/d30/a00848.html#ad393b5d34c6494c7aa1cbecf0c950723", null ],
     [ "INTEGER_ARRAY_H_", "d9/d30/a00848.html#aec5976c7a2cdb60bd88d7afe840a44f0", null ],
