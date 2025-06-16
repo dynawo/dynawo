@@ -2041,6 +2041,9 @@ class Warn:
                 with_variable = True
 
         self.is_parameter_warning = not with_variable
+
+        equality_prtn = re.compile(r'\(data->localData\[0\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/[\)]* = .*;')
+
         #################
         for line in self.body:
             line = throw_stream_indexes(line)
@@ -2049,6 +2052,8 @@ class Warn:
             line = replace_var_names(line)
             line = line.replace("threadData, ","")
             line = sub_division_sim(line)
+            if re.search(equality_prtn, line) is not None:
+                continue
             if "omc_assert_warning" in line and not with_throw:
                 line = line.replace(INFO_OMC_PARAM,"")
             if has_omc_trace (line) or has_omc_equation_indexes (line) or "infoStreamPrint" in line:
