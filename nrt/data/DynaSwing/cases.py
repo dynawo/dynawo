@@ -568,3 +568,13 @@ case_description = "Single machine system with fifth order motor load - Fault"
 job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "SingleMachineSystem", "SingleMachineSystem_LoadAlphaBetaMotorFifthOrder", "SingleMachineSystem.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+######################################################
+#  Synchronous machine model suitable for DTR I8 Fiche #
+######################################################
+
+case_name = "DynaSwing - Fiche I8"
+case_description = "Load disconnection on a signle machine case"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "SingleMachineSystem", "SynchronousMachineI8", "I8.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
