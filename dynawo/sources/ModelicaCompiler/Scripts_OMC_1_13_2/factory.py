@@ -2982,7 +2982,6 @@ class Factory:
                 line = line.replace("threadData_t *threadData ,","")
             self.list_for_externalcalls_header.append(line)
             match = ptrn_struct.search(line)
-            print ("BUBU? " + line)
             if match is not None:
                 self.list_for_evalfadept_external_call_headers.append(line)
                 adept_reading_struct = True
