@@ -56,27 +56,31 @@ staticVarCompensatorIIDM_(svc) {
   destroy_extension_ = std::get<IIDMExtensions::DESTROY_FUNCTION>(extensionDef);
   voltagePerReactivePowerControl_ = svc.findExtension<powsybl::iidm::extensions::iidm::VoltagePerReactivePowerControl>();
 
-  stateVariables_.resize(3);
+  stateVariables_.resize(4);
   stateVariables_[VAR_P] = StateVariable("p", StateVariable::DOUBLE);  // P
   stateVariables_[VAR_Q] = StateVariable("q", StateVariable::DOUBLE);  // Q
   stateVariables_[VAR_STATE] = StateVariable("state", StateVariable::INT);  // connectionState
-  if (extension_ && extension_->hasStandbyAutomaton()) {
-    stateVariables_.resize(4);
-    stateVariables_[VAR_REGULATINGMODE] = StateVariable("regulatingMode", StateVariable::INT);  // regulatingMode
-  }
+  stateVariables_[VAR_REGULATINGMODE] = StateVariable("regulatingMode", StateVariable::INT);  // regulatingMode
 }
 
 int
 StaticVarCompensatorInterfaceIIDM::getComponentVarIndex(const std::string& varName) const {
   int index = -1;
-  if ( varName == "p" )
+  if ( varName == "p" ) {
     index = VAR_P;
-  else if ( varName == "q" )
+  } else if ( varName == "q" ) {
     index = VAR_Q;
-  else if ( varName == "state" )
+  } else if ( varName == "state" ) {
     index = VAR_STATE;
-  else if ( varName == "regulatingMode" && extension_ && extension_->hasStandbyAutomaton())
+  } else if ( varName == "regulatingMode" ) {
     index = VAR_REGULATINGMODE;
+    if (!hasStandbyAutomaton()) {
+      Trace::warn() << "mapping regulatingMode on model "
+                    << getID()
+                    << " will have no effect as StandbyAutomation extension is unavailable"
+                    << Trace::endline;
+    }
+  }
   return index;
 }
 
