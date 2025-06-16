@@ -1,19 +1,21 @@
 within Dynawo.Electrical.Controls.WECC.REEC.BaseClasses;
 
+/*
+* Copyright (c) 2021, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+
 partial model BaseREECD "WECC Electrical Control REEC common"
-  /*
-      * Copyright (c) 2021, RTE (http://www.rte-france.com)
-      * See AUTHORS.txt
-      * All rights reserved.
-      * This Source Code Form is subject to the terms of the Mozilla Public
-      * License, v. 2.0. If a copy of the MPL was not distributed with this
-      * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-      * SPDX-License-Identifier: MPL-2.0
-      *
-      * This file is part of Dynawo, an hybrid C++/Modelica open source suite
-      * of simulation tools for power systems.
-      */
   extends Electrical.Controls.WECC.Parameters.ParamsREEC;
+  
   // Input variables
   Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(
     Placement(visible = true, transformation(origin = {-270, 210}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {9, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
@@ -27,6 +29,7 @@ partial model BaseREECD "WECC Electrical Control REEC common"
     Placement(visible = true, transformation(origin = {-270, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UPu(start = UInj0Pu) "Voltage magnitude at injector terminal in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-270, 270}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {60, -110}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
+ 
   // Output variables
   Modelica.Blocks.Interfaces.RealOutput idCmdPu(start = Id0Pu) "idCmdPu setpoint for generator control in pu (base SNom, UNom)" annotation(
     Placement(visible = true, transformation(origin = {551, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -46,7 +49,7 @@ partial model BaseREECD "WECC Electrical Control REEC common"
     Placement(visible = true, transformation(origin = {90, 112}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Division division annotation(
     Placement(visible = true, transformation(origin = {90, 54}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tRv, y_start = UInj0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tRv, y_start = UInj0Pu, k = 1) annotation(
     Placement(visible = true, transformation(origin = {50, 240}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add1 annotation(
     Placement(visible = true, transformation(origin = {330, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -84,8 +87,6 @@ partial model BaseREECD "WECC Electrical Control REEC common"
     Placement(visible = true, transformation(origin = {-80, 180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression UFilteredPu2(y = UFilteredPu) annotation(
     Placement(visible = true, transformation(origin = {-20, 46}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression UFilteredPu3(y = UFilteredPu) annotation(
-    Placement(visible = true, transformation(origin = {190, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Math.Max max1 annotation(
     Placement(visible = true, transformation(origin = {50, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constant2(k = 0.01) annotation(
@@ -108,6 +109,7 @@ partial model BaseREECD "WECC Electrical Control REEC common"
     Placement(visible = true, transformation(origin = {59, -105}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Math.Add add(k1 = -1) annotation(
     Placement(visible = true, transformation(origin = {125, 220}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
 equation
   connect(variableLimiter.y, iqCmdPu) annotation(
     Line(points = {{521, 110}, {550, 110}}, color = {0, 0, 127}));
@@ -143,8 +145,6 @@ equation
     Line(points = {{124, 31}, {124, 42}}, color = {255, 0, 255}));
   connect(voltageCheck.freeze, frtOn) annotation(
     Line(points = {{103, 269}, {144, 269}}, color = {255, 0, 255}));
-  connect(UFilteredPu3.y, varLimPIDFreeze.u_m) annotation(
-    Line(points = {{190, 81}, {190, 90}, {180, 90}, {180, 100}}, color = {0, 0, 127}));
   connect(FRTOn1.y, varLimPIDFreeze.freeze) annotation(
     Line(points = {{163, 81}, {163, 90}, {173, 90}, {173, 100}}, color = {255, 0, 255}));
   connect(firstOrder.y, UFilteredPu) annotation(
@@ -193,6 +193,7 @@ equation
     Line(points = {{61, 40}, {99, 40}, {99, -126}, {169, -126}}, color = {0, 0, 127}));
   connect(firstOrder.y, voltageCheck.UPu) annotation(
     Line(points = {{61, 240}, {61, 269}, {81, 269}}, color = {0, 0, 127}));
+  
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html>

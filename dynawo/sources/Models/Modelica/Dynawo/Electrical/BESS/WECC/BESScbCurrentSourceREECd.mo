@@ -1,17 +1,18 @@
 within Dynawo.Electrical.BESS.WECC;
-
+ 
+/*
+* Copyright (c) 2024, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+*/
+  
 model BESScbCurrentSourceREECd "WECC BESS with electrical control model type C, generator/converter model type B and plant control type A "
-  /*
-  * Copyright (c) 2024, RTE (http://www.rte-france.com)
-  * See AUTHORS.txt
-  * All rights reserved.
-  * This Source Code Form is subject to the terms of the Mozilla Public
-  * License, v. 2.0. If a copy of the MPL was not distributed with this
-  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-  * SPDX-License-Identifier: MPL-2.0
-  *
-  * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-  */
   extends Electrical.BESS.WECC.BaseClasses.BaseBESScbCurrentSourceREECd;
   extends Electrical.Controls.WECC.Parameters.ParamsREPC;
   
@@ -59,6 +60,7 @@ equation
     Line(points = {{-149, 49}, {-140, 49}, {-140, 8}, {-131, 8}}, color = {0, 0, 127}));
   connect(OmegaRef.y, reecD.omegaGPu) annotation(
     Line(points = {{-179, 38}, {-170, 38}, {-170, -23}, {-85, -23}, {-85, -11}}, color = {0, 0, 127}));
+  
   annotation(
     preferredView = "diagram",
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-24, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC BESS CB")}, coordinateSystem(initialScale = 0.1)),

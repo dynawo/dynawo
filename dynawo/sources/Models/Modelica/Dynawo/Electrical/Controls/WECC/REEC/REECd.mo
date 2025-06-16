@@ -1,7 +1,20 @@
 within Dynawo.Electrical.Controls.WECC.REEC;
 
+/*
+* Copyright (c) 2024, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+*/
+    
 model REECd
-  extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREECD(UFilteredPu3(y = firstOrder2.y), firstOrder(k = 1, T = tRv, y_start = UInj0Pu));
+  extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREECD;
+  
   //REECd Parameters
   parameter Types.PerUnit VDLIp11 annotation(
     Dialog(tab = "Electrical Control"));
@@ -19,6 +32,30 @@ model REECd
     Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIp42 annotation(
     Dialog(tab = "Electrical Control"));
+  parameter Types.PerUnit VDLIp51 annotation(
+    Dialog(tab = "Electrical Control"));
+  parameter Types.PerUnit VDLIp52 annotation(
+    Dialog(tab = "Electrical Control"));
+  parameter Types.PerUnit VDLIp61 annotation(
+    Dialog(tab = "Electrical Control"));
+  parameter Types.PerUnit VDLIp62 annotation(
+    Dialog(tab = "Electrical Control"));
+  parameter Types.PerUnit VDLIp71 annotation(
+    Dialog(tab = "Electrical Control"));
+  parameter Types.PerUnit VDLIp72 annotation(
+    Dialog(tab = "Electrical Control"));
+  parameter Types.PerUnit VDLIp81 annotation(
+    Dialog(tab = "Electrical Control"));
+  parameter Types.PerUnit VDLIp82 annotation(
+    Dialog(tab = "Electrical Control"));
+  parameter Types.PerUnit VDLIp91 annotation(
+    Dialog(tab = "Electrical Control"));
+  parameter Types.PerUnit VDLIp92 annotation(
+    Dialog(tab = "Electrical Control"));
+  parameter Types.PerUnit VDLIp101 annotation(
+    Dialog(tab = "Electrical Control"));
+  parameter Types.PerUnit VDLIp102 annotation(
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIq11 annotation(
     Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIq12 annotation(
@@ -35,9 +72,33 @@ model REECd
     Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIq42 annotation(
     Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIpPoints[:, :] = [VDLIp11, VDLIp12; VDLIp21, VDLIp22; VDLIp31, VDLIp32; VDLIp41, VDLIp42] "Pair of points for voltage-dependent active current limitation piecewise linear curve [u1,y1; u2,y2;...]" annotation(
+  parameter Types.PerUnit VDLIq51 annotation(
     Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIqPoints[:, :] = [VDLIq11, VDLIq12; VDLIq21, VDLIq22; VDLIq31, VDLIq32; VDLIq41, VDLIq42] "Pair of points for voltage-dependent reactive current limitation piecewise linear curve [u1,y1; u2,y2;...]" annotation(
+  parameter Types.PerUnit VDLIq52 annotation(
+    Dialog(tab = "Electrical Control"));
+  parameter Types.PerUnit VDLIq61 annotation(
+    Dialog(tab = "Electrical Control"));
+  parameter Types.PerUnit VDLIq62 annotation(
+    Dialog(tab = "Electrical Control"));
+  parameter Types.PerUnit VDLIq71 annotation(
+    Dialog(tab = "Electrical Control"));
+  parameter Types.PerUnit VDLIq72 annotation(
+    Dialog(tab = "Electrical Control"));
+  parameter Types.PerUnit VDLIq81 annotation(
+    Dialog(tab = "Electrical Control"));
+  parameter Types.PerUnit VDLIq82 annotation(
+    Dialog(tab = "Electrical Control"));
+  parameter Types.PerUnit VDLIq91 annotation(
+    Dialog(tab = "Electrical Control"));
+  parameter Types.PerUnit VDLIq92 annotation(
+    Dialog(tab = "Electrical Control"));
+  parameter Types.PerUnit VDLIq101 annotation(
+    Dialog(tab = "Electrical Control"));
+  parameter Types.PerUnit VDLIq102 annotation(
+    Dialog(tab = "Electrical Control"));
+  parameter Types.PerUnit VDLIpPoints[:, :] = [VDLIp11, VDLIp12; VDLIp21, VDLIp22; VDLIp31, VDLIp32; VDLIp41, VDLIp42; VDLIp51, VDLIp52; VDLIp61, VDLIp62; VDLIp71, VDLIp72; VDLIp81, VDLIp82; VDLIp91, VDLIp92; VDLIp101, VDLIp102] "Pair of points for voltage-dependent active current limitation piecewise linear curve [u1,y1; u2,y2;...]" annotation(
+    Dialog(tab = "Electrical Control"));
+  parameter Types.PerUnit VDLIqPoints[:, :] = [VDLIq11, VDLIq12; VDLIq21, VDLIq22; VDLIq31, VDLIq32; VDLIq41, VDLIq42; VDLIq51, VDLIq52; VDLIq61, VDLIq62; VDLIq71, VDLIq72; VDLIq81, VDLIq82; VDLIq91, VDLIq92; VDLIq101, VDLIq102] "Pair of points for voltage-dependent reactive current limitation piecewise linear curve [u1,y1; u2,y2;...]" annotation(
     Dialog(tab = "Electrical Control"));
   parameter Boolean PFlag "Power reference flag: const. Pref (0) or consider generator speed (1)" annotation(
     Dialog(tab = "Electrical Control"));
@@ -69,7 +130,6 @@ model REECd
     Placement(transformation(origin = {-270, -202}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {70, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.ComplexBlocks.Interfaces.ComplexInput uPu(re(start = u0Pu.re), im(start = u0Pu.im)) "Complex voltage at regulated bus in pu (base UNom)" annotation(
     Placement(transformation(origin = {-270, -228}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-69, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  
   Modelica.Blocks.Sources.RealExpression UFilteredPu5(y = UFilteredPu) annotation(
     Placement(transformation(origin = {213, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.RealExpression IqMax(y = currentLimitsCalculationD.iqMaxPu) annotation(
@@ -82,7 +142,7 @@ model REECd
     Placement(transformation(origin = {-83, 96}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.BooleanConstant PFlagConst(k = PFlag) annotation(
     Placement(transformation(origin = {-119, -65}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.BooleanConstant VCompFlagConst(k = VCompFlag)  annotation(
+  Modelica.Blocks.Sources.BooleanConstant VCompFlagConst(k = VCompFlag) annotation(
     Placement(transformation(origin = {-100, -220}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.Switch switch3 annotation(
     Placement(transformation(origin = {-6, -220}, extent = {{-10, -10}, {10, 10}})));
@@ -108,8 +168,8 @@ model REECd
     Placement(transformation(origin = {-185, -215}, extent = {{-21, -21}, {21, 21}})));
   BaseControls.CurrentLimitsCalculationD currentLimitsCalculationD(IMaxPu = IMaxPu, PQFlag = PQFlag, Ke = Ke) annotation(
     Placement(transformation(origin = {383, 5}, extent = {{-27, -27}, {27, 27}})));
-  
-  equation
+
+equation
   connect(uPu, lineDropCompensation.u2Pu) annotation(
     Line(points = {{-271, -227}, {-271, -228}, {-208, -228}}, color = {85, 170, 255}));
   connect(lineDropCompensation.U2Pu, add2.u1) annotation(
@@ -180,6 +240,9 @@ model REECd
     Line(points = {{522, -120}, {530, -120}, {530, -36}, {340, -36}, {340, 26}, {354, 26}}, color = {0, 0, 127}));
   connect(VCompFlagConst.y, switch3.u2) annotation(
     Line(points = {{-89, -220}, {-18, -220}}, color = {255, 0, 255}));
+  connect(firstOrder2.y, varLimPIDFreeze.u_m) annotation(
+    Line(points = {{58, -220}, {210, -220}, {210, -28}, {180, -28}, {180, 100}}, color = {0, 0, 127}));
+  
   annotation(
     Diagram,
     Icon(graphics = {Text(origin = {-37, 130.5}, extent = {{-16, 7}, {24, -10}}, textString = "PAuxPu"), Text(origin = {65, 132.5}, extent = {{-16, 7}, {24, -10}}, textString = "iInjPu"), Text(origin = {-81, 130.5}, extent = {{-16, 7}, {24, -10}}, textString = "uInjPu"), Ellipse(origin = {-67, -126}, extent = {{-9, 0}, {9, 0}}), Text(origin = {-30.3275, -106.118}, extent = {{-14.6724, 6.11766}, {22.3276, -9.88234}}, textString = "omegaG"), Text(origin = {-19, 11}, extent = {{-45, 23}, {84, -40}}, textString = "REEC D")}));

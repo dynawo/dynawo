@@ -2,19 +2,19 @@ within Dynawo.Examples.BESS.WECC;
 
 model BESScbCurrentSourceREECd "WECC BESS with REEC-C and REGC-B with a plant controller REPC-A on infinite bus"
   /*
-  * Copyright (c) 2024, RTE (http://www.rte-france.com)
-  * See AUTHORS.txt
-  * All rights reserved.
-  * This Source Code Form is subject to the terms of the Mozilla Public
-  * License, v. 2.0. If a copy of the MPL was not distributed with this
-  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-  * SPDX-License-Identifier: MPL-2.0
-  *
-  * This file is part of Dynawo, an hybrid C++/Modelica open source suite
-  * of simulation tools for power systems.
-  */
+    * Copyright (c) 2024, RTE (http://www.rte-france.com)
+    * See AUTHORS.txt
+    * All rights reserved.
+    * This Source Code Form is subject to the terms of the Mozilla Public
+    * License, v. 2.0. If a copy of the MPL was not distributed with this
+    * file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    * SPDX-License-Identifier: MPL-2.0
+    *
+    * This file is part of Dynawo, an hybrid C++/Modelica open source suite
+    * of simulation tools for power systems.
+    */
   extends Modelica.Icons.Example;
-  Electrical.BESS.WECC.BESScbCurrentSourceREECd BESScb(DDn = 126, DPMaxPu = 999, DPMinPu = -999, DUp = 126, Dbd1Pu = -0.05, Dbd2Pu = 0.05, DbdPu = 0, EMaxPu = 0.1, EMinPu = -0.1, FDbd1Pu = 0.00083, FDbd2Pu = 0.00083, FEMaxPu = 999, FEMinPu = -999, FreqFlag = true, IMaxPu = 1.11, Id0Pu(fixed = false), Iq0Pu(fixed = false), Iqh1Pu = 0.75, Iql1Pu = -0.75, IqrMaxPu = 999, IqrMinPu = -999, Kc = 0.15, Ki = 1e-6, KiPLL = 20, Kig = 1e-6, Kp = 1e-6, KpPLL = 3, Kpg = 1, Kqi = 1, Kqp = 1e-6, Kqv = 15, Kvi = 0.1, Kvp = 1e-6, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, P0Pu = -0.03, PF0(fixed = false), PInj0Pu(fixed = false), PMaxPu = 1, PMinPu = -0.667, PQFlag = false, PfFlag = false, Q0Pu = 0, QFlag = false, QInj0Pu(fixed = false), QMaxPu = 0.75, QMinPu = -0.75, RPu = 0, RateFlag = false, RefFlag = false, RrpwrPu = 10, SNom = 6, U0Pu = 1, UInj0Pu(fixed = false), UPhaseInj0 = 0.00000144621, VCompFlag = false, VDLIp11 = 0.2, VDLIp12 = 1.11, VDLIp21 = 0.5, VDLIp22 = 1.11, VDLIp31 = 0.75, VDLIp32 = 1.11, VDLIp41 = 1, VDLIp42 = 1.11, VDLIq11 = 0, VDLIq12 = 0.75, VDLIq21 = 0.2, VDLIq22 = 0.75, VDLIq31 = 0.5, VDLIq32 = 0.75, VDLIq41 = 1, VDLIq42 = 0.75, VDipPu = -99, VFlag = true, VFrz = 0, VMaxPu = 1.1, VMinPu = 0.9, VRef0Pu = 1, VUpPu = 99, XPu = 1e-10, i0Pu(re(fixed = false), im(fixed = false)), iInj0Pu(re(fixed = false), im(fixed = false)), s0Pu(re(fixed = false), im(fixed = false)), tFilterGC = 0.02, tFilterPC = 0.02, tFt = 1e-10, tFv = 0.05, tG = 0.017, tIq = 0.017, tLag = 0.1, tP = 0.05, tPord = 0.017, tRv = 0.01, u0Pu(re(fixed = false), im(fixed = false)), uInj0Pu(re(fixed = false), im(fixed = false)),  tR1 = 0.02, Ke = 0, XcPu = 0.15, RcPu = 0.02, PFlag = false, VRef1Pu = 0) annotation(
+  Electrical.BESS.WECC.BESScbCurrentSourceREECd BESScb(DDn = 126, DPMaxPu = 999, DPMinPu = -999, DUp = 126, Dbd1Pu = -0.05, Dbd2Pu = 0.05, DbdPu = 0, EMaxPu = 0.1, EMinPu = -0.1, FDbd1Pu = 0.00083, FDbd2Pu = 0.00083, FEMaxPu = 999, FEMinPu = -999, FreqFlag = true, IMaxPu = 1.11, Id0Pu(fixed = false), Iq0Pu(fixed = false), Iqh1Pu = 0.75, Iql1Pu = -0.75, IqrMaxPu = 999, IqrMinPu = -999, Kc = 0.15, Ki = 1e-6, KiPLL = 20, Kig = 1e-6, Kp = 1e-6, KpPLL = 3, Kpg = 1, Kqi = 1, Kqp = 1e-6, Kqv = 15, Kvi = 0.1, Kvp = 1e-6, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, P0Pu = -0.03, PF0(fixed = false), PInj0Pu(fixed = false), PMaxPu = 1, PMinPu = -0.667, PQFlag = false, PfFlag = false, Q0Pu = 0, QFlag = false, QInj0Pu(fixed = false), QMaxPu = 0.75, QMinPu = -0.75, RPu = 0, RateFlag = false, RefFlag = false, RrpwrPu = 10, SNom = 6, U0Pu = 1, UInj0Pu(fixed = false), UPhaseInj0 = 0.00000144621, VCompFlag = false, VDLIp11 = 0.1, VDLIp12 = 1.11, VDLIp21 = 0.2, VDLIp22 = 1.11, VDLIp31 = 0.3, VDLIp32 = 1.11, VDLIp41 = 0.4, VDLIp42 = 1.11, VDLIq11 = 0, VDLIq12 = 0.75, VDLIq21 = 0.2, VDLIq22 = 0.75, VDLIq31 = 0.3, VDLIq32 = 0.75, VDLIq41 = 0.4, VDLIq42 = 0.75, VDipPu = -99, VFlag = true, VFrz = 0, VMaxPu = 1.1, VMinPu = 0.9, VRef0Pu = 1, VUpPu = 99, XPu = 1e-10, i0Pu(re(fixed = false), im(fixed = false)), iInj0Pu(re(fixed = false), im(fixed = false)), s0Pu(re(fixed = false), im(fixed = false)), tFilterGC = 0.02, tFilterPC = 0.02, tFt = 1e-10, tFv = 0.05, tG = 0.017, tIq = 0.017, tLag = 0.1, tP = 0.05, tPord = 0.017, tRv = 0.01, u0Pu(re(fixed = false), im(fixed = false)), uInj0Pu(re(fixed = false), im(fixed = false)), tR1 = 0.02, Ke = 0, XcPu = 0.15, RcPu = 0.02, PFlag = false, VRef1Pu = 0, VDLIp51 = 0.5, VDLIp52 = 1.11, VDLIp61 = 0.6, VDLIp62 = 1.11, VDLIp71 = 0.7, VDLIp72 = 1.11, VDLIp81 = 0.8, VDLIp82 = 1.11, VDLIp91 = 0.9, VDLIp92 = 1.11, VDLIp101 = 1.0, VDLIp102 = 1.11, VDLIq51 = 0.5, VDLIq52 = 0.75, VDLIq61 = 0.6, VDLIq62 = 0.75, VDLIq71 = 0.7, VDLIq72 = 0.75, VDLIq81 = 0.8, VDLIq82 = 0.75, VDLIq91 = 0.9, VDLIq92 = 0.75, VDLIq101 = 1.0, VDLIq102 = 0.75) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant URefPu(k = 1) annotation(
     Placement(visible = true, transformation(origin = {90, 80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
