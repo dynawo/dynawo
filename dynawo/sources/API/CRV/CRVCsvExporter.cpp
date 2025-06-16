@@ -68,13 +68,14 @@ CsvExporter::exportToStream(const std::shared_ptr<CurvesCollection>& curves, ost
 
   // print title line
   stream << "time" << CSVEXPORTER_SEPARATOR;
-for (const auto& curve : curves->getCurves()) {
+  for (const auto& curve : curves->getCurves()) {
     if (curve->getAvailable() && curve->getExportType() != curves::Curve::EXPORT_AS_FINAL_STATE_VALUE) {
       stream << curve->getModelName() << "_"
               << curve->getVariable();
       if (DYN::doubleNotEquals(curve->getFactor(), 1.))
         stream << "_" << curve->getFactor() << "x";
       stream << CSVEXPORTER_SEPARATOR;
+    }
   }
   stream << "\n";
 
