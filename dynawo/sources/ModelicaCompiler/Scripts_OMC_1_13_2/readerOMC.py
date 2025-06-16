@@ -851,7 +851,8 @@ class ReaderOMC:
                         sys.exit()
                 start = list_real[0].getAttribute('start')
                 fixed = list_real[0].getAttribute('fixed')
-                var.set_fixed(fixed == "true" or var.get_variability() == "parameter")
+                is_value_changeable =  node.getAttribute('isValueChangeable')
+                var.set_fixed((fixed == "true" and is_value_changeable == "false") or var.get_variability() == "parameter")
                 if start != '':
                     var.set_start_text( [start] )
                     var.set_use_start(list_real[0].getAttribute('useStart'))
@@ -1709,6 +1710,8 @@ class ReaderOMC:
                             do_it = False
                             break
                         dep_var = self.find_variable_from_name(dep_var_name)
+                        if dep_var is not None:
+                            print ("BUBU? " + var.get_name() + " " + dep_var_name + " " + str(dep_var.is_fixed()))
                         if dep_var is not None and (not dep_var.is_fixed() \
                         or dep_var.get_name() in self.fictive_continuous_vars\
                         or dep_var.get_name() in self.fictive_optional_continuous_vars\
