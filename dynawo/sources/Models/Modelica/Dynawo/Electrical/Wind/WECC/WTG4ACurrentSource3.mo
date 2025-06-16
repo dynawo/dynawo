@@ -16,6 +16,7 @@ within Dynawo.Electrical.Wind.WECC;
 model WTG4ACurrentSource3 "WECC Wind Turbine model with a simplified drive train model (dual-mass model) and with a current source as interface with the grid"
   extends Electrical.Controls.PLL.ParamsPLL;
   extends Electrical.Controls.WECC.Parameters.ParamsREPC;
+  extends Electrical.Controls.WECC.Parameters.ParamsDriveTrain;
   extends Electrical.Controls.WECC.Parameters.ParamsWTGTb;
   extends Electrical.Wind.WECC.BaseClasses.BaseWT4;
   
