@@ -12,19 +12,11 @@ within Dynawo.Examples.Wind.WECC;
 * This file is part of Dynawo, a hybrid C++/Modelica open source suite
 * of simulation tools for power systems.
 */
-  
-model WTG3CurrentSource2 "WECC Wind Type 4A Model (including the plant controller) - WTG3 - on infinite bus"
+
+model WTG3CurrentSource2 "WECC Wind Type 3 Model (including the plant controller) - WTG3 - on infinite bus"
   extends Modelica.Icons.Example;
   
-  Electrical.Buses.InfiniteBusWithVariations infiniteBus(U0Pu = 1,
-    UEvtPu = 0.6,
-    UPhase = 0,
-    omega0Pu = 1,
-    omegaEvtPu = 1.01,
-    tOmegaEvtEnd = 6.5,
-    tOmegaEvtStart = 6,
-    tUEvtEnd = 2,
-    tUEvtStart = 1) annotation(
+  Electrical.Buses.InfiniteBusWithVariations infiniteBus(U0Pu = 1, UEvtPu = 0.6, UPhase = 0, omega0Pu = 1, omegaEvtPu = 1.01, tOmegaEvtEnd = 6.5, tOmegaEvtStart = 6, tUEvtEnd = 2, tUEvtStart = 1) annotation(
     Placement(visible = true, transformation(origin = {-82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Electrical.Lines.Line line(RPu = 0, XPu = 0.0000020661, BPu = 0, GPu = 0) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -46,8 +38,6 @@ model WTG3CurrentSource2 "WECC Wind Type 4A Model (including the plant controlle
     Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant PmREfPu(k = 0.7) annotation(
     Placement(transformation(origin = {8, 82}, extent = {{-10, 10}, {10, -10}}, rotation = -90)));
-  Modelica.Blocks.Sources.Step step(height = -24.99, offset = 25, startTime = 20) annotation(
-    Placement(transformation(origin = {-36, 78}, extent = {{-10, -10}, {10, 10}})));
 
 initial algorithm
   WTG3.Id0Pu := wt4CurrentSource_INIT.Id0Pu;
@@ -94,7 +84,15 @@ equation
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 20, Tolerance = 1e-05, Interval = 0.001),
-    Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\"><div><!--StartFragment-->This test case consists in one simplified Wind Turbine type 3 park connected to an infinite bus, which voltage is reduced to 0.5 pu from t = 1 s to t = 2 s, and which frequency is increased to 1.01 pu from t = 6 s to t = 6.5 s. This setup is used to observe the dynamic behavior of the WTG3 system in response to voltage and frequency variations at its terminal. In this version, Pitch Controller A has been replaced with Pitch Controller B, which provides enhanced flexibility through additional tuning parameters. This allows for better adjustment of the pitch response to rotor speed variations under different operating conditions.<!--EndFragment-->&nbsp;&nbsp;</div><div><br></div><div><br></div><div><br></div><div><br></div><div><span style=\"font-size: 12px;\"><br></span></div></span></body></html>"),
+    Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\"><div><!--StartFragment-->This test case consists in one simplified Wind Turbine type 3 park connected to an infinite bus, which voltage is reduced to 0.5 pu from t = 1 s to t = 2 s, and which frequency is increased to 1.01 pu from t = 6 s to t = 6.5 s. This setup is used to observe the dynamic behavior of the WTG3 system in response to voltage and frequency variations at its terminal. In this version, Pitch Controller A has been replaced with Pitch Controller B, which provides enhanced flexibility through additional tuning parameters. This allows for better adjustment of the pitch response to rotor speed variations under different operating conditions.<!--EndFragment-->&nbsp;&nbsp;</div><div><br></div><div><br></div><div><br></div><div><br></div><div><span style=\"font-size: 12px;\"><br></span></div></span></figure><figure>
+      <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/PInjPuWTG3CurrentSource2.png\">
+    </figure>
+    <figure>
+      <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/QInjPuWTG3CurrentSource2.png\">
+    </figure>
+    <figure>
+      <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/UPuWTG3CurrentSource2.png\">
+    </figure></body></html>"),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian,newInst",
     __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "ida", maxIntegrationOrder = "2", nls = "kinsol", noHomotopyOnFirstTry = "()", noRestart = "()", noRootFinding = "()", initialStepSize = "0.00001", maxStepSize = "10"));
 end WTG3CurrentSource2;
