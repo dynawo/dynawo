@@ -46,6 +46,8 @@
 #include "DYNMacrosMessage.h"
 #include "JOBModelsDirEntry.h"
 
+#include "DYNExecUtils.h"
+
 using std::map;
 using std::string;
 using std::vector;
@@ -611,6 +613,10 @@ AppenderHandler::create(attributes_type const& attributes) {
 
   if (attributes.has("timeStampFormat"))
     appender_->setTimeStampFormat(attributes["timeStampFormat"]);
+
+  if (hasEnvVar("DYNAWO_LOGS_NO_TIMESTAMP"))
+    if (getEnvVar("DYNAWO_LOGS_NO_TIMESTAMP") == "YES")
+      appender_->setTimeStampFormat("");  // force empty timestamp
 
   if (attributes.has("separator"))
     appender_->setSeparator(attributes["separator"]);
