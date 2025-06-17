@@ -68,7 +68,7 @@ XmlExporter::exportToStream(const std::shared_ptr<CurvesCollection>& curves, ost
       attrs.clear();
       attrs.add("model", curve->getModelName());
       attrs.add("variable", curve->getVariable());
-      if (curve->getFactor() != 1.)
+      if (DYN::doubleNotEquals(curve->getFactor(), 1.))
         attrs.add("factor", curve->getFactor());
       formatter->startElement("curve", attrs);
       for (const auto& point : curve->getPoints()) {
