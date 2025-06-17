@@ -61,6 +61,15 @@ class CurvesCollection {
    */
   std::size_t getSize();
 
+  /**
+   * @brief get curves
+   *
+   * @return curves
+   */
+  const std::vector<std::shared_ptr<Curve> >& getCurves() const {
+    return curves_;
+  }
+
  public:
   /**
    * @class iterator

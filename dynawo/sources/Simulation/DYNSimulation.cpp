@@ -888,11 +888,8 @@ Simulation::init() {
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
   const std::vector<double>& y = solver_->getCurrentY();
   unsigned nbCurves = 0;
-  for (CurvesCollection::iterator itCurve = curvesCollection_->begin();
-          itCurve != curvesCollection_->end();
-          ++itCurve) {
-    std::shared_ptr<curves::Curve>& curve = *itCurve;
-    bool added = model_->initCurves(curve);
+  for (const auto& curve : curvesCollection_->getCurves()) {
+    const bool added = model_->initCurves(curve, calculatedVarCurvesToSubModel_);
     if (added)
       ++nbCurves;
     if (curve->getCurveType() == curves::Curve::DISCRETE_VARIABLE) {
@@ -1207,8 +1204,7 @@ Simulation::updateCurves(bool updateCalculateVariable) {
     return;
 
   if (updateCalculateVariable)
-    model_->updateCalculatedVarForCurves(curvesCollection_);
-
+    model_->updateCalculatedVarForCurves(calculatedVarCurvesToSubModel_);
   curvesCollection_->updateCurves(tCurrent_);
 }
 

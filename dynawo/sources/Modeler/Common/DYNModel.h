@@ -26,6 +26,7 @@
 #include <boost/shared_ptr.hpp>
 #include "DYNEnumUtils.h"
 #include "PARParametersSet.h"
+#include "DYNSubModel.h"
 
 namespace timeline {
 class Timeline;
@@ -381,9 +382,10 @@ class Model {
   /**
    * @brief update the subset of calculated variables needed for curves
    *
-   * @param curvesCollection set of curves
+   * @param calculatedVarCurvesToSubModel map of calculatedVar curve with associated subModel
    */
-  virtual void updateCalculatedVarForCurves(std::shared_ptr<curves::CurvesCollection>& curvesCollection) const = 0;
+  virtual void updateCalculatedVarForCurves(
+    const std::unordered_map<std::shared_ptr<curves::Curve>, boost::shared_ptr<SubModel> >& calculatedVarCurvesToSubModel) const = 0;
 
   /**
    * @brief export the parameters of the model for dump
@@ -454,7 +456,8 @@ class Model {
    * @param curve curve to find
    * @return true if the curve was added
    */
-  virtual bool initCurves(std::shared_ptr<curves::Curve>& curve) = 0;
+  virtual bool initCurves(const std::shared_ptr<curves::Curve>& curve,
+    std::unordered_map<std::shared_ptr<curves::Curve>, boost::shared_ptr<SubModel> >& calculatedVarCurvesToSubModel) = 0;
 
   /**
    * @brief set the simulation working directory to use

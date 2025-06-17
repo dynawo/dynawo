@@ -988,7 +988,7 @@ SubModel::getY0Values(vector<double>& y0, vector<double>& yp0, vector<double>& z
 }
 
 void
-SubModel::addCurve(std::shared_ptr<curves::Curve>& curve) {
+SubModel::addCurve(const std::shared_ptr<curves::Curve>& curve) {
   const string variableName = curve->getFoundVariableName();
   const shared_ptr <Variable> variable = getVariable(variableName);
   const int varNum = variable->getIndex();
@@ -1001,6 +1001,7 @@ SubModel::addCurve(std::shared_ptr<curves::Curve>& curve) {
   if (!isState) {
     buffer = &(calculatedVars_[varNum]);
     curve->setCurveType(Curve::CALCULATED_VARIABLE);
+    curve->setIndexCalculatedVarInSubModel(varNum);
   } else {
     switch (typeVar) {
       case CONTINUOUS:
@@ -1024,7 +1025,6 @@ SubModel::addCurve(std::shared_ptr<curves::Curve>& curve) {
       }
     }
   }
-
   curve->setBuffer(buffer);
   curve->setNegated(negated);
 }
@@ -1035,18 +1035,13 @@ SubModel::updateCalculatedVarForCurve(std::shared_ptr<curves::Curve>& curve) {
   Timer timer("SubModel::updateCalculatedVarForCurve");
   assert(curve);
 #endif
-  if (curve->getCurveType() != Curve::CALCULATED_VARIABLE) return;
-  const string variableName = curve->getFoundVariableName();
-  if (!hasVariable(variableName)) return;
-
-  const shared_ptr <Variable> variable = getVariable(variableName);
-
-  const int varNum = variable->getIndex();
-  calculatedVars_[varNum] = evalCalculatedVarI(varNum);
+  const int varNum = curve->getIndexCalculatedVarInSubModel();
+  if (varNum < sizeCalculatedVar_)  // double check varNum validity
+    calculatedVars_[varNum] = evalCalculatedVarI(varNum);
 }
 
 void
-SubModel::addParameterCurve(std::shared_ptr<curves::Curve>& curve) {
+SubModel::addParameterCurve(const std::shared_ptr<curves::Curve>& curve) {
   curve->setBuffer(NULL);
   curve->setNegated(false);
 }
