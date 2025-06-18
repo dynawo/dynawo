@@ -110,6 +110,10 @@ $(document).ready(function(){initNavTree('d7/d13/a02045.html','../../');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a0c3b5976d58e32d74a140e0dd01c9ac4"><td class="memItemLeft" align="right" valign="top"><a id="a0c3b5976d58e32d74a140e0dd01c9ac4"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d13/a02045.html#a0c3b5976d58e32d74a140e0dd01c9ac4">ConstraintsEntry</a> ()</td></tr>
+<tr class="memdesc:a0c3b5976d58e32d74a140e0dd01c9ac4"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructor <br /></td></tr>
+<tr class="separator:a0c3b5976d58e32d74a140e0dd01c9ac4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a17484e6bfc2239d28a76b0e9cc7c6d3d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d13/a02045.html#a17484e6bfc2239d28a76b0e9cc7c6d3d">setOutputFile</a> (const std::string &amp;outputFile)</td></tr>
 <tr class="memdesc:a17484e6bfc2239d28a76b0e9cc7c6d3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output file attribute setter.  <a href="#a17484e6bfc2239d28a76b0e9cc7c6d3d">More...</a><br /></td></tr>
 <tr class="separator:a17484e6bfc2239d28a76b0e9cc7c6d3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -122,6 +126,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1f85b6b1ac3f339999d6a5ba207fa542"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d13/a02045.html#a1f85b6b1ac3f339999d6a5ba207fa542">getExportMode</a> () const</td></tr>
 <tr class="memdesc:a1f85b6b1ac3f339999d6a5ba207fa542"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export mode attribute getter.  <a href="#a1f85b6b1ac3f339999d6a5ba207fa542">More...</a><br /></td></tr>
 <tr class="separator:a1f85b6b1ac3f339999d6a5ba207fa542"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87c46575901fa999b4054b9d77051a8a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d13/a02045.html#a87c46575901fa999b4054b9d77051a8a">setFilter</a> (bool filter)</td></tr>
+<tr class="memdesc:a87c46575901fa999b4054b9d77051a8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">filter setter  <a href="#a87c46575901fa999b4054b9d77051a8a">More...</a><br /></td></tr>
+<tr class="separator:a87c46575901fa999b4054b9d77051a8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae9bac9395d3e0efb1b057176957114b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d13/a02045.html#aae9bac9395d3e0efb1b057176957114b">isFilter</a> () const</td></tr>
+<tr class="memdesc:aae9bac9395d3e0efb1b057176957114b"><td class="mdescLeft">&#160;</td><td class="mdescRight">filter getter  <a href="#aae9bac9395d3e0efb1b057176957114b">More...</a><br /></td></tr>
+<tr class="separator:aae9bac9395d3e0efb1b057176957114b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -133,6 +143,10 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d13/a02045.html#ad900aa00d5b69869d53c6c7141bca011">exportMode_</a></td></tr>
 <tr class="memdesc:ad900aa00d5b69869d53c6c7141bca011"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export mode for constraints output file. <br /></td></tr>
 <tr class="separator:ad900aa00d5b69869d53c6c7141bca011"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41825a7cf56b67a56670bb3e8ca23278"><td class="memItemLeft" align="right" valign="top"><a id="a41825a7cf56b67a56670bb3e8ca23278"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d13/a02045.html#a41825a7cf56b67a56670bb3e8ca23278">filter_</a></td></tr>
+<tr class="memdesc:a41825a7cf56b67a56670bb3e8ca23278"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wether to filter the constraints. <br /></td></tr>
+<tr class="separator:a41825a7cf56b67a56670bb3e8ca23278"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Constraints entries container class. </p>
@@ -177,6 +191,26 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 
 </div>
 </div>
+<a id="aae9bac9395d3e0efb1b057176957114b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae9bac9395d3e0efb1b057176957114b">&#9670;&nbsp;</a></span>isFilter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool job::ConstraintsEntry::isFilter </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>filter getter </p>
+<dl class="section return"><dt>Returns</dt><dd>whether to filter the constraints </dd></dl>
+
+</div>
+</div>
 <a id="a48f5c7974c701d8daf171e37b8bb6a68"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a48f5c7974c701d8daf171e37b8bb6a68">&#9670;&nbsp;</a></span>setExportMode()</h2>
 
@@ -197,6 +231,32 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">exportMode</td><td>Export mode for constraints </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a87c46575901fa999b4054b9d77051a8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87c46575901fa999b4054b9d77051a8a">&#9670;&nbsp;</a></span>setFilter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void job::ConstraintsEntry::setFilter </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>filter</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>filter setter </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filter</td><td>whether to filter the constraints </td></tr>
   </table>
   </dd>
 </dl>
@@ -249,7 +309,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>job</b></li><li class="navelem"><a class="el" href="../../d7/d13/a02045.html">ConstraintsEntry</a></li>
-    <li class="footer">Generated on Tue Jun 17 2025 08:43:17 for Dynawo by
+    <li class="footer">Generated on Wed Jun 18 2025 13:55:14 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
