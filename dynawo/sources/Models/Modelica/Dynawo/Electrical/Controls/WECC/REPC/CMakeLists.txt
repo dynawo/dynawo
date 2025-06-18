@@ -13,6 +13,8 @@ set(MODEL_FILES
   package.mo
   package.order
   REPCa.mo
+  REPCc.mo
+  BaseClasses.mo
   )
 
 #

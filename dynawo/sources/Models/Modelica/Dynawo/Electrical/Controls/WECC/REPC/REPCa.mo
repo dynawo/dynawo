@@ -1,20 +1,22 @@
 within Dynawo.Electrical.Controls.WECC.REPC;
 
 model REPCa "WECC Plant Control type A"
-  /*
-    * Copyright (c) 2021, RTE (http://www.rte-france.com)
-    * See AUTHORS.txt
-    * All rights reserved.
-    * This Source Code Form is subject to the terms of the Mozilla Public
-    * License, v. 2.0. If a copy of the MPL was not distributed with this
-    * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-    * SPDX-License-Identifier: MPL-2.0
-    *
-    * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-    */
+/*
+* Copyright (c) 2021, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+*/
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREPC;
   extends Dynawo.Electrical.Controls.WECC.REPC.BaseClasses.BaseREPC;
   
+  // REPC-A parameter
+  parameter Boolean RefFlag ;
   
   Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = tFilterPC, y_start = if VCompFlag == true then UInj0Pu else U0Pu + Kc*QGen0Pu) annotation(
     Placement(transformation(origin = {-76, 80}, extent = {{-10, -10}, {10, 10}})));
@@ -24,9 +26,8 @@ model REPCa "WECC Plant Control type A"
     Placement(transformation(origin = {-30, 50}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.Switch switch1 annotation(
     Placement(transformation(origin = {12, 50}, extent = {{-10, -10}, {10, 10}})));
+
 equation
-  connect(leadLag.y, QInjRefPu) annotation(
-    Line(points = {{146, 50}, {210, 50}}, color = {0, 0, 127}));
   connect(switch2.y, firstOrder3.u) annotation(
     Line(points = {{-98, 80}, {-88, 80}}, color = {0, 0, 127}));
   connect(firstOrder3.y, UCtrlErr.u2) annotation(
@@ -69,4 +70,13 @@ equation
     Line(points = {{-308, 0}, {-254, 0}, {-254, -2}, {-44, -2}}, color = {0, 0, 127}));
   connect(switch1.y, deadZone.u) annotation(
     Line(points = {{24, 50}, {28, 50}}, color = {0, 0, 127}));
+  connect(leadLag.y, QInjRefPu) annotation(
+    Line(points = {{146, 50}, {210, 50}}, color = {0, 0, 127}));
+  connect(voltageCheck.freeze, limPIDFreeze.freeze) annotation(
+    Line(points = {{-218, 94}, {-208, 94}, {-208, 118}, {90, 118}, {90, 62}}, color = {255, 0, 255}));
+  connect(voltageCheck.freeze, freeze) annotation(
+    Line(points = {{-218, 94}, {-174, 94}, {-174, 102}, {-102, 102}}, color = {255, 0, 255}));
+
+annotation(
+    Icon(graphics = {Text(origin = {-29, 11}, extent = {{-41, 19}, {97, -41}}, textString = "REPC A")}));
 end REPCa;
