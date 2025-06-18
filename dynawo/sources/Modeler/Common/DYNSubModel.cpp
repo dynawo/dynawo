@@ -1036,8 +1036,7 @@ SubModel::updateCalculatedVarForCurve(std::shared_ptr<curves::Curve>& curve) {
   assert(curve);
 #endif
   const int varNum = curve->getIndexCalculatedVarInSubModel();
-  if (varNum < sizeCalculatedVar_)  // double check varNum validity
-    calculatedVars_[varNum] = evalCalculatedVarI(varNum);
+  calculatedVars_[varNum] = evalCalculatedVarI(varNum);
 }
 
 void

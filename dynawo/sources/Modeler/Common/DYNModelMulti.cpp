@@ -1068,7 +1068,7 @@ ModelMulti::initCurves(const std::shared_ptr<curves::Curve>& curve,
         }
       }
     }
-    if (curve->getAvailable())
+    if (curve->getAvailable() && curve->getCurveType() == Curve::CALCULATED_VARIABLE)
       calculatedVarCurvesToSubModel[curve] = subModel;
   }
   if (!curve->getAvailable())
