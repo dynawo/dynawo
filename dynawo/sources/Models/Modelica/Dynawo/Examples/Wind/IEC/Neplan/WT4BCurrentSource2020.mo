@@ -19,7 +19,7 @@ model WT4BCurrentSource2020 "Wind Turbine Type 4B model from IEC 61400-27-1:2020
   import Modelica.ComplexMath.conj;
   import Modelica.ComplexMath.fromPolar;
 
-  Dynawo.Electrical.Wind.IEC.WT.WT4BCurrentSource2020 wT4BCurrentSource(BesPu = 0.001, CdrtPu = 15, DPMaxP4BPu = 1, DPRefMax4BPu = 100, DPRefMin4BPu = -100, DUdb1Pu = -0.1, DUdb2Pu = 0.1, DfcMaxPu = 1, DfpMaxPu = 1, DipMaxPu = 1, DiqMaxPu = 100, DiqMinPu = -100, GesPu = 0.0005, Hgen = 1, Hwtr = 5, IMaxDipPu = 1.3, IMaxPu = 1.3, IpMax0Pu = 1.2, IqH1Pu = 1.05, IqMax0Pu = 0.4, IqMaxPu = 1.05, IqMin0Pu = -0.4, IqMinPu = -1.05, IqPostPu = 0, KdrtPu = 500, Kipaw = 100, Kiq = 2.25, Kiqaw = 100, Kiu = 10, Kpaw = 1000, Kpq = 1.1, Kpqu = 20, Kpu = 2, Kpufrt = 2, Kqv = 2, MdfsLim = false, MpUScale = false, MqG = 1, Mqfrt = 1, Mqpri = true, P0Pu = real(conj(iWt0Pu)*fromPolar(wT4BCurrentSource.U0Pu, wT4BCurrentSource.UPhase0)), PAg0Pu = 1, Q0Pu = imag(conj(iWt0Pu)*fromPolar(wT4BCurrentSource.U0Pu, wT4BCurrentSource.UPhase0)), QMax0Pu = 0.8, QMaxPu = 0.8, QMin0Pu = -0.8, QMinPu = -0.8, QlConst = true, RDropPu = 0, ResPu = 0.001, SNom = 100, U0Pu = 1.00027, UMaxPu = 1.1, UMinPu = 0.9, UOverPu = 1.1, UPhase0 = 0.219014, UPll1Pu = 999, UPll2Pu = 0.13, URef0Pu = 0, UUnderPu = 0.9, UpDipPu = 0, UpquMaxPu = 1.1, UqDipPu = 0.9, UqRisePu = 1.1, XDropPu = 0, XesPu = 0.01, fOverPu = 1.1, fUnderPu = 0.9, tG = 0.01, tIcFilt = 0.01, tIpFilt = 0.01, tPAero = 0.1, tPOrdP4B = 0.05, tPcFilt = 0.01, tPll = 0.01, tPost = 0, tPpFilt = 0.01, tQcFilt = 0.01, tQord = 0.05, tQpFilt = 0.01, tS = 0.001, tUcFilt = 0.01, tUpFilt = 0.01, tUss = 1, tfcFilt = 0.01, tfpFilt = 0.01) annotation(
+  Dynawo.Electrical.Wind.IEC.WT.WT4BCurrentSource2020 wT4BCurrentSource(CdrtPu = 15, DPMaxP4BPu = 1, DPRefMax4BPu = 100, DPRefMin4BPu = -100, DUdb1Pu = -0.1, DUdb2Pu = 0.1, DfcMaxPu = 1, DfpMaxPu = 1, DipMaxPu = 1, DiqMaxPu = 100, DiqMinPu = -100, Hgen = 1, Hwtr = 5, IMaxDipPu = 1.3, IMaxPu = 1.3, IpMax0Pu = 1.2, IqH1Pu = 1.05, IqMax0Pu = 0.4, IqMaxPu = 1.05, IqMin0Pu = -0.4, IqMinPu = -1.05, IqPostPu = 0, KdrtPu = 500, Kipaw = 100, Kiq = 2.25, Kiqaw = 100, Kiu = 10, Kpaw = 1000, Kpq = 1.1, Kpqu = 20, Kpu = 2, Kpufrt = 2, Kqv = 2, MdfsLim = false, MpUScale = false, MqG = 1, Mqfrt = 1, Mqpri = true, P0Pu = -1, Q0Pu = 0.21, QMax0Pu = 0.8, QMaxPu = 0.8, QMin0Pu = -0.8, QMinPu = -0.8, QlConst = true, RDropPu = 0, SNom = 100, U0Pu = 1.00027, UMaxPu = 1.1, UMinPu = 0.9, UOverPu = 1.1, UPhase0 = 0.219014, UPll1Pu = 999, UPll2Pu = 0.13, URef0Pu = 0, UUnderPu = 0.9, UpDipPu = 0, UpquMaxPu = 1.1, UqDipPu = 0.9, UqRisePu = 1.1, XDropPu = 0, fOverPu = 1.1, fUnderPu = 0.9, tG = 0.01, tIcFilt = 0.01, tIpFilt = 0.01, tPAero = 0.1, tPOrdP4B = 0.05, tPcFilt = 0.01, tPll = 0.01, tPost = 0, tPpFilt = 0.01, tQcFilt = 0.01, tQord = 0.05, tQpFilt = 0.01, tS = 0.001, tUcFilt = 0.01, tUpFilt = 0.01, tUss = 1, tfcFilt = 0.01, tfpFilt = 0.01, GesPu = 0.0005, ResPu = 0.001, XesPu = 0.01, ConverterLVControl = false) annotation(
     Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   // Faults
   Dynawo.Electrical.Events.NodeFault nodeFault(RPu = 0, XPu = 0.09, tBegin = 100, tEnd = 100) annotation(
@@ -36,13 +36,11 @@ model WT4BCurrentSource2020 "Wind Turbine Type 4B model from IEC 61400-27-1:2020
   Modelica.Blocks.Sources.Step tanPhi(height = 0, offset = -0.21, startTime = 0) annotation(
     Placement(visible = true, transformation(origin = {-150, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  final parameter Types.ComplexCurrentPu iGs0Pu = Complex(cos(wT4BCurrentSource.UPhase0)*PRefPu.offset/wT4BCurrentSource.U0Pu + sin(wT4BCurrentSource.UPhase0)*xRefPu.offset/wT4BCurrentSource.U0Pu, sin(wT4BCurrentSource.UPhase0)*PRefPu.offset/wT4BCurrentSource.U0Pu - cos(wT4BCurrentSource.UPhase0)*xRefPu.offset/wT4BCurrentSource.U0Pu);
-  final parameter Types.ComplexCurrentPu iWt0Pu = (Complex(wT4BCurrentSource.GesPu, wT4BCurrentSource.BesPu)*fromPolar(wT4BCurrentSource.U0Pu,wT4BCurrentSource.UPhase0)-iGs0Pu)/(1+Complex(wT4BCurrentSource.GesPu, wT4BCurrentSource.BesPu)*Complex(wT4BCurrentSource.ResPu, wT4BCurrentSource.XesPu))*wT4BCurrentSource.SNom/SystemBase.SnRef;
-
 equation
   wT4BCurrentSource.wT4Injector.switchOffSignal1.value = false;
   wT4BCurrentSource.wT4Injector.switchOffSignal2.value = false;
   wT4BCurrentSource.wT4Injector.switchOffSignal3.value = false;
+
   connect(wT4BCurrentSource.terminal, transformer1.terminal1) annotation(
     Line(points = {{-99, 0}, {-80, 0}}, color = {0, 0, 255}));
   connect(nodeFault.terminal, line.terminal2) annotation(

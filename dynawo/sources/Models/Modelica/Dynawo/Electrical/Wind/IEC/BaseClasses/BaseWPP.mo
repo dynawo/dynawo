@@ -1,51 +1,61 @@
 within Dynawo.Electrical.Wind.IEC.BaseClasses;
 
-/*
-* Copyright (c) 2023, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-*/
-
 model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
+  /*
+  * Copyright (c) 2023, RTE (http://www.rte-france.com)
+  * See AUTHORS.txt
+  * All rights reserved.
+  * This Source Code Form is subject to the terms of the Mozilla Public
+  * License, v. 2.0. If a copy of the MPL was not distributed with this
+  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
+  * SPDX-License-Identifier: MPL-2.0
+  *
+  * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+  */
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimitParameters;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.GridProtectionParameters;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlParameters;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QLimitParameters;
   import Modelica.ComplexMath.*;
   import Modelica.Math.*;
-
   //Nominal parameters
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
   parameter Types.Time tS "Integration time step in s";
-
+  //Parameters for internal MV network + MV/HV transformer
+  parameter Types.PerUnit BMvHvPu = 0 "Shunt susceptance of internal MV network + MV/HV transformer in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "MV network + MV/HV transformer", enable = PPCLocal));
+  parameter Types.PerUnit GMvHvPu = 0 "Shunt conductance of internal MV network + MV/HV transformer in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "MV network + MV/HV transformer", enable = PPCLocal));
+  parameter Types.PerUnit RMvHvPu = 0 "Serial resistance of internal MV network + MV/HV transformer in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "MV network + MV/HV transformer", enable = PPCLocal));
+  parameter Types.PerUnit XMvHvPu = 0 "Serial reactance of internal MV network + MV/HV transformer in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "MV network + MV/HV transformer", enable = PPCLocal));
   //Power Collection System parameters
-  parameter Types.PerUnit BPcsPu = 0 "Shunt susceptance of PCS in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "PCS"));
-  parameter Types.PerUnit GPcsPu = 0 "Shunt conductance of PCS in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "PCS"));
-  parameter Boolean PCSActive = false "Boolean parameter to choose whether the Power Collection System is defined inside the model (True) or not (False)" annotation(
-    Dialog(tab = "PCS"));
-  parameter Types.PerUnit RPcsPu = 0 "Serial resistance of PCS in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "PCS"));
-  parameter Types.PerUnit XPcsPu = 0 "Serial reactance of PCS in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "PCS"));
-
-  //Electrical parameters for interface between converter and WT terminals
-  parameter Types.PerUnit BesPu "Shunt susceptance in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "Electrical"));
-  parameter Types.PerUnit GesPu "Shunt conductance in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "Electrical"));
-  parameter Types.PerUnit ResPu "Serial resistance in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "Electrical"));
-  parameter Types.PerUnit XesPu "Serial reactance in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "Electrical"));
-
+  parameter Boolean PPCLocal "Boolean parameter to choose whether the Power Park Control is controlling at model's output terminal (True) or at a remote terminal using external measurements (False)" annotation(
+    Dialog(tab = "MV network + MV/HV transformer"));
+  final parameter Types.PerUnit BPcsPu = if PPCLocal and ConverterLVControl then BLvTrPu + BMvHvPu elseif PPCLocal and not ConverterLVControl then BMvHvPu
+   elseif not PPCLocal and ConverterLVControl then BLvTrPu else 0 "Shunt susceptance of PCS in pu (base UNom, SNom)";
+  final parameter Types.PerUnit GPcsPu = if PPCLocal and ConverterLVControl then GLvTrPu + GMvHvPu elseif PPCLocal and not ConverterLVControl then GMvHvPu
+   elseif not PPCLocal and ConverterLVControl then GLvTrPu else 0 "Shunt conductance of PCS in pu (base UNom, SNom)";
+  final parameter Types.PerUnit RPcsPu = if PPCLocal and ConverterLVControl then RLvTrPu + RMvHvPu elseif PPCLocal and not ConverterLVControl then RMvHvPu
+   elseif not PPCLocal and ConverterLVControl then RLvTrPu else 0 "Serial resistance of PCS in pu (base UNom, SNom)";
+  final parameter Types.PerUnit XPcsPu = if PPCLocal and ConverterLVControl then XLvTrPu + XMvHvPu elseif PPCLocal and not ConverterLVControl then XMvHvPu
+   elseif not PPCLocal and ConverterLVControl then XLvTrPu else 0 "Serial reactance of PCS in pu (base UNom, SNom)";
+  //Parameters for LV transformer
+  parameter Types.PerUnit BLvTrPu "Shunt susceptance of LV transformer in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "LV transformer"));
+  parameter Types.PerUnit GLvTrPu "Shunt conductance of LV transformer in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "LV transformer"));
+  parameter Types.PerUnit RLvTrPu "Serial resistance of LV transformer in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "LV transformer"));
+  parameter Types.PerUnit XLvTrPu "Serial reactance of LV transformer in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "LV transformer"));
+  parameter Boolean ConverterLVControl "Boolean parameter to choose whether the converter is controlling at its output (LV side of its transformer) : True ; or after its transformer (MV side): False" annotation(
+    Dialog(tab = "LV transformer"));
+  final parameter Types.PerUnit BesPu = if ConverterLVControl then 0 else BLvTrPu "Shunt susceptance between converter output and converter point of control in pu (base UNom, SNom)";
+  final parameter Types.PerUnit GesPu = if ConverterLVControl then 0 else GLvTrPu "Shunt conductance between converter output and converter point of control in pu (base UNom, SNom)";
+  final parameter Types.PerUnit ResPu = if ConverterLVControl then 0 else RLvTrPu "Serial resistance between converter output and converter point of control in pu (base UNom, SNom)";
+  final parameter Types.PerUnit XesPu = if ConverterLVControl then 0 else XLvTrPu "Serial reactance between converter output and converter point of control in pu (base UNom, SNom)";
   //Control parameters
   parameter Types.PerUnit DipMaxPu "Maximum active current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "Control"));
@@ -59,7 +69,6 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
     Dialog(tab = "Control"));
   parameter Types.Time tG "Current generation time constant in s" annotation(
     Dialog(tab = "Control"));
-
   //PLL parameters
   parameter Types.Time tPll "PLL first order filter time constant in s" annotation(
     Dialog(tab = "PLL"));
@@ -67,11 +76,9 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
     Dialog(tab = "PLL"));
   parameter Types.VoltageModulePu UPll2Pu "Voltage below which the angle of the voltage is frozen, in pu (base UNom) (UPll2Pu < UPll1Pu typically)" annotation(
     Dialog(tab = "PLL"));
-
   //WT PControl parameters
   parameter Types.PerUnit Kpaw "Anti-windup gain for active power in pu/s (base SNom)" annotation(
     Dialog(tab = "PControl"));
-
   //Current limiter parameters
   parameter Types.CurrentModulePu IMaxDipPu "Maximum current during voltage dip at converter terminal in pu (base UNom, SNom)" annotation(
     Dialog(tab = "CurrentLimiter"));
@@ -85,7 +92,6 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
     Dialog(tab = "CurrentLimiter"));
   parameter Types.VoltageModulePu UpquMaxPu "WT voltage in the operation point where zero reactive power can be delivered, in pu (base UNom)" annotation(
     Dialog(tab = "CurrentLimiter"));
-
   //WT QControl parameters
   parameter Types.PerUnit IqH1Pu "Maximum reactive current injection during dip in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "QControl"));
@@ -123,7 +129,6 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
     Dialog(tab = "QControl"));
   parameter Types.PerUnit XDropPu "Inductive component of voltage drop impedance in pu (base UNom, SNom)" annotation(
     Dialog(tab = "QControl"));
-
   //QLimiter parameters
   parameter Boolean QlConst "True if limits are constant" annotation(
     Dialog(tab = "QLimiter"));
@@ -131,7 +136,6 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
     Dialog(tab = "QLimiter"));
   parameter Types.ReactivePowerPu QMinPu "Constant minimum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
     Dialog(tab = "QLimiter"));
-
   //Grid protection parameters
   parameter Types.PerUnit fOverPu "WT over frequency protection activation threshold in pu (base fNom)" annotation(
     Dialog(tab = "GridProtection"));
@@ -141,7 +145,6 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
     Dialog(tab = "GridProtection"));
   parameter Types.VoltageModulePu UUnderPu "WT under voltage protection activation threshold in pu (base UNom)" annotation(
     Dialog(tab = "GridProtection"));
-
   //WPP PControl parameters
   parameter Types.PerUnit DPRefMaxPu "Maximum positive ramp rate for PD power reference in pu/s (base SNom)" annotation(
     Dialog(tab = "PControlWP"));
@@ -165,7 +168,6 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
     Dialog(tab = "PControlWP"));
   parameter Types.ActivePowerPu PRefMinPu "Minimum PD power reference in pu (base SNom)" annotation(
     Dialog(tab = "PControlWP"));
-
   //WPP QControl parameters
   parameter Types.PerUnit DXRefMaxPu "Maximum positive ramp rate for WT reactive power or voltage reference in pu/s (base SNom or UNom) (generator convention)" annotation(
     Dialog(tab = "QControlWP"));
@@ -193,11 +195,9 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
     Dialog(tab = "QControlWP"));
   parameter Types.PerUnit XRefMinPu "Minimum WT reactive power or voltage reference in pu (base SNom or UNom) (generator convention)" annotation(
     Dialog(tab = "QControlWP"));
-
   //Interface
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
     Placement(transformation(origin = {210, 40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
-
   //Input variables
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frame for grid angular frequency in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {-140, 0}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
@@ -206,15 +206,14 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
   Modelica.Blocks.Interfaces.RealInput tanPhi(start = Q0Pu/P0Pu) "Tangent phi (can be figured as QPu / PPu)" annotation(
     Placement(visible = true, transformation(origin = {-20, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput PPccPu(start = PPcc0Pu) annotation(
-    Placement(transformation(origin = {220, 0}, extent = {{20, -20}, {-20, 20}}, rotation = -0), iconTransformation(origin = {198, -20}, extent = {{-20, -20}, {20, 20}})));
+    Placement(transformation(origin = {220, 0}, extent = {{20, -20}, {-20, 20}}), iconTransformation(origin = {-60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput QPccPu(start = QPcc0Pu) annotation(
-    Placement(transformation(origin = {220, -30}, extent = {{20, -20}, {-20, 20}}, rotation = -0), iconTransformation(origin = {208, -10}, extent = {{-20, -20}, {20, 20}})));
+    Placement(transformation(origin = {220, -30}, extent = {{20, -20}, {-20, 20}}), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.ComplexBlocks.Interfaces.ComplexInput uPccPu(re(start = UPccRe0Pu), im(start = UPccIm0Pu)) annotation(
-    Placement(transformation(origin = {220, -68}, extent = {{20, -20}, {-20, 20}}), iconTransformation(origin = {184, -72}, extent = {{-20, -20}, {20, 20}})));
-
+    Placement(transformation(origin = {220, -68}, extent = {{20, -20}, {-20, 20}}), iconTransformation(origin = {60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries.ElecMeasurements elecMeasurements(SNom = SNom) annotation(
     Placement(transformation(origin = {140, 40}, extent = {{-20, -20}, {20, 20}})));
-  Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = PCSActive) annotation(
+  Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = PPCLocal) annotation(
     Placement(transformation(origin = {90, -90}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
   Sources.IEC.BaseConverters.ElecSystem PCS(SNom = SNom, BPu = BPcsPu, GPu = GPcsPu, RPu = RPcsPu, XPu = XPcsPu, i20Pu = -i0Pu*SystemBase.SnRef/SNom, u20Pu = u0Pu) annotation(
     Placement(transformation(origin = {80, 40}, extent = {{-20, -20}, {20, 20}})));
@@ -234,13 +233,12 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
     Placement(transformation(origin = {138, -18}, extent = {{10, -10}, {-10, 10}})));
   Modelica.ComplexBlocks.ComplexMath.ComplexToReal complexToReal annotation(
     Placement(transformation(origin = {148, -68}, extent = {{10, -10}, {-10, 10}}, rotation = -0)));
-  Modelica.Blocks.Sources.RealExpression realExpression(y = -SystemBase.SnRef/SNom*real(conj(Complex(PPccPu, QPccPu)/uPccPu)))  annotation(
+  Modelica.Blocks.Sources.RealExpression realExpression(y = -SystemBase.SnRef/SNom*real(conj(Complex(PPccPu, QPccPu)/uPccPu))) annotation(
     Placement(transformation(origin = {138, 0}, extent = {{10, -10}, {-10, 10}})));
-
   //Initial parameters
   final parameter Types.ComplexCurrentPu i0Pu = conj(Complex(P0Pu, Q0Pu)/u0Pu) "Initial complex current at grid terminal in pu (base UNom, SnRef) (receptor convention)" annotation(
     Dialog(group = "Initialization"));
-  final parameter Types.ComplexCurrentPu iControl0Pu = if PCSActive then i0Pu else conj(Complex(PPcc0Pu, QPcc0Pu)/Complex(UPccRe0Pu, UPccIm0Pu)) "Initial complex current to be controlled by the PPC (receptor convention, base UNom, SnRef)";
+  final parameter Types.ComplexCurrentPu iControl0Pu = if PPCLocal then i0Pu else conj(Complex(PPcc0Pu, QPcc0Pu)/Complex(UPccRe0Pu, UPccIm0Pu)) "Initial complex current to be controlled by the PPC (receptor convention, base UNom, SnRef)";
   parameter Types.CurrentComponent PPcc0Pu = 0 "Initial active power at the external PCC (receptor convention, base UNom, SnRef) (only if the PCS is defined outside of the model)";
   parameter Types.CurrentComponent QPcc0Pu = 0 "Initial reactive power at the external PCC (receptor convention, base UNom, SnRef) (only if the PCS is defined outside of the model)";
   final parameter Types.CurrentModulePu ip0Pu = (cos(UWtPhase0)*real(Complex(GesPu, BesPu)*(uWt0Pu - Complex(ResPu, XesPu)*iWt0Pu*SystemBase.SnRef/SNom) - iWt0Pu*SystemBase.SnRef/SNom) + sin(UWtPhase0)*imag(Complex(GesPu, BesPu)*(uWt0Pu - Complex(ResPu, XesPu)*iWt0Pu*SystemBase.SnRef/SNom) - iWt0Pu*SystemBase.SnRef/SNom)) "Initial active current component at converter terminal in pu (base UNom, SNom) (generator convention)";
@@ -266,7 +264,7 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
     Dialog(tab = "Operating point"));
   final parameter Types.ComplexVoltagePu u0Pu = fromPolar(U0Pu, UPhase0) "Initial complex voltage at grid terminal in pu (base UNom)" annotation(
     Dialog(group = "Initialization"));
-  final parameter Types.ComplexVoltagePu uControl0Pu = if PCSActive then u0Pu else Complex(UPccRe0Pu, UPccIm0Pu) "Initial complex voltage to be controlled by the PPC (base UNom)";
+  final parameter Types.ComplexVoltagePu uControl0Pu = if PPCLocal then u0Pu else Complex(UPccRe0Pu, UPccIm0Pu) "Initial complex voltage to be controlled by the PPC (base UNom)";
   parameter Types.CurrentComponent UPccIm0Pu = 0 "Initial imaginary voltage component at the external PCC (base UNom) (only if the PCS is defined outside of the model)";
   parameter Types.CurrentComponent UPccRe0Pu = 1 "Initial real voltage component at the external PCC (base UNom) (only if the PCS is defined outside of the model)";
   parameter Types.Angle UPhase0 "Initial voltage angle at grid terminal in rad" annotation(
@@ -275,7 +273,6 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
   final parameter Types.VoltageModulePu UWt0DroppedPu = (('abs'(uWt0Pu) + RDropPu*real(conj(iWt0Pu)*uWt0Pu)*SystemBase.SnRef/(SNom*'abs'(uWt0Pu)) + XDropPu*imag(conj(iWt0Pu)*uWt0Pu)*SystemBase.SnRef/(SNom*'abs'(uWt0Pu)))^2 + (-XDropPu*real(conj(iWt0Pu)*uWt0Pu)*SystemBase.SnRef/(SNom*'abs'(uWt0Pu)) + RDropPu*imag(conj(iWt0Pu)*uWt0Pu)*SystemBase.SnRef/(SNom*'abs'(uWt0Pu)))^2)^0.5 "Initial voltage magnitude controlled by the WT (base UNom)";
   final parameter Types.Angle UWtPhase0 = arg(uWt0Pu) "Initial voltage angle at WT terminal in rad";
   final parameter Types.PerUnit XWT0Pu = if MqG == 0 then UWt0DroppedPu - URef0Pu else -iq0Pu*'abs'(uWt0Pu) "Initial reactive power or voltage reference at grid terminal in pu (base SNom or UNom) (generator convention)";
-
 equation
   connect(PCS.terminal2, elecMeasurements.terminal1) annotation(
     Line(points = {{102, 40}, {118, 40}}, color = {0, 0, 255}));
@@ -315,7 +312,6 @@ equation
     Line(points = {{136, -74}, {125, -74}, {125, -76}, {54, -76}}, color = {0, 0, 127}));
   connect(complexToReal.re, switch4.u3) annotation(
     Line(points = {{136, -62}, {126, -62}, {126, -58}, {54, -58}}, color = {0, 0, 127}));
-
   annotation(
     preferredView = "diagram",
     Icon(graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {-1.5, -1}, extent = {{-66.5, 32}, {66.5, -32}}, textString = "IEC WPP4")}),

@@ -20,12 +20,6 @@ model WT4CurrentSource_INIT "Wind Turbine Type 4 model from IEC 61400-27-1 stand
   //Nominal parameter
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
 
-  //Circuit parameters
-  parameter Types.PerUnit BesPu "Shunt susceptance in pu (base UNom, SNom)";
-  parameter Types.PerUnit GesPu "Shunt conductance in pu (base UNom, SNom)";
-  parameter Types.PerUnit ResPu "Serial resistance in pu (base UNom, SNom)";
-  parameter Types.PerUnit XesPu "Serial reactance in pu (base UNom, SNom)";
-
   //Current limiter parameters
   parameter Types.CurrentModulePu IMaxPu "Maximum current at converter terminal in pu (base UNom, SNom)";
   parameter Types.PerUnit Kpqu "Partial derivative of reactive current limit against voltage in pu (base UNom, SNom)";

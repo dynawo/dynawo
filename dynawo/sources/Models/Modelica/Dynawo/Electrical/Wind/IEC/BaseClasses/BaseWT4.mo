@@ -24,14 +24,16 @@ partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 st
   parameter Types.Time tS "Integration time step in s";
 
   //Circuit parameters
-  parameter Types.PerUnit BesPu "Shunt susceptance in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "Electrical"));
-  parameter Types.PerUnit GesPu "Shunt conductance in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "Electrical"));
-  parameter Types.PerUnit ResPu "Serial resistance in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "Electrical"));
-  parameter Types.PerUnit XesPu "Serial reactance in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "Electrical"));
+  parameter Boolean ConverterLVControl = true "Boolean parameter to choose whether the converter is controlling at its output (LV side of its transformer) : True ; or after its transformer (MV side): False" annotation(
+  Dialog(tab="Converter control"));
+  parameter Types.PerUnit BesPu = 0 "Shunt susceptance between converter output and converter point of control in pu (base UNom, SNom)" annotation(
+  Dialog(tab="Converter control", enable = not ConverterLVControl));
+  parameter Types.PerUnit GesPu = 0 "Shunt conductance between converter output and converter point of control in pu (base UNom, SNom)" annotation(
+  Dialog(tab="Converter control", enable = not ConverterLVControl));
+  parameter Types.PerUnit ResPu = 0 "Serial resistance between converter output and converter point of control in pu (base UNom, SNom)" annotation(
+  Dialog(tab="Converter control", enable = not ConverterLVControl));
+  parameter Types.PerUnit XesPu = 0 "Serial reactance between converter output and converter point of control in pu (base UNom, SNom)" annotation(
+  Dialog(tab="Converter control", enable = not ConverterLVControl));
 
   //Control parameters
   parameter Types.PerUnit DipMaxPu "Maximum active current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(

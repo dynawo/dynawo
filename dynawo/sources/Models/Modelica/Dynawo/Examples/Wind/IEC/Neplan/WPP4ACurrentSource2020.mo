@@ -16,7 +16,6 @@ model WPP4ACurrentSource2020 "Wind Power Plant Type 4A model from IEC 61400-27-1
   extends Dynawo.Examples.Wind.IEC.Neplan.BaseClasses.BaseWindNeplan(transformer1(XPu = k*0.05), line4(RPu = k*0.015, XPu = k*0.025, BPu = 0.005/k), transformer(XPu = k*0.1), line(RPu = k*0.005, XPu = k*0.05, BPu = 0.005/k), line3(RPu = k*0.01, XPu = k*0.1, BPu = 0.01/k), line2(RPu = k*0.005, XPu = k*0.05, BPu = 0.005/k), line1(XPu = k*0.0457));
 
   Dynawo.Electrical.Wind.IEC.WPP.WPP4ACurrentSource2020 wPP4ACurrentSource(
-    BesPu = 0.001,
     DPMaxP4APu = 1,
     DPRefMax4APu = 100,
     DPRefMaxPu = 1,
@@ -34,7 +33,6 @@ model WPP4ACurrentSource2020 "Wind Power Plant Type 4A model from IEC 61400-27-1
     DipMaxPu = 1,
     DiqMaxPu = 100,
     DiqMinPu = -100,
-    GesPu = 0.0005,
     IMaxDipPu = 1.3,
     IMaxPu = 1.3,
     IpMax0Pu = 0,
@@ -80,7 +78,7 @@ model WPP4ACurrentSource2020 "Wind Power Plant Type 4A model from IEC 61400-27-1
     QMin0Pu = 0,
     QMinPu = -0.8,
     QlConst = true,
-    RDropPu = 0, ResPu = 0.001,
+    RDropPu = 0,
     RwpDropPu = 0,
     SNom = 100/k,
     U0Pu = 1.00018,
@@ -105,7 +103,6 @@ model WPP4ACurrentSource2020 "Wind Power Plant Type 4A model from IEC 61400-27-1
     XKiwpxMinPu = -1,
     XRefMaxPu = 1,
     XRefMinPu = -1,
-    XesPu = 0.01,
     XwpDropPu = 0,
     fOverPu = 1.1,
     fUnderPu = 0.9,
@@ -135,12 +132,9 @@ model WPP4ACurrentSource2020 "Wind Power Plant Type 4A model from IEC 61400-27-1
     tfFilt = 0.01,
     tfcFilt = 0.01,
     tfpFilt = 0.01,
-    PCSActive = true,
-    XPcsPu = 0.01, RPcsPu = 0.001,
-    BPcsPu = 0.001, GPcsPu = 0.0005,
     TableIpMaxUwt52 = 1.01,
     TableIpMaxUwt62 = 1.01,
-    TableIpMaxUwt72 = 1.01
+    TableIpMaxUwt72 = 1.01, BMvHvPu = 0.001, GMvHvPu = 0.0005, RMvHvPu = 0.001, XMvHvPu = 0.01, PPCLocal = true, BLvTrPu = 0.001, GLvTrPu = 0.0005, RLvTrPu = 0.001, XLvTrPu = 0.01, ConverterLVControl = false
     ) annotation(
     Placement(transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
   parameter Real k = 1;
@@ -162,6 +156,8 @@ model WPP4ACurrentSource2020 "Wind Power Plant Type 4A model from IEC 61400-27-1
     Placement(visible = true, transformation(origin = {-150, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 0)  annotation(
     Placement(transformation(origin = {-110, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.ComplexBlocks.Sources.ComplexConstant complexConst(k = Complex(1, 0))  annotation(
+    Placement(transformation(origin = {-104, -40}, extent = {{-4, -4}, {4, 4}}, rotation = 90)));
 equation
   wPP4ACurrentSource.wT4ACurrentSource.wT4Injector.switchOffSignal1.value = false;
   wPP4ACurrentSource.wT4ACurrentSource.wT4Injector.switchOffSignal2.value = false;
@@ -180,14 +176,12 @@ equation
     Line(points = {{-138, -20}, {-126, -20}, {-126, -2}, {-120, -2}}, color = {0, 0, 127}));
   connect(omegaRefPu.y, wPP4ACurrentSource.omegaRefPu) annotation(
     Line(points = {{-138, -60}, {-124, -60}, {-124, -6}, {-120, -6}}, color = {0, 0, 127}));
-  connect(const.y, wPP4ACurrentSource.IExternalRePu) annotation(
-    Line(points = {{-110, -78}, {-110, -20}, {-116, -20}, {-116, -10}}, color = {0, 0, 127}));
-  connect(const.y, wPP4ACurrentSource.IExternalImPu) annotation(
-    Line(points = {{-110, -78}, {-110, -20}, {-114, -20}, {-114, -10}}, color = {0, 0, 127}));
-  connect(const.y, wPP4ACurrentSource.UExternalRePu) annotation(
-    Line(points = {{-110, -78}, {-110, -20}, {-106, -20}, {-106, -10}}, color = {0, 0, 127}));
-  connect(const.y, wPP4ACurrentSource.UExternalImPu) annotation(
-    Line(points = {{-110, -78}, {-110, -20}, {-104, -20}, {-104, -10}}, color = {0, 0, 127}));
+  connect(const.y, wPP4ACurrentSource.PPccPu) annotation(
+    Line(points = {{-110, -78}, {-110, -24}, {-116, -24}, {-116, -10}}, color = {0, 0, 127}));
+  connect(const.y, wPP4ACurrentSource.QPccPu) annotation(
+    Line(points = {{-110, -78}, {-110, -10}}, color = {0, 0, 127}));
+  connect(complexConst.y, wPP4ACurrentSource.uPccPu) annotation(
+    Line(points = {{-104, -36}, {-104, -10}}, color = {85, 170, 255}));
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-07, Interval = 0.001),
