@@ -60,24 +60,37 @@ staticVarCompensatorIIDM_(svc) {
   stateVariables_[VAR_P] = StateVariable("p", StateVariable::DOUBLE);  // P
   stateVariables_[VAR_Q] = StateVariable("q", StateVariable::DOUBLE);  // Q
   stateVariables_[VAR_STATE] = StateVariable("state", StateVariable::INT);  // connectionState
-  if (extension_ && extension_->hasStandbyAutomaton()) {
-    stateVariables_.resize(4);
+  if (hasStandbyAutomaton()) {
+    stateVariables_.resize(VAR_REGULATINGMODE+1);
     stateVariables_[VAR_REGULATINGMODE] = StateVariable("regulatingMode", StateVariable::INT);  // regulatingMode
   }
 }
 
 int
 StaticVarCompensatorInterfaceIIDM::getComponentVarIndex(const std::string& varName) const {
-  int index = -1;
-  if ( varName == "p" )
-    index = VAR_P;
-  else if ( varName == "q" )
-    index = VAR_Q;
-  else if ( varName == "state" )
-    index = VAR_STATE;
-  else if ( varName == "regulatingMode" && extension_ && extension_->hasStandbyAutomaton())
-    index = VAR_REGULATINGMODE;
-  return index;
+  if ( varName == "p" ) {
+    return VAR_P;
+  } else if  ( varName == "q" ) {
+    return VAR_Q;
+  } else if  ( varName == "state" ) {
+    return VAR_STATE;
+  } else if ( varName == "regulatingMode" ) {
+    if ( stateVariables_.size() > VAR_REGULATINGMODE )
+      return VAR_REGULATINGMODE;
+    else
+      Trace::warn() << DYNLog(RegulModeReqdNoSA, getID()) << Trace::endline;
+  }
+  return -1;
+}
+
+int
+StaticVarCompensatorInterfaceIIDM::createComponentVarIndex(const std::string& varName) {
+  if ((varName == "regulatingMode") && (stateVariables_.size() <= VAR_REGULATINGMODE)) {
+    stateVariables_.resize(VAR_REGULATINGMODE+1);
+    stateVariables_[VAR_REGULATINGMODE] = StateVariable("regulatingMode", StateVariable::INT);
+    return VAR_REGULATINGMODE;
+  }
+  return -1;
 }
 
 void
