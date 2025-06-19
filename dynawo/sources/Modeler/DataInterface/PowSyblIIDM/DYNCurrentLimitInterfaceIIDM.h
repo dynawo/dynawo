@@ -51,7 +51,7 @@ class CurrentLimitInterfaceIIDM : public CurrentLimitInterface {
   /**
    * @copydoc CurrentLimitInterface::isFictitious() const
    */
-  bool isFictitious() const;
+  bool isFictitious() const override;
 
  private:
   double limit_;                             ///< limit of the current limit
