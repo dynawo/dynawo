@@ -1423,6 +1423,7 @@ Simulation::printTimeline(std::ostream& stream) const {
 
 void
 Simulation::printConstraints(std::ostream& stream) const {
+  if (!constraintsCollection_) return;
   if (filterConstraints_) {
     constraintsCollection_->filter();
   }
