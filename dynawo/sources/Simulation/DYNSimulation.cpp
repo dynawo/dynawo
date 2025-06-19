@@ -883,7 +883,7 @@ Simulation::init() {
   const std::vector<double>& y = solver_->getCurrentY();
   unsigned nbCurves = 0;
   for (const auto& curve : curvesCollection_->getCurves()) {
-    const bool added = model_->initCurves(curve);
+    const bool added = model_->initCurves(curve, calculatedVarCurvesToSubModel_);
     if (added)
       ++nbCurves;
     if (curve->getCurveType() == curves::Curve::DISCRETE_VARIABLE) {
@@ -1196,8 +1196,7 @@ Simulation::updateCurves(const bool updateCalculateVariable) const {
     return;
 
   if (updateCalculateVariable)
-    model_->updateCalculatedVarForCurves(curvesCollection_);
-
+    model_->updateCalculatedVarForCurves(calculatedVarCurvesToSubModel_);
   curvesCollection_->updateCurves(tCurrent_);
 }
 

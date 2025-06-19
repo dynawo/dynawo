@@ -313,9 +313,10 @@ class ModelMulti : public Model, private boost::noncopyable {
   /**
   * @brief update the subset of calculated variables needed for curves
   *
-  * @param curvesCollection set of curves
+  * @param calculatedVarCurvesToSubModel map of calculatedVar curve with associated subModel
   */
-  void updateCalculatedVarForCurves(const std::shared_ptr<curves::CurvesCollection>& curvesCollection) const override;
+  void updateCalculatedVarForCurves(
+    const std::unordered_map<std::shared_ptr<curves::Curve>, boost::shared_ptr<SubModel> >& calculatedVarCurvesToSubModel) const override;
 
   /**
    * @copydoc Model::dumpParameters(std::map< std::string, std::string> & mapParameters)
@@ -365,7 +366,8 @@ class ModelMulti : public Model, private boost::noncopyable {
   /**
    * @copydoc Model::initCurves(const std::shared_ptr<curves::Curve>& curve)
    */
-  bool initCurves(const std::shared_ptr<curves::Curve>& curve) override;
+  bool initCurves(const std::shared_ptr<curves::Curve>& curve,
+    std::unordered_map<std::shared_ptr<curves::Curve>, boost::shared_ptr<SubModel> >& calculatedVarCurvesToSubModel) override;
 
  public:
   /**
