@@ -11,9 +11,9 @@ within Dynawo.Electrical.Controls.WECC.REEC;
 *
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
-    
-model REECd
-  extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREECD;
+  
+model REECd "WECC Electrical Control type D"
+  extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC;
   
   //REECd Parameters
   parameter Types.PerUnit VDLIp11 annotation(
@@ -118,11 +118,23 @@ model REECd
     Dialog(tab = "Electrical Control"));
   parameter Types.ComplexPerUnit u0Pu "Start value of complex voltage at regulated bus in pu (base UNom)";
   parameter Types.ComplexPerUnit i0Pu "Start value of complex current at regulated bus in pu (generator convention) (base SNom, UNom)";
-  
-  // Input Variables
-  Modelica.Blocks.Interfaces.RealInput PAuxPu(start = 0) annotation(
+   parameter Types.Time tHoldIpMax "Time delay for which the active current limit (ipMaxPu) is held after voltage dip in s" annotation(
+    Dialog(tab = "Electrical Control"));
+  parameter Types.Time tHoldIq "Absolute value of tHoldIq defines seconds to hold current command after voltage dip ended. tHoldIq > 0 for constant, 0 for continuous commmand, tHoldIq < 0 to hold command after a dip (typical: -1 .. 1 s)" annotation(
+    Dialog(tab = "Electrical Control"));
+  parameter Types.PerUnit IqFrzPu "Constant reactive current command value in pu (base UNom, SNom) (typical: -0.1 .. 0.1 pu)" annotation(
+    Dialog(tab = "Electrical Control"));
+  parameter Types.PerUnit UBlkHPu "Voltage above which the converter will block"  annotation(
+    Dialog(tab = "Electrical Control"));
+  parameter Types.PerUnit UBlkLPu "Voltage below which the converter will block"  annotation(
+    Dialog(tab = "Electrical Control"));
+  parameter Types.Time tBlkDelay "Time delay for unblocking after voltage recovers (UBlkL < UtFiltered < UBlkH)"  annotation(
+    Dialog(tab = "Electrical Control"));
+
+// Input Variables
+  Modelica.Blocks.Interfaces.RealInput PAuxPu(start = 0) "Auxiliary input in pu (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {-268, -170}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-30, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput omegaGPu(start = SystemBase.omegaRef0Pu) annotation(
+  Modelica.Blocks.Interfaces.RealInput omegaGPu(start = SystemBase.omegaRef0Pu) "Generator frequency from drive train control in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {-270, -101}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-51, -110}, extent = {{10, 10}, {-10, -10}}, rotation = -90)));
   Modelica.Blocks.Sources.RealExpression realExpression(y = QInjPu) annotation(
     Placement(transformation(origin = {-182, -260}, extent = {{-10, -10}, {10, 10}})));
@@ -130,12 +142,19 @@ model REECd
     Placement(transformation(origin = {-270, -202}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {70, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.ComplexBlocks.Interfaces.ComplexInput uPu(re(start = u0Pu.re), im(start = u0Pu.im)) "Complex voltage at regulated bus in pu (base UNom)" annotation(
     Placement(transformation(origin = {-270, -228}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-69, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+
+//Output Variable 
+  Modelica.Blocks.Interfaces.BooleanOutput Blk(start=false) annotation(
+    Placement(transformation(origin = {284, 266}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 34}, extent = {{-10, -10}, {10, 10}})));
+ 
   Modelica.Blocks.Sources.RealExpression UFilteredPu5(y = UFilteredPu) annotation(
     Placement(transformation(origin = {213, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.RealExpression IqMax(y = currentLimitsCalculationD.iqMaxPu) annotation(
     Placement(transformation(origin = {130, 130}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.RealExpression IqMin(y = currentLimitsCalculationD.iqMinPu) annotation(
     Placement(transformation(origin = {132, 96}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Sources.BooleanExpression FRTOn21(y = frtOn) annotation(
+    Placement(transformation(origin = {281, 9}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.BooleanExpression FRTOn2(y = frtOn) annotation(
     Placement(transformation(origin = {59, -105}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Sources.Constant VRefConst1(k = VRef1Pu) annotation(
@@ -151,7 +170,7 @@ model REECd
   Modelica.Blocks.Math.Add add2(k2 = Kc) annotation(
     Placement(transformation(origin = {-80, -256}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Add add3 annotation(
-    Placement(transformation(origin = {140, -158}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {144, -112}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Add add4 annotation(
     Placement(transformation(origin = {-18, 74}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Product product4 annotation(
@@ -166,8 +185,14 @@ model REECd
     Placement(transformation(origin = {264, 220}, extent = {{-10, -10}, {10, 10}})));
   BaseControls.LineDropCompensation lineDropCompensation(RcPu = RcPu, XcPu = XcPu) annotation(
     Placement(transformation(origin = {-185, -215}, extent = {{-21, -21}, {21, 21}})));
-  BaseControls.CurrentLimitsCalculationD currentLimitsCalculationD(IMaxPu = IMaxPu, PQFlag = PQFlag, Ke = Ke) annotation(
-    Placement(transformation(origin = {383, 5}, extent = {{-27, -27}, {27, 27}})));
+  BaseControls.CurrentLimitsCalculationD currentLimitsCalculationD(IMaxPu = IMaxPu, PQFlag = PQFlag, Ke = Ke, tHoldIpMax = tHoldIpMax, tBlkDelay = tBlkDelay) annotation(
+    Placement(transformation(origin = {392, 12}, extent = {{-10, -10}, {10, 10}})));
+  BaseControls.IqCommandBlLogic iqCommandBlLogic(IqFrzPu = IqFrzPu, tHoldIq = tHoldIq, iqCmdBlPu(start = Iq0Pu), iqCmdPu(start = Iq0Pu)) annotation(
+    Placement(transformation(origin = {378, 110}, extent = {{-10, -10}, {10, 10}})));
+  BaseControls.IpCommandBlLogic ipCommandBlLogic(tHoldIp = tHoldIpMax, IpCmdBlPu(start = Id0Pu), IpCmdPu(start = Id0Pu)) annotation(
+    Placement(transformation(origin = {378, -120}, extent = {{-10, -10}, {10, 10}})));
+  Dynawo.Electrical.Controls.WECC.BaseControls.VoltageCheck voltageCheck1(UMaxPu = UBlkHPu, UMinPu = UBlkLPu) annotation(
+    Placement(transformation(origin = {244, 267}, extent = {{-10, -10}, {10, 10}})));
 
 equation
   connect(uPu, lineDropCompensation.u2Pu) annotation(
@@ -215,35 +240,56 @@ equation
   connect(add4.y, switch.u3) annotation(
     Line(points = {{-6, 74}, {16, 74}, {16, 104}}, color = {0, 0, 127}));
   connect(PAuxPu, add3.u2) annotation(
-    Line(points = {{-268, -170}, {-80, -170}, {-80, -164}, {128, -164}}, color = {0, 0, 127}));
+    Line(points = {{-268, -170}, {-80, -170}, {-80, -118}, {132, -118}}, color = {0, 0, 127}));
   connect(add3.y, division1.u1) annotation(
-    Line(points = {{151, -158}, {148, -158}, {148, -114}, {170, -114}}, color = {0, 0, 127}));
-  connect(division1.y, variableLimiter1.u) annotation(
-    Line(points = {{192, -120}, {500, -120}}, color = {0, 0, 127}));
+    Line(points = {{155, -112}, {159.5, -112}, {159.5, -114}, {170, -114}}, color = {0, 0, 127}));
   connect(limiter3.y, add3.u1) annotation(
-    Line(points = {{142, -70}, {128, -70}, {128, -152}}, color = {0, 0, 127}));
+    Line(points = {{142, -70}, {150, -70}, {150, -90}, {114, -90}, {114, -106}, {132, -106}}, color = {0, 0, 127}));
   connect(currentLimitsCalculationD.iqMinPu, variableLimiter.limit2) annotation(
-    Line(points = {{412, -14}, {474, -14}, {474, 102}, {498, 102}}, color = {0, 0, 127}));
+    Line(points = {{403, 5}, {474, 5}, {474, 102}, {498, 102}}, color = {0, 0, 127}));
   connect(currentLimitsCalculationD.iqMaxPu, variableLimiter.limit1) annotation(
-    Line(points = {{412, -4}, {468, -4}, {468, 118}, {498, 118}}, color = {0, 0, 127}));
+    Line(points = {{403, 9}, {468, 9}, {468, 118}, {498, 118}}, color = {0, 0, 127}));
   connect(currentLimitsCalculationD.ipMinPu, variableLimiter1.limit2) annotation(
-    Line(points = {{412, 14}, {444, 14}, {444, -128}, {500, -128}}, color = {0, 0, 127}));
+    Line(points = {{403, 15}, {444, 15}, {444, -128}, {500, -128}}, color = {0, 0, 127}));
   connect(currentLimitsCalculationD.ipMaxPu, variableLimiter1.limit1) annotation(
-    Line(points = {{412, 24}, {460, 24}, {460, -112}, {500, -112}}, color = {0, 0, 127}));
+    Line(points = {{403, 19}, {460, 19}, {460, -112}, {500, -112}}, color = {0, 0, 127}));
   connect(IpmaxFromUPu.y[1], currentLimitsCalculationD.ipVdlPu) annotation(
-    Line(points = {{318, 36}, {338, 36}, {338, 16}, {354, 16}}, color = {0, 0, 127}));
+    Line(points = {{318, 36}, {325.5, 36}, {325.5, 16}, {381, 16}}, color = {0, 0, 127}));
   connect(IqmaxFromUPu.y[1], currentLimitsCalculationD.iqVdlPu) annotation(
-    Line(points = {{320, -36}, {328, -36}, {328, -4}, {354, -4}}, color = {0, 0, 127}));
+    Line(points = {{320, -36}, {328, -36}, {328, 8.5}, {381, 8.5}}, color = {0, 0, 127}));
   connect(variableLimiter.y, currentLimitsCalculationD.iqCmdPu) annotation(
-    Line(points = {{522, 110}, {526, 110}, {526, 48}, {336, 48}, {336, -14}, {354, -14}}, color = {0, 0, 127}));
+    Line(points = {{522, 110}, {526, 110}, {526, 48}, {336, 48}, {336, 5}, {381, 5}}, color = {0, 0, 127}));
   connect(variableLimiter1.y, currentLimitsCalculationD.ipCmdPu) annotation(
-    Line(points = {{522, -120}, {530, -120}, {530, -36}, {340, -36}, {340, 26}, {354, 26}}, color = {0, 0, 127}));
+    Line(points = {{522, -120}, {530, -120}, {530, -36}, {340, -36}, {340, 20}, {381, 20}}, color = {0, 0, 127}));
   connect(VCompFlagConst.y, switch3.u2) annotation(
     Line(points = {{-89, -220}, {-18, -220}}, color = {255, 0, 255}));
   connect(firstOrder2.y, varLimPIDFreeze.u_m) annotation(
     Line(points = {{58, -220}, {210, -220}, {210, -28}, {180, -28}, {180, 100}}, color = {0, 0, 127}));
+  connect(add1.y, iqCommandBlLogic.iqCmdBlPu) annotation(
+    Line(points = {{342, 110}, {366, 110}}, color = {0, 0, 127}));
+  connect(iqCommandBlLogic.iqCmdPu, variableLimiter.u) annotation(
+    Line(points = {{390, 110}, {498, 110}}, color = {0, 0, 127}));
+  connect(division1.y, ipCommandBlLogic.IpCmdBlPu) annotation(
+    Line(points = {{192, -120}, {366, -120}}, color = {0, 0, 127}));
+  connect(ipCommandBlLogic.IpCmdPu, variableLimiter1.u) annotation(
+    Line(points = {{389, -120}, {500, -120}}, color = {0, 0, 127}));
+  connect(FRTOn21.y, iqCommandBlLogic.vDip) annotation(
+    Line(points = {{292, 9}, {292, 80}, {352, 80}, {352, 118}, {366, 118}}, color = {255, 0, 255}));
+  connect(FRTOn21.y, ipCommandBlLogic.vDip) annotation(
+    Line(points = {{292, 9}, {292, -112}, {366, -112}}, color = {255, 0, 255}));
+  connect(FRTOn21.y, currentLimitsCalculationD.vDip) annotation(
+    Line(points = {{292, 9}, {304, 9}, {304, 12}, {380, 12}}, color = {255, 0, 255}));
+  connect(firstOrder.y, voltageCheck1.UPu) annotation(
+    Line(points = {{62, 240}, {80, 240}, {80, 256}, {220, 256}, {220, 267}, {233, 267}}, color = {0, 0, 127}));
+  connect(voltageCheck1.freeze, Blk) annotation(
+    Line(points = {{255, 267}, {267, 267}, {267, 266}, {284, 266}}, color = {255, 0, 255}));
+  connect(voltageCheck1.freeze, currentLimitsCalculationD.vBlk) annotation(
+    Line(points = {{255, 267}, {255, 254.5}, {257, 254.5}, {257, 244}, {392, 244}, {392, 24}}, color = {255, 0, 255}));
+  connect(firstOrder.y, voltageCheck.UPu) annotation(
+    Line(points = {{62, 240}, {80, 240}, {80, 272}, {132, 272}}, color = {0, 0, 127}));
   
   annotation(
     Diagram,
-    Icon(graphics = {Text(origin = {-37, 130.5}, extent = {{-16, 7}, {24, -10}}, textString = "PAuxPu"), Text(origin = {65, 132.5}, extent = {{-16, 7}, {24, -10}}, textString = "iInjPu"), Text(origin = {-81, 130.5}, extent = {{-16, 7}, {24, -10}}, textString = "uInjPu"), Ellipse(origin = {-67, -126}, extent = {{-9, 0}, {9, 0}}), Text(origin = {-30.3275, -106.118}, extent = {{-14.6724, 6.11766}, {22.3276, -9.88234}}, textString = "omegaG"), Text(origin = {-19, 11}, extent = {{-45, 23}, {84, -40}}, textString = "REEC D")}));
+    Icon(graphics = {Text(origin = {-37, 130.5}, extent = {{-16, 7}, {24, -10}}, textString = "PAuxPu"), Text(origin = {65, 132.5}, extent = {{-16, 7}, {24, -10}}, textString = "iInjPu"), Text(origin = {-81, 130.5}, extent = {{-16, 7}, {24, -10}}, textString = "uInjPu"), Ellipse(origin = {-67, -126}, extent = {{-9, 0}, {9, 0}}), Text(origin = {-30.3275, -106.118}, extent = {{-14.6724, 6.11766}, {22.3276, -9.88234}}, textString = "omegaG"), Text(origin = {-19, 11}, extent = {{-45, 23}, {84, -40}}, textString = "REEC D"), Text(origin = {129, 49}, extent = {{-23, 13}, {35, -21}}, textString = "Blk", fontSize = 14)}),
+    Documentation(info = "<html><head></head><body><div class=\"htmlDoc\" style=\"font-family: 'MS Shell Dlg 2';\"><p>This block contains the electrical inverter control of the generic WECC PV model according to (in case page cannot be found, copy link in browser):&nbsp;<a href=\"https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf/\">https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf&nbsp;</a></p><p>Following control modes can be activated:<span style=\"font-size: 12px;\">Local coordinated V/Q control: QFlag = true, VFlag = true</span></p><li><li style=\"font-size: 12px;\">Only plant level control active: QFlag = false, VFlag = false</li><li style=\"font-size: 12px;\">If plant level control not connected: local power factor control: PfFlag = true, otherwise PfFlag = false.</li><li style=\"font-size: 12px;\">Active power can be dependent or independent on drive train speed by setting PFlag to false (independent from drive train speed) or true. If PFlag is set to false, the model behaves as a Wind turbine generator type 4B, where the drive train is neglected by setting the speed to constant 1&nbsp;</li><p style=\"font-size: 12px;\">The block calculates the Id and Iq setpoint values for the generator control based on the selected control algorithm.</p></li><div><br></div></div><div class=\"textDoc\"><p style=\"font-family: 'Courier New'; font-size: 12px;\"></p></div></body></html>"));
 end REECd;

@@ -13,7 +13,6 @@ set(MODEL_FILES
   package.mo
   package.order
   BaseREEC.mo
-  BaseREECD.mo
   )
 
 #

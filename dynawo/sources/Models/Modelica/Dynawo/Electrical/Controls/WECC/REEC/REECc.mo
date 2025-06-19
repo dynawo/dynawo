@@ -11,10 +11,10 @@ within Dynawo.Electrical.Controls.WECC.REEC;
 *
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
-
+  
 model REECc "WECC Electrical Control type C"
   extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC;
-
+  
   // REEC-C parameters
   parameter Types.PerUnit SOCMaxPu "Maximum allowable state of charge in pu (base SNom) (typical: 0.8..1)" annotation(
     Dialog(tab = "Electrical Control"));
@@ -58,11 +58,10 @@ model REECc "WECC Electrical Control type C"
     Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIqPoints[:, :] = [VDLIq11, VDLIq12; VDLIq21, VDLIq22; VDLIq31, VDLIq32; VDLIq41, VDLIq42] "Pair of points for voltage-dependent reactive current limitation piecewise linear curve [u1,y1; u2,y2;...]" annotation(
     Dialog(tab = "Electrical Control"));
-
+  
   // Input variable
   Modelica.Blocks.Interfaces.RealInput PAuxPu(start = 0) "Auxiliary input in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {227.5, -149.5}, extent = {{-13.5, -13.5}, {13.5, 13.5}}, rotation = 0), iconTransformation(origin = {-30, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-
   Modelica.Blocks.Sources.RealExpression IqMax(y = currentLimitsCalculation1.iqMaxPu) annotation(
     Placement(visible = true, transformation(origin = {130, 130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression IqMin(y = currentLimitsCalculation1.iqMinPu) annotation(
@@ -71,13 +70,15 @@ model REECc "WECC Electrical Control type C"
     Placement(visible = true, transformation(origin = {279, 22}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Tables.CombiTable1Ds IqmaxFromUPu(extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint, smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments, table = VDLIqPoints, tableOnFile = false, verboseExtrapolation = false, verboseRead = false) annotation(
     Placement(visible = true, transformation(origin = {279, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.RealExpression UFilteredPu3(y = UFilteredPu) annotation(
+    Placement(transformation(origin = {190, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Sources.RealExpression UFilteredPu5(y = UFilteredPu) annotation(
     Placement(visible = true, transformation(origin = {249, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.BaseControls.CurrentLimitsCalculationC currentLimitsCalculation1(IMaxPu = IMaxPu, PQFlag = PQFlag, SOC0Pu = SOC0Pu, SOCMaxPu = SOCMaxPu, SOCMinPu = SOCMinPu) annotation(
     Placement(visible = true, transformation(origin = {400, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add2 annotation(
     Placement(visible = true, transformation(origin = {311, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integrator(k = 1 / tBattery) annotation(
+  Modelica.Blocks.Continuous.Integrator integrator(k = 1/tBattery) annotation(
     Placement(visible = true, transformation(origin = {270, -250}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {320, -210}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -87,7 +88,7 @@ model REECc "WECC Electrical Control type C"
     Placement(visible = true, transformation(origin = {264, 220}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant SOCinit(k = SOC0Pu) annotation(
     Placement(visible = true, transformation(origin = {269, -210}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
+ 
   // Initial parameter
   parameter Types.PerUnit SOC0Pu "Initial state of charge in pu (base SNom)";
 
@@ -140,8 +141,16 @@ equation
     Line(points = {{-270, 170}, {-249, 170}, {-249, -250}, {258, -250}}, color = {0, 0, 127}));
   connect(SOCinit.y, feedback.u1) annotation(
     Line(points = {{280, -210}, {312, -210}}, color = {0, 0, 127}));
-
+  connect(UFilteredPu3.y, varLimPIDFreeze.u_m) annotation(
+    Line(points = {{190, 82}, {180, 82}, {180, 100}}, color = {0, 0, 127}));
+  connect(limiter3.y, division1.u1) annotation(
+    Line(points = {{142, -70}, {152, -70}, {152, -114}, {170, -114}}, color = {0, 0, 127}));
+  connect(UPu, voltageCheck.UPu) annotation(
+    Line(points = {{-270, 270}, {132, 270}, {132, 272}}, color = {0, 0, 127}));
+  connect(add1.y, variableLimiter.u) annotation(
+    Line(points = {{342, 110}, {498, 110}}, color = {0, 0, 127}));
+  
   annotation(
-  preferredView = "diagram",
+    preferredView = "diagram",
     Icon(graphics = {Text(origin = {-19, 11}, extent = {{-45, 23}, {84, -40}}, textString = "REEC C"), Text(origin = {-48, 129}, extent = {{-18, 6}, {28, -8}}, textString = "PAuxPu")}));
 end REECc;

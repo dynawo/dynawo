@@ -2,7 +2,9 @@ CurrentLimitsCalculationA
 CurrentLimitsCalculationB
 CurrentLimitsCalculationC
 CurrentLimitsCalculationD
+IpCommandBlLogic
 IqInjectionLogic
+IqCommandBlLogic
 LineDropCompensation
 UdqRef
 VoltageCheck

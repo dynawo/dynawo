@@ -20,6 +20,8 @@ set(MODEL_FILES
   UdqRef.mo
   VoltageCheck.mo
   VSourceRef.mo
+  IpCommandBlLogic.mo
+  IqCommandBlLogic.mo
   )
 
 #
