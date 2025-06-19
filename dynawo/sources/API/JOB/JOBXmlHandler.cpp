@@ -438,6 +438,8 @@ void
 ConstraintsHandler::create(attributes_type const& attributes) {
   constraints_ = std::make_shared<ConstraintsEntry>();
   constraints_->setExportMode(attributes["exportMode"]);
+  if (attributes.has("filter"))
+    constraints_->setFilter(attributes["filter"]);
 }
 
 shared_ptr<ConstraintsEntry>

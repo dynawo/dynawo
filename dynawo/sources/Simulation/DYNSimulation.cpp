@@ -192,6 +192,7 @@ timelineOutputFile_(""),
 filterTimeline_(false),
 exportConstraintsMode_(EXPORT_CONSTRAINTS_NONE),
 constraintsOutputFile_(""),
+filterConstraints_(true),
 exportLostEquipmentsMode_(EXPORT_LOSTEQUIPMENTS_NONE),
 lostEquipmentsOutputFile_(""),
 finalState_(std::numeric_limits<double>::max()),
@@ -329,7 +330,7 @@ Simulation::configureConstraintsOutputs() {
     } else {
       throw DYNError(Error::MODELER, UnknownConstraintsExport, exportMode);
     }
-
+    filterConstraints_ = jobEntry_->getOutputsEntry()->getConstraintsEntry()->isFilter();
     setConstraintsExportMode(exportModeFlag);
     setConstraintsOutputFile(outputFile);
   } else {
@@ -1422,6 +1423,9 @@ Simulation::printTimeline(std::ostream& stream) const {
 
 void
 Simulation::printConstraints(std::ostream& stream) const {
+  if (filterConstraints_) {
+    constraintsCollection_->filter();
+  }
   switch (exportConstraintsMode_) {
     case EXPORT_CONSTRAINTS_NONE:
       break;

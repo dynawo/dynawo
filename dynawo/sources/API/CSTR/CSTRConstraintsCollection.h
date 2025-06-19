@@ -61,6 +61,13 @@ class ConstraintsCollection {
     const boost::optional<ConstraintData>& data = boost::none);
 
   /**
+   * @brief filter the constraint collection by removing constraints cancelled during the simulation
+   *
+   */
+  void filter();
+
+ public:
+  /**
   * @brief get constraints by model
   *
   * @return constraints by model
