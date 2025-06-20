@@ -131,6 +131,9 @@ SourcePowerTakenIntoAccount   =             power of %1% %2% was added into the 
 NoNetworkConnection           =             component %1% not imported : no network connection declared
 PossibleDivisionByZero        =             impedance of line ID: %1% set to 0 in IIDM file, default parameters are then used: R = 0 and X = 0.01
 CriteriaDefinedButNoIIDM      =             a criteria file was defined without any IIDM file, it will be ignored
+RegulModeReqdNoSA             =             regulatingMode requested on %1% although StandbyAutomaton extension is unavailable
+VarCreatedForRef              =             var %1% created a posteriori on component %2% to satisfy ref with %3%, will likely be unused
+
 //---------------------- OTHERS --------------------------------------
 // --> ModelAreaShedding
 LoadSheddingValueIncomplete   =             load shedding quantities are not fully provided in %1% model's parameters, using default (0.) for missing values
