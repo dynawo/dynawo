@@ -84,8 +84,9 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
    * @brief add a new current limit (pu base UNom, base SNRef)
    * @param limit new current limit
    * @param acceptableDuration acceptable duration
+   * @param fictitious whether the limit is fictitious
    */
-  void addLimit(double limit, int acceptableDuration);
+  void addLimit(double limit, int acceptableDuration, bool fictitious);
 
   /**
    * @brief set side
@@ -135,6 +136,7 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
   std::vector<double> limits_;  ///< vector of current limits (pu base UNom, base SNRef)
   std::vector<double> acceptableDurations_;  ///< vector of limits duration (unit : s)
   std::vector<bool> openingAuthorized_;  ///< whether opening is authorized
+  std::vector<bool> fictitious_;  ///< whether the limit is fictitious
   std::vector<double> tLimitReached_;  ///< last time the limit was reached
   std::vector<bool> activated_;  ///< state of activation
 };
