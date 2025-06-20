@@ -23,5 +23,5 @@ record ParamsDriveTrain
   parameter Types.PerUnit Kshaft "Spring constant in pu (typical: 200 pu, base SNom, omegaNom)" annotation(
   Dialog(tab="Mechanical"));
 
-  annotation(preferredView = text);
+  annotation(preferredView = "text");
 end ParamsDriveTrain;

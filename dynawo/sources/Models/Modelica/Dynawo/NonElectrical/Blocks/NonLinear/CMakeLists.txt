@@ -24,6 +24,7 @@ set(MODEL_FILES
   LimitedDivision.mo
   LimitedFirstOrder.mo
   LimitedIntegrator.mo
+  LimitedIntegratorFreeze.mo
   LimitedLeadLag.mo
   LimiterAtCurrentValueWithLag.mo
   LimiterAtCurrentValueWithLag_INIT.mo
