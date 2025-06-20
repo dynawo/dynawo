@@ -1,6 +1,6 @@
  ====== VARIABLES VALUES ======
-step_step_value                                   : y =       0.500000 yp =       0.000000
- ====== INIT DISCRETE VARIABLES VALUES ======
+step_step                                         : y =       0.500000 yp =       0.000000
+ ====== DISCRETE VARIABLES VALUES ======
  ====== PARAMETERS VALUES ======
 step_Height                                        =      -0.200000
 step_Value0                                        =       0.500000
