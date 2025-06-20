@@ -25,7 +25,7 @@
   <dyn:blackBoxModel id="Tfo1" lib="TransformerFixedRatio" parFile="WPP4ACurrentSource2015.par" parId="Tfo1"/>
   <dyn:blackBoxModel id="Fault" lib="NodeFault" parFile="WPP4ACurrentSource2015.par" parId="Fault"/>
   <dyn:blackBoxModel id="Fault1" lib="NodeFault" parFile="WPP4ACurrentSource2015.par" parId="Fault1"/>
-  <dyn:connect id1="WPP4A" var1="WPP_PWPRefPu" id2="PRefPu" var2="step_step_value"/>
+  <dyn:connect id1="WPP4A" var1="WPP_PWPRefPu" id2="PRefPu" var2="step_step"/>
   <dyn:connect id1="WPP4A" var1="WPP_omegaRefPu" id2="omegaRefPu" var2="doubleStep_step_value"/>
   <dyn:connect id1="WPP4A" var1="WPP_terminal" id2="Fault" var2="fault_terminal"/>
   <dyn:connect id1="WPP4A" var1="WPP_terminal" id2="Tfo" var2="transformer_terminal1"/>

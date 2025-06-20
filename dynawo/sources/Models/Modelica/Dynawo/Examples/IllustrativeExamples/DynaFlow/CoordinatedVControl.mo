@@ -128,10 +128,10 @@ equation
   Line1bis.switchOffSignal1.value = false;
 
   // Generators controls and references
-  Generator1.N = SignalN.step.value;
+  Generator1.N = SignalN.step;
   Generator1.NQ = SignalNQ.NQ;
   Generator1.PRefPu = Generator1.PRef0Pu;
-  Generator2.N = SignalN.step.value;
+  Generator2.N = SignalN.step;
   Generator2.NQ = SignalNQ.NQ;
   Generator2.PRefPu = Generator2.PRef0Pu;
   SignalNQ.URegulatedPu = Generator1.UPu;
