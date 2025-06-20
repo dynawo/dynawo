@@ -70,6 +70,12 @@ class Curve {
   void setVariable(const std::string& variable);
 
   /**
+   * @brief Setter for curve's factor
+   * @param factor curve's factor
+   */
+  void setFactor(double factor);
+
+  /**
    * @brief Setter for curve's name found
    * @param name curve's name found
    */
@@ -122,6 +128,13 @@ class Curve {
    * @return variable name associated to this curve
    */
   const std::string& getVariable() const;
+
+
+  /**
+   * @brief Getter for curve's factor
+   * @return factor associated to this curve
+   */
+  double getFactor() const;
 
   /**
    * @brief Getter for curve's found variable name
@@ -206,6 +219,7 @@ class Curve {
   // attributes read in input file
   std::string modelName_;  ///< Model's name for which we want have a curve
   std::string variable_;   ///< Variable name
+  double factor_;          ///< Factor applicable to the value
 
   // attributes deduced from models
   std::string foundName_;                          ///< variable name found in models
