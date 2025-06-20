@@ -19,6 +19,6 @@
   <dyn:blackBoxModel id="LoadVar_Q" lib="Step" parFile="SVarC.par" parId="6"/>
   <dyn:connect id1="line" var1="line_terminal2" id2="SVarC" var2="SVarC_terminal"/>
   <dyn:connect id1="line" var1="line_terminal2" id2="Load" var2="load_terminal"/>
-  <dyn:connect id1="LoadVar_Q" var1="step_step_value" id2="Load" var2="load_QRefPu"/>
+  <dyn:connect id1="LoadVar_Q" var1="step_step" id2="Load" var2="load_QRefPu"/>
   <dyn:connect id1="busInf" var1="infiniteBus_terminal" id2="line" var2="line_terminal1"/>
 </dyn:dynamicModelsArchitecture>

@@ -27,8 +27,8 @@
   <dyn:connect id1="Generator1" var1="generator_terminal" id2="Line1Bis" var2="line_terminal1"/>
   <dyn:connect id1="Generator2" var1="generator_terminal" id2="Line1Bis" var2="line_terminal1"/>
   <dyn:connect id1="InfiniteBus1" var1="infiniteBus_terminal" id2="Line1Bis" var2="line_terminal2"/>
-  <dyn:connect id1="Generator1" var1="generator_N" id2="SignalN" var2="step_step_value"/>
-  <dyn:connect id1="Generator2" var1="generator_N" id2="SignalN" var2="step_step_value"/>
+  <dyn:connect id1="Generator1" var1="generator_N" id2="SignalN" var2="step_step"/>
+  <dyn:connect id1="Generator2" var1="generator_N" id2="SignalN" var2="step_step"/>
   <dyn:connect id1="Generator1" var1="generator_NQ" id2="SignalNQ" var2="vrremote_NQ"/>
   <dyn:connect id1="Generator2" var1="generator_NQ" id2="SignalNQ" var2="vrremote_NQ"/>
   <dyn:connect id1="SignalNQ" var1="vrremote_URegulatedPu" id2="Generator1" var2="generator_UPu"/>
@@ -45,8 +45,8 @@
   <dyn:connect id1="Generator3" var1="generator_terminal" id2="Line2Bis" var2="line_terminal1"/>
   <dyn:connect id1="Generator4" var1="generator_terminal" id2="Line2Bis" var2="line_terminal1"/>
   <dyn:connect id1="InfiniteBus2" var1="infiniteBus_terminal" id2="Line2Bis" var2="line_terminal2"/>
-  <dyn:connect id1="Generator3" var1="generator_N" id2="SignalN" var2="step_step_value"/>
-  <dyn:connect id1="Generator4" var1="generator_N" id2="SignalN" var2="step_step_value"/>
+  <dyn:connect id1="Generator3" var1="generator_N" id2="SignalN" var2="step_step"/>
+  <dyn:connect id1="Generator4" var1="generator_N" id2="SignalN" var2="step_step"/>
   <dyn:connect id1="DisconnectLine" var1="event_state1" id2="Line2Bis" var2="line_switchOffSignal2"/>
   <!-- System 3 with transformers and a secondary voltage control -->
   <dyn:blackBoxModel id="Generator5" lib="GeneratorPVTfoRpclSignalN" parFile="GeneratorPVTfo.par" parId="Generator5"/>
@@ -61,8 +61,8 @@
   <dyn:connect id1="Generator5" var1="generator_terminal" id2="Line3Bis" var2="line_terminal1"/>
   <dyn:connect id1="Generator6" var1="generator_terminal" id2="Line3Bis" var2="line_terminal1"/>
   <dyn:connect id1="InfiniteBus3" var1="infiniteBus_terminal" id2="Line3Bis" var2="line_terminal2"/>
-  <dyn:connect id1="Generator5" var1="generator_N" id2="SignalN" var2="step_step_value"/>
-  <dyn:connect id1="Generator6" var1="generator_N" id2="SignalN" var2="step_step_value"/>
+  <dyn:connect id1="Generator5" var1="generator_N" id2="SignalN" var2="step_step"/>
+  <dyn:connect id1="Generator6" var1="generator_N" id2="SignalN" var2="step_step"/>
   <dyn:connect id1="Generator5" var1="reactivePowerControlLoop_level" id2="SVC" var2="secondaryVoltageControl_level"/>
   <dyn:connect id1="Generator6" var1="reactivePowerControlLoop_level" id2="SVC" var2="secondaryVoltageControl_level"/>
   <dyn:connect id1="SVC" var1="secondaryVoltageControl_UpPu" id2="Generator5" var2="generator_UPu"/>
@@ -88,8 +88,8 @@
   <dyn:connect id1="Line8" var1="line_terminal2" id2="Line4Bis" var2="line_terminal1"/>
   <dyn:connect id1="InfiniteBus4" var1="infiniteBus_terminal" id2="Line4" var2="line_terminal2"/>
   <dyn:connect id1="InfiniteBus4" var1="infiniteBus_terminal" id2="Line4Bis" var2="line_terminal2"/>
-  <dyn:connect id1="Generator7" var1="generator_N" id2="SignalN" var2="step_step_value"/>
-  <dyn:connect id1="Generator8" var1="generator_N" id2="SignalN" var2="step_step_value"/>
+  <dyn:connect id1="Generator7" var1="generator_N" id2="SignalN" var2="step_step"/>
+  <dyn:connect id1="Generator8" var1="generator_N" id2="SignalN" var2="step_step"/>
   <dyn:connect id1="Generator7" var1="reactivePowerControlLoop_level" id2="SVC1" var2="secondaryVoltageControl_level"/>
   <dyn:connect id1="Generator8" var1="reactivePowerControlLoop_level" id2="SVC1" var2="secondaryVoltageControl_level"/>
   <dyn:connect id1="SVC1" var1="secondaryVoltageControl_UpPu" id2="Generator7" var2="generator_UPu"/>
@@ -107,8 +107,8 @@
   <dyn:connect id1="Generator9" var1="generator_terminal" id2="Line5Bis" var2="line_terminal1"/>
   <dyn:connect id1="Generator10" var1="generator_terminal" id2="Line5Bis" var2="line_terminal1"/>
   <dyn:connect id1="InfiniteBus5" var1="infiniteBus_terminal" id2="Line5Bis" var2="line_terminal2"/>
-  <dyn:connect id1="Generator9" var1="generator_N" id2="SignalN" var2="step_step_value"/>
-  <dyn:connect id1="Generator10" var1="generator_N" id2="SignalN" var2="step_step_value"/>
+  <dyn:connect id1="Generator9" var1="generator_N" id2="SignalN" var2="step_step"/>
+  <dyn:connect id1="Generator10" var1="generator_N" id2="SignalN" var2="step_step"/>
   <dyn:connect id1="Generator9" var1="reactivePowerControlLoop_level" id2="SVC2" var2="secondaryVoltageControl_level"/>
   <dyn:connect id1="Generator10" var1="reactivePowerControlLoop_level" id2="SVC2" var2="secondaryVoltageControl_level"/>
   <dyn:connect id1="SVC2" var1="secondaryVoltageControl_UpPu" id2="Generator9" var2="generator_UPu"/>
@@ -130,8 +130,8 @@
   <dyn:connect id1="Line10" var1="line_terminal2" id2="Line6Bis" var2="line_terminal1"/>
   <dyn:connect id1="InfiniteBus6" var1="infiniteBus_terminal" id2="Line6" var2="line_terminal2"/>
   <dyn:connect id1="InfiniteBus6" var1="infiniteBus_terminal" id2="Line6Bis" var2="line_terminal2"/>
-  <dyn:connect id1="Generator11" var1="generator_N" id2="SignalN" var2="step_step_value"/>
-  <dyn:connect id1="Generator12" var1="generator_N" id2="SignalN" var2="step_step_value"/>
+  <dyn:connect id1="Generator11" var1="generator_N" id2="SignalN" var2="step_step"/>
+  <dyn:connect id1="Generator12" var1="generator_N" id2="SignalN" var2="step_step"/>
   <dyn:connect id1="Generator11" var1="reactivePowerControlLoop_level" id2="SVC3" var2="secondaryVoltageControl_level"/>
   <dyn:connect id1="Generator12" var1="reactivePowerControlLoop_level" id2="SVC3" var2="secondaryVoltageControl_level"/>
   <dyn:connect id1="SVC3" var1="secondaryVoltageControl_UpPu" id2="Generator11" var2="generator_UPu"/>
