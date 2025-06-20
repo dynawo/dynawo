@@ -12,7 +12,7 @@ within Dynawo.Electrical.Controls.WECC.REPC;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model REPCc  
+model REPCc "WECC Plant Control type C" 
   extends Dynawo.Electrical.Controls.WECC.REPC.BaseClasses.BaseREPC(add3(k2 = +1), firstOrder(UseFreeze = true, UseRateLim = true), limPID(Y0 = if Ffwrd_Flag == true and Pefd_Flag == true and Kig > 0 then PInj0Pu - PGen0Pu else PInj0Pu, YMax = if Ffwrd_Flag == true and Pefd_Flag == true and Kig > 0 then PiMaxPu else PMaxPu, YMin = if Ffwrd_Flag == true and Pefd_Flag == true and Kig > 0 then PiMinPu else PMinPu), leadLag(UseFreeze = true));
 
 //Parameters REPC_c

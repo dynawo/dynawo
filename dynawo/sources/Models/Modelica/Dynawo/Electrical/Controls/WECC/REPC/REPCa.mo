@@ -1,6 +1,5 @@
 within Dynawo.Electrical.Controls.WECC.REPC;
 
-model REPCa "WECC Plant Control type A"
 /*
 * Copyright (c) 2021, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
@@ -12,6 +11,9 @@ model REPCa "WECC Plant Control type A"
 *
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
+
+model REPCa "WECC Plant Control type A"
+
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREPC;
   extends Dynawo.Electrical.Controls.WECC.REPC.BaseClasses.BaseREPC;
   
