@@ -14,11 +14,14 @@ set(MODEL_FILES
   CurrentLimitsCalculationA.mo
   CurrentLimitsCalculationB.mo
   CurrentLimitsCalculationC.mo
+  CurrentLimitsCalculationD.mo
   IqInjectionLogic.mo
   LineDropCompensation.mo
   UdqRef.mo
   VoltageCheck.mo
   VSourceRef.mo
+  IpCommandBlLogic.mo
+  IqCommandBlLogic.mo
   )
 
 #
