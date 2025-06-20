@@ -76,10 +76,10 @@
   <dyn:connect id1="GEN____6_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_GEN____6_SM@@NODE@_switchOff"/>
   <dyn:connect id1="GEN____8_SM" var1="generator_terminal" id2="NETWORK" var2="@_GEN____8_SM@@NODE@_ACPIN"/>
   <dyn:connect id1="GEN____8_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_GEN____8_SM@@NODE@_switchOff"/>
-  <dyn:connect id1="LOADVAR_LOAD2_P" var1="step_step_value" id2="_LOAD___2_EC" var2="load_PRefPu"/>
-  <dyn:connect id1="LOADVAR_LOAD2_Q" var1="step_step_value" id2="_LOAD___2_EC" var2="load_QRefPu"/>
-  <dyn:connect id1="LOADVAR_LOAD3_P" var1="step_step_value" id2="_LOAD___3_EC" var2="load_PRefPu"/>
-  <dyn:connect id1="LOADVAR_LOAD3_Q" var1="step_step_value" id2="_LOAD___3_EC" var2="load_QRefPu"/>
+  <dyn:connect id1="LOADVAR_LOAD2_P" var1="step_step" id2="_LOAD___2_EC" var2="load_PRefPu"/>
+  <dyn:connect id1="LOADVAR_LOAD2_Q" var1="step_step" id2="_LOAD___2_EC" var2="load_QRefPu"/>
+  <dyn:connect id1="LOADVAR_LOAD3_P" var1="step_step" id2="_LOAD___3_EC" var2="load_PRefPu"/>
+  <dyn:connect id1="LOADVAR_LOAD3_Q" var1="step_step" id2="_LOAD___3_EC" var2="load_QRefPu"/>
   <dyn:connect id1="GEN____3_SM" var1="generator_UPu" id2="UVA" var2="underVoltageAutomaton_UMonitoredPu"/>
   <dyn:connect id1="GEN____3_SM" var1="generator_switchOffSignal3" id2="UVA" var2="underVoltageAutomaton_switchOffSignal"/>
   <dyn:connect id1="GEN____3_SM" var1="generator_UPu" id2="OVA" var2="overVoltageAutomaton_UMonitoredPu"/>
