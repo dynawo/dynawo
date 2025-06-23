@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--
-    Copyright (c) 2021, RTE (http://www.rte-france.com)
+    Copyright (c) 2025, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
     This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,7 +12,7 @@
     simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:modelicaModel id="WTG4AWeccCurrentSource">
-    <dyn:unitDynamicModel id="WTG4A" name="Dynawo.Electrical.Wind.WECC.WTG4ACurrentSource" initName="Dynawo.Electrical.Wind.WECC.WT4CurrentSource_INIT"/>
+  <dyn:modelicaModel id="WTG3WeccCurrentSource1">
+    <dyn:unitDynamicModel id="WTG3" name="Dynawo.Electrical.Wind.WECC.WTG3CurrentSource1" initName="Dynawo.Electrical.Wind.WECC.WT4CurrentSource_INIT"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

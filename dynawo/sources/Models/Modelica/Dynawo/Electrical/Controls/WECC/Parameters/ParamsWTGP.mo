@@ -14,18 +14,31 @@ within Dynawo.Electrical.Controls.WECC.Parameters;
 */
 
 record ParamsWTGP
-  parameter Types.Frequency kiw "Pitch controller integral gain" annotation(Dialog(tab="Pitch Control"));
-  parameter Real kpw "Pitch controller proportional gain" annotation(Dialog(tab="Pitch Control"));
-  parameter Types.Frequency kic "Pitch compensation integral gain" annotation(Dialog(tab="Pitch Control"));
-  parameter Real kpc "Pitch Compensation proportional gain" annotation(Dialog(tab="Pitch Control"));
-  parameter Real kcc "Proportionnal cross-compensation gain" annotation(Dialog(tab="Pitch Control"));
-  parameter Types.Time tTheta "Pitch time constant" annotation(Dialog(tab="Pitch Control"));
-  parameter Types.AngleDegree thetaMax "Maximum pitch angle limit" annotation(Dialog(tab="Pitch Control"));
-  parameter Types.AngleDegree thetaMin "Minimum pitch angle limit" annotation(Dialog(tab="Pitch Control"));
-  parameter Types.AngularVelocityDegree thetaRMax "Maximum pitch angle rate limit" annotation(Dialog(tab="Pitch Control"));
-  parameter Types.AngularVelocityDegree thetaRMin "Minimum pitch angle rate limit" annotation(Dialog(tab="Pitch Control"));
-  parameter Types.PerUnit PInj0Pu "Start value of active power at injector terminal in pu (base SNom) (generator convention)";
-  parameter Types.AngleDegree theta0 "Initial pitch angle" annotation(Dialog(group="Initialization"));
+  parameter Types.Frequency Kiw "Pitch controller integral gain" annotation(
+  Dialog(tab="Pitch Control"));
+  parameter Types.PerUnit Kpw "Pitch controller proportional gain" annotation(
+  Dialog(tab="Pitch Control"));
+  parameter Types.Frequency Kic "Pitch compensation integral gain" annotation(
+  Dialog(tab="Pitch Control"));
+  parameter Types.PerUnit Kpc "Pitch Compensation proportional gain" annotation(
+  Dialog(tab="Pitch Control"));
+  parameter Types.PerUnit Kcc "Proportionnal cross-compensation gain" annotation(
+  Dialog(tab="Pitch Control"));
+  parameter Types.Time tTheta "Pitch time constant in s" annotation(
+  Dialog(tab="Pitch Control"));
+  parameter Types.AngleDegree ThetaMax "Maximum pitch angle limit in degree" annotation(
+  Dialog(tab="Pitch Control"));
+  parameter Types.AngleDegree ThetaMin "Minimum pitch angle limit in degree" annotation(
+  Dialog(tab="Pitch Control"));
+  parameter Types.AngularVelocityDegree ThetaRMax "Maximum pitch angle rate limit in degree/s" annotation(
+  Dialog(tab="Pitch Control"));
+  parameter Types.AngularVelocityDegree ThetaRMin "Minimum pitch angle rate limit in degree/s" annotation(
+  Dialog(tab="Pitch Control"));
 
-  annotation(preferredView = "text");
+  // Initial parameters
+  parameter Types.ActivePowerPu PInj0Pu "Start value of active power at injector terminal in pu (base SNom) (generator convention)";
+  parameter Types.AngleDegree Theta0 "Initial pitch angle in degree";
+
+  annotation(
+  preferredView = "text");
 end ParamsWTGP;

@@ -14,7 +14,6 @@ add_subdirectory(BaseClasses B)
 set(MODEL_FILES
   package.mo
   package.order
-  DriveTrainPmConstant.mo
   WTGAa.mo
   WTGPa.mo
   WTGPb.mo

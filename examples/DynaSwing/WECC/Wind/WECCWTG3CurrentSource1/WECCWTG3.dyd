@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2025, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="InfBus" lib="InfiniteBusWithVariations" parFile="WECCWTG3.par" parId="1"/>
+  <dyn:blackBoxModel id="Line" lib="Line" parFile="WECCWTG3.par" parId="2"/>
+  <dyn:blackBoxModel id="WTG3" lib="WTG3WeccCurrentSource1" parFile="WECCWTG3.par" parId="3"/>
+  <dyn:blackBoxModel id="OmegaRefPu" lib="SetPoint" parFile="WECCWTG3.par" parId="4"/>
+  <dyn:connect id1="OmegaRefPu" var1="setPoint_setPoint" id2="WTG3" var2="WTG3_omegaRefPu"/>
+  <dyn:connect id1="InfBus" var1="infiniteBus_terminal" id2="Line" var2="line_terminal1"/>
+  <dyn:connect id1="Line" var1="line_terminal2" id2="WTG3" var2="WTG3_terminal"/>
+</dyn:dynamicModelsArchitecture>

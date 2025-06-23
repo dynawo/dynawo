@@ -13,15 +13,16 @@ within Dynawo.Electrical.Controls.WECC.Parameters;
 * of simulation tools for power systems.
 */
 
-record ParamsDriveTrain
+record ParamsWTGT
   parameter Types.Time Ht "Turbine Inertia in s (typical: 5 s)" annotation(
-  Dialog(tab="Mechanical"));
+  Dialog(tab="Drive train control"));
   parameter Types.Time Hg "Generator Inertia in s (typical: 1 s)" annotation(
-  Dialog(tab="Mechanical"));
+  Dialog(tab="Drive train control"));
   parameter Types.PerUnit Dshaft "Damping coefficient in pu (typical: 1.5 pu, base SNom, omegaNom)" annotation(
-  Dialog(tab="Mechanical"));
+  Dialog(tab="Drive train control"));
   parameter Types.PerUnit Kshaft "Spring constant in pu (typical: 200 pu, base SNom, omegaNom)" annotation(
-  Dialog(tab="Mechanical"));
+  Dialog(tab="Drive train control"));
 
-  annotation(preferredView = "text");
-end ParamsDriveTrain;
+  annotation(
+  preferredView = "text");
+end ParamsWTGT;

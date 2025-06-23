@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.WECC.Mechanical.BaseClasses;
 
 /*
-* Copyright (c) 2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2025, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -13,10 +13,10 @@ within Dynawo.Electrical.Controls.WECC.Mechanical.BaseClasses;
 * of simulation tools for power systems.
 */
 
-partial model BaseDriveTrain "Drive Train Control Base Model"
-  extends Parameters.ParamsDriveTrain;
+partial model BaseWTGT "Drive Train Control Base Model"
+  extends Parameters.ParamsWTGT;
 
-  // Inputs
+  // Input variables
   Modelica.Blocks.Interfaces.RealInput PePu(start = PInj0Pu) "Electrical active power in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-220, -54}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {180, 0}, extent = {{20, -20}, {-20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frequency used for Generator and Turbine in pu (base omegaNom)" annotation(
@@ -24,7 +24,7 @@ partial model BaseDriveTrain "Drive Train Control Base Model"
   Modelica.Blocks.Interfaces.RealOutput omegaGPu(start = SystemBase.omegaRef0Pu) "Generator frequency used for electrical control in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {170, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {60, 140}, extent = {{20, -20}, {-20, 20}}, rotation = -90)));
 
-  // Outputs
+  // Output variables
   Modelica.Blocks.Interfaces.RealOutput omegaTPu "Turbine frequency in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {170, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 140}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealOutput dTorqueY "Torque derivative in pu/s (base SNom, omegaNom)" annotation(
@@ -52,11 +52,11 @@ partial model BaseDriveTrain "Drive Train Control Base Model"
     Placement(visible = true, transformation(origin = {-130, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression dampingY2(y = dampingY) annotation(
     Placement(visible = true, transformation(origin = {-130, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator dPhi(y_start = PInj0Pu / Kshaft) annotation(
+  Modelica.Blocks.Continuous.Integrator dPhi(y_start = PInj0Pu/Kshaft) annotation(
     Placement(visible = true, transformation(origin = {90, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator dOmegaTurbine(k = 1 / (2 * Ht)) annotation(
+  Modelica.Blocks.Continuous.Integrator dOmegaTurbine(k = 1/(2*Ht)) annotation(
     Placement(visible = true, transformation(origin = {-30, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator dOmegaGenerator(k = 1 / (2 * Hg)) annotation(
+  Modelica.Blocks.Continuous.Integrator dOmegaGenerator(k = 1/(2*Hg)) annotation(
     Placement(visible = true, transformation(origin = {-30, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add OmegaDiff(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -69,6 +69,7 @@ partial model BaseDriveTrain "Drive Train Control Base Model"
   Modelica.Blocks.Math.Gain dTorque(k = Kshaft) annotation(
     Placement(visible = true, transformation(origin = {130, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
+  // Initial parameters
   parameter Types.PerUnit PInj0Pu "Initial value of mechanical power in pu (base SNom)";
 
 equation
@@ -125,6 +126,6 @@ equation
     preferredView = "diagram",
     uses(Modelica(version = "3.2.3")),
     Diagram(coordinateSystem(extent = {{-200, -140}, {160, 140}})),
-    Icon(coordinateSystem(extent = {{-200, -140}, {160, 120}}, initialScale = 0.1), graphics = {Rectangle(origin = {-20, -10}, extent = {{-180, 130}, {180, -130}}), Text(origin = {-13, -3}, extent = {{-147, 103}, {133, -99}}, textString = "WTGT"), Text(origin = {-232, 37}, extent = {{-28, 21}, {28, -21}}, textString = "omegaRefPu"), Text(origin = {194, 34}, extent = {{-14, 16}, {14, -16}}, textString = "PePu"), Text(origin = {-148, 135}, extent = {{-28, 21}, {28, -21}}, textString = "omegaTPu"), Text(origin = {16, 135}, extent = {{-28, 21}, {28, -21}}, textString = "omegaGPu")}),
+    Icon(coordinateSystem(extent = {{-200, -140}, {160, 120}}, initialScale = 0.1), graphics = {Rectangle(origin = {-20, -10}, extent = {{-180, 130}, {180, -130}}), Text(origin = {-232, 37}, extent = {{-28, 21}, {28, -21}}, textString = "omegaRefPu"), Text(origin = {194, 34}, extent = {{-14, 16}, {14, -16}}, textString = "PePu"), Text(origin = {-148, 135}, extent = {{-28, 21}, {28, -21}}, textString = "omegaTPu"), Text(origin = {16, 135}, extent = {{-28, 21}, {28, -21}}, textString = "omegaGPu")}),
     version = "");
-end BaseDriveTrain;
+end BaseWTGT;

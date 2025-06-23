@@ -1,0 +1,178 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2025, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="Solver">
+    <par type="INT" name="order" value="2"/>
+    <par type="DOUBLE" name="initStep" value="1e-6"/>
+    <par type="DOUBLE" name="minStep" value="1e-6"/>
+    <par type="DOUBLE" name="maxStep" value="10"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-6"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
+  </set>
+  <set id="1">
+    <par type="DOUBLE" name="infiniteBus_U0Pu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_UEvtPu" value="0.6"/>
+    <par type="DOUBLE" name="infiniteBus_UPhase" value="0"/>
+    <par type="DOUBLE" name="infiniteBus_omega0Pu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_omegaEvtPu" value="1.01"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtStart" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtEnd" value="2"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtStart" value="6"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtEnd" value="6.5"/>
+  </set>
+  <set id="2">
+    <par type="DOUBLE" name="line_XPu" value="0.0000020661"/>
+    <par type="DOUBLE" name="line_RPu" value="0.0"/>
+    <par type="DOUBLE" name="line_BPu" value="0.0"/>
+    <par type="DOUBLE" name="line_GPu" value="0.0"/>
+  </set>
+  <set id="3">
+    <par type="DOUBLE" name="WTG3_P0Pu" value="-0.7"/>
+    <par type="DOUBLE" name="WTG3_Q0Pu" value="-0.2"/>
+    <par type="DOUBLE" name="WTG3_U0Pu" value="1.0"/>
+    <par type="DOUBLE" name="WTG3_UPhase0" value="0.00000144621"/>
+    <par type="DOUBLE" name="WTG3_SNom" value="100"/>
+    <par type="DOUBLE" name="WTG3_RPu" value="0"/>
+    <par type="DOUBLE" name="WTG3_XPu" value="0.15"/>
+    <par type="DOUBLE" name="WTG3_DDn" value="20"/>
+    <par type="DOUBLE" name="WTG3_DUp" value="0.001"/>
+    <par type="BOOL" name="WTG3_FreqFlag" value="true"/>
+    <par type="DOUBLE" name="WTG3_IMaxPu" value="1.3"/>
+    <par type="DOUBLE" name="WTG3_IqFrzPu" value="0"/>
+    <par type="DOUBLE" name="WTG3_Iqh1Pu" value="1.1"/>
+    <par type="DOUBLE" name="WTG3_Iql1Pu" value="-1.1"/>
+    <par type="DOUBLE" name="WTG3_IqrMaxPu" value="20"/>
+    <par type="DOUBLE" name="WTG3_IqrMinPu" value="-20"/>
+    <par type="DOUBLE" name="WTG3_Kc" value="0"/>
+    <par type="DOUBLE" name="WTG3_Ki" value="1.5"/>
+    <par type="DOUBLE" name="WTG3_Kig" value="2.36"/>
+    <par type="DOUBLE" name="WTG3_Kp" value="0.1"/>
+    <par type="DOUBLE" name="WTG3_Kpg" value="0.05"/>
+    <par type="DOUBLE" name="WTG3_Kqi" value="0.5"/>
+    <par type="DOUBLE" name="WTG3_Kqp" value="1"/>
+    <par type="DOUBLE" name="WTG3_Kqv" value="2"/>
+    <par type="DOUBLE" name="WTG3_Kvi" value="0.7"/>
+    <par type="DOUBLE" name="WTG3_Kvp" value="1"/>
+    <par type="DOUBLE" name="WTG3_PMaxPu" value="1"/>
+    <par type="DOUBLE" name="WTG3_PMinPu" value="0"/>
+    <par type="BOOL" name="WTG3_PQFlag" value="false"/>
+    <par type="BOOL" name="WTG3_PfFlag" value="false"/>
+    <par type="BOOL" name="WTG3_QFlag" value="true"/>
+    <par type="DOUBLE" name="WTG3_QMaxPu" value="0.4"/>
+    <par type="DOUBLE" name="WTG3_QMinPu" value="-0.4"/>
+    <par type="BOOL" name="WTG3_RateFlag" value="false"/>
+    <par type="BOOL" name="WTG3_RefFlag" value="true"/>
+    <par type="DOUBLE" name="WTG3_tFilterPC" value="0.04"/>
+    <par type="DOUBLE" name="WTG3_tFilterGC" value="0.02"/>
+    <par type="DOUBLE" name="WTG3_tFt" value="1e-5"/>
+    <par type="DOUBLE" name="WTG3_tFv" value="0.1"/>
+    <par type="DOUBLE" name="WTG3_tG" value="0.02"/>
+    <par type="DOUBLE" name="WTG3_tIq" value="0.01"/>
+    <par type="DOUBLE" name="WTG3_tLag" value="0.1"/>
+    <par type="DOUBLE" name="WTG3_tP" value="0.05"/>
+    <par type="DOUBLE" name="WTG3_tPord" value="0.01"/>
+    <par type="DOUBLE" name="WTG3_tRv" value="0.01"/>
+    <par type="DOUBLE" name="WTG3_VUpPu" value="1.1"/>
+    <par type="DOUBLE" name="WTG3_VDipPu" value="0.9"/>
+    <par type="BOOL" name="WTG3_VFlag" value="true"/>
+    <par type="BOOL" name="WTG3_VCompFlag" value="false"/>
+    <par type="DOUBLE" name="WTG3_VFrz" value="0"/>
+    <par type="DOUBLE" name="WTG3_VMaxPu" value="1.1"/>
+    <par type="DOUBLE" name="WTG3_VMinPu" value="0.9"/>
+    <par type="DOUBLE" name="WTG3_VRef0Pu" value="0"/>
+    <par type="DOUBLE" name="WTG3_DPMaxPu" value="2"/>
+    <par type="DOUBLE" name="WTG3_DPMinPu" value="-2"/>
+    <par type="DOUBLE" name="WTG3_DbdPu" value="0.01"/>
+    <par type="DOUBLE" name="WTG3_Dbd1Pu" value="-0.05"/>
+    <par type="DOUBLE" name="WTG3_Dbd2Pu" value="0.05"/>
+    <par type="DOUBLE" name="WTG3_EMaxPu" value="0.5"/>
+    <par type="DOUBLE" name="WTG3_EMinPu" value="-0.5"/>
+    <par type="DOUBLE" name="WTG3_FDbd1Pu" value="0.004"/>
+    <par type="DOUBLE" name="WTG3_FDbd2Pu" value="1"/>
+    <par type="DOUBLE" name="WTG3_FEMaxPu" value="999"/>
+    <par type="DOUBLE" name="WTG3_FEMinPu" value="-999"/>
+    <par type="DOUBLE" name="WTG3_RrpwrPu" value="10"/>
+    <par type="DOUBLE" name="WTG3_KiPLL" value="20"/>
+    <par type="DOUBLE" name="WTG3_KpPLL" value="3"/>
+    <par type="DOUBLE" name="WTG3_OmegaMaxPu" value="1.5"/>
+    <par type="DOUBLE" name="WTG3_OmegaMinPu" value="0.5"/>
+    <par type="DOUBLE" name="WTG3_tHoldIq" value="0"/>
+    <par type="DOUBLE" name="WTG3_tHoldIpMax" value="0"/>
+    <par type="DOUBLE" name="WTG3_VRef1Pu" value="0"/>
+    <par type="BOOL" name="WTG3_PFlag" value="true"/>
+    <par type="DOUBLE" name="WTG3_Dshaft" value="1.5"/>
+    <par type="DOUBLE" name="WTG3_Hg" value="1"/>
+    <par type="DOUBLE" name="WTG3_Ht" value="5"/>
+    <par type="DOUBLE" name="WTG3_Kshaft" value="200"/>
+    <par type="DOUBLE" name="WTG3_VDLIp11" value="1.1"/>
+    <par type="DOUBLE" name="WTG3_VDLIp12" value="1.1"/>
+    <par type="DOUBLE" name="WTG3_VDLIp21" value="1.15"/>
+    <par type="DOUBLE" name="WTG3_VDLIp22" value="1"/>
+    <par type="DOUBLE" name="WTG3_VDLIp31" value="1.16"/>
+    <par type="DOUBLE" name="WTG3_VDLIp32" value="1"/>
+    <par type="DOUBLE" name="WTG3_VDLIp41" value="1.17"/>
+    <par type="DOUBLE" name="WTG3_VDLIp42" value="1"/>
+    <par type="DOUBLE" name="WTG3_VDLIq11" value="1.1"/>
+    <par type="DOUBLE" name="WTG3_VDLIq12" value="1.1"/>
+    <par type="DOUBLE" name="WTG3_VDLIq21" value="1.15"/>
+    <par type="DOUBLE" name="WTG3_VDLIq22" value="1"/>
+    <par type="DOUBLE" name="WTG3_VDLIq31" value="1.16"/>
+    <par type="DOUBLE" name="WTG3_VDLIq32" value="1"/>
+    <par type="DOUBLE" name="WTG3_VDLIq41" value="1.17"/>
+    <par type="DOUBLE" name="WTG3_VDLIq42" value="1"/>
+    <!-- Pitch Control -->
+    <par type="DOUBLE" name="WTG3_Kiw" value="0.1"/>
+    <par type="DOUBLE" name="WTG3_Kpw" value="3"/>
+    <par type="DOUBLE" name="WTG3_Kic" value="0.1"/>
+    <par type="DOUBLE" name="WTG3_Kpc" value="2"/>
+    <par type="DOUBLE" name="WTG3_Kcc" value="0"/>
+    <par type="DOUBLE" name="WTG3_tTheta" value="0.3"/>
+    <par type="DOUBLE" name="WTG3_ThetaMax" value="35"/>
+    <par type="DOUBLE" name="WTG3_ThetaMin" value="-5"/>
+    <par type="DOUBLE" name="WTG3_ThetaRMax" value="10"/>
+    <par type="DOUBLE" name="WTG3_ThetaRMin" value="-10"/>
+    <par type="DOUBLE" name="WTG3_ThetaCMax" value="30"/>
+    <par type="DOUBLE" name="WTG3_ThetaCMin" value="-5"/>
+    <par type="DOUBLE" name="WTG3_ThetaWMax" value="30"/>
+    <par type="DOUBLE" name="WTG3_ThetaWMin" value="-5"/>
+    <!-- Torque control -->
+    <par type="DOUBLE" name="WTG3_Kip" value="1"/>
+    <par type="DOUBLE" name="WTG3_Kpp" value="1"/>
+    <par type="DOUBLE" name="WTG3_P1" value="0"/>
+    <par type="DOUBLE" name="WTG3_Spd1" value="0"/>
+    <par type="DOUBLE" name="WTG3_P2" value="10"/>
+    <par type="DOUBLE" name="WTG3_Spd2" value="10"/>
+    <par type="DOUBLE" name="WTG3_P3" value="20"/>
+    <par type="DOUBLE" name="WTG3_Spd3" value="20"/>
+    <par type="DOUBLE" name="WTG3_P4" value="30"/>
+    <par type="DOUBLE" name="WTG3_Spd4" value="30"/>
+    <par type="DOUBLE" name="WTG3_TeMaxPu" value="1"/>
+    <par type="DOUBLE" name="WTG3_TeMinPu" value="0.05"/>
+    <par type="BOOL" name="WTG3_TFlag" value="true"/>
+    <par type="DOUBLE" name="WTG3_tp" value="0.05"/>
+    <par type="DOUBLE" name="WTG3_tOmegaRef" value="60"/>
+    <!-- Aero-dynamic model -->
+    <par type="DOUBLE" name="WTG3_Ka" value="0.007"/>
+    <par type="DOUBLE" name="WTG3_Pm0Pu" value="0.7"/>
+    <par type="DOUBLE" name="WTG3_Theta0" value="0"/>
+    <!-- Drive train control-->
+    <par type="DOUBLE" name="WTG4A_Dshaft" value="1.5"/>
+    <par type="DOUBLE" name="WTG4A_Hg" value="1"/>
+    <par type="DOUBLE" name="WTG4A_Ht" value="5"/>
+    <par type="DOUBLE" name="WTG4A_Kshaft" value="200"/>
+  </set>
+  <set id="4">
+    <par type="DOUBLE" name="setPoint_Value0" value="1"/>
+  </set>
+</parametersSet>

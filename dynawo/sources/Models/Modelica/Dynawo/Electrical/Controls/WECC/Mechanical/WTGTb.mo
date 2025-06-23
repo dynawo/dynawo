@@ -14,10 +14,10 @@ within Dynawo.Electrical.Controls.WECC.Mechanical;
 */
 
 model WTGTb "Drive train control with a mechanical power derived from filtered electrical power"
-  extends Dynawo.Electrical.Controls.WECC.Mechanical.BaseClasses.BaseDriveTrain;
+  extends Dynawo.Electrical.Controls.WECC.Mechanical.BaseClasses.BaseWTGT;
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsWTGTb;
 
-  Modelica.Blocks.Continuous.FirstOrder Pmech(T = tP, y_start = PInj0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder Pmech(T = tp, y_start = PInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {-170, 4}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
 equation
@@ -33,5 +33,6 @@ equation
     <p> This model is a simplified model for the purpose of emulating the behavior of torsional mode oscillations. The shaft damping coefficient (Dshaft) in the drive-train model is fitted to capture the net damping of the torsional mode seen in the post fault electrical power response. In the actual equipment, the drive train oscillations are damped through filtered signals and active damping controllers, which obviously are significantly different from the simple generic two mass drive train model used here. Therefore, the
     parameters (and variables) of this simple drive-train model cannot necessarily be compared with
     actual physical quantities directly. </p>
-    <p>In this updated version B of the drive train, the mechanical power is derived from the electrical power by filtering with first order delay. </p></html>"));
+    <p>In this updated version B of the drive train, the mechanical power is derived from the electrical power by filtering with first order delay. </p></html>"),
+    Icon(graphics = {Text(origin = {-13, -3}, extent = {{-147, 103}, {133, -99}}, textString = "WTGT B")}));
 end WTGTb;

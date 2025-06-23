@@ -32,13 +32,13 @@
   </blackBoxModel>
   <macroConnect connector="GFMToNode" id1="HVDC2" id2="NETWORK"/>
   <!-- Grid following converters (WECC) -->
-  <blackBoxModel id="WP1" lib="WTG4AWeccCurrentSource" parFile="fic.PAR" parId="Wind" staticId="WP1">
+  <blackBoxModel id="WP1" lib="WTG4AWeccCurrentSource1" parFile="fic.PAR" parId="Wind" staticId="WP1">
     <staticRef var="WTG4A_measurements_PPuSnRef" staticVar="p"/>
     <staticRef var="WTG4A_measurements_QPuSnRef" staticVar="q"/>
     <staticRef var="WTG4A_injector_state" staticVar="state"/>
   </blackBoxModel>
   <macroConnect connector="WTG4AToNode" id1="WP1" id2="NETWORK"/>
-  <blackBoxModel id="WP2" lib="WTG4AWeccCurrentSource" parFile="fic.PAR" parId="Wind" staticId="WP2">
+  <blackBoxModel id="WP2" lib="WTG4AWeccCurrentSource1" parFile="fic.PAR" parId="Wind" staticId="WP2">
     <staticRef var="WTG4A_measurements_PPuSnRef" staticVar="p"/>
     <staticRef var="WTG4A_measurements_QPuSnRef" staticVar="q"/>
     <staticRef var="WTG4A_injector_state" staticVar="state"/>
