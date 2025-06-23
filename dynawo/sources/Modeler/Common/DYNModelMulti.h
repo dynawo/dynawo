@@ -317,6 +317,22 @@ class ModelMulti : public Model, private boost::noncopyable {
   */
   void updateCalculatedVarForCurves(const std::shared_ptr<curves::CurvesCollection>& curvesCollection) const override;
 
+  // /**
+  //  * @brief update the subset of calculated variables needed for curves
+  //  *
+  //  * @param curvesCollection set of curves
+  //  * @return vector of Point
+  //  */
+  // std::vector<boost::shared_ptr<curves::Point> > getLastCurvesValues(boost::shared_ptr<curves::CurvesCollection>& curvesCollection) const override;
+
+  // /**
+  //  * @brief update the subset of calculated variables needed for curves
+  //  *
+  //  * @param curvesCollection set of curves
+  //  * @return vector of Point
+  //  */
+  // std::vector<std::string> getCurvesNames(boost::shared_ptr<curves::CurvesCollection>& curvesCollection) const override;
+
   /**
    * @copydoc Model::dumpParameters(std::map< std::string, std::string> & mapParameters)
    */
@@ -488,10 +504,11 @@ class ModelMulti : public Model, private boost::noncopyable {
   template<class T>
   boost::shared_ptr<SubModel>
   setConnector(T connectorSubModel, const std::string& name,
-             const boost::shared_ptr<SubModel>& subModel, const boost::shared_ptr<Variable>& variable) {
+             const boost::shared_ptr<SubModel>& subModel, const boost::shared_ptr<Variable>& variable, bool isUpdatable) {
     connectorSubModel->name(name);
     connectorSubModel->setVariableName(variable->getName());
     connectorSubModel->setParams(subModel, variable->getIndex());
+    connectorSubModel->setIsUpdatableDuringSimulation(isUpdatable);
     return boost::dynamic_pointer_cast<SubModel>(connectorSubModel);
   }
 
@@ -607,6 +624,8 @@ class ModelMulti : public Model, private boost::noncopyable {
   std::vector<size_t> nonSilentZIndexes_;  ///< indexes of non silent discrete variables
 
   std::shared_ptr<parameters::ParametersSet> localInitParameters_;  ///< local initialization solver parameters set
+
+  bool updatablesInitialized_;  ///< @b is updatable values propagated from connected values
 };  ///< Class for Multiple-Model
 
 

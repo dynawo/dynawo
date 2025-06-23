@@ -708,6 +708,100 @@ ConnectorContainer::getY0ConnectorForZConnector() const {
 }
 
 void
+ConnectorContainer::initUpdatableValues() {
+  initYUpdatableValues();
+  initZUpdatableValues();
+}
+
+void
+ConnectorContainer::initYUpdatableValues() {
+  // for each YConnector linked to an output, copy y0 from a model value to y0 of an updatable value
+  for (std::size_t i = 0; i < yConnectors_.size(); ++i) {
+    shared_ptr<Connector> yc = yConnectors_[i];
+    if (yc->connectedSubModels().empty()) {
+      throw DYNError(Error::MODELER, EmptyConnector);  // should not happen but who knows ...
+    }
+
+    // Searching the initialization reference
+    vector<connectedSubModel>::iterator itInput;
+    bool inputFound = false;
+    for (vector<connectedSubModel>::iterator it = yc->connectedSubModels().begin();
+            it != yc->connectedSubModels().end();
+            ++it) {
+      if (it->subModel()->getIsUpdatableDuringSimulation()) {
+          if (inputFound || yc->connectedSubModels().size() != 2) {
+          // Can connect only 1 input and 1 other variable
+          throw DYNError(Error::MODELER, ErrorConnectedInputs, it->subModel()->name(), it->variable()->getName());
+        }
+        inputFound = true;
+        itInput = it;
+      }
+    }
+
+    if (!inputFound)
+      continue;
+
+    if (inputFound) {
+      for (vector<connectedSubModel>::iterator it = yc->connectedSubModels().begin();
+        it != yc->connectedSubModels().end(); ++it) {
+        if (it != itInput) {
+          double sign = it->negated_ ? -1 : 1;
+          double value = yLocal_[it->subModel()->getVariableIndexGlobal(it->variable())];
+          itInput->subModel()->updateParameter("input_value", sign * value);
+        }
+      }
+    }
+  }
+}
+
+void
+ConnectorContainer::initZUpdatableValues() {
+  // for each ZConnector linked to an output, copy z0 from the variable to to zO of the udpatable model
+  for (unsigned int i = 0; i < nbZConnectors(); ++i) {
+    boost::shared_ptr<Connector> zc = zConnectors_[i];
+    if (zc->connectedSubModels().empty()) {
+      throw DYNError(Error::MODELER, EmptyConnector);  // should not happen but who knows ...
+    }
+
+    // Searching the initialization reference
+    vector<connectedSubModel>::iterator itInput;
+    bool inputFound = false;
+    bool nonZeroInputVariableFound = false;
+    bool zNegated = false;
+    for (vector<connectedSubModel>::iterator it = zc->connectedSubModels().begin();
+        it != zc->connectedSubModels().end();
+        ++it) {
+      if (it->subModel()->getIsUpdatableDuringSimulation()) {
+        if (inputFound || zc->connectedSubModels().size() != 2) {
+          // Can connect only 1 input and 1 other variable
+          throw DYNError(Error::MODELER, ErrorConnectedInputs, it->subModel()->name(), it->variable()->getName());
+        }
+        const int numVar = it->subModel()->getVariableIndexGlobal(it->variable());
+
+        if (doubleNotEquals(zLocal_[numVar], 0)) {  // non-zero variable
+          itInput = it;
+          zNegated = it->negated();
+          nonZeroInputVariableFound = true;
+          break;
+        }
+      }
+    }
+
+    if (!nonZeroInputVariableFound)
+      continue;
+
+    for (vector<connectedSubModel>::iterator it = zc->connectedSubModels().begin();
+      it != zc->connectedSubModels().end(); ++it) {
+      if (it != itInput) {
+        double sign = it->negated_ ? -1 : 1;
+        double value = zLocal_[it->subModel()->getVariableIndexGlobal(it->variable())];
+        itInput->subModel()->updateParameter("input_value", sign * value);
+      }
+    }
+  }
+}
+
+void
 ConnectorContainer::evalStaticFType() const {
   int offset = 0;
 

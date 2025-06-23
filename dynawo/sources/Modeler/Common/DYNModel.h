@@ -38,6 +38,7 @@ class ConstraintsCollection;
 namespace curves {
 class Curve;
 class CurvesCollection;
+class Point;
 }  // namespace curves
 
 namespace DYN {
