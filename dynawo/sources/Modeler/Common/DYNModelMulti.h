@@ -486,10 +486,11 @@ class ModelMulti : public Model, private boost::noncopyable {
   template<class T>
   boost::shared_ptr<SubModel>
   setConnector(T connectorSubModel, const std::string& name,
-             const boost::shared_ptr<SubModel>& subModel, const boost::shared_ptr<Variable>& variable) {
+             const boost::shared_ptr<SubModel>& subModel, const boost::shared_ptr<Variable>& variable, bool isUpdatable) {
     connectorSubModel->name(name);
     connectorSubModel->setVariableName(variable->getName());
     connectorSubModel->setParams(subModel, variable->getIndex());
+    connectorSubModel->setIsUpdatableDuringSimulation(isUpdatable);
     return boost::dynamic_pointer_cast<SubModel>(connectorSubModel);
   }
 

@@ -78,6 +78,16 @@ Curve::updateParameterCurveValue(std::string /*parameterName*/, double parameter
   }
 }
 
+double
+Curve::getLastTime() const {
+  return (points_.size() > 0) ? points_.back()->getTime(): 0;
+}
+
+double
+Curve::getLastValue() const {
+  return (points_.size() > 0) ? points_.back()->getValue(): 0;
+}
+
 void
 Curve::setModelName(const string& modelName) {
   modelName_ = modelName;

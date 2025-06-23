@@ -54,6 +54,7 @@ using boost::shared_ptr;
 using boost::dynamic_pointer_cast;
 using timeline::Timeline;
 using curves::Curve;
+using curves::Point;
 using constraints::ConstraintsCollection;
 using std::fstream;
 
@@ -70,7 +71,8 @@ modeChange_(false),
 modeChangeType_(NO_MODE),
 offsetFOptional_(0),
 zConnectedLocal_(nullptr),
-silentZInitialized_(false) {
+silentZInitialized_(false),
+updatablesInitialized_(false) {
   connectorContainer_.reset(new ConnectorContainer());
 }
 
@@ -625,6 +627,14 @@ ModelMulti::getY0(const double t0, vector<double>& y0, vector<double>& yp0) {
     subModel->getY0Sub();
     subModel->evalCalculatedVariablesSub(t0);
   }
+  if (!updatablesInitialized_) {
+    connectorContainer_->initUpdatableValues();
+    updatablesInitialized_ = true;
+  }
+  if (!updatablesInitialized_) {
+    connectorContainer_->initUpdatableValues();
+    updatablesInitialized_ = true;
+  }
   connectorContainer_->getY0Connector();
 
   std::copy(yLocal_.begin(), yLocal_.end(), y0.begin());
@@ -800,12 +810,12 @@ ModelMulti::createConnection(const shared_ptr<SubModel>& subModel1, const string
     else
       Trace::warn() << DYNLog(CalcVarConnectionIgnored, name1, name2) << Trace::endline;
   } else if (!isState1 && isState2) {  // when one variable is a state variable and the other one isn't, use a specific connection
-    if (typeVar2 != CONTINUOUS && typeVar2 != FLOW && typeVar2 != DISCRETE && typeVar2 != INTEGER) {
+    if (typeVar2 != CONTINUOUS && typeVar2 != FLOW && typeVar2 != DISCRETE && typeVar2 != INTEGER && typeVar2 != BOOLEAN) {
       throw DYNError(Error::MODELER, ConnectorFail, subModel1->modelType(), name1, typeVar2Str(typeVar1), subModel2->modelType(), name2, typeVar2Str(typeVar2));
     }
     createCalculatedVariableConnection(subModel1, variable1, subModel2, variable2);
   } else if (isState1 && (!isState2)) {
-    if (typeVar1 != CONTINUOUS && typeVar1 != FLOW && typeVar1 != DISCRETE && typeVar1 != INTEGER) {
+    if (typeVar1 != CONTINUOUS && typeVar1 != FLOW && typeVar1 != DISCRETE && typeVar1 != INTEGER && typeVar2 != BOOLEAN) {
       throw DYNError(Error::MODELER, ConnectorFail, subModel1->modelType(), name1, typeVar2Str(typeVar1), subModel2->modelType(), name2, typeVar2Str(typeVar2));
     }
     createCalculatedVariableConnection(subModel2, variable2, subModel1, variable1);
@@ -841,18 +851,22 @@ ModelMulti::createConnection(const shared_ptr<SubModel>& subModel1, const string
 }
 
 void
-ModelMulti::createCalculatedVariableConnection(const shared_ptr<SubModel>& subModel1, const boost::shared_ptr<Variable>& variable1,
-    const shared_ptr<SubModel>& subModel2, const boost::shared_ptr<Variable>& variable2) {
-  const string& calculatedVarName1 = variable1->getName();
+ModelMulti::createCalculatedVariableConnection(const shared_ptr<SubModel>& subModel1, const shared_ptr<Variable>& variable1,
+    const shared_ptr<SubModel>& subModel2, const shared_ptr<Variable>& variable2) {
+  string calculatedVarName1 = variable1->getName();
   string name = subModel1->name() + "_" + calculatedVarName1;
+  bool isUpdatable = subModel1->getIsUpdatableDuringSimulation();
+
   if (variable1->isAlias())
     name = subModel1->name() + "_" + subModel1->getCalculatedVarName(variable1->getIndex());
   boost::shared_ptr<SubModel> subModelConnector = findSubModelByName(name);
   if (!subModelConnector) {
     // Multiple connection to the same connector can happen with flow connections
-    subModelConnector = (variable1->getType() == DISCRETE || variable1->getType() == INTEGER) ?
-                    setConnector(boost::make_shared<ConnectorCalculatedDiscreteVariable>(), name, subModel1, variable1) :
-                    setConnector(boost::make_shared<ConnectorCalculatedVariable>(), name, subModel1, variable1);
+    subModelConnector = (variable1->getType() == DISCRETE || variable1->getType() == INTEGER || variable1->getType() == BOOLEAN)?
+                    setConnector(shared_ptr<ConnectorCalculatedDiscreteVariable>(new ConnectorCalculatedDiscreteVariable()),
+                    name, subModel1, variable1, isUpdatable) :
+                    setConnector(shared_ptr<ConnectorCalculatedVariable>(new ConnectorCalculatedVariable()),
+                    name, subModel1, variable1, isUpdatable);
     addSubModel(subModelConnector, "");  // no library for connectors
     subModelIdxToConnectorCalcVarsIdx_[subModelByName_[subModel1->name()]].push_back(subModels_.size() - 1);
   }

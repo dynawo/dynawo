@@ -118,6 +118,135 @@ class SimulationEntry {
     timeout_ = timeout;
   }
 
+  /**
+   * @brief timeSync getter
+   * @returns the boolean indicating if simulation must be sync with user clock
+   */
+  bool getTimeSync() const {
+    return timeSync_;
+  }
+
+  /**
+   * @brief timeSync setter
+   * @param timeSync boolean indicating if simulation must be sync with user clock
+   */
+  void setTimeSync(bool timeSync) {
+    timeSync_ = timeSync;
+  }
+
+  /**
+   * @brief timeSyncAcceleration getter
+   * @returns the acceleration ratio between simulation time and user clock
+   */
+  double getTimeSyncAcceleration() const {
+    return timeSyncAcceleration_;
+  }
+
+  /**
+   * @brief timeSyncAcceleration setter
+   * @param timeSyncAcceleration acceleration ratio between simulation time and user clock
+   */
+  void setTimeSyncAcceleration(double timeSyncAcceleration) {
+    timeSyncAcceleration_ = timeSyncAcceleration;
+  }
+
+  /**
+   * @brief eventSubscriberActions getter
+   * @returns enable event subscriber
+   */
+  bool getEventSubscriberActions() const {
+    return eventSubscriberActions_;
+  }
+
+  /**
+   * @brief eventSubscriberActions setter
+   * @param eventSubscriberActions enable event subscriber
+   */
+  void setEventSubscriberActions(bool eventSubscriberActions) {
+    eventSubscriberActions_ = eventSubscriberActions;
+  }
+
+  /**
+   * @brief eventSubscriberTrigger getter
+   * @returns enable external step trigger
+   */
+  bool getEventSubscriberTrigger() const {
+    return eventSubscriberTrigger_;
+  }
+
+  /**
+   * @brief eventSubscriberTrigger setter
+   * @param eventSubscriberTrigger enable external step trigger
+   */
+  void setEventSubscriberTrigger(bool eventSubscriberTrigger) {
+    eventSubscriberTrigger_ = eventSubscriberTrigger;
+  }
+
+  /**
+   * @brief triggerSimulationTimeStepInS getter
+   * @returns simulation output period
+   */
+  double getTriggerSimulationTimeStepInS() const {
+    return triggerSimulationTimeStepInS_;
+  }
+
+  /**
+   * @brief triggerSimulationTimeStepInS setter
+   * @param triggerSimulationTimeStepInS simulation output period
+   */
+  void setTriggerSimulationTimeStepInS(double triggerSimulationTimeStepInS) {
+    triggerSimulationTimeStepInS_ = triggerSimulationTimeStepInS;
+  }
+
+  /**
+   * @brief publishToWebsocket getter
+   * @returns publishToWebsocket
+   */
+  bool getPublishToWebsocket() const {
+    return publishToWebsocket_;
+  }
+
+  /**
+   * @brief publishToWebsocket setter
+   * @param publishToWebsocket
+   */
+  void setPublishToWebsocket(bool publishToWebsocket) {
+    publishToWebsocket_ = publishToWebsocket;
+  }
+
+  /**
+   * @brief publishToZmqCurvesFormat getter
+   * @returns publishToZmqCurvesFormat
+   */
+  const std::string& getPublishToZmqCurvesFormat() const {
+    return publishToZmqCurvesFormat_;
+  }
+
+  /**
+   * @brief publishToZmqCurvesFormat setter
+   * @param publishToZmqCurvesFormat
+   */
+  void setPublishToZmqCurvesFormat(const std::string& publishToZmqCurvesFormat) {
+    publishToZmqCurvesFormat_ = publishToZmqCurvesFormat;
+  }
+
+
+  /**
+   * @brief publishToZmq getter
+   * @returns publishToZmq
+   */
+  bool getPublishToZmq() const {
+    return publishToZmq_;
+  }
+
+  /**
+   * @brief publishToZmq setter
+   * @param publishToZmq
+   */
+  void setPublishToZmq(bool publishToZmq) {
+    publishToZmq_ = publishToZmq;
+  }
+
  private:
   double startTime_;                        ///< Start time of the simulation
   double stopTime_;                         ///< Stop time of the simulation
@@ -125,8 +254,15 @@ class SimulationEntry {
   int criteriaStep_;                        ///< criteria verification time step
   double precision_;                        ///< precision of the simulation
   double timeout_;                          ///< simulation timeout
+  bool timeSync_;                           ///< indicating if simulation must be sync with user clock
+  double timeSyncAcceleration_;             ///< simulation timeout
+  bool eventSubscriberActions_;             ///< enables zmq event subscriber
+  bool eventSubscriberTrigger_;             ///< enable extrernal step trigger
+  double triggerSimulationTimeStepInS_;     ///< simulation refresh rate (zmq enabled)
+  bool publishToZmq_;                       ///< publish step resuts to ZMQ
+  std::string publishToZmqCurvesFormat_;    ///< format for courves to publish to ZMQ
+  bool publishToWebsocket_;                 ///< publish curves update to Websocket
 };
-
 }  // namespace job
 
 #endif  // API_JOB_JOBSIMULATIONENTRY_H_
