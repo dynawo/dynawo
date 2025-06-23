@@ -542,12 +542,15 @@ We observe that the voltage at node 2 falls to zero. As the voltage is zero duri
 
 \chapter{WECC}
 
-This chapter presents five test cases simulating five models of renewable energies generators :
+This chapter presents 8 test cases simulating five models of renewable energies generators :
 \begin{itemize}
 \item A PV plant with the injector represented as a current source (WECCPVCurrentSource).
 \item A PV plant with the injector represented as a voltage source (WECCPVVoltageSource).
-\item A Wind plant of type 4A with the injector represented as a current source (WECCWTG4ACurrentSource).
-\item A Wind plant of type 4B with the injector represented as a current source (WECCWTG4BCurrentSource).
+\item A Wind plant of type 4A with the injector represented as a current source (WECCWTG4ACurrentSource1 and WECCWTG4ACurrent
+Source2).
+The type 4A is refered to the wind with representation of drive train control. There are two test cases : WECCWTG4ACurrentSource1 where WTGTA model is used to represent the drive train control with constant mechanical power and  WECCWTG4ACurrentSource2 with WTGTB model with the mechanical power derived from the electrical power.
+\item A Wind plant of type 4B with the injector represented as a current source (WECCWTG4BCurrentSource). The type 4B doesn't have a drive train control representation.
+\item A Wind plant of type 3  with the injector represented as a current source (WECCWTG3CurrentSource1 and WECCWTG3CurrentSource2). The type 3 wind model has a representation of the mechanical part. There are two test cases :  WECCWTG3CurrentSource1 with the combination of WTGQA, WTGPA, WTGAA and WTGTA for the mechanical part, and WECCWTG3CurrentSource2 with the combination of WTGQA, WTGPB, WTGAA and WTGTA.
 \item A battery energy storage system (BESS) with the injector represented as current source (WECCBESScbCurrentSource)
 \end{itemize}
 
@@ -569,7 +572,7 @@ All five models are taken from the WECC standard and can be found here:
 
 
 \section{PV and Wind}
-The implementation of the first four models in Modelica has lead to the following publication in the 14th Modelica conference:\\
+The implementation of the models WECCPVCurrentSource, WECCPVvoltageSource, WECCWTG4ACurrentSource1 and WECCWTG4BCurrentSource in Modelica has lead to the following publication in the 14th Modelica conference:\\
 
 M. Nuschke, S. Lohr, A. Guironnet and M. Saugier, "Implementation and Validation of the Generic WECC Photovoltaics and Wind Turbine Generator Models in Modelica", 2021.\\
 
@@ -617,6 +620,71 @@ M. Nuschke, S. Lohr, A. Guironnet and M. Saugier, "Implementation and Validation
   \includegraphics[width=\textwidth]{PQWECC.png}
   \caption{Active and reactive powers in pu}
 \end{figure}
+
+\section{Type 3 Wind}
+\subsection{Test Case Description}
+The WTG3 is connected to an infinite bus through a line in both test cases.
+
+\begin{figure}[H]
+\center
+  \includegraphics[width=0.55\textwidth]{WTG3.png}
+  \caption{Test case diagram}
+\end{figure}
+
+\subsubsection{Initial Conditions}
+
+\par At t=0, the power plant is injecting 0.7 pu of active power and 0.2pu of reactive power into the grid. The voltage module at its terminal is 1pu and the voltage angle is equal to 0rad.
+
+\subsubsection{Models}
+
+\par The models used for the PV plant and the Wind turbine are fully described in the \Dynawo library.
+
+\subsubsection{Solver}
+
+\par The solver used is the variable time step solver IDA with the following parameters:
+\begin{itemize}
+\item $Order$=2;
+\item $Accuracy_{Rel}$=$10^{-4}$;
+\item $Accuracy_{Abs}$=$10^{-6}$.
+\end{itemize}
+
+\subsubsection{Scenario}
+
+\par The same scenario is simulated in both cases. First the infinite bus voltage is reduced from 1pu to 0.6pu from t=1s to t=2s. Then its frequency is increased to 1.01pu (from 1pu) from t=6s to t=6.5s.
+
+\subsection{Results}
+Here we plot active and reactive power for both test cases.
+\begin{figure}[H]
+\subfigure[Active power injected in pu (base SNom)]
+{%
+\begin{tikzpicture}
+    \begin{axis}[height = 1.5in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{WTG3_WTG3_injector_PInjPu}]
+        {../WECC/Wind/WECCWTG3CurrentSource1/reference/outputs/curves/curves.csv};
+        \addplot[color=red!50]
+        table[x=time, y expr=\thisrow{WTG3_WTG3_injector_PInjPu}]
+        {../WECC/Wind/WECCWTG3CurrentSource2/reference/outputs/curves/curves.csv};
+        \legend{$WECCWTG3CurrentSource1$, $WECCWTG3CurrentSource2$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Reactive power injected in pu (base SNom)]
+{%
+\begin{tikzpicture}
+    \begin{axis}[height = 1.5in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{WTG3_WTG3_injector_QInjPu}]
+        {../WECC/Wind/WECCWTG3CurrentSource1/reference/outputs/curves/curves.csv};
+        \addplot[color=red!50]
+        table[x=time, y expr=\thisrow{WTG3_WTG3_injector_QInjPu}]
+        {../WECC/Wind/WECCWTG3CurrentSource2/reference/outputs/curves/curves.csv};
+        \legend{$WECCWTG3CurrentSource1$, $WECCWTG3CurrentSource2$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\end{figure}
+
 
 \section{BESS}
 

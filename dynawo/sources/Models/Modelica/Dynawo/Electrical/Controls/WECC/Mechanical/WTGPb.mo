@@ -17,28 +17,36 @@ model WTGPb "WECC Pitch Controller Type B"
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsWTGPb;
   extends Dynawo.Electrical.Controls.WECC.Mechanical.BaseClasses.BaseWTGP;
 
-  NonElectrical.Blocks.Continuous.AntiWindupIntegrator antiWindupIntegrator(tI = 1 / kiw, YMax = thetaWMax, YMin = thetaWMin, Y0 = 0, DyMax = 999, DyMin = -999) annotation(
-    Placement(transformation(origin = {-24, 88}, extent = {{-10, 10}, {10, -10}})));
-  NonElectrical.Blocks.Continuous.AntiWindupIntegrator antiWindupIntegrator1(YMax = thetaCMax, YMin = thetaCMin, tI = 1 / kic, Y0 = 0, DyMax = 999, DyMin = -999) annotation(
-    Placement(transformation(origin = {-22, -18}, extent = {{-10, 10}, {10, -10}})));
+  Dynawo.NonElectrical.Blocks.Continuous.AntiWindupIntegrator antiWindupIntegrator(tI = 1/Kiw, YMax = ThetaWMax, YMin = ThetaWMin, Y0 = 0, DyMax = 999, DyMin = -999) annotation(
+    Placement(transformation(origin = {-30, 80}, extent = {{-10, 10}, {10, -10}})));
+  Dynawo.NonElectrical.Blocks.Continuous.AntiWindupIntegrator antiWindupIntegrator1(YMax = ThetaCMax, YMin = ThetaCMin, tI = 1/Kic, Y0 = 0, DyMax = 999, DyMin = -999) annotation(
+    Placement(transformation(origin = {-30, -20}, extent = {{-10, 10}, {10, -10}})));
+  Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFirstOrderFreezeLimDetection absLimRateLimFirstOrderFreezeLimDetection(DyMax = ThetaRMax, DyMin = ThetaRMin, tI = tTheta, YMax = ThetaMax, YMin = ThetaMin, Y0 = Theta0) annotation(
+    Placement(transformation(origin = {86, 40}, extent = {{-10, -10}, {10, 10}})));
 
 equation
-  connect(sum1.y, antiWindupIntegrator.u) annotation(
-    Line(points = {{-36, 66}, {-36, 88}}, color = {0, 0, 127}));
-  connect(antiWindupIntegrator.y, add1.u1) annotation(
-    Line(points = {{-13, 88}, {-13, 86}, {-8, 86}, {-8, 70}}, color = {0, 0, 127}));
-  connect(antiWindupIntegrator1.y, add.u1) annotation(
-    Line(points = {{-11, -18}, {-8, -18}, {-8, -38}, {-6, -38}}, color = {0, 0, 127}));
-  connect(sum.y, antiWindupIntegrator1.u) annotation(
-    Line(points = {{-50, -42}, {-34, -42}, {-34, -18}}, color = {0, 0, 127}));
-  connect(absLimRateLimFirstOrderFreezeLimDetection.fMax, antiWindupIntegrator.fMax) annotation(
-    Line(points = {{98, 48}, {100, 48}, {100, 96}, {-4, 96}, {-4, 114}, {-17, 114}, {-17, 100}, {-16, 100}}, color = {255, 0, 255}));
-  connect(absLimRateLimFirstOrderFreezeLimDetection.fMin, antiWindupIntegrator.fMin) annotation(
-    Line(points = {{98, 36}, {100, 36}, {100, 96}, {-4, 96}, {-4, 114}, {-21, 114}, {-21, 100}, {-20, 100}}, color = {255, 0, 255}));
   connect(absLimRateLimFirstOrderFreezeLimDetection.fMax, antiWindupIntegrator1.fMax) annotation(
-    Line(points = {{98, 48}, {100, 48}, {100, 0}, {-12, 0}, {-12, -14}}, color = {255, 0, 255}));
+    Line(points = {{97, 46}, {100, 46}, {100, 0}, {-21, 0}, {-21, -8}, {-22, -8}}, color = {255, 0, 255}));
   connect(absLimRateLimFirstOrderFreezeLimDetection.fMin, antiWindupIntegrator1.fMin) annotation(
-    Line(points = {{98, 36}, {100, 36}, {100, 0}, {-18, 0}, {-18, -6}}, color = {255, 0, 255}));
+    Line(points = {{97, 34}, {100, 34}, {100, 2}, {-26, 2}, {-26, -8}}, color = {255, 0, 255}));
+  connect(booleanConstant.y, absLimRateLimFirstOrderFreezeLimDetection.freeze) annotation(
+    Line(points = {{86, 82}, {86, 52}}, color = {255, 0, 255}));
+  connect(sum.y, antiWindupIntegrator1.u) annotation(
+    Line(points = {{-70, -40}, {-60, -40}, {-60, -20}, {-42, -20}}, color = {0, 0, 127}));
+  connect(antiWindupIntegrator1.y, add.u1) annotation(
+    Line(points = {{-18, -20}, {-18, -34}, {-12, -34}}, color = {0, 0, 127}));
+  connect(sum1.y, antiWindupIntegrator.u) annotation(
+    Line(points = {{-48, 60}, {-48, 80}, {-42, 80}}, color = {0, 0, 127}));
+  connect(antiWindupIntegrator.y, add1.u1) annotation(
+    Line(points = {{-18, 80}, {-16, 80}, {-16, 66}, {-10, 66}}, color = {0, 0, 127}));
+  connect(add2.y, absLimRateLimFirstOrderFreezeLimDetection.u) annotation(
+    Line(points = {{70, 40}, {74, 40}}, color = {0, 0, 127}));
+  connect(absLimRateLimFirstOrderFreezeLimDetection.y, theta) annotation(
+    Line(points = {{98, 40}, {110, 40}}, color = {0, 0, 127}));
+  connect(absLimRateLimFirstOrderFreezeLimDetection.fMax, antiWindupIntegrator.fMax) annotation(
+    Line(points = {{98, 46}, {100, 46}, {100, 98}, {-22, 98}, {-22, 92}}, color = {255, 0, 255}));
+  connect(absLimRateLimFirstOrderFreezeLimDetection.fMin, antiWindupIntegrator.fMin) annotation(
+    Line(points = {{98, 34}, {100, 34}, {100, 100}, {-26, 100}, {-26, 92}}, color = {255, 0, 255}));
 
   annotation(
     preferredView = "diagram",

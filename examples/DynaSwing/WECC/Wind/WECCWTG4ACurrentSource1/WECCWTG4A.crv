@@ -19,5 +19,5 @@
   <curve model="WTG4A" variable="WTG4A_injector_terminal_V_im"/>
   <curve model="WTG4A" variable="WTG4A_injector_terminal_i_im"/>
   <curve model="WTG4A" variable="WTG4A_pll_omegaPLLPu"/>
-  <curve model="WTG4A" variable="WTG4A_driveTrainPmConstrant_PePu"/>
+  <curve model="WTG4A" variable="WTG4A_wecc_wtgt_PePu"/>
 </curvesInput>

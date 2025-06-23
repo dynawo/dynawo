@@ -14,9 +14,13 @@ within Dynawo.Electrical.Controls.WECC.Parameters;
 */
 
 record ParamsWTGAa
-  parameter Types.AngleDegree theta0 "Initial pitch angle" annotation(Dialog(tab="Aero-dynamic model"));
-  parameter Real Ka "Aero-dynamic gain factor" annotation(Dialog(tab="Aero-dynamic model"));
-  parameter Types.PerUnit Pm0Pu "Initial mechanical power in pu (base SNom)" annotation(Dialog(tab="Aero-dynamic model"));
+  parameter Types.PerUnit Ka "Aero-dynamic gain factor" annotation(
+  Dialog(tab="Aero-dynamic model"));
 
-  annotation(preferredView = "text");
+  // Initial parameters
+  parameter Types.AngleDegree Theta0 "Initial pitch angle in degree";
+  parameter Types.ActivePowerPu Pm0Pu "Initial mechanical power in pu (base SNom)";
+
+  annotation(
+  preferredView = "text");
 end ParamsWTGAa;

@@ -14,22 +14,40 @@ within Dynawo.Electrical.Controls.WECC.Parameters;
 */
 
 record ParamsWTGQa
-  parameter Types.Frequency kip "Integral gain" annotation(Dialog(tab="Torque control"));
-  parameter Real kpp "Proportional gain" annotation(Dialog(tab="Torque control"));
-  parameter Types.Time tp "Power measurement lag time constant" annotation(Dialog(tab="Torque control"));
-  parameter Types.Time tOmegaRef "Speed reference time constant" annotation(Dialog(tab="Torque control"));
-  parameter Types.PerUnit tEMax "Maximum torque" annotation(Dialog(tab="Torque control"));
-  parameter Types.PerUnit tEMin "Minimum torque" annotation(Dialog(tab="Torque control"));
-  parameter Real p1 "1st power point for extrapolation table" annotation(Dialog(tab="Torque control"));
-  parameter Types.PerUnit spd1 "1st speed point for extrapolation table" annotation(Dialog(tab="Torque control"));
-  parameter Types.PerUnit p2 "2nd power point for extrapolation table" annotation(Dialog(tab="Torque control"));
-  parameter Types.PerUnit spd2 "2nd speed point for extrapolation table" annotation(Dialog(tab="Torque control"));
-  parameter Types.PerUnit p3 "3rd power point for extrapolation table" annotation(Dialog(tab="Torque control"));
-  parameter Types.PerUnit spd3 "3rd speed point for extrapolation table" annotation(Dialog(tab="Torque control"));
-  parameter Types.PerUnit p4 "4th power point for extrapolation table" annotation(Dialog(tab="Torque control"));
-  parameter Types.PerUnit spd4 "4th speed point for extrapolation table" annotation(Dialog(tab="Torque control"));
-  parameter Boolean tFlag "Flag to specify PI controller input" annotation(Dialog(tab="Torque control"));
-  parameter Real PInj0Pu "Start value of active power at injector terminal in pu (base SNom) (generator convention)" annotation(Dialog(group="Initialization"));
+  parameter Types.Frequency Kip "Integral gain" annotation(
+  Dialog(tab="Torque control"));
+  parameter Types.PerUnit Kpp "Proportional gain" annotation(
+  Dialog(tab="Torque control"));
+  parameter Types.PerUnit P1 "1st power point for extrapolation table" annotation(
+  Dialog(tab="Torque control"));
+  parameter Types.PerUnit Spd1 "1st speed point for extrapolation table" annotation(
+  Dialog(tab="Torque control"));
+  parameter Types.PerUnit P2 "2nd power point for extrapolation table" annotation(
+  Dialog(tab="Torque control"));
+  parameter Types.PerUnit Spd2 "2nd speed point for extrapolation table" annotation(
+  Dialog(tab="Torque control"));
+  parameter Types.PerUnit P3 "3rd power point for extrapolation table" annotation(
+  Dialog(tab="Torque control"));
+  parameter Types.PerUnit Spd3 "3rd speed point for extrapolation table" annotation(
+  Dialog(tab="Torque control"));
+  parameter Types.PerUnit P4 "4th power point for extrapolation table" annotation(
+  Dialog(tab="Torque control"));
+  parameter Types.PerUnit Spd4 "4th speed point for extrapolation table" annotation(
+  Dialog(tab="Torque control"));
+  parameter Types.PerUnit TeMaxPu "Maximum torque" annotation(
+  Dialog(tab="Torque control"));
+  parameter Types.PerUnit TeMinPu "Minimum torque" annotation(
+  Dialog(tab="Torque control"));
+  parameter Boolean TFlag "Flag to specify PI controller input, if true : power control, if false : speed control" annotation(
+  Dialog(tab="Torque control"));
+  parameter Types.Time tP "Power measurement lag time constant in s" annotation(
+  Dialog(tab="Torque control"));
+  parameter Types.Time tOmegaRef "Speed reference time constant ins s" annotation(
+  Dialog(tab="Torque control"));
+
+  // Initial parameter
+  parameter Types.ActivePowerPu PInj0Pu "Start value of active power at injector terminal in pu (base SNom) (generator convention)" annotation(
+  Dialog(group="Initialization"));
 
   annotation(preferredView = "text");
 end ParamsWTGQa;

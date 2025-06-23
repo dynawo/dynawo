@@ -12,7 +12,7 @@ within Dynawo.Electrical.Wind.WECC;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model WTG4ACurrentSource "WECC Wind Turbine model with a simplified drive train model (dual-mass model) and with a current source as interface with the grid"
+model WTG4ACurrentSource1 "WECC Wind Turbine model with a simplified drive train model WTGTA (dual-mass model) and with a current source as interface with the grid"
   extends Dynawo.Electrical.Controls.PLL.ParamsPLL;
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREPC;
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BaseWT4A;
@@ -77,4 +77,4 @@ equation
 </ul> </p></html>"),
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-24, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC WTG 4A")}, coordinateSystem(initialScale = 0.1)),
     Diagram(coordinateSystem(grid = {1, 1}, extent = {{-180, -60}, {120, 60}})));
-end WTG4ACurrentSource;
+end WTG4ACurrentSource1;

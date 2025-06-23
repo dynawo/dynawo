@@ -27,14 +27,16 @@ block LimitedIntegratorFreeze "Integrator with limited value of the output and a
     Dialog(group = "Initialization"));
 
 equation
-  if  freeze == true then
-    der(y) = 0;
-  elseif y >= YMax and K*u > 0 then
-    der(y) = 0;
-  elseif y<= YMin and K*u < 0 then
+  if freeze then
     der(y) = 0;
   else
-    der(y) = K*u;
+    if y >= YMax and K*u > 0 then
+      der(y) = 0;
+    elseif y<= YMin and K*u < 0 then
+      der(y) = 0;
+    else
+      der(y) = K*u;
+    end if;
   end if;
 
   annotation(

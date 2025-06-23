@@ -14,12 +14,15 @@ within Dynawo.Electrical.Controls.WECC.Parameters;
 */
 
 record ParamsWTGPb
-  extends ParamsWTGP;
+  parameter Types.AngleDegree ThetaWMax "Maximum pitch PI controller angle limit in degree" annotation(
+  Dialog(tab="Pitch Control"));
+  parameter Types.AngleDegree ThetaWMin "Minimum pitch angle PI controller limit in degree" annotation(
+  Dialog(tab="Pitch Control"));
+  parameter Types.AngleDegree ThetaCMax "Maximum pitch compensation PI controller angle limit in degree" annotation(
+  Dialog(tab="Pitch Control"));
+  parameter Types.AngleDegree ThetaCMin "Minimum pitch compensation PI controller angle limit in degree" annotation(
+  Dialog(tab="Pitch Control"));
 
-  parameter Types.AngleDegree thetaWMax "Maximum pitch PI controller angle limit" annotation(Dialog(tab="Pitch Control"));
-  parameter Types.AngleDegree thetaWMin "Minimum pitch angle PI controller limit" annotation(Dialog(tab="Pitch Control"));
-  parameter Types.AngleDegree thetaCMax "Maximum pitch compensation PI controller angle limit" annotation(Dialog(tab="Pitch Control"));
-  parameter Types.AngleDegree thetaCMin "Minimum pitch compensation PI controller angle limit" annotation(Dialog(tab="Pitch Control"));
-
-  annotation(preferredView = "text");
+  annotation(
+  preferredView = "text");
 end ParamsWTGPb;

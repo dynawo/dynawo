@@ -13,8 +13,10 @@ add_subdirectory(BaseClasses B)
 set(MODEL_FILES
   package.mo
   package.order
-  WTG4ACurrentSource.mo
-  WTG4ACurrentSource.extvar
+  WTG4ACurrentSource1.mo
+  WTG4ACurrentSource1.extvar
+  WTG4ACurrentSource2.mo
+  WTG4ACurrentSource2.extvar
   WTG4BCurrentSource.mo
   WTG4BCurrentSource.extvar
   WT4ACurrentSource.mo
@@ -23,8 +25,9 @@ set(MODEL_FILES
   WT4BCurrentSource.extvar
   WT4CurrentSource_INIT.mo
   WTG3CurrentSource1.mo
+  WTG3CurrentSource1.extvar
   WTG3CurrentSource2.mo
-  WTG4ACurrentSource3.mo
+  WTG3CurrentSource2.extvar
   )
 
 #

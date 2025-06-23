@@ -17,43 +17,43 @@ model WTGAa "WECC Aero-Dynamic model"
   extends Electrical.Controls.WECC.Parameters.ParamsWTGAa;
 
   //Input variables
-  Modelica.Blocks.Interfaces.RealInput Theta(start = theta0) "Pitch angle in degrees" annotation(
-    Placement(transformation(origin = {-130, -4}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Interfaces.RealInput theta(start = Theta0) "Pitch angle in degree" annotation(
+    Placement(transformation(origin = {-130, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput PmRefPu(start = Pm0Pu) "Reference mechanical power in pu (base SNom)" annotation(
-    Placement(transformation(origin = {52, 90}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {49, -109}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+    Placement(transformation(origin = {60, 90}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {49, -109}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
-  //Output variables
+  //Output variable
   Modelica.Blocks.Interfaces.RealOutput PmPu(start = Pm0Pu) "Mechanical power in pu (base SNom)" annotation(
-    Placement(transformation(origin = {130, -11}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {130, -21}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
 
   Modelica.Blocks.Math.Feedback feedback annotation(
-    Placement(transformation(origin = {-50, -4}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.Constant Theta0(k = theta0) annotation(
-    Placement(transformation(origin = {-50, -58}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+    Placement(transformation(origin = {-50, -20}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Sources.Constant const(k = Theta0) annotation(
+    Placement(transformation(origin = {-50, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Math.Product product annotation(
-    Placement(transformation(origin = {-14, 2}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-10, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Gain gain(k = Ka) annotation(
-    Placement(transformation(origin = {22, 2}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {28, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Feedback feedback1 annotation(
-    Placement(transformation(origin = {52, 2}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+    Placement(transformation(origin = {60, 0}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
 equation
-  connect(Theta0.y, feedback.u2) annotation(
-    Line(points = {{-50, -47}, {-50, -12}}, color = {0, 0, 127}));
-  connect(Theta, feedback.u1) annotation(
-    Line(points = {{-130, -4}, {-58, -4}}, color = {0, 0, 127}));
+  connect(const.y, feedback.u2) annotation(
+    Line(points = {{-50, -39}, {-50, -28}}, color = {0, 0, 127}));
+  connect(theta, feedback.u1) annotation(
+    Line(points = {{-130, 0}, {-94, 0}, {-94, -20}, {-58, -20}}, color = {0, 0, 127}));
   connect(feedback.y, product.u2) annotation(
-    Line(points = {{-40, -4}, {-26, -4}}, color = {0, 0, 127}));
-  connect(Theta, product.u1) annotation(
-    Line(points = {{-130, -4}, {-70, -4}, {-70, 8}, {-26, 8}}, color = {0, 0, 127}));
+    Line(points = {{-41, -20}, {-31.5, -20}, {-31.5, -6}, {-22, -6}}, color = {0, 0, 127}));
+  connect(theta, product.u1) annotation(
+    Line(points = {{-130, 0}, {-94, 0}, {-94, 6}, {-22, 6}}, color = {0, 0, 127}));
   connect(product.y, gain.u) annotation(
-    Line(points = {{-2, 2}, {10, 2}}, color = {0, 0, 127}));
+    Line(points = {{1, 0}, {16, 0}}, color = {0, 0, 127}));
   connect(feedback1.y, PmPu) annotation(
-    Line(points = {{52, -7}, {52.625, -7}, {52.625, -11}, {131, -11}}, color = {0, 0, 127}));
+    Line(points = {{60, -9}, {59, -9}, {59, -21}, {130, -21}}, color = {0, 0, 127}));
   connect(gain.y, feedback1.u2) annotation(
-    Line(points = {{33, 2}, {44, 2}}, color = {0, 0, 127}));
+    Line(points = {{39, 0}, {52, 0}}, color = {0, 0, 127}));
   connect(PmRefPu, feedback1.u1) annotation(
-    Line(points = {{52, 90}, {52, 10}}, color = {0, 0, 127}));
+    Line(points = {{60, 90}, {60, 8}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
