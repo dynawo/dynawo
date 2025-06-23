@@ -76,6 +76,9 @@ Modeler::initSystem() {
   initModelDescription();
   initConnects();
   sanityCheckFlowConnection();
+
+  if (actionBuffer_)
+    model_->setActionBuffer(actionBuffer_);
 }
 
 void

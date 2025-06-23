@@ -36,6 +36,7 @@
       <xs:element name="simulation" type="dyn:SimulationEntry"/>
       <xs:element name="outputs" type="dyn:OutputsEntry" minOccurs="0"/>
       <xs:element name="localInit" type="dyn:LocalInitEntry" minOccurs="0"/>
+      <xs:element name="interactiveSettings" type="dyn:InteractiveSettingsEntry" minOccurs="0"/>
     </xs:all>
     <xs:attribute name="name" use="required" type="xs:string"/>
   </xs:complexType>
@@ -234,5 +235,97 @@
     <xs:attribute name="parFile" use="required" type="xs:string"/>
     <xs:attribute name="parId" use="required" type="xs:string"/>
   </xs:complexType>
+
+  <xs:simpleType name="PublishToZmqCurvesFormat">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="JSON"/>
+      <xs:enumeration value="CSV"/>
+      <xs:enumeration value="BYTES"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="InteractiveSettingsEntry">
+    <xs:sequence>
+      <xs:element name="channels" type="dyn:ChannelsEntry">
+        <xs:unique name="UniqueIdKey">
+          <xs:selector xpath="dyn:ChannelEntry" />
+          <xs:field xpath="@id" />
+        </xs:unique>
+      </xs:element>
+      <xs:element name="streams" type="dyn:StreamsEntry"/>
+      <xs:element name="clock" type="dyn:ClockEntry"/>
+    </xs:sequence>
+    <xs:attribute name="couplingTimeStep" use="optional" type="xs:double"/>
+  </xs:complexType>
+
+  <xs:complexType name="ClockEntry">
+    <xs:attribute name="type" use="required" type="dyn:ClockType"/>
+    <xs:attribute name="speedUp" use="optional" type="xs:double"/>
+    <xs:attribute name="triggerChannel" use="optional" type="xs:NMTOKEN"/>
+  </xs:complexType>
+
+  <xs:simpleType name="ClockType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="INTERNAL"/>
+      <xs:enumeration value="EXTERNAL"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="ChannelsEntry">
+    <xs:sequence>
+      <xs:element name="channel" type="dyn:ChannelEntry" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ChannelEntry">
+    <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
+    <xs:attribute name="kind" use="required" type="dyn:ChannelKind"/>
+    <xs:attribute name="type" use="required" type="dyn:ChannelType"/>
+    <xs:attribute name="endpoint" use="optional" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:simpleType name="ChannelKind">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="INPUT"/>
+      <xs:enumeration value="OUTPUT"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ChannelType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ZMQ"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="StreamsEntry">
+    <xs:sequence>
+      <xs:element name="stream" type="dyn:StreamEntry" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="StreamEntry">
+    <xs:attribute name="data" use="required" type="dyn:StreamData"/>
+    <xs:attribute name="channel" use="required" type="xs:NMTOKEN"/>
+    <xs:attribute name="format" use="required" type="dyn:StreamFormat"/>
+  </xs:complexType>
+
+  <xs:simpleType name="StreamData">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CURVES"/>
+      <xs:enumeration value="TIMELINE"/>
+      <xs:enumeration value="CONSTRAINTS"/>
+      <xs:enumeration value="LOGS"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="StreamFormat">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="JSON"/>
+      <xs:enumeration value="CSV"/>
+      <xs:enumeration value="BYTES"/>
+      <xs:enumeration value="XML"/>
+      <xs:enumeration value="TXT"/>
+    </xs:restriction>
+  </xs:simpleType>
 
 </xs:schema>

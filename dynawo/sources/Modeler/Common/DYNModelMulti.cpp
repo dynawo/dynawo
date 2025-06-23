@@ -70,7 +70,8 @@ modeChange_(false),
 modeChangeType_(NO_MODE),
 offsetFOptional_(0),
 zConnectedLocal_(nullptr),
-silentZInitialized_(false) {
+silentZInitialized_(false),
+updatablesInitialized_(false) {
   connectorContainer_.reset(new ConnectorContainer());
 }
 
@@ -97,6 +98,11 @@ void
 ModelMulti::setWorkingDirectory(const string& workingDirectory) {
   for (const auto& subModel : subModels_)
     subModel->setWorkingDirectory(workingDirectory);
+}
+
+void
+ModelMulti::setActionBuffer(const std::shared_ptr<ActionBuffer> actionBuffer) {
+  actionBuffer_ = actionBuffer;
 }
 
 void
@@ -625,6 +631,10 @@ ModelMulti::getY0(const double t0, vector<double>& y0, vector<double>& yp0) {
     subModel->getY0Sub();
     subModel->evalCalculatedVariablesSub(t0);
   }
+  if (!updatablesInitialized_) {
+    connectorContainer_->initUpdatableValues();
+    updatablesInitialized_ = true;
+  }
   connectorContainer_->getY0Connector();
 
   std::copy(yLocal_.begin(), yLocal_.end(), y0.begin());
@@ -800,12 +810,12 @@ ModelMulti::createConnection(const shared_ptr<SubModel>& subModel1, const string
     else
       Trace::warn() << DYNLog(CalcVarConnectionIgnored, name1, name2) << Trace::endline;
   } else if (!isState1 && isState2) {  // when one variable is a state variable and the other one isn't, use a specific connection
-    if (typeVar2 != CONTINUOUS && typeVar2 != FLOW && typeVar2 != DISCRETE && typeVar2 != INTEGER) {
+    if (typeVar2 != CONTINUOUS && typeVar2 != FLOW && typeVar2 != DISCRETE && typeVar2 != INTEGER && typeVar2 != BOOLEAN) {
       throw DYNError(Error::MODELER, ConnectorFail, subModel1->modelType(), name1, typeVar2Str(typeVar1), subModel2->modelType(), name2, typeVar2Str(typeVar2));
     }
     createCalculatedVariableConnection(subModel1, variable1, subModel2, variable2);
   } else if (isState1 && (!isState2)) {
-    if (typeVar1 != CONTINUOUS && typeVar1 != FLOW && typeVar1 != DISCRETE && typeVar1 != INTEGER) {
+    if (typeVar1 != CONTINUOUS && typeVar1 != FLOW && typeVar1 != DISCRETE && typeVar1 != INTEGER && typeVar2 != BOOLEAN) {
       throw DYNError(Error::MODELER, ConnectorFail, subModel1->modelType(), name1, typeVar2Str(typeVar1), subModel2->modelType(), name2, typeVar2Str(typeVar2));
     }
     createCalculatedVariableConnection(subModel2, variable2, subModel1, variable1);
@@ -841,18 +851,22 @@ ModelMulti::createConnection(const shared_ptr<SubModel>& subModel1, const string
 }
 
 void
-ModelMulti::createCalculatedVariableConnection(const shared_ptr<SubModel>& subModel1, const boost::shared_ptr<Variable>& variable1,
-    const shared_ptr<SubModel>& subModel2, const boost::shared_ptr<Variable>& variable2) {
-  const string& calculatedVarName1 = variable1->getName();
+ModelMulti::createCalculatedVariableConnection(const shared_ptr<SubModel>& subModel1, const shared_ptr<Variable>& variable1,
+    const shared_ptr<SubModel>& subModel2, const shared_ptr<Variable>& variable2) {
+  string calculatedVarName1 = variable1->getName();
   string name = subModel1->name() + "_" + calculatedVarName1;
+  bool isUpdatable = subModel1->getIsUpdatable();
+
   if (variable1->isAlias())
     name = subModel1->name() + "_" + subModel1->getCalculatedVarName(variable1->getIndex());
   boost::shared_ptr<SubModel> subModelConnector = findSubModelByName(name);
   if (!subModelConnector) {
     // Multiple connection to the same connector can happen with flow connections
-    subModelConnector = (variable1->getType() == DISCRETE || variable1->getType() == INTEGER) ?
-                    setConnector(boost::make_shared<ConnectorCalculatedDiscreteVariable>(), name, subModel1, variable1) :
-                    setConnector(boost::make_shared<ConnectorCalculatedVariable>(), name, subModel1, variable1);
+    subModelConnector = (variable1->getType() == DISCRETE || variable1->getType() == INTEGER || variable1->getType() == BOOLEAN)?
+                    setConnector(shared_ptr<ConnectorCalculatedDiscreteVariable>(new ConnectorCalculatedDiscreteVariable()),
+                    name, subModel1, variable1, isUpdatable) :
+                    setConnector(shared_ptr<ConnectorCalculatedVariable>(new ConnectorCalculatedVariable()),
+                    name, subModel1, variable1, isUpdatable);
     addSubModel(subModelConnector, "");  // no library for connectors
     subModelIdxToConnectorCalcVarsIdx_[subModelByName_[subModel1->name()]].push_back(subModels_.size() - 1);
   }
@@ -1253,6 +1267,75 @@ void ModelMulti::setCurrentZ(const vector<double>& z) {
 
 void ModelMulti::setLocalInitParameters(const std::shared_ptr<parameters::ParametersSet>& localInitParameters) {
   localInitParameters_ = localInitParameters;
+}
+
+void ModelMulti::registerAction(const string& actionString) {
+  if (!actionBuffer_)
+    return;
+
+  // --- Parse the action string
+  std::istringstream stream(actionString);
+  string token;
+  string subModelName;
+
+  // Read the model name (first part before the first comma)
+  std::getline(stream, subModelName, ',');
+
+  const boost::shared_ptr<SubModel> subModel = findSubModelByName(subModelName);
+  if (!subModel) {
+    Trace::warn() << DYNLog(ActionUnknownSubModel, subModelName) << Trace::endline;
+    return;
+  }
+
+  Action::ActionParameters parameterValueSet;
+  // Read the rest of the parameter-value pairs
+  while (std::getline(stream, token, ',')) {
+    string paramName = token;
+    string value;
+
+    if (std::getline(stream, token, ',')) {
+        value = token;
+    } else {
+      string shortAction = (actionString.size() > 40) ? actionString.substr(0, 40) + "..." : actionString;
+      Trace::warn() << DYNLog(ActionUnparsable, shortAction) << Trace::endline;
+      return;
+    }
+
+    if (subModel->hasParameterDynamic(paramName)) {
+      const ParameterModeler& parameter = subModel->findParameterDynamic(paramName);
+      boost::any castedValue;
+      switch (parameter.getValueType()) {
+        case VAR_TYPE_DOUBLE: {
+          castedValue = std::stod(value);
+          break;
+        }
+        case VAR_TYPE_INT: {
+          castedValue = std::stoi(value);
+          break;
+        }
+        case VAR_TYPE_BOOL: {
+          bool bval = std::stoi(value);
+          castedValue = bval;
+          break;
+        }
+        case VAR_TYPE_STRING: {
+          castedValue = value;
+          break;
+        }
+        default:
+        {
+          throw DYNError(Error::MODELER, ParameterBadType, parameter.getName());
+        }
+      }
+
+      parameterValueSet.push_back(std::make_tuple(paramName, castedValue, parameter.getValueType()));
+    } else {
+      Trace::warn() << DYNLog(ActionParameterNotFound, paramName) << Trace::endline;
+      return;
+    }
+  }
+  // --- Add to buffer
+  actionBuffer_->addAction(subModel, parameterValueSet);
 }
 
 }  // namespace DYN
