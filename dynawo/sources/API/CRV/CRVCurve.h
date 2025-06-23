@@ -58,6 +58,18 @@ class Curve {
   void update(double time);
 
   /**
+   * @brief get last point value
+   * @return value of last Point (0 if Point list is empty)
+   */
+  double getLastValue() const;
+
+  /**
+   * @brief get last point time
+   * @return time of last Point (0 if Point list is empty)
+   */
+  double getLastTime() const;
+
+  /**
    * @brief Setter for curve's model name
    * @param modelName curve's model name
    */
@@ -129,6 +141,11 @@ class Curve {
    */
   const std::string& getVariable() const;
 
+  /**
+   * @brief Getter for curve's unique identifier based on model, variable name and factor if it exists
+   * @return unique identifier
+   */
+  std::string getUniqueName() const;
 
   /**
    * @brief Getter for curve's factor

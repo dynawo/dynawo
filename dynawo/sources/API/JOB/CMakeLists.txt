@@ -56,6 +56,12 @@ set(API_JOB_SOURCES
     JOBSimulationEntryFactory.cpp
     JOBSolverEntryFactory.cpp
     JOBModelsDirEntryFactory.cpp
+    JOBInteractiveSettingsEntry.cpp
+    JOBChannelsEntry.cpp
+    JOBChannelEntry.cpp
+    JOBClockEntry.cpp
+    JOBStreamsEntry.cpp
+    JOBStreamEntry.cpp
     )
 
 set(API_JOB_INCLUDE_HEADERS
@@ -98,6 +104,12 @@ set(API_JOB_INCLUDE_HEADERS
     JOBTimelineEntry.h
     JOBTimetableEntry.h
     JOBModelsDirEntry.h
+    JOBInteractiveSettingsEntry.h
+    JOBChannelsEntry.h
+    JOBChannelEntry.h
+    JOBClockEntry.h
+    JOBStreamsEntry.h
+    JOBStreamEntry.h
     )
 
 add_library(dynawo_API_JOB SHARED ${API_JOB_SOURCES})

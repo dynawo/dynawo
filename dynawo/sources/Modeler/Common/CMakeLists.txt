@@ -37,6 +37,8 @@ set(MODELER_SOURCES
     DYNDelay.cpp
     DYNDelayManager.cpp
     DYNRingBuffer.cpp
+    DYNAction.cpp
+    DYNActionBuffer.cpp
     )
 
 set(MODELER_INCLUDE_HEADERS
@@ -70,6 +72,8 @@ set(MODELER_INCLUDE_HEADERS
     DYNDelay.h
     DYNDelayManager.h
     DYNRingBuffer.h
+    DYNAction.h
+    DYNActionBuffer.h
     )
 
 add_library(dynawo_ModelerCommon SHARED ${MODELER_SOURCES})

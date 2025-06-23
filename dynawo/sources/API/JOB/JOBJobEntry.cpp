@@ -27,6 +27,7 @@ JobEntry::JobEntry(const JobEntry& other) :
     simulationEntry_(DYN::clone(other.simulationEntry_)),
     outputsEntry_(DYN::clone(other.outputsEntry_)),
     localInitEntry_(DYN::clone(other.localInitEntry_)),
+    interactiveSettingsEntry_(DYN::clone(other.interactiveSettingsEntry_)),
     name_(other.name_)
 {}
 
@@ -37,6 +38,7 @@ JobEntry::operator=(const JobEntry& other) {
   simulationEntry_ = DYN::clone(other.simulationEntry_);
   outputsEntry_ = DYN::clone(other.outputsEntry_);
   localInitEntry_ = DYN::clone(other.localInitEntry_);
+  interactiveSettingsEntry_ = DYN::clone(other.interactiveSettingsEntry_);
   name_ = other.name_;
   return *this;
 }
@@ -89,6 +91,16 @@ JobEntry::setLocalInitEntry(const std::shared_ptr<LocalInitEntry> & localInitEnt
 std::shared_ptr<LocalInitEntry>
 JobEntry::getLocalInitEntry() const {
   return localInitEntry_;
+}
+
+void
+JobEntry::setInteractiveSettingsEntry(const std::shared_ptr<InteractiveSettingsEntry> & interactiveSettingsEntry) {
+  interactiveSettingsEntry_ = interactiveSettingsEntry;
+}
+
+std::shared_ptr<InteractiveSettingsEntry>
+JobEntry::getInteractiveSettingsEntry() const {
+  return interactiveSettingsEntry_;
 }
 
 void

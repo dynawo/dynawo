@@ -43,6 +43,12 @@
 #include "JOBTimelineEntry.h"
 #include "JOBTimetableEntry.h"
 #include "JOBLocalInitEntry.h"
+#include "JOBInteractiveSettingsEntry.h"
+#include "JOBChannelsEntry.h"
+#include "JOBChannelEntry.h"
+#include "JOBClockEntry.h"
+#include "JOBStreamsEntry.h"
+#include "JOBStreamEntry.h"
 
 #include <string>
 #include <vector>
@@ -908,6 +914,240 @@ class LocalInitHandler : public xml::sax::parser::ComposableElementHandler {
 };
 
 /**
+ * @class ClockHandler
+ * @brief Handler used to parse clock element
+ */
+class ClockHandler : public xml::sax::parser::ComposableElementHandler {
+ public:
+  /**
+   * @brief Constructor
+   * @param root_element complete name of the element read by the handler
+   */
+  explicit ClockHandler(elementName_type const& root_element);
+
+  /**
+   * @brief Destructor
+   */
+  ~ClockHandler() override;
+
+  /**
+   * @brief return the clock entry read in xml file
+   * @return clock entry object build thanks to infos read in xml file
+   */
+  std::shared_ptr<ClockEntry> get() const;
+
+ protected:
+  /**
+   * @brief Called when the XML element opening tag is read
+   * @param attributes attributes of the element
+   */
+  void create(attributes_type const& attributes);
+
+ private:
+  std::shared_ptr<ClockEntry> clock_;  ///< current clock object
+};
+
+/**
+ * @class ChannelHandler
+ * @brief Handler used to parse channel element
+ */
+class ChannelHandler : public xml::sax::parser::ComposableElementHandler {
+ public:
+  /**
+   * @brief Constructor
+   * @param root_element complete name of the element read by the handler
+   */
+  explicit ChannelHandler(elementName_type const& root_element);
+
+  /**
+   * @brief Destructor
+   */
+  ~ChannelHandler() override;
+
+  /**
+   * @brief return the channel entry read in xml file
+   * @return channel entry object build thanks to infos read in xml file
+   */
+  std::shared_ptr<ChannelEntry> get() const;
+
+ protected:
+  /**
+   * @brief Called when the XML element opening tag is read
+   * @param attributes attributes of the element
+   */
+  void create(attributes_type const& attributes);
+
+ private:
+  std::shared_ptr<ChannelEntry> channel_;  ///< current channel object
+};
+
+/**
+ * @class ChannelsHandler
+ * @brief Handler used to parse channels element
+ */
+class ChannelsHandler : public xml::sax::parser::ComposableElementHandler {
+ public:
+  /**
+   * @brief Constructor
+   * @param root_element complete name of the element read by the handler
+   */
+  explicit ChannelsHandler(elementName_type const& root_element);
+
+  /**
+   * @brief Destructor
+   */
+  ~ChannelsHandler() override;
+
+  /**
+   * @brief return the channels entry read in xml file
+   * @return channels entry object build thanks to infos read in xml file
+   */
+  std::shared_ptr<ChannelsEntry> get() const;
+
+  /**
+   * @brief add a channel object to the channels entry
+   */
+  void addChannel();
+
+ protected:
+  /**
+   * @brief Called when the XML element opening tag is read
+   * @param attributes attributes of the element
+   */
+  void create(attributes_type const& attributes);
+
+ private:
+  std::shared_ptr<ChannelsEntry> channels_;  ///< current channels object
+  ChannelHandler channelHandler_;            ///< handler used to read channel element
+};
+
+/**
+ * @class StreamHandler
+ * @brief Handler used to parse stream element
+ */
+class StreamHandler : public xml::sax::parser::ComposableElementHandler {
+ public:
+  /**
+   * @brief Constructor
+   * @param root_element complete name of the element read by the handler
+   */
+  explicit StreamHandler(elementName_type const& root_element);
+
+  /**
+   * @brief Destructor
+   */
+  ~StreamHandler() override;
+
+  /**
+   * @brief return the output stream entry read in xml file
+   * @return output stream entry object build thanks to infos read in xml file
+   */
+  std::shared_ptr<StreamEntry> get() const;
+
+ protected:
+  /**
+   * @brief Called when the XML element opening tag is read
+   * @param attributes attributes of the element
+   */
+  void create(attributes_type const& attributes);
+
+ private:
+  std::shared_ptr<StreamEntry> stream_;  ///< current output stream object
+};
+
+/**
+ * @class StreamsHandler
+ * @brief Handler used to parse output streams element
+ */
+class StreamsHandler : public xml::sax::parser::ComposableElementHandler {
+ public:
+  /**
+   * @brief Constructor
+   * @param root_element complete name of the element read by the handler
+   */
+  explicit StreamsHandler(elementName_type const& root_element);
+
+  /**
+   * @brief Destructor
+   */
+  ~StreamsHandler() override;
+
+  /**
+   * @brief return the output streams entry read in xml file
+   * @return output streams entry object build thanks to infos read in xml file
+   */
+  std::shared_ptr<StreamsEntry> get() const;
+
+  /**
+   * @brief add a output stream object to the output streams entry
+   */
+  void addStream();
+
+ protected:
+  /**
+   * @brief Called when the XML element opening tag is read
+   * @param attributes attributes of the element
+   */
+  void create(attributes_type const& attributes);
+
+ private:
+  std::shared_ptr<StreamsEntry> streams_;  ///< current output streams object
+  StreamHandler streamHandler_;            ///< handler used to read outputs tream element
+};
+
+/**
+ * @class InteractiveSettingsHandler
+ * @brief Handler used to parse interactive settings element
+ */
+class InteractiveSettingsHandler : public xml::sax::parser::ComposableElementHandler {
+ public:
+  /**
+   * @brief Constructor
+   * @param root_element complete name of the element read by the handler
+   */
+  explicit InteractiveSettingsHandler(elementName_type const& root_element);
+
+  /**
+   * @brief Destructor
+   */
+  ~InteractiveSettingsHandler() override;
+
+  /**
+   * @brief return the interactive settings entry read in xml file
+   * @return interactive settings entry object build thanks to infos read in xml file
+   */
+  std::shared_ptr<InteractiveSettingsEntry> get() const;
+
+  /**
+   * @brief set clock entry to the interactive settings entry
+   */
+  void addClock();
+
+  /**
+   * @brief set channels entry to the interactive settings entry
+   */
+  void addChannels();
+
+  /**
+   * @brief set output streams entry to the interactive settings entry
+   */
+  void addStreams();
+
+ protected:
+  /**
+   * @brief Called when the XML element opening tag is read
+   * @param attributes attributes of the element
+   */
+  void create(attributes_type const& attributes);
+
+ private:
+  std::shared_ptr<InteractiveSettingsEntry> interactiveSettings_;  ///< current interactive settings object
+  ClockHandler clockHandler_;                    ///< handler used to read clock element
+  ChannelsHandler channelsHandler_;              ///< handler used to read channels element
+  StreamsHandler streamsHandler_;    ///< handler used to read streams element
+};
+
+/**
  * @class JobHandler
  * @brief Handler used to parse job element
  */
@@ -955,6 +1195,11 @@ class JobHandler : public xml::sax::parser::ComposableElementHandler {
    */
   void addLocalInit();
 
+  /**
+   * @brief add a interactive settings object to the current job
+   */
+  void addInteractiveSettings();
+
  protected:
   /**
    * @brief Called when the XML element opening tag is read
@@ -963,12 +1208,13 @@ class JobHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const& attributes);
 
  private:
-  std::shared_ptr<JobEntry> job_;        ///< job object created by the handler
-  SolverHandler solverHandler_;          ///< handler used to read solver element
-  ModelerHandler modelerHandler_;        ///< handler used to read modeler element
-  SimulationHandler simulationHandler_;  ///< handler used to read simulation element
-  OutputsHandler outputsHandler_;        ///< handler used to read outputs element
-  LocalInitHandler localInitHandler_;    ///< handler used to read local init element
+  std::shared_ptr<JobEntry> job_;                            ///< job object created by the handler
+  SolverHandler solverHandler_;                              ///< handler used to read solver element
+  ModelerHandler modelerHandler_;                            ///< handler used to read modeler element
+  SimulationHandler simulationHandler_;                      ///< handler used to read simulation element
+  OutputsHandler outputsHandler_;                            ///< handler used to read outputs element
+  LocalInitHandler localInitHandler_;                        ///< handler used to read local init element
+  InteractiveSettingsHandler interactiveSettingsHandler_;    ///< handler used to read interactive settings element
 };
 
 /**
