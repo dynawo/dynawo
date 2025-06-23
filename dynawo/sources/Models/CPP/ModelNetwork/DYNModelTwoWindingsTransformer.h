@@ -72,15 +72,19 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
     p2Num_ = 3,
     q1Num_ = 4,
     q2Num_ = 5,
+    pRaw1Num_ = 6,
+    pRaw2Num_ = 7,
+    qRaw1Num_ = 8,
+    qRaw2Num_ = 9,
     //  for current Automaton with side monitored
-    iS1ToS2Side1Num_ = 6,  // current oriented from side 1 to side 2 at side 1 (unit A)
-    iS2ToS1Side1Num_ = 7,  // current oriented from side 2 to side 1 at side 1 (unit A)
-    iS1ToS2Side2Num_ = 8,  // current oriented from side 1 to side 2 at side 2 (unit A)
-    iS2ToS1Side2Num_ = 9,  // current oriented from side 2 to side 1 at side 2 (unit A)
-    iSide1Num_ = 10,  // (max I1 and -1*I1, unit A => equivalent of the absolute value of I1)
-    iSide2Num_ = 11,  // (max I2 and -1*I2, unit A => equivalent of the absolute value of I2)
-    twtStateNum_ = 12,  // state of the 2wt (as a continuous variable)
-    nbCalculatedVariables_ = 13
+    iS1ToS2Side1Num_ = 10,  // current oriented from side 1 to side 2 at side 1 (unit A)
+    iS2ToS1Side1Num_ = 11,  // current oriented from side 2 to side 1 at side 1 (unit A)
+    iS1ToS2Side2Num_ = 12,  // current oriented from side 1 to side 2 at side 2 (unit A)
+    iS2ToS1Side2Num_ = 13,  // current oriented from side 2 to side 1 at side 2 (unit A)
+    iSide1Num_ = 14,  // (max I1 and -1*I1, unit A => equivalent of the absolute value of I1)
+    iSide2Num_ = 15,  // (max I2 and -1*I2, unit A => equivalent of the absolute value of I2)
+    twtStateNum_ = 16,  // state of the 2wt (as a continuous variable)
+    nbCalculatedVariables_ = 17
   } CalculatedVariables_t;  // enumeration of calculated variables which can be retrieved for this model
 
   /**

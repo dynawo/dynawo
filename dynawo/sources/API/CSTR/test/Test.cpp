@@ -90,10 +90,9 @@ TEST(APICSTRTest, CollectionFilterConstraint) {
 
   collection->filter();
 
-  nbConstraint = 0;
   nbConstraint = collection->getConstraintsById().size();
 
-  ASSERT_EQ(nbConstraint, 2);  // the constraints have been removed
+  ASSERT_EQ(nbConstraint, 2);  // cleared constraints have been removed
 }
 
 
