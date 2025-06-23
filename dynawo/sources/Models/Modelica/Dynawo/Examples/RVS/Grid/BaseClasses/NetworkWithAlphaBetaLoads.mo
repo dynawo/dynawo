@@ -51,86 +51,103 @@ model NetworkWithAlphaBetaLoads "RVS test grid with buses, lines, shunts and alp
   Dynawo.Electrical.Loads.LoadAlphaBeta load_1120_ATTILA(alpha = 1, beta = 2, i0Pu = i0Pu_load_1120_ATTILA, s0Pu = s0Pu_load_1120_ATTILA, u0Pu = u0Pu_load_1120_ATTILA) annotation(
     Placement(visible = true, transformation(origin = {186, 106}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_1101_ABEL_INIT;
   parameter Types.ActivePowerPu P0Pu_load_1101_ABEL;
   parameter Types.ReactivePowerPu Q0Pu_load_1101_ABEL;
   parameter Types.VoltageModulePu U0Pu_load_1101_ABEL;
   parameter Types.Angle UPhase0_load_1101_ABEL;
 
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_1102_ADAMS_INIT;
   parameter Types.ActivePowerPu P0Pu_load_1102_ADAMS;
   parameter Types.ReactivePowerPu Q0Pu_load_1102_ADAMS;
   parameter Types.VoltageModulePu U0Pu_load_1102_ADAMS;
   parameter Types.Angle UPhase0_load_1102_ADAMS;
 
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_1103_ADLER_INIT;
   parameter Types.ActivePowerPu P0Pu_load_1103_ADLER;
   parameter Types.ReactivePowerPu Q0Pu_load_1103_ADLER;
   parameter Types.VoltageModulePu U0Pu_load_1103_ADLER;
   parameter Types.Angle UPhase0_load_1103_ADLER;
 
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_1104_AGRICOLA_INIT;
   parameter Types.ActivePowerPu P0Pu_load_1104_AGRICOLA;
   parameter Types.ReactivePowerPu Q0Pu_load_1104_AGRICOLA;
   parameter Types.VoltageModulePu U0Pu_load_1104_AGRICOLA;
   parameter Types.Angle UPhase0_load_1104_AGRICOLA;
 
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_1105_AIKEN_INIT;
   parameter Types.ActivePowerPu P0Pu_load_1105_AIKEN;
   parameter Types.ReactivePowerPu Q0Pu_load_1105_AIKEN;
   parameter Types.VoltageModulePu U0Pu_load_1105_AIKEN;
   parameter Types.Angle UPhase0_load_1105_AIKEN;
 
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_1106_ALBER_INIT;
   parameter Types.ActivePowerPu P0Pu_load_1106_ALBER;
   parameter Types.ReactivePowerPu Q0Pu_load_1106_ALBER;
   parameter Types.VoltageModulePu U0Pu_load_1106_ALBER;
   parameter Types.Angle UPhase0_load_1106_ALBER;
 
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_1107_ALDER_INIT;
   parameter Types.ActivePowerPu P0Pu_load_1107_ALDER;
   parameter Types.ReactivePowerPu Q0Pu_load_1107_ALDER;
   parameter Types.VoltageModulePu U0Pu_load_1107_ALDER;
   parameter Types.Angle UPhase0_load_1107_ALDER;
 
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_1108_ALGER_INIT;
   parameter Types.ActivePowerPu P0Pu_load_1108_ALGER;
   parameter Types.ReactivePowerPu Q0Pu_load_1108_ALGER;
   parameter Types.VoltageModulePu U0Pu_load_1108_ALGER;
   parameter Types.Angle UPhase0_load_1108_ALGER;
 
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_1109_ALI_INIT;
   parameter Types.ActivePowerPu P0Pu_load_1109_ALI;
   parameter Types.ReactivePowerPu Q0Pu_load_1109_ALI;
   parameter Types.VoltageModulePu U0Pu_load_1109_ALI;
   parameter Types.Angle UPhase0_load_1109_ALI;
 
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_1110_ALLEN_INIT;
   parameter Types.ActivePowerPu P0Pu_load_1110_ALLEN;
   parameter Types.ReactivePowerPu Q0Pu_load_1110_ALLEN;
   parameter Types.VoltageModulePu U0Pu_load_1110_ALLEN;
   parameter Types.Angle UPhase0_load_1110_ALLEN;
 
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_1113_ARNE_INIT;
   parameter Types.ActivePowerPu P0Pu_load_1113_ARNE;
   parameter Types.ReactivePowerPu Q0Pu_load_1113_ARNE;
   parameter Types.VoltageModulePu U0Pu_load_1113_ARNE;
   parameter Types.Angle UPhase0_load_1113_ARNE;
 
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_1114_ARNOLD_INIT;
   parameter Types.ActivePowerPu P0Pu_load_1114_ARNOLD;
   parameter Types.ReactivePowerPu Q0Pu_load_1114_ARNOLD;
   parameter Types.VoltageModulePu U0Pu_load_1114_ARNOLD;
   parameter Types.Angle UPhase0_load_1114_ARNOLD;
 
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_1115_ARTHUR_INIT;
   parameter Types.ActivePowerPu P0Pu_load_1115_ARTHUR;
   parameter Types.ReactivePowerPu Q0Pu_load_1115_ARTHUR;
   parameter Types.VoltageModulePu U0Pu_load_1115_ARTHUR;
   parameter Types.Angle UPhase0_load_1115_ARTHUR;
 
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_1116_ASSER_INIT;
   parameter Types.ActivePowerPu P0Pu_load_1116_ASSER;
   parameter Types.ReactivePowerPu Q0Pu_load_1116_ASSER;
   parameter Types.VoltageModulePu U0Pu_load_1116_ASSER;
   parameter Types.Angle UPhase0_load_1116_ASSER;
 
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_1118_ASTOR_INIT;
   parameter Types.ActivePowerPu P0Pu_load_1118_ASTOR;
   parameter Types.ReactivePowerPu Q0Pu_load_1118_ASTOR;
   parameter Types.VoltageModulePu U0Pu_load_1118_ASTOR;
   parameter Types.Angle UPhase0_load_1118_ASTOR;
 
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_1119_ATTAR_INIT;
   parameter Types.ActivePowerPu P0Pu_load_1119_ATTAR;
   parameter Types.ReactivePowerPu Q0Pu_load_1119_ATTAR;
   parameter Types.VoltageModulePu U0Pu_load_1119_ATTAR;
   parameter Types.Angle UPhase0_load_1119_ATTAR;
 
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_1120_ATTILA_INIT;
   parameter Types.ActivePowerPu P0Pu_load_1120_ATTILA;
   parameter Types.ReactivePowerPu Q0Pu_load_1120_ATTILA;
   parameter Types.VoltageModulePu U0Pu_load_1120_ATTILA;

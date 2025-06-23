@@ -132,6 +132,24 @@ model NetworkWithTrf "RVS test grid with buses, lines, shunts, alpha-beta loads 
     Placement(visible = true, transformation(origin = {28, 16}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
 equation
+  connect(tfo_1101_101.terminal_init_tfo_ui20Pu, load_1101_ABEL_INIT.terminal);
+  connect(tfo_1102_102.terminal_init_tfo_ui20Pu, load_1102_ADAMS_INIT.terminal);
+  connect(tfo_1103_103.terminal_init_tfo_ui20Pu, load_1103_ADLER_INIT.terminal);
+  connect(tfo_1104_104.terminal_init_tfo_ui20Pu, load_1104_AGRICOLA_INIT.terminal);
+  connect(tfo_1105_105.terminal_init_tfo_ui20Pu, load_1105_AIKEN_INIT.terminal);
+  connect(tfo_1106_106.terminal_init_tfo_ui20Pu, load_1106_ALBER_INIT.terminal);
+  connect(tfo_1107_107.terminal_init_tfo_ui20Pu, load_1107_ALDER_INIT.terminal);
+  connect(tfo_1108_108.terminal_init_tfo_ui20Pu, load_1108_ALGER_INIT.terminal);
+  connect(tfo_1109_109.terminal_init_tfo_ui20Pu, load_1109_ALI_INIT.terminal);
+  connect(tfo_1110_110.terminal_init_tfo_ui20Pu, load_1110_ALLEN_INIT.terminal);
+  connect(tfo_1113_113.terminal_init_tfo_ui20Pu, load_1113_ARNE_INIT.terminal);
+  connect(tfo_1114_114.terminal_init_tfo_ui20Pu, load_1114_ARNOLD_INIT.terminal);
+  connect(tfo_1115_115.terminal_init_tfo_ui20Pu, load_1115_ARTHUR_INIT.terminal);
+  connect(tfo_1116_116.terminal_init_tfo_ui20Pu, load_1116_ASSER_INIT.terminal);
+  connect(tfo_1118_118.terminal_init_tfo_ui20Pu, load_1118_ASTOR_INIT.terminal);
+  connect(tfo_1119_119.terminal_init_tfo_ui20Pu, load_1119_ATTAR_INIT.terminal);
+  connect(tfo_1120_120.terminal_init_tfo_ui20Pu, load_1120_ATTILA_INIT.terminal);
+
   when time >= 0 then
     tfo_103_124.tap.value = tfo_103_124.Tap0;
     tfo_109_111.tap.value = tfo_109_111.Tap0;

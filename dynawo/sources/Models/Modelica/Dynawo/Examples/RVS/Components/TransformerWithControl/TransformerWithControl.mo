@@ -53,6 +53,8 @@ model TransformerWithControl "Model of transformer with variable tap, for the RV
     U1Phase0 = U1Phase0) annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-50, -50}, {50, 50}}, rotation = 0)));
 
+  Dynawo.Connectors.ACPower terminal_init_tfo_ui20Pu;
+
   parameter Types.ActivePowerPu P10Pu;
   parameter Types.ReactivePowerPu Q10Pu;
   parameter Types.VoltageModulePu U10Pu;
@@ -77,6 +79,8 @@ equation
     Line(points = {{-50, 0}, {-110, 0}}, color = {0, 0, 255}));
   connect(tfoVariableTap.terminal2, terminal2) annotation(
     Line(points = {{50, 0}, {110, 0}}, color = {0, 0, 255}));
+
+  connect(terminal_init_tfo_ui20Pu, tfoVariableTap.terminal);
 
   annotation(preferredView = "text",
     Icon(graphics = {Rectangle(lineThickness = 0.75, extent = {{-100, 100}, {100, -100}})}),

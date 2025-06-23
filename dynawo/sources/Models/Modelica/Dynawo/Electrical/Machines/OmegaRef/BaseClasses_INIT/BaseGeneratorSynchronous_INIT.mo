@@ -50,9 +50,10 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
   Types.ComplexCurrentPu iStator0Pu "Start value of complex current at stator side in pu (base UNom, SnRef)";
 
   Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at terminal side in pu (base SnRef)";
-  Dynawo.Connectors.ComplexVoltagePuConnector u0Pu "Start value of complex voltage at terminal side (base UNom)";
-  Dynawo.Connectors.ComplexCurrentPuConnector i0Pu(re(start=iStart0Pu.re)) "Start value of complex current at terminal side (base UNom, SnRef)";
-  //Dynawo.Types.ComplexPerUnit i0Pu(re(start=iStart0Pu.re)) "Start value of complex current at terminal side (base UNom, SnRef)";
+  //Dynawo.Connectors.ComplexVoltagePuConnector u0Pu "Start value of complex voltage at terminal side (base UNom)";
+  Dynawo.Types.ComplexPerUnit u0Pu "Start value of complex voltage at terminal side (base UNom)";
+  //Dynawo.Connectors.ComplexCurrentPuConnector i0Pu(re(start=iStart0Pu.re)) "Start value of complex current at terminal side (base UNom, SnRef)";
+  Dynawo.Types.ComplexPerUnit i0Pu(re(start=iStart0Pu.re)) "Start value of complex current at terminal side (base UNom, SnRef)";
   Types.ApparentPowerModulePu S0Pu "Start value of apparent power at terminal side in pu (base SNom)";
   Types.CurrentModulePu I0Pu "Start value of current module at terminal side in pu (base UNom, SNom)";
 
