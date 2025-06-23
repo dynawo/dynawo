@@ -23,6 +23,7 @@
 #include "DYNMacrosMessage.h"
 #include "DYNTrace.h"
 #include "DYNSimulation.h"
+#include "DYNSimulationRT.h"
 #include "DYNSimulationContext.h"
 #include "DYNFileSystemUtils.h"
 #include "DYNTimer.h"
@@ -39,7 +40,12 @@ namespace parser = xml::sax::parser;
 
 using DYN::Trace;
 using DYN::Simulation;
+using DYN::SimulationRT;
 using DYN::SimulationContext;
+
+using std::chrono::system_clock;
+using std::chrono::microseconds;
+using std::chrono::duration_cast;
 
 // If logging is disabled, Trace::info has no effect so we also print on standard output to have basic information
 template<class T>
@@ -68,7 +74,7 @@ static void print(const T& output, const DYN::SeverityLevel level = DYN::INFO) {
   }
 }
 
-void launchSimu(const std::string& jobsFileName) {
+void launchSimu(const std::string& jobsFileName, bool isInteractive) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   DYN::Timer timer("Main::LaunchSimu");
 #endif
@@ -89,9 +95,14 @@ void launchSimu(const std::string& jobsFileName) {
     context->setInputDirectory(prefixJobFile);
     context->setWorkingDirectory(prefixJobFile);
 
-    std::unique_ptr<Simulation> simulation;
+
+    std::shared_ptr<Simulation> simulation;
     try {
-      simulation = std::unique_ptr<Simulation>(new Simulation(job, context));
+      if (isInteractive)
+        simulation = std::shared_ptr<SimulationRT>(new SimulationRT(job, context));
+      else
+        simulation = std::unique_ptr<Simulation>(new Simulation(job, context));
+
       simulation->init();
     } catch (const DYN::Error& err) {
       print(err.what(), DYN::ERROR);

@@ -12,16 +12,23 @@ set(SIM_VERSION_STRING ${DYNAWO_VERSION_STRING})
 set(SIM_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
 set(SIM_SOURCES
-    DYNSimulation.cpp
-    DYNSimulationLauncher.cpp
-    )
+      DYNSimulation.cpp
+      DYNSimulationRT.cpp
+      DYNSimulationLauncher.cpp
+      DYNEventSubscriber.cpp
+      DYNZmqPublisher.cpp
+      )
 
 set(SIM_INCLUDE_HEADERS
-    DYNSimulation.h
-    DYNSimulationLauncher.h
-    )
+      DYNSimulation.h
+      DYNSimulationRT.h
+      DYNSimulationLauncher.h
+      DYNEventSubscriber.h
+      DYNZmqPublisher.h
+      )
 
 add_library(dynawo_Simulation SHARED ${SIM_SOURCES})
+
 
 target_include_directories(dynawo_Simulation
   INTERFACE
@@ -29,7 +36,9 @@ target_include_directories(dynawo_Simulation
     $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
   )
 
-target_link_libraries(dynawo_Simulation
+  find_package(ZMQPP REQUIRED)
+
+  target_link_libraries(dynawo_Simulation
   PUBLIC
     dynawo_SolverCommon
     libZIP::libZIP
@@ -44,11 +53,13 @@ target_link_libraries(dynawo_Simulation
     dynawo_API_TL
     dynawo_API_CSTR
     dynawo_API_LEQ
+    dynawo_API_WSC
     dynawo_ModelerCommon
     dynawo_DataInterface
     dynawo_DataInterfaceFactory
     Boost::filesystem
     Boost::serialization
+    ${ZMQPP_LIBRARIES}
   )
 
 set_target_properties(dynawo_Simulation PROPERTIES VERSION ${SIM_VERSION_STRING}
@@ -64,11 +75,13 @@ set(SIMCOMMON_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 set(SIMCOMMON_SOURCES
     DYNSignalHandler.cpp
     DYNSimulationContext.cpp
+    DYNTimeManager.cpp
     )
 
 set(SIMCOMMON_INCLUDE_HEADERS
     DYNSignalHandler.h
     DYNSimulationContext.h
+    DYNTimeManager.h
     )
 
 add_library(dynawo_SimulationCommon SHARED ${SIMCOMMON_SOURCES})
@@ -77,6 +90,7 @@ target_include_directories(dynawo_SimulationCommon
   INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
+    ${ZMQPP_INCLUDE_DIRS}
   )
 
 target_link_libraries(dynawo_SimulationCommon

@@ -258,9 +258,24 @@ SimulationHandler::create(attributes_type const& attributes) {
     simulation_->setCriteriaStep(attributes["criteriaStep"]);
   if (attributes.has("precision"))
     simulation_->setPrecision(attributes["precision"]);
-  if (attributes.has("timeout")) {
+  if (attributes.has("timeout"))
     simulation_->setTimeout(attributes["timeout"]);
-  }
+  if (attributes.has("timeSync"))
+    simulation_->setTimeSync(attributes["timeSync"]);
+  if (attributes.has("timeSyncAcceleration"))
+    simulation_->setTimeSyncAcceleration(attributes["timeSyncAcceleration"]);
+  if (attributes.has("eventSubscriberActions"))
+    simulation_->setEventSubscriberActions(attributes["eventSubscriberActions"]);
+  if (attributes.has("eventSubscriberTrigger"))
+    simulation_->setEventSubscriberTrigger(attributes["eventSubscriberTrigger"]);
+  if (attributes.has("triggerSimulationTimeStepInS"))
+    simulation_->setTriggerSimulationTimeStepInS(attributes["triggerSimulationTimeStepInS"]);
+  if (attributes.has("publishToZmq"))
+    simulation_->setPublishToZmq(attributes["publishToZmq"]);
+  if (attributes.has("publishToZmqCurvesFormat"))
+    simulation_->setPublishToZmqCurvesFormat(attributes["publishToZmqCurvesFormat"]);
+  if (attributes.has("publishToWebsocket"))
+    simulation_->setPublishToWebsocket(attributes["publishToWebsocket"]);
 }
 
 shared_ptr<SimulationEntry>

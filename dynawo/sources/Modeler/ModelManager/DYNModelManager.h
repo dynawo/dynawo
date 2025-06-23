@@ -369,6 +369,14 @@ class ModelManager : public SubModel, private boost::noncopyable {
    */
   bool hasDataCheckCoherence() const override;
 
+
+  /**
+   * @brief update parameters of modelica model
+   * @param parameterSet ParametersSet filled with external values
+   */
+  void updateParameters(std::shared_ptr<parameters::ParametersSet>& parametersSet) override;
+
+
  private:
 #ifdef _ADEPT_
 

@@ -68,7 +68,6 @@ void
 ConnectorCalculatedVariable::evalF(const double /*t*/, const propertyF_t type) {
   if (type == DIFFERENTIAL_EQ)
     return;
-
   // only one equation 0 = calculated var - yLocal
   fLocal_[0] = model_->evalCalculatedVarI(indexCalculatedVariable_) - yLocal_[0];
 }
@@ -224,6 +223,11 @@ ConnectorCalculatedVariable::loadParameters(const string& /*parameters*/) {
 void
 ConnectorCalculatedVariable::loadVariables(const string& /*variables*/) {
   // no variable
+}
+
+void
+ConnectorCalculatedVariable::updateParameter(const std::string& name, double value)  {
+  model_->updateParameter(name, value);
 }
 
 

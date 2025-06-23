@@ -21,7 +21,7 @@
             <dyn:precompiledModels useStandardModels="true"/>
             <dyn:modelicaModels useStandardModels="false"/>
         </dyn:modeler>
-        <dyn:simulation startTime="0" stopTime="175"/>
+        <dyn:simulation startTime="0" stopTime="700"/>
         <dyn:outputs directory="outputs">
             <dyn:timeline exportMode="XML"/>
             <dyn:finalState exportIIDMFile="true" exportDumpFile="false"/>

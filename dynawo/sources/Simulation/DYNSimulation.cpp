@@ -1477,6 +1477,7 @@ Simulation::dumpState() {
     dumpState(*finalState_.dumpFile_);
 }
 
+
 void
 Simulation::dumpState(const boost::filesystem::path& dumpFile) const {
   if (!model_) return;

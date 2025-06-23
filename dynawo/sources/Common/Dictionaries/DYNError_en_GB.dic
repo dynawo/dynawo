@@ -128,6 +128,7 @@ VariableMultipleHasNoIndex  =             failed to retrieve index for %1% : mul
 VariableNativeIndexAlreadySet=            failed to set native variable %1% index : it is already set
 VariableNativeIndexNotSet   =             failed to retrieve native variable %1% index (not set yet)
 EmptyConnector              =             empty continuous connector found
+ErrorConnectedInputs        =             connector to input (model: %1%, variable: %2%) should be connected to only one non-input variable
 JobsFileBadlyFormattedDirectory =         jobs file not well formatted : directory items are not relevant where they are written
 JobsFileBadlyFormattedDumpInit =          jobs file not well formatted : DumpInitValues items are not relevant where they are written
 ModelicaPackageBadStructure =             bad Modelica package structure (%1%)

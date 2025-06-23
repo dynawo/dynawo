@@ -242,7 +242,8 @@ model TestCase "Nordic test system case with variable reference frequency"
   Types.AngularVelocityPu check_f_g07;
   Types.AngularVelocityPu check_f_g17;
 
-  Dynawo.Electrical.Events.NodeFault nodeFault(RPu = 40 / 400 ^ 2 * SystemBase.SnRef, XPu = 40 / 400 ^ 2 * SystemBase.SnRef, tBegin = 1, tEnd = 1.1);
+  Dynawo.Electrical.Controls.Voltage.TapChangerBlocking1 tcblock(Umin=0.9);
+
   Dynawo.Electrical.Events.Event.SingleBooleanEvent disconnection(stateEvent1 = true, tEvent = 1.1);
 
 equation
@@ -329,7 +330,6 @@ equation
   g19.generatorSynchronous.omegaRefPu = omegaCOI;
   g20.generatorSynchronous.omegaRefPu = omegaCOI;
 
-  connect(nodeFault.terminal, bus_4032.terminal);
   connect(disconnection.state1, line_4032_4044.switchOffSignal1);
 
   annotation(preferredView = "diagram",
