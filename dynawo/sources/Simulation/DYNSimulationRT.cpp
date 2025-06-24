@@ -135,7 +135,6 @@ SimulationRT::configureRT() {
   bool sendSimulationMetrics_ = true;   // TODO(thibaut) add jobs property
   if (sendSimulationMetrics_)
     initComputationTimeCurve();
-  valuesBuffer_.reserve((curvesCollection_->getSize() + 1) * sizeof(double));
 }
 
 void
@@ -155,6 +154,8 @@ SimulationRT::updateCurves(bool updateCalculateVariable) {
 
 void
 SimulationRT::simulate() {
+  valuesBuffer_.reserve((curvesCollection_->getSize() + 1) * sizeof(double));
+
   Timer timer("SimulationRT::simulate()");
   if (eventSubscriber_) {
     eventSubscriber_->setModel(model_);
@@ -493,17 +494,22 @@ SimulationRT::curvesNamesToCsv() {
 
 void SimulationRT::updateValuesBuffer() {
   valuesBuffer_.clear();
-  if (curvesCollection_->cbegin() != curvesCollection_->cend()) {
-    double time = (*curvesCollection_->cbegin())->getLastTime();
-    std::uint8_t* rawBytes = reinterpret_cast<std::uint8_t*>(&time);
-    valuesBuffer_.insert(valuesBuffer_.end(), rawBytes, rawBytes + sizeof(double));
-  }
+  double time = -1;
   for (CurvesCollection::const_iterator itCurve = curvesCollection_->cbegin();
       itCurve != curvesCollection_->cend();
       ++itCurve) {
-    double value = (*itCurve)->getLastValue();
-    std::uint8_t* rawBytes = reinterpret_cast<std::uint8_t*>(&value);
-    valuesBuffer_.insert(valuesBuffer_.end(), rawBytes, rawBytes + sizeof(double));
+    if ((*itCurve)->getAvailable()) {
+      if ((*itCurve)->cbegin() != (*itCurve)->cend()) {
+        if (time < 0) {
+          time = (*itCurve)->getLastTime();
+          std::uint8_t* rawBytes = reinterpret_cast<std::uint8_t*>(&time);
+          valuesBuffer_.insert(valuesBuffer_.end(), rawBytes, rawBytes + sizeof(double));
+        }
+        double value = (*itCurve)->getLastValue();
+        std::uint8_t* rawBytes = reinterpret_cast<std::uint8_t*>(&value);
+        valuesBuffer_.insert(valuesBuffer_.end(), rawBytes, rawBytes + sizeof(double));
+      }
+    }
   }
 }
 
@@ -575,6 +581,7 @@ SimulationRT::initComputationTimeCurve() {
   std::shared_ptr<curves::Curve> curve = curves::CurveFactory::newCurve();
   curve->setModelName("Simulation");
   curve->setVariable("stepDurationMs");
+  curve->setFoundVariableName("stepDurationMs");
   curve->setAvailable(true);
   curve->setBuffer(&stepComputationTime_);
   curvesCollection_->add(curve);
