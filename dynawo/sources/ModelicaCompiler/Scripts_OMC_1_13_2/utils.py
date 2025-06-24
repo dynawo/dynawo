@@ -424,16 +424,20 @@ def replace_dynamic_indexing(body):
     integer_array_create_tmp = {}
     real_array_create_tmp = {}
     for line in body:
+        print ("BUBU LINE " + line)
         ptrn_boolean_array_create = re.compile(r'boolean_array_create\(&(?P<tmp_index>tmp[0-9]+), \(\(modelica_boolean\*\)&\(\(&data->localData\[[0-9]+\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/[^,]*, [0-9]+, \(_index_t\)(?P<size>[0-9]+)\)')
         ptrn_string_array_create = re.compile(r'string_array_create\(&(?P<tmp_index>tmp[0-9]+), \(\(modelica_string\*\)&\(\(&data->(?P<typeVar>[\w\[\]]+)->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/[^,]*, [0-9]+, \(_index_t\)(?P<size>[0-9]+)\)')
-        ptrn_real_array_create = re.compile(r'real_array_create\(&(?P<tmp_index>tmp[0-9]+), \(\(modelica_real\*\)&\(\(&[\(]*data->(?P<typeVar>[\w\[\]]+)->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/[^,]*, [0-9]+, \(_index_t\)(?P<size>[0-9]+)\)')
+        ptrn_real_array_create = re.compile(r'real_array_create\(&(?P<tmp_index>tmp[0-9]+), \(\(modelica_real\*\)&\(\(&[\(]*data->(?P<typeVar>[\w\[\]]+)->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/[^,]*, 1, \(_index_t\)(?P<size>[0-9]+)\)')
+        ptrn_real_array_create_multiple_dim = re.compile(r'real_array_create\(&(?P<tmp_index>tmp[0-9]+), \(\(modelica_real\*\)&\(\(&[\(]*data->(?P<typeVar>[\w\[\]]+)->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/[^,]*, 2, \(_index_t\)(?P<size>[0-9]+), \(_index_t\)(?P<size2>[0-9]+)\)')
         ptrn_integer_array_create = re.compile(r'integer_array_create\(&(?P<tmp_index>tmp[0-9]+), \(\(modelica_integer\*\)&\(\(&[\(]*data->(?P<typeVar>[\w\[\]]+)->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/[^,]*, [0-9]+, \(_index_t\)(?P<size>[0-9]+)\)')
-        ptrn_var_dynamic_index = re.compile(r'[\(]*&[\(]*data->(?P<typeVar>[\w\[\]]+)->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/[\)]+\[(?P<expr>.*) - 1\]')
+        ptrn_var_dynamic_index = re.compile(r'[\(]*&[\(]*data->(?P<typeVar>[\w\[\]]+)->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],0-9]*) [\w\(\),\.]+ \*\/[\)]+\[*(?P<expr>.*) - 1\]')
+        ptrn_var_dynamic_index_multiple_dim = re.compile(r'[\(]*&[\(]*data->(?P<typeVar>[\w\[\]]+)->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],0-9]*) [\w\(\),\.]+ \*\/[\)]+\[*(?P<expr>.*)-1[)]*\]')
         ptrn_var_discrete = re.compile(r'\(data->localData\[[0-9]+\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/\)')
         ptrn_var_table = re.compile(r'\[(?P<index>[0-9]+)\]')
 
-        match = ptrn_var_dynamic_index.findall(line)
-        if len(match) == 0 and "array_copy_data" not in line:
+        match_dynamic = ptrn_var_dynamic_index.findall(line)
+        match_dynamic_multiple_dim = ptrn_var_dynamic_index_multiple_dim.findall(line)
+        if len(match_dynamic) == 0 and len(match_dynamic_multiple_dim) == 0  and "array_copy_data" not in line:
             body_to_return.append(line)
             continue
 
@@ -458,16 +462,6 @@ def replace_dynamic_indexing(body):
                     new_line+=", (modelica_string)(data->localData[0]->"+ var.replace("Vars["+initial_index, "Vars["+str(int(initial_index)+i)).replace("Parameter["+initial_index, "Parameter["+str(int(initial_index)+i)) +"/* " + var_name.replace("["+initial_var_index+']', "["+str(int(initial_var_index)+i)+"]") +" */)"
                 new_line+=");\n"
                 body_to_return.append(new_line)
-                # if "Parameter" in type_var: continue
-                # for type_var, var, var_name, expr in match:
-                #     expr = filter_expr(expr)
-                #     index = -1
-                #     while var_name[index] != '[':
-                #         index -= 1
-                #     index2 = -1
-                #     while var[index2] != '[':
-                #         index2 -= 1
-                #     integer_array_create_tmp[tmp_index] = [type_var, var[:index2], var[index2 + 1:-1], var_name[:index], size]
             continue
         match_bool_integer = ptrn_integer_array_create.findall(line)
         if len(match_bool_integer) != 0:
@@ -480,7 +474,7 @@ def replace_dynamic_indexing(body):
                 new_line+=");\n"
                 body_to_return.append(new_line)
                 if "Parameter" in type_var: continue
-                for type_var, var, var_name, expr in match:
+                for type_var, var, var_name, expr in match_dynamic:
                     expr = filter_expr(expr)
                     index = -1
                     while var_name[index] != '[':
@@ -491,6 +485,7 @@ def replace_dynamic_indexing(body):
                     integer_array_create_tmp[tmp_index] = [type_var, var[:index2], var[index2 + 1:-1], var_name[:index], size]
             continue
         match_bool_real = ptrn_real_array_create.findall(line)
+        match_bool_real_multiple_dim = ptrn_real_array_create_multiple_dim.findall(line)
         index_tmp = 0
         if len(match_bool_real) != 0:
             for tmp_index, type_var, var, var_name, size in match_bool_real:
@@ -502,7 +497,7 @@ def replace_dynamic_indexing(body):
                 new_line+=");\n"
                 body_to_return.append(new_line)
                 if "Parameter" in type_var: continue
-                for type_var, var, var_name, expr in match:
+                for type_var, var, var_name, expr in match_dynamic:
                     expr = filter_expr(expr)
                     index = -1
                     while var_name[index] != '[':
@@ -511,15 +506,30 @@ def replace_dynamic_indexing(body):
                     while var[index2] != '[':
                         index2 -= 1
                     real_array_create_tmp[tmp_index] = [type_var, var[:index2], var[index2 + 1:-1], var_name[:index], size]
+        elif len(match_bool_real_multiple_dim) != 0:
+            print ("BUBU MULTIPLE DIM " + line)
+            for tmp_index, type_var, var, var_name, size, size2 in match_bool_real_multiple_dim:
+                print ("BUBU VAL " + type_var + " " + var_name + " " + size + " " + size2 + " " + line)
+                body_to_return.append("   alloc_real_array(&("+tmp_index+"), 2, " + size + ", " + size2 +");\n")
+                initial_index = var[(var.find("[")+1):].replace("]","")
+                initial_var_index1 = var_name[(var_name.find("[")+1):var_name.find(",")]
+                initial_var_index2 = var_name[(var_name.find(",")+1):].replace("]","")
+                print ("BUBU " + initial_index + " " + initial_var_index1 + " " + initial_var_index2 + " " + line)
+                for i in range(0, int(size)):
+                    for j in range(0, int(size2)):
+                        body_to_return.append("   put_real_matrix_element(" + "(data->localData[0]->"+ \
+                                              var.replace("Vars["+initial_index, "Vars["+str(int(initial_index)+i)).replace("Parameter["+initial_index, "Parameter["+str(int(initial_index)+i)) \
+                                              +"/* " + var_name.replace("["+initial_var_index1+',' + initial_var_index2 +']', "["+str(int(initial_var_index1)+i)+',' + str(int(initial_var_index2)+j)+"]") +" */)" \
+                                              + ", " + str(i)+ ", "+ str(j) + ", " + "&("+tmp_index+")" + ");\n")
         elif "real_array_copy_data" in line or "integer_array_copy_data" in line:
             body_to_return.append(line)
             for tmp in integer_array_create_tmp:
-                if ", "+ tmp + ")" in line:
+                if ", "+ tmp + ")" in line or "&" + tmp in line:
                     type_var, table, index, var_name, size = integer_array_create_tmp[tmp]
                     for i in range(0, int(size)):
                         body_to_return.append("    (data->" + type_var + "->" + table + "[" + str(int(index) + i) + "] /* " + var_name + "[" + str(i + 1) +"] DISCRETE */)" + " = integer_get(" + tmp + ", " + str(i) + ");\n")
             for tmp in real_array_create_tmp:
-                if ", "+ tmp + ")" in line:
+                if ", "+ tmp + ")" in line or "&" + tmp in line:
                     type_var, table, index, var_name, size = real_array_create_tmp[tmp]
                     type = "STATE"
                     if "Parameter" in table:
@@ -528,7 +538,7 @@ def replace_dynamic_indexing(body):
                         body_to_return.append("    (data->" + type_var + "->" + table + "[" + str(int(index) + i) + "] /* " + var_name + "[" + str(i + 1) +"] " + type + " */)" + " = real_get(" + tmp + ", " + str(i) + ");\n")
         else:
             body_to_return.append("  modelica_real tmp_calc_var_" + str(index_tmp)+";\n")
-            for type_var, var, var_name, expr in match:
+            for type_var, var, var_name, expr in match_dynamic:
                 expr = filter_expr(expr)
                 ptrn_var_dynamic_index_no_expr = re.compile(r'[\(]*&data->localData\[[0-9]+\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/\)\[ - 1\]')
                 match_discrete = ptrn_var_discrete.findall(expr)
