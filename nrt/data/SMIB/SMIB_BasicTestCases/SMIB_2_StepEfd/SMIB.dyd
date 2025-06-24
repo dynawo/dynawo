@@ -20,7 +20,7 @@
   <dyn:blackBoxModel id="URef" lib="Step" parFile="SMIB.par" parId="6"/>
   <dyn:blackBoxModel id="OmegaRef" lib="SetPoint" parFile="SMIB.par" parId="7"/>
   <dyn:connect id1="SM" var1="generator_omegaRefPu" id2="OmegaRef" var2="setPoint_setPoint"/>
-  <dyn:connect id1="SM" var1="voltageRegulator_UsRefPu" id2="URef" var2="step_step_value"/>
+  <dyn:connect id1="SM" var1="voltageRegulator_UsRefPu" id2="URef" var2="step_step"/>
   <dyn:connect id1="tfo" var1="transformer_terminal2" id2="SM" var2="generator_terminal"/>
   <dyn:connect id1="busInf" var1="infiniteBus_terminal" id2="line1" var2="line_terminal1"/>
   <dyn:connect id1="busInf" var1="infiniteBus_terminal" id2="line2" var2="line_terminal1"/>
