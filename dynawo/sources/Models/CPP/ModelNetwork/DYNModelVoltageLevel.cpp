@@ -199,16 +199,16 @@ ModelVoltageLevel::findClosestBBS(const unsigned int node, vector<string>& short
   // find the shortest path between the node and the bus bar section
   unsigned int nodeClosestBBS = std::numeric_limits<unsigned>::max();
   for (const auto& busWithBBS : busesWithBBS_) {
-    const int nodeBBS = busWithBBS->getBusIndex();
+    const unsigned int nodeBBS = busWithBBS->getBusIndex();
     vector<string> ret;
-    graph_->shortestPath(node, nodeBBS, weights1_, ret);
     if (node == nodeBBS) {
       shortestPath = ret;
       return node;
     }
+    graph_->shortestPath(node, nodeBBS, weights1_, ret);
     if (!ret.empty() && (ret.size() < shortestPath.size() || shortestPath.empty())) {
       nodeClosestBBS = nodeBBS;
-       shortestPath = ret;
+      shortestPath = ret;
     }
   }
   closestBBS_[node] = std::make_pair(nodeClosestBBS, shortestPath);
