@@ -1430,7 +1430,7 @@ class Factory:
         for var in list_vars :
             if var.is_alias() and  (to_param_address(var.get_name()).startswith("SHOULD NOT BE USED")): continue
             if var in self.reader.list_complex_calculated_vars: continue
-            if var.get_use_start() and (var.get_init_by_param_in_06inz() and var.has_multiple_solution()):
+            if var.get_use_start() and (var.get_init_by_param_in_06inz() and var.should_use_default_start(self.reader.list_omc_functions)):
                  init_val = var.get_start_text()[0]
                  if init_val == "":
                      init_val = "0.0"
@@ -1463,6 +1463,7 @@ class Factory:
                 if len(var.get_start_text()) > 1 : self.list_for_sety0.append("\n") # reading comfort
 
             elif var.get_init_by_param_in_06inz():
+                print ("BUBU? " + var.get_name())
                 var.clean_start_text_06inz()
                 # Lines for reading comfort at the impression
                 if len(var.get_start_text_06inz()) > 1 :
@@ -1936,6 +1937,7 @@ class Factory:
                 line = throw_stream_indexes(line)
                 line = mmc_strings_len1(line)
                 line = replace_var_names(line)
+                line = replace_relationhysteresis(line)
                 if "MMC_DEFSTRINGLIT" in line:
                     line = line.replace("static const MMC_DEFSTRINGLIT(","")
                     line = line.replace(");","")
