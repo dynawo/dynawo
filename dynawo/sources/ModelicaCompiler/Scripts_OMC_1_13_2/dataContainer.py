@@ -790,11 +790,14 @@ class Variable:
 
         self.start_text = txt_tmp
 
-    def has_multiple_solution(self):
+    def should_use_default_start(self, list_omc_functions):
         tmp_abs_var_prtn = re.compile(r'[\(]+data->localData\[0\]->realVars\[[0-9+]\][ ]*\/\*\s*\$TMP\$VAR\$[0-9]+\$0X\$ABS\s*variable\s*\*\/[\)]+\s*\>\= 0.0 \? 1.0\:-1.0\)\)\s*\*')
         for line in self.start_text_06inz:
             if re.search(tmp_abs_var_prtn, line) is not None:
                 return True
+            for func in list_omc_functions:
+                if func.get_name().startswith("omc_") and func.get_name() in line:
+                    return True
         return False
     ##
     # Erase some part of the start text used in 06inz file : {/} at the begin/end of the body
