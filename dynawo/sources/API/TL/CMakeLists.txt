@@ -26,6 +26,7 @@ set(API_TL_SOURCES
     TLTxtExporter.cpp
     TLCsvExporter.cpp
     TLXmlExporter.cpp
+    TLJsonExporter.cpp
     )
 
 set(API_TL_INCLUDE_HEADERS
@@ -37,6 +38,7 @@ set(API_TL_INCLUDE_HEADERS
     TLTxtExporter.h
     TLCsvExporter.h
     TLXmlExporter.h
+    TLJsonExporter.h
     )
 
 add_library(dynawo_API_TL SHARED ${API_TL_SOURCES})
