@@ -16,7 +16,7 @@ model WT4BCurrentSource2015FOCB "Wind Turbine Type 4B model from IEC 61400-27-1 
   extends Icons.Example;
   extends Dynawo.Examples.Wind.IEC.Neplan.BaseClasses.BaseWindNeplan;
 
-  Dynawo.Electrical.Wind.IEC.WT.WT4BCurrentSource2015 wT4BCurrentSource(
+  Dynawo.Electrical.PEIR.Converters.Wind.IEC.WT.WT4BCurrentSource2015 wT4BCurrentSource(
     BesPu = 0,
     CdrtPu = 15,
     DPMaxP4BPu = 1,
@@ -124,7 +124,7 @@ model WT4BCurrentSource2015FOCB "Wind Turbine Type 4B model from IEC 61400-27-1 
     Placement(visible = true, transformation(origin = {-150, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initialization
-  Dynawo.Electrical.Wind.IEC.WT.WT4CurrentSource_INIT wT4CurrentSource_INIT(
+  Dynawo.Electrical.PEIR.Converters.Wind.IEC.WT.WT4CurrentSource_INIT wT4CurrentSource_INIT(
     BesPu = wT4BCurrentSource.BesPu,
     GesPu = wT4BCurrentSource.GesPu,
     IMaxPu = wT4BCurrentSource.IMaxPu,

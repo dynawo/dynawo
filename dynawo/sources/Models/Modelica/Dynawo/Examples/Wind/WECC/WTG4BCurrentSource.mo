@@ -28,7 +28,7 @@ model WTG4BCurrentSource "WECC Wind Type 4B Model(including a plant controller) 
     Placement(visible = true, transformation(origin = {-82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Dynawo.Electrical.Lines.Line line(RPu = 0, XPu = 0.0000020661, BPu = 0, GPu = 0) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Wind.WECC.WTG4BCurrentSource WTG4B(
+  Dynawo.Electrical.PEIR.Plants.Wind.WECC.WTG4BCurrentSource WTG4B(
     DDn = 20,
     DPMaxPu = 2,
     DPMinPu = -2,
@@ -143,7 +143,7 @@ model WTG4BCurrentSource "WECC Wind Type 4B Model(including a plant controller) 
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
 
   // Initialization
-  Dynawo.Electrical.Wind.WECC.WT4CurrentSource_INIT wt4CurrentSource_INIT(
+  Dynawo.Electrical.PEIR.Converters.Wind.WECC.WT4CurrentSource_INIT wt4CurrentSource_INIT(
     P0Pu = WTG4B.P0Pu,
     Q0Pu = WTG4B.Q0Pu,
     RPu = WTG4B.RPu,

@@ -28,7 +28,7 @@ model WT4BCurrentSource "WECC Wind Type 4B Model on infinite bus"
     Placement(visible = true, transformation(origin = {-82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Dynawo.Electrical.Lines.Line line(RPu = 0, XPu = 0.0000020661, BPu = 0, GPu = 0) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Wind.WECC.WT4BCurrentSource WT4B(
+  Dynawo.Electrical.PEIR.Converters.Wind.WECC.WT4BCurrentSource WT4B(
     DPMaxPu = 2,
     DPMinPu = -2,
     Dbd1Pu = -0.05,
@@ -113,7 +113,7 @@ model WT4BCurrentSource "WECC Wind Type 4B Model on infinite bus"
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
 
   // Initialization
-  Dynawo.Electrical.Wind.WECC.WT4CurrentSource_INIT wt4CurrentSource_INIT(
+  Dynawo.Electrical.PEIR.Converters.Wind.WECC.WT4CurrentSource_INIT wt4CurrentSource_INIT(
     P0Pu = WT4B.s0Pu.re,
     Q0Pu = WT4B.s0Pu.im,
     RPu = WT4B.RPu,

@@ -11,19 +11,17 @@
 add_subdirectory(Constants Cs)
 add_subdirectory(Controls C)
 add_subdirectory(Events E)
-add_subdirectory(BESS BE)
 add_subdirectory(Buses B)
 add_subdirectory(Loads L)
 add_subdirectory(HVDC H)
 add_subdirectory(Machines M)
 add_subdirectory(Transformers T)
 add_subdirectory(Lines N)
+add_subdirectory(PEIR P)
 add_subdirectory(Sources I)
 add_subdirectory(Shunts Q)
 add_subdirectory(StaticVarCompensators V)
 add_subdirectory(Switches S)
-add_subdirectory(Photovoltaics P)
-add_subdirectory(Wind W)
 
 set(MODEL_FILES
   package.mo

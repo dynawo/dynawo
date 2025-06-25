@@ -16,7 +16,7 @@ within Dynawo.Examples.BESS.WECC;
 model BESScbCurrentSource "WECC BESS with REEC-C and REGC-B with a plant controller REPC-A on infinite bus"
   extends Icons.Example;
 
-  Dynawo.Electrical.BESS.WECC.BESScbCurrentSource BESScb(
+  Dynawo.Electrical.PEIR.Plants.BESS.WECC.BESScbCurrentSource BESScb(
     DDn = 126,
     DPMaxPu = 999,
     DPMinPu = -999,
@@ -142,7 +142,7 @@ model BESScbCurrentSource "WECC BESS with REEC-C and REGC-B with a plant control
     Placement(visible = true, transformation(origin = {-82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Modelica.Blocks.Sources.Constant PAuxPu(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.BESS.WECC.BESS_INIT bess_INIT(
+  Dynawo.Electrical.PEIR.Converters.BESS.WECC.BESS_INIT bess_INIT(
     P0Pu = BESScb.P0Pu,
     Q0Pu = BESScb.Q0Pu,
     RPu = BESScb.RPu,
