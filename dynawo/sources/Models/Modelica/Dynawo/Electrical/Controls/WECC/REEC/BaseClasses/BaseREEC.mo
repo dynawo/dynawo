@@ -74,9 +74,9 @@ partial model BaseREEC "WECC Electrical Control REEC common"
     Placement(visible = true, transformation(origin = {51, 270}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.VarLimPIDFreeze varLimPIDFreeze(Ti = Kvp / Kvi, K = Kvp, Xi0 = QInj0Pu / UInj0Pu / Kqp, Y0 = QInj0Pu / UInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {180, 112}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter(homotopyType = Modelica.Blocks.Types.VariableLimiterHomotopy.NoHomotopy) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.VariableLimiter variableLimiter annotation(
     Placement(visible = true, transformation(origin = {510, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter1(homotopyType = Modelica.Blocks.Types.VariableLimiterHomotopy.NoHomotopy) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.VariableLimiter variableLimiter1 annotation(
     Placement(visible = true, transformation(origin = {511, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze1(T = tIq, UseFreeze = true, UseRateLim = false, Y0 = QInj0Pu / UInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {130, 54}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

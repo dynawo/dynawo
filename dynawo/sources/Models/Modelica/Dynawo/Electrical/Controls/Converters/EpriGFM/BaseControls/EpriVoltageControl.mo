@@ -102,9 +102,9 @@ model EpriVoltageControl "Voltage controller in EPRI Grid Forming model"
     Placement(visible = true, transformation(origin = {-100, 180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Sum sum11(k = {1, 1, 1}, nin = 3)  annotation(
     Placement(visible = true, transformation(origin = {-100, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiterid(homotopyType = Modelica.Blocks.Types.VariableLimiterHomotopy.NoHomotopy, limitsAtInit = true)  annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.VariableLimiter variableLimiterid annotation(
     Placement(visible = true, transformation(origin = {200, 130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiteriq(homotopyType = Modelica.Blocks.Types.VariableLimiterHomotopy.NoHomotopy, limitsAtInit = true)  annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.VariableLimiter variableLimiteriq annotation(
     Placement(visible = true, transformation(origin = {201, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Converters.EpriGFM.BaseControls.CurrentLimitsCalculation currentLimitsCalculation(IMaxPu = IMaxPu, IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, OmegaFlag = OmegaFlag, PQFlag = PQFlag)  annotation(
     Placement(visible = true, transformation(origin = {200, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
