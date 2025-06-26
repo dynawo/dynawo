@@ -48,25 +48,25 @@ equation
   if PQFlag then
     if SOCPu <= SOCMinPu then
       ipMaxPu = 0;
-      ipMinPu = - ipMaxPu;
-    elseif SOCPu >= SOCMaxPu then
-      ipMaxPu = min(ipVdlPu, IMaxPu);
-      ipMinPu = 0;
     else
       ipMaxPu = min(ipVdlPu, IMaxPu);
-      ipMinPu = - ipMaxPu;
+    end if;
+    if SOCPu >= SOCMaxPu then
+      ipMinPu = 0;
+    else
+      ipMinPu = - min(ipVdlPu, IMaxPu);
     end if;
     iqMaxPu = min(iqVdlPu, noEvent(if IMaxPu ^ 2 > ipCmdPu ^ 2 then sqrt(IMaxPu ^ 2 - ipCmdPu ^ 2) else 0));
   else
     if SOCPu <= SOCMinPu then
       ipMaxPu = 0;
-      ipMinPu = - ipMaxPu;
-    elseif SOCPu >= SOCMaxPu then
-      ipMaxPu = min(ipVdlPu, noEvent(if IMaxPu ^ 2 > iqCmdPu ^ 2 then sqrt(IMaxPu ^ 2 - iqCmdPu ^ 2) else 0));
-      ipMinPu = 0;
     else
       ipMaxPu = min(ipVdlPu, noEvent(if IMaxPu ^ 2 > iqCmdPu ^ 2 then sqrt(IMaxPu ^ 2 - iqCmdPu ^ 2) else 0));
-      ipMinPu = - ipMaxPu;
+    end if;
+    if SOCPu >= SOCMaxPu then
+      ipMinPu = 0;
+    else
+      ipMinPu = - min(ipVdlPu, noEvent(if IMaxPu ^ 2 > iqCmdPu ^ 2 then sqrt(IMaxPu ^ 2 - iqCmdPu ^ 2) else 0));
     end if;
     iqMaxPu = min(iqVdlPu, IMaxPu);
   end if;
