@@ -1463,7 +1463,6 @@ class Factory:
                 if len(var.get_start_text()) > 1 : self.list_for_sety0.append("\n") # reading comfort
 
             elif var.get_init_by_param_in_06inz():
-                print ("BUBU? " + var.get_name())
                 var.clean_start_text_06inz()
                 # Lines for reading comfort at the impression
                 if len(var.get_start_text_06inz()) > 1 :
@@ -2349,7 +2348,10 @@ class Factory:
                 func_header_cpp = func.get_return_type() + " "  + get_adept_function_name(func) + "("
             else:
                 func_header = func.get_return_type() + ADEPT_SUFFIX + get_adept_function_name(func) + "("
-                func_header_cpp = MODEL_NAME_NAMESPACE+func.get_return_type() + ADEPT_SUFFIX + get_adept_function_name(func) + "("
+                return_type = func.get_return_type()
+                if not return_type.startswith("Complex"):
+                    return_type = MODEL_NAME_NAMESPACE + func.get_return_type()
+                func_header_cpp = return_type + ADEPT_SUFFIX + get_adept_function_name(func) + "("
             for param in func.get_params():
                 param_type = param.get_type()
                 if param_type == "modelica_real":
@@ -2747,6 +2749,21 @@ class Factory:
                                     match = tmp_ptrn.search(param)
                                     if match is not None and "tmp" + match.group('index') not in adept_tmp:
                                         adept_tmp.append("tmp" + match.group('index'))
+                modif = True
+                ptrn_complex_tmp = re.compile(r'\s*(?P<type>.*)\s* tmp[0-9]+;')
+                ptrn_complex_tmp_assign = re.compile(r'\s*(?P<type>.*)\s* (?P<tmp_assigned>tmp[0-9]+) = (?P<tmp>tmp[0-9]+);')
+                ptrn_complex_tmp_assign2 = re.compile(r'\s*(?P<type>.*)\s* (?P<tmp_assigned>tmp[0-9]+).* = .*data->localData\[0\]->realVars.*;')
+                while modif:
+                    modif = False
+                    for line in standard_body_with_standard_external_call:
+                        match = ptrn_complex_tmp_assign.search(line)
+                        if match is not None and match.group('tmp') in adept_tmp and match.group('tmp_assigned') not in adept_tmp:
+                            modif = True
+                            adept_tmp.append(match.group('tmp_assigned'))
+                        match = ptrn_complex_tmp_assign2.search(line)
+                        if match is not None and match.group('tmp_assigned') not in adept_tmp:
+                            modif = True
+                            adept_tmp.append(match.group('tmp_assigned'))
 
                 for line in standard_body_with_standard_external_call:
                     for func in list_omc_functions:
@@ -2845,6 +2862,22 @@ class Factory:
                                 match = tmp_ptrn.search(param)
                                 if match is not None and "tmp" + match.group('index') not in adept_tmp:
                                     adept_tmp.append("tmp" + match.group('index'))
+            modif = True
+            ptrn_complex_tmp = re.compile(r'\s*(?P<type>.*)\s* tmp[0-9]+;')
+            ptrn_complex_tmp_assign = re.compile(r'\s*(?P<type>.*)\s* (?P<tmp_assigned>tmp[0-9]+) = (?P<tmp>tmp[0-9]+);')
+            ptrn_complex_tmp_assign2 = re.compile(r'\s*(?P<type>.*)\s* (?P<tmp_assigned>tmp[0-9]+).* = .*data->localData\[0\]->realVars.*;')
+            while modif:
+                modif = False
+                for line in external_function_call_body:
+                    match = ptrn_complex_tmp_assign.search(line)
+                    if match is not None and match.group('tmp') in adept_tmp and match.group('tmp_assigned') not in adept_tmp:
+                        modif = True
+                        adept_tmp.append(match.group('tmp_assigned'))
+                    match = ptrn_complex_tmp_assign2.search(line)
+                    if match is not None and match.group('tmp_assigned') not in adept_tmp:
+                        modif = True
+                        adept_tmp.append(match.group('tmp_assigned'))
+
             for line in external_function_call_body:
                 for func in list_omc_functions:
                     if func.get_name() + "(" in line or func.get_name() + " (" in line:
@@ -2917,7 +2950,8 @@ class Factory:
         for func in self.reader.list_omc_functions:
             # if function does not start with omc_ we do not add it
             name = func.get_name()
-            if name[0:4] != 'omc_' and not name.startswith("Complex_")and not name.startswith("Dynawo_Types_")and not name.startswith("Dynawo_Connectors_"):
+            if name[0:4] != 'omc_' and not name.startswith("Complex_")and not name.startswith("Dynawo_Types_")and not name.startswith("Dynawo_Connectors_") \
+            and not name.startswith("Modelica_ComplexBlocks_Interfaces_Complex"):
                 self.erase_func.append(name)
                 continue
 
@@ -2935,6 +2969,8 @@ class Factory:
             signature = signature.replace('threadData_t *threadData,','').replace('threadData_t *threadData ,','')
             if "combiTable1Ds1" in signature:
                 signature = signature.replace('modelica_real _tableAvailable','modelica_real /*_tableAvailable*/')
+            if "Modelica_ComplexBlocks_Interfaces_Complex" in signature or "Complex_" in signature:
+                signature = signature.replace(")",") const")
 
             self.list_for_externalcalls.append(signature)
             new_body = []
@@ -2982,7 +3018,16 @@ class Factory:
                 line = line.replace("threadData_t *threadData,","")
             if 'threadData_t *threadData ,' in line:
                 line = line.replace("threadData_t *threadData ,","")
+            if "Modelica_ComplexBlocks_Interfaces_Complex" in line or "Complex_" in line:
+                line = line.replace(");",") const;")
             self.list_for_externalcalls_header.append(line)
+            if "} Complex;" in line:
+                 self.list_for_evalfadept_external_call_headers.pop()
+                 self.list_for_evalfadept_external_call_headers.pop()
+                 self.list_for_evalfadept_external_call_headers.pop()
+                 self.list_adept_structs.append('Complex')
+                 adept_reading_struct = False
+                 continue
             match = ptrn_struct.search(line)
             if match is not None:
                 self.list_for_evalfadept_external_call_headers.append(line)
@@ -3007,7 +3052,8 @@ class Factory:
                     base_name =  match_typedef.group('name1')
                     new_name = match_typedef.group('name2')
                     if base_name in self.list_adept_structs:
-                        self.list_for_evalfadept_external_call_headers.append("typedef " + base_name +ADEPT_SUFFIX + new_name + ADEPT_SUFFIX +";\n")
+                        if "typedef Complex" not in line:
+                            self.list_for_evalfadept_external_call_headers.append("typedef " + base_name +ADEPT_SUFFIX + new_name + ADEPT_SUFFIX +";\n")
                         self.list_adept_structs.append(new_name)
 
 
@@ -3688,22 +3734,80 @@ class Factory:
         trans = Transpose(self.reader.auxiliary_vars_to_address_map, self.reader.residual_vars_to_address_map)
         ptrn_vars = re.compile(r'x\[(?P<varId>[0-9]+)\]')
 
+        define_methods = {}
+        list_omc_functions = self.reader.list_omc_functions
+        for func in list_omc_functions:
+            define_methods[func.get_name( )] = func
+        defines = self.reader.list_functions_define
+        ptrn_define = re.compile(r'[ ]*#define (?P<symbolic>.*)\(.*\)[ ]+(?P<method>.*)\(.*\)')
+        ptrn_define_with_cast = re.compile(r'[ ]*#define (?P<symbolic>.*)\(.*\)[ ]+\(\*\(.*\*\)\((?P<method>.*)\(.*\)\)\)')
+        for define in defines:
+            match = re.search(ptrn_define, define.replace("sizeof(",""))
+            match_cast = re.search(ptrn_define_with_cast, define.replace("sizeof(",""))
+            if match is not None and match_cast is None:
+                define = define.replace(match.group("method"), "@@@@@METHOD@@@@")
+                define = define.replace(match.group("symbolic"), "@@@@@SYMBOLIC@@@@")
+                corresponding_func = [func for func in list_omc_functions if func.get_name() == match.group("method")]
+                if len(corresponding_func) == 1:
+                    define_methods[match.group("symbolic")] = corresponding_func[0]
+
+
         num_ternary = 0
-        index = 0
+        index_calc_var = 0
+        tmp_ptrn = re.compile(r'tmp(?P<index>[0-9]+)')
+        ptrn_complex_tmp = re.compile(r'\s*(?P<type>.*)\s* tmp[0-9]+;')
+        ptrn_complex_tmp_assign = re.compile(r'\s*(?P<type>.*)\s* (?P<tmp_assigned>tmp[0-9]+) = (?P<tmp>tmp[0-9]+);')
+        ptrn_complex_tmp_assign2 = re.compile(r'\s*(?P<type>.*)\s* (?P<tmp_assigned>tmp[0-9]+).* = .*data->localData\[0\]->realVars.*;')
         recursive_calc_vars_num_deps = self.compute_recursive_calc_vars_num_deps()
         for var in self.reader.list_calculated_vars:
             body = []
+            adept_tmp = []
             if var in self.reader.list_complex_calculated_vars:
                 for line in self.reader.dic_calculated_vars_values[var.get_name()]:
                     if "throwStreamPrint" in line:
                         with_throw = True
                         break
                 for line in self.reader.dic_calculated_vars_values[var.get_name()]:
+                    for func_name in define_methods:
+                        if (func_name + "(" in line or func_name + " (" in line):
+                            func = define_methods[func_name]
+                            if not is_adept_func(func, self.list_adept_structs) : continue
+                            index = line.find(func_name + "(", 0, len(line))
+                            if index == -1:
+                                index = line.find(func_name + " (", 0, len(line))
+                            if index != -1:
+                                [call, end_pos] = get_argument(line, index)
+                                split_call = call.replace(func.get_name() + "(","").replace(func.get_name() + " (","").split(',')
+                                for param in split_call:
+                                    match = tmp_ptrn.search(param)
+                                    if match is not None and "tmp" + match.group('index') not in adept_tmp:
+                                        adept_tmp.append("tmp" + match.group('index'))
+                modif = True
+                while modif:
+                    modif = False
+                    for line in self.reader.dic_calculated_vars_values[var.get_name()]:
+                        match = ptrn_complex_tmp_assign.search(line)
+                        if match is not None and match.group('tmp') in adept_tmp and match.group('tmp_assigned') not in adept_tmp:
+                            modif = True
+                            adept_tmp.append(match.group('tmp_assigned'))
+                        match = ptrn_complex_tmp_assign2.search(line)
+                        if match is not None and match.group('tmp_assigned') not in adept_tmp:
+                            modif = True
+                            adept_tmp.append(match.group('tmp_assigned'))
+
+                for line in self.reader.dic_calculated_vars_values[var.get_name()]:
                     if "omc_assert_warning" in line and with_throw:
                         continue
                     if "infoStreamPrintWithEquationIndexes" in line:
                         continue
                     line = throw_stream_indexes(line)
+                    match = ptrn_complex_tmp.search(line)
+                    if match is not None:
+                        for tmp in adept_tmp:
+                            if tmp in line and match.group('type') in self.list_adept_structs:
+                                line = line.replace(match.group('type'), match.group('type')+"_adept")
+                    line = self.replace_adept_functions_in_line(line, adept_tmp)
+                    print ("BUBU? " + line)
                     body.append(transform_line_adept(line))
             else:
                 body.append("     return " + self.reader.dic_calculated_vars_values[var.get_name()]+";")
@@ -3762,10 +3866,11 @@ class Factory:
                             "evalCalculatedVarIAdept(" + str(self.dic_calc_var_index[name]) + ", indexOffset + " + str(offset) +", x, xd) /* " + name)
                 body.append(line)
 
-
-            self.list_for_evalcalculatedvariadept.append("  if (iCalculatedVar == " + str(index)+")  /* "+ var.get_name() + " */\n")
+            print ("BUBUB?? " + str(index_calc_var))
+            self.list_for_evalcalculatedvariadept.append("  if (iCalculatedVar == " + str(index_calc_var)+")  /* "+ var.get_name() + " */\n")
             self.list_for_evalcalculatedvariadept.extend(body)
-            index += 1
+            print ("BUBUB INCREASE?? " + str(index_calc_var))
+            index_calc_var += 1
 
             self.list_for_evalcalculatedvariadept.append("\n\n")
         self.list_for_evalcalculatedvariadept.append("  throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);\n")
