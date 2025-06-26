@@ -47,10 +47,12 @@ JsonExporter::exportToFile(const boost::shared_ptr<Timeline>& timeline, const st
 }
 
 void
-JsonExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream& stream) const {
+JsonExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream& stream, double afterTime) const {
   ptree root;
   for (const auto& event : timeline->getEvents()) {
     if (event->hasPriority() && maxPriority_ != boost::none && event->getPriority() > maxPriority_)
+      continue;
+    if (!DYN::doubleGreater(event->getTime(), afterTime))
       continue;
     ptree item;
     item.put("time", DYN::double2String(event->getTime()));
