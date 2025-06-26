@@ -1710,8 +1710,6 @@ class ReaderOMC:
                             do_it = False
                             break
                         dep_var = self.find_variable_from_name(dep_var_name)
-                        if dep_var is not None:
-                            print ("BUBU? " + var.get_name() + " " + dep_var_name + " " + str(dep_var.is_fixed()))
                         if dep_var is not None and (not dep_var.is_fixed() \
                         or dep_var.get_name() in self.fictive_continuous_vars\
                         or dep_var.get_name() in self.fictive_optional_continuous_vars\

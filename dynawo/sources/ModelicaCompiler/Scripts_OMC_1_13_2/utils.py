@@ -424,7 +424,6 @@ def replace_dynamic_indexing(body):
     integer_array_create_tmp = {}
     real_array_create_tmp = {}
     for line in body:
-        print ("BUBU LINE " + line)
         ptrn_boolean_array_create = re.compile(r'boolean_array_create\(&(?P<tmp_index>tmp[0-9]+), \(\(modelica_boolean\*\)&\(\(&data->localData\[[0-9]+\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/[^,]*, [0-9]+, \(_index_t\)(?P<size>[0-9]+)\)')
         ptrn_string_array_create = re.compile(r'string_array_create\(&(?P<tmp_index>tmp[0-9]+), \(\(modelica_string\*\)&\(\(&data->(?P<typeVar>[\w\[\]]+)->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/[^,]*, [0-9]+, \(_index_t\)(?P<size>[0-9]+)\)')
         ptrn_real_array_create = re.compile(r'real_array_create\(&(?P<tmp_index>tmp[0-9]+), \(\(modelica_real\*\)&\(\(&[\(]*data->(?P<typeVar>[\w\[\]]+)->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/[^,]*, 1, \(_index_t\)(?P<size>[0-9]+)\)')
@@ -507,14 +506,11 @@ def replace_dynamic_indexing(body):
                         index2 -= 1
                     real_array_create_tmp[tmp_index] = [type_var, var[:index2], var[index2 + 1:-1], var_name[:index], size]
         elif len(match_bool_real_multiple_dim) != 0:
-            print ("BUBU MULTIPLE DIM " + line)
             for tmp_index, type_var, var, var_name, size, size2 in match_bool_real_multiple_dim:
-                print ("BUBU VAL " + type_var + " " + var_name + " " + size + " " + size2 + " " + line)
                 body_to_return.append("   alloc_real_array(&("+tmp_index+"), 2, " + size + ", " + size2 +");\n")
                 initial_index = var[(var.find("[")+1):].replace("]","")
                 initial_var_index1 = var_name[(var_name.find("[")+1):var_name.find(",")]
                 initial_var_index2 = var_name[(var_name.find(",")+1):].replace("]","")
-                print ("BUBU " + initial_index + " " + initial_var_index1 + " " + initial_var_index2 + " " + line)
                 for i in range(0, int(size)):
                     for j in range(0, int(size2)):
                         body_to_return.append("   put_real_matrix_element(" + "(data->localData[0]->"+ \
