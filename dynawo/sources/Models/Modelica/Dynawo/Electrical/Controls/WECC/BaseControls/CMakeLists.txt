@@ -19,7 +19,6 @@ set(MODEL_FILES
   UdqRef.mo
   VoltageCheck.mo
   VSourceRef.mo
-  MechanicallySwitchedShunt.mo
   )
 
 #
