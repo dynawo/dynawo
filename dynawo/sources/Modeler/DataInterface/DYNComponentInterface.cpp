@@ -48,6 +48,11 @@ ComponentInterface::hasDynamicModel() const {
   return hasDynamicModel_;
 }
 
+int
+ComponentInterface::createComponentVarIndex(const std::string&) {
+  return -1;
+}
+
 void
 ComponentInterface::hasInitialConditions(bool hasInitialConditions) {
   hasInitialConditions_ = hasInitialConditions;
@@ -66,8 +71,13 @@ ComponentInterface::setModelDyn(const shared_ptr<SubModel>& model) {
 void
 ComponentInterface::setReference(const string& componentVar, const string& modelId, const string& modelVar) {
   int index = getComponentVarIndex(componentVar);
-  if (index == -1)
-    throw DYNError(Error::MODELER, UnknownStateVariable, componentVar, getID());
+  if (index == -1) {
+    index = createComponentVarIndex(componentVar);
+    if (index == -1)
+      throw DYNError(Error::MODELER, UnknownStateVariable, componentVar, getID());
+    else
+      Trace::warn() << DYNLog(VarCreatedForRef, componentVar, modelId, modelVar) << Trace::endline;
+  }
   stateVariables_[index].setModelId(modelId);
   stateVariables_[index].setVariableId(modelVar);
 }

@@ -87,14 +87,14 @@ class ModelSecondaryVoltageControlSimplified : public ModelCPP {
    */
   typedef enum {
     UpPuNum_ = 0,
-    nbContinuousVariables_ = 1,
+    nbContinuousVariables_ = 1
   } IndexContinuousVariable_t;
   /**
    * @brief root variables indexing
    */
   typedef enum {
     ActivationNum_ = 0,
-    BlockingNum_ = 1,
+    BlockingNum_ = 1
   } IndexRootVariable_t;
 
   /**

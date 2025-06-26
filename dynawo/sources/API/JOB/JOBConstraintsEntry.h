@@ -30,6 +30,11 @@ namespace job {
  */
 class ConstraintsEntry {
  public:
+   /**
+   * @brief constructor
+   */
+  ConstraintsEntry();
+
   /**
    * @brief Output file attribute setter
    * @param outputFile Output file for constraints
@@ -54,9 +59,22 @@ class ConstraintsEntry {
    */
   const std::string& getExportMode() const;
 
+  /**
+   * @brief filter setter
+   * @param filter whether to filter the constraints
+   */
+  void setFilter(bool filter);
+
+  /**
+   * @brief filter getter
+   * @return whether to filter the constraints
+   */
+  bool isFilter() const;
+
  private:
   std::string outputFile_;  ///< Export file for constraints
   std::string exportMode_;  ///< Export mode for constraints output file
+  bool filter_;             ///< Wether to filter the constraints
 };
 
 }  // namespace job

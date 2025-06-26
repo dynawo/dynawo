@@ -174,6 +174,13 @@ class ComponentInterface {
   virtual int getComponentVarIndex(const std::string& varName) const = 0;
 
   /**
+   * @brief create a yet-unexisting state variable, in the rare cases it makes sense
+   * @param varName name of the state variable
+   * @return index of the newly created state variable, or @b -1 if the operation is not allowed
+   */
+  virtual int createComponentVarIndex(const std::string& varName);
+
+  /**
    * @brief Getter for the component's hasInitialConditions_ attribute
    * @return  @b true if component has initial conditions set, @b false else
    */
