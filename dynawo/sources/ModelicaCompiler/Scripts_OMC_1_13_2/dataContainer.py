@@ -796,6 +796,7 @@ class Variable:
             if re.search(tmp_abs_var_prtn, line) is not None:
                 return True
             for func in list_omc_functions:
+                if func.get_name() == "omc_Modelica_Blocks_Tables_Internal_getNextTimeEvent": continue
                 if func.get_name().startswith("omc_") and func.get_name() in line:
                     return True
         return False
