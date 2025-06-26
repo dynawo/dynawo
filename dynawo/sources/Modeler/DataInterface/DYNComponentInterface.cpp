@@ -48,6 +48,11 @@ ComponentInterface::hasDynamicModel() const {
   return hasDynamicModel_;
 }
 
+int
+ComponentInterface::createComponentVarIndex(const std::string&) {
+  return -1;
+}
+
 void
 ComponentInterface::hasInitialConditions(bool hasInitialConditions) {
   hasInitialConditions_ = hasInitialConditions;
