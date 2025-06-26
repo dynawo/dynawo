@@ -32,6 +32,7 @@
 
 #include "TLTimelineFactory.h"
 #include "TLTimeline.h"
+#include "TLJsonExporter.h"
 
 #include "CRVCurvesCollectionFactory.h"
 #include "CRVCurveFactory.h"
@@ -41,6 +42,7 @@
 #include "FSVFinalStateValuesCollection.h"
 
 #include "CSTRConstraintsCollectionFactory.h"
+#include "CSTRJsonExporter.h"
 
 #include "LEQLostEquipmentsCollectionFactory.h"
 
@@ -63,6 +65,7 @@ using std::fstream;
 using std::string;
 using std::vector;
 using std::stringstream;
+using std::ostringstream;
 using std::map;
 using std::setw;
 using boost::shared_ptr;
@@ -71,6 +74,7 @@ namespace fs = boost::filesystem;
 
 using timeline::TimelineFactory;
 using timeline::Timeline;
+// using timeline::JsonExporter;
 
 using curves::CurvesCollection;
 using curves::CurvesCollectionFactory;
@@ -79,6 +83,7 @@ using finalStateValues::FinalStateValuesCollection;
 using finalStateValues::FinalStateValuesCollectionFactory;
 
 using constraints::ConstraintsCollectionFactory;
+// using constraints::JsonExporter;
 
 using lostEquipments::LostEquipmentsCollectionFactory;
 
@@ -134,6 +139,12 @@ SimulationRT::configureRT() {
   if (sendSimulationMetrics_)
     initComputationTimeCurve();
   valuesBuffer_.reserve((curvesCollection_->getCurves().size() + 1) * sizeof(double));
+
+  // Initialize exporters for timeline and contraints
+  if (timeline_)
+    timelineExporter_ = std::make_shared<timeline::JsonExporter>();
+  if (constraintsCollection_)
+    constraintsExporter_ = std::make_shared<constraints::JsonExporter>();
 }
 
 void
@@ -342,13 +353,19 @@ SimulationRT::simulate() {
           }
 
           // Export Timeline
-          string formatedTimeline = timelineToJson(lastPublicationTime);
-          stepPublisher_->sendMessage(formatedTimeline, "timeline");
+          if (timeline_) {
+            ostringstream formatedTimeline;
+            timelineExporter_->exportToStream(timeline_, formatedTimeline, lastPublicationTime);
+            string strTimeline = formatedTimeline.str();
+            stepPublisher_->sendMessage(strTimeline, "timeline");
+          }
 
           // Export Constraints
           if (constraintsCollection_) {
-            string formatedConstraints = constraintsToJson(lastPublicationTime);
-            stepPublisher_->sendMessage(formatedConstraints, "constraints");
+            ostringstream formatedConstraints;
+            constraintsExporter_->exportToStream(constraintsCollection_, formatedConstraints, lastPublicationTime);
+            string strConstraints = formatedConstraints.str();
+            stepPublisher_->sendMessage(strConstraints, "constraints");
             Trace::info() << "data published to ZMQ" << Trace::endline;
           }
           lastPublicationTime = tCurrent_;
@@ -490,66 +507,6 @@ void SimulationRT::updateValuesBuffer() {
     std::uint8_t* rawBytes = reinterpret_cast<std::uint8_t*>(&value);
     valuesBuffer_.insert(valuesBuffer_.end(), rawBytes, rawBytes + sizeof(double));
   }
-}
-
-const string
-SimulationRT::timelineToJson(const double& time) {
-  stringstream stream;
-  stream << "[";
-  bool isFirst = true;
-  for (auto &event : timeline_->getEvents()) {
-    if (event->getTime() > time) {
-      if (isFirst) {
-        isFirst = false;
-        stream << "\n\t{\n";
-      } else {
-        stream << ",\n\t{\n";
-      }
-      stream << "\t\t\"time\": \"" <<  DYN::double2String(event->getTime()) << "\",\n";
-      stream << "\t\t\"modelName\": \"" <<  event->getModelName() << "\",\n";
-      stream << "\t\t\"message\": \"" <<  event->getMessage() << "\"\n";
-      stream << "\t}";
-    }
-  }
-  stream << "\n]";
-  return stream.str();
-}
-
-const string
-SimulationRT::constraintsToJson(const double& time) {
-  stringstream stream;
-  stream << "[";
-  bool isFirst = true;
-  for (auto &constraintPair : constraintsCollection_->getConstraintsById()) {
-    const auto& constraint = constraintPair.second;
-    if (constraint->getTime() > time) {
-      if (isFirst) {
-        isFirst = false;
-        stream << "\n\t{\n";
-      } else {
-        stream << ",\n\t{\n";
-      }
-      string constraintType;
-      switch (constraint->getType()) {
-        case constraints::Type_t::CONSTRAINT_BEGIN:
-          constraintType = "BEGIN";
-          break;
-        case constraints::Type_t::CONSTRAINT_END:
-          constraintType = "END";
-          break;
-        default:
-          constraintType = "UNDEFINED";
-          break;
-      }
-      stream << "\t\t\"time\": \"" <<  DYN::double2String(constraint->getTime()) << "\",\n";
-      stream << "\t\t\"modelName\": \"" <<  constraint->getModelName() << "\",\n";
-      stream << "\t\t\"type\": \"" <<  constraintType << "\",\n";
-      stream << "\t\t\"description\": \"" <<  constraint->getDescription() << "\"\n";
-      stream << "\t}";
-    }
-  }
-  stream << "\n]";
-  return stream.str();
 }
 
 void

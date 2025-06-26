@@ -44,11 +44,13 @@ class WebsocketServer;
 
 namespace timeline {
 class Timeline;
+class Exporter;
 }
 
 
 namespace constraints {
 class ConstraintsCollection;
+class Exporter;
 }
 
 namespace job {
@@ -143,16 +145,6 @@ class SimulationRT: public Simulation {
   void updateValuesBuffer();
 
   /**
-   * @brief format timeline events as JSON from time time (excluded)
-   */
-  const std::string timelineToJson(const double& time);
-
-  /**
-   * @brief format constraints as JSON from time time (excluded)
-   */
-  const std::string constraintsToJson(const double& time);
-
-  /**
    * @brief add curve for step duration
    */
   void initComputationTimeCurve();
@@ -163,14 +155,17 @@ class SimulationRT: public Simulation {
 
   std::vector<std::uint8_t> valuesBuffer_;  ///< curves values buffer
 
+  // Exporters
+  std::shared_ptr<constraints::Exporter> constraintsExporter_;
+  std::shared_ptr<timeline::Exporter> timelineExporter_;
+
+  // Interfaces
   std::shared_ptr<wsc::WebsocketServer> wsServer_;  ///< instance of websocket server >
-
-  std::shared_ptr<TimeManager> timeManager_;  ///< Time manager >
-
   std::shared_ptr<EventSubscriber> eventSubscriber_;   ///< Event manager >
   double triggerSimulationTimeStepInS_;  ///< Event manager >
-
   std::shared_ptr<ZmqPublisher> stepPublisher_;   ///< result publisher
+
+  std::shared_ptr<TimeManager> timeManager_;  ///< Time manager >
 };
 
 }  // end of namespace DYN
