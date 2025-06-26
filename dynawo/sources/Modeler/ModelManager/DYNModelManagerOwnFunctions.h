@@ -531,6 +531,31 @@ typedef real_array_t_adept real_array_adept;
 void array_alloc_scalar_real_array_adept(real_array_t_adept* dest, int n, adept::adouble first, ...);
 adept::adouble min_real_array_adept(const real_array_t_adept a);
 adept::adouble max_real_array_adept(const real_array_t_adept a);
+
+
+typedef struct {
+  adept::adouble _re;
+  adept::adouble _im;
+} Complex_adept;
+typedef Complex_adept Modelica_ComplexBlocks_Interfaces_ComplexInput_adept;
+typedef Complex_adept Modelica_ComplexBlocks_Interfaces_ComplexOutput_adept;
+typedef Complex_adept Dynawo_Connectors_ComplexVoltagePuConnector_adept;
+typedef Complex_adept Dynawo_Connectors_ComplexCurrentPuConnector_adept;
+typedef Complex_adept Dynawo_Types_ComplexCurrentPu_adept;
+typedef Complex_adept Dynawo_Types_ComplexVoltagePu_adept;
+
+
+void Modelica_ComplexBlocks_Interfaces_ComplexInput_construct_p_adept(Modelica_ComplexBlocks_Interfaces_ComplexInput_adept* v_ths);
+void Modelica_ComplexBlocks_Interfaces_ComplexInput_wrap_vars_p_adept(Modelica_ComplexBlocks_Interfaces_ComplexInput_adept* v_dst ,
+    adept::adouble in_re, adept::adouble in_im);
+void Modelica_ComplexBlocks_Interfaces_ComplexInput_copy_p_adept(Modelica_ComplexBlocks_Interfaces_ComplexInput_adept* v_src,
+    Modelica_ComplexBlocks_Interfaces_ComplexInput_adept* v_dst);
+
+void Modelica_ComplexBlocks_Interfaces_ComplexOutput_construct_p_adept(Modelica_ComplexBlocks_Interfaces_ComplexOutput_adept* v_ths);
+void Modelica_ComplexBlocks_Interfaces_ComplexOutput_wrap_vars_p_adept(Modelica_ComplexBlocks_Interfaces_ComplexOutput_adept* v_dst ,
+    adept::adouble in_re, adept::adouble in_im);
+void Modelica_ComplexBlocks_Interfaces_ComplexOutput_copy_p_adept(Modelica_ComplexBlocks_Interfaces_ComplexOutput_adept* v_src,
+    Modelica_ComplexBlocks_Interfaces_ComplexOutput_adept* v_dst);
 #endif
 
 #endif  // DOXYGEN_SHOULD_SKIP_THIS

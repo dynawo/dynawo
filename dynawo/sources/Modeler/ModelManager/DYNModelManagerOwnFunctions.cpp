@@ -1477,6 +1477,36 @@ adept::adouble max_real_array_adept(const real_array_t_adept a) {
   }
   return max_element;
 }
+
+void Modelica_ComplexBlocks_Interfaces_ComplexInput_construct_p_adept(Modelica_ComplexBlocks_Interfaces_ComplexInput_adept*) {
+}
+
+void Modelica_ComplexBlocks_Interfaces_ComplexInput_wrap_vars_p_adept(Modelica_ComplexBlocks_Interfaces_ComplexInput_adept* dst ,
+    adept::adouble in_re, adept::adouble in_im) {
+  dst->_re = in_re;
+  dst->_im = in_im;
+}
+
+void Modelica_ComplexBlocks_Interfaces_ComplexInput_copy_p_adept(Modelica_ComplexBlocks_Interfaces_ComplexInput_adept* src,
+    Modelica_ComplexBlocks_Interfaces_ComplexInput_adept* dst) {
+  dst->_re = src->_re;
+  dst->_im = src->_im;
+}
+
+void Modelica_ComplexBlocks_Interfaces_ComplexOutput_construct_p_adept(Modelica_ComplexBlocks_Interfaces_ComplexOutput_adept*) {
+}
+
+void Modelica_ComplexBlocks_Interfaces_ComplexOutput_wrap_vars_p_adept(Modelica_ComplexBlocks_Interfaces_ComplexOutput_adept* dst ,
+    adept::adouble in_re, adept::adouble in_im) {
+  dst->_re = in_re;
+  dst->_im = in_im;
+}
+
+void Modelica_ComplexBlocks_Interfaces_ComplexOutput_copy_p_adept(Modelica_ComplexBlocks_Interfaces_ComplexOutput_adept* src,
+    Modelica_ComplexBlocks_Interfaces_ComplexOutput_adept* dst) {
+  dst->_re = src->_re;
+  dst->_im = src->_im;
+}
 #endif
 
 #ifdef __clang__
