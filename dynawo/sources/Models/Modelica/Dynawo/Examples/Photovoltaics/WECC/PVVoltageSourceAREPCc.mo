@@ -19,7 +19,7 @@ model PVVoltageSourceAREPCc "WECC PV Vsource Model on infinite bus"
     Placement(visible = true, transformation(origin = {-82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Electrical.Lines.Line line(RPu = 0, XPu = 0.0000020661, BPu = 0, GPu = 0) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Electrical.Photovoltaics.WECC.PVVoltageSourceAREPCc PV(DDn = 20, DPMaxPu = 999, DPMinPu = -999, DUp = 0.001, DbdPu = 0.01, Dbd1Pu = -0.1, Dbd2Pu = 0.1, EMaxPu = 999, EMinPu = -999, FDbd1Pu = 0.004, FDbd2Pu = 1, FEMaxPu = 999, FEMinPu = -999, FreqFlag = true, IMaxPu = 1.05, Id0Pu(fixed = false), Iq0Pu(fixed = false), Iqh1Pu = 2, Iql1Pu = -2, IqrMaxPu = 20, IqrMinPu = -20, Kc = 0, Ki = 1.5, KiPLL = 20, Kig = 2.36, Kp = 0.1, KpPLL = 3, Kpg = 0.05, Kqi = 0.5, Kqp = 1, Kqv = 2, Kvi = 1, Kvp = 1, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, P0Pu = -0.7, PF0(fixed = false), PInj0Pu(fixed = false), PMaxPu = 1, PMinPu = 0, PQFlag = false, PfFlag = false, Q0Pu = -0.2, QFlag = true, QInj0Pu(fixed = false), QMaxPu = 0.4, QMinPu = -0.4, RPu = 0, RSourcePu = 0, RateFlag = false, RefFlag = 0, RrpwrPu = 10, SNom = 100, U0Pu = 1, UInj0Pu(fixed = false), UdInj0Pu(fixed = false), UqInj0Pu(fixed = false), VCompFlag = false, VDipPu = 0.9, VFlag = true, VFrz = 0, VMaxPu = 1.1, VMinPu = 0.9, VRef0Pu = 1, VRef1Pu = 0, VUpPu = 1.1, XPu = 0.15, XSourcePu = 0.1, i0Pu(re(fixed = false), im(fixed = false)), tE = 0.005, tFilterGC = 0.02, tFilterPC = 0.04, tFt = 1e-10, tFv = 0.1, tG = 0.02, tIq = 0.02, tLag = 0.1, tP = 0.04, tPord = 0.02, tRv = 0.02, u0Pu(re(fixed = false), im(fixed = false)), uInj0Pu(re(fixed = false), im(fixed = false)), uSource0Pu(re(fixed = false), im(fixed = false)), tC = 0.02, tFrz = 0.5, PiMaxPu = 1, PiMinPu = 0, PrMaxPu = 999, PrMinPu = -999, DPrMax = 999, DPrMin = -999, URefMaxPu = 1.1, URefMinPu = 0.9, QRefMaxPu = 999, QRefMinPu = -999, DQRefMax = 999, DQRefMin = -999, QvrMax = 999, QvrMin = -999, PfMax = 0.95, PfMin = -0.95, tFrq = 0.1, Ffwrd_Flag = false, Pefd_Flag = true, UFreqPu = 0.8, QVFlag = true, DfMaxPu = 999, DfMinPu = -999, VDLIp11 = 0.2, VDLIp12 = 1.1, VDLIp21 = 0.5, VDLIp22 = 1.1, VDLIp31 = 0.75, VDLIp32 = 1.1, VDLIp41 = 1, VDLIp42 = 1.1, VDLIq11 = 0.2, VDLIq12 = 0.75, VDLIq21 = 0.4, VDLIq22 = 0.75, VDLIq31 = 0.7, VDLIq32 = 0.75, VDLIq41 = 1, VDLIq42 = 0.75, tHoldIpMax = 0, tHoldIq = -1, IqFrzPu = 0.1, PFlag = false) annotation(
+  Electrical.Photovoltaics.WECC.PVVoltageSourceAREPCc PV(DDn = 20, DPMaxPu = 999, DPMinPu = -999, DUp = 0.001, DbdPu = 0.01, Dbd1Pu = -0.1, Dbd2Pu = 0.1, EMaxPu = 999, EMinPu = -999, FDbd1Pu = 0.004, FDbd2Pu = 1, FEMaxPu = 999, FEMinPu = -999, FreqFlag = true, IMaxPu = 1.05, Id0Pu(fixed = false), Iq0Pu(fixed = false), Iqh1Pu = 2, Iql1Pu = -2, IqrMaxPu = 20, IqrMinPu = -20, Kc = 0, Ki = 1.5, KiPLL = 20, Kig = 2.36, Kp = 0.1, KpPLL = 3, Kpg = 0.05, Kqi = 0.5, Kqp = 1, Kqv = 2, Kvi = 1, Kvp = 1, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, P0Pu = -0.7, PF0(fixed = false), PInj0Pu(fixed = false), PMaxPu = 1, PMinPu = 0, PQFlag = false, PfFlag = false, Q0Pu = -0.2, QFlag = true, QInj0Pu(fixed = false), QMaxPu = 0.4, QMinPu = -0.4, RPu = 0, RSourcePu = 0, RateFlag = false, RefFlag = 1, RrpwrPu = 10, SNom = 100, U0Pu = 1, UInj0Pu(fixed = false), UdInj0Pu(fixed = false), UqInj0Pu(fixed = false), VCompFlag = false, VDipPu = 0.9, VFlag = true, VFrz = 0.2, VMaxPu = 1.1, VMinPu = 0.9, VRef0Pu = 1, VRef1Pu = 0, VUpPu = 1.1, XPu = 0.15, XSourcePu = 0.1, i0Pu(re(fixed = false), im(fixed = false)), tE = 0.005, tFilterGC = 0.02, tFilterPC = 0.04, tFt = 1e-10, tFv = 0.1, tG = 0.02, tIq = 0.02, tLag = 0.1, tP = 0.04, tPord = 0.02, tRv = 0.02, u0Pu(re(fixed = false), im(fixed = false)), uInj0Pu(re(fixed = false), im(fixed = false)), uSource0Pu(re(fixed = false), im(fixed = false)), tC = 0.02, tFrz = 0, PiMaxPu = 0.1, PiMinPu = -0.1, PrMaxPu = 999, PrMinPu = -999, DPrMax = 999, DPrMin = -999, URefMaxPu = 1.1, URefMinPu = 0.9, QRefMaxPu = 999, QRefMinPu = -999, DQRefMax = 999, DQRefMin = -999, QvrMax = 999, QvrMin = -999, PfMax = 0.95, PfMin = -0.95, tFrq = 0.1, FfwrdFlag = false, PefdFlag = true, UFreqPu = 0.8, QVFlag = true, DfMaxPu = 999, DfMinPu = -999, VDLIp11 = 0.2, VDLIp12 = 1.1, VDLIp21 = 0.5, VDLIp22 = 1.1, VDLIp31 = 0.75, VDLIp32 = 1.1, VDLIp41 = 1, VDLIp42 = 1.1, VDLIq11 = 0.2, VDLIq12 = 0.75, VDLIq21 = 0.4, VDLIq22 = 0.75, VDLIq31 = 0.7, VDLIq32 = 0.75, VDLIq41 = 1, VDLIq42 = 0.75, tHoldIpMax = 0, tHoldIq = -1, IqFrzPu = 0.1, PFlag = false) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PRefPu(k = 0.7) annotation(
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
@@ -85,8 +85,31 @@ equation
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 20, Tolerance = 1e-05, Interval = 0.001),
     Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\">
-    This test case consists in one PV park connected to an infinite bus which voltage is reduced to 0.5 pu from t = 1 s to t = 2 s, and which frequency is increased to 1.01 pu from t = 6 s to t = 6.5 s. This is a way to observe the PV park's response to a voltage and frequency variation at its terminal.    </div>
-    <div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><span style=\"font-size: 12px;\"><br></span></div></div></body></html>"),
+    This test case consists in one PV park connected to an infinite bus which voltage is reduced to 0.5 pu from t = 1 s to t = 2 s, and which frequency is increased to 1.01 pu from t = 6 s to t = 6.5 s. This is a way to observe the PV park's response to a voltage and frequency variation at its terminal. The impact of the choice of control path can be seen below.    </div>
+    <div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><span style=\"font-size: 12px;\"><br></span></div></div> Pefd_Flag=true,Frq_Flag=true,Ffwrd_Flag=false </figure><figure>
+      <img width=\"450\" src=\"modelica://Dynawo/Examples/Photovoltaics/WECC/Resources/PInjPu1.png\">
+    </figure>Pefd_Flag=true,Frq_Flag=false,Ffwrd_Flag=false Disable the frequency response
+    <figure>
+      <img width=\"450\" src=\"modelica://Dynawo/Examples/Photovoltaics/WECC/Resources/PInjPu2.png\">
+    </figure>Pefd_Flag=false,Frq_Flag=true,Ffwrd_Flag=false Disable the Electric power feedback
+    <figure>
+      <img width=\"450\" src=\"modelica://Dynawo/Examples/Photovoltaics/WECC/Resources/PInjPu3.png\">
+    </figure>Pefd_Flag=true,Frq_Flag=true,Ffwrd_Flag=true
+    <figure> Create a feedforward path
+      <img width=\"450\" src=\"modelica://Dynawo/Examples/Photovoltaics/WECC/Resources/PInjPu4.png\">
+    </figure>VCompFlag=true,RefFlag=1 Voltage Control with current compensation
+    <figure>
+      <img width=\"450\" src=\"modelica://Dynawo/Examples/Photovoltaics/WECC/Resources/QInjPu1.png\">
+    </figure>VCompFlag=false,RefFlag=1 Voltage Control with reative droop
+    <figure>
+      <img width=\"450\" src=\"modelica://Dynawo/Examples/Photovoltaics/WECC/Resources/QInjPu2.png\">
+    </figure>VCompFlag irrelevant,RefFlag=0 Constant-Q control
+    <figure>
+      <img width=\"450\" src=\"modelica://Dynawo/Examples/Photovoltaics/WECC/Resources/QInjPu3.png\">
+    </figure>VCompFlag irrelevant,RefFlag=2 Constant power-factor control
+    <figure>
+      <img width=\"450\" src=\"modelica://Dynawo/Examples/Photovoltaics/WECC/Resources/QInjPu4.png\">
+    </figure></body></html>"),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian,newInst",
     __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "ida", maxIntegrationOrder = "2", nls = "kinsol", noHomotopyOnFirstTry = "()", noRestart = "()", noRootFinding = "()", initialStepSize = "0.00001", maxStepSize = "10"));
 end PVVoltageSourceAREPCc;

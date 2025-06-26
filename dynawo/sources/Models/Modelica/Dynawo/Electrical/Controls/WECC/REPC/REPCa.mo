@@ -18,7 +18,7 @@ model REPCa "WECC Plant Control type A"
   extends Dynawo.Electrical.Controls.WECC.REPC.BaseClasses.BaseREPC;
   
   // REPC-A parameter
-  parameter Boolean RefFlag ;
+  parameter Boolean RefFlag "Plant level reactive power (0) or voltage control (1)" annotation(Dialog(tab = "Plant Control")) ;
   
   Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = tFilterPC, y_start = if VCompFlag == true then UInj0Pu else U0Pu + Kc*QGen0Pu) annotation(
     Placement(transformation(origin = {-76, 80}, extent = {{-10, -10}, {10, 10}})));
@@ -30,6 +30,8 @@ model REPCa "WECC Plant Control type A"
     Placement(transformation(origin = {12, 50}, extent = {{-10, -10}, {10, 10}})));
 
 equation
+  connect(lineDropCompensation1.U2Pu, voltageCheck.UPu) annotation(
+    Line(points = {{-259, 94}, {-241, 94}}, color = {0, 0, 127}));
   connect(switch2.y, firstOrder3.u) annotation(
     Line(points = {{-98, 80}, {-88, 80}}, color = {0, 0, 127}));
   connect(firstOrder3.y, UCtrlErr.u2) annotation(
@@ -65,7 +67,7 @@ equation
   connect(deadZone1.y, gain2.u) annotation(
     Line(points = {{-206, -130}, {-166, -130}}, color = {0, 0, 127}));
   connect(omegaPu, wCtrlErr.u2) annotation(
-    Line(points = {{-310, -140}, {-272, -140}, {-272, -136}, {-258, -136}}, color = {0, 0, 127}));
+    Line(points = {{-310, -140}, {-272, -140}, {-272, -136}, {-238, -136}}, color = {0, 0, 127}));
   connect(deadZone1.y, gain1.u) annotation(
     Line(points = {{-206, -130}, {-194, -130}, {-194, -90}, {-168, -90}}, color = {0, 0, 127}));
   connect(QRefPu, QCtrlErr.u2) annotation(
@@ -80,5 +82,8 @@ equation
     Line(points = {{-218, 94}, {-174, 94}, {-174, 102}, {-102, 102}}, color = {255, 0, 255}));
 
 annotation(
-    Icon(graphics = {Text(origin = {-29, 11}, extent = {{-41, 19}, {97, -41}}, textString = "REPC A")}));
+    Icon(graphics = {Text(origin = {-29, 11}, extent = {{-41, 19}, {97, -41}}, textString = "REPC A")}),Documentation(info = "<html>
+<p> This block contains the generic WECC PV plant level control model according to (in case page cannot be found, copy link in browser): <a href='https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf/'>https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf </a> </p>
+<p>Plant level active and reactive power/voltage control. Reactive power or voltage control dependent on RefFlag. Frequency dependent active power control is enabled or disabled with FreqFlag. With voltage control (RefFlag = true), voltage at remote bus can be controlled when VcompFlag == true. Therefore, RcPu and XcPu shall be defined as per real impedance between inverter terminal and regulated bus. If measurements from the regulated bus are available, VcompFlag should be set to false and the measurements from regulated bus shall be connected with the input measurement signals (PRegPu, QRegPu, uPu, iPu). </p>
+</html>"));
 end REPCa;

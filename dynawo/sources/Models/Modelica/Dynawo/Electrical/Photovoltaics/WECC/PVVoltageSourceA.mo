@@ -70,6 +70,9 @@ model PVVoltageSourceA "WECC PV model with a voltage source as interface with th
   parameter Types.VoltageModulePu VRef1Pu "User-defined reference/bias on the inner-loop voltage control in pu (base UNom) (typical: 0 pu)" annotation(
     Dialog(tab = "Electrical Control"));
 
+  // REPC-A parameter
+  parameter Boolean RefFlag "Plant level reactive power (0) or voltage control (1)" annotation(Dialog(tab = "Plant Control")) ;
+  
   // Input variables
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

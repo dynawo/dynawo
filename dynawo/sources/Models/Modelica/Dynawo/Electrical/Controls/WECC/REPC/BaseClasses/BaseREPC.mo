@@ -12,13 +12,13 @@ within Dynawo.Electrical.Controls.WECC.REPC.BaseClasses;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
     
-model BaseREPC "WECC Plant Control type A"
+model BaseREPC "WECC Plant Control REPC common"
   extends Electrical.Controls.WECC.Parameters.ParamsREPC;
   
   parameter Types.PerUnit RcPu "Line drop compensation resistance when VcompFlag = 1 in pu (base SnRef, UNom)";
   parameter Types.PerUnit XcPu "Line drop compensation reactance when VcompFlag = 1 in pu (base SnRef, UNom)";
   
-  // Inputs
+  // Input Parameters
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = PGen0Pu) "Active power setpoint at regulated bus in pu (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-310, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-111, -19}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput QRefPu(start = QGen0Pu) "Reactive power setpoint at regulated bus in pu (generator convention) (base SNom)" annotation(
@@ -38,7 +38,7 @@ model BaseREPC "WECC Plant Control type A"
   Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omega0Pu) "Frequency at regulated bus in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-310, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-111, 79}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
   
-  // Outputs
+  // Output Parameters
   Modelica.Blocks.Interfaces.RealOutput PInjRefPu(start = PInj0Pu) "Active power setpoint at inverter terminal in pu (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {210, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput QInjRefPu(start = QInj0Pu) "Reactive power setpoint at inverter terminal in pu (generator convention) (base SNom)" annotation(
@@ -84,9 +84,9 @@ model BaseREPC "WECC Plant Control type A"
   Modelica.Blocks.Math.Gain gain(k = Kc) annotation(
     Placement(visible = true, transformation(origin = {-270, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add wCtrlErr(k2 = -1) annotation(
-    Placement(transformation(origin = {-246, -130}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-225, -130}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Nonlinear.DeadZone deadZone1(uMax = FDbd2Pu, uMin = -FDbd1Pu) annotation(
-    Placement(transformation(origin = {-218, -130}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-203, -130}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Add dPfreq annotation(
     Placement(transformation(origin = {-88, -110}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Gain gain1(k = DDn) annotation(
@@ -105,6 +105,7 @@ model BaseREPC "WECC Plant Control type A"
     Placement(visible = true, transformation(origin = {-230, 94}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   NonElectrical.Blocks.Continuous.TransferFunctionFreeze leadLag(a = {tFv, 1}, b = {tFt, 1}, x_start = {QInj0Pu}, y_start = QInj0Pu) annotation(
     Placement(transformation(origin = {134, 50}, extent = {{-10, -10}, {10, 10}})));
+  
   parameter Types.PerUnit PGen0Pu "Start value of active power at regulated bus in pu (generator convention) (base SNom)";
   parameter Types.PerUnit QGen0Pu "Start value of reactive power at regulated bus in pu (generator convention) (base SNom)";
   parameter Types.PerUnit U0Pu "Start value of voltage magnitude at regulated bus in pu (base UNom)";
@@ -116,8 +117,6 @@ model BaseREPC "WECC Plant Control type A"
   final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else U0Pu + Kc*QGen0Pu "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
 
 equation
-  connect(lineDropCompensation1.U2Pu, voltageCheck.UPu) annotation(
-    Line(points = {{-259, 94}, {-241, 94}}, color = {0, 0, 127}));
   connect(PRegPu, firstOrder1.u) annotation(
     Line(points = {{-310, -50}, {-282, -50}}, color = {0, 0, 127}));
   connect(gain.u, QRegPu) annotation(
@@ -125,7 +124,7 @@ equation
   connect(switch.y, PInjRefPu) annotation(
     Line(points = {{121, -90}, {160, -90}, {160, -80}, {210, -80}}, color = {0, 0, 127}));
   connect(wCtrlErr.y, deadZone1.u) annotation(
-    Line(points = {{-235, -130}, {-230, -130}}, color = {0, 0, 127}));
+    Line(points = {{-215, -130}, {-213, -130}}, color = {0, 0, 127}));
   connect(gain2.y, limiter1.u) annotation(
     Line(points = {{-143, -130}, {-140, -130}}, color = {0, 0, 127}));
   connect(Zero.y, limPID.u_m) annotation(
@@ -151,7 +150,7 @@ equation
   connect(Zero1.y, limPIDFreeze.u_m) annotation(
     Line(points = {{109, 96}, {96, 96}, {96, 62}}, color = {0, 0, 127}));
   connect(omegaRefPu, wCtrlErr.u1) annotation(
-    Line(points = {{-310, -120}, {-290, -120}, {-290, -124}, {-258, -124}}, color = {0, 0, 127}));
+    Line(points = {{-310, -120}, {-290, -120}, {-290, -124}, {-235, -124}}, color = {0, 0, 127}));
   connect(dPfreq.y, add3.u3) annotation(
     Line(points = {{-77, -110}, {-74, -110}, {-74, -78}, {-95, -78}, {-95, -58}, {-92, -58}}, color = {0, 0, 127}));
   connect(QVCtrlErr.y, switch2.u3) annotation(
@@ -170,8 +169,10 @@ equation
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html>
-<p> This block contains the generic WECC PV plant level control model according to (in case page cannot be found, copy link in browser): <a href='https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf/'>https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf </a> </p>
-<p>Plant level active and reactive power/voltage control. Reactive power or voltage control dependent on RefFlag. Frequency dependent active power control is enabled or disabled with FreqFlag. With voltage control (RefFlag = true), voltage at remote bus can be controlled when VcompFlag == true. Therefore, RcPu and XcPu shall be defined as per real impedance between inverter terminal and regulated bus. If measurements from the regulated bus are available, VcompFlag should be set to false and the measurements from regulated bus shall be connected with the input measurement signals (PRegPu, QRegPu, uPu, iPu). </p>
+<p> This block contains the generic WECC PV plant level control model's common parts according to (in case page cannot be found, copy link in browser): <a href='https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf/'>https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf </a> </p>
+<p>this model is used in the following models:
+<li> Plant Control PV </li>
+<li> Plant Control WP </li> </p>
 </html>"),
     Diagram(coordinateSystem(extent = {{-300, -150}, {200, 150}})),
     version = "",

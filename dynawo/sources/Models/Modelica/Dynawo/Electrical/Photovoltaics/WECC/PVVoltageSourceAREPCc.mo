@@ -17,63 +17,11 @@ within Dynawo.Electrical.Photovoltaics.WECC;
      --------           iSourcePu                                                 iPu
 */
 
-model PVVoltageSourceAREPCc "WECC PV model with a voltage source as interface with the grid (REPC-A REEC-A REGC-B)"
+model PVVoltageSourceAREPCc "WECC PV model with a voltage source as interface with the grid (REPC-C REEC-A REGC-B)"
 
   extends Electrical.Controls.WECC.Parameters.ParamsREPC;
   extends Electrical.Photovoltaics.WECC.BaseClasses.BasePVVoltageSource;
-  
-  //Parameters REPC_c
-   parameter Types.Time tC " Time constant associated with reactive power measurement/filtering for the reactive droop function";
-  parameter Types.Time tFrz "Time delay during which the states are kept frozen after the filtered voltage recovers above Ufrz";
-  parameter Types.PerUnit PiMaxPu"Maximum limit of the active power PI controller" annotation(
-  Dialog(tab="Plant Control"));
-  parameter Types.PerUnit PiMinPu "Minimum limit of the active power PI controller" annotation(
-  Dialog(tab="Plant Control"));
-  parameter Types.PerUnit PrMaxPu "Maximum rate of increase of Pref" annotation(
-  Dialog(tab="Plant Control")); 
-  parameter Types.PerUnit PrMinPu "Maximum rate of decrease of Pref" annotation(
-  Dialog(tab="Plant Control"));
-  parameter Types.Frequency DPrMax "Maximum rate of increase of plant Pref" annotation(
-  Dialog(tab="Plant Control"));
-  parameter Types.Frequency DPrMin "Maximum rate of decrease of plant Pref " annotation(
-  Dialog(tab="Plant Control"));
-  parameter Types.PerUnit URefMaxPu "Maximum limit on Uref" annotation(
-  Dialog(tab="Plant Control"));
-  parameter Types.PerUnit URefMinPu "Minimum limit on Vref" annotation(
-  Dialog(tab="Plant Control"));
-  parameter Types.PerUnit QRefMaxPu "Maximum limit on Qref" annotation(
-  Dialog(tab="Plant Control"));
-  parameter Types.PerUnit QRefMinPu "Minimum limit on Qref" annotation(
-  Dialog(tab="Plant Control"));
-  parameter Types.Frequency DQRefMax "Maximum rate of increase of Q reference" annotation(
-  Dialog(tab="Plant Control")); 
-  parameter Types.Frequency DQRefMin "Maximum rate of decrease of Q reference" annotation(
-  Dialog(tab="Plant Control"));
-  parameter Types.Frequency QvrMax "Maximum rate of increase of Qext" annotation(
-  Dialog(tab="Plant Control"));
-  parameter Types.Frequency QvrMin "Maximum rate of decrease of Qext" annotation(
-  Dialog(tab="Plant Control"));
-  parameter Real PfMax "Maximum limit on power factor" annotation(
-  Dialog(tab="Plant Control"));
-  parameter Real PfMin "Minimum limit on power factor" annotation(
-  Dialog(tab="Plant Control"));
-  parameter Types.Time tFrq "Frequency transducer/filter time constant" annotation(
-  Dialog(tab="Plant Control"));
-  parameter Boolean Ffwrd_Flag "Enable or disable feedforward path" annotation(
-  Dialog(tab="Plant Control"));
-  parameter Boolean Pefd_Flag "Enable or disable electrical power feedback" annotation(
-  Dialog(tab="Plant Control"));
-  parameter Types.PerUnit UFreqPu "If the voltage at the bus where frequency is monitored < vfreq then measured frequency is set to 1 p.u. " annotation(
-  Dialog(tab="Plant Control"));
-  parameter Boolean QVFlag "disable volt/var control completely, or  enable volt/var control" annotation(
-  Dialog(tab="Plant Control"));
-  parameter Types.PerUnit DfMaxPu "Maximum limit on frequency deviation" annotation(
-  Dialog(tab="Plant Control"));
-  parameter Types.PerUnit DfMinPu " Minimum limit on frequency deviation" annotation(
-  Dialog(tab="Plant Control"));
-  parameter Integer RefFlag"1: Reactive power control; 2: Voltage control; 3: Power factor control" annotation(
-  Dialog(tab="Plant Control"));
-  
+    
   // REEC-A parameters
   parameter Types.VoltageComponent VDLIp11 annotation(
     Dialog(tab = "Electrical Control"));
@@ -122,6 +70,58 @@ model PVVoltageSourceAREPCc "WECC PV model with a voltage source as interface wi
   parameter Types.VoltageModulePu VRef1Pu "User-defined reference/bias on the inner-loop voltage control in pu (base UNom) (typical: 0 pu)" annotation(
     Dialog(tab = "Electrical Control"));
  
+ //Parameters REPC-C
+   parameter Types.Time tC " Time constant associated with reactive power measurement/filtering for the reactive droop function";
+  parameter Types.Time tFrz "Time delay during which the states are kept frozen after the filtered voltage recovers above Ufrz";
+  parameter Types.PerUnit PiMaxPu"Maximum limit of the active power PI controller" annotation(
+  Dialog(tab="Plant Control"));
+  parameter Types.PerUnit PiMinPu "Minimum limit of the active power PI controller" annotation(
+  Dialog(tab="Plant Control"));
+  parameter Types.PerUnit PrMaxPu "Maximum rate of increase of Pref" annotation(
+  Dialog(tab="Plant Control")); 
+  parameter Types.PerUnit PrMinPu "Maximum rate of decrease of Pref" annotation(
+  Dialog(tab="Plant Control"));
+  parameter Types.Frequency DPrMax "Maximum rate of increase of plant Pref" annotation(
+  Dialog(tab="Plant Control"));
+  parameter Types.Frequency DPrMin "Maximum rate of decrease of plant Pref " annotation(
+  Dialog(tab="Plant Control"));
+  parameter Types.PerUnit URefMaxPu "Maximum limit on Uref" annotation(
+  Dialog(tab="Plant Control"));
+  parameter Types.PerUnit URefMinPu "Minimum limit on Uref" annotation(
+  Dialog(tab="Plant Control"));
+  parameter Types.PerUnit QRefMaxPu "Maximum limit on Qref" annotation(
+  Dialog(tab="Plant Control"));
+  parameter Types.PerUnit QRefMinPu "Minimum limit on Qref" annotation(
+  Dialog(tab="Plant Control"));
+  parameter Types.Frequency DQRefMax "Maximum rate of increase of Q reference" annotation(
+  Dialog(tab="Plant Control")); 
+  parameter Types.Frequency DQRefMin "Maximum rate of decrease of Q reference" annotation(
+  Dialog(tab="Plant Control"));
+  parameter Types.Frequency QvrMax "Maximum rate of increase of Qext" annotation(
+  Dialog(tab="Plant Control"));
+  parameter Types.Frequency QvrMin "Maximum rate of decrease of Qext" annotation(
+  Dialog(tab="Plant Control"));
+  parameter Real PfMax "Maximum limit on power factor" annotation(
+  Dialog(tab="Plant Control"));
+  parameter Real PfMin "Minimum limit on power factor" annotation(
+  Dialog(tab="Plant Control"));
+  parameter Types.Time tFrq "Frequency transducer/filter time constant" annotation(
+  Dialog(tab="Plant Control"));
+  parameter Boolean FfwrdFlag "Enable or disable feedforward path" annotation(
+  Dialog(tab="Plant Control"));
+  parameter Boolean PefdFlag "Enable or disable electrical power feedback" annotation(
+  Dialog(tab="Plant Control"));
+  parameter Types.PerUnit UFreqPu "If the voltage at the bus where frequency is monitored < ufreq then measured frequency is set to 1 p.u. " annotation(
+  Dialog(tab="Plant Control"));
+  parameter Boolean QVFlag "disable volt/var control completely, or  enable volt/var control" annotation(
+  Dialog(tab="Plant Control"));
+  parameter Types.PerUnit DfMaxPu "Maximum limit on frequency deviation" annotation(
+  Dialog(tab="Plant Control"));
+  parameter Types.PerUnit DfMinPu " Minimum limit on frequency deviation" annotation(
+  Dialog(tab="Plant Control"));
+  parameter Integer RefFlag "0: Reactive power control; 1: Voltage control; 2: Power factor control" annotation(
+  Dialog(tab="Plant Control"));
+
   // Input variables
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -136,7 +136,7 @@ model PVVoltageSourceAREPCc "WECC PV model with a voltage source as interface wi
   Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Voltage setpoint for plant level control in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   
-  Electrical.Controls.WECC.REPC.REPCc wecc_repc(DDn = DDn, DUp = DUp, DbdPu = DbdPu, EMaxPu = EMaxPu, EMinPu = EMinPu, FDbd1Pu = FDbd1Pu, FDbd2Pu = FDbd2Pu, FEMaxPu = FEMaxPu, FEMinPu = FEMinPu, FreqFlag = FreqFlag, Kc = Kc, Ki = Ki, Kig = Kig, Kp = Kp, Kpg = Kpg, PGen0Pu = -P0Pu*SystemBase.SnRef/SNom, PInj0Pu = PInj0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, QGen0Pu = -Q0Pu*SystemBase.SnRef/SNom, QInj0Pu = QInj0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, RcPu = RPu, RefFlag = RefFlag, U0Pu = U0Pu, UInj0Pu = UInj0Pu, VCompFlag = VCompFlag, VFrz = VFrz, XcPu = XPu, iInj0Pu = -i0Pu*SystemBase.SnRef/SNom, tFilterPC = tFilterPC, tFt = tFt, tFv = tFv, tLag = tLag, tP = tP, u0Pu = u0Pu, tC = tC, tFrz = tFrz, PiMaxPu = PiMaxPu, PiMinPu = PiMinPu, PrMaxPu = PrMaxPu, PrMinPu = PrMinPu, DPrMax = DPrMax, DPrMin = DPrMin, URefMaxPu = URefMaxPu, URefMinPu = URefMinPu, QRefMaxPu = QRefMaxPu, QRefMinPu = QRefMinPu, DQRefMax = DQRefMax, DQRefMin = DQRefMin, QvrMax = QvrMax, QvrMin = QvrMin, PfMax = PfMax, PfMin = PfMin, tFrq = tFrq, Ffwrd_Flag = Ffwrd_Flag, Pefd_Flag = Pefd_Flag, UFreqPu = UFreqPu, QVFlag = QVFlag, DfMaxPu = DfMaxPu, DfMinPu = DfMinPu) annotation(
+  Electrical.Controls.WECC.REPC.REPCc wecc_repc(DDn = DDn, DUp = DUp, DbdPu = DbdPu, EMaxPu = EMaxPu, EMinPu = EMinPu, FDbd1Pu = FDbd1Pu, FDbd2Pu = FDbd2Pu, FEMaxPu = FEMaxPu, FEMinPu = FEMinPu, FreqFlag = FreqFlag, Kc = Kc, Ki = Ki, Kig = Kig, Kp = Kp, Kpg = Kpg, PGen0Pu = -P0Pu*SystemBase.SnRef/SNom, PInj0Pu = PInj0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, QGen0Pu = -Q0Pu*SystemBase.SnRef/SNom, QInj0Pu = QInj0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, RcPu = RPu, RefFlag = RefFlag, U0Pu = U0Pu, UInj0Pu = UInj0Pu, VCompFlag = VCompFlag, VFrz = VFrz, XcPu = XPu, iInj0Pu = -i0Pu*SystemBase.SnRef/SNom, tFilterPC = tFilterPC, tFt = tFt, tFv = tFv, tLag = tLag, tP = tP, u0Pu = u0Pu, tC = tC, tFrz = tFrz, PiMaxPu = PiMaxPu, PiMinPu = PiMinPu, PrMaxPu = PrMaxPu, PrMinPu = PrMinPu, DPrMax = DPrMax, DPrMin = DPrMin, URefMaxPu = URefMaxPu, URefMinPu = URefMinPu, QRefMaxPu = QRefMaxPu, QRefMinPu = QRefMinPu, DQRefMax = DQRefMax, DQRefMin = DQRefMin, QvrMax = QvrMax, QvrMin = QvrMin, PfMax = PfMax, PfMin = PfMin, tFrq = tFrq, FfwrdFlag = FfwrdFlag, PefdFlag = PefdFlag, UFreqPu = UFreqPu, QVFlag = QVFlag, DfMaxPu = DfMaxPu, DfMinPu = DfMinPu) annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Electrical.Controls.WECC.REEC.REECa wecc_reec(DPMaxPu = DPMaxPu, DPMinPu = DPMinPu, Dbd1Pu = Dbd1Pu, Dbd2Pu = Dbd2Pu, IMaxPu = IMaxPu, Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, IqFrzPu = IqFrzPu, Iqh1Pu = Iqh1Pu, Iql1Pu = Iql1Pu, Kqi = Kqi, Kqp = Kqp, Kqv = Kqv, Kvi = Kvi, Kvp = Kvp, PF0 = PF0, PFlag = PFlag, PInj0Pu = PInj0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, PQFlag = PQFlag, PfFlag = PfFlag, QFlag = QFlag, QInj0Pu = QInj0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, UInj0Pu = UInj0Pu, VDLIp11 = VDLIp11, VDLIp12 = VDLIp12, VDLIp21 = VDLIp21, VDLIp22 = VDLIp22, VDLIp31 = VDLIp31, VDLIp32 = VDLIp32, VDLIp41 = VDLIp41, VDLIp42 = VDLIp42, VDLIq11 = VDLIq11, VDLIq12 = VDLIq12, VDLIq21 = VDLIq21, VDLIq22 = VDLIq22, VDLIq31 = VDLIq31, VDLIq32 = VDLIq32, VDLIq41 = VDLIq41, VDLIq42 = VDLIq42, VDipPu = VDipPu, VFlag = VFlag, VMaxPu = VMaxPu, VMinPu = VMinPu, VRef0Pu = VRef0Pu, VRef1Pu = VRef1Pu, VUpPu = VUpPu, tHoldIpMax = tHoldIpMax, tHoldIq = tHoldIq, tIq = tIq, tP = tP, tPord = tPord, tRv = tRv) annotation(
     Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
