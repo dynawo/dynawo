@@ -41,10 +41,12 @@ TxtExporter::exportToFile(const boost::shared_ptr<Timeline>& timeline, const std
 }
 
 void
-TxtExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream& stream) const {
+TxtExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream& stream, double afterTime) const {
   const std::string TXTEXPORTER_SEPARATOR = " | ";  ///< definition of the separator to use in txt files
   for (const auto& event : timeline->getEvents()) {
     if (event->hasPriority() && maxPriority_ != boost::none && event->getPriority() > maxPriority_)
+      continue;
+    if (!DYN::doubleGreater(event->getTime(), afterTime))
       continue;
     if (exportWithTime_)
       stream << DYN::double2String(event->getTime())
