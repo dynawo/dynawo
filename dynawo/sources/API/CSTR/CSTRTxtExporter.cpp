@@ -45,10 +45,12 @@ TxtExporter::exportToFile(const std::shared_ptr<ConstraintsCollection>& constrai
 }
 
 void
-TxtExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints, ostream& stream) const {
+TxtExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints, ostream& stream, double afterTime) const {
   const std::string TXTEXPORTER_SEPARATOR = " | ";  ///< separator in txt file
   for (const auto& constraintPair : constraints->getConstraintsById()) {
     const auto& constraint = constraintPair.second;
+    if (!DYN::doubleGreater(constraint->getTime(), afterTime))
+      continue;
     stream << constraint->getModelName()
             << TXTEXPORTER_SEPARATOR
             << DYN::double2String(constraint->getTime())
