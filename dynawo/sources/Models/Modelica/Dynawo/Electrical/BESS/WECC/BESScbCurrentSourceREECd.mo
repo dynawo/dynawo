@@ -13,7 +13,7 @@ within Dynawo.Electrical.BESS.WECC;
 * of simulation tools for power systems.
 */
 
-model BESScbCurrentSourceREECd "WECC BESS with electrical control model type D, generator/converter model type B and plant control type A "
+model BESScbCurrentSourceREECd "WECC BESS with electrical control model type D, generator/converter model type B and plant control type A"
   extends Electrical.Controls.WECC.Parameters.ParamsREPC;
   extends Electrical.Controls.PLL.ParamsPLL;
   extends Electrical.Controls.WECC.Parameters.ParamsREEC;
@@ -27,113 +27,109 @@ model BESScbCurrentSourceREECd "WECC BESS with electrical control model type D, 
 
   //REECd parameters
   parameter Types.PerUnit IqFrzPu "Constant reactive current command value in pu (base UNom, SNom) (typical: -0.1 .. 0.1 pu)" annotation(
-    Dialog(tab = "Electrical control"));
-  parameter Real Kc "Reactive droop gain" annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit Ke "Scaling on the Ipmin: 0 < ke ≤ 1, set to 0 for generator and non-zero for a storage device" annotation(
-    Dialog(tab = "Electrical control"));
-  parameter Boolean PFlag "Power reference flag: const. Pref (0) or consider generator speed (1)" annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
+  parameter Boolean PFlag "Power reference flag : if false, constant PRef, if true, consider generator speed" annotation(
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit RcPu "Current compensation resistance" annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.Time tBlkDelay "Time delay for unblocking after voltage recovers (UBlkL < UtFiltered < UBlkH) in s"  annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.Time tHoldIpMax "Time delay for which the active current limit (ipMaxPu) is held after voltage dip in s" annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.Time tHoldIq "Absolute value of tHoldIq defines seconds to hold current command after voltage dip ended. tHoldIq > 0 for constant, 0 for continuous commmand, tHoldIq < 0 to hold command after a dip (typical: -1 .. 1 s)" annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.Time tR1 "Filter time constant in s" annotation(
-    Dialog(tab = "Electrical control"));
-  parameter Types.VoltageModulePu UBlkHPu "Voltage above which the converter will block"  annotation(
-    Dialog(tab = "Electrical control"));
-  parameter Types.VoltageModulePu UBlkLPu "Voltage below which the converter will block"  annotation(
-    Dialog(tab = "Electrical control"));
-  parameter Boolean VCompFlag "Type of compensation = 1 - current compensation or 0 reactive droop" annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
+  parameter Types.VoltageModulePu UBlkHPu "Voltage above which the converter will block in pu (base UNom)"  annotation(
+    Dialog(tab = "Electrical Control"));
+  parameter Types.VoltageModulePu UBlkLPu "Voltage below which the converter will block in pu (base UNom)"  annotation(
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIp11 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIp12 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIp21 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIp22 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIp31 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIp32 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIp41 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIp42 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIp51 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIp52 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIp61 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIp62 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIp71 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIp72 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIp81 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIp82 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIp91 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIp92 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIp101 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIp102 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIq11 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIq12 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIq21 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIq22 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIq31 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIq32 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIq41 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIq42 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIq51 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIq52 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIq61 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIq62 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIq71 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIq72 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIq81 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIq82 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIq91 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIq92 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIq101 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit VDLIq102 annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.VoltageModulePu VRef1Pu "User-defined reference/bias on the inner-loop voltage control in pu (base UNom) (typical: 0 pu)" annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
   parameter Types.PerUnit XcPu "Current compensation reactance" annotation(
-    Dialog(tab = "Electrical control"));
+    Dialog(tab = "Electrical Control"));
 
 
   // Input variables
@@ -143,9 +139,9 @@ model BESScbCurrentSourceREECd "WECC BESS with electrical control model type D, 
     Placement(visible = true, transformation(origin = {-90, 70}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(
     Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {9.99201e-16, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput PRefPu(start = -P0Pu * SystemBase.SnRef / SNom) "Active power reference in pu (generator convention) (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PRefPu(start = -P0Pu * SystemBase.SnRef / SNom) "Active power reference in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput QRefPu(start = -Q0Pu * SystemBase.SnRef / SNom) "Reactive power reference in pu (generator convention) (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput QRefPu(start = -Q0Pu * SystemBase.SnRef / SNom) "Reactive power reference in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-190, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Voltage setpoint for plant level control in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
@@ -183,7 +179,7 @@ model BESScbCurrentSourceREECd "WECC BESS with electrical control model type D, 
   parameter Types.Angle UPhaseInj0 "Start value of voltage angle at injector in rad";
 
   // Initial parameter
-  final parameter Types.VoltageModulePu URef0Pu = if VCompFlag == true then UInj0Pu else (U0Pu + Kc*Q0Pu*SystemBase.SnRef/SNom) "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)" annotation(
+  final parameter Types.VoltageModulePu URef0Pu = if VCompFlag == true then UInj0Pu else (U0Pu + Kc * Q0Pu * SystemBase.SnRef / SNom) "Start value of voltage setpoint for plant level control, calculated depending on VCompFlag, in pu (base UNom)" annotation(
     Placement(visible = false, transformation(extent = {{0, 0}, {0, 0}})));
 
 equation

@@ -23,7 +23,7 @@ model REECd "WECC electrical control type D"
     Dialog(tab = "Electrical control"));
   parameter Types.PerUnit Ke "Scaling on the Ipmin: 0 < ke ≤ 1, set to 0 for generator and non-zero for a storage device" annotation(
     Dialog(tab = "Electrical control"));
-  parameter Boolean PFlag "Power reference flag: const. Pref (0) or consider generator speed (1)" annotation(
+  parameter Boolean PFlag "Power reference flag : if false, constant PRef, if true, consider generator speed" annotation(
     Dialog(tab = "Electrical control"));
   parameter Types.PerUnit RcPu "Current compensation resistance" annotation(
     Dialog(tab = "Electrical control"));
@@ -35,11 +35,11 @@ model REECd "WECC electrical control type D"
     Dialog(tab = "Electrical control"));
   parameter Types.Time tR1 "Filter time constant in s" annotation(
     Dialog(tab = "Electrical control"));
-  parameter Types.VoltageModulePu UBlkHPu "Voltage above which the converter will block"  annotation(
+  parameter Types.VoltageModulePu UBlkHPu "Voltage above which the converter will block in pu (base UNom)"  annotation(
     Dialog(tab = "Electrical control"));
-  parameter Types.VoltageModulePu UBlkLPu "Voltage below which the converter will block"  annotation(
+  parameter Types.VoltageModulePu UBlkLPu "Voltage below which the converter will block in pu (base UNom)"  annotation(
     Dialog(tab = "Electrical control"));
-  parameter Boolean VCompFlag "Type of compensation = 1 - current compensation or 0 reactive droop" annotation(
+  parameter Boolean VCompFlag "Type of compensation : if false, reactive droop, if true, current compensation" annotation(
     Dialog(tab = "Electrical control"));
   parameter Types.PerUnit VDLIp11 annotation(
     Dialog(tab = "Electrical control"));

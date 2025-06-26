@@ -30,8 +30,8 @@ model BESScbCurrentSourceREECd "WECC BESS with REEC-D and REGC-B with a plant co
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Electrical.Lines.Line line(BPu = 0, GPu = 0, RPu = 0, XPu = 0.0000020661) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Electrical.Buses.InfiniteBusWithVariations infiniteBus(U0Pu = 1, UEvtPu = 0.55, UPhase = 0, omega0Pu = 1, omegaEvtPu = 1.01, tOmegaEvtEnd = 6.5, tOmegaEvtStart = 6, tUEvtEnd = 1.5, tUEvtStart = 1) annotation(
-    Placement(visible = true, transformation(origin = {-82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
+  Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(U0Pu = 1, UEvtPu = 0.55, UPhase = 0, omega0Pu = 1, omegaEvtPu = 1.01, tOmegaEvtEnd = 6.5, tOmegaEvtStart = 6, tUEvtEnd = 1.5, tUEvtStart = 1) annotation(
+    Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Modelica.Blocks.Sources.Constant PAuxPu(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Electrical.BESS.WECC.BESS_INIT bess_INIT(P0Pu = BESScb.P0Pu, Q0Pu = BESScb.Q0Pu, RPu = BESScb.RPu, SNom = BESScb.SNom, U0Pu = BESScb.U0Pu, UPhase0 = BESScb.UPhaseInj0, XPu = BESScb.XPu) annotation(
@@ -73,7 +73,7 @@ equation
   connect(PFaRef.y, BESScb.PFaRef) annotation(
     Line(points = {{79, -80}, {20, -80}, {20, -22}}, color = {0, 0, 127}));
   connect(line.terminal1, infiniteBus.terminal) annotation(
-    Line(points = {{-60, 0}, {-82, 0}}, color = {0, 0, 255}));
+    Line(points = {{-60, 0}, {-80, 0}}, color = {0, 0, 255}));
   connect(PAuxPu.y, BESScb.PAuxPu) annotation(
     Line(points = {{-38, -80}, {12, -80}, {12, -22}}, color = {0, 0, 127}));
   connect(line.terminal2, BESScb.terminal) annotation(
