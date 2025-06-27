@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// Copyright (c) 2015-2025, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,38 +12,38 @@
 //
 
 /**
- * @file  TLXmlExporter.h
- * @brief Dynawo timeline xml exporter : header file
+ * @file  TLJsonExporter.h
+ * @brief Dynawo timeline JSON exporter : header file
  *
  */
-#ifndef API_TL_TLXMLEXPORTER_H_
-#define API_TL_TLXMLEXPORTER_H_
+#ifndef API_TL_TLJSONEXPORTER_H_
+#define API_TL_TLJSONEXPORTER_H_
 
 #include "TLExporter.h"
 
 namespace timeline {
 
 /**
- * @class XmlExporter
- * @brief XML exporter interface class
+ * @class JsonExporter
+ * @brief JSON exporter interface class
  *
- * XML export class for timeline
+ * JSON export class for timeline
  */
-class XmlExporter : public Exporter {
+class JsonExporter : public Exporter {
  public:
   /**
-   * @brief Export method in XML format
+   * @brief Export method in JSON format
    *
    * @param timeline Timeline to export
-   * @param filePath File to export XML formatted timeline to
+   * @param filePath File to export JSON formatted timeline to
    */
   void exportToFile(const boost::shared_ptr<Timeline>& timeline, const std::string& filePath) const override;
 
   /**
-   * @brief Export method in XML format
+   * @brief Export method in JSON format
    *
    * @param timeline Timeline to export
-   * @param stream stream to export XML formatted timeline to
+   * @param stream stream to export JSON formatted timeline to
    * @param afterTime export only events occuring after this 'afterTime' time
    */
   void exportToStream(const boost::shared_ptr<Timeline>& timeline, std::ostream& stream, double afterTime = -DBL_MAX) const override;
@@ -51,4 +51,4 @@ class XmlExporter : public Exporter {
 
 }  // namespace timeline
 
-#endif  // API_TL_TLXMLEXPORTER_H_
+#endif  // API_TL_TLJSONEXPORTER_H_

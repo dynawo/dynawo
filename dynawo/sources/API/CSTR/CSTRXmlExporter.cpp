@@ -53,7 +53,7 @@ XmlExporter::exportToFile(const std::shared_ptr<ConstraintsCollection>& constrai
 }
 
 void
-XmlExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints, ostream& stream) const {
+XmlExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints, ostream& stream, double afterTime) const {
   FormatterPtr formatter = Formatter::createFormatter(stream, "http://www.rte-france.com/dynawo");
 
   formatter->startDocument();
@@ -62,6 +62,8 @@ XmlExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& constr
   formatter->startElement("constraints", attrs);
   for (const auto& constraintPair : constraints->getConstraintsById()) {
     const auto& constraint = constraintPair.second;
+    if (!DYN::doubleGreater(constraint->getTime(), afterTime))
+      continue;
     attrs.clear();
     attrs.add("modelName", constraint->getModelName());
     attrs.add("description", constraint->getDescription());

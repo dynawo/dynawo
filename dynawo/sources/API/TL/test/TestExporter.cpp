@@ -26,6 +26,7 @@
 #include "TLXmlExporter.h"
 #include "TLCsvExporter.h"
 #include "TLTxtExporter.h"
+#include "TLJsonExporter.h"
 #include "TestUtil.h"
 
 using boost::shared_ptr;
@@ -87,6 +88,28 @@ TEST(APITLTest, TimelineExporters) {
   exporterTXT.setExportWithTime(false);
   ASSERT_NO_THROW(exporterTXT.exportToFile(timeline, "testTxtTimelineExportWithoutTime.txt"));
   ASSERT_TRUE(compareFiles("testTxtTimelineExportWithoutTime.txt", "res/testTxtTimelineExportWithoutTime.txt"));
+
+  // export the timeline in json format
+  JsonExporter exporterJSON;
+  exporterJSON.setExportWithTime(true);
+  ASSERT_NO_THROW(exporterJSON.exportToFile(timeline, "testJsonTimelineExport.json"));
+  ASSERT_TRUE(compareFiles("testJsonTimelineExport.json", "res/testJsonTimelineExport.json"));
+  exporterJSON.setMaxPriority(priority2);
+  ASSERT_NO_THROW(exporterJSON.exportToFile(timeline, "testJsonTimelineExportMaxPriority.json"));
+  ASSERT_TRUE(compareFiles("testJsonTimelineExportMaxPriority.json", "res/testJsonTimelineExportMaxPriority.json"));
+  exporterJSON.setMaxPriority(priorityNone);
+  exporterJSON.setExportWithTime(false);
+  ASSERT_NO_THROW(exporterJSON.exportToFile(timeline, "testJsonTimelineExportWithoutTime.json"));
+  ASSERT_TRUE(compareFiles("testJsonTimelineExportWithoutTime.json", "res/testJsonTimelineExportWithoutTime.json"));
+
+  // test filtered export
+  JsonExporter exporterJSONStream;
+  std::stringstream ss;
+  exporterJSONStream.setExportWithTime(true);
+  exporterJSONStream.exportToStream(timeline, ss, 10);
+  ASSERT_EQ(ss.str(), "{\"timeline\":["
+  "{\"time\":\"20.000000\",\"modelName\":\"model2\",\"message\":\"event2 at 20s\",\"priority\":\"10\"},"
+  "{\"time\":\"30.000000\",\"modelName\":\"model2\",\"message\":\"event3 at 30s\"}]}\n");
 }
 
 }  // namespace timeline
