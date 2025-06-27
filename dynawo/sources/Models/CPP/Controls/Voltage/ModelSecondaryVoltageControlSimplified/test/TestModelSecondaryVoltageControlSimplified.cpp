@@ -48,7 +48,7 @@ static boost::shared_ptr<SubModel> createModelSecondaryVoltageControlSimplified(
     parametersSet->createParameter("beta", 3.5);
     parametersSet->createParameter("UpRef0Pu", 1.);
     parametersSet->createParameter("tSample", 2.);
-    for(size_t i = 0; i < nbGen; ++i) {
+    for (size_t i = 0; i < nbGen; ++i) {
       parametersSet->createParameter("Qr_" + std::to_string(i), 100.);
       parametersSet->createParameter("Q0Pu_" + std::to_string(i), 1.);
     }
@@ -79,7 +79,7 @@ TEST(ModelSecondaryVoltageControlSimplified, ModelSecondaryVoltageControlSimplif
     parametersSet->createParameter("beta", 3.5);
     parametersSet->createParameter("UpRef0Pu", 1.);
     parametersSet->createParameter("tSample", 2.);
-    for(size_t i = 0; i < nbGen; ++i) {
+    for (size_t i = 0; i < nbGen; ++i) {
       parametersSet->createParameter("Qr_" + std::to_string(i), 100.);
       parametersSet->createParameter("Q0Pu_" + std::to_string(i), 1.);
     }
@@ -98,15 +98,14 @@ TEST(ModelSecondaryVoltageControlSimplified, ModelSecondaryVoltageControlSimplif
     // Let's work out the variables and elements.
     std::vector<boost::shared_ptr<Variable> > variables;
     svc->defineVariables(variables);
-    unsigned int nbVar = static_cast<int>(DYN::ModelSecondaryVoltageControlSimplified::firstIndexBlockerNum_) +
-                            nbGen + static_cast<int>(DYN::ModelSecondaryVoltageControlSimplified::nbContinuousVariables_)
-                            + static_cast<int>(DYN::ModelSecondaryVoltageControlSimplified::nbCalculatedVariables_);
+    unsigned long nbVar = static_cast<unsigned long>(DYN::ModelSecondaryVoltageControlSimplified::firstIndexBlockerNum_) +
+                            nbGen + static_cast<unsigned long>(DYN::ModelSecondaryVoltageControlSimplified::nbContinuousVariables_)
+                            + static_cast<unsigned long>(DYN::ModelSecondaryVoltageControlSimplified::nbCalculatedVariables_);
     ASSERT_EQ(variables.size(), nbVar);
     std::vector<Element> elements;
     std::map<std::string, int> mapElements;
     svc->defineElements(elements, mapElements);
-    unsigned int baseElem = nbVar;
-    ASSERT_EQ(elements.size(), 2*baseElem);
+    ASSERT_EQ(elements.size(), 2*nbVar);
     ASSERT_EQ(elements.size(), mapElements.size());
 }
 
@@ -172,7 +171,6 @@ TEST(ModelSecondaryVoltageControlSimplified, ModelSecondaryVoltageControlSimplif
   svc->setBufferZ(&z[0], zConnected, 0);
   std::vector<state_g> g(svc->sizeG(), NO_ROOT);
   svc->setBufferG(&g[0], 0);
-  //z[ModelSecondaryVoltageControlSimplified::UpRefPuNum_] = 1.;
   svc->init(0);
   svc->getY0();
   ASSERT_NO_THROW(svc->setFequations());
@@ -205,7 +203,7 @@ TEST(ModelSecondaryVoltageControlSimplified, ModelSecondaryVoltageControlSimplif
   svc->evalCalculatedVars();
   ASSERT_DOUBLE_EQUALS_DYNAWO(svc->getCalculatedVar(ModelSecondaryVoltageControlSimplified::levelNum_), level);
 
-  //Not activated
+  // Not activated
   level = -0.625;
   time = 3.;
   svc->evalG(time);
@@ -295,7 +293,7 @@ TEST(ModelSecondaryVoltageControlSimplified, ModelSecondaryVoltageControlSimplif
   svc->evalCalculatedVars();
   ASSERT_DOUBLE_EQUALS_DYNAWO(svc->getCalculatedVar(ModelSecondaryVoltageControlSimplified::levelNum_), level);
 
-  //Wind up
+  // Wind up
   y[ModelSecondaryVoltageControlSimplified::UpPuNum_] = 4;
   level = -1;
   time = 14.;
@@ -358,7 +356,7 @@ TEST(ModelSecondaryVoltageControlSimplified, ModelSecondaryVoltageControlSimplif
   svc->evalCalculatedVars();
   ASSERT_DOUBLE_EQUALS_DYNAWO(svc->getCalculatedVar(ModelSecondaryVoltageControlSimplified::levelNum_), level);
 
-  //Blocking
+  // Blocking
   y[ModelSecondaryVoltageControlSimplified::UpPuNum_] = 0.95;
   z[ModelSecondaryVoltageControlSimplified::firstIndexBlockerNum_] = true;
   level = -1;
@@ -392,7 +390,7 @@ TEST(ModelSecondaryVoltageControlSimplified, ModelSecondaryVoltageControlSimplif
   ASSERT_DOUBLE_EQUALS_DYNAWO(svc->getCalculatedVar(ModelSecondaryVoltageControlSimplified::levelNum_), level);
 
   z[ModelSecondaryVoltageControlSimplified::firstIndexBlockerNum_ + 1] = true;
-  level = -0.8; // should be -0.6 but not possible as the SVC is blocked
+  level = -0.8;  // should be -0.6 but not possible as the SVC is blocked
   time = 26.;
   svc->evalG(time);
   ASSERT_EQ(g[ModelSecondaryVoltageControlSimplified::ActivationNum_], ROOT_UP);
@@ -407,7 +405,7 @@ TEST(ModelSecondaryVoltageControlSimplified, ModelSecondaryVoltageControlSimplif
   svc->evalCalculatedVars();
   ASSERT_DOUBLE_EQUALS_DYNAWO(svc->getCalculatedVar(ModelSecondaryVoltageControlSimplified::levelNum_), level);
 
-  //Blocking stops
+  // Blocking stops
   z[ModelSecondaryVoltageControlSimplified::firstIndexBlockerNum_] = false;
   level = -0.6;
   time = 28.;
