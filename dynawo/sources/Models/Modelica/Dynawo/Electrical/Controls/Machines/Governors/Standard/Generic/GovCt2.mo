@@ -15,7 +15,7 @@ within Dynawo.Electrical.Controls.Machines.Governors.Standard.Generic;
 model GovCt2 "Governor type GovCT2"
 
   // Parameters
-  parameter Types.PerUnit aSetPu "Acceleration limiter setpoint in pu/s (base omegaNom), typical value = 10" annotation(
+  parameter Types.AngularAccelerationPu aSetPu "Acceleration limiter setpoint in pu/s (base omegaNom), typical value = 10" annotation(
     Dialog(tab = "Acceleration limiter"));
   parameter Types.AngularVelocityPu DeltaOmegaDbPu "Speed governor deadband in pu (base omegaNom), typical value = 0" annotation(
     Dialog(tab = "Main control path"));
@@ -298,7 +298,7 @@ protected
   final parameter Types.PerUnit initDmFactor = if Dm >= 0 then Dm else 0 "Multiplication factor for speed sensitivity path";
   final parameter Types.PerUnit initFsrtPu = (PLdRefPu / KTurb + WFnlPu - initTexPu) * KPLoad + initIntegratorKILoadPu "Initial value of cfe in fsrt in pu (base PBaseMw*KTurb)";
   final parameter Types.PerUnit initIntegratorKILoadPu = 1 "Initial value of load controller integrator in pu (base PBaseMw*KTurb)";
-  final parameter Types.PerUnit initPMechNoLossPu = if Dm > 0.0 then Pm0Pu + SystemBase.omega0Pu * Dm else Pm0Pu "Initial value of mechanical power without losses in pu (base PBaseMw)";
+  final parameter Types.ActivePowerPu initPMechNoLossPu = if Dm > 0.0 then Pm0Pu + SystemBase.omega0Pu * Dm else Pm0Pu "Initial value of mechanical power without losses in pu (base PBaseMw)";
   final parameter Types.PerUnit initTexPu = initCfePu * (if Dm < 0 then SystemBase.omega0Pu ^ Dm else 1) "Initial value of Tex (exhaust temperature) in pu (base PBaseMw*KTurb)";
   final parameter Types.PerUnit initValvePu = if WFSpdBool then initCfePu / SystemBase.omega0Pu else initCfePu "Initial value of valve position in pu (base PBaseMw*KTurb)";
 

@@ -63,7 +63,7 @@ model PVVoltageSourceA "WECC PV model with a voltage source as interface with th
     Dialog(tab = "Electrical Control"));
   parameter Types.Time tHoldIq "Absolute value of tHoldIq defines seconds to hold current injection after voltage dip ended. tHoldIq > 0 for constant, 0 for no injection after voltage dip, tHoldIq < 0 for voltage-dependent injection (typical: -1 .. 1 s)"  annotation(
     Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit IqFrzPu "Constant reactive current injection value in pu (base UNom, SNom) (typical: -0.1 .. 0.1 pu)" annotation(
+  parameter Types.CurrentComponentPu IqFrzPu "Constant reactive current injection value in pu (base UNom, SNom) (typical: -0.1 .. 0.1 pu)" annotation(
     Dialog(tab = "Electrical Control"));
   parameter Boolean PFlag "Power reference flag: const. Pref (0) or consider generator speed (1)" annotation(
     Dialog(tab = "Electrical Control"));
@@ -86,7 +86,7 @@ model PVVoltageSourceA "WECC PV model with a voltage source as interface with th
     Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initial parameters
-  final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else U0Pu + Kc * Q0Pu * SystemBase.SnRef / SNom "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
+  final parameter Types.VoltageModulePu URef0Pu = if VCompFlag == true then UInj0Pu else U0Pu + Kc * Q0Pu * SystemBase.SnRef / SNom "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
 
 equation
   connect(PRefPu, wecc_repc.PRefPu) annotation(

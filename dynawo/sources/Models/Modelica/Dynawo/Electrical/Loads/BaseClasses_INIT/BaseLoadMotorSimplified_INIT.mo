@@ -26,18 +26,18 @@ model BaseLoadMotorSimplified_INIT "Base initialization model for loads in paral
   parameter Types.PerUnit XrPu[NbMotors] "Rotor leakage reactance in pu (base UNom, SNom)";
   parameter Types.PerUnit XmPu[NbMotors] "Magnetizing reactance in pu (base UNom, SNom)";
 
+  Types.PerUnit Ce0Pu[NbMotors] "Start value of the electrical torque in pu (base SNom, omegaNom)";
   Types.ActivePowerPu PLoad0Pu "Start value of the active power consumed by the load in pu (base SnRef)";
   Types.ReactivePowerPu QLoad0Pu "Start value of the reactive power consumed by the load in pu (base SnRef)";
+  Real Slip0[NbMotors] "Start value of the slip of the motor";
   Types.ComplexCurrentPu is0Pu[NbMotors] "Start value of the stator current in pu (base SNom, UNom)";
   Types.ComplexCurrentPu im0Pu[NbMotors] "Start value of the magnetising current in pu (base SNom, UNom)";
   Types.ComplexCurrentPu ir0Pu[NbMotors] "Start value of the rotor current in pu (base SNom, UNom)";
-  Types.PerUnit ce0Pu[NbMotors] "Start value of the electrical torque in pu (base SNom, omegaNom)";
-  Real s0[NbMotors] "Start value of the slip of the motor";
   Types.AngularVelocityPu omegaR0Pu[NbMotors] "Start value of the angular velocity of the motor in pu (base omegaNom)";
   Types.ComplexApparentPowerPu motors0Pu[NbMotors] "Start value of complex apparent power in pu (base SnRef) (receptor convention)";
   Types.ComplexCurrentPu motori0Pu[NbMotors] "Start value of complex current at load terminal in pu (base UNom, SnRef) (receptor convention)";
 
-  Dynawo.Electrical.Machines.Motors.SimplifiedMotor_INIT motors_INIT[NbMotors](SNom=SNom, RsPu=RsPu, RrPu=RrPu, XsPu=XsPu, XrPu=XrPu, XmPu=XmPu, P0Pu=ActiveMotorShare*P0Pu, each U0Pu=U0Pu, each UPhase0=UPhase0);
+  Dynawo.Electrical.Machines.Motors.SimplifiedMotor_INIT motors_INIT[NbMotors](SNom = SNom, RsPu = RsPu, RrPu = RrPu, XsPu = XsPu, XrPu = XrPu, XmPu = XmPu, P0Pu = ActiveMotorShare * P0Pu, each U0Pu = U0Pu, each UPhase0 = UPhase0);
 
 equation
   PLoad0Pu = (1 - sum(ActiveMotorShare)) * P0Pu;
@@ -46,8 +46,8 @@ equation
   is0Pu = motors_INIT.is0Pu;
   im0Pu = motors_INIT.im0Pu;
   ir0Pu = motors_INIT.ir0Pu;
-  ce0Pu = motors_INIT.ce0Pu;
-  s0 = motors_INIT.s0;
+  Ce0Pu = motors_INIT.Ce0Pu;
+  Slip0 = motors_INIT.Slip0;
   omegaR0Pu = motors_INIT.omegaR0Pu;
   motori0Pu = motors_INIT.i0Pu;
   motors0Pu = motors_INIT.s0Pu;

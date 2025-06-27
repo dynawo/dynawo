@@ -17,7 +17,7 @@ model DcVoltageControlSide "DC voltage control side of the HVDC link"
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsDcVoltageControl;
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsLimitsCalculation;
 
-  parameter Types.PerUnit IpDeadBandPu "Deadband for the DeltaP function in pu (base SNom, UNom) (DC to AC)";
+  parameter Types.CurrentComponentPu IpDeadBandPu "Deadband for the DeltaP function in pu (base SNom, UNom) (DC to AC)";
   parameter Types.PerUnit RDcPu "Resistance of one cable of DC line in pu (base UDcNom, SnRef)";
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
@@ -60,8 +60,8 @@ model DcVoltageControlSide "DC voltage control side of the HVDC link"
   Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.LimitsCalculation.LimitsCalculationUDc limitsCalculationUDc(InPu = InPu, Ip0Pu = Ip0Pu, IpDeadBandPu = IpDeadBandPu, IpMaxPu = IpMaxPu, Iq0Pu = Iq0Pu) "Reactive and active currents limits calculation function" annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
 
-  parameter Types.PerUnit Ip0Pu "Start value of active current in pu (base SNom, UNom) (DC to AC)";
-  parameter Types.PerUnit Iq0Pu "Start value of reactive current in pu (base SNom, UNom) (DC to AC)";
+  parameter Types.CurrentComponentPu Ip0Pu "Start value of active current in pu (base SNom, UNom) (DC to AC)";
+  parameter Types.CurrentComponentPu Iq0Pu "Start value of reactive current in pu (base SNom, UNom) (DC to AC)";
   parameter Boolean ModeU0 "Initial mode of control : if true, U mode, if false, Q mode";
   parameter Types.ActivePowerPu P0Pu "Start value of active power in pu (base SNom) (DC to AC)";
   parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power in pu (base SNom) (DC to AC)";

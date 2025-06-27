@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.Converters.EpriGFM.Parameters;
 */
 
 record VoltageControl "Voltage control parameters"
-  parameter Types.PerUnit IMaxPu "Max current in pu (base UNom, SNom), example value = 1.05" annotation(
+  parameter Types.CurrentModulePu IMaxPu "Max current in pu (base UNom, SNom), example value = 1.05" annotation(
   Dialog(tab = "VoltageControl"));
   parameter Types.PerUnit KIp "Integral gain of the power loop, example value = 10" annotation(
   Dialog(tab = "VoltageControl"));
@@ -29,7 +29,7 @@ record VoltageControl "Voltage control parameters"
   Dialog(tab = "VoltageControl"));
   parameter Types.PerUnit QDroopPu "Voltage droop in pu, example value = 0.2" annotation(
   Dialog(tab = "VoltageControl"));
-  parameter Types.PerUnit UDipPu "Freeze voltage in pu (base UNom), example value = 0.85" annotation(
+  parameter Types.VoltageModulePu UDipPu "Freeze voltage in pu (base UNom), example value = 0.85" annotation(
   Dialog(tab = "VoltageControl"));
 
   annotation(

@@ -19,13 +19,13 @@ partial model BaseQControl "Reactive power control base module for wind turbines
   parameter Types.Time tS "Integration time step in s";
 
   //QControl parameters
-  parameter Types.PerUnit IqH1Pu "Maximum reactive current injection during dip in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.CurrentComponentPu IqH1Pu "Maximum reactive current injection during dip in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "QControl"));
-  parameter Types.PerUnit IqMaxPu "Maximum reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.CurrentComponentPu IqMaxPu "Maximum reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "QControl"));
-  parameter Types.PerUnit IqMinPu "Minimum reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.CurrentComponentPu IqMinPu "Minimum reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "QControl"));
-  parameter Types.PerUnit IqPostPu "Post-fault reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.CurrentComponentPu IqPostPu "Post-fault reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "QControl"));
   parameter Types.PerUnit Kiq "Reactive power PI controller integration gain in pu/s (base UNom, SNom)" annotation(
     Dialog(tab = "QControl"));

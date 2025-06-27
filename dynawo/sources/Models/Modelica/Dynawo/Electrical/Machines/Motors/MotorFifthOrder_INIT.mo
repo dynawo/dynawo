@@ -25,27 +25,27 @@ model MotorFifthOrder_INIT "Initialization model for MotorFifthOrder"
   parameter Types.Time tP0 "Transient open circuit time constant in s";
   parameter Types.Time tPP0 "Subtransient open circuit time constant in s";
 
-  Types.PerUnit EdP0Pu(start = 1) "Start value of voltage behind transient reactance d component in pu (base UNom)";
-  Types.PerUnit EqP0Pu "Start value of voltage behind transient reactance q component in pu (base UNom)";
-  Types.PerUnit EdPP0Pu(start = 1) "Start value of voltage behind subtransient reactance d component in pu (base UNom)";
-  Types.PerUnit EqPP0Pu "Start value of voltage behind subtransient reactance q component in pu (base UNom)";
-  Types.PerUnit id0Pu "Start value of current of direct axis in pu (base SNom, Unom)";
-  Types.PerUnit iq0Pu "Start value of current of quadrature axis in pu (base SNom, Unom)";
+  Types.PerUnit Ce0Pu "Start value of the electrical torque in pu (base SNom, omegaNom)";
+  Types.VoltageComponentPu EdP0Pu(start = 1) "Start value of voltage behind transient reactance d component in pu (base UNom)";
+  Types.VoltageComponentPu EqP0Pu "Start value of voltage behind transient reactance q component in pu (base UNom)";
+  Types.VoltageComponentPu EdPP0Pu(start = 1) "Start value of voltage behind subtransient reactance d component in pu (base UNom)";
+  Types.VoltageComponentPu EqPP0Pu "Start value of voltage behind subtransient reactance q component in pu (base UNom)";
+  Types.CurrentComponentPu Id0Pu "Start value of current of direct axis in pu (base SNom, UNom)";
+  Types.CurrentComponentPu Iq0Pu "Start value of current of quadrature axis in pu (base SNom, UNom)";
   Types.AngularVelocityPu omegaR0Pu "Start value of the angular velocity of the motor in pu (base omegaNom)";
-  Types.PerUnit ce0Pu "Start value of the electrical torque in pu (base SNom, omegaNom)";
-  Real s0 "Start value of the slip of the motor";
+  Real Slip0 "Start value of the slip of the motor";
 
 equation
-  0 = -EqP0Pu + id0Pu * (LsPu - LPPu) - EdP0Pu * SystemBase.omegaNom * SystemBase.omegaRef0Pu * s0 * tP0;
-  0 = -EdP0Pu - iq0Pu * (LsPu - LPPu) + EqP0Pu * SystemBase.omegaNom * SystemBase.omegaRef0Pu * s0 * tP0;
-  0 = 1/tPP0 * (EqP0Pu - EqPP0Pu + (LPPu - LPPPu) * id0Pu) + SystemBase.omegaNom * SystemBase.omegaRef0Pu * s0 * (EdP0Pu - EdPP0Pu);
-  0 = 1/tPP0 * (EdP0Pu - EdPP0Pu - (LPPu - LPPPu) * iq0Pu) - SystemBase.omegaNom * SystemBase.omegaRef0Pu * s0 * (EqP0Pu - EqPP0Pu);
+  0 = -EqP0Pu + Id0Pu * (LsPu - LPPu) - EdP0Pu * SystemBase.omegaNom * SystemBase.omegaRef0Pu * Slip0 * tP0;
+  0 = -EdP0Pu - Iq0Pu * (LsPu - LPPu) + EqP0Pu * SystemBase.omegaNom * SystemBase.omegaRef0Pu * Slip0 * tP0;
+  0 = 1 / tPP0 * (EqP0Pu - EqPP0Pu + (LPPu - LPPPu) * Id0Pu) + SystemBase.omegaNom * SystemBase.omegaRef0Pu * Slip0 * (EdP0Pu - EdPP0Pu);
+  0 = 1 / tPP0 * (EdP0Pu - EdPP0Pu - (LPPu - LPPPu) * Iq0Pu) - SystemBase.omegaNom * SystemBase.omegaRef0Pu * Slip0 * (EqP0Pu - EqPP0Pu);
 
-  u0Pu = Complex(EdPP0Pu, EqPP0Pu) + Complex(RsPu, LPPPu) * Complex(id0Pu, iq0Pu);
-  Complex(P0Pu, Q0Pu) = u0Pu * Complex(id0Pu, -iq0Pu) * (SNom / SystemBase.SnRef);
+  u0Pu = Complex(EdPP0Pu, EqPP0Pu) + Complex(RsPu, LPPPu) * Complex(Id0Pu, Iq0Pu);
+  Complex(P0Pu, Q0Pu) = u0Pu * Complex(Id0Pu, -Iq0Pu) * (SNom / SystemBase.SnRef);
 
-  s0 = (SystemBase.omegaRef0Pu - omegaR0Pu) / SystemBase.omegaRef0Pu;
-  ce0Pu = EdPP0Pu * id0Pu + EqPP0Pu * iq0Pu;
+  Slip0 = (SystemBase.omegaRef0Pu - omegaR0Pu) / SystemBase.omegaRef0Pu;
+  Ce0Pu = EdPP0Pu * Id0Pu + EqPP0Pu * Iq0Pu;
 
   annotation(preferredView = "text");
 end MotorFifthOrder_INIT;

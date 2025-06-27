@@ -205,7 +205,7 @@ protected
 
   // Initialization helpers
   final parameter Types.PerUnit initBPu = 1 "Initialization helper for BPu";
-  final parameter Types.PerUnit initPcPu = Pm0Pu - min(max(KOmegaCor * (SystemBase.omegaRef0Pu - SystemBase.omega0Pu), OmegaOmegaMinPu), OmegaOmegaMaxPu) "Initialization helper for PcPu";
+  final parameter Types.ActivePowerPu initPcPu = Pm0Pu - min(max(KOmegaCor * (SystemBase.omegaRef0Pu - SystemBase.omega0Pu), OmegaOmegaMinPu), OmegaOmegaMaxPu) "Initialization helper for PcPu";
 
 equation
   connect(addfRef.y, deadZoneFrequency.u) annotation(

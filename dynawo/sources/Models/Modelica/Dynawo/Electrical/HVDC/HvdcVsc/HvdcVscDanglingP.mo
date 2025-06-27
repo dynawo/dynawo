@@ -61,8 +61,8 @@ model HvdcVscDanglingP "HVDC VSC model with terminal2 connected to a switched-of
 
   parameter Dynawo.Electrical.Constants.state Conv2_State0 = Dynawo.Electrical.Constants.state.Closed "Start value of converter 2 connection state";
   parameter Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base SnRef, UNom) (AC to DC)";
-  parameter Types.PerUnit Ip10Pu "Start value of active current at terminal 1 in pu (base SNom, UNom) (DC to AC)";
-  parameter Types.PerUnit Iq10Pu "Start value of reactive current at terminal 1 in pu (base SNom, UNom) (DC to AC)";
+  parameter Types.CurrentComponentPu Ip10Pu "Start value of active current at terminal 1 in pu (base SNom, UNom) (DC to AC)";
+  parameter Types.CurrentComponentPu Iq10Pu "Start value of reactive current at terminal 1 in pu (base SNom, UNom) (DC to AC)";
   parameter Boolean ModeU10 "Initial mode of control on side 1 : if true, U mode, if false, Q mode";
   parameter Types.ActivePowerPu P10Pu "Start value of active power at terminal 1 in pu (base SnRef) (AC to DC)";
   parameter Types.ReactivePowerPu Q10Pu "Start value of reactive power at terminal 1 in pu (base SnRef) (AC to DC)";

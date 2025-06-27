@@ -70,7 +70,7 @@ partial model BaseDriveTrain "Drive Train Control Base Model"
   Modelica.Blocks.Math.Gain dTorque(k = Kshaft) annotation(
     Placement(visible = true, transformation(origin = {130, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  parameter Types.PerUnit PInj0Pu "Initial value of mechanical power in pu (base SNom)";
+  parameter Types.ActivePowerPu PInj0Pu "Initial value of mechanical power in pu (base SNom)";
 
 equation
   connect(dOmegaGenerator.y, OmegaGenerator.u1) annotation(
