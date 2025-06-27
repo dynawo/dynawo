@@ -235,6 +235,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a03c1227286e3d285afc4263977a3383a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d45/a02973.html#a03c1227286e3d285afc4263977a3383a">getComponentVarIndex</a> (const std::string &amp;varName) const override</td></tr>
 <tr class="memdesc:a03c1227286e3d285afc4263977a3383a"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the index of a state variable thanks to its name  <a href="#a03c1227286e3d285afc4263977a3383a">More...</a><br /></td></tr>
 <tr class="separator:a03c1227286e3d285afc4263977a3383a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc364c7c69ea88abbbc873ec41718821"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d45/a02973.html#afc364c7c69ea88abbbc873ec41718821">createComponentVarIndex</a> (const std::string &amp;varName) override</td></tr>
+<tr class="memdesc:afc364c7c69ea88abbbc873ec41718821"><td class="mdescLeft">&#160;</td><td class="mdescRight">create a yet-unexisting state variable, in the rare cases it makes sense  <a href="#afc364c7c69ea88abbbc873ec41718821">More...</a><br /></td></tr>
+<tr class="separator:afc364c7c69ea88abbbc873ec41718821"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2333dd8b3dc1190b01e83240508a8d54"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d45/a02973.html#a2333dd8b3dc1190b01e83240508a8d54">getP</a> () override</td></tr>
 <tr class="memdesc:a2333dd8b3dc1190b01e83240508a8d54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the active power of static var compensator in MW (Receptor convention)  <a href="#a2333dd8b3dc1190b01e83240508a8d54">More...</a><br /></td></tr>
 <tr class="separator:a2333dd8b3dc1190b01e83240508a8d54"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -431,6 +434,43 @@ std::unordered_map&lt; std::string, <a class="el" href="../../db/de9/a02821.html
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="afc364c7c69ea88abbbc873ec41718821"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc364c7c69ea88abbbc873ec41718821">&#9670;&nbsp;</a></span>createComponentVarIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int DYN::StaticVarCompensatorInterfaceIIDM::createComponentVarIndex </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>varName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>create a yet-unexisting state variable, in the rare cases it makes sense </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">varName</td><td>name of the state variable </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>index of the newly created state variable, or <b>-1</b> if the operation is not allowed </dd></dl>
+
+<p>Reimplemented from <a class="el" href="../../d5/dbe/a02697.html#a2ae1528a39c004efa24e63c1d4b0d8de">DYN::ComponentInterface</a>.</p>
+
+</div>
+</div>
 <a id="a3db9ee59b01b275d1bfaface561fc6b0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3db9ee59b01b275d1bfaface561fc6b0">&#9670;&nbsp;</a></span>exportStateVariablesUnitComponent()</h2>
 
@@ -1248,7 +1288,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../db/de9/a02821.html
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../df/d45/a02973.html">StaticVarCompensatorInterfaceIIDM</a></li>
-    <li class="footer">Generated on Tue Jun 24 2025 14:46:24 for Dynawo by
+    <li class="footer">Generated on Fri Jun 27 2025 08:14:32 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

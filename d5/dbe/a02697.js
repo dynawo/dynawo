@@ -20,6 +20,7 @@ var a02697 =
     ] ],
     [ "ComponentInterface", "d5/dbe/a02697.html#a54a4adcbcd28a26428cafa45a848e172", null ],
     [ "~ComponentInterface", "d5/dbe/a02697.html#aaeea1b605a906a6b2772ff8b092dc17b", null ],
+    [ "createComponentVarIndex", "d5/dbe/a02697.html#a2ae1528a39c004efa24e63c1d4b0d8de", null ],
     [ "exportStateVariables", "d5/dbe/a02697.html#a0b2709afa47d455b8bc9512348d93f30", null ],
     [ "exportStateVariablesUnitComponent", "d5/dbe/a02697.html#a24a19ea150b9d118f6b365cdbabcacff", null ],
     [ "getComponentVarIndex", "d5/dbe/a02697.html#a6d167dccb153a1ffcee78ad0f2e3a72e", null ],

@@ -8,6 +8,7 @@ var a02973 =
     ] ],
     [ "~StaticVarCompensatorInterfaceIIDM", "df/d45/a02973.html#a261948eb2f1f302c87e19ab98d9c409d", null ],
     [ "StaticVarCompensatorInterfaceIIDM", "df/d45/a02973.html#a13f699b943cdc17e5fa3925f68baf85b", null ],
+    [ "createComponentVarIndex", "df/d45/a02973.html#afc364c7c69ea88abbbc873ec41718821", null ],
     [ "exportStateVariablesUnitComponent", "df/d45/a02973.html#a3db9ee59b01b275d1bfaface561fc6b0", null ],
     [ "getB0", "df/d45/a02973.html#a17e1558070a517ac894738d82b6c80ac", null ],
     [ "getBMax", "df/d45/a02973.html#a4be1ec18acb58dfa3fb60eed9652db07", null ],

@@ -5,6 +5,7 @@ var searchData=
   ['var_5ftype_5fdouble',['VAR_TYPE_DOUBLE',['../d5/d5f/a00461.html#a2855db29550ca43733c78c4df0688553a3ebe1c5abd2e4a1db01a7ac959cf6615',1,'DYN']]],
   ['var_5ftype_5fint',['VAR_TYPE_INT',['../d5/d5f/a00461.html#a2855db29550ca43733c78c4df0688553ad42c6124f3032e1b3246f3a42e448c10',1,'DYN']]],
   ['var_5ftype_5fstring',['VAR_TYPE_STRING',['../d5/d5f/a00461.html#a2855db29550ca43733c78c4df0688553a4a6a352360eafc6481205885d8d72127',1,'DYN']]],
+  ['varcreatedforref',['VarCreatedForRef',['../d1/df7/a02501.html#a963225344a251150ba0ad6d5264f567fa941e37273f1621c20d74ef8731f8fa32',1,'DYN::KeyLog_t']]],
   ['variablealiasincoherenttype',['VariableAliasIncoherentType',['../d4/d87/a02457.html#acfce33066451c48351076e31bd5b4eceae28c957f9918d0aba3c13ddb567ad649',1,'DYN::KeyError_t']]],
   ['variablealiasrefincoherent',['VariableAliasRefIncoherent',['../d4/d87/a02457.html#acfce33066451c48351076e31bd5b4ecea7c01f55478486f45776760701c540418',1,'DYN::KeyError_t']]],
   ['variablealiasrefnotnative',['VariableAliasRefNotNative',['../d4/d87/a02457.html#acfce33066451c48351076e31bd5b4eceaf876beb051ceb5bda10dd1c93a796fbc',1,'DYN::KeyError_t']]],

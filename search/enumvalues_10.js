@@ -7,6 +7,7 @@ var searchData=
   ['referencetoanotherreference',['ReferenceToAnotherReference',['../d4/d87/a02457.html#acfce33066451c48351076e31bd5b4ecea36b6ffe050dca27f9d3694a8ffe7d4e2',1,'DYN::KeyError_t']]],
   ['referenceunknownorigindata',['ReferenceUnknownOriginData',['../d4/d87/a02457.html#acfce33066451c48351076e31bd5b4ecea1aced2f1c54fd58f76622c94577ddf14',1,'DYN::KeyError_t']]],
   ['regulationmodenotiniidm',['RegulationModeNotInIIDM',['../d4/d87/a02457.html#acfce33066451c48351076e31bd5b4eceabba3a21278251efe60b28aed26751c5a',1,'DYN::KeyError_t']]],
+  ['regulmodereqdnosa',['RegulModeReqdNoSA',['../d1/df7/a02501.html#a963225344a251150ba0ad6d5264f567fa5e4895aa9682c0054c7f8c353127940e',1,'DYN::KeyLog_t']]],
   ['residualwithnaninf',['ResidualWithNanInf',['../d4/d87/a02457.html#acfce33066451c48351076e31bd5b4eceacb15c3c3a2a6ef69fbd3a00d0c56c4e2',1,'DYN::KeyError_t']]],
   ['resultfolder',['ResultFolder',['../d1/df7/a02501.html#a963225344a251150ba0ad6d5264f567fa25e699edb587804035e49686c04d2d04',1,'DYN::KeyLog_t']]],
   ['root',['ROOT',['../d9/d56/a03253.html#a79d97b8a16615b099f11b80affbc0d96abd705473e56532e30d019c4c2598ebc2',1,'DYN::SolverCommonFixedTimeStep']]],

@@ -36,6 +36,7 @@ var searchData=
   ['regulating_5f',['regulating_',['../d5/d1d/a03165.html#a925993c000fc4dbf652de4060fcbdb69',1,'DYN::ModelTapChanger']]],
   ['regulationmode_5ft',['RegulationMode_t',['../df/d7d/a02825.html#a76a7f5186b999ddb0b6cd0f6fcac4ea5',1,'DYN::StaticVarCompensatorInterface']]],
   ['regulationmodenotiniidm',['RegulationModeNotInIIDM',['../d4/d87/a02457.html#acfce33066451c48351076e31bd5b4eceabba3a21278251efe60b28aed26751c5a',1,'DYN::KeyError_t']]],
+  ['regulmodereqdnosa',['RegulModeReqdNoSA',['../d1/df7/a02501.html#a963225344a251150ba0ad6d5264f567fa5e4895aa9682c0054c7f8c353127940e',1,'DYN::KeyLog_t']]],
   ['reinit',['reinit',['../d5/da4/a03225.html#ad0e428d476ae0661679354edc340712f',1,'DYN::Solver::reinit()'],['../d6/d24/a03249.html#ad2f4e54770d38cb4ca9938721b9457c2',1,'DYN::Solver::Impl::reinit()'],['../d9/d56/a03253.html#a2a44d864592bd3e924014277e041d0f5',1,'DYN::SolverCommonFixedTimeStep::reinit()'],['../d4/d46/a03277.html#afb941b0d3be3cfe767b36ffd95640b78',1,'DYN::SolverIDA::reinit()']]],
   ['reinitmode',['reinitMode',['../df/d40/a02609.html#a2147ec631a84da2dc59f80149d82c219',1,'DYN::Model::reinitMode()'],['../d6/d10/a02621.html#a7faa37e6cb563fb4e8d3cc6f3740bcb8',1,'DYN::ModelMulti::reinitMode()']]],
   ['relaccuracy_5f',['relAccuracy_',['../d4/d46/a03277.html#a5b80cf31fad5315b1646797cafdb07f9',1,'DYN::SolverIDA']]],

@@ -143,6 +143,7 @@ var searchData=
   ['getexporttype',['getExportType',['../d2/d44/a01677.html#abe65e39638e56300af5042f5cd5c4191',1,'curves::Curve']]],
   ['getexportwithtime',['getExportWithTime',['../d4/d63/a02173.html#ac47cd36cff3243a8adae43b04301d66d',1,'job::TimelineEntry']]],
   ['getextension',['getExtension',['../d8/dea/a02913.html#ad33a8232883b41aa5fc9f389c7925e77',1,'DYN::IIDMExtensions']]],
+  ['getfactor',['getFactor',['../d2/d44/a01677.html#ac8c53230e8f5731b5e9c9e5b92056adf',1,'curves::Curve']]],
   ['getfactory',['getFactory',['../d7/d80/a00614.html#a40d5e9d653602d44d47b4f2aa5acbe5a',1,'getFactory():&#160;DYNSubModelFactory.h'],['../db/d23/a01025.html#a743ccef1ceb9f11929145604b1b12196',1,'getFactory():&#160;DYNSolverFactory.h']]],
   ['getfailingcriteria',['getFailingCriteria',['../da/d28/a02705.html#ae37e82fe5de5482d924a4f3781287bc5',1,'DYN::Criteria::getFailingCriteria()'],['../d9/da5/a02757.html#acfd29130a1dbaf8aaee502cb69b09cc4',1,'DYN::DataInterface::getFailingCriteria()'],['../d7/d68/a02885.html#a966f1341f9f1b882e942b2e2afcf3732',1,'DYN::DataInterfaceIIDM::getFailingCriteria()'],['../d6/d04/a03193.html#ae656afe14eee35af3a3be9481bc8ca73',1,'DYN::Simulation::getFailingCriteria()']]],
   ['getfequationbylocalindex',['getFequationByLocalIndex',['../de/d4c/a02641.html#ace0137d7bd8d8f066869740c7f1fd857',1,'DYN::SubModel']]],
