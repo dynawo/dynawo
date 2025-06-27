@@ -469,6 +469,17 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 
 test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
 
+###############################################
+#     WECC Wind Type 4B Current Source FOCB   #
+###############################################
+
+case_name = "DynaSwing - WECC - Wind 4B Type - Current source - FOCB"
+case_description = "WECC - Wind 4B Type - Current Source - FOCB"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "WECC", "Wind", "WECCWTG4BCurrentSourceFOCB", "WECCWTG4B.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+
 #########################################################################################
 #     WECC Battery Energy Storage System with REPC-A REEC-C and REGC-B Current Source   #
 #########################################################################################
