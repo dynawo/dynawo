@@ -163,6 +163,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   HvdcVscDanglingP.xml
   HvdcVscDanglingUDc.xml
   HvdcVscEmulation.xml
+  HVRT.xml
   IECWPP4ACurrentSource2015.xml
   IECWPP4ACurrentSource2020.xml
   IECWPP4BCurrentSource2015.xml
@@ -178,6 +179,8 @@ set(MODELICA_PREASSEMBLED_MODELS
   InfiniteBusWithVariations.xml
   InjectorBG.xml
   IntegerDoubleStep.xml
+  IntegerTable.xml
+  LHVRT.xml
   Line.xml
   LoadAlphaBeta.xml
   LoadAlphaBetaRestorative.xml
@@ -196,6 +199,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   LoadTwoTransformersTapChangers.xml
   LoadZIP.xml
   LossOfSynchronismProtection.xml
+  LVRT.xml
   LVRT4Points.xml
   LVRT10Points.xml
   Measurements.xml
