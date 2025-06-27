@@ -279,10 +279,10 @@ In the same time, following the disconnections and the voltage decrease, the vol
   \begin{tikzpicture}
     \begin{axis}[height = 2 in]
         \addplot[color=blue!50]
-            table[x=time,y=_LOAD___2_EC_tapChangerT_UMonitored_value]
+            table[x=time,y=_LOAD___2_EC_transformerT_tapChanger_UMonitored_value]
         {../IEEE14/IEEE14_GeneratorDisconnections/reference/outputs/curves/curves.csv};
         \addplot[dashed, color=red!50]
-        table[x=time,y=_LOAD___2_EC_tapChangerT_UTarget]
+        table[x=time,y=_LOAD___2_EC_transformerT_tapChanger_UTarget]
         {../IEEE14/IEEE14_GeneratorDisconnections/reference/outputs/curves/curves.csv};
     \legend{$U_{Pu}$, $U_{{Target}_{Pu}}$}
     \end{axis}
@@ -293,13 +293,13 @@ In the same time, following the disconnections and the voltage decrease, the vol
   \begin{tikzpicture}
     \begin{axis}[height = 2 in]
         \addplot[color=blue!50]
-            table[x=time,y=_LOAD___2_EC_tapChangerT_tap_value]
+            table[x=time,y=_LOAD___2_EC_transformerT_tapChanger_tap_value]
         {../IEEE14/IEEE14_GeneratorDisconnections/reference/outputs/curves/curves.csv};
         \addplot[dashed, color=red!50]
-        table[x=time,y=_LOAD___2_EC_tapChangerT_tapMax]
+        table[x=time,y=_LOAD___2_EC_transformerT_tapChanger_tapMax]
         {../IEEE14/IEEE14_GeneratorDisconnections/reference/outputs/curves/curves.csv};
         \addplot[dashed, color=green!50]
-        table[x=time,y=_LOAD___2_EC_tapChangerT_tapMin]
+        table[x=time,y=_LOAD___2_EC_transformerT_tapChanger_tapMin]
         {../IEEE14/IEEE14_GeneratorDisconnections/reference/outputs/curves/curves.csv};
     \legend{$Tap$, $Tap_{Max}$, $Tap_{Min}$}
     \end{axis}
@@ -314,10 +314,10 @@ In the same time, following the disconnections and the voltage decrease, the vol
   \begin{tikzpicture}
     \begin{axis}[height = 2 in]
         \addplot[color=blue!50]
-            table[x=time,y=_LOAD___9_EC_tapChanger_UMonitored_value]
+            table[x=time,y=_LOAD___9_EC_transformer_tapChanger_UMonitored_value]
         {../IEEE14/IEEE14_GeneratorDisconnections/reference/outputs/curves/curves.csv};
         \addplot[dashed, color=red!50]
-        table[x=time,y=_LOAD___9_EC_tapChanger_UTarget]
+        table[x=time,y=_LOAD___9_EC_transformer_tapChanger_UTarget]
         {../IEEE14/IEEE14_GeneratorDisconnections/reference/outputs/curves/curves.csv};
     \legend{$U_{Pu}$, $U_{{Target}_{Pu}}$}
     \end{axis}
@@ -328,13 +328,13 @@ In the same time, following the disconnections and the voltage decrease, the vol
   \begin{tikzpicture}
     \begin{axis}[height = 2 in]
         \addplot[color=blue!50]
-            table[x=time,y=_LOAD___9_EC_tapChanger_tap_value]
+            table[x=time,y=_LOAD___9_EC_transformer_tapChanger_tap_value]
         {../IEEE14/IEEE14_GeneratorDisconnections/reference/outputs/curves/curves.csv};
         \addplot[dashed, color=red!50]
-        table[x=time,y=_LOAD___9_EC_tapChanger_tapMax]
+        table[x=time,y=_LOAD___9_EC_transformer_tapChanger_tapMax]
         {../IEEE14/IEEE14_GeneratorDisconnections/reference/outputs/curves/curves.csv};
         \addplot[dashed, color=green!50]
-        table[x=time,y=_LOAD___9_EC_tapChanger_tapMin]
+        table[x=time,y=_LOAD___9_EC_transformer_tapChanger_tapMin]
         {../IEEE14/IEEE14_GeneratorDisconnections/reference/outputs/curves/curves.csv};
     \legend{$Tap$, $Tap_{Max}$, $Tap_{Min}$}
     \end{axis}
@@ -574,10 +574,10 @@ Following the generator disconnection, the voltage decreases on the whole networ
   \begin{tikzpicture}
     \begin{axis}[height = 2 in]
         \addplot[color=blue!50]
-            table[x=time,y=_LOAD___1_EC_tapChangerT_UMonitored_value]
+            table[x=time,y=_LOAD___1_EC_transformerT_tapChanger_UMonitored_value]
         {../IEEE57/IEEE57_GeneratorDisconnection/reference/outputs/curves/curves.csv};
         \addplot[dashed, color=red!50]
-        table[x=time,y=_LOAD___1_EC_tapChangerT_UTarget]
+        table[x=time,y=_LOAD___1_EC_transformerT_tapChanger_UTarget]
         {../IEEE57/IEEE57_GeneratorDisconnection/reference/outputs/curves/curves.csv};
     \legend{$U_{Pu}$, $U_{{Target}_{Pu}}$}
     \end{axis}
@@ -588,13 +588,13 @@ Following the generator disconnection, the voltage decreases on the whole networ
   \begin{tikzpicture}
     \begin{axis}[height = 2 in]
         \addplot[color=blue!50]
-            table[x=time,y=_LOAD___1_EC_tapChangerT_tap_value]
+            table[x=time,y=_LOAD___1_EC_transformerT_tapChanger_tap_value]
         {../IEEE57/IEEE57_GeneratorDisconnection/reference/outputs/curves/curves.csv};
         \addplot[dashed, color=red!50]
-        table[x=time,y=_LOAD___1_EC_tapChangerT_tapMax]
+        table[x=time,y=_LOAD___1_EC_transformerT_tapChanger_tapMax]
         {../IEEE57/IEEE57_GeneratorDisconnection/reference/outputs/curves/curves.csv};
         \addplot[dashed, color=green!50]
-        table[x=time,y=_LOAD___1_EC_tapChangerT_tapMin]
+        table[x=time,y=_LOAD___1_EC_transformerT_tapChanger_tapMin]
         {../IEEE57/IEEE57_GeneratorDisconnection/reference/outputs/curves/curves.csv};
     \legend{$Tap$, $Tap_{Max}$, $Tap_{Min}$}
     \end{axis}
@@ -609,10 +609,10 @@ Following the generator disconnection, the voltage decreases on the whole networ
   \begin{tikzpicture}
     \begin{axis}[height = 2 in]
         \addplot[color=blue!50]
-            table[x=time,y=_LOAD__38_EC_tapChanger_UMonitored_value]
+            table[x=time,y=_LOAD__38_EC_transformer_tapChanger_UMonitored_value]
         {../IEEE57/IEEE57_GeneratorDisconnection/reference/outputs/curves/curves.csv};
         \addplot[dashed, color=red!50]
-        table[x=time,y=_LOAD__38_EC_tapChanger_UTarget]
+        table[x=time,y=_LOAD__38_EC_transformer_tapChanger_UTarget]
         {../IEEE57/IEEE57_GeneratorDisconnection/reference/outputs/curves/curves.csv};
     \legend{$U_{Pu}$, $U_{{Target}_{Pu}}$}
     \end{axis}
@@ -623,13 +623,13 @@ Following the generator disconnection, the voltage decreases on the whole networ
   \begin{tikzpicture}
     \begin{axis}[height = 2 in]
         \addplot[color=blue!50]
-            table[x=time,y=_LOAD__38_EC_tapChanger_tap_value]
+            table[x=time,y=_LOAD__38_EC_transformer_tapChanger_tap_value]
         {../IEEE57/IEEE57_GeneratorDisconnection/reference/outputs/curves/curves.csv};
         \addplot[dashed, color=red!50]
-        table[x=time,y=_LOAD__38_EC_tapChanger_tapMax]
+        table[x=time,y=_LOAD__38_EC_transformer_tapChanger_tapMax]
         {../IEEE57/IEEE57_GeneratorDisconnection/reference/outputs/curves/curves.csv};
         \addplot[dashed, color=green!50]
-        table[x=time,y=_LOAD__38_EC_tapChanger_tapMin]
+        table[x=time,y=_LOAD__38_EC_transformer_tapChanger_tapMin]
         {../IEEE57/IEEE57_GeneratorDisconnection/reference/outputs/curves/curves.csv};
     \legend{$Tap$, $Tap_{Max}$, $Tap_{Min}$}
     \end{axis}

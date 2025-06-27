@@ -37,20 +37,20 @@
   <set id="GenericLoadTwoTransfos">
     <par type="DOUBLE" name="load_alpha" value="1"/>
     <par type="DOUBLE" name="load_beta" value="2"/>
-    <par type="DOUBLE" name="tapChangerD_UDeadBand" value="0.01"/>
-    <par type="DOUBLE" name="tapChangerD_UTarget" value="1.035"/>
-    <par type="BOOL" name="tapChangerD_regulating0" value="true"/>
-    <par type="DOUBLE" name="tapChangerD_t1st" value="60"/>
-    <par type="DOUBLE" name="tapChangerD_tNext" value="10"/>
-    <par type="INT" name="tapChangerD_tapMax" value="84"/>
-    <par type="INT" name="tapChangerD_tapMin" value="0"/>
-    <par type="DOUBLE" name="tapChangerT_UDeadBand" value="0.015"/>
-    <par type="DOUBLE" name="tapChangerT_UTarget" value="1.035"/>
-    <par type="BOOL" name="tapChangerT_regulating0" value="true"/>
-    <par type="DOUBLE" name="tapChangerT_t1st" value="30"/>
-    <par type="DOUBLE" name="tapChangerT_tNext" value="10"/>
-    <par type="INT" name="tapChangerT_tapMax" value="24"/>
-    <par type="INT" name="tapChangerT_tapMin" value="0"/>
+    <par type="DOUBLE" name="transformerD_UDeadBand" value="0.01"/>
+    <par type="DOUBLE" name="transformerD_UTarget" value="1.035"/>
+    <par type="BOOL" name="transformerD_regulating0" value="true"/>
+    <par type="DOUBLE" name="transformerD_t1st" value="60"/>
+    <par type="DOUBLE" name="transformerD_tNext" value="10"/>
+    <par type="INT" name="transformerD_tapMax" value="84"/>
+    <par type="INT" name="transformerD_tapMin" value="0"/>
+    <par type="DOUBLE" name="transformerT_UDeadBand" value="0.015"/>
+    <par type="DOUBLE" name="transformerT_UTarget" value="1.035"/>
+    <par type="BOOL" name="transformerT_regulating0" value="true"/>
+    <par type="DOUBLE" name="transformerT_t1st" value="30"/>
+    <par type="DOUBLE" name="transformerT_tNext" value="10"/>
+    <par type="INT" name="transformerT_tapMax" value="24"/>
+    <par type="INT" name="transformerT_tapMin" value="0"/>
     <par type="DOUBLE" name="transformerD_B" value="0"/>
     <par type="DOUBLE" name="transformerD_G" value="0"/>
     <par type="INT" name="transformerD_NbTap" value="85"/>
@@ -77,13 +77,13 @@
   <set id="GenericLoadOneTransfo">
     <par type="DOUBLE" name="load_alpha" value="1"/>
     <par type="DOUBLE" name="load_beta" value="2"/>
-    <par type="DOUBLE" name="tapChanger_UDeadBand" value="0.01"/>
-    <par type="DOUBLE" name="tapChanger_UTarget" value="1.025"/>
-    <par type="BOOL" name="tapChanger_regulating0" value="true"/>
-    <par type="DOUBLE" name="tapChanger_t1st" value="60"/>
-    <par type="DOUBLE" name="tapChanger_tNext" value="10"/>
-    <par type="INT" name="tapChanger_tapMax" value="16"/>
-    <par type="INT" name="tapChanger_tapMin" value="0"/>
+    <par type="DOUBLE" name="transformer_UDeadBand" value="0.01"/>
+    <par type="DOUBLE" name="transformer_UTarget" value="1.025"/>
+    <par type="BOOL" name="transformer_regulating0" value="true"/>
+    <par type="DOUBLE" name="transformer_t1st" value="60"/>
+    <par type="DOUBLE" name="transformer_tNext" value="10"/>
+    <par type="INT" name="transformer_tapMax" value="16"/>
+    <par type="INT" name="transformer_tapMin" value="0"/>
     <par type="DOUBLE" name="transformer_B" value="0"/>
     <par type="DOUBLE" name="transformer_G" value="0"/>
     <par type="DOUBLE" name="transformer_R" value="0"/>

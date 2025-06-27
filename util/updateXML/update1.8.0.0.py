@@ -17,22 +17,23 @@ from content.Ticket import ticket
 def update(jobs):
     var_to_update = ["generator_omegaRefPu", "generator_PmPu", "generator_omegaPu", \
                      "generator_efdPu", "generator_UStatorPu", "generator_IRotorPu", "generator_QStatorPu"]
+    var_to_update = ["generator_QStatorPu"]
     generators = jobs.dyds.get_bbms(lambda bbm: "GeneratorSynchronous" in bbm.get_lib_name())
     for generator in generators:
-         connects = generator.connects.get_connects()
-         for connect in connects:
-             for idx in ["1", "2"]:
-                 id = connect.attrib['id' + idx]
-                 var = connect.attrib['var' + idx]
-                 other_idx = "2"
-                 if idx == "2":
-                     other_idx = "1"
-                 other_var = connect.attrib['var' + other_idx]
-                 if id != generator.get_id() and (other_var in var_to_update or other_var.replace("_value","") in var_to_update):
-                     if "_value" not in other_var:
-                         connect.attrib['var' + idx] = var + "_value"
-         for var_name in var_to_update:
-             generator.connects.change_var_name(var_name + "_value", var_name)
+        connects = generator.connects.get_connects()
+        for connect in connects:
+            for idx in ["1", "2"]:
+                id = connect.attrib['id' + idx]
+                var = connect.attrib['var' + idx]
+                other_idx = "2"
+                if idx == "2":
+                    other_idx = "1"
+                other_var = connect.attrib['var' + other_idx]
+                if id != generator.get_id() and (other_var in var_to_update or other_var.replace("_value","") in var_to_update):
+                    if "_value" not in other_var:
+                        connect.attrib['var' + idx] = var + "_value"
+        for var_name in var_to_update:
+            generator.connects.change_var_name(var_name + "_value", var_name)
 
     var_to_update = ["setPoint_setPoint"]
     set_points = jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "SetPoint")
