@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// Copyright (c) 2015-2025, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,40 +12,40 @@
 //
 
 /**
- * @file  CSTRTxtExporter.h
+ * @file  CSTRJsonExporter.h
  *
- * @brief Dynawo constraints txt exporter : header file
+ * @brief Dynawo constraints JSON exporter : header file
  *
  */
 
-#ifndef API_CSTR_CSTRTXTEXPORTER_H_
-#define API_CSTR_CSTRTXTEXPORTER_H_
+#ifndef API_CSTR_CSTRJSONEXPORTER_H_
+#define API_CSTR_CSTRJSONEXPORTER_H_
 
 #include "CSTRExporter.h"
 
 namespace constraints {
 
 /**
- * @class TxtExporter
- * @brief TXT exporter interface class
+ * @class JsonExporter
+ * @brief JSON exporter interface class
  *
- * Txt export class for constraints collection
+ * JSON export class for constraints
  */
-class TxtExporter : public Exporter {
+class JsonExporter : public Exporter {
  public:
   /**
-   * @brief Export method in txt format
+   * @brief Export method in JSON format
    *
    * @param constraints Constraints to export
-   * @param filePath File to export txt formatted timeline to
+   * @param filePath File to export JSON formatted constraints to
    */
   void exportToFile(const std::shared_ptr<ConstraintsCollection>& constraints, const std::string& filePath) const override;
 
-   /**
-   * @brief Export method in txt format
+  /**
+   * @brief Export method in JSON format
    *
    * @param constraints Constraints to export
-   * @param stream Stream to export txt formatted timeline to
+   * @param stream Stream to export JSON formatted constraints to
    * @param afterTime export only events occuring after this 'afterTime' time
    */
   void exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints, std::ostream& stream, double afterTime = -DBL_MAX) const override;
@@ -53,4 +53,4 @@ class TxtExporter : public Exporter {
 
 }  // namespace constraints
 
-#endif  // API_CSTR_CSTRTXTEXPORTER_H_
+#endif  // API_CSTR_CSTRJSONEXPORTER_H_
