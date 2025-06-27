@@ -18,16 +18,18 @@
  */
 
 #include "gtest_dynawo.h"
+// #include <fstream>
 
 #include "CSTRConstraintsCollectionFactory.h"
 #include "CSTRConstraintsCollection.h"
 #include "CSTRConstraintFactory.h"
 #include "CSTRXmlExporter.h"
+#include "CSTRJsonExporter.h"
 
 namespace constraints {
 
-TEST(APICSTRTest, ConstraintsCollectionXmlExporter) {
-  std::unique_ptr<ConstraintsCollection> constraintsCollection1 = ConstraintsCollectionFactory::newInstance("Constraints");
+TEST(APICSTRTest, ConstraintsCollectionExporter) {
+  std::shared_ptr<ConstraintsCollection> constraintsCollection1 = ConstraintsCollectionFactory::newInstance("Constraints");
 
   constraintsCollection1->addConstraint("model", "USupUmax", 80, CONSTRAINT_BEGIN, "Bus");
   constraintsCollection1->addConstraint("model", "OverloadUp", 80, CONSTRAINT_BEGIN, "Line");
@@ -42,9 +44,9 @@ TEST(APICSTRTest, ConstraintsCollectionXmlExporter) {
   constraintsCollection1->addConstraint("modelDetail", "desc PATL", 90, CONSTRAINT_BEGIN, "Line",
     ConstraintData(ConstraintData::PATL, 1100, 1111, side));
 
-  XmlExporter exporter;
+  XmlExporter xmlExporter;
   std::stringstream ss;
-  exporter.exportToStream(std::move(constraintsCollection1), ss);
+  xmlExporter.exportToStream(constraintsCollection1, ss);
   ASSERT_EQ(ss.str(), "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>\n"
       "<constraints xmlns=\"http://www.rte-france.com/dynawo\">\n  "
       "<constraint modelName=\"model\" description=\"OverloadUp\" time=\"80.000000\" type=\"Line\"/>\n  "
@@ -57,6 +59,29 @@ TEST(APICSTRTest, ConstraintsCollectionXmlExporter) {
       "<constraint modelName=\"modelDetail\" description=\"desc UInfUmin\" time=\"90.000000\" type=\"Bus\" "
       "kind=\"UInfUmin\" limit=\"132\" value=\"130\"/>\n"
       "</constraints>\n");
-}
 
+  JsonExporter jsonExporter;
+  std::stringstream ss2;
+  jsonExporter.exportToStream(constraintsCollection1, ss2);
+  ASSERT_EQ(ss2.str(), "{\"constraints\":["
+    "{\"modelName\":\"model\",\"description\":\"OverloadUp\",\"time\":\"80.000000\",\"type\":\"Line\"},"
+    "{\"modelName\":\"model\",\"description\":\"PATL\",\"time\":\"80.000000\",\"type\":\"Line\"},"
+    "{\"modelName\":\"model\",\"description\":\"USupUmax\",\"time\":\"80.000000\",\"type\":\"Bus\"},"
+    "{\"modelName\":\"modelDetail\",\"description\":\"desc OverloadUp\",\"time\":\"90.000000\",\"type\":\"Line\","
+    "\"kind\":\"OverloadUp\",\"limit\":\"1000\",\"value\":\"1001\",\"side\":\"1\",\"acceptableDuration\":\"60\"},"
+    "{\"modelName\":\"modelDetail\",\"description\":\"desc PATL\",\"time\":\"90.000000\",\"type\":\"Line\","
+    "\"kind\":\"PATL\",\"limit\":\"1100\",\"value\":\"1111\",\"side\":\"1\"},"
+    "{\"modelName\":\"modelDetail\",\"description\":\"desc UInfUmin\",\"time\":\"90.000000\",\"type\":\"Bus\","
+    "\"kind\":\"UInfUmin\",\"limit\":\"132\",\"value\":\"130\"}]}\n");
+
+  std::stringstream ss3;
+  jsonExporter.exportToStream(constraintsCollection1, ss3, 80);
+  ASSERT_EQ(ss3.str(), "{\"constraints\":["
+    "{\"modelName\":\"modelDetail\",\"description\":\"desc OverloadUp\",\"time\":\"90.000000\",\"type\":\"Line\","
+    "\"kind\":\"OverloadUp\",\"limit\":\"1000\",\"value\":\"1001\",\"side\":\"1\",\"acceptableDuration\":\"60\"},"
+    "{\"modelName\":\"modelDetail\",\"description\":\"desc PATL\",\"time\":\"90.000000\",\"type\":\"Line\","
+    "\"kind\":\"PATL\",\"limit\":\"1100\",\"value\":\"1111\",\"side\":\"1\"},"
+    "{\"modelName\":\"modelDetail\",\"description\":\"desc UInfUmin\",\"time\":\"90.000000\",\"type\":\"Bus\","
+    "\"kind\":\"UInfUmin\",\"limit\":\"132\",\"value\":\"130\"}]}\n");
+}
 }  // namespace constraints
