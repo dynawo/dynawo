@@ -140,6 +140,17 @@ TEST(APICRVTest, CurveUpdateParameterCurveValue) {
   std::vector<double> variables2;
   variables2.assign(1, 2);
   curve1->setBuffer(&variables2[0]);
+
+  boost::shared_ptr<Curve> curve3 = CurveFactory::newCurve();
+  double val3 = 3;
+  curve3->setVariable("variable3");
+  curve3->setAvailable(true);
+  curve3->setNegated(false);
+  curve3->setFactor(10);
+  curve3->setBuffer(&val3);
+  curve3->update(2);
+  ASSERT_TRUE(curve3->getPoints().at(0)->getTime() == 2.);
+  ASSERT_TRUE(curve3->getPoints().at(0)->getValue() == 30.);
 }
 
 }  // namespace curves

@@ -59,6 +59,7 @@ TEST(APICRVTest, CurvesCollectionCsvExporter) {
   curve2->setVariable("variable2");
   curve2->setAvailable(true);
   curve2->setNegated(true);
+  curve2->setFactor(10);
   curve2->setAsParameterCurve(false);
   std::vector<double> variables2;
   variables2.assign(3, 4);
@@ -72,7 +73,7 @@ TEST(APICRVTest, CurvesCollectionCsvExporter) {
   CsvExporter exporter;
   std::stringstream ss;
   exporter.exportToStream(std::move(curvesCollection1), ss);
-  ASSERT_EQ(ss.str(), "time;_variable1;_variable2;\n0.000000;5.000000;7.000000;\n1.000000;5.000000;7.000000;\n2.000000;5.000000;7.000000;\n");
+  ASSERT_EQ(ss.str(), "time;_variable1;_variable2_10x;\n0.000000;5.000000;70.000000;\n1.000000;5.000000;70.000000;\n2.000000;5.000000;70.000000;\n");
 }
 
 TEST(APICRVTest, CurvesCollectionXmlExporter) {
@@ -106,6 +107,7 @@ TEST(APICRVTest, CurvesCollectionXmlExporter) {
   // is the same value obtained when exporting, without a change in sign
   curve2->setNegated(true);
   curve2->setAsParameterCurve(false);
+  curve2->setFactor(10);
   curve2->setExportType(curves::Curve::EXPORT_AS_BOTH);
   std::vector<double> variables2;
   variables2.assign(3, 4);
@@ -124,10 +126,10 @@ TEST(APICRVTest, CurvesCollectionXmlExporter) {
       "<point time=\"0.000000\" value=\"5.000000\"/>\n    "
       "<point time=\"1.000000\" value=\"5.000000\"/>\n    "
       "<point time=\"2.000000\" value=\"5.000000\"/>\n  "
-      "</curve>\n  <curve model=\"\" variable=\"variable2\">\n    "
-      "<point time=\"0.000000\" value=\"7.000000\"/>\n    "
-      "<point time=\"1.000000\" value=\"7.000000\"/>\n    "
-      "<point time=\"2.000000\" value=\"7.000000\"/>\n  "
+      "</curve>\n  <curve model=\"\" variable=\"variable2\" factor=\"10\">\n    "
+      "<point time=\"0.000000\" value=\"70.000000\"/>\n    "
+      "<point time=\"1.000000\" value=\"70.000000\"/>\n    "
+      "<point time=\"2.000000\" value=\"70.000000\"/>\n  "
       "</curve>\n"
       "</curvesOutput>\n");
 
@@ -140,10 +142,10 @@ TEST(APICRVTest, CurvesCollectionXmlExporter) {
       "<point time=\"0.000000\" value=\"5.000000\"/>\n    "
       "<point time=\"1.000000\" value=\"5.000000\"/>\n    "
       "<point time=\"2.000000\" value=\"5.000000\"/>\n  "
-      "</curve>\n  <curve model=\"\" variable=\"variable2\">\n    "
-      "<point time=\"0.000000\" value=\"7.000000\"/>\n    "
-      "<point time=\"1.000000\" value=\"7.000000\"/>\n    "
-      "<point time=\"2.000000\" value=\"7.000000\"/>\n  "
+      "</curve>\n  <curve model=\"\" variable=\"variable2\" factor=\"10\">\n    "
+      "<point time=\"0.000000\" value=\"70.000000\"/>\n    "
+      "<point time=\"1.000000\" value=\"70.000000\"/>\n    "
+      "<point time=\"2.000000\" value=\"70.000000\"/>\n  "
       "</curve>\n"
       "</curvesOutput>\n");
 }
