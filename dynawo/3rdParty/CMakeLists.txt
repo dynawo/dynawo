@@ -159,7 +159,7 @@ set(sundials_md5         6be7057c88990021de5b08109eb2f133)
 set(omdev_git            https://openmodelica.org/git/OMDev.git)
 set(omdev_tag            origin/OM113maintenance)
 
-set(openmodelica_version 1.24.4)
+set(openmodelica_version 1.24.5)
 if(DEFINED ENV{DYNAWO_OPENMODELICA_GIT_URL})
   set(openmodelica_prefix_url $ENV{DYNAWO_OPENMODELICA_GIT_URL})
 else()
