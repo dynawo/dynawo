@@ -37,3 +37,33 @@ case_description = "WECC WT4B (without plant controller) test on a SMIB network"
 job_file = os.path.join(os.path.dirname(__file__),  "Wind", "WT4BCurrentSource", "WT4B.jobs")
 
 test_cases.append((case_name, case_description, job_file, 2, standardReturnCodeType, standardReturnCode))
+
+################################################
+#           WECC WTG4B test case with HVRT     #
+################################################
+
+case_name = "WECC WTG4B HVRT"
+case_description = "WECC WTG4B with HVRT test on a SMIB network"
+job_file = os.path.join(os.path.dirname(__file__),  "Wind", "LHVRT", "WECCWTG4BCurrentSourceHVRT", "WECCWTG4B.jobs")
+
+test_cases.append((case_name, case_description, job_file, 2, standardReturnCodeType, standardReturnCode))
+
+################################################
+#           WECC WTG4B test case with LHVRT     #
+################################################
+
+case_name = "WECC WTG4B LHVRT"
+case_description = "WECC WTG4B with LHVRT test on a SMIB network"
+job_file = os.path.join(os.path.dirname(__file__),  "Wind", "LHVRT", "WECCWTG4BCurrentSourceLHVRT", "WECCWTG4B.jobs")
+
+test_cases.append((case_name, case_description, job_file, 2, standardReturnCodeType, standardReturnCode))
+
+################################################
+#           WECC WTG4B test case with LVRT     #
+################################################
+
+case_name = "WECC WTG4B LVRT"
+case_description = "WECC WTG4B with LVRT test on a SMIB network"
+job_file = os.path.join(os.path.dirname(__file__),  "Wind", "LHVRT", "WECCWTG4BCurrentSourceLVRT", "WECCWTG4B.jobs")
+
+test_cases.append((case_name, case_description, job_file, 2, standardReturnCodeType, standardReturnCode))
