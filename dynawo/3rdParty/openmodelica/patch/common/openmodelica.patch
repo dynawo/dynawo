@@ -1,5 +1,5 @@
 diff --git a/Makefile.in b/Makefile.in
-index 1a766f96c17..2d80cad373d 100644
+index 1a766f96c1..2d80cad373 100644
 --- a/Makefile.in
 +++ b/Makefile.in
 @@ -196,7 +196,7 @@ install: install-dirs
@@ -11,9 +11,25 @@ index 1a766f96c17..2d80cad373d 100644
  	cp -p "@OMBUILDDIR@"/share/doc/omc/testmodels/* ${INSTALL_DOCDIR}/omc/testmodels/
  	# man pages
  	# cp -p "@OMBUILDDIR@"/share/man/man1/*.gz ${INSTALL_MANDIR}/man1/
+diff --git a/OMCompiler/Compiler/BackEnd/RemoveSimpleEquations.mo b/OMCompiler/Compiler/BackEnd/RemoveSimpleEquations.mo
+index 7b30c5adfd..eeb71099f7 100644
+--- a/OMCompiler/Compiler/BackEnd/RemoveSimpleEquations.mo
++++ b/OMCompiler/Compiler/BackEnd/RemoveSimpleEquations.mo
+@@ -210,6 +210,11 @@ protected
+   list<BackendDAE.Var> referencevar, tempreferencevar, knownVarList={}, aliasVarList={};
+   BackendDAE.Var tempvar;
+ algorithm
++  // only do this for FMUs
++  if not Flags.getConfigBool(Flags.BUILDING_FMU) then
++    outDAE := inDAE;
++    return;
++  end if;
+   aliasVars := BackendDAEUtil.getAliasVars(inDAE);
+   systvars := BackendVariable.listVar(BackendVariable.equationSystemsVarsLst(inDAE.eqs));
+ 
 diff --git a/OMCompiler/Compiler/BackEnd/XMLCreateDynawo.mo b/OMCompiler/Compiler/BackEnd/XMLCreateDynawo.mo
 new file mode 100644
-index 00000000000..35fbdbe9173
+index 0000000000..35fbdbe917
 --- /dev/null
 +++ b/OMCompiler/Compiler/BackEnd/XMLCreateDynawo.mo
 @@ -0,0 +1,2236 @@
@@ -2254,7 +2270,7 @@ index 00000000000..35fbdbe9173
 +annotation(__OpenModelica_Interface="backend");
 +end XMLCreateDynawo;
 diff --git a/OMCompiler/Compiler/FrontEnd/ModelicaBuiltin.mo b/OMCompiler/Compiler/FrontEnd/ModelicaBuiltin.mo
-index 380c5d9f51d..d5d9e264d0c 100644
+index 380c5d9f51..d5d9e264d0 100644
 --- a/OMCompiler/Compiler/FrontEnd/ModelicaBuiltin.mo
 +++ b/OMCompiler/Compiler/FrontEnd/ModelicaBuiltin.mo
 @@ -2247,6 +2247,16 @@ annotation(Documentation(info="<html>
@@ -2275,7 +2291,7 @@ index 380c5d9f51d..d5d9e264d0c 100644
    input String s1;
    input String s2;
 diff --git a/OMCompiler/Compiler/NFFrontEnd/NFModelicaBuiltin.mo b/OMCompiler/Compiler/NFFrontEnd/NFModelicaBuiltin.mo
-index 77276916e99..10ec28ae162 100644
+index 77276916e9..10ec28ae16 100644
 --- a/OMCompiler/Compiler/NFFrontEnd/NFModelicaBuiltin.mo
 +++ b/OMCompiler/Compiler/NFFrontEnd/NFModelicaBuiltin.mo
 @@ -2501,6 +2501,17 @@ annotation(Documentation(info="<html>
@@ -2297,7 +2313,7 @@ index 77276916e99..10ec28ae162 100644
    input String s1;
    input String s2;
 diff --git a/OMCompiler/Compiler/Script/CevalScriptBackend.mo b/OMCompiler/Compiler/Script/CevalScriptBackend.mo
-index d4e6748e897..1abb3768c50 100644
+index d4e6748e89..1abb3768c5 100644
 --- a/OMCompiler/Compiler/Script/CevalScriptBackend.mo
 +++ b/OMCompiler/Compiler/Script/CevalScriptBackend.mo
 @@ -139,6 +139,7 @@ import UnitParserExt;
@@ -2353,7 +2369,7 @@ index d4e6748e897..1abb3768c50 100644
 +        // load the rewrite rules
 +        RewriteRules.loadRules();
 +
-+        (inCache,inEnv,SOME(dae), _) = runFrontEnd(inCache,inEnv,classname,false);
++        (inCache, inEnv, _, dae) = Inst.instantiateClass(inCache, InnerOuter.emptyInstHierarchy, SymbolTable.getSCode(), classname);
 +
 +        dae = DAEUtil.transformationsBeforeBackend(inCache,inEnv,dae);
 +
@@ -2443,7 +2459,7 @@ index d4e6748e897..1abb3768c50 100644
    input BackendDAE.BackendDAE inBackendDAE;
    output BackendDAE.BackendDAE outBackendDAE;
 diff --git a/OMCompiler/Compiler/SimCode/SimCodeUtil.mo b/OMCompiler/Compiler/SimCode/SimCodeUtil.mo
-index 2bf62ff1a12..ef9e4cad0fd 100644
+index 2bf62ff1a1..ef9e4cad0f 100644
 --- a/OMCompiler/Compiler/SimCode/SimCodeUtil.mo
 +++ b/OMCompiler/Compiler/SimCode/SimCodeUtil.mo
 @@ -8833,12 +8833,27 @@ algorithm
@@ -2565,10 +2581,18 @@ index 2bf62ff1a12..ef9e4cad0fd 100644
  end dumpSimCodeDebug;
  
 diff --git a/OMCompiler/Compiler/Template/CodegenCFunctions.tpl b/OMCompiler/Compiler/Template/CodegenCFunctions.tpl
-index 40b648ba044..5339b56e822 100644
+index 40b648ba04..11cefdc8db 100644
 --- a/OMCompiler/Compiler/Template/CodegenCFunctions.tpl
 +++ b/OMCompiler/Compiler/Template/CodegenCFunctions.tpl
-@@ -5731,17 +5731,7 @@ case BINARY(__) then
+@@ -428,6 +428,7 @@ template recordDeclaration(RecordDeclaration recDecl)
+                       listLength(variables))%>
+ 
+     <%recordConstructorDef(r.name, r.name, r.variables)%>
++
+     <%recordCreateFromVarsDef(r.name, r.variables)%>
+ 
+     <%recordCopyDef(r.name, r.variables)%>
+@@ -5731,17 +5732,7 @@ case BINARY(__) then
    case POW(__) then
      if isHalf(exp2) then
        let tmp = tempDecl(expTypeFromExpModelica(exp1),&varDecls)
@@ -2587,7 +2611,7 @@ index 40b648ba044..5339b56e822 100644
      else match realExpIntLit(exp2)
        case SOME(2) then
          let tmp = tempDecl("modelica_real", &varDecls)
-@@ -5760,72 +5750,7 @@ case BINARY(__) then
+@@ -5760,72 +5751,7 @@ case BINARY(__) then
            >>
          '(<%tmp%> * <%tmp%>)'
        case SOME(i) then 'real_int_pow(threadData, <%e1%>, <%i%>)'
@@ -2661,7 +2685,7 @@ index 40b648ba044..5339b56e822 100644
  
    case UMINUS(__) then daeExpUnary(exp, context, &preExp, &varDecls, &auxFunction)
    case ADD_ARR(__) then
-@@ -6185,7 +6110,7 @@ case IFEXP(__) then
+@@ -6185,7 +6111,7 @@ case IFEXP(__) then
    let eThen = daeExp(expThen, context, &preExpThen, &varDecls, &auxFunction)
    let &preExpElse = buffer ""
    let eElse = daeExp(expElse, context, &preExpElse, &varDecls, &auxFunction)
@@ -2671,7 +2695,7 @@ index 40b648ba044..5339b56e822 100644
      // Safe to do if eThen and eElse don't emit pre-expressions
      '(<%condExp%>?<%eThen%>:<%eElse%>)'
 diff --git a/OMCompiler/Compiler/boot/LoadCompilerSources.mos b/OMCompiler/Compiler/boot/LoadCompilerSources.mos
-index 2c54903e7a2..15680262376 100644
+index 2c54903e7a..1568026237 100644
 --- a/OMCompiler/Compiler/boot/LoadCompilerSources.mos
 +++ b/OMCompiler/Compiler/boot/LoadCompilerSources.mos
 @@ -278,6 +278,7 @@ if true then /* Suppress output */
@@ -2683,7 +2707,7 @@ index 2c54903e7a2..15680262376 100644
  
    // "NBackend Classes"
 diff --git a/OMCompiler/SimulationRuntime/c/simulation_data.h b/OMCompiler/SimulationRuntime/c/simulation_data.h
-index d72dbd20dd3..40599d0fb09 100644
+index d72dbd20dd..40599d0fb0 100644
 --- a/OMCompiler/SimulationRuntime/c/simulation_data.h
 +++ b/OMCompiler/SimulationRuntime/c/simulation_data.h
 @@ -769,7 +769,10 @@ typedef struct SIMULATION_INFO
@@ -2708,7 +2732,7 @@ index d72dbd20dd3..40599d0fb09 100644
    modelica_boolean* booleanVars;
    modelica_string* stringVars;
 diff --git a/OMCompiler/configure.ac b/OMCompiler/configure.ac
-index 9486ef53bf7..89c79ed6115 100644
+index 9486ef53bf..89c79ed611 100644
 --- a/OMCompiler/configure.ac
 +++ b/OMCompiler/configure.ac
 @@ -310,7 +310,7 @@ AC_LANG_POP([C++])
@@ -2721,7 +2745,7 @@ index 9486ef53bf7..89c79ed6115 100644
  if test "`getconf LONG_BIT`" = "32"; then
  dnl Simulations spin forever unless -msse2 -mfpmath=sse is set
 diff --git a/OMEdit/configure.ac b/OMEdit/configure.ac
-index 409a6355db5..08372643d26 100644
+index 409a6355db..08372643d2 100644
 --- a/OMEdit/configure.ac
 +++ b/OMEdit/configure.ac
 @@ -29,7 +29,7 @@ test -z "$CXXFLAGS" && CXXFLAGS="$CFLAGS"
@@ -2734,7 +2758,7 @@ index 409a6355db5..08372643d26 100644
  
  m4_include([common/m4/qmake.m4])
 diff --git a/OMNotebook/configure.ac b/OMNotebook/configure.ac
-index 090fcea0e12..b9498197ead 100644
+index 090fcea0e1..b9498197ea 100644
 --- a/OMNotebook/configure.ac
 +++ b/OMNotebook/configure.ac
 @@ -23,7 +23,7 @@ AC_LANG([C++])
@@ -2747,7 +2771,7 @@ index 090fcea0e12..b9498197ead 100644
  host_short=$host_cpu-$host_os
  
 diff --git a/OMPlot/configure.ac b/OMPlot/configure.ac
-index f5601bc7bed..d508a863860 100644
+index f5601bc7be..d508a86386 100644
 --- a/OMPlot/configure.ac
 +++ b/OMPlot/configure.ac
 @@ -26,7 +26,7 @@ test -z "$CXXFLAGS" && CXXFLAGS="$CFLAGS"
@@ -2760,7 +2784,7 @@ index f5601bc7bed..d508a863860 100644
  host_short=$host_cpu-$host_os
  
 diff --git a/OMShell/configure.ac b/OMShell/configure.ac
-index 279d1c17d01..7a687e78609 100644
+index 279d1c17d0..7a687e7860 100644
 --- a/OMShell/configure.ac
 +++ b/OMShell/configure.ac
 @@ -24,7 +24,7 @@ test -z "$CXXFLAGS" && CXXFLAGS="$CFLAGS"
