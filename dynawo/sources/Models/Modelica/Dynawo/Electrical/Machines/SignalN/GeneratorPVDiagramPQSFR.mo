@@ -41,9 +41,9 @@ equation
   end when;
 
   if running.value then
-    if qStatus == QStatus.GenerationMax then
+    if QGenPu - QDeadBandPu >= QMaxPu and UPu + UDeadBandPu < URefPu then
       QGenPu = QMaxPu;
-    elseif qStatus == QStatus.AbsorptionMax then
+    elseif QGenPu + QDeadBandPu <= QMinPu and UPu - UDeadBandPu > URefPu then
       QGenPu = QMinPu;
     else
       UPu = URefPu;
