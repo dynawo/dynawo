@@ -26,6 +26,9 @@ model PVVoltageSourceB "WECC PV model with a voltage source as interface with th
   parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef)";
   parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SnRef)";
 
+  //REPC-A parameter
+  parameter Boolean RefFlag "Plant level reactive power (0) or voltage control (1)" annotation(Dialog(tab = "Plant Control"));
+  
   //REEC-B parameter
   parameter Types.VoltageModulePu VRef1Pu "User-defined reference/bias on the inner-loop voltage control in pu (base UNom) (typical: 0 pu)" annotation(
   Dialog(tab="Electrical Control"));

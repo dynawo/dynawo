@@ -16,6 +16,9 @@ model BESScbCurrentSource "WECC BESS with electrical control model type C, gener
   extends Dynawo.Electrical.BESS.WECC.BaseClasses.BaseBESScbCurrentSource;
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREPC;
 
+  // REPC-A parameter
+  parameter Boolean RefFlag "Plant level reactive power (0) or voltage control (1)" annotation(Dialog(tab = "Plant Control")) ;
+  
   // Input variables
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

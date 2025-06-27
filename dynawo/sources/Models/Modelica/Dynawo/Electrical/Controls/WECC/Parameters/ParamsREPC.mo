@@ -16,8 +16,8 @@ within Dynawo.Electrical.Controls.WECC.Parameters;
 record ParamsREPC
   parameter Boolean FreqFlag "Governor response disable (0) or enable (1)" annotation(
   Dialog(tab="Plant Control"));
-  parameter Boolean RefFlag "Plant level reactive power (0) or voltage control (1)" annotation(
-  Dialog(tab="Plant Control"));
+//  parameter Boolean RefFlag "Plant level reactive power (0) or voltage control (1)" annotation(
+//  Dialog(tab="Plant Control"));
   parameter Boolean VCompFlag "Reactive droop (0) or line drop compensation (1) if RefFlag true" annotation(
   Dialog(tab="Plant Control"));
 

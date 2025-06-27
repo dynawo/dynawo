@@ -28,3 +28,4 @@ TransferFunctionBypass
 VarLimPIDFreeze
 Washout
 WeightedDifference
+TransferFunctionFreeze
