@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<timeline xmlns="http://www.rte-france.com/dynawo">
+  <event time="1.021263" modelName="LVRTWecc" message="LVRT automaton for generator arming"/>
+  <event time="1.171263" modelName="LVRTWecc" message="LVRT generator tripped"/>
+  <event time="1.171263" modelName="WTG4B" message="COMPONENT : disconnecting"/>
+</timeline>

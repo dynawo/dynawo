@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2025, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="InfBus" lib="InfiniteBusWithVariations" parFile="WECCWTG4B.par" parId="1"/>
+  <dyn:blackBoxModel id="Line" lib="Line" parFile="WECCWTG4B.par" parId="2"/>
+  <dyn:blackBoxModel id="WTG4B" lib="WTG4BWeccCurrentSource" parFile="WECCWTG4B.par" parId="3"/>
+  <dyn:blackBoxModel id="OmegaRefPu" lib="SetPoint" parFile="WECCWTG4B.par" parId="4"/>
+  <dyn:blackBoxModel id="LVRTWecc" lib="LVRT" parFile="WECCWTG4B.par" parId="5"/>
+  <dyn:connect id1="OmegaRefPu" var1="setPoint_setPoint" id2="WTG4B" var2="WTG4B_omegaRefPu"/>
+  <dyn:connect id1="InfBus" var1="infiniteBus_terminal" id2="Line" var2="line_terminal1"/>
+  <dyn:connect id1="Line" var1="line_terminal2" id2="WTG4B" var2="WTG4B_terminal"/>
+  <dyn:connect id1="LVRTWecc" var1="lvrt_UMonitoredPu" id2="WTG4B" var2="WTG4B_measurements_UPu"/>
+  <dyn:connect id1="LVRTWecc" var1="lvrt_switchOffSignal" id2="WTG4B" var2="WTG4B_injector_switchOffSignal3"/>
+</dyn:dynamicModelsArchitecture>
