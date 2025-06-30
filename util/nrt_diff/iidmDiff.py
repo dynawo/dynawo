@@ -151,7 +151,12 @@ def OutputIIDMCloseEnough (path_left, path_right):
                 else:
                     try:
                         difference = abs(float(firstObj.values[attr1])- float(secondObj.values[attr1]))
-                        if not diffUtils.isclose(float(firstObj.values[attr1]), float(secondObj.values[attr1])):
+                        rel_tol = settings.max_iidm_cmp_tol
+                        for exception in settings.iidm_exceptions:
+                            if exception in path_left or exception in path_right:
+                                rel_tol = settings.iidm_exceptions[exception]
+                                break
+                        if not diffUtils.isclose(float(firstObj.values[attr1]), float(secondObj.values[attr1]), rel_tol, rel_tol/5):
                             nb_differences+=1
                             differences.append([difference, firstObj, attr1])
                     except ValueError:
