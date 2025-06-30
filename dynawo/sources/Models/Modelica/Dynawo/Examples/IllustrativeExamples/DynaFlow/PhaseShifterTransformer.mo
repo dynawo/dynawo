@@ -48,7 +48,7 @@ model PhaseShifterTransformer "Elementary system with one infinite bus, one load
     Placement(transformation(origin = {20, 0}, extent = {{-12, -12}, {12, 12}})));
 
   // Phase Tap Changer Transformer
-  Dynawo.Electrical.Transformers.TransformerPhaseTapChanger tfo01(AlphaTfoMax = 0.19634954084936207, AlphaTfoMin = -0.19634954084936207, BPu = 0.0 * ZBASE69_0, GPu = 0.0 * ZBASE69_0, NbTap = 19, P10Pu = 0.50081, Q10Pu = 0.0984, RPu = 0.0 / ZBASE69_0, RatioTfo0Pu = 1, Tap0 = 9, U10Pu = 1, U20Pu = 1, XPu = 0.0 / ZBASE69_0, i10Pu = Complex(0.50081, 0.0984), i20Pu = Complex(0.50081, 0.0984), u10Pu = Complex(1, 0), u20Pu = Complex(1, 0)) annotation(
+  Dynawo.Electrical.Transformers.TransformersVariableTap.TransformerPhaseTapChanger tfo01(AlphaTfoMax = 0.19634954084936207, AlphaTfoMin = -0.19634954084936207, BPu = 0.0 * ZBASE69_0, GPu = 0.0 * ZBASE69_0, NbTap = 19, P10Pu = 0.50081, Q10Pu = 0.0984, RPu = 0.0 / ZBASE69_0, RatioTfo0Pu = 1, Tap0 = 9, U10Pu = 1, U20Pu = 1, XPu = 0.0 / ZBASE69_0, i10Pu = Complex(0.50081, 0.0984), i20Pu = Complex(0.50081, 0.0984), u10Pu = Complex(1, 0), u20Pu = Complex(1, 0)) annotation(
     Placement(transformation(origin = {20, 20}, extent = {{-12, -12}, {12, 12}}, rotation = -90)));
 
   // Lines
