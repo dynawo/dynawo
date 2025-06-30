@@ -22,6 +22,7 @@
 #define API_CSTR_CSTRCONSTRAINTSCOLLECTION_H_
 
 #include "CSTRConstraint.h"
+#include "DYNEnumUtils.h"
 
 #include <map>
 #include <string>
@@ -64,8 +65,9 @@ class ConstraintsCollection {
   /**
    * @brief filter the constraint collection by removing constraints cancelled during the simulation
    *
+   * @param type filter type
    */
-  void filter();
+  void filter(DYN::ConstraintValueType_t type);
 
  public:
   /**

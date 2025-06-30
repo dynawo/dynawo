@@ -83,7 +83,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   }
   mcl.evalZ("MY COMP", t, &states[0], &network, desactivate, modelType);
 
-  constraints->filter();  // filter constraint collection by removing cleared constraints
+  constraints->filter(DYN::CONSTRAINTS_KEEP_LAST);  // filter constraint collection by removing cleared constraints
   unsigned n = 0;
   for (constraints::ConstraintsCollection::const_iterator it = constraints->cbegin(),
       itEnd = constraints->cend(); it != itEnd; ++it) {
@@ -120,7 +120,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   network.setCurrentTime(5.1);
   mcl.evalZ("MY COMP", t, &states[0], &network, desactivate, modelType);
 
-  constraints->filter();  // filter constraint collection by removing cleared constraints
+  constraints->filter(DYN::CONSTRAINTS_KEEP_LAST);  // filter constraint collection by removing cleared constraints
   n = 0;
   for (constraints::ConstraintsCollection::const_iterator it = constraints->cbegin(),
       itEnd = constraints->cend(); it != itEnd; ++it) {
