@@ -3807,7 +3807,6 @@ class Factory:
                             if tmp in line and match.group('type') in self.list_adept_structs:
                                 line = line.replace(match.group('type'), match.group('type')+"_adept")
                     line = self.replace_adept_functions_in_line(line, adept_tmp)
-                    print ("BUBU? " + line)
                     body.append(transform_line_adept(line))
             else:
                 body.append("     return " + self.reader.dic_calculated_vars_values[var.get_name()]+";")
@@ -3866,10 +3865,8 @@ class Factory:
                             "evalCalculatedVarIAdept(" + str(self.dic_calc_var_index[name]) + ", indexOffset + " + str(offset) +", x, xd) /* " + name)
                 body.append(line)
 
-            print ("BUBUB?? " + str(index_calc_var))
             self.list_for_evalcalculatedvariadept.append("  if (iCalculatedVar == " + str(index_calc_var)+")  /* "+ var.get_name() + " */\n")
             self.list_for_evalcalculatedvariadept.extend(body)
-            print ("BUBUB INCREASE?? " + str(index_calc_var))
             index_calc_var += 1
 
             self.list_for_evalcalculatedvariadept.append("\n\n")

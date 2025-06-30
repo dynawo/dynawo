@@ -1,65 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <model>
 <name>GeneratorPQ</name>
-<elements dimension="18">
-<struct>
-<name>generator</name>
-<subnodes>
-<terminal>
-<name>switchOffSignal3.value</name>
-<kind>discrete</kind>
-<number>1</number>
-<id>generator.switchOffSignal3.value</id>
-<type>Boolean</type>
-<direction>none</direction>
-<fixed>false</fixed>
-<connector name="DynawoElectricalMachinesGeneratorPQ" type="Potential" />
-</terminal>
-</subnodes>
-</struct>
-<struct>
-<name>generator</name>
-<subnodes>
-<terminal>
-<name>switchOffSignal2.value</name>
-<kind>discrete</kind>
-<number>2</number>
-<id>generator.switchOffSignal2.value</id>
-<type>Boolean</type>
-<direction>none</direction>
-<fixed>false</fixed>
-<connector name="DynawoElectricalMachinesGeneratorPQ" type="Potential" />
-</terminal>
-</subnodes>
-</struct>
-<terminal>
-<name>generator.qStatus</name>
-<kind>discrete</kind>
-<number>3</number>
-<type>enumeration(Standard, AbsorptionMax, GenerationMax)</type>
-<direction>none</direction>
-<fixed>false</fixed>
-<connector name="DynawoElectricalMachinesGeneratorPQ" type="Non_Connector" />
-<comment>Reactive power status: standard, absorptionMax or generationMax</comment>
-</terminal>
+<elements dimension="22">
 <terminal>
 <name>generator.pStatus</name>
 <kind>discrete</kind>
-<number>4</number>
+<number>1</number>
 <type>enumeration(Standard, LimitPMin, LimitPMax)</type>
 <direction>none</direction>
 <fixed>false</fixed>
-<connector name="DynawoElectricalMachinesGeneratorPQ" type="Non_Connector" />
+<connector name="DynawoElectricalMachinesOmegaRefGeneratorPQ" type="Non_Connector" />
 <comment>Status of the power / frequency regulation function</comment>
 </terminal>
 <terminal>
 <name>generator.PGenRawPu</name>
 <kind>continuous</kind>
-<number>5</number>
+<number>2</number>
 <type>Real</type>
 <direction>none</direction>
 <fixed>false</fixed>
-<connector name="DynawoElectricalMachinesGeneratorPQ" type="Non_Connector" />
+<connector name="DynawoElectricalMachinesOmegaRefGeneratorPQ" type="Non_Connector" />
 <comment>Active power generation without taking limits into account in pu (base SnRef) (generator convention)</comment>
 </terminal>
 <struct>
@@ -68,35 +28,82 @@
 <terminal>
 <name>omegaRefPu.value</name>
 <kind>continuous</kind>
-<number>6</number>
+<number>3</number>
 <id>generator.omegaRefPu.value</id>
 <type>Real</type>
 <direction>none</direction>
 <fixed>false</fixed>
-<connector name="DynawoElectricalMachinesGeneratorPQ" type="Potential" />
+<connector name="DynawoElectricalMachinesOmegaRefGeneratorPQ" type="Potential" />
+</terminal>
+</subnodes>
+</struct>
+<struct>
+<name>generator</name>
+<subnodes>
+<terminal>
+<name>deltaPmRefPu.value</name>
+<kind>continuous</kind>
+<number>4</number>
+<id>generator.deltaPmRefPu.value</id>
+<type>Real</type>
+<direction>none</direction>
+<fixed>false</fixed>
+<connector name="DynawoElectricalMachinesOmegaRefGeneratorPQ" type="Potential" />
+</terminal>
+</subnodes>
+</struct>
+<struct>
+<name>generator</name>
+<subnodes>
+<terminal>
+<name>UPu</name>
+<kind>continuous</kind>
+<number>5</number>
+<id>generator.UPu</id>
+<type>Real</type>
+<direction>none</direction>
+<fixed>false</fixed>
+<connector name="DynawoElectricalMachinesOmegaRefGeneratorPQ" type="Potential" />
+<comment>Voltage amplitude at terminal in pu (base UNom)</comment>
 </terminal>
 </subnodes>
 </struct>
 <terminal>
-<name>generator.UPu</name>
+<name>generator.SGenPu.im</name>
+<kind>continuous</kind>
+<number>6</number>
+<type>Real</type>
+<direction>none</direction>
+<fixed>false</fixed>
+<connector name="DynawoElectricalMachinesOmegaRefGeneratorPQ" type="Non_Connector" />
+<comment>Imaginary part of complex number</comment>
+</terminal>
+<terminal>
+<name>generator.SGenPu.re</name>
 <kind>continuous</kind>
 <number>7</number>
 <type>Real</type>
 <direction>none</direction>
 <fixed>false</fixed>
-<connector name="DynawoElectricalMachinesGeneratorPQ" type="Non_Connector" />
-<comment>Voltage amplitude at terminal in pu (base UNom)</comment>
+<connector name="DynawoElectricalMachinesOmegaRefGeneratorPQ" type="Non_Connector" />
+<comment>Real part of complex number</comment>
 </terminal>
+<struct>
+<name>generator</name>
+<subnodes>
 <terminal>
-<name>generator.QGenPu</name>
+<name>QGenPu</name>
 <kind>continuous</kind>
 <number>8</number>
+<id>generator.QGenPu</id>
 <type>Real</type>
 <direction>none</direction>
 <fixed>false</fixed>
-<connector name="DynawoElectricalMachinesGeneratorPQ" type="Non_Connector" />
+<connector name="DynawoElectricalMachinesOmegaRefGeneratorPQ" type="Potential" />
 <comment>Reactive power at terminal in pu (base SnRef) (generator convention)</comment>
 </terminal>
+</subnodes>
+</struct>
 <terminal>
 <name>generator.PGenPu</name>
 <kind>continuous</kind>
@@ -104,28 +111,18 @@
 <type>Real</type>
 <direction>none</direction>
 <fixed>false</fixed>
-<connector name="DynawoElectricalMachinesGeneratorPQ" type="Non_Connector" />
+<connector name="DynawoElectricalMachinesOmegaRefGeneratorPQ" type="Non_Connector" />
 <comment>Active power at terminal in pu (base SnRef) (generator convention)</comment>
 </terminal>
 <terminal>
-<name>generator.SGenPu.im</name>
+<name>generator.PGen</name>
 <kind>continuous</kind>
 <number>10</number>
 <type>Real</type>
 <direction>none</direction>
 <fixed>false</fixed>
-<connector name="DynawoElectricalMachinesGeneratorPQ" type="Non_Connector" />
-<comment>Imaginary part of complex number</comment>
-</terminal>
-<terminal>
-<name>generator.SGenPu.re</name>
-<kind>continuous</kind>
-<number>11</number>
-<type>Real</type>
-<direction>none</direction>
-<fixed>false</fixed>
-<connector name="DynawoElectricalMachinesGeneratorPQ" type="Non_Connector" />
-<comment>Real part of complex number</comment>
+<connector name="DynawoElectricalMachinesOmegaRefGeneratorPQ" type="Non_Connector" />
+<comment>Active power at terminal in MW (generator convention)</comment>
 </terminal>
 <struct>
 <name>generator</name>
@@ -133,12 +130,12 @@
 <terminal>
 <name>terminal.i.im</name>
 <kind>continuous</kind>
-<number>12</number>
+<number>11</number>
 <id>generator.terminal.i.im</id>
 <type>Real</type>
 <direction>none</direction>
 <fixed>false</fixed>
-<connector name="DynawoElectricalMachinesGeneratorPQ" type="Flow" />
+<connector name="DynawoElectricalMachinesOmegaRefGeneratorPQ" type="Flow" />
 <comment>Imaginary part of complex number</comment>
 </terminal>
 </subnodes>
@@ -149,44 +146,98 @@
 <terminal>
 <name>terminal.i.re</name>
 <kind>continuous</kind>
-<number>13</number>
+<number>12</number>
 <id>generator.terminal.i.re</id>
 <type>Real</type>
 <direction>none</direction>
 <fixed>false</fixed>
-<connector name="DynawoElectricalMachinesGeneratorPQ" type="Flow" />
+<connector name="DynawoElectricalMachinesOmegaRefGeneratorPQ" type="Flow" />
 <comment>Real part of complex number</comment>
 </terminal>
 </subnodes>
 </struct>
+<struct>
+<name>generator</name>
+<subnodes>
 <terminal>
-<name>generator.terminal.V.im</name>
+<name>terminal.V.im</name>
 <kind>continuous</kind>
-<number>14</number>
+<number>13</number>
+<id>generator.terminal.V.im</id>
 <type>Real</type>
 <direction>none</direction>
 <fixed>false</fixed>
-<connector name="DynawoElectricalMachinesGeneratorPQ" type="Non_Connector" />
+<connector name="DynawoElectricalMachinesOmegaRefGeneratorPQ" type="Potential" />
 <comment>Imaginary part of complex number</comment>
 </terminal>
+</subnodes>
+</struct>
+<struct>
+<name>generator</name>
+<subnodes>
 <terminal>
-<name>generator.terminal.V.re</name>
+<name>terminal.V.re</name>
 <kind>continuous</kind>
-<number>15</number>
+<number>14</number>
+<id>generator.terminal.V.re</id>
 <type>Real</type>
 <direction>none</direction>
 <fixed>false</fixed>
-<connector name="DynawoElectricalMachinesGeneratorPQ" type="Non_Connector" />
+<connector name="DynawoElectricalMachinesOmegaRefGeneratorPQ" type="Potential" />
 <comment>Real part of complex number</comment>
+</terminal>
+</subnodes>
+</struct>
+<struct>
+<name>generator</name>
+<subnodes>
+<terminal>
+<name>converter.y</name>
+<kind>continuous</kind>
+<number>15</number>
+<id>generator.converter.y</id>
+<type>Real</type>
+<direction>none</direction>
+<fixed>false</fixed>
+<connector name="DynawoElectricalMachinesOmegaRefGeneratorPQ" type="Potential" />
+<comment>Connector of Real output signal</comment>
+</terminal>
+</subnodes>
+</struct>
+<struct>
+<name>generator</name>
+<subnodes>
+<terminal>
+<name>converter.u</name>
+<kind>discrete</kind>
+<number>16</number>
+<id>generator.converter.u</id>
+<type>Integer</type>
+<direction>none</direction>
+<fixed>false</fixed>
+<connector name="DynawoElectricalMachinesOmegaRefGeneratorPQ" type="Potential" />
+<comment>Connector of Integer input signal</comment>
+</terminal>
+</subnodes>
+</struct>
+<terminal>
+<name>generator.genState</name>
+<kind>continuous</kind>
+<number>17</number>
+<type>Real</type>
+<direction>none</direction>
+<fixed>false</fixed>
+<connector name="DynawoElectricalMachinesOmegaRefGeneratorPQ" type="Non_Connector" />
+<comment>Generator continuous connection state</comment>
 </terminal>
 <terminal>
 <name>generator.state</name>
 <kind>discrete</kind>
-<number>16</number>
+<number>18</number>
 <type>enumeration(Open, Closed, Closed1, Closed2, Closed3, Undefined)</type>
 <direction>none</direction>
 <fixed>false</fixed>
-<connector name="DynawoElectricalMachinesGeneratorPQ" type="Non_Connector" />
+<connector name="DynawoElectricalMachinesOmegaRefGeneratorPQ" type="Non_Connector" />
 <comment>Generator connection state</comment>
 </terminal>
 <struct>
@@ -195,12 +246,42 @@
 <terminal>
 <name>running.value</name>
 <kind>discrete</kind>
-<number>17</number>
+<number>19</number>
 <id>generator.running.value</id>
 <type>Boolean</type>
 <direction>none</direction>
 <fixed>false</fixed>
-<connector name="DynawoElectricalMachinesGeneratorPQ" type="Potential" />
+<connector name="DynawoElectricalMachinesOmegaRefGeneratorPQ" type="Potential" />
+</terminal>
+</subnodes>
+</struct>
+<struct>
+<name>generator</name>
+<subnodes>
+<terminal>
+<name>switchOffSignal3.value</name>
+<kind>discrete</kind>
+<number>20</number>
+<id>generator.switchOffSignal3.value</id>
+<type>Boolean</type>
+<direction>none</direction>
+<fixed>false</fixed>
+<connector name="DynawoElectricalMachinesOmegaRefGeneratorPQ" type="Potential" />
+</terminal>
+</subnodes>
+</struct>
+<struct>
+<name>generator</name>
+<subnodes>
+<terminal>
+<name>switchOffSignal2.value</name>
+<kind>discrete</kind>
+<number>21</number>
+<id>generator.switchOffSignal2.value</id>
+<type>Boolean</type>
+<direction>none</direction>
+<fixed>false</fixed>
+<connector name="DynawoElectricalMachinesOmegaRefGeneratorPQ" type="Potential" />
 </terminal>
 </subnodes>
 </struct>
@@ -210,12 +291,12 @@
 <terminal>
 <name>switchOffSignal1.value</name>
 <kind>discrete</kind>
-<number>18</number>
+<number>22</number>
 <id>generator.switchOffSignal1.value</id>
 <type>Boolean</type>
 <direction>none</direction>
 <fixed>false</fixed>
-<connector name="DynawoElectricalMachinesGeneratorPQ" type="Potential" />
+<connector name="DynawoElectricalMachinesOmegaRefGeneratorPQ" type="Potential" />
 </terminal>
 </subnodes>
 </struct>

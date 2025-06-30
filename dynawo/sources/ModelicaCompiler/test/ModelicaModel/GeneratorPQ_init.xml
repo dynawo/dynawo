@@ -1,34 +1,34 @@
 <?xml version = "1.0" encoding="UTF-8"?>
 
-<!-- description of the model interface using an extension of the FMI standard -->
+<!-- description of the model interface using an extention of the FMI standard -->
 <fmiModelDescription
   fmiVersion                          = "1.0"
 
   modelName                           = "GeneratorPQ"
   modelIdentifier                     = "GeneratorPQ"
 
-  OPENMODELICAHOME                    = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/OpenModelica/Install"
+  OPENMODELICAHOME                    = "/home/rosiereflo/Projects/dynawo_bis/dynawo/OpenModelica/Install/bin/.."
 
-  guid                                = "{8c4e810f-3df3-4a00-8276-176fa3c9f9e0}"
+  guid                                = "{0b9dbdd7-dc9d-41ad-ab74-da608aebc768}"
 
   description                         = ""
-  generationTool                      = "OpenModelica Compiler OMCompiler v1.13.2"
-  generationDateAndTime               = "2019-05-06T15:41:29Z"
+  generationTool                      = "OpenModelica Compiler OMCompiler v1.24.4"
+  generationDateAndTime               = "2025-06-26T13:09:45Z"
 
   variableNamingConvention            = "structured"
 
-  numberOfEventIndicators             = "8"  cmt_numberOfEventIndicators             = "NG:       number of zero crossings,                           FMI"
+  numberOfEventIndicators             = "5"  cmt_numberOfEventIndicators             = "NG:       number of zero crossings,                           FMI"
   numberOfTimeEvents                  = "0"  cmt_numberOfTimeEvents                  = "NG_SAM:   number of zero crossings that are samples,          OMC"
 
   numberOfInputVariables              = "0"  cmt_numberOfInputVariables              = "NI:       number of inputvar on topmodel,                     OMC"
   numberOfOutputVariables             = "0"  cmt_numberOfOutputVariables             = "NO:       number of outputvar on topmodel,                    OMC"
 
   numberOfExternalObjects             = "0"  cmt_numberOfExternalObjects             = "NEXT:     number of external objects,                         OMC"
-  numberOfFunctions                   = "15"  cmt_numberOfFunctions                   = "NFUNC:    number of functions used by the simulation,         OMC"
+  numberOfFunctions                   = "10"  cmt_numberOfFunctions                   = "NFUNC:    number of functions used by the simulation,         OMC"
 
-  numberOfContinuousStates            = "3"  cmt_numberOfContinuousStates            = "NX:       number of states,                                   FMI"
+  numberOfContinuousStates            = "4"  cmt_numberOfContinuousStates            = "NX:       number of states,                                   FMI"
   numberOfRealAlgebraicVariables      = "8"  cmt_numberOfRealAlgebraicVariables      = "NY:       number of real variables,                           OMC"
-  numberOfRealAlgebraicAliasVariables = "0"  cmt_numberOfRealAlgebraicAliasVariables = "NA:       number of alias variables,                          OMC"
+  numberOfRealAlgebraicAliasVariables = "3"  cmt_numberOfRealAlgebraicAliasVariables = "NA:       number of alias variables,                          OMC"
   numberOfRealParameters              = "14"  cmt_numberOfRealParameters              = "NP:       number of parameters,                               OMC"
 
   numberOfIntegerAlgebraicVariables   = "3"  cmt_numberOfIntegerAlgebraicVariables   = "NYINT:    number of alg. int variables,                       OMC"
@@ -39,9 +39,9 @@
   numberOfStringAliasVariables        = "0"  cmt_numberOfStringAliasVariables        = "NASTR:    number of alias string variables,                   OMC"
   numberOfStringParameters            = "0"  cmt_numberOfStringParameters            = "NPSTR:    number of string parameters,                        OMC"
 
-  numberOfBooleanAlgebraicVariables   = "14"  cmt_numberOfBooleanAlgebraicVariables   = "NYBOOL:   number of alg. bool variables,                      OMC"
+  numberOfBooleanAlgebraicVariables   = "13"  cmt_numberOfBooleanAlgebraicVariables   = "NYBOOL:   number of alg. bool variables,                      OMC"
   numberOfBooleanAliasVariables       = "0"  cmt_numberOfBooleanAliasVariables       = "NABOOL:   number of alias bool variables,                     OMC"
-  numberOfBooleanParameters           = "0"  cmt_numberOfBooleanParameters           = "NPBOOL:   number of bool parameters,                          OMC" >
+  numberOfBooleanParameters           = "4"  cmt_numberOfBooleanParameters           = "NPBOOL:   number of bool parameters,                          OMC" >
 
 
   <!-- startTime, stopTime, tolerance are FMI specific, all others are OMC specific -->
@@ -58,562 +58,656 @@
   <ModelVariables>
 
   <ScalarVariable
-    name = "generator.omegaRefPu.value"
+    name = "generator.deltaPmRefPu.value"
     valueReference = "1000"
     variability = "continuous" isDiscrete = "false"
-    causality = "internal" isValueChangeable = "true"
+    causality = "local" isValueChangeable = "true"
     alias = "noAlias"
     classIndex = "0" classType = "rSta"
-    isProtected = "false" hideResult = "false"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Connectors/ImPin.mo" startLine = "17" startColumn = "5" endLine = "17" endColumn = "15" fileWritable = "true">
-    <Real fixed="false" useNominal="false" />
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Connectors/ImPin.mo" startLine = "16" startColumn = "3" endLine = "16" endColumn = "13" fileWritable = "true">
+    <Real start="0.0" fixed="true" useNominal="false" />
+  </ScalarVariable>
+  <ScalarVariable
+    name = "generator.omegaRefPu.value"
+    valueReference = "1001"
+    variability = "continuous" isDiscrete = "false"
+    causality = "local" isValueChangeable = "true"
+    alias = "noAlias"
+    classIndex = "1" classType = "rSta"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Connectors/ImPin.mo" startLine = "16" startColumn = "3" endLine = "16" endColumn = "13" fileWritable = "true">
+    <Real fixed="true" useNominal="false" />
   </ScalarVariable>
   <ScalarVariable
     name = "generator.terminal.V.im"
-    valueReference = "1001"
+    valueReference = "1002"
     description = "Imaginary part of complex number"
     variability = "continuous" isDiscrete = "false"
-    causality = "internal" isValueChangeable = "false"
+    causality = "local" isValueChangeable = "false"
     alias = "noAlias"
-    classIndex = "1" classType = "rSta"
-    isProtected = "false" hideResult = "false"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/OpenModelica/Install/lib/omlibrary/Complex 3.2.2.mo" startLine = "5" startColumn = "3" endLine = "5" endColumn = "76" fileWritable = "true">
-    <Real fixed="false" useNominal="false" />
+    classIndex = "2" classType = "rSta"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Types.mo" startLine = "50" startColumn = "35" endLine = "50" endColumn = "101" fileWritable = "true">
+    <Real fixed="true" useNominal="false" unit="1" />
   </ScalarVariable>
   <ScalarVariable
     name = "generator.terminal.V.re"
-    valueReference = "1002"
+    valueReference = "1003"
     description = "Real part of complex number"
     variability = "continuous" isDiscrete = "false"
-    causality = "internal" isValueChangeable = "false"
+    causality = "local" isValueChangeable = "false"
     alias = "noAlias"
-    classIndex = "2" classType = "rSta"
-    isProtected = "false" hideResult = "false"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/OpenModelica/Install/lib/omlibrary/Complex 3.2.2.mo" startLine = "4" startColumn = "3" endLine = "4" endColumn = "71" fileWritable = "true">
+    classIndex = "3" classType = "rSta"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Types.mo" startLine = "49" startColumn = "35" endLine = "49" endColumn = "96" fileWritable = "true">
+    <Real fixed="true" useNominal="false" unit="1" />
+  </ScalarVariable>
+  <ScalarVariable
+    name = "der(generator.deltaPmRefPu.value)"
+    valueReference = "1004"
+    variability = "continuous" isDiscrete = "false"
+    causality = "local" isValueChangeable = "false"
+    alias = "noAlias"
+    classIndex = "0" classType = "rDer"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Connectors/ImPin.mo" startLine = "16" startColumn = "3" endLine = "16" endColumn = "13" fileWritable = "true">
     <Real fixed="false" useNominal="false" />
   </ScalarVariable>
   <ScalarVariable
     name = "der(generator.omegaRefPu.value)"
-    valueReference = "1003"
+    valueReference = "1005"
     variability = "continuous" isDiscrete = "false"
-    causality = "internal" isValueChangeable = "false"
+    causality = "local" isValueChangeable = "false"
     alias = "noAlias"
-    classIndex = "0" classType = "rDer"
-    isProtected = "false" hideResult = "false"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Connectors/ImPin.mo" startLine = "17" startColumn = "5" endLine = "17" endColumn = "15" fileWritable = "true">
+    classIndex = "1" classType = "rDer"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Connectors/ImPin.mo" startLine = "16" startColumn = "3" endLine = "16" endColumn = "13" fileWritable = "true">
     <Real fixed="false" useNominal="false" />
   </ScalarVariable>
   <ScalarVariable
     name = "der(generator.terminal.V.im)"
-    valueReference = "1004"
+    valueReference = "1006"
     description = "der(Imaginary part of complex number)"
     variability = "continuous" isDiscrete = "false"
-    causality = "internal" isValueChangeable = "false"
+    causality = "local" isValueChangeable = "false"
     alias = "noAlias"
-    classIndex = "1" classType = "rDer"
-    isProtected = "false" hideResult = "false"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/OpenModelica/Install/lib/omlibrary/Complex 3.2.2.mo" startLine = "5" startColumn = "3" endLine = "5" endColumn = "76" fileWritable = "true">
-    <Real fixed="false" useNominal="false" />
+    classIndex = "2" classType = "rDer"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Types.mo" startLine = "50" startColumn = "35" endLine = "50" endColumn = "101" fileWritable = "true">
+    <Real fixed="false" useNominal="false" unit="Hz" />
   </ScalarVariable>
   <ScalarVariable
     name = "der(generator.terminal.V.re)"
-    valueReference = "1005"
+    valueReference = "1007"
     description = "der(Real part of complex number)"
     variability = "continuous" isDiscrete = "false"
-    causality = "internal" isValueChangeable = "false"
+    causality = "local" isValueChangeable = "false"
     alias = "noAlias"
-    classIndex = "2" classType = "rDer"
-    isProtected = "false" hideResult = "false"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/OpenModelica/Install/lib/omlibrary/Complex 3.2.2.mo" startLine = "4" startColumn = "3" endLine = "4" endColumn = "71" fileWritable = "true">
-    <Real fixed="false" useNominal="false" />
+    classIndex = "3" classType = "rDer"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Types.mo" startLine = "49" startColumn = "35" endLine = "49" endColumn = "96" fileWritable = "true">
+    <Real fixed="false" useNominal="false" unit="Hz" />
+  </ScalarVariable>
+  <ScalarVariable
+    name = "generator.PGen"
+    valueReference = "1008"
+    description = "Active power at terminal in MW (generator convention)"
+    variability = "continuous" isDiscrete = "false"
+    causality = "local" isValueChangeable = "false"
+    alias = "noAlias"
+    classIndex = "0" classType = "rAlg"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses/BaseGeneratorSimplified.mo" startLine = "28" startColumn = "3" endLine = "28" endColumn = "117" fileWritable = "true">
+    <Real fixed="false" useNominal="false" unit="MW" />
   </ScalarVariable>
   <ScalarVariable
     name = "generator.PGenPu"
-    valueReference = "1006"
+    valueReference = "1009"
     description = "Active power at terminal in pu (base SnRef) (generator convention)"
     variability = "continuous" isDiscrete = "false"
-    causality = "internal" isValueChangeable = "false"
+    causality = "local" isValueChangeable = "false"
     alias = "noAlias"
-    classIndex = "0" classType = "rAlg"
-    isProtected = "true" hideResult = "true"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses.mo" startLine = "37" startColumn = "5" endLine = "37" endColumn = "120" fileWritable = "true">
-    <Real fixed="false" useNominal="false" unit="W" />
+    classIndex = "1" classType = "rAlg"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses/BaseGeneratorSimplified.mo" startLine = "29" startColumn = "3" endLine = "29" endColumn = "115" fileWritable = "true">
+    <Real fixed="false" useNominal="false" unit="1" />
   </ScalarVariable>
   <ScalarVariable
     name = "generator.PGenRawPu"
-    valueReference = "1007"
+    valueReference = "1010"
     description = "Active power generation without taking limits into account in pu (base SnRef) (generator convention)"
     variability = "continuous" isDiscrete = "false"
-    causality = "internal" isValueChangeable = "false"
-    alias = "noAlias"
-    classIndex = "1" classType = "rAlg"
-    isProtected = "true" hideResult = "true"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses.mo" startLine = "68" startColumn = "5" endLine = "68" endColumn = "157" fileWritable = "true">
-    <Real fixed="false" useNominal="false" unit="W" />
-  </ScalarVariable>
-  <ScalarVariable
-    name = "generator.QGenPu"
-    valueReference = "1008"
-    description = "Reactive power at terminal in pu (base SnRef) (generator convention)"
-    variability = "continuous" isDiscrete = "false"
-    causality = "internal" isValueChangeable = "false"
+    causality = "local" isValueChangeable = "false"
     alias = "noAlias"
     classIndex = "2" classType = "rAlg"
-    isProtected = "true" hideResult = "true"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses.mo" startLine = "38" startColumn = "5" endLine = "38" endColumn = "124" fileWritable = "true">
-    <Real fixed="false" useNominal="false" unit="var" />
+    isProtected = "true" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/OmegaRef/BaseClasses/BaseGeneratorSimplifiedPFBehavior.mo" startLine = "37" startColumn = "3" endLine = "37" endColumn = "152" fileWritable = "true">
+    <Real fixed="false" useNominal="false" unit="1" />
   </ScalarVariable>
   <ScalarVariable
     name = "generator.SGenPu.im"
-    valueReference = "1009"
+    valueReference = "1011"
     description = "Imaginary part of complex number"
     variability = "continuous" isDiscrete = "false"
-    causality = "internal" isValueChangeable = "false"
+    causality = "local" isValueChangeable = "false"
     alias = "noAlias"
     classIndex = "3" classType = "rAlg"
-    isProtected = "true" hideResult = "true"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/OpenModelica/Install/lib/omlibrary/Complex 3.2.2.mo" startLine = "5" startColumn = "3" endLine = "5" endColumn = "76" fileWritable = "true">
-    <Real fixed="false" useNominal="false" />
-  </ScalarVariable>
-  <ScalarVariable
-    name = "generator.SGenPu.re"
-    valueReference = "1010"
-    description = "Real part of complex number"
-    variability = "continuous" isDiscrete = "false"
-    causality = "internal" isValueChangeable = "false"
-    alias = "noAlias"
-    classIndex = "4" classType = "rAlg"
-    isProtected = "true" hideResult = "true"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/OpenModelica/Install/lib/omlibrary/Complex 3.2.2.mo" startLine = "4" startColumn = "3" endLine = "4" endColumn = "71" fileWritable = "true">
-    <Real fixed="false" useNominal="false" />
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Types.mo" startLine = "50" startColumn = "35" endLine = "50" endColumn = "101" fileWritable = "true">
+    <Real fixed="false" useNominal="false" unit="1" />
   </ScalarVariable>
   <ScalarVariable
     name = "generator.UPu"
-    valueReference = "1011"
+    valueReference = "1012"
     description = "Voltage amplitude at terminal in pu (base UNom)"
     variability = "continuous" isDiscrete = "false"
-    causality = "internal" isValueChangeable = "false"
+    causality = "local" isValueChangeable = "false"
+    alias = "noAlias"
+    classIndex = "4" classType = "rAlg"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses/BaseGeneratorSimplified.mo" startLine = "32" startColumn = "3" endLine = "32" endColumn = "113" fileWritable = "true">
+    <Real fixed="false" useNominal="false" unit="1" />
+  </ScalarVariable>
+  <ScalarVariable
+    name = "generator.genState"
+    valueReference = "1013"
+    description = "Generator continuous connection state"
+    variability = "continuous" isDiscrete = "false"
+    causality = "local" isValueChangeable = "false"
     alias = "noAlias"
     classIndex = "5" classType = "rAlg"
-    isProtected = "true" hideResult = "true"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses.mo" startLine = "39" startColumn = "5" endLine = "39" endColumn = "97" fileWritable = "true">
-    <Real fixed="false" useNominal="false" unit="V" />
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff/SwitchOffGenerator.mo" startLine = "25" startColumn = "3" endLine = "25" endColumn = "81" fileWritable = "true">
+    <Real fixed="false" useNominal="false" />
   </ScalarVariable>
   <ScalarVariable
     name = "generator.terminal.i.im"
-    valueReference = "1012"
+    valueReference = "1014"
     description = "Imaginary part of complex number"
     variability = "continuous" isDiscrete = "false"
-    causality = "internal" isValueChangeable = "false"
+    causality = "local" isValueChangeable = "false"
     alias = "noAlias"
     classIndex = "6" classType = "rAlg"
-    isProtected = "false" hideResult = "false"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/OpenModelica/Install/lib/omlibrary/Complex 3.2.2.mo" startLine = "5" startColumn = "3" endLine = "5" endColumn = "76" fileWritable = "true">
-    <Real fixed="false" useNominal="false" />
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Types.mo" startLine = "50" startColumn = "35" endLine = "50" endColumn = "101" fileWritable = "true">
+    <Real fixed="false" useNominal="false" unit="1" />
   </ScalarVariable>
   <ScalarVariable
     name = "generator.terminal.i.re"
-    valueReference = "1013"
+    valueReference = "1015"
     description = "Real part of complex number"
     variability = "continuous" isDiscrete = "false"
-    causality = "internal" isValueChangeable = "false"
+    causality = "local" isValueChangeable = "false"
     alias = "noAlias"
     classIndex = "7" classType = "rAlg"
-    isProtected = "false" hideResult = "false"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/OpenModelica/Install/lib/omlibrary/Complex 3.2.2.mo" startLine = "4" startColumn = "3" endLine = "4" endColumn = "71" fileWritable = "true">
-    <Real fixed="false" useNominal="false" />
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Types.mo" startLine = "49" startColumn = "35" endLine = "49" endColumn = "96" fileWritable = "true">
+    <Real fixed="false" useNominal="false" unit="1" />
   </ScalarVariable>
   <ScalarVariable
     name = "generator.AlphaPu"
-    valueReference = "1014"
+    valueReference = "1016"
     description = "Frequency sensitivity in pu (base SnRef, OmegaNom)"
     variability = "parameter" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "true"
+    causality = "calculatedParameter" isValueChangeable = "false"
     alias = "noAlias"
     classIndex = "0" classType = "rPar"
-    isProtected = "false" hideResult = "false"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses.mo" startLine = "64" startColumn = "5" endLine = "64" endColumn = "92" fileWritable = "true">
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/OmegaRef/BaseClasses/BaseGeneratorSimplifiedPFBehavior.mo" startLine = "34" startColumn = "3" endLine = "34" endColumn = "133" fileWritable = "true">
     <Real fixed="true" useNominal="false" unit="1" />
   </ScalarVariable>
   <ScalarVariable
-    name = "generator.PGen0Pu"
-    valueReference = "1015"
-    description = "Start value of active power at terminal in pu (base SnRef) (generator convention)"
+    name = "generator.AlphaPuPNom"
+    valueReference = "1017"
+    description = "Frequency sensitivity in pu (base PNom, OmegaNom)"
     variability = "parameter" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "false"
+    causality = "parameter" isValueChangeable = "true"
     alias = "noAlias"
     classIndex = "1" classType = "rPar"
-    isProtected = "true" hideResult = "true"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses.mo" startLine = "30" startColumn = "5" endLine = "30" endColumn = "128" fileWritable = "true">
-    <Real fixed="true" useNominal="false" unit="W" />
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/OmegaRef/BaseClasses/BaseGeneratorSimplifiedPFBehavior.mo" startLine = "30" startColumn = "3" endLine = "30" endColumn = "90" fileWritable = "true">
+    <Real start="0.0" fixed="true" useNominal="false" unit="1" />
+  </ScalarVariable>
+  <ScalarVariable
+    name = "generator.PGen0Pu"
+    valueReference = "1018"
+    description = "Start value of active power at terminal in pu (base SnRef) (generator convention)"
+    variability = "parameter" isDiscrete = "true"
+    causality = "parameter" isValueChangeable = "true"
+    alias = "noAlias"
+    classIndex = "2" classType = "rPar"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses/BaseGeneratorSimplified.mo" startLine = "22" startColumn = "3" endLine = "22" endColumn = "124" fileWritable = "true">
+    <Real start="0.0" fixed="true" useNominal="false" unit="1" />
+  </ScalarVariable>
+  <ScalarVariable
+    name = "generator.PMax"
+    valueReference = "1019"
+    description = "Maximum active power in MW"
+    variability = "parameter" isDiscrete = "true"
+    causality = "parameter" isValueChangeable = "true"
+    alias = "noAlias"
+    classIndex = "3" classType = "rPar"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/OmegaRef/BaseClasses/BaseGeneratorSimplifiedPFBehavior.mo" startLine = "28" startColumn = "3" endLine = "28" endColumn = "64" fileWritable = "true">
+    <Real start="0.0" fixed="true" useNominal="false" unit="MW" />
   </ScalarVariable>
   <ScalarVariable
     name = "generator.PMaxPu"
-    valueReference = "1016"
+    valueReference = "1020"
     description = "Maximum active power in pu (base SnRef)"
     variability = "parameter" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "true"
+    causality = "calculatedParameter" isValueChangeable = "false"
     alias = "noAlias"
-    classIndex = "2" classType = "rPar"
-    isProtected = "false" hideResult = "false"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses.mo" startLine = "63" startColumn = "5" endLine = "63" endColumn = "85" fileWritable = "true">
-    <Real fixed="true" useNominal="false" unit="W" />
+    classIndex = "4" classType = "rPar"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/OmegaRef/BaseClasses/BaseGeneratorSimplifiedPFBehavior.mo" startLine = "33" startColumn = "3" endLine = "33" endColumn = "113" fileWritable = "true">
+    <Real fixed="true" useNominal="false" unit="1" />
+  </ScalarVariable>
+  <ScalarVariable
+    name = "generator.PMin"
+    valueReference = "1021"
+    description = "Minimum active power in MW"
+    variability = "parameter" isDiscrete = "true"
+    causality = "parameter" isValueChangeable = "true"
+    alias = "noAlias"
+    classIndex = "5" classType = "rPar"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/OmegaRef/BaseClasses/BaseGeneratorSimplifiedPFBehavior.mo" startLine = "27" startColumn = "3" endLine = "27" endColumn = "64" fileWritable = "true">
+    <Real start="0.0" fixed="true" useNominal="false" unit="MW" />
   </ScalarVariable>
   <ScalarVariable
     name = "generator.PMinPu"
-    valueReference = "1017"
+    valueReference = "1022"
     description = "Minimum active power in pu (base SnRef)"
     variability = "parameter" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "true"
+    causality = "calculatedParameter" isValueChangeable = "false"
     alias = "noAlias"
-    classIndex = "3" classType = "rPar"
-    isProtected = "false" hideResult = "false"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses.mo" startLine = "62" startColumn = "5" endLine = "62" endColumn = "85" fileWritable = "true">
-    <Real fixed="true" useNominal="false" unit="W" />
+    classIndex = "6" classType = "rPar"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/OmegaRef/BaseClasses/BaseGeneratorSimplifiedPFBehavior.mo" startLine = "32" startColumn = "3" endLine = "32" endColumn = "113" fileWritable = "true">
+    <Real fixed="true" useNominal="false" unit="1" />
+  </ScalarVariable>
+  <ScalarVariable
+    name = "generator.PNom"
+    valueReference = "1023"
+    description = "Nominal active power in MW"
+    variability = "parameter" isDiscrete = "true"
+    causality = "parameter" isValueChangeable = "true"
+    alias = "noAlias"
+    classIndex = "7" classType = "rPar"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/OmegaRef/BaseClasses/BaseGeneratorSimplifiedPFBehavior.mo" startLine = "29" startColumn = "3" endLine = "29" endColumn = "64" fileWritable = "true">
+    <Real start="0.0" fixed="true" useNominal="false" unit="MW" />
   </ScalarVariable>
   <ScalarVariable
     name = "generator.QGen0Pu"
-    valueReference = "1018"
+    valueReference = "1024"
     description = "Start value of reactive power at terminal in pu (base SnRef) (generator convention)"
     variability = "parameter" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "false"
+    causality = "parameter" isValueChangeable = "true"
     alias = "noAlias"
-    classIndex = "4" classType = "rPar"
-    isProtected = "true" hideResult = "true"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses.mo" startLine = "31" startColumn = "5" endLine = "31" endColumn = "132" fileWritable = "true">
-    <Real fixed="true" useNominal="false" unit="var" />
-  </ScalarVariable>
-  <ScalarVariable
-    name = "generator.QMaxPu"
-    valueReference = "1019"
-    description = "Maximum reactive power in pu (base SnRef)"
-    variability = "parameter" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "true"
-    alias = "noAlias"
-    classIndex = "5" classType = "rPar"
-    isProtected = "false" hideResult = "false"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Electrical/Machines/GeneratorPQ.mo" startLine = "36" startColumn = "5" endLine = "36" endColumn = "90" fileWritable = "true">
-    <Real fixed="true" useNominal="false" unit="var" />
-  </ScalarVariable>
-  <ScalarVariable
-    name = "generator.QMinPu"
-    valueReference = "1020"
-    description = "Minimum reactive power in pu (base SnRef)"
-    variability = "parameter" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "true"
-    alias = "noAlias"
-    classIndex = "6" classType = "rPar"
-    isProtected = "false" hideResult = "false"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Electrical/Machines/GeneratorPQ.mo" startLine = "35" startColumn = "5" endLine = "35" endColumn = "90" fileWritable = "true">
-    <Real fixed="true" useNominal="false" unit="var" />
+    classIndex = "8" classType = "rPar"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses/BaseGeneratorSimplified.mo" startLine = "23" startColumn = "3" endLine = "23" endColumn = "128" fileWritable = "true">
+    <Real start="0.0" fixed="true" useNominal="false" unit="1" />
   </ScalarVariable>
   <ScalarVariable
     name = "generator.U0Pu"
-    valueReference = "1021"
+    valueReference = "1025"
     description = "Start value of voltage amplitude at terminal in pu (base UNom)"
     variability = "parameter" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "false"
-    alias = "noAlias"
-    classIndex = "7" classType = "rPar"
-    isProtected = "true" hideResult = "true"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses.mo" startLine = "29" startColumn = "5" endLine = "29" endColumn = "108" fileWritable = "true">
-    <Real fixed="true" useNominal="false" unit="V" />
-  </ScalarVariable>
-  <ScalarVariable
-    name = "generator.UMaxPu"
-    valueReference = "1022"
-    description = "Maximum voltage in pu (base UNom)"
-    variability = "parameter" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "true"
-    alias = "noAlias"
-    classIndex = "8" classType = "rPar"
-    isProtected = "false" hideResult = "false"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Electrical/Machines/GeneratorPQ.mo" startLine = "34" startColumn = "5" endLine = "34" endColumn = "81" fileWritable = "true">
-    <Real fixed="true" useNominal="false" unit="V" />
-  </ScalarVariable>
-  <ScalarVariable
-    name = "generator.UMinPu"
-    valueReference = "1023"
-    description = "Minimum voltage in pu (base UNom)"
-    variability = "parameter" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "true"
+    causality = "parameter" isValueChangeable = "true"
     alias = "noAlias"
     classIndex = "9" classType = "rPar"
-    isProtected = "false" hideResult = "false"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Electrical/Machines/GeneratorPQ.mo" startLine = "33" startColumn = "5" endLine = "33" endColumn = "81" fileWritable = "true">
-    <Real fixed="true" useNominal="false" unit="V" />
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses/BaseGeneratorSimplified.mo" startLine = "24" startColumn = "3" endLine = "24" endColumn = "104" fileWritable = "true">
+    <Real start="0.0" fixed="true" useNominal="false" unit="1" />
   </ScalarVariable>
   <ScalarVariable
     name = "generator.i0Pu.im"
-    valueReference = "1024"
-    description = "Imaginary part of complex number"
-    variability = "parameter" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "false"
-    alias = "noAlias"
-    classIndex = "10" classType = "rPar"
-    isProtected = "true" hideResult = "true"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/OpenModelica/Install/lib/omlibrary/Complex 3.2.2.mo" startLine = "5" startColumn = "3" endLine = "5" endColumn = "76" fileWritable = "true">
-    <Real fixed="true" useNominal="false" />
-  </ScalarVariable>
-  <ScalarVariable
-    name = "generator.i0Pu.re"
-    valueReference = "1025"
-    description = "Real part of complex number"
-    variability = "parameter" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "false"
-    alias = "noAlias"
-    classIndex = "11" classType = "rPar"
-    isProtected = "true" hideResult = "true"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/OpenModelica/Install/lib/omlibrary/Complex 3.2.2.mo" startLine = "4" startColumn = "3" endLine = "4" endColumn = "71" fileWritable = "true">
-    <Real fixed="true" useNominal="false" />
-  </ScalarVariable>
-  <ScalarVariable
-    name = "generator.u0Pu.im"
     valueReference = "1026"
     description = "Imaginary part of complex number"
     variability = "parameter" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "false"
+    causality = "parameter" isValueChangeable = "true"
     alias = "noAlias"
-    classIndex = "12" classType = "rPar"
-    isProtected = "true" hideResult = "true"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/OpenModelica/Install/lib/omlibrary/Complex 3.2.2.mo" startLine = "5" startColumn = "3" endLine = "5" endColumn = "76" fileWritable = "true">
-    <Real fixed="true" useNominal="false" />
+    classIndex = "10" classType = "rPar"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Types.mo" startLine = "50" startColumn = "35" endLine = "50" endColumn = "101" fileWritable = "true">
+    <Real start="0.0" fixed="true" useNominal="false" unit="1" />
   </ScalarVariable>
   <ScalarVariable
-    name = "generator.u0Pu.re"
+    name = "generator.i0Pu.re"
     valueReference = "1027"
     description = "Real part of complex number"
     variability = "parameter" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "false"
+    causality = "parameter" isValueChangeable = "true"
+    alias = "noAlias"
+    classIndex = "11" classType = "rPar"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Types.mo" startLine = "49" startColumn = "35" endLine = "49" endColumn = "96" fileWritable = "true">
+    <Real start="0.0" fixed="true" useNominal="false" unit="1" />
+  </ScalarVariable>
+  <ScalarVariable
+    name = "generator.u0Pu.im"
+    valueReference = "1028"
+    description = "Imaginary part of complex number"
+    variability = "parameter" isDiscrete = "true"
+    causality = "parameter" isValueChangeable = "true"
+    alias = "noAlias"
+    classIndex = "12" classType = "rPar"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Types.mo" startLine = "50" startColumn = "35" endLine = "50" endColumn = "101" fileWritable = "true">
+    <Real start="0.0" fixed="true" useNominal="false" unit="1" />
+  </ScalarVariable>
+  <ScalarVariable
+    name = "generator.u0Pu.re"
+    valueReference = "1029"
+    description = "Real part of complex number"
+    variability = "parameter" isDiscrete = "true"
+    causality = "parameter" isValueChangeable = "true"
     alias = "noAlias"
     classIndex = "13" classType = "rPar"
-    isProtected = "true" hideResult = "true"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/OpenModelica/Install/lib/omlibrary/Complex 3.2.2.mo" startLine = "4" startColumn = "3" endLine = "4" endColumn = "71" fileWritable = "true">
-    <Real fixed="true" useNominal="false" />
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Types.mo" startLine = "49" startColumn = "35" endLine = "49" endColumn = "96" fileWritable = "true">
+    <Real start="0.0" fixed="true" useNominal="false" unit="1" />
   </ScalarVariable>
   <ScalarVariable
-    name = "generator.pStatus"
-    valueReference = "1028"
-    description = "Status of the power / frequency regulation function"
+    name = "generator.QGenPu"
+    valueReference = "1030"
+    description = "Reactive power at terminal in pu (base SnRef) (generator convention)"
+    variability = "continuous" isDiscrete = "false"
+    causality = "local" isValueChangeable = "false"
+    alias = "alias" aliasVariable="generator.SGenPu.im" aliasVariableId="11"
+    classIndex = "0" classType = "rAli"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses/BaseGeneratorSimplified.mo" startLine = "30" startColumn = "3" endLine = "30" endColumn = "140" fileWritable = "true">
+    <Real fixed="false" useNominal="false" unit="1" />
+  </ScalarVariable>
+  <ScalarVariable
+    name = "generator.SGenPu.re"
+    valueReference = "1031"
+    description = "Real part of complex number"
+    variability = "continuous" isDiscrete = "false"
+    causality = "local" isValueChangeable = "false"
+    alias = "alias" aliasVariable="generator.PGenPu" aliasVariableId="9"
+    classIndex = "1" classType = "rAli"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Types.mo" startLine = "49" startColumn = "35" endLine = "49" endColumn = "96" fileWritable = "true">
+    <Real fixed="false" useNominal="false" unit="1" />
+  </ScalarVariable>
+  <ScalarVariable
+    name = "generator.converter.y"
+    valueReference = "1032"
+    description = "Connector of Real output signal"
+    variability = "continuous" isDiscrete = "false"
+    causality = "local" isValueChangeable = "false"
+    alias = "alias" aliasVariable="generator.genState" aliasVariableId="13"
+    classIndex = "2" classType = "rAli"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/.openmodelica/libraries/Modelica 3.2.3+maint.om/Blocks/Math.mo" startLine = "2551" startColumn = "5" endLine = "2552" endColumn = "64" fileWritable = "true">
+    <Real fixed="false" useNominal="false" />
+  </ScalarVariable>
+  <ScalarVariable
+    name = "generator.converter.u"
+    valueReference = "1033"
+    description = "Connector of Integer input signal"
     variability = "discrete" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "false"
+    causality = "local" isValueChangeable = "false"
     alias = "noAlias"
     classIndex = "0" classType = "iAlg"
-    isProtected = "true" hideResult = "true"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses.mo" startLine = "70" startColumn = "5" endLine = "70" endColumn = "101" fileWritable = "true">
-    <Integer start="1" fixed="false" />
-  </ScalarVariable>
-  <ScalarVariable
-    name = "generator.qStatus"
-    valueReference = "1029"
-    description = "Reactive power status: standard, absorptionMax or generationMax"
-    variability = "discrete" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "false"
-    alias = "noAlias"
-    classIndex = "1" classType = "iAlg"
-    isProtected = "true" hideResult = "true"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Electrical/Machines/GeneratorPQ.mo" startLine = "42" startColumn = "5" endLine = "42" endColumn = "113" fileWritable = "true">
-    <Integer start="1" fixed="false" />
-  </ScalarVariable>
-  <ScalarVariable
-    name = "generator.state"
-    valueReference = "1030"
-    description = "Generator connection state"
-    variability = "discrete" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "false"
-    alias = "noAlias"
-    classIndex = "2" classType = "iAlg"
-    isProtected = "false" hideResult = "false"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff.mo" startLine = "61" startColumn = "5" endLine = "61" endColumn = "72" fileWritable = "true">
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/.openmodelica/libraries/Modelica 3.2.3+maint.om/Blocks/Math.mo" startLine = "2549" startColumn = "5" endLine = "2550" endColumn = "66" fileWritable = "true">
     <Integer fixed="false" />
   </ScalarVariable>
   <ScalarVariable
+    name = "generator.pStatus"
+    valueReference = "1034"
+    description = "Status of the power / frequency regulation function"
+    variability = "discrete" isDiscrete = "true"
+    causality = "local" isValueChangeable = "false"
+    alias = "noAlias"
+    classIndex = "1" classType = "iAlg"
+    isProtected = "true" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/OmegaRef/BaseClasses/BaseGeneratorSimplifiedPFBehavior.mo" startLine = "38" startColumn = "3" endLine = "38" endColumn = "98" fileWritable = "true">
+    <Integer start="1" fixed="true" />
+  </ScalarVariable>
+  <ScalarVariable
+    name = "generator.state"
+    valueReference = "1035"
+    description = "Generator connection state"
+    variability = "discrete" isDiscrete = "true"
+    causality = "local" isValueChangeable = "false"
+    alias = "noAlias"
+    classIndex = "2" classType = "iAlg"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff/SwitchOffGenerator.mo" startLine = "24" startColumn = "3" endLine = "24" endColumn = "69" fileWritable = "true">
+    <Integer fixed="true" />
+  </ScalarVariable>
+  <ScalarVariable
     name = "generator.NbSwitchOffSignals"
-    valueReference = "1031"
+    valueReference = "1036"
     description = "Number of switch-off signals to take into account in inputs"
     variability = "parameter" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "false"
+    causality = "calculatedParameter" isValueChangeable = "false"
     alias = "noAlias"
     classIndex = "0" classType = "iPar"
-    isProtected = "false" hideResult = "false"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff.mo" startLine = "30" startColumn = "5" endLine = "30" endColumn = "122" fileWritable = "true">
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff/SwitchOffLogic.mo" startLine = "18" startColumn = "3" endLine = "18" endColumn = "119" fileWritable = "true">
     <Integer start="3" fixed="true" />
   </ScalarVariable>
   <ScalarVariable
     name = "generator.State0"
-    valueReference = "1032"
-    description = " Start value of connection state"
+    valueReference = "1037"
+    description = "Start value of connection state"
     variability = "parameter" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "false"
+    causality = "parameter" isValueChangeable = "true"
     alias = "noAlias"
     classIndex = "1" classType = "iPar"
-    isProtected = "true" hideResult = "true"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff.mo" startLine = "64" startColumn = "5" endLine = "64" endColumn = "97" fileWritable = "true">
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff/SwitchOffGenerator.mo" startLine = "29" startColumn = "3" endLine = "29" endColumn = "94" fileWritable = "true">
     <Integer start="2" fixed="true" />
   </ScalarVariable>
   <ScalarVariable
     name = "$whenCondition1"
-    valueReference = "1033"
-    description = "time &gt; 999999.0"
+    valueReference = "1038"
+    description = "generator.PGenRawPu &lt; generator.PMaxPu and pre(generator.pStatus) == generator.PStatus.LimitPMax"
     variability = "discrete" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "false"
+    causality = "local" isValueChangeable = "false"
     alias = "noAlias"
     classIndex = "0" classType = "bAlg"
-    isProtected = "true" hideResult = "true"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/build/gcc7/60_OM_1_13_2/Release/shared/dynawo/sources/Models/Modelica/PreassembledModels/GeneratorPQ-tmp.mo" startLine = "8" startColumn = "5" endLine = "8" endColumn = "45" fileWritable = "true">
-    <Boolean fixed="true" />
-  </ScalarVariable>
-  <ScalarVariable
-    name = "$whenCondition10"
-    valueReference = "1034"
-    description = "generator.UPu &gt;= 0.0001 + generator.UMaxPu and pre(generator.qStatus) &lt;&gt; Dynawo.Electrical.Machines.GeneratorPQ.QStatus.AbsorptionMax"
-    variability = "discrete" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "false"
-    alias = "noAlias"
-    classIndex = "1" classType = "bAlg"
-    isProtected = "true" hideResult = "true"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Electrical/Machines/GeneratorPQ.mo" startLine = "47" startColumn = "5" endLine = "47" endColumn = "36" fileWritable = "true">
+    isProtected = "true" hideResult = "true" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/OmegaRef/BaseClasses/BaseGeneratorSimplifiedPFBehavior.mo" startLine = "42" startColumn = "5" endLine = "42" endColumn = "32" fileWritable = "true">
     <Boolean fixed="true" />
   </ScalarVariable>
   <ScalarVariable
     name = "$whenCondition2"
-    valueReference = "1035"
-    description = "generator.PGenRawPu &lt; generator.PMaxPu and pre(generator.pStatus) == Dynawo.Electrical.Machines.GeneratorPQ.PStatus.LimitPMax"
+    valueReference = "1039"
+    description = "generator.PGenRawPu &gt; generator.PMinPu and pre(generator.pStatus) == generator.PStatus.LimitPMin"
     variability = "discrete" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "false"
+    causality = "local" isValueChangeable = "false"
     alias = "noAlias"
-    classIndex = "2" classType = "bAlg"
-    isProtected = "true" hideResult = "true"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses.mo" startLine = "75" startColumn = "5" endLine = "75" endColumn = "32" fileWritable = "true">
+    classIndex = "1" classType = "bAlg"
+    isProtected = "true" hideResult = "true" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/OmegaRef/BaseClasses/BaseGeneratorSimplifiedPFBehavior.mo" startLine = "42" startColumn = "5" endLine = "42" endColumn = "32" fileWritable = "true">
     <Boolean fixed="true" />
   </ScalarVariable>
   <ScalarVariable
     name = "$whenCondition3"
-    valueReference = "1036"
-    description = "generator.PGenRawPu &gt; generator.PMinPu and pre(generator.pStatus) == Dynawo.Electrical.Machines.GeneratorPQ.PStatus.LimitPMin"
+    valueReference = "1040"
+    description = "generator.PGenRawPu &lt;= generator.PMinPu and pre(generator.pStatus) &lt;&gt; generator.PStatus.LimitPMin"
     variability = "discrete" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "false"
+    causality = "local" isValueChangeable = "false"
     alias = "noAlias"
-    classIndex = "3" classType = "bAlg"
-    isProtected = "true" hideResult = "true"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses.mo" startLine = "75" startColumn = "5" endLine = "75" endColumn = "32" fileWritable = "true">
+    classIndex = "2" classType = "bAlg"
+    isProtected = "true" hideResult = "true" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/OmegaRef/BaseClasses/BaseGeneratorSimplifiedPFBehavior.mo" startLine = "42" startColumn = "5" endLine = "42" endColumn = "32" fileWritable = "true">
     <Boolean fixed="true" />
   </ScalarVariable>
   <ScalarVariable
     name = "$whenCondition4"
-    valueReference = "1037"
-    description = "generator.PGenRawPu &lt;= generator.PMinPu and pre(generator.pStatus) &lt;&gt; Dynawo.Electrical.Machines.GeneratorPQ.PStatus.LimitPMin"
+    valueReference = "1041"
+    description = "generator.PGenRawPu &gt;= generator.PMaxPu and pre(generator.pStatus) &lt;&gt; generator.PStatus.LimitPMax"
     variability = "discrete" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "false"
+    causality = "local" isValueChangeable = "false"
     alias = "noAlias"
-    classIndex = "4" classType = "bAlg"
-    isProtected = "true" hideResult = "true"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses.mo" startLine = "75" startColumn = "5" endLine = "75" endColumn = "32" fileWritable = "true">
+    classIndex = "3" classType = "bAlg"
+    isProtected = "true" hideResult = "true" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/OmegaRef/BaseClasses/BaseGeneratorSimplifiedPFBehavior.mo" startLine = "42" startColumn = "5" endLine = "42" endColumn = "32" fileWritable = "true">
     <Boolean fixed="true" />
   </ScalarVariable>
   <ScalarVariable
     name = "$whenCondition5"
-    valueReference = "1038"
-    description = "generator.PGenRawPu &gt;= generator.PMaxPu and pre(generator.pStatus) &lt;&gt; Dynawo.Electrical.Machines.GeneratorPQ.PStatus.LimitPMax"
+    valueReference = "1042"
+    description = "generator.running.value and not pre(generator.running.value)"
     variability = "discrete" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "false"
+    causality = "local" isValueChangeable = "false"
     alias = "noAlias"
-    classIndex = "5" classType = "bAlg"
-    isProtected = "true" hideResult = "true"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses.mo" startLine = "75" startColumn = "5" endLine = "75" endColumn = "32" fileWritable = "true">
+    classIndex = "4" classType = "bAlg"
+    isProtected = "true" hideResult = "true" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff/SwitchOffGenerator.mo" startLine = "34" startColumn = "5" endLine = "34" endColumn = "33" fileWritable = "true">
     <Boolean fixed="true" />
   </ScalarVariable>
   <ScalarVariable
     name = "$whenCondition6"
-    valueReference = "1039"
-    description = "generator.switchOffSignal1.value or generator.switchOffSignal2.value or generator.switchOffSignal3.value and pre(generator.running.value)"
+    valueReference = "1043"
+    description = "not generator.running.value"
     variability = "discrete" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "false"
+    causality = "local" isValueChangeable = "false"
     alias = "noAlias"
-    classIndex = "6" classType = "bAlg"
-    isProtected = "true" hideResult = "true"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff.mo" startLine = "36" startColumn = "9" endLine = "36" endColumn = "30" fileWritable = "true">
+    classIndex = "5" classType = "bAlg"
+    isProtected = "true" hideResult = "true" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff/SwitchOffGenerator.mo" startLine = "34" startColumn = "5" endLine = "34" endColumn = "33" fileWritable = "true">
     <Boolean fixed="true" />
   </ScalarVariable>
   <ScalarVariable
     name = "$whenCondition7"
-    valueReference = "1040"
-    description = "not generator.running.value"
+    valueReference = "1044"
+    description = "not generator.switchOffSignal1.value and not generator.switchOffSignal2.value and not generator.switchOffSignal3.value and not pre(generator.running.value)"
     variability = "discrete" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "false"
+    causality = "local" isValueChangeable = "false"
     alias = "noAlias"
-    classIndex = "7" classType = "bAlg"
-    isProtected = "true" hideResult = "true"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff.mo" startLine = "69" startColumn = "7" endLine = "69" endColumn = "35" fileWritable = "true">
+    classIndex = "6" classType = "bAlg"
+    isProtected = "true" hideResult = "true" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff/SwitchOffLogic.mo" startLine = "35" startColumn = "7" endLine = "35" endColumn = "28" fileWritable = "true">
     <Boolean fixed="true" />
   </ScalarVariable>
   <ScalarVariable
     name = "$whenCondition8"
-    valueReference = "1041"
-    description = "generator.UPu &lt; -0.0001 + generator.UMaxPu and pre(generator.qStatus) == Dynawo.Electrical.Machines.GeneratorPQ.QStatus.AbsorptionMax or generator.UPu &gt; 0.0001 + generator.UMinPu and pre(generator.qStatus) == Dynawo.Electrical.Machines.GeneratorPQ.QStatus.GenerationMax"
+    valueReference = "1045"
+    description = "generator.switchOffSignal1.value or generator.switchOffSignal2.value or generator.switchOffSignal3.value and pre(generator.running.value)"
     variability = "discrete" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "false"
+    causality = "local" isValueChangeable = "false"
     alias = "noAlias"
-    classIndex = "8" classType = "bAlg"
-    isProtected = "true" hideResult = "true"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Electrical/Machines/GeneratorPQ.mo" startLine = "47" startColumn = "5" endLine = "47" endColumn = "36" fileWritable = "true">
+    classIndex = "7" classType = "bAlg"
+    isProtected = "true" hideResult = "true" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff/SwitchOffLogic.mo" startLine = "35" startColumn = "7" endLine = "35" endColumn = "28" fileWritable = "true">
     <Boolean fixed="true" />
   </ScalarVariable>
   <ScalarVariable
     name = "$whenCondition9"
-    valueReference = "1042"
-    description = "generator.UPu &lt;= -0.0001 + generator.UMinPu and pre(generator.qStatus) &lt;&gt; Dynawo.Electrical.Machines.GeneratorPQ.QStatus.GenerationMax"
+    valueReference = "1046"
+    description = "time &gt; 999999.0"
     variability = "discrete" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "false"
+    causality = "local" isValueChangeable = "false"
     alias = "noAlias"
-    classIndex = "9" classType = "bAlg"
-    isProtected = "true" hideResult = "true"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Electrical/Machines/GeneratorPQ.mo" startLine = "47" startColumn = "5" endLine = "47" endColumn = "36" fileWritable = "true">
+    classIndex = "8" classType = "bAlg"
+    isProtected = "true" hideResult = "true" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/build/gcc11/2292_om_1.24.4/Debug/shared/dynawo/M/M/P/GeneratorPQ/GeneratorPQ-tmp.mo" startLine = "11" startColumn = "5" endLine = "11" endColumn = "45" fileWritable = "true">
     <Boolean fixed="true" />
   </ScalarVariable>
   <ScalarVariable
     name = "generator.running.value"
-    valueReference = "1043"
+    valueReference = "1047"
     variability = "discrete" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "false"
+    causality = "local" isValueChangeable = "false"
     alias = "noAlias"
-    classIndex = "10" classType = "bAlg"
-    isProtected = "false" hideResult = "false"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Connectors/BPin.mo" startLine = "17" startColumn = "5" endLine = "17" endColumn = "18" fileWritable = "true">
-    <Boolean start="true" fixed="false" />
+    classIndex = "9" classType = "bAlg"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Connectors/BPin.mo" startLine = "16" startColumn = "3" endLine = "16" endColumn = "16" fileWritable = "true">
+    <Boolean fixed="true" />
   </ScalarVariable>
   <ScalarVariable
     name = "generator.switchOffSignal1.value"
-    valueReference = "1044"
+    valueReference = "1048"
     variability = "discrete" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "false"
+    causality = "local" isValueChangeable = "false"
     alias = "noAlias"
-    classIndex = "11" classType = "bAlg"
-    isProtected = "false" hideResult = "false"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Connectors/BPin.mo" startLine = "17" startColumn = "5" endLine = "17" endColumn = "18" fileWritable = "true">
-    <Boolean start="false" fixed="false" />
+    classIndex = "10" classType = "bAlg"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Connectors/BPin.mo" startLine = "16" startColumn = "3" endLine = "16" endColumn = "16" fileWritable = "true">
+    <Boolean fixed="true" />
   </ScalarVariable>
   <ScalarVariable
     name = "generator.switchOffSignal2.value"
-    valueReference = "1045"
+    valueReference = "1049"
     variability = "discrete" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "false"
+    causality = "local" isValueChangeable = "false"
     alias = "noAlias"
-    classIndex = "12" classType = "bAlg"
-    isProtected = "false" hideResult = "false"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Connectors/BPin.mo" startLine = "17" startColumn = "5" endLine = "17" endColumn = "18" fileWritable = "true">
-    <Boolean start="false" fixed="false" />
+    classIndex = "11" classType = "bAlg"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Connectors/BPin.mo" startLine = "16" startColumn = "3" endLine = "16" endColumn = "16" fileWritable = "true">
+    <Boolean fixed="true" />
   </ScalarVariable>
   <ScalarVariable
     name = "generator.switchOffSignal3.value"
-    valueReference = "1046"
+    valueReference = "1050"
     variability = "discrete" isDiscrete = "true"
-    causality = "internal" isValueChangeable = "false"
+    causality = "local" isValueChangeable = "false"
     alias = "noAlias"
-    classIndex = "13" classType = "bAlg"
-    isProtected = "false" hideResult = "false"
-    fileName = "/home/rosiereflo/Projects/devBranch/dynawo/dynawo/install/gcc7/60_OM_1_13_2/Release/shared/dynawo/ddb/Dynawo/Connectors/BPin.mo" startLine = "17" startColumn = "5" endLine = "17" endColumn = "18" fileWritable = "true">
-    <Boolean start="false" fixed="false" />
+    classIndex = "12" classType = "bAlg"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Connectors/BPin.mo" startLine = "16" startColumn = "3" endLine = "16" endColumn = "16" fileWritable = "true">
+    <Boolean fixed="true" />
+  </ScalarVariable>
+  <ScalarVariable
+    name = "generator.Running0"
+    valueReference = "1051"
+    description = "Indicates if the component is initially running or not"
+    variability = "parameter" isDiscrete = "true"
+    causality = "calculatedParameter" isValueChangeable = "false"
+    alias = "noAlias"
+    classIndex = "0" classType = "bPar"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff/SwitchOffLogic.mo" startLine = "30" startColumn = "3" endLine = "30" endColumn = "298" fileWritable = "true">
+    <Boolean fixed="true" />
+  </ScalarVariable>
+  <ScalarVariable
+    name = "generator.SwitchOffSignal10"
+    valueReference = "1052"
+    description = "Initial switch-off signal 1"
+    variability = "parameter" isDiscrete = "true"
+    causality = "parameter" isValueChangeable = "true"
+    alias = "noAlias"
+    classIndex = "1" classType = "bPar"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff/SwitchOffLogic.mo" startLine = "26" startColumn = "3" endLine = "26" endColumn = "76" fileWritable = "true">
+    <Boolean start="false" fixed="true" />
+  </ScalarVariable>
+  <ScalarVariable
+    name = "generator.SwitchOffSignal20"
+    valueReference = "1053"
+    description = "Initial switch-off signal 2"
+    variability = "parameter" isDiscrete = "true"
+    causality = "parameter" isValueChangeable = "true"
+    alias = "noAlias"
+    classIndex = "2" classType = "bPar"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff/SwitchOffLogic.mo" startLine = "27" startColumn = "3" endLine = "27" endColumn = "76" fileWritable = "true">
+    <Boolean start="false" fixed="true" />
+  </ScalarVariable>
+  <ScalarVariable
+    name = "generator.SwitchOffSignal30"
+    valueReference = "1054"
+    description = "Initial switch-off signal 3"
+    variability = "parameter" isDiscrete = "true"
+    causality = "parameter" isValueChangeable = "true"
+    alias = "noAlias"
+    classIndex = "3" classType = "bPar"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff/SwitchOffLogic.mo" startLine = "28" startColumn = "3" endLine = "28" endColumn = "76" fileWritable = "true">
+    <Boolean start="false" fixed="true" />
   </ScalarVariable>
 
 
