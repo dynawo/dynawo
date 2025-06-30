@@ -26,6 +26,7 @@
 #include "TLXmlExporter.h"
 #include "TLCsvExporter.h"
 #include "TLTxtExporter.h"
+#include "TLJsonExporter.h"
 #include "TestUtil.h"
 
 using boost::shared_ptr;
@@ -54,6 +55,15 @@ TEST(APITLTest, TimelineExporters) {
   exporterXML.setExportWithTime(true);
   ASSERT_NO_THROW(exporterXML.exportToFile(timeline, "testXmlTimelineExport.xml"));
   ASSERT_TRUE(compareFiles("testXmlTimelineExport.xml", "res/testXmlTimelineExport.xml"));
+  {
+    std::stringstream ss;
+    exporterXML.exportToStream(timeline, ss, 10);
+    ASSERT_EQ(ss.str(), "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>\n"
+                        "<timeline xmlns=\"http://www.rte-france.com/dynawo\">\n"
+                        "  <event time=\"20.000000\" modelName=\"model2\" message=\"event2 at 20s\" priority=\"10\"/>\n"
+                        "  <event time=\"30.000000\" modelName=\"model2\" message=\"event3 at 30s\"/>\n"
+                        "</timeline>\n");
+  }
   exporterXML.setMaxPriority(priority2);
   ASSERT_NO_THROW(exporterXML.exportToFile(timeline, "testXmlTimelineExportMaxPriority.xml"));
   ASSERT_TRUE(compareFiles("testXmlTimelineExportMaxPriority.xml", "res/testXmlTimelineExportMaxPriority.xml"));
@@ -67,6 +77,11 @@ TEST(APITLTest, TimelineExporters) {
   exporterCSV.setExportWithTime(true);
   ASSERT_NO_THROW(exporterCSV.exportToFile(timeline, "testCsvTimelineExport.csv"));
   ASSERT_TRUE(compareFiles("testCsvTimelineExport.csv", "res/testCsvTimelineExport.csv"));
+  {
+    std::stringstream ss;
+    exporterCSV.exportToStream(timeline, ss, 10);
+    ASSERT_EQ(ss.str(), "20.000000;model2;event2 at 20s;10\n30.000000;model2;event3 at 30s\n");
+  }
   exporterCSV.setMaxPriority(priority2);
   ASSERT_NO_THROW(exporterCSV.exportToFile(timeline, "testCsvTimelineExportMaxPriority.csv"));
   ASSERT_TRUE(compareFiles("testCsvTimelineExportMaxPriority.csv", "res/testCsvTimelineExportMaxPriority.csv"));
@@ -80,6 +95,11 @@ TEST(APITLTest, TimelineExporters) {
   exporterTXT.setExportWithTime(true);
   ASSERT_NO_THROW(exporterTXT.exportToFile(timeline, "testTxtTimelineExport.txt"));
   ASSERT_TRUE(compareFiles("testTxtTimelineExport.txt", "res/testTxtTimelineExport.txt"));
+  {
+    std::stringstream ss;
+    exporterTXT.exportToStream(timeline, ss, 10);
+    ASSERT_EQ(ss.str(), "20.000000 | model2 | event2 at 20s | 10\n30.000000 | model2 | event3 at 30s\n");
+  }
   exporterTXT.setMaxPriority(priority2);
   ASSERT_NO_THROW(exporterTXT.exportToFile(timeline, "testTxtTimelineExportMaxPriority.txt"));
   ASSERT_TRUE(compareFiles("testTxtTimelineExportMaxPriority.txt", "res/testTxtTimelineExportMaxPriority.txt"));
@@ -87,6 +107,26 @@ TEST(APITLTest, TimelineExporters) {
   exporterTXT.setExportWithTime(false);
   ASSERT_NO_THROW(exporterTXT.exportToFile(timeline, "testTxtTimelineExportWithoutTime.txt"));
   ASSERT_TRUE(compareFiles("testTxtTimelineExportWithoutTime.txt", "res/testTxtTimelineExportWithoutTime.txt"));
+
+  // export the timeline in json format
+  JsonExporter exporterJSON;
+  exporterJSON.setExportWithTime(true);
+  ASSERT_NO_THROW(exporterJSON.exportToFile(timeline, "testJsonTimelineExport.json"));
+  ASSERT_TRUE(compareFiles("testJsonTimelineExport.json", "res/testJsonTimelineExport.json"));
+  {
+    std::stringstream ss;
+    exporterJSON.exportToStream(timeline, ss, 10);
+    ASSERT_EQ(ss.str(), "{\"timeline\":["
+    "{\"time\":\"20.000000\",\"modelName\":\"model2\",\"message\":\"event2 at 20s\",\"priority\":\"10\"},"
+    "{\"time\":\"30.000000\",\"modelName\":\"model2\",\"message\":\"event3 at 30s\"}]}\n");
+  }
+  exporterJSON.setMaxPriority(priority2);
+  ASSERT_NO_THROW(exporterJSON.exportToFile(timeline, "testJsonTimelineExportMaxPriority.json"));
+  ASSERT_TRUE(compareFiles("testJsonTimelineExportMaxPriority.json", "res/testJsonTimelineExportMaxPriority.json"));
+  exporterJSON.setMaxPriority(priorityNone);
+  exporterJSON.setExportWithTime(false);
+  ASSERT_NO_THROW(exporterJSON.exportToFile(timeline, "testJsonTimelineExportWithoutTime.json"));
+  ASSERT_TRUE(compareFiles("testJsonTimelineExportWithoutTime.json", "res/testJsonTimelineExportWithoutTime.json"));
 }
 
 }  // namespace timeline
