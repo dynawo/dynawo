@@ -252,7 +252,10 @@ set(MODELICA_PREASSEMBLED_MODELS
   WeightedDifference.xml
   WT4AWeccCurrentSource.xml
   WT4BWeccCurrentSource.xml
-  WTG4AWeccCurrentSource.xml
+  WTG3WeccCurrentSource1.xml
+  WTG3WeccCurrentSource2.xml
+  WTG4AWeccCurrentSource1.xml
+  WTG4AWeccCurrentSource2.xml
   WTG4BWeccCurrentSource.xml
   )
 
