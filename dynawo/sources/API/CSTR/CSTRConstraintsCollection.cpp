@@ -52,12 +52,15 @@ ConstraintsCollection::addConstraint(
   constraint->setType(type);
   constraint->setData(data);
   constraint->setModelType(modelType);
-  constraintsByModel_[modelName].push_back(constraint);
-  constraintsById_[id.str()] = constraint;
+  if (constraintsById_.find(id.str()) == constraintsById_.end()) {
+    constraintsByModel_[modelName].push_back(constraint);
+    constraintsById_[id.str()] = constraint;
+  }
 }
 
 void
-ConstraintsCollection::filter() {
+ConstraintsCollection::filter(DYN::ConstraintValueType_t filterType) {
+  if (filterType == DYN::NO_CONSTRAINTS_FILTER) return;
   for (auto &modelIt : constraintsByModel_) {
     const string& modelName = modelIt.first;
     std::vector<std::shared_ptr<Constraint> > constraints = modelIt.second;
@@ -69,7 +72,18 @@ ConstraintsCollection::filter() {
       const string& description = constraints[i]->getDescription();
       Type_t type = constraints[i]->getType();
       if (type == CONSTRAINT_BEGIN) {
-        beginConstraints.insert({description, i});
+        beginConstraintsIt = beginConstraints.find(description);
+        if (beginConstraintsIt == beginConstraints.end()) {
+          beginConstraints.insert({description, i});
+        } else {
+          if (filterType == DYN::CONSTRAINTS_KEEP_LAST) {
+            toRemove.push_back(beginConstraintsIt->second);
+            beginConstraints.erase(beginConstraintsIt);
+            beginConstraints.insert({description, i});
+          } else {
+            toRemove.push_back(i);
+          }
+        }
       } else if (type == CONSTRAINT_END) {
         beginConstraintsIt = beginConstraints.find(description);
         if (beginConstraintsIt != beginConstraints.end()) {

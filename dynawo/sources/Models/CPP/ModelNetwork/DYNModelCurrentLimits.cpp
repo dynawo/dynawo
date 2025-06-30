@@ -107,7 +107,7 @@ ModelCurrentLimits::evalZ(const string& componentName, const double t, const sta
 
   for (unsigned int i = 0; i < limits_.size(); ++i) {
     if (!(desactivate > 0)) {
-      if (g[0 + 2 * i] == ROOT_UP && !activated_[i]) {
+      if (g[0 + 2 * i] == ROOT_UP) {
         if (openingAuthorized_[i]) {  // Delay is specified => temporary limit
           DYNAddConstraintWithData(network, componentName, true, modelType,
             constraintData(ConstraintData::OverloadUp, i),
@@ -117,7 +117,8 @@ ModelCurrentLimits::evalZ(const string& componentName, const double t, const sta
             constraintData(ConstraintData::PATL, i),
             PATL, side_);
         }
-        tLimitReached_[i] = t;
+        if (!activated_[i])
+          tLimitReached_[i] = t;
         activated_[i] = true;
       }
 
