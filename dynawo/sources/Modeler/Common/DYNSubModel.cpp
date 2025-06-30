@@ -995,6 +995,7 @@ SubModel::addCurve(const std::shared_ptr<curves::Curve>& curve) {
   if (!isState) {
     buffer = &(calculatedVars_[varNum]);
     curve->setCurveType(Curve::CALCULATED_VARIABLE);
+    curve->setIndexCalculatedVarInSubModel(varNum);
   } else {
     switch (typeVar) {
       case CONTINUOUS:
@@ -1018,7 +1019,6 @@ SubModel::addCurve(const std::shared_ptr<curves::Curve>& curve) {
       }
     }
   }
-
   curve->setBuffer(buffer);
   curve->setNegated(negated);
 }
@@ -1029,13 +1029,7 @@ SubModel::updateCalculatedVarForCurve(const std::shared_ptr<curves::Curve>& curv
   Timer timer("SubModel::updateCalculatedVarForCurve");
   assert(curve);
 #endif
-  if (curve->getCurveType() != Curve::CALCULATED_VARIABLE) return;
-  const string variableName = curve->getFoundVariableName();
-  if (!hasVariable(variableName)) return;
-
-  const shared_ptr<Variable> variable = getVariable(variableName);
-
-  const int varNum = variable->getIndex();
+  const int varNum = curve->getIndexCalculatedVarInSubModel();
   calculatedVars_[varNum] = evalCalculatedVarI(varNum);
 }
 
