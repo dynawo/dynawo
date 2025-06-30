@@ -605,7 +605,7 @@ class ModelMulti : public Model, private boost::noncopyable {
   std::vector<size_t> nonSilentZIndexes_;  ///< indexes of non silent discrete variables
 
   std::shared_ptr<parameters::ParametersSet> localInitParameters_;  ///< local initialization solver parameters set
-  std::vector<std::pair<boost::shared_ptr<SubModel>, int>> curvesCalculatedVarIndexes_;  ///< curves calculated var locations in subModel
+  std::vector<std::pair<boost::shared_ptr<SubModel>, unsigned>> curvesCalculatedVarIndexes_;  ///< curves calculated var locations in subModel
 };  ///< Class for Multiple-Model
 
 

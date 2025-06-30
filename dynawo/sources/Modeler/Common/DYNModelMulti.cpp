@@ -1075,7 +1075,7 @@ ModelMulti::updateCalculatedVarForCurves() const {
 #endif
   for (const auto& itSubModelIndex : curvesCalculatedVarIndexes_) {
     boost::shared_ptr<SubModel> subModel = itSubModelIndex.first;
-    int varNum = itSubModelIndex.second;
+    unsigned varNum = itSubModelIndex.second;
     if (!subModel ) continue;
     subModel->updateCalculatedVarForCurve(varNum);
   }

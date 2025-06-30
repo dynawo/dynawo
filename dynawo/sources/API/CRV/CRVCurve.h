@@ -203,7 +203,7 @@ class Curve {
    * @brief Get the index of the calculated variable in SubModel
    * @return variable num in SubModel
    */
-  int getIndexCalculatedVarInSubModel() const {
+  unsigned getIndexCalculatedVarInSubModel() const {
     return indexCalculatedVarInSubModel_;
   }
 
@@ -211,7 +211,7 @@ class Curve {
    * @brief Set the index of the calculated variable in SubModel
    * @param indexCalculatedVarInSubModel : variable num in SubModel
    */
-  void setIndexCalculatedVarInSubModel(int indexCalculatedVarInSubModel) {
+  void setIndexCalculatedVarInSubModel(unsigned indexCalculatedVarInSubModel) {
     indexCalculatedVarInSubModel_ = indexCalculatedVarInSubModel;
   }
   /**
@@ -245,7 +245,7 @@ class Curve {
   bool isParameterCurve_;                          ///< @b true if a parameter curve, @b false if variable
   CurveType_t curveType_;                          ///< @b true if a calculated variable curve, @b false if variable
   size_t indexInGlobalTable_;                      ///< curve's index in global table
-  size_t indexCalculatedVarInSubModel_;            ///< index of calculated variable in SubModel
+  unsigned indexCalculatedVarInSubModel_;          ///< index of calculated variable in SubModel
 
   ExportType_t exportType_;                        ///< Whether this should be exported as a final state value or as a curve
 };

@@ -1024,10 +1024,9 @@ SubModel::addCurve(const std::shared_ptr<curves::Curve>& curve) {
 }
 
 void
-SubModel::updateCalculatedVarForCurve(const int calculatedVarNum) {
+SubModel::updateCalculatedVarForCurve(const unsigned calculatedVarNum) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SubModel::updateCalculatedVarForCurve");
-  assert(curve);
 #endif
   if (calculatedVarNum >= calculatedVars_.size()) return;
   calculatedVars_[calculatedVarNum] = evalCalculatedVarI(calculatedVarNum);

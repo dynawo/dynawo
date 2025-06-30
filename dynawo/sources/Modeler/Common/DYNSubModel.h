@@ -841,9 +841,9 @@ class SubModel {
   /**
    * @brief update the subset of calculated variables needed for curves
    *
-   * @param int calculated variable index in subModel
+   * @param calculatedVarNum calculated variable index in subModel
    */
-  void updateCalculatedVarForCurve(const int);
+  void updateCalculatedVarForCurve(const unsigned calculatedVarNum);
 
   /**
    * @brief add a curve of a parameter to store for the model
