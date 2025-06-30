@@ -728,7 +728,7 @@ ModelBus::evalZ(const double /*t*/) {
   using constraints::ConstraintData;
 
   if (network_->hasConstraints()) {
-    if (g_[0] == ROOT_UP && !stateUmax_) {
+    if (g_[0] == ROOT_UP) {
       DYNAddConstraintWithData(network_, constraintId_, true, modelType_,
         ConstraintData(ConstraintData::USupUmax, uMax_*unom_, getCurrentU(ModelBus::UType_)), USupUmax);
       stateUmax_ = true;
@@ -738,7 +738,7 @@ ModelBus::evalZ(const double /*t*/) {
       stateUmax_ = false;
     }
 
-    if (g_[1] == ROOT_UP && !stateUmin_) {
+    if (g_[1] == ROOT_UP) {
       DYNAddConstraintWithData(network_, constraintId_, true, modelType_,
         ConstraintData(ConstraintData::UInfUmin, uMin_*unom_, getCurrentU(ModelBus::UType_)), UInfUmin);
       stateUmin_ = true;

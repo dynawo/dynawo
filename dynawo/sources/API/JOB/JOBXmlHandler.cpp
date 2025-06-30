@@ -44,6 +44,7 @@
 #include "JOBTimelineEntry.h"
 #include "JOBTimetableEntry.h"
 #include "DYNMacrosMessage.h"
+#include "DYNEnumUtils.h"
 #include "JOBModelsDirEntry.h"
 
 #include "DYNExecUtils.h"
@@ -438,8 +439,17 @@ void
 ConstraintsHandler::create(attributes_type const& attributes) {
   constraints_ = std::make_shared<ConstraintsEntry>();
   constraints_->setExportMode(attributes["exportMode"]);
-  if (attributes.has("filter"))
-    constraints_->setFilter(attributes["filter"]);
+  if (attributes.has("filter")) {
+    if (attributes["filter"].as_string() == DYN::ConstraintValueTypeNames[DYN::CONSTRAINTS_KEEP_FIRST]) {
+      constraints_->setFilterType(DYN::CONSTRAINTS_KEEP_FIRST);
+    } else if (attributes["filter"].as_string() == DYN::ConstraintValueTypeNames[DYN::CONSTRAINTS_KEEP_LAST]) {
+      constraints_->setFilterType(DYN::CONSTRAINTS_KEEP_LAST);
+    } else if (attributes["filter"].as_string() == DYN::ConstraintValueTypeNames[DYN::NO_CONSTRAINTS_FILTER]) {
+      constraints_->setFilterType(DYN::NO_CONSTRAINTS_FILTER);
+    } else {
+      throw DYNError(DYN::Error::API, ConstraintValueTypeError, attributes["filter"].as_string());
+    }
+  }
 }
 
 shared_ptr<ConstraintsEntry>
