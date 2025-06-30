@@ -43,7 +43,6 @@ class Timeline;
 
 namespace curves {
 class CurvesCollection;
-class Curve;
 }
 
 namespace constraints {
@@ -62,7 +61,6 @@ namespace DYN {
 class Message;
 class MessageTimeline;
 class Model;
-class SubModel;
 class Solver;
 class DynamicData;
 class DataInterface;
@@ -675,7 +673,6 @@ class Simulation {
   boost::shared_ptr<DynamicData> dyd_;  ///< Dynamic data container associated to the job
   boost::shared_ptr<timeline::Timeline> timeline_;  ///< instance of the timeline where events are stored
   std::shared_ptr<curves::CurvesCollection> curvesCollection_;  ///< instance of curves collection where curves are stored
-  std::unordered_map<std::shared_ptr<curves::Curve>, boost::shared_ptr<SubModel> > calculatedVarCurvesToSubModel_;  ///< map associating a curve to its SubModel
   std::shared_ptr<constraints::ConstraintsCollection> constraintsCollection_;  ///< instance of constraints collection where constraints are stored
   std::shared_ptr<criteria::CriteriaCollection> criteriaCollection_;  ///< instance of criteria collection where criteria are stored
   std::shared_ptr<std::vector<

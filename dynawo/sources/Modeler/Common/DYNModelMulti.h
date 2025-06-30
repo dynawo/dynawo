@@ -312,11 +312,8 @@ class ModelMulti : public Model, private boost::noncopyable {
 
   /**
   * @brief update the subset of calculated variables needed for curves
-  *
-  * @param calculatedVarCurvesToSubModel map of calculatedVar curve with associated subModel
   */
-  void updateCalculatedVarForCurves(
-    const std::unordered_map<std::shared_ptr<curves::Curve>, boost::shared_ptr<SubModel> >& calculatedVarCurvesToSubModel) const override;
+  void updateCalculatedVarForCurves() const override;
 
   /**
    * @copydoc Model::dumpParameters(std::map< std::string, std::string> & mapParameters)
@@ -366,8 +363,7 @@ class ModelMulti : public Model, private boost::noncopyable {
   /**
    * @copydoc Model::initCurves(const std::shared_ptr<curves::Curve>& curve)
    */
-  bool initCurves(const std::shared_ptr<curves::Curve>& curve,
-    std::unordered_map<std::shared_ptr<curves::Curve>, boost::shared_ptr<SubModel> >& calculatedVarCurvesToSubModel) override;
+  bool initCurves(const std::shared_ptr<curves::Curve>& curve) override;
 
  public:
   /**
@@ -609,6 +605,7 @@ class ModelMulti : public Model, private boost::noncopyable {
   std::vector<size_t> nonSilentZIndexes_;  ///< indexes of non silent discrete variables
 
   std::shared_ptr<parameters::ParametersSet> localInitParameters_;  ///< local initialization solver parameters set
+  std::vector<std::pair<boost::shared_ptr<SubModel>, int>> curvesCalculatedVarIndexes_;  ///< curves calculated var locations in subModel
 };  ///< Class for Multiple-Model
 
 

@@ -49,6 +49,7 @@ using std::set;
 using std::string;
 using std::stringstream;
 using std::map;
+using std::pair;
 using boost::shared_ptr;
 using boost::dynamic_pointer_cast;
 using timeline::Timeline;
@@ -1010,8 +1011,7 @@ ModelMulti::collectSilentZ() {
 }
 
 bool
-ModelMulti::initCurves(const std::shared_ptr<curves::Curve>& curve,
-  std::unordered_map<std::shared_ptr<curves::Curve>, boost::shared_ptr<SubModel> >& calculatedVarCurvesToSubModel) {
+ModelMulti::initCurves(const std::shared_ptr<curves::Curve>& curve) {
   const string& modelName = curve->getModelName();
   const string& variable = curve->getVariable();
   const string variableNameBis = variable + "_value";
@@ -1059,8 +1059,9 @@ ModelMulti::initCurves(const std::shared_ptr<curves::Curve>& curve,
         }
       }
     }
+    // Register curve calculated var index in subModel, to optimize variable update during simulation
     if (curve->getAvailable() && curve->getCurveType() == Curve::CALCULATED_VARIABLE)
-      calculatedVarCurvesToSubModel[curve] = subModel;
+      curvesCalculatedVarIndexes_.push_back(std::make_pair(subModel, curve->getIndexCalculatedVarInSubModel()));
   }
   if (!curve->getAvailable())
     Trace::warn() << DYNLog(CurveNotAdded, modelName, variable) << Trace::endline;
@@ -1068,16 +1069,15 @@ ModelMulti::initCurves(const std::shared_ptr<curves::Curve>& curve,
 }
 
 void
-ModelMulti::updateCalculatedVarForCurves(
-  const std::unordered_map<std::shared_ptr<curves::Curve>, boost::shared_ptr<SubModel> >& calculatedVarCurvesToSubModel) const {
+ModelMulti::updateCalculatedVarForCurves() const {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::updateCurves");
 #endif
-  for (const auto& curveToSubModel : calculatedVarCurvesToSubModel) {
-    std::shared_ptr<Curve> curve = curveToSubModel.first;
-    boost::shared_ptr<SubModel> subModel = curveToSubModel.second;
-    if (!curve || !subModel || curve->getCurveType() != Curve::CALCULATED_VARIABLE) continue;
-    subModel->updateCalculatedVarForCurve(curve);
+  for (const auto& itSubModelIndex : curvesCalculatedVarIndexes_) {
+    boost::shared_ptr<SubModel> subModel = itSubModelIndex.first;
+    int varNum = itSubModelIndex.second;
+    if (!subModel ) continue;
+    subModel->updateCalculatedVarForCurve(varNum);
   }
 }
 
