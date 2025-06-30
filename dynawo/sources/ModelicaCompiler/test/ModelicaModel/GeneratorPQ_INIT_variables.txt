@@ -1,16 +1,20 @@
-//algVars (8)
+//algVars (4)
 //----------------------
-type: algVars (8) index: 0: generator.PGen0Pu (no alias)  protected  hideResult valueType: real initial: 	no arrCref index:(1) [] 
-type: algVars (8) index: 1: generator.QGen0Pu (no alias)  protected  hideResult valueType: real initial: 	no arrCref index:(2) [] 
-type: algVars (8) index: 2: generator.i0Pu.im (no alias)  protected  hideResult valueType: real initial: 	no arrCref index:(3) [] 
-type: algVars (8) index: 3: generator.i0Pu.re (no alias)  protected  hideResult valueType: real initial: 	no arrCref index:(4) [] 
-type: algVars (8) index: 4: generator.s0Pu.im (no alias)  protected  hideResult valueType: real initial: 	no arrCref index:(5) [] 
-type: algVars (8) index: 5: generator.s0Pu.re (no alias)  protected  hideResult valueType: real initial: 	no arrCref index:(6) [] 
-type: algVars (8) index: 6: generator.u0Pu.im (no alias)  protected  hideResult valueType: real initial: 	no arrCref index:(7) [] 
-type: algVars (8) index: 7: generator.u0Pu.re (no alias)  protected  hideResult valueType: real initial: 	no arrCref index:(8) [] 
+type: algVars (4) index:0: generator.i0Pu.im (no alias) valueType: real initial: 	no arrCref index:(1) []
+type: algVars (4) index:1: generator.i0Pu.re (no alias) valueType: real initial: generator.iStart0Pu.re	no arrCref index:(2) []
+type: algVars (4) index:2: generator.u0Pu.im (no alias) valueType: real initial: 	no arrCref index:(3) []
+type: algVars (4) index:3: generator.u0Pu.re (no alias) valueType: real initial: 	no arrCref index:(4) []
+//aliasVars
+//----------------------
+type: aliasVars index:0: generator.PGen0Pu (negated alias: generator.P0Pu) valueType: real initial: 	no arrCref index:(11) []
+type: aliasVars index:1: generator.QGen0Pu (negated alias: generator.Q0Pu) valueType: real initial: 	no arrCref index:(12) []
+type: aliasVars index:2: generator.s0Pu.im (alias: generator.Q0Pu) valueType: real initial: 	no arrCref index:(13) []
+type: aliasVars index:3: generator.s0Pu.re (alias: generator.P0Pu) valueType: real initial: 	no arrCref index:(14) []
 //paramVars
 //----------------------
-type: paramVars index: 0: generator.P0Pu (no alias) valueType: real initial: 	no arrCref index:(9) [] 
-type: paramVars index: 1: generator.Q0Pu (no alias) valueType: real initial: 	no arrCref index:(10) [] 
-type: paramVars index: 2: generator.U0Pu (no alias) valueType: real initial: 	no arrCref index:(11) [] 
-type: paramVars index: 3: generator.UPhase0 (no alias) valueType: real initial: 	no arrCref index:(12) [] 
+type: paramVars index:0: generator.P0Pu (no alias) valueType: real initial: 0.0	no arrCref index:(5) []
+type: paramVars index:1: generator.Q0Pu (no alias) valueType: real initial: 0.0	no arrCref index:(6) []
+type: paramVars index:2: generator.U0Pu (no alias) valueType: real initial: 0.0	no arrCref index:(7) []
+type: paramVars index:3: generator.UPhase0 (no alias) valueType: real initial: 0.0	no arrCref index:(8) []
+type: paramVars index:4: generator.iStart0Pu.im (no alias) valueType: real initial: 0.0	no arrCref index:(9) []
+type: paramVars index:5: generator.iStart0Pu.re (no alias) valueType: real initial: 0.0	no arrCref index:(10) []
