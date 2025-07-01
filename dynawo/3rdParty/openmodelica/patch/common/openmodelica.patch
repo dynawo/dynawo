@@ -2313,7 +2313,7 @@ index 77276916e9..10ec28ae16 100644
    input String s1;
    input String s2;
 diff --git a/OMCompiler/Compiler/Script/CevalScriptBackend.mo b/OMCompiler/Compiler/Script/CevalScriptBackend.mo
-index d4e6748e89..1abb3768c5 100644
+index d4e6748e89..e3d2c0781b 100644
 --- a/OMCompiler/Compiler/Script/CevalScriptBackend.mo
 +++ b/OMCompiler/Compiler/Script/CevalScriptBackend.mo
 @@ -139,6 +139,7 @@ import UnitParserExt;
@@ -2369,7 +2369,7 @@ index d4e6748e89..1abb3768c5 100644
 +        // load the rewrite rules
 +        RewriteRules.loadRules();
 +
-+        (inCache, inEnv, _, dae) = Inst.instantiateClass(inCache, InnerOuter.emptyInstHierarchy, SymbolTable.getSCode(), classname);
++        (inCache,inEnv,SOME(dae), _) = runFrontEnd(inCache,inEnv,classname,false);
 +
 +        dae = DAEUtil.transformationsBeforeBackend(inCache,inEnv,dae);
 +
