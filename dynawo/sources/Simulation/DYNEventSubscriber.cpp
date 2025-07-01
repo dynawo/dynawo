@@ -71,34 +71,39 @@ EventSubscriber::stop() {
 void
 EventSubscriber::applyActions() {
   std::lock_guard<std::mutex> actionLock(actions_mutex_);
-  for (std::shared_ptr<Action>& action : actions_) {
-    action->model->updateParameters(action->parametersSet);
-    Trace::info() << "EventSubscriber: SubModel " << action->modelName << " parameters updated" << Trace::endline;
-    std::cout << "EventSubscriber: SubModel " << action->modelName << " parameters updated" << std::endl;
+  for (auto& actionPair : actions_) {
+    boost::shared_ptr<SubModel> subModel = actionPair.second.subModel;
+    for (auto& parameterTuple : actionPair.second.parameterValueSet) {
+      switch (std::get<2>(parameterTuple)) {
+        case VAR_TYPE_DOUBLE: {
+          subModel->setParameterValue(std::get<0>(parameterTuple), DYN::FINAL, boost::any_cast<double>(std::get<1>(parameterTuple)), false);
+          break;
+        }
+        case VAR_TYPE_INT: {
+          subModel->setParameterValue(std::get<0>(parameterTuple), DYN::FINAL, boost::any_cast<int>(std::get<1>(parameterTuple)), false);
+          break;
+        }
+        case VAR_TYPE_BOOL: {
+          subModel->setParameterValue(std::get<0>(parameterTuple), DYN::FINAL, boost::any_cast<bool>(std::get<1>(parameterTuple)), false);
+          break;
+        }
+        case VAR_TYPE_STRING: {
+          subModel->setParameterValue(std::get<0>(parameterTuple), DYN::FINAL, boost::any_cast<std::string>(std::get<1>(parameterTuple)), false);
+          break;
+        }
+        default:
+        {
+          throw DYNError(Error::MODELER, ParameterBadType, std::get<0>(parameterTuple));
+        }
+      }
+    }
+    subModel->setSubModelParameters();
+    Trace::info() << "EventSubscriber: SubModel " << actionPair.second.subModel->name() << " parameters updated" << Trace::endline;
+    std::cout << "EventSubscriber: SubModel " << actionPair.second.subModel->name() << " parameters updated" << std::endl;
   }
   actions_.clear();
 }
 
-bool
-EventSubscriber::registerAction(const std::string& modelName, std::shared_ptr<parameters::ParametersSet>& parametersSet) {
-  std::shared_ptr<ModelMulti> model = std::dynamic_pointer_cast<ModelMulti>(model_);
-  boost::shared_ptr<SubModel> subModel = model->findSubModelByName(modelName);
-  if (!subModel) {
-    Trace::error() << "EventSubscriber: Impossible to register action. Unknown SubModel: " << modelName << Trace::endline;
-    return false;
-  }
-
-  std::shared_ptr<Action> newAction = std::make_shared<Action>();
-  newAction->modelName = modelName;
-  newAction->model = subModel;
-  newAction->parametersSet = parametersSet;
-  {
-    std::lock_guard<std::mutex> actionLock(actions_mutex_);
-    actions_.push_back(newAction);
-  }
-  Trace::info() << "EventSubscriber: New action registered on model: " << modelName << Trace::endline;
-  return true;
-}
 
 /*
 void
@@ -147,10 +152,8 @@ EventSubscriber::receiveMessages(bool stop = false) {
           kill(getpid(), SIGINT);
 
         } else if (actionsEnabled_) {
-          std::shared_ptr<ParametersSet> parametersSet = parseParametersSet(input);
-
           // Register the action
-          if (registerAction(parametersSet->getId(), parametersSet)) {
+          if (registerAction(input)) {
             reply << "Action registered";
           } else {
             reply << "Action registration failed";
@@ -200,11 +203,9 @@ EventSubscriber::messageReceiverAsync() {
           std::cout << "Stop signal received. Ending simulation." << std::endl;
           kill(getppid(), SIGINT);
         } else if (actionsEnabled_) {
-          std::shared_ptr<ParametersSet> parametersSet = parseParametersSet(input);
-
           // Register the action
           zmqpp::message reply;
-          if (registerAction(parametersSet->getId(), parametersSet)) {
+          if (registerAction(input)) {
             reply << "Action registered";
           } else {
             reply << "Action registration failed";
@@ -221,74 +222,101 @@ EventSubscriber::messageReceiverAsync() {
   simulationStepTriggerCondition_.notify_all();
 }
 
-std::shared_ptr<ParametersSet>
-EventSubscriber::parseParametersSet(std::string& input) {
+bool
+EventSubscriber::registerAction(std::string& input) {
   std::cout << "EventSubscriber: register: " << input << std::endl;
   std::istringstream stream(input);
   std::string token;
-  std::string modelName;
+  std::string subModelName;
 
   // Read the id (first part before the first comma)
-  std::getline(stream, modelName, ',');
+  std::getline(stream, subModelName, ',');
 
-  std::shared_ptr<ParametersSet> parametersSet = ParametersSetFactory::newParametersSet(modelName);
+  std::shared_ptr<ModelMulti> model = std::dynamic_pointer_cast<ModelMulti>(model_);
+  boost::shared_ptr<SubModel> subModel = model->findSubModelByName(subModelName);
+  if (!subModel) {
+    Trace::error() << "EventSubscriber: Impossible to register action. Unknown SubModel: " << subModelName << Trace::endline;
+    return false;
+  }
 
+  std::vector<std::tuple<std::string, boost::any, DYN::typeVarC_t>> parameterValueSet;
   // Read the rest of the parameter-value pairs
   while (std::getline(stream, token, ',')) {
     // parse the triple
-    std::string parameter = token;
+    std::string name = token;
     std::string type, value;
 
     if (std::getline(stream, token, ',')) {
         type = token;
     } else {
       Trace::error() << "EventSubscriber: Could not parse action, incomplete data" << Trace::endline;
-      return std::shared_ptr<ParametersSet>();
+      return false;
     }
 
     if (std::getline(stream, token, ',')) {
         value = token;
     } else {
       Trace::error() << "EventSubscriber: Could not parse action, incomplete data" << Trace::endline;
-      return std::shared_ptr<ParametersSet>();
+      return false;
     }
 
-    // Cast the value
-    if (type == "int") {
-      try {
-        parametersSet->createParameter(parameter, std::stoi(value));
-        std::cout << "EventSubscriber: int param: " << parameter << " = " << value << std::endl;
-      } catch (const std::exception&) {
-        Trace::error() << "EventSubscriber: Could not parse action, Invalid integer value: " << value << Trace::endline;
-        return std::shared_ptr<ParametersSet>();
+    if (subModel->hasParameterDynamic(name)) {
+      const ParameterModeler& parameter = subModel->findParameterDynamic(name);
+      boost::any castedValue;
+      switch (parameter.getValueType()) {
+        case VAR_TYPE_DOUBLE: {
+          castedValue = std::stod(value);
+          break;
+        }
+        case VAR_TYPE_INT: {
+          castedValue = std::stoi(value);
+          break;
+        }
+        case VAR_TYPE_BOOL: {
+          bool bval = std::stoi(value);
+          castedValue = bval;
+          break;
+        }
+        case VAR_TYPE_STRING: {
+          castedValue = value;
+          break;
+        }
+        default:
+        {
+          throw DYNError(Error::MODELER, ParameterBadType, parameter.getName());
+        }
       }
-    } else if (type == "double") {
-      try {
-        parametersSet->createParameter(parameter, std::stod(value));
-        std::cout << "EventSubscriber: double param: " << parameter << " = " << value << std::endl;
-      } catch (const std::exception&) {
-        Trace::error() << "EventSubscriber: Could not parse action, Invalid double value: " << value << Trace::endline;
-        return std::shared_ptr<ParametersSet>();
-      }
-    } else if (type == "bool") {
-      try {
-        bool bval = std::stoi(value);
-        parametersSet->createParameter(parameter, bval);
-        std::cout << "EventSubscriber: bool param: " << parameter << " = " << value << std::endl;
-      } catch (const std::exception&) {
-        Trace::error() << "EventSubscriber: Could not parse action, Invalid double value: " << value << Trace::endline;
-        return std::shared_ptr<ParametersSet>();
-      }
-    } else if (type == "string") {
-      parametersSet->createParameter(parameter, value);
-      std::cout << "EventSubscriber: string param: " << parameter << " = " << value << std::endl;
+
+      parameterValueSet.push_back(std::make_tuple(name, castedValue, parameter.getValueType()));
+      std::cout << "new parameter modification for: " << name << std::endl;
     } else {
-      std::cout << "EventSubscriber: Could not parse action, unknown type: " << type << std::endl;
-      // Trace::error() << "EventSubscriber: Could not parse action, unknown type: " << type << Trace::endline;
-      return std::shared_ptr<ParametersSet>();
+      std::cout << "EventSubscriber: Parameter: " << name << " does not exist" << std::endl;
+      return false;
     }
   }
-  return parametersSet;
+
+  Action newAction = {subModel, parameterValueSet};
+  {
+    std::lock_guard<std::mutex> actionLock(actions_mutex_);
+    if (actions_.find(subModelName) != actions_.end()) {
+      if (!subModelName.compare("NETWORK")) {
+        actions_[subModelName].parameterValueSet.insert(actions_[subModelName].parameterValueSet.end(),
+                                                        parameterValueSet.begin(),
+                                                        parameterValueSet.end());
+        std::cout << "EventSubscriber: Action list extended for NETWORK SubModel" << std::endl;
+        Trace::info() << "EventSubscriber: Action list extended for NETWORK SubModel" << Trace::endline;
+      } else {
+        actions_[subModelName] = newAction;
+        std::cout << "EventSubscriber: Actions overriden for SubModel: " << subModelName << std::endl;
+        Trace::warn() << "EventSubscriber: Actions overriden for SubModel: " << subModelName << Trace::endline;
+      }
+    } else {
+      Trace::info() << "EventSubscriber: New action registered on model: " << subModelName << Trace::endline;
+      std::cout << "EventSubscriber: New action registered on model: " << subModelName << std::endl;
+      actions_[subModelName] = newAction;
+    }
+  }
+  return true;
 }
 
 void
