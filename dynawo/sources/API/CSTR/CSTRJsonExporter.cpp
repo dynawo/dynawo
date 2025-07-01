@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// Copyright (c) 2015-2025, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,18 +12,21 @@
 //
 
 /**
- * @file  CSTRTxtExporter.cpp
+ * @file  CSTRJsonExporter.cpp
  *
- * @brief Dynawo constraints txt exporter : implementation file
+ * @brief Dynawo constraint JSON exporter : implementation file
  *
  */
 #include <fstream>
 #include <sstream>
 
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/json_parser.hpp>
+
 #include "DYNMacrosMessage.h"
 #include "DYNCommon.h"
 
-#include "CSTRTxtExporter.h"
+#include "CSTRJsonExporter.h"
 #include "CSTRConstraintsCollection.h"
 #include "CSTRConstraint.h"
 
@@ -31,78 +34,75 @@ using std::fstream;
 using std::ostream;
 using std::string;
 
+using boost::property_tree::ptree;
+
 namespace constraints {
 
 void
-TxtExporter::exportToFile(const std::shared_ptr<ConstraintsCollection>& constraints, const string& filePath) const {
+JsonExporter::exportToFile(const std::shared_ptr<ConstraintsCollection>& constraints, const string& filePath) const {
   fstream file;
   file.open(filePath.c_str(), fstream::out);
   if (!file.is_open()) {
     throw DYNError(DYN::Error::API, FileGenerationFailed, filePath.c_str());
   }
+
   exportToStream(constraints, file);
   file.close();
 }
 
 void
-TxtExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints, ostream& stream, double afterTime) const {
-  const std::string TXTEXPORTER_SEPARATOR = " | ";  ///< separator in txt file
+JsonExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints, ostream& stream, double afterTime) const {
+  ptree root;
+  ptree array;
   for (const auto& constraintPair : constraints->getConstraintsById()) {
     const auto& constraint = constraintPair.second;
+    std::cout << afterTime << " ? " << constraint->getTime() << std::endl;
     if (!DYN::doubleGreater(constraint->getTime(), afterTime))
       continue;
-    stream << constraint->getModelName()
-            << TXTEXPORTER_SEPARATOR
-            << DYN::double2String(constraint->getTime())
-            << TXTEXPORTER_SEPARATOR
-            << constraint->getDescription();
+    ptree item;
+    item.put("modelName", constraint->getModelName());
+    item.put("description", constraint->getDescription());
+    item.put("time", DYN::double2String(constraint->getTime()));
     if (constraint->hasModelType())
-      stream << TXTEXPORTER_SEPARATOR
-             << constraint->getModelType();
+      item.put("type", constraint->getModelType());
 
     const boost::optional<ConstraintData>& data = constraint->getData();
     if (data) {
       switch (data->kind) {
         case ConstraintData::OverloadOpen:
-          stream << TXTEXPORTER_SEPARATOR
-                 << "OverloadOpen";
+          item.put("kind", "OverloadOpen");
           break;
         case ConstraintData::OverloadUp:
-          stream << TXTEXPORTER_SEPARATOR
-                 << "OverloadUp";
+          item.put("kind", "OverloadUp");
           break;
         case ConstraintData::PATL:
-          stream << TXTEXPORTER_SEPARATOR
-                 << "PATL";
+          item.put("kind", "PATL");
           break;
         case ConstraintData::UInfUmin:
-          stream << TXTEXPORTER_SEPARATOR
-                 << "UInfUmin";
+          item.put("kind", "UInfUmin");
           break;
         case ConstraintData::USupUmax:
-          stream << TXTEXPORTER_SEPARATOR
-                 << "USupUmax";
+          item.put("kind", "USupUmax");
           break;
         case ConstraintData::Undefined:
           break;
       }
-      stream << TXTEXPORTER_SEPARATOR
-             << data->limit;
-      stream << TXTEXPORTER_SEPARATOR
-             << data->value;
+      item.put("limit", data->limit);
+      item.put("value", data->value);
       boost::optional<int> side = data->side;
       if (side) {
-        stream << TXTEXPORTER_SEPARATOR
-               << side.value();
+        item.put("side", side.value());
       }
       boost::optional<double> acceptableDuration = data->acceptableDuration;
       if (acceptableDuration) {
-        stream << TXTEXPORTER_SEPARATOR
-               << acceptableDuration.value();
+        item.put("acceptableDuration", acceptableDuration.value());
       }
     }
-    stream << "\n";
+    array.push_back(std::make_pair("", item));
   }
+  root.push_back(std::make_pair("constraints", array));
+
+  write_json(stream, root, false);  // `false` disables pretty-printing
 }
 
 }  // namespace constraints

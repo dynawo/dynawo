@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// Copyright (c) 2015-2025, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,24 +12,30 @@
 //
 
 /**
- * @file  TLTxtExporter.cpp
- * @brief Dynawo timeline txt exporter : implementation file
+ * @file  TLJsonExporter.cpp
+ * @brief Dynawo timeline JSON exporter : implementation file
+ *
  */
 #include <fstream>
-#include <iostream>
+#include <sstream>
+
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/json_parser.hpp>
 
 #include "DYNMacrosMessage.h"
 #include "DYNCommon.h"
-#include "TLTxtExporter.h"
+#include "TLJsonExporter.h"
 #include "TLTimeline.h"
 
 using std::fstream;
 using std::ostream;
+using std::string;
+using boost::property_tree::ptree;
 
 namespace timeline {
 
 void
-TxtExporter::exportToFile(const boost::shared_ptr<Timeline>& timeline, const std::string& filePath) const {
+JsonExporter::exportToFile(const boost::shared_ptr<Timeline>& timeline, const string& filePath) const {
   fstream file;
   file.open(filePath.c_str(), fstream::out);
   if (!file.is_open()) {
@@ -41,25 +47,25 @@ TxtExporter::exportToFile(const boost::shared_ptr<Timeline>& timeline, const std
 }
 
 void
-TxtExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream& stream, double afterTime) const {
-  const std::string TXTEXPORTER_SEPARATOR = " | ";  ///< definition of the separator to use in txt files
+JsonExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream& stream, double afterTime) const {
+  ptree root;
+  ptree array;
   for (const auto& event : timeline->getEvents()) {
     if (event->hasPriority() && maxPriority_ != boost::none && event->getPriority() > maxPriority_)
       continue;
     if (!DYN::doubleGreater(event->getTime(), afterTime))
       continue;
+    ptree item;
     if (exportWithTime_)
-      stream << DYN::double2String(event->getTime())
-              << TXTEXPORTER_SEPARATOR;
-    stream << event->getModelName()
-            << TXTEXPORTER_SEPARATOR
-            << event->getMessage();
+      item.put("time", DYN::double2String(event->getTime()));
+    item.put("modelName", event->getModelName());
+    item.put("message", event->getMessage());
     if (event->hasPriority()) {
-      stream << TXTEXPORTER_SEPARATOR
-              << event->getPriority();
+      item.put("priority", event->getPriority());
     }
-    stream << "\n";
+    array.push_back(std::make_pair("", item));
   }
+  root.push_back(std::make_pair("timeline", array));
+  write_json(stream, root, false);  // `false` disables pretty-printing
 }
-
 }  // namespace timeline
