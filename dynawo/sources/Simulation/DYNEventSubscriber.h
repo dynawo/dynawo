@@ -47,9 +47,8 @@ namespace DYN {
 class EventSubscriber {
  public:
   struct Action {
-    std::string modelName;                                      ///< Name of the model
-    boost::shared_ptr<SubModel> model;                          ///< Pointer to the model
-    std::shared_ptr<parameters::ParametersSet> parametersSet;   ///< Set of parameters
+    boost::shared_ptr<SubModel> subModel;                                  ///< Pointer to the model
+    std::vector<std::tuple<std::string, boost::any, DYN::typeVarC_t>> parameterValueSet;   ///< Set of parameters
   };
 
  public:
@@ -63,7 +62,7 @@ class EventSubscriber {
 
   void applyActions();
 
-  bool registerAction(const std::string& modelName, std::shared_ptr<parameters::ParametersSet>& parametersSet);
+  bool registerAction(std::string& input);
 
   // void sendReply(const std::string& msg);
 
@@ -77,11 +76,9 @@ class EventSubscriber {
 
   void wait();
 
-  std::shared_ptr<parameters::ParametersSet> parseParametersSet(std::string& input);
-
  private:
   const std::string STOP_KEY = "stop";
-  std::vector<std::shared_ptr<Action> > actions_;
+  std::unordered_map<std::string, Action> actions_;
   std::mutex actions_mutex_;
   zmqpp::context context_;
   zmqpp::socket socket_;
