@@ -107,10 +107,10 @@ model BaseREPC "WECC Plant Control REPC common"
     Placement(visible = true, transformation(origin = {-230, 94}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   NonElectrical.Blocks.Continuous.TransferFunction leadLag(a = {tFv, 1}, b = {tFt, 1}, x_start = {QInj0Pu}, y_start = QInj0Pu) annotation(
     Placement(transformation(origin = {134, 50}, extent = {{-10, -10}, {10, 10}})));
-  NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch(nu = 2) annotation(
-    Placement(transformation(origin = {-2, 50}, extent = {{-10, -10}, {10, 10}})));
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch(nu = 2) annotation(
+    Placement(visible = true, transformation(origin = {0, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.IntegerConstant RefFlag0(k = RefFlag) annotation(
-    Placement(transformation(origin = {-64, 64}, extent = {{-10, -10}, {10, 10}})));
+    Placement(visible = true, transformation(origin = {30, 80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   parameter Types.ComplexCurrentPu iInj0Pu "Start value of complex current at regulated bus in pu (base SNom, UNom) (generator convention)";
   parameter Types.ActivePowerPu PGen0Pu "Start value of active power at regulated bus in pu (base SNom) (generator convention)";
@@ -173,9 +173,9 @@ equation
   connect(limPIDFreeze.y, leadLag.u) annotation(
     Line(points = {{107, 50}, {122, 50}}, color = {0, 0, 127}));
   connect(RefFlag0.y, multiSwitch.f) annotation(
-    Line(points = {{-53, 64}, {-5, 64}, {-5, 62}, {-2, 62}}, color = {255, 127, 0}));
+    Line(points = {{19, 80}, {0, 80}, {0, 62}}, color = {255, 127, 0}));
   connect(multiSwitch.y, deadZone.u) annotation(
-    Line(points = {{10, 50}, {28, 50}}, color = {0, 0, 127}));
+    Line(points = {{11, 50}, {28, 50}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

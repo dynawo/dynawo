@@ -14,7 +14,7 @@ within Dynawo.Electrical.Controls.WECC.REPC;
 */
 
 model REPCc "WECC Plant Control type C"
-  extends Dynawo.Electrical.Controls.WECC.REPC.BaseClasses.BaseREPC(add3(k2 = 1), firstOrder(UseFreeze = true, UseRateLim = true), limPID(Y0 = if FfwrdFlag == true and PefdFlag == true and Kig > 0 then PInj0Pu - PGen0Pu else PInj0Pu, YMax = if FfwrdFlag == true and PefdFlag == true and Kig > 0 then PiMaxPu else PMaxPu, YMin = if FfwrdFlag == true and PefdFlag == true and Kig > 0 then PiMinPu else PMinPu),RefFlag0(k = if RefFlag == 2 and abs(PInj0Pu / (sqrt(PInj0Pu ^ 2 + QInj0Pu ^ 2))) < 0.01 then 0 else RefFlag), multiSwitch(nu = 3));
+  extends Dynawo.Electrical.Controls.WECC.REPC.BaseClasses.BaseREPC(add3(k2 = 1), firstOrder(UseFreeze = true, UseRateLim = true), limPID(Y0 = if FfwrdFlag == true and PefdFlag == true and Kig > 0 then PInj0Pu - PGen0Pu else PInj0Pu, YMax = if FfwrdFlag == true and PefdFlag == true and Kig > 0 then PiMaxPu else PMaxPu, YMin = if FfwrdFlag == true and PefdFlag == true and Kig > 0 then PiMinPu else PMinPu), RefFlag0(k = if RefFlag == 2 and abs(PInj0Pu / (sqrt(PInj0Pu ^ 2 + QInj0Pu ^ 2))) < 0.01 then 0 else RefFlag), multiSwitch(nu = 3));
 
   //Parameters REPC_C
   parameter Types.AngularVelocityPu DfMaxPu "Maximum limit on frequency deviation in pu (base omegaNom)" annotation(
@@ -116,8 +116,6 @@ model REPCc "WECC Plant Control type C"
     Placement(transformation(origin = {-272, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Nonlinear.Limiter limiter4(uMax = PfMax, uMin = PfMin) annotation(
     Placement(transformation(origin = {-180, 28}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Routing.Multiplex3 multiplex3 annotation(
-    Placement(transformation(origin = {0, 22}, extent = {{-10, 10}, {10, -10}}, rotation = -0)));
   Modelica.Blocks.Logical.Not not1 annotation(
     Placement(transformation(origin = {-200, 94}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.Not not2 annotation(
@@ -227,12 +225,12 @@ equation
     Line(points = {{-70, 28}, {-66, 28}, {-66, 34}}, color = {0, 0, 127}));
   connect(firstOrder2.y, add6.u2) annotation(
     Line(points = {{-218, 10}, {-66, 10}, {-66, 22}}, color = {0, 0, 127}));
-  connect(QCtrlErr.y, multiplex3.u1[1]) annotation(
-    Line(points = {{-20, 4}, {-18, 4}, {-18, 5}, {-17, 5}, {-17, 15}, {-12, 15}}, color = {0, 0, 127}));
-  connect(UCtrlErr.y, multiplex3.u2[1]) annotation(
-    Line(points = {{-26, 90}, {-26, 22}, {-12, 22}}, color = {0, 0, 127}));
-  connect(add6.y, multiplex3.u3[1]) annotation(
-    Line(points = {{-42, 28}, {-20, 28}, {-20, 29}, {-12, 29}}, color = {0, 0, 127}));
+  connect(QCtrlErr.y, multiSwitch.u[1]) annotation(
+    Line(points = {{-20, 4}, {-20, 50}, {-10, 50}}, color = {0, 0, 127}));
+  connect(UCtrlErr.y, multiSwitch.u[2]) annotation(
+    Line(points = {{-26, 90}, {-20, 90}, {-20, 50}, {-10, 50}}, color = {0, 0, 127}));
+  connect(add6.y, multiSwitch.u[3]) annotation(
+    Line(points = {{-42, 28}, {-40, 28}, {-40, 50}, {-10, 50}}, color = {0, 0, 127}));
   connect(rampLimiter2.y, switch5.u1) annotation(
     Line(points = {{193, 50}, {193, 36}, {176, 36}, {176, 30}}, color = {0, 0, 127}));
   connect(Zero1.y, switch5.u3) annotation(
@@ -249,8 +247,6 @@ equation
     Line(points = {{-258, -50}, {-188, -50}, {-188, -22}, {-164, -22}, {-164, 14}, {-94, 14}, {-94, 22}}, color = {0, 0, 127}));
   connect(firstOrder1.y, switch3.u1) annotation(
     Line(points = {{-258, -50}, {-188, -50}, {-188, -38}, {-114, -38}, {-114, -20}, {-104, -20}}, color = {0, 0, 127}));
-  connect(multiplex3.y, multiSwitch.u[1:3]) annotation(
-    Line(points = {{12, 22}, {18, 22}, {18, 38}, {-20, 38}, {-20, 50}, {-12, 50}}, color = {0, 0, 127}));
   connect(PfPu.y, limiter4.u) annotation(
     Line(points = {{-260, 26}, {-192, 26}, {-192, 28}}, color = {0, 0, 127}));
   connect(voltageCheck.freeze, not1.u) annotation(

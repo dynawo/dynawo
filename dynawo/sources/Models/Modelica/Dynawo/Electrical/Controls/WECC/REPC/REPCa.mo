@@ -19,8 +19,6 @@ model REPCa "WECC Plant Control type A"
     Placement(transformation(origin = {-76, 80}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.BooleanExpression booleanExpression(y = false) annotation(
     Placement(transformation(origin = {-26, -116}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Routing.Multiplex2 multiplex2 annotation(
-    Placement(transformation(origin = {0, 22}, extent = {{-10, 10}, {10, -10}}, rotation = -0)));
 
 equation
   connect(lineDropCompensation1.U2Pu, voltageCheck.UPu) annotation(
@@ -65,14 +63,12 @@ equation
     Line(points = {{-218, 94}, {-208, 94}, {-208, 118}, {90, 118}, {90, 62}}, color = {255, 0, 255}));
   connect(voltageCheck.freeze, freeze) annotation(
     Line(points = {{-218, 94}, {-174, 94}, {-174, 102}, {-102, 102}}, color = {255, 0, 255}));
-  connect(UCtrlErr.y, multiplex2.u1[1]) annotation(
-    Line(points = {{-26, 90}, {-18, 90}, {-18, 28}, {-12, 28}}, color = {0, 0, 127}));
-  connect(QCtrlErr.y, multiplex2.u2[1]) annotation(
-    Line(points = {{-20, 4}, {-12, 4}, {-12, 16}}, color = {0, 0, 127}));
-  connect(multiplex2.y, multiSwitch.u[1:2]) annotation(
-    Line(points = {{12, 22}, {18, 22}, {18, 38}, {-16, 38}, {-16, 50}, {-12, 50}}, color = {0, 0, 127}));
+  connect(QCtrlErr.y, multiSwitch.u[1]) annotation(
+    Line(points = {{-20, 4}, {-20, 50}, {-10, 50}}, color = {0, 0, 127}));
+  connect(UCtrlErr.y, multiSwitch.u[2]) annotation(
+    Line(points = {{-26, 90}, {-20, 90}, {-20, 50}, {-10, 50}}, color = {0, 0, 127}));
 
-annotation(
+  annotation(
     Icon(graphics = {Text(origin = {-29, 11}, extent = {{-41, 19}, {97, -41}}, textString = "REPC A")}),Documentation(info = "<html>
 <p> This block contains the generic WECC PV plant level control model according to (in case page cannot be found, copy link in browser): <a href='https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf/'>https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf </a> </p>
 <p>Plant level active and reactive power/voltage control. Reactive power or voltage control dependent on RefFlag. Frequency dependent active power control is enabled or disabled with FreqFlag. With voltage control (RefFlag = true), voltage at remote bus can be controlled when VcompFlag == true. Therefore, RcPu and XcPu shall be defined as per real impedance between inverter terminal and regulated bus. If measurements from the regulated bus are available, VcompFlag should be set to false and the measurements from regulated bus shall be connected with the input measurement signals (PRegPu, QRegPu, uPu, iPu). </p>
