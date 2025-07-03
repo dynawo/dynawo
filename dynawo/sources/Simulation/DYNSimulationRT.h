@@ -100,17 +100,17 @@ class SimulationRT: public Simulation {
    * @brief update curves : at the end of each iteration, new points are added to curve
    * @param updateCalculateVariable @b true is calculated variables should be updated
    */
-  void updateCurves(bool updateCalculateVariable = true);
+  void updateCurves(bool updateCalculateVariable = true) const override;
 
   /**
    * @brief launch the simulation
    */
-  void simulate();
+  void simulate() override;
 
   /**
    * @brief end the simulation : export data, curves,...
    */
-  void terminate();
+  void terminate() override;
 
  private:
    /**
