@@ -70,7 +70,7 @@ UpdatableBoolean::UpdatableBoolean() :
 ModelCPP("UpdatableBoolean"),
 inputValue_(0.),
 updated_(false) {
-  isUpdatableDuringSimulation_ = true;
+  needsInitFromConnectedModel_ = true;
 }
 
 void
@@ -191,36 +191,20 @@ UpdatableBoolean::defineParameters(vector<ParameterModeler>& parameters) {
 
 void
 UpdatableBoolean::setSubModelParameters() {
-  // not needed
+  if (findParameterDynamic("input_value").hasValue()) {
+    double parameterValue = fromNativeBool(findParameterDynamic("input_value").getValue<bool>());
+    if (!DYN::doubleEquals(parameterValue, inputValue_))
+      updated_ = true;
+    inputValue_ = parameterValue;
+  } else {
+    inputValue_ = fromNativeBool(false);
+  }
 }
 
 void
 UpdatableBoolean::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
   addElement("input", Element::STRUCTURE, elements, mapElement);
   addSubElement("value", "input", Element::TERMINAL, name(), modelType(), elements, mapElement);
-}
-
-void
-UpdatableBoolean::updateParameters(std::shared_ptr<ParametersSet>& parametersSet) {
-  const std::shared_ptr<Parameter> param = parametersSet->getParameter("input_value");
-  if (param->getType() == Parameter::ParameterType::BOOL) {
-    inputValue_ = fromNativeBool(param->getBool());
-    updated_ = true;
-    Trace::debug() << "UpdatableBoolean: updated value : " << inputValue_ << Trace::endline;
-  } else {
-    throw DYNError(Error::MODELER, ParameterBadType, param->getName());
-  }
-}
-
-void
-UpdatableBoolean::updateParameter(const std::string& name, double value)  {
-  if (!name.compare("input_value")) {
-    inputValue_ = value;
-    updated_ = true;
-    Trace::debug() << "UpdatableBoolean: updated value : " << inputValue_ << Trace::endline;
-  } else {
-    throw DYNError(Error::MODELER, ParameterNotDefined, name);
-  }
 }
 
 }  // namespace DYN
