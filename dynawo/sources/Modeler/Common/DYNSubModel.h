@@ -132,18 +132,6 @@ class SubModel {
    */
   virtual void collectSilentZ(BitMask* silentZTable) = 0;
 
-  /**
-   * @brief update parameters of modelica model
-   * @param parameterSet ParametersSet filled with external values
-   */
-  virtual void updateParameters(std::shared_ptr<parameters::ParametersSet>& parameterSet) {}
-
-  /**
-   * @brief update parameter of model
-   * @param name name of the parameter
-   */
-  virtual void updateParameter(const std::string& name, double value) {}
-
  public:
   /**
    * @brief Model F(t,y,y') function evaluation
@@ -1368,8 +1356,8 @@ class SubModel {
    * @brief Set updatable capability
    *
    */
-  void setIsUpdatableDuringSimulation(bool isUpdatableDuringSimulation) {
-    isUpdatableDuringSimulation_ = isUpdatableDuringSimulation;
+  void setNeedsInitFromConnectedModel_(bool needsInitFromConnectedModel_) {
+    needsInitFromConnectedModel_ = needsInitFromConnectedModel_;
   }
 
   /**
@@ -1377,8 +1365,8 @@ class SubModel {
   *
   * @return isUpdatableDuringSimulation
   */
-  inline bool getIsUpdatableDuringSimulation() const {
-    return isUpdatableDuringSimulation_;
+  inline bool getNeedsInitFromConnectedModel() const {
+    return needsInitFromConnectedModel_;
   }
 
   /**
@@ -1621,7 +1609,7 @@ class SubModel {
 
   std::shared_ptr<parameters::ParametersSet> localInitParameters_;  ///< local initialization solver parameters set
 
-  bool isUpdatableDuringSimulation_;
+  bool needsInitFromConnectedModel_;
 
  private:
   unsigned int sizeFSave_;  ///< save of the size of F
