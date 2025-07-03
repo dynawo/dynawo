@@ -15,63 +15,21 @@ within Dynawo.Electrical.Wind.WECC;
 
 model WTG3CurrentSource1 "WECC Wind Turbine model with a current source as interface with the grid and the mechanical controllers"
   extends Dynawo.Electrical.Controls.PLL.ParamsPLL;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREEC;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREGC;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREPC;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsWTGP;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsWTGAa;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsWTGQa;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsWTGT;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREEC;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECa;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGC;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGCa;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGP;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGAa;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGQa;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGT;
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
   // Line parameters
   parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
   parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
-
-  // REEC-A parameters
-  parameter Types.PerUnit VDLIp11 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp12 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp21 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp22 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp31 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp32 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp41 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp42 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq11 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq12 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq21 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq22 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq31 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq32 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq41 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq42 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.Time tHoldIpMax "Time delay for which the active current limit (ipMaxPu) is held after voltage dip vDip returns to zero for tHoldIpMax seconds at its value during the voltage dip" annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Real tHoldIq "Absolute value of tHoldIq defines seconds to hold current injection after voltage dip ended. tHoldIq > 0 for constant, 0 for no injection after voltage dip, tHoldIq < 0 for voltage-dependent injection (typical: -1 .. 1 s)" annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit IqFrzPu "Constant reactive current injection value (typical: -0.1 .. 0.1 pu)" annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Boolean PFlag "Power reference flag: const. Pref (0) or consider generator speed (1)" annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.VoltageModulePu VRef1Pu "User-defined reference/bias on the inner-loop voltage control (typical: 0 pu)" annotation(
-    Dialog(tab = "Electrical Control"));
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(
@@ -86,6 +44,7 @@ model WTG3CurrentSource1 "WECC Wind Turbine model with a current source as inter
     Placement(transformation(origin = {-110, -2}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Voltage setpoint for plant level control in pu (base UNom)" annotation(
     Placement(transformation(origin = {-110, -24}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+
   Dynawo.Electrical.Controls.WECC.Mechanical.WTGPa wecc_wtgp(Kiw = Kiw, Kpw = Kpw, Kic = Kic, Kpc = Kpc, Kcc = Kcc, tTheta = tTheta, ThetaMax = ThetaMax, ThetaMin = ThetaMin, ThetaRMax = ThetaRMax, ThetaRMin = ThetaRMin, PInj0Pu = PInj0Pu, Theta0 = Theta0) annotation(
     Placement(transformation(origin = {12, -56}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Controls.WECC.Mechanical.WTGAa wecc_wtga(Theta0 = Theta0, Ka = Ka, Pm0Pu = Pm0Pu) annotation(
@@ -94,11 +53,11 @@ model WTG3CurrentSource1 "WECC Wind Turbine model with a current source as inter
     Placement(transformation(origin = {-38, -56}, extent = {{-10, 10}, {10, -10}})));
   Dynawo.Electrical.Controls.WECC.Mechanical.WTGTa wecc_wtgt(Ht = Ht, Hg = Hg, Dshaft = Dshaft, Kshaft = Kshaft, PInj0Pu = PInj0Pu, Pm0Pu = Pm0Pu) annotation(
     Placement(transformation(origin = {113.692, -60.4443}, extent = {{-7.69229, -5.55557}, {7.69229, 5.55557}})));
-  Dynawo.Electrical.Controls.WECC.REGC.REGCbCS wecc_regc(IqrMaxPu = IqrMaxPu, IqrMinPu = IqrMinPu, tFilterGC = tFilterGC, tG = tG, RrpwrPu = RrpwrPu, UInj0Pu = UInj0Pu, Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, RateFlag = RateFlag) annotation(
+  Dynawo.Electrical.Controls.WECC.REGC.REGCa wecc_regc(IqrMaxPu = IqrMaxPu, IqrMinPu = IqrMinPu, tFilterGC = tFilterGC, tG = tG, RrpwrPu = RrpwrPu, UInj0Pu = UInj0Pu, Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, QInj0Pu = QInj0Pu, brkpt = brkpt, lvpl1 = lvpl1, Lvplsw = Lvplsw, zerox = zerox) annotation(
     Placement(transformation(origin = {200, -10}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Controls.WECC.REPC.REPCa wecc_repc(DDn = DDn, DUp = DUp, FreqFlag = FreqFlag, Kc = Kc, Ki = Ki, Kig = Kig, Kp = Kp, Kpg = Kpg, PGen0Pu = -P0Pu*SystemBase.SnRef/SNom, PInj0Pu = PInj0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, QGen0Pu = -Q0Pu*SystemBase.SnRef/SNom, QInj0Pu = QInj0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, RcPu = RPu, RefFlag = RefFlag, tFilterPC = tFilterPC, tFt = tFt, tFv = tFv, tLag = tLag, tP = tP, U0Pu = U0Pu, UInj0Pu = UInj0Pu, VCompFlag = VCompFlag, VFrz = VFrz, XcPu = XPu, DbdPu = DbdPu, EMaxPu = EMaxPu, EMinPu = EMinPu, FDbd1Pu = FDbd1Pu, FDbd2Pu = FDbd2Pu, FEMaxPu = FEMaxPu, FEMinPu = FEMinPu, iInj0Pu = iInj0Pu, u0Pu = u0Pu) annotation(
     Placement(transformation(origin = {104, -10}, extent = {{-10, -10}, {10, 10}})));
-  Electrical.Sources.InjectorIDQ injector(Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, P0Pu = -PInj0Pu*(SNom/SystemBase.SnRef), Q0Pu = -QInj0Pu*(SNom/SystemBase.SnRef), SNom = SNom, U0Pu = UInj0Pu, UPhase0 = UPhaseInj0, i0Pu = i0Pu, s0Pu = s0Pu, u0Pu = uInj0Pu) annotation(
+  Dynawo.Electrical.Sources.InjectorIDQ injector(Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, P0Pu = -PInj0Pu*(SNom/SystemBase.SnRef), Q0Pu = -QInj0Pu*(SNom/SystemBase.SnRef), SNom = SNom, U0Pu = UInj0Pu, UPhase0 = UPhaseInj0, i0Pu = i0Pu, s0Pu = s0Pu, u0Pu = uInj0Pu) annotation(
     Placement(transformation(origin = {236, -10}, extent = {{-10, 10}, {10, -10}}, rotation = -0)));
   Dynawo.Electrical.Controls.PLL.PLL pll(Ki = KiPLL, Kp = KpPLL, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, u0Pu = uInj0Pu) annotation(
     Placement(transformation(origin = {52, 52}, extent = {{-10, -10}, {10, 10}})));
@@ -123,7 +82,6 @@ model WTG3CurrentSource1 "WECC Wind Turbine model with a current source as inter
   parameter Types.ActivePowerPu P0Pu "Start value of active power at regulated bus in pu (base SnRef) (receptor convention)";
   parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at regulated bus in pu (base SnRef) (receptor convention)";
   parameter Types.VoltageModulePu U0Pu "Start value of voltage magnitude at regulated bus in pu (base UNom)";
-
   final parameter Types.VoltageModulePu URef0Pu = if VCompFlag == true then UInj0Pu else (U0Pu + Kc*Q0Pu*SystemBase.SnRef/SNom) "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
 
 equation

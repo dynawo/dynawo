@@ -14,7 +14,7 @@ within Dynawo.Electrical.Controls.WECC.Mechanical;
 */
 
 model WTGQa "WECC Torque Controller Type A"
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsWTGQa;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGQa;
 
   //Input variables
   Modelica.Blocks.Interfaces.RealInput omegaGPu(start = SystemBase.omegaRef0Pu) "Generator frequency in pu (base omegaNom)" annotation(
