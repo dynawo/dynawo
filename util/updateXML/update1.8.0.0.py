@@ -15,60 +15,35 @@ from content.Ticket import ticket
 # Modification from ImPin to input of generator's signals
 @ticket(1272)
 def update(jobs):
-    var_to_update = ["generator_omegaRefPu", "generator_PmPu", "generator_omegaPu", \
-                     "generator_efdPu", "generator_UStatorPu", "generator_IRotorPu", "generator_QStatorPu"]
-    var_to_update = ["generator_QStatorPu"]
     generators = jobs.dyds.get_bbms(lambda bbm: "GeneratorSynchronous" in bbm.get_lib_name())
     for generator in generators:
-        connects = generator.connects.get_connects()
-        for connect in connects:
-            for idx in ["1", "2"]:
-                id = connect.attrib['id' + idx]
-                var = connect.attrib['var' + idx]
-                other_idx = "2"
-                if idx == "2":
-                    other_idx = "1"
-                other_var = connect.attrib['var' + other_idx]
-                if id != generator.get_id() and (other_var in var_to_update or other_var.replace("_value","") in var_to_update):
-                    if "_value" not in other_var:
-                        connect.attrib['var' + idx] = var + "_value"
-        for var_name in var_to_update:
-            generator.connects.change_var_name(var_name + "_value", var_name)
+        for var in ["generator_omegaRefPu", "generator_PmPu", "generator_omegaPu", \
+                "generator_efdPu", "generator_UStatorPu", "generator_IRotorPu", "generator_QStatorPu"]:
+            generator.connects.change_var_name(var + "_value", var)
+            suffix_opposite_var_name(generator.connects,var,"_value")
 
-    var_to_update = ["setPoint_setPoint"]
     set_points = jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "SetPoint")
     for set_point in set_points:
-        connects = set_point.connects.get_connects()
-        for connect in connects:
-            for idx in ["1", "2"]:
-                id = connect.attrib['id' + idx]
-                var = connect.attrib['var' + idx]
-                other_idx = "2"
-                if idx == "2":
-                    other_idx = "1"
-                other_var = connect.attrib['var' + other_idx]
-                if id != set_point.get_id() and (other_var in var_to_update):
-                    if "_value" not in other_var:
-                        connect.attrib['var' + idx] = var + "_value"
-    for set_point in set_points:
-        for var_name in var_to_update:
-            set_point.connects.change_var_name(var_name + "_value", var_name)
+        set_point.connects.change_var_name("setPoint_setPoint_value","setPoint_setPoint")
+        suffix_opposite_var_name(set_point.connects,"setPoint_setPoint","_value")
 
-    var_to_update = ["step_step"]
     steps = jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "Step")
     for step in steps:
-        connects = step.connects.get_connects()
-        for connect in connects:
-            for idx in ["1", "2"]:
-                id = connect.attrib['id' + idx]
-                var = connect.attrib['var' + idx]
-                other_idx = "2"
-                if idx == "2":
-                    other_idx = "1"
-                other_var = connect.attrib['var' + other_idx]
-                if id != step.get_id() and (other_var in var_to_update):
-                    if "_value" not in other_var:
-                        connect.attrib['var' + idx] = var + "_value"
-    for step in steps:
-        for var_name in var_to_update:
-            step.connects.change_var_name(var_name + "_value", var_name)
+        step.connects.change_var_name("step_step_value","step_step")
+        suffix_opposite_var_name(step.connects,"step_step","_value")
+
+def suffix_opposite_var_name(connects, var, suffix):
+    """
+    Add suffix to the variable on the other side of all connects in which var appears
+
+    Parameters:
+        connects (Connects): the connects member of a model
+        var (str): variable to filter the connects by
+        suffix (str): suffix to add to the opposite var of a connect
+    """
+    for idx in ["1", "2"]:
+        filtered_connects = connects.get_connects_with_var(var,idx)
+        oppIdx = str(3-int(idx))
+        for connect in filtered_connects:
+            if not connect.attrib['var' + oppIdx].endswith(suffix):
+                connect.attrib['var' + oppIdx] += suffix
