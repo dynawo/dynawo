@@ -490,7 +490,7 @@ class ModelMulti : public Model, private boost::noncopyable {
     connectorSubModel->name(name);
     connectorSubModel->setVariableName(variable->getName());
     connectorSubModel->setParams(subModel, variable->getIndex());
-    connectorSubModel->setIsUpdatableDuringSimulation(isUpdatable);
+    connectorSubModel->setNeedsInitFromConnectedModel_(isUpdatable);
     return boost::dynamic_pointer_cast<SubModel>(connectorSubModel);
   }
 

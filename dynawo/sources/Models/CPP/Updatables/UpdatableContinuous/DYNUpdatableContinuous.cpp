@@ -70,7 +70,7 @@ UpdatableContinuous::UpdatableContinuous() :
 ModelCPP("UpdatableContinuous"),
 inputValue_(0.),
 updated_(false) {
-  isUpdatableDuringSimulation_ = true;
+  needsInitFromConnectedModel_ = true;
 }
 
 void
@@ -191,36 +191,19 @@ UpdatableContinuous::defineParameters(vector<ParameterModeler>& parameters) {
 
 void
 UpdatableContinuous::setSubModelParameters() {
-  // not needed
+  if (findParameterDynamic("input_value").hasValue()) {
+    double parameterValue = findParameterDynamic("input_value").getValue<double>();
+    if (!DYN::doubleEquals(parameterValue, inputValue_))
+      updated_ = true;
+    inputValue_ = parameterValue;
+  }
 }
+
 
 void
 UpdatableContinuous::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
   addElement("input", Element::STRUCTURE, elements, mapElement);
   addSubElement("value", "input", Element::TERMINAL, name(), modelType(), elements, mapElement);
-}
-
-void
-UpdatableContinuous::updateParameters(std::shared_ptr<ParametersSet>& parametersSet) {
-  const std::shared_ptr<Parameter> param = parametersSet->getParameter("input_value");
-  if (param->getType() == Parameter::ParameterType::DOUBLE) {
-    inputValue_ = param->getDouble();
-    updated_ = true;
-    Trace::debug() << "UpdatableContinuous: updated value : " << inputValue_ << Trace::endline;
-  } else {
-    throw DYNError(Error::MODELER, ParameterBadType, param->getName());
-  }
-}
-
-void
-UpdatableContinuous::updateParameter(const std::string& name, double value)  {
-  if (!name.compare("input_value")) {
-    inputValue_ = value;
-    updated_ = true;
-    Trace::debug() << "UpdatableContinuous: updated value : " << inputValue_ << Trace::endline;
-  } else {
-    throw DYNError(Error::MODELER, ParameterNotDefined, name);
-  }
 }
 
 }  // namespace DYN

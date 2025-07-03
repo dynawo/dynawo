@@ -70,7 +70,7 @@ UpdatableInteger::UpdatableInteger() :
 ModelCPP("UpdatableInteger"),
 inputValue_(0.),
 updated_(false) {
-  isUpdatableDuringSimulation_ = true;
+  needsInitFromConnectedModel_ = true;
 }
 
 void
@@ -191,36 +191,20 @@ UpdatableInteger::defineParameters(vector<ParameterModeler>& parameters) {
 
 void
 UpdatableInteger::setSubModelParameters() {
-  // not needed
+  if (findParameterDynamic("input_value").hasValue()) {
+    double parameterValue = findParameterDynamic("input_value").getValue<int>();
+    if (!DYN::doubleEquals(parameterValue, inputValue_))
+      updated_ = true;
+    inputValue_ = parameterValue;
+  } else {
+    inputValue_ = 0;
+  }
 }
 
 void
 UpdatableInteger::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
   addElement("input", Element::STRUCTURE, elements, mapElement);
   addSubElement("value", "input", Element::TERMINAL, name(), modelType(), elements, mapElement);
-}
-
-void
-UpdatableInteger::updateParameters(std::shared_ptr<ParametersSet>& parametersSet) {
-  const std::shared_ptr<Parameter> param = parametersSet->getParameter("input_value");
-  if (param->getType() == Parameter::ParameterType::INT) {
-    inputValue_ = param->getInt();
-    updated_ = true;
-    Trace::debug() << "UpdatableInteger: updated value : " << inputValue_ << Trace::endline;
-  } else {
-    throw DYNError(Error::MODELER, ParameterBadType, param->getName());
-  }
-}
-
-void
-UpdatableInteger::updateParameter(const std::string& name, double value)  {
-  if (!name.compare("input_value")) {
-    inputValue_ = value;
-    updated_ = true;
-    Trace::debug() << "UpdatableInteger: updated value : " << inputValue_ << Trace::endline;
-  } else {
-    throw DYNError(Error::MODELER, ParameterNotDefined, name);
-  }
 }
 
 }  // namespace DYN
