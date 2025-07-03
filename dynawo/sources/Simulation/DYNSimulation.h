@@ -184,7 +184,7 @@ class Simulation {
   /**
    * @brief launch the simulation
    */
-  void simulate();
+  virtual void simulate();
 
   /**
    * @brief destroy all allocated objected during the simulation
@@ -529,7 +529,7 @@ class Simulation {
   /**
    * @brief end the simulation : export data, curves,...
    */
-  void terminate();
+  virtual void terminate();
 
   /**
    * @brief print curves output of the simulation in the given stream
@@ -638,7 +638,7 @@ class Simulation {
    * @brief update curves : at the end of each iteration, new points are added to curve
    * @param updateCalculateVariable @b true is calculated variables should be updated
    */
-  void updateCurves(bool updateCalculateVariable = true) const;
+  virtual void updateCurves(bool updateCalculateVariable = true) const;
 
   /**
    * @brief dump the current time of the simulation in a file
