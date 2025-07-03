@@ -107,7 +107,7 @@ void
 SimulationRT::configureRT() {
   if (jobEntry_->getSimulationEntry()->getPublishToZmq()) {
     stepPublisher_ = std::make_shared<ZmqPublisher>();
-    std::cout << "ZMQ publisher server started" << std::endl;
+    std::cout << "ZMQ publisher started" << std::endl;
   }
   if (jobEntry_->getSimulationEntry()->getTimeSync()) {
     timeManager_ = std::make_shared<TimeManager>(
@@ -118,6 +118,7 @@ SimulationRT::configureRT() {
   if (subscribeActions || subscribeTrigger) {
     triggerSimulationTimeStepInS_ = jobEntry_->getSimulationEntry()->getTriggerSimulationTimeStepInS();
     eventSubscriber_ = std::make_shared<EventSubscriber>(subscribeTrigger, subscribeActions, subscribeActions & !subscribeTrigger);
+    std::cout << "ZMQ EventSubscriber started" << std::endl;
   }
   if (jobEntry_->getSimulationEntry()->getPublishToWebsocket()) {
     wsServer_ = std::make_shared<wsc::WebsocketServer>();
@@ -148,7 +149,7 @@ SimulationRT::configureRT() {
 }
 
 void
-SimulationRT::updateCurves(bool updateCalculateVariable) {
+SimulationRT::updateCurves(bool updateCalculateVariable) const {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SimulationRT::updateCurves()");
 #endif
@@ -164,6 +165,8 @@ SimulationRT::updateCurves(bool updateCalculateVariable) {
 
 void
 SimulationRT::simulate() {
+  std::cout << "---- simulate ----" << std::endl;
+
   Timer timer("SimulationRT::simulate()");
   if (eventSubscriber_) {
     eventSubscriber_->setModel(model_);
