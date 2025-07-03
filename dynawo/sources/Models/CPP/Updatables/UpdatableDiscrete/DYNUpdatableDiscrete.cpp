@@ -70,7 +70,7 @@ UpdatableDiscrete::UpdatableDiscrete() :
 ModelCPP("UpdatableDiscrete"),
 inputValue_(0.),
 updated_(false) {
-  isUpdatableDuringSimulation_ = true;
+  needsInitFromConnectedModel_ = true;
 }
 
 void
@@ -191,44 +191,19 @@ UpdatableDiscrete::defineParameters(vector<ParameterModeler>& parameters) {
 
 void
 UpdatableDiscrete::setSubModelParameters() {
-  // not needed
+  if (findParameterDynamic("input_value").hasValue()) {
+    double parameterValue = findParameterDynamic("input_value").getValue<double>();
+    if (!DYN::doubleEquals(parameterValue, inputValue_))
+      updated_ = true;
+    inputValue_ = parameterValue;
+  }
 }
+
 
 void
 UpdatableDiscrete::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
   addElement("input", Element::STRUCTURE, elements, mapElement);
   addSubElement("value", "input", Element::TERMINAL, name(), modelType(), elements, mapElement);
-}
-
-void
-UpdatableDiscrete::updateParameters(std::shared_ptr<ParametersSet>& parametersSet) {
-  const std::shared_ptr<Parameter> param = parametersSet->getParameter("input_value");
-  if (param->getType() == Parameter::ParameterType::INT) {
-    inputValue_ = param->getInt();
-    updated_ = true;
-    Trace::debug() << "UpdatableDiscrete: updated int value : " << inputValue_ << Trace::endline;
-  } else if (param->getType() == Parameter::ParameterType::BOOL) {
-    inputValue_ = param->getBool();
-    updated_ = true;
-    Trace::debug() << "UpdatableDiscrete: updated bool value : " << inputValue_ << Trace::endline;
-  } else if (param->getType() == Parameter::ParameterType::DOUBLE) {
-    inputValue_ = param->getDouble();
-    updated_ = true;
-    Trace::debug() << "UpdatableDiscrete: updated double value : " << inputValue_ << Trace::endline;
-  } else {
-    throw DYNError(Error::MODELER, ParameterBadType, param->getName());
-  }
-}
-
-void
-UpdatableDiscrete::updateParameter(const std::string& name, double value)  {
-  if (!name.compare("input_value")) {
-    inputValue_ = value;
-    updated_ = true;
-    Trace::debug() << "UpdatableDiscrete --> updated value : " << inputValue_ << Trace::endline;
-  } else {
-    throw DYNError(Error::MODELER, ParameterNotDefined, name);
-  }
 }
 
 }  // namespace DYN

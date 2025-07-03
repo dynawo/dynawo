@@ -289,12 +289,6 @@ class ConnectorCalculatedVariable : public SubModel {
     variableName_ = variableName;
   }
 
-  /**
-   * @brief update parameter of model
-   * @param name name of the parameter
-   */
-  void updateParameter(const std::string& name, double value) override;
-
  private:
   // !!! We assume that the model variables starts at yLocal_[1] and ypLocal_[1]
   boost::shared_ptr<SubModel> model_;  ///< Model where the calculated variable is located.

@@ -225,11 +225,4 @@ ConnectorCalculatedVariable::loadVariables(const string& /*variables*/) {
   // no variable
 }
 
-void
-ConnectorCalculatedVariable::updateParameter(const std::string& name, double value)  {
-  model_->updateParameter(name, value);
-}
-
-
-
 }  // namespace DYN

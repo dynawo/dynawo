@@ -233,16 +233,6 @@ class UpdatableDiscrete : public ModelCPP {
    * @copydoc ModelCPP::initParams()
    */
   void initParams() override { /* not needed */ }
-  /**
-  * @brief update parameter
-  * @param parameterSet ParametersSet filled with external values
-  */
-  void updateParameters(std::shared_ptr<parameters::ParametersSet>& parametersSet) override;
-  /**
-   * @brief update parameter of model
-   * @param name name of the parameter
-   */
-  void updateParameter(const std::string& name, double value) override;
 
  private:
   double inputValue_;      ///< updatable value
