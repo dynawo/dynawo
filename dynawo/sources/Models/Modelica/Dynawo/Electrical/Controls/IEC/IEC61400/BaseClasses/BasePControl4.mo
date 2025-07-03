@@ -13,12 +13,10 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses;
 */
 
 partial model BasePControl4 "Base active power control module for type 4 wind turbines (IEC N°61400-27-1)"
-
   /*
-    An anti-windup has been added to the first order filter
-    because the standard does not specify any change of behavior when the limits are reached.
+  An anti-windup has been added to the first order filter
+  because the standard does not specify any change of behavior when the limits are reached.
   */
-
   //Nominal parameter
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
 
@@ -29,11 +27,11 @@ partial model BasePControl4 "Base active power control module for type 4 wind tu
   //Input variables
   Modelica.Blocks.Interfaces.RealInput ipMaxPu(start = IpMax0Pu) "Maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-180, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput PWTRefPu(start = -P0Pu * SystemBase.SnRef / SNom ) "Active power reference at grid terminal in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PWTRefPu(start = ip0Pu * U0Pu) "Active power reference at grid terminal in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-180, -100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Output variable
-  Modelica.Blocks.Interfaces.RealOutput ipCmdPu(start = -P0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Active current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput ipCmdPu(start = ip0Pu) "Active current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {170, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Math.Product product1 annotation(
@@ -44,12 +42,14 @@ partial model BasePControl4 "Base active power control module for type 4 wind tu
     Placement(visible = true, transformation(origin = {70, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 0.01) annotation(
     Placement(visible = true, transformation(origin = {10, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFirstOrderAntiWindup absLimRateLimFirstOrderAntiWindup(DyMin = -999, Kaw = Kpaw, UseLimits = true, Y0 = -P0Pu * SystemBase.SnRef / SNom, YMax = 999) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFirstOrderAntiWindup absLimRateLimFirstOrderAntiWindup(DyMin = -999, Kaw = Kpaw, UseLimits = true, Y0 = ip0Pu*U0Pu, YMax = 999) annotation(
     Placement(visible = true, transformation(origin = {90, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const2(k = -999) annotation(
     Placement(visible = true, transformation(origin = {50, -68}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
+  parameter Types.CurrentModulePu ip0Pu "Initial active current component at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
   parameter Types.PerUnit IpMax0Pu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
   parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
