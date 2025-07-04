@@ -56,7 +56,7 @@ class CurrentLimitInterfaceIIDM : public CurrentLimitInterface {
  private:
   double limit_;                             ///< limit of the current limit
   unsigned long acceptableDuration_;         ///< authorized duration over the limit
-  double fictitious_;                        ///< whether the limit is fictitious
+  bool fictitious_;                         ///< whether the limit is fictitious
 };                                 ///< class for Current limit interface
 }  // namespace DYN
 
