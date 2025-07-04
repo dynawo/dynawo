@@ -110,7 +110,11 @@ class IIDMExtensions {
       Trace::warn() << DYNLog(IIDMExtensionNoCreate, name, libPath, createName) << Trace::endline;
       return buildDefaultExtensionDefinition<T>();
     }
-    auto createFunc = import<CreateFunctionBase<T>>(*extensionLibrary, createName);
+#if (BOOST_VERSION >= 107600)
+    auto createFunc = boost::dll::import_symbol<CreateFunctionBase<T>>(*extensionLibrary, createName.c_str());
+#else
+    auto createFunc = boost::dll::import<CreateFunctionBase<T>>(*extensionLibrary, createName.c_str());
+#endif
 
     std::string destroyName = "destroy" + std::string(name);
     if (!extensionLibrary->has(destroyName)) {
@@ -118,7 +122,11 @@ class IIDMExtensions {
       Trace::warn() << DYNLog(IIDMExtensionNoDestroy, name, libPath, destroyName) << Trace::endline;
       return buildDefaultExtensionDefinition<T>();
     }
-    auto destroyFunc = import<DestroyFunctionBase<T> >(*extensionLibrary, destroyName);
+#if (BOOST_VERSION >= 107600)
+    auto destroyFunc = boost::dll::import_symbol<DestroyFunctionBase<T>>(*extensionLibrary, destroyName.c_str());
+#else
+    auto destroyFunc = boost::dll::import<DestroyFunctionBase<T>>(*extensionLibrary, destroyName.c_str());
+#endif
 
     return ExtensionDefinition<T>(createFunc, destroyFunc);
   }

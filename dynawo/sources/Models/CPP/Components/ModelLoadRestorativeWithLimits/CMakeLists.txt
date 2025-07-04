@@ -31,6 +31,11 @@ target_include_directories(${MODEL_NAME} SYSTEM
   $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
   )
 
+target_link_libraries(${MODEL_NAME}
+  PRIVATE
+    Boost::serialization
+)
+
 if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
   add_subdirectory(test)
 endif()

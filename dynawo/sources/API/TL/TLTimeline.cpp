@@ -25,6 +25,7 @@
 
 #include <vector>
 #include <set>
+#include <map>
 
 using std::string;
 using std::vector;
