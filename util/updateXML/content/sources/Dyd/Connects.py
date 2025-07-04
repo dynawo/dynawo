@@ -44,6 +44,29 @@ class Connects:
     #   USER METHODS
     # ---------------------------------------------------------------
 
+    def get_connects_with_var(self, var, idx):
+        """
+        Get the list of connects associated with var, where var is on side idx of the connect
+
+        Parameters:
+            var (str): variable to filter the connects by
+            idx (str): either "1" or "2", whether var is on "var1" or "var2" side of the connect
+
+        Returns:
+            the list of filtered connects
+        """
+        connects = list()
+
+        xpath = './dyn:' + self.__connect_type.name + '[@id' + idx + '="' + self.__model_id + '" and @var' + idx + '="' + var + '"]'
+        connects.extend(self.__parent_xml_tree.xpath(xpath, namespaces=NAMESPACE_URI))
+
+        for macro_connect in self.__parent_xml_tree.xpath('./dyn:macroConnect[@id' + idx + '="' + self.__model_id + '"]', namespaces=NAMESPACE_URI):
+            xpath = './dyn:macroConnector[@id="' + macro_connect.attrib['connector'] + '"]/dyn:connect[@var' + idx + '="' + var + '"]'
+            connects.extend(self.__parent_xml_tree.xpath(xpath, namespaces=NAMESPACE_URI))
+
+        return connects
+
+
     def change_var_name(self, current_var, new_var):
         """
         Modify var attribute
@@ -52,28 +75,9 @@ class Connects:
             current_var (str): current var name to change
             new_var (str): new var name to change
         """
-        connect_to_modify = list()
         for idx in ["1", "2"]:
-
-            connect_xpath = './dyn:' + self.__connect_type.name + '[@id' + idx + '="' + self.__model_id + \
-                            '" and @var' + idx + '="' + current_var + '"]'
-            connect = self.__parent_xml_tree.xpath(connect_xpath, namespaces=NAMESPACE_URI)
-            connect_to_modify.extend(connect)
-
-            macro_connects_xpath = './dyn:macroConnect[@id' + idx + '="' + self.__model_id + '"]'
-            macro_connects = self.__parent_xml_tree.xpath(macro_connects_xpath, namespaces=NAMESPACE_URI)
-            for macro_connect in macro_connects:
-                macro_connector_connect_xpath = './dyn:macroConnector[@id="' + macro_connect.attrib['connector'] + \
-                                                    '"]/dyn:connect[@var' + idx + '="' + current_var + '"]'
-                macro_connector_connect = self.__parent_xml_tree.xpath(macro_connector_connect_xpath, namespaces=NAMESPACE_URI)
-                connect_to_modify.extend(macro_connector_connect)
-
-            if len(connect_to_modify) == 0:
-                pass  # nothing to do
-            else:
-                for connect in connect_to_modify:
-                    connect.attrib['var' + idx] = new_var
-                connect_to_modify.clear()
+            for connect in self.get_connects_with_var(current_var,idx):
+                connect.attrib['var' + idx] = new_var
 
     def add_connect(self, var1, id2, var2):
         """
