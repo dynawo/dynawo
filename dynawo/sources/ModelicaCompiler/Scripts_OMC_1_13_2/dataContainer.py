@@ -12,6 +12,7 @@
 # simulation tool for power systems.
 
 import re
+import sys
 import copy
 
 from utils import *
@@ -764,8 +765,8 @@ class Variable:
         # Difficult to do this with a regex and a sub, so we use
         # the function "sub_division_sim()" (see utils.py)
         txt_tmp = []
-        ptrn_assign_var = re.compile(r'^[ ]*data->modelData->[\w\[\]]*\.attribute[ ]*\/\*.*\*\/.start[ ]*=[ ]*(?P<initVal>[^;]*);$')
-        ptrn_local_var = re.compile(r'^[ ]*[^;]*=[ ]*data->modelData->[\w\[\]]*\.attribute[ ]*\/\*.*\*\/.start[ ]*;$')
+        ptrn_assign_var = re.compile(r'^[ ]*\(data->modelData->[\w\[\]]*[ ]*\/\*.*\*\/\)\.attribute[ ]*\.start[ ]*=[ ]*(?P<initVal>[^;]*);$')
+        ptrn_local_var = re.compile(r'^[ ]*[^;]*=[ ]*\(data->modelData->[\w\[\]]*[ ]*\/\*.*\*\/\)\.attribute[ ]*\.start[ ]*;$')
         for line in self.start_text:
             if has_omc_trace (line) or has_omc_equation_indexes (line) or ptrn_local_var.match(line) or "infoStreamPrint" in line:
                 continue
@@ -789,6 +790,16 @@ class Variable:
 
         self.start_text = txt_tmp
 
+    def should_use_default_start(self, list_omc_functions):
+        tmp_abs_var_prtn = re.compile(r'[\(]+data->localData\[0\]->realVars\[[0-9+]\][ ]*\/\*\s*\$TMP\$VAR\$[0-9]+\$0X\$ABS\s*variable\s*\*\/[\)]+\s*\>\= 0.0 \? 1.0\:-1.0\)\)\s*\*')
+        for line in self.start_text_06inz:
+            if re.search(tmp_abs_var_prtn, line) is not None:
+                return True
+            for func in list_omc_functions:
+                if func.get_name() == "omc_Modelica_Blocks_Tables_Internal_getNextTimeEvent": continue
+                if func.get_name().startswith("omc_") and func.get_name() in line:
+                    return True
+        return False
     ##
     # Erase some part of the start text used in 06inz file : {/} at the begin/end of the body
     # Replace some macro created by omc (DIVISION(a1,a2,a3) => a1/a2 ...
@@ -805,11 +816,11 @@ class Variable:
             self.start_text_06inz.pop(0)
             self.start_text_06inz.pop()
 
-            tmp_abs_var_prtn = re.compile(r'\(\(data->localData\[0\]->realVars\[[0-9+]\] \/\*\s*\$TMP\$VAR\$[0-9]+\$0X\$ABS\s*variable\s*\*\/\s*\>\= 0.0 \? 1.0\:-1.0\)\)\s*\*')
+            tmp_abs_var_prtn = re.compile(r'[\(]+data->localData\[0\]->realVars\[[0-9+]\][ ]*\/\*\s*\$TMP\$VAR\$[0-9]+\$0X\$ABS\s*variable\s*\*\/[\)]+\s*\>\= 0.0 \? 1.0\:-1.0\)\)\s*\*')
 
             txt_tmp = []
             for line in self.start_text_06inz:
-                if has_omc_trace (line) or has_omc_equation_indexes (line):
+                if has_omc_trace (line) or has_omc_equation_indexes (line)or "infoStreamPrint" in line:
                     continue
 
                 # Replace DIVISION(a1,a2,a3,a4) by a1 / a2
@@ -1206,13 +1217,13 @@ class RawOmcFunctions:
     # @param line_with_call: line to analyze
     # @return outputs variable list
     def find_outputs_from_call(self, line_with_call):
-        ptrn_var_assigned = re.compile(r'[ ]*data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*'+self.name+'[ ]*\((?P<rhs>[^;]+);')
+        ptrn_var_assigned = re.compile(r'[ \(]*data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ \)]* = [ ]*'+self.name+'[ ]*\((?P<rhs>[^;]+);')
         match = re.match(ptrn_var_assigned, line_with_call)
         outputs = []
         if match is not None:
             variable_name = self.remove_variable_type_from_param(match.group("varName"))
             outputs.append(variable_name)
-            ptrn_var= re.compile(r'[ ]*&data->localData(\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]*')
+            ptrn_var= re.compile(r'[ ]*&\(data->localData(\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ \)]*')
             variables = re.findall(ptrn_var, match.group("rhs"))
             for output_param in variables:
                 param_variable_name = self.remove_variable_type_from_param(output_param[1])
@@ -1226,11 +1237,11 @@ class RawOmcFunctions:
     # @param line_with_call: line to analyze
     # @return inputs variable list
     def find_inputs_from_call(self, line_with_call):
-        ptrn_var_assigned = re.compile(r'[ ]*data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*'+self.name+'[ ]*\((?P<rhs>[^;]+);')
+        ptrn_var_assigned = re.compile(r'[ \(]*data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ \)]* = [ ]*'+self.name+'[ ]*\((?P<rhs>[^;]+);')
         match = re.match(ptrn_var_assigned, line_with_call)
         inputs = []
         if match is not None:
-            ptrn_var= re.compile(r'[ ]*[^&]data->localData(\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]*')
+            ptrn_var= re.compile(r'[ ]*[^&]\(data->localData(\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ \)]*')
             variables = re.findall(ptrn_var, match.group("rhs"))
             for input_param in variables:
                 param_variable_name = self.remove_variable_type_from_param(input_param[1])
@@ -1262,6 +1273,8 @@ class EqMaker():
         self.depend_vars = []
         ## whether this equation is differential or not
         self.type = UNDEFINED_TYPE
+        ## whether this equation is complex or not
+        self.complex_eq = False
 
         ## For whenCondition, index of the relation associated to this equation
         self.num_relation = ""
@@ -1325,6 +1338,13 @@ class EqMaker():
     # @param type new type of the equation
     def set_type(self, type):
         self.type = type
+
+    ##
+    # set whether this equation is complex
+    # @param self : object pointer
+    # @param complex_eq whether this equation is complex
+    def set_complex_eq(self, complex_eq):
+        self.complex_eq = complex_eq
 
     ##
     # Get the name of the equation maker
@@ -1402,10 +1422,10 @@ class EqMaker():
         body_tmp = []
         for line in self.body_func:
             line_tmp = mmc_strings_len1(line)
-            if "threadData" in line_tmp:
-                line_tmp=line_tmp.replace(THREAD_DATA_OMC_PARAM, "")
-            elif "throwStream" in line_tmp:
+            if "throwStream" in line_tmp:
                 line_tmp = throw_stream_indexes(line_tmp)
+            elif "threadData" in line_tmp:
+                line_tmp=line_tmp.replace(THREAD_DATA_OMC_PARAM, "")
             if "omc_assert_warning" in line_tmp:
                 line_tmp = line_tmp.replace(INFO_OMC_PARAM,"")
             body_tmp.append(line_tmp)
@@ -1425,8 +1445,9 @@ class EqMaker():
                          self.evaluated_var_address, \
                          self.get_depend_vars(), \
                          self.name, \
-                         self.num_omc,
-                         self.type )
+                         self.num_omc, \
+                         self.type, \
+                         self.complex_eq)
 
 
 ##
@@ -1442,11 +1463,11 @@ class EquationBase:
     # @param depend_vars : variables used in the equation
     # @param comes_from : name of the function using the equation
     # @param num_omc : index of the equation in omc arrays
-    def __init__(self, body = None, eval_var = None, evaluated_var_address = None, depend_vars = None, comes_from = None, num_omc = None, type = ALGEBRAIC):
+    def __init__(self, body = None, eval_var = None, evaluated_var_address = None, depend_vars = None, comes_from = None, num_omc = None, type = ALGEBRAIC, complex_eq = False):
         ## pattern to identify the variable evaluated
-        self.ptrn_evaluated_var = re.compile(r'data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*(?P<rhs>[^;]+);')
+        self.ptrn_evaluated_var = re.compile(r'[\(]*data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ \)]*[^=]=[^=][ ]*(?P<rhs>[^;]+);')
         ## pattern to identify the residual variable evaluated
-        self.ptrn_residual_var = re.compile(r'[ ]*\$P\$DAEres(?P<residualIdx>[0-9]+)[ ]*=[^;]+;')
+        self.ptrn_residual_var = re.compile(r'[\(]*data->simulationInfo->daeModeData->residualVars\[(?P<residualIdx>[0-9]+)\][ \)]*/\*\s*(?P<varName>[ \w\$\.()\[\],]*) DAE_RESIDUAL_VAR\s*\*\/[\) ]*=[ ]*(?P<rhs>[^;]+);')
 
         ##  name of the function using the equation
         self.comes_from = ""
@@ -1464,6 +1485,8 @@ class EquationBase:
         self.body = []
         ## type of the equation (one of DIFFERENTIAL, ALGEBRAIC, MIXED)
         self.type = type
+        ## whether this equation is complex or not
+        self.complex_eq = complex_eq
 
 
         if body is not None:
@@ -1589,8 +1612,8 @@ class Equation(EquationBase):
     # @param depend_vars : variables used in the equation
     # @param comes_from : name of the function using the equation
     # @param num_omc : index of the equation in omc arrays
-    def __init__(self, body = None, eval_var = None, evaluated_var_address = None, depend_vars = None, comes_from = None, num_omc = None, type = ALGEBRAIC):
-        EquationBase.__init__(self, body, eval_var, evaluated_var_address, depend_vars, comes_from, num_omc, type)
+    def __init__(self, body = None, eval_var = None, evaluated_var_address = None, depend_vars = None, comes_from = None, num_omc = None, type = ALGEBRAIC, complex_eq = False):
+        EquationBase.__init__(self, body, eval_var, evaluated_var_address, depend_vars, comes_from, num_omc, type, complex_eq)
 
     ##
     # retrieve the body formatted for Modelica reinit affectation
@@ -1618,6 +1641,7 @@ class Equation(EquationBase):
             if "throwStreamPrint" in line:
                 with_throw = True
                 break
+        index = self.get_num_dyn()
         for line in self.body:
             line = mmc_strings_len1(line)
 
@@ -1628,15 +1652,22 @@ class Equation(EquationBase):
                 continue
 
             line = sub_division_sim(line)
-            line = replace_var_names(line)
+            line = replace_relationhysteresis(line)
 
             if re.search(self.ptrn_residual_var, line) is not None:
+                equality = self.ptrn_residual_var.sub(r'  f[%d] = data->simulationInfo->daeModeData->residualVars[\g<1>] /* \g<2> DAE_RESIDUAL_VAR */;' % self.get_num_dyn(), line)
+                line = replace_var_names(line)
+                equality = replace_var_names(equality)
                 text_to_return.append( line )
-                text_to_return.append( self.ptrn_residual_var.sub(r'  f[%d] = $P$DAEres\g<1>;' % self.get_num_dyn(), line) )
+                text_to_return.append( equality )
             elif re.search(self.ptrn_evaluated_var, line) is None:
+                line = replace_var_names(line)
                 text_to_return.append( line )
             else:
-                text_to_return.append( self.ptrn_evaluated_var.sub(r'f[%d] = data->localData\g<1> /* \g<2> */ - ( \g<3> );' % self.get_num_dyn(), line) )
+                line = replace_var_names(line)
+                text_to_return.append( self.ptrn_evaluated_var.sub(r'f[%d] = data->localData\g<1> /* \g<2> */ - ( \g<3> );' % index, line) )
+                if self.complex_eq:
+                    index += 1
         return text_to_return
 
     ##
@@ -1650,26 +1681,28 @@ class Equation(EquationBase):
             if "throwStreamPrint" in line:
                 with_throw = True
                 break
+        index = self.get_num_dyn()
         for line in self.body:
             line = mmc_strings_len1(line)
             line_tmp = transform_line_adept(line)
 
-            if has_omc_trace (line) or has_omc_equation_indexes (line) or ("infoStreamPrint" in line)\
-                   or ("data->simulationInfo->needToIterate = 1") in line:
+            if has_omc_trace (line_tmp) or has_omc_equation_indexes (line_tmp) or ("infoStreamPrint" in line_tmp)\
+                   or ("data->simulationInfo->needToIterate = 1") in line_tmp:
                 continue
-            if "omc_assert_warning" in line and with_throw:
+            if "omc_assert_warning" in line_tmp and with_throw:
                 continue
 
             line_tmp = sub_division_sim(line_tmp)
             if "delayImpl" in line_tmp:
                 line_tmp = line_tmp.replace("delayImpl", "derDelayImpl")
             if re.search(self.ptrn_residual_var, line_tmp) is not None:
-                text_to_return.append( line_tmp )
-                text_to_return.append( self.ptrn_residual_var.sub(r'  res[%d] = $DAEres\g<1>;' % self.get_num_dyn(), line) )
+                text_to_return.append( self.ptrn_residual_var.sub(r'  res[%d] = \g<3>;' % self.get_num_dyn(), line_tmp) )
             elif re.search(self.ptrn_evaluated_var, line_tmp) is None:
                 text_to_return.append( line_tmp )
             else:
-                text_to_return.append( self.ptrn_evaluated_var.sub(r'res[%d] = data->localData\g<1> /* \g<2> */ - ( \g<3> );' % self.get_num_dyn(), line_tmp) )
+                text_to_return.append( self.ptrn_evaluated_var.sub(r'res[%d] = data->localData\g<1> /* \g<2> */ - ( \g<3> );' % index, line_tmp) )
+                if self.complex_eq:
+                    index += 1
         return text_to_return
 
 ##
@@ -1805,6 +1838,8 @@ class RootObject:
         double_equality_prtn = re.compile(r'\(data->localData\[0\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/ == data->localData\[0\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/\)')
         for line in self.body_for_num_relation:
             line = replace_var_names(line)
+            line = replace_relationhysteresis(line)
+            line = throw_stream_indexes(line)
             if i == 0 or i == len(self.body_for_num_relation)-1:
                 i = i + 1
                 continue
@@ -1907,6 +1942,7 @@ class INTEquation:
         tmp_body=[]
         for line in self.body:
             line = transform_line(line)
+            line = throw_stream_indexes(line)
             if not has_omc_equation_indexes (line):
                 if THREAD_DATA_OMC_PARAM in line:
                     line=line.replace(THREAD_DATA_OMC_PARAM, "")
@@ -1964,6 +2000,7 @@ class ZEquation:
         tmp_body=[]
         for line in self.body:
             line = transform_line(line)
+            line = throw_stream_indexes(line)
             if not has_omc_equation_indexes (line):
                 if THREAD_DATA_OMC_PARAM in line:
                     line=line.replace(THREAD_DATA_OMC_PARAM, "")
@@ -2008,6 +2045,9 @@ class Warn:
                 with_variable = True
 
         self.is_parameter_warning = not with_variable
+
+        equality_prtn = re.compile(r'\(data->localData\[0\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/[\)]* = .*;')
+
         #################
         for line in self.body:
             line = throw_stream_indexes(line)
@@ -2016,11 +2056,11 @@ class Warn:
             line = replace_var_names(line)
             line = line.replace("threadData, ","")
             line = sub_division_sim(line)
+            if re.search(equality_prtn, line) is not None:
+                continue
             if "omc_assert_warning" in line and not with_throw:
                 line = line.replace(INFO_OMC_PARAM,"")
             if has_omc_trace (line) or has_omc_equation_indexes (line) or "infoStreamPrint" in line:
-                continue
-            if ".attribute" in line:
                 continue
             elif "MMC_DEFSTRINGLIT" in line:
                 line = line.replace("static const MMC_DEFSTRINGLIT(","")

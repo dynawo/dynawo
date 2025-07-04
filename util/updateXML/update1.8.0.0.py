@@ -17,7 +17,6 @@ from content.Ticket import ticket
 def update(jobs):
     var_to_update = ["generator_omegaRefPu", "generator_PmPu", "generator_omegaPu", \
                      "generator_efdPu", "generator_UStatorPu", "generator_IRotorPu", "generator_QStatorPu"]
-    var_to_update = ["generator_QStatorPu"]
     generators = jobs.dyds.get_bbms(lambda bbm: "GeneratorSynchronous" in bbm.get_lib_name())
     for generator in generators:
         connects = generator.connects.get_connects()
@@ -53,7 +52,6 @@ def update(jobs):
     for set_point in set_points:
         for var_name in var_to_update:
             set_point.connects.change_var_name(var_name + "_value", var_name)
-
     var_to_update = ["step_step"]
     steps = jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "Step")
     for step in steps:
