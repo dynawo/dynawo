@@ -24,7 +24,7 @@ model InjectorBG_INIT "Initialization model for injector controlled by a the sus
 
   Types.ComplexVoltagePu u0Pu "Start value of complex voltage at injector terminal in pu (base UNom)";
   Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power in pu (base SnRef) (receptor convention)";
-  flow Types.ComplexCurrentPu i0Pu "Start value of complex current at load terminal in pu (base UNom, SnRef) (receptor convention)";
+  Types.ComplexCurrentPu i0Pu "Start value of complex current at load terminal in pu (base UNom, SnRef) (receptor convention)";
 
   Types.ComplexAdmittancePu Y0PuSnRef "Start value of admittance in pu (base SnRef)";
   Types.PerUnit G0Pu "Start value of conductance in pu (base Sn)";
