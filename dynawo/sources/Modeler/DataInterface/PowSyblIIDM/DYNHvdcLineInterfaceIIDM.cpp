@@ -197,7 +197,7 @@ void HvdcLineInterfaceIIDM::importStaticParameters() {
   staticParameters_.insert(std::make_pair("p0ACEmulationPu", StaticParameter("p0ACEmulationPu",
                              StaticParameter::DOUBLE).setValue(p0ACEmulationPu)));
   staticParameters_.insert(std::make_pair("droop", StaticParameter("droop",
-                             StaticParameter::DOUBLE).setValue(p0ACEmulationPu)));
+                             StaticParameter::DOUBLE).setValue(droop)));
   staticParameters_.insert(std::make_pair("pMax", StaticParameter("pMax", StaticParameter::DOUBLE).setValue(getPmax())));
   staticParameters_.insert(std::make_pair("pMax_pu", StaticParameter("pMax_pu", StaticParameter::DOUBLE).setValue(getPmax() / SNREF)));
   staticParameters_.insert(std::make_pair("p1_pu", StaticParameter("p1_pu", StaticParameter::DOUBLE).setValue(conv1_->getP() / SNREF)));
