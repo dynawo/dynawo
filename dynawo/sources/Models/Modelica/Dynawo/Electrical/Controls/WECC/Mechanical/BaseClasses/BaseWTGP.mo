@@ -14,7 +14,7 @@ within Dynawo.Electrical.Controls.WECC.Mechanical.BaseClasses;
 */
 
 partial model BaseWTGP "Base Pitch Controller"
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsWTGP;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGP;
 
   //Input variables
   Modelica.Blocks.Interfaces.RealInput POrdPu(start = PInj0Pu) "Active power order in pu (base SNom) (generator convention)" annotation(

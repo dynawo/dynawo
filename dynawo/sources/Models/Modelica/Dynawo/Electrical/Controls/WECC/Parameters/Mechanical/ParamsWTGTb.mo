@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Controls.WECC.Parameters;
+within Dynawo.Electrical.Controls.WECC.Parameters.Mechanical;
 
 /*
 * Copyright (c) 2025, RTE (http://www.rte-france.com)
@@ -13,14 +13,10 @@ within Dynawo.Electrical.Controls.WECC.Parameters;
 * of simulation tools for power systems.
 */
 
-record ParamsWTGAa
-  parameter Types.PerUnit Ka "Aero-dynamic gain factor" annotation(
-  Dialog(tab="Aero-dynamic model"));
-
-  // Initial parameters
-  parameter Types.AngleDegree Theta0 "Initial pitch angle in degree";
-  parameter Types.ActivePowerPu Pm0Pu "Initial mechanical power in pu (base SNom)";
+record ParamsWTGTb
+  parameter Types.Time tp "Lag time constant in s" annotation(
+    Dialog(tab="Drive train control"));
 
   annotation(
   preferredView = "text");
-end ParamsWTGAa;
+end ParamsWTGTb;
