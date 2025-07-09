@@ -99,7 +99,6 @@ var searchData=
   ['iiynum',['iiYNum',['../d5/d27/a03157.html#ad0c29b34ed1148c67fb8f40544f89931',1,'DYN::ModelSwitch']]],
   ['iiynum_5f',['IiYNum_',['../df/d1b/a03029.html#a9ed401efcb5c4cc9f99dee40efe4afce',1,'DYN::ModelLoadRestorativeWithLimits::IiYNum_()'],['../df/d92/a03097.html#a96b7e9baf008100e0472894851b8a10f',1,'DYN::ModelBus::iiYNum_()'],['../d5/d27/a03157.html#a8d2387e5cd5db3ae67b00ad23f53de23',1,'DYN::ModelSwitch::iiYNum_()']]],
   ['impl',['Impl',['../d6/d24/a03249.html',1,'DYN::Solver::Impl'],['../d6/d24/a03249.html#a8392e81fc51e2ee580b1a892913af4ec',1,'DYN::Solver::Impl::Impl()']]],
-  ['import',['import',['../d5/d5f/a00461.html#a87a1d8b4fa3e22a45463656c16a2b9f9',1,'DYN']]],
   ['importbattery',['importBattery',['../d7/d68/a02885.html#a8b2149f7fa38fa39993458e1d4b1ef1d',1,'DYN::DataInterfaceIIDM']]],
   ['importcurvesrequest',['importCurvesRequest',['../d6/d04/a03193.html#a0eff757fec9ded5911e1b03b94e0cfcc',1,'DYN::Simulation']]],
   ['importdanglingline',['importDanglingLine',['../d7/d68/a02885.html#a0d997c04df64369528b3795ace6f84da',1,'DYN::DataInterfaceIIDM']]],

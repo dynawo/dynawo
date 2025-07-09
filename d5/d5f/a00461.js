@@ -17,7 +17,6 @@ var a00461 =
     [ "getCurrentPrecision", "d5/d5f/a00461.html#a16e6866a242882fdb4eba3bcbc08fee0", null ],
     [ "getLibraryPathFromName", "d5/d5f/a00461.html#ab4368be43fef8bd2e5fe2bbc5b40a36c", null ],
     [ "getPrecisionAsNbDecimal", "d5/d5f/a00461.html#a575fbb6e6d5526d8cbe818ea98458c36", null ],
-    [ "import", "d5/d5f/a00461.html#a87a1d8b4fa3e22a45463656c16a2b9f9", null ],
     [ "LevensteinDistance", "d5/d5f/a00461.html#a035c819bcf9c482bc04e2c640dd74ac0", null ],
     [ "setCurrentPrecision", "d5/d5f/a00461.html#a395d53feecd9c318b7b409cdbdd7b4db", null ],
     [ "sharedLibraryExtension", "d5/d5f/a00461.html#ad0b46e513986c7da0fb240699dc03eb6", null ],

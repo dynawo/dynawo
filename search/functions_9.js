@@ -33,7 +33,6 @@ var searchData=
   ['iiload_5fdur',['iiLoad_dUr',['../d0/dcd/a03113.html#af2eb93b916a1cc9224f9ddc651134c6f',1,'DYN::ModelDanglingLine']]],
   ['iiynum',['iiYNum',['../d5/d27/a03157.html#ad0c29b34ed1148c67fb8f40544f89931',1,'DYN::ModelSwitch']]],
   ['impl',['Impl',['../d6/d24/a03249.html#a8392e81fc51e2ee580b1a892913af4ec',1,'DYN::Solver::Impl']]],
-  ['import',['import',['../d5/d5f/a00461.html#a87a1d8b4fa3e22a45463656c16a2b9f9',1,'DYN']]],
   ['importbattery',['importBattery',['../d7/d68/a02885.html#a8b2149f7fa38fa39993458e1d4b1ef1d',1,'DYN::DataInterfaceIIDM']]],
   ['importcurvesrequest',['importCurvesRequest',['../d6/d04/a03193.html#a0eff757fec9ded5911e1b03b94e0cfcc',1,'DYN::Simulation']]],
   ['importdanglingline',['importDanglingLine',['../d7/d68/a02885.html#a0d997c04df64369528b3795ace6f84da',1,'DYN::DataInterfaceIIDM']]],
