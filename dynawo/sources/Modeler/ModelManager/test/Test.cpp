@@ -283,8 +283,8 @@ class MyModelica: public ModelModelica {
 
   void defineElements(std::vector<Element> &/*elements*/, std::map<std::string, int>& /*mapElement*/) override {}
 
-  void evalJt(double /*cj*/, SparseMatrix& /*jt*/, int /*rowOffset*/) {}
-  void evalJtPrim(double /*cj*/, SparseMatrix& /*jt*/, int /*rowOffset*/) {}
+  void evalJt(double /*cj*/, int /*rowOffset*/, SparseMatrix& /*jt*/) {}
+  void evalJtPrim(double /*cj*/, int /*rowOffset*/, SparseMatrix& /*jtPrim*/) {}
   void evalJCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<double>& /*res*/) const {}
   void evalF(double* /*f*/, DYN::propertyF_t /*type*/) {}
 

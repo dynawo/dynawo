@@ -767,7 +767,7 @@ def print_block_code(residual_code, evalF_code, jacobian_code, jacobian_prim_cod
         jacobian_code.append(indent_str * indent + "// res[" + str(residual_index) + "] = " + rhs_res_expr_comment + '\n')
         jacobian_code.append(indent_str * indent + "jt.changeCol();" + '\n\n')
         jacobian_prim_code.append(indent_str * indent + "// " + rhs_res_expr_comment + '\n')
-        jacobian_prim_code.append(indent_str * indent + "jt.changeCol();" + '\n\n')
+        jacobian_prim_code.append(indent_str * indent + "jtPrim.changeCol();" + '\n\n')
         for i, deriv_expr in enumerate(derivs):
             if deriv_expr != 0:
                 lineAddTerm, deriv_expr_comment = derivExpr(deriv_expr, tmpsOmc, i)
@@ -777,7 +777,7 @@ def print_block_code(residual_code, evalF_code, jacobian_code, jacobian_prim_cod
             if deriv_expr != 0:
                 lineAddTerm, deriv_expr_comment = derivExpr(deriv_expr, tmpsOmc, i)
                 jacobian_prim_code.append(indent_str * indent + "// dres[" + str(residual_index) + "]/dx[" + str(i) + "] = " + deriv_expr_comment + '\n')
-                jacobian_prim_code.append(indent_str * indent + lineAddTerm)
+                jacobian_prim_code.append(indent_str * indent + lineAddTerm.replace('jt.', 'jtPrim.'))
 
     indent = indent_init
 
@@ -792,11 +792,11 @@ def jacobian(residuals, input_path, input_filename, model_name, model_type):
     evalF_code.append("{\n")
 
     jacobian_code = []
-    jacobian_code.append("void " + model_name + "_" + model_type + "::evalJt(double cj, SparseMatrix& jt, int rowOffset)\n")
+    jacobian_code.append("void " + model_name + "_" + model_type + "::evalJt(double cj, int rowOffset, SparseMatrix& jt)\n")
     jacobian_code.append("{\n")
 
     jacobian_prim_code = []
-    jacobian_prim_code.append("void " + model_name + "_" + model_type + "::evalJtPrim(double cj, SparseMatrix& jt, int rowOffset)\n")
+    jacobian_prim_code.append("void " + model_name + "_" + model_type + "::evalJtPrim(double cj, int rowOffset,  SparseMatrix& jtPrim)\n")
     jacobian_prim_code.append("{\n")
 
     indent_str = "  "

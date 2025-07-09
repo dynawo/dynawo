@@ -20,6 +20,7 @@
 #include <cmath>
 #include <vector>
 #include <cassert>
+#include <iomanip>
 
 #include "PARParametersSet.h"
 
@@ -611,7 +612,7 @@ void
 ModelLine::evalJt(const double cj, const int rowOffset, SparseMatrix& jt) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelNetwork::ModelLine::evalJt");
-#endif  
+#endif
   if (!isDynamic_ || network_->isInitModel())
     return;
 

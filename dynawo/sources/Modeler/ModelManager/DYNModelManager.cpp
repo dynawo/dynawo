@@ -401,7 +401,7 @@ ModelManager::evalJt(const double t, const double cj, const int rowOffset, Spars
 
 #ifdef _ADEPT_
   if (modelModelica()->isEvalJSymbolic()) {
-    modelModelica()->evalJt(cj, jt, rowOffset);
+    modelModelica()->evalJt(cj, rowOffset, jt);
   } else {
     evalJtAdept(t, yLocal_, ypLocal_, cj, jt, rowOffset, true);
   }
@@ -419,7 +419,7 @@ ModelManager::evalJtPrim(const double t, const double cj, const int rowOffset, S
 
 #ifdef _ADEPT_
   if (modelModelica()->isEvalJSymbolic()) {
-    modelModelica()->evalJtPrim(cj, jt, rowOffset);
+    modelModelica()->evalJtPrim(cj, rowOffset, jtPrim);
   } else {
     evalJtAdept(t, yLocal_, ypLocal_, cj, jtPrim, rowOffset, false);
   }

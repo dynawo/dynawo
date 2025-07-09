@@ -406,6 +406,14 @@ ModelMulti::evalG(const double t, vector<state_g>& g) {
 }
 
 void
+ModelMulti::evalG(double t, double* g) {
+  for (const auto& subModel : subModels_)
+    subModel->evalGSub(t);
+
+  std::copy(gLocal_.begin(), gLocal_.end(), g);
+}
+
+void
 ModelMulti::evalJt(const double t, const double cj, SparseMatrix& jt) {
   // Timer timer("ModelMulti::evalJt");
   int rowOffset = 0;
@@ -1126,7 +1134,7 @@ void ModelMulti::printVariableNames(const bool withVariableType) {
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::variables()) << "X variables init" << Trace::endline;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
-  for (const auto& subModel : subModels_)) {
+  for (const auto& subModel : subModels_) {
     const auto& xNameInit = subModel->xNamesInit();
     for (unsigned int j = 0; j < xNameInit.size(); ++j) {
        Trace::debug(Trace::variables()) << nVar << " " << subModel->name() << " ¦ " << xNameInit[j] << " (local " << j << ")" << Trace::endline;
@@ -1150,7 +1158,7 @@ void ModelMulti::printVariableNames(const bool withVariableType) {
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   for (const auto& subModel : subModels_) {
     const auto& zNameInit = subModel->zNamesInit();
-    for (unsigned int j = 0; j < zNames.size(); ++j) {
+    for (unsigned int j = 0; j < zNameInit.size(); ++j) {
       Trace::debug(Trace::variables()) << nVar << " " << subModel->name() << " ¦ " << zNameInit[j] << " (local " << j << ")" << Trace::endline;
       ++nVar;
     }
@@ -1164,8 +1172,9 @@ void ModelMulti::printVariableNames(const bool withVariableType) {
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   const std::vector<propertyContinuousVar_t>& modelYType = getYType();
   for (const auto& subModel : subModels_) {
-    for (const auto& xName : subModel->xNames()) {
-      const std::string varName = subModel->name() + " | " + xName;
+    const auto& xNames = subModel->xNames();
+    for (unsigned int j = 0; j < xNames.size(); ++j) {
+      const std::string varName = subModel->name() + " ¦ " + xNames[j];
       if (withVariableType) {
         Trace::debug(Trace::variables()) << nVar << " " << varName << " (local " << j << ")" << " ¦ " << propertyVar2Str(modelYType[nVar]) << Trace::endline;
       } else {
@@ -1186,7 +1195,7 @@ void ModelMulti::printVariableNames(const bool withVariableType) {
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   for (const auto& subModel : subModels_) {
     const auto& calculatedVarNames = subModel->getCalculatedVarNames();
-    for (unsigned int j = 0; j < xNames.size(); ++j) {
+    for (unsigned int j = 0; j < calculatedVarNames.size(); ++j) {
       std::string varName = subModel->name() + " ¦ " + calculatedVarNames[j];
       Trace::debug(Trace::variables()) << nVar << " " << varName << " (local " << j << ")" << Trace::endline;
       ++nVar;

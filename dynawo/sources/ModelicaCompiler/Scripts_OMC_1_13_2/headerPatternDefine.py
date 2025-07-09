@@ -94,8 +94,8 @@ class HeaderPatternDefine:
     inline void setModelManager (ModelManager * model) { modelManager_ = model; }
     void checkSum(std::string & checkSum) { checkSum = std::string("__fill_model_checkSum__"); }
     inline bool isDataStructInitialized() const { return dataStructInitialized_; }
-    void evalJt(double cj, SparseMatrix& jt, int rowOffset) override;
-    void evalJtPrim(double cj, SparseMatrix& jt, int rowOffset) override;
+    void evalJt(double cj, int rowOffset, SparseMatrix& jt) override;
+    void evalJtPrim(double cj, int rowOffset,  SparseMatrix& jtPrim) override;
     void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const override;
     void evalF(double* f, propertyF_t type) override;
 
@@ -189,8 +189,8 @@ namespace DYN {
     inline void setModelManager (ModelManager * model) { modelManager_ = model; }
     void checkSum(std::string & checkSum) { checkSum = std::string("__fill_model_checkSum__"); }
     inline bool isDataStructInitialized() const { return dataStructInitialized_; }
-    void evalJt(double cj, SparseMatrix& jt, int rowOffset) override;
-    void evalJtPrim(double cj, SparseMatrix& jt, int rowOffset) override;
+    void evalJt(double cj, int rowOffset, SparseMatrix& jt) override;
+    void evalJtPrim(double cj, int rowOffset, SparseMatrix& jtPrim) override;
     void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const override;
     void evalF(double* f, propertyF_t type) override;
 

@@ -529,7 +529,7 @@ ModelLoad::evalDerivatives(const double /*cj*/) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelNetwork::ModelLoad::evalDerivatives");
 #endif
-  const auto& modelBus = getNonCstModelBus();
+  auto& modelBus = getNonCstModelBus();
   if (network_->isInitModel())
     return;
   if (isRunning()) {
@@ -547,7 +547,7 @@ ModelLoad::evalDerivatives(const double /*cj*/) {
     const double QdUr = Q_dUr(ur, ui, U, U2);
     const double PdUi = P_dUi(ur, ui, U, U2);
     const double QdUi = Q_dUi(ur, ui, U, U2);
-    auto& derivatives = modelBus_->derivatives();
+    auto& derivatives = modelBus.derivatives();
     derivatives->addDerivative(IR_DERIVATIVE, urYNum, ir_dUr(ur, ui, U2, p, q, PdUr, QdUr));
     derivatives->addDerivative(IR_DERIVATIVE, uiYNum, ir_dUi(ur, ui, U2, p, q, PdUi, QdUi));
     derivatives->addDerivative(II_DERIVATIVE, urYNum, ii_dUr(ur, ui, U2, p, q, PdUr, QdUr));

@@ -963,7 +963,7 @@ ModelBus::evalJtPrim(const int rowOffset, SparseMatrix& jtPrim) {
     const auto& irDerivativesValues = derivativesPrim_->getValues(IR_DERIVATIVE);
     const auto& irDerivativesIndices = derivativesPrim_->getIndices(IR_DERIVATIVE);
     for (unsigned int i = 0 ; i < irDerivativesIndices.size(); ++i) {
-      jt.addTerm(irDerivativesIndices[i] + rowOffset, irDerivativesValues[i]);
+      jtPrim.addTerm(irDerivativesIndices[i] + rowOffset, irDerivativesValues[i]);
     }
     // for (const auto& irDerivativesValue : irDerivativesValues) {
     //   jt.addTerm(irDerivativesValue.first + rowOffset, irDerivativesValue.second);
@@ -973,7 +973,7 @@ ModelBus::evalJtPrim(const int rowOffset, SparseMatrix& jtPrim) {
     const auto& iiDerivativesValues = derivativesPrim_->getValues(II_DERIVATIVE);
     const auto& iiDerivativesIndices = derivativesPrim_->getIndices(II_DERIVATIVE);
     for (unsigned int i = 0 ; i < iiDerivativesIndices.size(); ++i) {
-      jt.addTerm(iiDerivativesIndices[i] + rowOffset, iiDerivativesValues[i]);
+      jtPrim.addTerm(iiDerivativesIndices[i] + rowOffset, iiDerivativesValues[i]);
     }
     // for (const auto& iiDerivativesValue : iiDerivativesValues) {
     //   jt.addTerm(iiDerivativesValue.first + rowOffset, iiDerivativesValue.second);

@@ -617,9 +617,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the real part of the current on side 1
    */
- double ir1(const double ur1, const double ui1, const double ur2, const double ui2) const {
-  return ir1_dUr1_ * ur1 + ir1_dUi1_ * ui1 + ir1_dUr2_ * ur2 + ir1_dUi2_ * ui2;
- }
+ double ir1(const double ur1, const double ui1, const double ur2, const double ui2) const;
 
   /**
    * @brief compute the imaginary part of the current on side 1
@@ -629,9 +627,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the imaginary part of the current on side 1
    */
- double ii1(const double ur1, const double ui1, const double ur2, const double ui2) const {
-  return ii1_dUr1_ * ur1 + ii1_dUi1_ * ui1 + ii1_dUr2_ * ur2 + ii1_dUi2_ * ui2;
- }
+ double ii1(const double ur1, const double ui1, const double ur2, const double ui2) const;
 
   /**
    * @brief compute the real part of the current on side 2
@@ -641,9 +637,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the real part of the current on side 2
    */
- double ir2(const double ur1, const double ui1, const double ur2, const double ui2) const {
-  return ir2_dUr1_ * ur1 + ir2_dUi1_ * ui1 + ir2_dUr2_ * ur2 + ir2_dUi2_ * ui2;
- }
+ double ir2(const double ur1, const double ui1, const double ur2, const double ui2) const;
 
   /**
    * @brief compute the imaginary part of the current on side 2
@@ -653,9 +647,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the imaginary part of the current on side 2
    */
- double ii2(const double ur1, const double ui1, const double ur2, const double ui2) const {
-  return ii2_dUr1_ * ur1 + ii2_dUi1_ * ui1 + ii2_dUr2_ * ur2 + ii2_dUi2_ * ui2;
- }
+ double ii2(const double ur1, const double ui1, const double ur2, const double ui2) const;
 
   /**
    * @brief compute the absolute current entering side 1

@@ -87,10 +87,10 @@ class ModelModelica {
    * Get the sparse transposed jacobian \f$ Jt=@F/@y + cj*@F/@y' \f$
    *
    * @param cj Jacobian prime coefficient
-   * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
+   * @param jt jacobian matrix to fullfill
    */
-  virtual void evalJt(double cj, SparseMatrix& jt, int rowOffset) = 0;
+  virtual void evalJt(double cj, int rowOffset, SparseMatrix& jt) = 0;
 
   /**
    * @brief ModelGeneratorAlphaBetaOpti transposed jacobian evaluation
@@ -98,10 +98,10 @@ class ModelModelica {
    * Get the sparse transposed jacobian \f$ Jt=@F/@y + cj*@F/@y' \f$
    *
    * @param cj Jacobian prime coefficient
-   * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
+   * @param jtPrim jacobian matrix to fullfill
    */
-  virtual void evalJtPrim(double cj, SparseMatrix& jt, int rowOffset) = 0;
+  virtual void evalJtPrim(double cj, int rowOffset, SparseMatrix& jtPrim) = 0;
 
  /**
    * @brief ModelGeneratorAlphaBetaOpti transposed jacobian evaluation
