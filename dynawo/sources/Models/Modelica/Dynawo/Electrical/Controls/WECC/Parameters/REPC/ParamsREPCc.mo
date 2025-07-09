@@ -14,7 +14,7 @@ within Dynawo.Electrical.Controls.WECC.Parameters.REPC;
 */
 
 record ParamsREPCc
-parameter Types.AngularVelocityPu DfMaxPu "Maximum limit on frequency deviation in pu (base omegaNom)" annotation(
+  parameter Types.AngularVelocityPu DfMaxPu "Maximum limit on frequency deviation in pu (base omegaNom)" annotation(
     Dialog(tab = "Plant Control"));
   parameter Types.AngularVelocityPu DfMinPu "Minimum limit on frequency deviation in pu (base omegaNom)" annotation(
     Dialog(tab = "Plant Control"));
@@ -52,10 +52,12 @@ parameter Types.AngularVelocityPu DfMaxPu "Maximum limit on frequency deviation 
     Dialog(tab = "Plant Control"));
   parameter Types.PerUnit QvrMin "Maximum rate of decrease of Qext in pu/s (base SNom)" annotation(
     Dialog(tab = "Plant Control"));
-  parameter Types.Time tC "Time constant associated with reactive power measurement/filtering for the reactive droop function, in s";
+  parameter Types.Time tC "Time constant associated with reactive power measurement/filtering for the reactive droop function, in s" annotation(
+    Dialog(tab = "Plant Control"));
   parameter Types.Time tFrq "Frequency transducer/filter time constant in s" annotation(
     Dialog(tab = "Plant Control"));
-  parameter Types.Time tFrz "Time delay during which the states are kept frozen after the filtered voltage recovers above Ufrz, in s";
+  parameter Types.Time tFrz "Time delay during which the states are kept frozen after the filtered voltage recovers above Ufrz, in s" annotation(
+    Dialog(tab = "Plant Control"));
   parameter Types.VoltageModulePu UFreqPu "If the voltage at the bus where frequency is monitored < UFreqPu then measured frequency is set to 1 pu, in pu (base UNom)" annotation(
     Dialog(tab = "Plant Control"));
   parameter Types.VoltageModulePu URefMaxPu "Maximum limit on Uref in pu (base UNom)" annotation(
