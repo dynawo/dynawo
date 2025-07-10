@@ -43,9 +43,9 @@ model Comptodq "Computation of dq components from grid measurements in EPRI Grid
 
   Modelica.Blocks.Math.Product idSquare annotation(
     Placement(visible = true, transformation(origin = {150, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain changeOfBaseD(k = SystemBase.SnRef / SNom)  annotation(
+  Modelica.Blocks.Math.Gain changeOfBaseD(k = SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {70, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain changeOfBaseq(k = SystemBase.SnRef / SNom)  annotation(
+  Modelica.Blocks.Math.Gain changeOfBaseq(k = SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {70, -20}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
   Modelica.Blocks.Sources.IntegerConstant integerConstant(k = OmegaFlag) annotation(
     Placement(visible = true, transformation(origin = {-9, -65}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));

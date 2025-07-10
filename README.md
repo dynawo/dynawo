@@ -10,7 +10,7 @@
     This file is part of Dynawo, an hybrid C++/Modelica open source time domain
     simulation tool for power systems.
 -->
-# Dyna&omega;o - An hybrid C++/Modelica suite of simulation tools for power systems
+# Dyna&omega;o - A hybrid C++/Modelica suite of simulation tools for power systems
 
 [![Build Status](https://github.com/dynawo/dynawo/workflows/CI/badge.svg)](https://github.com/dynawo/dynawo/actions)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dynawo_dynawo&metric=alert_status)](https://sonarcloud.io/dashboard?id=dynawo_dynawo)

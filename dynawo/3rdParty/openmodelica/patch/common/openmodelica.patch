@@ -401,7 +401,7 @@ index 000000000..d9c2e1570
 +end dumpAbsynPathLst;
 +
 +protected function dumpAbsynPathLst2 "
-+This is an helper function to the dunmAbsynPathList method.
++This is a helper function to the dunmAbsynPathList method.
 +"
 +  input list<Absyn.Path> absynPathLst;
 +algorithm
