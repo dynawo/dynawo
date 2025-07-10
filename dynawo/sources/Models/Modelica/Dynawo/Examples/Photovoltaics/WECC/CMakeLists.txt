@@ -13,6 +13,7 @@ set(MODEL_FILES
   package.order
   PVCurrentSourceB.mo
   PVVoltageSourceB.mo
+  PVVoltageSourceAREPCc.mo
   )
 
 #
