@@ -473,9 +473,19 @@ test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeT
 #     WECC Battery Energy Storage System with REPC-A REEC-C and REGC-B Current Source   #
 #########################################################################################
 
-case_name = "DynaSwing - WECC - BESScb - Current source"
-case_description = "WECC - BESScb - Current Source"
+case_name = "DynaSwing - WECC - BESScb - REEC-C - Current source"
+case_description = "WECC - BESScb - REEC-C - Current source"
 job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "WECC", "BESS", "WECCBESScbCurrentSource", "WECCBESScb.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+#########################################################################################
+#     WECC Battery Energy Storage System with REPC-A REEC-D and REGC-B Current Source   #
+#########################################################################################
+
+case_name = "DynaSwing - WECC - BESScb - REEC-D - Current source"
+case_description = "WECC - BESScb - REEC-D - Current source"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "WECC", "BESS", "WECCBESScbCurrentSourceREECd", "WECCBESScb.jobs")
 
 test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
 

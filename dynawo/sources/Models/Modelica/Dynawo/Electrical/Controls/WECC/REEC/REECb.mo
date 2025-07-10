@@ -28,6 +28,8 @@ model REECb "WECC Electrical Control type B"
     Placement(visible = true, transformation(origin = {130, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add2 annotation(
     Placement(visible = true, transformation(origin = {-39, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.RealExpression UFilteredPu3(y = UFilteredPu) annotation(
+    Placement(transformation(origin = {190, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Sources.Constant VRefConst1(k = VRef1Pu) annotation(
     Placement(visible = true, transformation(origin = {-79, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
@@ -64,6 +66,14 @@ equation
     Line(points = {{215, 220}, {300, 220}, {300, 116}, {318, 116}}, color = {0, 0, 127}));
   connect(add2.y, switch.u3) annotation(
     Line(points = {{-28, 80}, {1, 80}, {1, 104}, {15, 104}}, color = {0, 0, 127}));
+  connect(UFilteredPu3.y, varLimPIDFreeze.u_m) annotation(
+    Line(points = {{190, 82}, {178, 82}, {178, 100}, {180, 100}}, color = {0, 0, 127}));
+  connect(limiter3.y, division1.u1) annotation(
+    Line(points = {{142, -70}, {156, -70}, {156, -114}, {170, -114}}, color = {0, 0, 127}));
+  connect(UPu, voltageCheck.UPu) annotation(
+    Line(points = {{-270, 270}, {132, 270}, {132, 272}}, color = {0, 0, 127}));
+  connect(add1.y, variableLimiter.u) annotation(
+    Line(points = {{342, 110}, {498, 110}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
