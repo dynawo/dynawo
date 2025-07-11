@@ -839,11 +839,11 @@ class SubModel {
   void addCurve(const std::shared_ptr<curves::Curve>& curve);
 
   /**
-   * @brief update the subset of calculated variables needed for curves
+   * @brief update the value of specific calculatedVar in vector of calculated variables
    *
-   * @param curve curve whose value needs to be updated
+   * @param calculatedVarNum calculated variable index in subModel
    */
-  void updateCalculatedVarForCurve(const std::shared_ptr<curves::Curve>& curve);
+  void updateCalculatedVar(const unsigned calculatedVarNum);
 
   /**
    * @brief add a curve of a parameter to store for the model
