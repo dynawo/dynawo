@@ -49,6 +49,7 @@ using std::set;
 using std::string;
 using std::stringstream;
 using std::map;
+using std::pair;
 using boost::shared_ptr;
 using boost::dynamic_pointer_cast;
 using timeline::Timeline;
@@ -1028,20 +1029,16 @@ ModelMulti::initCurves(const std::shared_ptr<curves::Curve>& curve) {
         curve->setFoundVariableName(variable);
         curve->setAsParameterCurve(true);   // This is a parameter curve
         subModel->addParameterCurve(curve);
-        return true;
       } else if (props.variableNameInSubModel_ == variable) {   // found exact curve name
         Trace::debug() << DYNLog(AddingCurve, modelName, variable) << Trace::endline;
         curve->setAvailable(true);
         curve->setFoundVariableName(variable);
-        curve->setAsParameterCurve(false);   // This is a variable curve
         subModel->addCurve(curve);
-        return true;
       } else if (props.variableNameInSubModel_ == variableNameBis) {
         Trace::debug() << DYNLog(AddingCurveOutput, modelName, variable, variableNameBis) << Trace::endline;
         curve->setAvailable(true);
         curve->setFoundVariableName(variableNameBis);
         subModel->addCurve(curve);
-        return true;
       }
     } else {
       // BEGIN SEARCH IN NETWORK
@@ -1052,7 +1049,6 @@ ModelMulti::initCurves(const std::shared_ptr<curves::Curve>& curve) {
         curve->setAvailable(true);
         curve->setFoundVariableName(name);
         modelNetwork->addCurve(curve);
-        return true;
       } else {
         string name2 = name + "_value";
         if (props.variableNameInSubModel_ == name2) {   // find name2 = name_value
@@ -1060,26 +1056,28 @@ ModelMulti::initCurves(const std::shared_ptr<curves::Curve>& curve) {
           curve->setAvailable(true);
           curve->setFoundVariableName(name2);
           modelNetwork->addCurve(curve);
-          return true;
         }
       }
     }
+    // Register curve calculated var index in subModel, to optimize variable update during simulation
+    if (curve->getAvailable() && curve->getCurveType() == Curve::CALCULATED_VARIABLE)
+      curvesCalculatedVarIndexes_.push_back(std::make_pair(subModel, curve->getIndexCalculatedVarInSubModel()));
   }
-
-  Trace::warn() << DYNLog(CurveNotAdded, modelName, variable) << Trace::endline;
-  return false;
+  if (!curve->getAvailable())
+    Trace::warn() << DYNLog(CurveNotAdded, modelName, variable) << Trace::endline;
+  return curve->getAvailable();
 }
 
 void
-ModelMulti::updateCalculatedVarForCurves(const std::shared_ptr<curves::CurvesCollection>& curvesCollection) const {
+ModelMulti::updateCalculatedVarForCurves() const {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::updateCurves");
 #endif
-  for (const auto& curve : curvesCollection->getCurves()) {
-    shared_ptr<SubModel> subModel = findSubModel(curve->getModelName(), curve->getVariable()).subModel_;
-    if (subModel) {
-      subModel->updateCalculatedVarForCurve(curve);
-    }
+  for (const auto& itSubModelIndex : curvesCalculatedVarIndexes_) {
+    boost::shared_ptr<SubModel> subModel = itSubModelIndex.first;
+    unsigned varNum = itSubModelIndex.second;
+    if (!subModel ) continue;
+    subModel->updateCalculatedVar(varNum);
   }
 }
 
