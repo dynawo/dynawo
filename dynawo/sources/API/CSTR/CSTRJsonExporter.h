@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2025, RTE (http://www.rte-france.com)
+// Copyright (c) 2025, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -7,8 +7,8 @@
 // file, you can obtain one at http://mozilla.org/MPL/2.0/.
 // SPDX-License-Identifier: MPL-2.0
 //
-// This file is part of Dynawo, an hybrid C++/Modelica open source time domain
-// simulation tool for power systems.
+// This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools
+// for power systems.
 //
 
 /**
@@ -46,9 +46,8 @@ class JsonExporter : public Exporter {
    *
    * @param constraints Constraints to export
    * @param stream Stream to export JSON formatted constraints to
-   * @param afterTime export only events occuring after this 'afterTime' time
    */
-  void exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints, std::ostream& stream, double afterTime = -DBL_MAX) const override;
+  void exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints, std::ostream& stream) const override;
 };
 
 }  // namespace constraints

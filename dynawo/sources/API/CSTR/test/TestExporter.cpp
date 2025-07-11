@@ -18,7 +18,6 @@
  */
 
 #include "gtest_dynawo.h"
-// #include <fstream>
 
 #include "CSTRConstraintsCollectionFactory.h"
 #include "CSTRConstraintsCollection.h"
@@ -61,19 +60,6 @@ TEST(APICSTRTest, ConstraintsCollectionExporter) {
         "kind=\"UInfUmin\" limit=\"132\" value=\"130\"/>\n"
         "</constraints>\n");
   }
-  {
-    std::stringstream ss;
-    xmlExporter.exportToStream(constraintsCollection1, ss, 80);
-    ASSERT_EQ(ss.str(), "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>\n"
-        "<constraints xmlns=\"http://www.rte-france.com/dynawo\">\n  "
-        "<constraint modelName=\"modelDetail\" description=\"desc OverloadUp\" time=\"90.000000\" type=\"Line\" "
-        "kind=\"OverloadUp\" limit=\"1000\" value=\"1001\" side=\"1\" acceptableDuration=\"60\"/>\n  "
-        "<constraint modelName=\"modelDetail\" description=\"desc PATL\" time=\"90.000000\" type=\"Line\" "
-        "kind=\"PATL\" limit=\"1100\" value=\"1111\" side=\"1\"/>\n  "
-        "<constraint modelName=\"modelDetail\" description=\"desc UInfUmin\" time=\"90.000000\" type=\"Bus\" "
-        "kind=\"UInfUmin\" limit=\"132\" value=\"130\"/>\n"
-        "</constraints>\n");
-  }
 
   JsonExporter jsonExporter;
   {
@@ -83,17 +69,6 @@ TEST(APICSTRTest, ConstraintsCollectionExporter) {
       "{\"modelName\":\"model\",\"description\":\"OverloadUp\",\"time\":\"80.000000\",\"type\":\"Line\"},"
       "{\"modelName\":\"model\",\"description\":\"PATL\",\"time\":\"80.000000\",\"type\":\"Line\"},"
       "{\"modelName\":\"model\",\"description\":\"USupUmax\",\"time\":\"80.000000\",\"type\":\"Bus\"},"
-      "{\"modelName\":\"modelDetail\",\"description\":\"desc OverloadUp\",\"time\":\"90.000000\",\"type\":\"Line\","
-      "\"kind\":\"OverloadUp\",\"limit\":\"1000\",\"value\":\"1001\",\"side\":\"1\",\"acceptableDuration\":\"60\"},"
-      "{\"modelName\":\"modelDetail\",\"description\":\"desc PATL\",\"time\":\"90.000000\",\"type\":\"Line\","
-      "\"kind\":\"PATL\",\"limit\":\"1100\",\"value\":\"1111\",\"side\":\"1\"},"
-      "{\"modelName\":\"modelDetail\",\"description\":\"desc UInfUmin\",\"time\":\"90.000000\",\"type\":\"Bus\","
-      "\"kind\":\"UInfUmin\",\"limit\":\"132\",\"value\":\"130\"}]}\n");
-  }
-  {
-    std::stringstream ss;
-    jsonExporter.exportToStream(constraintsCollection1, ss, 80);
-    ASSERT_EQ(ss.str(), "{\"constraints\":["
       "{\"modelName\":\"modelDetail\",\"description\":\"desc OverloadUp\",\"time\":\"90.000000\",\"type\":\"Line\","
       "\"kind\":\"OverloadUp\",\"limit\":\"1000\",\"value\":\"1001\",\"side\":\"1\",\"acceptableDuration\":\"60\"},"
       "{\"modelName\":\"modelDetail\",\"description\":\"desc PATL\",\"time\":\"90.000000\",\"type\":\"Line\","

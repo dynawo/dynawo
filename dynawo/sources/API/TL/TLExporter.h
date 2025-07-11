@@ -25,7 +25,6 @@
 #include <boost/shared_ptr.hpp>
 #include <iostream>
 #include <string>
-#include <cfloat>
 
 namespace timeline {
 
@@ -65,9 +64,8 @@ class Exporter {
    *
    * @param timeline Timeline to export
    * @param stream stream to export to
-   * @param afterTime export only events occuring after this 'afterTime' time
    */
-  virtual void exportToStream(const boost::shared_ptr<Timeline>& timeline, std::ostream& stream, double afterTime) const = 0;
+  virtual void exportToStream(const boost::shared_ptr<Timeline>& timeline, std::ostream& stream) const = 0;
 
   /**
    * @brief whether to export time setter
