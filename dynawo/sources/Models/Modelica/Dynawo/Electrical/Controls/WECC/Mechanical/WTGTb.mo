@@ -15,7 +15,7 @@ within Dynawo.Electrical.Controls.WECC.Mechanical;
 
 model WTGTb "Drive train control with a mechanical power derived from filtered electrical power"
   extends Dynawo.Electrical.Controls.WECC.Mechanical.BaseClasses.BaseWTGT;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsWTGTb;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGTb;
 
   Modelica.Blocks.Continuous.FirstOrder Pmech(T = tp, y_start = PInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {-170, 4}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));

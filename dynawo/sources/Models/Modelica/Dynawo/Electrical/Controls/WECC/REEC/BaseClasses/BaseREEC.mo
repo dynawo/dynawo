@@ -14,7 +14,7 @@ within Dynawo.Electrical.Controls.WECC.REEC.BaseClasses;
 */
 
 partial model BaseREEC "WECC Electrical Control REEC common"
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREEC;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREEC;
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(

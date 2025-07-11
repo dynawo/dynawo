@@ -14,18 +14,15 @@ within Dynawo.Electrical.Photovoltaics.WECC.BaseClasses;
 
 partial model BasePVCurrentSource "Base for WECC PV with a current source as interface with the grid"
   extends Dynawo.Electrical.Controls.PLL.ParamsPLL;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREEC;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREGC;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREEC;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECb;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGC;
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
   // Line parameters
   parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
   parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
-
-  //REEC-B parameter
-  parameter Types.VoltageModulePu VRef1Pu "User-defined reference/bias on the inner-loop voltage control in pu (base UNom) (typical: 0 pu)" annotation(
-    Dialog(tab = "Electrical Control"));
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(

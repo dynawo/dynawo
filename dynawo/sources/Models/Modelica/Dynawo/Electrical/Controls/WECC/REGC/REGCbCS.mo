@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.WECC.REGC;
 */
 
 model REGCbCS "WECC Generator/Converter type B with current source interface"
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREGC;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGC;
 
   // Inputs
   Modelica.Blocks.Interfaces.RealInput idCmdPu(start = Id0Pu) "idCmdPu setpoint from electrical control in pu (base SNom, UNom)" annotation(

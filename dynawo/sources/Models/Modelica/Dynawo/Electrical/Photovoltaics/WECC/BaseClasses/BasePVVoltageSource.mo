@@ -21,8 +21,8 @@ partial model BasePVVoltageSource "Base model for WECC PV with a voltage source 
 */
 
   extends Dynawo.Electrical.Controls.PLL.ParamsPLL;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREEC;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREGC;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREEC;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGC;
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsVSourceRef;
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";

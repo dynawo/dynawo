@@ -15,63 +15,20 @@ within Dynawo.Electrical.Wind.WECC;
 
 model WTG3CurrentSource1 "WECC Wind Turbine model with a current source as interface with the grid and the mechanical controllers"
   extends Dynawo.Electrical.Controls.PLL.ParamsPLL;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREEC;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREGC;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREPC;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsWTGP;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsWTGAa;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsWTGQa;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsWTGT;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREEC;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECa;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGC;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGP;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGAa;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGQa;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGT;
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
   // Line parameters
   parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
   parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
-
-  // REEC-A parameters
-  parameter Types.PerUnit VDLIp11 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp12 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp21 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp22 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp31 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp32 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp41 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp42 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq11 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq12 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq21 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq22 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq31 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq32 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq41 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq42 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.Time tHoldIpMax "Time delay for which the active current limit (ipMaxPu) is held after voltage dip vDip returns to zero for tHoldIpMax seconds at its value during the voltage dip" annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Real tHoldIq "Absolute value of tHoldIq defines seconds to hold current injection after voltage dip ended. tHoldIq > 0 for constant, 0 for no injection after voltage dip, tHoldIq < 0 for voltage-dependent injection (typical: -1 .. 1 s)" annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit IqFrzPu "Constant reactive current injection value (typical: -0.1 .. 0.1 pu)" annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Boolean PFlag "Power reference flag: const. Pref (0) or consider generator speed (1)" annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.VoltageModulePu VRef1Pu "User-defined reference/bias on the inner-loop voltage control (typical: 0 pu)" annotation(
-    Dialog(tab = "Electrical Control"));
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(
