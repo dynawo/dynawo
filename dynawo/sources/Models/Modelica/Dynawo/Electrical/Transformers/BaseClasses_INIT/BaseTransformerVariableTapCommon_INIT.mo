@@ -28,9 +28,12 @@ partial model BaseTransformerVariableTapCommon_INIT "Base model for initializati
   parameter Types.VoltageModulePu Uc20Pu "Voltage set-point on side 2 in pu (base U2Nom)";
 
   // Transformer start values
-  Dynawo.Connectors.ComplexVoltagePuConnector u20Pu "Start value of complex voltage at terminal 2 in pu (base U2Nom)";
-  flow Dynawo.Connectors.ComplexCurrentPuConnector i20Pu "Start value of complex current at terminal 2 in pu (base U2Nom, SnRef) (receptor convention)";
+  Types.ComplexVoltagePu u20Pu "Start value of complex voltage at terminal 2 in pu (base U2Nom)";
+  Types.ComplexCurrentPu i20Pu "Start value of complex current at terminal 2 in pu (base U2Nom, SnRef) (receptor convention)";
   Types.VoltageModulePu U20Pu "Start value of voltage amplitude at terminal 2 in pu (base U2Nom)";
+
+  // Terminal for init connections
+  Dynawo.Connectors.ACPower terminal20 "Connector on side 2 at initialization";
 
   Integer Tap0 "Start value of transformer tap";
   Types.PerUnit rTfo0Pu "Start value of transformer ratio";
@@ -46,6 +49,8 @@ equation
 
   // Voltage at terminal 2
   U20Pu = ComplexMath.'abs'(u20Pu);
+  u20Pu = terminal20.V;
+  i20Pu = terminal20.i;
 
   annotation(preferredView = "text");
 end BaseTransformerVariableTapCommon_INIT;

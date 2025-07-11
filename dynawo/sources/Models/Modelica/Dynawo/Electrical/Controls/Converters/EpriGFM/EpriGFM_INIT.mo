@@ -31,7 +31,7 @@ model EpriGFM_INIT "Initialization model for EpriGFM"
   parameter Types.PerUnit XSourcePu "Reactance in pu (base SNom, UNom), example value = 0.15" annotation(
   Dialog(tab = "Circuit"));
 
-  flow Types.ComplexCurrentPu i0Pu "Start value of complex current at converter's terminal in pu (base UNom, SnRef) (receptor convention)";
+  Types.ComplexCurrentPu i0Pu "Start value of complex current at converter's terminal in pu (base UNom, SnRef) (receptor convention)";
   Types.PerUnit IdConv0Pu "Start value of d-axis current of the converter in pu (base UNom, SNom) (generator convention)";
   Types.PerUnit IqConv0Pu "Start value of q-axis current of the converter in pu (base UNom, SNom) (generator convention)";
   Types.ComplexPerUnit s0Pu "Start value of complex apparent power at terminal in pu (base SnRef) (receptor convention)";
