@@ -40,6 +40,7 @@ Curve::Curve::Curve() :
       isParameterCurve_(false),
       curveType_(UNDEFINED),
       indexInGlobalTable_(std::numeric_limits<size_t>::max()),
+      indexCalculatedVarInSubModel_(std::numeric_limits<unsigned>::max()),
       exportType_(EXPORT_AS_CURVE) {}
 
 void
