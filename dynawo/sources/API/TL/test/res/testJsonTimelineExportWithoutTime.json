@@ -1,0 +1,1 @@
+{"timeline":[{"modelName":"model1","message":"event1 at 10s"},{"modelName":"model1","message":"event2 at 10s","priority":"5"},{"modelName":"model2","message":"event1 at 10s"},{"modelName":"model2","message":"event2 at 20s","priority":"10"},{"modelName":"model2","message":"event3 at 30s"}]}

@@ -91,4 +91,10 @@ ConstraintsCollection::filter() {
   }
 }
 
+void
+ConstraintsCollection::clear() {
+  constraintsByModel_.clear();
+  constraintsById_.clear();
+}
+
 }  // namespace constraints
