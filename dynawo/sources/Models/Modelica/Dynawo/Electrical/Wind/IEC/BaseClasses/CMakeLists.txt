@@ -14,7 +14,7 @@ set(MODEL_FILES
   package.order
   BaseWPP.mo
   BaseWT4.mo
-  BaseWTCurrentSource2020.mo
+  BaseWT3.mo
   )
 
 #

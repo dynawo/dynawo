@@ -31,6 +31,8 @@ model WPP4ACurrentSource2015 "Wind Power Plant Type 4A model from IEC 61400-27-1
   //WT PControl parameters
   parameter Types.PerUnit DPMaxP4APu "Maximum WT power ramp rate in pu/s (base SNom) (generator convention)" annotation(
     Dialog(tab = "PControl"));
+  parameter Types.PerUnit Kpaw "Anti-windup gain for active power in pu/s (base SNom)" annotation(
+    Dialog(tab = "PControl"));
   parameter Types.Time tPOrdP4A "Power order lag time constant in s" annotation(
     Dialog(tab = "PControl"));
   parameter Types.Time tUFiltP4A "Filter time constant for voltage measurement in s" annotation(
@@ -51,9 +53,6 @@ model WPP4ACurrentSource2015 "Wind Power Plant Type 4A model from IEC 61400-27-1
     Dialog(tab = "QControl"));
   parameter Types.VoltageModulePu Udb2Pu "Voltage dead band upper limit in pu (base UNom)" annotation(
     Dialog(tab = "QControl"));
-
-  //WT genSystem parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem4;
 
   //Qlimiter parameters
   parameter Types.Time tPFiltql "Filter time constant for active power measurement in s" annotation(
@@ -83,6 +82,20 @@ model WPP4ACurrentSource2015 "Wind Power Plant Type 4A model from IEC 61400-27-1
   parameter Types.Time txfv "Lag time constant in the reference value transfer function in s" annotation(
     Dialog(tab = "QControlWP"));
 
+  //Control parameters
+  parameter Types.PerUnit DipMaxPu "Maximum active current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "Control"));
+  parameter Types.PerUnit DiqMaxPu "Maximum reactive current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "Control"));
+  parameter Types.PerUnit DiqMinPu "Minimum reactive current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "Control"));
+  parameter Types.PerUnit Kipaw "Anti-windup gain for active current in pu/s (base UNom, SNom)" annotation(
+    Dialog(tab = "Control"));
+  parameter Types.PerUnit Kiqaw "Anti-windup gain for reactive current in pu/s (base UNom, SNom)" annotation(
+    Dialog(tab = "Control"));
+  parameter Types.Time tG "Current generation time constant in s" annotation(
+    Dialog(tab = "Control"));
+
   //Input variables
   Modelica.Blocks.Interfaces.RealInput QWPRefPu(start = -Q0Pu*SystemBase.SnRef/SNom) "Reference reactive power in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-140, -14}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -93,6 +106,10 @@ model WPP4ACurrentSource2015 "Wind Power Plant Type 4A model from IEC 61400-27-1
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Controls.IEC.IEC61400.WPP.WPPControl2015 wPPControl2015(DPRefMaxPu = DPRefMaxPu, DPRefMinPu = DPRefMinPu, DPwpRefMaxPu = DPwpRefMaxPu, DPwpRefMinPu = DPwpRefMinPu, DXRefMaxPu = DXRefMaxPu, DXRefMinPu = DXRefMinPu, Kiwpp = Kiwpp, Kiwpx = Kiwpx, XKiwpxMaxPu = XKiwpxMaxPu, XKiwpxMinPu = XKiwpxMinPu, Kpwpp = Kpwpp, Kpwpx = Kpwpx, KwppRef = KwppRef, KwpqRef = KwpqRef, Kwpqu = Kwpqu, MwpqMode = MwpqMode, P0Pu = P0Pu, PKiwppMaxPu = PKiwppMaxPu, PKiwppMinPu = PKiwppMinPu, PRefMaxPu = PRefMaxPu, PRefMinPu = PRefMinPu, Q0Pu = Q0Pu, SNom = SNom, TablePwpBiasfwpFiltCom = TablePwpBiasfwpFiltCom, TablePwpBiasfwpFiltCom11 = TablePwpBiasfwpFiltCom11, TablePwpBiasfwpFiltCom12 = TablePwpBiasfwpFiltCom12, TablePwpBiasfwpFiltCom21 = TablePwpBiasfwpFiltCom21, TablePwpBiasfwpFiltCom22 = TablePwpBiasfwpFiltCom22, TablePwpBiasfwpFiltCom31 = TablePwpBiasfwpFiltCom31, TablePwpBiasfwpFiltCom32 = TablePwpBiasfwpFiltCom32, TablePwpBiasfwpFiltCom41 = TablePwpBiasfwpFiltCom41, TablePwpBiasfwpFiltCom42 = TablePwpBiasfwpFiltCom42, TablePwpBiasfwpFiltCom51 = TablePwpBiasfwpFiltCom51, TablePwpBiasfwpFiltCom52 = TablePwpBiasfwpFiltCom52, TablePwpBiasfwpFiltCom61 = TablePwpBiasfwpFiltCom61, TablePwpBiasfwpFiltCom62 = TablePwpBiasfwpFiltCom62, TablePwpBiasfwpFiltCom71 = TablePwpBiasfwpFiltCom71, TablePwpBiasfwpFiltCom72 = TablePwpBiasfwpFiltCom72, TableQwpUErr = TableQwpUErr, TableQwpUErr11 = TableQwpUErr11, TableQwpUErr12 = TableQwpUErr12, TableQwpUErr21 = TableQwpUErr21, TableQwpUErr22 = TableQwpUErr22, TableQwpUErr31 = TableQwpUErr31, TableQwpUErr32 = TableQwpUErr32, TableQwpUErr41 = TableQwpUErr41, TableQwpUErr42 = TableQwpUErr42, TableQwpUErr51 = TableQwpUErr51, TableQwpUErr52 = TableQwpUErr52, TableQwpUErr61 = TableQwpUErr61, TableQwpUErr62 = TableQwpUErr62, U0Pu = U0Pu, UPhase0 = UPhase0, UwpqDipPu = UwpqDipPu, X0Pu = X0Pu, XRefMaxPu = XRefMaxPu, XRefMinPu = XRefMinPu, XWT0Pu = XWT0Pu, i0Pu = i0Pu, tS = tS, tUqFilt = tUqFilt, tWPPFiltP = tWPPFiltP, tWPPFiltQ = tWPPFiltQ, tWPQFiltQ = tWPQFiltQ, tWPUFiltQ = tWPUFiltQ, tWPfFiltP = tWPfFiltP, tpft = tpft, tpfv = tpfv, txft = txft, txfv = txfv, u0Pu = u0Pu, tfFilt = tfFilt, DfMaxPu = DfMaxPu) annotation(
     Placement(visible = true, transformation(origin = {-60, 4.44089e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+
+  //Initial parameter
+  parameter Types.ActivePowerPu PAg0Pu "Initial generator (air gap) power in pu (base SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
 
 equation
   connect(wT4ACurrentSource.terminal, elecMeasurements.terminal1) annotation(
@@ -122,5 +139,5 @@ equation
 
   annotation(
     preferredView = "diagram",
-    Icon(graphics = {Text(origin = {-3, -25}, extent = {{-57, 28}, {57, -28}}, textString = "Type 4A\n2015")}));
+    Icon(graphics = {Text(origin = {70, -1}, extent = {{-36, 16}, {36, -16}}, textString = "A")}));
 end WPP4ACurrentSource2015;

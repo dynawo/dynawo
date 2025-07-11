@@ -28,7 +28,7 @@ model Mechanical "Two-mass module for wind turbines (IEC N°61400-27-1)"
     Dialog(tab = "Mechanical"));
 
   //Input variables
-  Modelica.Blocks.Interfaces.RealInput PAeroPu(start = -P0Pu * SystemBase.SnRef / SNom) "Aerodynamic power in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PAeroPu(start = PAg0Pu) "Aerodynamic power in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-120, 54}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput PAgPu(start = PAg0Pu) "Generator (air gap) power in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-120, -54}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -57,8 +57,6 @@ model Mechanical "Two-mass module for wind turbines (IEC N°61400-27-1)"
     Placement(visible = true, transformation(origin = {-10, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   //Initial parameters
-  parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
-    Dialog(tab = "Operating point"));
   parameter Types.ActivePowerPu PAg0Pu "Initial generator (air gap) power in pu (base SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
 

@@ -1,0 +1,308 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2025, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="IDA">
+    <par type="INT" name="order" value="1"/>
+    <par type="DOUBLE" name="initStep" value="1e-10"/>
+    <par type="DOUBLE" name="minStep" value="1e-10"/>
+    <par type="DOUBLE" name="minimalAcceptableStep" value="1e-10"/>
+    <par type="DOUBLE" name="maxStep" value="10"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-8"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-6"/>
+  </set>
+  <set id="1">
+    <par type="DOUBLE" name="infiniteBus_U0Pu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_UEvtPu" value="0.1"/>
+    <par type="DOUBLE" name="infiniteBus_UPhase" value="0"/>
+    <par type="DOUBLE" name="infiniteBus_omega0Pu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_omegaEvtPu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtStart" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtEnd" value="1.1"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtStart" value="999"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtEnd" value="999"/>
+  </set>
+  <set id="3">
+    <!-- Nominal -->
+    <par type="DOUBLE" name="WT_SNom" value="100"/>
+    <par type="DOUBLE" name="WT_tS" value="1e-4"/>
+    <!-- Electrical -->
+    <par type="DOUBLE" name="WT_BesPu" value="0"/>
+    <par type="DOUBLE" name="WT_GesPu" value="0"/>
+    <par type="DOUBLE" name="WT_ResPu" value="0"/>
+    <par type="DOUBLE" name="WT_XesPu" value="0.01"/>
+    <!-- Control-->
+    <par type="DOUBLE" name="WT_DipMaxPu" value="1"/>
+    <par type="DOUBLE" name="WT_DiqMaxPu" value="100"/>
+    <par type="BOOL" name="WT_MCrb" value="false"/>
+    <par type="DOUBLE" name="WT_tG" value="0.01"/>
+    <par type="DOUBLE" name="WT_tWo" value="0.001"/>
+    <par type="DOUBLE" name="WT_XEqv" value="10"/>
+    <!-- MeasurementC -->
+    <par type="DOUBLE" name="WT_DfcMaxPu" value="5"/>
+    <par type="DOUBLE" name="WT_tfcFilt" value="0.005"/>
+    <par type="DOUBLE" name="WT_tIcFilt" value="0.005"/>
+    <par type="DOUBLE" name="WT_tPcFilt" value="0.005"/>
+    <par type="DOUBLE" name="WT_tQcFilt" value="0.005"/>
+    <par type="DOUBLE" name="WT_tUcFilt" value="0.005"/>
+    <!-- MeasurementP -->
+    <par type="DOUBLE" name="WT_DfpMaxPu" value="5"/>
+    <par type="DOUBLE" name="WT_tfpFilt" value="0.005"/>
+    <par type="DOUBLE" name="WT_tIpFilt" value="0.005"/>
+    <par type="DOUBLE" name="WT_tPpFilt" value="0.005"/>
+    <par type="DOUBLE" name="WT_tQpFilt" value="0.005"/>
+    <par type="DOUBLE" name="WT_tUpFilt" value="0.005"/>
+    <!-- PLL -->
+    <par type="DOUBLE" name="WT_tPll" value="0.02"/>
+    <par type="DOUBLE" name="WT_UPll1Pu" value="9"/>
+    <par type="DOUBLE" name="WT_UPll2Pu" value="0.13"/>
+    <!-- PControl -->
+    <par type="DOUBLE" name="WT_DPMaxPu" value="999"/>
+    <par type="DOUBLE" name="WT_DPRefMax4abPu" value="0.3"/>
+    <par type="DOUBLE" name="WT_DPRefMin4abPu" value="-0.3"/>
+    <par type="DOUBLE" name="WT_KDtd" value="1.5"/>
+    <par type="BOOL" name="WT_MOmegaTMax" value="true"/>
+    <par type="BOOL" name="WT_MOmegaTqpi" value="false"/>
+    <par type="BOOL" name="WT_MpUScale" value="false"/>
+    <par type="DOUBLE" name="WT_OmegaDtdPu" value="11.3"/>
+    <par type="DOUBLE" name="WT_OmegaOffsetPu" value="0"/>
+    <par type="DOUBLE" name="WT_PDtdMaxPu" value="0.15"/>
+    <par type="DOUBLE" name="WT_tOmegafiltp3" value="0.005"/>
+    <par type="DOUBLE" name="WT_tOmegaRef" value="0.005"/>
+    <par type="DOUBLE" name="WT_tPord" value="0.01"/>
+    <par type="DOUBLE" name="WT_Zeta" value="0.5"/>
+    <!-- Torque PI-->
+    <par type="DOUBLE" name="WT_DTauMaxPu" value="0.25"/>
+    <par type="DOUBLE" name="WT_DTauUvrtMaxPu" value="0"/>
+    <par type="DOUBLE" name="WT_KIp" value="5"/>
+    <par type="DOUBLE" name="WT_KPp" value="3"/>
+    <par type="BOOL" name="WT_MPUvrt" value="true"/>
+    <par type="DOUBLE" name="WT_TauEMinPu" value="0.001"/>
+    <par type="DOUBLE" name="WT_TauUscalePu" value="1"/>
+    <par type="DOUBLE" name="WT_tDvs" value="0.05"/>
+    <par type="DOUBLE" name="WT_UDvsPu" value="0.15"/>
+    <par type="DOUBLE" name="WT_UpDipPu" value="0.9"/>
+    <!-- CurrentLimiter -->
+    <par type="DOUBLE" name="WT_IMaxDipPu" value="1.3"/>
+    <par type="DOUBLE" name="WT_IMaxPu" value="1.3"/>
+    <par type="DOUBLE" name="WT_Kpqu" value="20"/>
+    <par type="BOOL" name="WT_MdfsLim" value="false"/>
+    <par type="BOOL" name="WT_Mqpri" value="true"/>
+    <par type="DOUBLE" name="WT_UpquMaxPu" value="1.1"/>
+    <par type="DOUBLE" name="WT_TableIpMaxUwt11" value="0"/>
+    <par type="DOUBLE" name="WT_TableIpMaxUwt12" value="0"/>
+    <par type="DOUBLE" name="WT_TableIpMaxUwt21" value="0.1"/>
+    <par type="DOUBLE" name="WT_TableIpMaxUwt22" value="0"/>
+    <par type="DOUBLE" name="WT_TableIpMaxUwt31" value="0.15"/>
+    <par type="DOUBLE" name="WT_TableIpMaxUwt32" value="1"/>
+    <par type="DOUBLE" name="WT_TableIpMaxUwt41" value="0.9"/>
+    <par type="DOUBLE" name="WT_TableIpMaxUwt42" value="1"/>
+    <par type="DOUBLE" name="WT_TableIpMaxUwt51" value="0.91"/>
+    <par type="DOUBLE" name="WT_TableIpMaxUwt52" value="1.2"/>
+    <par type="DOUBLE" name="WT_TableIpMaxUwt61" value="1.2"/>
+    <par type="DOUBLE" name="WT_TableIpMaxUwt62" value="1.2"/>
+    <par type="DOUBLE" name="WT_TableIpMaxUwt71" value="10"/>
+    <par type="DOUBLE" name="WT_TableIpMaxUwt72" value="1.2"/>
+    <par type="DOUBLE" name="WT_TableIqMaxUwt11" value="0"/>
+    <par type="DOUBLE" name="WT_TableIqMaxUwt12" value="0.1"/>
+    <par type="DOUBLE" name="WT_TableIqMaxUwt21" value="0.2"/>
+    <par type="DOUBLE" name="WT_TableIqMaxUwt22" value="0.95"/>
+    <par type="DOUBLE" name="WT_TableIqMaxUwt31" value="0.2000001"/>
+    <par type="DOUBLE" name="WT_TableIqMaxUwt32" value="1"/>
+    <par type="DOUBLE" name="WT_TableIqMaxUwt41" value="0.9"/>
+    <par type="DOUBLE" name="WT_TableIqMaxUwt42" value="1"/>
+    <par type="DOUBLE" name="WT_TableIqMaxUwt51" value="0.9000001"/>
+    <par type="DOUBLE" name="WT_TableIqMaxUwt52" value="0.36"/>
+    <par type="DOUBLE" name="WT_TableIqMaxUwt61" value="1.1"/>
+    <par type="DOUBLE" name="WT_TableIqMaxUwt62" value="0.3"/>
+    <par type="DOUBLE" name="WT_TableIqMaxUwt71" value="10"/>
+    <par type="DOUBLE" name="WT_TableIqMaxUwt72" value="0.3"/>
+    <par type="DOUBLE" name="WT_TableIqMaxUwt81" value="20"/>
+    <par type="DOUBLE" name="WT_TableIqMaxUwt82" value="0.3"/>
+    <!-- QControl -->
+    <par type="DOUBLE" name="WT_DUdb1Pu" value="-0.1"/>
+    <par type="DOUBLE" name="WT_DUdb2Pu" value="0.1"/>
+    <par type="DOUBLE" name="WT_IqH1Pu" value="1.05"/>
+    <par type="DOUBLE" name="WT_IqMaxPu" value="1.05"/>
+    <par type="DOUBLE" name="WT_IqMinPu" value="-1.05"/>
+    <par type="DOUBLE" name="WT_IqPostPu" value="0"/>
+    <par type="DOUBLE" name="WT_Kiq" value="2"/>
+    <par type="DOUBLE" name="WT_Kiu" value="2"/>
+    <par type="DOUBLE" name="WT_Kpq" value="0"/>
+    <par type="DOUBLE" name="WT_Kpu" value="2"/>
+    <par type="DOUBLE" name="WT_Kpufrt" value="1e-4"/>
+    <par type="DOUBLE" name="WT_Kqv" value="2"/>
+    <par type="INT" name="WT_Mqfrt" value="2"/>
+    <par type="INT" name="WT_MqG" value="1"/>
+    <par type="DOUBLE" name="WT_RDropPu" value="0"/>
+    <par type="DOUBLE" name="WT_tPost" value="0"/>
+    <par type="DOUBLE" name="WT_tQord" value="1e-4"/>
+    <par type="DOUBLE" name="WT_tUss" value="30"/>
+    <par type="DOUBLE" name="WT_UMaxPu" value="2"/>
+    <par type="DOUBLE" name="WT_UMinPu" value="0"/>
+    <par type="DOUBLE" name="WT_UqDipPu" value="0.9"/>
+    <par type="DOUBLE" name="WT_UqRisePu" value="1.1"/>
+    <par type="DOUBLE" name="WT_URef0Pu" value="0"/>
+    <par type="DOUBLE" name="WT_XDropPu" value="0"/>
+    <!-- QLimiter -->
+    <par type="BOOL" name="WT_QlConst" value="false"/>
+    <par type="DOUBLE" name="WT_QMaxPu" value="0.8"/>
+    <par type="DOUBLE" name="WT_QMinPu" value="-0.8"/>
+    <par type="DOUBLE" name="WT_TableQMaxUwtcFilt11" value="-1"/>
+    <par type="DOUBLE" name="WT_TableQMaxUwtcFilt12" value="0"/>
+    <par type="DOUBLE" name="WT_TableQMaxUwtcFilt21" value="0"/>
+    <par type="DOUBLE" name="WT_TableQMaxUwtcFilt22" value="0"/>
+    <par type="DOUBLE" name="WT_TableQMaxUwtcFilt31" value="0.8"/>
+    <par type="DOUBLE" name="WT_TableQMaxUwtcFilt32" value="0.33"/>
+    <par type="DOUBLE" name="WT_TableQMaxUwtcFilt41" value="0.9"/>
+    <par type="DOUBLE" name="WT_TableQMaxUwtcFilt42" value="0.33"/>
+    <par type="DOUBLE" name="WT_TableQMaxUwtcFilt51" value="10"/>
+    <par type="DOUBLE" name="WT_TableQMaxUwtcFilt52" value="0.33"/>
+    <par type="DOUBLE" name="WT_TableQMaxUwtcFilt61" value="20"/>
+    <par type="DOUBLE" name="WT_TableQMaxUwtcFilt62" value="0.33"/>
+    <par type="DOUBLE" name="WT_TableQMinUwtcFilt11" value="0"/>
+    <par type="DOUBLE" name="WT_TableQMinUwtcFilt12" value="0"/>
+    <par type="DOUBLE" name="WT_TableQMinUwtcFilt21" value="0.8"/>
+    <par type="DOUBLE" name="WT_TableQMinUwtcFilt22" value="-0.33"/>
+    <par type="DOUBLE" name="WT_TableQMinUwtcFilt31" value="0.9"/>
+    <par type="DOUBLE" name="WT_TableQMinUwtcFilt32" value="-0.33"/>
+    <par type="DOUBLE" name="WT_TableQMinUwtcFilt41" value="10"/>
+    <par type="DOUBLE" name="WT_TableQMinUwtcFilt42" value="-0.33"/>
+    <par type="DOUBLE" name="WT_TableQMaxPwtcFilt11" value="0"/>
+    <par type="DOUBLE" name="WT_TableQMaxPwtcFilt12" value="0"/>
+    <par type="DOUBLE" name="WT_TableQMaxPwtcFilt21" value="0.3"/>
+    <par type="DOUBLE" name="WT_TableQMaxPwtcFilt22" value="0.33"/>
+    <par type="DOUBLE" name="WT_TableQMaxPwtcFilt31" value="1"/>
+    <par type="DOUBLE" name="WT_TableQMaxPwtcFilt32" value="0.33"/>
+    <par type="DOUBLE" name="WT_TableQMaxPwtcFilt41" value="10"/>
+    <par type="DOUBLE" name="WT_TableQMaxPwtcFilt42" value="0.33"/>
+    <par type="DOUBLE" name="WT_TableQMinPwtcFilt11" value="0"/>
+    <par type="DOUBLE" name="WT_TableQMinPwtcFilt12" value="0"/>
+    <par type="DOUBLE" name="WT_TableQMinPwtcFilt21" value="0.3"/>
+    <par type="DOUBLE" name="WT_TableQMinPwtcFilt22" value="-0.33"/>
+    <par type="DOUBLE" name="WT_TableQMinPwtcFilt31" value="1"/>
+    <par type="DOUBLE" name="WT_TableQMinPwtcFilt32" value="-0.33"/>
+    <par type="DOUBLE" name="WT_TableQMinPwtcFilt41" value="10"/>
+    <par type="DOUBLE" name="WT_TableQMinPwtcFilt42" value="-0.33"/>
+    <!-- GridProtection -->
+    <par type="DOUBLE" name="WT_fOverPu" value="1.02"/>
+    <par type="DOUBLE" name="WT_fUnderPu" value="0.98"/>
+    <par type="DOUBLE" name="WT_UOverPu" value="1.2"/>
+    <par type="DOUBLE" name="WT_UUnderPu" value="0.85"/>
+    <par type="DOUBLE" name="WT_TableUoverUwtfilt11" value="1.2"/>
+    <par type="DOUBLE" name="WT_TableUoverUwtfilt12" value="60"/>
+    <par type="DOUBLE" name="WT_TableUoverUwtfilt21" value="1.2000000001"/>
+    <par type="DOUBLE" name="WT_TableUoverUwtfilt22" value="0.1"/>
+    <par type="DOUBLE" name="WT_TableUoverUwtfilt31" value="1.3"/>
+    <par type="DOUBLE" name="WT_TableUoverUwtfilt32" value="0.1"/>
+    <par type="DOUBLE" name="WT_TableUoverUwtfilt41" value="10"/>
+    <par type="DOUBLE" name="WT_TableUoverUwtfilt42" value="0.1"/>
+    <par type="DOUBLE" name="WT_TableUoverUwtfilt51" value="20"/>
+    <par type="DOUBLE" name="WT_TableUoverUwtfilt52" value="0.1"/>
+    <par type="DOUBLE" name="WT_TableUoverUwtfilt61" value="30"/>
+    <par type="DOUBLE" name="WT_TableUoverUwtfilt62" value="0.1"/>
+    <par type="DOUBLE" name="WT_TableUoverUwtfilt71" value="40"/>
+    <par type="DOUBLE" name="WT_TableUoverUwtfilt72" value="0.1"/>
+    <par type="DOUBLE" name="WT_TableUoverUwtfilt81" value="50"/>
+    <par type="DOUBLE" name="WT_TableUoverUwtfilt82" value="0.1"/>
+    <par type="DOUBLE" name="WT_TableUunderUwtfilt11" value="0"/>
+    <par type="DOUBLE" name="WT_TableUunderUwtfilt12" value="0.15"/>
+    <par type="DOUBLE" name="WT_TableUunderUwtfilt21" value="0.85"/>
+    <par type="DOUBLE" name="WT_TableUunderUwtfilt22" value="3"/>
+    <par type="DOUBLE" name="WT_TableUunderUwtfilt31" value="0.8500000001"/>
+    <par type="DOUBLE" name="WT_TableUunderUwtfilt32" value="9999"/>
+    <par type="DOUBLE" name="WT_TableUunderUwtfilt41" value="10"/>
+    <par type="DOUBLE" name="WT_TableUunderUwtfilt42" value="9999"/>
+    <par type="DOUBLE" name="WT_TableUunderUwtfilt51" value="20"/>
+    <par type="DOUBLE" name="WT_TableUunderUwtfilt52" value="9999"/>
+    <par type="DOUBLE" name="WT_TableUunderUwtfilt61" value="30"/>
+    <par type="DOUBLE" name="WT_TableUunderUwtfilt62" value="9999"/>
+    <par type="DOUBLE" name="WT_TableUunderUwtfilt71" value="40"/>
+    <par type="DOUBLE" name="WT_TableUunderUwtfilt72" value="9999"/>
+    <par type="DOUBLE" name="WT_Tablefoverfwtfilt11" value="1.02"/>
+    <par type="DOUBLE" name="WT_Tablefoverfwtfilt12" value="1800"/>
+    <par type="DOUBLE" name="WT_Tablefoverfwtfilt21" value="1.03"/>
+    <par type="DOUBLE" name="WT_Tablefoverfwtfilt22" value="1800"/>
+    <par type="DOUBLE" name="WT_Tablefoverfwtfilt31" value="1.030000001"/>
+    <par type="DOUBLE" name="WT_Tablefoverfwtfilt32" value="0.1"/>
+    <par type="DOUBLE" name="WT_Tablefoverfwtfilt41" value="10"/>
+    <par type="DOUBLE" name="WT_Tablefoverfwtfilt42" value="0.1"/>
+    <par type="DOUBLE" name="WT_Tablefunderfwtfilt11" value="0.95"/>
+    <par type="DOUBLE" name="WT_Tablefunderfwtfilt12" value="0.1"/>
+    <par type="DOUBLE" name="WT_Tablefunderfwtfilt21" value="0.9500000001"/>
+    <par type="DOUBLE" name="WT_Tablefunderfwtfilt22" value="1800"/>
+    <par type="DOUBLE" name="WT_Tablefunderfwtfilt31" value="0.98"/>
+    <par type="DOUBLE" name="WT_Tablefunderfwtfilt32" value="1800"/>
+    <par type="DOUBLE" name="WT_Tablefunderfwtfilt41" value="10"/>
+    <par type="DOUBLE" name="WT_Tablefunderfwtfilt42" value="1800"/>
+    <par type="DOUBLE" name="WT_Tablefunderfwtfilt51" value="20"/>
+    <par type="DOUBLE" name="WT_Tablefunderfwtfilt52" value="1800"/>
+    <par type="DOUBLE" name="WT_Tablefunderfwtfilt61" value="30"/>
+    <par type="DOUBLE" name="WT_Tablefunderfwtfilt62" value="1800"/>
+    <!-- Mechanical -->
+    <par type="DOUBLE" name="WT_CdrtPu" value="2.344"/>
+    <par type="DOUBLE" name="WT_Hgen" value="3.395"/>
+    <par type="DOUBLE" name="WT_Hwtr" value="0.962"/>
+    <par type="DOUBLE" name="WT_KdrtPu" value="1.378"/>
+    <!-- Aerodynamic -->
+    <par type="DOUBLE" name="WT_DPOmegaThetaPu" value="0.028"/>
+    <par type="DOUBLE" name="WT_DPOmega0Pu" value="0.48"/>
+    <par type="DOUBLE" name="WT_DPThetaPu" value="-0.03"/>
+    <par type="DOUBLE" name="WT_Theta0" value="0"/>
+    <!-- Pitch angle control -->
+    <par type="DOUBLE" name="WT_DThetaCMax" value="6"/>
+    <par type="DOUBLE" name="WT_DThetaCMin" value="-3"/>
+    <par type="DOUBLE" name="WT_DThetaMax" value="6"/>
+    <par type="DOUBLE" name="WT_DThetaMin" value="-3"/>
+    <par type="DOUBLE" name="WT_DThetaOmegaMax" value="6"/>
+    <par type="DOUBLE" name="WT_DThetaOmegaMin" value="-3"/>
+    <par type="DOUBLE" name="WT_KIcPu" value="0"/>
+    <par type="DOUBLE" name="WT_KIomegaPu" value="15"/>
+    <par type="DOUBLE" name="WT_KPcPu" value="0"/>
+    <par type="DOUBLE" name="WT_KPomegaPu" value="15"/>
+    <par type="DOUBLE" name="WT_KPXPu" value="1"/>
+    <par type="DOUBLE" name="WT_ThetaCMax" value="35"/>
+    <par type="DOUBLE" name="WT_ThetaCMin" value="0"/>
+    <par type="DOUBLE" name="WT_ThetaMax" value="35"/>
+    <par type="DOUBLE" name="WT_ThetaMin" value="0"/>
+    <par type="DOUBLE" name="WT_ThetaOmegaMax" value="35"/>
+    <par type="DOUBLE" name="WT_ThetaOmegaMin" value="0"/>
+    <par type="DOUBLE" name="WT_TTheta" value="0.25"/>
+    <!-- Operating Point -->
+    <par type="DOUBLE" name="WT_P0Pu" value="-0.6"/>
+    <par type="DOUBLE" name="WT_Q0Pu" value="-0"/>
+    <par type="DOUBLE" name="WT_U0Pu" value="1"/>
+    <par type="DOUBLE" name="WT_UPhase0" value="0"/>
+    <par type="DOUBLE" name="WT_PWTRef0Pu" value="1.1"/>
+    <par type="DOUBLE" name="WT_PAvailPu" value="0.6"/>
+  </set>
+  <set id="2">
+    <par type="DOUBLE" name="step_Height" value="-0.7"/>
+    <par type="DOUBLE" name="step_tStep" value="99"/>
+    <par type="DOUBLE" name="step_Value0" value="1.1"/>
+  </set>
+  <!-- Set Point -->
+  <set id="4">
+    <par type="DOUBLE" name="setPoint_Value0" value="1"/>
+  </set>
+  <set id="5">
+    <par type="DOUBLE" name="step_Height" value="0"/>
+    <par type="DOUBLE" name="step_tStep" value="999"/>
+    <par type="DOUBLE" name="step_Value0" value="-1"/>
+  </set>
+  <set id="6">
+    <par type="DOUBLE" name="step_Height" value="0.15"/>
+    <par type="DOUBLE" name="step_tStep" value="999"/>
+    <par type="DOUBLE" name="step_Value0" value="0"/>
+  </set>
+</parametersSet>
