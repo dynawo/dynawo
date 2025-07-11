@@ -25,7 +25,7 @@ model WT3CurrentSource_INIT "Wind Turbine Type 3 model from IEC 61400-27-1 stand
 
   //Current limiter parameters
   extends Dynawo.Electrical.Wind.IEC.Parameters.CurrentLimiter;
-  
+
   //parameter Types.CurrentModulePu IMaxPu "Maximum current at converter terminal in pu (base UNom, SNom)";
   //parameter Types.PerUnit Kpqu "Partial derivative of reactive current limit against voltage in pu (base UNom, SNom)";
   //parameter Types.VoltageModulePu UpquMaxPu "WT voltage in the operation point where zero reactive power can be delivered, in pu (base UNom)";
@@ -202,6 +202,5 @@ equation
     Line(points = {{62, 60}, {70, 60}, {70, 26}, {78, 26}}, color = {0, 0, 127}));
 
   annotation(
-    preferredView = "text",
     Diagram(coordinateSystem(extent = {{-200, -200}, {200, 200}})));
 end WT3CurrentSource_INIT;

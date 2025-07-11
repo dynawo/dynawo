@@ -202,6 +202,5 @@ equation
     Line(points = {{62, 60}, {70, 60}, {70, 26}, {78, 26}}, color = {0, 0, 127}));
 
   annotation(
-    preferredView = "text",
     Diagram(coordinateSystem(extent = {{-200, -200}, {200, 200}})));
 end WT4CurrentSource_INIT;
