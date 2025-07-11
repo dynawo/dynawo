@@ -60,7 +60,7 @@ class StaticVarCompensatorInterface : public ComponentInterface {
   /**
    * @brief Destructor
    */
-  virtual ~StaticVarCompensatorInterface() = default;
+  ~StaticVarCompensatorInterface() override = default;
 
   /**
    * @brief Setter for the staticVarCompensator's bus interface
@@ -126,12 +126,12 @@ class StaticVarCompensatorInterface : public ComponentInterface {
    * @brief Getter for the static var compensator's id
    * @return The id of the static var compensator
    */
-  virtual std::string getID() const = 0;
+  const std::string& getID() const override = 0;
 
   /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
-  virtual void exportStateVariablesUnitComponent() = 0;
+  void exportStateVariablesUnitComponent() override = 0;
 
   /**
    * @brief Getter for the extension's presence

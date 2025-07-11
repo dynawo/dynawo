@@ -171,36 +171,36 @@ Solver::Impl::printParameterValues() const {
     Trace::debug(Trace::parameters()) << "------------------------------" << Trace::endline;
   }
 
-  for (std::map<std::string, ParameterSolver>::const_iterator it = parameters_.begin(), itEnd = parameters_.end(); it != itEnd; ++it) {
-    const ParameterSolver& parameter = it->second;
+  for (const auto& parameterPair : parameters_) {
+    const ParameterSolver& parameter = parameterPair.second;
     if (!parameter.hasValue()) {
-      Trace::debug(Trace::parameters()) << DYNLog(ParamNoValueFound, it->first) << Trace::endline;
+      Trace::debug(Trace::parameters()) << DYNLog(ParamNoValueFound, parameterPair.first) << Trace::endline;
       continue;
     }
     switch (parameter.getValueType()) {
       case VAR_TYPE_BOOL: {
         const bool value = parameter.getValue<bool>();
-        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, it->first, origin2Str(PAR), value) << Trace::endline;
+        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, parameterPair.first, origin2Str(PAR), value) << Trace::endline;
         break;
       }
       case VAR_TYPE_INT: {
         const int value = parameter.getValue<int>();
-        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, it->first, origin2Str(PAR), value) << Trace::endline;
+        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, parameterPair.first, origin2Str(PAR), value) << Trace::endline;
         break;
       }
       case VAR_TYPE_DOUBLE: {
         const double& value = parameter.getValue<double>();
-        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, it->first, origin2Str(PAR), value) << Trace::endline;
+        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, parameterPair.first, origin2Str(PAR), value) << Trace::endline;
         break;
       }
       case VAR_TYPE_STRING: {
         const string& value = parameter.getValue<string>();
-        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, it->first, origin2Str(PAR), value) << Trace::endline;
+        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, parameterPair.first, origin2Str(PAR), value) << Trace::endline;
         break;
       }
       default:
       {
-        throw DYNError(Error::MODELER, ParameterNoTypeDetected, it->first);
+        throw DYNError(Error::MODELER, ParameterNoTypeDetected, parameterPair.first);
       }
     }
   }
@@ -222,7 +222,7 @@ Solver::Impl::resetStats() {
 }
 
 void
-Solver::Impl::solve(double tAim, double& tNxt) {
+Solver::Impl::solve(const double tAim, double& tNxt) {
   // Solving
   state_.reset();
   model_->reinitMode();
@@ -234,7 +234,7 @@ Solver::Impl::solve(double tAim, double& tNxt) {
 }
 
 bool
-Solver::Impl::evalZMode(vector<state_g>& G0, vector<state_g>& G1, double time) {
+Solver::Impl::evalZMode(vector<state_g>& G0, vector<state_g>& G1, const double time) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SolverIMPL::evalZMode");
 #endif
@@ -248,7 +248,7 @@ Solver::Impl::evalZMode(vector<state_g>& G0, vector<state_g>& G1, double time) {
     model_->evalZ(time);
     ++stats_.nze_;
 
-    zChangeType_t zChangeType = model_->getSilentZChangeType();
+    const zChangeType_t zChangeType = model_->getSilentZChangeType();
     if (zChangeType == NOT_SILENT_Z_CHANGE
         || zChangeType == NOT_USED_IN_CONTINUOUS_EQ_Z_CHANGE) {
       // at least one discrete variable that is used in discrete equations has been modified: continue the propagation
@@ -288,10 +288,10 @@ Solver::Impl::evalZMode(vector<state_g>& G0, vector<state_g>& G1, double time) {
 }
 
 void
-Solver::Impl::printUnstableRoot(double t, const vector<state_g>& G0, const vector<state_g>& G1) const {
+Solver::Impl::printUnstableRoot(const double t, const vector<state_g>& G0, const vector<state_g>& G1) const {
   int i = 0;
-  vector<state_g>::const_iterator iG0(G0.begin());
-  vector<state_g>::const_iterator iG1(G1.begin());
+  auto iG0(G0.begin());
+  auto iG1(G1.begin());
   for (; iG0 < G0.end(); iG0++, iG1++, i++) {
     if ((*iG0) != (*iG1)) {
       Trace::debug() << DYNLog(SolverInstableRoot, i, (*iG0), (*iG1), t) << Trace::endline;
@@ -307,12 +307,8 @@ Solver::Impl::printUnstableRoot(double t, const vector<state_g>& G0, const vecto
 
 void
 Solver::Impl::checkUnusedParameters(const std::shared_ptr<parameters::ParametersSet>& params) const {
-  vector<string> unusedParamNameList = params->getParamsUnused();
-  for (vector<string>::iterator it = unusedParamNameList.begin();
-          it != unusedParamNameList.end();
-          ++it) {
-    Trace::warn() << DYNLog(ParamUnused, *it, "SOLVER") << Trace::endline;
-  }
+  for (const auto& unusedParamName : params->getParamsUnused())
+    Trace::warn() << DYNLog(ParamUnused, unusedParamName, "SOLVER") << Trace::endline;
 }
 
 void Solver::Impl::defineParameters() {
@@ -322,7 +318,7 @@ void Solver::Impl::defineParameters() {
 
 void
 Solver::Impl::defineCommonParameters() {
-  const bool optional = false;
+  constexpr bool optional = false;
   // Parameters for the algebraic restoration
   parameters_.insert(make_pair("fnormtolAlg", ParameterSolver("fnormtolAlg", VAR_TYPE_DOUBLE, optional)));
   parameters_.insert(make_pair("fnormtolAlgInit", ParameterSolver("fnormtolAlgInit", VAR_TYPE_DOUBLE, optional)));
@@ -364,16 +360,15 @@ Solver::Impl::defineCommonParameters() {
 
 bool
 Solver::Impl::hasParameter(const string& nameParameter) {
-  map<string, ParameterSolver>::iterator it = parameters_.find(nameParameter);
-  return it != parameters_.end();
+  return parameters_.find(nameParameter) != parameters_.end();
 }
 
 ParameterSolver&
 Solver::Impl::findParameter(const string& name) {
-  map<string, ParameterSolver>::iterator it = parameters_.find(name);
+  const auto it = parameters_.find(name);
   if (it == parameters_.end())
     throw DYNError(Error::GENERAL, ParameterNotDefined, name);
-  return parameters_.find(name)->second;
+  return it->second;
 }
 
 const std::map<std::string, ParameterSolver>&
@@ -508,7 +503,7 @@ void Solver::Impl::setSolverCommonParameters() {
     optimizeReinitAlgebraicResidualsEvaluations_ = optimizeReinitAlgebraicResidualsEvaluations.getValue<bool>();
   const ParameterSolver& minimumModeChangeTypeForAlgebraicRestoration = findParameter("minimumModeChangeTypeForAlgebraicRestoration");
   if (minimumModeChangeTypeForAlgebraicRestoration.hasValue()) {
-    std::string value = minimumModeChangeTypeForAlgebraicRestoration.getValue<string>();
+    const std::string value = minimumModeChangeTypeForAlgebraicRestoration.getValue<string>();
     if (value == "ALGEBRAIC")
       minimumModeChangeTypeForAlgebraicRestoration_ = ALGEBRAIC_MODE;
     else if (value == "ALGEBRAIC_J_UPDATE")
@@ -518,7 +513,7 @@ void Solver::Impl::setSolverCommonParameters() {
   }
   const ParameterSolver& minimumModeChangeTypeForAlgebraicRestorationInit = findParameter("minimumModeChangeTypeForAlgebraicRestorationInit");
   if (minimumModeChangeTypeForAlgebraicRestorationInit.hasValue()) {
-    std::string value = minimumModeChangeTypeForAlgebraicRestorationInit.getValue<string>();
+    const std::string value = minimumModeChangeTypeForAlgebraicRestorationInit.getValue<string>();
     if (value == "ALGEBRAIC")
       minimumModeChangeTypeForAlgebraicRestorationInit_ = ALGEBRAIC_MODE;
     else if (value == "ALGEBRAIC_J_UPDATE")
@@ -531,9 +526,8 @@ void Solver::Impl::setSolverCommonParameters() {
 void
 Solver::Impl::setParametersFromPARFile(const std::shared_ptr<parameters::ParametersSet>& params) {
   // Set values of parameters
-  for (map<string, ParameterSolver>::iterator it=parameters_.begin(); it != parameters_.end(); ++it) {
-    setParameterFromSet(it->second.getName(), params);
-  }
+  for (const auto& parameter : parameters_)
+    setParameterFromSet(parameter.second.getName(), params);
 }
 
 void
@@ -567,6 +561,5 @@ Solver::Impl::printEnd() const {
   Trace::info() << DYNLog(SolverNbDiscreteVarsEval, stats_.nze_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbModeEval, stats_.nme_) << Trace::endline;
 }
-
 
 }  // end namespace DYN

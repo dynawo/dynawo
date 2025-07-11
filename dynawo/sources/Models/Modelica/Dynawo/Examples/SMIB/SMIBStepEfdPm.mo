@@ -14,7 +14,58 @@ within Dynawo.Examples.SMIB;
 */
 
 model SMIBStepEfdPm "Synchronous machine infinite bus with steps on Efd and Pm"
-  extends Modelica.Icons.Example;
+  extends Icons.Example;
+
+  // Generator
+  Dynawo.Examples.BaseClasses.GeneratorSynchronousInterfaces generatorSynchronous(
+    DPu = 0,
+    ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NoLoad,
+    H = 4,
+    LDPPu = 0.2,
+    LQ1PPu = 0.444231,
+    LQ2PPu = 0.2625,
+    LdPPu = 0.15,
+    LfPPu = 0.224242,
+    LqPPu = 0.15,
+    MdPPu = 1.85,
+    MdPPuEfd = 1,
+    MqPPu = 1.65,
+    MrcPPu = 0,
+    MsalPu = 0.2,
+    P0Pu = -4.75,
+    PNomAlt = 500,
+    PNomTurb = 501,
+    Q0Pu = -1.56,
+    RDPPu = 0.0303152,
+    RQ1PPu = 0.00308618,
+    RQ2PPu = 0.0234897,
+    RTfPu = 0,
+    RaPPu = 0,
+    RfPPu = 0.00128379,
+    SNom = 501,
+    SnTfo = 500,
+    U0Pu = 0.992,
+    UBaseHV = 400,
+    UBaseLV = 21,
+    UNom = 21,
+    UNomHV = 400,
+    UNomLV = 21,
+    UPhase0 = 0.161146,
+    XTfPu = 0,
+    md = 0,
+    mq = 0,
+    nd = 0,
+    nq = 0) annotation(
+    Placement(visible = true, transformation(origin = {82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant Omega0Pu(k = 1);
+
+  // Generator speed control
+  Modelica.Blocks.Sources.Step PmPu(height = 0.1, offset = 0.948104, startTime = 5) annotation(
+    Placement(visible = true, transformation(origin = {70, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  // Generator voltage control
+  Modelica.Blocks.Sources.Step EfdPu(height = 0.2, offset = 2.50416, startTime = 15) annotation(
+    Placement(visible = true, transformation(origin = {50, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Grid with impedance
   Dynawo.Electrical.Buses.InfiniteBus infiniteBus(UPhase = 0.000242, UPu = 0.952859) annotation(
@@ -23,98 +74,28 @@ model SMIBStepEfdPm "Synchronous machine infinite bus with steps on Efd and Pm"
     Placement(visible = true, transformation(origin = {-32, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   // Transformer
-  Dynawo.Electrical.Transformers.TransformerFixedRatio transformer(BPu = 0, GPu = 0, RPu = 0.0003, XPu = 0.032, rTfoPu = 1) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio transformer(BPu = 0, GPu = 0, RPu = 0.0003, XPu = 0.032, rTfoPu = 1) annotation(
     Placement(visible = true, transformation(origin = {36, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
-  // Generator
-  Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous generatorSynchronous(
-    P0Pu = -4.75,
-    Q0Pu = -1.56,
-    U0Pu = 0.992,
-    UPhase0 = 0.161146,
-    ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NoLoad,
-    UNom = 21,
-    H = 4,
-    DPu = 0,
-    PNomAlt = 500,
-    PNomTurb = 501,
-    SNom = 501,
-    SnTfo = 500,
-    RTfPu = 0,
-    XTfPu = 0,
-    UBaseHV = 400,
-    UBaseLV = 21,
-    UNomHV = 400,
-    UNomLV = 21,
-    md = 0,
-    mq = 0,
-    nd = 0,
-    nq = 0,
-    RaPPu = 0,
-    LdPPu = 0.15,
-    MdPPu = 1.85,
-    LqPPu = 0.15,
-    MqPPu = 1.65,
-    LDPPu = 0.2,
-    RDPPu = 0.0303152,
-    MrcPPu = 0,
-    LfPPu = 0.224242,
-    RfPPu = 0.00128379,
-    LQ1PPu = 0.444231,
-    RQ1PPu = 0.00308618,
-    LQ2PPu = 0.2625,
-    RQ2PPu = 0.0234897,
-    PGen0Pu = 4.75,
-    QGen0Pu = 1.56,
-    UStator0Pu = 0.992,
-    QStator0Pu = 1.56,
-    Theta0 = 0.996345,
-    ThetaInternal0 = 0.996345,
-    IRotor0Pu = 2.50416,
-    IStator0Pu = 5.03993,
-    Cm0Pu = 0.948104,
-    Ce0Pu = 0.948104,
-    Pm0Pu = 0.948104,
-    Id0Pu = -0.91925,
-    Iq0Pu = -0.40861,
-    If0Pu = 1.3536,
-    Lambdad0Pu = 0.665662,
-    Lambdaq0Pu = -0.735499,
-    LambdaD0Pu = 0.803549,
-    LambdaQ10Pu = -0.674207,
-    LambdaQ20Pu = -0.674207,
-    Lambdaf0Pu = 1.10708,
-    Uf0Pu = 0.00173774,
-    Efd0Pu = 2.50416,
-    Ud0Pu = 0.735499,
-    Uq0Pu = 0.665662,
-    MdSat0PPu = 1.85,
-    MqSat0PPu = 1.65,
-    LambdaAQ0Pu = -0.674207,
-    LambdaAD0Pu = 0.803549,
-    Mi0Pu = 1.76737,
-    LambdaAirGap0Pu = 1.04893,
-    Sin2Eta0 = 0.413139,
-    Cos2Eta0 = 0.586861,
-    Mds0Pu = 1.85,
-    Mqs0Pu = 1.65,
-    MsalPu = 0.2) annotation(
-    Placement(visible = true, transformation(origin = {82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Basics.SetPoint Omega0Pu(Value0 = 1);
-
-  // Generator speed control
-  Dynawo.Electrical.Controls.Basics.Step PmPu(Value0 = 0.948104, Height = 0.1, tStep = 5);
-
-  // Generator voltage control
-  Dynawo.Electrical.Controls.Basics.Step EfdPu(Value0 = 2.50416, Height = 0.2, tStep = 15);
-
   // Load
-  Dynawo.Electrical.Loads.LoadAlphaBeta load(alpha = 2, beta = 2, u0Pu = Complex(0.952267, 0)) annotation(
+  Dynawo.Electrical.Loads.LoadAlphaBeta load(alpha = 2, beta = 2, i0Pu(re(fixed = false), im(fixed = false)), s0Pu(re(fixed = false), im(fixed = false)), u0Pu(re(fixed = false), im(fixed = false))) annotation(
     Placement(visible = true, transformation(origin = {0, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant PRefPu(k = 4.75) annotation(
     Placement(visible = true, transformation(origin = {-30, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant QRefPu(k = 0.76) annotation(
     Placement(visible = true, transformation(origin = {30, -70}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+
+  // Initialization
+  Dynawo.Electrical.Loads.Load_INIT load_INIT(P0Pu = PRefPu.k, Q0Pu = QRefPu.k, U0Pu = 0.952267, UPhase0 = 0) annotation(
+    Placement(transformation(origin = {-90, -90}, extent = {{-10, -10}, {10, 10}})));
+
+initial algorithm
+  load.i0Pu.re := load_INIT.i0Pu.re;
+  load.i0Pu.im := load_INIT.i0Pu.im;
+  load.s0Pu.re := load_INIT.s0Pu.re;
+  load.s0Pu.im := load_INIT.s0Pu.im;
+  load.u0Pu.re := load_INIT.u0Pu.re;
+  load.u0Pu.im := load_INIT.u0Pu.im;
 
 initial equation
   der(generatorSynchronous.lambdafPu) = 0;
@@ -122,7 +103,7 @@ initial equation
   der(generatorSynchronous.lambdaQ1Pu) = 0;
   der(generatorSynchronous.lambdaQ2Pu) = 0;
   der(generatorSynchronous.theta) = 0;
-  der(generatorSynchronous.omegaPu.value) = 0;
+  der(generatorSynchronous.omegaPu) = 0;
 
 equation
   gridImpedance.switchOffSignal1.value = false;
@@ -137,9 +118,7 @@ equation
   generatorSynchronous.switchOffSignal2.value = false;
   generatorSynchronous.switchOffSignal3.value = false;
 
-  connect(generatorSynchronous.omegaRefPu, Omega0Pu.setPoint);
-  connect(generatorSynchronous.PmPu, PmPu.step);
-  connect(generatorSynchronous.efdPu, EfdPu.step);
+  connect(Omega0Pu.y, generatorSynchronous.omegaRefPu);
   connect(transformer.terminal2, generatorSynchronous.terminal) annotation(
     Line(points = {{56, 0}, {82, 0}}, color = {0, 0, 255}));
   connect(gridImpedance.terminal2, transformer.terminal1) annotation(
@@ -148,12 +127,17 @@ equation
     Line(points = {{-52, 0}, {-62, 0}, {-62, 0}, {-92, 0}}, color = {0, 0, 255}));
   connect(load.terminal, gridImpedance.terminal2) annotation(
     Line(points = {{0, -40}, {0, 0}, {-12, 0}}, color = {0, 0, 255}));
-  connect(load.PRefPu, PRefPu.y) annotation(
+  connect(PRefPu.y, load.PRefPu) annotation(
     Line(points = {{-18, -70}, {-6, -70}, {-6, -48}}, color = {0, 0, 127}));
-  connect(load.QRefPu, QRefPu.y) annotation(
+  connect(QRefPu.y, load.QRefPu) annotation(
     Line(points = {{20, -70}, {6, -70}, {6, -48}}, color = {0, 0, 127}));
+  connect(EfdPu.y, generatorSynchronous.efdPu_in) annotation(
+    Line(points = {{62, -40}, {70, -40}, {70, -16}}, color = {0, 0, 127}));
+  connect(PmPu.y, generatorSynchronous.PmPu_in) annotation(
+    Line(points = {{82, -70}, {94, -70}, {94, -16}}, color = {0, 0, 127}));
 
-  annotation(preferredView = "diagram",
+  annotation(
+    preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 50, Tolerance = 0.000001),
     __OpenModelica_commandLineOptions = "--daeMode",
     __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", nls="kinsol", s = "ida", nlsLS = "klu", maxIntegrationOrder = "2", maxStepSize = "10", emit_protected = "()"),

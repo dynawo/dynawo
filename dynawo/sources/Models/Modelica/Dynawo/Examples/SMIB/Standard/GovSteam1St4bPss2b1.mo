@@ -18,51 +18,24 @@ model GovSteam1St4bPss2b1 "Voltage reference step on the synchronous machine (an
 
   // Generator and regulations
   Dynawo.Examples.BaseClasses.GeneratorSynchronousInterfaces generatorSynchronous(
-    Ce0Pu = 0,
-    Cm0Pu = 0,
-    Cos2Eta0 = 1,
     DPu = 0,
-    Efd0Pu = 1,
     ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NoLoad,
     H = 4,
-    i0Pu = Complex(0, 0),
-    IRotor0Pu = 1,
-    IStator0Pu = 0,
-    Id0Pu = 0,
-    If0Pu = 0.540541,
-    Iq0Pu = 0,
     LDPPu = 0.19063,
     LQ1PPu = 0.51659,
     LQ2PPu = 0.24243,
-    LambdaAD0Pu = 1,
-    LambdaAQ0Pu = 0,
-    LambdaAirGap0Pu = 1,
-    LambdaD0Pu = 1,
-    LambdaQ10Pu = 0,
-    LambdaQ20Pu = 0,
-    Lambdad0Pu = 1,
-    Lambdaf0Pu = 1.121189,
-    Lambdaq0Pu = 0,
     LdPPu = 0.15,
     LfPPu = 0.2242,
     LqPPu = 0.15,
     MdPPu = 1.85,
-    MdSat0PPu = 1.85,
-    Mds0Pu = 1.85,
-    Mi0Pu = 1.85,
+    MdPPuEfd = 1,
     MqPPu = 1.65,
-    MqSat0PPu = 1.65,
-    Mqs0Pu = 1.65,
     MrcPPu = 0,
     MsalPu = 0.2,
     P0Pu = 0,
-    PGen0Pu = 0,
     PNomAlt = 475,
     PNomTurb = 475,
-    Pm0Pu = 0,
     Q0Pu = 0,
-    QGen0Pu = 0,
-    QStator0Pu = 0,
     RDPPu = 0.02933,
     RQ1PPu = 0.0035,
     RQ2PPu = 0.02227,
@@ -70,10 +43,7 @@ model GovSteam1St4bPss2b1 "Voltage reference step on the synchronous machine (an
     RaPPu = 0,
     RfPPu = 0.00128,
     SNom = 500,
-    Sin2Eta0 = 0,
     SnTfo = 500,
-    Theta0 = 0,
-    ThetaInternal0 = 0,
     U0Pu = 1,
     UBaseHV = 400,
     UBaseLV = 21,
@@ -81,17 +51,13 @@ model GovSteam1St4bPss2b1 "Voltage reference step on the synchronous machine (an
     UNomHV = 400,
     UNomLV = 21,
     UPhase0 = 0,
-    UStator0Pu = 1,
-    Ud0Pu = 0,
-    Uf0Pu = 0.000691892,
-    Uq0Pu = 1,
     XTfPu = 0,
     md = 0,
     mq = 0,
     nd = 0,
-    nq = 0, u0Pu = Complex(1, 0)) annotation(
+    nq = 0) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Basics.SetPoint Omega0Pu(Value0 = 1);
+  Modelica.Blocks.Sources.Constant Omega0Pu(k = 1);
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.St4b avr(
     Efd0Pu = generatorSynchronous.Efd0Pu,
     Ir0Pu = generatorSynchronous.IRotor0Pu,
@@ -110,6 +76,7 @@ model GovSteam1St4bPss2b1 "Voltage reference step on the synchronous machine (an
     UOel0Pu = 10,
     Us0Pu = generatorSynchronous.U0Pu,
     ut0Pu = generatorSynchronous.u0Pu,
+    UUel0Pu = 0,
     VaMaxPu = 1,
     VaMinPu = -0.87,
     Vb0Pu = 9.234759,
@@ -121,6 +88,8 @@ model GovSteam1St4bPss2b1 "Voltage reference step on the synchronous machine (an
     XlPu = 0.124) annotation(
     Placement(visible = true, transformation(origin = {130, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.Pss2b pss(
+    KOmega = 1,
+    KOmegaRef = 0,
     Ks1 = 12,
     Ks2 = 0.2,
     Ks3 = 1,
@@ -149,7 +118,40 @@ model GovSteam1St4bPss2b1 "Voltage reference step on the synchronous machine (an
     VPssMaxPu = 0.1,
     VPssMinPu = -0.1) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.GovSteam1 governor(Db1 = 0, Db2 = 0, Eps = 0, H0 = false, K = 25, K1 = 0.2, K2 = 0, K3 = 0.3, K4 = 0, K5 = 0.5, K6 = 0, K7 = 0, K8 = 0, pgv.table = [0, 0; 0.4, 0.75; 0.5, 0.91; 0.6, 0.98; 1, 1], pgv.tableOnFile = false, PMaxPu = 1, PMinPu = 0, Pm0Pu = generatorSynchronous.Pm0Pu, PmRef0Pu = generatorSynchronous.Pm0Pu, Sdb1 = true, Sdb2 = true, Uc = -10, Uo = 1, ValveOn = true, t1 = 1e-5, t2 = 1e-5, t3 = 0.1, t4 = 0.3, t5 = 5, t6 = 0.5, t7 = 1e-5) annotation(
+  Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.GovSteam1 governor(
+    Db1 = 0,
+    Db2 = 0,
+    Eps = 0,
+    H0 = false,
+    K = 25,
+    K1 = 0.2,
+    K2 = 0,
+    K3 = 0.3,
+    K4 = 0,
+    K5 = 0.5,
+    K6 = 0,
+    K7 = 0,
+    K8 = 0,
+    pgv.table = [0, 0; 0.4, 0.75; 0.5, 0.91; 0.6, 0.98; 1, 1],
+    pgv.tableOnFile = false,
+    PgvTableName = "NoName",
+    PMaxPu = 1,
+    PMinPu = 0,
+    Pm0Pu = generatorSynchronous.Pm0Pu,
+    PmRef0Pu = generatorSynchronous.Pm0Pu,
+    Sdb1 = true,
+    Sdb2 = true,
+    TablesFile = "NoFile",
+    Uc = -10,
+    Uo = 1,
+    ValveOn = true,
+    t1 = 1e-5,
+    t2 = 1e-5,
+    t3 = 0.1,
+    t4 = 0.3,
+    t5 = 5,
+    t6 = 0.5,
+    t7 = 1e-5) annotation(
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step UsRefPu(height = 0.05, offset = 1, startTime = 0.1) annotation(
     Placement(visible = true, transformation(origin = {50, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -171,7 +173,7 @@ equation
   generatorSynchronous.switchOffSignal2.value = false;
   generatorSynchronous.switchOffSignal3.value = false;
 
-  connect(Omega0Pu.setPoint, generatorSynchronous.omegaRefPu);
+  connect(Omega0Pu.y, generatorSynchronous.omegaRefPu);
   connect(const.y, avr.UUelPu) annotation(
     Line(points = {{152, 80}, {110, 80}, {110, 54}, {118, 54}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(pss.VPssPu, avr.UPssPu) annotation(

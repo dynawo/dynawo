@@ -15,18 +15,11 @@
   <!-- LoadAlphaBeta plus transformer and associated tap changer -->
   <dyn:modelicaModel id="LoadOneTransformerTapChanger">
     <dyn:unitDynamicModel id="load" name="Dynawo.Electrical.Loads.LoadAlphaBeta" initName="Dynawo.Electrical.Loads.LoadConnect_INIT"/>
-    <dyn:unitDynamicModel id="transformer" name="Dynawo.Electrical.Transformers.TransformerVariableTap" initName="Dynawo.Electrical.Transformers.TransformerVariableTapPQ_INIT"/>
-    <dyn:unitDynamicModel id="tapChanger" name="Dynawo.Electrical.Controls.Transformers.TapChanger" initName="Dynawo.Electrical.Controls.Transformers.TapChangerWithTransformer_INIT"/>
+    <dyn:unitDynamicModel id="transformer" name="Dynawo.Electrical.Transformers.TransformersVariableTapControlled.TransformerVariableTapControlled" initName="Dynawo.Electrical.Transformers.TransformersVariableTapControlled.TransformerVariableTapPQControlled_INIT"/>
     <dyn:initConnect id1="load" var1="u0Pu" id2="transformer" var2="u20Pu"/>
     <dyn:initConnect id1="load" var1="i0Pu" id2="transformer" var2="i20Pu"/>
-    <dyn:initConnect id1="tapChanger" var1="tap0" id2="transformer" var2="Tap0"/>
-    <dyn:initConnect id1="tapChanger" var1="U0" id2="transformer" var2="U20Pu"/>
-    <dyn:connect id1="tapChanger" var1="tap" id2="transformer" var2="tap"/>
-    <dyn:connect id1="tapChanger" var1="UMonitored" id2="transformer" var2="U2Pu"/>
     <dyn:connect id1="load" var1="terminal" id2="transformer" var2="terminal2"/>
     <dyn:connect id1="load" var1="switchOffSignal1" id2="transformer" var2="switchOffSignal1"/>
     <dyn:connect id1="load" var1="switchOffSignal2" id2="transformer" var2="switchOffSignal2"/>
-    <dyn:connect id1="transformer" var1="switchOffSignal1" id2="tapChanger" var2="switchOffSignal1"/>
-    <dyn:connect id1="transformer" var1="switchOffSignal2" id2="tapChanger" var2="switchOffSignal2"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

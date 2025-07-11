@@ -42,7 +42,7 @@ class ModelRatioTapChanger : public ModelTapChanger {
   /**
    * @brief destructor
    */
-  virtual ~ModelRatioTapChanger();
+  ~ModelRatioTapChanger() override;
 
   /**
    * @brief reset internal variables values
@@ -55,54 +55,54 @@ class ModelRatioTapChanger : public ModelTapChanger {
    * @param t : time to use during the evaluation
    * @param uValue : voltage monitored by the tap changer
    * @param nodeOff : unused
-   * @param g : value of the zero crossing function
    * @param disable : is the tap changer disabled ?
    * @param locked : is the tap changer locked ?
    * @param tfoClosed : is the transformer connected ?
    * @param deltaUTarget : delta to be added on target voltage
+   * @param g : value of the zero crossing function
    */
-  void evalG(double t, double uValue, bool nodeOff, state_g* g, double disable,
-             double locked, bool tfoClosed, double deltaUTarget);
+  void evalG(double t, double uValue, bool nodeOff, double disable,
+             double locked, bool tfoClosed, double deltaUTarget, state_g* g);
 
   /**
    * @brief  evaluate discrete values
    *
    * @param t : time to use during the evaluation
    * @param g : root values
-   * @param network : network of the transformer
    * @param disable : is the tap changer disabled ?
    * @param nodeOff : is the node monitored by the tap changer off ?
    * @param locked : is the tap changer locked ?
    * @param tfoClosed :is the transformer connected ?
+   * @param network : network of the transformer
    */
-  void evalZ(double t, state_g* g, ModelNetwork* network, double disable,
-             bool nodeOff, double locked, bool tfoClosed);
+  void evalZ(double t, const state_g* g, double disable,
+             bool nodeOff, double locked, bool tfoClosed, ModelNetwork* network);
 
   /**
    * @brief  get the size of the local G function
    * @return size of G function
    */
-  inline int sizeG() const { return 4; }
+  static inline int sizeG() { return 4; }
 
   /**
    * @brief  get size of discrete variables
    * @return number of discrete variables
    */
-  inline int sizeZ() const { return 0; }
+  static inline int sizeZ() { return 0; }
 
   /**
    * @brief set the dead band around the target of the tap changer
    *
    * @param tolerance dead band to use
    */
-  inline void setTolV(const double& tolerance) { tolV_ = tolerance; }
+  inline void setTolV(const double tolerance) { tolV_ = tolerance; }
 
   /**
    * @brief set the target of the tap changer
    *
    * @param target target to use
    */
-  inline void setTargetV(const double& target) { targetV_ = target; }
+  inline void setTargetV(const double target) { targetV_ = target; }
 
   /**
    * @brief get the current dead band of the tap changer
@@ -122,14 +122,21 @@ class ModelRatioTapChanger : public ModelTapChanger {
    *
    * @param streamVariables : stringstream with binary formated internalVariables
    */
-  void dumpInternalVariables(std::stringstream& streamVariables) const;
+  void dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const;
 
   /**
    * @brief import the internal variables values of the component from stringstream
    *
    * @param streamVariables : stringstream with binary formated internalVariables
    */
-  void loadInternalVariables(std::stringstream& streamVariables);
+  void loadInternalVariables(boost::archive::binary_iarchive& streamVariables);
+
+  /**
+   * @brief get the number of internal variable of the model
+   *
+   * @return the number of internal variable of the model
+   */
+  unsigned getNbInternalVariables() const;
 
 
  private:
@@ -143,8 +150,7 @@ class ModelRatioTapChanger : public ModelTapChanger {
   std::string side_;  ///< reference side where the voltage is controlled
   double tolV_;       ///< dead band around targetV
   double targetV_;    ///< target voltage
-  double
-      whenUp_;  ///< when the voltage reached a value over the target+deadBand
+  double whenUp_;  ///< when the voltage reached a value over the target+deadBand
   double whenDown_;     ///< when the voltage reached a value under the
                         ///< target-deadBand
   double whenLastTap_;  ///< last time when a tap changer

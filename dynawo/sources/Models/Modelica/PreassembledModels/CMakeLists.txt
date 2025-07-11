@@ -125,6 +125,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   GridFormingConverterDroopControl.xml
   GridFormingConverterMatchingControl.xml
   GridFormingConverterDispatchableVirtualOscillatorControl.xml
+  GridFormingEpri.xml
   HvdcPQProp.xml
   HvdcPQPropEmulation.xml
   HvdcPQPropEmulationSet.xml
@@ -178,6 +179,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   InfiniteBusWithVariations.xml
   InjectorBG.xml
   IntegerDoubleStep.xml
+  IntegerTable.xml
   Line.xml
   LoadAlphaBeta.xml
   LoadAlphaBetaRestorative.xml
@@ -250,7 +252,10 @@ set(MODELICA_PREASSEMBLED_MODELS
   WeightedDifference.xml
   WT4AWeccCurrentSource.xml
   WT4BWeccCurrentSource.xml
-  WTG4AWeccCurrentSource.xml
+  WTG3WeccCurrentSource1.xml
+  WTG3WeccCurrentSource2.xml
+  WTG4AWeccCurrentSource1.xml
+  WTG4AWeccCurrentSource2.xml
   WTG4BWeccCurrentSource.xml
   )
 

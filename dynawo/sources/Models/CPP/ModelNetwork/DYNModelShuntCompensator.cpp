@@ -17,6 +17,7 @@
  * @brief
  *
  */
+
 #include "DYNModelShuntCompensator.h"
 
 #include "PARParametersSet.h"
@@ -83,7 +84,7 @@ ModelShuntCompensator::initSize() {
 }
 
 double
-ModelShuntCompensator::ir(const double& ui) const {
+ModelShuntCompensator::ir(const double ui) const {
   double ir = 0.;
   if (isConnected()) {
     ir = -suscepPu_ * ui;
@@ -92,7 +93,7 @@ ModelShuntCompensator::ir(const double& ui) const {
 }
 
 double
-ModelShuntCompensator::ii(const double& ur) const {
+ModelShuntCompensator::ii(const double ur) const {
   double ii = 0.;
   if (isConnected()) {
     ii = suscepPu_ * ur;
@@ -141,8 +142,8 @@ ModelShuntCompensator::evalNodeInjection() {
     modelBus_->irAdd(ir0_);
     modelBus_->iiAdd(ii0_);
   } else {
-    double ur = modelBus_->ur();
-    double ui = modelBus_->ui();
+    const double ur = modelBus_->ur();
+    const double ui = modelBus_->ui();
     modelBus_->irAdd(ir(ui));
     modelBus_->iiAdd(ii(ur));
   }
@@ -161,8 +162,8 @@ ModelShuntCompensator::evalF(propertyF_t /*type*/) {
 void
 ModelShuntCompensator::evalDerivatives(const double /*cj*/) {
   if (isConnected()) {
-    int urYNum = modelBus_->urYNum();
-    int uiYNum = modelBus_->uiYNum();
+    const int urYNum = modelBus_->urYNum();
+    const int uiYNum = modelBus_->uiYNum();
     modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, urYNum, ir_dUr());
     modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, uiYNum, ir_dUi());
     modelBus_->derivatives()->addDerivative(II_DERIVATIVE, urYNum, ii_dUr());
@@ -190,7 +191,7 @@ ModelShuntCompensator::defineVariables(vector<shared_ptr<Variable> >& variables)
 
 void
 ModelShuntCompensator::defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) {
-  string shName = id_;
+  const string shName = id_;
   addElementWithValue(shName + string("_state"), "ShuntCompensator", elements, mapElement);
   addElementWithValue(shName + string("_isCapacitor"), "ShuntCompensator", elements, mapElement);
   addElementWithValue(shName + string("_isAvailable"), "ShuntCompensator", elements, mapElement);
@@ -199,13 +200,13 @@ ModelShuntCompensator::defineElements(std::vector<Element>& elements, std::map<s
 }
 
 void
-ModelShuntCompensator::evalG(const double& t) {
+ModelShuntCompensator::evalG(const double t) {
   // Time out reached for availability
   g_[0] = (doubleEquals(tLastOpening_, VALDEF) || t >= tLastOpening_ + noReclosingDelay_) ? ROOT_UP : ROOT_DOWN;
 }
 
 NetworkComponent::StateChange_t
-ModelShuntCompensator::evalZ(const double& t) {
+ModelShuntCompensator::evalZ(const double t) {
   z_[isCapacitorNum_] = isCapacitor() ? 1. : 0.;
   z_[isAvailableNum_] = isAvailable() ? 1. : 0.;
   z_[currentSectionNum_] = getCurrentSection();
@@ -231,7 +232,7 @@ ModelShuntCompensator::evalZ(const double& t) {
     }
     setConnected(currState);
   }
-  return stateModified_?NetworkComponent::STATE_CHANGE:NetworkComponent::NO_CHANGE;
+  return stateModified_ ? NetworkComponent::STATE_CHANGE : NetworkComponent::NO_CHANGE;
 }
 
 void
@@ -245,11 +246,53 @@ ModelShuntCompensator::collectSilentZ(BitMask* silentZTable) {
 void
 ModelShuntCompensator::getY0() {
   if (!network_->isInitModel()) {
-    z_[connectionStateNum_] = getConnected();
-    z_[isCapacitorNum_] = isCapacitor() ? 1. : 0.;
-    z_[isAvailableNum_] = 1.;  // always available at the beginning of the simulation
-    z_[currentSectionNum_] = getCurrentSection();
+    if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
+      z_[connectionStateNum_] = getConnected();
+      z_[isCapacitorNum_] = isCapacitor() ? 1. : 0.;
+      z_[isAvailableNum_] = 1.;  // always available at the beginning of the simulation
+      z_[currentSectionNum_] = getCurrentSection();
+    } else {
+      State shuntCurrState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
+      if (shuntCurrState == CLOSED) {
+        if (modelBus_->getConnectionState() != CLOSED) {
+          modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
+          stateModified_ = true;
+        }
+      } else if (shuntCurrState == OPEN) {
+        if (modelBus_->getConnectionState() != OPEN) {
+          modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
+          stateModified_ = true;
+        }
+      } else if (shuntCurrState == UNDEFINED_STATE) {
+        throw DYNError(Error::MODELER, UndefinedComponentState, id_);
+      } else {
+        throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
+      }
+      connectionState_ = shuntCurrState;
+      currentSection_ = static_cast<int>(z_[currentSectionNum_]);
+    }
   }
+}
+
+void
+ModelShuntCompensator::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
+  ModelCPP::dumpInStream(streamVariables, ir0_);
+  ModelCPP::dumpInStream(streamVariables, ii0_);
+  ModelCPP::dumpInStream(streamVariables, suscepPu_);
+  ModelCPP::dumpInStream(streamVariables, tLastOpening_);
+}
+
+void
+ModelShuntCompensator::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
+  char c;
+  streamVariables >> c;
+  streamVariables >> ir0_;
+  streamVariables >> c;
+  streamVariables >> ii0_;
+  streamVariables >> c;
+  streamVariables >> suscepPu_;
+  streamVariables >> c;
+  streamVariables >> tLastOpening_;
 }
 
 bool
@@ -311,7 +354,7 @@ ModelShuntCompensator::defineNonGenericParameters(vector<ParameterModeler>& para
 }
 
 NetworkComponent::StateChange_t
-ModelShuntCompensator::evalState(const double& /*time*/) {
+ModelShuntCompensator::evalState(const double /*time*/) {
   if (stateModified_) {
     stateModified_ = false;
     return NetworkComponent::STATE_CHANGE;
@@ -321,10 +364,10 @@ ModelShuntCompensator::evalState(const double& /*time*/) {
 
 void
 ModelShuntCompensator::evalCalculatedVars() {
-  double ur = modelBus_->ur();
-  double ui = modelBus_->ui();
-  double i1 = ir(ui);
-  double i2 = ii(ur);
+  const double ur = modelBus_->ur();
+  const double ui = modelBus_->ui();
+  const double i1 = ir(ui);
+  const double i2 = ii(ur);
   calculatedVars_[qNum_] = (ui * i1 - ur * i2);   // Q value
 }
 
@@ -332,8 +375,8 @@ void
 ModelShuntCompensator::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const {
   switch (numCalculatedVar) {
     case qNum_: {
-      int urYNum = modelBus_->urYNum();
-      int uiYNum = modelBus_->uiYNum();
+      const int urYNum = modelBus_->urYNum();
+      const int uiYNum = modelBus_->uiYNum();
       numVars.push_back(urYNum);
       numVars.push_back(uiYNum);
       break;
@@ -348,8 +391,8 @@ ModelShuntCompensator::evalJCalculatedVarI(unsigned numCalculatedVar, std::vecto
   switch (numCalculatedVar) {
     case qNum_: {
       if (isConnected()) {
-        double ur = modelBus_->ur();
-        double ui = modelBus_->ui();
+        const double ur = modelBus_->ur();
+        const double ui = modelBus_->ui();
          // q = -ui*ui*suscepPu_ - ur*ur*suscepPu_
         res[0] = -2. * ur * suscepPu_;  // @Q/@ur
         res[1] = -2. * ui * suscepPu_;  // @Q/@ui
@@ -366,10 +409,10 @@ ModelShuntCompensator::evalCalculatedVarI(unsigned numCalculatedVar) const {
   switch (numCalculatedVar) {
     case qNum_: {
       if (isConnected()) {
-        double ur = modelBus_->ur();
-        double ui = modelBus_->ui();
-        double ir = -suscepPu_ * ui;
-        double ii = suscepPu_ * ur;
+        const double ur = modelBus_->ur();
+        const double ui = modelBus_->ui();
+        const double ir = -suscepPu_ * ui;
+        const double ii = suscepPu_ * ur;
         return (ui * ir - ur * ii);   // Q value
       }
       break;
@@ -384,9 +427,9 @@ void
 ModelShuntCompensator::init(int& /*yNum*/) {
   double Q = 0.;
   double uNode = 0.;
-  std::shared_ptr<ShuntCompensatorInterface> shunt = shunt_.lock();
-  double thetaNode = shunt->getBusInterface()->getAngle0();
-  double unomNode = shunt->getBusInterface()->getVNom();
+  const std::shared_ptr<ShuntCompensatorInterface> shunt = shunt_.lock();
+  const double thetaNode = shunt->getBusInterface()->getAngle0();
+  const double unomNode = shunt->getBusInterface()->getVNom();
   switch (startingPointMode_) {
   case FLAT:
     uNode = shunt->getBusInterface()->getVNom();
@@ -397,19 +440,19 @@ ModelShuntCompensator::init(int& /*yNum*/) {
     uNode = shunt->getBusInterface()->getV0();
     break;
   }
-  double ur0 = uNode / unomNode * cos(thetaNode * DEG_TO_RAD);
-  double ui0 = uNode / unomNode * sin(thetaNode * DEG_TO_RAD);
+  const double ur0 = uNode / unomNode * cos(thetaNode * DEG_TO_RAD);
+  const double ui0 = uNode / unomNode * sin(thetaNode * DEG_TO_RAD);
   ir0_ = Q * ui0 / (ur0 * ur0 + ui0 * ui0);
   ii0_ = - Q * ur0 / (ur0 * ur0 + ui0 * ui0);
 }
 
 void
-ModelShuntCompensator::evalJt(SparseMatrix& /*jt*/, const double& /*cj*/, const int& /*rowOffset*/) {
+ModelShuntCompensator::evalJt(const double /*cj*/, const int /*rowOffset*/, SparseMatrix& /*jt*/) {
   /* not needed */
 }
 
 void
-ModelShuntCompensator::evalJtPrim(SparseMatrix& /*jt*/, const int& /*rowOffset*/) {
+ModelShuntCompensator::evalJtPrim(const int /*rowOffset*/, SparseMatrix& /*jtPrim*/) {
   /* not needed */
 }
 

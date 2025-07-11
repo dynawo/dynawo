@@ -33,12 +33,12 @@ SignalHandler::gotExitSignal() {
 }
 
 void
-SignalHandler::setExitSignal(bool exitSignal) {
+SignalHandler::setExitSignal(const bool exitSignal) {
   gotExitSignal_ = exitSignal;
 }
 
 void
-SignalHandler::exitSignalHandler(int signal) {
+SignalHandler::exitSignalHandler(const int signal) {
   switch (signal) {
 #ifdef SIGTERM
     case SIGTERM:

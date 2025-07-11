@@ -53,7 +53,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   network.setConstraints(constraints);
   network.setTimeline(timeline::TimelineFactory::newInstance("Test"));
 
-  mcl.evalG(t, current, &states[0], desactivate);
+  mcl.evalG(t, current, desactivate, &states[0]);
   for (size_t i = 0; i < states.size(); ++i) {
     if (i == 3)
       ASSERT_EQ(states[i], NO_ROOT);
@@ -61,7 +61,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
       ASSERT_EQ(states[i], ROOT_DOWN);
   }
   current = 9.;
-  mcl.evalG(t, current, &states[0], desactivate);
+  mcl.evalG(t, current, desactivate, &states[0]);
   for (size_t i = 0; i < states.size(); ++i) {
     if (i == 0)
       ASSERT_EQ(states[i], ROOT_UP);
@@ -70,10 +70,10 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
     else
       ASSERT_EQ(states[i], ROOT_DOWN);
   }
-  mcl.evalZ("MY COMP", t, &states[0], &network, desactivate, modelType);
+  mcl.evalZ("MY COMP", t, &states[0], desactivate, modelType, &network);
 
   current = 11.;
-  mcl.evalG(t, current, &states[0], desactivate);
+  mcl.evalG(t, current, desactivate, &states[0]);
   for (size_t i = 0; i < states.size(); ++i) {
     if (i == 0 || i == 2) {
       ASSERT_EQ(states[i], ROOT_UP);
@@ -81,12 +81,12 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
       ASSERT_EQ(states[i], NO_ROOT);
     }
   }
-  mcl.evalZ("MY COMP", t, &states[0], &network, desactivate, modelType);
+  mcl.evalZ("MY COMP", t, &states[0], desactivate, modelType, &network);
 
+  constraints->filter();  // filter constraint collection by removing cleared constraints
   unsigned n = 0;
-  for (constraints::ConstraintsCollection::const_iterator it = constraints->cbegin(),
-      itEnd = constraints->cend(); it != itEnd; ++it) {
-    std::shared_ptr<constraints::Constraint> constraint = (*it);
+  for (const auto& constraintPair : constraints->getConstraintsById()) {
+    const auto& constraint = constraintPair.second;
     if (n == 1) {
       ASSERT_EQ(constraint->getModelName(), "MY COMP");
       ASSERT_EQ(constraint->getDescription(), "PATL 2");
@@ -107,7 +107,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   ASSERT_EQ(n, 2);
   current = 4.;
   t = 5.1;
-  mcl.evalG(t, current, &states[0], desactivate);
+  mcl.evalG(t, current, desactivate, &states[0]);
   for (size_t i = 0; i < states.size(); ++i) {
     if (i == 0 || i == 2)
       ASSERT_EQ(states[i], ROOT_DOWN);
@@ -117,12 +117,12 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
       ASSERT_EQ(states[i], ROOT_UP);
   }
   network.setCurrentTime(5.1);
-  mcl.evalZ("MY COMP", t, &states[0], &network, desactivate, modelType);
+  mcl.evalZ("MY COMP", t, &states[0], desactivate, modelType, &network);
 
+  constraints->filter();  // filter constraint collection by removing cleared constraints
   n = 0;
-  for (constraints::ConstraintsCollection::const_iterator it = constraints->cbegin(),
-      itEnd = constraints->cend(); it != itEnd; ++it) {
-    std::shared_ptr<constraints::Constraint> constraint = (*it);
+  for (const auto& constraintPair : constraints->getConstraintsById()) {
+    std::shared_ptr<constraints::Constraint> constraint = constraintPair.second;
     if (n == 0) {
       ASSERT_EQ(constraint->getModelName(), "MY COMP");
       ASSERT_EQ(constraint->getDescription(), "OverloadOpen 5 2");

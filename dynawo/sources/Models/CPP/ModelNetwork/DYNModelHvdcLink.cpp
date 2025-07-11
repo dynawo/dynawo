@@ -48,7 +48,18 @@ namespace DYN {
 ModelHvdcLink::ModelHvdcLink(const std::shared_ptr<HvdcLineInterface>& dcLine) :
 NetworkComponent(dcLine->getID()),
 dcLine_(dcLine),
+pSetPoint_(0.),
+vdcNom_(0.),
+lossFactor1_(0.),
+lossFactor2_(0.),
+rdc_(0.),
+connectionState1_(UNDEFINED_STATE),
+connectionState2_(UNDEFINED_STATE),
 stateModified_(false),
+P01_(0.),
+P02_(0.),
+Q01_(0.),
+Q02_(0.),
 ir01_(0.),
 ii01_(0.),
 ir02_(0.),
@@ -60,67 +71,68 @@ startingPointMode_(WARM) {
 
 void
 ModelHvdcLink::init(int& /*yNum*/) {
-  std::shared_ptr<HvdcLineInterface> dcLine = dcLine_.lock();
-  // no state variable for simple hvdc model: no indexes to set
-  // calculate active power at the two points of common coupling
-  setConvertersActivePower(dcLine);
+  if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
+    const std::shared_ptr<HvdcLineInterface> dcLine = dcLine_.lock();
+    // no state variable for simple hvdc model: no indexes to set
+    // calculate active power at the two points of common coupling
+    setConvertersActivePower(dcLine);
 
-  // calculate reactive power at the two points of common coupling
-  setConvertersReactivePower(dcLine);
-
-  switch (startingPointMode_) {
-  case FLAT:
-    if (dcLine->getConverter1()->getBusInterface()) {
-      double uNode1 = dcLine->getConverter1()->getBusInterface()->getVNom();
-      double thetaNode1 = dcLine->getConverter1()->getBusInterface()->getAngle0();
-      double unomNode1 = dcLine->getConverter1()->getBusInterface()->getVNom();
-      double ur01 = uNode1 / unomNode1 * cos(thetaNode1 * DEG_TO_RAD);
-      double ui01 = uNode1 / unomNode1 * sin(thetaNode1 * DEG_TO_RAD);
-      double U201 = ur01 * ur01 + ui01 * ui01;
-      if (!doubleIsZero(U201)) {
-        ir01_ = (P01_ * ur01 + Q01_ * ui01) / U201;
-        ii01_ = (P01_ * ui01 - Q01_ * ur01) / U201;
+    // calculate reactive power at the two points of common coupling
+    setConvertersReactivePower(dcLine);
+    switch (startingPointMode_) {
+    case FLAT:
+      if (dcLine->getConverter1()->getBusInterface()) {
+        const double uNode1 = dcLine->getConverter1()->getBusInterface()->getVNom();
+        const double thetaNode1 = dcLine->getConverter1()->getBusInterface()->getAngle0();
+        const double unomNode1 = dcLine->getConverter1()->getBusInterface()->getVNom();
+        const double ur01 = uNode1 / unomNode1 * cos(thetaNode1 * DEG_TO_RAD);
+        const double ui01 = uNode1 / unomNode1 * sin(thetaNode1 * DEG_TO_RAD);
+        const double U201 = ur01 * ur01 + ui01 * ui01;
+        if (!doubleIsZero(U201)) {
+          ir01_ = (P01_ * ur01 + Q01_ * ui01) / U201;
+          ii01_ = (P01_ * ui01 - Q01_ * ur01) / U201;
+        }
       }
-    }
-    if (dcLine->getConverter2()->getBusInterface()) {
-      double uNode2 = dcLine->getConverter2()->getBusInterface()->getVNom();
-      double thetaNode2 = dcLine->getConverter2()->getBusInterface()->getAngle0();
-      double unomNode2 = dcLine->getConverter2()->getBusInterface()->getVNom();
-      double ur02 = uNode2 / unomNode2 * cos(thetaNode2 * DEG_TO_RAD);
-      double ui02 = uNode2 / unomNode2 * sin(thetaNode2 * DEG_TO_RAD);
-      double U202 = ur02 * ur02 + ui02 * ui02;
-      if (!doubleIsZero(U202)) {
-        ir02_ = (P02_ * ur02 + Q02_ * ui02) / U202;
-        ii02_ = (P02_ * ui02 - Q02_ * ur02) / U202;
+      if (dcLine->getConverter2()->getBusInterface()) {
+        const double uNode2 = dcLine->getConverter2()->getBusInterface()->getVNom();
+        const double thetaNode2 = dcLine->getConverter2()->getBusInterface()->getAngle0();
+        const double unomNode2 = dcLine->getConverter2()->getBusInterface()->getVNom();
+        const double ur02 = uNode2 / unomNode2 * cos(thetaNode2 * DEG_TO_RAD);
+        const double ui02 = uNode2 / unomNode2 * sin(thetaNode2 * DEG_TO_RAD);
+        const double U202 = ur02 * ur02 + ui02 * ui02;
+        if (!doubleIsZero(U202)) {
+          ir02_ = (P02_ * ur02 + Q02_ * ui02) / U202;
+          ii02_ = (P02_ * ui02 - Q02_ * ur02) / U202;
+        }
       }
-    }
-    break;
-  case WARM:
-    if (dcLine->getConverter1()->getBusInterface()) {
-      double uNode1 = dcLine->getConverter1()->getBusInterface()->getV0();
-      double thetaNode1 = dcLine->getConverter1()->getBusInterface()->getAngle0();
-      double unomNode1 = dcLine->getConverter1()->getBusInterface()->getVNom();
-      double ur01 = uNode1 / unomNode1 * cos(thetaNode1 * DEG_TO_RAD);
-      double ui01 = uNode1 / unomNode1 * sin(thetaNode1 * DEG_TO_RAD);
-      double U201 = ur01 * ur01 + ui01 * ui01;
-      if (!doubleIsZero(U201)) {
-        ir01_ = (P01_ * ur01 + Q01_ * ui01) / U201;
-        ii01_ = (P01_ * ui01 - Q01_ * ur01) / U201;
+      break;
+    case WARM:
+      if (dcLine->getConverter1()->getBusInterface()) {
+        const double uNode1 = dcLine->getConverter1()->getBusInterface()->getV0();
+        const double thetaNode1 = dcLine->getConverter1()->getBusInterface()->getAngle0();
+        const double unomNode1 = dcLine->getConverter1()->getBusInterface()->getVNom();
+        const double ur01 = uNode1 / unomNode1 * cos(thetaNode1 * DEG_TO_RAD);
+        const double ui01 = uNode1 / unomNode1 * sin(thetaNode1 * DEG_TO_RAD);
+        const double U201 = ur01 * ur01 + ui01 * ui01;
+        if (!doubleIsZero(U201)) {
+          ir01_ = (P01_ * ur01 + Q01_ * ui01) / U201;
+          ii01_ = (P01_ * ui01 - Q01_ * ur01) / U201;
+        }
       }
-    }
-    if (dcLine->getConverter2()->getBusInterface()) {
-      double uNode2 = dcLine->getConverter2()->getBusInterface()->getV0();
-      double thetaNode2 = dcLine->getConverter2()->getBusInterface()->getAngle0();
-      double unomNode2 = dcLine->getConverter2()->getBusInterface()->getVNom();
-      double ur02 = uNode2 / unomNode2 * cos(thetaNode2 * DEG_TO_RAD);
-      double ui02 = uNode2 / unomNode2 * sin(thetaNode2 * DEG_TO_RAD);
-      double U202 = ur02 * ur02 + ui02 * ui02;
-      if (!doubleIsZero(U202)) {
-        ir02_ = (P02_ * ur02 + Q02_ * ui02) / U202;
-        ii02_ = (P02_ * ui02 - Q02_ * ur02) / U202;
+      if (dcLine->getConverter2()->getBusInterface()) {
+        const double uNode2 = dcLine->getConverter2()->getBusInterface()->getV0();
+        const double thetaNode2 = dcLine->getConverter2()->getBusInterface()->getAngle0();
+        const double unomNode2 = dcLine->getConverter2()->getBusInterface()->getVNom();
+        const double ur02 = uNode2 / unomNode2 * cos(thetaNode2 * DEG_TO_RAD);
+        const double ui02 = uNode2 / unomNode2 * sin(thetaNode2 * DEG_TO_RAD);
+        const double U202 = ur02 * ur02 + ui02 * ui02;
+        if (!doubleIsZero(U202)) {
+          ir02_ = (P02_ * ur02 + Q02_ * ui02) / U202;
+          ii02_ = (P02_ * ui02 - Q02_ * ur02) / U202;
+        }
       }
+      break;
     }
-    break;
   }
 }
 
@@ -146,12 +158,110 @@ ModelHvdcLink::initSize() {
 void
 ModelHvdcLink::getY0() {
   if (!network_->isInitModel()) {
-    // get init value for state variables
+    if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
+      // get init value for state variables
 
-    // get init value for discrete variables
-    z_[state1Num_] = getConnected1();
-    z_[state2Num_] = getConnected2();
+      // get init value for discrete variables
+      z_[state1Num_] = getConnected1();
+      z_[state2Num_] = getConnected2();
+    } else {
+      // get init value for state variables
+
+      // get init value for discrete variables
+      setConnected1(static_cast<State>(static_cast<int>(z_[state1Num_])));
+      switch (connectionState1_) {
+        case CLOSED:
+        {
+          if (modelBus1_->getConnectionState() != CLOSED) {
+            modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+            stateModified_ = true;
+          }
+          break;
+        }
+        case OPEN:
+        {
+          if (modelBus1_->getConnectionState() != OPEN) {
+            modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
+            stateModified_ = true;
+          }
+          break;
+        }
+        case CLOSED_1:
+        case CLOSED_2:
+        case CLOSED_3:
+        {
+          throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
+        }
+        case UNDEFINED_STATE:
+        {
+          throw DYNError(Error::MODELER, UndefinedComponentState, id_);
+        }
+      }
+
+      setConnected2(static_cast<State>(static_cast<int>(z_[state2Num_])));
+      switch (connectionState2_) {
+        case CLOSED:
+        {
+          if (modelBus2_->getConnectionState() != CLOSED) {
+            modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+            stateModified_ = true;
+          }
+          break;
+        }
+        case OPEN:
+        {
+          if (modelBus2_->getConnectionState() != OPEN) {
+            modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
+            stateModified_ = true;
+          }
+          break;
+        }
+        case CLOSED_1:
+        case CLOSED_2:
+        case CLOSED_3:
+        {
+          throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
+        }
+        case UNDEFINED_STATE:
+        {
+          throw DYNError(Error::MODELER, UndefinedComponentState, id_);
+        }
+      }
+    }
   }
+}
+
+void
+ModelHvdcLink::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
+  ModelCPP::dumpInStream(streamVariables, P01_);
+  ModelCPP::dumpInStream(streamVariables, Q01_);
+  ModelCPP::dumpInStream(streamVariables, P02_);
+  ModelCPP::dumpInStream(streamVariables, Q02_);
+  ModelCPP::dumpInStream(streamVariables, ir01_);
+  ModelCPP::dumpInStream(streamVariables, ii01_);
+  ModelCPP::dumpInStream(streamVariables, ir02_);
+  ModelCPP::dumpInStream(streamVariables, ii02_);
+}
+
+void
+ModelHvdcLink::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
+  char c;
+  streamVariables >> c;
+  streamVariables >> P01_;
+  streamVariables >> c;
+  streamVariables >> Q01_;
+  streamVariables >> c;
+  streamVariables >> P02_;
+  streamVariables >> c;
+  streamVariables >> Q02_;
+  streamVariables >> c;
+  streamVariables >> ir01_;
+  streamVariables >> c;
+  streamVariables >> ii01_;
+  streamVariables >> c;
+  streamVariables >> ir02_;
+  streamVariables >> c;
+  streamVariables >> ii02_;
 }
 
 void
@@ -175,17 +285,17 @@ ModelHvdcLink::evalF(propertyF_t /*type*/) {
 }
 
 void
-ModelHvdcLink::evalJt(SparseMatrix& /*jt*/, const double& /*cj*/, const int& /*rowOffset*/) {
+ModelHvdcLink::evalJt(const double /*cj*/, const int /*rowOffset*/, SparseMatrix& /*jt*/) {
   // no jacobian transpose evaluation because no equation
 }
 
 void
-ModelHvdcLink::evalJtPrim(SparseMatrix& /*jt*/, const int& /*rowOffset*/) {
+ModelHvdcLink::evalJtPrim(const int /*rowOffset*/, SparseMatrix& /*jtPrim*/) {
   // no jacobian transpose derivative evaluation because no equation
 }
 
 NetworkComponent::StateChange_t
-ModelHvdcLink::evalZ(const double& /*t*/) {
+ModelHvdcLink::evalZ(const double /*t*/) {
   if (modelBus1_->getConnectionState() == OPEN)
     z_[state1Num_] = OPEN;
   // evaluation of the discrete variables current values
@@ -234,27 +344,27 @@ ModelHvdcLink::setGequations(std::map<int, std::string>& /*gEquationIndex*/) {
 }
 
 void
-ModelHvdcLink::evalG(const double& /*t*/) {
+ModelHvdcLink::evalG(const double /*t*/) {
   // no root function to evaluate
 }
 
 void
 ModelHvdcLink::evalCalculatedVars() {
   // calculated variables are the active and reactive power at both sides
-  double ur1 = modelBus1_->ur();
-  double ui1 = modelBus1_->ui();
-  double ur2 = modelBus2_->ur();
-  double ui2 = modelBus2_->ui();
-  double U1_2 = modelBus1_->getCurrentU(ModelBus::U2PuType_);
-  double U2_2 = modelBus2_->getCurrentU(ModelBus::U2PuType_);
-  double ir1Val = ir1(ur1, ui1, U1_2);
-  double ii1Val = ii1(ur1, ui1, U1_2);
-  double ir2Val = ir2(ur2, ui2, U2_2);
-  double ii2Val = ii2(ur2, ui2, U2_2);
-  calculatedVars_[p1Num_] = (isConnected1() && isConnected2())?-(ur1 * ir1Val + ui1 * ii1Val):0.;  // P = -(ur*ir + ui*ii) (generator convention)
-  calculatedVars_[q1Num_] = (isConnected1())?-(ui1 * ir1Val - ur1 * ii1Val):0.;  // Q = -(ui*ir - ur*ii) (generator convention)
-  calculatedVars_[p2Num_] = (isConnected1() && isConnected2())?-(ur2 * ir2Val + ui2 * ii2Val):0.;  // P = -(ur*ir + ui*ii) (generator convention)
-  calculatedVars_[q2Num_] = (isConnected2())?-(ui2 * ir2Val - ur2 * ii2Val):0.;  // Q = -(ui*ir - ur*ii) (generator convention)
+  const double ur1 = modelBus1_->ur();
+  const double ui1 = modelBus1_->ui();
+  const double ur2 = modelBus2_->ur();
+  const double ui2 = modelBus2_->ui();
+  const double U1_2 = modelBus1_->getCurrentU(ModelBus::U2PuType_);
+  const double U2_2 = modelBus2_->getCurrentU(ModelBus::U2PuType_);
+  const double ir1Val = ir1(ur1, ui1, U1_2);
+  const double ii1Val = ii1(ur1, ui1, U1_2);
+  const double ir2Val = ir2(ur2, ui2, U2_2);
+  const double ii2Val = ii2(ur2, ui2, U2_2);
+  calculatedVars_[p1Num_] = (isConnected1() && isConnected2()) ? -(ur1 * ir1Val + ui1 * ii1Val) : 0.;  // P = -(ur*ir + ui*ii) (generator convention)
+  calculatedVars_[q1Num_] = isConnected1() ? -(ui1 * ir1Val - ur1 * ii1Val) : 0.;  // Q = -(ui*ir - ur*ii) (generator convention)
+  calculatedVars_[p2Num_] = (isConnected1() && isConnected2()) ? -(ur2 * ir2Val + ui2 * ii2Val) : 0.;  // P = -(ur*ir + ui*ii) (generator convention)
+  calculatedVars_[q2Num_] = isConnected2() ? -(ui2 * ir2Val - ur2 * ii2Val) : 0.;  // Q = -(ui*ir - ur*ii) (generator convention)
 }
 
 void
@@ -263,16 +373,16 @@ ModelHvdcLink::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculated
   switch (numCalculatedVar) {
     case p1Num_:
     case q1Num_: {
-      int urYNum1 = modelBus1_->urYNum();
-      int uiYNum1 = modelBus1_->uiYNum();
+      const int urYNum1 = modelBus1_->urYNum();
+      const int uiYNum1 = modelBus1_->uiYNum();
       numVars.push_back(urYNum1);
       numVars.push_back(uiYNum1);
       break;
     }
     case p2Num_:
     case q2Num_: {
-      int urYNum2 = modelBus2_->urYNum();
-      int uiYNum2 = modelBus2_->uiYNum();
+      const int urYNum2 = modelBus2_->urYNum();
+      const int uiYNum2 = modelBus2_->uiYNum();
       numVars.push_back(urYNum2);
       numVars.push_back(uiYNum2);
       break;
@@ -287,9 +397,9 @@ ModelHvdcLink::evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double
   switch (numCalculatedVar) {
     case p1Num_: {
       if (isConnected1() && isConnected2()) {
-        double ur1 = modelBus1_->ur();
-        double ui1 = modelBus1_->ui();
-        double U1_2 = ur1 * ur1 + ui1 * ui1;
+        const double ur1 = modelBus1_->ur();
+        const double ui1 = modelBus1_->ui();
+        const double U1_2 = ur1 * ur1 + ui1 * ui1;
         // P1 = -( ur1 * ir1 + ui1 * ii1 ) (generator convention)
         res[0] = -(ir1(ur1, ui1, U1_2) + ur1 * ir1_dUr(ur1, ui1, U1_2) + ui1 * ii1_dUr(ur1, ui1, U1_2));  // @P1/@ur1
         res[1] = -(ur1 * ir1_dUi(ur1, ui1, U1_2) + ii1(ur1, ui1, U1_2) + ui1 * ii1_dUi(ur1, ui1, U1_2));  // @P1/@ui1
@@ -301,9 +411,9 @@ ModelHvdcLink::evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double
     }
     case p2Num_: {
       if (isConnected1() && isConnected2()) {
-        double ur2 = modelBus2_->ur();
-        double ui2 = modelBus2_->ui();
-        double U2_2 = ur2 * ur2 + ui2 * ui2;
+        const double ur2 = modelBus2_->ur();
+        const double ui2 = modelBus2_->ui();
+        const double U2_2 = ur2 * ur2 + ui2 * ui2;
         // P2 = -( ur2 * ir2 + ui2 * ii2 ) (generator convention)
         res[0] = -(ir2(ur2, ui2, U2_2) + ur2 * ir2_dUr(ur2, ui2, U2_2) + ui2 * ii2_dUr(ur2, ui2, U2_2));  // @P2/@ur2
         res[1] = -(ur2 * ir2_dUi(ur2, ui2, U2_2) + ii2(ur2, ui2, U2_2) + ui2 * ii2_dUi(ur2, ui2, U2_2));  // @P2/@ui2
@@ -315,9 +425,9 @@ ModelHvdcLink::evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double
     }
     case q1Num_: {
       if (isConnected1()) {
-        double ur1 = modelBus1_->ur();
-        double ui1 = modelBus1_->ui();
-        double U1_2 = ur1 * ur1 + ui1 * ui1;
+        const double ur1 = modelBus1_->ur();
+        const double ui1 = modelBus1_->ui();
+        const double U1_2 = ur1 * ur1 + ui1 * ui1;
         // Q1 = -( ui1 * ir1 - ur1 * ii1 ) (generator convention)
         res[0] = -(ui1 * ir1_dUr(ur1, ui1, U1_2) - (ii1(ur1, ui1, U1_2) + ur1 * ii1_dUr(ur1, ui1, U1_2)));  // @Q1/@ur1
         res[1] = -(ir1(ur1, ui1, U1_2) + ui1 * ir1_dUi(ur1, ui1, U1_2) - ur1 * ii1_dUi(ur1, ui1, U1_2));  // @Q1/@ui1
@@ -329,9 +439,9 @@ ModelHvdcLink::evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double
     }
     case q2Num_: {
       if (isConnected2()) {
-        double ur2 = modelBus2_->ur();
-        double ui2 = modelBus2_->ui();
-        double U2_2 = ur2 * ur2 + ui2 * ui2;
+        const double ur2 = modelBus2_->ur();
+        const double ui2 = modelBus2_->ui();
+        const double U2_2 = ur2 * ur2 + ui2 * ui2;
         // Q2 = -( ui2 * ir2 - ur2 * ii2 ) (generator convention)
         res[0] = -(ui2 * ir2_dUr(ur2, ui2, U2_2) - (ii2(ur2, ui2, U2_2) + ur2 * ii2_dUr(ur2, ui2, U2_2)));  // @Q2/@ur2
         res[1] = -(ir2(ur2, ui2, U2_2) + ui2 * ir2_dUi(ur2, ui2, U2_2) - ur2 * ii2_dUi(ur2, ui2, U2_2));  // @Q2/@ui2
@@ -372,8 +482,8 @@ ModelHvdcLink::evalCalculatedVarI(unsigned numCalculatedVar) const {
     }
   }
 
-  double U1_2 = modelBus1_->getCurrentU(ModelBus::U2PuType_);
-  double U2_2 = modelBus2_->getCurrentU(ModelBus::U2PuType_);
+  const double U1_2 = modelBus1_->getCurrentU(ModelBus::U2PuType_);
+  const double U2_2 = modelBus2_->getCurrentU(ModelBus::U2PuType_);
   switch (numCalculatedVar) {
     case p1Num_: {
       if (isConnected1() && isConnected2()) {
@@ -420,12 +530,12 @@ ModelHvdcLink::evalNodeInjection() {
     modelBus2_->iiAdd(ii02_);
   } else {
     // Add current injection at point of common coupling 1
-    double ur1 = modelBus1_->ur();
-    double ui1 = modelBus1_->ui();
-    double ur2 = modelBus2_->ur();
-    double ui2 = modelBus2_->ui();
-    double U1_2 = modelBus1_->getCurrentU(ModelBus::U2PuType_);
-    double U2_2 = modelBus2_->getCurrentU(ModelBus::U2PuType_);
+    const double ur1 = modelBus1_->ur();
+    const double ui1 = modelBus1_->ui();
+    const double ur2 = modelBus2_->ur();
+    const double ui2 = modelBus2_->ui();
+    const double U1_2 = modelBus1_->getCurrentU(ModelBus::U2PuType_);
+    const double U2_2 = modelBus2_->getCurrentU(ModelBus::U2PuType_);
     modelBus1_->irAdd(ir1(ur1, ui1, U1_2));
     modelBus1_->iiAdd(ii1(ur1, ui1, U1_2));
     // Add current injection at point of common coupling 2
@@ -439,22 +549,22 @@ ModelHvdcLink::evalDerivatives(const double /*cj*/) {
   if (network_->isInitModel())
     return;
   if (isConnected1()) {
-    int urYNum = modelBus1_->urYNum();
-    int uiYNum = modelBus1_->uiYNum();
-    double ur1 = modelBus1_->ur();
-    double ui1 = modelBus1_->ui();
-    double U1_2 = ur1 * ur1 + ui1 * ui1;
+    const int urYNum = modelBus1_->urYNum();
+    const int uiYNum = modelBus1_->uiYNum();
+    const double ur1 = modelBus1_->ur();
+    const double ui1 = modelBus1_->ui();
+    const double U1_2 = ur1 * ur1 + ui1 * ui1;
     modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, urYNum, ir1_dUr(ur1, ui1, U1_2));
     modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, uiYNum, ir1_dUi(ur1, ui1, U1_2));
     modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, urYNum, ii1_dUr(ur1, ui1, U1_2));
     modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, uiYNum, ii1_dUi(ur1, ui1, U1_2));
   }
   if (isConnected2()) {
-    int urYNum = modelBus2_->urYNum();
-    int uiYNum = modelBus2_->uiYNum();
-    double ur2 = modelBus2_->ur();
-    double ui2 = modelBus2_->ui();
-    double U2_2 = ur2 * ur2 + ui2 * ui2;
+    const int urYNum = modelBus2_->urYNum();
+    const int uiYNum = modelBus2_->uiYNum();
+    const double ur2 = modelBus2_->ur();
+    const double ui2 = modelBus2_->ui();
+    const double U2_2 = ur2 * ur2 + ui2 * ui2;
     modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, urYNum, ir2_dUr(ur2, ui2, U2_2));
     modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, uiYNum, ir2_dUi(ur2, ui2, U2_2));
     modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, urYNum, ii2_dUr(ur2, ui2, U2_2));
@@ -463,7 +573,7 @@ ModelHvdcLink::evalDerivatives(const double /*cj*/) {
 }
 
 NetworkComponent::StateChange_t
-ModelHvdcLink::evalState(const double& /*time*/) {
+ModelHvdcLink::evalState(const double /*time*/) {
   if (stateModified_) {
     stateModified_ = false;
     return NetworkComponent::STATE_CHANGE;
@@ -497,8 +607,7 @@ ModelHvdcLink::defineVariables(vector<shared_ptr<Variable> >& variables) {
 
 void
 ModelHvdcLink::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
-  string hvdcName = id_;
-  string name;
+  const string hvdcName = id_;
   // ========  CONNECTION STATE ======
   // at point of common coupling 1
   addElementWithValue(hvdcName + string("_state1"), "HvdcLink", elements, mapElement);
@@ -541,10 +650,10 @@ ModelHvdcLink::setConvertersActivePower(const std::shared_ptr<HvdcLineInterface>
     P02_ = -dcLine->getConverter2()->getP() / SNREF;
   } else {
     // calculate losses on dc line
-    double PdcLoss = rdc_ * (pSetPoint_ / vdcNom_) * (pSetPoint_ / vdcNom_) / SNREF;  // in pu
+    const double PdcLoss = rdc_ * (pSetPoint_ / vdcNom_) * (pSetPoint_ / vdcNom_) / SNREF;  // in pu
 
     // calculate active power at the two points of common coupling (generator convention)
-    double P0dc = pSetPoint_ / SNREF;  // in pu
+    const double P0dc = pSetPoint_ / SNREF;  // in pu
     if (converterMode_ == HvdcLineInterface::RECTIFIER_INVERTER) {
       P01_ = -P0dc;  // RECTIFIER (absorbs power from the grid)
       P02_ = ((P0dc * (1 - lossFactor1_)) - PdcLoss) * (1. - lossFactor2_);  // INVERTER (injects power to the grid)
@@ -566,20 +675,20 @@ ModelHvdcLink::setConvertersReactivePower(const std::shared_ptr<HvdcLineInterfac
     switch (dcLine->getConverter1()->getConverterType()) {
       case ConverterInterface::VSC_CONVERTER:
         {
-        std::shared_ptr<VscConverterInterface> vsc1 = std::dynamic_pointer_cast<VscConverterInterface>(dcLine->getConverter1());
-        std::shared_ptr<VscConverterInterface> vsc2 = std::dynamic_pointer_cast<VscConverterInterface>(dcLine->getConverter2());
-        double qSetPoint1 = vsc1->getReactivePowerSetpoint();  // in Mvar (generator convention)
-        double qSetPoint2 = vsc2->getReactivePowerSetpoint();  // in Mvar (generator convention)
+        const std::shared_ptr<VscConverterInterface> vsc1 = std::dynamic_pointer_cast<VscConverterInterface>(dcLine->getConverter1());
+        const std::shared_ptr<VscConverterInterface> vsc2 = std::dynamic_pointer_cast<VscConverterInterface>(dcLine->getConverter2());
+        const double qSetPoint1 = vsc1->getReactivePowerSetpoint();  // in Mvar (generator convention)
+        const double qSetPoint2 = vsc2->getReactivePowerSetpoint();  // in Mvar (generator convention)
         Q01_ = qSetPoint1 / SNREF;
         Q02_ = qSetPoint2 / SNREF;
         break;
         }
       case ConverterInterface::LCC_CONVERTER:
         {
-        std::shared_ptr<LccConverterInterface> lcc1 = std::dynamic_pointer_cast<LccConverterInterface>(dcLine->getConverter1());
-        std::shared_ptr<LccConverterInterface> lcc2 = std::dynamic_pointer_cast<LccConverterInterface>(dcLine->getConverter2());
-        double powerFactor1 = lcc1->getPowerFactor();
-        double powerFactor2 = lcc2->getPowerFactor();
+        const std::shared_ptr<LccConverterInterface> lcc1 = std::dynamic_pointer_cast<LccConverterInterface>(dcLine->getConverter1());
+        const std::shared_ptr<LccConverterInterface> lcc2 = std::dynamic_pointer_cast<LccConverterInterface>(dcLine->getConverter2());
+        const double powerFactor1 = lcc1->getPowerFactor();
+        const double powerFactor2 = lcc2->getPowerFactor();
         Q01_ = -abs(powerFactor1 * P01_);
         Q02_ = -abs(powerFactor2 * P02_);
         break;
@@ -621,7 +730,7 @@ ModelHvdcLink::getQ2() const {
 }
 
 double
-ModelHvdcLink::ir1(const double& ur1, const double& ui1, const double& U1_2) const {
+ModelHvdcLink::ir1(const double ur1, const double ui1, const double U1_2) const {
   double ir = 0.;
   if (!doubleIsZero(U1_2))
     ir = (-getP1() * ur1 - getQ1() * ui1) / U1_2;
@@ -630,7 +739,7 @@ ModelHvdcLink::ir1(const double& ur1, const double& ui1, const double& U1_2) con
 }
 
 double
-ModelHvdcLink::ii1(const double& ur1, const double& ui1, const double& U1_2) const {
+ModelHvdcLink::ii1(const double ur1, const double ui1, const double U1_2) const {
   double ii = 0.;
   if (!doubleIsZero(U1_2))
     ii = (-getP1() * ui1 + getQ1() * ur1) / U1_2;
@@ -639,7 +748,7 @@ ModelHvdcLink::ii1(const double& ur1, const double& ui1, const double& U1_2) con
 }
 
 double
-ModelHvdcLink::ir2(const double& ur2, const double& ui2, const double& U2_2) const {
+ModelHvdcLink::ir2(const double ur2, const double ui2, const double U2_2) const {
   double ir = 0.;
   if (!doubleIsZero(U2_2))
     ir = (-getP2() * ur2 - getQ2() * ui2) / U2_2;
@@ -648,7 +757,7 @@ ModelHvdcLink::ir2(const double& ur2, const double& ui2, const double& U2_2) con
 }
 
 double
-ModelHvdcLink::ii2(const double& ur2, const double& ui2, const double& U2_2) const {
+ModelHvdcLink::ii2(const double ur2, const double ui2, const double U2_2) const {
   double ii = 0.;
   if (!doubleIsZero(U2_2))
     ii = (-getP2() * ui2 + getQ2() * ur2) / U2_2;
@@ -657,7 +766,7 @@ ModelHvdcLink::ii2(const double& ur2, const double& ui2, const double& U2_2) con
 }
 
 double
-ModelHvdcLink::ir1_dUr(const double& ur1, const double& ui1, const double& U1_2) const {
+ModelHvdcLink::ir1_dUr(const double ur1, const double ui1, const double U1_2) const {
   double ir_dUr = 0.;
   if (!doubleIsZero(U1_2))
     ir_dUr = (-getP1() - 2. * ur1 * (-getP1() * ur1 - getQ1() * ui1) / U1_2) / U1_2;
@@ -666,7 +775,7 @@ ModelHvdcLink::ir1_dUr(const double& ur1, const double& ui1, const double& U1_2)
 }
 
 double
-ModelHvdcLink::ir1_dUi(const double& ur1, const double& ui1, const double& U1_2) const {
+ModelHvdcLink::ir1_dUi(const double ur1, const double ui1, const double U1_2) const {
   double ir_dUi = 0.;
   if (!doubleIsZero(U1_2))
     ir_dUi = (-getQ1() - 2. * ui1 * (-getP1() * ur1 - getQ1() * ui1) / U1_2) / U1_2;
@@ -675,7 +784,7 @@ ModelHvdcLink::ir1_dUi(const double& ur1, const double& ui1, const double& U1_2)
 }
 
 double
-ModelHvdcLink::ii1_dUr(const double& ur1, const double& ui1, const double& U1_2) const {
+ModelHvdcLink::ii1_dUr(const double ur1, const double ui1, const double U1_2) const {
   double ii_dUr = 0.;
   if (!doubleIsZero(U1_2))
     ii_dUr = (getQ1() - 2. * ur1 * (-getP1() * ui1 + getQ1() * ur1) / U1_2) / U1_2;
@@ -684,7 +793,7 @@ ModelHvdcLink::ii1_dUr(const double& ur1, const double& ui1, const double& U1_2)
 }
 
 double
-ModelHvdcLink::ii1_dUi(const double& ur1, const double& ui1, const double& U1_2) const {
+ModelHvdcLink::ii1_dUi(const double ur1, const double ui1, const double U1_2) const {
   double ii_dUi = 0.;
   if (doubleNotEquals(U1_2, 0.))
     ii_dUi = (-getP1() - 2. * ui1 * (-getP1() * ui1 + getQ1() * ur1) / U1_2) / U1_2;
@@ -693,7 +802,7 @@ ModelHvdcLink::ii1_dUi(const double& ur1, const double& ui1, const double& U1_2)
 }
 
 double
-ModelHvdcLink::ir2_dUr(const double& ur2, const double& ui2, const double& U2_2) const {
+ModelHvdcLink::ir2_dUr(const double ur2, const double ui2, const double U2_2) const {
   double ir_dUr = 0.;
   if (!doubleIsZero(U2_2))
     ir_dUr = (-getP2() - 2. * ur2 * (-getP2() * ur2 - getQ2() * ui2) / U2_2) / U2_2;
@@ -702,7 +811,7 @@ ModelHvdcLink::ir2_dUr(const double& ur2, const double& ui2, const double& U2_2)
 }
 
 double
-ModelHvdcLink::ir2_dUi(const double& ur2, const double& ui2, const double& U2_2) const {
+ModelHvdcLink::ir2_dUi(const double ur2, const double ui2, const double U2_2) const {
   double ir_dUi = 0.;
   if (!doubleIsZero(U2_2))
     ir_dUi = (-getQ2() - 2. * ui2 * (-getP2() * ur2 - getQ2() * ui2) / U2_2) / U2_2;
@@ -711,7 +820,7 @@ ModelHvdcLink::ir2_dUi(const double& ur2, const double& ui2, const double& U2_2)
 }
 
 double
-ModelHvdcLink::ii2_dUr(const double& ur2, const double& ui2, const double& U2_2) const {
+ModelHvdcLink::ii2_dUr(const double ur2, const double ui2, const double U2_2) const {
   double ii_dUr = 0.;
   if (!doubleIsZero(U2_2))
     ii_dUr = (getQ2() - 2. * ur2 * (-getP2() * ui2 + getQ2() * ur2) / U2_2) / U2_2;
@@ -720,7 +829,7 @@ ModelHvdcLink::ii2_dUr(const double& ur2, const double& ui2, const double& U2_2)
 }
 
 double
-ModelHvdcLink::ii2_dUi(const double& ur2, const double& ui2, const double& U2_2) const {
+ModelHvdcLink::ii2_dUi(const double ur2, const double ui2, const double U2_2) const {
   double ii_dUi = 0.;
   if (!doubleIsZero(U2_2))
     ii_dUi = (-getP2() - 2. * ui2 * (-getP2() * ui2 + getQ2() * ur2) / U2_2) / U2_2;
@@ -741,7 +850,7 @@ ModelHvdcLink::defineNonGenericParameters(vector<ParameterModeler>& /*parameters
 void
 ModelHvdcLink::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params) {
   bool startingPointModeFound = false;
-  std::string startingPointMode = getParameterDynamicNoThrow<string>(params, "startingPointMode", startingPointModeFound);
+  const std::string startingPointMode = getParameterDynamicNoThrow<string>(params, "startingPointMode", startingPointModeFound);
   if (startingPointModeFound) {
     startingPointMode_ = getStartingPointMode(startingPointMode);
   }

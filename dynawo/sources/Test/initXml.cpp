@@ -16,10 +16,10 @@
 
 class XmlEnvironment : public testing::Environment {
  public:
-  virtual ~XmlEnvironment();
+  ~XmlEnvironment() override;
 
   // Override this to define how to set up the environment.
-  void SetUp() {
+  void SetUp() override {
     xercesc::XMLPlatformUtils::Initialize();
 #ifdef DYNAWO_USE_LIBXML2
       xmlInitParser();
@@ -27,7 +27,7 @@ class XmlEnvironment : public testing::Environment {
   }
 
   // Override this to define how to tear down the environment.
-  void TearDown() {
+  void TearDown() override {
     xercesc::XMLPlatformUtils::Terminate();
 #ifdef DYNAWO_USE_LIBXML2
     xmlCleanupParser();

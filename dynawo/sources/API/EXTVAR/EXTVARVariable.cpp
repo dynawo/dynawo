@@ -44,7 +44,7 @@ Variable::getType() const {
 }
 
 Variable&
-Variable::setId(const string & id) {
+Variable::setId(const string& id) {
   id_ = id;
   return *this;
 }

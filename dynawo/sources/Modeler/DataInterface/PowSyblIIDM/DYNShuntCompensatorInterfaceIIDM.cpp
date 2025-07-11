@@ -131,7 +131,7 @@ ShuntCompensatorInterfaceIIDM::getQ() {
   return getQInjector();
 }
 
-string
+const std::string&
 ShuntCompensatorInterfaceIIDM::getID() const {
   return shuntCompensatorIIDM_.getId();
 }

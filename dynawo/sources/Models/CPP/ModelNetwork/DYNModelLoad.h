@@ -21,6 +21,8 @@
 #define MODELS_CPP_MODELNETWORK_DYNMODELLOAD_H_
 
 #include <boost/shared_ptr.hpp>
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
 
 #include "DYNModelBus.h"
 #include "DYNNetworkComponent.h"
@@ -36,8 +38,9 @@ class ModelLoad : public NetworkComponent {
   /**
    * @brief default constructor
    * @param load : load data interface used to build the model
+   * @param bus : bus data-interface
    */
-  explicit ModelLoad(const std::shared_ptr<LoadInterface>& load);
+  explicit ModelLoad(const LoadInterface& load, const ModelBus& bus);
 
   /**
    * @brief  calculated variables type
@@ -55,17 +58,26 @@ class ModelLoad : public NetworkComponent {
    * @brief set the load connection status
    * @param state load connection status
    */
-  void setConnected(State state) {
+  void setConnected(const State state) {
     connectionState_ = state;
   }  // set the load connection status
 
   /**
-   * @brief set the bus to which the load is connected
-   *
-   * @param model model of the bus
-   */
-  void setModelBus(const std::shared_ptr<ModelBus>& model) {
-    modelBus_ = model;
+  * @brief get the load interface
+  *
+  * @return the load interface
+  */
+  const LoadInterface& getLoadInterface() const {
+    return load_;
+  }
+
+  /**
+  * @brief get the load interface non const version
+  *
+  * @return the load interface
+  */
+  LoadInterface& getNonCstLoadInterface() const {
+    return const_cast<LoadInterface&>(getLoadInterface());
   }
 
   /**
@@ -73,25 +85,34 @@ class ModelLoad : public NetworkComponent {
    *
    * @return model of the bus
    */
-  const std::shared_ptr<ModelBus>& getModelBus() const {
+  const ModelBus& getModelBus() const {
     return modelBus_;
+  }
+
+  /**
+  * @brief get the bus to which the load is connected
+  *
+  * @return model of the bus
+  */
+  ModelBus& getNonCstModelBus() const {
+    return const_cast<ModelBus&>(getModelBus());
   }
 
   /**
    * @brief evaluate node injection
    */
-  void evalNodeInjection();
+  void evalNodeInjection() override;
 
   /**
    * @brief evaluate derivatives
    * @param cj Jacobian prime coefficient
    */
-  void evalDerivatives(const double cj);
+  void evalDerivatives(const double cj) override;
 
   /**
    * @brief evaluate derivatives prim
    */
-  void evalDerivativesPrim() { /* not needed */ }
+  void evalDerivativesPrim() override { /* not needed */ }
 
   /**
    * @brief define variables
@@ -103,7 +124,7 @@ class ModelLoad : public NetworkComponent {
    * @brief instantiate variables
    * @param variables variables
    */
-  void instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables);
+  void instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables) override;
 
   /**
    * @brief define parameters
@@ -115,43 +136,43 @@ class ModelLoad : public NetworkComponent {
    * @brief define non generic parameters
    * @param parameters vector to fill with the non generic parameters
    */
-  void defineNonGenericParameters(std::vector<ParameterModeler>& parameters);
+  void defineNonGenericParameters(std::vector<ParameterModeler>& parameters) override;
 
   /**
    * @brief define elements
    * @param elements vector of elements
    * @param mapElement map of elements
    */
-  void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement);
+  void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) override;
 
   /**
    * @brief evaluation F
    * @param[in] type type of the residues to compute (algebraic, differential or both)
    */
-  void evalF(propertyF_t type);
+  void evalF(propertyF_t type) override;
 
   /**
    * @copydoc NetworkComponent::evalZ()
    */
-  NetworkComponent::StateChange_t evalZ(const double& t);
+  NetworkComponent::StateChange_t evalZ(double t) override;
 
   /**
    * @brief evaluation G
    * @param t time
    */
-  void evalG(const double& t);
+  void evalG(double t) override;
 
   /**
    * @brief evaluation calculated variables (for outputs)
    */
-  void evalCalculatedVars();
+  void evalCalculatedVars() override;
 
   /**
    * @brief get the index of variables used to define the jacobian associated to a calculated variable
    * @param numCalculatedVar index of the calculated variable
    * @param numVars index of variables used to define the jacobian associated to a calculated variable
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const override;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable
@@ -159,7 +180,7 @@ class ModelLoad : public NetworkComponent {
    * @param numCalculatedVar index of the calculated variable
    * @param res values of the jacobian
    */
-  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const;
+  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const override;
 
   /**
    * @brief evaluate the value of a calculated variable
@@ -168,95 +189,95 @@ class ModelLoad : public NetworkComponent {
    *
    * @return value of the calculated variable
    */
-  double evalCalculatedVarI(unsigned numCalculatedVar) const;
+  double evalCalculatedVarI(unsigned numCalculatedVar) const override;
 
   /**
    * @copydoc NetworkComponent::evalStaticYType()
    */
-  void evalStaticYType();
+  void evalStaticYType() override;
 
   /**
    * @copydoc NetworkComponent::evalDynamicYType()
    */
-  void evalDynamicYType() { /* not needed */ }
+  void evalDynamicYType() override { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::evalStaticFType()
    */
-  void evalStaticFType();
+  void evalStaticFType() override;
 
   /**
    * @copydoc NetworkComponent::evalDynamicFType()
    */
-  void evalDynamicFType() { /* not needed */ }
+  void evalDynamicFType() override { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::collectSilentZ()
    */
-  void collectSilentZ(BitMask* silentZTable);
+  void collectSilentZ(BitMask* silentZTable) override;
 
   /**
    * @copydoc NetworkComponent::evalYMat()
    */
-  void evalYMat() { /* not needed*/ }
+  void evalYMat() override { /* not needed*/ }
 
   /**
    * @copydoc NetworkComponent::init(int& yNum)
    */
-  void init(int & yNum);
+  void init(int& yNum) override;
 
   /**
    * @copydoc NetworkComponent::getY0()
    */
-  void getY0();
+  void getY0() override;
 
   /**
    * @copydoc NetworkComponent::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params)
    */
-  void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params);
+  void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params) override;
 
   /**
    * @copydoc NetworkComponent::setFequations( std::map<int,std::string>& fEquationIndex )
    */
-  void setFequations(std::map<int, std::string>& fEquationIndex);
+  void setFequations(std::map<int, std::string>& fEquationIndex) override;
 
   /**
    * @copydoc NetworkComponent::setGequations( std::map<int,std::string>& gEquationIndex )
    */
-  void setGequations(std::map<int, std::string>& gEquationIndex);
+  void setGequations(std::map<int, std::string>& gEquationIndex) override;
 
   /**
    * @brief evaluate state
    * @param time time
    * @return state change type
    */
-  NetworkComponent::StateChange_t evalState(const double& time);
+  NetworkComponent::StateChange_t evalState(double time) override;
 
   /**
    * @brief addBusNeighbors
    */
-  void addBusNeighbors() { /* not needed */ }
+  void addBusNeighbors() override { /* not needed */ }
 
   /**
    * @brief init size
    */
-  void initSize();
+  void initSize() override;
 
   /**
    * @brief evaluate jacobien \f$( J = @F/@x + cj * @F/@x')\f$
-   * @param jt sparse matrix to fill
    * @param cj jacobian prime coefficient
    * @param rowOffset row offset to use to find the first row to fill
+   * @param jt sparse matrix to fill
    */
-  void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset);
+  void evalJt(double cj, int rowOffset, SparseMatrix& jt) override;
 
   /**
    * @brief  evaluate jacobien \f$( J =  @F/@x')\f$
    *
-   * @param jt sparse matrix to fill
    * @param rowOffset row offset to use to find the first row to fill
+   * @param jtPrim sparse matrix to fill
    */
-  void evalJtPrim(SparseMatrix& jt, const int& rowOffset);
+  void evalJtPrim(int rowOffset, SparseMatrix& jtPrim) override;
 
   /**
    * @brief get the connection status of the load
@@ -279,8 +300,31 @@ class ModelLoad : public NetworkComponent {
    * @return @b whether the load is running
    */
   inline bool isRunning() const {
-    return (isConnected() && !modelBus_->getSwitchOff());
+    return (isConnected() && !modelBus_.getSwitchOff());
   }
+
+  /**
+   * @brief get the number of internal variable of the model
+   *
+   * @return the number of internal variable of the model
+   */
+  inline unsigned getNbInternalVariables() const override {
+    return 5;
+  }
+
+  /**
+   * @brief append the internal variables values to a stringstream
+   *
+   * @param streamVariables : stream with binary formated internalVariables
+   */
+  void dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const override;
+
+  /**
+   * @brief import the internal variables values of the component from stringstream
+   *
+   * @param streamVariables : stream with binary formated internalVariables
+   */
+  void loadInternalVariables(boost::archive::binary_iarchive& streamVariables) override;
 
  private:
   /**
@@ -291,7 +335,8 @@ class ModelLoad : public NetworkComponent {
    * @param U2 voltage square
    * @return value
    */
-  double P_dUr(const double& ur, const double& ui, const double& U, const double& U2) const;
+  double P_dUr(double ur, double ui, double U, double U2) const;
+
   /**
    * @brief calculated value
    * @param ur real part of the voltage
@@ -300,7 +345,8 @@ class ModelLoad : public NetworkComponent {
    * @param U2 voltage square
    * @return value
    */
-  double Q_dUr(const double& ur, const double& ui, const double& U, const double& U2) const;
+  double Q_dUr(double ur, double ui, double U, double U2) const;
+
   /**
    * @brief calculated value
    * @param ur real part of the voltage
@@ -309,7 +355,8 @@ class ModelLoad : public NetworkComponent {
    * @param U2 voltage square
    * @return value
    */
-  double P_dUi(const double& ur, const double& ui, const double& U, const double& U2) const;
+  double P_dUi(double ur, double ui, double U, double U2) const;
+
   /**
    * @brief calculated value
    * @param ur real part of the voltage
@@ -318,53 +365,58 @@ class ModelLoad : public NetworkComponent {
    * @param U2 voltage square
    * @return value
    */
-  double Q_dUi(const double& ur, const double& ui, const double& U, const double& U2) const;
+  double Q_dUi(double ur, double ui, double U, double U2) const;
+
   /**
    * @brief compute the active power in pu (SNREF)
-   * @param ur real part of the voltage
-   * @param ui imaginary part of the voltage
    * @param U voltage
    * @return value
    */
-  double P(const double& ur, const double& ui, const double& U) const;  // compute the active power in pu (SNREF)
+  double P(double U) const;  // compute the active power in pu (SNREF)
+
   /**
    * @brief compute the reactive power in pu (SNREF)
-   * @param ur real part of the voltage
-   * @param ui imaginary part of the voltage
    * @param U voltage
    * @return value
    */
-  double Q(const double& ur, const double& ui, const double& U) const;  // compute the reactive power in pu (SNREF)
+  double Q(double U) const;  // compute the reactive power in pu (SNREF)
+
   /**
    * @brief compute value
    * @return value
    */
   double zP() const;
+
   /**
    * @brief compute value
    * @return value
    */
   double zQ() const;
+
   /**
    * @brief compute value
    * @return value
    */
   double zQPrim() const;
+
   /**
    * @brief compute value
    * @return value
    */
   double zPPrim() const;
+
   /**
    * @brief compute value
    * @return value
    */
   double deltaQc() const;
+
   /**
    * @brief compute value
    * @return value
    */
   double deltaPc() const;
+
   /**
    * @brief compute the current real and imaginary values
    * @param ur real part of the voltage
@@ -387,8 +439,8 @@ class ModelLoad : public NetworkComponent {
    * @param QdUr partial derivative of reactive power with respect to ur
    * @return value
    */
-  inline double ir_dUr(const double& ur, const double& ui, const double& U2,
-                       const double& p, const double& q, const double& PdUr, const double& QdUr) const {
+  inline static double ir_dUr(const double ur, const double ui, const double U2,
+                       const double p, const double q, const double PdUr, const double QdUr) {
     return ((PdUr * ur + p) + (QdUr * ui) - 2. * ur * (p * ur + q * ui) / U2) / U2;
   }
 
@@ -403,8 +455,8 @@ class ModelLoad : public NetworkComponent {
    * @param QdUr partial derivative of reactive power with respect to ur
    * @return value
    */
-  inline double ii_dUr(const double& ur, const double& ui, const double& U2,
-                       const double& p, const double& q, const double& PdUr, const double& QdUr) const {
+  inline static double ii_dUr(const double ur, const double ui, const double U2,
+                       const double p, const double q, const double PdUr, const double QdUr) {
     return ((PdUr * ui) - (QdUr * ur + q) - 2. * ur * (p * ui - q * ur) / U2) / U2;
   }
 
@@ -419,8 +471,8 @@ class ModelLoad : public NetworkComponent {
    * @param QdUi partial derivative of reactive power with respect to ui
    * @return value
    */
-  inline double ir_dUi(const double& ur, const double& ui, const double& U2,
-                       const double& p, const double& q, const double& PdUi, const double& QdUi) const {
+  inline static double ir_dUi(const double ur, const double ui, const double U2,
+                       const double p, const double q, const double PdUi, const double QdUi) {
     return ((PdUi * ur) + (QdUi * ui + q) - 2. * ui * (p * ur + q * ui) / U2) / U2;
   }
 
@@ -435,8 +487,8 @@ class ModelLoad : public NetworkComponent {
    * @param QdUi partial derivative of reactive power with respect to ui
    * @return value
    */
-  inline double ii_dUi(const double& ur, const double & ui, const double& U2,
-                       const double& p, const double& q, const double& PdUi, const double& QdUi) const {
+  inline static double ii_dUi(const double ur, const double ui, const double U2,
+                       const double p, const double q, const double PdUi, const double QdUi) {
     return ((PdUi * ui + p) - (QdUi * ur) - 2. * ui * (p * ui - q * ur) / U2) / U2;
   }
 
@@ -448,7 +500,8 @@ class ModelLoad : public NetworkComponent {
    * @param U2 voltage square
    * @return value
    */
-  double ir_dZp(const double& ur, const double& ui, const double& U, const double& U2) const;
+  double ir_dZp(double ur, double ui, double U, double U2) const;
+
   /**
    * @brief compute value
    * @param ur real part of the voltage
@@ -457,7 +510,8 @@ class ModelLoad : public NetworkComponent {
    * @param U2 voltage square
    * @return value
    */
-  double ir_dZq(const double& ur, const double& ui, const double& U, const double& U2) const;
+  double ir_dZq(double ur, double ui, double U, double U2) const;
+
   /**
    * @brief compute value
    * @param ur real part of the voltage
@@ -466,7 +520,8 @@ class ModelLoad : public NetworkComponent {
    * @param U2 voltage square
    * @return value
    */
-  double ii_dZp(const double& ur, const double& ui, const double& U, const double& U2) const;
+  double ii_dZp(double ur, double ui, double U, double U2) const;
+
   /**
    * @brief compute value
    * @param ur real part of the voltage
@@ -475,7 +530,7 @@ class ModelLoad : public NetworkComponent {
    * @param U2 voltage square
    * @return value
    */
-  double ii_dZq(const double& ur, const double& ui, const double& U, const double& U2) const;
+  double ii_dZq(double ur, double ui, double U, double U2) const;
 
   /**
    * @brief compute the global Y index inside the Y matrix
@@ -487,8 +542,8 @@ class ModelLoad : public NetworkComponent {
   }
 
  private:
-  std::weak_ptr<LoadInterface> load_;  ///< reference to the load interface object
-  std::shared_ptr<ModelBus> modelBus_;  ///< model bus
+  const LoadInterface& load_;  ///< reference to the load interface object
+  const ModelBus& modelBus_;  ///< model bus
   State connectionState_;  ///< "internal" load connection status, evaluated at the end of evalZ to detect if the state was modified by another component
   bool stateModified_;  ///< true if the load connection state was modified
   double kp_;  ///< gain kp

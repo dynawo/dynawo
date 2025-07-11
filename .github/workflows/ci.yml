@@ -103,7 +103,7 @@ jobs:
         run: |
           export DYNAWO_HOME=$(pwd)
           export DYNAWO_NB_PROCESSORS_USED=1
-          sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"PmConstAc6aPss3b":1}/' util/nrt_diff/settings.py
+          sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"GFM_Fault" : 1, "PmConstAc6aPss3b":1}/' util/nrt_diff/settings.py
           branch=$(util/envDynawo.sh display-environment | grep DYNAWO_BRANCH_NAME | cut -d '=' -f 2)
           util/envDynawo.sh nrt || { cat nrt/output/${branch}/report.html && cat nrt/output/${branch}/nrt_nok.txt && exit 1; };
 
@@ -175,7 +175,7 @@ jobs:
 
   build-windows:
     if: github.event_name == 'push'
-    runs-on: windows-2019
+    runs-on: windows-2022
     steps:
       - name: Checkout sources
         uses: actions/checkout@v4
@@ -203,7 +203,7 @@ jobs:
         env:
           PATH: C:\Windows\system32;C:\Program Files\Git\cmd;C:\hostedtoolcache\windows\Python\3.9.13\x64
         run: |
-          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
           cd \dynawo
           cmake -Wno-dev -S dynawo/3rdParty -B b-3-p -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../../d-3-p -DOPENMODELICA_INSTALL=../../OpenModelica -DOPENMODELICA_SRC=../../OpenModelica/Source -DOMDEV_HOME=../../OMDev -G "Ninja"
           cmake --build b-3-p
@@ -219,7 +219,7 @@ jobs:
       - name: Dynawo runtime
         shell: cmd
         run: |
-          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
           cd \dynawo
           call \d-i\dynawo.cmd jobs nrt\data\SMIB\SMIB_BasicTestCases\SMIB_1_StepPm\SMIB.jobs || echo Error while running SMIB_1_StepPm job
           set _error=%ERRORLEVEL%

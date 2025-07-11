@@ -9,63 +9,21 @@ within Dynawo.Electrical.Controls.WECC.REEC;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model REECa "WECC Electrical Control type A"
   extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC;
-
-  // REEC-A parameters
-  parameter Types.PerUnit VDLIp11 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp12 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp21 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp22 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp31 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp32 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp41 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIp42 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq11 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq12 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq21 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq22 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq31 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq32 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq41 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIq42 annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIpPoints[:, :] = [VDLIp11, VDLIp12; VDLIp21, VDLIp22; VDLIp31, VDLIp32; VDLIp41, VDLIp42] "Pair of points for voltage-dependent active current limitation piecewise linear curve [u1,y1; u2,y2;...]" annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit VDLIqPoints[:, :] = [VDLIq11, VDLIq12; VDLIq21, VDLIq22; VDLIq31, VDLIq32; VDLIq41, VDLIq42] "Pair of points for voltage-dependent reactive current limitation piecewise linear curve [u1,y1; u2,y2;...]" annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.Time tHoldIpMax "Time delay for which the active current limit (ipMaxPu) is held after voltage dip in s" annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.Time tHoldIq "Absolute value of tHoldIq defines seconds to hold current injection after voltage dip ended. tHoldIq > 0 for constant, 0 for no injection after voltage dip, tHoldIq < 0 for voltage-dependent injection (typical: -1 .. 1 s)"  annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.PerUnit IqFrzPu "Constant reactive current injection value in pu (base UNom, SNom) (typical: -0.1 .. 0.1 pu)" annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Boolean PFlag "Power reference flag: const. Pref (0) or consider generator speed (1)" annotation(
-    Dialog(tab = "Electrical Control"));
-  parameter Types.VoltageModulePu VRef1Pu "User-defined reference/bias on the inner-loop voltage control in pu (base UNom) (typical: 0 pu)" annotation(
-    Dialog(tab = "Electrical Control"));
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECa;
 
   // Input variable
   Modelica.Blocks.Interfaces.RealInput omegaGPu(start = SystemBase.omegaRef0Pu) "Generator frequency from drive train control in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-270, -121}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-51, -110}, extent = {{10, 10}, {-10, -10}}, rotation = -90)));
+
+  // Output variable
+  Modelica.Blocks.Interfaces.RealOutput POrdPu(start = PInj0Pu) "Active power order in pu (base SNom) (generator convention)" annotation(
+    Placement(transformation(origin = {551, -153}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, -89}, extent = {{-10, -10}, {10, 10}})));
 
   Modelica.Blocks.Sources.RealExpression UFilteredPu5(y = UFilteredPu) annotation(
     Placement(visible = true, transformation(origin = {249, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -153,6 +111,8 @@ equation
     Line(points = {{-31, 78}, {1, 78}, {1, 104}, {15, 104}}, color = {0, 0, 127}));
   connect(gain.y, limiter1.u) annotation(
     Line(points = {{215, 220}, {252, 220}}, color = {0, 0, 127}));
+  connect(rateLimFirstOrderFreeze.y, POrdPu) annotation(
+    Line(points = {{76, -70}, {101, -70}, {101, -153}, {551, -153}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
@@ -161,7 +121,7 @@ equation
   Following control modes can be activated:</p>
   <li style=\"font-size: 12px;\">Local coordinated V/Q control: QFlag = true, VFlag = true</li>
   <li style=\"font-size: 12px;\">Only plant level control active: QFlag = false, VFlag = false</li>
-  <li style=\"font-size: 12px;\">If plant level control not connected: local powerfactor control: PfFlag = true, otherwise PfFlag = false.</li>
+  <li style=\"font-size: 12px;\">If plant level control not connected: local power factor control: PfFlag = true, otherwise PfFlag = false.</li>
   <li style=\"font-size: 12px;\"> Active power can be dependent or independent on drive train speed by setting PFlag to false (independent from drive train speed) or true. If PFlag is set to false, the model behaves as a Wind turbine generator type 4B, where the drive train is neglected by setting the speed to constant 1 </li>
     <p style=\"font-size: 12px;\">The block calculates the Id and Iq setpoint values for the generator control based on the selected control algorithm.</p></body></html>"),
     Diagram(coordinateSystem(extent = {{-260, -280}, {540, 280}}, grid = {1, 1})),

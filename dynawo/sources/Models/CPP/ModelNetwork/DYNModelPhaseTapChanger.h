@@ -41,7 +41,7 @@ class ModelPhaseTapChanger : public ModelTapChanger {
   /**
    * @brief destructor
    */
-  virtual ~ModelPhaseTapChanger();
+  ~ModelPhaseTapChanger() override;
 
   /**
    * @brief reset internal variables values
@@ -54,62 +54,69 @@ class ModelPhaseTapChanger : public ModelTapChanger {
    * @param t : time to use during the evaluation
    * @param iValue : current monitored by the tap changer
    * @param nodeOff : unused
-   * @param g : value of the zero crossing function
    * @param disable : is the tap changer disabled ?
    * @param locked : is the tap changer locked ?
    * @param tfoClosed : is the transformer connected ?
+   * @param g : value of the zero crossing function
    */
-  void evalG(double t, double iValue, bool nodeOff, state_g* g, double disable,
-             double locked, bool tfoClosed);
+  void evalG(double t, double iValue, bool nodeOff, double disable,
+             double locked, bool tfoClosed, state_g* g);
 
   /**
    * @brief  evaluate discrete values
    *
    * @param t : time to use during the evaluation
    * @param g : root values
-   * @param network : network of the transformer
    * @param disable : is the tap changer disabled ?
    * @param P1SupP2 : is the active power evaluated at side 1 is superior to the active power evaluated at side 2  ?
    * @param locked : is the tap changer locked ?
    * @param tfoClosed :is the transformer connected ?
+   * @param network : network of the transformer
    */
-  void evalZ(double t, state_g* g, ModelNetwork* network, double disable,
-             bool P1SupP2, double locked, bool tfoClosed);
+  void evalZ(double t, const state_g* g, double disable,
+             bool P1SupP2, double locked, bool tfoClosed, ModelNetwork* network);
 
   /**
    * @brief  get the size of the local G function
    *
    * @return size of G function
    */
-  inline int sizeG() const { return 6; }
+  static inline int sizeG() { return 6; }
 
   /**
    * @brief  get size of discrete variables
    *
    * @return number of discrete variables
    */
-  inline int sizeZ() const { return 0; }
+  static inline int sizeZ() { return 0; }
 
   /**
    * @brief set the current threshold over which the current should not go
    *
    * @param threshold current threshold
    */
-  inline void setThresholdI(double threshold) { thresholdI_ = threshold; }
+  inline void setThresholdI(const double threshold) { thresholdI_ = threshold; }
 
   /**
    * @brief append the internal variables values to a stringstream
    *
    * @param streamVariables : stringstream with binary formated internalVariables
    */
-  void dumpInternalVariables(std::stringstream& streamVariables) const;
+  void dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const;
 
   /**
    * @brief import the internal variables values of the component from stringstream
    *
    * @param streamVariables : stringstream with binary formated internalVariables
    */
-  void loadInternalVariables(std::stringstream& streamVariables);
+  void loadInternalVariables(boost::archive::binary_iarchive& streamVariables);
+
+  /**
+   * @brief get the number of internal variable of the model
+   *
+   * @return the number of internal variable of the model
+   */
+  unsigned getNbInternalVariables() const;
 
  private:
   /**

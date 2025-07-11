@@ -57,7 +57,7 @@ class ServiceManagerInterfaceIIDM : public ServiceManagerInterface {
   /**
    * @copydoc ServiceManagerInterface::getRegulatedBus
    */
-  std::shared_ptr<BusInterface> getRegulatedBus(const std::string& regulatingComponent) const;
+  std::shared_ptr<BusInterface> getRegulatedBus(const std::string& regulatingComponent) const override;
 
  private:
   /**

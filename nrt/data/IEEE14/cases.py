@@ -49,6 +49,16 @@ job_file = os.path.join(os.path.dirname(__file__), "IEEE14_SyntaxExamples", "IEE
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
 #########################################
+#      IEEE14 - Dump init values       #
+#########################################
+
+case_name = "IEEE14 - DumpInitValues"
+case_description = "IEEE14 - DumpInitValues"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE14_SyntaxExamples", "IEEE14_DumpInitValues", "IEEE14.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+#########################################
 #      IEEE14 - Dump final values       #
 #########################################
 
@@ -180,6 +190,16 @@ test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeT
 case_name = "IEEE14 - Load Ramp Variation"
 case_description = "IEEE14 - Load 2 Ramp Variation"
 job_file = os.path.join(os.path.dirname(__file__), "IEEE14_BasicTestCases", "IEEE14_LoadVariationRamp", "IEEE14.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+##############################################
+#      IEEE14 - Start From DumpFile          #
+##############################################
+
+case_name = "IEEE14 - Start From DumpFile"
+case_description = "IEEE14 - Start from dumpfile and check that final values of step 1 are identical to init values of step 2"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE14_BasicTestCases", "IEEE14_StartFromDump", "IEEE14.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 

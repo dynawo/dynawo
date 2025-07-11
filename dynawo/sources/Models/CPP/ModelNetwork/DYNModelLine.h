@@ -21,6 +21,9 @@
 #define MODELS_CPP_MODELNETWORK_DYNMODELLINE_H_
 
 #include <boost/shared_ptr.hpp>
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+
 #include "DYNNetworkComponent.h"
 
 namespace DYN {
@@ -75,7 +78,7 @@ class ModelLine : public NetworkComponent {
    * @brief set the connected state (fully connected, one end open, ...) of the line
    * @param state connected state
    */
-  void setConnectionState(State state) {
+  void setConnectionState(const State state) {
     connectionState_ = state;
   }  // set the connected state (fully connected, one end open, ...) of the line
 
@@ -83,7 +86,7 @@ class ModelLine : public NetworkComponent {
    * @brief set CurrentLimits Desactivate
    * @param desactivate CurrentLimits Desactivate
    */
-  void setCurrentLimitsDesactivate(const double& desactivate) {
+  void setCurrentLimitsDesactivate(const double desactivate) {
     currentLimitsDesactivate_ = desactivate;
   }
 
@@ -124,24 +127,24 @@ class ModelLine : public NetworkComponent {
   /**
    * @brief evaluate node injection
    */
-  void evalNodeInjection();
+  void evalNodeInjection() override;
 
   /**
    * @brief  add bus neighbors
    *
    */
-  void addBusNeighbors();
+  void addBusNeighbors() override;
 
   /**
    * @brief evaluate derivatives
    * @param cj Jacobian prime coefficient
    */
-  void evalDerivatives(const double cj);
+  void evalDerivatives(double cj) override;
 
   /**
    * @brief evaluate derivatives prim
    */
-  void evalDerivativesPrim();
+  void evalDerivativesPrim() override;
 
   /**
    * @brief define variables
@@ -153,7 +156,7 @@ class ModelLine : public NetworkComponent {
    * @brief instantiate variables
    * @param variables variables
    */
-  void instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables);
+  void instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables) override;
 
   /**
    * @brief define parameters
@@ -165,43 +168,43 @@ class ModelLine : public NetworkComponent {
    * @brief define non generic parameters
    * @param parameters vector to fill with the non generic parameters
    */
-  void defineNonGenericParameters(std::vector<ParameterModeler>& parameters);
+  void defineNonGenericParameters(std::vector<ParameterModeler>& parameters) override;
 
   /**
    * @brief define elements
    * @param elements vector of elements
    * @param mapElement map of elements
    */
-  void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
+  void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) override;
 
   /**
    * @brief evaluation F
    * @param[in] type type of the residues to compute (algebraic, differential or both)
    */
-  void evalF(propertyF_t type);
+  void evalF(propertyF_t type) override;
 
   /**
   * @copydoc NetworkComponent::evalZ()
   */
-  NetworkComponent::StateChange_t evalZ(const double& t);  // get the local Z function for time t
+  NetworkComponent::StateChange_t evalZ(double t) override;  // get the local Z function for time t
 
   /**
    * @brief evaluation G
    * @param t time
    */
-  void evalG(const double& t);
+  void evalG(double t) override;
 
   /**
    * @brief evaluation calculated variables (for outputs)
    */
-  void evalCalculatedVars();
+  void evalCalculatedVars() override;
 
   /**
    * @brief get the index of variables used to define the jacobian associated to a calculated variable
    * @param numCalculatedVar index of the calculated variable
    * @param numVars index of variables used to define the jacobian associated to a calculated variable
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int> & numVars) const;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int> & numVars) const override;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable
@@ -210,17 +213,17 @@ class ModelLine : public NetworkComponent {
 
    * @param res values of the jacobian
    */
-  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double> & res) const;
+  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double> & res) const override;
 
   /**
-   * @copydoc NetworkComponent::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJt(double cj, int rowOffset, SparseMatrix& jt)
    */
-  void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset);
+  void evalJt(double cj, int rowOffset, SparseMatrix& jt) override;
 
   /**
-   * @copydoc NetworkComponent::evalJtPrim(SparseMatrix& jt, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJtPrim(int rowOffset, SparseMatrix& jtPrim)
    */
-  void evalJtPrim(SparseMatrix& jt, const int& rowOffset);
+  void evalJtPrim(int rowOffset, SparseMatrix& jtPrim) override;
 
   /**
    * @brief evaluate the value of a calculated variable
@@ -229,73 +232,97 @@ class ModelLine : public NetworkComponent {
    *
    * @return value of the calculated variable
    */
-  double evalCalculatedVarI(unsigned numCalculatedVar) const;
+  double evalCalculatedVarI(unsigned numCalculatedVar) const override;
 
   /**
    * @copydoc NetworkComponent::evalStaticYType()
    */
-  void evalStaticYType();
+  void evalStaticYType() override;
 
   /**
    * @copydoc NetworkComponent::evalDynamicYType()
    */
-  void evalDynamicYType();
+  void evalDynamicYType() override;
 
   /**
    * @copydoc NetworkComponent::evalStaticFType()
    */
-  void evalStaticFType();
+  void evalStaticFType() override;
 
   /**
    * @copydoc NetworkComponent::evalDynamicFType()
    */
-  void evalDynamicFType();
+  void evalDynamicFType() override;
 
   /**
    * @copydoc NetworkComponent::collectSilentZ()
    */
-  void collectSilentZ(BitMask* silentZTable);
+  void collectSilentZ(BitMask* silentZTable) override;
 
   /**
    * @copydoc NetworkComponent::evalYMat()
    */
-  void evalYMat();
+  void evalYMat() override;
 
   /**
    * @copydoc NetworkComponent::init(int& yNum)
    */
-  void init(int & yNum);
+  void init(int & yNum) override;
 
   /**
    * @copydoc NetworkComponent::getY0()
    */
-  void getY0();
+  void getY0() override;
 
   /**
    * @copydoc NetworkComponent::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params)
    */
-  void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params);
+  void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params) override;
 
   /**
    * @copydoc NetworkComponent::setFequations( std::map<int,std::string>& fEquationIndex )
    */
-  void setFequations(std::map<int, std::string>& fEquationIndex);
+  void setFequations(std::map<int, std::string>& fEquationIndex) override;
 
   /**
    * @copydoc NetworkComponent::setGequations( std::map<int,std::string>& gEquationIndex )
    */
-  void setGequations(std::map<int, std::string>& gEquationIndex);
+  void setGequations(std::map<int, std::string>& gEquationIndex) override;
 
   /**
    * @brief evaluate state
    * @param time time
    * @return state change type
    */
-  NetworkComponent::StateChange_t evalState(const double& time);  // check whether a discrete event happened
+  StateChange_t evalState(double time) override;  // check whether a discrete event happened
+
   /**
    * @brief update data
    */
-  void initSize();
+  void initSize() override;
+
+  /**
+   * @brief get the number of internal variable of the model
+   *
+   * @return the number of internal variable of the model
+   */
+  inline unsigned getNbInternalVariables() const override {
+    return 4;
+  }
+
+  /**
+   * @brief append the internal variables values to a stringstream
+   *
+   * @param streamVariables : stream with binary formated internalVariables
+   */
+  void dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const override;
+
+  /**
+   * @brief import the internal variables values of the component from stringstream
+   *
+   * @param streamVariables : stream with binary formated internalVariables
+   */
+  void loadInternalVariables(boost::archive::binary_iarchive& streamVariables) override;
 
  private:
   KnownBus_t knownBus_;  ///< known bus
@@ -310,7 +337,7 @@ class ModelLine : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the real part of the current on side 1
    */
-  double ir1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double ir1(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief compute the imaginary part of the current on side 1
@@ -320,7 +347,7 @@ class ModelLine : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the imaginary part of the current on side 1
    */
-  double ii1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double ii1(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief compute the real part of the current on side 2
@@ -330,7 +357,7 @@ class ModelLine : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the real part of the current on side 2
    */
-  double ir2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double ir2(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief compute the imaginary part of the current on side 2
@@ -340,7 +367,7 @@ class ModelLine : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the imaginary part of the current on side 2
    */
-  double ii2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double ii2(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief compute the magnitude of the current on side 1
@@ -350,7 +377,7 @@ class ModelLine : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the magnitude of the current on side 1
    */
-  double i1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double i1(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief compute the magnitude of the current on side 2
@@ -360,7 +387,7 @@ class ModelLine : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the magnitude of the current on side 2
    */
-  double i2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double i2(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief get the partial derivative of ir1 with respect to Ur1
@@ -511,7 +538,7 @@ class ModelLine : public NetworkComponent {
    * @param localIndex the local variable index inside the model
    * @return the global variable index
    */
-  inline unsigned int globalYIndex(const unsigned int localIndex) {
+  inline unsigned int globalYIndex(const unsigned int localIndex) const {
     return yOffset_ + localIndex;
   }
 

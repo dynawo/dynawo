@@ -47,19 +47,19 @@ class VariableMultiple : public VariableNative {
    * @param isState @b whether the variable is a state variable
    * @param negated @b if the variable is negated
    */
-  VariableMultiple(const std::string& name, const std::string& cardinalityName, const typeVar_t& type, bool isState, bool negated);
+  VariableMultiple(const std::string& name, const std::string& cardinalityName, const typeVar_t type, bool isState, bool negated);
 
   /**
    * @brief Destructor
    */
-  virtual ~VariableMultiple() = default;
+  ~VariableMultiple() override = default;
 
   /**
    * @brief Getter for variable's cardinality parameter name
    *
    * @return variable's cardinality
    */
-  inline std::string getCardinalityName() const {
+  inline const std::string& getCardinalityName() const {
     return cardinalityName_;
   }
 
@@ -80,14 +80,14 @@ class VariableMultiple : public VariableNative {
   /**
    * @copydoc VariableNative::getIndex()
    */
-  int getIndex() const;
+  int getIndex() const override;
 
   /**
    * @brief Setter for variable's cardinality value : the number of unit variables to create
    *
    * @param cardinality the new cardinality value
    */
-  void setCardinality(const unsigned int& cardinality);
+  void setCardinality(unsigned int cardinality);
 
  private:
   VariableMultiple();  ///< Private default constructor

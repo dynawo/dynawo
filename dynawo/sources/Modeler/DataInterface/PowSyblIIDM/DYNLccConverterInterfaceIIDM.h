@@ -47,82 +47,82 @@ class LccConverterInterfaceIIDM : public LccConverterInterface, public InjectorI
   /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
-  void exportStateVariablesUnitComponent();
+  void exportStateVariablesUnitComponent() override;
 
   /**
    * @copydoc ComponentInterface::importStaticParameters()
    */
-  void importStaticParameters();
+  void importStaticParameters() override;
 
   /**
    * @copydoc ComponentInterface::isConnected()
    */
-  bool isConnected() const;
+  bool isConnected() const override;
 
   /**
    * @copydoc LccConverterInterface::setBusInterface(const std::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface(const std::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface(const std::shared_ptr<BusInterface>& busInterface) override;
 
   /**
    * @copydoc LccConverterInterface::setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
    */
-  void setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
+  void setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) override;
 
   /**
    * @copydoc LccConverterInterface::getBusInterface() const
    */
-  std::shared_ptr<BusInterface> getBusInterface() const;
+  std::shared_ptr<BusInterface> getBusInterface() const override;
 
   /**
    * @copydoc LccConverterInterface::getInitialConnected()
    */
-  bool getInitialConnected();
+  bool getInitialConnected() override;
 
   /**
    * @copydoc LccConverterInterface::getVNom() const
    */
-  double getVNom() const;
+  double getVNom() const override;
 
   /**
    * @copydoc LccConverterInterface::hasP()
    */
-  bool hasP();
+  bool hasP() override;
 
   /**
    * @copydoc LccConverterInterface::hasQ()
    */
-  bool hasQ();
+  bool hasQ() override;
 
   /**
    * @copydoc LccConverterInterface::getP()
    */
-  double getP();
+  double getP() override;
 
   /**
    * @copydoc LccConverterInterface::getQ()
    */
-  double getQ();
+  double getQ() override;
 
   /**
    * @copydoc LccConverterInterface::getID() const
    */
-  std::string getID() const;
+  const std::string& getID() const override;
 
   /**
    * @copydoc LccConverterInterface::getLossFactor() const
    */
-  double getLossFactor() const;
+  double getLossFactor() const override;
 
   /**
    * @copydoc LccConverterInterface::getPowerFactor() const
    */
-  double getPowerFactor() const;
+  double getPowerFactor() const override;
 
   /**
    * @copydoc ComponentInterface::getComponentVarIndex()
    */
-  int getComponentVarIndex(const std::string& varName) const;
+  int getComponentVarIndex(const std::string& varName) const override;
 
   /**
    * @brief Getter for the reference to the iidm lcc converter instance

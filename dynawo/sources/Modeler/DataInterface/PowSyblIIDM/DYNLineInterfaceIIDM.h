@@ -52,7 +52,7 @@ class LineInterfaceIIDM : public LineInterface, public boost::noncopyable {
   /**
    * @brief Destructor
    */
-  ~LineInterfaceIIDM();
+  ~LineInterfaceIIDM() override;
 
   /**
    * @brief Constructor
@@ -63,72 +63,72 @@ class LineInterfaceIIDM : public LineInterface, public boost::noncopyable {
   /**
    * @copydoc LineInterface::getVNom1() const
    */
-  double getVNom1() const;
+  double getVNom1() const override;
 
   /**
    * @copydoc LineInterface::getVNom2() const
    */
-  double getVNom2() const;
+  double getVNom2() const override;
 
   /**
    * @copydoc LineInterface::getR() const
    */
-  double getR() const;
+  double getR() const override;
 
   /**
    * @copydoc LineInterface::getX() const
    */
-  double getX() const;
+  double getX() const override;
 
   /**
    * @copydoc LineInterface::getB1() const
    */
-  double getB1() const;
+  double getB1() const override;
 
   /**
    * @copydoc LineInterface::getB2() const
    */
-  double getB2() const;
+  double getB2() const override;
 
   /**
    * @copydoc LineInterface::getG1() const
    */
-  double getG1() const;
+  double getG1() const override;
 
   /**
    * @copydoc LineInterface::getG2() const
    */
-  double getG2() const;
+  double getG2() const override;
 
   /**
   * @copydoc LineInterface::getP1()
   */
-  double getP1();
+  double getP1() override;
 
   /**
   * @copydoc LineInterface::getQ1()
   */
-  double getQ1();
+  double getQ1() override;
 
   /**
   * @copydoc LineInterface::getP2()
   */
-  double getP2();
+  double getP2() override;
 
   /**
   * @copydoc LineInterface::getQ2()
   */
-  double getQ2();
+  double getQ2() override;
 
   /**
    * @copydoc LineInterface::getInitialConnected1()
    */
-  bool getInitialConnected1();
+  bool getInitialConnected1() override;
 
   /**
    * @copydoc LineInterface::getInitialConnected2()
    */
-  bool getInitialConnected2();
+  bool getInitialConnected2() override;
 
   /**
    * @brief Checks the connection state of the line's side 1
@@ -145,7 +145,7 @@ class LineInterfaceIIDM : public LineInterface, public boost::noncopyable {
   /**
    * @copydoc LineInterface::getID() const
    */
-  std::string getID() const;
+  const std::string& getID() const override;
 
   /**
    * @brief Setter for the line's voltageLevel interface side 1
@@ -156,7 +156,7 @@ class LineInterfaceIIDM : public LineInterface, public boost::noncopyable {
   /**
    * @copydoc LineInterface::setBusInterface1(const std::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface1(const std::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface1(const std::shared_ptr<BusInterface>& busInterface) override;
 
   /**
    * @brief Setter for the line's voltageLevel interface side 2
@@ -167,37 +167,37 @@ class LineInterfaceIIDM : public LineInterface, public boost::noncopyable {
   /**
    * @copydoc LineInterface::setBusInterface2(const std::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface2(const std::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface2(const std::shared_ptr<BusInterface>& busInterface) override;
 
   /**
    * @copydoc LineInterface::getBusInterface1() const
    */
-  std::shared_ptr<BusInterface> getBusInterface1() const;
+  std::shared_ptr<BusInterface> getBusInterface1() const override;
 
   /**
    * @copydoc LineInterface::getBusInterface2() const
    */
-  std::shared_ptr<BusInterface> getBusInterface2() const;
+  std::shared_ptr<BusInterface> getBusInterface2() const override;
 
   /**
    * @copydoc LineInterface::addCurrentLimitInterface1(std::unique_ptr<CurrentLimitInterface> currentLimitInterface)
    */
-  void addCurrentLimitInterface1(std::unique_ptr<CurrentLimitInterface> currentLimitInterface);
+  void addCurrentLimitInterface1(std::unique_ptr<CurrentLimitInterface> currentLimitInterface) override;
 
   /**
    * @copydoc LineInterface::addCurrentLimitInterface2(std::unique_ptr<CurrentLimitInterface> currentLimitInterface)
    */
-  void addCurrentLimitInterface2(std::unique_ptr<CurrentLimitInterface> currentLimitInterface);
+  void addCurrentLimitInterface2(std::unique_ptr<CurrentLimitInterface> currentLimitInterface) override;
 
   /**
    * @copydoc LineInterface::getCurrentLimitInterfaces1() const
    */
-  const std::vector<std::unique_ptr<CurrentLimitInterface> >& getCurrentLimitInterfaces1() const;
+  const std::vector<std::unique_ptr<CurrentLimitInterface> >& getCurrentLimitInterfaces1() const override;
 
   /**
    * @copydoc LineInterface::getCurrentLimitInterfaces2() const
    */
-  const std::vector<std::unique_ptr<CurrentLimitInterface> >& getCurrentLimitInterfaces2() const;
+  const std::vector<std::unique_ptr<CurrentLimitInterface> >& getCurrentLimitInterfaces2() const override;
 
   /**
    * @copydoc LineInterface::getActiveSeason()
@@ -266,26 +266,26 @@ class LineInterfaceIIDM : public LineInterface, public boost::noncopyable {
   /**
    * @copydoc ComponentInterface::importStaticParameters()
    */
-  void importStaticParameters();
+  void importStaticParameters() override;
   /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
-  void exportStateVariablesUnitComponent();
+  void exportStateVariablesUnitComponent() override;
 
   /**
    * @copydoc ComponentInterface::getComponentVarIndex()
    */
-  int getComponentVarIndex(const std::string& varName) const;
+  int getComponentVarIndex(const std::string& varName) const override;
 
   /**
    * @copydoc ComponentInterface::isConnected()
    */
-  bool isConnected() const;
+  bool isConnected() const override;
 
   /**
    * @copydoc ComponentInterface::isPartiallyConnected()
    */
-  bool isPartiallyConnected() const;
+  bool isPartiallyConnected() const override;
 
  private:
   powsybl::iidm::Line& lineIIDM_;                                    ///< reference to the iidm line instance

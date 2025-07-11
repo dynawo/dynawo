@@ -23,7 +23,6 @@
 #ifndef API_PAR_PARXMLHANDLER_H_
 #define API_PAR_PARXMLHANDLER_H_
 
-#include <boost/shared_ptr.hpp>
 #include <xml/sax/parser/ComposableDocumentHandler.h>
 #include <xml/sax/parser/ComposableElementHandler.h>
 
@@ -31,6 +30,9 @@
 #include "PARParametersSet.h"
 #include "PARMacroParameterSet.h"
 #include "PARMacroParSet.h"
+
+#include <memory>
+
 
 namespace parameters {
 
@@ -59,7 +61,7 @@ class ParInTableHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  virtual ~ParInTableHandler();
+  ~ParInTableHandler() override;
 
   /**
    * @brief return the parameter in xml file
@@ -93,7 +95,7 @@ class ParTableHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  virtual ~ParTableHandler();
+  ~ParTableHandler() override;
 
   /**
    * @brief get the type of the current parTable
@@ -167,13 +169,13 @@ class ParHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  virtual ~ParHandler();
+  ~ParHandler() override;
 
   /**
    * @brief return the parameter read in xml file
    * @return parameter object build thanks to infos read in xml file
    */
-  boost::shared_ptr<Parameter> get() const;
+  std::shared_ptr<Parameter> get() const;
 
  protected:
   /**
@@ -183,7 +185,7 @@ class ParHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const & attributes);
 
  private:
-  boost::shared_ptr<Parameter> parameter_;  ///< current parameter object
+  std::shared_ptr<Parameter> parameter_;  ///< current parameter object
 };
 
 /**
@@ -201,13 +203,13 @@ class RefHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  virtual ~RefHandler();
+  ~RefHandler() override;
 
   /**
    * @brief return the reference read in xml file
    * @return reference object build thanks to infos read in xml file
    */
-  boost::shared_ptr<Reference> get() const;
+  std::shared_ptr<Reference> get() const;
 
  protected:
   /**
@@ -217,7 +219,7 @@ class RefHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const & attributes);
 
  private:
-  boost::shared_ptr<Reference> referenceRead_;  ///< current reference object
+  std::shared_ptr<Reference> referenceRead_;  ///< current reference object
 };
 
 /**
@@ -235,13 +237,13 @@ class MacroParSetHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  virtual ~MacroParSetHandler();
+  ~MacroParSetHandler() override;
 
   /**
    * @brief return the macroParSet read in xml file
    * @return reference object build thanks to infos read in xml file
    */
-  boost::shared_ptr<MacroParSet> get() const;
+  std::shared_ptr<MacroParSet> get() const;
 
  protected:
   /**
@@ -251,7 +253,7 @@ class MacroParSetHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const& attributes);
 
  private:
-  boost::shared_ptr<MacroParSet> macroParSet_;  ///< current macroParSet object
+  std::shared_ptr<MacroParSet> macroParSet_;  ///< current macroParSet object
 };
 
 /**
@@ -269,7 +271,7 @@ class SetHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  virtual ~SetHandler();
+  ~SetHandler() override;
 
   /**
    * @brief return the set of parameters read in xml file
@@ -327,13 +329,13 @@ class MacroParameterSetHandler : public xml::sax::parser::ComposableElementHandl
   /**
    * @brief Destructor
    */
-  virtual ~MacroParameterSetHandler();
+  ~MacroParameterSetHandler() override;
 
   /**
    * @brief return the macroParameterSet read in xml file
    * @return reference object build thanks to infos read in xml file
    */
-  boost::shared_ptr<MacroParameterSet> get() const;
+  std::shared_ptr<MacroParameterSet> get() const;
 
   /**
    * @brief  add a reference object to the set of macroParameter
@@ -353,7 +355,7 @@ class MacroParameterSetHandler : public xml::sax::parser::ComposableElementHandl
   void create(attributes_type const& attributes);
 
  private:
-  boost::shared_ptr<MacroParameterSet> macroParameterSet_;  ///< current set of macroParameterSet object
+  std::shared_ptr<MacroParameterSet> macroParameterSet_;  ///< current set of macroParameterSet object
   RefHandler refHandler_;  ///< handler used to read reference element
   ParHandler parHandler_;  ///< handler used to read par element
 };
@@ -376,7 +378,7 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
   /**
    * @brief Destructor
    */
-  virtual ~XmlHandler();
+  ~XmlHandler() override;
 
   /**
    * @brief Parsed parameters set collection getter

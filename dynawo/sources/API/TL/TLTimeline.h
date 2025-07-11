@@ -85,109 +85,21 @@ class Timeline {
    */
   void filter(const std::unordered_map<std::string, std::unordered_set<std::string>>& oppositeEventDico);
 
- public:
-  /**
-   * @class event_const_iterator
-   * @brief Const iterator over events
-   *
-   * Const iterator over events stored in timeline
-   */
-  class event_const_iterator {
-   public:
-    /**
-     * @brief Constructor
-     *
-     * Constructor based on events. Can create an iterator to the
-     * beginning of the events' container or to the end. Events
-     * cannot be modified.
-     *
-     * @param iterated Pointer to the events' set iterated
-     * @param begin Flag indicating if the iterator point to the beginning (true)
-     * or the end of the events' container.
-     */
-    event_const_iterator(const Timeline* iterated, bool begin);
-
-    /**
-     * @brief Prefix-increment operator
-     *
-     * @returns Reference to this event_const_iterator
-     */
-    event_const_iterator& operator++();
-
-    /**
-     * @brief Postfix-increment operator
-     *
-     * @returns Copy of this event_const_iterator
-     */
-    event_const_iterator operator++(int);
-
-    /**
-     * @brief Prefix-decrement operator
-     *
-     * @returns Reference to this event_const_iterator
-     */
-    event_const_iterator& operator--();
-
-    /**
-     * @brief Postfix-decrement operator
-     *
-     * @returns Copy of this event_const_iterator
-     */
-    event_const_iterator operator--(int);
-
-    /**
-     * @brief Equal to operator
-     *
-     * @param other Iterator to be compared with this
-     * @returns true if iterators are equals, else false
-     */
-    bool operator==(const event_const_iterator& other) const;
-
-    /**
-     * @brief Not equal to operator
-     *
-     * @param other Iterator to be compared with this
-     * @returns true if iterators are different, else false
-     */
-    bool operator!=(const event_const_iterator& other) const;
-
-    /**
-     * @brief Indirection operator
-     *
-     * @returns Event pointed to by this
-     */
-    const std::unique_ptr<Event>& operator*() const;
-
-    /**
-     * @brief Structure dereference operator
-     *
-     * @returns Pointer to the Event pointed to by this
-     */
-    const std::unique_ptr<Event>* operator->() const;
-
-   private:
-    std::vector<std::unique_ptr<Event> >::const_iterator current_;  ///< current set iterator
-  };
-
-  /**
-   * @brief Get an event_const_iterator to the beginning of the events' set
-   * @return beginning of constant iterator
-   */
-  event_const_iterator cbeginEvent() const;
-
-  /**
-   * @brief Get an event_const_iterator to the end of the parameters' set
-   * @return end of constant iterator
-   */
-  event_const_iterator cendEvent() const;
-
   /**
    * @brief Erase the nbEvents in the timeline being before lastEventPosition
    *
    * @param nbEvents number of events to delete from the timeline starting from last event
    */
-
   void eraseEvents(int nbEvents);
+
+  /**
+   * @brief number of event getter
+   *
+   * @return the number of events stored in timeline
+   */
+  const std::vector<std::unique_ptr<Event> >& getEvents() const {
+    return events_;
+  }
 
  private:
   /**

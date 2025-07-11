@@ -124,7 +124,7 @@ $> dnf install -y gcc-c++ unzip curl python
 
 On Windows you can either run Dyna&omega;o with distribution models and in this case nothing is required. If you want to be able to add new models you will need:
 
-- [Visual Studio 2019](https://visualstudio.microsoft.com)
+- [Visual Studio 2022](https://visualstudio.microsoft.com)
 - [CMake](https://cmake.org/)
 - [Python2](https://www.python.org/ftp/python/2.7.18/python-2.7.18.amd64.msi) or [Python3](https://www.python.org/ftp/python/3.8.2/python-3.8.2-amd64.exe)
 
@@ -147,7 +147,7 @@ $> ./dynawo.sh jobs-help
 
 #### Windows
 
-Download the zip of the distribution and unzip it somewhere. Then open either `Command Prompt` or `x64 Native Tools Command Prompt for VS2019` (to be able to use your own models) and use `cd` to go into the directory you previously unzipped. You should see a `dynawo.cmd` file at the top of the folder. You can then launch a simulation with:
+Download the zip of the distribution and unzip it somewhere. Then open either `Command Prompt` or `x64 Native Tools Command Prompt for VS2022` (to be able to use your own models) and use `cd` to go into the directory you previously unzipped. You should see a `dynawo.cmd` file at the top of the folder. You can then launch a simulation with:
 
 ``` batch
 > dynawo jobs sources\examples\DynaWaltz\IEEE14\IEEE14_GeneratorDisconnections\IEEE14.jobs
@@ -194,7 +194,7 @@ In the following we give a list of requirements needed to build Dyna&omega;o and
 <a name="requirements_windows"></a>
 #### Windows
 
-- [Visual Studio 2019](https://visualstudio.microsoft.com/), Visual Studio 2015 was also tested
+- [Visual Studio 2022](https://visualstudio.microsoft.com/), Visual Studio 2019 was also tested
 - [CMake](https://cmake.org/)
 - Java ([openjdk](https://openjdk.java.net/) for example) to build OpenModelica Compiler
 - [Python2](https://www.python.org/ftp/python/2.7.18/python-2.7.18.amd64.msi) or [Python3](https://www.python.org/ftp/python/3.8.2/python-3.8.2-amd64.exe)
@@ -274,7 +274,7 @@ $> export HTTP_PROXY=$http_proxy;export HTTPS_PROXY=$https_proxy;export NO_PROXY
 <a name="build_windows"></a>
 #### Windows
 
-Open `x64 Native Tools Command Prompt for VS2019` and run the following commands:
+Open `x64 Native Tools Command Prompt for VS2022` and run the following commands:
 
 ``` batch
 > git config --global core.eol lf
@@ -284,9 +284,9 @@ Open `x64 Native Tools Command Prompt for VS2019` and run the following commands
 > md dynawo-project && cd dynawo-project
 > git clone https://github.com/dynawo/dynawo.git
 > cd dynawo
-> cmake -S dynawo/3rdParty -B b-3-p -DCMAKE_INSTALL_PREFIX=../d-3-p -DOPENMODELICA_INSTALL=../OpenModelica/Install -DOPENMODELICA_SRC=../OpenModelica/Source -DOMDEV_HOME=../OMDev -G "Ninja"
+> cmake -S dynawo/3rdParty -B b-3-p -DCMAKE_INSTALL_PREFIX=../d-3-p -DOPENMODELICA_INSTALL=../OpenModelica/Install -DOPENMODELICA_SRC=../OpenModelica/Source -DOMDEV_HOME=../OMDev
 > cmake --build b-3-p
-> cmake -S dynawo -B b -DCMAKE_INSTALL_PREFIX=../d-i -DDYNAWO_HOME=.. -DINSTALL_OPENMODELICA=../../OpenModelica/Install -DDYNAWO_THIRD_PARTY_DIR=../../d-3-p -G "Ninja"
+> cmake -S dynawo -B b -DCMAKE_INSTALL_PREFIX=../d-i -DDYNAWO_HOME=.. -DINSTALL_OPENMODELICA=../../OpenModelica/Install -DDYNAWO_THIRD_PARTY_DIR=../../d-3-p
 > cmake --build b --target install
 > cmake --build b --target models
 > cmake --build b --target solvers
@@ -419,14 +419,15 @@ Dyna&omega;o is using some external libraries to run simulations:
 
 Dyna&omega;o is currently maintained by the following people in RTE:
 
+* Gilles Aouizerate, [gilles.aouizerate@rte-france.com](mailto:gilles.aouizerate@rte-france.com)
 * Gautier Bureau, [gautier.bureau@rte-france.com](mailto:gautier.bureau@rte-france.com)
 * Marco Chiaramello, [marco.chiaramello@rte-france.com](mailto:marco.chiaramello@rte-france.com)
-* Quentin Cossart, [quentin.cossart@rte-france.com](mailto:quentin.cossart@rte-france.com)
 * Julien De Sloovere, [julien.desloovere@rte-france.com](mailto:julien.desloovere@rte-france.com)
 * Joy El-Feghali, [joy.elfeghali@rte-france.com](mailto:joy.elfeghali@rte-france.com)
 * Baptiste Letellier, [baptiste.letellier@rte-france.com](mailto:baptiste.letellier@rte-france.com)
-* Ian Menezes, [ian.menezes@rte-france.com](mailto:ian.menezes@rte-france.com)
+* Sylvestre Prabakaran, [sylvestre.prabakaran@rte-france.com](mailto:sylvestre.prabakaran@rte-france.com)
 * Florentine Rosiere, [florentine.rosiere@rte-france.com](mailto:florentine.rosiere@rte-france.com)
+* Thibaut Vermeulen, [thibaut.vermeulen@rte-france.com](mailto:thibaut.vermeulen@rte-france.com)
 
 In case of questions or issues, you can also send an e-mail to [rte-dynawo@rte-france.com](mailto:rte-dynawo@rte-france.com).
 

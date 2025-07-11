@@ -100,47 +100,27 @@ TEST(APIPARTest, CollectionIterator) {
   collection->addParametersSet(parametersSet3);
 
   // Test const iterator
-  int nbParametersSets = 0;
-  for (ParametersSetCollection::parametersSet_const_iterator itParamSet = collection->cbeginParametersSet();
-      itParamSet != collection->cendParametersSet();
-      ++itParamSet) {
-    ++nbParametersSets;
-    ASSERT_TRUE(itParamSet == itParamSet);
-  }
+  auto nbParametersSets = collection->getParametersSets().size();
   ASSERT_EQ(nbParametersSets, 3);
-
-  ParametersSetCollection::parametersSet_const_iterator itVariablec(collection->cbeginParametersSet());
-  ASSERT_EQ((++itVariablec)->get()->getId(), "parameters2");
-  ASSERT_EQ((--itVariablec)->get()->getId(), "parameters1");
-  ASSERT_EQ((itVariablec++)->get()->getId(), "parameters1");
-  ASSERT_EQ((itVariablec--)->get()->getId(), "parameters2");
 }
 
 TEST(APIPARTest, MacroParameterSetTest) {
   shared_ptr<ParametersSetCollection> collection = ParametersSetCollectionFactory::newCollection();
-  shared_ptr<MacroParameterSet> macroParameterSet = shared_ptr<MacroParameterSet>(new MacroParameterSet("macroParameterSet"));
-  shared_ptr<Reference> reference = ReferenceFactory::newReference("reference", Reference::OriginData::IIDM);
-  shared_ptr<Parameter> parameter1 = ParameterFactory::newParameter("parameter1", true);
-  shared_ptr<Parameter> parameter2 = ParameterFactory::newParameter("parameter2", true);
-  macroParameterSet->addParameter(parameter2);
-  macroParameterSet->addReference(reference);
+  std::shared_ptr<MacroParameterSet> macroParameterSet = std::make_shared<MacroParameterSet>("macroParameterSet");
+  std::unique_ptr<Reference> reference = ReferenceFactory::newReference("reference", Reference::OriginData::IIDM);
+  std::unique_ptr<Parameter> parameter1 = ParameterFactory::newParameter("parameter1", true);
+  std::unique_ptr<Parameter> parameter2 = ParameterFactory::newParameter("parameter2", true);
+  macroParameterSet->addParameter(std::move(parameter2));
+  macroParameterSet->addReference(std::move(reference));
   std::shared_ptr<ParametersSet> parametersSet1 = ParametersSetFactory::newParametersSet("parameters1");
-  parametersSet1->addParameter(parameter1);
+  parametersSet1->addParameter(std::move(parameter1));
   ASSERT_NO_THROW(collection->addMacroParameterSet(macroParameterSet));
   ASSERT_THROW_DYNAWO(collection->addMacroParameterSet(macroParameterSet), DYN::Error::API, DYN::KeyError_t::MacroParameterSetAlreadyExists);
-  shared_ptr<MacroParSet> macroParSet = shared_ptr<MacroParSet>(new MacroParSet("macroParameterSet"));
-  ASSERT_NO_THROW(parametersSet1->addMacroParSet(macroParSet));
+  std::unique_ptr<MacroParSet> macroParSet = std::unique_ptr<MacroParSet>(new MacroParSet("macroParameterSet"));
+  ASSERT_NO_THROW(parametersSet1->addMacroParSet(std::move(macroParSet)));
   collection->addParametersSet(parametersSet1);
   ASSERT_NO_THROW(std::shared_ptr<ParametersSet> parametersSetGetter = collection->getParametersSet("parameters1"));
   ASSERT_NO_THROW(collection->getParametersFromMacroParameter());
-  ParametersSetCollection::macroparameterset_const_iterator itMacroParameterSet = collection->cbeginMacroParameterSet();
-  ASSERT_NO_THROW(itMacroParameterSet++);
-  ASSERT_NO_THROW(itMacroParameterSet--);
-  ASSERT_NO_THROW(++itMacroParameterSet);
-  ASSERT_NO_THROW(--itMacroParameterSet);
-  ASSERT_TRUE(itMacroParameterSet == itMacroParameterSet);
-  ASSERT_NO_THROW(itMacroParameterSet->get()->getId());
-  ASSERT_NO_THROW((*itMacroParameterSet)->getId());
 }
 
 }  // namespace parameters

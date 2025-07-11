@@ -63,106 +63,107 @@ class SubModelMockBase : public SubModel {
     calculatedVars_.resize(1);
   }
 
-  void init(const double) {
+  void init(const double) override {
     // Dummy class used for testing
   }
 
-  std::string modelType() const {
+  const std::string& modelType() const override {
     // Dummy class used for testing
-    return "";
+    static std::string type = "";
+    return type;
   }
 
-  void dumpParameters(std::map< std::string, std::string >&) {
-    // Dummy class used for testing
-  }
-
-  void getSubModelParameterValue(const std::string&, std::string&, bool&) {
+  void dumpParameters(std::map< std::string, std::string >&) override {
     // Dummy class used for testing
   }
 
-  void dumpVariables(std::map< std::string, std::string >&) {
+  void getSubModelParameterValue(const std::string&, std::string&, bool&) override {
     // Dummy class used for testing
   }
 
-  void loadParameters(const std::string&) {
+  void dumpVariables(std::map< std::string, std::string >&) override {
     // Dummy class used for testing
   }
 
-  void loadVariables(const std::string&) {
+  void loadParameters(const std::string&) override {
     // Dummy class used for testing
   }
 
-  void evalF(double, propertyF_t) {
+  void loadVariables(const std::string&) override {
     // Dummy class used for testing
   }
 
-  void evalG(const double) {
+  void evalF(double, propertyF_t) override {
     // Dummy class used for testing
   }
 
-  void evalZ(const double) {
+  void evalG(const double) override {
     // Dummy class used for testing
   }
 
-  void evalCalculatedVars() {
+  void evalZ(const double) override {
+    // Dummy class used for testing
+  }
+
+  void evalCalculatedVars() override {
     calculatedVars_[0] = getCurrentTime();
   }
 
-  void evalJt(const double, const double, SparseMatrix& , const int) {
+  void evalJt(const double, const double, const int, SparseMatrix&) override {
     // Dummy class used for testing
   }
 
-  void evalJtPrim(const double, const double, SparseMatrix&, const int) {
+  void evalJtPrim(const double, const double, const int, SparseMatrix&) override {
     // Dummy class used for testing
   }
 
-  virtual modeChangeType_t evalMode(const double) = 0;
+  modeChangeType_t evalMode(double) override = 0;
 
-  void checkParametersCoherence() const {
+  void checkParametersCoherence() const override {
     // Dummy class used for testing
   }
 
-  void setFequations() {
+  void setFequations() override {
     // Dummy class used for testing
   }
 
-  void setGequations() {
+  void setGequations() override {
     // Dummy class used for testing
   }
 
-  void setFequationsInit() {
+  void setFequationsInit() override {
     // Dummy class used for testing
   }
 
-  void setGequationsInit() {
+  void setGequationsInit() override {
     // Dummy class used for testing
   }
 
-  void getY0() {
+  void getY0() override {
     // Dummy class used for testing
   }
 
-  void initSubBuffers() {
+  void initSubBuffers() override {
     // Dummy class used for testing
   }
 
-  void evalStaticYType() {
+  void evalStaticYType() override {
     // Dummy class used for testing
   }
 
-  void evalStaticFType() {
+  void evalStaticFType() override {
     // Dummy class used for testing
   }
 
-  void evalDynamicYType() {
+  void evalDynamicYType() override {
     // Dummy class used for testing
   }
 
-  void evalDynamicFType() {
+  void evalDynamicFType() override {
     // Dummy class used for testing
   }
 
-  void collectSilentZ(BitMask* ) {
+  void collectSilentZ(BitMask*) override {
     // Dummy class used for testing
   }
 
@@ -174,11 +175,11 @@ class SubModelMockBase : public SubModel {
     // Dummy class used for testing
   }
 
-  void getSize() {
+  void getSize() override {
     // Dummy class used for testing
   }
 
-  void defineElements(std::vector<Element>& elements, std::map<std::string, int >& mapElement) {
+  void defineElements(std::vector<Element>& elements, std::map<std::string, int >& mapElement) override {
     addElement("MyVar", Element::STRUCTURE, elements, mapElement);
     addSubElement("value", "MyVar", Element::TERMINAL, name(), modelType(), elements, mapElement);
     addElement("MyAliasVar", Element::STRUCTURE, elements, mapElement);
@@ -189,61 +190,61 @@ class SubModelMockBase : public SubModel {
     addSubElement("value", "MyDiscreteVarCalculated", Element::TERMINAL, name(), modelType(), elements, mapElement);
   }
 
-  void initializeStaticData() {
+  void initializeStaticData() override {
     // Dummy class used for testing
   }
 
-  void initializeFromData(const boost::shared_ptr<DataInterface>&) {
+  void initializeFromData(const boost::shared_ptr<DataInterface>&) override {
     // Dummy class used for testing
   }
 
-  void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables);
+  void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) override;
 
-  void defineParameters(std::vector<ParameterModeler>&) {
+  void defineParameters(std::vector<ParameterModeler>&) override {
     // Dummy class used for testing
   }
 
-  void defineVariablesInit(std::vector<boost::shared_ptr<Variable> >&) {
+  void defineVariablesInit(std::vector<boost::shared_ptr<Variable> >&) override {
     // Dummy class used for testing
   }
 
-  void defineParametersInit(std::vector<ParameterModeler>&) {
+  void defineParametersInit(std::vector<ParameterModeler>&) override {
     // Dummy class used for testing
   }
 
-  void setSharedParametersDefaultValues() {
+  void setSharedParametersDefaultValues() override {
     // Dummy class used for testing
   }
 
-  void setSharedParametersDefaultValuesInit() {
+  void setSharedParametersDefaultValuesInit() override {
     // Dummy class used for testing
   }
 
-  void rotateBuffers() {
+  void rotateBuffers() override {
     // Dummy class used for testing
   }
 
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned, std::vector<int>&) const {
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned, std::vector<int>&) const override {
     // Dummy class used for testing
   }
 
-  void evalJCalculatedVarI(unsigned, std::vector<double>&) const {
+  void evalJCalculatedVarI(unsigned, std::vector<double>&) const override {
     // Dummy class used for testing
   }
 
-  double evalCalculatedVarI(unsigned) const {
+  double evalCalculatedVarI(unsigned) const override {
     return getCurrentTime();
   }
 
-  void setSubModelParameters() {
+  void setSubModelParameters() override {
     // Dummy class used for testing
   }
 
-  void initParams() {
+  void initParams() override {
     // Dummy class used for testing
   }
 
-  void notifyTimeStep() {
+  void notifyTimeStep() override {
     // Dummy class used for testing
   }
 };
@@ -261,7 +262,7 @@ class SubModelMock : public SubModelMockBase {
 
   SubModelMock() : SubModelMockBase(1, 1) {}
 
-  modeChangeType_t evalMode(const double);
+  modeChangeType_t evalMode(const double) override;
 };
 
 modeChangeType_t SubModelMock::evalMode(const double) {
@@ -275,7 +276,7 @@ class SubModelMode : public SubModelMockBase {
 
   SubModelMode() : SubModelMockBase(1, 1) {}
 
-  modeChangeType_t evalMode(const double t);
+  modeChangeType_t evalMode(const double t) override;
 };
 
 modeChangeType_t SubModelMode::evalMode(const double t) {
@@ -694,9 +695,9 @@ TEST(ModelerCommonTest, VariableAlias) {
   const std::string aliasName2 = "alias2";
   const std::string aliasName3 = "alias3";
 
-  boost::shared_ptr <VariableAlias> variableAlias1;
-  boost::shared_ptr <VariableAlias> variableAlias2;
-  boost::shared_ptr <VariableAlias> variableAlias3;
+  boost::shared_ptr<VariableAlias> variableAlias1;
+  boost::shared_ptr<VariableAlias> variableAlias2;
+  boost::shared_ptr<VariableAlias> variableAlias3;
 
   ASSERT_NO_THROW(variableAlias1 = VariableAliasFactory::create(aliasName1, varNameInt));
   ASSERT_THROW_DYNAWO(variableAlias1->getIndex(), DYN::Error::MODELER, DYN::KeyError_t::VariableAliasRefNotSet);
@@ -745,7 +746,7 @@ TEST(ModelerCommonTest, VariableAlias) {
   ASSERT_EQ(variableAlias3->getIndex(), varIndex);
 
 #ifndef _MSC_VER
-  EXPECT_ASSERT_DYNAWO(VariableAliasFactory::create(aliasName3, dynamic_pointer_cast<VariableNative> (variableAlias2), DISCRETE));
+  EXPECT_ASSERT_DYNAWO(VariableAliasFactory::create(aliasName3, boost::dynamic_pointer_cast<VariableNative> (variableAlias2), DISCRETE));
 #endif
 
   // Test types compatibility
@@ -889,7 +890,7 @@ TEST(ModelerCommonTest, ModelerCommonUtilities) {
   ASSERT_EQ(typeVar2Str(BOOLEAN), "BOOLEAN");
 
   // toCTypeVar
-  typeVarC_t typeVarC;
+  typeVarC_t typeVarC(VAR_TYPE_DOUBLE);
   ASSERT_NO_THROW(typeVarC = toCTypeVar(DISCRETE));
   ASSERT_EQ(typeVarC, VAR_TYPE_DOUBLE);
   ASSERT_EQ(toCTypeVar(CONTINUOUS), VAR_TYPE_DOUBLE);
@@ -1137,8 +1138,8 @@ TEST(ModelerCommonTest, ConnectionCalculatedVars) {
 
   std::vector<double> y, yp;
   modelMulti->copyContinuousVariables(&y[0], &yp[0]);
-  ASSERT_NO_THROW(modelMulti->connectElements(modelMulti->findSubModelByName("subModel1"), "MyDiscreteVarCalculated_value",
-                              modelMulti->findSubModelByName("subModel2"), "MyDiscreteVar_value"));
+  modelMulti->connectElements(modelMulti->findSubModelByName("subModel1"), "MyDiscreteVarCalculated_value",
+                              modelMulti->findSubModelByName("subModel2"), "MyDiscreteVar_value");
   std::string name = subModel1_->name() + "_MyDiscreteVarCalculated_value";
   ASSERT_NO_THROW(modelMulti->findSubModelByName(name));
   ASSERT_NO_THROW(modelMulti->findSubModelByName(name)->getSize());

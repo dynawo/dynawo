@@ -67,7 +67,7 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
   /**
    * @brief Destructor
    */
-  ~DataInterfaceIIDM() = default;
+  ~DataInterfaceIIDM() override = default;
 
   /**
    * @brief init dataInterface from iidm network
@@ -90,127 +90,127 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
    * @brief dump the network to a file with the proper format
    * @param filepath file to create
    */
-  void dumpToFile(const std::string& filepath) const;
+  void dumpToFile(const std::string& filepath) const override;
 
   /**
    * @brief dump the final state of the network in a stream
    * @param stream the stream to export to
    */
-  void dumpToFile(std::stringstream& stream) const;
+  void dumpToFile(std::stringstream& stream) const override;
 
   /**
    * @copydoc DataInterface::canUseVariant() const
    */
-  bool canUseVariant() const;
+  bool canUseVariant() const override;
 
   /**
    * @copydoc DataInterface::selectVariant(const std::string& variantName)
    */
-  void selectVariant(const std::string& variantName);
+  void selectVariant(const std::string& variantName) override;
 
   /**
    * @copydoc DataInterface::getNetwork() const
    */
-  boost::shared_ptr<NetworkInterface> getNetwork() const;
+  boost::shared_ptr<NetworkInterface> getNetwork() const override;
 
   /**
    * @copydoc DataInterface::hasDynamicModel(const std::string& id)
    */
-  void hasDynamicModel(const std::string& id);
+  void hasDynamicModel(const std::string& id) override;
 
   /**
    * @copydoc DataInterface::setDynamicModel(const std::string& componentId, const boost::shared_ptr<SubModel>& model)
    */
-  void setDynamicModel(const std::string& componentId, const boost::shared_ptr<SubModel>& model);
+  void setDynamicModel(const std::string& componentId, const boost::shared_ptr<SubModel>& model) override;
 
   /**
    * @copydoc DataInterface::setModelNetwork(const boost::shared_ptr<SubModel>& model)
    */
-  void setModelNetwork(const boost::shared_ptr<SubModel>& model);
+  void setModelNetwork(const boost::shared_ptr<SubModel>& model) override;
 
   /**
    * @copydoc DataInterface::setReference(const std::string& componentVar, const std::string& staticId ,const std::string& modelId, const std::string& modelVar)
    */
-  void setReference(const std::string& componentVar, const std::string& staticId, const std::string& modelId, const std::string& modelVar);
+  void setReference(const std::string& componentVar, const std::string& staticId, const std::string& modelId, const std::string& modelVar) override;
 
   /**
    * @copydoc DataInterface::mapConnections()
    */
-  void mapConnections();
+  void mapConnections() override;
 
   /**
    * @copydoc DataInterface::updateFromModel(bool filterForCriteriaCheck)
    */
-  void updateFromModel(bool filterForCriteriaCheck);
+  void updateFromModel(bool filterForCriteriaCheck) override;
 
   /**
    * @copydoc DataInterface::getStateVariableReference()
    */
-  void getStateVariableReference();
+  void getStateVariableReference() override;
 
   /**
    * @copydoc DataInterface::importStaticParameters()
    */
-  void importStaticParameters();
+  void importStaticParameters() override;
 
   /**
    * @copydoc DataInterface::exportStateVariables()
    */
-  void exportStateVariables();
+  void exportStateVariables() override;
 
 #ifdef _DEBUG_
   /**
    * @brief export values from static variables directly into the IIDM model without updating them
    */
-  void exportStateVariablesNoReadFromModel();
+  void exportStateVariablesNoReadFromModel() const;
 #endif
 
   /**
    * @copydoc DataInterface::findConnectedComponents()
    */
-  std::shared_ptr<std::vector<std::shared_ptr<ComponentInterface> > > findConnectedComponents();
+  std::shared_ptr<std::vector<std::shared_ptr<ComponentInterface> > > findConnectedComponents() override;
 
   /**
    * @copydoc DataInterface::findLostEquipments()
    */
   std::unique_ptr<lostEquipments::LostEquipmentsCollection>
-    findLostEquipments(const std::shared_ptr<std::vector<std::shared_ptr<ComponentInterface> > >& connectedComponents);
+    findLostEquipments(const std::shared_ptr<std::vector<std::shared_ptr<ComponentInterface> > >& connectedComponents) override;
 
   /**
    * @copydoc DataInterface::configureCriteria(const std::shared_ptr<criteria::CriteriaCollection>& criteria)
    */
-  void configureCriteria(const std::shared_ptr<criteria::CriteriaCollection>& criteria);
+  void configureCriteria(const std::shared_ptr<criteria::CriteriaCollection>& criteria) override;
 
   /**
    * @copydoc DataInterface::checkCriteria(double t, bool finalStep)
    */
-  bool checkCriteria(double t, bool finalStep);
+  bool checkCriteria(double t, bool finalStep) override;
 
   /**
    * @brief fill a vector with the ids of the failing criteria
    * @param failingCriteria vector to fill
    */
-  void getFailingCriteria(std::vector<std::pair<double, std::string> >& failingCriteria) const;
+  void getFailingCriteria(std::vector<std::pair<double, std::string> >& failingCriteria) const override;
 
   /**
    * @copydoc DataInterface::getStaticParameterDoubleValue(const std::string& staticID, const std::string& refOrigName)
    */
-  double getStaticParameterDoubleValue(const std::string& staticID, const std::string& refOrigName);
+  double getStaticParameterDoubleValue(const std::string& staticID, const std::string& refOrigName) override;
 
   /**
    * @copydoc DataInterface::getStaticParameterIntValue(const std::string& staticID, const std::string& refOrigName)
    */
-  int getStaticParameterIntValue(const std::string& staticID, const std::string& refOrigName);
+  int getStaticParameterIntValue(const std::string& staticID, const std::string& refOrigName) override;
 
   /**
    * @copydoc DataInterface::getStaticParameterBoolValue(const std::string& staticID, const std::string& refOrigName)
    */
-  bool getStaticParameterBoolValue(const std::string& staticID, const std::string& refOrigName);
+  bool getStaticParameterBoolValue(const std::string& staticID, const std::string& refOrigName) override;
 
   /**
    * @copydoc DataInterface::getBusName(const std::string& staticID, const std::string& labelNode)
    */
-  std::string getBusName(const std::string& staticID, const std::string& labelNode);
+  std::string getBusName(const std::string& staticID, const std::string& labelNode) override;
 
   /**
    * @brief find a component thanks to its id
@@ -231,7 +231,7 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
   /**
    * @copydoc DataInterface::getServiceManager
    */
-  boost::shared_ptr<ServiceManagerInterface> getServiceManager() const {
+  boost::shared_ptr<ServiceManagerInterface> getServiceManager() const override {
     return serviceManager_;
   }
 
@@ -306,7 +306,7 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
    */
   std::unique_ptr<SwitchInterfaceIIDM> importSwitch(powsybl::iidm::Switch& switchIIDM,
                                                     const std::shared_ptr<BusInterface>& bus1,
-                                                    const std::shared_ptr<BusInterface>& bus2);
+                                                    const std::shared_ptr<BusInterface>& bus2) const;
 
   /**
    * @brief import and create a generator interface thanks to the IIDM instance
@@ -315,7 +315,7 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
    * @param country country of the parent substation
    * @return the instance of GeneratorInterface created
    */
-  std::unique_ptr<GeneratorInterfaceIIDM> importGenerator(powsybl::iidm::Generator& generatorIIDM, const std::string& country);
+  std::unique_ptr<GeneratorInterfaceIIDM> importGenerator(powsybl::iidm::Generator& generatorIIDM, const std::string& country) const;
 
   /**
    * @brief import and create a generator interface thanks to the IIDM instance
@@ -324,7 +324,7 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
    * @param country country of the parent substation
    * @return the instance of GeneratorInterface created
    */
-  std::unique_ptr<BatteryInterfaceIIDM> importBattery(powsybl::iidm::Battery& batteryIIDM, const std::string& country);
+  std::unique_ptr<BatteryInterfaceIIDM> importBattery(powsybl::iidm::Battery& batteryIIDM, const std::string& country) const;
 
   /**
    * @brief import and create a load interface thanks to the IIDM instance
@@ -333,7 +333,7 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
    * @param country country of the parent substation
    * @return the instance of loadInterface created
    */
-  std::unique_ptr<LoadInterfaceIIDM> importLoad(powsybl::iidm::Load& loadIIDM, const std::string& country);
+  std::unique_ptr<LoadInterfaceIIDM> importLoad(powsybl::iidm::Load& loadIIDM, const std::string& country) const;
 
   /**
    * @brief import and create a shunt interface thanks to the IIDM instance
@@ -341,7 +341,7 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
    * @param shuntIIDM IIDM instance to use to create shuntInterface
    * @return the instance of shuntCompensatorInterface created
    */
-  std::unique_ptr<ShuntCompensatorInterfaceIIDM> importShuntCompensator(powsybl::iidm::ShuntCompensator& shuntIIDM);
+  std::unique_ptr<ShuntCompensatorInterfaceIIDM> importShuntCompensator(powsybl::iidm::ShuntCompensator& shuntIIDM) const;
 
   /**
    * @brief import and create a danglingLine interface thanks to the IIDM instance
@@ -349,7 +349,7 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
    * @param danglingLineIIDM IIDM instance to use to create danglingLineInterface
    * @return the instance of danglingLineInterface created
    */
-  std::unique_ptr<DanglingLineInterfaceIIDM> importDanglingLine(powsybl::iidm::DanglingLine& danglingLineIIDM);
+  std::unique_ptr<DanglingLineInterfaceIIDM> importDanglingLine(powsybl::iidm::DanglingLine& danglingLineIIDM) const;
 
   /**
    * @brief import and create a svc interface thanks to the IIDM instance
@@ -357,7 +357,7 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
    * @param svcIIDM IIDM instance to use to create svcInterface
    * @return the instance of staticVarCompensatorInterface created
    */
-  std::unique_ptr<StaticVarCompensatorInterfaceIIDM> importStaticVarCompensator(powsybl::iidm::StaticVarCompensator& svcIIDM);
+  std::unique_ptr<StaticVarCompensatorInterfaceIIDM> importStaticVarCompensator(powsybl::iidm::StaticVarCompensator& svcIIDM) const;
 
   /**
    * @brief import and create a two windings transformer interface thanks to the IIDM instance
@@ -365,7 +365,7 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
    * @param twoWTfo IIDM instance to use to create twoWindingsTransformer Interface
    * @return the instance of TwoWTransformerInterface created
    */
-  std::unique_ptr<TwoWTransformerInterfaceIIDM> importTwoWindingsTransformer(powsybl::iidm::TwoWindingsTransformer& twoWTfo);
+  std::unique_ptr<TwoWTransformerInterfaceIIDM> importTwoWindingsTransformer(powsybl::iidm::TwoWindingsTransformer& twoWTfo) const;
 
   /**
    * @brief conversion of three windings transformer IIDM instance into three two windings transformers interfaces
@@ -380,7 +380,7 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
    * @param lineIIDM IIDM instance to use to create line Interface
    * @return the instance of LineInterface created
    */
-  std::unique_ptr<LineInterfaceIIDM> importLine(powsybl::iidm::Line& lineIIDM);
+  std::unique_ptr<LineInterfaceIIDM> importLine(powsybl::iidm::Line& lineIIDM) const;
 
   /**
    * @brief import and create a vsc converter interface thanks to the IIDM instance
@@ -388,7 +388,7 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
    * @param vscIIDM IIDM instance to use to create vsc converter interface
    * @return the instance of vscConverterInterface created
    */
-  std::unique_ptr<VscConverterInterfaceIIDM> importVscConverter(powsybl::iidm::VscConverterStation& vscIIDM);
+  std::unique_ptr<VscConverterInterfaceIIDM> importVscConverter(powsybl::iidm::VscConverterStation& vscIIDM) const;
 
   /**
    * @brief import and create a lcc converter interface thanks to the IIDM instance
@@ -396,7 +396,7 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
    * @param lccIIDM IIDM instance to use to create lcc converter interface
    * @return the instance of lccConverterInterface created
    */
-  std::unique_ptr<LccConverterInterfaceIIDM> importLccConverter(powsybl::iidm::LccConverterStation& lccIIDM);
+  std::unique_ptr<LccConverterInterfaceIIDM> importLccConverter(powsybl::iidm::LccConverterStation& lccIIDM) const;
 
    /**
    * @brief import and create a hvdc line interface thanks to the IIDM instance
@@ -404,7 +404,7 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
    * @param hvdcLineIIDM IIDM instance to use to create hvdc line Interface
    * @return the instance of HvdcLineInterface created
    */
-  std::unique_ptr<HvdcLineInterfaceIIDM> importHvdcLine(powsybl::iidm::HvdcLine& hvdcLineIIDM);
+  std::unique_ptr<HvdcLineInterfaceIIDM> importHvdcLine(powsybl::iidm::HvdcLine& hvdcLineIIDM) const;
 
   /**
    * @brief configure the bus criteria
@@ -465,7 +465,7 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
    * @brief Setter for timeline
    * @param timeline timeline output
    */
-  void setTimeline(const boost::shared_ptr<timeline::Timeline>& timeline);
+  void setTimeline(const boost::shared_ptr<timeline::Timeline>& timeline) override;
 
  private:
   boost::shared_ptr<powsybl::iidm::Network> networkIIDM_;                                          ///< instance of the IIDM network

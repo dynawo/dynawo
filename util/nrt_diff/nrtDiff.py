@@ -17,6 +17,7 @@ import datetime
 import filecmp
 
 import os
+import io
 import re
 import sys
 import shutil
@@ -963,7 +964,7 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
                 if (nb_lines_different > 1):
                     message += "s"
 
-        elif (file_extension == ".csv"):
+        elif (file_name == "curves" and file_extension == ".csv"):
             (nb_points, nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_err_absolute, nb_err_relative, curves_different) = CSVCloseEnough (path_left, path_right, True)
             maximum_curves_names_displayed = 5
             dir = os.path.abspath(os.path.join(path_left, os.pardir))
@@ -1045,8 +1046,18 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
                 message += str(nb_differences) + " different output values\n" + msg
             else:
                 return_value = IDENTICAL
-        elif "finalStateValues" in file_name:
+        elif "finalStateValues" in file_name and file_extension == ".xml":
             (nb_differences, msg) = finalStateValuesDiff.output_xml_fsv_close_enough (path_left, path_right)
+            dir = os.path.abspath(os.path.join(path_left, os.pardir))
+            parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
+            message = "<font color=\"red\">" + os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ":</font> "
+            if (nb_differences > 0):
+                return_value = DIFFERENT
+                message += str(nb_differences) + " different output values\n" + msg
+            else:
+                return_value = IDENTICAL
+        elif "finalStateValues" in file_name and file_extension == ".csv":
+            (nb_differences, msg) = finalStateValuesDiff.output_csv_fsv_close_enough (path_left, path_right)
             dir = os.path.abspath(os.path.join(path_left, os.pardir))
             parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
             message = "<font color=\"red\">" + os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ":</font> "
@@ -1156,8 +1167,8 @@ def LineCloseEnough (line_left, line_right):
 # @param path_right : the absolute path to the right-side file
 # @param logs_separator_right : the separator to use as a string
 def DynawoLogCloseEnough (path_left, logs_separator_left, path_right, logs_separator_right):
-    file_left = open (path_left, "rt")
-    file_right = open (path_right, "rt")
+    file_left = io.open (path_left, "rt", encoding='UTF-8')
+    file_right = io.open (path_right, "rt", encoding='UTF-8')
     lines_to_compare_left = []
     lines_to_compare_right = []
     file_name = os.path.splitext(os.path.basename(path_left))[0]

@@ -99,6 +99,8 @@
     <par type="DOUBLE" name="voltageRegulator_VrMaxPu" value="5"/>
     <par type="DOUBLE" name="voltageRegulator_VrMinPu" value="-4"/>
     <!-- Power system stabilizer parameters -->
+    <par type="DOUBLE" name="powerSystemStabilizer_KOmega" value="1"/>
+    <par type="DOUBLE" name="powerSystemStabilizer_KOmegaRef" value="0"/>
     <par type="DOUBLE" name="powerSystemStabilizer_Ks1" value="5"/>
     <par type="DOUBLE" name="powerSystemStabilizer_Ks2" value="1"/>
     <par type="DOUBLE" name="powerSystemStabilizer_Ks3" value="1"/>

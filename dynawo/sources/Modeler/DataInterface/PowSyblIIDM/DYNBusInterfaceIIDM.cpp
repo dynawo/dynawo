@@ -54,7 +54,7 @@ hasConnection_(false) {
   stateVariables_[VAR_ANGLE] = StateVariable("angle", StateVariable::DOUBLE);  // angle
 }
 
-string
+const std::string&
 BusInterfaceIIDM::getID() const {
   return busIIDM_.getId();
 }

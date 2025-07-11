@@ -22,7 +22,6 @@
 #include "DYDMacroStaticReferenceFactory.h"
 #include "DYDMacroStaticReference.h"
 #include "DYDStaticRef.h"
-#include "DYDIterators.h"
 
 namespace dynamicdata {
 
@@ -31,27 +30,14 @@ namespace dynamicdata {
 //-----------------------------------------------------
 
 TEST(APIDYDTest, MacroStaticReference) {
-  boost::shared_ptr<MacroStaticReference> macroStaticReference = MacroStaticReferenceFactory::newMacroStaticReference("macroStaticReference");
+  std::shared_ptr<MacroStaticReference> macroStaticReference = MacroStaticReferenceFactory::newMacroStaticReference("macroStaticReference");
   ASSERT_NO_THROW(macroStaticReference->addStaticRef("var1", "staticVar1"));
   ASSERT_NO_THROW(macroStaticReference->addStaticRef("var2", "staticVar2"));
   ASSERT_THROW_DYNAWO(macroStaticReference->addStaticRef("var2", "staticVar2"), DYN::Error::API, DYN::KeyError_t::StaticRefNotUniqueInMacro);
 
   ASSERT_EQ(macroStaticReference->getId(), "macroStaticReference");
 
-  int nbStaticRefs = 0;
-  for (staticRef_const_iterator itSR = macroStaticReference->cbeginStaticRef();
-          itSR != macroStaticReference->cendStaticRef();
-          ++itSR) {
-    ++nbStaticRefs;
-  }
-  ASSERT_EQ(nbStaticRefs, 2);
-
-  nbStaticRefs = 0;
-  for (staticRef_iterator itSR = macroStaticReference->beginStaticRef();
-      itSR != macroStaticReference->endStaticRef();
-      ++itSR) {
-    ++nbStaticRefs;
-  }
+  const auto nbStaticRefs = macroStaticReference->getStaticReferences().size();
   ASSERT_EQ(nbStaticRefs, 2);
 
   ASSERT_NO_THROW(macroStaticReference->findStaticRef("var1_staticVar1"));

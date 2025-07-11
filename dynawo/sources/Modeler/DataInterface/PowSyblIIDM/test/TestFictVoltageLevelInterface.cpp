@@ -66,7 +66,7 @@ TEST(DataInterfaceTest, testFictVoltageLevelInterface) {
   std::string Id = "fictBus_Id";
   double VNom = 400.;
   std::string country = "FRANCE";
-  const std::unique_ptr<VoltageLevelInterface> FictVl = DYN::make_unique<FictVoltageLevelInterfaceIIDM>(Id, VNom, country);
+  const std::unique_ptr<VoltageLevelInterface> FictVl(DYN::make_unique<FictVoltageLevelInterfaceIIDM>(Id, VNom, country));
   ASSERT_EQ(FictVl->getID(), Id);
   ASSERT_DOUBLE_EQUALS_DYNAWO(FictVl->getVNom(), VNom);
   ASSERT_EQ(FictVl->getVoltageLevelTopologyKind(), VoltageLevelInterface::BUS_BREAKER);

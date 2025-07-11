@@ -33,85 +33,6 @@ class CriteriaCollection {
   */
   typedef enum { BUS, LOAD, GENERATOR } CriteriaCollectionType_t;  ///< components type
 
-  /**
-   * @class CriteriaCollectionConstIterator
-   * @brief Const iterator over criteria
-   *
-   * Const iterator over criteria stored in collection
-   */
-  class CriteriaCollectionConstIterator {
-   public:
-    /**
-     * @brief Constructor
-     * @param iterated Pointer to the criteria' vector iterated
-     * @param begin Flag indicating if the iterator point to the beginning (true)
-     * or the end of the events' container.
-     * @param type type of the component
-     */
-    CriteriaCollectionConstIterator(const CriteriaCollection* iterated, bool begin, CriteriaCollectionType_t type);
-
-    /**
-     * @brief Prefix-increment operator
-     *
-     * @returns Reference to this CriteriaCollectionConstIterator
-     */
-    CriteriaCollectionConstIterator& operator++();
-
-    /**
-     * @brief Postfix-increment operator
-     *
-     * @returns Copy of this CriteriaCollectionConstIterator
-     */
-    CriteriaCollectionConstIterator operator++(int);
-
-    /**
-     * @brief Prefix-decrement operator
-     *
-     * @returns Reference to this CriteriaCollectionConstIterator
-     */
-    CriteriaCollectionConstIterator& operator--();
-
-    /**
-     * @brief Postfix-decrement operator
-     *
-     * @returns Copy of this CriteriaCollectionConstIterator
-     */
-    CriteriaCollectionConstIterator operator--(int);
-
-    /**
-     * @brief Equal to operator
-     *
-     * @param other Iterator to be compared with this
-     * @returns true if CriteriaCollectionConstIterators are equals, else false
-     */
-    bool operator==(const CriteriaCollectionConstIterator& other) const;
-
-    /**
-     * @brief Not equal to operator
-     *
-     * @param other Iterator to be compared with this
-     * @returns true if CriteriaCollectionConstIterators are different, else false
-     */
-    bool operator!=(const CriteriaCollectionConstIterator& other) const;
-
-    /**
-     * @brief Indirection operator
-     *
-     * @returns Criteria pointed to by this
-     */
-    const std::shared_ptr<Criteria>& operator*() const;
-
-    /**
-     * @brief Structure dereference operator
-     *
-     * @returns Criteria pointed to by this
-     */
-    const std::shared_ptr<Criteria>* operator->() const;
-
-   private:
-    std::vector<std::shared_ptr<Criteria> >::const_iterator current_;  ///< current vector const iterator
-  };
-
  public:
   /**
    * @brief add a criteria to the collection
@@ -129,18 +50,31 @@ class CriteriaCollection {
   void merge(const std::shared_ptr<CriteriaCollection>& other);
 
   /**
-   * @brief Get a CriteriaCollectionConstIterator to the beginning of the criteria' vector
-   * @param type type of component
-   * @return a CriteriaCollectionConstIterator to the beginning of the criteria' vector
-   */
-  CriteriaCollectionConstIterator begin(CriteriaCollectionType_t type) const;
+  * @brief get bus criteria
+  *
+  * @return bus criteria
+  */
+  const std::vector<std::shared_ptr<Criteria> >& getBusCriteria() const {
+    return busCriteria_;
+  }
 
   /**
-   * @brief Get a CriteriaCollectionConstIterator to the end of the criteria' vector
-   * @param type type of component
-   * @return a CriteriaCollectionConstIterator to the end of the criteria' vector
-   */
-  CriteriaCollectionConstIterator end(CriteriaCollectionType_t type) const;
+  * @brief get load criteria
+  *
+  * @return load criteria
+  */
+  const std::vector<std::shared_ptr<Criteria> >& getLoadCriteria() const {
+    return loadCriteria_;
+  }
+
+  /**
+  * @brief get generator criteria
+  *
+  * @return generator criteria
+  */
+  const std::vector<std::shared_ptr<Criteria> >& getGeneratorCriteria() const {
+    return generatorCriteria_;
+  }
 
  private:
   std::vector<std::shared_ptr<Criteria> > busCriteria_;        ///< Vector of the bus criteria object

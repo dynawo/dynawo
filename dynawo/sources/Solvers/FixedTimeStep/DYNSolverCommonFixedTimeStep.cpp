@@ -86,8 +86,8 @@ nbLastTimeSimulated_(0) {
 
 void
 SolverCommonFixedTimeStep::defineSpecificParametersCommon() {
-  const bool mandatory = true;  // name of the parameter indicates its purpose not its value
-  const bool optional = false;  // name of the parameter indicates its purpose not its value
+  constexpr bool mandatory = true;  // name of the parameter indicates its purpose not its value
+  constexpr bool optional = false;  // name of the parameter indicates its purpose not its value
   // Time-domain part parameters
   parameters_.insert(make_pair("hMin", ParameterSolver("hMin", VAR_TYPE_DOUBLE, mandatory)));
   parameters_.insert(make_pair("hMax", ParameterSolver("hMax", VAR_TYPE_DOUBLE, mandatory)));
@@ -262,7 +262,7 @@ bool
 SolverCommonFixedTimeStep::calculateICCommonModeChange(int& counter, bool& change) {
   // Updating discrete variable values and mode
   model_->evalG(tSolve_, g1_);
-  modeChangeType_t modeChangeType = model_->getModeChangeType();
+  const modeChangeType_t modeChangeType = model_->getModeChangeType();
   if (std::equal(g0_.begin(), g0_.end(), g1_.begin())) {
     return true;
   } else {
@@ -463,7 +463,7 @@ SolverCommonFixedTimeStep::reinit() {
     bool noInitSetup = !setupNewAlgRestoration(modeChangeType);
 
     solverKINAlgRestoration_->setInitialValues(tSolve_, vectorY_, vectorYp_);
-    int flag = solverKINAlgRestoration_->solve(noInitSetup, evaluateOnlyMode);
+    const int flag = solverKINAlgRestoration_->solve(noInitSetup, evaluateOnlyMode);
 
     // Update statistics
     long int nre = 0;
@@ -530,12 +530,12 @@ SolverCommonFixedTimeStep::setDifferentialVariablesIndices() {
 
 void
 SolverCommonFixedTimeStep::printHeaderSpecific(std::stringstream& ss) const {
-  ss << "| iter num   Nonlinear iter   jac eval      time step (h)";
+  ss << "¦ iter num   Nonlinear iter   jac eval      time step (h)";
 }
 
 void
 SolverCommonFixedTimeStep::printSolveSpecific(std::stringstream& msg) const {
-  msg << "| " << setw(8) << stats_.nst_ << " "
+  msg << "¦ " << setw(8) << stats_.nst_ << " "
           << setw(16) << stats_.nni_ << " "
           << setw(10) << stats_.nje_ << " "
           << setw(18) << h_ << " ";

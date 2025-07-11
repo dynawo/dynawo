@@ -25,6 +25,8 @@
 #include <map>
 #include <set>
 #include <vector>
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
 
 namespace DYN {
 class SparseMatrix;
@@ -44,7 +46,7 @@ class ModelCPP : public SubModel {
    * @brief constructor
    * @param modelType model's type
    */
-  explicit ModelCPP(std::string modelType);
+  explicit ModelCPP(const std::string& modelType);
 
   /**
    * @brief Destructor
@@ -56,7 +58,7 @@ class ModelCPP : public SubModel {
    * @brief initialize all the data for a sub model
    * @param t0 initial time of the simulation
    */
-  void init(const double t0) override = 0;
+  void init(double t0) override = 0;
 
   /**
    * @brief get the global indexes of the variables used to compute a calculated variable
@@ -113,7 +115,7 @@ class ModelCPP : public SubModel {
    * Get the roots' value
    * @param[in] t Simulation instant
    */
-  void evalG(const double t) override = 0;
+  void evalG(double t) override = 0;
 
   /**
    * @brief  CPP Model discrete variables evaluation
@@ -124,7 +126,7 @@ class ModelCPP : public SubModel {
    * @throws Error::MODELER typed @p Error. Shouldn't, but if it happens
    * it shows that there is a bug in the selection of activated shunt.
    */
-  void evalZ(const double t) override = 0;
+  void evalZ(double t) override = 0;
 
   /**
    * @brief  CPP Model transposed jacobian evaluation
@@ -132,25 +134,25 @@ class ModelCPP : public SubModel {
    * Get the sparse transposed jacobian
    * @param[in] t Simulation instant
    * @param[in] cj Jacobian prime coefficient
+   * @param[in] rowOffset offset to use to identify the row where data should be added
    * @param jt jacobian matrix to fullfill
-   * @param rowOffset offset to use to identify the row where data should be added
    */
-  void evalJt(const double t, const double cj, SparseMatrix& jt, const int rowOffset) override = 0;
+  void evalJt(double t, double cj, int rowOffset, SparseMatrix& jt) override = 0;
 
   /**
    * @brief calculate jacobien prime matrix
    *
    * @param[in] t Simulation instant
    * @param[in] cj Jacobian prime coefficient
-   * @param jt jacobian matrix to fullfill
-   * @param rowOffset offset to use to identify the row where data should be added
+   * @param[in] rowOffset offset to use to identify the row where data should be added
+   * @param jtPrim jacobian matrix to fullfill
    */
-  void evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset) override = 0;
+  void evalJtPrim(double t, double cj, int rowOffset, SparseMatrix& jtPrim) override = 0;
 
   /**
-   * @copydoc SubModel::evalMode(const double t)
+   * @copydoc SubModel::evalMode(double t)
    */
-  modeChangeType_t evalMode(const double t) override = 0;
+  modeChangeType_t evalMode(double t) override = 0;
 
   /**
    * @brief  CPP Model initial state variables' evaluation
@@ -240,7 +242,6 @@ class ModelCPP : public SubModel {
    */
   void initializeStaticData() override = 0;
 
-
   /**
    * @copydoc SubModel::setFequationsInit()
    */
@@ -267,7 +268,7 @@ class ModelCPP : public SubModel {
    * @brief get model type
    * @return model type
    */
-  inline std::string modelType() const override {
+  inline const std::string& modelType() const override {
     return modelType_;
   }
 
@@ -324,27 +325,37 @@ class ModelCPP : public SubModel {
     return isStartingFromDump_;
   }
 
+  /**
+   * @brief dump in a stream the value of a variable after a char indicating its type
+   * @param os stringstream with binary formated internalVariables
+   * @param value value to write
+   */
+  template <typename T> static void dumpInStream(boost::archive::binary_oarchive& os, T value);
+
  protected:
    /**
    * @brief export the internal variables values of the sub model for dump in a stream
    *
-   * @param streamVariables : map associating the file where values should be dumped with the stream of values
+   * @param streamVariables : stringstream with binary formated internalVariables
    */
-  virtual void dumpInternalVariables(std::stringstream& streamVariables) const;
+  virtual void dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const;
 
   /**
    * @brief load the internal variables values from a previous dump
    *
-   * @param streamVariables : stream of values where the variables were dumped
-   * @return success
+   * @param streamVariables : stringstream with binary formated internalVariables
    */
-  virtual bool loadInternalVariables(std::stringstream& streamVariables);
+  virtual void loadInternalVariables(boost::archive::binary_iarchive& streamVariables);
+
+ protected:
+  bool isStartingFromDump_;  ///< whether the model is starting from dumped values
 
  private:
   std::string modelType_;  ///< model type
-  bool isStartingFromDump_;  ///< whether the model is starting from dumped values
 };
 
 }  // namespace DYN
+
+#include "DYNModelCPP.hpp"
 
 #endif  // MODELS_CPP_COMMON_DYNMODELCPP_H_

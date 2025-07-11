@@ -75,9 +75,10 @@ SolverSIM::SolverSIM() :
 SolverCommonFixedTimeStep(),
 order1Prediction_(false) {}
 
-std::string
+const std::string&
 SolverSIM::solverType() const {
-  return "SimplifiedSolver";
+  static std::string solverType = "SimplifiedSolver";
+  return solverType;
 }
 
 void

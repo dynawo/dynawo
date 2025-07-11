@@ -50,7 +50,7 @@ class ModelTemplate : public Model {
   /**
    * @brief Destructor
    */
-  virtual ~ModelTemplate();
+  ~ModelTemplate() override;
 
   /**
    * @brief Set compilation options

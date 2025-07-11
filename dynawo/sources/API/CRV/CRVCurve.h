@@ -55,7 +55,7 @@ class Curve {
    * @brief Add a new point to the curve
    * @param time time associated to the new point created
    */
-  void update(const double& time);
+  void update(double time);
 
   /**
    * @brief Setter for curve's model name
@@ -68,6 +68,12 @@ class Curve {
    * @param variable curve's variable
    */
   void setVariable(const std::string& variable);
+
+  /**
+   * @brief Setter for curve's factor
+   * @param factor curve's factor
+   */
+  void setFactor(double factor);
 
   /**
    * @brief Setter for curve's name found
@@ -109,7 +115,7 @@ class Curve {
    * @brief Getter for curve's index in global table
    * @return index curve's index in global table
    */
-  size_t getGlobalIndex();
+  size_t getGlobalIndex() const;
 
   /**
    * @brief Getter for curve's model name
@@ -122,6 +128,13 @@ class Curve {
    * @return variable name associated to this curve
    */
   const std::string& getVariable() const;
+
+
+  /**
+   * @brief Getter for curve's factor
+   * @return factor associated to this curve
+   */
+  double getFactor() const;
 
   /**
    * @brief Getter for curve's found variable name
@@ -193,127 +206,20 @@ class Curve {
    */
   void updateParameterCurveValue(std::string parameterName, double parameterValue);
 
- public:
   /**
-   * @class const_iterator
-   * @brief Const iterator over points
-   *
-   * Const iterator over points stored in curve
-   */
-  class const_iterator {
-   public:
-    /**
-     * @brief Constructor
-     *
-     * Constructor based on points. Can create an iterator to the
-     * beginning of the points' container or to the end. Points
-     * cannot be modified.
-     *
-     * @param iterated Pointer to the points' vector iterated
-     * @param begin Flag indicating if the iterator point to the beginning (true)
-     * or the end of the points' container.
-     */
-    const_iterator(const Curve* iterated, bool begin);
-    /**
-     * @brief Constructor
-     *
-     * Constructor based on points. Can create an iterator to the
-     * beginning of the points' container or to the end. Points
-     * cannot be modified.
-     *
-     * @param iterated Pointer to the points' vector iterated
-     * @param begin Flag indicating if the iterator point to the beginning (true)
-     * or the end of the points' container.
-     * @param i Relative position of the iterator comparing to the beginning (true) or the ending (false)
-     */
-    const_iterator(const Curve* iterated, bool begin, int i);
-
-    /**
-     * @brief Prefix-increment operator
-     *
-     * @returns Reference to this const_iterator
-     */
-    const_iterator& operator++();
-
-    /**
-     * @brief Postfix-increment operator
-     *
-     * @returns Copy of this const_iterator
-     */
-    const_iterator operator++(int);
-
-    /**
-     * @brief Prefix-decrement operator
-     *
-     * @returns Reference to this const_iterator
-     */
-    const_iterator& operator--();
-
-    /**
-     * @brief Postfix-decrement operator
-     *
-     * @returns Copy of this const_iterator
-     */
-    const_iterator operator--(int);
-
-    /**
-     * @brief Equal to operator
-     *
-     * @param other Iterator to be compared with this
-     * @returns true if iterators are equals, else false
-     */
-    bool operator==(const const_iterator& other) const;
-
-    /**
-     * @brief Not equal to operator
-     *
-     * @param other Iterator to be compared with this
-     * @returns true if iterators are different, else false
-     */
-    bool operator!=(const const_iterator& other) const;
-
-    /**
-     * @brief Indirection operator
-     *
-     * @returns Point pointed to by this
-     */
-    const std::unique_ptr<Point>& operator*() const;
-
-    /**
-     * @brief Structure dereference operator
-     *
-     * @returns Pointer to the Point pointed to by this
-     */
-    const std::unique_ptr<Point>* operator->() const;
-
-   private:
-    std::vector<std::unique_ptr<Point> >::const_iterator current_;  ///< current vector const iterator
-  };
-
-  /**
-   * @brief Get a const_iterator to the beginning of points' container
-   * @return a const_iterator to the beginning of points' container
-   */
-  const_iterator cbegin() const;
-
-  /**
-   * @brief Get a const_iterator to the end of points' container
-   * @return a const_iterator to the end of points' container
-   */
-  const_iterator cend() const;
-
-  /**
-   * @brief Get a const_iterator at the i th position points' container
-   * @param i : position of the const_iterator to get
-   *
-   * @return a const_iterator at the i th position points' container
-   */
-  const_iterator at(int i) const;
+  * @brief get points
+  *
+  * @return points
+  */
+  const std::vector<std::unique_ptr<Point> >& getPoints() const {
+    return points_;
+  }
 
  private:
   // attributes read in input file
   std::string modelName_;  ///< Model's name for which we want have a curve
   std::string variable_;   ///< Variable name
+  double factor_;          ///< Factor applicable to the value
 
   // attributes deduced from models
   std::string foundName_;                          ///< variable name found in models

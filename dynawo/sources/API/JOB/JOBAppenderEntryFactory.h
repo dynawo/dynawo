@@ -20,9 +20,10 @@
 #ifndef API_JOB_JOBAPPENDERENTRYFACTORY_H_
 #define API_JOB_JOBAPPENDERENTRYFACTORY_H_
 
-#include <boost/shared_ptr.hpp>
-
 #include "JOBAppenderEntry.h"
+
+#include <memory>
+
 
 namespace job {
 
@@ -39,7 +40,7 @@ class AppenderEntryFactory {
    *
    * @return dynamic model entry
    */
-  static boost::shared_ptr<AppenderEntry> newInstance();
+  static std::unique_ptr<AppenderEntry> newInstance();
 };
 
 }  // namespace job

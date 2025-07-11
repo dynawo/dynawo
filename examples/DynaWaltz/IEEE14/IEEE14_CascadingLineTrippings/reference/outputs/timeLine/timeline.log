@@ -41,8 +41,8 @@
 172.000000 | _LOAD__10_EC | Tap position change (increment)
 172.000000 | _LOAD__11_EC | Tap position change (increment)
 172.000000 | _LOAD__14_EC | Tap position change (increment)
-172.000000 | _LOAD___2_EC | Transformer : switched off
 172.000000 | _LOAD___2_EC | Tap-changer : switched off
+172.000000 | _LOAD___2_EC | Transformer : switched off
 172.000000 | _LOAD___2_EC | LOAD : disconnecting
 172.000000 | _LOAD___6_EC | Tap position change (increment)
 172.000000 | GEN____1_SM | Voltage regulator : upper limit reached (Efd)

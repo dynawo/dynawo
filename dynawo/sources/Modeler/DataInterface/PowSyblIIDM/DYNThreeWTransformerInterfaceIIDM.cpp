@@ -89,7 +89,7 @@ ThreeWTransformerInterfaceIIDM::getBusInterface3() const {
   return busInterface3_;
 }
 
-string
+const std::string&
 ThreeWTransformerInterfaceIIDM::getID() const {
   return tfoIIDM_.getId();
 }

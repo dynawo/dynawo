@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2015-2024, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:job name="IEEE14 - Start From DumpFile (1/2)">
+    <dyn:solver lib="dynawo_SolverSIM" parFile="IEEE14.par" parId="SimplifiedSolver"/>
+    <dyn:modeler compileDir="0/outputs/compilation">
+      <dyn:network iidmFile="IEEE14.iidm" parFile="IEEE14.par" parId="Network"/>
+      <dyn:dynModels dydFile="IEEE14.dyd"/>
+      <dyn:precompiledModels useStandardModels="true"/>
+      <dyn:modelicaModels useStandardModels="true"/>
+    </dyn:modeler>
+    <dyn:simulation startTime="0" stopTime="120"/>
+    <dyn:outputs directory="0/outputs">
+      <dyn:dumpFinalValues/>
+      <dyn:finalState exportIIDMFile="false" exportDumpFile="true"/>
+      <dyn:logs>
+        <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
+      </dyn:logs>
+    </dyn:outputs>
+  </dyn:job>
+  <dyn:job name="IEEE14 - Start From DumpFile (2/2)">
+    <dyn:solver lib="dynawo_SolverSIM" parFile="IEEE14.par" parId="SimplifiedSolver"/>
+    <dyn:modeler compileDir="1/outputs/compilation">
+      <dyn:network iidmFile="IEEE14.iidm" parFile="IEEE14.par" parId="Network"/>
+      <dyn:dynModels dydFile="IEEE14.dyd"/>
+      <dyn:initialState file="0/outputs/finalState/outputState.dmp"/>
+      <dyn:precompiledModels useStandardModels="true"/>
+      <dyn:modelicaModels useStandardModels="true"/>
+    </dyn:modeler>
+    <dyn:simulation startTime="120" stopTime="300"/>
+    <dyn:outputs directory="1/outputs">
+      <dyn:dumpInitValues local="true" global="true"/>
+      <dyn:logs>
+        <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
+      </dyn:logs>
+    </dyn:outputs>
+  </dyn:job>
+</dyn:jobs>

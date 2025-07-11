@@ -46,7 +46,7 @@ class DanglingLineInterface : public ComponentInterface {
   /**
    * @brief Destructor
    */
-  virtual ~DanglingLineInterface() = default;
+  ~DanglingLineInterface() override = default;
 
   /**
    * @brief Add a curent limit interface
@@ -142,12 +142,12 @@ class DanglingLineInterface : public ComponentInterface {
    * @brief Getter for the dangling line's id
    * @return The id of the dangling line
    */
-  virtual std::string getID() const = 0;
+  const std::string& getID() const override = 0;
 
   /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
-  virtual void exportStateVariablesUnitComponent() = 0;
+  void exportStateVariablesUnitComponent() override = 0;
 };  ///< class for dangling line model interface
 
 #ifdef __clang__

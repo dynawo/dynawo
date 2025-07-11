@@ -20,9 +20,10 @@
 #ifndef API_PAR_PARPARAMETERFACTORY_H_
 #define API_PAR_PARPARAMETERFACTORY_H_
 
-#include <boost/shared_ptr.hpp>
-
 #include "PARParameter.h"
+
+#include <memory>
+
 
 namespace parameters {
 /**
@@ -40,9 +41,9 @@ class ParameterFactory {
    * @param[in] name id of the parameter
    * @param[in] boolValue value of the parameter
    *
-   * @returns Shared pointer to a new @p Parameter
+   * @returns Unique pointer to a new @p Parameter
    */
-  static boost::shared_ptr<Parameter> newParameter(const std::string& name, const bool boolValue);
+  static std::unique_ptr<Parameter> newParameter(const std::string& name, const bool boolValue);
 
   /**
    * @brief Create new Parameter instance
@@ -50,9 +51,9 @@ class ParameterFactory {
    * @param[in] name id of the parameter
    * @param[in] intValue value of the parameter
    *
-   * @returns Shared pointer to a new @p Parameter
+   * @returns Unique pointer to a new @p Parameter
    */
-  static boost::shared_ptr<Parameter> newParameter(const std::string& name, const int intValue);
+  static std::unique_ptr<Parameter> newParameter(const std::string& name, const int intValue);
 
   /**
    * @brief Create new Parameter instance
@@ -60,9 +61,9 @@ class ParameterFactory {
    * @param[in] name id of the parameter
    * @param[in] doubleValue value of the parameter
    *
-   * @returns Shared pointer to a new @p Parameter
+   * @returns Unique pointer to a new @p Parameter
    */
-  static boost::shared_ptr<Parameter> newParameter(const std::string& name, const double doubleValue);
+  static std::unique_ptr<Parameter> newParameter(const std::string& name, const double doubleValue);
 
   /**
    * @brief Create new Parameter instance
@@ -70,9 +71,9 @@ class ParameterFactory {
    * @param[in] name id of the parameter
    * @param[in] stringValue value of the parameter
    *
-   * @returns Shared pointer to a new @p Parameter
+   * @returns Unique pointer to a new @p Parameter
    */
-  static boost::shared_ptr<Parameter> newParameter(const std::string& name, const std::string& stringValue);
+  static std::unique_ptr<Parameter> newParameter(const std::string& name, const std::string& stringValue);
 };
 
 }  // namespace parameters

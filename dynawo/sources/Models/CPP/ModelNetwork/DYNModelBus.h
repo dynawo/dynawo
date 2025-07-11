@@ -23,6 +23,8 @@
 
 #include <boost/optional.hpp>
 #include <boost/shared_ptr.hpp>
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
 
 #include "DYNNetworkComponent.h"
 #include "DYNBitMask.h"
@@ -99,7 +101,7 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
    * @brief add a bus to the neighbors
    * @param bus bus to add
    */
-  void addNeighbor(std::shared_ptr<ModelBus>& bus);  // add a bus to the neighbors (i.e. AC-connected) list
+  void addNeighbor(const std::shared_ptr<ModelBus>& bus);  // add a bus to the neighbors (i.e. AC-connected) list
 
   /**
    * @brief clear neighbors
@@ -119,7 +121,7 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
    * @brief instantiate variables
    * @param variables variables
    */
-  void instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables);
+  void instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables) override;
 
   /**
    * @brief define parameters
@@ -131,20 +133,20 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
    * @brief define non generic parameters
    * @param parameters vector to fill with the non generic parameters
    */
-  void defineNonGenericParameters(std::vector<ParameterModeler>& parameters);
+  void defineNonGenericParameters(std::vector<ParameterModeler>& parameters) override;
 
   /**
    * @brief define elements
    * @param elements vector of elements
    * @param mapElement map of elements
    */
-  void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement);
+  void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) override;
 
   /**
    * @brief evaluate node injection
    *
    */
-  void evalNodeInjection() { /* not needed */ }
+  void evalNodeInjection() override { /* not needed */ }
 
   /**
    * @brief reset node injection
@@ -155,34 +157,34 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
    * @brief evaluate derivatives for J
    * @param cj Jacobian prime coefficient
    */
-  void evalDerivatives(const double cj);
+  void evalDerivatives(double cj) override;
 
   /**
    * @brief evaluate derivatives for J'
    */
-  void evalDerivativesPrim() { /* not needed */ }
+  void evalDerivativesPrim() override { /* not needed */ }
 
   /**
    * @brief evaluate F
    * @param[in] type type of the residues to compute (algebraic, differential or both)
    */
-  void evalF(propertyF_t type);
+  void evalF(propertyF_t type) override;
 
   /**
    * @copydoc NetworkComponent::evalZ()
    */
-  NetworkComponent::StateChange_t evalZ(const double& t);
+  StateChange_t evalZ(double t) override;
 
   /**
    * @brief compute the local G function
    * @param t time
    */
-  void evalG(const double& t);
+  void evalG(double t) override;
 
   /**
    * @brief evaluate calculated variables (for outputs)
    */
-  void evalCalculatedVars();
+  void evalCalculatedVars() override;
 
   /**
    * @brief get the index of variables used to define the Jacobian associated to a calculated variable
@@ -191,7 +193,7 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
    *
    * @param numVars index of variables used to define the Jacobian
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const override;
 
   /**
    * @brief evaluate the Jacobian associated to a calculated variable
@@ -199,7 +201,7 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
    * @param numCalculatedVar index of the calculated variable
    * @param res values of the Jacobian
    */
-  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const;
+  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const override;
 
   /**
    * @brief evaluate the value of a calculated variable
@@ -208,91 +210,91 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
    *
    * @return value of the calculated variable
    */
-  double evalCalculatedVarI(unsigned numCalculatedVar) const;
+  double evalCalculatedVarI(unsigned numCalculatedVar) const override;
 
   /**
    * @copydoc NetworkComponent::evalStaticYType()
    */
-  void evalStaticYType();
+  void evalStaticYType() override;
 
   /**
    * @copydoc NetworkComponent::evalDynamicYType()
    */
-  void evalDynamicYType();
+  void evalDynamicYType() override;
 
   /**
    * @copydoc NetworkComponent::evalStaticFType()
    */
-  void evalStaticFType();
+  void evalStaticFType() override;
 
   /**
    * @copydoc NetworkComponent::collectSilentZ()
    */
-  void collectSilentZ(BitMask* silentZTable);
+  void collectSilentZ(BitMask* silentZTable) override;
 
   /**
    * @copydoc NetworkComponent::evalDynamicFType()
    */
-  void evalDynamicFType();
+  void evalDynamicFType() override;
 
   /**
    * @copydoc NetworkComponent::evalYMat()
    */
-  void evalYMat() { /* not needed*/ }
+  void evalYMat() override { /* not needed*/ }
 
   /**
    * @copydoc NetworkComponent::init(int& yNum)
    */
-  void init(int & yNum);
+  void init(int& yNum) override;
 
   /**
    * @copydoc NetworkComponent::getY0()
    */
-  void getY0();
+  void getY0() override;
 
   /**
    * @copydoc NetworkComponent::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params)
    */
-  void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params);
+  void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params) override;
 
   /**
    * @copydoc NetworkComponent::setFequations( std::map<int, std::string> & fEquationIndex)
    */
-  void setFequations(std::map<int, std::string>& fEquationIndex);
+  void setFequations(std::map<int, std::string>& fEquationIndex) override;
 
   /**
    * @copydoc NetworkComponent::setGequations( std::map<int,std::string>& gEquationIndex )
    */
-  void setGequations(std::map<int, std::string>& gEquationIndex);
+  void setGequations(std::map<int, std::string>& gEquationIndex) override;
 
   /**
    * @brief evaluate state
    * @param time time
    * @return state change type
    */
-  NetworkComponent::StateChange_t evalState(const double& time);
+  StateChange_t evalState(double time) override;
 
   /**
    * @brief addBusNeighbors
    */
-  void addBusNeighbors() { /* not needed*/ }
+  void addBusNeighbors() override { /* not needed*/ }
 
   /**
    * @brief init size
    */
-  void initSize();
+  void initSize() override;
 
   /**
    * @brief add a new real current to the sum of real currents
    * @param ir new real current to add to the sum of real current
    */
-  void irAdd(const double& ir);
+  void irAdd(double ir);
 
   /**
    * @brief add a new imaginary current to the sum of imaginary currents
    * @param ii new imaginary current to add to the sum of imaginary currents
    */
-  void iiAdd(const double& ii);
+  void iiAdd(double ii);
 
   /**
    * @brief get the current requested value of U
@@ -314,9 +316,9 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
   /**
    * @brief  scan a subnetwork in order to find all neighboring buses
    * @param subNetwork subnetwork to scan
-   * @param numComponent number of components
+   * @param numSubNetwork number of components
    */
-  void exploreNeighbors(const int& numComponent, const boost::shared_ptr<SubNetwork>& subNetwork);  // scan a subnetwork to find all neighbouring buses
+  void exploreNeighbors(int numSubNetwork, const boost::shared_ptr<SubNetwork>& subNetwork);  // scan a subnetwork to find all neighbouring buses
 
   /**
    * @brief set refIslands
@@ -402,14 +404,14 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
   }
 
   /**
-   * @copydoc NetworkComponent::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJt(double cj, int rowOffset, SparseMatrix& jt)
    */
-  void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset);
+  void evalJt(double cj, int rowOffset, SparseMatrix& jt) override;
 
   /**
-   * @copydoc NetworkComponent::evalJtPrim(SparseMatrix& jt, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJtPrim(int rowOffset,SparseMatrix& jtPrim)
    */
-  void evalJtPrim(SparseMatrix& jt, const int& rowOffset);
+  void evalJtPrim(int rowOffset, SparseMatrix& jtPrim) override;
 
   /**
    * @brief retrieve the real part of the voltage
@@ -463,7 +465,7 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
    * @brief set the number of independent sub networks
    * @param num number of the sub network
    */
-  inline void numSubNetwork(int num) {
+  inline void numSubNetwork(const int num) const {
     z_[numSubNetworkNum_] = num;
   }
 
@@ -476,7 +478,7 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
   /**
    * @brief clear the sub-network index
    */
-  inline void clearNumSubNetwork() {
+  inline void clearNumSubNetwork() const {
     assert(z_ != NULL);
     z_[numSubNetworkNum_] = -1.;
   }
@@ -544,6 +546,29 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
    */
   void resetCurrentUStatus();
 
+  /**
+   * @brief get the number of internal variable of the model
+   *
+   * @return the number of internal variable of the model
+   */
+  inline unsigned getNbInternalVariables() const override {
+    return 5;
+  }
+
+  /**
+   * @brief append the internal variables values to a stringstream
+   *
+   * @param streamVariables : stream with binary formated internalVariables
+   */
+  void dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const override;
+
+  /**
+   * @brief import the internal variables values of the component from stringstream
+   *
+   * @param streamVariables : stream with binary formated internalVariables
+   */
+  void loadInternalVariables(boost::archive::binary_iarchive& streamVariables) override;
+
  private:
   /**
    * @brief define elements of the bus model using id as prefix (to deal with alias)
@@ -590,8 +615,8 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
   int refIslands_;  ///< island reference (used to compute switch loops)
   boost::shared_ptr<BusDerivatives> derivatives_;  ///< derivatives
   boost::shared_ptr<BusDerivatives> derivativesPrim_;  ///< derivatives for JPrim
-  double ur0_;  ///< initial real voltage
-  double ui0_;  ///< initial imaginary voltage
+  double ur0_{};  ///< initial real voltage
+  double ui0_{};  ///< initial imaginary voltage
   double ir0_;  ///< initial real current
   double ii0_;  ///< initial imaginary current
 
@@ -607,7 +632,7 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
   bool hasDifferentialVoltages_;  ///< whether the bus model has differential voltages
 
   double unom_;  ///< nominal voltage
-  double u0_;  ///< initial voltage
+  double u0_{};  ///< initial voltage
   double angle0_;  ///< initial angle
   std::vector<std::string> busBarSectionIdentifiers_;  ///< identifiers of bus bar sections on the same electrical node
   std::vector<std::weak_ptr<ModelSwitch> > connectableSwitches_;  ///< switch connected or connectable on the node
@@ -633,14 +658,14 @@ class SubNetwork {  ///< sub-network gathering buses connected by AC components
    * @brief constructor
    * @param num num
    */
-  explicit SubNetwork(const int& num)
+  explicit SubNetwork(const int num)
   :num_(num) { }
 
   /**
    * @brief set num
    * @param num num
    */
-  inline void setNum(int num) {
+  inline void setNum(const int num) {
     num_ = num;
   }
 
@@ -674,7 +699,7 @@ class SubNetwork {  ///< sub-network gathering buses connected by AC components
    * @param num num
    * @return bus
    */
-  inline std::shared_ptr<ModelBus> bus(int num) const {
+  inline std::shared_ptr<ModelBus> bus(const int num) const {
     assert(num >= 0 && static_cast<size_t>(num) < bus_.size() && "Bus index unknown");
     return bus_[num];
   }
@@ -756,18 +781,18 @@ class ModelBusContainer {
 
   /**
    * @brief evaluate Jacobian \f$( J = @F/@x + cj * @F/@x')\f$
-   * @param jt sparse matrix to fill
    * @param cj Jacobian prime coefficient
    * @param rowOffset row offset to use to find the first row to fill
+   * @param jt sparse matrix to fill
    */
-  void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset);
+  void evalJt(double cj, int rowOffset, SparseMatrix& jt);
 
   /**
    * @brief  evaluate Jacobian \f$( J =  @F/@x')\f$
-   * @param jt sparse matrix to fill
    * @param rowOffset row offset to use to find the first row to fill
+   * @param jtPrim sparse matrix to fill
    */
-  void evalJtPrim(SparseMatrix& jt, const int& rowOffset);
+  void evalJtPrim(int rowOffset, SparseMatrix& jtPrim);
 
   /**
    * @brief reset the bit mask of every bus corresponding to the status of U calculation for the current time step

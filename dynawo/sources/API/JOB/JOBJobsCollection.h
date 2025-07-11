@@ -21,10 +21,10 @@
 #ifndef API_JOB_JOBJOBSCOLLECTION_H_
 #define API_JOB_JOBJOBSCOLLECTION_H_
 
-#include "JOBIterators.h"
 #include "JOBJobEntry.h"
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
+
 
 namespace job {
 
@@ -41,37 +41,28 @@ class JobsCollection {
    *
    * @param jobEntry job to add to the structure
    */
-  void addJob(const boost::shared_ptr<JobEntry>& jobEntry);
+  void addJob(const std::shared_ptr<JobEntry>& jobEntry);
 
   /**
-   * @brief Get a const_iterator to the beginning of the jobs' vector
-   * @return a const_iterator to the beginning of the jobs' vector
-   */
-  job_const_iterator cbegin() const;
+  * @brief get the variables
+  *
+  * @return variables
+  */
+  const std::vector<std::shared_ptr<JobEntry> >& getJobs() const {
+    return jobs_;
+  }
 
   /**
-   * @brief Get a const_iterator to the end of the jobs' vector
-   * @return a const_iterator to the end of the jobs' vector
-   */
-  job_const_iterator cend() const;
-
-  /**
-   * @brief Get an iterator to the beginning of the jobs' vector
-   * @return an iterator to the beginning of the jobs' vector
-   */
-  job_iterator begin();
-
-  /**
-   * @brief Get an iterator to the end of the jobs' vector
-   * @return an iterator to the end of the jobs' vector
-   */
-  job_iterator end();
-
-  friend class job_const_iterator;
-  friend class job_iterator;
+  * @brief get the variables
+  *
+  * @return variables
+  */
+  std::vector<std::shared_ptr<JobEntry> >& getNonCstJobs() const {
+    return const_cast<std::vector<std::shared_ptr<JobEntry> >&>(getJobs());
+  }
 
  private:
-  std::vector<boost::shared_ptr<JobEntry> > jobs_;  ///< Vector of the jobs object
+  std::vector<std::shared_ptr<JobEntry> > jobs_;  ///< Vector of the jobs object
 };
 
 }  // namespace job

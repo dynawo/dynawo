@@ -50,16 +50,16 @@ using boost::shared_ptr;
 namespace po = boost::program_options;
 namespace fs = boost::filesystem;
 
-bool verifySharedObject(string modelname);
-std::string verifyModelListFile(const string & modelList, const string & outputPath);
-std::string executeCommand1(const string & command);
+bool verifySharedObject(const string& modelname);
+std::string verifyModelListFile(const string& modelList, const string& outputPath);
+std::string executeCommand1(const string& command);
 
 /**
  *
  * @brief main for dyd lib generator
  *
  */
-int main(int argc, char ** argv) {
+int main(int argc, char** argv) {
   string modelList = "";   // model list file
   bool useStandardPrecompiledModels = true;
   string recursivePrecompiledModelsDir = "";   // BDD
@@ -99,28 +99,28 @@ int main(int argc, char ** argv) {
   if (vm.count("help")) {
     cout << desc << endl;
     return 0;
-  } else if ((recursivePrecompiledModelsDir == "" && nonRecursivePrecompiledModelsDir == "")
-              || (recursiveModelicaModelsDir == "" && nonRecursiveModelicaModelsDir == "")) {
+  } else if ((recursivePrecompiledModelsDir.empty() && nonRecursivePrecompiledModelsDir.empty())
+              || (recursiveModelicaModelsDir.empty() && nonRecursiveModelicaModelsDir.empty())) {
     cout << " Default BDD Models Directory is used. " << endl;
   }
 
-  if (modelList == "") {
+  if (modelList.empty()) {
     cout << "You need to give a model list." << endl;
     cout << desc << endl;
     return 1;
   }
 
-  if (modelicaModelsExtension == "") {
+  if (modelicaModelsExtension.empty()) {
     modelicaModelsExtension = ".mo";
   }
   DYN::InitXerces xerces;
 
-  string currentPath = prettyPath(current_path());
+  string currentPathStr = prettyPath(currentPath());
 
   // output directory (default: current directory)
-  string absOutputDir = createAbsolutePath(outputDir, currentPath);
+  string absOutputDir = createAbsolutePath(outputDir, currentPathStr);
   if (!exists(absOutputDir))
-    create_directory(absOutputDir);
+    createDirectory(absOutputDir);
 
   string dydFileName = "";
   try {
@@ -136,20 +136,20 @@ int main(int argc, char ** argv) {
     shared_ptr<DYN::DynamicData> dyd(new DYN::DynamicData());
     vector<std::string> dydFile;
     dydFile.push_back(dydFileName);
-    dyd->setRootDirectory(remove_file_name(dydFileName));
+    dyd->setRootDirectory(removeFileName(dydFileName));
     dyd->initFromDydFiles(dydFile);
 
     // Compilation
     std::vector <UserDefinedDirectory> precompiledModelsDirs;
 
-    if (recursivePrecompiledModelsDir != "") {
+    if (!recursivePrecompiledModelsDir.empty()) {
       UserDefinedDirectory dir;
       dir.path = recursivePrecompiledModelsDir;
       dir.isRecursive = true;
       precompiledModelsDirs.push_back(dir);
     }
 
-    if (nonRecursivePrecompiledModelsDir != "") {
+    if (!nonRecursivePrecompiledModelsDir.empty()) {
       UserDefinedDirectory dir;
       dir.path = nonRecursivePrecompiledModelsDir;
       dir.isRecursive = false;
@@ -158,14 +158,14 @@ int main(int argc, char ** argv) {
 
     std::vector <UserDefinedDirectory> modelicaModelsDirs;
 
-    if (recursiveModelicaModelsDir != "") {
+    if (!recursiveModelicaModelsDir.empty()) {
       UserDefinedDirectory dir;
       dir.path = recursiveModelicaModelsDir;
       dir.isRecursive = true;
       modelicaModelsDirs.push_back(dir);
     }
 
-    if (nonRecursiveModelicaModelsDir != "") {
+    if (!nonRecursiveModelicaModelsDir.empty()) {
       UserDefinedDirectory dir;
       dir.path = nonRecursiveModelicaModelsDir;
       dir.isRecursive = false;
@@ -183,14 +183,14 @@ int main(int argc, char ** argv) {
 
      // verification linking status of shared object
     bool libValid = true;
-    for (vector<string >::iterator it = solist.begin(); it != solist.end(); ++it) {
-      bool valid = verifySharedObject(*it);  // verification .so
+    for (const auto& soFile : solist) {
+      bool valid = verifySharedObject(soFile);  // verification .so
       if (!valid) {
         libValid = false;
-        notValidsolist.push_back(*it);
-        Trace::info(Trace::compile()) << DYNLog(InvalidModel, *it) << Trace::endline;
+        notValidsolist.push_back(soFile);
+        Trace::info(Trace::compile()) << DYNLog(InvalidModel, soFile) << Trace::endline;
       } else {
-        Trace::info(Trace::compile()) << DYNLog(ValidatedModel, *it) << Trace::endline;
+        Trace::info(Trace::compile()) << DYNLog(ValidatedModel, soFile) << Trace::endline;
       }
     }
 
@@ -199,9 +199,9 @@ int main(int argc, char ** argv) {
     } else {
       Trace::info(Trace::compile()) << DYNLog(InvalidSharedObjects, notValidsolist.size()) << Trace::endline;
       string libList;
-      for (vector<string >::iterator it = notValidsolist.begin(); it != notValidsolist.end(); ++it) {
-        Trace::info(Trace::compile()) << *it << Trace::endline;
-        libList += *it;
+      for (const auto& notValidso : notValidsolist) {
+        Trace::info(Trace::compile()) << notValidso << Trace::endline;
+        libList += notValidso;
       }
       throw DYNError(DYN::Error::MODELER, FileGenerationFailed, libList.c_str());
     }
@@ -220,10 +220,9 @@ int main(int argc, char ** argv) {
  * 1st step: Dlopen --> if a .so file
  * 2nd step: ldd -r --> if exists undefinded symbol
  */
-
-bool verifySharedObject(string modelname) {
+bool verifySharedObject(const string& modelname) {
   try {
-    boost::dll::shared_library lib(modelname);
+    const boost::dll::shared_library lib(modelname);
     static_cast<void>(lib);
     // we don't use the lib as we check that the library is loadable, which is done in
     // constructor
@@ -234,11 +233,10 @@ bool verifySharedObject(string modelname) {
     return false;
   }
 
-
   // verify links.
 #ifdef __linux__
-  string command = "ldd -r " + modelname;
-  string result = executeCommand1(command);
+  const string command = "ldd -r " + modelname;
+  const string result = executeCommand1(command);
   bool valid = true;
   if (result.find("undefinded symbol") != std::string::npos)
     valid = false;
@@ -252,16 +250,16 @@ bool verifySharedObject(string modelname) {
  * @brief Verify model list format
  * use script python: scriptVerifyModelList.py
  */
-std::string verifyModelListFile(const string & modelList, const string & outputPath) {
-  string dydFileName = absolute(replace_extension(file_name(modelList), "dyd"), outputPath);
-  string scriptsDir1 = getMandatoryEnvVar("DYNAWO_SCRIPTS_DIR");
+std::string verifyModelListFile(const string& modelList, const string& outputPath) {
+  const string dydFileName = absolute(replaceExtension(fileNameFromPath(modelList), "dyd"), outputPath);
+  const string scriptsDir1 = getMandatoryEnvVar("DYNAWO_SCRIPTS_DIR");
   string pythonCmd = "python";
   if (hasEnvVar("DYNAWO_PYTHON_COMMAND"))
     pythonCmd = getEnvVar("DYNAWO_PYTHON_COMMAND");
 
   // scriptVerifyModelList.py
   std::cout << "Create file: " << dydFileName << std::endl;
-  string verifymodellistcommand = pythonCmd + " " + scriptsDir1 + "/scriptVerifyModelList.py --dyd=" + dydFileName + " --model=" + modelList;
+  const string verifymodellistcommand = pythonCmd + " " + scriptsDir1 + "/scriptVerifyModelList.py --dyd=" + dydFileName + " --model=" + modelList;
   executeCommand1(verifymodellistcommand);
   return dydFileName;
 }
@@ -269,7 +267,7 @@ std::string verifyModelListFile(const string & modelList, const string & outputP
 /**
  * @brief execute a command
  */
-std::string executeCommand1(const std::string & command) {
+std::string executeCommand1(const std::string& command) {
   std::stringstream ss;
   executeCommand(command, ss);
   std::cout << ss.str() << std::endl;

@@ -49,7 +49,7 @@ class connectedSubModel {
    * @param variable the variable to use in the connector
    * @param negated @b true if the opposite of the variable should be used in the connector's equations
    */
-  connectedSubModel(const boost::shared_ptr<SubModel> & subModel, const boost::shared_ptr<Variable> variable, bool negated) :
+  connectedSubModel(const boost::shared_ptr<SubModel>& subModel, const boost::shared_ptr<Variable>& variable, const bool negated) :
   subModel_(subModel),
   variable_(variable),
   negated_(negated) { }
@@ -58,7 +58,7 @@ class connectedSubModel {
    * @brief getter of the submodel connected by the connector
    * @return the submodel connected by the connector
    */
-  inline boost::shared_ptr<SubModel> subModel() const {
+  inline const boost::shared_ptr<SubModel>& subModel() const {
     return subModel_;
   }
 
@@ -178,21 +178,21 @@ class ConnectorContainer {
    *
    * @param connector flow connector to add
    */
-  void addFlowConnector(boost::shared_ptr<Connector> & connector);
+  void addFlowConnector(const boost::shared_ptr<Connector>& connector);
 
   /**
    * @brief add a continuous connector to the container
    *
    * @param connector continuous connector to add
    */
-  void addContinuousConnector(boost::shared_ptr<Connector>& connector);
+  void addContinuousConnector(const boost::shared_ptr<Connector>& connector);
 
   /**
    * @brief add a discrete connector to the container
    *
    * @param connector discrete connector to add
    */
-  void addDiscreteConnector(boost::shared_ptr<Connector>& connector);
+  void addDiscreteConnector(const boost::shared_ptr<Connector>& connector);
 
   /**
    * @brief print informations about the connector stored in the container
@@ -213,33 +213,33 @@ class ConnectorContainer {
    * @param localFIndex local index of connector
    * @param fEquation connector's submodels
    */
-  void getConnectorInfos(const int& globalFIndex, std::string& subModelName, int& localFIndex, std::string& fEquation) const;
+  void getConnectorInfos(int globalFIndex, std::string& subModelName, int& localFIndex, std::string& fEquation) const;
 
   /**
    * @brief evaluate the residual values of each connectors
    *
    * @param t time to used during the evaluation
    */
-  void evalFConnector(const double t);
+  void evalFConnector(double t);
 
   /**
    * @brief evaluate the jacobian of each connectors
    *
    * @param jt sparse matrix where the jacobian should be stored
    */
-  void evalJtConnector(SparseMatrix& jt);
+  void evalJtConnector(SparseMatrix& jt) const;
 
   /**
    * @brief evaluate the derivative jacobian of each connectors \f$( J = @F/@x' ) \f$
    *
    * @param jt sparse matrix where the jacobian should be stored
    */
-  void evalJtPrimConnector(SparseMatrix& jt);
+  void evalJtPrimConnector(SparseMatrix& jt) const;
 
   /**
    * @brief evaluate the initial value of each variables connected to another one
    */
-  void getY0Connector();
+  void getY0Connector() const;
 
   /**
    * @brief merge the connectors after each one have been created
@@ -250,14 +250,14 @@ class ConnectorContainer {
   /**
    * @brief merge the connectors : no need to declare two connectors when they represent the same connection
    *
-   * @param connector the connector to merge
+   * @param connector the connector to merge (pointer need to be copied to ensure proper functioning of the algo)
    * @param reference the reference connector (to which to add the connector)
    * @param connectorsList the list of connectors
    * @param connectorsByVarNum the association between (global) variable index and connector
    * @param flowConnector true if the connector is a flow connector
    */
-  void mergeConnectors(boost::shared_ptr<Connector> connector, boost::shared_ptr<Connector> reference,
-                       std::list<boost::shared_ptr<Connector> > &connectorsList,
+  void mergeConnectors(boost::shared_ptr<Connector> connector, boost::shared_ptr<Connector>& reference,
+                       std::list<boost::shared_ptr<Connector> >& connectorsList,
                        std::unordered_map<int, boost::shared_ptr<Connector> >& connectorsByVarNum, bool flowConnector = false);
 
   /**
@@ -278,7 +278,7 @@ class ConnectorContainer {
    * @param fType global buffer
    * @param offsetFType offset to use to find the beginning of the local buffer
    */
-  void setBufferFType(propertyF_t* fType, const int& offsetFType);
+  void setBufferFType(propertyF_t* fType, int offsetFType);
 
   /**
    * @brief defines the local buffer to fill when calculating residual function
@@ -286,7 +286,7 @@ class ConnectorContainer {
    * @param f global buffer
    * @param offsetF offset to use to find the beginning of the local buffer
    */
-  void setBufferF(double* f, const int& offsetF);
+  void setBufferF(double* f, int offsetF);
 
   /**
    * @brief defines the local buffer to define continuous variables
@@ -308,7 +308,7 @@ class ConnectorContainer {
    *
    * @param offset offset to use
    */
-  inline void setOffsetModel(int offset) {
+  inline void setOffsetModel(const int offset) {
     offsetModel_ = offset;
   }
 
@@ -325,7 +325,7 @@ class ConnectorContainer {
    *
    * @param sizeY size of the Y buffer
    */
-  inline void setSizeY(int sizeY) {
+  inline void setSizeY(const int sizeY) {
     sizeY_ = sizeY;
   }
 
@@ -347,7 +347,7 @@ class ConnectorContainer {
    * @return @b true if the variable is connected, @b false otherwise
    * WARNING : do not check whether discrete variables are not connected (in this case, they are just set to 0)
    */
-  bool isConnected(const int numVariable);
+  bool isConnected(int numVariable);
 
  private:
   /**
@@ -356,7 +356,7 @@ class ConnectorContainer {
    *
    * @return information describing the Y connector (which models are connected)
    */
-  std::string getYConnectorInfos(const int index) const;
+  std::string getYConnectorInfos(int index) const;
 
   /**
    * @brief get Flow connector's information according to its index
@@ -384,7 +384,7 @@ class ConnectorContainer {
    * @param factor factor to use for each variables
    * @return result of the operation
    */
-  double multiplyAndAdd(const std::vector<unsigned int>& index, const std::vector<int>& factor);
+  double multiplyAndAdd(const std::vector<unsigned int>& index, const std::vector<int>& factor) const;
 
   /**
    * @brief get connector's information
@@ -428,12 +428,12 @@ class ConnectorContainer {
   /**
    * @brief evaluate the initial value of each variables connected to another one for y connector
    */
-  void getY0ConnectorForYConnector();
+  void getY0ConnectorForYConnector() const;
 
   /**
    * @brief evaluate the initial value of each variables connected to another one for z connector
    */
-  void getY0ConnectorForZConnector();
+  void getY0ConnectorForZConnector() const;
 
   /**
    * @brief compute the variable id to use in the flow connector structures

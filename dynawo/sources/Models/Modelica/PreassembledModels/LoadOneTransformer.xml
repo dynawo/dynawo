@@ -15,7 +15,7 @@
   <!-- LoadAlphaBeta plus transformer-->
   <dyn:modelicaModel id="LoadOneTransformer">
     <dyn:unitDynamicModel id="load" name="Dynawo.Electrical.Loads.LoadAlphaBeta" initName="Dynawo.Electrical.Loads.LoadConnect_INIT"/>
-    <dyn:unitDynamicModel id="transformer" name="Dynawo.Electrical.Transformers.TransformerVariableTap" initName="Dynawo.Electrical.Transformers.TransformerVariableTapPQ_INIT"/>
+    <dyn:unitDynamicModel id="transformer" name="Dynawo.Electrical.Transformers.TransformersVariableTap.TransformerVariableTap" initName="Dynawo.Electrical.Transformers.TransformersVariableTap.TransformerVariableTapPQ_INIT"/>
     <dyn:initConnect id1="load" var1="u0Pu" id2="transformer" var2="u20Pu"/>
     <dyn:initConnect id1="load" var1="i0Pu" id2="transformer" var2="i20Pu"/>
     <dyn:connect id1="load" var1="terminal" id2="transformer" var2="terminal2"/>

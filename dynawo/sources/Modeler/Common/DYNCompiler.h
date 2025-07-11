@@ -119,7 +119,7 @@ class Compiler {
    * translate unitDynamic Model name to new unitDynamic Model name
    * reset old static ref and add new static ref
    */
-  void concatRefs();
+  void concatRefs() const;
 
  private:
   /**
@@ -157,7 +157,7 @@ class Compiler {
    * @param rawVariableName the variable name as written in the .dyd file
    * @returns the full internal variable name to use for the connect
    */
-  std::string connectVariableName(const std::shared_ptr<ModelDescription>& model, const std::string& rawVariableName);
+  std::string connectVariableName(const std::shared_ptr<ModelDescription>& model, const std::string& rawVariableName) const;
 
   /**
    * @brief compute a Modelica model variable name (based on possible model aliasing)
@@ -167,7 +167,7 @@ class Compiler {
    * @returns the full internal variable name to use for the connect
    */
   std::string modelicaModelVariableName(const std::string& rawVariableName, const std::string& modelId,
-                                        const std::map<std::string, std::shared_ptr<dynamicdata::UnitDynamicModel> >& unitDynamicModels);
+                                        const std::map<std::string, std::shared_ptr<dynamicdata::UnitDynamicModel> >& unitDynamicModels) const;
 
  private:
   /**
@@ -185,7 +185,7 @@ class Compiler {
    * @param internalConnects modelica Model internal connections
    * @returns the the path to the model concat file
    */
-  const std::string writeConcatModelicaFile(const std::string& modelID, const std::shared_ptr<ModelDescription>& modelicaModelDescription,
+  std::string writeConcatModelicaFile(const std::string& modelID, const std::shared_ptr<ModelDescription>& modelicaModelDescription,
       const std::vector<boost::shared_ptr<dynamicdata::Connector> >& macroConnection,
       const std::map<std::string, std::shared_ptr<dynamicdata::UnitDynamicModel> >& unitDynamicModels,
       const std::vector<std::shared_ptr<dynamicdata::Connector> >& internalConnects) const;
@@ -211,7 +211,7 @@ class Compiler {
    * @param macroConnects modelica Model macro connections map
    * @returns the the path to the init concat file
    */
-  const std::string writeInitFile(const std::shared_ptr<ModelDescription>& modelicaModelDescription,
+  std::string writeInitFile(const std::shared_ptr<ModelDescription>& modelicaModelDescription,
       const std::map<std::string, std::shared_ptr<dynamicdata::UnitDynamicModel> >& unitDynamicModels,
       const std::map<std::string, std::shared_ptr<dynamicdata::MacroConnect> >& macroConnects) const;
 
@@ -230,7 +230,7 @@ class Compiler {
    * @param internalConnects modelica Model internal connections
    * @param extVarConnected after calling this method, contains the existing connected extvar
    */
-  void collectConnectedExtVar(std::string itUnitDynamicModelName,
+  void collectConnectedExtVar(const std::string& itUnitDynamicModelName,
       const std::vector<boost::shared_ptr<dynamicdata::Connector> >& macroConnection,
       const std::vector<std::shared_ptr<dynamicdata::Connector> >& internalConnects, std::set<std::string>& extVarConnected) const;
 

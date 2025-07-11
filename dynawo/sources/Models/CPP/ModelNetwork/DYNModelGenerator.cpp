@@ -77,13 +77,13 @@ ModelGenerator::evalNodeInjection() {
     modelBus_->irAdd(ir0_);
     modelBus_->iiAdd(ii0_);
   } else if (isConnected() && !modelBus_->getSwitchOff()) {
-     double U2 = modelBus_->getCurrentU(ModelBus::U2PuType_);
+     const double U2 = modelBus_->getCurrentU(ModelBus::U2PuType_);
      if (doubleIsZero(U2))
       return;
-     double Pc = PcPu();
-     double Qc = QcPu();
-     double ur = modelBus_->ur();
-     double ui = modelBus_->ui();
+     const double Pc = PcPu();
+     const double Qc = QcPu();
+     const double ur = modelBus_->ur();
+     const double ui = modelBus_->ui();
      modelBus_->irAdd(ir(ur, ui, U2, Pc, Qc));
      modelBus_->iiAdd(ii(ur, ui, U2, Pc, Qc));
   }
@@ -92,15 +92,15 @@ ModelGenerator::evalNodeInjection() {
 void
 ModelGenerator::evalDerivatives(const double /*cj*/) {
   if (!network_->isInitModel() && isConnected() && !modelBus_->getSwitchOff()) {
-    double ur = modelBus_->ur();
-    double ui = modelBus_->ui();
-    double U2 = ur * ur + ui * ui;
+    const double ur = modelBus_->ur();
+    const double ui = modelBus_->ui();
+    const double U2 = ur * ur + ui * ui;
     if (doubleIsZero(U2))
       return;
-    double Pc = PcPu();
-    double Qc = QcPu();
-    int urYNum = modelBus_->urYNum();
-    int uiYNum = modelBus_->uiYNum();
+    const double Pc = PcPu();
+    const double Qc = QcPu();
+    const int urYNum = modelBus_->urYNum();
+    const int uiYNum = modelBus_->uiYNum();
     modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, urYNum, ir_dUr(ur, ui, U2, Pc, Qc));
     modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, uiYNum, ir_dUi(ur, ui, U2, Pc, Qc));
     modelBus_->derivatives()->addDerivative(II_DERIVATIVE, urYNum, ii_dUr(ur, ui, U2, Pc, Qc));
@@ -148,7 +148,7 @@ ModelGenerator::defineNonGenericParameters(std::vector<ParameterModeler>& /*para
 void
 ModelGenerator::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params) {
   bool startingPointModeFound = false;
-  std::string startingPointMode = getParameterDynamicNoThrow<string>(params, "startingPointMode", startingPointModeFound);
+  const std::string startingPointMode = getParameterDynamicNoThrow<string>(params, "startingPointMode", startingPointModeFound);
   if (startingPointModeFound) {
     startingPointMode_ = getStartingPointMode(startingPointMode);
   }
@@ -156,7 +156,7 @@ ModelGenerator::setSubModelParameters(const std::unordered_map<std::string, Para
 
 void
 ModelGenerator::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
-  string genName = id_;
+  const string genName = id_;
   // ========  CONNECTION STATE ======
   addElementWithValue(genName + string("_state"), "Generator", elements, mapElement);
 
@@ -177,7 +177,7 @@ ModelGenerator::defineElements(std::vector<Element> &elements, std::map<std::str
 }
 
 NetworkComponent::StateChange_t
-ModelGenerator::evalZ(const double& /*t*/) {
+ModelGenerator::evalZ(const double /*t*/) {
   if (modelBus_->getConnectionState() == OPEN)
     z_[0] = OPEN;
 
@@ -204,7 +204,7 @@ ModelGenerator::evalZ(const double& /*t*/) {
     DYNAddTimelineEvent(network_, id_, GeneratorTargetQ, z_[2]);
     Qc_ = z_[2];
   }
-  return stateModified_?NetworkComponent::STATE_CHANGE:NetworkComponent::NO_CHANGE;
+  return stateModified_ ? NetworkComponent::STATE_CHANGE : NetworkComponent::NO_CHANGE;
 }
 
 void
@@ -217,14 +217,51 @@ ModelGenerator::collectSilentZ(BitMask* silentZTable) {
 void
 ModelGenerator::getY0() {
   if (!network_->isInitModel()) {
-    z_[0] = getConnected();
-    z_[1] = Pc_;
-    z_[2] = Qc_;
+    if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
+      z_[0] = getConnected();
+      z_[1] = Pc_;
+      z_[2] = Qc_;
+    } else {
+      State genCurrState = static_cast<State>(static_cast<int>(z_[0]));
+      if (genCurrState == CLOSED) {
+        if (modelBus_->getConnectionState() != CLOSED) {
+          modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
+          stateModified_ = true;
+        }
+      } else if (genCurrState == OPEN) {
+        if (modelBus_->getConnectionState() != OPEN) {
+          modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
+          stateModified_ = true;
+        }
+      } else if (genCurrState == UNDEFINED_STATE) {
+        throw DYNError(Error::MODELER, UndefinedComponentState, id_);
+      } else {
+        throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
+      }
+      setConnected(genCurrState);
+      Pc_ = z_[1];
+      Qc_ = z_[2];
+    }
   }
 }
 
+void
+ModelGenerator::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
+  ModelCPP::dumpInStream(streamVariables, ir0_);
+  ModelCPP::dumpInStream(streamVariables, ii0_);
+}
+
+void
+ModelGenerator::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
+  char c;
+  streamVariables >> c;
+  streamVariables >> ir0_;
+  streamVariables >> c;
+  streamVariables >> ii0_;
+}
+
 NetworkComponent::StateChange_t
-ModelGenerator::evalState(const double& /*time*/) {
+ModelGenerator::evalState(const double /*time*/) {
   if (stateModified_) {
     stateModified_ = false;
     return NetworkComponent::STATE_CHANGE;
@@ -235,14 +272,14 @@ ModelGenerator::evalState(const double& /*time*/) {
 void
 ModelGenerator::evalCalculatedVars() {
   if (isConnected() && !modelBus_->getSwitchOff()) {
-    double ur = modelBus_->ur();
-    double ui = modelBus_->ui();
-    double U2 = modelBus_->getCurrentU(ModelBus::U2PuType_);
+    const double ur = modelBus_->ur();
+    const double ui = modelBus_->ui();
+    const double U2 = modelBus_->getCurrentU(ModelBus::U2PuType_);
     double irCalculated = 0;
     double iiCalculated = 0;
     if (!doubleIsZero(U2)) {
-      double Pc = PcPu();
-      double Qc = QcPu();
+      const double Pc = PcPu();
+      const double Qc = QcPu();
       irCalculated = ir(ur, ui, U2, Pc, Qc);
       iiCalculated = ii(ur, ui, U2, Pc, Qc);
     }
@@ -260,8 +297,8 @@ ModelGenerator::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculate
   switch (numCalculatedVar) {
     case pNum_:
     case qNum_: {
-      int urYNum = modelBus_->urYNum();
-      int uiYNum = modelBus_->uiYNum();
+      const int urYNum = modelBus_->urYNum();
+      const int uiYNum = modelBus_->uiYNum();
       numVars.push_back(urYNum);
       numVars.push_back(uiYNum);
       break;
@@ -279,12 +316,12 @@ ModelGenerator::evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<doubl
     case pNum_: {
       if (isConnected() && !modelBus_->getSwitchOff()) {
         // P = -(ur*ir + ui* ii)
-        double ur = modelBus_->ur();
-        double ui = modelBus_->ui();
-        double U2 = ur * ur + ui * ui;
+        const double ur = modelBus_->ur();
+        const double ui = modelBus_->ui();
+        const double U2 = ur * ur + ui * ui;
         if (!doubleIsZero(U2)) {
-          double Pc = PcPu();
-          double Qc = QcPu();
+          const double Pc = PcPu();
+          const double Qc = QcPu();
           res[0] = -(ir(ur, ui, U2, Pc, Qc) + ur * ir_dUr(ur, ui, U2, Pc, Qc) + ui * ii_dUr(ur, ui, U2, Pc, Qc));  // @P/@ur
           res[1] = -(ur * ir_dUi(ur, ui, U2, Pc, Qc) + ii(ur, ui, U2, Pc, Qc) + ui * ii_dUi(ur, ui, U2, Pc, Qc));  // @P/@ui
         }
@@ -294,12 +331,12 @@ ModelGenerator::evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<doubl
     case qNum_: {
       if (isConnected() && !modelBus_->getSwitchOff()) {
         // q = ui*ir - ur * ii
-        double ur = modelBus_->ur();
-        double ui = modelBus_->ui();
-        double U2 = ur * ur + ui * ui;
+        const double ur = modelBus_->ur();
+        const double ui = modelBus_->ui();
+        const double U2 = ur * ur + ui * ui;
         if (!doubleIsZero(U2)) {
-          double Pc = PcPu();
-          double Qc = QcPu();
+          const double Pc = PcPu();
+          const double Qc = QcPu();
           res[0] = -(ui * ir_dUr(ur, ui, U2, Pc, Qc) - (ii(ur, ui, U2, Pc, Qc) + ur * ii_dUr(ur, ui, U2, Pc, Qc)));  // @Q/@ur
           res[1] = -(ir(ur, ui, U2, Pc, Qc) + ui * ir_dUi(ur, ui, U2, Pc, Qc) - ur * ii_dUi(ur, ui, U2, Pc, Qc));  // @Q/@ui
         }
@@ -319,12 +356,12 @@ ModelGenerator::evalCalculatedVarI(unsigned numCalculatedVar) const {
     case pNum_: {
       if (isConnected() && !modelBus_->getSwitchOff()) {
         // P = ur*ir + ui* ii
-        double U2 = modelBus_->getCurrentU(ModelBus::U2PuType_);
+        const double U2 = modelBus_->getCurrentU(ModelBus::U2PuType_);
         if (!doubleIsZero(U2)) {
-          double ur = modelBus_->ur();
-          double ui = modelBus_->ui();
-          double Pc = PcPu();
-          double Qc = QcPu();
+          const double ur = modelBus_->ur();
+          const double ui = modelBus_->ui();
+          const double Pc = PcPu();
+          const double Qc = QcPu();
           return -(ur * ir(ur, ui, U2, Pc, Qc) + ui * ii(ur, ui, U2, Pc, Qc));
         }
       }
@@ -333,12 +370,12 @@ ModelGenerator::evalCalculatedVarI(unsigned numCalculatedVar) const {
     case qNum_: {
       if (isConnected() && !modelBus_->getSwitchOff()) {
         // q = ui*ir - ur * ii
-        double U2 = modelBus_->getCurrentU(ModelBus::U2PuType_);
+        const double U2 = modelBus_->getCurrentU(ModelBus::U2PuType_);
         if (!doubleIsZero(U2)) {
-          double ur = modelBus_->ur();
-          double ui = modelBus_->ui();
-          double Pc = PcPu();
-          double Qc = QcPu();
+          const double ur = modelBus_->ur();
+          const double ui = modelBus_->ui();
+          const double Pc = PcPu();
+          const double Qc = QcPu();
           return -(ui * ir(ur, ui, U2, Pc, Qc) - ur * ii(ur, ui, U2, Pc, Qc));
         }
       }
@@ -364,46 +401,48 @@ ModelGenerator::setGequations(std::map<int, std::string>& /*gEquationIndex*/) {
 
 void
 ModelGenerator::init(int & /*yNum*/) {
-  double uNode = 0.;
-  std::shared_ptr<GeneratorInterface> generator = generator_.lock();
-  double thetaNode = generator->getBusInterface()->getAngle0();
-  double unomNode = generator->getBusInterface()->getVNom();
-  switch (startingPointMode_) {
-  case FLAT:
-    Pc_ = isConnected() ? -1. * generator->getTargetP() : 0.;
-    Qc_ = isConnected() ? -1. * generator->getTargetQ() : 0.;
-    uNode = generator->getBusInterface()->getVNom();
-    break;
-  case WARM:
-    Pc_ = isConnected() ? -1. * generator->getP() : 0.;
-    Qc_ = isConnected() ? -1. * generator->getQ() : 0.;
-    uNode = generator->getBusInterface()->getV0();
-    break;
-  }
-  double ur0 = uNode / unomNode * cos(thetaNode * DEG_TO_RAD);
-  double ui0 = uNode / unomNode * sin(thetaNode * DEG_TO_RAD);
-  double U20 = ur0 * ur0 + ui0 * ui0;
-  if (!doubleIsZero(U20)) {
-    ir0_ = (-PcPu() * ur0 - QcPu() * ui0) / U20;
-    ii0_ = (-PcPu() * ui0 + QcPu() * ur0) / U20;
-  } else {
-    ir0_ = 0.;
-    ii0_ = 0.;
+  if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
+    double uNode = 0.;
+    const std::shared_ptr<GeneratorInterface> generator = generator_.lock();
+    const double thetaNode = generator->getBusInterface()->getAngle0();
+    const double unomNode = generator->getBusInterface()->getVNom();
+    switch (startingPointMode_) {
+    case FLAT:
+      Pc_ = isConnected() ? -1. * generator->getTargetP() : 0.;
+      Qc_ = isConnected() ? -1. * generator->getTargetQ() : 0.;
+      uNode = generator->getBusInterface()->getVNom();
+      break;
+    case WARM:
+      Pc_ = isConnected() ? -1. * generator->getP() : 0.;
+      Qc_ = isConnected() ? -1. * generator->getQ() : 0.;
+      uNode = generator->getBusInterface()->getV0();
+      break;
+    }
+    const double ur0 = uNode / unomNode * cos(thetaNode * DEG_TO_RAD);
+    const double ui0 = uNode / unomNode * sin(thetaNode * DEG_TO_RAD);
+    const double U20 = ur0 * ur0 + ui0 * ui0;
+    if (!doubleIsZero(U20)) {
+      ir0_ = (-PcPu() * ur0 - QcPu() * ui0) / U20;
+      ii0_ = (-PcPu() * ui0 + QcPu() * ur0) / U20;
+    } else {
+      ir0_ = 0.;
+      ii0_ = 0.;
+    }
   }
 }
 
 void
-ModelGenerator::evalJt(SparseMatrix& /*jt*/, const double& /*cj*/, const int& /*rowOffset*/) {
+ModelGenerator::evalJt(const double /*cj*/, const int /*rowOffset*/, SparseMatrix& /*jt*/) {
   // not needed
 }
 
 void
-ModelGenerator::evalJtPrim(SparseMatrix& /*jt*/, const int& /*rowOffset*/) {
+ModelGenerator::evalJtPrim(const int /*rowOffset*/, SparseMatrix& /*jtPrim*/) {
   // not needed
 }
 
 void
-ModelGenerator::evalG(const double& /*t*/) {
+ModelGenerator::evalG(const double /*t*/) {
   // not needed
 }
 }  // namespace DYN

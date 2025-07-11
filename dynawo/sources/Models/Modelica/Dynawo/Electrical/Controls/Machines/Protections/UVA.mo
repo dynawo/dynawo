@@ -23,7 +23,7 @@ model UVA "Under-Voltage Automaton"
   parameter Types.VoltageModulePu UMinPu "Voltage threshold under which the automaton is activated in pu (base UNom)";
   parameter Types.Time tLagAction "Time-lag due to the actual trip action in s";
 
-  Types.VoltageModulePu UMonitoredPu "Monitored voltage in pu (base UNom)";
+  Dynawo.Connectors.VoltageModulePuConnector UMonitoredPu "Monitored voltage in pu (base UNom)";
   Dynawo.Connectors.BPin switchOffSignal(value(start = false)) "Switch off message for the generator";
 
 protected

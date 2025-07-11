@@ -19,38 +19,14 @@
  */
 #include "JOBJobsCollection.h"
 
-#include "JOBIterators.h"
 #include "JOBJobEntry.h"
 
-using boost::shared_ptr;
-using std::string;
-using std::vector;
 
 namespace job {
 
 void
-JobsCollection::addJob(const shared_ptr<JobEntry>& job) {
-  jobs_.push_back(job);
-}
-
-job_const_iterator
-JobsCollection::cbegin() const {
-  return job_const_iterator(this, true);
-}
-
-job_const_iterator
-JobsCollection::cend() const {
-  return job_const_iterator(this, false);
-}
-
-job_iterator
-JobsCollection::begin() {
-  return job_iterator(this, true);
-}
-
-job_iterator
-JobsCollection::end() {
-  return job_iterator(this, false);
+JobsCollection::addJob(const std::shared_ptr<JobEntry>& jobEntry) {
+  jobs_.push_back(jobEntry);
 }
 
 }  // namespace job

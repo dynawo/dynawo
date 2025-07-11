@@ -47,66 +47,66 @@ class SwitchInterfaceIIDM : public SwitchInterface {
   /**
    * @copydoc SwitchInterface::setBusInterface1(const std::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface1(const std::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface1(const std::shared_ptr<BusInterface>& busInterface) override;
 
   /**
    * @copydoc SwitchInterface::setBusInterface2(const std::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface2(const std::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface2(const std::shared_ptr<BusInterface>& busInterface) override;
 
   /**
    * @copydoc SwitchInterface::getBusInterface1() const
    */
-  std::shared_ptr<BusInterface> getBusInterface1() const;
+  std::shared_ptr<BusInterface> getBusInterface1() const override;
 
   /**
    * @copydoc SwitchInterface::getBusInterface2() const
    */
-  std::shared_ptr<BusInterface> getBusInterface2() const;
+  std::shared_ptr<BusInterface> getBusInterface2() const override;
 
   /**
    * @copydoc SwitchInterface::isOpen() const
    */
-  bool isOpen() const;
+  bool isOpen() const override;
 
   /**
    * @copydoc SwitchInterface::getID() const
    */
-  std::string getID() const;
+  const std::string& getID() const override;
 
   /**
    * @copydoc ComponentInterface::isConnected()
    */
-  bool isConnected() const;
+  bool isConnected() const override;
 
   /**
    * @copydoc ComponentInterface::importStaticParameters()
    */
-  void importStaticParameters();
+  void importStaticParameters() override;
   /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
-  void exportStateVariablesUnitComponent();
+  void exportStateVariablesUnitComponent() override;
 
   /**
    * @copydoc SwitchInterface::open()
    */
-  void open();
+  void open() override;
 
   /**
    * @copydoc SwitchInterface::close()
    */
-  void close();
+  void close() override;
 
   /**
    * @copydoc ComponentInterface::getComponentVarIndex()
    */
-  int getComponentVarIndex(const std::string& varName) const;
+  int getComponentVarIndex(const std::string& varName) const override;
 
   /**
    * @copydoc SwitchInterface::isRetained()
    */
-  bool isRetained() const;
+  bool isRetained() const override;
 
  private:
   powsybl::iidm::Switch& switchIIDM_;              ///< reference to the iidm switch instance

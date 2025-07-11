@@ -18,73 +18,73 @@ model NetworkWithTrf "RVS test grid with buses, lines, shunts, alpha-beta loads 
 
   extends NetworkWithAlphaBetaLoads;
 
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_10121_121(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 471, XPu = 0.15 * 100 / 471, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_10121_121(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 471, XPu = 0.15 * 100 / 471, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-114, 282}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_10118_118(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 471, XPu = 0.15 * 100 / 471, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_10118_118(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 471, XPu = 0.15 * 100 / 471, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-14, 200}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_30115_115(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 14, XPu = 0.15 * 100 / 14, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_30115_115(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 14, XPu = 0.15 * 100 / 14, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-224, 212}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_40115_115(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 14, XPu = 0.15 * 100 / 14, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_40115_115(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 14, XPu = 0.15 * 100 / 14, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-224, 172}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_60115_115(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 182, XPu = 0.15 * 100 / 182, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_60115_115(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 182, XPu = 0.15 * 100 / 182, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-224, 92}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_50115_115(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 14, XPu = 0.15 * 100 / 14, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_50115_115(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 14, XPu = 0.15 * 100 / 14, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-224, 132}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_20115_115(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 14, XPu = 0.15 * 100 / 14, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_20115_115(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 14, XPu = 0.15 * 100 / 14, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-224, 252}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_10115_115(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 14, XPu = 0.15 * 100 / 14, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_10115_115(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 14, XPu = 0.15 * 100 / 14, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-224, 292}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_10114_114(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 200, XPu = 0.15 * 100 / 200, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_10114_114(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 200, XPu = 0.15 * 100 / 200, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-26, 124}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_10116_116(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 182, XPu = 0.15 * 100 / 182, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_10116_116(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 182, XPu = 0.15 * 100 / 182, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-106, 144}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_30101_101(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 89, XPu = 0.15 * 100 / 89, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_30101_101(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 89, XPu = 0.15 * 100 / 89, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-168, -226}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_40101_101(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 89, XPu = 0.15 * 100 / 89, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_40101_101(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 89, XPu = 0.15 * 100 / 89, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-128, -226}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_10101_101(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 24, XPu = 0.15 * 100 / 24, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_10101_101(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 24, XPu = 0.15 * 100 / 24, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-248, -226}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_20101_101(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 24, XPu = 0.15 * 100 / 24, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_20101_101(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 24, XPu = 0.15 * 100 / 24, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-208, -226}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_20102_102(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 24, XPu = 0.15 * 100 / 24, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_20102_102(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 24, XPu = 0.15 * 100 / 24, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-4, -266}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_30102_102(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 89, XPu = 0.15 * 100 / 89, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_30102_102(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 89, XPu = 0.15 * 100 / 89, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {36, -266}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_10102_102(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 24, XPu = 0.15 * 100 / 24, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_10102_102(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 24, XPu = 0.15 * 100 / 24, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {-44, -266}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_40102_102(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 89, XPu = 0.15 * 100 / 89, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_40102_102(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 89, XPu = 0.15 * 100 / 89, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {76, -266}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_10106_106(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 120, XPu = 0.15 * 100 / 120, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_10106_106(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 120, XPu = 0.15 * 100 / 120, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {132, -226}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_30122_122(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 53, XPu = 0.15 * 100 / 53, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_30122_122(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 53, XPu = 0.15 * 100 / 53, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {246, 308}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_20122_122(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 53, XPu = 0.15 * 100 / 53, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_20122_122(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 53, XPu = 0.15 * 100 / 53, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {206, 238}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_50122_122(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 53, XPu = 0.15 * 100 / 53, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_50122_122(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 53, XPu = 0.15 * 100 / 53, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {246, 228}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_40122_122(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 53, XPu = 0.15 * 100 / 53, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_40122_122(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 53, XPu = 0.15 * 100 / 53, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {246, 268}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_60122_122(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 53, XPu = 0.15 * 100 / 53, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_60122_122(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 53, XPu = 0.15 * 100 / 53, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {246, 188}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_10122_122(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 53, XPu = 0.15 * 100 / 53, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_10122_122(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 53, XPu = 0.15 * 100 / 53, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {206, 278}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_20123_123(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 182, XPu = 0.15 * 100 / 182, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_20123_123(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 182, XPu = 0.15 * 100 / 182, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {246, 106}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_30123_123(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 412, XPu = 0.15 * 100 / 412, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_30123_123(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 412, XPu = 0.15 * 100 / 412, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {246, 66}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_10123_123(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 182, XPu = 0.15 * 100 / 182, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_10123_123(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 182, XPu = 0.15 * 100 / 182, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {246, 146}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_10113_113(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 232, XPu = 0.15 * 100 / 232, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_10113_113(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 232, XPu = 0.15 * 100 / 232, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {146, 46}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_30113_113(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 232, XPu = 0.15 * 100 / 232, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_30113_113(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 232, XPu = 0.15 * 100 / 232, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {146, -34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_20113_113(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 232, XPu = 0.15 * 100 / 232, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_20113_113(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 232, XPu = 0.15 * 100 / 232, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {146, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_30107_107(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 118, XPu = 0.15 * 100 / 118, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_30107_107(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 118, XPu = 0.15 * 100 / 118, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {256, -214}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_20107_107(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 118, XPu = 0.15 * 100 / 118, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_20107_107(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 118, XPu = 0.15 * 100 / 118, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {256, -174}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio tfo_10107_107(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 118, XPu = 0.15 * 100 / 118, rTfoPu = 1 / 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio tfo_10107_107(BPu = 0, GPu = 0, RPu = 0.003 * 100 / 118, XPu = 0.15 * 100 / 118, rTfoPu = 1 / 1.05) annotation(
     Placement(visible = true, transformation(origin = {256, -134}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Examples.RVS.Components.TransformerWithControl.TransformerWithControl tfo_1101_101(P10Pu = -P0Pu_load_1101_ABEL, Q10Pu = -Q0Pu_load_1101_ABEL, U10Pu = U0Pu_load_1101_ABEL, U1Phase0 = UPhase0_load_1101_ABEL, tfo = TransformerParameters.tfoPreset.trafo_1101_101) annotation(
     Placement(visible = true, transformation(origin = {-248, -186}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -120,15 +120,15 @@ model NetworkWithTrf "RVS test grid with buses, lines, shunts, alpha-beta loads 
     Placement(visible = true, transformation(origin = {66, 106}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Dynawo.Examples.RVS.Components.TransformerWithControl.TransformerWithControl tfo_1120_120(P10Pu = -P0Pu_load_1120_ATTILA, Q10Pu = -Q0Pu_load_1120_ATTILA, U10Pu = U0Pu_load_1120_ATTILA, U1Phase0 = UPhase0_load_1120_ATTILA, tfo = TransformerParameters.tfoPreset.trafo_1120_120) annotation(
     Placement(visible = true, transformation(origin = {146, 106}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerVariableTap tfo_103_124(B = 0, G = 0, NbTap = 33, R = 0.008 * 100 * 0.8212890625, SNom = 400, Tap0 = 1, X = 0.336 * 100 * 0.8212890625, rTfo0Pu = 1 - 0.1 * (16 - 1) / 16, rTfoMaxPu = 1.1, rTfoMinPu = 0.9, u10Pu = Complex(1, 0)) annotation(
+  Dynawo.Electrical.Transformers.TransformersVariableTap.TransformerVariableTap tfo_103_124(B = 0, G = 0, NbTap = 33, R = 0.008 * 100 * 0.8212890625, SNom = 400, Tap0 = 1, X = 0.336 * 100 * 0.8212890625, rTfo0Pu = 1 - 0.1 * (16 - 1) / 16, rTfoMaxPu = 1.1, rTfoMinPu = 0.9, P10Pu = -2.0674669991505366, Q10Pu = -0.8278943318463655, U10Pu = 0.5643814685468245, U20Pu = 0.7367577305726288, i10Pu = Complex(-1.9809294405337987, 3.4127828512440663), i20Pu = Complex(2.1858531757614332, -3.7658293530969007), u10Pu = Complex(0.44447081416627204, -0.3478104906316679), u20Pu = Complex(0.7235030473498466, -0.13912324907718243)) annotation(
     Placement(visible = true, transformation(origin = {-168, 16}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Dynawo.Electrical.Transformers.TransformerVariableTap tfo_109_111(B = 0, G = 0, NbTap = 33, R = 0.008 * 100 * 0.950625, SNom = 400, Tap0 = 12, X = 0.336 * 100 * 0.950625, rTfo0Pu = 1 - 0.1 * (16 - 12) / 16, rTfoMaxPu = 1.1, rTfoMinPu = 0.9, u10Pu = Complex(1, 0)) annotation(
+  Dynawo.Electrical.Transformers.TransformersVariableTap.TransformerVariableTap tfo_109_111(B = 0, G = 0, NbTap = 33, R = 0.008 * 100 * 0.950625, SNom = 400, Tap0 = 12, X = 0.336 * 100 * 0.950625, rTfo0Pu = 1 - 0.1 * (16 - 12) / 16, rTfoMaxPu = 1.1, rTfoMinPu = 0.9, P10Pu = -1.3921019803593908, Q10Pu = -1.469274181747898, U10Pu = 0.5734984530663261, U20Pu = 0.8109086245097459, i10Pu = Complex(-0.31706869245034286, 3.515004307198258), i20Pu = Complex(2.1858531757614332, -3.6051326227674445), u10Pu = Complex(0.45006362594634075, -0.3554478981081493), u20Pu = Complex(0.7422935729279945, -0.32645527855141243)) annotation(
     Placement(visible = true, transformation(origin = {-74, 16}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Dynawo.Electrical.Transformers.TransformerVariableTap tfo_109_112(B = 0, G = 0, NbTap = 33, R = 0.008 * 100 * 0.81, SNom = 400, Tap0 = 0, X = 0.336 * 100 * 0.81, rTfo0Pu = 1 - 0.1 * (16 - 0) / 16, rTfoMaxPu = 1.1, rTfoMinPu = 0.9, u10Pu = Complex(1, 0)) annotation(
+  Dynawo.Electrical.Transformers.TransformersVariableTap.TransformerVariableTap tfo_109_112(B = 0, G = 0, NbTap = 33, R = 0.008 * 100 * 0.81, SNom = 400, Tap0 = 0, X = 0.336 * 100 * 0.81, rTfo0Pu = 1 - 0.1 * (16 - 0) / 16, rTfoMaxPu = 1.1, rTfoMinPu = 0.9, P10Pu = -1.4530289244781727, Q10Pu = -1.4529973093216415, U10Pu = 0.5734984530663261, U20Pu = 0.7926055515470116, i10Pu = Complex(-0.4180310974635271, 3.5585759255511253), i20Pu = Complex(0.4644789971816968, -3.9539732506123615), u10Pu = Complex(0.45006362594634075, -0.3554478981081493), u20Pu = Complex(0.7381199743975085, -0.2887948190352966)) annotation(
     Placement(visible = true, transformation(origin = {-24, -14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerVariableTap tfo_110_111(B = 0, G = 0, NbTap = 33, R = 0.008 * 100 * 0.9628515625, SNom = 400, Tap0 = 13, X = 0.336 * 100 * 0.9628515625, rTfo0Pu = 1 - 0.1 * (16 - 13) / 16, rTfoMaxPu = 1.1, rTfoMinPu = 0.9, u10Pu = Complex(1, 0)) annotation(
+  Dynawo.Electrical.Transformers.TransformersVariableTap.TransformerVariableTap tfo_110_111(B = 0, G = 0, NbTap = 33, R = 0.008 * 100 * 0.9628515625, SNom = 400, Tap0 = 13, X = 0.336 * 100 * 0.9628515625, rTfo0Pu = 1 - 0.1 * (16 - 13) / 16, rTfoMaxPu = 1.1, rTfoMinPu = 0.9, P10Pu = -2.2721942168025606, Q10Pu = 0.3034557318210951, U10Pu = 0.816333378175967, U20Pu = 0.8109086245097459, i10Pu = Complex(-2.347688772786887, 1.540758728249956), i20Pu = Complex(2.3925490678082926, -1.5701999778343503), u10Pu = Complex(0.617183874297368, -0.5343072614437099), u20Pu = Complex(0.7422935729279945, -0.32645527855141243)) annotation(
     Placement(visible = true, transformation(origin = {-24, -44}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Transformers.TransformerVariableTap tfo_110_112(B = 0, G = 0, NbTap = 33, R = 0.008 * 100 * 0.950625, SNom = 400, Tap0 = 12, X = 0.336 * 100 * 0.950625, rTfo0Pu = 1 - 0.1 * (16 - 12) / 16, rTfoMaxPu = 1.1, rTfoMinPu = 0.9, u10Pu = Complex(1, 0)) annotation(
+  Dynawo.Electrical.Transformers.TransformersVariableTap.TransformerVariableTap tfo_110_112(B = 0, G = 0, NbTap = 33, R = 0.008 * 100 * 0.950625, SNom = 400, Tap0 = 12, X = 0.336 * 100 * 0.950625, rTfo0Pu = 1 - 0.1 * (16 - 12) / 16, rTfoMaxPu = 1.1, rTfoMinPu = 0.9, P10Pu = -2.4963705890132637, Q10Pu = 0.5223217248537733, U10Pu = 0.816333378175967, U20Pu = 0.7926055515470116, i10Pu = Complex(-2.7307915048881473, 1.5177972800459392), i20Pu = Complex(2.8008117998852797, -1.5567151590214763), u10Pu = Complex(0.617183874297368, -0.5343072614437099), u20Pu = Complex(0.7381199743975085, -0.2887948190352966)) annotation(
     Placement(visible = true, transformation(origin = {28, 16}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
 equation
@@ -140,10 +140,6 @@ equation
     tfo_110_112.tap.value = tfo_110_112.Tap0;
   end when;
 
-  tfo_1101_101.tfoVariableTap.switchOffSignal1.value = false;
-  tfo_1101_101.tfoVariableTap.switchOffSignal2.value = false;
-  tfo_1101_101.tapChanger.switchOffSignal1.value = false;
-  tfo_1101_101.tapChanger.switchOffSignal2.value = false;
   tfo_10101_101.switchOffSignal1.value = false;
   tfo_10101_101.switchOffSignal2.value = false;
   tfo_20101_101.switchOffSignal1.value = false;
@@ -152,10 +148,6 @@ equation
   tfo_30101_101.switchOffSignal2.value = false;
   tfo_40101_101.switchOffSignal1.value = false;
   tfo_40101_101.switchOffSignal2.value = false;
-  tfo_1102_102.tfoVariableTap.switchOffSignal1.value = false;
-  tfo_1102_102.tfoVariableTap.switchOffSignal2.value = false;
-  tfo_1102_102.tapChanger.switchOffSignal1.value = false;
-  tfo_1102_102.tapChanger.switchOffSignal2.value = false;
   tfo_10102_102.switchOffSignal1.value = false;
   tfo_10102_102.switchOffSignal2.value = false;
   tfo_20102_102.switchOffSignal1.value = false;
@@ -164,44 +156,16 @@ equation
   tfo_30102_102.switchOffSignal2.value = false;
   tfo_40102_102.switchOffSignal1.value = false;
   tfo_40102_102.switchOffSignal2.value = false;
-  tfo_1103_103.tfoVariableTap.switchOffSignal1.value = false;
-  tfo_1103_103.tfoVariableTap.switchOffSignal2.value = false;
-  tfo_1103_103.tapChanger.switchOffSignal1.value = false;
-  tfo_1103_103.tapChanger.switchOffSignal2.value = false;
   tfo_103_124.switchOffSignal1.value = false;
   tfo_103_124.switchOffSignal2.value = false;
-  tfo_1104_104.tfoVariableTap.switchOffSignal1.value = false;
-  tfo_1104_104.tfoVariableTap.switchOffSignal2.value = false;
-  tfo_1104_104.tapChanger.switchOffSignal1.value = false;
-  tfo_1104_104.tapChanger.switchOffSignal2.value = false;
-  tfo_1105_105.tfoVariableTap.switchOffSignal1.value = false;
-  tfo_1105_105.tfoVariableTap.switchOffSignal2.value = false;
-  tfo_1105_105.tapChanger.switchOffSignal1.value = false;
-  tfo_1105_105.tapChanger.switchOffSignal2.value = false;
-  tfo_1106_106.tfoVariableTap.switchOffSignal1.value = false;
-  tfo_1106_106.tfoVariableTap.switchOffSignal2.value = false;
-  tfo_1106_106.tapChanger.switchOffSignal1.value = false;
-  tfo_1106_106.tapChanger.switchOffSignal2.value = false;
   tfo_10106_106.switchOffSignal1.value = false;
   tfo_10106_106.switchOffSignal2.value = false;
-  tfo_1107_107.tfoVariableTap.switchOffSignal1.value = false;
-  tfo_1107_107.tfoVariableTap.switchOffSignal2.value = false;
-  tfo_1107_107.tapChanger.switchOffSignal1.value = false;
-  tfo_1107_107.tapChanger.switchOffSignal2.value = false;
   tfo_10107_107.switchOffSignal1.value = false;
   tfo_10107_107.switchOffSignal2.value = false;
   tfo_20107_107.switchOffSignal1.value = false;
   tfo_20107_107.switchOffSignal2.value = false;
   tfo_30107_107.switchOffSignal1.value = false;
   tfo_30107_107.switchOffSignal2.value = false;
-  tfo_1108_108.tfoVariableTap.switchOffSignal1.value = false;
-  tfo_1108_108.tfoVariableTap.switchOffSignal2.value = false;
-  tfo_1108_108.tapChanger.switchOffSignal1.value = false;
-  tfo_1108_108.tapChanger.switchOffSignal2.value = false;
-  tfo_1109_109.tfoVariableTap.switchOffSignal1.value = false;
-  tfo_1109_109.tfoVariableTap.switchOffSignal2.value = false;
-  tfo_1109_109.tapChanger.switchOffSignal1.value = false;
-  tfo_1109_109.tapChanger.switchOffSignal2.value = false;
   tfo_109_111.switchOffSignal1.value = false;
   tfo_109_111.switchOffSignal2.value = false;
   tfo_109_112.switchOffSignal1.value = false;
@@ -210,30 +174,14 @@ equation
   tfo_110_111.switchOffSignal2.value = false;
   tfo_110_112.switchOffSignal1.value = false;
   tfo_110_112.switchOffSignal2.value = false;
-  tfo_1110_110.tfoVariableTap.switchOffSignal1.value = false;
-  tfo_1110_110.tfoVariableTap.switchOffSignal2.value = false;
-  tfo_1110_110.tapChanger.switchOffSignal1.value = false;
-  tfo_1110_110.tapChanger.switchOffSignal2.value = false;
-  tfo_1113_113.tfoVariableTap.switchOffSignal1.value = false;
-  tfo_1113_113.tfoVariableTap.switchOffSignal2.value = false;
-  tfo_1113_113.tapChanger.switchOffSignal1.value = false;
-  tfo_1113_113.tapChanger.switchOffSignal2.value = false;
   tfo_10113_113.switchOffSignal1.value = false;
   tfo_10113_113.switchOffSignal2.value = false;
   tfo_20113_113.switchOffSignal1.value = false;
   tfo_20113_113.switchOffSignal2.value = false;
   tfo_30113_113.switchOffSignal1.value = false;
   tfo_30113_113.switchOffSignal2.value = false;
-  tfo_1114_114.tfoVariableTap.switchOffSignal1.value = false;
-  tfo_1114_114.tfoVariableTap.switchOffSignal2.value = false;
-  tfo_1114_114.tapChanger.switchOffSignal1.value = false;
-  tfo_1114_114.tapChanger.switchOffSignal2.value = false;
   tfo_10114_114.switchOffSignal1.value = false;
   tfo_10114_114.switchOffSignal2.value = false;
-  tfo_1115_115.tfoVariableTap.switchOffSignal1.value = false;
-  tfo_1115_115.tfoVariableTap.switchOffSignal2.value = false;
-  tfo_1115_115.tapChanger.switchOffSignal1.value = false;
-  tfo_1115_115.tapChanger.switchOffSignal2.value = false;
   tfo_10115_115.switchOffSignal1.value = false;
   tfo_10115_115.switchOffSignal2.value = false;
   tfo_20115_115.switchOffSignal1.value = false;
@@ -246,26 +194,10 @@ equation
   tfo_50115_115.switchOffSignal2.value = false;
   tfo_60115_115.switchOffSignal1.value = false;
   tfo_60115_115.switchOffSignal2.value = false;
-  tfo_1116_116.tfoVariableTap.switchOffSignal1.value = false;
-  tfo_1116_116.tfoVariableTap.switchOffSignal2.value = false;
-  tfo_1116_116.tapChanger.switchOffSignal1.value = false;
-  tfo_1116_116.tapChanger.switchOffSignal2.value = false;
   tfo_10116_116.switchOffSignal1.value = false;
   tfo_10116_116.switchOffSignal2.value = false;
-  tfo_1118_118.tfoVariableTap.switchOffSignal1.value = false;
-  tfo_1118_118.tfoVariableTap.switchOffSignal2.value = false;
-  tfo_1118_118.tapChanger.switchOffSignal1.value = false;
-  tfo_1118_118.tapChanger.switchOffSignal2.value = false;
   tfo_10118_118.switchOffSignal1.value = false;
   tfo_10118_118.switchOffSignal2.value = false;
-  tfo_1119_119.tfoVariableTap.switchOffSignal1.value = false;
-  tfo_1119_119.tfoVariableTap.switchOffSignal2.value = false;
-  tfo_1119_119.tapChanger.switchOffSignal1.value = false;
-  tfo_1119_119.tapChanger.switchOffSignal2.value = false;
-  tfo_1120_120.tfoVariableTap.switchOffSignal1.value = false;
-  tfo_1120_120.tfoVariableTap.switchOffSignal2.value = false;
-  tfo_1120_120.tapChanger.switchOffSignal1.value = false;
-  tfo_1120_120.tapChanger.switchOffSignal2.value = false;
   tfo_10121_121.switchOffSignal1.value = false;
   tfo_10121_121.switchOffSignal2.value = false;
   tfo_10122_122.switchOffSignal1.value = false;
@@ -512,6 +444,7 @@ equation
   connect(tfo_1107_107.terminal2, bus_107_ALDER.terminal) annotation(
     Line(points = {{216, -204}, {216, -194}, {236, -194}, {236, -174}}, color = {0, 0, 255}));
 
-  annotation(preferredView = "diagram",
+  annotation(
+    preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-300, -340}, {300, 340}})));
 end NetworkWithTrf;

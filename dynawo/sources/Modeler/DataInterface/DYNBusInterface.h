@@ -45,7 +45,7 @@ class BusInterface : public ComponentInterface {
   /**
    * @brief Destructor
    */
-  virtual ~BusInterface() = default;
+  ~BusInterface() override = default;
 
   /**
    * @brief Getter for the voltage magnitude of the bus
@@ -95,7 +95,7 @@ class BusInterface : public ComponentInterface {
    * @brief Getter for the bus' id
    * @return The id of the bus
    */
-  virtual std::string getID() const = 0;
+  const std::string& getID() const override = 0;
 
   /**
    * @brief Getter for the bus index
@@ -121,7 +121,7 @@ class BusInterface : public ComponentInterface {
   /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
-  virtual void exportStateVariablesUnitComponent() = 0;
+  void exportStateVariablesUnitComponent() override = 0;
 
   /**
    * @brief get the identifiers of bus bar section associated to the bus

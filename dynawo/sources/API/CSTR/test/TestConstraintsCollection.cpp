@@ -37,22 +37,16 @@ TEST(APICSTRTest, ConstraintsCollectionIterator) {
   collection1->addConstraint("model2", "constraint1", 3.4, CONSTRAINT_BEGIN);
 
   int nbPoints = 0;
-  for (ConstraintsCollection::const_iterator itPt = collection1->cbegin();
-            itPt != collection1->cend();
-            ++itPt) {
+  for (const auto& constraintPair : collection1->getConstraintsById()) {
+    const auto& constraint = constraintPair.second;
     if (nbPoints == 0) {
-      ASSERT_EQ((*itPt)->getTime(), 1.2);
+      ASSERT_EQ(constraint->getTime(), 1.2);
     } else if (nbPoints == 1) {
-      ASSERT_EQ((*itPt)->getTime(), 3.4);
+      ASSERT_EQ(constraint->getTime(), 3.4);
     }
     ++nbPoints;
   }
   ASSERT_EQ(nbPoints, 2);
-  ConstraintsCollection::const_iterator itPtc(collection1->cbegin());
-  ASSERT_EQ((++itPtc)->get()->getTime(), 3.4);
-  ASSERT_EQ((--itPtc)->get()->getTime(), 1.2);
-  ASSERT_EQ((itPtc++)->get()->getTime(), 1.2);
-  ASSERT_EQ((itPtc--)->get()->getTime(), 3.4);
 }
 
 }  // namespace constraints

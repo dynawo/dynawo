@@ -31,10 +31,10 @@ class MyEmptyModelManager : public ModelManager {
     ModelManager() {
   }
 
-  virtual ~MyEmptyModelManager();
+  ~MyEmptyModelManager() override;
 
  protected:
-  bool hasInit() const {
+  bool hasInit() const override {
     return false;
   }
 };
@@ -69,15 +69,6 @@ TEST(TestModelManager, TestModelManagerCommonLogs) {
 
   std::shared_ptr<constraints::ConstraintsCollection> constraints = constraints::ConstraintsCollectionFactory::newInstance("MyConstraints");
   mm.setConstraints(constraints);
-  constraints::ConstraintsCollection::const_iterator it = constraints->cbegin();
-  assert(it == constraints->cend());
-  ASSERT_NO_THROW(addLogConstraintBegin_(&mm, mess));
-  it = constraints->cbegin();
-  ++it;
-  assert(it == constraints->cend());
-  ASSERT_NO_THROW(addLogConstraintEnd_(&mm, mess));
-  it = constraints->cbegin();
-  assert(it == constraints->cend());
 
   ASSERT_THROW(assert_(&mm, mess), MessageError);
   ASSERT_THROW(throw_(&mm, mess), MessageError);

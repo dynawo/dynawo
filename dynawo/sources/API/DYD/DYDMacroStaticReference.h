@@ -20,10 +20,10 @@
 #ifndef API_DYD_DYDMACROSTATICREFERENCE_H_
 #define API_DYD_DYDMACROSTATICREFERENCE_H_
 
-#include "DYDIterators.h"
 #include "DYDStaticRef.h"
 
 #include <map>
+#include <memory>
 #include <string>
 
 namespace dynamicdata {
@@ -58,30 +58,6 @@ class MacroStaticReference {
   void addStaticRef(const std::string& var, const std::string& staticVar);
 
   /**
-   * @brief staticRef iterator : beginning of staticRefs
-   * @return beginning of staticRefs
-   */
-  staticRef_const_iterator cbeginStaticRef() const;
-
-  /**
-   * @brief staticRef iterator : end of staticRefs
-   * @return end of staticRefs
-   */
-  staticRef_const_iterator cendStaticRef() const;
-
-  /**
-   * @brief staticRef iterator : beginning of staticRefs
-   * @return beginning of staticRefs
-   */
-  staticRef_iterator beginStaticRef();
-
-  /**
-   * @brief staticRef iterator : end of staticRefs
-   * @return end of staticRefs
-   */
-  staticRef_iterator endStaticRef();
-
-  /**
    * @brief find a staticRef thanks to its key (var_staticVar)
    * @param key key of the staticRef to be found
    * @throws Error::API exception if staticRef doesn't exist
@@ -89,8 +65,14 @@ class MacroStaticReference {
    */
   const std::unique_ptr<StaticRef>& findStaticRef(const std::string& key);
 
-  friend class staticRef_const_iterator;
-  friend class staticRef_iterator;
+  /**
+  * @brief get the static refs
+  *
+  * @return static refs
+  */
+  const std::map<std::string, std::unique_ptr<StaticRef> >& getStaticReferences() const {
+    return staticRefs_;
+  }
 
  private:
   std::string id_;                                                   ///< id of the macroStaticReference

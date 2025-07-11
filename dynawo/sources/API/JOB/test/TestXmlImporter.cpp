@@ -21,7 +21,6 @@
 #include "JOBXmlImporter.h"
 #include "JOBJobsCollection.h"
 #include "JOBJobEntry.h"
-#include "JOBIterators.h"
 #include "JOBSolverEntry.h"
 #include "JOBModelerEntry.h"
 #include "JOBNetworkEntry.h"
@@ -47,13 +46,13 @@ namespace job {
 
 TEST(APIJOBTest, testXmlImporterMissingFile) {
   XmlImporter importer;
-  boost::shared_ptr<JobsCollection> jobs;
+  std::shared_ptr<JobsCollection> jobs;
   ASSERT_THROW_DYNAWO(jobs = importer.importFromFile("res/dummmyFile.jobs"), DYN::Error::API, DYN::KeyError_t::FileSystemItemDoesNotExist);
 }
 
 TEST(APIJOBTest, testXmlWrongFile) {
   XmlImporter importer;
-  boost::shared_ptr<JobsCollection> jobs;
+  std::shared_ptr<JobsCollection> jobs;
   ASSERT_THROW_DYNAWO(jobs = importer.importFromFile("res/wrongFile.jobs"), DYN::Error::API, DYN::KeyError_t::XmlFileParsingError);
 }
 
@@ -109,22 +108,20 @@ TEST(APIJOBTest, testXmlStreamImporter) {
 
 TEST(APIJOBTest, testXmlImporter) {
   XmlImporter importer;
-  boost::shared_ptr<JobsCollection> jobsCollection = importer.importFromFile("res/jobsExample.jobs");
+  std::shared_ptr<JobsCollection> jobsCollection = importer.importFromFile("res/jobsExample.jobs");
   ASSERT_THROW_DYNAWO(importer.importFromFile("res/iterationStepAndTimeStepDefinedAtTheSameTime.jobs"),
                       DYN::Error::API,
                       DYN::KeyError_t::XmlFileParsingError);
   // check read data
   int nbJobs = 0;
-  boost::shared_ptr<JobEntry> job1;
-  boost::shared_ptr<JobEntry> job2;
-  for (job_const_iterator itJob = jobsCollection->cbegin();
-          itJob != jobsCollection->cend();
-          ++itJob) {
+  std::shared_ptr<JobEntry> job1;
+  std::shared_ptr<JobEntry> job2;
+  for (const auto& job : jobsCollection->getJobs()) {
     ++nbJobs;
     if (nbJobs == 1)
-      job1 = (*itJob);
+      job1 = job;
     else
-      job2 = (*itJob);
+      job2 = job;
   }
   ASSERT_EQ(nbJobs, 2);
 
@@ -135,19 +132,19 @@ TEST(APIJOBTest, testXmlImporter) {
   // check each input of the first job (most complete job)
 
   // ===== SolverEntry =====
-  ASSERT_NE(job1->getSolverEntry(), boost::shared_ptr<SolverEntry>());
-  boost::shared_ptr<SolverEntry> solver =  job1->getSolverEntry();
+  ASSERT_NE(job1->getSolverEntry(), std::shared_ptr<SolverEntry>());
+  std::shared_ptr<SolverEntry> solver =  job1->getSolverEntry();
   ASSERT_EQ(solver->getLib(), "libdynawo_SolverSIM");
   ASSERT_EQ(solver->getParametersFile(), "solvers.par");
   ASSERT_EQ(solver->getParametersId(), "3");
 
   // ===== ModelerEntry =====
-  ASSERT_NE(job1->getModelerEntry(), boost::shared_ptr<ModelerEntry>());
-  boost::shared_ptr<ModelerEntry> modeler = job1->getModelerEntry();
+  ASSERT_NE(job1->getModelerEntry(), std::shared_ptr<ModelerEntry>());
+  std::shared_ptr<ModelerEntry> modeler = job1->getModelerEntry();
   ASSERT_EQ(modeler->getCompileDir(), "outputs1");
 
-  ASSERT_NE(modeler->getPreCompiledModelsDirEntry(), boost::shared_ptr<ModelsDirEntry>());
-  boost::shared_ptr<ModelsDirEntry> preCompiledModelsDirEntry = modeler->getPreCompiledModelsDirEntry();
+  ASSERT_NE(modeler->getPreCompiledModelsDirEntry(), std::shared_ptr<ModelsDirEntry>());
+  std::shared_ptr<ModelsDirEntry> preCompiledModelsDirEntry = modeler->getPreCompiledModelsDirEntry();
   ASSERT_EQ(preCompiledModelsDirEntry->getUseStandardModels(), true);
   ASSERT_EQ(preCompiledModelsDirEntry->getDirectories().size(), 2);
   std::vector <UserDefinedDirectory> precompiledModelsDirs = preCompiledModelsDirEntry->getDirectories();
@@ -156,8 +153,8 @@ TEST(APIJOBTest, testXmlImporter) {
   ASSERT_EQ(precompiledModelsDirs[1].path, "/tmp/");
   ASSERT_EQ(precompiledModelsDirs[1].isRecursive, true);
 
-  ASSERT_NE(modeler->getModelicaModelsDirEntry(), boost::shared_ptr<ModelsDirEntry>());
-  boost::shared_ptr<ModelsDirEntry> modelicaModelsDirEntry = modeler->getModelicaModelsDirEntry();
+  ASSERT_NE(modeler->getModelicaModelsDirEntry(), std::shared_ptr<ModelsDirEntry>());
+  std::shared_ptr<ModelsDirEntry> modelicaModelsDirEntry = modeler->getModelicaModelsDirEntry();
   ASSERT_EQ(modelicaModelsDirEntry->getUseStandardModels(), true);
   ASSERT_EQ(modelicaModelsDirEntry->getDirectories().size(), 2);
   std::vector <UserDefinedDirectory> modelicaModelsDirs = modelicaModelsDirEntry->getDirectories();
@@ -167,24 +164,24 @@ TEST(APIJOBTest, testXmlImporter) {
   ASSERT_EQ(modelicaModelsDirs[1].isRecursive, true);
   ASSERT_EQ(modelicaModelsDirEntry->getModelExtension(), ".mo");
 
-  ASSERT_NE(modeler->getNetworkEntry(), boost::shared_ptr<NetworkEntry>());
-  boost::shared_ptr<NetworkEntry> network = modeler->getNetworkEntry();
+  ASSERT_NE(modeler->getNetworkEntry(), std::shared_ptr<NetworkEntry>());
+  std::shared_ptr<NetworkEntry> network = modeler->getNetworkEntry();
   ASSERT_EQ(network->getIidmFile(), "myIIDM.iidm");
   ASSERT_EQ(network->getNetworkParFile(), "myPAR.par");
   ASSERT_EQ(network->getNetworkParId(), "1");
 
-  ASSERT_NE(modeler->getInitialStateEntry(), boost::shared_ptr<InitialStateEntry>());
-  boost::shared_ptr<InitialStateEntry> initialState = modeler->getInitialStateEntry();
+  ASSERT_NE(modeler->getInitialStateEntry(), std::shared_ptr<InitialStateEntry>());
+  std::shared_ptr<InitialStateEntry> initialState = modeler->getInitialStateEntry();
   ASSERT_EQ(initialState->getInitialStateFile(), "outputs1/finalState/outputState.dmp");
 
   ASSERT_EQ(modeler->getDynModelsEntries().size(), 2);
-  std::vector<boost::shared_ptr<DynModelsEntry> > dynModelsEntries = modeler->getDynModelsEntries();
+  std::vector<std::shared_ptr<DynModelsEntry> > dynModelsEntries = modeler->getDynModelsEntries();
   ASSERT_EQ(dynModelsEntries[0]->getDydFile(), "myDYD.dyd");
   ASSERT_EQ(dynModelsEntries[1]->getDydFile(), "myDYD2.dyd");
 
   // ===== SimulationEntry =====
-  ASSERT_NE(job1->getSimulationEntry(), boost::shared_ptr<SimulationEntry>());
-  boost::shared_ptr<SimulationEntry> simulation =  job1->getSimulationEntry();
+  ASSERT_NE(job1->getSimulationEntry(), std::shared_ptr<SimulationEntry>());
+  std::shared_ptr<SimulationEntry> simulation =  job1->getSimulationEntry();
   ASSERT_EQ(simulation->getStartTime(), 10);
   ASSERT_EQ(simulation->getStopTime(), 200);
   ASSERT_EQ(simulation->getCriteriaFiles().size(), 2);
@@ -195,30 +192,30 @@ TEST(APIJOBTest, testXmlImporter) {
   ASSERT_EQ(simulation->getCriteriaStep(), 5);
 
   // ===== OutputsEntry =====
-  ASSERT_NE(job1->getOutputsEntry(), boost::shared_ptr<OutputsEntry>());
-  boost::shared_ptr<OutputsEntry> outputs =  job1->getOutputsEntry();
+  ASSERT_NE(job1->getOutputsEntry(), std::shared_ptr<OutputsEntry>());
+  std::shared_ptr<OutputsEntry> outputs =  job1->getOutputsEntry();
   ASSERT_EQ(outputs->getOutputsDirectory(), "outputs1");
 
   // ===== InitValuesEntry =====
-  ASSERT_NE(outputs->getInitValuesEntry(), boost::shared_ptr<InitValuesEntry>());
-  boost::shared_ptr<InitValuesEntry> initValues = outputs->getInitValuesEntry();
+  ASSERT_NE(outputs->getInitValuesEntry(), std::shared_ptr<InitValuesEntry>());
+  std::shared_ptr<InitValuesEntry> initValues = outputs->getInitValuesEntry();
   ASSERT_EQ(initValues->getDumpLocalInitValues(), true);
   ASSERT_EQ(initValues->getDumpGlobalInitValues(), false);
   ASSERT_EQ(initValues->getDumpInitModelValues(), true);
 
   // ===== FinalValuesEntry =====
-  ASSERT_NE(outputs->getFinalValuesEntry(), boost::shared_ptr<FinalValuesEntry>());
-  boost::shared_ptr<FinalValuesEntry> finalValues = outputs->getFinalValuesEntry();
+  ASSERT_NE(outputs->getFinalValuesEntry(), std::shared_ptr<FinalValuesEntry>());
+  std::shared_ptr<FinalValuesEntry> finalValues = outputs->getFinalValuesEntry();
   ASSERT_TRUE(finalValues->getDumpFinalValues());
 
   // ===== ConstraintsEntry =====
-  ASSERT_NE(outputs->getConstraintsEntry(), boost::shared_ptr<ConstraintsEntry>());
-  boost::shared_ptr<ConstraintsEntry> constraints = outputs->getConstraintsEntry();
+  ASSERT_NE(outputs->getConstraintsEntry(), std::shared_ptr<ConstraintsEntry>());
+  std::shared_ptr<ConstraintsEntry> constraints = outputs->getConstraintsEntry();
   ASSERT_EQ(constraints->getExportMode(), "XML");
 
   // ===== TimelineEntry =====
-  ASSERT_NE(outputs->getTimelineEntry(), boost::shared_ptr<TimelineEntry>());
-  boost::shared_ptr<TimelineEntry> timeline = outputs->getTimelineEntry();
+  ASSERT_NE(outputs->getTimelineEntry(), std::shared_ptr<TimelineEntry>());
+  std::shared_ptr<TimelineEntry> timeline = outputs->getTimelineEntry();
   ASSERT_EQ(timeline->getExportMode(), "TXT");
   ASSERT_EQ(timeline->getExportWithTime(), true);
   ASSERT_TRUE(timeline->getMaxPriority());
@@ -226,13 +223,13 @@ TEST(APIJOBTest, testXmlImporter) {
   ASSERT_EQ(timeline->isFilter(), true);
 
   // ===== TimetableEntry =====
-  ASSERT_NE(outputs->getTimetableEntry(), boost::shared_ptr<TimetableEntry>());
-  boost::shared_ptr<TimetableEntry> timetable = outputs->getTimetableEntry();
+  ASSERT_NE(outputs->getTimetableEntry(), std::shared_ptr<TimetableEntry>());
+  std::shared_ptr<TimetableEntry> timetable = outputs->getTimetableEntry();
   ASSERT_EQ(timetable->getStep(), 10);
 
   // ===== FinalStateEntry =====
   ASSERT_EQ(outputs->getFinalStateEntries().size(), 2);
-  boost::shared_ptr<FinalStateEntry> finalState = outputs->getFinalStateEntries().front();
+  std::shared_ptr<FinalStateEntry> finalState = outputs->getFinalStateEntries().front();
   ASSERT_EQ(finalState->getExportIIDMFile(), true);
   ASSERT_EQ(finalState->getExportDumpFile(), true);
   ASSERT_FALSE(finalState->getTimestamp());
@@ -244,9 +241,9 @@ TEST(APIJOBTest, testXmlImporter) {
   ASSERT_EQ(*finalState->getTimestamp(), 10);
 
   // ===== CurvesEntry =====
-  ASSERT_NE(outputs->getCurvesEntry(), boost::shared_ptr<CurvesEntry>());
-  boost::shared_ptr<CurvesEntry> curves1 = outputs->getCurvesEntry();
-  boost::shared_ptr<CurvesEntry> curves2 = job2->getOutputsEntry()->getCurvesEntry();
+  ASSERT_NE(outputs->getCurvesEntry(), std::shared_ptr<CurvesEntry>());
+  std::shared_ptr<CurvesEntry> curves1 = outputs->getCurvesEntry();
+  std::shared_ptr<CurvesEntry> curves2 = job2->getOutputsEntry()->getCurvesEntry();
   ASSERT_EQ(curves1->getExportMode(), "CSV");
   ASSERT_EQ(curves1->getInputFile(), "curves.crv");
   ASSERT_TRUE(curves1->getIterationStep());
@@ -255,21 +252,21 @@ TEST(APIJOBTest, testXmlImporter) {
   ASSERT_EQ(*curves2->getTimeStep(), 8);
 
   // ===== FinalStateValues ====
-  ASSERT_NE(outputs->getFinalStateValuesEntry(), boost::shared_ptr<FinalStateValuesEntry>());
-  boost::shared_ptr<FinalStateValuesEntry> finalStateValues = outputs->getFinalStateValuesEntry();
+  ASSERT_NE(outputs->getFinalStateValuesEntry(), std::shared_ptr<FinalStateValuesEntry>());
+  std::shared_ptr<FinalStateValuesEntry> finalStateValues = outputs->getFinalStateValuesEntry();
   ASSERT_EQ(finalStateValues->getInputFile(), "finalStateValues.fsv");
   ASSERT_EQ(finalStateValues->getExportMode(), "CSV");
 
   // ===== LostEquipmentsEntry =====
-  ASSERT_NE(outputs->getLostEquipmentsEntry(), boost::shared_ptr<LostEquipmentsEntry>());
-  boost::shared_ptr<LostEquipmentsEntry> lostEquipments = outputs->getLostEquipmentsEntry();
+  ASSERT_NE(outputs->getLostEquipmentsEntry(), std::shared_ptr<LostEquipmentsEntry>());
+  std::shared_ptr<LostEquipmentsEntry> lostEquipments = outputs->getLostEquipmentsEntry();
   ASSERT_EQ(lostEquipments->getDumpLostEquipments(), true);
 
   // ===== LogsEntry =====
-  ASSERT_NE(outputs->getLogsEntry(), boost::shared_ptr<LogsEntry>());
-  boost::shared_ptr<LogsEntry> logs = outputs->getLogsEntry();
+  ASSERT_NE(outputs->getLogsEntry(), std::shared_ptr<LogsEntry>());
+  std::shared_ptr<LogsEntry> logs = outputs->getLogsEntry();
   ASSERT_EQ(logs->getAppenderEntries().size(), 4);
-  std::vector<boost::shared_ptr<AppenderEntry> > appenders = logs->getAppenderEntries();
+  std::vector<std::shared_ptr<AppenderEntry> > appenders = logs->getAppenderEntries();
 
   ASSERT_EQ(appenders[0]->getShowLevelTag(), false);
   ASSERT_EQ(appenders[0]->getSeparator(), "-");
@@ -300,8 +297,8 @@ TEST(APIJOBTest, testXmlImporter) {
   ASSERT_EQ(appenders[3]->getFilePath(), "dynawoModeler.log");
 
   // ===== LocalInitEntry =====
-  ASSERT_NE(job1->getLocalInitEntry(), boost::shared_ptr<LocalInitEntry>());
-  boost::shared_ptr<LocalInitEntry> localInit =  job1->getLocalInitEntry();
+  ASSERT_NE(job1->getLocalInitEntry(), std::shared_ptr<LocalInitEntry>());
+  std::shared_ptr<LocalInitEntry> localInit =  job1->getLocalInitEntry();
   ASSERT_EQ(localInit->getParFile(), "init.par");
   ASSERT_EQ(localInit->getParId(), "42");
 }

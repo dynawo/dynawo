@@ -36,12 +36,12 @@ class XmlImporter : public Importer {
   /**
    * @copydoc Importer::importFromFile()
    */
-  boost::shared_ptr<JobsCollection> importFromFile(const std::string& fileName) const;
+  std::shared_ptr<JobsCollection> importFromFile(const std::string& fileName) const override;
 
   /**
    * @copydoc Importer::importFromStream()
    */
-  boost::shared_ptr<JobsCollection> importFromStream(std::istream& stream) const;
+  std::shared_ptr<JobsCollection> importFromStream(std::istream& stream) const override;
 };
 
 }  // namespace job

@@ -25,35 +25,35 @@
 #include <boost/bind.hpp>
 
 namespace DYN {
-RingBuffer::RingBuffer(double maxDelay) : queue_(), maxDelay_(maxDelay) {}
+RingBuffer::RingBuffer(const double maxDelay) : queue_(), maxDelay_(maxDelay) {}
 
 void
 RingBuffer::add(double time, double value) {
-  if (queue_.size() > 0 && doubleEquals(queue_.back().first, time)) {
+  if (!queue_.empty() && doubleEquals(queue_.back().first, time)) {
     // ignore if we add multiple time the same value
     return;
   }
 
 #if _DEBUG_
-  if (queue_.size() > 0) {
+  if (!queue_.empty()) {
     assert(time > queue_.back().first);
   }
 #endif
 
-  queue_.push_back(std::make_pair(time, value));
+  queue_.emplace_back(time, value);
 
   removeUseless();
 }
 
 void
 RingBuffer::removeUseless() {
-  double last_time = queue_.back().first;
+  const double last_time = queue_.back().first;
   // By construction, the queue is sorted by "time" value so if the criteria is no longer passed,
   // it will never be passed again
-  std::deque<std::pair<double, double> >::iterator found =
+  auto found =
       std::lower_bound(queue_.begin(), queue_.end(), last_time - maxDelay_, boost::bind<bool>(&RingBuffer::comparePairTime, this, _1, _2));
 
-  if (found != queue_.begin() && queue_.size() > 0) {
+  if (found != queue_.begin() && !queue_.empty()) {
     // we keep the first point which doesn't respect to enable interpolation
     --found;
   }
@@ -63,19 +63,19 @@ RingBuffer::removeUseless() {
 
 double
 RingBuffer::get(double time, double delay) const {
-  double time_value = time - delay;
+  const double time_value = time - delay;
 
   if (delay > maxDelay_ || delay < 0.0) {
     throw DYNError(DYN::Error::SIMULATION, IncorrectDelay, delay, time, maxDelay_);
   }
 
-  std::deque<std::pair<double, double> >::const_iterator found =
+  const auto found =
       std::lower_bound(queue_.begin(), queue_.end(), time_value, boost::bind<bool>(&RingBuffer::comparePairTime, this, _1, _2));
   if (found == queue_.end()) {
     // it means that the required time is greater than the last value in the queue
     // => we perform linear interpolation using the last two most recent if we can
     if (queue_.size() > 1) {
-      std::deque<std::pair<double, double> >::const_reverse_iterator it = queue_.rbegin();
+      auto it = queue_.rbegin();
       ++it;
       return interpol(*(queue_.rbegin()), *it, time_value);
     } else {
@@ -95,24 +95,23 @@ RingBuffer::get(double time, double delay) const {
 }
 
 bool
-RingBuffer::comparePairTime(const std::pair<double, double>& pair, const double& time_value) const {
+RingBuffer::comparePairTime(const std::pair<double, double>& pair, const double time_value) const {
   // timed value cannot be too close to each other as these times are sent by the solvers
   return pair.first < time_value;
 }
 
 double
-RingBuffer::interpol(const std::pair<double, double>& p1, const std::pair<double, double>& p2, double time) {
-  double a = (p2.second - p1.second) / (p2.first - p1.first);
-  double b = (p2.first * p1.second - p1.first * p2.second) / (p2.first - p1.first);
+RingBuffer::interpol(const std::pair<double, double>& p1, const std::pair<double, double>& p2, const double time) {
+  const double a = (p2.second - p1.second) / (p2.first - p1.first);
+  const double b = (p2.first * p1.second - p1.first * p2.second) / (p2.first - p1.first);
 
   return a * time + b;
 }
 
 void
 RingBuffer::points(std::vector<std::pair<double, double> >& vec) const {
-  for (std::deque<std::pair<double, double> >::const_iterator it = queue_.begin(); it != queue_.end(); ++it) {
-    vec.push_back(*it);
-  }
+  for (const auto& point : queue_)
+    vec.push_back(point);
 }
 
 }  // namespace DYN

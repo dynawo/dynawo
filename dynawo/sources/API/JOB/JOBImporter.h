@@ -23,7 +23,7 @@
 
 #include "JOBJobsCollection.h"
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 namespace job {
 
@@ -52,7 +52,7 @@ class Importer {
    *
    * @return jobs description imported
    */
-  virtual boost::shared_ptr<JobsCollection> importFromFile(const std::string& fileName) const = 0;
+  virtual std::shared_ptr<JobsCollection> importFromFile(const std::string& fileName) const = 0;
 
   /**
    * @brief Import job's collection from stream
@@ -61,7 +61,7 @@ class Importer {
    *
    * @return jobs description imported
    */
-  virtual boost::shared_ptr<JobsCollection> importFromStream(std::istream& stream) const = 0;
+  virtual std::shared_ptr<JobsCollection> importFromStream(std::istream& stream) const = 0;
 };
 
 #ifdef __clang__

@@ -1,4 +1,5 @@
 BaseClasses
 FullDynamicInfiniteBus
 FullDynamicInfiniteBusNoLoadReset
-FullStatic
+FullStatic1
+FullStatic2

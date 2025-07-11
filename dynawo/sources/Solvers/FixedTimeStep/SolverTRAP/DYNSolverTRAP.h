@@ -48,12 +48,12 @@ class SolverTRAPFactory : public SolverFactory {
    * @brief Create an instance of solver
    * @return the new instance of solver created by the factory
    */
-  Solver* create() const;
+  Solver* create() const override;
 
   /**
    * @brief SolverTRAP destroy
    */
-  void destroy(Solver*) const;
+  void destroy(Solver*) const override;
 };
 
 /**
@@ -64,32 +64,32 @@ class SolverTRAP : public SolverCommonFixedTimeStep {
   /**
    * @copydoc Solver::Impl::solverType()
    */
-  std::string solverType() const;
+  const std::string& solverType() const override;
 
   /**
    * @copydoc Solver::init(const std::shared_ptr<Model>& model, const double t0, const double tEnd)
   */
-  void init(const std::shared_ptr<Model>& model, const double t0, const double tEnd);
+  void init(const std::shared_ptr<Model>& model, double t0, double tEnd) override;
 
   /**
    * @copydoc Solver::Impl::defineSpecificParameters()
    */
-  void defineSpecificParameters();
+  void defineSpecificParameters() override;
 
   /**
    * @copydoc Solver::Impl::setSolverSpecificParameters()
    */
-  void setSolverSpecificParameters();
+  void setSolverSpecificParameters() override;
 
   /**
    * @copydoc Solver::calculateIC()
   */
-  void calculateIC(double tEnd);
+  void calculateIC(double tEnd) override;
 
   /**
   * @copydoc Solver::computeYP()
   */
-  void computeYP(const double* yy);
+  void computeYP(const double* yy) override;
 
   /**
    * @brief update the derivatives values.
@@ -100,20 +100,20 @@ class SolverTRAP : public SolverCommonFixedTimeStep {
   * @brief TRAP version of computePrediction. We just compute the
   * first Yp.
   */
-  void computePrediction() {
+  void computePrediction() override {
     // do nothing
   }
 
   /**
   * @copydoc SolverCommonFixedTimeStep::hasPrediction()
   */
-  bool hasPrediction() const { return false; }
+  bool hasPrediction() const override { return false; }
 
   /**
   * @brief name of the solver
   * @return name of the solver
   */
-  inline std::string getName() {
+  inline const std::string& getName() override {
     static std::string name = "TRAP";
     return name;
   }
@@ -122,24 +122,24 @@ class SolverTRAP : public SolverCommonFixedTimeStep {
   /**
    * @copydoc Solver::getTimeStep()
    */
-  double getTimeStep() const {
+  double getTimeStep() const override {
     return h_ / 2.;
   }
 
   /**
    * @copydoc Solver::Impl::solveStep(double tAim, double &tNxt)
    */
-  void solveStep(double tAim, double &tNxt);
+  void solveStep(double tAim, double &tNxt) override;
 
   /**
   * @copydoc SolverCommonFixedTimeStep::saveContinuousVariables()
   */
-  void saveContinuousVariables();
+  void saveContinuousVariables() override;
 
   /**
   * @copydoc SolverCommonFixedTimeStep::restoreContinuousVariables()
   */
-  void restoreContinuousVariables();
+  void restoreContinuousVariables() override;
 
  private:
   boost::shared_ptr<SolverKINAlgRestoration> solverKINYPrimInit_;  ///< Newton-Raphson solver for the derivatives of the differential variables restoration

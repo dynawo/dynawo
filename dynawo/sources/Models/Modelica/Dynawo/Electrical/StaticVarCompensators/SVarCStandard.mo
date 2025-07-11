@@ -32,13 +32,13 @@ model SVarCStandard "Standard static var compensator model"
     Placement(visible = true, transformation(origin = {240, -32}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {115, -1}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
 
   Modelica.Blocks.Interfaces.BooleanInput selectModeAuto(start = SelectModeAuto0) "Whether the static var compensator is in automatic configuration" annotation(
-    Placement(visible = true, transformation(origin = {-260, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-115, 1}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-260, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-115, 0}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
   Modelica.Blocks.Interfaces.IntegerInput setModeManual(start = SetModeManual0) "Mode selected when in manual configuration" annotation(
-    Placement(visible = true, transformation(origin = {-260, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-115, -79}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-260, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-115, -80}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput URef(start = URef0) "Voltage reference for the regulation in kV" annotation(
-    Placement(visible = true, transformation(origin = {-260, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-115, 85}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-260, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-115, 80}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
 
-  Dynawo.Electrical.Sources.InjectorBG injector(SNom = SNom, U0Pu = U0Pu, P0Pu = P0Pu, Q0Pu = Q0Pu, u0Pu = u0Pu, s0Pu = s0Pu, i0Pu = i0Pu) "Controlled injector BG" annotation(
+  Dynawo.Electrical.Sources.InjectorBG injector(SNom = SNom, B0Pu = B0Pu, G0Pu = G0Pu, P0Pu = P0Pu, Q0Pu = Q0Pu, U0Pu = U0Pu, u0Pu = u0Pu, s0Pu = s0Pu, i0Pu = i0Pu) "Controlled injector BG" annotation(
     Placement(visible = true, transformation(origin = {140, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant GPuCst(k = G0Pu) annotation(
     Placement(visible = true, transformation(origin = {-10, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -110,6 +110,7 @@ equation
   connect(injector.UPu, blockingFunction.UPu) annotation(
     Line(points = {{163, -4}, {200, -4}, {200, -100}, {-193, -100}, {-193, 0}, {-160, 0}, {-160, 30}, {-144, 30}}, color = {0, 0, 127}));
 
-  annotation(preferredView = "diagram",
+  annotation(
+    preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-240, -120}, {240, 120}})));
 end SVarCStandard;

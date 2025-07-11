@@ -16,6 +16,7 @@ import os
 import sys
 import XMLUtils
 import diffUtils
+import csv
 
 try:
     settings_dir = os.path.join(os.path.dirname(__file__))
@@ -45,6 +46,31 @@ def get_xml_fsv_info(filename):
         my_object.variable = child.attrib['variable']
         my_object.value = child.attrib['value']
         fsv_by_id[my_object.get_unique_id()] = my_object
+    return fsv_by_id
+
+# Read a CSV FSV file name and build a dictionary object id => values
+def get_csv_fsv_info(filename):
+    fsv_by_id = {}
+    with open (filename, "rt") as file:
+        reader = list(csv.reader (file, delimiter = ";"))
+    row_index = 0
+    for row in reader:
+        if row_index == 0:
+            # skip header
+            row_index += 1
+            continue
+        index = 0
+        my_object = FinalStateValueObject();
+        for v in row:
+            if index == 0:
+                my_object.model_name = v
+            elif index == 1:
+                my_object.variable = v
+            elif index == 2:
+                my_object.value = v
+            index += 1
+        fsv_by_id[my_object.get_unique_id()] = my_object
+        row_index += 1
     return fsv_by_id
 
 # Compare 2 dictionaries read from two fsv files
@@ -89,13 +115,28 @@ def output_xml_fsv_close_enough (path_left, path_right):
     right_file_info = get_xml_fsv_info(path_right)
     return compare_fsv_info(left_file_info, right_file_info)
 
+# Check whether two csv output fsv files are close enough
+# @param path_left : the absolute path to the left-side file
+# @param path_right : the absolute path to the right-side file
+def output_csv_fsv_close_enough (path_left, path_right):
+    left_file_info = get_csv_fsv_info(path_left)
+    right_file_info = get_csv_fsv_info(path_right)
+    return compare_fsv_info(left_file_info, right_file_info)
+
 if __name__ == "__main__":
     if len(sys.argv) < 3:
         print("Error : not enough arguments")
     path_left = sys.argv[1]
     path_right = sys.argv[2]
+    nb_differences = 0
     print("Comparing " + path_left + " and " + path_right)
-    nb_differences, msg = output_xml_fsv_close_enough(path_left, path_right)
+    if (path_left.endswith(".xml") and path_right.endswith(".xml")):
+        nb_differences, msg = output_xml_fsv_close_enough(path_left, path_right)
+    elif (path_left.endswith(".csv") and path_right.endswith(".csv")):
+        nb_differences, msg = output_csv_fsv_close_enough(path_left, path_right)
+    else:
+        print ("[ERROR] Could not compare files " + path_left + " and " + path_right)
+        exit(1)
     if nb_differences > 0:
         print(msg)
         exit(1)

@@ -40,30 +40,13 @@ namespace DYN {
   const char* sharedLibraryExtension();
 
   /**
-  * @brief import a shared library function
-  *
-  * @param library the shared library
-  * @param functionName the name of the function to load
-  *
-  * @return function
-  */
-  template <class FunctionT>
-  FunctionT import(const boost::dll::shared_library& library, const std::string& functionName) {
-#if (BOOST_VERSION >= 107600)
-    return boost::dll::import_symbol<FunctionT>(library, functionName.c_str());
-#else
-    return boost::dll::import<FunctionT>(library, functionName.c_str());
-#endif
-  }
-
-  /**
    * @brief transforms a double number to a string
    *
    * @param value : double to transform
    *
    * @return the value with string format
    */
-  std::string double2String(const double& value);
+  std::string double2String(double value);
 
   /**
    * @brief determines the sign of a double number
@@ -72,7 +55,7 @@ namespace DYN {
    *
    * @return @b -1 if the value is <0, @b 1 otherwise
    */
-  int sign(const double& value);
+  int sign(double value);
 
   /**
    * @brief C type definition for variable
@@ -89,7 +72,7 @@ namespace DYN {
    * @param type : type of a variable as an enum type
    * @return type of a variable as a string
    */
-  std::string typeVarC2Str(const typeVarC_t& type);
+  std::string typeVarC2Str(typeVarC_t type);
 
   /**
    * @brief return the C type of a variable
@@ -134,12 +117,12 @@ namespace DYN {
    * @param b second double
    * @return return true if a == b
    */
-  static inline bool doubleEquals(const double& a, const double& b) {
+  static inline bool doubleEquals(const double a, const double b) {
     if (std::isinf(a) || std::isinf(b)) return false;
     if (std::isnan(a) || std::isnan(b)) return false;
     double diff = std::fabs(a-b);
     if (diff <= getCurrentPrecision()/5) return true;
-    return diff <= std::max(std::fabs(a), std::fabs(b))*getCurrentPrecision()/5;  // Error factor used to add more leeway
+    return diff <= std::max(std::fabs(a), std::fabs(b)) * getCurrentPrecision() / 5.;  // Error factor used to add more leeway
   }
 
   /**
@@ -150,8 +133,32 @@ namespace DYN {
    * @param b second double
    * @return return true if a != b
    */
-  static inline bool doubleNotEquals(const double& a, const double& b) {
+  static inline bool doubleNotEquals(const double a, const double b) {
     return !doubleEquals(a, b);
+  }
+
+  /**
+   * @brief return true if a > b
+   *
+   *
+   * @param a first double
+   * @param b second double
+   * @return return true if a > b
+   */
+  static inline bool doubleGreater(double a, double b) {
+    return doubleNotEquals(a, b) && a > b;
+  }
+
+  /**
+   * @brief return true if a < b
+   *
+   *
+   * @param a first double
+   * @param b second double
+   * @return return true if a < b
+   */
+  static inline bool doubleLess(double a, double b) {
+    return doubleNotEquals(a, b) && a < b;
   }
 
   /**
@@ -161,8 +168,8 @@ namespace DYN {
    * @param a double to test
    * @return return true if a == 0.
    */
-  static inline bool doubleIsZero(const double& a) {
-    return std::fabs(a) <= getCurrentPrecision()/5;
+  static inline bool doubleIsZero(const double a) {
+    return std::fabs(a) <= getCurrentPrecision() / 5.;
   }
 
   /**
@@ -172,7 +179,7 @@ namespace DYN {
    * @param dynawoBool the Dynawo boolean value
    * @return the boolean value as a native boolean
    */
-  static inline bool toNativeBool(const double& dynawoBool) {
+  static inline bool toNativeBool(const double dynawoBool) {
     return dynawoBool >  0.0;
   }
 

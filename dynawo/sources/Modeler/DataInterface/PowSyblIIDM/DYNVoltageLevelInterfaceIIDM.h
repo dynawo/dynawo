@@ -49,127 +49,127 @@ class VoltageLevelInterfaceIIDM : public VoltageLevelInterface {
    * @brief Getter for the voltageLevel's id
    * @return The id of the voltageLevel
    */
-  std::string getID() const;
+  const std::string& getID() const override;
 
   /**
    * @copydoc VoltageLevelInterface::getVNom() const
    */
-  double getVNom() const;
+  double getVNom() const override;
 
   /**
    * @copydoc VoltageLevelInterface::getVoltageLevelTopologyKind() const
    */
-  VoltageLevelTopologyKind_t getVoltageLevelTopologyKind() const;
+  VoltageLevelTopologyKind_t getVoltageLevelTopologyKind() const override;
 
   /**
-   * @copydoc VoltageLevelInterface::connectNode(const unsigned int& node)
+   * @copydoc VoltageLevelInterface::connectNode(unsigned int node)
    */
-  void connectNode(const unsigned int& node);
+  void connectNode(unsigned int node) override;
 
   /**
-   * @copydoc VoltageLevelInterface::disconnectNode(const unsigned int& node)
+   * @copydoc VoltageLevelInterface::disconnectNode(unsigned int node)
    */
-  void disconnectNode(const unsigned int& node);
+  void disconnectNode(unsigned int node) override;
 
   /**
-   * @copydoc VoltageLevelInterface::isNodeConnected(const unsigned int& node)
+   * @copydoc VoltageLevelInterface::isNodeConnected(unsigned int node)
    */
-  bool isNodeConnected(const unsigned int& node);
+  bool isNodeConnected(unsigned int node) override;
 
   /**
    * @copydoc VoltageLevelInterface::addSwitch()
    */
-  void addSwitch(const std::shared_ptr<SwitchInterface>& sw);
+  void addSwitch(const std::shared_ptr<SwitchInterface>& sw) override;
 
   /**
    * @copydoc VoltageLevelInterface::addBus()
    */
-  void addBus(const std::shared_ptr<BusInterface>& bus);
+  void addBus(const std::shared_ptr<BusInterface>& bus) override;
 
   /**
    * @copydoc VoltageLevelInterface::addGenerator()
    */
-  void addGenerator(const std::shared_ptr<GeneratorInterface>& generator);
+  void addGenerator(const std::shared_ptr<GeneratorInterface>& generator) override;
 
   /**
    * @copydoc VoltageLevelInterface::addLoad()
    */
-  void addLoad(const std::shared_ptr<LoadInterface>& load);
+  void addLoad(const std::shared_ptr<LoadInterface>& load) override;
 
   /**
    * @copydoc VoltageLevelInterface::addShuntCompensator()
    */
-  void addShuntCompensator(const std::shared_ptr<ShuntCompensatorInterface>& shunt);
+  void addShuntCompensator(const std::shared_ptr<ShuntCompensatorInterface>& shunt) override;
 
   /**
    * @copydoc VoltageLevelInterface::addDanglingLine()
    */
-  void addDanglingLine(const std::shared_ptr<DanglingLineInterface>& danglingLine);
+  void addDanglingLine(const std::shared_ptr<DanglingLineInterface>& danglingLine) override;
 
   /**
    * @copydoc VoltageLevelInterface::addStaticVarCompensator()
    */
-  void addStaticVarCompensator(const std::shared_ptr<StaticVarCompensatorInterface>& svc);
+  void addStaticVarCompensator(const std::shared_ptr<StaticVarCompensatorInterface>& svc) override;
 
   /**
    * @copydoc VoltageLevelInterface::addVscConverter()
    */
-  void addVscConverter(const std::shared_ptr<VscConverterInterface>& vsc);
+  void addVscConverter(const std::shared_ptr<VscConverterInterface>& vsc) override;
 
   /**
    * @copydoc VoltageLevelInterface::addLccConverter()
    */
-  void addLccConverter(const std::shared_ptr<LccConverterInterface>& lcc);
+  void addLccConverter(const std::shared_ptr<LccConverterInterface>& lcc) override;
 
   /**
    * @copydoc VoltageLevelInterface::getBuses()
    */
-  const std::vector<std::shared_ptr<BusInterface> >& getBuses() const;
+  const std::vector<std::shared_ptr<BusInterface> >& getBuses() const override;
 
   /**
    * @copydoc VoltageLevelInterface::getSwitches()
    */
-  const std::vector<std::shared_ptr<SwitchInterface> >& getSwitches() const;
+  const std::vector<std::shared_ptr<SwitchInterface> >& getSwitches() const override;
 
   /**
    * @copydoc VoltageLevelInterface::getLoads()
    */
-  const std::vector<std::shared_ptr<LoadInterface> >& getLoads() const;
+  const std::vector<std::shared_ptr<LoadInterface> >& getLoads() const override;
 
   /**
    * @copydoc VoltageLevelInterface::getShuntCompensators()
    */
-  const std::vector<std::shared_ptr<ShuntCompensatorInterface> >& getShuntCompensators() const;
+  const std::vector<std::shared_ptr<ShuntCompensatorInterface> >& getShuntCompensators() const override;
 
   /**
    * @copydoc VoltageLevelInterface::getStaticVarCompensators()
    */
-  const std::vector<std::shared_ptr<StaticVarCompensatorInterface> >& getStaticVarCompensators() const;
+  const std::vector<std::shared_ptr<StaticVarCompensatorInterface> >& getStaticVarCompensators() const override;
 
   /**
    * @copydoc VoltageLevelInterface::getGenerators()
    */
-  const std::vector<std::shared_ptr<GeneratorInterface> >& getGenerators() const;
+  const std::vector<std::shared_ptr<GeneratorInterface> >& getGenerators() const override;
 
   /**
    * @copydoc VoltageLevelInterface::getDanglingLines()
    */
-  const std::vector<std::shared_ptr<DanglingLineInterface> >& getDanglingLines() const;
+  const std::vector<std::shared_ptr<DanglingLineInterface> >& getDanglingLines() const override;
 
   /**
    * @copydoc VoltageLevelInterface::getVscConverters()
    */
-  const std::vector<std::shared_ptr<VscConverterInterface> >& getVscConverters() const;
+  const std::vector<std::shared_ptr<VscConverterInterface> >& getVscConverters() const override;
 
   /**
    * @copydoc VoltageLevelInterface::getLccConverters()
    */
-  const std::vector<std::shared_ptr<LccConverterInterface> >& getLccConverters() const;
+  const std::vector<std::shared_ptr<LccConverterInterface> >& getLccConverters() const override;
 
   /**
    * @copydoc VoltageLevelInterface::mapConnections()
    */
-  void mapConnections();
+  void mapConnections() override;
 
   /**
    *  @brief calculate bus topology from node topology if node topology is used in iidm network
@@ -187,13 +187,13 @@ class VoltageLevelInterfaceIIDM : public VoltageLevelInterface {
   /**
    * @copydoc VoltageLevelInterface::exportSwitchesState()
    */
-  void exportSwitchesState();
+  void exportSwitchesState() override;
 
   /**
    * @brief get the detailed status of the node
    * @return @b true if the node is detailed
    */
-  inline bool isNodeBreakerTopology() const {
+  inline bool isNodeBreakerTopology() const override {
     return isNodeBreakerTopology_;
   }
 

@@ -12,37 +12,13 @@
 
 add_subdirectory(BaseClasses B)
 add_subdirectory(BaseClasses_INIT BI)
+add_subdirectory(TransformersFixedTap TF)
+add_subdirectory(TransformersVariableTap TV)
+add_subdirectory(TransformersVariableTapControlled TC)
 
 set(MODEL_FILES
   package.mo
   package.order
-  TransformerFixedRatio.mo
-  TransformerFixedRatio.extvar
-  TransformerVariableTap.mo
-  TransformerVariableTap.extvar
-  TransformerVariableTapXtdPu.mo
-  TransformerVariableTapXtdPu.extvar
-  TransformerVariableTapPQ_INIT.mo
-  TransformerVariableTapI_INIT.mo
-  GeneratorTransformer.mo
-  GeneratorTransformer.extvar
-  GeneratorTransformer_INIT.mo
-  IdealTransformerVariableTap.mo
-  IdealTransformerVariableTap.extvar
-  IdealTransformerVariableTapPQ_INIT.mo
-  IdealTransformerVariableTapI_INIT.mo
-  NetworkTransformer.extvar
-  NetworkTransformer.mo
-  NetworkTransformer_INIT.mo
-  TransformerPhaseTapChanger.mo
-  TransformerPhaseTapChanger.extvar
-  TransformerPhaseTapChanger_INIT.mo
-  TransformerRatioTapChanger.mo
-  TransformerRatioTapChanger.extvar
-  TransformerRatioTapChanger_INIT.mo
-  TransformerFixedRatioAndPhase.mo
-  TransformerFixedRatioAndPhase.extvar
-  TransformerFixedRatioAndPhase_INIT.mo
   )
 
 #

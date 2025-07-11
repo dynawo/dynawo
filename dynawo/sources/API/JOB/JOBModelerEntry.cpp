@@ -31,9 +31,8 @@ ModelerEntry::ModelerEntry(const ModelerEntry& other):
   std::size_t size = other.dynModelsEntries_.size();
   dynModelsEntries_.clear();
   dynModelsEntries_.reserve(size);
-  for (std::vector<boost::shared_ptr<DynModelsEntry> >::const_iterator it = other.dynModelsEntries_.begin();
-    it != other.dynModelsEntries_.end(); ++it) {
-    dynModelsEntries_.push_back(DYN::clone(*it));
+  for (const auto& entry : other.dynModelsEntries_) {
+    dynModelsEntries_.push_back(DYN::clone(entry));
   }
 }
 
@@ -48,30 +47,29 @@ ModelerEntry::operator=(const ModelerEntry& other) {
   std::size_t size = other.dynModelsEntries_.size();
   dynModelsEntries_.clear();
   dynModelsEntries_.reserve(size);
-  for (std::vector<boost::shared_ptr<DynModelsEntry> >::const_iterator it = other.dynModelsEntries_.begin();
-    it != other.dynModelsEntries_.end(); ++it) {
-    dynModelsEntries_.push_back(DYN::clone(*it));
+  for (const auto& entry : other.dynModelsEntries_) {
+    dynModelsEntries_.push_back(DYN::clone(entry));
   }
 
   return *this;
 }
 
 void
-ModelerEntry::setPreCompiledModelsDirEntry(const boost::shared_ptr<ModelsDirEntry>& preCompiledModelsDirEntry) {
+ModelerEntry::setPreCompiledModelsDirEntry(const std::shared_ptr<ModelsDirEntry>& preCompiledModelsDirEntry) {
   preCompiledModelsDirEntry_ = preCompiledModelsDirEntry;
 }
 
 void
-ModelerEntry::setModelicaModelsDirEntry(const boost::shared_ptr<ModelsDirEntry>& modelicaModelsDirEntry) {
+ModelerEntry::setModelicaModelsDirEntry(const std::shared_ptr<ModelsDirEntry>& modelicaModelsDirEntry) {
   modelicaModelsDirEntry_ = modelicaModelsDirEntry;
 }
 
-boost::shared_ptr<ModelsDirEntry>
+std::shared_ptr<ModelsDirEntry>
 ModelerEntry::getPreCompiledModelsDirEntry() const {
   return preCompiledModelsDirEntry_;
 }
 
-boost::shared_ptr<ModelsDirEntry>
+std::shared_ptr<ModelsDirEntry>
 ModelerEntry::getModelicaModelsDirEntry() const {
   return modelicaModelsDirEntry_;
 }
@@ -87,31 +85,31 @@ ModelerEntry::getCompileDir() const {
 }
 
 void
-ModelerEntry::setNetworkEntry(const boost::shared_ptr<NetworkEntry>& networkEntry) {
+ModelerEntry::setNetworkEntry(const std::shared_ptr<NetworkEntry>& networkEntry) {
   networkEntry_ = networkEntry;
 }
 
-boost::shared_ptr<NetworkEntry>
+std::shared_ptr<NetworkEntry>
 ModelerEntry::getNetworkEntry() const {
   return networkEntry_;
 }
 
 void
-ModelerEntry::addDynModelsEntry(const boost::shared_ptr<DynModelsEntry>& dynModelsEntry) {
+ModelerEntry::addDynModelsEntry(const std::shared_ptr<DynModelsEntry>& dynModelsEntry) {
   dynModelsEntries_.push_back(dynModelsEntry);
 }
 
-std::vector<boost::shared_ptr<DynModelsEntry> >
+std::vector<std::shared_ptr<DynModelsEntry> >
 ModelerEntry::getDynModelsEntries() const {
   return dynModelsEntries_;
 }
 
 void
-ModelerEntry::setInitialStateEntry(const boost::shared_ptr<InitialStateEntry>& initialStateEntry) {
+ModelerEntry::setInitialStateEntry(const std::shared_ptr<InitialStateEntry>& initialStateEntry) {
   initialStateEntry_ = initialStateEntry;
 }
 
-boost::shared_ptr<InitialStateEntry>
+std::shared_ptr<InitialStateEntry>
 ModelerEntry::getInitialStateEntry() const {
   return initialStateEntry_;
 }

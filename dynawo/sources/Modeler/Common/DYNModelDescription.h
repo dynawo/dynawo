@@ -146,7 +146,7 @@ class ModelDescription {
    * @brief Get the set of parameters associated to the model
    * @return the set of parameters associated to the model
    */
-  inline std::shared_ptr<parameters::ParametersSet> getParametersSet() const {
+  inline const std::shared_ptr<parameters::ParametersSet>& getParametersSet() const {
     return parameters_;
   }
 

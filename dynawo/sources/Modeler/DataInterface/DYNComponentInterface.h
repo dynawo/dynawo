@@ -164,7 +164,7 @@ class ComponentInterface {
    * @brief Getter for the component' id
    * @return The id of the component
    */
-  virtual std::string getID() const = 0;
+  virtual const std::string& getID() const = 0;
 
   /**
    * @brief get the index of a state variable thanks to its name
@@ -172,6 +172,13 @@ class ComponentInterface {
    * @return index of the state variable, @b -1 if the variable does not exist
    */
   virtual int getComponentVarIndex(const std::string& varName) const = 0;
+
+  /**
+   * @brief create a yet-unexisting state variable, in the rare cases it makes sense
+   * @param varName name of the state variable
+   * @return index of the newly created state variable, or @b -1 if the operation is not allowed
+   */
+  virtual int createComponentVarIndex(const std::string& varName);
 
   /**
    * @brief Getter for the component's hasInitialConditions_ attribute

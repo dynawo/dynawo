@@ -28,13 +28,13 @@ model HvdcVsc_INIT "Initialisation model for the HVDC VSC model"
   Types.PerUnit Iq20Pu "Start value of reactive current at terminal 2 in pu (base SNom, UNom) (DC to AC)";
   Boolean ModeU10 "Initial mode of control on side 1 : if true, U mode, if false, Q mode";
   Boolean ModeU20 "Initial mode of control on side 2 : if true, U mode, if false, Q mode";
-  Types.ReactivePowerPu PRef0Pu "Start value of reactive power reference in pu (base SNom) (DC to AC)";
+  Dynawo.Connectors.ReactivePowerPuConnector PRef0Pu "Start value of reactive power reference in pu (base SNom) (DC to AC)";
   Types.ReactivePowerPu QRef10Pu "Start value of reactive power reference at terminal 1 in pu (base SNom) (DC to AC)";
   Types.ReactivePowerPu QRef20Pu "Start value of reactive power reference at terminal 2 in pu (base SNom) (DC to AC)";
   Types.VoltageModulePu UDc10Pu "Start value of DC voltage at terminal 1 in pu (base UDcNom)";
   Types.VoltageModulePu UDc20Pu "Start value of DC voltage at terminal 2 in pu (base UDcNom)";
   Types.VoltageModulePu UDcRef0Pu "Start value of DC voltage reference in pu (base UDcNom)";
-  Types.VoltageModulePu URef10Pu "Start value of the voltage reference for the side 1 of the HVDC link in pu (base UNom)";
+  Dynawo.Connectors.VoltageModulePuConnector URef10Pu "Start value of the voltage reference for the side 1 of the HVDC link in pu (base UNom)";
   Types.VoltageModulePu URef20Pu "Start value of the voltage reference for the side 1 of the HVDC link in pu (base UNom)";
 
 equation

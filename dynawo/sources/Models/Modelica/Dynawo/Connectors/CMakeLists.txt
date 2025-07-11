@@ -15,9 +15,19 @@ set(MODEL_FILES
   package.order
   ACPower.mo
   BPin.mo
-  ZPin.mo
   ImPin.mo
   IntPin.mo
+  ZPin.mo
+  ActivePowerPuConnector.mo
+  AngleConnector.mo
+  AngularVelocityPuConnector.mo
+  ComplexCurrentPuConnector.mo
+  ComplexPerUnitConnector.mo
+  ComplexVoltagePuConnector.mo
+  CurrentModulePuConnector.mo
+  PerUnitConnector.mo
+  ReactivePowerPuConnector.mo
+  VoltageModulePuConnector.mo
   )
 
 #

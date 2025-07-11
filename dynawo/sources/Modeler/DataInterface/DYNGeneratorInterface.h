@@ -151,17 +151,17 @@ class GeneratorInterface : public ComponentInterface, public ReactiveCurvePoints
    * @brief Getter for the generator's id
    * @return The id of the generator
    */
-  virtual std::string getID() const = 0;
+  const std::string& getID() const override = 0;
 
   /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
-  virtual void exportStateVariablesUnitComponent() = 0;
+  void exportStateVariablesUnitComponent() override = 0;
 
   /**
    * @copydoc ReactiveCurvePointsInterface::getReactiveCurvesPoints() const
    */
-  virtual std::vector<ReactiveCurvePoint> getReactiveCurvesPoints() const = 0;
+  std::vector<ReactiveCurvePoint> getReactiveCurvesPoints() const override = 0;
 
   /**
    * @brief Determines if voltage regulation is on

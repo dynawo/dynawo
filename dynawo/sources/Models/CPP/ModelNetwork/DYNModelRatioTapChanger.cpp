@@ -29,7 +29,7 @@ using std::stringstream;
 namespace DYN {
 
 ModelRatioTapChanger::ModelRatioTapChanger(const std::string& id,
-                                           const std::string& side, int lowIndex)
+                                           const std::string& side, const int lowIndex)
     : ModelTapChanger(id, lowIndex),
       side_(side),
       tolV_(0.015),
@@ -86,10 +86,11 @@ bool ModelRatioTapChanger::getUpIncreaseTargetU() const {
 }
 
 void
-ModelRatioTapChanger::evalG(double t, double uValue, bool nodeOff, state_g* g, double disable, double locked, bool tfoClosed, double deltaUTarget) {
-  int currentStepIndex = getCurrentStepIndex();
-  double maxTargetV = targetV_ + tolV_ + deltaUTarget;
-  double minTargetV = targetV_ - tolV_ + deltaUTarget;
+ModelRatioTapChanger::evalG(const double t, const double uValue, const bool nodeOff, const double disable, const double locked, const bool tfoClosed,
+  const double deltaUTarget, state_g* g) {
+  const int currentStepIndex = getCurrentStepIndex();
+  const double maxTargetV = targetV_ + tolV_ + deltaUTarget;
+  const double minTargetV = targetV_ - tolV_ + deltaUTarget;
   g[0] = (uValue > maxTargetV && doubleNotEquals(uValue, maxTargetV)
   && !(disable > 0) && !nodeOff && tfoClosed) ? ROOT_UP : ROOT_DOWN;  // U > Uc + deadBand
   g[1] = (uValue < minTargetV && doubleNotEquals(uValue, minTargetV)
@@ -104,7 +105,8 @@ ModelRatioTapChanger::evalG(double t, double uValue, bool nodeOff, state_g* g, d
 }
 
 void
-ModelRatioTapChanger::evalZ(double t, state_g* g, ModelNetwork* network, double disable, bool nodeOff, double locked, bool tfoClosed) {
+ModelRatioTapChanger::evalZ(const double t, const state_g* g, const double disable, const bool nodeOff, const double locked, const bool tfoClosed,
+  ModelNetwork* network) {
   if (!(disable > 0) && !nodeOff && !(locked > 0) && tfoClosed) {
     if (g[0] == ROOT_UP && !uMaxState_) {  // U > UMax
       if (!getUpIncreaseTargetU()) {
@@ -174,31 +176,44 @@ ModelRatioTapChanger::evalZ(double t, state_g* g, ModelNetwork* network, double 
   }
 }
 
-void ModelRatioTapChanger::dumpInternalVariables(stringstream& streamVariables) const {
-  boost::archive::binary_oarchive os(streamVariables);
-  os << whenUp_;
-  os << whenDown_;
-  os << whenLastTap_;
-  os << moveUp_;
-  os << moveDown_;
-  os << tapRefDown_;
-  os << tapRefUp_;
-  os << uMaxState_;
-  os << uMinState_;
-  os << uTargetState_;
+unsigned ModelRatioTapChanger::getNbInternalVariables() const {
+  return 10;
 }
 
-void ModelRatioTapChanger::loadInternalVariables(stringstream& streamVariables) {
-  boost::archive::binary_iarchive is(streamVariables);
+void ModelRatioTapChanger::dumpInternalVariables(boost::archive::binary_oarchive& os) const {
+  ModelCPP::dumpInStream(os, whenUp_);
+  ModelCPP::dumpInStream(os, whenDown_);
+  ModelCPP::dumpInStream(os, whenLastTap_);
+  ModelCPP::dumpInStream(os, moveUp_);
+  ModelCPP::dumpInStream(os, moveDown_);
+  ModelCPP::dumpInStream(os, tapRefDown_);
+  ModelCPP::dumpInStream(os, tapRefUp_);
+  ModelCPP::dumpInStream(os, uMaxState_);
+  ModelCPP::dumpInStream(os, uMinState_);
+  ModelCPP::dumpInStream(os, uTargetState_);
+}
+
+void ModelRatioTapChanger::loadInternalVariables(boost::archive::binary_iarchive& is) {
+  char c;
+  is >> c;
   is >> whenUp_;
+  is >> c;
   is >> whenDown_;
+  is >> c;
   is >> whenLastTap_;
+  is >> c;
   is >> moveUp_;
+  is >> c;
   is >> moveDown_;
+  is >> c;
   is >> tapRefDown_;
+  is >> c;
   is >> tapRefUp_;
+  is >> c;
   is >> uMaxState_;
+  is >> c;
   is >> uMinState_;
+  is >> c;
   is >> uTargetState_;
 }
 

@@ -20,8 +20,8 @@ partial model BasePV_INIT "Base initialization model for PV HVDC"
 
   parameter Types.VoltageModulePu U1Ref0Pu "Start value of the voltage regulation set point in pu (base UNom) at terminal 1";
 
-  Types.ReactivePowerPu QInj10PuQNom "Reactive power at terminal 1 in pu (base Q1Nom) (generator convention)";
-  Types.VoltageModulePu U1Ref0PuVar "Start value of the voltage regulation set point in pu (base UNom) at terminal 1";
+  Dynawo.Connectors.ReactivePowerPuConnector QInj10PuQNom "Reactive power at terminal 1 in pu (base Q1Nom) (generator convention)";
+  Dynawo.Connectors.VoltageModulePuConnector U1Ref0PuVar "Start value of the voltage regulation set point in pu (base UNom) at terminal 1";
 
 equation
   U1Ref0PuVar = U1Ref0Pu;

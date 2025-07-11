@@ -37,12 +37,12 @@ class XmlImporter : public Importer {
   /**
    * @copydoc Importer::importFromDydFiles()
    */
-  boost::shared_ptr<DynamicModelsCollection> importFromDydFiles(const std::vector<std::string>& fileNames) const;
+  boost::shared_ptr<DynamicModelsCollection> importFromDydFiles(const std::vector<std::string>& fileNames) const  override;
 
   /**
    * @copydoc Importer::importFromStream()
    */
-  void importFromStream(std::istream& stream, XmlHandler& dydHandler, xml::sax::parser::ParserPtr& parser, bool xsdValidation) const;
+  void importFromStream(std::istream& stream, XmlHandler& dydHandler, xml::sax::parser::ParserPtr& parser, bool xsdValidation) const  override;
 };
 
 }  // namespace dynamicdata

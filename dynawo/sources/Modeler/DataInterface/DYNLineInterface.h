@@ -49,7 +49,7 @@ class LineInterface : public ComponentInterface {
   /**
    * @brief Destructor
    */
-  virtual ~LineInterface() = default;
+  ~LineInterface() override = default;
 
   /**
    * @brief Add a curent limit interface for side 1
@@ -187,7 +187,7 @@ class LineInterface : public ComponentInterface {
    * @brief Getter for the line's id
    * @return The id of the line
    */
-  virtual std::string getID() const = 0;
+  const std::string& getID() const override = 0;
 
   /**
    * @brief Retrieve active season for the line
@@ -198,7 +198,7 @@ class LineInterface : public ComponentInterface {
   /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
-  virtual void exportStateVariablesUnitComponent() = 0;
+  void exportStateVariablesUnitComponent() override = 0;
 
   /**
    * @brief Retrieve the permanent limit

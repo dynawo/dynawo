@@ -26,18 +26,18 @@
 namespace job {
 
 TEST(APIJOBTest, testLogsEntry) {
-  boost::shared_ptr<LogsEntry> logs = boost::shared_ptr<LogsEntry>(new LogsEntry());
+  std::shared_ptr<LogsEntry> logs = std::make_shared<LogsEntry>();
   // check default attributes
   ASSERT_EQ(logs->getAppenderEntries().size(), 0);
 
-  boost::shared_ptr<AppenderEntry> appender = boost::shared_ptr<AppenderEntry>(new AppenderEntry());
-  boost::shared_ptr<AppenderEntry> appender1 = boost::shared_ptr<AppenderEntry>(new AppenderEntry());
+  std::shared_ptr<AppenderEntry> appender = std::make_shared<AppenderEntry>();
+  std::shared_ptr<AppenderEntry> appender1 = std::make_shared<AppenderEntry>();
   logs->addAppenderEntry(appender);
   logs->addAppenderEntry(appender1);
 
   ASSERT_EQ(logs->getAppenderEntries().size(), 2);
 
-  boost::shared_ptr<LogsEntry> logs_bis = DYN::clone(logs);
+  std::shared_ptr<LogsEntry> logs_bis = DYN::clone(logs);
   ASSERT_EQ(logs_bis->getAppenderEntries().size(), 2);
 
   LogsEntry logs_bis2 = *logs;

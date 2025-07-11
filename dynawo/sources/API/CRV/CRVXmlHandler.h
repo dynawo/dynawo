@@ -46,7 +46,7 @@ class CurveHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief Destructor
    */
-  virtual ~CurveHandler();
+  ~CurveHandler() override;
 
   /**
    * @brief return the curve read in xml file
@@ -82,7 +82,7 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
   /**
    * @brief Destructor
    */
-  virtual ~XmlHandler();
+  ~XmlHandler() override;
 
   /**
    * @brief Parsed curves collection getter

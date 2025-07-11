@@ -101,45 +101,47 @@ ModelStaticVarCompensator::setFequations(map<int, string>& /*fEquationIndex*/) {
 
 void
 ModelStaticVarCompensator::init(int& /*yNum*/) {
-  double gTotal0 = 0.;
-  double bTotal0 = 0.;
-  double ur0 = 0.;
-  double ui0 = 0.;
-  double U0 = 0.;
-  std::shared_ptr<StaticVarCompensatorInterface> svc = svc_.lock();
-  double P0 = svc->getP() / SNREF;
-  double Q0;
-  double unomBus = svc->getBusInterface()->getVNom();
-  double thetaBus0 = svc->getBusInterface()->getAngle0();
-  double uBus0 = 0.;
-  switch (startingPointMode_) {
-  case FLAT:
-    Q0 = svc->getReactivePowerSetPoint() / SNREF;
-    if (svc->getBusInterface()) {
-      uBus0 = svc->getBusInterface()->getVNom();
+  if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
+    double gTotal0 = 0.;
+    double bTotal0 = 0.;
+    double ur0 = 0.;
+    double ui0 = 0.;
+    double U0 = 0.;
+    const std::shared_ptr<StaticVarCompensatorInterface> svc = svc_.lock();
+    const double P0 = svc->getP() / SNREF;
+    double Q0;
+    const double unomBus = svc->getBusInterface()->getVNom();
+    const double thetaBus0 = svc->getBusInterface()->getAngle0();
+    double uBus0 = 0.;
+    switch (startingPointMode_) {
+    case FLAT:
+      Q0 = svc->getReactivePowerSetPoint() / SNREF;
+      if (svc->getBusInterface()) {
+        uBus0 = svc->getBusInterface()->getVNom();
+      }
+      break;
+    case WARM:
+      Q0 = svc->getQ() / SNREF;
+      if (svc->getBusInterface()) {
+        uBus0 = svc->getBusInterface()->getV0();
+      }
+      break;
+    default:
+      Q0 = 0.;
+      break;
     }
-    break;
-  case WARM:
-    Q0 = svc->getQ() / SNREF;
-    if (svc->getBusInterface()) {
-      uBus0 = svc->getBusInterface()->getV0();
+    ur0 = uBus0 / unomBus * cos(thetaBus0 * DEG_TO_RAD);
+    ui0 = uBus0 / unomBus * sin(thetaBus0 * DEG_TO_RAD);
+    U0 = sqrt(ur0 * ur0 + ui0 * ui0);
+    if (!doubleIsZero(U0)) {
+      gTotal0 = P0 / (U0 * U0);
+      bTotal0 = -1. * Q0 / (U0 * U0);  // in order to have the same convention as a shunt : b < 0 when Q > 0 (network convention)
+      ir0_ = Q0 * ui0 / (ur0 * ur0 + ui0 * ui0);
+      ii0_ = - Q0 * ur0 / (ur0 * ur0 + ui0 * ui0);
     }
-    break;
-  default:
-    Q0 = 0.;
-    break;
+    gSvc0_ = gTotal0;
+    bSvc0_ = bTotal0;
   }
-  ur0 = uBus0 / unomBus * cos(thetaBus0 * DEG_TO_RAD);
-  ui0 = uBus0 / unomBus * sin(thetaBus0 * DEG_TO_RAD);
-  U0 = sqrt(ur0 * ur0 + ui0 * ui0);
-  if (!doubleIsZero(U0)) {
-    gTotal0 = P0 / (U0 * U0);
-    bTotal0 = -1. * Q0 / (U0 * U0);  // in order to have the same convention as a shunt : b < 0 when Q > 0 (network convention)
-    ir0_ = Q0 * ui0 / (ur0 * ur0 + ui0 * ui0);
-    ii0_ = - Q0 * ur0 / (ur0 * ur0 + ui0 * ui0);
-  }
-  gSvc0_ = gTotal0;
-  bSvc0_ = bTotal0;
 }
 
 double
@@ -153,7 +155,7 @@ ModelStaticVarCompensator::Q() const {
 }
 
 double
-ModelStaticVarCompensator::ir(const double& ui) const {
+ModelStaticVarCompensator::ir(const double ui) const {
   double ir = 0.;
   if (network_->isInitModel()) {
     ir = ir0_;
@@ -166,7 +168,7 @@ ModelStaticVarCompensator::ir(const double& ui) const {
 }
 
 double
-ModelStaticVarCompensator::ii(const double& ur) const {
+ModelStaticVarCompensator::ii(const double ur) const {
   double ii = 0.;
   if (network_->isInitModel()) {
     ii = ii0_;
@@ -207,25 +209,67 @@ ModelStaticVarCompensator::ii_dUi() const {
 }
 
 void
-ModelStaticVarCompensator::evalJt(SparseMatrix& /*jt*/, const double& /*cj*/, const int& /*rowOffset*/) {
+ModelStaticVarCompensator::evalJt(const double /*cj*/, const int /*rowOffset*/, SparseMatrix& /*jt*/) {
   // not needed
 }
 
 void
-ModelStaticVarCompensator::evalJtPrim(SparseMatrix& /*jt*/, const int& /*rowOffset*/) {
+ModelStaticVarCompensator::evalJtPrim(const int /*rowOffset*/, SparseMatrix& /*jtPrim*/) {
   // not needed
 }
 
 void
 ModelStaticVarCompensator::getY0() {
   if (!network_->isInitModel()) {
-    z_[modeNum_] = mode_;
-    z_[connectionStateNum_] = getConnected();
+    if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
+      z_[modeNum_] = mode_;
+      z_[connectionStateNum_] = getConnected();
+    } else {
+      mode_ = static_cast<StaticVarCompensatorInterface::RegulationMode_t>(static_cast<int>(z_[modeNum_]));
+      State svcCurrState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
+      if (svcCurrState == CLOSED) {
+        if (modelBus_->getConnectionState() != CLOSED) {
+          modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
+          stateModified_ = true;
+        }
+      } else if (svcCurrState == OPEN) {
+        if (modelBus_->getConnectionState() != OPEN) {
+          modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
+          stateModified_ = true;
+        }
+      } else if (svcCurrState == UNDEFINED_STATE) {
+        throw DYNError(Error::MODELER, UndefinedComponentState, id_);
+      } else {
+        throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
+      }
+      setConnected(svcCurrState);
+    }
   }
 }
 
+void
+ModelStaticVarCompensator::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
+  ModelCPP::dumpInStream(streamVariables, ir0_);
+  ModelCPP::dumpInStream(streamVariables, ii0_);
+  ModelCPP::dumpInStream(streamVariables, gSvc0_);
+  ModelCPP::dumpInStream(streamVariables, bSvc0_);
+}
+
+void
+ModelStaticVarCompensator::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
+  char c;
+  streamVariables >> c;
+  streamVariables >> ir0_;
+  streamVariables >> c;
+  streamVariables >> ii0_;
+  streamVariables >> c;
+  streamVariables >> gSvc0_;
+  streamVariables >> c;
+  streamVariables >> bSvc0_;
+}
+
 NetworkComponent::StateChange_t
-ModelStaticVarCompensator::evalZ(const double& /*t*/) {
+ModelStaticVarCompensator::evalZ(const double /*t*/) {
   mode_ = static_cast<StaticVarCompensatorInterface::RegulationMode_t>(static_cast<int>(z_[modeNum_]));
 
   if (modelBus_->getConnectionState() == OPEN)
@@ -253,7 +297,7 @@ ModelStaticVarCompensator::collectSilentZ(BitMask* silentZTable) {
 }
 
 void
-ModelStaticVarCompensator::evalG(const double& /*t*/) {
+ModelStaticVarCompensator::evalG(const double /*t*/) {
   // not needed
 }
 
@@ -269,8 +313,8 @@ ModelStaticVarCompensator::getIndexesOfVariablesUsedForCalculatedVarI(unsigned n
     case pNum_:
       break;
     case qNum_: {
-      int urYNum = modelBus_->urYNum();
-      int uiYNum = modelBus_->uiYNum();
+      const int urYNum = modelBus_->urYNum();
+      const int uiYNum = modelBus_->uiYNum();
       numVars.push_back(urYNum);
       numVars.push_back(uiYNum);
       break;
@@ -286,9 +330,9 @@ ModelStaticVarCompensator::evalJCalculatedVarI(unsigned numCalculatedVar, vector
   switch (numCalculatedVar) {
     case pNum_:
       if (isConnected()) {
-        double ur = modelBus_->ur();
-        double ui = modelBus_->ui();
-        double g = gSvc0_;
+        const double ur = modelBus_->ur();
+        const double ui = modelBus_->ui();
+        const double g = gSvc0_;
         // PProduced =  - g * (ur * ur + ui * ui)
         res[0] = - g * 2. * ur;  // @P/@Ur
         res[1] = - g * 2. * ui;  // @P/@Ui
@@ -297,9 +341,9 @@ ModelStaticVarCompensator::evalJCalculatedVarI(unsigned numCalculatedVar, vector
       break;
     case qNum_: {
       if (isConnected()) {
-        double ur = modelBus_->ur();
-        double ui = modelBus_->ui();
-        double b = bSvc0_;
+        const double ur = modelBus_->ur();
+        const double ui = modelBus_->ui();
+        const double b = bSvc0_;
         // QProduced =  b * (ur * ur + ui * ui)
         res[0] = b * 2. * ur;  // @Q/@Ur
         res[1] = b * 2. * ui;  // @Q/@Ui
@@ -343,8 +387,8 @@ ModelStaticVarCompensator::evalNodeInjection() {
     modelBus_->irAdd(ir0_);
     modelBus_->iiAdd(ii0_);
   } else {
-    double ur = modelBus_->ur();
-    double ui = modelBus_->ui();
+    const double ur = modelBus_->ur();
+    const double ui = modelBus_->ui();
     modelBus_->irAdd(ir(ui));
     modelBus_->iiAdd(ii(ur));
   }
@@ -360,8 +404,8 @@ ModelStaticVarCompensator::evalDerivatives(const double /*cj*/) {
   if (network_->isInitModel())
     return;
   if (isConnected()) {
-    int urYNum = modelBus_->urYNum();
-    int uiYNum = modelBus_->uiYNum();
+    const int urYNum = modelBus_->urYNum();
+    const int uiYNum = modelBus_->uiYNum();
     modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, urYNum, ir_dUr());
     modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, uiYNum, ir_dUi());
     modelBus_->derivatives()->addDerivative(II_DERIVATIVE, urYNum, ii_dUr());
@@ -387,7 +431,7 @@ ModelStaticVarCompensator::defineVariables(vector<shared_ptr<Variable> >& variab
 
 void
 ModelStaticVarCompensator::defineElements(vector<Element> &elements, map<string, int>& mapElement) {
-  string svcName = id_;
+  const string svcName = id_;
 
   // ========  CALCULATED VARIABLE ======
   addElementWithValue(svcName + string("_P"), "StaticVarCompensator", elements, mapElement);
@@ -399,7 +443,7 @@ ModelStaticVarCompensator::defineElements(vector<Element> &elements, map<string,
 }
 
 NetworkComponent::StateChange_t
-ModelStaticVarCompensator::evalState(const double& /*time*/) {
+ModelStaticVarCompensator::evalState(const double /*time*/) {
   if (stateModified_) {
     stateModified_ = false;
     return NetworkComponent::STATE_CHANGE;
@@ -420,7 +464,7 @@ ModelStaticVarCompensator::defineNonGenericParameters(std::vector<ParameterModel
 void
 ModelStaticVarCompensator::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params) {
   bool startingPointModeFound = false;
-  std::string startingPointMode = getParameterDynamicNoThrow<string>(params, "startingPointMode", startingPointModeFound);
+  const std::string startingPointMode = getParameterDynamicNoThrow<string>(params, "startingPointMode", startingPointModeFound);
   if (startingPointModeFound) {
     startingPointMode_ = getStartingPointMode(startingPointMode);
   }

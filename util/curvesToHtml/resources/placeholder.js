@@ -15,6 +15,7 @@ var plot;
 var dataToPlot;
 var dataId;
 var oldOptions;
+
 $(function () {
 
   dataToPlot= [];
@@ -88,9 +89,30 @@ $(function () {
                           xaxis: { min: ranges.xaxis.from, max: ranges.xaxis.to },
                           yaxis: { min: ranges.yaxis.from, max: ranges.yaxis.to },
         }));
-
-
-
      });
 
+  $("<div id='tooltip'></div>").css({
+    position: "absolute",
+    display: "none",
+    border: "1px solid #fdd",
+    padding: "2px",
+    opacity: 1.0,
+    "font-size": "small",
+  }).appendTo("body");
+
+  $("#placeholder").bind("plothover", function (event, pos, item) {
+    if (!pos.x || !pos.y) {
+      return;
+    }
+    if (item) {
+      var x = item.datapoint[0],
+          y = item.datapoint[1];
+
+      $("#tooltip").html(x + "<br />" + y)
+        .css({top: item.pageY+5, left: item.pageX+5, backgroundColor: item.series.color + "30"})
+        .fadeIn(50);
+    } else {
+      $("#tooltip").hide();
+    }
   });
+});

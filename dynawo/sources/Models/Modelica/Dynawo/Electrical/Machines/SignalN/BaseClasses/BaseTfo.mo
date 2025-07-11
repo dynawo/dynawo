@@ -17,7 +17,7 @@ partial model BaseTfo "Base dynamic model for generator transformer"
   parameter Types.ApparentPowerModule SNom "Nominal apparent power of the generator in MVA";
   parameter Types.PerUnit XTfoPu "Reactance of the generator transformer in pu (base UNom, SNom)";
 
-  input Types.VoltageModulePu UStatorRefPu(start = UStatorRef0Pu) "Voltage regulation set point at stator in pu (base UNom)";
+  input Dynawo.Connectors.VoltageModulePuConnector UStatorRefPu(start = UStatorRef0Pu) "Voltage regulation set point at stator in pu (base UNom)";
 
   Types.ComplexCurrentPu iStatorPu(re(start = iStator0Pu.re), im(start = iStator0Pu.im)) "Complex current at stator in pu (base UNom, SNom) (generator convention)";
   Types.ComplexApparentPowerPu sStatorPu(re(start = sStator0Pu.re), im(start = sStator0Pu.im)) "Complex apparent power at stator in pu (base UNom, SNom) (generator convention)";

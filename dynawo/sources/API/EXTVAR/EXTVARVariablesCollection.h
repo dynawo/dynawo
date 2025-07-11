@@ -20,7 +20,9 @@
 #ifndef API_EXTVAR_EXTVARVARIABLESCOLLECTION_H_
 #define API_EXTVAR_EXTVARVARIABLESCOLLECTION_H_
 
-#include "EXTVARIterators.h"
+#include <map>
+#include <memory>
+
 #include "EXTVARVariable.h"
 
 
@@ -45,31 +47,13 @@ class VariablesCollection {
   void addVariable(const std::shared_ptr<Variable>& variable);
 
   /**
-   * @brief model iterator: beginning of variable
-   * @return beginning of variable
-   */
-  variable_const_iterator cbeginVariable() const;
-
-  /**
-   * @brief model iterator: end of variable
-   * @return end of variable
-   */
-  variable_const_iterator cendVariable() const;
-
-  /**
-   * @brief model iterator: beginning of variable
-   * @return beginning of variable
-   */
-  variable_iterator beginVariable();
-
-  /**
-   * @brief model iterator: end of variable
-   * @return end of variable
-   */
-  variable_iterator endVariable();
-
-  friend class variable_iterator;
-  friend class variable_const_iterator;
+  * @brief get the variables
+  *
+  * @return variables
+  */
+  const std::map<std::string, std::shared_ptr<Variable> > & getVariables() const {
+    return variables_;
+  }
 
  private:
   std::map<std::string, std::shared_ptr<Variable> > variables_;  ///< Map of the variables

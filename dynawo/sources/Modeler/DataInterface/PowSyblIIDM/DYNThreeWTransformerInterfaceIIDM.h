@@ -40,7 +40,7 @@ class ThreeWTransformerInterfaceIIDM : public ThreeWTransformerInterface {
   /**
    * @brief Destructor
    */
-  ~ThreeWTransformerInterfaceIIDM();
+  ~ThreeWTransformerInterfaceIIDM() override;
 
   /**
    * @brief Constructor
@@ -51,32 +51,32 @@ class ThreeWTransformerInterfaceIIDM : public ThreeWTransformerInterface {
   /**
    * @copydoc ThreeWTransformerInterface::addCurrentLimitInterface1(std::unique_ptr<CurrentLimitInterface> currentLimitInterface)
    */
-  void addCurrentLimitInterface1(std::unique_ptr<CurrentLimitInterface> currentLimitInterface);
+  void addCurrentLimitInterface1(std::unique_ptr<CurrentLimitInterface> currentLimitInterface) override;
 
   /**
    * @copydoc ThreeWTransformerInterface::addCurrentLimitInterface2(std::unique_ptr<CurrentLimitInterface> currentLimitInterface)
    */
-  void addCurrentLimitInterface2(std::unique_ptr<CurrentLimitInterface> currentLimitInterface);
+  void addCurrentLimitInterface2(std::unique_ptr<CurrentLimitInterface> currentLimitInterface) override;
 
   /**
    * @copydoc ThreeWTransformerInterface::addCurrentLimitInterface3(std::unique_ptr<CurrentLimitInterface> currentLimitInterface)
    */
-  void addCurrentLimitInterface3(std::unique_ptr<CurrentLimitInterface> currentLimitInterface);
+  void addCurrentLimitInterface3(std::unique_ptr<CurrentLimitInterface> currentLimitInterface) override;
 
   /**
    * @copydoc ThreeWTransformerInterface::getCurrentLimitInterfaces1() const
    */
-  const std::vector<std::unique_ptr<CurrentLimitInterface> >& getCurrentLimitInterfaces1() const;
+  const std::vector<std::unique_ptr<CurrentLimitInterface> >& getCurrentLimitInterfaces1() const override;
 
   /**
    * @copydoc ThreeWTransformerInterface::getCurrentLimitInterfaces2() const
    */
-  const std::vector<std::unique_ptr<CurrentLimitInterface> >& getCurrentLimitInterfaces2() const;
+  const std::vector<std::unique_ptr<CurrentLimitInterface> >& getCurrentLimitInterfaces2() const override;
 
   /**
    * @copydoc ThreeWTransformerInterface::getCurrentLimitInterfaces3() const
    */
-  const std::vector<std::unique_ptr<CurrentLimitInterface> >& getCurrentLimitInterfaces3() const;
+  const std::vector<std::unique_ptr<CurrentLimitInterface> >& getCurrentLimitInterfaces3() const override;
 
   /**
    * @copydoc ThreeWTransformerInterface::getActiveSeason()
@@ -86,67 +86,67 @@ class ThreeWTransformerInterfaceIIDM : public ThreeWTransformerInterface {
   /**
    * @copydoc ThreeWTransformerInterface::setBusInterface1(const std::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface1(const std::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface1(const std::shared_ptr<BusInterface>& busInterface) override;
 
   /**
    * @copydoc ThreeWTransformerInterface::setBusInterface2(const std::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface2(const std::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface2(const std::shared_ptr<BusInterface>& busInterface) override;
 
   /**
    * @copydoc ThreeWTransformerInterface::setBusInterface3(const std::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface3(const std::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface3(const std::shared_ptr<BusInterface>& busInterface) override;
 
   /**
    * @copydoc ThreeWTransformerInterface::setVoltageLevelInterface1(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
    */
-  void setVoltageLevelInterface1(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
+  void setVoltageLevelInterface1(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) override;
 
   /**
    * @copydoc ThreeWTransformerInterface::setVoltageLevelInterface2(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
    */
-  void setVoltageLevelInterface2(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
+  void setVoltageLevelInterface2(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) override;
 
   /**
    * @copydoc ThreeWTransformerInterface::setVoltageLevelInterface3(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
    */
-  void setVoltageLevelInterface3(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
+  void setVoltageLevelInterface3(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) override;
 
   /**
    * @copydoc ThreeWTransformerInterface::getBusInterface1() const
    */
-  std::shared_ptr<BusInterface> getBusInterface1() const;
+  std::shared_ptr<BusInterface> getBusInterface1() const override;
 
   /**
    * @copydoc ThreeWTransformerInterface::getBusInterface2() const
    */
-  std::shared_ptr<BusInterface> getBusInterface2() const;
+  std::shared_ptr<BusInterface> getBusInterface2() const override;
 
   /**
    * @copydoc ThreeWTransformerInterface::getBusInterface3() const
    */
-  std::shared_ptr<BusInterface> getBusInterface3() const;
+  std::shared_ptr<BusInterface> getBusInterface3() const override;
 
   /**
    * @copydoc ThreeWTransformerInterface::getID() const
    */
-  std::string getID() const;
+  const std::string& getID() const override;
 
   /**
    * @copydoc ThreeWTransformerInterface::getInitialConnected1()
    */
-  bool getInitialConnected1();
+  bool getInitialConnected1() override;
 
   /**
    * @copydoc ThreeWTransformerInterface::getInitialConnected2()
    */
-  bool getInitialConnected2();
+  bool getInitialConnected2() override;
 
   /**
    * @copydoc ThreeWTransformerInterface::getInitialConnected3()
    */
-  bool getInitialConnected3();
+  bool getInitialConnected3() override;
 
   /**
    * @brief Checks the connection state of the transformer's side 1
@@ -169,27 +169,27 @@ class ThreeWTransformerInterfaceIIDM : public ThreeWTransformerInterface {
   /**
    * @copydoc ComponentInterface::importStaticParameters()
    */
-  void importStaticParameters();
+  void importStaticParameters() override;
 
   /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
-  void exportStateVariablesUnitComponent();
+  void exportStateVariablesUnitComponent() override;
 
   /**
    * @copydoc ComponentInterface::getComponentVarIndex()
    */
-  int getComponentVarIndex(const std::string& varName) const;
+  int getComponentVarIndex(const std::string& varName) const override;
 
   /**
    * @copydoc ComponentInterface::isConnected()
    */
-  virtual bool isConnected() const;
+  bool isConnected() const override;
 
   /**
    * @copydoc ComponentInterface::isPartiallyConnected()
    */
-  virtual bool isPartiallyConnected() const;
+  bool isPartiallyConnected() const override;
 
  private:
   /**

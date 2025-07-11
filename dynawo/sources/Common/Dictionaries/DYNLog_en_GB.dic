@@ -35,6 +35,7 @@ NetworkElementCompNotFound    =             unable to show the network component
 CalcVarConnectionIgnored      =             connection between calculated variables %1% and %2% will be ignored
 WrongCheckSum                 =             unable to load dump state : Checksum is different from the registered state (%1%)
 WrongParameterNum             =             unable to load dump state : Number of parameters has changed in comparison with the registered state (%1%)
+NetworkComponentNotFoundInDump =            ignoring dump state of component %1% as not found in current network (%2%)
 SubModelFeqFormulaNotExist    =             failed to retrieve equation %2% of submodel %1%
 SubModelGeqFormulaNotExist    =             failed to retrieve root equation %2% of submodel %1%
 IIDMExtensionNoCreate         =             iidm extension %1% from library %2% has no create function %3%
@@ -130,6 +131,9 @@ SourcePowerTakenIntoAccount   =             power of %1% %2% was added into the 
 NoNetworkConnection           =             component %1% not imported : no network connection declared
 PossibleDivisionByZero        =             impedance of line ID: %1% set to 0 in IIDM file, default parameters are then used: R = 0 and X = 0.01
 CriteriaDefinedButNoIIDM      =             a criteria file was defined without any IIDM file, it will be ignored
+RegulModeReqdNoSA             =             regulatingMode requested on %1% although StandbyAutomaton extension is unavailable
+VarCreatedForRef              =             var %1% created a posteriori on component %2% to satisfy ref with %3%, will likely be unused
+
 //---------------------- OTHERS --------------------------------------
 // --> ModelAreaShedding
 LoadSheddingValueIncomplete   =             load shedding quantities are not fully provided in %1% model's parameters, using default (0.) for missing values

@@ -48,9 +48,8 @@ OutputsEntry::copy(const OutputsEntry& other) {
   finalStateValuesEntry_ = DYN::clone(other.finalStateValuesEntry_);
 
   finalStateEntries_.reserve(other.finalStateEntries_.size());
-  for (std::vector<boost::shared_ptr<FinalStateEntry> >::const_iterator it = other.finalStateEntries_.begin(); it != other.finalStateEntries_.end(); ++it) {
-    finalStateEntries_.push_back(DYN::clone(*it));
-  }
+  for (const auto& finalStateEntry : other.finalStateEntries_)
+    finalStateEntries_.push_back(DYN::clone(finalStateEntry));
 }
 
 void
@@ -64,96 +63,96 @@ OutputsEntry::getOutputsDirectory() const {
 }
 
 void
-OutputsEntry::setInitValuesEntry(const boost::shared_ptr<InitValuesEntry>& initValuesEntry) {
+OutputsEntry::setInitValuesEntry(const std::shared_ptr<InitValuesEntry>& initValuesEntry) {
   initValuesEntry_ = initValuesEntry;
 }
 
-boost::shared_ptr<InitValuesEntry>
+std::shared_ptr<InitValuesEntry>
 OutputsEntry::getInitValuesEntry() const {
   return initValuesEntry_;
 }
 
 void
-OutputsEntry::setFinalValuesEntry(const boost::shared_ptr<FinalValuesEntry>& finalValuesEntry) {
+OutputsEntry::setFinalValuesEntry(const std::shared_ptr<FinalValuesEntry>& finalValuesEntry) {
   finalValuesEntry_ = finalValuesEntry;
 }
 
-boost::shared_ptr<FinalValuesEntry>
+std::shared_ptr<FinalValuesEntry>
 OutputsEntry::getFinalValuesEntry() const {
   return finalValuesEntry_;
 }
 
 void
-OutputsEntry::setConstraintsEntry(const boost::shared_ptr<ConstraintsEntry>& constraintsEntry) {
+OutputsEntry::setConstraintsEntry(const std::shared_ptr<ConstraintsEntry>& constraintsEntry) {
   constraintsEntry_ = constraintsEntry;
 }
 
-boost::shared_ptr<ConstraintsEntry>
+std::shared_ptr<ConstraintsEntry>
 OutputsEntry::getConstraintsEntry() const {
   return constraintsEntry_;
 }
 
 void
-OutputsEntry::setTimelineEntry(const boost::shared_ptr<TimelineEntry>& timelineEntry) {
+OutputsEntry::setTimelineEntry(const std::shared_ptr<TimelineEntry>& timelineEntry) {
   timelineEntry_ = timelineEntry;
 }
 
-boost::shared_ptr<TimelineEntry>
+std::shared_ptr<TimelineEntry>
 OutputsEntry::getTimelineEntry() const {
   return timelineEntry_;
 }
 
 void
-OutputsEntry::setTimetableEntry(const boost::shared_ptr<TimetableEntry>& timetableEntry) {
+OutputsEntry::setTimetableEntry(const std::shared_ptr<TimetableEntry>& timetableEntry) {
   timetableEntry_ = timetableEntry;
 }
 
-boost::shared_ptr<TimetableEntry>
+std::shared_ptr<TimetableEntry>
 OutputsEntry::getTimetableEntry() const {
   return timetableEntry_;
 }
 
 void
-OutputsEntry::addFinalStateEntry(const boost::shared_ptr<FinalStateEntry>& finalStateEntry) {
+OutputsEntry::addFinalStateEntry(const std::shared_ptr<FinalStateEntry>& finalStateEntry) {
   finalStateEntries_.push_back(finalStateEntry);
 }
 
 void
-OutputsEntry::setCurvesEntry(const boost::shared_ptr<CurvesEntry>& curvesEntry) {
+OutputsEntry::setCurvesEntry(const std::shared_ptr<CurvesEntry>& curvesEntry) {
   curvesEntry_ = curvesEntry;
 }
 
-boost::shared_ptr<CurvesEntry>
+std::shared_ptr<CurvesEntry>
 OutputsEntry::getCurvesEntry() const {
   return curvesEntry_;
 }
 
 void
-OutputsEntry::setFinalStateValuesEntry(const boost::shared_ptr<FinalStateValuesEntry>& finalStateValuesEntry) {
+OutputsEntry::setFinalStateValuesEntry(const std::shared_ptr<FinalStateValuesEntry>& finalStateValuesEntry) {
   finalStateValuesEntry_ = finalStateValuesEntry;
 }
 
-boost::shared_ptr<FinalStateValuesEntry>
+std::shared_ptr<FinalStateValuesEntry>
 OutputsEntry::getFinalStateValuesEntry() const {
   return finalStateValuesEntry_;
 }
 
 void
-OutputsEntry::setLostEquipmentsEntry(const boost::shared_ptr<LostEquipmentsEntry>& lostEquipmentsEntry) {
+OutputsEntry::setLostEquipmentsEntry(const std::shared_ptr<LostEquipmentsEntry>& lostEquipmentsEntry) {
   lostEquipmentsEntry_ = lostEquipmentsEntry;
 }
 
-boost::shared_ptr<LostEquipmentsEntry>
+std::shared_ptr<LostEquipmentsEntry>
 OutputsEntry::getLostEquipmentsEntry() const {
   return lostEquipmentsEntry_;
 }
 
 void
-OutputsEntry::setLogsEntry(const boost::shared_ptr<LogsEntry>& logsEntry) {
+OutputsEntry::setLogsEntry(const std::shared_ptr<LogsEntry>& logsEntry) {
   logsEntry_ = logsEntry;
 }
 
-boost::shared_ptr<LogsEntry>
+std::shared_ptr<LogsEntry>
 OutputsEntry::getLogsEntry() const {
   return logsEntry_;
 }

@@ -45,107 +45,107 @@ class VscConverterInterfaceIIDM : public VscConverterInterface, public InjectorI
   /**
    * @copydoc ComponentInterface::importStaticParameters()
    */
-  void importStaticParameters();
+  void importStaticParameters() override;
 
   /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
-  void exportStateVariablesUnitComponent() {/* not needed */}
+  void exportStateVariablesUnitComponent() override {/* not needed */}
 
   /**
    * @copydoc ComponentInterface::isConnected()
    */
-  bool isConnected() const;
+  bool isConnected() const override;
 
   /**
    * @copydoc VscConverterInterface::setBusInterface(const std::shared_ptr<BusInterface>& busInterface)
    */
-  void setBusInterface(const std::shared_ptr<BusInterface>& busInterface);
+  void setBusInterface(const std::shared_ptr<BusInterface>& busInterface) override;
 
   /**
    * @copydoc VscConverterInterface::setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
    */
-  void setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
+  void setVoltageLevelInterface(const std::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) override;
 
   /**
    * @copydoc VscConverterInterface::getBusInterface() const
    */
-  std::shared_ptr<BusInterface> getBusInterface() const;
+  std::shared_ptr<BusInterface> getBusInterface() const override;
 
   /**
    * @copydoc VscConverterInterface::getInitialConnected()
    */
-  bool getInitialConnected();
+  bool getInitialConnected() override;
 
   /**
    * @copydoc VscConverterInterface::getVNom() const
    */
-  double getVNom() const;
+  double getVNom() const override;
 
   /**
    * @copydoc VscConverterInterface::hasP()
    */
-  bool hasP();
+  bool hasP() override;
 
   /**
    * @copydoc VscConverterInterface::hasQ()
    */
-  bool hasQ();
+  bool hasQ() override;
 
   /**
    * @copydoc VscConverterInterface::getP()
    */
-  double getP();
+  double getP() override;
 
   /**
    * @copydoc VscConverterInterface::getQ()
    */
-  double getQ();
+  double getQ() override;
 
   /**
    * @copydoc VscConverterInterface::getQMax()
    */
-  double getQMax();
+  double getQMax() override;
 
   /**
    * @copydoc VscConverterInterface::getQMax()
    */
-  double getQMin();
+  double getQMin() override;
 
   /**
    * @copydoc VscConverterInterface::getReactiveCurvesPoints()
    */
-  std::vector<ReactiveCurvePoint> getReactiveCurvesPoints() const;
+  std::vector<ReactiveCurvePoint> getReactiveCurvesPoints() const override;
 
   /**
    * @copydoc VscConverterInterface::getID() const
    */
-  std::string getID() const;
+  const std::string& getID() const override;
 
   /**
    * @copydoc VscConverterInterface::getLossFactor() const
    */
-  double getLossFactor() const;
+  double getLossFactor() const override;
 
   /**
    * @copydoc VscConverterInterface::getVoltageRegulatorOn() const
    */
-  bool getVoltageRegulatorOn() const;
+  bool getVoltageRegulatorOn() const override;
 
   /**
    * @copydoc VscConverterInterface::getReactivePowerSetpoint() const
    */
-  double getReactivePowerSetpoint() const;
+  double getReactivePowerSetpoint() const override;
 
   /**
    * @copydoc VscConverterInterface::getVoltageSetpoint() const
    */
-  double getVoltageSetpoint() const;
+  double getVoltageSetpoint() const override;
 
   /**
    * @copydoc ComponentInterface::getComponentVarIndex()
    */
-  int getComponentVarIndex(const std::string& varName) const;
+  int getComponentVarIndex(const std::string& varName) const override;
 
   /**
    * @brief Getter for the reference to the iidm vsc converter istance

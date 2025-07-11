@@ -19,6 +19,7 @@
  */
 
 #include <iomanip>
+#include <utility>
 #include <vector>
 #include <map>
 #include <cstdlib>
@@ -168,10 +169,10 @@ struct StringPairHash {
 
 namespace DYN {
 
-Simulation::Simulation(shared_ptr<job::JobEntry>& jobEntry, shared_ptr<SimulationContext>& context, shared_ptr<DataInterface> data) :
+Simulation::Simulation(const std::shared_ptr<job::JobEntry>& jobEntry, const std::shared_ptr<SimulationContext>& context, shared_ptr<DataInterface> data) :
 context_(context),
 jobEntry_(jobEntry),
-data_(data),
+data_(std::move(data)),
 timeline_(),
 constraintsCollection_(),
 iidmFile_(""),
@@ -191,9 +192,15 @@ timelineOutputFile_(""),
 filterTimeline_(false),
 exportConstraintsMode_(EXPORT_CONSTRAINTS_NONE),
 constraintsOutputFile_(""),
+filterConstraints_(true),
 exportLostEquipmentsMode_(EXPORT_LOSTEQUIPMENTS_NONE),
 lostEquipmentsOutputFile_(""),
 finalState_(std::numeric_limits<double>::max()),
+tStart_(0.),
+tCurrent_(0.),
+tStop_(0.),
+activateCriteria_(false),
+criteriaStep_(0.),
 dumpLocalInitValues_(false),
 dumpGlobalInitValues_(false),
 dumpInitModelValues_(false),
@@ -220,8 +227,8 @@ wasLoggingEnabled_(false) {
   outputsDirectory_ = context_->getWorkingDirectory();
   if (jobEntry_->getOutputsEntry()) {
     outputsDirectory_ = createAbsolutePath(jobEntry_->getOutputsEntry()->getOutputsDirectory(), context_->getWorkingDirectory());
-    if (!is_directory(outputsDirectory_))
-      create_directory(outputsDirectory_);
+    if (!isDirectory(outputsDirectory_))
+      createDirectory(outputsDirectory_);
   }
 
   configureLogs();
@@ -234,10 +241,9 @@ wasLoggingEnabled_(false) {
 void
 Simulation::configureSimulationInputs() {
   //---- dydFile ----
-  vector <boost::shared_ptr<job::DynModelsEntry> > dynModelsEntries = jobEntry_->getModelerEntry()->getDynModelsEntries();
-  vector <string> dydFiles;
-  for (unsigned int i = 0; i < dynModelsEntries.size(); ++i) {
-    string absoluteDirPath = createAbsolutePath(dynModelsEntries[i]->getDydFile(), context_->getInputDirectory());
+  vector<string> dydFiles;
+  for (const auto& dynModelsEntry : jobEntry_->getModelerEntry()->getDynModelsEntries()) {
+    string absoluteDirPath = createAbsolutePath(dynModelsEntry->getDydFile(), context_->getInputDirectory());
     if (!exists(absoluteDirPath)) {
       throw DYNError(Error::MODELER, UnknownDydFile, absoluteDirPath);
     }
@@ -257,14 +263,11 @@ Simulation::configureSimulationInputs() {
   }
 }
 
-
 void
 Simulation::configureCriteria() {
-  for (std::vector<std::string>::const_iterator it = jobEntry_->getSimulationEntry()->getCriteriaFiles().begin(),
-      itEnd = jobEntry_->getSimulationEntry()->getCriteriaFiles().end();
-      it != itEnd; ++it) {
+  for (const auto& criteriaFile : jobEntry_->getSimulationEntry()->getCriteriaFiles()) {
     criteria::XmlImporter parser;
-    std::string path = createAbsolutePath(*it, context_->getInputDirectory());
+    std::string path = createAbsolutePath(criteriaFile, context_->getInputDirectory());
     std::shared_ptr<criteria::CriteriaCollection> ccollec = parser.importFromFile(path);
     if (!criteriaCollection_)
       criteriaCollection_ = ccollec;
@@ -310,9 +313,9 @@ Simulation::configureConstraintsOutputs() {
     stringstream pid_string;
     pid_string << pid_;
     constraintsCollection_ = ConstraintsCollectionFactory::newInstance("Simulation_" + pid_string.str());
-    string constraintsDir = createAbsolutePath("constraints", outputsDirectory_);
-    if (!is_directory(constraintsDir))
-      create_directory(constraintsDir);
+    const string constraintsDir = createAbsolutePath("constraints", outputsDirectory_);
+    if (!isDirectory(constraintsDir))
+      createDirectory(constraintsDir);
 
     //---- exportMode ----
     string exportMode = jobEntry_->getOutputsEntry()->getConstraintsEntry()->getExportMode();
@@ -327,7 +330,7 @@ Simulation::configureConstraintsOutputs() {
     } else {
       throw DYNError(Error::MODELER, UnknownConstraintsExport, exportMode);
     }
-
+    filterConstraints_ = jobEntry_->getOutputsEntry()->getConstraintsEntry()->isFilter();
     setConstraintsExportMode(exportModeFlag);
     setConstraintsOutputFile(outputFile);
   } else {
@@ -343,8 +346,8 @@ Simulation::configureTimelineOutputs() {
     pid_string << pid_;
     timeline_ = TimelineFactory::newInstance("Simulation_" + pid_string.str());
     string timeLineDir = createAbsolutePath("timeLine", outputsDirectory_);
-    if (!is_directory(timeLineDir))
-      create_directory(timeLineDir);
+    if (!isDirectory(timeLineDir))
+      createDirectory(timeLineDir);
 
     //---- exportMode ----
     const string& exportMode = jobEntry_->getOutputsEntry()->getTimelineEntry()->getExportMode();
@@ -376,8 +379,8 @@ void
 Simulation::configureTimetableOutputs() {
   // Timetable settings
   if (jobEntry_->getOutputsEntry()->getTimetableEntry()) {
-    if (!is_directory(outputsDirectory_))
-      create_directory(outputsDirectory_);
+    if (!isDirectory(outputsDirectory_))
+      createDirectory(outputsDirectory_);
 
     stringstream fileName;
     fileName << outputsDirectory_ << "/.dynawoexec-" << pid_;
@@ -392,8 +395,8 @@ Simulation::configureCurveOutputs() {
   // Curves settings
   if (jobEntry_->getOutputsEntry()->getCurvesEntry()) {
     string curvesDir = createAbsolutePath("curves", outputsDirectory_);
-    if (!is_directory(curvesDir))
-      create_directory(curvesDir);
+    if (!isDirectory(curvesDir))
+      createDirectory(curvesDir);
 
     //---- inputFile ----
     string curveInputFile = createAbsolutePath(jobEntry_->getOutputsEntry()->getCurvesEntry()->getInputFile(), context_->getInputDirectory());
@@ -430,8 +433,8 @@ Simulation::configureFinalStateValueOutputs() {
   // Final state value settings
   if (jobEntry_->getOutputsEntry()->getFinalStateValuesEntry()) {
     string finalStateValuesDir = createAbsolutePath("finalStateValues", outputsDirectory_);
-    if (!is_directory(finalStateValuesDir))
-      create_directory(finalStateValuesDir);
+    if (!isDirectory(finalStateValuesDir))
+      createDirectory(finalStateValuesDir);
 
     //---- inputFile ----
     string finalStateValuesInputFile = createAbsolutePath(
@@ -469,40 +472,39 @@ Simulation::configureFinalStateValueOutputs() {
 void
 Simulation::configureFinalStateOutputs() {
   // Final state settings
-  const std::vector<boost::shared_ptr<job::FinalStateEntry> >& finalStateEntries = jobEntry_->getOutputsEntry()->getFinalStateEntries();
+  const std::vector<std::shared_ptr<job::FinalStateEntry> >& finalStateEntries = jobEntry_->getOutputsEntry()->getFinalStateEntries();
 
   string finalStateDir = createAbsolutePath("finalState", outputsDirectory_);
-  if (!finalStateEntries.empty() && !is_directory(finalStateDir)) {
-    create_directory(finalStateDir);
+  if (!finalStateEntries.empty() && !isDirectory(finalStateDir)) {
+    createDirectory(finalStateDir);
   }
   std::map<double, ExportStateDefinition> dumpStateDefinitionsMap;
-  for (std::vector<boost::shared_ptr<job::FinalStateEntry> >::const_iterator it = finalStateEntries.begin();
-    it != finalStateEntries.end(); ++it) {
-    boost::optional<double> timestamp = (*it)->getTimestamp();
+  for (const auto& finalStateEntry : finalStateEntries) {
+    boost::optional<double> timestamp = finalStateEntry->getTimestamp();
 
     if (!timestamp) {
       // case no timestamp given, meaning final state
       // ---- exportDumpFile ----
-      if ((*it)->getExportDumpFile()) {
+      if (finalStateEntry->getExportDumpFile()) {
         finalState_.dumpFile_ = createAbsolutePath("outputState.dmp", finalStateDir);
       }
 
       // --- exportIIDMFile ----
-      if ((*it)->getExportIIDMFile()) {
+      if (finalStateEntry->getExportIIDMFile()) {
         finalState_.iidmFile_ = createAbsolutePath("outputIIDM.xml", finalStateDir);
       }
     } else {
-      if (!(*it)->getExportDumpFile() && !(*it)->getExportIIDMFile()) {
+      if (!finalStateEntry->getExportDumpFile() && !finalStateEntry->getExportIIDMFile()) {
         // no need to add a definition if no file is exported
         continue;
       }
       ExportStateDefinition dumpStateDefinition(*timestamp);
-      if ((*it)->getExportDumpFile()) {
+      if (finalStateEntry->getExportDumpFile()) {
         std::stringstream ss;
         ss << *timestamp << "_outputState.dmp";
         dumpStateDefinition.dumpFile_ = createAbsolutePath(ss.str(), finalStateDir);
       }
-      if ((*it)->getExportIIDMFile()) {
+      if (finalStateEntry->getExportIIDMFile()) {
         std::stringstream ss;
         ss << *timestamp << "_outputIIDM.xml";
         dumpStateDefinition.iidmFile_ = createAbsolutePath(ss.str(), finalStateDir);
@@ -511,9 +513,8 @@ Simulation::configureFinalStateOutputs() {
     }
   }
   // The map is used here to sort the requested final states according to the time requested
-  for (std::map<double, DYN::Simulation::ExportStateDefinition>::const_iterator it = dumpStateDefinitionsMap.begin();
-    it != dumpStateDefinitionsMap.end(); ++it) {
-    intermediateStates_.push(it->second);
+  for (const auto& dumpStateDefinition : dumpStateDefinitionsMap) {
+    intermediateStates_.push(dumpStateDefinition.second);
   }
 }
 
@@ -523,8 +524,8 @@ Simulation::configureLostEquipmentsOutputs() {
   if (jobEntry_->getOutputsEntry()->getLostEquipmentsEntry()
       && jobEntry_->getOutputsEntry()->getLostEquipmentsEntry()->getDumpLostEquipments()) {
     string lostEquipmentsDir = createAbsolutePath("lostEquipments", outputsDirectory_);
-    if (!is_directory(lostEquipmentsDir))
-      create_directory(lostEquipmentsDir);
+    if (!isDirectory(lostEquipmentsDir))
+      createDirectory(lostEquipmentsDir);
 
     setLostEquipmentsExportMode(Simulation::EXPORT_LOSTEQUIPMENTS_XML);
     setLostEquipmentsOutputFile(createAbsolutePath("lostEquipments.xml", lostEquipmentsDir));
@@ -532,7 +533,7 @@ Simulation::configureLostEquipmentsOutputs() {
 }
 
 void
-Simulation::compileModels() {
+Simulation::compileModels() const {
   // ModelsDirEntry: Precompiled models
   // convert precompiled models directories into absolute directories, and check whether they actually exist
   vector <UserDefinedDirectory> precompiledModelsDirsAbsolute;
@@ -540,14 +541,14 @@ Simulation::compileModels() {
   bool preCompiledUseStandardModels = false;
   if (jobEntry_->getModelerEntry()->getPreCompiledModelsDirEntry()) {
     vector <UserDefinedDirectory> precompiledModelsDirs = jobEntry_->getModelerEntry()->getPreCompiledModelsDirEntry()->getDirectories();
-    for (unsigned int i = 0; i < precompiledModelsDirs.size(); ++i) {
-      string absoluteDirPath = createAbsolutePath(precompiledModelsDirs[i].path, context_->getInputDirectory());
+    for (const auto& precompiledModelsDir : precompiledModelsDirs) {
+      string absoluteDirPath = createAbsolutePath(precompiledModelsDir.path, context_->getInputDirectory());
       if (!exists(absoluteDirPath)) {
         throw DYNError(Error::MODELER, UnknownModelsDir, absoluteDirPath);
       }
       UserDefinedDirectory dir;
       dir.path = absoluteDirPath;
-      dir.isRecursive = precompiledModelsDirs[i].isRecursive;
+      dir.isRecursive = precompiledModelsDir.isRecursive;
       precompiledModelsDirsAbsolute.push_back(dir);
     }
     preCompiledUseStandardModels = jobEntry_->getModelerEntry()->getPreCompiledModelsDirEntry()->getUseStandardModels();
@@ -560,17 +561,17 @@ Simulation::compileModels() {
   bool modelicaUseStandardModels = false;
   if (jobEntry_->getModelerEntry()->getModelicaModelsDirEntry()) {
     vector <UserDefinedDirectory> modelicaModelsDirs = jobEntry_->getModelerEntry()->getModelicaModelsDirEntry()->getDirectories();
-    for (unsigned int i = 0; i < modelicaModelsDirs.size(); ++i) {
-      string absoluteDirPath = createAbsolutePath(modelicaModelsDirs[i].path, context_->getInputDirectory());
+    for (const auto& modelicaModelsDir : modelicaModelsDirs) {
+      string absoluteDirPath = createAbsolutePath(modelicaModelsDir.path, context_->getInputDirectory());
       if (!exists(absoluteDirPath)) {
         throw DYNError(Error::MODELER, UnknownModelsDir, absoluteDirPath);
       }
       UserDefinedDirectory dir;
       dir.path = absoluteDirPath;
-      dir.isRecursive = modelicaModelsDirs[i].isRecursive;
+      dir.isRecursive = modelicaModelsDir.isRecursive;
       modelicaModelsDirsAbsolute.push_back(dir);
     }
-    if (jobEntry_->getModelerEntry()->getModelicaModelsDirEntry()->getModelExtension() != "") {
+    if (!jobEntry_->getModelerEntry()->getModelicaModelsDirEntry()->getModelExtension().empty()) {
       modelicaModelsExtension = jobEntry_->getModelerEntry()->getModelicaModelsDirEntry()->getModelExtension();
     }
     modelicaUseStandardModels = jobEntry_->getModelerEntry()->getModelicaModelsDirEntry()->getUseStandardModels();
@@ -579,7 +580,7 @@ Simulation::compileModels() {
   //---- compileDir ----
   string compileDir = createAbsolutePath(jobEntry_->getModelerEntry()->getCompileDir(), context_->getWorkingDirectory());
   if (!exists(compileDir))
-    create_directory(compileDir);
+    createDirectory(compileDir);
 
   vector<string> additionalHeaderFiles;
   if (hasEnvVar("DYNAWO_HEADER_FILES_FOR_PREASSEMBLED")) {
@@ -618,7 +619,7 @@ Simulation::loadDynamicData() {
   dyd_->setParametersReference(referenceParameters_);
 
   if (!data_) {
-    if (iidmFile_ != "") {
+    if (!iidmFile_.empty()) {
       data_ = DataInterfaceFactory::build(DataInterfaceFactory::DATAINTERFACE_IIDM, iidmFile_);
     } else {
       dyd_->initFromDydFiles(dydFiles_);
@@ -687,39 +688,37 @@ Simulation::configureLogs() {
 
   if (jobEntry_->getOutputsEntry()->getLogsEntry()) {
     string logsDir = createAbsolutePath("logs", outputsDirectory_);
-    if (!is_directory(logsDir))
-      create_directory(logsDir);
+    if (!isDirectory(logsDir))
+      createDirectory(logsDir);
 
-    if (jobEntry_->getOutputsEntry()->getLogsEntry()->getAppenderEntries().size() == 0) {
+    if (jobEntry_->getOutputsEntry()->getLogsEntry()->getAppenderEntries().empty()) {
       wasLoggingEnabled_ = Trace::isLoggingEnabled();
       Trace::disableLogging();
     } else {
-      vector<shared_ptr<job::AppenderEntry> > appendersEntry = jobEntry_->getOutputsEntry()->getLogsEntry()->getAppenderEntries();
+      vector<std::shared_ptr<job::AppenderEntry> > appendersEntry = jobEntry_->getOutputsEntry()->getLogsEntry()->getAppenderEntries();
       vector<Trace::TraceAppender> appenders;
-      vector<shared_ptr<job::AppenderEntry> >::iterator itApp = appendersEntry.begin();
-      for (; itApp != appendersEntry.end(); ++itApp) {
-        string file = createAbsolutePath((*itApp)->getFilePath(), logsDir);
+      for (const auto& appenderEntry : appendersEntry) {
+        string file = createAbsolutePath(appenderEntry->getFilePath(), logsDir);
         // Creates log directory if doesn't exist
-        string fileDir = remove_file_name(file);
-        if (!is_directory(fileDir))
-          create_directory(fileDir);
+        string fileDir = removeFileName(file);
+        if (!isDirectory(fileDir))
+          createDirectory(fileDir);
 
         Trace::TraceAppender app;
-        app.setTag((*itApp)->getTag());
+        app.setTag(appenderEntry->getTag());
         app.setFilePath(file);
-        app.setLvlFilter(Trace::severityLevelFromString((*itApp)->getLvlFilter()));
-        app.setShowLevelTag((*itApp)->getShowLevelTag());
-        app.setSeparator((*itApp)->getSeparator());
-        app.setShowTimeStamp((*itApp)->getTimeStampFormat() != "");
-        app.setTimeStampFormat((*itApp)->getTimeStampFormat());
+        app.setLvlFilter(Trace::severityLevelFromString(appenderEntry->getLvlFilter()));
+        app.setShowLevelTag(appenderEntry->getShowLevelTag());
+        app.setSeparator(appenderEntry->getSeparator());
+        app.setShowTimeStamp(!appenderEntry->getTimeStampFormat().empty());
+        app.setTimeStampFormat(appenderEntry->getTimeStampFormat());
         appenders.push_back(app);
       }
       Trace::clearAndAddAppenders(appenders);
 
       // Add DYNAWO version and revision in each header of appender
-      itApp = appendersEntry.begin();
-      for (; itApp != appendersEntry.end(); ++itApp) {
-        string tag = (*itApp)->getTag();
+      for (const auto& appenderEntry : appendersEntry) {
+        string tag = appenderEntry->getTag();
         Trace::printDynawoLogHeader(tag);
       }
     }
@@ -736,7 +735,7 @@ Simulation::importCurvesRequest() {
 }
 
 void
-Simulation::importFinalStateValuesRequest() {
+Simulation::importFinalStateValuesRequest() const {
   // Obtain Final State Values definitions from input file
   finalStateValues::XmlImporter importer;
   boost::shared_ptr<FinalStateValuesCollection> finalStateValuesCollection =
@@ -749,20 +748,17 @@ Simulation::importFinalStateValuesRequest() {
   // A Curve is identified by the pair model name, variable name
   typedef std::unordered_map<std::pair<std::string, std::string>, std::shared_ptr<curves::Curve>, StringPairHash> CurvesMap;
   CurvesMap curvesMap;
-  for (CurvesCollection::const_iterator itCurve = curvesCollection_->cbegin(); itCurve != curvesCollection_->cend(); ++itCurve) {
-    curvesMap.insert(std::make_pair(std::make_pair((*itCurve)->getModelName(), (*itCurve)->getVariable()), *itCurve));
-  }
+  for (const auto& curve : curvesCollection_->getCurves())
+    curvesMap.insert(std::make_pair(std::make_pair(curve->getModelName(), curve->getVariable()), curve));
 
-  for (FinalStateValuesCollection::const_iterator itFinalStateValue = finalStateValuesCollection->cbegin();
-      itFinalStateValue != finalStateValuesCollection->cend();
-      ++itFinalStateValue) {
-    CurvesMap::const_iterator entry = curvesMap.find(std::make_pair((*itFinalStateValue)->getModelName(), (*itFinalStateValue)->getVariable()));
+  for (const auto& finalStateValue : finalStateValuesCollection->getFinalStateValues()) {
+    const auto entry = curvesMap.find(std::make_pair(finalStateValue->getModelName(), finalStateValue->getVariable()));
     if (entry != curvesMap.end()) {
       entry->second->setExportType(curves::Curve::EXPORT_AS_BOTH);
     } else {
       std::unique_ptr<curves::Curve> curve = curves::CurveFactory::newCurve();
-      curve->setModelName((*itFinalStateValue)->getModelName());
-      curve->setVariable((*itFinalStateValue)->getVariable());
+      curve->setModelName(finalStateValue->getModelName());
+      curve->setVariable(finalStateValue->getVariable());
       curve->setExportType(curves::Curve::EXPORT_AS_FINAL_STATE_VALUE);
       curvesCollection_->add(std::move(curve));
     }
@@ -796,9 +792,9 @@ Simulation::initFromData(const shared_ptr<DataInterface>& data, const shared_ptr
 }
 
 void
-Simulation::initStructure() {
+Simulation::initStructure() const {
   model_->initBuffers();
-  std::shared_ptr<ModelMulti> model = std::dynamic_pointer_cast<ModelMulti>(model_);
+  const std::shared_ptr<ModelMulti> model = std::dynamic_pointer_cast<ModelMulti>(model_);
   if (!model->checkConnects()) {
     throw DYNError(Error::MODELER, WrongConnect);
   }
@@ -832,7 +828,7 @@ Simulation::init() {
   if (Trace::logExists(Trace::modeler(), DEBUG))
     model_->printModel();
   if (Trace::logExists(Trace::variables(), DEBUG)) {
-    bool withVariableType = false;  // At this point dynamic types are not known, the log is present to have infos in case calculateIC fails.
+    const bool withVariableType = false;  // At this point dynamic types are not known, the log is present to have infos in case calculateIC fails.
     model_->printVariableNames(withVariableType);
   }
 
@@ -853,7 +849,7 @@ Simulation::init() {
   Trace::info() << DYNLog(ModelBuildingEnd) << Trace::endline;
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline<< Trace::endline;
 
-  if (initialStateFile_ != "") {
+  if (!initialStateFile_.empty()) {
     Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
     Trace::info() << DYNLog(ModelInitialStateLoad) << Trace::endline;
     Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
@@ -877,7 +873,7 @@ Simulation::init() {
   calculateIC();
 
   if (Trace::logExists(Trace::variables(), DEBUG)) {
-    bool withVariableType = true;  // We rewrite the file with types this time
+    const bool withVariableType = true;  // We rewrite the file with types this time
     model_->printVariableNames(withVariableType);
   }
 
@@ -887,11 +883,8 @@ Simulation::init() {
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
   const std::vector<double>& y = solver_->getCurrentY();
   unsigned nbCurves = 0;
-  for (CurvesCollection::iterator itCurve = curvesCollection_->begin();
-          itCurve != curvesCollection_->end();
-          ++itCurve) {
-    std::shared_ptr<curves::Curve>& curve = *itCurve;
-    bool added = model_->initCurves(curve);
+  for (const auto& curve : curvesCollection_->getCurves()) {
+    const bool added = model_->initCurves(curve);
     if (added)
       ++nbCurves;
     if (curve->getCurveType() == curves::Curve::DISCRETE_VARIABLE) {
@@ -923,16 +916,16 @@ Simulation::calculateIC() {
   }
 
   if (dumpInitModelValues_) {
-    string localInitDir = createAbsolutePath("initValues/initModel", outputsDirectory_);
+    const string localInitDir = createAbsolutePath("initValues/initModel", outputsDirectory_);
     if (!exists(localInitDir))
-      create_directory(localInitDir);
+      createDirectory(localInitDir);
     model_->printInitModelValues(localInitDir, "dumpInitValues");
   }
 
   if (dumpLocalInitValues_) {
-    string localInitDir = createAbsolutePath("initValues/localInit", outputsDirectory_);
+    const string localInitDir = createAbsolutePath("initValues/localInit", outputsDirectory_);
     if (!exists(localInitDir))
-      create_directory(localInitDir);
+      createDirectory(localInitDir);
     model_->printModelValues(localInitDir, "dumpInitValues");
   }
   // check coherence during local init process (use of init model)
@@ -956,9 +949,9 @@ Simulation::calculateIC() {
   model_->notifyTimeStep();
 
   if (dumpGlobalInitValues_) {
-    string globalInitDir = createAbsolutePath("initValues/globalInit", outputsDirectory_);
+    const string globalInitDir = createAbsolutePath("initValues/globalInit", outputsDirectory_);
     if (!exists(globalInitDir))
-      create_directory(globalInitDir);
+      createDirectory(globalInitDir);
     model_->printModelValues(globalInitDir, "dumpInitValues");
   }
 
@@ -979,7 +972,7 @@ Simulation::simulate() {
     // This is a workaround to update the calculated variables with initial values of y and yp as they are not accessible at this level
     model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
   }
-  const bool updateCalculatedVariable = false;
+  constexpr bool updateCalculatedVariable = false;
   updateCurves(updateCalculatedVariable);  // initial curves
 
   bool criteriaChecked = true;
@@ -995,7 +988,7 @@ Simulation::simulate() {
       }
     }
 
-    boost::shared_ptr<job::CurvesEntry> curvesEntry = jobEntry_->getOutputsEntry()->getCurvesEntry();
+    std::shared_ptr<job::CurvesEntry> curvesEntry = jobEntry_->getOutputsEntry()->getCurvesEntry();
     boost::optional<int> iterationStep;
     boost::optional<double> timeStep;
     if (curvesEntry != nullptr) {
@@ -1013,7 +1006,7 @@ Simulation::simulate() {
         return;
       }
 
-      bool isCheckCriteriaIter = data_ && activateCriteria_ && currentIterNb % criteriaStep_ == 0;
+      const bool isCheckCriteriaIter = data_ && activateCriteria_ && currentIterNb % criteriaStep_ == 0;
 
       solver_->solve(tStop_, tCurrent_);
       solver_->printSolve();
@@ -1056,7 +1049,7 @@ Simulation::simulate() {
 
       model_->checkDataCoherence(tCurrent_);
       model_->printMessages();
-      if (timetableOutputFile_ != "" && currentIterNb % timetableSteps_ == 0)
+      if (!timetableOutputFile_.empty() && currentIterNb % timetableSteps_ == 0)
         printCurrentTime(timetableOutputFile_);
 
       if (isCheckCriteriaIter) {
@@ -1107,7 +1100,7 @@ Simulation::simulate() {
         throw DYNError(Error::SIMULATION, CriteriaNotChecked);
       }
     }
-    if (timetableOutputFile_ != "")
+    if (!timetableOutputFile_.empty())
         remove(timetableOutputFile_);
   } catch (const Terminate& t) {
     Trace::warn() << t.what() << Trace::endline;
@@ -1140,11 +1133,11 @@ Simulation::hasIntermediateStateToDump() const {
 }
 
 void
-Simulation::endSimulationWithError(bool criteria, bool isSimulationDiverging) {
-  if (timetableOutputFile_ != "")
+Simulation::endSimulationWithError(const bool criteria, const bool isSimulationDiverging) const {
+  if (!timetableOutputFile_.empty())
     remove(timetableOutputFile_);
   if (criteria && data_ && activateCriteria_) {
-    bool criteriaChecked = checkCriteria(tCurrent_, true);
+    const bool criteriaChecked = checkCriteria(tCurrent_, true);
     if (!criteriaChecked) {
       if (timeline_) {
         addEvent(DYNTimeline(CriteriaNotChecked));
@@ -1157,48 +1150,46 @@ Simulation::endSimulationWithError(bool criteria, bool isSimulationDiverging) {
 }
 
 bool
-Simulation::checkCriteria(double t, bool finalStep) {
+Simulation::checkCriteria(const double t, const bool finalStep) const {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("Simulation::checkCriteria()");
 #endif
-  const bool filterForCriteriaCheck = true;
+  constexpr bool filterForCriteriaCheck = true;
   data_->updateFromModel(filterForCriteriaCheck);
-  bool criteriaChecked = data_->checkCriteria(t, finalStep);
+  const bool criteriaChecked = data_->checkCriteria(t, finalStep);
   return criteriaChecked;
 }
 
 
 void
 Simulation::getFailingCriteria(std::vector<std::pair<double, std::string> >& failingCriteria) const {
-  data_->getFailingCriteria(failingCriteria);
+  if (data_)
+    data_->getFailingCriteria(failingCriteria);
 }
 
 void
-Simulation::updateParametersValues() {
+Simulation::updateParametersValues() const {
   if (exportCurvesMode_ == EXPORT_CURVES_NONE)
     return;
 
-  for (CurvesCollection::iterator itCurve = curvesCollection_->begin();
-          itCurve != curvesCollection_->end();
-          ++itCurve) {
-    if ((*itCurve)->isParameterCurve()) {   // if a parameter curve
-      string curveModelName((*itCurve)->getModelName());
-      string curveVariable((*itCurve)->getVariable());
+  for (const auto& curve : curvesCollection_->getCurves()) {
+    if (curve->isParameterCurve()) {   // if a parameter curve
+      string curveModelName(curve->getModelName());
+      string curveVariable(curve->getVariable());
 
       double value;
       bool found(false);
 
       model_->getModelParameterValue(curveModelName, curveVariable, value, found);   // get value
 
-      if (found) {
-        (*itCurve)->updateParameterCurveValue(curveVariable, value);   // update value
-      }
+      if (found)
+        curve->updateParameterCurveValue(curveVariable, value);   // update value
     }
   }
 }
 
 void
-Simulation::updateCurves(bool updateCalculateVariable) {
+Simulation::updateCurves(const bool updateCalculateVariable) const {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("Simulation::updateCurves()");
 #endif
@@ -1212,7 +1203,7 @@ Simulation::updateCurves(bool updateCalculateVariable) {
 }
 
 void
-Simulation::printSolverHeader() {
+Simulation::printSolverHeader() const {
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
   Trace::info() << DYNLog(SimulationStart, solver_->solverType()) << Trace::endline;
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
@@ -1220,7 +1211,7 @@ Simulation::printSolverHeader() {
 }
 
 void
-Simulation::addEvent(const MessageTimeline& messageTimeline) {
+Simulation::addEvent(const MessageTimeline& messageTimeline) const {
   if (timeline_) {
     const string name = "Simulation";
     timeline_->addEvent(getCurrentTime(), name, messageTimeline.str(), messageTimeline.priority(), messageTimeline.getKey());
@@ -1228,12 +1219,12 @@ Simulation::addEvent(const MessageTimeline& messageTimeline) {
 }
 
 void
-Simulation::printHighestDerivativesValues() {
+Simulation::printHighestDerivativesValues() const {
   if (!Trace::logExists("", DEBUG)) return;
   const vector<double>& deriv = solver_->getCurrentYP();
   vector<std::pair<double, int> > derivValues;
   for (size_t i = 0, iEnd = deriv.size(); i < iEnd; ++i)
-    derivValues.push_back(std::make_pair(deriv[i], static_cast<int>(i)));
+    derivValues.emplace_back(deriv[i], static_cast<int>(i));
 
   std::sort(derivValues.begin(), derivValues.end(), mapcompabs());
 
@@ -1246,7 +1237,7 @@ Simulation::printHighestDerivativesValues() {
 }
 
 void
-Simulation::printEnd() {
+Simulation::printEnd() const {
   solver_->printEnd();
 }
 
@@ -1264,28 +1255,28 @@ Simulation::terminate() {
 #endif
   updateParametersValues();   // update parameter curves' value
 
-  if (curvesOutputFile_ != "") {
+  if (!curvesOutputFile_.empty()) {
     ofstream fileCurves;
     openFileStream(fileCurves, curvesOutputFile_);
     printCurves(fileCurves);
     fileCurves.close();
   }
 
-  if (finalStateValuesOutputFile_ != "") {
+  if (!finalStateValuesOutputFile_.empty()) {
     ofstream fileFinalStateValues;
     openFileStream(fileFinalStateValues, finalStateValuesOutputFile_);
     printFinalStateValues(fileFinalStateValues);
     fileFinalStateValues.close();
   }
 
-  if (timelineOutputFile_ != "") {
+  if (!timelineOutputFile_.empty()) {
     ofstream fileTimeline;
     openFileStream(fileTimeline, timelineOutputFile_);
     printTimeline(fileTimeline);
     fileTimeline.close();
   }
 
-  if (constraintsOutputFile_ != "") {
+  if (!constraintsOutputFile_.empty()) {
     ofstream fileConstraints;
     openFileStream(fileConstraints, constraintsOutputFile_);
     printConstraints(fileConstraints);
@@ -1295,7 +1286,7 @@ Simulation::terminate() {
   if (dumpFinalValues_) {
     string finalValuesDir = createAbsolutePath("finalValues", outputsDirectory_);
     if (!exists(finalValuesDir))
-      create_directory(finalValuesDir);
+      createDirectory(finalValuesDir);
     model_->printModelValues(finalValuesDir, "dumpFinalValues");
   }
 
@@ -1306,7 +1297,7 @@ Simulation::terminate() {
     data_->exportStateVariables();
   }
 
-  if (data_ && isLostEquipmentsExported() && lostEquipmentsOutputFile_ != "") {
+  if (data_ && isLostEquipmentsExported() && !lostEquipmentsOutputFile_.empty()) {
     ofstream fileLostEquipments;
     openFileStream(fileLostEquipments, lostEquipmentsOutputFile_);
     printLostEquipments(fileLostEquipments);
@@ -1327,7 +1318,7 @@ Simulation::terminate() {
 }
 
 void
-Simulation::openFileStream(ofstream& stream, const std::string& path) {
+Simulation::openFileStream(ofstream& stream, const std::string& path) const {
   stream.open(path.c_str(), ofstream::out);
   if (!stream.is_open()) {
     throw DYNError(Error::SIMULATION, OpenFileFailed, path);
@@ -1360,16 +1351,16 @@ void Simulation::printFinalStateValues(std::ostream& stream) const {
     boost::shared_ptr<FinalStateValuesCollection> finalStateValuesCollection =
       FinalStateValuesCollectionFactory::newInstance("Simulation_" + pid_string.str());
 
-    for (CurvesCollection::const_iterator itCurve = curvesCollection_->cbegin(); itCurve != curvesCollection_->cend(); ++itCurve) {
-      bool isFinalStateValue =
-        (*itCurve)->getExportType() == curves::Curve::EXPORT_AS_FINAL_STATE_VALUE ||
-        (*itCurve)->getExportType() == curves::Curve::EXPORT_AS_BOTH;
-      if ((*itCurve)->getAvailable() && isFinalStateValue) {
-        curves::Curve::const_iterator lastPoint = --(*itCurve)->cend();
+    for (const auto& curve : curvesCollection_->getCurves()) {
+      const bool isFinalStateValue =
+        curve->getExportType() == curves::Curve::EXPORT_AS_FINAL_STATE_VALUE ||
+        curve->getExportType() == curves::Curve::EXPORT_AS_BOTH;
+      if (curve->getAvailable() && isFinalStateValue) {
+        const auto& lastPoint = curve->getPoints().back();
         std::unique_ptr<finalStateValues::FinalStateValue> finalStateValue = finalStateValues::FinalStateValueFactory::newFinalStateValue();
-        finalStateValue->setModelName((*itCurve)->getModelName());
-        finalStateValue->setVariable((*itCurve)->getVariable());
-        finalStateValue->setValue((*lastPoint)->getValue());
+        finalStateValue->setModelName(curve->getModelName());
+        finalStateValue->setVariable(curve->getVariable());
+        finalStateValue->setValue(lastPoint->getValue());
         finalStateValuesCollection->add(std::move(finalStateValue));
       }
     }
@@ -1432,6 +1423,10 @@ Simulation::printTimeline(std::ostream& stream) const {
 
 void
 Simulation::printConstraints(std::ostream& stream) const {
+  if (!constraintsCollection_) return;
+  if (filterConstraints_) {
+    constraintsCollection_->filter();
+  }
   switch (exportConstraintsMode_) {
     case EXPORT_CONSTRAINTS_NONE:
       break;
@@ -1462,7 +1457,7 @@ Simulation::printLostEquipments(std::ostream& stream) const {
 }
 
 void
-Simulation::dumpIIDMFile(const boost::filesystem::path& iidmFile) {
+Simulation::dumpIIDMFile(const boost::filesystem::path& iidmFile) const {
   if (data_)
     data_->dumpToFile(iidmFile.generic_string());
 }
@@ -1475,20 +1470,18 @@ Simulation::dumpIIDMFile(std::stringstream& stream) const {
 
 void
 Simulation::dumpIIDMFile() {
-  if (finalState_.iidmFile_) {
+  if (finalState_.iidmFile_)
     dumpIIDMFile(*finalState_.iidmFile_);
-  }
 }
 
 void
 Simulation::dumpState() {
-  if (finalState_.dumpFile_) {
+  if (finalState_.dumpFile_)
     dumpState(*finalState_.dumpFile_);
-  }
 }
 
 void
-Simulation::dumpState(const boost::filesystem::path& dumpFile) {
+Simulation::dumpState(const boost::filesystem::path& dumpFile) const {
   if (!model_) return;
   stringstream state;
   boost::archive::binary_oarchive os(state);
@@ -1505,10 +1498,8 @@ Simulation::dumpState(const boost::filesystem::path& dumpFile) {
 
   boost::shared_ptr<zip::ZipFile> archive = zip::ZipFileFactory::newInstance();
 
-  for (map<string, string>::const_iterator it = mapValues.begin();
-          it != mapValues.end();
-          ++it) {
-    archive->addEntry(it->first, it->second);
+  for (const auto& mapValue : mapValues) {
+    archive->addEntry(mapValue.first, mapValue.second);
   }
   zip::ZipOutputStream::write(dumpFile.generic_string(), archive);
 }
@@ -1517,14 +1508,13 @@ double
 Simulation::loadState(const string& fileName) {
   boost::shared_ptr<zip::ZipFile> archive = zip::ZipInputStream::read(fileName);
   map<string, string> mapValues;  // map associating file name with parameters/variables to dumpe
-  for (map<string, shared_ptr<zip::ZipEntry> >::const_iterator itE = archive->getEntries().begin();
-          itE != archive->getEntries().end(); ++itE) {
-    string name = itE->first;
-    string data(itE->second->getData());
+  for (const auto& entryPair : archive->getEntries()) {
+    string name = entryPair.first;
+    string data(entryPair.second->getData());
     mapValues[name] = data;
   }
 
-  map<string, string >::iterator iter = mapValues.find(TIME_FILENAME);
+  auto iter = mapValues.find(TIME_FILENAME);
   if (iter == mapValues.end())
     throw DYNError(Error::GENERAL, IncompleteDump);
 
@@ -1554,19 +1544,19 @@ Simulation::loadState(const string& fileName) {
 }
 
 void
-Simulation::printCurrentTime(const string& fileName) {
+Simulation::printCurrentTime(const string& fileName) const {
   ofstream out(fileName.c_str());
   out << tCurrent_;
   out.close();
   fs::permissions(fileName, fs::group_read | fs::group_write | fs::owner_write | fs::others_write | fs::owner_read | fs::others_read);
 }
 
-Simulation::ExportStateDefinition::ExportStateDefinition(double timestamp,
+Simulation::ExportStateDefinition::ExportStateDefinition(const double timestamp,
       boost::optional<boost::filesystem::path> dumpFile,
       boost::optional<boost::filesystem::path> iidmFile):
   timestamp_(timestamp),
-  dumpFile_(dumpFile),
-  iidmFile_(iidmFile) {
+  dumpFile_(std::move(dumpFile)),
+  iidmFile_(std::move(iidmFile)) {
 }
 
 }  // end of namespace DYN

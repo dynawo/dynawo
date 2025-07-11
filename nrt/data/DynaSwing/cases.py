@@ -58,6 +58,17 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 test_cases.append((case_name, case_description, job_file, 2, standardReturnCodeType, standardReturnCode))
 
 #############################
+#     GFM EPRI - Fault      #
+#############################
+
+case_name = "DynaSwing - GFM EPRI - Fault"
+case_description = "GFM EPRI - Fault"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "GridForming", "EPRI", "GFM_Fault", "GFM.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+
+#############################
 #     GFM / GFL - Steps     #
 #############################
 
@@ -408,13 +419,43 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 
 test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
 
-##########################################
-#     WECC Wind Type 4A Current Source   #
-##########################################
+####################################################
+#     WECC Wind Type 4A Current Source with WTGTA  #
+####################################################
 
-case_name = "DynaSwing - WECC - Wind 4A Type - Current source"
-case_description = "WECC - Wind 4A Type - Current Source"
-job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "WECC", "Wind", "WECCWTG4ACurrentSource", "WECCWTG4A.jobs")
+case_name = "DynaSwing - WECC - Wind 4A Type - Current source - WTGTA"
+case_description = "WECC - Wind 4A Type - Current Source - WTGTA"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "WECC", "Wind", "WECCWTG4ACurrentSource1", "WECCWTG4A.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+####################################################
+#     WECC Wind Type 3 Current Source  with WTGTB #
+####################################################
+
+case_name = "DynaSwing - WECC - Wind 4A Type - Current source - WTGTB"
+case_description = "WECC - Wind 4A Type - Current Source - WTGTB"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "WECC", "Wind", "WECCWTG4ACurrentSource2", "WECCWTG4A.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+####################################################
+#     WECC Wind Type 3 Current Source with WTGPA  #
+####################################################
+
+case_name = "DynaSwing - WECC - Wind 3 Type - Current source - WTGPA"
+case_description = "WECC - Wind 3 Type - Current Source - WTGPA"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "WECC", "Wind", "WECCWTG3CurrentSource1", "WECCWTG3.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+####################################################
+#     WECC Wind Type 3 Current Source with WTGPB  #
+####################################################
+
+case_name = "DynaSwing - WECC - Wind 3 Type - Current source - WTGPB"
+case_description = "WECC - Wind 3 Type - Current Source - WTGPB"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "WECC", "Wind", "WECCWTG3CurrentSource2", "WECCWTG3.jobs")
 
 test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
 

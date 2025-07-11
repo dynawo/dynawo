@@ -16,7 +16,8 @@ set(MODEL_FILES
   package.order
   FullDynamicInfiniteBus.mo
   FullDynamicInfiniteBusNoLoadReset.mo
-  FullStatic.mo
+  FullStatic1.mo
+  FullStatic2.mo
   )
 
 #

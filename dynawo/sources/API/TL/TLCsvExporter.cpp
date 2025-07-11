@@ -45,20 +45,18 @@ void
 CsvExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream& stream) const {
   const std::string CSVEXPORTER_SEPARATOR = ";";  ///< definition of the separator to use in csv files
 
-  for (Timeline::event_const_iterator itEvent = timeline->cbeginEvent();
-          itEvent != timeline->cendEvent();
-          ++itEvent) {
-    if ((*itEvent)->hasPriority() && maxPriority_ != boost::none && (*itEvent)->getPriority() > maxPriority_)
+  for (const auto& event : timeline->getEvents()) {
+    if (event->hasPriority() && maxPriority_ != boost::none && event->getPriority() > maxPriority_)
       continue;
     if (exportWithTime_)
-      stream << DYN::double2String((*itEvent)->getTime())
+      stream << DYN::double2String(event->getTime())
               << CSVEXPORTER_SEPARATOR;
-    stream << (*itEvent)->getModelName()
+    stream << event->getModelName()
             << CSVEXPORTER_SEPARATOR
-            << (*itEvent)->getMessage();
-    if ((*itEvent)->hasPriority()) {
+            << event->getMessage();
+    if (event->hasPriority()) {
       stream << CSVEXPORTER_SEPARATOR
-              << (*itEvent)->getPriority();
+              << event->getPriority();
     }
     stream << "\n";
   }

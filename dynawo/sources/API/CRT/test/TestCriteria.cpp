@@ -85,7 +85,6 @@ TEST(APICRTTest, Criteria) {
   std::unique_ptr<Criteria> criteria = CriteriaFactory::newCriteria();
 
   // test default constructor attributes
-  assert(criteria->begin() == criteria->end());
   assert(!criteria->getParams());
 
   // set attributes
@@ -108,29 +107,18 @@ TEST(APICRTTest, Criteria) {
   // test setted attributes
   ASSERT_EQ(criteria->getParams(), criteriap);
   size_t idx = 0;
-  for (Criteria::component_id_const_iterator it = criteria->begin(), itEnd = criteria->end();
-      it != itEnd; ++it, ++idx) {
+  for (const auto& componentId : criteria->getComponentIds()) {
     if (idx == 0) {
-      ASSERT_EQ(it->getId(), "MyCompId1");
-      ASSERT_EQ(it->getVoltageLevelId(), "MyVoltageLevelId");
+      ASSERT_EQ(componentId->getId(), "MyCompId1");
+      ASSERT_EQ(componentId->getVoltageLevelId(), "MyVoltageLevelId");
     } else if (idx == 1) {
-      ASSERT_EQ(it->getId(), "MyCompId2");
-      ASSERT_EQ(it->getVoltageLevelId(), "");
+      ASSERT_EQ(componentId->getId(), "MyCompId2");
+      ASSERT_EQ(componentId->getVoltageLevelId(), "");
     } else {
       assert(false);
     }
+    idx++;
   }
-  Criteria::component_id_const_iterator itCt = criteria->begin();
-  ASSERT_EQ((++itCt)->getId(), "MyCompId2");
-  ASSERT_EQ((--itCt)->getId(), "MyCompId1");
-  ASSERT_EQ((itCt++)->getId(), "MyCompId1");
-  ASSERT_EQ((itCt--)->getId(), "MyCompId2");
-  ASSERT_EQ(itCt->getId(), "MyCompId1");
-  ASSERT_EQ(idx, 2);
-  Criteria::component_id_const_iterator itCt2 = criteria->end();
-  itCt2 = itCt;
-  ASSERT_EQ(itCt == itCt2, true);
-
 
   ASSERT_TRUE(criteria->hasCountryFilter());
   ASSERT_TRUE(criteria->containsCountry("FR"));
@@ -140,11 +128,6 @@ TEST(APICRTTest, Criteria) {
 
 TEST(APICRTTest, CriteriaCollection) {
   const std::unique_ptr<CriteriaCollection> criteriaCol = CriteriaCollectionFactory::newInstance();
-
-  // test default constructor attributes
-  assert(criteriaCol->begin(CriteriaCollection::BUS) == criteriaCol->end(CriteriaCollection::BUS));
-  assert(criteriaCol->begin(CriteriaCollection::LOAD) == criteriaCol->end(CriteriaCollection::LOAD));
-  assert(criteriaCol->begin(CriteriaCollection::GENERATOR) == criteriaCol->end(CriteriaCollection::GENERATOR));
 
   // set attributes
   std::shared_ptr<Criteria> criteriaBus = CriteriaFactory::newCriteria();
@@ -166,47 +149,32 @@ TEST(APICRTTest, CriteriaCollection) {
 
   // test setted attributes
   size_t idx = 0;
-  for (CriteriaCollection::CriteriaCollectionConstIterator it = criteriaCol->begin(CriteriaCollection::BUS),
-      itEnd = criteriaCol->end(CriteriaCollection::BUS);
-      it != itEnd; ++it, ++idx) {
-    std::shared_ptr<Criteria> criteria = *it;
+  for (const auto& criteria : criteriaCol->getBusCriteria()) {
     if (idx == 0)
-      ASSERT_EQ(*it, criteriaBus);
+      ASSERT_EQ(criteria, criteriaBus);
     else
       assert(false);
+    ++idx;
   }
 
   idx = 0;
-  for (CriteriaCollection::CriteriaCollectionConstIterator it = criteriaCol->begin(CriteriaCollection::LOAD),
-      itEnd = criteriaCol->end(CriteriaCollection::LOAD);
-      it != itEnd; ++it, ++idx) {
-    std::shared_ptr<Criteria> criteria = *it;
+  for (const auto& criteria : criteriaCol->getLoadCriteria()) {
     if (idx == 0)
-      ASSERT_EQ(*it, criteriaLoad);
+      ASSERT_EQ(criteria, criteriaLoad);
     else if (idx == 1)
-      ASSERT_EQ(*it, criteriaLoad2);
+      ASSERT_EQ(criteria, criteriaLoad2);
     else
       assert(false);
+    ++idx;
   }
-  CriteriaCollection::CriteriaCollectionConstIterator itCt = criteriaCol->begin(CriteriaCollection::LOAD);
-  ASSERT_EQ(*(++itCt), criteriaLoad2);
-  ASSERT_EQ(*(--itCt), criteriaLoad);
-  ASSERT_EQ(*(itCt++), criteriaLoad);
-  ASSERT_EQ(*(itCt--), criteriaLoad2);
-  ASSERT_EQ(*itCt, criteriaLoad);
-  CriteriaCollection::CriteriaCollectionConstIterator itCt2  = criteriaCol->end(CriteriaCollection::LOAD);
-  itCt2 = itCt;
-  ASSERT_EQ(itCt == itCt2, true);
 
   idx = 0;
-  for (CriteriaCollection::CriteriaCollectionConstIterator it = criteriaCol->begin(CriteriaCollection::GENERATOR),
-      itEnd = criteriaCol->end(CriteriaCollection::GENERATOR);
-      it != itEnd; ++it, ++idx) {
-    std::shared_ptr<Criteria> criteria = *it;
+  for (const auto& criteria : criteriaCol->getGeneratorCriteria()) {
     if (idx == 0)
-      ASSERT_EQ(*it, criteriaGen);
+      ASSERT_EQ(criteria, criteriaGen);
     else
       assert(false);
+    ++idx;
   }
 }
 

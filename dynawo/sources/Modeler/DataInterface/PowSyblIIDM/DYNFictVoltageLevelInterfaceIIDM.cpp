@@ -42,7 +42,7 @@ FictVoltageLevelInterfaceIIDM::FictVoltageLevelInterfaceIIDM(const std::string& 
                                                             Id_(Id), VNom_(VNom), country_(country) {
 }
 
-std::string
+const std::string&
 FictVoltageLevelInterfaceIIDM::getID() const {
     return Id_;
 }
@@ -58,17 +58,17 @@ FictVoltageLevelInterfaceIIDM::getVoltageLevelTopologyKind() const {
 }
 
 void
-FictVoltageLevelInterfaceIIDM::connectNode(const unsigned int& /*node*/) {
+FictVoltageLevelInterfaceIIDM::connectNode(unsigned int /*node*/) {
   /* not needed */
 }
 
 void
-FictVoltageLevelInterfaceIIDM::disconnectNode(const unsigned int& /*node*/) {
+FictVoltageLevelInterfaceIIDM::disconnectNode(unsigned int /*node*/) {
   /* not needed */
 }
 
 bool
-FictVoltageLevelInterfaceIIDM::isNodeConnected(const unsigned int& /*node*/) {
+FictVoltageLevelInterfaceIIDM::isNodeConnected(unsigned int /*node*/) {
     static bool b(false);
     return b;
 }

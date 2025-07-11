@@ -35,12 +35,13 @@ using std::vector;
 
 namespace DYN {
 
-ModelCPP::ModelCPP() {
+ModelCPP::ModelCPP() :
+isStartingFromDump_(false) {
 }
 
-ModelCPP::ModelCPP(std::string modelType) :
-modelType_(modelType),
-isStartingFromDump_(false) {
+ModelCPP::ModelCPP(const std::string& modelType) :
+isStartingFromDump_(false),
+modelType_(modelType) {
 }
 
 void
@@ -57,12 +58,12 @@ void
 ModelCPP::dumpVariables(map< string, string >& mapVariables) {
   stringstream values;
   boost::archive::binary_oarchive os(values);
-  string cSum = getCheckSum();
+  const string cSum = getCheckSum();
 
-  vector<double> y(yLocal_, yLocal_ + sizeY());
-  vector<double> yp(ypLocal_, ypLocal_ + sizeY());
-  vector<double> z(zLocal_, zLocal_ + sizeZ());
-  vector<double> g(gLocal_, gLocal_ + sizeG());
+  const vector<double> y(yLocal_, yLocal_ + sizeY());
+  const vector<double> yp(ypLocal_, ypLocal_ + sizeY());
+  const vector<double> z(zLocal_, zLocal_ + sizeZ());
+  const vector<double> g(gLocal_, gLocal_ + sizeG());
 
   os << cSum;
   os << y;
@@ -70,13 +71,13 @@ ModelCPP::dumpVariables(map< string, string >& mapVariables) {
   os << z;
   os << g;
 
-  dumpInternalVariables(values);
+  dumpInternalVariables(os);
 
   mapVariables[ variablesFileName() ] = values.str();
 }
 
 void
-ModelCPP::dumpInternalVariables(stringstream&) const {
+ModelCPP::dumpInternalVariables(boost::archive::binary_oarchive&) const {
   // no internal variables
 }
 
@@ -85,7 +86,7 @@ ModelCPP::loadVariables(const string& variables) {
   stringstream values(variables);
   boost::archive::binary_iarchive is(values);
 
-  string cSum = getCheckSum();
+  const string cSum = getCheckSum();
   string cSumRead;
   vector<double> yValues;
   vector<double> ypValues;
@@ -117,8 +118,9 @@ ModelCPP::loadVariables(const string& variables) {
     return;
   }
 
-  bool res = loadInternalVariables(values);
-  if (!res) {
+  try {
+    loadInternalVariables(is);
+  } catch (std::exception&) {
     // If loadInternalVariables fails, the internal variables of some the models may still be loaded, and will be reset
     // with getY0 during model initialization.
     Trace::warn() << DYNLog(WrongParameterNum, variablesFileName().c_str()) << Trace::endline;
@@ -135,10 +137,9 @@ ModelCPP::loadVariables(const string& variables) {
   isStartingFromDump_ = true;
 }
 
-bool
-ModelCPP::loadInternalVariables(stringstream& /*streamVariables*/) {
+void
+ModelCPP::loadInternalVariables(boost::archive::binary_iarchive& /*streamVariables*/) {
   // no internal variables
-  return true;
 }
 
 void
@@ -164,7 +165,7 @@ ModelCPP::defineNamesImpl(std::vector<boost::shared_ptr<Variable> >& variables, 
   calculatedVarNames.clear();
 
   for (unsigned int i = 0; i < variables.size(); ++i) {
-    boost::shared_ptr<Variable> currentVariable = variables[i];
+    auto& currentVariable = variables[i];
     const typeVar_t type = currentVariable->getType();
     const string name = currentVariable->getName();
     const bool isState = currentVariable->isState();
@@ -173,7 +174,7 @@ ModelCPP::defineNamesImpl(std::vector<boost::shared_ptr<Variable> >& variables, 
     if (currentVariable->isAlias())  // no alias in names vector
       continue;
 
-    boost::shared_ptr <VariableNative> nativeVariable = boost::dynamic_pointer_cast<VariableNative> (currentVariable);
+    const auto nativeVariable = boost::dynamic_pointer_cast<VariableNative>(currentVariable);
     if (!isState) {
       index = static_cast<int>(calculatedVarNames.size());
       calculatedVarNames.push_back(name);

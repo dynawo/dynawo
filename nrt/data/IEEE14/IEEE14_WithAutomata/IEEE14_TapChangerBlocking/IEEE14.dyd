@@ -34,24 +34,24 @@
   <dyn:blackBoxModel id="TAP_CHANGER_LOAD_2" lib="TapChangerAutomaton" parFile="IEEE14.par" parId="13"/>
   <dyn:blackBoxModel id="TAP_CHANGER_LOAD_3" lib="TapChangerAutomaton" parFile="IEEE14.par" parId="13"/>
   <dyn:blackBoxModel id="TAP_CHANGER_LOCK" lib="TapChangerBlockingAutomaton1" parFile="IEEE14.par" parId="14"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_0" id2="GEN____1_SM" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_0" id2="GEN____1_SM" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_0_value" id2="GEN____1_SM" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_0_value" id2="GEN____1_SM" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_0" id2="NETWORK" var2="@_GEN____1_SM@@NODE@_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_0" id2="GEN____1_SM" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_1" id2="GEN____2_SM" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_1" id2="GEN____2_SM" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_1_value" id2="GEN____2_SM" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_1_value" id2="GEN____2_SM" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_1" id2="NETWORK" var2="@_GEN____2_SM@@NODE@_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_1" id2="GEN____2_SM" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_2" id2="GEN____3_SM" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_2" id2="GEN____3_SM" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_2_value" id2="GEN____3_SM" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_2_value" id2="GEN____3_SM" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_2" id2="NETWORK" var2="@_GEN____3_SM@@NODE@_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_2" id2="GEN____3_SM" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_3" id2="GEN____6_SM" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_3" id2="GEN____6_SM" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_3_value" id2="GEN____6_SM" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_3_value" id2="GEN____6_SM" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_3" id2="NETWORK" var2="@_GEN____6_SM@@NODE@_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_3" id2="GEN____6_SM" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_4" id2="GEN____8_SM" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_4" id2="GEN____8_SM" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_4_value" id2="GEN____8_SM" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_4_value" id2="GEN____8_SM" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_4" id2="NETWORK" var2="@_GEN____8_SM@@NODE@_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_4" id2="GEN____8_SM" var2="generator_running"/>
   <dyn:connect id1="_LOAD___2_EC" var1="transformer_terminal1" id2="NETWORK" var2="_BUS____2_TN_ACPIN"/>
@@ -82,6 +82,6 @@
   <dyn:connect id1="TAP_CHANGER_LOCK" var1="tapChangerBlocking_UMonitored" id2="NETWORK" var2="_BUS____3_TN_U"/>
   <dyn:connect id2="TAP_CHANGER_LOAD_2" var2="tapChanger_locked" id1="TAP_CHANGER_LOCK" var1="tapChangerBlocking_blockedT"/>
   <dyn:connect id2="TAP_CHANGER_LOAD_3" var2="tapChanger_locked" id1="TAP_CHANGER_LOCK" var1="tapChangerBlocking_blockedT"/>
-  <dyn:connect id1="LOADVAR_LOAD2_Q" var1="step_step_value" id2="_LOAD___2_EC" var2="load_QRefPu"/>
-  <dyn:connect id1="LOADVAR_LOAD3_Q" var1="step_step_value" id2="_LOAD___3_EC" var2="load_QRefPu"/>
+  <dyn:connect id1="LOADVAR_LOAD2_Q" var1="step_step" id2="_LOAD___2_EC" var2="load_QRefPu"/>
+  <dyn:connect id1="LOADVAR_LOAD3_Q" var1="step_step" id2="_LOAD___3_EC" var2="load_QRefPu"/>
 </dyn:dynamicModelsArchitecture>

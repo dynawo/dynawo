@@ -11,7 +11,6 @@
 // simulation tool for power systems.
 //
 
-#include <boost/shared_ptr.hpp>
 #include <boost/algorithm/string/replace.hpp>
 
 #include <powsybl/iidm/Bus.hpp>
@@ -982,12 +981,12 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerJt) {
   SparseMatrix smj;
   int size = t2w->sizeY();
   smj.init(size, size);
-  t2w->evalJt(smj, 1., 0);
+  t2w->evalJt(1., 0, smj);
   ASSERT_EQ(smj.nbElem(), 0);
 
   SparseMatrix smjPrime;
   smjPrime.init(size, size);
-  t2w->evalJtPrim(smjPrime, 0);
+  t2w->evalJtPrim(0, smjPrime);
   ASSERT_EQ(smjPrime.nbElem(), 0);
 }
 

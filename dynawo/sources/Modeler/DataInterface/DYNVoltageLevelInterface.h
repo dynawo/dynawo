@@ -63,7 +63,7 @@ class VoltageLevelInterface {
    * @brief Getter for the voltageLevel's id
    * @return The id of the voltageLevel
    */
-  virtual std::string getID() const = 0;
+  virtual const std::string& getID() const = 0;
 
   /**
    * @brief Getter for the nominal voltage of the voltageLevel
@@ -81,20 +81,20 @@ class VoltageLevelInterface {
    * @brief find the shortest path between a node and a bus bar section node, then close all switches (if they are breaker)
    * @param node node to connect
    */
-  virtual void connectNode(const unsigned int& node) = 0;
+  virtual void connectNode(unsigned int node) = 0;
 
   /**
    * @brief find all paths between a node and all bus bar section node, then open the first switches found (if it's a breaker)
    * @param node node to disconnect
    */
-  virtual void disconnectNode(const unsigned int& node) = 0;
+  virtual void disconnectNode(unsigned int node) = 0;
 
   /**
    * @brief check if one node is connected to a node where there is a bus bar section
    * @param node node to check
    * @return @b true is the node is connected
    */
-  virtual bool isNodeConnected(const unsigned int& node) = 0;
+  virtual bool isNodeConnected(unsigned int node) = 0;
 
   /**
    * @brief export the new state of switches due to topology change (connect/disconnect node)

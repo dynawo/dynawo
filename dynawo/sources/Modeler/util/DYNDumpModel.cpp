@@ -95,7 +95,7 @@ fillParameterDescription(const DYN::ParameterModeler& parameter, const std::stri
 /**
  * @brief main for dump model
  */
-int main(int argc, char ** argv) {
+int main(int argc, char** argv) {
   string inputFileName = "";
   string outputFileName = "";
   po::options_description desc;
@@ -118,13 +118,13 @@ int main(int argc, char ** argv) {
   if (vm.count("help")) {
     cout << desc << endl;
     return 0;
-  } else if (inputFileName == "") {
+  } else if (inputFileName.empty()) {
     cout << " Model file is required" << endl;
     cout << desc << endl;
     return 1;
   }
 
-  if (outputFileName == "") {
+  if (outputFileName.empty()) {
     cout << " Default output file used : ./dumpModel.desc.xml" << endl;
     cout << desc << endl;
     outputFileName = "dumpModel.desc.xml";
@@ -149,7 +149,7 @@ int main(int argc, char ** argv) {
   const std::unordered_map<std::string, DYN::ParameterModeler>& parametersInit = model->getParametersInit();
   const std::unordered_map<std::string, DYN::ParameterModeler>& parametersDynamic = model->getParametersDynamic();
   std::map<std::string, AttributeList> parametersAttributes;  // map between parameter name and attributes (alphabetically sort parameters)
-  std::unordered_map<std::string, boost::shared_ptr<DYN::Variable> > mapVariable = model->getVariableByName();
+  const auto& mapVariable = model->getVariableByName();
 
   std::fstream file;
   file.open(outputFileName.c_str(), std::fstream::out);
@@ -171,9 +171,8 @@ int main(int argc, char ** argv) {
   formatter->startElement("parameters", attrs);
 
   // add initial parameters
-  std::unordered_map<std::string, DYN::ParameterModeler>::const_iterator parameterIterator;
-  for (parameterIterator = parametersInit.begin(); parameterIterator != parametersInit.end(); ++parameterIterator) {
-    const DYN::ParameterModeler& parameterInit = parameterIterator->second;
+  for (const auto& parameterInitPair : parametersInit) {
+    const DYN::ParameterModeler& parameterInit = parameterInitPair.second;
     // only keep parameters
     // which can either be displayed or set
     if ((model->hasParameterDynamic(parameterInit.getName()) || !parameterInit.isFullyInternal()) &&
@@ -183,8 +182,8 @@ int main(int argc, char ** argv) {
   }
 
   // add dynamic parameters
-  for (parameterIterator = parametersDynamic.begin(); parameterIterator != parametersDynamic.end(); ++parameterIterator) {
-    const DYN::ParameterModeler* parameterDynamic = &(parameterIterator->second);
+  for (const auto& parameterDynamicPair : parametersDynamic) {
+    const DYN::ParameterModeler* parameterDynamic = &(parameterDynamicPair.second);
     const string parameterName = parameterDynamic->getName();
 
     // initial parameters have already been described => nothing to do
@@ -204,9 +203,8 @@ int main(int argc, char ** argv) {
     }
   }
 
-  for (std::map<std::string, AttributeList>::const_iterator itAttributes = parametersAttributes.begin();
-       itAttributes != parametersAttributes.end(); ++itAttributes) {
-    formatter->startElement("parameter", itAttributes->second);
+  for (const auto& parameterAttributes : parametersAttributes) {
+    formatter->startElement("parameter", parameterAttributes.second);
     formatter->endElement();   // parameter
   }
 
@@ -214,15 +212,15 @@ int main(int argc, char ** argv) {
 
   attrs.clear();
   formatter->startElement("variables", attrs);
-  std::set<std::string> sortedVar;
-  for (std::unordered_map<std::string, boost::shared_ptr<DYN::Variable> >::const_iterator itVar = mapVariable.begin(); itVar != mapVariable.end(); ++itVar) {
-    sortedVar.insert(itVar->first);
-  }
-  for (std::set<std::string>::const_iterator itVar = sortedVar.begin(); itVar != sortedVar.end(); ++itVar) {
-    const boost::shared_ptr<DYN::Variable> itVariable = mapVariable[*itVar];
+  std::set<std::string> sortedVars;
+  for (const auto& varPair : mapVariable)
+    sortedVars.insert(varPair.first);
+
+  for (const auto& sortedVar : sortedVars) {
+    const auto& variable = mapVariable.at(sortedVar);
     attrs.clear();
-    attrs.add("name", itVariable->getName());
-    attrs.add("valueType", typeVarC2Str(toCTypeVar(itVariable->getType())));
+    attrs.add("name", variable->getName());
+    attrs.add("valueType", typeVarC2Str(toCTypeVar(variable->getType())));
     formatter->startElement("variable", attrs);
     formatter->endElement();   // variable
   }

@@ -27,6 +27,8 @@
 #include "DYNMacrosMessage.h"
 #include "DYNModelTapChangerStep.h"
 
+#include <boost/archive/binary_oarchive.hpp>
+
 namespace DYN {
 class ModelNetwork;
 
@@ -101,7 +103,7 @@ class ModelTapChanger {
    * @brief  set the current step to a new index
    * @param index step index
    */
-  inline void setCurrentStepIndex(int index) { currentStepIndex_ = index; }
+  inline void setCurrentStepIndex(const int index) { currentStepIndex_ = index; }
 
   /**
    * @brief   get the current step index
@@ -126,7 +128,7 @@ class ModelTapChanger {
    * @brief  set the highest step index
    * @param index step index
    */
-  inline void setHighStepIndex(int index) { highStepIndex_ = index; }
+  inline void setHighStepIndex(const int index) { highStepIndex_ = index; }
 
   /**
    * @brief get if the tap changer is regulating
@@ -138,7 +140,7 @@ class ModelTapChanger {
    * @brief set if the tap changer is regulating
    * @param regulating regulating
    */
-  inline void setRegulating(bool regulating) { regulating_ = regulating; }
+  inline void setRegulating(const bool regulating) { regulating_ = regulating; }
 
   /**
    * @brief   get the time to wait before changing of step for the first time
@@ -150,7 +152,7 @@ class ModelTapChanger {
    * @brief   set the time to wait before changing of step for the first time
    * @param time time
    */
-  inline void setTFirst(double time) { tFirst_ = time; }
+  inline void setTFirst(const double time) { tFirst_ = time; }
 
   /**
    * @brief   get the time to wait before changing of step if it's not the first
@@ -164,14 +166,14 @@ class ModelTapChanger {
    * time
    * @param time time
    */
-  inline void setTNext(double time) { tNext_ = time; }
+  inline void setTNext(const double time) { tNext_ = time; }
 
   /**
    * @brief set fictitious property
    *
    * @param fictitious fictitious
    */
-  inline void setFictitious(bool fictitious) { fictitious_ = fictitious; }
+  inline void setFictitious(const bool fictitious) { fictitious_ = fictitious; }
 
   /**
    * @brief wether the tap changer is fictitious
@@ -181,8 +183,7 @@ class ModelTapChanger {
 
  private:
   std::string id_;  ///< id of the tap changer
-  std::vector<TapChangerStep>
-      steps_;             ///< vector of TapChangerStep
+  std::vector<TapChangerStep> steps_;  ///< vector of TapChangerStep
   int currentStepIndex_;  ///< index of the current step
   bool regulating_;       ///< is the tapChanger regulating ?
   bool fictitious_;       ///< wether the tap changer comes from an iidm object or not
@@ -192,6 +193,7 @@ class ModelTapChanger {
   double tNext_;   ///< time to wait before changing of step if it's not the
                    ///< first time
 };                 // class ModelTapChanger
+
 }  // namespace DYN
 
 #endif  // MODELS_CPP_MODELNETWORK_DYNMODELTAPCHANGER_H_

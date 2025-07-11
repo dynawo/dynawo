@@ -20,6 +20,7 @@
 #include <cmath>
 #include <vector>
 #include <cassert>
+
 #include "PARParametersSet.h"
 
 #include "DYNModelLine.h"
@@ -78,14 +79,14 @@ omegaRefNum_(0.),
 omegaNom_(OMEGA_NOM),
 omegaRef_(1.),
 modelType_("Line") {
-  double r = line->getR();
-  double x = line->getX();
-  double b1 = line->getB1();
-  double b2 = line->getB2();
-  double g1 = line->getG1();
-  double g2 = line->getG2();
-  bool connected1 = line->getInitialConnected1();
-  bool connected2 = line->getInitialConnected2();
+  const double r = line->getR();
+  const double x = line->getX();
+  const double b1 = line->getB1();
+  const double b2 = line->getB2();
+  const double g1 = line->getG1();
+  const double g2 = line->getG2();
+  const bool connected1 = line->getInitialConnected1();
+  const bool connected2 = line->getInitialConnected2();
 
   double vNom = std::numeric_limits<double>::quiet_NaN();
   if (connected1 && connected2) {
@@ -119,9 +120,9 @@ modelType_("Line") {
   factorPuToA_ = 1000 * SNREF / (sqrt(3) * vNom);
 
   // R, X, G, B in SI units in IIDM
-  double coeff = vNom * vNom / SNREF;
-  double ad = 1. / sqrt(r * r + x * x);
-  double ap = atan2(r, x);
+  const double coeff = vNom * vNom / SNREF;
+  const double ad = 1. / sqrt(r * r + x * x);
+  const double ap = atan2(r, x);
 
   admittance_ = ad * coeff;
   lossAngle_ = ap;
@@ -142,12 +143,12 @@ modelType_("Line") {
     currentLimits1_->setFactorPuToA(factorPuToA_);
     // Due to IIDM convention
     if (cLimit1[0]->getLimit() < maximumValueCurrentLimit) {
-      double limit = cLimit1[0]->getLimit() / factorPuToA_;
+      const double limit = cLimit1[0]->getLimit() / factorPuToA_;
       currentLimits1_->addLimit(limit, cLimit1[0]->getAcceptableDuration());
     }
     for (unsigned int i = 1; i < cLimit1.size(); ++i) {
       if (cLimit1[i-1]->getLimit() < maximumValueCurrentLimit) {
-        double limit = cLimit1[i-1]->getLimit() / factorPuToA_;
+        const double limit = cLimit1[i-1]->getLimit() / factorPuToA_;
         currentLimits1_->addLimit(limit, cLimit1[i]->getAcceptableDuration());
       }
     }
@@ -161,12 +162,12 @@ modelType_("Line") {
     currentLimits2_->setFactorPuToA(factorPuToA_);
     // Due to IIDM convention
     if (cLimit2[0]->getLimit() < maximumValueCurrentLimit) {
-      double limit = cLimit2[0]->getLimit() / factorPuToA_;
+      const double limit = cLimit2[0]->getLimit() / factorPuToA_;
       currentLimits2_->addLimit(limit, cLimit2[0]->getAcceptableDuration());
     }
     for (unsigned int i = 1; i < cLimit2.size(); ++i) {
       if (cLimit2[i-1]->getLimit() < maximumValueCurrentLimit) {
-        double limit = cLimit2[i-1]->getLimit() / factorPuToA_;
+        const double limit = cLimit2[i-1]->getLimit() / factorPuToA_;
         currentLimits2_->addLimit(limit, cLimit2[i]->getAcceptableDuration());
       }
     }
@@ -175,14 +176,14 @@ modelType_("Line") {
   ir01_ = 0;
   ii01_ = 0;
   if (line->getBusInterface1()) {
-    double P01 = line->getP1() / SNREF;
-    double Q01 = line->getQ1() / SNREF;
-    double uNode1 = line->getBusInterface1()->getV0();
-    double thetaNode1 = line->getBusInterface1()->getAngle0();
-    double unomNode1 = line->getBusInterface1()->getVNom();
-    double ur01 = uNode1 / unomNode1 * cos(thetaNode1 * DEG_TO_RAD);
-    double ui01 = uNode1 / unomNode1 * sin(thetaNode1 * DEG_TO_RAD);
-    double U201 = ur01 * ur01 + ui01 * ui01;
+    const double P01 = line->getP1() / SNREF;
+    const double Q01 = line->getQ1() / SNREF;
+    const double uNode1 = line->getBusInterface1()->getV0();
+    const double thetaNode1 = line->getBusInterface1()->getAngle0();
+    const double unomNode1 = line->getBusInterface1()->getVNom();
+    const double ur01 = uNode1 / unomNode1 * cos(thetaNode1 * DEG_TO_RAD);
+    const double ui01 = uNode1 / unomNode1 * sin(thetaNode1 * DEG_TO_RAD);
+    const double U201 = ur01 * ur01 + ui01 * ui01;
     if (!doubleIsZero(U201)) {
       ir01_ = (P01 * ur01 + Q01 * ui01) / U201;
       ii01_ = (P01 * ui01 - Q01 * ur01) / U201;
@@ -192,14 +193,14 @@ modelType_("Line") {
   ir02_ = 0;
   ii02_ = 0;
   if (line->getBusInterface2()) {
-    double P02 = line->getP2() / SNREF;
-    double Q02 = line->getQ2() / SNREF;
-    double uNode2 = line->getBusInterface2()->getV0();
-    double thetaNode2 = line->getBusInterface2()->getAngle0();
-    double unomNode2 = line->getBusInterface2()->getVNom();
-    double ur02 = uNode2 / unomNode2 * cos(thetaNode2 * DEG_TO_RAD);
-    double ui02 = uNode2 / unomNode2 * sin(thetaNode2 * DEG_TO_RAD);
-    double U202 = ur02 * ur02 + ui02 * ui02;
+    const double P02 = line->getP2() / SNREF;
+    const double Q02 = line->getQ2() / SNREF;
+    const double uNode2 = line->getBusInterface2()->getV0();
+    const double thetaNode2 = line->getBusInterface2()->getAngle0();
+    const double unomNode2 = line->getBusInterface2()->getVNom();
+    const double ur02 = uNode2 / unomNode2 * cos(thetaNode2 * DEG_TO_RAD);
+    const double ui02 = uNode2 / unomNode2 * sin(thetaNode2 * DEG_TO_RAD);
+    const double U202 = ur02 * ur02 + ui02 * ui02;
     if (!doubleIsZero(U202)) {
       ir02_ = (P02 * ur02 + Q02 * ui02) / U202;
       ii02_ = (P02 * ui02 - Q02 * ur02) / U202;
@@ -245,7 +246,7 @@ ModelLine::init(int& yNum) {
   if (!network_->isInitModel()) {
     assert(yNum >= 0);
     yOffset_ = static_cast<unsigned int>(yNum);
-    unsigned int localIndex = 0;
+    int localIndex = 0;
 
     if (isDynamic_) {
       IbReNum_ = localIndex;
@@ -284,22 +285,22 @@ ModelLine::evalYMat() {
 }
 
 double
-ModelLine::ir1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+ModelLine::ir1(const double ur1, const double ui1, const double ur2, const double ui2) const {
   return ir1_dUr1_ * ur1 + ir1_dUi1_ * ui1 + ir1_dUr2_ * ur2 + ir1_dUi2_ * ui2;
 }
 
 double
-ModelLine::ii1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+ModelLine::ii1(const double ur1, const double ui1, const double ur2, const double ui2) const {
   return ii1_dUr1_ * ur1 + ii1_dUi1_ * ui1 + ii1_dUr2_ * ur2 + ii1_dUi2_ * ui2;
 }
 
 double
-ModelLine::ir2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+ModelLine::ir2(const double ur1, const double ui1, const double ur2, const double ui2) const {
   return ir2_dUr1_ * ur1 + ir2_dUi1_ * ui1 + ir2_dUr2_ * ur2 + ir2_dUi2_ * ui2;
 }
 
 double
-ModelLine::ii2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+ModelLine::ii2(const double ur1, const double ui1, const double ur2, const double ui2) const {
   return ii2_dUr1_ * ur1 + ii2_dUi1_ * ui1 + ii2_dUr2_ * ur2 + ii2_dUi2_ * ui2;
 }
 
@@ -307,14 +308,14 @@ double
 ModelLine::ir1_dUr1() const {
   double ir1_dUr1 = 0.;
   if (getConnectionState() == CLOSED) {
-    double G1 = admittance_ * sin(lossAngle_) + conduct1_;
+    const double G1 = admittance_ * sin(lossAngle_) + conduct1_;
     ir1_dUr1 = G1;
   } else if (getConnectionState() == CLOSED_1) {
-    double G = admittance_ * sin(lossAngle_) + conduct2_;
-    double B = suscept2_ - admittance_ * cos(lossAngle_);
-    double denom = G * G + B * B;
+    const double G = admittance_ * sin(lossAngle_) + conduct2_;
+    const double B = suscept2_ - admittance_ * cos(lossAngle_);
+    const double denom = G * G + B * B;
 
-    double GT = conduct1_ + 1. / denom * (admittance_ * admittance_ * conduct2_
+    const double GT = conduct1_ + 1. / denom * (admittance_ * admittance_ * conduct2_
       + admittance_ * sin(lossAngle_) * (conduct2_ * conduct2_ + suscept2_ * suscept2_));
     ir1_dUr1 = GT;
   }
@@ -325,14 +326,14 @@ double
 ModelLine::ir1_dUi1() const {
   double ir1_dUi1 = 0.;
   if (getConnectionState() == CLOSED) {
-    double B1 = suscept1_ - admittance_ * cos(lossAngle_);
+    const double B1 = suscept1_ - admittance_ * cos(lossAngle_);
     ir1_dUi1 = -B1;
   } else if (getConnectionState() == CLOSED_1) {
-    double G = admittance_ * sin(lossAngle_) + conduct2_;
-    double B = suscept2_ - admittance_ * cos(lossAngle_);
-    double denom = G * G + B * B;
+    const double G = admittance_ * sin(lossAngle_) + conduct2_;
+    const double B = suscept2_ - admittance_ * cos(lossAngle_);
+    const double denom = G * G + B * B;
 
-    double BT = suscept1_ + 1. / denom * (admittance_ * admittance_ * suscept2_
+    const double BT = suscept1_ + 1. / denom * (admittance_ * admittance_ * suscept2_
       - admittance_ * cos(lossAngle_) * (conduct2_ * conduct2_ + suscept2_ * suscept2_));
     ir1_dUi1 = -BT;
   }
@@ -361,14 +362,14 @@ double
 ModelLine::ii1_dUr1() const {
   double ii1_dUr1 = 0.;
   if (getConnectionState() == CLOSED) {
-    double B1 = suscept1_ - admittance_ * cos(lossAngle_);
+    const double B1 = suscept1_ - admittance_ * cos(lossAngle_);
     ii1_dUr1 = B1;
   } else if (getConnectionState() == CLOSED_1) {
-    double G = admittance_ * sin(lossAngle_) + conduct2_;
-    double B = suscept2_ - admittance_ * cos(lossAngle_);
-    double denom = G * G + B * B;
+    const double G = admittance_ * sin(lossAngle_) + conduct2_;
+    const double B = suscept2_ - admittance_ * cos(lossAngle_);
+    const double denom = G * G + B * B;
 
-    double BT = suscept1_ + 1. / denom * (admittance_ * admittance_ * suscept2_
+    const double BT = suscept1_ + 1. / denom * (admittance_ * admittance_ * suscept2_
       - admittance_ * cos(lossAngle_) * (conduct2_ * conduct2_ + suscept2_ * suscept2_));
     ii1_dUr1 = BT;
   }
@@ -379,14 +380,14 @@ double
 ModelLine::ii1_dUi1() const {
   double ii1_dUi1 = 0.;
   if (getConnectionState() == CLOSED) {
-    double G1 = admittance_ * sin(lossAngle_) + conduct1_;
+    const double G1 = admittance_ * sin(lossAngle_) + conduct1_;
     ii1_dUi1 = G1;
   } else if (getConnectionState() == CLOSED_1) {
-    double G = admittance_ * sin(lossAngle_) + conduct2_;
-    double B = suscept2_ - admittance_ * cos(lossAngle_);
-    double denom = G * G + B * B;
+    const double G = admittance_ * sin(lossAngle_) + conduct2_;
+    const double B = suscept2_ - admittance_ * cos(lossAngle_);
+    const double denom = G * G + B * B;
 
-    double GT = conduct1_ + 1. / denom * (admittance_ * admittance_ * conduct2_
+    const double GT = conduct1_ + 1. / denom * (admittance_ * admittance_ * conduct2_
       + admittance_ * sin(lossAngle_) * (conduct2_ * conduct2_ + suscept2_ * suscept2_));
     ii1_dUi1 = GT;
   }
@@ -433,14 +434,14 @@ double
 ModelLine::ir2_dUr2() const {
   double ir2_dUr2 = 0.;
   if (getConnectionState() == CLOSED) {
-    double G2 = conduct2_ + admittance_ * sin(lossAngle_);
+    const double G2 = conduct2_ + admittance_ * sin(lossAngle_);
     ir2_dUr2 = G2;
   } else if (getConnectionState() == CLOSED_2) {
-    double G = admittance_ * sin(lossAngle_) + conduct1_;
-    double B = suscept1_ - admittance_ * cos(lossAngle_);
-    double denom = G * G + B * B;
+    const double G = admittance_ * sin(lossAngle_) + conduct1_;
+    const double B = suscept1_ - admittance_ * cos(lossAngle_);
+    const double denom = G * G + B * B;
 
-    double GT = conduct2_ + 1. / denom * (admittance_ * admittance_ * conduct1_
+    const double GT = conduct2_ + 1. / denom * (admittance_ * admittance_ * conduct1_
       + admittance_ * sin(lossAngle_) * (conduct1_ * conduct1_ + suscept1_ * suscept1_));
     ir2_dUr2 = GT;
   }
@@ -451,14 +452,14 @@ double
 ModelLine::ir2_dUi2() const {
   double ir2_dUi2 = 0.;
   if (getConnectionState() == CLOSED) {
-    double B2 = suscept2_ - admittance_ * cos(lossAngle_);
+    const double B2 = suscept2_ - admittance_ * cos(lossAngle_);
     ir2_dUi2 = -B2;
   } else if (getConnectionState() == CLOSED_2) {
-    double G = admittance_ * sin(lossAngle_) + conduct1_;
-    double B = suscept1_ - admittance_ * cos(lossAngle_);
-    double denom = G * G + B * B;
+    const double G = admittance_ * sin(lossAngle_) + conduct1_;
+    const double B = suscept1_ - admittance_ * cos(lossAngle_);
+    const double denom = G * G + B * B;
 
-    double BT = suscept2_ + 1. / denom * (admittance_ * admittance_ * suscept1_
+    const double BT = suscept2_ + 1. / denom * (admittance_ * admittance_ * suscept1_
       - admittance_ * cos(lossAngle_) * (conduct1_ * conduct1_ + suscept1_ * suscept1_));
     ir2_dUi2 = -BT;
   }
@@ -487,14 +488,14 @@ double
 ModelLine::ii2_dUr2() const {
   double ii2_dUr2 = 0.;
   if (getConnectionState() == CLOSED) {
-    double B2 = suscept2_ - admittance_ * cos(lossAngle_);
+    const double B2 = suscept2_ - admittance_ * cos(lossAngle_);
     ii2_dUr2 = B2;
   } else if (getConnectionState() == CLOSED_2) {
-    double G = admittance_ * sin(lossAngle_) + conduct1_;
-    double B = suscept1_ - admittance_ * cos(lossAngle_);
-    double denom = G * G + B * B;
+    const double G = admittance_ * sin(lossAngle_) + conduct1_;
+    const double B = suscept1_ - admittance_ * cos(lossAngle_);
+    const double denom = G * G + B * B;
 
-    double BT = suscept2_ + 1. / denom * (admittance_ * admittance_ * suscept1_
+    const double BT = suscept2_ + 1. / denom * (admittance_ * admittance_ * suscept1_
       - admittance_ * cos(lossAngle_) * (conduct1_ * conduct1_ + suscept1_ * suscept1_));
     ii2_dUr2 = BT;
   }
@@ -505,14 +506,14 @@ double
 ModelLine::ii2_dUi2() const {
   double ii2_dUi2 = 0.;
   if (getConnectionState() == CLOSED) {
-    double G2 = conduct2_ + admittance_ * sin(lossAngle_);
+    const double G2 = conduct2_ + admittance_ * sin(lossAngle_);
     ii2_dUi2 = G2;
   } else if (getConnectionState() == CLOSED_2) {
-    double G = admittance_ * sin(lossAngle_) + conduct1_;
-    double B = suscept1_ - admittance_ * cos(lossAngle_);
-    double denom = G * G + B * B;
+    const double G = admittance_ * sin(lossAngle_) + conduct1_;
+    const double B = suscept1_ - admittance_ * cos(lossAngle_);
+    const double denom = G * G + B * B;
 
-    double GT = conduct2_ + 1. / denom * (admittance_ * admittance_ * conduct1_
+    const double GT = conduct2_ + 1. / denom * (admittance_ * admittance_ * conduct1_
       + admittance_ * sin(lossAngle_)*(conduct1_ * conduct1_ + suscept1_ * suscept1_));
     ii2_dUi2 = GT;
   }
@@ -533,42 +534,42 @@ ModelLine::evalNodeInjection() {
     }
   } else if (!isDynamic_) {
     if (modelBus1_ || modelBus2_) {
-      double ur1Val = ur1();
-      double ui1Val = ui1();
-      double ur2Val = ur2();
-      double ui2Val = ui2();
+      const double ur1Val = ur1();
+      const double ui1Val = ui1();
+      const double ur2Val = ur2();
+      const double ui2Val = ui2();
       if (modelBus1_) {
-        double irAdd1 = ir1(ur1Val, ui1Val, ur2Val, ui2Val);
-        double iiAdd1 = ii1(ur1Val, ui1Val, ur2Val, ui2Val);
+        const double irAdd1 = ir1(ur1Val, ui1Val, ur2Val, ui2Val);
+        const double iiAdd1 = ii1(ur1Val, ui1Val, ur2Val, ui2Val);
         modelBus1_->irAdd(irAdd1);
         modelBus1_->iiAdd(iiAdd1);
       }
 
       if (modelBus2_) {
-        double irAdd2 = ir2(ur1Val, ui1Val, ur2Val, ui2Val);
-        double iiAdd2 = ii2(ur1Val, ui1Val, ur2Val, ui2Val);
+        const double irAdd2 = ir2(ur1Val, ui1Val, ur2Val, ui2Val);
+        const double iiAdd2 = ii2(ur1Val, ui1Val, ur2Val, ui2Val);
         modelBus2_->irAdd(irAdd2);
         modelBus2_->iiAdd(iiAdd2);
       }
     }
   } else if (getConnectionState() == CLOSED) {
     if (modelBus1_) {
-      double ur1Val = ur1();
-      double ui1Val = ui1();
-      double urp1Val = urp1();
-      double uip1Val = uip1();
-      double irAdd1 = conduct1_ * ur1Val + suscept1_ * urp1Val / omegaNom_ - suscept1_ * omegaRef_ * ui1Val + y_[IbReNum_];
-      double iiAdd1 = conduct1_ * ui1Val + suscept1_ * uip1Val / omegaNom_ + suscept1_ * omegaRef_ * ur1Val + y_[IbImNum_];
+      const double ur1Val = ur1();
+      const double ui1Val = ui1();
+      const double urp1Val = urp1();
+      const double uip1Val = uip1();
+      const double irAdd1 = conduct1_ * ur1Val + suscept1_ * urp1Val / omegaNom_ - suscept1_ * omegaRef_ * ui1Val + y_[IbReNum_];
+      const double iiAdd1 = conduct1_ * ui1Val + suscept1_ * uip1Val / omegaNom_ + suscept1_ * omegaRef_ * ur1Val + y_[IbImNum_];
       modelBus1_->irAdd(irAdd1);
       modelBus1_->iiAdd(iiAdd1);
     }
     if (modelBus2_) {
-      double ur2Val = ur2();
-      double ui2Val = ui2();
-      double urp2Val = urp2();
-      double uip2Val = uip2();
-      double irAdd2 = conduct2_ * ur2Val + suscept2_ * urp2Val / omegaNom_ - suscept2_ * omegaRef_ * ui2Val - y_[IbReNum_];
-      double iiAdd2 = conduct2_ * ui2Val + suscept2_ * uip2Val / omegaNom_ + suscept2_ * omegaRef_ * ur2Val - y_[IbImNum_];
+      const double ur2Val = ur2();
+      const double ui2Val = ui2();
+      const double urp2Val = urp2();
+      const double uip2Val = uip2();
+      const double irAdd2 = conduct2_ * ur2Val + suscept2_ * urp2Val / omegaNom_ - suscept2_ * omegaRef_ * ui2Val - y_[IbReNum_];
+      const double iiAdd2 = conduct2_ * ui2Val + suscept2_ * uip2Val / omegaNom_ + suscept2_ * omegaRef_ * ur2Val - y_[IbImNum_];
       modelBus2_->irAdd(irAdd2);
       modelBus2_->iiAdd(iiAdd2);
     }
@@ -576,18 +577,18 @@ ModelLine::evalNodeInjection() {
 }
 
 void
-ModelLine::evalF(propertyF_t type) {
+ModelLine::evalF(const propertyF_t type) {
   if (!isDynamic_ || network_->isInitModel())
     return;
-  bool connStateClosed = getConnectionState() == CLOSED;
+  const bool connStateClosed = getConnectionState() == CLOSED;
   if (type == DIFFERENTIAL_EQ && !connStateClosed)
     return;
 
   if ((modelBus1_ || modelBus2_) && connStateClosed) {
-    double ur1Val = ur1();
-    double ui1Val = ui1();
-    double ur2Val = ur2();
-    double ui2Val = ui2();
+    const double ur1Val = ur1();
+    const double ui1Val = ui1();
+    const double ur2Val = ur2();
+    const double ui2Val = ui2();
     f_[0] = - reactance_ * yp_[IbReNum_] - omegaNom_ * (resistance_ * y_[IbReNum_] - reactance_ * omegaRef_ * y_[IbImNum_]);
     f_[1] = - reactance_ * yp_[IbImNum_] - omegaNom_ * (resistance_ * y_[IbImNum_] + reactance_ * omegaRef_ * y_[IbReNum_]);
     if (modelBus1_) {
@@ -605,15 +606,15 @@ ModelLine::evalF(propertyF_t type) {
 }
 
 void
-ModelLine::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) {
+ModelLine::evalJt(const double cj, const int rowOffset, SparseMatrix& jt) {
   if (!isDynamic_ || network_->isInitModel())
     return;
 
   if ((modelBus1_ || modelBus2_) && getConnectionState() == CLOSED) {
-    int ur1YNum = modelBus1_->urYNum();
-    int ui1YNum = modelBus1_->uiYNum();
-    int ur2YNum = modelBus2_->urYNum();
-    int ui2YNum = modelBus2_->uiYNum();
+    const int ur1YNum = modelBus1_->urYNum();
+    const int ui1YNum = modelBus1_->uiYNum();
+    const int ur2YNum = modelBus2_->urYNum();
+    const int ui2YNum = modelBus2_->uiYNum();
 
     // column for equation IBranch_re
     jt.changeCol();
@@ -641,17 +642,17 @@ ModelLine::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) {
 }
 
 void
-ModelLine::evalJtPrim(SparseMatrix& jt, const int& rowOffset) {
+ModelLine::evalJtPrim(const int rowOffset, SparseMatrix& jtPrim) {
   if (!isDynamic_ || network_->isInitModel())
     return;
 
   if (getConnectionState() == CLOSED) {
     // column for equation IBranch_re
-    jt.changeCol();
-    jt.addTerm(globalYIndex(IbReNum_) + rowOffset, - reactance_);
+    jtPrim.changeCol();
+    jtPrim.addTerm(globalYIndex(IbReNum_) + rowOffset, - reactance_);
     // column for equation IBranch_im
-    jt.changeCol();
-    jt.addTerm(globalYIndex(IbImNum_) + rowOffset, - reactance_);
+    jtPrim.changeCol();
+    jtPrim.addTerm(globalYIndex(IbImNum_) + rowOffset, - reactance_);
   }
 }
 
@@ -660,14 +661,14 @@ ModelLine::evalDerivativesPrim() {
   if (isDynamic_ && getConnectionState() == CLOSED) {
     switch (knownBus_) {
       case BUS1_BUS2: {
-        int ur1YNum = modelBus1_->urYNum();
-        int ui1YNum = modelBus1_->uiYNum();
-        int ur2YNum = modelBus2_->urYNum();
-        int ui2YNum = modelBus2_->uiYNum();
-        double ir1_dUrp1 = suscept1_ / omegaNom_;
-        double ii1_dUip1 = suscept1_ / omegaNom_;
-        double ir2_dUrp2 = suscept2_ / omegaNom_;
-        double ii2_dUip2 = suscept2_ / omegaNom_;
+        const int ur1YNum = modelBus1_->urYNum();
+        const int ui1YNum = modelBus1_->uiYNum();
+        const int ur2YNum = modelBus2_->urYNum();
+        const int ui2YNum = modelBus2_->uiYNum();
+        const double ir1_dUrp1 = suscept1_ / omegaNom_;
+        const double ii1_dUip1 = suscept1_ / omegaNom_;
+        const double ir2_dUrp2 = suscept2_ / omegaNom_;
+        const double ii2_dUip2 = suscept2_ / omegaNom_;
 
         modelBus1_->derivativesPrim()->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUrp1);
         modelBus1_->derivativesPrim()->addDerivative(II_DERIVATIVE, ui1YNum, ii1_dUip1);
@@ -689,22 +690,22 @@ ModelLine::evalDerivatives(const double cj) {
   if (isDynamic_ && getConnectionState() == CLOSED) {
     switch (knownBus_) {
       case BUS1_BUS2: {
-        int ur1YNum = modelBus1_->urYNum();
-        int ui1YNum = modelBus1_->uiYNum();
-        int ur2YNum = modelBus2_->urYNum();
-        int ui2YNum = modelBus2_->uiYNum();
-        double ir1_dUr1 = conduct1_ + cj * suscept1_ / omegaNom_;
-        double ir1_dUi1 = - omegaRef_ * suscept1_;
-        double ir1_dIbr = 1;
-        double ii1_dUr1 = conduct1_ + cj * suscept1_ / omegaNom_;
-        double ii1_dUi1 = omegaRef_ * suscept1_;
-        double ii1_dIbi = 1;
-        double ir2_dUr2 = conduct2_ + cj * suscept2_ / omegaNom_;
-        double ir2_dUi2 = - omegaRef_ * suscept2_;
-        double ir2_dIbr = -1;
-        double ii2_dUr2 = conduct2_ + cj * suscept2_ / omegaNom_;
-        double ii2_dUi2 = omegaRef_ * suscept2_;
-        double ii2_dIbi = -1;
+        const int ur1YNum = modelBus1_->urYNum();
+        const int ui1YNum = modelBus1_->uiYNum();
+        const int ur2YNum = modelBus2_->urYNum();
+        const int ui2YNum = modelBus2_->uiYNum();
+        const double ir1_dUr1 = conduct1_ + cj * suscept1_ / omegaNom_;
+        const double ir1_dUi1 = - omegaRef_ * suscept1_;
+        constexpr double ir1_dIbr = 1.;
+        const double ii1_dUr1 = conduct1_ + cj * suscept1_ / omegaNom_;
+        const double ii1_dUi1 = omegaRef_ * suscept1_;
+        constexpr double ii1_dIbi = 1.;
+        const double ir2_dUr2 = conduct2_ + cj * suscept2_ / omegaNom_;
+        const double ir2_dUi2 = - omegaRef_ * suscept2_;
+        constexpr double ir2_dIbr = -1.;
+        const double ii2_dUr2 = conduct2_ + cj * suscept2_ / omegaNom_;
+        const double ii2_dUi2 = omegaRef_ * suscept2_;
+        constexpr double ii2_dIbi = -1.;
 
         modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUr1);
         modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ui1YNum, ir1_dUi1);
@@ -729,10 +730,10 @@ ModelLine::evalDerivatives(const double cj) {
   } else if (!isDynamic_) {
     switch (knownBus_) {
       case BUS1_BUS2: {
-        int ur1YNum = modelBus1_->urYNum();
-        int ui1YNum = modelBus1_->uiYNum();
-        int ur2YNum = modelBus2_->urYNum();
-        int ui2YNum = modelBus2_->uiYNum();
+        const int ur1YNum = modelBus1_->urYNum();
+        const int ui1YNum = modelBus1_->uiYNum();
+        const int ur2YNum = modelBus2_->urYNum();
+        const int ui2YNum = modelBus2_->uiYNum();
         modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUr1_);
         modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ui1YNum, ir1_dUi1_);
         modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ur1YNum, ii1_dUr1_);
@@ -753,8 +754,8 @@ ModelLine::evalDerivatives(const double cj) {
         break;
       }
       case BUS1: {
-        int ur1YNum = modelBus1_->urYNum();
-        int ui1YNum = modelBus1_->uiYNum();
+        const int ur1YNum = modelBus1_->urYNum();
+        const int ui1YNum = modelBus1_->uiYNum();
         modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUr1_);
         modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ui1YNum, ir1_dUi1_);
         modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ur1YNum, ii1_dUr1_);
@@ -762,8 +763,8 @@ ModelLine::evalDerivatives(const double cj) {
         break;
       }
       case BUS2: {
-        int ur2YNum = modelBus2_->urYNum();
-        int ui2YNum = modelBus2_->uiYNum();
+        const int ur2YNum = modelBus2_->urYNum();
+        const int ui2YNum = modelBus2_->uiYNum();
         modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ur2YNum, ir2_dUr2_);
         modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ui2YNum, ir2_dUi2_);
         modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ur2YNum, ii2_dUr2_);
@@ -827,9 +828,9 @@ ModelLine::defineVariables(vector<shared_ptr<Variable> >& variables) {
 
 void
 ModelLine::defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) {
-  string lineName = id_;
+  const string lineName = id_;
   if (isDynamic_) {
-    string name = lineName + string("_iBranch");
+    const string name = lineName + string("_iBranch");
     addElement(name, Element::STRUCTURE, elements, mapElement);
     addSubElement("re", name, Element::TERMINAL, id(), modelType_, elements, mapElement);
     addSubElement("im", name, Element::TERMINAL, id(), modelType_, elements, mapElement);
@@ -855,19 +856,19 @@ ModelLine::defineElements(std::vector<Element>& elements, std::map<std::string, 
 }
 
 NetworkComponent::StateChange_t
-ModelLine::evalZ(const double& t) {
+ModelLine::evalZ(const double t) {
   int offsetRoot = 0;
   ModelCurrentLimits::state_t currentLimitState;
 
   if (currentLimits1_) {
-    currentLimitState = currentLimits1_->evalZ(id(), t, &(g_[offsetRoot]), network_, currentLimitsDesactivate_, modelType_);
+    currentLimitState = currentLimits1_->evalZ(id(), t, &g_[offsetRoot], currentLimitsDesactivate_, modelType_, network_);
     offsetRoot += currentLimits1_->sizeG();
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
       z_[0] = OPEN;
   }
 
   if (currentLimits2_) {
-    currentLimitState = currentLimits2_->evalZ(id(), t, &(g_[offsetRoot]), network_, currentLimitsDesactivate_, modelType_);
+    currentLimitState = currentLimits2_->evalZ(id(), t, &g_[offsetRoot], currentLimitsDesactivate_, modelType_, network_);
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
       z_[0] = OPEN;
   }
@@ -1060,20 +1061,20 @@ ModelLine::collectSilentZ(BitMask* silentZTable) {
 }
 
 void
-ModelLine::evalG(const double& t) {
-  int offset = 0;
+ModelLine::evalG(const double t) {
   if (currentLimits1_ || currentLimits2_) {
-    double ur1Val = ur1();
-    double ui1Val = ui1();
-    double ur2Val = ur2();
-    double ui2Val = ui2();
+    int offset = 0;
+    const double ur1Val = ur1();
+    const double ui1Val = ui1();
+    const double ur2Val = ur2();
+    const double ui2Val = ui2();
     if (currentLimits1_) {
-      currentLimits1_->evalG(t, i1(ur1Val, ui1Val, ur2Val, ui2Val), &(g_[offset]), currentLimitsDesactivate_);
+      currentLimits1_->evalG(t, i1(ur1Val, ui1Val, ur2Val, ui2Val), currentLimitsDesactivate_, &g_[offset]);
       offset += currentLimits1_->sizeG();
     }
 
     if (currentLimits2_) {
-      currentLimits2_->evalG(t, i2(ur1Val, ui1Val, ur2Val, ui2Val), &(g_[offset]), currentLimitsDesactivate_);
+      currentLimits2_->evalG(t, i2(ur1Val, ui1Val, ur2Val, ui2Val), currentLimitsDesactivate_, &g_[offset]);
     }
   }
 }
@@ -1153,18 +1154,18 @@ ModelLine::setGequations(std::map<int, std::string>& gEquationIndex) {
 
 void
 ModelLine::evalCalculatedVars() {
-  double ur1Val = ur1();
-  double ui1Val = ui1();
-  double ur2Val = ur2();
-  double ui2Val = ui2();
-  double irBus1 = ir1(ur1Val, ui1Val, ur2Val, ui2Val);
-  double iiBus1 = ii1(ur1Val, ui1Val, ur2Val, ui2Val);
-  double irBus2 = ir2(ur1Val, ui1Val, ur2Val, ui2Val);
-  double iiBus2 = ii2(ur1Val, ui1Val, ur2Val, ui2Val);
-  double P1 = ur1Val * irBus1 + ui1Val * iiBus1;
-  double P2 = ur2Val * irBus2 + ui2Val * iiBus2;
-  int signP1 = sign(P1);
-  int signP2 = sign(P2);
+  const double ur1Val = ur1();
+  const double ui1Val = ui1();
+  const double ur2Val = ur2();
+  const double ui2Val = ui2();
+  const double irBus1 = ir1(ur1Val, ui1Val, ur2Val, ui2Val);
+  const double iiBus1 = ii1(ur1Val, ui1Val, ur2Val, ui2Val);
+  const double irBus2 = ir2(ur1Val, ui1Val, ur2Val, ui2Val);
+  const double iiBus2 = ii2(ur1Val, ui1Val, ur2Val, ui2Val);
+  const double P1 = ur1Val * irBus1 + ui1Val * iiBus1;
+  const double P2 = ur2Val * irBus2 + ui2Val * iiBus2;
+  const int signP1 = sign(P1);
+  const int signP2 = sign(P2);
 
   calculatedVars_[i1Num_] = sqrt(irBus1 * irBus1 + iiBus1 * iiBus1);  // Current side 1
   calculatedVars_[i2Num_] = sqrt(irBus2 * irBus2 + iiBus2 * iiBus2);  // Current side 2
@@ -1179,11 +1180,11 @@ ModelLine::evalCalculatedVars() {
 
   calculatedVars_[iSide1Num_] = std::abs(calculatedVars_[iS1ToS2Side1Num_]);
   calculatedVars_[iSide2Num_] = std::abs(calculatedVars_[iS1ToS2Side2Num_]);
-  if (modelBus1_)
+  if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_1)
     calculatedVars_[u1Num_] = modelBus1_->getCurrentU(ModelBus::UPuType_);
   else
     calculatedVars_[u1Num_] = 0;
-  if (modelBus2_)
+  if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_2)
     calculatedVars_[u2Num_] = modelBus2_->getCurrentU(ModelBus::UPuType_);
   else
     calculatedVars_[u2Num_] = 0;
@@ -1193,78 +1194,102 @@ ModelLine::evalCalculatedVars() {
 double
 ModelLine::ur1() const {
   double ur1 = 0.;
-  if (modelBus1_)
-    ur1 = modelBus1_->ur();
+  if (modelBus1_) {
+    if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_1) {
+      ur1 = modelBus1_->ur();
+    }
+  }
   return ur1;
 }
 
 double
 ModelLine::ui1() const {
   double ui1 = 0.;
-  if (modelBus1_)
-    ui1 = modelBus1_->ui();
+  if (modelBus1_) {
+    if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_1) {
+      ui1 = modelBus1_->ui();
+    }
+  }
   return ui1;
 }
 
 double
 ModelLine::ur2() const {
   double ur2 = 0.;
-  if (modelBus2_)
-    ur2 = modelBus2_->ur();
+  if (modelBus2_) {
+    if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_2) {
+      ur2 = modelBus2_->ur();
+    }
+  }
   return ur2;
 }
 
 double
 ModelLine::ui2() const {
   double ui2 = 0.;
-  if (modelBus2_)
-    ui2 = modelBus2_->ui();
+  if (modelBus2_) {
+    if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_2) {
+      ui2 = modelBus2_->ui();
+    }
+  }
   return ui2;
 }
 
 double
 ModelLine::urp1() const {
   double urp1 = 0.;
-  if (modelBus1_)
-    urp1 = modelBus1_->urp();
+  if (modelBus1_) {
+    if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_1) {
+      urp1 = modelBus1_->urp();
+    }
+  }
   return urp1;
 }
 
 double
 ModelLine::uip1() const {
   double uip1 = 0.;
-  if (modelBus1_)
-    uip1 = modelBus1_->uip();
+  if (modelBus1_) {
+    if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_1) {
+      uip1 = modelBus1_->uip();
+    }
+  }
   return uip1;
 }
 
 double
 ModelLine::urp2() const {
   double urp2 = 0.;
-  if (modelBus2_)
-    urp2 = modelBus2_->urp();
+  if (modelBus2_) {
+    if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_2) {
+      urp2 = modelBus2_->urp();
+    }
+  }
   return urp2;
 }
 
 double
 ModelLine::uip2() const {
   double uip2 = 0.;
-  if (modelBus2_)
-    uip2 = modelBus2_->uip();
+  if (modelBus2_) {
+    if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_2) {
+      uip2 = modelBus2_->uip();
+    }
+  }
   return uip2;
 }
 
 double
-ModelLine::i1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
-  double irBus1 = ir1(ur1, ui1, ur2, ui2);
-  double iiBus1 = ii1(ur1, ui1, ur2, ui2);
+ModelLine::i1(const double ur1, const double ui1, const double ur2, const double ui2) const {
+  const double irBus1 = ir1(ur1, ui1, ur2, ui2);
+  const double iiBus1 = ii1(ur1, ui1, ur2, ui2);
   return sqrt(irBus1 * irBus1 + iiBus1 * iiBus1);
 }
 
 double
-ModelLine::i2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
-  double irBus2 = ir2(ur1, ui1, ur2, ui2);
-  double iiBus2 = ii2(ur1, ui1, ur2, ui2);
+ModelLine::i2(const double ur1, const double ui1, const double ur2, const double ui2) const {
+  const double irBus2 = ir2(ur1, ui1, ur2, ui2);
+  const double iiBus2 = ii2(ur1, ui1, ur2, ui2);
   return sqrt(irBus2 * irBus2 + iiBus2 * iiBus2);
 }
 
@@ -1385,26 +1410,26 @@ ModelLine::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) c
   default:
     throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
   }
-  double Ir1 = ir1(ur1, ui1, ur2, ui2);
-  double Ii1 = ii1(ur1, ui1, ur2, ui2);
-  double Ir2 = ir2(ur1, ui1, ur2, ui2);
-  double Ii2 = ii2(ur1, ui1, ur2, ui2);
+  const double Ir1 = ir1(ur1, ui1, ur2, ui2);
+  const double Ii1 = ii1(ur1, ui1, ur2, ui2);
+  const double Ir2 = ir2(ur1, ui1, ur2, ui2);
+  const double Ii2 = ii2(ur1, ui1, ur2, ui2);
 
-  bool closed1 = (getConnectionState() == CLOSED || getConnectionState() == CLOSED_1);
-  bool closed2 = (getConnectionState() == CLOSED || getConnectionState() == CLOSED_2);
+  const bool closed1 = (getConnectionState() == CLOSED || getConnectionState() == CLOSED_1);
+  const bool closed2 = (getConnectionState() == CLOSED || getConnectionState() == CLOSED_2);
 
   switch (numCalculatedVar) {
     case i1Num_:
     case iS1ToS2Side1Num_:
     case iS2ToS1Side1Num_:
     case iSide1Num_: {
-      double I1 = sqrt(Ii1 * Ii1 + Ir1 * Ir1);
+      const double I1 = sqrt(Ii1 * Ii1 + Ir1 * Ir1);
       double factor = 1.;
       if (numCalculatedVar == iS1ToS2Side1Num_) {
         double P1 = Ir1 * ur1 + Ii1 * ui1;
         factor = sign(P1) * factorPuToA_;
       } else if (numCalculatedVar == iS2ToS1Side1Num_) {
-        double P1 = Ir1 * ur1 + Ii1 * ui1;
+        const double P1 = Ir1 * ur1 + Ii1 * ui1;
         factor = sign(-1 * P1) * factorPuToA_;
       } else if (numCalculatedVar == iSide1Num_) {
         factor = factorPuToA_;
@@ -1427,13 +1452,13 @@ ModelLine::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) c
     case iS2ToS1Side2Num_:
     case iS1ToS2Side2Num_:
     case iSide2Num_: {
-      double I2 = sqrt(Ii2 * Ii2 + Ir2 * Ir2);
+      const double I2 = sqrt(Ii2 * Ii2 + Ir2 * Ir2);
       double factor = 1.;
       if (numCalculatedVar == iS2ToS1Side2Num_) {
-        double P2 = ur2 * Ir2 + ui2 * Ii2;
+        const double P2 = ur2 * Ir2 + ui2 * Ii2;
         factor = sign(P2) * factorPuToA_;
       } else if (numCalculatedVar == iS1ToS2Side2Num_) {
-        double P2 = ur2 * Ir2 + ui2 * Ii2;
+        const double P2 = ur2 * Ir2 + ui2 * Ii2;
         factor = sign(-1 * P2) * factorPuToA_;
       } else if (numCalculatedVar == iSide2Num_) {
         factor = factorPuToA_;
@@ -1520,7 +1545,7 @@ ModelLine::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) c
       if (closed1) {
         const double U = sqrt(ur1 * ur1 + ui1 * ui1);
         if (!doubleIsZero(U)) {
-          double invU1 = 1. / U;
+          const double invU1 = 1. / U;
           res[0] = ur1 * invU1;  // dU1/dUr1
           res[1] = ui1 * invU1;  // dU1/dUi1
         } else {
@@ -1546,7 +1571,7 @@ ModelLine::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) c
       if (closed2) {
         const double U = sqrt(ur2 * ur2 + ui2 * ui2);
         if (!doubleIsZero(U)) {
-          double invU2 = 1. / U;
+          const double invU2 = 1. / U;
           res[0] = ur2 * invU2;  // dU2/dUr2
           res[1] = ui2 * invU2;  // dU2/dUi2
         } else {
@@ -1614,14 +1639,14 @@ ModelLine::evalCalculatedVarI(unsigned numCalculatedVar) const {
     throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar);
   }
 
-  double Ir1 = ir1(ur1, ui1, ur2, ui2);
-  double Ii1 = ii1(ur1, ui1, ur2, ui2);
-  double Ir2 = ir2(ur1, ui1, ur2, ui2);
-  double Ii2 = ii2(ur1, ui1, ur2, ui2);
-  double P1 = ur1 * Ir1 + ui1 * Ii1;
-  double P2 = ur2 * Ir2 + ui2 * Ii2;
-  int signP1 = sign(P1);
-  int signP2 = sign(P2);
+  const double Ir1 = ir1(ur1, ui1, ur2, ui2);
+  const double Ii1 = ii1(ur1, ui1, ur2, ui2);
+  const double Ir2 = ir2(ur1, ui1, ur2, ui2);
+  const double Ii2 = ii2(ur1, ui1, ur2, ui2);
+  const double P1 = ur1 * Ir1 + ui1 * Ii1;
+  const double P2 = ur2 * Ir2 + ui2 * Ii2;
+  const int signP1 = sign(P1);
+  const int signP2 = sign(P2);
 
   double output = 0.0;
   switch (numCalculatedVar) {
@@ -1635,9 +1660,9 @@ ModelLine::evalCalculatedVarI(unsigned numCalculatedVar) const {
       output = -1. * signP1 * factorPuToA_ * sqrt(Ir1 * Ir1 + Ii1 * Ii1);
       break;
     case iSide1Num_: {
-      double I1 = sqrt(Ir1 * Ir1 + Ii1 * Ii1);
-      double output1 = signP1 * factorPuToA_ * I1;
-      double output2 = -1. * signP1 * factorPuToA_ * I1;
+      const double I1 = sqrt(Ir1 * Ir1 + Ii1 * Ii1);
+      const double output1 = signP1 * factorPuToA_ * I1;
+      const double output2 = -1. * signP1 * factorPuToA_ * I1;
       output = std::max(output1, output2);
       break;
     }
@@ -1651,9 +1676,9 @@ ModelLine::evalCalculatedVarI(unsigned numCalculatedVar) const {
       output = -1. * signP2 * factorPuToA_ * sqrt(Ir2 * Ir2 + Ii2 * Ii2);
       break;
     case iSide2Num_: {
-      double I2 = sqrt(Ir2 * Ir2 + Ii2 * Ii2);
-      double output1 = signP2 * factorPuToA_ * I2;
-      double output2 = -1. * signP2 * factorPuToA_ * I2;
+      const double I2 = sqrt(Ir2 * Ir2 + Ii2 * Ii2);
+      const double output1 = signP2 * factorPuToA_ * I2;
+      const double output2 = -1. * signP2 * factorPuToA_ * I2;
       output = std::max(output1, output2);
       break;
     }
@@ -1691,21 +1716,198 @@ ModelLine::evalCalculatedVarI(unsigned numCalculatedVar) const {
 void
 ModelLine::getY0() {
   if (!network_->isInitModel()) {
-    if (isDynamic_) {
-      y_[0] = ir01_;
-      y_[1] = ii01_;
-      y_[2] = 1;
-      yp_[0] = 0;
-      yp_[1] = 0;
-      yp_[2] = 0;
+    if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
+      if (isDynamic_) {
+        y_[0] = ir01_;
+        y_[1] = ii01_;
+        y_[2] = 1;
+        yp_[0] = 0;
+        yp_[1] = 0;
+        yp_[2] = 0;
+      }
+      z_[0] = getConnectionState();
+      z_[1] = getCurrentLimitsDesactivate();
+    }  else {
+      if (isDynamic_) {
+        ir01_ = y_[0];
+        ii01_ = y_[1];
+      }
+      State curState = static_cast<State>(static_cast<int>(z_[0]));
+      setConnectionState(static_cast<State>(static_cast<int>(z_[0])));
+      setCurrentLimitsDesactivate(z_[1]);
+      switch (knownBus_) {
+        case BUS1_BUS2:
+        {
+          switch (curState) {
+            case CLOSED:
+            {
+              if (!((modelBus1_->getConnectionState() == CLOSED) && (modelBus2_->getConnectionState() == CLOSED))) {
+                modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+                modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+                topologyModified_ = true;
+              }
+              break;
+            }
+            case OPEN:
+            {
+              if (!((modelBus1_->getConnectionState() == OPEN) && (modelBus2_->getConnectionState() == OPEN))) {
+                modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
+                modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
+                topologyModified_ = true;
+              }
+              break;
+            }
+            case CLOSED_1:
+            {
+              if (!((modelBus1_->getConnectionState() == CLOSED) && (modelBus2_->getConnectionState() == OPEN))) {
+                modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+                modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
+                topologyModified_ = true;
+              }
+              break;
+            }
+            case CLOSED_2:
+            {
+              if (!((modelBus1_->getConnectionState() == OPEN) && (modelBus2_->getConnectionState() == CLOSED))) {
+                modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
+                modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+                topologyModified_ = true;
+              }
+              break;
+            }
+            case CLOSED_3:
+            {
+              throw DYNError(Error::MODELER, NoThirdSide, id_);
+            }
+            case UNDEFINED_STATE:
+            {
+              throw DYNError(Error::MODELER, UndefinedComponentState, id_);
+            }
+          }
+          break;
+        }
+        case BUS1:
+        {
+          switch (curState) {
+            case CLOSED:
+            {
+              if (modelBus1_->getConnectionState() != CLOSED) {
+                modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+                topologyModified_ = true;
+              }
+              break;
+            }
+            case OPEN:
+            {
+              if (modelBus1_->getConnectionState() != OPEN) {
+                modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
+                topologyModified_ = true;
+              }
+              break;
+            }
+            case CLOSED_1:
+            {
+              if (modelBus1_->getConnectionState() != CLOSED) {
+                modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+                topologyModified_ = true;
+              }
+              break;
+            }
+            case CLOSED_2:
+            {
+              if (modelBus1_->getConnectionState() != OPEN) {
+                modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
+                topologyModified_ = true;
+              }
+              break;
+            }
+            case CLOSED_3:
+            {
+              throw DYNError(Error::MODELER, NoThirdSide, id_);
+            }
+            case UNDEFINED_STATE:
+            {
+              throw DYNError(Error::MODELER, UndefinedComponentState, id_);
+            }
+          }
+          break;
+        }
+        case BUS2:
+        {
+          switch (curState) {
+            case CLOSED:
+            {
+              if (modelBus2_->getConnectionState() != CLOSED) {
+                modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+                topologyModified_ = true;
+              }
+              Trace::warn() << DYNLog(UnableToCloseLine, id_) << Trace::endline;
+              break;
+            }
+            case OPEN:
+            {
+              if (modelBus2_->getConnectionState() != OPEN) {
+                modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
+                topologyModified_ = true;
+              }
+              break;
+            }
+            case CLOSED_2:
+            {
+              if (modelBus1_->getConnectionState() != CLOSED) {
+                modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+                topologyModified_ = true;
+              }
+              break;
+            }
+            case CLOSED_1:
+            {
+              if (modelBus1_->getConnectionState() != OPEN) {
+                modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
+                topologyModified_ = true;
+              }
+              Trace::warn() << DYNLog(UnableToCloseLineSide1, id_) << Trace::endline;
+              break;
+            }
+            case CLOSED_3:
+            {
+              throw DYNError(Error::MODELER, NoThirdSide, id_);
+            }
+            case UNDEFINED_STATE:
+            {
+              throw DYNError(Error::MODELER, UndefinedComponentState, id_);
+            }
+          }
+          break;
+        }
+      }
     }
-    z_[0] = getConnectionState();
-    z_[1] = getCurrentLimitsDesactivate();
   }
 }
 
+void
+ModelLine::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
+  ModelCPP::dumpInStream(streamVariables, ir01_);
+  ModelCPP::dumpInStream(streamVariables, ii01_);
+  ModelCPP::dumpInStream(streamVariables, ir02_);
+  ModelCPP::dumpInStream(streamVariables, ii02_);
+}
+
+void
+ModelLine::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
+  char c;
+  streamVariables >> c;
+  streamVariables >> ir01_;
+  streamVariables >> c;
+  streamVariables >> ii01_;
+  streamVariables >> c;
+  streamVariables >> ir02_;
+  streamVariables >> c;
+  streamVariables >> ii02_;
+}
+
 NetworkComponent::StateChange_t
-ModelLine::evalState(const double& /*time*/) {
+ModelLine::evalState(const double /*time*/) {
   StateChange_t state = NetworkComponent::NO_CHANGE;
   if (topologyModified_) {
     state = NetworkComponent::TOPO_CHANGE;
@@ -1725,7 +1927,7 @@ ModelLine::addBusNeighbors() {
 void
 ModelLine::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params) {
   bool success = false;
-  double maxTimeOperation = getParameterDynamicNoThrow<double>(params, "line_currentLimit_maxTimeOperation", success);
+  const double maxTimeOperation = getParameterDynamicNoThrow<double>(params, "line_currentLimit_maxTimeOperation", success);
   if (success) {
     if (currentLimits1_)
       currentLimits1_->setMaxTimeOperation(maxTimeOperation);
@@ -1735,7 +1937,7 @@ ModelLine::setSubModelParameters(const std::unordered_map<std::string, Parameter
 
   // isDynamic parameter
   success = false;
-  bool isDynamic = getParameterDynamicNoThrow<bool>(params, "line_isDynamic", success);
+  const bool isDynamic = getParameterDynamicNoThrow<bool>(params, "line_isDynamic", success);
   if (success) {
     isDynamic_ = isDynamic;
     if (isDynamic_ && getConnectionState() == CLOSED) {

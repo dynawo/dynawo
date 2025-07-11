@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.WECC.REPC;
 */
 
 model REPCa "WECC Plant Control type A"
-  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsREPC;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
 
   parameter Types.PerUnit RcPu "Line drop compensation resistance when VcompFlag = 1 in pu (base SnRef, UNom)";
   parameter Types.PerUnit XcPu "Line drop compensation reactance when VcompFlag = 1 in pu (base SnRef, UNom)";

@@ -148,9 +148,10 @@ SolverIDA::setSolverSpecificParameters() {
   relAccuracy_ = findParameter("relAccuracy").getValue<double>();
 }
 
-std::string
+const std::string&
 SolverIDA::solverType() const {
-  return "IDASolver";
+  static std::string solverType = "IDASolver";
+  return solverType;
 }
 
 void
@@ -796,7 +797,7 @@ double SolverIDA::getTimeStep() const {
 
 void
 SolverIDA::printHeaderSpecific(std::stringstream& ss) const {
-  ss << "| iter num   order (k)      time step (h)";
+  ss << "¦ iter num   order (k)      time step (h)";
 }
 
 void
@@ -818,7 +819,7 @@ SolverIDA::printSolveSpecific(std::stringstream& msg) const {
   int kused = 0;
   double hused = 0.;
   getLastConf(nst, kused, hused);
-  msg << "| " << setw(8) << nst << " "
+  msg << "¦ " << setw(8) << nst << " "
           << setw(11) << kused << " "
           << setw(18) << hused << " ";
 }

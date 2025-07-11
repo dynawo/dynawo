@@ -153,7 +153,7 @@ class BusCriteria : public Criteria {
    *
    * @return true if the criteria is respected, false otherwise
    */
-  bool checkCriteria(double t, bool finalStep, const boost::shared_ptr<timeline::Timeline>& timeline = nullptr);
+  bool checkCriteria(double t, bool finalStep, const boost::shared_ptr<timeline::Timeline>& timeline = nullptr) override;
 
   /**
    * @brief add a bus to the criteria
@@ -249,7 +249,7 @@ class LoadCriteria : public Criteria {
    *
    * @return true if the criteria is respected, false otherwise
    */
-  bool checkCriteria(double t, bool finalStep, const boost::shared_ptr<timeline::Timeline>& timeline = nullptr);
+  bool checkCriteria(double t, bool finalStep, const boost::shared_ptr<timeline::Timeline>& timeline = nullptr) override;
 
   /**
    * @brief add a load to the criteria
@@ -261,7 +261,7 @@ class LoadCriteria : public Criteria {
    * @brief returns true if no load was added
    * @return true if no load was added
    */
-  bool empty() const {return loads_.empty();}
+  bool empty() const { return loads_.empty(); }
 
   /**
    * @brief structure containing information about a failing criteria on a load and related methods
@@ -360,7 +360,7 @@ class GeneratorCriteria : public Criteria {
    *
    * @return true if the criteria is respected, false otherwise
    */
-  bool checkCriteria(double t, bool finalStep, const boost::shared_ptr<timeline::Timeline>& timeline = nullptr);
+  bool checkCriteria(double t, bool finalStep, const boost::shared_ptr<timeline::Timeline>& timeline = nullptr) override;
 
   /**
    * @brief add a generator to the criteria

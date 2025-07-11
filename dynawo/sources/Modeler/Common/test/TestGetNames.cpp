@@ -35,108 +35,109 @@ class SubModelMock0 : public SubModel {
     sizeY_ = nbY;
   }
 
-  void init(const double) {
+  void init(const double) override {
     // Dummy class used for testing
   }
 
-  std::string modelType() const {
+  const std::string& modelType() const override {
     // Dummy class used for testing
-    return "";
+    static std::string type = "";
+    return type;
   }
 
-  void dumpParameters(std::map<std::string, std::string>&) {
-    // Dummy class used for testing
-  }
-
-  void getSubModelParameterValue(const std::string&, std::string&, bool&) {
+  void dumpParameters(std::map<std::string, std::string>&) override {
     // Dummy class used for testing
   }
 
-  void dumpVariables(std::map<std::string, std::string>&) {
+  void getSubModelParameterValue(const std::string&, std::string&, bool&) override {
     // Dummy class used for testing
   }
 
-  void loadParameters(const std::string&) {
+  void dumpVariables(std::map<std::string, std::string>&) override {
     // Dummy class used for testing
   }
 
-  void loadVariables(const std::string&) {
+  void loadParameters(const std::string&) override {
     // Dummy class used for testing
   }
 
-  void evalF(double, propertyF_t) {
+  void loadVariables(const std::string&) override {
     // Dummy class used for testing
   }
 
-  void evalG(const double) {
+  void evalF(double, propertyF_t) override {
     // Dummy class used for testing
   }
 
-  void evalZ(const double) {
+  void evalG(const double) override {
     // Dummy class used for testing
   }
 
-  void evalCalculatedVars() {
+  void evalZ(const double) override {
     // Dummy class used for testing
   }
 
-  void evalJt(const double, const double, SparseMatrix&, const int) {
+  void evalCalculatedVars() override {
     // Dummy class used for testing
   }
 
-  void evalJtPrim(const double, const double, SparseMatrix&, const int) {
+  void evalJt(const double, const double, const int, SparseMatrix&) override {
     // Dummy class used for testing
   }
 
-  void checkDataCoherence(const double) {
+  void evalJtPrim(const double, const double, const int, SparseMatrix&) override {
     // Dummy class used for testing
   }
 
-  void checkParametersCoherence() const {
+  void checkDataCoherence(const double) override {
     // Dummy class used for testing
   }
 
-  void setFequations() {
+  void checkParametersCoherence() const override {
     // Dummy class used for testing
   }
 
-  void setGequations() {
+  void setFequations() override {
     // Dummy class used for testing
   }
 
-  void setFequationsInit() {
+  void setGequations() override {
     // Dummy class used for testing
   }
 
-  void setGequationsInit() {
+  void setFequationsInit() override {
     // Dummy class used for testing
   }
 
-  void getY0() {
+  void setGequationsInit() override {
     // Dummy class used for testing
   }
 
-  void initSubBuffers() {
+  void getY0() override {
     // Dummy class used for testing
   }
 
-  void evalStaticYType() {
+  void initSubBuffers() override {
     // Dummy class used for testing
   }
 
-  void evalDynamicYType() {
+  void evalStaticYType() override {
     // Dummy class used for testing
   }
 
-  void evalStaticFType() {
+  void evalDynamicYType() override {
     // Dummy class used for testing
   }
 
-  void evalDynamicFType() {
+  void evalStaticFType() override {
     // Dummy class used for testing
   }
 
-  void collectSilentZ(BitMask*) {
+  void evalDynamicFType() override {
+    // Dummy class used for testing
+  }
+
+  void collectSilentZ(BitMask*) override {
     // Dummy class used for testing
   }
 
@@ -148,74 +149,74 @@ class SubModelMock0 : public SubModel {
     // Dummy class used for testing
   }
 
-  void getSize() {
+  void getSize() override {
     // Dummy class used for testing
   }
 
-  void defineElements(std::vector<Element>&, std::map<std::string, int>&) {
+  void defineElements(std::vector<Element>&, std::map<std::string, int>&) override {
     // Dummy class used for testing
   }
 
-  void initializeStaticData() {
+  void initializeStaticData() override {
     // Dummy class used for testing
   }
 
-  void initializeFromData(const boost::shared_ptr<DataInterface>&) {
+  void initializeFromData(const boost::shared_ptr<DataInterface>&) override {
     // Dummy class used for testing
   }
 
-  void defineVariables(std::vector<boost::shared_ptr<Variable> >&);
+  void defineVariables(std::vector<boost::shared_ptr<Variable> >&) override;
 
-  void defineParameters(std::vector<ParameterModeler>&) {
+  void defineParameters(std::vector<ParameterModeler>&) override {
     // Dummy class used for testing
   }
 
-  void defineVariablesInit(std::vector<boost::shared_ptr<Variable> >&) {
+  void defineVariablesInit(std::vector<boost::shared_ptr<Variable> >&) override {
     // Dummy class used for testing
   }
 
-  void defineParametersInit(std::vector<ParameterModeler>&) {
+  void defineParametersInit(std::vector<ParameterModeler>&) override {
     // Dummy class used for testing
   }
 
-  void setSharedParametersDefaultValues() {
+  void setSharedParametersDefaultValues() override {
     // Dummy class used for testing
   }
 
-  void setSharedParametersDefaultValuesInit() {
+  void setSharedParametersDefaultValuesInit() override {
     // Dummy class used for testing
   }
 
-  void rotateBuffers() {
+  void rotateBuffers() override {
     // Dummy class used for testing
   }
 
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned, std::vector<int>&) const {
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned, std::vector<int>&) const override {
     // Dummy class used for testing
   }
 
-  void evalJCalculatedVarI(unsigned, std::vector<double>&) const {
+  void evalJCalculatedVarI(unsigned, std::vector<double>&) const override {
     // Dummy class used for testing
   }
 
-  double evalCalculatedVarI(unsigned) const {
+  double evalCalculatedVarI(unsigned) const override {
     // Dummy class used for testing
     return 0.;
   }
 
-  void setSubModelParameters() {
+  void setSubModelParameters() override {
     // Dummy class used for testing
   }
 
-  void initParams() {
+  void initParams() override {
     // Dummy class used for testing
   }
 
-  void notifyTimeStep() {
+  void notifyTimeStep() override {
     // Dummy class used for testing
   }
 
-  modeChangeType_t evalMode(const double) {
+  modeChangeType_t evalMode(const double) override {
     // Dummy class used for testing
     return NO_MODE;
   }
@@ -231,9 +232,9 @@ class SubModelMock1 : public SubModelMock0 {
     sizeF_ = 2;
   }
 
-  void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables);
+  void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) override;
 
-  void setFequations() {
+  void setFequations() override {
     fEquationIndex_[0] = "Eq1";
     fEquationIndex_[1] = "Eq2";
   }
@@ -251,9 +252,9 @@ class SubModelMock2 : public SubModelMock0 {
     sizeF_ = 1;
   }
 
-  void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables);
+  void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) override;
 
-  void setFequations() {
+  void setFequations() override {
     fEquationIndex_[0] = "Eq2_1";
   }
 };

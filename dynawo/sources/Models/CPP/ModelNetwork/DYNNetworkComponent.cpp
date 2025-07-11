@@ -18,6 +18,11 @@
  *
  */
 #include <iostream>
+
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+#include <boost/serialization/vector.hpp>
+
 #include "PARParametersSet.h"
 
 #include "DYNNetworkComponent.h"
@@ -57,6 +62,7 @@ sizeZ_(0),
 sizeG_(0),
 sizeMode_(0),
 sizeCalculatedVar_(0),
+internalVariablesFoundInDump_(false),
 offsetCalculatedVar_(0),
 network_(NULL) { }
 
@@ -76,22 +82,23 @@ sizeZ_(0),
 sizeG_(0),
 sizeMode_(0),
 sizeCalculatedVar_(0),
+internalVariablesFoundInDump_(false),
 offsetCalculatedVar_(0),
 id_(id),
 network_(NULL) { }
 
 void
-NetworkComponent::setBufferYType(propertyContinuousVar_t* yType, const unsigned int& offset) {
+NetworkComponent::setBufferYType(propertyContinuousVar_t* yType, const unsigned int offset) {
   yType_ = &(yType[offset]);
 }
 
 void
-NetworkComponent::setBufferFType(propertyF_t* fType, const unsigned int& offset) {
+NetworkComponent::setBufferFType(propertyF_t* fType, const unsigned int offset) {
   fType_ = &(fType[offset]);
 }
 
 void
-NetworkComponent::setReferenceY(double* y, double* yp, double* f, const int& offsetY, const int& offsetF) {
+NetworkComponent::setReferenceY(double* y, double* yp, double* f, const int offsetY, const int offsetF) {
   if (sizeY() != 0) {
     y_ = &(y[offsetY]);
     yp_ = &(yp[offsetY]);
@@ -102,7 +109,7 @@ NetworkComponent::setReferenceY(double* y, double* yp, double* f, const int& off
 }
 
 void
-NetworkComponent::setReferenceZ(double* z, bool* zConnected, const int& offsetZ) {
+NetworkComponent::setReferenceZ(double* z, bool* zConnected, const int offsetZ) {
   if (sizeZ() != 0) {
     z_ = &(z[offsetZ]);
     zConnected_ = &(zConnected[offsetZ]);
@@ -110,15 +117,15 @@ NetworkComponent::setReferenceZ(double* z, bool* zConnected, const int& offsetZ)
 }
 
 void
-NetworkComponent::setReferenceG(state_g* g, const int& offsetG) {
+NetworkComponent::setReferenceG(state_g* g, const int offsetG) {
   if (sizeG() != 0)
     g_ = &(g[offsetG]);
 }
 
 void
-NetworkComponent::setReferenceCalculatedVar(double* calculatedVars, const int& offsetCalculatedVar) {
+NetworkComponent::setReferenceCalculatedVar(double* calculatedVars, const int offsetCalculatedVars) {
   if (sizeCalculatedVar() != 0)
-    calculatedVars_ = &(calculatedVars[offsetCalculatedVar]);
+    calculatedVars_ = &(calculatedVars[offsetCalculatedVars]);
 }
 
 void
@@ -127,8 +134,8 @@ NetworkComponent::setNetwork(ModelNetwork* model) {
 }
 
 ParameterModeler
-NetworkComponent::findParameter(const string& name, const std::unordered_map<string, ParameterModeler>& params) const {
-  std::unordered_map<string, ParameterModeler>:: const_iterator it = params.find(name);
+NetworkComponent::findParameter(const string& name, const std::unordered_map<string, ParameterModeler>& params) {
+  const auto it = params.find(name);
   if (it != params.end()) {
     return it->second;
   }
@@ -136,7 +143,7 @@ NetworkComponent::findParameter(const string& name, const std::unordered_map<str
 }
 
 bool
-NetworkComponent::hasParameter(const string& name, const std::unordered_map<string, ParameterModeler>& params) const {
+NetworkComponent::hasParameter(const string& name, const std::unordered_map<string, ParameterModeler>& params) {
   return params.find(name) != params.end();
 }
 
@@ -174,7 +181,7 @@ std::string NetworkComponent::getParameterDynamicNoThrow(const std::unordered_ma
 
 void
 NetworkComponent::addElementWithValue(const string& elementName, const std::string& parentType,
-    vector<Element>& elements, std::map<string, int>& mapElement) {
+    vector<Element>& elements, std::map<string, int>& mapElement) const {
   addElement(elementName, Element::STRUCTURE, elements, mapElement);
   addSubElement("value", elementName, Element::TERMINAL, id(), parentType, elements, mapElement);
 }
@@ -183,7 +190,7 @@ NetworkComponent::startingPointMode_t
 NetworkComponent::getStartingPointMode(const std::string& startingPointMode) {
   std::map<std::string, startingPointMode_t> enumResolver = {{"flat", startingPointMode_t::FLAT},
                                                              {"warm", startingPointMode_t::WARM}};
-  auto it = enumResolver.find(startingPointMode);
+  const auto it = enumResolver.find(startingPointMode);
   if (it != enumResolver.end()) {
     return it->second;
   } else {
@@ -198,13 +205,80 @@ NetworkComponent::printInternalParameters(std::ofstream& /*fstream*/) const {
 }
 
 void
-NetworkComponent::dumpInternalVariables(stringstream&) const {
+NetworkComponent::dumpInternalVariables(boost::archive::binary_oarchive&) const {
   // not needed: internal variables are specific to child classes
 }
 
 void
-NetworkComponent::loadInternalVariables(stringstream&) {
+NetworkComponent::loadInternalVariables(boost::archive::binary_iarchive&) {
   // not needed: internal variables are specific to child classes
+}
+
+unsigned
+NetworkComponent::getNbInternalVariables() const {
+  return 0;
+}
+
+void
+NetworkComponent::dumpVariables(boost::archive::binary_oarchive& streamVariables) const {
+  vector<double> y(y_, y_ + sizeY());
+  vector<double> yp(yp_, yp_ + sizeY());
+  vector<double> z(z_, z_ + sizeZ());
+  vector<double> g(g_, g_ + sizeG());
+
+  streamVariables << y;
+  streamVariables << yp;
+  streamVariables << z;
+  streamVariables << g;
+
+  streamVariables << getNbInternalVariables();
+  dumpInternalVariables(streamVariables);
+}
+
+bool
+NetworkComponent::loadVariables(boost::archive::binary_iarchive& streamVariables, const std::string&) {
+  vector<double> yValues;
+  vector<double> ypValues;
+  vector<double> zValues;
+  vector<double> gValues;
+  streamVariables >> yValues;
+  streamVariables >> ypValues;
+  streamVariables >> zValues;
+  streamVariables >> gValues;
+
+  unsigned readNbInternalVariables;
+  streamVariables >> readNbInternalVariables;
+
+  if (yValues.size() != static_cast<size_t>(sizeY()) || ypValues.size() != static_cast<size_t>(sizeY()) ||
+      zValues.size() != static_cast<size_t>(sizeZ()) || gValues.size() != static_cast<size_t>(sizeG()) ||
+      readNbInternalVariables != getNbInternalVariables()) {
+    Trace::debug() << DYNLog(WrongParameterNum, id_) << Trace::endline;
+    double dummyValueD;
+    bool dummyValueB;
+    int dummyValueI;
+    char type;
+    for (unsigned j = 0; j < readNbInternalVariables; ++j) {
+      streamVariables >> type;
+      if (type == 'B')
+        streamVariables >> dummyValueB;
+      else if (type == 'D')
+        streamVariables >> dummyValueD;
+      else if (type == 'I')
+        streamVariables >> dummyValueI;
+    }
+    // Fall back on default initialization for this component
+    getY0();
+    return false;
+  }
+  setInternalVariablesFoundInDump(true);
+  loadInternalVariables(streamVariables);
+
+  // loading values
+  std::copy(yValues.begin(), yValues.end(), y_);
+  std::copy(ypValues.begin(), ypValues.end(), yp_);
+  std::copy(zValues.begin(), zValues.end(), z_);
+  std::copy(gValues.begin(), gValues.end(), g_);
+  return true;
 }
 
 }  // namespace DYN

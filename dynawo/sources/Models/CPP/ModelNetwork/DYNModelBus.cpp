@@ -56,57 +56,55 @@ ModelBusContainer::add(const std::shared_ptr<ModelBus>& model) {
 
 void
 ModelBusContainer::resetCurrentUStatus() {
-  for (vector<std::shared_ptr<ModelBus> >::const_iterator itB = models_.begin(); itB != models_.end(); ++itB)
-    (*itB)->resetCurrentUStatus();
+  for (const auto& busModel : models_)
+    busModel->resetCurrentUStatus();
 }
 
 void
 ModelBusContainer::evalF(propertyF_t type) {
-  for (vector<std::shared_ptr<ModelBus> >::const_iterator itB = models_.begin(); itB != models_.end(); ++itB)
-    (*itB)->evalF(type);
+  for (const auto& busModel : models_)
+    busModel->evalF(type);
 }
 
 void
-ModelBusContainer::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) {
-  for (vector<std::shared_ptr<ModelBus> >::const_iterator itB = models_.begin(); itB != models_.end(); ++itB)
-    (*itB)->evalJt(jt, cj, rowOffset);
+ModelBusContainer::evalJt(const double cj, const int rowOffset, SparseMatrix& jt) {
+  for (const auto& busModel : models_)
+    busModel->evalJt(cj, rowOffset, jt);
 }
 
 void
-ModelBusContainer::evalJtPrim(SparseMatrix& jt, const int& rowOffset) {
-  for (vector<std::shared_ptr<ModelBus> >::const_iterator itB = models_.begin(); itB != models_.end(); ++itB)
-    (*itB)->evalJtPrim(jt, rowOffset);
+ModelBusContainer::evalJtPrim(const int rowOffset, SparseMatrix& jtPrim) {
+  for (const auto& busModel : models_)
+    busModel->evalJtPrim(rowOffset, jtPrim);
 }
 
 void
 ModelBusContainer::resetSubNetwork() {
   subNetworks_.clear();
-  for (vector<std::shared_ptr<ModelBus> >::iterator itModelBus = models_.begin(); itModelBus != models_.end(); ++itModelBus) {
-    std::shared_ptr<ModelBus> bus = *itModelBus;
-    bus->clearNeighbors();
-    bus->clearNumSubNetwork();
+  for (const auto& busModel : models_) {
+    busModel->clearNeighbors();
+    busModel->clearNumSubNetwork();
   }
 }
 
 void
 ModelBusContainer::resetNodeInjections() {
-  for (vector<std::shared_ptr<ModelBus> >::iterator itModelBus = models_.begin(); itModelBus != models_.end(); ++itModelBus) {
-    (*itModelBus)->resetNodeInjection();
+  for (const auto& busModel : models_) {
+    busModel->resetNodeInjection();
   }
 }
 
 void
-ModelBusContainer::exploreNeighbors(double t) {
+ModelBusContainer::exploreNeighbors(const double t) {
   int numSubNetwork = 0;
   shared_ptr<SubNetwork> subNetwork(new SubNetwork(numSubNetwork));
   subNetworks_.push_back(subNetwork);
 
-  for (vector<std::shared_ptr<ModelBus> >::iterator itModelBus = models_.begin(); itModelBus != models_.end(); ++itModelBus) {
-    std::shared_ptr<ModelBus> bus = *itModelBus;
-    if (!bus->numSubNetworkSet()) {  // Bus not yet treated
-      bus->numSubNetwork(numSubNetwork);
-      subNetwork->addBus(bus);
-      bus->exploreNeighbors(numSubNetwork, subNetwork);
+  for (const auto& busModel : models_) {
+    if (!busModel->numSubNetworkSet()) {  // Bus not yet treated
+      busModel->numSubNetwork(numSubNetwork);
+      subNetwork->addBus(busModel);
+      busModel->exploreNeighbors(numSubNetwork, subNetwork);
 
       ++numSubNetwork;
       subNetwork.reset(new SubNetwork(numSubNetwork));
@@ -131,18 +129,18 @@ ModelBusContainer::exploreNeighbors(double t) {
 
 void
 ModelBusContainer::initRefIslands() {
-  for (std::vector<std::shared_ptr<ModelBus> >::iterator itModelBus = models_.begin(); itModelBus != models_.end(); ++itModelBus) {
-    (*itModelBus)->setRefIslands(0);
+  for (const auto& busModel : models_) {
+    busModel->setRefIslands(0);
   }
 }
 
 void
 ModelBusContainer::initDerivatives() {
-  for (std::vector<std::shared_ptr<ModelBus> >::iterator itModelBus = models_.begin(); itModelBus != models_.end(); ++itModelBus)
-    (*itModelBus)->initDerivatives();
+  for (const auto& busModel : models_)
+    busModel->initDerivatives();
 }
 
-ModelBus::ModelBus(const std::shared_ptr<BusInterface>& bus, bool isNodeBreaker) :
+ModelBus::ModelBus(const std::shared_ptr<BusInterface>& bus, const bool isNodeBreaker) :
 NetworkComponent(bus->getID()),
 bus_(bus),
 stateUmax_(false),
@@ -197,7 +195,7 @@ ModelBus::resetCurrentUStatus() {
 }
 
 double
-ModelBus::getCurrentU(UType_t currentURequested) {
+ModelBus::getCurrentU(const UType_t currentURequested) {
   if (getSwitchOff())
     return 0;
   switch (currentURequested) {
@@ -247,8 +245,8 @@ ModelBus::getCurrentU(UType_t currentURequested) {
 
 double
 ModelBus::calculateU2Pu() const {
-  double urPu = ur();
-  double uiPu = ui();
+  const double urPu = ur();
+  const double uiPu = ui();
   return urPu * urPu + uiPu * uiPu;
 }
 
@@ -328,7 +326,7 @@ ModelBus::setSubModelParameters(const std::unordered_map<std::string, ParameterM
     uMin_ = value;
 
   bool startingPointModeFound = false;
-  std::string startingPointMode = getParameterDynamicNoThrow<string>(params, "startingPointMode", startingPointModeFound);
+  const std::string startingPointMode = getParameterDynamicNoThrow<string>(params, "startingPointMode", startingPointModeFound);
   if (startingPointModeFound) {
     startingPointMode_ = getStartingPointMode(startingPointMode);
   }
@@ -336,11 +334,11 @@ ModelBus::setSubModelParameters(const std::unordered_map<std::string, ParameterM
   vector<string> ids;
   ids.push_back(id_);
   ids.push_back("bus");
-  for (auto& busBarSectionId : busBarSectionIdentifiers_) {
+  for (const auto& busBarSectionId : busBarSectionIdentifiers_) {
     ids.push_back(busBarSectionId);
   }
   success = false;
-  bool boolValue = getParameterDynamicNoThrow<bool>(params, "hasShortCircuitCapabilities", success, ids);
+  const bool boolValue = getParameterDynamicNoThrow<bool>(params, "hasShortCircuitCapabilities", success, ids);
   if (success)
     hasShortCircuitCapabilities_ = boolValue;
 }
@@ -352,10 +350,9 @@ ModelBus::initDerivatives() {
 }
 
 void
-ModelBus::exploreNeighbors(const int& numSubNetwork, const shared_ptr<SubNetwork>& subNetwork) {
-  vector<std::weak_ptr<ModelBus> >::iterator itModelBus;
-  for (itModelBus = neighbors_.begin(); itModelBus != neighbors_.end(); ++itModelBus) {
-    std::shared_ptr<ModelBus> bus = (*itModelBus).lock();
+ModelBus::exploreNeighbors(const int numSubNetwork, const shared_ptr<SubNetwork>& subNetwork) {
+  for (const auto& neighbor : neighbors_) {
+    std::shared_ptr<ModelBus> bus = neighbor.lock();
     if (!bus->numSubNetworkSet()) {  // Bus not yet treated
       bus->numSubNetwork(numSubNetwork);
       subNetwork->addBus(bus);
@@ -365,7 +362,7 @@ ModelBus::exploreNeighbors(const int& numSubNetwork, const shared_ptr<SubNetwork
 }
 
 void
-ModelBus::addNeighbor(std::shared_ptr<ModelBus>& bus) {
+ModelBus::addNeighbor(const std::shared_ptr<ModelBus>& bus) {
   neighbors_.push_back(bus);
 }
 
@@ -378,7 +375,7 @@ ModelBus::evalDerivatives(const double /*cj*/) {
 }
 
 void
-ModelBus::evalF(propertyF_t type) {
+ModelBus::evalF(const propertyF_t type) {
   if (network_->isInitModel()) {
     f_[0] = ir0_;
     f_[1] = ii0_;
@@ -430,7 +427,7 @@ ModelBus::resetNodeInjection() {
 }
 
 void
-ModelBus::irAdd(const double& ir) {
+ModelBus::irAdd(const double ir) {
   if (network_->isInit() || network_->isInitModel()) {
     ir0_ += ir;
   } else {
@@ -439,7 +436,7 @@ ModelBus::irAdd(const double& ir) {
 }
 
 void
-ModelBus::iiAdd(const double& ii) {
+ModelBus::iiAdd(const double ii) {
   if (network_->isInit() || network_->isInitModel()) {
     ii0_ += ii;
   } else {
@@ -505,17 +502,18 @@ ModelBus::evalCalculatedVars() {
 
 void
 ModelBus::init(int& yNum) {
-  switch (startingPointMode_) {
-  case FLAT:
-    u0_ = bus_.lock()->getVNom() / unom_;
-    break;
-  case WARM:
-    u0_ = bus_.lock()->getV0() / unom_;
-    break;
+  if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
+    switch (startingPointMode_) {
+    case FLAT:
+      u0_ = bus_.lock()->getVNom() / unom_;
+      break;
+    case WARM:
+      u0_ = bus_.lock()->getV0() / unom_;
+      break;
+    }
+    ur0_ = u0_ * cos(angle0_);
+    ui0_ = u0_ * sin(angle0_);
   }
-  ur0_ = u0_ * cos(angle0_);
-  ui0_ = u0_ * sin(angle0_);
-
   if (network_->isInitModel()) {
     urYNum_ = yNum;
     ++yNum;
@@ -552,28 +550,79 @@ ModelBus::getY0() {
       y_[uiNum_] = ui0_;
     }
   } else {
-    if (getSwitchOff()) {
-      y_[urNum_] = 0.0;
-      y_[uiNum_] = 0.0;
+    if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
+      if (getSwitchOff()) {
+        y_[urNum_] = 0.0;
+        y_[uiNum_] = 0.0;
+      } else {
+        y_[urNum_] = ur0_;
+        y_[uiNum_] = ui0_;
+      }
+
+      yp_[urNum_] = 0.0;
+      yp_[uiNum_] = 0.0;
+      if (hasConnection_ || hasShortCircuitCapabilities_) {
+        y_[irNum_] = ir0_;
+        y_[iiNum_] = ii0_;
+        yp_[irNum_] = 0.0;
+        yp_[iiNum_] = 0.0;
+      }
+
+      // We assume here that z_[numSubNetworkNum_] was already initialized!!
+      if (doubleNotEquals(z_[switchOffNum_], -1.) && doubleNotEquals(z_[switchOffNum_], 1.)) {
+        z_[switchOffNum_] = fromNativeBool(false);
+      }
+      z_[connectionStateNum_] = connectionState_;
     } else {
-      y_[urNum_] = ur0_;
-      y_[uiNum_] = ui0_;
-    }
+      ur0_ = y_[urNum_];
+      ui0_ = y_[uiNum_];
+      ir0_ = y_[irNum_];
+      ii0_ = y_[iiNum_];
 
-    yp_[urNum_] = 0.0;
-    yp_[uiNum_] = 0.0;
-    if (hasConnection_ || hasShortCircuitCapabilities_) {
-      y_[irNum_] = ir0_;
-      y_[iiNum_] = ii0_;
-      yp_[irNum_] = 0.0;
-      yp_[iiNum_] = 0.0;
-    }
+      State currState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
 
-    // We assume here that z_[numSubNetworkNum_] was already initialized!!
-    if (doubleNotEquals(z_[switchOffNum_], -1.) && doubleNotEquals(z_[switchOffNum_], 1.))
-      z_[switchOffNum_] = fromNativeBool(false);
-    z_[connectionStateNum_] = connectionState_;
+      if (currState != connectionState_) {
+        topologyModified_ = true;
+        if (isNodeBreaker_ && connectableSwitches_.size() == 0) {
+          throw DYNError(Error::MODELER, CalculatedBusNoSwitchStateChange, id_);
+        }
+        if (currState == OPEN) {
+          switchOff();
+          // open all switch connected to this node
+          for (unsigned int i = 0; i < connectableSwitches_.size(); ++i) {
+            connectableSwitches_[i].lock()->open();
+          }
+        } else if (currState == CLOSED) {
+          switchOn();
+        }
+      }
+      connectionState_ = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
+    }
   }
+}
+
+void
+ModelBus::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
+  ModelCPP::dumpInStream(streamVariables, angle0_);
+  ModelCPP::dumpInStream(streamVariables, u0_);
+  ModelCPP::dumpInStream(streamVariables, U_);
+  ModelCPP::dumpInStream(streamVariables, U2Pu_);
+  ModelCPP::dumpInStream(streamVariables, UPu_);
+}
+
+void
+ModelBus::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
+  char c;
+  streamVariables >> c;
+  streamVariables >> angle0_;
+  streamVariables >> c;
+  streamVariables >> u0_;
+  streamVariables >> c;
+  streamVariables >> U_;
+  streamVariables >> c;
+  streamVariables >> U2Pu_;
+  streamVariables >> c;
+  streamVariables >> UPu_;
 }
 
 void
@@ -643,20 +692,20 @@ ModelBus::defineVariables(vector<shared_ptr<Variable> >& variables) {
 void
 ModelBus::defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) {
   defineElementsById(id_, elements, mapElement);
-  for (unsigned int i = 0; i < busBarSectionIdentifiers_.size(); ++i)
-    defineElementsById(busBarSectionIdentifiers_[i], elements, mapElement);
+  for (const auto& busBarSectionIdentifier : busBarSectionIdentifiers_)
+    defineElementsById(busBarSectionIdentifier, elements, mapElement);
 }
 
 void
 ModelBus::defineElementsById(const std::string& id, std::vector<Element>& elements, std::map<std::string, int>& mapElement) {
-  string ACName = id + string("_ACPIN");
+  const string ACName = id + string("_ACPIN");
   addElement(ACName, Element::STRUCTURE, elements, mapElement);
-  string ACNameV = id + string("_ACPIN_V");
+  const string ACNameV = id + string("_ACPIN_V");
   addSubElement("V", ACName, Element::STRUCTURE, id_, modelType_, elements, mapElement);
   addSubElement("re", ACNameV, Element::TERMINAL, id_, modelType_, elements, mapElement);
   addSubElement("im", ACNameV, Element::TERMINAL, id_, modelType_, elements, mapElement);
   if (hasConnection_ || hasShortCircuitCapabilities_) {
-    string ACNameI = id + string("_ACPIN_i");
+    const string ACNameI = id + string("_ACPIN_i");
     addSubElement("i", ACName, Element::STRUCTURE, id_, modelType_, elements, mapElement);
     addSubElement("re", ACNameI, Element::TERMINAL, id_, modelType_, elements, mapElement);
     addSubElement("im", ACNameI, Element::TERMINAL, id_, modelType_, elements, mapElement);
@@ -675,7 +724,7 @@ ModelBus::defineElementsById(const std::string& id, std::vector<Element>& elemen
 }
 
 NetworkComponent::StateChange_t
-ModelBus::evalZ(const double& /*t*/) {
+ModelBus::evalZ(const double /*t*/) {
   using constraints::ConstraintData;
 
   if (network_->hasConstraints()) {
@@ -703,7 +752,7 @@ ModelBus::evalZ(const double& /*t*/) {
   State currState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
   if (currState != connectionState_) {
     topologyModified_ = true;
-    if (isNodeBreaker_ && connectableSwitches_.size() == 0) {
+    if (isNodeBreaker_ && connectableSwitches_.empty()) {
       throw DYNError(Error::MODELER, CalculatedBusNoSwitchStateChange, id_);
     }
     if (currState == OPEN) {
@@ -723,9 +772,9 @@ ModelBus::evalZ(const double& /*t*/) {
 }
 
 void
-ModelBus::evalG(const double& /*t*/) {
+ModelBus::evalG(const double /*t*/) {
   if (!network_->hasConstraints()) return;
-  double upu = getCurrentU(ModelBus::UPuType_);
+  const double upu = getCurrentU(ModelBus::UPuType_);
   g_[0] = (upu - uMax_ > 0) ? ROOT_UP : ROOT_DOWN;  // U > Umax
   g_[1] = (uMin_ - upu > 0 && !getSwitchOff()) ? ROOT_UP : ROOT_DOWN;  // U < Umin
 }
@@ -755,8 +804,8 @@ ModelBus::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, 
 
 void
 ModelBus::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) const {
-  double ur = y_[urNum_];
-  double ui = y_[uiNum_];
+  const double ur = y_[urNum_];
+  const double ui = y_[uiNum_];
   switch (numCalculatedVar) {
     case upuNum_: {
       if (getSwitchOff()) {
@@ -773,8 +822,8 @@ ModelBus::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) co
         res[0] = 0.0;
         res[1] = 0.0;
       } else {
-        double v3 = 1 / ur;
-        double v2 = 1 / (1 + pow(ui / ur, 2));
+        const double v3 = 1 / ur;
+        const double v2 = 1 / (1 + pow(ui / ur, 2));
         res[0] = -ui * pow(ur, -2) * v2;
         res[1] = v3*v2;
       }
@@ -795,8 +844,8 @@ ModelBus::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) co
         res[0] = 0.0;
         res[1] = 0.0;
       } else {
-        double v3 = 1 / ur;
-        double v2 = 1 / (1 + pow(ui / ur, 2));
+        const double v3 = 1 / ur;
+        const double v2 = 1 / (1 + pow(ui / ur, 2));
         res[0] = -ui * pow(ur, -2) * v2*RAD_TO_DEG;
         res[1] = v3 * v2*RAD_TO_DEG;
       }
@@ -810,8 +859,8 @@ ModelBus::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) co
 double
 ModelBus::evalCalculatedVarI(unsigned numCalculatedVar) const {
   double output = 0.0;
-  double ur = y_[urNum_];
-  double ui = y_[uiNum_];
+  const double ur = y_[urNum_];
+  const double ui = y_[uiNum_];
   switch (numCalculatedVar) {
     case upuNum_:
       if (getSwitchOff())
@@ -844,7 +893,7 @@ ModelBus::evalCalculatedVarI(unsigned numCalculatedVar) const {
 }
 
 void
-ModelBus::evalJt(SparseMatrix& jt, const double& /*cj*/, const int& rowOffset) {
+ModelBus::evalJt(const double /*cj*/, const int rowOffset, SparseMatrix& jt) {
   if (getSwitchOff()) {
     jt.changeCol();
     jt.addTerm(urYNum() + rowOffset, 1.0);
@@ -859,9 +908,8 @@ ModelBus::evalJt(SparseMatrix& jt, const double& /*cj*/, const int& rowOffset) {
     // Switching column
     jt.changeCol();
     const map<int, double>& irDerivativesValues = derivatives_->getValues(IR_DERIVATIVE);
-    map<int, double>::const_iterator iter = irDerivativesValues.begin();
-    for (; iter != irDerivativesValues.end(); ++iter) {
-      jt.addTerm(iter->first + rowOffset, iter->second);
+    for (const auto& irDerivativesValue : irDerivativesValues) {
+      jt.addTerm(irDerivativesValue.first + rowOffset, irDerivativesValue.second);
     }
 
     // Column for the imaginary part of the node current
@@ -869,39 +917,38 @@ ModelBus::evalJt(SparseMatrix& jt, const double& /*cj*/, const int& rowOffset) {
     // Switching column
     jt.changeCol();
     const map<int, double>& iiDerivativesValues = derivatives_->getValues(II_DERIVATIVE);
-    iter = iiDerivativesValues.begin();
-    for (; iter != iiDerivativesValues.end(); ++iter) {
-      jt.addTerm(iter->first + rowOffset, iter->second);
+    for (const auto& iiDerivativesValue : iiDerivativesValues) {
+      jt.addTerm(iiDerivativesValue.first + rowOffset, iiDerivativesValue.second);
     }
   }
 }
 
 void
-ModelBus::evalJtPrim(SparseMatrix& jt, const int& rowOffset) {
+ModelBus::evalJtPrim(const int rowOffset, SparseMatrix& jtPrim) {
   // y' in network equations - differential voltages
   if (hasDifferentialVoltages_ && !getSwitchOff() && !derivativesPrim_->empty()) {
-    jt.changeCol();
+    jtPrim.changeCol();
     const map<int, double>& irDerivativesValues = derivativesPrim_->getValues(IR_DERIVATIVE);
-    for (map<int, double>::const_iterator iter = irDerivativesValues.begin(); iter != irDerivativesValues.end(); ++iter) {
-      jt.addTerm(iter->first + rowOffset, iter->second);
+    for (const auto& irDerivativesValue : irDerivativesValues) {
+      jtPrim.addTerm(irDerivativesValue.first + rowOffset, irDerivativesValue.second);
     }
 
-    jt.changeCol();
+    jtPrim.changeCol();
     const map<int, double>& iiDerivativesValues = derivativesPrim_->getValues(II_DERIVATIVE);
-    for (map<int, double>::const_iterator iter = iiDerivativesValues.begin(); iter != iiDerivativesValues.end(); ++iter) {
-      jt.addTerm(iter->first + rowOffset, iter->second);
+    for (const auto& iiDerivativesValue : iiDerivativesValues) {
+      jtPrim.addTerm(iiDerivativesValue.first + rowOffset, iiDerivativesValue.second);
     }
   } else {
     // no y' in network equations, we only change the column index in Jacobian
     // column change - real part of the node current
-    jt.changeCol();
+    jtPrim.changeCol();
     // column change - imaginary part of the node current
-    jt.changeCol();
+    jtPrim.changeCol();
   }
 }
 
 NetworkComponent::StateChange_t
-ModelBus::evalState(const double& /*time*/) {
+ModelBus::evalState(const double /*time*/) {
   StateChange_t state = NetworkComponent::NO_CHANGE;
   if (topologyModified_) {
     topologyModified_ = false;

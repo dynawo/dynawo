@@ -23,6 +23,7 @@
 #include <vector>
 #include <queue>
 #include <unordered_map>
+#include <memory>
 #include <boost/shared_ptr.hpp>
 #include <boost/optional.hpp>
 #include <boost/filesystem.hpp>
@@ -154,7 +155,8 @@ class Simulation {
    * @param context context of the simulation (configuration, directories, locale, etc...)
    * @param data data interface to use for the simulation (NULL if we build it inside simulation)
    */
-  Simulation(boost::shared_ptr<job::JobEntry>& jobEntry, boost::shared_ptr<SimulationContext>& context,
+  Simulation(const std::shared_ptr<job::JobEntry>& jobEntry,
+              const std::shared_ptr<SimulationContext>& context,
               boost::shared_ptr<DataInterface> data = boost::shared_ptr<DataInterface>());
 
   /**
@@ -170,7 +172,7 @@ class Simulation {
   /**
    * @brief initialize the buffers uses by the model
    */
-  void initStructure();
+  void initStructure() const;
 
   /**
    * @brief initialize the whole system with respect to the input "static/dynamic" data
@@ -194,17 +196,17 @@ class Simulation {
    * @param criteria true if we want to check one last time the criteria
    * @param isSimulationDiverging true if the simulation diverges, false otherwise
    */
-  void endSimulationWithError(bool criteria, bool isSimulationDiverging = false);
+  void endSimulationWithError(bool criteria, bool isSimulationDiverging = false) const;
 
   /**
    * @brief print the header information of the solver used
    */
-  void printSolverHeader();
+  void printSolverHeader() const;
 
   /**
    * @brief print the statistics of the solver
    */
-  void printEnd();
+  void printEnd() const;
 
   /**
    * @brief load a previous state
@@ -227,13 +229,13 @@ class Simulation {
    * @brief store a simulation state in a file
    * @param dumpFile the dump file to export to
    */
-  void dumpState(const boost::filesystem::path& dumpFile);
+  void dumpState(const boost::filesystem::path& dumpFile) const;
 
   /**
    * @brief dump the final state of the network in a IIDM file
    * @param iidmFile the iidm to export to
    */
-  void dumpIIDMFile(const boost::filesystem::path& iidmFile);
+  void dumpIIDMFile(const boost::filesystem::path& iidmFile) const;
 
   /**
    * @brief dump the final state of the network in a stream
@@ -251,7 +253,7 @@ class Simulation {
    * @brief import final state values request from a file (i.e. final states values that the user wants to see)
    * @warning the file should be set before the call of this method
    */
-  void importFinalStateValuesRequest();
+  void importFinalStateValuesRequest() const;
 
   /**
    * @brief setter for the output file of the timeline
@@ -273,7 +275,7 @@ class Simulation {
    * @brief setter for the export mode of the timeline
    * @param mode timeline's mode export
    */
-  inline void setTimelineExportMode(const exportTimelineMode_t& mode) {
+  inline void setTimelineExportMode(const exportTimelineMode_t mode) {
     exportTimelineMode_ = mode;
   }
 
@@ -281,7 +283,7 @@ class Simulation {
    * @brief setter for the export mode of curves
    * @param mode curves' export mode
    */
-  inline void setCurvesExportMode(const exportCurvesMode_t& mode) {
+  inline void setCurvesExportMode(const exportCurvesMode_t mode) {
     exportCurvesMode_ = mode;
   }
 
@@ -305,7 +307,7 @@ class Simulation {
    * @brief setter for the export mode of final state values
    * @param mode final state values' export mode
    */
-  inline void setFinalStateValuesExportMode(const exportFinalStateValuesMode_t& mode) {
+  inline void setFinalStateValuesExportMode(const exportFinalStateValuesMode_t mode) {
     exportFinalStateValuesMode_ = mode;
   }
 
@@ -345,7 +347,7 @@ class Simulation {
    * @brief setter for the constraints' export mode
    * @param mode constraints' export mode
    */
-  inline void setConstraintsExportMode(const exportConstraintsMode_t& mode) {
+  inline void setConstraintsExportMode(const exportConstraintsMode_t mode) {
     exportConstraintsMode_ = mode;
   }
 
@@ -369,7 +371,7 @@ class Simulation {
    * @brief setter for the lost equipments' export mode
    * @param mode lost equipments' export mode
    */
-  inline void setLostEquipmentsExportMode(const exportLostEquipmentsMode_t& mode) {
+  inline void setLostEquipmentsExportMode(const exportLostEquipmentsMode_t mode) {
     exportLostEquipmentsMode_ = mode;
   }
 
@@ -421,7 +423,7 @@ class Simulation {
    * @return @b true if current time >= stop time, @b false otherwise
    */
   inline bool end() const {
-    return (tCurrent_ >= tStop_);
+    return tCurrent_ >= tStop_;
   }
 
   /**
@@ -444,7 +446,7 @@ class Simulation {
    * @brief setter for activating the checking of criteria (minimal voltage, etc..)
    * @param activate @b true if checking of criteria should be activated during simulation
    */
-  inline void setActivateCriteria(bool activate) {
+  inline void setActivateCriteria(const bool activate) {
     activateCriteria_ = activate;
   }
 
@@ -452,7 +454,7 @@ class Simulation {
    * @brief setter for criteria step
    * @param step number of iterations between 2 criteria check
    */
-  void setCriteriaStep(const int step);
+  void setCriteriaStep(int step);
 
   /**
    * @brief getter for the start time of the simulation
@@ -554,12 +556,6 @@ class Simulation {
   void printConstraints(std::ostream& stream) const;
 
   /**
-   * @brief print finalState output of the simulation in the given stream
-   * @param stream stream where the finalState output should be printed
-   */
-  void printFinalState(std::ostream& stream) const;
-
-  /**
    * @brief print lost equipments output of the simulation in the given stream
    * @param stream stream where the lost equipments output should be printed
    */
@@ -576,7 +572,7 @@ class Simulation {
 
  * @return model used in simulation
  */
-  std::shared_ptr<Model> getModel() {
+  const std::shared_ptr<Model>& getModel() {
     return model_;
   }
 
@@ -586,7 +582,8 @@ class Simulation {
    * @param stream file stream stream to open
    * @param path path of the file
    */
-  void openFileStream(std::ofstream& stream, const std::string& path);
+  void openFileStream(std::ofstream& stream, const std::string& path) const;
+
   /**
    * @brief check if criteria are fullfilled
    *
@@ -594,7 +591,7 @@ class Simulation {
    * @param finalStep  @b true if this is the final step of the simulation
    * @return @b true if all criteria are fullfilled
    */
-  bool checkCriteria(double t, bool finalStep);
+  bool checkCriteria(double t, bool finalStep) const;
 
   /**
    * @brief configure and create all appenders of the simulation
@@ -614,7 +611,7 @@ class Simulation {
   /**
    * @brief analyze dynamic data and compile modelica models
    */
-  void compileModels();
+  void compileModels() const;
 
   /**
    * @brief configure the simulation outputs
@@ -635,30 +632,30 @@ class Simulation {
    * @brief  update the curves depending on parameters values
    * At the end of the simulation, parameter value is duplicated into curve
    */
-  void updateParametersValues();
+  void updateParametersValues() const;
 
   /**
    * @brief update curves : at the end of each iteration, new points are added to curve
    * @param updateCalculateVariable @b true is calculated variables should be updated
    */
-  void updateCurves(bool updateCalculateVariable = true);
+  void updateCurves(bool updateCalculateVariable = true) const;
 
   /**
    * @brief dump the current time of the simulation in a file
    * @param fileName file where the current time is dumped
    */
-  void printCurrentTime(const std::string& fileName);
+  void printCurrentTime(const std::string& fileName) const;
 
   /**
    * @brief add an event to the timeline
    * @param messageTimeline message to add in the timeline
    */
-  void addEvent(const MessageTimeline& messageTimeline);
+  void addEvent(const MessageTimeline& messageTimeline) const;
 
   /**
    * @brief dump the 10 highest derivatives values in the global log
    */
-  void printHighestDerivativesValues();
+  void printHighestDerivativesValues() const;
 
   /**
    * @brief Determines whether an intermediate dump state has to be performed
@@ -668,8 +665,8 @@ class Simulation {
   bool hasIntermediateStateToDump() const;
 
  private:
-  boost::shared_ptr<SimulationContext> context_;  ///< simulation context : configuration of the simulation
-  boost::shared_ptr<job::JobEntry> jobEntry_;  ///< jobs data description
+  std::shared_ptr<SimulationContext> context_;  ///< simulation context : configuration of the simulation
+  std::shared_ptr<job::JobEntry> jobEntry_;  ///< jobs data description
   SolverFactory::SolverPtr solver_;  ///< solver used for the simulation
   std::shared_ptr<Model> model_;  ///< model used for the simulation
   boost::shared_ptr<DataInterface> data_;  ///< Data interface associated to the job
@@ -706,10 +703,11 @@ class Simulation {
   bool filterTimeline_;  ///< whether to filter timeline
 
   std::string timetableOutputFile_;  ///< timetable export file
-  int timetableSteps_;  ///< timetable' steps
+  int timetableSteps_{};  ///< timetable' steps
 
   exportConstraintsMode_t exportConstraintsMode_;  ///< contstraints' export mode
   std::string constraintsOutputFile_;  ///< constraints' export file
+  bool filterConstraints_;  ///< whether to filter constraints
 
   exportLostEquipmentsMode_t exportLostEquipmentsMode_;  ///< lostEquipments' export mode
   std::string lostEquipmentsOutputFile_;  ///< lost equipments' export file
@@ -719,11 +717,11 @@ class Simulation {
   ExportStateDefinition finalState_;  ///< Final state definition
   std::queue<ExportStateDefinition> intermediateStates_;  ///< Queue of intermediate dump states to perform, sorted by timestamp
 
-  double tStart_;  ///< start time of the simulation
-  double tCurrent_;  ///< current time of the simulation
-  double tStop_;  ///< stop time of the simulation
-  bool activateCriteria_;  ///< whether to activate the verification if criteria are fullfilled
-  int  criteriaStep_;  ///< if activated, this number will be the number of iterations between two criteria checks
+  double tStart_{};  ///< start time of the simulation
+  double tCurrent_{};  ///< current time of the simulation
+  double tStop_{};  ///< stop time of the simulation
+  bool activateCriteria_{};  ///< whether to activate the verification if criteria are fullfilled
+  int  criteriaStep_{};  ///< if activated, this number will be the number of iterations between two criteria checks
   bool dumpLocalInitValues_;  ///< whether to export the results from the local initialisation
   bool dumpGlobalInitValues_;  ///< whether to export the results from the global initialisation
   bool dumpInitModelValues_;  ///< whether to export the results from the initialisation model

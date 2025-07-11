@@ -25,7 +25,7 @@
 #include "DYDXmlExporter.h"
 #include "DYDMacroStaticRefFactory.h"
 #include "DYDMacroStaticRef.h"
-#include "DYDIterators.h"
+#include "DYDMacroStaticRefFactory.h"
 #include "DYDStaticRef.h"
 
 #include "TestUtil.h"
@@ -82,11 +82,7 @@ TEST(APIDYDTest, BlackBoxModelWithMacroStaticRef) {
   ASSERT_NO_THROW(model->addMacroStaticRef(std::move(mStRef3)));
   ASSERT_THROW_DYNAWO(model->addMacroStaticRef(std::move(mStRef11)), DYN::Error::API, DYN::KeyError_t::MacroStaticRefNotUnique);
 
-  int nbMacroStaticRefs = 0;
-  for (macroStaticRef_const_iterator itMStRef = model->cbeginMacroStaticRef();
-          itMStRef != model->cendMacroStaticRef();
-          ++itMStRef)
-    ++nbMacroStaticRefs;
+  const auto nbMacroStaticRefs = model->getMacroStaticRefs().size();
   ASSERT_EQ(nbMacroStaticRefs, 3);
 
   // findMacroStaticRef
@@ -107,13 +103,13 @@ TEST(APIDYDTest, BlackBoxModelRefIterators) {
   model->addStaticRef("MyVar", "MyStaticVar");
   ASSERT_NO_THROW(model->findMacroStaticRef("MyMacroStaticRef"));
   ASSERT_NO_THROW(model->findStaticRef("MyVar_MyStaticVar"));
-  for (staticRef_iterator it = model->beginStaticRef(), itEnd = model->endStaticRef(); it != itEnd; ++it) {
-    const std::unique_ptr<StaticRef>& ref = *it;
+  for (const auto& staticRefPair : model->getStaticRefs()) {
+    const auto& ref = staticRefPair.second;
     ASSERT_EQ(ref->getModelVar(), "MyVar");
     ASSERT_EQ(ref->getStaticVar(), "MyStaticVar");
   }
-  for (macroStaticRef_iterator it = model->beginMacroStaticRef(), itEnd = model->endMacroStaticRef(); it != itEnd; ++it) {
-    std::shared_ptr<MacroStaticRef> ref = *it;
+  for (const auto& macroStaticRefPair : model->getMacroStaticRefs()) {
+    const auto& ref = macroStaticRefPair.second;
     ASSERT_EQ(ref->getId(), "MyMacroStaticRef");
   }
 }

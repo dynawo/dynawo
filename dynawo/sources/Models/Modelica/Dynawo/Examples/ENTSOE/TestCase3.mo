@@ -17,50 +17,24 @@ model TestCase3 "Bolted three-phase short circuit at the high-level side of the 
 
   // Generator and regulations
   Dynawo.Examples.BaseClasses.GeneratorSynchronousInterfaces generatorSynchronous(
-    Ce0Pu = 0.95,
-    Cm0Pu = 1,
-    Cos2Eta0 = 0.586492,
     DPu = 0,
-    Efd0Pu = 2.50789,
     ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NoLoad,
     H = 4,
-    IRotor0Pu = 2.50789,
-    IStator0Pu = 5.03993,
-    Id0Pu = -0.921348,
-    If0Pu = 1.35562,
-    Iq0Pu = -0.408844,
     LDPPu = 0.19063,
     LQ1PPu = 0.51659,
     LQ2PPu = 0.24243,
-    LambdaAD0Pu = 0.803398,
-    LambdaAQ0Pu = -0.674593,
-    LambdaAirGap0Pu = 1.04906,
-    LambdaD0Pu = 0.803398,
-    LambdaQ10Pu = -0.674593,
-    LambdaQ20Pu = -0.674593,
-    Lambdad0Pu = 0.665196,
-    Lambdaf0Pu = 1.10733,
-    Lambdaq0Pu = -0.73592,
     LdPPu = 0.15,
     LfPPu = 0.2242,
     LqPPu = 0.15,
     MdPPu = 1.85,
-    MdSat0PPu = 1.85,
-    Mds0Pu = 1.85,
-    Mi0Pu = 1.7673,
+    MdPPuEfd = 1,
     MqPPu = 1.65,
-    MqSat0PPu = 1.65,
-    Mqs0Pu = 1.65,
     MrcPPu = 0,
     MsalPu = 0.2,
     P0Pu = -4.75,
-    PGen0Pu = 4.75,
     PNomAlt = 475,
     PNomTurb = 475,
-    Pm0Pu = 1,
     Q0Pu = -1.56,
-    QGen0Pu = 1.56,
-    QStator0Pu = 1.56,
     RDPPu = 0.02933,
     RQ1PPu = 0.0035,
     RQ2PPu = 0.02227,
@@ -68,10 +42,7 @@ model TestCase3 "Bolted three-phase short circuit at the high-level side of the 
     RaPPu = 0,
     RfPPu = 0.00128,
     SNom = 500,
-    Sin2Eta0 = 0.413508,
     SnTfo = 500,
-    Theta0 = 0.996978,
-    ThetaInternal0 = 0.996978,
     U0Pu = 0.992,
     UBaseHV = 400,
     UBaseLV = 21,
@@ -79,17 +50,13 @@ model TestCase3 "Bolted three-phase short circuit at the high-level side of the 
     UNomHV = 400,
     UNomLV = 21,
     UPhase0 = 0.161146,
-    UStator0Pu = 0.992,
-    Ud0Pu = 0.73592,
-    Uf0Pu = 0.00173519,
-    Uq0Pu = 0.665196,
     XTfPu = 0,
     md = 0,
     mq = 0,
     nd = 0,
     nq = 0) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Basics.SetPoint Omega0Pu(Value0 = 1);
+  Modelica.Blocks.Sources.Constant Omega0Pu(k = 1);
   Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.TGov1 governor(
     Dt = 0,
     Pm0Pu = generatorSynchronous.Pm0Pu,
@@ -101,6 +68,8 @@ model TestCase3 "Bolted three-phase short circuit at the high-level side of the 
     VMin = 0) annotation(
     Placement(visible = true, transformation(origin = {90, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.Pss2a pss(
+    KOmega = 1,
+    KOmegaRef = 0,
     Ks1 = 10,
     Ks2 = 0.1564,
     Ks3 = 1,
@@ -135,10 +104,10 @@ model TestCase3 "Bolted three-phase short circuit at the high-level side of the 
     Ta = 3,
     Tb = 10,
     Te = 0.05,
-    Us0Pu = 0.992) annotation(
+    Us0Pu = generatorSynchronous.UStator0Pu) annotation(
     Placement(visible = true, transformation(origin = {130, 18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant const(k = 1.00453945) annotation(
-    Placement(visible = true, transformation(origin = {10, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant const(k = avr.UsRef0Pu) annotation(
+    Placement(visible = true, transformation(origin = {70, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant PmRefPu(k = governor.R * generatorSynchronous.Pm0Pu);
 
   // Network
@@ -146,9 +115,9 @@ model TestCase3 "Bolted three-phase short circuit at the high-level side of the 
     Placement(visible = true, transformation(origin = {-132, 0}, extent = {{-16, -16}, {16, 16}}, rotation = -90)));
   Dynawo.Electrical.Lines.Line gridImpedance(BPu = 0, GPu = 0, RPu = 0.0036, XPu = 0.036) annotation(
     Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio transformer(BPu = 0, GPu = 0, RPu = 0.0003, XPu = 0.032, rTfoPu = 1) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio transformer(BPu = 0, GPu = 0, RPu = 0.0003, XPu = 0.032, rTfoPu = 1) annotation(
     Placement(visible = true, transformation(origin = {-32, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Loads.LoadAlphaBeta load(alpha = 2, beta = 2, u0Pu = Complex(0.952267, 0)) annotation(
+  Dynawo.Electrical.Loads.LoadAlphaBeta load(alpha = 2, beta = 2, i0Pu(re(fixed = false), im(fixed = false)), s0Pu(re(fixed = false), im(fixed = false)), u0Pu(re(fixed = false), im(fixed = false))) annotation(
     Placement(visible = true, transformation(origin = {-80, -38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant PRefPu(k = 4.75);
   Modelica.Blocks.Sources.Constant QRefPu(k = 0.76);
@@ -156,6 +125,18 @@ model TestCase3 "Bolted three-phase short circuit at the high-level side of the 
   // Three-phase short circuit
   Dynawo.Electrical.Events.NodeFault nodeFault(RPu = 0.000173, XPu = 0, tBegin = 0.1, tEnd = 0.2) annotation(
     Placement(visible = true, transformation(origin = {-52, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  // Initialization
+  Dynawo.Electrical.Loads.Load_INIT load_INIT(P0Pu = PRefPu.k, Q0Pu = QRefPu.k, U0Pu = 0.952267, UPhase0 = 0) annotation(
+    Placement(transformation(origin = {-150, -90}, extent = {{-10, -10}, {10, 10}})));
+
+initial algorithm
+  load.i0Pu.re := load_INIT.i0Pu.re;
+  load.i0Pu.im := load_INIT.i0Pu.im;
+  load.s0Pu.re := load_INIT.s0Pu.re;
+  load.s0Pu.im := load_INIT.s0Pu.im;
+  load.u0Pu.re := load_INIT.u0Pu.re;
+  load.u0Pu.im := load_INIT.u0Pu.im;
 
 equation
   load.PRefPu = PRefPu.y;
@@ -171,10 +152,10 @@ equation
   generatorSynchronous.switchOffSignal1.value = false;
   generatorSynchronous.switchOffSignal2.value = false;
   generatorSynchronous.switchOffSignal3.value = false;
-  Omega0Pu.setPoint.value = pss.omegaRefPu;
-  Omega0Pu.setPoint.value = governor.omegaRefPu;
 
-  connect(Omega0Pu.setPoint, generatorSynchronous.omegaRefPu);
+  connect(Omega0Pu.y, pss.omegaRefPu);
+  connect(Omega0Pu.y, governor.omegaRefPu);
+  connect(Omega0Pu.y, generatorSynchronous.omegaRefPu);
   connect(PmRefPu.y, governor.PmRefPu);
   connect(transformer.terminal2, generatorSynchronous.terminal) annotation(
     Line(points = {{-12, 0}, {20, 0}}, color = {0, 0, 255}));
@@ -189,7 +170,7 @@ equation
   connect(generatorSynchronous.omegaPu_out, governor.omegaPu) annotation(
     Line(points = {{38, -6}, {60, -6}, {60, -34}, {78, -34}}, color = {0, 0, 127}));
   connect(generatorSynchronous.PGenPu_out, pss.PGenPu) annotation(
-    Line(points = {{38, 10}, {70, 10}, {70, 6}, {78, 6}}, color = {0, 0, 127}));
+    Line(points = {{38, 10}, {60, 10}, {60, 6}, {78, 6}}, color = {0, 0, 127}));
   connect(generatorSynchronous.omegaPu_out, pss.omegaPu) annotation(
     Line(points = {{38, -6}, {78, -6}}, color = {0, 0, 127}));
   connect(pss.VPssPu, avr.UpssPu) annotation(
@@ -197,9 +178,9 @@ equation
   connect(generatorSynchronous.UsPu_out, avr.UsPu) annotation(
     Line(points = {{38, 18}, {118, 18}}, color = {0, 0, 127}));
   connect(const.y, avr.UsRefPu) annotation(
-    Line(points = {{21, 60}, {80, 60}, {80, 24}, {118, 24}}, color = {0, 0, 127}));
+    Line(points = {{81, 60}, {100, 60}, {100, 24}, {118, 24}}, color = {0, 0, 127}));
   connect(governor.PmPu, generatorSynchronous.PmPu_in) annotation(
-    Line(points = {{101, -40}, {110, -40}, {110, -60}, {32, -60}, {32, -16}}, color = {0, 0, 127}));
+    Line(points = {{101, -30}, {110, -30}, {110, -60}, {32, -60}, {32, -16}}, color = {0, 0, 127}));
   connect(avr.EfdPu, generatorSynchronous.efdPu_in) annotation(
     Line(points = {{141, 18}, {150, 18}, {150, -80}, {8, -80}, {8, -16}}, color = {0, 0, 127}));
 
@@ -226,5 +207,5 @@ equation
     <img width=\"450\" src=\"modelica://Dynawo/Examples/ENTSOE/Resources/UpssPuTestCase3.png\">
     </figure>
 
-</body></html>"));
+    </body></html>"));
 end TestCase3;

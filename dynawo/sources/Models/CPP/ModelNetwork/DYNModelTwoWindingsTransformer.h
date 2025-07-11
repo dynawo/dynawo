@@ -99,7 +99,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @brief set the connection state (open, closed on one side, ...)
    * @param state connection state
    */
-  void setConnectionState(State state) {
+  void setConnectionState(const State state) {
     connectionState_ = state;
   }  // set the connection state (open, closed on one side, ...)
 
@@ -107,7 +107,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @brief set the tap-changer model used along with the transformer
    * @param model tap-changer model
    */
-  void setModelTapChanger(boost::shared_ptr<ModelTapChanger> model) {
+  void setModelTapChanger(const boost::shared_ptr<ModelTapChanger>& model) {
     modelTapChanger_ = model;
   }  // set the tap-changer model used along with the transformer
 
@@ -221,7 +221,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @brief evaluate derivatives
    * @param cj Jacobian prime coefficient
    */
-  void evalDerivatives(const double cj) override;
+  void evalDerivatives(double cj) override;
 
   /**
    * @brief evaluate derivatives prim
@@ -234,14 +234,14 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
   void evalF(propertyF_t type) override;
 
   /**
-   * @copydoc NetworkComponent::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJt(double cj, int rowOffset, SparseMatrix& jt)
    */
-  void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) override;
+  void evalJt(double cj, int rowOffset, SparseMatrix& jt) override;
 
   /**
-   * @copydoc NetworkComponent::evalJtPrim(SparseMatrix& jt, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJtPrim(int rowOffset, SparseMatrix& jtPrim)
    */
-  void evalJtPrim(SparseMatrix& jt, const int& rowOffset) override;
+  void evalJtPrim(int rowOffset, SparseMatrix& jtPrim) override;
 
   /**
    * @brief evaluate node injection
@@ -280,15 +280,15 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
   void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) override;
 
   /**
-   * @copydoc NetworkComponent::evalZ(const double& t)
+   * @copydoc NetworkComponent::evalZ(double t)
    */
-  NetworkComponent::StateChange_t evalZ(const double& t) override;  // compute the Z function
+  NetworkComponent::StateChange_t evalZ(double t) override;  // compute the Z function
 
   /**
    * @brief evaluation G
    * @param t time
    */
-  void evalG(const double& t) override;  // compute the G function
+  void evalG(double t) override;  // compute the G function
 
   /**
    * @brief evaluation calculated variables (for outputs)
@@ -380,7 +380,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @param time time
    * @return state change type
    */
-  NetworkComponent::StateChange_t evalState(const double& time) override;
+  NetworkComponent::StateChange_t evalState(double time) override;
 
   /**
    * @brief addBusNeighbors
@@ -424,18 +424,25 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
   void printInternalParameters(std::ofstream& fstream) const override;
 
   /**
+   * @brief get the number of internal variable of the model
+   *
+   * @return the number of internal variable of the model
+   */
+  unsigned getNbInternalVariables() const override;
+
+  /**
    * @brief append the internal variables values to a stringstream
    *
    * @param streamVariables : stringstream with binary formated internalVariables
    */
-  void dumpInternalVariables(std::stringstream& streamVariables) const override;
+  void dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const override;
 
   /**
    * @brief import the internal variables values of the component from stringstream
    *
    * @param streamVariables : stringstream with binary formated internalVariables
    */
-  void loadInternalVariables(std::stringstream& streamVariables) override;
+  void loadInternalVariables(boost::archive::binary_iarchive& streamVariables) override;
 
  private:
   /**
@@ -484,7 +491,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @brief  set the index of the tap used
    * @param stepIndex index of the tap used
    */
-  void setCurrentStepIndex(const int& stepIndex);
+  void setCurrentStepIndex(int stepIndex);
 
   /**
    * @brief  get the current value of the active power at side 1
@@ -494,7 +501,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the value of the active power at side 1
    */
-  double P1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double P1(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief  get the current value of the active power at side 2
@@ -504,7 +511,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the value of the active power at side 2
    */
-  double P2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double P2(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief compute value
@@ -610,7 +617,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the real part of the current on side 1
    */
-  double ir1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double ir1(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief compute the imaginary part of the current on side 1
@@ -620,7 +627,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the imaginary part of the current on side 1
    */
-  double ii1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double ii1(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief compute the real part of the current on side 2
@@ -630,7 +637,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the real part of the current on side 2
    */
-  double ir2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double ir2(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief compute the imaginary part of the current on side 2
@@ -640,7 +647,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the imaginary part of the current on side 2
    */
-  double ii2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double ii2(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief compute the absolute current entering side 1
@@ -650,7 +657,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return value of the current
    */
-  double i1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double i1(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief compute the absolute current entering side 2
@@ -660,7 +667,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @param ui2 imaginary part of the voltage on side 2
    * @return value of the current
    */
-  double i2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double i2(double ur1, double ui1, double ur2, double ui2) const;
 
    /**
    * @brief get the real part of the voltage at side 1

@@ -25,6 +25,7 @@
 
 #include <vector>
 #include <set>
+#include <map>
 
 using std::string;
 using std::vector;
@@ -75,6 +76,7 @@ struct dynawoDoubleLess : std::binary_function<double, vector<size_t>, bool> {
     return !DYN::doubleEquals(left, right) && left < right;
   }
 };
+
 void
 Timeline::filter(const unordered_map<string, unordered_set<string>>& oppositeEventDico) {
   map<double, vector<size_t>, dynawoDoubleLess> timeToEventIndexes;
@@ -138,69 +140,12 @@ Timeline::filter(const unordered_map<string, unordered_set<string>>& oppositeEve
   }
 }
 
-Timeline::event_const_iterator
-Timeline::cbeginEvent() const {
-  return Timeline::event_const_iterator(this, true);
-}
-
-Timeline::event_const_iterator
-Timeline::cendEvent() const {
-  return Timeline::event_const_iterator(this, false);
-}
-
 void
 Timeline::eraseEvents(int nbEvents) {
   std::vector<std::unique_ptr<Event> >::iterator firstPosition = events_.end();
   for (int i = 0; i < nbEvents; i++)
     firstPosition--;
   events_.erase(firstPosition, events_.end());
-}
-
-Timeline::event_const_iterator::event_const_iterator(const Timeline* iterated, bool begin) :
-    current_((begin ? iterated->events_.begin() : iterated->events_.end())) {}
-
-Timeline::event_const_iterator&
-Timeline::event_const_iterator::operator++() {
-  ++current_;
-  return *this;
-}
-
-Timeline::event_const_iterator
-Timeline::event_const_iterator::operator++(int) {
-  Timeline::event_const_iterator previous = *this;
-  current_++;
-  return previous;
-}
-
-Timeline::event_const_iterator&
-Timeline::event_const_iterator::operator--() {
-  --current_;
-  return *this;
-}
-
-Timeline::event_const_iterator
-Timeline::event_const_iterator::operator--(int) {
-  Timeline::event_const_iterator previous = *this;
-  current_--;
-  return previous;
-}
-
-bool
-Timeline::event_const_iterator::operator==(const Timeline::event_const_iterator& other) const {
-  return current_ == other.current_;
-}
-
-bool
-Timeline::event_const_iterator::operator!=(const Timeline::event_const_iterator& other) const {
-  return current_ != other.current_;
-}
-
-const std::unique_ptr<Event>& Timeline::event_const_iterator::operator*() const {
-  return *current_;
-}
-
-const std::unique_ptr<Event>* Timeline::event_const_iterator::operator->() const {
-  return &(*current_);
 }
 
 }  // namespace timeline

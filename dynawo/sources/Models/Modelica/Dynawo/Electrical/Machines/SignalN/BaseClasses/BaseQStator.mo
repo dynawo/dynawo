@@ -16,7 +16,7 @@ within Dynawo.Electrical.Machines.SignalN.BaseClasses;
 partial model BaseQStator "Base dynamic model for the calculation of QStatorPu in pu (base QNomAlt)"
   parameter Types.ReactivePower QNomAlt "Nominal reactive power of the generator on alternator side in Mvar";
 
-  Types.ReactivePowerPu QStatorPu "Stator reactive power in pu (base QNomAlt) (generator convention)";
+  Dynawo.Connectors.ReactivePowerPuConnector QStatorPu "Stator reactive power in pu (base QNomAlt) (generator convention)";
 
   annotation(preferredView = "text");
 end BaseQStator;

@@ -231,7 +231,7 @@ LineInterfaceIIDM::isPartiallyConnected() const {
   return isConnected1() || isConnected2();
 }
 
-std::string
+const std::string&
 LineInterfaceIIDM::getID() const {
   return lineIIDM_.getId();
 }

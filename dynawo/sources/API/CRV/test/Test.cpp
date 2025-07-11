@@ -41,6 +41,7 @@ TEST(APICRVTest, test1) {
   std::unique_ptr<Curve> curve2 = CurveFactory::newCurve();
   curve2->setModelName("model2");
   curve2->setVariable("variable2");
+  curve2->setFactor(10);
 
   // add curves to curve collection
   curves->add(std::move(curve1));
@@ -51,15 +52,13 @@ TEST(APICRVTest, test1) {
   variables.assign(2, 0);
 
   int i = 0;
-  for (CurvesCollection::iterator itCurve = curves->begin();
-          itCurve != curves->end();
-          ++itCurve) {
-    (*itCurve)->setFoundVariableName("model_variable");
-    (*itCurve)->setBuffer(&variables[i]);
+  for (const auto& curve : curves->getCurves()) {
+    curve->setFoundVariableName("model_variable");
+    curve->setBuffer(&variables[i]);
     if (i == 0)
-      (*itCurve)->setNegated(true);  // curve point value = -1*variables value
+      curve->setNegated(true);  // curve point value = -1*variables value
     else
-      (*itCurve)->setNegated(false);
+      curve->setNegated(false);
     ++i;
   }
 

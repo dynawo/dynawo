@@ -48,11 +48,11 @@ SolverFactories& SolverFactories::getInstance() {
 }
 
 SolverFactories::SolverFactoryIterator SolverFactories::find(const std::string& lib) {
-  return (factoryMap_.find(lib));
+  return factoryMap_.find(lib);
 }
 
 bool SolverFactories::end(SolverFactoryIterator& iter) {
-  return (iter == factoryMap_.end());
+  return iter == factoryMap_.end();
 }
 
 void
@@ -86,9 +86,17 @@ SolverFactory::createSolverFromLib(const std::string& lib) {
     try {
       sharedLib = boost::make_shared<boost::dll::shared_library>(libPath->generic_string());
       func = "getFactory";
-      getFactory = import<getFactory_t>(*sharedLib, func);
+#if (BOOST_VERSION >= 107600)
+      getFactory = boost::dll::import_symbol<getFactory_t>(*sharedLib, func.c_str());
+#else
+      getFactory = boost::dll::import<getFactory_t>(*sharedLib, func.c_str());
+#endif
       func = "deleteFactory";
-      deleteFactory = import<deleteSolverFactory_t>(*sharedLib, func);
+#if (BOOST_VERSION >= 107600)
+      deleteFactory = boost::dll::import_symbol<deleteSolverFactory_t>(*sharedLib, func.c_str());
+#else
+      deleteFactory = boost::dll::import<deleteSolverFactory_t>(*sharedLib, func.c_str());
+#endif
     } catch (const boost::system::system_error& e) {
       Trace::error() << "Load error :" << e.what() << Trace::endline;
       if (func.empty()) {

@@ -1,0 +1,14 @@
+ ====== INIT VARIABLES VALUES ======
+load_i0Pu_im                                      : y =      -0.389016 yp =       0.000000
+load_i0Pu_re                                      : y =       0.868294 yp =       0.000000
+ ====== INIT CALCULATED VARIABLES VALUES ======
+load_u0Pu_im                                      : y =      -0.222561
+load_u0Pu_re                                      : y =       0.985173
+load_s0Pu_im                                      : y =       0.190000
+load_s0Pu_re                                      : y =       0.942000
+ ====== INIT DISCRETE VARIABLES VALUES ======
+ ====== INIT PARAMETERS VALUES ======
+load_P0Pu                                          =       0.942000
+load_Q0Pu                                          =       0.190000
+load_U0Pu                                          =       1.010000
+load_UPhase0                                       =      -0.222180

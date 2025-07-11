@@ -86,7 +86,7 @@ class DynamicData : public boost::noncopyable {
    * @brief get network parameters
    * @returns parameters set
    */
-  inline std::shared_ptr<parameters::ParametersSet> getNetworkParameters() const {
+  inline const std::shared_ptr<parameters::ParametersSet>& getNetworkParameters() const {
     return networkParameters_;
   }
 
@@ -141,11 +141,11 @@ class DynamicData : public boost::noncopyable {
    * @brief find a set of parameters thanks to its file and its id
    * read the file if it's not already read
    * @param modelId : parent model id
-   * @param file : file of the set of parameters
-   * @param id : id of the set of parameters
+   * @param parFile : file of the set of parameters
+   * @param parId : id of the set of parameters
    * @return set of the parameters associate to the file and the id
    */
-  std::shared_ptr<parameters::ParametersSet> getParametersSet(const std::string& modelId, const std::string& file, const std::string& id);
+  std::shared_ptr<parameters::ParametersSet> getParametersSet(const std::string& modelId, const std::string& parFile, const std::string& parId);
 
  public:
   /**
@@ -218,8 +218,8 @@ class DynamicData : public boost::noncopyable {
    * @param model model which references in parameters set have to be resolved
    * @param modelSet model parameters set
    */
-  void resolveParReferences(std::shared_ptr<dynamicdata::Model> model,
-                            std::shared_ptr<parameters::ParametersSet> modelSet);
+  void resolveParReferences(const std::shared_ptr<dynamicdata::Model>& model,
+                            const std::shared_ptr<parameters::ParametersSet>& modelSet);
 
   /**
    * @brief create model descriptions
@@ -232,7 +232,7 @@ class DynamicData : public boost::noncopyable {
    * @param udmName : name of the unit dynamic model
    * @param udmSet : set of parameters associated to the unit dynamic model
    */
-  void mergeParameters(std::shared_ptr<parameters::ParametersSet>& concatParams, const std::string& udmName,
+  void mergeParameters(const std::shared_ptr<parameters::ParametersSet>& concatParams, const std::string& udmName,
                        const std::shared_ptr<parameters::ParametersSet>& udmSet);
 
   /**

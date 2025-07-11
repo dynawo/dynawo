@@ -54,12 +54,12 @@ class ModelNetworkFactory : public SubModelFactory {
    * @brief ModelNetwork getter
    * @return A pointer to a new instance of Model Network
    */
-  SubModel* create() const;
+  SubModel* create() const override;
 
   /**
    * @brief ModelNetwork destroy
    */
-  void destroy(SubModel*) const;
+  void destroy(SubModel*) const override;
 };
 
 /**
@@ -83,7 +83,7 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
    * @brief initialize the network model
    * @param t0 initial time of the simulation
    */
-  void init(const double t0) override;
+  void init(double t0) override;
 
   /**
    * @brief get the index of variables used to define the Jacobian associated to a calculated variable
@@ -121,28 +121,28 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
    * @brief evaluation G
    * @param t : time to use
    */
-  void evalG(const double t) override;
+  void evalG(double t) override;
 
   /**
    * @brief evaluation Z
    * @param t : time to use
    */
-  void evalZ(const double t) override;
+  void evalZ(double t) override;
 
   /**
-   * @copydoc ModelCPP::evalJt (const double t,const double cj, SparseMatrix& jt, const int rowOffset)
+   * @copydoc ModelCPP::evalJt (double t, double cj, int rowOffset, SparseMatrix& jt)
    */
-  void evalJt(const double t, const double cj, SparseMatrix& jt, const int rowOffset) override;
+  void evalJt(double t, double cj, int rowOffset, SparseMatrix& jt) override;
 
   /**
-   * @copydoc ModelCPP::evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset)
+   * @copydoc ModelCPP::evalJtPrim(double t, double cj, int rowOffset, SparseMatrix& jtPrim)
    */
-  void evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset) override;
+  void evalJtPrim(double t, double cj, int rowOffset, SparseMatrix& jtPrim) override;
 
   /**
-   * @copydoc ModelCPP::evalMode(const double t)
+   * @copydoc ModelCPP::evalMode(double t)
    */
-  modeChangeType_t evalMode(const double t) override;
+  modeChangeType_t evalMode(double t) override;
 
   /**
    * @copydoc ModelCPP::getY0()
@@ -272,7 +272,7 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
    * @brief get whether the current model is the init one
    * @param isInitModel whether the current model is the init one
    */
-  inline void setIsInitModel(bool isInitModel) {
+  inline void setIsInitModel(const bool isInitModel) {
     isInitModel_ = isInitModel;
   }
 
@@ -292,19 +292,32 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
   void printModel() const override;
 
   /**
+   * @brief load the variables values from a previous dump
+   *
+   * @param variables : stream of values where the variables were dumped
+   */
+  void loadVariables(const std::string& variables) override;
+
+  /**
+   * @brief export the variables values of the sub model for dump
+   *
+   * @param mapVariables : map associating the file where values should be dumped with the stream of values
+   */
+  void dumpVariables(std::map< std::string, std::string >& mapVariables) override;
+
+  /**
    * @brief export the internal variables values of the sub model for dump in a stream
    *
    * @param streamVariables : map associating the file where values should be dumped with the stream of values
    */
-  void dumpInternalVariables(std::stringstream& streamVariables) const override;
+  void dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const override;
 
   /**
    * @brief load the internal variables values from a previous dump
    *
    * @param streamVariables : stream of values where the variables were dumped
-   * @return success
    */
-  bool loadInternalVariables(std::stringstream& streamVariables) override;
+  void loadInternalVariables(boost::archive::binary_iarchive& streamVariables) override;
 
  protected:
   /**
@@ -336,7 +349,7 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
    * @brief analyze AC-connected components in network and keep the one with the most buses
    *
    */
-  void analyseComponents();
+  void analyseComponents() const;
 
   /**
    * @brief initialize the network : compute the current in each switch
@@ -381,7 +394,7 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
   void printInternalParameters(std::ofstream& fstream) const override;
 
  private:
-  double * calculatedVarBuffer_;  ///< calculated variable buffer
+  double* calculatedVarBuffer_;  ///< calculated variable buffer
 
   bool isInit_;  ///< whether the current process is the initialization process
   bool isInitModel_;  ///< whether the current model used is the init one

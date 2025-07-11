@@ -46,11 +46,13 @@
 #include "DYNMacrosMessage.h"
 #include "JOBModelsDirEntry.h"
 
+#include "DYNExecUtils.h"
+
 using std::map;
 using std::string;
 using std::vector;
 
-using boost::shared_ptr;
+using std::shared_ptr;
 
 namespace lambda = boost::phoenix;
 namespace lambda_args = lambda::placeholders;
@@ -78,7 +80,7 @@ XmlHandler::addJob() {
   jobsCollection_->addJob(jobHandler_.get());
 }
 
-boost::shared_ptr<JobsCollection>
+std::shared_ptr<JobsCollection>
 XmlHandler::getJobsCollection() const {
   return jobsCollection_;
 }
@@ -133,7 +135,7 @@ JobHandler::addLocalInit() {
 
 void
 JobHandler::create(attributes_type const& attributes) {
-  job_ = shared_ptr<JobEntry>(new JobEntry());
+  job_ = std::make_shared<JobEntry>();
   job_->setName(attributes["name"]);
 }
 
@@ -150,7 +152,7 @@ SolverHandler::~SolverHandler() {}
 
 void
 SolverHandler::create(attributes_type const & attributes) {
-  solver_ = shared_ptr<SolverEntry>(new SolverEntry());
+  solver_ = std::make_shared<SolverEntry>();
   solver_->setLib(attributes["lib"]);
   solver_->setParametersFile(attributes["parFile"]);
   solver_->setParametersId(attributes["parId"]);
@@ -211,7 +213,7 @@ ModelerHandler::addModelicaModel() {
 
 void
 ModelerHandler::create(attributes_type const& attributes) {
-  modeler_ = shared_ptr<ModelerEntry>(new ModelerEntry());
+  modeler_ = std::make_shared<ModelerEntry>();
   modeler_->setCompileDir(attributes["compileDir"]);
 }
 
@@ -248,7 +250,7 @@ SimulationHandler::~SimulationHandler() {}
 
 void
 SimulationHandler::create(attributes_type const& attributes) {
-  simulation_ = shared_ptr<SimulationEntry>(new SimulationEntry());
+  simulation_ = std::make_shared<SimulationEntry>();
   simulation_->setStartTime(attributes["startTime"]);
   simulation_->setStopTime(attributes["stopTime"]);
   if (attributes.has("criteriaStep"))
@@ -360,7 +362,7 @@ OutputsHandler::addLog() {
 
 void
 OutputsHandler::create(attributes_type const& attributes) {
-  outputs_ = shared_ptr<OutputsEntry>(new OutputsEntry());
+  outputs_ = std::make_shared<OutputsEntry>();
   outputs_->setOutputsDirectory(attributes["directory"]);
 }
 
@@ -377,7 +379,7 @@ LocalInitHandler::~LocalInitHandler() {}
 
 void
 LocalInitHandler::create(attributes_type const& attributes) {
-  localInit_ = shared_ptr<LocalInitEntry>(new LocalInitEntry());
+  localInit_ = std::make_shared<LocalInitEntry>();
   localInit_->setParFile(attributes["parFile"]);
   localInit_->setParId(attributes["parId"]);
 }
@@ -395,7 +397,7 @@ InitValuesHandler::~InitValuesHandler() {}
 
 void
 InitValuesHandler::create(attributes_type const& attributes) {
-  initValuesEntry_ = shared_ptr<InitValuesEntry>(new InitValuesEntry());
+  initValuesEntry_ = std::make_shared<InitValuesEntry>();
   if (attributes.has("local"))
     initValuesEntry_->setDumpLocalInitValues(attributes["local"]);
   if (attributes.has("global"))
@@ -417,7 +419,7 @@ FinalValuesHandler::~FinalValuesHandler() {}
 
 void
 FinalValuesHandler::create(attributes_type const& /*attributes*/) {
-  finalValuesEntry_ = shared_ptr<FinalValuesEntry>(new FinalValuesEntry());
+  finalValuesEntry_ = std::make_shared<FinalValuesEntry>();
   finalValuesEntry_->setDumpFinalValues(true);
 }
 
@@ -434,8 +436,10 @@ ConstraintsHandler::~ConstraintsHandler() {}
 
 void
 ConstraintsHandler::create(attributes_type const& attributes) {
-  constraints_ = shared_ptr<ConstraintsEntry>(new ConstraintsEntry());
+  constraints_ = std::make_shared<ConstraintsEntry>();
   constraints_->setExportMode(attributes["exportMode"]);
+  if (attributes.has("filter"))
+    constraints_->setFilter(attributes["filter"]);
 }
 
 shared_ptr<ConstraintsEntry>
@@ -451,7 +455,7 @@ TimelineHandler::~TimelineHandler() {}
 
 void
 TimelineHandler::create(attributes_type const& attributes) {
-  timeline_ = shared_ptr<TimelineEntry>(new TimelineEntry());
+  timeline_ = std::make_shared<TimelineEntry>();
   timeline_->setExportMode(attributes["exportMode"]);
   if (attributes.has("exportTime"))
     timeline_->setExportWithTime(attributes["exportTime"]);
@@ -474,7 +478,7 @@ TimetableHandler::~TimetableHandler() {}
 
 void
 TimetableHandler::create(attributes_type const& attributes) {
-  timetable_ = shared_ptr<TimetableEntry>(new TimetableEntry());
+  timetable_ = std::make_shared<TimetableEntry>();
   timetable_->setStep(attributes["step"]);
 }
 
@@ -491,7 +495,7 @@ FinalStateHandler::~FinalStateHandler() {}
 
 void
 FinalStateHandler::create(attributes_type const& attributes) {
-  finalState_ = shared_ptr<FinalStateEntry>(new FinalStateEntry());
+  finalState_ = std::make_shared<FinalStateEntry>();
   if (attributes.has("timestamp")) {
     finalState_->setTimestamp(attributes["timestamp"]);
   }
@@ -515,7 +519,7 @@ CurvesHandler::create(attributes_type const& attributes) {
   if (attributes.has("iterationStep") && attributes.has("timeStep")) {
     throw DYNError(DYN::Error::SIMULATION, IterationStepAndTimeStepBothDefined);
   }
-  curves_ = shared_ptr<CurvesEntry>(new CurvesEntry());
+  curves_ = std::make_shared<CurvesEntry>();
   curves_->setInputFile(attributes["inputFile"]);
   curves_->setExportMode(attributes["exportMode"]);
   curves_->setIterationStep(attributes["iterationStep"]);
@@ -537,7 +541,7 @@ FinalStateValuesHandler::FinalStateValuesHandler(elementName_type const& root_el
 FinalStateValuesHandler::~FinalStateValuesHandler() {}
 
 void FinalStateValuesHandler::create(attributes_type const& attributes) {
-  finalStateValues_ = shared_ptr<FinalStateValuesEntry>(new FinalStateValuesEntry());
+  finalStateValues_ = std::make_shared<FinalStateValuesEntry>();
   finalStateValues_->setInputFile(attributes["inputFile"]);
   finalStateValues_->setExportMode(attributes["exportMode"]);
 }
@@ -552,7 +556,7 @@ LostEquipmentsHandler::~LostEquipmentsHandler() {}
 
 void
 LostEquipmentsHandler::create(attributes_type const& /*attributes*/) {
-  lostEquipments_ = shared_ptr<LostEquipmentsEntry>(new LostEquipmentsEntry());
+  lostEquipments_ = std::make_shared<LostEquipmentsEntry>();
   lostEquipments_->setDumpLostEquipments(true);
 }
 
@@ -579,7 +583,7 @@ LogsHandler::addAppender() {
 
 void
 LogsHandler::create(attributes_type const& /*attributes*/) {
-  logs_ = shared_ptr<LogsEntry>(new LogsEntry());
+  logs_ = std::make_shared<LogsEntry>();
 }
 
 shared_ptr<LogsEntry>
@@ -595,7 +599,7 @@ AppenderHandler::~AppenderHandler() {}
 
 void
 AppenderHandler::create(attributes_type const& attributes) {
-  appender_ = shared_ptr<AppenderEntry>(new AppenderEntry());
+  appender_ = std::make_shared<AppenderEntry>();
   appender_->setFilePath(attributes["file"]);
 
   if (attributes.has("tag"))
@@ -609,6 +613,10 @@ AppenderHandler::create(attributes_type const& attributes) {
 
   if (attributes.has("timeStampFormat"))
     appender_->setTimeStampFormat(attributes["timeStampFormat"]);
+
+  if (hasEnvVar("DYNAWO_LOGS_NO_TIMESTAMP"))
+    if (getEnvVar("DYNAWO_LOGS_NO_TIMESTAMP") == "YES")
+      appender_->setTimeStampFormat("");  // force empty timestamp
 
   if (attributes.has("separator"))
     appender_->setSeparator(attributes["separator"]);
@@ -627,7 +635,7 @@ NetworkHandler::~NetworkHandler() {}
 
 void
 NetworkHandler::create(attributes_type const& attributes) {
-  network_ = shared_ptr<NetworkEntry>(new NetworkEntry());
+  network_ = std::make_shared<NetworkEntry>();
   network_->setIidmFile(attributes["iidmFile"]);
   if (attributes.has("parFile"))
     network_->setNetworkParFile(attributes["parFile"]);
@@ -648,7 +656,7 @@ DynModelsHandler::~DynModelsHandler() {}
 
 void
 DynModelsHandler::create(attributes_type const& attributes) {
-  dynModels_ = shared_ptr<DynModelsEntry>(new DynModelsEntry());
+  dynModels_ = std::make_shared<DynModelsEntry>();
   dynModels_->setDydFile(attributes["dydFile"].as_string());
 }
 
@@ -665,7 +673,7 @@ InitialStateHandler::~InitialStateHandler() {}
 
 void
 InitialStateHandler::create(attributes_type const& attributes) {
-  initialState_ = shared_ptr<InitialStateEntry>(new InitialStateEntry());
+  initialState_ = std::make_shared<InitialStateEntry>();
   initialState_->setInitialStateFile(attributes["file"]);
 }
 
@@ -687,7 +695,7 @@ ModelsDirHandler::~ModelsDirHandler() {}
 
 void
 ModelsDirHandler::create(attributes_type const& attributes) {
-  modelsDir_ = shared_ptr<ModelsDirEntry>(new ModelsDirEntry());
+  modelsDir_ = std::make_shared<ModelsDirEntry>();
   if (attributes.has("modelExtension"))
     modelsDir_->setModelExtension(attributes["modelExtension"].as_string());
   modelsDir_->setUseStandardModels(attributes["useStandardModels"]);

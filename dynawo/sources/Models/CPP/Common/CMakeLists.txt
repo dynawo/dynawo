@@ -14,6 +14,7 @@ set(COMMON_CPP_MODELS_SOURCES
 
 set(COMMON_CPP_MODELS_HEADERS
     DYNModelCPP.h
+    DYNModelCPP.hpp
     )
 
 add_library(dynawo_CPPModelsCommon SHARED ${COMMON_CPP_MODELS_SOURCES})
@@ -35,8 +36,8 @@ target_compile_definitions(dynawo_CPPModelsCommon
 target_link_libraries(dynawo_CPPModelsCommon
   PRIVATE
     dynawo_Common
-    Boost::serialization
   PUBLIC
+    Boost::serialization
     dynawo_ModelerCommon
     Boost::system
   )

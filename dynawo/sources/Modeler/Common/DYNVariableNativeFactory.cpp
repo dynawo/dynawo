@@ -16,6 +16,7 @@
  *
  * @brief Dynawo native variable : factory file
  */
+#include <boost/make_shared.hpp>
 #include "DYNVariableNativeFactory.h"
 #include "DYNVariableNative.h"
 
@@ -25,8 +26,8 @@ using boost::shared_ptr;
 namespace DYN {
 
 shared_ptr<VariableNative>
-VariableNativeFactory::create(const string& name, const typeVar_t& type, bool isState, bool negated) {
-  return shared_ptr<VariableNative>(new VariableNative(name, type, isState, negated));
+VariableNativeFactory::create(const string& name, const typeVar_t type, const bool isState, const bool negated) {
+  return boost::make_shared<VariableNative>(name, type, isState, negated);
 }
 
 }  // namespace DYN

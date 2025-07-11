@@ -393,9 +393,9 @@ Several outputs are available with \Dynawo:
 <dumpFinalValues/>
 \end{lstlisting}
 
-\item \textbf{Constraints}: the user can have access to the list of constraints that happened during the simulation by adding the item ``constraints'' in the jobs file, and by specifying the export mode.
+\item \textbf{Constraints}: the user can have access to the list of constraints that happened during the simulation by adding the item ``constraints'' in the jobs file, and by specifying the export mode. Constraints can be filtered at export (default=true), removing constraints cleared during the simulation.
 \begin{lstlisting}[language=XML, morekeywords={constraints},numbers=none]
-<constraints exportMode="TXT"/>
+<constraints exportMode="TXT" filter="false"/>
 \end{lstlisting}
 Two export modes are available for constraints: TXT or XML.
 
@@ -732,9 +732,9 @@ There is a special way of writing tables of parameters in the par file. To do so
 
 \subsubsection{Add a new curve to the curve file}
 
-To add a new curve to the crv file, the following line should be added in the crv file:
+To add a new curve to the crv file, the following line should be added in the crv file (factor is optional):
 \begin{lstlisting}[language=XML,numbers=none]
-<curve model="ModelId" variable="var"/>
+<curve model="ModelId" variable="var" factor="val"/>
 \end{lstlisting}
 
 Here are a few rules to follow to write models variables names:
@@ -744,6 +744,8 @@ Here are a few rules to follow to write models variables names:
 
 \verb|unitModelId_VariableNameInModel|;
 \end{itemize}
+
+The factor attribute default value is 1. Values recorded in curves are multiplied by this factor.
 
 \section{Basic errors in input files}
 

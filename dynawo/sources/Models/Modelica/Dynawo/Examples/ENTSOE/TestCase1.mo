@@ -17,50 +17,24 @@ model TestCase1 "Voltage reference step on the synchronous machine (and its regu
 
   // Generator and regulations
   Dynawo.Examples.BaseClasses.GeneratorSynchronousInterfaces generatorSynchronous(
-    Ce0Pu = 0,
-    Cm0Pu = 0,
-    Cos2Eta0 = 1,
     DPu = 0,
-    Efd0Pu = 1,
     ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NoLoad,
     H = 4,
-    IRotor0Pu = 1,
-    IStator0Pu = 0,
-    Id0Pu = 0,
-    If0Pu = 0.540541,
-    Iq0Pu = 0,
     LDPPu = 0.19063,
     LQ1PPu = 0.51659,
     LQ2PPu = 0.24243,
-    LambdaAD0Pu = 1,
-    LambdaAQ0Pu = 0,
-    LambdaAirGap0Pu = 1,
-    LambdaD0Pu = 1,
-    LambdaQ10Pu = 0,
-    LambdaQ20Pu = 0,
-    Lambdad0Pu = 1,
-    Lambdaf0Pu = 1.121189,
-    Lambdaq0Pu = 0,
     LdPPu = 0.15,
     LfPPu = 0.2242,
     LqPPu = 0.15,
     MdPPu = 1.85,
-    MdSat0PPu = 1.85,
-    Mds0Pu = 1.85,
-    Mi0Pu = 1.85,
+    MdPPuEfd = 1,
     MqPPu = 1.65,
-    MqSat0PPu = 1.65,
-    Mqs0Pu = 1.65,
     MrcPPu = 0,
     MsalPu = 0.2,
     P0Pu = 0,
-    PGen0Pu = 0,
     PNomAlt = 475,
     PNomTurb = 475,
-    Pm0Pu = 0,
     Q0Pu = 0,
-    QGen0Pu = 0,
-    QStator0Pu = 0,
     RDPPu = 0.02933,
     RQ1PPu = 0.0035,
     RQ2PPu = 0.02227,
@@ -68,10 +42,7 @@ model TestCase1 "Voltage reference step on the synchronous machine (and its regu
     RaPPu = 0,
     RfPPu = 0.00128,
     SNom = 500,
-    Sin2Eta0 = 0,
     SnTfo = 500,
-    Theta0 = 0,
-    ThetaInternal0 = 0,
     U0Pu = 1,
     UBaseHV = 400,
     UBaseLV = 21,
@@ -79,17 +50,13 @@ model TestCase1 "Voltage reference step on the synchronous machine (and its regu
     UNomHV = 400,
     UNomLV = 21,
     UPhase0 = 0,
-    UStator0Pu = 1,
-    Ud0Pu = 0,
-    Uf0Pu = 0.000691892,
-    Uq0Pu = 1,
     XTfPu = 0,
     md = 0,
     mq = 0,
     nd = 0,
     nq = 0) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Basics.SetPoint Omega0Pu(Value0 = 1);
+  Modelica.Blocks.Sources.Constant Omega0Pu(k = 1);
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.SEXS avr(
     Efd0Pu = generatorSynchronous.Efd0Pu,
     EMax = 4,
@@ -98,9 +65,11 @@ model TestCase1 "Voltage reference step on the synchronous machine (and its regu
     Ta = 3,
     Tb = 10,
     Te = 0.05,
-    Us0Pu = 1) annotation(
+    Us0Pu = generatorSynchronous.UStator0Pu) annotation(
     Placement(visible = true, transformation(origin = {130, 18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.Pss2a pss(
+    KOmega = 1,
+    KOmegaRef = 0,
     Ks1 = 10,
     Ks2 = 0.1564,
     Ks3 = 1,
@@ -138,7 +107,7 @@ model TestCase1 "Voltage reference step on the synchronous machine (and its regu
     VMin = 0) annotation(
     Placement(visible = true, transformation(origin = {90, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step step(height = 0.05, offset = 1.005, startTime = 0.1) annotation(
-    Placement(visible = true, transformation(origin = {10, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {70, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant PmRefPu(k = governor.R * generatorSynchronous.Pm0Pu);
 
   // Bus
@@ -149,10 +118,10 @@ equation
   generatorSynchronous.switchOffSignal1.value = false;
   generatorSynchronous.switchOffSignal2.value = false;
   generatorSynchronous.switchOffSignal3.value = false;
-  Omega0Pu.setPoint.value = pss.omegaRefPu;
-  Omega0Pu.setPoint.value = governor.omegaRefPu;
 
-  connect(Omega0Pu.setPoint, generatorSynchronous.omegaRefPu);
+  connect(Omega0Pu.y, pss.omegaRefPu);
+  connect(Omega0Pu.y, governor.omegaRefPu);
+  connect(Omega0Pu.y, generatorSynchronous.omegaRefPu);
   connect(PmRefPu.y, governor.PmRefPu);
   connect(currentBus.terminal, generatorSynchronous.terminal) annotation(
     Line(points = {{-120, 0}, {20, 0}}, color = {0, 0, 255}));
@@ -167,9 +136,9 @@ equation
   connect(generatorSynchronous.UsPu_out, avr.UsPu) annotation(
     Line(points = {{38, 18}, {118, 18}}, color = {0, 0, 127}));
   connect(step.y, avr.UsRefPu) annotation(
-    Line(points = {{21, 60}, {70, 60}, {70, 24}, {118, 24}}, color = {0, 0, 127}));
+    Line(points = {{81, 60}, {100, 60}, {100, 24}, {118, 24}}, color = {0, 0, 127}));
   connect(governor.PmPu, generatorSynchronous.PmPu_in) annotation(
-    Line(points = {{101, -40}, {110, -40}, {110, -60}, {32, -60}, {32, -16}}, color = {0, 0, 127}));
+    Line(points = {{101, -30}, {110, -30}, {110, -60}, {32, -60}, {32, -16}}, color = {0, 0, 127}));
   connect(avr.EfdPu, generatorSynchronous.efdPu_in) annotation(
     Line(points = {{141, 18}, {150, 18}, {150, -80}, {8, -80}, {8, -16}}, color = {0, 0, 127}));
 
