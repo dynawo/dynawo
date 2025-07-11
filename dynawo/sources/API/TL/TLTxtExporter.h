@@ -45,9 +45,8 @@ class TxtExporter : public Exporter {
    *
    * @param timeline Timeline to export
    * @param stream stream to export txt formatted timeline to
-   * @param afterTime export only events occuring after this 'afterTime' time
    */
-  void exportToStream(const boost::shared_ptr<Timeline>& timeline, std::ostream& stream, double afterTime = -DBL_MAX) const override;
+  void exportToStream(const boost::shared_ptr<Timeline>& timeline, std::ostream& stream) const override;
 };
 }  // namespace timeline
 

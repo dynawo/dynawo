@@ -50,7 +50,7 @@ XmlExporter::exportToFile(const boost::shared_ptr<Timeline>& timeline, const str
 }
 
 void
-XmlExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream& stream, double afterTime) const {
+XmlExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream& stream) const {
   FormatterPtr formatter = Formatter::createFormatter(stream, "http://www.rte-france.com/dynawo");
 
   formatter->startDocument();
@@ -58,8 +58,6 @@ XmlExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream
   formatter->startElement("timeline", attrs);
   for (const auto& event : timeline->getEvents()) {
     if (event->hasPriority() && maxPriority_ != boost::none && event->getPriority() > maxPriority_)
-      continue;
-    if (!DYN::doubleGreater(event->getTime(), afterTime))
       continue;
     attrs.clear();
     if (exportWithTime_)

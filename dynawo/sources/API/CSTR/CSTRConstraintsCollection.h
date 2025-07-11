@@ -85,6 +85,11 @@ class ConstraintsCollection {
     return constraintsById_;
   }
 
+  /**
+  * @brief empty constraint collection
+  */
+  void clear();
+
  private:
   std::string id_;                                                                          ///< ConstraintCollection's id
   std::map<std::string, std::vector<std::shared_ptr<Constraint> > > constraintsByModel_;  ///< constraint sorted by model

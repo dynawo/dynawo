@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2025, RTE (http://www.rte-france.com)
+// Copyright (c) 2025, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -7,8 +7,8 @@
 // file, you can obtain one at http://mozilla.org/MPL/2.0/.
 // SPDX-License-Identifier: MPL-2.0
 //
-// This file is part of Dynawo, an hybrid C++/Modelica open source time domain
-// simulation tool for power systems.
+// This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools
+// for power systems.
 //
 
 /**
@@ -51,21 +51,17 @@ JsonExporter::exportToFile(const std::shared_ptr<ConstraintsCollection>& constra
 }
 
 void
-JsonExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints, ostream& stream, double afterTime) const {
+JsonExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints, ostream& stream) const {
   ptree root;
   ptree array;
   for (const auto& constraintPair : constraints->getConstraintsById()) {
     const auto& constraint = constraintPair.second;
-    std::cout << afterTime << " ? " << constraint->getTime() << std::endl;
-    if (!DYN::doubleGreater(constraint->getTime(), afterTime))
-      continue;
     ptree item;
     item.put("modelName", constraint->getModelName());
     item.put("description", constraint->getDescription());
     item.put("time", DYN::double2String(constraint->getTime()));
     if (constraint->hasModelType())
       item.put("type", constraint->getModelType());
-
     const boost::optional<ConstraintData>& data = constraint->getData();
     if (data) {
       switch (data->kind) {
@@ -102,7 +98,7 @@ JsonExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& const
   }
   root.push_back(std::make_pair("constraints", array));
 
-  write_json(stream, root, false);  // `false` disables pretty-printing
+  write_json(stream, root, false);
 }
 
 }  // namespace constraints

@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2025, RTE (http://www.rte-france.com)
+// Copyright (c) 2025, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -7,8 +7,8 @@
 // file, you can obtain one at http://mozilla.org/MPL/2.0/.
 // SPDX-License-Identifier: MPL-2.0
 //
-// This file is part of Dynawo, an hybrid C++/Modelica open source time domain
-// simulation tool for power systems.
+// This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools
+// for power systems.
 //
 
 /**
@@ -47,13 +47,11 @@ JsonExporter::exportToFile(const boost::shared_ptr<Timeline>& timeline, const st
 }
 
 void
-JsonExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream& stream, double afterTime) const {
+JsonExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream& stream) const {
   ptree root;
   ptree array;
   for (const auto& event : timeline->getEvents()) {
     if (event->hasPriority() && maxPriority_ != boost::none && event->getPriority() > maxPriority_)
-      continue;
-    if (!DYN::doubleGreater(event->getTime(), afterTime))
       continue;
     ptree item;
     if (exportWithTime_)
@@ -66,6 +64,6 @@ JsonExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostrea
     array.push_back(std::make_pair("", item));
   }
   root.push_back(std::make_pair("timeline", array));
-  write_json(stream, root, false);  // `false` disables pretty-printing
+  write_json(stream, root, false);
 }
 }  // namespace timeline
