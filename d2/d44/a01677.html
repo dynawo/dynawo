@@ -198,6 +198,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:abbd80ac4c07e85941e2ea017f3188fef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d44/a01677.html#abbd80ac4c07e85941e2ea017f3188fef">setCurveType</a> (<a class="el" href="../../d2/d44/a01677.html#a47656ea34080de72ff8e6fefcc1e089b">CurveType_t</a> curveType)</td></tr>
 <tr class="memdesc:abbd80ac4c07e85941e2ea017f3188fef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the curve type (calculated variable, continuous, discrete)  <a href="#abbd80ac4c07e85941e2ea017f3188fef">More...</a><br /></td></tr>
 <tr class="separator:abbd80ac4c07e85941e2ea017f3188fef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1c546bb54658644bab723059d72bf58"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d44/a01677.html#ae1c546bb54658644bab723059d72bf58">getIndexCalculatedVarInSubModel</a> () const</td></tr>
+<tr class="memdesc:ae1c546bb54658644bab723059d72bf58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the index of the calculated variable in SubModel.  <a href="#ae1c546bb54658644bab723059d72bf58">More...</a><br /></td></tr>
+<tr class="separator:ae1c546bb54658644bab723059d72bf58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a48da909dced4690de127b75d32b205"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d44/a01677.html#a8a48da909dced4690de127b75d32b205">setIndexCalculatedVarInSubModel</a> (unsigned indexCalculatedVarInSubModel)</td></tr>
+<tr class="memdesc:a8a48da909dced4690de127b75d32b205"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the index of the calculated variable in SubModel.  <a href="#a8a48da909dced4690de127b75d32b205">More...</a><br /></td></tr>
+<tr class="separator:a8a48da909dced4690de127b75d32b205"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5a198c4cda0149c47f754a1b31778fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d44/a01677.html#ab5a198c4cda0149c47f754a1b31778fc">updateParameterCurveValue</a> (std::string parameterName, double parameterValue)</td></tr>
 <tr class="memdesc:ab5a198c4cda0149c47f754a1b31778fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">update parameter curve value  <a href="#ab5a198c4cda0149c47f754a1b31778fc">More...</a><br /></td></tr>
 <tr class="separator:ab5a198c4cda0149c47f754a1b31778fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -251,6 +257,10 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d44/a01677.html#aec890645e2521e02bfecc3016b544eae">indexInGlobalTable_</a></td></tr>
 <tr class="memdesc:aec890645e2521e02bfecc3016b544eae"><td class="mdescLeft">&#160;</td><td class="mdescRight">curve's index in global table <br /></td></tr>
 <tr class="separator:aec890645e2521e02bfecc3016b544eae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac24c846ea58626a33a384ccde56e7ef3"><td class="memItemLeft" align="right" valign="top"><a id="ac24c846ea58626a33a384ccde56e7ef3"></a>
+unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d44/a01677.html#ac24c846ea58626a33a384ccde56e7ef3">indexCalculatedVarInSubModel_</a></td></tr>
+<tr class="memdesc:ac24c846ea58626a33a384ccde56e7ef3"><td class="mdescLeft">&#160;</td><td class="mdescRight">index of calculated variable in SubModel <br /></td></tr>
+<tr class="separator:ac24c846ea58626a33a384ccde56e7ef3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8799ffb7d20555df0af2f319d027360"><td class="memItemLeft" align="right" valign="top"><a id="aa8799ffb7d20555df0af2f319d027360"></a>
 <a class="el" href="../../d2/d44/a01677.html#a0e5d8fd2d34749211d3239b66739d19d">ExportType_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d44/a01677.html#aa8799ffb7d20555df0af2f319d027360">exportType_</a></td></tr>
 <tr class="memdesc:aa8799ffb7d20555df0af2f319d027360"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether this should be exported as a final state value or as a curve. <br /></td></tr>
@@ -444,6 +454,34 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="..
 
 <p>Getter for curve's index in global table. </p>
 <dl class="section return"><dt>Returns</dt><dd>index curve's index in global table </dd></dl>
+
+</div>
+</div>
+<a id="ae1c546bb54658644bab723059d72bf58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1c546bb54658644bab723059d72bf58">&#9670;&nbsp;</a></span>getIndexCalculatedVarInSubModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned curves::Curve::getIndexCalculatedVarInSubModel </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the index of the calculated variable in SubModel. </p>
+<dl class="section return"><dt>Returns</dt><dd>variable num in SubModel </dd></dl>
 
 </div>
 </div>
@@ -787,6 +825,40 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="..
 
 </div>
 </div>
+<a id="a8a48da909dced4690de127b75d32b205"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a48da909dced4690de127b75d32b205">&#9670;&nbsp;</a></span>setIndexCalculatedVarInSubModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void curves::Curve::setIndexCalculatedVarInSubModel </td>
+          <td>(</td>
+          <td class="paramtype">unsigned&#160;</td>
+          <td class="paramname"><em>indexCalculatedVarInSubModel</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the index of the calculated variable in SubModel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">indexCalculatedVarInSubModel</td><td>: variable num in SubModel </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="aeb16a6cad74bcffee034254b251aa2a3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aeb16a6cad74bcffee034254b251aa2a3">&#9670;&nbsp;</a></span>setModelName()</h2>
 
@@ -948,7 +1020,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="..
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>curves</b></li><li class="navelem"><a class="el" href="../../d2/d44/a01677.html">Curve</a></li>
-    <li class="footer">Generated on Fri Jul 11 2025 13:26:14 for Dynawo by
+    <li class="footer">Generated on Tue Jul 15 2025 12:54:16 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -63,5 +63,5 @@ var a02609 =
     [ "sizeMode", "df/d40/a02609.html#a540f8eb9641ee41da1ee58dc2030cf84", null ],
     [ "sizeY", "df/d40/a02609.html#aea2c45f22061b2ce5c608f159ebdf810", null ],
     [ "sizeZ", "df/d40/a02609.html#a3f20f5440d93fbeec1467e64901ed061", null ],
-    [ "updateCalculatedVarForCurves", "df/d40/a02609.html#ab4c8501c6a658ba4d0f8b1e6313562e0", null ]
+    [ "updateCalculatedVarForCurves", "df/d40/a02609.html#a9b50d7500f943886c683f0a54938de37", null ]
 ];

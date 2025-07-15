@@ -175,7 +175,7 @@ var a02641 =
     [ "sizeZ", "de/d4c/a02641.html#adcd711bd82d66e5812dcfe2479462eb6", null ],
     [ "staticId", "de/d4c/a02641.html#a57c153cae0c0cc21d41b5542fa5394c1", null ],
     [ "staticId", "de/d4c/a02641.html#a0ab5828c68576c9d383883c8ec6179ab", null ],
-    [ "updateCalculatedVarForCurve", "de/d4c/a02641.html#afbba2ca9d382bfa3ea1325851b67d0b4", null ],
+    [ "updateCalculatedVar", "de/d4c/a02641.html#ad251cf90c329fd30fbecbeebcc92d4b4", null ],
     [ "variablesByNameInit", "de/d4c/a02641.html#a3814b6d6230398ca03710a7f245d9ec2", null ],
     [ "variablesFileName", "de/d4c/a02641.html#a0492a323276da4957bedce0d998d9b7d", null ],
     [ "xAliasesNames", "de/d4c/a02641.html#ac75c6c0614bb31c1768c8961560cf604", null ],

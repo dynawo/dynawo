@@ -267,9 +267,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a99090b8cfd7ee7f0c3ec3655b98a3d97"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d10/a02621.html#a99090b8cfd7ee7f0c3ec3655b98a3d97">evalCalculatedVariables</a> (double t, const std::vector&lt; double &gt; &amp;y, const std::vector&lt; double &gt; &amp;yp, const std::vector&lt; double &gt; &amp;z) override</td></tr>
 <tr class="memdesc:a99090b8cfd7ee7f0c3ec3655b98a3d97"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluate the calculated variables of the model  <a href="#a99090b8cfd7ee7f0c3ec3655b98a3d97">More...</a><br /></td></tr>
 <tr class="separator:a99090b8cfd7ee7f0c3ec3655b98a3d97"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac768f6229d75806c9b9bedbf8689b33f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d10/a02621.html#ac768f6229d75806c9b9bedbf8689b33f">updateCalculatedVarForCurves</a> (const std::shared_ptr&lt; <a class="el" href="../../de/d96/a01685.html">curves::CurvesCollection</a> &gt; &amp;curvesCollection) const override</td></tr>
-<tr class="memdesc:ac768f6229d75806c9b9bedbf8689b33f"><td class="mdescLeft">&#160;</td><td class="mdescRight">update the subset of calculated variables needed for curves  <a href="#ac768f6229d75806c9b9bedbf8689b33f">More...</a><br /></td></tr>
-<tr class="separator:ac768f6229d75806c9b9bedbf8689b33f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d6cb30a3a37c7e2ae2ac1d2aad757a7"><td class="memItemLeft" align="right" valign="top"><a id="a8d6cb30a3a37c7e2ae2ac1d2aad757a7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d10/a02621.html#a8d6cb30a3a37c7e2ae2ac1d2aad757a7">updateCalculatedVarForCurves</a> () const override</td></tr>
+<tr class="memdesc:a8d6cb30a3a37c7e2ae2ac1d2aad757a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">update the subset of calculated variables needed for curves <br /></td></tr>
+<tr class="separator:a8d6cb30a3a37c7e2ae2ac1d2aad757a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab4319ca1efb2279e14c32205273cfd6a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d10/a02621.html#ab4319ca1efb2279e14c32205273cfd6a">dumpParameters</a> (std::map&lt; std::string, std::string &gt; &amp;mapParameters) override</td></tr>
 <tr class="memdesc:ab4319ca1efb2279e14c32205273cfd6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">export the parameters of the model for dump  <a href="#ab4319ca1efb2279e14c32205273cfd6a">More...</a><br /></td></tr>
 <tr class="separator:ab4319ca1efb2279e14c32205273cfd6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -508,6 +509,10 @@ std::vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><
 std::shared_ptr&lt; <a class="el" href="../../d7/d52/a02337.html">parameters::ParametersSet</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d10/a02621.html#ade8f75c7bbee5b9ec1a7cae0130e9797">localInitParameters_</a></td></tr>
 <tr class="memdesc:ade8f75c7bbee5b9ec1a7cae0130e9797"><td class="mdescLeft">&#160;</td><td class="mdescRight">local initialization solver parameters set <br /></td></tr>
 <tr class="separator:ade8f75c7bbee5b9ec1a7cae0130e9797"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a484efe2f08b715530bf6930244f11345"><td class="memItemLeft" align="right" valign="top"><a id="a484efe2f08b715530bf6930244f11345"></a>
+std::vector&lt; std::pair&lt; boost::shared_ptr&lt; <a class="el" href="../../de/d4c/a02641.html">SubModel</a> &gt;, unsigned &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d10/a02621.html#a484efe2f08b715530bf6930244f11345">curvesCalculatedVarIndexes_</a></td></tr>
+<tr class="memdesc:a484efe2f08b715530bf6930244f11345"><td class="mdescLeft">&#160;</td><td class="mdescRight">curves calculated var locations in subModel <br /></td></tr>
+<tr class="separator:a484efe2f08b715530bf6930244f11345"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="../../df/d40/a02609.html" title="Generic model Generic class for Model. ">Model</a> carrying multiple models Class for Multiple-Model. </p>
@@ -3344,42 +3349,6 @@ template&lt;class T &gt; </div>
 
 </div>
 </div>
-<a id="ac768f6229d75806c9b9bedbf8689b33f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac768f6229d75806c9b9bedbf8689b33f">&#9670;&nbsp;</a></span>updateCalculatedVarForCurves()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::ModelMulti::updateCalculatedVarForCurves </td>
-          <td>(</td>
-          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../de/d96/a01685.html">curves::CurvesCollection</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>curvesCollection</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>update the subset of calculated variables needed for curves </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">curvesCollection</td><td>set of curves </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="../../df/d40/a02609.html#ab4c8501c6a658ba4d0f8b1e6313562e0">DYN::Model</a>.</p>
-
-</div>
-</div>
 <a id="aa30619efce365a66ba08a26f2cc8e0e4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa30619efce365a66ba08a26f2cc8e0e4">&#9670;&nbsp;</a></span>zChange()</h2>
 
@@ -3420,7 +3389,7 @@ template&lt;class T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d6/d10/a02621.html">ModelMulti</a></li>
-    <li class="footer">Generated on Fri Jul 11 2025 13:26:15 for Dynawo by
+    <li class="footer">Generated on Tue Jul 15 2025 12:54:16 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

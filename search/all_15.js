@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['u0_5f',['U0_',['../de/d4b/a02865.html#a9dc6fdbc7acf30ec9061ee0257264647',1,'DYN::BusInterfaceIIDM::U0_()'],['../d4/d69/a02869.html#a29a1d0f9b69647d55d07d62bdf3c5373',1,'DYN::CalculatedBusInterfaceIIDM::U0_()'],['../df/d7d/a02889.html#a9464870df0900416d1e3f453105ad8a1',1,'DYN::FictBusInterfaceIIDM::U0_()'],['../df/d92/a03097.html#a7b5d6e78bd68e3ccbc9df286f2f0b77c',1,'DYN::ModelBus::u0_()'],['../dc/ddf/a03129.html#a836199b67260f86f36b2890ee1a3acf6',1,'DYN::ModelLoad::u0_()']]],
+  ['u0_5f',['u0_',['../df/d92/a03097.html#a7b5d6e78bd68e3ccbc9df286f2f0b77c',1,'DYN::ModelBus::u0_()'],['../dc/ddf/a03129.html#a836199b67260f86f36b2890ee1a3acf6',1,'DYN::ModelLoad::u0_()'],['../de/d4b/a02865.html#a9dc6fdbc7acf30ec9061ee0257264647',1,'DYN::BusInterfaceIIDM::U0_()'],['../d4/d69/a02869.html#a29a1d0f9b69647d55d07d62bdf3c5373',1,'DYN::CalculatedBusInterfaceIIDM::U0_()'],['../df/d7d/a02889.html#a9464870df0900416d1e3f453105ad8a1',1,'DYN::FictBusInterfaceIIDM::U0_()']]],
   ['u0pu_5f',['u0Pu_',['../df/d1b/a03029.html#a902eee839d51a1747cc5f409391b298c',1,'DYN::ModelLoadRestorativeWithLimits']]],
   ['u2pu_5f',['U2Pu_',['../df/d92/a03097.html#a7d907b69c37cccb7382ba6d36b503b5b',1,'DYN::ModelBus']]],
   ['u_5f',['U_',['../df/d92/a03097.html#a990b7793275b61e9d4c7a1271a0669a4',1,'DYN::ModelBus']]],
@@ -39,7 +39,7 @@ var searchData=
   ['uip1',['uip1',['../dc/d0a/a03125.html#a2c7259b2bcd39febd313e93e23a6ed10',1,'DYN::ModelLine']]],
   ['uip2',['uip2',['../dc/d0a/a03125.html#aa4c4f46b6a68a0ea27e6386cae821d3b',1,'DYN::ModelLine']]],
   ['uiynum',['uiYNum',['../df/d92/a03097.html#a4d3388c67fe1c4e4dda94c96b26826a5',1,'DYN::ModelBus']]],
-  ['uiynum_5f',['UiYNum_',['../df/d1b/a03029.html#a4646af8ab360389c30c5c2f6ea689b5a',1,'DYN::ModelLoadRestorativeWithLimits::UiYNum_()'],['../df/d92/a03097.html#a5775c311ea543d26f731998f1d4241c9',1,'DYN::ModelBus::uiYNum_()']]],
+  ['uiynum_5f',['uiYNum_',['../df/d92/a03097.html#a5775c311ea543d26f731998f1d4241c9',1,'DYN::ModelBus::uiYNum_()'],['../df/d1b/a03029.html#a4646af8ab360389c30c5c2f6ea689b5a',1,'DYN::ModelLoadRestorativeWithLimits::UiYNum_()']]],
   ['umax_5f',['uMax_',['../df/d92/a03097.html#a758102aec4ea7df47f222f44fc9c0d4e',1,'DYN::ModelBus']]],
   ['umaxpu',['uMaxPu',['../d3/d8e/a00647.html#a7c73f32795a103e24f6099683bce9467',1,'DYN']]],
   ['umaxpu_5f',['uMaxPu_',['../db/d95/a01637.html#a5014970323102f139d28c7c2c0128f23',1,'criteria::CriteriaParamsVoltageLevel::uMaxPu_()'],['../df/d1b/a03029.html#a9c944f2c96d0e634e2bf6c2f7a3f91ae',1,'DYN::ModelLoadRestorativeWithLimits::UMaxPu_()']]],
@@ -116,8 +116,8 @@ var searchData=
   ['unstableroots',['UnstableRoots',['../d4/d87/a02457.html#acfce33066451c48351076e31bd5b4eceaab083e025902015c3308117a6a6e7d6b',1,'DYN::KeyError_t']]],
   ['unsupportedcomponentstate',['UnsupportedComponentState',['../d4/d87/a02457.html#acfce33066451c48351076e31bd5b4ecea94f02e9fc11b54cd2f28ebbef51ca288',1,'DYN::KeyError_t']]],
   ['update',['update',['../d2/d44/a01677.html#a2314b2515aa44763267db58df89877c2',1,'curves::Curve::update()'],['../d6/dfc/a02593.html#a141efafced6dfae4c89ba693ced3e335',1,'DYN::Delay::update()']]],
-  ['updatecalculatedvarforcurve',['updateCalculatedVarForCurve',['../de/d4c/a02641.html#afbba2ca9d382bfa3ea1325851b67d0b4',1,'DYN::SubModel']]],
-  ['updatecalculatedvarforcurves',['updateCalculatedVarForCurves',['../df/d40/a02609.html#ab4c8501c6a658ba4d0f8b1e6313562e0',1,'DYN::Model::updateCalculatedVarForCurves()'],['../d6/d10/a02621.html#ac768f6229d75806c9b9bedbf8689b33f',1,'DYN::ModelMulti::updateCalculatedVarForCurves()']]],
+  ['updatecalculatedvar',['updateCalculatedVar',['../de/d4c/a02641.html#ad251cf90c329fd30fbecbeebcc92d4b4',1,'DYN::SubModel']]],
+  ['updatecalculatedvarforcurves',['updateCalculatedVarForCurves',['../df/d40/a02609.html#a9b50d7500f943886c683f0a54938de37',1,'DYN::Model::updateCalculatedVarForCurves()'],['../d6/d10/a02621.html#a8d6cb30a3a37c7e2ae2ac1d2aad757a7',1,'DYN::ModelMulti::updateCalculatedVarForCurves()']]],
   ['updatecurves',['updateCurves',['../de/d96/a01685.html#a91357be76a9a91f7c48925da8a100cf0',1,'curves::CurvesCollection::updateCurves()'],['../d6/d04/a03193.html#a42eb6ddfbd69b9df86af19939ae3e0ee',1,'DYN::Simulation::updateCurves()']]],
   ['updatefinalstatevalues',['updateFinalStateValues',['../d8/d98/a02009.html#ad54c69c9435b7598997f2fce8b823236',1,'finalStateValues::FinalStateValuesCollection']]],
   ['updatefrommodel',['updateFromModel',['../d5/dbe/a02697.html#ab673e4fea551130c3776e4a0fda6fea6',1,'DYN::ComponentInterface::updateFromModel()'],['../d9/da5/a02757.html#a1297af56124573be3c453bd69e69fc0d',1,'DYN::DataInterface::updateFromModel()'],['../d7/d68/a02885.html#ad8936e8c27a7af3ffaa6d950536dcbf5',1,'DYN::DataInterfaceIIDM::updateFromModel()']]],

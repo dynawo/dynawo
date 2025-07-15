@@ -258,9 +258,10 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <tr class="memitem:af68d69d50458b4b690363648d8f61f77"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d40/a02609.html#af68d69d50458b4b690363648d8f61f77">evalCalculatedVariables</a> (double t, const std::vector&lt; double &gt; &amp;y, const std::vector&lt; double &gt; &amp;yp, const std::vector&lt; double &gt; &amp;z)=0</td></tr>
 <tr class="memdesc:af68d69d50458b4b690363648d8f61f77"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluate the calculated variables of the model  <a href="#af68d69d50458b4b690363648d8f61f77">More...</a><br /></td></tr>
 <tr class="separator:af68d69d50458b4b690363648d8f61f77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4c8501c6a658ba4d0f8b1e6313562e0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d40/a02609.html#ab4c8501c6a658ba4d0f8b1e6313562e0">updateCalculatedVarForCurves</a> (const std::shared_ptr&lt; <a class="el" href="../../de/d96/a01685.html">curves::CurvesCollection</a> &gt; &amp;curvesCollection) const =0</td></tr>
-<tr class="memdesc:ab4c8501c6a658ba4d0f8b1e6313562e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">update the subset of calculated variables needed for curves  <a href="#ab4c8501c6a658ba4d0f8b1e6313562e0">More...</a><br /></td></tr>
-<tr class="separator:ab4c8501c6a658ba4d0f8b1e6313562e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b50d7500f943886c683f0a54938de37"><td class="memItemLeft" align="right" valign="top"><a id="a9b50d7500f943886c683f0a54938de37"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d40/a02609.html#a9b50d7500f943886c683f0a54938de37">updateCalculatedVarForCurves</a> () const =0</td></tr>
+<tr class="memdesc:a9b50d7500f943886c683f0a54938de37"><td class="mdescLeft">&#160;</td><td class="mdescRight">update the subset of calculated variables needed for curves <br /></td></tr>
+<tr class="separator:a9b50d7500f943886c683f0a54938de37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa19fac46b8c72f38680fc3d437abab8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d40/a02609.html#aaa19fac46b8c72f38680fc3d437abab8">dumpParameters</a> (std::map&lt; std::string, std::string &gt; &amp;mapParameters)=0</td></tr>
 <tr class="memdesc:aaa19fac46b8c72f38680fc3d437abab8"><td class="mdescLeft">&#160;</td><td class="mdescRight">export the parameters of the model for dump  <a href="#aaa19fac46b8c72f38680fc3d437abab8">More...</a><br /></td></tr>
 <tr class="separator:aaa19fac46b8c72f38680fc3d437abab8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -2204,42 +2205,6 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 
 </div>
 </div>
-<a id="ab4c8501c6a658ba4d0f8b1e6313562e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab4c8501c6a658ba4d0f8b1e6313562e0">&#9670;&nbsp;</a></span>updateCalculatedVarForCurves()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void DYN::Model::updateCalculatedVarForCurves </td>
-          <td>(</td>
-          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../de/d96/a01685.html">curves::CurvesCollection</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>curvesCollection</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>update the subset of calculated variables needed for curves </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">curvesCollection</td><td>set of curves </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implemented in <a class="el" href="../../d6/d10/a02621.html#ac768f6229d75806c9b9bedbf8689b33f">DYN::ModelMulti</a>.</p>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="../../dd/d5c/a00578_source.html">DYNModel.h</a></li>
 </ul>
@@ -2260,7 +2225,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../df/d40/a02609.html">Model</a></li>
-    <li class="footer">Generated on Fri Jul 11 2025 13:26:15 for Dynawo by
+    <li class="footer">Generated on Tue Jul 15 2025 12:54:16 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
