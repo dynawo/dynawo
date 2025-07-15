@@ -25,18 +25,11 @@ model ElecSystem "RLC filter for WT (IEC N°61400-27-1)"
                            ---
 */
 
-  //Nominal parameter
-  parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
-
-  //Circuit parameters
-  parameter Types.PerUnit BesPu "Shunt susceptance in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "Electrical"));
-  parameter Types.PerUnit GesPu "Shunt conductance in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "Electrical"));
-  parameter Types.PerUnit ResPu "Serial resistance in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "Electrical"));
-  parameter Types.PerUnit XesPu "Serial reactance in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "Electrical"));
+  extends Dynawo.Electrical.Wind.IEC.Parameters.SNom_;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.Circuit;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialIGs;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGs;
+  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialComplexUiGrid;
 
   //Interfaces
   Dynawo.Connectors.ACPower terminal1(V(re(start = UGsRe0Pu), im(start = UGsIm0Pu)), i(re(start = IGsRe0Pu * SNom / SystemBase.SnRef), im(start = IGsIm0Pu * SNom / SystemBase.SnRef))) "Converter terminal, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(
@@ -64,20 +57,6 @@ model ElecSystem "RLC filter for WT (IEC N°61400-27-1)"
 
   Types.CurrentModulePu IGsPu(start = sqrt(IGsRe0Pu^2 + IGsIm0Pu^2)) "Current module at converter terminal in pu (base UNom, SNom)";
   Types.VoltageModulePu UGsPu(start = sqrt(UGsRe0Pu^2 + UGsIm0Pu^2)) "Voltage module at converter terminal in pu (base UNom)";
-
-  //Initial parameters
-  parameter Types.ComplexCurrentPu i0Pu "Initial complex current at grid terminal in pu (base UNom, SnRef) (receptor convention)" annotation(
-    Dialog(group="Initialization"));
-  parameter Types.PerUnit IGsIm0Pu "Initial imaginary component of the current at converter terminal in pu (base UNom, SNom) (receptor convention)" annotation(
-    Dialog(group="Initialization"));
-  parameter Types.PerUnit IGsRe0Pu "Initial real component of the current at converter terminal in pu (base UNom, SNom) (receptor convention)" annotation(
-    Dialog(group="Initialization"));
-  parameter Types.ComplexVoltagePu u0Pu "Initial complex voltage at grid terminal in pu (base UNom)" annotation(
-    Dialog(group="Initialization"));
-  parameter Types.PerUnit UGsIm0Pu "Initial imaginary component of the voltage at converter terminal in pu (base UNom)" annotation(
-    Dialog(group="Initialization"));
-  parameter Types.PerUnit UGsRe0Pu "Initial real component of the voltage at converter terminal in pu (base UNom)" annotation(
-    Dialog(group="Initialization"));
 
 equation
   Complex(uGsRePu, uGsImPu) = terminal1.V;

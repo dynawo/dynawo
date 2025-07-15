@@ -114,11 +114,11 @@ model WT4BCurrentSource2020 "Wind Turbine Type 4B model from IEC 61400-27-1:2020
 
   // Faults
   Dynawo.Electrical.Events.NodeFault nodeFault(RPu = 0, XPu = 0.09, tBegin = 6, tEnd = 6.25) annotation(
-    Placement(visible = true, transformation(origin = {70, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Events.NodeFault nodeFault1(RPu = 0, XPu = 0.4, tBegin = 12, tEnd = 12.15) annotation(
-    Placement(visible = true, transformation(origin = {-90, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-
-  // Reference inputs
+    Placement(visible = true, transformation(origin = {46, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
+  Modelica.Blocks.Sources.Step tanPhi(height = 0, offset = -0.21, startTime = 0) annotation(
+    Placement(visible = true, transformation(origin = {-170, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Step xRefPu(height = 0.41, offset = -0.21, startTime = 4) annotation(
+    Placement(visible = true, transformation(origin = {-170, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Pulse omegaRefPu(amplitude = -0.01, nperiod = 1, offset = 1, period = 2, startTime = 20) annotation(
     Placement(visible = true, transformation(origin = {-150, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step PRefPu(height = -0.5, offset = 1, startTime = 2) annotation(
@@ -166,9 +166,9 @@ initial algorithm
   wT4BCurrentSource.u0Pu.im := wT4CurrentSource_INIT.u0Pu.im;
 
 equation
-  wT4BCurrentSource.wT4Injector.switchOffSignal1.value = false;
-  wT4BCurrentSource.wT4Injector.switchOffSignal2.value = false;
-  wT4BCurrentSource.wT4Injector.switchOffSignal3.value = false;
+  wT4BCurrentSource.injector.switchOffSignal1.value = false;
+  wT4BCurrentSource.injector.switchOffSignal2.value = false;
+  wT4BCurrentSource.injector.switchOffSignal3.value = false;
 
   connect(wT4BCurrentSource.terminal, transformer1.terminal1) annotation(
     Line(points = {{-99, 0}, {-80, 0}}, color = {0, 0, 255}));
