@@ -11,6 +11,7 @@
 # Preassembled models
 
 set(MODELICA_PREASSEMBLED_MODELS
+  BESScbCurrentSourceREECd.xml
   BESScbWeccCurrentSource.xml
   BESScbWeccCurrentSourceNoPlantControl.xml
   BooleanTable.xml
