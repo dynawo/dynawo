@@ -80,7 +80,7 @@ model WTG4BCurrentSource "WECC Wind Type 4B Model(including a plant controller) 
     QMinPu = -0.4,
     RPu = 0,
     RateFlag = false,
-    RefFlag = true,
+    RefFlag = 1,
     RrpwrPu = 10,
     SNom = 100,
     U0Pu = 1,
