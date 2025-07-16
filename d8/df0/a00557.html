@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNConnector.h File Reference</title>
+<title>Dynawo: DYNCompiler.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -97,32 +97,31 @@ $(document).ready(function(){initNavTree('d8/df0/a00557.html','../../');});
   <div class="summary">
 <a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">DYNConnector.h File Reference</div>  </div>
+<div class="title">DYNCompiler.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Connector header : defines a connector between two/sereval sub models (same way to works as a modelica connector)  
+<p>Dynawo models compile header file.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;unordered_map&gt;</code><br />
+<div class="textblock"><code>#include &lt;map&gt;</code><br />
+<code>#include &lt;set&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;list&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;sstream&gt;</code><br />
 <code>#include &lt;boost/shared_ptr.hpp&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../d7/d5e/a00467_source.html">DYNEnumUtils.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d4/dc4/a00617_source.html">DYNVariable.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d4/ddf/a00488_source.html">DYNFileSystemUtils.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../dc/dfe/a00125_source.html">DYDMacroConnect.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../dd/dc1/a00212_source.html">EXTVARVariablesCollection.h</a>&quot;</code><br />
 </div>
 <p><a href="../../d8/df0/a00557_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddf/a02573.html">DYN::connectedSubModel</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d03/a02577.html">DYN::Connector</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dae/a02581.html">DYN::ConnectorContainer</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Connector header : defines a connector between two/sereval sub models (same way to works as a modelica connector) </p>
+<div class="textblock"><p>Dynawo models compile header file. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -139,8 +138,8 @@ Classes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_7d7d21115b5241938a60e6b8a57ea766.html">Modeler</a></li><li class="navelem"><a class="el" href="../../dir_a96cc45270be55e9fc3691253afb6f87.html">Common</a></li><li class="navelem"><a class="el" href="../../d8/df0/a00557.html">DYNConnector.h</a></li>
-    <li class="footer">Generated on Tue Jul 15 2025 12:54:15 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_7d7d21115b5241938a60e6b8a57ea766.html">Modeler</a></li><li class="navelem"><a class="el" href="../../dir_a96cc45270be55e9fc3691253afb6f87.html">Common</a></li><li class="navelem"><a class="el" href="../../d8/df0/a00557.html">DYNCompiler.h</a></li>
+    <li class="footer">Generated on Wed Jul 16 2025 08:49:04 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

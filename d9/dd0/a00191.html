@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYDXmlHandler.h File Reference</title>
+<title>Dynawo: DYDXmlExporter.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -97,78 +97,30 @@ $(document).ready(function(){initNavTree('d9/dd0/a00191.html','../../');});
   <div class="summary">
 <a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">DYDXmlHandler.h File Reference</div>  </div>
+<div class="title">DYDXmlExporter.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Handler for dynamic models collection file : header file.  
+<p>Dynawo dynamic models collection XML exporter : header file.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="../../d1/dc1/a00092_source.html">DYDBlackBoxModel.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d0/dc2/a00104_source.html">DYDDynamicModelsCollection.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d6/d7d/a00161_source.html">DYDModelTemplate.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../db/ddf/a00164_source.html">DYDModelTemplateExpansion.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d3/df8/a00155_source.html">DYDModelicaModel.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../db/dd9/a00179_source.html">DYDUnitDynamicModel.h</a>&quot;</code><br />
-<code>#include &lt;boost/shared_ptr.hpp&gt;</code><br />
-<code>#include &lt;xml/sax/parser/ComposableDocumentHandler.h&gt;</code><br />
-<code>#include &lt;xml/sax/parser/ComposableElementHandler.h&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d9/d77/a00095_source.html">DYDBlackBoxModel.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../df/d98/a00107_source.html">DYDDynamicModelsCollection.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d3/d00/a00113_source.html">DYDExporter.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../db/ddf/a00164_source.html">DYDModelTemplate.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../dc/de6/a00167_source.html">DYDModelTemplateExpansion.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d6/db8/a00158_source.html">DYDModelicaModel.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d7/d25/a00182_source.html">DYDUnitDynamicModel.h</a>&quot;</code><br />
 </div>
 <p><a href="../../d9/dd0/a00191_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d9c/a01885.html">dynamicdata::ConnectorRead</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">structure defining a connector element  <a href="../../d7/d9c/a01885.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9b/a01889.html">dynamicdata::StaticRefRead</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">structure defining a staticRef element  <a href="../../d9/d9b/a01889.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d80/a01893.html">dynamicdata::MacroConnectionRead</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">structure defining a macroConnection element  <a href="../../dd/d80/a01893.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d0c/a01897.html">dynamicdata::UnitDynamicModelHandler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handler used to parse <a class="el" href="../../de/dd3/a01873.html" title="Modelica dynamic model interface class. ">UnitDynamicModel</a> element.  <a href="../../d9/d0c/a01897.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d99/a01901.html">dynamicdata::StaticRefHandler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handler used to parse <a class="el" href="../../d5/da8/a01865.html" title="Dynawo staticRef interface class. ">StaticRef</a> element.  <a href="../../d5/d99/a01901.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d65/a01905.html">dynamicdata::MacroStaticRefHandler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handler used to parse <a class="el" href="../../de/d3d/a01821.html" title="MacroStaticRef interface class. ">MacroStaticRef</a> element.  <a href="../../d9/d65/a01905.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d90/a01909.html">dynamicdata::MacroStaticReferenceHandler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handler used to parse macroStaticReference elements.  <a href="../../d9/d90/a01909.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d07/a01913.html">dynamicdata::ConnectHandler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handler used to parse connect element.  <a href="../../d4/d07/a01913.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d54/a01917.html">dynamicdata::MacroConnectHandler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handler used to parse <a class="el" href="../../d4/dd1/a01797.html" title="Dynawo MacroConnect interface class. ">MacroConnect</a> element.  <a href="../../d2/d54/a01917.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d6c/a01921.html">dynamicdata::MacroConnectionHandler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handler used to parse macroConnection element.  <a href="../../da/d6c/a01921.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d18/a01925.html">dynamicdata::MacroConnectorHandler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handler used to parse <a class="el" href="../../d1/d20/a01813.html" title="Macro connector interface class. ">MacroConnector</a> element.  <a href="../../d6/d18/a01925.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc8/a01929.html">dynamicdata::ModelicaModelHandler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handler used to parse modelica model element.  <a href="../../dc/dc8/a01929.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/da7/a01933.html">dynamicdata::ModelTemplateHandler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handler used to parse model template element.  <a href="../../dc/da7/a01933.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d17/a01937.html">dynamicdata::BlackBoxModelHandler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handler used to parse black box model element.  <a href="../../d9/d17/a01937.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d76/a01941.html">dynamicdata::ModelTemplateExpansionHandler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handler used to parse model template expansion element.  <a href="../../da/d76/a01941.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d39/a01945.html">dynamicdata::XmlHandler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">dynamic models file handler class  <a href="../../d5/d39/a01945.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d30/a01891.html">dynamicdata::XmlExporter</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">XML exporter interface class.  <a href="../../d7/d30/a01891.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Handler for dynamic models collection file : header file. </p>
-<p>XmlHandler is the implementation of Dynawo handler for parsing dynamic models collection files. </p>
+<div class="textblock"><p>Dynawo dynamic models collection XML exporter : header file. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -185,8 +137,8 @@ Classes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c965f59f27f05d30848bbf32c1d38876.html">API</a></li><li class="navelem"><a class="el" href="../../dir_2a711e3bd6d72ccb2f6ddf0123b6af83.html">DYD</a></li><li class="navelem"><a class="el" href="../../d9/dd0/a00191.html">DYDXmlHandler.h</a></li>
-    <li class="footer">Generated on Tue Jul 15 2025 12:54:15 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c965f59f27f05d30848bbf32c1d38876.html">API</a></li><li class="navelem"><a class="el" href="../../dir_2a711e3bd6d72ccb2f6ddf0123b6af83.html">DYD</a></li><li class="navelem"><a class="el" href="../../d9/dd0/a00191.html">DYDXmlExporter.h</a></li>
+    <li class="footer">Generated on Wed Jul 16 2025 08:49:04 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

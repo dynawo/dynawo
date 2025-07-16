@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNCompiler.h File Reference</title>
+<title>Dynawo: TestUtil.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,34 +95,74 @@ $(document).ready(function(){initNavTree('d9/d87/a00551.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">DYNCompiler.h File Reference</div>  </div>
+<div class="title">TestUtil.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Dynawo models compile header file.  
+<p>Utility for unit tests.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;map&gt;</code><br />
-<code>#include &lt;set&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
-<code>#include &lt;sstream&gt;</code><br />
-<code>#include &lt;boost/shared_ptr.hpp&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../db/d8e/a00482_source.html">DYNFileSystemUtils.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../df/dc8/a00122_source.html">DYDMacroConnect.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d3/de5/a00209_source.html">EXTVARVariablesCollection.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;boost/iostreams/device/mapped_file.hpp&gt;</code><br />
 </div>
 <p><a href="../../d9/d87/a00551_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dff/a02565.html">DYN::Compiler</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a01ab03a6582f7fdb9e4a6e8c1921acd3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d87/a00551.html#a01ab03a6582f7fdb9e4a6e8c1921acd3">compareFiles</a> (const std::string &amp;file1, const std::string &amp;file2)</td></tr>
+<tr class="memdesc:a01ab03a6582f7fdb9e4a6e8c1921acd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">operator to compare 2 files  <a href="#a01ab03a6582f7fdb9e4a6e8c1921acd3">More...</a><br /></td></tr>
+<tr class="separator:a01ab03a6582f7fdb9e4a6e8c1921acd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Dynawo models compile header file. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Utility for unit tests. </p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a01ab03a6582f7fdb9e4a6e8c1921acd3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01ab03a6582f7fdb9e4a6e8c1921acd3">&#9670;&nbsp;</a></span>compareFiles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool compareFiles </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>operator to compare 2 files </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">file1</td><td>first file to compare </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">file2</td><td>second file to compare </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><b>true</b> if file1 == file2 <b>false</b> else </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -138,8 +178,8 @@ Classes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_7d7d21115b5241938a60e6b8a57ea766.html">Modeler</a></li><li class="navelem"><a class="el" href="../../dir_a96cc45270be55e9fc3691253afb6f87.html">Common</a></li><li class="navelem"><a class="el" href="../../d9/d87/a00551.html">DYNCompiler.h</a></li>
-    <li class="footer">Generated on Tue Jul 15 2025 12:54:15 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c5eaf1ac1cf936f6800d020d474d243d.html">Common</a></li><li class="navelem"><a class="el" href="../../d9/d87/a00551.html">TestUtil.h</a></li>
+    <li class="footer">Generated on Wed Jul 16 2025 08:49:05 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

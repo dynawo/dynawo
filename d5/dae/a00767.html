@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNDataInterfaceIIDM.h File Reference</title>
+<title>Dynawo: DYNCurrentLimitsPerSeasonIIDMExtension.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -97,44 +97,29 @@ $(document).ready(function(){initNavTree('d5/dae/a00767.html','../../');});
   <div class="summary">
 <a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">DYNDataInterfaceIIDM.h File Reference</div>  </div>
+<div class="title">DYNCurrentLimitsPerSeasonIIDMExtension.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Data interface : header file of IIDM implementation.  
+<p>IIDM extension for current limit per season interface file.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="../../dc/de4/a00677_source.html">DYNDataInterfaceImpl.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d9/daf/a00830_source.html">DYNSwitchInterfaceIIDM.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d3/d60/a00818_source.html">DYNShuntCompensatorInterfaceIIDM.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d3/d2c/a00764_source.html">DYNDanglingLineInterfaceIIDM.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d6/d8b/a00821_source.html">DYNStaticVarCompensatorInterfaceIIDM.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d3/d13/a00836_source.html">DYNTwoWTransformerInterfaceIIDM.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../dc/d6e/a00833_source.html">DYNThreeWTransformerInterfaceIIDM.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d0/d11/a00842_source.html">DYNVscConverterInterfaceIIDM.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../da/db8/a00797_source.html">DYNLccConverterInterfaceIIDM.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d3/d00/a00785_source.html">DYNHvdcLineInterfaceIIDM.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../df/d0e/a00800_source.html">DYNLineInterfaceIIDM.h</a>&quot;</code><br />
-<code>#include &quot;DYNCalculatedBusInterfaceIIDM.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d5/de8/a00749_source.html">DYNBatteryInterfaceIIDM.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../dd/d5c/a00752_source.html">DYNBusInterfaceIIDM.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d5/d72/a00803_source.html">DYNLoadInterfaceIIDM.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../da/d96/a00782_source.html">DYNGeneratorInterfaceIIDM.h</a>&quot;</code><br />
-<code>#include &quot;DYNCriteria.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d0/dad/a00806_source.html">DYNNetworkInterfaceIIDM.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d8/d2d/a00815_source.html">DYNServiceManagerInterfaceIIDM.h</a>&quot;</code><br />
-<code>#include &lt;powsybl/iidm/Network.hpp&gt;</code><br />
-<code>#include &lt;mutex&gt;</code><br />
+<div class="textblock"><code>#include &lt;array&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;unordered_map&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../d8/d13/a00671_source.html">DYNCurrentLimits.h</a>&quot;</code><br />
 </div>
 <p><a href="../../d5/dae/a00767_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d68/a02885.html">DYN::DataInterfaceIIDM</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic data interface for IIDM format files.  <a href="../../d7/d68/a02885.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d5e/a02891.html">DYN::CurrentLimitsPerSeasonIIDMExtension</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current limit per season IIDM extension interface.  <a href="../../dc/d5e/a02891.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Data interface : header file of IIDM implementation. </p>
+<div class="textblock"><p>IIDM extension for current limit per season interface file. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -151,8 +136,8 @@ Classes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_7d7d21115b5241938a60e6b8a57ea766.html">Modeler</a></li><li class="navelem"><a class="el" href="../../dir_f405ae7c53e4c759cd7436faf72efd90.html">DataInterface</a></li><li class="navelem"><a class="el" href="../../dir_b83efd09d1a32c7e6689e8ffddfcb0cb.html">PowSyblIIDM</a></li><li class="navelem"><a class="el" href="../../d5/dae/a00767.html">DYNDataInterfaceIIDM.h</a></li>
-    <li class="footer">Generated on Tue Jul 15 2025 12:54:15 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_7d7d21115b5241938a60e6b8a57ea766.html">Modeler</a></li><li class="navelem"><a class="el" href="../../dir_f405ae7c53e4c759cd7436faf72efd90.html">DataInterface</a></li><li class="navelem"><a class="el" href="../../dir_b83efd09d1a32c7e6689e8ffddfcb0cb.html">PowSyblIIDM</a></li><li class="navelem"><a class="el" href="../../d5/dae/a00767.html">DYNCurrentLimitsPerSeasonIIDMExtension.h</a></li>
+    <li class="footer">Generated on Wed Jul 16 2025 08:49:04 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

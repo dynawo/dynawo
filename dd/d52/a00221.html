@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: EXTVARXmlImporter.h File Reference</title>
+<title>Dynawo: EXTVARXmlHandler.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -97,26 +97,29 @@ $(document).ready(function(){initNavTree('dd/d52/a00221.html','../../');});
   <div class="summary">
 <a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">EXTVARXmlImporter.h File Reference</div>  </div>
+<div class="title">EXTVARXmlHandler.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Dynawo external variables XML importer : header file.  
+<p>Handler for external variables collection file : header file.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="../../d3/db1/a00200_source.html">EXTVARImporter.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d3/de5/a00209_source.html">EXTVARVariablesCollection.h</a>&quot;</code><br />
-<code>#include &lt;memory&gt;</code><br />
+<div class="textblock"><code>#include &lt;xml/sax/parser/ComposableDocumentHandler.h&gt;</code><br />
+<code>#include &lt;xml/sax/parser/ComposableElementHandler.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../dd/dc1/a00212_source.html">EXTVARVariablesCollection.h</a>&quot;</code><br />
 </div>
 <p><a href="../../dd/d52/a00221_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d67/a01989.html">externalVariables::XmlImporter</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">XML importer interface class.  <a href="../../dc/d67/a01989.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4e/a01991.html">externalVariables::VariableHandler</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">external variable handler  <a href="../../d3/d4e/a01991.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dd8/a01995.html">externalVariables::XmlHandler</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">external variables file handler class  <a href="../../d3/dd8/a01995.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Dynawo external variables XML importer : header file. </p>
+<div class="textblock"><p>Handler for external variables collection file : header file. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -133,8 +136,8 @@ Classes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c965f59f27f05d30848bbf32c1d38876.html">API</a></li><li class="navelem"><a class="el" href="../../dir_d50a2c309170eb9b7c1f0e3b3a783266.html">EXTVAR</a></li><li class="navelem"><a class="el" href="../../dd/d52/a00221.html">EXTVARXmlImporter.h</a></li>
-    <li class="footer">Generated on Tue Jul 15 2025 12:54:16 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c965f59f27f05d30848bbf32c1d38876.html">API</a></li><li class="navelem"><a class="el" href="../../dir_d50a2c309170eb9b7c1f0e3b3a783266.html">EXTVAR</a></li><li class="navelem"><a class="el" href="../../dd/d52/a00221.html">EXTVARXmlHandler.h</a></li>
+    <li class="footer">Generated on Wed Jul 16 2025 08:49:05 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

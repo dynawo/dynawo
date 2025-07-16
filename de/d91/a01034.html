@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNSolverCommonFixedTimeStep.h File Reference</title>
+<title>Dynawo: DYNSolverImpl.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -97,28 +97,35 @@ $(document).ready(function(){initNavTree('de/d91/a01034.html','../../');});
   <div class="summary">
 <a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">DYNSolverCommonFixedTimeStep.h File Reference</div>  </div>
+<div class="title">DYNSolverImpl.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Intermediary class that regroup both SIM and TRAP solver. These last two inherist from this class.  
+<p>Dynawo solvers : header file.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;boost/shared_ptr.hpp&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../db/d23/a01025_source.html">DYNSolverFactory.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../db/d08/a01028_source.html">DYNSolverImpl.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d7/d5e/a00467_source.html">DYNEnumUtils.h</a>&quot;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
+<code>#include &lt;boost/core/noncopyable.hpp&gt;</code><br />
+<code>#include &lt;sundials/sundials_nvector.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../db/d23/a01025_source.html">DYNSolver.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../dc/d8e/a00473_source.html">DYNEnumUtils.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../db/daf/a01019_source.html">DYNParameterSolver.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d2/d41/a01037_source.html">DYNSolverImpl.hpp</a>&quot;</code><br />
 </div>
 <p><a href="../../de/d91/a01034_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d56/a03253.html">DYN::SolverCommonFixedTimeStep</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">class <a class="el" href="../../d9/d56/a03253.html" title="class SolverCommonFixedTimeStep : Common class between SIM and TRAP. ">SolverCommonFixedTimeStep</a> : Common class between SIM and TRAP.  <a href="../../d9/d56/a03253.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d38/a03259.html">DYN::stat_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure for storing solver statistics.  <a href="../../d6/d38/a03259.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc1/a03263.html">DYN::Solver::Impl</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../db/d5f/a03239.html" title="Solver interface class. ">Solver</a> implemented class.  <a href="../../dc/dc1/a03263.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Intermediary class that regroup both SIM and TRAP solver. These last two inherist from this class. </p>
+<div class="textblock"><p>Dynawo solvers : header file. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -135,8 +142,8 @@ Classes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_a769528b188158bb44ac136b67c42939.html">Solvers</a></li><li class="navelem"><a class="el" href="../../dir_1024be19efd68fd87579d4f87baf6c4c.html">FixedTimeStep</a></li><li class="navelem"><a class="el" href="../../de/d91/a01034.html">DYNSolverCommonFixedTimeStep.h</a></li>
-    <li class="footer">Generated on Tue Jul 15 2025 12:54:16 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_a769528b188158bb44ac136b67c42939.html">Solvers</a></li><li class="navelem"><a class="el" href="../../dir_3c3ef2360bd5ecb4837d8def2fdc339b.html">Common</a></li><li class="navelem"><a class="el" href="../../de/d91/a01034.html">DYNSolverImpl.h</a></li>
+    <li class="footer">Generated on Wed Jul 16 2025 08:49:05 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

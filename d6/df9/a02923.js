@@ -1,0 +1,38 @@
+var a02923 =
+[
+    [ "indexVar_t", "d6/df9/a02923.html#a505cb4d8abb7483b6e133246059a742c", [
+      [ "VAR_P1", "d6/df9/a02923.html#a505cb4d8abb7483b6e133246059a742ca19e568151e736af9fc1eb4915f0a3146", null ],
+      [ "VAR_P2", "d6/df9/a02923.html#a505cb4d8abb7483b6e133246059a742caf3fa1fd343d891c358da97400b21061a", null ],
+      [ "VAR_Q1", "d6/df9/a02923.html#a505cb4d8abb7483b6e133246059a742ca7966e13b65073f85362998902d6695a3", null ],
+      [ "VAR_Q2", "d6/df9/a02923.html#a505cb4d8abb7483b6e133246059a742ca4760b6805d00c7e9ea5f10cb195684a4", null ],
+      [ "VAR_STATE1", "d6/df9/a02923.html#a505cb4d8abb7483b6e133246059a742ca0785863d0643eab4cccfd8f98e7a51a2", null ],
+      [ "VAR_STATE2", "d6/df9/a02923.html#a505cb4d8abb7483b6e133246059a742ca5a48869a495e02baeff908e42176b295", null ]
+    ] ],
+    [ "~HvdcLineInterfaceIIDM", "d6/df9/a02923.html#a47eea4d751e1c2eec3a84e3c7fe934e9", null ],
+    [ "HvdcLineInterfaceIIDM", "d6/df9/a02923.html#a70e6b8b100e44845d7b6138b9aafe5ac", null ],
+    [ "exportStateVariablesUnitComponent", "d6/df9/a02923.html#ae28e3cc64430a6a325c8eca319a17f79", null ],
+    [ "getActivePowerSetpoint", "d6/df9/a02923.html#a0c3385a38d2f24c20c88ada83dc65ee4", null ],
+    [ "getComponentVarIndex", "d6/df9/a02923.html#a4f456c7f962a1cfe5dbbfa6c92613a9f", null ],
+    [ "getConverter1", "d6/df9/a02923.html#a5a633fa7574aea631a623ff9f5c77fbf", null ],
+    [ "getConverter2", "d6/df9/a02923.html#ab02ce115676614a7a00304bd24a20744", null ],
+    [ "getConverterMode", "d6/df9/a02923.html#ae55000ed6ab470928d21364bc131d346", null ],
+    [ "getDroop", "d6/df9/a02923.html#afac1c0c0c91a81eb80874333c068045e", null ],
+    [ "getID", "d6/df9/a02923.html#a115d780056c92a5f268dcaedb645207f", null ],
+    [ "getIdConverter1", "d6/df9/a02923.html#a6d216b1587b62efe93fa751f2b0e9ea6", null ],
+    [ "getIdConverter2", "d6/df9/a02923.html#ae60b90879e7f88cb9dd7fa5dac60f03b", null ],
+    [ "getOprFromCS1toCS2", "d6/df9/a02923.html#a5ab96c60f04befa0951b33e841b8c66d", null ],
+    [ "getOprFromCS2toCS1", "d6/df9/a02923.html#add6883f797cd254f03a2c25317c8d1b7", null ],
+    [ "getP0", "d6/df9/a02923.html#a407eb5c18ac51b53fbde2e72d55dac32", null ],
+    [ "getPmax", "d6/df9/a02923.html#a616750e61e1bee2084cb593e21c9c417", null ],
+    [ "getResistanceDC", "d6/df9/a02923.html#ae2db27446bf66117bdece53687e5fb55", null ],
+    [ "getVNom", "d6/df9/a02923.html#aafd659ce83a3655e2bb6501a3afd3bb7", null ],
+    [ "importStaticParameters", "d6/df9/a02923.html#ad57109d7661ba63c6c38de6588f849f9", null ],
+    [ "isActivePowerControlEnabled", "d6/df9/a02923.html#a2a1e34de555c0ce939314dc8197220eb", null ],
+    [ "isConnected", "d6/df9/a02923.html#ab1cbcffa24e25f657841bcecf1c96feb", null ],
+    [ "isPartiallyConnected", "d6/df9/a02923.html#ad07698b082297494fcfd4e00447032b8", null ],
+    [ "conv1_", "d6/df9/a02923.html#a70ae1d0284bd95538abd01a90cda779b", null ],
+    [ "conv2_", "d6/df9/a02923.html#a0dd632bfb266962fd3af3b76d27fe838", null ],
+    [ "hvdcActivePowerControl_", "d6/df9/a02923.html#a3fcf723cf24e7505dfa11bb21d97d602", null ],
+    [ "hvdcActivePowerRange_", "d6/df9/a02923.html#a6ba5f37f515bde26e85d6be3f2e3476a", null ],
+    [ "hvdcLineIIDM_", "d6/df9/a02923.html#abcb8a1aae75adbeaaf783ea9abab9d0d", null ]
+];

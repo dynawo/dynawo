@@ -1,0 +1,25 @@
+var a02855 =
+[
+    [ "~ThreeWTransformerInterface", "dc/d05/a02855.html#ab35dda502b8727cfb78bf6a6c145f73b", null ],
+    [ "addCurrentLimitInterface1", "dc/d05/a02855.html#ad881326ccedf7573befa0040f2e5fa0e", null ],
+    [ "addCurrentLimitInterface2", "dc/d05/a02855.html#aab3ed47b9a7ad5aec7ab29dafeae03fb", null ],
+    [ "addCurrentLimitInterface3", "dc/d05/a02855.html#ae82c5d9e078667d41bd77625d66919a3", null ],
+    [ "exportStateVariablesUnitComponent", "dc/d05/a02855.html#a131a373ee8b5baf7c71c3564b33641ca", null ],
+    [ "getActiveSeason", "dc/d05/a02855.html#a06b9de3c435cb647621d41bc4a53eab8", null ],
+    [ "getBusInterface1", "dc/d05/a02855.html#a87ad2ffdc4f63c8c5dba588d1484d9f5", null ],
+    [ "getBusInterface2", "dc/d05/a02855.html#a4e002d0482177dd7a02d7fce4f16bf09", null ],
+    [ "getBusInterface3", "dc/d05/a02855.html#a03570e4ebdfdbf1d5a99e15b819fbd1d", null ],
+    [ "getCurrentLimitInterfaces1", "dc/d05/a02855.html#aca572ce1fbf98a43f8f685de88e1c618", null ],
+    [ "getCurrentLimitInterfaces2", "dc/d05/a02855.html#a146762e044e76c27ef900b51d49cdfee", null ],
+    [ "getCurrentLimitInterfaces3", "dc/d05/a02855.html#a5988d96fd2114ed7dee698d50e406f70", null ],
+    [ "getID", "dc/d05/a02855.html#ae0ba664ce03f4988f2f6a8d1d5ae99f5", null ],
+    [ "getInitialConnected1", "dc/d05/a02855.html#afc5de636ab69d95dd87758e4977949f2", null ],
+    [ "getInitialConnected2", "dc/d05/a02855.html#aaf2345d9e4ff8a85383210f6a6a6bebf", null ],
+    [ "getInitialConnected3", "dc/d05/a02855.html#a756d71e2facdd1ed54c28067e57fbdcf", null ],
+    [ "setBusInterface1", "dc/d05/a02855.html#af10be8e15e39582c2f835edab215f21a", null ],
+    [ "setBusInterface2", "dc/d05/a02855.html#aea81dda14b59127aa5ea48de44061cb8", null ],
+    [ "setBusInterface3", "dc/d05/a02855.html#ae2ea66f0ed8370d47ba6cf332a714045", null ],
+    [ "setVoltageLevelInterface1", "dc/d05/a02855.html#a2d02c8bd23176976bcde1b219a086089", null ],
+    [ "setVoltageLevelInterface2", "dc/d05/a02855.html#a8820e8348592b525b05e009d05a69c1d", null ],
+    [ "setVoltageLevelInterface3", "dc/d05/a02855.html#acc9fbffd2cd7fa9dee0f9bd0c8c48030", null ]
+];

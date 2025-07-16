@@ -1,0 +1,66 @@
+var a03059 =
+[
+    [ "CalculatedVars_t", "da/d9e/a03059.html#a867a29d76eba09d2e9180f1f2560094b", [
+      [ "levelNum_", "da/d9e/a03059.html#a867a29d76eba09d2e9180f1f2560094bac31c6aa5892ea1000ed2719682231e39", null ],
+      [ "nbCalculatedVariables_", "da/d9e/a03059.html#a867a29d76eba09d2e9180f1f2560094ba5f263002e0d22be12336353f3ced1522", null ]
+    ] ],
+    [ "IndexContinuousVariable_t", "da/d9e/a03059.html#a03b409887349ddc5146014e3d4f8bd84", [
+      [ "UpPuNum_", "da/d9e/a03059.html#a03b409887349ddc5146014e3d4f8bd84a3237fb2ec7d2cfc0e4f37f0912ab2e80", null ],
+      [ "nbContinuousVariables_", "da/d9e/a03059.html#a03b409887349ddc5146014e3d4f8bd84a3fb5241704a9327e25549bca89955e31", null ]
+    ] ],
+    [ "IndexDiscreteVariable_t", "da/d9e/a03059.html#a0c6c348edd4a845d8acacec488441edf", [
+      [ "UpRefPuNum_", "da/d9e/a03059.html#a0c6c348edd4a845d8acacec488441edfa3d9ca585c24ba72ebf57ab83f0450be2", null ],
+      [ "tLastActivationNum_", "da/d9e/a03059.html#a0c6c348edd4a845d8acacec488441edfaa6e47b071374ed3a156f697c15ba01b1", null ],
+      [ "levelValNum_", "da/d9e/a03059.html#a0c6c348edd4a845d8acacec488441edfa072f604039e76fcb1b3ce053dedf85c7", null ],
+      [ "firstIndexBlockerNum_", "da/d9e/a03059.html#a0c6c348edd4a845d8acacec488441edfaaa2b29f87d094a7f24e8bc7d9fdedc6f", null ]
+    ] ],
+    [ "IndexRootVariable_t", "da/d9e/a03059.html#a59c04adce8bbcf54f43abc4797d758f9", [
+      [ "ActivationNum_", "da/d9e/a03059.html#a59c04adce8bbcf54f43abc4797d758f9abea843bad6a4a534e1cda97287790602", null ],
+      [ "BlockingNum_", "da/d9e/a03059.html#a59c04adce8bbcf54f43abc4797d758f9ad52de86f4b98bebfa6b36a69e3c51acb", null ]
+    ] ],
+    [ "ModelSecondaryVoltageControlSimplified", "da/d9e/a03059.html#a48cfdb52dd5c3d75a0ea00a24b5e4cca", null ],
+    [ "antiWindUpCorrection", "da/d9e/a03059.html#a9863bae31037695128749d7a8ee8ecc2", null ],
+    [ "collectSilentZ", "da/d9e/a03059.html#aa8d77d3c222d949bf2d579997c253279", null ],
+    [ "defineElements", "da/d9e/a03059.html#ab6bc0ed420246b3816b4437097bbad2f", null ],
+    [ "defineParameters", "da/d9e/a03059.html#a46946000e54df843622a7f2cce98176c", null ],
+    [ "defineVariables", "da/d9e/a03059.html#a935768708b8e758f3ccc05d462360502", null ],
+    [ "dumpInternalVariables", "da/d9e/a03059.html#ad4ffd647217501272cdbc2c04248c4fe", null ],
+    [ "dumpUserReadableElementList", "da/d9e/a03059.html#acf8bae903b22308db8d6c2cfd0d678fe", null ],
+    [ "evalCalculatedVarI", "da/d9e/a03059.html#a1a404a425ebd7a5ba876ddc99ffe7fce", null ],
+    [ "evalCalculatedVars", "da/d9e/a03059.html#aae8d09485613e312235c0c062c3061d5", null ],
+    [ "evalDynamicFType", "da/d9e/a03059.html#aebb1dbd81701b851c81555851dc0f460", null ],
+    [ "evalDynamicYType", "da/d9e/a03059.html#a846d83a82f3a16ab1e45d08d0c17ff3e", null ],
+    [ "evalF", "da/d9e/a03059.html#aca1b4586894a22051d24ac2895436dce", null ],
+    [ "evalG", "da/d9e/a03059.html#a7e5558e8f00e125aa076a2bcf0dc8b7d", null ],
+    [ "evalJCalculatedVarI", "da/d9e/a03059.html#a8e86f3afda7eb23b06b652e4315a269a", null ],
+    [ "evalJt", "da/d9e/a03059.html#a56b20a06f631fc2269984b6559a5adf0", null ],
+    [ "evalJtPrim", "da/d9e/a03059.html#a0dfedfaeac0a26ffd852a2e57ffb5500", null ],
+    [ "evalMode", "da/d9e/a03059.html#a7cab46b3329e49c85f4f1f4331807d39", null ],
+    [ "evalStaticFType", "da/d9e/a03059.html#a7849e47cdb6228b0da177cbc9c060d1a", null ],
+    [ "evalStaticYType", "da/d9e/a03059.html#af7e0da08e856cab74709e6db0181c08f", null ],
+    [ "evalZ", "da/d9e/a03059.html#a9827f673f252f63887b59daf27fa798d", null ],
+    [ "getCheckSum", "da/d9e/a03059.html#ac6bb6bb5b2d9bd2ee55ea33159b59727", null ],
+    [ "getIndexesOfVariablesUsedForCalculatedVarI", "da/d9e/a03059.html#a71ac043f93deda444856ae3d732c629f", null ],
+    [ "getSize", "da/d9e/a03059.html#acc0cc4c122340f7eaee4bf17796c4918", null ],
+    [ "getY0", "da/d9e/a03059.html#ad5704c7ec1ad9c5d9b22af78b9acc2ce", null ],
+    [ "init", "da/d9e/a03059.html#a40f701eb8eb2b58680beb6879817bccc", null ],
+    [ "initializeFromData", "da/d9e/a03059.html#a54cf812f9602fd9f50bda465fd72453a", null ],
+    [ "initializeStaticData", "da/d9e/a03059.html#a552a13fdcd1e16a68655af5e0a137d30", null ],
+    [ "initParams", "da/d9e/a03059.html#a37fa73e81d25553a11dfb85d0aaa96d3", null ],
+    [ "loadInternalVariables", "da/d9e/a03059.html#ad550ae06244c30c90bf58ac29f3ef444", null ],
+    [ "setFequations", "da/d9e/a03059.html#acfc8593547034053cfd14ec14b85d2d1", null ],
+    [ "setGequations", "da/d9e/a03059.html#ae8165df048e171964939ff1716120463", null ],
+    [ "setSubModelParameters", "da/d9e/a03059.html#a048ca9b52ebd62e86d9d7ab7fc64174f", null ],
+    [ "alpha_", "da/d9e/a03059.html#a7f9776039972c18e0f0c75f4ebbfd8d7", null ],
+    [ "beta_", "da/d9e/a03059.html#afa3bbd27221944e92fce76a4d7513023", null ],
+    [ "feedBackCorrection_", "da/d9e/a03059.html#a563ff552f6d3bb0f4e2f5760d5510508", null ],
+    [ "iTerm_", "da/d9e/a03059.html#ab5b9fa1ff64756bee8013b47246b7bd7", null ],
+    [ "LEVEL_MAX", "da/d9e/a03059.html#a82687efe4380ef7a7e96c2063e2b2379", null ],
+    [ "LEVEL_MIN", "da/d9e/a03059.html#a542135de921af2d50b322b4a55cad60a", null ],
+    [ "nbGenerators_", "da/d9e/a03059.html#a3595509f96661ecc6ea88c4f12014bd5", null ],
+    [ "Q0Pu_", "da/d9e/a03059.html#a824160550ac81fecf27ee0dd8b1f353b", null ],
+    [ "Qr_", "da/d9e/a03059.html#a38ce0eaf48ce950ebeef1f67a280ef78", null ],
+    [ "tSample_", "da/d9e/a03059.html#adb0ab06750d70d5d797fab8c249c7e5c", null ],
+    [ "UDeadBandPu_", "da/d9e/a03059.html#a357df1b9e1ef68ea915fbebf1c9520a2", null ],
+    [ "UpRef0Pu_", "da/d9e/a03059.html#a490e40dd13ea6046efb747df14cce2d8", null ]
+];

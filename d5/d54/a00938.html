@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNModelNetwork.h File Reference</title>
+<title>Dynawo: DYNModelLine.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,42 +95,25 @@ $(document).ready(function(){initNavTree('d5/d54/a00938.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">DYNModelNetwork.h File Reference</div>  </div>
+<div class="title">DYNModelLine.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>Model Network header.  
-<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;boost/shared_ptr.hpp&gt;</code><br />
-<code>#include &lt;boost/core/noncopyable.hpp&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../d2/d5e/a00860_source.html">DYNModelCPP.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d7/d80/a00614_source.html">DYNSubModelFactory.h</a>&quot;</code><br />
+<code>#include &lt;boost/archive/binary_iarchive.hpp&gt;</code><br />
+<code>#include &lt;boost/archive/binary_oarchive.hpp&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../d7/d98/a00983_source.html">DYNNetworkComponent.h</a>&quot;</code><br />
 </div>
 <p><a href="../../d5/d54/a00938_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2a/a03133.html">DYN::ModelNetworkFactory</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Network <a class="el" href="../../df/d40/a02609.html" title="Generic model Generic class for Model. ">Model</a> factory.  <a href="../../d0/d2a/a03133.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d09/a03139.html">DYN::ModelLine</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic AC line model.  <a href="../../d6/d09/a03139.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0f/a03137.html">DYN::ModelNetwork</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic class for the standard AC network (described using C++ models)  <a href="../../d2/d0f/a03137.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a6effe416f854f57d00517e13ae9a73ce"><td class="memItemLeft" align="right" valign="top"><a id="a6effe416f854f57d00517e13ae9a73ce"></a>
-static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d54/a00938.html#a6effe416f854f57d00517e13ae9a73ce">DYN::maximumValueCurrentLimit</a> = 5000</td></tr>
-<tr class="memdesc:a6effe416f854f57d00517e13ae9a73ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum acceptable value for current limits. <br /></td></tr>
-<tr class="separator:a6effe416f854f57d00517e13ae9a73ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Model Network header. </p>
-<p>Model Network is the container of all subModels who constitute a network such as voltage levels, lines (AC or DC), transformers, etc.. </p>
-</div></div><!-- contents -->
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -146,8 +129,8 @@ static const double&#160;</td><td class="memItemRight" valign="bottom"><a class=
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_a4d4f000bd99afbf77ec024c15aebee1.html">Models</a></li><li class="navelem"><a class="el" href="../../dir_1d85a110c1104c8803c230870bb3238d.html">CPP</a></li><li class="navelem"><a class="el" href="../../dir_3973929b854910cd78a606b051bb30eb.html">ModelNetwork</a></li><li class="navelem"><a class="el" href="../../d5/d54/a00938.html">DYNModelNetwork.h</a></li>
-    <li class="footer">Generated on Tue Jul 15 2025 12:54:16 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_a4d4f000bd99afbf77ec024c15aebee1.html">Models</a></li><li class="navelem"><a class="el" href="../../dir_1d85a110c1104c8803c230870bb3238d.html">CPP</a></li><li class="navelem"><a class="el" href="../../dir_3973929b854910cd78a606b051bb30eb.html">ModelNetwork</a></li><li class="navelem"><a class="el" href="../../d5/d54/a00938.html">DYNModelLine.h</a></li>
+    <li class="footer">Generated on Wed Jul 16 2025 08:49:04 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

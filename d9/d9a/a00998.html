@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNSimulationLauncher.h File Reference</title>
+<title>Dynawo: DYNSimulation.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,54 +95,40 @@ $(document).ready(function(){initNavTree('d9/d9a/a00998.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">DYNSimulationLauncher.h File Reference</div>  </div>
+<div class="title">DYNSimulation.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>function to launch a Dynawo simulation  
+<p>Simulation header.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;string&gt;</code><br />
+<div class="textblock"><code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;queue&gt;</code><br />
+<code>#include &lt;unordered_map&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;boost/shared_ptr.hpp&gt;</code><br />
+<code>#include &lt;boost/optional.hpp&gt;</code><br />
+<code>#include &lt;boost/filesystem.hpp&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../dd/d48/a00995_source.html">DYNSignalHandler.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d8/d91/a00410_source.html">PARParametersSetCollection.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../dc/de4/a00677_source.html">DYNDataInterface.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d6/dcf/a01031_source.html">DYNSolverFactory.h</a>&quot;</code><br />
 </div>
 <p><a href="../../d9/d9a/a00998_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a52f1b863d11e6aa43f07f2c2ce4f941a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9a/a00998.html#a52f1b863d11e6aa43f07f2c2ce4f941a">launchSimu</a> (const std::string &amp;jobsFileName)</td></tr>
-<tr class="memdesc:a52f1b863d11e6aa43f07f2c2ce4f941a"><td class="mdescLeft">&#160;</td><td class="mdescRight">launch a simulation thanks to a description contains in jobsFileName  <a href="#a52f1b863d11e6aa43f07f2c2ce4f941a">More...</a><br /></td></tr>
-<tr class="separator:a52f1b863d11e6aa43f07f2c2ce4f941a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d4b/a03207.html">DYN::Simulation</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../db/d4b/a03207.html" title="Simulation class. ">Simulation</a> class.  <a href="../../db/d4b/a03207.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/ddf/a03211.html">DYN::Simulation::ExportStateDefinition</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">definition of dump to export  <a href="../../d5/ddf/a03211.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>function to launch a Dynawo simulation </p>
-</div><h2 class="groupheader">Function Documentation</h2>
-<a id="a52f1b863d11e6aa43f07f2c2ce4f941a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a52f1b863d11e6aa43f07f2c2ce4f941a">&#9670;&nbsp;</a></span>launchSimu()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void launchSimu </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>jobsFileName</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>launch a simulation thanks to a description contains in jobsFileName </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">jobsFileName</td><td>file describing the job(s) to launch </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-</div><!-- contents -->
+<div class="textblock"><p>Simulation header. </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -158,8 +144,8 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c196e9acfbd395f9ea7583269b7db29c.html">Simulation</a></li><li class="navelem"><a class="el" href="../../d9/d9a/a00998.html">DYNSimulationLauncher.h</a></li>
-    <li class="footer">Generated on Tue Jul 15 2025 12:54:16 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c196e9acfbd395f9ea7583269b7db29c.html">Simulation</a></li><li class="navelem"><a class="el" href="../../d9/d9a/a00998.html">DYNSimulation.h</a></li>
+    <li class="footer">Generated on Wed Jul 16 2025 08:49:05 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

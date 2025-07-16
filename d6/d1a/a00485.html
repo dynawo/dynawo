@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNGraph.h File Reference</title>
+<title>Dynawo: DYNExecUtils.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,83 +95,194 @@ $(document).ready(function(){initNavTree('d6/d1a/a00485.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">DYNGraph.h File Reference</div>  </div>
+<div class="title">DYNExecUtils.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Graph interface : encapsulation of boost::graph.  
+<p>define utily function  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;utility&gt;</code><br />
-<code>#include &lt;unordered_map&gt;</code><br />
-<code>#include &lt;boost/graph/adjacency_list.hpp&gt;</code><br />
-<code>#include &lt;boost/graph/adjacency_iterator.hpp&gt;</code><br />
-<code>#include &lt;boost/graph/filtered_graph.hpp&gt;</code><br />
-<code>#include &lt;boost/graph/graph_traits.hpp&gt;</code><br />
-<code>#include &lt;boost/graph/connected_components.hpp&gt;</code><br />
-<code>#include &lt;boost/property_map/property_map.hpp&gt;</code><br />
-<code>#include &lt;boost/graph/iteration_macros.hpp&gt;</code><br />
-<code>#include &lt;boost/graph/properties.hpp&gt;</code><br />
+<div class="textblock"><code>#include &lt;string&gt;</code><br />
+<code>#include &lt;sstream&gt;</code><br />
 </div>
 <p><a href="../../d6/d1a/a00485_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/a02473.html">positive_edge_weight&lt; EdgeWeightMap &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">edge predicate to filter edge contained in a boost graph  <a href="../../d9/dc1/a02473.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dc2/a02477.html">DYN::Graph</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d0/dc2/a02477.html" title="Graph class to manipulate topology graph. ">Graph</a> class to manipulate topology graph.  <a href="../../d0/dc2/a02477.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:aebe53ad155bce2c97bd20d6e64c88068"><td class="memItemLeft" align="right" valign="top"><a id="aebe53ad155bce2c97bd20d6e64c88068"></a>
-typedef boost::property&lt; boost::edge_weight_t, float, boost::property&lt; boost::edge_name_t, std::string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d1a/a00485.html#aebe53ad155bce2c97bd20d6e64c88068">EdgeProperty</a></td></tr>
-<tr class="memdesc:aebe53ad155bce2c97bd20d6e64c88068"><td class="mdescLeft">&#160;</td><td class="mdescRight">properties associated to an edge <br /></td></tr>
-<tr class="separator:aebe53ad155bce2c97bd20d6e64c88068"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b41190895ba885934add0c54df91118"><td class="memItemLeft" align="right" valign="top"><a id="a3b41190895ba885934add0c54df91118"></a>
-typedef boost::property&lt; boost::vertex_name_t, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d1a/a00485.html#a3b41190895ba885934add0c54df91118">VertexProperty</a></td></tr>
-<tr class="memdesc:a3b41190895ba885934add0c54df91118"><td class="mdescLeft">&#160;</td><td class="mdescRight">property associated to a vertex <br /></td></tr>
-<tr class="separator:a3b41190895ba885934add0c54df91118"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b45114031aeed966d2b92a12cc720e3"><td class="memItemLeft" align="right" valign="top"><a id="a8b45114031aeed966d2b92a12cc720e3"></a>
-typedef boost::adjacency_list&lt; boost::vecS, boost::vecS, boost::undirectedS, <a class="el" href="../../d6/d1a/a00485.html#a3b41190895ba885934add0c54df91118">VertexProperty</a>, <a class="el" href="../../d6/d1a/a00485.html#aebe53ad155bce2c97bd20d6e64c88068">EdgeProperty</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d1a/a00485.html#a8b45114031aeed966d2b92a12cc720e3">BoostGraph</a></td></tr>
-<tr class="memdesc:a8b45114031aeed966d2b92a12cc720e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">graph description <br /></td></tr>
-<tr class="separator:a8b45114031aeed966d2b92a12cc720e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a647fa4b703900efea039dfd0f045be9f"><td class="memItemLeft" align="right" valign="top"><a id="a647fa4b703900efea039dfd0f045be9f"></a>
-typedef boost::graph_traits&lt; <a class="el" href="../../d6/d1a/a00485.html#a8b45114031aeed966d2b92a12cc720e3">BoostGraph</a> &gt;::vertex_descriptor&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d1a/a00485.html#a647fa4b703900efea039dfd0f045be9f">Vertex</a></td></tr>
-<tr class="memdesc:a647fa4b703900efea039dfd0f045be9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">vertex description <br /></td></tr>
-<tr class="separator:a647fa4b703900efea039dfd0f045be9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a15934c7040701cca444651ffea895632"><td class="memItemLeft" align="right" valign="top"><a id="a15934c7040701cca444651ffea895632"></a>
-typedef BoostGraph::edge_descriptor&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d1a/a00485.html#a15934c7040701cca444651ffea895632">Edge</a></td></tr>
-<tr class="memdesc:a15934c7040701cca444651ffea895632"><td class="mdescLeft">&#160;</td><td class="mdescRight">edge description <br /></td></tr>
-<tr class="separator:a15934c7040701cca444651ffea895632"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2756067ac4299feb1969fdeb75e33393"><td class="memItemLeft" align="right" valign="top"><a id="a2756067ac4299feb1969fdeb75e33393"></a>
-typedef std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d1a/a00485.html#a2756067ac4299feb1969fdeb75e33393">PathDescription</a></td></tr>
-<tr class="memdesc:a2756067ac4299feb1969fdeb75e33393"><td class="mdescLeft">&#160;</td><td class="mdescRight">path description <br /></td></tr>
-<tr class="separator:a2756067ac4299feb1969fdeb75e33393"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2482b682f3dbd3065b4009fe7caffe41"><td class="memItemLeft" align="right" valign="top"><a id="a2482b682f3dbd3065b4009fe7caffe41"></a>
-typedef boost::property_map&lt; <a class="el" href="../../d6/d1a/a00485.html#a8b45114031aeed966d2b92a12cc720e3">BoostGraph</a>, boost::edge_weight_t &gt;::type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d1a/a00485.html#a2482b682f3dbd3065b4009fe7caffe41">EdgeWeightMap</a></td></tr>
-<tr class="memdesc:a2482b682f3dbd3065b4009fe7caffe41"><td class="mdescLeft">&#160;</td><td class="mdescRight">property map associated to the weight of each edge <br /></td></tr>
-<tr class="separator:a2482b682f3dbd3065b4009fe7caffe41"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e22c033e5d0f185db348167415d2602"><td class="memItemLeft" align="right" valign="top"><a id="a8e22c033e5d0f185db348167415d2602"></a>
-typedef boost::graph_traits&lt; <a class="el" href="../../d6/d1a/a00485.html#a8b45114031aeed966d2b92a12cc720e3">BoostGraph</a> &gt;::<a class="el" href="../../d6/d1a/a00485.html#a8e22c033e5d0f185db348167415d2602">adjacency_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d1a/a00485.html#a8e22c033e5d0f185db348167415d2602">adjacency_iterator</a></td></tr>
-<tr class="memdesc:a8e22c033e5d0f185db348167415d2602"><td class="mdescLeft">&#160;</td><td class="mdescRight">iterator on adjacency_list <br /></td></tr>
-<tr class="separator:a8e22c033e5d0f185db348167415d2602"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03bdeaa9cdeb2887906b98c7e93c5ae7"><td class="memItemLeft" align="right" valign="top"><a id="a03bdeaa9cdeb2887906b98c7e93c5ae7"></a>
-typedef boost::filtered_graph&lt; <a class="el" href="../../d6/d1a/a00485.html#a8b45114031aeed966d2b92a12cc720e3">BoostGraph</a>, <a class="el" href="../../d9/dc1/a02473.html">positive_edge_weight</a>&lt; <a class="el" href="../../d6/d1a/a00485.html#a2482b682f3dbd3065b4009fe7caffe41">EdgeWeightMap</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d1a/a00485.html#a03bdeaa9cdeb2887906b98c7e93c5ae7">FilteredBoostGraph</a></td></tr>
-<tr class="memdesc:a03bdeaa9cdeb2887906b98c7e93c5ae7"><td class="mdescLeft">&#160;</td><td class="mdescRight">filtered graph description <br /></td></tr>
-<tr class="separator:a03bdeaa9cdeb2887906b98c7e93c5ae7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2cbd2cacebaf6e38c75bce0ab353db5f"><td class="memItemLeft" align="right" valign="top"><a id="a2cbd2cacebaf6e38c75bce0ab353db5f"></a>
-typedef boost::graph_traits&lt; <a class="el" href="../../d6/d1a/a00485.html#a03bdeaa9cdeb2887906b98c7e93c5ae7">FilteredBoostGraph</a> &gt;::<a class="el" href="../../d6/d1a/a00485.html#a8e22c033e5d0f185db348167415d2602">adjacency_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d1a/a00485.html#a2cbd2cacebaf6e38c75bce0ab353db5f">adjacency_iterator_filtered</a></td></tr>
-<tr class="memdesc:a2cbd2cacebaf6e38c75bce0ab353db5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">iterator on adjacency_list for filtered graph <br /></td></tr>
-<tr class="separator:a2cbd2cacebaf6e38c75bce0ab353db5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a6ad40d975ce0190b8c16dae8fb930780"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d1a/a00485.html#a6ad40d975ce0190b8c16dae8fb930780">prettyPath</a> (const std::string &amp;path)</td></tr>
+<tr class="memdesc:a6ad40d975ce0190b8c16dae8fb930780"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the canonical path from a path  <a href="#a6ad40d975ce0190b8c16dae8fb930780">More...</a><br /></td></tr>
+<tr class="separator:a6ad40d975ce0190b8c16dae8fb930780"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa38c6b69c1f300fc7073deb9e93972de"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d1a/a00485.html#aa38c6b69c1f300fc7073deb9e93972de">executeCommand</a> (const std::string &amp;command, std::stringstream &amp;ss, const std::string &amp;startDir=&quot;&quot;)</td></tr>
+<tr class="memdesc:aa38c6b69c1f300fc7073deb9e93972de"><td class="mdescLeft">&#160;</td><td class="mdescRight">execute a command  <a href="#aa38c6b69c1f300fc7073deb9e93972de">More...</a><br /></td></tr>
+<tr class="separator:aa38c6b69c1f300fc7073deb9e93972de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ff5923e5500aa2dba0507dbd347c33a"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d1a/a00485.html#a0ff5923e5500aa2dba0507dbd347c33a">getEnvVar</a> (std::string const &amp;key)</td></tr>
+<tr class="memdesc:a0ff5923e5500aa2dba0507dbd347c33a"><td class="mdescLeft">&#160;</td><td class="mdescRight">retrieve a given environment variable  <a href="#a0ff5923e5500aa2dba0507dbd347c33a">More...</a><br /></td></tr>
+<tr class="separator:a0ff5923e5500aa2dba0507dbd347c33a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71a143f7ac7fcbdf9a8530e767d2e654"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d1a/a00485.html#a71a143f7ac7fcbdf9a8530e767d2e654">getMandatoryEnvVar</a> (const std::string &amp;key)</td></tr>
+<tr class="memdesc:a71a143f7ac7fcbdf9a8530e767d2e654"><td class="mdescLeft">&#160;</td><td class="mdescRight">retrieve a given mandatory environment variable  <a href="#a71a143f7ac7fcbdf9a8530e767d2e654">More...</a><br /></td></tr>
+<tr class="separator:a71a143f7ac7fcbdf9a8530e767d2e654"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acea903b4b06b59a864120f417c3e60f0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d1a/a00485.html#acea903b4b06b59a864120f417c3e60f0">hasEnvVar</a> (const std::string &amp;key)</td></tr>
+<tr class="memdesc:acea903b4b06b59a864120f417c3e60f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">check whether a given environment variable exists  <a href="#acea903b4b06b59a864120f417c3e60f0">More...</a><br /></td></tr>
+<tr class="separator:acea903b4b06b59a864120f417c3e60f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Graph interface : encapsulation of boost::graph. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>define utily function </p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="aa38c6b69c1f300fc7073deb9e93972de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa38c6b69c1f300fc7073deb9e93972de">&#9670;&nbsp;</a></span>executeCommand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int executeCommand </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>command</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::stringstream &amp;&#160;</td>
+          <td class="paramname"><em>ss</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>startDir</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>execute a command </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">command</td><td>command to execute </td></tr>
+    <tr><td class="paramname">ss</td><td>log from the executed command </td></tr>
+    <tr><td class="paramname">startDir</td><td>optional starting directory (current dir by default) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>return code </dd></dl>
+
+</div>
+</div>
+<a id="a0ff5923e5500aa2dba0507dbd347c33a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ff5923e5500aa2dba0507dbd347c33a">&#9670;&nbsp;</a></span>getEnvVar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string getEnvVar </td>
+          <td>(</td>
+          <td class="paramtype">std::string const &amp;&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>retrieve a given environment variable </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>key of the environment variable</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value of the environment variable </dd></dl>
+
+</div>
+</div>
+<a id="a71a143f7ac7fcbdf9a8530e767d2e654"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71a143f7ac7fcbdf9a8530e767d2e654">&#9670;&nbsp;</a></span>getMandatoryEnvVar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string getMandatoryEnvVar </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>retrieve a given mandatory environment variable </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>key of the mandatory environment variable</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value of the mandatory environment variable </dd></dl>
+
+</div>
+</div>
+<a id="acea903b4b06b59a864120f417c3e60f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acea903b4b06b59a864120f417c3e60f0">&#9670;&nbsp;</a></span>hasEnvVar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hasEnvVar </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>check whether a given environment variable exists </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>key of the environment variable</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><b>true</b> if the variable exists </dd></dl>
+
+</div>
+</div>
+<a id="a6ad40d975ce0190b8c16dae8fb930780"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ad40d975ce0190b8c16dae8fb930780">&#9670;&nbsp;</a></span>prettyPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string prettyPath </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>get the canonical path from a path </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>: path to find the canonical path</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the canonical path </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -187,8 +298,8 @@ typedef boost::graph_traits&lt; <a class="el" href="../../d6/d1a/a00485.html#a03
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c5eaf1ac1cf936f6800d020d474d243d.html">Common</a></li><li class="navelem"><a class="el" href="../../d6/d1a/a00485.html">DYNGraph.h</a></li>
-    <li class="footer">Generated on Tue Jul 15 2025 12:54:15 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c5eaf1ac1cf936f6800d020d474d243d.html">Common</a></li><li class="navelem"><a class="el" href="../../d6/d1a/a00485.html">DYNExecUtils.h</a></li>
+    <li class="footer">Generated on Wed Jul 16 2025 08:49:04 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
