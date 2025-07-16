@@ -139,6 +139,7 @@
     <xs:restriction base="xs:string">
       <xs:enumeration value="XML"/>
       <xs:enumeration value="TXT"/>
+      <xs:enumeration value="JSON"/>
     </xs:restriction>
   </xs:simpleType>
 
@@ -166,6 +167,7 @@
       <xs:enumeration value="TXT"/>
       <xs:enumeration value="CSV"/>
       <xs:enumeration value="XML"/>
+      <xs:enumeration value="JSON"/>
     </xs:restriction>
   </xs:simpleType>
 

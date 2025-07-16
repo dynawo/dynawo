@@ -106,7 +106,7 @@ typedef enum {
 * define value type of the constraints
 */
 typedef enum {
-  NO_CONSTRAINTS_FILTER = 0,
+  NO_CONSTRAINTS_FILTER = 0,     ///< no value registered
   CONSTRAINTS_KEEP_FIRST,     ///< value registered in the constraint should be the first value seen by the simulation
   CONSTRAINTS_KEEP_LAST,          ///< value registered in the constraint should be the last value seen by the simulation
   SIZE_OF_ENUM  ///< value to use ONLY to assess the enumeration size
