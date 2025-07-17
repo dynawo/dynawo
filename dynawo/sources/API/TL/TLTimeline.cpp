@@ -141,6 +141,11 @@ Timeline::filter(const unordered_map<string, unordered_set<string>>& oppositeEve
 }
 
 void
+Timeline::clear() {
+  events_.clear();
+}
+
+void
 Timeline::eraseEvents(int nbEvents) {
   std::vector<std::unique_ptr<Event> >::iterator firstPosition = events_.end();
   for (int i = 0; i < nbEvents; i++)

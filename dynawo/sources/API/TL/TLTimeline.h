@@ -101,6 +101,11 @@ class Timeline {
     return events_;
   }
 
+  /**
+   * @brief empty constraint collection
+   */
+  void clear();
+
  private:
   /**
    * @brief compare two events

@@ -151,5 +151,8 @@ TEST(APITLTest, TimelineFilter) {
     ++index;
   }
   ASSERT_EQ(index, 8);
+
+  timeline->clear();
+  ASSERT_EQ(timeline->getEvents().size(), 0);
 }
 }  // namespace timeline

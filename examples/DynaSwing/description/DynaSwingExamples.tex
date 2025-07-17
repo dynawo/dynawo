@@ -542,19 +542,19 @@ We observe that the voltage at node 2 falls to zero. As the voltage is zero duri
 
 \chapter{WECC}
 
-This chapter presents 8 test cases simulating five models of renewable energies generators :
+This chapter presents 11 test cases simulating five models of renewable energies generators :
 \begin{itemize}
 \item A PV plant with the injector represented as a current source (WECCPVCurrentSource).
-\item A PV plant with the injector represented as a voltage source (WECCPVVoltageSource).
+\item A PV plant with the injector represented as a voltage source. Two REGC models enables the voltage source connection REGC-B : WECCPVVoltageSource1, WECCPVVoltageSource2 and REGC-C : WECCPVVoltageSource3, WECCPVVoltageSource4.
 \item A Wind plant of type 4A with the injector represented as a current source (WECCWTG4ACurrentSource1 and WECCWTG4ACurrent
 Source2).
 The type 4A is refered to the wind with representation of drive train control. There are two test cases : WECCWTG4ACurrentSource1 where WTGTA model is used to represent the drive train control with constant mechanical power and  WECCWTG4ACurrentSource2 with WTGTB model with the mechanical power derived from the electrical power.
 \item A Wind plant of type 4B with the injector represented as a current source (WECCWTG4BCurrentSource). The type 4B doesn't have a drive train control representation.
 \item A Wind plant of type 3  with the injector represented as a current source (WECCWTG3CurrentSource1 and WECCWTG3CurrentSource2). The type 3 wind model has a representation of the mechanical part. There are two test cases :  WECCWTG3CurrentSource1 with the combination of WTGQA, WTGPA, WTGAA and WTGTA for the mechanical part, and WECCWTG3CurrentSource2 with the combination of WTGQA, WTGPB, WTGAA and WTGTA.
-\item A battery energy storage system (BESS) with the injector represented as current source (WECCBESScbCurrentSource)
+\item A battery energy storage system (BESS) with the injector represented as current source (WECCBESSCurrentSource)
 \end{itemize}
 
-All five models are taken from the WECC standard and can be found here:
+All 11 models are taken from the WECC standard and can be found here:
 \begin{itemize}
 \item PV:
 
@@ -571,8 +571,8 @@ All five models are taken from the WECC standard and can be found here:
 \end{itemize}
 
 
-\section{PV and Wind}
-The implementation of the models WECCPVCurrentSource, WECCPVvoltageSource, WECCWTG4ACurrentSource1 and WECCWTG4BCurrentSource in Modelica has lead to the following publication in the 14th Modelica conference:\\
+\section{PV and Wind current source}
+The implementation of the models WECCPVCurrentSource, WECCWTG4ACurrentSource1 and WECCWTG4BCurrentSource in Modelica has lead to the following publication in the 14th Modelica conference:\\
 
 M. Nuschke, S. Lohr, A. Guironnet and M. Saugier, "Implementation and Validation of the Generic WECC Photovoltaics and Wind Turbine Generator Models in Modelica", 2021.\\
 
@@ -582,7 +582,7 @@ M. Nuschke, S. Lohr, A. Guironnet and M. Saugier, "Implementation and Validation
 
 \subsection{Test case description}
 
-\par The four test cases are similar. The Wind turbine (or PV plant) is connected to an infinite bus through a line.
+\par The three test cases are similar. The Wind turbine (or PV plant) is connected to an infinite bus through a line.
 
 \begin{figure}[H]
   \includegraphics[width=\textwidth]{WECC.png}
@@ -608,7 +608,7 @@ M. Nuschke, S. Lohr, A. Guironnet and M. Saugier, "Implementation and Validation
 
 \subsubsection{Scenario}
 
-\par The same scenario is simulated in the four cases. First the infinite bus voltage is reduced from 1pu to 0.5pu from t=1s to t=2s. Then its frequency is increased to 1.01pu (from 1pu) from t=6s to t=6.5s.
+\par The same scenario is simulated in the three cases. First the infinite bus voltage is reduced from 1pu to 0.5pu from t=1s to t=2s. Then its frequency is increased to 1.01pu (from 1pu) from t=6s to t=6.5s.
 
 \subsection{Results}
 
@@ -619,6 +619,147 @@ M. Nuschke, S. Lohr, A. Guironnet and M. Saugier, "Implementation and Validation
 \begin{figure}[H]
   \includegraphics[width=\textwidth]{PQWECC.png}
   \caption{Active and reactive powers in pu}
+\end{figure}
+
+\section{PV with voltage source}
+Four test cases are available for the PV power plants connected with voltage source : WECCPVVoltageSource1, WECCPVVoltageSource2, WECCPVVoltageSource3 et WECCPVVoltageSource4.
+
+N.B :WECCPVVoltageSource1 and WECCPVVoltageSource3 could also be used to represent wind turbines.
+
+\subsection{WECCPVVoltageSource2 and WECCPVVoltageSource4}
+Here we are going to compare results from WECCPVVoltageSource2 (REPC-A + REEC-B + REGC-B) against WECCPVVoltageSource4 (REPC-A + REEC-B + REGC-C) :
+
+\subsubsection{Test case description}
+In both test cases, the PV power plants are connected to an infinite bus through a line.
+The line's parameters are $R = 0$ and $X = 0.3$ ($SCR = 3.33 $) to represent a weaker grid, differently than the previous test cases where the grid was strong.
+This configuration is chosen to highlight the differences between REGC-B and REGC-C that are seen in weak grids.
+
+Also, in order to compare both test cases, the parameter $tG = 0.2$ of REGC-B is chosen to match the response time of REGC-C with $Kii = 20$ and $Kip = 3$. Note that $tG$ with smaller values will cause oscillations due to instability in weak grid of faster response.
+
+
+\subsubsection{Initial Conditions}
+
+\par At t=0, the power plant is injecting 0.7 pu of active power and 0.2pu of reactive power into the grid. The voltage module at its terminal is 1.03713742957pu and the voltage angle is equal to 0.203890124rad.
+
+\subsubsection{Models}
+
+\par The models used for the PV plants are fully described in the \Dynawo library.
+
+\subsubsection{Solver}
+
+\par The solver used is the variable time step solver IDA with the following parameters:
+\begin{itemize}
+\item $Order$=2;
+\item $Accuracy_{Rel}$=$10^{-6}$;
+\item $Accuracy_{Abs}$=$10^{-4}$.
+\end{itemize}
+
+\subsubsection{Scenario}
+
+\par The same scenario is simulated in the two cases. First the infinite bus voltage is reduced from 1pu to 0.5u from t=4s to t=8s. Then its frequency is increased to 1.01pu (from 1pu) from t=16s to t=16.5s.
+
+\subsection{Results}
+
+\par The obtained results match the illustrated behavior found in the WECC report : in weak grid the case with REGC-C oscillates more than the case with REGC-B during the voltage drop. This is explained by the fact that the REGC-B model only has a filter at the cuurent loop level whereas REGC-C model has a PI controller.
+
+\par The injected active and reactive powers of of both test cases are shown in the following:
+
+\begin{figure}[H]
+\subfigure[Active power injected in pu (base SNom)]
+{%
+\begin{tikzpicture}
+    \begin{axis}[height = 2.5in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{WECCPVVSource_photovoltaics_wecc_reec_PInjPu}]
+        {../WECC/PV/WECCPVVoltageSource2/reference/outputs/curves/curves.csv};
+        \addplot[color=red!50]
+        table[x=time, y expr=\thisrow{WECCPVVSource_photovoltaics_wecc_reec_PInjPu}]
+        {../WECC/PV/WECCPVVoltageSource4/reference/outputs/curves/curves.csv};
+        \legend{$WECCPVVoltageSource2$, $WECCPVVoltageSource4$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Reactive power injected in pu (base SNom)]
+{%
+\begin{tikzpicture}
+    \begin{axis}[height =2.5in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{WECCPVVSource_photovoltaics_wecc_reec_QInjPu}]
+        {../WECC/PV/WECCPVVoltageSource2/reference/outputs/curves/curves.csv};
+        \addplot[color=red!50]
+        table[x=time, y expr=\thisrow{WECCPVVSource_photovoltaics_wecc_reec_QInjPu}]
+        {../WECC/PV/WECCPVVoltageSource4/reference/outputs/curves/curves.csv};
+        \legend{$WECCPVVoltageSource2$, $WECCPVVoltageSource4$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\end{figure}
+
+\subsection{WECCPVVoltageSource1 and WECCPVVoltageSource3}
+Here we are going to compare results from WECCPVVoltageSource1 (REPC-A + REEC-A + REGC-B) against WECCPVVoltageSource3 (REPC-A + REEC-A + REGC-C) :
+
+\subsubsection{Test case description}
+In both test cases, the PV power plants are connected to an infinite bus through a line.
+The line's parameters are $R = 0$ and $X = 0.0000020661$ to represent a strong grid.
+
+Also, in order to compare both test cases, the parameter $tG = 0.02$ of REGC-B is chosen to match the response time of REGC-C with $Kii = 30$ and $Kip = 5$.
+
+
+\subsubsection{Initial Conditions}
+
+\par At t=0, the power plant is injecting 0.7 pu of active power and 0.2pu of reactive power into the grid. The voltage module at its terminal is 1pu and the voltage angle is equal to 0.00000144621rad.
+
+\subsubsection{Models}
+
+\par The models used for the PV plants are fully described in the \Dynawo library.
+
+\subsubsection{Solver}
+
+\par The solver used is the variable time step solver IDA with the following parameters:
+\begin{itemize}
+\item $Order$=2;
+\item $Accuracy_{Rel}$=$10^{-6}$;
+\item $Accuracy_{Abs}$=$10^{-4}$.
+\end{itemize}
+
+\subsubsection{Scenario}
+
+\par The same scenario is simulated in the two cases. First the infinite bus voltage is reduced from 1pu to 0.5u from t=4s to t=8s. Then its frequency is increased to 1.01pu (from 1pu) from t=16s to t=16.5s.
+
+\subsection{Results}
+
+\par The obtained results match the illustrated behavior found in the WECC report : in strong grid, no oscillations is seen during the voltage drop and both PV plants have a similar behavior.
+\par The injected active and reactive powers of of both test cases are shown in the following:
+
+\begin{figure}[H]
+\subfigure[Active power injected in pu (base SNom)]
+{%
+\begin{tikzpicture}
+    \begin{axis}[height = 2.5in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{WECCPVVSource_photovoltaics_wecc_reec_PInjPu}]
+        {../WECC/PV/WECCPVVoltageSource1/reference/outputs/curves/curves.csv};
+        \addplot[color=red!50]
+        table[x=time, y expr=\thisrow{WECCPVVSource_photovoltaics_wecc_reec_PInjPu}]
+        {../WECC/PV/WECCPVVoltageSource3/reference/outputs/curves/curves.csv};
+        \legend{$WECCPVVoltageSource1$, $WECCPVVoltageSource3$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Reactive power injected in pu (base SNom)]
+{%
+\begin{tikzpicture}
+    \begin{axis}[height = 2.5in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{WECCPVVSource_photovoltaics_wecc_reec_QInjPu}]
+        {../WECC/PV/WECCPVVoltageSource1/reference/outputs/curves/curves.csv};
+        \addplot[color=red!50]
+        table[x=time, y expr=\thisrow{WECCPVVSource_photovoltaics_wecc_reec_QInjPu}]
+        {../WECC/PV/WECCPVVoltageSource3/reference/outputs/curves/curves.csv};
+        \legend{$WECCPVVoltageSource1$, $WECCPVVoltageSource3$}
+    \end{axis}
+  \end{tikzpicture}
+}
 \end{figure}
 
 \section{Type 3 Wind}
@@ -720,11 +861,11 @@ The initial values of P0Pu and Q0Pu are in base SnRef and in receptor convention
 RPu and XPu are set to 0 in the article, considering that we are controling the output at the injector level (not after the line of BESS).
 Numerically, XPu causes simulation failure at initialization, it is thus set to $10^{-6}$.
 
-All the parameters' values are taken from the article. The REGC-A parameters are adapted to the available model in the library REGC-B Current Source.
+All the parameters' values are taken from the article.
 
 \subsubsection{Models}
 
-The BESS (Battery Energy Storage System) is implemented with the combination of the plant control type A (REPC-A) the Generator/converter type B(REGC-B current source) followed by an injector and the electrical control type C (REEC-C) presented in \url{https://www.wecc.org/Reliability/REEC\_C\_031815\_rev3\%2520Model\%2520Spec.pdf}.
+The BESS (Battery Energy Storage System) is implemented with the combination of the plant control type A (REPC-A) the Generator/converter type A(REGC-A) followed by an injector and the electrical control type C (REEC-C) presented in \url{https://www.wecc.org/Reliability/REEC\_C\_031815\_rev3\%2520Model\%2520Spec.pdf}.
 These models are fully described in the Dyna$\omega$o library.
 
 \subsubsection{Solver}
@@ -751,9 +892,9 @@ At t = 1 s, a fault at the infinite bus is simulated and it can be seen that the
   \begin{tikzpicture}
     \begin{axis}[height = 1.5in, yticklabel style={/pgf/number format/.cd,fixed,precision=3}]
         \addplot[color=blue!50]
-        table[x=time,y expr=\thisrow{BESScb_BESScb_injector_UPu}
+        table[x=time,y expr=\thisrow{BESS_BESS_injector_UPu}
         ]
-        {../WECC/BESS/WECCBESScbCurrentSource/reference/outputs/curves/curves.csv};
+        {../WECC/BESS/WECCBESSCurrentSource/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
   }
@@ -762,8 +903,8 @@ At t = 1 s, a fault at the infinite bus is simulated and it can be seen that the
 \begin{tikzpicture}
     \begin{axis}[height = 1.5in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{BESScb_BESScb_injector_PInjPuSn}]
-        {../WECC/BESS/WECCBESScbCurrentSource/reference/outputs/curves/curves.csv};
+        table[x=time, y expr=\thisrow{BESS_BESS_injector_PInjPuSn}]
+        {../WECC/BESS/WECCBESSCurrentSource/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
 }
@@ -772,8 +913,8 @@ At t = 1 s, a fault at the infinite bus is simulated and it can be seen that the
 \begin{tikzpicture}
     \begin{axis}[height = 1.5in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{BESScb_BESScb_injector_QInjPuSn}]
-        {../WECC/BESS/WECCBESScbCurrentSource/reference/outputs/curves/curves.csv};
+        table[x=time, y expr=\thisrow{BESS_BESS_injector_QInjPuSn}]
+        {../WECC/BESS/WECCBESSCurrentSource/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
 }
@@ -782,8 +923,8 @@ At t = 1 s, a fault at the infinite bus is simulated and it can be seen that the
 \begin{tikzpicture}
     \begin{axis}[height = 1.5in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{BESScb_BESScb_reecC_idCmdPu}]
-        {../WECC/BESS/WECCBESScbCurrentSource/reference/outputs/curves/curves.csv};
+        table[x=time, y expr=\thisrow{BESS_BESS_reecC_idCmdPu}]
+        {../WECC/BESS/WECCBESSCurrentSource/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
 }
@@ -792,8 +933,8 @@ At t = 1 s, a fault at the infinite bus is simulated and it can be seen that the
 \begin{tikzpicture}
     \begin{axis}[height = 1.5in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{BESScb_BESScb_reecC_iqCmdPu}]
-        {../WECC/BESS/WECCBESScbCurrentSource/reference/outputs/curves/curves.csv};
+        table[x=time, y expr=\thisrow{BESS_BESS_reecC_iqCmdPu}]
+        {../WECC/BESS/WECCBESSCurrentSource/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
 }

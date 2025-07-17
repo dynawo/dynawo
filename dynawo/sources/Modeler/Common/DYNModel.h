@@ -26,6 +26,7 @@
 #include <boost/shared_ptr.hpp>
 #include "DYNEnumUtils.h"
 #include "PARParametersSet.h"
+#include "DYNSubModel.h"
 
 namespace timeline {
 class Timeline;
@@ -379,10 +380,8 @@ class Model {
 
   /**
    * @brief update the subset of calculated variables needed for curves
-   *
-   * @param curvesCollection set of curves
    */
-  virtual void updateCalculatedVarForCurves(const std::shared_ptr<curves::CurvesCollection>& curvesCollection) const = 0;
+  virtual void updateCalculatedVarForCurves() const = 0;
 
   /**
    * @brief export the parameters of the model for dump
