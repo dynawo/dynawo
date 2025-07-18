@@ -393,18 +393,26 @@ Several outputs are available with \Dynawo:
 <dumpFinalValues/>
 \end{lstlisting}
 
-\item \textbf{Constraints}: the user can have access to the list of constraints that happened during the simulation by adding the item ``constraints'' in the jobs file, and by specifying the export mode. Constraints can be filtered at export (default=true), removing constraints cleared during the simulation.
+\item \textbf{Constraints}: the user can have access to the list of constraints that happened during the simulation by adding the item ``constraints'' in the jobs file, and by specifying the export mode.
+Constraints can be filtered at export with the ``filter'' flag (default=``FIRST'').
+
+If filter=``DISABLED'', all constraints registered during the simulation will be kept, even if the constraint was cleared before the end of the simulation.
+
+If filter=``FIRST'', constraints cleared during simulation will be removed and the ones still existing at the end of the simulation are associated to the value seen at the first time step when the constraint appeared.
+
+If filter=``LAST'', constraints cleared during simulation will be removed and the ones still existing at the end of the simulation are associated to the value seen at the last time step.
+
 \begin{lstlisting}[language=XML, morekeywords={constraints},numbers=none]
-<constraints exportMode="TXT" filter="false"/>
+<constraints exportMode="TXT" filter="FIRST"/>
 \end{lstlisting}
-Two export modes are available for constraints: TXT or XML.
+Three export modes are available for constraints: TXT, XML or JSON.
 
 \item \textbf{Timeline}: the user can have access to the list of events that happened during the simulation and the instant of their occurrence by adding the item ``timeline'' in the jobs file, and by specifying the export mode. It is also possible to automatically filter the timeline by removing duplicated events and opposed events that happen during the same timestep.
 
 \begin{lstlisting}[language=XML, morekeywords={timeline},numbers=none]
 <timeline exportMode="TXT" filter="true"/>
 \end{lstlisting}
-Three export modes are available for the timeline: TXT, XML or CSV.
+Four export modes are available for the timeline: TXT, XML, CSV or JSON.
 
 \item \textbf{Timetable}: The user can follows the advancement of \Dynawo during the simulation by adding the item ``timetable'' in the jobs file, and by specifying the number of iterations between two dumps in the file.
 
