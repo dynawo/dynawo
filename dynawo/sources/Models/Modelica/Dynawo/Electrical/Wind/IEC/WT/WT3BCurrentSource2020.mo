@@ -13,10 +13,29 @@ within Dynawo.Electrical.Wind.IEC.WT;
 */
 
 model WT3BCurrentSource2020 "Wind Turbine Type 3B model from IEC 61400-27-1:2020 standard"
-  extends Dynawo.Electrical.Wind.IEC.BaseClasses.BaseWTCurrentSource2020(pll.tS = tS, pll.tPll = tPll);
-  // Parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem3b;
-  extends Dynawo.Electrical.Wind.IEC.Parameters.PControlWT3;
+  extends Dynawo.Electrical.Wind.IEC.BaseClasses.BaseWT3(pll.tS = tS, pll.tPll = tPll);
+
+  //WT PControl parameters
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT3;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical.TorquePi;
+
+  // Control parameters
+  parameter Types.PerUnit DipMaxPu "Maximum active current ramp rate in pu/s (base UNom, SNom) (generator convention), example value = 9999 (Type 3A) or = 1 (Type 3B)" annotation(
+    Dialog(tab = "genSystem"));
+  parameter Types.PerUnit DiqMaxPu "Maximum reactive current ramp rate in pu/s (base UNom, SNom) (generator convention), example value = 9999 (Type 3A) or = 100 (Type 3B)" annotation(
+    Dialog(tab = "genSystem"));
+  parameter Boolean MCrb "Crowbar control mode (true=disable only iq control, false=disable iq and ip control, example value = false)" annotation(
+    Dialog(tab = "genSystem"));
+  parameter Real tCrb[:, :] = [-99, 0.1; -1, 0.1; -0.1, 0; 0, 0] "Crowbar duration versus voltage variation look-up table, for example [-99,0.1; -1,0.1; -0.1,0; 0,0]" annotation(
+    Dialog(tab = "genSystem"));
+  parameter Types.Time tG "Current generation time constant, example value = 0.01" annotation(
+    Dialog(tab = "genSystem"));
+  parameter Types.Time tWo "Time constant for crowbar washout filter, example value = 0.001" annotation(
+    Dialog(tab = "genSystem"));
+  parameter Types.PerUnit XEqv "Transient reactance (should be calculated from the transient inductance as defined in 'New Generic Model of DFG-Based Wind Turbines for RMS-Type Simulation', Fortmann et al., 2014 (base UNom, SNom), example value = 0.4 (Type 3A) or = 10 (Type 3B)" annotation(
+    Dialog(tab = "genSystem"));
+
+  //Mechanical parameters
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical.MechanicalParameters;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical.Aerodynamic2DParameters;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical.PitchAngleControlParameters;
@@ -37,7 +56,10 @@ model WT3BCurrentSource2020 "Wind Turbine Type 3B model from IEC 61400-27-1:2020
     Placement(visible = true, transformation(origin = {-78, -96}, extent = {{-12, -12}, {12, 12}}, rotation = 0)));
 
   //Initial parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPAg;
+  parameter Types.ActivePowerPu PAg0Pu = Modelica.ComplexMath.real(Complex(UGsRe0Pu, UGsIm0Pu)*Complex(IGsRe0Pu, -IGsIm0Pu)) "Initial generator (air gap) power in pu (base SNom) (generator convention)" annotation(
+      Dialog(group = "Initialization"));
+  parameter Types.ActivePower PWTRef0Pu "Initial upper power limit of the wind turbine (if less than PAvail then the turbine will be derated) in pu (base SNom), example value = 1.1" annotation(
+    Dialog(tab = "Operating point"));
 
 equation
   connect(control.ipMaxPu, injector.ipMaxPu) annotation(

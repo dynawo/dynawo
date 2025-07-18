@@ -32,22 +32,6 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
   parameter Types.PerUnit XesPu "Serial reactance in pu (base UNom, SNom)" annotation(
     Dialog(tab = "Electrical"));
 
-  //Control parameters
-  parameter Types.PerUnit DipMaxPu "Maximum active current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
-    Dialog(tab = "Control"));
-  parameter Types.PerUnit DiqMaxPu "Maximum reactive current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
-    Dialog(tab = "Control"));
-
-  // Not for 3a et 3b
-  parameter Types.PerUnit DiqMinPu "Minimum reactive current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
-    Dialog(tab = "Control"));
-  parameter Types.PerUnit Kipaw "Anti-windup gain for active current in pu/s (base UNom, SNom)" annotation(
-    Dialog(tab = "Control"));
-  parameter Types.PerUnit Kiqaw "Anti-windup gain for reactive current in pu/s (base UNom, SNom)" annotation(
-    Dialog(tab = "Control"));
-  parameter Types.Time tG "Current generation time constant in s" annotation(
-    Dialog(tab = "Control"));
-
   //PLL parameters
   parameter Types.Time tPll "PLL first order filter time constant in s" annotation(
     Dialog(tab = "PLL"));
@@ -55,10 +39,6 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
     Dialog(tab = "PLL"));
   parameter Types.VoltageModulePu UPll2Pu "Voltage below which the angle of the voltage is frozen, in pu (base UNom) (UPll2Pu < UPll1Pu typically)" annotation(
     Dialog(tab = "PLL"));
-
-  //WT PControl parameters
-  parameter Types.PerUnit Kpaw "Anti-windup gain for active power in pu/s (base SNom)" annotation(
-    Dialog(tab = "PControl"));
 
   //Current limiter parameters
   parameter Types.CurrentModulePu IMaxDipPu "Maximum current during voltage dip at converter terminal in pu (base UNom, SNom)" annotation(
@@ -212,8 +192,6 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
     Dialog(group = "Initialization"));
   parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));
-  parameter Types.ActivePowerPu PAg0Pu "Initial generator (air gap) power in pu (base SNom) (generator convention)" annotation(
-    Dialog(group = "Initialization"));
   parameter Types.ReactivePowerPu Q0Pu "Initial reactive power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));
   parameter Types.ReactivePowerPu QMax0Pu "Initial maximum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(

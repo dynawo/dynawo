@@ -14,31 +14,30 @@ within Dynawo.Electrical.Wind.IEC.WT;
 
 model WT3CurrentSource_INIT "Wind Turbine Type 3 model from IEC 61400-27-1 standard : initialization model"
   extends AdditionalIcons.Init;
-  extends Dynawo.Electrical.Wind.IEC.Parameters.TableQLimit;
-  extends Dynawo.Electrical.Wind.IEC.Parameters.TableCurrentLimit;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QLimitParameters;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimitParameters;
 
   //Nominal parameter
-  extends Dynawo.Electrical.Wind.IEC.Parameters.SNom_;
+  parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
 
   //Circuit parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.Circuit;
+  parameter Types.PerUnit BesPu "Shunt susceptance in pu (base UNom, SNom)";
+  parameter Types.PerUnit GesPu "Shunt conductance in pu (base UNom, SNom)";
+  parameter Types.PerUnit ResPu "Serial resistance in pu (base UNom, SNom)";
+  parameter Types.PerUnit XesPu "Serial reactance in pu (base UNom, SNom)";
 
   //Current limiter parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.CurrentLimiter;
-
-  //parameter Types.CurrentModulePu IMaxPu "Maximum current at converter terminal in pu (base UNom, SNom)";
-  //parameter Types.PerUnit Kpqu "Partial derivative of reactive current limit against voltage in pu (base UNom, SNom)";
-  //parameter Types.VoltageModulePu UpquMaxPu "WT voltage in the operation point where zero reactive power can be delivered, in pu (base UNom)";
+  parameter Types.CurrentModulePu IMaxPu "Maximum current at converter terminal in pu (base UNom, SNom)";
+  parameter Types.PerUnit Kpqu "Partial derivative of reactive current limit against voltage in pu (base UNom, SNom)";
+  parameter Types.VoltageModulePu UpquMaxPu "WT voltage in the operation point where zero reactive power can be delivered, in pu (base UNom)";
 
   //QControl parameter
-  extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWTBase;
-  //parameter Integer MqG "General Q control mode (0-4): Voltage control (0), Reactive power control (1), Open loop reactive power control (2), Power factor control (3), Open loop power factor control (4)";
+  parameter Integer MqG "General Q control mode (0-4): Voltage control (0), Reactive power control (1), Open loop reactive power control (2), Power factor control (3), Open loop power factor control (4)";
 
   //QLimiter parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.QLimiter;
-  //parameter Boolean QlConst "True if limits are constant";
-  //parameter Types.ReactivePowerPu QMaxPu "Constant maximum reactive power at grid terminal in pu (base SNom) (generator convention)";
-  //parameter Types.ReactivePowerPu QMinPu "Constant minimum reactive power at grid terminal in pu (base SNom) (generator convention)";
+  parameter Boolean QlConst "True if limits are constant";
+  parameter Types.ReactivePowerPu QMaxPu "Constant maximum reactive power at grid terminal in pu (base SNom) (generator convention)";
+  parameter Types.ReactivePowerPu QMinPu "Constant minimum reactive power at grid terminal in pu (base SNom) (generator convention)";
 
   Types.PerUnit IpMax0Pu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)";
   Types.PerUnit IqMax0Pu "Initial maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)";
@@ -118,8 +117,10 @@ model WT3CurrentSource_INIT "Wind Turbine Type 3 model from IEC 61400-27-1 stand
     Placement(visible = true, transformation(origin = {90, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Load flow parameters
-  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialPqGrid;
-  extends Dynawo.Electrical.Wind.IEC.Parameters.InitialUGrid;
+  parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)";
+  parameter Types.ReactivePowerPu Q0Pu "Initial reactive power at grid terminal in pu (base SnRef) (receptor convention)";
+  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)";
+  parameter Types.Angle UPhase0 "Initial voltage angle at grid terminal in rad";
 
 equation
   XWT0Pu = if MqG == 0 then U0Pu else -Q0Pu * SystemBase.SnRef / SNom;

@@ -14,11 +14,21 @@ within Dynawo.Electrical.Sources.IEC;
 
 model WT3AInjector "Converter model and grid interface according to IEC N°61400-27-1 standard for type 3A
  wind turbines"
-  
   extends Dynawo.Electrical.Sources.IEC.BaseConverters.BaseWTInjector;
-  extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem3a;
 
-  Dynawo.Electrical.Sources.IEC.BaseConverters.GenSystem3a genSystem3a(DipMaxPu = DipMaxPu, DiqMaxPu = DiqMaxPu, KPc = KPc, TIc = TIc, XEqv = XEqv, IGsIm0Pu = IGsIm0Pu, IGsRe0Pu = IGsRe0Pu, IpMax0Pu = IpMax0Pu, IqMax0Pu = IqMax0Pu, IqMin0Pu = IqMin0Pu, P0Pu = P0Pu, PAg0Pu = PAg0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UGsIm0Pu = UGsIm0Pu, UGsRe0Pu = UGsRe0Pu, UPhase0 = UPhase0) annotation(
+  // Control parameters
+  parameter Types.PerUnit DipMaxPu "Maximum active current ramp rate in pu/s (base UNom, SNom) (generator convention), example value = 9999 (Type 3A) or = 1 (Type 3B)" annotation(
+    Dialog(tab = "genSystem"));
+  parameter Types.PerUnit DiqMaxPu "Maximum reactive current ramp rate in pu/s (base UNom, SNom) (generator convention), example value = 9999 (Type 3A) or = 100 (Type 3B)" annotation(
+    Dialog(tab = "genSystem"));
+  parameter Types.PerUnit KPc "Current PI controller proportional gain, example value = 40" annotation(
+    Dialog(tab = "genSystem"));
+  parameter Types.Time tIc "Current PI controller integration time constant, example value = 0.02" annotation(
+    Dialog(tab = "genSystem"));
+  parameter Types.PerUnit XEqv "Transient reactance (should be calculated from the transient inductance as defined in 'New Generic Model of DFG-Based Wind Turbines for RMS-Type Simulation', Fortmann et al., 2014 (base UNom, SNom), example value = 0.4 (Type 3A) or = 10 (Type 3B)" annotation(
+    Dialog(tab = "genSystem"));
+
+  Dynawo.Electrical.Sources.IEC.BaseConverters.GenSystem3a genSystem3a(DipMaxPu = DipMaxPu, DiqMaxPu = DiqMaxPu, KPc = KPc, XEqv = XEqv, IGsIm0Pu = IGsIm0Pu, IGsRe0Pu = IGsRe0Pu, IpMax0Pu = IpMax0Pu, IqMax0Pu = IqMax0Pu, IqMin0Pu = IqMin0Pu, P0Pu = P0Pu, PAg0Pu = PAg0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UGsIm0Pu = UGsIm0Pu, UGsRe0Pu = UGsRe0Pu, UPhase0 = UPhase0, tIc = tIc) annotation(
     Placement(visible = true, transformation(origin = {-38, -2.22045e-16}, extent = {{-18, -18}, {18, 18}}, rotation = 0)));
 
 equation
@@ -42,7 +52,7 @@ equation
     Line(points = {{-110, -40}, {-74, -40}, {-74, -14}, {-58, -14}}, color = {0, 0, 127}));
   connect(genSystem3a.PAgPu, PAgPu) annotation(
     Line(points = {{-18, -14}, {-8, -14}, {-8, -58}, {-80, -58}, {-80, -110}}, color = {0, 0, 127}));
-  
+
   annotation(
     Icon(graphics = {Text(origin = {58, 22}, extent = {{-20, -20}, {20, 20}}, textString = "3A")}));
 end WT3AInjector;

@@ -44,8 +44,6 @@ model WPPControl2015 "Control model for IEC N°61400-27-1:2015 standard WPP"
   parameter Types.Time tfFilt "Filter time constant for frequency measurement in s" annotation(
     Dialog(tab = "Measurement"));
 
-  //extends Dynawo.Electrical.Wind.IEC.Parameters.QControlWPP2015;
-  
   //Input variables
   Modelica.Blocks.Interfaces.RealInput QWPRefPu(start = -Q0Pu*SystemBase.SnRef/SNom) "Reference reactive power in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-200, 30}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

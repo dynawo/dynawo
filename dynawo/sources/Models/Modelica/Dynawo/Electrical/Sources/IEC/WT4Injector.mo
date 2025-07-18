@@ -13,15 +13,28 @@ within Dynawo.Electrical.Sources.IEC;
 */
 
 model WT4Injector "Converter model and grid interface according to IEC N°61400-27-1 standard for type 4A wind turbines"
-  extends BaseConverters.BaseWTInjector;
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.BaseWTInjector;
 
-  extends Dynawo.Electrical.Wind.IEC.Parameters.GenSystem4;
+  //Control parameters
+  parameter Types.PerUnit DipMaxPu "Maximum active current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "Control"));
+  parameter Types.PerUnit DiqMaxPu "Maximum reactive current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "Control"));
+  parameter Types.PerUnit DiqMinPu "Minimum reactive current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "Control"));
+  parameter Types.PerUnit Kipaw "Anti-windup gain for active current in pu/s (base UNom, SNom)" annotation(
+    Dialog(tab = "Control"));
+  parameter Types.PerUnit Kiqaw "Anti-windup gain for reactive current in pu/s (base UNom, SNom)" annotation(
+    Dialog(tab = "Control"));
+  parameter Types.Time tG "Current generation time constant in s" annotation(
+    Dialog(tab = "Control"));
 
   Dynawo.Electrical.Sources.IEC.BaseConverters.GenSystem4 genSystem4(DipMaxPu = DipMaxPu, DiqMaxPu = DiqMaxPu, DiqMinPu = DiqMinPu, IGsIm0Pu = IGsIm0Pu, IGsRe0Pu = IGsRe0Pu, IpMax0Pu = IpMax0Pu, IqMax0Pu = IqMax0Pu, IqMin0Pu = IqMin0Pu, Kipaw = Kipaw, Kiqaw = Kiqaw, P0Pu = P0Pu, PAg0Pu = PAg0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UGsIm0Pu = UGsIm0Pu, UGsRe0Pu = UGsRe0Pu, UPhase0 = UPhase0, tG = tG) annotation(
     Placement(visible = true, transformation(origin = {-44, 0}, extent = {{-18, -18}, {18, 18}}, rotation = 0)));
 
 equation
   genSystem4.running = running.value;
+
   connect(genSystem4.ipMaxPu, ipMaxPu) annotation(
     Line(points = {{-64, 14}, {-78, 14}, {-78, 40}, {-110, 40}}, color = {0, 0, 127}));
   connect(genSystem4.ipCmdPu, ipCmdPu) annotation(
