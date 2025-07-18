@@ -40,6 +40,8 @@ model InitializedTransformerVariableTap "Model of transformer with variable tap 
     SNom = SNom, R = R, X = X, G = G, B = B,
     P10Pu = P10Pu, Q10Pu = Q10Pu, U10Pu = U10Pu, U1Phase0 = U1Phase0, Uc20Pu = Uc20Pu);
 
+  Dynawo.Connectors.ACPower terminal20;
+
   parameter Types.VoltageModulePu Uc20Pu "Voltage set-point on side 2 in pu (base U2Nom)";
   parameter Types.Angle U1Phase0 "Start value of voltage angle at terminal 1 in rad";
 
@@ -55,6 +57,9 @@ initial algorithm
   i20Pu.re := init.i20Pu.re;
   i20Pu.im := init.i20Pu.im;
   U20Pu := init.U20Pu;
+
+equation
+  connect(terminal20, init.terminal20);
 
   annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body>This model implements a transformer with variable tap which is automatically initialized by an initialization model.<div>The parameters and the initial values of side 1 are passed to the initialization model, which in turn calculates the necessary initial tap, ratio and load flow.</div><div>The calculated values are then assigned to the respective transformer parameters in an initial algorithm section. This way, the transformer has appropriate parameters before the simulation starts. The model cannot use equations due to variability conflict (parameters and variables), therefore the assignment operator must be used. This is permissible, because the initial values do not change during simulation.</div></body></html>"));
