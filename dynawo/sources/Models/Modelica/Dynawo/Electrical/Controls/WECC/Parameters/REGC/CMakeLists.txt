@@ -15,6 +15,9 @@ set(MODEL_FILES
   package.mo
   package.order
   ParamsREGC.mo
+  ParamsREGCa.mo
+  ParamsREGCb.mo
+  ParamsREGCc.mo
   )
 
 #

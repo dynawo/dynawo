@@ -127,5 +127,9 @@
     <par type="DOUBLE" name="WT4B_VDLIq32" value="1"/>
     <par type="DOUBLE" name="WT4B_VDLIq41" value="1.17"/>
     <par type="DOUBLE" name="WT4B_VDLIq42" value="1"/>
+    <par type="BOOL" name="WT4B_Lvplsw" value="false"/>
+    <par type="DOUBLE" name="WT4B_zerox" value="0.1"/>
+    <par type="DOUBLE" name="WT4B_brkpt" value="0.05"/>
+    <par type="DOUBLE" name="WT4B_lvpl1" value="1.22"/>
   </set>
 </parametersSet>

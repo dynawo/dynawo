@@ -25,6 +25,7 @@ set(API_CSTR_SOURCES
     CSTRConstraintsCollectionFactory.cpp
     CSTRXmlExporter.cpp
     CSTRTxtExporter.cpp
+    CSTRJsonExporter.cpp
     )
 
 set(API_CSTR_INCLUDE_HEADERS
@@ -36,6 +37,7 @@ set(API_CSTR_INCLUDE_HEADERS
     CSTRExporter.h
     CSTRXmlExporter.h
     CSTRTxtExporter.h
+    CSTRJsonExporter.h
     )
 
 add_library(dynawo_API_CSTR SHARED ${API_CSTR_SOURCES})

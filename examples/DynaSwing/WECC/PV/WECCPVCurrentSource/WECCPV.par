@@ -70,7 +70,6 @@
     <par type="BOOL" name="photovoltaics_QFlag" value="true"/>
     <par type="DOUBLE" name="photovoltaics_QMaxPu" value="0.4"/>
     <par type="DOUBLE" name="photovoltaics_QMinPu" value="-0.4"/>
-    <par type="BOOL" name="photovoltaics_RateFlag" value="false"/>
     <par type="BOOL" name="photovoltaics_RefFlag" value="true"/>
     <par type="DOUBLE" name="photovoltaics_tFilterPC" value="0.04"/>
     <par type="DOUBLE" name="photovoltaics_tFilterGC" value="0.02"/>
@@ -107,6 +106,10 @@
     <par type="DOUBLE" name="photovoltaics_KpPLL" value="3"/>
     <par type="DOUBLE" name="photovoltaics_OmegaMaxPu" value="1.5"/>
     <par type="DOUBLE" name="photovoltaics_OmegaMinPu" value="0.5"/>
+    <par type="BOOL" name="photovoltaics_Lvplsw" value="false"/>
+    <par type="DOUBLE" name="photovoltaics_zerox" value="0.1"/>
+    <par type="DOUBLE" name="photovoltaics_brkpt" value="0.05"/>
+    <par type="DOUBLE" name="photovoltaics_lvpl1" value="1.22"/>
   </set>
   <set id="4">
     <par type="DOUBLE" name="setPoint_Value0" value="1"/>

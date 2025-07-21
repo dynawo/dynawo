@@ -410,12 +410,42 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
 
 ##################################
-#     WECC PV Voltage Source     #
+#     WECC PV Voltage Source 1   #
 ##################################
 
-case_name = "DynaSwing - WECC - PV - Voltage Source"
-case_description = "WECC - PV - Voltage Source"
-job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "WECC", "PV", "WECCPVVoltageSource", "WECCPVVSource.jobs")
+case_name = "DynaSwing - WECC - PV - Voltage Source 1"
+case_description = "WECC - PV - Voltage Source - REEC-A - REGC-B"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "WECC", "PV", "WECCPVVoltageSource1", "WECCPVVSource.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+##################################
+#     WECC PV Voltage Source  2   #
+##################################
+
+case_name = "DynaSwing - WECC - PV - Voltage Source 2"
+case_description = "WECC - PV - Voltage Source - REEC-A - REGC-B"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "WECC", "PV", "WECCPVVoltageSource2", "WECCPVVSource.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+##################################
+#     WECC PV Voltage Source 3   #
+##################################
+
+case_name = "DynaSwing - WECC - PV - Voltage Source 3"
+case_description = "WECC - PV - Voltage Source - REEC-A - REGC-C"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "WECC", "PV", "WECCPVVoltageSource3", "WECCPVVSource.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+##################################
+#     WECC PV Voltage Source 4   #
+##################################
+
+case_name = "DynaSwing - WECC - PV - Voltage Source 4"
+case_description = "WECC - PV - Voltage Source - REEC-B - REGC-C"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "WECC", "PV", "WECCPVVoltageSource4", "WECCPVVSource.jobs")
 
 test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
 
@@ -470,12 +500,12 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
 
 #########################################################################################
-#     WECC Battery Energy Storage System with REPC-A REEC-C and REGC-B Current Source   #
+#     WECC Battery Energy Storage System with REPC-A REEC-C and REGC-A Current Source   #
 #########################################################################################
 
-case_name = "DynaSwing - WECC - BESScb - Current source"
-case_description = "WECC - BESScb - Current Source"
-job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "WECC", "BESS", "WECCBESScbCurrentSource", "WECCBESScb.jobs")
+case_name = "DynaSwing - WECC - BESS - Current source"
+case_description = "WECC - BESS - Current Source"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "WECC", "BESS", "WECCBESSCurrentSource", "WECCBESS.jobs")
 
 test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
 
