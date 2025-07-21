@@ -1,6 +1,12 @@
 var a00473 =
 [
     [ "state_g", "dc/d8e/a00473.html#ae79ff761d6fdde3e15728e07781775a8", null ],
+    [ "ConstraintValueType_t", "dc/d8e/a00473.html#ae13ec6dec76f4eb5db262f8cc9cf4411", [
+      [ "NO_CONSTRAINTS_FILTER", "dc/d8e/a00473.html#ae13ec6dec76f4eb5db262f8cc9cf4411a43c82a70cd80217c5f0c3d2d346eba3b", null ],
+      [ "CONSTRAINTS_KEEP_FIRST", "dc/d8e/a00473.html#ae13ec6dec76f4eb5db262f8cc9cf4411ae9d99d6db143be320171a7ef6544ea2a", null ],
+      [ "CONSTRAINTS_KEEP_LAST", "dc/d8e/a00473.html#ae13ec6dec76f4eb5db262f8cc9cf4411a9c08d0ede9aea4ab21ec6e0e447b4a14", null ],
+      [ "SIZE_OF_ENUM", "dc/d8e/a00473.html#ae13ec6dec76f4eb5db262f8cc9cf4411a454676d8546f6863a546469377851cb0", null ]
+    ] ],
     [ "modeChangeType_t", "dc/d8e/a00473.html#aed4b32a47e0828630b9719fb4a720183", [
       [ "NO_MODE", "dc/d8e/a00473.html#aed4b32a47e0828630b9719fb4a720183aaddcb46e489fd5f4f90a353d7daf8b90", null ],
       [ "DIFFERENTIAL_MODE", "dc/d8e/a00473.html#aed4b32a47e0828630b9719fb4a720183a61a562dbad6d7df3998d1ea7a78c9b1f", null ],
@@ -48,6 +54,7 @@ var a00473 =
     [ "propertyVar2Str", "dc/d8e/a00473.html#a969826207e0292c8f19d8a7a3ab44d7a", null ],
     [ "toCTypeVar", "dc/d8e/a00473.html#a9450a608aaf6035bd0902b9d6b754f9f", null ],
     [ "typeVar2Str", "dc/d8e/a00473.html#aead2c12f61412f35b1d05a6f4afcad72", null ],
+    [ "ConstraintValueTypeNames", "dc/d8e/a00473.html#a8bbbc61b05af0bd45dc26dcdb8c76827", null ],
     [ "NO_ROOT", "dc/d8e/a00473.html#aacd74f19a89d69a789b36973c809a1c7", null ],
     [ "ROOT_DOWN", "dc/d8e/a00473.html#a085c8ed454a01dea61ea9b2bf22f5126", null ],
     [ "ROOT_UP", "dc/d8e/a00473.html#a29eb442c0386e73d26c182204b8dca3e", null ]

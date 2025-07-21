@@ -148,6 +148,7 @@ var searchData=
   ['getfailingcriteria',['getFailingCriteria',['../d5/d55/a02719.html#ae37e82fe5de5482d924a4f3781287bc5',1,'DYN::Criteria::getFailingCriteria()'],['../d0/dbd/a02771.html#acfd29130a1dbaf8aaee502cb69b09cc4',1,'DYN::DataInterface::getFailingCriteria()'],['../dc/d44/a02899.html#a966f1341f9f1b882e942b2e2afcf3732',1,'DYN::DataInterfaceIIDM::getFailingCriteria()'],['../db/d4b/a03207.html#ae656afe14eee35af3a3be9481bc8ca73',1,'DYN::Simulation::getFailingCriteria()']]],
   ['getfequationbylocalindex',['getFequationByLocalIndex',['../dd/dd8/a02655.html#ace0137d7bd8d8f066869740c7f1fd857',1,'DYN::SubModel']]],
   ['getfilepath',['getFilePath',['../dc/d92/a02047.html#a7d7aa2f6a9c42b08e40c6d0099e549ea',1,'job::AppenderEntry::getFilePath()'],['../d4/d21/a02347.html#ad987a3206616129aa8e4c2580a1e2d84',1,'parameters::ParametersSet::getFilePath()'],['../d7/d12/a02571.html#a05feef3172713c0b9bd9151f38c0a681',1,'DYN::Trace::TraceAppender::getFilePath()']]],
+  ['getfiltertype',['getFilterType',['../d5/dd6/a02055.html#af23d78d55da6c852a7038976c42abf0b',1,'job::ConstraintsEntry']]],
   ['getfinalstateentries',['getFinalStateEntries',['../d4/d9b/a02159.html#ab92dd87a67ea05d8a09baa8ceea54cd7',1,'job::OutputsEntry']]],
   ['getfinalstatevalues',['getFinalStateValues',['../df/d78/a02019.html#a84f832a613805665bf4cbe95370c87c6',1,'finalStateValues::FinalStateValuesCollection']]],
   ['getfinalstatevaluescollection',['getFinalStateValuesCollection',['../d4/d9b/a02039.html#a20ea5540f059fc47fbcab6ea567ca54a',1,'finalStateValues::XmlHandler']]],

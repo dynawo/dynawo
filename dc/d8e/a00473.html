@@ -175,11 +175,17 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a1a4f84e6efed086709bbef8cd4ff945a"><td class="mdescLeft">&#160;</td><td class="mdescRight">discrete variable change type  <a href="../../dc/d8e/a00473.html#a1a4f84e6efed086709bbef8cd4ff945a">More...</a><br /></td></tr>
 <tr class="separator:a1a4f84e6efed086709bbef8cd4ff945a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae13ec6dec76f4eb5db262f8cc9cf4411"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d8e/a00473.html#ae13ec6dec76f4eb5db262f8cc9cf4411">DYN::ConstraintValueType_t</a> { <a class="el" href="../../dc/d8e/a00473.html#ae13ec6dec76f4eb5db262f8cc9cf4411a43c82a70cd80217c5f0c3d2d346eba3b">DYN::NO_CONSTRAINTS_FILTER</a> = 0, 
+<a class="el" href="../../dc/d8e/a00473.html#ae13ec6dec76f4eb5db262f8cc9cf4411ae9d99d6db143be320171a7ef6544ea2a">DYN::CONSTRAINTS_KEEP_FIRST</a>, 
+<a class="el" href="../../dc/d8e/a00473.html#ae13ec6dec76f4eb5db262f8cc9cf4411a9c08d0ede9aea4ab21ec6e0e447b4a14">DYN::CONSTRAINTS_KEEP_LAST</a>, 
+<a class="el" href="../../dc/d8e/a00473.html#ae13ec6dec76f4eb5db262f8cc9cf4411a454676d8546f6863a546469377851cb0">DYN::SIZE_OF_ENUM</a>
+ }</td></tr>
+<tr class="separator:ae13ec6dec76f4eb5db262f8cc9cf4411"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a744b6e7bca90241fd544bca06338aee0"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d8e/a00473.html#a744b6e7bca90241fd544bca06338aee0">DYN::modeChangeType2Str</a> (modeChangeType_t modeChangeType)</td></tr>
-<tr class="memdesc:a744b6e7bca90241fd544bca06338aee0"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the string associated to the mode change type  <a href="../../dc/d8e/a00473.html#a744b6e7bca90241fd544bca06338aee0">More...</a><br /></td></tr>
+<tr class="memdesc:a744b6e7bca90241fd544bca06338aee0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test is the size of ConstraintValueTypeNames is relevant with the enumeration size.  <a href="../../dc/d8e/a00473.html#a744b6e7bca90241fd544bca06338aee0">More...</a><br /></td></tr>
 <tr class="separator:a744b6e7bca90241fd544bca06338aee0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a969826207e0292c8f19d8a7a3ab44d7a"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d8e/a00473.html#a969826207e0292c8f19d8a7a3ab44d7a">DYN::propertyVar2Str</a> (propertyContinuousVar_t property)</td></tr>
 <tr class="memdesc:a969826207e0292c8f19d8a7a3ab44d7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the property of variable(differential, algebraic, or external)  <a href="../../dc/d8e/a00473.html#a969826207e0292c8f19d8a7a3ab44d7a">More...</a><br /></td></tr>
@@ -196,6 +202,10 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
+<tr class="memitem:a8bbbc61b05af0bd45dc26dcdb8c76827"><td class="memItemLeft" align="right" valign="top"><a id="a8bbbc61b05af0bd45dc26dcdb8c76827"></a>
+static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d8e/a00473.html#a8bbbc61b05af0bd45dc26dcdb8c76827">DYN::ConstraintValueTypeNames</a> [ConstraintValueType_t::SIZE_OF_ENUM] = {&quot;DISABLED&quot;, &quot;FIRST&quot;, &quot;LAST&quot;}</td></tr>
+<tr class="memdesc:a8bbbc61b05af0bd45dc26dcdb8c76827"><td class="mdescLeft">&#160;</td><td class="mdescRight">string conversion of enum values <br /></td></tr>
+<tr class="separator:a8bbbc61b05af0bd45dc26dcdb8c76827"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29eb442c0386e73d26c182204b8dca3e"><td class="memItemLeft" align="right" valign="top"><a id="a29eb442c0386e73d26c182204b8dca3e"></a>
 static const state_g&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d8e/a00473.html#a29eb442c0386e73d26c182204b8dca3e">DYN::ROOT_UP</a> = 1</td></tr>
 <tr class="memdesc:a29eb442c0386e73d26c182204b8dca3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">ROOT is activated. <br /></td></tr>
@@ -212,6 +222,31 @@ static const state_g&#160;</td><td class="memItemRight" valign="bottom"><a class
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Define some common enum and functions for the modeler. </p>
 </div><h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="file_ae13ec6dec76f4eb5db262f8cc9cf4411"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_ae13ec6dec76f4eb5db262f8cc9cf4411">&#9670;&nbsp;</a></span>ConstraintValueType_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="../../dc/d8e/a00473.html#ae13ec6dec76f4eb5db262f8cc9cf4411">DYN::ConstraintValueType_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>define value type of the constraints </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ae13ec6dec76f4eb5db262f8cc9cf4411a43c82a70cd80217c5f0c3d2d346eba3b"></a>NO_CONSTRAINTS_FILTER&#160;</td><td class="fielddoc"><p>no value registered </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae13ec6dec76f4eb5db262f8cc9cf4411ae9d99d6db143be320171a7ef6544ea2a"></a>CONSTRAINTS_KEEP_FIRST&#160;</td><td class="fielddoc"><p>value registered in the constraint should be the first value seen by the simulation </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae13ec6dec76f4eb5db262f8cc9cf4411a9c08d0ede9aea4ab21ec6e0e447b4a14"></a>CONSTRAINTS_KEEP_LAST&#160;</td><td class="fielddoc"><p>value registered in the constraint should be the last value seen by the simulation </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae13ec6dec76f4eb5db262f8cc9cf4411a454676d8546f6863a546469377851cb0"></a>SIZE_OF_ENUM&#160;</td><td class="fielddoc"><p>value to use ONLY to assess the enumeration size </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a id="file_aed4b32a47e0828630b9719fb4a720183"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#file_aed4b32a47e0828630b9719fb4a720183">&#9670;&nbsp;</a></span>modeChangeType_t</h2>
 
@@ -387,8 +422,8 @@ static const state_g&#160;</td><td class="memItemRight" valign="bottom"><a class
       </table>
 </div><div class="memdoc">
 
-<p>return the string associated to the mode change type </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>Test is the size of ConstraintValueTypeNames is relevant with the enumeration size. </p>
+<p>return the string associated to the mode change type </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">modeChangeType</td><td>mode change type as an enum </td></tr>
   </table>
@@ -523,7 +558,7 @@ static const state_g&#160;</td><td class="memItemRight" valign="bottom"><a class
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c5eaf1ac1cf936f6800d020d474d243d.html">Common</a></li><li class="navelem"><a class="el" href="../../dc/d8e/a00473.html">DYNEnumUtils.h</a></li>
-    <li class="footer">Generated on Fri Jul 18 2025 13:57:33 for Dynawo by
+    <li class="footer">Generated on Mon Jul 21 2025 12:58:08 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -11,7 +11,7 @@ var searchData=
   ['simulation',['SIMULATION',['../dc/d6a/a02463.html#ab65468b98196803043b63655fcfd1d58ac1233df1e780079e862f1d6026bbc182',1,'DYN::Error']]],
   ['simulationstart',['SimulationStart',['../d5/d6a/a02515.html#a963225344a251150ba0ad6d5264f567fa9b49f8ccb78d8bf56ccea0ca25c6e9f7',1,'DYN::KeyLog_t']]],
   ['simulationtimeoutreached',['SimulationTimeoutReached',['../d5/d6a/a02515.html#a963225344a251150ba0ad6d5264f567fac7ef88a93397a6e9e1899463258fbd26',1,'DYN::KeyLog_t']]],
-  ['size_5fof_5fenum',['SIZE_OF_ENUM',['../d2/da6/a02339.html#a2cbaec8f87518439389f2969d247f7b9a5866f0a2fb4efd49bac663bf28427f1f',1,'parameters::Parameter::SIZE_OF_ENUM()'],['../d9/d27/a02363.html#a04c7e516a69ff452dc4676e7b62fe44fae70c8d18d9a315bc7b904b303ed0765e',1,'parameters::Reference::SIZE_OF_ENUM()']]],
+  ['size_5fof_5fenum',['SIZE_OF_ENUM',['../d2/da6/a02339.html#a2cbaec8f87518439389f2969d247f7b9a5866f0a2fb4efd49bac663bf28427f1f',1,'parameters::Parameter::SIZE_OF_ENUM()'],['../d9/d27/a02363.html#a04c7e516a69ff452dc4676e7b62fe44fae70c8d18d9a315bc7b904b303ed0765e',1,'parameters::Reference::SIZE_OF_ENUM()'],['../dc/d8e/a00473.html#ae13ec6dec76f4eb5db262f8cc9cf4411a454676d8546f6863a546469377851cb0',1,'DYN::SIZE_OF_ENUM()']]],
   ['slowstepincrease',['SlowStepIncrease',['../d1/ded/a02471.html#acfce33066451c48351076e31bd5b4eceae2a098317d4c0469bfdc82428ae5855b',1,'DYN::KeyError_t']]],
   ['solveparameters',['SolveParameters',['../d5/d6a/a02515.html#a963225344a251150ba0ad6d5264f567fadfe3e6d2880c2d450c0159fa8384995e',1,'DYN::KeyLog_t']]],
   ['solveparameterserror',['SolveParametersError',['../d5/d6a/a02515.html#a963225344a251150ba0ad6d5264f567fa69bc0cc6ccb92a6e09c25282e377f621',1,'DYN::KeyLog_t']]],

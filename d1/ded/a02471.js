@@ -22,6 +22,7 @@ var a02471 =
       [ "ConnectorIDNotUnique", "d1/ded/a02471.html#acfce33066451c48351076e31bd5b4eceadca982a36ae8716ba94c201285209a9b", null ],
       [ "ConnectorNotPartofModel", "d1/ded/a02471.html#acfce33066451c48351076e31bd5b4ecea75aef84ec79fd86185dca1b3fc5c3759", null ],
       [ "ConnectorVarNotFound", "d1/ded/a02471.html#acfce33066451c48351076e31bd5b4ecea6cf02fbe3c5288ae20626fc4dd32f736", null ],
+      [ "ConstraintValueTypeError", "d1/ded/a02471.html#acfce33066451c48351076e31bd5b4eceaa8170efed3012a1fa0d5ac41c185ce7c", null ],
       [ "ConverterWrongType", "d1/ded/a02471.html#acfce33066451c48351076e31bd5b4eceabc7d8b22f555588e5952cf32ab7ecdff", null ],
       [ "ConvertersModeError", "d1/ded/a02471.html#acfce33066451c48351076e31bd5b4eceae2667d4cb87b4bf1c741c0003cd42e25", null ],
       [ "CreateDirectoryFailed", "d1/ded/a02471.html#acfce33066451c48351076e31bd5b4ecead7ba2a6fdf88a7cacc7aba1aa24d362e", null ],
