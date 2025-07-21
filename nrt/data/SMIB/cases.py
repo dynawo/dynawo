@@ -34,10 +34,21 @@ test_cases.append((case_name, case_description, job_file, 30, standardReturnCode
 
 case_name = "SMIB - StepPm IIDM"
 case_description = "SMIB test case with a step on the mechanical power and an iidm network"
-job_file = os.path.join(os.path.dirname(__file__), "SMIB_BasicTestCases", "SMIB_1_StepPm_IIDM", "SMIB.jobs")
+job_file = os.path.join(os.path.dirname(__file__), "SMIB_BasicTestCases", "SMIB_1_StepPm_IIDM", "baseCase", "SMIB.jobs")
 
 test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
 
+case_name = "SMIB - StepPm IIDM and references"
+case_description = "SMIB test case with a step on the mechanical power, an iidm network and references for parameters"
+job_file = os.path.join(os.path.dirname(__file__), "SMIB_BasicTestCases", "SMIB_1_StepPm_IIDM", "LinesAndTfosReferences", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
+
+case_name = "SMIB - StepPm IIDM model network"
+case_description = "SMIB test case with a step on the mechanical power, an iidm network and ModelNetwork used instead of Modelica"
+job_file = os.path.join(os.path.dirname(__file__), "SMIB_BasicTestCases", "SMIB_1_StepPm_IIDM", "baseCaseModelNetwork", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
 
 ########################################
 #           SMIB_2_StepEfd             #
