@@ -38,19 +38,25 @@ model WPPControl2015 "Control model for IEC N°61400-27-1:2015 standard WPP"
   parameter Types.Time txfv "Lag time constant in the reference value transfer function in s" annotation(
     Dialog(tab = "QControlWP"));
 
+  //Measurement parameters
+  parameter Types.AngularVelocityPu DfMaxPu "Maximum frequency ramp rate in pu/s (base omegaNom)" annotation(
+    Dialog(tab = "Measurement"));
+  parameter Types.Time tfFilt "Filter time constant for frequency measurement in s" annotation(
+    Dialog(tab = "Measurement"));
+
   //Input variables
-  Modelica.Blocks.Interfaces.RealInput QWPRefPu(start = -Q0Pu * SystemBase.SnRef / SNom) "Reference reactive power in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput QWPRefPu(start = -Q0Pu*SystemBase.SnRef/SNom) "Reference reactive power in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-200, 30}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput tanPhi(start = Q0Pu / P0Pu) "Tangent phi (can be figured as QPu / PPu)" annotation(
+  Modelica.Blocks.Interfaces.RealInput tanPhi(start = Q0Pu/P0Pu) "Tangent phi (can be figured as QPu / PPu)" annotation(
     Placement(visible = true, transformation(origin = {30, -2}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {-49, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput UWPRefPu(start = U0Pu) "Reference voltage in pu (base UNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-200, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Output variables
-  Modelica.Blocks.Interfaces.RealOutput PWTRefPu(start = -P0Pu * SystemBase.SnRef / SNom) "Reference active power communicated to WT in pu (base SNom) (generator convention)" annotation(
-    Placement(visible = true, transformation(origin = {190, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(extent = {{100, 30}, {120, 50}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput PWTRefPu(start = -P0Pu*SystemBase.SnRef/SNom) "Reference active power communicated to WT in pu (base SNom) (generator convention)" annotation(
+    Placement(transformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}), iconTransformation(extent = {{100, 30}, {120, 50}})));
   Modelica.Blocks.Interfaces.RealOutput xWTRefPu(start = XWT0Pu) "Reference reactive power or voltage communicated to WT in pu (base SNom or UNom) (generator convention)" annotation(
-    Placement(visible = true, transformation(origin = {190, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(transformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}})));
 
   Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WPP.WPPPControl2015 pControl(DPRefMaxPu = DPRefMaxPu, DPRefMinPu = DPRefMinPu, DPwpRefMaxPu = DPwpRefMaxPu, DPwpRefMinPu = DPwpRefMinPu, Kiwpp = Kiwpp, Kpwpp = Kpwpp, KwppRef = KwppRef, P0Pu = P0Pu, PKiwppMaxPu = PKiwppMaxPu, PKiwppMinPu = PKiwppMinPu, PRefMaxPu = PRefMaxPu, PRefMinPu = PRefMinPu, SNom = SNom, TablePwpBiasfwpFiltCom = TablePwpBiasfwpFiltCom, TablePwpBiasfwpFiltCom11 = TablePwpBiasfwpFiltCom11, TablePwpBiasfwpFiltCom12 = TablePwpBiasfwpFiltCom12, TablePwpBiasfwpFiltCom21 = TablePwpBiasfwpFiltCom21, TablePwpBiasfwpFiltCom22 = TablePwpBiasfwpFiltCom22, TablePwpBiasfwpFiltCom31 = TablePwpBiasfwpFiltCom31, TablePwpBiasfwpFiltCom32 = TablePwpBiasfwpFiltCom32, TablePwpBiasfwpFiltCom41 = TablePwpBiasfwpFiltCom41, TablePwpBiasfwpFiltCom42 = TablePwpBiasfwpFiltCom42, TablePwpBiasfwpFiltCom51 = TablePwpBiasfwpFiltCom51, TablePwpBiasfwpFiltCom52 = TablePwpBiasfwpFiltCom52, TablePwpBiasfwpFiltCom61 = TablePwpBiasfwpFiltCom61, TablePwpBiasfwpFiltCom62 = TablePwpBiasfwpFiltCom62, TablePwpBiasfwpFiltCom71 = TablePwpBiasfwpFiltCom71, TablePwpBiasfwpFiltCom72 = TablePwpBiasfwpFiltCom72, tS = tS, tWPPFiltP = tWPPFiltP, tWPfFiltP = tWPfFiltP, tpft = tpft, tpfv = tpfv) annotation(
     Placement(visible = true, transformation(origin = {40, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -62,18 +68,26 @@ model WPPControl2015 "Control model for IEC N°61400-27-1:2015 standard WPP"
     Placement(visible = true, transformation(origin = {-88, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.ComplexToPolar complexToPolar annotation(
     Placement(visible = true, transformation(origin = {-130, -78}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Continuous.FirstOrder firstOrder4(T = tfFilt) annotation(
+    Placement(transformation(origin = {-48, -126}, extent = {{-10, -10}, {10, 10}})));
+  Dynawo.NonElectrical.Blocks.NonLinear.RampLimiter rampLimiter(DuMax = DfMaxPu, Y0 = 0, tS = tS) annotation(
+    Placement(transformation(origin = {-80, -126}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Continuous.Derivative derivative(T = tfFilt/20, k = 1/SystemBase.omegaNom, x_start = UPhase0) annotation(
+    Placement(transformation(origin = {-110, -126}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.ComplexBlocks.ComplexMath.ComplexToPolar complexToPolar1 annotation(
+    Placement(transformation(origin = {-140, -120}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Math.Add add annotation(
+    Placement(transformation(origin = {-12, -114}, extent = {{-10, -10}, {10, 10}})));
 
 equation
-  connect(omegaRefPu, pControl.omegaWPPu) annotation(
-    Line(points = {{-200, -100}, {0, -100}, {0, 60}, {18, 60}}, color = {0, 0, 127}));
   connect(pControl.PWPPu, y) annotation(
     Line(points = {{-76, -24}, {-20, -24}, {-20, 48}, {18, 48}}, color = {0, 0, 127}));
   connect(pControl.PWTRefPu, PWTRefPu) annotation(
-    Line(points = {{62, 60}, {160, 60}, {160, 20}, {190, 20}}, color = {0, 0, 127}));
+    Line(points = {{62, 60}, {110, 60}}, color = {0, 0, 127}));
   connect(tanPhi, qControl.tanPhi) annotation(
     Line(points = {{30, -2}, {30, -38}}, color = {0, 0, 127}));
   connect(qControl.xWTRefPu, xWTRefPu) annotation(
-    Line(points = {{62, -60}, {160, -60}, {160, -20}, {190, -20}}, color = {0, 0, 127}));
+    Line(points = {{62, -60}, {110, -60}}, color = {0, 0, 127}));
   connect(product.y, complexToReal.u) annotation(
     Line(points = {{-118, -30}, {-100, -30}}, color = {85, 170, 255}));
   connect(uPu, product.u1) annotation(
@@ -96,6 +110,22 @@ equation
     Line(points = {{-20, -56}, {-8, -56}}, color = {0, 0, 127}));
   connect(PWPRefPu, pControl.PWPRefPu) annotation(
     Line(points = {{-200, 86}, {-80, 86}, {-80, 72}, {18, 72}}, color = {0, 0, 127}));
+  connect(rampLimiter.y, firstOrder4.u) annotation(
+    Line(points = {{-69, -126}, {-60, -126}}, color = {0, 0, 127}));
+  connect(derivative.y, rampLimiter.u) annotation(
+    Line(points = {{-99, -126}, {-92, -126}}, color = {0, 0, 127}));
+  connect(uPu, complexToPolar1.u) annotation(
+    Line(points = {{-200, 0}, {-160, 0}, {-160, -120}, {-152, -120}}, color = {85, 170, 255}));
+  connect(complexToPolar1.phi, derivative.u) annotation(
+    Line(points = {{-128, -126}, {-122, -126}}, color = {0, 0, 127}));
+  connect(firstOrder4.y, add.u2) annotation(
+    Line(points = {{-37, -126}, {-30.5, -126}, {-30.5, -120}, {-24, -120}}, color = {0, 0, 127}));
+  connect(omegaRefPu, add.u1) annotation(
+    Line(points = {{-200, -100}, {-30, -100}, {-30, -108}, {-24, -108}}, color = {0, 0, 127}));
+  connect(add.y, pControl.omegaWPPu) annotation(
+    Line(points = {{-1, -114}, {6, -114}, {6, 60}, {18, 60}}, color = {0, 0, 127}));
 
-  annotation(preferredView = "diagram");
+  annotation(
+    preferredView = "diagram",
+    Diagram(coordinateSystem(extent = {{-180, -140}, {100, 100}})));
 end WPPControl2015;

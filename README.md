@@ -18,6 +18,7 @@
 [![MPL-2.0 License](https://img.shields.io/badge/license-MPL_2.0-blue.svg)](https://www.mozilla.org/en-US/MPL/2.0/)
 [![Documentation](https://dynawo.github.io/assets/images/doxygen_badge.svg)](https://dynawo.github.io/dynawo/index.html)
 [![OpenSSF Best Practices](https://bestpractices.coreinfrastructure.org/projects/6730/badge)](https://bestpractices.coreinfrastructure.org/projects/6730)
+
 [http://dynawo.org](http://dynawo.org)
 
 This repository contains Dyna&omega;o's project code.

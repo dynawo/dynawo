@@ -268,6 +268,7 @@ ExternalVariableIDNotUnique =             external variable id (%1%) is not uniq
 //---FS----------------------
 //---JOB---------------------
 CriteriaStepError           =             criteria step should be a positive integer (value found: %1%)
+ConstraintValueTypeError    =             constraint value type should be one of "FIRST", "LAST" or "DISABLED" (value found: %1%)
 //---PAR---------------------
 MacroParameterSetAlreadyExists =          the macroParameterSet %1% already exists in collection
 MacroParSetAlreadyExists =                the macroParSet %1% already exists in set %2%
