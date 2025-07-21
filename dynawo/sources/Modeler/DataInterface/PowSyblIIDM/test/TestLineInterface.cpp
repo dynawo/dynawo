@@ -212,6 +212,41 @@ TEST(DataInterfaceTest, Line_1) {
   ASSERT_FALSE(li.getCurrentLimitTemporaryValue(season, CURRENT_LIMIT_SIDE_1, 0));
   ASSERT_FALSE(li.getCurrentLimitTemporaryFictitious(season, CURRENT_LIMIT_SIDE_1, 0));
 
+  constexpr double SNREF  = 100;
+  li.importStaticParameters();
+  ASSERT_EQ(li.getStaticParameterValue<double>("p1"), 999.999);
+  ASSERT_EQ(li.getStaticParameterValue<double>("q1"), 666.0);
+  ASSERT_EQ(li.getStaticParameterValue<double>("p2"), 500.0);
+  ASSERT_EQ(li.getStaticParameterValue<double>("q2"), 222.0);
+  ASSERT_EQ(li.getStaticParameterValue<double>("p1_pu"), 9.99999);
+  ASSERT_EQ(li.getStaticParameterValue<double>("q1_pu"), 6.66);
+  ASSERT_EQ(li.getStaticParameterValue<double>("p2_pu"), 5.0);
+  ASSERT_EQ(li.getStaticParameterValue<double>("q2_pu"), 2.22);
+
+  ASSERT_EQ(li.getStaticParameterValue<double>("v1"), 380.);
+  ASSERT_EQ(li.getStaticParameterValue<double>("angle1"), 0.);
+  ASSERT_EQ(li.getStaticParameterValue<double>("v1Nom"), 380.);
+  ASSERT_EQ(li.getStaticParameterValue<double>("v2"), 360.);
+  ASSERT_EQ(li.getStaticParameterValue<double>("angle2"), 0.);
+  ASSERT_EQ(li.getStaticParameterValue<double>("v2Nom"), 360.);
+  ASSERT_EQ(li.getStaticParameterValue<double>("v1_pu"), 1.);
+  ASSERT_EQ(li.getStaticParameterValue<double>("angle1_pu"), 0.);
+  ASSERT_EQ(li.getStaticParameterValue<double>("v2_pu"), 1.);
+  ASSERT_EQ(li.getStaticParameterValue<double>("angle2_pu"), 0.);
+
+  ASSERT_EQ(li.getStaticParameterValue<double>("r"), 3.0);
+  ASSERT_EQ(li.getStaticParameterValue<double>("x"), 33.33);
+  ASSERT_EQ(li.getStaticParameterValue<double>("g1"), 1.0);
+  ASSERT_EQ(li.getStaticParameterValue<double>("g2"), 2.0);
+  ASSERT_EQ(li.getStaticParameterValue<double>("b1"), 0.2);
+  ASSERT_EQ(li.getStaticParameterValue<double>("b2"), 0.4);
+  const double coeff = li.getVNom1() * li.getVNom1() / SNREF;
+  ASSERT_EQ(li.getStaticParameterValue<double>("r_pu"), 3.0 / coeff);
+  ASSERT_EQ(li.getStaticParameterValue<double>("x_pu"), 33.33 / coeff);
+  ASSERT_EQ(li.getStaticParameterValue<double>("g1_pu"), 1.0 * coeff);
+  ASSERT_EQ(li.getStaticParameterValue<double>("g2_pu"), 2.0 * coeff);
+  ASSERT_EQ(li.getStaticParameterValue<double>("b1_pu"), 0.2 * coeff);
+  ASSERT_EQ(li.getStaticParameterValue<double>("b2_pu"), 0.4 * coeff);
 
   powsybl::iidm::Line& MySecondLine = network.newLine()
                                        .setId("VL1_VL3_Bad")

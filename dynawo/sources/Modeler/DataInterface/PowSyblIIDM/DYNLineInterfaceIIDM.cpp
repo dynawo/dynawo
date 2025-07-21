@@ -29,7 +29,7 @@
 #include "DYNStateVariable.h"
 #include "DYNVoltageLevelInterface.h"
 #include "DYNTrace.h"
-
+#include "DYNBusInterface.h"
 
 namespace DYN {
 
@@ -470,7 +470,94 @@ LineInterfaceIIDM::getCurrentLimitTemporaryFictitious(const std::string& season,
 
 void
 LineInterfaceIIDM::importStaticParameters() {
-  // no static parameter
+  staticParameters_.clear();
+  const double P1 = getP1();
+  const double P2 = getP2();
+  const double Q1 = getQ1();
+  const double Q2 = getQ2();
+  staticParameters_.insert(std::make_pair("p1_pu", StaticParameter("p1_pu", StaticParameter::DOUBLE).setValue(P1 / SNREF)));
+  staticParameters_.insert(std::make_pair("p2_pu", StaticParameter("p2_pu", StaticParameter::DOUBLE).setValue(P2 / SNREF)));
+  staticParameters_.insert(std::make_pair("q1_pu", StaticParameter("q1_pu", StaticParameter::DOUBLE).setValue(Q1 / SNREF)));
+  staticParameters_.insert(std::make_pair("q2_pu", StaticParameter("q2_pu", StaticParameter::DOUBLE).setValue(Q2 / SNREF)));
+  staticParameters_.insert(std::make_pair("p1", StaticParameter("p1", StaticParameter::DOUBLE).setValue(P1)));
+  staticParameters_.insert(std::make_pair("p2", StaticParameter("p2", StaticParameter::DOUBLE).setValue(P2)));
+  staticParameters_.insert(std::make_pair("q1", StaticParameter("q1", StaticParameter::DOUBLE).setValue(Q1)));
+  staticParameters_.insert(std::make_pair("q2", StaticParameter("q2", StaticParameter::DOUBLE).setValue(Q2)));
+
+  if (busInterface1_) {
+    const double v10 = busInterface1_->getV0();
+    const double vNom1 = getVNom1();
+
+    const double theta1 = busInterface1_->getAngle0();
+    staticParameters_.insert(std::make_pair("v1_pu", StaticParameter("v1_pu", StaticParameter::DOUBLE).setValue(v10 / vNom1)));
+    staticParameters_.insert(std::make_pair("angle1_pu", StaticParameter("angle1_pu", StaticParameter::DOUBLE).setValue(theta1 * M_PI / 180)));
+    staticParameters_.insert(std::make_pair("v1", StaticParameter("v1", StaticParameter::DOUBLE).setValue(v10)));
+    staticParameters_.insert(std::make_pair("angle1", StaticParameter("angle1", StaticParameter::DOUBLE).setValue(theta1)));
+    staticParameters_.insert(std::make_pair("v1Nom", StaticParameter("v1Nom", StaticParameter::DOUBLE).setValue(vNom1)));
+  } else {
+    staticParameters_.insert(std::make_pair("v1_pu", StaticParameter("v1_pu", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("angle1_pu", StaticParameter("angle1_pu", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("v1", StaticParameter("v1", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("angle1", StaticParameter("angle1", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("v1Nom", StaticParameter("v1Nom", StaticParameter::DOUBLE).setValue(1.)));
+  }
+
+  if (busInterface2_) {
+    const double v20 = busInterface2_->getV0();
+    const double vNom2 = getVNom2();
+
+    const double theta2 = busInterface2_->getAngle0();
+    staticParameters_.insert(std::make_pair("v2_pu", StaticParameter("v2_pu", StaticParameter::DOUBLE).setValue(v20 / vNom2)));
+    staticParameters_.insert(std::make_pair("angle2_pu", StaticParameter("angle2_pu", StaticParameter::DOUBLE).setValue(theta2 * M_PI / 180)));
+    staticParameters_.insert(std::make_pair("v2", StaticParameter("v2", StaticParameter::DOUBLE).setValue(v20)));
+    staticParameters_.insert(std::make_pair("angle2", StaticParameter("angle2", StaticParameter::DOUBLE).setValue(theta2)));
+    staticParameters_.insert(std::make_pair("v2Nom", StaticParameter("v2Nom", StaticParameter::DOUBLE).setValue(vNom2)));
+  } else {
+    staticParameters_.insert(std::make_pair("v2_pu", StaticParameter("v2_pu", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("angle2_pu", StaticParameter("angle_pu2", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("v2", StaticParameter("v2", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("angle2", StaticParameter("angle2", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("v2Nom", StaticParameter("v2Nom", StaticParameter::DOUBLE).setValue(1.)));
+  }
+
+  const double r = getR();
+  const double x = getX();
+  const double b1 = getB1();
+  const double b2 = getB2();
+  const double g1 = getG1();
+  const double g2 = getG2();
+  staticParameters_.insert(std::make_pair("r", StaticParameter("r", StaticParameter::DOUBLE).setValue(r)));
+  staticParameters_.insert(std::make_pair("x", StaticParameter("x", StaticParameter::DOUBLE).setValue(x)));
+  staticParameters_.insert(std::make_pair("b1", StaticParameter("b1", StaticParameter::DOUBLE).setValue(b1)));
+  staticParameters_.insert(std::make_pair("b2", StaticParameter("b2", StaticParameter::DOUBLE).setValue(b2)));
+  staticParameters_.insert(std::make_pair("g1", StaticParameter("g1", StaticParameter::DOUBLE).setValue(g1)));
+  staticParameters_.insert(std::make_pair("g2", StaticParameter("g2", StaticParameter::DOUBLE).setValue(g2)));
+
+  const bool connected1 = getInitialConnected1();
+  const bool connected2 = getInitialConnected2();
+
+  double vNom = std::numeric_limits<double>::quiet_NaN();
+  if ((connected1 && connected2) || connected1) {
+    vNom = getVNom1();
+  } else if (connected2) {
+    vNom = getVNom2();
+  }
+  assert(vNom == vNom);  // control that vNom != NAN
+  if (vNom > 0) {
+    const double coeff = vNom * vNom / SNREF;
+    staticParameters_.insert(std::make_pair("r_pu", StaticParameter("r_pu", StaticParameter::DOUBLE).setValue(r / coeff)));
+    staticParameters_.insert(std::make_pair("x_pu", StaticParameter("x_pu", StaticParameter::DOUBLE).setValue(x / coeff)));
+    staticParameters_.insert(std::make_pair("b1_pu", StaticParameter("b1_pu", StaticParameter::DOUBLE).setValue(b1 * coeff)));
+    staticParameters_.insert(std::make_pair("b2_pu", StaticParameter("b2_pu", StaticParameter::DOUBLE).setValue(b2 * coeff)));
+    staticParameters_.insert(std::make_pair("g1_pu", StaticParameter("g1_pu", StaticParameter::DOUBLE).setValue(g1 * coeff)));
+    staticParameters_.insert(std::make_pair("g2_pu", StaticParameter("g2_pu", StaticParameter::DOUBLE).setValue(g2 * coeff)));
+  } else {
+    if ((connected1 && connected2) || connected1) {
+      throw DYNError(Error::MODELER, UndefinedNominalV, lineIIDM_.getTerminal1().getVoltageLevel().getId());
+    } else if (connected2) {
+      throw DYNError(Error::MODELER, UndefinedNominalV, lineIIDM_.getTerminal2().getVoltageLevel().getId());
+    }
+  }
 }
 
 }  // namespace DYN
