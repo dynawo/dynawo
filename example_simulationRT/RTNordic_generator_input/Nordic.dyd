@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+    <!-- g06 is redifined as a simple PQ load using modelica LoadPQ model, the initial imported from the iidm (set to g06 initial P, Q values) -->
+    <dyn:blackBoxModel id="g06_injection" lib="LoadPQ"  parFile="Nordic.par" parId="g06_injection" staticId="g06_injection"/>
+    <dyn:connect id1="g06_injection" var1="load_terminal" id2="NETWORK" var2="BG06__11_ACPIN"/>
+    <dyn:connect id1="g06_injection" var1="load_switchOffSignal1"  id2="NETWORK" var2="BG06__11_switchOff"/>
+
+    <dyn:blackBoxModel id="g01" lib="GeneratorSynchronousThreeWindingsGoverNordicVRNordic" parFile="Nordic.par" parId="Nordicg01" staticId="g01">
+        <dyn:macroStaticRef id="MSR_GeneratorSynchronousThreeWindingsGoverNordicVRNordic"/>
+    </dyn:blackBoxModel>
+    <dyn:blackBoxModel id="g02" lib="GeneratorSynchronousThreeWindingsGoverNordicVRNordic" parFile="Nordic.par" parId="Nordicg02" staticId="g02">
+        <dyn:macroStaticRef id="MSR_GeneratorSynchronousThreeWindingsGoverNordicVRNordic"/>
+    </dyn:blackBoxModel>
+    <dyn:blackBoxModel id="g03" lib="GeneratorSynchronousThreeWindingsGoverNordicVRNordic" parFile="Nordic.par" parId="Nordicg03" staticId="g03">
+        <dyn:macroStaticRef id="MSR_GeneratorSynchronousThreeWindingsGoverNordicVRNordic"/>
+    </dyn:blackBoxModel>
+    <dyn:blackBoxModel id="g04" lib="GeneratorSynchronousThreeWindingsGoverNordicVRNordic" parFile="Nordic.par" parId="Nordicg04" staticId="g04">
+        <dyn:macroStaticRef id="MSR_GeneratorSynchronousThreeWindingsGoverNordicVRNordic"/>
+    </dyn:blackBoxModel>
+    <dyn:blackBoxModel id="g05" lib="GeneratorSynchronousThreeWindingsGoverNordicVRNordic" parFile="Nordic.par" parId="Nordicg05" staticId="g05">
+        <dyn:macroStaticRef id="MSR_GeneratorSynchronousThreeWindingsGoverNordicVRNordic"/>
+    </dyn:blackBoxModel>
+    <dyn:blackBoxModel id="g06" lib="GeneratorSynchronousFourWindingsPmConstVRNordic" parFile="Nordic.par" parId="Nordicg06" staticId="g06">
+        <dyn:macroStaticRef id="MSR_GeneratorSynchronousFourWindingsPmConstVRNordic"/>
+    </dyn:blackBoxModel>
+    <dyn:blackBoxModel id="g07" lib="GeneratorSynchronousFourWindingsPmConstVRNordic" parFile="Nordic.par" parId="Nordicg07" staticId="g07">
+        <dyn:macroStaticRef id="MSR_GeneratorSynchronousFourWindingsPmConstVRNordic"/>
+    </dyn:blackBoxModel>
+    <dyn:blackBoxModel id="g08" lib="GeneratorSynchronousThreeWindingsGoverNordicVRNordic" parFile="Nordic.par" parId="Nordicg08" staticId="g08">
+        <dyn:macroStaticRef id="MSR_GeneratorSynchronousThreeWindingsGoverNordicVRNordic"/>
+    </dyn:blackBoxModel>
+    <dyn:blackBoxModel id="g09" lib="GeneratorSynchronousThreeWindingsGoverNordicVRNordic" parFile="Nordic.par" parId="Nordicg09" staticId="g09">
+        <dyn:macroStaticRef id="MSR_GeneratorSynchronousThreeWindingsGoverNordicVRNordic"/>
+    </dyn:blackBoxModel>
+    <dyn:blackBoxModel id="g10" lib="GeneratorSynchronousThreeWindingsGoverNordicVRNordic" parFile="Nordic.par" parId="Nordicg10" staticId="g10">
+        <dyn:macroStaticRef id="MSR_GeneratorSynchronousThreeWindingsGoverNordicVRNordic"/>
+    </dyn:blackBoxModel>
+    <dyn:blackBoxModel id="g11" lib="GeneratorSynchronousThreeWindingsGoverNordicVRNordic" parFile="Nordic.par" parId="Nordicg11" staticId="g11">
+        <dyn:macroStaticRef id="MSR_GeneratorSynchronousThreeWindingsGoverNordicVRNordic"/>
+    </dyn:blackBoxModel>
+    <dyn:blackBoxModel id="g12" lib="GeneratorSynchronousThreeWindingsGoverNordicVRNordic" parFile="Nordic.par" parId="Nordicg12" staticId="g12">
+        <dyn:macroStaticRef id="MSR_GeneratorSynchronousThreeWindingsGoverNordicVRNordic"/>
+    </dyn:blackBoxModel>
+    <dyn:blackBoxModel id="g13" lib="GeneratorSynchronousThreeWindingsPmConstVRNordic" parFile="Nordic.par" parId="Nordicg13" staticId="g13">
+        <dyn:macroStaticRef id="MSR_GeneratorSynchronousThreeWindingsPmConstVRNordic"/>
+    </dyn:blackBoxModel>
+    <dyn:blackBoxModel id="g14" lib="GeneratorSynchronousFourWindingsPmConstVRNordic" parFile="Nordic.par" parId="Nordicg14" staticId="g14">
+        <dyn:macroStaticRef id="MSR_GeneratorSynchronousFourWindingsPmConstVRNordic"/>
+    </dyn:blackBoxModel>
+    <dyn:blackBoxModel id="g15" lib="GeneratorSynchronousFourWindingsPmConstVRNordic" parFile="Nordic.par" parId="Nordicg15" staticId="g15">
+        <dyn:macroStaticRef id="MSR_GeneratorSynchronousFourWindingsPmConstVRNordic"/>
+    </dyn:blackBoxModel>
+    <dyn:blackBoxModel id="g16" lib="GeneratorSynchronousFourWindingsPmConstVRNordic" parFile="Nordic.par" parId="Nordicg16" staticId="g16">
+        <dyn:macroStaticRef id="MSR_GeneratorSynchronousFourWindingsPmConstVRNordic"/>
+    </dyn:blackBoxModel>
+    <dyn:blackBoxModel id="g17" lib="GeneratorSynchronousFourWindingsPmConstVRNordic" parFile="Nordic.par" parId="Nordicg17" staticId="g17">
+        <dyn:macroStaticRef id="MSR_GeneratorSynchronousFourWindingsPmConstVRNordic"/>
+    </dyn:blackBoxModel>
+    <dyn:blackBoxModel id="g18" lib="GeneratorSynchronousFourWindingsPmConstVRNordic" parFile="Nordic.par" parId="Nordicg18" staticId="g18">
+        <dyn:macroStaticRef id="MSR_GeneratorSynchronousFourWindingsPmConstVRNordic"/>
+    </dyn:blackBoxModel>
+    <dyn:blackBoxModel id="g19" lib="GeneratorSynchronousThreeWindingsGoverNordicVRNordic" parFile="Nordic.par" parId="Nordicg19" staticId="g19">
+        <dyn:macroStaticRef id="MSR_GeneratorSynchronousThreeWindingsGoverNordicVRNordic"/>
+    </dyn:blackBoxModel>
+    <dyn:blackBoxModel id="g20" lib="GeneratorSynchronousThreeWindingsGoverNordicVRNordic" parFile="Nordic.par" parId="Nordicg20" staticId="g20">
+        <dyn:macroStaticRef id="MSR_GeneratorSynchronousThreeWindingsGoverNordicVRNordic"/>
+    </dyn:blackBoxModel>
+    <dyn:blackBoxModel id="OmegaRef" lib="DYNModelOmegaRef" parFile="Nordic.par" parId="OmegaRef"/>
+    <dyn:macroConnect connector="MC_GeneratorSynchronousThreeWindingsGoverNordicVRNordic-NetworkBus" id1="g01" id2="NETWORK" name2="BG01__11"/>
+    <dyn:macroConnect connector="MC_GeneratorSynchronousThreeWindingsGoverNordicVRNordic-NetworkBus" id1="g02" id2="NETWORK" name2="BG02__11"/>
+    <dyn:macroConnect connector="MC_GeneratorSynchronousThreeWindingsGoverNordicVRNordic-NetworkBus" id1="g03" id2="NETWORK" name2="BG03__11"/>
+    <dyn:macroConnect connector="MC_GeneratorSynchronousThreeWindingsGoverNordicVRNordic-NetworkBus" id1="g04" id2="NETWORK" name2="BG04__11"/>
+    <dyn:macroConnect connector="MC_GeneratorSynchronousThreeWindingsGoverNordicVRNordic-NetworkBus" id1="g05" id2="NETWORK" name2="BG05__11"/>
+    <dyn:macroConnect connector="MC_GeneratorSynchronousFourWindingsPmConstVRNordic-NetworkBus" id1="g06" id2="NETWORK" name2="BG06__11"/>
+    <dyn:macroConnect connector="MC_GeneratorSynchronousFourWindingsPmConstVRNordic-NetworkBus" id1="g07" id2="NETWORK" name2="BG07__11"/>
+    <dyn:macroConnect connector="MC_GeneratorSynchronousThreeWindingsGoverNordicVRNordic-NetworkBus" id1="g08" id2="NETWORK" name2="BG08__11"/>
+    <dyn:macroConnect connector="MC_GeneratorSynchronousThreeWindingsGoverNordicVRNordic-NetworkBus" id1="g09" id2="NETWORK" name2="BG09__11"/>
+    <dyn:macroConnect connector="MC_GeneratorSynchronousThreeWindingsGoverNordicVRNordic-NetworkBus" id1="g10" id2="NETWORK" name2="BG10__11"/>
+    <dyn:macroConnect connector="MC_GeneratorSynchronousThreeWindingsGoverNordicVRNordic-NetworkBus" id1="g11" id2="NETWORK" name2="BG11__11"/>
+    <dyn:macroConnect connector="MC_GeneratorSynchronousThreeWindingsGoverNordicVRNordic-NetworkBus" id1="g12" id2="NETWORK" name2="BG12__11"/>
+    <dyn:macroConnect connector="MC_GeneratorSynchronousThreeWindingsPmConstVRNordic-NetworkBus" id1="g13" id2="NETWORK" name2="BG13__11"/>
+    <dyn:macroConnect connector="MC_GeneratorSynchronousFourWindingsPmConstVRNordic-NetworkBus" id1="g14" id2="NETWORK" name2="BG14__11"/>
+    <dyn:macroConnect connector="MC_GeneratorSynchronousFourWindingsPmConstVRNordic-NetworkBus" id1="g15" id2="NETWORK" name2="BG15__11"/>
+    <dyn:macroConnect connector="MC_GeneratorSynchronousFourWindingsPmConstVRNordic-NetworkBus" id1="g16" id2="NETWORK" name2="BG16__11"/>
+    <dyn:macroConnect connector="MC_GeneratorSynchronousFourWindingsPmConstVRNordic-NetworkBus" id1="g17" id2="NETWORK" name2="BG17__11"/>
+    <dyn:macroConnect connector="MC_GeneratorSynchronousFourWindingsPmConstVRNordic-NetworkBus" id1="g18" id2="NETWORK" name2="BG18__11"/>
+    <dyn:macroConnect connector="MC_GeneratorSynchronousThreeWindingsGoverNordicVRNordic-NetworkBus" id1="g19" id2="NETWORK" name2="BG19__11"/>
+    <dyn:macroConnect connector="MC_GeneratorSynchronousThreeWindingsGoverNordicVRNordic-NetworkBus" id1="g20" id2="NETWORK" name2="BG20__11"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-GeneratorSynchronousThreeWindingsGoverNordicVRNordic" id1="OmegaRef" index1="0" id2="g09"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-NetworkBus" id1="OmegaRef" index1="0" id2="NETWORK" name2="BG09__11"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-GeneratorSynchronousThreeWindingsGoverNordicVRNordic" id1="OmegaRef" index1="1" id2="g01"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-NetworkBus" id1="OmegaRef" index1="1" id2="NETWORK" name2="BG01__11"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-GeneratorSynchronousThreeWindingsGoverNordicVRNordic" id1="OmegaRef" index1="2" id2="g10"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-NetworkBus" id1="OmegaRef" index1="2" id2="NETWORK" name2="BG10__11"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-GeneratorSynchronousThreeWindingsGoverNordicVRNordic" id1="OmegaRef" index1="3" id2="g02"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-NetworkBus" id1="OmegaRef" index1="3" id2="NETWORK" name2="BG02__11"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-GeneratorSynchronousThreeWindingsGoverNordicVRNordic" id1="OmegaRef" index1="4" id2="g03"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-NetworkBus" id1="OmegaRef" index1="4" id2="NETWORK" name2="BG03__11"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-GeneratorSynchronousThreeWindingsGoverNordicVRNordic" id1="OmegaRef" index1="5" id2="g04"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-NetworkBus" id1="OmegaRef" index1="5" id2="NETWORK" name2="BG04__11"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-GeneratorSynchronousThreeWindingsGoverNordicVRNordic" id1="OmegaRef" index1="6" id2="g05"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-NetworkBus" id1="OmegaRef" index1="6" id2="NETWORK" name2="BG05__11"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-GeneratorSynchronousFourWindingsPmConstVRNordic" id1="OmegaRef" index1="7" id2="g06"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-NetworkBus" id1="OmegaRef" index1="7" id2="NETWORK" name2="BG06__11"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-GeneratorSynchronousFourWindingsPmConstVRNordic" id1="OmegaRef" index1="8" id2="g07"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-NetworkBus" id1="OmegaRef" index1="8" id2="NETWORK" name2="BG07__11"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-GeneratorSynchronousThreeWindingsGoverNordicVRNordic" id1="OmegaRef" index1="9" id2="g12"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-NetworkBus" id1="OmegaRef" index1="9" id2="NETWORK" name2="BG12__11"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-GeneratorSynchronousThreeWindingsGoverNordicVRNordic" id1="OmegaRef" index1="10" id2="g08"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-NetworkBus" id1="OmegaRef" index1="10" id2="NETWORK" name2="BG08__11"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-GeneratorSynchronousThreeWindingsGoverNordicVRNordic" id1="OmegaRef" index1="11" id2="g11"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-NetworkBus" id1="OmegaRef" index1="11" id2="NETWORK" name2="BG11__11"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-GeneratorSynchronousThreeWindingsPmConstVRNordic" id1="OmegaRef" index1="12" id2="g13"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-NetworkBus" id1="OmegaRef" index1="12" id2="NETWORK" name2="BG13__11"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-GeneratorSynchronousFourWindingsPmConstVRNordic" id1="OmegaRef" index1="13" id2="g14"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-NetworkBus" id1="OmegaRef" index1="13" id2="NETWORK" name2="BG14__11"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-GeneratorSynchronousFourWindingsPmConstVRNordic" id1="OmegaRef" index1="14" id2="g15"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-NetworkBus" id1="OmegaRef" index1="14" id2="NETWORK" name2="BG15__11"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-GeneratorSynchronousFourWindingsPmConstVRNordic" id1="OmegaRef" index1="15" id2="g16"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-NetworkBus" id1="OmegaRef" index1="15" id2="NETWORK" name2="BG16__11"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-GeneratorSynchronousFourWindingsPmConstVRNordic" id1="OmegaRef" index1="16" id2="g17"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-NetworkBus" id1="OmegaRef" index1="16" id2="NETWORK" name2="BG17__11"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-GeneratorSynchronousFourWindingsPmConstVRNordic" id1="OmegaRef" index1="17" id2="g18"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-NetworkBus" id1="OmegaRef" index1="17" id2="NETWORK" name2="BG18__11"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-GeneratorSynchronousThreeWindingsGoverNordicVRNordic" id1="OmegaRef" index1="18" id2="g19"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-NetworkBus" id1="OmegaRef" index1="18" id2="NETWORK" name2="BG19__11"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-GeneratorSynchronousThreeWindingsGoverNordicVRNordic" id1="OmegaRef" index1="19" id2="g20"/>
+    <dyn:macroConnect connector="MC_DYNModelOmegaRef-NetworkBus" id1="OmegaRef" index1="19" id2="NETWORK" name2="BG20__11"/>
+    <dyn:macroConnector id="MC_GeneratorSynchronousThreeWindingsGoverNordicVRNordic-NetworkBus">
+        <dyn:connect var1="generator_terminal" var2="@NAME@_ACPIN"/>
+        <dyn:connect var1="generator_switchOffSignal1" var2="@NAME@_switchOff"/>
+    </dyn:macroConnector>
+    <dyn:macroConnector id="MC_GeneratorSynchronousFourWindingsPmConstVRNordic-NetworkBus">
+        <dyn:connect var1="generator_terminal" var2="@NAME@_ACPIN"/>
+        <dyn:connect var1="generator_switchOffSignal1" var2="@NAME@_switchOff"/>
+    </dyn:macroConnector>
+    <dyn:macroConnector id="MC_GeneratorSynchronousThreeWindingsPmConstVRNordic-NetworkBus">
+        <dyn:connect var1="generator_terminal" var2="@NAME@_ACPIN"/>
+        <dyn:connect var1="generator_switchOffSignal1" var2="@NAME@_switchOff"/>
+    </dyn:macroConnector>
+    <dyn:macroConnector id="MC_DYNModelOmegaRef-GeneratorSynchronousThreeWindingsGoverNordicVRNordic">
+        <dyn:connect var1="omega_grp_@INDEX@" var2="generator_omegaPu"/>
+        <dyn:connect var1="omegaRef_grp_@INDEX@" var2="generator_omegaRefPu"/>
+        <dyn:connect var1="running_grp_@INDEX@" var2="generator_running"/>
+    </dyn:macroConnector>
+    <dyn:macroConnector id="MC_DYNModelOmegaRef-GeneratorSynchronousFourWindingsPmConstVRNordic">
+        <dyn:connect var1="omega_grp_@INDEX@" var2="generator_omegaPu"/>
+        <dyn:connect var1="omegaRef_grp_@INDEX@" var2="generator_omegaRefPu"/>
+        <dyn:connect var1="running_grp_@INDEX@" var2="generator_running"/>
+    </dyn:macroConnector>
+    <dyn:macroConnector id="MC_DYNModelOmegaRef-GeneratorSynchronousThreeWindingsPmConstVRNordic">
+        <dyn:connect var1="omega_grp_@INDEX@" var2="generator_omegaPu"/>
+        <dyn:connect var1="omegaRef_grp_@INDEX@" var2="generator_omegaRefPu"/>
+        <dyn:connect var1="running_grp_@INDEX@" var2="generator_running"/>
+    </dyn:macroConnector>
+    <dyn:macroConnector id="MC_DYNModelOmegaRef-NetworkBus">
+        <dyn:connect var1="numcc_node_@INDEX@" var2="@NAME@_numcc"/>
+    </dyn:macroConnector>
+    <dyn:macroStaticReference id="MSR_GeneratorSynchronousThreeWindingsGoverNordicVRNordic">
+        <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+        <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+        <dyn:staticRef var="generator_state" staticVar="state"/>
+    </dyn:macroStaticReference>
+    <dyn:macroStaticReference id="MSR_GeneratorSynchronousFourWindingsPmConstVRNordic">
+        <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+        <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+        <dyn:staticRef var="generator_state" staticVar="state"/>
+    </dyn:macroStaticReference>
+    <dyn:macroStaticReference id="MSR_GeneratorSynchronousThreeWindingsPmConstVRNordic">
+        <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+        <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+        <dyn:staticRef var="generator_state" staticVar="state"/>
+    </dyn:macroStaticReference>
+</dyn:dynamicModelsArchitecture>

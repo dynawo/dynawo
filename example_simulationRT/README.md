@@ -52,15 +52,17 @@ Dynawo outputs can be sent during the simulation with a publication rate dependi
 Results can be exported though ZMQ or WebSocket. ZMQ publication use topics for curves, constraints, and timeline (topic is represented by a string at the beggining of the message, separated from the data by a newline char). WebSocket publication only concerns curves where they are sent in JSON format.
 
 Outputs include:
-- Dynawo Curves values (as defined in curves "CRV" file) -> ZMQ (topic "curves") or WebSocket
+- Dynawo Curves values (as defined in curves "CRV" file) -> ZMQ (topic "curves" except for BYTES mode, see below) or WebSocket
 - Dynawo Constraints (equipment ID, side, type) -> ZMQ (topic "constraints")
 - Dynawo Timeline (time, model name, message) -> ZMQ (topic "timeline")
 
 | Job Simulation attribute | Value | Description|
 |----------|:-------------:|---|
 | publishToZmq | true/(false)| Enable publication to ZMQ (port 5556)|
-| publishToZmqCurvesFormat | ("JSON")/"CSV"| Output curves format |
+| publishToZmqCurvesFormat | ("JSON")/"CSV"/"BYTES"| Output curves format |
 | publishToWebsocket | true/(false)| Enable sending results to websocket (port 9001) |
+
+Bytes format first sends the list of names of the variables in topic "curves_names", then sends the values in topic "curves_values"
 
 NB: interactive mode disables the recording of curves values for file export at the end of the simulation, hence "jobs-with-curves" launcher won't have any effect.
 
