@@ -66,6 +66,8 @@
     <par type="DOUBLE" name="voltageRegulator_Te" value="0.05"/>
     <par type="DOUBLE" name="voltageRegulator_Efd0Pu" value="1.81724"/>
     <par type="DOUBLE" name="voltageRegulator_Us0Pu" value="1"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <!-- Load -->
   <set id="Load">

@@ -87,6 +87,8 @@
     <par type="DOUBLE" name="voltageRegulator_tLeadPss" value="1"/>
     <par type="DOUBLE" name="voltageRegulator_tLeadTgr" value="4"/>
     <par type="DOUBLE" name="voltageRegulator_tOelMin" value="-17"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <!-- OmegaRef -->
   <set id="6">

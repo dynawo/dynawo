@@ -21,6 +21,8 @@
     <par type="DOUBLE" name="generator_PMin" value="0"/>
     <par type="DOUBLE" name="generator_PMax" value="100"/>
     <par type="DOUBLE" name="generator_PNom" value="100"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Line">
     <par type="DOUBLE" name="line_XPu" value="0.02"/>

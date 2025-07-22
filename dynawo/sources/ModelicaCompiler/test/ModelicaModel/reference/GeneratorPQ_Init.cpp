@@ -265,25 +265,7 @@ std::shared_ptr<parameters::ParametersSet> ModelGeneratorPQ_Init::setSharedParam
 
    // This value may be updated later on through *.par/*.iidm data 
   std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("SharedModelicaParameters");
-  double generator_P0Pu_internal;
-  double generator_Q0Pu_internal;
-  double generator_U0Pu_internal;
-  double generator_UPhase0_internal;
-  double generator_iStart0Pu_im_internal;
-  double generator_iStart0Pu_re_internal;
 
-  generator_P0Pu_internal = 0.0; 
-  parametersSet->createParameter("generator_P0Pu", generator_P0Pu_internal);
-  generator_Q0Pu_internal = 0.0; 
-  parametersSet->createParameter("generator_Q0Pu", generator_Q0Pu_internal);
-  generator_U0Pu_internal = 0.0; 
-  parametersSet->createParameter("generator_U0Pu", generator_U0Pu_internal);
-  generator_UPhase0_internal = 0.0; 
-  parametersSet->createParameter("generator_UPhase0", generator_UPhase0_internal);
-  generator_iStart0Pu_im_internal = 0.0; 
-  parametersSet->createParameter("generator_iStart0Pu_im", generator_iStart0Pu_im_internal);
-  generator_iStart0Pu_re_internal = 0.0; 
-  parametersSet->createParameter("generator_iStart0Pu_re", generator_iStart0Pu_re_internal);
   return parametersSet;
 }
 
@@ -317,12 +299,12 @@ void ModelGeneratorPQ_Init::defineVariables(std::vector<boost::shared_ptr<Variab
 
 void ModelGeneratorPQ_Init::defineParameters(std::vector<ParameterModeler>& parameters)
 {
-  parameters.push_back(ParameterModeler("generator_P0Pu", VAR_TYPE_DOUBLE, SHARED_PARAMETER));
-  parameters.push_back(ParameterModeler("generator_Q0Pu", VAR_TYPE_DOUBLE, SHARED_PARAMETER));
-  parameters.push_back(ParameterModeler("generator_U0Pu", VAR_TYPE_DOUBLE, SHARED_PARAMETER));
-  parameters.push_back(ParameterModeler("generator_UPhase0", VAR_TYPE_DOUBLE, SHARED_PARAMETER));
-  parameters.push_back(ParameterModeler("generator_iStart0Pu_im", VAR_TYPE_DOUBLE, SHARED_PARAMETER));
-  parameters.push_back(ParameterModeler("generator_iStart0Pu_re", VAR_TYPE_DOUBLE, SHARED_PARAMETER));
+  parameters.push_back(ParameterModeler("generator_P0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("generator_Q0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("generator_U0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("generator_UPhase0", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("generator_iStart0Pu_im", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("generator_iStart0Pu_re", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
 }
 
 #ifdef _ADEPT_
