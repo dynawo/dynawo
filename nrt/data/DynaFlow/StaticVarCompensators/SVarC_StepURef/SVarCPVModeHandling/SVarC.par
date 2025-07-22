@@ -41,7 +41,7 @@
     <par type="DOUBLE" name="SVarC_UThresholdDown" value="218"/>
     <par type="DOUBLE" name="SVarC_tThresholdUp" value="60"/>
     <par type="DOUBLE" name="SVarC_tThresholdDown" value="0"/>
-    <par type="BOOL" name="SVarC_selectModeAuto0" value="false"/>
+    <par type="BOOL" name="SVarC_SelectModeAuto0" value="false"/>
     <par type="INT" name="SVarC_Mode0" value="3"/>
   </set>
   <set id="4">

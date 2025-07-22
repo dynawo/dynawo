@@ -16,7 +16,7 @@
     <dyn:unitDynamicModel id="event" name="DYNDisconnection" moFile="DYNSolverTest.mo"/>
   </dyn:modelicaModel>
   <dyn:modelicaModel id="infiniteBus" staticId="GEN">
-    <dyn:unitDynamicModel id="InfiniteBus" name="DYNInfiniteBus" moFile="DYNSolverTest.mo"/>
+    <dyn:unitDynamicModel id="InfiniteBus" name="DYNInfiniteBus" moFile="DYNSolverTest.mo" parFile="jobs/solverTestDelta.par" parId="1"/>
   </dyn:modelicaModel>
   <dyn:modelicaModel id="derivative">
     <dyn:unitDynamicModel id="Derivative" name="DYNDerivative" moFile="DYNSolverTest.mo"/>
