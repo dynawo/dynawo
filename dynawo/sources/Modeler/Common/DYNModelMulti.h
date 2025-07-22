@@ -607,6 +607,8 @@ class ModelMulti : public Model, private boost::noncopyable {
 
   std::shared_ptr<parameters::ParametersSet> localInitParameters_;  ///< local initialization solver parameters set
   std::vector<std::pair<boost::shared_ptr<SubModel>, unsigned>> curvesCalculatedVarIndexes_;  ///< curves calculated var locations in subModel
+
+  bool updatablesInitialized_;
 };  ///< Class for Multiple-Model
 
 
