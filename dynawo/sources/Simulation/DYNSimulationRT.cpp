@@ -157,7 +157,7 @@ SimulationRT::updateCurves(bool updateCalculateVariable) const {
   //   return;
 
   if (updateCalculateVariable)
-    model_->updateCalculatedVarForCurves(curvesCollection_);
+    model_->updateCalculatedVarForCurves();
 
   curvesCollection_->updateCurves(tCurrent_);
 }
