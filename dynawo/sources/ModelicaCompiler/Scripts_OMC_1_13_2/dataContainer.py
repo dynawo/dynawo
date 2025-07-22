@@ -193,6 +193,10 @@ def param_scope_str (par_scope):
         return "EXTERNAL_PARAMETER"
 
 ##
+ # returns True if the parameter is at the top level of the model
+def is_first_level_parameters(par):
+    return (par.get_name().count('.') == 1) or (par.get_name().count('.') == 2 and par.get_name().endswith(".re")) or (par.get_name().count('.') == 2 and par.get_name().endswith(".im"))
+##
 # Check whether the parameter is a boolean parameter
 # @param par : parameter to test
 # @return @b True if the parameter is a boolean parameter
@@ -206,8 +210,12 @@ def is_param_bool(par):
 # @return @b True if the parameter is an external boolean parameter
 def is_param_ext_bool(par):
     internal = par.get_internal()
-    use_start = par.get_use_start()
-    return is_param_bool(par) and not internal and not use_start
+    has_init_value = False
+    ptrn_table = re.compile(r'\[(?P<index>[0-9,]+)\]')
+    if len(par.get_start_text()) == 1 and par.get_start_text()[0] != "true" :
+        has_init_value = True
+    return is_param_bool(par) and not internal and is_first_level_parameters(par)\
+        and not has_init_value and re.search(ptrn_table, par.get_name()) is None
 
 ##
 # Check whether the parameter is an internal boolean parameter
@@ -230,8 +238,12 @@ def is_param_integer(par):
 # @return @b True if the parameter is an external integer parameter
 def is_param_ext_integer(par):
     internal = par.get_internal()
-    use_start = par.get_use_start()
-    return is_param_integer(par) and not internal and not use_start
+    has_init_value = False
+    ptrn_table = re.compile(r'\[(?P<index>[0-9,]+)\]')
+    if len(par.get_start_text()) == 1 and int(par.get_start_text()[0]) != 0 :
+        has_init_value = True
+    return is_param_integer(par) and not internal and is_first_level_parameters(par)\
+        and not has_init_value and re.search(ptrn_table, par.get_name()) is None
 
 ##
 # Check whether the parameter is an internal integer parameter
@@ -279,8 +291,12 @@ def is_param_real(par):
 def is_param_ext_real(par):
     internal = par.get_internal()
     init_by_init_extend = par.get_init_by_extend_in_06inz()
-    use_start = par.get_use_start()
-    return is_param_real(par) and not internal and not init_by_init_extend and not use_start
+    has_init_value = False
+    ptrn_table = re.compile(r'\[(?P<index>[0-9,]+)\]')
+    if len(par.get_start_text()) == 1 and float(par.get_start_text()[0]) != 0 :
+        has_init_value = True
+    return is_param_real(par) and not internal and not init_by_init_extend and is_first_level_parameters(par)\
+        and not has_init_value and re.search(ptrn_table, par.get_name()) is None
 
 
 ##
