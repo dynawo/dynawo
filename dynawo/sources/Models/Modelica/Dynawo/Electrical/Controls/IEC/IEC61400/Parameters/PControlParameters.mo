@@ -13,35 +13,7 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.Parameters;
 */
 
 record PControlParameters
-  parameter Real TablePwpBiasfwpFiltCom11 = 0.95 annotation(
-    Dialog(tab = "PControlTables"));
-  parameter Real TablePwpBiasfwpFiltCom12 = 1 annotation(
-    Dialog(tab = "PControlTables"));
-  parameter Real TablePwpBiasfwpFiltCom21 = 1 annotation(
-    Dialog(tab = "PControlTables"));
-  parameter Real TablePwpBiasfwpFiltCom22 = 0 annotation(
-    Dialog(tab = "PControlTables"));
-  parameter Real TablePwpBiasfwpFiltCom31 = 1.05 annotation(
-    Dialog(tab = "PControlTables"));
-  parameter Real TablePwpBiasfwpFiltCom32 = -1 annotation(
-    Dialog(tab = "PControlTables"));
-  parameter Real TablePwpBiasfwpFiltCom41 = 1.06 annotation(
-    Dialog(tab = "PControlTables"));
-  parameter Real TablePwpBiasfwpFiltCom42 = -1 annotation(
-    Dialog(tab = "PControlTables"));
-  parameter Real TablePwpBiasfwpFiltCom51 = 1.07 annotation(
-    Dialog(tab = "PControlTables"));
-  parameter Real TablePwpBiasfwpFiltCom52 = -1 annotation(
-    Dialog(tab = "PControlTables"));
-  parameter Real TablePwpBiasfwpFiltCom61 = 1.08 annotation(
-    Dialog(tab = "PControlTables"));
-  parameter Real TablePwpBiasfwpFiltCom62 = -1 annotation(
-    Dialog(tab = "PControlTables"));
-  parameter Real TablePwpBiasfwpFiltCom71 = 1.09 annotation(
-    Dialog(tab = "PControlTables"));
-  parameter Real TablePwpBiasfwpFiltCom72 = -1 annotation(
-    Dialog(tab = "PControlTables"));
-  parameter Real TablePwpBiasfwpFiltCom[:,:] = [TablePwpBiasfwpFiltCom11, TablePwpBiasfwpFiltCom12; TablePwpBiasfwpFiltCom21, TablePwpBiasfwpFiltCom22; TablePwpBiasfwpFiltCom31, TablePwpBiasfwpFiltCom32; TablePwpBiasfwpFiltCom41, TablePwpBiasfwpFiltCom42; TablePwpBiasfwpFiltCom51, TablePwpBiasfwpFiltCom52; TablePwpBiasfwpFiltCom61, TablePwpBiasfwpFiltCom62; TablePwpBiasfwpFiltCom71, TablePwpBiasfwpFiltCom72] "Table for defining power variation versus frequency" annotation(
+  parameter Real TablePwpBiasfwpFiltCom[:,:] = [0.95, 1; 1, 0; 1.05, -1; 1.06, -1; 1.07, -1; 1.08, -1; 1.09, -1] "Table for defining power variation versus frequency" annotation(
     Dialog(tab = "PControlTables"));
 
   annotation(

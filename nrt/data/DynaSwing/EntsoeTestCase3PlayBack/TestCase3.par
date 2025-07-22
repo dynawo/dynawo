@@ -90,6 +90,8 @@
     <par type="DOUBLE" name="pss_tW4" value="0.00001"/>
     <par type="DOUBLE" name="pss_VPssMaxPu" value="0.1"/>
     <par type="DOUBLE" name="pss_VPssMinPu" value="-0.1"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="InfiniteBus">
     <par type="STRING" name="infiniteBus_UPuTableName" value="TableUPu"/>

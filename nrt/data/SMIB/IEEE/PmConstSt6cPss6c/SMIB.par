@@ -142,6 +142,8 @@
     <par type="DOUBLE" name="powerSystemStabilizer_VPssMinPu" value="-0.05"/>
     <!-- Machine regulations (generator parameter) -->
     <par type="DOUBLE" name="powerSystemStabilizer_SNom" value="448.000001"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <!-- OmegaRef -->
   <set id="6">

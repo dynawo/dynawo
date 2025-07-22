@@ -13,49 +13,13 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.Parameters;
 */
 
 record QControlParameters2020
-  parameter Real TableQwpMaxPwpFiltCom11 = 0 annotation(
-    Dialog(tab = "QControlTables"));
-  parameter Real TableQwpMaxPwpFiltCom12 = 0.33 annotation(
-    Dialog(tab = "QControlTables"));
-  parameter Real TableQwpMaxPwpFiltCom21 = 0.5 annotation(
-    Dialog(tab = "QControlTables"));
-  parameter Real TableQwpMaxPwpFiltCom22 = 0.33 annotation(
-    Dialog(tab = "QControlTables"));
-  parameter Real TableQwpMaxPwpFiltCom31 = 1 annotation(
-    Dialog(tab = "QControlTables"));
-  parameter Real TableQwpMaxPwpFiltCom32 = 0.33 annotation(
-    Dialog(tab = "QControlTables"));
-  parameter Real TableQwpMaxPwpFiltCom[:,:] = [TableQwpMaxPwpFiltCom11, TableQwpMaxPwpFiltCom12; TableQwpMaxPwpFiltCom21, TableQwpMaxPwpFiltCom22; TableQwpMaxPwpFiltCom31, TableQwpMaxPwpFiltCom32] "Power dependent reactive power maximum limit" annotation(
+  parameter Real TableQwpMaxPwpFiltCom[:,:] = [0, 0.33; 0.5, 0.33; 1, 0.33] "Power dependent reactive power maximum limit" annotation(
     Dialog(tab = "QControlTables"));
 
-  parameter Real TableQwpMinPwpFiltCom11 = 0 annotation(
-    Dialog(tab = "QControlTables"));
-  parameter Real TableQwpMinPwpFiltCom12 = -0.33 annotation(
-    Dialog(tab = "QControlTables"));
-  parameter Real TableQwpMinPwpFiltCom21 = 0.5 annotation(
-    Dialog(tab = "QControlTables"));
-  parameter Real TableQwpMinPwpFiltCom22 = -0.33 annotation(
-    Dialog(tab = "QControlTables"));
-  parameter Real TableQwpMinPwpFiltCom31 = 1 annotation(
-    Dialog(tab = "QControlTables"));
-  parameter Real TableQwpMinPwpFiltCom32 = -0.33 annotation(
-    Dialog(tab = "QControlTables"));
-  parameter Real TableQwpMinPwpFiltCom[:,:] = [TableQwpMinPwpFiltCom11, TableQwpMinPwpFiltCom12; TableQwpMinPwpFiltCom21, TableQwpMinPwpFiltCom22; TableQwpMinPwpFiltCom31, TableQwpMinPwpFiltCom32] "Power dependent reactive power minimum limit" annotation(
+  parameter Real TableQwpMinPwpFiltCom[:,:] = [0, -0.33; 0.5, -0.33; 1, -0.33] "Power dependent reactive power minimum limit" annotation(
     Dialog(tab = "QControlTables"));
 
-  parameter Real TableQwpUErr11 = -0.05 annotation(
-    Dialog(tab = "QControlTables"));
-  parameter Real TableQwpUErr12 = 1.21 annotation(
-    Dialog(tab = "QControlTables"));
-  parameter Real TableQwpUErr21 = 0 annotation(
-    Dialog(tab = "QControlTables"));
-  parameter Real TableQwpUErr22 = 0.21 annotation(
-    Dialog(tab = "QControlTables"));
-  parameter Real TableQwpUErr31 = 0.05 annotation(
-    Dialog(tab = "QControlTables"));
-  parameter Real TableQwpUErr32 = -0.79 annotation(
-    Dialog(tab = "QControlTables"));
-  parameter Real TableQwpUErr[:,:] = [TableQwpUErr11, TableQwpUErr12; TableQwpUErr21, TableQwpUErr22; TableQwpUErr31, TableQwpUErr32] "Table for the UQ static mode" annotation(
+  parameter Real TableQwpUErr[:,:] = [-0.05, 1.21; 0, 0.21; 0.05, -0.79] "Table for the UQ static mode" annotation(
     Dialog(tab = "QControlTables"));
 
   annotation(
