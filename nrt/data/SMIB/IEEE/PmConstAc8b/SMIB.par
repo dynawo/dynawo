@@ -96,6 +96,8 @@
     <par type="DOUBLE" name="voltageRegulator_VfeMaxPu" value="20"/>
     <par type="DOUBLE" name="voltageRegulator_VrMaxPu" value="35"/>
     <par type="DOUBLE" name="voltageRegulator_VrMinPu" value="0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <!-- OmegaRef -->
   <set id="6">

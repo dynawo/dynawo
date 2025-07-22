@@ -21,6 +21,8 @@
     <par type="DOUBLE" name="generator_PMin" value="0"/>
     <par type="DOUBLE" name="generator_PMax" value="10000"/>
     <par type="DOUBLE" name="generator_PNom" value="10000"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="InfiniteBus">
     <reference name="infiniteBus_UPu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
