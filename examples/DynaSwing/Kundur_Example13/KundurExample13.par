@@ -89,6 +89,8 @@
     <par type="DOUBLE" name="pss_tW" value="1.41"/>
     <par type="DOUBLE" name="pss_VsMinPu" value="-0.2"/>
     <par type="DOUBLE" name="pss_VsMaxPu" value="0.2"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <!-- OmegaRef -->
   <set id="SetPointOmegaRef">

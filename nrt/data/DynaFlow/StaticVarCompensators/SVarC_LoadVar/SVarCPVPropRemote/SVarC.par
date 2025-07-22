@@ -33,6 +33,7 @@
     <par type="DOUBLE" name="SVarC_BShuntPu" value="0"/>
     <par type="DOUBLE" name="SVarC_BMaxPu" value="1.0678"/>
     <par type="DOUBLE" name="SVarC_BMinPu" value="-1.0466"/>
+    <par type="BOOL" name="SVarC_SelectModeAuto0" value="true"/>
   </set>
   <set id="4">
     <par type="DOUBLE" name="load_alpha" value="0"/>

@@ -97,6 +97,8 @@
     <par type="DOUBLE" name="voltageRegulator_UsRefMaxPu" value="1.2"/>
     <par type="DOUBLE" name="voltageRegulator_LagEfdMin" value="0"/>
     <par type="DOUBLE" name="voltageRegulator_LagEfdMax" value="0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <!-- OmegaRef -->
   <set id="7">

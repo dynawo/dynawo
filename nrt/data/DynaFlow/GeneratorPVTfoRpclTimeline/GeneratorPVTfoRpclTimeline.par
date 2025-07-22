@@ -113,6 +113,8 @@
     <macroParSet id="macro_rpcl"/>
     <par type="DOUBLE" name="generator_QDeadBandPu" value="0.0001"/>
     <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator2">
     <macroParSet id="macro_generator_diagram"/>
@@ -121,6 +123,8 @@
     <macroParSet id="macro_rpcl"/>
     <par type="DOUBLE" name="generator_QDeadBandPu" value="0.0001"/>
     <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator3">
     <macroParSet id="macro_generator"/>
@@ -129,6 +133,8 @@
     <macroParSet id="macro_rpcl2"/>
     <par type="DOUBLE" name="generator_QDeadBandPu" value="0.0001"/>
     <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator4">
     <macroParSet id="macro_generator_diagram"/>
@@ -137,6 +143,8 @@
     <macroParSet id="macro_rpcl2"/>
     <par type="DOUBLE" name="generator_QDeadBandPu" value="0.0001"/>
     <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="SVC">
     <macroParSet id="macro_svc"/>
