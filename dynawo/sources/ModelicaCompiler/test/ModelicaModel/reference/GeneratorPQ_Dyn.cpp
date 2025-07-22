@@ -607,45 +607,12 @@ std::shared_ptr<parameters::ParametersSet> ModelGeneratorPQ_Dyn::setSharedParame
 
    // This value may be updated later on through *.par/*.iidm data 
   std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("SharedModelicaParameters");
-  double generator_AlphaPuPNom_internal;
-  double generator_PGen0Pu_internal;
-  double generator_PMax_internal;
-  double generator_PMin_internal;
-  double generator_PNom_internal;
-  double generator_QGen0Pu_internal;
-  double generator_U0Pu_internal;
-  double generator_i0Pu_im_internal;
-  double generator_i0Pu_re_internal;
-  double generator_u0Pu_im_internal;
-  double generator_u0Pu_re_internal;
   bool generator_SwitchOffSignal10_internal;
   bool generator_SwitchOffSignal20_internal;
   bool generator_SwitchOffSignal30_internal;
   int generator_NbSwitchOffSignals_internal;
   int generator_State0_internal;
 
-  generator_AlphaPuPNom_internal = 0.0; 
-  parametersSet->createParameter("generator_AlphaPuPNom", generator_AlphaPuPNom_internal);
-  generator_PGen0Pu_internal = 0.0; 
-  parametersSet->createParameter("generator_PGen0Pu", generator_PGen0Pu_internal);
-  generator_PMax_internal = 0.0; 
-  parametersSet->createParameter("generator_PMax", generator_PMax_internal);
-  generator_PMin_internal = 0.0; 
-  parametersSet->createParameter("generator_PMin", generator_PMin_internal);
-  generator_PNom_internal = 0.0; 
-  parametersSet->createParameter("generator_PNom", generator_PNom_internal);
-  generator_QGen0Pu_internal = 0.0; 
-  parametersSet->createParameter("generator_QGen0Pu", generator_QGen0Pu_internal);
-  generator_U0Pu_internal = 0.0; 
-  parametersSet->createParameter("generator_U0Pu", generator_U0Pu_internal);
-  generator_i0Pu_im_internal = 0.0; 
-  parametersSet->createParameter("generator_i0Pu_im", generator_i0Pu_im_internal);
-  generator_i0Pu_re_internal = 0.0; 
-  parametersSet->createParameter("generator_i0Pu_re", generator_i0Pu_re_internal);
-  generator_u0Pu_im_internal = 0.0; 
-  parametersSet->createParameter("generator_u0Pu_im", generator_u0Pu_im_internal);
-  generator_u0Pu_re_internal = 0.0; 
-  parametersSet->createParameter("generator_u0Pu_re", generator_u0Pu_re_internal);
   generator_SwitchOffSignal10_internal = false; 
   parametersSet->createParameter("generator_SwitchOffSignal10", generator_SwitchOffSignal10_internal);
   generator_SwitchOffSignal20_internal = false; 
@@ -710,19 +677,19 @@ void ModelGeneratorPQ_Dyn::defineParameters(std::vector<ParameterModeler>& param
   using ParameterModelerTuple = std::tuple<std::string, DYN::typeVarC_t, DYN::parameterScope_t>;
   std::array<ParameterModelerTuple, 20> parameterModelerArray = {
     std::make_tuple("generator_AlphaPu", VAR_TYPE_DOUBLE, INTERNAL_PARAMETER),
-    std::make_tuple("generator_AlphaPuPNom", VAR_TYPE_DOUBLE, SHARED_PARAMETER),
-    std::make_tuple("generator_PGen0Pu", VAR_TYPE_DOUBLE, SHARED_PARAMETER),
-    std::make_tuple("generator_PMax", VAR_TYPE_DOUBLE, SHARED_PARAMETER),
+    std::make_tuple("generator_AlphaPuPNom", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_PGen0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_PMax", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
     std::make_tuple("generator_PMaxPu", VAR_TYPE_DOUBLE, INTERNAL_PARAMETER),
-    std::make_tuple("generator_PMin", VAR_TYPE_DOUBLE, SHARED_PARAMETER),
+    std::make_tuple("generator_PMin", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
     std::make_tuple("generator_PMinPu", VAR_TYPE_DOUBLE, INTERNAL_PARAMETER),
-    std::make_tuple("generator_PNom", VAR_TYPE_DOUBLE, SHARED_PARAMETER),
-    std::make_tuple("generator_QGen0Pu", VAR_TYPE_DOUBLE, SHARED_PARAMETER),
-    std::make_tuple("generator_U0Pu", VAR_TYPE_DOUBLE, SHARED_PARAMETER),
-    std::make_tuple("generator_i0Pu_im", VAR_TYPE_DOUBLE, SHARED_PARAMETER),
-    std::make_tuple("generator_i0Pu_re", VAR_TYPE_DOUBLE, SHARED_PARAMETER),
-    std::make_tuple("generator_u0Pu_im", VAR_TYPE_DOUBLE, SHARED_PARAMETER),
-    std::make_tuple("generator_u0Pu_re", VAR_TYPE_DOUBLE, SHARED_PARAMETER),
+    std::make_tuple("generator_PNom", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_QGen0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_U0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_i0Pu_im", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_i0Pu_re", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_u0Pu_im", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_u0Pu_re", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
     std::make_tuple("generator_Running0", VAR_TYPE_BOOL, INTERNAL_PARAMETER),
     std::make_tuple("generator_SwitchOffSignal10", VAR_TYPE_BOOL, SHARED_PARAMETER),
     std::make_tuple("generator_SwitchOffSignal20", VAR_TYPE_BOOL, SHARED_PARAMETER),
