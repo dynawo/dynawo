@@ -74,9 +74,8 @@ class TimeManager;
 /**
  * @brief SimulationRT class
  *
- * SimulationRT class is the entry point for Dynawo real-time simulations. It is
- * responsible for setting solver parameters and for controlling
- * simulation time exchanges between the model and the solver
+ * SimulationRT class is the entry point for Dynawo interactive (or real-time) simulations.
+ * It redifines part of Simulation class to introduce input/output at each step with an external system.
  */
 class SimulationRT: public Simulation {
  public:

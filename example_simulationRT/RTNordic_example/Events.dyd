@@ -19,10 +19,10 @@
     <dyn:connect id1="LineStatus" var1="input_value" id2="NETWORK" var2="L4032-4042_state_value"/>
 
     <dyn:blackBoxModel id="SouthLoadsDelta" lib="SetPoint" parFile="Events.par" parId="SouthLoadsDelta"/>
-    <dyn:connect id1="SouthLoadsDelta" var1="setPoint_setPoint_value" id2="NETWORK" var2="61_1_DeltaPc_value"/>
-    <dyn:connect id1="SouthLoadsDelta" var1="setPoint_setPoint_value" id2="NETWORK" var2="62_1_DeltaPc_value"/>
-    <dyn:connect id1="SouthLoadsDelta" var1="setPoint_setPoint_value" id2="NETWORK" var2="63_1_DeltaPc_value"/>
-    <dyn:connect id1="SouthLoadsDelta" var1="setPoint_setPoint_value" id2="NETWORK" var2="61_1_DeltaQc_value"/>
-    <dyn:connect id1="SouthLoadsDelta" var1="setPoint_setPoint_value" id2="NETWORK" var2="62_1_DeltaQc_value"/>
-    <dyn:connect id1="SouthLoadsDelta" var1="setPoint_setPoint_value" id2="NETWORK" var2="63_1_DeltaQc_value"/>
+    <dyn:connect id1="SouthLoadsDelta" var1="setPoint_setPoint" id2="NETWORK" var2="61_1_DeltaPc_value"/>
+    <dyn:connect id1="SouthLoadsDelta" var1="setPoint_setPoint" id2="NETWORK" var2="62_1_DeltaPc_value"/>
+    <dyn:connect id1="SouthLoadsDelta" var1="setPoint_setPoint" id2="NETWORK" var2="63_1_DeltaPc_value"/>
+    <dyn:connect id1="SouthLoadsDelta" var1="setPoint_setPoint" id2="NETWORK" var2="61_1_DeltaQc_value"/>
+    <dyn:connect id1="SouthLoadsDelta" var1="setPoint_setPoint" id2="NETWORK" var2="62_1_DeltaQc_value"/>
+    <dyn:connect id1="SouthLoadsDelta" var1="setPoint_setPoint" id2="NETWORK" var2="63_1_DeltaQc_value"/>
 </dyn:dynamicModelsArchitecture>
