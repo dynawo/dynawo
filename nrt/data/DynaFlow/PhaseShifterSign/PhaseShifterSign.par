@@ -33,6 +33,8 @@
     <par type="DOUBLE" name="generator_PNom" value="1"/>
     <par type="DOUBLE" name="generator_QDeadBandPu" value="0.0001"/>
     <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Load">
     <par type="DOUBLE" name="load_Alpha" value="1.5"/>
@@ -55,6 +57,7 @@
     <reference type="INT" name="phaseShifter_tapMax" origData="IIDM" origName="highTapPosition" componentId="PhaseShifter"/>
     <reference type="BOOL" name="phaseShifter_regulating0" origData="IIDM" origName="regulating" componentId="PhaseShifter"/>
     <reference type="INT" name="phaseShifter_increasePhase" origData="IIDM" origName="increasePhase" componentId="PhaseShifter"/>
+    <par type="BOOL" name="phaseShifter_running0" value="true"/>
   </set>
   <set id="Network">
     <par type="DOUBLE" name="capacitor_no_reclosing_delay" value="300"/>

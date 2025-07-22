@@ -27,6 +27,8 @@
     <par type="DOUBLE" name="generator_PNom" value="1"/>
     <par type="DOUBLE" name="generator_QDeadBandPu" value="0.0001"/>
     <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="3">
     <par type="DOUBLE" name="load_Alpha" value="1.5"/>
@@ -64,6 +66,7 @@
     <par type="DOUBLE" name="acemulation_tFilter" value="50"/>
     <par type="DOUBLE" name="acemulation_KACEmulation0" value="250"/>
     <par type="DOUBLE" name="acemulation_PRefSet0Pu" value="0"/>
+    <par type="BOOL" name="acemulation_Enabled0" value="true"/>
   </set>
   <set id="5">
     <par type="DOUBLE" name="hvdc_Q1Nom" value="400"/>
@@ -93,6 +96,7 @@
     <par type="DOUBLE" name="acemulation_tFilter" value="50"/>
     <par type="DOUBLE" name="acemulation_KACEmulation0" value="250"/>
     <par type="DOUBLE" name="acemulation_PRefSet0Pu" value="0"/>
+    <par type="BOOL" name="acemulation_Enabled0" value="true"/>
   </set>
   <set id="6">
     <par type="DOUBLE" name="powertransferhvdcemulation_KACEmulation10" value="250"/>

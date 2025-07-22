@@ -27,6 +27,8 @@
     <par type="DOUBLE" name="generator_PNom" value="1"/>
     <par type="DOUBLE" name="generator_QDeadBandPu" value="0.0001"/>
     <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="3">
     <par type="DOUBLE" name="load_Alpha" value="1.5"/>
