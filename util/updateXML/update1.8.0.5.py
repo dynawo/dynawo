@@ -8,71 +8,85 @@
 # file, you can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
 #
-# This file is part of Dynawo, an hybrid C++/Modelica open source suite
+# This file is part of Dynawo, a hybrid C++/Modelica open source suite
 # of simulation tools for power systems.
 
 from content.Ticket import ticket
 
-# Add new mandatory parameters following upgrade to OpenModelica 1.24.5
-@ticket(2292)
+# update unit dynamic model names in modelica models and model templates
+@ticket(3443)
 def update(jobs):
-    for bbm in jobs.dyds.get_bbms(lambda bbm: "Generator" in bbm.get_lib_name()):
-        if not bbm.parset.check_if_param_exists("generator_iStart0Pu_im"):
-            bbm.parset.add_param("DOUBLE", "generator_iStart0Pu_re", 0.)
-            bbm.parset.add_param("DOUBLE", "generator_iStart0Pu_im", 0.)
+    udms = list()
+    for mm in jobs.dyds.get_modelica_models(lambda _: True):
+        udms.extend(mm.get_unit_dynamic_models(lambda _: True))
 
-    for bbm in jobs.dyds.get_modelica_models(lambda _: True):
-        for unit in bbm.get_unit_dynamic_models(lambda unit: "Generator" in unit.get_name()):
-            if not unit.parset.check_if_param_exists("iStart0Pu_re"):
-                unit.parset.add_param("DOUBLE", "iStart0Pu_re", 0.)
-                unit.parset.add_param("DOUBLE", "iStart0Pu_im", 0.)
+    for mt in jobs.dyds.get_model_templates(lambda _: True):
+        udms.extend(mt.get_unit_dynamic_models(lambda _: True))
 
-    for model_template_expansions in jobs.dyds.get_model_template_expansions(lambda _: True):
-        model_templates = jobs.dyds.get_model_templates(lambda template: template.get_id() == model_template_expansions.get_template_id())
-        for model_template in model_templates:
-            for unit in model_template.get_unit_dynamic_models(lambda unit: "Generator" in unit.get_name()):
-                if not model_template_expansions.parset.check_if_param_exists(unit.get_id() + "_iStart0Pu_im"):
-                    model_template_expansions.parset.add_param("DOUBLE", unit.get_id() + "_iStart0Pu_re", 0.)
-                    model_template_expansions.parset.add_param("DOUBLE", unit.get_id() + "_iStart0Pu_im", 0.)
+    for udm in udms:
+        update_name(udm,"Dynawo.Electrical.BESS.WECC","BESScbCurrentSource","BESSCurrentSource")
+        update_name(udm,"Dynawo.Electrical.BESS.WECC","BESScbCurrentSourceNoPlantControl","BESSCurrentSourceNoPlantControl")
+        update_name(udm,"Dynawo.Electrical.Photovoltaics.WECC","PVCurrentSourceB","PVCurrentSource")
+        update_name(udm,"Dynawo.Electrical.Photovoltaics.WECC","PVCurrentSourceBNoPlantControl","PVCurrentSourceNoPlantControl")
+        update_name(udm,"Dynawo.Electrical.Photovoltaics.WECC","PVVoltageSourceA","PVVoltageSource1")
+        update_name(udm,"Dynawo.Electrical.Photovoltaics.WECC","PVVoltageSourceANoPlantControl","PVVoltageSource1NoPlantcontrol")
+        update_name(udm,"Dynawo.Electrical.Photovoltaics.WECC","PVVoltageSourceB","PVVoltageSource2")
+        update_name(udm,"Dynawo.Electrical.Photovoltaics.WECC","PVVoltageSourceBNoPlantControl","PVVoltageSource2NoPlantControl")
 
-    for bbm in jobs.dyds.get_modelica_models(lambda _: True):
-        for unit in bbm.get_unit_dynamic_models(lambda unit: "Generator" in unit.get_name()):
-            if not unit.parset.check_if_param_exists("generator_iStart0Pu_im"):
-                unit.parset.add_param("DOUBLE", "iStart0Pu_re", 0.)
-                unit.parset.add_param("DOUBLE", "iStart0Pu_im", 0.)
+    for bessxml in jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "BESScbWeccCurrentSource"):
+        bessxml.set_lib_name("BESSWeccCurrentSource")
+    for bessxml in jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "BESScbWeccCurrentSourceNoPlantControl"):
+        bessxml.set_lib_name("BESSWeccCurrentSourceNoPlantControlSource")
+    for pvxml in jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "PhotovoltaicsWeccCurrentSourceB"):
+        pvxml.set_lib_name("PhotovoltaicsWeccCurrentSource")
+    for pvxml in jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "PhotovoltaicsWeccCurrentSourceBNoPlantControl"):
+        pvxml.set_lib_name("PhotovoltaicsWeccCurrentSourceNoPlantControl")
+    for pvxml in jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "PhotovoltaicsWeccVoltageSourceA"):
+        pvxml.set_lib_name("PhotovoltaicsWeccVoltageSource1")
+    for pvxml in jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "PhotovoltaicsWeccVoltageSourceANoPlantControl"):
+        pvxml.set_lib_name("PhotovoltaicsWeccVoltageSource1NoPlantControl")
+    for pvxml in jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "PhotovoltaicsWeccVoltageSourceB"):
+        pvxml.set_lib_name("PhotovoltaicsWeccVoltageSource2")
+    for pvxml in jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "PhotovoltaicsWeccVoltageSourceBNoPlantControl"):
+        pvxml.set_lib_name("PhotovoltaicsWeccVoltageSource2NoPlantControl")
 
-    for bbm in jobs.dyds.get_bbms(lambda bbm: "PhaseShifter" in bbm.get_lib_name()):
-        if not bbm.parset.check_if_param_exists("phaseShifter_running0"):
-            bbm.parset.add_param("BOOL", "phaseShifter_running0", True)
+    for lib_name in ["WTG3WeccCurrentSource1","WTG3WeccCurrentSource2"]:
+        for wtg3 in jobs.dyds.get_bbms(lambda bbm: lib_name in bbm.get_lib_name()):
+            wtg3.parset.add_param("BOOL", "WTG3_Lvplsw", False)
+            wtg3.parset.add_param("DOUBLE", "WTG3_zerox", 0.1)
+            wtg3.parset.add_param("DOUBLE", "WTG3_brkpt", 0.05)
+            wtg3.parset.add_param("DOUBLE", "WTG3_lvpl1", 1.22)
 
-    for bbm in jobs.dyds.get_bbms(lambda bbm: "StaticVarCompensator" in bbm.get_lib_name()):
-        if bbm.parset.check_if_param_exists("SVarC_selectModeAuto0"):
-            bbm.parset.change_param_or_ref_name("SVarC_selectModeAuto0", "SVarC_SelectModeAuto0")
-        elif not bbm.parset.check_if_param_exists("SVarC_SelectModeAuto0"):
-            bbm.parset.add_param("BOOL", "SVarC_SelectModeAuto0", True)
+    for wtg4b in jobs.dyds.get_bbms(lambda bbm: "WTG4BWeccCurrentSource" in bbm.get_lib_name()):
+        wtg4b.parset.add_param("BOOL", "WTG4B_Lvplsw", False)
+        wtg4b.parset.add_param("DOUBLE", "WTG4B_zerox", 0.1)
+        wtg4b.parset.add_param("DOUBLE", "WTG4B_brkpt", 0.05)
+        wtg4b.parset.add_param("DOUBLE", "WTG4B_lvpl1", 1.22)
 
-    for bbm in jobs.dyds.get_bbms(lambda bbm: "Hvdc" in bbm.get_lib_name() and "Emulation" in bbm.get_lib_name()):
-        if not bbm.parset.check_if_param_exists("acemulation_Enabled0"):
-            bbm.parset.add_param("BOOL", "acemulation_Enabled0", True)
+    for wtg4a in jobs.dyds.get_bbms(lambda bbm: "WTG4AWeccCurrentSource" in bbm.get_lib_name()):
+        wtg4a.parset.add_param("BOOL", "WTG4A_Lvplsw", False)
+        wtg4a.parset.add_param("DOUBLE", "WTG4A_zerox", 0.1)
+        wtg4a.parset.add_param("DOUBLE", "WTG4A_brkpt", 0.05)
+        wtg4a.parset.add_param("DOUBLE", "WTG4A_lvpl1", 1.22)
 
-    for bbm in jobs.dyds.get_bbms(lambda bbm: "TapChangerAutomaton" in bbm.get_lib_name()):
-        if not bbm.parset.check_if_param_exists("tapChanger_increaseTapToIncreaseValue"):
-            bbm.parset.add_param("BOOL", "tapChanger_increaseTapToIncreaseValue", True)
-            bbm.parset.add_param("BOOL", "tapChanger_running0", True)
+    for wt4b in jobs.dyds.get_bbms(lambda bbm: "WT4BWeccCurrentSource" in bbm.get_lib_name()):
+        wt4b.parset.add_param("BOOL", "WT4B_Lvplsw", False)
+        wt4b.parset.add_param("DOUBLE", "WT4B_zerox", 0.1)
+        wt4b.parset.add_param("DOUBLE", "WT4B_brkpt", 0.05)
+        wt4b.parset.add_param("DOUBLE", "WT4B_lvpl1", 1.22)
 
-    for bbm in jobs.dyds.get_bbms(lambda bbm: "DistanceProtection" in bbm.get_lib_name()):
-        if not bbm.parset.check_if_param_exists("distance_BlinderAnglePu"):
-            bbm.parset.add_param("DOUBLE", "distance_BlinderAnglePu", 0.)
-            bbm.parset.add_param("DOUBLE", "distance_BlinderReachPu", 0.)
+    for wt4a in jobs.dyds.get_bbms(lambda bbm: "WT4AWeccCurrentSource" in bbm.get_lib_name()):
+        wt4a.parset.add_param("BOOL", "WT4A_Lvplsw", False)
+        wt4a.parset.add_param("DOUBLE", "WT4A_zerox", 0.1)
+        wt4a.parset.add_param("DOUBLE", "WT4A_brkpt", 0.05)
+        wt4a.parset.add_param("DOUBLE", "WT4A_lvpl1", 1.22)
 
-    for lib_name in ["St4b", "St6b"]:
-        for bbm in jobs.dyds.get_bbms(lambda bbm: lib_name in bbm.get_lib_name()):
-            if not bbm.parset.check_if_param_exists("voltageRegulator_Sw1"):
-                bbm.parset.add_param("BOOL", "voltageRegulator_Sw1", True)
+    for bess in jobs.dyds.get_bbms(lambda bbm: "BESSWeccCurrentSource" in bbm.get_lib_name()):
+        bess.parset.add_param("BOOL", "BESS_Lvplsw", False)
+        bess.parset.add_param("DOUBLE", "BESS_zerox", 0.1)
+        bess.parset.add_param("DOUBLE", "BESS_brkpt", 0.05)
+        bess.parset.add_param("DOUBLE", "BESS_lvpl1", 1.22)
 
-    for lib_name in ["Ac7b", "St6b"]:
-        for bbm in jobs.dyds.get_bbms(lambda bbm: lib_name in bbm.get_lib_name()):
-            if not bbm.parset.check_if_param_exists("voltageRegulator_Ki"):
-                bbm.parset.add_param("DOUBLE", "voltageRegulator_Ki", 0.)
-                bbm.parset.add_param("DOUBLE", "voltageRegulator_Thetap", 0.)
-                bbm.parset.add_param("DOUBLE", "voltageRegulator_XlPu", 0.)
+def update_name(udm,prefix,old,new):
+    if udm.get_name() == prefix+"."+old:
+        udm.set_name(prefix+"."+new)
