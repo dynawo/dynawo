@@ -27,15 +27,15 @@ TEST(APIJOBTest, testConstraintsEntry) {
   // check default attributes
   ASSERT_EQ(constraints->getOutputFile(), "");
   ASSERT_EQ(constraints->getExportMode(), "");
-  ASSERT_TRUE(constraints->isFilter());
+  ASSERT_EQ(constraints->getFilterType(), DYN::CONSTRAINTS_KEEP_FIRST);
 
   constraints->setOutputFile("/tmp/exportFile.txt");
   constraints->setExportMode("TXT");
-  constraints->setFilter(false);
+  constraints->setFilterType(DYN::CONSTRAINTS_KEEP_LAST);
 
   ASSERT_EQ(constraints->getOutputFile(), "/tmp/exportFile.txt");
   ASSERT_EQ(constraints->getExportMode(), "TXT");
-  ASSERT_FALSE(constraints->isFilter());
+  ASSERT_EQ(constraints->getFilterType(), DYN::CONSTRAINTS_KEEP_LAST);
 }
 
 }  // namespace job

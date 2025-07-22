@@ -83,7 +83,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   }
   mcl.evalZ("MY COMP", t, &states[0], desactivate, modelType, &network);
 
-  constraints->filter();  // filter constraint collection by removing cleared constraints
+  constraints->filter(DYN::CONSTRAINTS_KEEP_LAST);  // filter constraint collection by removing cleared constraints
   unsigned n = 0;
   for (const auto& constraintPair : constraints->getConstraintsById()) {
     const auto& constraint = constraintPair.second;
@@ -119,7 +119,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   network.setCurrentTime(5.1);
   mcl.evalZ("MY COMP", t, &states[0], desactivate, modelType, &network);
 
-  constraints->filter();  // filter constraint collection by removing cleared constraints
+  constraints->filter(DYN::CONSTRAINTS_KEEP_LAST);  // filter constraint collection by removing cleared constraints
   n = 0;
   for (const auto& constraintPair : constraints->getConstraintsById()) {
     std::shared_ptr<constraints::Constraint> constraint = constraintPair.second;
