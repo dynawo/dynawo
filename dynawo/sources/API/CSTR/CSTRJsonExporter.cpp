@@ -51,13 +51,11 @@ JsonExporter::exportToFile(const std::shared_ptr<ConstraintsCollection>& constra
 }
 
 void
-JsonExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints, ostream& stream, double afterTime) const {
+JsonExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints, ostream& stream) const {
   ptree root;
   ptree array;
   for (const auto& constraintPair : constraints->getConstraintsById()) {
     const auto& constraint = constraintPair.second;
-    if (!DYN::doubleGreater(constraint->getTime(), afterTime))
-      continue;
     ptree item;
     item.put("modelName", constraint->getModelName());
     item.put("description", constraint->getDescription());
