@@ -58,9 +58,8 @@ class Exporter {
    *
    * @param constraints ConstraintsCollection to export
    * @param stream stream to export to
-   * @param afterTime export only events occuring after this 'afterTime' time
    */
-  virtual void exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints, std::ostream& stream, double afterTime) const = 0;
+  virtual void exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints, std::ostream& stream) const = 0;
 };
 
 #ifdef __clang__

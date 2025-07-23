@@ -46,9 +46,8 @@ class JsonExporter : public Exporter {
    *
    * @param constraints Constraints to export
    * @param stream Stream to export JSON formatted constraints to
-   * @param afterTime export only events occuring after this 'afterTime' time
    */
-  void exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints, std::ostream& stream, double afterTime = -1.) const override;
+  void exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints, std::ostream& stream) const override;
 };
 
 }  // namespace constraints
