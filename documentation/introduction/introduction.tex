@@ -69,6 +69,61 @@ To get started with \Dynawo , different possibilities exist, depending on your b
 \end{itemize}
 
 \section{Changes from previous versions}
+\subsection{Changes from v1.7.0}
+
+\underline{New models and their test cases in Dynawo  :}
+\begin{itemize}
+\item REEC-C and Battery Energy Storage System (BESS) models of WECC standard
+\item PV models wihout plant controller of WECC standard
+\item IEC 2015 Wind Power Plants (WPP) controls
+\item Motor loads composite models
+\item Standard models for governors : GovSteamEU, GovHydro4, GovCT2
+\item Phase shifter and ratio tap changer transformer models
+\item Over voltage automaton model
+\item Inertial grid model
+\item Variable impedant fault model
+\item Limiter model that enforces saturations only after they were violated without interruption during a given amount of time, the lower saturation value being its current value
+\end{itemize}
+
+\underline{New large case OpenModelica examples :}
+
+\begin{itemize}
+\item IEEE57 and IEEE118 are added fully in OpenModelica on the Dynawo Modelica library
+\end{itemize}
+
+\underline{New features in models :}
+
+\begin{itemize}
+\item Add timeline messages in IEC Wind models when the unit disconnects
+\item Add timeline messages in Secondary voltage control model when a new control level is sent
+\item Corrections and ease of use of models:
+\item Miscellaneous corrections for blocks of WECC and IEC for power electronics interfaced ressources models to fit standard
+\item Replace Modelica transfer function block with Dynawo transfer function block to respect standard Modelica language during initialisation
+\item Miscellaneous corrections on failing full OpenModelica Dynawo examples
+\item Create base class models for IEEE standard voltage regulations, power system stabilizer, stator current, over excitation and under excitation limiters
+\end{itemize}
+
+\underline{Core:}
+\begin{itemize}
+\item All variables are now dumped in final state, allowing to retrieve all data (and in particular timings) in the following simulation
+\item added a utilitary python tool to help users migrating their existing dynawo files to latest release (updateXML)
+\end{itemize}
+
+\underline{3rd party:}
+\begin{itemize}
+\item now using powsybl-iidm4cpp v1.5.1-rc2
+\end{itemize}
+
+\underline{DynaFlow:}
+\begin{itemize}
+\item Improved robustness regarding voltage regulation to avoid unexpected divergences
+\end{itemize}
+
+\underline{DevOps:}
+\begin{itemize}
+\item Dynawo compilation on windows is now based on visual studio 2022
+\end{itemize}
+
 
 \subsection{Changes from v1.6.0}
 
