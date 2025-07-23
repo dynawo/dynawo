@@ -358,7 +358,8 @@ SimulationRT::simulate() {
           // Export Timeline
           if (timeline_) {
             ostringstream formatedTimeline;
-            timelineExporter_->exportToStream(timeline_, formatedTimeline, lastPublicationTime);
+            timelineExporter_->exportToStream(timeline_, formatedTimeline);
+            timeline_->clear();
             string strTimeline = formatedTimeline.str();
             stepPublisher_->sendMessage(strTimeline, "timeline");
           }
@@ -366,7 +367,8 @@ SimulationRT::simulate() {
           // Export Constraints
           if (constraintsCollection_) {
             ostringstream formatedConstraints;
-            constraintsExporter_->exportToStream(constraintsCollection_, formatedConstraints, lastPublicationTime);
+            constraintsExporter_->exportToStream(constraintsCollection_, formatedConstraints);
+            timeline_->clear();
             string strConstraints = formatedConstraints.str();
             stepPublisher_->sendMessage(strConstraints, "constraints");
             Trace::info() << "data published to ZMQ" << Trace::endline;
