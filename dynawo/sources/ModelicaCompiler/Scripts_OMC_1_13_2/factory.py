@@ -1310,6 +1310,8 @@ class Factory:
                         self.nb_created_relations = index_additional_relation
                     if "else" in line:
                         index_if +=1
+                    if "fmin" in line:
+                        index_if +=1
             self.add_tmps_for_modes(tmps_to_add, tmps_assignment, tmps_definition, True)
 
     ##
@@ -1320,7 +1322,7 @@ class Factory:
     # @param tmps_definition : list of tmps definitions to consider
     # @param created_relation_tmp : indicates if the tmp is a tmp related to created_relation
     def add_tmps_for_modes(self, tmps_to_add, tmps_assignment, tmps_definition, created_relation_tmp):
-        tmps_to_add.sort()
+        #tmps_to_add.sort(key=lambda tmp: int(tmp.replace("tmp","")))
         for tmp_to_add in tmps_to_add:
             for tmp_definition in tmps_definition:
                 if find_all_temporary_variable_in_line(tmp_definition)[0] == tmp_to_add:
@@ -1330,6 +1332,7 @@ class Factory:
                     else:
                         tmp_definition = tmp_definition + "\n"
                         self.modes.add_to_body_for_tmps("  " + tmp_definition)
+        for tmp_to_add in tmps_to_add:
             for tmp_assignment in tmps_assignment:
                 if find_all_temporary_variable_in_line(tmp_assignment)[0] == tmp_to_add:
                     if created_relation_tmp:
@@ -1629,6 +1632,8 @@ class Factory:
                         eq_body[index] = self.transform_in_relation(line, index_relations[index_relation])
                         index_relation += 1
                     if "else" in line:
+                        index_if +=1
+                    if "fmin" in line:
                         index_if +=1
                     index += 1
             standard_eq_body.extend(eq_body)
@@ -2802,6 +2807,8 @@ class Factory:
                         line = self.transform_in_relation(line, index_relations[index_relation])
                         index_relation+=1
                     if "else" in line:
+                        index_if +=1
+                    if "fmin" in line:
                         index_if +=1
                     standard_body.append(line)
 

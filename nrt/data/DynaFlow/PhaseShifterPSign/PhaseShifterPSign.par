@@ -56,6 +56,7 @@
     <reference type="BOOL" name="phaseShifter_regulating0" origData="IIDM" origName="regulating" componentId="PhaseShifter"/>
     <reference type="INT" name="phaseShifter_increasePhase" origData="IIDM" origName="increasePhase" componentId="PhaseShifter"/>
     <par type="BOOL" name="phaseShifter_running0" value="true"/>
+    <par type="DOUBLE" name="phaseShifter_UNom" value="0"/>
   </set>
   <set id="PhaseShifterBis">
     <par type="DOUBLE" name="phaseShifter_t1st" value="50"/>
@@ -69,6 +70,7 @@
     <reference type="BOOL" name="phaseShifter_regulating0" origData="IIDM" origName="regulating" componentId="PhaseShifterBis"/>
     <reference type="INT" name="phaseShifter_increasePhase" origData="IIDM" origName="increasePhase" componentId="PhaseShifterBis"/>
     <par type="BOOL" name="phaseShifter_running0" value="true"/>
+    <par type="DOUBLE" name="phaseShifter_UNom" value="0"/>
   </set>
   <set id="Network">
     <par type="DOUBLE" name="capacitor_no_reclosing_delay" value="300"/>
