@@ -119,11 +119,26 @@ createModelGenerator(bool open, bool initModel, powsybl::iidm::Network& networkI
 }
 
 static void
-fillParameters(std::shared_ptr<ModelGenerator> gen, std::string& startingPoint) {
+fillParameters(std::shared_ptr<ModelGenerator> gen, std::string& startingPoint, double alpha, double beta, bool isVoltageDependant) {
   std::unordered_map<std::string, ParameterModeler> parametersModels;
   {
     ParameterModeler param = ParameterModeler("startingPointMode", VAR_TYPE_STRING, EXTERNAL_PARAMETER);
     param.setValue<std::string>(startingPoint, PAR);
+    parametersModels.insert(std::make_pair(param.getName(), param));
+  }
+  {
+    ParameterModeler param = ParameterModeler("generator_alpha", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
+    param.setValue<double>(alpha, PAR);
+    parametersModels.insert(std::make_pair(param.getName(), param));
+  }
+  {
+    ParameterModeler param = ParameterModeler("generator_beta", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
+    param.setValue<double>(beta, PAR);
+    parametersModels.insert(std::make_pair(param.getName(), param));
+  }
+  {
+    ParameterModeler param = ParameterModeler("generator_isVoltageDependant", VAR_TYPE_BOOL, EXTERNAL_PARAMETER);
+    param.setValue<bool>(isVoltageDependant, PAR);
     parametersModels.insert(std::make_pair(param.getName(), param));
   }
   gen->setSubModelParameters(parametersModels);
@@ -135,7 +150,7 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorInitialization) {
       = createModelGenerator(false, false, networkIIDM);
   std::shared_ptr<ModelGenerator> gen =  std::get<0>(p);
   std::string startingPoint = "warm";
-  fillParameters(gen, startingPoint);
+  fillParameters(gen, startingPoint, 1.5, 2.5, false);
   int yOffset = 0;
   gen->init(yOffset);
   ASSERT_EQ(gen->id(), "MyGenerator");
@@ -161,7 +176,7 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorInitializationWrongStartingPoint) 
       = createModelGenerator(false, false, networkIIDM);
   std::shared_ptr<ModelGenerator> gen =  std::get<0>(p);
   std::string startingPoint = "notexisting";
-  fillParameters(gen, startingPoint);
+  fillParameters(gen, startingPoint, 1.5, 2.5, false);
   int yOffset = 0;
   gen->init(yOffset);
   ASSERT_EQ(gen->id(), "MyGenerator");
@@ -177,7 +192,7 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorInitializationFlat) {
       = createModelGenerator(false, false, networkIIDM);
   std::shared_ptr<ModelGenerator> gen =  std::get<0>(p);
   std::string startingPoint = "flat";
-  fillParameters(gen, startingPoint);
+  fillParameters(gen, startingPoint, 1.5, 2.5, false);
   int yOffset = 0;
   gen->init(yOffset);
   ASSERT_EQ(gen->id(), "MyGenerator");
@@ -440,12 +455,22 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorDefineInstantiate) {
   ASSERT_EQ(nbCalc, 3);
   ASSERT_EQ(nbVar, 3);
 
+  std::vector<ParameterModeler> genericParameters;
+  gen->defineParameters(genericParameters);
+  ASSERT_EQ(genericParameters.size(), 3);
 
   std::vector<ParameterModeler> parameters;
   gen->defineNonGenericParameters(parameters);
-  ASSERT_TRUE(parameters.empty());
-  std::unordered_map<std::string, ParameterModeler> parametersModels;
-  ASSERT_NO_THROW(gen->setSubModelParameters(parametersModels));
+  ASSERT_FALSE(parameters.empty());
+  ASSERT_EQ(parameters.size(), 3);
+
+  for (size_t i = 0, iEnd = parameters.size(); i < iEnd; ++i) {
+    std::string var = genericParameters[i].getName();
+    boost::replace_all(var, "generator", gen->id());
+    ASSERT_EQ(parameters[i].getName(), var);
+    ASSERT_EQ(parameters[i].getScope(), genericParameters[i].getScope());
+    ASSERT_EQ(parameters[i].getValueType(), genericParameters[i].getValueType());
+  }
 }
 
 TEST(ModelsModelNetwork, ModelNetworkGeneratorJt) {
