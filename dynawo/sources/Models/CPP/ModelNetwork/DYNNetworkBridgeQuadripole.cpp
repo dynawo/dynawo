@@ -40,7 +40,7 @@ NetworkBridgeQuadripole::initSize() {
 }
 
 NetworkComponent::StateChange_t
-NetworkBridgeQuadripole::evalZ(const double /*t*/) {
+NetworkBridgeQuadripole::evalZ(const double /*t*/, bool /*onlyEvaluateStateChange*/) {
   if (declareTopoChange_) {
     declareTopoChange_ = false;
     return NetworkComponent::TOPO_CHANGE;

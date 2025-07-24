@@ -20,6 +20,9 @@
 #include <limits>
 #include <iostream>
 #include "DYNModelCurrentLimits.h"
+
+#include <DYNTimer.h>
+
 #include "DYNModelNetwork.h"
 #include "DYNMacrosMessage.h"
 #include "DYNModelConstants.h"
@@ -81,6 +84,9 @@ ModelCurrentLimits::addLimit(const std::string&  name, const double limit, const
 
 void
 ModelCurrentLimits::evalG(const double t, const double current, const double desactivate, state_g* g) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer("ModelNetwork::ModelCurrentLimits::evalG");
+#endif
   lastCurrentValue_ = current;
   for (unsigned int i = 0; i < limits_.size(); ++i) {
     g[0 + 2 * i] = (current > limits_[i] && !(desactivate > 0)) ? ROOT_UP : ROOT_DOWN;  // I > Imax
@@ -104,8 +110,8 @@ ModelCurrentLimits::constraintData(const constraints::ConstraintData::kind_t& ki
 ModelCurrentLimits::state_t
 ModelCurrentLimits::evalZ(const string& componentName, const double t, const state_g* g, const double desactivate,
     const string& modelType, ModelNetwork* network) {
-  state_t state = COMPONENT_CLOSE;
   using constraints::ConstraintData;
+  state_t state = COMPONENT_CLOSE;
 
   for (unsigned int i = 0; i < limits_.size(); ++i) {
     if (!(desactivate > 0)) {

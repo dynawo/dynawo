@@ -38,5 +38,6 @@
         <par type="DOUBLE" name="generator_alpha" value="1.5"/>
         <par type="DOUBLE" name="generator_beta" value="2.5"/>
         <par type="BOOL" name="generator_isVoltageDependent" value="false"/>
+        <par type="BOOL" name="deactivate_zero_crossing_functions" value="false"/>
     </set>
 </parametersSet>

@@ -76,6 +76,7 @@ initializeModel(shared_ptr<DataInterface> data) {
   parametersSet->createParameter("generator_isVoltageDependent", false);
   parametersSet->createParameter("generator_alpha", 1.5);
   parametersSet->createParameter("generator_beta", 2.5);
+  parametersSet->createParameter("deactivate_zero_crossing_functions", false);
   modelNetwork->setPARParameters(parametersSet);
 
   return modelNetwork;
