@@ -318,5 +318,6 @@
     <reference type="BOOL" name="phaseShifter_regulating0" origData="IIDM" origName="regulating" componentId="_BUS____5-BUS____6-1_PS"/>
     <reference type="INT" name="phaseShifter_increasePhase" origData="IIDM" origName="increasePhase" componentId="_BUS____5-BUS____6-1_PS"/>
     <par type="BOOL" name="phaseShifter_running0" value="true"/>
+    <par type="DOUBLE" name="phaseShifter_UNom" value="0"/>
   </set>
 </parametersSet>
