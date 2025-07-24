@@ -12,16 +12,19 @@ within Dynawo.Electrical.Photovoltaics.WECC;
 * This file is part of Dynawo, a hybrid C++/Modelica open source suite
 * of simulation tools for power systems.
 */
+
+model PVVoltageSourceAREPCc "WECC PV model with a voltage source as interface with the grid (REPC-C REEC-A REGC-B)"
+
 /*                uSourcePu                                uInjPu                      uPu
      --------         |                                       |                         |
     | Source |--------+---->>--------RSourcePu+jXSourcePu-----+------RPu+jXPu-----<<----+---- terminal
      --------           iSourcePu                                                 iPu
 */
-model PVVoltageSourceAREPCc "WECC PV model with a voltage source as interface with the grid (REPC-C REEC-A REGC-B)"  
+
   extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPCc;
   extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVVoltageSourceA;
-  
+
   // REEC-A parameters
   parameter Types.PerUnit IqFrzPu "Constant reactive current injection value in pu (base UNom, SNom) (typical: -0.1 .. 0.1 pu)" annotation(
     Dialog(tab = "Electrical Control"));
@@ -69,7 +72,7 @@ model PVVoltageSourceAREPCc "WECC PV model with a voltage source as interface wi
     Dialog(tab = "Electrical Control"));
   parameter Types.VoltageModulePu VRef1Pu "User-defined reference/bias on the inner-loop voltage control in pu (base UNom) (typical: 0 pu)" annotation(
     Dialog(tab = "Electrical Control"));
-  
+
   //Parameters REPC-C
   parameter Types.AngularVelocityPu DfMaxPu "Maximum limit on frequency deviation in pu (base omegaNom)" annotation(
     Dialog(tab = "Plant Control"));
@@ -133,13 +136,13 @@ model PVVoltageSourceAREPCc "WECC PV model with a voltage source as interface wi
     Placement(transformation(origin = {-155, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-70, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Voltage setpoint for plant level control in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Electrical.Controls.WECC.REPC.REPCc wecc_repc(DDn = DDn, DUp = DUp, DbdPu = DbdPu, EMaxPu = EMaxPu, EMinPu = EMinPu, FDbd1Pu = FDbd1Pu, FDbd2Pu = FDbd2Pu, FEMaxPu = FEMaxPu, FEMinPu = FEMinPu, FreqFlag = FreqFlag, Kc = Kc, Ki = Ki, Kig = Kig, Kp = Kp, Kpg = Kpg, PGen0Pu = -P0Pu*SystemBase.SnRef/SNom, PInj0Pu = PInj0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, QGen0Pu = -Q0Pu*SystemBase.SnRef/SNom, QInj0Pu = QInj0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, RcPu = RPu, RefFlag = RefFlag, U0Pu = U0Pu, UInj0Pu = UInj0Pu, VCompFlag = VCompFlag, VFrz = VFrz, XcPu = XPu, iInj0Pu = -i0Pu*SystemBase.SnRef/SNom, tFilterPC = tFilterPC, tFt = tFt, tFv = tFv, tLag = tLag, tP = tP, u0Pu = u0Pu, tC = tC, tFrz = tFrz, PiMaxPu = PiMaxPu, PiMinPu = PiMinPu, PrMaxPu = PrMaxPu, PrMinPu = PrMinPu, DPrMax = DPrMax, DPrMin = DPrMin, URefMaxPu = URefMaxPu, URefMinPu = URefMinPu, QRefMaxPu = QRefMaxPu, QRefMinPu = QRefMinPu, DQRefMax = DQRefMax, DQRefMin = DQRefMin, QvrMax = QvrMax, QvrMin = QvrMin, PfMax = PfMax, PfMin = PfMin, tFrq = tFrq, FfwrdFlag = FfwrdFlag, PefdFlag = PefdFlag, UFreqPu = UFreqPu, QVFlag = QVFlag, DfMaxPu = DfMaxPu, DfMinPu = DfMinPu) annotation(
+  Electrical.Controls.WECC.REPC.REPCc wecc_repc(DDn = DDn, DUp = DUp, DbdPu = DbdPu, EMaxPu = EMaxPu, EMinPu = EMinPu, FDbd1Pu = FDbd1Pu, FDbd2Pu = FDbd2Pu, FEMaxPu = FEMaxPu, FEMinPu = FEMinPu, FreqFlag = FreqFlag, Kc = Kc, Ki = Ki, Kig = Kig, Kp = Kp, Kpg = Kpg, PGen0Pu = -P0Pu * SystemBase.SnRef / SNom, PInj0Pu = PInj0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, QGen0Pu = -Q0Pu*SystemBase.SnRef / SNom, QInj0Pu = QInj0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, RcPu = RPu, RefFlag = RefFlag, U0Pu = U0Pu, UInj0Pu = UInj0Pu, VCompFlag = VCompFlag, VFrz = VFrz, XcPu = XPu, iInj0Pu = -i0Pu*SystemBase.SnRef/SNom, tFilterPC = tFilterPC, tFt = tFt, tFv = tFv, tLag = tLag, tP = tP, u0Pu = u0Pu, tC = tC, tFrz = tFrz, PiMaxPu = PiMaxPu, PiMinPu = PiMinPu, PrMaxPu = PrMaxPu, PrMinPu = PrMinPu, DPrMax = DPrMax, DPrMin = DPrMin, URefMaxPu = URefMaxPu, URefMinPu = URefMinPu, QRefMaxPu = QRefMaxPu, QRefMinPu = QRefMinPu, DQRefMax = DQRefMax, DQRefMin = DQRefMin, QvrMax = QvrMax, QvrMin = QvrMin, PfMax = PfMax, PfMin = PfMin, tFrq = tFrq, FfwrdFlag = FfwrdFlag, PefdFlag = PefdFlag, UFreqPu = UFreqPu, QVFlag = QVFlag, DfMaxPu = DfMaxPu, DfMinPu = DfMinPu) annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Electrical.Controls.WECC.REEC.REECa wecc_reec(DPMaxPu = DPMaxPu, DPMinPu = DPMinPu, Dbd1Pu = Dbd1Pu, Dbd2Pu = Dbd2Pu, IMaxPu = IMaxPu, Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, IqFrzPu = IqFrzPu, Iqh1Pu = Iqh1Pu, Iql1Pu = Iql1Pu, Kqi = Kqi, Kqp = Kqp, Kqv = Kqv, Kvi = Kvi, Kvp = Kvp, PF0 = PF0, PFlag = PFlag, PInj0Pu = PInj0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, PQFlag = PQFlag, PfFlag = PfFlag, QFlag = QFlag, QInj0Pu = QInj0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, UInj0Pu = UInj0Pu, VDLIp11 = VDLIp11, VDLIp12 = VDLIp12, VDLIp21 = VDLIp21, VDLIp22 = VDLIp22, VDLIp31 = VDLIp31, VDLIp32 = VDLIp32, VDLIp41 = VDLIp41, VDLIp42 = VDLIp42, VDLIq11 = VDLIq11, VDLIq12 = VDLIq12, VDLIq21 = VDLIq21, VDLIq22 = VDLIq22, VDLIq31 = VDLIq31, VDLIq32 = VDLIq32, VDLIq41 = VDLIq41, VDLIq42 = VDLIq42, VDipPu = VDipPu, VFlag = VFlag, VMaxPu = VMaxPu, VMinPu = VMinPu, VRef0Pu = VRef0Pu, VRef1Pu = VRef1Pu, VUpPu = VUpPu, tHoldIpMax = tHoldIpMax, tHoldIq = tHoldIq, tIq = tIq, tP = tP, tPord = tPord, tRv = tRv) annotation(
     Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  
+
   // Initial parameters
-  final parameter Types.VoltageModulePu URef0Pu = if VCompFlag == true then UInj0Pu else U0Pu + Kc*Q0Pu*SystemBase.SnRef/SNom "Start value of voltage setpoint for plant level control, calculated depending on VCompFlag, in pu (base UNom)";  
+  final parameter Types.VoltageModulePu URef0Pu = if VCompFlag == true then UInj0Pu else U0Pu + Kc * Q0Pu * SystemBase.SnRef / SNom "Start value of voltage setpoint for plant level control, calculated depending on VCompFlag, in pu (base UNom)";
 
 equation
   connect(PRefPu, wecc_repc.PRefPu) annotation(
@@ -184,11 +187,11 @@ equation
     Line(points = {{-126, -70}, {-125, -70}, {-125, -11}}, color = {0, 0, 127}));
   connect(UAuxPu, wecc_repc.UAuxPu) annotation(
     Line(points = {{-155, -70}, {-128, -70}, {-128, -11}}, color = {0, 0, 127}));
- 
-     annotation(
+
+  annotation(
     preferredView = "diagram",
     Documentation(info = "<html>
-<p> This block contains the generic WECC PV model according to (in case page cannot be found, copy link in browser): <a href='https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf/'>https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf </a> </p></html>"),
+    <p> This block contains the generic WECC PV model according to (in case page cannot be found, copy link in browser): <a href='https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf/'>https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf </a> </p></html>"),
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-24, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC PV")}, coordinateSystem(initialScale = 0.1)),
     Diagram(coordinateSystem(grid = {1, 1}, extent = {{-180, -60}, {180, 60}})));
 end PVVoltageSourceAREPCc;
