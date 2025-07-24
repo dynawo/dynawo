@@ -331,6 +331,7 @@
     <par type="INT" name="phaseShifter_increasePhase" value="1"/>
     <par type="BOOL" name="phaseShifter_regulating0" value="true"/>
     <par type="BOOL" name="phaseShifter_running0" value="true"/>
+    <par type="DOUBLE" name="phaseShifter_UNom" value="0"/>
   </set>
   <set id="12">
     <par type="DOUBLE" name="transformer_RatioTfo0Pu" value="1.0729614"/>
