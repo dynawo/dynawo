@@ -21,6 +21,7 @@
 #define MODELS_CPP_MODELNETWORK_DYNDERIVATIVE_H_
 
 #include <map>
+#include <unordered_map>
 
 namespace DYN {
 // Structure dedicated to the network Jacobian filling
@@ -40,6 +41,11 @@ typedef enum {
 class Derivatives {
  public:
   /**
+   * @brief default constructor
+   */
+  Derivatives();
+
+  /**
    * @brief reset
    */
   void reset();
@@ -53,10 +59,18 @@ class Derivatives {
 
   /**
    * @brief get values
-   * @return map of variables' values
+   * @return variables' values
    */
-  inline const std::map<int, double>& getValues() const {
+  inline const std::vector<double>& getValues() const {
     return values_;
+  }
+
+  /**
+   * @brief get indices
+   * @return indices of the variables
+   */
+  inline const std::vector<int>& getIndices() const {
+    return indices_;
   }
 
   /**
@@ -68,10 +82,8 @@ class Derivatives {
   }
 
  private:
-  // values_->first : num of the variable
-  // values_->second: value of the derivative
-  // @I/@Y[values_->first]= values_->second
-  std::map<int, double> values_;  ///< associated num var with value of the derivative
+  std::vector<double> values_;  ///< value of the derivative
+  std::vector<int> indices_;  ///< num of the variable
 };
 
 /**
@@ -96,9 +108,16 @@ class BusDerivatives {
   /**
    * @brief get values
    * @param type type of derivatives
-   * @return map of variables' values
+   * @return vector of variables' values
    */
-  const std::map<int, double>& getValues(typeDerivative_t type) const;
+  const std::vector<double>& getValues(typeDerivative_t type) const;
+
+  /**
+   * @brief get indices
+   * @param type type of derivatives
+   * @return vector of variables' indices
+   */
+  const std::vector<int>& getIndices(typeDerivative_t type) const;
 
   /**
    * @brief state whether empty
@@ -107,6 +126,13 @@ class BusDerivatives {
   inline bool empty() const {
     return irDerivatives_.empty() && iiDerivatives_.empty();
   }
+
+  /**
+   * @brief get values
+   * @param type derivative type
+   * @return Derivatives of variables' values
+   */
+  Derivatives& getDerivatives(typeDerivative_t type);
 
  private:
   Derivatives irDerivatives_;  ///< ir derivative
