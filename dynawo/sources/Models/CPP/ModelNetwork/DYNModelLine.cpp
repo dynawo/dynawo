@@ -22,6 +22,8 @@
 #include <cassert>
 #include <iomanip>
 
+#include <DYNTimer.h>
+
 #include "PARParametersSet.h"
 
 #include "DYNModelLine.h"
@@ -624,8 +626,14 @@ ModelLine::evalF(const propertyF_t type) {
 
 void
 ModelLine::evalJt(const double cj, const int rowOffset, SparseMatrix& jt) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer("ModelNetwork::ModelLine::evalJt");
+#endif
   if (!isDynamic_ || network_->isInitModel())
     return;
+
+  const int IbReNumGlobal = globalYIndex(IbReNum_);
+  const int IbImNumGlobal = globalYIndex(IbImNum_);
 
   if ((modelBus1_ || modelBus2_) && getConnectionState() == CLOSED) {
     const int ur1YNum = modelBus1_->urYNum();
@@ -635,8 +643,8 @@ ModelLine::evalJt(const double cj, const int rowOffset, SparseMatrix& jt) {
 
     // column for equation IBranch_re
     jt.changeCol();
-    jt.addTerm(globalYIndex(IbReNum_) + rowOffset, - omegaNom_ * resistance_ - cj * reactance_);
-    jt.addTerm(globalYIndex(IbImNum_) + rowOffset, omegaNom_ * reactance_ * omegaRef_);
+    jt.addTerm(IbReNumGlobal + rowOffset, - omegaNom_ * resistance_ - cj * reactance_);
+    jt.addTerm(IbImNumGlobal + rowOffset, omegaNom_ * reactance_ * omegaRef_);
     if (modelBus1_)
       jt.addTerm(ur1YNum + rowOffset, omegaNom_);
     if (modelBus2_)
@@ -644,17 +652,17 @@ ModelLine::evalJt(const double cj, const int rowOffset, SparseMatrix& jt) {
 
     // column for equation IBranch_im
     jt.changeCol();
-    jt.addTerm(globalYIndex(IbReNum_) + rowOffset, - omegaNom_ * reactance_ * omegaRef_);
-    jt.addTerm(globalYIndex(IbImNum_) + rowOffset, -omegaNom_ * resistance_ - cj * reactance_);
+    jt.addTerm(IbReNumGlobal + rowOffset, - omegaNom_ * reactance_ * omegaRef_);
+    jt.addTerm(IbImNumGlobal + rowOffset, -omegaNom_ * resistance_ - cj * reactance_);
     if (modelBus1_)
       jt.addTerm(ui1YNum + rowOffset, omegaNom_);
     if (modelBus2_)
       jt.addTerm(ui2YNum + rowOffset, -omegaNom_);
   } else {
     jt.changeCol();
-    jt.addTerm(globalYIndex(IbReNum_) + rowOffset, 1);
+    jt.addTerm(IbReNumGlobal + rowOffset, 1);
     jt.changeCol();
-    jt.addTerm(globalYIndex(IbImNum_) + rowOffset, 1);
+    jt.addTerm(IbImNumGlobal + rowOffset, 1);
   }
 }
 
@@ -686,12 +694,14 @@ ModelLine::evalDerivativesPrim() {
         const double ii1_dUip1 = suscept1_ / omegaNom_;
         const double ir2_dUrp2 = suscept2_ / omegaNom_;
         const double ii2_dUip2 = suscept2_ / omegaNom_;
+        auto& derivativesPrim1 = modelBus1_->derivativesPrim();
+        auto& derivativesPrim2 = modelBus2_->derivativesPrim();
 
-        modelBus1_->derivativesPrim()->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUrp1);
-        modelBus1_->derivativesPrim()->addDerivative(II_DERIVATIVE, ui1YNum, ii1_dUip1);
+        derivativesPrim1->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUrp1);
+        derivativesPrim1->addDerivative(II_DERIVATIVE, ui1YNum, ii1_dUip1);
 
-        modelBus2_->derivativesPrim()->addDerivative(IR_DERIVATIVE, ur2YNum, ir2_dUrp2);
-        modelBus2_->derivativesPrim()->addDerivative(II_DERIVATIVE, ui2YNum, ii2_dUip2);
+        derivativesPrim2->addDerivative(IR_DERIVATIVE, ur2YNum, ir2_dUrp2);
+        derivativesPrim2->addDerivative(II_DERIVATIVE, ui2YNum, ii2_dUip2);
         break;
       }
     case BUS1:
@@ -704,9 +714,15 @@ ModelLine::evalDerivativesPrim() {
 
 void
 ModelLine::evalDerivatives(const double cj) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer3("ModelNetwork::ModelLine::evalDerivatives");
+#endif
   if (isDynamic_ && getConnectionState() == CLOSED) {
     switch (knownBus_) {
       case BUS1_BUS2: {
+        auto& modelBus1 = *modelBus1_;
+        auto& modelBus2 = *modelBus2_;
+
         const int ur1YNum = modelBus1_->urYNum();
         const int ui1YNum = modelBus1_->uiYNum();
         const int ur2YNum = modelBus2_->urYNum();
@@ -724,19 +740,30 @@ ModelLine::evalDerivatives(const double cj) {
         const double ii2_dUi2 = omegaRef_ * suscept2_;
         constexpr double ii2_dIbi = -1.;
 
-        modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUr1);
-        modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ui1YNum, ir1_dUi1);
-        modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, globalYIndex(IbReNum_), ir1_dIbr);
-        modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ur1YNum, ii1_dUr1);
-        modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ui1YNum, ii1_dUi1);
-        modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, globalYIndex(IbImNum_), ii1_dIbi);
 
-        modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ur2YNum, ir2_dUr2);
-        modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ur2YNum, ir2_dUi2);
-        modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, globalYIndex(IbReNum_), ir2_dIbr);
-        modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ui2YNum, ii2_dUr2);
-        modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ui2YNum, ii2_dUi2);
-        modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, globalYIndex(IbImNum_), ii2_dIbi);
+        int IbReNumGlobal = globalYIndex(IbReNum_);
+        int IbImNumGlobal = globalYIndex(IbImNum_);
+
+        auto& derivatives1 = *modelBus1.derivatives();
+        auto& irDerivatives1 = derivatives1.getDerivatives(IR_DERIVATIVE);
+        auto& iiDerivatives1 = derivatives1.getDerivatives(II_DERIVATIVE);
+        auto& derivatives2 = *modelBus2.derivatives();
+        auto& irDerivatives2 = derivatives2.getDerivatives(IR_DERIVATIVE);
+        auto& iiDerivatives2 = derivatives2.getDerivatives(II_DERIVATIVE);
+
+        irDerivatives1.addValue(ur1YNum, ir1_dUr1);
+        irDerivatives1.addValue(ui1YNum, ir1_dUi1);
+        irDerivatives1.addValue(IbReNumGlobal, ir1_dIbr);
+        iiDerivatives1.addValue(ur1YNum, ii1_dUr1);
+        iiDerivatives1.addValue(ui1YNum, ii1_dUi1);
+        iiDerivatives1.addValue(IbImNumGlobal, ii1_dIbi);
+
+        irDerivatives2.addValue(ur2YNum, ir2_dUr2);
+        irDerivatives2.addValue(ur2YNum, ir2_dUi2);
+        irDerivatives2.addValue(IbReNumGlobal, ir2_dIbr);
+        iiDerivatives2.addValue(ui2YNum, ii2_dUr2);
+        iiDerivatives2.addValue(ui2YNum, ii2_dUi2);
+        iiDerivatives2.addValue(IbImNumGlobal, ii2_dIbi);
         break;
       }
     case BUS1:
@@ -747,45 +774,63 @@ ModelLine::evalDerivatives(const double cj) {
   } else if (!isDynamic_) {
     switch (knownBus_) {
       case BUS1_BUS2: {
+        auto& modelBus1 = *modelBus1_;
+        auto& modelBus2 = *modelBus2_;
         const int ur1YNum = modelBus1_->urYNum();
         const int ui1YNum = modelBus1_->uiYNum();
         const int ur2YNum = modelBus2_->urYNum();
         const int ui2YNum = modelBus2_->uiYNum();
-        modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUr1_);
-        modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ui1YNum, ir1_dUi1_);
-        modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ur1YNum, ii1_dUr1_);
-        modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ui1YNum, ii1_dUi1_);
-        modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ur2YNum, ir1_dUr2_);
-        modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ui2YNum, ir1_dUi2_);
-        modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ur2YNum, ii1_dUr2_);
-        modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ui2YNum, ii1_dUi2_);
 
-        modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ur2YNum, ir2_dUr2_);
-        modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ui2YNum, ir2_dUi2_);
-        modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ur2YNum, ii2_dUr2_);
-        modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ui2YNum, ii2_dUi2_);
-        modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ur1YNum, ir2_dUr1_);
-        modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ui1YNum, ir2_dUi1_);
-        modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ur1YNum, ii2_dUr1_);
-        modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ui1YNum, ii2_dUi1_);
+        auto& derivatives1 = *modelBus1.derivatives();
+        auto& irDerivatives1 = derivatives1.getDerivatives(IR_DERIVATIVE);
+        auto& iiDerivatives1 = derivatives1.getDerivatives(II_DERIVATIVE);
+        auto& derivatives2 = *modelBus2.derivatives();
+        auto& irDerivatives2 = derivatives2.getDerivatives(IR_DERIVATIVE);
+        auto& iiDerivatives2 = derivatives2.getDerivatives(II_DERIVATIVE);
+
+        irDerivatives1.addValue(ur1YNum, ir1_dUr1_);
+        irDerivatives1.addValue(ui1YNum, ir1_dUi1_);
+        iiDerivatives1.addValue(ur1YNum, ii1_dUr1_);
+        iiDerivatives1.addValue(ui1YNum, ii1_dUi1_);
+        irDerivatives1.addValue(ur2YNum, ir1_dUr2_);
+        irDerivatives1.addValue(ui2YNum, ir1_dUi2_);
+        iiDerivatives1.addValue(ur2YNum, ii1_dUr2_);
+        iiDerivatives1.addValue(ui2YNum, ii1_dUi2_);
+
+        irDerivatives2.addValue(ur2YNum, ir2_dUr2_);
+        irDerivatives2.addValue(ui2YNum, ir2_dUi2_);
+        iiDerivatives2.addValue(ur2YNum, ii2_dUr2_);
+        iiDerivatives2.addValue(ui2YNum, ii2_dUi2_);
+        irDerivatives2.addValue(ur1YNum, ir2_dUr1_);
+        irDerivatives2.addValue(ui1YNum, ir2_dUi1_);
+        iiDerivatives2.addValue(ur1YNum, ii2_dUr1_);
+        iiDerivatives2.addValue(ui1YNum, ii2_dUi1_);
         break;
       }
       case BUS1: {
-        const int ur1YNum = modelBus1_->urYNum();
-        const int ui1YNum = modelBus1_->uiYNum();
-        modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUr1_);
-        modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ui1YNum, ir1_dUi1_);
-        modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ur1YNum, ii1_dUr1_);
-        modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ui1YNum, ii1_dUi1_);
+        auto& modelBus1 = *modelBus1_;
+        const int ur1YNum = modelBus1.urYNum();
+        const int ui1YNum = modelBus1.uiYNum();
+        auto& derivatives1 = *modelBus1.derivatives();
+        auto& irDerivatives1 = derivatives1.getDerivatives(IR_DERIVATIVE);
+        auto& iiDerivatives1 = derivatives1.getDerivatives(II_DERIVATIVE);
+        irDerivatives1.addValue(ur1YNum, ir1_dUr1_);
+        irDerivatives1.addValue(ui1YNum, ir1_dUi1_);
+        iiDerivatives1.addValue(ur1YNum, ii1_dUr1_);
+        iiDerivatives1.addValue(ui1YNum, ii1_dUi1_);
         break;
       }
       case BUS2: {
-        const int ur2YNum = modelBus2_->urYNum();
-        const int ui2YNum = modelBus2_->uiYNum();
-        modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ur2YNum, ir2_dUr2_);
-        modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ui2YNum, ir2_dUi2_);
-        modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ur2YNum, ii2_dUr2_);
-        modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ui2YNum, ii2_dUi2_);
+        auto& modelBus2 = *modelBus2_;
+        const int ur2YNum = modelBus2.urYNum();
+        const int ui2YNum = modelBus2.uiYNum();
+        auto& derivatives2 = *modelBus2.derivatives();
+        auto& irDerivatives2 = derivatives2.getDerivatives(IR_DERIVATIVE);
+        auto& iiDerivatives2 = derivatives2.getDerivatives(II_DERIVATIVE);
+        irDerivatives2.addValue(ur2YNum, ir2_dUr2_);
+        irDerivatives2.addValue(ui2YNum, ir2_dUi2_);
+        iiDerivatives2.addValue(ur2YNum, ii2_dUr2_);
+        iiDerivatives2.addValue(ui2YNum, ii2_dUi2_);
         break;
       }
     }
