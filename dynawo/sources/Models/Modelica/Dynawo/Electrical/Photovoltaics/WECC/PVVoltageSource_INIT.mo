@@ -48,7 +48,7 @@ model PVVoltageSource_INIT "Initialization model for WECC PV model with a voltag
   Types.PerUnit UdInj0Pu "Start value of d-axis voltage at injector in pu (base UNom)";
   Types.PerUnit UInj0Pu "Start value of voltage module at injector in pu (base UNom)";
   Types.ComplexPerUnit uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
-  Types.Angle UInjPhase0 "Start value of voltage phase angle at injector in rad";
+  Types.Angle UPhaseInj0 "Start value of voltage phase angle at injector in rad";
   Types.PerUnit UqInj0Pu "Start value of q-axis voltage at injector in pu (base UNom)";
   Types.ComplexPerUnit uSource0Pu "Start value of complex voltage at source in pu (base UNom)";
 
@@ -60,15 +60,15 @@ equation
   uSource0Pu = u0Pu - Complex(RPu + RSourcePu * SystemBase.SnRef / SNom, XPu + XSourcePu * SystemBase.SnRef / SNom) * i0Pu;
   uInj0Pu = u0Pu - Complex(RPu, XPu) * i0Pu;
   UInj0Pu = ComplexMath.'abs'(uInj0Pu);
-  UInjPhase0 = ComplexMath.arg(uInj0Pu);
+  UPhaseInj0 = ComplexMath.arg(uInj0Pu);
   sInj0Pu = uInj0Pu * ComplexMath.conj(iSource0Pu);
   PInj0Pu = ComplexMath.real(sInj0Pu);
   QInj0Pu = ComplexMath.imag(sInj0Pu);
   PF0 = if (not(ComplexMath.'abs'(sInj0Pu) == 0)) then PInj0Pu / ComplexMath.'abs'(sInj0Pu) else 0;
-  UdInj0Pu = cos(UInjPhase0) * uInj0Pu.re + sin(UInjPhase0) * uInj0Pu.im;
-  UqInj0Pu = - sin(UInjPhase0) * uInj0Pu.re + cos(UInjPhase0) * uInj0Pu.im;
-  Id0Pu = cos(UInjPhase0) * iSource0Pu.re + sin(UInjPhase0) * iSource0Pu.im;
-  Iq0Pu = sin(UInjPhase0) * iSource0Pu.re - cos(UInjPhase0) * iSource0Pu.im;
+  UdInj0Pu = cos(UPhaseInj0) * uInj0Pu.re + sin(UPhaseInj0) * uInj0Pu.im;
+  UqInj0Pu = - sin(UPhaseInj0) * uInj0Pu.re + cos(UPhaseInj0) * uInj0Pu.im;
+  Id0Pu = cos(UPhaseInj0) * iSource0Pu.re + sin(UPhaseInj0) * iSource0Pu.im;
+  Iq0Pu = sin(UPhaseInj0) * iSource0Pu.re - cos(UPhaseInj0) * iSource0Pu.im;
 
   annotation(
     preferredView = "text");
