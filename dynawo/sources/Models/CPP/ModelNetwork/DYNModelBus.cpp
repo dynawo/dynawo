@@ -44,7 +44,10 @@ ModelBus::initSize() {
   sizeCalculatedVar_ = 0;
 }
 
-void
+bool ModelBus::hasInitialConditions() const {
+  return bus_.lock()->hasInitialConditions();
+}
+
 ModelBus::getY0() {
   if (network_->isInitModel())
     return;
