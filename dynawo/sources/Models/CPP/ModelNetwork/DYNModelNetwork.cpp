@@ -130,7 +130,8 @@ calculatedVarBuffer_(NULL),
 isInit_(false) ,
 isInitModel_(false),
 withNodeBreakerTopology_(false),
-deactivateZeroCrossingFunctions_(false) {
+deactivateZeroCrossingFunctions_(false),
+keepHvdcForeignNodes_(false) {
   busContainer_.reset(new ModelBusContainer());
 }
 
@@ -598,6 +599,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
     }
 
     initComponents_.push_back(modelHvdcLink);
+    hvdcComponents_.push_back(modelHvdcLink);
 
     // is there a dynamic model?
     if (hvdcLine->hasDynamicModel()) {
@@ -810,6 +812,12 @@ ModelNetwork::computeComponents(const double t) {
 
   for (const auto& component : getComponents())
     component->addBusNeighbors();
+
+  if (!isInitModel_) {
+    for (const auto& hvdcComponent : hvdcComponents_) {
+      hvdcComponent->addBusNeighbors();
+    }
+  }
 
   // connectivity calculation
   busContainer_->exploreNeighbors(t);
@@ -1234,6 +1242,7 @@ ModelNetwork::defineParameters(vector<ParameterModeler>& parameters) {
   ModelHvdcLink::defineParameters(parameters);
   parameters.push_back(ParameterModeler("startingPointMode", VAR_TYPE_STRING, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler("deactivate_zero_crossing_functions", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("keepHvdcForeignNodes", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
 
   for (const auto& component : getComponents()) {
     component->defineNonGenericParameters(parameters);
@@ -1304,6 +1313,11 @@ ModelNetwork::setSubModelParameters() {
   deactivateZeroCrossingFunctions_ = false;
   if (deactivateZeroCrossingFunctions.hasValue())
     deactivateZeroCrossingFunctions_ = deactivateZeroCrossingFunctions.getValue<bool>();
+  const auto& keepHvdcForeignNodes = findParameter("keepHvdcForeignNodes", false);
+  keepHvdcForeignNodes_ = false;
+  if (keepHvdcForeignNodes.hasValue())
+    keepHvdcForeignNodes_ = keepHvdcForeignNodes.getValue<bool>();
+
   for (const auto& component : getComponents())
     component->setSubModelParameters(parametersDynamic_);
 }

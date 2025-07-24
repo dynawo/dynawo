@@ -328,6 +328,12 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
    * @param submodel said newly instanciated dynamic model
    */
   void mapToNetworkBridge(const boost::shared_ptr<SubModel> & submodel) override;
+  /**
+  * @brief keep out of main synchronous buses connected through an hvdc
+  */
+  bool keepHvdcForeignNodes() const {
+    return keepHvdcForeignNodes_;
+  }
 
  protected:
   /**
@@ -416,6 +422,7 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
   bool isInitModel_;  ///< whether the current model used is the init one
   bool withNodeBreakerTopology_;  ///< whether at least one voltageLevel has node breaker topology view
   bool deactivateZeroCrossingFunctions_;  ///< whether we use root functions
+  bool keepHvdcForeignNodes_;  ///< to keep out of main synchronous buses connected through an hvdc
 
   std::unique_ptr<ModelBusContainer> busContainer_;  ///< all network buses
   std::vector<std::shared_ptr<ModelVoltageLevel> > vLevelComponents_;  ///< all voltage level components
@@ -423,6 +430,7 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
   std::vector<std::shared_ptr<NetworkComponent> > components_;  ///< all network components without dynamic Model
   std::vector<std::shared_ptr<NetworkComponent> > initComponents_;  ///< all network components even components with dynamic model
   std::unordered_map<std::string, std::shared_ptr<NetworkBridgeQuadripole> > unmappedBridges_;  ///< network bridges yet unassociated with their dynamic model
+  std::vector<std::shared_ptr<NetworkComponent> > hvdcComponents_;  ///< all network components even components with dynamic model
   std::vector<int> componentIndexByCalculatedVar_;  ///< index of component for each calculated variable
 };
 
