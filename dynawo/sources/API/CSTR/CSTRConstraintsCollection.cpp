@@ -45,14 +45,15 @@ ConstraintsCollection::addConstraint(
   stringstream id;
   id << time << "_" << modelName << "_" << type << "_" << description;  // allow to sort constraint by time, then modelName and type
 
-  std::shared_ptr<Constraint> constraint = ConstraintFactory::newConstraint();
-  constraint->setModelName(modelName);
-  constraint->setDescription(description);
-  constraint->setTime(time);
-  constraint->setType(type);
-  constraint->setData(data);
-  constraint->setModelType(modelType);
   if (constraintsById_.find(id.str()) == constraintsById_.end()) {
+    std::shared_ptr<Constraint> constraint = ConstraintFactory::newConstraint();
+    constraint->setModelName(modelName);
+    constraint->setDescription(description);
+    constraint->setTime(time);
+    constraint->setType(type);
+    constraint->setData(data);
+    constraint->setModelType(modelType);
+
     constraintsByModel_[modelName].push_back(constraint);
     constraintsById_[id.str()] = constraint;
   }
@@ -95,6 +96,7 @@ ConstraintsCollection::filter(DYN::ConstraintValueType_t filterType) {
     }
     // Remove elements
     stringstream idSs;
+    std::sort(toRemove.begin(), toRemove.end());
     for (auto it = toRemove.rbegin(); it != toRemove.rend(); ++it) {
       idSs.str(std::string());
       idSs.clear();
