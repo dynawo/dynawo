@@ -1,32 +1,38 @@
 within Dynawo.Electrical.Photovoltaics.WECC.BaseClasses;
 
+/*
+* Copyright (c) 2024, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+
 partial model BasePVVoltageSourceA "Base model for WECC PV with a voltage source as interface with the grid (REGC-B)"
-  /*
-  * Copyright (c) 2024, RTE (http://www.rte-france.com)
-  * See AUTHORS.txt
-  * All rights reserved.
-  * This Source Code Form is subject to the terms of the Mozilla Public
-  * License, v. 2.0. If a copy of the MPL was not distributed with this
-  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-  * SPDX-License-Identifier: MPL-2.0
-  *
-  * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-  */
+
   /*                uSourcePu                                uInjPu                      uPu
          --------         |                                       |                         |
         | Source |--------+---->>--------RSourcePu+jXSourcePu-----+------RPu+jXPu-----<<----+---- terminal
          --------           iSourcePu                                                 iPu
   */
+
   extends Electrical.Controls.PLL.ParamsPLL;
   extends Electrical.Controls.WECC.Parameters.REEC.ParamsREEC;
   extends Electrical.Controls.WECC.Parameters.REGC.ParamsREGC;
   extends Electrical.Controls.WECC.Parameters.REGC.ParamsREGCa;
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsVSourceRef;
-  
+
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
+
   // Line parameters
   parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef)";
   parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SnRef)";
+
   // Input variables
   Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(
     Placement(visible = true, transformation(origin = {-79, 70}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {-1, 111}, extent = {{-11, -11}, {11, 11}}, rotation = -90)));
@@ -46,18 +52,20 @@ partial model BasePVVoltageSourceA "Base model for WECC PV with a voltage source
     Placement(transformation(origin = {40, 0}, extent = {{-10, 10}, {10, -10}}, rotation = -0)));
   Electrical.Controls.WECC.Utilities.Measurements measurements1(SNom = SNom) annotation(
     Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Electrical.Lines.Line source(BPu = 0, GPu = 0, RPu = RSourcePu*SystemBase.SnRef/SNom, XPu = XSourcePu*SystemBase.SnRef/SNom) annotation(
+  Electrical.Lines.Line source(BPu = 0, GPu = 0, RPu = RSourcePu * SystemBase.SnRef / SNom, XPu = XSourcePu * SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  
+
   // Initial parameters given by the user
-  parameter Types.PerUnit P0Pu "Start value of active power at terminal in pu (receptor convention) (base SnRef)";
-  parameter Types.PerUnit Q0Pu "Start value of reactive power at terminal in pu (receptor convention) (base SnRef)";
+  parameter Types.PerUnit P0Pu "Start value of active power at terminal in pu (base SnRef) (receptor convention)";
+  parameter Types.PerUnit Q0Pu "Start value of reactive power at terminal in pu (base SnRef) (receptor convention)";
   parameter Types.PerUnit U0Pu "Start value of voltage magnitude at terminal in pu (base UNom)";
+
   // Initial parameters calculated by the initialization model
   parameter Types.ComplexPerUnit i0Pu "Start value of complex current in pu (base UNom, SnRef) (receptor convention)";
   parameter Types.ComplexPerUnit iInj0Pu "Start value of complex current at injector in pu (base UNom, SNom) (generator convention)";
   parameter Types.ComplexPerUnit u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
   parameter Types.ComplexPerUnit uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
+
   // Initial parameters
   parameter Types.ComplexPerUnit s0Pu "Start value of complex apparent power at terminal in pu (base SnRef) (receptor convention)";
   parameter Types.Angle UPhase0 "Start value of voltage phase angle at regulated bus in rad";
@@ -68,6 +76,7 @@ equation
   source.switchOffSignal1.value = injector.switchOffSignal1.value;
   line.switchOffSignal2.value = injector.switchOffSignal2.value;
   source.switchOffSignal2.value = injector.switchOffSignal2.value;
+
   connect(OmegaRef.y, pll.omegaRefPu) annotation(
     Line(points = {{-180, 38}, {-171, 38}}, color = {0, 0, 127}));
   connect(line.terminal1, measurements.terminal1) annotation(
@@ -90,6 +99,7 @@ equation
     Line(points = {{102, -11}, {103, -11}, {103, 60}, {-180, 60}, {-180, 50}, {-171, 50}}, color = {85, 170, 255}));
   connect(pll.phi, injector.UPhase) annotation(
     Line(points = {{-149, 45}, {-141, 45}, {-141, -46}, {40, -46}, {40, -11}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-24, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC PV")}, coordinateSystem(initialScale = 0.1)),
