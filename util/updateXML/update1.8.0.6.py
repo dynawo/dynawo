@@ -20,6 +20,8 @@ def update(jobs):
         if not bbm.parset.check_if_param_exists("generator_iStart0Pu_im"):
             bbm.parset.add_param("DOUBLE", "generator_iStart0Pu_re", 0.)
             bbm.parset.add_param("DOUBLE", "generator_iStart0Pu_im", 0.)
+        if "IEEX2A" in bbm.get_lib_name() and not bbm.parset.check_if_param_exists("voltageRegulator_EfdMinPu"):
+            bbm.parset.add_param("DOUBLE", "voltageRegulator_EfdMinPu", 0.)
 
     for bbm in jobs.dyds.get_modelica_models(lambda _: True):
         for unit in bbm.get_unit_dynamic_models(lambda unit: "Generator" in unit.get_name()):
