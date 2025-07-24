@@ -32,6 +32,8 @@
 
 #include "DYNModelTwoWindingsTransformer.h"
 
+#include <iomanip>
+
 #include <DYNTimer.h>
 #include <iomanip>
 

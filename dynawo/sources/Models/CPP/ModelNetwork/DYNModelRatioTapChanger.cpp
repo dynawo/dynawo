@@ -22,7 +22,6 @@
 
 #include "DYNModelRatioTapChanger.h"
 
-
 #include "DYNModelConstants.h"
 #include "DYNModelNetwork.h"
 
