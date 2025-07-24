@@ -34,29 +34,27 @@ model PVVoltageSource5 "WECC PV Model on infinite bus"
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   
   // Initialization
-  Dynawo.Electrical.Photovoltaics.WECC.PVCurrentSource_INIT pvCurrentSource_INIT(P0Pu = PV.P0Pu, Q0Pu = PV.Q0Pu, RPu = PV.RPu, SNom = PV.SNom, U0Pu = PV.U0Pu, UPhase0 = PV.UPhase0, XPu = PV.XPu) annotation(
+  Dynawo.Electrical.Photovoltaics.WECC.PVVoltageSource_INIT pvVoltageSource_INIT(P0Pu = PV.P0Pu, Q0Pu = PV.Q0Pu, RPu = PV.RPu, SNom = PV.SNom, U0Pu = PV.U0Pu, UPhase0 = PV.UPhase0, XPu = PV.XPu,RSourcePu = PV.RSourcePu, XSourcePu = PV.XSourcePu) annotation(
     Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 0)  annotation(
     Placement(transformation(origin = {-38, 84}, extent = {{-10, -10}, {10, 10}})));
 
 initial algorithm
-  PV.Id0Pu := pvCurrentSource_INIT.Id0Pu;
-  PV.Iq0Pu := pvCurrentSource_INIT.Iq0Pu;
-  PV.PF0 := pvCurrentSource_INIT.PF0;
-  PV.PInj0Pu := pvCurrentSource_INIT.PInj0Pu;
-  PV.QInj0Pu := pvCurrentSource_INIT.QInj0Pu;
-  PV.UInj0Pu := pvCurrentSource_INIT.UInj0Pu;
-  PV.UPhaseInj0 := pvCurrentSource_INIT.UPhaseInj0;
-  PV.i0Pu.re := pvCurrentSource_INIT.i0Pu.re;
-  PV.i0Pu.im := pvCurrentSource_INIT.i0Pu.im;
-  PV.iInj0Pu.re := pvCurrentSource_INIT.iInj0Pu.re;
-  PV.iInj0Pu.im := pvCurrentSource_INIT.iInj0Pu.im;
-  PV.s0Pu.re := pvCurrentSource_INIT.s0Pu.re;
-  PV.s0Pu.im := pvCurrentSource_INIT.s0Pu.im;
-  PV.u0Pu.re := pvCurrentSource_INIT.u0Pu.re;
-  PV.u0Pu.im := pvCurrentSource_INIT.u0Pu.im;
-  PV.uInj0Pu.re := pvCurrentSource_INIT.uInj0Pu.re;
-  PV.uInj0Pu.im := pvCurrentSource_INIT.uInj0Pu.im;
+  PV.Id0Pu := pvVoltageSource_INIT.Id0Pu;
+  PV.Iq0Pu := pvVoltageSource_INIT.Iq0Pu;
+  PV.PF0 := pvVoltageSource_INIT.PF0;
+  PV.PInj0Pu := pvVoltageSource_INIT.PInj0Pu;
+  PV.QInj0Pu := pvVoltageSource_INIT.QInj0Pu;
+  PV.UInj0Pu := pvVoltageSource_INIT.UInj0Pu;
+  PV.UPhaseInj0 := pvVoltageSource_INIT.UInjPhase0;
+  PV.i0Pu.re := pvVoltageSource_INIT.i0Pu.re;
+  PV.i0Pu.im := pvVoltageSource_INIT.i0Pu.im;
+  PV.s0Pu.re := pvVoltageSource_INIT.s0Pu.re;
+  PV.s0Pu.im := pvVoltageSource_INIT.s0Pu.im;
+  PV.u0Pu.re := pvVoltageSource_INIT.u0Pu.re;
+  PV.u0Pu.im := pvVoltageSource_INIT.u0Pu.im;
+  PV.uInj0Pu.re := pvVoltageSource_INIT.uInj0Pu.re;
+  PV.uInj0Pu.im := pvVoltageSource_INIT.uInj0Pu.im;
 
 equation
   line.switchOffSignal1.value = false;
