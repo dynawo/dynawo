@@ -115,7 +115,7 @@ class ModelTwoWindingsTransformer : public ModelQuadripole {
    * @brief get the ratio tap-changer model used along with the transformer
    * @return the ratio tap changer model used if it exists
    */
-  boost::shared_ptr<ModelRatioTapChanger> getModelRatioTapChanger() const {
+  const boost::shared_ptr<ModelRatioTapChanger>& getModelRatioTapChanger() const {
     return modelRatioChanger_;
   }
 
@@ -123,7 +123,7 @@ class ModelTwoWindingsTransformer : public ModelQuadripole {
    * @brief get the phase tap-changer model used along with the transformer
    * @return the phase tap changer model used if it exists
    */
-  boost::shared_ptr<ModelPhaseTapChanger> getModelPhaseTapChanger() const {
+  const boost::shared_ptr<ModelPhaseTapChanger>& getModelPhaseTapChanger() const {
     return modelPhaseChanger_;
   }
 
@@ -131,7 +131,7 @@ class ModelTwoWindingsTransformer : public ModelQuadripole {
    * @brief get the generic tap-changer model used along with the transformer
    * @return generic model of  tap changer
    */
-  boost::shared_ptr<ModelTapChanger> getModelTapChanger() const {
+  const boost::shared_ptr<ModelTapChanger>& getModelTapChanger() const {
     return modelTapChanger_;
   }
 
@@ -246,9 +246,9 @@ class ModelTwoWindingsTransformer : public ModelQuadripole {
   void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) override;
 
   /**
-   * @copydoc NetworkComponent::evalZ(double t)
+   * @copydoc NetworkComponent::evalZ()
    */
-  NetworkComponent::StateChange_t evalZ(double t) override;  // compute the Z function
+  NetworkComponent::StateChange_t evalZ(double t, bool onlyEvaluateStateChange) override;  // compute the Z function
 
   /**
    * @brief evaluation G

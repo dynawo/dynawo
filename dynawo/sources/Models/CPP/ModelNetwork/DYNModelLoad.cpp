@@ -645,7 +645,7 @@ ModelLoad::defineElements(std::vector<Element>& elements, std::map<std::string, 
 }
 
 NetworkComponent::StateChange_t
-ModelLoad::evalZ(const double /*t*/) {
+ModelLoad::evalZ(const double /*t*/, bool /*onlyEvaluateStateChange*/) {
   if (modelBus_->getConnectionState() == OPEN)
     z_[stateNum_] = OPEN;
 

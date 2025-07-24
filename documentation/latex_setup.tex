@@ -89,3 +89,5 @@
 \usepackage{xspace} % Define typography
 \usepackage{dirtree}
 \newcommand{\Dynawo}[0]{Dyna$\omega$o\xspace}
+% Command for parameter names in tables: allows line breaks after underscores
+\newcommand{\pname}[1]{{\small\renewcommand{\_}{\textunderscore\allowbreak}#1}}

@@ -48,7 +48,7 @@ class NetworkBridgeQuadripole : public ModelQuadripole {
    * @copydoc NetworkComponent
    * @return TOPO_CHANGE if connection state variable has changed to or from CLOSED on dynamic model, NO_CHANGE otherwise
   */
-  StateChange_t evalZ(double) override;
+  StateChange_t evalZ(double, bool) override;
 
   /** @copydoc NetworkComponent */
   void evalG(double) override;

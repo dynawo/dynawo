@@ -262,11 +262,48 @@ These aggregations are computed only on a subset of the input bus voltages for w
 The C++ network model is fundamental in \Dynawo. Indeed, as soon as there is a static description of the network (iidm file) given in input, it is necessary to map a default behaviour to any component that can be present into the grid. Therefore, for each static component, there is a corresponding default behaviour into the network model. These models are used if and only if no other dynamic model is associated to the static component. Such a scheme ensures to be able to run simulations even without any dynamic data (or Modelica model). In this case, the simulation only uses the default C++ models. For most of these default models, the choice has been made to keep a very simple behaviour consisting in maintaining the original power flows and power injections (calculated a priori by a load flow module for example). \\
 Each component is described with more details in the next parts. \\
 
+Each component type accepts a set of \textit{generic} parameters (e.g. \texttt{bus\_uMax}), applied to all components of that type, and \textit{component-specific} parameters whose name is prefixed by the component identifier (e.g. \texttt{BUS1\_uMax}). When both are provided, the component-specific value takes precedence. Parameters are provided in a \textit{.par} file associated to the network model in the \textit{.dyd} file. \\
+
+The following two parameters apply to the network model as a whole:
+\begin{table}[H]
+\center
+\begin{tabular}{ p{4cm} | c | p{6cm} | c }
+\toprule
+\textbf{Name} & \textbf{Type} & \textbf{Description} & \textbf{Default value} \\
+\midrule
+\rowcolor{white}
+\pname{startingPointMode} & \small{STRING} & \small{Starting point mode: \texttt{"flat"} (flat start) or \texttt{"warm"} (warm start)} & \small{warm} \\
+\rowcolor{gray!10}
+\pname{deactivate\_zero\_crossing\_functions} & \small{BOOL} & \small{If true, deactivates zero-crossing detection in the network model} & \small{false} \\
+\bottomrule
+\end{tabular}
+\caption{Global network parameters}
+\end{table}
+
+\textbf{Note on \texttt{deactivate\_zero\_crossing\_functions}:} when set to \texttt{true}, this parameter disables the current limit automata and other protection mechanisms embedded in the network model (overload tripping for lines and transformers, shunt reclosing delays, etc.). This is intended for use cases such as DynaSwing simulations, where the studied phenomena (transient stability, inter-area oscillations) take place on a timescale much shorter than the operating time of protections: activating protections in this context would be physically irrelevant and would only slow down the simulation. \\
+
 \paragraph{Bus}
 ~~\\
 
 The bus model contains two equations corresponding to the Kirchoff's law on the current $\sum i = 0$. It is also possible to turn on or turn off a bus during a simulation by using events. \\
 In addition to this, the voltage module and angle are available as outputs both in per unit, kV or degree for display as well as the bus connection state. The model also enables to define an upper and a lower constraint limit for the bus' voltage. If they are violated, a constraint is printed out into the output constraint file. \\
+
+\begin{table}[H]
+\center
+\begin{tabular}{ p{5cm} | c | p{6cm} | c }
+\toprule
+\textbf{Name} & \textbf{Type} & \textbf{Description} & \textbf{Default value} \\
+\midrule
+\rowcolor{white}
+\pname{bus\_uMax} & \small{DOUBLE} & \small{Upper voltage constraint limit (p.u.); a constraint is logged if violated} & \small{from IIDM} \\
+\rowcolor{gray!10}
+\pname{bus\_uMin} & \small{DOUBLE} & \small{Lower voltage constraint limit (p.u.); a constraint is logged if violated} & \small{from IIDM} \\
+\rowcolor{white}
+\pname{bus\_hasShortCircuitCapabilities} & \small{BOOL} & \small{Indicates if the bus has short-circuit capabilities} & \small{false} \\
+\bottomrule
+\end{tabular}
+\caption{Bus parameters}
+\end{table}
 
 \paragraph{Line}
 ~~\\
@@ -284,12 +321,50 @@ If such limits exist in the input file (iidm file), current maximum limits are a
 
 In addition, the line can also be dynamic. In this case, the derivative terms ($L * \frac{di}{dt}$ and $C * \frac{dv}{dt}$) are no longer neglegted. This model is available and can be activated by setting the following parameter $line\_isDynamic$ at true in the network set of parameters. Please notice anyway than the dynamic line model has not been as extensively used and validated as the other network components.
 
+\begin{table}[H]
+\center
+\begin{tabular}{ p{4cm} | c | p{6cm} | c }
+\toprule
+\textbf{Name} & \textbf{Type} & \textbf{Description} & \textbf{Default value} \\
+\midrule
+\rowcolor{white}
+\pname{line\_currentLimit\_maxTimeOperation} & \small{DOUBLE} & \small{Maximum overload duration (s) before the line is tripped} & \small{90} \\
+\rowcolor{gray!10}
+\pname{line\_isDynamic} & \small{BOOL} & \small{If true, enables the dynamic line model (includes $L \frac{di}{dt}$ and $C \frac{dv}{dt}$ terms)} & \small{false} \\
+\bottomrule
+\end{tabular}
+\caption{Line parameters}
+\end{table}
+
 \paragraph{Transformer}
 ~~\\
 
 Only two-windings transformers are handled by \Dynawo C++ model at the moment. In the transformer model, conductance and susceptance are only defined at the side 2 voltage level and they are, as the resistance and the reactance, defined in side 2 voltage per unit basis. \\
 The transformer model could be connected to either a phase shifter automaton to regulate the current on a line or to a tap changer to control the bus module voltage. The tap changer automaton modifies the voltage ratio applied between side 1 and side 2 to respect a certain set point on side 2, whereas the phase shifter can add a contribution to the voltage angle to change the power flow going through a line. There are logs indicating a tap change when the automata have to act. \\
 As the line model it is possible to display the P, Q, current values going through the transformer. In a similar way, maximum current limits could be added to the transformer. \\
+
+\begin{table}[H]
+\center
+\begin{tabular}{ p{4cm} | c | p{6cm} | c }
+\toprule
+\textbf{Name} & \textbf{Type} & \textbf{Description} & \textbf{Default value} \\
+\midrule
+\rowcolor{white}
+\pname{transformer\_currentLimit\_maxTimeOperation} & \small{DOUBLE} & \small{Maximum overload duration (s) before the transformer is tripped} & \small{90} \\
+\rowcolor{gray!10}
+\pname{transformer\_t1st\_THT} & \small{DOUBLE} & \small{First tap changer action delay (s) for very high voltage ($\geq$ 130 kV) transformers} & \small{30} \\
+\rowcolor{white}
+\pname{transformer\_tNext\_THT} & \small{DOUBLE} & \small{Subsequent tap changer action delay (s) for very high voltage transformers} & \small{10} \\
+\rowcolor{gray!10}
+\pname{transformer\_t1st\_HT} & \small{DOUBLE} & \small{First tap changer action delay (s) for high voltage (50–130 kV) transformers} & \small{60} \\
+\rowcolor{white}
+\pname{transformer\_tNext\_HT} & \small{DOUBLE} & \small{Subsequent tap changer action delay (s) for high voltage transformers} & \small{10} \\
+\rowcolor{gray!10}
+\pname{transformer\_tolV} & \small{DOUBLE} & \small{Voltage tolerance (kV) used for the tap changer automaton set point} & \small{0.015} \\
+\bottomrule
+\end{tabular}
+\caption{Transformer parameters}
+\end{table}
 
 \paragraph{HVDC}
 ~~\\
@@ -301,6 +376,23 @@ The HVDC can be connected or disconnected during the simulation. The user can ha
 ~~\\
 
 The generator model calculates the necessary current to follow set points for P and Q. It doesn't have any limits on P, Q or the current. The set points can be modified during the simulation and the generator can be connected or disconnected. In case the set point is modified, there is a log message displayed into the timeline output that indicates the set point new value(s). \\
+
+\begin{table}[H]
+\center
+\begin{tabular}{ p{4cm} | c | p{6cm} | c }
+\toprule
+\textbf{Name} & \textbf{Type} & \textbf{Description} & \textbf{Default value} \\
+\midrule
+\rowcolor{white}
+\pname{generator\_isVoltageDependent} & \small{BOOL} & \small{If true, active and reactive power injection depends on voltage} & \small{false} \\
+\rowcolor{gray!10}
+\pname{generator\_alpha} & \small{DOUBLE} & \small{Voltage exponent for active power; required when voltage-dependent} & \small{--} \\
+\rowcolor{white}
+\pname{generator\_beta} & \small{DOUBLE} & \small{Voltage exponent for reactive power; required when voltage-dependent} & \small{--} \\
+\bottomrule
+\end{tabular}
+\caption{Generator parameters}
+\end{table}
 
 \paragraph{Load}
 ~~\\
@@ -345,11 +437,81 @@ The possible behaviours are:
 
 Any load model can be connected or disconnected. It is also possible for the user to have access to the output $P$, $Q$,$ P_C$ and $Q_C$ values. \\
 
+\begin{table}[H]
+\center
+\begin{tabular}{ p{4cm} | c | p{6cm} | c }
+\toprule
+\textbf{Name} & \textbf{Type} & \textbf{Description} & \textbf{Default value} \\
+\midrule
+\rowcolor{white}
+\pname{load\_alpha} & \small{DOUBLE} & \small{Voltage exponent for active power ($P \propto (U/U_0)^\alpha$)} & \small{0} \\
+\rowcolor{gray!10}
+\pname{load\_beta} & \small{DOUBLE} & \small{Voltage exponent for reactive power ($Q \propto (U/U_0)^\beta$)} & \small{0} \\
+\rowcolor{white}
+\pname{load\_isRestorative} & \small{BOOL} & \small{If true, uses the first-order restorative load model} & \small{false} \\
+\rowcolor{gray!10}
+\pname{load\_isControllable} & \small{BOOL} & \small{If true, both P and Q can be varied by an external model} & \small{false} \\
+\rowcolor{white}
+\pname{load\_isPControllable} & \small{BOOL} & \small{If true, only P can be varied by an external model} & \small{false} \\
+\rowcolor{gray!10}
+\pname{load\_isQControllable} & \small{BOOL} & \small{If true, only Q can be varied by an external model} & \small{false} \\
+\rowcolor{white}
+\pname{load\_isSettable} & \small{BOOL} & \small{If true, P0 and Q0 set points can be modified during the simulation} & \small{false} \\
+\rowcolor{gray!10}
+\pname{load\_Tp} & \small{DOUBLE} & \small{Active power restoration time constant (s); used when \texttt{load\_isRestorative=true}} & \small{90} \\
+\rowcolor{white}
+\pname{load\_Tq} & \small{DOUBLE} & \small{Reactive power restoration time constant (s); used when \texttt{load\_isRestorative=true}} & \small{90} \\
+\rowcolor{gray!10}
+\pname{load\_zPMax} & \small{DOUBLE} & \small{Maximum value of the restorative $z_P$ variable} & \small{100} \\
+\rowcolor{white}
+\pname{load\_zQMax} & \small{DOUBLE} & \small{Maximum value of the restorative $z_Q$ variable} & \small{100} \\
+\rowcolor{gray!10}
+\pname{load\_alphaLong} & \small{DOUBLE} & \small{Long-term voltage exponent for active power in the restorative model} & \small{0} \\
+\rowcolor{white}
+\pname{load\_betaLong} & \small{DOUBLE} & \small{Long-term voltage exponent for reactive power in the restorative model} & \small{0} \\
+\bottomrule
+\end{tabular}
+\caption{Load parameters}
+\end{table}
+
 \paragraph{Shunt}
 ~~\\
 
 The shunt provides a constant reactive injection to the network. It can be connected or disconnected either by an user action or by an automaton action. \\
 In order to simulate the necessary time between two actions on the same shunt, a minimal waiting time has been introduced into the shunt model between two actions (parameter noReclosingDelay). \\
+
+\begin{table}[H]
+\center
+\begin{tabular}{ p{4cm} | c | p{6cm} | c }
+\toprule
+\textbf{Name} & \textbf{Type} & \textbf{Description} & \textbf{Default value} \\
+\midrule
+\rowcolor{white}
+\pname{capacitor\_no\_reclosing\_delay} & \small{DOUBLE} & \small{Minimum waiting time (s) between two successive actions on a capacitor shunt} & \small{300} \\
+\rowcolor{gray!10}
+\pname{reactance\_no\_reclosing\_delay} & \small{DOUBLE} & \small{Minimum waiting time (s) between two successive actions on a reactance shunt} & \small{0} \\
+\bottomrule
+\end{tabular}
+\caption{Shunt parameters}
+\end{table}
+
+\paragraph{Dangling line}
+~~\\
+
+A dangling line represents a line that is connected to the network at one end only. Current maximum limits can be applied: if the dangling line is overloaded for longer than the allowed time, it will be tripped. \\
+
+\begin{table}[H]
+\center
+\begin{tabular}{ p{4cm} | c | p{6cm} | c }
+\toprule
+\textbf{Name} & \textbf{Type} & \textbf{Description} & \textbf{Default value} \\
+\midrule
+\rowcolor{white}
+\pname{dangling\_line\_currentLimit\_maxTimeOperation} & \small{DOUBLE} & \small{Maximum overload duration (s) before the dangling line is tripped} & \small{90} \\
+\bottomrule
+\end{tabular}
+\caption{Dangling line parameters}
+\end{table}
 
 \paragraph{Static Var Compensator}
 ~~\\
