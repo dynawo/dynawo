@@ -205,6 +205,10 @@ ModelBus::resetCurrentUStatus() {
   currentUStatus_.reset();
 }
 
+bool ModelBus::hasInitialConditions() const {
+  return bus_.lock()->hasInitialConditions();
+}
+
 double
 ModelBus::getCurrentU(const UType_t currentURequested) {
   if (getSwitchOff())

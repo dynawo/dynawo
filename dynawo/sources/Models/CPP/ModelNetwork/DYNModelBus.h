@@ -569,6 +569,13 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
    */
   void loadInternalVariables(boost::archive::binary_iarchive& streamVariables) override;
 
+  /**
+   * @brief test if bus is energized at start of simulation
+   *
+   * @return true if the bus is energized
+   */
+  bool hasInitialConditions() const;
+
  private:
   /**
    * @brief define elements of the bus model using id as prefix (to deal with alias)
