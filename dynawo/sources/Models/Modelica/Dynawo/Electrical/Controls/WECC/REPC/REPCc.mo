@@ -102,7 +102,7 @@ model REPCc "WECC Plant Control type C"
     Placement(transformation(origin = {-230, 120}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Continuous.FirstOrder firstOrder5(T = tFilterPC, y_start = U0Pu) annotation(
     Placement(transformation(origin = {-240, 70}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder6(T = tC, y_start = QGen0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder6(T = tC, y_start = Kc*QGen0Pu) annotation(
     Placement(transformation(origin = {-218, 42}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Nonlinear.FixedDelay fixedDelay(delayTime = 1e-4)  annotation(
     Placement(transformation(origin = {160, 112}, extent = {{10, -10}, {-10, 10}}, rotation = -0)));
