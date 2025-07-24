@@ -315,6 +315,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusCalculatedVariables) {
 
 TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   powsybl::iidm::Network networkIIDM("test", "test");
+  bool onlyEvaluateStateChange = false;
   std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
   std::shared_ptr<ModelBus> bus = p.first;
   int offSet = 0;
@@ -355,7 +356,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   ASSERT_EQ(bus->getConnectionState(), CLOSED);
   g[0] = ROOT_UP;
   g[1] = ROOT_UP;
-  bus->evalZ(0.);
+  bus->evalZ(0., onlyEvaluateStateChange);
   ASSERT_EQ(bus->getConnectionState(), OPEN);
   unsigned i = 0;
   for (const auto& constraintPair : constraints->getConstraintsById()) {
@@ -378,7 +379,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   ASSERT_EQ(i, 2);
   g[0] = ROOT_DOWN;
   g[1] = ROOT_DOWN;
-  bus->evalZ(10.);
+  bus->evalZ(10., onlyEvaluateStateChange);
   network->setCurrentTime(10);
   i = 0;
   for (const auto& constraintPair : constraints->getConstraintsById()) {
@@ -412,7 +413,91 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   ASSERT_EQ(bus->evalState(0.), NetworkComponent::TOPO_CHANGE);
   ASSERT_EQ(bus->getConnectionState(), OPEN);
   z[2] = CLOSED;
-  bus->evalZ(0.);
+  bus->evalZ(0., onlyEvaluateStateChange);
+  ASSERT_EQ(bus->evalState(0.), NetworkComponent::TOPO_CHANGE);
+  ASSERT_EQ(bus->getConnectionState(), CLOSED);
+  ASSERT_EQ(bus->evalState(0.), NetworkComponent::NO_CHANGE);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->getConnectionState(), CLOSED);
+
+  y[0] = 2;
+  y[1] = 3;
+  std::fill(g.begin(), g.end(), ROOT_DOWN);
+  bus->evalG(0.);
+  ASSERT_EQ(g[0], ROOT_UP);
+  ASSERT_EQ(g[1], ROOT_DOWN);
+  std::map<int, std::string> gEquationIndex;
+  bus->setGequations(gEquationIndex);
+  ASSERT_EQ(gEquationIndex.size(), nbG);
+
+  bus->clearNumSubNetwork();
+  ASSERT_FALSE(bus->numSubNetworkSet());
+
+  powsybl::iidm::Network networkIIDM2("test", "test");
+  std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p2 = createModelBus(true, false, networkIIDM2);
+  std::shared_ptr<ModelBus> busInit = p2.first;
+  busInit->init(offSet);
+  busInit->initSize();
+  ASSERT_EQ(busInit->sizeZ(), 0);
+  ASSERT_EQ(busInit->sizeG(), 0);
+  delete[] zConnected;
+}
+
+TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariablesOnlyEvaluateStateChange) {
+  powsybl::iidm::Network networkIIDM("test", "test");
+  bool onlyEvaluateStateChange = true;
+  std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
+  std::shared_ptr<ModelBus> bus = p.first;
+  int offSet = 0;
+  bus->init(offSet);
+  bus->initSize();
+  unsigned nbZ = 3;
+  unsigned nbG = 2;
+  ASSERT_EQ(bus->sizeZ(), nbZ);
+  ASSERT_EQ(bus->sizeG(), nbG);
+  std::vector<double> y(bus->sizeY(), 0.);
+  std::vector<double> yp(bus->sizeY(), 0.);
+  std::vector<double> f(bus->sizeF(), 0.);
+  std::vector<double> z(nbZ, 0.);
+  bool* zConnected = new bool[nbZ];
+  for (size_t i = 0; i < nbZ; ++i)
+    zConnected[i] = true;
+  std::vector<state_g> g(nbG, NO_ROOT);
+  bus->setReferenceG(&g[0], 0);
+  bus->setReferenceZ(&z[0], zConnected, 0);
+  bus->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  ModelNetwork* network = new ModelNetwork();
+  std::shared_ptr<constraints::ConstraintsCollection> constraints =
+      constraints::ConstraintsCollectionFactory::newInstance("MyConstraintsCollection");
+  network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
+  network->setConstraints(constraints);
+  bus->setNetwork(network);
+
+
+  bus->numSubNetwork(2);
+  ASSERT_TRUE(bus->numSubNetworkSet());
+  bus->getY0();
+  ASSERT_EQ(z[0], bus->numSubNetwork());
+  ASSERT_DOUBLE_EQUALS_DYNAWO(z[1], fromNativeBool(bus->getSwitchOff()));
+  ASSERT_DOUBLE_EQUALS_DYNAWO(z[2], CLOSED);
+
+  z[0] = 42;
+  z[2] = OPEN;
+  ASSERT_EQ(bus->getConnectionState(), CLOSED);
+  g[0] = ROOT_UP;
+  g[1] = ROOT_UP;
+  bus->evalZ(0., onlyEvaluateStateChange);
+  ASSERT_EQ(bus->getConnectionState(), OPEN);
+  ASSERT_TRUE(constraints->getConstraintsById().empty());
+  g[0] = ROOT_DOWN;
+  g[1] = ROOT_DOWN;
+  bus->evalZ(10., onlyEvaluateStateChange);
+  network->setCurrentTime(10);
+  ASSERT_TRUE(constraints->getConstraintsById().empty());
+
+  ASSERT_EQ(bus->evalState(0.), NetworkComponent::TOPO_CHANGE);
+  ASSERT_EQ(bus->getConnectionState(), OPEN);
+  z[2] = CLOSED;
+  bus->evalZ(0., onlyEvaluateStateChange);
   ASSERT_EQ(bus->evalState(0.), NetworkComponent::TOPO_CHANGE);
   ASSERT_EQ(bus->getConnectionState(), CLOSED);
   ASSERT_EQ(bus->evalState(0.), NetworkComponent::NO_CHANGE);
@@ -443,6 +528,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
 
 TEST(ModelsModelNetwork, ModelNetworkBusNodeBreakerDiscreteVariables) {
   powsybl::iidm::Network networkIIDM("test", "test");
+  bool onlyEvaluateStateChange = false;
   std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, true, networkIIDM);
   std::shared_ptr<ModelBus> bus = p.first;
   int offSet = 0;
@@ -483,7 +569,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusNodeBreakerDiscreteVariables) {
   ASSERT_EQ(bus->getConnectionState(), CLOSED);
   g[0] = ROOT_UP;
   g[1] = ROOT_UP;
-  ASSERT_THROW_DYNAWO(bus->evalZ(0.), Error::MODELER, KeyError_t::CalculatedBusNoSwitchStateChange);
+  ASSERT_THROW_DYNAWO(bus->evalZ(0., onlyEvaluateStateChange), Error::MODELER, KeyError_t::CalculatedBusNoSwitchStateChange);
 }
 
 TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariables) {

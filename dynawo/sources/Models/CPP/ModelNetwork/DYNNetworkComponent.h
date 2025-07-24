@@ -155,9 +155,10 @@ class NetworkComponent {  ///< Base class for network component models
   /**
    * @brief evaluation Z
    * @param t time
+   * @param onlyEvaluateStateChange true to only evaluate state change in the network model
    * @return the potential state change type
    */
-  virtual StateChange_t evalZ(double t) = 0;
+  virtual StateChange_t evalZ(double t, bool onlyEvaluateStateChange) = 0;
 
   /**
    * @brief evaluation calculated variables (for outputs)
