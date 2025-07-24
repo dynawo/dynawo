@@ -22,6 +22,9 @@
  */
 
 #include "DYNModelVoltageLevel.h"
+
+#include <DYNTimer.h>
+
 #include "DYNModelBus.h"
 #include "DYNModelSwitch.h"
 #include "DYNModelLoad.h"
@@ -436,6 +439,9 @@ ModelVoltageLevel::evalDynamicYType() {
 
 void
 ModelVoltageLevel::evalG(const double t) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer("ModelNetwork::ModelVoltageLevel::evalG");
+#endif
   for (const auto& component : components_)
     component->evalG(t);
 }
@@ -459,11 +465,11 @@ ModelVoltageLevel::setGequations(map<int, string>& gEquationIndex) {
 }
 
 NetworkComponent::StateChange_t
-ModelVoltageLevel::evalZ(const double t) {
+ModelVoltageLevel::evalZ(const double t, bool deactivateRootFunctions) {
   bool topoChange = false;
   bool stateChange = false;
   for (const auto& component : components_) {
-    switch (component->evalZ(t)) {
+    switch (component->evalZ(t, deactivateRootFunctions)) {
     case NetworkComponent::TOPO_CHANGE:
       topoChange = true;
       break;

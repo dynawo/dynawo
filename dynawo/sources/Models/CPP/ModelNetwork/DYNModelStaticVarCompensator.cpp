@@ -269,7 +269,7 @@ ModelStaticVarCompensator::loadInternalVariables(boost::archive::binary_iarchive
 }
 
 NetworkComponent::StateChange_t
-ModelStaticVarCompensator::evalZ(const double /*t*/) {
+ModelStaticVarCompensator::evalZ(const double /*t*/, bool /*deactivateRootFunctions*/) {
   mode_ = static_cast<StaticVarCompensatorInterface::RegulationMode_t>(static_cast<int>(z_[modeNum_]));
 
   if (modelBus_->getConnectionState() == OPEN)

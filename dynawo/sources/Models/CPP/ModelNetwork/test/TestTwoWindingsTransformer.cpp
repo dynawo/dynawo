@@ -735,6 +735,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerCalculatedVariablesOp
 
 TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerDiscreteVariables) {
   std::pair<std::unique_ptr<ModelTwoWindingsTransformer>, std::shared_ptr<ModelVoltageLevel> > p = createModelTwoWindingsTransformer(false, false, true, false);
+  bool deactivateRootFunctions = false;
   const std::unique_ptr<ModelTwoWindingsTransformer>& t2w = p.first;
   t2w->initSize();
   unsigned nbZ = 6;
@@ -762,21 +763,21 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerDiscreteVariables) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[ModelTwoWindingsTransformer::tapChangerLockedNum_], 0.);
 
   z[ModelTwoWindingsTransformer::connectionStateNum_] = OPEN;
-  ASSERT_EQ(t2w->evalZ(10.), NetworkComponent::TOPO_CHANGE);
+  ASSERT_EQ(t2w->evalZ(10., deactivateRootFunctions), NetworkComponent::TOPO_CHANGE);
   ASSERT_EQ(t2w->evalState(10.), NetworkComponent::TOPO_CHANGE);
   ASSERT_EQ(t2w->getConnectionState(), OPEN);
 
   z[ModelTwoWindingsTransformer::connectionStateNum_] = CLOSED_3;
-  ASSERT_THROW_DYNAWO(t2w->evalZ(10.), Error::MODELER, KeyError_t::NoThirdSide);
+  ASSERT_THROW_DYNAWO(t2w->evalZ(10., deactivateRootFunctions), Error::MODELER, KeyError_t::NoThirdSide);
   z[ModelTwoWindingsTransformer::connectionStateNum_] = CLOSED;
-  ASSERT_EQ(t2w->evalZ(10.), NetworkComponent::TOPO_CHANGE);
+  ASSERT_EQ(t2w->evalZ(10., deactivateRootFunctions), NetworkComponent::TOPO_CHANGE);
   ASSERT_EQ(t2w->evalState(10.), NetworkComponent::TOPO_CHANGE);
 
   z[ModelTwoWindingsTransformer::currentStepIndexNum_] = 2.;
   z[ModelTwoWindingsTransformer::currentLimitsDesactivateNum_] = 2.;
   z[ModelTwoWindingsTransformer::disableInternalTapChangerNum_] = 4.;
   z[ModelTwoWindingsTransformer::tapChangerLockedNum_] = 6.;
-  ASSERT_EQ(t2w->evalZ(10.), NetworkComponent::STATE_CHANGE);
+  ASSERT_EQ(t2w->evalZ(10., deactivateRootFunctions), NetworkComponent::STATE_CHANGE);
   ASSERT_EQ(t2w->evalState(10.), NetworkComponent::STATE_CHANGE);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->getCurrentLimitsDesactivate(), 2.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->getDisableInternalTapChanger(), 4.);
@@ -818,6 +819,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerOpenedDiscreteVariabl
   std::pair<std::unique_ptr<ModelTwoWindingsTransformer>, std::shared_ptr<ModelVoltageLevel> > p = createModelTwoWindingsTransformer(true, false, true,
       false, true, true, false);
   const std::unique_ptr<ModelTwoWindingsTransformer>& t2w = p.first;
+  bool deactivateRootFunctions = false;
   t2w->initSize();
   unsigned nbZ = 6;
   unsigned nbG = 8;
@@ -844,19 +846,19 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerOpenedDiscreteVariabl
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[ModelTwoWindingsTransformer::tapChangerLockedNum_], 0.);
 
   z[ModelTwoWindingsTransformer::connectionStateNum_] = CLOSED_1;
-  ASSERT_EQ(t2w->evalZ(10.), NetworkComponent::TOPO_CHANGE);
+  ASSERT_EQ(t2w->evalZ(10., deactivateRootFunctions), NetworkComponent::TOPO_CHANGE);
   ASSERT_EQ(t2w->evalState(10.), NetworkComponent::TOPO_CHANGE);
   ASSERT_EQ(t2w->getConnectionState(), CLOSED_1);
 
   z[ModelTwoWindingsTransformer::connectionStateNum_] = CLOSED;
-  ASSERT_EQ(t2w->evalZ(10.), NetworkComponent::NO_CHANGE);
+  ASSERT_EQ(t2w->evalZ(10., deactivateRootFunctions), NetworkComponent::NO_CHANGE);
   ASSERT_EQ(t2w->evalState(10.), NetworkComponent::NO_CHANGE);
 
   z[ModelTwoWindingsTransformer::currentStepIndexNum_] = 2.;
   z[ModelTwoWindingsTransformer::currentLimitsDesactivateNum_] = 2.;
   z[ModelTwoWindingsTransformer::disableInternalTapChangerNum_] = 4.;
   z[ModelTwoWindingsTransformer::tapChangerLockedNum_] = 6.;
-  ASSERT_EQ(t2w->evalZ(10.), NetworkComponent::STATE_CHANGE);
+  ASSERT_EQ(t2w->evalZ(10., deactivateRootFunctions), NetworkComponent::STATE_CHANGE);
   ASSERT_EQ(t2w->evalState(10.), NetworkComponent::STATE_CHANGE);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->getCurrentLimitsDesactivate(), 2.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->getDisableInternalTapChanger(), 4.);

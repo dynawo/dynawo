@@ -259,6 +259,7 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorCalculatedVariablesFlat) {
 
 TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorDiscreteVariables) {
   powsybl::iidm::Network networkIIDM("test", "test");
+  bool deactivateRootFunctions = false;
   auto tuple = createModelShuntCompensator(false, capacitance, false, networkIIDM);
   std::shared_ptr<ModelShuntCompensator> capa = std::get<0>(tuple);
   int yOffSet = 0;
@@ -300,7 +301,7 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorDiscreteVariables) {
   z[ModelShuntCompensator::isAvailableNum_] = 0.;
   z[ModelShuntCompensator::currentSectionNum_] = 0.;
   capa->evalG(10.);
-  capa->evalZ(10.);
+  capa->evalZ(10., deactivateRootFunctions);
   ASSERT_EQ(capa->getConnected(), OPEN);
   ASSERT_EQ(z[ModelShuntCompensator::connectionStateNum_], OPEN);
   ASSERT_DOUBLE_EQUALS_DYNAWO(capa->getCurrentSection(), 0.);
@@ -312,7 +313,7 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorDiscreteVariables) {
   ASSERT_EQ(capa->getConnected(), OPEN);
   z[ModelShuntCompensator::connectionStateNum_] = CLOSED;
   capa->evalG(0.);
-  capa->evalZ(0.);
+  capa->evalZ(0., deactivateRootFunctions);
   ASSERT_EQ(capa->evalState(0.), NetworkComponent::STATE_CHANGE);
   ASSERT_EQ(capa->getConnected(), CLOSED);
   ASSERT_DOUBLE_EQUALS_DYNAWO(capa->getCurrentSection(), 5.);
@@ -323,7 +324,7 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorDiscreteVariables) {
   z[ModelShuntCompensator::isCapacitorNum_] = 0.;
   z[ModelShuntCompensator::isAvailableNum_] = 0.;
   capa->evalG(0.);
-  capa->evalZ(0.);
+  capa->evalZ(0., deactivateRootFunctions);
   ASSERT_EQ(capa->evalState(0.), NetworkComponent::NO_CHANGE);
   ASSERT_DOUBLE_EQUALS_DYNAWO(capa->getCurrentSection(), 5.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[ModelShuntCompensator::isCapacitorNum_], 1.);
@@ -331,7 +332,7 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorDiscreteVariables) {
 
   zConnected[ModelShuntCompensator::isAvailableNum_] = false;
   capa->evalG(0.);
-  capa->evalZ(0.);
+  capa->evalZ(0., deactivateRootFunctions);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[ModelShuntCompensator::isAvailableNum_], 1.);
 
   std::map<int, std::string> gEquationIndex;

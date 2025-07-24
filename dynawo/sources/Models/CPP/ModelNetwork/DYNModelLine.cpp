@@ -20,10 +20,13 @@
 #include <cmath>
 #include <vector>
 #include <cassert>
+#include <iomanip>
 
 #include "PARParametersSet.h"
 
 #include "DYNModelLine.h"
+
+#include <DYNTimer.h>
 
 #include "DYNCommon.h"
 #include "DYNCommonModeler.h"
@@ -856,19 +859,19 @@ ModelLine::defineElements(std::vector<Element>& elements, std::map<std::string, 
 }
 
 NetworkComponent::StateChange_t
-ModelLine::evalZ(const double t) {
+ModelLine::evalZ(const double t, bool deactivateRootFunctions) {
   int offsetRoot = 0;
   ModelCurrentLimits::state_t currentLimitState;
 
-  if (currentLimits1_) {
-    currentLimitState = currentLimits1_->evalZ(id(), t, &g_[offsetRoot], currentLimitsDesactivate_, modelType_, network_);
+  if (currentLimits1_ && !deactivateRootFunctions) {
+    currentLimitState = currentLimits1_->evalZ(id(), t, &g_[offsetRoot], currentLimitsDesactivate_, modelType_, network_, deactivateRootFunctions);
     offsetRoot += currentLimits1_->sizeG();
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
       z_[0] = OPEN;
   }
 
-  if (currentLimits2_) {
-    currentLimitState = currentLimits2_->evalZ(id(), t, &g_[offsetRoot], currentLimitsDesactivate_, modelType_, network_);
+  if (currentLimits2_ && !deactivateRootFunctions) {
+    currentLimitState = currentLimits2_->evalZ(id(), t, &g_[offsetRoot], currentLimitsDesactivate_, modelType_, network_, deactivateRootFunctions);
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
       z_[0] = OPEN;
   }
@@ -1062,6 +1065,9 @@ ModelLine::collectSilentZ(BitMask* silentZTable) {
 
 void
 ModelLine::evalG(const double t) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer("ModelNetwork::ModelLine::evalG");
+#endif
   if (currentLimits1_ || currentLimits2_) {
     int offset = 0;
     const double ur1Val = ur1();

@@ -173,7 +173,7 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
   /**
    * @copydoc NetworkComponent::evalZ()
    */
-  StateChange_t evalZ(double t) override;
+  StateChange_t evalZ(double t, bool deactivateRootFunctions) override;
 
   /**
    * @brief compute the local G function
@@ -605,7 +605,6 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
   double UPu_;  ///< current value of U (=0 if not yet calculated)
   double U_;  ///< current value of U in S.I. unit (=0 if not yet calculated)
   BitMask currentUStatus_;  ///< Bit mask value indicating which value of U have already been calculated for the current time step
-
 
   // equivalent to z_[switchOffNum_] but with discrete variable, to be able to switch off a node thanks to an outside event
   State connectionState_;  ///< "internal" bus connection status, evaluated at the end of evalZ to detect if the state was modified by another component

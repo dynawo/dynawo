@@ -609,7 +609,7 @@ ModelLoad::defineElements(std::vector<Element>& elements, std::map<std::string, 
 }
 
 NetworkComponent::StateChange_t
-ModelLoad::evalZ(const double /*t*/) {
+ModelLoad::evalZ(const double /*t*/, bool /*deactivateRootFunctions*/) {
   const auto& modelBus = getModelBus();
   if (modelBus.getConnectionState() == OPEN)
     z_[0] = OPEN;
