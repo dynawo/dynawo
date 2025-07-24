@@ -73,6 +73,9 @@ initializeModel(shared_ptr<DataInterface> data) {
   parametersSet->createParameter("transformer_t1st_HT", 11.);
   parametersSet->createParameter("transformer_tNext_HT", 12.);
   parametersSet->createParameter("transformer_tolV", 13.);
+  parametersSet->createParameter("generator_isVoltageDependant", false);
+  parametersSet->createParameter("generator_alpha", 1.5);
+  parametersSet->createParameter("generator_beta", 2.5);
   modelNetwork->setPARParameters(parametersSet);
 
   return modelNetwork;
