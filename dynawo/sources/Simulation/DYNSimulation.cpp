@@ -901,6 +901,9 @@ Simulation::init() {
 
 void
 Simulation::calculateIC() {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer("Simulation::calculateIC");
+#endif
   // ensure locally satisfactory values for initial models
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
   Trace::info() << DYNLog(ModelLocalInit) << Trace::endline;
