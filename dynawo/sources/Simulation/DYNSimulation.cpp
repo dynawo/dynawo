@@ -1026,7 +1026,6 @@ Simulation::simulate() {
       if (solverState.getFlags(ModeChange)) {
         updateCurves(true);
         model_->notifyTimeStep();
-        Trace::info() << DYNLog(NewStartPoint) << Trace::endline;
         solver_->reinit();
         model_->getCurrentZ(zCurrent_);
         solver_->printSolve();
@@ -1241,6 +1240,7 @@ Simulation::printHighestDerivativesValues() const {
     Trace::debug() << DYNLog(SolverLargestDerivValue, derivValues[i].second, derivValues[i].first,
                              model_->getVariableName(derivValues[i].second)) << Trace::endline;
   }
+  Trace::debug() << Trace::endline;
 }
 
 void
