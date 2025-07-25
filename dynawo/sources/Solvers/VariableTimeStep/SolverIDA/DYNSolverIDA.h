@@ -238,6 +238,11 @@ class SolverIDA : public Solver::Impl {
    */
   double getTimeStep() const override;
 
+  /**
+   * @copydoc Solver::getTimeStep()
+   */
+  double getCurrentStep() const;
+
  protected:
   /**
    * @copydoc Solver::Impl::solveStep(double tAim, double &tNxt)
@@ -258,6 +263,11 @@ class SolverIDA : public Solver::Impl {
   * @brief set the index of each differential variables
   */
   void setDifferentialVariablesIndices();
+
+  /**
+  * @brief Check jacobian
+  */
+  int solveTaskToInt();
 
   /**
   * @brief name of the solver
@@ -282,7 +292,18 @@ class SolverIDA : public Solver::Impl {
   double maxStep_;  ///< maximum step size
   double absAccuracy_;  ///< relative error tolerance
   double relAccuracy_;  ///< absolute error tolerance
+  double deltacj_;  ///< the cj change threshold that requires a linear solver setup call
+  bool uround_;  ///< to activate change on uround
+  double uroundPrecision_;  ///< to activate change on uround
+  bool optimizeReinit_;  ///< test
+  std::string solveTask_;  ///< test
+  int maxnef_;  ///< test
+  int maxcor_;  ///< test
+  int maxncf_;  ///< test
+  double nlscoef_;  ///< test
+  bool activateCheckJacobian_;  ///< test
   bool printReinitResiduals_;  ///< test
+  int countForceReinit_;  ///< test
 
   bool flagInit_;  ///< @b true if the solver is in initialization mode
   int nbLastTimeSimulated_;  ///< nb times of simulation of the latest time (to see if the solver succeed to pass through event at one point)
