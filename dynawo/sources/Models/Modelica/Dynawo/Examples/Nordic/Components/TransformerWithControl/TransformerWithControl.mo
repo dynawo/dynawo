@@ -47,6 +47,8 @@ model TransformerWithControl "Model of transformer with variable tap and built-i
     X = TransformerParameters.tfoParamValues[tfo, TransformerParameters.tfoParams.X]) annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-50, -50}, {50, 50}}, rotation = 0)));
 
+  Dynawo.Connectors.ACPower terminal20;
+
   parameter Types.ActivePowerPu P10Pu "Initial active power at terminal 1 in pu (base SnRef) (receptor convention)";
   parameter Types.ReactivePowerPu Q10Pu "Initial reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
   parameter Types.VoltageModulePu U10Pu "Initial voltage amplitude at terminal 1 in pu (base U1Nom)";
@@ -69,8 +71,9 @@ equation
   connect(tfoVariableTap.terminal2, terminal2) annotation(
     Line(points = {{50, 0}, {110, 0}}, color = {0, 0, 255}));
 
-  annotation(
-    preferredView = "text",
+  connect(terminal20, tfoVariableTap.terminal20);
+
+  annotation(preferredView = "text",
     Icon(graphics = {Rectangle(lineThickness = 0.75, extent = {{-100, 100}, {100, -100}})}),
     Documentation(info = "<html><head></head><body>The controlled tfo frame represents the regulated transformer of the Nordic 32 test system.<div>It consists of a variable tap transformer and an on-load tap changer with 33 positions, keeping the transformer ratios in the interval [0.88, 1.20] and the distribution voltage in the deadband [0.99, 1.01].</div><div><div style=\"font-size: 12px;\">The implementation uses a transformer preset, which automatically sets the parameters of all elements to those of the corresponding chosen transformer.</div><div style=\"font-size: 12px;\">To add another configuration, append a new line to \"tfoParamValues\" in TransformerParameters and append a fitting name in the \"tfoPreset\" enumeration.</div></div></body></html>"));
 end TransformerWithControl;

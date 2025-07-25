@@ -22,7 +22,7 @@ model InjectorIDQ_INIT "Initialisation model for the injector controlled by d an
   parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at injector terminal in pu (base UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage angle at injector terminal (in rad)";
 
-  flow Types.ComplexCurrentPu i0Pu "Start value of complex current at injector terminal in pu (base UNom, SnRef) (receptor convention)";
+  Types.ComplexCurrentPu i0Pu "Start value of complex current at injector terminal in pu (base UNom, SnRef) (receptor convention)";
   Types.PerUnit Id0Pu "Start value of id in pu (base SNom) (generator convention)";
   Types.PerUnit Iq0Pu "Start value of iq in pu (base SNom) (generator convention)";
   Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at injector terminal in pu (base SnRef) (receptor convention)";
