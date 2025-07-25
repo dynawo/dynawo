@@ -133,7 +133,7 @@ class DelayManager {
   *
   * @return mode change type value
   */
-  modeChangeType_t evalMode(double time);
+  modeChangeType_t evalMode(double time, const std::string& modelName);
 
   /**
    * @brief Trigger delay

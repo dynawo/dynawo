@@ -369,6 +369,24 @@ class ModelManager : public SubModel, private boost::noncopyable {
    */
   bool hasDataCheckCoherence() const override;
 
+ /**
+* @brief fill a parameters' value set
+*
+* @return p
+*/
+ const DelayManager& getDelayManager() const {
+  return delayManager_;
+ }
+
+ /**
+ * @brief fill a parameters' value set
+ *
+ * @return parametersSet the parameters' set to fill
+ */
+ DelayManager& getNonCstDelayManager() {
+  return const_cast<DelayManager&>(getDelayManager());
+ }
+
  private:
 #ifdef _ADEPT_
 
