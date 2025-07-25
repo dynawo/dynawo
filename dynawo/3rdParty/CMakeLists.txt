@@ -558,6 +558,7 @@ find_package(Sundials QUIET)
 unset(SUNDIALS_HOME)
 
 GetPatchCommand(sundials)
+message("Sundials_FOUND ${Sundials_FOUND}")
 if(Sundials_FOUND)
   add_custom_target(sundials DEPENDS suitesparse)
   set(SUNDIALS_HOME ${CMAKE_INSTALL_PREFIX}/sundials)

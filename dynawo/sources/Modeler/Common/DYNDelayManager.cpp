@@ -184,7 +184,7 @@ DelayManager::evalMode(const double time) {
     double delayTime = delay.getDelayTime();
     if (!(time < delayTime || doubleEquals(time, delayTime)) && !delay.isTriggered()) {
       delay.trigger();
-      delay_mode = ALGEBRAIC_J_UPDATE_MODE;
+      delay_mode = ALGEBRAIC_J_J_UPDATE_MODE;
     }
   }
   return delay_mode;
