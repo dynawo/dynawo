@@ -64,6 +64,7 @@ if (SUNDIALS_INCLUDE_DIR AND SUNDIALS_IDA_LIBRARY)
     "  int retval = SUNContext_Create(NULL, &ctx);\n"
     "  void* IDAMem = IDACreate(ctx);\n"
     "  int flag = IDASetMinStep(IDAMem, 0.1);\n"
+    "  flag = IDASetURound(IDAMem, 0.1);\n"
     "  static_cast<void>(flag);\n"
     "  IDAFree(&IDAMem);\n"
     "  SUNContext_Free(&ctx);\n"

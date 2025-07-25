@@ -79,6 +79,11 @@ class ModelMulti : public Model, private boost::noncopyable {
   void evalG(double t, std::vector<state_g>& g) override;
 
   /**
+   * @copydoc Model::evalG(double t, double* g)
+   */
+  void evalG(double t, double* g);
+
+  /**
    * @copydoc Model::evalZ(double t)
    */
   void evalZ(double t) override;
