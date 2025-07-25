@@ -414,6 +414,17 @@ ModelMulti::evalG(const double t, vector<state_g>& g) {
   std::copy(gLocal_.begin(), gLocal_.end(), g.begin());
 }
 
+  void
+ModelMulti::evalG(double t, double* g) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer("ModelMulti::evalG");
+#endif
+  for (const auto& subModel : subModels_)
+    subModel->evalGSub(t);
+
+  std::copy(gLocal_.begin(), gLocal_.end(), g);
+}
+
 void
 ModelMulti::evalJt(const double t, const double cj, SparseMatrix& jt) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
