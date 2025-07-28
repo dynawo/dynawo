@@ -74,7 +74,11 @@ equation
     Line(points = {{-270, 270}, {132, 270}, {132, 272}}, color = {0, 0, 127}));
   connect(add1.y, variableLimiter.u) annotation(
     Line(points = {{342, 110}, {498, 110}}, color = {0, 0, 127}));
-
+  connect(rateLimFirstOrderFreeze1.y, multiSwitch.u[1]) annotation(
+    Line(points = {{141, 54}, {263, 54}, {263, 105}}, color = {0, 0, 127}));
+  connect(varLimPIDFreeze.y, multiSwitch.u[2]) annotation(
+    Line(points = {{191, 112}, {226.5, 112}, {226.5, 106}, {261, 106}, {261, 108.5}, {263, 108.5}, {263, 105}}, color = {0, 0, 127}));
+  
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html>

@@ -2,4 +2,7 @@ BaseClasses
 BESSCurrentSource
 BESSCurrentSourceNoPlantControl
 BESS_INIT
-BESScbCurrentSourceREECd
+BESSCurrentSource2
+BESSCurrentSourceNoPlantControl2
+BESSCurrentSource3
+BESSCurrentSourceNoPlantControl3

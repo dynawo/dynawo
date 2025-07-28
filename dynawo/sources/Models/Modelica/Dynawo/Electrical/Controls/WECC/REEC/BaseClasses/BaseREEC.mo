@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.WECC.REEC.BaseClasses;
 
 /*
-* Copyright (c) 2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2025, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -40,7 +40,11 @@ partial model BaseREEC "WECC Electrical Control REEC common"
   Modelica.Blocks.Interfaces.RealOutput UFilteredPu(start = UInj0Pu) "Filtered voltage module at injector terminal in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {109, 240}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Sources.BooleanConstant QFlag0(k = QFlag) annotation(
+  Modelica.Blocks.Sources.RealExpression MaxPID(y = VMaxPu) annotation(
+    Placement(transformation(origin = {-50, 138}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Sources.RealExpression MinPID(y = VMinPu) annotation(
+    Placement(transformation(origin = {-50, 160}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Sources.IntegerConstant QFlag0(k = QFlag) annotation(
     Placement(visible = true, transformation(origin = {220, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant VFlag0(k = VFlag) annotation(
     Placement(visible = true, transformation(origin = {-20, 112}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -64,24 +68,24 @@ partial model BaseREEC "WECC Electrical Control REEC common"
     Placement(visible = true, transformation(origin = {-120, 150}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter2(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = QMaxPu, uMin = QMinPu) annotation(
     Placement(visible = true, transformation(origin = {-80, 150}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Logical.Switch switch2 annotation(
-    Placement(visible = true, transformation(origin = {280, 104}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Division division1 annotation(
     Placement(visible = true, transformation(origin = {181, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.LimPIDFreeze limPIDFreeze(Ti = Kqp / Kqi, K = Kqp, Xi0 = UInj0Pu / Kqp, YMax = VMaxPu, YMin = VMinPu, Y0 = UInj0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.VarLimPIDFreeze limPIDFreeze(Ti = Kqp/Kqi, K = Kqp, Xi0 = UInj0Pu/Kqp, Y0 = UInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {-20, 150}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.BaseControls.VoltageCheck voltageCheck(UMinPu = VDipPu, UMaxPu = VUpPu) annotation(
     Placement(transformation(origin = {142, 271}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.NonElectrical.Blocks.Continuous.VarLimPIDFreeze varLimPIDFreeze(Ti = Kvp / Kvi, K = Kvp, Xi0 = QInj0Pu / UInj0Pu / Kqp, Y0 = QInj0Pu / UInj0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.VarLimPIDFreeze varLimPIDFreeze(Ti = Kvp/Kvi, K = Kvp, Xi0 = QInj0Pu/UInj0Pu/Kqp, Y0 = QInj0Pu/UInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {180, 112}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.VariableLimiter variableLimiter annotation(
     Placement(visible = true, transformation(origin = {510, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.VariableLimiter variableLimiter1 annotation(
     Placement(visible = true, transformation(origin = {511, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze1(T = tIq, UseFreeze = true, UseRateLim = false, Y0 = QInj0Pu / UInj0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze1(T = tIq, UseFreeze = true, UseRateLim = false, Y0 = QInj0Pu/UInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {130, 54}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanExpression FRTOn(y = frtOn) annotation(
     Placement(visible = true, transformation(origin = {124, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Sources.BooleanExpression FRTOn2(y = frtOn) annotation(
+    Placement(visible = true, transformation(origin = {59, -105}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Sources.BooleanExpression FRTOn1(y = frtOn) annotation(
     Placement(visible = true, transformation(origin = {163, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Sources.BooleanExpression FRTOn3(y = frtOn) annotation(
@@ -106,16 +110,14 @@ partial model BaseREEC "WECC Electrical Control REEC common"
     Placement(visible = true, transformation(origin = {65, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter3(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = PMaxPu, uMin = PMinPu) annotation(
     Placement(visible = true, transformation(origin = {130, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.BooleanExpression FRTOn2(y = frtOn) annotation(
-    Placement(visible = true, transformation(origin = {59, -105}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Math.Add add(k1 = -1) annotation(
     Placement(visible = true, transformation(origin = {125, 220}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch(nu = 2)  annotation(
+    Placement(transformation(origin = {273, 105}, extent = {{-10, -10}, {10, 10}})));
 
 equation
   connect(variableLimiter.y, iqCmdPu) annotation(
     Line(points = {{521, 110}, {550, 110}}, color = {0, 0, 127}));
-  connect(varLimPIDFreeze.y, switch2.u1) annotation(
-    Line(points = {{191, 112}, {268, 112}}, color = {0, 0, 127}));
   connect(limiter.y, varLimPIDFreeze.u_s) annotation(
     Line(points = {{101, 112}, {168, 112}}, color = {0, 0, 127}));
   connect(QInjPu, limPIDFreeze.u_m) annotation(
@@ -128,18 +130,12 @@ equation
     Line(points = {{-109, 150}, {-92, 150}}, color = {0, 0, 127}));
   connect(PfFlag0.y, switch1.u2) annotation(
     Line(points = {{-179, 150}, {-132, 150}}, color = {255, 0, 255}));
-  connect(rateLimFirstOrderFreeze1.y, switch2.u3) annotation(
-    Line(points = {{141, 54}, {260, 54}, {260, 96}, {268, 96}}, color = {0, 0, 127}));
   connect(division.y, rateLimFirstOrderFreeze1.u) annotation(
     Line(points = {{101, 54}, {118, 54}}, color = {0, 0, 127}));
   connect(variableLimiter1.y, idCmdPu) annotation(
     Line(points = {{522, -120}, {551, -120}}, color = {0, 0, 127}));
-  connect(switch2.y, add1.u2) annotation(
-    Line(points = {{291, 104}, {318, 104}}, color = {0, 0, 127}));
   connect(UPu, firstOrder.u) annotation(
     Line(points = {{-270, 270}, {19.5, 270}, {19.5, 240}, {38, 240}}, color = {0, 0, 127}));
-  connect(QFlag0.y, switch2.u2) annotation(
-    Line(points = {{231, 90}, {240, 90}, {240, 104}, {268, 104}}, color = {255, 0, 255}));
   connect(FRTOn.y, rateLimFirstOrderFreeze1.freeze) annotation(
     Line(points = {{124, 31}, {124, 42}}, color = {255, 0, 255}));
   connect(voltageCheck.freeze, frtOn) annotation(
@@ -190,7 +186,15 @@ equation
     Line(points = {{61, 200}, {80, 200}, {80, 214}, {113, 214}}, color = {0, 0, 127}));
   connect(max1.y, division1.u2) annotation(
     Line(points = {{61, 40}, {99, 40}, {99, -126}, {169, -126}}, color = {0, 0, 127}));
-
+ connect(multiSwitch.y, add1.u2) annotation(
+    Line(points = {{284, 105}, {300.5, 105}, {300.5, 104}, {318, 104}}, color = {0, 0, 127}));
+  connect(QFlag0.y, multiSwitch.f) annotation(
+    Line(points = {{231, 90}, {246, 90}, {246, 131}, {273, 131}, {273, 117}}, color = {255, 127, 0}));
+  connect(MaxPID.y, limPIDFreeze.yMax) annotation(
+    Line(points = {{-41, 139}, {-32, 139}, {-32, 144}}, color = {0, 0, 127}));
+  connect(MinPID.y, limPIDFreeze.yMin) annotation(
+    Line(points = {{-42, 161}, {-32, 161}, {-32, 156}}, color = {0, 0, 127}));
+  
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html>
