@@ -78,6 +78,12 @@ equation
     Line(points = {{141, 54}, {263, 54}, {263, 105}}, color = {0, 0, 127}));
   connect(varLimPIDFreeze.y, multiSwitch.u[2]) annotation(
     Line(points = {{191, 112}, {226.5, 112}, {226.5, 106}, {261, 106}, {261, 108.5}, {263, 108.5}, {263, 105}}, color = {0, 0, 127}));
+  connect(currentLimitsCalculation1.ipMaxPu, ipMaxPu) annotation(
+    Line(points = {{414, 7}, {519, 7}, {519, 30}, {550, 30}}, color = {0, 0, 127}));
+  connect(currentLimitsCalculation1.ipMinPu, ipMinPu) annotation(
+    Line(points = {{414, 3}, {525, 3}, {525, 10}, {550, 10}}, color = {0, 0, 127}));
+  connect(currentLimitsCalculation1.iqMaxPu, iqMaxPu);
+  connect(currentLimitsCalculation1.iqMinPu, iqMinPu);
   
   annotation(
     preferredView = "diagram",
