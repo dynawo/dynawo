@@ -18,6 +18,7 @@ set(MODEL_FILES
   REECb.mo
   REECc.mo
   REECd.mo
+  REECe.mo
   )
 
 #
