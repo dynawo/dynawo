@@ -15,7 +15,6 @@ within Dynawo.Electrical.BESS.WECC.BaseClasses;
 partial model BaseBESSCurrentSource "Partial base model for WECC BESS with electrical control model type C, generator/converter model type A"
   extends Dynawo.Electrical.Controls.PLL.ParamsPLL;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREEC;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECc;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGC;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGCa;
 
@@ -31,8 +30,7 @@ partial model BaseBESSCurrentSource "Partial base model for WECC BESS with elect
   Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(
     Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {9.99201e-16, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
-  Dynawo.Electrical.Controls.WECC.REEC.REECc reecC(DPMaxPu = DPMaxPu, DPMinPu = DPMinPu, Dbd1Pu = Dbd1Pu, Dbd2Pu = Dbd2Pu, IMaxPu = IMaxPu, Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, Iqh1Pu = Iqh1Pu, Iql1Pu = Iql1Pu, Kqi = Kqi, Kqp = Kqp, Kqv = Kqv, Kvi = Kvi, Kvp = Kvp, PF0 = PF0, PInj0Pu = PInj0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, PQFlag = PQFlag, PfFlag = PfFlag, QFlag = QFlag, QInj0Pu = QInj0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, SOC0Pu = SOC0Pu, SOCMaxPu = SOCMaxPu, SOCMinPu = SOCMinPu, UInj0Pu = UInj0Pu, VDLIp11 = VDLIp11, VDLIp12 = VDLIp12, VDLIp21 = VDLIp21, VDLIp22 = VDLIp22, VDLIp31 = VDLIp31, VDLIp32 = VDLIp32, VDLIp41 = VDLIp41, VDLIp42 = VDLIp42, VDLIq11 = VDLIq11, VDLIq12 = VDLIq12, VDLIq21 = VDLIq21, VDLIq22 = VDLIq22, VDLIq31 = VDLIq31, VDLIq32 = VDLIq32, VDLIq41 = VDLIq41, VDLIq42 = VDLIq42, VDipPu = VDipPu, VFlag = VFlag, VMaxPu = VMaxPu, VMinPu = VMinPu, VRef0Pu = VRef0Pu, VUpPu = VUpPu, tBattery = tBattery, tIq = tIq, tP = tP, tPord = tPord, tRv = tRv) annotation(
-    Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+ 
   Dynawo.Electrical.Controls.WECC.REGC.REGCa regcA(Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, IqrMaxPu = IqrMaxPu, IqrMinPu = IqrMinPu, Lvplsw = Lvplsw, QInj0Pu = QInj0Pu, RrpwrPu = RrpwrPu, UInj0Pu = UInj0Pu, brkpt = brkpt, lvpl1 = lvpl1, tFilterGC = tFilterGC, tG = tG, zerox = zerox) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Controls.PLL.PLL pll(Ki = KiPLL, Kp = KpPLL, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, u0Pu = uInj0Pu) annotation(
@@ -65,10 +63,6 @@ equation
   line.switchOffSignal1.value = injector.switchOffSignal1.value;
   line.switchOffSignal2.value = injector.switchOffSignal2.value;
 
-  connect(reecC.idCmdPu, regcA.idCmdPu) annotation(
-    Line(points = {{-69, 6}, {-51, 6}}, color = {0, 0, 127}));
-  connect(reecC.iqCmdPu, regcA.iqCmdPu) annotation(
-    Line(points = {{-69, -6}, {-51, -6}}, color = {0, 0, 127}));
   connect(regcA.idRefPu, injector.idPu) annotation(
     Line(points = {{-29, -6}, {-11, -6}}, color = {0, 0, 127}));
   connect(OmegaRef.y, pll.omegaRefPu) annotation(
@@ -81,18 +75,6 @@ equation
     Line(points = {{60, 0}, {80, 0}}, color = {0, 0, 255}));
   connect(measurements.terminal2, terminal) annotation(
     Line(points = {{100, 0}, {130, 0}}, color = {0, 0, 255}));
-  connect(PFaRef, reecC.PFaRef) annotation(
-    Line(points = {{-70, 70}, {-70, 14}, {-79, 14}, {-79, 11}}, color = {0, 0, 127}));
-  connect(PAuxPu, reecC.PAuxPu) annotation(
-    Line(points = {{-90, 70}, {-90, 14}, {-83, 14}, {-83, 11}}, color = {0, 0, 127}));
-  connect(injector.QInjPuSn, reecC.QInjPu) annotation(
-    Line(points = {{12, 0}, {30, 0}, {30, -30}, {-89, -30}, {-89, -11}}, color = {0, 0, 127}));
-  connect(injector.PInjPuSn, reecC.PInjPu) annotation(
-    Line(points = {{12, -4}, {25, -4}, {25, -25}, {-80, -25}, {-80, -11}}, color = {0, 0, 127}));
-  connect(injector.UPu, reecC.UPu) annotation(
-    Line(points = {{12, -8}, {20, -8}, {20, -20}, {-74, -20}, {-74, -11}}, color = {0, 0, 127}));
-  connect(reecC.frtOn, regcA.frtOn) annotation(
-    Line(points = {{-69, 0}, {-51, 0}}, color = {255, 0, 255}));
   connect(pll.phi, injector.UPhase) annotation(
     Line(points = {{-149, 45}, {-146, 45}, {-146, -50}, {0, -50}, {0, -11}}, color = {0, 0, 127}));
   connect(regcA.UPu, injector.UPu) annotation(

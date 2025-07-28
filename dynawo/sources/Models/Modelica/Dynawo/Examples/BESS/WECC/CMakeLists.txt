@@ -12,7 +12,8 @@ set(MODEL_FILES
   package.mo
   package.order
   BESSCurrentSource.mo
-  BESScbCurrentSourceREECd.mo
+  BESSCurrentSource2.mo
+  BESSCurrentSource3.mo
   )
 
 #

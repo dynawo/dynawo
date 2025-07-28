@@ -19,6 +19,7 @@ set(MODEL_FILES
   ParamsREECb.mo
   ParamsREECc.mo
   ParamsREECd.mo
+  ParamsREECe.mo
   )
 
 #
