@@ -37,6 +37,14 @@ partial model BaseREEC "WECC Electrical Control REEC common"
     Placement(visible = true, transformation(origin = {551, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput iqCmdPu(start = Iq0Pu) "iqCmdPu setpoint for generator control in pu (base SNom, UNom)" annotation(
     Placement(visible = true, transformation(origin = {550, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput ipMaxPu(start = IMaxPu) "p-axis maximum current in pu (base UNom, SNom)" annotation(
+    Placement(visible = true, transformation(origin = {550, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealOutput ipMinPu(start = 0) "p-axis minimum current in pu (base UNom, SNom)" annotation(
+    Placement(visible = true, transformation(origin = {550, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealOutput iqMaxPu(start = IMaxPu) "q-axis maximum current in pu (base UNom, SNom)" annotation(
+    Placement(visible = true, transformation(origin = {550, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {50, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealOutput iqMinPu(start = - IMaxPu) "q-axis minimum current in pu (base UNom, SNom)" annotation(
+    Placement(visible = true, transformation(origin = {550, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealOutput UFilteredPu(start = UInj0Pu) "Filtered voltage module at injector terminal in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {109, 240}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
