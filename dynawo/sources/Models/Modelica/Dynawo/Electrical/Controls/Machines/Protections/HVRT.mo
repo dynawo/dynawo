@@ -13,7 +13,6 @@ within Dynawo.Electrical.Controls.Machines.Protections;
 */
 
 model HVRT "High-voltage ride-through protection"
-
   parameter Types.VoltageModulePu UOverPu "Over voltage protection activation threshold in pu (base UNom)";
   parameter Types.Time tUFilt "Filter time constant for voltage measurement in s";
 
@@ -22,7 +21,7 @@ model HVRT "High-voltage ride-through protection"
   parameter String TabletUoverUfilt "Disconnection time versus over voltage lookup table for under-voltage";
 
   // Input variable
-  Modelica.Blocks.Interfaces.RealInput UMonitoredPu(start = U0Pu) "Voltage amplitude at grid terminal in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UMonitoredPu "Voltage amplitude at grid terminal in pu (base UNom)" annotation(
     Placement(transformation(origin = {-120, -20}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-108, -20}, extent = {{-20, -20}, {20, 20}})));
 
   // Output variable
@@ -40,11 +39,6 @@ model HVRT "High-voltage ride-through protection"
     Placement(transformation(origin = {-30, 20}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant const(k = UOverPu) annotation(
     Placement(transformation(origin = {-90, 20}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tUFilt, y_start = U0Pu) annotation(
-    Placement(transformation(origin = {-70, -20}, extent = {{-10, -10}, {10, 10}})));
-
-  // Initial parameter
-  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)";
 
 equation
   when fOCB then
@@ -61,11 +55,9 @@ equation
     Line(points = {{21, -20}, {39, -20}, {39, -8}, {57, -8}}, color = {0, 0, 127}));
   connect(greater.y, fOCB) annotation(
     Line(points = {{82, 0}, {110, 0}}, color = {255, 0, 255}));
-  connect(UMonitoredPu, firstOrder1.u) annotation(
-    Line(points = {{-120, -20}, {-82, -20}}, color = {0, 0, 127}));
-  connect(firstOrder1.y, lessEqual.u2) annotation(
-    Line(points = {{-58, -20}, {-54, -20}, {-54, 12}, {-42, 12}}, color = {0, 0, 127}));
-  connect(firstOrder1.y, combiTable1D.u) annotation(
-    Line(points = {{-58, -20}, {-2, -20}}, color = {0, 0, 127}));
+  connect(UMonitoredPu, combiTable1D.u) annotation(
+    Line(points = {{-120, -20}, {-2, -20}}, color = {0, 0, 127}));
+  connect(UMonitoredPu, lessEqual.u2) annotation(
+    Line(points = {{-120, -20}, {-60, -20}, {-60, 12}, {-42, 12}}, color = {0, 0, 127}));
 
 end HVRT;
