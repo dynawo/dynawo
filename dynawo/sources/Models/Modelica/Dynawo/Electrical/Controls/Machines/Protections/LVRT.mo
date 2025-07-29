@@ -13,7 +13,6 @@ within Dynawo.Electrical.Controls.Machines.Protections;
 */
 
 model LVRT "Low-voltage ride-through protection"
-
   parameter Types.VoltageModulePu UUnderPu "Under voltage protection activation threshold in pu (base UNom)";
   parameter Types.Time tUFilt "Filter time constant for voltage measurement in s";
 
@@ -22,7 +21,7 @@ model LVRT "Low-voltage ride-through protection"
   parameter String TabletUunderUfilt "Disconnection time versus over voltage lookup table for under-voltage";
 
   // Input variable
-  Modelica.Blocks.Interfaces.RealInput UMonitoredPu(start = U0Pu) "Voltage amplitude at grid terminal in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UMonitoredPu "Voltage amplitude at grid terminal in pu (base UNom)" annotation(
     Placement(transformation(origin = {-120, 20}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-108, -20}, extent = {{-20, -20}, {20, 20}})));
 
   // Output variable
@@ -40,11 +39,6 @@ model LVRT "Low-voltage ride-through protection"
     Placement(transformation(origin = {-90, -28}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.Timer timer annotation(
     Placement(transformation(origin = {10, -20}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tUFilt, y_start = U0Pu) annotation(
-    Placement(transformation(origin = {-70, 20}, extent = {{-10, -10}, {10, 10}})));
-
-  // Initial parameter
-  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)";
 
 equation
   when fOCB then
@@ -59,13 +53,11 @@ equation
     Line(points = {{21, -20}, {39, -20}, {39, -8}, {57, -8}}, color = {0, 0, 127}));
   connect(const.y, lessEqual.u2) annotation(
     Line(points = {{-79, -28}, {-42, -28}}, color = {0, 0, 127}));
-  connect(UMonitoredPu, firstOrder.u) annotation(
-    Line(points = {{-120, 20}, {-82, 20}}, color = {0, 0, 127}));
-  connect(firstOrder.y, combiTable1D.u) annotation(
-    Line(points = {{-58, 20}, {-2, 20}}, color = {0, 0, 127}));
   connect(less.y, fOCB) annotation(
     Line(points = {{82, 0}, {110, 0}}, color = {255, 0, 255}));
-  connect(firstOrder.y, lessEqual.u1) annotation(
-    Line(points = {{-58, 20}, {-54, 20}, {-54, -20}, {-42, -20}}, color = {0, 0, 127}));
+  connect(UMonitoredPu, combiTable1D.u) annotation(
+    Line(points = {{-120, 20}, {-2, 20}}, color = {0, 0, 127}));
+  connect(UMonitoredPu, lessEqual.u1) annotation(
+    Line(points = {{-120, 20}, {-60, 20}, {-60, -20}, {-42, -20}}, color = {0, 0, 127}));
 
 end LVRT;
