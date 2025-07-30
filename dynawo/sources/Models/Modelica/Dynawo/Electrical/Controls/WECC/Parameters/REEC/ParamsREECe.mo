@@ -13,26 +13,26 @@ within Dynawo.Electrical.Controls.WECC.Parameters.REEC;
 * of simulation tools for power systems.
 */
 
-record ParamsREECe "REEC type D parameters"
+record ParamsREECe "REEC type E parameters"
   parameter Boolean VCompFlag "Type of compensation : if false, reactive droop, if true, current compensation" annotation(
     Dialog(tab="Electrical Control", group = "REECe"));
   parameter Boolean PEFlag "Allow local PI control for active power" annotation(
     Dialog(tab="Electrical Control", group = "REECe"));
   parameter Boolean PQFlagFRT "Allow different P/Q priority during fault conditions" annotation(
     Dialog(tab="Electrical Control", group = "REECe"));
-   parameter Boolean PFlag "Power reference flag : if false, constant PRef, if true, consider generator speed" annotation(
+  parameter Boolean PFlag "Power reference flag : if false, constant PRef, if true, consider generator speed" annotation(
     Dialog(tab="Electrical Control", group = "REECe"));
-  
+
   parameter Types.PerUnit IqFrzPu "Constant reactive current command value in pu (base SNom, UNom) (typical: -0.1 .. 0.1 pu)" annotation(
     Dialog(tab="Electrical Control", group = "REECe"));
-  parameter Real Kc "Reactive droop gain" annotation(
+  parameter Types.PerUnit Kc "Reactive droop when VCompFlag = 0" annotation(
     Dialog(tab="Electrical Control", group = "REECe"));
   parameter Types.PerUnit Ke "Scaling on the Ipmin: 0 < Ke ≤ 1, set to 0 for generator and non-zero for a storage device" annotation(
     Dialog(tab="Electrical Control", group = "REECe"));
   parameter Types.PerUnit Kpp "Proportionnal gain for local control of active power" annotation(
     Dialog(tab="Electrical Control", group = "REECe"));
   parameter Types.PerUnit Kpi "Integral gain for local control of active power" annotation(
-    Dialog(tab="Electrical Control", group = "REECe"));  
+    Dialog(tab="Electrical Control", group = "REECe"));
   parameter Types.PerUnit RcPu "Current compensation resistance" annotation(
     Dialog(tab="Electrical Control", group = "REECe"));
   parameter Types.Time tBlkDelay "Time delay for unblocking after voltage recovers (UBlkL < UtFiltered < UBlkH) in s"  annotation(

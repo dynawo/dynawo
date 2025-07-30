@@ -12,10 +12,10 @@
     of simulation tools for power systems.
 -->
 <jobs xmlns="http://www.rte-france.com/dynawo">
-    <job name="WECCBESScb">
-        <solver lib="dynawo_SolverIDA" parFile="WECCBESScb.par" parId="Solver"/>
+    <job name="WECCBESS">
+        <solver lib="dynawo_SolverIDA" parFile="WECCBESS.par" parId="Solver"/>
         <modeler compileDir="outputs/compilation">
-            <dynModels dydFile="WECCBESScb.dyd"/>
+            <dynModels dydFile="WECCBESS.dyd"/>
             <precompiledModels useStandardModels="true"/>
             <modelicaModels useStandardModels="true">
               <directory path="." recursive="false"/>
@@ -23,7 +23,7 @@
         </modeler>
         <simulation startTime="0" stopTime="3"/>
         <outputs directory="outputs">
-            <curves inputFile="WECCBESScb.crv" exportMode="CSV"/>
+            <curves inputFile="WECCBESS.crv" exportMode="CSV"/>
             <logs>
               <appender tag="" file="dynawo.log" lvlFilter="INFO"/>
               </logs>

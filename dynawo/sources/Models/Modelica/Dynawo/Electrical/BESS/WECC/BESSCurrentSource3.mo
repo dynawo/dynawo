@@ -41,7 +41,7 @@ model BESSCurrentSource3 "WECC BESS with electrical control model type E, genera
    PQFlagFRT=PQFlagFRT,
    PEFlag=PEFlag) annotation(
     Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  
+
   // Initial parameters given by the user
   parameter Types.ActivePowerPu P0Pu "Start value of active power at regulated bus in pu (base SnRef) (receptor convention)";
   parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at regulated bus in pu (base SnRef) (receptor convention)";

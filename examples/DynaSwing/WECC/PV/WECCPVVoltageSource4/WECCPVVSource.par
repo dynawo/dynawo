@@ -68,7 +68,7 @@
     <par type="DOUBLE" name="photovoltaics_PMinPu" value="0"/>
     <par type="BOOL" name="photovoltaics_PQFlag" value="false"/>
     <par type="BOOL" name="photovoltaics_PfFlag" value="false"/>
-    <par type="BOOL" name="photovoltaics_QFlag" value="true"/>
+    <par type="INT" name="photovoltaics_QFlag" value="1"/>
     <par type="DOUBLE" name="photovoltaics_QMaxPu" value="0.4"/>
     <par type="DOUBLE" name="photovoltaics_QMinPu" value="-0.4"/>
     <par type="BOOL" name="photovoltaics_RateFlag" value="false"/>
