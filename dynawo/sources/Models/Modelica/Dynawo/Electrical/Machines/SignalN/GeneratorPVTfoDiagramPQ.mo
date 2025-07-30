@@ -49,7 +49,11 @@ equation
     else
       UStatorPu = UStatorRefPu;
     end if;
-    UStatorPu = ComplexMath.'abs'(uStatorPu);
+    if ((uStatorPu.re == 0) and (uStatorPu.im == 0)) then
+      UStatorPu = 0.;
+    else
+      UStatorPu = ComplexMath.'abs'(uStatorPu);
+    end if;
   else
     terminal.i.im = 0;
     UStatorPu = 0;

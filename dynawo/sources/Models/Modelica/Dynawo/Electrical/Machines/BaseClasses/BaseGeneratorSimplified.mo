@@ -37,9 +37,13 @@ equation
   SGenPu = -terminal.V * ComplexMath.conj(terminal.i);
 
   if running.value then
-    UPu = ComplexMath.'abs'(terminal.V);
+    if ((terminal.V.re == 0) and (terminal.V.im == 0)) then
+      UPu = 0.;
+    else
+      UPu = ComplexMath.'abs'(terminal.V);
+    end if;
   else
-    UPu = 0;
+    UPu = 0.;
   end if;
 
   annotation(preferredView = "text");
