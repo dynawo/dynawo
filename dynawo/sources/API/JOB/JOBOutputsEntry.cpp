@@ -157,4 +157,14 @@ OutputsEntry::getLogsEntry() const {
   return logsEntry_;
 }
 
+void
+OutputsEntry::setLinearizeEntry(const std::shared_ptr<LinearizeEntry>& linearizeEntry) {
+  linearizeEntry_ = linearizeEntry;
+}
+
+std::shared_ptr<LinearizeEntry>
+OutputsEntry::getLinearizeEntry() const {
+  return linearizeEntry_;
+}
+
 }  // namespace job
