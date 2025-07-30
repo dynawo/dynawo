@@ -607,6 +607,40 @@ class LogsHandler : public xml::sax::parser::ComposableElementHandler {
   AppenderHandler appenderHandler_;  ///< handler used to read appender element
 };
 
+ /**
+ * @class LinearizeHandler
+ * @brief Handler used to parse linearise element
+ */
+class LinearizeHandler : public xml::sax::parser::ComposableElementHandler {
+ public:
+  /**
+   * @brief Constructor
+   * @param root_element complete name of the element read by the handler
+   */
+  explicit LinearizeHandler(elementName_type const &root_element);
+
+  /**
+   * @brief default destructor
+   */
+  ~LinearizeHandler() { }
+
+  /**
+   * @brief return the linearise entry read in xml file
+   * @return linearise entry object build thanks to infos read in xml file
+   */
+  std::shared_ptr<LinearizeEntry> get() const;
+
+ protected:
+  /**
+   * @brief Called when the XML element opening tag is read
+   * @param attributes attributes of the element
+   */
+  void create(attributes_type const& attributes);
+
+ private:
+  std::shared_ptr<LinearizeEntry> linearise_;  ///< current linearise entry object
+};
+
 /**
  * @class OutputsHandler
  * @brief Handler used to read outputs element
@@ -680,6 +714,11 @@ class OutputsHandler : public xml::sax::parser::ComposableElementHandler {
    */
   void addLog();
 
+    /**
+   * @brief add a linearise object to the current job
+   */
+  void addLinearize();
+
  protected:
   /**
    * @brief Called when the XML element opening tag is read
@@ -699,6 +738,7 @@ class OutputsHandler : public xml::sax::parser::ComposableElementHandler {
   FinalStateValuesHandler finalStateValuesHandler_;  ///< handler used to read finalStateValues element
   LostEquipmentsHandler lostEquipmentsHandler_;      ///< handler used to read curves element
   LogsHandler logsHandler_;                          ///< handler used to read logs element
+  LinearizeHandler lineariseHandler_;                ///< handler used to read linearise element
 };
 
 /**

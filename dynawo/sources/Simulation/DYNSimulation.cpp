@@ -97,6 +97,7 @@
 #include "JOBLogsEntry.h"
 #include "JOBAppenderEntry.h"
 #include "JOBDynModelsEntry.h"
+#include "JOBLinearizeEntry.h"
 
 #include "DYNCompiler.h"
 #include "DYNDynamicData.h"
@@ -199,6 +200,7 @@ dumpGlobalInitValues_(false),
 dumpInitModelValues_(false),
 dumpFinalValues_(false),
 wasLoggingEnabled_(false),
+tLinearize_(boost::none),
 addLastNewtonDivergedPoint_(false) {
   SignalHandler::setSignalHandlers();
 
@@ -294,6 +296,7 @@ Simulation::configureSimulationOutputs() {
     if (jobEntry_->getOutputsEntry()->getFinalValuesEntry() != nullptr) {
       setDumpFinalValues(jobEntry_->getOutputsEntry()->getFinalValuesEntry()->getDumpFinalValues());
     }
+    configureLinearizeOutputs();
     configureConstraintsOutputs();
     configureTimelineOutputs();
     configureTimetableOutputs();
@@ -301,6 +304,14 @@ Simulation::configureSimulationOutputs() {
     configureFinalStateValueOutputs();
     configureFinalStateOutputs();
     configureLostEquipmentsOutputs();
+  }
+}
+
+void
+Simulation::configureLinearizeOutputs() {
+  if (jobEntry_->getOutputsEntry()->getLinearizeEntry()) {
+    double tLinearize_ = jobEntry_->getOutputsEntry()->getLinearizeEntry()->getLinearizeTime();
+    setLinearizeTime(tLinearize_);
   }
 }
 
@@ -851,6 +862,10 @@ Simulation::init() {
 // #endif
 
   tCurrent_ = tStart_;
+  if (tLinearize_.has_value()) {
+    solver_->setWithLinearize(tLinearize_.value());
+    model_->setWithLinearize(tLinearize_.value());
+  }
 
   model_->initSilentZ(solver_->silentZEnabled());
 
@@ -1097,6 +1112,13 @@ Simulation::simulate() {
       ++currentIterNb;
 
       model_->notifyTimeStep();
+
+      if (tLinearize_.has_value()) {
+        if (DYN::doubleEquals(tCurrent_, tLinearize_.value())) {
+          Trace::info() << DYNLog(Linearize, tCurrent_) << Trace::endline;
+          model_->evalLinearize(tCurrent_, outputsDirectory_);
+        }
+      }
 
       if (hasIntermediateStateToDump() && !isCheckCriteriaIter) {
         // In case it was not already done beause of check criteria and intermediate state dump will be done at least one for current
