@@ -91,10 +91,26 @@ equation
   Q2Pu = ComplexMath.imag(terminal2.V * ComplexMath.conj(terminal2.i));
 
   if (running.value) then
-    U1Pu = ComplexMath.'abs'(terminal1.V);
-    U2Pu = ComplexMath.'abs'(terminal2.V);
-    I1Pu = ComplexMath.'abs'(terminal1.i);
-    I2Pu = ComplexMath.'abs'(terminal2.i);
+    if ((terminal1.V.re == 0) and (terminal1.V.im == 0)) then
+      U1Pu = 0;
+    else
+      U1Pu = ComplexMath.'abs'(terminal1.V);
+    end if;
+    if ((terminal2.V.re == 0) and (terminal2.V.im == 0)) then
+      U2Pu = 0;
+    else
+      U2Pu = ComplexMath.'abs'(terminal2.V);
+    end if;
+    if ((terminal1.i.re == 0) and (terminal1.i.im == 0)) then
+      I1Pu = 0;
+    else
+      I1Pu = ComplexMath.'abs'(terminal1.i);
+    end if;
+    if ((terminal2.i.re == 0) and (terminal2.i.im == 0)) then
+      I2Pu = 0;
+    else
+      I2Pu = ComplexMath.'abs'(terminal2.i);
+    end if;
   else
     U1Pu = 0;
     U2Pu = 0;
