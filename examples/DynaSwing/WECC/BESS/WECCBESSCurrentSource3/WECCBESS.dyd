@@ -12,11 +12,11 @@
     of simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:blackBoxModel id="InfBus" lib="InfiniteBusWithVariations" parFile="WECCBESScb.par" parId="1"/>
-  <dyn:blackBoxModel id="Line" lib="Line" parFile="WECCBESScb.par" parId="2"/>
-  <dyn:blackBoxModel id="BESScb" lib="BESScbCurrentSourceREECd" parFile="WECCBESScb.par" parId="3"/>
-  <dyn:blackBoxModel id="OmegaRefPu" lib="SetPoint" parFile="WECCBESScb.par" parId="4"/>
-  <dyn:connect id1="OmegaRefPu" var1="setPoint_setPoint" id2="BESScb" var2="BESScb_omegaRefPu"/>
+  <dyn:blackBoxModel id="InfBus" lib="InfiniteBusWithVariations" parFile="WECCBESS.par" parId="1"/>
+  <dyn:blackBoxModel id="Line" lib="Line" parFile="WECCBESS.par" parId="2"/>
+  <dyn:blackBoxModel id="BESS" lib="BESSWeccCurrentSource3" parFile="WECCBESS.par" parId="3"/>
+  <dyn:blackBoxModel id="OmegaRefPu" lib="SetPoint" parFile="WECCBESS.par" parId="4"/>
+  <dyn:connect id1="OmegaRefPu" var1="setPoint_setPoint" id2="BESS" var2="BESS_omegaRefPu"/>
   <dyn:connect id1="InfBus" var1="infiniteBus_terminal" id2="Line" var2="line_terminal1"/>
-  <dyn:connect id1="Line" var1="line_terminal2" id2="BESScb" var2="BESScb_terminal"/>
+  <dyn:connect id1="Line" var1="line_terminal2" id2="BESS" var2="BESS_terminal"/>
 </dyn:dynamicModelsArchitecture>

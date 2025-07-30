@@ -16,7 +16,7 @@ within Dynawo.Electrical.Controls.WECC.Parameters.REEC;
 record ParamsREECd "REEC type D parameters"
   parameter Types.PerUnit IqFrzPu "Constant reactive current command value in pu (base SNom, UNom) (typical: -0.1 .. 0.1 pu)" annotation(
     Dialog(tab="Electrical Control", group = "REECd"));
-  parameter Real Kc "Reactive droop gain" annotation(
+  parameter Types.PerUnit Kc "Reactive droop when VCompFlag = 0" annotation(
     Dialog(tab="Electrical Control", group = "REECd"));
   parameter Types.PerUnit Ke "Scaling on the Ipmin: 0 < Ke ≤ 1, set to 0 for generator and non-zero for a storage device" annotation(
     Dialog(tab="Electrical Control", group = "REECd"));
