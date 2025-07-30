@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2024, RTE (http://www.rte-france.com)
+// Copyright (c) 2025, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -7,8 +7,8 @@
 // file, you can obtain one at http://mozilla.org/MPL/2.0/.
 // SPDX-License-Identifier: MPL-2.0
 //
-// This file is part of Dynawo, an hybrid C++/Modelica open source time domain
-// simulation tool for power systems.
+// This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools
+// for power systems.
 //
 
 /**
@@ -38,9 +38,11 @@ using std::chrono::duration_cast;
 
 namespace DYN {
 
-TimeManager::TimeManager(double timeSyncAcceleration):
-timeSyncAcceleration_(timeSyncAcceleration),
-stepDuration_(0.0),
+TimeManager::TimeManager():
+triggeredStepCnt_(0),
+useTrigger_(false),
+timeSyncAcceleration_(1.),
+stepDuration_(0.),
 running_(false) {}
 
 
@@ -78,26 +80,36 @@ TimeManager::start(double referenceSimuTime) {
   stepStart_ = referenceClockTime_;
   // std::cout << "TimeManager::start: timeSync_= " << timeSync_ << ", timeSyncAcceleration_= " << timeSyncAcceleration_<< std::endl;
   running_ = true;
+  std::cout << "TimeManager::start, running = " << running_ << ", useTrigger = " << useTrigger_ << std::endl;
+}
+
+void
+TimeManager::handleMessage(StepTriggerMessage& triggerMessage) {
+    {
+      std::lock_guard<std::mutex> lock(mutex_);
+      triggeredStepCnt_++;
+    }
+    triggerCond_.notify_one();
+}
+
+void
+TimeManager::handleMessage(StopMessage& stopMessage) {
+
 }
 
 void
 TimeManager::wait(double simuTime) {
-  if (running_) {
-    // if (timeSync_) {
-      // system_clock::time_point beforeSleepTime = system_clock::now();
-      // double computationTimeMs = (1./1000)*(duration_cast<microseconds>(beforeSleepTime - stepStart_)).count();
-      // if (computationTimeMs > 0)
-      //   std::cout << "TimeManager::wait: last step computation time: " << computationTimeMs << "ms" << std::endl;
-      std::this_thread::sleep_until(referenceClockTime_ + microseconds(static_cast<int>(1000000*(simuTime-referenceSimuTime_)/timeSyncAcceleration_)));
-      // stepStart_ = system_clock::now();
-      // std::cout << "TimeManager::wait: waited for: " << (1./1000)*(duration_cast<microseconds>(stepStart_-beforeSleepTime)).count() << "ms" << std::endl;
-    // } else {
-    //   system_clock::time_point newStepStart = system_clock::now();
-    //   double computationTimeMs = (1./1000)*(duration_cast<microseconds>(newStepStart - stepStart_)).count();
-    //   if (computationTimeMs > 0 && timeSync_)
-    //     std::cout << "TimeManager::wait: last step computation time: " << computationTimeMs << "ms" << std::endl;
-    //   stepStart_ = newStepStart;
-    // }
+  std::cout << "wait triggeredStepCnt_ = " << triggeredStepCnt_ << std::endl;
+  if (running_) { //TODO & not SIGINT
+    if (!useTrigger_) {
+      if (timeSyncAcceleration_ > 0)
+        std::this_thread::sleep_until(referenceClockTime_ + microseconds(static_cast<int>(1000000*(simuTime-referenceSimuTime_)/timeSyncAcceleration_)));
+    } else {
+      std::unique_lock<std::mutex> lock(mutex_);
+      triggerCond_.wait(lock, [this]()
+                    { return triggeredStepCnt_ > 0 || !running_; });
+      triggeredStepCnt_--;
+    }
   }
 }
 }  // end of namespace DYN

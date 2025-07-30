@@ -59,6 +59,8 @@
 #include "DYNModelMulti.h"
 #include "DYNSubModel.h"
 #include "DYNZmqPublisher.h"
+#include "DYNZmqInput.h"
+#include "DYNRTInputCommon.h"
 
 using std::ofstream;
 using std::fstream;
@@ -109,17 +111,25 @@ SimulationRT::configureRT() {
     stepPublisher_ = std::make_shared<ZmqPublisher>();
     std::cout << "ZMQ publisher started" << std::endl;
   }
-  if (jobEntry_->getSimulationEntry()->getTimeSync()) {
-    timeManager_ = std::make_shared<TimeManager>(
-      jobEntry_->getSimulationEntry()->getTimeSyncAcceleration());
-  }
-  bool subscribeActions = jobEntry_->getSimulationEntry()->getEventSubscriberActions();
-  bool subscribeTrigger = jobEntry_->getSimulationEntry()->getEventSubscriberTrigger();
-  if (subscribeActions || subscribeTrigger) {
-    triggerSimulationTimeStepInS_ = jobEntry_->getSimulationEntry()->getTriggerSimulationTimeStepInS();
-    eventSubscriber_ = std::make_shared<EventSubscriber>(subscribeTrigger, subscribeActions, subscribeActions & !subscribeTrigger);
-    std::cout << "ZMQ EventSubscriber started" << std::endl;
-  }
+  // if (jobEntry_->getSimulationEntry()->getTimeSync()) {
+  //   timeManager_ = std::make_shared<TimeManager>(
+  //     jobEntry_->getSimulationEntry()->getTimeSyncAcceleration());
+  // }
+  actionBuffer_ = std::make_shared<ActionBuffer>();
+  timeManager_ = std::make_shared<TimeManager>();
+  inputDispatcherAsync_ = std::make_shared<InputDispatcherAsync>(actionBuffer_, timeManager_);
+  // std::shared_ptr<InputInterface> zmqServer = std::make_shared<ZmqInput>("zmq", MessageFilter::Actions);
+  std::shared_ptr<InputInterface> zmqServer = std::make_shared<ZmqInput>("zmq", MessageFilter::Actions | MessageFilter::TimeManagement);
+  inputDispatcherAsync_->addReceiver(zmqServer);
+
+  // inputDispatcherAsync_->addReceiver(zmqSubscriber);
+  // bool subscribeActions = jobEntry_->getSimulationEntry()->getEventSubscriberActions();
+  // bool subscribeTrigger = jobEntry_->getSimulationEntry()->getEventSubscriberTrigger();
+  // if (subscribeActions || subscribeTrigger) {
+  //   triggerSimulationTimeStepInS_ = jobEntry_->getSimulationEntry()->getTriggerSimulationTimeStepInS();
+  //   eventSubscriber_ = std::make_shared<EventSubscriber>(subscribeTrigger, subscribeActions, subscribeActions & !subscribeTrigger);
+  //   std::cout << "ZMQ EventSubscriber started" << std::endl;
+  // }
   if (jobEntry_->getSimulationEntry()->getPublishToWebsocket()) {
     wsServer_ = std::make_shared<wsc::WebsocketServer>();
     wsServer_->run(9001);
@@ -173,6 +183,9 @@ SimulationRT::simulate() {
     eventSubscriber_->start();
   }
 
+  if (actionBuffer_)
+    actionBuffer_->setModel(model_);
+
   printSolverHeader();
 
   // Printing out the initial solution
@@ -213,19 +226,23 @@ SimulationRT::simulate() {
     int currentIterNb = 0;
     // double nextTimeStep = 0;
 
+    if (inputDispatcherAsync_)
+      inputDispatcherAsync_->start();
+
     if (timeManager_)
       timeManager_->start(tCurrent_);
 
 
     double nextTToTrigger = tCurrent_ + triggerSimulationTimeStepInS_;  // Only used if (eventSubscriber_ && eventSubscriber_->triggerEnabled())
+    double nextOutputT = nextTToTrigger;  // Only used if (eventSubscriber_ && eventSubscriber_->triggerEnabled())
     double lastPublicationTime = -1;
 
     while (!end() && !SignalHandler::gotExitSignal() && criteriaChecked) {
-      // option1: ZMQ --> wait for an empty message before simulating next time step
-      if (eventSubscriber_ && eventSubscriber_->triggerEnabled() && tCurrent_ >= nextTToTrigger) {
-        nextTToTrigger += triggerSimulationTimeStepInS_;
-        eventSubscriber_->wait();
-      }
+      // // option1: ZMQ --> wait for an empty message before simulating next time step
+      // if (eventSubscriber_ && eventSubscriber_->triggerEnabled() && tCurrent_ >= nextTToTrigger) {
+      //   nextTToTrigger += triggerSimulationTimeStepInS_;
+      //   eventSubscriber_->wait();
+      // }
 
       // option2: TimeManager --> sleep in the loop
       if (timeManager_) {
@@ -235,8 +252,10 @@ SimulationRT::simulate() {
       updateStepStart();
 
       // Apply actions from event subscriber
-      if (eventSubscriber_ && eventSubscriber_->actionsEnabled())
-        eventSubscriber_->applyActions();
+      // if (eventSubscriber_ && eventSubscriber_->actionsEnabled())
+      //   eventSubscriber_->applyActions();
+      if (actionBuffer_)
+        actionBuffer_->applyActions();
 
       double elapsed = timer.elapsed();
       double timeout = jobEntry_->getSimulationEntry()->getTimeout();
@@ -333,7 +352,8 @@ SimulationRT::simulate() {
       updateCurves(true);
 
       // Publish values
-      if ((wsServer_ || stepPublisher_) && (!eventSubscriber_->triggerEnabled() || tCurrent_ >= nextTToTrigger)) {
+      if ((wsServer_ || stepPublisher_) && tCurrent_ >= nextOutputT) {
+        nextOutputT += outputPeriod_;
         string formatedJsonCurves;
         if (wsServer_) {
           // Export Curves to WebSocket
@@ -532,9 +552,12 @@ SimulationRT::terminate() {
   if (wsServer_)
     wsServer_->stop();
 
-  if (eventSubscriber_)
-    eventSubscriber_->stop();
-  updateParametersValues();   // update parameter curves' value
+  if (inputDispatcherAsync_)
+    inputDispatcherAsync_->stop();
+
+  // if (eventSubscriber_)
+  //   eventSubscriber_->stop();
+  // updateParametersValues();   // update parameter curves' value
 
   if (curvesOutputFile_ != "") {
     ofstream fileCurves;
