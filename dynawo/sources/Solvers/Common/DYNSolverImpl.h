@@ -379,6 +379,11 @@ class Solver::Impl : public Solver, private boost::noncopyable {
     return printNewtonSolutions_;
   }
 
+ /**
+  * @copydoc Solver::setWithLinearize
+  */
+  void setWithLinearize(double tLinearize) override;
+
  protected:
   /**
    * @brief Integrate the DAE over an interval in t
@@ -455,6 +460,9 @@ class Solver::Impl : public Solver, private boost::noncopyable {
 
   bool printNewtonSolutions_;  ///< print newton solutions into file to debug it.
   bool addLastNewtonDivergedPoint_;  ///< add last diverged newton point to the curves to help understanding divergence.
+
+  bool withLinearize_;  ///< withLinearize
+  double tLinearize_;  ///< tLinearize
 };
 
 }  // end of namespace DYN
