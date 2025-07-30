@@ -58,8 +58,16 @@ equation
   Q2Pu = ComplexMath.imag(terminal2.V * ComplexMath.conj(terminal2.i));
 
   if (running.value) then
-    U1Pu = ComplexMath.'abs'(terminal1.V);
-    U2Pu = ComplexMath.'abs'(terminal2.V);
+    if ((terminal1.V.re == 0) and (terminal1.V.im == 0)) then
+      U1Pu = 0;
+    else
+      U1Pu = ComplexMath.'abs'(terminal1.V);
+    end if;
+    if ((terminal2.V.re == 0) and (terminal2.V.im == 0)) then
+      U2Pu = 0;
+    else
+      U2Pu = ComplexMath.'abs'(terminal2.V);
+    end if;
   else
     U1Pu = 0;
     U2Pu = 0;
