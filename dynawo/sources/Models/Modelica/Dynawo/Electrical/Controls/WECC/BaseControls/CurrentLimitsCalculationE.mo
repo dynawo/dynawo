@@ -49,7 +49,7 @@ model CurrentLimitsCalculationE "This block calculates the current limits of the
   Types.PerUnit ipMaxFrzPu(start = 0);
   Types.Time tEndVBlk(start = -1);
   Types.Time tEndVDipFrz(start = -1);
-  
+
 equation
   when (vDip == false and pre(vDip) == true) or (time < pre(tEndVDipFrz) and pre(tEndVDipFrz) >= 0) then
     tEndVDipFrz = time + abs(tHoldIpMax);

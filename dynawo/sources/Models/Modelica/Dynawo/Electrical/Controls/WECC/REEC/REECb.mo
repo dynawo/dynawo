@@ -84,7 +84,7 @@ equation
     Line(points = {{414, 3}, {525, 3}, {525, 10}, {550, 10}}, color = {0, 0, 127}));
   connect(currentLimitsCalculation1.iqMaxPu, iqMaxPu);
   connect(currentLimitsCalculation1.iqMinPu, iqMinPu);
-  
+
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html>

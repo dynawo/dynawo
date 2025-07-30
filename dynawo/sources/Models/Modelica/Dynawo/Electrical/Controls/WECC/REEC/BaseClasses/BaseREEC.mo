@@ -202,7 +202,7 @@ equation
     Line(points = {{-41, 139}, {-32, 139}, {-32, 144}}, color = {0, 0, 127}));
   connect(MinPID.y, limPIDFreeze.yMin) annotation(
     Line(points = {{-42, 161}, {-32, 161}, {-32, 156}}, color = {0, 0, 127}));
-  
+
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html>

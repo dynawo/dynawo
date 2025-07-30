@@ -12,7 +12,7 @@
     of simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:modelicaModel id="BESScbCurrentSourceREECd">
-    <dyn:unitDynamicModel id="BESScb" name="Dynawo.Electrical.BESS.WECC.BESScbCurrentSourceREECd" initName="Dynawo.Electrical.BESS.WECC.BESS_INIT"/>
+  <dyn:modelicaModel id="BESSWeccCurrentSource3">
+    <dyn:unitDynamicModel id="BESS" name="Dynawo.Electrical.BESS.WECC.BESSCurrentSource3" initName="Dynawo.Electrical.BESS.WECC.BESS_INIT"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

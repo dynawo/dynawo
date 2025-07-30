@@ -111,7 +111,15 @@ equation
     Line(points = {{141, 54}, {263, 54}, {263, 105}}, color = {0, 0, 127}));
   connect(varLimPIDFreeze.y, multiSwitch.u[2]) annotation(
     Line(points = {{191, 112}, {226.5, 112}, {226.5, 106}, {261, 106}, {261, 108.5}, {263, 108.5}, {263, 105}}, color = {0, 0, 127}));
-  
+  connect(currentLimitsCalculation1.ipMaxPu, ipMaxPu) annotation(
+    Line(points = {{411, 7}, {510, 7}, {510, 30}, {550, 30}}, color = {0, 0, 127}));
+  connect(currentLimitsCalculation1.ipMinPu, ipMinPu) annotation(
+    Line(points = {{411, 3}, {520, 3}, {520, 10}, {550, 10}}, color = {0, 0, 127}));
+  connect(currentLimitsCalculation1.iqMaxPu, iqMaxPu) annotation(
+    Line(points = {{411, -3}, {520, -3}, {520, -10}, {550, -10}}, color = {0, 0, 127}));
+  connect(currentLimitsCalculation1.iqMinPu, iqMinPu) annotation(
+    Line(points = {{411, -7}, {510, -7}, {510, -30}, {550, -30}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
     Icon(graphics = {Text(origin = {-19, 11}, extent = {{-45, 23}, {84, -40}}, textString = "REEC C"), Text(origin = {-48, 129}, extent = {{-18, 6}, {28, -8}}, textString = "PAuxPu")}));
