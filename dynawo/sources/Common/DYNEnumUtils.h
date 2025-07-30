@@ -132,6 +132,13 @@ std::string propertyVar2Str(const propertyContinuousVar_t& property);
 std::string typeVar2Str(const typeVar_t& type);
 
 /**
+* @brief return the property of an equation (differential or algebraic)
+* @param property : property of an equation as an enum type
+* @return property of an equation as a string
+*/
+std::string propertyEquation2Str(propertyF_t property);
+
+/**
  * @brief convert the variable type from Modelica type to C type
  * @param type : type of a variable as an enum type
  * @return type of a variable as C type (enum)

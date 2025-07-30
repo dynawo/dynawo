@@ -284,3 +284,4 @@ SwitchOnBus                   =             switch ON bus : %1%
 XmlParsingError               =             error while parsing file %1% : %2%
 ExecutingCommand              =             executing command : %1%
 UnexpectedError               =             unexpected error
+Linearize                     =             linearise at time %1%

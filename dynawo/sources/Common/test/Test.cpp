@@ -357,13 +357,13 @@ TEST(CommonTest, testSparseMatrix) {
   if (myfile.is_open()) {
     while (std::getline(myfile, line)) {
       if (index == 0) {
-        ASSERT_EQ(line, "1;0;1");
+        ASSERT_EQ(line, "1;0;1;");
       } else if (index == 1) {
-        ASSERT_EQ(line, "0;1;2");
+        ASSERT_EQ(line, "0;1;2;");
       } else if (index == 2) {
-        ASSERT_EQ(line, "2;1;3");
+        ASSERT_EQ(line, "2;1;3;");
       } else if (index == 3) {
-        ASSERT_EQ(line, "1;2;4");
+        ASSERT_EQ(line, "1;2;4;");
       } else {
         assert(0);
       }

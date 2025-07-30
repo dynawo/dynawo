@@ -94,7 +94,9 @@ tSolve_(0.),
 startFromDump_(false),
 numDifferentialVariables_(0),
 printNewtonSolutions_(false),
-addLastNewtonDivergedPoint_(false) {
+addLastNewtonDivergedPoint_(false),
+withLinearize_(false),
+tLinearize_(std::numeric_limits<double>::lowest()) {
   if (SUNContext_Create(NULL, &sundialsContext_) != 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverContextCreationError);
 }
@@ -644,6 +646,11 @@ Solver::Impl::printEndConsole() const {
   std::cout << DYNLog(SolverNbAlgebraicPrimResEval, stats_.nreAlgebraicPrim_) << std::endl;
   std::cout << DYNLog(SolverNbAlgebraicPrimJacEval, stats_.njeAlgebraicPrim_) << std::endl;
   std::cout << DYNLog(SolverNbSymoblicJ, SolverCommon::getNumSymbolicFactorization()) << std::endl;
+}
+
+void Solver::Impl::setWithLinearize(double tLinearize) {
+  withLinearize_ = true;
+  tLinearize_ = tLinearize;
 }
 
 }  // end namespace DYN
