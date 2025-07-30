@@ -181,7 +181,15 @@ equation
     Line(points = {{141, 54}, {263, 54}, {263, 105}}, color = {0, 0, 127}));
   connect(varLimPIDFreeze.y, multiSwitch.u[2]) annotation(
     Line(points = {{191, 112}, {226.5, 112}, {226.5, 106}, {261, 106}, {261, 108.5}, {263, 108.5}, {263, 105}}, color = {0, 0, 127}));
-  
+  connect(currentLimitsCalculationD.ipMaxPu, ipMaxPu) annotation(
+    Line(points = {{403, 19}, {510, 19}, {510, 30}, {550, 30}}, color = {0, 0, 127}));
+  connect(currentLimitsCalculationD.ipMinPu, ipMinPu) annotation(
+    Line(points = {{403, 15}, {520, 15}, {520, 10}, {550, 10}}, color = {0, 0, 127}));
+  connect(currentLimitsCalculationD.iqMaxPu, iqMaxPu) annotation(
+    Line(points = {{403, 9}, {520, 9}, {520, -10}, {550, -10}}, color = {0, 0, 127}));
+  connect(currentLimitsCalculationD.iqMinPu, iqMinPu) annotation(
+    Line(points = {{403, 5}, {510, 5}, {510, -30}, {550, -30}}, color = {0, 0, 127}));
+
   annotation(
     Icon(graphics = {Text(origin = {-37, 130.5}, extent = {{-16, 7}, {24, -10}}, textString = "PAuxPu"), Text(origin = {65, 132.5}, extent = {{-16, 7}, {24, -10}}, textString = "iInjPu"), Text(origin = {-81, 130.5}, extent = {{-16, 7}, {24, -10}}, textString = "uInjPu"), Text(origin = {-30.3275, -106.118}, extent = {{-14.6724, 6.11766}, {22.3276, -9.88234}}, textString = "omegaG"), Text(origin = {-19, 11}, extent = {{-45, 23}, {84, -40}}, textString = "REEC D"), Text(origin = {129, 49}, extent = {{-23, 13}, {35, -21}}, textString = "Blk", fontSize = 14)}),
     Documentation(info = "<html><head></head><body><div class=\"htmlDoc\" style=\"font-family: 'MS Shell Dlg 2';\"><p>This block contains the electrical inverter control of the generic WECC PV model according to (in case page cannot be found, copy link in browser):&nbsp;<a href=\"https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf/\">https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf&nbsp;</a></p><p>Following control modes can be activated:<span style=\"font-size: 12px;\"></span></p><li>Local coordinated V/Q control: QFlag = true, VFlag = true</li><li style=\"font-size: 12px;\">Only plant level control active: QFlag = false, VFlag = false</li><li style=\"font-size: 12px;\">If plant level control not connected: local power factor control: PfFlag = true, otherwise PfFlag = false.</li><li style=\"font-size: 12px;\">Active power can be dependent or independent on drive train speed by setting PFlag to false (independent from drive train speed) or true. If PFlag is set to false, the model behaves as a Wind turbine generator type 4B, where the drive train is neglected by setting the speed to constant 1&nbsp;</li><p style=\"font-size: 12px;\">The block calculates the Id and Iq setpoint values for the generator control based on the selected control algorithm.</p></li><div><br></div></div><div class=\"textDoc\"><p style=\"font-family: 'Courier New'; font-size: 12px;\"></p></div></body></html>"));

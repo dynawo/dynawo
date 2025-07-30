@@ -13,6 +13,10 @@
 set(MODELICA_PREASSEMBLED_MODELS
   BESSWeccCurrentSource.xml
   BESSWeccCurrentSourceNoPlantControl.xml
+  BESSWeccCurrentSource2.xml
+  BESSWeccCurrentSourceNoPlantControl2.xml
+  BESSWeccCurrentSource3.xml
+  BESSWeccCurrentSourceNoPlantControl3.xml
   BooleanTable.xml
   Bus.xml
   BusWithInit.xml
