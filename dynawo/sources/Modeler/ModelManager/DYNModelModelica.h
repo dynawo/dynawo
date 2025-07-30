@@ -141,7 +141,6 @@ class ModelModelica {
    */
   virtual void defineParameters(std::vector<ParameterModeler>& parameters) = 0;
 
-
   /**
    * @brief defines the checkSum of the model (in order to check whether it was modified)
    *

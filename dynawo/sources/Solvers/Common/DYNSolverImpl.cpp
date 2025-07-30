@@ -88,7 +88,9 @@ optimizeReinitAlgebraicResidualsEvaluations_(true),
 minimumModeChangeTypeForAlgebraicRestoration_(ALGEBRAIC_MODE),
 minimumModeChangeTypeForAlgebraicRestorationInit_(NO_MODE),
 tSolve_(0.),
-startFromDump_(false) {
+startFromDump_(false),
+withLinearize_(false),
+tLinearize_(std::numeric_limits<double>::lowest()) {
   if (SUNContext_Create(NULL, &sundialsContext_) != 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverContextCreationError);
 }
@@ -560,6 +562,11 @@ Solver::Impl::printEnd() const {
   Trace::info() << DYNLog(SolverNbRootFuncEval, stats_.nge_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbDiscreteVarsEval, stats_.nze_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbModeEval, stats_.nme_) << Trace::endline;
+}
+
+void Solver::Impl::setWithLinearize(double tLinearize) {
+  withLinearize_ = true;
+  tLinearize_ = tLinearize;
 }
 
 }  // end namespace DYN

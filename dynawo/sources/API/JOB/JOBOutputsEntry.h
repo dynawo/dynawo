@@ -30,6 +30,7 @@
 #include "JOBLostEquipmentsEntry.h"
 #include "JOBTimelineEntry.h"
 #include "JOBTimetableEntry.h"
+#include "JOBLinearizeEntry.h"
 
 #include <string>
 
@@ -191,6 +192,18 @@ class OutputsEntry {
    */
   std::shared_ptr<LogsEntry> getLogsEntry() const;
 
+  /**
+  * @brief Linearize entry setter
+  * @param linearizeEntry : linearize entry container for the job
+  */
+  void setLinearizeEntry(const std::shared_ptr<LinearizeEntry>& linearizeEntry);
+
+  /**
+  * @brief Linearize entries container getter
+  * @return the linearize entry container
+  */
+  std::shared_ptr<LinearizeEntry> getLinearizeEntry() const;
+
  private:
   /**
    * @brief Copy
@@ -209,7 +222,8 @@ class OutputsEntry {
   std::shared_ptr<CurvesEntry> curvesEntry_;                          ///< Curves entries container
   std::shared_ptr<FinalStateValuesEntry> finalStateValuesEntry_;      ///< Final State values entries container
   std::shared_ptr<LostEquipmentsEntry> lostEquipmentsEntry_;          ///< Lost equipments entries container
-  std::shared_ptr<LogsEntry> logsEntry_;                              ///< Logs entries containe
+  std::shared_ptr<LogsEntry> logsEntry_;                              ///< Logs entries container
+  std::shared_ptr<LinearizeEntry> linearizeEntry_;                ///< Linearize entries container
 };
 
 }  // namespace job
