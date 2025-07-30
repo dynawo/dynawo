@@ -361,6 +361,12 @@ class Solver {
   */
   virtual void setAddLastNewtonDivergedPoint() = 0;
 
+  /**
+   * @brief add information to model about need to linearization
+   * @param tLinearize time of the linearization
+   */
+  virtual void setWithLinearize(double tLinearize) = 0;
+
   class Impl;
 };
 

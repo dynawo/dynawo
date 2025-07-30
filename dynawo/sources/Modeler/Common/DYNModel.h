@@ -167,6 +167,14 @@ class Model {
   virtual void evalJtPrim(const double t, const double cj, SparseMatrix& JtPrim) = 0;
 
   /**
+  * @brief provide a state space realization of the nonlinear power system \f$ J = @F/@x $
+  *
+  * @param t time to use for the evaluation
+  * @param path to output Linearize
+  */
+  virtual void evalLinearize(double t, const std::string& path) = 0;
+
+  /**
    * @brief ensure data coherence (asserts, min/max, sanity checks ....)
    *
    * @param t time to use for the evaluation
@@ -599,6 +607,12 @@ class Model {
   * @brief set the local initialization solver parameters of the model
   */
  virtual void setSymbolicResidual() = 0;
+
+ /**
+ * @brief add information to model about need to linearization
+ * @param tLinearize time of the linearization
+ */
+ virtual void setWithLinearize(double tLinearize) = 0;
 };  ///< Generic class for Model
 
 #ifdef __clang__
