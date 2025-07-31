@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<finalStateValuesOutput xmlns="http://www.rte-france.com/dynawo">
+  <finalStateValue model="NETWORK" variable="_BUS____1_TN_Upu_value" value="1.061714"/>
+  <finalStateValue model="NETWORK" variable="_BUS____2_TN_Upu_value" value="1.041428"/>
+  <finalStateValue model="NETWORK" variable="_BUS____3_TN_Upu_value" value="1.009069"/>
+  <finalStateValue model="NETWORK" variable="_BUS____4_TN_Upu_value" value="1.006454"/>
+  <finalStateValue model="NETWORK" variable="_BUS____5_TN_Upu_value" value="1.003987"/>
+  <finalStateValue model="NETWORK" variable="_BUS____6_TN_Upu_value" value="1.066851"/>
+  <finalStateValue model="NETWORK" variable="_BUS____7_TN_Upu_value" value="1.055695"/>
+  <finalStateValue model="NETWORK" variable="_BUS____8_TN_Upu_value" value="1.088244"/>
+  <finalStateValue model="NETWORK" variable="_BUS____9_TN_Upu_value" value="1.050645"/>
+  <finalStateValue model="NETWORK" variable="_BUS___10_TN_Upu_value" value="1.046186"/>
+  <finalStateValue model="NETWORK" variable="_BUS___11_TN_Upu_value" value="1.053010"/>
+  <finalStateValue model="NETWORK" variable="_BUS___12_TN_Upu_value" value="1.051868"/>
+  <finalStateValue model="NETWORK" variable="_BUS___13_TN_Upu_value" value="1.047066"/>
+  <finalStateValue model="NETWORK" variable="_BUS___14_TN_Upu_value" value="1.031223"/>
+  <finalStateValue model="GEN____1_SM" variable="generator_omegaPu" value="0.999746"/>
+  <finalStateValue model="GEN____1_SM" variable="generator_PGen" value="233.770409"/>
+  <finalStateValue model="GEN____1_SM" variable="generator_QGen" value="-27.435103"/>
+  <finalStateValue model="GEN____1_SM" variable="generator_UStatorPu" value="1.059737"/>
+  <finalStateValue model="GEN____1_SM" variable="voltageRegulator_EfdPu" value="1.418406"/>
+  <finalStateValue model="GEN____2_SM" variable="generator_omegaPu" value="0.999746"/>
+  <finalStateValue model="GEN____2_SM" variable="generator_PGen" value="41.272006"/>
+  <finalStateValue model="GEN____2_SM" variable="generator_QGen" value="62.096413"/>
+  <finalStateValue model="GEN____2_SM" variable="generator_UStatorPu" value="1.046758"/>
+  <finalStateValue model="GEN____2_SM" variable="voltageRegulator_EfdPu" value="1.309759"/>
+  <finalStateValue model="GEN____3_SM" variable="generator_omegaPu" value="0.999746"/>
+  <finalStateValue model="GEN____3_SM" variable="generator_PGen" value="1.882519"/>
+  <finalStateValue model="GEN____3_SM" variable="generator_QGen" value="31.445681"/>
+  <finalStateValue model="GEN____3_SM" variable="generator_UStatorPu" value="1.010958"/>
+  <finalStateValue model="GEN____3_SM" variable="voltageRegulator_EfdPu" value="1.123191"/>
+  <finalStateValue model="GEN____6_SM" variable="generator_omegaPu" value="0.999746"/>
+  <finalStateValue model="GEN____6_SM" variable="generator_PGen" value="0.084188"/>
+  <finalStateValue model="GEN____6_SM" variable="generator_QGen" value="19.815847"/>
+  <finalStateValue model="GEN____6_SM" variable="generator_UStatorPu" value="1.066851"/>
+  <finalStateValue model="GEN____6_SM" variable="voltageRegulator_EfdPu" value="1.527700"/>
+  <finalStateValue model="GEN____8_SM" variable="generator_omegaPu" value="0.999746"/>
+  <finalStateValue model="GEN____8_SM" variable="generator_PGen" value="0.283833"/>
+  <finalStateValue model="GEN____8_SM" variable="generator_QGen" value="20.108672"/>
+  <finalStateValue model="GEN____8_SM" variable="generator_UStatorPu" value="1.095635"/>
+  <finalStateValue model="GEN____8_SM" variable="voltageRegulator_EfdPu" value="1.209001"/>
+  <finalStateValue model="_LOAD___2_EC" variable="load_PPu" value="0.215866"/>
+  <finalStateValue model="_LOAD___2_EC" variable="load_QPu" value="0.125896"/>
+  <finalStateValue model="_LOAD___3_EC" variable="load_PPu" value="0.940698"/>
+  <finalStateValue model="_LOAD___3_EC" variable="load_QPu" value="0.189563"/>
+</finalStateValuesOutput>
