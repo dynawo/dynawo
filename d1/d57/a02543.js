@@ -57,6 +57,8 @@ var a02543 =
       [ "LineCloseSide1", "d1/d57/a02543.html#a9294fd85b78754e1a11fec544395ad51ae0d0530ea85e655fbfa7ef26ad8cefa3", null ],
       [ "LineCloseSide2", "d1/d57/a02543.html#a9294fd85b78754e1a11fec544395ad51ab2271db3f882e2d88abf1907e00613bc", null ],
       [ "LineClosed", "d1/d57/a02543.html#a9294fd85b78754e1a11fec544395ad51a666dc0cc868df38796914b69e5db5d6a", null ],
+      [ "LineFaultBegin", "d1/d57/a02543.html#a9294fd85b78754e1a11fec544395ad51a5351c24bef5173525752620bc0ffa3cf", null ],
+      [ "LineFaultEnd", "d1/d57/a02543.html#a9294fd85b78754e1a11fec544395ad51a60dd43aef23e2fe6e8d37e6731c84603", null ],
       [ "LineOpen", "d1/d57/a02543.html#a9294fd85b78754e1a11fec544395ad51af7cf49c4424f243d19b37f8701b07129", null ],
       [ "LineOpenSide1", "d1/d57/a02543.html#a9294fd85b78754e1a11fec544395ad51a62e352e003b47bde603f47a67c90cb05", null ],
       [ "LineOpenSide2", "d1/d57/a02543.html#a9294fd85b78754e1a11fec544395ad51ab7397233af0d0c9c087c966476f888ae", null ],

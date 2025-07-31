@@ -8,6 +8,8 @@ var searchData=
   ['linecloseside1',['LineCloseSide1',['../d1/d57/a02543.html#a9294fd85b78754e1a11fec544395ad51ae0d0530ea85e655fbfa7ef26ad8cefa3',1,'DYN::KeyTimeline_t']]],
   ['linecloseside2',['LineCloseSide2',['../d1/d57/a02543.html#a9294fd85b78754e1a11fec544395ad51ab2271db3f882e2d88abf1907e00613bc',1,'DYN::KeyTimeline_t']]],
   ['lineextdynmodel',['LineExtDynModel',['../d5/d6a/a02515.html#a963225344a251150ba0ad6d5264f567fadb4d7501f8d14294d675adfb34f9b38c',1,'DYN::KeyLog_t']]],
+  ['linefaultbegin',['LineFaultBegin',['../d1/d57/a02543.html#a9294fd85b78754e1a11fec544395ad51a5351c24bef5173525752620bc0ffa3cf',1,'DYN::KeyTimeline_t']]],
+  ['linefaultend',['LineFaultEnd',['../d1/d57/a02543.html#a9294fd85b78754e1a11fec544395ad51a60dd43aef23e2fe6e8d37e6731c84603',1,'DYN::KeyTimeline_t']]],
   ['lineopen',['LineOpen',['../d1/d57/a02543.html#a9294fd85b78754e1a11fec544395ad51af7cf49c4424f243d19b37f8701b07129',1,'DYN::KeyTimeline_t']]],
   ['lineopenside1',['LineOpenSide1',['../d1/d57/a02543.html#a9294fd85b78754e1a11fec544395ad51a62e352e003b47bde603f47a67c90cb05',1,'DYN::KeyTimeline_t']]],
   ['lineopenside2',['LineOpenSide2',['../d1/d57/a02543.html#a9294fd85b78754e1a11fec544395ad51ab7397233af0d0c9c087c966476f888ae',1,'DYN::KeyTimeline_t']]],
