@@ -181,6 +181,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   IntegerDoubleStep.xml
   IntegerTable.xml
   Line.xml
+  LineFault.xml
   LoadAlphaBeta.xml
   LoadAlphaBetaRestorative.xml
   LoadAlphaBetaRestorativeNetwork.xml

@@ -82,6 +82,7 @@ InfiniteBusFromTable
 InfiniteBusWithVariations
 IntegerDoubleStep
 Line
+LineFault
 LoadAlphaBeta
 LoadAlphaBetaRestorative
 LoadAlphaBetaRestorativeLimitsRecalc
