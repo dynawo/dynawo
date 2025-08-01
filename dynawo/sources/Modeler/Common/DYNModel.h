@@ -23,6 +23,7 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <unordered_set>
 #include <boost/shared_ptr.hpp>
 #include "DYNEnumUtils.h"
 #include "PARParametersSet.h"
@@ -96,6 +97,20 @@ class Model {
    * @param yp current values of the derivative of the continuous variables
    */
   virtual void copyContinuousVariables(const double* y, const double* yp) = 0;
+
+  /**
+   * @brief restore the residual to a previous state
+   *
+   * @param f current values of the residual
+   */
+  virtual void restoreResidual(const std::vector<double>& f) = 0;
+
+  /**
+   * @brief save the residual
+   *
+   * @param f
+   */
+  virtual void saveResidual(std::vector<double>& f) = 0;
 
   /**
    * @brief get the current value of the discrete variables
@@ -323,6 +338,27 @@ class Model {
    */
   virtual void getFInfos(int globalFIndex, std::string& subModelName, int& localFIndex, std::string& fEquation) const = 0;
 
+ /**
+  * @brief get informations about residual functions using an ignored set of equations
+  *
+  * @param globalFIndex global index of the residual functions to find
+  * @param subModelName name of the subModel who contains the residual functions
+  * @param localFIndex local index of the residual functions inside the subModel
+  * @param fEquation equation formula related to local index
+  * @param ignoreF equations to erase from the initial set of equations
+  */
+  virtual void getFInfos(int globalFIndex, std::string& subModelName, int& localFIndex,
+   std::string& fEquation, const std::unordered_set<int>& ignoreF) const = 0;
+
+
+  /**
+  * @brief get informations about equations containing a variable
+  *
+  * @param subModelName name of the subModel who contains the residual functions
+  * @param variable variable to look for in equations
+  */
+  virtual std::vector<std::string> getFInfos(const std::string& subModelName, const std::string& variable) const = 0;
+
   /**
    * @brief get informations about root functions
    *
@@ -472,6 +508,18 @@ class Model {
   virtual void printEquations() = 0;
 
   /**
+  * @brief Print all equations.
+  * @param ignoreF equations to erase from the initial set of equations
+  */
+  virtual void printEquations(const std::unordered_set<int>& ignoreF) = 0;
+
+  /**
+  * @brief Print all equations.
+  * @param ignoreY variables to erase form the initial set of variables
+  */
+  virtual void printVariableNames(const std::unordered_set<int>& ignoreY) = 0;
+
+  /**
   * @brief Print all parameters values
   */
   virtual void printParameterValues() const = 0;
@@ -492,6 +540,19 @@ class Model {
    * @return name of the variable
    */
   virtual std::string getVariableName(int index) = 0;
+
+  /**
+   * @brief Get a variable name from its index and using an ignored set of variables
+   *
+   * This function is intended to be used in debug mode as it allocates a lot of memory
+   * but can be called in release mode.
+   *
+   * @param index Index of the variable.
+   * @param ignoreY variables to erase form the initial set of variables
+   *
+   * @return name of the variable
+   */
+  virtual std::string getVariableName(int index, const std::unordered_set<int>& ignoreY, std::string& subModelName) = 0;
 
   /**
    * @brief Copy the discrete variable values from the model data structure to the solver data structure

@@ -43,7 +43,7 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   /**
    * @brief default constructor
    */
-  SolverKINAlgRestoration();
+  explicit SolverKINAlgRestoration(bool printReinitResiduals);
 
   /**
    * @brief destructor
@@ -96,8 +96,9 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
    * @return the flag value
    * @param noInitSetup indicates if the J should be evaluated or not at the first iteration
    * @param evaluateOnlyModeAtFirstIter indicates if only residuals of models with mode change should be evaluated
+   * @param multipleStrategiesForAlgebraicRestoration indicates if we try to use mutliple strategies for restoration
    */
-  int solve(bool noInitSetup = true, bool evaluateOnlyModeAtFirstIter = false);
+  int solve(bool noInitSetup = true, bool evaluateOnlyModeAtFirstIter = false, bool multipleStrategiesForAlgebraicRestoration = false);
 
   /**
    * @brief getter for the model currently simulated
@@ -125,7 +126,16 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
    */
   void setInitialValues(double t, const std::vector<double>& y, const std::vector<double>& yp);
 
-#if _DEBUG_
+  /**
+   * @brief set the initial conditions of the equations to solve
+   *
+   * @param kinsolStategy time to use in equations
+   * @param noInitSetup indicates if the J should be evaluated or not at the first iteration
+  * @param evaluateOnlyModeAtFirstIter indicates if only residuals of models with mode change should be evaluated
+  * @return the flag value
+  */
+  int solveStrategy(bool noInitSetup, bool evaluateOnlyModeAtFirstIter, int kinsolStategy);
+
   /**
    * @brief set check jacobian during evalF
    * @param checkJacobian enable or disable the jacobian sanity check
@@ -133,7 +143,6 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   void setCheckJacobian(const bool checkJacobian) {
     checkJacobian_ = checkJacobian;
   }
-#endif
 
   /**
   * @brief clean sundials structures to force a new algebraic restoration setup
@@ -206,7 +215,6 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   void updateKINSOLSettings(double fnormtol, double initialaddtol, double scsteptol, double mxnewtstep,
                             int msbset, int mxiter, int printfl) const;
 
-#if _DEBUG_
   /**
    * @brief Check jacobian
    *
@@ -215,8 +223,17 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
    * @param smj the jacobian to check
    * @param model the model currelty used
    */
-  static void checkJacobian(const SparseMatrix& smj, Model& model);
-#endif
+  static void checkJacobian(const SparseMatrix& smj, Model& model, const std::unordered_set<int>& indexF, const std::unordered_set<int>& indexY);
+
+  /**
+  * @brief save state before performing algebraic restoration
+  */
+  void saveState();
+
+  /**
+  * @brief restore state before performing algebraic restoration to use a new strategy
+  */
+  void restoreState();
 
   /**
   * @brief get mode
@@ -230,21 +247,31 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   */
   void cleanAlgebraicVectors();
 
+  /**
+  * @brief clean sundials vectors allocated by this class
+  */
+  bool printResiduals() {
+    return printReinitResiduals_;
+  }
+
  private:
   std::shared_ptr<Model> model_;  ///< model currently simulated
 
   std::vector<double> vectorYOrYpSolution_;  ///< Solution of the restoration after the call of the solver
   std::vector<double> vectorYForRestoration_;  ///< variables values during call of the solver
   std::vector<double> vectorYpForRestoration_;  ///< derivative variables during call of the solver
+  std::vector<double> vectorYOrYpSolutionSave_;  ///< Solution of the restoration after the call of the solver
+  std::vector<double> vectorYForRestorationSave_;  ///< variables values during call of the solver
+  std::vector<double> vectorYpForRestorationSave_;  ///< derivative variables during call of the solver
+  std::vector<double> vectorFSave_;  ///< derivative variables during call of the solver
   std::unordered_set<int> ignoreF_;  ///< equations to erase from the initial set of equations
   std::unordered_set<int> ignoreY_;  ///< variables to erase form the initial set of variables
   std::vector<int> indexF_;  ///< equations to keep from the initial set of equations
   std::vector<int> indexY_;  ///< variables to keep form the initial set of variables
   modeKin_t mode_;  ///< mode of the solver (i.e. algebraic equations or derivative)
 
-#if _DEBUG_
   bool checkJacobian_;  ///< Check jacobian
-#endif
+  bool printReinitResiduals_;  ///< Check jacobian
 };
 
 }  // end of namespace DYN

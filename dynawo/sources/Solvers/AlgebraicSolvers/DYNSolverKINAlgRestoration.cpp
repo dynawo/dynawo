@@ -27,6 +27,9 @@
 #include <cmath>
 
 #include "DYNSolverKINAlgRestoration.h"
+
+#include <DYNTimer.h>
+
 #include "DYNModel.h"
 #include "DYNSolverCommon.h"
 #include "DYNSparseMatrix.h"
@@ -51,9 +54,10 @@ SolverKINAlgRestoration::stringFromMode(const modeKin_t mode) {
   }
 }
 
-SolverKINAlgRestoration::SolverKINAlgRestoration() :
+SolverKINAlgRestoration::SolverKINAlgRestoration(const bool printReinitResiduals) :
 SolverKINCommon(),
-mode_(KIN_ALGEBRAIC) {
+mode_(KIN_ALGEBRAIC),
+printReinitResiduals_(printReinitResiduals) {
 #if _DEBUG_
   checkJacobian_ = false;
 #endif
@@ -232,6 +236,7 @@ SolverKINAlgRestoration::updateKINSOLSettings(const double fnormtol, const doubl
 
 int
 SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
+  Timer timer("SolverKINAlgRestoration::evalF_KIN");
   SolverKINAlgRestoration* solver = reinterpret_cast<SolverKINAlgRestoration*>(data);
   Model& model = solver->getModel();
 
@@ -271,48 +276,63 @@ SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
     irr[i] = solver->vectorF_[solver->indexF_[i]];
   }
 
-#ifdef _DEBUG_
-  // Print the current residual norms, the first one is used as a stopping criterion
-  double weightedInfNorm = SolverCommon::weightedInfinityNorm(solver->vectorF_, solver->indexF_, solver->vectorFScale_);
-  double wL2Norm = SolverCommon::weightedL2Norm(solver->vectorF_, solver->indexF_, solver->vectorFScale_);
-  long int current_nni = 0;
-  KINGetNumNonlinSolvIters(solver->KINMem_, &current_nni);
-  Trace::debug() << DYNLog(SolverKINResidualNormAlg, stringFromMode(solver->getMode()), current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
+  if (solver->printResiduals()) {
+    // Print the current residual norms, the first one is used as a stopping criterion
+    double weightedInfNorm = SolverCommon::weightedInfinityNorm(solver->vectorF_, solver->indexF_, solver->vectorFScale_);
+    double wL2Norm = SolverCommon::weightedL2Norm(solver->vectorF_, solver->indexF_, solver->vectorFScale_);
+    long int current_nni = 0;
+    KINGetNumNonlinSolvIters(solver->KINMem_, &current_nni);
+    Trace::debug() << DYNLog(SolverKINResidualNormAlg, stringFromMode(solver->getMode()), current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
 
-  const int nbErr = 10;
-  Trace::debug() << DYNLog(KinLargestErrors, nbErr) << Trace::endline;
-  vector<std::pair<double, size_t> > fErr;
-  for (size_t i = 0; i < solver->indexF_.size(); ++i)
-    fErr.push_back(std::pair<double, size_t>(solver->vectorF_[solver->indexF_[i]], solver->indexF_[i]));
-  SolverCommon::printLargestErrors(fErr, model, nbErr);
-#endif
+    const int nbErr = 10;
+    Trace::debug() << DYNLog(KinLargestErrors, nbErr) << Trace::endline;
+    vector<std::pair<double, size_t> > fErr;
+    for (size_t i = 0; i < solver->indexF_.size(); ++i)
+      fErr.push_back(std::pair<double, size_t>(solver->vectorF_[solver->indexF_[i]], solver->indexF_[i]));
+    SolverCommon::printLargestErrors(fErr, model, nbErr);
+  }
   return 0;
 }
 
-#if _DEBUG_
 void
-SolverKINAlgRestoration::checkJacobian(const SparseMatrix& smj, Model& model) {
+SolverKINAlgRestoration::checkJacobian(const SparseMatrix& smj, Model& model, const std::unordered_set<int>& ignoreF, const std::unordered_set<int>& ignoreY) {
   SparseMatrix::CheckError error = smj.check();
-  string sub_model_name;
+  string subModelName;
   string equation;
   string equation_bis;
   int local_index;
+
   switch (error.code) {
-  case SparseMatrix::CHECK_ZERO_ROW:
-    throw DYNError(DYN::Error::SOLVER_ALGO, SolverJacobianWithNulRow, error.info, model.getVariableName(error.info));
-  case SparseMatrix::CHECK_ZERO_COLUMN:
-    model.getFInfos(error.info, sub_model_name, local_index, equation);
-    throw DYNError(DYN::Error::SOLVER_ALGO, SolverJacobianWithNulColumn, error.info, equation);
-  case SparseMatrix::CHECK_OK:
-    // do nothing
-    break;
+    case SparseMatrix::CHECK_ZERO_ROW: {
+      string variable = model.getVariableName(error.info, ignoreY, subModelName);
+      string subModelNameWithUnderscore = subModelName + "_";
+      size_t pos = variable.find(subModelNameWithUnderscore);
+
+      if (pos != std::string::npos) {
+        variable.erase(pos, subModelNameWithUnderscore.length());
+      }
+      std::replace(variable.begin(), variable.end(), '_', '.');
+      std::vector<std::string> equations = model.getFInfos(subModelName, variable);
+      if (!equations.empty())
+        Trace::error() << "Equations containing the ill variable" << Trace::endline;
+      for (const auto& equationVariable : equations) {
+        Trace::error() << equationVariable << Trace::endline;
+      }
+      throw DYNError(DYN::Error::SOLVER_ALGO, SolverJacobianWithNulRow, error.info, model.getVariableName(error.info, ignoreY, subModelName));
+    }
+    case SparseMatrix::CHECK_ZERO_COLUMN:
+      model.getFInfos(error.info, subModelName, local_index, equation, ignoreF);
+      throw DYNError(DYN::Error::SOLVER_ALGO, SolverJacobianWithNulColumn, error.info, equation);
+    case SparseMatrix::CHECK_OK:
+      // do nothing
+      break;
   }
 }
-#endif
 
 int
 SolverKINAlgRestoration::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
          SUNMatrix JJ, void* data, N_Vector /*tmp1*/, N_Vector /*tmp2*/) {
+  Timer timer("SolverKINAlgRestoration::evalJ_KIN");
   SolverKINAlgRestoration* solver = reinterpret_cast<SolverKINAlgRestoration*> (data);
   Model& model = solver->getModel();
 
@@ -326,11 +346,9 @@ SolverKINAlgRestoration::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
   const int size = static_cast<int>(solver->indexY_.size());
   smjKin.reserve(size);
   smj.erase(solver->ignoreY_, solver->ignoreF_, smjKin);
-#if _DEBUG_
   if (solver->checkJacobian_) {
-    checkJacobian(smjKin, model);
+    checkJacobian(smjKin, model, solver->ignoreF_, solver->ignoreY_);
   }
-#endif
   SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, size, &solver->lastRowVals_, solver->linearSolver_, true);
 
   return 0;
@@ -339,6 +357,7 @@ SolverKINAlgRestoration::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
 int
 SolverKINAlgRestoration::evalJPrim_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
         SUNMatrix JJ, void* data, N_Vector /*tmp1*/, N_Vector /*tmp2*/) {
+  Timer timer("SolverKINAlgRestoration::evalJPrim_KIN");
   SolverKINAlgRestoration* solver = reinterpret_cast<SolverKINAlgRestoration*> (data);
   Model& model = solver->getModel();
 
@@ -353,16 +372,29 @@ SolverKINAlgRestoration::evalJPrim_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
   const int size = static_cast<int>(solver->indexY_.size());
   smjKin.reserve(size);
   smj.erase(solver->ignoreY_, solver->ignoreF_, smjKin);
+  if (solver->checkJacobian_) {
+    checkJacobian(smjKin, model, solver->ignoreF_, solver->ignoreY_);
+  }
   SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, size, &solver->lastRowVals_, solver->linearSolver_, true);
 
   return 0;
 }
 
-int
-SolverKINAlgRestoration::solve(const bool noInitSetup, const bool evaluateOnlyModeAtFirstIter) {
-  if (numF_ == 0)
-    return KIN_SUCCESS;
+void SolverKINAlgRestoration::saveState() {
+  vectorYForRestorationSave_.assign(vectorYForRestoration_.begin(), vectorYForRestoration_.end());
+  vectorYpForRestorationSave_.assign(vectorYpForRestoration_.begin(), vectorYpForRestoration_.end());
+  vectorYOrYpSolutionSave_.assign(vectorYOrYpSolution_.begin(), vectorYOrYpSolution_.end());
+  model_->saveResidual(vectorFSave_);
+}
 
+void SolverKINAlgRestoration::restoreState() {
+  vectorYForRestoration_.assign(vectorYForRestorationSave_.begin(), vectorYForRestorationSave_.end());
+  vectorYpForRestoration_.assign(vectorYpForRestorationSave_.begin(), vectorYpForRestorationSave_.end());
+  vectorYOrYpSolution_.assign(vectorYOrYpSolutionSave_.begin(), vectorYOrYpSolutionSave_.end());
+  model_->restoreResidual(vectorFSave_);
+}
+
+int SolverKINAlgRestoration::solveStrategy(const bool noInitSetup, const bool evaluateOnlyModeAtFirstIter, const int kinsolStategy) {
   int flag = KINSetNoInitSetup(KINMem_, noInitSetup);
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetNoInitSetup");
@@ -373,6 +405,8 @@ SolverKINAlgRestoration::solve(const bool noInitSetup, const bool evaluateOnlyMo
     model_->evalFMode(t0_, &vectorYForRestoration_[0], &vectorYpForRestoration_[0], &vectorF_[0]);
   else
     model_->evalF(t0_, &vectorYForRestoration_[0], &vectorYpForRestoration_[0], &vectorF_[0]);
+
+  vectorFSave_.assign(vectorF_.begin(), vectorF_.end());
 
   // fScale
   vectorFScale_.assign(indexF_.size(), 1.);
@@ -389,7 +423,28 @@ SolverKINAlgRestoration::solve(const bool noInitSetup, const bool evaluateOnlyMo
     }
   }
 
-  flag = solveCommon();
+  flag = solveCommon(kinsolStategy);
+
+  return flag;
+}
+
+int
+SolverKINAlgRestoration::solve(const bool noInitSetup, const bool evaluateOnlyModeAtFirstIter, const bool multipleStrategiesForAlgebraicRestoration) {
+  if (numF_ == 0)
+    return KIN_SUCCESS;
+
+  if (multipleStrategiesForAlgebraicRestoration)
+    saveState();
+
+  int flag = solveStrategy(noInitSetup, evaluateOnlyModeAtFirstIter, KIN_NONE);
+
+  if (flag  < 0 && multipleStrategiesForAlgebraicRestoration) {
+    Trace::debug() << DYNLog(KinRestart) << Trace::endline;
+    restoreState();
+
+    flag = solveStrategy(noInitSetup, evaluateOnlyModeAtFirstIter, KIN_LINESEARCH);
+  }
+
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverSolveErrorKINSOL);
 
