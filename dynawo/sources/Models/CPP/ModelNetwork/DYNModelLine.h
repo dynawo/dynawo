@@ -324,6 +324,13 @@ class ModelLine : public NetworkComponent {
    */
   void loadInternalVariables(boost::archive::binary_iarchive& streamVariables) override;
 
+  /**
+  * @brief write initial values internal parameters of a model in a file
+  *
+  * @param fstream the file to stream parameters to
+  */
+  void printInternalParameters(std::ofstream& fstream) const override;
+
  private:
   KnownBus_t knownBus_;  ///< known bus
   boost::shared_ptr<ModelCurrentLimits> currentLimits1_;  ///< current limit side 1
