@@ -22,24 +22,36 @@ TEST(ModelsModelNetwork, ModelNetworkDerivative) {
 
   derivatives.addValue(42, 5.);
   ASSERT_EQ(derivatives.getValues().size(), 1);
-  ASSERT_EQ((*derivatives.getValues().find(42)).second, 5.);
+  auto& values = derivatives.getValues();
+  auto& indices = derivatives.getIndices();
+  auto it = std::find(indices.begin(), indices.end(), 42);
+  unsigned int index = it - indices.begin();
+  ASSERT_EQ(values[index], 5.);
   ASSERT_EQ(derivatives.empty(), false);
 
   derivatives.addValue(8, 42.);
   ASSERT_EQ(derivatives.getValues().size(), 2);
-  ASSERT_EQ((*derivatives.getValues().find(42)).second, 5.);
-  ASSERT_EQ((*derivatives.getValues().find(8)).second, 42.);
+  it = std::find(indices.begin(), indices.end(), 42);
+  index = it - indices.begin();
+  ASSERT_EQ(values[index], 5.);
+  it = std::find(indices.begin(), indices.end(), 8);
+  index = it - indices.begin();
+  ASSERT_EQ(values[index], 42.);
   ASSERT_EQ(derivatives.empty(), false);
 
   derivatives.addValue(42, 8.);
   ASSERT_EQ(derivatives.getValues().size(), 2);
-  ASSERT_EQ((*derivatives.getValues().find(42)).second, 13.);
-  ASSERT_EQ((*derivatives.getValues().find(8)).second, 42.);
+  it = std::find(indices.begin(), indices.end(), 42);
+  index = it - indices.begin();
+  ASSERT_EQ(values[index], 13);
+  it = std::find(indices.begin(), indices.end(), 8);
+  index = it - indices.begin();
+  ASSERT_EQ(values[index], 42.);
   ASSERT_EQ(derivatives.empty(), false);
 
   derivatives.reset();
-  ASSERT_EQ(derivatives.getValues().size(), 0);
-  ASSERT_EQ(derivatives.empty(), true);
+  ASSERT_EQ(derivatives.getValues().size(), 2);
+  ASSERT_EQ(derivatives.empty(), false);
 }
 
 TEST(ModelsModelNetwork, ModelNetworkBusDerivative) {
@@ -49,57 +61,97 @@ TEST(ModelsModelNetwork, ModelNetworkBusDerivative) {
   ASSERT_EQ(derivatives.empty(), true);
 
   derivatives.addDerivative(IR_DERIVATIVE, 42, 5.);
+  auto& irValues = derivatives.getValues(IR_DERIVATIVE);
+  auto& irIndices = derivatives.getIndices(IR_DERIVATIVE);
   ASSERT_EQ(derivatives.getValues(IR_DERIVATIVE).size(), 1);
-  ASSERT_EQ((*derivatives.getValues(IR_DERIVATIVE).find(42)).second, 5.);
+  auto itiR = std::find(irIndices.begin(), irIndices.end(), 42);
+  unsigned int index = itiR - irIndices.begin();
+  ASSERT_EQ(irValues[index], 5.);
   ASSERT_EQ(derivatives.getValues(II_DERIVATIVE).size(), 0);
   ASSERT_EQ(derivatives.empty(), false);
 
+  auto& iiValues = derivatives.getValues(II_DERIVATIVE);
+  auto& iiIndices = derivatives.getIndices(II_DERIVATIVE);
   derivatives.addDerivative(II_DERIVATIVE, 4, 16.);
   ASSERT_EQ(derivatives.getValues(IR_DERIVATIVE).size(), 1);
-  ASSERT_EQ((*derivatives.getValues(IR_DERIVATIVE).find(42)).second, 5.);
+  itiR = std::find(irIndices.begin(), irIndices.end(), 42);
+  index = itiR - irIndices.begin();
+  ASSERT_EQ(irValues[index], 5.);
   ASSERT_EQ(derivatives.getValues(II_DERIVATIVE).size(), 1);
-  ASSERT_EQ((*derivatives.getValues(II_DERIVATIVE).find(4)).second, 16.);
+  auto itii = std::find(iiIndices.begin(), iiIndices.end(), 4);
+  index = itii - iiIndices.begin();
+  ASSERT_EQ(iiValues[index], 16.);
   ASSERT_EQ(derivatives.empty(), false);
 
   derivatives.addDerivative(IR_DERIVATIVE, 8, 42.);
   ASSERT_EQ(derivatives.getValues(IR_DERIVATIVE).size(), 2);
-  ASSERT_EQ((*derivatives.getValues(IR_DERIVATIVE).find(42)).second, 5.);
-  ASSERT_EQ((*derivatives.getValues(IR_DERIVATIVE).find(8)).second, 42.);
+  itiR = std::find(irIndices.begin(), irIndices.end(), 42);
+  index = itiR - irIndices.begin();
+  ASSERT_EQ(irValues[index], 5.);
+  itiR = std::find(irIndices.begin(), irIndices.end(), 8);
+  index = itiR - irIndices.begin();
+  ASSERT_EQ(irValues[index], 42.);
   ASSERT_EQ(derivatives.getValues(II_DERIVATIVE).size(), 1);
-  ASSERT_EQ((*derivatives.getValues(II_DERIVATIVE).find(4)).second, 16.);
+  itii = std::find(iiIndices.begin(), iiIndices.end(), 4);
+  index = itii - iiIndices.begin();
+  ASSERT_EQ(iiValues[index], 16.);
   ASSERT_EQ(derivatives.empty(), false);
 
   derivatives.addDerivative(II_DERIVATIVE, 8, 42.);
   ASSERT_EQ(derivatives.getValues(IR_DERIVATIVE).size(), 2);
-  ASSERT_EQ((*derivatives.getValues(IR_DERIVATIVE).find(42)).second, 5.);
-  ASSERT_EQ((*derivatives.getValues(IR_DERIVATIVE).find(8)).second, 42.);
+  itiR = std::find(irIndices.begin(), irIndices.end(), 42);
+  index = itiR - irIndices.begin();
+  ASSERT_EQ(irValues[index], 5.);
+  itiR = std::find(irIndices.begin(), irIndices.end(), 8);
+  index = itiR - irIndices.begin();
+  ASSERT_EQ(irValues[index], 42.);
   ASSERT_EQ(derivatives.getValues(II_DERIVATIVE).size(), 2);
-  ASSERT_EQ((*derivatives.getValues(II_DERIVATIVE).find(4)).second, 16.);
-  ASSERT_EQ((*derivatives.getValues(II_DERIVATIVE).find(8)).second, 42.);
+  itii = std::find(iiIndices.begin(), iiIndices.end(), 4);
+  index = itii - iiIndices.begin();
+  ASSERT_EQ(iiValues[index], 16.);
+  itii = std::find(iiIndices.begin(), iiIndices.end(), 8);
+  index = itii - iiIndices.begin();
+  ASSERT_EQ(iiValues[index], 42.);
   ASSERT_EQ(derivatives.empty(), false);
 
   derivatives.addDerivative(IR_DERIVATIVE, 42, 8.);
   ASSERT_EQ(derivatives.getValues(IR_DERIVATIVE).size(), 2);
-  ASSERT_EQ((*derivatives.getValues(IR_DERIVATIVE).find(42)).second, 13.);
-  ASSERT_EQ((*derivatives.getValues(IR_DERIVATIVE).find(8)).second, 42.);
+  itiR = std::find(irIndices.begin(), irIndices.end(), 42);
+  index = itiR - irIndices.begin();
+  ASSERT_EQ(irValues[index], 13.);
+  itiR = std::find(irIndices.begin(), irIndices.end(), 8);
+  index = itiR - irIndices.begin();
+  ASSERT_EQ(irValues[index], 42.);
   ASSERT_EQ(derivatives.getValues(II_DERIVATIVE).size(), 2);
-  ASSERT_EQ((*derivatives.getValues(II_DERIVATIVE).find(4)).second, 16.);
-  ASSERT_EQ((*derivatives.getValues(II_DERIVATIVE).find(8)).second, 42.);
+  itii = std::find(iiIndices.begin(), iiIndices.end(), 4);
+  index = itii - iiIndices.begin();
+  ASSERT_EQ(iiValues[index], 16.);
+  itii = std::find(iiIndices.begin(), iiIndices.end(), 8);
+  index = itii - iiIndices.begin();
+  ASSERT_EQ(iiValues[index], 42.);
   ASSERT_EQ(derivatives.empty(), false);
 
   derivatives.addDerivative(II_DERIVATIVE, 4, 8.);
   ASSERT_EQ(derivatives.getValues(IR_DERIVATIVE).size(), 2);
-  ASSERT_EQ((*derivatives.getValues(IR_DERIVATIVE).find(42)).second, 13.);
-  ASSERT_EQ((*derivatives.getValues(IR_DERIVATIVE).find(8)).second, 42.);
+  itiR = std::find(irIndices.begin(), irIndices.end(), 42);
+  index = itiR - irIndices.begin();
+  ASSERT_EQ(irValues[index], 13.);
+  itiR = std::find(irIndices.begin(), irIndices.end(), 8);
+  index = itiR - irIndices.begin();
+  ASSERT_EQ(irValues[index], 42.);
   ASSERT_EQ(derivatives.getValues(II_DERIVATIVE).size(), 2);
-  ASSERT_EQ((*derivatives.getValues(II_DERIVATIVE).find(4)).second, 24.);
-  ASSERT_EQ((*derivatives.getValues(II_DERIVATIVE).find(8)).second, 42.);
+  itii = std::find(iiIndices.begin(), iiIndices.end(), 4);
+  index = itii - iiIndices.begin();
+  ASSERT_EQ(iiValues[index], 24.);
+  itii = std::find(iiIndices.begin(), iiIndices.end(), 8);
+  index = itii - iiIndices.begin();
+  ASSERT_EQ(iiValues[index], 42.);
   ASSERT_EQ(derivatives.empty(), false);
 
   derivatives.reset();
-  ASSERT_EQ(derivatives.getValues(IR_DERIVATIVE).size(), 0);
-  ASSERT_EQ(derivatives.getValues(II_DERIVATIVE).size(), 0);
-  ASSERT_EQ(derivatives.empty(), true);
+  ASSERT_EQ(derivatives.getValues(IR_DERIVATIVE).size(), 2);
+  ASSERT_EQ(derivatives.getValues(II_DERIVATIVE).size(), 2);
+  ASSERT_EQ(derivatives.empty(), false);
 
 
   ASSERT_THROW_DYNAWO(derivatives.addDerivative(static_cast<typeDerivative_t>(42), 4, 8.), Error::MODELER, KeyError_t::InvalidDerivativeType);
