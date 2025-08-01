@@ -539,6 +539,10 @@ class Model {
    * @param actionString string containing the action properties
    */
   virtual void registerAction(const std::string& actionString) = 0;
+
+ virtual void setSymbolicJacobian() = 0;
+
+ virtual void setSymbolicResidual() = 0;
 };  ///< Generic class for Model
 
 #ifdef __clang__
