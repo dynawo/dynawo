@@ -74,7 +74,7 @@ class ModelPhaseTapChanger : public ModelTapChanger {
    * @param network : network of the transformer
    */
   void evalZ(double t, const state_g* g, double disable,
-             bool P1SupP2, double locked, bool tfoClosed, ModelNetwork* network);
+             bool P1SupP2, double locked, bool tfoClosed, ModelNetwork* network, bool deactivateRootFunctions);
 
   /**
    * @brief  get the size of the local G function

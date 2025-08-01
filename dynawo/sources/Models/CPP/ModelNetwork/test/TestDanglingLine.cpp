@@ -245,6 +245,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineCalculatedVariables) {
 
 TEST(ModelsModelNetwork, ModelNetworkDanglingLineDiscreteVariables) {
   std::pair<std::unique_ptr<ModelDanglingLine>, std::shared_ptr<ModelVoltageLevel> > p = createModelDanglingLine(false, false);
+  bool deactivateRootFunctions = false;
   const std::unique_ptr<ModelDanglingLine>& dl = p.first;
   dl->initSize();
   unsigned nbZ = 2;
@@ -274,7 +275,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineDiscreteVariables) {
 
   z[0] = OPEN;
   z[1] = 0.;
-  dl->evalZ(0.);
+  dl->evalZ(0., deactivateRootFunctions);
   ASSERT_EQ(dl->getConnectionState(), OPEN);
   ASSERT_EQ(z[0], OPEN);
   ASSERT_DOUBLE_EQUALS_DYNAWO(dl->getCurrentLimitsDesactivate(), 0.);
@@ -283,18 +284,18 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineDiscreteVariables) {
   ASSERT_EQ(dl->evalState(0.), NetworkComponent::STATE_CHANGE);
   ASSERT_EQ(dl->getConnectionState(), OPEN);
   z[0] = CLOSED;
-  dl->evalZ(0.);
+  dl->evalZ(0., deactivateRootFunctions);
   ASSERT_EQ(dl->evalState(0.), NetworkComponent::STATE_CHANGE);
   ASSERT_EQ(dl->getConnectionState(), CLOSED);
   ASSERT_EQ(dl->evalState(0.), NetworkComponent::NO_CHANGE);
   ASSERT_DOUBLE_EQUALS_DYNAWO(dl->getConnectionState(), CLOSED);
   ASSERT_DOUBLE_EQUALS_DYNAWO(dl->getCurrentLimitsDesactivate(), 0.);
   z[1] = 42.;
-  dl->evalZ(0.);
+  dl->evalZ(0., deactivateRootFunctions);
   ASSERT_EQ(dl->evalState(0.), NetworkComponent::NO_CHANGE);
   ASSERT_DOUBLE_EQUALS_DYNAWO(dl->getCurrentLimitsDesactivate(), 42.);
   z[1] = 0.;
-  dl->evalZ(0.);
+  dl->evalZ(0., deactivateRootFunctions);
   ASSERT_EQ(dl->evalState(0.), NetworkComponent::NO_CHANGE);
   ASSERT_DOUBLE_EQUALS_DYNAWO(dl->getCurrentLimitsDesactivate(), 0.);
 

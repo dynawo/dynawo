@@ -20,6 +20,8 @@
 
 #include "DYNModelShuntCompensator.h"
 
+#include <DYNTimer.h>
+
 #include "PARParametersSet.h"
 
 #include "DYNModelBus.h"
@@ -201,12 +203,15 @@ ModelShuntCompensator::defineElements(std::vector<Element>& elements, std::map<s
 
 void
 ModelShuntCompensator::evalG(const double t) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer("ModelNetwork::ModelShuntCompensator::evalG");
+#endif
   // Time out reached for availability
   g_[0] = (doubleEquals(tLastOpening_, VALDEF) || t >= tLastOpening_ + noReclosingDelay_) ? ROOT_UP : ROOT_DOWN;
 }
 
 NetworkComponent::StateChange_t
-ModelShuntCompensator::evalZ(const double t) {
+ModelShuntCompensator::evalZ(const double t, bool /*deactivateRootFunctions*/) {
   z_[isCapacitorNum_] = isCapacitor() ? 1. : 0.;
   z_[isAvailableNum_] = isAvailable() ? 1. : 0.;
   z_[currentSectionNum_] = getCurrentSection();
@@ -232,7 +237,7 @@ ModelShuntCompensator::evalZ(const double t) {
     }
     setConnected(currState);
   }
-  return stateModified_ ? NetworkComponent::STATE_CHANGE : NetworkComponent::NO_CHANGE;
+  return stateModified_ ? STATE_CHANGE : NO_CHANGE;
 }
 
 void

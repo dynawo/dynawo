@@ -926,6 +926,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineCalculatedVariablesClosed1) {
 
 TEST(ModelsModelNetwork, ModelNetworkLineDiscreteVariables) {
   std::pair<std::unique_ptr<ModelLine>, std::shared_ptr<ModelVoltageLevel> > p = createModelLine(false, false);
+  bool deactivateRootFunctions = false;
   const std::unique_ptr<ModelLine>& dl = p.first;
   dl->initSize();
   unsigned nbZ = 2;
@@ -958,7 +959,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineDiscreteVariables) {
 
   z[0] = OPEN;
   z[1] = 0.;
-  ASSERT_EQ(dl->evalZ(0.), NetworkComponent::TOPO_CHANGE);
+  ASSERT_EQ(dl->evalZ(0., deactivateRootFunctions), NetworkComponent::TOPO_CHANGE);
   ASSERT_EQ(dl->getConnectionState(), OPEN);
   ASSERT_EQ(z[0], OPEN);
   ASSERT_DOUBLE_EQUALS_DYNAWO(dl->getCurrentLimitsDesactivate(), 0.);
@@ -966,99 +967,99 @@ TEST(ModelsModelNetwork, ModelNetworkLineDiscreteVariables) {
   ASSERT_EQ(dl->evalState(0.), NetworkComponent::TOPO_CHANGE);
 
   dl->setConnectionState(OPEN);
-  ASSERT_EQ(dl->evalZ(0.), NetworkComponent::NO_CHANGE);
+  ASSERT_EQ(dl->evalZ(0., deactivateRootFunctions), NetworkComponent::NO_CHANGE);
   ASSERT_EQ(dl->evalState(0.), NetworkComponent::NO_CHANGE);
 
   dl->setConnectionState(CLOSED_1);
-  ASSERT_EQ(dl->evalZ(0.), NetworkComponent::TOPO_CHANGE);
+  ASSERT_EQ(dl->evalZ(0., deactivateRootFunctions), NetworkComponent::TOPO_CHANGE);
   ASSERT_EQ(dl->evalState(0.), NetworkComponent::TOPO_CHANGE);
 
   dl->setConnectionState(CLOSED_2);
-  ASSERT_EQ(dl->evalZ(0.), NetworkComponent::TOPO_CHANGE);
+  ASSERT_EQ(dl->evalZ(0., deactivateRootFunctions), NetworkComponent::TOPO_CHANGE);
   ASSERT_EQ(dl->evalState(0.), NetworkComponent::TOPO_CHANGE);
 
   dl->setConnectionState(CLOSED_3);
-  ASSERT_THROW_DYNAWO(dl->evalZ(0.), Error::MODELER, KeyError_t::NoThirdSide);
+  ASSERT_THROW_DYNAWO(dl->evalZ(0., deactivateRootFunctions), Error::MODELER, KeyError_t::NoThirdSide);
 
   dl->setConnectionState(UNDEFINED_STATE);
-  ASSERT_THROW_DYNAWO(dl->evalZ(0.), Error::MODELER, KeyError_t::UnsupportedComponentState);
+  ASSERT_THROW_DYNAWO(dl->evalZ(0., deactivateRootFunctions), Error::MODELER, KeyError_t::UnsupportedComponentState);
 
   z[0] = CLOSED;
   dl->setConnectionState(OPEN);
-  ASSERT_EQ(dl->evalZ(0.), NetworkComponent::TOPO_CHANGE);
+  ASSERT_EQ(dl->evalZ(0., deactivateRootFunctions), NetworkComponent::TOPO_CHANGE);
   ASSERT_EQ(dl->evalState(0.), NetworkComponent::TOPO_CHANGE);
 
   dl->setConnectionState(CLOSED);
-  ASSERT_EQ(dl->evalZ(0.), NetworkComponent::NO_CHANGE);
+  ASSERT_EQ(dl->evalZ(0., deactivateRootFunctions), NetworkComponent::NO_CHANGE);
   ASSERT_EQ(dl->evalState(0.), NetworkComponent::NO_CHANGE);
 
   dl->setConnectionState(CLOSED_1);
-  ASSERT_EQ(dl->evalZ(0.), NetworkComponent::TOPO_CHANGE);
+  ASSERT_EQ(dl->evalZ(0., deactivateRootFunctions), NetworkComponent::TOPO_CHANGE);
   ASSERT_EQ(dl->evalState(0.), NetworkComponent::TOPO_CHANGE);
 
   dl->setConnectionState(CLOSED_2);
-  ASSERT_EQ(dl->evalZ(0.), NetworkComponent::TOPO_CHANGE);
+  ASSERT_EQ(dl->evalZ(0., deactivateRootFunctions), NetworkComponent::TOPO_CHANGE);
   ASSERT_EQ(dl->evalState(0.), NetworkComponent::TOPO_CHANGE);
 
   dl->setConnectionState(CLOSED_3);
-  ASSERT_THROW_DYNAWO(dl->evalZ(0.), Error::MODELER, KeyError_t::NoThirdSide);
+  ASSERT_THROW_DYNAWO(dl->evalZ(0., deactivateRootFunctions), Error::MODELER, KeyError_t::NoThirdSide);
 
   dl->setConnectionState(UNDEFINED_STATE);
-  ASSERT_THROW_DYNAWO(dl->evalZ(0.), Error::MODELER, KeyError_t::UnsupportedComponentState);
+  ASSERT_THROW_DYNAWO(dl->evalZ(0., deactivateRootFunctions), Error::MODELER, KeyError_t::UnsupportedComponentState);
 
   z[0] = CLOSED_1;
   dl->setConnectionState(OPEN);
-  ASSERT_EQ(dl->evalZ(0.), NetworkComponent::TOPO_CHANGE);
+  ASSERT_EQ(dl->evalZ(0., deactivateRootFunctions), NetworkComponent::TOPO_CHANGE);
   ASSERT_EQ(dl->evalState(0.), NetworkComponent::TOPO_CHANGE);
 
   dl->setConnectionState(CLOSED);
-  ASSERT_EQ(dl->evalZ(0.), NetworkComponent::TOPO_CHANGE);
+  ASSERT_EQ(dl->evalZ(0., deactivateRootFunctions), NetworkComponent::TOPO_CHANGE);
   ASSERT_EQ(dl->evalState(0.), NetworkComponent::TOPO_CHANGE);
 
   dl->setConnectionState(CLOSED_1);
-  ASSERT_EQ(dl->evalZ(0.), NetworkComponent::NO_CHANGE);
+  ASSERT_EQ(dl->evalZ(0., deactivateRootFunctions), NetworkComponent::NO_CHANGE);
   ASSERT_EQ(dl->evalState(0.), NetworkComponent::NO_CHANGE);
 
   dl->setConnectionState(CLOSED_2);
-  ASSERT_EQ(dl->evalZ(0.), NetworkComponent::TOPO_CHANGE);
+  ASSERT_EQ(dl->evalZ(0., deactivateRootFunctions), NetworkComponent::TOPO_CHANGE);
   ASSERT_EQ(dl->evalState(0.), NetworkComponent::TOPO_CHANGE);
 
   dl->setConnectionState(CLOSED_3);
-  ASSERT_THROW_DYNAWO(dl->evalZ(0.), Error::MODELER, KeyError_t::NoThirdSide);
+  ASSERT_THROW_DYNAWO(dl->evalZ(0., deactivateRootFunctions), Error::MODELER, KeyError_t::NoThirdSide);
 
   dl->setConnectionState(UNDEFINED_STATE);
-  ASSERT_THROW_DYNAWO(dl->evalZ(0.), Error::MODELER, KeyError_t::UnsupportedComponentState);
+  ASSERT_THROW_DYNAWO(dl->evalZ(0., deactivateRootFunctions), Error::MODELER, KeyError_t::UnsupportedComponentState);
 
   z[0] = CLOSED_2;
   dl->setConnectionState(OPEN);
-  ASSERT_EQ(dl->evalZ(0.), NetworkComponent::TOPO_CHANGE);
+  ASSERT_EQ(dl->evalZ(0., deactivateRootFunctions), NetworkComponent::TOPO_CHANGE);
   ASSERT_EQ(dl->evalState(0.), NetworkComponent::TOPO_CHANGE);
 
   dl->setConnectionState(CLOSED);
-  ASSERT_EQ(dl->evalZ(0.), NetworkComponent::TOPO_CHANGE);
+  ASSERT_EQ(dl->evalZ(0., deactivateRootFunctions), NetworkComponent::TOPO_CHANGE);
   ASSERT_EQ(dl->evalState(0.), NetworkComponent::TOPO_CHANGE);
 
   dl->setConnectionState(CLOSED_1);
-  ASSERT_EQ(dl->evalZ(0.), NetworkComponent::TOPO_CHANGE);
+  ASSERT_EQ(dl->evalZ(0., deactivateRootFunctions), NetworkComponent::TOPO_CHANGE);
   ASSERT_EQ(dl->evalState(0.), NetworkComponent::TOPO_CHANGE);
 
   dl->setConnectionState(CLOSED_2);
-  ASSERT_EQ(dl->evalZ(0.), NetworkComponent::NO_CHANGE);
+  ASSERT_EQ(dl->evalZ(0., deactivateRootFunctions), NetworkComponent::NO_CHANGE);
   ASSERT_EQ(dl->evalState(0.), NetworkComponent::NO_CHANGE);
 
   dl->setConnectionState(CLOSED_3);
-  ASSERT_THROW_DYNAWO(dl->evalZ(0.), Error::MODELER, KeyError_t::NoThirdSide);
+  ASSERT_THROW_DYNAWO(dl->evalZ(0., deactivateRootFunctions), Error::MODELER, KeyError_t::NoThirdSide);
 
   dl->setConnectionState(UNDEFINED_STATE);
-  ASSERT_THROW_DYNAWO(dl->evalZ(0.), Error::MODELER, KeyError_t::UnsupportedComponentState);
+  ASSERT_THROW_DYNAWO(dl->evalZ(0., deactivateRootFunctions), Error::MODELER, KeyError_t::UnsupportedComponentState);
 
   ASSERT_EQ(dl->evalState(0.), NetworkComponent::NO_CHANGE);
 
   z[0] = UNDEFINED_STATE;
   dl->setConnectionState(CLOSED);
-  ASSERT_THROW_DYNAWO(dl->evalZ(0.), Error::MODELER, KeyError_t::UndefinedComponentState);
+  ASSERT_THROW_DYNAWO(dl->evalZ(0., deactivateRootFunctions), Error::MODELER, KeyError_t::UndefinedComponentState);
   z[0] = CLOSED_3;
-  ASSERT_THROW_DYNAWO(dl->evalZ(0.), Error::MODELER, KeyError_t::NoThirdSide);
+  ASSERT_THROW_DYNAWO(dl->evalZ(0., deactivateRootFunctions), Error::MODELER, KeyError_t::NoThirdSide);
   z[0] = CLOSED;
 
   std::map<int, std::string> gEquationIndex;
@@ -1141,6 +1142,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineContinuousVariables) {
 
 TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
   std::pair<std::unique_ptr<ModelLine>, std::shared_ptr<ModelVoltageLevel> > p = createModelLine(false, false);
+  bool deactivateRootFunctions = false;
   const std::unique_ptr<ModelLine>& dl = p.first;
 
   std::vector<ParameterModeler> parameters;
@@ -1296,11 +1298,11 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
   std::vector<state_g> g3(nbG, NO_ROOT);
   dl3->setReferenceG(&g3[0], 0);
   z3[0] = CLOSED_2;
-  ASSERT_THROW_DYNAWO(dl3->evalZ(0), Error::MODELER, KeyError_t::DynamicLineStatusNotSupported);
+  ASSERT_THROW_DYNAWO(dl3->evalZ(0, deactivateRootFunctions), Error::MODELER, KeyError_t::DynamicLineStatusNotSupported);
   z3[0] = CLOSED_1;
-  ASSERT_THROW_DYNAWO(dl3->evalZ(0), Error::MODELER, KeyError_t::DynamicLineStatusNotSupported);
+  ASSERT_THROW_DYNAWO(dl3->evalZ(0, deactivateRootFunctions), Error::MODELER, KeyError_t::DynamicLineStatusNotSupported);
   z3[0] = CLOSED;
-  ASSERT_NO_THROW(dl3->evalZ(0));
+  ASSERT_NO_THROW(dl3->evalZ(0, deactivateRootFunctions));
   delete[] zConnected;
   delete[] zConnected3;
 }
