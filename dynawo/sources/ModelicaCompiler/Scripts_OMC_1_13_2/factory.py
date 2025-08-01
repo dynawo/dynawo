@@ -1696,6 +1696,9 @@ class Factory:
                 self.list_for_warnings.append("\n\n")
                 self.list_for_warnings.append("}\n")
 
+        convert_booleans_body([item.get_name() for item in self.list_all_bool_items], self.list_for_parameters_warnings)
+        convert_booleans_body([item.get_name() for item in self.list_all_bool_items], self.list_for_warnings)
+
     ##
     # dump the lines of the warning in the body of setF
     # @param self : object pointer
@@ -1703,6 +1706,7 @@ class Factory:
     def dump_external_calls_in_setf(self):
         if len(self.list_call_for_setf) > 0:
             self.list_for_setf.append("  // -------------- call functions ----------\n")
+            self.list_for_setf.append("{\n")
             self.list_for_setf.extend(self.filter_external_function_call())
 
 
@@ -1745,7 +1749,7 @@ class Factory:
                     standard_eq_body.append ("\n"  )
                     self.list_for_setf.extend(standard_eq_body)
 
-            self.list_for_setf.append("\n\n")
+            self.list_for_setf.append("}\n\n")
 
     ##
     # prepare the lines that constitutes the body of setF
@@ -2679,6 +2683,7 @@ class Factory:
 
         if len(self.list_call_for_setf) > 0:
             self.list_for_evalfadept.append("  // -------------- call functions ----------\n")
+            self.list_for_evalfadept.append("{\n")
             external_function_call_body = self.filter_external_function_call()
             trans.set_txt_list(external_function_call_body)
             external_function_call_body = trans.translate()
@@ -2717,6 +2722,8 @@ class Factory:
         for index, line in enumerate(self.list_for_evalfadept):
             self.list_for_evalfadept[index] = replace_relation_indexes(line, self.omc_relation_index_2_dynawo_relations_index)
 
+        if len(self.list_call_for_setf) > 0:
+            self.list_for_evalfadept.append("}\n")
 
     ##
     # returns the lines that constitues the body of evalFAdept
