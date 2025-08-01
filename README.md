@@ -221,7 +221,8 @@ $> apt install -y git gcc g++ gfortran autoconf pkgconf automake make libtool cm
 
 For Ubuntu 22.04 use:
 ``` bash
-$> apt install -y git gcc g++ gfortran autoconf pkgconf automake make libtool cmake hwloc openjdk-8-jdk libblas-dev liblpsolve55-dev libarchive-dev doxygen doxygen-latex liblapack-dev libexpat1-dev libsqlite3-dev zlib1g-dev gettext patch clang python3-pip libncurses5-dev libreadline-dev libdigest-perl-md5-perl unzip gcovr lcov libboost-all-dev  lsb-release libxml2-utils python3-lxml python3-psutil wget libcurl4-openssl-dev rsync libopenblas-openmp-dev qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools
+$> apt install -y git gcc g++ gfortran autoconf pkgconf automake make libtool cmake hwloc openjdk-8-jdk libblas-dev liblpsolve55-dev libarchive-dev doxygen doxygen-latex liblapack-dev libexpat1-dev libsqlite3-dev zlib1g-dev gettext patch clang python3-pip libncurses5-dev libreadline-dev libdigest-perl-md5-perl unzip gcovr lcov libboost-all-dev  lsb-release libxml2-utils python3-lxml python3-psutil wget libcurl4-openssl-dev rsync libopenblas-openmp-dev qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools python3-clang-14 libstdc++-12-dev
+$> pip3 install sympy --user
 ```
 
 And for Fedora:
