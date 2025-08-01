@@ -2157,7 +2157,7 @@ class Modes:
     # Get the body for the evalmode
     # @param self : object pointer
     # @return body to print for evalmode
-    def get_body_for_evalmode(self):
+    def get_body_for_evalmode(self, model_name):
         text_to_return = []
         body_tmps = self.body_for_tmps + self.body_for_tmps_created_relations
         for line in body_tmps:
@@ -2170,6 +2170,7 @@ class Modes:
             text_to_return.append(relation.body_definition)
             text_to_return.append("  if (data->simulationInfo->relations[" + str(relation.index) + "] != data->simulationInfo->relationsPre[" + str(relation.index) + "]) \n")
             text_to_return.append("  {\n")
+            text_to_return.append('    Trace::debug() << modelManager_->name() << " Mode for ' + str(relation.eqs[-1]) + ', relation.index ' + str(relation.index) + ', condition ' + relation.condition + '" << Trace::endline;' + "\n")
             if relation.type == MIXED:
                 text_to_return.append("    modeChangeType = ALGEBRAIC_J_UPDATE_MODE;\n")
             elif relation.type == DIFFERENTIAL:
@@ -2193,13 +2194,20 @@ class Modes:
             z_pre = z_aff.replace("localData[0]->discreteVars", "simulationInfo->discreteVarsPre")
             z_pre = z_pre.replace("localData[0]->integerDoubleVars", "simulationInfo->integerDoubleVarsPre")
             if z_aff == z_pre: continue
-            text_to_return.append("  // " + z + " != pre(" +z+")\n")
+            text_to_return.append("  // " + z + " != pre(" + z +")\n")
             text_to_return.append("  if (doubleNotEquals(" + z_aff + ", " + z_pre +")) {\n")
+            if len(discrete_mode.eqs) > 0:
+                text_to_return.append('    Trace::debug() << modelManager_->name() << " Mode for ' + str(discrete_mode.eqs[-1]) + ', condition ' + z + '" << Trace::endline;' + "\n")
+            else:
+                text_to_return.append('    Trace::debug() << modelManager_->name() << " Mode for condition ' + z + '" << Trace::endline;' + "\n")
             if discrete_mode.type == ALGEBRAIC:
                 if discrete_mode.boolean == False:
                     text_to_return.append("      modeChangeType = ALGEBRAIC_MODE;\n")
                 else:
-                    text_to_return.append("    return ALGEBRAIC_J_UPDATE_MODE;\n")
+                    if model_name in ("NodeFault", "EventSetPointBoolean", "EventConnectedStatus", "EventQuadripoleConnection", "EventQuadripoleDisconnection", "EventSetPointReal", "EventSetPointDoubleReal"):
+                        text_to_return.append("    return ALGEBRAIC_J_J_UPDATE_MODE;\n")
+                    else:
+                        text_to_return.append("    return ALGEBRAIC_J_UPDATE_MODE;\n")
             else:
                 text_to_return.append("    if (modeChangeType == NO_MODE)\n")
                 text_to_return.append("      modeChangeType = DIFFERENTIAL_MODE;\n")
