@@ -81,6 +81,39 @@ class ModelModelica {
    */
   virtual void setFomc(double* f, propertyF_t type) = 0;
 
+ /**
+   * @brief ModelGeneratorAlphaBetaOpti transposed jacobian evaluation
+   *
+   * Get the sparse transposed jacobian \f$ Jt=@F/@y + cj*@F/@y' \f$
+   *
+   * @param cj Jacobian prime coefficient
+   * @param rowOffset offset to use to identify the row where data should be added
+   * @param jt jacobian matrix to fullfill
+   */
+  virtual void evalJt(double cj, int rowOffset, SparseMatrix& jt) = 0;
+
+  /**
+   * @brief ModelGeneratorAlphaBetaOpti transposed jacobian evaluation
+   *
+   * Get the sparse transposed jacobian \f$ Jt=@F/@y + cj*@F/@y' \f$
+   *
+   * @param cj Jacobian prime coefficient
+   * @param rowOffset offset to use to identify the row where data should be added
+   * @param jtPrim jacobian matrix to fullfill
+   */
+  virtual void evalJtPrim(double cj, int rowOffset, SparseMatrix& jtPrim) = 0;
+
+ /**
+   * @brief ModelGeneratorAlphaBetaOpti transposed jacobian evaluation
+   *
+   * Get the sparse transposed jacobian \f$ Jt=@F/@y + cj*@F/@y' \f$
+   *
+   * @param cj Jacobian prime coefficient
+   * @param jt jacobian matrix to fullfill
+   * @param rowOffset offset to use to identify the row where data should be added
+   */
+ virtual void evalF(double* f, propertyF_t type) = 0;
+
   /**
    * @brief  calculates the roots of the model
    *
@@ -285,6 +318,14 @@ class ModelModelica {
   virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const = 0;
 
   /**
+  * @brief evaluate the jacobian associated to a calculated variable based on the current values of continuous variables
+  *
+  * @param iCalculatedVar index of the calculated variable
+  * @param res values of the jacobian
+  */
+  virtual void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const = 0;
+
+  /**
    * @brief is the internal modelica structure initialized
    *
    * @return true if data struct is initialized
@@ -297,8 +338,34 @@ class ModelModelica {
    */
   inline bool hasCheckDataCoherence() const { return hasCheckDataCoherence_; }
 
+ /**
+   * @brief Determines if the sub model has a data check coherence operation (non-empty function)
+   * @return true if the sub model has a data check coherence operation, false if not
+   */
+ inline bool isEvalJSymbolic() const { return symbolicJ_; }
+
+ /**
+   * @brief Determines if the sub model has a data check coherence operation (non-empty function)
+   * @return true if the sub model has a data check coherence operation, false if not
+   */
+ inline bool isEvalFSymbolic() const { return symbolicF_; }
+
+ /**
+   * @brief Determines if the sub model has a data check coherence operation (non-empty function)
+   * @return true if the sub model has a data check coherence operation, false if not
+   */
+ inline void setEvalJIsSymbolic() { symbolicJ_ = true; }
+
+ /**
+   * @brief Determines if the sub model has a data check coherence operation (non-empty function)
+   * @return true if the sub model has a data check coherence operation, false if not
+   */
+ inline void setEvalFIsSymbolic() { symbolicF_ = true; }
+
  protected:
   bool hasCheckDataCoherence_;  ///< Determines if the modelica model has a data check coherence operation
+  bool symbolicJ_;  ///< Determines if the modelica model has a data check coherence operation
+  bool symbolicF_;  ///< Determines if the modelica model has a data check coherence operation
 };
 
 #ifdef __clang__

@@ -28,6 +28,7 @@
 #include "DYNDelayManager.h"
 #include "DYNSubModel.h"
 #include "DYNModelManagerCommon.h"
+#include "DYNModelModelica.h"
 #include "DYNVariableAlias.h"
 
 #ifdef _ADEPT_
@@ -262,6 +263,14 @@ class ModelManager : public SubModel, private boost::noncopyable {
    * @param res values of the jacobian
    */
   void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const override;
+
+  /**
+   * @brief evaluate the jacobian associated to a calculated variable based on the current values of continuous variables
+   *
+   * @param iCalculatedVar index of the calculated variable
+   * @param res values of the jacobian
+   */
+  void evalJCalculatedVarIAdept(unsigned iCalculatedVar, std::vector<double>& res) const;
 
   /**
    * @brief get the global indexes of the variables used to compute a calculated variable
@@ -514,6 +523,22 @@ class ModelManager : public SubModel, private boost::noncopyable {
    */
   inline void setLoadedParameter(const std::string& name, const std::string& value) {
     setParameterValue(name, LOADED_DUMP, value, false);
+  }
+
+  /**
+  * @brief turns on symbolic evalJ
+  *
+  */
+  void setEvalJIsSymbolic() override {
+    modelModelica()->setEvalJIsSymbolic();
+  }
+
+ /**
+  * @brief turns on symbolic evalJ
+  *
+  */
+ void setEvalFIsSymbolic() override {
+   modelModelica()->setEvalFIsSymbolic();
   }
 
  private:
