@@ -1351,4 +1351,16 @@ void ModelMulti::registerAction(const string& actionString) {
   actionBuffer_->addAction(subModel, parameterValueSet);
 }
 
+void ModelMulti::setSymbolicJacobian() {
+  for (auto& subModel : subModels_) {
+    subModel->setEvalJIsSymbolic();
+  }
+}
+
+void ModelMulti::setSymbolicResidual() {
+  for (auto& subModel : subModels_) {
+    subModel->setEvalFIsSymbolic();
+  }
+}
+
 }  // namespace DYN

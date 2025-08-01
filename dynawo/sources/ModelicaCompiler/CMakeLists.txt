@@ -35,6 +35,11 @@ install(TARGETS compileModelicaModel EXPORT dynawo-targets DESTINATION ${SBINDIR
 configure_file(compileCppModelicaModelInDynamicLib.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/compileCppModelicaModelInDynamicLib.cmake @ONLY)
 configure_file(PreloadCache.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/PreloadCache.cmake @ONLY)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/compileCppModelicaModelInDynamicLib.cmake ${CMAKE_CURRENT_BINARY_DIR}/PreloadCache.cmake DESTINATION ${SBINDIR_NAME})
+install(FILES computeJacobian.py DESTINATION ${SBINDIR_NAME})
+install(FILES extractEvalFAdept.py DESTINATION ${SBINDIR_NAME})
+install(PROGRAMS generateEvalJ.sh DESTINATION ${SBINDIR_NAME})
+install(FILES remove_comments.pl DESTINATION ${SBINDIR_NAME})
+install(FILES methodsEvalFAdept.cpp DESTINATION ${SBINDIR_NAME})
 
 #Add post processing scripts
 add_subdirectory(Scripts_OMC_${OPENMODELICA_VERSION})

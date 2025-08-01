@@ -292,6 +292,18 @@ class SubModel {
   virtual void initializeFromData(const boost::shared_ptr<DataInterface>& data) = 0;
 
   /**
+   * @brief turns on symbolic evalJ
+   *
+   */
+  virtual void setEvalJIsSymbolic() {}
+
+ /**
+   * @brief turns on symbolic evalJ
+   *
+   */
+ virtual void setEvalFIsSymbolic() {}
+
+  /**
    * @brief write initial values of a model in a file
    *
    * @param directory directory where the file should be printed
