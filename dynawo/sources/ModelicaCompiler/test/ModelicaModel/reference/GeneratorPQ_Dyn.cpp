@@ -8,6 +8,8 @@
 
 #include "DYNElement.h"
 #include "PARParametersSetFactory.h"
+#include "DYNModelManager.h"
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 
 #include "GeneratorPQ_Dyn.h"
 #include "GeneratorPQ_Dyn_definition.h"
@@ -356,12 +358,14 @@ modeChangeType_t ModelGeneratorPQ_Dyn::evalMode(const double t) const
   // ----- Mode for GeneratorPQ_eqFunction_90 --------- 
   // generator.pStatus != pre(generator.pStatus)
   if (doubleNotEquals(data->localData[0]->integerDoubleVars[0], data->simulationInfo->integerDoubleVarsPre[0])) {
+    Trace::debug() << modelManager_->name() << " Mode for GeneratorPQ_eqFunction_90, condition generator.pStatus" << Trace::endline;
       modeChangeType = ALGEBRAIC_MODE;
   }
 
   // ----- Mode for GeneratorPQ_eqFunction_93 --------- 
   // generator.qStatus != pre(generator.qStatus)
   if (doubleNotEquals(data->localData[0]->integerDoubleVars[1], data->simulationInfo->integerDoubleVarsPre[1])) {
+    Trace::debug() << modelManager_->name() << " Mode for GeneratorPQ_eqFunction_93, condition generator.qStatus" << Trace::endline;
       modeChangeType = ALGEBRAIC_MODE;
   }
 
@@ -370,6 +374,7 @@ modeChangeType_t ModelGeneratorPQ_Dyn::evalMode(const double t) const
   // ----- Mode for GeneratorPQ_eqFunction_93 --------- 
   // generator.running.value != pre(generator.running.value)
   if (doubleNotEquals(data->localData[0]->discreteVars[0], data->simulationInfo->discreteVarsPre[0])) {
+    Trace::debug() << modelManager_->name() << " Mode for GeneratorPQ_eqFunction_93, condition generator.running.value" << Trace::endline;
     return ALGEBRAIC_J_UPDATE_MODE;
   }
 
