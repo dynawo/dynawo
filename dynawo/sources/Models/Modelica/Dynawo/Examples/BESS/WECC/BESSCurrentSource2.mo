@@ -244,6 +244,17 @@ equation
     </figure>
     <figure>
       <img width=\"450\" src=\"modelica://Dynawo/Examples/BESS/WECC/Resources/UPuREECd.png\">
-    </figure>
+    </figure> The different flags have impact on the result as you can see below:
+    <figure>
+      <img width=\"450\" src=\"modelica://Dynawo/Examples/BESS/WECC/Resources/QInjPuSn2pf.png\">
+    </figure> The use of power factor instead of reactive power to control the reactive power. We obtain lower power this way.<figure>
+      <img width=\"450\" src=\"modelica://Dynawo/Examples/BESS/WECC/Resources/QInjPuSn2QFlag.png\">
+    </figure> We can observe that using the path with QFlag=1 the power cannot reach zero as fast as in the other cases.
+    <figure>
+      <img width=\"450\" src=\"modelica://Dynawo/Examples/BESS/WECC/Resources/QInjPuSn2VFlag0.png\">
+    </figure> Use of Voltage control.
+    <figure>
+      <img width=\"450\" src=\"modelica://Dynawo/Examples/BESS/WECC/Resources/PInjPuSn2PFlag.png\">
+    </figure>Considering the generator speed, we can observe the power stabilizing even during the voltage drop.
     </body></html>"));
 end BESSCurrentSource2;
