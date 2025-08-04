@@ -25,6 +25,25 @@ index bb1afc643..c48a18fd5 100644
    if exec then execStat("DAEmode: created system:  " + intString(BackendDAEUtil.systemSize(retSystem)) + ": " );  end if;
  
    syst := retSystem;
+diff --git a/OMCompiler/Compiler/BackEnd/ExpressionSolve.mo b/OMCompiler/Compiler/BackEnd/ExpressionSolve.mo
+index 416a3dbdb..dc3436f1d 100644
+--- a/OMCompiler/Compiler/BackEnd/ExpressionSolve.mo
++++ b/OMCompiler/Compiler/BackEnd/ExpressionSolve.mo
+@@ -503,10 +503,10 @@ preprocessing for solve1,
+      (x, y, new_x) := preprocessingSolve4(x,y, inExp3);
+      con := new_x or con;
+      // TODO: use new defined function, which missing in the cpp runtime
+-     if not stringEqual(Config.simCodeTarget(), "Cpp") then
+-       (x, y, new_x, eqnForNewVars, newVarsCrefs, depth) := preprocessingSolveTmpVars(x, y, inExp3, uniqueEqIndex, eqnForNewVars, newVarsCrefs, depth);
+-       con := new_x or con;
+-     end if;
++     //if not stringEqual(Config.simCodeTarget(), "Cpp") then
++     //  (x, y, new_x, eqnForNewVars, newVarsCrefs, depth) := preprocessingSolveTmpVars(x, y, inExp3, uniqueEqIndex, eqnForNewVars, newVarsCrefs, depth);
++     //  con := new_x or con;
++     //end if;
+ 
+      if (not con) then
+        if (numSimplifed < 3) then
 diff --git a/OMCompiler/Compiler/BackEnd/XMLCreateDynawo.mo b/OMCompiler/Compiler/BackEnd/XMLCreateDynawo.mo
 new file mode 100644
 index 000000000..d9c2e1570
