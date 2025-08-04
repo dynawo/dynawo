@@ -41,8 +41,6 @@ model REECd "WECC electrical control type D"
     Placement(transformation(origin = {132, 96}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.BooleanExpression FRTOn21(y = frtOn) annotation(
     Placement(transformation(origin = {281, 9}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.BooleanExpression FRTOn2(y = frtOn) annotation(
-    Placement(transformation(origin = {59, -105}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Sources.Constant VRefConst1(k = VRef1Pu) annotation(
     Placement(transformation(origin = {-83, 96}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.BooleanConstant PFlagConst(k = PFlag) annotation(

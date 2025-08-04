@@ -15,6 +15,7 @@ set(MODEL_FILES
   CurrentLimitsCalculationB.mo
   CurrentLimitsCalculationC.mo
   CurrentLimitsCalculationD.mo
+  CurrentLimitsCalculationE.mo
   IpCommandBlLogic.mo
   IqCommandBlLogic.mo
   IqInjectionLogic.mo

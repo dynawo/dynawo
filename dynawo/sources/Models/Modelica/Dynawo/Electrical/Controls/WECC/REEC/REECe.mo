@@ -8,7 +8,7 @@ within Dynawo.Electrical.Controls.WECC.REEC;
 * License, v. 2.0. If a copy of the MPL was not distributed with this
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
-          *
+*
 * This file is part of Dynawo, a hybrid C++/Modelica open source suite
 * of simulation tools for power systems.
 */
@@ -41,8 +41,6 @@ model REECe "WECC electrical control type E"
     Placement(transformation(origin = {132, 96}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.BooleanExpression FRTOn21(y = frtOn) annotation(
     Placement(transformation(origin = {281, 9}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.BooleanExpression FRTOn2(y = frtOn) annotation(
-    Placement(transformation(origin = {59, -105}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Sources.Constant VRefConst1(k = VRef1Pu) annotation(
     Placement(transformation(origin = {-83, 96}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.BooleanConstant PFlagConst(k = PFlag) annotation(
