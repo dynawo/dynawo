@@ -12,12 +12,14 @@
     simulation tools for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-  <curve model="WT4A" variable="WT_measurementsPQ_PPu"/>
-  <curve model="WT4A" variable="WT_measurementsPQ_QPu"/>
   <curve model="WT4A" variable="WT_control4A_UWTPu"/>
   <curve model="WT4A" variable="WT_terminal_V_re"/>
   <curve model="WT4A" variable="WT_terminal_V_im"/>
   <curve model="WT4A" variable="WT_terminal_i_re"/>
   <curve model="WT4A" variable="WT_terminal_i_im"/>
   <curve model="WT4A" variable="WT_gridProtection_fOCB"/>
+  <curve model="WT4A" variable="WT_control4A_PWTPu"/>
+  <curve model="WT4A" variable="WT_control4A_QWTPu"/>
+  <curve model="WT4A" variable="WT_wT4Injector_PGenPu"/>
+  <curve model="WT4A" variable="WT_wT4Injector_QGenPu"/>
 </curvesInput>
