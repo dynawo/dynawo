@@ -49,6 +49,11 @@ class ConnectorCalculatedDiscreteVariable : public SubModel {
   void init(double t0) override;
 
   /**
+   * @copydoc SubModel::initLinearize(const double t0)
+   */
+  void initLinearize(double t0);
+
+  /**
    * @copydoc SubModel::getSize()
    */
   void getSize() override;
@@ -247,6 +252,11 @@ class ConnectorCalculatedDiscreteVariable : public SubModel {
   void initSubBuffers() override { /*not needed*/ }
 
   /**
+   * @copydoc SubModel::initSubBuffersLinearize()
+   */
+  void initSubBuffersLinearize() override { /*not needed*/ }
+
+  /**
    * @copydoc SubModel::modelType() const
    */
   const std::string& modelType() const override {
@@ -270,6 +280,11 @@ class ConnectorCalculatedDiscreteVariable : public SubModel {
   inline void setSharedParametersDefaultValuesInit() override { /*no parameter*/ }
 
   /**
+   * @copydoc SubModel::setSharedParametersDefaultValuesLinearize() override
+   */
+  inline void setSharedParametersDefaultValuesLinearize() override { /*no parameter*/ }
+
+  /**
    * @copydoc SubModel::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement)
    */
   void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) override;
@@ -289,6 +304,14 @@ class ConnectorCalculatedDiscreteVariable : public SubModel {
   void setVariableName(const std::string& variableName) {
     variableName_ = variableName;
   }
+
+  void evalStaticYTypeLinearize() override {}
+  void evalDynamicYTypeLinearize() override {}
+  void evalStaticFTypeLinearize() override {}
+  void evalDynamicFTypeLinearize() override {}
+  void getSizeLinearize() override;
+  void defineVariablesLinearize(std::vector<boost::shared_ptr<Variable> >& /*variables*/) override;
+  void defineParametersLinearize(std::vector<ParameterModeler>& /*parameters*/) override;
 
  private:
   boost::shared_ptr<SubModel> model_;  ///< Model where the calculated variable is located.

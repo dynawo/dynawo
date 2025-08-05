@@ -67,9 +67,20 @@ class ModelManager : public SubModel, private boost::noncopyable {
   void init(double t0) override;
 
   /**
+   * @brief initialization of the model
+   * @param t0 : initial time of the simulation
+   */
+  void initLinearize(double t0) override;
+
+  /**
    * @copydoc SubModel::getSize() override
    */
   void getSize() override;
+
+  /**
+   * @copydoc SubModel::getSize() override
+   */
+  void getSizeLinearize() override;
 
   /**
    * @copydoc SubModel::evalF(double t, propertyF_t type) override
@@ -149,6 +160,11 @@ class ModelManager : public SubModel, private boost::noncopyable {
   void evalStaticFType() override;
 
   /**
+   * @copydoc SubModel::evalStaticFType() override
+   */
+  void evalStaticFTypeLinearize() override;
+
+  /**
    * @copydoc SubModel::collectSilentZ()
    */
   void collectSilentZ(BitMask* silentZTable) override;
@@ -157,6 +173,11 @@ class ModelManager : public SubModel, private boost::noncopyable {
    * @copydoc SubModel::evalDynamicFType() override
    */
   void evalDynamicFType() override;
+
+  /**
+   * @copydoc SubModel::evalDynamicFType() override
+   */
+  void evalDynamicFTypeLinearize() override;
 
   /**
    * @copydoc SubModel::getY0() override
@@ -172,6 +193,16 @@ class ModelManager : public SubModel, private boost::noncopyable {
    * @copydoc SubModel::evalDynamicYType() override
    */
   void evalDynamicYType() override;
+
+  /**
+   * @copydoc SubModel::evalStaticYType() override
+   */
+  void evalStaticYTypeLinearize() override;
+
+  /**
+   * @copydoc SubModel::evalDynamicYType() override
+   */
+  void evalDynamicYTypeLinearize() override;
 
   /**
    * @copydoc SubModel::dumpParameters(std::map< std::string, std::string > & mapParameters) override
@@ -283,9 +314,19 @@ class ModelManager : public SubModel, private boost::noncopyable {
   void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) override;
 
   /**
+   * @copydoc SubModel::defineVariablesLinearize(std::vector<boost::shared_ptr<Variable> >& variables) override
+   */
+  void defineVariablesLinearize(std::vector<boost::shared_ptr<Variable> >& variables) override;
+
+  /**
    * @copydoc SubModel::defineParameters(std::vector<ParameterModeler>& parameters) override
    */
   void defineParameters(std::vector<ParameterModeler>& parameters) override;
+
+  /**
+   * @copydoc SubModel::defineParametersLinearize(std::vector<ParameterModeler>& parameters) override
+   */
+  void defineParametersLinearize(std::vector<ParameterModeler>& parameters) override;
 
   /**
    * @copydoc SubModel::defineVariablesInit(std::vector<boost::shared_ptr<Variable> >& variables) override
@@ -312,26 +353,38 @@ class ModelManager : public SubModel, private boost::noncopyable {
    * @param isInit whether to set the values for the init or dynamic model
    * @param origin the origin from which the default value comes (MO)
    */
-  void setSharedParametersDefaultValues(bool isInit, const parameterOrigin_t& origin);
+  void setSharedParametersDefaultValues(bool isInit, bool isLinearize, const parameterOrigin_t& origin);
 
   /**
    * @copydoc SubModel::setSharedParametersDefaultValues() override
    */
   inline void setSharedParametersDefaultValues() override {
-    setSharedParametersDefaultValues(false, MO);
+    setSharedParametersDefaultValues(false, false, MO);
   }
 
   /**
    * @copydoc SubModel::setSharedParametersDefaultValuesInit() override
    */
   inline void setSharedParametersDefaultValuesInit() override {
-    if (hasInit()) setSharedParametersDefaultValues(true, MO);
+    if (hasInit()) setSharedParametersDefaultValues(true, false, MO);
+  }
+
+  /**
+   * @copydoc SubModel::setSharedParametersDefaultValuesLinearize() override
+   */
+  inline void setSharedParametersDefaultValuesLinearize() override {
+    setSharedParametersDefaultValues(false, true, MO);
   }
 
   /**
    * @copydoc SubModel::initSubBuffers() override
    */
   void initSubBuffers() override;
+
+  /**
+   * @copydoc SubModel::initSubBuffersLinearize() override
+   */
+  void initSubBuffersLinearize() override;
 
   /**
    * @brief Computes the delayed value
@@ -430,28 +483,32 @@ class ModelManager : public SubModel, private boost::noncopyable {
    * @param value the new value
    */
   inline void setCalculatedParameter(const std::string& name, const double value) {
-    setParameterValue(name, LOCAL_INIT, value, false);
+    setParameterValue(name, LOCAL_INIT, value, false, false);
+    setParameterValue(name, LOCAL_INIT, value, false, true);
   }
 
   /**
    * @copydoc ModelManager::setCalculatedParameter (const std::string& name, const double& value)
    */
   inline void setCalculatedParameter(const std::string& name, const int value) {
-    setParameterValue(name, LOCAL_INIT, value, false);
+    setParameterValue(name, LOCAL_INIT, value, false, false);
+    setParameterValue(name, LOCAL_INIT, value, false, true);
   }
 
   /**
    * @copydoc ModelManager::setCalculatedParameter (const std::string& name, const double& value)
    */
   inline void setCalculatedParameter(const std::string& name, const bool value) {
-    setParameterValue(name, LOCAL_INIT, value, false);
+    setParameterValue(name, LOCAL_INIT, value, false, false);
+    setParameterValue(name, LOCAL_INIT, value, false, true);
   }
 
   /**
    * @copydoc ModelManager::setCalculatedParameter (const std::string& name, const double& value)
    */
   inline void setCalculatedParameter(const std::string& name, const std::string& value) {
-    setParameterValue(name, LOCAL_INIT, value, false);
+    setParameterValue(name, LOCAL_INIT, value, false, false);
+    setParameterValue(name, LOCAL_INIT, value, false, true);
   }
 
   /**
@@ -461,28 +518,32 @@ class ModelManager : public SubModel, private boost::noncopyable {
    * @param value the new value
    */
   inline void setFinalParameter(const std::string& name, const double value) {
-    setParameterValue(name, FINAL, value, false);
+    setParameterValue(name, FINAL, value, false, false);
+    setParameterValue(name, FINAL, value, false, true);
   }
 
   /**
    * @copydoc ModelManager::setFinalParameter (const std::string& name, const double& value)
    */
   inline void setFinalParameter(const std::string& name, const int value) {
-    setParameterValue(name, FINAL, value, false);
+    setParameterValue(name, FINAL, value, false, false);
+    setParameterValue(name, FINAL, value, false, true);
   }
 
   /**
    * @copydoc ModelManager::setFinalParameter (const std::string& name, const double& value)
    */
   inline void setFinalParameter(const std::string& name, const bool value) {
-    setParameterValue(name, FINAL, value, false);
+    setParameterValue(name, FINAL, value, false, false);
+    setParameterValue(name, FINAL, value, false, true);
   }
 
   /**
    * @copydoc ModelManager::setFinalParameter (const std::string& name, const double& value)
    */
   inline void setFinalParameter(const std::string& name, const std::string& value) {
-    setParameterValue(name, FINAL, value, false);
+    setParameterValue(name, FINAL, value, false, false);
+    setParameterValue(name, FINAL, value, false, true);
   }
 
   /**
@@ -492,28 +553,32 @@ class ModelManager : public SubModel, private boost::noncopyable {
    * @param value the new value
    */
   inline void setLoadedParameter(const std::string& name, const double value) {
-    setParameterValue(name, LOADED_DUMP, value, false);
+    setParameterValue(name, LOADED_DUMP, value, false, false);
+    setParameterValue(name, LOADED_DUMP, value, false, true);
   }
 
   /**
    * @copydoc ModelManager::setLoadedParameter (const std::string& name, const double& value)
    */
   inline void setLoadedParameter(const std::string& name, const int value) {
-    setParameterValue(name, LOADED_DUMP, value, false);
+    setParameterValue(name, LOADED_DUMP, value, false, false);
+    setParameterValue(name, LOADED_DUMP, value, false, true);
   }
 
   /**
    * @copydoc ModelManager::setLoadedParameter (const std::string& name, const double& value)
    */
   inline void setLoadedParameter(const std::string& name, const bool value) {
-    setParameterValue(name, LOADED_DUMP, value, false);
+    setParameterValue(name, LOADED_DUMP, value, false, false);
+    setParameterValue(name, LOADED_DUMP, value, false, true);
   }
 
   /**
    * @copydoc ModelManager::setLoadedParameter (const std::string& name, const double& value)
    */
   inline void setLoadedParameter(const std::string& name, const std::string& value) {
-    setParameterValue(name, LOADED_DUMP, value, false);
+    setParameterValue(name, LOADED_DUMP, value, false, false);
+    setParameterValue(name, LOADED_DUMP, value, false, true);
   }
 
  private:
@@ -536,8 +601,10 @@ class ModelManager : public SubModel, private boost::noncopyable {
  protected:
   ModelModelica* modelInit_;  ///< dynamic init model
   ModelModelica* modelDyn_;  ///< dynamic model
+  ModelModelica* modelLinearize_;  ///< dynamic model
   DYNDATA* dataInit_;  ///< dynamic data for init model
   DYNDATA* dataDyn_;  ///< dynamic data
+  DYNDATA* dataLinearize_;  ///< dynamic data
   std::string modelType_;  ///< model type
   DelayManager delayManager_;  ///< manager of delayed values
 
@@ -576,6 +643,7 @@ class ModelManager : public SubModel, private boost::noncopyable {
    * @return the initialisation Modelica model
    */
   ModelModelica* modelModelicaInit() const;
+
   /**
    * @brief returns the standard (not the initialisation) Modelica model
    *
@@ -583,6 +651,15 @@ class ModelManager : public SubModel, private boost::noncopyable {
    * @return the standard Modelica model
    */
   ModelModelica* modelModelicaDynamic() const;
+
+  /**
+   * @brief returns the standard (not the initialisation) Modelica model
+   *
+   *
+   * @return the standard Modelica model
+   */
+  ModelModelica* modelModelicaLinearize() const;
+
   /**
    * @brief returns the relevant Modelica model
    *
@@ -596,6 +673,11 @@ class ModelManager : public SubModel, private boost::noncopyable {
    * @brief associate modelica buffers to subModel buffers
    */
   void associateBuffers();
+
+  /**
+   * @brief associate modelica buffers to subModel buffers
+   */
+  void associateBuffersLinearize();
 
   /**
    * @brief set the values of y calculated parameters
@@ -627,7 +709,10 @@ class ModelManager : public SubModel, private boost::noncopyable {
   void setInitialCalculatedParameters();
 
  private:
+  bool isModelLinearizedUsed() const;
+
   bool modelInitUsed_;  ///< whether init model is used
+  bool modelLinearizeUsed_;  ///< whether Linearize model is used
 };
 
 }  // namespace DYN

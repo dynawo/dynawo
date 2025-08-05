@@ -141,9 +141,9 @@ if __name__ == '__main__':
     writer_init_pb = None # The file writer binds to the initialization template
 
     if init_pb:
-        writer_init_pb = ModelWriter(builder_init_pb, mod_name, output_dir, package_name, init_pb)
+        writer_init_pb = ModelWriter(builder_init_pb, mod_name, output_dir, package_name, False, init_pb)
 
-        writer_init_pb.getHead()
+        writer_init_pb.getHead(False)
         writer_init_pb.fill_initData()
         writer_init_pb.fill_setupDataStruc()
         writer_init_pb.fill_initializeDataStruc()
@@ -177,13 +177,13 @@ if __name__ == '__main__':
 
         writer_init_pb.write_file()
 
-        writer_init_pb.getHeadExternalCalls()
+        writer_init_pb.getHeadExternalCalls(False)
         writer_init_pb.fill_externalCalls()
         writer_init_pb.fill_tailExternalCalls()
         writer_init_pb.writeExternalCallsFile()
 
         # h file corresponding to INIT_CPP
-        writer_init_pb.getHeaderPattern(additional_header_files)
+        writer_init_pb.getHeaderPattern(additional_header_files, False)
         writer_init_pb.insert_model_name()
         writer_init_pb.insert_checkSum(os.path.abspath(output_dir))
         writer_init_pb.addExternalCalls()
@@ -246,10 +246,10 @@ if __name__ == '__main__':
     # Generation of files related to the dynamic model
     # -------------------------------------------------------
 
-    writer = ModelWriter(builder, mod_name, output_dir, package_name)
+    writer = ModelWriter(builder, mod_name, output_dir, package_name, False)
 
     # Fichier C
-    writer.getHead()
+    writer.getHead(False)
     writer.fill_initData()
     writer.fill_setupDataStruc()
     writer.fill_initializeDataStruc()
@@ -283,13 +283,13 @@ if __name__ == '__main__':
 
     writer.write_file()
 
-    writer.getHeadExternalCalls()
+    writer.getHeadExternalCalls(False)
     writer.fill_externalCalls()
     writer.fill_tailExternalCalls()
     writer.writeExternalCallsFile()
 
     # h file corresponding to the CPP
-    writer.getHeaderPattern(additional_header_files)
+    writer.getHeaderPattern(additional_header_files, False)
     writer.insert_model_name()
     writer.insert_checkSum(os.path.abspath(output_dir))
     writer.addExternalCalls()
@@ -312,3 +312,119 @@ if __name__ == '__main__':
 
     writer.setBodyHeader()
     writer.write_header_file()
+
+    reset_param_address()
+
+    ###########################################
+    # Readers
+    ###########################################
+    # Reader for dynamic pb
+    print_info("Starting dynamic model generation")
+    readerLin = ReaderOMC(mod_name, input_dir + "/" + mod_name + "Lin", is_init_pb = False, disable_calc_var_gen = disable_generate_calc_vars)
+
+    #readerLin.readInfoXml()            # Read *_info.xml
+    readerLin.read_16dae_h_file()           # Read *_16dae.h
+    readerLin.read_info_json()              # Read *_info.json
+    readerLin.read_init_xml()            # Read *_init.xml
+    readerLin.read_variables_txt_file()  # Read *_variables.txt
+    readerLin.read_main_c()              # Read *.c principal
+    readerLin.read_06inz_c_file()              # Read *_06inz.c
+    readerLin.read_08bnd_c_file()              # Read *_08bnd.c
+    readerLin.read_05evt_c_file()              # Read *_05evt.c
+    readerLin.read_16dae_c_file()           # Read *_16dae.c
+    readerLin.read_07dly_c_file()
+    readerLin.read_eq_fictive_xml() # Read the fictitious equation file
+    readerLin.read_struct_xml_file()        # Read *_structure.xml (contains structure elements)
+    readerLin.read_functions_header()      # Read *_functions.h
+    readerLin.read_functions_c_file()       # Read *_functions.c
+    readerLin.read_literals_h_file()        # Read *_literals.h
+    readerLin.assign_variables_indexes()
+    readerLin.remove_fictitious_fequation()
+
+    #################################
+    # Builders
+    #################################
+    # Builder for the dynamic pb
+    builderLin = Factory(readerLin)
+
+    builderLin.build_variables()
+
+    # In order to build C++ methods getTypeVariable(...) and defineElements(...)
+    builderLin.build_elements()
+
+    builderLin.build_equations()
+    builderLin.build_modes()
+    builderLin.build_warnings()
+    builderLin.build_call_functions()
+    builderLin.prepare_for_print()
+
+    # -------------------------------------------------------
+    # Generation of files related to the dynamic model
+    # -------------------------------------------------------
+
+    writerLin = ModelWriter(builderLin, mod_name, output_dir, package_name, True, False)
+
+    # Fichier C
+    writerLin.getHead(True)
+    writerLin.fill_initData()
+    writerLin.fill_setupDataStruc()
+    writerLin.fill_initializeDataStruc()
+    writerLin.fill_deInitializeDataStruc()
+    writerLin.fill_initRpar()
+    writerLin.fill_setFomc()
+    writerLin.fill_evalMode()
+    writerLin.fill_setZomc()
+    writerLin.fill_collectSilentZ()
+    writerLin.fill_setGomc()
+    writerLin.fill_setY0omc()
+    writerLin.fill_callCustomParametersConstructors()
+    writerLin.fill_evalStaticYType_omc()
+    writerLin.fill_evalDynamicYType_omc()
+    writerLin.fill_evalStaticFType_omc()
+    writerLin.fill_evalDynamicFType_omc()
+    writerLin.fill_setSharedParamsDefault()
+    writerLin.fill_setParameters()
+    writerLin.fill_setVariables()
+    writerLin.fill_defineParameters()
+    writerLin.fill_defineElements()
+    writerLin.fill_evalFAdept()
+    writerLin.fill_warnings()
+    writerLin.fill_setFequations()
+    writerLin.fill_setGequations()
+    writerLin.fill_evalCalculatedVars()
+    writerLin.fill_evalCalculatedVarI()
+    writerLin.fill_evalCalculatedVarIAdept()
+    writerLin.fill_getIndexesOfVariablesUsedForCalculatedVarI()
+    writerLin.fill_tail()
+
+    writerLin.write_file()
+
+    writerLin.getHeadExternalCalls(True)
+    writerLin.fill_externalCalls()
+    writerLin.fill_tailExternalCalls()
+    writerLin.writeExternalCallsFile()
+
+    # h file corresponding to the CPP
+    writerLin.getHeaderPattern(additional_header_files, True)
+    writerLin.insert_model_name()
+    writerLin.insert_checkSum(os.path.abspath(output_dir))
+    writerLin.addExternalCalls()
+    writerLin.addParameters()
+    writerLin.write_header_file()
+
+    writerLin.fill_externalLiteralConstants()
+    writerLin.writeHeaderLiteralsFile()
+
+    writerLin.fill_variables_definitions()
+    writerLin.writeHeaderDefinitionsFile()
+
+
+    # -------------------------------------------------------
+    # Generation of the files related to the complete model
+    # -------------------------------------------------------
+    # writerLin = ModelWriterManager( mod_name, output_dir, package_name, init_pb)
+    # writerLin.set_body(True)
+    # writerLin.write_file()
+    #
+    # writerLin.setBodyHeader()
+    # writerLin.write_header_file()

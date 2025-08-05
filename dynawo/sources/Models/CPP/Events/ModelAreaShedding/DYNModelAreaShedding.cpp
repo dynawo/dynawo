@@ -120,6 +120,37 @@ ModelAreaShedding::getSize() {
   calculatedVars_.assign(nbCalculatedVars_, 0);
 }
 
+void ModelAreaShedding::evalStaticYTypeLinearize() {
+  std::copy(yType_, yType_ + sizeY(), yTypeLinearize_);
+}
+
+void ModelAreaShedding::evalDynamicYTypeLinearize() {
+}
+
+void ModelAreaShedding::evalStaticFTypeLinearize() {
+  std::copy(fType_, fType_ + sizeY(), fTypeLinearize_);
+}
+
+void ModelAreaShedding::evalDynamicFTypeLinearize() {
+}
+
+void ModelAreaShedding::getSizeLinearize() {
+  sizeFLinearize_ = sizeF_;
+  sizeYLinearize_ = sizeY_;
+  sizeZLinearize_ = sizeZ_;
+  sizeGLinearize_ = sizeG_;
+  sizeModeLinearize_ = sizeMode_;
+
+  calculatedVarsLinearize_.assign(nbCalculatedVars_, 0);
+}
+
+void ModelAreaShedding::defineVariablesLinearize(std::vector<boost::shared_ptr<Variable> >& variables) {
+  defineVariables(variables);
+}
+
+void ModelAreaShedding::defineParametersLinearize(std::vector<ParameterModeler>& /*parameters*/) {
+}
+
 // evaluation of F(t,y,y') function
 
 void
@@ -293,14 +324,15 @@ ModelAreaShedding::setSubModelParameters() {
   deltaTime_ = findParameterDynamic("deltaTime").getValue<double>();
 
   constexpr bool isInitParam = false;
+  constexpr bool isLinearizeParam = false;
   bool shedPowersSet = true;
-  const ParameterModeler& PShedParameter = findParameter("PShed", isInitParam);
+  const ParameterModeler& PShedParameter = findParameter("PShed", isInitParam, isLinearizeParam);
   if (PShedParameter.hasValue()) {
     PShed_ = PShedParameter.getDoubleValue();
   } else {
     shedPowersSet = false;
   }
-  const ParameterModeler& QShedparameter = findParameter("QShed", isInitParam);
+  const ParameterModeler& QShedparameter = findParameter("QShed", isInitParam, isLinearizeParam);
   if (QShedparameter.hasValue()) {
     QShed_ = QShedparameter.getDoubleValue();
   } else {

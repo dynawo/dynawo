@@ -27,9 +27,10 @@ namespace DYN {
 
 template<typename T>
 void
-inline SubModel::setParameterValue(const std::string& name, const parameterOrigin_t& origin, const T& value, const bool isInitParam) {
-  if (hasParameter(name, isInitParam)) {
-    findParameterReference(name, isInitParam).setValue(value, origin);
+inline SubModel::setParameterValue(const std::string& name, const parameterOrigin_t& origin,
+  const T& value, const bool isInitParam, const bool isLinearizeParam) {
+  if (hasParameter(name, isInitParam, isLinearizeParam)) {
+    findParameterReference(name, isInitParam, isLinearizeParam).setValue(value, origin);
   }
 }
 

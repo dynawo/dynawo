@@ -220,6 +220,38 @@ class SubModelMock0 : public SubModel {
     // Dummy class used for testing
     return NO_MODE;
   }
+
+  void evalStaticYTypeLinearize() {
+  }
+
+  void evalDynamicYTypeLinearize() {
+  }
+
+  void evalStaticFTypeLinearize() {
+  }
+
+  void evalDynamicFTypeLinearize() {
+  }
+
+  void getSizeLinearize() {
+  }
+
+  void defineVariablesLinearize(std::vector<boost::shared_ptr<Variable> >& /*variables*/) {
+  }
+
+  void defineParametersLinearize(std::vector<ParameterModeler>& /*parameters*/) {
+  }
+
+  void initSubBuffersLinearize() override {
+    // Dummy class used for testing
+  }
+
+  void setSharedParametersDefaultValuesLinearize() override {
+  }
+
+  void initLinearize(const double /*t0*/) {
+    // no initialization needed
+  }
 };
 
 void SubModelMock0::defineVariables(std::vector<boost::shared_ptr<Variable> >&) {

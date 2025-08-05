@@ -163,21 +163,27 @@ namespace DYN {
                 self.file_content.append(line_tmp)
             elif "__fill_model_include_header__" in line:
                 self.file_content.append(HASHTAG_INCLUDE+ self.mod_name+"_Dyn.h\"\n")
+                self.file_content.append(HASHTAG_INCLUDE+ self.mod_name+"_Linearize.h\"\n")
                 if self.hasInitPb:
                     self.file_content.append(HASHTAG_INCLUDE+ self.mod_name+"_Init.h\"\n")
             elif "__fill_model_constructor__" in line:
                 self.file_content.append("  modelType_ = std::string(\"" +self.mod_name +"\");\n")
                 self.file_content.append("  modelDyn_ = NULL;\n")
                 self.file_content.append("  modelInit_ = NULL;\n")
+                self.file_content.append("  modelLinearize_ = NULL;\n")
                 self.file_content.append("  modelDyn_ = new Model"+ self.mod_name+"_Dyn();\n")
                 self.file_content.append("  modelDyn_->setModelManager(this);\n")
                 self.file_content.append("  modelDyn_->setModelType(this->modelType());\n")
+                self.file_content.append("  modelLinearize_ = new Model"+ self.mod_name+"_Linearize();\n")
+                self.file_content.append("  modelLinearize_->setModelManager(this);\n")
+                self.file_content.append("  modelLinearize_->setModelType(this->modelType());\n")
                 if self.hasInitPb:
                     self.file_content.append("  modelInit_ = new Model"+ self.mod_name+"_Init();\n")
                     self.file_content.append("  modelInit_->setModelManager(this);\n")
                     self.file_content.append("  modelInit_->setModelType(this->modelType());\n")
             elif "__fill_model_destructor__" in line:
                 self.file_content.append("  delete modelDyn_;\n")
+                self.file_content.append("  delete modelLinearize_;\n")
                 if self.hasInitPb:
                     self.file_content.append("  delete modelInit_;\n")
             else:
@@ -218,7 +224,7 @@ class ModelWriter(ModelWriterBase):
     # @param output_dir : output directory where files should be written
     # @param package_name: name of the Modelica package containing the model
     # @param init_pb : indicates if the model is an init model
-    def __init__(self, obj_factory, mod_name, output_dir, package_name, init_pb = False):
+    def __init__(self, obj_factory, mod_name, output_dir, package_name, linearize_pb = False, init_pb = False):
         ModelWriterBase.__init__(self,mod_name.replace(package_name, ''))
         ## builder associated to the writer
         self.builder = obj_factory
@@ -228,6 +234,8 @@ class ModelWriter(ModelWriterBase):
         self.className =""
         if init_pb:
             self.className = self.mod_name + "_Init"
+        elif linearize_pb:
+            self.className = self.mod_name + "_Linearize"
         else:
             self.className = self.mod_name + "_Dyn"
 
@@ -305,13 +313,16 @@ class ModelWriter(ModelWriterBase):
     # define the head of the external file
     # @param self : object pointer
     # @return
-    def getHeadExternalCalls(self):
+    def getHeadExternalCalls(self, isLinearize):
         self.file_content_external.append("#include <math.h>\n")
         self.file_content_external.append("#include \"DYNModelManager.h\"\n") # DYN_assert overload
         if self.init_pb_:
             self.file_content_external.append(HASHTAG_INCLUDE + self.mod_name + "_Init_literal.h\"\n")
         else:
-            self.file_content_external.append(HASHTAG_INCLUDE + self.mod_name + "_Dyn_literal.h\"\n")
+            if isLinearize:
+                self.file_content_external.append(HASHTAG_INCLUDE + self.mod_name + "_Linearize_literal.h\"\n")
+            else:
+                self.file_content_external.append(HASHTAG_INCLUDE + self.mod_name + "_Dyn_literal.h\"\n")
         self.file_content_external.append(HASHTAG_INCLUDE + self.className + ".h\"\n")
         self.file_content_external.append("namespace DYN {\n")
         self.file_content_external.append("\n")
@@ -320,7 +331,7 @@ class ModelWriter(ModelWriterBase):
     # define the head of the cpp file
     # @param self : object pointer
     # @return
-    def getHead(self):
+    def getHead(self, isLinearize):
         self.file_content.append("#include <limits>\n")
         self.file_content.append("#include <cassert>\n")
         self.file_content.append("#include <set>\n")
@@ -337,8 +348,12 @@ class ModelWriter(ModelWriterBase):
             self.file_content.append(HASHTAG_INCLUDE + self.mod_name + "_Init_definition.h\"\n")
             self.file_content.append(HASHTAG_INCLUDE + self.mod_name + "_Init_literal.h\"\n")
         else:
-            self.file_content.append(HASHTAG_INCLUDE + self.mod_name + "_Dyn_definition.h\"\n")
-            self.file_content.append(HASHTAG_INCLUDE + self.mod_name + "_Dyn_literal.h\"\n")
+            if isLinearize:
+                self.file_content.append(HASHTAG_INCLUDE + self.mod_name + "_Linearize_definition.h\"\n")
+                self.file_content.append(HASHTAG_INCLUDE + self.mod_name + "_Linearize_literal.h\"\n")
+            else:
+                self.file_content.append(HASHTAG_INCLUDE + self.mod_name + "_Dyn_definition.h\"\n")
+                self.file_content.append(HASHTAG_INCLUDE + self.mod_name + "_Dyn_literal.h\"\n")
         self.file_content.append("\n")
         self.file_content.append("\n")
         self.file_content.append("namespace DYN {\n")
@@ -817,8 +832,8 @@ class ModelWriter(ModelWriterBase):
     # Define the header file
     # @param self : object pointer
     # @return
-    def getHeaderPattern(self, additional_header_files):
-        header_pattern = HeaderPatternDefine(additional_header_files)
+    def getHeaderPattern(self, additional_header_files, isLinearize):
+        header_pattern = HeaderPatternDefine(additional_header_files, isLinearize)
         lines =[]
         if self.init_pb_:
             lines = header_pattern.get_init().split('\n')

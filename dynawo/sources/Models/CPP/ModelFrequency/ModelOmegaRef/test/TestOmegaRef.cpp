@@ -45,7 +45,7 @@ static boost::shared_ptr<SubModel> initModelOmegaRef(double weightGen2) {
   parametersSet->createParameter("omegaRefMin", 0.5);
   parametersSet->createParameter("omegaRefMax", 1.5);
   modelOmegaRef->setPARParameters(parametersSet);
-  modelOmegaRef->addParameters(parameters, false);
+  modelOmegaRef->addParameters(parameters, false, false);
   modelOmegaRef->setParametersFromPARFile();
   modelOmegaRef->setSubModelParameters();
 
@@ -68,7 +68,7 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefDefineMethods) {
   parametersSet->createParameter("omegaRefMax", 1.05);
   ASSERT_NO_THROW(modelOmegaRef->setPARParameters(parametersSet));
 
-  modelOmegaRef->addParameters(parameters, false);
+  modelOmegaRef->addParameters(parameters, false, false);
   ASSERT_NO_THROW(modelOmegaRef->setParametersFromPARFile());
   ASSERT_NO_THROW(modelOmegaRef->setSubModelParameters());
 
@@ -222,7 +222,7 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefTypeMethods) {
   parametersSet->createParameter("weight_gen_10", 2.);
   parametersSet->createParameter("weight_gen_11", 2.);
   modelOmegaRef2->setPARParameters(parametersSet);
-  modelOmegaRef2->addParameters(parameters, false);
+  modelOmegaRef2->addParameters(parameters, false, false);
   modelOmegaRef2->setParametersFromPARFile();
   modelOmegaRef2->setSubModelParameters();
   modelOmegaRef2->init(0.);

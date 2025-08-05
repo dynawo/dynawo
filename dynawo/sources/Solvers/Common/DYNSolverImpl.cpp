@@ -145,6 +145,8 @@ Solver::Impl::printHeader() const {
   Trace::info() << DYNLog(SolverNbYVar, model_->sizeY()) << Trace::endline;
   Trace::info() << DYNLog(SolverNbZVar, model_->sizeZ()) << Trace::endline;
   Trace::info() << DYNLog(NbRootFunctions, model_->sizeG()) << Trace::endline;
+  Trace::info() << "number of continuous variables linearize : " << model_->sizeYLinearize() << Trace::endline;
+  Trace::info() << "number of discrete variables : " << model_->sizeZLinearize() << Trace::endline;
 
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
   stringstream ss;
