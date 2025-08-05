@@ -93,17 +93,19 @@ ModelGenerator::evalNodeInjection() {
       const double Q = Q0_ * pow_dynawo(uPuOverU0PuSquare, halfBeta_);
       const double ur = modelBus_->ur();
       const double ui = modelBus_->ui();
-      const double ir = -(P * ur + Q * ui) / U2;
-      const double ii = -(P * ui - Q * ur) / U2;
-      modelBus_->irAdd(ir);
-      modelBus_->iiAdd(ii);
+      const double irValue = ir(ur, ui, U2, P, Q);
+      const double iiValue = ii(ur, ui, U2, P, Q);
+      modelBus_->irAdd(irValue);
+      modelBus_->iiAdd(iiValue);
     } else {
-      double Pc = PcPu();
-      double Qc = QcPu();
-      double ur = modelBus_->ur();
-      double ui = modelBus_->ui();
-      modelBus_->irAdd(ir(ur, ui, U2, Pc, Qc));
-      modelBus_->iiAdd(ii(ur, ui, U2, Pc, Qc));
+      const double Pc = PcPu();
+      const double Qc = QcPu();
+      const double ur = modelBus_->ur();
+      const double ui = modelBus_->ui();
+      const double irValue = ir(ur, ui, U2, Pc, Qc);
+      const double iiValue = ii(ur, ui, U2, Pc, Qc);
+      modelBus_->irAdd(ir);
+      modelBus_->iiAdd(iiValue);
     }
   }
 }
@@ -371,8 +373,8 @@ ModelGenerator::evalCalculatedVars() {
         calculatedVars_[pNum_] = P;
         calculatedVars_[qNum_] = Q;
       } else {
-        double Pc = PcPu();
-        double Qc = QcPu();
+        const double Pc = PcPu();
+        const double Qc = QcPu();
         irCalculated = ir(ur, ui, U2, Pc, Qc);
         iiCalculated = ii(ur, ui, U2, Pc, Qc);
 
@@ -423,8 +425,8 @@ ModelGenerator::evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<doubl
             res[0] = PdUr;  // @P/@ur
             res[1] = PdUi;  // @P/@ui
           } else {
-            double Pc = PcPu();
-            double Qc = QcPu();
+            const double Pc = PcPu();
+            const double Qc = QcPu();
             res[0] = -(ir(ur, ui, U2, Pc, Qc) + ur * ir_dUr(ur, ui, U2, Pc, Qc) + ui * ii_dUr(ur, ui, U2, Pc, Qc));  // @P/@ur
             res[1] = -(ur * ir_dUi(ur, ui, U2, Pc, Qc) + ii(ur, ui, U2, Pc, Qc) + ui * ii_dUi(ur, ui, U2, Pc, Qc));  // @P/@ui
           }
@@ -444,8 +446,8 @@ ModelGenerator::evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<doubl
 
             const double QdUr = 1. / U2 * Q0_ * beta_ * ur * pow_dynawo(uPuOverU0PuSquare, halfBeta_);
             const double QdUi = 1. / U2 * Q0_ * beta_ * ui * pow_dynawo(uPuOverU0PuSquare, halfBeta_);
-            res[0] = QdUr;  // @P/@ur
-            res[1] = QdUi;  // @P/@ui
+            res[0] = QdUr;  // @Q/@ur
+            res[1] = QdUi;  // @Q/@ui
           } else {
             const double Pc = PcPu();
             const double Qc = QcPu();

@@ -390,8 +390,8 @@ class ModelGenerator : public NetworkComponent {
   double ii0_;  ///< initial current imaginary part
   double alpha_;  ///< active power exponential sensitivity to voltage
   double beta_;  ///< reactive power exponential sensitivity to voltage
-  double halfAlpha_;
-  double halfBeta_;
+  double halfAlpha_;  ///< 0.5 * active power exponential sensitivity to voltage
+  double halfBeta_;  ///< 0.5 * reactive power exponential sensitivity to voltage
   bool isVoltageDependant_;  ///< whether the produced energy remains constant
   State connectionState_;  ///< "internal" generator connection status, evaluated at the end of evalZ to detect if the state was modified by another component
   bool stateModified_;  ///< true if the generator connection state was modified
