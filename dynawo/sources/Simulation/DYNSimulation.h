@@ -691,6 +691,18 @@ class Simulation {
     return tLinearize_.value();
   }
 
+  void setUseLinearizeModel(const bool useLinearizeModel) {
+    useLinearizeModel_ = useLinearizeModel;
+  }
+
+  /**
+   * @brief getter for the start time of the linearisation
+   * @return the start time of the linearisation
+   */
+  bool getUseLinearizeModel() const {
+    return useLinearizeModel_;
+  }
+
  protected:
   std::shared_ptr<SimulationContext> context_;  ///< simulation context : configuration of the simulation
   std::shared_ptr<job::JobEntry> jobEntry_;  ///< jobs data description
@@ -755,6 +767,7 @@ class Simulation {
   bool dumpFinalValues_;  ///< whether to export the values of the models's variables and parameters at the end of the simulation
   std::vector<double> zCurrent_;  ///< current values of the model's discrete variables
   boost::optional<double> tLinearize_;  ///< start time of the Linearisation
+  bool useLinearizeModel_;  ///< start time of the Linearisation
 
   bool wasLoggingEnabled_;  ///< true if logging was enabled by an upper project
 

@@ -599,8 +599,9 @@ class Model {
   /**
    * @brief add information to model about need to linearization
    * @param tLinearize time of the linearization
+   * @param useLinearizeModel use linearize model
    */
-  virtual void setWithLinearize(double tLinearize) = 0;
+  virtual void setWithLinearize(double tLinearize, bool useLinearizeModel) = 0;
 };  ///< Generic class for Model
 
 #ifdef __clang__

@@ -520,6 +520,7 @@ void
 LinearizeHandler::create(attributes_type const& attributes) {
   linearise_ = shared_ptr<LinearizeEntry>(new LinearizeEntry);
   linearise_->setLinearizeTime(attributes["lineariseTime"]);
+  linearise_->setUseLinearizeModel(attributes["useLinearizeModel"]);
 }
 
 shared_ptr<LinearizeEntry>

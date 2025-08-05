@@ -613,7 +613,7 @@ if [ \"\$branch\" = \"master\" ]; then
   exit 1
 fi
 whitespace_present=no
-for file in \$(git diff-index --name-status --cached HEAD | grep -v \"^D\" | grep -v \".*.patch\" | grep -v \".*.png\" | grep -v \"ModelicaCompiler/test\" | grep -v \"reference\" | cut -c3-); do
+for file in \$(git diff-index --name-status --cached HEAD | grep -v \"^D\" | grep -v \".*.patch\" | grep -v \".*.png\" | grep -v \"excluded_lines.txt\" | grep -v \"ModelicaCompiler/test\" | grep -v \"reference\" | cut -c3-); do
   if [ ! -z \"\$(git grep --cached \"^[[:space:]]\+\$\" \$file)\" ]; then
     sed -i 's/^[[:space:]]*\$//' \$file
     whitespace_present=yes
@@ -631,7 +631,7 @@ for file in \$(git diff-index --name-status --cached HEAD | grep -v \"^D\" | gre
 done
 tab_present=no
 files=()
-for file in \$(git diff-index --name-status --cached HEAD | grep -v \"^D\" | grep -v \".*.patch\" | grep -v \".*.png\" | grep -v \"Makefile\" | grep -v \"ModelicaCompiler/test\" | grep -v \"reference\" | cut -c3-); do
+for file in \$(git diff-index --name-status --cached HEAD | grep -v \"^D\" | grep -v \".*.patch\" | grep -v \".*.png\" | grep -v \"excluded_lines.txt\" | grep -v \"Makefile\" | grep -v \"ModelicaCompiler/test\" | grep -v \"reference\" | cut -c3-); do
   if [ ! -z \"\$(git grep --cached \"$(printf '\t')\" \$file)\" ]; then
     tab_present=yes
     files=(\${files[@]} \$file)
@@ -651,7 +651,7 @@ fi
 if [[ \"\$whitespace_present\" == \"yes\" || \"\$tab_present\" == \"yes\" ]]; then
   exit 1
 fi
-git diff-index --check --cached HEAD -- ':(exclude)*/reference/*' ':(exclude)*.patch'"
+git diff-index --check --cached HEAD -- ':(exclude)*/reference/*' ':(exclude)*.patch' ':(exclude)*/excluded_lines.txt'"
   if [ -f "$DYNAWO_HOME/.git/hooks/pre-commit" ]; then
     current_file=$(cat $DYNAWO_HOME/.git/hooks/pre-commit)
     if [ "$hook_file_master" != "$current_file" ]; then

@@ -479,6 +479,7 @@ ModelManager::evalJt(const double t, const double cj, const int rowOffset, Spars
     evalJtAdept(t, yLocalLinearize_, yLocalLinearize_, cj, jt, rowOffset, true);
     // std::cout << "evalJtAdept Linearize" << std::endl;
   } else {
+    // std::cout << "evalJtAdept normal" << std::endl;
     evalJtAdept(t, yLocal_, ypLocal_, cj, jt, rowOffset, true);
   }
 
@@ -495,7 +496,13 @@ ModelManager::evalJtPrim(const double t, const double cj, const int rowOffset, S
 #endif
 
 #ifdef _ADEPT_
-  evalJtAdept(t, yLocal_, ypLocal_, cj, jtPrim, rowOffset, false);
+  if (isModelLinearizedUsed()) {
+    // std::cout << "evalJtAdept Linearize prim" << std::endl;
+    evalJtAdept(t, yLocalLinearize_, yLocalLinearize_, cj, jtPrim, rowOffset, false);
+  } else {
+    // std::cout << "evalJtAdept normal prim" << std::endl;
+    evalJtAdept(t, yLocal_, ypLocal_, cj, jtPrim, rowOffset, false);
+  }
 #else
   // Assert when Adept wasn't used
   assert(0 && "evalJt : Adept not used");

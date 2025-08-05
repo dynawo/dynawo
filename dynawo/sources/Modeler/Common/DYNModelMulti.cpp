@@ -1515,8 +1515,10 @@ void ModelMulti::evalLinearize(const double t, const std::string& path) {
   stringstream filename;
   filename << "linearize_" << t << ".txt";
 
-  updateVariableValuesForLinearizeModel();
-  setIsLinearizeProcess(true);
+  if (useLinearizeModel_) {
+    updateVariableValuesForLinearizeModel();
+    setIsLinearizeProcess(true);
+  }
 
   SparseMatrix smj;
   smj.init(sizeY(), sizeY());
@@ -1525,22 +1527,24 @@ void ModelMulti::evalLinearize(const double t, const std::string& path) {
   stringstream prefix;
   prefix << "linearize_" << t;
   smj.printToFileAiApAx(linearizePath.string(), prefix.str());
-  /*stringstream filenameFull;
+  stringstream filenameFull;
   filenameFull << "linearize_full_" << t << ".txt";
-  smj.printToFile(false, linearizePath.string(), filenameFull.str());*/
+  smj.printToFile(false, linearizePath.string(), filenameFull.str());
 
   SparseMatrix smjPrim;
   smjPrim.init(sizeY(), sizeY());
+  // std::cout << "evalJtPrim" << std::endl;
   evalJtPrim(t, 1, smjPrim);
+  // std::cout << "end evalJtPrim" << std::endl;
   stringstream filenamePrim;
   filenamePrim << "linearize_prim_" << t << ".txt";
   smjPrim.printToFile(true, linearizePath.string(), filenamePrim.str());
   stringstream prefixPrim;
   prefixPrim << "linearize_prim_" << t;
   smjPrim.printToFileAiApAx(linearizePath.string(), prefixPrim.str());
-  /*stringstream filenameFullPrim;
+  stringstream filenameFullPrim;
   filenameFullPrim << "linearize_full_prim_" << t << ".txt";
-  smjPrim.printToFile(false, linearizePath.string(), filenameFullPrim.str());*/
+  smjPrim.printToFile(false, linearizePath.string(), filenameFullPrim.str());
 
   {
     stringstream filenameVariablesType;
@@ -1592,9 +1596,10 @@ void ModelMulti::evalLinearize(const double t, const std::string& path) {
   setIsLinearizeProcess(false);
 }
 
-void ModelMulti::setWithLinearize(double tLinearize) {
+void ModelMulti::setWithLinearize(const double tLinearize, const bool useLinearizeModel) {
   withLinearize_ = true;
   tLinearize_ = tLinearize;
+  useLinearizeModel_ = useLinearizeModel;
 
   for (auto& subModel : subModels_)
     subModel->setWithLinearize(tLinearize);
@@ -1605,12 +1610,13 @@ void ModelMulti::updateVariableValuesForLinearizeModel() {
   for (const auto& subModel : subModels_) {
     const auto& xNames = subModel->xNames();
     for (const auto& xNameLinearize : subModel->xNamesLinearize()) {
+      // std::cout << xNameLinearize << std::endl;
       auto it = std::find(xNames.begin(), xNames.end(), xNameLinearize);
       if (it != xNames.end()) {
         // size_t index = std::distance(xNames.begin(), it);
         double valueY = subModel->getVariableValue(xNameLinearize, false, false);
         yLocalLinearize_[nVar] = valueY;
-        double valueYp = subModel->getVariableValue(xNameLinearize, false, false);
+        double valueYp = subModel->getVariableValue(xNameLinearize, true, false);
         ypLocalLinearize_[nVar] = valueYp;
         // std::cout << xNameLinearize << " " << valueY << " " << valueYp << " " << index
         // << " yDeb " << subModel->yDeb() << " OffsetY " << subModel->getOffsetY() << std::endl;
