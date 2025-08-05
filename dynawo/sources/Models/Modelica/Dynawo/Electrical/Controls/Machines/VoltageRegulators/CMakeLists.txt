@@ -14,9 +14,9 @@ add_subdirectory(Simplified S)
 add_subdirectory(Standard St)
 
 set(MODEL_FILES
-  VRProportional.extvar
-  VRProportional.mo
-  VRProportional_INIT.mo
+#  VRProportional.extvar
+#  VRProportional.mo
+#  VRProportional_INIT.mo
   package.mo
   package.order
   Exciter_INIT.mo

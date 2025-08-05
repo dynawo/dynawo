@@ -206,6 +206,7 @@ dumpGlobalInitValues_(false),
 dumpInitModelValues_(false),
 dumpFinalValues_(false),
 tLinearize_(boost::none),
+useLinearizeModel_(true),
 wasLoggingEnabled_(false) {
   SignalHandler::setSignalHandlers();
 
@@ -311,8 +312,10 @@ Simulation::configureSimulationOutputs() {
 void
 Simulation::configureLinearizeOutputs() {
   if (jobEntry_->getOutputsEntry()->getLinearizeEntry()) {
-    double tLinearize_ = jobEntry_->getOutputsEntry()->getLinearizeEntry()->getLinearizeTime();
-    setLinearizeTime(tLinearize_);
+    double tLinearize = jobEntry_->getOutputsEntry()->getLinearizeEntry()->getLinearizeTime();
+    setLinearizeTime(tLinearize);
+    bool useLinearizeModel = jobEntry_->getOutputsEntry()->getLinearizeEntry()->getUseLinearizeModel();
+    setUseLinearizeModel(useLinearizeModel);
   }
 }
 
@@ -830,7 +833,7 @@ Simulation::init() {
 
   if (tLinearize_.has_value()) {
     solver_->setWithLinearize(tLinearize_.value());
-    model_->setWithLinearize(tLinearize_.value());
+    model_->setWithLinearize(tLinearize_.value(), useLinearizeModel_);
   }
 
   initStructure();

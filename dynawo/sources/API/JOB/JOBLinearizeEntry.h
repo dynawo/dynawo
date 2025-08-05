@@ -17,8 +17,8 @@
  *
  */
 
-#ifndef API_JOB_JOBLINEARISEENTRY_H_
-#define API_JOB_JOBLINEARISEENTRY_H_
+#ifndef API_JOB_JOBLINEARIZEENTRY_H_
+#define API_JOB_JOBLINEARIZEENTRY_H_
 
 #include <string>
 
@@ -42,10 +42,23 @@ class LinearizeEntry {
    */
   double getLinearizeTime() const;
 
+  /**
+  * @brief Start time setter
+  * @param startTime : Start time of the linearization
+  */
+  void setUseLinearizeModel(bool useLinearizeModel);
+
+  /**
+  * @brief Start time getter
+  * @return linearize time for the job
+  */
+  bool getUseLinearizeModel() const;
+
  private:
   double linearizeTime_;  ///< Time to start the linearization
+  bool useLinearizeModel_;  ///< Use the linearize model or the classical one
 };
 
 }  // namespace job
 
-#endif  // API_JOB_JOBLINEARISEENTRY_H_
+#endif  // API_JOB_JOBLINEARIZEENTRY_H_

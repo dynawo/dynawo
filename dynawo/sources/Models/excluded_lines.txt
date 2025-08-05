@@ -1,0 +1,318 @@
+(terminal1)
+(terminal1) -
+*/
+- a switch-off signal
+---
+/*
+// Active power coefficents
+// Algorithm stopping conditions
+// Blocks
+// Common flux calculations
+// Connection to the grid
+// Here, UsMin and UsMax do not play a symmetric role, to be checked
+// Ideal transformer
+// Initial values
+// Initial values calculations
+// Initialization helpers
+// Input connector
+// Input connectors
+// Input variable
+// Inputs
+// Intermediate values calculated 
+// Internal variablesion: L
+// Output
+// Output Connectors
+// Output connectors
+// Output variables
+// Output variables for external controllers
+// Parameters
+// Parameters coming from
+// Park's transformations
+// Reactive power coefficients
+// Saturation part
+// Start values at terminal (network terminal side)
+// Stator variables
+// Table characteristics
+// Tap Changer
+// Tap changer
+// Terminal connection
+// Terminals
+// Theta calculation
+// Transformation phase shift
+// Transformation ratio
+// Transformer
+// Transformer start values
+// Transformer's impedance and susceptance
+// Variable
+// Variables for display
+// Voltage, active and reactive power at terminal
+// in order to change the load set-point, connect an event to PRefPu or QRefPu
+// in order to change// Active power coefficents
+// see subclasses
+//Blocks
+//Infinite bus
+//Input
+//Input variable
+//Interface
+//Interface
+//Interfaces
+//Other variables
+//Output
+//Output variable
+//Parameters
+//Terminal
+:=
+</figure>
+</h2>
+</h3>
+</li>
+</p>
+</ul>
+<div>
+<figure>
+<h2>
+<h3>
+<li>
+<p>
+<ul 
+<ul>
+AEx = AEx
+AbsorptionMax "
+An anti-windup has been added to the first order filter
+Anti-windup features
+Armed "2: TCB is armed",
+BEx = BEx
+BStatus
+BaseControls.ModeHandling
+Between tBegin and tEnd
+Boolean 
+Boolean[
+C1 = C1,
+C2 = C2,
+Connectors.ACPower
+Connectors.BPin
+Connectors.ImPin
+Constants.state
+CurrentLimitAutomaton currentLimitAutomaton
+Diagram
+Dialog
+Documentation
+Dynawo.Connectors
+Dynawo.Electrical.Buses.InfiniteBus infiniteBus
+Dynawo.Electrical.Constants.state
+Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.AcRotatingExciter
+Dynawo.Electrical.Controls.Transformers.TapChanger
+Dynawo.Electrical.Controls.Transformers.TapChangerWithTransformer_INIT
+Dynawo.Electrical.Machines.Motors.SimplifiedMotor
+Dynawo.Electrical.Sources.InjectorBG_INIT
+Dynawo.Electrical.Transformers.TransformersVariableTap.IdealTransformerVariableTap
+Dynawo.Electrical.Transformers.TransformersVariableTap.IdealTransformerVariableTapI_INIT
+Dynawo.Electrical.Transformers.TransformersVariableTap.IdealTransformerVariableTapPQ_INIT
+Dynawo.Electrical.Transformers.TransformersVariableTap.TransformerVariableTap
+Dynawo.Electrical.Transformers.TransformersVariableTap.TransformerVariableTapI_INIT
+Dynawo.Electrical.Transformers.TransformersVariableTap.TransformerVariableTapPQ_INIT
+Dynawo.Electrical.Transformers.TransformersVariableTap.TransformerVariableTapXtdPu
+Efd0Pu = Efd0Pu
+Efe0Pu = Efe0Pu
+Ellipse
+Equivalent circuit and conventions:
+Evaluate = true
+FixedRd = FixedRd,
+FixedRu = FixedRu,
+From the tap and ratio values
+From these values,
+G+jB
+GenerationMax "
+GesPu+jBesPu
+HideResult = true
+I0Pu = I0Pu,
+I0Pu = Modelica.ComplexMath.'abs'(it0Pu),
+I1                  I2
+I1   r   I2
+I1  r                I2
+I1  r,alpha         I2
+IInstPu = IInstPu,
+IInstPu = IInstPu,
+IInstUelPu = IInstUelPu,
+ILimPu = ILimPu,
+IOelRef0Pu = IRef0Pu,
+IRef0Pu = IRef0Pu,
+IRef0Pu = IRef0Pu,
+IResetPu = IResetPu,
+ITfPu = ITfPu,
+IThOffPu = IThOffPu,
+IUelRef0Pu = IRef0Pu,
+Icon
+Integer Tap0
+Integer intOutputs[
+Integer tap0 "Initial tap";
+Integer[NbMaxGen]
+Ir0Pu = Ir0Pu
+K1 = K1,
+K2 = K2,
+KFb = KFb,
+KPRef = KPRef,
+Kc = Kc
+Kd = Kd
+Ke = Ke
+Ki = 0,
+Ki = 0,
+Krd = Krd,
+Kru = Kru,
+Kzru = Kzru,
+LimitPMax "Active power
+LimitPMin "Active power
+Line
+Locked "
+ModeConnector mode
+Modelica.Blocks.Interfaces.BooleanInput
+Modelica.Blocks.Interfaces.BooleanOutput
+Modelica.Blocks.Interfaces.RealInput
+Modelica.Blocks.Interfaces.RealOutput
+Modelica.ComplexBlocks.ComplexMath.RealToComplex
+Modelica.ComplexBlocks.Interfaces.ComplexOutput
+MoveDown1 "
+MoveUp1 "
+MoveUpN "
+Nd = 1
+PStatus
+Placement
+QGen0Pu = 0
+QStator                                                     Q
+QStatus
+Real 
+Real[
+Standard "
+State state(start = state0) "State of the automata throughout the simulation";
+State state(start = state0) "State of the tap-changer/phase-shifter";
+State state0
+Stator side
+SusceptanceMax "
+SusceptanceMin "
+Sw1 = Sw1,
+Sw1 = true,
+Td = tDr
+The Q output is fixed 
+The Q output is modulated 
+The initialization scheme 
+The synchronous machine can include a generator transformer.
+The transformer ratio is variable.
+Thetap = 0,
+Ti = 1 / Kir
+TolLi = TolLi
+Types.
+U1,P1,Q1 -
+UStatus uStatus
+Usually, terminal 1 in the network terminal and terminal 2 in the generator terminal.
+V(re(start = uTerminal0Pu.re), im(start = uTerminal0Pu.im))
+VInvMaxPu = VInvMaxPu,
+VInvMinPu = VInvMinPu,
+Ve0Pu = Ve0Pu
+VeMax0Pu = VeMax0Pu
+VeMinPu = 0,
+VeMinPu = VeMinPu
+VfeMaxPu = 999);
+VfeMaxPu = VfeMaxPu) annotation(
+VfeMaxPu = VfeMaxPu);
+Vt0Pu = Modelica.ComplexMath.'abs'(ut0Pu),
+Vt0Pu = Modelica.ComplexMath.'abs'(ut0Pu),
+VtMinPu = VtMinPu,
+VtResetPu = VtResetPu,
+VtResetPu = VtResetPu,
+WaitingToMoveDown "
+WaitingToMoveUp "
+When a reactive power limit
+When the switch is closed
+When the switch is open
+XlPu = 0);
+XlPu = 0,
+__   fOCB     iGs
+__________
+algorithm
+and does not go back above this threshold within a given time lag
+and does not go back below this threshold within a given time lag
+caption = 
+choices(checkBox = true)
+combiTimeTable(fileName = FileName, tableName = TableName, tableOnFile = true),
+combiTimeTable.fileName = FileName,
+combiTimeTable.tableName = TableName,
+combiTimeTable.tableOnFile = true,
+discrete 
+elsewhen 
+end 
+extends
+extrapolation = Extrapolation
+fileName = FileName,
+firstOrder.y_start = PGen0Pu * SystemBase.SnRef / SNom,
+firstOrder.y_start = SystemBase.omega0Pu,
+i(re(start = iTerminal0Pu.re), im(start = iTerminal0Pu.im))) annotation
+i0Pu = Complex(-PGen0Pu / U0Pu, 0))
+iGsPu                                 iWtPu
+iPu, uPu
+iStator  rTfo
+imPu goes downwards through jXm
+import
+initial algorithm
+isPu          umPu  irPu
+jXm                Rr(1-s)/s
+limitedFirstOrder.Y0 = Efe0Pu / Vb0Pu,
+limitedFirstOrder.Y0 = Efe0Pu,
+loadSelector
+max1.nu = 1,
+max1.nu = 2,
+max2.nu = 1,
+max2.nu = 2,
+min1.nu = 2);
+min1.nu = 2,
+min2.nu = 2,
+model
+parameter
+pid.xi_start = Efe0Pu / (Ka * Vb0Pu),
+pid.xi_start = Efe0Pu / Ka,
+pid.y_start = Efe0Pu / (Ka * Vb0Pu));
+pid.y_start = Efe0Pu / Ka,
+preferredView
+preserveAspectRatio
+protected
+public
+sStator                                                     P
+shiftTime = 0,
+smoothness = Smoothness,
+startTime = -Modelica.Constants.inf) annotation(
+status state(start = status.Standard)
+sum1.k = {-1, 1, 1, 1, 1},
+sum1.nin = 2);
+sum1.nin = 2,
+sum1.nin = 3);
+sum1.nin = 3,
+sum1.nin = 5);
+sum2.nin = 3)
+tE = tE
+tEn = tEn,
+tEnOel = tEnOel
+tEnUel = tEnUel,
+tErr0 = tErr0,
+tErr0 = tErr0,
+tFcl = tFcl,
+tInt0 = tInt0,
+tMax = tMax,
+tMin = tMin) annotation(
+tOff = tOff) annotation(
+tScl = tScl,
+table = [0, 0]) annotation(
+tableName = TableName,
+tableOnFile = true) annotation(
+type 
+typeConnector
+u0Pu = Complex(U0Pu, 0),
+washout.U0 = Ks * PGen0Pu * SystemBase.SnRef / SNom);
+washout.U0 = Ks * SystemBase.omega0Pu);
+wd = Kdr / tDr
+when 
+while iterate
+wp = Kpr
+xi_start = Kf1 * Efd0Pu + Kf2 * Efe0Pu
+yMax = VrMaxPu
+yMin = VrMinPu) annotation(
+y_start = Kf1 * Efd0Pu + Kf2 * Efe0Pu
+|

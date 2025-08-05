@@ -627,7 +627,7 @@ class ModelMulti : public Model, private boost::noncopyable {
   /**
    * @copydoc Model::setWithLinearize
    */
-  void setWithLinearize(double tLinearize) override;
+  void setWithLinearize(double tLinearize, bool useLinearizeModel) override;
 
   void updateVariableValuesForLinearizeModel();
 
@@ -694,6 +694,7 @@ class ModelMulti : public Model, private boost::noncopyable {
 
   bool withLinearize_;  ///< withLinearize
   double tLinearize_;  ///< tLinearize
+  bool useLinearizeModel_;  ///< tLinearize
 };  ///< Class for Multiple-Model
 
 

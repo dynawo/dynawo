@@ -31,4 +31,12 @@ LinearizeEntry::getLinearizeTime() const {
   return linearizeTime_;
 }
 
+void LinearizeEntry::setUseLinearizeModel(bool useLinearizeModel) {
+  useLinearizeModel_ = useLinearizeModel;
+}
+
+bool LinearizeEntry::getUseLinearizeModel() const {
+  return useLinearizeModel_;
+}
+
 }  // namespace job
