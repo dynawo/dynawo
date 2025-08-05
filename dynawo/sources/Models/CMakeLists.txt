@@ -48,7 +48,8 @@ add_custom_target(MODEL_FILES_INSTALL
 #
 add_custom_target(PREASSEMBLED_MODEL_FILES_INSTALL
                   DEPENDS
-        INSTALL_DYNAWO_DDBDIRLIN
+                    INSTALL_DYNAWO_DDBDIRLIN
+                    UPDATE_DYNAWO_DDBDIRLIN
                   COMMENT "Installing preassembled models"
                  )
 
@@ -60,11 +61,16 @@ add_custom_target(CPP_FILES_INSTALL
                   COMMENT "Installing C++ models"
                  )
 
-
 add_custom_target(INSTALL_DYNAWO_DDBDIRLIN
         DEPENDS
-        MODEL_FILES_INSTALL
+          MODEL_FILES_INSTALL
         COMMAND ${CMAKE_COMMAND} -E copy_directory ${ddbdir}/Dynawo ${ddbdirlin}/Dynawo
+)
+
+add_custom_target(UPDATE_DYNAWO_DDBDIRLIN
+        DEPENDS
+          INSTALL_DYNAWO_DDBDIRLIN
+        COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/updateLinearizeBlocks.py ${ddbdirlin}/Dynawo
 )
 
 set(EXTERNAL_VARIABLES_EXTENSION ".extvar")
@@ -119,6 +125,7 @@ macro(COMPILE_PREASSEMBLED_MODEL
       DEPENDS
         MODEL_FILES_INSTALL
         INSTALL_DYNAWO_DDBDIRLIN
+        UPDATE_DYNAWO_DDBDIRLIN
         ${PREASSEMBLED_MODEL}
         dynawo_ModelManager
       COMMAND
@@ -171,6 +178,7 @@ macro(COMPILE_PREASSEMBLED_MODEL
         ${PREASSEMBLED_MODEL}
         MODEL_FILES_INSTALL
         INSTALL_DYNAWO_DDBDIRLIN
+        UPDATE_DYNAWO_DDBDIRLIN
         dynawo_ModelManager
       COMMAND
         test -f ${CMAKE_INSTALL_PREFIX}/${SBINDIR_NAME}/scriptVerifyModelList.py || (echo "Target install was not completed, you need to launch it before compiling a Modelica model. For example with dynawo build-dynawo-core." && exit 1)
@@ -315,7 +323,8 @@ endmacro(COMPILE_CPP_MODEL)
 # PYTHON scripts for models
 set(PYTHON_SCRIPTS_MODELS
   checkSum_ModelsCPP.py
-  )
+  updateLinearizeBlocks.py
+)
 
 install(PROGRAMS ${PYTHON_SCRIPTS_MODELS} DESTINATION ${SBINDIR_NAME})
 
