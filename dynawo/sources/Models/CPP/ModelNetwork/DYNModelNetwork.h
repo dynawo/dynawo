@@ -393,6 +393,14 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
   */
   void printInternalParameters(std::ofstream& fstream) const override;
 
+  void evalStaticYTypeLinearize() override;
+  void evalDynamicYTypeLinearize() override;
+  void evalStaticFTypeLinearize() override;
+  void evalDynamicFTypeLinearize() override;
+  void getSizeLinearize() override;
+  void defineVariablesLinearize(std::vector<boost::shared_ptr<Variable> >& variables) override;
+  void defineParametersLinearize(std::vector<ParameterModeler>& parameters) override;
+
  private:
   double* calculatedVarBuffer_;  ///< calculated variable buffer
 

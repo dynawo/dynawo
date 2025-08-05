@@ -53,7 +53,7 @@ static boost::shared_ptr<SubModel> createModelSecondaryVoltageControlSimplified(
       parametersSet->createParameter("Q0Pu_" + std::to_string(i), 1.);
     }
     voltmu->setPARParameters(parametersSet);
-    voltmu->addParameters(parameters, false);
+    voltmu->addParameters(parameters, false, false);
     voltmu->setParametersFromPARFile();
     voltmu->setSubModelParameters();
     voltmu->getSize();  // Sets all the sizes
@@ -84,7 +84,7 @@ TEST(ModelSecondaryVoltageControlSimplified, ModelSecondaryVoltageControlSimplif
       parametersSet->createParameter("Q0Pu_" + std::to_string(i), 1.);
     }
     ASSERT_NO_THROW(svc->setPARParameters(parametersSet));
-    svc->addParameters(parameters, false);
+    svc->addParameters(parameters, false, false);
     ASSERT_NO_THROW(svc->setParametersFromPARFile());
     ASSERT_NO_THROW(svc->setSubModelParameters());
 

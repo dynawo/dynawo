@@ -60,6 +60,11 @@ ConnectorCalculatedVariable::init(const double /*t0*/) {
 }
 
 void
+ConnectorCalculatedVariable::initLinearize(const double /*t0*/) {
+  // no initialization needed
+}
+
+void
 ConnectorCalculatedVariable::checkParametersCoherence() const {
   // no check
 }
@@ -226,6 +231,35 @@ ConnectorCalculatedVariable::loadVariables(const string& /*variables*/) {
   // no variable
 }
 
+void ConnectorCalculatedVariable::evalStaticYTypeLinearize() {
+  std::copy(yType_, yType_ + sizeY(), yTypeLinearize_);
+}
 
+void ConnectorCalculatedVariable::evalDynamicYTypeLinearize() {
+}
+
+void ConnectorCalculatedVariable::evalStaticFTypeLinearize() {
+  std::copy(fType_, fType_ + sizeY(), fTypeLinearize_);
+}
+
+void ConnectorCalculatedVariable::evalDynamicFTypeLinearize() {
+}
+
+void ConnectorCalculatedVariable::getSizeLinearize() {
+  sizeFLinearize_ = sizeF_;
+  sizeYLinearize_ = sizeY_;
+  sizeZLinearize_ = sizeZ_;
+  sizeGLinearize_ = sizeG_;
+  sizeModeLinearize_ = sizeMode_;
+
+  calculatedVarsLinearize_.assign(calculatedVars_.size(), 0);
+}
+
+void ConnectorCalculatedVariable::defineVariablesLinearize(std::vector<boost::shared_ptr<Variable> >& variables) {
+  defineVariables(variables);
+}
+
+void ConnectorCalculatedVariable::defineParametersLinearize(std::vector<ParameterModeler>& /*parameters*/) {
+}
 
 }  // namespace DYN

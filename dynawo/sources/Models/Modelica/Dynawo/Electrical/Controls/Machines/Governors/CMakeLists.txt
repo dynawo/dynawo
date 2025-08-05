@@ -18,6 +18,8 @@ set(MODEL_FILES
   package.order
   Governor_INIT.mo
   GovernorPmPGen_INIT.mo
+  GoverProportional.mo
+  GoverProportional.extvar
   )
 
 #

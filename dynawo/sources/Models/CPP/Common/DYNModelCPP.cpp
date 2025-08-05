@@ -45,6 +45,11 @@ modelType_(modelType) {
 }
 
 void
+ModelCPP::initLinearize(const double /*t0*/) {
+  // no initialization needed
+}
+
+void
 ModelCPP::dumpParameters(map< string, string >& /*mapParameters*/) {
   // no parameters to dump for C++ models, they all come from the dyd file
 }

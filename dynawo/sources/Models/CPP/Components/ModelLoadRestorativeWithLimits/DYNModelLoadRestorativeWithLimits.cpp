@@ -159,6 +159,37 @@ namespace DYN {
     calculatedVars_.assign(nbCalculatedVariables_, 0);
   }
 
+  void ModelLoadRestorativeWithLimits::evalStaticYTypeLinearize() {
+    std::copy(yType_, yType_ + sizeY(), yTypeLinearize_);
+  }
+
+  void ModelLoadRestorativeWithLimits::evalDynamicYTypeLinearize() {
+  }
+
+  void ModelLoadRestorativeWithLimits::evalStaticFTypeLinearize() {
+    std::copy(fType_, fType_ + sizeY(), fTypeLinearize_);
+  }
+
+  void ModelLoadRestorativeWithLimits::evalDynamicFTypeLinearize() {
+  }
+
+  void ModelLoadRestorativeWithLimits::getSizeLinearize() {
+    sizeFLinearize_ = sizeF_;
+    sizeYLinearize_ = sizeY_;
+    sizeZLinearize_ = sizeZ_;
+    sizeGLinearize_ = sizeG_;
+    sizeModeLinearize_ = sizeMode_;
+
+    calculatedVarsLinearize_.assign(calculatedVars_.size(), 0);
+  }
+
+  void ModelLoadRestorativeWithLimits::defineVariablesLinearize(std::vector<boost::shared_ptr<Variable> >& variables) {
+    defineVariables(variables);
+  }
+
+  void ModelLoadRestorativeWithLimits::defineParametersLinearize(std::vector<ParameterModeler>& /*parameters*/) {
+  }
+
   void
   ModelLoadRestorativeWithLimits::evalDynamicYType() {
     if (UMaxPuReached_ || UMinPuReached_) {

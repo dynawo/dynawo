@@ -344,6 +344,14 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
    */
   bool isRunning(unsigned int inputIdx) const;
 
+  void evalStaticYTypeLinearize() override;
+  void evalDynamicYTypeLinearize() override;
+  void evalStaticFTypeLinearize() override;
+  void evalDynamicFTypeLinearize() override;
+  void getSizeLinearize() override;
+  void defineVariablesLinearize(std::vector<boost::shared_ptr<Variable> >& variables) override;
+  void defineParametersLinearize(std::vector<ParameterModeler>& parameters) override;
+
  private:
   unsigned int nbConnectedInputs_;  ///< Number of active inputs (external parameter)
   unsigned int nbActive_;  ///< Keeps track of how many components are indeed connected at a given time.

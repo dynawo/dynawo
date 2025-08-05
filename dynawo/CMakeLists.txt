@@ -42,6 +42,7 @@ set(BINDIR_NAME bin)
 set(SHAREDIR_NAME share)
 set(SBINDIR_NAME sbin)
 set(DDBDIR_NAME ddb)
+set(DDBDIR_NAME_LIN ddbLin)
 set(INCLUDEDIR_NAME include)
 if(MSVC)
   set(LIBDIR_NAME ${BINDIR_NAME})
@@ -59,6 +60,7 @@ get_filename_component(bindir ${CMAKE_INSTALL_PREFIX}/${BINDIR_NAME} ABSOLUTE)
 get_filename_component(sharedir ${CMAKE_INSTALL_PREFIX}/${SHAREDIR_NAME} ABSOLUTE)
 get_filename_component(sbindir ${CMAKE_INSTALL_PREFIX}/${SBINDIR_NAME} ABSOLUTE)
 get_filename_component(ddbdir ${CMAKE_INSTALL_PREFIX}/${DDBDIR_NAME} ABSOLUTE)
+get_filename_component(ddbdirlin ${CMAKE_INSTALL_PREFIX}/${DDBDIR_NAME_LIN} ABSOLUTE)
 
 # Use of OMC
 get_filename_component(INSTALL_OPENMODELICA ${INSTALL_OPENMODELICA} ABSOLUTE)
@@ -351,3 +353,16 @@ if(MSVC)
     set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel (CMake defaults)" FORCE)
   endif()
 endif()
+
+#set(EXTERNAL_VARIABLES_EXTENSION ".extvar")
+#set(DESCRIPTION_XML_EXTENSION ".desc.xml")
+#
+#FILE(GLOB DYNAWO_DDB
+#        "${DYNAWO_HOME}/ddb/*${CMAKE_SHARED_LIBRARY_SUFFIX}"
+#        "${DYNAWO_HOME}/ddb/*${EXTERNAL_VARIABLES_EXTENSION}"
+#        "${DYNAWO_HOME}/ddb/*${DESCRIPTION_XML_EXTENSION}"
+#)
+#
+#foreach ( _file ${DYNAWO_DDB} )
+#  install(FILES ${_file} DESTINATION ${ddbdirlin})
+#endforeach (_file ${DYNAWO_DDB})

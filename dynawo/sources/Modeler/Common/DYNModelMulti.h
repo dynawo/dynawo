@@ -172,7 +172,7 @@ class ModelMulti : public Model, private boost::noncopyable {
    * @brief get the type of z that were modified
    * @return type of z that were modified
    */
-  inline zChangeType_t getSilentZChangeType() const override {
+  zChangeType_t getSilentZChangeType() const override {
     return silentZChange_;
   }
 
@@ -184,8 +184,15 @@ class ModelMulti : public Model, private boost::noncopyable {
   /**
    * @copydoc Model::getFType() const
    */
-  inline const std::vector<propertyF_t>& getFType() const override {
+  const std::vector<propertyF_t>& getFType() const override {
     return fType_;
+  }
+
+  /**
+   * @copydoc Model::getFTypeLinearize() const
+   */
+  const std::vector<propertyF_t>& getFTypeLinearize() const override {
+    return fTypeLinearize_;
   }
 
   /**
@@ -199,10 +206,27 @@ class ModelMulti : public Model, private boost::noncopyable {
   void evalDynamicFType() override;
 
   /**
+   * @copydoc Model::evalStaticFType()
+   */
+  void evalStaticFTypeLinearize() override;
+
+  /**
+   * @copydoc Model::evalDynamicFType()
+   */
+  void evalDynamicFTypeLinearize() override;
+
+  /**
    * @copydoc Model::getYType()
    */
-  inline const std::vector<propertyContinuousVar_t>& getYType() const override {
+  const std::vector<propertyContinuousVar_t>& getYType() const override {
     return yType_;
+  }
+
+  /**
+   * @copydoc Model::getYType()
+   */
+  const std::vector<propertyContinuousVar_t>& getYTypeLinearize() const override {
+    return yTypeLinearize_;
   }
 
   /**
@@ -216,9 +240,24 @@ class ModelMulti : public Model, private boost::noncopyable {
   void evalDynamicYType() override;
 
   /**
+   * @copydoc Model::evalStaticYType()
+   */
+  void evalStaticYTypeLinearize() override;
+
+  /**
+   * @copydoc Model::evalStaticYType()
+   */
+  void evalDynamicYTypeLinearize() override;
+
+  /**
    * @copydoc Model::setIsInitProcess(bool isInitProcess)
    */
   void setIsInitProcess(bool isInitProcess) override;
+
+  /**
+   * @copydoc Model::Linearize(bool isLinearizeProcess)
+   */
+  void setIsLinearizeProcess(bool isLinearizeProcess) override;
 
   /**
    * @copydoc Model::setInitialTime(const double t0)
@@ -258,6 +297,20 @@ class ModelMulti : public Model, private boost::noncopyable {
    */
   inline int sizeY() const override {
     return sizeY_;
+  }
+
+  /**
+   * @copydoc Model::sizeZLinearize() const
+   */
+  inline int sizeZLinearize() const override {
+    return sizeZLinearize_;
+  }
+
+  /**
+   * @copydoc Model::sizeYLinearize() const
+   */
+  inline int sizeYLinearize() const override {
+    return sizeYLinearize_;
   }
 
   /**
@@ -591,19 +644,27 @@ class ModelMulti : public Model, private boost::noncopyable {
    */
   void setWithLinearize(double tLinearize) override;
 
+  void updateVariableValuesForLinearizeModel();
+
  private:
   std::unordered_map<int, int> mapAssociationF_;  ///< association between an index of f functions and a subModel
   std::unordered_map<int, int> mapAssociationG_;  ///< association between an index of g functions and a subModel
   std::vector<std::string> yNames_;  ///< names of all variables y
+  std::unordered_map<int, int> mapAssociationFLinearize_;  ///< association between an index of f functions and a subModel
+  std::unordered_map<int, int> mapAssociationGLinearize_;  ///< association between an index of g functions and a subModel
+  std::vector<std::string> yNamesLinearize_;  ///< names of all variables y
   std::vector<boost::shared_ptr<SubModel> > subModels_;  ///< list of each sub models
   std::unordered_map<std::string, size_t > subModelByName_;  ///< map associating a sub model name to its index in subModels_
   std::unordered_map<std::string, std::vector<boost::shared_ptr<SubModel> > > subModelByLib_;  ///< associates a lib and each SubModel created with it
   std::unordered_map<size_t, std::vector<size_t > >
     subModelIdxToConnectorCalcVarsIdx_;  ///< associates a subModel index to the associated calculated variables connectors indexes
   boost::shared_ptr<ConnectorContainer> connectorContainer_;  ///< list of each connector
+  boost::shared_ptr<ConnectorContainer> connectorContainerLinearize_;  ///< list of each connector
   std::vector<double> zSave_;  ///< save of the last discrete values
   std::vector<propertyF_t> fType_;  ///< local buffer to fill with the property of each continuous equation (Algebraic or Differential)
   std::vector<propertyContinuousVar_t> yType_;  ///< local buffer to fill with the property of each variable (Algebraic / Differential / External)
+  std::vector<propertyF_t> fTypeLinearize_;  ///< local buffer to fill with the property of each continuous equation (Algebraic or Differential)
+  std::vector<propertyContinuousVar_t> yTypeLinearize_;  ///< local buffer to fill with the property of each variable (Algebraic / Differential / External)
 
   int sizeF_;  ///< number of the residuals functions
   int sizeZ_;  ///< number of discrete values
@@ -614,8 +675,16 @@ class ModelMulti : public Model, private boost::noncopyable {
   bool modeChange_;  ///< @b true if one mode has changed
   modeChangeType_t modeChangeType_;  ///< type of mode change
 
+  int sizeFLinearize_;  ///< number of the residuals functions
+  int sizeZLinearize_;  ///< number of discrete values
+  int sizeGLinearize_;  ///< number of root functions
+  int sizeModeLinearize_;  ///< number of mode
+  int sizeYLinearize_;  ///< number of continuous values
+
   unsigned int offsetFOptional_;  ///< offset in whole F buffer for optional equations
+  unsigned int offsetFOptionalLinearize_;  ///< offset in whole F buffer for optional equations
   std::set<int> numVarsOptional_;  ///< index of optional variables
+  std::set<int> numVarsOptionalLinearize_;  ///< index of optional variables
 
   std::vector<double> fLocal_;  ///< local buffer to fill with the residual values
   std::vector<state_g> gLocal_;  ///< local buffer to fill with the roots values
@@ -623,6 +692,12 @@ class ModelMulti : public Model, private boost::noncopyable {
   std::vector<double> ypLocal_;  ///< local buffer to use when accessing derivatives of continuous variables
   std::vector<double> zLocal_;  ///< local buffer to use when accessing discrete variables
   bool* zConnectedLocal_;  ///< local buffer to use when accessing discrete variables connection status
+  std::vector<double> fLocalLinearize_;  ///< local buffer to fill with the residual values
+  std::vector<state_g> gLocalLinearize_;  ///< local buffer to fill with the roots values
+  std::vector<double> yLocalLinearize_;  ///< local buffer to use when accessing continuous variables
+  std::vector<double> ypLocalLinearize_;  ///< local buffer to use when accessing derivatives of continuous variables
+  std::vector<double> zLocalLinearize_;  ///< local buffer to use when accessing discrete variables
+  bool* zConnectedLocalLinearize_;  ///< local buffer to use when accessing discrete variables connection status
   std::vector<BitMask> silentZ_;  ///< local buffer indicating if the corresponding discrete variable is silent
   bool silentZInitialized_;  ///< true if silentZ were collected
   std::vector<size_t> notUsedInDiscreteEqSilentZIndexes_;  ///< indexes of silent discrete variables not used in discrete equations

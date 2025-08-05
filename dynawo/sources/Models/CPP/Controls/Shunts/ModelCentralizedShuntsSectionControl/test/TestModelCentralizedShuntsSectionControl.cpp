@@ -61,7 +61,7 @@ static boost::shared_ptr<SubModel> initModelShunt(int nbShunts, int section0 = 0
     parametersSet->createParameter(isSelfName.str(), isSelf);
   }
   modelShunt->setPARParameters(parametersSet);
-  modelShunt->addParameters(parameters, false);
+  modelShunt->addParameters(parameters, false, false);
   modelShunt->setParametersFromPARFile();
   modelShunt->setSubModelParameters();
 
@@ -87,7 +87,7 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
   parametersSet->createParameter("URef0Pu", 0.95);
   parametersSet->createParameter("tNext", 10.);
   ASSERT_NO_THROW(modelShunt->setPARParameters(parametersSet));
-  modelShunt->addParameters(parameters, false);
+  modelShunt->addParameters(parameters, false, false);
   ASSERT_NO_THROW(modelShunt->setParametersFromPARFile());
   ASSERT_NO_THROW(modelShunt->setSubModelParameters());
   std::vector<boost::shared_ptr<Variable> > variables;
@@ -108,7 +108,7 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
   std::shared_ptr<parameters::ParametersSet> parametersSet_missingPar = parameters::ParametersSetFactory::newParametersSet("Parameterset");
   parametersSet_missingPar->createParameter("nbShunts", 1);
   ASSERT_NO_THROW(modelShunt_missingPar->setPARParameters(parametersSet_missingPar));
-  modelShunt_missingPar->addParameters(parameters_missingPar, false);
+  modelShunt_missingPar->addParameters(parameters_missingPar, false, false);
   ASSERT_NO_THROW(modelShunt_missingPar->setParametersFromPARFile());
   ASSERT_THROW_DYNAWO(modelShunt_missingPar->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
   }

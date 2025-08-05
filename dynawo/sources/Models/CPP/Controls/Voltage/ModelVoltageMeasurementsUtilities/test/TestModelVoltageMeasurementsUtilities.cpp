@@ -43,7 +43,7 @@ static boost::shared_ptr<SubModel> createModelVoltageMeasurementsUtilities(unsig
     parametersSet->createParameter("nbInputs", static_cast<int>(nbVoltages_));
     parametersSet->createParameter("updateStep", step_);
     voltmu->setPARParameters(parametersSet);
-    voltmu->addParameters(parameters, false);
+    voltmu->addParameters(parameters, false, false);
     voltmu->setParametersFromPARFile();
     voltmu->setSubModelParameters();
     voltmu->getSize();  // Sets all the sizes
@@ -83,7 +83,7 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesDefineMe
     parametersSet->createParameter("nbInputs", static_cast<int>(nbVoltages));
     parametersSet->createParameter("updateStep", step);
     ASSERT_NO_THROW(voltmu->setPARParameters(parametersSet));
-    voltmu->addParameters(parameters, false);
+    voltmu->addParameters(parameters, false, false);
     ASSERT_NO_THROW(voltmu->setParametersFromPARFile());
     ASSERT_NO_THROW(voltmu->setSubModelParameters());
 
@@ -121,7 +121,7 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesDefineMe
     std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("Parameterset");
     parametersSet->createParameter("updateStep", step);
     ASSERT_NO_THROW(voltmu->setPARParameters(parametersSet));
-    voltmu->addParameters(parameters, false);
+    voltmu->addParameters(parameters, false, false);
     ASSERT_NO_THROW(voltmu->setParametersFromPARFile());
     ASSERT_THROW_DYNAWO(voltmu->setSubModelParameters(), Error::MODELER, KeyError_t::ParameterHasNoValue);
 }

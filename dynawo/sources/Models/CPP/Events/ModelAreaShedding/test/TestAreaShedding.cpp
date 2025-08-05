@@ -51,7 +51,7 @@ static boost::shared_ptr<SubModel> initModelAreaShedding() {
   parametersSet->createParameter("PShed_1", 3.);
   parametersSet->createParameter("QShed_1", 4.);
   modelAreaShedding->setPARParameters(parametersSet);
-  modelAreaShedding->addParameters(parameters, false);
+  modelAreaShedding->addParameters(parameters, false, false);
   modelAreaShedding->setParametersFromPARFile();
   modelAreaShedding->setSubModelParameters();
 
@@ -80,7 +80,7 @@ TEST(ModelsModelAreaShedding, ModelAreaSheddingDefineMethods) {
   parametersSet->createParameter("QShed_1", 4.);
   ASSERT_NO_THROW(modelAreaShedding->setPARParameters(parametersSet));
 
-  modelAreaShedding->addParameters(parameters, false);
+  modelAreaShedding->addParameters(parameters, false, false);
   ASSERT_NO_THROW(modelAreaShedding->setParametersFromPARFile());
   ASSERT_NO_THROW(modelAreaShedding->setSubModelParameters());
 

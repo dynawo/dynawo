@@ -20,7 +20,7 @@
 class HeaderPatternDefine:
     ##
     # default constructor
-    def __init__(self, additional_header_files):
+    def __init__(self, additional_header_files, isLinearize):
         ## pattern to use when creating the header file of the model
         self.pattern_dyn_="""
 #ifndef __fill_model_name____Dyn_h
@@ -115,6 +115,8 @@ class HeaderPatternDefine:
 
 #endif
 """
+        if isLinearize:
+            self.pattern_dyn_ = self.pattern_dyn_.replace('_Dyn', '_Linearize')
 
         ## pattern to use when creating the header file of the init model
         self.pattern_init_="""
@@ -215,6 +217,8 @@ namespace DYN {
 
 #endif
 """
+        if isLinearize:
+            self.pattern_dyn_literals_ = self.pattern_dyn_literals_.replace('_Dyn', '_Linearize')
         ## pattern to use for literals header for the INIT file
         self.pattern_init_literals_="""
 #ifndef __fill_model_name____Init_Literals_h
@@ -239,6 +243,8 @@ __fill_variables_definitions__h
 
 #endif
 """
+        if isLinearize:
+            self.pattern_dyn_definitions_ = self.pattern_dyn_definitions_.replace('_Dyn', '_Linearize')
         ## pattern to use for definitions headers for the INIT file
         self.pattern_init_definitions_="""
 #ifndef __fill_model_name____Init_Definitions_h

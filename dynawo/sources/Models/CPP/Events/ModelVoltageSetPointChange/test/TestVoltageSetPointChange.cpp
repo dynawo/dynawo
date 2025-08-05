@@ -45,7 +45,7 @@ static boost::shared_ptr<SubModel> initModelVoltageSetPointChange() {
   parametersSet->createParameter("stopTime", 3.);
   parametersSet->createParameter("voltageSetPointChange", -0.05);
   modelVoltageSetPointChange->setPARParameters(parametersSet);
-  modelVoltageSetPointChange->addParameters(parameters, false);
+  modelVoltageSetPointChange->addParameters(parameters, false, false);
   modelVoltageSetPointChange->setParametersFromPARFile();
   modelVoltageSetPointChange->setSubModelParameters();
 
@@ -69,7 +69,7 @@ TEST(ModelsModelVoltageSetPointChange, ModelVoltageSetPointChangeDefineMethods) 
   parametersSet->createParameter("voltageSetPointChange", -0.05);
   ASSERT_NO_THROW(modelVoltageSetPointChange->setPARParameters(parametersSet));
 
-  modelVoltageSetPointChange->addParameters(parameters, false);
+  modelVoltageSetPointChange->addParameters(parameters, false, false);
   ASSERT_NO_THROW(modelVoltageSetPointChange->setParametersFromPARFile());
   ASSERT_NO_THROW(modelVoltageSetPointChange->setSubModelParameters());
 
@@ -123,7 +123,7 @@ TEST(ModelsModelVoltageSetPointChange, ModelVoltageSetPointChangeNoStopTime) {
   parametersSet->createParameter("voltageSetPointChange", -0.05);
   ASSERT_NO_THROW(modelVoltageSetPointChange->setPARParameters(parametersSet));
 
-  modelVoltageSetPointChange->addParameters(parameters, false);
+  modelVoltageSetPointChange->addParameters(parameters, false, false);
   ASSERT_NO_THROW(modelVoltageSetPointChange->setParametersFromPARFile());
   ASSERT_NO_THROW(modelVoltageSetPointChange->setSubModelParameters());
 }

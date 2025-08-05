@@ -247,6 +247,38 @@ class SubModelMockBase : public SubModel {
   void notifyTimeStep() override {
     // Dummy class used for testing
   }
+
+  void evalStaticYTypeLinearize() {
+  }
+
+  void evalDynamicYTypeLinearize() {
+  }
+
+  void evalStaticFTypeLinearize() {
+  }
+
+  void evalDynamicFTypeLinearize() {
+  }
+
+  void getSizeLinearize() {
+  }
+
+  void defineVariablesLinearize(std::vector<boost::shared_ptr<Variable> >& /*variables*/) {
+  }
+
+  void defineParametersLinearize(std::vector<ParameterModeler>& /*parameters*/) {
+  }
+
+  void initSubBuffersLinearize() override {
+    // Dummy class used for testing
+  }
+
+  void setSharedParametersDefaultValuesLinearize() override {
+  }
+
+  void initLinearize(const double /*t0*/) {
+    // no initialization needed
+  }
 };
 
 void SubModelMockBase::defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) {
@@ -456,6 +488,7 @@ TEST(ModelerCommonTest, ParameterMultipleCardinality) {   // Test for parameters
 
 TEST(ModelerCommonTest, SetParameterFromPARFile) {
   const bool isInitParam = false;
+  const bool isLinearizeParam = false;
 
   // Create a parameter set
   std::shared_ptr<parameters::ParametersSet> parametersSet = ParametersSetFactory::newParametersSet("Parameterset");
@@ -478,24 +511,24 @@ TEST(ModelerCommonTest, SetParameterFromPARFile) {
 
   // Create submodel
   SubModelMock submodel = SubModelMock();
-  submodel.addParameter(paramBool, isInitParam);
-  ASSERT_THROW_DYNAWO(submodel.addParameter(paramBool, isInitParam), Error::MODELER, KeyError_t::ParameterAlreadyExists);
-  submodel.addParameter(paramInt, isInitParam);
-  submodel.addParameter(paramDouble, isInitParam);
-  submodel.addParameter(paramDoubleShared, isInitParam);
-  submodel.addParameter(paramDoubleInternal, isInitParam);
-  submodel.addParameter(paramString, isInitParam);
-  submodel.addParameter(paramNotInSet, isInitParam);
-  submodel.addParameter(paramNotUnitary, isInitParam);
+  submodel.addParameter(paramBool, isInitParam, false);
+  ASSERT_THROW_DYNAWO(submodel.addParameter(paramBool, isInitParam, isLinearizeParam), Error::MODELER, KeyError_t::ParameterAlreadyExists);
+  submodel.addParameter(paramInt, isInitParam, isLinearizeParam);
+  submodel.addParameter(paramDouble, isInitParam, isLinearizeParam);
+  submodel.addParameter(paramDoubleShared, isInitParam, isLinearizeParam);
+  submodel.addParameter(paramDoubleInternal, isInitParam, isLinearizeParam);
+  submodel.addParameter(paramString, isInitParam, isLinearizeParam);
+  submodel.addParameter(paramNotInSet, isInitParam, isLinearizeParam);
+  submodel.addParameter(paramNotUnitary, isInitParam, isLinearizeParam);
 
   // Set submodel readParameters_ attribute
   ASSERT_NO_THROW(submodel.setPARParameters(parametersSet));
 
   // Set unitary parameters values with parameters set values
-  ASSERT_NO_THROW(submodel.setParameterFromPARFile(paramBool.getName(), isInitParam));
-  ASSERT_NO_THROW(submodel.setParameterFromPARFile(paramInt.getName(), isInitParam));
-  ASSERT_NO_THROW(submodel.setParameterFromPARFile(paramDouble.getName(), isInitParam));
-  ASSERT_NO_THROW(submodel.setParameterFromPARFile(paramString.getName(), isInitParam));
+  ASSERT_NO_THROW(submodel.setParameterFromPARFile(paramBool.getName(), isInitParam, isLinearizeParam));
+  ASSERT_NO_THROW(submodel.setParameterFromPARFile(paramInt.getName(), isInitParam, isLinearizeParam));
+  ASSERT_NO_THROW(submodel.setParameterFromPARFile(paramDouble.getName(), isInitParam, isLinearizeParam));
+  ASSERT_NO_THROW(submodel.setParameterFromPARFile(paramString.getName(), isInitParam, isLinearizeParam));
 
   // Check the setted values
   ASSERT_EQ(submodel.findParameterDynamic(paramBool.getName()).getValue<bool>(), false);
@@ -514,14 +547,16 @@ TEST(ModelerCommonTest, SetParameterFromPARFile) {
 
   // Test fail cases
   ASSERT_THROW_DYNAWO(paramDoubleInternal.setValue(9.2, PAR), Error::MODELER, KeyError_t::ParameterNoWriteRights);
-  ASSERT_THROW_DYNAWO(submodel.setParameterFromPARFile(paramNotUnitary.getName(), isInitParam), Error::MODELER, KeyError_t::ParameterNotUnitary);
+  ASSERT_THROW_DYNAWO(submodel.setParameterFromPARFile(paramNotUnitary.getName(), isInitParam, isLinearizeParam),
+    Error::MODELER, KeyError_t::ParameterNotUnitary);
 
   // If parameter not in set, write a log but don't throw an exception
-  ASSERT_NO_THROW(submodel.setParameterFromPARFile(paramNotInSet.getName(), isInitParam));
+  ASSERT_NO_THROW(submodel.setParameterFromPARFile(paramNotInSet.getName(), isInitParam, isLinearizeParam));
 }
 
 TEST(ModelerCommonTest, SetParametersFromPARFile) {
   const bool isInitParam = false;
+  const bool isLinearizeParam = false;
 
   // Create parameter set
   std::shared_ptr<parameters::ParametersSet> parametersSet = ParametersSetFactory::newParametersSet("Parameterset");
@@ -559,7 +594,7 @@ TEST(ModelerCommonTest, SetParametersFromPARFile) {
   parameters.push_back(paramNotUnitaryDouble);
 
   // Fill the submodel's attribute parameters_
-  submodel.addParameters(parameters, isInitParam);
+  submodel.addParameters(parameters, isInitParam, isLinearizeParam);
   ASSERT_EQ(submodel.getParametersDynamic().size(), 6);
 
   // Set parameters values with parameters set values
@@ -578,6 +613,7 @@ TEST(ModelerCommonTest, SetParametersFromPARFile) {
 
 TEST(ModelerCommonTest, FindParameter) {
   const bool isInitParam = false;
+  const bool isLinearizeParam = false;
 
   // Create submodel
   SubModelMock submodel = SubModelMock();
@@ -588,7 +624,7 @@ TEST(ModelerCommonTest, FindParameter) {
   parameters.push_back(paramBool);
 
   // Fill the submodel's attribute parameters_
-  submodel.addParameters(parameters, isInitParam);
+  submodel.addParameters(parameters, isInitParam, isLinearizeParam);
 
   // Look for a desired parameter with given name in the attribute parameters_
   ASSERT_NO_THROW(submodel.findParameterDynamic("name_bool"));

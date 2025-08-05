@@ -789,6 +789,7 @@ Simulation::initFromData(const shared_ptr<DataInterface>& data, const shared_ptr
   std::unique_ptr<Modeler> modeler = createModeler();
   modeler->setDataInterface(data);
   modeler->setDynamicData(dyd);
+  // il faudrait passer le tLinearize_ ici pour faire le set we withLinearize sinon il est fait trop tard
   modeler->initSystem();
 
   model_ = modeler->getModel();
@@ -833,6 +834,12 @@ Simulation::init() {
   // So the reference parameters origin from IIDM are retrieved here.
   // Simulation::initFromData==>Modeler::initSystem==>Modeler::initModelDescription(dyd,data)
   initFromData(data_, dyd_);
+
+  if (tLinearize_.has_value()) {
+    solver_->setWithLinearize(tLinearize_.value());
+    model_->setWithLinearize(tLinearize_.value());
+  }
+
   initStructure();
   if (Trace::logExists(Trace::parameters(), DEBUG)) {
     model_->printParameterValues();
@@ -859,10 +866,6 @@ Simulation::init() {
 #endif
 
   tCurrent_ = tStart_;
-  if (tLinearize_.has_value()) {
-    solver_->setWithLinearize(tLinearize_.value());
-    model_->setWithLinearize(tLinearize_.value());
-  }
 
   model_->initSilentZ(solver_->silentZEnabled());
 

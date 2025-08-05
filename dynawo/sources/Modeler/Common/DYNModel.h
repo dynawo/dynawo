@@ -266,11 +266,57 @@ class Model {
   virtual void evalDynamicFType() = 0;
 
   /**
+   * @brief get the properties of each residual function (algebraic or differential equation)
+   *
+   * @return properties of each equation
+   */
+  virtual const std::vector<propertyF_t>& getFTypeLinearize() const = 0;
+
+  /**
+   * @brief get the properties of the variables (algebraic, external or differential variable)
+   *
+   * @return properties of each variable
+   */
+  virtual const std::vector<propertyContinuousVar_t>& getYTypeLinearize() const = 0;
+
+  /**
+   * @brief evaluate the properties of the variables that won't change during simulation
+   * (algebraic, differential, external or external optional variables)
+   *
+   */
+  virtual void evalStaticYTypeLinearize() = 0;
+
+  /**
+   * @brief update during the simulation the properties of the variables that depends on others variables values
+   *
+   */
+  virtual void evalDynamicYTypeLinearize() = 0;
+
+  /**
+   * @brief evaluate the properties of the residual function  that won't change during simulation (algebraic or differential equation)
+   *
+   */
+  virtual void evalStaticFTypeLinearize() = 0;
+
+  /**
+   * @brief update during the simulation the properties of the residual functions that depends on others variables values
+   *
+   */
+  virtual void evalDynamicFTypeLinearize() = 0;
+
+  /**
    * @brief Set the initialisation status of the simulation
    *
    * @param isInitProcess : true for initialisation, false for standard dynamic simulation
    */
   virtual void setIsInitProcess(bool isInitProcess) = 0;
+
+  /**
+   * @brief Set the linearization status of the simulation
+   *
+   * @param isLinearizeProcess : true for linearization, false for standard dynamic simulation
+   */
+  virtual void setIsLinearizeProcess(bool isLinearizeProcess) = 0;
 
   /**
    * @brief set the initial time to use for models
@@ -317,6 +363,22 @@ class Model {
    * @return  number of continuous variable
    */
   virtual int sizeY() const = 0;
+
+  /**
+   * @brief get the number of discrete variables
+   *
+   *
+   * @return  number of discrete variables
+   */
+  virtual int sizeZLinearize() const = 0;
+
+  /**
+   * @brief  get the number of continuous variable
+   *
+   *
+   * @return  number of continuous variable
+   */
+  virtual int sizeYLinearize() const = 0;
 
   // infos
 
