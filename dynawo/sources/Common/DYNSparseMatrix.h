@@ -213,6 +213,32 @@ class SparseMatrix {
    */
   CheckError check() const;
 
+#ifdef _DEBUG_
+  /**
+  * @brief get current iAp index
+  * @return iAp index
+  */
+  int getIAp() const {
+    return iAp_;
+  }
+#endif
+
+  /**
+  * @brief in case of nan values get the row indices of those values
+  * @return row indices of nan values
+  */
+  const std::vector<int>& getWithNanOrInfRowIndices() const {
+    return withInfOrNanRowIndices_;
+  }
+
+  /**
+  * @brief in case of nan values get the column indices of those values
+  * @return column indices of nan values
+  */
+  const std::vector<int>& getWithNanOrInfColIndices() const {
+    return withInfOrNanColIndices_;
+  }
+
   /**
    * @brief get vector Ap ie for each column, first non null element index in Ai and Ax
    * @return vector Ap
@@ -293,6 +319,8 @@ class SparseMatrix {
  private:
   bool withoutNan_;  ///< @b true if there isn't any NaN value in the Sparse Matrix
   bool withoutInf_;  ///< @b true if there isn't any infinite value in the Sparse Matrix
+  std::vector<int> withInfOrNanRowIndices_;  ///< row indices of nan values
+  std::vector<int> withInfOrNanColIndices_;  ///< column indices of nan values
   // @b index begins with the zero value (0<=i<nbRow_, 0<=j<nbCol_)
   int nbRow_;  ///< number of row in the sparse Matrix structure
   int nbCol_;  ///< number of column in the sparse Matrix structure

@@ -29,6 +29,7 @@ target_link_libraries(dumpSolver
     LibXml2::LibXml2
     dynawo_Common
     dynawo_SolverCommon
+    dynawo_ModelerCommon
     Boost::system
     Boost::program_options
   )
