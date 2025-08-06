@@ -213,6 +213,16 @@ class SparseMatrix {
    */
   CheckError check() const;
 
+#ifdef _DEBUG_
+  /**
+  * @brief get current iAp index
+  * @return iAp index
+  */
+  int getIAp() const {
+    return iAp_;
+  }
+#endif
+
  private:
   /**
    * @brief delete all allocated memory of the matrix
