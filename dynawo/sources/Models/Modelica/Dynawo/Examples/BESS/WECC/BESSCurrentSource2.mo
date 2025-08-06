@@ -149,8 +149,8 @@ model BESSCurrentSource2 "WECC BESS with REEC-D and REGC-B with a plant controll
     tHoldIq = 0,
     IqFrzPu = 0,
     UBlkHPu = 999,
-    UBlkLPu = -999,
-    tBlkDelay = 0,
+    UBlkLPu = 0.8,
+    tBlkDelay = 0.3,
     zerox = 0.05) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant URefPu(k = 1) annotation(
@@ -236,7 +236,7 @@ equation
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian,newInst",
     __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "ida", maxIntegrationOrder = "2", nls = "kinsol", noHomotopyOnFirstTry = "()", noRestart = "()", noRootFinding = "()", initialStepSize = "0.00001", maxStepSize = "10"),
     Documentation(info = "<html><head></head><body>
-    <figure>This example and the data are inspired by the article [P. <span style=\"text-decoration: underline;\">Pourbeik</span> and J. K. <span style=\"text-decoration: underline;\">Petter</span>, <span style=\"text-decoration: underline;\">“Modeling</span> and validation <span style=\"text-decoration: underline;\">of</span> <span style=\"text-decoration: underline;\">battery</span> <span style=\"text-decoration: underline;\">energy</span> <span style=\"text-decoration: underline;\">storage</span> <span style=\"text-decoration: underline;\">systems&nbsp;</span><span style=\"text-decoration: underline;\">using</span> simple <span style=\"text-decoration: underline;\">generic</span> <span style=\"text-decoration: underline;\">models</span> for <span style=\"text-decoration: underline;\">power</span> system <span style=\"text-decoration: underline;\">stability</span> <span style=\"text-decoration: underline;\">studies”</span>, <span style=\"text-decoration: underline;\">CIGRE</span> Science and Engineering, <span style=\"text-decoration: underline;\">October</span> 2017, pp. 63-72.]</figure><figure>At initial time, the active power demanded by the battery is 0.5 pu (base SNom = 6 MVA) and the reactive power is 0 pu (base SNom = 6 MVA).</figure><figure>The BESS is able to discharge since the initial state of charge SOC0Pu = 0.5 is between the accepted range [SOCMinPu = 0.2 , SOCMaxPu = 0.8]. Since the simulation is only for 3 s, and the discharge time is considered much longer, the state of charge SOCPu is considered constant all along the simulation time.</figure><figure>At t = 1 s, a fault at the infinite bus is simulated and it can be seen that the BESS starts injecting reactive power until the fault is cleared at t = 1.5 s.</figure><figure>
+    <figure>This example and the data are inspired by the article [P. <span style=\"text-decoration: underline;\">Pourbeik</span> and J. K. <span style=\"text-decoration: underline;\">Petter</span>, <span style=\"text-decoration: underline;\">“Modeling</span> and validation <span style=\"text-decoration: underline;\">of</span> <span style=\"text-decoration: underline;\">battery</span> <span style=\"text-decoration: underline;\">energy</span> <span style=\"text-decoration: underline;\">storage</span> <span style=\"text-decoration: underline;\">systems&nbsp;</span><span style=\"text-decoration: underline;\">using</span> simple <span style=\"text-decoration: underline;\">generic</span> <span style=\"text-decoration: underline;\">models</span> for <span style=\"text-decoration: underline;\">power</span> system <span style=\"text-decoration: underline;\">stability</span> <span style=\"text-decoration: underline;\">studies”</span>, <span style=\"text-decoration: underline;\">CIGRE</span> Science and Engineering, <span style=\"text-decoration: underline;\">October</span> 2017, pp. 63-72.]</figure><figure>At initial time, the active power demanded by the battery is 0.5 pu (base SNom = 6 MVA) and the reactive power is 0 pu (base SNom = 6 MVA).</figure><figure>The BESS is able to discharge due to the negative limit on active current but no modelisation of State of charge is considered as it is irrelevant for simulation this short. Since the simulation is only for 3 s, and the discharge time is considered much longer, the state of charge SOCPu is considered constant all along the simulation time.</figure><figure>At t = 1 s, a fault at the infinite bus is simulated and it can be seen that the BESS starts injecting reactive power until the fault is cleared at t = 1.5 s.</figure><figure>
       <img width=\"450\" src=\"modelica://Dynawo/Examples/BESS/WECC/Resources/PInjPuSnREECd.png\">
     </figure>
     <figure>
@@ -244,7 +244,7 @@ equation
     </figure>
     <figure>
       <img width=\"450\" src=\"modelica://Dynawo/Examples/BESS/WECC/Resources/UPuREECd.png\">
-    </figure> The different flags have impact on the result as you can see below:
+    </figure> The different Flags allowing for different control path have been tested and validated you can observe results below:
     <figure>
       <img width=\"450\" src=\"modelica://Dynawo/Examples/BESS/WECC/Resources/QInjPuSn2pf.png\">
     </figure> The use of power factor instead of reactive power to control the reactive power. We obtain lower power this way.<figure>
@@ -256,5 +256,8 @@ equation
     <figure>
       <img width=\"450\" src=\"modelica://Dynawo/Examples/BESS/WECC/Resources/PInjPuSn2PFlag.png\">
     </figure>Considering the generator speed, we can observe the power stabilizing even during the voltage drop.
+    <figure>
+      <img width=\"450\" src=\"modelica://Dynawo/Examples/BESS/WECC/Resources/InjPuSn2Blockage.png\">
+    </figure> Blocking logic imposing all currents to 0 during voltage drop.
     </body></html>"));
 end BESSCurrentSource2;

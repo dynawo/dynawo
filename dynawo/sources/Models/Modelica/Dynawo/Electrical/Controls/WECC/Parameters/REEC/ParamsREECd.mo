@@ -16,21 +16,21 @@ within Dynawo.Electrical.Controls.WECC.Parameters.REEC;
 record ParamsREECd "REEC type D parameters"
   parameter Types.PerUnit IqFrzPu "Constant reactive current command value in pu (base SNom, UNom) (typical: -0.1 .. 0.1 pu)" annotation(
     Dialog(tab="Electrical Control", group = "REECd"));
-  parameter Types.PerUnit Kc "Reactive droop when VCompFlag = 0" annotation(
+  parameter Types.PerUnit Kc "Reactive droop when VCompFlag = 0 (typical: 0 .. 0.15 pu)" annotation(
     Dialog(tab="Electrical Control", group = "REECd"));
   parameter Types.PerUnit Ke "Scaling on the Ipmin: 0 < Ke ≤ 1, set to 0 for generator and non-zero for a storage device" annotation(
     Dialog(tab="Electrical Control", group = "REECd"));
   parameter Boolean PFlag "Power reference flag : if false, constant PRef, if true, consider generator speed" annotation(
     Dialog(tab="Electrical Control", group = "REECd"));
-  parameter Types.PerUnit RcPu "Current compensation resistance" annotation(
+  parameter Types.PerUnit RcPu "Current compensation resistance in pu (base SnRef, UNom) (typical: 0 .. 0.02 pu)" annotation(
     Dialog(tab="Electrical Control", group = "REECd"));
-  parameter Types.Time tBlkDelay "Time delay for unblocking after voltage recovers (UBlkL < UtFiltered < UBlkH) in s"  annotation(
+  parameter Types.Time tBlkDelay "Time delay for unblocking after voltage recovers (UBlkLPu < UtFilteredPu < UBlkHPu) in s (typical: 0.04 .. 0.1 s)" annotation(
     Dialog(tab="Electrical Control", group = "REECd"));
-  parameter Types.Time tHoldIpMax "Time delay for which the active current limit (ipMaxPu) is held after voltage dip in s" annotation(
+  parameter Types.Time tHoldIpMax "Time delay for which the active current limit (ipMaxPu) is held after voltage dip in s (typical: 0 s)" annotation(
     Dialog(tab="Electrical Control", group = "REECd"));
   parameter Types.Time tHoldIq "Absolute value of tHoldIq defines seconds to hold current command after voltage dip ended. tHoldIq > 0 for constant, 0 for continuous command, tHoldIq < 0 to hold command after a dip (typical: -1 .. 1 s)" annotation(
     Dialog(tab="Electrical Control", group = "REECd"));
-  parameter Types.Time tR1 "Filter time constant in s" annotation(
+  parameter Types.Time tR1 "Filter time constant in s (typical: 0 .. 0.5 s)" annotation(
     Dialog(tab="Electrical Control", group = "REECd"));
   parameter Types.VoltageModulePu UBlkHPu "Voltage above which the converter will block in pu (base UNom)" annotation(
     Dialog(tab="Electrical Control", group = "REECd"));
@@ -124,7 +124,7 @@ record ParamsREECd "REEC type D parameters"
     Dialog(tab="Electrical Control", group = "REECd"));
   parameter Types.VoltageModulePu VRef1Pu "User-defined reference/bias on the inner-loop voltage control in pu (base UNom) (typical: 0 pu)" annotation(
     Dialog(tab="Electrical Control", group = "REECd"));
-  parameter Types.PerUnit XcPu "Current compensation reactance" annotation(
+  parameter Types.PerUnit XcPu "Current compensation reactance in pu (base SnRef, UNom) (typical: 0 .. 0.15 pu)" annotation(
     Dialog(tab="Electrical Control", group = "REECd"));
 
   annotation(preferredView = "text");
