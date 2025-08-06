@@ -104,7 +104,7 @@ ModelGenerator::evalNodeInjection() {
       const double ui = modelBus_->ui();
       const double irValue = ir(ur, ui, U2, Pc, Qc);
       const double iiValue = ii(ur, ui, U2, Pc, Qc);
-      modelBus_->irAdd(ir);
+      modelBus_->irAdd(irValue);
       modelBus_->iiAdd(iiValue);
     }
   }
