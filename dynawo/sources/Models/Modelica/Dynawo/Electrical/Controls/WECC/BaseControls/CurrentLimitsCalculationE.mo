@@ -72,49 +72,42 @@ equation
   if vBlk or time <= tEndVBlk then
     iqMaxPu = 0;
     iqMinPu = 0;
-    ipMaxPu = 0;
-    ipMinPu = 0;
-  elseif not(vDip) then
-    if PQFlag == false then
-      if time <= tEndVDipFrz and tEndVDipFrz >= 0 then
-        ipMaxPu = ipMaxFrzPu;
-      else
-        ipMaxPu = min(ipVdlPu, noEvent(if IMaxPu > iqCmdPu then sqrt(IMaxPu ^ 2 - iqCmdPu ^ 2) else 0));
-      end if;
-      iqMaxPu = min(iqVdlPu, IMaxPu);
-      iqMinPu = -abs(iqMaxPu);
-      ipMinPu = -Ke * ipMaxPu;
-    else
+  elseif vDip then
+    if PQFlagFRT == true then
       if time <= tEndVDipFrz and tEndVDipFrz >= 0 then
         ipMaxPu = ipMaxFrzPu;
       else
         ipMaxPu = min(ipVdlPu, IMaxPu);
       end if;
       iqMaxPu = min(iqVdlPu, noEvent(if IMaxPu > ipCmdPu then sqrt(IMaxPu ^ 2 - ipCmdPu ^ 2) else 0));
-      iqMinPu = -abs(iqMaxPu);
-      ipMinPu = -Ke * ipMaxPu;
+    else
+      if time <= tEndVDipFrz and tEndVDipFrz >= 0 then
+        ipMaxPu = ipMaxFrzPu;
+      else
+        ipMaxPu = min(ipVdlPu, noEvent(if IMaxPu > iqCmdPu then sqrt(IMaxPu ^ 2 - iqCmdPu ^ 2) else 0));
+      end if;
+      iqMaxPu = min(iqVdlPu, IMaxPu);
     end if;
   else
-    if PQFlagFRT == false then
-      if time <= tEndVDipFrz and tEndVDipFrz >= 0 then
-        ipMaxPu = ipMaxFrzPu;
-      else
-        ipMaxPu = min(ipVdlPu, noEvent(if IMaxPu > iqCmdPu then sqrt(IMaxPu ^ 2 - iqCmdPu ^ 2) else 0));
-      end if;
-      iqMaxPu = min(iqVdlPu, IMaxPu);
-      iqMinPu = -abs(iqMaxPu);
-      ipMinPu = -Ke * ipMaxPu;
-    else
+    if PQFlag == true then
       if time <= tEndVDipFrz and tEndVDipFrz >= 0 then
         ipMaxPu = ipMaxFrzPu;
       else
         ipMaxPu = min(ipVdlPu, IMaxPu);
       end if;
       iqMaxPu = min(iqVdlPu, noEvent(if IMaxPu > ipCmdPu then sqrt(IMaxPu ^ 2 - ipCmdPu ^ 2) else 0));
-      iqMinPu = -abs(iqMaxPu);
-      ipMinPu = -Ke * ipMaxPu;
+    else
+      if time <= tEndVDipFrz and tEndVDipFrz >= 0 then
+        ipMaxPu = ipMaxFrzPu;
+      else
+        ipMaxPu = min(ipVdlPu, noEvent(if IMaxPu > iqCmdPu then sqrt(IMaxPu ^ 2 - iqCmdPu ^ 2) else 0));
+      end if;
+      iqMaxPu = min(iqVdlPu, IMaxPu);
     end if;
   end if;
+
+  ipMinPu = -Ke * ipMaxPu;
+  iqMinPu = -abs(iqMaxPu);
 
   annotation(
     preferredView = "text",
