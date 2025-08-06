@@ -82,11 +82,17 @@ SparseMatrix::addTerm(const int row, const double val) {
     ++iAx_;
     ++nbTerm_;
     if (std::isnan(val)) {   // right way to check is the value is a NaN value
+      Trace::debug() << DYNLog(JacobianNanInfTerm, row, iAp_ - 1) << Trace::endline;
       withoutNan_ = false;
+      withInfOrNanRowIndices_.push_back(row);
+      withInfOrNanColIndices_.push_back(iAp_ - 1);
     }
 
     if (std::isinf(val)) {  // if val is INFINITY
+      Trace::debug() << DYNLog(JacobianNanInfTerm, row, iAp_ - 1) << Trace::endline;
       withoutInf_ = false;
+      withInfOrNanRowIndices_.push_back(row);
+      withInfOrNanColIndices_.push_back(iAp_ - 1);
     }
   }
 }

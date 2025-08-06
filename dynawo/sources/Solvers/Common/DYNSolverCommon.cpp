@@ -24,6 +24,7 @@
 
 #include "DYNMacrosMessage.h"
 #include "DYNModel.h"
+#include "DYNSubModel.h"
 #include "DYNSolverCommon.h"
 #include "DYNSparseMatrix.h"
 #include "DYNTrace.h"
@@ -122,6 +123,22 @@ SolverCommon::printLargestErrors(std::vector<std::pair<double, size_t> >& fErr, 
 
     Trace::debug() << DYNLog(KinErrorValue, currentErr.second, currentErr.first,
                              subModelName, subModelIndexF, fEquation) << Trace::endline;
+  }
+}
+
+void
+SolverCommon::printLargestErrors(std::vector<std::pair<double, size_t> >& fErr, const SubModel& subModel, int nbErr) {
+  std::sort(fErr.begin(), fErr.end(), mapcompabs());
+
+  size_t size = nbErr;
+  if (fErr.size() < size)
+    size = fErr.size();
+  for (size_t i = 0; i < size; ++i) {
+    std::string subModelName(subModel.name());
+    std::pair<double, size_t> currentErr = fErr[i];
+    std::string fEquation = subModel.getFequationByLocalIndex(currentErr.second);
+    Trace::debug() << DYNLog(KinErrorValue, currentErr.second, currentErr.first,
+                             subModelName, currentErr.second, fEquation) << Trace::endline;
   }
 }
 
