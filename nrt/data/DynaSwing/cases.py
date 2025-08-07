@@ -500,12 +500,32 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
 
 #########################################################################################
-#     WECC Battery Energy Storage System with REPC-A REEC-C and REGC-A Current Source   #
+#    WECC Battery Energy Storage System with REPC-A, REEC-C and REGC-A Current Source   #
 #########################################################################################
 
 case_name = "DynaSwing - WECC - BESS - Current source"
 case_description = "WECC - BESS - Current Source"
 job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "WECC", "BESS", "WECCBESSCurrentSource", "WECCBESS.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+#########################################################################################
+#    WECC Battery Energy Storage System with REPC-A, REEC-D and REGC-A Current Source   #
+#########################################################################################
+
+case_name = "DynaSwing - WECC - BESS - Current source 2"
+case_description = "WECC - BESS - Current Source"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "WECC", "BESS", "WECCBESSCurrentSource2", "WECCBESS.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+#########################################################################################
+#    WECC Battery Energy Storage System with REPC-A, REEC-E and REGC-A Current Source   #
+#########################################################################################
+
+case_name = "DynaSwing - WECC - BESS - Current source 3"
+case_description = "WECC - BESS - Current Source"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "WECC", "BESS", "WECCBESSCurrentSource3", "WECCBESS.jobs")
 
 test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
 
