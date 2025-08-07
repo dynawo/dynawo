@@ -69,7 +69,6 @@ model BESSCurrentSource3 "WECC BESS with REEC-E and REGC-A with a plant controll
     RefFlag = false,
     RrpwrPu = 10,
     SNom = 6,
-    SOC0Pu = 0.5,
     U0Pu = 1,
     UInj0Pu(fixed = false),
     UPhaseInj0 = 0.00000144621,
@@ -82,6 +81,18 @@ model BESSCurrentSource3 "WECC BESS with REEC-E and REGC-A with a plant controll
     VDLIp32 = 1.11,
     VDLIp41 = 0.4,
     VDLIp42 = 1.11,
+    VDLIp51 = 0.5,
+    VDLIp52 = 1.11,
+    VDLIp61 = 0.6,
+    VDLIp62 = 1.11,
+    VDLIp71 = 0.7,
+    VDLIp72 = 1.11,
+    VDLIp81 = 0.8,
+    VDLIp82 = 1.11,
+    VDLIp91 = 0.9,
+    VDLIp92 = 1.11,
+    VDLIp101 = 1.0,
+    VDLIp102 = 1.11,
     VDLIq11 = 0,
     VDLIq12 = 0.75,
     VDLIq21 = 0.2,
@@ -90,6 +101,18 @@ model BESSCurrentSource3 "WECC BESS with REEC-E and REGC-A with a plant controll
     VDLIq32 = 0.75,
     VDLIq41 = 0.4,
     VDLIq42 = 0.75,
+    VDLIq51 = 0.5,
+    VDLIq52 = 0.75,
+    VDLIq61 = 0.6,
+    VDLIq62 = 0.75,
+    VDLIq71 = 0.7,
+    VDLIq72 = 0.75,
+    VDLIq81 = 0.8,
+    VDLIq82 = 0.75,
+    VDLIq91 = 0.9,
+    VDLIq92 = 0.75,
+    VDLIq101 = 1.0,
+    VDLIq102 = 0.75,
     VDipPu = -99,
     VFlag = true,
     VFrz = 0,
@@ -121,30 +144,6 @@ model BESSCurrentSource3 "WECC BESS with REEC-E and REGC-A with a plant controll
     RcPu = 0.02,
     PFlag = false,
     VRef1Pu = 0,
-    VDLIp51 = 0.5,
-    VDLIp52 = 1.11,
-    VDLIp61 = 0.6,
-    VDLIp62 = 1.11,
-    VDLIp71 = 0.7,
-    VDLIp72 = 1.11,
-    VDLIp81 = 0.8,
-    VDLIp82 = 1.11,
-    VDLIp91 = 0.9,
-    VDLIp92 = 1.11,
-    VDLIp101 = 1.0,
-    VDLIp102 = 1.11,
-    VDLIq51 = 0.5,
-    VDLIq52 = 0.75,
-    VDLIq61 = 0.6,
-    VDLIq62 = 0.75,
-    VDLIq71 = 0.7,
-    VDLIq72 = 0.75,
-    VDLIq81 = 0.8,
-    VDLIq82 = 0.75,
-    VDLIq91 = 0.9,
-    VDLIq92 = 0.75,
-    VDLIq101 = 1.0,
-    VDLIq102 = 0.75,
     tHoldIpMax = 0,
     tHoldIq = 0,
     IqFrzPu = 0,
@@ -167,13 +166,29 @@ model BESSCurrentSource3 "WECC BESS with REEC-E and REGC-A with a plant controll
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PFaRef(k = acos(BESS.PF0)) annotation(
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
-  Electrical.Lines.Line line(BPu = 0, GPu = 0, RPu = 0, XPu = 0.0000020661) annotation(
+  Dynawo.Electrical.Lines.Line line(BPu = 0, GPu = 0, RPu = 0, XPu = 0.0000020661) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Electrical.Buses.InfiniteBusWithVariations infiniteBus(U0Pu = 1, UEvtPu = 0.55, UPhase = 0, omega0Pu = 1, omegaEvtPu = 1.01, tOmegaEvtEnd = 6.5, tOmegaEvtStart = 6, tUEvtEnd = 1.5, tUEvtStart = 1) annotation(
+  Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(
+    U0Pu = 1,
+    UEvtPu = 0.55,
+    UPhase = 0,
+    omega0Pu = 1,
+    omegaEvtPu = 1.01,
+    tOmegaEvtEnd = 6.5,
+    tOmegaEvtStart = 6,
+    tUEvtEnd = 1.5,
+    tUEvtStart = 1) annotation(
     Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Modelica.Blocks.Sources.Constant PAuxPu(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.BESS.WECC.BESS_INIT bess_INIT(P0Pu = BESS.P0Pu, Q0Pu = BESS.Q0Pu, RPu = BESS.RPu, SNom = BESS.SNom, U0Pu = BESS.U0Pu, UPhase0 = BESS.UPhaseInj0, XPu = BESS.XPu) annotation(
+  Dynawo.Electrical.BESS.WECC.BESS_INIT bess_INIT(
+    P0Pu = BESS.P0Pu,
+    Q0Pu = BESS.Q0Pu,
+    RPu = BESS.RPu,
+    SNom = BESS.SNom,
+    U0Pu = BESS.U0Pu,
+    UPhase0 = BESS.UPhaseInj0,
+    XPu = BESS.XPu) annotation(
     Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 initial algorithm
