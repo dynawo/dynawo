@@ -278,7 +278,7 @@ TEST(CommonTest, testDelayManagerClassTrigger) {
   ASSERT_EQ(DYN::NO_ROOT, states[0]);
   ASSERT_EQ(1, std::count(states.begin(), states.end(), DYN::ROOT_UP));
   ASSERT_EQ(1, std::count(states.begin(), states.end(), DYN::ROOT_DOWN));
-  DYN::modeChangeType_t delay_mode = manager.evalMode(time);
+  DYN::modeChangeType_t delay_mode = manager.evalMode(time, "TEST");
   ASSERT_EQ(delay_mode, DYN::ALGEBRAIC_J_UPDATE_MODE);
 
   manager.setGomc(&states[0], 1, time);  // always called before checking trigger
@@ -288,7 +288,7 @@ TEST(CommonTest, testDelayManagerClassTrigger) {
   manager.setGomc(&states[0], 1, time + 0.1);  // always called before checking trigger
   ASSERT_EQ(DYN::NO_ROOT, states[0]);
   ASSERT_EQ(2, std::count(states.begin(), states.end(), DYN::ROOT_DOWN));
-  delay_mode = manager.evalMode(time + 0.1);
+  delay_mode = manager.evalMode(time + 0.1, "TEST");
   ASSERT_EQ(delay_mode, DYN::NO_MODE);
 
   time = 3.1;  // time after the two delays
@@ -296,7 +296,7 @@ TEST(CommonTest, testDelayManagerClassTrigger) {
   ASSERT_EQ(DYN::NO_ROOT, states[0]);
   ASSERT_EQ(1, std::count(states.begin(), states.end(), DYN::ROOT_UP));
   ASSERT_EQ(1, std::count(states.begin(), states.end(), DYN::ROOT_DOWN));
-  delay_mode = manager.evalMode(time);
+  delay_mode = manager.evalMode(time, "TEST");
   ASSERT_EQ(delay_mode, DYN::ALGEBRAIC_J_UPDATE_MODE);
 }
 
@@ -312,8 +312,8 @@ compare(const std::vector<std::string>& lhs, const std::vector<std::string>& rhs
 }
 
 TEST(CommonTest, testDelayManagerClassParameters) {
-  std::string formatted1 = "10:1.5:1.000000,1.100000;2.000000,2.200000;3.000000,3.300000;4.000000,4.400000;5.000000,5.500000;";
-  std::string formatted2 = "20:3:1.000000,1.100000;2.000000,2.200000;3.000000,3.300000;4.000000,4.400000;5.000000,5.500000;";
+  std::string formatted1 = "10:1.500000:1.000000,1.100000;2.000000,2.200000;3.000000,3.300000;4.000000,4.400000;5.000000,5.500000;";
+  std::string formatted2 = "20:3.000000:1.000000,1.100000;2.000000,2.200000;3.000000,3.300000;4.000000,4.400000;5.000000,5.500000;";
   std::vector<std::string> format;
   format.push_back(formatted1);
   format.push_back(formatted2);
@@ -326,7 +326,7 @@ TEST(CommonTest, testDelayManagerClassParameters) {
   std::vector<std::string> formatted = manager.dumpDelays();
   ASSERT_TRUE(compare(formatted, format));
 
-  std::string formatted3 = "10:1.5:1.000000,1.100000;1.000000,1.100000;2.000000,2.200000;3.000000,3.300000;4.000000,4.400000;5.000000,5.500000;";
+  std::string formatted3 = "10:1.500000:1.000000,1.100000;1.000000,1.100000;2.000000,2.200000;3.000000,3.300000;4.000000,4.400000;5.000000,5.500000;";
   std::vector<std::string> format2;
   format2.push_back(formatted3);
 
@@ -334,7 +334,7 @@ TEST(CommonTest, testDelayManagerClassParameters) {
   ok = manager2.loadDelays(format2, 5.5);
   ASSERT_TRUE(ok);
 
-  std::string formatted4 = "10:1.5:1.100000,1.100000;1.000000,1.100000;";
+  std::string formatted4 = "10:1.500000:1.100000,1.100000;1.000000,1.100000;";
   std::vector<std::string> format3;
   format3.push_back(formatted4);
 
