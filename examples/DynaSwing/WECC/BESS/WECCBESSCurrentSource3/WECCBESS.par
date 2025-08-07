@@ -162,9 +162,8 @@
     <par type="DOUBLE" name="BESS_brkpt" value="0.1"/>
     <par type="DOUBLE" name="BESS_IqrMaxPu" value="999"/>
     <par type="DOUBLE" name="BESS_IqrMinPu" value="-999"/>
-    <par type="DOUBLE" name="BESS_lvpl1" value="0.1"/>
+    <par type="DOUBLE" name="BESS_lvpl1" value="1.22"/>
     <par type="BOOL" name="BESS_Lvplsw" value="false"/>
-    <par type="BOOL" name="BESS_RateFlag" value="false"/>
     <par type="DOUBLE" name="BESS_RrpwrPu" value="10"/>
     <par type="DOUBLE" name="BESS_tFilterGC" value="0.02"/>
     <par type="DOUBLE" name="BESS_tG" value="0.017"/>
