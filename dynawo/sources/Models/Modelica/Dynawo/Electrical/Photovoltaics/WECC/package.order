@@ -11,4 +11,4 @@ PVVoltageSource3NoPlantControl
 PVVoltageSource4
 PVVoltageSource4NoPlantControl
 PVVoltageSource_INIT
-PVVoltageSourceAREPCc
+PVCurrentSource2

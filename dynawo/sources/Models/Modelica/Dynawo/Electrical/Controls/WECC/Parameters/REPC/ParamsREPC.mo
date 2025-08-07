@@ -14,11 +14,11 @@ within Dynawo.Electrical.Controls.WECC.Parameters.REPC;
 */
 
 record ParamsREPC
-  parameter Boolean FreqFlag "Governor response disable (false) or enable (true)" annotation(
+  parameter Boolean FreqFlag "Governor response disable (0) or enable (1)" annotation(
   Dialog(tab="Plant Control"));
   parameter Integer RefFlag "0: Reactive power control; 1: Voltage control; 2: Power factor control (only for REPC-C)" annotation(
     Dialog(tab = "Plant Control"));
-  parameter Boolean VCompFlag "Reactive droop (false) or line drop compensation (true) if RefFlag = 1" annotation(
+  parameter Boolean VCompFlag "Reactive droop (0) or line drop compensation (1) if RefFlag = 1" annotation(
   Dialog(tab="Plant Control"));
 
   parameter Types.PerUnit DbdPu "Reactive power (RefFlag = 0) or voltage (RefFlag = 1) deadband in pu (base SNom or UNom) (typical: 0..0.1)" annotation(

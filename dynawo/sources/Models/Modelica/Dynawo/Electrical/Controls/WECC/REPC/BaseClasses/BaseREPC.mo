@@ -20,7 +20,7 @@ model BaseREPC "WECC Plant Control REPC common"
   parameter Types.PerUnit XcPu "Line drop compensation reactance when VCompFlag = true in pu (base SnRef, UNom)";
 
   // Input variables
-  Modelica.ComplexBlocks.Interfaces.ComplexInput iPu(re(start = iInj0Pu.re), im(start = iInj0Pu.im)) "Complex current at regulated bus in pu (base SnRef, UNom) (generator convention)" annotation(
+  Modelica.ComplexBlocks.Interfaces.ComplexInput iPu(re(start = i0Pu.re), im(start = i0Pu.im)) "Complex current at regulated bus in pu (base SnRef, UNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-310, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-79, 111}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omega0Pu) "Frequency at regulated bus in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-310, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-111, 79}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
@@ -112,7 +112,7 @@ model BaseREPC "WECC Plant Control REPC common"
   Modelica.Blocks.Sources.IntegerConstant RefFlag0(k = RefFlag) annotation(
     Placement(visible = true, transformation(origin = {30, 80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
-  parameter Types.ComplexCurrentPu iInj0Pu "Start value of complex current at regulated bus in pu (base SNom, UNom) (generator convention)";
+  parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at regulated bus in pu (base SnRef, UNom) (generator convention)";
   parameter Types.ActivePowerPu PGen0Pu "Start value of active power at regulated bus in pu (base SNom) (generator convention)";
   parameter Types.ActivePowerPu PInj0Pu "Start value of active power at injector terminal in pu (base SNom) (generator convention)";
   parameter Types.ReactivePowerPu QGen0Pu "Start value of reactive power at regulated bus in pu (base SNom) (generator convention)";
