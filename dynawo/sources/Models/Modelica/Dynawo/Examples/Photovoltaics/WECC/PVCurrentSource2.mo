@@ -13,14 +13,14 @@ within Dynawo.Examples.Photovoltaics.WECC;
 * of simulation tools for power systems.
 */
 
-model PVVoltageSource5 "WECC PV Model on infinite bus"
+model PVCurrentSource2 "WECC PV Model on infinite bus"
   extends Icons.Example;
 
   Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(U0Pu = 1, UEvtPu = 0.5, UPhase = 0, omega0Pu = 1, omegaEvtPu = 1.01, tOmegaEvtEnd = 16.5, tOmegaEvtStart = 16, tUEvtEnd = 8, tUEvtStart = 4) annotation(
     Placement(visible = true, transformation(origin = {-82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Dynawo.Electrical.Lines.Line line(RPu = 0, XPu = 0.0000020661, BPu = 0, GPu = 0) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Photovoltaics.WECC.PVVoltageSourceAREPCc PV(DDn = 20, DPMaxPu = 999, DPMinPu = -999, DUp = 0.001, Dbd1Pu = -0.1, Dbd2Pu = 0.1, DbdPu = 0.01, EMaxPu = 999, EMinPu = -999, FDbd1Pu = 0.004, FDbd2Pu = 1, FEMaxPu = 999, FEMinPu = -999, FreqFlag = true, IMaxPu = 1.05, Id0Pu(fixed = false), Iq0Pu(fixed = false), Iqh1Pu = 2, Iql1Pu = -2, IqrMaxPu = 20, IqrMinPu = -20, Kc = 0, Ki = 1.5, KiPLL = 20, Kig = 2.36, Kp = 0.1, KpPLL = 3, Kpg = 0.05, Kqi = 0.5, Kqp = 1, Kqv = 2, Kvi = 1, Kvp = 1, Lvplsw = false, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, P0Pu = -0.7, PF0(fixed = false), PInj0Pu(fixed = false), PMaxPu = 1, PMinPu = 0, PQFlag = false, PfFlag = false, Q0Pu = -0.2, QFlag = true, QInj0Pu(fixed = false), QMaxPu = 0.4, QMinPu = -0.4, RPu = 0, RefFlag = 1, RrpwrPu = 10, SNom = 100, U0Pu = 1, UInj0Pu(fixed = false), UPhase0 = 1.44621e-6, UPhaseInj0(fixed = false), VCompFlag = false, VDipPu = 0.9, VFlag = true, VFrz = 0.2, VMaxPu = 1.1, VMinPu = 0.9, VRef0Pu = 1, VRef1Pu = 0, VUpPu = 1.1, XPu = 0.15, brkpt = 0.1, i0Pu(im(fixed = false), re(fixed = false)), iInj0Pu(im(fixed = false), re(fixed = false)), lvpl1 = 1.22, s0Pu(im(fixed = false), re(fixed = false)), tFilterGC = 0.02, tFilterPC = 0.04, tFt = 1e-10, tFv = 0.1, tG = 0.02, tIq = 0.02, tLag = 0.1, tP = 0.04, tPord = 0.02, tRv = 0.02, u0Pu(im(fixed = false), re(fixed = false)), uInj0Pu(im(fixed = false), re(fixed = false)), zerox = 0.05, DfMaxPu = 999, DfMinPu = -999, DPrMax = 999, DPrMin = -999, DQRefMax = 999, DQRefMin = -999, FfwrdFlag = false, PefdFlag = true, PfMax = 0.95, PfMin = -0.95, PiMaxPu = 0.1, PiMinPu = -0.1, PrMaxPu = 999, PrMinPu = -999, QRefMaxPu = 999, QRefMinPu = -999, QVFlag = true, QvrMax = 999, QvrMin = -999, tC = 0.02, tFrq = 0.1, tFrz = 0, UFreqPu = 0.8, URefMaxPu = 1.1, URefMinPu = 0.9, tE = 0.005, RSourcePu = 0, XSourcePu = 0.1, VDLIp11 = 1.1, VDLIp12 = 1.1, VDLIp21 = 1.15, VDLIp22 = 1, VDLIp31 = 1.16, VDLIp32 = 1, VDLIp41 = 1.17, VDLIp42 = 1, VDLIq11 = 1.1, VDLIq12 = 1.1, VDLIq21 = 1.15, VDLIq22 = 1, VDLIq31 = 1.16, VDLIq32 = 1, VDLIq41 = 1.17, VDLIq42 = 1,IqFrzPu = 0, PFlag = true, tHoldIpMax = 0.1, tHoldIq = 0) annotation(
+  Dynawo.Electrical.Photovoltaics.WECC.PVCurrentSource2 PV(DDn = 20, DPMaxPu = 999, DPMinPu = -999, DUp = 0.001, Dbd1Pu = -0.1, Dbd2Pu = 0.1, DbdPu = 0.01, EMaxPu = 999, EMinPu = -999, FDbd1Pu = 0.004, FDbd2Pu = 1, FEMaxPu = 999, FEMinPu = -999, FreqFlag = true, IMaxPu = 1.05, Id0Pu(fixed = false), Iq0Pu(fixed = false), Iqh1Pu = 2, Iql1Pu = -2, IqrMaxPu = 20, IqrMinPu = -20, Kc = 0, Ki = 1.5, KiPLL = 20, Kig = 2.36, Kp = 0.1, KpPLL = 3, Kpg = 0.05, Kqi = 0.5, Kqp = 1, Kqv = 2, Kvi = 1, Kvp = 1, Lvplsw = false, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, P0Pu = -0.7, PF0(fixed = false), PInj0Pu(fixed = false), PMaxPu = 1, PMinPu = 0, PQFlag = false, PfFlag = false, Q0Pu = -0.2, QFlag = true, QInj0Pu(fixed = false), QMaxPu = 0.4, QMinPu = -0.4, RPu = 0, RefFlag = 1, RrpwrPu = 10, SNom = 100, U0Pu = 1, UInj0Pu(fixed = false), UPhase0 = 1.44621e-6, UPhaseInj0(fixed = false), VCompFlag = false, VDipPu = 0.9, VFlag = true, VFrz = 0.2, VMaxPu = 1.1, VMinPu = 0.9, VRef0Pu = 1, VRef1Pu = 0, VUpPu = 1.1, XPu = 0.15, brkpt = 0.1, i0Pu(im(fixed = false), re(fixed = false)), iInj0Pu(im(fixed = false), re(fixed = false)), lvpl1 = 1.22, s0Pu(im(fixed = false), re(fixed = false)), tFilterGC = 0.02, tFilterPC = 0.04, tFt = 1e-10, tFv = 0.1, tG = 0.02, tIq = 0.02, tLag = 0.1, tP = 0.04, tPord = 0.02, tRv = 0.02, u0Pu(im(fixed = false), re(fixed = false)), uInj0Pu(im(fixed = false), re(fixed = false)), zerox = 0.05, DfMaxPu = 999, DfMinPu = -999, DPrMax = 999, DPrMin = -999, DQRefMax = 999, DQRefMin = -999, FfwrdFlag = false, PefdFlag = true, PfMax = 0.95, PfMin = -0.95, PiMaxPu = 0.1, PiMinPu = -0.1, PrMaxPu = 999, PrMinPu = -999, QRefMaxPu = 999, QRefMinPu = -999, QVFlag = true, QvrMax = 999, QvrMin = -999, tC = 0.02, tFrq = 0.1, tFrz = 0, UFreqPu = 0.8, URefMaxPu = 1.1, URefMinPu = 0.9, VDLIp11 = 1.1, VDLIp12 = 1.1, VDLIp21 = 1.15, VDLIp22 = 1, VDLIp31 = 1.16, VDLIp32 = 1, VDLIp41 = 1.17, VDLIp42 = 1, VDLIq11 = 1.1, VDLIq12 = 1.1, VDLIq21 = 1.15, VDLIq22 = 1, VDLIq31 = 1.16, VDLIq32 = 1, VDLIq41 = 1.17, VDLIq42 = 1,IqFrzPu = 0, PFlag = true, tHoldIpMax = 0.1, tHoldIq = 0) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PRefPu(k = 0.7) annotation(
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
@@ -34,7 +34,7 @@ model PVVoltageSource5 "WECC PV Model on infinite bus"
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
 
   // Initialization
-  Dynawo.Electrical.Photovoltaics.WECC.PVVoltageSource_INIT pvVoltageSource_INIT(P0Pu = PV.P0Pu, Q0Pu = PV.Q0Pu, RPu = PV.RPu, SNom = PV.SNom, U0Pu = PV.U0Pu, UPhase0 = PV.UPhase0, XPu = PV.XPu, RSourcePu = PV.RSourcePu, XSourcePu = PV.XSourcePu) annotation(
+  Dynawo.Electrical.Photovoltaics.WECC.PVCurrentSource_INIT pvVoltageSource_INIT(P0Pu = PV.P0Pu, Q0Pu = PV.Q0Pu, RPu = PV.RPu, SNom = PV.SNom, U0Pu = PV.U0Pu, UPhase0 = PV.UPhase0, XPu = PV.XPu) annotation(
     Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-30, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -88,17 +88,17 @@ equation
     Documentation(info ="<html><head></head><body><span style=\"font-size: 12px;\">
      This test case consists in one PV park connected to an infinite bus which voltage is reduced to 0.5 pu from t = 4 s to t = 8 s, and which frequency is increased to 1.01 pu from t = 16 s to t = 16.5 s. This is a way to observe the PV park's response to a voltage and frequency variation at its terminal.
      <figure>
-    <img width=\"450\" src=\"modelica://Dynawo/Examples/Photovoltaics/WECC/Resources/PPuSnRef_PVVoltageSource5.png\">
+    <img width=\"450\" src=\"modelica://Dynawo/Examples/Photovoltaics/WECC/Resources/PPuSnRef_PVCurrentSource2.png\">
   </figure>
   <figure>
-    <img width=\"450\" src=\"modelica://Dynawo/Examples/Photovoltaics/WECC/Resources/QPuSnRef_PVVoltageSource5.png\">
+    <img width=\"450\" src=\"modelica://Dynawo/Examples/Photovoltaics/WECC/Resources/QPuSnRef_PVCurrentSource2.png\">
   </figure>
   <figure>
-    <img width=\"450\" src=\"modelica://Dynawo/Examples/Photovoltaics/WECC/Resources/UPu_PVVoltageSource5.png\">
+    <img width=\"450\" src=\"modelica://Dynawo/Examples/Photovoltaics/WECC/Resources/UPu_PVCurrentSource2.png\">
   </figure>
         </div>
     <div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><span style=\"font-size: 12px;\"><br></span></div></div></body></html>
  "),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian,newInst",
     __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "ida", maxIntegrationOrder = "2", nls = "kinsol", noHomotopyOnFirstTry = "()", noRestart = "()", noRootFinding = "()", initialStepSize = "0.00001", maxStepSize = "10"));
-end PVVoltageSource5;
+end PVCurrentSource2;

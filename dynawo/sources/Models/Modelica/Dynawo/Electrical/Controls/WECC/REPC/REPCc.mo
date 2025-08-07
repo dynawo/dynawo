@@ -14,57 +14,8 @@ within Dynawo.Electrical.Controls.WECC.REPC;
 */
 
 model REPCc "WECC Plant Control type C"
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPCc;
   extends Dynawo.Electrical.Controls.WECC.REPC.BaseClasses.BaseREPC(add3(k2 = 1), firstOrder(UseFreeze = true, UseRateLim = true), limPID(Xi0 = if FfwrdFlag == true and PefdFlag == true and Kig > 0 then (PInj0Pu - PGen0Pu) / Kpg else PInj0Pu / Kpg, Y0 = if FfwrdFlag == true and PefdFlag == true and Kig > 0 then PInj0Pu - PGen0Pu else PInj0Pu, YMax = if FfwrdFlag == true and PefdFlag == true and Kig > 0 then PiMaxPu else PMaxPu, YMin = if FfwrdFlag == true and PefdFlag == true and Kig > 0 then PiMinPu else PMinPu), RefFlag0(k = if RefFlag == 2 and abs(PInj0Pu / (sqrt(PInj0Pu ^ 2 + QInj0Pu ^ 2))) < 0.01 then 0 else RefFlag), multiSwitch(nu = 3));
-
-  //Parameters REPC_C
-  parameter Types.AngularVelocityPu DfMaxPu "Maximum limit on frequency deviation in pu (base omegaNom)" annotation(
-    Dialog(tab = "Plant Control"));
-  parameter Types.AngularVelocityPu DfMinPu "Minimum limit on frequency deviation in pu (base omegaNom)" annotation(
-    Dialog(tab = "Plant Control"));
-  parameter Types.PerUnit DPrMax "Maximum rate of increase of plant Pref in pu/s (base SNom)" annotation(
-    Dialog(tab = "Plant Control"));
-  parameter Types.PerUnit DPrMin "Maximum rate of decrease of plant Pref in pu/s (base SNom)" annotation(
-    Dialog(tab = "Plant Control"));
-  parameter Types.PerUnit DQRefMax "Maximum rate of increase of Q reference in pu/s (base SNom)" annotation(
-    Dialog(tab = "Plant Control"));
-  parameter Types.PerUnit DQRefMin "Maximum rate of decrease of Q reference in pu/s (base SNom)" annotation(
-    Dialog(tab = "Plant Control"));
-  parameter Boolean FfwrdFlag "Enable or disable feedforward path" annotation(
-    Dialog(tab = "Plant Control"));
-  parameter Boolean PefdFlag "Enable or disable electrical power feedback" annotation(
-    Dialog(tab = "Plant Control"));
-  parameter Types.PerUnit PfMax "Maximum limit on power factor" annotation(
-    Dialog(tab = "Plant Control"));
-  parameter Types.PerUnit PfMin "Minimum limit on power factor" annotation(
-    Dialog(tab = "Plant Control"));
-  parameter Types.ActivePowerPu PiMaxPu "Maximum limit of the active power PI controller in pu (base SNom)" annotation(
-    Dialog(tab = "Plant Control"));
-  parameter Types.ActivePowerPu PiMinPu "Minimum limit of the active power PI controller in pu (base SNom)" annotation(
-    Dialog(tab = "Plant Control"));
-  parameter Types.PerUnit PrMaxPu "Maximum rate of increase of Pref in pu/s (base SNom)" annotation(
-    Dialog(tab = "Plant Control"));
-  parameter Types.PerUnit PrMinPu "Maximum rate of decrease of Pref in pu/s (base SNom)" annotation(
-    Dialog(tab = "Plant Control"));
-  parameter Types.ReactivePowerPu QRefMaxPu "Maximum limit on Qref in pu (base SNom)" annotation(
-    Dialog(tab = "Plant Control"));
-  parameter Types.ReactivePowerPu QRefMinPu "Minimum limit on Qref in pu (base SNom)" annotation(
-    Dialog(tab = "Plant Control"));
-  parameter Boolean QVFlag "Disable volt/var control completely, or  enable volt/var control" annotation(
-    Dialog(tab = "Plant Control"));
-  parameter Types.PerUnit QvrMax "Maximum rate of increase of Qext in pu/s (base SNom)" annotation(
-    Dialog(tab = "Plant Control"));
-  parameter Types.PerUnit QvrMin "Maximum rate of decrease of Qext in pu/s (base SNom)" annotation(
-    Dialog(tab = "Plant Control"));
-  parameter Types.Time tC "Time constant associated with reactive power measurement/filtering for the reactive droop function, in s";
-  parameter Types.Time tFrq "Frequency transducer/filter time constant in s" annotation(
-    Dialog(tab = "Plant Control"));
-  parameter Types.Time tFrz "Time delay during which the states are kept frozen after the filtered voltage recovers above Ufrz, in s";
-  parameter Types.VoltageModulePu UFreqPu "If the voltage at the bus where frequency is monitored < UFreqPu then measured frequency is set to 1 pu, in pu (base UNom)" annotation(
-    Dialog(tab = "Plant Control"));
-  parameter Types.VoltageModulePu URefMaxPu "Maximum limit on Uref in pu (base UNom)" annotation(
-    Dialog(tab = "Plant Control"));
-  parameter Types.VoltageModulePu URefMinPu "Minimum limit on Uref in pu (base UNom)" annotation(
-    Dialog(tab = "Plant Control"));
 
   //Input variables
   Modelica.Blocks.Interfaces.RealInput PAuxPu(start = 0) "Auxiliary power in pu (base SNom) (generator convention)" annotation(
