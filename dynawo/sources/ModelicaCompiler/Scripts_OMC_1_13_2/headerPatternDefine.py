@@ -50,6 +50,8 @@ class HeaderPatternDefine:
     Model__fill_model_name___Dyn() {
         dataStructInitialized_ = false;
         hasCheckDataCoherence_ = __fill_has_check_data_coherence__;
+        symbolicJ_ = false;
+        symbolicF_ = false;
     }
     ~Model__fill_model_name___Dyn() {if (dataStructInitialized_) deInitializeDataStruc();}
 
@@ -92,6 +94,10 @@ class HeaderPatternDefine:
     inline void setModelManager (ModelManager * model) { modelManager_ = model; }
     void checkSum(std::string & checkSum) { checkSum = std::string("__fill_model_checkSum__"); }
     inline bool isDataStructInitialized() const { return dataStructInitialized_; }
+    void evalJt(double cj, int rowOffset, SparseMatrix& jt) override;
+    void evalJtPrim(double cj, int rowOffset, SparseMatrix& jtPrim) override;
+    void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const override;
+    void evalF(double* f, propertyF_t type) override;
 
     private:
     DYNDATA * data;
@@ -140,6 +146,8 @@ namespace DYN {
     Model__fill_model_name___Init() {
         dataStructInitialized_ = false;
         hasCheckDataCoherence_ = __fill_has_check_data_coherence__;
+        symbolicJ_ = false;
+        symbolicF_ = false;
     }
     ~Model__fill_model_name___Init() {if (dataStructInitialized_) deInitializeDataStruc();}
 
@@ -181,6 +189,10 @@ namespace DYN {
     inline void setModelManager (ModelManager * model) { modelManager_ = model; }
     void checkSum(std::string & checkSum) { checkSum = std::string("__fill_model_checkSum__"); }
     inline bool isDataStructInitialized() const { return dataStructInitialized_; }
+    void evalJt(double cj, int rowOffset, SparseMatrix& jt) override;
+    void evalJtPrim(double cj, int rowOffset, SparseMatrix& jtPrim) override;
+    void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const override;
+    void evalF(double* f, propertyF_t type) override;
 
     private:
     DYNDATA * data;

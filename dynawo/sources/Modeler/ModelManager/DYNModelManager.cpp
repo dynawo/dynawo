@@ -243,7 +243,11 @@ ModelManager::evalF(double t, propertyF_t type) {
 #endif
   setManagerTime(t);
 
-  modelModelica()->setFomc(fLocal_, type);
+  if (modelModelica()->isEvalFSymbolic()) {
+    modelModelica()->evalF(fLocal_, type);
+  } else {
+    modelModelica()->setFomc(fLocal_, type);
+  }
 }
 
 bool
@@ -395,7 +399,11 @@ ModelManager::evalJt(const double t, const double cj, const int rowOffset, Spars
 #endif
 
 #ifdef _ADEPT_
-  evalJtAdept(t, yLocal_, ypLocal_, cj, jt, rowOffset, true);
+  if (modelModelica()->isEvalJSymbolic()) {
+    modelModelica()->evalJt(cj, rowOffset, jt);
+  } else {
+    evalJtAdept(t, yLocal_, ypLocal_, cj, jt, rowOffset, true);
+  }
 #else
   // Assert when Adept wasn't used
   assert(0 && "evalJt : Adept not used");
@@ -409,7 +417,11 @@ ModelManager::evalJtPrim(const double t, const double cj, const int rowOffset, S
 #endif
 
 #ifdef _ADEPT_
-  evalJtAdept(t, yLocal_, ypLocal_, cj, jtPrim, rowOffset, false);
+  if (modelModelica()->isEvalJSymbolic()) {
+    modelModelica()->evalJtPrim(cj, rowOffset, jtPrim);
+  } else {
+    evalJtAdept(t, yLocal_, ypLocal_, cj, jtPrim, rowOffset, false);
+  }
 #else
   // Assert when Adept wasn't used
   assert(0 && "evalJt : Adept not used");
@@ -1397,6 +1409,17 @@ ModelManager::evalCalculatedVarI(unsigned iCalculatedVar) const {
 
 void
 ModelManager::evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const {
+  /*if (modelModelica()->isEvalJSymbolic()) {
+    modelModelica()->evalJCalculatedVarI(iCalculatedVar, res);
+  } else {
+    evalJCalculatedVarIAdept(iCalculatedVar, res);
+  }*/
+  // std::cout << "evalJCalculatedVarI " << name() << " iCalculatedVar " << iCalculatedVar << std::endl;
+  evalJCalculatedVarIAdept(iCalculatedVar, res);
+}
+
+void
+ModelManager::evalJCalculatedVarIAdept(unsigned iCalculatedVar, std::vector<double>& res) const {
 #ifdef _ADEPT_
   try {
     std::vector<int> indexes;
