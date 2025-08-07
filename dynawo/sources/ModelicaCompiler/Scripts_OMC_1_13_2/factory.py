@@ -2755,6 +2755,8 @@ class Factory:
                 elif "FILE_INFO info" not in line:
                     line = line.replace(THREAD_DATA_OMC_PARAM ,"")
                     line = line.replace("MMC_STRINGDATA","")
+                    if "throwStreamPrint" in line:
+                        line = line.replace("throwStreamPrint(","throwStreamPrint(NULL,")
                     line = sub_division_sim(line)
                     new_body.append(line)
             self.list_for_externalcalls.extend(new_body)
