@@ -48,7 +48,6 @@ partial model BaseBESSCurrentSource "Partial base model for WECC BESS with elect
   // Initial parameters given by the user
   parameter Types.ActivePowerPu P0Pu "Start value of active power at regulated bus in pu (base SnRef) (receptor convention)";
   parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at regulated bus in pu (base SnRef) (receptor convention)";
-  parameter Types.PerUnit SOC0Pu "Initial state of charge in pu (base SNom)";
   parameter Types.VoltageModulePu U0Pu "Start value of voltage magnitude at regulated bus in pu (base UNom)";
 
   // Initial parameters calculated by the initialization model

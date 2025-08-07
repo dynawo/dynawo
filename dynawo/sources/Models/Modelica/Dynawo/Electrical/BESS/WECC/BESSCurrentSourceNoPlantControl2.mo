@@ -17,6 +17,7 @@ model BESSCurrentSourceNoPlantControl2 "WECC BESS with electrical control model 
   extends Dynawo.Electrical.BESS.WECC.BaseClasses.BaseBESSCurrentSource;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECd;
+
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
   // Line parameters
@@ -46,7 +47,7 @@ model BESSCurrentSourceNoPlantControl2 "WECC BESS with electrical control model 
   parameter Types.Angle UPhaseInj0 "Start value of voltage angle at injector in rad";
 
   // Initial parameter
-  final parameter Types.VoltageModulePu URef0Pu = if VCompFlag == true then UInj0Pu else (U0Pu + Kc*Q0Pu*SystemBase.SnRef/SNom) "Start value of voltage setpoint for plant level control, calculated depending on VCompFlag, in pu (base UNom)" annotation(
+  final parameter Types.VoltageModulePu URef0Pu = if VCompFlag == true then UInj0Pu else (U0Pu + Kc * Q0Pu * SystemBase.SnRef / SNom) "Start value of voltage setpoint for plant level control, calculated depending on VCompFlag, in pu (base UNom)" annotation(
     Placement(visible = false, transformation(extent = {{0, 0}, {0, 0}})));
 
 equation
