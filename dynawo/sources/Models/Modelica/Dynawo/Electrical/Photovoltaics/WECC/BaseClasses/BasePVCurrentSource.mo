@@ -33,8 +33,6 @@ partial model BasePVCurrentSource "Base for WECC PV with a current source as int
     Placement(visible = true, transformation(origin = {130, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Lines.Line line(RPu = RPu, XPu = XPu, BPu = 0, GPu = 0) annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.WECC.REEC.REECb wecc_reec(DPMaxPu = DPMaxPu, DPMinPu = DPMinPu, Dbd1Pu = Dbd1Pu, Dbd2Pu = Dbd2Pu, IMaxPu = IMaxPu, Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, Iqh1Pu = Iqh1Pu, Iql1Pu = Iql1Pu, Kqi = Kqi, Kqp = Kqp, Kqv = Kqv, Kvi = Kvi, Kvp = Kvp, PF0 = PF0, PInj0Pu = PInj0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, PQFlag = PQFlag, PfFlag = PfFlag, QFlag = QFlag, QInj0Pu = QInj0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, UInj0Pu = UInj0Pu, VDipPu = VDipPu, VFlag = VFlag, VMaxPu = VMaxPu, VMinPu = VMinPu, VRef0Pu = VRef0Pu, VRef1Pu = VRef1Pu, VUpPu = VUpPu, tIq = tIq, tP = tP, tPord = tPord, tRv = tRv) annotation(
-    Placement(visible = true, transformation(origin = {-80.1315, -0.1384}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.REGC.REGCa wecc_regc( Id0Pu = Id0Pu, Iq0Pu = Iq0Pu,IqrMaxPu = IqrMaxPu, IqrMinPu = IqrMinPu, Lvplsw = Lvplsw, QInj0Pu = QInj0Pu, RrpwrPu = RrpwrPu, UInj0Pu = UInj0Pu, brkpt = brkpt, lvpl1 = lvpl1, tFilterGC = tFilterGC, tG = tG, zerox = zerox) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Sources.InjectorIDQ injector(Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, P0Pu = -PInj0Pu * (SNom / SystemBase.SnRef), Q0Pu = -QInj0Pu * (SNom / SystemBase.SnRef), SNom = SNom, U0Pu = UInj0Pu, UPhase0 = UPhaseInj0, i0Pu = i0Pu, s0Pu = s0Pu, u0Pu = uInj0Pu) annotation(
@@ -58,24 +56,12 @@ equation
   line.switchOffSignal1.value = injector.switchOffSignal1.value;
   line.switchOffSignal2.value = injector.switchOffSignal2.value;
 
-  connect(wecc_reec.iqCmdPu, wecc_regc.iqCmdPu) annotation(
-    Line(points = {{-69, -6}, {-51, -6}}, color = {0, 0, 127}));
-  connect(wecc_reec.frtOn, wecc_regc.frtOn) annotation(
-    Line(points = {{-69, 0}, {-51, 0}}, color = {255, 0, 255}));
-  connect(wecc_reec.idCmdPu, wecc_regc.idCmdPu) annotation(
-    Line(points = {{-69, 6}, {-51, 6}}, color = {0, 0, 127}));
   connect(wecc_regc.idRefPu, injector.idPu) annotation(
     Line(points = {{-29, -6}, {-11.5, -6}}, color = {0, 0, 127}));
   connect(wecc_regc.iqRefPu, injector.iqPu) annotation(
     Line(points = {{-29, 4}, {-11.5, 4}}, color = {0, 0, 127}));
   connect(injector.UPu, wecc_regc.UPu) annotation(
     Line(points = {{11.5, -8}, {20, -8}, {20, -20}, {-46, -20}, {-46, -11}}, color = {0, 0, 127}));
-  connect(injector.UPu, wecc_reec.UPu) annotation(
-    Line(points = {{11.5, -8}, {20, -8}, {20, -20}, {-74, -20}, {-74, -11}}, color = {0, 0, 127}));
-  connect(injector.PInjPuSn, wecc_reec.PInjPu) annotation(
-    Line(points = {{11.5, -4}, {25, -4}, {25, -25}, {-80, -25}, {-80, -11}}, color = {0, 0, 127}));
-  connect(injector.QInjPuSn, wecc_reec.QInjPu) annotation(
-    Line(points = {{11.5, -0.5}, {30, -0.5}, {30, -30}, {-89, -30}, {-89, -11}}, color = {0, 0, 127}));
   connect(line.terminal1, measurements.terminal1) annotation(
     Line(points = {{60, 0}, {80, 0}}, color = {0, 0, 255}));
   connect(measurements.terminal2, terminal) annotation(
@@ -88,8 +74,6 @@ equation
     Line(points = {{-179.5, 38}, {-171, 38}}, color = {0, 0, 127}));
   connect(injector.uPu, pll.uPu) annotation(
     Line(points = {{11.5, 3}, {20, 3}, {20, 60}, {-180, 60}, {-180, 50}, {-171, 50}}, color = {85, 170, 255}));
-  connect(PFaRef, wecc_reec.PFaRef) annotation(
-    Line(points = {{-79, 70}, {-79, 11}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
