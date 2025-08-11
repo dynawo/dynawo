@@ -426,6 +426,7 @@ ModelHvdcLink::evalNodeInjection() {
     double ui2 = modelBus2_->ui();
     double U1_2 = modelBus1_->getCurrentU(ModelBus::U2PuType_);
     double U2_2 = modelBus2_->getCurrentU(ModelBus::U2PuType_);
+    std::cout << modelBus2_->getConnectionState() << std::endl;
     modelBus1_->irAdd(ir1(ur1, ui1, U1_2));
     modelBus1_->iiAdd(ii1(ur1, ui1, U1_2));
     // Add current injection at point of common coupling 2
@@ -751,8 +752,10 @@ ModelHvdcLink::setSubModelParameters(const std::unordered_map<std::string, Param
 
 void ModelHvdcLink::addBusNeighbors() {
   if (isConnected1() && isConnected2()) {
-    modelBus1_->addNeighbor(modelBus2_);
-    modelBus2_->addNeighbor(modelBus1_);
+    if (modelBus2_->hasInitialConditions())
+      modelBus1_->addNeighbor(modelBus2_);
+    if (modelBus1_->hasInitialConditions())
+      modelBus2_->addNeighbor(modelBus1_);
   }
 }
 

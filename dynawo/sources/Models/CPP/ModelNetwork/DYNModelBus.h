@@ -544,6 +544,8 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
    */
   void resetCurrentUStatus();
 
+  bool hasInitialConditions() const;
+
  private:
   /**
    * @brief define elements of the bus model using id as prefix (to deal with alias)
