@@ -14,7 +14,7 @@ within Dynawo.Electrical.Controls.WECC.REEC;
 */
 
 model REECe "WECC electrical control type E"
-  extends Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC(limPIDFreeze(Xi0 = if QFlag == 2 then QInj0Pu/UInj0Pu/Kqp else UInj0Pu/Kqp, Y0 = if QFlag == 2 then QInj0Pu/UInj0Pu else UInj0Pu), MaxPID(y = if QFlag == 2 then currentLimitsCalculationE.iqMaxPu else VMaxPu), MinPID(y = if QFlag == 2 then currentLimitsCalculationE.iqMinPu else VMinPu));
+  extends Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC(limPIDFreeze(Xi0 = if QFlag == 2 then QInj0Pu / UInj0Pu / Kqp else UInj0Pu / Kqp, Y0 = if QFlag == 2 then QInj0Pu / UInj0Pu else UInj0Pu), MaxPID(y = if QFlag == 2 then currentLimitsCalculationE.iqMaxPu else VMaxPu), MinPID(y = if QFlag == 2 then currentLimitsCalculationE.iqMinPu else VMinPu));
   extends Electrical.Controls.WECC.Parameters.REEC.ParamsREECe;
 
   // Input variables
@@ -29,7 +29,7 @@ model REECe "WECC electrical control type E"
 
   // Output variable
   Modelica.Blocks.Interfaces.BooleanOutput blocked(start = false) annotation(
-    Placement(transformation(origin = {284, 266}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 34}, extent = {{-10, -10}, {10, 10}})));
+    Placement(visible = true,transformation(origin = {284, 270}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Sources.RealExpression realExpression(y = QInjPu) annotation(
     Placement(transformation(origin = {-182, -260}, extent = {{-10, -10}, {10, 10}})));
@@ -75,13 +75,13 @@ model REECe "WECC electrical control type E"
     Placement(transformation(origin = {378, 110}, extent = {{-10, -10}, {10, 10}})));
   BaseControls.IpCommandBlLogic ipCommandBlLogic(tHoldIp = tHoldIpMax, IpCmdBlPu(start = Id0Pu), IpCmdPu(start = Id0Pu)) annotation(
     Placement(transformation(origin = {378, -120}, extent = {{-10, -10}, {10, 10}})));
-  Electrical.Controls.WECC.BaseControls.VoltageCheck voltageCheck1(UMaxPu = UBlkHPu, UMinPu = UBlkLPu) annotation(
-    Placement(transformation(origin = {244, 267}, extent = {{-10, -10}, {10, 10}})));
+  Dynawo.Electrical.Controls.WECC.BaseControls.VoltageCheck voltageCheck1(UMaxPu = UBlkHPu, UMinPu = UBlkLPu) annotation(
+    Placement(visible = true, transformation(origin = {240, 270}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch5 annotation(
     Placement(transformation(origin = {36, -70}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = PEFlag)  annotation(
+  Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = PEFlag) annotation(
     Placement(transformation(origin = {-16, -70}, extent = {{-10, -10}, {10, 10}})));
-  NonElectrical.Blocks.Continuous.LimPIDFreeze PID(K = Kpp, Ti = Kpp/Kpi, YMax = PMaxPu, YMin = PMinPu, Y0 = PInj0Pu, Xi0 = PInj0Pu/Kpp)  annotation(
+  NonElectrical.Blocks.Continuous.LimPIDFreeze PID(K = Kpp, Ti = Kpp / Kpi, YMax = PMaxPu, YMin = PMinPu, Y0 = PInj0Pu, Xi0 = PInj0Pu / Kpp) annotation(
     Placement(transformation(origin = {-20, -30}, extent = {{-10, 10}, {10, -10}}, rotation = -0)));
 
   // Initial parameters
@@ -172,13 +172,13 @@ equation
   connect(FRTOn21.y, currentLimitsCalculationE.vDip) annotation(
     Line(points = {{292, 9}, {304, 9}, {304, 12}, {380, 12}}, color = {255, 0, 255}));
   connect(firstOrder.y, voltageCheck1.UPu) annotation(
-    Line(points = {{62, 240}, {80, 240}, {80, 256}, {220, 256}, {220, 267}, {233, 267}}, color = {0, 0, 127}));
+    Line(points = {{62, 240}, {80, 240}, {80, 256}, {220, 256}, {220, 270}, {229, 270}}, color = {0, 0, 127}));
   connect(voltageCheck1.freeze, blocked) annotation(
-    Line(points = {{255, 267}, {267, 267}, {267, 266}, {284, 266}}, color = {255, 0, 255}));
+    Line(points = {{251, 270}, {284, 270}}, color = {255, 0, 255}));
   connect(voltageCheck1.freeze, currentLimitsCalculationE.vBlk) annotation(
-    Line(points = {{255, 267}, {255, 254.5}, {257, 254.5}, {257, 244}, {392, 244}, {392, 24}}, color = {255, 0, 255}));
+    Line(points = {{251, 270}, {260, 270}, {260, 244}, {392, 244}, {392, 24}}, color = {255, 0, 255}));
   connect(firstOrder.y, voltageCheck.UPu) annotation(
-    Line(points = {{62, 240}, {80, 240}, {80, 272}, {132, 272}}, color = {0, 0, 127}));
+    Line(points = {{62, 240}, {80, 240}, {80, 270}, {130, 270}}, color = {0, 0, 127}));
   connect(switch5.y, rateLimFirstOrderFreeze.u) annotation(
     Line(points = {{48, -70}, {54, -70}}, color = {0, 0, 127}));
   connect(booleanConstant.y, switch5.u2) annotation(

@@ -16,15 +16,15 @@ model REECb "WECC Electrical Control type B"
   extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECb;
 
-  Dynawo.Electrical.Controls.WECC.BaseControls.CurrentLimitsCalculationB currentLimitsCalculation1(IMaxPu = IMaxPu, PQFlag = PQFlag) annotation(
-    Placement(visible = true, transformation(origin = {410, 29}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Controls.WECC.BaseControls.CurrentLimitsCalculationB currentLimitsCalculationB(IMaxPu = IMaxPu, PQFlag = PQFlag) annotation(
+    Placement(visible = true, transformation(origin = {400, 30}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder2(T = 0.01, y_start = Iq0Pu) annotation(
-    Placement(visible = true, transformation(origin = {450, 10}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {440, 10}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = 0.01, y_start = Id0Pu) annotation(
-    Placement(visible = true, transformation(origin = {450, 50}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression IqMax(y = currentLimitsCalculation1.iqMaxPu) annotation(
+    Placement(visible = true, transformation(origin = {440, 50}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.RealExpression IqMax(y = currentLimitsCalculationB.iqMaxPu) annotation(
     Placement(visible = true, transformation(origin = {130, 130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression IqMin(y = currentLimitsCalculation1.iqMinPu) annotation(
+  Modelica.Blocks.Sources.RealExpression IqMin(y = currentLimitsCalculationB.iqMinPu) annotation(
     Placement(visible = true, transformation(origin = {130, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add2 annotation(
     Placement(visible = true, transformation(origin = {-39, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -34,22 +34,22 @@ model REECb "WECC Electrical Control type B"
     Placement(visible = true, transformation(origin = {-79, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-  connect(firstOrder3.y, currentLimitsCalculation1.ipCmdPu) annotation(
-    Line(points = {{439, 50}, {430, 50}, {430, 33}, {421, 33}}, color = {0, 0, 127}));
-  connect(firstOrder2.y, currentLimitsCalculation1.iqCmdPu) annotation(
-    Line(points = {{439, 10}, {430, 10}, {430, 25}, {421, 25}}, color = {0, 0, 127}));
-  connect(currentLimitsCalculation1.ipMinPu, variableLimiter1.limit2) annotation(
-    Line(points = {{399, 35}, {390, 35}, {390, 70}, {480, 70}, {480, -128}, {499, -128}}, color = {0, 0, 127}));
-  connect(currentLimitsCalculation1.ipMaxPu, variableLimiter1.limit1) annotation(
-    Line(points = {{399, 31}, {360, 31}, {360, 90}, {490, 90}, {490, -112}, {499, -112}}, color = {0, 0, 127}));
+  connect(firstOrder3.y, currentLimitsCalculationB.ipCmdPu) annotation(
+    Line(points = {{429, 50}, {420, 50}, {420, 34}, {411, 34}}, color = {0, 0, 127}));
+  connect(firstOrder2.y, currentLimitsCalculationB.iqCmdPu) annotation(
+    Line(points = {{429, 10}, {420, 10}, {420, 26}, {411, 26}}, color = {0, 0, 127}));
+  connect(currentLimitsCalculationB.ipMinPu, variableLimiter1.limit2) annotation(
+    Line(points = {{389, 36}, {380, 36}, {380, 70}, {480, 70}, {480, -128}, {499, -128}}, color = {0, 0, 127}));
+  connect(currentLimitsCalculationB.ipMaxPu, variableLimiter1.limit1) annotation(
+    Line(points = {{389, 32}, {360, 32}, {360, 90}, {490, 90}, {490, -112}, {499, -112}}, color = {0, 0, 127}));
   connect(variableLimiter1.y, firstOrder3.u) annotation(
-    Line(points = {{522, -120}, {530, -120}, {530, 50}, {462, 50}}, color = {0, 0, 127}));
+    Line(points = {{522, -120}, {530, -120}, {530, -140}, {460, -140}, {460, 50}, {452, 50}}, color = {0, 0, 127}));
   connect(variableLimiter.y, firstOrder2.u) annotation(
-    Line(points = {{521, 110}, {530, 110}, {530, 10}, {462, 10}}, color = {0, 0, 127}));
-  connect(currentLimitsCalculation1.iqMaxPu, variableLimiter.limit1) annotation(
-    Line(points = {{399, 23}, {390, 23}, {390, -10}, {480, -10}, {480, 118}, {498, 118}}, color = {0, 0, 127}));
-  connect(currentLimitsCalculation1.iqMinPu, variableLimiter.limit2) annotation(
-    Line(points = {{399, 27}, {360, 27}, {360, -40}, {490, -40}, {490, 102}, {498, 102}}, color = {0, 0, 127}));
+    Line(points = {{521, 110}, {530, 110}, {530, 130}, {470, 130}, {470, 10}, {452, 10}}, color = {0, 0, 127}));
+  connect(currentLimitsCalculationB.iqMaxPu, variableLimiter.limit1) annotation(
+    Line(points = {{389, 24}, {380, 24}, {380, -10}, {480, -10}, {480, 118}, {498, 118}}, color = {0, 0, 127}));
+  connect(currentLimitsCalculationB.iqMinPu, variableLimiter.limit2) annotation(
+    Line(points = {{389, 28}, {360, 28}, {360, -30}, {490, -30}, {490, 102}, {498, 102}}, color = {0, 0, 127}));
   connect(IqMax.y, varLimPIDFreeze.yMax) annotation(
     Line(points = {{141, 130}, {150, 130}, {150, 118}, {168, 118}}, color = {0, 0, 127}));
   connect(IqMin.y, varLimPIDFreeze.yMin) annotation(
@@ -71,19 +71,21 @@ equation
   connect(limiter3.y, division1.u1) annotation(
     Line(points = {{142, -70}, {156, -70}, {156, -114}, {170, -114}}, color = {0, 0, 127}));
   connect(UPu, voltageCheck.UPu) annotation(
-    Line(points = {{-270, 270}, {132, 270}, {132, 272}}, color = {0, 0, 127}));
+    Line(points = {{-270, 270}, {130, 270}}, color = {0, 0, 127}));
   connect(add1.y, variableLimiter.u) annotation(
     Line(points = {{342, 110}, {498, 110}}, color = {0, 0, 127}));
   connect(rateLimFirstOrderFreeze1.y, multiSwitch.u[1]) annotation(
     Line(points = {{141, 54}, {263, 54}, {263, 105}}, color = {0, 0, 127}));
   connect(varLimPIDFreeze.y, multiSwitch.u[2]) annotation(
     Line(points = {{191, 112}, {226.5, 112}, {226.5, 106}, {261, 106}, {261, 108.5}, {263, 108.5}, {263, 105}}, color = {0, 0, 127}));
-  connect(currentLimitsCalculation1.ipMaxPu, ipMaxPu) annotation(
-    Line(points = {{414, 7}, {519, 7}, {519, 30}, {550, 30}}, color = {0, 0, 127}));
-  connect(currentLimitsCalculation1.ipMinPu, ipMinPu) annotation(
-    Line(points = {{414, 3}, {525, 3}, {525, 10}, {550, 10}}, color = {0, 0, 127}));
-  connect(currentLimitsCalculation1.iqMaxPu, iqMaxPu);
-  connect(currentLimitsCalculation1.iqMinPu, iqMinPu);
+  connect(currentLimitsCalculationB.ipMaxPu, ipMaxPu) annotation(
+    Line(points = {{389, 32}, {360, 32}, {360, 90}, {520, 90}, {520, 30}, {550, 30}}, color = {0, 0, 127}));
+  connect(currentLimitsCalculationB.ipMinPu, ipMinPu) annotation(
+    Line(points = {{389, 36}, {380, 36}, {380, 70}, {510, 70}, {510, 10}, {550, 10}}, color = {0, 0, 127}));
+  connect(currentLimitsCalculationB.iqMaxPu, iqMaxPu) annotation(
+    Line(points = {{389, 24}, {380, 24}, {380, -10}, {550, -10}}, color = {0, 0, 127}));
+  connect(currentLimitsCalculationB.iqMinPu, iqMinPu) annotation(
+    Line(points = {{389, 28}, {360, 28}, {360, -30}, {550, -30}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

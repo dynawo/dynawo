@@ -18,7 +18,7 @@ record ParamsREEC "Common REEC parameters"
     Dialog(tab="Electrical Control", group = "REEC"));
   parameter Boolean PQFlag "Q/P priority: Q priority (0) or P priority (1)" annotation(
     Dialog(tab="Electrical Control", group = "REEC"));
-  parameter Integer QFlag "Q control flag: const. pf or Q ctrl (0) or voltage/Q (1) or disabale PI control of const. pf or Q ctrl (2) " annotation(
+  parameter Integer QFlag "Q control flag: constant pf or Q ctrl (0) or voltage/Q (1) or (only for REEC-E) disable PI control of constant pf or Q ctrl (2)" annotation(
     Dialog(tab="Electrical Control", group = "REEC"));
   parameter Boolean VFlag "Voltage control flag: voltage control (0) or Q ctrl (1)" annotation(
     Dialog(tab="Electrical Control", group = "REEC"));
