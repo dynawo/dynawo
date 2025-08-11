@@ -21,15 +21,15 @@ model REECa "WECC Electrical Control type A"
   Modelica.Blocks.Interfaces.RealInput omegaGPu(start = SystemBase.omegaRef0Pu) "Generator frequency from drive train control in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-270, -121}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-51, -110}, extent = {{10, 10}, {-10, -10}}, rotation = -90)));
 
-  // Output variables
-   Modelica.Blocks.Interfaces.RealOutput POrdPu(start = PInj0Pu) "Active power order in pu (base SNom) (generator convention)" annotation(
+  // Output variable
+  Modelica.Blocks.Interfaces.RealOutput POrdPu(start = PInj0Pu) "Active power order in pu (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {551, -153}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, -89}, extent = {{-10, -10}, {10, 10}})));
 
   Modelica.Blocks.Sources.RealExpression UFilteredPu5(y = UFilteredPu) annotation(
     Placement(visible = true, transformation(origin = {249, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression IqMax(y = currentLimitsCalculation1.iqMaxPu) annotation(
+  Modelica.Blocks.Sources.RealExpression IqMax(y = currentLimitsCalculationA.iqMaxPu) annotation(
     Placement(visible = true, transformation(origin = {130, 130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression IqMin(y = currentLimitsCalculation1.iqMinPu) annotation(
+  Modelica.Blocks.Sources.RealExpression IqMin(y = currentLimitsCalculationA.iqMinPu) annotation(
     Placement(visible = true, transformation(origin = {130, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanExpression FRTOn4(y = frtOn) annotation(
     Placement(visible = true, transformation(origin = {304, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -53,13 +53,13 @@ model REECa "WECC Electrical Control type A"
     Placement(visible = true, transformation(origin = {264, 220}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.BaseControls.IqInjectionLogic iqInjectionLogic(IqFrzPu = IqFrzPu, tHoldIq = tHoldIq) annotation(
     Placement(visible = true, transformation(origin = {309, 190}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Controls.WECC.BaseControls.CurrentLimitsCalculationA currentLimitsCalculation1(IMaxPu = IMaxPu, PQFlag = PQFlag, tHoldIpMax = tHoldIpMax) annotation(
+  Dynawo.Electrical.Controls.WECC.BaseControls.CurrentLimitsCalculationA currentLimitsCalculationA(IMaxPu = IMaxPu, PQFlag = PQFlag, tHoldIpMax = tHoldIpMax) annotation(
     Placement(visible = true, transformation(origin = {403, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression UFilteredPu3(y = UFilteredPu) annotation(
     Placement(transformation(origin = {190, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
 equation
-  connect(FRTOn4.y, currentLimitsCalculation1.vDip) annotation(
+  connect(FRTOn4.y, currentLimitsCalculationA.vDip) annotation(
     Line(points = {{315, 0}, {392, 0}}, color = {255, 0, 255}));
   connect(product2.y, switch3.u1) annotation(
     Line(points = {{-164, -115}, {-145, -115}, {-145, -78}, {-87, -78}}, color = {0, 0, 127}));
@@ -75,19 +75,19 @@ equation
     Line(points = {{260, 2}, {263, 2}, {263, 22}, {267, 22}}, color = {0, 0, 127}));
   connect(UFilteredPu5.y, IqmaxFromUPu.u) annotation(
     Line(points = {{260, 2}, {263, 2}, {263, -18}, {267, -18}}, color = {0, 0, 127}));
-  connect(IqmaxFromUPu.y[1], currentLimitsCalculation1.iqVdlPu) annotation(
+  connect(IqmaxFromUPu.y[1], currentLimitsCalculationA.iqVdlPu) annotation(
     Line(points = {{290, -18}, {340, -18}, {340, -3.5}, {392, -3.5}}, color = {0, 0, 127}));
-  connect(IpmaxFromUPu.y[1], currentLimitsCalculation1.ipVdlPu) annotation(
+  connect(IpmaxFromUPu.y[1], currentLimitsCalculationA.ipVdlPu) annotation(
     Line(points = {{290, 22}, {343.5, 22}, {343.5, 4}, {392, 4}}, color = {0, 0, 127}));
   connect(slewRateLimiter.y, product2.u1) annotation(
     Line(points = {{-219, -40}, {-210, -40}, {-210, -110}, {-187, -110}, {-187, -109}}, color = {0, 0, 127}));
-  connect(currentLimitsCalculation1.ipMaxPu, variableLimiter1.limit1) annotation(
+  connect(currentLimitsCalculationA.ipMaxPu, variableLimiter1.limit1) annotation(
     Line(points = {{414, 7}, {480, 7}, {480, -112}, {499, -112}}, color = {0, 0, 127}));
-  connect(currentLimitsCalculation1.ipMinPu, variableLimiter1.limit2) annotation(
+  connect(currentLimitsCalculationA.ipMinPu, variableLimiter1.limit2) annotation(
     Line(points = {{414, 3}, {470, 3}, {470, -128}, {499, -128}}, color = {0, 0, 127}));
-  connect(currentLimitsCalculation1.iqMaxPu, variableLimiter.limit1) annotation(
+  connect(currentLimitsCalculationA.iqMaxPu, variableLimiter.limit1) annotation(
     Line(points = {{414, -3}, {480, -3}, {480, 118}, {498, 118}}, color = {0, 0, 127}));
-  connect(currentLimitsCalculation1.iqMinPu, variableLimiter.limit2) annotation(
+  connect(currentLimitsCalculationA.iqMinPu, variableLimiter.limit2) annotation(
     Line(points = {{414, -7}, {470, -7}, {470, 102}, {498, 102}}, color = {0, 0, 127}));
   connect(IqMax.y, varLimPIDFreeze.yMax) annotation(
     Line(points = {{141, 130}, {156, 130}, {156, 118}, {168, 118}}, color = {0, 0, 127}));
@@ -99,9 +99,9 @@ equation
     Line(points = {{309, 179}, {309, 116}, {318, 116}}, color = {0, 0, 127}));
   connect(FRTOn5.y, iqInjectionLogic.vDip) annotation(
     Line(points = {{301, 240}, {317, 240}, {317, 202}}, color = {255, 0, 255}));
-  connect(variableLimiter1.y, currentLimitsCalculation1.ipCmdPu) annotation(
+  connect(variableLimiter1.y, currentLimitsCalculationA.ipCmdPu) annotation(
     Line(points = {{522, -120}, {530, -120}, {530, 20}, {380, 20}, {380, 8}, {392, 8}}, color = {0, 0, 127}));
-  connect(variableLimiter.y, currentLimitsCalculation1.iqCmdPu) annotation(
+  connect(variableLimiter.y, currentLimitsCalculationA.iqCmdPu) annotation(
     Line(points = {{521, 110}, {530, 110}, {530, -21}, {380, -21}, {380, -7}, {392, -7}}, color = {0, 0, 127}));
   connect(switch1.y, add2.u2) annotation(
     Line(points = {{-109, 150}, {-100, 150}, {-100, 72}, {-54, 72}}, color = {0, 0, 127}));
@@ -120,16 +120,16 @@ equation
   connect(limiter3.y, division1.u1) annotation(
     Line(points = {{141, -70}, {158, -70}, {158, -114}, {169, -114}}, color = {0, 0, 127}));
   connect(UPu, voltageCheck.UPu) annotation(
-    Line(points = {{-270, 270}, {131, 270}, {131, 271}}, color = {0, 0, 127}));
+    Line(points = {{-270, 270}, {130, 270}}, color = {0, 0, 127}));
   connect(add1.y, variableLimiter.u) annotation(
     Line(points = {{341, 110}, {498, 110}}, color = {0, 0, 127}));
-  connect(currentLimitsCalculation1.ipMaxPu, ipMaxPu) annotation(
+  connect(currentLimitsCalculationA.ipMaxPu, ipMaxPu) annotation(
     Line(points = {{414, 7}, {519, 7}, {519, 30}, {550, 30}}, color = {0, 0, 127}));
-  connect(currentLimitsCalculation1.ipMinPu, ipMinPu) annotation(
+  connect(currentLimitsCalculationA.ipMinPu, ipMinPu) annotation(
     Line(points = {{414, 3}, {525, 3}, {525, 10}, {550, 10}}, color = {0, 0, 127}));
-  connect(currentLimitsCalculation1.iqMaxPu, iqMaxPu) annotation(
+  connect(currentLimitsCalculationA.iqMaxPu, iqMaxPu) annotation(
     Line(points = {{414, -3}, {522, -3}, {522, -10}, {550, -10}}, color = {0, 0, 127}));
-  connect(currentLimitsCalculation1.iqMinPu, iqMinPu) annotation(
+  connect(currentLimitsCalculationA.iqMinPu, iqMinPu) annotation(
     Line(points = {{414, -7}, {516, -7}, {516, -30}, {550, -30}}, color = {0, 0, 127}));
   connect(rateLimFirstOrderFreeze1.y, multiSwitch.u[1]) annotation(
     Line(points = {{141, 54}, {263, 54}, {263, 105}}, color = {0, 0, 127}));
