@@ -426,7 +426,6 @@ ModelHvdcLink::evalNodeInjection() {
     double ui2 = modelBus2_->ui();
     double U1_2 = modelBus1_->getCurrentU(ModelBus::U2PuType_);
     double U2_2 = modelBus2_->getCurrentU(ModelBus::U2PuType_);
-    std::cout << modelBus2_->getConnectionState() << std::endl;
     modelBus1_->irAdd(ir1(ur1, ui1, U1_2));
     modelBus1_->iiAdd(ii1(ur1, ui1, U1_2));
     // Add current injection at point of common coupling 2
