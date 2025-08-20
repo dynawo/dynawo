@@ -281,6 +281,9 @@ SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
     irr[i] = solver->vectorF_[solver->indexF_[i]];
   }
 
+  // model.printVariableNames(solver->ignoreY_);
+  // model.printEquations(solver->ignoreF_);
+
 // #ifdef _DEBUG_
   if (solver->printResiduals()) {
     // Print the current residual norms, the first one is used as a stopping criterion
@@ -357,6 +360,7 @@ SolverKINAlgRestoration::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
   smj.erase(solver->ignoreY_, solver->ignoreF_, smjKin);
 // #if _DEBUG_
   if (solver->checkJacobian_) {
+    // model.printVariableNames(solver->ignoreY_);
     checkJacobian(smjKin, model, solver->ignoreF_, solver->ignoreY_);
   }
 // #endif
@@ -395,14 +399,14 @@ void SolverKINAlgRestoration::saveState() {
   vectorYForRestorationSave_.assign(vectorYForRestoration_.begin(), vectorYForRestoration_.end());
   vectorYpForRestorationSave_.assign(vectorYpForRestoration_.begin(), vectorYpForRestoration_.end());
   vectorYOrYpSolutionSave_.assign(vectorYOrYpSolution_.begin(), vectorYOrYpSolution_.end());
-  model_->saveResidual(vectorFSave_);
+  //model_->saveResidual(vectorFSave_);
 }
 
 void SolverKINAlgRestoration::restoreState() {
   vectorYForRestoration_.assign(vectorYForRestorationSave_.begin(), vectorYForRestorationSave_.end());
   vectorYpForRestoration_.assign(vectorYpForRestorationSave_.begin(), vectorYpForRestorationSave_.end());
   vectorYOrYpSolution_.assign(vectorYOrYpSolutionSave_.begin(), vectorYOrYpSolutionSave_.end());
-  model_->restoreResidual(vectorFSave_);
+  //model_->restoreResidual(vectorFSave_);
 }
 
 int SolverKINAlgRestoration::solveStrategy(const bool noInitSetup, const bool evaluateOnlyModeAtFirstIter, const int kinsolStategy) {
