@@ -1258,6 +1258,13 @@ void ModelMulti::printEquations() {
     }
   }
   connectorContainer_->printEquations();
+  nVar += connectorContainer_->nbContinuousConnectors();
+  std::unordered_set<int> ignoreY;
+  std::string subModelName;
+  for (const auto numVarOptionnal : numVarsOptional_) {
+    Trace::debug(Trace::equations()) << nVar << " optional connection " << getVariableName(numVarOptionnal, ignoreY, subModelName) << " model: " << subModelName << Trace::endline;
+    ++nVar;
+  }
 
   setIsInitProcess(true);
   nVar = 0;
