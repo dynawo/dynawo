@@ -76,14 +76,23 @@ def process_if_stmt(if_node):
             line = then_block[0]
             line = line.replace('throwStreamPrintWithEquationIndexes(', 'throwStreamPrintWithEquationIndexes(' + condition + ',')
             return line
-        pattern = r'\(\s*\(\s*modelica_integer\s*\)\s*1\s*\)\s*\+\s*\(\s*modelica_integer\s*\)\s*\b(?:integerParameter|integerDoubleVars)\b\[(\d+)\]\s*==\s*(\d+)'
-        match = re.search(pattern, condition)
+        pattern1 = r'\(\s*\(\s*modelica_integer\s*\)\s*1\s*\)\s*\+\s*\(\s*modelica_integer\s*\)\s*\b(?:integerParameter|integerDoubleVars)\b\[(\d+)\]\s*==\s*(\d+)'
+        match = re.search(pattern1, condition)
         if match:
             return {
                 'type': 'if_statement',
                 'condition': condition,
                 'then': {"code": then_block, "variables": then_variables}
             }
+        else:
+            pattern2 = r'\s*\(\s*modelica_integer\s*\)\s*\b(?:integerDoubleVars)\b\[(\d+)\]\s*==\s*\s*(\d+)'
+            match = re.search(pattern2, condition)
+            if match:
+                return {
+                    'type': 'if_statement',
+                    'condition': condition,
+                    'then': {"code": then_block, "variables": then_variables}
+                }
 
     return {
         'type': 'if_statement',
@@ -393,13 +402,14 @@ def block_variables(block_code, then_else_block_variables):
                 for variable in then_else_block_variables:
                     if then_block_variables[remove_variable] is not None and variable in then_block_variables[remove_variable]:
                         to_remove.append(variable)
-            else_block_variables = line['else']['variables']
-            then_else_block_variables.update(else_block_variables.keys())
-            else_removed_variables_internal = block_variables(line['else']['code'], then_else_block_variables)
-            for remove_variable in else_removed_variables_internal:
-                for variable in then_else_block_variables:
-                    if else_block_variables[remove_variable] is not None and variable in else_block_variables[remove_variable]:
-                        to_remove.append(variable)
+            if 'else' in line:
+                else_block_variables = line['else']['variables']
+                then_else_block_variables.update(else_block_variables.keys())
+                else_removed_variables_internal = block_variables(line['else']['code'], then_else_block_variables)
+                for remove_variable in else_removed_variables_internal:
+                    for variable in then_else_block_variables:
+                        if else_block_variables[remove_variable] is not None and variable in else_block_variables[remove_variable]:
+                            to_remove.append(variable)
             if condition in then_else_block_variables:
                 then_else_block_variables.remove(condition)
                 removed_variables.add(condition)
@@ -876,15 +886,21 @@ def jacobian(residuals, input_path, input_filename, model_name, model_type):
 
 def countIf(block_code, block_variables):
     if_blocks = [(index, code) for index, code in enumerate(block_code) if isinstance(code, dict)]
-    pattern = r'\(\s*\(\s*modelica_integer\s*\)\s*1\s*\)\s*\+\s*\(\s*modelica_integer\s*\)\s*\b(?:integerParameter|integerDoubleVars)\b\[(\d+)\]\s*==\s*(\d+)'
+    pattern1 = r'\(\s*\(\s*modelica_integer\s*\)\s*1\s*\)\s*\+\s*\(\s*modelica_integer\s*\)\s*\b(?:integerParameter|integerDoubleVars)\b\[(\d+)\]\s*==\s*(\d+)'
+    pattern2 = r'\s*\(\s*modelica_integer\s*\)\s*\b(?:integerDoubleVars)\b\[(\d+)\]\s*==\s*\s*(\d+)'
 
-    if not any('else' in if_block[1] for if_block in if_blocks) and all(re.match(pattern, if_block[1]['condition']) for if_block in if_blocks):
+    if not any('else' in if_block[1] for if_block in if_blocks) and (all(re.match(pattern1, if_block[1]['condition']) for if_block in if_blocks) or all(re.match(pattern2, if_block[1]['condition']) for if_block in if_blocks)):
         parameter_indices = []
         parameter_values = []
         for if_block in if_blocks:
-            match = re.search(pattern, if_block[1]['condition'])
-            parameter_indices.append(match.group(1))
-            parameter_values.append(match.group(2))
+            match = re.search(pattern1, if_block[1]['condition'])
+            if match:
+                parameter_indices.append(match.group(1))
+                parameter_values.append(match.group(2))
+            else:
+                match = re.search(pattern2, if_block[1]['condition'])
+                parameter_indices.append(match.group(1))
+                parameter_values.append(match.group(2))
         parameter_index = set(parameter_indices)
         if len(parameter_index) == 1 and len(parameter_values) == len(set(parameter_values)):
             return
