@@ -218,7 +218,7 @@ SolverIDA::setSolverSpecificParameters() {
   if (activateCheckJacobian.hasValue())
     activateCheckJacobian_ = activateCheckJacobian.getValue<bool>();
   const ParameterSolver& activateCheckJacobianAfterInit = findParameter("activateCheckJacobianAfterInit");
-  if (activateCheckJacobian.hasValue())
+  if (activateCheckJacobianAfterInit.hasValue())
     activateCheckJacobianAfterInit_ = activateCheckJacobianAfterInit.getValue<bool>();
 
   const ParameterSolver& printReinitResiduals = findParameter("printReinitResiduals");
