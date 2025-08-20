@@ -952,12 +952,15 @@ ModelMulti::getFInfos(const string& subModelName, const string& variable) const 
 
   const auto& subModel = findSubModelByName(subModelName);
 
-  for (unsigned int j = 0 ; j < subModel->sizeF() ; ++j) {
-    std::string fEquation = subModel->getFequationByLocalIndex(j);
-    if (fEquation.find(variable) != std::string::npos) {
-      equations.push_back(subModelName + ": " + fEquation + " localIndex " + std::to_string(j));
+  if (subModel) {
+    for (unsigned int j = 0 ; j < subModel->sizeF() ; ++j) {
+      std::string fEquation = subModel->getFequationByLocalIndex(j);
+      if (fEquation.find(variable) != std::string::npos) {
+        equations.push_back(subModelName + ": " + fEquation + " localIndex " + std::to_string(j));
+      }
     }
   }
+
   return equations;
 }
 
