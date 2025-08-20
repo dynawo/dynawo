@@ -105,6 +105,7 @@ maxncf_(10),
 nlscoef_(0.33),
 restorationYPrim_(true),
 activateCheckJacobian_(false),
+activateCheckJacobianAfterInit_(false),
 printReinitResiduals_(false),
 countForceReinit_(0),
 flagInit_(false),
@@ -161,6 +162,7 @@ SolverIDA::defineSpecificParameters() {
   parameters_.insert(make_pair("allLogs", ParameterSolver("allLogs", VAR_TYPE_BOOL, notMandatory)));
   parameters_.insert(make_pair("restorationYPrim", ParameterSolver("restorationYPrim", VAR_TYPE_BOOL, notMandatory)));
   parameters_.insert(make_pair("activateCheckJacobian", ParameterSolver("activateCheckJacobian", VAR_TYPE_BOOL, notMandatory)));
+  parameters_.insert(make_pair("activateCheckJacobianAfterInit", ParameterSolver("activateCheckJacobianAfterInit", VAR_TYPE_BOOL, notMandatory)));
   parameters_.insert(make_pair("printReinitResiduals", ParameterSolver("printReinitResiduals", VAR_TYPE_BOOL, notMandatory)));
 }
 
@@ -215,6 +217,9 @@ SolverIDA::setSolverSpecificParameters() {
   const ParameterSolver& activateCheckJacobian = findParameter("activateCheckJacobian");
   if (activateCheckJacobian.hasValue())
     activateCheckJacobian_ = activateCheckJacobian.getValue<bool>();
+  const ParameterSolver& activateCheckJacobianAfterInit = findParameter("activateCheckJacobianAfterInit");
+  if (activateCheckJacobian.hasValue())
+    activateCheckJacobianAfterInit_ = activateCheckJacobianAfterInit.getValue<bool>();
 
   const ParameterSolver& printReinitResiduals = findParameter("printReinitResiduals");
   if (printReinitResiduals.hasValue())
@@ -585,8 +590,13 @@ SolverIDA::calculateIC(double /*tEnd*/) {
   // reinit output
   flagInit_ = false;
 // #if _DEBUG_
-  solverKINNormal_->setCheckJacobian(false);
-  solverKINYPrim_->setCheckJacobian(false);
+  if (activateCheckJacobian_) {
+    solverKINNormal_->setCheckJacobian(true);
+    solverKINYPrim_->setCheckJacobian(true);
+  } else {
+    solverKINNormal_->setCheckJacobian(false);
+    solverKINYPrim_->setCheckJacobian(false);
+  }
 // #endif
 }
 
@@ -607,6 +617,7 @@ SolverIDA::analyseFlag(const int & flag) {
       msg << DYNLog(IdaIllInput);
       break;
     case IDA_LSETUP_FAIL:
+      checkJacobian();
       msg << DYNLog(IdalsetupFail);
       break;
     case IDA_LINIT_FAIL:
@@ -652,7 +663,45 @@ SolverIDA::analyseFlag(const int & flag) {
 
   if (flag < 0) {
     Trace::error() << msg.str() << Trace::endline;
+    updateStatistics();
     throw DYNError(Error::SUNDIALS_ERROR, SolverIDAError);
+  }
+}
+
+void
+SolverIDA::checkJacobian() {
+  Model& model = getModel();
+  SparseMatrix& smj = getMatrix();
+  SparseMatrix::CheckError error = smj.check();
+  string subModelName;
+  string equation;
+  string equation_bis;
+  int local_index;
+
+  switch (error.code) {
+    case SparseMatrix::CHECK_ZERO_ROW: {
+      string variable = model.getVariableName(error.info);
+      string subModelNameWithUnderscore = subModelName + "_";
+      size_t pos = variable.find(subModelNameWithUnderscore);
+
+      if (pos != std::string::npos) {
+        variable.erase(pos, subModelNameWithUnderscore.length());
+      }
+      std::replace(variable.begin(), variable.end(), '_', '.');
+      std::vector<std::string> equations = model.getFInfos(subModelName, variable);
+      if (!equations.empty())
+        Trace::error() << "Equations containing the ill variable" << Trace::endline;
+      for (const auto& equationVariable : equations) {
+        Trace::error() << equationVariable << Trace::endline;
+      }
+      throw DYNError(DYN::Error::SOLVER_ALGO, SolverJacobianWithNulRow, error.info, model.getVariableName(error.info));
+    }
+    case SparseMatrix::CHECK_ZERO_COLUMN:
+      model.getFInfos(error.info, subModelName, local_index, equation);
+      throw DYNError(DYN::Error::SOLVER_ALGO, SolverJacobianWithNulColumn, error.info, equation);
+    case SparseMatrix::CHECK_OK:
+      // do nothing
+      break;
   }
 }
 
@@ -705,6 +754,7 @@ SolverIDA::evalF(realtype tres, N_Vector yy, N_Vector yp,
   //    */
   //   int nbY = model.sizeY();
   //   double thresholdErr = 1;
+  //   int nbErr = 10;
   //
   //   if (nbErr > nbY)
   //     nbErr = nbY;
@@ -739,7 +789,7 @@ SolverIDA::evalF(realtype tres, N_Vector yy, N_Vector yp,
   //     Trace::debug() << DYNLog(SolverIDALargestErrors, nbErr) << Trace::endline;
   //     int i = 0;
   //     for (vector<std::pair<double, int> >::iterator it = yErr.begin(); it != yErr.end() && i < nbErr; ++it, ++i)
-  //       Trace::debug() << DYNLog(SolverIDAErrorValue, thresholdErr, it->second, it->first) << Trace::endline;
+  //       Trace::debug() << DYNLog(SolverIDAErrorValue, thresholdErr, it->second, it->first) << " " << model.getVariableName(it->second) << Trace::endline;
   //   }
   //
   //   // Destroying the specific data structures
@@ -791,7 +841,6 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
   int flag = IDASolve(IDAMem_, tAim, &tNxt, sundialsVectorY_, sundialsVectorYp_, solveTaskToInt());
   if (uround_) {
     int flag1 = IDASetURound(IDAMem_, uroundPrecision_ / (100. * (getTimeStep() + tNxt)));
-    // std::cout << "uround " << getCurrentPrecision() / (100. * (getTimeStep() + tNxt)) << std::endl;
     if (flag1 < 0)
       throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetURound");
   }

@@ -242,6 +242,8 @@ class SolverIDA : public Solver::Impl {
 
  double getCurrentStep() const;
 
+  void checkJacobian();
+
  protected:
   /**
    * @copydoc Solver::Impl::solveStep(double tAim, double &tNxt)
@@ -307,6 +309,7 @@ class SolverIDA : public Solver::Impl {
   double nlscoef_;  ///< test
   bool restorationYPrim_;  ///< test
   bool activateCheckJacobian_;  ///< test
+  bool activateCheckJacobianAfterInit_;  ///< test
   bool printReinitResiduals_;  ///< test
   int countForceReinit_;  ///< test
 

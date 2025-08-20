@@ -56,6 +56,7 @@
     </xs:sequence>
     <xs:attribute name="compileDir" use="required" type="xs:string"/>
     <xs:attribute name="symbolicJacobian" use="optional" type="xs:boolean"/>
+    <xs:attribute name="symbolicResidual" use="optional" type="xs:boolean"/>
   </xs:complexType>
 
   <xs:complexType name="NetworkEntry">

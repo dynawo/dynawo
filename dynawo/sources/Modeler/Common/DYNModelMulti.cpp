@@ -415,8 +415,14 @@ void
 ModelMulti::evalJt(const double t, const double cj, SparseMatrix& Jt) {
   Timer timer("ModelMulti::evalJt");
   int rowOffset = 0;
+  // int nCols = 0;
   for (const auto& subModel : subModels_) {
     subModel->evalJtSub(t, cj, Jt, rowOffset);
+    /*nCols += subModel->sizeF();
+    if (Jt.getIAp() != nCols) {
+      throw "nCols not equal to iAp of the matrix so the jacobian is wrong and missing some changeCol.";
+    }*/
+
     if (!Jt.withoutNan() || !Jt.withoutInf()) {
       throw DYNError(Error::MODELER, SparseMatrixWithNanInf, subModel->modelType(), subModel->name());
     }
@@ -1343,6 +1349,7 @@ std::string ModelMulti::getVariableName(int index) {
 std::string ModelMulti::getVariableName(const int index, const std::unordered_set<int>& ignoreY, std::string& subModelName) {
   int numVarFull = 0;
   int numVarSubset = 0;
+  assert(ignoreY.find(index) != ignoreY.end());
   std::string varName;
   for (const auto& subModel : subModels_) {
     const std::vector<std::string>& xNames = subModel->xNames();

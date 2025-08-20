@@ -261,6 +261,14 @@ class SparseMatrix {
     return const_cast<std::vector<double>&>(getAx());
   }
 
+  /**
+  * @brief get current iAp index
+  * @return iAp index
+  */
+  int getIAp() const {
+    return iAp_;
+  }
+
  private:
   /**
    * @brief delete all allocated memory of the matrix
