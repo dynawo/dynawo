@@ -13,7 +13,7 @@ within Dynawo.Examples.BESS.WECC;
 * of simulation tools for power systems.
 */
 
-model BESSCurrentSource2 "WECC BESS with REEC-D and REGC-B with a plant controller REPC-A on infinite bus"
+model BESSCurrentSource2 "WECC BESS with REEC-D and REGC-A with a plant controller REPC-A on infinite bus"
   extends Modelica.Icons.Example;
 
   Dynawo.Electrical.BESS.WECC.BESSCurrentSource2 BESS(
