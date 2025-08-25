@@ -14,7 +14,7 @@ within Dynawo.Electrical.Controls.WECC.REEC;
 */
 
 model REECe "WECC electrical control type E"
-  extends Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC(limPIDFreeze(Xi0 = if QFlag == 2 then QInj0Pu / UInj0Pu / Kqp else UInj0Pu / Kqp, Y0 = if QFlag == 2 then QInj0Pu / UInj0Pu else UInj0Pu), MaxPID(y = if QFlag == 2 then currentLimitsCalculationE.iqMaxPu else VMaxPu), MinPID(y = if QFlag == 2 then currentLimitsCalculationE.iqMinPu else VMinPu));
+  extends Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC(limPIDFreeze(Xi0 = if QFlag == 2 then QInj0Pu / UInj0Pu / Kqp else UInj0Pu / Kqp, Y0 = if QFlag == 2 then QInj0Pu / UInj0Pu else UInj0Pu), MaxPID(y = if QFlag == 2 then currentLimitsCalculationE.iqMaxPu else VMaxPu), MinPID(y = if QFlag == 2 then currentLimitsCalculationE.iqMinPu else VMinPu),multiSwitch(nu=3));
   extends Electrical.Controls.WECC.Parameters.REEC.ParamsREECe;
 
   // Input variables
@@ -205,7 +205,9 @@ equation
     Line(points = {{403, 9}, {520, 9}, {520, -10}, {550, -10}}, color = {0, 0, 127}));
   connect(currentLimitsCalculationE.iqMinPu, iqMinPu) annotation(
     Line(points = {{403, 5}, {510, 5}, {510, -30}, {550, -30}}, color = {0, 0, 127}));
-
+  connect(limPIDFreeze.y, multiSwitch.u[3]) annotation(
+    Line(points = {{-8, 150}, {248, 150}, {248, 106}, {264, 106}}, color = {0, 0, 127}));
+  
   annotation(
     Icon(graphics = {Text(origin = {-37, 130.5}, extent = {{-16, 7}, {24, -10}}, textString = "PAuxPu"), Text(origin = {65, 132.5}, extent = {{-16, 7}, {24, -10}}, textString = "iInjPu"), Text(origin = {-81, 130.5}, extent = {{-16, 7}, {24, -10}}, textString = "uInjPu"), Text(origin = {-30.3275, -106.118}, extent = {{-14.6724, 6.11766}, {22.3276, -9.88234}}, textString = "omegaG"), Text(origin = {-19, 11}, extent = {{-45, 23}, {84, -40}}, textString = "REEC E"), Text(origin = {129, 49}, extent = {{-23, 13}, {35, -21}}, textString = "Blk", fontSize = 14)}),
     Documentation(info = "<html><head></head><body><div class=\"htmlDoc\" style=\"font-family: 'MS Shell Dlg 2';\"><p>This block contains the electrical inverter control of the generic WECC PV model according to (in case page cannot be found, copy link in browser):&nbsp;<a href=\"https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf/\">https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf&nbsp;</a></p><p>Following control modes can be activated:<span style=\"font-size: 12px;\"></span></p><li>Local coordinated V/Q control: QFlag = true, VFlag = true</li><li style=\"font-size: 12px;\">Only plant level control active: QFlag = false, VFlag = false</li><li style=\"font-size: 12px;\">If plant level control not connected: local power factor control: PfFlag = true, otherwise PfFlag = false.</li><li style=\"font-size: 12px;\">Active power can be dependent or independent on drive train speed by setting PFlag to false (independent from drive train speed) or true. If PFlag is set to false, the model behaves as a Wind turbine generator type 4B, where the drive train is neglected by setting the speed to constant 1&nbsp;</li><p style=\"font-size: 12px;\">The block calculates the Id and Iq setpoint values for the generator control based on the selected control algorithm.</p></li><div><br></div></div><div class=\"textDoc\"><p style=\"font-family: 'Courier New'; font-size: 12px;\"></p></div></body></html>"),

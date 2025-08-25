@@ -52,8 +52,6 @@ partial model BaseREEC "WECC Electrical Control REEC common"
     Placement(transformation(origin = {-50, 138}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.RealExpression MinPID(y = VMinPu) annotation(
     Placement(transformation(origin = {-50, 160}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.IntegerConstant QFlag0(k = QFlag) annotation(
-    Placement(visible = true, transformation(origin = {250, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant VFlag0(k = VFlag) annotation(
     Placement(visible = true, transformation(origin = {-20, 112}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant PfFlag0(k = PfFlag) annotation(
@@ -120,7 +118,7 @@ partial model BaseREEC "WECC Electrical Control REEC common"
     Placement(visible = true, transformation(origin = {130, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add(k1 = -1) annotation(
     Placement(visible = true, transformation(origin = {125, 220}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch(nu = 2) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch(nu = 2,DynamicSelection=false,fp=QFlag) annotation(
     Placement(transformation(origin = {273, 105}, extent = {{-10, -10}, {10, 10}})));
 
 equation
@@ -196,8 +194,6 @@ equation
     Line(points = {{61, 40}, {99, 40}, {99, -126}, {169, -126}}, color = {0, 0, 127}));
   connect(multiSwitch.y, add1.u2) annotation(
     Line(points = {{284, 105}, {300.5, 105}, {300.5, 104}, {318, 104}}, color = {0, 0, 127}));
-  connect(QFlag0.y, multiSwitch.f) annotation(
-    Line(points = {{261, 140}, {273, 140}, {273, 117}}, color = {255, 127, 0}));
   connect(MaxPID.y, limPIDFreeze.yMax) annotation(
     Line(points = {{-41, 139}, {-32, 139}, {-32, 144}}, color = {0, 0, 127}));
   connect(MinPID.y, limPIDFreeze.yMin) annotation(
