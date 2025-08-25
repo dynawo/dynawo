@@ -29,7 +29,6 @@
 #include <process.h>
 #endif
 
-
 #include "TLTimelineFactory.h"
 #include "TLTimeline.h"
 #include "TLJsonExporter.h"
@@ -59,6 +58,9 @@
 #include "DYNModelMulti.h"
 #include "DYNSubModel.h"
 #include "DYNZmqPublisher.h"
+#include "DYNZmqInput.h"
+#include "DYNZmqOutput.h"
+#include "DYNRTInputCommon.h"
 
 using std::ofstream;
 using std::fstream;
@@ -105,21 +107,33 @@ Simulation(jobEntry, context, data) {
 
 void
 SimulationRT::configureRT() {
+  outputDispatcher_ = std::make_shared<OutputDispatcher>();
   if (jobEntry_->getSimulationEntry()->getPublishToZmq()) {
-    stepPublisher_ = std::make_shared<ZmqPublisher>();
+    std::shared_ptr<OutputInterface> zmqPublisher = std::make_shared<ZmqOutput>();
+    outputDispatcher_->addCurvesPublisher(zmqPublisher, CurvesOutputFormat::BYTES);
+    outputDispatcher_->addTimelinePublisher(zmqPublisher, TimelineOutputFormat::JSON);
+    outputDispatcher_->addConstraintsPublisher(zmqPublisher, ConstraintsOutputFormat::JSON);
     std::cout << "ZMQ publisher started" << std::endl;
   }
-  if (jobEntry_->getSimulationEntry()->getTimeSync()) {
-    timeManager_ = std::make_shared<TimeManager>(
-      jobEntry_->getSimulationEntry()->getTimeSyncAcceleration());
-  }
-  bool subscribeActions = jobEntry_->getSimulationEntry()->getEventSubscriberActions();
-  bool subscribeTrigger = jobEntry_->getSimulationEntry()->getEventSubscriberTrigger();
-  if (subscribeActions || subscribeTrigger) {
-    triggerSimulationTimeStepInS_ = jobEntry_->getSimulationEntry()->getTriggerSimulationTimeStepInS();
-    eventSubscriber_ = std::make_shared<EventSubscriber>(subscribeTrigger, subscribeActions, subscribeActions & !subscribeTrigger);
-    std::cout << "ZMQ EventSubscriber started" << std::endl;
-  }
+  // if (jobEntry_->getSimulationEntry()->getTimeSync()) {
+  //   clock_ = std::make_shared<Clock>()
+  //     jobEntry_->getSimulationEntry()->getTimeSyncAcceleration());
+  // }
+  actionBuffer_ = std::make_shared<ActionBuffer>();
+  clock_ = std::make_shared<Clock>();
+  inputDispatcherAsync_ = std::make_shared<InputDispatcherAsync>(actionBuffer_, clock_);
+  // std::shared_ptr<InputInterface> zmqServer = std::make_shared<ZmqInput>("zmq", MessageFilter::Actions);
+  std::shared_ptr<InputInterface> zmqServer = std::make_shared<ZmqInput>("zmq", MessageFilter::Actions | MessageFilter::TimeManagement);
+  inputDispatcherAsync_->addReceiver(zmqServer);
+
+  // inputDispatcherAsync_->addReceiver(zmqSubscriber);
+  // bool subscribeActions = jobEntry_->getSimulationEntry()->getEventSubscriberActions();
+  // bool subscribeTrigger = jobEntry_->getSimulationEntry()->getEventSubscriberTrigger();
+  // if (subscribeActions || subscribeTrigger) {
+  //   triggerSimulationTimeStepInS_ = jobEntry_->getSimulationEntry()->getTriggerSimulationTimeStepInS();
+  //   eventSubscriber_ = std::make_shared<EventSubscriber>(subscribeTrigger, subscribeActions, subscribeActions & !subscribeTrigger);
+  //   std::cout << "ZMQ EventSubscriber started" << std::endl;
+  // }
   if (jobEntry_->getSimulationEntry()->getPublishToWebsocket()) {
     wsServer_ = std::make_shared<wsc::WebsocketServer>();
     wsServer_->run(9001);
@@ -168,10 +182,8 @@ SimulationRT::simulate() {
   std::cout << "---- simulate ----" << std::endl;
 
   Timer timer("SimulationRT::simulate()");
-  if (eventSubscriber_) {
-    eventSubscriber_->setModel(model_);
-    eventSubscriber_->start();
-  }
+  if (actionBuffer_)
+    actionBuffer_->setModel(model_);
 
   printSolverHeader();
 
@@ -185,10 +197,12 @@ SimulationRT::simulate() {
   initComputationTimeCurve();
   updateCurves(updateCalculatedVariable);  // initial curves
 
-  if (stepPublisher_ && !jobEntry_->getSimulationEntry()->getPublishToZmqCurvesFormat().compare("BYTES")) {
-    string formatedCurvesNames = curvesNamesToCsv();
-    stepPublisher_->sendMessage(formatedCurvesNames, "curves_names");
-  }
+  if (outputDispatcher_)
+    outputDispatcher_->initPublishCurves(curvesCollection_);
+  // if (stepPublisher_ && !jobEntry_->getSimulationEntry()->getPublishToZmqCurvesFormat().compare("BYTES")) {
+  //   string formatedCurvesNames = curvesNamesToCsv();
+  //   stepPublisher_->sendMessage(formatedCurvesNames, "curves_names");
+  // }
 
   bool criteriaChecked = true;
   try {
@@ -213,30 +227,36 @@ SimulationRT::simulate() {
     int currentIterNb = 0;
     // double nextTimeStep = 0;
 
-    if (timeManager_)
-      timeManager_->start(tCurrent_);
+    if (inputDispatcherAsync_)
+      inputDispatcherAsync_->start();
+
+    if (clock_)
+      clock_->start(tCurrent_);
 
 
     double nextTToTrigger = tCurrent_ + triggerSimulationTimeStepInS_;  // Only used if (eventSubscriber_ && eventSubscriber_->triggerEnabled())
-    double lastPublicationTime = -1;
+    double nextOutputT = nextTToTrigger;  // Only used if (eventSubscriber_ && eventSubscriber_->triggerEnabled())
+    // double lastPublicationTime = -1;
 
-    while (!end() && !SignalHandler::gotExitSignal() && criteriaChecked) {
-      // option1: ZMQ --> wait for an empty message before simulating next time step
-      if (eventSubscriber_ && eventSubscriber_->triggerEnabled() && tCurrent_ >= nextTToTrigger) {
-        nextTToTrigger += triggerSimulationTimeStepInS_;
-        eventSubscriber_->wait();
-      }
+    while (!end() && !clock_->getStopMessageReceived() && !SignalHandler::gotExitSignal() && criteriaChecked) {
+      // // option1: ZMQ --> wait for an empty message before simulating next time step
+      // if (eventSubscriber_ && eventSubscriber_->triggerEnabled() && tCurrent_ >= nextTToTrigger) {
+      //   nextTToTrigger += triggerSimulationTimeStepInS_;
+      //   eventSubscriber_->wait();
+      // }
 
-      // option2: TimeManager --> sleep in the loop
-      if (timeManager_) {
-        timeManager_->wait(tCurrent_);
+      // option2: Clock --> sleep in the loop
+      if (clock_) {
+        clock_->wait(tCurrent_);
       }
 
       updateStepStart();
 
       // Apply actions from event subscriber
-      if (eventSubscriber_ && eventSubscriber_->actionsEnabled())
-        eventSubscriber_->applyActions();
+      // if (eventSubscriber_ && eventSubscriber_->actionsEnabled())
+      //   eventSubscriber_->applyActions();
+      if (actionBuffer_)
+        actionBuffer_->applyActions();
 
       double elapsed = timer.elapsed();
       double timeout = jobEntry_->getSimulationEntry()->getTimeout();
@@ -256,9 +276,9 @@ SimulationRT::simulate() {
       BitMask solverState = solver_->getState();
       // bool modifZ = false;
       if (solverState.getFlags(ModeChange)) {
-        // if (timeManager_)
+        // if (clock_)
         //   Trace::info() << "TimeManagement (ModeChange): tCurrent_ = " << tCurrent_
-        //   << " s; Partial step computation time: " << timeManager_->getStepDuration() << "ms" << Trace::endline;
+        //   << " s; Partial step computation time: " << clock_->getStepDuration() << "ms" << Trace::endline;
         // updateCurves(true);
         model_->notifyTimeStep();
         Trace::info() << DYNLog(NewStartPoint) << Trace::endline;
@@ -270,9 +290,9 @@ SimulationRT::simulate() {
           || solverState.getFlags(SilentZNotUsedInDiscreteEqChange)
           || solverState.getFlags(SilentZNotUsedInContinuousEqChange)) {
         // updateCurves(true);
-        // if (timeManager_)
+        // if (clock_)
         //   Trace::info() << "TimeManagement (SilentZish): tCurrent_ = " << tCurrent_
-        //   << " s; Partial step computation time: " << timeManager_->getStepDuration() << "ms" << Trace::endline;
+        //   << " s; Partial step computation time: " << clock_->getStepDuration() << "ms" << Trace::endline;
         model_->getCurrentZ(zCurrent_);
         // modifZ = true;
       }
@@ -322,10 +342,10 @@ SimulationRT::simulate() {
         intermediateStates_.pop();
       }
 
-      // if (timeManager_) {
-      //   timeManager_->updateStepDurationValue();
+      // if (clock_) {
+      //   clock_->updateStepDurationValue();
       //   Trace::info() << "TimeManagement: tCurrent_ = " << tCurrent_
-      //   << " s; Step computation time: " << timeManager_->getStepDuration() << "ms" << Trace::endline;
+      //   << " s; Step computation time: " << clock_->getStepDuration() << "ms" << Trace::endline;
       // }
 
       // Set up step times
@@ -333,48 +353,53 @@ SimulationRT::simulate() {
       updateCurves(true);
 
       // Publish values
-      if ((wsServer_ || stepPublisher_) && (!eventSubscriber_->triggerEnabled() || tCurrent_ >= nextTToTrigger)) {
-        string formatedJsonCurves;
-        if (wsServer_) {
-          // Export Curves to WebSocket
-          formatedJsonCurves = curvesToJson();
-          wsServer_->sendMessage(formatedJsonCurves);
-          Trace::info() << "data published to websocket" << Trace::endline;
-        }
-        if (stepPublisher_) {
-          // Export Curves to ZMQ
-          if (!jobEntry_->getSimulationEntry()->getPublishToZmqCurvesFormat().compare("CSV")) {
-            string formatedCsvCurves = curvesToCsv();
-            stepPublisher_->sendMessage(formatedCsvCurves, "curves");
-          } else if (!jobEntry_->getSimulationEntry()->getPublishToZmqCurvesFormat().compare("BYTES")) {
-            updateValuesBuffer();
-            stepPublisher_->sendMessage(valuesBuffer_, "curves_values");
-          } else {  // Default is JSON
-            if (formatedJsonCurves.empty())
-              formatedJsonCurves = curvesToJson();
-            stepPublisher_->sendMessage(formatedJsonCurves, "curves");
-          }
+      if ((outputDispatcher_) && tCurrent_ >= nextOutputT) {
+        nextOutputT += outputPeriod_;
+        outputDispatcher_->publishCurves(curvesCollection_);
+        outputDispatcher_->publishTimeline(timeline_);
+        outputDispatcher_->publishConstraints(constraintsCollection_);
+        timeline_->clear();
+        constraintsCollection_->clear();
+        // string formatedJsonCurves;
+        // if (wsServer_) {
+        //   // Export Curves to WebSocket
+        //   formatedJsonCurves = curvesToJson();
+        //   wsServer_->sendMessage(formatedJsonCurves);
+        //   Trace::info() << "data published to websocket" << Trace::endline;
+        // }
+        // if (stepPublisher_) {
+        //   // Export Curves to ZMQ
+        //   if (!jobEntry_->getSimulationEntry()->getPublishToZmqCurvesFormat().compare("CSV")) {
+        //     string formatedCsvCurves = curvesToCsv();
+        //     stepPublisher_->sendMessage(formatedCsvCurves, "curves");
+        //   } else if (!jobEntry_->getSimulationEntry()->getPublishToZmqCurvesFormat().compare("BYTES")) {
+        //     updateValuesBuffer();
+        //     stepPublisher_->sendMessage(valuesBuffer_, "curves_values");
+        //   } else {  // Default is JSON
+        //     if (formatedJsonCurves.empty())
+        //       formatedJsonCurves = curvesToJson();
+        //     stepPublisher_->sendMessage(formatedJsonCurves, "curves");
+        //   }
 
-          // Export Timeline
-          if (timeline_) {
-            ostringstream formatedTimeline;
-            timelineExporter_->exportToStream(timeline_, formatedTimeline);
-            timeline_->clear();
-            string strTimeline = formatedTimeline.str();
-            stepPublisher_->sendMessage(strTimeline, "timeline");
-          }
+        //   // Export Timeline
+        //   if (timeline_) {
+        //     ostringstream formatedTimeline;
+        //     timelineExporter_->exportToStream(timeline_, formatedTimeline);
+        //     timeline_->clear();
+        //     string strTimeline = formatedTimeline.str();
+        //     stepPublisher_->sendMessage(strTimeline, "timeline");
+        //   }
 
-          // Export Constraints
-          if (constraintsCollection_) {
-            ostringstream formatedConstraints;
-            constraintsExporter_->exportToStream(constraintsCollection_, formatedConstraints);
-            timeline_->clear();
-            string strConstraints = formatedConstraints.str();
-            stepPublisher_->sendMessage(strConstraints, "constraints");
-            Trace::info() << "data published to ZMQ" << Trace::endline;
-          }
-          lastPublicationTime = tCurrent_;
-        }
+        //   // Export Constraints
+        //   if (constraintsCollection_) {
+        //     ostringstream formatedConstraints;
+        //     constraintsExporter_->exportToStream(constraintsCollection_, formatedConstraints);
+        //     timeline_->clear();
+        //     string strConstraints = formatedConstraints.str();
+        //     stepPublisher_->sendMessage(strConstraints, "constraints");
+        //     Trace::info() << "data published to ZMQ" << Trace::endline;
+        //   }
+        // lastPublicationTime = tCurrent_;
       }
     }
 
@@ -437,82 +462,82 @@ SimulationRT::updateStepComputationTime() {
 }
 
 
-string
-SimulationRT::curvesToJson() {
-  stringstream stream;
-  double time = -1;
-  stream << "{\n\t\"curves\": {\n";
-  stream << "\t\t" << "\"values\": {\n";
-  for (auto &curve : curvesCollection_->getCurves()) {
-    if (curve->getAvailable()) {
-      if (time < 0) {
-        time = curve->getLastTime();
-        stream << "\n";
-      } else {
-        stream << ",\n";
-      }
-      string curveName =  curve->getModelName() + "_" + curve->getVariable();
-      stream << "\t\t\t" << "\"" << curveName << "\": " << curve->getLastValue();
-    }
-  }
-  stream << "\n\t\t" << "},\n";
-  // if (timeManager_)
-  //   stream << "\t\t" << "\"stepdurationms\": " << timeManager_->getStepDuration() << ",\n";
-  stream << "\t\t" << "\"time\": " << time << "\n";
-  stream << "\t}\n}";
+// string
+// SimulationRT::curvesToJson() {
+//   stringstream stream;
+//   double time = -1;
+//   stream << "{\n\t\"curves\": {\n";
+//   stream << "\t\t" << "\"values\": {\n";
+//   for (auto &curve : curvesCollection_->getCurves()) {
+//     if (curve->getAvailable()) {
+//       if (time < 0) {
+//         time = curve->getLastTime();
+//         stream << "\n";
+//       } else {
+//         stream << ",\n";
+//       }
+//       string curveName =  curve->getModelName() + "_" + curve->getVariable();
+//       stream << "\t\t\t" << "\"" << curveName << "\": " << curve->getLastValue();
+//     }
+//   }
+//   stream << "\n\t\t" << "},\n";
+//   // if (clock_)
+//   //   stream << "\t\t" << "\"stepdurationms\": " << clock_->getStepDuration() << ",\n";
+//   stream << "\t\t" << "\"time\": " << time << "\n";
+//   stream << "\t}\n}";
 
-  return stream.str();
-}
+//   return stream.str();
+// }
 
 
-string
-SimulationRT::curvesToCsv() {
-  stringstream stream;
-  double time = -1;
-  for (auto &curve : curvesCollection_->getCurves()) {
-    if (curve->getAvailable()) {
-      if (time < 0) {
-        time = curve->getLastTime();
-        stream << "time," << time << "\n";
-      }
-      string curveName =  curve->getModelName() + "_" + curve->getVariable();
-      stream << curveName << "," << curve->getLastValue() << "\n";
-    }
-  }
-  return stream.str();
-}
+// string
+// SimulationRT::curvesToCsv() {
+//   stringstream stream;
+//   double time = -1;
+//   for (auto &curve : curvesCollection_->getCurves()) {
+//     if (curve->getAvailable()) {
+//       if (time < 0) {
+//         time = curve->getLastTime();
+//         stream << "time," << time << "\n";
+//       }
+//       string curveName =  curve->getModelName() + "_" + curve->getVariable();
+//       stream << curveName << "," << curve->getLastValue() << "\n";
+//     }
+//   }
+//   return stream.str();
+// }
 
-string
-SimulationRT::curvesNamesToCsv() {
-  stringstream stream;
-  double time = -1;
-  for (auto &curve : curvesCollection_->getCurves()) {
-    if (curve->getAvailable()) {
-      if (time < 0) {
-        time = curve->getLastTime();
-        stream << "time" << "\n";
-      }
-      string curveName =  curve->getModelName() + "_" + curve->getVariable();
-      stream << curveName << "\n";
-    }
-  }
-  return stream.str();
-}
+// string
+// SimulationRT::curvesNamesToCsv() {
+//   stringstream stream;
+//   double time = -1;
+//   for (auto &curve : curvesCollection_->getCurves()) {
+//     if (curve->getAvailable()) {
+//       if (time < 0) {
+//         time = curve->getLastTime();
+//         stream << "time" << "\n";
+//       }
+//       string curveName =  curve->getModelName() + "_" + curve->getVariable();
+//       stream << curveName << "\n";
+//     }
+//   }
+//   return stream.str();
+// }
 
-void SimulationRT::updateValuesBuffer() {
-  valuesBuffer_.clear();
-  double time = -1;
-  for (auto &curve : curvesCollection_->getCurves()) {
-    if (time < 0) {
-      time = curve->getLastTime();
-      std::uint8_t* rawBytes = reinterpret_cast<std::uint8_t*>(&time);
-      valuesBuffer_.insert(valuesBuffer_.end(), rawBytes, rawBytes + sizeof(double));
-    }
-    double value = curve->getLastValue();
-    std::uint8_t* rawBytes = reinterpret_cast<std::uint8_t*>(&value);
-    valuesBuffer_.insert(valuesBuffer_.end(), rawBytes, rawBytes + sizeof(double));
-  }
-}
+// void SimulationRT::updateValuesBuffer() {
+//   valuesBuffer_.clear();
+//   double time = -1;
+//   for (auto &curve : curvesCollection_->getCurves()) {
+//     if (time < 0) {
+//       time = curve->getLastTime();
+//       std::uint8_t* rawBytes = reinterpret_cast<std::uint8_t*>(&time);
+//       valuesBuffer_.insert(valuesBuffer_.end(), rawBytes, rawBytes + sizeof(double));
+//     }
+//     double value = curve->getLastValue();
+//     std::uint8_t* rawBytes = reinterpret_cast<std::uint8_t*>(&value);
+//     valuesBuffer_.insert(valuesBuffer_.end(), rawBytes, rawBytes + sizeof(double));
+//   }
+// }
 
 void
 SimulationRT::initComputationTimeCurve() {
@@ -529,12 +554,16 @@ SimulationRT::terminate() {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("Simulation::terminate()");
 #endif
+  std::cout << "SimulationRT::terminate" << std::endl;
   if (wsServer_)
     wsServer_->stop();
 
-  if (eventSubscriber_)
-    eventSubscriber_->stop();
-  updateParametersValues();   // update parameter curves' value
+  // if (inputDispatcherAsync_)
+  //   inputDispatcherAsync_->stop();
+
+  // if (eventSubscriber_)
+  //   eventSubscriber_->stop();
+  // updateParametersValues();   // update parameter curves' value
 
   if (curvesOutputFile_ != "") {
     ofstream fileCurves;
