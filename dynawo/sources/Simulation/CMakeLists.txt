@@ -57,6 +57,8 @@ target_include_directories(dynawo_Simulation
     dynawo_ModelerCommon
     dynawo_DataInterface
     dynawo_DataInterfaceFactory
+    dynawo_RTEngine
+    dynawo_RTIO
     Boost::filesystem
     Boost::serialization
     ${ZMQPP_LIBRARIES}
@@ -75,13 +77,11 @@ set(SIMCOMMON_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 set(SIMCOMMON_SOURCES
     DYNSignalHandler.cpp
     DYNSimulationContext.cpp
-    DYNTimeManager.cpp
     )
 
 set(SIMCOMMON_INCLUDE_HEADERS
     DYNSignalHandler.h
     DYNSimulationContext.h
-    DYNTimeManager.h
     )
 
 add_library(dynawo_SimulationCommon SHARED ${SIMCOMMON_SOURCES})

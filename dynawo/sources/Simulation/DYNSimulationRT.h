@@ -34,9 +34,12 @@
 
 #include "DYNSimulation.h"
 #include "WSCServer.h"
-#include "DYNTimeManager.h"
+#include "DYNClock.h"
+#include "DYNActionBuffer.h"
 #include "DYNEventSubscriber.h"
 #include "DYNZmqPublisher.h"
+#include "DYNInputDispatcherAsync.h"
+#include "DYNOutputDispatcher.h"
 
 namespace websocket {
 class WebsocketServer;
@@ -69,7 +72,7 @@ class Solver;
 class DynamicData;
 class DataInterface;
 class SimulationContext;
-class TimeManager;
+class Clock;
 
 /**
  * @brief SimulationRT class
@@ -162,9 +165,13 @@ class SimulationRT: public Simulation {
   std::shared_ptr<wsc::WebsocketServer> wsServer_;  ///< instance of websocket server >
   std::shared_ptr<EventSubscriber> eventSubscriber_;   ///< Event manager >
   double triggerSimulationTimeStepInS_;  ///< Event manager >
+  double outputPeriod_;  ///< OutputPeriod >
   std::shared_ptr<ZmqPublisher> stepPublisher_;   ///< result publisher
 
-  std::shared_ptr<TimeManager> timeManager_;  ///< Time manager >
+  std::shared_ptr<Clock> clock_;                    ///< Class managing RT pace >
+  std::shared_ptr<ActionBuffer> actionBuffer_;                  ///< Action buffer >
+  std::shared_ptr<InputDispatcherAsync> inputDispatcherAsync_;  ///< Input dispatcher >
+  std::shared_ptr<OutputDispatcher> outputDispatcher_;          ///< Output dispatcher >
 };
 
 }  // end of namespace DYN

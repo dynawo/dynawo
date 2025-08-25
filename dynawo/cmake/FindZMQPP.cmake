@@ -1,5 +1,4 @@
 # Find the ZMQPP library and include directories
-
 # Look for the header files
 find_path(ZMQPP_INCLUDE_DIR
     NAMES zmqpp/zmqpp.hpp
@@ -20,6 +19,5 @@ if (ZMQPP_FOUND)
     set(ZMQPP_LIBRARIES ${ZMQPP_LIBRARY})
     set(ZMQPP_INCLUDE_DIRS ${ZMQPP_INCLUDE_DIR})
 
-    # Add include directory globally if needed
     mark_as_advanced(ZMQPP_INCLUDE_DIR ZMQPP_LIBRARY)
 endif()
