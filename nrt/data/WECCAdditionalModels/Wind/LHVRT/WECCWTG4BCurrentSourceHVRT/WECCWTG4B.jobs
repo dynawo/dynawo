@@ -23,10 +23,11 @@
         </modeler>
         <simulation startTime="0" stopTime="20"/>
         <outputs directory="outputs">
+            <timeline exportMode="XML"/>
             <curves inputFile="WECCWTG4B.crv" exportMode="CSV"/>
             <logs>
               <appender tag="" file="dynawo.log" lvlFilter="INFO"/>
-              </logs>
+            </logs>
         </outputs>
     </job>
 </jobs>
