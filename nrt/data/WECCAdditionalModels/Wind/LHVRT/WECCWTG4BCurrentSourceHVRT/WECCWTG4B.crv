@@ -20,4 +20,7 @@
   <curve model="WTG4B" variable="WTG4B_injector_terminal_i_im"/>
   <curve model="WTG4B" variable="WTG4B_pll_omegaPLLPu"/>
   <curve model="WTG4B" variable="WTG4B_measurements_UPu"/>
+  <curve model="HVRTWecc" variable="hvrt_fOCB"/>
+  <curve model="HVRTWecc" variable="hvrt_switchOffSignal_value"/>
+  <curve model="HVRTWecc" variable="hvrt_greater_y"/>
 </curvesInput>
