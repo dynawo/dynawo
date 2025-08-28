@@ -36,6 +36,7 @@
       <xs:element name="simulation" type="dyn:SimulationEntry"/>
       <xs:element name="outputs" type="dyn:OutputsEntry" minOccurs="0"/>
       <xs:element name="localInit" type="dyn:LocalInitEntry" minOccurs="0"/>
+      <xs:element name="interactiveSettings" type="dyn:InteractiveSettingsEntry" minOccurs="0"/>
     </xs:all>
     <xs:attribute name="name" use="required" type="xs:string"/>
   </xs:complexType>
@@ -251,13 +252,31 @@
     </xs:restriction>
   </xs:simpleType>
 
-  <xs:complexType name="InteractiveEntry">
+  <xs:complexType name="InteractiveSettingsEntry">
     <xs:sequence>
-      <xs:element name="clock" type="dyn:ClockEntry"/>
-      <xs:element name="channels" type="dyn:ChannelEntry" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element name="outputStreams" type="dyn:OutputStreamEntry" minOccurs="0" maxOccurs="unbounded"/>
+    <xs:choice>
+      <xs:element name="clock" type="dyn:InternalClockEntry"/>
+      <xs:element name="clock" type="dyn:ExternalClockEntry"/>
+    </xs:choice>
+      <xs:element name="channels" type="dyn:ChannelsEntry">
+        <xs:unique name="UniqueIdKey">
+          <xs:selector xpath="dyn:ChannelEntry" />
+          <xs:field xpath="@id" />
+        </xs:unique>
+      </xs:element>
+      <xs:element name="streams" type="dyn:StreamsEntry"/>
     </xs:sequence>
     <xs:attribute name="timeStep" type="xs:double"/>
+  </xs:complexType>
+
+  <xs:complexType name="InternalClockEntry">
+    <xs:attribute name="type" use="required" fixed="INTERNAL"/>
+    <xs:attribute name="speedUp" use="optional" type="xs:double"/>
+  </xs:complexType>
+
+  <xs:complexType name="ExternalClockEntry">
+    <xs:attribute name="type" use="required" fixed="EXTERNAL"/>
+    <xs:attribute name="triggerChannel" use="required" type="xs:NMTOKEN"/>
   </xs:complexType>
 
   <xs:complexType name="ChannelsEntry">
@@ -267,17 +286,16 @@
   </xs:complexType>
 
   <xs:complexType name="ChannelEntry">
-    <xs:attribute name="id" use="required" type="xs:string"/>
+    <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
     <xs:attribute name="kind" use="required" type="dyn:ChannelKind"/>
-    <xs:attribute name="type"   use="optional" type="xs:int"/>
-    <xs:attribute name="endpoint"   use="optional" type="xs:double"/>
+    <xs:attribute name="type" use="required" type="dyn:ChannelType"/>
+    <xs:attribute name="endpoint" use="optional" type="xs:string"/>
   </xs:complexType>
 
   <xs:simpleType name="ChannelKind">
     <xs:restriction base="xs:string">
       <xs:enumeration value="INPUT"/>
       <xs:enumeration value="OUTPUT"/>
-      <xs:enumeration value="DUPLEX"/>
     </xs:restriction>
   </xs:simpleType>
 
@@ -287,32 +305,28 @@
     </xs:restriction>
   </xs:simpleType>
 
-  <xs:complexType name="ClockEntry">
-    <xs:attribute name="type" use="required" type="dyn:ClockType"/>
-    <xs:attribute name="speedUp" use="optional" type="xs:double"/>
-    <xs:attribute name="triggerChannel" use="optional" type="xs:string"/>
-  </xs:complexType>
-
-  <xs:simpleType name="ClockType">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="INTERNAL"/>
-      <xs:enumeration value="EXTERNAL"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:complexType name="OutputStreamsEntry">
+  <xs:complexType name="StreamsEntry">
     <xs:sequence>
-      <xs:element name="outputStream" type="dyn:OutputStreamEntry" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="stream" type="dyn:StreamEntry" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="OutputStreamEntry">
-    <xs:attribute name="data" use="required" type="xs:string"/>
-    <xs:attribute name="channel" use="required" type="xs:string"/>
-    <xs:attribute name="format" use="optional" type="dyn:OutputStreamFormat"/>
+  <xs:complexType name="StreamEntry">
+    <xs:attribute name="data" use="required" type="dyn:StreamData"/>
+    <xs:attribute name="channel" use="required" type="xs:NMTOKEN"/>
+    <xs:attribute name="format" use="required" type="dyn:StreamFormat"/>
   </xs:complexType>
 
-  <xs:simpleType name="OutputStreamFormat">
+  <xs:simpleType name="StreamData">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CURVES"/>
+      <xs:enumeration value="TIMELINE"/>
+      <xs:enumeration value="CONSTRAINTS"/>
+      <xs:enumeration value="LOGS"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="StreamFormat">
     <xs:restriction base="xs:string">
       <xs:enumeration value="JSON"/>
       <xs:enumeration value="CSV"/>

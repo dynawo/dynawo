@@ -97,7 +97,7 @@ UpdatableBoolean::getSize() {
 
 // evaluation of F(t,y,y') function
 void
-UpdatableBoolean::evalF(double /*t*/, propertyF_t type) {
+UpdatableBoolean::evalF(double /*t*/, propertyF_t /*type*/) {
 }
 
 
@@ -125,12 +125,12 @@ UpdatableBoolean::setGequations() {
 
 // evaluation of the transpose Jacobian Jt - sparse matrix
 void
-UpdatableBoolean::evalJt(const double /*t*/, const double /*cj*/, const int /*rowOffset*/, SparseMatrix& jt) {
+UpdatableBoolean::evalJt(const double /*t*/, const double /*cj*/, const int /*rowOffset*/, SparseMatrix& /*jt*/) {
 }
 
 // evaluation of the transpose Jacobian Jt - sparse matrix
 void
-UpdatableBoolean::evalJtPrim(const double /*t*/, const double /*cj*/, const int /*rowOffset*/, SparseMatrix& jt) {
+UpdatableBoolean::evalJtPrim(const double /*t*/, const double /*cj*/, const int /*rowOffset*/, SparseMatrix& /*jt*/) {
 }
 
 void

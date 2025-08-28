@@ -26,14 +26,11 @@ enum class MessageFilter {
     None = 0,
     Actions = 1 << 0,
     TimeManagement = 1 << 1,
+    Trigger = 1 << 2,
 };
 
 inline MessageFilter operator|(MessageFilter a, MessageFilter b) {
   return static_cast<MessageFilter>(static_cast<int>(a) | static_cast<int>(b));
-}
-
-inline bool isMessageFiltered(MessageFilter flags, MessageFilter value) {
-  return (static_cast<int>(flags) & static_cast<int>(value)) != 0;
 }
 
 enum class MessageType {
@@ -49,7 +46,7 @@ struct InputMessage {
 
 struct ActionMessage : public InputMessage {
     std::string payload;
-    ActionMessage(std::string p) : payload(std::move(p)) {}
+    explicit ActionMessage(std::string p) : payload(std::move(p)) {}
     MessageType getType() const override { return MessageType::Action; }
 };
 
