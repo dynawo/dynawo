@@ -21,19 +21,19 @@ model WT3BCurrentSource2020 "Wind Turbine Type 3B model from IEC 61400-27-1:2020
 
   // Control parameters
   parameter Types.PerUnit DipMaxPu "Maximum active current ramp rate in pu/s (base UNom, SNom) (generator convention), example value = 9999 (Type 3A) or = 1 (Type 3B)" annotation(
-    Dialog(tab = "genSystem"));
+    Dialog(tab = "Control"));
   parameter Types.PerUnit DiqMaxPu "Maximum reactive current ramp rate in pu/s (base UNom, SNom) (generator convention), example value = 9999 (Type 3A) or = 100 (Type 3B)" annotation(
-    Dialog(tab = "genSystem"));
+    Dialog(tab = "Control"));
   parameter Boolean MCrb "Crowbar control mode (true=disable only iq control, false=disable iq and ip control, example value = false)" annotation(
-    Dialog(tab = "genSystem"));
+    Dialog(tab = "Control"));
   parameter Real tCrb[:, :] = [-99, 0.1; -1, 0.1; -0.1, 0; 0, 0] "Crowbar duration versus voltage variation look-up table, for example [-99,0.1; -1,0.1; -0.1,0; 0,0]" annotation(
-    Dialog(tab = "genSystem"));
+    Dialog(tab = "Control"));
   parameter Types.Time tG "Current generation time constant, example value = 0.01" annotation(
-    Dialog(tab = "genSystem"));
+    Dialog(tab = "Control"));
   parameter Types.Time tWo "Time constant for crowbar washout filter, example value = 0.001" annotation(
-    Dialog(tab = "genSystem"));
+    Dialog(tab = "Control"));
   parameter Types.PerUnit XEqv "Transient reactance (should be calculated from the transient inductance as defined in 'New Generic Model of DFG-Based Wind Turbines for RMS-Type Simulation', Fortmann et al., 2014 (base UNom, SNom), example value = 0.4 (Type 3A) or = 10 (Type 3B)" annotation(
-    Dialog(tab = "genSystem"));
+    Dialog(tab = "Control"));
 
   //Mechanical parameters
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical.MechanicalParameters;

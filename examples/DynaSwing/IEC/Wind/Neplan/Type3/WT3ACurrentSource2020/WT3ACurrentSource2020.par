@@ -41,16 +41,12 @@
     <par type="DOUBLE" name="WT_GesPu" value="0"/>
     <par type="DOUBLE" name="WT_ResPu" value="0"/>
     <par type="DOUBLE" name="WT_XesPu" value="0.1"/>
-    <!-- Control WPP?-->
+    <!-- Control-->
     <par type="DOUBLE" name="WT_XEqv" value="0.4"/>
     <par type="DOUBLE" name="WT_KPc" value="40"/>
-    <par type="DOUBLE" name="WT_TIc" value="0.02"/>
+    <par type="DOUBLE" name="WT_tIc" value="0.02"/>
     <par type="DOUBLE" name="WT_DipMaxPu" value="9999"/>
     <par type="DOUBLE" name="WT_DiqMaxPu" value="9999"/>
-    <par type="DOUBLE" name="WT_DiqMinPu" value="-100"/><!--not used?-->
-    <par type="DOUBLE" name="WT_Kipaw" value="100"/><!--not used?-->
-    <par type="DOUBLE" name="WT_Kiqaw" value="100"/><!--not used?-->
-    <par type="DOUBLE" name="WT_tG" value="0.01"/><!--not used?-->
     <!-- MeasurementC -->
     <par type="DOUBLE" name="WT_DfcMaxPu" value="5"/>
     <par type="DOUBLE" name="WT_tfcFilt" value="0.005"/>
@@ -117,7 +113,7 @@
     <par type="DOUBLE" name="WT_TableIpMaxUwt71" value="10"/>
     <par type="DOUBLE" name="WT_TableIpMaxUwt72" value="1.2"/>
     <par type="DOUBLE" name="WT_TableIqMaxUwt11" value="0"/>
-    <par type="DOUBLE" name="WT_TableIqMaxUwt12" value="0"/>
+    <par type="DOUBLE" name="WT_TableIqMaxUwt12" value="0.1"/>
     <par type="DOUBLE" name="WT_TableIqMaxUwt21" value="0.2"/>
     <par type="DOUBLE" name="WT_TableIqMaxUwt22" value="0.95"/>
     <par type="DOUBLE" name="WT_TableIqMaxUwt31" value="0.2000001"/>
