@@ -42,7 +42,6 @@
 #include "JOBSimulationEntry.h"
 #include "JOBSolverEntry.h"
 #include "JOBTimelineEntry.h"
-#include "JOBTimetableEntry.h"
 #include "DYNMacrosMessage.h"
 #include "DYNEnumUtils.h"
 #include "JOBModelsDirEntry.h"
@@ -91,7 +90,8 @@ solverHandler_(parser::ElementName(namespace_uri(), "solver")),
 modelerHandler_(parser::ElementName(namespace_uri(), "modeler")),
 simulationHandler_(parser::ElementName(namespace_uri(), "simulation")),
 outputsHandler_(parser::ElementName(namespace_uri(), "outputs")),
-localInitHandler_(parser::ElementName(namespace_uri(), "localInit")) {
+localInitHandler_(parser::ElementName(namespace_uri(), "localInit")),
+interactiveSettingsHandler_(parser::ElementName(namespace_uri(), "interactiveSettings")) {
   onStartElement(root_element, lambda::bind(&JobHandler::create, lambda::ref(*this), lambda_args::arg2));
 
   onElement(root_element + namespace_uri()("solver"), solverHandler_);
@@ -99,12 +99,14 @@ localInitHandler_(parser::ElementName(namespace_uri(), "localInit")) {
   onElement(root_element + namespace_uri()("simulation"), simulationHandler_);
   onElement(root_element + namespace_uri()("outputs"), outputsHandler_);
   onElement(root_element + namespace_uri()("localInit"), localInitHandler_);
+  onElement(root_element + namespace_uri()("interactiveSettings"), interactiveSettingsHandler_);
 
   solverHandler_.onEnd(lambda::bind(&JobHandler::addSolver, lambda::ref(*this)));
   modelerHandler_.onEnd(lambda::bind(&JobHandler::addModeler, lambda::ref(*this)));
   simulationHandler_.onEnd(lambda::bind(&JobHandler::addSimulation, lambda::ref(*this)));
   outputsHandler_.onEnd(lambda::bind(&JobHandler::addOutputs, lambda::ref(*this)));
   localInitHandler_.onEnd(lambda::bind(&JobHandler::addLocalInit, lambda::ref(*this)));
+  interactiveSettingsHandler_.onEnd(lambda::bind(&JobHandler::addInteractiveSettings, lambda::ref(*this)));
 }
 
 JobHandler::~JobHandler() {}
@@ -132,6 +134,11 @@ JobHandler::addOutputs() {
 void
 JobHandler::addLocalInit() {
   job_->setLocalInitEntry(localInitHandler_.get());
+}
+
+void
+JobHandler::addInteractiveSettings() {
+  job_->setInteractiveSettingsEntry(interactiveSettingsHandler_.get());
 }
 
 void
@@ -753,6 +760,162 @@ DirectoryHandler::create(attributes_type const& attributes) {
 UserDefinedDirectory
 DirectoryHandler::get() const {
   return dir_;
+}
+
+InteractiveSettingsHandler::InteractiveSettingsHandler(elementName_type const& root_element) :
+clockHandler_(parser::ElementName(namespace_uri(), "clock")),
+channelsHandler_(parser::ElementName(namespace_uri(), "channels")),
+streamsHandler_(parser::ElementName(namespace_uri(), "streams")) {
+  onStartElement(root_element, lambda::bind(&InteractiveSettingsHandler::create, lambda::ref(*this), lambda_args::arg2));
+  onElement(root_element + namespace_uri()("clock"), clockHandler_);
+  onElement(root_element + namespace_uri()("channels"), channelsHandler_);
+  onElement(root_element + namespace_uri()("streams"), streamsHandler_);
+
+  clockHandler_.onEnd(lambda::bind(&InteractiveSettingsHandler::addClock, lambda::ref(*this)));
+  channelsHandler_.onEnd(lambda::bind(&InteractiveSettingsHandler::addChannels, lambda::ref(*this)));
+  streamsHandler_.onEnd(lambda::bind(&InteractiveSettingsHandler::addStreams, lambda::ref(*this)));
+}
+
+InteractiveSettingsHandler::~InteractiveSettingsHandler() {}
+
+void
+InteractiveSettingsHandler::addClock() {
+  interactiveSettings_->setClockEntry(clockHandler_.get());
+}
+
+void
+InteractiveSettingsHandler::addChannels() {
+  interactiveSettings_->setChannelsEntry(channelsHandler_.get());
+}
+
+void
+InteractiveSettingsHandler::addStreams() {
+  interactiveSettings_->setStreamsEntry(streamsHandler_.get());
+}
+
+void
+InteractiveSettingsHandler::create(attributes_type const& attributes) {
+  interactiveSettings_ = std::make_shared<InteractiveSettingsEntry>();
+  interactiveSettings_->setTimeStep(attributes["timeStep"]);
+}
+
+shared_ptr<InteractiveSettingsEntry>
+InteractiveSettingsHandler::get() const {
+  return interactiveSettings_;
+}
+
+
+ClockHandler::ClockHandler(elementName_type const& root_element) {
+  onStartElement(root_element, lambda::bind(&ClockHandler::create, lambda::ref(*this), lambda_args::arg2));
+}
+
+ClockHandler::~ClockHandler() {}
+
+void
+ClockHandler::create(attributes_type const& attributes) {
+  clock_ = std::make_shared<ClockEntry>();
+  clock_->setType(attributes["type"]);
+  if (attributes.has("speedup"))
+    clock_->setSpeedup(attributes["speedup"]);
+  if (attributes.has("triggerChannel"))
+    clock_->setTriggerChannel(attributes["triggerChannel"]);
+}
+
+shared_ptr<ClockEntry>
+ClockHandler::get() const {
+  return clock_;
+}
+
+ChannelsHandler::ChannelsHandler(elementName_type const& root_element) :
+channelHandler_(parser::ElementName(namespace_uri(), "channel")) {
+  onElement(root_element + namespace_uri()("channel"), channelHandler_);
+
+  onStartElement(root_element, lambda::bind(&ChannelsHandler::create, lambda::ref(*this), lambda_args::arg2));
+
+  channelHandler_.onEnd(lambda::bind(&ChannelsHandler::addChannel, lambda::ref(*this)));
+}
+
+ChannelsHandler::~ChannelsHandler() {}
+
+void
+ChannelsHandler::addChannel() {
+  channels_->addChannelEntry(channelHandler_.get());
+}
+
+void
+ChannelsHandler::create(attributes_type const& /*attributes*/) {
+  channels_ = std::make_shared<ChannelsEntry>();
+}
+
+shared_ptr<ChannelsEntry>
+ChannelsHandler::get() const {
+  return channels_;
+}
+
+ChannelHandler::ChannelHandler(elementName_type const& root_element) {
+  onStartElement(root_element, lambda::bind(&ChannelHandler::create, lambda::ref(*this), lambda_args::arg2));
+}
+
+ChannelHandler::~ChannelHandler() {}
+
+void
+ChannelHandler::create(attributes_type const& attributes) {
+  channel_ = std::make_shared<ChannelEntry>();
+  channel_->setId(attributes["id"]);
+  channel_->setKind(attributes["kind"]);
+  channel_->setType(attributes["type"]);
+  if (attributes.has("endpoint"))
+    channel_->setEndpoint(attributes["endpoint"]);
+}
+
+shared_ptr<ChannelEntry>
+ChannelHandler::get() const {
+  return channel_;
+}
+
+StreamsHandler::StreamsHandler(elementName_type const& root_element) :
+streamHandler_(parser::ElementName(namespace_uri(), "stream")) {
+  onElement(root_element + namespace_uri()("stream"), streamHandler_);
+
+  onStartElement(root_element, lambda::bind(&StreamsHandler::create, lambda::ref(*this), lambda_args::arg2));
+
+  streamHandler_.onEnd(lambda::bind(&StreamsHandler::addStream, lambda::ref(*this)));
+}
+
+StreamsHandler::~StreamsHandler() {}
+
+void
+StreamsHandler::addStream() {
+  streams_->addStreamEntry(streamHandler_.get());
+}
+
+void
+StreamsHandler::create(attributes_type const& /*attributes*/) {
+  streams_ = std::make_shared<StreamsEntry>();
+}
+
+shared_ptr<StreamsEntry>
+StreamsHandler::get() const {
+  return streams_;
+}
+
+StreamHandler::StreamHandler(elementName_type const& root_element) {
+  onStartElement(root_element, lambda::bind(&StreamHandler::create, lambda::ref(*this), lambda_args::arg2));
+}
+
+StreamHandler::~StreamHandler() {}
+
+void
+StreamHandler::create(attributes_type const& attributes) {
+  stream_ = std::make_shared<StreamEntry>();
+  stream_->setData(attributes["data"]);
+  stream_->setChannel(attributes["channel"]);
+  stream_->setFormat(attributes["format"]);
+}
+
+shared_ptr<StreamEntry>
+StreamHandler::get() const {
+  return stream_;
 }
 
 }  // namespace job

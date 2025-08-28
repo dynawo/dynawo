@@ -62,15 +62,7 @@ ActionBuffer::registerAction(ActionMessage& actionMessage) {
   while (std::getline(stream, token, ',')) {
     // parse the triple
     std::string name = token;
-    std::string type, value;
-
-    //TODO @Thibaut remove type (no more needed)
-    if (std::getline(stream, token, ',')) {
-        type = token;
-    } else {
-      Trace::error() << "ActionBuffer: Could not parse action, incomplete data" << Trace::endline;
-      return false;
-    }
+    std::string value;
 
     if (std::getline(stream, token, ',')) {
         value = token;
@@ -119,7 +111,7 @@ ActionBuffer::registerAction(ActionMessage& actionMessage) {
     std::lock_guard<std::mutex> actionLock(actions_mutex_);
     std::unordered_map<std::string, Action>::iterator actionIt = actions_.find(subModelName);
     if (actionIt != actions_.end()) {
-      if (!subModelName.compare("NETWORK")) {
+      if (subModelName == "NETWORK") {
         actionIt->second.updateParameterValueSet(parameterValueSet);
         std::cout << "ActionBuffer: Action list extended for NETWORK SubModel" << std::endl;
         Trace::info() << "ActionBuffer: Action list extended for NETWORK SubModel" << Trace::endline;

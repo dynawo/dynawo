@@ -48,27 +48,62 @@ class Clock {
  public:
   Clock();
 
-  void start(double referenceSimuTime);
+  /**
+   * @brief start the simulation
+   * @param simulationTime start
+   */
+  void start(double simulationTime);
 
-  void pause();
-
+  /**
+   * @brief stop the simulation
+   */
   void stop();
 
-  void wait(double simuTimeWait);
+  /**
+   * @brief wait for either trigger signal or time relative to simulation time
+   * @param simulationTime current time of the simulation
+   */
+  void wait(double simulationTime);
 
-  void setAccelerationFactor(double speedup);
+  /**
+   * @brief set speedup value if
+   * @param speedup speedup value
+   */
+  void setSpeedup(double speedup);
 
+  /**
+   * @brief handle a received Trigger message
+   * @param triggerMessage trigger message
+   */
   void handleMessage(StepTriggerMessage& triggerMessage);
 
+  /**
+   * @brief handle a received Stop message
+   * @param stopMessage stop message
+   */
   void handleMessage(StopMessage& stopMessage);
 
-  void setUseTrigger(bool useTrigger) {useTrigger_ = useTrigger;}
+  /**
+   * @brief use trigger attribute
+   * @param useTrigger use trigger attribute
+   */
+  void setUseTrigger(bool useTrigger);
 
+  /**
+   * @brief use trigger attribute getter
+   * @return use trigger attribute
+   */
+  bool getUseTrigger();
+
+  /**
+   * @brief Stop message received flag getter
+   * @return Stop message received flag
+   */
   bool getStopMessageReceived();
 
  private:
   bool useTrigger_;   ///< true if wait needs a trigger from an input channel
-  double period_;     ///< period of time in s for step outputs
+  // double period_;     ///< period of time in s for step outputs
   bool running_;      ///< running status of clock
   bool stopMessageReceived_;   ///< true if a stop message has been received
 
@@ -77,10 +112,6 @@ class Clock {
   double speedup_;  ///< acceleration factor clockTime/simulationTime >
   std::chrono::system_clock::time_point referenceClockTime_;  ///< clock reference correponding to referenceSimuTime >
   double referenceSimuTime_;  ///< simulation time ("tCurrent") reference correponding to referenceSimuTime >
-
-  std::chrono::system_clock::time_point stepStart_;  ///< clock time before step (after sleep) >
-  double stepDuration_;
-
 
   std::atomic<int> triggeredStepCnt_;   ///< number of triggered step_
   std::mutex mutex_;
