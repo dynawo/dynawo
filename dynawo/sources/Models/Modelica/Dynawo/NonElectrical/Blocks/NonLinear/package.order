@@ -20,6 +20,7 @@ LimRateLimFirstOrder
 MaxThresholdSwitch
 MinThresholdSwitch
 MultiSwitch
+MultiSwitch2
 PIAntiWindUpTable
 PulseFixedDuration
 PulseMinimumDuration
