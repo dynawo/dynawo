@@ -24,6 +24,10 @@ model ENTSOE3
 equation
   line.switchOffSignal1.value = false;
   line.switchOffSignal2.value = false;
+
+  GFMDroop.switchOffSignal1.value =false ;
+  GFMDroop.switchOffSignal2.value =false ;
+  GFMDroop.switchOffSignal3.value =false ;
   connect(GFMDroop.terminal, line.terminal1) annotation(
     Line(points = {{12, 0}, {34, 0}}, color = {0, 0, 255}));
   connect(line.terminal2, infiniteBus.terminal) annotation(
