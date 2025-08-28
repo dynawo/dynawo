@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--
-    Copyright (c) 2024, RTE (http://www.rte-france.com)
+    Copyright (c) 2021, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
     This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,11 +12,17 @@
     simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:blackBoxModel id="InfBus" lib="InfiniteBusWithVariations" parFile="WECCBESS.par" parId="1"/>
-  <dyn:blackBoxModel id="Line" lib="Line" parFile="WECCBESS.par" parId="2"/>
-  <dyn:blackBoxModel id="BESS" lib="BESSWeccCurrentSource" parFile="WECCBESS.par" parId="3"/>
-  <dyn:blackBoxModel id="OmegaRefPu" lib="SetPoint" parFile="WECCBESS.par" parId="4"/>
+  <dyn:blackBoxModel id="InfBus" lib="InfiniteBusWithVariations" parFile="WECCBESS.par" parId="InfBusPar"/>
+  <dyn:blackBoxModel id="BESS" lib="BESSWeccCurrentSource" parFile="WECCBESS.par" parId="PlantPar"/>
+  <dyn:blackBoxModel id="PRefPu" lib="Step" parFile="WECCBESS.par" parId="PRefPu"/>
+  <dyn:blackBoxModel id="URefPu" lib="Step" parFile="WECCBESS.par" parId="URefPu"/>
+  <dyn:blackBoxModel id="OmegaRefPu" lib="SetPoint" parFile="WECCBESS.par" parId="OmegaRefPar"/>
+  <dyn:blackBoxModel id="Line" lib="Line" parFile="WECCBESS.par" parId="LinePar"/>
+
   <dyn:connect id1="OmegaRefPu" var1="setPoint_setPoint" id2="BESS" var2="BESS_omegaRefPu"/>
-  <dyn:connect id1="InfBus" var1="infiniteBus_terminal" id2="Line" var2="line_terminal1"/>
-  <dyn:connect id1="Line" var1="line_terminal2" id2="BESS" var2="BESS_terminal"/>
+  <dyn:connect id1="BESS" var1="BESS_terminal" id2="Line" var2="line_terminal1"/>
+  <dyn:connect id1="Line" var1="line_terminal2" id2="InfBus" var2="infiniteBus_terminal"/>
+  <dyn:connect id1="BESS" var1="BESS_PRefPu" id2="PRefPu" var2="step_step"/>
+  <dyn:connect id1="BESS" var1="BESS_URefPu" id2="URefPu" var2="step_step"/>
+
 </dyn:dynamicModelsArchitecture>

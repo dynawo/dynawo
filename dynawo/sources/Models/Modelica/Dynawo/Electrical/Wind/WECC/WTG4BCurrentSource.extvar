@@ -12,11 +12,17 @@
     simulation tools for power systems.
 -->
 <external_variables xmlns="http://www.rte-france.com/dynawo">
+  <variable type="continuous" id="iPccPu.re" optional="true"/>
+  <variable type="continuous" id="iPccPu.im" optional="true"/>
   <variable type="continuous" id="terminal.V.re"/>
   <variable type="continuous" id="terminal.V.im"/>
   <variable type="continuous" id="PFaRef" optional="true"/>
+  <variable type="continuous" id="PPccPu" optional="true"/>
   <variable type="continuous" id="PRefPu" optional="true"/>
+  <variable type="continuous" id="QPccPu" optional="true"/>
   <variable type="continuous" id="QRefPu" optional="true"/>
+  <variable type="continuous" id="uPccPu.re" optional="true"/>
+  <variable type="continuous" id="uPccPu.im" optional="true"/>
   <variable type="continuous" id="URefPu" optional="true"/>
   <variable type="continuous" id="omegaRefPu"/>
   <variable type="discrete" id="injector.switchOffSignal1.value" defaultValue="false"/>

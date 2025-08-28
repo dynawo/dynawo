@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2021, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="InfBus" lib="InfiniteBusWithVariations" parFile="WECCWTG4B.par" parId="InfBusPar"/>
+  <dyn:blackBoxModel id="WTG4B" lib="WTG4BWeccCurrentSource" parFile="WECCWTG4B.par" parId="PlantPar"/>
+  <dyn:blackBoxModel id="PRefPu" lib="Step" parFile="WECCWTG4B.par" parId="PRefPu"/>
+  <dyn:blackBoxModel id="URefPu" lib="Step" parFile="WECCWTG4B.par" parId="URefPu"/>
+  <dyn:blackBoxModel id="OmegaRefPu" lib="SetPoint" parFile="WECCWTG4B.par" parId="OmegaRefPar"/>
+  <dyn:blackBoxModel id="Line" lib="Line" parFile="WECCWTG4B.par" parId="LinePar"/>
+
+  <dyn:connect id1="OmegaRefPu" var1="setPoint_setPoint" id2="WTG4B" var2="WTG4B_omegaRefPu"/>
+  <dyn:connect id1="WTG4B" var1="WTG4B_terminal" id2="Line" var2="line_terminal1"/>
+  <dyn:connect id1="Line" var1="line_terminal2" id2="InfBus" var2="infiniteBus_terminal"/>
+  <dyn:connect id1="WTG4B" var1="WTG4B_PRefPu" id2="PRefPu" var2="step_step"/>
+  <dyn:connect id1="WTG4B" var1="WTG4B_URefPu" id2="URefPu" var2="step_step"/>
+
+</dyn:dynamicModelsArchitecture>
