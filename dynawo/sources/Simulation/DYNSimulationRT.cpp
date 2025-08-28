@@ -131,11 +131,11 @@ SimulationRT::configureRT() {
       clock_->setSpeedup(clockEntry->getSpeedup().get());
   } else {
     clock_->setUseTrigger(true);
-    std::shared_ptr<job::ChannelEntry> triggerChannelEntry =
-    channelsEntry->getChannelEntryById(clockEntry->getTriggerChannel());
-    if (!triggerChannelEntry || triggerChannelEntry->getKind() != "INTERNAL")
+    std::shared_ptr<job::ChannelEntry> triggerChannelEntry = channelsEntry->getChannelEntryById(clockEntry->getTriggerChannel());
+    if (!triggerChannelEntry)
       throw DYNError(Error::API, UnknownChannelId, clockEntry->getTriggerChannel());
   }
+
   // Output dispatcher settings
   std::map<std::string, std::shared_ptr<OutputInterface> > channelInterfaceMap;
   for (auto &streamEntry : jobEntry_->getInteractiveSettingsEntry()->getStreamsEntry()->getStreamEntries()) {
