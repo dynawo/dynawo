@@ -103,16 +103,15 @@ class Clock {
 
  private:
   bool useTrigger_;   ///< true if wait needs a trigger from an input channel
-  // double period_;     ///< period of time in s for step outputs
   bool running_;      ///< running status of clock
   bool stopMessageReceived_;   ///< true if a stop message has been received
 
   // Internal time sync
-  // bool timeSync_;  ///< true if simulation time should be synchronized with real clock >
   double speedup_;  ///< acceleration factor clockTime/simulationTime >
   std::chrono::system_clock::time_point referenceClockTime_;  ///< clock reference correponding to referenceSimuTime >
   double referenceSimuTime_;  ///< simulation time ("tCurrent") reference correponding to referenceSimuTime >
 
+  // External time sync
   std::atomic<int> triggeredStepCnt_;   ///< number of triggered step_
   std::mutex mutex_;
   std::condition_variable triggerCond_;

@@ -254,10 +254,7 @@
 
   <xs:complexType name="InteractiveSettingsEntry">
     <xs:sequence>
-    <xs:choice>
-      <xs:element name="clock" type="dyn:InternalClockEntry"/>
-      <xs:element name="clock" type="dyn:ExternalClockEntry"/>
-    </xs:choice>
+      <xs:element name="clock" type="dyn:ClockEntry"/>
       <xs:element name="channels" type="dyn:ChannelsEntry">
         <xs:unique name="UniqueIdKey">
           <xs:selector xpath="dyn:ChannelEntry" />
@@ -269,15 +266,18 @@
     <xs:attribute name="timeStep" type="xs:double"/>
   </xs:complexType>
 
-  <xs:complexType name="InternalClockEntry">
-    <xs:attribute name="type" use="required" fixed="INTERNAL"/>
+  <xs:complexType name="ClockEntry">
+    <xs:attribute name="type" use="required" type="dyn:ClockType"/>
     <xs:attribute name="speedUp" use="optional" type="xs:double"/>
-  </xs:complexType>
-
-  <xs:complexType name="ExternalClockEntry">
-    <xs:attribute name="type" use="required" fixed="EXTERNAL"/>
     <xs:attribute name="triggerChannel" use="required" type="xs:NMTOKEN"/>
   </xs:complexType>
+
+  <xs:simpleType name="ClockType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="INTERNAL"/>
+      <xs:enumeration value="EXTERNAL"/>
+    </xs:restriction>
+  </xs:simpleType>
 
   <xs:complexType name="ChannelsEntry">
     <xs:sequence>
