@@ -97,7 +97,7 @@ UpdatableDiscrete::getSize() {
 
 // evaluation of F(t,y,y') function
 void
-UpdatableDiscrete::evalF(double /*t*/, propertyF_t type) {
+UpdatableDiscrete::evalF(double /*t*/, propertyF_t /*type*/) {
 }
 
 
@@ -125,12 +125,12 @@ UpdatableDiscrete::setGequations() {
 
 // evaluation of the transpose Jacobian Jt - sparse matrix
 void
-UpdatableDiscrete::evalJt(const double /*t*/, const double /*cj*/, const int /*rowOffset*/, SparseMatrix& jt) {
+UpdatableDiscrete::evalJt(const double /*t*/, const double /*cj*/, const int /*rowOffset*/, SparseMatrix& /*jt*/) {
 }
 
 // evaluation of the transpose Jacobian Jt - sparse matrix
 void
-UpdatableDiscrete::evalJtPrim(const double /*t*/, const double /*cj*/, const int /*rowOffset*/, SparseMatrix& jt) {
+UpdatableDiscrete::evalJtPrim(const double /*t*/, const double /*cj*/, const int /*rowOffset*/, SparseMatrix& /*jt*/) {
 }
 
 void

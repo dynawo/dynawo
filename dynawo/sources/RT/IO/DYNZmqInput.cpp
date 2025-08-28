@@ -107,13 +107,13 @@ ZmqInput::receiveLoop() {
         zmqpp::message reply;
         std::shared_ptr<InputMessage> inputMsg;
         if (payload.empty()) {
-          if (!supports(MessageFilter::TimeManagement)) {
+          if (!supports(MessageFilter::Trigger)) {
             reply << "trigger received but not supported";
           } else {
             reply << "trigger received";
             inputMsg = std::make_shared<StepTriggerMessage>();
           }
-        } else if (!payload.compare(STOP_KEY)) {
+        } else if (payload == STOP_KEY) {
           if (!supports(MessageFilter::TimeManagement)) {
             reply << "stop received but not supported";
           } else {

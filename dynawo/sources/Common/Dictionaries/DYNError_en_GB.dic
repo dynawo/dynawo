@@ -270,6 +270,8 @@ ExternalVariableIDNotUnique =             external variable id (%1%) is not uniq
 //---JOB---------------------
 CriteriaStepError           =             criteria step should be a positive integer (value found: %1%)
 ConstraintValueTypeError    =             constraint value type should be one of "FIRST", "LAST" or "DISABLED" (value found: %1%)
+UnknownChannelId            =             reference to channel id "%1%" invalid: channel must be declared
+MissingInteractiveSettings  =             interactiveSettings missing from job file for interactive simulation
 //---PAR---------------------
 MacroParameterSetAlreadyExists =          the macroParameterSet %1% already exists in collection
 MacroParSetAlreadyExists =                the macroParSet %1% already exists in set %2%

@@ -41,15 +41,16 @@ using std::chrono::duration_cast;
 namespace DYN {
 
 Clock::Clock():
-triggeredStepCnt_(0),
 useTrigger_(false),
+running_(false),
+stopMessageReceived_(false),
 speedup_(1.),
-stepDuration_(0.),
-running_(false) {}
+referenceSimuTime_(0.),
+triggeredStepCnt_(0) {}
 
 
 void
-Clock::setAccelerationFactor(double speedup) {
+Clock::setSpeedup(double speedup) {
   if (speedup <= 0) {
     speedup_ = 1;
     std::cout << "Clock Error: speedup invalid: " << speedup << std::endl;
@@ -58,15 +59,9 @@ Clock::setAccelerationFactor(double speedup) {
 }
 
 void
-Clock::pause() {
-  running_ = false;
-}
-
-void
-Clock::start(double referenceSimuTime) {
-  referenceSimuTime_ = referenceSimuTime;
+Clock::start(double simulationTime) {
+  referenceSimuTime_ = simulationTime;
   referenceClockTime_ = system_clock::now();
-  stepStart_ = referenceClockTime_;
   // std::cout << "Clock::start: timeSync_= " << timeSync_ << ", speedup_= " << speedup_<< std::endl;
   running_ = true;
   std::cout << "Clock::start, running = " << running_ << ", useTrigger = " << useTrigger_ << std::endl;
@@ -79,7 +74,7 @@ Clock::stop() {
 }
 
 void
-Clock::handleMessage(StepTriggerMessage& triggerMessage) {
+Clock::handleMessage(StepTriggerMessage& /*triggerMessage*/) {
     {
       std::lock_guard<std::mutex> lock(mutex_);
       triggeredStepCnt_++;
@@ -88,17 +83,17 @@ Clock::handleMessage(StepTriggerMessage& triggerMessage) {
 }
 
 void
-Clock::handleMessage(StopMessage& stopMessage) {
+Clock::handleMessage(StopMessage& /*stopMessage*/) {
   stopMessageReceived_ = true;
   stop();
 }
 
 void
-Clock::wait(double simuTime) {
+Clock::wait(double simulationTime) {
   std::cout << "wait triggeredStepCnt_ = " << triggeredStepCnt_ << std::endl;
   if (!useTrigger_) {
     if (running_ && speedup_ > 0)
-      std::this_thread::sleep_until(referenceClockTime_ + microseconds(static_cast<int>(1000000*(simuTime-referenceSimuTime_)/speedup_)));
+      std::this_thread::sleep_until(referenceClockTime_ + microseconds(static_cast<int>(1000000*(simulationTime-referenceSimuTime_)/speedup_)));
     return;
   } else {
     while (running_ && !SignalHandler::gotExitSignal()) {
@@ -115,6 +110,16 @@ Clock::wait(double simuTime) {
 bool
 Clock::getStopMessageReceived() {
   return stopMessageReceived_;
+}
+
+bool
+Clock::getUseTrigger() {
+  return useTrigger_;
+}
+
+void
+Clock::setUseTrigger(bool useTrigger) {
+  useTrigger_ = useTrigger;
 }
 
 }  // end of namespace DYN

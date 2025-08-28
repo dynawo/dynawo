@@ -42,11 +42,11 @@ class OutputDispatcher {
 
   ~OutputDispatcher();
 
-  void addCurvesPublisher(std::shared_ptr<OutputInterface>& publisher, CurvesOutputFormat format);
+  void addCurvesPublisher(std::shared_ptr<OutputInterface>& publisher, const std::string formatStr);
 
-  void addTimelinePublisher(std::shared_ptr<OutputInterface>& publisher, TimelineOutputFormat format);
+  void addTimelinePublisher(std::shared_ptr<OutputInterface>& publisher, const std::string formatStr);
 
-  void addConstraintsPublisher(std::shared_ptr<OutputInterface>& publisher, ConstraintsOutputFormat format);
+  void addConstraintsPublisher(std::shared_ptr<OutputInterface>& publisher, const std::string formatStr);
 
   void initPublishCurves(std::shared_ptr<curves::CurvesCollection>& curvesCollection);
 

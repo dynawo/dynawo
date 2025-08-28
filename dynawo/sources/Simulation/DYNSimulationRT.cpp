@@ -47,6 +47,10 @@
 
 #include "JOBJobEntry.h"
 #include "JOBCurvesEntry.h"
+#include "JOBInteractiveSettingsEntry.h"
+#include "JOBClockEntry.h"
+#include "JOBChannelEntry.h"
+#include "JOBStreamEntry.h"
 
 #include "PARParametersSetFactory.h"
 
@@ -107,38 +111,93 @@ Simulation(jobEntry, context, data) {
 
 void
 SimulationRT::configureRT() {
-  outputDispatcher_ = std::make_shared<OutputDispatcher>();
-  if (jobEntry_->getSimulationEntry()->getPublishToZmq()) {
-    std::shared_ptr<OutputInterface> zmqPublisher = std::make_shared<ZmqOutput>();
-    outputDispatcher_->addCurvesPublisher(zmqPublisher, CurvesOutputFormat::BYTES);
-    outputDispatcher_->addTimelinePublisher(zmqPublisher, TimelineOutputFormat::JSON);
-    outputDispatcher_->addConstraintsPublisher(zmqPublisher, ConstraintsOutputFormat::JSON);
-    std::cout << "ZMQ publisher started" << std::endl;
-  }
-  // if (jobEntry_->getSimulationEntry()->getTimeSync()) {
-  //   clock_ = std::make_shared<Clock>()
-  //     jobEntry_->getSimulationEntry()->getTimeSyncAcceleration());
-  // }
-  actionBuffer_ = std::make_shared<ActionBuffer>();
-  clock_ = std::make_shared<Clock>();
-  inputDispatcherAsync_ = std::make_shared<InputDispatcherAsync>(actionBuffer_, clock_);
-  // std::shared_ptr<InputInterface> zmqServer = std::make_shared<ZmqInput>("zmq", MessageFilter::Actions);
-  std::shared_ptr<InputInterface> zmqServer = std::make_shared<ZmqInput>("zmq", MessageFilter::Actions | MessageFilter::TimeManagement);
-  inputDispatcherAsync_->addReceiver(zmqServer);
+  if (!jobEntry_->getInteractiveSettingsEntry())
+    throw DYNError(DYN::Error::API, MissingInteractiveSettings);
 
-  // inputDispatcherAsync_->addReceiver(zmqSubscriber);
-  // bool subscribeActions = jobEntry_->getSimulationEntry()->getEventSubscriberActions();
-  // bool subscribeTrigger = jobEntry_->getSimulationEntry()->getEventSubscriberTrigger();
-  // if (subscribeActions || subscribeTrigger) {
-  //   triggerSimulationTimeStepInS_ = jobEntry_->getSimulationEntry()->getTriggerSimulationTimeStepInS();
-  //   eventSubscriber_ = std::make_shared<EventSubscriber>(subscribeTrigger, subscribeActions, subscribeActions & !subscribeTrigger);
-  //   std::cout << "ZMQ EventSubscriber started" << std::endl;
-  // }
-  if (jobEntry_->getSimulationEntry()->getPublishToWebsocket()) {
-    wsServer_ = std::make_shared<wsc::WebsocketServer>();
-    wsServer_->run(9001);
-    std::cout << "Websocket server started" << std::endl;
+  std::shared_ptr<job::ChannelsEntry> channelsEntry = jobEntry_->getInteractiveSettingsEntry()->getChannelsEntry();
+  std::shared_ptr<job::ClockEntry> clockEntry = jobEntry_->getInteractiveSettingsEntry()->getClockEntry();
+
+  // initialize interactive simulation managing objects
+  clock_ = std::make_shared<Clock>();
+  actionBuffer_ = std::make_shared<ActionBuffer>();
+  outputDispatcher_ = std::make_shared<OutputDispatcher>();
+  inputDispatcherAsync_ = std::make_shared<InputDispatcherAsync>(actionBuffer_, clock_);
+
+  std::cout << "objects initialized" << std::endl;
+  // Clock settings
+  if (clockEntry->getType() == "INTERNAL") {
+    clock_->setUseTrigger(false);
+    if (clockEntry->getSpeedup())
+      clock_->setSpeedup(clockEntry->getSpeedup().get());
+  } else {
+    clock_->setUseTrigger(true);
+    std::shared_ptr<job::ChannelEntry> triggerChannelEntry =
+    channelsEntry->getChannelEntryById(clockEntry->getTriggerChannel());
+    if (!triggerChannelEntry || triggerChannelEntry->getKind() != "INTERNAL")
+      throw DYNError(Error::API, UnknownChannelId, clockEntry->getTriggerChannel());
   }
+  // Output dispatcher settings
+  std::map<std::string, std::shared_ptr<OutputInterface> > channelInterfaceMap;
+  for (auto &streamEntry : jobEntry_->getInteractiveSettingsEntry()->getStreamsEntry()->getStreamEntries()) {
+    std::map<std::string, std::shared_ptr<OutputInterface> >::iterator channelInterfaceMapIt = channelInterfaceMap.find(streamEntry->getChannel());
+    std::shared_ptr<OutputInterface> outputInterface;
+    if (channelInterfaceMapIt == channelInterfaceMap.end()) {
+      // Create new OutputInterface
+      std::shared_ptr<job::ChannelEntry> channelEntry = channelsEntry->getChannelEntryById(streamEntry->getChannel());
+      if (channelEntry->getType() == "ZMQ") {
+        std::cout << "creating ZMQ channel " << channelEntry->getId() << std::endl;
+        // outputInterface = std::make_shared<ZmqOutput>(channelEntry->getEndpoint());
+        outputInterface = std::make_shared<ZmqOutput>();
+        channelInterfaceMap.emplace(channelEntry->getId(), outputInterface);
+        std::cout << "ZMQ channel created" << channelEntry->getId() << std::endl;
+      } else {
+        Trace::warn() << "Unsupported output Channel type: " << channelEntry->getType() << Trace::endline;
+        continue;
+      }
+    } else {
+      outputInterface = channelInterfaceMapIt->second;
+    }
+    std::cout << "outputInterface created" << std::endl;
+
+    if (streamEntry->getData() == "CURVES") {
+      outputDispatcher_->addCurvesPublisher(outputInterface, streamEntry->getFormat());
+    } else if (streamEntry->getData() == "TIMELINE") {
+      outputDispatcher_->addTimelinePublisher(outputInterface, streamEntry->getFormat());
+    } else if (streamEntry->getData() == "CONSTRAINTS") {
+      outputDispatcher_->addConstraintsPublisher(outputInterface, streamEntry->getFormat());
+    } else {
+      Trace::warn() << "Stream data unknown or not managed: " << streamEntry->getData() << Trace::endline;;
+    }
+  }
+  std::cout << "output dispatcher set up" << std::endl;
+
+  // intialize input channels
+  for (auto &channelEntry : channelsEntry->getChannelEntries()) {
+    if (channelEntry->getKind() == "OUTPUT") {
+      if (channelInterfaceMap.find(channelEntry->getId()) == channelInterfaceMap.end())
+        Trace::warn() << "Output channel '" << channelEntry->getId() << "' not used by a stream, not instanciated" << Trace::endline;
+    } else {  // INPUT
+      // Input dispatcher settings
+      bool isTriggerChannel = (clock_->getUseTrigger() &&
+      clockEntry->getTriggerChannel() == channelEntry->getId());
+      if (channelEntry->getType() == "ZMQ") {
+        MessageFilter filter = MessageFilter::Actions | MessageFilter::TimeManagement;
+        if (isTriggerChannel)
+          filter = filter | MessageFilter::Trigger;
+        std::shared_ptr<InputInterface> zmqServer = std::make_shared<ZmqInput>("zmq", filter);
+        inputDispatcherAsync_->addReceiver(zmqServer);
+      } else {
+        Trace::warn() << "Unknown channel type: " << channelEntry->getType() << Trace::endline;
+      }
+    }
+  }
+  std::cout << "channel initialized" << std::endl;
+
+  // if (jobEntry_->getSimulationEntry()->getPublishToWebsocket()) {
+  //   wsServer_ = std::make_shared<wsc::WebsocketServer>();
+  //   wsServer_->run(9001);
+  //   std::cout << "Websocket server started" << std::endl;
+  // }
 
   // Workaround to avoid saving value for each curve:
   //  - Set all curves as EXPORT_AS_FINAL_STATE_VALUE --> will keep only one Point corresponding to last value
@@ -153,13 +212,9 @@ SimulationRT::configureRT() {
   bool sendSimulationMetrics_ = true;   // TODO(thibaut) add jobs property
   if (sendSimulationMetrics_)
     initComputationTimeCurve();
-  valuesBuffer_.reserve((curvesCollection_->getCurves().size() + 1) * sizeof(double));
+  // valuesBuffer_.reserve((curvesCollection_->getCurves().size() + 1) * sizeof(double));
 
-  // Initialize exporters for timeline and contraints
-  if (timeline_)
-    timelineExporter_ = std::make_shared<timeline::JsonExporter>();
-  if (constraintsCollection_)
-    constraintsExporter_ = std::make_shared<constraints::JsonExporter>();
+  std::cout << "configureRT au bout" << std::endl;
 }
 
 void
@@ -227,36 +282,28 @@ SimulationRT::simulate() {
     int currentIterNb = 0;
     // double nextTimeStep = 0;
 
-    if (inputDispatcherAsync_)
-      inputDispatcherAsync_->start();
+    inputDispatcherAsync_->start();
 
-    if (clock_)
-      clock_->start(tCurrent_);
+    clock_->start(tCurrent_);
 
-
-    double nextTToTrigger = tCurrent_ + triggerSimulationTimeStepInS_;  // Only used if (eventSubscriber_ && eventSubscriber_->triggerEnabled())
-    double nextOutputT = nextTToTrigger;  // Only used if (eventSubscriber_ && eventSubscriber_->triggerEnabled())
+    // double nextTToTrigger = tCurrent_ + triggerSimulationTimeStepInS_;  // Only used if (eventSubscriber_ && eventSubscriber_->triggerEnabled())
+    double nextOutputT = tCurrent_;  // Publish first time step
     // double lastPublicationTime = -1;
-
+    bool isPublicationTime = false;
+    bool isWaitTime = false;
     while (!end() && !clock_->getStopMessageReceived() && !SignalHandler::gotExitSignal() && criteriaChecked) {
-      // // option1: ZMQ --> wait for an empty message before simulating next time step
-      // if (eventSubscriber_ && eventSubscriber_->triggerEnabled() && tCurrent_ >= nextTToTrigger) {
-      //   nextTToTrigger += triggerSimulationTimeStepInS_;
-      //   eventSubscriber_->wait();
-      // }
-
-      // option2: Clock --> sleep in the loop
-      if (clock_) {
-        clock_->wait(tCurrent_);
+      // If simulated time corresponds to a completed period, publish the results at the end of the step, then wait before applying the actions
+      if (tCurrent_ >= nextOutputT) {
+        isPublicationTime = true;
+        nextOutputT += communicationPeriod_;
       }
 
-      updateStepStart();
-
-      // Apply actions from event subscriber
-      // if (eventSubscriber_ && eventSubscriber_->actionsEnabled())
-      //   eventSubscriber_->applyActions();
-      if (actionBuffer_)
+      if (isWaitTime) {
+        clock_->wait(tCurrent_);
+        updateStepStart();
         actionBuffer_->applyActions();
+        isWaitTime = false;
+      }
 
       double elapsed = timer.elapsed();
       double timeout = jobEntry_->getSimulationEntry()->getTimeout();
@@ -342,64 +389,19 @@ SimulationRT::simulate() {
         intermediateStates_.pop();
       }
 
-      // if (clock_) {
-      //   clock_->updateStepDurationValue();
-      //   Trace::info() << "TimeManagement: tCurrent_ = " << tCurrent_
-      //   << " s; Step computation time: " << clock_->getStepDuration() << "ms" << Trace::endline;
-      // }
-
       // Set up step times
       updateStepComputationTime();
       updateCurves(true);
 
       // Publish values
-      if ((outputDispatcher_) && tCurrent_ >= nextOutputT) {
-        nextOutputT += outputPeriod_;
+      if (isPublicationTime) {
         outputDispatcher_->publishCurves(curvesCollection_);
         outputDispatcher_->publishTimeline(timeline_);
         outputDispatcher_->publishConstraints(constraintsCollection_);
         timeline_->clear();
         constraintsCollection_->clear();
-        // string formatedJsonCurves;
-        // if (wsServer_) {
-        //   // Export Curves to WebSocket
-        //   formatedJsonCurves = curvesToJson();
-        //   wsServer_->sendMessage(formatedJsonCurves);
-        //   Trace::info() << "data published to websocket" << Trace::endline;
-        // }
-        // if (stepPublisher_) {
-        //   // Export Curves to ZMQ
-        //   if (!jobEntry_->getSimulationEntry()->getPublishToZmqCurvesFormat().compare("CSV")) {
-        //     string formatedCsvCurves = curvesToCsv();
-        //     stepPublisher_->sendMessage(formatedCsvCurves, "curves");
-        //   } else if (!jobEntry_->getSimulationEntry()->getPublishToZmqCurvesFormat().compare("BYTES")) {
-        //     updateValuesBuffer();
-        //     stepPublisher_->sendMessage(valuesBuffer_, "curves_values");
-        //   } else {  // Default is JSON
-        //     if (formatedJsonCurves.empty())
-        //       formatedJsonCurves = curvesToJson();
-        //     stepPublisher_->sendMessage(formatedJsonCurves, "curves");
-        //   }
-
-        //   // Export Timeline
-        //   if (timeline_) {
-        //     ostringstream formatedTimeline;
-        //     timelineExporter_->exportToStream(timeline_, formatedTimeline);
-        //     timeline_->clear();
-        //     string strTimeline = formatedTimeline.str();
-        //     stepPublisher_->sendMessage(strTimeline, "timeline");
-        //   }
-
-        //   // Export Constraints
-        //   if (constraintsCollection_) {
-        //     ostringstream formatedConstraints;
-        //     constraintsExporter_->exportToStream(constraintsCollection_, formatedConstraints);
-        //     timeline_->clear();
-        //     string strConstraints = formatedConstraints.str();
-        //     stepPublisher_->sendMessage(strConstraints, "constraints");
-        //     Trace::info() << "data published to ZMQ" << Trace::endline;
-        //   }
-        // lastPublicationTime = tCurrent_;
+        isPublicationTime = false;
+        isWaitTime = true;
       }
     }
 
@@ -462,82 +464,6 @@ SimulationRT::updateStepComputationTime() {
 }
 
 
-// string
-// SimulationRT::curvesToJson() {
-//   stringstream stream;
-//   double time = -1;
-//   stream << "{\n\t\"curves\": {\n";
-//   stream << "\t\t" << "\"values\": {\n";
-//   for (auto &curve : curvesCollection_->getCurves()) {
-//     if (curve->getAvailable()) {
-//       if (time < 0) {
-//         time = curve->getLastTime();
-//         stream << "\n";
-//       } else {
-//         stream << ",\n";
-//       }
-//       string curveName =  curve->getModelName() + "_" + curve->getVariable();
-//       stream << "\t\t\t" << "\"" << curveName << "\": " << curve->getLastValue();
-//     }
-//   }
-//   stream << "\n\t\t" << "},\n";
-//   // if (clock_)
-//   //   stream << "\t\t" << "\"stepdurationms\": " << clock_->getStepDuration() << ",\n";
-//   stream << "\t\t" << "\"time\": " << time << "\n";
-//   stream << "\t}\n}";
-
-//   return stream.str();
-// }
-
-
-// string
-// SimulationRT::curvesToCsv() {
-//   stringstream stream;
-//   double time = -1;
-//   for (auto &curve : curvesCollection_->getCurves()) {
-//     if (curve->getAvailable()) {
-//       if (time < 0) {
-//         time = curve->getLastTime();
-//         stream << "time," << time << "\n";
-//       }
-//       string curveName =  curve->getModelName() + "_" + curve->getVariable();
-//       stream << curveName << "," << curve->getLastValue() << "\n";
-//     }
-//   }
-//   return stream.str();
-// }
-
-// string
-// SimulationRT::curvesNamesToCsv() {
-//   stringstream stream;
-//   double time = -1;
-//   for (auto &curve : curvesCollection_->getCurves()) {
-//     if (curve->getAvailable()) {
-//       if (time < 0) {
-//         time = curve->getLastTime();
-//         stream << "time" << "\n";
-//       }
-//       string curveName =  curve->getModelName() + "_" + curve->getVariable();
-//       stream << curveName << "\n";
-//     }
-//   }
-//   return stream.str();
-// }
-
-// void SimulationRT::updateValuesBuffer() {
-//   valuesBuffer_.clear();
-//   double time = -1;
-//   for (auto &curve : curvesCollection_->getCurves()) {
-//     if (time < 0) {
-//       time = curve->getLastTime();
-//       std::uint8_t* rawBytes = reinterpret_cast<std::uint8_t*>(&time);
-//       valuesBuffer_.insert(valuesBuffer_.end(), rawBytes, rawBytes + sizeof(double));
-//     }
-//     double value = curve->getLastValue();
-//     std::uint8_t* rawBytes = reinterpret_cast<std::uint8_t*>(&value);
-//     valuesBuffer_.insert(valuesBuffer_.end(), rawBytes, rawBytes + sizeof(double));
-//   }
-// }
 
 void
 SimulationRT::initComputationTimeCurve() {
@@ -555,8 +481,8 @@ SimulationRT::terminate() {
   Timer timer("Simulation::terminate()");
 #endif
   std::cout << "SimulationRT::terminate" << std::endl;
-  if (wsServer_)
-    wsServer_->stop();
+  // if (wsServer_)
+  //   wsServer_->stop();
 
   // if (inputDispatcherAsync_)
   //   inputDispatcherAsync_->stop();

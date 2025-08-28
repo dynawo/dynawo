@@ -38,7 +38,21 @@ OutputDispatcher::~OutputDispatcher() {
 }
 
 void
-OutputDispatcher::addCurvesPublisher(std::shared_ptr<OutputInterface>& publisher, CurvesOutputFormat format) {
+OutputDispatcher::addCurvesPublisher(std::shared_ptr<OutputInterface>& publisher, const std::string formatStr) {
+  CurvesOutputFormat format;
+  if (formatStr == "BYTES") {
+    format = CurvesOutputFormat::BYTES;
+  } else if (formatStr == "CSV") {
+    format = CurvesOutputFormat::CSV;
+  } else if (formatStr == "JSON") {
+    format = CurvesOutputFormat::JSON;
+  } else if (formatStr == "XML") {
+    format = CurvesOutputFormat::XML;
+  } else {
+    Trace::error() << "OutputDispatcher: Unknown type of Curves output format: " << formatStr << Trace::endline;
+    return;
+  }
+
   if (curvesPublishers_.find(format) == curvesPublishers_.end()) {
     curvesPublishers_.emplace(format, std::vector<std::shared_ptr<OutputInterface> >());
   }
@@ -46,18 +60,44 @@ OutputDispatcher::addCurvesPublisher(std::shared_ptr<OutputInterface>& publisher
 }
 
 void
-OutputDispatcher::addTimelinePublisher(std::shared_ptr<OutputInterface>& publisher, TimelineOutputFormat format) {
+OutputDispatcher::addTimelinePublisher(std::shared_ptr<OutputInterface>& publisher, const std::string formatStr) {
+  TimelineOutputFormat format;
+  if (formatStr == "CSV") {
+    format = TimelineOutputFormat::CSV;
+  } else if (formatStr == "JSON") {
+    format = TimelineOutputFormat::JSON;
+  } else if (formatStr == "TXT") {
+    format = TimelineOutputFormat::TXT;
+  } else if (formatStr == "XML") {
+    format = TimelineOutputFormat::XML;
+  } else {
+    Trace::error() << "OutputDispatcher: Unknown type of Timeline output format: " << formatStr << Trace::endline;
+    return;
+  }
   if (timelinePublishers_.find(format) == timelinePublishers_.end()) {
     timelinePublishers_.emplace(format, std::vector<std::shared_ptr<OutputInterface> >());
   }
-  timelinePublishers_.find(format)->second.push_back(publisher);}
+  timelinePublishers_.find(format)->second.push_back(publisher);
+}
 
 void
-OutputDispatcher::addConstraintsPublisher(std::shared_ptr<OutputInterface>& publisher, ConstraintsOutputFormat format) {
+OutputDispatcher::addConstraintsPublisher(std::shared_ptr<OutputInterface>& publisher, const std::string formatStr) {
+  ConstraintsOutputFormat format;
+  if (formatStr == "JSON") {
+    format = ConstraintsOutputFormat::JSON;
+  } else if (formatStr == "TXT") {
+    format = ConstraintsOutputFormat::TXT;
+  } else if (formatStr == "XML") {
+    format = ConstraintsOutputFormat::XML;
+  } else {
+    Trace::error() << "OutputDispatcher: Unknown type of Constraints output format: " << formatStr << Trace::endline;
+    return;
+  }
   if (constraintsPublishers_.find(format) == constraintsPublishers_.end()) {
     constraintsPublishers_.emplace(format, std::vector<std::shared_ptr<OutputInterface> >());
   }
-  constraintsPublishers_.find(format)->second.push_back(publisher);}
+  constraintsPublishers_.find(format)->second.push_back(publisher);
+}
 
 void
 OutputDispatcher::initPublishCurves(std::shared_ptr<curves::CurvesCollection>& curvesCollection) {
@@ -99,8 +139,9 @@ OutputDispatcher::publishCurves(std::shared_ptr<curves::CurvesCollection>& curve
           publisher->sendMessage(curvesValues_, "curves");
         break;
       }
+      case (CurvesOutputFormat::XML):
       default:
-        Trace::error() << "OutputDispatcher: Unknown type of CurvesOutputFormat" << Trace::endline;
+        Trace::error() << "OutputDispatcher: Unknown or unmanaged type of CurvesOutputFormat" << Trace::endline;
     }
   }
 }
