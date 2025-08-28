@@ -32,13 +32,13 @@
             </dyn:logs>
         </dyn:outputs>
         <dyn:interactiveSettings timeStep="1">
-            <dyn:clock type="INTERNAL" speedUp="1"/>
+            <!-- <dyn:clock type="INTERNAL" speedUp="1"/> -->
+            <dyn:clock type="EXTERNAL" triggerChannel="zmq_input"/>
             <dyn:channels>
                 <dyn:channel id="zmq_input" kind="INPUT" type="ZMQ" endpoint="tcp://localhost:5555"/>
                 <dyn:channel id="zmq_output" kind="OUTPUT" type="ZMQ" endpoint="tcp://*:5556"/>
                 <!-- <dyn:channel id="websocket_output" kind="OUTPUT" type="WEBSOCKET" endpoint="tcp://localhost:5556"/> -->
             </dyn:channels>
-            <!-- <dyn:clock type="EXTERNAL" triggerChannel="zmq_input"/> -->
             <dyn:streams>
                 <dyn:stream data="CURVES" channel="zmq_output" format="BYTES"/>
                 <!-- <dyn:outputStream data="CURVES" channel="websocket_output" format="CSV"/> -->
