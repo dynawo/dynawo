@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.WECC.REEC;
 */
 
 model REECc "WECC Electrical Control type C"
-  extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC;
+  extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC(rateLimFirstOrderFreeze1.UseFreeze = true, limiter2.limitsAtInit = true);
   extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECc;
 
   // Input variable
@@ -103,7 +103,7 @@ equation
     Line(points = {{389, -7}, {370, -7}, {370, -20}, {530, -20}, {530, 110}, {521, 110}}, color = {0, 0, 127}));
   connect(integrator.y, feedback.u2) annotation(
     Line(points = {{281, -250}, {320, -250}, {320, -218}}, color = {0, 0, 127}));
-  connect(PInjPu, integrator.u) annotation(
+  connect(PConvPu, integrator.u) annotation(
     Line(points = {{-270, 170}, {-249, 170}, {-249, -250}, {258, -250}}, color = {0, 0, 127}));
   connect(SOCinit.y, feedback.u1) annotation(
     Line(points = {{280, -210}, {312, -210}}, color = {0, 0, 127}));

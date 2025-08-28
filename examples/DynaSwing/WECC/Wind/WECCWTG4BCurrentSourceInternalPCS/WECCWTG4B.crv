@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2021, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+
+  <!-- Operating quantities-->
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_frtOn"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_repc_freeze"/>
+  <curve model="WTG4B" variable="WTG4B_omegaRefPu"/>
+  <curve model="WTG4B" variable="WTG4B_TfoPCS_rTfoPu"/>
+
+  <!-- Main electrical quantities -->
+  <curve model="WTG4B" variable="WTG4B_WTGTerminalMeasurements_PPu"/>
+  <curve model="WTG4B" variable="WTG4B_P0Pu"/>
+  <curve model="WTG4B" variable="WTG4B_PPcc0Pu"/>
+  <curve model="WTG4B" variable="WTG4B_WTGTerminalMeasurements_QPu"/>
+  <curve model="WTG4B" variable="WTG4B_Q0Pu"/>
+  <curve model="WTG4B" variable="WTG4B_QPcc0Pu"/>
+  <curve model="WTG4B" variable="WTG4B_WTGTerminalMeasurements_UPu"/>
+  <curve model="WTG4B" variable="WTG4B_U0Pu"/>
+  <curve model="WTG4B" variable="WTG4B_UPcc0Pu"/>
+  <curve model="WTG4B" variable="WTG4B_WTTerminalMeasurements_PPu"/>
+  <curve model="WTG4B" variable="WTG4B_PConv0Pu"/>
+  <curve model="WTG4B" variable="WTG4B_WTTerminalMeasurements_QPu"/>
+  <curve model="WTG4B" variable="WTG4B_QConv0Pu"/>
+  <curve model="WTG4B" variable="WTG4B_WTTerminalMeasurements_UPu"/>
+  <curve model="WTG4B" variable="WTG4B_UConv0Pu"/>
+  <curve model="WTG4B" variable="WTG4B_injector_PInjPuSn"/>
+  <curve model="WTG4B" variable="WTG4B_PInj0Pu"/>
+  <curve model="WTG4B" variable="WTG4B_injector_QInjPuSn"/>
+  <curve model="WTG4B" variable="WTG4B_QInj0Pu"/>
+  <curve model="WTG4B" variable="WTG4B_injector_UPu"/>
+  <curve model="WTG4B" variable="WTG4B_UInj0Pu"/>
+  <curve model="WTG4B" variable="WTG4B_injector_idPu"/>
+  <curve model="WTG4B" variable="WTG4B_Id0Pu"/>
+  <curve model="WTG4B" variable="WTG4B_injector_iqPu"/>
+  <curve model="WTG4B" variable="WTG4B_Iq0Pu"/>
+
+  <!-- reactive logic-->
+  <curve model="WTG4B" variable="WTG4B_wecc_repc_URefPu"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_repc_QVCtrlErr_y"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_repc_limPIDFreeze_u_s"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_repc_limPIDFreeze_addPID_u1"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_repc_limPIDFreeze_addPID_u2"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_repc_limPIDFreeze_gainPID_y"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_repc_limPIDFreeze_y"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_repc_absLimRateLimFeedthroughFreeze_y"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_repc_absLimRateLimFeedthroughFreeze_limiter_y"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_repc_absLimRateLimFeedthroughFreeze_rampLimiter_y"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_repc_absLimRateLimFeedthroughFreeze_fixedDelay_u"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_repc_absLimRateLimFeedthroughFreeze_fixedDelay_y"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_repc_fixedDelay2_y"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_QConvRefPu"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_rateLimFirstOrderFreeze1_u"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_rateLimFirstOrderFreeze1_y"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_add1_u2"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_add1_y"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_iqCmdPu"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_regc_iqRefPu"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_ipMaxPu"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_ipMinPu"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_iqMaxPu"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_iqMinPu"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_UFiltered"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_division_y"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_division_u1"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_division_u2"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_pi_y"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_limiter2_y"/>
+
+  <!-- active logic -->
+  <curve model="WTG4B" variable="WTG4B_wecc_repc_PRefPu"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_repc_limPID_u_s"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_repc_limPID_y"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_PConvRefPu"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_rateLimFirstOrderFreeze_u"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_rateLimFirstOrderFreeze_y"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_limiter3_y"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_division1_u1"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_division1_u2"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_division1_y"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_variableLimiter1_y"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_regc_idCmdPu"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_regc_idRefPu"/>
+
+  <!--Fast reactive injection-->
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_iqInjectionLogic_iqInjPu"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_iqInjectionLogic_iqVPu"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_iqInjectionLogic_vDip"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_iqInjectionLogic_vDipInjEndTime"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_iqInjectionLogic_tHoldIq"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_iqInjectionLogic_IqFrzPu"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_UPu"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_add_y"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_hysteresis_Vup_u"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_hysteresis_VDip_u"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_hysteresis_Vup_y"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_hysteresis_VDip_y"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_VUpPu"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_VUpHyPu"/>
+
+</curvesInput>
