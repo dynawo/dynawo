@@ -118,7 +118,7 @@ partial model BaseREEC "WECC Electrical Control REEC common"
     Placement(visible = true, transformation(origin = {130, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add(k1 = -1) annotation(
     Placement(visible = true, transformation(origin = {125, 220}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch(nu = 2,DynamicSelection=false,fp=QFlag) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch2 multiSwitch(nu = 2,DynamicSelection=false,fp=QFlag) annotation(
     Placement(transformation(origin = {273, 105}, extent = {{-10, -10}, {10, 10}})));
 
 equation
