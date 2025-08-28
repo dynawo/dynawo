@@ -19,29 +19,29 @@ model REPCa "WECC Plant Control type A"
   parameter Types.PerUnit XcPu "Line drop compensation reactance when VcompFlag = 1 in pu (base SnRef, UNom)";
 
   // Inputs
-  Modelica.Blocks.Interfaces.RealInput PRefPu(start = PGen0Pu) "Active power setpoint at regulated bus in pu (generator convention) (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PRefPu(start = PControl0Pu) "Active power setpoint at regulated bus in pu (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-310, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-111, -19}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput QRefPu(start = QGen0Pu) "Reactive power setpoint at regulated bus in pu (generator convention) (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput QRefPu(start = QControl0Pu) "Reactive power setpoint at regulated bus in pu (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-309, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-111, -59}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omega0Pu) "Frequency setpoint" annotation(
     Placement(visible = true, transformation(origin = {-310, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-111, 41}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput PRegPu(start = PGen0Pu) "Active power at regulated bus in pu (generator convention) (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PRegPu(start = PControl0Pu) "Active power at regulated bus in pu (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-310, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {79, 111}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput QRegPu(start = QGen0Pu) "Reactive power at regulated bus in pu (generator convention) (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput QRegPu(start = QControl0Pu) "Reactive power at regulated bus in pu (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-310, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {31, 111}, extent = {{10, 10}, {-10, -10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Voltage setpoint for plant level control in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-50, 160}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.ComplexBlocks.Interfaces.ComplexInput uPu(re(start = u0Pu.re), im(start = u0Pu.im)) "Complex voltage at regulated bus in pu (base UNom)" annotation(
+  Modelica.ComplexBlocks.Interfaces.ComplexInput uPu(re(start = uControl0Pu.re), im(start = uControl0Pu.im)) "Complex voltage at regulated bus in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-310, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-31, 111}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
-  Modelica.ComplexBlocks.Interfaces.ComplexInput iPu(re(start = iInj0Pu.re), im(start = iInj0Pu.im)) "Complex current at regulated bus in pu (generator convention) (base SnRef, UNom)" annotation(
+  Modelica.ComplexBlocks.Interfaces.ComplexInput iPu(re(start = -iControl0Pu.re), im(start = -iControl0Pu.im)) "Complex current at PPC regulated bus in pu (generator convention) (base SnRef, UNom)" annotation(
     Placement(visible = true, transformation(origin = {-310, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-79, 111}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omega0Pu) "Frequency at regulated bus in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-310, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-111, 79}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
 
   // Outputs
-  Modelica.Blocks.Interfaces.RealOutput PInjRefPu(start = PInj0Pu) "Active power setpoint at inverter terminal in pu (generator convention) (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput PConvRefPu(start = PConv0Pu) "Active power setpoint at converter terminal in pu (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {210, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput QInjRefPu(start = QInj0Pu) "Reactive power setpoint at inverter terminal in pu (generator convention) (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput QConvRefPu(start = QConv0Pu) "Reactive power setpoint at converter terminal in pu (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {210, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.BooleanOutput freeze(start = false) "Boolean to freeze the regulation" annotation(
     Placement(visible = true, transformation(origin = {-190, 94}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -50,19 +50,19 @@ model REPCa "WECC Plant Control type A"
     Placement(visible = true, transformation(origin = {110, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant FreqFlag0(k = FreqFlag) annotation(
     Placement(visible = true, transformation(origin = {50, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tLag, y_start = PInj0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tLag, y_start = PConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {50, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant Zero(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-30, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter PRefLim(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = FEMaxPu, uMin = FEMinPu) annotation(
     Placement(visible = true, transformation(origin = {-30, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.LimPID limPID(Ti = Kpg / Kig, controllerType = Modelica.Blocks.Types.SimpleController.PI, k = Kpg, xi_start = PInj0Pu / Kpg, yMax = PMaxPu, yMin = PMinPu, y_start = PInj0Pu) annotation(
+  Modelica.Blocks.Continuous.LimPID limPID(Ti = Kpg / Kig, controllerType = Modelica.Blocks.Types.SimpleController.PI, k = Kpg, limitsAtInit = true, xi_start = PConv0Pu / Kpg, yMax = PMaxPu, yMin = PMinPu, y_start = PConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {10, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add3 add3(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {-70, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tP, y_start = PGen0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tP, y_start = PControl0Pu) annotation(
     Placement(visible = true, transformation(origin = {-270, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter QVErrLim(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = EMaxPu, uMin = EMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter QVErrLim(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, limitsAtInit = true, uMax = EMaxPu, uMin = EMinPu) annotation(
     Placement(visible = true, transformation(origin = {90, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant Zero1(k = 0) annotation(
     Placement(visible = true, transformation(origin = {150, 90}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
@@ -70,15 +70,15 @@ model REPCa "WECC Plant Control type A"
     Placement(visible = true, transformation(origin = {-30, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch1 annotation(
     Placement(visible = true, transformation(origin = {10, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.DeadZone deadZone(uMax = DbdPu, uMin = -DbdPu) annotation(
+  Modelica.Blocks.Nonlinear.DeadZone deadZone(deadZoneAtInit = true,uMax = DbdPu, uMin = -DbdPu) annotation(
     Placement(visible = true, transformation(origin = {50, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder2(T = tFilterPC, y_start = QGen0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder2(T = tFilterPC, y_start = QControl0Pu) annotation(
     Placement(visible = true, transformation(origin = {-230, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add QCtrlErr(k1 = -1) annotation(
     Placement(visible = true, transformation(origin = {-30, 14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add UCtrlErr(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {-30, 86}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = tFilterPC, y_start = if VCompFlag == true then UInj0Pu else U0Pu + Kc * QGen0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = tFilterPC, y_start = URef0Pu) annotation(
     Placement(visible = true, transformation(origin = {-70, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.BaseControls.LineDropCompensation lineDropCompensation1(RcPu = RcPu, XcPu = XcPu) annotation(
     Placement(visible = true, transformation(origin = {-270, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -104,25 +104,23 @@ model REPCa "WECC Plant Control type A"
     Placement(visible = true, transformation(origin = {-150, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter1(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = 999, uMin = 0) annotation(
     Placement(visible = true, transformation(origin = {-150, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant const(k = PInj0Pu) annotation(
+  Modelica.Blocks.Sources.Constant const(k = PConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {50, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.LimPIDFreeze limPIDFreeze(Ti = Kp / Ki, K = Kp, Xi0 = QInj0Pu / Kp, YMax = QMaxPu, YMin = QMinPu, Y0 = QInj0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.LimPIDFreeze limPIDFreeze(Ti = Kp / Ki, K = Kp, Xi0 = QConv0Pu / Kp, YMax = QMaxPu, YMin = QMinPu, Y0 = QConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {130, 50}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.BaseControls.VoltageCheck voltageCheck(UMinPu = VFrz, UMaxPu = 999) annotation(
     Placement(visible = true, transformation(origin = {-230, 94}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction leadLag(a = {tFv, 1}, b = {tFt, 1}, initType = Modelica.Blocks.Types.Init.InitialState, x_start = {QInj0Pu}, y_start = QInj0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction leadLag(a = {tFv, 1}, b = {tFt, 1}, initType = Modelica.Blocks.Types.Init.InitialState, x_start = {QConv0Pu}, y_start = QConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {170, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  parameter Types.PerUnit PGen0Pu "Start value of active power at regulated bus in pu (generator convention) (base SNom)";
-  parameter Types.PerUnit QGen0Pu "Start value of reactive power at regulated bus in pu (generator convention) (base SNom)";
-  parameter Types.PerUnit U0Pu "Start value of voltage magnitude at regulated bus in pu (base UNom)";
-  parameter Types.ComplexPerUnit u0Pu "Start value of complex voltage at regulated bus in pu (base UNom)";
-  parameter Types.PerUnit UInj0Pu "Start value of voltage magnitude at injector terminal in pu (base UNom)";
-  parameter Types.ComplexPerUnit iInj0Pu "Start value of complex current at regulated bus in pu (generator convention) (base SNom, UNom)";
-  parameter Types.PerUnit PInj0Pu "Start value of active power at injector terminal in pu (generator convention) (base SNom)";
-  parameter Types.PerUnit QInj0Pu "Start value of reactive power at injector terminal in pu (generator convention) (base SNom)";
-
-  final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else U0Pu + Kc * QGen0Pu "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
+    //Initial parameters
+  parameter Types.ComplexCurrentPu iControl0Pu "Initial complex current to be controlled by the PPC coming either from the external bus or from the model's output terminal (receptor convention, base UNom, SnRef)";
+  parameter Types.ActivePowerPu PControl0Pu "Initial active power at the point controlled by the PPC (either model's output terminal or external PCC) (base SNom, generator convetion)";
+  parameter Types.ActivePowerPu PConv0Pu "Start value of active power at converter terminal in pu (generator convention) (base SNom)";
+  parameter Types.ReactivePowerPu QControl0Pu "Initial reactive power at the point controlled by the PPC (either model's output terminal or external PCC) (base SNom, generator convention)";
+  parameter Types.ReactivePowerPu QConv0Pu "Start value of reactive power at converter terminal in pu (generator convention) (base SNom)";
+  parameter Types.ComplexVoltagePu uControl0Pu "Initial complex voltage to be controlled by the PPC coming either from the external bus or from the model's output terminal (base UNom)";
+  parameter Types.PerUnit URef0Pu "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
 
 equation
   connect(lineDropCompensation1.U2Pu, voltageCheck.UPu) annotation(
@@ -133,7 +131,7 @@ equation
     Line(points = {{-282, 50}, {-310, 50}}, color = {0, 0, 127}));
   connect(omegaPu, wCtrlErr.u2) annotation(
     Line(points = {{-310, -140}, {-290, -140}, {-290, -136}, {-282, -136}}, color = {0, 0, 127}));
-  connect(switch.y, PInjRefPu) annotation(
+  connect(switch.y, PConvRefPu) annotation(
     Line(points = {{121, -90}, {160, -90}, {160, -80}, {210, -80}}, color = {0, 0, 127}));
   connect(wCtrlErr.y, deadZone1.u) annotation(
     Line(points = {{-259, -130}, {-242, -130}}, color = {0, 0, 127}));
@@ -215,7 +213,7 @@ equation
     Line(points = {{-139, -130}, {-130, -130}, {-130, -116}, {-122, -116}, {-122, -116}}, color = {0, 0, 127}));
   connect(limPIDFreeze.y, leadLag.u) annotation(
     Line(points = {{141, 50}, {158, 50}}, color = {0, 0, 127}));
-  connect(leadLag.y, QInjRefPu) annotation(
+  connect(leadLag.y, QConvRefPu) annotation(
     Line(points = {{181, 50}, {210, 50}}, color = {0, 0, 127}));
   connect(URefPu, UCtrlErr.u1) annotation(
     Line(points = {{-50, 160}, {-50, 92}, {-42, 92}}, color = {0, 0, 127}));
@@ -230,5 +228,5 @@ equation
     version = "",
     uses(Modelica(version = "3.2.3")),
     __OpenModelica_commandLineOptions = "",
-    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-29, 11}, extent = {{-41, 19}, {97, -41}}, textString = "REPC A"), Text(origin = {137, 74}, extent = {{-23, 10}, {41, -12}}, textString = "PInjRefPu"), Text(origin = {59, 110}, extent = {{-15, 12}, {11, -12}}, textString = "QPu"), Text(origin = {103, 110}, extent = {{-15, 12}, {11, -12}}, textString = "PPu"), Text(origin = {-53, 110}, extent = {{-15, 12}, {11, -12}}, textString = "iPu"), Text(origin = {-7, 110}, extent = {{-15, 12}, {11, -12}}, textString = "uPu"), Text(origin = {-149, -10}, extent = {{-23, 10}, {21, -10}}, textString = "PRefPu"), Text(origin = {-149, -52}, extent = {{-23, 10}, {21, -10}}, textString = "QRefPu"), Text(origin = {-149, 34}, extent = {{-55, 40}, {21, -10}}, textString = "omegaRefPu"), Text(origin = {-151, 78}, extent = {{-31, 32}, {21, -10}}, textString = "omegaPu"), Text(origin = {139, -46}, extent = {{-23, 10}, {41, -12}}, textString = "QInjRefPu"), Text(origin = {137, 12}, extent = {{-23, 10}, {27, -8}}, textString = "freeze"), Text(origin = {1, -132}, extent = {{-23, 10}, {21, -10}}, textString = "URefPu")}, coordinateSystem(initialScale = 0.1)));
+    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-29, 11}, extent = {{-41, 19}, {97, -41}}, textString = "REPC A"), Text(origin = {137, 74}, extent = {{-23, 10}, {41, -12}}, textString = "PConvRefPu"), Text(origin = {59, 110}, extent = {{-15, 12}, {11, -12}}, textString = "QPu"), Text(origin = {103, 110}, extent = {{-15, 12}, {11, -12}}, textString = "PPu"), Text(origin = {-53, 110}, extent = {{-15, 12}, {11, -12}}, textString = "iPu"), Text(origin = {-7, 110}, extent = {{-15, 12}, {11, -12}}, textString = "uPu"), Text(origin = {-149, -10}, extent = {{-23, 10}, {21, -10}}, textString = "PRefPu"), Text(origin = {-149, -52}, extent = {{-23, 10}, {21, -10}}, textString = "QRefPu"), Text(origin = {-149, 34}, extent = {{-55, 40}, {21, -10}}, textString = "omegaRefPu"), Text(origin = {-151, 78}, extent = {{-31, 32}, {21, -10}}, textString = "omegaPu"), Text(origin = {139, -46}, extent = {{-23, 10}, {41, -12}}, textString = "QConvRefPu"), Text(origin = {137, 12}, extent = {{-23, 10}, {27, -8}}, textString = "freeze"), Text(origin = {1, -132}, extent = {{-23, 10}, {21, -10}}, textString = "URefPu")}, coordinateSystem(initialScale = 0.1)));
 end REPCa;

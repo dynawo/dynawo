@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--
-    Copyright (c) 2024, RTE (http://www.rte-france.com)
+    Copyright (c) 2021, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
     This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,16 +12,102 @@
     simulation tools for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-  <curve model="BESS" variable="BESS_injector_PInjPu"/>
+
+  <!-- Operating quantities-->
+  <curve model="BESS" variable="BESS_reecC_frtOn"/>
+  <curve model="BESS" variable="BESS_repcA_freeze"/>
+  <curve model="BESS" variable="BESS_omegaRefPu"/>
+  <curve model="BESS" variable="BESS_TfoPCS_rTfoPu"/>
+
+  <!-- Main electrical quantities -->
+  <curve model="BESS" variable="BESS_WTGTerminalMeasurements_PPu"/>
+  <curve model="BESS" variable="BESS_P0Pu"/>
+  <curve model="BESS" variable="BESS_PPcc0Pu"/>
+  <curve model="BESS" variable="BESS_WTGTerminalMeasurements_QPu"/>
+  <curve model="BESS" variable="BESS_Q0Pu"/>
+  <curve model="BESS" variable="BESS_QPcc0Pu"/>
+  <curve model="BESS" variable="BESS_WTGTerminalMeasurements_UPu"/>
+  <curve model="BESS" variable="BESS_U0Pu"/>
+  <curve model="BESS" variable="BESS_UPcc0Pu"/>
+  <curve model="BESS" variable="BESS_WTTerminalMeasurements_PPu"/>
+  <curve model="BESS" variable="BESS_PConv0Pu"/>
+  <curve model="BESS" variable="BESS_WTTerminalMeasurements_QPu"/>
+  <curve model="BESS" variable="BESS_QConv0Pu"/>
+  <curve model="BESS" variable="BESS_WTTerminalMeasurements_UPu"/>
+  <curve model="BESS" variable="BESS_UConv0Pu"/>
   <curve model="BESS" variable="BESS_injector_PInjPuSn"/>
-  <curve model="BESS" variable="BESS_injector_QInjPu"/>
+  <curve model="BESS" variable="BESS_PInj0Pu"/>
   <curve model="BESS" variable="BESS_injector_QInjPuSn"/>
-  <curve model="BESS" variable="BESS_injector_terminal_V_re"/>
-  <curve model="BESS" variable="BESS_injector_terminal_i_re"/>
-  <curve model="BESS" variable="BESS_injector_terminal_V_im"/>
-  <curve model="BESS" variable="BESS_injector_terminal_i_im"/>
+  <curve model="BESS" variable="BESS_QInj0Pu"/>
   <curve model="BESS" variable="BESS_injector_UPu"/>
-  <curve model="BESS" variable="BESS_pll_omegaPLLPu"/>
-  <curve model="BESS" variable="BESS_reecC_idCmdPu"/>
+  <curve model="BESS" variable="BESS_UInj0Pu"/>
+  <curve model="BESS" variable="BESS_injector_idPu"/>
+  <curve model="BESS" variable="BESS_Id0Pu"/>
+  <curve model="BESS" variable="BESS_injector_iqPu"/>
+  <curve model="BESS" variable="BESS_Iq0Pu"/>
+
+  <!-- reactive logic-->
+  <curve model="BESS" variable="BESS_repcA_URefPu"/>
+  <curve model="BESS" variable="BESS_repcA_QVCtrlErr_y"/>
+  <curve model="BESS" variable="BESS_repcA_limPIDFreeze_u_s"/>
+  <curve model="BESS" variable="BESS_repcA_limPIDFreeze_addPID_u1"/>
+  <curve model="BESS" variable="BESS_repcA_limPIDFreeze_addPID_u2"/>
+  <curve model="BESS" variable="BESS_repcA_limPIDFreeze_gainPID_y"/>
+  <curve model="BESS" variable="BESS_repcA_limPIDFreeze_y"/>
+  <curve model="BESS" variable="BESS_repcA_absLimRateLimFeedthroughFreeze_y"/>
+  <curve model="BESS" variable="BESS_repcA_absLimRateLimFeedthroughFreeze_limiter_y"/>
+  <curve model="BESS" variable="BESS_repcA_absLimRateLimFeedthroughFreeze_rampLimiter_y"/>
+  <curve model="BESS" variable="BESS_repcA_absLimRateLimFeedthroughFreeze_fixedDelay_u"/>
+  <curve model="BESS" variable="BESS_repcA_absLimRateLimFeedthroughFreeze_fixedDelay_y"/>
+  <curve model="BESS" variable="BESS_repcA_fixedDelay2_y"/>
+  <curve model="BESS" variable="BESS_reecC_QConvRefPu"/>
+  <curve model="BESS" variable="BESS_reecC_rateLimFirstOrderFreeze1_u"/>
+  <curve model="BESS" variable="BESS_reecC_rateLimFirstOrderFreeze1_y"/>
+  <curve model="BESS" variable="BESS_reecC_add1_u1"/>
+  <curve model="BESS" variable="BESS_reecC_add1_u2"/>
+  <curve model="BESS" variable="BESS_reecC_add1_y"/>
   <curve model="BESS" variable="BESS_reecC_iqCmdPu"/>
+  <curve model="BESS" variable="BESS_regcA_iqRefPu"/>
+  <curve model="BESS" variable="BESS_reecC_ipMaxPu"/>
+  <curve model="BESS" variable="BESS_reecC_ipMinPu"/>
+  <curve model="BESS" variable="BESS_reecC_iqMaxPu"/>
+  <curve model="BESS" variable="BESS_reecC_iqMinPu"/>
+  <curve model="BESS" variable="BESS_reecC_UFiltered"/>
+  <curve model="BESS" variable="BESS_reecC_division_y"/>
+  <curve model="BESS" variable="BESS_reecC_division_u1"/>
+  <curve model="BESS" variable="BESS_reecC_division_u2"/>
+  <curve model="BESS" variable="BESS_reecC_pi_y"/>
+  <curve model="BESS" variable="BESS_reecC_limiter2_y"/>
+
+  <!-- active logic -->
+  <curve model="BESS" variable="BESS_repcA_PRefPu"/>
+  <curve model="BESS" variable="BESS_repcA_limPID_u_s"/>
+  <curve model="BESS" variable="BESS_repcA_limPID_y"/>
+  <curve model="BESS" variable="BESS_reecC_PConvRefPu"/>
+  <curve model="BESS" variable="BESS_reecC_rateLimFirstOrderFreeze_u"/>
+  <curve model="BESS" variable="BESS_reecC_rateLimFirstOrderFreeze_y"/>
+  <curve model="BESS" variable="BESS_reecC_limiter3_y"/>
+  <curve model="BESS" variable="BESS_reecC_division1_u1"/>
+  <curve model="BESS" variable="BESS_reecC_division1_u2"/>
+  <curve model="BESS" variable="BESS_reecC_division1_y"/>
+  <curve model="BESS" variable="BESS_reecC_variableLimiter1_y"/>
+  <curve model="BESS" variable="BESS_regcA_idCmdPu"/>
+  <curve model="BESS" variable="BESS_regcA_idRefPu"/>
+
+  <!--Fast reactive injection-->
+  <curve model="BESS" variable="BESS_reecC_iqInjectionLogic_iqInjPu"/>
+  <curve model="BESS" variable="BESS_reecC_iqInjectionLogic_iqVPu"/>
+  <curve model="BESS" variable="BESS_reecC_iqInjectionLogic_vDip"/>
+  <curve model="BESS" variable="BESS_reecC_iqInjectionLogic_vDipInjEndTime"/>
+  <curve model="BESS" variable="BESS_reecC_iqInjectionLogic_tHoldIq"/>
+  <curve model="BESS" variable="BESS_reecC_iqInjectionLogic_IqFrzPu"/>
+  <curve model="BESS" variable="BESS_reecC_UPu"/>
+  <curve model="BESS" variable="BESS_reecC_add_y"/>
+  <curve model="BESS" variable="BESS_reecC_hysteresis_Vup_u"/>
+  <curve model="BESS" variable="BESS_reecC_hysteresis_VDip_u"/>
+  <curve model="BESS" variable="BESS_reecC_hysteresis_Vup_y"/>
+  <curve model="BESS" variable="BESS_reecC_hysteresis_VDip_y"/>
+  <curve model="BESS" variable="BESS_reecC_VUpPu"/>
+  <curve model="BESS" variable="BESS_reecC_VUpHyPu"/>
+
 </curvesInput>
