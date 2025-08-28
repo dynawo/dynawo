@@ -14,7 +14,7 @@ within Dynawo.Electrical.Controls.WECC.REEC;
 */
 
 model REECa "WECC Electrical Control type A"
-  extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC;
+  extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC(rateLimFirstOrderFreeze.UseFreeze = true);
   extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECa;
 
   // Input variable
@@ -30,15 +30,15 @@ model REECa "WECC Electrical Control type A"
     Placement(visible = true, transformation(origin = {550, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {50, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealOutput iqMinPu(start = - IMaxPu) "q-axis minimum current in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {550, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealOutput POrdPu(start = PInj0Pu) "Active power order in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput POrdPu(start = PConv0Pu) "Active power order in pu (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {551, -153}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, -89}, extent = {{-10, -10}, {10, 10}})));
 
   Modelica.Blocks.Sources.RealExpression UFilteredPu5(y = UFilteredPu) annotation(
     Placement(visible = true, transformation(origin = {249, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression IqMax(y = currentLimitsCalculation1.iqMaxPu) annotation(
-    Placement(visible = true, transformation(origin = {130, 130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {140, 130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression IqMin(y = currentLimitsCalculation1.iqMinPu) annotation(
-    Placement(visible = true, transformation(origin = {130, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {140, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanExpression FRTOn4(y = frtOn) annotation(
     Placement(visible = true, transformation(origin = {304, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanExpression FRTOn5(y = frtOn) annotation(
@@ -95,10 +95,6 @@ equation
     Line(points = {{414, -3}, {480, -3}, {480, 118}, {498, 118}}, color = {0, 0, 127}));
   connect(currentLimitsCalculation1.iqMinPu, variableLimiter.limit2) annotation(
     Line(points = {{414, -7}, {470, -7}, {470, 102}, {498, 102}}, color = {0, 0, 127}));
-  connect(IqMax.y, varLimPIDFreeze.yMax) annotation(
-    Line(points = {{141, 130}, {156, 130}, {156, 118}, {168, 118}}, color = {0, 0, 127}));
-  connect(IqMin.y, varLimPIDFreeze.yMin) annotation(
-    Line(points = {{141, 90}, {157, 90}, {157, 106}, {168, 106}}, color = {0, 0, 127}));
   connect(limiter1.y, iqInjectionLogic.iqVPu) annotation(
     Line(points = {{275, 220}, {309, 220}, {309, 202}}, color = {0, 0, 127}));
   connect(iqInjectionLogic.iqInjPu, add1.u1) annotation(
@@ -129,7 +125,10 @@ equation
     Line(points = {{414, -3}, {480, -3}, {480, -10}, {550, -10}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(currentLimitsCalculation1.iqMinPu, iqMinPu) annotation(
     Line(points = {{414, -7}, {470, -7}, {470, -30}, {550, -30}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
-
+  connect(IqMin.y, varLimPIDFreeze.yMin) annotation(
+    Line(points = {{151, 90}, {157, 90}, {157, 106}, {168, 106}}, color = {0, 0, 127}));
+  connect(IqMax.y, varLimPIDFreeze.yMax) annotation(
+    Line(points = {{151, 130}, {156, 130}, {156, 118}, {168, 118}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html><head></head><body><p style=\"font-size: 12px;\">This block contains the electrical inverter control of the generic WECC Wind (or PV) model according to (in case page cannot be found, copy link in browser):<br><a href=\"https://www.wecc.org/Reliability/WECC%20Wind%20Plant%20Dynamic%20Modeling%20Guidelines.pdf\">https://www.wecc.org/Reliability/WECC%20Wind%20Plant%20Dynamic%20Modeling%20Guidelines.pdf</a></p>
@@ -141,5 +140,5 @@ equation
   <li style=\"font-size: 12px;\"> Active power can be dependent or independent on drive train speed by setting PFlag to false (independent from drive train speed) or true. If PFlag is set to false, the model behaves as a Wind turbine generator type 4B, where the drive train is neglected by setting the speed to constant 1 </li>
     <p style=\"font-size: 12px;\">The block calculates the Id and Iq setpoint values for the generator control based on the selected control algorithm.</p></body></html>"),
     Diagram(coordinateSystem(extent = {{-260, -280}, {540, 280}}, grid = {1, 1})),
-    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-30.3275, -106.118}, extent = {{-14.6724, 6.11766}, {22.3276, -9.88234}}, textString = "omegaG"), Text(origin = {139, -41}, extent = {{-23, 13}, {35, -21}}, textString = "iqCmdPu"), Text(origin = {141, 13}, extent = {{-23, 13}, {17, -11}}, textString = "frtOn"), Text(origin = {89, -113}, extent = {{-23, 13}, {9, -3}}, textString = "UPu"), Text(origin = {41, -117}, extent = {{-33, 21}, {9, -3}}, textString = "PInjPu"), Text(origin = {-135, 79}, extent = {{-23, 13}, {35, -21}}, textString = "PInjRefPu"), Text(origin = {-135, -41}, extent = {{-23, 13}, {35, -21}}, textString = "QInjRefPu"), Text(origin = {-135, 21}, extent = {{-23, 13}, {35, -21}}, textString = "UFilteredPu"), Text(origin = {-12, 9}, extent = {{-43, 22}, {80, -38}}, textString = "REEC A"), Text(origin = {-104, 133}, extent = {{-23, 13}, {35, -21}}, textString = "ipMaxPu"), Text(origin = {55, 132}, extent = {{-23, 13}, {35, -21}}, textString = "iqMaxPu"), Text(origin = {-45, 134}, extent = {{-23, 13}, {35, -21}}, textString = "ipMinPu"), Text(origin = {114, 132}, extent = {{-23, 13}, {35, -21}}, textString = "iqMinPu")}, coordinateSystem(extent = {{-100, -100}, {100, 100}}, grid = {1, 1})));
+    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-30.3275, -106.118}, extent = {{-14.6724, 6.11766}, {22.3276, -9.88234}}, textString = "omegaG"), Text(origin = {139, -41}, extent = {{-23, 13}, {35, -21}}, textString = "iqCmdPu"), Text(origin = {141, 13}, extent = {{-23, 13}, {17, -11}}, textString = "frtOn"), Text(origin = {89, -113}, extent = {{-23, 13}, {9, -3}}, textString = "UPu"), Text(origin = {41, -117}, extent = {{-33, 21}, {9, -3}}, textString = "PConvPu"), Text(origin = {-135, 79}, extent = {{-23, 13}, {35, -21}}, textString = "PConvRefPu"), Text(origin = {-135, -41}, extent = {{-23, 13}, {35, -21}}, textString = "QConvRefPu"), Text(origin = {-135, 21}, extent = {{-23, 13}, {35, -21}}, textString = "UFilteredPu"), Text(origin = {-12, 9}, extent = {{-43, 22}, {80, -38}}, textString = "REEC A"), Text(origin = {-104, 133}, extent = {{-23, 13}, {35, -21}}, textString = "ipMaxPu"), Text(origin = {55, 132}, extent = {{-23, 13}, {35, -21}}, textString = "iqMaxPu"), Text(origin = {-45, 134}, extent = {{-23, 13}, {35, -21}}, textString = "ipMinPu"), Text(origin = {114, 132}, extent = {{-23, 13}, {35, -21}}, textString = "iqMinPu")}, coordinateSystem(extent = {{-100, -100}, {100, 100}}, grid = {1, 1})));
 end REECa;
