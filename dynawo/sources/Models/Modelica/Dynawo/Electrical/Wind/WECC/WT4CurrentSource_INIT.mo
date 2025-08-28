@@ -51,9 +51,9 @@ equation
   QInj0Pu = ComplexMath.imag(sInj0Pu);
   UInj0Pu = ComplexMath.'abs'(uInj0Pu);
   UPhaseInj0 = ComplexMath.arg(uInj0Pu);
-  PF0 = if (not(ComplexMath.'abs'(sInj0Pu) == 0)) then PInj0Pu / ComplexMath.'abs'(sInj0Pu) else 0;
-  Id0Pu = Modelica.Math.cos(UPhaseInj0) * iInj0Pu.re + Modelica.Math.sin(UPhaseInj0) * iInj0Pu.im;
-  Iq0Pu = Modelica.Math.sin(UPhaseInj0) * iInj0Pu.re - Modelica.Math.cos(UPhaseInj0) * iInj0Pu.im;
+  PF0 = if (not(ComplexMath.'abs'(s0Pu) == 0)) then -P0Pu / ComplexMath.'abs'(s0Pu) else 0;
+  Id0Pu = Modelica.Math.cos(UPhase0) * iInj0Pu.re + Modelica.Math.sin(UPhase0) * iInj0Pu.im;
+  Iq0Pu = Modelica.Math.sin(UPhase0) * iInj0Pu.re - Modelica.Math.cos(UPhase0) * iInj0Pu.im;
 
   annotation(
     preferredView = "text");

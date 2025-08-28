@@ -30,15 +30,15 @@ model REECa "WECC Electrical Control type A"
     Placement(visible = true, transformation(origin = {550, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {50, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealOutput iqMinPu(start = - IMaxPu) "q-axis minimum current in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {550, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealOutput POrdPu(start = PInj0Pu) "Active power order in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput POrdPu(start = -ComplexMath.real(s0Pu) * SystemBase.SnRef / SNom) "Active power order in pu (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {551, -153}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, -89}, extent = {{-10, -10}, {10, 10}})));
 
   Modelica.Blocks.Sources.RealExpression UFilteredPu5(y = UFilteredPu) annotation(
     Placement(visible = true, transformation(origin = {249, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression IqMax(y = currentLimitsCalculation1.iqMaxPu) annotation(
-    Placement(visible = true, transformation(origin = {130, 130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {140, 130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression IqMin(y = currentLimitsCalculation1.iqMinPu) annotation(
-    Placement(visible = true, transformation(origin = {130, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {140, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanExpression FRTOn4(y = frtOn) annotation(
     Placement(visible = true, transformation(origin = {304, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanExpression FRTOn5(y = frtOn) annotation(
@@ -95,10 +95,6 @@ equation
     Line(points = {{414, -3}, {480, -3}, {480, 118}, {498, 118}}, color = {0, 0, 127}));
   connect(currentLimitsCalculation1.iqMinPu, variableLimiter.limit2) annotation(
     Line(points = {{414, -7}, {470, -7}, {470, 102}, {498, 102}}, color = {0, 0, 127}));
-  connect(IqMax.y, varLimPIDFreeze.yMax) annotation(
-    Line(points = {{141, 130}, {156, 130}, {156, 118}, {168, 118}}, color = {0, 0, 127}));
-  connect(IqMin.y, varLimPIDFreeze.yMin) annotation(
-    Line(points = {{141, 90}, {157, 90}, {157, 106}, {168, 106}}, color = {0, 0, 127}));
   connect(limiter1.y, iqInjectionLogic.iqVPu) annotation(
     Line(points = {{275, 220}, {309, 220}, {309, 202}}, color = {0, 0, 127}));
   connect(iqInjectionLogic.iqInjPu, add1.u1) annotation(
@@ -129,7 +125,10 @@ equation
     Line(points = {{414, -3}, {480, -3}, {480, -10}, {550, -10}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(currentLimitsCalculation1.iqMinPu, iqMinPu) annotation(
     Line(points = {{414, -7}, {470, -7}, {470, -30}, {550, -30}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
-
+  connect(IqMin.y, varLimPIDFreeze.yMin) annotation(
+    Line(points = {{151, 90}, {157, 90}, {157, 106}, {168, 106}}, color = {0, 0, 127}));
+  connect(IqMax.y, varLimPIDFreeze.yMax) annotation(
+    Line(points = {{151, 130}, {156, 130}, {156, 118}, {168, 118}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html><head></head><body><p style=\"font-size: 12px;\">This block contains the electrical inverter control of the generic WECC Wind (or PV) model according to (in case page cannot be found, copy link in browser):<br><a href=\"https://www.wecc.org/Reliability/WECC%20Wind%20Plant%20Dynamic%20Modeling%20Guidelines.pdf\">https://www.wecc.org/Reliability/WECC%20Wind%20Plant%20Dynamic%20Modeling%20Guidelines.pdf</a></p>
