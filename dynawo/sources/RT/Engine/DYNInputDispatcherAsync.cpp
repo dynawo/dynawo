@@ -41,7 +41,7 @@ InputDispatcherAsync::start() {
   bool useTrigger = false;
 
   for (auto receiver : receivers_)
-    useTrigger |= receiver->supports(MessageFilter::TimeManagement);
+    useTrigger |= receiver->supports(MessageFilter::Trigger);
   clock_->setUseTrigger(useTrigger);
 
   for (auto receiver : receivers_)

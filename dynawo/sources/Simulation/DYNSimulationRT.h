@@ -155,20 +155,20 @@ class SimulationRT: public Simulation {
   std::chrono::system_clock::time_point stepStart_;  ///< clock time before step (after sleep) >
   double stepComputationTime_;
 
-  std::vector<std::uint8_t> valuesBuffer_;  ///< curves values buffer
+  // std::vector<std::uint8_t> valuesBuffer_;  ///< curves values buffer
 
-  // Exporters
-  std::shared_ptr<constraints::Exporter> constraintsExporter_;
-  std::shared_ptr<timeline::Exporter> timelineExporter_;
+  // // Exporters
+  // std::shared_ptr<constraints::Exporter> constraintsExporter_;
+  // std::shared_ptr<timeline::Exporter> timelineExporter_;
 
   // Interfaces
-  std::shared_ptr<wsc::WebsocketServer> wsServer_;  ///< instance of websocket server >
-  std::shared_ptr<EventSubscriber> eventSubscriber_;   ///< Event manager >
-  double triggerSimulationTimeStepInS_;  ///< Event manager >
-  double outputPeriod_;  ///< OutputPeriod >
-  std::shared_ptr<ZmqPublisher> stepPublisher_;   ///< result publisher
+  // std::shared_ptr<wsc::WebsocketServer> wsServer_;     ///< instance of websocket server >
+  // std::shared_ptr<EventSubscriber> eventSubscriber_;   ///< Event manager >
+  // double triggerSimulationTimeStepInS_;                ///< Event manager >
+  double communicationPeriod_;                         ///< Simulation period to call for wait / output values in seconds
+  std::shared_ptr<ZmqPublisher> stepPublisher_;        ///< result publisher
 
-  std::shared_ptr<Clock> clock_;                    ///< Class managing RT pace >
+  std::shared_ptr<Clock> clock_;                       ///< Class managing RT pace >
   std::shared_ptr<ActionBuffer> actionBuffer_;                  ///< Action buffer >
   std::shared_ptr<InputDispatcherAsync> inputDispatcherAsync_;  ///< Input dispatcher >
   std::shared_ptr<OutputDispatcher> outputDispatcher_;          ///< Output dispatcher >

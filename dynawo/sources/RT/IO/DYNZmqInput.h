@@ -73,8 +73,8 @@ class ZmqInput: public InputInterface {
   // MessageType type_;
   zmqpp::context context_;
   zmqpp::socket socket_;
-  std::atomic<bool> stopFlag_;
   bool useThread_;
+  std::atomic<bool> stopFlag_;
   long pollTimeoutMs_;
   // std::thread thread_;
   std::function<void(std::shared_ptr<InputMessage>)> callback_;

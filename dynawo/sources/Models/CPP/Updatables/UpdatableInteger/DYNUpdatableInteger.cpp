@@ -97,7 +97,7 @@ UpdatableInteger::getSize() {
 
 // evaluation of F(t,y,y') function
 void
-UpdatableInteger::evalF(double /*t*/, propertyF_t type) {
+UpdatableInteger::evalF(double /*t*/, propertyF_t /*type*/) {
 }
 
 
@@ -125,12 +125,12 @@ UpdatableInteger::setGequations() {
 
 // evaluation of the transpose Jacobian Jt - sparse matrix
 void
-UpdatableInteger::evalJt(const double /*t*/, const double /*cj*/, const int /*rowOffset*/, SparseMatrix& jt) {
+UpdatableInteger::evalJt(const double /*t*/, const double /*cj*/, const int /*rowOffset*/, SparseMatrix& /*jt*/) {
 }
 
 // evaluation of the transpose Jacobian Jt - sparse matrix
 void
-UpdatableInteger::evalJtPrim(const double /*t*/, const double /*cj*/, const int /*rowOffset*/, SparseMatrix& jt) {
+UpdatableInteger::evalJtPrim(const double /*t*/, const double /*cj*/, const int /*rowOffset*/, SparseMatrix& /*jt*/) {
 }
 
 void
