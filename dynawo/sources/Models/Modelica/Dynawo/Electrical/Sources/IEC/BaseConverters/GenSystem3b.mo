@@ -22,7 +22,7 @@ model GenSystem3b "Type 3B generator system module (IEC N°61400-27-1)"
       \__/--------------
 
     */
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.BaseGenSystem3(rateLimitP.y_start = (IGsRe0Pu + UGsIm0Pu/XEqv)*cos(UPhase0) + (IGsIm0Pu - UGsRe0Pu/XEqv)*sin(UPhase0), rateLimitQ.y_start = -1*(IGsRe0Pu + UGsIm0Pu/XEqv)*sin(UPhase0) + (IGsIm0Pu - UGsRe0Pu/XEqv)*cos(UPhase0) - (UGsIm0Pu^2 + UGsRe0Pu^2)^0.5/XEqv);
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.BaseGenSystem3(rateLimitP.y_start = (IGsRe0Pu + UGsIm0Pu/XEqv)*cos(UPhase0) + (IGsIm0Pu - UGsRe0Pu/XEqv)*sin(UPhase0), rateLimitP.y(start = (IGsRe0Pu + UGsIm0Pu/XEqv)*cos(UPhase0) + (IGsIm0Pu - UGsRe0Pu/XEqv)*sin(UPhase0)), rateLimitQ.y_start = -1*(IGsRe0Pu + UGsIm0Pu/XEqv)*sin(UPhase0) + (IGsIm0Pu - UGsRe0Pu/XEqv)*cos(UPhase0) - (UGsIm0Pu^2 + UGsRe0Pu^2)^0.5/XEqv, rateLimitQ.y(start = -1*(IGsRe0Pu + UGsIm0Pu/XEqv)*sin(UPhase0) + (IGsIm0Pu - UGsRe0Pu/XEqv)*cos(UPhase0) - (UGsIm0Pu^2 + UGsRe0Pu^2)^0.5/XEqv));
 
   // Control parameters
   parameter Boolean MCrb "Crowbar control mode (true=disable only iq control, false=disable iq and ip control, example value = false)" annotation(
