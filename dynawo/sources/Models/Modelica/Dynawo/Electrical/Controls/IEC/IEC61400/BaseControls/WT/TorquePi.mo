@@ -44,7 +44,7 @@ model TorquePi "Sub module for torque control inside active power control module
     Placement(transformation(origin = {-410, -180}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-426, -100}, extent = {{-25, -25}, {25, 25}})));
 
   // Output variable
-  Modelica.Blocks.Interfaces.RealOutput tauOutPu(start = integratorKIpKPp.Y0) "Output torque of torque PI controller in pu (base SNom/omegaRef)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput tauOutPu(start = PiIntegrator0Pu) "Output torque of torque PI controller in pu (base SNom/omegaRef)" annotation(
     Placement(transformation(origin = {220, 140}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {236, -24}, extent = {{-25, -25}, {25, 25}})));
 
   Modelica.Blocks.Math.Add add annotation(
@@ -87,7 +87,7 @@ model TorquePi "Sub module for torque control inside active power control module
     Placement(transformation(origin = {-70, -80}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.NonElectrical.Blocks.NonLinear.DelayFlag delayFlag(FI0 = false, FO0 = 0, tD = tDvs, tS = tS) annotation(
     Placement(transformation(origin = {-350, -60}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze freeze(T = tS, UseFreeze = true, UseRateLim = false, Y0 = TauEMinPu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze freeze(T = tS, UseFreeze = true, UseRateLim = false, Y0 = PiIntegrator0Pu) annotation(
     Placement(transformation(origin = {-90, -240}, extent = {{10, -10}, {-10, 10}})));
   Modelica.Blocks.Math.Gain gainKPp(k = KPp) annotation(
     Placement(transformation(origin = {50, 140}, extent = {{-10, -10}, {10, 10}})));

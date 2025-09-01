@@ -15,6 +15,9 @@
   <curve model="WT3A" variable="WT_controlMeasurements_PPuSnRef"/>
   <curve model="WT3A" variable="WT_controlMeasurements_QPuSnRef"/>
   <curve model="WT3A" variable="WT_controlMeasurements_UPu"/>
+  <curve model="WT3A" variable="WT_mechanical_omegaGenPu"/>
+  <curve model="WT3A" variable="WT_mechanical_omegaWTRPu"/>
+  <curve model="PRefPu" variable="step_step"/>
   <curve model="WT3A" variable="WT_terminal_V_re"/>
   <curve model="WT3A" variable="WT_terminal_V_im"/>
   <curve model="WT3A" variable="WT_terminal_i_re"/>

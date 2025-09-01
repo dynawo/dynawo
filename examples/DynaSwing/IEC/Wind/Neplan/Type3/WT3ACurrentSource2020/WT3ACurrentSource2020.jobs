@@ -19,7 +19,7 @@
       <dyn:precompiledModels useStandardModels="true"/>
       <dyn:modelicaModels useStandardModels="true"/>
     </dyn:modeler>
-    <dyn:simulation startTime="0" stopTime="25"/>
+    <dyn:simulation startTime="0" stopTime="100"/>
     <dyn:outputs directory="outputs">
       <dyn:dumpInitValues local="true" global="true"/>
       <dyn:curves inputFile="WT3ACurrentSource2020.crv" exportMode="CSV"/>

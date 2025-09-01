@@ -288,7 +288,7 @@
   </set>
   <set id="2">
     <par type="DOUBLE" name="step_Height" value="-0.7"/>
-    <par type="DOUBLE" name="step_tStep" value="99"/>
+    <par type="DOUBLE" name="step_tStep" value="1"/>
     <par type="DOUBLE" name="step_Value0" value="1.1"/>
   </set>
   <!-- Set Point -->

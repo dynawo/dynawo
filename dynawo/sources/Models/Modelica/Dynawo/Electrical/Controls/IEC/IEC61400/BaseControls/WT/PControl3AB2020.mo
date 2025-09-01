@@ -102,7 +102,7 @@ model PControl3AB2020 "Active power control module of type 3 wind turbine model 
     Placement(transformation(origin = {-170, 100}, extent = {{-10, 10}, {10, -10}})));
   Modelica.Blocks.Logical.Switch switchUDip annotation(
     Placement(transformation(origin = {-150, -60}, extent = {{-10, 10}, {10, -10}})));
-  Modelica.Blocks.Continuous.TransferFunction tfDtd(a = {1, 2*Zeta*OmegaDtdPu, OmegaDtdPu*OmegaDtdPu}, b = {0, 2*Zeta*OmegaDtdPu*KDtd, 0}) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction tfDtd(a = {1, 2*Zeta*OmegaDtdPu, OmegaDtdPu*OmegaDtdPu}, b = {0, 2*Zeta*OmegaDtdPu*KDtd, 0}, x_start = {0, 0.007831467}) annotation(
     Placement(transformation(origin = {50, -260}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT.TorquePi torquePi(DTauMaxPu = DTauMaxPu, DTauUvrtMaxPu = DTauUvrtMaxPu, IGsIm0Pu = IGsIm0Pu, IGsRe0Pu = IGsRe0Pu, KIp = KIp, KPp = KPp, MOmegaTMax = MOmegaTMax, MPUvrt = MPUvrt, P0Pu = P0Pu, PWTRef0Pu = PWTRef0Pu, SNom = SNom, TableOmegaPPu = TableOmegaPPu, TauEMinPu = TauEMinPu, TauUscalePu = TauUscalePu, U0Pu = U0Pu, UDvsPu = UDvsPu, UGsIm0Pu = UGsIm0Pu, UGsRe0Pu = UGsRe0Pu, UPhase0 = UPhase0, UpDipPu = UpDipPu, XEqv = XEqv, tDvs = tDvs, tOmegafiltp3 = tOmegafiltp3, tS = tS, WT3Type = WT3Type, OmegaRef0Pu = OmegaRef0Pu) annotation(
     Placement(transformation(origin = {39.2409, -169.192}, extent = {{-60.4935, -37.8084}, {31.7591, 30.2467}})));
