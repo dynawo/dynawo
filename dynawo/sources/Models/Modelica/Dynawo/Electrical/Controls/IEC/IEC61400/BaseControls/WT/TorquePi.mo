@@ -14,6 +14,8 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT;
 
 model TorquePi "Sub module for torque control inside active power control module for type 3 wind turbines (IEC N°61400-27-1:2020)"
 
+  parameter Boolean WT3Type "if true : type a, if false type b";
+
   //Torque Pi parameters
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical.TorquePi;
 
@@ -85,7 +87,7 @@ model TorquePi "Sub module for torque control inside active power control module
     Placement(transformation(origin = {-70, -80}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.NonElectrical.Blocks.NonLinear.DelayFlag delayFlag(FI0 = false, FO0 = 0, tD = tDvs, tS = tS) annotation(
     Placement(transformation(origin = {-350, -60}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze freeze(T = tS, UseFreeze = true, UseRateLim = false, y(start = TauEMinPu)) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze freeze(T = tS, UseFreeze = true, UseRateLim = false, Y0 = TauEMinPu) annotation(
     Placement(transformation(origin = {-90, -240}, extent = {{10, -10}, {-10, 10}})));
   Modelica.Blocks.Math.Gain gainKPp(k = KPp) annotation(
     Placement(transformation(origin = {50, 140}, extent = {{-10, -10}, {10, 10}})));
@@ -97,7 +99,7 @@ model TorquePi "Sub module for torque control inside active power control module
     Placement(transformation(origin = {-310, -60}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.NonElectrical.Blocks.NonLinear.IntegratorVariableLimitsContinuousSetFreeze integratorDTauMax(LimitMax0 = TauEMax0Pu, LimitMin0 = TauEMinPu, UseFreeze = false, UseReset = true, UseSet = true, Y0 = TauEMax0Pu) annotation(
     Placement(transformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.NonElectrical.Blocks.NonLinear.IntegratorVariableLimitsContinuousSetFreeze integratorKIpKPp(K = if KPp > 1e-6 then KIp/KPp else 1/Modelica.Constants.eps, LimitMax0 = TauEMax0Pu, LimitMin0 = TauEMinPu, UseFreeze = true, UseReset = true, UseSet = true, Y0 = Torque0Type3bPu) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.IntegratorVariableLimitsContinuousSetFreeze integratorKIpKPp(K = if KPp > 1e-6 then KIp/KPp else 1/Modelica.Constants.eps, LimitMax0 = TauEMax0Pu, LimitMin0 = TauEMinPu, UseFreeze = true, UseReset = true, UseSet = true, Y0 = PiIntegrator0Pu) annotation(
     Placement(transformation(origin = {4, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.Less lessUDvs annotation(
     Placement(transformation(origin = {-310, 20}, extent = {{-10, -10}, {10, 10}})));
@@ -115,7 +117,7 @@ model TorquePi "Sub module for torque control inside active power control module
     Placement(transformation(origin = {190, 90}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.MathBoolean.Or OrReset(nu = 2) annotation(
     Placement(transformation(origin = {-230, -20}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze ratelimResetvalue(T = tS*1e-3, UseRateLim = true, Y0 = ratelimResetvalue0Type3b) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze ratelimResetvalue(T = tS*1e-3, UseRateLim = true, Y0 = ratelimResetvalue0) annotation(
     Placement(transformation(origin = {-230, -180}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.Switch switch annotation(
     Placement(transformation(origin = {-270, -140}, extent = {{-10, 10}, {10, -10}})));
@@ -143,23 +145,17 @@ model TorquePi "Sub module for torque control inside active power control module
     Dialog(tab = "Initialization"));
   parameter Types.PerUnit UGsRe0Pu "Initial real component of the voltage at converter terminal in pu (base UNom)" annotation(
     Dialog(tab = "Initialization"));
-  final parameter Types.ActivePowerPu POrd0Pu = -P0Pu*SystemBase.SnRef/SNom "Initial active power order in pu (base SNom) (generator convention)" annotation(
-    Dialog(tab = "Initialization"));
 
   // Initialization helpers
-  final parameter Types.PerUnit OmegaRef0Pu = Modelica.Math.Vectors.interpolate(TableOmegaPPu[:, 1], TableOmegaPPu[:, 2], POrd0Pu) "Initial value for omegaRef (output of omega(p) characteristic) in pu (base SystemBase.omegaRef0Pu)" annotation(
+  parameter Types.PerUnit OmegaRef0Pu "Initial value for omegaRef (output of omega(p) characteristic) in pu (base SystemBase.omegaRef0Pu)" annotation(
     Dialog(tab = "Initialization"));
-  final parameter Types.PerUnit PiIntegrator0Type3aPu = if Torque0Type3aPu > TauEMax0Pu then TauEMax0Pu elseif Torque0Type3aPu < TauEMinPu then TauEMinPu else Torque0Type3aPu "Initial value of the integral part of the PI controller in pu (base SNom/OmegaNom)";
-  final parameter Types.PerUnit PiIntegrator0Type3bPu = if Torque0Type3bPu > TauEMax0Pu then TauEMax0Pu elseif Torque0Type3bPu < TauEMinPu then TauEMinPu else Torque0Type3bPu "Initial value of the integral part of the PI controller in pu (base SNom/OmegaNom)";
-  final parameter Types.ActivePowerPu PWtcFilt0Pu = -P0Pu "Initial measured active power in pu (base SystemBase.SnRef) (generator convention)" annotation(
-      Dialog(tab = "Initialization"));
-
+  final parameter Types.PerUnit PiIntegrator0Pu = if Torque0Pu > TauEMax0Pu then TauEMax0Pu elseif Torque0Pu < TauEMinPu then TauEMinPu else Torque0Pu "Initial value of the integral part of the PI controller in pu (base SNom/OmegaNom)";
   final parameter Types.PerUnit TauEMax0Pu = PWTRef0Pu/(if MOmegaTMax then OmegaRef0Pu else SystemBase.omega0Pu) "Initial value of maximum torque signal tauEMaxPu in pu (base SNom/OmegaNom)" annotation(
     Dialog(tab = "Initialization"));
   final parameter Types.PerUnit Torque0Type3bPu = ((IGsRe0Pu + UGsIm0Pu/XEqv)*cos(UPhase0) + (IGsIm0Pu - UGsRe0Pu/XEqv)*sin(UPhase0))*U0Pu/SystemBase.omega0Pu;
   final parameter Types.PerUnit Torque0Type3aPu = -P0Pu*SystemBase.SnRef/SNom/SystemBase.omega0Pu "Initialization value of torque PI controller output in pu (base SNom/OmegaNom)";
-  final parameter Types.PerUnit ratelimResetvalue0Type3b = if U0Pu*TauUscalePu < Torque0Type3bPu then U0Pu*TauUscalePu else Torque0Type3bPu;
-  final parameter Types.PerUnit ratelimResetvalue0Type3a = if U0Pu*TauUscalePu < Torque0Type3aPu then U0Pu*TauUscalePu else Torque0Type3aPu;
+  final parameter Types.PerUnit Torque0Pu = if WT3Type then Torque0Type3aPu else Torque0Type3bPu;
+  final parameter Types.PerUnit ratelimResetvalue0 = if U0Pu*TauUscalePu < PiIntegrator0Pu and U0Pu*TauUscalePu < 1 then U0Pu*TauUscalePu elseif U0Pu*TauUscalePu > PiIntegrator0Pu and PiIntegrator0Pu < 1 then PiIntegrator0Pu else 1;
 
 equation
   connect(gainKPp.y, addTauOut.u1) annotation(

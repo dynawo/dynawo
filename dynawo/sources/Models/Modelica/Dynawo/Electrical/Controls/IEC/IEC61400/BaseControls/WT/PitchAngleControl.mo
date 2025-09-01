@@ -18,10 +18,18 @@ model PitchAngleControl "Wind turbine pitch angle control module from IEC 61400-
   // Nominal parameter
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
 
+  // Parameters from aerodynamics needed for initialisation
+  parameter Types.ActivePowerPu DPThetaPu "Aerodynamic power partial derivative with respect to changes in pitch angle in pu (base SNom/degrees), example value = -0.03" annotation(
+    Dialog(tab = "Aerodynamic"));
+  parameter Types.ActivePowerPu PAvailPu "Available power in pu (base SNom), example value = active power setpoint" annotation(
+    Dialog(tab = "Operating point"));
+  parameter Types.PerUnit Theta0 "Pitch angle of the wind turbine in degrees, if not derated, example value = 0.0" annotation(
+    Dialog(tab = "Aerodynamic"));
+
   // Input variables
   Modelica.Blocks.Interfaces.RealInput omegaWTRPu(start = SystemBase.omega0Pu) "Wind turbine rotor speed in pu (base SystemBase.omegaNom)" annotation(
     Placement(transformation(origin = {-220, 160}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}})));
-  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Wind turbine speed reference in pu (base SystemBase.omegaNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = OmegaRef0Pu) "Wind turbine speed reference in pu (base SystemBase.omegaNom)" annotation(
     Placement(transformation(origin = {-220, 120}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, 30}, extent = {{-20, -20}, {20, 20}})));
   Modelica.Blocks.Interfaces.RealInput POrdPu(start = POrd0Pu) "Active power order from wind turbine controller in pu (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {-220, -80}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, -30}, extent = {{-20, -20}, {20, 20}})));
@@ -29,7 +37,7 @@ model PitchAngleControl "Wind turbine pitch angle control module from IEC 61400-
     Placement(transformation(origin = {-220, -120}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, -80}, extent = {{-20, -20}, {20, 20}})));
 
   // Output variable
-  Modelica.Blocks.Interfaces.RealOutput theta(start = firstOrderTheta.Y0) "Wind turbine pitch angle in degrees" annotation(
+  Modelica.Blocks.Interfaces.RealOutput theta(start = Theta0 + (PAg0Pu - PAvailPu) / DPThetaPu) "Wind turbine pitch angle in degrees" annotation(
     Placement(transformation(origin = {210, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 2}, extent = {{-10, -10}, {10, 10}})));
 
   Modelica.Blocks.Math.Add add(k2 = -1) annotation(
@@ -50,28 +58,31 @@ model PitchAngleControl "Wind turbine pitch angle control module from IEC 61400-
     Placement(transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Nonlinear.Limiter thetaOmegaLim(uMax = ThetaOmegaMax, uMin = ThetaOmegaMin, homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy) annotation(
     Placement(transformation(origin = {80, 90}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Nonlinear.SlewRateLimiter thetaOmegaRateLim(Falling = DThetaOmegaMin, Rising = DThetaOmegaMax, initType = Modelica.Blocks.Types.Init.InitialOutput, y_start = 0, y(start = thetaOmegaRateLim.y_start)) annotation(
+  Modelica.Blocks.Nonlinear.SlewRateLimiter thetaOmegaRateLim(Falling = DThetaOmegaMin, Rising = DThetaOmegaMax, initType = Modelica.Blocks.Types.Init.InitialOutput, y_start = Theta0 + (PAg0Pu - PAvailPu) / DPThetaPu, y(start = thetaOmegaRateLim.y_start)) annotation(
     Placement(transformation(origin = {80, 50}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Nonlinear.Limiter thetaOmegaLim1(uMax = ThetaCMax, uMin = ThetaCMin, homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy) annotation(
     Placement(transformation(origin = {80, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Nonlinear.SlewRateLimiter thetaOmegaRateLim1(Falling = DThetaCMin, Rising = DThetaCMax, initType = Modelica.Blocks.Types.Init.InitialOutput, y_start = 0, y(start = thetaOmegaRateLim1.y_start)) annotation(
     Placement(transformation(origin = {80, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Dynawo.NonElectrical.Blocks.Continuous.AntiWindupIntegrator integratorPiOmega(DyMax = DThetaOmegaMax, DyMin = DThetaOmegaMin, Y0 = 0, YMax = ThetaOmegaMax, YMin = ThetaOmegaMin, tI = if KIomegaPu > 1e-6 then 1/KIomegaPu else 1/Modelica.Constants.eps) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.AntiWindupIntegrator integratorPiOmega(DyMax = DThetaOmegaMax, DyMin = DThetaOmegaMin, Y0 = Theta0 + (PAg0Pu - PAvailPu) / DPThetaPu, YMax = ThetaOmegaMax, YMin = ThetaOmegaMin, tI = if KIomegaPu > 1e-6 then 1/KIomegaPu else 1/Modelica.Constants.eps) annotation(
     Placement(transformation(origin = {-30, 160}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.NonElectrical.Blocks.Continuous.AntiWindupIntegrator integratorPiPower(DyMax = DThetaCMax, DyMin = DThetaCMin, Y0 = 0, YMax = ThetaCMax, YMin = ThetaCMin, tI = if KIcPu > 1e-6 then 1/KIcPu else 1/Modelica.Constants.eps) annotation(
     Placement(transformation(origin = {-30, -80}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = false) annotation(
     Placement(transformation(origin = {130, 70}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFirstOrderFreezeLimDetection firstOrderTheta(DyMax = DThetaMax, DyMin = DThetaMin, UseLimits = false, Y0 = 0, YMax = ThetaMax, YMin = ThetaMin, tI = TTheta) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFirstOrderFreezeLimDetection firstOrderTheta(DyMax = DThetaMax, DyMin = DThetaMin, UseLimits = false, Y0 = Theta0 + (PAg0Pu - PAvailPu) / DPThetaPu, YMax = ThetaMax, YMin = ThetaMin, tI = TTheta) annotation(
     Placement(transformation(origin = {150, -1.77636e-15}, extent = {{-10, -10}, {10, 10}})));
-
 
   //Initial parameters
   parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
       Dialog(tab = "Operating point"));
+  parameter Types.ActivePowerPu PAg0Pu "Initial generator (air gap) power in pu (base SNom) (generator convention)" annotation(
+    Dialog(tab = "Initialization"));
   parameter Types.ActivePower PWTRef0Pu "Initial upper power limit of the wind turbine (if less than PAvail then the turbine will be derated) in pu (base SNom), example value = 1.1" annotation(
   Dialog(tab = "Operating point"));
 
+  parameter Types.PerUnit OmegaRef0Pu "Initial value for omegaRef (output of omega(p) characteristic) in pu (base SystemBase.omegaRef0Pu)" annotation(
+    Dialog(tab = "Initialization"));
   final parameter Types.ActivePowerPu POrd0Pu = -P0Pu * SystemBase.SnRef / SNom "Initial active power order in pu (base SNom) (generator convention)" annotation(
   Dialog(tab = "Initialization"));
 

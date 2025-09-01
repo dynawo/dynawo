@@ -18,7 +18,7 @@ model Aerodynamic2D "Two-dimensional aerodynmaic module for type 3 wind turbines
   //Input variable
   Modelica.Blocks.Interfaces.RealInput omegaWTRPu(start = SystemBase.omega0Pu) "Wind turbine rotor speed in pu (base SystemBase.omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput theta(start = Theta0) "Wind turbine pitch angle in degrees" annotation(
+  Modelica.Blocks.Interfaces.RealInput theta(start = Theta0 + (PAg0Pu - PAvailPu) / DPThetaPu) "Wind turbine pitch angle in degrees" annotation(
     Placement(visible = true, transformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   //Output variable

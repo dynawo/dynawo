@@ -14,6 +14,7 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT;
 
 model PControl3AB2020 "Active power control module of type 3 wind turbine model from IEC 61400-27-1:2020 standard"
 
+  parameter Boolean WT3Type "if true : type a, if false type b";
   //PControl parameters
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT3;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical.TorquePi;
@@ -42,11 +43,11 @@ model PControl3AB2020 "Active power control module of type 3 wind turbine model 
     Placement(visible = true, transformation(origin = {-320, 220}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-320, 210}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   //Output variables
-  Modelica.Blocks.Interfaces.RealOutput ipCmdPu(start = lagPOrd.Y0/U0Pu) "Active current command for generator system model in pu (base SNom/sqrt(3)/UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput ipCmdPu(start = POrd0Pu/U0Pu) "Active current command for generator system model in pu (base SNom/sqrt(3)/UNom)" annotation(
     Placement(visible = true, transformation(origin = {310, 240}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {310, 240}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput omegaRefPu(start = SystemBase.omegaRef0Pu) "Angular velocity reference value in pu (base OmegaNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput omegaRefPu(start = OmegaRef0Pu) "Angular velocity reference value in pu (base OmegaNom)" annotation(
     Placement(visible = true, transformation(origin = {310, -288}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {310, -240}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput POrdPu(start = lagPOrd.Y0) "Active power order from wind turbine controller in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput POrdPu(start = POrd0Pu) "Active power order from wind turbine controller in pu (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {310, -180}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {310, 0}, extent = {{-10, -10}, {10, 10}})));
 
   Modelica.Blocks.Math.Add addDtd annotation(
@@ -75,7 +76,7 @@ model PControl3AB2020 "Active power control module of type 3 wind turbine model 
     Placement(transformation(origin = {270, 240}, extent = {{-10, 10}, {10, -10}})));
   Modelica.Blocks.Math.Division divisionTauEmax annotation(
     Placement(transformation(origin = {-50, -90}, extent = {{-10, 10}, {10, -10}}, rotation = -90)));
-  Dynawo.NonElectrical.Blocks.NonLinear.FirstOrderVariableLimitsAntiWindup lagPOrd(DyMax = DPMaxPu, DyMin = -9999, Y0 = ((IGsRe0Pu + UGsIm0Pu/XEqv)*cos(UPhase0) + (IGsIm0Pu - UGsRe0Pu/XEqv)*sin(UPhase0))*U0Pu, tI = tPord) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.FirstOrderVariableLimitsAntiWindup lagPOrd(DyMax = DPMaxPu, DyMin = -9999, Y0 = POrd0Pu, tI = tPord) annotation(
     Placement(transformation(origin = {190, -170}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Continuous.FirstOrder lagtOmegaFiltp3(T = tOmegafiltp3, y_start = SystemBase.omega0Pu) annotation(
     Placement(transformation(origin = {-90, -110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
@@ -101,9 +102,9 @@ model PControl3AB2020 "Active power control module of type 3 wind turbine model 
     Placement(transformation(origin = {-170, 100}, extent = {{-10, 10}, {10, -10}})));
   Modelica.Blocks.Logical.Switch switchUDip annotation(
     Placement(transformation(origin = {-150, -60}, extent = {{-10, 10}, {10, -10}})));
-  Modelica.Blocks.Continuous.TransferFunction tfDtd(a = {1, 2*Zeta*OmegaDtdPu, OmegaDtdPu*OmegaDtdPu}, b = {0, 2*Zeta*OmegaDtdPu*KDtd, 0}, initType = Modelica.Blocks.Types.Init.SteadyState) annotation(
+  Modelica.Blocks.Continuous.TransferFunction tfDtd(a = {1, 2*Zeta*OmegaDtdPu, OmegaDtdPu*OmegaDtdPu}, b = {0, 2*Zeta*OmegaDtdPu*KDtd, 0}) annotation(
     Placement(transformation(origin = {50, -260}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT.TorquePi torquePi(DTauMaxPu = DTauMaxPu, DTauUvrtMaxPu = DTauUvrtMaxPu, IGsIm0Pu = IGsIm0Pu, IGsRe0Pu = IGsRe0Pu, KIp = KIp, KPp = KPp, MOmegaTMax = MOmegaTMax, MPUvrt = MPUvrt, P0Pu = P0Pu, PWTRef0Pu = PWTRef0Pu, SNom = SNom, TableOmegaPPu = TableOmegaPPu, TauEMinPu = TauEMinPu, TauUscalePu = TauUscalePu, U0Pu = U0Pu, UDvsPu = UDvsPu, UGsIm0Pu = UGsIm0Pu, UGsRe0Pu = UGsRe0Pu, UPhase0 = UPhase0, UpDipPu = UpDipPu, XEqv = XEqv, tDvs = tDvs, tOmegafiltp3 = tOmegafiltp3, tS = tS) annotation(
+  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT.TorquePi torquePi(DTauMaxPu = DTauMaxPu, DTauUvrtMaxPu = DTauUvrtMaxPu, IGsIm0Pu = IGsIm0Pu, IGsRe0Pu = IGsRe0Pu, KIp = KIp, KPp = KPp, MOmegaTMax = MOmegaTMax, MPUvrt = MPUvrt, P0Pu = P0Pu, PWTRef0Pu = PWTRef0Pu, SNom = SNom, TableOmegaPPu = TableOmegaPPu, TauEMinPu = TauEMinPu, TauUscalePu = TauUscalePu, U0Pu = U0Pu, UDvsPu = UDvsPu, UGsIm0Pu = UGsIm0Pu, UGsRe0Pu = UGsRe0Pu, UPhase0 = UPhase0, UpDipPu = UpDipPu, XEqv = XEqv, tDvs = tDvs, tOmegafiltp3 = tOmegafiltp3, tS = tS, WT3Type = WT3Type, OmegaRef0Pu = OmegaRef0Pu) annotation(
     Placement(transformation(origin = {39.2409, -169.192}, extent = {{-60.4935, -37.8084}, {31.7591, 30.2467}})));
 
   // Initial parameters
@@ -125,11 +126,9 @@ model PControl3AB2020 "Active power control module of type 3 wind turbine model 
     Dialog(tab = "Initialization"));
   parameter Types.PerUnit UGsRe0Pu "Initial real component of the voltage at converter terminal in pu (base UNom)" annotation(
     Dialog(tab = "Initialization"));
-  final parameter Types.ActivePowerPu POrd0Pu = -P0Pu*SystemBase.SnRef/SNom "Initial active power order in pu (base SNom) (generator convention)" annotation(
+  parameter Types.ActivePowerPu POrd0Pu "Initial active power order in pu (base SNom) (generator convention)" annotation(
     Dialog(tab = "Initialization"));
-
-  // Initialization helpers
-  final parameter Types.PerUnit OmegaRef0Pu = Modelica.Math.Vectors.interpolate(TableOmegaPPu[:, 1], TableOmegaPPu[:, 2], POrd0Pu) "Initial value for omegaRef (output of omega(p) characteristic) in pu (base SystemBase.omegaRef0Pu)" annotation(
+  parameter Types.PerUnit OmegaRef0Pu "Initial value for omegaRef (output of omega(p) characteristic) in pu (base SystemBase.omegaRef0Pu)" annotation(
     Dialog(tab = "Initialization"));
 
 equation
