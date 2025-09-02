@@ -12,34 +12,35 @@
 //
 
 /**
- * @file  DYNOutputInterface.h
+ * @file  DYNOutputChannel.h
  *
  * @brief Output interface header
  *
  */
-#ifndef RT_IO_DYNOUTPUTINTERFACE_H
-#define RT_IO_DYNOUTPUTINTERFACE_H
+#ifndef RT_IO_DYNOUTPUTCHANNEL_H_
+#define RT_IO_DYNOUTPUTCHANNEL_H_
 
 #include <memory>
+#include <vector>
+#include <cstdint>
 
 namespace DYN {
 
 /**
- * @class  OutputInterface
+ * @class  OutputChannel
  *
- * Interface interface for real-time simulation outputs
+ * Channel interface for real-time simulation outputs
  *
  */
-class OutputInterface {
-public:
+class OutputChannel {
+ public:
   virtual void sendMessage(const std::string& data) = 0;
 
   virtual void sendMessage(const std::string& data, const std::string topic) = 0;
 
   virtual void sendMessage(const std::vector<std::uint8_t>& data, const std::string topic) = 0;
-
 };
 
 }  // end of namespace DYN
 
-#endif  // RT_IO_DYNOUTPUTINTERFACE_H
+#endif  // RT_IO_DYNOUTPUTCHANNEL_H_

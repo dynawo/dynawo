@@ -12,12 +12,12 @@
 //
 
 /**
- * @file  DYNZmqInput.cpp
+ * @file  DYNZmqInputChannel.cpp
  *
  * @brief Event interractor
  *
  */
-#include "DYNZmqInput.h"
+#include "DYNZmqInputChannel.h"
 
 #include "PARParametersSetFactory.h"
 #include "DYNModelMulti.h"
@@ -28,8 +28,8 @@
 
 namespace DYN {
 
-ZmqInput::ZmqInput(std::string id, MessageFilter messageFilter, const std::string& endpoint) :
-InputInterface(std::move(id), std::move(messageFilter)),
+ZmqInputChannel::ZmqInputChannel(std::string id, MessageFilter messageFilter, const std::string& endpoint) :
+InputChannel(std::move(id), std::move(messageFilter)),
 socket_(context_, zmqpp::socket_type::reply),
 useThread_(false),
 stopFlag_(false),
@@ -38,23 +38,23 @@ pollTimeoutMs_(10) {
 }
 
 // void
-// ZmqInput::start() {
+// ZmqInputChannel::start() {
 //   if (asyncMode_) {
-//     receiverThread_ = std::thread(&ZmqInput::messageReceiverAsync, this);
-//     std::cout << "ZmqInput: thread started" << std::endl;
+//     receiverThread_ = std::thread(&ZmqInputChannel::messageReceiverAsync, this);
+//     std::cout << "ZmqInputChannel: thread started" << std::endl;
 //   }
 //   running_ = true;
 // }
 
 // void
-// ZmqInput::stop() {
+// ZmqInputChannel::stop() {
 //   if (!running_)
 //     return;
 
 //   if (asyncMode_) {
 //     simulationStepTriggerCondition_.notify_all();
 //     receiverThread_.join();
-//     std::cout << "ZmqInput: thread stopped" << std::endl;
+//     std::cout << "ZmqInputChannel: thread stopped" << std::endl;
 //   } else {
 //     receiveMessages(true);
 //   }
@@ -62,8 +62,8 @@ pollTimeoutMs_(10) {
 // }
 
 void
-ZmqInput::startReceiving(const std::function<void(std::shared_ptr<InputMessage>)>& callback, bool useThread) {
-  std::cout << "ZmqInput::startReceiving" << std::endl;
+ZmqInputChannel::startReceiving(const std::function<void(std::shared_ptr<InputMessage>)>& callback, bool useThread) {
+  std::cout << "ZmqInputChannel::startReceiving" << std::endl;
   callback_ = callback;
   useThread_ = useThread;
   // socket_.connect(endpoint_);
@@ -72,14 +72,14 @@ ZmqInput::startReceiving(const std::function<void(std::shared_ptr<InputMessage>)
   // thread_ = std::thread([this]() { receiveLoop(); });
   if (useThread_) {
     thread_ = std::thread([this]() { receiveLoop(); });
-    // std::thread(&ZmqInput::messageReceiverAsync, this);
-    std::cout << "ZmqInput: thread started" << std::endl;
+    // std::thread(&ZmqInputChannel::messageReceiverAsync, this);
+    std::cout << "ZmqInputChannel: thread started" << std::endl;
   }
   // running_ = true;
 }
 
 void
-ZmqInput::stop() {
+ZmqInputChannel::stop() {
   if (!stopFlag_) {
     stopFlag_ = true;
     if (thread_.joinable())
@@ -89,13 +89,13 @@ ZmqInput::stop() {
 }
 
 void
-ZmqInput::receiveLoop() {
+ZmqInputChannel::receiveLoop() {
   zmqpp::poller poller;
   poller.add(socket_);
 
   while (!stopFlag_) {
     if (poller.poll(pollTimeoutMs_)) {
-      std::cout << "ZmqInput: message received" << std::endl;
+      std::cout << "ZmqInputChannel: message received" << std::endl;
 
       if (poller.has_input(socket_)) {
         zmqpp::message message;
@@ -136,7 +136,7 @@ ZmqInput::receiveLoop() {
 }
 
 // bool
-// ZmqInput::handleMessage(zmqpp::message& message) {
+// ZmqInputChannel::handleMessage(zmqpp::message& message) {
 //   std::string payload;
 //   message >> payload;
 
@@ -158,14 +158,14 @@ ZmqInput::receiveLoop() {
 // }
 
 // void
-// ZmqInput::receiveMessages(bool stop = false) {
+// ZmqInputChannel::receiveMessages(bool stop = false) {
 //   zmqpp::poller poller;
 //   poller.add(socket_);
 
 //   while (running_ && !SignalHandler::gotExitSignal()) {
 //     // Polling
 //     if (poller.poll(pollTimeoutMs_)) {
-//       std::cout << "ZmqInput: message received" << std::endl;
+//       std::cout << "ZmqInputChannel: message received" << std::endl;
 
 //       if (poller.has_input(socket_)) {
 //         zmqpp::message message;
@@ -211,7 +211,7 @@ ZmqInput::receiveLoop() {
 // }
 
 // void
-// ZmqInput::messageReceiverAsync() {
+// ZmqInputChannel::messageReceiverAsync() {
 //   //TODO review
 
 //   // zmqpp::poller poller;
@@ -222,7 +222,7 @@ ZmqInput::receiveLoop() {
 
 //   //   // Polling
 //   //   if (poller.poll(pollTimeoutMs_)) {
-//   //     std::cout << "ZmqInput: message received" << std::endl;
+//   //     std::cout << "ZmqInputChannel: message received" << std::endl;
 
 //   //     if (poller.has_input(socket_)) {
 //   //       zmqpp::message message;

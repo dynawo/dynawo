@@ -12,7 +12,7 @@
 //
 #include "DYNOutputDispatcher.h"
 
-#include "DYNOutputInterface.h"
+#include "DYNOutputChannel.h"
 #include "TLExporter.h"
 #include "TLXmlExporter.h"
 #include "TLCsvExporter.h"
@@ -38,7 +38,7 @@ OutputDispatcher::~OutputDispatcher() {
 }
 
 void
-OutputDispatcher::addCurvesPublisher(std::shared_ptr<OutputInterface>& publisher, const std::string formatStr) {
+OutputDispatcher::addCurvesPublisher(std::shared_ptr<OutputChannel>& publisher, const std::string formatStr) {
   CurvesOutputFormat format;
   if (formatStr == "BYTES") {
     format = CurvesOutputFormat::BYTES;
@@ -54,13 +54,13 @@ OutputDispatcher::addCurvesPublisher(std::shared_ptr<OutputInterface>& publisher
   }
 
   if (curvesPublishers_.find(format) == curvesPublishers_.end()) {
-    curvesPublishers_.emplace(format, std::vector<std::shared_ptr<OutputInterface> >());
+    curvesPublishers_.emplace(format, std::vector<std::shared_ptr<OutputChannel> >());
   }
   curvesPublishers_.find(format)->second.push_back(publisher);
 }
 
 void
-OutputDispatcher::addTimelinePublisher(std::shared_ptr<OutputInterface>& publisher, const std::string formatStr) {
+OutputDispatcher::addTimelinePublisher(std::shared_ptr<OutputChannel>& publisher, const std::string formatStr) {
   TimelineOutputFormat format;
   if (formatStr == "CSV") {
     format = TimelineOutputFormat::CSV;
@@ -75,13 +75,13 @@ OutputDispatcher::addTimelinePublisher(std::shared_ptr<OutputInterface>& publish
     return;
   }
   if (timelinePublishers_.find(format) == timelinePublishers_.end()) {
-    timelinePublishers_.emplace(format, std::vector<std::shared_ptr<OutputInterface> >());
+    timelinePublishers_.emplace(format, std::vector<std::shared_ptr<OutputChannel> >());
   }
   timelinePublishers_.find(format)->second.push_back(publisher);
 }
 
 void
-OutputDispatcher::addConstraintsPublisher(std::shared_ptr<OutputInterface>& publisher, const std::string formatStr) {
+OutputDispatcher::addConstraintsPublisher(std::shared_ptr<OutputChannel>& publisher, const std::string formatStr) {
   ConstraintsOutputFormat format;
   if (formatStr == "JSON") {
     format = ConstraintsOutputFormat::JSON;
@@ -94,7 +94,7 @@ OutputDispatcher::addConstraintsPublisher(std::shared_ptr<OutputInterface>& publ
     return;
   }
   if (constraintsPublishers_.find(format) == constraintsPublishers_.end()) {
-    constraintsPublishers_.emplace(format, std::vector<std::shared_ptr<OutputInterface> >());
+    constraintsPublishers_.emplace(format, std::vector<std::shared_ptr<OutputChannel> >());
   }
   constraintsPublishers_.find(format)->second.push_back(publisher);
 }

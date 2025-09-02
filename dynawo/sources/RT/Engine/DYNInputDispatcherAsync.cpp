@@ -12,7 +12,7 @@
 //
 #include "DYNInputDispatcherAsync.h"
 
-#include "DYNInputInterface.h"
+#include "DYNInputChannel.h"
 
 #include <vector>
 #include <functional>
@@ -31,7 +31,7 @@ InputDispatcherAsync::~InputDispatcherAsync() {
 }
 
 void
-InputDispatcherAsync::addReceiver(std::shared_ptr<InputInterface>& receiver) {
+InputDispatcherAsync::addReceiver(std::shared_ptr<InputChannel>& receiver) {
   receivers_.push_back(receiver);
 }
 

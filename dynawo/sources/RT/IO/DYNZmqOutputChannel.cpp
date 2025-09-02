@@ -12,46 +12,46 @@
 //
 
 /**
- * @file  DYNZmqOutput.cpp
+ * @file  DYNZmqOutputChannel.cpp
  *
  * @brief Publish string to ZMQ socket
  *
  */
 
-#include "DYNZmqOutput.h"
+#include "DYNZmqOutputChannel.h"
 
 
 namespace DYN {
 
-ZmqOutput::ZmqOutput(std::string endpoint):
+ZmqOutputChannel::ZmqOutputChannel(std::string endpoint):
 socket_(context_, zmqpp::socket_type::pub) {
   socket_.bind(endpoint);
 }
 
 void
-ZmqOutput::sendMessage(const std::string& data) {
+ZmqOutputChannel::sendMessage(const std::string& data) {
   zmqpp::message message;
   message << data;
   socket_.send(message);
-  std::cout << "ZmqOutput: data sent" << std::endl;
+  std::cout << "ZmqOutputChannel: data sent" << std::endl;
 }
 
 void
-ZmqOutput::sendMessage(const std::string& data, const std::string topic) {
+ZmqOutputChannel::sendMessage(const std::string& data, const std::string topic) {
   zmqpp::message message;
   message << topic;
   message << data;
   socket_.send(message);
-  std::cout << "ZmqOutput: data sent as string to topic: " << topic << std::endl;
+  std::cout << "ZmqOutputChannel: data sent as string to topic: " << topic << std::endl;
 }
 
 void
-ZmqOutput::sendMessage(const std::vector<std::uint8_t>& data, const std::string topic) {
+ZmqOutputChannel::sendMessage(const std::vector<std::uint8_t>& data, const std::string topic) {
   zmqpp::message message;
   message << topic;
   message.add_raw(reinterpret_cast<const void*>(data.data()), data.size());
   socket_.send(message);
-  std::cout << "ZmqOutput: data sent as bytes to topic: " << topic << std::endl;
+  std::cout << "ZmqOutputChannel: data sent as bytes to topic: " << topic << std::endl;
 }
 
 }  // end of namespace DYN

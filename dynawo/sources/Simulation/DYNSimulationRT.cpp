@@ -62,8 +62,8 @@
 #include "DYNModelMulti.h"
 #include "DYNSubModel.h"
 #include "DYNZmqPublisher.h"
-#include "DYNZmqInput.h"
-#include "DYNZmqOutput.h"
+#include "DYNZmqInputChannel.h"
+#include "DYNZmqOutputChannel.h"
 #include "DYNRTInputCommon.h"
 
 using std::ofstream;
@@ -137,34 +137,34 @@ SimulationRT::configureRT() {
   }
 
   // Output dispatcher settings
-  std::map<std::string, std::shared_ptr<OutputInterface> > channelInterfaceMap;
+  std::map<std::string, std::shared_ptr<OutputChannel> > channelInterfaceMap;
   for (auto &streamEntry : jobEntry_->getInteractiveSettingsEntry()->getStreamsEntry()->getStreamEntries()) {
-    std::map<std::string, std::shared_ptr<OutputInterface> >::iterator channelInterfaceMapIt = channelInterfaceMap.find(streamEntry->getChannel());
-    std::shared_ptr<OutputInterface> outputInterface;
+    std::map<std::string, std::shared_ptr<OutputChannel> >::iterator channelInterfaceMapIt = channelInterfaceMap.find(streamEntry->getChannel());
+    std::shared_ptr<OutputChannel> outputChannel;
     if (channelInterfaceMapIt == channelInterfaceMap.end()) {
-      // Create new OutputInterface
+      // Create new OutputChannel
       std::shared_ptr<job::ChannelEntry> channelEntry = channelsEntry->getChannelEntryById(streamEntry->getChannel());
       if (channelEntry->getType() == "ZMQ") {
         std::cout << "creating ZMQ channel " << channelEntry->getId() << std::endl;
-        // outputInterface = std::make_shared<ZmqOutput>(channelEntry->getEndpoint());
-        outputInterface = std::make_shared<ZmqOutput>();
-        channelInterfaceMap.emplace(channelEntry->getId(), outputInterface);
+        // outputChannel = std::make_shared<ZmqOutputChannel>(channelEntry->getEndpoint());
+        outputChannel = std::make_shared<ZmqOutputChannel>();
+        channelInterfaceMap.emplace(channelEntry->getId(), outputChannel);
         std::cout << "ZMQ channel created" << channelEntry->getId() << std::endl;
       } else {
         Trace::warn() << "Unsupported output Channel type: " << channelEntry->getType() << Trace::endline;
         continue;
       }
     } else {
-      outputInterface = channelInterfaceMapIt->second;
+      outputChannel = channelInterfaceMapIt->second;
     }
-    std::cout << "outputInterface created" << std::endl;
+    std::cout << "outputChannel created" << std::endl;
 
     if (streamEntry->getData() == "CURVES") {
-      outputDispatcher_->addCurvesPublisher(outputInterface, streamEntry->getFormat());
+      outputDispatcher_->addCurvesPublisher(outputChannel, streamEntry->getFormat());
     } else if (streamEntry->getData() == "TIMELINE") {
-      outputDispatcher_->addTimelinePublisher(outputInterface, streamEntry->getFormat());
+      outputDispatcher_->addTimelinePublisher(outputChannel, streamEntry->getFormat());
     } else if (streamEntry->getData() == "CONSTRAINTS") {
-      outputDispatcher_->addConstraintsPublisher(outputInterface, streamEntry->getFormat());
+      outputDispatcher_->addConstraintsPublisher(outputChannel, streamEntry->getFormat());
     } else {
       Trace::warn() << "Stream data unknown or not managed: " << streamEntry->getData() << Trace::endline;;
     }
@@ -184,7 +184,7 @@ SimulationRT::configureRT() {
         MessageFilter filter = MessageFilter::Actions | MessageFilter::TimeManagement;
         if (isTriggerChannel)
           filter = filter | MessageFilter::Trigger;
-        std::shared_ptr<InputInterface> zmqServer = std::make_shared<ZmqInput>("zmq", filter);
+        std::shared_ptr<InputChannel> zmqServer = std::make_shared<ZmqInputChannel>("zmq", filter);
         inputDispatcherAsync_->addReceiver(zmqServer);
       } else {
         Trace::warn() << "Unknown channel type: " << channelEntry->getType() << Trace::endline;

@@ -31,7 +31,7 @@
 #include "DYNRTInputCommon.h"
 #include "DYNActionBuffer.h"
 #include "DYNClock.h"
-#include "DYNInputInterface.h"
+#include "DYNInputChannel.h"
 
 
 
@@ -43,7 +43,7 @@ class InputDispatcherAsync {
 
   ~InputDispatcherAsync();
 
-  void addReceiver(std::shared_ptr<InputInterface>& receiver);
+  void addReceiver(std::shared_ptr<InputChannel>& receiver);
 
   void start();
 
@@ -59,7 +59,7 @@ class InputDispatcherAsync {
  private:
   std::shared_ptr<ActionBuffer> actionBuffer_;
   std::shared_ptr<Clock> clock_;
-  std::vector<std::shared_ptr<InputInterface> > receivers_;
+  std::vector<std::shared_ptr<InputChannel> > receivers_;
 
   std::queue<std::shared_ptr<InputMessage>> messageQueue_;
   std::mutex queueMutex_;
