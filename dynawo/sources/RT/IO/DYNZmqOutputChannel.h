@@ -12,9 +12,9 @@
 //
 
 /**
- * @file  DYNEventSubscriber.h
+ * @file  DYNZmqOutputChannel.h
  *
- * @brief EventSubscriber header
+ * @brief ZmqOutputChannel header
  *
  */
 #ifndef RT_IO_DYNZMQOUTPUTCHANNEL_H_
