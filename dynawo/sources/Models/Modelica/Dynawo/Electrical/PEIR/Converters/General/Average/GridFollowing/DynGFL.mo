@@ -12,7 +12,7 @@ model DynGFL "PEIR model with GFL control and dynamic connections to the grid"
   *
   * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
   */
-
+extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffInjector;
   // Installation parameter
   parameter Types.ApparentPowerModule SNom "Nominal apparent power module for the converter";
   parameter Types.Time tUFilt = 0.01 "Filter time constant for voltage measurement in s";

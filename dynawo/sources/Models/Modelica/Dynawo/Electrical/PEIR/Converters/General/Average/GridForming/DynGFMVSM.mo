@@ -13,7 +13,7 @@ within Dynawo.Electrical.PEIR.Converters.General.Average.GridForming;
 */
 
 model DynGFMVSM "PEIR model with GFM VSM control and dynamic connections to the grid"
-
+  extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffInjector;
   // Installation parameter
   parameter Types.ApparentPowerModule SNom "Nominal apparent power module for the converter";
   parameter Types.Time tUFilt = 0.01 "Filter time constant for voltage measurement in s";
