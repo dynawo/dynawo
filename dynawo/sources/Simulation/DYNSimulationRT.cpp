@@ -61,10 +61,12 @@
 #include "DYNTimer.h"
 #include "DYNModelMulti.h"
 #include "DYNSubModel.h"
-#include "DYNZmqPublisher.h"
+#include "DYNRTInputCommon.h"
+
+#ifdef USE_ZMQPP
 #include "DYNZmqInputChannel.h"
 #include "DYNZmqOutputChannel.h"
-#include "DYNRTInputCommon.h"
+#endif
 
 using std::ofstream;
 using std::fstream;
@@ -145,11 +147,15 @@ SimulationRT::configureRT() {
       // Create new OutputChannel
       std::shared_ptr<job::ChannelEntry> channelEntry = channelsEntry->getChannelEntryById(streamEntry->getChannel());
       if (channelEntry->getType() == "ZMQ") {
+#ifdef USE_ZMQPP
         std::cout << "creating ZMQ channel " << channelEntry->getId() << std::endl;
         // outputChannel = std::make_shared<ZmqOutputChannel>(channelEntry->getEndpoint());
         outputChannel = std::make_shared<ZmqOutputChannel>();
         channelInterfaceMap.emplace(channelEntry->getId(), outputChannel);
         std::cout << "ZMQ channel created" << channelEntry->getId() << std::endl;
+#else
+        throw DYNError(Error::GENERAL, UnavailableLib, "ZMQPP");
+#endif
       } else {
         Trace::warn() << "Unsupported output Channel type: " << channelEntry->getType() << Trace::endline;
         continue;
@@ -157,7 +163,7 @@ SimulationRT::configureRT() {
     } else {
       outputChannel = channelInterfaceMapIt->second;
     }
-    std::cout << "outputChannel created" << std::endl;
+    std::cout << "outputChannels created" << std::endl;
 
     if (streamEntry->getData() == "CURVES") {
       outputDispatcher_->addCurvesPublisher(outputChannel, streamEntry->getFormat());
@@ -175,17 +181,19 @@ SimulationRT::configureRT() {
   for (auto &channelEntry : channelsEntry->getChannelEntries()) {
     if (channelEntry->getKind() == "OUTPUT") {
       if (channelInterfaceMap.find(channelEntry->getId()) == channelInterfaceMap.end())
-        Trace::warn() << "Output channel '" << channelEntry->getId() << "' not used by a stream, not instanciated" << Trace::endline;
+        Trace::warn() << "Output stream '" << channelEntry->getId() << "' not used by a stream, not instanciated" << Trace::endline;
     } else {  // INPUT
       // Input dispatcher settings
-      bool isTriggerChannel = (clock_->getUseTrigger() &&
-      clockEntry->getTriggerChannel() == channelEntry->getId());
       if (channelEntry->getType() == "ZMQ") {
+#ifdef USE_ZMQPP
         MessageFilter filter = MessageFilter::Actions | MessageFilter::TimeManagement;
-        if (isTriggerChannel)
+        if (clock_->getUseTrigger() && clockEntry->getTriggerChannel() == channelEntry->getId())  // is trigger channel
           filter = filter | MessageFilter::Trigger;
         std::shared_ptr<InputChannel> zmqServer = std::make_shared<ZmqInputChannel>("zmq", filter);
         inputDispatcherAsync_->addReceiver(zmqServer);
+#else
+        throw DYNError(Error::GENERAL, UnavailableLib, "ZMQPP");
+#endif
       } else {
         Trace::warn() << "Unknown channel type: " << channelEntry->getType() << Trace::endline;
       }

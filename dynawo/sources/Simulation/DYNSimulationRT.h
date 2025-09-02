@@ -36,8 +36,8 @@
 #include "WSCServer.h"
 #include "DYNClock.h"
 #include "DYNActionBuffer.h"
-#include "DYNEventSubscriber.h"
-#include "DYNZmqPublisher.h"
+// #include "DYNEventSubscriber.h"
+// #include "DYNZmqPublisher.h"
 #include "DYNInputDispatcherAsync.h"
 #include "DYNOutputDispatcher.h"
 
@@ -166,7 +166,7 @@ class SimulationRT: public Simulation {
   // std::shared_ptr<EventSubscriber> eventSubscriber_;   ///< Event manager >
   // double triggerSimulationTimeStepInS_;                ///< Event manager >
   double couplingTimeStep_;                               ///< Simulation period to call for wait / output values in seconds
-  std::shared_ptr<ZmqPublisher> stepPublisher_;           ///< result publisher
+  // std::shared_ptr<ZmqPublisher> stepPublisher_;           ///< result publisher
 
   std::shared_ptr<Clock> clock_;                          ///< Class managing RT pace >
   std::shared_ptr<ActionBuffer> actionBuffer_;                  ///< Action buffer >

@@ -14,7 +14,7 @@
 /**
  * @file  DYNInputChannel.h
  *
- * @brief Input interface header
+ * @brief Input channel header
  *
  */
 #ifndef RT_IO_DYNINPUTCHANNEL_H_
@@ -30,15 +30,12 @@ namespace DYN {
 /**
  * @class  InputChannel
  *
- * Channel interface for real-time simulation inputs
+ * Channel for real-time simulation inputs
  *
  */
 class InputChannel {
  public:
-  InputChannel(std::string id, MessageFilter supportedMessages) {
-    id_ = id;
-    supportedMessages_ = supportedMessages;
-  }
+  InputChannel(std::string id, MessageFilter supportedMessages);
 
   virtual void startReceiving(const std::function<void(std::shared_ptr<InputMessage>)>& callback, bool useThread) = 0;
 
