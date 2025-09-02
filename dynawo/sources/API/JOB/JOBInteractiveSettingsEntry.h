@@ -67,23 +67,23 @@ class InteractiveSettingsEntry {
   const std::shared_ptr<StreamsEntry> getStreamsEntry() const;
 
   /**
-   * @brief timeStep attribute getter
-   * @return timeStep for the interactive simulation
+   * @brief couplingTimeStep attribute getter
+   * @return couplingTimeStep for the interactive simulation
    */
-  double getTimeStep() const;
+  double getCouplingTimeStep() const;
 
   /**
-   * @brief timeStep setter
-   * @param timeStep : time step for the interactive simulation
+   * @brief couplingTimeStep setter
+   * @param couplingTimeStep : time step for the interactive simulation
    */
-  void setTimeStep(const double timeStep);
+  void setCouplingTimeStep(const double couplingTimeStep);
 
 
  private:
   std::shared_ptr<ClockEntry> clock_;
   std::shared_ptr<ChannelsEntry> channels_;
   std::shared_ptr<StreamsEntry> streams_;
-  double timeStep_;
+  double couplingTimeStep_;
 };
 
 }  // namespace job

@@ -165,10 +165,10 @@ class SimulationRT: public Simulation {
   // std::shared_ptr<wsc::WebsocketServer> wsServer_;     ///< instance of websocket server >
   // std::shared_ptr<EventSubscriber> eventSubscriber_;   ///< Event manager >
   // double triggerSimulationTimeStepInS_;                ///< Event manager >
-  double communicationPeriod_;                         ///< Simulation period to call for wait / output values in seconds
-  std::shared_ptr<ZmqPublisher> stepPublisher_;        ///< result publisher
+  double couplingTimeStep_;                               ///< Simulation period to call for wait / output values in seconds
+  std::shared_ptr<ZmqPublisher> stepPublisher_;           ///< result publisher
 
-  std::shared_ptr<Clock> clock_;                       ///< Class managing RT pace >
+  std::shared_ptr<Clock> clock_;                          ///< Class managing RT pace >
   std::shared_ptr<ActionBuffer> actionBuffer_;                  ///< Action buffer >
   std::shared_ptr<InputDispatcherAsync> inputDispatcherAsync_;  ///< Input dispatcher >
   std::shared_ptr<OutputDispatcher> outputDispatcher_;          ///< Output dispatcher >

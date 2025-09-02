@@ -796,7 +796,7 @@ InteractiveSettingsHandler::addStreams() {
 void
 InteractiveSettingsHandler::create(attributes_type const& attributes) {
   interactiveSettings_ = std::make_shared<InteractiveSettingsEntry>();
-  interactiveSettings_->setTimeStep(attributes["timeStep"]);
+  interactiveSettings_->setCouplingTimeStep(attributes["couplingTimeStep"]);
 }
 
 shared_ptr<InteractiveSettingsEntry>
