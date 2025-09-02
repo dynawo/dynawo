@@ -17,15 +17,15 @@
  * @brief EventSubscriber header
  *
  */
-#ifndef RT_IO_DYNZMQOUTPUT_H_
-#define RT_IO_DYNZMQOUTPUT_H_
+#ifndef RT_IO_DYNZMQOUTPUTCHANNEL_H_
+#define RT_IO_DYNZMQOUTPUTCHANNEL_H_
 
 #include <string>
 #include <sstream>
 #include <cstdint>
 #include <zmqpp/zmqpp.hpp>
 
-#include "DYNOutputInterface.h"
+#include "DYNOutputChannel.h"
 
 #ifdef _MSC_VER
   typedef int pid_t;
@@ -34,14 +34,14 @@
 namespace DYN {
 
 /**
- * @brief ZmqOutput class
+ * @brief ZmqOutputChannel class
  *
  * class to push data
  *
  */
-class ZmqOutput : public OutputInterface {
+class ZmqOutputChannel : public OutputChannel {
  public:
-  explicit ZmqOutput(std::string endpoint = "tcp://*:5556");
+  explicit ZmqOutputChannel(std::string endpoint = "tcp://*:5556");
 
   void sendMessage(const std::string& data) override;
 
@@ -56,4 +56,4 @@ class ZmqOutput : public OutputInterface {
 
 }  // end of namespace DYN
 
-#endif  // RT_IO_DYNZMQOUTPUT_H_
+#endif  // RT_IO_DYNZMQOUTPUTCHANNEL_H_

@@ -12,15 +12,15 @@
 //
 
 /**
- * @file  DYNZmqInput.h
+ * @file  DYNZmqInputChannel.h
  *
- * @brief ZmqInput header
+ * @brief ZmqInputChannel header
  *
  */
-#ifndef RT_IO_DYNZMQINPUT_H_
-#define RT_IO_DYNZMQINPUT_H_
+#ifndef RT_IO_DYNZMQINPUTCHANNEL_H_
+#define RT_IO_DYNZMQINPUTCHANNEL_H_
 
-#include "DYNInputInterface.h"
+#include "DYNInputChannel.h"
 #include "DYNModel.h"
 #include "DYNSubModel.h"
 
@@ -39,14 +39,14 @@
 namespace DYN {
 
 /**
- * @brief ZmqInput class
+ * @brief ZmqInputChannel class
  *
  * class for event interraction
  *
  */
-class ZmqInput: public InputInterface {
+class ZmqInputChannel: public InputChannel {
  public:
-  ZmqInput(const std::string id, MessageFilter messageFilter, const std::string& endpoint ="tcp://*:5555");
+  ZmqInputChannel(const std::string id, MessageFilter messageFilter, const std::string& endpoint ="tcp://*:5555");
 
   // void start();
 
@@ -93,4 +93,4 @@ class ZmqInput: public InputInterface {
 
 }  // end of namespace DYN
 
-#endif  // RT_IO_DYNZMQINPUT_H_
+#endif  // RT_IO_DYNZMQINPUTCHANNEL_H_
