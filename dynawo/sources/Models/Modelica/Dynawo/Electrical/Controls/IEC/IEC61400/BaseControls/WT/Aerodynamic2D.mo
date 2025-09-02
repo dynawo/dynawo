@@ -55,7 +55,7 @@ model Aerodynamic2D "Two-dimensional aerodynmaic module for type 3 wind turbines
       Dialog(tab = "Initialization"));
   parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
       Dialog(tab = "Operating point"));
-  parameter Types.ActivePowerPu PAg0Pu = Modelica.ComplexMath.real(Complex(UGsRe0Pu, UGsIm0Pu)*Complex(IGsRe0Pu, -IGsIm0Pu)) "Initial generator (air gap) power in pu (base SNom) (generator convention)" annotation(
+  parameter Types.ActivePowerPu PAg0Pu "Initial generator (air gap) power in pu (base SNom) (generator convention)" annotation(
       Dialog(tab = "Initialization"));
   parameter Types.PerUnit UGsIm0Pu "Initial imaginary component of the voltage at converter terminal in pu (base UNom)" annotation(
       Dialog(tab = "Initialization"));

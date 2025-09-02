@@ -15,9 +15,10 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT;
 model PControl3AB2020 "Active power control module of type 3 wind turbine model from IEC 61400-27-1:2020 standard"
 
   parameter Boolean WT3Type "if true : type a, if false type b";
+
   //PControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT3;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical.TorquePi;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT3Parameters;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical.TorquePiParameters;
 
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
   parameter Types.Time tS "Integration time step in s";
@@ -130,6 +131,9 @@ model PControl3AB2020 "Active power control module of type 3 wind turbine model 
     Dialog(tab = "Initialization"));
   parameter Types.PerUnit OmegaRef0Pu "Initial value for omegaRef (output of omega(p) characteristic) in pu (base SystemBase.omegaRef0Pu)" annotation(
     Dialog(tab = "Initialization"));
+
+//protected
+//  parameter Types.PerUnit x_scaled_2 = 1/(OmegaDtdPu*OmegaDtdPu) "Transfer function state variable at initialization";
 
 equation
   connect(limitLargerZero.y, divisionIPcmd.u2) annotation(

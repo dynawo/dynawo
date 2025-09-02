@@ -88,8 +88,8 @@ model WPP3ACurrentSource2020 "Wind Power Plant Type 3A model from IEC 61400-27-1
     Dialog(tab = "MeasurementP"));
 
   //WT PControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT3;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical.TorquePi;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT3Parameters;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical.TorquePiParameters;
 
   //WT QControl parameters
   parameter Types.VoltageModulePu DUdb1Pu "Voltage change dead band lower limit (typically negative) in pu (base UNom)" annotation(
@@ -105,7 +105,7 @@ model WPP3ACurrentSource2020 "Wind Power Plant Type 3A model from IEC 61400-27-1
   parameter Types.VoltageModulePu UqRisePu "Voltage threshold for OVRT detection in Q control in pu (base UNom)" annotation(
     Dialog(tab = "QControl"));
 
-  // Control parameters
+  //Control parameters
   parameter Types.PerUnit DipMaxPu "Maximum active current ramp rate in pu/s (base UNom, SNom) (generator convention), example value = 9999 (Type 3A) or = 1 (Type 3B)" annotation(
     Dialog(tab = "Control"));
   parameter Types.PerUnit DiqMaxPu "Maximum reactive current ramp rate in pu/s (base UNom, SNom) (generator convention), example value = 9999 (Type 3A) or = 100 (Type 3B)" annotation(

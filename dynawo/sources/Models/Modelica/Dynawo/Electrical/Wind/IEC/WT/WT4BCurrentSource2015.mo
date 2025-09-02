@@ -77,7 +77,7 @@ model WT4BCurrentSource2015 "Wind Turbine Type 4B model from IEC 61400-27-1:2015
     Placement(visible = true, transformation(origin = {60, 80}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Modelica.ComplexBlocks.ComplexMath.ComplexToPolar complexToPolar annotation(
     Placement(visible = true, transformation(origin = {10, 30}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT.Mechanical mechanical(CdrtPu = CdrtPu, Hgen = Hgen, Hwtr = Hwtr, KdrtPu = KdrtPu, P0Pu = P0Pu, PAg0Pu = PAg0Pu, SNom = SNom) annotation(
+  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT.Mechanical mechanical(CdrtPu = CdrtPu, Hgen = Hgen, Hwtr = Hwtr, KdrtPu = KdrtPu, PAg0Pu = PAg0Pu, SNom = SNom) annotation(
     Placement(visible = true, transformation(origin = {63, -101}, extent = {{-11, 11}, {11, -11}}, rotation = 0)));
   Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries.MeasurementsPQ measurementsPQ(P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, i0Pu = i0Pu, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {-8, -90}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));

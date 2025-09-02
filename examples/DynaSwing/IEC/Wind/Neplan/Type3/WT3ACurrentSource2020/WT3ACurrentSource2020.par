@@ -282,7 +282,6 @@
     <par type="DOUBLE" name="WT_Q0Pu" value="-0.1"/>
     <par type="DOUBLE" name="WT_U0Pu" value="1"/>
     <par type="DOUBLE" name="WT_UPhase0" value="0"/>
-    <!--par type="DOUBLE" name="WT_XWT0Pu" value="0.1"/--><!-- initialisation? other parameters exist too-->
     <par type="DOUBLE" name="WT_PWTRef0Pu" value="1.1"/>
     <par type="DOUBLE" name="WT_PAvailPu" value="0.6"/>
   </set>
@@ -295,12 +294,14 @@
   <set id="4">
     <par type="DOUBLE" name="setPoint_Value0" value="1"/>
   </set>
-  <!-- <set id="5">
-    <par type="DOUBLE" name="setPoint_Value0" value="0.1"/>
+  <set id="5">
+    <par type="DOUBLE" name="step_Height" value="0"/>
+    <par type="DOUBLE" name="step_tStep" value="999"/>
+    <par type="DOUBLE" name="step_Value0" value="0.1"/>
   </set>
   <set id="6">
     <par type="DOUBLE" name="step_Height" value="0.2"/>
-    <par type="DOUBLE" name="step_tStep" value="99"/>
+    <par type="DOUBLE" name="step_tStep" value="999"/>
     <par type="DOUBLE" name="step_Value0" value="0.1"/>
-  </set> -->
+  </set>
 </parametersSet>

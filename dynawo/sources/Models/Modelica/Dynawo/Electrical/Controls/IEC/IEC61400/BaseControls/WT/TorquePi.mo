@@ -17,7 +17,7 @@ model TorquePi "Sub module for torque control inside active power control module
   parameter Boolean WT3Type "if true : type a, if false type b";
 
   //Torque Pi parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical.TorquePi;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical.TorquePiParameters;
 
   // P Control parameters
   parameter Real TableOmegaPPu[:, :] = [0, 0.76; 0.3, 0.76; 0.31, 0.86; 0.4, 0.94; 0.5, 1; 1, 1] "Lookup table for power as a function of speed, example value = [0, 0.76; 0.3, 0.76; 0.31, 0.86; 0.4, 0.94; 0.5, 1; 1, 1]" annotation(

@@ -16,7 +16,11 @@
   <dyn:blackBoxModel id="WT3A" lib="IECWT3ACurrentSource2020" parFile="WT3ACurrentSource2020.par" parId="3"/>
   <dyn:blackBoxModel id="OmegaRefPu" lib="SetPoint" parFile="WT3ACurrentSource2020.par" parId="4"/>
   <dyn:blackBoxModel id="PRefPu" lib="Step" parFile="WT3ACurrentSource2020.par" parId="2"/>
+  <dyn:blackBoxModel id="tanPhi" lib="Step" parFile="WT3ACurrentSource2020.par" parId="5"/>
+  <dyn:blackBoxModel id="xRefPu" lib="Step" parFile="WT3ACurrentSource2020.par" parId="6"/>
   <dyn:connect id1="OmegaRefPu" var1="setPoint_setPoint" id2="WT3A" var2="WT_omegaRefPu"/>
   <dyn:connect id1="InfBus" var1="infiniteBus_terminal" id2="WT3A" var2="WT_terminal"/>
   <dyn:connect id1="PRefPu" var1="step_step" id2="WT3A" var2="WT_PWTRefPu"/>
+  <dyn:connect id1="tanPhi" var1="step_step" id2="WT3A" var2="WT_tanPhi"/>
+  <dyn:connect id1="xRefPu" var1="step_step" id2="WT3A" var2="WT_xWTRefPu"/>
 </dyn:dynamicModelsArchitecture>

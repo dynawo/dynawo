@@ -88,8 +88,8 @@ model WPP3BCurrentSource2020 "Wind Power Plant Type 3B model from IEC 61400-27-1
     Dialog(tab = "MeasurementP"));
 
   //WT PControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT3;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical.TorquePi;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT3Parameters;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical.TorquePiParameters;
 
   //WT QControl parameters
   parameter Types.VoltageModulePu DUdb1Pu "Voltage change dead band lower limit (typically negative) in pu (base UNom)" annotation(

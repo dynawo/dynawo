@@ -21,7 +21,8 @@ model Control3A2020 "Whole generator control module for type 3A and 3B wind turb
   // Nominal parameters
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
   parameter Types.Time tS "Integration time step in s";
-  parameter Types.PerUnit XEqv "Transient reactance (should be calculated from the transient inductance as defined in 'New Generic Model of DFG-Based Wind Turbines for RMS-Type Simulation', Fortmann et al., 2014 (base UNom, SNom), example value = 0.4 (Type 3A) or = 10 (Type 3B)" annotation(Dialog(tab = "genSystem"));
+  parameter Types.PerUnit XEqv "Transient reactance (should be calculated from the transient inductance as defined in 'New Generic Model of DFG-Based Wind Turbines for RMS-Type Simulation', Fortmann et al., 2014 (base UNom, SNom), example value = 0.4 (Type 3A) or = 10 (Type 3B)" annotation(
+    Dialog(tab = "Control"));
 
   //Current limiter Parameters
   parameter Types.CurrentModulePu IMaxPu "Maximum current module at converter terminal in pu (base UNom, SNom)" annotation(
@@ -46,8 +47,8 @@ model Control3A2020 "Whole generator control module for type 3A and 3B wind turb
     Dialog(tab = "QLimiter"));
 
   //WT PControl parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT3;
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical.TorquePi;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT3Parameters;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical.TorquePiParameters;
 
   //WT QControl parameters
   parameter Types.VoltageModulePu DUdb1Pu "Voltage change dead band lower limit (typically negative) in pu (base UNom)" annotation(
@@ -157,7 +158,9 @@ model Control3A2020 "Whole generator control module for type 3A and 3B wind turb
       Dialog(tab = "Initialization"));
   parameter Types.PerUnit IqMin0Pu "Initial minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
       Dialog(tab = "Initialization"));
-  parameter Types.ActivePowerPu PAg0Pu = Modelica.ComplexMath.real(Complex(UGsRe0Pu, UGsIm0Pu)*Complex(IGsRe0Pu, -IGsIm0Pu)) "Initial generator (air gap) power in pu (base SNom) (generator convention)" annotation(
+  parameter Types.PerUnit OmegaRef0Pu "Initial value for omegaRef (output of omega(p) characteristic) in pu (base SystemBase.omegaRef0Pu)" annotation(
+    Dialog(tab = "Initialization"));
+  parameter Types.ActivePowerPu PAg0Pu "Initial generator (air gap) power in pu (base SNom) (generator convention)" annotation(
       Dialog(tab = "Initialization"));
   parameter Types.PerUnit POrd0Pu "Initial active power order in pu (base SNom) (generator convention)" annotation(
     Dialog(tab = "Initialization"));
@@ -182,9 +185,6 @@ model Control3A2020 "Whole generator control module for type 3A and 3B wind turb
   parameter Types.ActivePower PWTRef0Pu "Initial upper power limit of the wind turbine (if less than PAvail then the turbine will be derated) in pu (base SNom), example value = 1.1" annotation(Dialog(tab = "Operating point"));
   parameter Types.ReactivePowerPu Q0Pu "Initial reactive power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
       Dialog(tab = "Operating point"));
-
-  final parameter Types.PerUnit OmegaRef0Pu = Modelica.Math.Vectors.interpolate(TableOmegaPPu[:,1], TableOmegaPPu[:,2], POrd0Pu) "Initial value for omegaRef (output of omega(p) characteristic) in pu (base SystemBase.omegaRef0Pu)" annotation(
-    Dialog(tab = "Initialization"));
 
 equation
   connect(const.y, currentLimiter.iqMaxHookPu) annotation(

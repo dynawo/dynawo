@@ -15,7 +15,7 @@ set(MODEL_FILES
   Aerodynamic2DParameters.mo
   MechanicalParameters.mo
   PitchAngleControlParameters.mo
-  TorquePi.mo
+  TorquePiParameters.mo
   )
 
 #
