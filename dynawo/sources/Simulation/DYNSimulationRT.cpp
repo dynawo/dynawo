@@ -123,7 +123,7 @@ SimulationRT::configureRT() {
   outputDispatcher_ = std::make_shared<OutputDispatcher>();
   inputDispatcherAsync_ = std::make_shared<InputDispatcherAsync>(actionBuffer_, clock_);
 
-  std::cout << "objects initialized" << std::endl;
+  couplingTimeStep_ = jobEntry_->getInteractiveSettingsEntry()->getCouplingTimeStep() < 0 ? 0 : jobEntry_->getInteractiveSettingsEntry()->getCouplingTimeStep();
   // Clock settings
   if (clockEntry->getType() == "INTERNAL") {
     clock_->setUseTrigger(false);
@@ -295,7 +295,7 @@ SimulationRT::simulate() {
       // If simulated time corresponds to a completed period, publish the results at the end of the step, then wait before applying the actions
       if (tCurrent_ >= nextOutputT) {
         isPublicationTime = true;
-        nextOutputT += communicationPeriod_;
+        nextOutputT += couplingTimeStep_;
       }
 
       if (isWaitTime) {
@@ -478,7 +478,7 @@ SimulationRT::initComputationTimeCurve() {
 void
 SimulationRT::terminate() {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
-  Timer timer("Simulation::terminate()");
+  Timer timer("SimulationRT::terminate()");
 #endif
   std::cout << "SimulationRT::terminate" << std::endl;
   // if (wsServer_)

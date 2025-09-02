@@ -263,7 +263,7 @@
       </xs:element>
       <xs:element name="streams" type="dyn:StreamsEntry"/>
     </xs:sequence>
-    <xs:attribute name="timeStep" type="xs:double"/>
+    <xs:attribute name="couplingTimeStep" use="required" type="xs:double"/>
   </xs:complexType>
 
   <xs:complexType name="ClockEntry">
