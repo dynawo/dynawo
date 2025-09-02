@@ -32,6 +32,7 @@
 
 #include "DYNModelTwoWindingsTransformer.h"
 
+#include <DYNTimer.h>
 #include <iomanip>
 
 #include "DYNCommon.h"
@@ -1145,31 +1146,31 @@ ModelTwoWindingsTransformer::defineElements(std::vector<Element>& elements, std:
 }
 
 NetworkComponent::StateChange_t
-ModelTwoWindingsTransformer::evalZ(const double t) {
+ModelTwoWindingsTransformer::evalZ(const double t, bool deactivateRootFunctions) {
   int offsetRoot = 0;
   ModelCurrentLimits::state_t currentLimitState;
 
-  if (currentLimits1_) {
-    currentLimitState = currentLimits1_->evalZ(id(), t, &g_[offsetRoot], currentLimitsDesactivate_, modelType_, network_);
+  if (currentLimits1_ && !deactivateRootFunctions) {
+    currentLimitState = currentLimits1_->evalZ(id(), t, &g_[offsetRoot], currentLimitsDesactivate_, modelType_, network_, deactivateRootFunctions);
     offsetRoot += currentLimits1_->sizeG();
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
       z_[connectionStateNum_] = OPEN;
   }
 
-  if (currentLimits2_) {
-    currentLimitState = currentLimits2_->evalZ(id(), t, &g_[offsetRoot], currentLimitsDesactivate_, modelType_, network_);
+  if (currentLimits2_ && !deactivateRootFunctions) {
+    currentLimitState = currentLimits2_->evalZ(id(), t, &g_[offsetRoot], currentLimitsDesactivate_, modelType_, network_, deactivateRootFunctions);
     offsetRoot += currentLimits2_->sizeG();
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
       z_[connectionStateNum_] = OPEN;
   }
 
-  if (modelRatioChanger_ && modelBusMonitored_) {
+  if (modelRatioChanger_ && modelBusMonitored_ && !deactivateRootFunctions) {
     modelRatioChanger_->evalZ(t, &(g_[offsetRoot]), disableInternalTapChanger_, modelBusMonitored_->getSwitchOff(), tapChangerLocked_,
-        getConnectionState() == CLOSED, network_);
+        getConnectionState() == CLOSED, network_, deactivateRootFunctions);
     offsetRoot += modelRatioChanger_->sizeG();
   }
 
-  if (modelPhaseChanger_) {
+  if (modelPhaseChanger_ && !deactivateRootFunctions) {
     const double ur1Val = ur1();
     const double ui1Val = ui1();
     const double ur2Val = ur2();
@@ -1177,7 +1178,8 @@ ModelTwoWindingsTransformer::evalZ(const double t) {
     const double pSide1 = P1(ur1Val, ui1Val, ur2Val, ui2Val);
     const double pSide2 = P2(ur1Val, ui1Val, ur2Val, ui2Val);
     const bool P1SupP2 = (pSide1 > pSide2);
-    modelPhaseChanger_->evalZ(t, &g_[offsetRoot], disableInternalTapChanger_, P1SupP2, tapChangerLocked_, getConnectionState() == CLOSED, network_);
+    modelPhaseChanger_->evalZ(t, &g_[offsetRoot], disableInternalTapChanger_, P1SupP2,
+      tapChangerLocked_, getConnectionState() == CLOSED, network_, deactivateRootFunctions);
   }
 
   switch (knownBus_) {
@@ -1433,6 +1435,9 @@ ModelTwoWindingsTransformer::P2(const double ur1, const double ui1, const double
 
 void
 ModelTwoWindingsTransformer::evalG(const double t) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer("ModelNetwork::ModelTwoWindingsTransformer::evalG");
+#endif
   int offset = 0;
   double ur1Val = 0.;
   double ui1Val = 0.;

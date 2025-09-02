@@ -166,7 +166,7 @@ class ModelDanglingLine : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::evalZ()
    */
-  NetworkComponent::StateChange_t evalZ(double t) override;
+  NetworkComponent::StateChange_t evalZ(double t, bool deactivateRootFunctions) override;
 
   /**
    * @brief evaluation G

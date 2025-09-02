@@ -24,6 +24,9 @@
 #include "PARParametersSet.h"
 
 #include "DYNModelDanglingLine.h"
+
+#include <DYNTimer.h>
+
 #include "DYNModelConstants.h"
 #include "DYNModelBus.h"
 #include "DYNModelCurrentLimits.h"
@@ -258,6 +261,9 @@ ModelDanglingLine::setFequations(std::map<int, std::string>& fEquationIndex) {
 
 void
 ModelDanglingLine::evalG(const double t) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer("ModelNetwork::ModelDanglingLine::evalG");
+#endif
   if (currentLimits_) {
     constexpr int offset = 0;
     currentLimits_->evalG(t, i1(), currentLimitsDesactivate_, &g_[offset]);
@@ -676,10 +682,10 @@ ModelDanglingLine::defineElements(std::vector<Element> &elements, std::map<std::
 }
 
 NetworkComponent::StateChange_t
-ModelDanglingLine::evalZ(const double t) {
-  if (currentLimits_) {
+ModelDanglingLine::evalZ(const double t, bool deactivateRootFunctions) {
+  if (currentLimits_ && !deactivateRootFunctions) {
     ModelCurrentLimits::state_t currentLimitState;
-    currentLimitState = currentLimits_->evalZ(id(), t, &g_[0], currentLimitsDesactivate_, modelType_, network_);
+    currentLimitState = currentLimits_->evalZ(id(), t, &g_[0], currentLimitsDesactivate_, modelType_, network_, deactivateRootFunctions);
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
       z_[0] = OPEN;
   }
