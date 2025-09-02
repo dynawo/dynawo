@@ -12,15 +12,15 @@ set(SIM_VERSION_STRING ${DYNAWO_VERSION_STRING})
 set(SIM_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
 set(RTIO_SOURCES
-      DYNZmqInput.cpp
-      DYNZmqOutput.cpp
+      DYNZmqInputChannel.cpp
+      DYNZmqOutputChannel.cpp
       )
 
 set(RTIO_INCLUDE_HEADERS
-      DYNInputInterface.h
-      DYNOutputInterface.h
-      DYNZmqInput.h
-      DYNZmqOutput.h
+      DYNInputChannel.h
+      DYNOutputChannel.h
+      DYNZmqInputChannel.h
+      DYNZmqOutputChannel.h
       )
 
 add_library(dynawo_RTIO SHARED ${RTIO_SOURCES})

@@ -27,7 +27,7 @@
 #include "DYNRTOutputCommon.h"
 #include "DYNActionBuffer.h"
 #include "DYNClock.h"
-#include "DYNOutputInterface.h"
+#include "DYNOutputChannel.h"
 #include "CRVCurvesCollection.h"
 #include "TLTimeline.h"
 #include "CSTRConstraintsCollection.h"
@@ -42,11 +42,11 @@ class OutputDispatcher {
 
   ~OutputDispatcher();
 
-  void addCurvesPublisher(std::shared_ptr<OutputInterface>& publisher, const std::string formatStr);
+  void addCurvesPublisher(std::shared_ptr<OutputChannel>& publisher, const std::string formatStr);
 
-  void addTimelinePublisher(std::shared_ptr<OutputInterface>& publisher, const std::string formatStr);
+  void addTimelinePublisher(std::shared_ptr<OutputChannel>& publisher, const std::string formatStr);
 
-  void addConstraintsPublisher(std::shared_ptr<OutputInterface>& publisher, const std::string formatStr);
+  void addConstraintsPublisher(std::shared_ptr<OutputChannel>& publisher, const std::string formatStr);
 
   void initPublishCurves(std::shared_ptr<curves::CurvesCollection>& curvesCollection);
 
@@ -80,9 +80,9 @@ class OutputDispatcher {
  private:
   // std::shared_ptr<ActionBuffer> actionBuffer_;
   // std::shared_ptr<Clock> clock_;
-  std::map<CurvesOutputFormat, std::vector<std::shared_ptr<OutputInterface> > > curvesPublishers_;
-  std::map<TimelineOutputFormat, std::vector<std::shared_ptr<OutputInterface> > > timelinePublishers_;
-  std::map<ConstraintsOutputFormat, std::vector<std::shared_ptr<OutputInterface> > > constraintsPublishers_;
+  std::map<CurvesOutputFormat, std::vector<std::shared_ptr<OutputChannel> > > curvesPublishers_;
+  std::map<TimelineOutputFormat, std::vector<std::shared_ptr<OutputChannel> > > timelinePublishers_;
+  std::map<ConstraintsOutputFormat, std::vector<std::shared_ptr<OutputChannel> > > constraintsPublishers_;
 
   std::vector<std::uint8_t> curvesValues_;  ///< curves values buffer for BYTES export
 

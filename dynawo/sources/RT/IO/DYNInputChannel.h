@@ -12,13 +12,13 @@
 //
 
 /**
- * @file  DYNInputInterface.h
+ * @file  DYNInputChannel.h
  *
  * @brief Input interface header
  *
  */
-#ifndef RT_IO_DYNINPUTINTERFACE_H
-#define RT_IO_DYNINPUTINTERFACE_H
+#ifndef RT_IO_DYNINPUTCHANNEL_H_
+#define RT_IO_DYNINPUTCHANNEL_H_
 
 #include <memory>
 #include <functional>
@@ -28,20 +28,17 @@
 namespace DYN {
 
 /**
- * @class  InputInterface
+ * @class  InputChannel
  *
- * Interface interface for real-time simulation inputs
+ * Channel interface for real-time simulation inputs
  *
  */
-class InputInterface {
+class InputChannel {
  public:
-
-
-public:
-  InputInterface(std::string id, MessageFilter supportedMessages) {
+  InputChannel(std::string id, MessageFilter supportedMessages) {
     id_ = id;
     supportedMessages_ = supportedMessages;
-  };
+  }
 
   virtual void startReceiving(const std::function<void(std::shared_ptr<InputMessage>)>& callback, bool useThread) = 0;
 
@@ -51,11 +48,11 @@ public:
     return (static_cast<int>(supportedMessages_) & static_cast<int>(value)) != 0;
   }
 
-protected:
+ protected:
   std::string id_;
   MessageFilter supportedMessages_;
 };
 
 }  // end of namespace DYN
 
-#endif  // RT_IO_DYNINPUTINTERFACE_H
+#endif  // RT_IO_DYNINPUTCHANNEL_H_
