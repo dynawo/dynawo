@@ -14,7 +14,7 @@
 /**
  * @file  DYNOutputChannel.h
  *
- * @brief Output interface header
+ * @brief Output channel header
  *
  */
 #ifndef RT_IO_DYNOUTPUTCHANNEL_H_
@@ -29,7 +29,7 @@ namespace DYN {
 /**
  * @class  OutputChannel
  *
- * Channel interface for real-time simulation outputs
+ * Channel for real-time simulation outputs
  *
  */
 class OutputChannel {

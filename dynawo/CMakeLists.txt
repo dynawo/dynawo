@@ -18,6 +18,9 @@ endif()
 option(BUILD_TESTS "Choose to build the unit tests")
 option(BUILD_TESTS_COVERAGE "Choose to build tests coverage")
 
+# IO interfaces for interactive dynawo
+option(USE_ZMQPP "Link ZMQPP library" OFF)
+
 # Add custom cmake modules to the path
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
@@ -278,7 +281,17 @@ set(DYNAWO_USE_LIBXML2 "Y")
 find_package(LibXml2 "2.9" REQUIRED)
 find_package(LibIIDM "1.5.1" REQUIRED PATHS ${LIBIIDM_HOME})
 
-# # Experiment connectors
+# Interactive mode interfaces
+if(USE_ZMQPP)
+    find_package(ZMQPP QUIET)
+    if(ZMQPP_FOUND)
+        add_definitions(-DUSE_ZMQPP)
+    else()
+        message("USE_ZMQPP not found. Disabling support.")
+        set(USE_ZMQPP OFF)
+    endif()
+endif()
+
 # find_package(websocketpp REQUIRED)
 
 if(MSVC)
