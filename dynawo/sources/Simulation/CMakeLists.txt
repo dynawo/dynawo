@@ -15,16 +15,12 @@ set(SIM_SOURCES
       DYNSimulation.cpp
       DYNSimulationRT.cpp
       DYNSimulationLauncher.cpp
-      DYNEventSubscriber.cpp
-      DYNZmqPublisher.cpp
       )
 
 set(SIM_INCLUDE_HEADERS
       DYNSimulation.h
       DYNSimulationRT.h
       DYNSimulationLauncher.h
-      DYNEventSubscriber.h
-      DYNZmqPublisher.h
       )
 
 add_library(dynawo_Simulation SHARED ${SIM_SOURCES})
@@ -36,7 +32,6 @@ target_include_directories(dynawo_Simulation
     $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
   )
 
-  find_package(ZMQPP REQUIRED)
 
   target_link_libraries(dynawo_Simulation
   PUBLIC
@@ -61,7 +56,6 @@ target_include_directories(dynawo_Simulation
     dynawo_RTIO
     Boost::filesystem
     Boost::serialization
-    ${ZMQPP_LIBRARIES}
   )
 
 set_target_properties(dynawo_Simulation PROPERTIES VERSION ${SIM_VERSION_STRING}
@@ -90,7 +84,6 @@ target_include_directories(dynawo_SimulationCommon
   INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
-    ${ZMQPP_INCLUDE_DIRS}
   )
 
 target_link_libraries(dynawo_SimulationCommon

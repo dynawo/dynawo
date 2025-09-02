@@ -31,7 +31,7 @@
                 <dyn:appender tag="" file="dynawaltz.log" lvlFilter="DEBUG"/>
             </dyn:logs>
         </dyn:outputs>
-        <dyn:interactiveSettings timeStep="1">
+        <dyn:interactiveSettings couplingTimeStep="1">
             <!-- <dyn:clock type="INTERNAL" speedUp="1"/> -->
             <dyn:clock type="EXTERNAL" triggerChannel="zmq_input"/>
             <dyn:channels>
