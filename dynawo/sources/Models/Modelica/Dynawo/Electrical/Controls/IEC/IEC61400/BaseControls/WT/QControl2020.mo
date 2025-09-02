@@ -115,9 +115,9 @@ equation
     Line(points = {{282, 100}, {310, 100}}, color = {0, 0, 127}));
   connect(gain7.y, iqvHookPu) annotation(
     Line(points = {{-59, -180}, {70, -180}, {70, -140}, {310, -140}}, color = {0, 0, 127}));
-  connect(max.y, division.u2) annotation(
+  connect(max1.y, division.u2) annotation(
     Line(points = {{2, -40}, {20, -40}, {20, 174}, {38, 174}}, color = {0, 0, 127}));
-  connect(max.y, division1.u2) annotation(
+  connect(max1.y, division1.u2) annotation(
     Line(points = {{2, -40}, {20, -40}, {20, 134}, {38, 134}}, color = {0, 0, 127}));
   connect(QWTMaxPu, division.u1) annotation(
     Line(points = {{-320, 240}, {-280, 240}, {-280, 200}, {20, 200}, {20, 186}, {38, 186}}, color = {0, 0, 127}));
@@ -157,7 +157,7 @@ equation
     Line(points = {{-320, -60}, {-280, -60}, {-280, -100}, {-222, -100}}, color = {0, 0, 127}));
   connect(UWTCFiltPu, vDrop.UPu) annotation(
     Line(points = {{-320, -60}, {-200, -60}, {-200, -32}, {-182, -32}}, color = {0, 0, 127}));
-  connect(UWTCFiltPu, max.u1) annotation(
+  connect(UWTCFiltPu, max1.u1) annotation(
     Line(points = {{-320, -60}, {-100, -60}, {-100, -34}, {-22, -34}}, color = {0, 0, 127}));
   connect(UWTCFiltPu, derivative.u) annotation(
     Line(points = {{-320, -60}, {-280, -60}, {-280, -180}, {-222, -180}}, color = {0, 0, 127}));

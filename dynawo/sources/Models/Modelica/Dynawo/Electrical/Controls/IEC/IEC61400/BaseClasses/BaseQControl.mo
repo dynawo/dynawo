@@ -126,7 +126,7 @@ partial model BaseQControl "Reactive power control base module for wind turbines
     Placement(visible = true, transformation(origin = {150, 260}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const5(k = 0.01) annotation(
     Placement(visible = true, transformation(origin = {-70, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Max max annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Max2 max1 annotation(
     Placement(visible = true, transformation(origin = {-10, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFirstOrderFreeze absLimRateLimFirstOrderFreeze(DyMax = 999, UseLimits = true, Y0 = XWT0Pu, YMax = 999, tI = tQord) annotation(
     Placement(visible = true, transformation(origin = {-170, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -184,7 +184,7 @@ equation
     Line(points = {{-59, -180}, {30, -180}, {30, -194}, {38, -194}}, color = {0, 0, 127}));
   connect(deadZone.y, gain7.u) annotation(
     Line(points = {{-139, -180}, {-82, -180}}, color = {0, 0, 127}));
-  connect(const5.y, max.u2) annotation(
+  connect(const5.y, max1.u2) annotation(
     Line(points = {{-59, -60}, {-40, -60}, {-40, -46}, {-22, -46}}, color = {0, 0, 127}));
   connect(xWTRefPu, switch2.u[1]) annotation(
     Line(points = {{-320, 80}, {-280, 80}, {-280, 82}, {-260, 82}}, color = {0, 0, 127}));
@@ -240,7 +240,7 @@ equation
     Line(points = {{250, 238}, {250, 103}, {260, 103}}, color = {0, 0, 127}));
   connect(gain3.y, switch4.u[4]) annotation(
     Line(points = {{250, 238}, {250, 97}, {260, 97}}, color = {0, 0, 127}));
-  connect(max.y, division2.u2) annotation(
+  connect(max1.y, division2.u2) annotation(
     Line(points = {{2, -40}, {20, -40}, {20, 94}, {38, 94}}, color = {0, 0, 127}));
   connect(absLimRateLimFirstOrderFreeze.y, division2.u1) annotation(
     Line(points = {{-158, 80}, {-20, 80}, {-20, 106}, {38, 106}}, color = {0, 0, 127}));
