@@ -51,12 +51,12 @@ InteractiveSettingsEntry::getStreamsEntry() const {
 }
 
 void
-InteractiveSettingsEntry::setTimeStep(const double timeStep) {
-  timeStep_ = timeStep;
+InteractiveSettingsEntry::setCouplingTimeStep(const double couplingTimeStep) {
+  couplingTimeStep_ = couplingTimeStep;
 }
 
 double
-InteractiveSettingsEntry::getTimeStep() const {
-  return timeStep_;
+InteractiveSettingsEntry::getCouplingTimeStep() const {
+  return couplingTimeStep_;
 }
 }  // namespace job
