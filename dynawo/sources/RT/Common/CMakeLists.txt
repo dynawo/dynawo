@@ -24,9 +24,5 @@ target_include_directories(dynawo_RTCommon
     $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
   )
 
-
-set_target_properties(dynawo_RTCommon PROPERTIES VERSION ${SIM_VERSION_STRING}
-                                                 SOVERSION ${SIM_VERSION_MAJOR})
-
 install(TARGETS dynawo_RTCommon EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
 install(FILES ${RTCOMMON_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})

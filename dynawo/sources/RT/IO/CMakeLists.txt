@@ -41,7 +41,7 @@ target_link_libraries(dynawo_RTIO
 )
 
 if (USE_ZMQPP)
-      target_link_libraries(dynawo_RTIO PRIVATE ZMQPP::ZMQPP)
+      target_link_libraries(dynawo_RTIO PUBLIC ZMQPP::ZMQPP)
 endif()
 
 target_include_directories(dynawo_RTIO SYSTEM INTERFACE
