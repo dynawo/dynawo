@@ -10,7 +10,6 @@
 
 add_subdirectory(BaseControls B)
 add_subdirectory(Converters C)
-add_subdirectory(EpriGFM E)
 add_subdirectory(Plants P)
 
 set(MODEL_FILES

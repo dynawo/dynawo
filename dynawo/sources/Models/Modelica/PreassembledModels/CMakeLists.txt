@@ -127,7 +127,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousThreeWindingsProportionalRegulations.xml
   GenericAutomaton.xml
   #GridFollowing.xml
-  GridFormingEpri.xml
+  #GridFormingEpri.xml
   GridFormingVirtualSynchronousMachine.xml
   #GridFormingConverterDroopControl.xml
   #GridFormingConverterMatchingControl.xml

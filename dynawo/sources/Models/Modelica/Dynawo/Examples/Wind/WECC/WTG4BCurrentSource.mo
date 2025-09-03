@@ -190,20 +190,12 @@ equation
   connect(QRefPu.y, WTG4B.QRefPu) annotation(
     Line(points = {{79, 0}, {42, 0}}, color = {0, 0, 127}));
   connect(PRefPu.y, WTG4B.PRefPu) annotation(
-<<<<<<< HEAD
     Line(points = {{79, -40}, {60, -40}, {60, -12}, {42, -12}}, color = {0, 0, 127}));
   connect(URefPu.y, WTG4B.URefPu) annotation(
     Line(points = {{79, 80}, {20, 80}, {20, 22}}, color = {0, 0, 127}));
   connect(PFaRef.y, WTG4B.PFaRef) annotation(
     Line(points = {{79, -80}, {20, -80}, {20, -22}}, color = {0, 0, 127}));
 
-=======
-    Line(points = {{69, -40}, {60, -40}, {60, -12}, {42, -12}}, color = {0, 0, 127}));
-  connect(PFaRef.y, WTG4B.PFaRef) annotation(
-    Line(points = {{70, -80}, {20, -80}, {20, -22}}, color = {0, 0, 127}));
-  connect(step.y, WTG4B.URefPu) annotation(
-    Line(points = {{50, 82}, {20, 82}, {20, 22}}, color = {0, 0, 127}));
->>>>>>> 923c5d00429 (#1253 : Initial commit)
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 20, Tolerance = 1e-05, Interval = 0.001),

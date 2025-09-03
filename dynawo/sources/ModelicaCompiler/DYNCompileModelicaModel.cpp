@@ -439,13 +439,8 @@ compileLib(const string& modelName, const string& compilationDir) {
 
   string compileLibCommand = "cmake -B" + compilationDir + " -H" + compilationDir + " -C" + absolute("PreloadCache.cmake", scriptsDir)
 #if __linux__
-<<<<<<< HEAD
                            + " -DMODEL_NAME=" + modelName + " -DCMAKE_SKIP_BUILD_RPATH=True && { cmake --build " + compilationDir + " || cmake --build "
                             + compilationDir + " > /dev/null; }";
-=======
-  + " -DMODEL_NAME=" + modelName
-  + " -DCMAKE_SKIP_BUILD_RPATH=True && { cmake --build " + compilationDir + " || cmake --build " + compilationDir + " > /dev/null; }";
->>>>>>> 923c5d00429 (#1253 : Initial commit)
 #else
   + " -DMODEL_NAME=" + modelName + " && cmake --build " + compilationDir;
 #endif
