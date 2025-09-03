@@ -20,6 +20,7 @@
 #include <cmath>
 #include <vector>
 #include <cassert>
+#include <iomanip>
 
 #include "PARParametersSet.h"
 
@@ -1975,4 +1976,25 @@ void
 ModelLine::defineNonGenericParameters(std::vector<ParameterModeler>& /*parameters*/) {
   /* no non generic parameter */
 }
+
+void
+ModelLine::printInternalParameters(std::ofstream& fstream) const {
+  std::string paramName = id() + "_" + "admittance";
+  fstream << std::setw(50) << std::left << paramName << std::right << " =" << std::setw(15) << admittance_ << std::endl;
+  paramName = id() + "_" + "lossAngle";
+  fstream << std::setw(50) << std::left << paramName << std::right << " =" << std::setw(15) << lossAngle_ << std::endl;
+  paramName = id() + "_" + "suscept1";
+  fstream << std::setw(50) << std::left << paramName << std::right << " =" << std::setw(15) << suscept1_ << std::endl;
+  paramName = id() + "_" + "suscept2";
+  fstream << std::setw(50) << std::left << paramName << std::right << " =" << std::setw(15) << suscept2_ << std::endl;
+  paramName = id() + "_" + "conduct1";
+  fstream << std::setw(50) << std::left << paramName << std::right << " =" << std::setw(15) << conduct1_ << std::endl;
+  paramName = id() + "_" + "conduct2";
+  fstream << std::setw(50) << std::left << paramName << std::right << " =" << std::setw(15) << conduct2_ << std::endl;
+  paramName = id() + "_" + "resistance";
+  fstream << std::setw(50) << std::left << paramName << std::right << " =" << std::setw(15) << resistance_ << std::endl;
+  paramName = id() + "_" + "reactance";
+  fstream << std::setw(50) << std::left << paramName << std::right << " =" << std::setw(15) << reactance_ << std::endl;
+}
+
 }  // namespace DYN
