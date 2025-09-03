@@ -40,10 +40,14 @@ model TransformerVariableTapIControlled_INIT
   Dynawo.Electrical.Controls.Transformers.TapChangerWithTransformer_INIT tapChangerWithTransformer_INIT(UDeadBand = UDeadBand, UTarget = UTarget, regulating0 = regulating0)  annotation(
     Placement(visible = true, transformation(origin = {30, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  flow Dynawo.Connectors.ComplexCurrentPuConnector i10Pu "Start value of complex current at terminal 1 in pu (base U1Nom, SnRef) (receptor convention)";
-  flow Dynawo.Connectors.ComplexCurrentPuConnector i20Pu "Start value of complex current at terminal 2 in pu (base U2Nom, SnRef) (receptor convention)";
-  Dynawo.Connectors.ComplexVoltagePuConnector u10Pu "Start value of complex voltage at terminal 1 in pu (base U1Nom)";
-  Dynawo.Connectors.ComplexVoltagePuConnector u20Pu "Start value of complex voltage at terminal 2 in pu (base U2Nom)";
+  // Terminals for init connections
+  Dynawo.Connectors.ACPower terminal10 "Connector on side 1 at initialization";
+  Dynawo.Connectors.ACPower terminal20 "Connector on side 2 at initialization";
+
+  Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base U1Nom, SnRef) (receptor convention)";
+  Types.ComplexCurrentPu i20Pu "Start value of complex current at terminal 2 in pu (base U2Nom, SnRef) (receptor convention)";
+  Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 in pu (base U1Nom)";
+  Types.ComplexVoltagePu u20Pu "Start value of complex voltage at terminal 2 in pu (base U2Nom)";
 
   Boolean increaseTapToIncreaseValue "Whether increasing the tap will increase the monitored value";
   Types.ActivePowerPu P10Pu "Start value of active power at terminal 1 in pu (base SnRef) (receptor convention)";
@@ -65,6 +69,8 @@ model TransformerVariableTapIControlled_INIT
   State state0 "Initial state";
 
 equation
+  connect(terminal10, transformerVariableTapI_INIT.terminal10);
+  connect(terminal20, transformerVariableTapI_INIT.terminal20);
   i10Pu = transformerVariableTapI_INIT.i10Pu;
   i20Pu = transformerVariableTapI_INIT.i20Pu;
   u10Pu = transformerVariableTapI_INIT.u10Pu;
