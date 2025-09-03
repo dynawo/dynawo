@@ -80,6 +80,9 @@ JsonExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& const
         case ConstraintData::USupUmax:
           item.put("kind", "USupUmax");
           break;
+        case ConstraintData::FictLim:
+          item.put("kind", "Fictitious");
+          break;
         case ConstraintData::Undefined:
           break;
       }
