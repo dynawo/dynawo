@@ -107,9 +107,6 @@ model EpriGFM "EPRI Grid Forming model"
   Dialog(tab = "Initial"));
 
 equation
-  line.switchOffSignal1.value = injectorURI.switchOffSignal1.value;
-  line.switchOffSignal2.value = injectorURI.switchOffSignal2.value;
-
   connect(measurements.terminal2, terminal) annotation(
     Line(points = {{459, 110}, {502, 110}}, color = {0, 0, 255}));
   connect(line.terminal2, measurements.terminal1) annotation(

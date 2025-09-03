@@ -87,9 +87,6 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
   final parameter Types.VoltageModulePu URef0Pu = if VCompFlag == true then UInj0Pu else (U0Pu - Kc * Q0Pu * SystemBase.SnRef / SNom) "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
 
 equation
-  line.switchOffSignal1.value = injector.switchOffSignal1.value;
-  line.switchOffSignal2.value = injector.switchOffSignal2.value;
-
   connect(wecc_wtgt.omegaGPu, wecc_wtgq.omegaGPu) annotation(
     Line(points = {{116, -54}, {116, -48}, {180, -48}, {180, -84}, {-53, -84}, {-53, -65}, {-49, -65}, {-49, -62}}, color = {0, 0, 127}));
   connect(wecc_repc.PInjRefPu, wecc_wtgq.PRef0Pu) annotation(

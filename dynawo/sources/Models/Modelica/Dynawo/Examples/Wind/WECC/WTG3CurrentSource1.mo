@@ -64,6 +64,9 @@ equation
   WTG3.injector.switchOffSignal1.value = false;
   WTG3.injector.switchOffSignal2.value = false;
   WTG3.injector.switchOffSignal3.value = false;
+  WTG3.line.switchOffSignal1.value = false;
+  WTG3.line.switchOffSignal2.value = false;
+
   connect(line.terminal2, WTG3.terminal) annotation(
     Line(points = {{-20, 0}, {0, 0}, {0, 0}, {0, 0}}, color = {0, 0, 255}));
   connect(infiniteBus.terminal, line.terminal1) annotation(

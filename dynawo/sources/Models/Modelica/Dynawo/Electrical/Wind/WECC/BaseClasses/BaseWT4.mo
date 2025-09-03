@@ -54,9 +54,6 @@ partial model BaseWT4 "Partial base model for the WECC Wind Turbine models inclu
   parameter Types.Angle UPhaseInj0 "Start value of voltage angle at injector";
 
 equation
-  line.switchOffSignal1.value = injector.switchOffSignal1.value;
-  line.switchOffSignal2.value = injector.switchOffSignal2.value;
-
   connect(PFaRef, wecc_reec.PFaRef) annotation(
     Line(points = {{-79, 70}, {-79, 11}}, color = {0, 0, 127}));
   connect(wecc_reec.iqCmdPu, wecc_regc.iqCmdPu) annotation(

@@ -179,6 +179,8 @@ equation
   BESS.injector.switchOffSignal1.value = false;
   BESS.injector.switchOffSignal2.value = false;
   BESS.injector.switchOffSignal3.value = false;
+  BESS.line.switchOffSignal1.value = false;
+  BESS.line.switchOffSignal2.value = false;
 
   connect(URefPu.y, BESS.URefPu) annotation(
     Line(points = {{80, 80}, {20, 80}, {20, 22}}, color = {0, 0, 127}));

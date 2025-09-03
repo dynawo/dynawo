@@ -21,4 +21,6 @@
   <variable type="discrete" id="injector.switchOffSignal1.value" defaultValue="false"/>
   <variable type="discrete" id="injector.switchOffSignal2.value" defaultValue="false"/>
   <variable type="discrete" id="injector.switchOffSignal3.value" defaultValue="false"/>
+  <variable type="discrete" id="line.switchOffSignal1.value" defaultValue="false"/>
+  <variable type="discrete" id="line.switchOffSignal2.value" defaultValue="false"/>
 </external_variables>

@@ -161,6 +161,8 @@ equation
   PV.injector.switchOffSignal1.value = false;
   PV.injector.switchOffSignal2.value = false;
   PV.injector.switchOffSignal3.value = false;
+  PV.line.switchOffSignal1.value = false;
+  PV.line.switchOffSignal2.value = false;
 
   connect(line.terminal2, PV.terminal) annotation(
     Line(points = {{-20, 0}, {0, 0}, {0, 0}, {0, 0}}, color = {0, 0, 255}));

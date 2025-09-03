@@ -149,6 +149,8 @@ equation
   WT4A.injector.switchOffSignal1.value = false;
   WT4A.injector.switchOffSignal2.value = false;
   WT4A.injector.switchOffSignal3.value = false;
+  WT4A.line.switchOffSignal1.value = false;
+  WT4A.line.switchOffSignal2.value = false;
 
   connect(line.terminal2, WT4A.terminal) annotation(
     Line(points = {{-20, 0}, {0, 0}, {0, 0}, {0, 0}}, color = {0, 0, 255}));

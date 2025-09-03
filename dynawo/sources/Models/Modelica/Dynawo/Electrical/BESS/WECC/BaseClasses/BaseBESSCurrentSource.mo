@@ -62,9 +62,6 @@ partial model BaseBESSCurrentSource "Partial base model for WECC BESS with elect
   parameter Types.Angle UPhaseInj0 "Start value of voltage angle at injector";
 
 equation
-  line.switchOffSignal1.value = injector.switchOffSignal1.value;
-  line.switchOffSignal2.value = injector.switchOffSignal2.value;
-
   connect(reecC.idCmdPu, regcA.idCmdPu) annotation(
     Line(points = {{-69, 6}, {-51, 6}}, color = {0, 0, 127}));
   connect(reecC.iqCmdPu, regcA.iqCmdPu) annotation(
