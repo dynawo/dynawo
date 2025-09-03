@@ -34,6 +34,9 @@ equation
   line1.switchOffSignal2.value = false;
   loadZIP.switchOffSignal1.value = false;
   loadZIP.switchOffSignal2.value = false;
+  GFMDroop.switchOffSignal1.value = false;
+  GFMDroop.switchOffSignal2.value = false;
+  GFMDroop.switchOffSignal3.value = false;
   loadZIP.deltaQ = 0;
   der(loadZIP.QRefPu) = 0;
   loadZIP.PRefPu = 4;

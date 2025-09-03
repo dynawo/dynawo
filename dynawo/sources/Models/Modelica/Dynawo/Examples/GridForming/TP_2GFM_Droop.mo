@@ -33,15 +33,21 @@ equation
   line.switchOffSignal2.value = false;
   line1.switchOffSignal1.value = false;
   line1.switchOffSignal2.value = false;
-  loadZIP.switchOffSignal1.value = false; 
+  loadZIP.switchOffSignal1.value = false;
   loadZIP.switchOffSignal2.value = false;
+  GFMDroop.switchOffSignal1.value = false;
+  GFMDroop.switchOffSignal2.value = false;
+  GFMDroop.switchOffSignal3.value = false;
+  GFMDroop1.switchOffSignal1.value = false;
+  GFMDroop1.switchOffSignal2.value = false;
+  GFMDroop1.switchOffSignal3.value = false;
   loadZIP.deltaQ = 0;
   der(loadZIP.QRefPu) = 0;
   when time >= 2 then
     loadZIP.deltaP = 0;
     loadZIP.PRefPu = 5;
   end when;
-  
+
   connect(line1.terminal2, line.terminal1) annotation(
     Line(points = {{-4, 0}, {6, 0}}, color = {0, 0, 255}));
   connect(line.terminal2, GFMDroop1.terminal) annotation(

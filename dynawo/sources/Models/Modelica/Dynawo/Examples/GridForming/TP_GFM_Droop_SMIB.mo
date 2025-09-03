@@ -28,7 +28,10 @@ model TP_GFM_Droop_SMIB
 equation
   line.switchOffSignal1.value = false;
   line.switchOffSignal2.value = false;
-  
+  GFMDroop.switchOffSignal1.value = false;
+  GFMDroop.switchOffSignal2.value = false;
+  GFMDroop.switchOffSignal3.value = false;
+
  // Load appearance at t=2s
   loadZIP.deltaQ = 0;
   loadZIP.deltaP = 0;
@@ -36,8 +39,8 @@ equation
   der(loadZIP.QRefPu) = 0;
   loadZIP.switchOffSignal1.value = if (time > 2) then true else false;
   loadZIP.switchOffSignal2.value = if (time > 2) then true else false;
-  
- 
+
+
   connect(GFMDroop.terminal, line.terminal1) annotation(
     Line(points = {{16, 0}, {36, 0}}, color = {0, 0, 255}));
   connect(line.terminal2, infiniteBus.terminal) annotation(
