@@ -19,6 +19,7 @@ set(MODEL_FILES
   DynVcGridFormingControlVSM.mo
   GridFollowingControl.mo
   GridFormingControlVSM.mo
+  TP_GridFollowingControl.mo
   )
 
 #

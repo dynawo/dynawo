@@ -13,6 +13,7 @@ set(MODEL_FILES
   package.mo
   package.order
   DynGFMDroop.mo
+  DynGFMDroop_NOFR.mo
   DynGFMDroop.extvar
   DynGFMVSM.mo
   DynGFMVSM.extvar

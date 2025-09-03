@@ -23,6 +23,10 @@ set(MODEL_FILES
   ENTSOE_csGFL.mo
   ENTSOE_DynLine.mo
   ENTSOE_DynVcGFMVSM.mo
+  TP_GFL_SMIB.mo
+  TP_GFM_Droop_SMIB.mo
+  TP_2GFM_Droop.mo
+  TP_2GFM_NOFR.mo
   )
 
 #
