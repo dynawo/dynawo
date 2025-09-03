@@ -26,7 +26,7 @@ model SVarCStandard_INIT "Initialization for standard static var compensator mod
 
   Types.ComplexVoltagePu u0Pu "Start value of complex voltage at injector terminal in pu (base UNom)";
   Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power in pu (base SnRef) (receptor convention)";
-  flow Types.ComplexCurrentPu i0Pu "Start value of complex current at load terminal in pu (base UNom, SnRef) (receptor convention)";
+  Types.ComplexCurrentPu i0Pu "Start value of complex current at load terminal in pu (base UNom, SnRef) (receptor convention)";
 
   Types.PerUnit G0Pu "Start value of the conductance in pu (base SNom)";
   Types.PerUnit B0Pu "Start value of the susceptance in pu (base SNom)";
