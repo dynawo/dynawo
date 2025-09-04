@@ -1310,6 +1310,8 @@ class Factory:
                         self.nb_created_relations = index_additional_relation
                     if "else" in line:
                         index_if +=1
+                    if "fmin" in line:
+                        index_if +=1
             self.add_tmps_for_modes(tmps_to_add, tmps_assignment, tmps_definition, True)
 
     ##
@@ -1629,6 +1631,8 @@ class Factory:
                         eq_body[index] = self.transform_in_relation(line, index_relations[index_relation])
                         index_relation += 1
                     if "else" in line:
+                        index_if +=1
+                    if "fmin" in line:
                         index_if +=1
                     index += 1
             standard_eq_body.extend(eq_body)
@@ -2792,6 +2796,8 @@ class Factory:
                         line = self.transform_in_relation(line, index_relations[index_relation])
                         index_relation+=1
                     if "else" in line:
+                        index_if +=1
+                    if "fmin" in line:
                         index_if +=1
                     standard_body.append(line)
 
