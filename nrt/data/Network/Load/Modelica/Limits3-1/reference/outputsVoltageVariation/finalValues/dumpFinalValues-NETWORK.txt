@@ -81,3 +81,12 @@ transformer_t1st_THT                               =      30.000000
 transformer_tNext_HT                               =      10.000000
 transformer_tNext_THT                              =      10.000000
 transformer_tolV                                   =       0.015000
+ ====== INTERNAL PARAMETERS VALUES ======
+line1_admittance                                   =       0.497519
+line1_lossAngle                                    =      0.0996687
+line1_suscept1                                     =              0
+line1_suscept2                                     =              0
+line1_conduct1                                     =              0
+line1_conduct2                                     =              0
+line1_resistance                                   =            0.2
+line1_reactance                                    =              2
