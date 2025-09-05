@@ -779,7 +779,7 @@ ModelNetwork::initializeStaticData() {
 void
 ModelNetwork::analyseComponents() const {
   // keep the biggest component
-  const vector<shared_ptr<SubNetwork> > subNetworks = busContainer_->getSubNetworks();
+  const vector<shared_ptr<SubNetwork> >& subNetworks = busContainer_->getSubNetworks();
   unsigned int nbMaxNode = 0;
   unsigned int maxIndex = 0;
   for (unsigned int i = 0; i < subNetworks.size(); ++i) {
