@@ -15,6 +15,8 @@ add_subdirectory(BaseClasses B)
 set(MODEL_FILES
   package.mo
   package.order
+  VRDTRI8.mo
+  VRDTRI8_INIT.mo
   VRNordic.mo
   VRNordic.extvar
   VRNordic_INIT.mo
