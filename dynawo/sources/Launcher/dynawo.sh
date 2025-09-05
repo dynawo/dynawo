@@ -98,7 +98,7 @@ jobs_with_curves() {
   set_environment
 
   # launch dynawo
-  "$DYNAWO_INSTALL_DIR"/bin/launcher "$@" || error_exit "Dynawo job failed."
+  "$DYNAWO_INSTALL_DIR"/bin/launcher "$@" || error "Dynawo job failed."
   echo "Generating curves visualization pages"
   curves_visu "$@" || error_exit "Error during curves visualisation page generation"
   echo "End of generating curves visualization pages"

@@ -697,6 +697,7 @@ bool SolverIDA::setupNewAlgRestoration(modeChangeType_t modeChangeType) {
 void
 SolverIDA::reinit() {
   int counter = 0;
+  return;
   modeChangeType_t modeChangeType = model_->getModeChangeType();
   if (modeChangeType == NO_MODE) return;
 

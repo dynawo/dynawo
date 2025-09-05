@@ -1,4 +1,0 @@
-<dynamicModelsArchitecture xmlns="http://www.rte-france.com/dynawo">
-    <blackBoxModel id="IB" lib="InfiniteBus" parFile="fic_PAR.xml" parId="IB" staticId="DOMLOP6-GFM"/>
-    <connect id1="IB" var1="infiniteBus_terminal" id2="NETWORK" var2="DOMLOP61_ACPIN"/>
-</dynamicModelsArchitecture>
