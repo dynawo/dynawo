@@ -41,18 +41,25 @@ model HVRT "High-voltage ride-through protection"
   Modelica.Blocks.Logical.LessEqual lessEqual annotation(
     Placement(transformation(origin = {-70, 20}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant const(k = UOverPu) annotation(
-    Placement(transformation(origin = {-130, 20}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-150, 10}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.Timer timer1 annotation(
     Placement(transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.Greater greater1 annotation(
     Placement(transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant const1(k = tLagAction) annotation(
     Placement(transformation(origin = {50, -40}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Logical.Switch switch1 annotation(
+    Placement(transformation(origin = {-108, 40}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Sources.Constant const2(k = Modelica.Constants.inf) annotation(
+    Placement(transformation(origin = {-150, 72}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Interfaces.BooleanInput componentIsRunning annotation(
+    Placement(transformation(origin = {-160, 40}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-146, 40}, extent = {{-20, -20}, {20, 20}})));
 
 equation
   when lessEqual.y and not (pre(switchOffSignal.value)) then
     Timeline.logEvent1(TimelineKeys.HVRTArming);
-  elsewhen (not lessEqual.y) and pre(timer.entryTime) <> 0 and not (pre(switchOffSignal.value)) then //illegal access to entryTime variable since protected -> to be changed
+  elsewhen (not lessEqual.y) and pre(timer.entryTime) <> 0 and not (pre(switchOffSignal.value)) then
+//illegal access to entryTime variable since protected -> to be changed
     Timeline.logEvent1(TimelineKeys.HVRTDisarming);
   end when;
 
@@ -61,8 +68,6 @@ equation
     Timeline.logEvent1(TimelineKeys.HVRTTripped);
   end when;
 
-  connect(const.y, lessEqual.u1) annotation(
-    Line(points = {{-119, 20}, {-82, 20}}, color = {0, 0, 127}));
   connect(lessEqual.y, timer.u) annotation(
     Line(points = {{-59, 20}, {-43, 20}}, color = {255, 0, 255}));
   connect(timer.y, greater.u1) annotation(
@@ -81,7 +86,15 @@ equation
     Line(points = {{61, -40}, {85, -40}, {85, -8}, {97, -8}}, color = {0, 0, 127}));
   connect(greater1.y, fOCB) annotation(
     Line(points = {{121, 0}, {149, 0}}, color = {255, 0, 255}));
+  connect(switch1.y, lessEqual.u1) annotation(
+    Line(points = {{-97, 40}, {-92, 40}, {-92, 20}, {-82, 20}}, color = {0, 0, 127}));
+  connect(const.y, switch1.u3) annotation(
+    Line(points = {{-139, 10}, {-132, 10}, {-132, 32}, {-120, 32}}, color = {0, 0, 127}));
+  connect(const2.y, switch1.u1) annotation(
+    Line(points = {{-139, 72}, {-130, 72}, {-130, 48}, {-120, 48}}, color = {0, 0, 127}));
+  connect(componentIsRunning, switch1.u2) annotation(
+    Line(points = {{-160, 40}, {-120, 40}}, color = {255, 0, 255}));
 
-annotation(
+  annotation(
     Diagram(coordinateSystem(extent = {{-140, -100}, {140, 100}})));
 end HVRT;
