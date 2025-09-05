@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2025, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="InfBus" lib="InfiniteBusWithVariations" parFile="WT3BCurrentSource2020.par" parId="1"/>
+  <dyn:blackBoxModel id="WT3B" lib="IECWT3BCurrentSource2020" parFile="WT3BCurrentSource2020.par" parId="3"/>
+  <dyn:blackBoxModel id="OmegaRefPu" lib="SetPoint" parFile="WT3BCurrentSource2020.par" parId="4"/>
+  <dyn:blackBoxModel id="PRefPu" lib="Step" parFile="WT3BCurrentSource2020.par" parId="2"/>
+  <dyn:blackBoxModel id="tanPhi" lib="Step" parFile="WT3BCurrentSource2020.par" parId="5"/>
+  <dyn:blackBoxModel id="xRefPu" lib="Step" parFile="WT3BCurrentSource2020.par" parId="6"/>
+  <dyn:connect id1="OmegaRefPu" var1="setPoint_setPoint" id2="WT3B" var2="WT_omegaRefPu"/>
+  <dyn:connect id1="InfBus" var1="infiniteBus_terminal" id2="WT3B" var2="WT_terminal"/>
+  <dyn:connect id1="PRefPu" var1="step_step" id2="WT3B" var2="WT_PWTRefPu"/>
+  <dyn:connect id1="tanPhi" var1="step_step" id2="WT3B" var2="WT_tanPhi"/>
+  <dyn:connect id1="xRefPu" var1="step_step" id2="WT3B" var2="WT_xWTRefPu"/>
+</dyn:dynamicModelsArchitecture>

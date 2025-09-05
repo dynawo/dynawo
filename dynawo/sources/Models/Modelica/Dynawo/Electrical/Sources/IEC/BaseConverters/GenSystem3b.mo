@@ -74,7 +74,7 @@ model GenSystem3b "Type 3B generator system module (IEC N°61400-27-1)"
     Placement(transformation(origin = {-170, 140}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.Timer timer annotation(
     Placement(transformation(origin = {30, 300}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Continuous.Derivative washoutFilter(T = tWo, k = tWo) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.Washout washoutFilter(tW = tWo, U0 = U0Pu) annotation(
     Placement(transformation(origin = {-190, 300}, extent = {{-10, -10}, {10, 10}})));
 
 equation

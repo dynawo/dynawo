@@ -1,0 +1,351 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2025, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="IDA">
+    <par type="INT" name="order" value="1"/>
+    <par type="DOUBLE" name="initStep" value="1e-10"/>
+    <par type="DOUBLE" name="minStep" value="1e-10"/>
+    <par type="DOUBLE" name="minimalAcceptableStep" value="1e-10"/>
+    <par type="DOUBLE" name="maxStep" value="10"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-6"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
+  </set>
+  <set id="1">
+    <par type="DOUBLE" name="infiniteBus_U0Pu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_UEvtPu" value="0.1"/>
+    <par type="DOUBLE" name="infiniteBus_UPhase" value="0"/>
+    <par type="DOUBLE" name="infiniteBus_omega0Pu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_omegaEvtPu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtStart" value="99"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtEnd" value="99"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtStart" value="999"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtEnd" value="999"/>
+  </set>
+  <set id="3">
+    <!-- Nominal -->
+    <par type="DOUBLE" name="WPP_SNom" value="100"/>
+    <par type="DOUBLE" name="WPP_tS" value="1e-4"/>
+    <!-- Electrical -->
+    <par type="DOUBLE" name="WPP_BesPu" value="0"/>
+    <par type="DOUBLE" name="WPP_GesPu" value="0"/>
+    <par type="DOUBLE" name="WPP_ResPu" value="0"/>
+    <par type="DOUBLE" name="WPP_XesPu" value="0.01"/>
+    <!-- Control-->
+    <par type="DOUBLE" name="WPP_DipMaxPu" value="1"/>
+    <par type="DOUBLE" name="WPP_DiqMaxPu" value="100"/>
+    <par type="BOOL" name="WPP_MCrb" value="false"/>
+    <par type="DOUBLE" name="WPP_tG" value="0.01"/>
+    <par type="DOUBLE" name="WPP_tWo" value="0.001"/>
+    <par type="DOUBLE" name="WPP_XEqv" value="10"/>
+    <!-- MeasurementC -->
+    <par type="DOUBLE" name="WPP_DfcMaxPu" value="5"/>
+    <par type="DOUBLE" name="WPP_tfcFilt" value="0.005"/>
+    <par type="DOUBLE" name="WPP_tIcFilt" value="0.005"/>
+    <par type="DOUBLE" name="WPP_tPcFilt" value="0.005"/>
+    <par type="DOUBLE" name="WPP_tQcFilt" value="0.005"/>
+    <par type="DOUBLE" name="WPP_tUcFilt" value="0.005"/>
+    <!-- MeasurementP -->
+    <par type="DOUBLE" name="WPP_DfpMaxPu" value="5"/>
+    <par type="DOUBLE" name="WPP_tfpFilt" value="0.005"/>
+    <par type="DOUBLE" name="WPP_tIpFilt" value="0.005"/>
+    <par type="DOUBLE" name="WPP_tPpFilt" value="0.005"/>
+    <par type="DOUBLE" name="WPP_tQpFilt" value="0.005"/>
+    <par type="DOUBLE" name="WPP_tUpFilt" value="0.005"/>
+    <!-- MeasurementWP -->
+    <par type="DOUBLE" name="WPP_DfMaxPu" value="5"/>
+    <par type="DOUBLE" name="WPP_tfFilt" value="0.05"/>
+    <par type="DOUBLE" name="WPP_tIFilt" value="0.05"/>
+    <par type="DOUBLE" name="WPP_tPFilt" value="0.05"/>
+    <par type="DOUBLE" name="WPP_tQFilt" value="0.05"/>
+    <par type="DOUBLE" name="WPP_tUFilt" value="0.05"/>
+    <!-- PLL -->
+    <par type="DOUBLE" name="WPP_tPll" value="0.02"/>
+    <par type="DOUBLE" name="WPP_UPll1Pu" value="9"/>
+    <par type="DOUBLE" name="WPP_UPll2Pu" value="0.13"/>
+    <!-- PControl -->
+    <par type="DOUBLE" name="WPP_DPMaxPu" value="999"/>
+    <par type="DOUBLE" name="WPP_DPRefMax4abPu" value="0.3"/>
+    <par type="DOUBLE" name="WPP_DPRefMin4abPu" value="-0.3"/>
+    <par type="DOUBLE" name="WPP_KDtd" value="1.5"/>
+    <par type="BOOL" name="WPP_MOmegaTMax" value="true"/>
+    <par type="BOOL" name="WPP_MOmegaTqpi" value="false"/>
+    <par type="BOOL" name="WPP_MpUScale" value="false"/>
+    <par type="DOUBLE" name="WPP_OmegaDtdPu" value="11.3"/>
+    <par type="DOUBLE" name="WPP_OmegaOffsetPu" value="0"/>
+    <par type="DOUBLE" name="WPP_PDtdMaxPu" value="0.15"/>
+    <par type="DOUBLE" name="WPP_tOmegafiltp3" value="0.005"/>
+    <par type="DOUBLE" name="WPP_tOmegaRef" value="0.005"/>
+    <par type="DOUBLE" name="WPP_tPord" value="0.01"/>
+    <par type="DOUBLE" name="WPP_Zeta" value="0.5"/>
+    <!-- Torque PI-->
+    <par type="DOUBLE" name="WPP_DTauMaxPu" value="0.25"/>
+    <par type="DOUBLE" name="WPP_DTauUvrtMaxPu" value="0"/>
+    <par type="DOUBLE" name="WPP_KIp" value="5"/>
+    <par type="DOUBLE" name="WPP_KPp" value="3"/>
+    <par type="BOOL" name="WPP_MPUvrt" value="true"/>
+    <par type="DOUBLE" name="WPP_TauEMinPu" value="0.001"/>
+    <par type="DOUBLE" name="WPP_TauUscalePu" value="1"/>
+    <par type="DOUBLE" name="WPP_tDvs" value="0.05"/>
+    <par type="DOUBLE" name="WPP_UDvsPu" value="0.15"/>
+    <par type="DOUBLE" name="WPP_UpDipPu" value="0.9"/>
+    <!-- CurrentLimiter -->
+    <par type="DOUBLE" name="WPP_IMaxDipPu" value="1.3"/>
+    <par type="DOUBLE" name="WPP_IMaxPu" value="1.3"/>
+    <par type="DOUBLE" name="WPP_Kpqu" value="20"/>
+    <par type="BOOL" name="WPP_MdfsLim" value="false"/>
+    <par type="BOOL" name="WPP_Mqpri" value="true"/>
+    <par type="DOUBLE" name="WPP_UpquMaxPu" value="1.1"/>
+    <par type="DOUBLE" name="WPP_TableIpMaxUwt11" value="0"/>
+    <par type="DOUBLE" name="WPP_TableIpMaxUwt12" value="0"/>
+    <par type="DOUBLE" name="WPP_TableIpMaxUwt21" value="0.1"/>
+    <par type="DOUBLE" name="WPP_TableIpMaxUwt22" value="0"/>
+    <par type="DOUBLE" name="WPP_TableIpMaxUwt31" value="0.15"/>
+    <par type="DOUBLE" name="WPP_TableIpMaxUwt32" value="1"/>
+    <par type="DOUBLE" name="WPP_TableIpMaxUwt41" value="0.9"/>
+    <par type="DOUBLE" name="WPP_TableIpMaxUwt42" value="1"/>
+    <par type="DOUBLE" name="WPP_TableIpMaxUwt51" value="0.91"/>
+    <par type="DOUBLE" name="WPP_TableIpMaxUwt52" value="1.2"/>
+    <par type="DOUBLE" name="WPP_TableIpMaxUwt61" value="1.2"/>
+    <par type="DOUBLE" name="WPP_TableIpMaxUwt62" value="1.2"/>
+    <par type="DOUBLE" name="WPP_TableIpMaxUwt71" value="10"/>
+    <par type="DOUBLE" name="WPP_TableIpMaxUwt72" value="1.2"/>
+    <par type="DOUBLE" name="WPP_TableIqMaxUwt11" value="0"/>
+    <par type="DOUBLE" name="WPP_TableIqMaxUwt12" value="0.1"/>
+    <par type="DOUBLE" name="WPP_TableIqMaxUwt21" value="0.2"/>
+    <par type="DOUBLE" name="WPP_TableIqMaxUwt22" value="0.95"/>
+    <par type="DOUBLE" name="WPP_TableIqMaxUwt31" value="0.2000001"/>
+    <par type="DOUBLE" name="WPP_TableIqMaxUwt32" value="1"/>
+    <par type="DOUBLE" name="WPP_TableIqMaxUwt41" value="0.9"/>
+    <par type="DOUBLE" name="WPP_TableIqMaxUwt42" value="1"/>
+    <par type="DOUBLE" name="WPP_TableIqMaxUwt51" value="0.9000001"/>
+    <par type="DOUBLE" name="WPP_TableIqMaxUwt52" value="0.36"/>
+    <par type="DOUBLE" name="WPP_TableIqMaxUwt61" value="1.1"/>
+    <par type="DOUBLE" name="WPP_TableIqMaxUwt62" value="0.3"/>
+    <par type="DOUBLE" name="WPP_TableIqMaxUwt71" value="10"/>
+    <par type="DOUBLE" name="WPP_TableIqMaxUwt72" value="0.3"/>
+    <par type="DOUBLE" name="WPP_TableIqMaxUwt81" value="20"/>
+    <par type="DOUBLE" name="WPP_TableIqMaxUwt82" value="0.3"/>
+    <!-- QControl -->
+    <par type="DOUBLE" name="WPP_DUdb1Pu" value="-0.1"/>
+    <par type="DOUBLE" name="WPP_DUdb2Pu" value="0.1"/>
+    <par type="DOUBLE" name="WPP_IqH1Pu" value="1.05"/>
+    <par type="DOUBLE" name="WPP_IqMaxPu" value="1.05"/>
+    <par type="DOUBLE" name="WPP_IqMinPu" value="-1.05"/>
+    <par type="DOUBLE" name="WPP_IqPostPu" value="0"/>
+    <par type="DOUBLE" name="WPP_Kiq" value="2"/>
+    <par type="DOUBLE" name="WPP_Kiu" value="2"/>
+    <par type="DOUBLE" name="WPP_Kpq" value="0"/>
+    <par type="DOUBLE" name="WPP_Kpu" value="2"/>
+    <par type="DOUBLE" name="WPP_Kpufrt" value="1e-4"/>
+    <par type="DOUBLE" name="WPP_Kqv" value="2"/>
+    <par type="INT" name="WPP_Mqfrt" value="2"/>
+    <par type="INT" name="WPP_MqG" value="1"/>
+    <par type="DOUBLE" name="WPP_RDropPu" value="0"/>
+    <par type="DOUBLE" name="WPP_tPost" value="0"/>
+    <par type="DOUBLE" name="WPP_tQord" value="1e-4"/>
+    <par type="DOUBLE" name="WPP_tUss" value="30"/>
+    <par type="DOUBLE" name="WPP_UMaxPu" value="2"/>
+    <par type="DOUBLE" name="WPP_UMinPu" value="0"/>
+    <par type="DOUBLE" name="WPP_UqDipPu" value="0.9"/>
+    <par type="DOUBLE" name="WPP_UqRisePu" value="1.1"/>
+    <par type="DOUBLE" name="WPP_URef0Pu" value="0"/>
+    <par type="DOUBLE" name="WPP_XDropPu" value="0"/>
+    <!-- QLimiter -->
+    <par type="BOOL" name="WPP_QlConst" value="false"/>
+    <par type="DOUBLE" name="WPP_QMaxPu" value="0.8"/>
+    <par type="DOUBLE" name="WPP_QMinPu" value="-0.8"/>
+    <par type="DOUBLE" name="WPP_TableQMaxUwtcFilt11" value="-1"/>
+    <par type="DOUBLE" name="WPP_TableQMaxUwtcFilt12" value="0"/>
+    <par type="DOUBLE" name="WPP_TableQMaxUwtcFilt21" value="0"/>
+    <par type="DOUBLE" name="WPP_TableQMaxUwtcFilt22" value="0"/>
+    <par type="DOUBLE" name="WPP_TableQMaxUwtcFilt31" value="0.8"/>
+    <par type="DOUBLE" name="WPP_TableQMaxUwtcFilt32" value="0.33"/>
+    <par type="DOUBLE" name="WPP_TableQMaxUwtcFilt41" value="0.9"/>
+    <par type="DOUBLE" name="WPP_TableQMaxUwtcFilt42" value="0.33"/>
+    <par type="DOUBLE" name="WPP_TableQMaxUwtcFilt51" value="10"/>
+    <par type="DOUBLE" name="WPP_TableQMaxUwtcFilt52" value="0.33"/>
+    <par type="DOUBLE" name="WPP_TableQMaxUwtcFilt61" value="20"/>
+    <par type="DOUBLE" name="WPP_TableQMaxUwtcFilt62" value="0.33"/>
+    <par type="DOUBLE" name="WPP_TableQMinUwtcFilt11" value="0"/>
+    <par type="DOUBLE" name="WPP_TableQMinUwtcFilt12" value="0"/>
+    <par type="DOUBLE" name="WPP_TableQMinUwtcFilt21" value="0.8"/>
+    <par type="DOUBLE" name="WPP_TableQMinUwtcFilt22" value="-0.33"/>
+    <par type="DOUBLE" name="WPP_TableQMinUwtcFilt31" value="0.9"/>
+    <par type="DOUBLE" name="WPP_TableQMinUwtcFilt32" value="-0.33"/>
+    <par type="DOUBLE" name="WPP_TableQMinUwtcFilt41" value="10"/>
+    <par type="DOUBLE" name="WPP_TableQMinUwtcFilt42" value="-0.33"/>
+    <par type="DOUBLE" name="WPP_TableQMaxPwtcFilt11" value="0"/>
+    <par type="DOUBLE" name="WPP_TableQMaxPwtcFilt12" value="0"/>
+    <par type="DOUBLE" name="WPP_TableQMaxPwtcFilt21" value="0.3"/>
+    <par type="DOUBLE" name="WPP_TableQMaxPwtcFilt22" value="0.33"/>
+    <par type="DOUBLE" name="WPP_TableQMaxPwtcFilt31" value="1"/>
+    <par type="DOUBLE" name="WPP_TableQMaxPwtcFilt32" value="0.33"/>
+    <par type="DOUBLE" name="WPP_TableQMaxPwtcFilt41" value="10"/>
+    <par type="DOUBLE" name="WPP_TableQMaxPwtcFilt42" value="0.33"/>
+    <par type="DOUBLE" name="WPP_TableQMinPwtcFilt11" value="0"/>
+    <par type="DOUBLE" name="WPP_TableQMinPwtcFilt12" value="0"/>
+    <par type="DOUBLE" name="WPP_TableQMinPwtcFilt21" value="0.3"/>
+    <par type="DOUBLE" name="WPP_TableQMinPwtcFilt22" value="-0.33"/>
+    <par type="DOUBLE" name="WPP_TableQMinPwtcFilt31" value="1"/>
+    <par type="DOUBLE" name="WPP_TableQMinPwtcFilt32" value="-0.33"/>
+    <par type="DOUBLE" name="WPP_TableQMinPwtcFilt41" value="10"/>
+    <par type="DOUBLE" name="WPP_TableQMinPwtcFilt42" value="-0.33"/>
+    <!-- GridProtection -->
+    <par type="DOUBLE" name="WPP_fOverPu" value="1.02"/>
+    <par type="DOUBLE" name="WPP_fUnderPu" value="0.98"/>
+    <par type="DOUBLE" name="WPP_UOverPu" value="1.2"/>
+    <par type="DOUBLE" name="WPP_UUnderPu" value="0.85"/>
+    <par type="DOUBLE" name="WPP_TableUoverUwtfilt11" value="1.2"/>
+    <par type="DOUBLE" name="WPP_TableUoverUwtfilt12" value="60"/>
+    <par type="DOUBLE" name="WPP_TableUoverUwtfilt21" value="1.2000000001"/>
+    <par type="DOUBLE" name="WPP_TableUoverUwtfilt22" value="0.1"/>
+    <par type="DOUBLE" name="WPP_TableUoverUwtfilt31" value="1.3"/>
+    <par type="DOUBLE" name="WPP_TableUoverUwtfilt32" value="0.1"/>
+    <par type="DOUBLE" name="WPP_TableUoverUwtfilt41" value="10"/>
+    <par type="DOUBLE" name="WPP_TableUoverUwtfilt42" value="0.1"/>
+    <par type="DOUBLE" name="WPP_TableUoverUwtfilt51" value="20"/>
+    <par type="DOUBLE" name="WPP_TableUoverUwtfilt52" value="0.1"/>
+    <par type="DOUBLE" name="WPP_TableUoverUwtfilt61" value="30"/>
+    <par type="DOUBLE" name="WPP_TableUoverUwtfilt62" value="0.1"/>
+    <par type="DOUBLE" name="WPP_TableUoverUwtfilt71" value="40"/>
+    <par type="DOUBLE" name="WPP_TableUoverUwtfilt72" value="0.1"/>
+    <par type="DOUBLE" name="WPP_TableUoverUwtfilt81" value="50"/>
+    <par type="DOUBLE" name="WPP_TableUoverUwtfilt82" value="0.1"/>
+    <par type="DOUBLE" name="WPP_TableUunderUwtfilt11" value="0"/>
+    <par type="DOUBLE" name="WPP_TableUunderUwtfilt12" value="0.15"/>
+    <par type="DOUBLE" name="WPP_TableUunderUwtfilt21" value="0.85"/>
+    <par type="DOUBLE" name="WPP_TableUunderUwtfilt22" value="3"/>
+    <par type="DOUBLE" name="WPP_TableUunderUwtfilt31" value="0.8500000001"/>
+    <par type="DOUBLE" name="WPP_TableUunderUwtfilt32" value="9999"/>
+    <par type="DOUBLE" name="WPP_TableUunderUwtfilt41" value="10"/>
+    <par type="DOUBLE" name="WPP_TableUunderUwtfilt42" value="9999"/>
+    <par type="DOUBLE" name="WPP_TableUunderUwtfilt51" value="20"/>
+    <par type="DOUBLE" name="WPP_TableUunderUwtfilt52" value="9999"/>
+    <par type="DOUBLE" name="WPP_TableUunderUwtfilt61" value="30"/>
+    <par type="DOUBLE" name="WPP_TableUunderUwtfilt62" value="9999"/>
+    <par type="DOUBLE" name="WPP_TableUunderUwtfilt71" value="40"/>
+    <par type="DOUBLE" name="WPP_TableUunderUwtfilt72" value="9999"/>
+    <par type="DOUBLE" name="WPP_Tablefoverfwtfilt11" value="1.02"/>
+    <par type="DOUBLE" name="WPP_Tablefoverfwtfilt12" value="1800"/>
+    <par type="DOUBLE" name="WPP_Tablefoverfwtfilt21" value="1.03"/>
+    <par type="DOUBLE" name="WPP_Tablefoverfwtfilt22" value="1800"/>
+    <par type="DOUBLE" name="WPP_Tablefoverfwtfilt31" value="1.030000001"/>
+    <par type="DOUBLE" name="WPP_Tablefoverfwtfilt32" value="0.1"/>
+    <par type="DOUBLE" name="WPP_Tablefoverfwtfilt41" value="10"/>
+    <par type="DOUBLE" name="WPP_Tablefoverfwtfilt42" value="0.1"/>
+    <par type="DOUBLE" name="WPP_Tablefunderfwtfilt11" value="0.95"/>
+    <par type="DOUBLE" name="WPP_Tablefunderfwtfilt12" value="0.1"/>
+    <par type="DOUBLE" name="WPP_Tablefunderfwtfilt21" value="0.9500000001"/>
+    <par type="DOUBLE" name="WPP_Tablefunderfwtfilt22" value="1800"/>
+    <par type="DOUBLE" name="WPP_Tablefunderfwtfilt31" value="0.98"/>
+    <par type="DOUBLE" name="WPP_Tablefunderfwtfilt32" value="1800"/>
+    <par type="DOUBLE" name="WPP_Tablefunderfwtfilt41" value="10"/>
+    <par type="DOUBLE" name="WPP_Tablefunderfwtfilt42" value="1800"/>
+    <par type="DOUBLE" name="WPP_Tablefunderfwtfilt51" value="20"/>
+    <par type="DOUBLE" name="WPP_Tablefunderfwtfilt52" value="1800"/>
+    <par type="DOUBLE" name="WPP_Tablefunderfwtfilt61" value="30"/>
+    <par type="DOUBLE" name="WPP_Tablefunderfwtfilt62" value="1800"/>
+    <!-- Mechanical -->
+    <par type="DOUBLE" name="WPP_CdrtPu" value="2.344"/>
+    <par type="DOUBLE" name="WPP_Hgen" value="3.395"/>
+    <par type="DOUBLE" name="WPP_Hwtr" value="0.962"/>
+    <par type="DOUBLE" name="WPP_KdrtPu" value="1.378"/>
+    <!-- Aerodynamic -->
+    <par type="DOUBLE" name="WPP_DPOmegaThetaPu" value="0.028"/>
+    <par type="DOUBLE" name="WPP_DPOmega0Pu" value="0.48"/>
+    <par type="DOUBLE" name="WPP_DPThetaPu" value="-0.03"/>
+    <par type="DOUBLE" name="WPP_Theta0" value="0"/>
+    <!-- Pitch angle control -->
+    <par type="DOUBLE" name="WPP_DThetaCMax" value="6"/>
+    <par type="DOUBLE" name="WPP_DThetaCMin" value="-3"/>
+    <par type="DOUBLE" name="WPP_DThetaMax" value="6"/>
+    <par type="DOUBLE" name="WPP_DThetaMin" value="-3"/>
+    <par type="DOUBLE" name="WPP_DThetaOmegaMax" value="6"/>
+    <par type="DOUBLE" name="WPP_DThetaOmegaMin" value="-3"/>
+    <par type="DOUBLE" name="WPP_KIcPu" value="0"/>
+    <par type="DOUBLE" name="WPP_KIomegaPu" value="15"/>
+    <par type="DOUBLE" name="WPP_KPcPu" value="0"/>
+    <par type="DOUBLE" name="WPP_KPomegaPu" value="15"/>
+    <par type="DOUBLE" name="WPP_KPXPu" value="1"/>
+    <par type="DOUBLE" name="WPP_ThetaCMax" value="35"/>
+    <par type="DOUBLE" name="WPP_ThetaCMin" value="0"/>
+    <par type="DOUBLE" name="WPP_ThetaMax" value="35"/>
+    <par type="DOUBLE" name="WPP_ThetaMin" value="0"/>
+    <par type="DOUBLE" name="WPP_ThetaOmegaMax" value="35"/>
+    <par type="DOUBLE" name="WPP_ThetaOmegaMin" value="0"/>
+    <par type="DOUBLE" name="WPP_TTheta" value="0.25"/>
+    <!-- LinearCommunication -->
+    <par type="DOUBLE" name="WPP_tLag" value="0.005"/>
+    <par type="DOUBLE" name="WPP_tLead" value="0.005"/>
+    <!-- PControlWP -->
+    <par type="DOUBLE" name="WPP_DPRefMaxPu" value="1"/>
+    <par type="DOUBLE" name="WPP_DPRefMinPu" value="-1"/>
+    <par type="DOUBLE" name="WPP_DPwpRefMaxPu" value="1"/>
+    <par type="DOUBLE" name="WPP_DPwpRefMinPu" value="-1"/>
+    <par type="DOUBLE" name="WPP_Kiwpp" value="5"/>
+    <par type="DOUBLE" name="WPP_Kpwpp" value="2.25"/>
+    <par type="DOUBLE" name="WPP_KwppRef" value="1.5"/>
+    <par type="DOUBLE" name="WPP_PErrMaxPu" value="1"/>
+    <par type="DOUBLE" name="WPP_PErrMinPu" value="-1"/>
+    <par type="DOUBLE" name="WPP_PKiwppMaxPu" value="1"/>
+    <par type="DOUBLE" name="WPP_PKiwppMinPu" value="-1"/>
+    <par type="DOUBLE" name="WPP_PRefMaxPu" value="1"/>
+    <par type="DOUBLE" name="WPP_PRefMinPu" value="0"/>
+    <!-- QControlWP -->
+    <par type="DOUBLE" name="WPP_DXRefMaxPu" value="10"/>
+    <par type="DOUBLE" name="WPP_DXRefMinPu" value="-10"/>
+    <par type="DOUBLE" name="WPP_Kiwpx" value="10"/>
+    <par type="DOUBLE" name="WPP_Kpwpx" value="0.5"/>
+    <par type="DOUBLE" name="WPP_KwpqRef" value="0"/>
+    <par type="DOUBLE" name="WPP_Kwpqu" value="0"/>
+    <par type="INT" name="WPP_MwpqMode" value="0"/>
+    <par type="DOUBLE" name="WPP_RwpDropPu" value="0"/>
+    <par type="DOUBLE" name="WPP_tUqFilt" value="0.005"/>
+    <par type="DOUBLE" name="WPP_UwpqDipPu" value="0.8"/>
+    <par type="DOUBLE" name="WPP_UwpqRisePu" value="1.2"/>
+    <par type="DOUBLE" name="WPP_XErrMaxPu" value="1"/>
+    <par type="DOUBLE" name="WPP_XErrMinPu" value="-1"/>
+    <par type="DOUBLE" name="WPP_XKiwpxMaxPu" value="1"/>
+    <par type="DOUBLE" name="WPP_XKiwpxMinPu" value="-1"/>
+    <par type="DOUBLE" name="WPP_XRefMaxPu" value="1"/>
+    <par type="DOUBLE" name="WPP_XRefMinPu" value="-1"/>
+    <par type="DOUBLE" name="WPP_XwpDropPu" value="0"/>
+    <!-- Operating Point -->
+    <par type="DOUBLE" name="WPP_P0Pu" value="-0.6"/>
+    <par type="DOUBLE" name="WPP_Q0Pu" value="-0"/>
+    <par type="DOUBLE" name="WPP_U0Pu" value="1"/>
+    <par type="DOUBLE" name="WPP_UPhase0" value="0"/>
+    <par type="DOUBLE" name="WPP_PWTRef0Pu" value="1.1"/>
+    <par type="DOUBLE" name="WPP_PAvailPu" value="0.6"/>
+  </set>
+  <set id="2">
+    <par type="DOUBLE" name="step_Height" value="-0.7"/>
+    <par type="DOUBLE" name="step_tStep" value="99"/>
+    <par type="DOUBLE" name="step_Value0" value="1.1"/>
+  </set>
+  <!-- Set Point -->
+  <set id="4">
+    <par type="DOUBLE" name="setPoint_Value0" value="1"/>
+  </set>
+  <set id="5">
+    <par type="DOUBLE" name="step_Height" value="0"/>
+    <par type="DOUBLE" name="step_tStep" value="999"/>
+    <par type="DOUBLE" name="step_Value0" value="-1"/>
+  </set>
+  <set id="6">
+    <par type="DOUBLE" name="step_Height" value="0.15"/>
+    <par type="DOUBLE" name="step_tStep" value="999"/>
+    <par type="DOUBLE" name="step_Value0" value="0"/>
+  </set>
+</parametersSet>

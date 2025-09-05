@@ -63,9 +63,9 @@ model TorquePi "Sub module for torque control inside active power control module
     Placement(transformation(origin = {-190, 80}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant constDTauUvrtMax(k = DTauUvrtMaxPu) annotation(
     Placement(transformation(origin = {-310, -150}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.Constant constInf(k = Modelica.Constants.inf) annotation(
+  Modelica.Blocks.Sources.Constant constInf(k = 99) annotation(
     Placement(transformation(origin = {-310, -110}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.Constant constInfNeg(k = -1*Modelica.Constants.inf) annotation(
+  Modelica.Blocks.Sources.Constant constInfNeg(k = -99) annotation(
     Placement(transformation(origin = {-270, -210}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.BooleanConstant constMPUvrt(k = MPUvrt) annotation(
     Placement(transformation(origin = {-210, -140}, extent = {{-10, -10}, {10, 10}})));
@@ -117,7 +117,7 @@ model TorquePi "Sub module for torque control inside active power control module
     Placement(transformation(origin = {190, 90}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.MathBoolean.Or OrReset(nu = 2) annotation(
     Placement(transformation(origin = {-230, -20}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze ratelimResetvalue(T = tS*1e-3, UseRateLim = true, Y0 = ratelimResetvalue0) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze ratelimResetvalue(T = tS, UseRateLim = true, Y0 = ratelimResetvalue0) annotation(
     Placement(transformation(origin = {-230, -180}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.Switch switch annotation(
     Placement(transformation(origin = {-270, -140}, extent = {{-10, 10}, {10, -10}})));
