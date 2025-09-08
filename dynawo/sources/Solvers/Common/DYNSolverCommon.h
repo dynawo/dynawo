@@ -28,6 +28,7 @@
 namespace DYN {
 class SparseMatrix;
 class Model;
+class SubModel;
 
 /**
  * @brief SolverCommon static class
@@ -68,6 +69,15 @@ class SolverCommon {
    * @param nbErrors maximum number of errors to be displayed
    */
   static void printLargestErrors(std::vector<std::pair<double, size_t> >& fErr, const Model& model, int nbErrors);
+
+ /**
+  * @brief Print the largest residuals errors
+  *
+  * @param fErr vector containing a pair with the residual function value and the global index of the residual function
+  * @param subModel model currently simulated
+  * @param nbErrors maximum number of errors to be displayed
+  */
+  static void printLargestErrors(std::vector<std::pair<double, size_t> >& fErr, const SubModel& subModel, int nbErrors);
 
   /**
    * @brief Compute the weighted infinity norm of a vector
