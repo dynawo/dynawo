@@ -36,6 +36,7 @@ where [option] can be:
     jobs ([args])              call Dynawo's launcher with given arguments
     jobs-with-curves ([args])  launch Dynawo simulation and open resulting curves in a browser
     jobs-help                  show jobs help
+    update-xml                 update dynawo input files for a new version. See README in sbin/updateXML/content.
     version                    show dynawo version
     help                       show this message"
 
@@ -106,6 +107,10 @@ jobs_with_curves() {
   return ${RETURN_CODE}
 }
 
+update_xml() {
+  $DYNAWO_PYTHON_COMMAND $DYNAWO_HOME/sbin/updateXML/update.py $@
+}
+
 if [ $# -eq 0 ]; then
   echo "$usage"
   exit 1
@@ -128,6 +133,11 @@ while (($#)); do
       echo "Usage: dynawo.sh jobs <jobs-file>"
       echo "       dynawo.sh jobs [launcher-options]"
       jobs --help || error_exit "Dynawo execution failed"
+      break
+      ;;
+    update-xml)
+      shift
+      update_xml "$@" || error_exit "Error during update xml"
       break
       ;;
     version)
