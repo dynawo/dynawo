@@ -2,8 +2,36 @@
 <dyn:curvesInput xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:curve model="ABERSP3_EOL" variable="GFL_Measurements_PFilterPu"/>
   <dyn:curve model="ABERSP3_EOL" variable="GFL_Measurements_QFilterPu"/>
-  <dyn:curve model="QUIMPP3_EOL" variable="GFL_Measurements_PFilterPu"/>
-  <dyn:curve model="QUIMPP3_EOL" variable="GFL_Measurements_QFilterPu"/>
+  <dyn:curve model="CREDIP3_EOL" variable="GFL_Measurements_PFilterPu"/>
+  <dyn:curve model="CREDIP3_EOL" variable="GFL_Measurements_QFilterPu"/>
+    <dyn:curve model="CRUELP4_EOL" variable="GFL_Measurements_PFilterPu"/>
+  <dyn:curve model="CRUELP4_EOL" variable="GFL_Measurements_QFilterPu"/>
+
+  <dyn:curve model="DINANP3_EOL" variable="GFL_Measurements_PFilterPu"/>
+  <dyn:curve model="DINANP3_EOL" variable="GFL_Measurements_QFilterPu"/>
+    <dyn:curve model="GOURIP3_EOL" variable="GFL_Measurements_PFilterPu"/>
+  <dyn:curve model="GOURIP3_EOL" variable="GFL_Measurements_QFilterPu"/>
+      <dyn:curve model="MUR  P3_EOL" variable="GFL_Measurements_PFilterPu"/>
+  <dyn:curve model="MUR  P3_EOL" variable="GFL_Measurements_QFilterPu"/>
+        <dyn:curve model="GUIDEP3_EOL" variable="GFL_Measurements_PFilterPu"/>
+  <dyn:curve model="GUIDEP3_EOL" variable="GFL_Measurements_QFilterPu"/>
+        <dyn:curve model="JOSSEP3_EOL" variable="GFL_Measurements_PFilterPu"/>
+  <dyn:curve model="JOSSEP3_EOL" variable="GFL_Measurements_QFilterPu"/>
+        <dyn:curve model="KERL5P3_EOL" variable="GFL_Measurements_PFilterPu"/>
+  <dyn:curve model="KERL5P3_EOL" variable="GFL_Measurements_QFilterPu"/>
+        <dyn:curve model="LOUDEP3_EOL" variable="GFL_Measurements_PFilterPu"/>
+  <dyn:curve model="LOUDEP3_EOL" variable="GFL_Measurements_QFilterPu"/>
+  <dyn:curve model="LOSCOP3_PV" variable="GFL_Measurements_PFilterPu"/>
+  <dyn:curve model="LOSCOP3_PV" variable="GFL_Measurements_QFilterPu"/>
+        <dyn:curve model="PAIMPP3_EOL" variable="GFL_Measurements_PFilterPu"/>
+  <dyn:curve model="PAIMPP3_EOL" variable="GFL_Measurements_QFilterPu"/>
+        <dyn:curve model="PLOUAP3_EOL" variable="GFL_Measurements_PFilterPu"/>
+  <dyn:curve model="PLOUAP3_EOL" variable="GFL_Measurements_QFilterPu"/>
+  <dyn:curve model="MARTYP6-GFM" variable="GFM_Measurements_PFilterPu"/>
+  <dyn:curve model="MARTYP6-GFM" variable="GFM_Measurements_QFilterPu"/>
   <dyn:curve model="INF_GEN" variable="infiniteBus_PPu"/>
   <dyn:curve model="INF_GEN" variable="infiniteBus_QPu"/>
+    <dyn:curve model="MUR  P3-GFM" variable="GFM_Control_PFilterPu"/>
+  <dyn:curve model="MUR  P3-GFM" variable="GFM_Control_QFilterPu"/>
+
 </dyn:curvesInput>
