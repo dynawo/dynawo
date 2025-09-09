@@ -40,10 +40,13 @@ model IdealTransformerVariableTapPQControlled_INIT
   Dynawo.Electrical.Controls.Transformers.TapChangerWithTransformer_INIT tapChangerWithTransformer_INIT(UDeadBand = UDeadBand, UTarget = UTarget, regulating0 = regulating0)  annotation(
     Placement(visible = true, transformation(origin = {30, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  flow Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base U1Nom, SnRef) (receptor convention)";
-  flow Dynawo.Connectors.ComplexCurrentPuConnector i20Pu "Start value of complex current at terminal 2 in pu (base U2Nom, SnRef) (receptor convention)";
+  // Terminals for init connections
+  Dynawo.Connectors.ACPower terminal20 "Connector on side 2 at initialization";
+
+  Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base U1Nom, SnRef) (receptor convention)";
+  Types.ComplexCurrentPu i20Pu "Start value of complex current at terminal 2 in pu (base U2Nom, SnRef) (receptor convention)";
   Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 in pu (base U1Nom)";
-  Dynawo.Connectors.ComplexVoltagePuConnector u20Pu "Start value of complex voltage at terminal 2 in pu (base U2Nom)";
+  Types.ComplexVoltagePu u20Pu "Start value of complex voltage at terminal 2 in pu (base U2Nom)";
 
   Boolean increaseTapToIncreaseValue "Whether increasing the tap will increase the monitored value";
   Types.PerUnit rTfo0Pu "Start value of transformer ratio";
@@ -68,6 +71,7 @@ model IdealTransformerVariableTapPQControlled_INIT
   parameter Types.Angle U1Phase0 "Start value of voltage angle at terminal 1 in rad";
 
 equation
+  connect(terminal20, idealTransformerVariableTapPQ_INIT.terminal20);
   i10Pu = idealTransformerVariableTapPQ_INIT.i10Pu;
   i20Pu = idealTransformerVariableTapPQ_INIT.i20Pu;
   u10Pu = idealTransformerVariableTapPQ_INIT.u10Pu;
