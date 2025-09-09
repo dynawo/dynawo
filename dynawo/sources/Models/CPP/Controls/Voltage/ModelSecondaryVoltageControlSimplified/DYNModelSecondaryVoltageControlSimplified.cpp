@@ -89,7 +89,7 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
     parameters.push_back(ParameterModeler("P0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbGenerators"));
     parameters.push_back(ParameterModeler("U0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbGenerators"));
     parameters.push_back(ParameterModeler("SNom", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbGenerators"));
-    parameters.push_back(ParameterModeler("XTfoPu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbGenerators"));
+    parameters.push_back(ParameterModeler("XTfoPu", VAR_TYPE_DOUBLE, SHARED_PARAMETER, "*", "nbGenerators"));
   }
 
   void
@@ -131,7 +131,11 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
         xTfoPuName.str(std::string());
         xTfoPuName.clear();
         xTfoPuName << "XTfoPu_" << s;
-        XTfoPu_.push_back(findParameterDynamic(xTfoPuName.str()).getValue<double>());
+        const auto& param = findParameterDynamic(xTfoPuName.str());
+        if (param.hasValue())
+          XTfoPu_.push_back(param.getValue<double>());
+        else
+          XTfoPu_.push_back(0.);
       }
     } catch (const DYN::Error& e) {
     Trace::error() << e.what() << Trace::endline;
@@ -250,7 +254,7 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
       double iSquare0Pu = 0.;
       double QTfo0Pu = 0.;
       double QStator0Pu = 0.;
-      for (unsigned int g = 0; g < nbGenerators_; g++) {
+      for (int g = 0; g < nbGenerators_; g++) {
         iSquare0Pu = (P0Pu_[g] * P0Pu_[g] + Q0Pu_[g] * Q0Pu_[g]) / (U0Pu_[g] * U0Pu_[g]);
         QTfo0Pu = iSquare0Pu * XTfoPu_[g] * SNREF / SNom_[g];
         QStator0Pu = Q0Pu_[g] - QTfo0Pu;
