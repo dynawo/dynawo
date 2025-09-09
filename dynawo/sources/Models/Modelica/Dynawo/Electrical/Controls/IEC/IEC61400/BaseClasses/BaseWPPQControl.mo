@@ -54,10 +54,8 @@ model BaseWPPQControl "Reactive power control base module for wind power plants 
     Placement(visible = true, transformation(origin = {-60, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.LessThreshold lessThreshold(threshold = UwpqDipPu) annotation(
     Placement(visible = true, transformation(origin = {-110, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch(nu = 4) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch(f = MwpqMode, nu = 4) annotation(
     Placement(visible = true, transformation(origin = {-70, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.IntegerConstant integerConstant(k = MwpqMode) annotation(
-    Placement(visible = true, transformation(origin = {-110, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product annotation(
     Placement(visible = true, transformation(origin = {-150, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = Kwpqu) annotation(
@@ -66,7 +64,7 @@ model BaseWPPQControl "Reactive power control base module for wind power plants 
     Placement(visible = true, transformation(origin = {170, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain2(k = Kpwpx) annotation(
     Placement(visible = true, transformation(origin = {170, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch1(nu = 4) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch1(f = MwpqMode, nu = 4) annotation(
     Placement(visible = true, transformation(origin = {70, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback2 annotation(
     Placement(visible = true, transformation(origin = {20, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -116,10 +114,6 @@ equation
     Line(points = {{29, 100}, {60, 100}}, color = {0, 0, 127}));
   connect(feedback2.y, multiSwitch1.u[3]) annotation(
     Line(points = {{29, 100}, {40, 100}, {40, 98}, {60, 98}}, color = {0, 0, 127}));
-  connect(integerConstant.y, multiSwitch.f) annotation(
-    Line(points = {{-98, 120}, {-70, 120}, {-70, 112}}, color = {255, 127, 0}));
-  connect(integerConstant.y, multiSwitch1.f) annotation(
-    Line(points = {{-98, 120}, {70, 120}, {70, 112}}, color = {255, 127, 0}));
   connect(antiWindupIntegrator.y, add3.u3) annotation(
     Line(points = {{182, 60}, {200, 60}, {200, 92}, {218, 92}}, color = {0, 0, 127}));
   connect(add3.y, absLimRateLimFeedthroughFreezeLimDetection.u) annotation(

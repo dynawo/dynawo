@@ -54,7 +54,7 @@ partial model BaseCurrentLimiter "Current limitation base module for wind turbin
     Placement(visible = true, transformation(origin = {-10, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = -1) annotation(
     Placement(visible = true, transformation(origin = {140, 70}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch switch1(nu = 3) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitchVariable switch1(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {110, 100}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Math.Min min1 annotation(
     Placement(visible = true, transformation(origin = {70, 114}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -78,7 +78,7 @@ partial model BaseCurrentLimiter "Current limitation base module for wind turbin
     Placement(visible = true, transformation(origin = {10, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.MathInteger.Product product1(nu = 2) annotation(
     Placement(visible = true, transformation(origin = {50, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch switch2(nu = 3) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitchVariable switch2(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {-250, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const3(k = IMaxDipPu) annotation(
     Placement(visible = true, transformation(origin = {-290, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -122,7 +122,7 @@ partial model BaseCurrentLimiter "Current limitation base module for wind turbin
     Placement(visible = true, transformation(origin = {210, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add1(k1 = -1) annotation(
     Placement(visible = true, transformation(origin = {50, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch switch4(nu = 3) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitchVariable switch4(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {130, -106}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters

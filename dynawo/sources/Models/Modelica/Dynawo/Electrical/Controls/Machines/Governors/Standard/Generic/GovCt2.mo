@@ -192,8 +192,6 @@ model GovCt2 "Governor type GovCT2"
     Placement(visible = true, transformation(origin = {214, -114}, extent = {{6, -6}, {-6, 6}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constROpen(k = ROpenPu) annotation(
     Placement(visible = true, transformation(origin = {214, -58}, extent = {{6, -6}, {-6, 6}}, rotation = 0)));
-  Modelica.Blocks.Sources.IntegerConstant constRSelect(k = RSelectInt) annotation(
-    Placement(visible = true, transformation(origin = {-114, -160}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constValveMin(k = ValveMinPu) annotation(
     Placement(visible = true, transformation(origin = {130, -112}, extent = {{6, -6}, {-6, 6}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constWFnl(k = WFnlPu) annotation(
@@ -256,7 +254,7 @@ model GovCt2 "Governor type GovCT2"
     Placement(visible = true, transformation(origin = {72, -22}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Min minLowValueSelect2 annotation(
     Placement(visible = true, transformation(origin = {69, -87}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch(nu = 4) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch(f = RSelectInt, nu = 4) annotation(
     Placement(visible = true, transformation(origin = {-172, -158}, extent = {{-6, -6}, {6, 6}}, rotation = 90)));
   Modelica.Blocks.Sources.RealExpression omegaPu2(y = omegaPu) annotation(
     Placement(visible = true, transformation(origin = {157, 89}, extent = {{13, -9}, {-13, 9}}, rotation = 0)));
@@ -433,8 +431,6 @@ equation
     Line(points = {{142, -88}, {150, -88}, {150, -152}, {136, -152}}, color = {0, 0, 127}));
   connect(omegaRefPu, add.u1) annotation(
     Line(points = {{-333, 9}, {-280, 9}, {-280, -12}, {-256, -12}}, color = {0, 0, 127}));
-  connect(constRSelect.y, multiSwitch.f) annotation(
-    Line(points = {{-124, -160}, {-142, -160}, {-142, -146}, {-184, -146}, {-184, -158}, {-180, -158}}, color = {255, 127, 0}));
   connect(constIsochronous.y, multiSwitch.u[1]) annotation(
     Line(points = {{-200, -168}, {-200, -174}, {-172, -174}, {-172, -164}}, color = {0, 0, 127}));
   connect(firstOrdertPElec.y, multiSwitch.u[2]) annotation(

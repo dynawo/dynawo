@@ -76,8 +76,6 @@ model EpriVoltageControl "Voltage controller in EPRI Grid Forming model"
     Placement(visible = true, transformation(origin = {0, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gainQDroop(k = QDroopPu) annotation(
     Placement(visible = true, transformation(origin = {-140, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.IntegerConstant integerConstant1(k = OmegaFlag) annotation(
-    Placement(visible = true, transformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.IntegratorSetFreeze integratorSetFreezePiP(K = KIp, UseFreeze = true, Y0 = IdConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {0, 160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.IntegratorSetFreeze integratorSetFreezePiQ(K = KIv, UseFreeze = true, Y0 = IqConv0Pu) annotation(
@@ -88,9 +86,9 @@ model EpriVoltageControl "Voltage controller in EPRI Grid Forming model"
     Placement(visible = true, transformation(origin = {-1, -150}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Converters.EpriGFM.BaseControls.LvrtFrz lvrtFrz(UDipPu = UDipPu, UdFilter0Pu = UdFilter0Pu, UqFilter0Pu = UqFilter0Pu) annotation(
     Placement(visible = true, transformation(origin = {-70, -210}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitchD(nu = 4) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitchD(f = OmegaFlag, nu = 4) annotation(
     Placement(visible = true, transformation(origin = {149, 130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitchQ(nu = 4) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitchQ(f = OmegaFlag, nu = 4) annotation(
     Placement(visible = true, transformation(origin = {150, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product annotation(
     Placement(visible = true, transformation(origin = {-220, -230}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -98,15 +96,15 @@ model EpriVoltageControl "Voltage controller in EPRI Grid Forming model"
     Placement(visible = true, transformation(origin = {-220, -190}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput uMagPu annotation(
     Placement(visible = true, transformation(origin = {260, -230}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {44, -110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Math.Sum sum1(k = {1, 1, -1, -1 / OmegaDroopPu}, nin = 4)  annotation(
+  Modelica.Blocks.Math.Sum sum1(k = {1, 1, -1, -1 / OmegaDroopPu}, nin = 4) annotation(
     Placement(visible = true, transformation(origin = {-100, 180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Sum sum11(k = {1, 1, 1}, nin = 3)  annotation(
+  Modelica.Blocks.Math.Sum sum11(k = {1, 1, 1}, nin = 3) annotation(
     Placement(visible = true, transformation(origin = {-100, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.VariableLimiter variableLimiterid annotation(
     Placement(visible = true, transformation(origin = {200, 130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.VariableLimiter variableLimiteriq annotation(
     Placement(visible = true, transformation(origin = {201, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Converters.EpriGFM.BaseControls.CurrentLimitsCalculation currentLimitsCalculation(IMaxPu = IMaxPu, IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, OmegaFlag = OmegaFlag, PQFlag = PQFlag)  annotation(
+  Dynawo.Electrical.Controls.Converters.EpriGFM.BaseControls.CurrentLimitsCalculation currentLimitsCalculation(IMaxPu = IMaxPu, IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, OmegaFlag = OmegaFlag, PQFlag = PQFlag) annotation(
     Placement(visible = true, transformation(origin = {200, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Dynawo.NonElectrical.Blocks.Continuous.SqrtNoEvent sqrtNoEvent annotation(
     Placement(visible = true, transformation(origin = {-130, -210}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -144,10 +142,6 @@ equation
     Line(points = {{-124, -130}, {-88, -130}}, color = {0, 0, 127}));
   connect(feedback4.u2, UqFilterPu) annotation(
     Line(points = {{-80, -122}, {-80, -110}, {-285, -110}}, color = {0, 0, 127}));
-  connect(integerConstant1.y, multiSwitchD.f) annotation(
-    Line(points = {{121, 40}, {150, 40}, {150, 143}, {149, 143}, {149, 142}}, color = {255, 127, 0}));
-  connect(integerConstant1.y, multiSwitchQ.f) annotation(
-    Line(points = {{121, 40}, {150, 40}, {150, -68}}, color = {255, 127, 0}));
   connect(add.y, sqrtNoEvent.u) annotation(
     Line(points = {{-159, -210}, {-142, -210}}, color = {0, 0, 127}));
   connect(product.y, add.u2) annotation(

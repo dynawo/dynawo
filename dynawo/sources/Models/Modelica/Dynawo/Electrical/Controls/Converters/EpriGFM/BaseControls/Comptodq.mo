@@ -47,12 +47,10 @@ model Comptodq "Computation of dq components from grid measurements in EPRI Grid
     Placement(visible = true, transformation(origin = {70, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain changeOfBaseq(k = SystemBase.SnRef / SNom)  annotation(
     Placement(visible = true, transformation(origin = {70, -20}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
-  Modelica.Blocks.Sources.IntegerConstant integerConstant(k = OmegaFlag) annotation(
-    Placement(visible = true, transformation(origin = {-9, -65}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
   Modelica.Blocks.Math.Product iqSquare annotation(
     Placement(visible = true, transformation(origin = {150, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch(nu = 4) annotation(
-    Placement(visible = true, transformation(origin = {-8, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch(f = OmegaFlag, nu = 4) annotation(
+    Placement(visible = true, transformation(origin = {-10, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Sqrt sqrt1 annotation(
     Placement(visible = true, transformation(origin = {230, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add sumidiq annotation(
@@ -88,23 +86,21 @@ equation
   connect(uInjPu, transformRItoDQ.u) annotation(
     Line(points = {{-270, 120}, {-0.5, 120}, {-0.5, 96}, {19, 96}}, color = {85, 170, 255}));
   connect(phi, multiSwitch.u[1]) annotation(
-    Line(points = {{-280, 0}, {-141, 0}, {-141, -100}, {-18, -100}}, color = {0, 0, 127}));
+    Line(points = {{-280, 0}, {-141, 0}, {-141, -100}, {-20, -100}}, color = {0, 0, 127}));
   connect(thetaGFM, multiSwitch.u[2]) annotation(
-    Line(points = {{-280, -100}, {-18, -100}}, color = {0, 0, 127}));
+    Line(points = {{-280, -100}, {-20, -100}}, color = {0, 0, 127}));
   connect(thetaGFM, multiSwitch.u[3]) annotation(
-    Line(points = {{-280, -100}, {-18, -100}}, color = {0, 0, 127}));
+    Line(points = {{-280, -100}, {-20, -100}}, color = {0, 0, 127}));
   connect(thetaGFM, multiSwitch.u[4]) annotation(
-    Line(points = {{-280, -100}, {-18, -100}}, color = {0, 0, 127}));
+    Line(points = {{-280, -100}, {-20, -100}}, color = {0, 0, 127}));
   connect(multiSwitch.y, transformRItoDQ1.phi) annotation(
-    Line(points = {{3, -100}, {8, -100}, {8, 4}, {19, 4}}, color = {0, 0, 127}));
+    Line(points = {{1, -100}, {8, -100}, {8, 4}, {19, 4}}, color = {0, 0, 127}));
   connect(transformRItoDQ.phi, multiSwitch.y) annotation(
-    Line(points = {{19, 84}, {8, 84}, {8, -100}, {3, -100}}, color = {0, 0, 127}));
+    Line(points = {{19, 84}, {8, 84}, {8, -100}, {1, -100}}, color = {0, 0, 127}));
   connect(sumidiq.y, sqrt1.u) annotation(
     Line(points = {{201, -100}, {218, -100}}, color = {0, 0, 127}));
   connect(sqrt1.y, iMagPu) annotation(
     Line(points = {{241, -100}, {268, -100}}, color = {0, 0, 127}));
-  connect(integerConstant.y, multiSwitch.f) annotation(
-    Line(points = {{-9, -70.5}, {-9, -69}, {-8, -69}, {-8, -88}}, color = {255, 127, 0}));
   connect(sumidiq.u1, idSquare.y) annotation(
     Line(points = {{178, -94}, {167, -94}, {167, -80}, {161, -80}}, color = {0, 0, 127}));
   connect(iqSquare.y, sumidiq.u2) annotation(

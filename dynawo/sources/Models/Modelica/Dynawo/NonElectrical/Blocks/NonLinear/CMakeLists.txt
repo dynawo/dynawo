@@ -34,6 +34,7 @@ set(MODEL_FILES
   MaxThresholdSwitch.mo
   MinThresholdSwitch.mo
   MultiSwitch.mo
+  MultiSwitchVariable.mo
   PIAntiWindUpTable.mo
   PIAntiWindUpTable.extvar
   PulseFixedDuration.mo
