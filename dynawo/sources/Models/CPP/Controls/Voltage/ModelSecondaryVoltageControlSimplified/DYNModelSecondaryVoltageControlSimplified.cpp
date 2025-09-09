@@ -86,6 +86,10 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
     parameters.push_back(ParameterModeler("tSample", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
     parameters.push_back(ParameterModeler("Qr", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbGenerators"));
     parameters.push_back(ParameterModeler("Q0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbGenerators"));
+    parameters.push_back(ParameterModeler("P0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbGenerators"));
+    parameters.push_back(ParameterModeler("U0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbGenerators"));
+    parameters.push_back(ParameterModeler("SNom", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbGenerators"));
+    parameters.push_back(ParameterModeler("XTfoPu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbGenerators"));
   }
 
   void
@@ -99,6 +103,10 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
       tSample_ = findParameterDynamic("tSample").getValue<double>();
       std::stringstream qrName;
       std::stringstream q0PuName;
+      std::stringstream p0PuName;
+      std::stringstream u0PuName;
+      std::stringstream sNomName;
+      std::stringstream xTfoPuName;
       for (int s = 0; s < nbGenerators_; ++s) {
         qrName.str(std::string());
         qrName.clear();
@@ -108,6 +116,22 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
         q0PuName.clear();
         q0PuName << "Q0Pu_" << s;
         Q0Pu_.push_back(findParameterDynamic(q0PuName.str()).getValue<double>());
+        p0PuName.str(std::string());
+        p0PuName.clear();
+        p0PuName << "P0Pu_" << s;
+        P0Pu_.push_back(findParameterDynamic(p0PuName.str()).getValue<double>());
+        u0PuName.str(std::string());
+        u0PuName.clear();
+        u0PuName << "U0Pu_" << s;
+        U0Pu_.push_back(findParameterDynamic(u0PuName.str()).getValue<double>());
+        sNomName.str(std::string());
+        sNomName.clear();
+        sNomName << "SNom_" << s;
+        SNom_.push_back(findParameterDynamic(sNomName.str()).getValue<double>());
+        xTfoPuName.str(std::string());
+        xTfoPuName.clear();
+        xTfoPuName << "XTfoPu_" << s;
+        XTfoPu_.push_back(findParameterDynamic(xTfoPuName.str()).getValue<double>());
       }
     } catch (const DYN::Error& e) {
     Trace::error() << e.what() << Trace::endline;
@@ -223,9 +247,15 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
     if (!isStartingFromDump()) {
       zLocal_[tLastActivationNum_] = 0.;
       zLocal_[levelValNum_] = 0.;
-      for (auto& q : Q0Pu_) {
-        zLocal_[levelValNum_] += (-1.0 * q * SNREF);
-      }
+      double iSquare0Pu = 0.;
+      double QTfo0Pu = 0.;
+      double QStator0Pu = 0.;
+      for (unsigned int g = 0; g < nbGenerators_; g++) {
+        iSquare0Pu = (P0Pu_[g] * P0Pu_[g] + Q0Pu_[g] * Q0Pu_[g]) / (U0Pu_[g] * U0Pu_[g]);
+        QTfo0Pu = iSquare0Pu * XTfoPu_[g] * SNREF / SNom_[g];
+        QStator0Pu = Q0Pu_[g] - QTfo0Pu;
+        zLocal_[levelValNum_] += (-1.0 * QStator0Pu * SNREF);
+       }
       double qrSum = 0;
       for (auto& qr : Qr_) {
         qrSum += qr;
