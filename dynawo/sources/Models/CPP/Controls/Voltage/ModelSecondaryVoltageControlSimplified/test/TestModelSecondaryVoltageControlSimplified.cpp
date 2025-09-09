@@ -51,6 +51,9 @@ static boost::shared_ptr<SubModel> createModelSecondaryVoltageControlSimplified(
     for (size_t i = 0; i < nbGen; ++i) {
       parametersSet->createParameter("Qr_" + std::to_string(i), 100.);
       parametersSet->createParameter("Q0Pu_" + std::to_string(i), 1.);
+      parametersSet->createParameter("P0Pu_" + std::to_string(i), 1.);
+      parametersSet->createParameter("U0Pu_" + std::to_string(i), 1.);
+      parametersSet->createParameter("SNom_" + std::to_string(i), 100.);
     }
     voltmu->setPARParameters(parametersSet);
     voltmu->addParameters(parameters, false);
@@ -67,7 +70,7 @@ TEST(ModelSecondaryVoltageControlSimplified, ModelSecondaryVoltageControlSimplif
     svc->init(0.);
     std::vector<ParameterModeler> parameters;
     svc->defineParameters(parameters);
-    ASSERT_EQ(parameters.size(), 8);
+    ASSERT_EQ(parameters.size(), 12);
     // Define the model parameters
     size_t nbGen = 2;
     std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("Parameterset");
@@ -82,6 +85,9 @@ TEST(ModelSecondaryVoltageControlSimplified, ModelSecondaryVoltageControlSimplif
     for (size_t i = 0; i < nbGen; ++i) {
       parametersSet->createParameter("Qr_" + std::to_string(i), 100.);
       parametersSet->createParameter("Q0Pu_" + std::to_string(i), 1.);
+      parametersSet->createParameter("P0Pu_" + std::to_string(i), 1.);
+      parametersSet->createParameter("U0Pu_" + std::to_string(i), 1.);
+      parametersSet->createParameter("SNom_" + std::to_string(i), 100.);
     }
     ASSERT_NO_THROW(svc->setPARParameters(parametersSet));
     svc->addParameters(parameters, false);
