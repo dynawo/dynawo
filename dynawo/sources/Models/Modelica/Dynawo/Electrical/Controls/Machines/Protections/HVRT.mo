@@ -50,7 +50,7 @@ equation
   when UMonitoredPu >= UOverPu then
     timer.u = true;
   end when;
-  when combiTable1D.y[1] > timer.y then
+  when combiTable1D.y[1] < timer.y then
     timer1.u = true;
   end when;
 
