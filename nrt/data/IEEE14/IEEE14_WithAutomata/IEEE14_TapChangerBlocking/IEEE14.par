@@ -345,6 +345,7 @@
     <par type="DOUBLE" name="tapChanger_UDeadBand" value="0.01"/>
     <par type="DOUBLE" name="tapChanger_U0" value="1"/>
     <par type="INT" name="tapChanger_tap0" value="5"/>
+    <reference type="DOUBLE" name="tapChanger_uNom" origData="IIDM" origName="UNom" componentId="_LOAD___2_EC"/>
   </set>
   <set id="14">
     <par type="DOUBLE" name="tapChangerBlocking_UMin" value="68.240"/>
