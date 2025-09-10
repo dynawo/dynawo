@@ -1072,9 +1072,11 @@ Simulation::simulate() {
 
       model_->notifyTimeStep();
 
-      if (DYN::doubleEquals(tCurrent_, tLinearize_.value())) {
-        Trace::info() << DYNLog(Linearize, tCurrent_) << Trace::endline;
-        model_->evalLinearize(tCurrent_, outputsDirectory_);
+      if (tLinearize_.has_value()) {
+        if (DYN::doubleEquals(tCurrent_, tLinearize_.value())) {
+          Trace::info() << DYNLog(Linearize, tCurrent_) << Trace::endline;
+          model_->evalLinearize(tCurrent_, outputsDirectory_);
+        }
       }
 
       if (hasIntermediateStateToDump() && !isCheckCriteriaIter) {
