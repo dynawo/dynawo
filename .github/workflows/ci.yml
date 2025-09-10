@@ -129,7 +129,7 @@ jobs:
       - name: Install Sonar scanner
         working-directory: ${{ runner.workspace }}
         env:
-          SONAR_SCANNER_VERSION: 4.6.0.2311
+          SONAR_SCANNER_VERSION: 7.2.0.5079
         run: |
           wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${SONAR_SCANNER_VERSION}.zip
           unzip sonar-scanner-cli-${SONAR_SCANNER_VERSION}.zip
