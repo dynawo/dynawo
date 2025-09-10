@@ -31,6 +31,7 @@ namespace DYN {
 ModelPhaseTapChanger::ModelPhaseTapChanger(const std::string& id, int lowIndex)
     : ModelTapChanger(id, lowIndex),
       thresholdI_(0),
+      latestIValue_(0.),
       whenUp_(VALDEF),
       whenDown_(VALDEF),
       whenLastTap_(VALDEF),
@@ -105,6 +106,8 @@ void ModelPhaseTapChanger::evalG(double t, double iValue, bool /*nodeOff*/,
           getRegulating() && getCurrentStepIndex() != tapRefDown_ && tfoClosed)
              ? ROOT_UP
              : ROOT_DOWN;  // next tap down
+
+  latestIValue_ = iValue;
 }
 
 void ModelPhaseTapChanger::evalZ(double t, state_g* g, ModelNetwork* network,
@@ -143,13 +146,13 @@ void ModelPhaseTapChanger::evalZ(double t, state_g* g, ModelNetwork* network,
     if (g[2] == ROOT_UP || g[3] == ROOT_UP) {  // increase tap
       setCurrentStepIndex(getCurrentStepIndex() + 1);
       whenLastTap_ = t;
-      DYNAddTimelineEvent(network, id(), TapUp);
+      DYNAddTimelineEvent(network, id(), TapUp, latestIValue_);
     }
 
     if (g[4] == ROOT_UP || g[5] == ROOT_UP) {  // decrease tap
       setCurrentStepIndex(getCurrentStepIndex() - 1);
       whenLastTap_ = t;
-      DYNAddTimelineEvent(network, id(), TapDown);
+      DYNAddTimelineEvent(network, id(), TapDown, latestIValue_);
     }
   }
 }

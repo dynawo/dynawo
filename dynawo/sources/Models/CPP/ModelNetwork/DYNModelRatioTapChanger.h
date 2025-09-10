@@ -150,8 +150,8 @@ class ModelRatioTapChanger : public ModelTapChanger {
   std::string side_;  ///< reference side where the voltage is controlled
   double tolV_;       ///< dead band around targetV
   double targetV_;    ///< target voltage
-  double
-      whenUp_;  ///< when the voltage reached a value over the target+deadBand
+  double latestUValue_;    ///< latest tested voltage value
+  double whenUp_;  ///< when the voltage reached a value over the target+deadBand
   double whenDown_;     ///< when the voltage reached a value under the
                         ///< target-deadBand
   double whenLastTap_;  ///< last time when a tap changer

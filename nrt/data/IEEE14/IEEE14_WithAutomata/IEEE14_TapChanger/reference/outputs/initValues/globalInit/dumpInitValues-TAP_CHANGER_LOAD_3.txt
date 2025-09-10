@@ -1,7 +1,7 @@
  ====== VARIABLES VALUES ======
 tapChanger_UMonitored_value                       : y =       0.992373 yp =       0.000000
 tapChanger_valueToMonitor_value                   : alias of tapChanger_UMonitored_value
- ====== INIT DISCRETE VARIABLES VALUES ======
+ ====== DISCRETE VARIABLES VALUES ======
 tapChanger_tTapDown                               : z =   1.000000e+60
 tapChanger_tTapUp                                 : z =   1.000000e+60
 tapChanger_tValueAboveMaxWhileRunning             : z =   1.000000e+60
@@ -22,9 +22,12 @@ tapChanger_U0                                      =       1.000000
 tapChanger_UDeadBand                               =       0.010000
 tapChanger_UTarget                                 =       1.000000
 tapChanger_deadBand                                =       0.010000
+tapChanger_factorValue                             =      69.000000
+tapChanger_factorValueToDisplay                    =      69.000000
 tapChanger_t1st                                    =      60.000000
 tapChanger_tNext                                   =      10.000000
 tapChanger_targetValue                             =       1.000000
+tapChanger_uNom                                    =      69.000000
 tapChanger_valueMax                                =       1.010000
 tapChanger_valueMin                                =       0.990000
 tapChanger_valueToMonitor0                         =       1.000000
