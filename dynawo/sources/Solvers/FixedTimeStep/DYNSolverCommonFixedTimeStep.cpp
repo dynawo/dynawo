@@ -76,6 +76,7 @@ mxnewtstep_(100000),
 msbset_(0),
 mxiter_(15),
 printfl_(0),
+allLogs_(false),
 skipNextNR_(false),
 skipAlgebraicResidualsEvaluation_(false),
 optimizeAlgebraicResidualsEvaluations_(true),
@@ -104,6 +105,7 @@ SolverCommonFixedTimeStep::defineSpecificParametersCommon() {
   parameters_.insert(make_pair("printfl", ParameterSolver("printfl", VAR_TYPE_INT, optional)));
   parameters_.insert(make_pair("optimizeAlgebraicResidualsEvaluations", ParameterSolver("optimizeAlgebraicResidualsEvaluations", VAR_TYPE_BOOL, optional)));
   parameters_.insert(make_pair("skipNRIfInitialGuessOK", ParameterSolver("skipNRIfInitialGuessOK", VAR_TYPE_BOOL, optional)));
+  parameters_.insert(make_pair("allLogs", ParameterSolver("allLogs", VAR_TYPE_BOOL, optional)));
 }
 
 void
@@ -140,6 +142,9 @@ SolverCommonFixedTimeStep::setSolverSpecificParametersCommon() {
   const ParameterSolver& skipNRIfInitialGuessOK = findParameter("skipNRIfInitialGuessOK");
   if (skipNRIfInitialGuessOK.hasValue())
     skipNRIfInitialGuessOK_ = skipNRIfInitialGuessOK.getValue<bool>();
+  const ParameterSolver& allLogs = findParameter("allLogs");
+  if (allLogs.hasValue())
+    allLogs_ = allLogs.getValue<bool>();
 }
 
 void
@@ -159,13 +164,13 @@ SolverCommonFixedTimeStep::initCommon(const std::shared_ptr<Model> &model, const
 
   if (model->sizeY() != 0) {
     solverKINEuler_.reset(new SolverKINEuler());
-    solverKINEuler_->init(model, this, fnormtol_, initialaddtol_, scsteptol_, mxnewtstep_, msbset_, mxiter_, printfl_, sundialsVectorY_);
+    solverKINEuler_->init(model, this, fnormtol_, initialaddtol_, scsteptol_, mxnewtstep_, msbset_, mxiter_, printfl_, sundialsVectorY_, allLogs_);
   }
 
-  solverKINAlgRestoration_.reset(new SolverKINAlgRestoration());
+  solverKINAlgRestoration_.reset(new SolverKINAlgRestoration(false));
   solverKINAlgRestoration_->init(model_, SolverKINAlgRestoration::KIN_ALGEBRAIC);
   if (hasPrediction()) {
-    solverKINYPrim_.reset(new SolverKINAlgRestoration());
+    solverKINYPrim_.reset(new SolverKINAlgRestoration(false));
     getSolverKINYPrim().init(model_, SolverKINAlgRestoration::KIN_DERIVATIVES);
   }
 
@@ -332,7 +337,7 @@ SolverCommonFixedTimeStep::callAlgebraicSolver() {
 void SolverCommonFixedTimeStep::updateZAndMode(SolverStatus_t& status) {
   // Evaluate root values after the time step (using updated y and yp)
   model_->evalG(tSolve_ + h_, g1_);
-  ++stats_.nge_;
+  ++stats_.ngeInternal_;
 
   if (!std::equal(g0_.begin(), g0_.end(), g1_.begin())) {
     // A root change has occurred - Dealing with propagation and algebraic mode detection
@@ -352,12 +357,14 @@ void SolverCommonFixedTimeStep::updateZAndMode(SolverStatus_t& status) {
 
 void
 SolverCommonFixedTimeStep::updateStatistics() {
-  long int nre = 0;
-  long int nje = 0;
-  solverKINEuler_->updateStatistics(nNewt_, nre, nje);
-  stats_.nre_ += nre;
-  stats_.nni_ += nNewt_;
-  stats_.nje_ += nje;
+  if (solverKINEuler_) {
+    long int nre = 0;
+    long int nje = 0;
+    solverKINEuler_->updateStatistics(nNewt_, nre, nje);
+    stats_.nre_ += nre;
+    stats_.nni_ += nNewt_;
+    stats_.nje_ += nje;
+  }
 }
 
 void SolverCommonFixedTimeStep::handleDivergence(bool& redoStep) {
@@ -469,9 +476,8 @@ SolverCommonFixedTimeStep::reinit() {
     long int nre = 0;
     long int nje = 0;
     solverKINAlgRestoration_->updateStatistics(nNewt_, nre, nje);
-    stats_.nre_ += nre;
-    stats_.nni_ += nNewt_;
-    stats_.nje_ += nje;
+    stats_.nreAlgebraic_ += nre;
+    stats_.njeAlgebraic_ += nje;
 
     // If the initial guess is fine, nor the variables neither the time would have changed so we can return here and skip following treatments
     if (flag == KIN_INITIAL_GUESS_OK) {
@@ -491,16 +497,15 @@ SolverCommonFixedTimeStep::reinit() {
       solverKINYPrim.getValues(vectorY_, vectorYp_);
 
       solverKINYPrim.updateStatistics(nNewt_, nre, nje);
-      stats_.nre_ += nre;
-      stats_.nni_ += nNewt_;
-      stats_.nje_ += nje;
+      stats_.nreAlgebraic_ += nre;
+      stats_.njeAlgebraic_ += nje;
     }
 
     model_->reinitMode();
 
     // Root stabilization - tSolve_ has been updated in the solve method to the current time
     model_->evalG(tSolve_, g1_);
-    ++stats_.nge_;
+    ++stats_.ngeInternal_;
     if (std::equal(g0_.begin(), g0_.end(), g1_.begin())) {
       break;
     } else {
