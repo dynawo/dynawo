@@ -34,6 +34,7 @@ ModelRatioTapChanger::ModelRatioTapChanger(const std::string& id,
       side_(side),
       tolV_(0.015),
       targetV_(0),
+      latestUValue_(0.),
       whenUp_(VALDEF),
       whenDown_(VALDEF),
       whenLastTap_(VALDEF),
@@ -101,6 +102,8 @@ ModelRatioTapChanger::evalG(double t, double uValue, bool nodeOff, state_g* g, d
           && ((t - whenDown_ >= getTFirst() && currentStepIndex == tapRefDown_) || (t - whenLastTap_ >= getTNext() && currentStepIndex != tapRefDown_))
           && currentStepIndex > getLowStepIndex() && !(locked > 0) && getRegulating()
           && !nodeOff && tfoClosed) ? ROOT_UP : ROOT_DOWN;  // first or next tap down
+
+  latestUValue_ = uValue;
 }
 
 void
@@ -163,13 +166,13 @@ ModelRatioTapChanger::evalZ(double t, state_g* g, ModelNetwork* network, double 
     if (g[2] == ROOT_UP) {
       setCurrentStepIndex(getCurrentStepIndex() + 1);
       whenLastTap_ = t;
-      DYNAddTimelineEvent(network, id(), TapUp);
+      DYNAddTimelineEvent(network, id(), TapUp, latestUValue_);
     }
 
     if (g[3] == ROOT_UP) {
       setCurrentStepIndex(getCurrentStepIndex() - 1);
       whenLastTap_ = t;
-      DYNAddTimelineEvent(network, id(), TapDown);
+      DYNAddTimelineEvent(network, id(), TapDown, latestUValue_);
     }
   }
 }
