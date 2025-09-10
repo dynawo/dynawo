@@ -14,7 +14,7 @@ within Dynawo.Electrical.Controls.WECC.REEC;
 */
 
 model REECa "WECC Electrical Control type A"
-  extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC;
+  extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC(rateLimFirstOrderFreeze.UseFreeze = true);
   extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECa;
 
   // Input variable
@@ -30,7 +30,7 @@ model REECa "WECC Electrical Control type A"
     Placement(visible = true, transformation(origin = {550, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {50, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealOutput iqMinPu(start = - IMaxPu) "q-axis minimum current in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {550, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealOutput POrdPu(start = -ComplexMath.real(s0Pu) * SystemBase.SnRef / SNom) "Active power order in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput POrdPu(start = PConv0Pu) "Active power order in pu (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {551, -153}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, -89}, extent = {{-10, -10}, {10, 10}})));
 
   Modelica.Blocks.Sources.RealExpression UFilteredPu5(y = UFilteredPu) annotation(
@@ -140,5 +140,5 @@ equation
   <li style=\"font-size: 12px;\"> Active power can be dependent or independent on drive train speed by setting PFlag to false (independent from drive train speed) or true. If PFlag is set to false, the model behaves as a Wind turbine generator type 4B, where the drive train is neglected by setting the speed to constant 1 </li>
     <p style=\"font-size: 12px;\">The block calculates the Id and Iq setpoint values for the generator control based on the selected control algorithm.</p></body></html>"),
     Diagram(coordinateSystem(extent = {{-260, -280}, {540, 280}}, grid = {1, 1})),
-    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-30.3275, -106.118}, extent = {{-14.6724, 6.11766}, {22.3276, -9.88234}}, textString = "omegaG"), Text(origin = {139, -41}, extent = {{-23, 13}, {35, -21}}, textString = "iqCmdPu"), Text(origin = {141, 13}, extent = {{-23, 13}, {17, -11}}, textString = "frtOn"), Text(origin = {89, -113}, extent = {{-23, 13}, {9, -3}}, textString = "UPu"), Text(origin = {41, -117}, extent = {{-33, 21}, {9, -3}}, textString = "PInjPu"), Text(origin = {-135, 79}, extent = {{-23, 13}, {35, -21}}, textString = "PInjRefPu"), Text(origin = {-135, -41}, extent = {{-23, 13}, {35, -21}}, textString = "QInjRefPu"), Text(origin = {-135, 21}, extent = {{-23, 13}, {35, -21}}, textString = "UFilteredPu"), Text(origin = {-12, 9}, extent = {{-43, 22}, {80, -38}}, textString = "REEC A"), Text(origin = {-104, 133}, extent = {{-23, 13}, {35, -21}}, textString = "ipMaxPu"), Text(origin = {55, 132}, extent = {{-23, 13}, {35, -21}}, textString = "iqMaxPu"), Text(origin = {-45, 134}, extent = {{-23, 13}, {35, -21}}, textString = "ipMinPu"), Text(origin = {114, 132}, extent = {{-23, 13}, {35, -21}}, textString = "iqMinPu")}, coordinateSystem(extent = {{-100, -100}, {100, 100}}, grid = {1, 1})));
+    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-30.3275, -106.118}, extent = {{-14.6724, 6.11766}, {22.3276, -9.88234}}, textString = "omegaG"), Text(origin = {139, -41}, extent = {{-23, 13}, {35, -21}}, textString = "iqCmdPu"), Text(origin = {141, 13}, extent = {{-23, 13}, {17, -11}}, textString = "frtOn"), Text(origin = {89, -113}, extent = {{-23, 13}, {9, -3}}, textString = "UPu"), Text(origin = {41, -117}, extent = {{-33, 21}, {9, -3}}, textString = "PConvPu"), Text(origin = {-135, 79}, extent = {{-23, 13}, {35, -21}}, textString = "PConvRefPu"), Text(origin = {-135, -41}, extent = {{-23, 13}, {35, -21}}, textString = "QConvRefPu"), Text(origin = {-135, 21}, extent = {{-23, 13}, {35, -21}}, textString = "UFilteredPu"), Text(origin = {-12, 9}, extent = {{-43, 22}, {80, -38}}, textString = "REEC A"), Text(origin = {-104, 133}, extent = {{-23, 13}, {35, -21}}, textString = "ipMaxPu"), Text(origin = {55, 132}, extent = {{-23, 13}, {35, -21}}, textString = "iqMaxPu"), Text(origin = {-45, 134}, extent = {{-23, 13}, {35, -21}}, textString = "ipMinPu"), Text(origin = {114, 132}, extent = {{-23, 13}, {35, -21}}, textString = "iqMinPu")}, coordinateSystem(extent = {{-100, -100}, {100, 100}}, grid = {1, 1})));
 end REECa;
