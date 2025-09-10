@@ -8,11 +8,11 @@
 51.000000 | CLA_2_3 | CLA : arming by over-current constraint
 51.000000 | GEN____3_SM | Voltage regulator : upper limit reached (Efd)
 51.000000 | _LOAD___4_EC | Tap-changer : below minimum allowed value
-80.000000 | _LOAD___5_EC | Tap position change (increment)
-110.000000 | _LOAD___9_EC | Tap position change (increment)
+80.000000 | _LOAD___5_EC | Tap position change (increment) - value : 69.298782
+110.000000 | _LOAD___9_EC | Tap position change (increment) - value : 13.838747
 111.000000 | _BUS____2-BUS____3-1_AC | LINE : opening both sides
 111.000000 | CLA_2_3 | CLA : order to change topology
-111.000000 | _LOAD___4_EC | Tap position change (increment)
+111.000000 | _LOAD___4_EC | Tap position change (increment) - value : 69.240674
 112.000000 | CLA_2_4 | CLA : arming by over-current constraint
 112.000000 | CLA_2_5 | CLA : arming by over-current constraint
 112.000000 | _LOAD__10_EC | Tap-changer : below minimum allowed value
@@ -25,12 +25,12 @@
 113.000000 | _LOAD___4_EC | Tap-changer : below minimum allowed value
 113.000000 | _LOAD___9_EC | Tap-changer : below minimum allowed value
 117.000000 | _LOAD___9_EC | Tap-changer : below minimum allowed value
-142.000000 | _LOAD___3_EC | Tap position change (increment)
-142.000000 | _LOAD___4_EC | Tap position change (increment)
-142.000000 | _LOAD___5_EC | Tap position change (increment)
-152.000000 | _LOAD___3_EC | Tap position change (increment)
-152.000000 | _LOAD___4_EC | Tap position change (increment)
-162.000000 | _LOAD___3_EC | Tap position change (increment)
+142.000000 | _LOAD___3_EC | Tap position change (increment) - value : 68.072905
+142.000000 | _LOAD___4_EC | Tap position change (increment) - value : 68.822220
+142.000000 | _LOAD___5_EC | Tap position change (increment) - value : 69.002882
+152.000000 | _LOAD___3_EC | Tap position change (increment) - value : 68.821595
+152.000000 | _LOAD___4_EC | Tap position change (increment) - value : 69.615818
+162.000000 | _LOAD___3_EC | Tap position change (increment) - value : 69.581049
 162.000000 | _LOAD__12_EC | Tap-changer : below minimum allowed value
 172.000000 | _BUS____2-BUS____4-1_AC | LINE : opening both sides
 172.000000 | _BUS____2-BUS____5-1_AC | LINE : opening both sides
@@ -38,13 +38,13 @@
 172.000000 | CLA_2_5 | CLA : order to change topology
 172.000000 | GEN____1_SM | GENERATOR : disconnecting
 172.000000 | GEN____2_SM | GENERATOR : disconnecting
-172.000000 | _LOAD__10_EC | Tap position change (increment)
-172.000000 | _LOAD__11_EC | Tap position change (increment)
-172.000000 | _LOAD__14_EC | Tap position change (increment)
+172.000000 | _LOAD__10_EC | Tap position change (increment) - value : 13.789022
+172.000000 | _LOAD__11_EC | Tap position change (increment) - value : 13.829463
+172.000000 | _LOAD__14_EC | Tap position change (increment) - value : 13.761486
 172.000000 | _LOAD___2_EC | Tap-changer : switched off
 172.000000 | _LOAD___2_EC | Transformer : switched off
 172.000000 | _LOAD___2_EC | LOAD : disconnecting
-172.000000 | _LOAD___6_EC | Tap position change (increment)
+172.000000 | _LOAD___6_EC | Tap position change (increment) - value : 13.833968
 172.000000 | GEN____1_SM | Voltage regulator : upper limit reached (Efd)
 172.000000 | GEN____2_SM | Voltage regulator : upper limit reached (Efd)
 172.000000 | _LOAD___2_EC | Tap-changer : below minimum allowed value
@@ -58,23 +58,23 @@
 173.000000 | _LOAD___4_EC | Tap-changer : below minimum allowed value
 173.000000 | _LOAD___5_EC | Tap-changer : below minimum allowed value
 173.000000 | _LOAD___6_EC | Tap-changer : below minimum allowed value
-177.000000 | _LOAD___9_EC | Tap position change (increment)
+177.000000 | _LOAD___9_EC | Tap position change (increment) - value : 13.674748
 179.000000 | _LOAD___6_EC | Tap-changer : below minimum allowed value
-187.000000 | _LOAD___9_EC | Tap position change (increment)
-203.000000 | _LOAD___4_EC | Tap position change (increment)
-203.000000 | _LOAD___5_EC | Tap position change (increment)
-213.000000 | _LOAD___4_EC | Tap position change (increment)
-213.000000 | _LOAD___5_EC | Tap position change (increment)
-223.000000 | _LOAD___5_EC | Tap position change (increment)
-233.000000 | _LOAD__10_EC | Tap position change (increment)
-233.000000 | _LOAD__11_EC | Tap position change (increment)
-233.000000 | _LOAD__12_EC | Tap position change (increment)
-233.000000 | _LOAD__13_EC | Tap position change (increment)
-233.000000 | _LOAD__14_EC | Tap position change (increment)
-239.000000 | _LOAD___6_EC | Tap position change (increment)
+187.000000 | _LOAD___9_EC | Tap position change (increment) - value : 13.784384
+203.000000 | _LOAD___4_EC | Tap position change (increment) - value : 68.229791
+203.000000 | _LOAD___5_EC | Tap position change (increment) - value : 67.558917
+213.000000 | _LOAD___4_EC | Tap position change (increment) - value : 68.993582
+213.000000 | _LOAD___5_EC | Tap position change (increment) - value : 68.310313
+223.000000 | _LOAD___5_EC | Tap position change (increment) - value : 69.065493
+233.000000 | _LOAD__10_EC | Tap position change (increment) - value : 13.732185
+233.000000 | _LOAD__11_EC | Tap position change (increment) - value : 13.805536
+233.000000 | _LOAD__12_EC | Tap position change (increment) - value : 13.704848
+233.000000 | _LOAD__13_EC | Tap position change (increment) - value : 13.721332
+233.000000 | _LOAD__14_EC | Tap position change (increment) - value : 13.711349
+239.000000 | _LOAD___6_EC | Tap position change (increment) - value : 13.835897
 239.000000 | _LOAD__13_EC | Tap-changer : below minimum allowed value
-243.000000 | _LOAD__12_EC | Tap position change (increment)
-243.000000 | _LOAD__14_EC | Tap position change (increment)
-299.000000 | _LOAD__13_EC | Tap position change (increment)
+243.000000 | _LOAD__12_EC | Tap position change (increment) - value : 13.840452
+243.000000 | _LOAD__14_EC | Tap position change (increment) - value : 13.838619
+299.000000 | _LOAD__13_EC | Tap position change (increment) - value : 13.852051
 299.000000 | _LOAD___4_EC | Tap-changer : below minimum allowed value
-329.000000 | _LOAD___4_EC | Tap position change (increment)
+329.000000 | _LOAD___4_EC | Tap position change (increment) - value : 69.680377
