@@ -106,8 +106,8 @@
     <par name="GFM_Wf" type="DOUBLE" value="31.4159"/>
     <par name="GFM_Wff" type="DOUBLE" value="60"/>
     <par name="GFM_XRratio" type="DOUBLE" value="10"/>
-    <par name="GFM_XVI" type="DOUBLE" value="0"/>
-    <par name="GFM_kVSM" type="DOUBLE" value="155.955"/>
+    <par name="GFM_XVI" type="DOUBLE" value="0.44"/>
+    <par name="GFM_kVSM" type="DOUBLE" value="80"/>
     <par name="GFM_tVSC" type="DOUBLE" value="0.0004"/>
   </set>
     <set id="GFL">

@@ -2,14 +2,15 @@
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
     <dyn:blackBoxModel id="DISCONNECTLINE" lib="EventQuadripoleDisconnection" parFile="models.par" parId="DISCONNECTLINE"/>
     <!--<dyn:connect id1="DISCONNECTLINE" var1="event_state1_value" id2="NETWORK" var2="B.EPIL61DOMLO_state_value"/>-->
-    <dyn:connect id1="DISCONNECTLINE" var1="event_state1_value" id2="NETWORK" var2="MUR  L32ZLOCM_state_value"/>
+    <!-- <dyn:connect id1="DISCONNECTLINE" var1="event_state1_value" id2="NETWORK" var2="MUR  L32ZLOCM_state_value"/> -->
+     <dyn:connect id1="DISCONNECTLINE" var1="event_state1_value" id2="NETWORK" var2="BRE.RL31LOSCO_state_value"/>
     <dyn:blackBoxModel id="INF_GEN" lib="InfiniteBusWithVariations" parFile="models.par" parId="INF" staticId="INF"/>
     <dyn:macroConnect connector="INFToNode" id1="INF_GEN" id2="NETWORK"/>
     <dyn:blackBoxModel id="INF1_GEN" lib="InfiniteBusWithVariations" parFile="models.par" parId="INF" staticId="INF1"/>
     <dyn:macroConnect connector="INFToNode" id1="INF1_GEN" id2="NETWORK"/>
 
 
-   <!--
+
    <dyn:blackBoxModel id="MARTYP6-GFM" lib="DynGridFormingVirtualSynchronousMachine" parFile="models.par" parId="GFM_CCControl_VSM" staticId="MARTYP6-GFM">    </dyn:blackBoxModel>
     <dyn:blackBoxModel id="CREDIP3-GFM" lib="DynGridFormingVirtualSynchronousMachine" parFile="models.par" parId="GFM_CCControl_VSM" staticId="CREDIP3-GFM">    </dyn:blackBoxModel>
     <dyn:blackBoxModel id="DERVAP4-GFM" lib="DynGridFormingVirtualSynchronousMachine" parFile="models.par" parId="GFM_CCControl_VSM" staticId="DERVAP4-GFM">    </dyn:blackBoxModel>
@@ -26,7 +27,7 @@
     <dyn:blackBoxModel id="SSGRAP3-GFM" lib="DynGridFormingVirtualSynchronousMachine" parFile="models.par" parId="GFM_CCControl_VSM" staticId="SSGRAP3-GFM">    </dyn:blackBoxModel>
     <dyn:blackBoxModel id="SSNI6P3-GFM" lib="DynGridFormingVirtualSynchronousMachine" parFile="models.par" parId="GFM_CCControl_VSM" staticId="SSNI6P3-GFM">    </dyn:blackBoxModel>
 
--->
+
 
 
 
@@ -945,7 +946,7 @@
     </dyn:macroStaticReference>
     -->
 
-    <!--
+
     <dyn:macroConnect connector="GFMToNode" id1="MARTYP6-GFM" id2="NETWORK"/>
     <dyn:macroConnect connector="GFMToNode" id1="CREDIP3-GFM" id2="NETWORK"/>
     <dyn:macroConnect connector="GFMToNode" id1="DERVAP4-GFM" id2="NETWORK"/>
@@ -961,7 +962,7 @@
     <dyn:macroConnect connector="GFMToNode" id1="MUR  P3-GFM" id2="NETWORK"/>
     <dyn:macroConnect connector="GFMToNode" id1="ROSTRP3-GFM" id2="NETWORK"/>
     <dyn:macroConnect connector="GFMToNode" id1="SSNI6P3-GFM" id2="NETWORK"/>
-    -->
+
 
 
 
