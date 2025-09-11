@@ -69,10 +69,3 @@ class ModelTemplateExpansion:
 
     def get_template_id(self):
         return self.__xml_element.attrib["templateId"]
-
-    def get_unit_dynamic_models(self, func):
-        selected_unit_dynamic_models = list()
-        for model in self.__unit_dynamic_models:
-            if func(model):
-                selected_unit_dynamic_models.append(model)
-        return selected_unit_dynamic_models
