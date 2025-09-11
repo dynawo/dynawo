@@ -32,9 +32,9 @@ model RefFrameRotation "Reference frame rotation module (IEC N°61400-27-1)"
     Placement(visible = true, transformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {40, 50}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
 
   //Initial parameters
-  parameter Types.PerUnit IGsIm0Pu "Initial imaginary component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.CurrentComponentPu IGsIm0Pu "Initial imaginary component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(group="Initialization"));
-  parameter Types.PerUnit IGsRe0Pu "Initial real component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.CurrentComponentPu IGsRe0Pu "Initial real component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(group="Initialization"));
   parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));

@@ -52,8 +52,8 @@
     <par type="DOUBLE" name="WT4B_IqFrzPu" value="0"/>
     <par type="DOUBLE" name="WT4B_Iqh1Pu" value="1.1"/>
     <par type="DOUBLE" name="WT4B_Iql1Pu" value="-1.1"/>
-    <par type="DOUBLE" name="WT4B_IqrMaxPu" value="20"/>
-    <par type="DOUBLE" name="WT4B_IqrMinPu" value="-20"/>
+    <par type="DOUBLE" name="WT4B_DerIqrMaxPu" value="20"/>
+    <par type="DOUBLE" name="WT4B_DerIqrMinPu" value="-20"/>
     <par type="DOUBLE" name="WT4B_Kc" value="0"/>
     <par type="DOUBLE" name="WT4B_Ki" value="1.5"/>
     <par type="DOUBLE" name="WT4B_Kig" value="2.36"/>

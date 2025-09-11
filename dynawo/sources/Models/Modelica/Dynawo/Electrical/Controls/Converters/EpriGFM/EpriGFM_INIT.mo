@@ -32,14 +32,14 @@ model EpriGFM_INIT "Initialization model for EpriGFM"
   Dialog(tab = "Circuit"));
 
   Types.ComplexCurrentPu i0Pu "Start value of complex current at converter's terminal in pu (base UNom, SnRef) (receptor convention)";
-  Types.PerUnit IdConv0Pu "Start value of d-axis current of the converter in pu (base UNom, SNom) (generator convention)";
-  Types.PerUnit IqConv0Pu "Start value of q-axis current of the converter in pu (base UNom, SNom) (generator convention)";
+  Types.CurrentComponentPu IdConv0Pu "Start value of d-axis current of the converter in pu (base UNom, SNom) (generator convention)";
+  Types.CurrentComponentPu IqConv0Pu "Start value of q-axis current of the converter in pu (base UNom, SNom) (generator convention)";
   Types.ComplexPerUnit s0Pu "Start value of complex apparent power at terminal in pu (base SnRef) (receptor convention)";
   Types.ComplexVoltagePu u0Pu "Start value of complex voltage at converter's terminal in pu (base UNom)";
-  Types.PerUnit UdConv0Pu "Start value of d-axis modulation voltage in pu (base UNom)";
-  Types.PerUnit UdFilter0Pu "Start value of d-axis voltage at the converter's terminal in pu (base UNom)";
-  Types.PerUnit UqConv0Pu "Start value of q-axis modulation voltage in pu (base UNom)";
-  Types.PerUnit UqFilter0Pu "Start value of q-axis voltage at the converter's terminal in pu (base UNom)";
+  Types.VoltageComponentPu UdConv0Pu "Start value of d-axis modulation voltage in pu (base UNom)";
+  Types.VoltageComponentPu UdFilter0Pu "Start value of d-axis voltage at the converter's terminal in pu (base UNom)";
+  Types.VoltageComponentPu UqConv0Pu "Start value of q-axis modulation voltage in pu (base UNom)";
+  Types.VoltageComponentPu UqFilter0Pu "Start value of q-axis voltage at the converter's terminal in pu (base UNom)";
 
   // Initial parameters given by the user
   parameter Types.ActivePowerPu P0Pu "Start value of the active power at the converter's terminal in pu (base SnRef) (receptor convention)" annotation(
@@ -48,7 +48,7 @@ model EpriGFM_INIT "Initialization model for EpriGFM"
   Dialog(tab = "Initial"));
   parameter Types.Angle Theta0 "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad" annotation(
   Dialog(tab = "Initial"));
-  parameter Types.PerUnit U0Pu "Start value of voltage magnitude at regulated bus in pu (base UNom)" annotation(
+  parameter Types.VoltageModulePu U0Pu "Start value of voltage magnitude at regulated bus in pu (base UNom)" annotation(
   Dialog(tab = "Initial"));
 
 equation

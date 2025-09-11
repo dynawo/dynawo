@@ -26,14 +26,14 @@ model HvdcVscDanglingUDc_INIT "Initialisation model for the HVDC VSC model with 
   parameter Types.Angle UPhase10 "Start value of voltage angle at terminal 1 in rad";
 
   Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base SnRef, UNom) (AC to DC)";
-  Types.PerUnit Ip10Pu "Start value of active current at terminal 1 in pu (base SNom, UNom) (DC to AC)";
-  Types.PerUnit Iq10Pu "Start value of reactive current at terminal 1 in pu (base SNom, UNom) (DC to AC)";
+  Types.CurrentComponentPu Ip10Pu "Start value of active current at terminal 1 in pu (base SNom, UNom) (DC to AC)";
+  Types.CurrentComponentPu Iq10Pu "Start value of reactive current at terminal 1 in pu (base SNom, UNom) (DC to AC)";
   Boolean ModeU10 "Initial mode of control on side 1 : if true, U mode, if false, Q mode";
   Types.ReactivePowerPu QRef10Pu "Start value of reactive power reference at terminal 1 in pu (base SNom) (DC to AC)";
   Types.ComplexApparentPowerPu s10Pu "Start value of complex apparent power at terminal 1 in pu (base SnRef) (AC to DC)";
   Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 in pu (base UNom)";
-  Types.PerUnit UDc10Pu "Start value of DC voltage at terminal 1 in pu (base UDcNom)";
-  Types.PerUnit UDc20Pu "Start value of DC voltage at terminal 2 in pu (base UDcNom)";
+  Types.VoltageModulePu UDc10Pu "Start value of DC voltage at terminal 1 in pu (base UDcNom)";
+  Types.VoltageModulePu UDc20Pu "Start value of DC voltage at terminal 2 in pu (base UDcNom)";
   Types.VoltageModulePu UDcRef0Pu "Start value of DC voltage reference in pu (base UDcNom)";
   Dynawo.Connectors.VoltageModulePuConnector URef10Pu "Start value of the voltage reference for the side 1 of the HVDC link in pu (base UNom)";
 

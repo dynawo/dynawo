@@ -16,7 +16,7 @@ model DispatchableVirtualOscillatorControl "Dispatchable virtual oscillator cont
 
   parameter Types.PerUnit Eta "Parameter Eta in the dVOC control in pu (base UNom, SNom)";
   parameter Types.PerUnit Alpha "Parameter Alpha in the dVOC control in pu (base UNom, SNom)";
-  parameter Types.PerUnit KDvoc "Parameter KDvoc in the dVOC control in rad";
+  parameter Types.Angle KDvoc "Parameter KDvoc in the dVOC control in rad";
 
   Modelica.Blocks.Interfaces.RealInput udFilterPu(start = UdFilter0Pu) "d-axis voltage at the converter's capacitor in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {40, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-25, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
@@ -55,18 +55,18 @@ model DispatchableVirtualOscillatorControl "Dispatchable virtual oscillator cont
 
   parameter Types.ActivePowerPu PRef0Pu "Start value of the active power reference at the converter's capacitor in pu (base SNom) (generator convention)";
   parameter Types.ReactivePowerPu QRef0Pu "Start value of the reactive power reference at the converter's capacitor in pu (base SNom) (generator convention)";
-  parameter Types.PerUnit IdPcc0Pu "Start value of d-axis current in the grid in pu (base UNom, SNom) (generator convention)";
-  parameter Types.PerUnit IqPcc0Pu "Start value of q-axis current in the grid in pu (base UNom, SNom) (generator convention)";
-  parameter Types.PerUnit UdFilter0Pu "Start value of d-axis voltage at the converter's capacitor in pu (base UNom)";
-  parameter Types.PerUnit UqFilter0Pu "Start value of q-axis voltage at the converter's capacitor in pu (base UNom)";
+  parameter Types.CurrentComponentPu IdPcc0Pu "Start value of d-axis current in the grid in pu (base UNom, SNom) (generator convention)";
+  parameter Types.CurrentComponentPu IqPcc0Pu "Start value of q-axis current in the grid in pu (base UNom, SNom) (generator convention)";
+  parameter Types.VoltageComponentPu UdFilter0Pu "Start value of d-axis voltage at the converter's capacitor in pu (base UNom)";
+  parameter Types.VoltageComponentPu UqFilter0Pu "Start value of q-axis voltage at the converter's capacitor in pu (base UNom)";
   parameter Types.Angle Theta0 "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad";
   parameter Types.PerUnit DeltaVVId0 "Start value of d-axis virtual impedance output in pu (base UNom)";
   parameter Types.PerUnit DeltaVVIq0 "Start value of q-axis virtual impedance output in pu (base UNom)";
   parameter Types.VoltageModulePu UFilterRef0Pu "Start value of voltage module reference at the converter's capacitor in pu (base UNom)";
 
   Types.VoltageModulePu UFilterRefRawPu(start = UFilterRef0Pu);
-  Types.PerUnit udFilterRefRawPu(start = UdFilter0Pu);
-  Types.PerUnit uqFilterRefRawPu(start = UqFilter0Pu);
+  Types.VoltageComponentPu udFilterRefRawPu(start = UdFilter0Pu);
+  Types.VoltageComponentPu uqFilterRefRawPu(start = UqFilter0Pu);
 
 equation
   udFilterRefRawPu * tan(theta) = uqFilterRefRawPu;

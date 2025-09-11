@@ -30,8 +30,8 @@ model BaseLimitsCalculation "Reactive and active currents limits calculation bas
   Modelica.Blocks.Interfaces.RealOutput iqMinPu(start = -sqrt(InPu ^ 2 - Ip0Pu ^ 2)) "Minimum reactive current reference in pu (base SNom, UNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {-110, -30}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = { -110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 
-  parameter Types.PerUnit Ip0Pu "Start value of active current in pu (base SNom, UNom) (DC to AC)";
-  parameter Types.PerUnit Iq0Pu "Start value of reactive current in pu (base SNom, UNom) (DC to AC)";
+  parameter Types.CurrentComponentPu Ip0Pu "Start value of active current in pu (base SNom, UNom) (DC to AC)";
+  parameter Types.CurrentComponentPu Iq0Pu "Start value of reactive current in pu (base SNom, UNom) (DC to AC)";
 
 equation
   if iqModPu == 0 then

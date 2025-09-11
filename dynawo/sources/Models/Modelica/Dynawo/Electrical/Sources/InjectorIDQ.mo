@@ -42,8 +42,8 @@ model InjectorIDQ "Injector controlled by d and q current components idPu and iq
     Placement(visible = true, transformation(extent = {{0, 0}, {0, 0}}, rotation = 0), iconTransformation(origin = {115, -33}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
 
   parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at injector terminal in pu (base UNom, SnRef) (receptor convention)";
-  parameter Types.PerUnit Id0Pu "Start value of idPu in pu (base SNom, UNom) (generator convention)";
-  parameter Types.PerUnit Iq0Pu "Start value of iqPu in pu (base SNom, UNom) (generator convention)";
+  parameter Types.CurrentComponentPu Id0Pu "Start value of idPu in pu (base SNom, UNom) (generator convention)";
+  parameter Types.CurrentComponentPu Iq0Pu "Start value of iqPu in pu (base SNom, UNom) (generator convention)";
   parameter Types.ActivePowerPu P0Pu "Start value of active power in pu (base SnRef) (receptor convention)";
   parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power in pu (base SnRef) (receptor convention)";
   parameter Types.ComplexApparentPowerPu s0Pu "Start value of apparent power at injector terminal in pu (base SnRef) (receptor convention)";

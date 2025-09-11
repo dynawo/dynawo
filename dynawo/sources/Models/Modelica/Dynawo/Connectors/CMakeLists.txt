@@ -24,9 +24,11 @@ set(MODEL_FILES
   ComplexCurrentPuConnector.mo
   ComplexPerUnitConnector.mo
   ComplexVoltagePuConnector.mo
+  CurrentComponentPuConnector.mo
   CurrentModulePuConnector.mo
   PerUnitConnector.mo
   ReactivePowerPuConnector.mo
+  VoltageComponentPuConnector.mo
   VoltageModulePuConnector.mo
   )
 

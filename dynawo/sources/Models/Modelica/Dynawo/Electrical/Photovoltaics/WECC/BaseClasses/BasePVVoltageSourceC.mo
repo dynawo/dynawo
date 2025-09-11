@@ -39,7 +39,7 @@ partial model BasePVVoltageSourceC "Base model for WECC PV with a voltage source
     Placement(visible = true, transformation(origin = {190, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Lines.Line line(RPu = RPu, XPu = XPu, BPu = 0, GPu = 0) annotation(
     Placement(visible = true, transformation(origin = {130, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.WECC.REGC.REGCc wecc_regc(IMaxPu = IMaxPu, Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, IqrMaxPu = IqrMaxPu, IqrMinPu = IqrMinPu, Kii = Kii, Kip = Kip, QInj0Pu = QInj0Pu, RSourcePu = RSourcePu, RateFlag = RateFlag, RrpwrPu = RrpwrPu, SNom = SNom, UInj0Pu = UInj0Pu, UdInj0Pu = UdInj0Pu, UqInj0Pu = UqInj0Pu, XSourcePu = XSourcePu, iInj0Pu = -i0Pu, tE = tE, tFilterGC = tFilterGC, uInj0Pu = uInj0Pu, uSource0Pu = uSource0Pu) annotation(
+  Dynawo.Electrical.Controls.WECC.REGC.REGCc wecc_regc(DerIqrMaxPu = 20, DerIqrMinPu = -20, IMaxPu = IMaxPu, Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, Kii = Kii, Kip = Kip, QInj0Pu = QInj0Pu, RSourcePu = RSourcePu, RateFlag = RateFlag, RrpwrPu = RrpwrPu, SNom = SNom, UInj0Pu = UInj0Pu, UdInj0Pu = UdInj0Pu, UqInj0Pu = UqInj0Pu, XSourcePu = XSourcePu, iInj0Pu = -i0Pu, tE = tE, tFilterGC = tFilterGC, uInj0Pu = uInj0Pu, uSource0Pu = uSource0Pu) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant OmegaRef(k = 1) annotation(
     Placement(visible = true, transformation(origin = {-185, 38}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));

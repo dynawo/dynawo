@@ -59,7 +59,9 @@ package Types "Standard types for electrical variables"
   record ComplexAdmittancePu = ComplexPerUnit;
 
   type PerUnit = Real(unit = "1") "Per unit quantity";
+  type VoltageComponentPu = PerUnit;
   type VoltageModulePu = PerUnit;
+  type CurrentComponentPu = PerUnit;
   type CurrentModulePu = PerUnit;
   type ApparentPowerModulePu = PerUnit;
   type ActivePowerPu = PerUnit;
