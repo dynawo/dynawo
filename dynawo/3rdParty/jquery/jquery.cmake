@@ -6,7 +6,7 @@
 # file, you can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
 #
-# This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+# This file is part of Dynawo, a hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 if(NOT EXISTS "${DYNAWO_HOME}/util/curvesToHtml/resources/jquery.js")
   include(ExternalProject)
@@ -36,13 +36,13 @@ else()
   add_custom_target(jquery_download ALL)
 endif()
 
-if(NOT EXISTS "${DYNAWO_HOME}/util/curvesToHtml/resources/jquery.flot.crosshair.js" OR 
-NOT EXISTS "${DYNAWO_HOME}/util/curvesToHtml/resources/jquery.flot.js" OR 
-NOT EXISTS "${DYNAWO_HOME}/util/curvesToHtml/resources/jquery.flot.navigate.js" OR 
-NOT EXISTS "${DYNAWO_HOME}/util/curvesToHtml/resources/jquery.flot.selection.js" OR 
-NOT EXISTS "${DYNAWO_HOME}/util/curvesToHtml/resources/arrow-down.gif" OR 
-NOT EXISTS "${DYNAWO_HOME}/util/curvesToHtml/resources/arrow-left.gif" OR 
-NOT EXISTS "${DYNAWO_HOME}/util/curvesToHtml/resources/arrow-right.gif" OR 
+if(NOT EXISTS "${DYNAWO_HOME}/util/curvesToHtml/resources/jquery.flot.crosshair.js" OR
+NOT EXISTS "${DYNAWO_HOME}/util/curvesToHtml/resources/jquery.flot.js" OR
+NOT EXISTS "${DYNAWO_HOME}/util/curvesToHtml/resources/jquery.flot.navigate.js" OR
+NOT EXISTS "${DYNAWO_HOME}/util/curvesToHtml/resources/jquery.flot.selection.js" OR
+NOT EXISTS "${DYNAWO_HOME}/util/curvesToHtml/resources/arrow-down.gif" OR
+NOT EXISTS "${DYNAWO_HOME}/util/curvesToHtml/resources/arrow-left.gif" OR
+NOT EXISTS "${DYNAWO_HOME}/util/curvesToHtml/resources/arrow-right.gif" OR
 NOT EXISTS "${DYNAWO_HOME}/util/curvesToHtml/resources/arrow-up.gif")
   include(ExternalProject)
 
