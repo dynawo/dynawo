@@ -44,8 +44,8 @@ static boost::shared_ptr<SubModel> createModelSecondaryVoltageControlSimplified(
     parameters.push_back(ParameterModeler("Q0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbGenerators"));
     parametersSet->createParameter("nbGenerators", static_cast<int>(nbGen));
     parametersSet->createParameter("UDeadBandPu", 0.01);
-    parametersSet->createParameter("alpha", 2.);
-    parametersSet->createParameter("beta", 3.5);
+    parametersSet->createParameter("Alpha", 2.);
+    parametersSet->createParameter("Beta", 3.5);
     parametersSet->createParameter("UpRef0Pu", 1.);
     parametersSet->createParameter("tSample", 2.);
     for (size_t i = 0; i < nbGen; ++i) {
@@ -78,8 +78,8 @@ TEST(ModelSecondaryVoltageControlSimplified, ModelSecondaryVoltageControlSimplif
     parameters.push_back(ParameterModeler("Q0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbGenerators"));
     parametersSet->createParameter("nbGenerators", static_cast<int>(nbGen));
     parametersSet->createParameter("UDeadBandPu", 0.01);
-    parametersSet->createParameter("alpha", 0.08);
-    parametersSet->createParameter("beta", 3.5);
+    parametersSet->createParameter("Alpha", 0.08);
+    parametersSet->createParameter("Beta", 3.5);
     parametersSet->createParameter("UpRef0Pu", 1.);
     parametersSet->createParameter("tSample", 2.);
     for (size_t i = 0; i < nbGen; ++i) {
