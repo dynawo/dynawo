@@ -151,6 +151,14 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   */
   void resetAlgebraicRestoration();
 
+
+  /**
+  * @brief set print newton solutions to true
+  */
+  void setPrintNewtonSolutions() {
+    printNewtonSolutions_ = true;
+  }
+
  private:
   /**
    * @brief compute F(y) for a given value of y
@@ -296,6 +304,7 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   bool checkJacobian_;  ///< Check jacobian
 // #endif
   bool printReinitResiduals_;  ///< Check jacobian
+  bool printNewtonSolutions_;  ///< option to print newton solutions vectors into files for debug
 };
 
 }  // end of namespace DYN

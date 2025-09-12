@@ -26,6 +26,9 @@
 #include "DYNModel.h"
 #include "DYNSubModel.h"
 #include "DYNSolverCommon.h"
+
+#include <DYNFileSystemUtils.h>
+
 #include "DYNSparseMatrix.h"
 #include "DYNTrace.h"
 
@@ -190,6 +193,27 @@ double SolverCommon::weightedL2Norm(const std::vector<double>& vec, const std::v
     squared_norm += (vec[vec_index[i]] * weights[i]) * (vec[vec_index[i]] * weights[i]);
   }
   return std::sqrt(squared_norm);
+}
+
+void SolverCommon::printVector(const std::string& folder, const std::string& name, const double* vec, const unsigned int size) {
+  const std::string filename = folder + "/" + name;
+
+  if (!exists(folder)) {
+    create_directory(folder);
+  }
+
+  std::ofstream file;
+  file.open(filename.c_str(), std::ofstream::out);
+
+  for (unsigned int i = 0; i < size; ++i) {
+    file << i << " " << vec[i] << "\n";
+  }
+
+  file.close();
+}
+
+void SolverCommon::printVector(const std::string& folder, const std::string& name, const std::vector<double>& vec) {
+  printVector(folder, name, vec.data(), vec.size());
 }
 
 }  // namespace DYN

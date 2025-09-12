@@ -198,7 +198,8 @@ dumpLocalInitValues_(false),
 dumpGlobalInitValues_(false),
 dumpInitModelValues_(false),
 dumpFinalValues_(false),
-wasLoggingEnabled_(false) {
+wasLoggingEnabled_(false),
+addLastNewtonDivergedPoint_(false) {
   SignalHandler::setSignalHandlers();
 
 #ifdef _MSC_VER
@@ -391,22 +392,23 @@ void
 Simulation::configureCurveOutputs() {
   // Curves settings
   if (jobEntry_->getOutputsEntry()->getCurvesEntry()) {
+    const auto& curvesEntry = jobEntry_->getOutputsEntry()->getCurvesEntry();
     string curvesDir = createAbsolutePath("curves", outputsDirectory_);
     if (!is_directory(curvesDir))
       create_directory(curvesDir);
 
     //---- inputFile ----
-    string curveInputFile = createAbsolutePath(jobEntry_->getOutputsEntry()->getCurvesEntry()->getInputFile(), context_->getInputDirectory());
+    string curveInputFile = createAbsolutePath(curvesEntry->getInputFile(), context_->getInputDirectory());
     if (!exists(curveInputFile))
       throw DYNError(Error::MODELER, UnknownCurveFile, curveInputFile);
     setCurvesInputFile(curveInputFile);
     importCurvesRequest();
 
     //---- outputFile ---
-    setCurvesOutputFile(jobEntry_->getOutputsEntry()->getCurvesEntry()->getOutputFile());
+    setCurvesOutputFile(curvesEntry->getOutputFile());
 
     //---- exportMode ----
-    string exportMode = jobEntry_->getOutputsEntry()->getCurvesEntry()->getExportMode();
+    string exportMode = curvesEntry->getExportMode();
     Simulation::exportCurvesMode_t exportModeFlag = Simulation::EXPORT_CURVES_NONE;
     string outputFile = "";
     if (exportMode == "CSV") {
@@ -420,6 +422,8 @@ Simulation::configureCurveOutputs() {
     }
     setCurvesExportMode(exportModeFlag);
     setCurvesOutputFile(outputFile);
+    if (curvesEntry->getAddLastNewtonDivergedPoint().has_value())
+      addLastNewtonDivergedPoint_ = curvesEntry->getAddLastNewtonDivergedPoint().value();
   } else {
     setCurvesExportMode(Simulation::EXPORT_CURVES_NONE);
   }
@@ -678,6 +682,8 @@ Simulation::setSolver() {
     solver_->checkUnusedParameters(solverParams);
 #endif
   }
+  if (addLastNewtonDivergedPoint_)
+    solver_->setAddLastNewtonDivergedPoint();
 }
 
 void
@@ -1149,6 +1155,12 @@ Simulation::simulate() {
     if (e.type() == DYN::Error::SOLVER_ALGO ||
         e.type() == DYN::Error::SUNDIALS_ERROR ||
         e.type() == DYN::Error::NUMERICAL_ERROR) {
+      if (addLastNewtonDivergedPoint_) {
+        model_->copyContinuousVariables(solver_->getLastNewtonY().data(), solver_->getLastNewtonYp().data());
+        solver_->setCurrentY(solver_->getLastNewtonY());
+        solver_->setCurrentYP(solver_->getLastNewtonYp());
+        updateCurves(true);
+      }
       endSimulationWithError(criteriaChecked && staticModelWellInitialized, true);
     } else {
       endSimulationWithError(criteriaChecked && staticModelWellInitialized);

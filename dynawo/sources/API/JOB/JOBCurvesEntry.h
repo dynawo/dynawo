@@ -62,6 +62,12 @@ class CurvesEntry {
   boost::optional<double> getTimeStep() const;
 
   /**
+  * @brief Option to add point of last newton in curve
+  * @return add point of last diverged newton in curve
+  */
+  boost::optional<bool> getAddLastNewtonDivergedPoint() const;
+
+  /**
    * @brief Input file attribute setter
    * @param inputFile Input file for curves
    */
@@ -85,11 +91,17 @@ class CurvesEntry {
    */
   void setIterationStep(boost::optional<int> iterationStep);
 
-    /**
-   * @brief Time step attribute setter
-   * @param timeStep Time step to dump curve values every N seconds
-   */
+  /**
+  * @brief Time step attribute setter
+  * @param timeStep Time step to dump curve values every N seconds
+  */
   void setTimeStep(boost::optional<double> timeStep);
+
+  /**
+  * @brief Option to add point of last newton in curve
+  * @param addLastNewtonDivergedPoint add point of last diverged newton in curve
+  */
+  void setAddLastNewtonDivergedPoint(boost::optional<bool> addLastNewtonDivergedPoint);
 
  private:
   std::string inputFile_;                 ///< Input file for curves
@@ -97,6 +109,7 @@ class CurvesEntry {
   std::string exportMode_;                ///< Export mode TXT, CSV, XML for curves output file
   boost::optional<int> iterationStep_;    ///< Integer step to dump curve values every N iterations
   boost::optional<double> timeStep_;      ///< Time step to dump curve values every N seconds
+  boost::optional<bool> addLastNewtonDivergedPoint_;      ///< Add point of last diverged newton in curve
 };
 
 }  // namespace job

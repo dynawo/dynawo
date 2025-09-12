@@ -171,8 +171,9 @@
   <xs:complexType name="CurvesEntry">
     <xs:attribute name="inputFile"  use="required" type="xs:string"/>
     <xs:attribute name="exportMode" use="required" type="dyn:CurvesExportMode"/>
-    <xs:attribute name="iterationStep"   use="optional" type="xs:int"/>
-    <xs:attribute name="timeStep"   use="optional" type="xs:double"/>
+    <xs:attribute name="iterationStep" use="optional" type="xs:int"/>
+    <xs:attribute name="timeStep" use="optional" type="xs:double"/>
+    <xs:attribute name="addLastNewtonDivergedPoint" use="optional" type="xs:boolean"/>
   </xs:complexType>
 
   <xs:complexType name="FinalStateValuesEntry">

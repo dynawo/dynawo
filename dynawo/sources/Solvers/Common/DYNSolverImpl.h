@@ -239,6 +239,20 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   }
 
   /**
+   * @copydoc Solver::setCurrentYP()
+   */
+  void setCurrentYP(const std::vector<double>& yp) override {
+    vectorYp_.assign(yp.begin(), yp.end());
+  }
+
+  /**
+   * @copydoc Solver::setCurrentY()
+   */
+  void setCurrentY(const std::vector<double>& y) override {
+    vectorY_.assign(y.begin(), y.end());
+  }
+
+  /**
    * @copydoc Solver::getTSolve()
    */
   inline double getTSolve() const {
@@ -249,6 +263,13 @@ class Solver::Impl : public Solver, private boost::noncopyable {
    * @copydoc Solver::setTimeline(const boost::shared_ptr<timeline::Timeline> &timeline)
    */
   void setTimeline(const boost::shared_ptr<timeline::Timeline>& timeline);
+
+  /**
+   * @copydoc Solver::setAddLastNewtonDivergedPoint()
+   */
+  void setAddLastNewtonDivergedPoint() override {
+    addLastNewtonDivergedPoint_ = true;
+  }
 
  protected:
   /**
@@ -331,6 +352,33 @@ class Solver::Impl : public Solver, private boost::noncopyable {
     return startFromDump_;
   }
 
+  /**
+  * @brief get te last Y used in newton iteration
+  *
+  * @return last Y used in Newton iteration
+  */
+  const std::vector<double>& getLastNewtonY() const override {
+    return lastNewtonY_;
+  }
+
+  /**
+   * @brief get te last Yp used in newton iteration
+   *
+   * @return last Yp used in Newton iteration
+   */
+  const std::vector<double>& getLastNewtonYp() const override {
+    return lastNewtonYp_;
+  }
+
+  /**
+  * @brief do we print newton solutions into file
+  *
+  * @return do we print newton solutions into file
+  */
+  bool printNewtonSolutions() const override {
+    return printNewtonSolutions_;
+  }
+
  protected:
   /**
    * @brief Integrate the DAE over an interval in t
@@ -357,6 +405,8 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   N_Vector sundialsVectorYp_;  ///<  derivative of variables stored in sundials structure
   std::vector<double> vectorY_;  ///< continuous variables values
   std::vector<double> vectorYp_;  ///< derivative of variables
+  std::vector<double> lastNewtonY_;  ///< save Y used in newton last iteration in case of divergence. Only valid if printNewtonSolutions is true.
+  std::vector<double> lastNewtonYp_;  ///< save Yp used in newton last iteration in case of divergence. Only valid if printNewtonSolutions is true.
 
   // Parameters for the algebraic restoration
   double fnormtolAlg_;  ///< stopping tolerance on L2-norm of residual function
@@ -402,6 +452,9 @@ class Solver::Impl : public Solver, private boost::noncopyable {
 
   bool startFromDump_;  ///< is solver starting from dump
   int numDifferentialVariables_;  ///< is solver starting from dump
+
+  bool printNewtonSolutions_;  ///< print newton solutions into file to debug it.
+  bool addLastNewtonDivergedPoint_;  ///< add last diverged newton point to the curves to help understanding divergence.
 };
 
 }  // end of namespace DYN

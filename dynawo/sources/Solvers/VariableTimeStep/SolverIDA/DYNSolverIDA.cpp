@@ -108,9 +108,11 @@ activateCheckJacobian_(false),
 activateCheckJacobianAfterInit_(false),
 printReinitResiduals_(false),
 countForceReinit_(0),
+useForceReinit_(true),
 flagInit_(false),
 nbLastTimeSimulated_(0),
-allLogs_(false) {
+allLogs_(false),
+printLastNewtonY_(false) {
 }
 
 void
@@ -164,6 +166,8 @@ SolverIDA::defineSpecificParameters() {
   parameters_.insert(make_pair("activateCheckJacobian", ParameterSolver("activateCheckJacobian", VAR_TYPE_BOOL, notMandatory)));
   parameters_.insert(make_pair("activateCheckJacobianAfterInit", ParameterSolver("activateCheckJacobianAfterInit", VAR_TYPE_BOOL, notMandatory)));
   parameters_.insert(make_pair("printReinitResiduals", ParameterSolver("printReinitResiduals", VAR_TYPE_BOOL, notMandatory)));
+  parameters_.insert(make_pair("useForceReinit", ParameterSolver("useForceReinit", VAR_TYPE_BOOL, notMandatory)));
+  parameters_.insert(make_pair("printLastNewtonY", ParameterSolver("printLastNewtonY", VAR_TYPE_BOOL, notMandatory)));
 }
 
 void
@@ -224,6 +228,14 @@ SolverIDA::setSolverSpecificParameters() {
   const ParameterSolver& printReinitResiduals = findParameter("printReinitResiduals");
   if (printReinitResiduals.hasValue())
     printReinitResiduals_ = printReinitResiduals.getValue<bool>();
+
+  const ParameterSolver& useForceReinit = findParameter("useForceReinit");
+  if (useForceReinit.hasValue())
+    useForceReinit_ = useForceReinit.getValue<bool>();
+
+  const ParameterSolver& printLastNewtonY = findParameter("printLastNewtonY");
+  if (printLastNewtonY.hasValue())
+    printLastNewtonY_ = printLastNewtonY.getValue<bool>();
 }
 
 std::string
@@ -434,6 +446,10 @@ SolverIDA::init(const std::shared_ptr<Model>& model, const double t0, const doub
     solverKINYPrim_.reset(new SolverKINAlgRestoration(printReinitResiduals_));
     solverKINYPrim_->init(model_, SolverKINAlgRestoration::KIN_DERIVATIVES);
   }
+
+  if (printNewtonSolutions_) {
+    solverKINNormal_->setPrintNewtonSolutions();
+  }
 }
 
 void
@@ -590,7 +606,7 @@ SolverIDA::calculateIC(double /*tEnd*/) {
   // reinit output
   flagInit_ = false;
 // #if _DEBUG_
-  if (activateCheckJacobian_) {
+  if (activateCheckJacobianAfterInit_) {
     solverKINNormal_->setCheckJacobian(true);
     solverKINYPrim_->setCheckJacobian(true);
   } else {
@@ -716,6 +732,7 @@ SolverIDA::evalF(realtype tres, N_Vector yy, N_Vector yp,
   realtype* iyp = NV_DATA_S(yp);
   realtype* irr = NV_DATA_S(rr);
   model.evalF(tres, iyy, iyp, irr);
+
 #ifdef _DEBUG_
   if (solver->flagInit()) {
     Trace::debug(Trace::solver()) << "===== " << DYNLog(SolverIDADebugResidual) << " =====" << Trace::endline;
@@ -726,6 +743,27 @@ SolverIDA::evalF(realtype tres, N_Vector yy, N_Vector yp,
     }
   }
 #endif
+
+  if (solver->addLastNewtonDivergedPoint_) {
+    for (int i = 0; i < model.sizeF(); ++i) {
+      solver->lastNewtonY_[i] = iyy[i];
+      solver->lastNewtonYp_[i] = iyp[i];
+    }
+  }
+
+  static int numPrintNewtonSolutions = 0;
+  if (solver->printNewtonSolutions_) {
+    long int current_nresNewton = 0;
+    IDAGetNewtonCurIter(solver->IDAMem_, &current_nresNewton);
+    if (current_nresNewton == 0)
+      ++numPrintNewtonSolutions;
+    static std::string folder = "tmpSolYIDA";
+    static std::string base = "solY-";
+    std::stringstream filename;
+    filename << base << numPrintNewtonSolutions << "_" << current_nresNewton << ".txt";
+    SolverCommon::printVector(folder, filename.str(), iyy, model.sizeY());
+  }
+
   if (solver->getAllLogs()) {
     std::vector<double> vectorF(model.sizeY());
     std::vector<double> vectorFScale(model.sizeY(), 1.);
@@ -733,8 +771,15 @@ SolverIDA::evalF(realtype tres, N_Vector yy, N_Vector yp,
     double weightedInfNorm = SolverCommon::weightedInfinityNorm(vectorF, vectorFScale);
     double wL2Norm = SolverCommon::weightedL2Norm(vectorF, vectorFScale);
     long int current_nres = 0;
-    IDAGetNumResEvals(solver->IDAMem_, &current_nres);
+    IDAGetNewtonCurIter(solver->IDAMem_, &current_nres);
     Trace::debug() << DYNLog(SolverKINResidualNorm, current_nres, weightedInfNorm, wL2Norm) << Trace::endline;
+    if (solver->printNewtonSolutions_) {
+      // Trace::debug() << "current step " << solver->getCurrentStep() << Trace::endline;
+      Trace::debug() << "numPrintNewtonSolutions " << numPrintNewtonSolutions << Trace::endline;
+    }
+    // std::cout << DYNLog(SolverKINResidualNorm, current_nres, weightedInfNorm, wL2Norm) << std::endl;
+    // std::cout << "current step " << solver->getCurrentStep() << std::endl;
+    // std::cout << "numPrintNewtonSolutions " << numPrintNewtonSolutions << std::endl;
 
     int nbErr = 10;
     Trace::debug() << DYNLog(KinLargestErrors, nbErr) << Trace::endline;
@@ -836,6 +881,16 @@ SolverIDA::evalJ(realtype tt, realtype cj,
   return 0;
 }
 
+void SolverIDA::printLastNewtonY() const {
+   if (printLastNewtonY_) {
+     static std::string folder = "tmpLastNewtonY";
+     static std::string name = "y.txt";
+     static std::string name2 = "yp.txt";
+     SolverCommon::printVector(folder, name, lastNewtonY_);
+     SolverCommon::printVector(folder, name2, lastNewtonYp_);
+   }
+}
+
 void
 SolverIDA::solveStep(double tAim, double& tNxt) {
   int flag = IDASolve(IDAMem_, tAim, &tNxt, sundialsVectorY_, sundialsVectorYp_, solveTaskToInt());
@@ -850,8 +905,16 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
     case IDA_SUCCESS:
       msg = "IDA_SUCCESS";
       //std::cout << "IDA_SUCCESS" << std::endl;
-      if (countForceReinit_ == 1)
+      if (countForceReinit_ == 1 || countForceReinit_ == 2) {
+        if (countForceReinit_ == 2) {
+          uroundPrecision_ = uroundPrecisionSave_;
+          minStep_ = minStepSave_;
+          setCurrentPrecision(precisionSave_);
+          IDASetMinStep(IDAMem_, minStep_);
+          IDASetURound(IDAMem_, uroundPrecision_ / (100. * (getTimeStep() + tNxt)));
+        }
         countForceReinit_ = 0;
+      }
       break;
     case IDA_ROOT_RETURN:
       msg = "IDA_ROOT_RETURN";
@@ -866,36 +929,72 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
       // updateStatistics();
       break;
     case IDA_CONV_FAIL:
-      if (countForceReinit_ == 0) {
-        Trace::info() << "SolverIDA: IDA_CONV_FAIL force reinit" << Trace::endline;
-        int msbsetAlgJSave = msbsetAlgJ_;
-        modeChangeType_t minimumModeChangeTypeForAlgebraicRestorationSave = minimumModeChangeTypeForAlgebraicRestoration_;
-        msbsetAlgJ_ = 1;
-        minimumModeChangeTypeForAlgebraicRestoration_ = ALGEBRAIC_J_J_UPDATE_MODE;
-        model_->setModeChangeType(minimumModeChangeTypeForAlgebraicRestoration_);
-        reinit();
-        msbsetAlgJ_ = msbsetAlgJSave;
-        minimumModeChangeTypeForAlgebraicRestoration_ = minimumModeChangeTypeForAlgebraicRestorationSave;
-        ++countForceReinit_;
-        break;
+      if (useForceReinit_) {
+        if (countForceReinit_ == 0) {
+          Trace::info() << "SolverIDA: IDA_CONV_FAIL force reinit" << Trace::endline;
+          int msbsetAlgJSave = msbsetAlgJ_;
+          modeChangeType_t minimumModeChangeTypeForAlgebraicRestorationSave = minimumModeChangeTypeForAlgebraicRestoration_;
+          msbsetAlgJ_ = 1;
+          minimumModeChangeTypeForAlgebraicRestoration_ = ALGEBRAIC_J_J_UPDATE_MODE;
+          model_->setModeChangeType(minimumModeChangeTypeForAlgebraicRestoration_);
+          reinit();
+          msbsetAlgJ_ = msbsetAlgJSave;
+          minimumModeChangeTypeForAlgebraicRestoration_ = minimumModeChangeTypeForAlgebraicRestorationSave;
+          ++countForceReinit_;
+          break;
+        } else if (countForceReinit_ == 1) {
+          Trace::info() << "SolverIDA: IDA_CONV_FAIL force reinit with divided time step" << Trace::endline;
+          uroundPrecisionSave_ = uroundPrecision_;
+          precisionSave_ = getCurrentPrecision();
+          minStepSave_ = minStep_;
+          const double factor = 100.;
+          minStep_ /= factor;
+          uroundPrecision_ /= factor;
+          setCurrentPrecision(precisionSave_ / factor);
+          IDASetMinStep(IDAMem_, minStep_);
+          IDASetURound(IDAMem_, uroundPrecision_ / (100. * (getTimeStep() + tNxt)));
+          ++countForceReinit_;
+        } else {
+          printLastNewtonY();
+          analyseFlag(flag);
+        }
       } else {
+        printLastNewtonY();
         analyseFlag(flag);
       }
       break;
     case IDA_ERR_FAIL:
-      if (countForceReinit_ == 0) {
-        Trace::info() << "SolverIDA: IDA_ERR_FAIL force reinit" << Trace::endline;
-        int msbsetAlgJSave = msbsetAlgJ_;
-        modeChangeType_t minimumModeChangeTypeForAlgebraicRestorationSave = minimumModeChangeTypeForAlgebraicRestoration_;
-        msbsetAlgJ_ = 1;
-        minimumModeChangeTypeForAlgebraicRestoration_ = ALGEBRAIC_J_J_UPDATE_MODE;
-        model_->setModeChangeType(minimumModeChangeTypeForAlgebraicRestoration_);
-        reinit();
-        msbsetAlgJ_ = msbsetAlgJSave;
-        minimumModeChangeTypeForAlgebraicRestoration_ = minimumModeChangeTypeForAlgebraicRestorationSave;
-        ++countForceReinit_;
-        break;
+      if (useForceReinit_) {
+        if (countForceReinit_ == 0) {
+          Trace::info() << "SolverIDA: IDA_ERR_FAIL force reinit" << Trace::endline;
+          int msbsetAlgJSave = msbsetAlgJ_;
+          modeChangeType_t minimumModeChangeTypeForAlgebraicRestorationSave = minimumModeChangeTypeForAlgebraicRestoration_;
+          msbsetAlgJ_ = 1;
+          minimumModeChangeTypeForAlgebraicRestoration_ = ALGEBRAIC_J_J_UPDATE_MODE;
+          model_->setModeChangeType(minimumModeChangeTypeForAlgebraicRestoration_);
+          reinit();
+          msbsetAlgJ_ = msbsetAlgJSave;
+          minimumModeChangeTypeForAlgebraicRestoration_ = minimumModeChangeTypeForAlgebraicRestorationSave;
+          ++countForceReinit_;
+          break;
+        } else if (countForceReinit_ == 1) {
+          Trace::info() << "SolverIDA: IDA_ERR_FAIL force reinit with divided min step" << Trace::endline;
+          uroundPrecisionSave_ = uroundPrecision_;
+          precisionSave_ = getCurrentPrecision();
+          minStepSave_ = minStep_;
+          const double factor = 100.;
+          minStep_ /= factor;
+          uroundPrecision_ /= factor;
+          setCurrentPrecision(precisionSave_ / factor);
+          IDASetMinStep(IDAMem_, minStep_);
+          IDASetURound(IDAMem_, uroundPrecision_ / (100. * (getTimeStep() + tNxt)));
+          ++countForceReinit_;
+        } else {
+          printLastNewtonY();
+          analyseFlag(flag);
+        }
       } else {
+        printLastNewtonY();
         analyseFlag(flag);
       }
       break;
@@ -1223,11 +1322,15 @@ SolverIDA::updateStatistics() {
 
 void
 SolverIDA::errHandlerFn(int error_code, const char* module, const char* function,
-        char* msg, void* /*eh_data*/) {
+        char* msg, void* eh_data) {
   if (error_code == IDA_WARNING) {
-    Trace::warn() << module << " " << function << " :" << msg << Trace::endline;
+    Trace::warn() << module << " " << function << ": " << msg << Trace::endline;
+  } else if (error_code == IDA_DEBUG) {
+    SolverIDA* solver = reinterpret_cast<SolverIDA*>(eh_data);
+    if (solver->allLogs_)
+      Trace::debug() << module << " " << function << ": " << msg << Trace::endline;
   } else {
-    Trace::error() << module << " " << function << " :" << msg << Trace::endline;
+    Trace::error() << module << " " << function << ": " << msg << Trace::endline;
   }
 }
 

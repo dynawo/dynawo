@@ -42,6 +42,8 @@ using std::string;
 
 namespace DYN {
 
+static int numPrintNewtonSolutions = 0;
+
 string
 SolverKINAlgRestoration::stringFromMode(modeKin_t mode) {
   switch (mode) {
@@ -57,7 +59,8 @@ SolverKINAlgRestoration::stringFromMode(modeKin_t mode) {
 SolverKINAlgRestoration::SolverKINAlgRestoration(const bool printReinitResiduals) :
 SolverKINCommon(),
 mode_(KIN_ALGEBRAIC),
-printReinitResiduals_(printReinitResiduals) {
+printReinitResiduals_(printReinitResiduals),
+printNewtonSolutions_(false) {
 #if _DEBUG_
   checkJacobian_ = false;
 #endif
@@ -164,6 +167,7 @@ SolverKINAlgRestoration::initVarAndEqTypes() {
 void
 SolverKINAlgRestoration::setupNewAlgebraicRestoration(double fnormtol, double initialaddtol, double scsteptol, double mxnewtstep,
                                   int msbset, int mxiter, int printfl) {
+  ++numPrintNewtonSolutions;
   unsigned int numFPrevious = numF_;
   numF_ = initVarAndEqTypes();
   if (numF_ == 0)
@@ -281,6 +285,19 @@ SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
     irr[i] = solver->vectorF_[solver->indexF_[i]];
   }
 
+  if (solver->printNewtonSolutions_) {
+    if (solver->mode_ == KIN_ALGEBRAIC) {
+      long int current_nni_newton = 0;
+      KINGetNumNonlinSolvIters(solver->KINMem_, &current_nni_newton);
+
+      static std::string base = "solY-";
+      static std::string folder = "tmpSolYAlgRestoration";
+      std::stringstream filename;
+      filename << base << numPrintNewtonSolutions << "_" << current_nni_newton << ".txt";
+      SolverCommon::printVector(folder, filename.str(), solver->vectorYForRestoration_);
+    }
+  }
+
   // model.printVariableNames(solver->ignoreY_);
   // model.printEquations(solver->ignoreF_);
 
@@ -292,6 +309,8 @@ SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
     long int current_nni = 0;
     KINGetNumNonlinSolvIters(solver->KINMem_, &current_nni);
     Trace::debug() << DYNLog(SolverKINResidualNormAlg, stringFromMode(solver->getMode()), current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
+    if (solver->printNewtonSolutions_)
+      Trace::debug() << "numPrintNewtonSolutions " << numPrintNewtonSolutions << Trace::endline;
 
     const int nbErr = 10;
     Trace::debug() << DYNLog(KinLargestErrors, nbErr) << Trace::endline;

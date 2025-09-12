@@ -160,6 +160,18 @@ class SolverCommon {
  *
  */
  static void resetNumSymbolicFactorization();
+
+ /**
+ * @brief Print a vector into a file
+ *
+ */
+ static void printVector(const std::string& folder, const std::string& name, const double* vec, unsigned int size);
+
+ /**
+ * @brief Print a vector into a file
+ *
+ */
+ static void printVector(const std::string& folder, const std::string& name, const std::vector<double>& vec);
 };
 
 }  // end of namespace DYN

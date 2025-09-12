@@ -62,13 +62,21 @@ CurvesEntry::setExportMode(const std::string& exportMode) {
 }
 
 void
-CurvesEntry::setIterationStep(boost::optional<int> iterationStep) {
+CurvesEntry::setIterationStep(const boost::optional<int> iterationStep) {
   iterationStep_ = iterationStep;
 }
 
 void
-CurvesEntry::setTimeStep(boost::optional<double> timeStep) {
+CurvesEntry::setTimeStep(const boost::optional<double> timeStep) {
   timeStep_ = timeStep;
+}
+
+boost::optional<bool> CurvesEntry::getAddLastNewtonDivergedPoint() const {
+  return addLastNewtonDivergedPoint_;
+}
+
+void CurvesEntry::setAddLastNewtonDivergedPoint(const boost::optional<bool> addLastNewtonDivergedPoint) {
+  addLastNewtonDivergedPoint_ = addLastNewtonDivergedPoint;
 }
 
 }  // namespace job

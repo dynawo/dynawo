@@ -92,7 +92,9 @@ minimumModeChangeTypeForAlgebraicRestorationInit_(NO_MODE),
 multipleStrategiesForAlgebraicRestoration_(false),
 tSolve_(0.),
 startFromDump_(false),
-numDifferentialVariables_(0) {
+numDifferentialVariables_(0),
+printNewtonSolutions_(false),
+addLastNewtonDivergedPoint_(false) {
   if (SUNContext_Create(NULL, &sundialsContext_) != 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverContextCreationError);
 }
@@ -139,6 +141,11 @@ Solver::Impl::init(const double t0, const std::shared_ptr<Model>& model) {
   // Initial values
   // -----------------
   model_->getY0(t0, vectorY_, vectorYp_);
+
+  if (addLastNewtonDivergedPoint_) {
+    lastNewtonY_.assign(model_->sizeY(), 0.);
+    lastNewtonYp_.assign(model_->sizeY(), 0.);
+  }
 }
 
 void
@@ -166,6 +173,7 @@ Solver::Impl::printSolve() const {
   printSolveSpecific(msg);
 
   Trace::info() << msg.str() << Trace::endline;
+  // std::cout << msg.str() << std::endl;;
 }
 
 void
@@ -378,6 +386,7 @@ Solver::Impl::defineCommonParameters() {
       ParameterSolver("multipleStrategiesForAlgebraicRestoration", VAR_TYPE_BOOL, optional)));
 
   parameters_.insert(make_pair("printUnstableRoot", ParameterSolver("printUnstableRoot", VAR_TYPE_BOOL, optional)));
+  parameters_.insert(make_pair("printNewtonSolutions", ParameterSolver("printNewtonSolutions", VAR_TYPE_BOOL, optional)));
 }
 
 bool
@@ -554,6 +563,10 @@ void Solver::Impl::setSolverCommonParameters() {
   const ParameterSolver& printUnstableRoot = findParameter("printUnstableRoot");
   if (printUnstableRoot.hasValue())
     printUnstableRoot_ = printUnstableRoot.getValue<bool>();
+
+  const ParameterSolver& printNewtonSolutions = findParameter("printNewtonSolutions");
+  if (printNewtonSolutions.hasValue())
+    printNewtonSolutions_ = printNewtonSolutions.getValue<bool>();
 }
 
 void

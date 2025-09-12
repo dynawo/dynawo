@@ -524,6 +524,8 @@ CurvesHandler::create(attributes_type const& attributes) {
   curves_->setExportMode(attributes["exportMode"]);
   curves_->setIterationStep(attributes["iterationStep"]);
   curves_->setTimeStep(attributes["timeStep"]);
+  if (attributes.has("addLastNewtonDivergedPoint"))
+    curves_->setAddLastNewtonDivergedPoint(attributes["addLastNewtonDivergedPoint"]);
 }
 
 shared_ptr<CurvesEntry>

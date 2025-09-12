@@ -282,6 +282,11 @@ class SolverIDA : public Solver::Impl {
   return allLogs_;
  }
 
+ /**
+  * @brief print last newton Y and Yp used
+  */
+ void printLastNewtonY() const;
+
  private:
   void* IDAMem_;  ///< IDA internal memory structure
   SUNLinearSolver linearSolver_;  ///< Linear Solver pointer
@@ -294,12 +299,15 @@ class SolverIDA : public Solver::Impl {
   int order_;  ///< maximum order to use in the integration method
   double initStep_;  ///< initial step size
   double minStep_;  ///< minimal step size
+  double minStepSave_;  ///< minimal step size saved in case of force reinit
   double maxStep_;  ///< maximum step size
   double absAccuracy_;  ///< relative error tolerance
   double relAccuracy_;  ///< absolute error tolerance
   double deltacj_;  ///< the cj change threshold that requires a linear solver setup call
   bool uround_;  ///< to activate change on uround
   double uroundPrecision_;  ///< to activate change on uround
+  double uroundPrecisionSave_;  ///< save uround precision in case of force reinit
+  double precisionSave_;  ///< save precision in case of force reinit
   bool uroundPrecisionAlignedPrecision_;  ///< to activate change on uround
   bool newReinit_;  ///< test
   std::string solveTask_;  ///< test
@@ -312,6 +320,7 @@ class SolverIDA : public Solver::Impl {
   bool activateCheckJacobianAfterInit_;  ///< test
   bool printReinitResiduals_;  ///< test
   int countForceReinit_;  ///< test
+  bool useForceReinit_;  ///< to activate force reinit in case of failure
 
   bool flagInit_;  ///< @b true if the solver is in initialization mode
   int nbLastTimeSimulated_;  ///< nb times of simulation of the latest time (to see if the solver succeed to pass through event at one point)
@@ -321,6 +330,7 @@ class SolverIDA : public Solver::Impl {
   SparseMatrix smj_;  ///< Jacobian matrix
 
   bool allLogs_;  ///< test
+  bool printLastNewtonY_;  ///< to print last newton Y and Yp used in a file
 };
 
 }  // end of namespace DYN

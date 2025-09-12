@@ -733,6 +733,7 @@ class Simulation {
   std::vector<double> zCurrent_;  ///< current values of the model's discrete variables
 
   bool wasLoggingEnabled_;  ///< true if logging was enabled by an upper project
+  bool addLastNewtonDivergedPoint_;  ///< true to add point of last diverged newton in curves
 
  private:
   /**

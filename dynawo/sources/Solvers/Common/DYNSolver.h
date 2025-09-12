@@ -270,6 +270,18 @@ class Solver {
   virtual const std::vector<double>& getCurrentY() const = 0;
 
   /**
+   * @brief set for the current value of variables' derivatives
+   * Warning: should be used only for debug purposes and to set diverged newton point into curves.
+   */
+  virtual void setCurrentYP(const std::vector<double>& yp) = 0;
+
+  /**
+   * @brief set for the current value of continuous variables
+   * Warning: should be used only for debug purposes and to set diverged newton point into curves.
+   */
+  virtual void setCurrentY(const std::vector<double>& y) = 0;
+
+  /**
    * @brief getter for the current internal time of the solver
    * @return current internal time of the solver
    */
@@ -322,6 +334,32 @@ class Solver {
   * @return is solver starting from dump
   */
   virtual bool startFromDump() const = 0;
+
+  /**
+  * @brief get te last Y used in newton iteration
+  *
+  * @return last Y used in Newton iteration
+  */
+  virtual const std::vector<double>& getLastNewtonY() const = 0;
+
+  /**
+  * @brief get te last Yp used in newton iteration
+  *
+  * @return last Yp used in Newton iteration
+  */
+  virtual const std::vector<double>& getLastNewtonYp() const = 0;
+
+  /**
+  * @brief do we print newton solutions into file
+  *
+  * @return do we print newton solutions into file
+  */
+  virtual bool printNewtonSolutions() const = 0;
+
+  /**
+  * @brief set to true add last newton diverged point to save it
+  */
+  virtual void setAddLastNewtonDivergedPoint() = 0;
 
   class Impl;
 };

@@ -148,10 +148,6 @@ ModelBusContainer::initRefIslands() {
 
 void
 ModelBusContainer::initDerivatives() {
-  /*std::cout << std::endl;
-  std::cout << std::endl;
-  std::cout << std::endl;
-  std::cout << "buses" << std::endl;*/
   for (auto& bus : models_)
     bus->initDerivatives();
 }
