@@ -345,7 +345,7 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
    * @brief get derivatives for J
    * @return the derivatives associated to the bus model for J
    */
-  inline boost::shared_ptr<BusDerivatives> derivatives() const {
+  inline boost::shared_ptr<BusDerivatives>& derivatives() {
     return derivatives_;
   }
 
@@ -353,7 +353,7 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
    * @brief get derivatives for J'
    * @return the derivatives associated to the bus model for J'
    */
-  inline boost::shared_ptr<BusDerivatives> derivativesPrim() const {
+  inline boost::shared_ptr<BusDerivatives>& derivativesPrim() {
     return derivativesPrim_;
   }
 
