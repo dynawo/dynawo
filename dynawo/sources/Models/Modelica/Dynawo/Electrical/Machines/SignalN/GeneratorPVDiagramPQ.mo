@@ -17,6 +17,12 @@ model GeneratorPVDiagramPQ "Model for generator PV based on SignalN for the freq
   extends BaseClasses.BasePV;
   extends BaseClasses.BaseQStator(QStatorPu(start = QGen0Pu * SystemBase.SnRef / QNomAlt));
 
+  // blocks
+  Modelica.Blocks.Sources.BooleanExpression blocking(y = (qStatus == QStatus.AbsorptionMax or qStatus == QStatus.GenerationMax or running.value == false)) "Expression determining if reactive power limits have been reached or if the generator is disconnected" annotation(
+    Placement(transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Interfaces.BooleanOutput blocker "If true, reactive power limits have been reached or the generator is disconnected" annotation(
+    Placement(transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {106, 0}, extent = {{-10, -10}, {10, 10}})));
+
 equation
   when QGenPu + QDeadBandPu  <= QMinPu and UPu - UDeadBandPu > URefPu then
     qStatus = QStatus.AbsorptionMax;
@@ -54,6 +60,9 @@ equation
   end if;
 
   QStatorPu = QGenPu * SystemBase.SnRef / QNomAlt;
+
+  connect(blocking.y, blocker) annotation(
+    Line(points = {{82, 0}, {110, 0}}, color = {255, 0, 255}));
 
   annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body>  This generator provides an active power PGenPu that depends on an emulated frequency regulation and regulates the voltage UPu unless its reactive power generation hits its limits QMinPu or QMaxPu. These limits are calculated in the model depending on PGenPu.</div></body></html>"));
