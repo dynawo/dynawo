@@ -26,6 +26,12 @@ model HvdcPVDanglingDiagramPQ "Model for PV HVDC link with a PQ diagram and term
 
 */
 
+// blocks
+  Modelica.Blocks.Sources.BooleanExpression blockingSide1(y = (q1Status == QStatus.AbsorptionMax or q1Status == QStatus.GenerationMax or runningSide1.value == false)) "Expression determining if reactive power limits have been reached on converter side 1 or if the hvdc is disconnected on side 1"  annotation(
+    Placement(transformation(origin = {70, 40}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Interfaces.BooleanOutput blockerSide1 "If true, reactive power limits have been reached on converter side 1 or the hvdc is disconnected on side 1" annotation(
+    Placement(transformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {106, 0}, extent = {{-10, -10}, {10, 10}})));
+
 equation
   QInj1PuQNom = QInj1Pu * SystemBase.SnRef / Q1Nom;
 
@@ -69,6 +75,9 @@ equation
   else
     terminal1.i.im = 0;
   end if;
+
+  connect(blockingSide1.y, blockerSide1) annotation(
+    Line(points = {{82, 40}, {110, 40}}, color = {255, 0, 255}));
 
   annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body>This HVDC link regulates the active power flowing through itself. It also regulates the voltage or the reactive power at terminal1. The active power setpoint is given as an input and can be modified during the simulation, as well as the voltage reference and the reactive power reference. The terminal2 is connected to a switched-off bus. The Q limitations follow a PQ diagram.</div></body></html>"));
