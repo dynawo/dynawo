@@ -46,7 +46,7 @@ INFO | starting simulation with solver SimplifiedSolver
 INFO | -----------------------------------------------------------------------
 INFO | -----------------------------------------------------------------------
 INFO | number of continuous variables : 128
-INFO | number of discrete variables : 163
+INFO | number of discrete variables : 167
 INFO | number of root functions : 105
 INFO | -----------------------------------------------------------------------
 INFO |         time ¦ iter num   Nonlinear iter   jac eval      time step (h)
