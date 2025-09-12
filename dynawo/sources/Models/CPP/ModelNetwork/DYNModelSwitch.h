@@ -203,7 +203,7 @@ class ModelSwitch : public std::enable_shared_from_this<ModelSwitch>, public Net
   /**
   * @copydoc NetworkComponent::evalZ()
   */
-  NetworkComponent::StateChange_t evalZ(double t) override;
+  NetworkComponent::StateChange_t evalZ(double t, bool deactivateRootFunctions) override;
 
   /**
    * @brief evaluate G

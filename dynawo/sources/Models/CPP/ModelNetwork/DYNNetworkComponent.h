@@ -157,7 +157,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @param t time
    * @return the potential state change type
    */
-  virtual StateChange_t evalZ(double t) = 0;
+  virtual StateChange_t evalZ(double t, bool deactivateRootFunctions) = 0;
 
   /**
    * @brief evaluation calculated variables (for outputs)

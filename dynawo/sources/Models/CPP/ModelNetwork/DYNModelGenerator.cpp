@@ -177,7 +177,7 @@ ModelGenerator::defineElements(std::vector<Element> &elements, std::map<std::str
 }
 
 NetworkComponent::StateChange_t
-ModelGenerator::evalZ(const double /*t*/) {
+ModelGenerator::evalZ(const double /*t*/, bool /*deactivateRootFunctions*/) {
   if (modelBus_->getConnectionState() == OPEN)
     z_[0] = OPEN;
 
@@ -204,7 +204,7 @@ ModelGenerator::evalZ(const double /*t*/) {
     DYNAddTimelineEvent(network_, id_, GeneratorTargetQ, z_[2]);
     Qc_ = z_[2];
   }
-  return stateModified_ ? NetworkComponent::STATE_CHANGE : NetworkComponent::NO_CHANGE;
+  return stateModified_ ? STATE_CHANGE : NO_CHANGE;
 }
 
 void
