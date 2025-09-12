@@ -303,8 +303,8 @@ class ModelSecondaryVoltageControlSimplified : public ModelCPP {
  private:
   int nbGenerators_;              ///< number of generators
   double UDeadBandPu_;            ///< deadband width on difference bewteen UpPu and UpRefPu, in pu (base UNom)
-  double alpha_;                  ///< integral gain
-  double beta_;                   ///< proportional gain
+  double Alpha_;                  ///< integral gain
+  double Beta_;                   ///< proportional gain
   double UpRef0Pu_;               ///< initial voltage regulation set point in pu (base UNom)
   double tSample_;                ///< sample time of the SVC in s
   double iTerm_;                  ///< integral tem
