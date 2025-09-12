@@ -174,6 +174,17 @@ job_file = os.path.join(os.path.dirname(__file__), "IEEE14_BasicTestCases", "IEE
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
 #########################################
+#      IEEE14 - Line Fault              #
+#########################################
+
+case_name = "IEEE14 - Line Fault"
+case_description = "IEEE14 - Line Fault"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE14_BasicTestCases", "IEEE14_LineFault", "IEEE14.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+
+#########################################
 #      IEEE14 - Load Variation          #
 #########################################
 

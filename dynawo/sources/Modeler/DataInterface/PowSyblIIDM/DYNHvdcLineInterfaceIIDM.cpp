@@ -185,15 +185,19 @@ void HvdcLineInterfaceIIDM::importStaticParameters() {
   staticParameters_.clear();
 
   bool isACEmulationEnabled = hvdcActivePowerControl_ && hvdcActivePowerControl_.get().isEnabled();
-  double p0ACEmulationPu = 0;
+  double p0ACEmulationPu = 0.;
+  double droop = 0.;
   if (isACEmulationEnabled) {
     double p0ACEmulation = hvdcActivePowerControl_.get().getP0();
     p0ACEmulationPu = p0ACEmulation / SNREF;
+    droop = hvdcActivePowerControl_.get().getDroop();
   }
   staticParameters_.insert(std::make_pair("isACEmulationEnabled", StaticParameter("isACEmulationEnabled",
                              StaticParameter::BOOL).setValue(isACEmulationEnabled)));
   staticParameters_.insert(std::make_pair("p0ACEmulationPu", StaticParameter("p0ACEmulationPu",
                              StaticParameter::DOUBLE).setValue(p0ACEmulationPu)));
+  staticParameters_.insert(std::make_pair("droop", StaticParameter("droop",
+                             StaticParameter::DOUBLE).setValue(droop)));
   staticParameters_.insert(std::make_pair("pMax", StaticParameter("pMax", StaticParameter::DOUBLE).setValue(getPmax())));
   staticParameters_.insert(std::make_pair("pMax_pu", StaticParameter("pMax_pu", StaticParameter::DOUBLE).setValue(getPmax() / SNREF)));
   staticParameters_.insert(std::make_pair("p1_pu", StaticParameter("p1_pu", StaticParameter::DOUBLE).setValue(conv1_->getP() / SNREF)));
@@ -212,11 +216,13 @@ void HvdcLineInterfaceIIDM::importStaticParameters() {
     staticParameters_.insert(std::make_pair("angle1", StaticParameter("angle1", StaticParameter::DOUBLE).setValue(theta1)));
     staticParameters_.insert(std::make_pair("v1_pu", StaticParameter("v1_pu", StaticParameter::DOUBLE).setValue(U10 / U1Nom)));
     staticParameters_.insert(std::make_pair("angle1_pu", StaticParameter("angle1_pu", StaticParameter::DOUBLE).setValue(theta1 * M_PI / 180)));
+    staticParameters_.insert(std::make_pair("v1Nom", StaticParameter("v1Nom", StaticParameter::DOUBLE).setValue(U1Nom)));
   } else {
     staticParameters_.insert(std::make_pair("v1", StaticParameter("v1", StaticParameter::DOUBLE).setValue(0.)));
     staticParameters_.insert(std::make_pair("angle1", StaticParameter("angle1", StaticParameter::DOUBLE).setValue(0.)));
     staticParameters_.insert(std::make_pair("v1_pu", StaticParameter("v1_pu", StaticParameter::DOUBLE).setValue(0.)));
     staticParameters_.insert(std::make_pair("angle1_pu", StaticParameter("angle1_pu", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("v1Nom", StaticParameter("v1Nom", StaticParameter::DOUBLE).setValue(1.)));
   }
   if (conv2_->getBusInterface()) {
     double U20 = conv2_->getBusInterface()->getV0();
@@ -226,12 +232,13 @@ void HvdcLineInterfaceIIDM::importStaticParameters() {
     staticParameters_.insert(std::make_pair("angle2", StaticParameter("angle2", StaticParameter::DOUBLE).setValue(theta2)));
     staticParameters_.insert(std::make_pair("v2_pu", StaticParameter("v2_pu", StaticParameter::DOUBLE).setValue(U20 / U2Nom)));
     staticParameters_.insert(std::make_pair("angle2_pu", StaticParameter("angle2_pu", StaticParameter::DOUBLE).setValue(theta2 * M_PI / 180)));
-
+    staticParameters_.insert(std::make_pair("v2Nom", StaticParameter("v2Nom", StaticParameter::DOUBLE).setValue(U2Nom)));
   } else {
     staticParameters_.insert(std::make_pair("v2", StaticParameter("v2", StaticParameter::DOUBLE).setValue(0.)));
     staticParameters_.insert(std::make_pair("angle2", StaticParameter("angle2", StaticParameter::DOUBLE).setValue(0.)));
     staticParameters_.insert(std::make_pair("v2_pu", StaticParameter("v2_pu", StaticParameter::DOUBLE).setValue(0.)));
     staticParameters_.insert(std::make_pair("angle2_pu", StaticParameter("angle2_pu", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("v2Nom", StaticParameter("v2Nom", StaticParameter::DOUBLE).setValue(1.)));
   }
 }
 
