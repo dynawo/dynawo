@@ -15,13 +15,19 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 model VariableLimiter "Limit the range of a signal with variable limits"
   extends Modelica.Blocks.Interfaces.SISO;
 
+  parameter Boolean strict = false "If true, strict limits with noEvent(..)";
+
   Modelica.Blocks.Interfaces.RealInput limit1 "Connector of Real input signal used as maximum of input u" annotation(
     Placement(transformation(extent = {{-140, 60},{-100, 100}})));
   Modelica.Blocks.Interfaces.RealInput limit2 "Connector of Real input signal used as minimum of input u" annotation(
     Placement(transformation(extent = {{-140, -100},{-100, -60}})));
 
 equation
-  y = smooth(0, if u > limit1 then limit1 else if u < limit2 then limit2 else u);
+  if strict then
+    y = smooth(0, noEvent(if u > limit1 then limit1 else if u < limit2 then limit2 else u));
+  else
+    y = smooth(0, if u > limit1 then limit1 else if u < limit2 then limit2 else u);
+  end if;
 
   annotation(
     preferredView = "text",
