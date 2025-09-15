@@ -40,6 +40,7 @@ class ConstraintData {
   kind_t kind;                                 ///< Kind of constraint
   double limit;                                ///< Limit of the constraint
   double value;                                ///< value of the constraint
+  boost::optional<double> valueMax;            ///< maximum value reached during the presence of the constraint
   boost::optional<int> side;                   ///< Side the constraint applies
   boost::optional<double> acceptableDuration;  ///< the acceptable duration of the constraint
 
@@ -57,6 +58,7 @@ class ConstraintData {
       kind(constraintKind),
       limit(constraintLimit),
       value(constraintValue),
+      valueMax(boost::none),
       side(constraintSide),
       acceptableDuration(constraintAcceptableDuration) {}
 
