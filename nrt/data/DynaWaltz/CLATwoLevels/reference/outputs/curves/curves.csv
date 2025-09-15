@@ -1,4 +1,4 @@
-time;NETWORK__BUS____7-BUS___10-2_AC_state;NETWORK__BUS____7-BUS___10-2_AC_i1;NETWORK__BUS____7-BUS___10-2_AC_i2;CLA_currentLimitAutomaton_IMonitored1_value;CLA_currentLimitAutomaton_IMonitored2_value;CLA_currentLimitAutomaton_IMax1;CLA_currentLimitAutomaton_IMax2;CLA_currentLimitAutomaton_order;CLA_currentLimitAutomaton_currentLimitAutomaton1_order_value;CLA_currentLimitAutomaton_currentLimitAutomaton2_order_value;
+time;NETWORK__BUS____7-BUS___10-2_AC_state;NETWORK__BUS____7-BUS___10-2_AC_i1;NETWORK__BUS____7-BUS___10-2_AC_i2;CLA_currentLimitAutomaton_IMonitored1_value;CLA_currentLimitAutomaton_IMonitored2_value;CLA_currentLimitAutomaton_IMax1;CLA_currentLimitAutomaton_IMax2;CLA_currentLimitAutomaton_order;CLA_currentLimitAutomaton_Order1;CLA_currentLimitAutomaton_Order2;
 0.000000;2.000000;12.233000;12.258256;0.000000;0.000000;8.000000;4.000000;2.000000;0.000000;0.000000;
 1.000000;2.000000;12.233045;12.258302;0.000000;0.000000;8.000000;4.000000;2.000000;0.000000;0.000000;
 2.000000;2.000000;12.233045;12.258302;0.000000;0.000000;8.000000;4.000000;2.000000;0.000000;0.000000;

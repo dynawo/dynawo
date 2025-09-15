@@ -146,7 +146,7 @@
   <xs:simpleType name="ConstraintsExportValue">
     <xs:restriction base="xs:string">
       <xs:enumeration value="FIRST"/>
-      <xs:enumeration value="LAST"/>
+      <xs:enumeration value="DYNAFLOW"/>
       <xs:enumeration value="DISABLED"/>
     </xs:restriction>
   </xs:simpleType>
