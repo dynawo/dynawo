@@ -1160,7 +1160,13 @@ SolverIDA::reinit() {
           vectorYp_[i] = 0;
 
       solverKINNormal_->setInitialValues(tSolve_, vectorY_, vectorYp_);
-      solverKINNormal_->solve(noInitSetup, evaluateOnlyMode, multipleStrategiesForAlgebraicRestoration_);
+      try {
+        solverKINNormal_->solve(noInitSetup, evaluateOnlyMode, multipleStrategiesForAlgebraicRestoration_);
+      } catch (const Error& e) {
+        solverKINNormal_->getValues(lastNewtonY_, lastNewtonYp_);
+        printLastNewtonY();
+        throw;
+      }
       solverKINNormal_->getValues(vectorY_, vectorYp_);
 
       if (restorationYPrim_) {
