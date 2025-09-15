@@ -91,8 +91,20 @@ class ConstraintsCollection {
    */
   const_iterator cend() const;
 
+  /**
+   * @brief Build a string id from constraint details
+   *
+   * @param modelName model where the constraint occurs
+   * @param description description of the constraint
+   * @param time time when the constraint occurs
+   * @param type begin/end
+   * @return the sortable id string
+   */
+  std::string idFromDetails(const std::string & modelName, const std::string & description, const double & time, Type_t type) const;
+
+
  private:
-  std::string id_;                                                                          ///< ConstraintCollection's id
+  std::string id_;                                                                        ///< ConstraintCollection's id
   std::map<std::string, std::vector<std::shared_ptr<Constraint> > > constraintsByModel_;  ///< constraint sorted by model
   std::map<std::string, std::shared_ptr<Constraint> > constraintsById_;                   ///< constraint sorted by id
 };

@@ -244,6 +244,16 @@ job_file = os.path.join(os.path.dirname(__file__), "IEEE14_WithAutomata", "IEEE1
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
 #########################################
+#           IEEE14 - CLA - DLF          #
+#########################################
+
+case_name = "IEEE14 - Current Limit Automaton - Dynaflow mode of constraints export"
+case_description = "IEEE14 with a current limit automaton on line 2-4 and on line 2-5, and extended constraints output"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE14_WithAutomata", "IEEE14_CurrentLimitAutomaton_Dynaflow", "IEEE14.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+#########################################
 #    IEEE14 - Tap Changer (Modelica)    #
 #########################################
 
