@@ -24,11 +24,14 @@
 
 #include <iostream>
 #include <sstream>
+#include <set>
+#include <unordered_map>
 
 using std::map;
 using std::string;
 using std::stringstream;
 using std::vector;
+using std::set;
 
 namespace constraints {
 
@@ -61,50 +64,61 @@ ConstraintsCollection::addConstraint(
 
 void
 ConstraintsCollection::filter(DYN::ConstraintValueType_t filterType) {
-  if (filterType == DYN::NO_CONSTRAINTS_FILTER) return;
-  for (auto &modelIt : constraintsByModel_) {
-    const string& modelName = modelIt.first;
-    std::vector<std::shared_ptr<Constraint> > constraints = modelIt.second;
-    std::map<std::string, int> beginConstraints;
-    std::map<std::string, int>::iterator beginConstraintsIt;
-    std::vector<size_t> toRemove;
-    // Collect begin/end pairs to remove
-    for (unsigned int i = 0; i < constraints.size(); ++i) {
-      const string& description = constraints[i]->getDescription();
-      Type_t type = constraints[i]->getType();
-      if (type == CONSTRAINT_BEGIN) {
-        beginConstraintsIt = beginConstraints.find(description);
-        if (beginConstraintsIt == beginConstraints.end()) {
-          beginConstraints.insert({description, i});
-        } else {
-          if (filterType == DYN::CONSTRAINTS_KEEP_LAST) {
-            toRemove.push_back(beginConstraintsIt->second);
-            beginConstraints.erase(beginConstraintsIt);
-            beginConstraints.insert({description, i});
-          } else {
-            toRemove.push_back(i);
-          }
+  if (filterType == DYN::NO_CONSTRAINTS_FILTER)
+    return;
+
+  for (auto & modelIt : constraintsByModel_) {
+    std::vector<std::shared_ptr<Constraint> > & constraints = modelIt.second;
+    std::unordered_map<std::string, std::vector<std::shared_ptr<Constraint> > > constraintsByDescr;
+    std::set<std::string> activeConstraints;
+
+    for (std::shared_ptr<Constraint> & constraint : constraints) {
+      const string & descr = constraint->getDescription();
+      Type_t type = constraint->getType();
+
+      if ((constraintsByDescr.find(descr) == constraintsByDescr.end()) || (activeConstraints.find(descr) == activeConstraints.end())) {  // open constraint
+        if (type == CONSTRAINT_BEGIN) {
+          constraintsByDescr[descr].push_back(constraint);
+          activeConstraints.insert(descr);
         }
-      } else if (type == CONSTRAINT_END) {
-        beginConstraintsIt = beginConstraints.find(description);
-        if (beginConstraintsIt != beginConstraints.end()) {
-          toRemove.push_back(beginConstraintsIt->second);
-          toRemove.push_back(i);
-          beginConstraints.erase(beginConstraintsIt);
+      } else if (filterType == DYN::CONSTRAINTS_DYNAFLOW) {
+        std::shared_ptr<Constraint> & lastConstraint = constraintsByDescr[descr].back();
+        if (lastConstraint->getData() && constraint->getData()) {  // update constraint by merging datas
+          ConstraintData mergedData = lastConstraint->getData().get();
+          if (!mergedData.valueMax)
+            mergedData.valueMax = mergedData.value;
+          mergedData.value = constraint->getData()->value;
+          mergedData.valueMax = std::max(mergedData.valueMax.value(), mergedData.value);
+          lastConstraint->setData(mergedData);
+          lastConstraint->setTime(constraint->getTime());
+        }
+        if (type == CONSTRAINT_END)  // close constraint
+          activeConstraints.erase(activeConstraints.find(descr));
+      } else {
+        if (type == CONSTRAINT_END) {  // classic mode, forget closed constraints
+          constraintsByDescr.erase(constraintsByDescr.find(descr));
+        } else if (filterType == DYN::CONSTRAINTS_KEEP_LAST) {  // replace constraint
+          constraintsByDescr[descr].front() = constraint;
         }
       }
     }
-    // Remove elements
-    stringstream idSs;
-    std::sort(toRemove.begin(), toRemove.end());
-    for (auto it = toRemove.rbegin(); it != toRemove.rend(); ++it) {
+
+    constraints.clear();
+    for (auto & descrIt : constraintsByDescr)
+      for (std::shared_ptr<Constraint> & constraint : descrIt.second)
+        constraints.push_back(constraint);
+  }
+
+  // regenerate filtered constraintsById_
+  constraintsById_.clear();
+  stringstream idSs;
+  for (auto & modelIt : constraintsByModel_)
+    for (std::shared_ptr<Constraint> & constraint : modelIt.second) {
       idSs.str(std::string());
       idSs.clear();
-      idSs << constraints[*it]->getTime() << "_" << modelName << "_" << constraints[*it]->getType() << "_" << constraints[*it]->getDescription();
-      constraintsById_.erase(idSs.str());
-      modelIt.second.erase(modelIt.second.begin() + *it);
+      idSs << constraint->getTime() << "_" << modelIt.first << "_" << constraint->getType() << "_" << constraint->getDescription();
+      constraintsById_[idSs.str()] = constraint;
     }
-  }
 }
 
 void
