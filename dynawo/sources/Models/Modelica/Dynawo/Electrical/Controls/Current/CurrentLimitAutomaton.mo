@@ -34,10 +34,16 @@ model CurrentLimitAutomaton "Current Limit Automaton (CLA) monitoring one compon
 protected
   discrete Types.Time tThresholdReached(start = Constants.inf) "Time when IMonitored > IMax was first reached in s";
   discrete Types.Time tOrder(start = Constants.inf) "Last time the automaton emitted an order in s";
+  discrete Real IMaxMeasured(start = 0) "meuh";
 
 equation
-  when IMonitored.value > IMax and Running and pre(order.value) <> OrderToEmit then
+  if IMonitored.value > pre(IMaxMeasured) then
     Constraint.logConstraintBeginData(ConstraintKeys.OverloadUpCLA, "OverloadUp", IMax, IMonitored.value, String(tLagBeforeActing, significantDigits = 2));
+    IMaxMeasured = IMonitored.value;
+  end if;
+
+  when IMonitored.value > IMax and Running and pre(order.value) <> OrderToEmit then
+    Constraint.logConstraintBeginData(ConstraintKeys.OverloadUpCLA, "OverloadUp", IMax, IMaxMeasured, String(tLagBeforeActing, significantDigits = 2));
     tThresholdReached = time;
     Timeline.logEvent1(TimelineKeys.CurrentLimitAutomatonArming);
   elsewhen IMonitored.value < IMax and pre(tThresholdReached) <> Constants.inf and pre(order.value) <> OrderToEmit then
