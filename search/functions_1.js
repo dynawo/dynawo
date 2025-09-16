@@ -55,7 +55,7 @@ var searchData=
   ['addinitvaluesentry',['addInitValuesEntry',['../d1/dda/a02255.html#a4bf1745ac21c693798fc67041a48cb31',1,'job::OutputsHandler']]],
   ['addjob',['addJob',['../d4/d64/a02111.html#aa7a0ccfd742595bb2259b138e8aa6786',1,'job::JobsCollection::addJob()'],['../dd/d29/a02283.html#a035c1ed79cddd54d880ae3627787d374',1,'job::XmlHandler::addJob()']]],
   ['addlccconverter',['addLccConverter',['../d9/d8b/a02863.html#af6c7c3bc567e1f1a04295b9c0bb63f4e',1,'DYN::VoltageLevelInterface::addLccConverter()'],['../d9/d08/a02911.html#adc0294ef4da77eb8178deebe76dd6370',1,'DYN::FictVoltageLevelInterfaceIIDM::addLccConverter()'],['../d6/d97/a03011.html#a9ddc170beefdd047cfb3a39709ee8c7c',1,'DYN::VoltageLevelInterfaceIIDM::addLccConverter()']]],
-  ['addlimit',['addLimit',['../dc/d11/a03123.html#a0e523b25cce86bec4f2145983b89524d',1,'DYN::ModelCurrentLimits']]],
+  ['addlimit',['addLimit',['../dc/d11/a03123.html#ab7c2f5f4b05339d22b3ed2fe42f95afe',1,'DYN::ModelCurrentLimits']]],
   ['addline',['addLine',['../d6/daf/a02803.html#a469bac51797edbc48a02cc525f876b4e',1,'DYN::NetworkInterface::addLine()'],['../dd/d81/a02967.html#a3bffa0cb2526acf1b453d3afd9737b0a',1,'DYN::NetworkInterfaceIIDM::addLine()']]],
   ['addload',['addLoad',['../d6/df4/a02735.html#a34e774415966010028fa1e56f09a9f58',1,'DYN::LoadCriteria::addLoad()'],['../d9/d8b/a02863.html#aadc827d2794a4f40ec3bbf4a9ef91c5a',1,'DYN::VoltageLevelInterface::addLoad()'],['../d9/d08/a02911.html#a1d53ff5275fefc442e1306e24959db4a',1,'DYN::FictVoltageLevelInterfaceIIDM::addLoad()'],['../d6/d97/a03011.html#a4315ca11b152b2fdf67aef7516b90b60',1,'DYN::VoltageLevelInterfaceIIDM::addLoad()']]],
   ['addloadcriteria',['addLoadCriteria',['../d4/d3c/a01671.html#a4513c96b3c4bff8406de926a154cbca1',1,'criteria::XmlHandler']]],

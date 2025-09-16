@@ -11,7 +11,7 @@ var a03123 =
       [ "COMPONENT_CLOSE", "dc/d11/a03123.html#a43e3e5308575fdfe91a02cf1a5321fa8a868e12efb224e5ab7d085204d0b2ba6e", null ]
     ] ],
     [ "ModelCurrentLimits", "dc/d11/a03123.html#aea7f9ef521b108d6988a3106fe5f326e", null ],
-    [ "addLimit", "dc/d11/a03123.html#a0e523b25cce86bec4f2145983b89524d", null ],
+    [ "addLimit", "dc/d11/a03123.html#ab7c2f5f4b05339d22b3ed2fe42f95afe", null ],
     [ "constraintData", "dc/d11/a03123.html#aebe0158ffe473065d1717d01119471de", null ],
     [ "evalG", "dc/d11/a03123.html#afc09f801e9a998f0d846ae1a453cdbfd", null ],
     [ "evalZ", "dc/d11/a03123.html#a9eec76ac22519b75fd490083db4f2849", null ],
@@ -23,6 +23,7 @@ var a03123 =
     [ "acceptableDurations_", "dc/d11/a03123.html#a5aecdc0842f4890bb3f36afa1f0463b3", null ],
     [ "activated_", "dc/d11/a03123.html#a90a6e3177f5748a32bffe02f466c450b", null ],
     [ "factorPuToA_", "dc/d11/a03123.html#a99395486278b6a17ee6cc9e676c802fe", null ],
+    [ "fictitious_", "dc/d11/a03123.html#ae321c3cb4705cf22e243774a2137372d", null ],
     [ "lastCurrentValue_", "dc/d11/a03123.html#af1a5b443b135a62c1bea4b8444cd6dcb", null ],
     [ "limits_", "dc/d11/a03123.html#a460a5f2d15a2d334c19b18173417530a", null ],
     [ "maxTimeOperation_", "dc/d11/a03123.html#a3741533458c6eb324bf27836e4fcb192", null ],

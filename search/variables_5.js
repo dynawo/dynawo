@@ -18,7 +18,7 @@ var searchData=
   ['fequationinitindex_5f',['fEquationInitIndex_',['../dd/dd8/a02655.html#ad0073396aa22dc1df9c4cda71d3bcfb5',1,'DYN::SubModel']]],
   ['fict2wtidto3wtid_5f',['fict2wtIDto3wtID_',['../dc/d44/a02899.html#a53dc20b9a659d5b041556390a4740557',1,'DYN::DataInterfaceIIDM']]],
   ['fictitious',['fictitious',['../df/d23/a02751.html#ac012d8bf67db7df2d18cf81e60c68f69',1,'DYN::TemporaryLimit']]],
-  ['fictitious_5f',['fictitious_',['../db/d65/a03179.html#a8f7219af344f94a77a9d4cb8b38183ec',1,'DYN::ModelTapChanger']]],
+  ['fictitious_5f',['fictitious_',['../dd/d04/a02887.html#a324fe3865a180315d51f5ced6dbf2144',1,'DYN::CurrentLimitInterfaceIIDM::fictitious_()'],['../dc/d11/a03123.html#ae321c3cb4705cf22e243774a2137372d',1,'DYN::ModelCurrentLimits::fictitious_()'],['../db/d65/a03179.html#a8f7219af344f94a77a9d4cb8b38183ec',1,'DYN::ModelTapChanger::fictitious_()']]],
   ['filepath_5f',['filepath_',['../d4/d21/a02347.html#a373ed1508c843f83de334e8191520634',1,'parameters::ParametersSet::filepath_()'],['../dc/d92/a02047.html#ae4d8252f930031878b3936359503f16e',1,'job::AppenderEntry::filePath_()'],['../d7/d12/a02571.html#a7b1ecb412babe19edf5d4f052c7510d9',1,'DYN::Trace::TraceAppender::filePath_()']]],
   ['filter_5f',['filter_',['../d5/dd6/a02055.html#a0f05952ed51a89dd4870bd2ee5325020',1,'job::ConstraintsEntry::filter_()'],['../df/d14/a02183.html#ad944d5c43790aa47f27418d68c63b508',1,'job::TimelineEntry::filter_()']]],
   ['filtertimeline_5f',['filterTimeline_',['../db/d4b/a03207.html#a82d32989bb37719e8b8a9203f456fee1',1,'DYN::Simulation']]],

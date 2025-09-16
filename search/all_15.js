@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['u0_5f',['u0_',['../df/d9e/a03111.html#a7b5d6e78bd68e3ccbc9df286f2f0b77c',1,'DYN::ModelBus::u0_()'],['../d4/d43/a03143.html#a836199b67260f86f36b2890ee1a3acf6',1,'DYN::ModelLoad::u0_()'],['../d9/d9a/a02879.html#a9dc6fdbc7acf30ec9061ee0257264647',1,'DYN::BusInterfaceIIDM::U0_()'],['../dd/db9/a02883.html#a29a1d0f9b69647d55d07d62bdf3c5373',1,'DYN::CalculatedBusInterfaceIIDM::U0_()'],['../d9/d6c/a02903.html#a9464870df0900416d1e3f453105ad8a1',1,'DYN::FictBusInterfaceIIDM::U0_()']]],
+  ['u0_5f',['U0_',['../d9/d9a/a02879.html#a9dc6fdbc7acf30ec9061ee0257264647',1,'DYN::BusInterfaceIIDM::U0_()'],['../dd/db9/a02883.html#a29a1d0f9b69647d55d07d62bdf3c5373',1,'DYN::CalculatedBusInterfaceIIDM::U0_()'],['../d9/d6c/a02903.html#a9464870df0900416d1e3f453105ad8a1',1,'DYN::FictBusInterfaceIIDM::U0_()'],['../df/d9e/a03111.html#a7b5d6e78bd68e3ccbc9df286f2f0b77c',1,'DYN::ModelBus::u0_()'],['../d4/d43/a03143.html#a836199b67260f86f36b2890ee1a3acf6',1,'DYN::ModelLoad::u0_()']]],
   ['u0pu_5f',['u0Pu_',['../d1/de6/a03043.html#a902eee839d51a1747cc5f409391b298c',1,'DYN::ModelLoadRestorativeWithLimits']]],
   ['u2pu_5f',['U2Pu_',['../df/d9e/a03111.html#a7d907b69c37cccb7382ba6d36b503b5b',1,'DYN::ModelBus']]],
   ['u_5f',['U_',['../df/d9e/a03111.html#a990b7793275b61e9d4c7a1271a0669a4',1,'DYN::ModelBus']]],
@@ -144,7 +144,7 @@ var searchData=
   ['urp1',['urp1',['../d6/d09/a03139.html#a1b379249ff23617ad816f9aa9d04ff36',1,'DYN::ModelLine']]],
   ['urp2',['urp2',['../d6/d09/a03139.html#a0200cb85d49ac10592e945ff7c1d27d2',1,'DYN::ModelLine']]],
   ['urynum',['urYNum',['../df/d9e/a03111.html#ab53422c36aa96fc3e1821661a8acb886',1,'DYN::ModelBus']]],
-  ['urynum_5f',['UrYNum_',['../d1/de6/a03043.html#aee1ce70a32f764002658ab39b977e0e0',1,'DYN::ModelLoadRestorativeWithLimits::UrYNum_()'],['../df/d9e/a03111.html#ad729570cd64b1733c7d390820d55b678',1,'DYN::ModelBus::urYNum_()']]],
+  ['urynum_5f',['urYNum_',['../df/d9e/a03111.html#ad729570cd64b1733c7d390820d55b678',1,'DYN::ModelBus::urYNum_()'],['../d1/de6/a03043.html#aee1ce70a32f764002658ab39b977e0e0',1,'DYN::ModelLoadRestorativeWithLimits::UrYNum_()']]],
   ['usealiasing_5f',['useAliasing_',['../d2/d3e/a01851.html#a0fd05cfcffc72060e237b3f7513543fd',1,'dynamicdata::ModelicaModel::useAliasing_()'],['../d3/dce/a01859.html#ae2553bdeb12ecf8bd9904e5bf6c663e3',1,'dynamicdata::ModelTemplate::useAliasing_()']]],
   ['used_5f',['used_',['../d2/da6/a02339.html#adb49178093310452e847814fce74dce8',1,'parameters::Parameter']]],
   ['usefulmodeltemplates_5f',['usefulModelTemplates_',['../dc/dcf/a02615.html#a49391497d8cccb85a0fa1714e246feda',1,'DYN::DynamicData']]],
