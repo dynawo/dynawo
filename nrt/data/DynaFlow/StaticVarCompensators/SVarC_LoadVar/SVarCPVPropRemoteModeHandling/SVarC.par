@@ -40,6 +40,7 @@
     <par type="DOUBLE" name="SVarC_tThresholdUp" value="60"/>
     <par type="DOUBLE" name="SVarC_tThresholdDown" value="10"/>
     <par type="INT" name="SVarC_Mode0" value="2"/>
+    <par type="BOOL" name="SVarC_SelectModeAuto0" value="true"/>
   </set>
   <set id="4">
     <par type="DOUBLE" name="load_alpha" value="0"/>
