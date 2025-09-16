@@ -831,10 +831,6 @@ config_dynawo() {
     CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DZMQPP_HOME=$DYNAWO_ZMQPP_HOME"
   fi
 
-  if [ -n "$DYNAWO_WEBSOCKETPP_HOME" ]; then
-    CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DWEBSOCKETPP_HOME=$DYNAWO_WEBSOCKETPP_HOME"
-  fi
-
   cmake -DCMAKE_C_COMPILER:PATH=$DYNAWO_C_COMPILER \
     -DCMAKE_CXX_COMPILER:PATH=$DYNAWO_CXX_COMPILER \
     -DCMAKE_BUILD_TYPE:STRING=$DYNAWO_BUILD_TYPE \
@@ -1441,7 +1437,7 @@ jobs_with_curves() {
   install_jquery
   launch_jobs $@ || error_exit "Dynawo job failed."
   echo "Generating curves visualization pages"
-  curves_visu ${@: -1} || error_exit "Error during curves visualisation page generation"
+  curves_visu $@ || error_exit "Error during curves visualisation page generation"
   echo "End of generating curves visualization pages"
 }
 
@@ -2586,6 +2582,10 @@ case $MODE in
 
   jobs-with-curves)
     jobs_with_curves ${ARGS} || error_exit "Dynawo job with curves failed"
+    ;;
+
+  jobs-interactive)
+    launch_jobs --interactive ${ARGS} || error_exit "Dynawo interactive failed"
     ;;
 
   list-models)
