@@ -43,10 +43,6 @@ using DYN::Simulation;
 using DYN::SimulationRT;
 using DYN::SimulationContext;
 
-using std::chrono::system_clock;
-using std::chrono::microseconds;
-using std::chrono::duration_cast;
-
 // If logging is disabled, Trace::info has no effect so we also print on standard output to have basic information
 template<class T>
 static void print(const T& output, const DYN::SeverityLevel level = DYN::INFO) {
@@ -94,7 +90,6 @@ void launchSimu(const std::string& jobsFileName, bool isInteractive) {
     context->setLocale(getMandatoryEnvVar("DYNAWO_LOCALE"));
     context->setInputDirectory(prefixJobFile);
     context->setWorkingDirectory(prefixJobFile);
-
 
     std::shared_ptr<Simulation> simulation;
     try {

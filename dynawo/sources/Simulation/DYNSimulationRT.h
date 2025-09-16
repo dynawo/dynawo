@@ -33,7 +33,6 @@
 #endif
 
 #include "DYNSimulation.h"
-#include "WSCServer.h"
 #include "DYNClock.h"
 #include "DYNActionBuffer.h"
 // #include "DYNEventSubscriber.h"

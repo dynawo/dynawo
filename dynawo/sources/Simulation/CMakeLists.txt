@@ -48,7 +48,6 @@ target_include_directories(dynawo_Simulation
     dynawo_API_TL
     dynawo_API_CSTR
     dynawo_API_LEQ
-    dynawo_API_WSC
     dynawo_ModelerCommon
     dynawo_DataInterface
     dynawo_DataInterfaceFactory
