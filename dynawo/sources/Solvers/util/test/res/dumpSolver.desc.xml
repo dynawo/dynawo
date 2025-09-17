@@ -3,6 +3,7 @@
   <name>SimplifiedSolver</name>
   <elements>
     <parameters>
+      <parameter name="allLogs" valueType="BOOL" cardinality="1"/>
       <parameter name="enableSilentZ" valueType="BOOL" cardinality="1"/>
       <parameter name="fnormtol" valueType="DOUBLE" cardinality="1"/>
       <parameter name="fnormtolAlg" valueType="DOUBLE" cardinality="1"/>
@@ -24,6 +25,7 @@
       <parameter name="msbsetAlg" valueType="INT" cardinality="1"/>
       <parameter name="msbsetAlgInit" valueType="INT" cardinality="1"/>
       <parameter name="msbsetAlgJ" valueType="INT" cardinality="1"/>
+      <parameter name="multipleStrategiesForAlgebraicRestoration" valueType="BOOL" cardinality="1"/>
       <parameter name="mxiter" valueType="INT" cardinality="1"/>
       <parameter name="mxiterAlg" valueType="INT" cardinality="1"/>
       <parameter name="mxiterAlgInit" valueType="INT" cardinality="1"/>
@@ -39,6 +41,7 @@
       <parameter name="printflAlg" valueType="INT" cardinality="1"/>
       <parameter name="printflAlgInit" valueType="INT" cardinality="1"/>
       <parameter name="printflAlgJ" valueType="INT" cardinality="1"/>
+      <parameter name="printUnstableRoot" valueType="BOOL" cardinality="1"/>
       <parameter name="scsteptol" valueType="DOUBLE" cardinality="1"/>
       <parameter name="scsteptolAlg" valueType="DOUBLE" cardinality="1"/>
       <parameter name="scsteptolAlgInit" valueType="DOUBLE" cardinality="1"/>
