@@ -18,7 +18,7 @@
     <par type="DOUBLE" name="infiniteBus_tOmegaEvtStart" value="999"/>
     <par type="DOUBLE" name="infiniteBus_tOmegaEvtEnd" value="999"/>
   </set>
-    <set id="GFMNew">
+  <!--  <set id="GFMNew">
         <par type="DOUBLE" name="GFM_SNom" value="75"/>
         <par type="DOUBLE" name="GFM_H" value="5"/>
         <par type="DOUBLE" name="GFM_kVSM" value="90"/>
@@ -76,8 +76,8 @@
         <reference type="DOUBLE" name="converter_Q0Pu" origData="IIDM" origName="q_pu"/>
         <reference type="DOUBLE" name="converter_U0Pu" origData="IIDM" origName="v_pu"/>
         <reference type="DOUBLE" name="converter_UPhase0" origData="IIDM" origName="angle_pu"/>
-    </set>
-   <set id="GFM_CCControl_VSM">
+    </set> -->
+   <set id="GFM">
     <reference name="GFM_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
     <reference name="GFM_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="GFM_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
