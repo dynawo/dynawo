@@ -34,7 +34,7 @@
 
 #include "DYNClock.h"
 
-using std::chrono::system_clock;
+using std::chrono::steady_clock;
 using std::chrono::microseconds;
 using std::chrono::duration_cast;
 
@@ -61,7 +61,7 @@ Clock::setSpeedup(double speedup) {
 void
 Clock::start(double simulationTime) {
   referenceSimuTime_ = simulationTime;
-  referenceClockTime_ = system_clock::now();
+  referenceClockTime_ = steady_clock::now();
   // std::cout << "Clock::start: timeSync_= " << timeSync_ << ", speedup_= " << speedup_<< std::endl;
   running_ = true;
   std::cout << "Clock::start, running = " << running_ << ", useTrigger = " << useTrigger_ << std::endl;

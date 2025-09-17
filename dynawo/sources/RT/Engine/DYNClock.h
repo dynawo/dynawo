@@ -108,7 +108,7 @@ class Clock {
 
   // Internal time sync
   double speedup_;  ///< acceleration factor clockTime/simulationTime >
-  std::chrono::system_clock::time_point referenceClockTime_;  ///< clock reference correponding to referenceSimuTime >
+  std::chrono::steady_clock::time_point referenceClockTime_;  ///< clock reference correponding to referenceSimuTime >
   double referenceSimuTime_;  ///< simulation time ("tCurrent") reference correponding to referenceSimuTime >
 
   // External time sync
