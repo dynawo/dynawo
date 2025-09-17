@@ -98,7 +98,7 @@ using lostEquipments::LostEquipmentsCollectionFactory;
 using parameters::ParametersSet;
 using parameters::ParametersSetFactory;
 
-using std::chrono::system_clock;
+using std::chrono::steady_clock;
 using std::chrono::microseconds;
 using std::chrono::duration_cast;
 
@@ -463,12 +463,12 @@ SimulationRT::simulate() {
 
 void
 SimulationRT::updateStepStart() {
-  stepStart_ = system_clock::now();
+  stepStart_ = steady_clock::now();
 }
 
 void
 SimulationRT::updateStepComputationTime() {
-  stepComputationTime_ = (1./1000)*(duration_cast<microseconds>(system_clock::now() - stepStart_)).count();
+  stepComputationTime_ = (1./1000)*(duration_cast<microseconds>(steady_clock::now() - stepStart_)).count();
 }
 
 

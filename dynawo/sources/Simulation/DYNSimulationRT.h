@@ -151,7 +151,7 @@ class SimulationRT: public Simulation {
   void initComputationTimeCurve();
 
  protected:
-  std::chrono::system_clock::time_point stepStart_;  ///< clock time before step (after sleep) >
+  std::chrono::steady_clock::time_point stepStart_;  ///< clock time before step (after sleep) >
   double stepComputationTime_;
 
   // std::vector<std::uint8_t> valuesBuffer_;  ///< curves values buffer
