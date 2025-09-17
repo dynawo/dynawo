@@ -95,7 +95,7 @@ model PControl3AB2020 "Active power control module of type 3 wind turbine model 
     Placement(transformation(origin = {130, -170}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Product productPuScale annotation(
     Placement(transformation(origin = {-210, -100}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Nonlinear.SlewRateLimiter ratelimPWtRef(Falling = DPRefMin4abPu, Rising = DPRefMax4abPu, y_start = PWTRef0Pu, y(start = PWTRef0Pu)) annotation(
+  Modelica.Blocks.Nonlinear.SlewRateLimiter ratelimPWtRef(Falling = DPRefMin4abPu, Rising = DPRefMax4abPu, y_start = -P0Pu*SystemBase.SnRef/SNom, y(start = -P0Pu*SystemBase.SnRef/SNom)) annotation(
     Placement(transformation(origin = {-250, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.Switch switchMOmegaTMax annotation(
     Placement(transformation(origin = {-110, 40}, extent = {{-10, 10}, {10, -10}})));

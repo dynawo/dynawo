@@ -76,7 +76,7 @@ model BaseWPPQControl "Reactive power control base module for wind power plants 
     Placement(visible = true, transformation(origin = {230, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFeedthroughFreezeLimDetection absLimRateLimFeedthroughFreezeLimDetection(DyMax = 9999, DyMin = -9999, U0 = XWT0Pu, Y0 = XWT0Pu, YMax = XRefMaxPu, YMin = XRefMinPu, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {260, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFirstOrderFreeze absLimRateLimFirstOrderFreeze(DyMax = 999, Y0 = Q0Pu, YMax = 999, tI = tUqFilt) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFirstOrderFreeze absLimRateLimFirstOrderFreeze(DyMax = 999, Y0 = -Q0Pu * SystemBase.SnRef / SNom, YMax = 999, tI = tUqFilt) annotation(
     Placement(visible = true, transformation(origin = {-110, 20}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.MathBoolean.Or or2(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {230, 20}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));

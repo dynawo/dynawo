@@ -23,12 +23,12 @@
   </set>
   <set id="1">
     <par type="DOUBLE" name="infiniteBus_U0Pu" value="1"/>
-    <par type="DOUBLE" name="infiniteBus_UEvtPu" value="0.1"/>
+    <par type="DOUBLE" name="infiniteBus_UEvtPu" value="0.2"/>
     <par type="DOUBLE" name="infiniteBus_UPhase" value="0"/>
     <par type="DOUBLE" name="infiniteBus_omega0Pu" value="1"/>
     <par type="DOUBLE" name="infiniteBus_omegaEvtPu" value="1"/>
-    <par type="DOUBLE" name="infiniteBus_tUEvtStart" value="99"/>
-    <par type="DOUBLE" name="infiniteBus_tUEvtEnd" value="99"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtStart" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtEnd" value="1.1"/>
     <par type="DOUBLE" name="infiniteBus_tOmegaEvtStart" value="999"/>
     <par type="DOUBLE" name="infiniteBus_tOmegaEvtEnd" value="999"/>
   </set>
@@ -323,7 +323,7 @@
     <par type="DOUBLE" name="WPP_XwpDropPu" value="0"/>
     <!-- Operating Point -->
     <par type="DOUBLE" name="WPP_P0Pu" value="-0.6"/>
-    <par type="DOUBLE" name="WPP_Q0Pu" value="-0"/>
+    <par type="DOUBLE" name="WPP_Q0Pu" value="-0.1"/>
     <par type="DOUBLE" name="WPP_U0Pu" value="1"/>
     <par type="DOUBLE" name="WPP_UPhase0" value="0"/>
     <par type="DOUBLE" name="WPP_PWTRef0Pu" value="1.1"/>
@@ -344,8 +344,8 @@
     <par type="DOUBLE" name="step_Value0" value="-1"/>
   </set>
   <set id="6">
-    <par type="DOUBLE" name="step_Height" value="0.15"/>
+    <par type="DOUBLE" name="step_Height" value="0.2"/>
     <par type="DOUBLE" name="step_tStep" value="999"/>
-    <par type="DOUBLE" name="step_Value0" value="0"/>
+    <par type="DOUBLE" name="step_Value0" value="0.1"/>
   </set>
 </parametersSet>
