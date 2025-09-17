@@ -115,4 +115,18 @@ string paramScope2Str(const parameterScope_t scope) {
   return "";
 }
 
+std::string propertyEquation2Str(propertyF_t property) {
+  switch (property) {
+    case UNDEFINED_EQ:
+      return "UNDEFINED";
+    case DIFFERENTIAL_EQ:
+      return "DIFFERENTIAL";
+    case ALGEBRAIC_EQ:
+      return "ALGEBRAIC";
+    default:
+      assert(0 && "Property should be one of the enum values");
+  }
+  return "";
+}
+
 }  // namespace DYN
