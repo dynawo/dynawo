@@ -21,7 +21,7 @@
             <dyn:precompiledModels useStandardModels="true"/>
             <dyn:modelicaModels useStandardModels="false"/>
         </dyn:modeler>
-        <dyn:simulation startTime="0" stopTime="3000" eventSubscriberActions="true" eventSubscriberTrigger="true" triggerSimulationTimeStepInS="1." publishToZmq="true" publishToWebsocket="false" publishToZmqCurvesFormat="BYTES"/>
+        <dyn:simulation startTime="0" stopTime="3000"/>
         <dyn:outputs directory="outputs">
             <dyn:constraints exportMode="XML"/>
             <dyn:timeline exportMode="XML"/>
