@@ -54,7 +54,6 @@ using boost::shared_ptr;
 using boost::dynamic_pointer_cast;
 using timeline::Timeline;
 using curves::Curve;
-using curves::Point;
 using constraints::ConstraintsCollection;
 using std::fstream;
 
@@ -626,10 +625,6 @@ ModelMulti::getY0(const double t0, vector<double>& y0, vector<double>& yp0) {
   for (const auto& subModel : subModels_) {
     subModel->getY0Sub();
     subModel->evalCalculatedVariablesSub(t0);
-  }
-  if (!updatablesInitialized_) {
-    connectorContainer_->initUpdatableValues();
-    updatablesInitialized_ = true;
   }
   if (!updatablesInitialized_) {
     connectorContainer_->initUpdatableValues();
