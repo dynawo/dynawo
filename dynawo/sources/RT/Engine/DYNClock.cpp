@@ -62,7 +62,6 @@ void
 Clock::start(double simulationTime) {
   referenceSimuTime_ = simulationTime;
   referenceClockTime_ = steady_clock::now();
-  // std::cout << "Clock::start: timeSync_= " << timeSync_ << ", speedup_= " << speedup_<< std::endl;
   running_ = true;
   std::cout << "Clock::start, running = " << running_ << ", useTrigger = " << useTrigger_ << std::endl;
 }
