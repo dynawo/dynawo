@@ -292,8 +292,6 @@ if(USE_ZMQPP)
     endif()
 endif()
 
-# find_package(websocketpp REQUIRED)
-
 if(MSVC)
   set(runtime_PATH "PATH=${ADEPT_HOME}/bin;${Boost_INCLUDE_DIR}/../bin;${INSTALL_OPENMODELICA}/bin;${SUITESPARSE_HOME}/bin;${SUNDIALS_HOME}/bin;${XercesC_INCLUDE_DIRS}/../bin;${LibIIDM_BIN_DIR};${LIBIIDM_HOME}/bin;${LibXML_BIN_DIR};${LIBXML2_HOME}/bin;${libdir};$ENV{PATH}")
   if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
