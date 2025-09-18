@@ -82,6 +82,10 @@ TxtExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& constr
           stream << TXTEXPORTER_SEPARATOR
                  << "USupUmax";
           break;
+        case ConstraintData::FictLim:
+          stream << TXTEXPORTER_SEPARATOR
+                 << "Fictitious";
+          break;
         case ConstraintData::Undefined:
           break;
       }
