@@ -134,6 +134,7 @@
   <set id="5">
     <par type="DOUBLE" name="hvrt_UOverPu" value="1.15"/>
     <par type="DOUBLE" name="hvrt_tUFilt" value="0.01"/>
+    <par type="DOUBLE" name="hvrt_U0Pu" value="1"/>
     <par type="DOUBLE" name="hvrt_tLagAction" value="0.05"/>
     <par type="STRING" name="hvrt_TablesFile" value="nrt/data/WECCAdditionalModels/Wind/LHVRT/WECCWTG4BCurrentSourceHVRT/HVRTcapabilities.txt"/>
     <par type="STRING" name="hvrt_TabletUoverUfilt" value="hvrtCapabilities"/>
