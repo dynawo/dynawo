@@ -37,23 +37,23 @@ protected
   discrete Real IMaxMeasured(start = 0) "meuh";
 
 equation
-  if IMonitored.value > pre(IMaxMeasured) then
-    Constraint.logConstraintBeginData(ConstraintKeys.OverloadUpCLA, "OverloadUp", IMax, IMonitored.value, String(tLagBeforeActing, significantDigits = 2));
-    IMaxMeasured = IMonitored.value;
-  end if;
-
   when IMonitored.value > IMax and Running and pre(order.value) <> OrderToEmit then
-    Constraint.logConstraintBeginData(ConstraintKeys.OverloadUpCLA, "OverloadUp", IMax, IMaxMeasured, String(tLagBeforeActing, significantDigits = 2));
+    //Constraint.logConstraintBeginData(ConstraintKeys.OverloadUpCLA, "OverloadUp", IMax, IMonitored.value, String(tLagBeforeActing, significantDigits = 2));
     tThresholdReached = time;
     Timeline.logEvent1(TimelineKeys.CurrentLimitAutomatonArming);
   elsewhen IMonitored.value < IMax and pre(tThresholdReached) <> Constants.inf and pre(order.value) <> OrderToEmit then
-    Constraint.logConstraintEndData(ConstraintKeys.OverloadUpCLA, "OverloadUp", IMax, IMonitored.value, String(tLagBeforeActing, significantDigits = 2));
+    Constraint.logConstraintEndData(ConstraintKeys.OverloadUpCLA, "OverloadUp", IMaxMeasured, IMonitored.value, String(tLagBeforeActing, significantDigits = 2));
     tThresholdReached = Constants.inf;
     Timeline.logEvent1(TimelineKeys.CurrentLimitAutomatonDisarming);
   end when;
 
+  when IMonitored.value > (pre(IMaxMeasured)+5) and pre(order.value) <> OrderToEmit then
+    //Constraint.logConstraintBeginData(ConstraintKeys.OverloadUpCLA, "OverloadUp", IMaxMeasured, IMonitored.value, String(tLagBeforeActing, significantDigits = 2));
+    IMaxMeasured = IMonitored.value;
+  end when;
+
   when time - tThresholdReached >= tLagBeforeActing then
-    Constraint.logConstraintBeginData(ConstraintKeys.OverloadOpenCLA, "OverloadOpen", IMax, IMonitored.value, String(tLagBeforeActing, significantDigits = 2));
+    Constraint.logConstraintBeginData(ConstraintKeys.OverloadOpenCLA, "OverloadOpen", IMaxMeasured, IMonitored.value, String(tLagBeforeActing, significantDigits = 2));
     order.value = OrderToEmit;
     tOrder = time;
     Timeline.logEvent1(TimelineKeys.CurrentLimitAutomatonActing);
