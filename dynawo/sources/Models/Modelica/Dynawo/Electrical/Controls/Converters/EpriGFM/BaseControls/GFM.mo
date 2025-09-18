@@ -70,8 +70,6 @@ model GFM "Grid forming control block"
     Placement(visible = true, transformation(origin = {180, 200}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constOmega0(k = SystemBase.omega0Pu) annotation(
     Placement(visible = true, transformation(origin = {-170, 180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.IntegerConstant constOmegaFlag(k = OmegaFlag) annotation(
-    Placement(visible = true, transformation(origin = {-190, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback4 annotation(
     Placement(visible = true, transformation(origin = {-110, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gainK1(k = K1) annotation(
@@ -94,13 +92,13 @@ model GFM "Grid forming control block"
     Placement(visible = true, transformation(origin = {-170, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = DeltaOmegaMaxPu, uMin = DeltaOmegaMinPu) annotation(
     Placement(visible = true, transformation(origin = {181, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitchP(nu = 4) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitchP(f = OmegaFlag, nu = 4) annotation(
     Placement(visible = true, transformation(origin = {140, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitchQ1(nu = 4) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitchQ1(f = OmegaFlag, nu = 4) annotation(
     Placement(visible = true, transformation(origin = {-60, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitchQ2(nu = 4) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitchQ2(f = OmegaFlag, nu = 4) annotation(
     Placement(visible = true, transformation(origin = {-100, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitchQOutput(nu = 4) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitchQOutput(f = OmegaFlag, nu = 4) annotation(
     Placement(visible = true, transformation(origin = {140, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product annotation(
     Placement(visible = true, transformation(origin = {-20, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -146,8 +144,6 @@ equation
     Line(points = {{-49, -40}, {-43.5, -40}, {-43.5, -54}, {-32, -54}}, color = {0, 0, 127}));
   connect(constOmega0.y, addMinusOmega0.u2) annotation(
     Line(points = {{-159, 180}, {-100.5, 180}, {-100.5, 204}, {-72, 204}}, color = {0, 0, 127}));
-  connect(constOmegaFlag.y, multiSwitchQ1.f) annotation(
-    Line(points = {{-179, 60}, {-59.25, 60}, {-59.25, -28}, {-60, -28}}, color = {255, 127, 0}, pattern = LinePattern.Dash));
   connect(gainKd.y, addOmega.u1) annotation(
     Line(points = {{-10, 180}, {30, 180}, {30, 148}, {38, 148}}, color = {0, 0, 127}));
   connect(gainK1.y, addOmega.u2) annotation(
@@ -222,12 +218,6 @@ equation
     Line(points = {{-170, -219}, {-170, -210}, {-130, -210}, {-130, -180}, {-110, -180}}, color = {0, 0, 127}));
   connect(add5.y, multiSwitchQ2.u[4]) annotation(
     Line(points = {{-139, -180}, {-110, -180}}, color = {0, 0, 127}));
-  connect(constOmegaFlag.y, multiSwitchQOutput.f) annotation(
-    Line(points = {{-179, 60}, {140, 60}, {140, 12}}, color = {255, 127, 0}));
-  connect(constOmegaFlag.y, multiSwitchP.f) annotation(
-    Line(points = {{-179, 60}, {140, 60}, {140, 152}}, color = {255, 127, 0}));
-  connect(constOmegaFlag.y, multiSwitchQ2.f) annotation(
-    Line(points = {{-179, 60}, {-100, 60}, {-100, -168}}, color = {255, 127, 0}, pattern = LinePattern.Dash));
   connect(multiSwitchQOutput.y, gainK2dvoc.u) annotation(
     Line(points = {{151, 0}, {170, 0}, {170, -90}, {-8, -90}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(multiSwitchQOutput.y, feedback4.u2) annotation(

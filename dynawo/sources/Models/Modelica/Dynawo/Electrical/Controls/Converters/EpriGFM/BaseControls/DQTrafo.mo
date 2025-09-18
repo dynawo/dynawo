@@ -31,9 +31,7 @@ model DQTrafo "Dq transformation in EPRI Grid Forming model"
   Modelica.Blocks.Interfaces.RealOutput urSourcePu(start = u0Pu.re) "Voltage real part in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Sources.IntegerConstant integerConstant6(k = OmegaFlag) annotation(
-    Placement(visible = true, transformation(origin = {30, -12}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch6(nu = 4) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch6(f = OmegaFlag, nu = 4) annotation(
     Placement(visible = true, transformation(origin = {30, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.Utilities.TransformDQtoRI transformDQtoRI annotation(
     Placement(visible = true, transformation(origin = {70, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -55,8 +53,6 @@ equation
     Line(points = {{81, 16}, {94, 16}, {94, 40}, {110, 40}}, color = {0, 0, 127}));
   connect(uqConvRefPu, transformDQtoRI.uq) annotation(
     Line(points = {{-110, 20}, {0, 20}, {0, 13}, {59, 13}}, color = {0, 0, 127}));
-  connect(integerConstant6.y, multiSwitch6.f) annotation(
-    Line(points = {{30, -23}, {30, -48}}, color = {255, 127, 0}));
   connect(multiSwitch6.y, transformDQtoRI.phi) annotation(
     Line(points = {{41, -60}, {54, -60}, {54, 4}, {59, 4}}, color = {0, 0, 127}));
   connect(phi, multiSwitch6.u[1]) annotation(
@@ -71,5 +67,6 @@ equation
     Line(points = {{-110, 60}, {40, 60}, {40, 17}, {59, 17}}, color = {0, 0, 127}));
 
   annotation(
+    preferredView = "diagram",
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Line(origin = {-1, 0}, points = {{-99, -100}, {101, 100}}), Text(origin = {-41, 51}, extent = {{-33, 25}, {33, -25}}, textString = "dq"), Text(origin = {34, -47}, extent = {{-24, 25}, {24, -25}}, textString = "ri")}));
 end DQTrafo;
