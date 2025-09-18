@@ -105,14 +105,6 @@
     <xs:attribute name="criteriaStep" type="xs:int"/>
     <xs:attribute name="precision" type="xs:float"/>
     <xs:attribute name="timeout" type="xs:float"/>
-    <xs:attribute name="timeSync" type="xs:boolean"/>
-    <xs:attribute name="timeSyncAcceleration" type="xs:float"/>
-    <xs:attribute name="eventSubscriberActions" type="xs:boolean"/>
-    <xs:attribute name="eventSubscriberTrigger" type="xs:boolean"/>
-    <xs:attribute name="triggerSimulationTimeStepInS" type="xs:float"/>
-    <xs:attribute name="publishToZmq" type="xs:boolean"/>
-    <xs:attribute name="publishToZmqCurvesFormat" type="dyn:PublishToZmqCurvesFormat"/>
-    <xs:attribute name="publishToWebsocket" type="xs:boolean"/>
   </xs:complexType>
 
   <xs:complexType name="OutputsEntry">
