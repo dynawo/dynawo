@@ -75,7 +75,8 @@ ConstraintsCollection::filter(DYN::ConstraintValueType_t filterType) {
       const string & descr = constraint->getDescription();
       Type_t type = constraint->getType();
 
-      std::cout << "at " << constraint->getTime() << " on " << modelIt.first << " : " << descr << " val : " << constraint->getData()->value << std::endl;
+      std::cout << "at " << constraint->getTime() << " on " << modelIt.first << " : " << descr << " limit " << constraint->getData()->limit
+                << " val : " << constraint->getData()->value << std::endl;
 
       if ((constraintsByDescr.find(descr) == constraintsByDescr.end()) || (activeConstraints.find(descr) == activeConstraints.end())) {  // open constraint
         if (type == CONSTRAINT_BEGIN) {
