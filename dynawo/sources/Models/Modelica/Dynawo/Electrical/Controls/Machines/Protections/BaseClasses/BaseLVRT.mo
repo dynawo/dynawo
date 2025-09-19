@@ -52,7 +52,7 @@ equation
     assert(tLagAction[i] <= tLagAction[i+1], "values of tLagAction should be in increasing order");
     assert(UMinPu[i] <= UMinPu[i+1], "values of UMinPu should be in increasing order");
 
-    when UMonitoredPu < UMinPu[i+1] and UMonitoredPu > UMinPu[i] and time - tThresholdReached >= tLagAction[i] + (tLagAction[i+1] - tLagAction[i]) * (UMonitoredPu-UMinPu[i])/max(UMinPu[i+1]-UMinPu[i], 1e-6) and not(pre(tripped[i+1])) then
+    when UMonitoredPu < UMinPu[i+1] and UMonitoredPu > UMinPu[i] and time - tThresholdReached >= tLagAction[i] + (tLagAction[i+1] - tLagAction[i]) * (UMonitoredPu - UMinPu[i]) / (if UMinPu[i+1] - UMinPu[i] > 1e-6 then UMinPu[i+1] - UMinPu[i] else 1e-6) and not(pre(tripped[i+1])) then
       tripped[i+1] = true;
     end when;
   end for;

@@ -32,9 +32,9 @@
 2025-02-18 14:19:25 | INFO | starting simulation with solver SimplifiedSolver
 2025-02-18 14:19:25 | INFO | -----------------------------------------------------------------------
 2025-02-18 14:19:25 | INFO | -----------------------------------------------------------------------
-2025-02-18 14:19:25 | INFO | number of continuous variables : 631
+2025-02-18 14:19:25 | INFO | number of continuous variables : 635
 2025-02-18 14:19:25 | INFO | number of discrete variables : 282
-2025-02-18 14:19:25 | INFO | number of root functions : 200
+2025-02-18 14:19:25 | INFO | number of root functions : 213
 2025-02-18 14:19:25 | INFO | -----------------------------------------------------------------------
 2025-02-18 14:19:25 | INFO |         time | iter num   Nonlinear iter   jac eval      time step (h)
 2025-02-18 14:19:25 | INFO | -----------------------------------------------------------------------

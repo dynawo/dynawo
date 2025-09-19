@@ -17,7 +17,7 @@
     <par type="DOUBLE" name="initStep" value="1e-8"/>
     <par type="DOUBLE" name="minStep" value="1e-8"/>
     <par type="DOUBLE" name="maxStep" value="10"/>
-    <par type="DOUBLE" name="absAccuracy" value="1e-6"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-5"/>
     <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
   </set>
   <set id="1">

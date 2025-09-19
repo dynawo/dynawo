@@ -26,6 +26,7 @@ model RPFaultFunction "rpfault function for HVDC"
   Modelica.Blocks.Interfaces.RealOutput rpfault(start = 1) "Signal that is equal to 1 in normal conditions, 0 when the HVDC link is blocked, and that goes back to 1 with a ramp when it is unblocked" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
+  Real rpfaultRaw "Non-limited output signal";
   Types.Time timer(start = 0);
 
 equation
@@ -35,8 +36,10 @@ equation
     timer = time;
   end when;
 
-  rpfault = if timer == 0 then 1 else min(SlopeRPFault * max(time - timer, 0), 1);
+  rpfaultRaw = SlopeRPFault * (if time > timer then time - timer else 0);
+  rpfault = if timer == 0 then 1 elseif rpfaultRaw < 1 then rpfaultRaw else 1;
 
-  annotation(preferredView = "text",
+  annotation(
+    preferredView = "text",
     Documentation(info = "<html><head></head><body> This function calculates a signal that is equal to 1 in normal conditions, 0 when the HVDC link is blocked, and that goes back to 1 with a ramp when it is unblocked.</body></html>"));
 end RPFaultFunction;
