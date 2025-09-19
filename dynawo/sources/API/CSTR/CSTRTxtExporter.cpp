@@ -92,6 +92,8 @@ TxtExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& constr
              << data->limit;
       stream << TXTEXPORTER_SEPARATOR
              << data->value;
+      stream << TXTEXPORTER_SEPARATOR
+             << data->valueMax;
       boost::optional<int> side = data->side;
       if (side) {
         stream << TXTEXPORTER_SEPARATOR

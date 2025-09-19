@@ -88,6 +88,7 @@ JsonExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& const
       }
       item.put("limit", data->limit);
       item.put("value", data->value);
+      item.put("valueMax", data->valueMax);
       boost::optional<int> side = data->side;
       if (side) {
         item.put("side", side.value());

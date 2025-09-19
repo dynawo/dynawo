@@ -95,6 +95,7 @@ XmlExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& constr
       }
       attrs.add("limit", data->limit);
       attrs.add("value", data->value);
+      attrs.add("valueMax", data->valueMax);
       boost::optional<int> side = data->side;
       if (side) {
         attrs.add("side", side.value());
