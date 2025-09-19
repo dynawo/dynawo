@@ -18,6 +18,9 @@ endif()
 option(BUILD_TESTS "Choose to build the unit tests")
 option(BUILD_TESTS_COVERAGE "Choose to build tests coverage")
 
+# IO interfaces for interactive dynawo
+option(USE_ZMQPP "Link ZMQPP library" OFF)
+
 # Add custom cmake modules to the path
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
@@ -140,6 +143,14 @@ if(DEFINED DYNAWO_THIRD_PARTY_DIR)
 endif()
 
 list(APPEND CMAKE_PREFIX_PATH "${LIBXML2_HOME}")
+
+if (DEFINED ZMQPP_HOME)
+  list(APPEND CMAKE_PREFIX_PATH "${ZMQPP_HOME}")
+endif()
+
+if (DEFINED WEBSOCKETPP_HOME)
+  list(APPEND CMAKE_PREFIX_PATH "${WEBSOCKETPP_HOME}")
+endif()
 
 # Python Interpreter
 find_package(PythonInterp REQUIRED)
@@ -270,6 +281,17 @@ set(DYNAWO_USE_LIBXML2 "Y")
 find_package(LibXml2 "2.9" REQUIRED)
 find_package(LibIIDM "1.5.1" REQUIRED PATHS ${LIBIIDM_HOME})
 
+# Interactive mode interfaces
+if(USE_ZMQPP)
+    find_package(ZMQPP QUIET)
+    if(ZMQPP_FOUND)
+        add_definitions(-DUSE_ZMQPP)
+    else()
+        message("USE_ZMQPP not found. Disabling support.")
+        set(USE_ZMQPP OFF)
+    endif()
+endif()
+
 if(MSVC)
   set(runtime_PATH "PATH=${ADEPT_HOME}/bin;${Boost_INCLUDE_DIR}/../bin;${INSTALL_OPENMODELICA}/bin;${SUITESPARSE_HOME}/bin;${SUNDIALS_HOME}/bin;${XercesC_INCLUDE_DIRS}/../bin;${LibIIDM_BIN_DIR};${LIBIIDM_HOME}/bin;${LibXML_BIN_DIR};${LIBXML2_HOME}/bin;${libdir};$ENV{PATH}")
   if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
@@ -295,6 +317,7 @@ add_subdirectory(sources/Simulation)
 add_subdirectory(sources/Launcher)
 add_subdirectory(sources/ModelicaCompiler)
 add_subdirectory(sources/Models M)
+add_subdirectory(sources/RT)
 add_subdirectory(doxygen)
 if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
   add_subdirectory(sources/Test)
@@ -324,6 +347,7 @@ install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindXercesC.cmake DESTINATION ${
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindSuiteSparse.cmake DESTINATION ${SHAREDIR_NAME}/cmake)
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindSundials.cmake DESTINATION ${SHAREDIR_NAME}/cmake)
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindlibZIP.cmake DESTINATION ${SHAREDIR_NAME}/cmake)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindZMQPP.cmake DESTINATION ${SHAREDIR_NAME}/cmake)
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/CPUCount.cmake DESTINATION ${SHAREDIR_NAME}/cmake)
 
 if(MSVC)
