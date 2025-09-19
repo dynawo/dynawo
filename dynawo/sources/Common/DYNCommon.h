@@ -173,6 +173,15 @@ namespace DYN {
   }
 
   /**
+   * @brief rounds infinitesimal values to 0
+   * @param a any double
+   * @return exactly 0 if |a| is below computational precision, a otherwise
+   */
+  static inline double doubleRounded(const double a) {
+    return doubleIsZero(a) ? 0. : a;
+  }
+
+  /**
    * @brief convert Real (aka Dynawo boolean) to native boolean
    *
    *
