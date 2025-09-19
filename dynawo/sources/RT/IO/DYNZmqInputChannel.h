@@ -31,64 +31,58 @@
 #include <zmqpp/zmqpp.hpp>
 #include <atomic>
 
-
-#ifdef _MSC_VER
-  typedef int pid_t;
-#endif
-
 namespace DYN {
 
 /**
- * @brief ZmqInputChannel class
+ * @class ZmqInputChannel
+ * @brief Input channel implementation using ZeroMQ.
  *
- * class for event interraction
- *
+ * Provides an interface for receiving messages via ZeroMQ sockets,
+ * with optional threaded reception and stop signaling.
  */
 class ZmqInputChannel: public InputChannel {
  public:
-  ZmqInputChannel(const std::string id, MessageFilter messageFilter, const std::string& endpoint ="tcp://*:5555");
+  /**
+   * @brief Constructor.
+   * @param id Identifier of the channel
+   * @param messageFilter Filter applied on incoming messages
+   * @param endpoint ZeroMQ endpoint to bind
+   */
+  ZmqInputChannel(const std::string id, MessageFilter messageFilter, const std::string& endpoint = "tcp://*:5555");
 
-  // void start();
-
+  /**
+   * @brief Start receiving messages.
+   * @param callback Function called for each received message
+   * @param useThread Whether to run reception in a separate thread (default: true)
+   */
   void startReceiving(const std::function<void(std::shared_ptr<InputMessage>)>& callback, bool useThread = true) override;
 
+  /**
+   * @brief Stop receiving messages.
+   */
   void stop();
 
-  // bool registerAction(std::string& input);
-
-  // void sendReply(const std::string& msg);
-
+  /**
+   * @brief Receive messages in synchronous mode  --  to be checked (not used)
+   * @param stop If true, stop reception after processing
+   */
   void receiveMessages(bool stop);
 
-  // void messageReceiverAsync();
-
  private:
+  /**
+   * @brief Reception loop executed in a thread when enabled.
+   */
   void receiveLoop();
 
-  // bool handleMessage(zmqpp::message& message);
-
  private:
-  const std::string STOP_KEY = "stop";
-  // std::string endpoint_;
-  // MessageType type_;
-  zmqpp::context context_;
-  zmqpp::socket socket_;
-  bool useThread_;
-  std::atomic<bool> stopFlag_;
-  long pollTimeoutMs_;
-  // std::thread thread_;
-  std::function<void(std::shared_ptr<InputMessage>)> callback_;
-
-  // zmqpp::context context_;
-  // zmqpp::socket socket_;
-  std::thread thread_;
-  // bool running_;
-  // bool asyncMode_;
-
-  // Async variables
-  // int stepTriggeredCnt_;
-  // std::mutex simulationMutex_;
-  // std::condition_variable simulationStepTriggerCondition_;
+  const std::string STOP_KEY = "stop";  ///< Key used to signal stop
+  zmqpp::context context_;              ///< ZeroMQ context
+  zmqpp::socket socket_;                ///< ZeroMQ socket
+  bool useThread_;                      ///< Whether reception uses a dedicated thread
+  std::atomic<bool> stopFlag_;          ///< Flag to signal stopping reception
+  long pollTimeoutMs_;                  ///< Polling timeout in milliseconds
+  std::function<void(std::shared_ptr<InputMessage>)> callback_;  ///< Callback for received messages
+  std::thread thread_;                  ///< Thread for message reception
 };
 
 }  // end of namespace DYN

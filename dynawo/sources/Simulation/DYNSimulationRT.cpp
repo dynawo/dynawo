@@ -82,7 +82,6 @@ namespace fs = boost::filesystem;
 
 using timeline::TimelineFactory;
 using timeline::Timeline;
-// using timeline::JsonExporter;
 
 using curves::CurvesCollection;
 using curves::CurvesCollectionFactory;
@@ -91,7 +90,6 @@ using finalStateValues::FinalStateValuesCollection;
 using finalStateValues::FinalStateValuesCollectionFactory;
 
 using constraints::ConstraintsCollectionFactory;
-// using constraints::JsonExporter;
 
 using lostEquipments::LostEquipmentsCollectionFactory;
 
@@ -190,7 +188,7 @@ SimulationRT::configureRT() {
         if (clock_->getUseTrigger() && clockEntry->getTriggerChannel() == channelEntry->getId())  // is trigger channel
           filter = filter | MessageFilter::Trigger;
         std::shared_ptr<InputChannel> zmqServer = std::make_shared<ZmqInputChannel>("zmq", filter);
-        inputDispatcherAsync_->addReceiver(zmqServer);
+        inputDispatcherAsync_->addInputChannel(zmqServer);
 #else
         throw DYNError(Error::GENERAL, UnavailableLib, "ZMQPP");
 #endif
@@ -199,13 +197,6 @@ SimulationRT::configureRT() {
       }
     }
   }
-  std::cout << "channel initialized" << std::endl;
-
-  // if (jobEntry_->getSimulationEntry()->getPublishToWebsocket()) {
-  //   wsServer_ = std::make_shared<wsc::WebsocketServer>();
-  //   wsServer_->run(9001);
-  //   std::cout << "Websocket server started" << std::endl;
-  // }
 
   // Workaround to avoid saving value for each curve:
   //  - Set all curves as EXPORT_AS_FINAL_STATE_VALUE --> will keep only one Point corresponding to last value
@@ -220,9 +211,8 @@ SimulationRT::configureRT() {
   bool sendSimulationMetrics_ = true;   // TODO(thibaut) add jobs property
   if (sendSimulationMetrics_)
     initComputationTimeCurve();
-  // valuesBuffer_.reserve((curvesCollection_->getCurves().size() + 1) * sizeof(double));
 
-  std::cout << "configureRT au bout" << std::endl;
+  Trace::info() << "SimulationRT initialized" << Trace::endline;
 }
 
 void
@@ -230,9 +220,6 @@ SimulationRT::updateCurves(bool updateCalculateVariable) const {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SimulationRT::updateCurves()");
 #endif
-  // if (exportCurvesMode_ == EXPORT_CURVES_NONE && exportFinalStateValuesMode_ == EXPORT_FINAL_STATE_VALUES_NONE)
-  //   return;
-
   if (updateCalculateVariable)
     model_->updateCalculatedVarForCurves();
 
@@ -261,11 +248,8 @@ SimulationRT::simulate() {
   updateCurves(updateCalculatedVariable);  // initial curves
 
   if (outputDispatcher_)
-    outputDispatcher_->initPublishCurves(curvesCollection_);
-  // if (stepPublisher_ && !jobEntry_->getSimulationEntry()->getPublishToZmqCurvesFormat().compare("BYTES")) {
-  //   string formatedCurvesNames = curvesNamesToCsv();
-  //   stepPublisher_->sendMessage(formatedCurvesNames, "curves_names");
-  // }
+    outputDispatcher_->publishCurvesNames(curvesCollection_);
+
 
   bool criteriaChecked = true;
   try {
@@ -288,15 +272,12 @@ SimulationRT::simulate() {
       timeStep = curvesEntry->getTimeStep();
     }
     int currentIterNb = 0;
-    // double nextTimeStep = 0;
 
     inputDispatcherAsync_->start();
 
     clock_->start(tCurrent_);
 
-    // double nextTToTrigger = tCurrent_ + triggerSimulationTimeStepInS_;  // Only used if (eventSubscriber_ && eventSubscriber_->triggerEnabled())
     double nextOutputT = tCurrent_;  // Publish first time step
-    // double lastPublicationTime = -1;
     bool isPublicationTime = false;
     bool isWaitTime = false;
     while (!end() && !clock_->getStopMessageReceived() && !SignalHandler::gotExitSignal() && criteriaChecked) {
@@ -344,29 +325,12 @@ SimulationRT::simulate() {
        } else if (solverState.getFlags(NotSilentZChange)
           || solverState.getFlags(SilentZNotUsedInDiscreteEqChange)
           || solverState.getFlags(SilentZNotUsedInContinuousEqChange)) {
-        // updateCurves(true);
-        // if (clock_)
-        //   Trace::info() << "TimeManagement (SilentZish): tCurrent_ = " << tCurrent_
-        //   << " s; Partial step computation time: " << clock_->getStepDuration() << "ms" << Trace::endline;
         model_->getCurrentZ(zCurrent_);
         // modifZ = true;
       }
 
       if (isCheckCriteriaIter)
         model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
-
-      // if (iterationStep) {
-      //   if (currentIterNb % *iterationStep == 0) {
-      //     updateCurves(!isCheckCriteriaIter && !modifZ);
-      //   }
-      // } else if (timeStep) {
-      //   if (tCurrent_ >= nextTimeStep) {
-      //     nextTimeStep = tCurrent_ + *timeStep;
-      //     updateCurves(!isCheckCriteriaIter && !modifZ);
-      //   }
-      // } else {
-      //   updateCurves(!isCheckCriteriaIter && !modifZ);
-      // }
 
       model_->checkDataCoherence(tCurrent_);
       model_->printMessages();
@@ -483,81 +447,71 @@ SimulationRT::initComputationTimeCurve() {
   curvesCollection_->add(curve);
 }
 
-void
-SimulationRT::terminate() {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
-  Timer timer("SimulationRT::terminate()");
-#endif
-  std::cout << "SimulationRT::terminate" << std::endl;
-  // if (wsServer_)
-  //   wsServer_->stop();
+// void
+// SimulationRT::terminate() {
+// #if defined(_DEBUG_) || defined(PRINT_TIMERS)
+//   Timer timer("SimulationRT::terminate()");
+// #endif
+//   std::cout << "SimulationRT::terminate" << std::endl;
+//   if (curvesOutputFile_ != "") {
+//     ofstream fileCurves;
+//     openFileStream(fileCurves, curvesOutputFile_);
+//     printCurves(fileCurves);
+//     fileCurves.close();
+//   }
 
-  // if (inputDispatcherAsync_)
-  //   inputDispatcherAsync_->stop();
+//   if (finalStateValuesOutputFile_ != "") {
+//     ofstream fileFinalStateValues;
+//     openFileStream(fileFinalStateValues, finalStateValuesOutputFile_);
+//     printFinalStateValues(fileFinalStateValues);
+//     fileFinalStateValues.close();
+//   }
 
-  // if (eventSubscriber_)
-  //   eventSubscriber_->stop();
-  // updateParametersValues();   // update parameter curves' value
+//   if (timelineOutputFile_ != "") {
+//     ofstream fileTimeline;
+//     openFileStream(fileTimeline, timelineOutputFile_);
+//     printTimeline(fileTimeline);
+//     fileTimeline.close();
+//   }
 
-  if (curvesOutputFile_ != "") {
-    ofstream fileCurves;
-    openFileStream(fileCurves, curvesOutputFile_);
-    printCurves(fileCurves);
-    fileCurves.close();
-  }
+//   if (constraintsOutputFile_ != "") {
+//     ofstream fileConstraints;
+//     openFileStream(fileConstraints, constraintsOutputFile_);
+//     printConstraints(fileConstraints);
+//     fileConstraints.close();
+//   }
 
-  if (finalStateValuesOutputFile_ != "") {
-    ofstream fileFinalStateValues;
-    openFileStream(fileFinalStateValues, finalStateValuesOutputFile_);
-    printFinalStateValues(fileFinalStateValues);
-    fileFinalStateValues.close();
-  }
+//   if (dumpFinalValues_) {
+//     string finalValuesDir = createAbsolutePath("finalValues", outputsDirectory_);
+//     if (!exists(finalValuesDir))
+//       createDirectory(finalValuesDir);
+//     model_->printModelValues(finalValuesDir, "dumpFinalValues");
+//   }
 
-  if (timelineOutputFile_ != "") {
-    ofstream fileTimeline;
-    openFileStream(fileTimeline, timelineOutputFile_);
-    printTimeline(fileTimeline);
-    fileTimeline.close();
-  }
+//   if (data_ && (finalState_.iidmFile_ || isLostEquipmentsExported())) {
+// #if defined(_DEBUG_) || defined(PRINT_TIMERS)
+//     Timer timer2("DataInterfaceIIDM::exportStateVariables");
+// #endif
+//     data_->exportStateVariables();
+//   }
 
-  if (constraintsOutputFile_ != "") {
-    ofstream fileConstraints;
-    openFileStream(fileConstraints, constraintsOutputFile_);
-    printConstraints(fileConstraints);
-    fileConstraints.close();
-  }
+//   if (data_ && isLostEquipmentsExported() && lostEquipmentsOutputFile_ != "") {
+//     ofstream fileLostEquipments;
+//     openFileStream(fileLostEquipments, lostEquipmentsOutputFile_);
+//     printLostEquipments(fileLostEquipments);
+//     fileLostEquipments.close();
+//   }
 
-  if (dumpFinalValues_) {
-    string finalValuesDir = createAbsolutePath("finalValues", outputsDirectory_);
-    if (!exists(finalValuesDir))
-      createDirectory(finalValuesDir);
-    model_->printModelValues(finalValuesDir, "dumpFinalValues");
-  }
+//   if (finalState_.dumpFile_)
+//     dumpState();
 
-  if (data_ && (finalState_.iidmFile_ || isLostEquipmentsExported())) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
-    Timer timer2("DataInterfaceIIDM::exportStateVariables");
-#endif
-    data_->exportStateVariables();
-  }
+//   if (finalState_.iidmFile_)
+//     dumpIIDMFile();
 
-  if (data_ && isLostEquipmentsExported() && lostEquipmentsOutputFile_ != "") {
-    ofstream fileLostEquipments;
-    openFileStream(fileLostEquipments, lostEquipmentsOutputFile_);
-    printLostEquipments(fileLostEquipments);
-    fileLostEquipments.close();
-  }
-
-  if (finalState_.dumpFile_)
-    dumpState();
-
-  if (finalState_.iidmFile_)
-    dumpIIDMFile();
-
-  printEnd();
-  if (wasLoggingEnabled_ && !Trace::isLoggingEnabled()) {
-    // re-enable logging for upper project
-    Trace::enableLogging();
-  }
-}
+//   printEnd();
+//   if (wasLoggingEnabled_ && !Trace::isLoggingEnabled()) {
+//     // re-enable logging for upper project
+//     Trace::enableLogging();
+//   }
+// }
 }  // end of namespace DYN

@@ -24,6 +24,7 @@ namespace DYN {
 InputDispatcherAsync::InputDispatcherAsync(std::shared_ptr<ActionBuffer> &actionBuffer, std::shared_ptr<Clock>& clock) :
   actionBuffer_(actionBuffer),
   clock_(clock),
+  loopWaitInMs_(50),
   running_(false) {}
 
 InputDispatcherAsync::~InputDispatcherAsync() {
@@ -31,21 +32,21 @@ InputDispatcherAsync::~InputDispatcherAsync() {
 }
 
 void
-InputDispatcherAsync::addReceiver(std::shared_ptr<InputChannel>& receiver) {
-  receivers_.push_back(receiver);
+InputDispatcherAsync::addInputChannel(std::shared_ptr<InputChannel>& channel) {
+  channels_.push_back(channel);
 }
 
 void
 InputDispatcherAsync::start() {
-  std::cout << "InputDispatcherAsync::start receivers_.size() = " << receivers_.size() << std::endl;
+  std::cout << "InputDispatcherAsync::start channels_.size() = " << channels_.size() << std::endl;
   bool useTrigger = false;
 
-  for (auto receiver : receivers_)
-    useTrigger |= receiver->supports(MessageFilter::Trigger);
+  for (auto channel : channels_)
+    useTrigger |= channel->supports(MessageFilter::Trigger);
   clock_->setUseTrigger(useTrigger);
 
-  for (auto receiver : receivers_)
-    receiver->startReceiving([this](std::shared_ptr<InputMessage> msg){ this->dispatchMessage(std::move(msg)); }, true);
+  for (auto channel : channels_)
+    channel->startReceiving([this](std::shared_ptr<InputMessage> msg){ this->dispatchMessage(std::move(msg)); }, true);
   processorThread_ = std::thread([this](){ processLoop(); });
   running_ = true;
 }
@@ -55,8 +56,8 @@ InputDispatcherAsync::stop() {
   std::cout << "InputDispatcherAsync::stop" << std::endl;
   running_ = false;
   queueCond_.notify_all();
-  for (auto receiver : receivers_)
-    receiver->stop();
+  for (auto channel : channels_)
+    channel->stop();
   if (processorThread_.joinable())
     processorThread_.join();
 }
@@ -76,7 +77,7 @@ void
 InputDispatcherAsync::processLoop() {
   while (running_) {
     std::unique_lock<std::mutex> lock(queueMutex_);
-    queueCond_.wait_for(lock, std::chrono::milliseconds(100), [this]() { return !messageQueue_.empty() || !running_; });
+    queueCond_.wait_for(lock, std::chrono::milliseconds(loopWaitInMs_), [this]() { return !messageQueue_.empty() || !running_; });
 
     while (!messageQueue_.empty()) {
       auto msg = messageQueue_.front();

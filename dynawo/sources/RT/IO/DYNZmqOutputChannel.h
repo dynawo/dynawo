@@ -27,31 +27,46 @@
 
 #include "DYNOutputChannel.h"
 
-#ifdef _MSC_VER
-  typedef int pid_t;
-#endif
-
 namespace DYN {
 
 /**
- * @brief ZmqOutputChannel class
+ * @class ZmqOutputChannel
+ * @brief Output channel implementation using ZeroMQ.
  *
- * class to push data
- *
+ * Provides an interface to push simulation output messages
+ * to external consumers via ZeroMQ sockets.
  */
 class ZmqOutputChannel : public OutputChannel {
  public:
+  /**
+   * @brief Constructor.
+   * @param endpoint ZeroMQ endpoint to bind
+   */
   explicit ZmqOutputChannel(std::string endpoint = "tcp://*:5556");
 
+  /**
+   * @brief Send a message as a string.
+   * @param data Message content
+   */
   void sendMessage(const std::string& data) override;
 
+  /**
+   * @brief Send a message as a string with a topic.
+   * @param data Message content
+   * @param topic Message topic
+   */
   void sendMessage(const std::string& data, std::string topic) override;
 
+  /**
+   * @brief Send a message as raw bytes with a topic.
+   * @param data Message content as a byte vector
+   * @param topic Message topic
+   */
   void sendMessage(const std::vector<std::uint8_t>& data, std::string topic) override;
 
  private:
-  zmqpp::context context_;
-  zmqpp::socket socket_;
+  zmqpp::context context_;  ///< ZeroMQ context
+  zmqpp::socket socket_;    ///< ZeroMQ socket for sending messages
 };
 
 }  // end of namespace DYN

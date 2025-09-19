@@ -22,40 +22,96 @@
 #include <string>
 #include <memory>
 
+/**
+ * @enum MessageFilter
+ * @brief Defines categories of messages that can be filtered.
+ */
 enum class MessageFilter {
-    None = 0,
-    Actions = 1 << 0,
-    TimeManagement = 1 << 1,
-    Trigger = 1 << 2,
+  None = 0,                 ///< No filter
+  Actions = 1 << 0,         ///< Filter for action messages
+  TimeManagement = 1 << 1,  ///< Filter for time management messages
+  Trigger = 1 << 2          ///< Filter for trigger messages
 };
 
+/**
+ * @brief Bitwise OR operator for combining message filters.
+ * @param a First filter
+ * @param b Second filter
+ * @return Combined filter
+ */
 inline MessageFilter operator|(MessageFilter a, MessageFilter b) {
   return static_cast<MessageFilter>(static_cast<int>(a) | static_cast<int>(b));
 }
 
+/**
+ * @enum MessageType
+ * @brief Defines the types of input messages.
+ */
 enum class MessageType {
-    Action,
-    StepTrigger,
-    Stop
+  Action,       ///< Action message
+  StepTrigger,  ///< Step trigger message
+  Stop          ///< Stop message
 };
 
+/**
+ * @struct InputMessage
+ * @brief Abstract base class for input messages.
+ */
 struct InputMessage {
-    virtual ~InputMessage() {}
-    virtual MessageType getType() const = 0;
+  /**
+   * @brief Destructor.
+   */
+  virtual ~InputMessage() {}
+
+  /**
+   * @brief Get the message type.
+   * @return Type of the message
+   */
+  virtual MessageType getType() const = 0;
 };
 
+/**
+ * @struct ActionMessage
+ * @brief Message carrying an action payload.
+ */
 struct ActionMessage : public InputMessage {
-    std::string payload;
-    explicit ActionMessage(std::string p) : payload(std::move(p)) {}
-    MessageType getType() const override { return MessageType::Action; }
+  std::string payload;  ///< Message content
+
+  /**
+   * @brief Constructor.
+   * @param p Payload string
+   */
+  explicit ActionMessage(std::string p) : payload(std::move(p)) {}
+
+  /**
+   * @brief Get the message type.
+   * @return MessageType::Action
+   */
+  MessageType getType() const override { return MessageType::Action; }
 };
 
+/**
+ * @struct StepTriggerMessage
+ * @brief Message used to trigger a simulation step.
+ */
 struct StepTriggerMessage : public InputMessage {
-    MessageType getType() const override { return MessageType::StepTrigger; }
+  /**
+   * @brief Get the message type.
+   * @return MessageType::StepTrigger
+   */
+  MessageType getType() const override { return MessageType::StepTrigger; }
 };
 
+/**
+ * @struct StopMessage
+ * @brief Message used to stop the simulation.
+ */
 struct StopMessage : public InputMessage {
-    MessageType getType() const override { return MessageType::Stop; }
+  /**
+   * @brief Get the message type.
+   * @return MessageType::Stop
+   */
+  MessageType getType() const override { return MessageType::Stop; }
 };
 
 #endif  // RT_COMMON_DYNRTINPUTCOMMON_H_
