@@ -68,7 +68,7 @@
     <par type="DOUBLE" name="WTG3_PMinPu" value="0"/>
     <par type="BOOL" name="WTG3_PQFlag" value="false"/>
     <par type="BOOL" name="WTG3_PfFlag" value="false"/>
-    <par type="BOOL" name="WTG3_QFlag" value="true"/>
+    <par type="INT" name="WTG3_QFlag" value="1"/>
     <par type="DOUBLE" name="WTG3_QMaxPu" value="0.4"/>
     <par type="DOUBLE" name="WTG3_QMinPu" value="-0.4"/>
     <par type="BOOL" name="WTG3_RateFlag" value="false"/>
