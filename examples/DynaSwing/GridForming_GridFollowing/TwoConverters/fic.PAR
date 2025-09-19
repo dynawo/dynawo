@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2022, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="SimplifiedSolver">
+    <par type="DOUBLE" name="hMin" value="0.0001"/>
+    <par type="DOUBLE" name="hMax" value="0.003"/>
+    <par type="DOUBLE" name="minimalAcceptableStep" value="1e-6"/>
+    <par type="DOUBLE" name="kReduceStep" value="0.5"/>
+    <par type="INT" name="maxNewtonTry" value="10"/>
+  </set>
+  <set id="NETWORK">
+    <par type="DOUBLE" name="capacitor_no_reclosing_delay" value="300"/>
+    <par type="DOUBLE" name="dangling_line_currentLimit_maxTimeOperation" value="240"/>
+    <par type="DOUBLE" name="line_currentLimit_maxTimeOperation" value="240"/>
+    <par type="BOOL" name="line_isDynamic" value="false"/>
+    <par type="DOUBLE" name="load_Tp" value="90"/>
+    <par type="DOUBLE" name="load_Tq" value="90"/>
+    <par type="DOUBLE" name="load_alpha" value="1"/>
+    <par type="DOUBLE" name="load_alphaLong" value="0"/>
+    <par type="DOUBLE" name="load_beta" value="2"/>
+    <par type="DOUBLE" name="load_betaLong" value="0"/>
+    <par type="BOOL" name="load_isControllable" value="false"/>
+    <par type="BOOL" name="load_isRestorative" value="true"/>
+    <par type="DOUBLE" name="load_zPMax" value="100"/>
+    <par type="DOUBLE" name="load_zQMax" value="100"/>
+    <par type="DOUBLE" name="reactance_no_reclosing_delay" value="0"/>
+    <par type="DOUBLE" name="transformer_currentLimit_maxTimeOperation" value="240"/>
+    <par type="DOUBLE" name="transformer_t1st_HT" value="60"/>
+    <par type="DOUBLE" name="transformer_t1st_THT" value="30"/>
+    <par type="DOUBLE" name="transformer_tNext_HT" value="10"/>
+    <par type="DOUBLE" name="transformer_tNext_THT" value="10"/>
+    <par type="DOUBLE" name="transformer_tolV" value="0.014999999700000001"/>
+  </set>
+  <set id="INF">
+    <reference name="infiniteBus_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="infiniteBus_UPhase" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par type="DOUBLE" name="infiniteBus_UEvtPu" value="0.6"/>
+    <par type="DOUBLE" name="infiniteBus_omega0Pu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_omegaEvtPu" value="1.01"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtStart" value="99"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtEnd" value="999"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtStart" value="99"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtEnd" value="999"/>
+  </set>
+  <set id="GFL">
+    <reference name="GFL_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="GFL_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="GFL_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="GFL_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par type="DOUBLE" name="GFL_SNom" value="1000"/>
+    <par type="DOUBLE" name="GFL_CFilterPu" value="0.00001"/>
+    <par type="DOUBLE" name="GFL_Ki" value="10"/>
+    <par type="DOUBLE" name="GFL_Kic" value="7"/>
+    <par type="DOUBLE" name="GFL_Kid" value="50"/>
+    <par type="DOUBLE" name="GFL_Kiq" value="50"/>
+    <par type="DOUBLE" name="GFL_Kp" value="2"/>
+    <par type="DOUBLE" name="GFL_Kpc" value="0.5"/>
+    <par type="DOUBLE" name="GFL_Kpd" value="0.11"/>
+    <par type="DOUBLE" name="GFL_Kpq" value="0.11"/>
+    <par type="DOUBLE" name="GFL_LFilterPu" value="0.1"/>
+    <par type="DOUBLE" name="GFL_LTransformerPu" value="0.05"/>
+    <par type="DOUBLE" name="GFL_OmegaMaxPu" value="1.1"/>
+    <par type="DOUBLE" name="GFL_OmegaMinPu" value="0.9"/>
+    <!-- <par type="DOUBLE" name="GFL_P0Pu" value="5"/>
+    <par type="DOUBLE" name="GFL_Q0Pu" value="-0.21"/> -->
+    <par type="DOUBLE" name="GFL_RFilterPu" value="0.003"/>
+    <par type="DOUBLE" name="GFL_RTransformerPu" value="0.002"/>
+    <!-- <par type="DOUBLE" name="GFL_SNom" value="1000"/> -->
+    <!-- <par type="DOUBLE" name="GFL_U0Pu" value="1.0847"/> -->
+    <!-- <par type="DOUBLE" name="GFL_UPhase0" value="-0.18"/> -->
+    <par type="DOUBLE" name="GFL_tPFilt" value="0.01"/>
+    <par type="DOUBLE" name="GFL_tQFilt" value="0.01"/>
+    <par type="DOUBLE" name="GFL_tVSC" value="0.0004"/>
+  </set>
+  <set id="IDA">
+    <par type="INT" name="order" value="2"/>
+    <par type="DOUBLE" name="initStep" value="1e-8"/>
+    <par type="DOUBLE" name="minStep" value="1e-8"/>
+    <par type="DOUBLE" name="maxStep" value="10"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-6"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-6"/>
+    <par type="DOUBLE" name="minimalAcceptableStep" value="1e-8"/>
+    <par type="STRING" name="minimumModeChangeTypeForAlgebraicRestoration" value="ALGEBRAIC_J_UPDATE"/>
+    <par type="INT" name="maximumNumberSlowStepIncrease" value="100"/>
+  </set>
+  <set id="GFM_CCControl_VSM">
+    <reference name="GFM_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="GFM_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="GFM_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="GFM_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par type="DOUBLE" name="GFM_SNom" value="1000"/>
+    <par name="GFM_CFilterPu" type="DOUBLE" value="1e-05"/>
+    <par name="GFM_H" type="DOUBLE" value="3"/>
+    <par name="GFM_IMaxVI" type="DOUBLE" value="1.2"/>
+    <par name="GFM_Kfd" type="DOUBLE"  value="0.8"/>
+    <par name="GFM_Kff" type="DOUBLE" value="0"/>
+    <par name="GFM_Kfq" type="DOUBLE"  value="0"/>
+    <par name="GFM_Kic" type="DOUBLE" value="15"/>
+    <par name="GFM_KpVI" type="DOUBLE" value="0.6"/>
+    <par name="GFM_Kpc" type="DOUBLE" value="0.477465"/>
+    <par name="GFM_LFilterPu" type="DOUBLE" value="0.15"/>
+    <par name="GFM_LTransformerPu" type="DOUBLE" value="0.06"/>
+    <par name="GFM_Mq" type="DOUBLE" value="0.2"/>
+    <par name="GFM_OmegaSetPu" type="DOUBLE" value="1"/>
+    <!-- <par name="GFM_P0Pu" type="DOUBLE" value="-7.4663"/>
+    <par name="GFM_Q0Pu" type="DOUBLE" value="0.4119"/> -->
+    <par name="GFM_RFilterPu" type="DOUBLE" value="0.015"/>
+    <par name="GFM_RTransformerPu" type="DOUBLE" value="0.006"/>
+    <!-- <par name="GFM_SNom" type="DOUBLE" value="1000"/>
+    <par name="GFM_U0Pu" type="DOUBLE" value="0.9984"/>
+    <par name="GFM_UPhase0" type="DOUBLE" value="0.0374"/> -->
+    <par name="GFM_Wf" type="DOUBLE" value="31.4159"/>
+    <par name="GFM_Wff" type="DOUBLE" value="60"/>
+    <par name="GFM_XRratio" type="DOUBLE" value="10"/>
+    <par name="GFM_XVI" type="DOUBLE" value="0"/>
+    <par name="GFM_kVSM" type="DOUBLE" value="155.955"/>
+    <par name="GFM_tVSC" type="DOUBLE" value="0.0004"/>
+  </set>
+</parametersSet>
