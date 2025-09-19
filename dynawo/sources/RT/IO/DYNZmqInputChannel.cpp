@@ -66,16 +66,10 @@ ZmqInputChannel::startReceiving(const std::function<void(std::shared_ptr<InputMe
   std::cout << "ZmqInputChannel::startReceiving" << std::endl;
   callback_ = callback;
   useThread_ = useThread;
-  // socket_.connect(endpoint_);
-  // socket_.subscribe(""); // subscribe to all
-
-  // thread_ = std::thread([this]() { receiveLoop(); });
   if (useThread_) {
     thread_ = std::thread([this]() { receiveLoop(); });
-    // std::thread(&ZmqInputChannel::messageReceiverAsync, this);
     std::cout << "ZmqInputChannel: thread started" << std::endl;
   }
-  // running_ = true;
 }
 
 void

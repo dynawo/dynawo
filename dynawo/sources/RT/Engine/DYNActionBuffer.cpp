@@ -33,7 +33,7 @@ ActionBuffer::setModel(std::shared_ptr<Model>& model) {
 void
 ActionBuffer::applyActions() {
   std::cout << "ActionBuffer::applyActions" << std::endl;
-  std::lock_guard<std::mutex> actionLock(actions_mutex_);
+  std::lock_guard<std::mutex> actionLock(actionsMutex_);
   for (auto& actionPair : actions_)
     actionPair.second.apply();
   actions_.clear();
@@ -108,7 +108,7 @@ ActionBuffer::registerAction(ActionMessage& actionMessage) {
 
   Action newAction = Action(subModel, parameterValueSet);
   {
-    std::lock_guard<std::mutex> actionLock(actions_mutex_);
+    std::lock_guard<std::mutex> actionLock(actionsMutex_);
     std::unordered_map<std::string, Action>::iterator actionIt = actions_.find(subModelName);
     if (actionIt != actions_.end()) {
       if (subModelName == "NETWORK") {

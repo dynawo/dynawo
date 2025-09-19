@@ -39,33 +39,57 @@ namespace DYN {
 
 class InputDispatcherAsync {
  public:
+   /**
+   * @brief Constructor
+   * @param actionBuffer pointer to the ActionBuffer object
+   * @param clock pointer to the Clock object
+   */
   InputDispatcherAsync(std::shared_ptr<ActionBuffer> &actionBuffer, std::shared_ptr<Clock>& clock);
 
+  /**
+   * Destructor
+   */
   ~InputDispatcherAsync();
 
-  void addReceiver(std::shared_ptr<InputChannel>& receiver);
+  /**
+   * @brief Add an input channel to the dispatcher
+   * @param channel input channel pointer
+   */
+  void addInputChannel(std::shared_ptr<InputChannel>& inputChannel);
 
+  /**
+   * @brief set the clock and and start the receivers
+   */
   void start();
 
+  /**
+   * @brief stop the simulation and all receivers
+   */
   void stop();
 
+  /**
+   * @brief callback function to register a new message from an input channel
+   * @param msg message to append to the message queue
+   */
   void dispatchMessage(std::shared_ptr<InputMessage> msg);
 
  private:
-  // void dispatchDirect(std::shared_ptr<InputMessage> msg);
-
+  /**
+   * @brief loop for message reception
+   */
   void processLoop();
 
  private:
-  std::shared_ptr<ActionBuffer> actionBuffer_;
-  std::shared_ptr<Clock> clock_;
-  std::vector<std::shared_ptr<InputChannel> > receivers_;
+  std::shared_ptr<ActionBuffer> actionBuffer_;               ///< Action buffer, receives input for models
+  std::shared_ptr<Clock> clock_;                             ///< Clock, handles trigger
+  std::vector<std::shared_ptr<InputChannel> > channels_;     ///< Receivers for inputs and trigger
 
-  std::queue<std::shared_ptr<InputMessage>> messageQueue_;
-  std::mutex queueMutex_;
-  std::condition_variable queueCond_;
-  std::thread processorThread_;
-  std::atomic<bool> running_;
+  int loopWaitInMs_;                                         ///< loop wait for periodic lock release
+  std::queue<std::shared_ptr<InputMessage> > messageQueue_;  ///< queue of received messages
+  std::mutex queueMutex_;                                    ///< mutex for message push/pop in the queue
+  std::condition_variable queueCond_;                        ///< condition for lock release
+  std::thread processorThread_;                              ///< thread for message handling loop
+  std::atomic<bool> running_;                                ///< running flag
 };
 
 }  // end of namespace DYN

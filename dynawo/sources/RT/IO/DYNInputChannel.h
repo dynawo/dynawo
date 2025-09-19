@@ -28,26 +28,46 @@
 namespace DYN {
 
 /**
- * @class  InputChannel
+ * @class InputChannel
+ * @brief Abstract base class for real-time simulation input channels.
  *
- * Channel for real-time simulation inputs
- *
+ * Defines the interface for receiving messages from an external source
+ * into the simulation, with filtering capabilities.
  */
 class InputChannel {
  public:
+  /**
+   * @brief Constructor.
+   * @param id Identifier of the input channel
+   * @param supportedMessages Message types supported by the channel
+   */
   InputChannel(std::string id, MessageFilter supportedMessages);
 
-  virtual void startReceiving(const std::function<void(std::shared_ptr<InputMessage>)>& callback, bool useThread) = 0;
+  /**
+   * @brief Start receiving messages.
+   * @param callback Function called for each received message
+   * @param useThread Whether to run reception in a separate thread
+   */
+  virtual void startReceiving(const std::function<void(std::shared_ptr<InputMessage>)>& callback,
+                              bool useThread) = 0;
 
+  /**
+   * @brief Stop receiving messages.
+   */
   virtual void stop() = 0;
 
+  /**
+   * @brief Check if this channel supports a given message type.
+   * @param value Message filter to test
+   * @return true if the channel supports the message type, false otherwise
+   */
   inline bool supports(MessageFilter value) {
     return (static_cast<int>(supportedMessages_) & static_cast<int>(value)) != 0;
   }
 
  protected:
-  std::string id_;
-  MessageFilter supportedMessages_;
+  std::string id_;                   ///< Identifier of the input channel
+  MessageFilter supportedMessages_;  ///< Supported message types
 };
 
 }  // end of namespace DYN

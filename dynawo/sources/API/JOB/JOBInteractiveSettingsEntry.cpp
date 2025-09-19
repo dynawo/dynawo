@@ -18,7 +18,30 @@
 
 #include "JOBInteractiveSettingsEntry.h"
 
+#include "DYNClone.hpp"
+
 namespace job {
+
+InteractiveSettingsEntry::InteractiveSettingsEntry(): couplingTimeStep_(1.) { }
+
+InteractiveSettingsEntry::InteractiveSettingsEntry(const InteractiveSettingsEntry& other) {
+  copy(other);
+}
+
+InteractiveSettingsEntry&
+InteractiveSettingsEntry::operator=(const InteractiveSettingsEntry& other) {
+  copy(other);
+  return *this;
+}
+
+void
+InteractiveSettingsEntry::copy(const InteractiveSettingsEntry& other) {
+  couplingTimeStep_ = other.couplingTimeStep_;
+
+  channels_ = DYN::clone(other.channels_);
+  clock_ = DYN::clone(other.clock_);
+  streams_ = DYN::clone(other.streams_);
+}
 
 void
 InteractiveSettingsEntry::setClockEntry(std::shared_ptr<ClockEntry> clockEntry) {
