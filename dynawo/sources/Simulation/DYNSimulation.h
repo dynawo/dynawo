@@ -28,6 +28,10 @@
 #include <boost/optional.hpp>
 #include <boost/filesystem.hpp>
 
+#ifdef _MSC_VER
+  typedef int pid_t;
+#endif
+
 #include "DYNSignalHandler.h"
 #include "PARParametersSetCollection.h"
 #include "DYNDataInterface.h"
