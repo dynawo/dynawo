@@ -28,10 +28,6 @@
 #include <boost/optional.hpp>
 #include <boost/filesystem.hpp>
 
-#ifdef _MSC_VER
-  typedef int pid_t;
-#endif
-
 #include "DYNSignalHandler.h"
 #include "PARParametersSetCollection.h"
 #include "DYNDataInterface.h"
@@ -529,7 +525,7 @@ class Simulation {
   /**
    * @brief end the simulation : export data, curves,...
    */
-  virtual void terminate();
+  void terminate();
 
   /**
    * @brief print curves output of the simulation in the given stream

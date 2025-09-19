@@ -28,7 +28,24 @@ namespace job {
  */
 class InteractiveSettingsEntry {
  public:
-  InteractiveSettingsEntry() = default;
+  /**
+   * @brief constructor
+   */
+  InteractiveSettingsEntry();
+
+  /**
+   * @brief Copy constructor
+   * @param other original to copy
+   */
+  InteractiveSettingsEntry(const InteractiveSettingsEntry& other);
+
+  /**
+   * @brief Assignement Operator
+   * @param other original to copy
+   * @returns reference on current entry
+   */
+  InteractiveSettingsEntry& operator=(const InteractiveSettingsEntry& other);
+
 
   /**
    * @brief Clock entry container setter
@@ -78,6 +95,12 @@ class InteractiveSettingsEntry {
    */
   void setCouplingTimeStep(const double couplingTimeStep);
 
+ private:
+  /**
+   * @brief Copy
+   * @param other original to copy
+   */
+  void copy(const InteractiveSettingsEntry& other);
 
  private:
   std::shared_ptr<ClockEntry> clock_;

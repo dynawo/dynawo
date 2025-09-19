@@ -53,7 +53,6 @@ void
 Clock::setSpeedup(double speedup) {
   if (speedup <= 0) {
     speedup_ = 1;
-    std::cout << "Clock Error: speedup invalid: " << speedup << std::endl;
   }
   speedup_ = speedup;
 }
@@ -63,7 +62,6 @@ Clock::start(double simulationTime) {
   referenceSimuTime_ = simulationTime;
   referenceClockTime_ = steady_clock::now();
   running_ = true;
-  std::cout << "Clock::start, running = " << running_ << ", useTrigger = " << useTrigger_ << std::endl;
 }
 
 void
@@ -89,7 +87,6 @@ Clock::handleMessage(StopMessage& /*stopMessage*/) {
 
 void
 Clock::wait(double simulationTime) {
-  std::cout << "wait triggeredStepCnt_ = " << triggeredStepCnt_ << std::endl;
   if (!useTrigger_) {
     if (running_ && speedup_ > 0)
       std::this_thread::sleep_until(referenceClockTime_ + microseconds(static_cast<int>(1000000*(simulationTime-referenceSimuTime_)/speedup_)));

@@ -34,9 +34,6 @@ namespace DYN {
 OutputDispatcher::OutputDispatcher() :
   running_(false) {}
 
-OutputDispatcher::~OutputDispatcher() {
-}
-
 void
 OutputDispatcher::addCurvesPublisher(std::shared_ptr<OutputChannel>& publisher, const std::string formatStr) {
   CurvesOutputFormat format;
@@ -100,7 +97,12 @@ OutputDispatcher::addConstraintsPublisher(std::shared_ptr<OutputChannel>& publis
 }
 
 void
-OutputDispatcher::initPublishCurves(std::shared_ptr<curves::CurvesCollection>& curvesCollection) {
+OutputDispatcher::addLogsPublisher(std::shared_ptr<OutputChannel>& /*publisher*/, const std::string /*formatStr*/) {
+  Trace::error() << "OutputDispatcher: addLogsPublisher not implemented" << Trace::endline;
+}
+
+void
+OutputDispatcher::publishCurvesNames(std::shared_ptr<curves::CurvesCollection>& curvesCollection) {
   if (!curvesCollection)
     return;
   if (curvesPublishers_.find(CurvesOutputFormat::BYTES) != curvesPublishers_.end()) {
@@ -282,8 +284,8 @@ OutputDispatcher::curvesToCsv(std::shared_ptr<curves::CurvesCollection> curvesCo
 std::string
 OutputDispatcher::curvesNamesToString(std::shared_ptr<curves::CurvesCollection> curvesCollection) {
   std::stringstream stream;
+  stream << "time" << "\n";
   for (auto &curve : curvesCollection->getCurves()) {
-    stream << "time" << "\n";
     if (curve->getAvailable()) {
       std::string curveName =  curve->getModelName() + "_" + curve->getVariable();
       stream << curveName << "\n";

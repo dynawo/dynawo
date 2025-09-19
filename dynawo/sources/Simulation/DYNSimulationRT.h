@@ -28,21 +28,12 @@
 #include <boost/filesystem.hpp>
 #include <cstdint>
 
-#ifdef _MSC_VER
-  typedef int pid_t;
-#endif
 
 #include "DYNSimulation.h"
 #include "DYNClock.h"
 #include "DYNActionBuffer.h"
-// #include "DYNEventSubscriber.h"
-// #include "DYNZmqPublisher.h"
 #include "DYNInputDispatcherAsync.h"
 #include "DYNOutputDispatcher.h"
-
-namespace websocket {
-class WebsocketServer;
-}
 
 namespace timeline {
 class Timeline;
@@ -108,10 +99,10 @@ class SimulationRT: public Simulation {
    */
   void simulate() override;
 
-  /**
-   * @brief end the simulation : export data, curves,...
-   */
-  void terminate() override;
+  // /**
+  //  * @brief end the simulation : export data, curves,...
+  //  */
+  // void terminate() override;
 
  private:
    /**
@@ -126,51 +117,19 @@ class SimulationRT: public Simulation {
   void updateStepComputationTime();
 
   /**
-   * @brief format last curves point in JSON
-   */
-  std::string curvesToJson();
-
-  /**
-   * @brief format last curves point in CSV
-   */
-  std::string curvesToCsv();
-
-  /**
-  * @brief format curves names in CSV
-  */
-  std::string curvesNamesToCsv();
-
-  /**
-  * @brief format curves as bytes
-  */
-  void updateValuesBuffer();
-
-  /**
    * @brief add curve for step duration
    */
   void initComputationTimeCurve();
 
  protected:
-  std::chrono::steady_clock::time_point stepStart_;  ///< clock time before step (after sleep) >
+  std::chrono::steady_clock::time_point stepStart_;             ///< clock time before step (after sleep)
   double stepComputationTime_;
+  double couplingTimeStep_;                                     ///< Simulation period to call for wait / output values in seconds
 
-  // std::vector<std::uint8_t> valuesBuffer_;  ///< curves values buffer
-
-  // // Exporters
-  // std::shared_ptr<constraints::Exporter> constraintsExporter_;
-  // std::shared_ptr<timeline::Exporter> timelineExporter_;
-
-  // Interfaces
-  // std::shared_ptr<wsc::WebsocketServer> wsServer_;     ///< instance of websocket server >
-  // std::shared_ptr<EventSubscriber> eventSubscriber_;   ///< Event manager >
-  // double triggerSimulationTimeStepInS_;                ///< Event manager >
-  double couplingTimeStep_;                               ///< Simulation period to call for wait / output values in seconds
-  // std::shared_ptr<ZmqPublisher> stepPublisher_;           ///< result publisher
-
-  std::shared_ptr<Clock> clock_;                          ///< Class managing RT pace >
-  std::shared_ptr<ActionBuffer> actionBuffer_;                  ///< Action buffer >
-  std::shared_ptr<InputDispatcherAsync> inputDispatcherAsync_;  ///< Input dispatcher >
-  std::shared_ptr<OutputDispatcher> outputDispatcher_;          ///< Output dispatcher >
+  std::shared_ptr<Clock> clock_;                                ///< Class managing RT pace
+  std::shared_ptr<ActionBuffer> actionBuffer_;                  ///< Action buffer
+  std::shared_ptr<InputDispatcherAsync> inputDispatcherAsync_;  ///< Input dispatcher
+  std::shared_ptr<OutputDispatcher> outputDispatcher_;          ///< Output dispatcher
 };
 
 }  // end of namespace DYN

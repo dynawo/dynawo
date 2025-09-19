@@ -32,10 +32,6 @@
 
 #include "DYNRTInputCommon.h"
 
-#ifdef _MSC_VER
-  typedef int pid_t;
-#endif
-
 namespace DYN {
 
 /**
@@ -46,6 +42,10 @@ namespace DYN {
  */
 class Clock {
  public:
+  /**
+   * @brief constructor
+   * @param simulationTime start
+   */
   Clock();
 
   /**
@@ -102,19 +102,19 @@ class Clock {
   bool getStopMessageReceived();
 
  private:
-  bool useTrigger_;   ///< true if wait needs a trigger from an input channel
-  bool running_;      ///< running status of clock
-  bool stopMessageReceived_;   ///< true if a stop message has been received
+  bool useTrigger_;                   ///< true if wait needs a trigger from an input channel
+  bool running_;                      ///< running status of clock
+  bool stopMessageReceived_;          ///< true if a stop message has been received
 
   // Internal time sync
-  double speedup_;  ///< acceleration factor clockTime/simulationTime >
+  double speedup_;                    ///< acceleration factor clockTime/simulationTime >
   std::chrono::steady_clock::time_point referenceClockTime_;  ///< clock reference correponding to referenceSimuTime >
-  double referenceSimuTime_;  ///< simulation time ("tCurrent") reference correponding to referenceSimuTime >
+  double referenceSimuTime_;          ///< simulation time ("tCurrent") reference correponding to referenceSimuTime >
 
   // External time sync
-  std::atomic<int> triggeredStepCnt_;   ///< number of triggered step_
-  std::mutex mutex_;
-  std::condition_variable triggerCond_;
+  std::atomic<int> triggeredStepCnt_;    ///< number of triggered step_
+  std::mutex mutex_;                     ///< mutex for trigger wait
+  std::condition_variable triggerCond_;  ///< trigger condition variable to unlock mutex in wait
 };
 
 }  // end of namespace DYN

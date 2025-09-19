@@ -27,17 +27,32 @@
 namespace DYN {
 
 /**
- * @class  OutputChannel
+ * @class OutputChannel
+ * @brief Abstract base class for real-time simulation output channels.
  *
- * Channel for real-time simulation outputs
- *
+ * Defines the interface for sending messages from a simulation
+ * to an external system using different message formats.
  */
 class OutputChannel {
  public:
+  /**
+   * @brief Send a message as a string.
+   * @param data Message content
+   */
   virtual void sendMessage(const std::string& data) = 0;
 
+  /**
+   * @brief Send a message as a string with a topic.
+   * @param data Message content
+   * @param topic Message topic
+   */
   virtual void sendMessage(const std::string& data, const std::string topic) = 0;
 
+  /**
+   * @brief Send a message as raw bytes with a topic.
+   * @param data Message content as a byte vector
+   * @param topic Message topic
+   */
   virtual void sendMessage(const std::vector<std::uint8_t>& data, const std::string topic) = 0;
 };
 

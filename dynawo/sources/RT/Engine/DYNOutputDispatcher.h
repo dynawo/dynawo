@@ -38,22 +38,61 @@ namespace DYN {
 
 class OutputDispatcher {
  public:
+  /**
+   * @brief constructor
+   */
   OutputDispatcher();
 
-  ~OutputDispatcher();
-
+  /**
+   * @brief add a curves output channel
+   * @param publisher channel for publication
+   * @param formatStr string of the format
+   */
   void addCurvesPublisher(std::shared_ptr<OutputChannel>& publisher, const std::string formatStr);
 
+  /**
+   * @brief add a timeline output channel
+   * @param publisher channel for publication
+   * @param formatStr string of the format
+   */
   void addTimelinePublisher(std::shared_ptr<OutputChannel>& publisher, const std::string formatStr);
 
+  /**
+   * @brief add a constraints output channel
+   * @param publisher channel for publication
+   * @param formatStr string of the format
+   */
   void addConstraintsPublisher(std::shared_ptr<OutputChannel>& publisher, const std::string formatStr);
 
-  void initPublishCurves(std::shared_ptr<curves::CurvesCollection>& curvesCollection);
+  /**
+   * @brief add a logs output channel
+   * @param publisher channel for publication
+   * @param formatStr string of the format
+   */
+  void addLogsPublisher(std::shared_ptr<OutputChannel>& publisher, const std::string formatStr);
 
+  /**
+   * @brief publish curves names
+   * @param curvesCollection curves collection to publish
+   */
+  void publishCurvesNames(std::shared_ptr<curves::CurvesCollection>& curvesCollection);
+
+  /**
+   * @brief publish curves
+   * @param curvesCollection curves collection to publish
+   */
   void publishCurves(std::shared_ptr<curves::CurvesCollection>& curvesCollection);
 
+  /**
+   * @brief publish timeline
+   * @param timeline timeline to publish
+   */
   void publishTimeline(boost::shared_ptr<timeline::Timeline>& timeline);
 
+  /**
+   * @brief publish constraints
+   * @param constraintsCollection constraints collection to publish
+   */
   void publishConstraints(std::shared_ptr<constraints::ConstraintsCollection>& constraintsCollection);
 
  private:
@@ -78,19 +117,12 @@ class OutputDispatcher {
   void updateCurvesValues(std::shared_ptr<curves::CurvesCollection> curvesCollection);
 
  private:
-  // std::shared_ptr<ActionBuffer> actionBuffer_;
-  // std::shared_ptr<Clock> clock_;
-  std::map<CurvesOutputFormat, std::vector<std::shared_ptr<OutputChannel> > > curvesPublishers_;
-  std::map<TimelineOutputFormat, std::vector<std::shared_ptr<OutputChannel> > > timelinePublishers_;
-  std::map<ConstraintsOutputFormat, std::vector<std::shared_ptr<OutputChannel> > > constraintsPublishers_;
+  std::map<CurvesOutputFormat, std::vector<std::shared_ptr<OutputChannel> > > curvesPublishers_;            ///< curves publishers
+  std::map<TimelineOutputFormat, std::vector<std::shared_ptr<OutputChannel> > > timelinePublishers_;        ///< timeline publishers
+  std::map<ConstraintsOutputFormat, std::vector<std::shared_ptr<OutputChannel> > > constraintsPublishers_;  ///< constraints publishers
 
-  std::vector<std::uint8_t> curvesValues_;  ///< curves values buffer for BYTES export
-
-  // std::queue<std::shared_ptr<OutputMessage>> messageQueue_;
-  // std::mutex queueMutex_;
-  // std::condition_variable queueCond_;
-  // std::thread processorThread_;
-  std::atomic<bool> running_;
+  std::vector<std::uint8_t> curvesValues_;  ///< curves values buffer for BYTES export optimization
+  std::atomic<bool> running_;               ///< running flag
 };
 
 }  // end of namespace DYN
