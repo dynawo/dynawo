@@ -31,11 +31,6 @@ namespace job {
 class ClockEntry {
  public:
   /**
-   * @brief ClockEntry constructor
-   */
-  ClockEntry();
-
-  /**
    * @brief Type attribute getter
    * @return Clock type ("INTERNAL" or "EXTERNAL")
    */

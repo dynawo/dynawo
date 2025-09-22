@@ -20,9 +20,6 @@
 
 namespace job {
 
-ClockEntry::ClockEntry(): speedup_(1.) {}
-
-
 const std::string&
 ClockEntry::getType() const {
   return type_;
