@@ -76,7 +76,7 @@ class ChannelsEntry {
 
  private:
   std::vector<std::shared_ptr<ChannelEntry> > channels_;                ///< Channels for the job
-  std::map<std::string, std::shared_ptr<ChannelEntry> > channelsById_;  ///< Channels for the job
+  std::map<std::string, std::shared_ptr<ChannelEntry> > channelsById_;  ///< Channels for the job by Id
 };
 
 }  // namespace job
