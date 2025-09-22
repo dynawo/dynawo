@@ -35,17 +35,14 @@ TEST(APIJOBTest, testInteractiveSetingsEntry) {
   ASSERT_EQ(interactiveSettings->getClockEntry(), std::shared_ptr<ClockEntry>());
   ASSERT_EQ(interactiveSettings->getStreamsEntry(), std::shared_ptr<StreamsEntry>());
 
-  interactiveSettings->setCouplingTimeStep(2.);
-
   std::shared_ptr<ChannelsEntry> channels = std::make_shared<ChannelsEntry>();
-  interactiveSettings->setChannelsEntry(channels);
-
   std::shared_ptr<ClockEntry> clock = std::make_shared<ClockEntry>();
-  interactiveSettings->setClockEntry(clock);
-
   std::shared_ptr<StreamsEntry> streams = std::make_shared<StreamsEntry>();
-  interactiveSettings->setStreamsEntry(streams);
 
+  interactiveSettings->setCouplingTimeStep(2.);
+  interactiveSettings->setChannelsEntry(channels);
+  interactiveSettings->setClockEntry(clock);
+  interactiveSettings->setStreamsEntry(streams);
 
   ASSERT_EQ(interactiveSettings->getCouplingTimeStep(), 2.);
   ASSERT_EQ(interactiveSettings->getChannelsEntry(), channels);
@@ -54,9 +51,15 @@ TEST(APIJOBTest, testInteractiveSetingsEntry) {
 
   std::shared_ptr<InteractiveSettingsEntry> interactiveSettings_bis = DYN::clone(interactiveSettings);
   ASSERT_EQ(interactiveSettings_bis->getCouplingTimeStep(), 2.);
-  ASSERT_EQ(interactiveSettings_bis->getChannelsEntry(), channels);
-  ASSERT_EQ(interactiveSettings_bis->getClockEntry(), clock);
-  ASSERT_EQ(interactiveSettings_bis->getStreamsEntry(), streams);
+  ASSERT_NE(interactiveSettings_bis->getChannelsEntry(), channels);
+  ASSERT_NE(interactiveSettings_bis->getClockEntry(), clock);
+  ASSERT_NE(interactiveSettings_bis->getStreamsEntry(), streams);
+
+  InteractiveSettingsEntry settings = *interactiveSettings;
+  ASSERT_EQ(interactiveSettings_bis->getCouplingTimeStep(), 2.);
+  ASSERT_NE(interactiveSettings_bis->getChannelsEntry(), channels);
+  ASSERT_NE(interactiveSettings_bis->getClockEntry(), clock);
+  ASSERT_NE(interactiveSettings_bis->getStreamsEntry(), streams);
 }
 
 }  // namespace job

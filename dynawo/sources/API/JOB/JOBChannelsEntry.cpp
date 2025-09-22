@@ -30,7 +30,7 @@ void
 ChannelsEntry::copy(const ChannelsEntry& other) {
   channels_.reserve(other.channels_.size());
   for (const auto& channel : other.channels_) {
-      channels_.push_back(DYN::clone(channel));
+      addChannelEntry(DYN::clone(channel));
   }
 }
 
