@@ -30,8 +30,8 @@ equation
   if (running.value) then
     if ((terminal.V.re == 0) and (terminal.V.im == 0)) then
       tFilter * der(UFilteredRawPu) = - UFilteredRawPu;
-      PPu = 0.;
-      QPu = 0.;
+      PPu = 0;
+      QPu = 0;
     else
       tFilter * der(UFilteredRawPu) = ComplexMath.'abs'(terminal.V) - UFilteredRawPu;
       PPu = PRefPu * (1 + deltaP) * ((ComplexMath.'abs'(terminal.V) / UFilteredPu) ^ Alpha);
