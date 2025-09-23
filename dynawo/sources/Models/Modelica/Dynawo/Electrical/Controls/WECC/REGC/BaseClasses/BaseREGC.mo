@@ -22,7 +22,7 @@ partial model BaseREGC "Base class for WECC Generator Converter REGC"
     Placement(visible = true, transformation(origin = {-210, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput iqCmdPu(start = Iq0Pu) "iqCmdPu setpoint from electrical control in pu (base SNom, UNom)" annotation(
     Placement(visible = true, transformation(origin = {-210, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UPu(start = ComplexMath.'abs'(u0Pu)) "Inverter terminal voltage magnitude in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UPu(start = ComplexMath.'abs'(uConv0Pu)) "Voltage magnitude at converter terminal in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-210, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-60, -111}, extent = {{10, -10}, {-10, 10}}, rotation = 270)));
 
   Modelica.Blocks.Sources.Constant constant3(k = -9999) annotation(
@@ -43,7 +43,7 @@ partial model BaseREGC "Base class for WECC Generator Converter REGC"
     Placement(visible = true, transformation(origin = {10, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze1(UseRateLim = true, Y0 = Id0Pu) annotation(
     Placement(visible = true, transformation(origin = {60, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tFilterGC, k = 1, y_start = ComplexMath.'abs'(u0Pu)) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tFilterGC, k = 1, y_start = ComplexMath.'abs'(uConv0Pu)) annotation(
     Placement(visible = true, transformation(origin = {-150, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant RrpwrPos0(k = RrpwrPu) annotation(
     Placement(visible = true, transformation(origin = {10, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -51,19 +51,20 @@ partial model BaseREGC "Base class for WECC Generator Converter REGC"
     Placement(visible = true, transformation(origin = {-180, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.MathBoolean.And and1(nu = 2) annotation(
     Placement(visible = true, transformation(origin = {-110, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.BooleanConstant QInj0PuPos(k = QInj0Pu > 0)  annotation(
+  Modelica.Blocks.Sources.BooleanConstant QConv0PuPos(k = QConv0Pu > 0)  annotation(
     Placement(visible = true, transformation(origin = {-180, 160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.MathBoolean.And and2(nu = 2) annotation(
     Placement(visible = true, transformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.BooleanConstant Qinj0PuNeg(k = QInj0Pu < 0)  annotation(
+  Modelica.Blocks.Sources.BooleanConstant QConv0PuNeg(k = QConv0Pu < 0)  annotation(
     Placement(visible = true, transformation(origin = {-180, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initial parameters
   parameter Dynawo.Types.CurrentModulePu Id0Pu "Start value of d-component current at injector terminal in pu (generator convention) (base SNom, UNom)";
   parameter Dynawo.Types.CurrentModulePu Iq0Pu "Start value of q-component current at injector terminal in pu (generator convention) (base SNom, UNom)";
-  parameter Types.ReactivePowerPu QInj0Pu "Start value of reactive power at injector terminal in pu (generator convention) (base SNom)";
+  parameter Types.ReactivePowerPu QConv0Pu "Start value of reactive power at converter terminal in pu (generator convention) (base SNom)";
   parameter Dynawo.Types.VoltageModulePu UInj0Pu "Start value of voltage amplitude at injector terminal in pu (base UNom)";
   parameter Types.ComplexPerUnit u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
+  parameter Types.ComplexPerUnit uConv0Pu "Start value of complex voltage at converter terminal in pu (base UNom)";
 
 equation
   connect(switch3.y, rateLimFirstOrderFreeze2.dyMin) annotation(
@@ -92,11 +93,11 @@ equation
     Line(points = {{-98.5, 140}, {-53, 140}}, color = {255, 0, 255}));
   connect(and2.y, switch3.u2) annotation(
     Line(points = {{-98.5, 60}, {-52, 60}}, color = {255, 0, 255}));
-  connect(QInj0PuPos.y, and1.u[1]) annotation(
+  connect(QConv0PuPos.y, and1.u[1]) annotation(
     Line(points = {{-169, 160}, {-140, 160}, {-140, 140}, {-120, 140}}, color = {255, 0, 255}));
   connect(offDelay.y, and2.u[1]) annotation(
     Line(points = {{-168, 80}, {-140, 80}, {-140, 60}, {-120, 60}}, color = {255, 0, 255}));
-  connect(Qinj0PuNeg.y, and2.u[2]) annotation(
+  connect(QConv0PuNeg.y, and2.u[2]) annotation(
     Line(points = {{-169, 40}, {-140, 40}, {-140, 60}, {-120, 60}}, color = {255, 0, 255}));
   connect(offDelay.y, and1.u[2]) annotation(
     Line(points = {{-168, 80}, {-140, 80}, {-140, 140}, {-120, 140}}, color = {255, 0, 255}));

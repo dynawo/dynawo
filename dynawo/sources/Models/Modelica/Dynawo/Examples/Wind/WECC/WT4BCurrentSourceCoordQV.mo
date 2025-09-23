@@ -16,106 +16,112 @@ model WT4BCurrentSourceCoordQV "WECC Wind Type 4B Model on infinite bus"
   extends Icons.Example;
   Dynawo.Electrical.Lines.Line line(RPu = 0, XPu = 0.0000020661, BPu = 0, GPu = 0) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Wind.WECC.WT4BCurrentSource WT4B(
-    DPMaxPu = 2,
-    DPMinPu = -2,
-    Dbd1Pu = -0.05,
-    Dbd2Pu = 0.05,
-    IMaxPu = 1.3,
-    Id0Pu(fixed = false),
-    Iq0Pu(fixed = false),
-    IqFrzPu = 0.1,
-    Iqh1Pu = 1.1,
-    Iql1Pu = -1.1,
-    IqrMaxPu = 20,
-    IqrMinPu = -20,
-    KiPLL = 20,
-    KpPLL = 3,
-    Kqi = 0.7,
-    Kqp = 2,
-    Kqv = 2,
-    Kvi = 0.7,
-    Kvp = 2,
-    Lvplsw = false,
-    OmegaMaxPu = 1.5,
-    OmegaMinPu = 0.5,
-    PF0(fixed = false),
-    PFlag = false,
-    PInj0Pu(fixed = false),
-    PMaxPu = 1,
-    PMinPu = 0,
-    PQFlag = false,
-    PfFlag = false,
-    QFlag = true,
-    QInj0Pu(fixed = false),
-    QMaxPu = 0.4,
-    QMinPu = -0.4,
-    RPu = 0.015,
-    RrpwrPu = 10,
-    SNom = 140,
-    UInj0Pu(fixed = false),
-    UPhase0 = 0,
-    UPhaseInj0(fixed = false),
-    VDLIp11 = 1.1,
-    VDLIp12 = 1.1,
-    VDLIp21 = 1.15,
-    VDLIp22 = 1,
-    VDLIp31 = 1.16,
-    VDLIp32 = 1,
-    VDLIp41 = 1.17,
-    VDLIp42 = 1,
-    VDLIq11 = 1.1,
-    VDLIq12 = 1.1,
-    VDLIq21 = 1.15,
-    VDLIq22 = 1,
-    VDLIq31 = 1.16,
-    VDLIq32 = 1,
-    VDLIq41 = 1.17,
-    VDLIq42 = 1,
-    VDipPu = 0.9,
-    VFlag = true,
-    VMaxPu = 1.1,
-    VMinPu = 0.9,
-    VRef0Pu = 0,
-    VRef1Pu = 0,
-    VUpPu = 1.1,
-    XPu = 0.06,
-    brkpt = 0.1,
-    i0Pu( im(fixed = false),re(fixed = false)),
-    lvpl1 = 1.22,
-    s0Pu = Complex(-0.7, -0.2),
-    tFilterGC = 0.02,
-    tG = 0.02,
-    tHoldIpMax = 0,
-    tHoldIq = 0.1,
-    tIq = 0.01,
-    tP = 0.05,
-    tPord = 0.01,
-    tRv = 0.01,
-    u0Pu = Complex(1, 0),
-    uInj0Pu( im(fixed = false),re(fixed = false)),
-    zerox = 0.05) annotation(
+  Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(U0Pu = 1, UEvtPu = 1, UPhase = 0, omega0Pu = 1, omegaEvtPu = 1, tOmegaEvtEnd = 6.5, tOmegaEvtStart = 6, tUEvtEnd = 2, tUEvtStart = 1) annotation(
+    Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
+  Electrical.Wind.WECC.WT4BCurrentSource WT4B(
+  ConverterLVControl = true,
+  DPMaxPu = 2,
+  DPMinPu = -2,
+  Dbd1Pu = -0.05,
+  Dbd2Pu = 0.05,
+  IMaxPu = 1.3,
+  Id0Pu(fixed = false),
+  Iq0Pu(fixed = false),
+  IqFrzPu = 0.1,
+  Iqh1Pu = 1.1,
+  Iql1Pu = -1.1,
+  IqrMaxPu = 20,
+  IqrMinPu = -20,
+  KiPLL = 20,
+  KpPLL = 3,
+  Kqi = 0.7,
+  Kqp = 2,
+  Kqv = 2,
+  Kvi = 0.7,
+  Kvp = 2,
+  Lvplsw = false,
+  OmegaMaxPu = 1.5,
+  OmegaMinPu = 0.5,
+  PConv0Pu(fixed = false),
+  PF0(fixed = false),
+  PFlag = false,
+  PInj0Pu(fixed = false),
+  PMaxPu = 1,
+  PMinPu = 0,
+  PQFlag = false,
+  PfFlag = false,
+  QConv0Pu(fixed = false),
+  QFlag = true,
+  QInj0Pu(fixed = false),
+  QMaxPu = 0.4,
+  QMinPu = -0.4,
+  RLvTrPu = 0.015,
+  RrpwrPu = 10,
+  SNom = 100,
+  UInj0Pu(fixed = false),
+  UPhase0 = 0,
+  VDLIp11 = 1.1,
+  VDLIp12 = 1.1,
+  VDLIp21 = 1.15,
+  VDLIp22 = 1,
+  VDLIp31 = 1.16,
+  VDLIp32 = 1,
+  VDLIp41 = 1.17,
+  VDLIp42 = 1,
+  VDLIq11 = 1.1,
+  VDLIq12 = 1.1,
+  VDLIq21 = 1.15,
+  VDLIq22 = 1,
+  VDLIq31 = 1.16,
+  VDLIq32 = 1,
+  VDLIq41 = 1.17,
+  VDLIq42 = 1,
+  VDipPu = 0.9,
+  VFlag = true,
+  VMaxPu = 1.1,
+  VMinPu = 0.9,
+  VRef0Pu = 0,
+  VRef1Pu = 0,
+  VUpPu = 1.1,
+  XLvTrPu = 0.06,
+  brkpt = 0.1,
+  i0Pu(im(fixed = false), re(fixed = false)),
+  iConv0Pu(im(fixed = false), re(fixed = false)),
+  lvpl1 = 1.22,
+  s0Pu = Complex(-0.7, -0.2),
+  tFilterGC = 0.02,
+  tG = 0.02,
+  tHoldIpMax = 0,
+  tHoldIq = 0.1,
+  tIq = 0.01,
+  tP = 0.05,
+  tPord = 0.01,
+  tRv = 0.01,
+  u0Pu = Complex(1, 0),
+  uConv0Pu(im(fixed = false), re(fixed = false)),
+  uInj0Pu(im(fixed = false), re(fixed = false)),
+  zerox = 0.05) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
 
-  Modelica.Blocks.Sources.Constant PRefPu(k = 0.5) annotation(
+  Modelica.Blocks.Sources.Constant PRefPu(k = 0.7) annotation(
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
-  Modelica.Blocks.Sources.Constant QRefPu(k = 0.142) annotation(
+  Modelica.Blocks.Sources.Constant QRefPu(k = 0.2) annotation(
     Placement(visible = true, transformation(origin = {90, 40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PFaRef(k = acos(WT4B.PF0)) annotation(
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
 
   // Initialization
   Dynawo.Electrical.Wind.WECC.WT4CurrentSource_INIT wt4CurrentSource_INIT(
+    ConverterLVControl = WT4B.ConverterLVControl,
     P0Pu = WT4B.s0Pu.re,
     Q0Pu = WT4B.s0Pu.im,
-    RPu = WT4B.RPu,
+    RLvTrPu = WT4B.RLvTrPu,
     SNom = WT4B.SNom,
     U0Pu = Modelica.ComplexMath.'abs'(WT4B.u0Pu),
     UPhase0 = WT4B.UPhase0,
-    XPu = WT4B.XPu) annotation(
+    XLvTrPu = WT4B.XLvTrPu) annotation(
     Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(U0Pu = 1, UEvtPu = 0.6, UPhase = 0, omega0Pu = 1, omegaEvtPu = 1.01, tOmegaEvtEnd = 6.5, tOmegaEvtStart = 6, tUEvtEnd = 2, tUEvtStart = 1) annotation(
-    Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
+
 
 initial algorithm
   WT4B.Id0Pu := wt4CurrentSource_INIT.Id0Pu;
@@ -124,11 +130,16 @@ initial algorithm
   WT4B.PInj0Pu := wt4CurrentSource_INIT.PInj0Pu;
   WT4B.QInj0Pu := wt4CurrentSource_INIT.QInj0Pu;
   WT4B.UInj0Pu := wt4CurrentSource_INIT.UInj0Pu;
-  WT4B.UPhaseInj0 := wt4CurrentSource_INIT.UPhaseInj0;
   WT4B.i0Pu.re := wt4CurrentSource_INIT.i0Pu.re;
   WT4B.i0Pu.im := wt4CurrentSource_INIT.i0Pu.im;
   WT4B.uInj0Pu.re := wt4CurrentSource_INIT.uInj0Pu.re;
   WT4B.uInj0Pu.im := wt4CurrentSource_INIT.uInj0Pu.im;
+  WT4B.iConv0Pu.re := wt4CurrentSource_INIT.iConv0Pu.re;
+  WT4B.iConv0Pu.im := wt4CurrentSource_INIT.iConv0Pu.im;
+  WT4B.uConv0Pu.re := wt4CurrentSource_INIT.uConv0Pu.re;
+  WT4B.uConv0Pu.im := wt4CurrentSource_INIT.uConv0Pu.im;
+  WT4B.PConv0Pu := wt4CurrentSource_INIT.PConv0Pu;
+  WT4B.QConv0Pu := wt4CurrentSource_INIT.QConv0Pu;
 
 equation
   line.switchOffSignal1.value = false;
@@ -136,16 +147,16 @@ equation
   WT4B.injector.switchOffSignal1.value = false;
   WT4B.injector.switchOffSignal2.value = false;
   WT4B.injector.switchOffSignal3.value = false;
-  connect(PRefPu.y, WT4B.PInjRefPu) annotation(
-    Line(points = {{79, -40}, {60, -40}, {60, -12}, {42, -12}}, color = {0, 0, 127}));
-  connect(QRefPu.y, WT4B.QInjRefPu) annotation(
-    Line(points = {{79, 40}, {60, 40}, {60, 12}, {42, 12}}, color = {0, 0, 127}));
-  connect(PFaRef.y, WT4B.PFaRef) annotation(
-    Line(points = {{79, -80}, {20, -80}, {20, -22}}, color = {0, 0, 127}));
-  connect(WT4B.terminal, line.terminal2) annotation(
-    Line(points = {{0, 0}, {-20, 0}}, color = {0, 0, 255}));
   connect(line.terminal1, infiniteBus.terminal) annotation(
     Line(points = {{-60, 0}, {-100, 0}}, color = {0, 0, 255}));
+  connect(PRefPu.y, WT4B.PConvRefPu) annotation(
+    Line(points = {{80, -40}, {60, -40}, {60, -14}, {42, -14}, {42, -12}}, color = {0, 0, 127}));
+  connect(QRefPu.y, WT4B.QConvRefPu) annotation(
+    Line(points = {{80, 40}, {60, 40}, {60, 12}, {42, 12}}, color = {0, 0, 127}));
+  connect(WT4B.terminal, line.terminal2) annotation(
+    Line(points = {{0, 0}, {-20, 0}}, color = {0, 0, 255}));
+  connect(PFaRef.y, WT4B.PFaRef) annotation(
+    Line(points = {{79, -80}, {20, -80}, {20, -22}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-05, Interval = 0.001),

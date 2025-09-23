@@ -21,7 +21,6 @@ partial model BaseWT4A "Partial base model for WECC Wind Turbine 4A"
     Placement(visible = true, transformation(origin = {-91, -41}, extent = {{-10, -5}, {10, 5}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant PmConst(k = PInj0Pu) annotation(
     Placement(transformation(origin = {-119, -37}, extent = {{-5, -5}, {5, 5}})));
-
 equation
   connect(wecc_wtgt.omegaGPu, wecc_reec.omegaGPu) annotation(
     Line(points = {{-86, -35}, {-85, -35}, {-85, -11}}, color = {0, 0, 127}));
@@ -31,7 +30,6 @@ equation
     Line(points = {{-179, 38}, {-175, 38}, {-175, -60}, {-110, -60}, {-110, -40}, {-101, -40}}, color = {0, 0, 127}));
   connect(PmConst.y, wecc_wtgt.PmPu) annotation(
     Line(points = {{-113.5, -37}, {-102, -37}}, color = {0, 0, 127}));
-
   annotation(
     preferredView = "diagram",
     Diagram(coordinateSystem(grid = {1, 1}, extent = {{-180, -60}, {120, 60}})));
