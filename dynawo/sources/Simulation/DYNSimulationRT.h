@@ -99,11 +99,6 @@ class SimulationRT: public Simulation {
    */
   void simulate() override;
 
-  // /**
-  //  * @brief end the simulation : export data, curves,...
-  //  */
-  // void terminate() override;
-
  private:
    /**
    * @brief initiate time step value

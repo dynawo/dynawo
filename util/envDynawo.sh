@@ -2585,7 +2585,7 @@ case $MODE in
     ;;
 
   jobs-interactive)
-    launch_jobs --interactive ${ARGS} || error_exit "Dynawo interactive failed"
+    launch_jobs --interactive ${ARGS} || error_exit "Dynawo interactive simulation failed"
     ;;
 
   list-models)

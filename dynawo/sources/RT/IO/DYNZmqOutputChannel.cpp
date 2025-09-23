@@ -19,13 +19,18 @@
  */
 
 #include "DYNZmqOutputChannel.h"
+#include "DYNMacrosMessage.h"
 
 
 namespace DYN {
 
 ZmqOutputChannel::ZmqOutputChannel(std::string endpoint):
 socket_(context_, zmqpp::socket_type::pub) {
-  socket_.bind(endpoint);
+    try {
+    socket_.bind(endpoint);
+  } catch (const zmqpp::exception& e) {
+    throw DYNError(DYN::Error::GENERAL, ZMQInterfaceBadEnpoint, endpoint);
+  }
 }
 
 void

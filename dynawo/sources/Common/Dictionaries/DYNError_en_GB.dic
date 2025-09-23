@@ -209,6 +209,7 @@ MultipleAndHiddenErrors     =             first %1% errors displayed above
 MissingEnvironmentVariable  =             mandatory environment variable %1% is not defined
 ModelicaError               =             unexpected error while using Modelica library: %1%
 UnavailableLib              =             library %1% is not available (not included in build)
+ZMQInterfaceBadEnpoint      =             ZMQ channel failed to bind with endpoint '%1%'
 //--------------- STATIC_DATA -----------------------------------------
 UnknownBus                  =             bus id '%1%' does not exist in the iidm import
 UnknownCalculatedBus        =             calculated bus associated to '%1%' node '%2%' does not exist in the iidm import

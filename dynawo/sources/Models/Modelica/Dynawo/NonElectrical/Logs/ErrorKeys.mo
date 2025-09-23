@@ -275,7 +275,8 @@ encapsulated package ErrorKeys
   final constant Integer XmlParsingError = 257;
   final constant Integer XmlUtilsLoadSchema = 258;
   final constant Integer XmlUtilsXercesInit = 259;
-  final constant Integer ZValueIsNaN = 260;
+  final constant Integer ZMQInterfaceBadEnpoint = 260;
+  final constant Integer ZValueIsNaN = 261;
 
   annotation(preferredView = "text");
 end ErrorKeys;
