@@ -22,7 +22,7 @@
 
 namespace job {
 
-InteractiveSettingsEntry::InteractiveSettingsEntry(): couplingTimeStep_(1.) { }
+InteractiveSettingsEntry::InteractiveSettingsEntry(): couplingTimeStep_(0.) { }
 
 InteractiveSettingsEntry::InteractiveSettingsEntry(const InteractiveSettingsEntry& other) {
   copy(other);

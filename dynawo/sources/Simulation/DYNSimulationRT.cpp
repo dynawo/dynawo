@@ -147,8 +147,10 @@ SimulationRT::configureRT() {
       if (channelEntry->getType() == "ZMQ") {
 #ifdef USE_ZMQPP
         std::cout << "creating ZMQ channel " << channelEntry->getId() << std::endl;
-        // outputChannel = std::make_shared<ZmqOutputChannel>(channelEntry->getEndpoint());
-        outputChannel = std::make_shared<ZmqOutputChannel>();
+        if (channelEntry->getEndpoint() == "")
+          outputChannel = std::make_shared<ZmqOutputChannel>();
+        else
+          outputChannel = std::make_shared<ZmqOutputChannel>(channelEntry->getEndpoint());
         channelInterfaceMap.emplace(channelEntry->getId(), outputChannel);
         std::cout << "ZMQ channel created" << channelEntry->getId() << std::endl;
 #else
@@ -187,7 +189,11 @@ SimulationRT::configureRT() {
         MessageFilter filter = MessageFilter::Actions | MessageFilter::TimeManagement;
         if (clock_->getUseTrigger() && clockEntry->getTriggerChannel() == channelEntry->getId())  // is trigger channel
           filter = filter | MessageFilter::Trigger;
-        std::shared_ptr<InputChannel> zmqServer = std::make_shared<ZmqInputChannel>("zmq", filter);
+        std::shared_ptr<InputChannel> zmqServer;
+        if (channelEntry->getEndpoint() == "")
+          zmqServer = std::make_shared<ZmqInputChannel>("zmq", filter);
+        else
+          zmqServer = std::make_shared<ZmqInputChannel>("zmq", filter, channelEntry->getEndpoint());
         inputDispatcherAsync_->addInputChannel(zmqServer);
 #else
         throw DYNError(Error::GENERAL, UnavailableLib, "ZMQPP");
@@ -310,12 +316,7 @@ SimulationRT::simulate() {
         printHighestDerivativesValues();
 
       BitMask solverState = solver_->getState();
-      // bool modifZ = false;
       if (solverState.getFlags(ModeChange)) {
-        // if (clock_)
-        //   Trace::info() << "TimeManagement (ModeChange): tCurrent_ = " << tCurrent_
-        //   << " s; Partial step computation time: " << clock_->getStepDuration() << "ms" << Trace::endline;
-        // updateCurves(true);
         model_->notifyTimeStep();
         Trace::info() << DYNLog(NewStartPoint) << Trace::endline;
         solver_->reinit();
@@ -326,7 +327,6 @@ SimulationRT::simulate() {
           || solverState.getFlags(SilentZNotUsedInDiscreteEqChange)
           || solverState.getFlags(SilentZNotUsedInContinuousEqChange)) {
         model_->getCurrentZ(zCurrent_);
-        // modifZ = true;
       }
 
       if (isCheckCriteriaIter)
@@ -435,8 +435,6 @@ SimulationRT::updateStepComputationTime() {
   stepComputationTime_ = (1./1000)*(duration_cast<microseconds>(steady_clock::now() - stepStart_)).count();
 }
 
-
-
 void
 SimulationRT::initComputationTimeCurve() {
   std::shared_ptr<curves::Curve> curve = curves::CurveFactory::newCurve();
@@ -447,71 +445,4 @@ SimulationRT::initComputationTimeCurve() {
   curvesCollection_->add(curve);
 }
 
-// void
-// SimulationRT::terminate() {
-// #if defined(_DEBUG_) || defined(PRINT_TIMERS)
-//   Timer timer("SimulationRT::terminate()");
-// #endif
-//   std::cout << "SimulationRT::terminate" << std::endl;
-//   if (curvesOutputFile_ != "") {
-//     ofstream fileCurves;
-//     openFileStream(fileCurves, curvesOutputFile_);
-//     printCurves(fileCurves);
-//     fileCurves.close();
-//   }
-
-//   if (finalStateValuesOutputFile_ != "") {
-//     ofstream fileFinalStateValues;
-//     openFileStream(fileFinalStateValues, finalStateValuesOutputFile_);
-//     printFinalStateValues(fileFinalStateValues);
-//     fileFinalStateValues.close();
-//   }
-
-//   if (timelineOutputFile_ != "") {
-//     ofstream fileTimeline;
-//     openFileStream(fileTimeline, timelineOutputFile_);
-//     printTimeline(fileTimeline);
-//     fileTimeline.close();
-//   }
-
-//   if (constraintsOutputFile_ != "") {
-//     ofstream fileConstraints;
-//     openFileStream(fileConstraints, constraintsOutputFile_);
-//     printConstraints(fileConstraints);
-//     fileConstraints.close();
-//   }
-
-//   if (dumpFinalValues_) {
-//     string finalValuesDir = createAbsolutePath("finalValues", outputsDirectory_);
-//     if (!exists(finalValuesDir))
-//       createDirectory(finalValuesDir);
-//     model_->printModelValues(finalValuesDir, "dumpFinalValues");
-//   }
-
-//   if (data_ && (finalState_.iidmFile_ || isLostEquipmentsExported())) {
-// #if defined(_DEBUG_) || defined(PRINT_TIMERS)
-//     Timer timer2("DataInterfaceIIDM::exportStateVariables");
-// #endif
-//     data_->exportStateVariables();
-//   }
-
-//   if (data_ && isLostEquipmentsExported() && lostEquipmentsOutputFile_ != "") {
-//     ofstream fileLostEquipments;
-//     openFileStream(fileLostEquipments, lostEquipmentsOutputFile_);
-//     printLostEquipments(fileLostEquipments);
-//     fileLostEquipments.close();
-//   }
-
-//   if (finalState_.dumpFile_)
-//     dumpState();
-
-//   if (finalState_.iidmFile_)
-//     dumpIIDMFile();
-
-//   printEnd();
-//   if (wasLoggingEnabled_ && !Trace::isLoggingEnabled()) {
-//     // re-enable logging for upper project
-//     Trace::enableLogging();
-//   }
-// }
 }  // end of namespace DYN

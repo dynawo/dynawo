@@ -23,6 +23,7 @@
 #include "DYNModelMulti.h"
 #include "DYNSignalHandler.h"
 #include "DYNTrace.h"
+#include "DYNMacrosMessage.h"
 
 #include <signal.h>
 
@@ -34,7 +35,11 @@ socket_(context_, zmqpp::socket_type::reply),
 useThread_(false),
 stopFlag_(false),
 pollTimeoutMs_(10) {
-  socket_.bind(endpoint);
+  try {
+    socket_.bind(endpoint);
+  } catch (const zmqpp::exception& e) {
+    throw DYNError(DYN::Error::GENERAL, ZMQInterfaceBadEnpoint, endpoint);
+  }
 }
 
 // void
