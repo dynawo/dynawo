@@ -34,9 +34,9 @@ add_library(dynawo_RTIO SHARED ${RTIO_SOURCES})
 
 target_link_libraries(dynawo_RTIO
   PRIVATE
+    dynawo_Common
     dynawo_ModelerCommon
     dynawo_SimulationCommon
-    dynawo_Common
     dynawo_RTCommon
 )
 
