@@ -41,6 +41,7 @@ model IEEE14BasculeAMURelay "IEEE 14-bus system benchmark formed with 14 buses, 
   parameter Dynawo.Types.ReactivePowerPu Q0Pu_Load14 = 0.050000;
   //parameter Dynawo.Types.ActivePowerPu P0Pu_Load121 = 0.0061000;
   //parameter Dynawo.Types.ReactivePowerPu Q0Pu_Load121 = 0.0016000;
+  //parameter Real Angle = 1; 
 equation
 // Loads references
   Load2.PRefPu = P0Pu_Load2;
@@ -150,8 +151,8 @@ equation
   //LineB12B121.switchOffSignal2.value = false;
   //LineB12B132.switchOffSignal1 = idealSwitch_Bus13_LineB12B13.switchOffSignal1;
   //LineB12B132.switchOffSignal2.value = false;
-  LineB122B13.switchOffSignal1.value = false;
-  LineB122B13.switchOffSignal2 = idealSwitch_Bus13_LineB122B13.switchOffSignal1;
+  //LineB122B13.switchOffSignal1.value = false;
+  //LineB122B13.switchOffSignal2.value = false;//idealSwitch_Bus13_LineB122B13.switchOffSignal1;
   LineB13B14.switchOffSignal1.value = false;
   LineB13B14.switchOffSignal2.value = false;
   LineB1B5.switchOffSignal1.value = false;
@@ -194,9 +195,16 @@ equation
   Bank9.switchOffSignal2.value = false;
   idealSwitch_Bus12_LineB12B121.switchOffSignal1.value = false;//if time < 10 then false else true;//false;//if time < 10 then false else true;
   //idealSwitch_Bus12_LineB6B1212.switchOffSignal1.value = false;
-  idealSwitch_Bus12_LineB12B13.switchOffSignal1.value = false;//if time < 15 then false else true;//false;// if time < 100 then false else true;
+  idealSwitch_Bus12_LineB12B13.switchOffSignal1 = AMU.switchOffSignal;//if time < 15 then false else true;//false;// if time < 100 then false else true;
+  AMU.BusVoltage = sqrt(((idealSwitch_Bus12_LineB12B13.terminal1.V.re)^2)+((idealSwitch_Bus12_LineB12B13.terminal1.V.im)^2));
+  AMU.busPhaseAngle = (Bus12.UPhase/(2*Modelica.Constants.pi))*360;
+  AMU.uEquipmentMonitoredPu = sqrt((idealSwitch_Bus12_LineB12B13.terminal2.V.re)^2+(idealSwitch_Bus12_LineB12B13.terminal2.V.im)^2);
+  AMU.equipmentPhaseAngle = (Bus13.UPhase/(2*Modelica.Constants.pi))*360;
   idealSwitch_Bus6_LineB6B121.switchOffSignal1.value = false;
-  idealSwitch_Bus13_LineB122B13.switchOffSignal1.value = false;
+  idealSwitchAdaptedV2_Bus13_LineB122B13.switchOffSignal1.value = if time < 10 then false else true;
+  //idealSwitchAdaptedV2_Bus13_LineB122B13.VTerminal1 = Bus13.terminal.V;
+  //idealSwitchAdaptedV2_Bus13_LineB122B13.VTerminal2 = LineB122B13.terminal2.V;
+  //idealSwitch_Bus13_LineB122B13.switchOffSignal1.value = if time < 10 then false else true;
   //idealSwitch_Bus121.switchOffSignal1.value = if time < 10 then false else true;
   //idealSwitch_Bus13_LineB12B13.switchOffSignal1.value = false;
   annotation(

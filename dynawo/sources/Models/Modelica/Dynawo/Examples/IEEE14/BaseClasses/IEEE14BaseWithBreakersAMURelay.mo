@@ -14,8 +14,9 @@ model IEEE14BaseWithBreakersAMURelay "Base class for IEEE 14-bus system benchmar
       * of simulation tools for power systems.
       */
   // Import relay model and create an instance of it
-  //import Dynawo.Electrical.Controls.Protections.DynawoAMU;
-  //Dynawo.Electrical.Controls.Protections.DynawoAMU AMU;
+  import Modelica.Constants;
+  import Dynawo.Electrical.Controls.Protections.DynawoAMU;
+  Dynawo.Electrical.Controls.Protections.DynawoAMU AMU;
   // Base Calculation
   final parameter Modelica.SIunits.Impedance ZBASE1 = 69^2/Electrical.SystemBase.SnRef;
   final parameter Modelica.SIunits.Impedance ZBASE2 = 13.8^2/Electrical.SystemBase.SnRef;
@@ -146,12 +147,8 @@ model IEEE14BaseWithBreakersAMURelay "Base class for IEEE 14-bus system benchmar
     Placement(transformation(origin = {-102, 112}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Dynawo.Electrical.Switches.IdealSwitch idealSwitch_Bus6_LineB6B121 annotation(
     Placement(transformation(origin = {-80, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Buses.Bus Bus122 annotation(
-    Placement(transformation(origin = {-136, 210}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Lines.Line LineB122B13(BPu = 0, GPu = 0, RPu = 0.42072/ZBASE2*1/100, XPu = 0.380651/ZBASE2*1/100) annotation(
-    Placement(transformation(origin = {-122, 210}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.Electrical.Switches.IdealSwitch idealSwitch_Bus13_LineB122B13 annotation(
-    Placement(transformation(origin = {-96, 210}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+  Electrical.Switches.IdealSwitchAdaptedV2 idealSwitchAdaptedV2_Bus13_LineB122B13 annotation(
+    Placement(transformation(origin = {-102, 200}, extent = {{-10, -10}, {10, 10}})));
 equation
 // Generators controls
   ModelSignalN.thetaRef = Theta_Bus1;
@@ -284,14 +281,10 @@ equation
     Line(points = {{-102, 64}, {-102, 60}, {-90, 60}}, color = {0, 0, 255}));
   connect(idealSwitch_Bus6_LineB6B121.terminal1, Bus6.terminal) annotation(
     Line(points = {{-70, 60}, {-30, 60}}, color = {0, 0, 255}));
-  connect(LineB122B13.terminal1, Bus122.terminal) annotation(
-    Line(points = {{-132, 210}, {-136, 210}}, color = {0, 0, 255}));
-  connect(idealSwitch_Bus13_LineB122B13.terminal2, LineB122B13.terminal2) annotation(
-    Line(points = {{-106, 210}, {-112, 210}}, color = {0, 0, 255}));
-  connect(LineB12B13.terminal2, Bus122.terminal) annotation(
-    Line(points = {{-152, 220}, {-146, 220}, {-146, 210}, {-136, 210}}, color = {0, 0, 255}));
-  connect(idealSwitch_Bus13_LineB122B13.terminal1, Bus13.terminal) annotation(
-    Line(points = {{-86, 210}, {-86, 200}, {-70, 200}}, color = {0, 0, 255}));
+  connect(idealSwitchAdaptedV2_Bus13_LineB122B13.terminal2, Bus13.terminal) annotation(
+    Line(points = {{-92, 200}, {-70, 200}}, color = {0, 0, 255}));
+  connect(idealSwitchAdaptedV2_Bus13_LineB122B13.terminal1, LineB12B13.terminal2) annotation(
+    Line(points = {{-112, 200}, {-116, 200}, {-116, 228}, {-152, 228}, {-152, 220}}, color = {0, 0, 255}));
   annotation(
     preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-180, 240}, {180, -220}})));
