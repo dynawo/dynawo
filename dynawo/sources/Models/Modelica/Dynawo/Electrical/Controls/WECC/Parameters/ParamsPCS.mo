@@ -37,12 +37,12 @@ record ParamsPCS
 
   // In every case (RPcsPu + j*XPcsPu) and (GPcsPu + j*BPcsPu) are respectively the serial impedance and shunt admittance between converter terminal and model's output terminal
   //Depending on the 4 possible combinations of (ConverterLVControl ; PPCLocal) we are correctly defining these parameters
-  final parameter Types.PerUnit BPcsPu = if PPCLocal then BMvHvPu else 1e-5 "Shunt susceptance between converter terminal and model's output terminal in pu (base UNom, SNom)";
-  final parameter Types.PerUnit GPcsPu = if PPCLocal then GMvHvPu else 1e-5 "Shunt conductance between converter terminal and model's output terminal in pu (base UNom, SNom)";
+  final parameter Types.PerUnit BPcsPu = if PPCLocal then BMvHvPu else 0 "Shunt susceptance between converter terminal and model's output terminal in pu (base UNom, SNom)";
+  final parameter Types.PerUnit GPcsPu = if PPCLocal then GMvHvPu else 0 "Shunt conductance between converter terminal and model's output terminal in pu (base UNom, SNom)";
   final parameter Types.PerUnit RPcsPu = if PPCLocal and ConverterLVControl then RLvTrPu + RMvHvPu elseif PPCLocal and not ConverterLVControl then RMvHvPu
-   elseif not PPCLocal and ConverterLVControl then RLvTrPu else 1e-5 "Serial resistance between converter terminal and model's output terminal in pu (base UNom, SNom)";
+   elseif not PPCLocal and ConverterLVControl then RLvTrPu else 0 "Serial resistance between converter terminal and model's output terminal in pu (base UNom, SNom)";
   final parameter Types.PerUnit XPcsPu = if PPCLocal and ConverterLVControl then XLvTrPu + XMvHvPu elseif PPCLocal and not ConverterLVControl then XMvHvPu
-   elseif not PPCLocal and ConverterLVControl then XLvTrPu else 1e-5 "Serial reactance between converter terminal and model's output terminal in pu (base UNom, SNom)";
+   elseif not PPCLocal and ConverterLVControl then XLvTrPu else 0 "Serial reactance between converter terminal and model's output terminal in pu (base UNom, SNom)";
 
   annotation(preferredView = "text");
 end ParamsPCS;

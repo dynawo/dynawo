@@ -29,6 +29,7 @@ set(MODEL_FILES
   InjectorIDQ.extvar
   InjectorIDQ_INIT.mo
   InjectorIDQ_INIT.mandatoryParam
+  InjectorInterface.mo
   InjectorURI.mo
   InjectorURI.extvar
   )
