@@ -233,6 +233,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchCalculatedVariables) {
 
 TEST(ModelsModelNetwork, ModelNetworkSwitchDiscreteVariables) {
   std::shared_ptr<ModelSwitch> sw = createModelSwitch(false, false);
+  bool deactivateRootFunctions = false;
   sw->initSize();
   unsigned nbZ = 1;
   unsigned nbG = 0;
@@ -256,7 +257,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchDiscreteVariables) {
   ASSERT_EQ(z[0], CLOSED);
 
   z[0] = OPEN;
-  sw->evalZ(0.);
+  sw->evalZ(0., deactivateRootFunctions);
   ASSERT_EQ(sw->getConnectionState(), OPEN);
   ASSERT_EQ(z[0], OPEN);
 
@@ -265,11 +266,11 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchDiscreteVariables) {
   ASSERT_EQ(sw->getConnectionState(), OPEN);
   ASSERT_EQ(z[0], OPEN);
   z[0] = CLOSED;
-  sw->evalZ(0.);
+  sw->evalZ(0., deactivateRootFunctions);
   ASSERT_EQ(sw->evalState(0.), NetworkComponent::TOPO_CHANGE);
   ASSERT_EQ(sw->getConnectionState(), CLOSED);
   ASSERT_EQ(z[0], CLOSED);
-  sw->evalZ(0.);
+  sw->evalZ(0., deactivateRootFunctions);
   ASSERT_EQ(sw->evalState(0.), NetworkComponent::NO_CHANGE);
   ASSERT_EQ(sw->getConnectionState(), CLOSED);
   ASSERT_EQ(z[0], CLOSED);
@@ -288,6 +289,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchDiscreteVariables) {
 
 TEST(ModelsModelNetwork, ModelNetworkSwitchBuses) {
   std::shared_ptr<ModelSwitch> sw = createModelSwitch(false, false);
+  bool deactivateRootFunctions = false;
   sw->initSize();
   const unsigned nbZ = 1;
   ASSERT_EQ(sw->sizeZ(), nbZ);
@@ -335,13 +337,13 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchBuses) {
   sw->close();
   ASSERT_EQ(z[0], CLOSED);
   z1[indexConnectionStateBus] = OPEN;
-  bus1->evalZ(0.);
+  bus1->evalZ(0., deactivateRootFunctions);
   ASSERT_EQ(z[0], OPEN);  // Was opened by the bus
 
   sw->close();
   ASSERT_EQ(z[0], CLOSED);
   z2[indexConnectionStateBus] = OPEN;
-  bus2->evalZ(0.);
+  bus2->evalZ(0., deactivateRootFunctions);
   ASSERT_EQ(z[0], OPEN);  // Was opened by the bus
   delete[] zConnected;
   delete[] zConnected1;
@@ -351,6 +353,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchBuses) {
 TEST(ModelsModelNetwork, ModelNetworkSwitchContinuousVariables) {
   // init
   std::shared_ptr<ModelSwitch> sw = createModelSwitch(false, false);
+  bool deactivateRootFunctions = false;
   sw->initSize();
   unsigned nbY = 2;
   unsigned nbF = 2;
@@ -421,12 +424,12 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchContinuousVariables) {
 
   // test evalF
   sw->open();
-  sw->evalZ(0.);
+  sw->evalZ(0., deactivateRootFunctions);
   sw->evalF(UNDEFINED_EQ);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[urIndex], y[urIndex]);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[uiIndex], y[uiIndex]);
   sw->close();
-  sw->evalZ(0.);
+  sw->evalZ(0., deactivateRootFunctions);
   sw->inLoop(true);
   sw->evalF(UNDEFINED_EQ);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[urIndex], 1.);
@@ -436,7 +439,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchContinuousVariables) {
   y2[ModelBus::urNum_] = 3.;
   y1[ModelBus::uiNum_] = 12.;
   y2[ModelBus::uiNum_] = 10.;
-  sw->evalZ(0.);
+  sw->evalZ(0., deactivateRootFunctions);
   sw->evalF(UNDEFINED_EQ);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[urIndex], 5.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[uiIndex], 2.);

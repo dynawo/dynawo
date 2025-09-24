@@ -149,7 +149,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @brief get the ratio tap-changer model used along with the transformer
    * @return the ratio tap changer model used if it exists
    */
-  boost::shared_ptr<ModelRatioTapChanger> getModelRatioTapChanger() const {
+  const boost::shared_ptr<ModelRatioTapChanger>& getModelRatioTapChanger() const {
     return modelRatioChanger_;
   }
 
@@ -157,7 +157,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @brief get the phase tap-changer model used along with the transformer
    * @return the phase tap changer model used if it exists
    */
-  boost::shared_ptr<ModelPhaseTapChanger> getModelPhaseTapChanger() const {
+  const boost::shared_ptr<ModelPhaseTapChanger>& getModelPhaseTapChanger() const {
     return modelPhaseChanger_;
   }
 
@@ -165,7 +165,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @brief get the generic tap-changer model used along with the transformer
    * @return generic model of  tap changer
    */
-  boost::shared_ptr<ModelTapChanger> getModelTapChanger() const {
+  const boost::shared_ptr<ModelTapChanger>& getModelTapChanger() const {
     return modelTapChanger_;
   }
 
@@ -282,7 +282,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::evalZ(double t)
    */
-  NetworkComponent::StateChange_t evalZ(double t) override;  // compute the Z function
+  NetworkComponent::StateChange_t evalZ(double t, bool deactivateRootFunctions) override;  // compute the Z function
 
   /**
    * @brief evaluation G
