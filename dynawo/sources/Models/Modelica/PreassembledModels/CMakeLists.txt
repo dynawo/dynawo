@@ -130,6 +130,8 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousThreeWindingsProportionalRegulations.xml
   GenericAutomaton.xml
   GenericIBG.xml
+  GridFollowingPlantPropInt.xml
+  GridFollowingPlantPropIntTfo.xml
   GridFormingConverterDroopControl.xml
   GridFormingConverterMatchingControl.xml
   GridFormingConverterDispatchableVirtualOscillatorControl.xml

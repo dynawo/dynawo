@@ -288,3 +288,13 @@ case_description = "GeneratorPTanPhi"
 job_file = os.path.join(os.path.dirname(__file__), "SMIB_GeneratorPTanPhi", "GeneratorPTanPhi.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+###################################################################
+#             SMIB with GridFollowingPlantPropInt                 #
+###################################################################
+
+case_name = "SMIB - GridFollowingPlantPropInt"
+case_description = "GridFollowingPlantPropInt"
+job_file = os.path.join(os.path.dirname(__file__), "SMIB_GridFollowingPlantPropInt", "Neplan", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))

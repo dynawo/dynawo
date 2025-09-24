@@ -45,7 +45,12 @@ partial model BaseGeneratorTransformer_INIT "Base model for initialization of Ge
   Dynawo.Connectors.ReactivePowerPuConnector Q20Pu "Start value of reactive power at terminal 2 in pu (base SnRef) (generator convention)";
   Dynawo.Connectors.AngleConnector U2Phase0 "Start value of voltage angle in rad";
 
+  Dynawo.Connectors.ReactivePowerPuConnector Q10PuVar "Start value of reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
+  Dynawo.Connectors.AngleConnector U10PuVar "Start value of voltage amplitude at terminal 1 in pu (base U1Nom)";
+
 equation
+  Q10PuVar = Q10Pu;
+  U10PuVar = U10Pu;
   s10Pu = Complex(P10Pu, Q10Pu);
   u10Pu = ComplexMath.fromPolar(U10Pu, U1Phase0);
   s10Pu = u10Pu * ComplexMath.conj(i10Pu);
