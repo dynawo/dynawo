@@ -157,19 +157,16 @@ SparseMatrix::free() {
   currentMaxTerm_ = 0;
 }
 
-void SparseMatrix::printToFile(bool sparse) const {
-  static fs::path folder = "tmpMat";
-  static fs::path base = folder / "mat-";
-  static int nbPrint = 0;
-  stringstream fileName;
-  fileName << base.string() << nbPrint << ".txt";
+void SparseMatrix::printToFile(bool sparse, const std::string& path, const std::string& filename) const {
+  fs::path folder = path;
+  fs::path completePath = folder / filename;
 
-  if (!exists(folder.string())) {
-    createDirectory(folder.string());
+  if (!exists(path)) {
+    createDirectory(path);
   }
 
   std::ofstream file;
-  file.open(fileName.str().c_str(), std::ofstream::out);
+  file.open(completePath.string(), std::ofstream::out);
 
   if (!sparse) {
     std::vector< std::vector<double> > matrix;
@@ -204,13 +201,62 @@ void SparseMatrix::printToFile(bool sparse) const {
         val.str("");
         val.clear();
         val << std::setprecision(16) << Ax_[ind];
-        file << iRow << ";" << iCol << ";" << val.str() << "\n";
+        file << iRow << ";" << iCol << ";" << val.str() << ";\n";
       }
     }
   }
 
-  ++nbPrint;
   file.close();
+}
+
+void SparseMatrix::printToFile(bool sparse) const {
+  static fs::path folder = "tmpMat";
+  static fs::path base = "mat-";
+  static int nbPrint = 0;
+  stringstream fileName;
+  fileName << base.string() << nbPrint << ".txt";
+
+  printToFile(sparse, folder.string(), fileName.str());
+
+  ++nbPrint;
+}
+
+void SparseMatrix::printToFileAiApAx(const std::string& path, const std::string& prefix) const {
+  fs::path folder = path;
+
+  if (!exists(path)) {
+    createDirectory(path);
+  }
+
+  fs::path completePathAp = folder / (prefix + "_Ap.txt");
+  std::ofstream fileAp;
+  fileAp.open(completePathAp.string(), std::ofstream::out);
+
+  for (const auto value : Ap_) {
+    fileAp << value << "\n";
+  }
+
+  fileAp.close();
+
+  fs::path completePathAi = folder / (prefix + "_Ai.txt");
+  std::ofstream fileAi;
+  fileAi.open(completePathAi.string(), std::ofstream::out);
+
+  for (const auto value : Ai_) {
+    fileAi << value << "\n";
+  }
+
+  fileAi.close();
+
+  fs::path completePathAx = folder / (prefix + "_Ax.txt");
+  std::ofstream fileAx;
+  fileAx.open(completePathAx.string(), std::ofstream::out);
+
+  for (const auto value : Ax_) {
+    fileAx << std::setprecision(16) << value << "\n";
+  }
+
+  fileAx.close();
 }
 
 void SparseMatrix::print() const {
