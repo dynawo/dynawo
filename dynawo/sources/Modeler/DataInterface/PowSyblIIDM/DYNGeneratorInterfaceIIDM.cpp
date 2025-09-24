@@ -109,6 +109,7 @@ GeneratorInterfaceIIDM::importStaticParameters() {
   staticParameters_.insert(std::make_pair("qMin", StaticParameter("qMin", StaticParameter::DOUBLE).setValue(qMin)));
   staticParameters_.insert(std::make_pair("targetP_pu", StaticParameter("targetP_pu", StaticParameter::DOUBLE).setValue(getTargetP() / SNREF)));
   staticParameters_.insert(std::make_pair("targetP", StaticParameter("targetP", StaticParameter::DOUBLE).setValue(getTargetP())));
+  staticParameters_.insert(std::make_pair("VRegOn", StaticParameter("VRegOn", StaticParameter::BOOL).setValue(isVoltageRegulationOn())));
   double qNom = getQNom();
   staticParameters_.insert(std::make_pair("qNom", StaticParameter("qNom", StaticParameter::DOUBLE).setValue(qNom)));
   double sNom = sqrt(pMax * pMax + qNom * qNom);

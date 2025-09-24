@@ -1,7 +1,7 @@
-within Dynawo.Electrical;
+within Dynawo.Electrical.PEIR.Plants.Simplified;
 
 /*
-* Copyright (c) 2026, RTE (http://www.rte-france.com)
+* Copyright (c) 2025, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,6 +12,6 @@ within Dynawo.Electrical;
 * This file is part of Dynawo, a hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-package PEIR "Power Electronics Interfaced Ressources models"
+package BaseControls "Base controls models"
   extends Icons.Package;
-end PEIR;
+end BaseControls;

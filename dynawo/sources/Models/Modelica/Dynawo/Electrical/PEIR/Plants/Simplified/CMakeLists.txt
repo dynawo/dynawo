@@ -1,4 +1,4 @@
-# Copyright (c) 2026, RTE (http://www.rte-france.com)
+# Copyright (c) 2025, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,12 +8,15 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 
-add_subdirectory(DER D)
-add_subdirectory(Simplified S)
+add_subdirectory(BaseControls B)
 
 set(MODEL_FILES
   package.mo
   package.order
+  GridFollowingPlantPropInt.mo
+  GridFollowingPlantPropInt.extvar
+  GridFollowingPlant_INIT.mo
+  GridFollowingPlantVar_INIT.mo
   )
 
 #
