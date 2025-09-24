@@ -37,9 +37,9 @@ record ParamsPCS
     Dialog(tab = "LV transformer"));
 
   //Configuration parameters to define how the user wants to represent the internal network
-  parameter Boolean ConverterLVControl "Boolean parameter to choose whether the converter is controlling at its output (LV side of its transformer) : True ; or after its transformer (MV side): False" annotation(
+  parameter Boolean ConverterLVControl = true "Boolean parameter to choose whether the converter is controlling at its output (LV side of its transformer) : True ; or after its transformer (MV side): False" annotation(
     Dialog(tab = "LV transformer"));
-  parameter Boolean PPCLocal "Boolean parameter to choose whether the Power Park Control is controlling at model's output terminal (True) or at a remote terminal using external measurements (False)" annotation(
+  parameter Boolean PPCLocal = true "Boolean parameter to choose whether the Power Park Control is controlling at model's output terminal (True) or at a remote terminal using external measurements (False)" annotation(
     Dialog(tab = "MV network + MV/HV transformer"));
 
   // In every cases (RPcsPu + j*XPcsPu) and (GPcsPu + j*BPcsPu) are respectively the serial impedance and shunt admittance between WT terminal and model's output terminal

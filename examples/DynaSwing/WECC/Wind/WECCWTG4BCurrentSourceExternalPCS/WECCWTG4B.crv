@@ -63,7 +63,7 @@
   <curve model="WTG4B" variable="WTG4B_wecc_repc_absLimRateLimFeedthroughFreeze_fixedDelay_u"/>
   <curve model="WTG4B" variable="WTG4B_wecc_repc_absLimRateLimFeedthroughFreeze_fixedDelay_y"/>
   <curve model="WTG4B" variable="WTG4B_wecc_repc_fixedDelay2_y"/>
-  <curve model="WTG4B" variable="WTG4B_wecc_reec_QInjRefPu"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_QConvRefPu"/>
   <curve model="WTG4B" variable="WTG4B_wecc_reec_rateLimFirstOrderFreeze1_u"/>
   <curve model="WTG4B" variable="WTG4B_wecc_reec_rateLimFirstOrderFreeze1_y"/>
   <curve model="WTG4B" variable="WTG4B_wecc_reec_add1_u2"/>
@@ -85,7 +85,7 @@
   <curve model="WTG4B" variable="WTG4B_wecc_repc_PRefPu"/>
   <curve model="WTG4B" variable="WTG4B_wecc_repc_limPID_u_s"/>
   <curve model="WTG4B" variable="WTG4B_wecc_repc_limPID_y"/>
-  <curve model="WTG4B" variable="WTG4B_wecc_reec_PInjRefPu"/>
+  <curve model="WTG4B" variable="WTG4B_wecc_reec_PConvRefPu"/>
   <curve model="WTG4B" variable="WTG4B_wecc_reec_rateLimFirstOrderFreeze_u"/>
   <curve model="WTG4B" variable="WTG4B_wecc_reec_rateLimFirstOrderFreeze_y"/>
   <curve model="WTG4B" variable="WTG4B_wecc_reec_limiter3_y"/>

@@ -13,7 +13,7 @@ within Dynawo.Examples.BESS.WECC;
 * of simulation tools for power systems.
 */
 
-model BESSCurrentSource "WECC BESS with REEC-C and REGC-B with a plant controller REPC-A on infinite bus"
+model BESSCurrentSourceExternalPCS "WECC BESS with REEC-C and REGC-B with a plant controller REPC-A on infinite bus"
   extends Icons.Example;
 
   Dynawo.Electrical.BESS.WECC.BESSCurrentSource BESS(
@@ -53,26 +53,24 @@ model BESSCurrentSource "WECC BESS with REEC-C and REGC-B with a plant controlle
     Lvplsw = false,
     OmegaMaxPu = 1.5,
     OmegaMinPu = 0.5,
-    P0Pu = -0.7, PConv0Pu(fixed = false),
+    P0Pu = -0.7058725761772852, PConv0Pu(fixed = false),
     PF0(fixed = false),
     PInj0Pu(fixed = false),
     PMaxPu = 1,
-    PMinPu = -0.667, PPCLocal = true,
+    PMinPu = -0.667, PPCLocal = false, PPcc0Pu = -0.7,
     PQFlag = false,
-    PfFlag = false,
-    Q0Pu = -0.2, QConv0Pu(fixed = false),
+    PfFlag = false, Q0Pu = -0.28808864265927975, QConv0Pu(fixed = false),
     QFlag = false,
     QInj0Pu(fixed = false),
     QMaxPu = 0.75,
-    QMinPu = -0.75, RLvTrPu = 0.015, RMvHvPu = 0.02,
+    QMinPu = -0.75, QPcc0Pu = -0.2, RLvTrPu = 0.015, RMvHvPu = 0,
     RefFlag = true,
     RrpwrPu = 10,
     SNom = 200,
     SOC0Pu = 0.5,
     SOCMaxPu = 0.8,
-    SOCMinPu = 0.2,
-    U0Pu = 1,
-    UInj0Pu(fixed = false), UPhase0 = 0.03533563863002929,
+    SOCMinPu = 0.2, U0Pu = 0.9948728673356535,
+    UInj0Pu(fixed = false), UPcc0Pu = 1, UPhase0 = 0.14453232453351325,
     VCompFlag = false,
     VDLIp11 = 0.2,
     VDLIp12 = 1.11,
@@ -96,11 +94,11 @@ model BESSCurrentSource "WECC BESS with REEC-C and REGC-B with a plant controlle
     VMaxPu = 1.1,
     VMinPu = 0.9,
     VRef0Pu = 1,
-    VUpPu = 99, XLvTrPu = 0.06, XMvHvPu = 0.1,
+    VUpPu = 99, XLvTrPu = 0.06, XMvHvPu = 0,
     brkpt = 0.1,
     i0Pu( im(fixed = false),re(fixed = false)), iConv0Pu(im(fixed = false), re(fixed = false)),
     iPcc0Pu(im(fixed = false), re(fixed = false)),
-    lvpl1 = 1.22, rTfoPu = 0.97,
+    lvpl1 = 1.22,
     s0Pu( im(fixed = false),re(fixed = false)),
     tBattery = 999,
     tFilterGC = 0.02,
@@ -123,30 +121,21 @@ model BESSCurrentSource "WECC BESS with REEC-C and REGC-B with a plant controlle
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PFaRef(k = acos(BESS.PF0)) annotation(
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Lines.Line line(BPu = 0, GPu = 0, RPu = 0, XPu = 0.05) annotation(
-    Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(
-    U0Pu = 0.9906184368094055,
-    UEvtPu = 0.5,
-    UPhase = 0,
-    omega0Pu = 1,
-    omegaEvtPu = 1.01,
-    tOmegaEvtEnd = 17.5,
-    tOmegaEvtStart = 17,
-    tUEvtEnd = 13.5,
-    tUEvtStart = 13) annotation(
-    Placement(visible = true, transformation(origin = {-82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Modelica.Blocks.Sources.Constant PAuxPu(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant const(k = 0) annotation(
-    Placement(visible = true, transformation(origin = {-50, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.ComplexBlocks.Sources.ComplexConstant complexConst(k = Complex(1, 0)) annotation(
-    Placement(visible = true, transformation(origin = {-50, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Wind.WECC.WTG4CurrentSource_INIT wTG4CurrentSource_INIT(BMvHvPu = BESS.BMvHvPu, ConverterLVControl = BESS.ConverterLVControl, GMvHvPu = BESS.GMvHvPu, P0Pu = BESS.P0Pu, PPCLocal = BESS.PPCLocal, PPcc0Pu = BESS.PPcc0Pu, Q0Pu = BESS.Q0Pu, QPcc0Pu = BESS.QPcc0Pu, RLvTrPu = BESS.RLvTrPu, RMvHvPu = BESS.RMvHvPu, SNom = BESS.SNom, U0Pu = BESS.U0Pu, UPcc0Pu = BESS.UPcc0Pu, UPhase0 = BESS.UPhase0, XLvTrPu = BESS.XLvTrPu, XMvHvPu = BESS.XMvHvPu, rTfoPu = BESS.rTfoPu) annotation(
+  Electrical.Wind.WECC.WTG4CurrentSource_INIT wTG4CurrentSource_INIT(BMvHvPu = BESS.BMvHvPu, ConverterLVControl = BESS.ConverterLVControl, GMvHvPu = BESS.GMvHvPu, P0Pu = BESS.P0Pu, PPCLocal = BESS.PPCLocal, PPcc0Pu = BESS.PPcc0Pu, Q0Pu = BESS.Q0Pu, QPcc0Pu = BESS.QPcc0Pu, RLvTrPu = BESS.RLvTrPu, RMvHvPu = BESS.RMvHvPu, SNom = BESS.SNom, U0Pu = BESS.U0Pu, UPcc0Pu = BESS.UPcc0Pu, UPhase0 = BESS.UPhase0, UPhasePcc0 = 0.03533563863002929, XLvTrPu = BESS.XLvTrPu, XMvHvPu = BESS.XMvHvPu, rTfoPu = BESS.rTfoPu) annotation(
     Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Step PRef(height = 0.2, offset = BESS.PControl0Pu, startTime = 10) annotation(
+  Electrical.Controls.Utilities.Measurements PCCmeasurements annotation(
+    Placement(visible = true, transformation(origin = {-90, 1.11022e-15}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
+  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio ZPcs(BPu = 0, GPu = 0, RPu = 0.01, XPu = 0.15, rTfoPu = 0.95) annotation(
+    Placement(visible = true, transformation(origin = {-40, 1.77636e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Electrical.Lines.Line Zcc(BPu = 0, GPu = 0, RPu = 0, XPu = 0.05) annotation(
+    Placement(visible = true, transformation(origin = {-140, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Electrical.Buses.InfiniteBusWithVariations infiniteBus(U0Pu = 0.9906184368094055, UEvtPu = 0.6, UPhase = 0, omega0Pu = 1, omegaEvtPu = 1.01, tOmegaEvtEnd = 17.5, tOmegaEvtStart = 17, tUEvtEnd = 13, tUEvtStart = 12) annotation(
+    Placement(visible = true, transformation(origin = {-180, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
+  Modelica.Blocks.Sources.Step PRef(height = 0.1, offset = BESS.PControl0Pu, startTime = 8) annotation(
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Step URef(height = 0.02, offset = BESS.URef0Pu, startTime = 5) annotation(
+  Modelica.Blocks.Sources.Step URef(height = 0.02, offset = BESS.URef0Pu, startTime = 1) annotation(
     Placement(visible = true, transformation(origin = {90, 80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 initial algorithm
 
@@ -176,8 +165,10 @@ initial algorithm
   BESS.QConv0Pu := wTG4CurrentSource_INIT.QConv0Pu;
 
 equation
-  line.switchOffSignal1.value = false;
-  line.switchOffSignal2.value = false;
+  ZPcs.switchOffSignal1.value = false;
+  ZPcs.switchOffSignal2.value = false;
+  Zcc.switchOffSignal1.value = false;
+  Zcc.switchOffSignal2.value = false;
   BESS.injector.switchOffSignal1.value = false;
   BESS.injector.switchOffSignal2.value = false;
   BESS.injector.switchOffSignal3.value = false;
@@ -187,20 +178,24 @@ equation
     Line(points = {{80, 0}, {42, 0}}, color = {0, 0, 127}));
   connect(PFaRef.y, BESS.PFaRef) annotation(
     Line(points = {{79, -80}, {20, -80}, {20, -22}}, color = {0, 0, 127}));
-  connect(line.terminal1, infiniteBus.terminal) annotation(
-    Line(points = {{-60, 0}, {-82, 0}}, color = {0, 0, 255}));
   connect(PAuxPu.y, BESS.PAuxPu) annotation(
     Line(points = {{-38, -80}, {12, -80}, {12, -22}}, color = {0, 0, 127}));
-  connect(line.terminal2, BESS.terminal) annotation(
-    Line(points = {{-20, 0}, {0, 0}}, color = {0, 0, 255}));
-  connect(complexConst.y, BESS.uPccPu) annotation(
-    Line(points = {{-38, -50}, {-20, -50}, {-20, -14}, {-2, -14}}, color = {85, 170, 255}));
-  connect(complexConst.y, BESS.iPccPu) annotation(
-    Line(points = {{-38, -50}, {-20, -50}, {-20, -18}, {-2, -18}}, color = {85, 170, 255}));
-  connect(const.y, BESS.PPccPu) annotation(
-    Line(points = {{-38, -20}, {-30, -20}, {-30, -6}, {-2, -6}}, color = {0, 0, 127}));
-  connect(const.y, BESS.QPccPu) annotation(
-    Line(points = {{-38, -20}, {-30, -20}, {-30, -10}, {-2, -10}}, color = {0, 0, 127}));
+  connect(PCCmeasurements.terminal2, ZPcs.terminal1) annotation(
+    Line(points = {{-80, 0}, {-60, 0}}, color = {0, 0, 255}));
+  connect(Zcc.terminal2, PCCmeasurements.terminal1) annotation(
+    Line(points = {{-120, 0}, {-100, 0}}, color = {0, 0, 255}));
+  connect(infiniteBus.terminal, Zcc.terminal1) annotation(
+    Line(points = {{-180, 0}, {-160, 0}}, color = {0, 0, 255}));
+  connect(ZPcs.terminal2, BESS.terminal) annotation(
+    Line(points = {{-20, 0}, {-2, 0}}, color = {0, 0, 255}));
+  connect(PCCmeasurements.uPu, BESS.uPccPu) annotation(
+    Line(points = {{-82, -10}, {-82, -14}, {-2, -14}}, color = {85, 170, 255}));
+  connect(PCCmeasurements.iPu, BESS.iPccPu) annotation(
+    Line(points = {{-80, -10}, {-80, -18}, {-2, -18}}, color = {85, 170, 255}));
+  connect(PCCmeasurements.PPu, BESS.PPccPu) annotation(
+    Line(points = {{-88, -10}, {-88, -24}, {-20, -24}, {-20, -6}, {-2, -6}}, color = {0, 0, 127}));
+  connect(PCCmeasurements.QPu, BESS.QPccPu) annotation(
+    Line(points = {{-86, -10}, {-86, -20}, {-24, -20}, {-24, -10}, {-2, -10}}, color = {0, 0, 127}));
   connect(PRef.y, BESS.PRefPu) annotation(
     Line(points = {{80, -40}, {60, -40}, {60, -12}, {42, -12}}, color = {0, 0, 127}));
   connect(URef.y, BESS.URefPu) annotation(
@@ -221,4 +216,4 @@ equation
     <img width=\"450\" src=\"modelica://Dynawo/Examples/BESS/WECC/Resources/UPu.png\">
   </figure>
 </body></html>"));
-end BESSCurrentSource;
+end BESSCurrentSourceExternalPCS;
