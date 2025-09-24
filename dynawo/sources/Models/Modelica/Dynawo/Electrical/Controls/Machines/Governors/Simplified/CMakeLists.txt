@@ -13,6 +13,7 @@
 set(MODEL_FILES
   package.mo
   package.order
+  GoverDTRI8.mo
   GoverNordic.mo
   GoverNordic.extvar
   GoverProportional.mo
