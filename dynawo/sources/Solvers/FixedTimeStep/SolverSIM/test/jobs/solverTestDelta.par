@@ -35,5 +35,8 @@
         <par type="DOUBLE" name="transformer_tNext_THT" value="10"/>
         <par type="DOUBLE" name="transformer_tolV" value="0.014999999700000001"/>
         <par type="DOUBLE" name="CSPR_TEST_no_reclosing_delay" value="0"/>
+        <par type="DOUBLE" name="generator_alpha" value="1.5"/>
+        <par type="DOUBLE" name="generator_beta" value="2.5"/>
+        <par type="BOOL" name="generator_isVoltageDependant" value="false"/>
     </set>
 </parametersSet>
