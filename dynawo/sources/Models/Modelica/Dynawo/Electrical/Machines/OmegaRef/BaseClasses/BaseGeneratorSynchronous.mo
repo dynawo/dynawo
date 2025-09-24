@@ -59,8 +59,8 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
   parameter Types.Angle UPhase0 "Start value of voltage angle in rad";
 
   // Start values used by the regulations
-  parameter Types.PerUnit Efd0Pu "Start value of input exciter voltage in pu (user-selected base)";
-  parameter Types.PerUnit Pm0Pu "Start value of mechanical power in pu (base PNomTurb/OmegaNom)";
+  parameter Types.VoltageModulePu Efd0Pu "Start value of input exciter voltage in pu (user-selected base)";
+  parameter Types.ActivePowerPu Pm0Pu "Start value of mechanical power in pu (base PNomTurb/OmegaNom)";
 
   // Start values calculated by the initialization model
   parameter Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at terminal in pu (base SnRef)";
@@ -69,12 +69,12 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
   parameter Types.Angle Theta0 "Start value of rotor angle: angle between machine rotor frame and port phasor frame";
 
   // Start values calculated by the initialization model
-  parameter Types.PerUnit Ud0Pu "Start value of voltage of direct axis in pu";
-  parameter Types.PerUnit Uq0Pu "Start value of voltage of quadrature axis in pu";
-  parameter Types.PerUnit Id0Pu "Start value of current of direct axis in pu";
-  parameter Types.PerUnit Iq0Pu "Start value of current of quadrature axis in pu";
-  parameter Types.PerUnit If0Pu "Start value of current of excitation winding in pu";
-  parameter Types.PerUnit Uf0Pu "Start value of exciter voltage in pu (Kundur base)";
+  parameter Types.VoltageComponentPu Ud0Pu "Start value of voltage of direct axis in pu";
+  parameter Types.VoltageComponentPu Uq0Pu "Start value of voltage of quadrature axis in pu";
+  parameter Types.CurrentComponentPu Id0Pu "Start value of current of direct axis in pu";
+  parameter Types.CurrentComponentPu Iq0Pu "Start value of current of quadrature axis in pu";
+  parameter Types.CurrentComponentPu If0Pu "Start value of current of excitation winding in pu";
+  parameter Types.CurrentComponentPu Uf0Pu "Start value of exciter voltage in pu (Kundur base)";
   parameter Types.PerUnit Lambdad0Pu "Start value of flux of direct axis in pu";
   parameter Types.PerUnit Lambdaq0Pu "Start value of flux of quadrature axis in pu";
   parameter Types.PerUnit LambdaD0Pu "Start value of flux of direct axis damper";
@@ -95,15 +95,15 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
   parameter Types.PerUnit Mi0Pu "Start value of intermediate axis saturated mutual inductance in pu";
 
   // d-q axis pu variables (base UNom, SNom)
-  Types.PerUnit udPu(start = Ud0Pu) "Voltage of direct axis in pu";
-  Types.PerUnit uqPu(start = Uq0Pu) "Voltage of quadrature axis in pu";
-  Dynawo.Connectors.PerUnitConnector idPu(start = Id0Pu) "Current of direct axis in pu";
-  Types.PerUnit iqPu(start = Iq0Pu) "Current of quadrature axis in pu";
-  Types.PerUnit iDPu(start = 0) "Current of direct axis damper in pu";
-  Types.PerUnit iQ1Pu(start = 0) "Current of quadrature axis 1st damper in pu";
-  Types.PerUnit iQ2Pu(start = 0) "Current of quadrature axis 2nd damper in pu";
-  Types.PerUnit ifPu(start = If0Pu) "Current of excitation winding in pu";
-  Types.PerUnit ufPu(start = Uf0Pu) "Voltage of exciter winding in pu (base voltage as per Kundur)";
+  Types.VoltageComponentPu udPu(start = Ud0Pu) "Voltage of direct axis in pu";
+  Types.VoltageComponentPu uqPu(start = Uq0Pu) "Voltage of quadrature axis in pu";
+  Dynawo.Connectors.CurrentComponentPuConnector idPu(start = Id0Pu) "Current of direct axis in pu";
+  Types.CurrentComponentPu iqPu(start = Iq0Pu) "Current of quadrature axis in pu";
+  Types.CurrentComponentPu iDPu(start = 0) "Current of direct axis damper in pu";
+  Types.CurrentComponentPu iQ1Pu(start = 0) "Current of quadrature axis 1st damper in pu";
+  Types.CurrentComponentPu iQ2Pu(start = 0) "Current of quadrature axis 2nd damper in pu";
+  Types.CurrentComponentPu ifPu(start = If0Pu) "Current of excitation winding in pu";
+  Types.VoltageComponentPu ufPu(start = Uf0Pu) "Voltage of exciter winding in pu (base voltage as per Kundur)";
   Types.PerUnit lambdadPu(start = Lambdad0Pu) "Flux of direct axis in pu";
   Types.PerUnit lambdaqPu(start = Lambdaq0Pu) "Flux of quadrature axis in pu";
   Types.PerUnit lambdaDPu(start = LambdaD0Pu) "Flux of direct axis damper in pu";
@@ -115,7 +115,7 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
   Dynawo.Connectors.AngleConnector theta(start = Theta0) "Rotor angle: angle between machine rotor frame and port phasor frame";
   Types.PerUnit cmPu(start = Cm0Pu) "Mechanical torque in pu (base PNomTurb/OmegaNom)";
   Types.PerUnit cePu(start = Ce0Pu) "Electrical torque in pu (base SNom/OmegaNom)";
-  Types.PerUnit PePu(start = Ce0Pu * SystemBase.omega0Pu) "Electrical active power in pu (base SNom)";
+  Types.ActivePowerPu PePu(start = Ce0Pu * SystemBase.omega0Pu) "Electrical active power in pu (base SNom)";
 
   // Saturated mutual inductances and related variables
   Types.PerUnit MdSatPPu(start = MdSat0PPu) "Direct axis saturated mutual inductance in pu";

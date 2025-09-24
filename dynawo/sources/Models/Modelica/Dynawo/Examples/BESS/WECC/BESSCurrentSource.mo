@@ -18,6 +18,8 @@ model BESSCurrentSource "WECC BESS with REEC-C and REGC-B with a plant controlle
 
   Dynawo.Electrical.BESS.WECC.BESSCurrentSource BESS(
     DDn = 126,
+    DerIqrMaxPu = 999,
+    DerIqrMinPu = -999,
     DPMaxPu = 999,
     DPMinPu = -999,
     DUp = 126,
@@ -36,8 +38,6 @@ model BESSCurrentSource "WECC BESS with REEC-C and REGC-B with a plant controlle
     Iq0Pu(fixed = false),
     Iqh1Pu = 0.75,
     Iql1Pu = -0.75,
-    IqrMaxPu = 999,
-    IqrMinPu = -999,
     Kc = 0,
     Ki = 1e-6,
     KiPLL = 20,

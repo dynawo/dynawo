@@ -33,10 +33,10 @@ model DCVoltageControl "DC voltage control for grid forming and grid following c
   Modelica.Blocks.Math.Add add annotation(
     Placement(visible = true, transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  parameter Types.PerUnit UdcSourceRef0Pu "Start value of DC voltage reference in pu (base UdcNom)";
-  parameter Types.PerUnit UdcSource0Pu "Start value of DC voltage in pu (base UdcNom)";
-  parameter Types.PerUnit IdcSourceRef0Pu "Start value of DC current reference in pu (base UdcNom, SNom)";
-  parameter Types.PerUnit IdcSource0Pu "Start value of DC current in pu (base UdcNom, SNom)";
+  parameter Types.VoltageModulePu UdcSourceRef0Pu "Start value of DC voltage reference in pu (base UdcNom)";
+  parameter Types.VoltageModulePu UdcSource0Pu "Start value of DC voltage in pu (base UdcNom)";
+  parameter Types.CurrentModulePu IdcSourceRef0Pu "Start value of DC current reference in pu (base UdcNom, SNom)";
+  parameter Types.CurrentModulePu IdcSource0Pu "Start value of DC current in pu (base UdcNom, SNom)";
 
 equation
   connect(feedback.u1, UdcSourceRefPu) annotation(

@@ -121,11 +121,11 @@ model GovHydro4 "Governor type GovHydro4"
     Placement(visible = true, transformation(origin = {10, 40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   // Initial parameters
-  parameter Types.PerUnit Pm0Pu "Initial value of mechanical power in pu (base: PNomTurb)";
+  parameter Types.ActivePowerPu Pm0Pu "Initial value of mechanical power in pu (base PNomTurb)";
 
   // Final parameters
   final parameter Real InitSet = Modelica.Math.Vectors.interpolate(Lookuptab[:, 2], Lookuptab[:, 1], Pm0Pu / ATurb + QNl) "Interpolated initial value of look-up table input";
-  final parameter Types.PerUnit PRef0Pu = InitSet * RPerm "Initial value of reference power in pu (no constant base due to turbine characteristics)";
+  final parameter Types.ActivePowerPu PRef0Pu = InitSet * RPerm "Initial value of reference power in pu (no constant base due to turbine characteristics)";
 
   // Table characteristics
   final parameter Real FrancisPeltonTable[7, 2] = [0.1, 0; 0.4, 0.42; 0.5, 0.56; 0.7, 0.8; 0.8, 0.9; 0.9, 0.97; 1, 1] "Francis/Pelton ModelInt look up table" annotation(

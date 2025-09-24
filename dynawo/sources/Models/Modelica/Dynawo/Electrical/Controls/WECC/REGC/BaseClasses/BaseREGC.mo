@@ -31,9 +31,9 @@ partial model BaseREGC "Base class for WECC Generator Converter REGC"
     Placement(visible = true, transformation(origin = {-79, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze2(UseRateLim = true) annotation(
     Placement(visible = true, transformation(origin = {10, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant constant5(k = IqrMaxPu) annotation(
+  Modelica.Blocks.Sources.Constant constant5(k = DerIqrMaxPu) annotation(
     Placement(visible = true, transformation(origin = {-80, 160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant constant6(k = IqrMinPu) annotation(
+  Modelica.Blocks.Sources.Constant constant6(k = DerIqrMinPu) annotation(
     Placement(visible = true, transformation(origin = {-79, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch3 annotation(
     Placement(visible = true, transformation(origin = {-40, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -47,7 +47,7 @@ partial model BaseREGC "Base class for WECC Generator Converter REGC"
     Placement(visible = true, transformation(origin = {-150, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant RrpwrPos0(k = RrpwrPu) annotation(
     Placement(visible = true, transformation(origin = {10, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.MathBoolean.OffDelay offDelay(tDelay = max(abs(1 / IqrMaxPu), abs(1 / IqrMinPu))) annotation(
+  Dynawo.NonElectrical.Blocks.MathBoolean.OffDelay offDelay(tDelay = max(abs(1 / DerIqrMaxPu), abs(1 / DerIqrMinPu))) annotation(
     Placement(visible = true, transformation(origin = {-180, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.MathBoolean.And and1(nu = 2) annotation(
     Placement(visible = true, transformation(origin = {-110, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

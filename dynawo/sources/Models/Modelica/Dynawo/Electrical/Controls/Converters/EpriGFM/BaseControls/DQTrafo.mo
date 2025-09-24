@@ -43,9 +43,9 @@ model DQTrafo "Dq transformation in EPRI Grid Forming model"
   Dialog(tab = "Initial"));
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at converter's terminal in pu (base UNom)" annotation(
   Dialog(tab = "Initial"));
-  parameter Types.PerUnit UdConv0Pu "Start value of d-axis modulation voltage in pu (base UNom)" annotation(
+  parameter Types.VoltageComponentPu UdConv0Pu "Start value of d-axis modulation voltage in pu (base UNom)" annotation(
   Dialog(tab = "Initial"));
-  parameter Types.PerUnit UqConv0Pu "Start value of q-axis modulation voltage in pu (base UNom)" annotation(
+  parameter Types.VoltageComponentPu UqConv0Pu "Start value of q-axis modulation voltage in pu (base UNom)" annotation(
   Dialog(tab = "Initial"));
 
 equation

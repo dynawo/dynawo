@@ -39,7 +39,7 @@ model PVVoltageSource1 "WECC PV model with a voltage source as interface with th
     Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initial parameters
-  final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else U0Pu - Kc * Q0Pu * SystemBase.SnRef / SNom "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
+  final parameter Types.VoltageModulePu URef0Pu = if VCompFlag == true then UInj0Pu else U0Pu - Kc * Q0Pu * SystemBase.SnRef / SNom "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
 
 equation
   connect(PRefPu, wecc_repc.PRefPu) annotation(

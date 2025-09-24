@@ -28,21 +28,21 @@ model BaseLoadMotorFifthOrder_INIT "Base initialization model for loads in paral
   parameter Types.Time tP0[NbMotors] "Transient open circuit time constant in s";
   parameter Types.Time tPP0[NbMotors] "Subtransient open circuit time constant in s";
 
+  Types.PerUnit Ce0Pu[NbMotors] "Start value of the electrical torque in pu (base SNom, omegaNom)";
+  Types.VoltageComponentPu EdP0Pu[NbMotors] "Start value of voltage behind transient reactance d component in pu (base UNom)";
+  Types.VoltageComponentPu EqP0Pu[NbMotors] "Start value of voltage behind transient reactance q component in pu (base UNom)";
+  Types.VoltageComponentPu EdPP0Pu[NbMotors] "Start value of voltage behind subtransient reactance d component in pu (base UNom)";
+  Types.VoltageComponentPu EqPP0Pu[NbMotors] "Start value of voltage behind subtransient reactance q component in pu (base UNom)";
+  Types.CurrentComponentPu Id0Pu[NbMotors] "Start value of current of direct axis in pu (base SNom, UNom)";
+  Types.CurrentComponentPu Iq0Pu[NbMotors] "Start value of current of quadrature axis in pu (base SNom, UNom)";
   Types.ActivePowerPu PLoad0Pu "Start value of the active power consumed by the load in pu (base SnRef)";
   Types.ReactivePowerPu QLoad0Pu "Start value of the reactive power consumed by the load in pu (base SnRef)";
-  Types.PerUnit EdP0Pu[NbMotors] "Start value of voltage behind transient reactance d component in pu (base UNom)";
-  Types.PerUnit EqP0Pu[NbMotors] "Start value of voltage behind transient reactance q component in pu (base UNom)";
-  Types.PerUnit EdPP0Pu[NbMotors] "Start value of voltage behind subtransient reactance d component in pu (base UNom)";
-  Types.PerUnit EqPP0Pu[NbMotors] "Start value of voltage behind subtransient reactance q component in pu (base UNom)";
-  Types.PerUnit id0Pu[NbMotors] "Start value of current of direct axis in pu (base SNom, UNom)";
-  Types.PerUnit iq0Pu[NbMotors] "Start value of current of quadrature axis in pu (base SNom, UNom)";
-  Types.PerUnit ce0Pu[NbMotors] "Start value of the electrical torque in pu (base SNom, omegaNom)";
-  Real s0[NbMotors] "Start value of the slip of the motor";
+  Real Slip0[NbMotors] "Start value of the slip of the motor";
   Types.AngularVelocityPu omegaR0Pu[NbMotors] "Start value of the angular velocity of the motor in pu (base omegaNom)";
-  Types.ComplexCurrentPu motori0Pu[NbMotors] "Start value of complex current at load terminal in pu (base UNom, SnRef) (receptor convention)";
-  Types.ComplexApparentPowerPu motors0Pu[NbMotors] "Start value of complex apparent power in pu (base SnRef) (receptor convention)";
+  Types.ComplexCurrentPu iMotor0Pu[NbMotors] "Start value of complex current at load terminal in pu (base UNom, SnRef) (receptor convention)";
+  Types.ComplexApparentPowerPu sMotor0Pu[NbMotors] "Start value of complex apparent power in pu (base SnRef) (receptor convention)";
 
-  Dynawo.Electrical.Machines.Motors.MotorFifthOrder_INIT motors_INIT[NbMotors](SNom=SNom, RsPu=RsPu, LsPu=LsPu, LPPu=LPPu, LPPPu=LPPPu, tP0=tP0, tPP0=tPP0, P0Pu=ActiveMotorShare*P0Pu, each U0Pu=U0Pu, each UPhase0=UPhase0);
+  Dynawo.Electrical.Machines.Motors.MotorFifthOrder_INIT motors_INIT[NbMotors](SNom = SNom, RsPu = RsPu, LsPu = LsPu, LPPu = LPPu, LPPPu = LPPPu, tP0 = tP0, tPP0 = tPP0, P0Pu = ActiveMotorShare * P0Pu, each U0Pu = U0Pu, each UPhase0 = UPhase0);
 
 equation
   PLoad0Pu = (1-sum(ActiveMotorShare)) * P0Pu;
@@ -52,13 +52,13 @@ equation
   EqP0Pu = motors_INIT.EqP0Pu;
   EdPP0Pu = motors_INIT.EdPP0Pu;
   EqPP0Pu = motors_INIT.EqPP0Pu;
-  id0Pu = motors_INIT.id0Pu;
-  iq0Pu = motors_INIT.iq0Pu;
-  ce0Pu = motors_INIT.ce0Pu;
-  s0 = motors_INIT.s0;
+  Id0Pu = motors_INIT.Id0Pu;
+  Iq0Pu = motors_INIT.Iq0Pu;
+  Ce0Pu = motors_INIT.Ce0Pu;
+  Slip0 = motors_INIT.Slip0;
   omegaR0Pu = motors_INIT.omegaR0Pu;
-  motori0Pu = motors_INIT.i0Pu;
-  motors0Pu = motors_INIT.s0Pu;
+  iMotor0Pu = motors_INIT.i0Pu;
+  sMotor0Pu = motors_INIT.s0Pu;
 
   annotation(preferredView = "text");
 end BaseLoadMotorFifthOrder_INIT;

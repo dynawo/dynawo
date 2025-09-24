@@ -15,7 +15,7 @@ within Dynawo.Electrical.Controls.Converters.EpriGFM.BaseControls;
 model CurrentLimitsCalculation "Current limit calculation in EPRI Grid Forming model"
   extends Parameters.OmegaFlag;
 
-  parameter Types.PerUnit IMaxPu "Max current in pu (base UNom, SNom), example value = 1.05" annotation(
+  parameter Types.CurrentModulePu IMaxPu "Max current in pu (base UNom, SNom), example value = 1.05" annotation(
   Dialog(tab = "VoltageControl"));
   parameter Boolean PQFlag "Active or active power priority flag: false = P priority, true = Q priority" annotation(
   Dialog(tab = "VoltageControl"));
@@ -37,8 +37,8 @@ model CurrentLimitsCalculation "Current limit calculation in EPRI Grid Forming m
     Placement(visible = true, transformation(origin = {110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initial parameters
-  parameter Types.PerUnit IdConv0Pu "Start value of d-axis current of the converter in pu (base UNom, SNom) (generator convention)" annotation(Dialog(tab = "Initial"));
-  parameter Types.PerUnit IqConv0Pu "Start value of q-axis current of the converter in pu (base UNom, SNom) (generator convention)" annotation(Dialog(tab = "Initial"));
+  parameter Types.CurrentComponentPu IdConv0Pu "Start value of d-axis current of the converter in pu (base UNom, SNom) (generator convention)" annotation(Dialog(tab = "Initial"));
+  parameter Types.CurrentComponentPu IqConv0Pu "Start value of q-axis current of the converter in pu (base UNom, SNom) (generator convention)" annotation(Dialog(tab = "Initial"));
 
 equation
   if PQFlag then

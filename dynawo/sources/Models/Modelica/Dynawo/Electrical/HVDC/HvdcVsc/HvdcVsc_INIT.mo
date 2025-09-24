@@ -22,10 +22,10 @@ model HvdcVsc_INIT "Initialisation model for the HVDC VSC model"
   parameter Types.PerUnit RDcPu "Resistance of one cable of DC line in pu (base UDcNom, SnRef)";
   parameter Types.ApparentPowerModule SNom "Injector nominal apparent power in MVA";
 
-  Types.PerUnit Ip10Pu "Start value of active current at terminal 1 in pu (base SNom, UNom) (DC to AC)";
-  Types.PerUnit Ip20Pu "Start value of active current at terminal 2 in pu (base SNom, UNom) (DC to AC)";
-  Types.PerUnit Iq10Pu "Start value of reactive current at terminal 1 in pu (base SNom, UNom) (DC to AC)";
-  Types.PerUnit Iq20Pu "Start value of reactive current at terminal 2 in pu (base SNom, UNom) (DC to AC)";
+  Types.CurrentComponentPu Ip10Pu "Start value of active current at terminal 1 in pu (base SNom, UNom) (DC to AC)";
+  Types.CurrentComponentPu Ip20Pu "Start value of active current at terminal 2 in pu (base SNom, UNom) (DC to AC)";
+  Types.CurrentComponentPu Iq10Pu "Start value of reactive current at terminal 1 in pu (base SNom, UNom) (DC to AC)";
+  Types.CurrentComponentPu Iq20Pu "Start value of reactive current at terminal 2 in pu (base SNom, UNom) (DC to AC)";
   Boolean ModeU10 "Initial mode of control on side 1 : if true, U mode, if false, Q mode";
   Boolean ModeU20 "Initial mode of control on side 2 : if true, U mode, if false, Q mode";
   Dynawo.Connectors.ReactivePowerPuConnector PRef0Pu "Start value of reactive power reference in pu (base SNom) (DC to AC)";

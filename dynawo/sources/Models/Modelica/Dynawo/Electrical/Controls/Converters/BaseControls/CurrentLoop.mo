@@ -72,12 +72,12 @@ model CurrentLoop "Current loop control for grid forming and grid following conv
   Modelica.Blocks.Math.Add addq2 annotation(
     Placement(visible = true, transformation(origin = {90, -86}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  parameter Types.PerUnit UdFilter0Pu "Start value of d-axis voltage at the converter's capacitor in pu (base UNom)";
-  parameter Types.PerUnit UqFilter0Pu "Start value of q-axis voltage at the converter's capacitor in pu (base UNom)";
-  parameter Types.PerUnit IdConv0Pu "Start value of d-axis current in the converter in pu (base UNom, SNom) (generator convention)";
-  parameter Types.PerUnit IqConv0Pu "Start value of q-axis current in the converter in pu (base UNom, SNom) (generator convention)";
-  parameter Types.PerUnit UdConv0Pu "Start value of d-axis modulation voltage in pu (base UNom)";
-  parameter Types.PerUnit UqConv0Pu "Start value of q-axis modulation voltage in pu (base UNom)";
+  parameter Types.VoltageComponentPu UdFilter0Pu "Start value of d-axis voltage at the converter's capacitor in pu (base UNom)";
+  parameter Types.VoltageComponentPu UqFilter0Pu "Start value of q-axis voltage at the converter's capacitor in pu (base UNom)";
+  parameter Types.CurrentComponentPu IdConv0Pu "Start value of d-axis current in the converter in pu (base UNom, SNom) (generator convention)";
+  parameter Types.CurrentComponentPu IqConv0Pu "Start value of q-axis current in the converter in pu (base UNom, SNom) (generator convention)";
+  parameter Types.VoltageComponentPu UdConv0Pu "Start value of d-axis modulation voltage in pu (base UNom)";
+  parameter Types.VoltageComponentPu UqConv0Pu "Start value of q-axis modulation voltage in pu (base UNom)";
 
 equation
   connect(feedbackd.u1, idConvRefPu) annotation(

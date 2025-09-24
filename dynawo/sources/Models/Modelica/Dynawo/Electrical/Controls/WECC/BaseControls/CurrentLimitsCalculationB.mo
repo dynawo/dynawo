@@ -14,7 +14,7 @@ within Dynawo.Electrical.Controls.WECC.BaseControls;
 
 model CurrentLimitsCalculationB "This block calculates the current limits of the WECC REEC-B regulation"
 
-  parameter Types.PerUnit IMaxPu "Maximum inverter current amplitude in pu (base UNom, SNom)";
+  parameter Types.CurrentModulePu IMaxPu "Maximum inverter current amplitude in pu (base UNom, SNom)";
   parameter Boolean PQFlag "Q/P priority: Q (0) or P (1) priority selection on current limit flag";
 
   // Input variables

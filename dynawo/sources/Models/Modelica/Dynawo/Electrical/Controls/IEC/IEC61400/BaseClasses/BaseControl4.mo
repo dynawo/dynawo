@@ -39,13 +39,13 @@ partial model BaseControl4 "Whole generator base control module for type 4 wind 
     Dialog(tab = "CurrentLimiter"));
 
   //QControl parameters
-  parameter Types.PerUnit IqH1Pu "Maximum reactive current injection during dip in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.CurrentComponentPu IqH1Pu "Maximum reactive current injection during dip in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "QControl"));
-  parameter Types.PerUnit IqMaxPu "Maximum reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.CurrentComponentPu IqMaxPu "Maximum reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "QControl"));
-  parameter Types.PerUnit IqMinPu "Minimum reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.CurrentComponentPu IqMinPu "Minimum reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "QControl"));
-  parameter Types.PerUnit IqPostPu "Post-fault reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.CurrentComponentPu IqPostPu "Post-fault reactive current injection in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "QControl"));
   parameter Types.PerUnit Kiq "Reactive power PI controller integration gain in pu/s (base UNom, SNom)" annotation(
     Dialog(tab = "QControl"));
@@ -107,11 +107,11 @@ partial model BaseControl4 "Whole generator base control module for type 4 wind 
     Placement(visible = true, transformation(origin = {170, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
-  parameter Types.PerUnit IpMax0Pu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.CurrentComponentPu IpMax0Pu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
-  parameter Types.PerUnit IqMax0Pu "Initial maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.CurrentComponentPu IqMax0Pu "Initial maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
-  parameter Types.PerUnit IqMin0Pu "Initial minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.CurrentComponentPu IqMin0Pu "Initial minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
   parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));

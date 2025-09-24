@@ -50,7 +50,7 @@ partial model BasePControl4 "Base active power control module for type 4 wind tu
     Placement(visible = true, transformation(origin = {50, -68}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
-  parameter Types.PerUnit IpMax0Pu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.CurrentComponentPu IpMax0Pu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
   parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));

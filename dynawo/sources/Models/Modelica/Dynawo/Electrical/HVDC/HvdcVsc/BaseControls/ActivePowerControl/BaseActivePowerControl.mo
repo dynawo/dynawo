@@ -15,7 +15,7 @@ within Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.ActivePowerControl;
 model BaseActivePowerControl "Base active power control for the HVDC VSC model"
   extends Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.Parameters.ParamsActivePowerControl;
 
-  parameter Types.PerUnit IpMaxPu "Maximum value of the active current in pu (base SNom, UNom) (DC to AC)";
+  parameter Types.CurrentComponentPu IpMaxPu "Maximum value of the active current in pu (base SNom, UNom) (DC to AC)";
 
   //Input variables
   Modelica.Blocks.Interfaces.BooleanInput blocked1(start = false) "If true, HVDC link is blocked on side 1" annotation(
@@ -56,7 +56,7 @@ model BaseActivePowerControl "Base active power control for the HVDC VSC model"
   Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.ActivePowerControl.RPFaultFunction RPFault(SlopeRPFault = SlopeRPFault) "rpfault function for HVDC" annotation(
     Placement(visible = true, transformation(origin = {-150, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  parameter Types.PerUnit Ip0Pu "Start value of active current in pu (base SNom, UNom) (DC to AC)";
+  parameter Types.CurrentComponentPu Ip0Pu "Start value of active current in pu (base SNom, UNom) (DC to AC)";
   parameter Types.ActivePowerPu P0Pu "Start value of active power in pu (base SNom) (DC to AC)";
 
 equation

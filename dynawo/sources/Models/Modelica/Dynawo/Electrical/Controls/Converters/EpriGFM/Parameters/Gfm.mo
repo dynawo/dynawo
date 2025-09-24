@@ -15,9 +15,9 @@ within Dynawo.Electrical.Controls.Converters.EpriGFM.Parameters;
 record Gfm "GFM parameters"
   parameter Types.PerUnit DD "VSM damping factor, example value = 0.11" annotation(
   Dialog(tab = "GFM"));
-  parameter Types.PerUnit DeltaOmegaMaxPu "Frequency deviation maximum in pu/s (base omegaNom), example value = 75(rad/s)/omegaNom" annotation(
+  parameter Types.AngularVelocityPu DeltaOmegaMaxPu "Frequency deviation maximum in pu/s (base omegaNom), example value = 75(rad/s)/omegaNom" annotation(
 Dialog(tab = "GFM"));
-  parameter Types.PerUnit DeltaOmegaMinPu "Frequency deviation minimum in pu/s (base omegaNom), example value = -75(rad/s)/omegaNom" annotation(
+  parameter Types.AngularVelocityPu DeltaOmegaMinPu "Frequency deviation minimum in pu/s (base omegaNom), example value = -75(rad/s)/omegaNom" annotation(
   Dialog(tab = "GFM"));
   parameter Types.PerUnit K1 "Gain, set according to OmegaFlag" annotation(
   Dialog(tab = "GFM"));

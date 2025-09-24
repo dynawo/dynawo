@@ -46,10 +46,10 @@ protected
   Types.PerUnit XqPPu "Quadrature axis reactance in pu";
   Types.PerUnit MsalPu "Constant difference between direct and quadrature axis saturated mutual inductances in pu";
   Types.Angle Theta0 "Start value of rotor angle: angle between machine rotor frame and port phasor frame";
-  Types.VoltageModulePu Ud0PuNom "Start value of voltage of direct axis in pu";
-  Types.VoltageModulePu Uq0PuNom "Start value of voltage of quadrature axis in pu";
-  Types.CurrentModulePu Id0PuNom "Start value of current of direct axis in pu";
-  Types.CurrentModulePu Iq0PuNom "Start value of current of quadrature axis in pu";
+  Types.VoltageComponentPu Ud0PuNom "Start value of voltage of direct axis in pu";
+  Types.VoltageComponentPu Uq0PuNom "Start value of voltage of quadrature axis in pu";
+  Types.CurrentComponentPu Id0PuNom "Start value of current of direct axis in pu";
+  Types.CurrentComponentPu Iq0PuNom "Start value of current of quadrature axis in pu";
   Types.PerUnit LambdaAD0PuNom "Start value of common flux of direct axis in pu";
   Types.PerUnit LambdaAQ0PuNom "Start value of common flux of quadrature axis in pu";
   Types.PerUnit LambdaAirGap0PuNom "Start value of total air gap flux in pu";

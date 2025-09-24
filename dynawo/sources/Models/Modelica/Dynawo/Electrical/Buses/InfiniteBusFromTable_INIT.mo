@@ -20,7 +20,7 @@ model InfiniteBusFromTable_INIT "Initial model for infinite bus with UPu, UPhase
   parameter String UPuTableName "Name of the table in the text file to get UPu from time";
   parameter String UPhaseTableName "Name of the table in the text file to get UPhase from time";
 
-  Types.PerUnit U0Pu "Initial infinite bus voltage module in pu (base UNom)";
+  Types.VoltageModulePu U0Pu "Initial infinite bus voltage module in pu (base UNom)";
   Types.Angle UPhase0 "Initial infinite bus voltage angle in rad";
   Types.AngularVelocityPu OmegaRef0Pu "Initial infinite bus frequency in pu (base omegaNom)";
 

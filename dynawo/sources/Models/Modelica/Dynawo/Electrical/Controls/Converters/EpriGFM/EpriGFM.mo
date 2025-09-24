@@ -91,19 +91,19 @@ model EpriGFM "EPRI Grid Forming model"
   // Initial parameters calculated by the initialization algorithm
   parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at converter's terminal in pu (base UNom, SnRef) (receptor convention)" annotation(
   Dialog(tab = "Initial"));
-  parameter Types.PerUnit IdConv0Pu "Start value of d-axis current of the converter in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.CurrentComponentPu IdConv0Pu "Start value of d-axis current of the converter in pu (base UNom, SNom) (generator convention)" annotation(
   Dialog(tab = "Initial"));
-  parameter Types.PerUnit IqConv0Pu "Start value of q-axis current of the converter in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.CurrentComponentPu IqConv0Pu "Start value of q-axis current of the converter in pu (base UNom, SNom) (generator convention)" annotation(
   Dialog(tab = "Initial"));
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at converter's terminal in pu (base UNom)" annotation(
   Dialog(tab = "Initial"));
-  parameter Types.PerUnit UdConv0Pu "Start value of d-axis modulation voltage in pu (base UNom)" annotation(
+  parameter Types.VoltageComponentPu UdConv0Pu "Start value of d-axis modulation voltage in pu (base UNom)" annotation(
   Dialog(tab = "Initial"));
-  parameter Types.PerUnit UdFilter0Pu "Start value of d-axis voltage at the converter's terminal in pu (base UNom)" annotation(
+  parameter Types.VoltageComponentPu UdFilter0Pu "Start value of d-axis voltage at the converter's terminal in pu (base UNom)" annotation(
   Dialog(tab = "Initial"));
-  parameter Types.PerUnit UqConv0Pu "Start value of q-axis modulation voltage in pu (base UNom)" annotation(
+  parameter Types.VoltageComponentPu UqConv0Pu "Start value of q-axis modulation voltage in pu (base UNom)" annotation(
   Dialog(tab = "Initial"));
-  parameter Types.PerUnit UqFilter0Pu "Start value of q-axis voltage at the converter's terminal in pu (base UNom)" annotation(
+  parameter Types.VoltageComponentPu UqFilter0Pu "Start value of q-axis voltage at the converter's terminal in pu (base UNom)" annotation(
   Dialog(tab = "Initial"));
 
 equation
