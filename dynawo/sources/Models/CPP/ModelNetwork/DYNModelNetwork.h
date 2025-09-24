@@ -405,6 +405,7 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
   std::vector<std::shared_ptr<ModelVoltageLevel> > vLevelInitComponents_;  ///< all voltage level components  (used for init model)
   std::vector<std::shared_ptr<NetworkComponent> > components_;  ///< all network components without dynamic Model
   std::vector<std::shared_ptr<NetworkComponent> > initComponents_;  ///< all network components even components with dynamic model
+  std::vector<std::shared_ptr<NetworkComponent> > hvdcComponents_;  ///< all network components even components with dynamic model
   std::vector<int> componentIndexByCalculatedVar_;  ///< index of component for each calculated variable
 };
 
