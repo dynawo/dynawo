@@ -22,6 +22,7 @@ add_subdirectory(Sources I)
 add_subdirectory(Shunts Q)
 add_subdirectory(StaticVarCompensators V)
 add_subdirectory(Switches S)
+add_subdirectory(PEIR PE)
 add_subdirectory(Photovoltaics P)
 add_subdirectory(Wind W)
 
