@@ -710,6 +710,10 @@ ModelManager::dumpVariables(map< string, string >& mapVariables) {
   vector<double> valuesRoots(sizeG_, 0.);
   std::copy(gLocal_, gLocal_ + sizeG_, valuesRoots.begin());
 
+  nb = static_cast<unsigned int>(modelData()->nRelations);
+  vector<bool> valuesRelations(modelData()->nRelations, false);
+  std::copy(simulationInfo()->relations, simulationInfo()->relations + nb, valuesRelations.begin());
+
   os << cSum;
   os << cSumInit;
   os << valuesReal;
@@ -719,6 +723,7 @@ ModelManager::dumpVariables(map< string, string >& mapVariables) {
   os << valuesDerivatives;
   os << constCalcVars;
   os << valuesRoots;
+  os << valuesRelations;
 
   mapVariables[ variablesFileName() ] = values.str();
 }
@@ -740,6 +745,7 @@ ModelManager::loadVariables(const string& variables) {
   vector<double> valuesDerivatives;
   vector<double> constCalcVars;
   vector<double> valuesRoots;
+  vector<bool> valuesRelations;
 
   is >> cSumRead;
   is >> cSumInitRead;
@@ -751,6 +757,7 @@ ModelManager::loadVariables(const string& variables) {
   is >> valuesDerivatives;
   is >> constCalcVars;
   is >> valuesRoots;
+  is >> valuesRelations;
 
   if (hasInit()) {
     modelModelicaInit()->checkSum(cSumInit);
@@ -785,6 +792,7 @@ ModelManager::loadVariables(const string& variables) {
   std::copy(valuesDiscreteReal.begin(), valuesDiscreteReal.end(), data()->localData[0]->discreteVars);
   std::copy(constCalcVars.begin(), constCalcVars.end(), data()->constCalcVars.begin());
   std::copy(valuesRoots.begin(), valuesRoots.end(), gLocal_);
+  std::copy(valuesRelations.begin(), valuesRelations.end(), simulationInfo()->relations);
 }
 
 void
