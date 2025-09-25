@@ -184,7 +184,7 @@ class Simulation {
   /**
    * @brief launch the simulation
    */
-  void simulate();
+  virtual void simulate();
 
   /**
    * @brief destroy all allocated objected during the simulation
@@ -576,7 +576,7 @@ class Simulation {
     return model_;
   }
 
- private:
+ protected:
   /**
    * @brief open a file stream
    * @param stream file stream stream to open
@@ -638,7 +638,7 @@ class Simulation {
    * @brief update curves : at the end of each iteration, new points are added to curve
    * @param updateCalculateVariable @b true is calculated variables should be updated
    */
-  void updateCurves(bool updateCalculateVariable = true) const;
+  virtual void updateCurves(bool updateCalculateVariable = true) const;
 
   /**
    * @brief dump the current time of the simulation in a file
@@ -664,7 +664,7 @@ class Simulation {
    */
   bool hasIntermediateStateToDump() const;
 
- private:
+ protected:
   std::shared_ptr<SimulationContext> context_;  ///< simulation context : configuration of the simulation
   std::shared_ptr<job::JobEntry> jobEntry_;  ///< jobs data description
   SolverFactory::SolverPtr solver_;  ///< solver used for the simulation
@@ -729,7 +729,7 @@ class Simulation {
 
   bool wasLoggingEnabled_;  ///< true if logging was enabled by an upper project
 
- private:
+ protected:
   /**
    * @brief configure the constraints outputs
    */

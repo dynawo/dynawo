@@ -1353,6 +1353,23 @@ class SubModel {
   }
 
   /**
+   * @brief Set updatable capability
+   *
+   */
+  void setNeedsInitFromConnectedModel_(bool needsInitFromConnectedModel_) {
+    needsInitFromConnectedModel_ = needsInitFromConnectedModel_;
+  }
+
+  /**
+  * @brief Get updatable capability
+  *
+  * @return isUpdatableDuringSimulation
+  */
+  inline bool getNeedsInitFromConnectedModel() const {
+    return needsInitFromConnectedModel_;
+  }
+
+  /**
    * @brief get equation string for debug log
    *
    * @param index WARNING index is local index in this submodel, not global index
@@ -1591,6 +1608,8 @@ class SubModel {
   std::map<int, std::string> gEquationInitIndex_;  ///< for DEBUG log, map of index of root equation and root equation in string  for init model
 
   std::shared_ptr<parameters::ParametersSet> localInitParameters_;  ///< local initialization solver parameters set
+
+  bool needsInitFromConnectedModel_;
 
  private:
   unsigned int sizeFSave_;  ///< save of the size of F
