@@ -35,18 +35,18 @@ class CsvExporter : public Exporter {
   /**
    * @brief Export method in csv format
    *
-   * @param curves curves to export
+   * @param curvesCollec curves to export
    * @param filePath File to export csv formatted curves to
    */
-  void exportToFile(const std::shared_ptr<CurvesCollection>& curves, const std::string& filePath) const override;
+  void exportToFile(const std::shared_ptr<CurvesCollection>& curvesCollec, const std::string& filePath) const override;
 
   /**
    * @brief Export method in csv format
    *
-   * @param curves curves to export
+   * @param curvesCollec curves to export
    * @param stream stream to export csv formatted curves to
    */
-  void exportToStream(const std::shared_ptr<CurvesCollection>& curves, std::ostream& stream) const override;
+  void exportToStream(const std::shared_ptr<CurvesCollection>& curvesCollec, std::ostream& stream) const override;
 };
 
 }  // namespace curves
