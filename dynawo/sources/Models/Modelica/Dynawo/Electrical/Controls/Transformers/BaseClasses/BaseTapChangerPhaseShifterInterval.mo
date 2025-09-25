@@ -86,28 +86,28 @@ equation
     tap.value = pre(tap.value) - 1;
     tTapUp = pre(tTapUp);
     tTapDown = time;
-    Timeline.logEvent1(TimelineKeys.TapDown);
+    Timeline.logEvent2(TimelineKeys.TapDown, String(valueToMonitor.value * factorValueToDisplay));
   //Transition to "MoveUp1" (only possible from "WaitingToMoveUp")
   elsewhen pre(state) == State.WaitingToMoveUp and time - (if increaseTapToIncreaseValue then tValueUnderMinWhileRunning else tValueAboveMaxWhileRunning) >= t1st and pre(tap.value) < tapMax then
     state = State.MoveUp1;
     tap.value = pre(tap.value) + 1;
     tTapUp = time;
     tTapDown = pre(tTapDown);
-    Timeline.logEvent1(TimelineKeys.TapUp);
+    Timeline.logEvent2(TimelineKeys.TapUp, String(valueToMonitor.value * factorValueToDisplay));
   //Transition to "MoveDownN" (only possible from "MoveDown1" or "MoveDownN")
   elsewhen (pre(state) == State.MoveDown1 or pre(state) == State.MoveDownN) and time - pre(tTapDown) >= tNext and pre(tap.value) > tapMin then
     state = State.MoveDownN;
     tap.value = pre(tap.value) - 1;
     tTapUp = pre(tTapUp);
     tTapDown = time;
-    Timeline.logEvent1(TimelineKeys.TapDown);
+    Timeline.logEvent2(TimelineKeys.TapDown, String(valueToMonitor.value * factorValueToDisplay));
   //Transition to "MoveUpN" (only possible from "MoveUp1" or "MoveUpN")
   elsewhen (pre(state) == State.MoveUp1 or pre(state) == State.MoveUpN) and time - pre(tTapUp) >= tNext and pre(tap.value) < tapMax then
     state = State.MoveUpN;
     tap.value = pre(tap.value) + 1;
     tTapUp = time;
     tTapDown = pre(tTapDown);
-    Timeline.logEvent1(TimelineKeys.TapUp);
+    Timeline.logEvent2(TimelineKeys.TapUp, String(valueToMonitor.value * factorValueToDisplay));
   end when;
 
   annotation(preferredView = "text");

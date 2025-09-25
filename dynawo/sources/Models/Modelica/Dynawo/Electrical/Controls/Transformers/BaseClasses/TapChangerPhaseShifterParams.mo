@@ -37,6 +37,7 @@ record TapChangerPhaseShifterParams
   parameter Real valueToMonitor0 "Initial monitored value (unit depending on the monitored variable unit)";
   parameter Integer tap0 "Initial tap";
   parameter State state0 "Initial state";
+  parameter Real factorValueToDisplay "Multiplying factor for log messages of valueToMonitor (Pu to unit)";
 
   annotation(preferredView = "text");
 end TapChangerPhaseShifterParams;
