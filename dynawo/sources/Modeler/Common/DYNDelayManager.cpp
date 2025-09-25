@@ -21,9 +21,11 @@
 #include "DYNDelayManager.h"
 
 #include "DYNCommon.h"
+#include "DYNMacrosMessage.h"
 
 #include <boost/optional.hpp>
 #include <cassert>
+#include "DYNTrace.h"
 #include <limits>
 #include <sstream>
 
@@ -76,7 +78,7 @@ DelayManager::dumpDelays() const {
     delay.points(values);
 
     ss << delayPair.first << ":";
-    ss << delay.getDelayMax() << ":";
+    ss << double2String(delay.getDelayMax()) << ":";
     for (const auto& value : values) {
       ss << double2String(value.first) << "," << double2String(value.second) << ";";
     }
@@ -177,13 +179,14 @@ DelayManager::setGomc(state_g* p_glocal, const size_t offset, const double time)
 }
 
 modeChangeType_t
-DelayManager::evalMode(const double time) {
+DelayManager::evalMode(const double time, const std::string& modelName) {
   modeChangeType_t delay_mode = NO_MODE;
   for (auto& delayPair : delays_) {
     auto& delay = delayPair.second;
     double delayTime = delay.getDelayTime();
     if (!(time < delayTime || doubleEquals(time, delayTime)) && !delay.isTriggered()) {
       delay.trigger();
+      Trace::debug() << DYNLog(DelayMode, modelName, delayPair.first, delayTime) << Trace::endline;
       delay_mode = ALGEBRAIC_J_UPDATE_MODE;
     }
   }
