@@ -59,7 +59,7 @@ echo "" >> dynawoDocumentation/$output_file
 echo "\begin{appendices}" >> dynawoDocumentation/$output_file
 
 licenses_folders=(licenses/dynawo licenses/dynawo-documentation licenses/OpenModelica licenses/sundials licenses/suitesparse licenses/Adept licenses/xerces-c licenses/libxml2 licenses/powsybl
-licenses/jQuery licenses/cpplint)
+licenses/jQuery licenses/cpplint licenses/zmqpp)
 
 # Latex compile
 for folder in ${licenses_folders[*]}; do
@@ -71,7 +71,7 @@ for folder in ${licenses_folders[*]}; do
   done
 done
 
-license_name=('\Dynawo' '\Dynawo Documentation' 'OpenModelica' 'SUNDIALS' 'SuiteSparse' 'Adept' 'Xerces-C++' 'Libxml2' 'PowSyBl' 'jQuery MIT' 'jQuery GPL' 'cpplint')
+license_name=('\Dynawo' '\Dynawo Documentation' 'OpenModelica' 'SUNDIALS' 'SuiteSparse' 'Adept' 'Xerces-C++' 'Libxml2' 'PowSyBl' 'jQuery MIT' 'jQuery GPL' 'cpplint' 'zmqpp')
 
 i=0
 j=1
