@@ -2159,6 +2159,7 @@ class Modes:
     # @return body to print for evalmode
     def get_body_for_evalmode(self):
         text_to_return = []
+        trace_endline = '" << Trace::endline;'
         body_tmps = self.body_for_tmps + self.body_for_tmps_created_relations
         for line in body_tmps:
             text_to_return.append(line)
@@ -2170,6 +2171,7 @@ class Modes:
             text_to_return.append(relation.body_definition)
             text_to_return.append("  if (data->simulationInfo->relations[" + str(relation.index) + "] != data->simulationInfo->relationsPre[" + str(relation.index) + "]) \n")
             text_to_return.append("  {\n")
+            text_to_return.append('    Trace::debug() << modelManager_->name() << " Mode for ' + str(relation.eqs[-1]) + ', relation.index ' + str(relation.index) + ', condition ' + relation.condition + trace_endline + "\n")
             if relation.type == MIXED:
                 text_to_return.append("    modeChangeType = ALGEBRAIC_J_UPDATE_MODE;\n")
             elif relation.type == DIFFERENTIAL:
@@ -2193,8 +2195,12 @@ class Modes:
             z_pre = z_aff.replace("localData[0]->discreteVars", "simulationInfo->discreteVarsPre")
             z_pre = z_pre.replace("localData[0]->integerDoubleVars", "simulationInfo->integerDoubleVarsPre")
             if z_aff == z_pre: continue
-            text_to_return.append("  // " + z + " != pre(" +z+")\n")
+            text_to_return.append("  // " + z + " != pre(" + z +")\n")
             text_to_return.append("  if (doubleNotEquals(" + z_aff + ", " + z_pre +")) {\n")
+            if len(discrete_mode.eqs) > 0:
+                text_to_return.append('    Trace::debug() << modelManager_->name() << " Mode for ' + str(discrete_mode.eqs[-1]) + ', condition ' + z + trace_endline + "\n")
+            else:
+                text_to_return.append('    Trace::debug() << modelManager_->name() << " Mode for condition ' + z + trace_endline + "\n")
             if discrete_mode.type == ALGEBRAIC:
                 if discrete_mode.boolean == False:
                     text_to_return.append("      modeChangeType = ALGEBRAIC_MODE;\n")
