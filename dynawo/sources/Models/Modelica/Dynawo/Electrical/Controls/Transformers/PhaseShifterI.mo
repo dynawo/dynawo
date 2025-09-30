@@ -13,13 +13,13 @@ within Dynawo.Electrical.Controls.Transformers;
 */
 
 model PhaseShifterI "Phase-shifter monitoring the current so that it remains under iMax"
-  extends BaseClasses.BaseTapChangerPhaseShifterMax(valueMax = iMax, valueStop = iStop, valueToMonitor0 = I0, factorValueToDisplay = factorValue, Type = BaseClasses.TapChangerPhaseShifterParams.Automaton.PhaseShifter);
+  extends BaseClasses.BaseTapChangerPhaseShifterMax(valueMax = iMax, valueStop = iStop, valueToMonitor0 = I0, factorValueToDisplay = factorValue, unitValueToDisplay = "A", Type = BaseClasses.TapChangerPhaseShifterParams.Automaton.PhaseShifter);
 
   parameter Types.CurrentModule iMax "Maximum allowed current";
   parameter Types.CurrentModule iStop "Current below which the phase-shifter will stop action";
   parameter Types.CurrentModule I0 "Initial current module";
-  parameter Real uNom = 0;
-  final parameter Real factorValue = if uNom <> 0 then 1000 * SystemBase.SnRef/(sqrt(3) * uNom) else 1 "Multiplying factor for log messages of valueToMonitor (Pu to unit)";
+  parameter Types.VoltageModule UNom = 0 "Nominal voltage in kV";
+  final parameter Real factorValue = if UNom <> 0 then 1000 * SystemBase.SnRef/(sqrt(3) * UNom) else 1 "Multiplying factor for log messages of valueToMonitor (Pu to unit)";
 
 
   Dynawo.Connectors.ImPin iMonitored(value(start = I0)) "Monitored current";
