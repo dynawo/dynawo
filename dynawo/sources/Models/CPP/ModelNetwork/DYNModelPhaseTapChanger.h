@@ -129,7 +129,7 @@ class ModelPhaseTapChanger : public ModelTapChanger {
 
  private:
   double thresholdI_;  ///< threshold of I
-  double latestIValue_;  ///< latest tested current value
+  double latestIValue_;  ///< latest measured current value
   double whenUp_;      ///< when the current reached a value over the threshold
   double whenDown_;    ///< when the current reached a value under the threshold
   double whenLastTap_;  ///< last time when a tap changer

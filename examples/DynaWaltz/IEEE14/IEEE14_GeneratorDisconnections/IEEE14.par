@@ -73,8 +73,8 @@
     <reference name="transformerD_SNom" origData="IIDM" origName="sn" type="DOUBLE"/>
     <reference name="transformerT_U10Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="transformerT_U1Phase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <reference type="DOUBLE" name="transformerT_tapChanger_uNom" origData="IIDM" origName="UNom"/>
-    <reference type="DOUBLE" name="transformerD_tapChanger_uNom" origData="IIDM" origName="UNom"/>
+    <reference type="DOUBLE" name="transformerT_UNom" origData="IIDM" origName="UNom"/>
+    <reference type="DOUBLE" name="transformerD_UNom" origData="IIDM" origName="UNom"/>
   </set>
   <set id="GenericLoadOneTransfo">
     <par type="DOUBLE" name="load_alpha" value="1"/>
@@ -99,7 +99,7 @@
     <reference type="DOUBLE" name="transformer_Q10Pu" origData="IIDM" origName="q_pu"/>
     <reference type="DOUBLE" name="transformer_U10Pu" origData="IIDM" origName="v_pu"/>
     <reference type="DOUBLE" name="transformer_U1Phase0" origData="IIDM" origName="angle_pu"/>
-    <reference type="DOUBLE" name="transformer_tapChanger_uNom" origData="IIDM" origName="UNom"/>
+    <reference type="DOUBLE" name="transformer_UNom" origData="IIDM" origName="UNom"/>
   </set>
   <set id="Generator1">
     <par type="INT" name="generator_ExcitationPu" value="1"/>

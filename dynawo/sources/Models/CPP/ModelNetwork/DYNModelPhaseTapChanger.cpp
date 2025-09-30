@@ -146,13 +146,13 @@ void ModelPhaseTapChanger::evalZ(const double t, const state_g* g,
     if (g[2] == ROOT_UP || g[3] == ROOT_UP) {  // increase tap
       setCurrentStepIndex(getCurrentStepIndex() + 1);
       whenLastTap_ = t;
-      DYNAddTimelineEvent(network, id(), TapUp, latestIValue_);
+      DYNAddTimelineEvent(network, id(), TapUp, latestIValue_, "A");
     }
 
     if (g[4] == ROOT_UP || g[5] == ROOT_UP) {  // decrease tap
       setCurrentStepIndex(getCurrentStepIndex() - 1);
       whenLastTap_ = t;
-      DYNAddTimelineEvent(network, id(), TapDown, latestIValue_);
+      DYNAddTimelineEvent(network, id(), TapDown, latestIValue_, "A");
     }
   }
 }

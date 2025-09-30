@@ -308,6 +308,6 @@
     <reference type="INT" name="phaseShifter_tapMax" origData="IIDM" origName="highTapPosition" componentId="_BUS____5-BUS____6-1_PS"/>
     <reference type="BOOL" name="phaseShifter_regulating0" origData="IIDM" origName="regulating" componentId="_BUS____5-BUS____6-1_PS"/>
     <reference type="INT" name="phaseShifter_increasePhase" origData="IIDM" origName="increasePhase" componentId="_BUS____5-BUS____6-1_PS"/>
-    <reference type="DOUBLE" name="phaseShifter_uNom" origData="IIDM" origName="UNom" componentId="_BUS____5_TN"/>
+    <reference type="DOUBLE" name="phaseShifter_UNom" origData="IIDM" origName="UNom" componentId="_BUS____5_TN"/>
   </set>
 </parametersSet>
