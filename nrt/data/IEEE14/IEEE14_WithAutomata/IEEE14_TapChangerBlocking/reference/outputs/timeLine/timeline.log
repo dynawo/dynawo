@@ -13,36 +13,36 @@
 19.999996 | TAP_CHANGER_LOCK | TCB : tap changers blocking arming (U < UMin)
 20.201422 | GEN____6_SM | PMIN : activation
 21.976261 | TAP_CHANGER_LOCK | TCB : tap changers blocking disarming (U > UMin)
-79.999984 | TAP_CHANGER_LOAD_2 | Tap position change (increment) - value : 57.987990
-79.999984 | TAP_CHANGER_LOAD_3 | Tap position change (increment) - value : 60.332802
-79.999984 | TAP_CHANGER_LOAD_2 | Tap position change (increment) - value : 57.987990
-79.999984 | TAP_CHANGER_LOAD_3 | Tap position change (increment) - value : 60.332802
+79.999984 | TAP_CHANGER_LOAD_2 | Tap position change (increment) - value : 57.987990kV
+79.999984 | TAP_CHANGER_LOAD_3 | Tap position change (increment) - value : 60.332802kV
+79.999984 | TAP_CHANGER_LOAD_2 | Tap position change (increment) - value : 57.987990kV
+79.999984 | TAP_CHANGER_LOAD_3 | Tap position change (increment) - value : 60.332802kV
 80.004728 | TAP_CHANGER_LOCK | TCB : tap changers blocking arming (U < UMin)
 80.374357 | TAP_CHANGER_LOCK | TCB : tap changers blocking disarming (U > UMin)
-89.999982 | TAP_CHANGER_LOAD_2 | Tap position change (increment) - value : 58.512544
-89.999982 | TAP_CHANGER_LOAD_3 | Tap position change (increment) - value : 60.868718
-89.999982 | TAP_CHANGER_LOAD_2 | Tap position change (increment) - value : 58.512544
-89.999982 | TAP_CHANGER_LOAD_3 | Tap position change (increment) - value : 60.868718
+89.999982 | TAP_CHANGER_LOAD_2 | Tap position change (increment) - value : 58.512544kV
+89.999982 | TAP_CHANGER_LOAD_3 | Tap position change (increment) - value : 60.868718kV
+89.999982 | TAP_CHANGER_LOAD_2 | Tap position change (increment) - value : 58.512544kV
+89.999982 | TAP_CHANGER_LOAD_3 | Tap position change (increment) - value : 60.868718kV
 89.999982 | TAP_CHANGER_LOCK | TCB : tap changers blocking arming (U < UMin)
-99.999980 | TAP_CHANGER_LOAD_2 | Tap position change (increment) - value : 59.035540
-99.999980 | TAP_CHANGER_LOAD_3 | Tap position change (increment) - value : 61.402989
-99.999980 | TAP_CHANGER_LOAD_2 | Tap position change (increment) - value : 59.035540
-99.999980 | TAP_CHANGER_LOAD_3 | Tap position change (increment) - value : 61.402989
-109.999978 | TAP_CHANGER_LOAD_2 | Tap position change (increment) - value : 59.557010
-109.999978 | TAP_CHANGER_LOAD_3 | Tap position change (increment) - value : 61.935707
+99.999980 | TAP_CHANGER_LOAD_2 | Tap position change (increment) - value : 59.035540kV
+99.999980 | TAP_CHANGER_LOAD_3 | Tap position change (increment) - value : 61.402989kV
+99.999980 | TAP_CHANGER_LOAD_2 | Tap position change (increment) - value : 59.035540kV
+99.999980 | TAP_CHANGER_LOAD_3 | Tap position change (increment) - value : 61.402989kV
+109.999978 | TAP_CHANGER_LOAD_2 | Tap position change (increment) - value : 59.557010kV
+109.999978 | TAP_CHANGER_LOAD_3 | Tap position change (increment) - value : 61.935707kV
 109.999978 | TAP_CHANGER_LOCK | TCB : tap changers blocking order activated on area
-109.999978 | TAP_CHANGER_LOAD_2 | Tap position change (increment) - value : 59.557010
-109.999978 | TAP_CHANGER_LOAD_3 | Tap position change (increment) - value : 61.935707
+109.999978 | TAP_CHANGER_LOAD_2 | Tap position change (increment) - value : 59.557010kV
+109.999978 | TAP_CHANGER_LOAD_3 | Tap position change (increment) - value : 61.935707kV
 109.999978 | TAP_CHANGER_LOCK | TCB : tap changers blocking order activated on area
-119.999976 | TAP_CHANGER_LOAD_2 | Tap position change (increment) - value : 60.076960
-119.999976 | TAP_CHANGER_LOAD_3 | Tap position change (increment) - value : 62.466893
+119.999976 | TAP_CHANGER_LOAD_2 | Tap position change (increment) - value : 60.076960kV
+119.999976 | TAP_CHANGER_LOAD_3 | Tap position change (increment) - value : 62.466893kV
 119.999976 | TAP_CHANGER_LOCK | TCB : high voltage tap changers blocked on area
 119.999976 | TAP_CHANGER_LOCK | TCB : low voltage tap changers blocked on area
-119.999976 | TAP_CHANGER_LOAD_2 | Tap position change (increment) - value : 60.076960
-119.999976 | TAP_CHANGER_LOAD_3 | Tap position change (increment) - value : 62.466893
+119.999976 | TAP_CHANGER_LOAD_2 | Tap position change (increment) - value : 60.076960kV
+119.999976 | TAP_CHANGER_LOAD_3 | Tap position change (increment) - value : 62.466893kV
 119.999976 | TAP_CHANGER_LOCK | TCB : high voltage tap changers blocked on area
 119.999976 | TAP_CHANGER_LOCK | TCB : low voltage tap changers blocked on area
-119.999976 | TAP_CHANGER_LOAD_2 | Tap position change (increment) - value : 60.076960
-119.999976 | TAP_CHANGER_LOAD_3 | Tap position change (increment) - value : 62.466893
+119.999976 | TAP_CHANGER_LOAD_2 | Tap position change (increment) - value : 60.076960kV
+119.999976 | TAP_CHANGER_LOAD_3 | Tap position change (increment) - value : 62.466893kV
 119.999976 | TAP_CHANGER_LOCK | TCB : high voltage tap changers blocked on area
 119.999976 | TAP_CHANGER_LOCK | TCB : low voltage tap changers blocked on area
