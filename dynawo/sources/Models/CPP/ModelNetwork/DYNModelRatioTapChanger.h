@@ -74,9 +74,10 @@ class ModelRatioTapChanger : public ModelTapChanger {
    * @param locked : is the tap changer locked ?
    * @param tfoClosed :is the transformer connected ?
    * @param network : network of the transformer
+   * @param deactivateZeroCrossingFunctions option to deactivate zero crossing functions
    */
   void evalZ(double t, const state_g* g, double disable,
-             bool nodeOff, double locked, bool tfoClosed, ModelNetwork* network, bool deactivateRootFunctions);
+             bool nodeOff, double locked, bool tfoClosed, ModelNetwork* network, bool deactivateZeroCrossingFunctions);
 
   /**
    * @brief  get the size of the local G function

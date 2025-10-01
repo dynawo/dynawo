@@ -107,7 +107,7 @@ ModelSwitch::evalNodeInjection() {
 }
 
 NetworkComponent::StateChange_t
-ModelSwitch::evalZ(const double /*t*/, bool /*deactivateRootFunctions*/) {
+ModelSwitch::evalZ(const double /*t*/, bool /*deactivateZeroCrossingFunctions*/) {
   const State currState = static_cast<State>(static_cast<int>(z_[0]));
   if (currState != getConnectionState()) {
     topologyModified_ = true;

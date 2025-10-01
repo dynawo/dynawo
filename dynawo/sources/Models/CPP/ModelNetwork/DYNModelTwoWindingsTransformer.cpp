@@ -1146,31 +1146,31 @@ ModelTwoWindingsTransformer::defineElements(std::vector<Element>& elements, std:
 }
 
 NetworkComponent::StateChange_t
-ModelTwoWindingsTransformer::evalZ(const double t, bool deactivateRootFunctions) {
+ModelTwoWindingsTransformer::evalZ(const double t, bool deactivateZeroCrossingFunctions) {
   int offsetRoot = 0;
   ModelCurrentLimits::state_t currentLimitState;
 
-  if (currentLimits1_ && !deactivateRootFunctions) {
-    currentLimitState = currentLimits1_->evalZ(id(), t, &g_[offsetRoot], currentLimitsDesactivate_, modelType_, network_, deactivateRootFunctions);
+  if (currentLimits1_ && !deactivateZeroCrossingFunctions) {
+    currentLimitState = currentLimits1_->evalZ(id(), t, &g_[offsetRoot], currentLimitsDesactivate_, modelType_, network_, deactivateZeroCrossingFunctions);
     offsetRoot += currentLimits1_->sizeG();
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
       z_[connectionStateNum_] = OPEN;
   }
 
-  if (currentLimits2_ && !deactivateRootFunctions) {
-    currentLimitState = currentLimits2_->evalZ(id(), t, &g_[offsetRoot], currentLimitsDesactivate_, modelType_, network_, deactivateRootFunctions);
+  if (currentLimits2_ && !deactivateZeroCrossingFunctions) {
+    currentLimitState = currentLimits2_->evalZ(id(), t, &g_[offsetRoot], currentLimitsDesactivate_, modelType_, network_, deactivateZeroCrossingFunctions);
     offsetRoot += currentLimits2_->sizeG();
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
       z_[connectionStateNum_] = OPEN;
   }
 
-  if (modelRatioChanger_ && modelBusMonitored_ && !deactivateRootFunctions) {
+  if (modelRatioChanger_ && modelBusMonitored_ && !deactivateZeroCrossingFunctions) {
     modelRatioChanger_->evalZ(t, &(g_[offsetRoot]), disableInternalTapChanger_, modelBusMonitored_->getSwitchOff(), tapChangerLocked_,
-        getConnectionState() == CLOSED, network_, deactivateRootFunctions);
+        getConnectionState() == CLOSED, network_, deactivateZeroCrossingFunctions);
     offsetRoot += modelRatioChanger_->sizeG();
   }
 
-  if (modelPhaseChanger_ && !deactivateRootFunctions) {
+  if (modelPhaseChanger_ && !deactivateZeroCrossingFunctions) {
     const double ur1Val = ur1();
     const double ui1Val = ui1();
     const double ur2Val = ur2();
@@ -1179,7 +1179,7 @@ ModelTwoWindingsTransformer::evalZ(const double t, bool deactivateRootFunctions)
     const double pSide2 = P2(ur1Val, ui1Val, ur2Val, ui2Val);
     const bool P1SupP2 = (pSide1 > pSide2);
     modelPhaseChanger_->evalZ(t, &g_[offsetRoot], disableInternalTapChanger_, P1SupP2,
-      tapChangerLocked_, getConnectionState() == CLOSED, network_, deactivateRootFunctions);
+      tapChangerLocked_, getConnectionState() == CLOSED, network_, deactivateZeroCrossingFunctions);
   }
 
   switch (knownBus_) {

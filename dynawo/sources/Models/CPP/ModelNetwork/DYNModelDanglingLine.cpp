@@ -682,10 +682,10 @@ ModelDanglingLine::defineElements(std::vector<Element> &elements, std::map<std::
 }
 
 NetworkComponent::StateChange_t
-ModelDanglingLine::evalZ(const double t, bool deactivateRootFunctions) {
-  if (currentLimits_ && !deactivateRootFunctions) {
+ModelDanglingLine::evalZ(const double t, bool deactivateZeroCrossingFunctions) {
+  if (currentLimits_ && !deactivateZeroCrossingFunctions) {
     ModelCurrentLimits::state_t currentLimitState;
-    currentLimitState = currentLimits_->evalZ(id(), t, &g_[0], currentLimitsDesactivate_, modelType_, network_, deactivateRootFunctions);
+    currentLimitState = currentLimits_->evalZ(id(), t, &g_[0], currentLimitsDesactivate_, modelType_, network_, deactivateZeroCrossingFunctions);
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
       z_[0] = OPEN;
   }

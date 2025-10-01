@@ -107,10 +107,10 @@ ModelCurrentLimits::constraintData(const constraints::ConstraintData::kind_t& ki
 
 ModelCurrentLimits::state_t
 ModelCurrentLimits::evalZ(const string& componentName, const double t, const state_g* g, const double desactivate,
-    const string& modelType, ModelNetwork* network, bool deactivateRootFunctions) {
+    const string& modelType, ModelNetwork* network, bool deactivateZeroCrossingFunctions) {
   state_t state = COMPONENT_CLOSE;
   using constraints::ConstraintData;
-  if (deactivateRootFunctions)
+  if (deactivateZeroCrossingFunctions)
     return state;
 
   for (unsigned int i = 0; i < limits_.size(); ++i) {

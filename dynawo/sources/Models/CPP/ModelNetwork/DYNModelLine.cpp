@@ -859,19 +859,19 @@ ModelLine::defineElements(std::vector<Element>& elements, std::map<std::string, 
 }
 
 NetworkComponent::StateChange_t
-ModelLine::evalZ(const double t, bool deactivateRootFunctions) {
+ModelLine::evalZ(const double t, bool deactivateZeroCrossingFunctions) {
   int offsetRoot = 0;
   ModelCurrentLimits::state_t currentLimitState;
 
-  if (currentLimits1_ && !deactivateRootFunctions) {
-    currentLimitState = currentLimits1_->evalZ(id(), t, &g_[offsetRoot], currentLimitsDesactivate_, modelType_, network_, deactivateRootFunctions);
+  if (currentLimits1_ && !deactivateZeroCrossingFunctions) {
+    currentLimitState = currentLimits1_->evalZ(id(), t, &g_[offsetRoot], currentLimitsDesactivate_, modelType_, network_, deactivateZeroCrossingFunctions);
     offsetRoot += currentLimits1_->sizeG();
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
       z_[0] = OPEN;
   }
 
-  if (currentLimits2_ && !deactivateRootFunctions) {
-    currentLimitState = currentLimits2_->evalZ(id(), t, &g_[offsetRoot], currentLimitsDesactivate_, modelType_, network_, deactivateRootFunctions);
+  if (currentLimits2_ && !deactivateZeroCrossingFunctions) {
+    currentLimitState = currentLimits2_->evalZ(id(), t, &g_[offsetRoot], currentLimitsDesactivate_, modelType_, network_, deactivateZeroCrossingFunctions);
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
       z_[0] = OPEN;
   }

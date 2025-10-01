@@ -399,7 +399,7 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
   bool isInit_;  ///< whether the current process is the initialization process
   bool isInitModel_;  ///< whether the current model used is the init one
   bool withNodeBreakerTopology_;  ///< whether at least one voltageLevel has node breaker topology view
-  bool deactivateRootFunctions_;  ///< whether we use root functions
+  bool deactivateZeroCrossingFunctions_;  ///< whether we use root functions
 
   std::unique_ptr<ModelBusContainer> busContainer_;  ///< all network buses
   std::vector<std::shared_ptr<ModelVoltageLevel> > vLevelComponents_;  ///< all voltage level components

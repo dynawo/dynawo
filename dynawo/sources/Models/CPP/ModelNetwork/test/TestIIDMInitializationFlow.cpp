@@ -283,7 +283,6 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingTransformerParam) {
   ASSERT_EQ(modelNetwork->hasParameter("transformer_tNext_HT", isInitParam), true);
   ASSERT_EQ(modelNetwork->hasParameter("transformer_tolV", isInitParam), true);
 
-  modelNetwork->setSubModelParameters();
   ASSERT_NO_THROW(modelNetwork->setSubModelParameters());
 
   modelNetwork->setParameterValue("transformer_currentLimit_maxTimeOperation", PAR, 7., isInitParam);

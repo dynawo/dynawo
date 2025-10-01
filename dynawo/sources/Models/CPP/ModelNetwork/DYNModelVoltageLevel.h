@@ -226,7 +226,7 @@ class ModelVoltageLevel : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::evalZ(double t)
    */
-  NetworkComponent::StateChange_t evalZ(double t, bool deactivateRootFunctions) override;
+  NetworkComponent::StateChange_t evalZ(double t, bool deactivateZeroCrossingFunctions) override;
 
   /**
    * @copydoc NetworkComponent::evalState(double time)

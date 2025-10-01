@@ -74,12 +74,12 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
    * @param desactivate @b true if the current limits is off
    * @param modelType type of the model
    * @param network model of network
-   * @param network model of deactivateRootFunctions
+   * @param deactivateZeroCrossingFunctions option to deactivate zero crossing functions
    *
    * @return the state of the current limits
    */
   state_t evalZ(const std::string& componentName, double t, const state_g* g, double desactivate,
-    const std::string& modelType, ModelNetwork* network, bool deactivateRootFunctions);  // compute the local Z function
+    const std::string& modelType, ModelNetwork* network, bool deactivateZeroCrossingFunctions);  // compute the local Z function
 
   /**
    * @brief add a new current limit (pu base UNom, base SNRef)
