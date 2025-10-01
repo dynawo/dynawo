@@ -48,7 +48,7 @@
         <reference type="DOUBLE" name="GFM_U0Pu" origData="IIDM" origName="v_pu"/>
         <reference type="DOUBLE" name="GFM_UPhase0" origData="IIDM" origName="angle_pu"/>
     </set>
-    <set id="GFM">
+    <set id="GFM_CCControl_VSM">
         <par type="DOUBLE" name="converter_SNom" value="75"/>
         <par type="DOUBLE" name="converter_Cdc" value="0.01"/>
         <par type="DOUBLE" name="converter_RFilter" value="0.005"/>
