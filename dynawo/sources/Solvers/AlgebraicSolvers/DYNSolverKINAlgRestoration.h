@@ -125,7 +125,6 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
    */
   void setInitialValues(double t, const std::vector<double>& y, const std::vector<double>& yp);
 
-#if _DEBUG_
   /**
    * @brief set check jacobian during evalF
    * @param checkJacobian enable or disable the jacobian sanity check
@@ -133,7 +132,6 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   void setCheckJacobian(const bool checkJacobian) {
     checkJacobian_ = checkJacobian;
   }
-#endif
 
   /**
   * @brief clean sundials structures to force a new algebraic restoration setup
@@ -206,7 +204,6 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   void updateKINSOLSettings(double fnormtol, double initialaddtol, double scsteptol, double mxnewtstep,
                             int msbset, int mxiter, int printfl) const;
 
-#if _DEBUG_
   /**
    * @brief Check jacobian
    *
@@ -214,9 +211,10 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
    *
    * @param smj the jacobian to check
    * @param model the model currelty used
+   * @param ignoreF equations to erase form the initial set of equations
+   * @param ignoreY variables to erase form the initial set of variables
    */
-  static void checkJacobian(const SparseMatrix& smj, Model& model);
-#endif
+  static void checkJacobian(const SparseMatrix& smj, Model& model, const std::unordered_set<int>& ignoreF, const std::unordered_set<int>& ignoreY);
 
   /**
   * @brief get mode
@@ -242,9 +240,7 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   std::vector<int> indexY_;  ///< variables to keep form the initial set of variables
   modeKin_t mode_;  ///< mode of the solver (i.e. algebraic equations or derivative)
 
-#if _DEBUG_
   bool checkJacobian_;  ///< Check jacobian
-#endif
 };
 
 }  // end of namespace DYN
