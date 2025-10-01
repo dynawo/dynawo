@@ -212,7 +212,6 @@ SolverNbModeEval              =             number of mode evaluations          
 SolverNbModeEvalDiff          =             number of differential mode                                = %1%
 SolverNbModeEvalAlg           =             number of algebraic mode                                   = %1%
 SolverNbModeEvalAlgJ          =             number of algebraic J update mode                          = %1%
-SolverNbSymoblicJ             =             number of symbolic J                                       = %1%
 // --> Common to both solvers
 CalculateIC                   =             calculate initial condition of the DAE
 EndCalculateIC                =             end of calculate initial condition of the DAE

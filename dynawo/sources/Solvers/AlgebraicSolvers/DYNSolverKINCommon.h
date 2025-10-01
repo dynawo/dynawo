@@ -77,6 +77,7 @@ class SolverKINCommon {
 
   /**
    * @brief common parts for the solve method (scaling vectors copy, call to KINSOL, analyseflag)
+   * @param strategy strategy of KINSOL resolution, KIN_NONE or KIN_LINESEARCH
    * @return a flag indicating the resolution status
    */
   int solveCommon(int strategy);

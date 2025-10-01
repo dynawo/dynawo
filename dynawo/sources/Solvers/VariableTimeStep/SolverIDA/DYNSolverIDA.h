@@ -256,7 +256,7 @@ class SolverIDA : public Solver::Impl {
   bool setupNewAlgRestoration(modeChangeType_t modeChangeType) override;
 
   /**
-  * @brief set the index of each differential variables
+  * @brief update the statistics related to an algebraic restoration
   */
   void updateAlgebraicRestorationStatistics();
 
@@ -266,8 +266,8 @@ class SolverIDA : public Solver::Impl {
   void setDifferentialVariablesIndices();
 
   /**
-  * @brief name of the solver
-  * @return name of the solver
+  * @brief all logs getter
+  * @return all logs value
   */
   bool getAllLogs() const {
     return allLogs_;
@@ -288,13 +288,13 @@ class SolverIDA : public Solver::Impl {
   double maxStep_;  ///< maximum step size
   double absAccuracy_;  ///< relative error tolerance
   double relAccuracy_;  ///< absolute error tolerance
-  bool printReinitResiduals_;  ///< test
+  bool printReinitResiduals_;  ///< print reinit residuals in logs
 
   bool flagInit_;  ///< @b true if the solver is in initialization mode
   int nbLastTimeSimulated_;  ///< nb times of simulation of the latest time (to see if the solver succeed to pass through event at one point)
 
   sunindextype* lastRowVals_;  ///< save of last Jacobian structure, to force symbolic factorization if structure change
-  bool allLogs_;  ///< test
+  bool allLogs_;  ///< print residuals during newton resolution
 };
 
 }  // end of namespace DYN

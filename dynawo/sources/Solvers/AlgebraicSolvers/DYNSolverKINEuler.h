@@ -126,9 +126,9 @@ class SolverKINEuler : public SolverKINCommon, private boost::noncopyable {
   }
 
   /**
-  * @brief Time-scheme solver instance getter
+  * @brief all logs getter
   *
-  * @return instance of the time-scheme solver
+  * @return all logs value
   */
   bool getAllLogs() const {
     return allLogs_;

@@ -614,8 +614,8 @@ TEST(SimulationTest, testSolverOptimizeAlgebraicResidualsEvaluations) {
   solver->solve(tStop, tCurrent);
   msg.str(std::string());
   msg << "¦ " << std::setw(8) << 4 << " "
-          << std::setw(16) << 0 << " "
-          << std::setw(10) << 0 << " "
+          << std::setw(16) << 1 << " "
+          << std::setw(10) << 1 << " "
           << std::setw(18) << 1 << " ";
   msgRef.str(std::string());
   solver->printSolveSpecific(msgRef);
@@ -630,8 +630,8 @@ TEST(SimulationTest, testSolverOptimizeAlgebraicResidualsEvaluations) {
   solver->reinit();
   msg.str(std::string());
   msg << "¦ " << std::setw(8) << 6 << " "
-          << std::setw(16) << 0 << " "
-          << std::setw(10) << 0 << " "
+          << std::setw(16) << 2 << " "
+          << std::setw(10) << 1 << " "
           << std::setw(18) << 1 << " ";
   msgRef.str(std::string());
   solver->printSolveSpecific(msgRef);
@@ -698,8 +698,8 @@ TEST(SimulationTest, testSolverOptimizeAlgebraicResidualsEvaluationsAndSkipNR) {
   solver->solve(tStop, tCurrent);
   msg.str(std::string());
   msg << "¦ " << std::setw(8) << 4 << " "
-          << std::setw(16) << 0 << " "
-          << std::setw(10) << 0 << " "
+          << std::setw(16) << 1 << " "
+          << std::setw(10) << 1 << " "
           << std::setw(18) << 1 << " ";
   msgRef.str(std::string());
   solver->printSolveSpecific(msgRef);
@@ -715,8 +715,8 @@ TEST(SimulationTest, testSolverOptimizeAlgebraicResidualsEvaluationsAndSkipNR) {
   solver->reinit();
   msg.str(std::string());
   msg << "¦ " << std::setw(8) << 6 << " "
-          << std::setw(16) << 0 << " "
-          << std::setw(10) << 0 << " "
+          << std::setw(16) << 2 << " "
+          << std::setw(10) << 1 << " "
           << std::setw(18) << 1 << " ";
   msgRef.str(std::string());
   solver->printSolveSpecific(msgRef);

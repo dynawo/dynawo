@@ -218,6 +218,9 @@ Solver::Impl::resetStats() {
   stats_.nre_ = 0;
   stats_.nni_ = 0;
   stats_.nje_ = 0;
+  stats_.nreTotal_ = 0;
+  stats_.nniTotal_ = 0;
+  stats_.njeTotal_ = 0;
   stats_.netf_ = 0;
   stats_.ncfn_ = 0;
   stats_.ngeInternal_ = 0;

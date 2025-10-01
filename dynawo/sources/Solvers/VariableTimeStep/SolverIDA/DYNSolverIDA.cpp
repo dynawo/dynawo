@@ -338,6 +338,9 @@ SolverIDA::init(const std::shared_ptr<Model>& model, const double t0, const doub
   solverKINNormal_->init(model_, SolverKINAlgRestoration::KIN_ALGEBRAIC);
   solverKINYPrim_.reset(new SolverKINAlgRestoration(printReinitResiduals_));
   solverKINYPrim_->init(model_, SolverKINAlgRestoration::KIN_DERIVATIVES);
+
+  if (allLogs_ || printReinitResiduals_)
+    model_->setFequationsModel();  ///< set formula for modelica models' equations and Network models' equations
 }
 
 void
@@ -433,7 +436,7 @@ SolverIDA::calculateIC(double tEnd) {
     model_->evalG(tSolve_, g1_);
     ++stats_.ngeInternal_;
     if (!(std::equal(g0_.begin(), g0_.end(), g1_.begin()))) {
-      if (allLogs_)
+      if (printUnstableRoot_)
         printUnstableRoot(tSolve_, g0_, g1_);
       g0_.assign(g1_.begin(), g1_.end());
       change = evalZMode(g0_, g1_, tSolve_);
@@ -758,10 +761,16 @@ void SolverIDA::updateAlgebraicRestorationStatistics() {
   solverKINNormal_->updateStatistics(nNewt, nre, nje);
   stats_.nreAlgebraic_ += nre;
   stats_.njeAlgebraic_ += nje;
+  stats_.nreTotal_ += nre;
+  stats_.nniTotal_ += nNewt;
+  stats_.njeTotal_ += nje;
 
   solverKINYPrim_->updateStatistics(nNewt, nre, nje);
   stats_.nreAlgebraicPrim_ += nre;
   stats_.njeAlgebraicPrim_ += nje;
+  stats_.nreTotal_ += nre;
+  stats_.nniTotal_ += nNewt;
+  stats_.njeTotal_ += nje;
 }
 
 /*

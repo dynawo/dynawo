@@ -43,7 +43,7 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   /**
    * @brief default constructor
    */
-  explicit SolverKINAlgRestoration(bool printReinitResiduals);
+  explicit SolverKINAlgRestoration(const bool printReinitResiduals);
 
   /**
    * @brief destructor
@@ -96,7 +96,7 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
    * @return the flag value
    * @param noInitSetup indicates if the J should be evaluated or not at the first iteration
    * @param evaluateOnlyModeAtFirstIter indicates if only residuals of models with mode change should be evaluated
-   * @param multipleStrategiesForAlgebraicRestoration indicates if we try to use mutliple strategies for restoration
+   * @param multipleStrategiesForAlgebraicRestoration indicates if we try to use multiple strategies for restoration
    */
   int solve(bool noInitSetup = true, bool evaluateOnlyModeAtFirstIter = false, bool multipleStrategiesForAlgebraicRestoration = false);
 
@@ -252,9 +252,10 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   void cleanAlgebraicVectors();
 
   /**
-  * @brief clean sundials vectors allocated by this class
+  * @brief print reinit residuals getter
+  * @return print reinit residuals in logs
   */
-  bool printResiduals() {
+  bool printResiduals() const {
     return printReinitResiduals_;
   }
 

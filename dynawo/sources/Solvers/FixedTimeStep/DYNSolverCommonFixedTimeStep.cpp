@@ -167,14 +167,18 @@ SolverCommonFixedTimeStep::initCommon(const std::shared_ptr<Model> &model, const
     solverKINEuler_->init(model, this, fnormtol_, initialaddtol_, scsteptol_, mxnewtstep_, msbset_, mxiter_, printfl_, sundialsVectorY_, allLogs_);
   }
 
-  solverKINAlgRestoration_.reset(new SolverKINAlgRestoration(false));
+  constexpr bool printReinitResiduals = false;
+  solverKINAlgRestoration_.reset(new SolverKINAlgRestoration(printReinitResiduals));
   solverKINAlgRestoration_->init(model_, SolverKINAlgRestoration::KIN_ALGEBRAIC);
   if (hasPrediction()) {
-    solverKINYPrim_.reset(new SolverKINAlgRestoration(false));
+    solverKINYPrim_.reset(new SolverKINAlgRestoration(printReinitResiduals));
     getSolverKINYPrim().init(model_, SolverKINAlgRestoration::KIN_DERIVATIVES);
   }
 
   setDifferentialVariablesIndices();
+
+  if (allLogs_)
+    model_->setFequationsModel();  ///< set formula for modelica models' equations and Network models' equations
 
   Trace::debug() << DYNLog(SolverFixedTimeStepInitOK, solverType()) << Trace::endline;
 }
@@ -478,6 +482,9 @@ SolverCommonFixedTimeStep::reinit() {
     solverKINAlgRestoration_->updateStatistics(nNewt_, nre, nje);
     stats_.nreAlgebraic_ += nre;
     stats_.njeAlgebraic_ += nje;
+    stats_.nreTotal_ += nre;
+    stats_.nniTotal_ += nNewt_;
+    stats_.njeTotal_ += nje;
 
     // If the initial guess is fine, nor the variables neither the time would have changed so we can return here and skip following treatments
     if (flag == KIN_INITIAL_GUESS_OK) {
@@ -499,6 +506,9 @@ SolverCommonFixedTimeStep::reinit() {
       solverKINYPrim.updateStatistics(nNewt_, nre, nje);
       stats_.nreAlgebraic_ += nre;
       stats_.njeAlgebraic_ += nje;
+      stats_.nreTotal_ += nre;
+      stats_.nniTotal_ += nNewt_;
+      stats_.njeTotal_ += nje;
     }
 
     model_->reinitMode();
@@ -541,8 +551,8 @@ SolverCommonFixedTimeStep::printHeaderSpecific(std::stringstream& ss) const {
 void
 SolverCommonFixedTimeStep::printSolveSpecific(std::stringstream& msg) const {
   msg << "¦ " << setw(8) << stats_.nst_ << " "
-          << setw(16) << stats_.nni_ << " "
-          << setw(10) << stats_.nje_ << " "
+          << setw(16) << stats_.nniTotal_ << " "
+          << setw(10) << stats_.njeTotal_ << " "
           << setw(18) << h_ << " ";
 }
 
