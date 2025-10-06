@@ -7,6 +7,8 @@ var searchData=
   ['lastparentdirectory',['lastParentDirectory',['../d4/ddf/a00488.html#af4ea352221a931cbbf2064d8028282c7',1,'DYNFileSystemUtils.h']]],
   ['lastrowvals_5f',['lastRowVals_',['../dd/de1/a03223.html#a131c8860d99558910296d67910b9a592',1,'DYN::SolverKINCommon::lastRowVals_()'],['../da/dbb/a03291.html#ad0b3d9b63153d2a9ea4b91592ee4a081',1,'DYN::SolverIDA::lastRowVals_()']]],
   ['lasttime_5f',['lastTime_',['../df/d4a/a03051.html#a4f96c000662cd97aebd142fe4def02b7',1,'DYN::ModelCentralizedShuntsSectionControl']]],
+  ['latestivalue_5f',['latestIValue_',['../dc/d9b/a03155.html#aae9f08c43877ae04123813a60a7e6f21',1,'DYN::ModelPhaseTapChanger']]],
+  ['latestuvalue_5f',['latestUValue_',['../d4/dbc/a03159.html#acc21d803b270f0efcc4a21dc04fc7804',1,'DYN::ModelRatioTapChanger']]],
   ['launchingjob',['LaunchingJob',['../d5/d6a/a02515.html#a963225344a251150ba0ad6d5264f567fa0d954580c468a0bed26bf3fe5ac4555f',1,'DYN::KeyLog_t']]],
   ['launchsimu',['launchSimu',['../df/dbc/a01004.html#a52f1b863d11e6aa43f07f2c2ce4f941a',1,'DYNSimulationLauncher.h']]],
   ['lcc_5fconverter',['LCC_CONVERTER',['../d8/dd0/a02711.html#a8089dfd2e85bdc3fc21030715c846872a53adb0161b3d082e47d4e0766d2e872f',1,'DYN::ComponentInterface::LCC_CONVERTER()'],['../d1/db4/a02715.html#a2b86b878e89974293374c1c37ed381c9a80b97e7522513dd812973a549bb36f36',1,'DYN::ConverterInterface::LCC_CONVERTER()']]],

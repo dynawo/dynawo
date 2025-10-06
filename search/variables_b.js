@@ -6,6 +6,8 @@ var searchData=
   ['lastmin_5f',['lastMin_',['../da/de2/a03067.html#a4997cf0cbb47eb4bfd96ecbe3a0b2b2a',1,'DYN::ModelVoltageMeasurementsUtilities']]],
   ['lastrowvals_5f',['lastRowVals_',['../dd/de1/a03223.html#a131c8860d99558910296d67910b9a592',1,'DYN::SolverKINCommon::lastRowVals_()'],['../da/dbb/a03291.html#ad0b3d9b63153d2a9ea4b91592ee4a081',1,'DYN::SolverIDA::lastRowVals_()']]],
   ['lasttime_5f',['lastTime_',['../df/d4a/a03051.html#a4f96c000662cd97aebd142fe4def02b7',1,'DYN::ModelCentralizedShuntsSectionControl']]],
+  ['latestivalue_5f',['latestIValue_',['../dc/d9b/a03155.html#aae9f08c43877ae04123813a60a7e6f21',1,'DYN::ModelPhaseTapChanger']]],
+  ['latestuvalue_5f',['latestUValue_',['../d4/dbc/a03159.html#acc21d803b270f0efcc4a21dc04fc7804',1,'DYN::ModelRatioTapChanger']]],
   ['lccconverteriidm_5f',['lccConverterIIDM_',['../da/d0d/a02955.html#a0c117681e132ecce9dade87d3b7af833',1,'DYN::LccConverterInterfaceIIDM']]],
   ['lccconverters_5f',['lccConverters_',['../d6/d97/a03011.html#a58b02a9cde46813e683b2412eaba3d61',1,'DYN::VoltageLevelInterfaceIIDM']]],
   ['leg_5f',['leg_',['../dd/d15/a02907.html#ac77378e03b2f0741fadb414c9decb348',1,'DYN::FictTwoWTransformerInterfaceIIDM']]],

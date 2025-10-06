@@ -15,6 +15,7 @@ var a03159 =
     [ "setTolV", "d4/dbc/a03159.html#a126c468535a60257594e1892110f11bf", null ],
     [ "sizeG", "d4/dbc/a03159.html#a3d71e596c70c34003343a01e89ae3665", null ],
     [ "sizeZ", "d4/dbc/a03159.html#a0c3749f801440c1c4a61623a116ab0d7", null ],
+    [ "latestUValue_", "d4/dbc/a03159.html#acc21d803b270f0efcc4a21dc04fc7804", null ],
     [ "moveDown_", "d4/dbc/a03159.html#ab4cea6c7e284c677e904d7ef8950194a", null ],
     [ "moveUp_", "d4/dbc/a03159.html#a0517294048c94a59f17396f3e6db7fb4", null ],
     [ "side_", "d4/dbc/a03159.html#ab8761b8c7ce3c434d078306a816f2b58", null ],

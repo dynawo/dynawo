@@ -13,6 +13,7 @@ var a03155 =
     [ "sizeG", "dc/d9b/a03155.html#ab62f214496c4f2556dca9d76a6ff9f45", null ],
     [ "sizeZ", "dc/d9b/a03155.html#a672505ec59dfe6a77780af2f886b2f71", null ],
     [ "currentOverThresholdState_", "dc/d9b/a03155.html#a427dc94a52b90f71f2b8061ba9d3701c", null ],
+    [ "latestIValue_", "dc/d9b/a03155.html#aae9f08c43877ae04123813a60a7e6f21", null ],
     [ "moveDown_", "dc/d9b/a03155.html#a7419c2b9c443fb687ca1ebae55056538", null ],
     [ "moveUp_", "dc/d9b/a03155.html#af96af982d2c7fbddb55ca9c2cd9f4a38", null ],
     [ "tapRefDown_", "dc/d9b/a03155.html#a7f06271c2b435f723f378579e40a3b0d", null ],
