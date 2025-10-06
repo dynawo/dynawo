@@ -33,7 +33,7 @@ model St4c "IEEE exciter type ST4C model (2016 standard)"
 
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(k = Kg, T = tG, y_start = Kg * Efd0Pu) annotation(
     Placement(visible = true, transformation(origin = {250, 160}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax min1(nu = 3) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Min3 min1 annotation(
     Placement(visible = true, transformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const1(k = Kp) annotation(
     Placement(visible = true, transformation(origin = {-310, -220}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -41,12 +41,18 @@ model St4c "IEEE exciter type ST4C model (2016 standard)"
     Placement(visible = true, transformation(origin = {-250, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = Sw1) annotation(
     Placement(visible = true, transformation(origin = {-310, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Min min4 annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Min2 min4 annotation(
     Placement(visible = true, transformation(origin = {70, 180}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const2(k = VgMaxPu) annotation(
     Placement(visible = true, transformation(origin = {130, 200}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.LimitedFirstOrder limitedFirstOrder(Y0 = Efd0Pu / Vb0Pu, YMax = VaMaxPu, YMin = VaMinPu, tFilter = tA) annotation(
     Placement(visible = true, transformation(origin = {270, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.Max3 max1 annotation(
+    Placement(visible = true, transformation(origin = {-230, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.Max3 max2 annotation(
+    Placement(visible = true, transformation(origin = {150, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.Min3 min2 annotation(
+    Placement(visible = true, transformation(origin = {210, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters (inputs)
   parameter Types.VoltageModulePu USclOel0Pu "Stator current overexcitation limitation initial output voltage in pu (base UNom)";
@@ -129,7 +135,7 @@ equation
   connect(division.y, rectifierRegulationCharacteristic.u) annotation(
     Line(points = {{101, -120}, {118, -120}}, color = {0, 0, 127}));
   connect(firstOrder.y, sum1.u[1]) annotation(
-    Line(points = {{-319, 80}, {-283, 80}}, color = {0, 0, 127}));
+    Line(points = {{-339, 80}, {-303, 80}}, color = {0, 0, 127}));
   connect(product.y, firstOrder1.u) annotation(
     Line(points = {{322, 0}, {360, 0}, {360, 160}, {262, 160}}, color = {0, 0, 127}));
   connect(potentialCircuit.vE, switch.u1) annotation(
@@ -144,15 +150,13 @@ equation
     Line(points = {{-238, -180}, {180, -180}, {180, -146}, {198, -146}}, color = {0, 0, 127}));
   connect(add.y, min1.u[1]) annotation(
     Line(points = {{-158, 80}, {-120, 80}}, color = {0, 0, 127}));
-  connect(min1.yMin, limPI1.u) annotation(
-    Line(points = {{-99, 74}, {-80, 74}, {-80, 80}, {-62, 80}}, color = {0, 0, 127}));
-  connect(limPI2.y, max2.u[1]) annotation(
-    Line(points = {{82, 80}, {120, 80}}, color = {0, 0, 127}));
+  connect(min1.y, limPI1.u) annotation(
+    Line(points = {{-99, 80}, {-62, 80}}, color = {0, 0, 127}));
   connect(const2.y, min4.u1) annotation(
     Line(points = {{120, 200}, {100, 200}, {100, 186}, {82, 186}}, color = {0, 0, 127}));
   connect(firstOrder1.y, min4.u2) annotation(
     Line(points = {{240, 160}, {100, 160}, {100, 174}, {82, 174}}, color = {0, 0, 127}));
-  connect(min2.yMin, limitedFirstOrder.u) annotation(
+  connect(min2.y, limitedFirstOrder.u) annotation(
     Line(points = {{222, 80}, {258, 80}}, color = {0, 0, 127}));
   connect(limitedFirstOrder.y, product.u1) annotation(
     Line(points = {{282, 80}, {300, 80}, {300, 6}, {318, 6}}, color = {0, 0, 127}));
@@ -160,6 +164,14 @@ equation
     Line(points = {{60, 180}, {40, 180}, {40, 88}}, color = {0, 0, 127}));
   connect(limPI1.y, feedback.u1) annotation(
     Line(points = {{-38, 80}, {32, 80}}, color = {0, 0, 127}));
+  connect(sum1.y, max1.u[1]) annotation(
+    Line(points = {{-279, 80}, {-241, 80}}, color = {0, 0, 127}));
+  connect(max1.y, add.u1) annotation(
+    Line(points = {{-219, 80}, {-200, 80}, {-200, 86}, {-183, 86}}, color = {0, 0, 127}));
+  connect(limPI2.y, max2.u[1]) annotation(
+    Line(points = {{101, 80}, {139, 80}}, color = {0, 0, 127}));
+  connect(max2.y, min2.u[1]) annotation(
+    Line(points = {{161, 80}, {199, 80}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram");
 end St4c;

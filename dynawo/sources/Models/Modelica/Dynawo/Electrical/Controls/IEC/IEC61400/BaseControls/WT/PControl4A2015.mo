@@ -37,7 +37,7 @@ equation
     Line(points = {{-180, -100}, {78, -100}}, color = {0, 0, 127}));
   connect(UWTPu, firstOrder.u) annotation(
     Line(points = {{-180, 100}, {-2, 100}}, color = {0, 0, 127}));
-  connect(firstOrder.y, max.u2) annotation(
+  connect(firstOrder.y, max1.u2) annotation(
     Line(points = {{22, 100}, {40, 100}, {40, 114}, {58, 114}}, color = {0, 0, 127}));
 
   annotation(

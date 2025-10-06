@@ -111,6 +111,9 @@ OverloadOpen              =             Overload %1% : opening line
 // --> NodeFault
 NodeFaultEnd              =             Fault (node) : end
 NodeFaultBegin            =             Fault (node) : beginning
+// --> LineFault
+LineFaultEnd              =             Fault (line) : end
+LineFaultBegin            =             Fault (line) : beginning
 // --> Ideal Switch
 IdealSwitchSwitchOff      =             Ideal switch opened
 IdealSwitchSwitchOn       =             Ideal switch closed

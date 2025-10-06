@@ -33,11 +33,13 @@ export_var_env() {
 usage="Usage: `basename $0` [option] -- program to deal with Dynawo
 
 where [option] can be:
-    jobs ([args])              call Dynawo's launcher with given arguments
-    jobs-with-curves ([args])  launch Dynawo simulation and open resulting curves in a browser
-    jobs-help                  show jobs help
-    version                    show dynawo version
-    help                       show this message"
+    jobs ([args])                 call Dynawo's launcher with given arguments
+    jobs-with-curves <jobs file>  launch Dynawo simulation and open resulting curves in a browser
+    curves <jobs file>            open resulting curves in a browser
+    jobs-help                     show jobs help
+    update-xml                    update dynawo input files for a new version. See README in sbin/updateXML/content.
+    version                       show dynawo version
+    help                          show this message"
 
 set_environment() {
   export_var_env DYNAWO_INSTALL_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -99,11 +101,23 @@ jobs_with_curves() {
 
   # launch dynawo
   "$DYNAWO_INSTALL_DIR"/bin/launcher "$@" || error_exit "Dynawo job failed."
+  curves "$@"
+  RETURN_CODE=$?
+  return ${RETURN_CODE}
+}
+
+curves() {
+  set_environment
+
   echo "Generating curves visualization pages"
   curves_visu "$@" || error_exit "Error during curves visualisation page generation"
   echo "End of generating curves visualization pages"
   RETURN_CODE=$?
   return ${RETURN_CODE}
+}
+
+update_xml() {
+  $DYNAWO_PYTHON_COMMAND $DYNAWO_HOME/sbin/updateXML/update.py $@
 }
 
 if [ $# -eq 0 ]; then
@@ -123,11 +137,21 @@ while (($#)); do
       jobs_with_curves "$@" || error_exit "Dynawo execution failed"
       break
       ;;
+    curves)
+      shift
+      curves "$@" || error_exit "Curves execution failed"
+      break
+      ;;
     jobs-help)
       shift
       echo "Usage: dynawo.sh jobs <jobs-file>"
       echo "       dynawo.sh jobs [launcher-options]"
       jobs --help || error_exit "Dynawo execution failed"
+      break
+      ;;
+    update-xml)
+      shift
+      update_xml "$@" || error_exit "Error during update xml"
       break
       ;;
     version)

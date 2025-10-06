@@ -40,7 +40,7 @@ partial model BasePControl4 "Base active power control module for type 4 wind tu
     Placement(visible = true, transformation(origin = {10, 60}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Math.Division division annotation(
     Placement(visible = true, transformation(origin = {130, -100}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Modelica.Blocks.Math.Max max annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Max2 max1 annotation(
     Placement(visible = true, transformation(origin = {70, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 0.01) annotation(
     Placement(visible = true, transformation(origin = {10, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -58,13 +58,13 @@ partial model BasePControl4 "Base active power control module for type 4 wind tu
     Dialog(tab = "Operating point"));
 
 equation
-  connect(const.y, max.u1) annotation(
+  connect(const.y, max1.u1) annotation(
     Line(points = {{21, 140}, {40, 140}, {40, 126}, {58, 126}}, color = {0, 0, 127}));
   connect(division.y, ipCmdPu) annotation(
     Line(points = {{142, -100}, {170, -100}}, color = {0, 0, 127}));
   connect(absLimRateLimFirstOrderAntiWindup.y, division.u1) annotation(
     Line(points = {{102, -100}, {110, -100}, {110, -106}, {118, -106}}, color = {0, 0, 127}));
-  connect(max.y, division.u2) annotation(
+  connect(max1.y, division.u2) annotation(
     Line(points = {{82, 120}, {110, 120}, {110, -94}, {118, -94}}, color = {0, 0, 127}));
   connect(ipMaxPu, product1.u1) annotation(
     Line(points = {{-180, 60}, {-20, 60}, {-20, 54}, {-2, 54}}, color = {0, 0, 127}));
