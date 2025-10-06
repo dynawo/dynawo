@@ -40,6 +40,7 @@ equation
   end if;
 
   annotation(
+    preferredView = "text",
     uses(Modelica(version = "3.2.3")),
     Icon(coordinateSystem(
         preserveAspectRatio=true,
@@ -70,7 +71,7 @@ equation
           points={{60,-100},{60,-80}},
           color={255,0,255},
           pattern=LinePattern.Dot)}),
-  Diagram(coordinateSystem(
+    Diagram(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
         Rectangle(extent={{-60,60},{60,-60}}, lineColor={0,0,255}),
