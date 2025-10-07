@@ -17,12 +17,15 @@ model GeneratorPQPropSFR_INIT "Initialisation model for generator PQ based on Si
   extends AdditionalIcons.Init;
 
 equation
-  if QGen0Pu <= QMinPu then
+  if QGenRaw0Pu <= QMinPu then
     qStatus0 = QStatus.AbsorptionMax;
-  elseif QGen0Pu >= QMaxPu then
+    QGen0Pu = QMinPu;
+  elseif QGenRaw0Pu >= QMaxPu then
     qStatus0 = QStatus.GenerationMax;
+    QGen0Pu = QMaxPu;
   else
     qStatus0 = QStatus.Standard;
+    QGen0Pu = QGenRaw0Pu;
   end if;
 
   annotation(preferredView = "text");
