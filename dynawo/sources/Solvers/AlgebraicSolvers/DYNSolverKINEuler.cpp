@@ -43,7 +43,8 @@ namespace DYN {
 
 SolverKINEuler::SolverKINEuler() :
 SolverKINCommon(),
-timeSchemeSolver_(NULL) { }
+timeSchemeSolver_(NULL),
+allLogs_(false) { }
 
 SolverKINEuler::~SolverKINEuler() {
   timeSchemeSolver_ = NULL;
@@ -51,10 +52,11 @@ SolverKINEuler::~SolverKINEuler() {
 
 void
 SolverKINEuler::init(const std::shared_ptr<Model>& model, Solver* timeSchemeSolver, const double fnormtol, const double initialaddtol,
-  const double scsteptol, const double mxnewtstep, const int msbset, const int mxiter, const int printfl, const N_Vector sundialsVectorY) {
+  const double scsteptol, const double mxnewtstep, const int msbset, const int mxiter, const int printfl, const N_Vector sundialsVectorY, bool allLogs) {
   clean();
   model_ = model;
   timeSchemeSolver_ = timeSchemeSolver;
+  allLogs_ = allLogs;
 
   // Problem size
   // ----------------
@@ -100,24 +102,24 @@ SolverKINEuler::evalF_KIN(N_Vector yy, N_Vector rr, void* data) {
     }
   }
 
-#ifdef _DEBUG_
-  // Print the current residual norms, the first one is used as a stopping criterion
-  if (!solver->getFirstIteration()) {
-    memcpy(&solver->vectorF_[0], irr, solver->vectorF_.size() * sizeof(solver->vectorF_[0]));
-  }
-  double weightedInfNorm = SolverCommon::weightedInfinityNorm(solver->vectorF_, solver->vectorFScale_);
-  double wL2Norm = SolverCommon::weightedL2Norm(solver->vectorF_, solver->vectorFScale_);
-  long int current_nni = 0;
-  KINGetNumNonlinSolvIters(solver->KINMem_, &current_nni);
-  Trace::debug() << DYNLog(SolverKINResidualNorm, current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
+  if (solver->getAllLogs()) {
+    // Print the current residual norms, the first one is used as a stopping criterion
+    if (!solver->getFirstIteration()) {
+      memcpy(&solver->vectorF_[0], irr, solver->vectorF_.size() * sizeof(solver->vectorF_[0]));
+    }
+    double weightedInfNorm = SolverCommon::weightedInfinityNorm(solver->vectorF_, solver->vectorFScale_);
+    double wL2Norm = SolverCommon::weightedL2Norm(solver->vectorF_, solver->vectorFScale_);
+    long int current_nni = 0;
+    KINGetNumNonlinSolvIters(solver->KINMem_, &current_nni);
+    Trace::debug() << DYNLog(SolverKINResidualNorm, current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
 
-  constexpr int nbErr = 10;
-  Trace::debug() << DYNLog(KinLargestErrors, nbErr) << Trace::endline;
-  vector<std::pair<double, size_t> > fErr;
-  for (size_t i = 0; i < solver->numF_; ++i)
-    fErr.push_back(std::pair<double, size_t>(solver->vectorF_[i], i));
-  SolverCommon::printLargestErrors(fErr, model, nbErr);
-#endif
+    constexpr int nbErr = 10;
+    Trace::debug() << DYNLog(KinLargestErrors, nbErr) << Trace::endline;
+    vector<std::pair<double, size_t> > fErr;
+    for (size_t i = 0; i < solver->numF_; ++i)
+      fErr.push_back(std::pair<double, size_t>(solver->vectorF_[i], i));
+    SolverCommon::printLargestErrors(fErr, model, nbErr);
+  }
 
   return 0;
 }
@@ -179,7 +181,7 @@ SolverKINEuler::solve(const bool noInitSetup, const bool skipAlgebraicResidualsE
       vectorYScale_[i] = 1. / std::abs(currentY[i]);
   }
 
-  flag = solveCommon();
+  flag = solveCommon(KIN_NONE);
 
   return flag;
 }

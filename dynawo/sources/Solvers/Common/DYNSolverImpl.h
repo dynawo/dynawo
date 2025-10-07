@@ -49,11 +49,22 @@ typedef struct {
   long int nre_;  ///< number of residual evaluations
   long int nni_;  ///< number of nonlinear iterations
   long int nje_;  ///< number of Jacobian evaluations
+  long int nreAlgebraic_;  ///< number of residual evaluations for algebraic restoration
+  long int njeAlgebraic_;  ///< number of Jacobian evaluations for algebraic restoration
+  long int nreAlgebraicPrim_;  ///< number of residual evaluations for derivatives restoration
+  long int njeAlgebraicPrim_;  ///< number of Jacobian evaluations for derivatives restoration
+  long int nreTotal_;  ///< number of residual evaluations + restoration
+  long int nniTotal_;  ///< number of nonlinear iterations + restoration
+  long int njeTotal_;  ///< number of Jacobian evaluations + restoration
   long int netf_;  ///< number of error test failures
   long int ncfn_;  ///< number of nonlinear convergence failures
-  long int nge_;  ///< number of root function evaluations
+  long int ngeInternal_;  ///< number of internal root function evaluations
+  long int ngeSolver_;  ///< number of solver root function evaluations
   long int nze_;  ///< number of discrete variable evaluations
   long int nme_;  ///< number of mode evaluations
+  long int nmeDiff_;  ///< number of differential modes
+  long int nmeAlg_;  ///< number of algebraic mode
+  long int nmeAlgJ_;  ///< number of algebraic with J update mode
 } stat_t;
 
 class Message;
@@ -378,12 +389,15 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   modeChangeType_t minimumModeChangeTypeForAlgebraicRestoration_;  ///< parameter to set the minimum mode level at which algebraic restoration will occur
   modeChangeType_t minimumModeChangeTypeForAlgebraicRestorationInit_;  ///< parameter to set the minimum mode level
                                                                        ///< at which algebraic restoration will occur at init
+  bool multipleStrategiesForAlgebraicRestoration_;  ///< parameter to activate multi strategy for algebraic restoration
+  bool printUnstableRoot_;  ///< to print unstable root in logs
 
   stat_t stats_;  ///< execution statistics of the solver
   double tSolve_;  ///< current internal time of the solver
   BitMask state_;  ///< current state value of the solver
 
   bool startFromDump_;  ///< is solver starting from dump
+  int numDifferentialVariables_;  ///< number of differential variables at the start of the simulation, used for log print only.
 };
 
 }  // end of namespace DYN

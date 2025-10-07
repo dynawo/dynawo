@@ -153,13 +153,11 @@ class SolverIDA : public Solver::Impl {
    */
   void getLastConf(long int &nst, int & kused, double & hused) const;
 
-#ifdef _DEBUG_
   /**
    * @brief indicates which root was activated
    * @return an array showing which root was activated
    */
   std::vector<state_g> getRootsFound() const;
-#endif
 
   /**
    * @brief computes the problem residual for given values of time, state vector
@@ -240,6 +238,12 @@ class SolverIDA : public Solver::Impl {
    */
   double getTimeStep() const override;
 
+  /**
+   * @brief Debug function to print weighted error during newton iterations
+   *
+   */
+  void printWeightedErrors() const;
+
  protected:
   /**
    * @copydoc Solver::Impl::solveStep(double tAim, double &tNxt)
@@ -252,9 +256,22 @@ class SolverIDA : public Solver::Impl {
   bool setupNewAlgRestoration(modeChangeType_t modeChangeType) override;
 
   /**
+  * @brief update the statistics related to an algebraic restoration
+  */
+  void updateAlgebraicRestorationStatistics();
+
+  /**
   * @brief set the index of each differential variables
   */
   void setDifferentialVariablesIndices();
+
+  /**
+  * @brief all logs getter
+  * @return all logs value
+  */
+  bool getAllLogs() const {
+    return allLogs_;
+  }
 
  private:
   void* IDAMem_;  ///< IDA internal memory structure
@@ -271,11 +288,13 @@ class SolverIDA : public Solver::Impl {
   double maxStep_;  ///< maximum step size
   double absAccuracy_;  ///< relative error tolerance
   double relAccuracy_;  ///< absolute error tolerance
+  bool printReinitResiduals_;  ///< print reinit residuals in logs
 
   bool flagInit_;  ///< @b true if the solver is in initialization mode
   int nbLastTimeSimulated_;  ///< nb times of simulation of the latest time (to see if the solver succeed to pass through event at one point)
 
   sunindextype* lastRowVals_;  ///< save of last Jacobian structure, to force symbolic factorization if structure change
+  bool allLogs_;  ///< print residuals during newton resolution
 };
 
 }  // end of namespace DYN
