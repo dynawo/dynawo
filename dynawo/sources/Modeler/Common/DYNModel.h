@@ -26,7 +26,6 @@
 #include <boost/shared_ptr.hpp>
 #include "DYNEnumUtils.h"
 #include "PARParametersSet.h"
-#include "DYNSubModel.h"
 
 namespace timeline {
 class Timeline;
