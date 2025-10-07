@@ -24,7 +24,7 @@ SolveParameters               =             starting local initialization of mod
 SolveParametersOK             =             local initialization of model %1% ended successfully
 SolveParametersFError         =             error > %1% : F[%2%] = %3% equation %4%
 UnstableRoot                  =             instability for root  : %1%
-RootGeq                       =             root: %1% ( model: %2%, equation: %3% )
+RootGeq                       =             root: %1% ( model: %2%, equation: %3%, localIndex: %4% ) at time %5%
 UnstableRootFound             =             at least one root is not stable
 SolveParametersError          =             local initialization of model %1% failed
 IncorrectConnectionDiffSize   =             impossible to connect model :%1% element :%2% to model :%3% element :%4% (different size structure %5% Vs %6%)
@@ -192,17 +192,26 @@ WrongStartTime                =             simulation's start time (%1%) should
 SolverInstableRoot            =             instability for the root  :%1% switch from %2% to %3% at time %4%
 SolverInstableRootFound       =             at least one root is not stable
 SolverNbYVar                  =             number of continuous variables : %1%
+SolverNbYDiffVar              =             number of differential variables : %1%
 SolverNbZVar                  =             number of discrete variables : %1%
 SolverExecutionStats          =             execution statistics :
-SolverNbIter                  =             number of time iterations                  = %1%
-SolverNbResEval               =             number of residual evaluations             = %1%
-SolverNbJacEval               =             number of Jacobian evaluations             = %1%
-SolverNbNonLinIter            =             number of nonlinear iterations             = %1%
-SolverNbErrorTestFail         =             number of error test failures              = %1%
-SolverNbNonLinConvFail        =             number of nonlinear convergence failures   = %1%
-SolverNbRootFuncEval          =             number of root functions evaluations       = %1%
-SolverNbDiscreteVarsEval      =             number of discrete variables evaluations   = %1%
-SolverNbModeEval              =             number of mode evaluations                 = %1%
+SolverNbIter                  =             number of time iterations                                  = %1%
+SolverNbResEval               =             number of residual evaluations                             = %1%
+SolverNbJacEval               =             number of Jacobian evaluations                             = %1%
+SolverNbAlgebraicResEval      =             number of algebraic restoration residual evaluations       = %1%
+SolverNbAlgebraicJacEval      =             number of algebraic restoration Jacobian evaluations       = %1%
+SolverNbAlgebraicPrimResEval  =             number of algebraic prim restoration residual evaluations  = %1%
+SolverNbAlgebraicPrimJacEval  =             number of algebraic prim restoration Jacobian evaluations  = %1%
+SolverNbNonLinIter            =             number of nonlinear iterations                             = %1%
+SolverNbErrorTestFail         =             number of error test failures                              = %1%
+SolverNbNonLinConvFail        =             number of nonlinear convergence failures                   = %1%
+SolverNbSolverRootFuncEval    =             number of solver root functions evaluations                = %1%
+SolverNbInternalRootFuncEval  =             number of internal root functions evaluations              = %1%
+SolverNbDiscreteVarsEval      =             number of discrete variables evaluations                   = %1%
+SolverNbModeEval              =             number of mode evaluations                                 = %1%
+SolverNbModeEvalDiff          =             number of differential mode                                = %1%
+SolverNbModeEvalAlg           =             number of algebraic mode                                   = %1%
+SolverNbModeEvalAlgJ          =             number of algebraic J update mode                          = %1%
 // --> Common to both solvers
 CalculateIC                   =             calculate initial condition of the DAE
 EndCalculateIC                =             end of calculate initial condition of the DAE
@@ -232,7 +241,8 @@ SolverIDAUnknownError         =             unknown error during IDA Solve
 SolverIDARestorAlgebraicEqu   =             restoration of the algebraic equations
 SolverIDADebugResidual        =             DEBUG RESIDUAL
 SolverIDALargestErrors        =             largest errors (= total variation during Newton iterations * weight) for variables - truncated to the first %1%
-SolverIDAErrorValue           =             error > %1% : variable %2%, error %3%
+SolverIDAErrorValue           =             error > %1% : variable %2% %3%, error %4%
+SolverIDANumRootsFound        =             solverIDA: number of roots found %1%
 // --> DYNSolverFixedTimeStep
 SolverFixedTimeStepInitOK     =             initialization of %1% : ok
 SolverFixedTimeStepInitGuessOK =            initial guess of the algebraic solver is accurate, following %1% iterations will be skipped until the next mode change
@@ -262,6 +272,7 @@ KinFirstSysFuncErr            =             the system function failed recoverab
 KinReptdSysfuncErr            =             the system function had repeated recoverable errors
 KinLargestErrors              =             largest errors (truncated to the first %1%) at the current iteration
 KinErrorValue                 =             F[%1%]=%2% (model=%3% index=%4% equation:%5%)
+KinRestart                    =             restart algebraic restoration with new strategy
 SolverEquationsType           =             equation %1% has type %2% (equation:%3%)
 SolverVariablesType           =             variable %1% with index %2% has type %3%
 // --> others...
