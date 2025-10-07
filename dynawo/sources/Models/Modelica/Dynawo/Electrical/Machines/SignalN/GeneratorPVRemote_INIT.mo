@@ -20,12 +20,15 @@ model GeneratorPVRemote_INIT "Initialisation model for generator PV based on Sig
   parameter Types.VoltageModule URegulated0 "Start value of the regulated voltage in kV";
 
 equation
-  if QGen0Pu <= QMinPu and URegulated0 >= URef0 then
+  if QGenRaw0Pu <= QMinPu and URegulated0 >= URef0 then
     qStatus0 = QStatus.AbsorptionMax;
-  elseif QGen0Pu >= QMaxPu and URegulated0 <= URef0 then
+    QGen0Pu = QMinPu;
+  elseif QGenRaw0Pu >= QMaxPu and URegulated0 <= URef0 then
     qStatus0 = QStatus.GenerationMax;
+    QGen0Pu = QMaxPu;
   else
     qStatus0 = QStatus.Standard;
+    QGen0Pu = QGenRaw0Pu;
   end if;
 
   annotation(preferredView = "text");
