@@ -18,6 +18,27 @@ error_exit() {
   exit ${RETURN_CODE}
 }
 
+export_var_env_force() {
+  local var="$@"
+  local name=${var%%=*}
+  local value="${var#*=}"
+
+  if ! `expr $name : "DYNAWO_.*" > /dev/null`; then
+    error_exit "You must export variables with DYNAWO prefix for $name."
+  fi
+
+  if eval "[ \"\$$name\" ]"; then
+    unset $name
+    export $name="$value"
+    return
+  fi
+
+  if [ "$value" = UNDEFINED ]; then
+    error_exit "You must define the value of $name"
+  fi
+  export $name="$value"
+}
+
 export_var_env() {
   var=$@
   name=${var%%=*}
@@ -28,6 +49,14 @@ export_var_env() {
     return
   fi
   export $name="$value"
+}
+
+test_python_command() {
+  if [ -x "$(command -v ${DYNAWO_PYTHON_COMMAND})" ]; then
+    return 0
+  else
+    return 1
+  fi
 }
 
 usage="Usage: `basename $0` [option] -- program to deal with Dynawo
@@ -71,6 +100,12 @@ set_environment() {
   export_var_env DYNAWO_BROWSER=firefox
 
   export_var_env DYNAWO_PYTHON_COMMAND=python
+  if ! test_python_command; then
+    export_var_env_force DYNAWO_PYTHON_COMMAND=python3
+    if ! test_python_command; then
+      error_exit "Your python interpreter \"${DYNAWO_PYTHON_COMMAND}\" does not work. Use export DYNAWO_PYTHON_COMMAND=<Python Interpreter> in your environment."
+    fi
+  fi
 
   export PATH="$DYNAWO_INSTALL_OPENMODELICA/bin:$PATH"
   export PATH="$DYNAWO_INSTALL_DIR/sbin:$PATH"
