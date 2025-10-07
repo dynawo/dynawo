@@ -1001,7 +1001,7 @@ void ModelGeneratorPQ_Dyn::checkParametersCoherence() const
       tmp3 = modelica_integer_to_modelica_string_format((modelica_integer)data->simulationInfo->integerParameter[0] /* generator.NbSwitchOffSignals PARAM */, mmc_strings_len1(100));
       tmpMeta[0] = stringAppend((tmp2),tmp3);
       {
-        omc_assert_warning("The following assertion has been violated %sat time %f\ngenerator.NbSwitchOffSignals >= 1 and generator.NbSwitchOffSignals <= 3", initial() ? "during initialization " : "", data->localData[0]->timeValue);
+        omc_assert_warning("The following assertion has been violated %sat time %f: generator.NbSwitchOffSignals >= 1 and generator.NbSwitchOffSignals <= 3", initial() ? "during initialization " : "", data->localData[0]->timeValue);
         omc_assert_warning_withEquationIndexes(equationIndexes, (tmpMeta[0]));
       }
       tmp4 = 1;
@@ -1028,7 +1028,7 @@ void ModelGeneratorPQ_Dyn::checkParametersCoherence() const
       tmp8 = modelica_integer_to_modelica_string_format((modelica_integer)data->simulationInfo->integerParameter[1] /* generator.State0 PARAM */, mmc_strings_len1(100));
       tmpMeta[0] = stringAppend((tmp7),tmp8);
       {
-        omc_assert_warning("The following assertion has been violated %sat time %f\ngenerator.State0 >= Dynawo.Electrical.Constants.state.Open and generator.State0 <= Dynawo.Electrical.Constants.state.Undefined", initial() ? "during initialization " : "", data->localData[0]->timeValue);
+        omc_assert_warning("The following assertion has been violated %sat time %f: generator.State0 >= Dynawo.Electrical.Constants.state.Open and generator.State0 <= Dynawo.Electrical.Constants.state.Undefined", initial() ? "during initialization " : "", data->localData[0]->timeValue);
         omc_assert_warning_withEquationIndexes(equationIndexes, (tmpMeta[0]));
       }
       tmp9 = 1;
