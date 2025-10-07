@@ -50,6 +50,7 @@ var a02515 =
       [ "DanglingLineExtDynModel", "d5/d6a/a02515.html#a963225344a251150ba0ad6d5264f567fac1abb889248841546625f52d1c149349", null ],
       [ "DanglingLineStateChange", "d5/d6a/a02515.html#a963225344a251150ba0ad6d5264f567fafe41b1f740ab8c5f2942c0718ecb2362", null ],
       [ "DeactivateCurrentLimits", "d5/d6a/a02515.html#a963225344a251150ba0ad6d5264f567fa6b0c6a71e88568537f2991c29297379c", null ],
+      [ "DelayMode", "d5/d6a/a02515.html#a963225344a251150ba0ad6d5264f567fae7887ca088b629cab1ce604b9ba2927f", null ],
       [ "DisableInternalTapChanger", "d5/d6a/a02515.html#a963225344a251150ba0ad6d5264f567fad7f93ea4ad83eb18c42461dda5021956", null ],
       [ "DynamicConnect", "d5/d6a/a02515.html#a963225344a251150ba0ad6d5264f567fa08e8901e7079343df1ac1f004d1064de", null ],
       [ "DynamicConnectStart", "d5/d6a/a02515.html#a963225344a251150ba0ad6d5264f567fa143879689167b7226f503538205284ad", null ],

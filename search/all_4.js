@@ -53,6 +53,7 @@ var searchData=
   ['delaymanager',['DelayManager',['../d6/d79/a02611.html',1,'DYN::DelayManager'],['../d6/d79/a02611.html#a60c0fcc03a4d7ecf7d7f855e13262994',1,'DYN::DelayManager::DelayManager()']]],
   ['delaymanager_5f',['delayManager_',['../de/dc6/a03019.html#af718e119eca1ee2c3090b3cfd6885905',1,'DYN::ModelManager']]],
   ['delaymax_5f',['delayMax_',['../df/d65/a02607.html#ac15fb33cb4297d202c29139f27a11463',1,'DYN::Delay']]],
+  ['delaymode',['DelayMode',['../d5/d6a/a02515.html#a963225344a251150ba0ad6d5264f567fae7887ca088b629cab1ce604b9ba2927f',1,'DYN::KeyLog_t']]],
   ['delays_5f',['delays_',['../d6/d79/a02611.html#af33ce3b807b1d6233895da82f3c5f360',1,'DYN::DelayManager']]],
   ['delaytime_5f',['delayTime_',['../df/d65/a02607.html#a869b6f2e759f2de804ed26da35c156bc',1,'DYN::Delay']]],
   ['deletefactory',['deleteFactory',['../dc/d4d/a00620.html#aa8320d33ddf6aa0e1bc97800424da5a3',1,'deleteFactory(DYN::SubModelFactory *factory):&#160;DYNSubModelFactory.h'],['../d6/dcf/a01031.html#ae06ace1114b6742f6c3f55977e345710',1,'deleteFactory(DYN::SolverFactory *factory):&#160;DYNSolverFactory.h']]],

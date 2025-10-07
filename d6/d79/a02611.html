@@ -139,9 +139,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <tr class="memitem:adff56c5f395a55a8473de442d06b1b36"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d79/a02611.html#adff56c5f395a55a8473de442d06b1b36">setGomc</a> (<a class="el" href="../../dc/d8e/a00473.html#ae79ff761d6fdde3e15728e07781775a8">state_g</a> *p_glocal, size_t offset, double time) const</td></tr>
 <tr class="memdesc:adff56c5f395a55a8473de442d06b1b36"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculates the roots of the model for delays  <a href="#adff56c5f395a55a8473de442d06b1b36">More...</a><br /></td></tr>
 <tr class="separator:adff56c5f395a55a8473de442d06b1b36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a60be09e9178a8e1f76c91eff57b4b7c0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d8e/a00473.html#aed4b32a47e0828630b9719fb4a720183">modeChangeType_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d79/a02611.html#a60be09e9178a8e1f76c91eff57b4b7c0">evalMode</a> (double time)</td></tr>
-<tr class="memdesc:a60be09e9178a8e1f76c91eff57b4b7c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluate modes for delays  <a href="#a60be09e9178a8e1f76c91eff57b4b7c0">More...</a><br /></td></tr>
-<tr class="separator:a60be09e9178a8e1f76c91eff57b4b7c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9f29b26aeb79683bc014936e0c448f2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d8e/a00473.html#aed4b32a47e0828630b9719fb4a720183">modeChangeType_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d79/a02611.html#af9f29b26aeb79683bc014936e0c448f2">evalMode</a> (double time, const std::string &amp;modelName)</td></tr>
+<tr class="memdesc:af9f29b26aeb79683bc014936e0c448f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluate modes for delays  <a href="#af9f29b26aeb79683bc014936e0c448f2">More...</a><br /></td></tr>
+<tr class="separator:af9f29b26aeb79683bc014936e0c448f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ee915c26b8b1ec90c3e10c40e32c4b9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d79/a02611.html#a5ee915c26b8b1ec90c3e10c40e32c4b9">triggerDelay</a> (const size_t id)</td></tr>
 <tr class="memdesc:a5ee915c26b8b1ec90c3e10c40e32c4b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trigger delay.  <a href="#a5ee915c26b8b1ec90c3e10c40e32c4b9">More...</a><br /></td></tr>
 <tr class="separator:a5ee915c26b8b1ec90c3e10c40e32c4b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -238,8 +238,8 @@ std::unordered_map&lt; size_t, <a class="el" href="../../df/d65/a02607.html">Del
 
 </div>
 </div>
-<a id="a60be09e9178a8e1f76c91eff57b4b7c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a60be09e9178a8e1f76c91eff57b4b7c0">&#9670;&nbsp;</a></span>evalMode()</h2>
+<a id="af9f29b26aeb79683bc014936e0c448f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9f29b26aeb79683bc014936e0c448f2">&#9670;&nbsp;</a></span>evalMode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -248,8 +248,18 @@ std::unordered_map&lt; size_t, <a class="el" href="../../df/d65/a02607.html">Del
           <td class="memname"><a class="el" href="../../dc/d8e/a00473.html#aed4b32a47e0828630b9719fb4a720183">modeChangeType_t</a> DYN::DelayManager::evalMode </td>
           <td>(</td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>time</em></td><td>)</td>
+          <td class="paramname"><em>time</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>modelName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -257,7 +267,8 @@ std::unordered_map&lt; size_t, <a class="el" href="../../df/d65/a02607.html">Del
 <p>evaluate modes for delays </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">time</td><td>local time</td></tr>
+    <tr><td class="paramname">time</td><td>local time </td></tr>
+    <tr><td class="paramname">modelName</td><td>name of the model containing the delay</td></tr>
   </table>
   </dd>
 </dl>
@@ -586,7 +597,7 @@ std::unordered_map&lt; size_t, <a class="el" href="../../df/d65/a02607.html">Del
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d6/d79/a02611.html">DelayManager</a></li>
-    <li class="footer">Generated on Mon Oct 6 2025 10:24:36 for Dynawo by
+    <li class="footer">Generated on Tue Oct 7 2025 16:32:07 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
