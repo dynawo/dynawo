@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2022, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools
+    for power systems.
+-->
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="sm" variable="generator_cePu"/>
+  <curve model="sm" variable="generator_PePu"/>
+  <curve model="sm" variable="generator_cmPu"/>
+  <curve model="sm" variable="generator_PmPu"/>
+  <curve model="sm" variable="generator_ufPu"/>
+  <curve model="sm" variable="generator_efdPu"/>
+  <curve model="sm" variable="generator_omegaPu"/>
+  <curve model="sm" variable="generator_theta"/>
+  <curve model="sm" variable="generator_PGenPu"/>
+  <curve model="sm" variable="generator_QGenPu"/>
+  <curve model="sm" variable="generator_PGen"/>
+  <curve model="sm" variable="generator_QGen"/>
+  <curve model="sm" variable="generator_UPu"/>
+  <curve model="sm" variable="generator_IStatorPu"/>
+  <curve model="sm" variable="generator_IRotorPu"/>
+  <curve model="sm" variable="generator_UStatorPu"/>
+  <curve model="sm" variable="generator_QStatorPu"/>
+  <curve model="sm" variable="generator_thetaInternal"/>
+  <curve model="sm" variable="governor_PmRefPu"/>
+  <curve model="line1" variable="line_P1Pu"/>
+  <curve model="line1" variable="line_P2Pu"/>
+  <curve model="line1" variable="line_Q1Pu"/>
+  <curve model="line1" variable="line_Q2Pu"/>
+  <curve model="line2" variable="line_P1Pu"/>
+  <curve model="line2" variable="line_P2Pu"/>
+  <curve model="line2" variable="line_Q1Pu"/>
+  <curve model="line2" variable="line_Q2Pu"/>
+  <curve model="tfo" variable="transformer_terminal1_V_re"/>
+  <curve model="tfo" variable="transformer_terminal1_V_im"/>
+  <curve model="tfo" variable="transformer_terminal2_V_re"/>
+  <curve model="tfo" variable="transformer_terminal2_V_im"/>
+  <curve model="tfo" variable="transformer_terminal1_i_re"/>
+  <curve model="tfo" variable="transformer_terminal1_i_im"/>
+  <curve model="tfo" variable="transformer_terminal2_i_re"/>
+  <curve model="tfo" variable="transformer_terminal2_i_im"/>
+  <curve model="bus1" variable="bus_U"/>
+  <curve model="busInf" variable="infiniteBus_U"/>
+</curvesInput>
