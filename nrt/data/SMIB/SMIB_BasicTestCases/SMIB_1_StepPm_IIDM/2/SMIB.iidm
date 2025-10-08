@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<iidm:network xmlns:iidm="http://www.powsybl.org/schema/iidm/1_4" id="test" caseDate="2022-06-02T10:09:24.686+02:00" forecastDistance="0" sourceFormat="test">
+    <iidm:substation id="S1" name="S1_NAME" country="FR" tso="TSO">
+        <iidm:voltageLevel id="VL1" name="VL1_NAME" nominalV="1.0" lowVoltageLimit="0.8" highVoltageLimit="1.2" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="VL1_BUS1" v="0.90081" angle="0.0"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="S2" name="S2_NAME" country="FR" tso="TSO">
+        <iidm:voltageLevel id="VL2" name="VL2_NAME" nominalV="1.0" lowVoltageLimit="0.8" highVoltageLimit="1.2" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="VL2_BUS1" v="1.0" angle="28.329955476023066"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="VL3" name="VL3_NAME" nominalV="1.0" lowVoltageLimit="0.8" highVoltageLimit="1.2" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="VL3_BUS1" v="1.0" angle="28.329955476023066"/>
+            </iidm:busBreakerTopology>
+            <iidm:generator id="SM" energySource="NUCLEAR" minP="0.0" maxP="2200.0" voltageRegulatorOn="true" targetP="2220.0" targetV="1.0" targetQ="967.903359" bus="VL3_BUS1" connectableBus="VL3_BUS1" p="-1998.000296" q="-967.903359">
+                <iidm:minMaxReactiveLimits minQ="-1.7976931348623157E308" maxQ="1.7976931348623157E308"/>
+            </iidm:generator>
+        </iidm:voltageLevel>
+        <iidm:twoWindingsTransformer id="TR" r="0.0" x="0.0000675" g="0.0" b="0.0" ratedU1="1.0" ratedU2="1.0" bus1="VL2_BUS1" connectableBus1="VL2_BUS1" voltageLevelId1="VL2" bus2="VL3_BUS1" connectableBus2="VL3_BUS1" voltageLevelId2="VL3" p1="-1998.0004135142" q1="-635.2077577992" p2="1998.000323442" q2="967.9039935036"/>
+    </iidm:substation>
+    <iidm:line id="line1" r="0.0" x="0.00022522" g1="0.0" b1="0.0" g2="0.0" b2="0.0" bus1="VL1_BUS1" connectableBus1="VL1_BUS1" voltageLevelId1="VL1" bus2="VL2_BUS1" connectableBus2="VL2_BUS1" voltageLevelId2="VL2" p1="-1299.3888" q1="56.396" p2="1299.3888" q2="413.10460000000006"/>
+    <iidm:line id="line2" r="0.0" x="0.0004189" g1="0.0" b1="0.0" g2="0.0" b2="0.0" bus1="VL1_BUS1" connectableBus1="VL1_BUS1" voltageLevelId1="VL1" bus2="VL2_BUS1" connectableBus2="VL2_BUS1" voltageLevelId2="VL2" p1="-698.6115" q1="30.3211" p2="698.6115" q2="222.10410000000002"/>
+</iidm:network>
