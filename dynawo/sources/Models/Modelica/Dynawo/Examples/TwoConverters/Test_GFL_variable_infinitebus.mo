@@ -13,7 +13,7 @@ Real uConv(start = 1);
   Dynawo.Types.Angle UPhase1;
   //Dynawo.Types.VoltageModulePu U2Pu;
   //Dynawo.Types.Angle UPhase2;
-  Dynawo.Electrical.Buses.InfiniteBusFromTable infiniteBusFromTable(OmegaRef0Pu = 1, OmegaRefPuTableName = "tab3", TableFile = "/home/thibault/table_amplitude_angle_modelica_long.txt", U0Pu = 1, UPhase0 = 0, UPhaseTableName = "tab2", UPuTableName = "tab1") annotation(
+  Dynawo.Electrical.Buses.InfiniteBusFromTable infiniteBusFromTable(OmegaRef0Pu = 1, OmegaRefPuTableName = "tab3", TableFile = "put here the path to the file PMU_data.txt", U0Pu = 1, UPhase0 = 0, UPhaseTableName = "tab2", UPuTableName = "tab1") annotation(
     Placement(visible = true, transformation(origin = {94, -14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Lines.DynLine dynLine(LPu =  0.1875 + 0 *0.06, P01Pu = 0, P02Pu = 0, Q01Pu = 0.21, Q02Pu = 0.508, RPu = 0.01875 / 3 + 0 * 0.006, U01Pu = 1.0847, U02Pu = 1.099, UPhase01 = -0.18, UPhase02 = -0.04) annotation(
     Placement(visible = true, transformation(origin = {60, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
