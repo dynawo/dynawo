@@ -486,10 +486,11 @@ class ModelMulti : public Model, private boost::noncopyable {
   template<class T>
   boost::shared_ptr<SubModel>
   setConnector(T connectorSubModel, const std::string& name,
-             const boost::shared_ptr<SubModel>& subModel, const boost::shared_ptr<Variable>& variable) {
+             const boost::shared_ptr<SubModel>& subModel, const boost::shared_ptr<Variable>& variable, bool isUpdatable) {
     connectorSubModel->name(name);
     connectorSubModel->setVariableName(variable->getName());
     connectorSubModel->setParams(subModel, variable->getIndex());
+    connectorSubModel->setNeedsInitFromConnectedModel_(isUpdatable);
     return boost::dynamic_pointer_cast<SubModel>(connectorSubModel);
   }
 
@@ -606,6 +607,8 @@ class ModelMulti : public Model, private boost::noncopyable {
 
   std::shared_ptr<parameters::ParametersSet> localInitParameters_;  ///< local initialization solver parameters set
   std::vector<std::pair<boost::shared_ptr<SubModel>, unsigned>> curvesCalculatedVarIndexes_;  ///< curves calculated var locations in subModel
+
+  bool updatablesInitialized_;
 };  ///< Class for Multiple-Model
 
 
