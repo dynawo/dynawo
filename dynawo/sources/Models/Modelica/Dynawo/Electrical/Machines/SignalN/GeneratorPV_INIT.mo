@@ -23,10 +23,13 @@ model GeneratorPV_INIT "Initialisation model for generator PV based on SignalN f
 equation
   if QGen0Pu <= QMinPu and U0Pu >= URef0Pu then
     qStatus0 = QStatus.AbsorptionMax;
+    QGen0Pu = QMinPu;
   elseif QGen0Pu >= QMaxPu and U0Pu <= URef0Pu then
     qStatus0 = QStatus.GenerationMax;
+    QGen0Pu = QMaxPu;
   else
     qStatus0 = QStatus.Standard;
+    QGen0Pu = QGenRaw0Pu;
   end if;
 
   QNomAlt = QMax;

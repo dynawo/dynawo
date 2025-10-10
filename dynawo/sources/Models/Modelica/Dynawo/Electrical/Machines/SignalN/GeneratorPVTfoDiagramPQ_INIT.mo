@@ -37,10 +37,13 @@ protected
 equation
   if QGen0Pu <= QMin0Pu and UStator0Pu >= UStatorRef0Pu then
     qStatus0 = QStatus.AbsorptionMax;
+    QGen0Pu = QMin0Pu;
   elseif QGen0Pu >= QMax0Pu and UStator0Pu <= UStatorRef0Pu then
     qStatus0 = QStatus.GenerationMax;
+    QGen0Pu = QMax0Pu;
   else
     qStatus0 = QStatus.Standard;
+    QGen0Pu = QGenRaw0Pu;
   end if;
 
   uRef0Pu = ComplexMath.fromPolar(URef0Pu, UPhase0);
