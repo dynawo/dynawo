@@ -74,7 +74,8 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
     UpRef0Pu_(0.),
     tSample_(10.),
     iTerm_(0.),
-    feedBackCorrection_(0.) {}
+    feedBackCorrection_(0.),
+    firstState_(true) {}
 
   void
   ModelSecondaryVoltageControlSimplified::defineParameters(std::vector<ParameterModeler>& parameters) {
@@ -154,11 +155,17 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
     variables.push_back(VariableNativeFactory::createState("tLastActivation_value", DISCRETE));
     variables.push_back(VariableNativeFactory::createState("levelVal_value", DISCRETE));
     std::stringstream blockerName;
+    std::stringstream Qs;
     for (int s = 0; s < nbGenerators_; ++s) {
       blockerName.str(std::string());
       blockerName.clear();
       blockerName << "blocker_" << s << "_value";
       variables.push_back(VariableNativeFactory::createState(blockerName.str(), BOOLEAN));
+
+      Qs.str(std::string());
+      Qs.clear();
+      Qs << "QStator_" << s << "_value";
+      variables.push_back(VariableNativeFactory::createState(Qs.str(), CONTINUOUS));
     }
     variables.push_back(VariableNativeFactory::createCalculated("level_value", CONTINUOUS));
   }
@@ -178,7 +185,7 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
   void
   ModelSecondaryVoltageControlSimplified::getSize() {
     sizeF_ = 0;
-    sizeY_ = 1;
+    sizeY_ = 1 + nbGenerators_;
     sizeZ_ = firstIndexBlockerNum_ + nbGenerators_;
     sizeG_ = 2;
     sizeMode_ = 0;
@@ -188,6 +195,9 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
   void
   ModelSecondaryVoltageControlSimplified::evalStaticYType() {
     yType_[0] = EXTERNAL;
+    for (int s = 0; s < nbGenerators_; ++s) {
+      yType_[s + 1] = EXTERNAL;
+    }
   }
 
   void
@@ -225,7 +235,26 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
   }
 
   void
+  ModelSecondaryVoltageControlSimplified::calculateInitialState() {
+    zLocal_[levelValNum_] = 0.;
+    for (int g = 0; g < nbGenerators_; g++) {
+      zLocal_[levelValNum_] += (-1.0 * yLocal_[g + 1] * SNREF);
+     }
+    double qrSum = 0;
+    for (auto& qr : Qr_) {
+      qrSum += qr;
+    }
+    zLocal_[levelValNum_] = zLocal_[levelValNum_] / qrSum;
+    antiWindUpCorrection();
+    iTerm_ = zLocal_[levelValNum_] + feedBackCorrection_;
+  }
+
+  void
   ModelSecondaryVoltageControlSimplified::evalZ(const double t) {
+    if (!isStartingFromDump() && firstState_) {
+      calculateInitialState();
+      firstState_ = false;
+    }
     if (gLocal_[ActivationNum_] == ROOT_UP && doubleNotEquals(t, zLocal_[tLastActivationNum_]) && gLocal_[BlockingNum_] == ROOT_DOWN) {
       double minValue = zLocal_[UpRefPuNum_] - UDeadBandPu_;
       double maxValue = zLocal_[UpRefPuNum_] + UDeadBandPu_;
@@ -332,12 +361,19 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
     addElement("levelVal", Element::STRUCTURE, elements, mapElement);
     addSubElement("value", "levelVal", Element::TERMINAL, name(), modelType(), elements, mapElement);
     std::stringstream blockerName;
+    std::stringstream Qs;
     for (int s = 0; s < nbGenerators_; ++s) {
       blockerName.str(std::string());
       blockerName.clear();
       blockerName << "blocker_" << s;
       addElement(blockerName.str(), Element::STRUCTURE, elements, mapElement);
       addSubElement("value", blockerName.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
+
+      Qs.str(std::string());
+      Qs.clear();
+      Qs << "Qs_" << s << "_value";
+      addElement(Qs.str(), Element::STRUCTURE, elements, mapElement);
+      addSubElement("value", Qs.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
     }
     addElement("level", Element::STRUCTURE, elements, mapElement);
     addSubElement("value", "level", Element::TERMINAL, name(), modelType(), elements, mapElement);
@@ -367,6 +403,7 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
     Trace::info() << "  ->" << "levelVal_value" << Trace::endline;
     Trace::info() << "  ->" << "level_value" << Trace::endline;
     Trace::info() << "  ->" << "blocker_" << "<0-" << nbGenerators_ << ">_value" << Trace::endline;
+    Trace::info() << "  ->" << "QStator_" << "<0-" << nbGenerators_ << ">_value" << Trace::endline;
   }
 
 }  // namespace DYN
