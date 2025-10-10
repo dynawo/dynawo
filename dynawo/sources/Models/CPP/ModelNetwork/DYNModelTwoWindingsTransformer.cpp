@@ -242,13 +242,21 @@ modelType_("TwoWindingsTransformer") {
     currentLimits1_->setFactorPuToA(factorPuToASide1_);
     // Due to IIDM convention
     if (cLimit1[0]->getLimit() < maximumValueCurrentLimit) {
-      double limit = cLimit1[0]->getLimit() / factorPuToASide1_;
-      currentLimits1_->addLimit(limit, cLimit1[0]->getAcceptableDuration());
+      const double limit = cLimit1[0]->getLimit() / factorPuToASide1_;
+      currentLimits1_->addLimit(limit, cLimit1[0]->getAcceptableDuration(), false);
     }
     for (unsigned int i = 1; i < cLimit1.size(); ++i) {
       if (cLimit1[i-1]->getLimit() < maximumValueCurrentLimit) {
-        double limit = cLimit1[i-1]->getLimit() / factorPuToASide1_;
-        currentLimits1_->addLimit(limit, cLimit1[i]->getAcceptableDuration());
+        if (cLimit1[i-1]->isFictitious()) continue;
+        const double limit = cLimit1[i-1]->getLimit() / factorPuToASide1_;
+        currentLimits1_->addLimit(limit, cLimit1[i]->getAcceptableDuration(), false);
+      }
+    }
+    for (unsigned int i = 1; i < cLimit1.size(); ++i) {
+      if (!cLimit1[i]->isFictitious()) continue;
+      if (cLimit1[i]->getLimit() < maximumValueCurrentLimit) {
+        const double limit = cLimit1[i]->getLimit() / factorPuToASide1_;
+        currentLimits1_->addLimit(limit, cLimit1[i]->getAcceptableDuration(), true);
       }
     }
   }
@@ -261,13 +269,21 @@ modelType_("TwoWindingsTransformer") {
     currentLimits2_->setFactorPuToA(factorPuToASide2_);
     // Due to IIDM convention
     if (cLimit2[0]->getLimit() < maximumValueCurrentLimit) {
-      double limit = cLimit2[0]->getLimit() / factorPuToASide2_;
-      currentLimits2_->addLimit(limit, cLimit2[0]->getAcceptableDuration());
+      const double limit = cLimit2[0]->getLimit() / factorPuToASide2_;
+      currentLimits2_->addLimit(limit, cLimit2[0]->getAcceptableDuration(), false);
     }
     for (unsigned int i = 1; i < cLimit2.size(); ++i) {
+      if (cLimit2[i-1]->isFictitious()) continue;
       if (cLimit2[i-1]->getLimit() < maximumValueCurrentLimit) {
-        double limit = cLimit2[i-1]->getLimit() / factorPuToASide2_;
-        currentLimits2_->addLimit(limit, cLimit2[i]->getAcceptableDuration());
+        const double limit = cLimit2[i-1]->getLimit() / factorPuToASide2_;
+        currentLimits2_->addLimit(limit, cLimit2[i]->getAcceptableDuration(), false);
+      }
+    }
+    for (unsigned int i = 1; i < cLimit2.size(); ++i) {
+      if (!cLimit2[i]->isFictitious()) continue;
+      if (cLimit2[i]->getLimit() < maximumValueCurrentLimit) {
+        const double limit = cLimit2[i]->getLimit() / factorPuToASide2_;
+        currentLimits2_->addLimit(limit, cLimit2[i]->getAcceptableDuration(), true);
       }
     }
   }
