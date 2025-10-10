@@ -18,19 +18,19 @@ Real uConv(start = 1);
   Dynawo.Electrical.Lines.DynLine dynLine(LPu =  0.1875 + 0 *0.06, P01Pu = 0, P02Pu = 0, Q01Pu = 0.21, Q02Pu = 0.508, RPu = 0.01875 / 3 + 0 * 0.006, U01Pu = 1.0847, U02Pu = 1.099, UPhase01 = -0.18, UPhase02 = -0.04) annotation(
     Placement(visible = true, transformation(origin = {60, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step stepP(height = 0, offset = 0, startTime = 1000) annotation(
-    Placement(visible = true, transformation(origin = {-24, -32}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-64, 24}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add(k1 = 1)  annotation(
-    Placement(visible = true, transformation(origin = {-6, 4}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = 5, k = -0 / 0.004)  annotation(
-    Placement(visible = true, transformation(origin = {-38, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-18, 52}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = 5, k = -1 / 0.004 * 0)  annotation(
+    Placement(visible = true, transformation(origin = {-50, 58}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 1)  annotation(
-    Placement(visible = true, transformation(origin = {-102, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-114, 38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add1(k2 = -1)  annotation(
-    Placement(visible = true, transformation(origin = {-68, 8}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-80, 56}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add2(k1 = 1 / 0.05, k2 = 0) annotation(
-    Placement(visible = true, transformation(origin = {-40, 48}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = 2, k = -0) annotation(
-    Placement(visible = true, transformation(origin = {-10, 48}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-68, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = 2, k = -1 * 0) annotation(
+    Placement(visible = true, transformation(origin = {-38, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
 // No switch-off of the dynLines
   dynLine.switchOffSignal1.value = false;
@@ -41,8 +41,8 @@ equation
 //  dynLine2.switchOffSignal2.value = false;
 // No modifications in GFL set points
 // der(GFL1.PFilterRefPu) = 0;
-  connect(add.y, GFL1.PFilterRefPu);
-  connect(firstOrder1.y, GFL1.QFilterRefPu);
+  connect(add.y, GFL1.PFilterRefPu) annotation(
+    Line(points = {{-7, 52}, {7.5, 52}, {7.5, 16}, {18, 16}}, color = {0, 0, 127}));
     //connect(step.y, GFL1.QFilterRefPu);
 // der(GFL1.QFilterRefPu) = 0;
   der(GFL1.omegaRefPu) = 0;
@@ -61,14 +61,12 @@ equation
     Line(points = {{39, 8}, {39, 3}, {49, 3}, {49, 6}}, color = {0, 0, 255}));
   connect(dynLine.terminal2, infiniteBusFromTable.terminal) annotation(
     Line(points = {{70, 6}, {94, 6}, {94, -14}}, color = {0, 0, 255}));
-  connect(add.u2, stepP.y) annotation(
-    Line(points = {{-18, -2}, {-8, -2}, {-8, -32}, {-12, -32}}, color = {0, 0, 127}));
   connect(add.u1, firstOrder.y) annotation(
-    Line(points = {{-18, 10}, {-27, 10}}, color = {0, 0, 127}));
+    Line(points = {{-30, 58}, {-39, 58}}, color = {0, 0, 127}));
   connect(firstOrder.u, add1.y) annotation(
-    Line(points = {{-50, 10}, {-51, 10}, {-51, 8}, {-56, 8}}, color = {0, 0, 127}));
+    Line(points = {{-62, 58}, {-63, 58}, {-63, 56}, {-68, 56}}, color = {0, 0, 127}));
   connect(add1.u2, const.y) annotation(
-    Line(points = {{-80, 2}, {-86, 2}, {-86, -10}, {-90, -10}}, color = {0, 0, 127}));
+    Line(points = {{-92, 50}, {-98, 50}, {-98, 38}, {-102, 38}}, color = {0, 0, 127}));
     add1.u1=GFL1.Control.PLL.omegaPLLPu;
     //add2.u2=GFL1.Measurements.QFilterPu;
     add2.u2=GFL1.Measurements.uqPccPu * GFL1.Measurements.idPccPu - GFL1.Measurements.udPccPu * GFL1.Measurements.iqPccPu;
@@ -79,8 +77,21 @@ equation
       uConv = sqrt(GFL1.Converter.VSC.udConvPu^2+GFL1.Converter.VSC.uqConvPu^2);
     der(E)= (GFL1.Control.PFilterPu-stepP.y)/7200;
   connect(add2.y, firstOrder1.u) annotation(
-    Line(points = {{-28, 48}, {-22, 48}}, color = {0, 0, 127})); 
+    Line(points = {{-57, -30}, {-51, -30}}, color = {0, 0, 127}));
+  connect(add.y, GFL1.PFilterRefPu) annotation(
+    Line(points = {{6, 4}, {8, 4}, {8, 16}, {18, 16}}, color = {0, 0, 127}));
+  connect(GFL1.QFilterRefPu, firstOrder1.y) annotation(
+    Line(points = {{18, 4}, {15.5, 4}, {15.5, -30}, {-27, -30}}, color = {0, 0, 127}));
+  connect(add.u2, stepP.y) annotation(
+    Line(points = {{-30, 46}, {-40, 46}, {-40, 24}, {-52, 24}}, color = {0, 0, 127})); 
 annotation(
     experiment(StartTime = 0, StopTime = 900, Tolerance = 1e-6, Interval = 0.01),
-    Diagram);
+    Diagram(graphics = {Text(origin = {95, -30}, extent = {{-33, 34}, {33, -34}}, textString = "To use this, you need 
+to open the infinite bus 
+and update the path to 
+the data_PMU.txt file"), Text(origin = {-36, -57}, extent = {{-42, 25}, {42, -25}}, textString = "To activate voltage control
+open the first order block above
+replace * 0 by * 1"), Text(origin = {-46, 89}, extent = {{-42, 25}, {42, -25}}, textString = "To activate frequency control
+open the first order block below
+replace * 0 by * 1")}));
 end Test_GFL_variable_infinitebus;
