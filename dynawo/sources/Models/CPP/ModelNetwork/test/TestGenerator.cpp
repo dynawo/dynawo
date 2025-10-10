@@ -291,6 +291,7 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorCalculatedVariables) {
 
 TEST(ModelsModelNetwork, ModelNetworkGeneratorDiscreteVariables) {
   powsybl::iidm::Network networkIIDM("test", "test");
+  bool deactivateZeroCrossingFunctions = false;
   std::tuple<std::shared_ptr<ModelGenerator>, std::shared_ptr<VoltageLevelInterfaceIIDM>, std::shared_ptr<ModelVoltageLevel> > p
       = createModelGenerator(false, false, networkIIDM);
   std::shared_ptr<ModelGenerator> gen =  std::get<0>(p);
@@ -329,7 +330,7 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorDiscreteVariables) {
   z[0] = OPEN;
   z[1] = 100.;
   z[2] = 200.;
-  gen->evalZ(0.);
+  gen->evalZ(0., deactivateZeroCrossingFunctions);
   ASSERT_EQ(gen->getConnected(), OPEN);
   ASSERT_EQ(z[0], OPEN);
   ASSERT_DOUBLE_EQUALS_DYNAWO(gen->PcPu(), 1.);
@@ -338,7 +339,7 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorDiscreteVariables) {
   ASSERT_EQ(gen->evalState(0.), NetworkComponent::STATE_CHANGE);
   ASSERT_EQ(gen->getConnected(), OPEN);
   z[0] = CLOSED;
-  gen->evalZ(0.);
+  gen->evalZ(0., deactivateZeroCrossingFunctions);
   ASSERT_EQ(gen->evalState(0.), NetworkComponent::STATE_CHANGE);
   ASSERT_EQ(gen->getConnected(), CLOSED);
   ASSERT_EQ(gen->evalState(0.), NetworkComponent::NO_CHANGE);

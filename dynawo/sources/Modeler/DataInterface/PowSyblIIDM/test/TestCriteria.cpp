@@ -759,6 +759,7 @@ initModel(shared_ptr<DataInterface> data) {
   parametersSet->createParameter("load_beta", 0.);
   parametersSet->createParameter("load_isRestorative", false);
   parametersSet->createParameter("load_isControllable", false);
+  parametersSet->createParameter("deactivate_zero_crossing_functions", false);
   modelNetwork->setPARParameters(parametersSet);
 
   return modelNetwork;
