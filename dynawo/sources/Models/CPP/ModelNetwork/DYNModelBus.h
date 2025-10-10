@@ -775,7 +775,7 @@ class ModelBusContainer {
    * @brief get sub networks
    * @return sub networks
    */
-  std::vector<boost::shared_ptr<SubNetwork> > getSubNetworks() const {
+  const std::vector<boost::shared_ptr<SubNetwork> >& getSubNetworks() const {
     return subNetworks_;
   }   // get the list of sub-networks
 
@@ -798,6 +798,11 @@ class ModelBusContainer {
    * @brief reset the bit mask of every bus corresponding to the status of U calculation for the current time step
    */
   void resetCurrentUStatus();
+
+  /**
+   * @brief reset resetNodeInjections and resetCurrentUStatus
+   */
+  void resetInjections();
 
  private:
   std::vector<std::shared_ptr<ModelBus> > models_;  ///< model bus
