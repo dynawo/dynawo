@@ -46,11 +46,12 @@
     <par type="DOUBLE" name="BESS_Q0Pu" value="-0.2"/>
     <par type="DOUBLE" name="BESS_U0Pu" value="1.0"/>
     <par type="DOUBLE" name="BESS_UPhase0" value="0.03533563863002929"/>
-    <par type="DOUBLE" name="BESS_PPcc0Pu" value="-0.7"/>
-    <par type="DOUBLE" name="BESS_QPcc0Pu" value="-0.2"/>
-    <par type="DOUBLE" name="BESS_UPcc0Pu" value="1.0"/>
-    <par type="DOUBLE" name="BESS_UPhasePcc0" value="0.03533563863002929"/>
     <!-- Electrical Control -->
+    <par type="DOUBLE" name="BESS_QMaxPu" value="0.4"/>
+    <par type="DOUBLE" name="BESS_QMinPu" value="-0.4"/>
+    <par type="DOUBLE" name="BESS_PMaxPu" value="0.9"/>
+    <par type="DOUBLE" name="BESS_PMinPu" value="0"/>
+    <par type="DOUBLE" name="BESS_tP" value="0.03"/>
     <par type="BOOL" name="BESS_QFlag" value="false"/>
     <par type="BOOL" name="BESS_VFlag" value="true"/>
     <par type="BOOL" name="BESS_PfFlag" value="false"/>
@@ -113,61 +114,30 @@
     <par type="DOUBLE" name="BESS_KpPLL" value="30"/>
     <par type="DOUBLE" name="BESS_OmegaMaxPu" value="1.5"/>
     <par type="DOUBLE" name="BESS_OmegaMinPu" value="0.5"/>
-    <!-- Plant Control -->
-    <par type="DOUBLE" name="BESS_QMaxPu" value="0.4"/>
-    <par type="DOUBLE" name="BESS_QMinPu" value="-0.4"/>
-    <par type="DOUBLE" name="BESS_PMaxPu" value="0.9"/>
-    <par type="DOUBLE" name="BESS_PMinPu" value="0"/>
-    <par type="DOUBLE" name="BESS_tP" value="0.03"/>
-    <par type="BOOL" name="BESS_RefFlag" value="true"/>
-    <par type="BOOL" name="BESS_VCompFlag" value="false"/>
-    <par type="BOOL" name="BESS_FreqFlag" value="true"/>
-    <par type="DOUBLE" name="BESS_Kc" value="0.2"/>
-    <par type="DOUBLE" name="BESS_tFilterPC" value="0.04"/>
-    <par type="DOUBLE" name="BESS_DbdPu" value="0"/>
-    <par type="DOUBLE" name="BESS_EMaxPu" value="999"/>
-    <par type="DOUBLE" name="BESS_EMinPu" value="-999"/>
-    <par type="DOUBLE" name="BESS_tFt" value="1e-5"/>
-    <par type="DOUBLE" name="BESS_tFv" value="0.04"/>
-    <par type="DOUBLE" name="BESS_FDbd1Pu" value="0"/>
-    <par type="DOUBLE" name="BESS_FDbd2Pu" value="0"/>
-    <par type="DOUBLE" name="BESS_DDn" value="0"/>
-    <par type="DOUBLE" name="BESS_DUp" value="0"/>
-    <par type="DOUBLE" name="BESS_FEMaxPu" value="999"/>
-    <par type="DOUBLE" name="BESS_FEMinPu" value="-999"/>
-    <par type="DOUBLE" name="BESS_tLag" value="0.04"/>
-    <par type="DOUBLE" name="BESS_Kp" value="1"/>
-    <par type="DOUBLE" name="BESS_Ki" value="5"/>
-    <par type="DOUBLE" name="BESS_Kpg" value="1"/>
-    <par type="DOUBLE" name="BESS_Kig" value="5"/>
-    <par type="DOUBLE" name="BESS_VFrz" value="0.85"/>
     <!-- BaseWT4 -->
     <par type="DOUBLE" name="BESS_SNom" value="200"/>
     <par type="DOUBLE" name="BESS_rTfoPu" value="0.962"/>
     <par type="DOUBLE" name="BESS_RLvTrPu" value="0.015"/>
     <par type="DOUBLE" name="BESS_XLvTrPu" value="0.06"/>
-    <par type="DOUBLE" name="BESS_RMvHvPu" value="0.03"/>
-    <par type="DOUBLE" name="BESS_XMvHvPu" value="0.15"/>
-    <par type="DOUBLE" name="BESS_BMvHvPu" value="0"/>
-    <par type="DOUBLE" name="BESS_GMvHvPu" value="0"/>
-    <par type="BOOL" name="BESS_PPCLocal" value="true"/>
     <par type="BOOL" name="BESS_ConverterLVControl" value="true"/>
   </set>
 
-  <set id="OmegaRefPar">
-    <par type="DOUBLE" name="setPoint_Value0" value="1"/>
-  </set>
-
   <set id="PRefPu">
-    <par type="DOUBLE" name="step_Height" value="0.1"/>
+    <par type="DOUBLE" name="step_Height" value="0.15"/>
     <par type="DOUBLE" name="step_tStep" value="1"/>
     <par type="DOUBLE" name="step_Value0" value="0.35"/>
   </set>
 
-  <set id="URefPu">
-    <par type="DOUBLE" name="step_Height" value="-0.02"/>
+  <set id="QRefPu">
+    <par type="DOUBLE" name="step_Height" value="-0.1"/>
     <par type="DOUBLE" name="step_tStep" value="8"/>
-    <par type="DOUBLE" name="step_Value0" value="1.02"/>
+    <par type="DOUBLE" name="step_Value0" value="0.1"/>
+  </set>
+
+  <set id="PFaRef">
+    <par type="DOUBLE" name="step_Height" value="0"/>
+    <par type="DOUBLE" name="step_tStep" value="0"/>
+    <par type="DOUBLE" name="step_Value0" value="0.2783"/>
   </set>
 
 </parametersSet>

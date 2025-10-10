@@ -15,18 +15,11 @@
 
   <!-- Operating quantities-->
   <curve model="BESS" variable="BESS_reecC_frtOn"/>
-  <curve model="BESS" variable="BESS_repcA_freeze"/>
   <curve model="BESS" variable="BESS_omegaRefPu"/>
-  <curve model="BESS" variable="BESS_TfoPCS_rTfoPu"/>
 
   <!-- Main electrical quantities -->
-  <curve model="BESS" variable="BESS_WTGTerminalMeasurements_PPu"/>
   <curve model="BESS" variable="BESS_P0Pu"/>
-  <curve model="BESS" variable="BESS_PPcc0Pu"/>
-  <curve model="BESS" variable="BESS_WTGTerminalMeasurements_QPu"/>
   <curve model="BESS" variable="BESS_Q0Pu"/>
-  <curve model="BESS" variable="BESS_QPcc0Pu"/>
-  <curve model="BESS" variable="BESS_WTGTerminalMeasurements_UPu"/>
   <curve model="BESS" variable="BESS_U0Pu"/>
   <curve model="BESS" variable="BESS_UPcc0Pu"/>
   <curve model="BESS" variable="BESS_WTTerminalMeasurements_PPu"/>
@@ -47,23 +40,9 @@
   <curve model="BESS" variable="BESS_Iq0Pu"/>
 
   <!-- reactive logic-->
-  <curve model="BESS" variable="BESS_repcA_URefPu"/>
-  <curve model="BESS" variable="BESS_repcA_QVCtrlErr_y"/>
-  <curve model="BESS" variable="BESS_repcA_limPIDFreeze_u_s"/>
-  <curve model="BESS" variable="BESS_repcA_limPIDFreeze_addPID_u1"/>
-  <curve model="BESS" variable="BESS_repcA_limPIDFreeze_addPID_u2"/>
-  <curve model="BESS" variable="BESS_repcA_limPIDFreeze_gainPID_y"/>
-  <curve model="BESS" variable="BESS_repcA_limPIDFreeze_y"/>
-  <curve model="BESS" variable="BESS_repcA_absLimRateLimFeedthroughFreeze_y"/>
-  <curve model="BESS" variable="BESS_repcA_absLimRateLimFeedthroughFreeze_limiter_y"/>
-  <curve model="BESS" variable="BESS_repcA_absLimRateLimFeedthroughFreeze_rampLimiter_y"/>
-  <curve model="BESS" variable="BESS_repcA_absLimRateLimFeedthroughFreeze_fixedDelay_u"/>
-  <curve model="BESS" variable="BESS_repcA_absLimRateLimFeedthroughFreeze_fixedDelay_y"/>
-  <curve model="BESS" variable="BESS_repcA_fixedDelay2_y"/>
   <curve model="BESS" variable="BESS_reecC_QConvRefPu"/>
   <curve model="BESS" variable="BESS_reecC_rateLimFirstOrderFreeze1_u"/>
   <curve model="BESS" variable="BESS_reecC_rateLimFirstOrderFreeze1_y"/>
-  <curve model="BESS" variable="BESS_reecC_add1_u1"/>
   <curve model="BESS" variable="BESS_reecC_add1_u2"/>
   <curve model="BESS" variable="BESS_reecC_add1_y"/>
   <curve model="BESS" variable="BESS_reecC_iqCmdPu"/>
@@ -80,9 +59,6 @@
   <curve model="BESS" variable="BESS_reecC_limiter2_y"/>
 
   <!-- active logic -->
-  <curve model="BESS" variable="BESS_repcA_PRefPu"/>
-  <curve model="BESS" variable="BESS_repcA_limPID_u_s"/>
-  <curve model="BESS" variable="BESS_repcA_limPID_y"/>
   <curve model="BESS" variable="BESS_reecC_PConvRefPu"/>
   <curve model="BESS" variable="BESS_reecC_rateLimFirstOrderFreeze_u"/>
   <curve model="BESS" variable="BESS_reecC_rateLimFirstOrderFreeze_y"/>

@@ -56,17 +56,17 @@ equation
     else
       ipMinPu = - min(ipVdlPu, IMaxPu);
     end if;
-    iqMaxPu = min(iqVdlPu, noEvent(if IMaxPu ^ 2 > ipCmdPu ^ 2 then sqrt(IMaxPu ^ 2 - ipCmdPu ^ 2) else 0));
+    iqMaxPu = min(iqVdlPu, sqrt(abs(IMaxPu ^ 2 - ipCmdPu ^ 2)));
   else
     if SOCPu <= SOCMinPu then
       ipMaxPu = 0;
     else
-      ipMaxPu = min(ipVdlPu, noEvent(if IMaxPu ^ 2 > iqCmdPu ^ 2 then sqrt(IMaxPu ^ 2 - iqCmdPu ^ 2) else 0));
+      ipMaxPu = min(ipVdlPu, sqrt(abs(IMaxPu ^ 2 - iqCmdPu ^ 2)));
     end if;
     if SOCPu >= SOCMaxPu then
       ipMinPu = 0;
     else
-      ipMinPu = - min(ipVdlPu, noEvent(if IMaxPu ^ 2 > iqCmdPu ^ 2 then sqrt(IMaxPu ^ 2 - iqCmdPu ^ 2) else 0));
+      ipMinPu = - min(ipVdlPu, sqrt(abs(IMaxPu ^ 2 - iqCmdPu ^ 2)));
     end if;
     iqMaxPu = min(iqVdlPu, IMaxPu);
   end if;
