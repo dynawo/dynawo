@@ -74,7 +74,8 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
     UpRef0Pu_(0.),
     tSample_(10.),
     iTerm_(0.),
-    feedBackCorrection_(0.) {}
+    feedBackCorrection_(0.),
+    firstState_(true) {}
 
   void
   ModelSecondaryVoltageControlSimplified::defineParameters(std::vector<ParameterModeler>& parameters) {
