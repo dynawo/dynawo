@@ -130,6 +130,7 @@ class DelayManager {
   * @brief evaluate modes for delays
   *
   * @param time local time
+  * @param modelName name of the model containing the delay
   *
   * @return mode change type value
   */
