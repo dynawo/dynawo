@@ -98,15 +98,15 @@ model EpriVoltageControl "Voltage controller in EPRI Grid Forming model"
     Placement(visible = true, transformation(origin = {-220, -190}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput uMagPu annotation(
     Placement(visible = true, transformation(origin = {260, -230}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {44, -110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Math.Sum sum1(k = {1, 1, -1, -1 / OmegaDroopPu}, nin = 4)  annotation(
+  Modelica.Blocks.Math.Sum sum1(k = {1, 1, -1, -1 / OmegaDroopPu}, nin = 4) annotation(
     Placement(visible = true, transformation(origin = {-100, 180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Sum sum11(k = {1, 1, 1}, nin = 3)  annotation(
+  Modelica.Blocks.Math.Sum sum11(k = {1, 1, 1}, nin = 3) annotation(
     Placement(visible = true, transformation(origin = {-100, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.VariableLimiter variableLimiterid annotation(
     Placement(visible = true, transformation(origin = {200, 130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.VariableLimiter variableLimiteriq annotation(
     Placement(visible = true, transformation(origin = {201, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Converters.EpriGFM.BaseControls.CurrentLimitsCalculation currentLimitsCalculation(IMaxPu = IMaxPu, IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, OmegaFlag = OmegaFlag, PQFlag = PQFlag)  annotation(
+  Dynawo.Electrical.Controls.Converters.EpriGFM.BaseControls.CurrentLimitsCalculation currentLimitsCalculation(IMaxPu = IMaxPu, IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, OmegaFlag = OmegaFlag, PQFlag = PQFlag) annotation(
     Placement(visible = true, transformation(origin = {200, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Dynawo.NonElectrical.Blocks.Continuous.SqrtNoEvent sqrtNoEvent annotation(
     Placement(visible = true, transformation(origin = {-130, -210}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

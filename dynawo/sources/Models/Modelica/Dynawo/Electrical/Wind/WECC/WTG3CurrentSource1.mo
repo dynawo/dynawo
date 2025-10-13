@@ -36,7 +36,7 @@ model WTG3CurrentSource1 "WECC Wind Turbine model with a current source as inter
     Placement(transformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(
     Placement(transformation(origin = {140, 90}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput PmRefPu(start = Pm0Pu) " Reference Mechanical Power at optimal pitch angle in Pu (base Snom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PmRefPu(start = Pm0Pu) " Reference Mechanical Power at optimal pitch angle in pu (base SNom)" annotation(
     Placement(transformation(origin = {57, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = -P0Pu*SystemBase.SnRef/SNom) "Active power reference in pu (generator convention) (base SNom)" annotation(
     Placement(transformation(origin = {-110, 15}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
@@ -172,6 +172,7 @@ equation
     Line(points = {{-110, 15}, {60, 15}, {60, -12}, {92, -12}}, color = {0, 0, 127}));
 
   annotation(
+    preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-100, 80}, {360, -100}})),
     version = "",
     uses(Dynawo(version = "1.8.0"), Modelica(version = "3.2.3")),
