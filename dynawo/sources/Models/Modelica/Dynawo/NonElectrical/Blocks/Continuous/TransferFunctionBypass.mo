@@ -21,9 +21,7 @@ block TransferFunctionBypass "Linear transfer function, bypassed if highest-orde
 
   output Real x[nx](start = x_start) "State of transfer function from controller canonical form";
 
-  parameter Real x_start[nx] = zeros(nx) "Initial or guess values of states" annotation(
-    Dialog(group = "Initialization"));
-  parameter Real y_start = 0 "Initial value of output (derivatives of y are zero up to nx-1-th derivative)" annotation(
+  parameter Real u_start = 0 "Initial value of input" annotation(
     Dialog(group = "Initialization"));
 
 protected
@@ -34,8 +32,10 @@ protected
   parameter Real d = bb[1] / a_one "Ratio of highest-order coefficients of numerator and denominator";
   parameter Real a_one = if a[1] > 100 * Modelica.Constants.eps then a[1] else 1 "Non-zero value of highest-order coefficient of denominator";
   parameter Real a_end = if a[end] > 100 * Modelica.Constants.eps * sqrt(a*a) then a[end] else 1 "Non-zero value of lowest-order coefficient of denominator";
+  parameter Real x_start[nx] = if nx == 0 then {0} else cat(1, zeros(nx-1), {u_start / a_end}) "Initial or guess values of states";
+  parameter Real y_start = u_start * b[end] / a_end "Initial value of output (derivatives of y are zero up to nx-1-th derivative)";
 
-  Real x_scaled[nx](start = a_end * x_start) "Scaled vector x";
+  Real x_scaled[nx](start = x_start * a_end) "Scaled vector x";
 
 equation
   assert(size(b,1) <= size(a,1), "Transfer function is not proper");
@@ -72,7 +72,7 @@ form. Internally, vector <strong>x</strong> is scaled to improve the numerics (t
 not visible from the outside of this block because the non-scaled vector <strong>x</strong>
 is provided as output signal and the start value is with respect to the non-scaled
 vector <strong>x</strong>.
-Initial values of the states <strong>x</strong> can be set via parameter <strong>x_start</strong>.</p>
+Initial values of the states <strong>x</strong> are set via parameter <strong>x_start</strong> whose value corresponds to x_scaled[nx] = <strong>u_start</strong> and x_scaled[1:nx-1] = zeros(nx-1) and thus to a steady initialization.</p>
 
 <p>
 Example:
@@ -84,7 +84,7 @@ results in the following transfer function:
 </p>
 <pre>      2*s + 4
  y = --------- * u
-       s + 3</pre><p><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">This block differs from the one of the same name in the Modelica Standard Library</span>&nbsp;on two counts :</p><ul><li>If the highest-order component of the denominator is zero, the block returns the input as output;</li><li>The initial equations are absent since Dynawo ignores them, start values are given for&nbsp;<b>y</b>&nbsp;and for&nbsp;<b>x_scaled</b>&nbsp;instead.</li></ul><p></p>
+       s + 3</pre><p><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">This block differs from the TransferFunction block in the Modelica Standard Library</span>&nbsp;on two counts :</p><ul><li>If the highest-order component of the denominator is zero, the block returns the input as output;</li><li>The initial equations are absent since Dynawo ignores them, start values are given for&nbsp;<b>y</b>&nbsp;and for&nbsp;<b>x_scaled</b>&nbsp;instead.</li></ul><p></p>
 </body></html>"),
     Icon(
         coordinateSystem(preserveAspectRatio=true,
