@@ -15,11 +15,10 @@
   <variable type="continuous" id="terminal.V.re"/>
   <variable type="continuous" id="terminal.V.im"/>
   <variable type="continuous" id="omegaRefPu"/>
-  <variable type="continuous" id="UPu" optional="true"/>
+  <variable type="continuous" id="URegPu" optional="true"/>
   <variable type="continuous" id="URefPu" optional="true"/>
   <variable type="continuous" id="deltaPmRefPu" optional="true"/>
   <variable type="continuous" id="QRegPu" optional="true"/>
-  <!--variable type="continuous" id="UPhase" optional="true"/-->
   <variable type="discrete" id="freeze" defaultValue="false"/>
   <variable type="discrete" id="injector.switchOffSignal1.value" defaultValue="false"/>
   <variable type="discrete" id="injector.switchOffSignal2.value" defaultValue="false"/>

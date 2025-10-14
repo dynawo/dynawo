@@ -16,8 +16,6 @@ set(MODEL_FILES
   GridFollowingPlant.mo
   GridFollowingPlant.extvar
   GridFollowingPlant_INIT.mo
-  PVCurrentSource.mo
-  PVCurrentSource.extvar
   )
 
 #

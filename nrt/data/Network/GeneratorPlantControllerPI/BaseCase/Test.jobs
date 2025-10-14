@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--
-    Copyright (c) 2024, RTE (http://www.rte-france.com)
+    Copyright (c) 2025, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
     This Source Code Form is subject to the terms of the Mozilla Public
@@ -29,7 +29,7 @@
         <dyn:curves inputFile="curves.crv" exportMode="CSV"/>
         <dyn:finalStateValues inputFile="Test.fsv"/>
         <dyn:logs>
-          <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
+          <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
         </dyn:logs>
       </dyn:outputs>
   </dyn:job>
