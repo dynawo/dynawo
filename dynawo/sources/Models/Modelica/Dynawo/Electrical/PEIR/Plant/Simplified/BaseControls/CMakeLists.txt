@@ -11,10 +11,8 @@
 set(MODEL_FILES
   package.mo
   package.order
-  PlantControllerPI.mo
   Injector.mo
-  BasePVCurrentSource.mo
-  REPCa.mo
+  PlantControllerPI.mo
   )
 
 #

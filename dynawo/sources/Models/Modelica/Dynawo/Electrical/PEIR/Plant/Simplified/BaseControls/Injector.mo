@@ -1,5 +1,17 @@
 within Dynawo.Electrical.PEIR.Plant.Simplified.BaseControls;
 
+/*
+* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+*/
+
 model Injector
   extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffInjector;
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
@@ -14,9 +26,9 @@ model Injector
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the injector to the grid" annotation(
     Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(origin = {115, 5}, extent = {{-15, -15}, {15, 15}})));
 
-  Types.ActivePowerPu PInjPuSn(start = -PInj0Pu*SystemBase.SnRef/SNom) "Injected active power in pu (base SNom) (generator convention)" annotation(
+  Types.ActivePowerPu PInjPuSnRef(start = PInj0Pu*SystemBase.SnRef/SNom) "Injected active power in pu (base SnRef) (generator convention)" annotation(
     Placement(visible = true, transformation(extent = {{0, 0}, {0, 0}}, rotation = 0), iconTransformation(origin = {115, 43}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
-  Types.ReactivePowerPu QInjPuSn(start = -QInj0Pu*SystemBase.SnRef/SNom) "Injected reactive power in pu (base SNom) (generator convention)" annotation(
+  Types.ReactivePowerPu QInjPuSnRef(start = QInj0Pu*SystemBase.SnRef/SNom) "Injected reactive power in pu (base SnRef) (generator convention)" annotation(
     Placement(visible = true, transformation(extent = {{0, 0}, {0, 0}}, rotation = 0), iconTransformation(origin = {115, 5}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
   Types.VoltageModulePu UPu(start = U0Pu) "Magnitude voltage at inverter terminal in pu (base UNom)" annotation(
     Placement(visible = true, transformation(extent = {{0, 0}, {0, 0}}, rotation = 0), iconTransformation(origin = {115, 81}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
@@ -30,18 +42,18 @@ model Injector
 
 equation
   // Active and reactive power in generator convention and SNom base from terminal in receptor base in SnRef
-  QInjPuSn = -ComplexMath.imag(terminal.V*ComplexMath.conj(terminal.i))*SystemBase.SnRef/SNom;
-  PInjPuSn = -ComplexMath.real(terminal.V*ComplexMath.conj(terminal.i))*SystemBase.SnRef/SNom;
+  QInjPuSnRef = -ComplexMath.imag(terminal.V*ComplexMath.conj(terminal.i));
+  PInjPuSnRef = -ComplexMath.real(terminal.V*ComplexMath.conj(terminal.i));
 
   if running.value then
-    if ((terminal.V.re <= 1e-5) and (terminal.V.im  <= 1e-5)) then
+    /*if ((terminal.V.re <= 1e-5) and (terminal.V.im  <= 1e-5)) then
       UPu = 0;
       terminal.i = Complex(0,0);
-    else
+    else*/
       UPu = ComplexMath.'abs'(terminal.V);
-      QInjPu = -ComplexMath.imag(terminal.V*ComplexMath.conj(terminal.i));
-      PInjPu = -ComplexMath.real(terminal.V*ComplexMath.conj(terminal.i));
-    end if;
+      QInjPu = -ComplexMath.imag(terminal.V*ComplexMath.conj(terminal.i))*SystemBase.SnRef/SNom;
+      PInjPu = -ComplexMath.real(terminal.V*ComplexMath.conj(terminal.i))*SystemBase.SnRef/SNom;
+    //end if;
   else
     UPu = 0;
     terminal.i = Complex(0,0);
