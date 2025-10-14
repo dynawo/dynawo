@@ -32,7 +32,7 @@ model LinearCommunication "Linear communication module (IEC N°61400-27-1)"
   Modelica.Blocks.Interfaces.RealVectorOutput y[nu] "Connector of Real vector input signal" annotation(
     Placement(visible = true, transformation(extent = {{80, 70}, {120, -70}}, rotation = 0), iconTransformation(extent = {{80, 70}, {120, -70}}, rotation = 0)));
 
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction leadLag[nu](each a = {tLag, 1}, each b = {tLead, 1}, x_start = [X0Pu], y_start = X0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction leadLag[nu](each a = {tLag, 1}, each b = {tLead, 1}, initType = Modelica.Blocks.Types.Init.SteadyState, u_start = X0Pu) annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   //Initial parameter
