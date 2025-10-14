@@ -23,8 +23,6 @@ block TransferFunctionBypass "Linear transfer function, bypassed if highest-orde
 
   parameter Real u_start = 0 "Initial value of input" annotation(
     Dialog(group = "Initialization"));
-  parameter Real y_start = 0 "Initial value of output (derivatives of y are zero up to nx-1-th derivative)" annotation(
-    Dialog(group = "Initialization"));
 
 protected
   parameter Integer na = size(a, 1) "Size of denominator of transfer function";
@@ -35,6 +33,7 @@ protected
   parameter Real a_one = if a[1] > 100 * Modelica.Constants.eps then a[1] else 1 "Non-zero value of highest-order coefficient of denominator";
   parameter Real a_end = if a[end] > 100 * Modelica.Constants.eps * sqrt(a*a) then a[end] else 1 "Non-zero value of lowest-order coefficient of denominator";
   parameter Real x_start[nx] = if nx == 0 then {0} else cat(1, zeros(nx-1), {u_start / a_end}) "Initial or guess values of states";
+  parameter Real y_start = u_start * b[end] / a_end "Initial value of output (derivatives of y are zero up to nx-1-th derivative)";
 
   Real x_scaled[nx](start = x_start * a_end) "Scaled vector x";
 
