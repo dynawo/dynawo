@@ -94,12 +94,8 @@ ConstraintsCollection::filter(DYN::ConstraintValueType_t filterType) {
         }
         if (type == CONSTRAINT_END)  // close constraint
           activeConstraints.erase(activeConstraints.find(descr));
-      } else {
-        if (type == CONSTRAINT_END) {  // classic mode, forget closed constraints
+      } else if ((filterType == DYN::CONSTRAINTS_KEEP_FIRST) && (type == CONSTRAINT_END)) {  // classic mode, forget closed constraints
           constraintsByDescr.erase(constraintsByDescr.find(descr));
-        } else if (filterType == DYN::CONSTRAINTS_KEEP_LAST) {  // replace constraint
-          constraintsByDescr[descr].front() = constraint;
-        }
       }
     }
 
