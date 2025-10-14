@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--
-    Copyright (c) 2024, RTE (http://www.rte-france.com)
+    Copyright (c) 2025, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
     This Source Code Form is subject to the terms of the Mozilla Public
@@ -21,17 +21,21 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <reference name="generator_QReg0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="generator_UReg0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <par type="DOUBLE" name="generator_SNom" value="15"/>
     <par type="DOUBLE" name="generator_RPu" value="0"/>
     <par type="DOUBLE" name="generator_XPu" value="0"/>
     <par type="DOUBLE" name="generator_LambdaPuSNom" value="0.21"/>
     <par type="DOUBLE" name="generator_AlphaPuPNom" value="0.05"/>
-    <par type="DOUBLE" name="generator_QMin" value="-10"/>
-    <par type="DOUBLE" name="generator_QMax" value="10"/>
-    <par type="DOUBLE" name="generator_QMinRegPu" value="-10"/>
-    <par type="DOUBLE" name="generator_QMaxRegPu" value="10"/>
-    <par type="DOUBLE" name="generator_PMin" value="0"/>
-    <par type="DOUBLE" name="generator_PMax" value="20"/>
+    <par type="DOUBLE" name="generator_QMinReg" value="-10"/>
+    <par type="DOUBLE" name="generator_QMaxReg" value="10"/>
+    <par type="DOUBLE" name="generator_QMinPu" value="-99"/>
+    <par type="DOUBLE" name="generator_QMaxPu" value="99"/>
+    <!--par type="DOUBLE" name="generator_PMin" value="0"/>
+    <par type="DOUBLE" name="generator_PMax" value="20"/-->
+    <par type="DOUBLE" name="generator_PMin" value="-99"/>
+    <par type="DOUBLE" name="generator_PMax" value="99"/>
     <par type="DOUBLE" name="generator_PNom" value="15"/>
     <par type="DOUBLE" name="generator_EMaxPu" value="99"/>
     <par type="DOUBLE" name="generator_EMinPu" value="-99"/>
@@ -39,6 +43,7 @@
     <par type="DOUBLE" name="generator_Kp" value="5"/>
     <par type="DOUBLE" name="generator_DbdPu" value="0.05"/>
   </set>
+  <!--
   <set id="GeneratorPQ">
     <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
@@ -167,6 +172,7 @@
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
   </set>
+  -->
   <set id="OmegaRef">
     <par type="DOUBLE" name="setPoint_Value0" value="1"/>
   </set>
