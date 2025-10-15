@@ -114,7 +114,7 @@ model base_der_a "Base model for der_a"
     Placement(visible = true, transformation(origin = {57, -170}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder2(T = 0.01, k = 1, y_start = Iq0Pu) annotation(
     Placement(visible = true, transformation(origin = {50, -241}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.WECC.BaseControls.CurrentLimitsCalculationPV currentLimitsCalculation1(IMaxPu = IMaxPu, PPriority = PPriority) annotation(
+  Dynawo.Electrical.Controls.WECC.BaseControls.CurrentLimitsCalculationB currentLimitsCalculation1(IMaxPu = IMaxPu, PQFlag = PPriority) annotation(
     Placement(visible = true, transformation(origin = {10, -221}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = 0.01, k = 1, y_start = Id0Pu) annotation(
     Placement(visible = true, transformation(origin = {50, -201}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
