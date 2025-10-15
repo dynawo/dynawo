@@ -61,7 +61,11 @@ equation
   PInjPu = -ComplexMath.real(terminal.V * ComplexMath.conj(terminal.i));
 
   if running.value then
-    UPu = ComplexMath.'abs'(terminal.V);
+    if ((terminal.V.re == 0) and (terminal.V.im == 0)) then
+      UPu = 0;
+    else
+      UPu = ComplexMath.'abs'(terminal.V);
+    end if;
     // Park's transformations dq-currents in generator convention, -> receptor convention for terminal
     terminal.i.re = -(cos(UPhase) * idPu - sin(UPhase) * iqPu) * SNom / SystemBase.SnRef;
     terminal.i.im = -(sin(UPhase) * idPu + cos(UPhase) * iqPu) * SNom / SystemBase.SnRef;
