@@ -111,7 +111,11 @@ equation
     der(omegaRPu) = 0;
   end if;
 
-  UPu = ComplexMath.'abs'(V);
+  if ((V.re == 0) and (V.im == 0)) then
+    UPu = 0.;
+  else
+    UPu = ComplexMath.'abs'(V);
+  end if;
 
   // Trip block 1
   when UPu <= Utrip1Pu and pre(connected1) and running.value then
