@@ -1393,12 +1393,6 @@ class SubModel {
    */
   virtual void getInitSubModelParameterValue(const std::string & nameParameter, std::string& value, bool& found) const;
 
-  /**
-   * @brief get index of this submodel in the global continuous variable table
-   * @return index of this submodel in the global continuous variable table
-   */
-  int getOffsetY() const { return offsetY_; }
-
  protected:
   /**
    * @brief get the name of the file where parameters should be dumped
@@ -1552,7 +1546,6 @@ class SubModel {
   double* fLocal_;  ///< local buffer to fill when calculating residual functions
   state_g* gLocal_;  ///< local buffer to fill when calculating root functions
   double* yLocal_;  ///< local buffer to use when accessing continuous variables
-  unsigned int offsetY_;  ///< index in the global variable table
   double* ypLocal_;  ///< local buffer to use when accessing derivatives of continuous variables
   double* zLocal_;  ///< local buffer to use when accessing discrete variables
   bool* zLocalConnected_;  ///< table to know whether a discrete var is connected or not

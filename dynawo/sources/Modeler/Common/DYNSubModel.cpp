@@ -71,7 +71,6 @@ sizeCalculatedVar_(0),
 fLocal_(NULL),
 gLocal_(NULL),
 yLocal_(NULL),
-offsetY_(-1),
 ypLocal_(NULL),
 zLocal_(NULL),
 zLocalConnected_(NULL),
@@ -150,7 +149,7 @@ SubModel::saveData() {
   yLocalSave_ = yLocal_;
   ypLocalSave_ = ypLocal_;
   zLocalSave_ = zLocal_;
-  offsetYSave_ = offsetY_;
+  offsetYSave_ = yDeb_;
 }
 
 void
@@ -166,7 +165,7 @@ SubModel::restoreData() {
   yLocal_ = yLocalSave_;
   ypLocal_ = ypLocalSave_;
   zLocal_ = zLocalSave_;
-  offsetY_ = offsetYSave_;
+  yDeb_ = offsetYSave_;
 }
 
 void
@@ -845,7 +844,6 @@ SubModel::setBufferY(double* y, double* yp, const int offsetY) {
   ypLocal_ = static_cast<double*>(0);
   if (yp)
     ypLocal_ = &(yp[offsetY]);
-  offsetY_ = offsetY;
 }
 
 void
