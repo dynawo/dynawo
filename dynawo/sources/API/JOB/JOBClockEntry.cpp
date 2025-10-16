@@ -46,7 +46,7 @@ ClockEntry::setSpeedup(boost::optional<double> speedup) {
 }
 
 void
-ClockEntry::setTriggerChannel(std::string triggerChannel) {
+ClockEntry::setTriggerChannel(const std::string& triggerChannel) {
   triggerChannel_ = triggerChannel;
 }
 

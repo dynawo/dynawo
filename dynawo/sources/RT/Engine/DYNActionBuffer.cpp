@@ -32,7 +32,6 @@ ActionBuffer::setModel(std::shared_ptr<Model>& model) {
 
 void
 ActionBuffer::applyActions() {
-  std::cout << "ActionBuffer::applyActions" << std::endl;
   std::lock_guard<std::mutex> actionLock(actionsMutex_);
   for (auto& actionPair : actions_)
     actionPair.second.apply();
@@ -41,7 +40,6 @@ ActionBuffer::applyActions() {
 
 bool
 ActionBuffer::registerAction(ActionMessage& actionMessage) {
-  std::cout << "ActionBuffer: register: " << actionMessage.payload << std::endl;
   std::istringstream stream(actionMessage.payload);
   std::string token;
   std::string subModelName;
@@ -53,7 +51,6 @@ ActionBuffer::registerAction(ActionMessage& actionMessage) {
   boost::shared_ptr<SubModel> subModel = model->findSubModelByName(subModelName);
   if (!subModel) {
     Trace::error() << "ActionBuffer: Impossible to register action. Unknown SubModel: " << subModelName << Trace::endline;
-    std::cout << "ActionBuffer: Impossible to register action. Unknown SubModel: " << subModelName << std::endl;
     return false;
   }
 
@@ -99,9 +96,8 @@ ActionBuffer::registerAction(ActionMessage& actionMessage) {
       }
 
       parameterValueSet.push_back(std::make_tuple(name, castedValue, parameter.getValueType()));
-      std::cout << "new parameter modification for: " << name << std::endl;
     } else {
-      std::cout << "ActionBuffer: Parameter: " << name << " does not exist" << std::endl;
+      Trace::warn() << "ActionBuffer: Parameter: " << name << " does not exist" << Trace::endline;
       return false;
     }
   }
@@ -113,16 +109,13 @@ ActionBuffer::registerAction(ActionMessage& actionMessage) {
     if (actionIt != actions_.end()) {
       if (subModelName == "NETWORK") {
         actionIt->second.updateParameterValueSet(parameterValueSet);
-        std::cout << "ActionBuffer: Action list extended for NETWORK SubModel" << std::endl;
         Trace::info() << "ActionBuffer: Action list extended for NETWORK SubModel" << Trace::endline;
       } else {
         actionIt->second = newAction;
-        std::cout << "ActionBuffer: Actions overriden for SubModel: " << subModelName << std::endl;
         Trace::warn() << "ActionBuffer: Actions overriden for SubModel: " << subModelName << Trace::endline;
       }
     } else {
       Trace::info() << "ActionBuffer: New action registered on model: " << subModelName << Trace::endline;
-      std::cout << "ActionBuffer: New action registered on model: " << subModelName << std::endl;
       actions_.emplace(subModelName, newAction);
     }
   }

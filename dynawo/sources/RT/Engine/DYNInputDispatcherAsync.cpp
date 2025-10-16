@@ -38,7 +38,6 @@ InputDispatcherAsync::addInputChannel(std::shared_ptr<InputChannel>& channel) {
 
 void
 InputDispatcherAsync::start() {
-  std::cout << "InputDispatcherAsync::start channels_.size() = " << channels_.size() << std::endl;
   bool useTrigger = false;
 
   for (auto channel : channels_)
@@ -53,7 +52,6 @@ InputDispatcherAsync::start() {
 
 void
 InputDispatcherAsync::stop() {
-  std::cout << "InputDispatcherAsync::stop" << std::endl;
   running_ = false;
   queueCond_.notify_all();
   for (auto channel : channels_)

@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2024, RTE (http://www.rte-france.com)
+// Copyright (c) 2025, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -90,9 +90,9 @@ class SimulationRT: public Simulation {
 
   /**
    * @brief update curves : at the end of each iteration, new points are added to curve
-   * @param updateCalculateVariable @b true is calculated variables should be updated
+   * @param updateCalculatedVariable @b true is calculated variables should be updated
    */
-  void updateCurves(bool updateCalculateVariable = true) const override;
+  void updateCurves(bool updateCalculatedVariable = true) const override;
 
   /**
    * @brief launch the simulation
@@ -117,8 +117,8 @@ class SimulationRT: public Simulation {
   void initComputationTimeCurve();
 
  protected:
-  std::chrono::steady_clock::time_point stepStart_;             ///< clock time before step (after sleep)
-  double stepComputationTime_;
+  std::chrono::steady_clock::time_point stepStart_;             ///< Clock time before step (after sleep)
+  double stepComputationTime_;                                  ///< Step computation time in ms
   double couplingTimeStep_;                                     ///< Simulation period to call for wait / output values in seconds
 
   std::shared_ptr<Clock> clock_;                                ///< Class managing RT pace

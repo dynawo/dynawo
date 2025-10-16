@@ -48,7 +48,7 @@ class ZmqInputChannel: public InputChannel {
    * @param messageFilter Filter applied on incoming messages
    * @param endpoint ZeroMQ endpoint to bind
    */
-  ZmqInputChannel(const std::string id, MessageFilter messageFilter, const std::string& endpoint = "tcp://*:5555");
+  ZmqInputChannel(std::string id, MessageFilter messageFilter, const std::string& endpoint = "tcp://*:5555");
 
   /**
    * @brief Start receiving messages.
@@ -75,7 +75,6 @@ class ZmqInputChannel: public InputChannel {
   void receiveLoop();
 
  private:
-  const std::string STOP_KEY = "stop";  ///< Key used to signal stop
   zmqpp::context context_;              ///< ZeroMQ context
   zmqpp::socket socket_;                ///< ZeroMQ socket
   bool useThread_;                      ///< Whether reception uses a dedicated thread

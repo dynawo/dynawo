@@ -29,6 +29,7 @@
 #include "DYNMacrosMessage.h"
 #include "DYNElement.h"
 #include "DYNTimer.h"
+#include "DYNModelConstants.h"
 
 using std::stringstream;
 using std::vector;
@@ -728,7 +729,7 @@ ConnectorContainer::initYUpdatableValues() {
     for (vector<connectedSubModel>::iterator it = yc->connectedSubModels().begin();
             it != yc->connectedSubModels().end();
             ++it) {
-      if (it->subModel()->getNeedsInitFromConnectedModel()) {
+      if (it->subModel()->getIsUpdatable()) {
           if (inputFound || yc->connectedSubModels().size() != 2) {
           // Can connect only 1 input and 1 other variable
           throw DYNError(Error::MODELER, ErrorConnectedInputs, it->subModel()->name(), it->variable()->getName());
@@ -747,7 +748,7 @@ ConnectorContainer::initYUpdatableValues() {
         if (it != itInput) {
           double sign = it->negated_ ? -1 : 1;
           double value = yLocal_[it->subModel()->getVariableIndexGlobal(it->variable())];
-          itInput->subModel()->setParameterValue("input_value", DYN::FINAL, sign * value, false);
+          itInput->subModel()->setParameterValue(UPDATABLE_INPUT_NAME, DYN::FINAL, sign * value, false);
           itInput->subModel()->setSubModelParameters();
         }
       }
@@ -771,7 +772,7 @@ ConnectorContainer::initZUpdatableValues() {
     for (vector<connectedSubModel>::iterator it = zc->connectedSubModels().begin();
         it != zc->connectedSubModels().end();
         ++it) {
-      if (it->subModel()->getNeedsInitFromConnectedModel()) {
+      if (it->subModel()->getIsUpdatable()) {
         if (inputFound || zc->connectedSubModels().size() != 2) {
           // Can connect only 1 input and 1 other variable
           throw DYNError(Error::MODELER, ErrorConnectedInputs, it->subModel()->name(), it->variable()->getName());
@@ -794,7 +795,7 @@ ConnectorContainer::initZUpdatableValues() {
       if (it != itInput) {
         double sign = it->negated_ ? -1 : 1;
         double value = zLocal_[it->subModel()->getVariableIndexGlobal(it->variable())];
-        itInput->subModel()->setParameterValue("input_value", DYN::FINAL, sign * value, false);
+        itInput->subModel()->setParameterValue(UPDATABLE_INPUT_NAME, DYN::FINAL, sign * value, false);
         itInput->subModel()->setSubModelParameters();
       }
     }

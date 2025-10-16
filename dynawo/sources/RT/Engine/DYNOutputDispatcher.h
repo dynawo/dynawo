@@ -98,21 +98,25 @@ class OutputDispatcher {
  private:
   /**
    * @brief format last curves point in JSON
+   * @return formated curves
    */
-  std::string curvesToJson(std::shared_ptr<curves::CurvesCollection> curvesCollection);
+  std::string curvesToJson(std::shared_ptr<curves::CurvesCollection> curvesCollection) const;
 
   /**
    * @brief format last curves point in CSV
+   * @return formated curves
    */
-  std::string curvesToCsv(std::shared_ptr<curves::CurvesCollection> curvesCollection);
+  std::string curvesToCsv(std::shared_ptr<curves::CurvesCollection> curvesCollection) const;
 
   /**
   * @brief format curves names in CSV
+  * @return formated curve names
   */
-  std::string curvesNamesToString(std::shared_ptr<curves::CurvesCollection> curvesCollection);
+  std::string curvesNamesToString(std::shared_ptr<curves::CurvesCollection> curvesCollection) const;
 
   /**
   * @brief format curves as bytes
+  * @return formated curves
   */
   void updateCurvesValues(std::shared_ptr<curves::CurvesCollection> curvesCollection);
 

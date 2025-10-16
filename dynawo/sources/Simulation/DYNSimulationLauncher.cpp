@@ -94,7 +94,7 @@ void launchSimu(const std::string& jobsFileName, bool isInteractive) {
     std::shared_ptr<Simulation> simulation;
     try {
       if (isInteractive)
-        simulation = std::shared_ptr<SimulationRT>(new SimulationRT(job, context));
+        simulation = std::unique_ptr<SimulationRT>(new SimulationRT(job, context));
       else
         simulation = std::unique_ptr<Simulation>(new Simulation(job, context));
 

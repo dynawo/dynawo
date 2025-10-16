@@ -64,7 +64,7 @@ class ClockEntry {
    * @brief Trigger channel attribute setter
    * @param triggerChannel Trigger channel
    */
-  void setTriggerChannel(std::string triggerChannel);
+  void setTriggerChannel(const std::string& triggerChannel);
 
  private:
   std::string type_;                 ///< Clock type (INTERNAL or EXTERNAL)

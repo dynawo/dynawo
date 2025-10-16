@@ -29,6 +29,8 @@
 
 namespace DYN {
 
+static const char STOP_KEY[] = "stop";  ///< Key used to signal stop
+
 ZmqInputChannel::ZmqInputChannel(std::string id, MessageFilter messageFilter, const std::string& endpoint) :
 InputChannel(std::move(id), std::move(messageFilter)),
 socket_(context_, zmqpp::socket_type::reply),
@@ -44,12 +46,10 @@ pollTimeoutMs_(10) {
 
 void
 ZmqInputChannel::startReceiving(const std::function<void(std::shared_ptr<InputMessage>)>& callback, bool useThread) {
-  std::cout << "ZmqInputChannel::startReceiving" << std::endl;
   callback_ = callback;
   useThread_ = useThread;
   if (useThread_) {
     thread_ = std::thread([this]() { receiveLoop(); });
-    std::cout << "ZmqInputChannel: thread started" << std::endl;
   }
 }
 
@@ -70,8 +70,6 @@ ZmqInputChannel::receiveLoop() {
 
   while (!stopFlag_) {
     if (poller.poll(pollTimeoutMs_)) {
-      std::cout << "ZmqInputChannel: message received" << std::endl;
-
       if (poller.has_input(socket_)) {
         zmqpp::message message;
         socket_.receive(message);

@@ -104,17 +104,17 @@ Clock::wait(double simulationTime) {
 }
 
 bool
-Clock::getStopMessageReceived() {
+Clock::getStopMessageReceived() const {
   return stopMessageReceived_;
 }
 
 bool
-Clock::getUseTrigger() {
+Clock::getUseTrigger() const {
   return useTrigger_;
 }
 
 void
-Clock::setUseTrigger(bool useTrigger) {
+Clock::setUseTrigger(const bool useTrigger) {
   useTrigger_ = useTrigger;
 }
 

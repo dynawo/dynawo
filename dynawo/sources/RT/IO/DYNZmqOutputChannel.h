@@ -42,7 +42,7 @@ class ZmqOutputChannel : public OutputChannel {
    * @brief Constructor.
    * @param endpoint ZeroMQ endpoint to bind
    */
-  explicit ZmqOutputChannel(std::string endpoint = "tcp://*:5556");
+  explicit ZmqOutputChannel(const std::string& endpoint = "tcp://*:5556");
 
   /**
    * @brief Send a message as a string.
@@ -55,14 +55,14 @@ class ZmqOutputChannel : public OutputChannel {
    * @param data Message content
    * @param topic Message topic
    */
-  void sendMessage(const std::string& data, std::string topic) override;
+  void sendMessage(const std::string& data, const std::string& topic) override;
 
   /**
    * @brief Send a message as raw bytes with a topic.
    * @param data Message content as a byte vector
    * @param topic Message topic
    */
-  void sendMessage(const std::vector<std::uint8_t>& data, std::string topic) override;
+  void sendMessage(const std::vector<std::uint8_t>& data, const std::string& topic) override;
 
  private:
   zmqpp::context context_;  ///< ZeroMQ context

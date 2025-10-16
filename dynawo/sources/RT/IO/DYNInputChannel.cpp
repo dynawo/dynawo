@@ -24,7 +24,7 @@
 
 namespace DYN {
 
-InputChannel::InputChannel(std::string id, MessageFilter supportedMessages) {
+InputChannel::InputChannel(const std::string& id, MessageFilter supportedMessages) {
     id_ = id;
     supportedMessages_ = supportedMessages;
   }

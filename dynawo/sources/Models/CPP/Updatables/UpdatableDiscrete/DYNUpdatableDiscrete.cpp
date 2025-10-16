@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+// Copyright (c) 2025, RTE
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -7,8 +7,8 @@
 // file, you can obtain one at http://mozilla.org/MPL/2.0/.
 // SPDX-License-Identifier: MPL-2.0
 //
-// This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools
-// for power systems.
+// This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+// simulation tool for power systems.
 //
 
 /**
@@ -70,7 +70,7 @@ UpdatableDiscrete::UpdatableDiscrete() :
 ModelCPP("UpdatableDiscrete"),
 inputValue_(0.),
 updated_(false) {
-  needsInitFromConnectedModel_ = true;
+  setIsUpdatable(true);
 }
 
 void
@@ -181,18 +181,18 @@ UpdatableDiscrete::evalStaticFType() {
 
 void
 UpdatableDiscrete::defineVariables(vector<shared_ptr<Variable> >& variables) {
-  variables.push_back(VariableNativeFactory::createCalculated("input_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createCalculated(UPDATABLE_INPUT_NAME, DISCRETE));
 }
 
 void
 UpdatableDiscrete::defineParameters(vector<ParameterModeler>& parameters) {
-  parameters.push_back(ParameterModeler("input_value", VAR_TYPE_DOUBLE, INTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler(UPDATABLE_INPUT_NAME, VAR_TYPE_DOUBLE, INTERNAL_PARAMETER));
 }
 
 void
 UpdatableDiscrete::setSubModelParameters() {
-  if (findParameterDynamic("input_value").hasValue()) {
-    double parameterValue = findParameterDynamic("input_value").getValue<double>();
+  if (findParameterDynamic(UPDATABLE_INPUT_NAME).hasValue()) {
+    double parameterValue = findParameterDynamic(UPDATABLE_INPUT_NAME).getValue<double>();
     if (!DYN::doubleEquals(parameterValue, inputValue_))
       updated_ = true;
     inputValue_ = parameterValue;
@@ -202,8 +202,7 @@ UpdatableDiscrete::setSubModelParameters() {
 
 void
 UpdatableDiscrete::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
-  addElement("input", Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", "input", Element::TERMINAL, name(), modelType(), elements, mapElement);
+  addElement(UPDATABLE_INPUT_NAME, Element::TERMINAL, elements, mapElement);
 }
 
 }  // namespace DYN

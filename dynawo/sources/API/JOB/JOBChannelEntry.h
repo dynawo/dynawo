@@ -76,7 +76,7 @@ class ChannelEntry {
    * @brief endpoint
    * @param endpoint Channel endpoint
    */
-  void setEndpoint(std::string endpoint);
+  void setEndpoint(const std::string& endpoint);
 
  private:
   std::string id_;          ///< Channel id
