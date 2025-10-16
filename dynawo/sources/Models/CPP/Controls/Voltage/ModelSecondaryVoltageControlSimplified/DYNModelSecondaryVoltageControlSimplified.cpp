@@ -143,8 +143,8 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
           XTfoPu_.push_back(0.);
       }
     } catch (const DYN::Error& e) {
-    Trace::error() << e.what() << Trace::endline;
-    throw DYNError(Error::MODELER, NetworkParameterNotFoundFor, name());
+      Trace::error() << e.what() << Trace::endline;
+      throw DYNError(Error::MODELER, NetworkParameterNotFoundFor, name());
     }
   }
 
@@ -238,7 +238,7 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
   ModelSecondaryVoltageControlSimplified::calculateInitialState() {
     zLocal_[levelValNum_] = 0.;
     for (int g = 0; g < nbGenerators_; g++) {
-      zLocal_[levelValNum_] += (-1.0 * yLocal_[g + 1] * SNREF);
+      zLocal_[levelValNum_] += yLocal_[g + 1];
      }
     double qrSum = 0;
     for (auto& qr : Qr_) {
@@ -261,10 +261,13 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
       if (doubleLess(yLocal_[UpPuNum_], minValue) || doubleGreater(yLocal_[UpPuNum_], maxValue)) {
         double iTermTmp = iTerm_;
         iTermTmp += Alpha_ * (zLocal_[UpRefPuNum_] - yLocal_[UpPuNum_]) * tSample_;
+        double levelSave = zLocal_[levelValNum_];
         zLocal_[levelValNum_] = iTermTmp + Beta_ * (zLocal_[UpRefPuNum_] - yLocal_[UpPuNum_]);
         feedBackCorrection_ = 0;
         antiWindUpCorrection();
         iTerm_ = iTermTmp + feedBackCorrection_;
+        if (doubleNotEquals(static_cast<int>(levelSave*100), static_cast<int>(zLocal_[levelValNum_]*100)))
+          DYNAddTimelineEvent(this, name(), SVRLevelNew,  zLocal_[levelValNum_]);
       }
       zLocal_[tLastActivationNum_] = t;
     }
@@ -371,7 +374,7 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
 
       Qs.str(std::string());
       Qs.clear();
-      Qs << "Qs_" << s << "_value";
+      Qs << "QStator_" << s;
       addElement(Qs.str(), Element::STRUCTURE, elements, mapElement);
       addSubElement("value", Qs.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
     }

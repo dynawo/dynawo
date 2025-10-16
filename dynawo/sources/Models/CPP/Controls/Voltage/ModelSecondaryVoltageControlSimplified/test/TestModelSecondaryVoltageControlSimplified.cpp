@@ -96,7 +96,7 @@ TEST(ModelSecondaryVoltageControlSimplified, ModelSecondaryVoltageControlSimplif
 
     ASSERT_NO_THROW(svc->getSize());
     ASSERT_EQ(svc->sizeG(), 2);
-    ASSERT_EQ(svc->sizeY(), 1);
+    ASSERT_EQ(svc->sizeY(), 3);
     ASSERT_EQ(svc->sizeZ(), nbGen + DYN::ModelSecondaryVoltageControlSimplified::firstIndexBlockerNum_);
     ASSERT_EQ(svc->sizeMode(), 0);
     ASSERT_EQ(svc->sizeF(), 0);
@@ -105,7 +105,7 @@ TEST(ModelSecondaryVoltageControlSimplified, ModelSecondaryVoltageControlSimplif
     std::vector<boost::shared_ptr<Variable> > variables;
     svc->defineVariables(variables);
     unsigned long nbVar = static_cast<unsigned long>(DYN::ModelSecondaryVoltageControlSimplified::firstIndexBlockerNum_) +
-                            nbGen + static_cast<unsigned long>(DYN::ModelSecondaryVoltageControlSimplified::nbContinuousVariables_)
+                            2*nbGen + static_cast<unsigned long>(DYN::ModelSecondaryVoltageControlSimplified::nbContinuousVariables_)
                             + static_cast<unsigned long>(DYN::ModelSecondaryVoltageControlSimplified::nbCalculatedVariables_);
     ASSERT_EQ(variables.size(), nbVar);
     std::vector<Element> elements;
@@ -169,6 +169,8 @@ TEST(ModelSecondaryVoltageControlSimplified, ModelSecondaryVoltageControlSimplif
   std::vector<double> yp(svc->sizeY(), 0);
   svc->setBufferY(&y[0], &yp[0], 0.);
   y[ModelSecondaryVoltageControlSimplified::UpPuNum_] = 0.95;
+  y[1] = 1.;
+  y[2] = 1.;
   std::vector<double> z(svc->sizeZ(), 0);
   bool* zConnected = new bool[svc->sizeZ()];
   BitMask* silentZ = new BitMask[svc->sizeZ()];
