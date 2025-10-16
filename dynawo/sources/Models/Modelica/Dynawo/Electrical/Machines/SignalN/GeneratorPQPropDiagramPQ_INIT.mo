@@ -19,10 +19,13 @@ model GeneratorPQPropDiagramPQ_INIT "Initialisation model for generator PQ with 
 equation
   if QGen0Pu <= QMin0Pu then
     qStatus0 = QStatus.AbsorptionMax;
+    QGen0Pu = QMin0Pu;
   elseif QGen0Pu >= QMax0Pu then
     qStatus0 = QStatus.GenerationMax;
+    QGen0Pu = QMax0Pu;
   else
     qStatus0 = QStatus.Standard;
+    QGen0Pu = QGenRaw0Pu;
   end if;
 
   annotation(preferredView = "text");

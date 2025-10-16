@@ -21,10 +21,13 @@ model GeneratorPVDiagramPQSFR_INIT "Initialisation model for generator PV based 
 equation
   if QGen0Pu <= QMin0Pu and U0Pu >= URef0Pu then
     qStatus0 = QStatus.AbsorptionMax;
+    QGen0Pu = QMin0Pu;
   elseif QGen0Pu >= QMax0Pu and U0Pu <= URef0Pu then
     qStatus0 = QStatus.GenerationMax;
+    QGen0Pu = QMax0Pu;
   else
     qStatus0 = QStatus.Standard;
+    QGen0Pu = QGenRaw0Pu;
   end if;
 
   annotation(preferredView = "text");
