@@ -59,11 +59,13 @@ class Curve {
 
   /**
    * @brief get last point value
+   * @return value of last Point (0 if Point list is empty)
    */
   double getLastValue() const;
 
   /**
    * @brief get last point time
+   * @return time of last Point (0 if Point list is empty)
    */
   double getLastTime() const;
 

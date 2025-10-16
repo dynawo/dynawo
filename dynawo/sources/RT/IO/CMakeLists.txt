@@ -1,4 +1,4 @@
-# Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+# Copyright (c) 2025, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -18,7 +18,7 @@ set(RTIO_INCLUDE_HEADERS
       DYNOutputChannel.h
       )
 
-if (USE_ZMQPP)
+if (ZMQPP_FOUND)
       list(APPEND RTIO_SOURCES
             DYNZmqInputChannel.cpp
             DYNZmqOutputChannel.cpp
@@ -40,7 +40,7 @@ target_link_libraries(dynawo_RTIO
     dynawo_RTCommon
 )
 
-if (USE_ZMQPP)
+if (ZMQPP_FOUND)
       target_link_libraries(dynawo_RTIO PUBLIC ZMQPP::ZMQPP)
 endif()
 

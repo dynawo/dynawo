@@ -1355,18 +1355,20 @@ class SubModel {
   /**
    * @brief Set updatable capability
    *
+   * @param isUpdatable bool indicating the model is updatable or is connected to an updatable model
+   *
    */
-  void setNeedsInitFromConnectedModel_(bool needsInitFromConnectedModel_) {
-    needsInitFromConnectedModel_ = needsInitFromConnectedModel_;
+  inline void setIsUpdatable(bool isUpdatable) {
+    isUpdatable_ = isUpdatable;
   }
 
   /**
   * @brief Get updatable capability
   *
-  * @return isUpdatableDuringSimulation
+  * @return bool indicating if model needs to be initializated using connected variable
   */
-  inline bool getNeedsInitFromConnectedModel() const {
-    return needsInitFromConnectedModel_;
+  inline bool getIsUpdatable() const {
+    return isUpdatable_;
   }
 
   /**
@@ -1609,7 +1611,6 @@ class SubModel {
 
   std::shared_ptr<parameters::ParametersSet> localInitParameters_;  ///< local initialization solver parameters set
 
-  bool needsInitFromConnectedModel_;
 
  private:
   unsigned int sizeFSave_;  ///< save of the size of F
@@ -1659,6 +1660,8 @@ class SubModel {
   std::string workingDirectory_;  ///< Working directory of the simulation (configuration of the simulation)
 
   bool isInitProcess_;  ///< whether the init process (or the standard dynamic simulation) is running
+
+  bool isUpdatable_;   ///< indicate if subModel is an updatable model (or connector to updatable model)
 };
 
 }  // namespace DYN

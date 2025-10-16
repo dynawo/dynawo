@@ -103,10 +103,10 @@ class InteractiveSettingsEntry {
   void copy(const InteractiveSettingsEntry& other);
 
  private:
-  std::shared_ptr<ClockEntry> clock_;
-  std::shared_ptr<ChannelsEntry> channels_;
-  std::shared_ptr<StreamsEntry> streams_;
-  double couplingTimeStep_;
+  std::shared_ptr<ClockEntry> clock_;         ///< Clock entry container
+  std::shared_ptr<ChannelsEntry> channels_;   ///< Channels entry container
+  std::shared_ptr<StreamsEntry> streams_;     ///< Streams entry container
+  double couplingTimeStep_;                   ///< Time step in s between two I/O phases with external systems in interactive mode
 };
 
 }  // namespace job

@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2024, RTE (http://www.rte-france.com)
+// Copyright (c) 2025, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -146,13 +146,12 @@ SimulationRT::configureRT() {
       std::shared_ptr<job::ChannelEntry> channelEntry = channelsEntry->getChannelEntryById(streamEntry->getChannel());
       if (channelEntry->getType() == "ZMQ") {
 #ifdef USE_ZMQPP
-        std::cout << "creating ZMQ channel " << channelEntry->getId() << std::endl;
         if (channelEntry->getEndpoint() == "")
           outputChannel = std::make_shared<ZmqOutputChannel>();
         else
           outputChannel = std::make_shared<ZmqOutputChannel>(channelEntry->getEndpoint());
         channelInterfaceMap.emplace(channelEntry->getId(), outputChannel);
-        std::cout << "ZMQ channel created" << channelEntry->getId() << std::endl;
+        Trace::debug() << "ZMQ channel created" << channelEntry->getId() << Trace::endline;
 #else
         throw DYNError(Error::GENERAL, UnavailableLib, "ZMQPP");
 #endif
@@ -163,7 +162,7 @@ SimulationRT::configureRT() {
     } else {
       outputChannel = channelInterfaceMapIt->second;
     }
-    std::cout << "outputChannels created" << std::endl;
+    Trace::debug() << "OutputChannels created" << Trace::endline;
 
     if (streamEntry->getData() == "CURVES") {
       outputDispatcher_->addCurvesPublisher(outputChannel, streamEntry->getFormat());
@@ -175,7 +174,7 @@ SimulationRT::configureRT() {
       Trace::warn() << "Stream data unknown or not managed: " << streamEntry->getData() << Trace::endline;;
     }
   }
-  std::cout << "output dispatcher set up" << std::endl;
+  Trace::debug() << "Output dispatcher set up" << Trace::endline;
 
   // intialize input channels
   for (auto &channelEntry : channelsEntry->getChannelEntries()) {
@@ -207,14 +206,14 @@ SimulationRT::configureRT() {
   // Workaround to avoid saving value for each curve:
   //  - Set all curves as EXPORT_AS_FINAL_STATE_VALUE --> will keep only one Point corresponding to last value
   //  - Disable export of curves and final state values
-  std::cout << "Real time mode: disabling all curves recording (jobs-with-curves won't work!)" << std::endl;
+  Trace::debug() << "Real time mode: disabling all curves recording (jobs-with-curves won't work!)" << Trace::endline;
   for (auto &curve : curvesCollection_->getCurves()) {
     curve->setExportType(curves::Curve::EXPORT_AS_FINAL_STATE_VALUE);
   }
   exportCurvesMode_ = EXPORT_CURVES_NONE;
   exportFinalStateValuesMode_ = EXPORT_FINAL_STATE_VALUES_NONE;
   // Add simulation time to curves
-  bool sendSimulationMetrics_ = true;   // TODO(thibaut) add jobs property
+  bool sendSimulationMetrics_ = true;
   if (sendSimulationMetrics_)
     initComputationTimeCurve();
 
@@ -222,11 +221,11 @@ SimulationRT::configureRT() {
 }
 
 void
-SimulationRT::updateCurves(bool updateCalculateVariable) const {
+SimulationRT::updateCurves(bool updateCalculatedVariable) const {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SimulationRT::updateCurves()");
 #endif
-  if (updateCalculateVariable)
+  if (updateCalculatedVariable)
     model_->updateCalculatedVarForCurves();
 
   curvesCollection_->updateCurves(tCurrent_);
@@ -235,7 +234,7 @@ SimulationRT::updateCurves(bool updateCalculateVariable) const {
 
 void
 SimulationRT::simulate() {
-  std::cout << "---- simulate ----" << std::endl;
+  Trace::debug() << "---- simulate ----" << Trace::endline;
 
   Timer timer("SimulationRT::simulate()");
   if (actionBuffer_)

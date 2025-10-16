@@ -18,9 +18,6 @@ endif()
 option(BUILD_TESTS "Choose to build the unit tests")
 option(BUILD_TESTS_COVERAGE "Choose to build tests coverage")
 
-# IO interfaces for interactive dynawo
-option(USE_ZMQPP "Link ZMQPP library" OFF)
-
 # Add custom cmake modules to the path
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
@@ -146,10 +143,6 @@ list(APPEND CMAKE_PREFIX_PATH "${LIBXML2_HOME}")
 
 if (DEFINED ZMQPP_HOME)
   list(APPEND CMAKE_PREFIX_PATH "${ZMQPP_HOME}")
-endif()
-
-if (DEFINED WEBSOCKETPP_HOME)
-  list(APPEND CMAKE_PREFIX_PATH "${WEBSOCKETPP_HOME}")
 endif()
 
 # Python Interpreter
@@ -282,14 +275,11 @@ find_package(LibXml2 "2.9" REQUIRED)
 find_package(LibIIDM "1.5.1" REQUIRED PATHS ${LIBIIDM_HOME})
 
 # Interactive mode interfaces
-if(USE_ZMQPP)
-    find_package(ZMQPP QUIET)
-    if(ZMQPP_FOUND)
-        add_definitions(-DUSE_ZMQPP)
-    else()
-        message("USE_ZMQPP not found. Disabling support.")
-        set(USE_ZMQPP OFF)
-    endif()
+find_package(ZMQPP)
+if(ZMQPP_FOUND)
+    add_definitions(-DUSE_ZMQPP)
+else()
+    message(STATUS "ZMQPP library not found. Disabling support.")
 endif()
 
 if(MSVC)
@@ -347,8 +337,10 @@ install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindXercesC.cmake DESTINATION ${
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindSuiteSparse.cmake DESTINATION ${SHAREDIR_NAME}/cmake)
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindSundials.cmake DESTINATION ${SHAREDIR_NAME}/cmake)
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindlibZIP.cmake DESTINATION ${SHAREDIR_NAME}/cmake)
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindZMQPP.cmake DESTINATION ${SHAREDIR_NAME}/cmake)
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/CPUCount.cmake DESTINATION ${SHAREDIR_NAME}/cmake)
+if (ZMQPP_FOUND)
+  install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindZMQPP.cmake DESTINATION ${SHAREDIR_NAME}/cmake)
+endif()
 
 if(MSVC)
   install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../util/curvesToHtml DESTINATION ${SBINDIR_NAME})

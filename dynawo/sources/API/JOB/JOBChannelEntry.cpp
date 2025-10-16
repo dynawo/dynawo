@@ -51,7 +51,7 @@ ChannelEntry::setType(const std::string& type) {
 }
 
 void
-ChannelEntry::setEndpoint(std::string endpoint) {
+ChannelEntry::setEndpoint(const std::string& endpoint) {
   endpoint_ = endpoint;
 }
 

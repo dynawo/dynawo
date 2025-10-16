@@ -239,7 +239,7 @@ OutputDispatcher::publishConstraints(std::shared_ptr<constraints::ConstraintsCol
 
 
 std::string
-OutputDispatcher::curvesToJson(std::shared_ptr<curves::CurvesCollection> curvesCollection) {
+OutputDispatcher::curvesToJson(std::shared_ptr<curves::CurvesCollection> curvesCollection) const {
   std::stringstream stream;
   double time = -1;
   stream << "{\n\t\"curves\": {\n";
@@ -265,7 +265,7 @@ OutputDispatcher::curvesToJson(std::shared_ptr<curves::CurvesCollection> curvesC
 
 
 std::string
-OutputDispatcher::curvesToCsv(std::shared_ptr<curves::CurvesCollection> curvesCollection) {
+OutputDispatcher::curvesToCsv(std::shared_ptr<curves::CurvesCollection> curvesCollection) const {
   std::stringstream stream;
   double time = -1;
   for (auto &curve : curvesCollection->getCurves()) {
@@ -282,7 +282,7 @@ OutputDispatcher::curvesToCsv(std::shared_ptr<curves::CurvesCollection> curvesCo
 }
 
 std::string
-OutputDispatcher::curvesNamesToString(std::shared_ptr<curves::CurvesCollection> curvesCollection) {
+OutputDispatcher::curvesNamesToString(std::shared_ptr<curves::CurvesCollection> curvesCollection) const {
   std::stringstream stream;
   stream << "time" << "\n";
   for (auto &curve : curvesCollection->getCurves()) {

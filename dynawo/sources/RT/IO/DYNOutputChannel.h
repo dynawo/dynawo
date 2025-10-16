@@ -46,14 +46,14 @@ class OutputChannel {
    * @param data Message content
    * @param topic Message topic
    */
-  virtual void sendMessage(const std::string& data, const std::string topic) = 0;
+  virtual void sendMessage(const std::string& data, const std::string& topic) = 0;
 
   /**
    * @brief Send a message as raw bytes with a topic.
    * @param data Message content as a byte vector
    * @param topic Message topic
    */
-  virtual void sendMessage(const std::vector<std::uint8_t>& data, const std::string topic) = 0;
+  virtual void sendMessage(const std::vector<std::uint8_t>& data, const std::string& topic) = 0;
 };
 
 }  // end of namespace DYN

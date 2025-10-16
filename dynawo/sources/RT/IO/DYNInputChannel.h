@@ -41,7 +41,7 @@ class InputChannel {
    * @param id Identifier of the input channel
    * @param supportedMessages Message types supported by the channel
    */
-  InputChannel(std::string id, MessageFilter supportedMessages);
+  InputChannel(const std::string& id, MessageFilter supportedMessages);
 
   /**
    * @brief Start receiving messages.

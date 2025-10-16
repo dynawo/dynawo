@@ -56,7 +56,6 @@ Action::apply() {
   }
   subModel_->setSubModelParameters();
   Trace::info() << "Action: SubModel " << subModel_->name() << " parameters updated" << Trace::endline;
-  std::cout << "Action: SubModel " << subModel_->name() << " parameters updated" << std::endl;
 }
 
 void

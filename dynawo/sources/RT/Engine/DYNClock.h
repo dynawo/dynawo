@@ -87,19 +87,19 @@ class Clock {
    * @brief use trigger attribute
    * @param useTrigger use trigger attribute
    */
-  void setUseTrigger(bool useTrigger);
+  void setUseTrigger(const bool useTrigger);
 
   /**
    * @brief use trigger attribute getter
    * @return use trigger attribute
    */
-  bool getUseTrigger();
+  bool getUseTrigger() const;
 
   /**
    * @brief Stop message received flag getter
    * @return Stop message received flag
    */
-  bool getStopMessageReceived();
+  bool getStopMessageReceived() const;
 
  private:
   bool useTrigger_;                   ///< true if wait needs a trigger from an input channel
@@ -107,12 +107,12 @@ class Clock {
   bool stopMessageReceived_;          ///< true if a stop message has been received
 
   // Internal time sync
-  double speedup_;                    ///< acceleration factor clockTime/simulationTime >
-  std::chrono::steady_clock::time_point referenceClockTime_;  ///< clock reference correponding to referenceSimuTime >
-  double referenceSimuTime_;          ///< simulation time ("tCurrent") reference correponding to referenceSimuTime >
+  double speedup_;                    ///< acceleration factor clockTime/simulationTime
+  std::chrono::steady_clock::time_point referenceClockTime_;  ///< clock reference correponding to referenceSimuTime
+  double referenceSimuTime_;          ///< simulation time ("tCurrent") reference correponding to referenceSimuTime
 
   // External time sync
-  std::atomic<int> triggeredStepCnt_;    ///< number of triggered step_
+  std::atomic<int> triggeredStepCnt_;    ///< number of triggered steps
   std::mutex mutex_;                     ///< mutex for trigger wait
   std::condition_variable triggerCond_;  ///< trigger condition variable to unlock mutex in wait
 };
