@@ -9,7 +9,7 @@ within Dynawo.Electrical.Machines.OmegaRef;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
 model GeneratorSynchronousInt_INIT "Synchronous machine - Initialization model from internal parameters"
