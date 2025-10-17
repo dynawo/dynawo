@@ -303,6 +303,29 @@ model FullDynamicModel "Nordic test grid with buses, lines, shunts, loads, trans
   parameter Types.Angle UPhase0_g20;
 
 equation
+  connect(trafo_1_1041.terminal20, load_01_INIT.terminal0);
+  connect(trafo_2_1042.terminal20, load_02_INIT.terminal0);
+  connect(trafo_3_1043.terminal20, load_03_INIT.terminal0);
+  connect(trafo_4_1044.terminal20, load_04_INIT.terminal0);
+  connect(trafo_5_1045.terminal20, load_05_INIT.terminal0);
+  connect(trafo_11_1011.terminal20, load_11_INIT.terminal0);
+  connect(trafo_12_1012.terminal20, load_12_INIT.terminal0);
+  connect(trafo_13_1013.terminal20, load_13_INIT.terminal0);
+  connect(trafo_22_1022.terminal20, load_22_INIT.terminal0);
+  connect(trafo_31_2031.terminal20, load_31_INIT.terminal0);
+  connect(trafo_32_2032.terminal20, load_32_INIT.terminal0);
+  connect(trafo_41_4041.terminal20, load_41_INIT.terminal0);
+  connect(trafo_42_4042.terminal20, load_42_INIT.terminal0);
+  connect(trafo_43_4043.terminal20, load_43_INIT.terminal0);
+  connect(trafo_46_4046.terminal20, load_46_INIT.terminal0);
+  connect(trafo_47_4047.terminal20, load_47_INIT.terminal0);
+  connect(trafo_51_4051.terminal20, load_51_INIT.terminal0);
+  connect(trafo_61_4061.terminal20, load_61_INIT.terminal0);
+  connect(trafo_62_4062.terminal20, load_62_INIT.terminal0);
+  connect(trafo_63_4063.terminal20, load_63_INIT.terminal0);
+  connect(trafo_71_4071.terminal20, load_71_INIT.terminal0);
+  connect(trafo_72_4072.terminal20, load_72_INIT.terminal0);
+
   trafo_g1_1012.switchOffSignal1.value = false;
   trafo_g1_1012.switchOffSignal2.value = false;
   trafo_g2_1013.switchOffSignal1.value = false;

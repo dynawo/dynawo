@@ -136,10 +136,10 @@ model Scl2c "IEEE (2016) stator current limiter type SCL2C model"
     Placement(visible = true, transformation(origin = {170, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add3 add31(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {170, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Min min1 annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Min2 min1 annotation(
     Placement(visible = true, transformation(origin = {230, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax max1(nu = 3) annotation(
-    Placement(visible = true, transformation(origin = {230, -46}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.Max3 max1 annotation(
+    Placement(visible = true, transformation(origin = {230, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder4(T = tVtScl, y_start = Modelica.ComplexMath.'abs'(ut0Pu)) annotation(
     Placement(visible = true, transformation(origin = {-230, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add2(k2 = -1) annotation(
@@ -274,21 +274,21 @@ equation
   connect(pythagoras.y, add3.u2) annotation(
     Line(points = {{-159, 120}, {158, 120}}, color = {0, 0, 127}));
   connect(add1.y, max1.u[1]) annotation(
-    Line(points = {{-159, -40}, {200, -40}, {200, -46}, {220, -46}}, color = {0, 0, 127}));
+    Line(points = {{-159, -40}, {218, -40}}, color = {0, 0, 127}));
   connect(add31.y, max1.u[2]) annotation(
-    Line(points = {{181, -120}, {200, -120}, {200, -46}, {220, -46}}, color = {0, 0, 127}));
+    Line(points = {{181, -120}, {200, -120}, {200, -40}, {218, -40}}, color = {0, 0, 127}));
   connect(firstOrder4.y, add2.u2) annotation(
     Line(points = {{-219, 20}, {140, 20}, {140, 34}, {157, 34}}, color = {0, 0, 127}, pattern = LinePattern.DashDot));
   connect(const2.y, add2.u1) annotation(
     Line(points = {{121, 60}, {140, 60}, {140, 46}, {158, 46}}, color = {0, 0, 127}));
   connect(add2.y, max1.u[3]) annotation(
-    Line(points = {{181, 40}, {200, 40}, {200, -46}, {220, -46}}, color = {0, 0, 127}));
+    Line(points = {{181, 40}, {200, 40}, {200, -40}, {218, -40}}, color = {0, 0, 127}));
   connect(complexToPolar.len, firstOrder4.u) annotation(
     Line(points = {{-358, 26}, {-340, 26}, {-340, 20}, {-242, 20}}, color = {0, 0, 127}, pattern = LinePattern.Dot));
   connect(min1.y, pidUel.u_s) annotation(
     Line(points = {{241, 100}, {257, 100}}, color = {0, 0, 127}));
-  connect(max1.yMax, pidOel.u_s) annotation(
-    Line(points = {{241, -40}, {258, -40}}, color = {0, 0, 127}));
+  connect(max1.y, pidOel.u_s) annotation(
+    Line(points = {{242, -40}, {258, -40}}, color = {0, 0, 127}));
   connect(pidUel.y, limitedLeadLag.u) annotation(
     Line(points = {{281, 100}, {297, 100}}, color = {0, 0, 127}));
   connect(limitedLeadLag2.y, limitedLeadLag3.u) annotation(

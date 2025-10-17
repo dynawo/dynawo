@@ -18,6 +18,7 @@ OverloadUpCLA                     = CLA : overload %1%s
 PATL                              = permanent limit side %1%
 OverloadOpen                      = overload %1%s : open line (side %2%)
 OverloadOpenCLA                   = CLA : overload %1%s : open line
+FictLim                           = fictitious limit with value %1% on side %2%
 // Generators
 UsMax                             = Us > UsMax
 UsMin                             = Us < UsMin

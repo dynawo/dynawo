@@ -11,7 +11,7 @@ Load_zP_value                                     : y =       1.000000 yp =     
 Load_zQ_value                                     : y =       1.000000 yp =       0.000000
 Load2_zP_value                                    : y =       1.023493 yp =       0.000000
 Load2_zQ_value                                    : y =       1.047527 yp =       0.000000
- ====== INIT CALCULATED VARIABLES VALUES ======
+ ====== CALCULATED VARIABLES VALUES ======
 VL1_BUS1_Upu_value                                : y =       1.000000
 VL1_BUS1_phipu_value                              : y =       0.000000
 VL1_BUS1_U_value                                  : y =       1.000000
@@ -45,7 +45,7 @@ line1_iSide2_value                                : y =   31162.350510
 line1_U1_value                                    : y =       1.000000
 line1_U2_value                                    : y =       1.420520
 line1_lineState_value                             : y =       2.000000
- ====== INIT DISCRETE VARIABLES VALUES ======
+ ====== DISCRETE VARIABLES VALUES ======
 VL1_BUS1_numcc_value                              : z =       0.000000
 VL1_BUS1_switchOff_value                          : z =      -1.000000
 VL1_BUS1_state_value                              : z =       2.000000
@@ -77,3 +77,12 @@ transformer_t1st_THT                               =      30.000000
 transformer_tNext_HT                               =      10.000000
 transformer_tNext_THT                              =      10.000000
 transformer_tolV                                   =       0.015000
+ ====== INTERNAL PARAMETERS VALUES ======
+line1_admittance                                   =       0.497519
+line1_lossAngle                                    =      0.0996687
+line1_suscept1                                     =              0
+line1_suscept2                                     =              0
+line1_conduct1                                     =              0
+line1_conduct2                                     =              0
+line1_resistance                                   =            0.2
+line1_reactance                                    =              2

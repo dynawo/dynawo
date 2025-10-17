@@ -64,7 +64,7 @@ partial model BaseSt6 "IEEE exciter type ST6 base model"
     Placement(visible = true, transformation(origin = {-70, 200}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Division division annotation(
     Placement(visible = true, transformation(origin = {-170, 160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Min min5 annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Min2 min5 annotation(
     Placement(visible = true, transformation(origin = {-10, 160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product1 annotation(
     Placement(visible = true, transformation(origin = {-70, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -86,7 +86,7 @@ partial model BaseSt6 "IEEE exciter type ST6 base model"
     Placement(visible = true, transformation(origin = {50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = VrMaxPu, uMin = VrMinPu) annotation(
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Min min4 annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Min2 min4 annotation(
     Placement(visible = true, transformation(origin = {270, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tG, k = Kg, y_start = Kg * Efd0Pu) annotation(
     Placement(visible = true, transformation(origin = {310, -200}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
@@ -98,7 +98,7 @@ partial model BaseSt6 "IEEE exciter type ST6 base model"
     Placement(visible = true, transformation(origin = {-330, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = Klr) annotation(
     Placement(visible = true, transformation(origin = {-230, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Max max3 annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Max2 max3 annotation(
     Placement(visible = true, transformation(origin = {-170, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const2(k = VrMinPu) annotation(
     Placement(visible = true, transformation(origin = {-230, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -110,12 +110,6 @@ partial model BaseSt6 "IEEE exciter type ST6 base model"
     Placement(visible = true, transformation(origin = {-290, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Sum sum2(nin = 5) annotation(
     Placement(visible = true, transformation(origin = {-110, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax max1(nu = 2) annotation(
-    Placement(visible = true, transformation(origin = {-230, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax min1(nu = 2) annotation(
-    Placement(visible = true, transformation(origin = {-170, -54}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax min2(nu = 2) annotation(
-    Placement(visible = true, transformation(origin = {210, -74}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Generator initial parameters
   parameter Types.VoltageModulePu Efd0Pu "Initial excitation voltage in pu (user-selected base voltage)";
@@ -186,14 +180,6 @@ equation
     Line(points = {{-99, -100}, {-63, -100}}, color = {0, 0, 127}));
   connect(add.y, sum1.u[1]) annotation(
     Line(points = {{-338, -60}, {-302, -60}}, color = {0, 0, 127}));
-  connect(sum1.y, max1.u[1]) annotation(
-    Line(points = {{-278, -60}, {-240, -60}}, color = {0, 0, 127}));
-  connect(max1.yMax, min1.u[1]) annotation(
-    Line(points = {{-218, -54}, {-180, -54}}, color = {0, 0, 127}));
-  connect(min1.yMin, sum2.u[1]) annotation(
-    Line(points = {{-158, -60}, {-140, -60}, {-140, -100}, {-122, -100}}, color = {0, 0, 127}));
-  connect(min2.yMax, min4.u2) annotation(
-    Line(points = {{222, -68}, {240, -68}, {240, -26}, {258, -26}}, color = {0, 0, 127}));
   connect(const2.y, max3.u1) annotation(
     Line(points = {{-219, 60}, {-200, 60}, {-200, 46}, {-183, 46}}, color = {0, 0, 127}));
   connect(feedback1.y, gain.u) annotation(

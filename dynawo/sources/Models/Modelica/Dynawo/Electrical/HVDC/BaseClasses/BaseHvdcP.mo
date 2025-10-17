@@ -36,21 +36,32 @@ partial model BaseHvdcP "Base dynamic model for HVDC links with a regulation of 
   parameter Types.Angle UPhase20 "Start value of voltage angle and filtered voltage angle at terminal 2 in rad";
 
 equation
-  U1Pu = ComplexMath.'abs'(terminal1.V);
-  U2Pu = ComplexMath.'abs'(terminal2.V);
+  if ((terminal1.V.re == 0) and (terminal1.V.im == 0)) then
+    U1Pu = 0;
+    Theta1 = 0;
+  else
+    U1Pu = ComplexMath.'abs'(terminal1.V);
+    Theta1 = Modelica.Math.atan2(terminal1.V.im, terminal1.V.re);
+  end if;
+  if ((terminal2.V.re == 0) and (terminal2.V.im == 0)) then
+    U2Pu = 0;
+    Theta2 = 0;
+  else
+    U2Pu = ComplexMath.'abs'(terminal2.V);
+    Theta2 = Modelica.Math.atan2(terminal2.V.im, terminal2.V.re);
+  end if;
   s2Pu = Complex(P2Pu, Q2Pu);
   s2Pu = terminal2.V * ComplexMath.conj(terminal2.i);
-  Theta1 = Modelica.Math.atan2(terminal1.V.im, terminal1.V.re);
-  Theta2 = Modelica.Math.atan2(terminal2.V.im, terminal2.V.re);
 
   if running.value then
-    P1Pu = max(min(PMaxPu, P1RefPu), - PMaxPu);
+    P1Pu = if P1RefPu > PMaxPu then PMaxPu elseif P1RefPu < -PMaxPu then -PMaxPu else P1RefPu;
     P2Pu = if P1Pu > 0 then - KLosses * P1Pu else - P1Pu / KLosses;
   else
     P1Pu = 0;
     P2Pu = 0;
   end if;
 
-  annotation(preferredView = "text",
+  annotation(
+    preferredView = "text",
     Documentation(info = "<html><head></head><body> This HVDC link regulates the active power flowing through itself. The active power reference is given as an input and can be changed during the simulation.</div></body></html>"));
 end BaseHvdcP;

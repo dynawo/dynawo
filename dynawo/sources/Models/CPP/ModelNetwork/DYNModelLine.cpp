@@ -20,6 +20,7 @@
 #include <cmath>
 #include <vector>
 #include <cassert>
+#include <iomanip>
 
 #include "PARParametersSet.h"
 
@@ -144,12 +145,20 @@ modelType_("Line") {
     // Due to IIDM convention
     if (cLimit1[0]->getLimit() < maximumValueCurrentLimit) {
       const double limit = cLimit1[0]->getLimit() / factorPuToA_;
-      currentLimits1_->addLimit(limit, cLimit1[0]->getAcceptableDuration());
+      currentLimits1_->addLimit(limit, cLimit1[0]->getAcceptableDuration(), false);
     }
     for (unsigned int i = 1; i < cLimit1.size(); ++i) {
+      if (cLimit1[i-1]->isFictitious()) continue;
       if (cLimit1[i-1]->getLimit() < maximumValueCurrentLimit) {
         const double limit = cLimit1[i-1]->getLimit() / factorPuToA_;
-        currentLimits1_->addLimit(limit, cLimit1[i]->getAcceptableDuration());
+        currentLimits1_->addLimit(limit, cLimit1[i]->getAcceptableDuration(), false);
+      }
+    }
+    for (unsigned int i = 1; i < cLimit1.size(); ++i) {
+      if (!cLimit1[i]->isFictitious()) continue;
+      if (cLimit1[i]->getLimit() < maximumValueCurrentLimit) {
+        const double limit = cLimit1[i]->getLimit() / factorPuToA_;
+        currentLimits1_->addLimit(limit, cLimit1[i]->getAcceptableDuration(), true);
       }
     }
   }
@@ -163,12 +172,20 @@ modelType_("Line") {
     // Due to IIDM convention
     if (cLimit2[0]->getLimit() < maximumValueCurrentLimit) {
       const double limit = cLimit2[0]->getLimit() / factorPuToA_;
-      currentLimits2_->addLimit(limit, cLimit2[0]->getAcceptableDuration());
+      currentLimits2_->addLimit(limit, cLimit2[0]->getAcceptableDuration(), false);
     }
     for (unsigned int i = 1; i < cLimit2.size(); ++i) {
+      if (cLimit2[i-1]->isFictitious()) continue;
       if (cLimit2[i-1]->getLimit() < maximumValueCurrentLimit) {
         const double limit = cLimit2[i-1]->getLimit() / factorPuToA_;
-        currentLimits2_->addLimit(limit, cLimit2[i]->getAcceptableDuration());
+        currentLimits2_->addLimit(limit, cLimit2[i]->getAcceptableDuration(), false);
+      }
+    }
+    for (unsigned int i = 1; i < cLimit2.size(); ++i) {
+      if (!cLimit2[i]->isFictitious()) continue;
+      if (cLimit2[i]->getLimit() < maximumValueCurrentLimit) {
+        const double limit = cLimit2[i]->getLimit() / factorPuToA_;
+        currentLimits2_->addLimit(limit, cLimit2[i]->getAcceptableDuration(), true);
       }
     }
   }
@@ -1959,4 +1976,25 @@ void
 ModelLine::defineNonGenericParameters(std::vector<ParameterModeler>& /*parameters*/) {
   /* no non generic parameter */
 }
+
+void
+ModelLine::printInternalParameters(std::ofstream& fstream) const {
+  std::string paramName = id() + "_" + "admittance";
+  fstream << std::setw(50) << std::left << paramName << std::right << " =" << std::setw(15) << admittance_ << std::endl;
+  paramName = id() + "_" + "lossAngle";
+  fstream << std::setw(50) << std::left << paramName << std::right << " =" << std::setw(15) << lossAngle_ << std::endl;
+  paramName = id() + "_" + "suscept1";
+  fstream << std::setw(50) << std::left << paramName << std::right << " =" << std::setw(15) << suscept1_ << std::endl;
+  paramName = id() + "_" + "suscept2";
+  fstream << std::setw(50) << std::left << paramName << std::right << " =" << std::setw(15) << suscept2_ << std::endl;
+  paramName = id() + "_" + "conduct1";
+  fstream << std::setw(50) << std::left << paramName << std::right << " =" << std::setw(15) << conduct1_ << std::endl;
+  paramName = id() + "_" + "conduct2";
+  fstream << std::setw(50) << std::left << paramName << std::right << " =" << std::setw(15) << conduct2_ << std::endl;
+  paramName = id() + "_" + "resistance";
+  fstream << std::setw(50) << std::left << paramName << std::right << " =" << std::setw(15) << resistance_ << std::endl;
+  paramName = id() + "_" + "reactance";
+  fstream << std::setw(50) << std::left << paramName << std::right << " =" << std::setw(15) << reactance_ << std::endl;
+}
+
 }  // namespace DYN
