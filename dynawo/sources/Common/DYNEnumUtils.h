@@ -108,12 +108,15 @@ typedef enum {
 typedef enum {
   NO_CONSTRAINTS_FILTER = 0,     ///< no value registered
   CONSTRAINTS_KEEP_FIRST,     ///< value registered in the constraint should be the first value seen by the simulation
-  CONSTRAINTS_KEEP_LAST,          ///< value registered in the constraint should be the last value seen by the simulation
+  CONSTRAINTS_DYNAFLOW,     ///< values registered in the constraint should be max and final value, keep closed constraints
   SIZE_OF_ENUM  ///< value to use ONLY to assess the enumeration size
 } ConstraintValueType_t;  ///< constraint value type
 
 
-static const char* ConstraintValueTypeNames[ConstraintValueType_t::SIZE_OF_ENUM] = {"DISABLED", "FIRST", "LAST"};  ///< string conversion of enum values
+static const char* ConstraintValueTypeNames[ConstraintValueType_t::SIZE_OF_ENUM] = {"DISABLED",
+                                                                                    "FIRST",
+                                                                                    "DYNAFLOW"};  ///< string conversion of enum values
+
 // statically check that the size of ConstraintValueTypeNames fits the number of ConstraintValueType
 /**
  * @brief Test is the size of ConstraintValueTypeNames is relevant with the enumeration size

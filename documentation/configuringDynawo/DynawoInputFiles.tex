@@ -400,7 +400,7 @@ If filter=``DISABLED'', all constraints registered during the simulation will be
 
 If filter=``FIRST'', constraints cleared during simulation will be removed and the ones still existing at the end of the simulation are associated to the value seen at the first time step when the constraint appeared.
 
-If filter=``LAST'', constraints cleared during simulation will be removed and the ones still existing at the end of the simulation are associated to the value seen at the last time step.
+If filter=``DYNAFLOW'', constraints cleared during simulation will be kept and will contain the last value (and associated timestep) available, whether that corresponds to the end of the constraint or the end of the simulation. Additionally, the maximum value observed while the constraint was in effect will be exported for each constraint.
 
 \begin{lstlisting}[language=XML, morekeywords={constraints},numbers=none]
 <constraints exportMode="TXT" filter="FIRST"/>

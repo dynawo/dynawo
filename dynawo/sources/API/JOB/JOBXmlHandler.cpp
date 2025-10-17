@@ -442,8 +442,8 @@ ConstraintsHandler::create(attributes_type const& attributes) {
   if (attributes.has("filter")) {
     if (attributes["filter"].as_string() == DYN::ConstraintValueTypeNames[DYN::CONSTRAINTS_KEEP_FIRST]) {
       constraints_->setFilterType(DYN::CONSTRAINTS_KEEP_FIRST);
-    } else if (attributes["filter"].as_string() == DYN::ConstraintValueTypeNames[DYN::CONSTRAINTS_KEEP_LAST]) {
-      constraints_->setFilterType(DYN::CONSTRAINTS_KEEP_LAST);
+    } else if (attributes["filter"].as_string() == DYN::ConstraintValueTypeNames[DYN::CONSTRAINTS_DYNAFLOW]) {
+      constraints_->setFilterType(DYN::CONSTRAINTS_DYNAFLOW);
     } else if (attributes["filter"].as_string() == DYN::ConstraintValueTypeNames[DYN::NO_CONSTRAINTS_FILTER]) {
       constraints_->setFilterType(DYN::NO_CONSTRAINTS_FILTER);
     } else {
