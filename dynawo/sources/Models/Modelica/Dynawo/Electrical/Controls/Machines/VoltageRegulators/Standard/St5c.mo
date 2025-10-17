@@ -71,9 +71,9 @@ equation
     min1.u[3] = min1.u[1];
   end if;
 
-  if PositionOel == 2 and min1.yMin < sum1.y then
+  if PositionOel == 2 and min1.y < sum1.y then
     limiter.u = limitedLeadLag2.y;
-  elseif PositionUel == 2 and max1.yMax > sum1.y then
+  elseif PositionUel == 2 and max1.y > sum1.y then
     limiter.u = limitedLeadLag1.y;
   else
     limiter.u = limitedLeadLag.y;

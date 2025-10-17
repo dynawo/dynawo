@@ -19,5 +19,5 @@
 20.683613 | GEN____8_SM | PMIN : deactivation
 20.707217 | GEN____6_SM | PMIN : activation
 20.945924 | GEN____8_SM | PMIN : activation
-79.999984 | Tap_changer | Tap position change (increment)
-89.999982 | Tap_changer | Tap position change (increment)
+79.999984 | Tap_changer | Tap position change (increment) - value : 67.990555kV
+89.999982 | Tap_changer | Tap position change (increment) - value : 68.196320kV

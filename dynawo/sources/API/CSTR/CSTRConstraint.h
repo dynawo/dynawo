@@ -35,7 +35,7 @@ class ConstraintData {
   /**
    * @brief possible values for kind
    */
-  typedef enum { PATL = 0, OverloadUp, OverloadOpen, UInfUmin, USupUmax, Undefined } kind_t;
+  typedef enum { PATL = 0, OverloadUp, OverloadOpen, UInfUmin, USupUmax, FictLim, Undefined  } kind_t;
 
   kind_t kind;                                 ///< Kind of constraint
   double limit;                                ///< Limit of the constraint

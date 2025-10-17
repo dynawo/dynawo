@@ -340,7 +340,7 @@ ModelManager::evalJtAdept(const double t, double* y, double* yp, const double cj
     stack.independent(&xp[0], static_cast<adept::uIndex>(xp.size()));
     stack.dependent(&output[0], nbOutput);
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
-    Timer* timer1 = new Timer("zzz reading");
+    Timer* timer1 = new Timer("ModelManager::evalJtAdept reading");
 #endif
     stack.jacobian(&jac[0]);
     stack.pause_recording();
@@ -350,7 +350,7 @@ ModelManager::evalJtAdept(const double t, double* y, double* yp, const double cj
 
     const int offsetJPrim = sizeY() * sizeY();
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
-    Timer* timer3 = new Timer("zzz filling");
+    Timer* timer3 = new Timer("ModelManager::evalJtAdept filling");
 #endif
 
     for (unsigned int i = 0; i < sizeF(); ++i) {
@@ -382,6 +382,9 @@ ModelManager::evalJtAdept(const double t, double* y, double* yp, const double cj
 
 void
 ModelManager::evalG(const double t) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer("ModelManager::evalG");
+#endif
   setManagerTime(t);
 
   modelModelica()->setGomc(gLocal_);
@@ -427,7 +430,7 @@ ModelManager::evalZ(const double t) {
 
 modeChangeType_t
 ModelManager::evalMode(const double t) {
-  modeChangeType_t delay_mode = delayManager_.evalMode(t);
+  modeChangeType_t delay_mode = delayManager_.evalMode(t, name());
 
   return std::max(delay_mode, modelModelica()->evalMode(t));
 }
@@ -849,7 +852,7 @@ ModelManager::loadParameters(const string& parameters) {
   }
 
   // To activate all delays
-  delayManager_.evalMode(getCurrentTime());
+  delayManager_.evalMode(getCurrentTime(), name());
 
   // copy of loaded parameters in the map
   const std::unordered_map<string, ParameterModeler>& parametersMap = (this)->getParametersDynamic();

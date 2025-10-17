@@ -34,15 +34,18 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   const double desactivate = 0.;
   const std::string modelType = "Whatever";
 
-  mcl.addLimit(8., 5.);
+  mcl.addLimit(8., 5., false);
   ASSERT_EQ(mcl.sizeZ(), 0);
   ASSERT_EQ(mcl.sizeG(), 2);
-  mcl.addLimit(std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<int>::max());
+  mcl.addLimit(std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<int>::max(), false);
   ASSERT_EQ(mcl.sizeZ(), 0);
   ASSERT_EQ(mcl.sizeG(), 2);
-  mcl.addLimit(10., std::numeric_limits<int>::max());
+  mcl.addLimit(10., std::numeric_limits<int>::max(), false);
   ASSERT_EQ(mcl.sizeZ(), 0);
   ASSERT_EQ(mcl.sizeG(), 4);
+  mcl.addLimit(8., std::numeric_limits<int>::max(), true);
+  ASSERT_EQ(mcl.sizeZ(), 0);
+  ASSERT_EQ(mcl.sizeG(), 6);
   states.resize(mcl.sizeG(), NO_ROOT);
   mcl.setMaxTimeOperation(10.);
   mcl.setSide(ModelCurrentLimits::SIDE_2);
@@ -55,7 +58,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
 
   mcl.evalG(t, current, desactivate, &states[0]);
   for (size_t i = 0; i < states.size(); ++i) {
-    if (i == 3)
+    if (i == 3 || i ==5)
       ASSERT_EQ(states[i], NO_ROOT);
     else
       ASSERT_EQ(states[i], ROOT_DOWN);
@@ -63,9 +66,9 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   current = 9.;
   mcl.evalG(t, current, desactivate, &states[0]);
   for (size_t i = 0; i < states.size(); ++i) {
-    if (i == 0)
+    if (i == 0|| i == 4)
       ASSERT_EQ(states[i], ROOT_UP);
-    else if (i == 3)
+    else if (i == 3 || i == 5)
       ASSERT_EQ(states[i], NO_ROOT);
     else
       ASSERT_EQ(states[i], ROOT_DOWN);
@@ -77,7 +80,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   for (size_t i = 0; i < states.size(); ++i) {
     if (i == 0 || i == 2) {
       ASSERT_EQ(states[i], ROOT_UP);
-    } else if (i == 3) {
+    } else if (i == 3 || i ==5) {
       ASSERT_EQ(states[i], NO_ROOT);
     }
   }
@@ -89,13 +92,19 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
     const auto& constraint = constraintPair.second;
     if (n == 1) {
       ASSERT_EQ(constraint->getModelName(), "MY COMP");
+      ASSERT_EQ(constraint->getDescription(), "OverloadUp 5 2");
+      ASSERT_DOUBLE_EQUALS_DYNAWO(constraint->getTime(), 0.);
+      ASSERT_EQ(constraint->getType(), constraints::CONSTRAINT_BEGIN);
+      ASSERT_EQ(constraint->getModelType(), modelType);
+    } else if (n == 2) {
+      ASSERT_EQ(constraint->getModelName(), "MY COMP");
       ASSERT_EQ(constraint->getDescription(), "PATL 2");
       ASSERT_DOUBLE_EQUALS_DYNAWO(constraint->getTime(), 0.);
       ASSERT_EQ(constraint->getType(), constraints::CONSTRAINT_BEGIN);
       ASSERT_EQ(constraint->getModelType(), modelType);
-    } else if (n == 0) {
+    }  else if (n == 0) {
       ASSERT_EQ(constraint->getModelName(), "MY COMP");
-      ASSERT_EQ(constraint->getDescription(), "OverloadUp 5 2");
+      ASSERT_EQ(constraint->getDescription(), "FictLim 8 2");
       ASSERT_DOUBLE_EQUALS_DYNAWO(constraint->getTime(), 0.);
       ASSERT_EQ(constraint->getType(), constraints::CONSTRAINT_BEGIN);
       ASSERT_EQ(constraint->getModelType(), modelType);
@@ -104,14 +113,14 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
     }
     ++n;
   }
-  ASSERT_EQ(n, 2);
+  ASSERT_EQ(n, 3);
   current = 4.;
   t = 5.1;
   mcl.evalG(t, current, desactivate, &states[0]);
   for (size_t i = 0; i < states.size(); ++i) {
-    if (i == 0 || i == 2)
+    if (i == 0 || i == 2 || i == 4)
       ASSERT_EQ(states[i], ROOT_DOWN);
-    else if (i == 3)
+    else if (i == 3 || i == 5)
       ASSERT_EQ(states[i], NO_ROOT);
     else
       ASSERT_EQ(states[i], ROOT_UP);

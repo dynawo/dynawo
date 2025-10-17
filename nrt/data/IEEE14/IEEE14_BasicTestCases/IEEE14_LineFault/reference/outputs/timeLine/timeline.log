@@ -1,0 +1,21 @@
+0.000000 | GEN____8_SM | PMIN : activation
+0.030411 | GEN____3_SM | PMIN : activation
+0.370880 | GEN____8_SM | PMIN : deactivation
+0.829089 | GEN____3_SM | PMIN : deactivation
+0.848572 | GEN____8_SM | PMIN : activation
+1.000000 | line1_5 | Fault (line) : beginning
+1.000000 | GEN____6_SM | Voltage regulator : upper limit reached (Efd)
+1.000035 | GEN____8_SM | PMIN : deactivation
+1.109000 | line1_5 | Fault (line) : end
+1.109000 | line1_5 | LINE : opening both sides
+1.109000 | GEN____6_SM | Voltage regulator : back to regulation
+1.359810 | GEN____6_SM | PMIN : activation
+1.622004 | GEN____6_SM | PMIN : deactivation
+1.625651 | GEN____8_SM | PMIN : activation
+1.923421 | GEN____8_SM | PMIN : deactivation
+2.117422 | GEN____6_SM | PMIN : activation
+2.264113 | GEN____6_SM | PMIN : deactivation
+2.678739 | GEN____8_SM | PMIN : activation
+2.762069 | GEN____8_SM | PMIN : deactivation
+2.817486 | GEN____6_SM | PMIN : activation
+3.025816 | GEN____6_SM | PMIN : deactivation
