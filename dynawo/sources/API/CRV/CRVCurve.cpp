@@ -173,4 +173,12 @@ Curve::getBuffer() const {
   return buffer_;
 }
 
+string
+Curve::getUniqueName() const {
+  if (factor_ == 1.)
+    return modelName_ + "_"  + variable_;
+  else
+    return modelName_ + "_"  + variable_ + "_" + std::to_string(factor_) + "x";
+}
+
 }  // namespace curves

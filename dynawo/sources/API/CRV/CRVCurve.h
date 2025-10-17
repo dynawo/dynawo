@@ -141,6 +141,11 @@ class Curve {
    */
   const std::string& getVariable() const;
 
+  /**
+   * @brief Getter for curve's unique identifier based on model, variable name and factor if it exists
+   * @return unique identifier
+   */
+  std::string getUniqueName() const;
 
   /**
    * @brief Getter for curve's factor

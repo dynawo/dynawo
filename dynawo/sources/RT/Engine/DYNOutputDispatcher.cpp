@@ -252,7 +252,7 @@ OutputDispatcher::curvesToJson(std::shared_ptr<curves::CurvesCollection> curvesC
       } else {
         stream << ",\n";
       }
-      std::string curveName =  curve->getModelName() + "_" + curve->getVariable();
+      std::string curveName = curve->getUniqueName();
       stream << "\t\t\t" << "\"" << curveName << "\": " << curve->getLastValue();
     }
   }
@@ -274,7 +274,7 @@ OutputDispatcher::curvesToCsv(std::shared_ptr<curves::CurvesCollection> curvesCo
         time = curve->getLastTime();
         stream << "time," << time << "\n";
       }
-      std::string curveName =  curve->getModelName() + "_" + curve->getVariable();
+      std::string curveName = curve->getUniqueName();
       stream << curveName << "," << curve->getLastValue() << "\n";
     }
   }
@@ -287,7 +287,7 @@ OutputDispatcher::curvesNamesToString(std::shared_ptr<curves::CurvesCollection> 
   stream << "time" << "\n";
   for (auto &curve : curvesCollection->getCurves()) {
     if (curve->getAvailable()) {
-      std::string curveName =  curve->getModelName() + "_" + curve->getVariable();
+      std::string curveName = curve->getUniqueName();
       stream << curveName << "\n";
     }
   }

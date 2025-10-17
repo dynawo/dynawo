@@ -51,6 +51,7 @@ TEST(APICRVTest, Curve) {
   std::vector<double> variables;
   variables.assign(2, 1);
   curve1->setBuffer(&variables[0]);
+  curve1->setFactor(2.0);
 
   // test setted attributes
   ASSERT_EQ(curve1->getModelName(), "model1");
@@ -61,6 +62,7 @@ TEST(APICRVTest, Curve) {
   ASSERT_EQ(curve1->isParameterCurve(), true);
   ASSERT_EQ(curve1->getBuffer(), &variables[0]);
   ASSERT_EQ(curve1->getCurveType(), Curve::DISCRETE_VARIABLE);
+  ASSERT_DOUBLE_EQ(curve1->getFactor(), 2.0);
 }
 
 TEST(APICRVTest, CurveUpdate) {
