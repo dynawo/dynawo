@@ -48,7 +48,7 @@ class ZmqInputChannel: public InputChannel {
    * @param messageFilter Filter applied on incoming messages
    * @param endpoint ZeroMQ endpoint to bind
    */
-  ZmqInputChannel(std::string id, MessageFilter messageFilter, const std::string& endpoint = "tcp://*:5555");
+  ZmqInputChannel(const std::string& id, MessageFilter messageFilter, const std::string& endpoint = "tcp://*:5555");
 
   /**
    * @brief Start receiving messages.

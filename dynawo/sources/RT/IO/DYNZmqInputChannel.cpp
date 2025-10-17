@@ -31,8 +31,8 @@ namespace DYN {
 
 static const char STOP_KEY[] = "stop";  ///< Key used to signal stop
 
-ZmqInputChannel::ZmqInputChannel(std::string id, MessageFilter messageFilter, const std::string& endpoint) :
-InputChannel(std::move(id), std::move(messageFilter)),
+ZmqInputChannel::ZmqInputChannel(const std::string& id, MessageFilter messageFilter, const std::string& endpoint) :
+InputChannel(id, messageFilter),
 socket_(context_, zmqpp::socket_type::reply),
 useThread_(false),
 stopFlag_(false),
