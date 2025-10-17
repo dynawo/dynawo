@@ -36,15 +36,15 @@ OutputDispatcher::OutputDispatcher() :
 
 void
 OutputDispatcher::addCurvesPublisher(std::shared_ptr<OutputChannel>& publisher, const std::string formatStr) {
-  CurvesOutputFormat format;
+  CurvesStreamFormat format;
   if (formatStr == "BYTES") {
-    format = CurvesOutputFormat::BYTES;
+    format = CurvesStreamFormat::BYTES;
   } else if (formatStr == "CSV") {
-    format = CurvesOutputFormat::CSV;
+    format = CurvesStreamFormat::CSV;
   } else if (formatStr == "JSON") {
-    format = CurvesOutputFormat::JSON;
+    format = CurvesStreamFormat::JSON;
   } else if (formatStr == "XML") {
-    format = CurvesOutputFormat::XML;
+    format = CurvesStreamFormat::XML;
   } else {
     Trace::error() << "OutputDispatcher: Unknown type of Curves output format: " << formatStr << Trace::endline;
     return;
@@ -58,15 +58,15 @@ OutputDispatcher::addCurvesPublisher(std::shared_ptr<OutputChannel>& publisher, 
 
 void
 OutputDispatcher::addTimelinePublisher(std::shared_ptr<OutputChannel>& publisher, const std::string formatStr) {
-  TimelineOutputFormat format;
+  TimelineStreamFormat format;
   if (formatStr == "CSV") {
-    format = TimelineOutputFormat::CSV;
+    format = TimelineStreamFormat::CSV;
   } else if (formatStr == "JSON") {
-    format = TimelineOutputFormat::JSON;
+    format = TimelineStreamFormat::JSON;
   } else if (formatStr == "TXT") {
-    format = TimelineOutputFormat::TXT;
+    format = TimelineStreamFormat::TXT;
   } else if (formatStr == "XML") {
-    format = TimelineOutputFormat::XML;
+    format = TimelineStreamFormat::XML;
   } else {
     Trace::error() << "OutputDispatcher: Unknown type of Timeline output format: " << formatStr << Trace::endline;
     return;
@@ -79,13 +79,13 @@ OutputDispatcher::addTimelinePublisher(std::shared_ptr<OutputChannel>& publisher
 
 void
 OutputDispatcher::addConstraintsPublisher(std::shared_ptr<OutputChannel>& publisher, const std::string formatStr) {
-  ConstraintsOutputFormat format;
+  ConstraintsStreamFormat format;
   if (formatStr == "JSON") {
-    format = ConstraintsOutputFormat::JSON;
+    format = ConstraintsStreamFormat::JSON;
   } else if (formatStr == "TXT") {
-    format = ConstraintsOutputFormat::TXT;
+    format = ConstraintsStreamFormat::TXT;
   } else if (formatStr == "XML") {
-    format = ConstraintsOutputFormat::XML;
+    format = ConstraintsStreamFormat::XML;
   } else {
     Trace::error() << "OutputDispatcher: Unknown type of Constraints output format: " << formatStr << Trace::endline;
     return;
@@ -105,14 +105,14 @@ void
 OutputDispatcher::publishCurvesNames(std::shared_ptr<curves::CurvesCollection>& curvesCollection) {
   if (!curvesCollection)
     return;
-  if (curvesPublishers_.find(CurvesOutputFormat::BYTES) != curvesPublishers_.end()) {
+  if (curvesPublishers_.find(CurvesStreamFormat::BYTES) != curvesPublishers_.end()) {
     size_t nbAvailableCurves = 0;
     for (auto &curve : curvesCollection->getCurves())
       if (curve->getAvailable())
         nbAvailableCurves++;
     curvesValues_.reserve((nbAvailableCurves + 1) * sizeof(double));
     std::string formatedCurvesNames = curvesNamesToString(curvesCollection);
-    for (auto &publisher : curvesPublishers_.find(CurvesOutputFormat::BYTES)->second)
+    for (auto &publisher : curvesPublishers_.find(CurvesStreamFormat::BYTES)->second)
         publisher->sendMessage(formatedCurvesNames, "curves_names");
   }
 }
@@ -123,27 +123,27 @@ OutputDispatcher::publishCurves(std::shared_ptr<curves::CurvesCollection>& curve
     return;
   for (auto &curvePublishersPair : curvesPublishers_) {
     switch (curvePublishersPair.first) {
-      case (CurvesOutputFormat::BYTES): {
+      case (CurvesStreamFormat::BYTES): {
         updateCurvesValues(curvesCollection);
         for (auto &publisher : curvePublishersPair.second)
           publisher->sendMessage(curvesValues_, "curves_values");
         break;
       }
-      case (CurvesOutputFormat::JSON): {
+      case (CurvesStreamFormat::JSON): {
         std::string outputSring = curvesToJson(curvesCollection);
         for (auto &publisher : curvePublishersPair.second)
           publisher->sendMessage(curvesValues_, "curves");
         break;
       }
-      case (CurvesOutputFormat::CSV): {
+      case (CurvesStreamFormat::CSV): {
         std::string outputSring = curvesToCsv(curvesCollection);
         for (auto &publisher : curvePublishersPair.second)
           publisher->sendMessage(curvesValues_, "curves");
         break;
       }
-      case (CurvesOutputFormat::XML):
+      case (CurvesStreamFormat::XML):
       default:
-        Trace::error() << "OutputDispatcher: Unknown or unmanaged type of CurvesOutputFormat" << Trace::endline;
+        Trace::error() << "OutputDispatcher: Unknown or unmanaged type of CurvesStreamFormat" << Trace::endline;
     }
   }
 }
@@ -155,7 +155,7 @@ OutputDispatcher::publishTimeline(boost::shared_ptr<timeline::Timeline>& timelin
 
   for (auto &timelinePublishersPair : timelinePublishers_) {
     switch (timelinePublishersPair.first) {
-      case (TimelineOutputFormat::JSON): {
+      case (TimelineStreamFormat::JSON): {
         std::stringstream stream;
         timeline::JsonExporter exporter;
         exporter.exportToStream(timeline, stream);
@@ -164,7 +164,7 @@ OutputDispatcher::publishTimeline(boost::shared_ptr<timeline::Timeline>& timelin
           publisher->sendMessage(strTimeline, "timeline");
         break;
       }
-      case (TimelineOutputFormat::CSV): {
+      case (TimelineStreamFormat::CSV): {
         std::stringstream stream;
         timeline::CsvExporter exporter;
         exporter.exportToStream(timeline, stream);
@@ -173,7 +173,7 @@ OutputDispatcher::publishTimeline(boost::shared_ptr<timeline::Timeline>& timelin
           publisher->sendMessage(strTimeline, "timeline");
         break;
       }
-      case (TimelineOutputFormat::TXT): {
+      case (TimelineStreamFormat::TXT): {
         std::stringstream stream;
         timeline::TxtExporter exporter;
         exporter.exportToStream(timeline, stream);
@@ -182,7 +182,7 @@ OutputDispatcher::publishTimeline(boost::shared_ptr<timeline::Timeline>& timelin
           publisher->sendMessage(strTimeline, "timeline");
         break;
       }
-      case (TimelineOutputFormat::XML): {
+      case (TimelineStreamFormat::XML): {
         std::stringstream stream;
         timeline::XmlExporter exporter;
         exporter.exportToStream(timeline, stream);
@@ -192,7 +192,7 @@ OutputDispatcher::publishTimeline(boost::shared_ptr<timeline::Timeline>& timelin
         break;
       }
       default:
-        Trace::error() << "OutputDispatcher: Unknown type of TimelineOutputFormat" << Trace::endline;
+        Trace::error() << "OutputDispatcher: Unknown type of TimelineStreamFormat" << Trace::endline;
     }
   }
 }
@@ -204,7 +204,7 @@ OutputDispatcher::publishConstraints(std::shared_ptr<constraints::ConstraintsCol
 
   for (auto &constraintsPublishersPair : constraintsPublishers_) {
     switch (constraintsPublishersPair.first) {
-      case (ConstraintsOutputFormat::JSON): {
+      case (ConstraintsStreamFormat::JSON): {
         std::stringstream stream;
         constraints::JsonExporter exporter;
         exporter.exportToStream(constraintsCollection, stream);
@@ -213,7 +213,7 @@ OutputDispatcher::publishConstraints(std::shared_ptr<constraints::ConstraintsCol
           publisher->sendMessage(strConstraints, "constraints");
         break;
       }
-      case (ConstraintsOutputFormat::TXT): {
+      case (ConstraintsStreamFormat::TXT): {
         std::stringstream stream;
         constraints::TxtExporter exporter;
         exporter.exportToStream(constraintsCollection, stream);
@@ -222,7 +222,7 @@ OutputDispatcher::publishConstraints(std::shared_ptr<constraints::ConstraintsCol
           publisher->sendMessage(strConstraints, "constraints");
         break;
       }
-      case (ConstraintsOutputFormat::XML): {
+      case (ConstraintsStreamFormat::XML): {
         std::stringstream stream;
         constraints::XmlExporter exporter;
         exporter.exportToStream(constraintsCollection, stream);
@@ -232,7 +232,7 @@ OutputDispatcher::publishConstraints(std::shared_ptr<constraints::ConstraintsCol
         break;
       }
       default:
-        Trace::error() << "OutputDispatcher: Unknown type of ConstraintsOutputFormat" << Trace::endline;
+        Trace::error() << "OutputDispatcher: Unknown type of ConstraintsStreamFormat" << Trace::endline;
     }
   }
 }

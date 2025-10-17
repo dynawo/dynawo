@@ -28,7 +28,7 @@ find_package_handle_standard_args(ZMQPP
 
 # Expose the found paths to the parent scope
 if (ZMQPP_FOUND)
-    message(STATUS "ZMQPP: ${PACKAGE_VERSION}")
+    message(STATUS "ZMQPP version: ${PACKAGE_VERSION}")
     mark_as_advanced(ZMQPP_INCLUDE_DIR ZMQPP_LIBRARY)
     if (NOT TARGET ZMQPP::ZMQPP)
         add_library(ZMQPP::ZMQPP UNKNOWN IMPORTED)

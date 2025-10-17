@@ -121,9 +121,9 @@ class OutputDispatcher {
   void updateCurvesValues(std::shared_ptr<curves::CurvesCollection> curvesCollection);
 
  private:
-  std::map<CurvesOutputFormat, std::vector<std::shared_ptr<OutputChannel> > > curvesPublishers_;            ///< curves publishers
-  std::map<TimelineOutputFormat, std::vector<std::shared_ptr<OutputChannel> > > timelinePublishers_;        ///< timeline publishers
-  std::map<ConstraintsOutputFormat, std::vector<std::shared_ptr<OutputChannel> > > constraintsPublishers_;  ///< constraints publishers
+  std::map<CurvesStreamFormat, std::vector<std::shared_ptr<OutputChannel> > > curvesPublishers_;            ///< curves publishers
+  std::map<TimelineStreamFormat, std::vector<std::shared_ptr<OutputChannel> > > timelinePublishers_;        ///< timeline publishers
+  std::map<ConstraintsStreamFormat, std::vector<std::shared_ptr<OutputChannel> > > constraintsPublishers_;  ///< constraints publishers
 
   std::vector<std::uint8_t> curvesValues_;  ///< curves values buffer for BYTES export optimization
   std::atomic<bool> running_;               ///< running flag

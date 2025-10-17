@@ -23,10 +23,10 @@
 #include <memory>
 
 /**
- * @enum CurvesOutputFormat
+ * @enum CurvesStreamFormat
  * @brief Supported formats for curve outputs.
  */
-enum class CurvesOutputFormat {
+enum class CurvesStreamFormat {
   BYTES,  ///< Raw bytes
   CSV,    ///< CSV format
   JSON,   ///< JSON format
@@ -34,10 +34,10 @@ enum class CurvesOutputFormat {
 };
 
 /**
- * @enum TimelineOutputFormat
+ * @enum TimelineStreamFormat
  * @brief Supported formats for timeline outputs.
  */
-enum class TimelineOutputFormat {
+enum class TimelineStreamFormat {
   CSV,   ///< CSV format
   JSON,  ///< JSON format
   TXT,   ///< Plain text format
@@ -45,10 +45,10 @@ enum class TimelineOutputFormat {
 };
 
 /**
- * @enum ConstraintsOutputFormat
+ * @enum ConstraintsStreamFormat
  * @brief Supported formats for constraints outputs.
  */
-enum class ConstraintsOutputFormat {
+enum class ConstraintsStreamFormat {
   JSON,  ///< JSON format
   TXT,   ///< Plain text format
   XML    ///< XML format
