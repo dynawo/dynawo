@@ -58,6 +58,18 @@ class Curve {
   void update(double time);
 
   /**
+   * @brief get last point value
+   * @return value of last Point (0 if Point list is empty)
+   */
+  double getLastValue() const;
+
+  /**
+   * @brief get last point time
+   * @return time of last Point (0 if Point list is empty)
+   */
+  double getLastTime() const;
+
+  /**
    * @brief Setter for curve's model name
    * @param modelName curve's model name
    */

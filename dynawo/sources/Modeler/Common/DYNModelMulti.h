@@ -481,15 +481,17 @@ class ModelMulti : public Model, private boost::noncopyable {
    * @param name name of the submodel created
    * @param subModel submodel owning the calculated variable to connect
    * @param variable the calculated variable to connect
+   * @param setIsUpdatable bool indicating if submodel needs initialization from connected model
    * @return a submodel for the calculated variable
    */
   template<class T>
   boost::shared_ptr<SubModel>
   setConnector(T connectorSubModel, const std::string& name,
-             const boost::shared_ptr<SubModel>& subModel, const boost::shared_ptr<Variable>& variable) {
+             const boost::shared_ptr<SubModel>& subModel, const boost::shared_ptr<Variable>& variable, bool isUpdatable) {
     connectorSubModel->name(name);
     connectorSubModel->setVariableName(variable->getName());
     connectorSubModel->setParams(subModel, variable->getIndex());
+    connectorSubModel->setIsUpdatable(isUpdatable);
     return boost::dynamic_pointer_cast<SubModel>(connectorSubModel);
   }
 
@@ -606,6 +608,8 @@ class ModelMulti : public Model, private boost::noncopyable {
 
   std::shared_ptr<parameters::ParametersSet> localInitParameters_;  ///< local initialization solver parameters set
   std::vector<std::pair<boost::shared_ptr<SubModel>, unsigned>> curvesCalculatedVarIndexes_;  ///< curves calculated var locations in subModel
+
+  bool updatablesInitialized_;   ///< true if updatable models have been initialized
 };  ///< Class for Multiple-Model
 
 

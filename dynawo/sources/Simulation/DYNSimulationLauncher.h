@@ -28,7 +28,8 @@
  *
  *
  * @param jobsFileName file describing the job(s) to launch
+ * @param isInteractive true if simulation in interactive or real-time mode 
  */
-void launchSimu(const std::string& jobsFileName);
+void launchSimu(const std::string& jobsFileName, bool isInteractive = false);
 
 #endif  // SIMULATION_DYNSIMULATIONLAUNCHER_H_
