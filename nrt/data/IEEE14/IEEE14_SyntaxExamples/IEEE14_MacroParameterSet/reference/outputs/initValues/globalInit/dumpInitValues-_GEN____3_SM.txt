@@ -20,9 +20,11 @@ generator_tableQMin_u_0_                          : alias of generator_PGenPu
 generator_tableQMin_y_0_                          : alias of generator_QMinPu
  ====== CALCULATED VARIABLES VALUES ======
 generator_PGen                                    : y =       0.000000
+generator_QStator                                 : y =      25.075267
 generator_QStatorPu                               : y =       0.611592
 generator_genState                                : y =       2.000000
  ====== DISCRETE VARIABLES VALUES ======
+generator_blocker                                 : z =      -1.000000
 generator_limUQDown                               : z =      -1.000000
 generator_limUQUp                                 : z =      -1.000000
 generator_running_value                           : z =       1.000000
@@ -33,6 +35,7 @@ generator_converter_u                             : z =       2.000000
 generator_pStatus                                 : z =       1.000000
 generator_qStatus                                 : z =       1.000000
 generator_state                                   : z =       2.000000
+generator_blocking_y                              : alias of generator_blocker
  ====== PARAMETERS VALUES ======
 generator_Alpha                                    =       0.000000
 generator_KGover                                   =       0.000000

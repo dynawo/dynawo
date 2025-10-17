@@ -169,8 +169,8 @@ TEST(ModelSecondaryVoltageControlSimplified, ModelSecondaryVoltageControlSimplif
   std::vector<double> yp(svc->sizeY(), 0);
   svc->setBufferY(&y[0], &yp[0], 0.);
   y[ModelSecondaryVoltageControlSimplified::UpPuNum_] = 0.95;
-  y[1] = 1.;
-  y[2] = 1.;
+  y[1] = -100.;
+  y[2] = -100.;
   std::vector<double> z(svc->sizeZ(), 0);
   bool* zConnected = new bool[svc->sizeZ()];
   BitMask* silentZ = new BitMask[svc->sizeZ()];
