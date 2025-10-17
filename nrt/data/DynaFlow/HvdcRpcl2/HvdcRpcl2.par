@@ -91,25 +91,22 @@
   </set>
   <set id="SVC">
     <!-- HVDC 1 parameters -->
-    <par type="BOOL" name="secondaryVoltageControl_limUQUp0_1_" value="false"/>
-    <par type="BOOL" name="secondaryVoltageControl_limUQDown0_1_" value="false"/>
-    <par type="BOOL" name="secondaryVoltageControl_Participate0_1_" value="true"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_Q0Pu_1_" value="-1.0676"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_Qr_1_" value="500"/>
+    <par type="DOUBLE" name="Q0Pu_0" value="-1.0676"/>
+    <par type="DOUBLE" name="Qr_0" value="500"/>
+    <par type="DOUBLE" name="P0Pu_0" value="1"/>
+    <par type="DOUBLE" name="U0Pu_0" value="1"/>
     <!-- HVDC 2 parameters -->
-    <par type="BOOL" name="secondaryVoltageControl_limUQUp0_2_" value="false"/>
-    <par type="BOOL" name="secondaryVoltageControl_limUQDown0_2_" value="false"/>
-    <par type="BOOL" name="secondaryVoltageControl_Participate0_2_" value="true"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_Q0Pu_2_" value="-1.0676"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_Qr_2_" value="500"/>
+    <par type="DOUBLE" name="Q0Pu_1" value="-1.0676"/>
+    <par type="DOUBLE" name="Qr_1" value="500"/>
+    <par type="DOUBLE" name="P0Pu_1" value="1"/>
+    <par type="DOUBLE" name="U0Pu_1" value="1"/>
     <!-- SVC parameters -->
-    <par type="DOUBLE" name="secondaryVoltageControl_Up0Pu" value="1"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_UpRef0Pu" value="1"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_Alpha" value="0.025"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_Beta" value="1"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_DerLevelMaxPu" value="0.085"/>
-    <par type="BOOL" name="secondaryVoltageControl_FreezingActivated" value="true"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_UDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="UpRef0Pu" value="1"/>
+    <par type="DOUBLE" name="Alpha" value="0.025"/>
+    <par type="DOUBLE" name="Beta" value="1"/>
+    <par type="DOUBLE" name="UDeadBandPu" value="0.0001"/>
+    <par type="INT" name="nbGenerators" value="2"/>
+    <par type="DOUBLE" name="tSample" value="10"/>
   </set>
   <set id="DisconnectLine">
     <par type="DOUBLE" name="event_tEvent" value="100"/>

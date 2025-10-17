@@ -20,7 +20,7 @@
   <dyn:blackBoxModel id="Hvdc1" lib="HvdcPVRpcl2Side1" parFile="HvdcRpcl2.par" parId="Hvdc1"/>
   <dyn:blackBoxModel id="Hvdc2" lib="HvdcPVDiagramPQRpcl2Side1" parFile="HvdcRpcl2.par" parId="Hvdc2"/>
   <dyn:blackBoxModel id="Load" lib="LoadPQ" parFile="HvdcRpcl2.par" parId="Load"/>
-  <dyn:blackBoxModel id="SVC" lib="SecondaryVoltageControlSimp" parFile="HvdcRpcl2.par" parId="SVC"/>
+  <dyn:blackBoxModel id="SVC" lib="DYNModelSecondaryVoltageControlSimplified" parFile="HvdcRpcl2.par" parId="SVC"/>
   <dyn:blackBoxModel id="DisconnectLine" lib="EventSetPointBoolean" parFile="HvdcRpcl2.par" parId="DisconnectLine"/>
   <dyn:connect id1="InfiniteBus" var1="infiniteBus_terminal" id2="Line1" var2="line_terminal1"/>
   <dyn:connect id1="Line1" var1="line_terminal2" id2="Line2" var2="line_terminal1"/>
@@ -32,12 +32,12 @@
   <dyn:connect id1="Line4" var1="line_terminal1" id2="Hvdc1" var2="hvdc_terminal1"/>
   <dyn:connect id1="Line4" var1="line_terminal1" id2="Hvdc2" var2="hvdc_terminal1"/>
   <dyn:connect id1="Load" var1="load_terminal" id2="Line4" var2="line_terminal2"/>
-  <dyn:connect id1="SVC" var1="secondaryVoltageControl_UpPu" id2="Load" var2="load_UPu_value"/>
-  <dyn:connect id1="SVC" var1="secondaryVoltageControl_limUQUp_1_" id2="Hvdc1" var2="hvdc_limUQUp1"/>
-  <dyn:connect id1="SVC" var1="secondaryVoltageControl_limUQDown_1_" id2="Hvdc1" var2="hvdc_limUQDown1"/>
-  <dyn:connect id1="SVC" var1="secondaryVoltageControl_limUQUp_2_" id2="Hvdc2" var2="hvdc_limUQUp1"/>
-  <dyn:connect id1="SVC" var1="secondaryVoltageControl_limUQDown_2_" id2="Hvdc2" var2="hvdc_limUQDown1"/>
-  <dyn:connect id1="Hvdc1" var1="reactivePowerControlLoop_level" id2="SVC" var2="secondaryVoltageControl_level"/>
-  <dyn:connect id1="Hvdc2" var1="reactivePowerControlLoop_level" id2="SVC" var2="secondaryVoltageControl_level"/>
+  <dyn:connect id1="SVC" var1="UpPu" id2="Load" var2="load_UPu"/>
+  <dyn:connect id1="Hvdc1" var1="reactivePowerControlLoop_level" id2="SVC" var2="level_value"/>
+  <dyn:connect id1="Hvdc2" var1="reactivePowerControlLoop_level" id2="SVC" var2="level_value"/>
+  <dyn:connect id1="Hvdc1" var1="hvdc_QInj1" id2="SVC" var2="QStator_0_value"/>
+  <dyn:connect id1="Hvdc2" var1="hvdc_QInj1" id2="SVC" var2="QStator_1_value"/>
+  <dyn:connect id1="SVC" var1="blocker_0_value" id2="Hvdc1" var2="hvdc_blockerSide1"/>
+  <dyn:connect id1="SVC" var1="blocker_1_value" id2="Hvdc2" var2="hvdc_blockerSide1"/>
   <dyn:connect id1="DisconnectLine" var1="event_state1" id2="Line2" var2="line_switchOffSignal2"/>
 </dyn:dynamicModelsArchitecture>

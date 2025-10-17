@@ -81,32 +81,24 @@
   </macroParameterSet>
   <macroParameterSet id="macro_svc">
     <!-- Generator 1 parameters -->
-    <par type="BOOL" name="secondaryVoltageControl_Participate0_0_" value="true"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_P0Pu_0_" value="-1.5"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_Q0Pu_0_" value="-0.5"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_U0Pu_0_" value="1.05"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_SNom_0_" value="200"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_Qr_0_" value="280"/>
+    <par type="DOUBLE" name="P0Pu_0" value="-1.5"/>
+    <par type="DOUBLE" name="Q0Pu_0" value="-0.5"/>
+    <par type="DOUBLE" name="U0Pu_0" value="1.05"/>
+    <par type="DOUBLE" name="SNom_0" value="200"/>
+    <par type="DOUBLE" name="Qr_0" value="280"/>
     <!-- Generator 2 parameters -->
-    <par type="BOOL" name="secondaryVoltageControl_Participate0_1_" value="true"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_P0Pu_1_" value="-1.5"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_Q0Pu_1_" value="-0.5"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_U0Pu_1_" value="1.05"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_SNom_1_" value="200"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_Qr_1_" value="280"/>
+    <par type="DOUBLE" name="P0Pu_1" value="-1.5"/>
+    <par type="DOUBLE" name="Q0Pu_1" value="-0.5"/>
+    <par type="DOUBLE" name="U0Pu_1" value="1.05"/>
+    <par type="DOUBLE" name="SNom_1" value="200"/>
+    <par type="DOUBLE" name="Qr_1" value="280"/>
     <!-- SVC parameters -->
-    <par type="DOUBLE" name="secondaryVoltageControl_Up0Pu" value="1.05"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_UpRef0Pu" value="1.05"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_Alpha" value="0.0308641975"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_Beta" value="1.2345679"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_DerLevelMaxPu" value="0.085"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_UDeadBandPu" value="0.0001"/>
-  </macroParameterSet>
-  <macroParameterSet id="macro_svc_tfo">
-    <!-- Generator 1 parameters -->
-    <par type="DOUBLE" name="secondaryVoltageControl_XTfoPu_0_" value="0.1"/>
-    <!-- Generator 2 parameters -->
-    <par type="DOUBLE" name="secondaryVoltageControl_XTfoPu_1_" value="0.1"/>
+    <par type="DOUBLE" name="UpRef0Pu" value="1.05"/>
+    <par type="DOUBLE" name="Alpha" value="0.0308641975"/>
+    <par type="DOUBLE" name="Beta" value="1.2345679"/>
+    <par type="DOUBLE" name="UDeadBandPu" value="0.0001"/>
+    <par type="INT" name="nbGenerators" value="2"/>
+    <par type="DOUBLE" name="tSample" value="10"/>
   </macroParameterSet>
   <set id="Generator1">
     <macroParSet id="macro_generator"/>
@@ -195,11 +187,6 @@
     <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
   </set>
   <set id="SVC">
-    <macroParSet id="macro_svc"/>
-    <macroParSet id="macro_svc_tfo"/>
-    <par type="BOOL" name="secondaryVoltageControl_FreezingActivated" value="true"/>
-  </set>
-  <set id="SVC1">
     <macroParSet id="macro_svc"/>
   </set>
   <set id="Line">
