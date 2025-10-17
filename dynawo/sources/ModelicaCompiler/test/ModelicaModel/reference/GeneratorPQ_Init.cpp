@@ -8,6 +8,8 @@
 
 #include "DYNElement.h"
 #include "PARParametersSetFactory.h"
+#include "DYNModelManager.h"
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 
 #include "GeneratorPQ_Init.h"
 #include "GeneratorPQ_Init_definition.h"
