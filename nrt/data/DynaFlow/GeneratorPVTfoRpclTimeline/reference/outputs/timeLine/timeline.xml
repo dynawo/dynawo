@@ -2,36 +2,72 @@
 <timeline xmlns="http://www.rte-france.com/dynawo">
   <event time="0.000000" modelName="Generator3" message="Reactive Power Control Loop : max voltage reference limit reached (UStatorRefMax)"/>
   <event time="0.000000" modelName="Generator4" message="Reactive Power Control Loop : max voltage reference limit reached (UStatorRefMax)"/>
-  <event time="0.000000" modelName="SVC2" message="Entering in frozen mode"/>
+  <event time="20.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.220108"/>
   <event time="50.000000" modelName="Line1Bis" message="LINE : opening both sides"/>
   <event time="50.000000" modelName="Line2Bis" message="LINE : opening both sides"/>
-  <event time="60.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.21"/>
-  <event time="60.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.21"/>
+  <event time="60.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.208508"/>
+  <event time="60.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.21257"/>
   <event time="70.000000" modelName="Generator1" message="Reactive Power Control Loop : max voltage reference limit reached (UStatorRefMax)"/>
   <event time="70.000000" modelName="Generator2" message="Reactive Power Control Loop : max voltage reference limit reached (UStatorRefMax)"/>
   <event time="70.000000" modelName="Generator2" message="Generator : maximum reactive power limit reached"/>
   <event time="70.000000" modelName="Generator4" message="Generator : maximum reactive power limit reached"/>
+  <event time="80.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.217044"/>
+  <event time="80.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.2233"/>
   <event time="80.000000" modelName="Generator1" message="Reactive Power Control Loop : voltage reference within limits range (UStatorRefMin &lt; UStatorRef &lt; UStatorRefMax)"/>
-  <event time="80.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.22"/>
-  <event time="80.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.22"/>
-  <event time="120.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.23"/>
-  <event time="160.000000" modelName="Generator3" message="Reactive Power Control Loop : voltage reference within limits range (UStatorRefMin &lt; UStatorRef &lt; UStatorRefMax)"/>
-  <event time="180.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.24"/>
-  <event time="240.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.23"/>
-  <event time="260.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.25"/>
-  <event time="360.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.26"/>
-  <event time="540.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.27"/>
-  <event time="550.000000" modelName="Generator1" message="Reactive Power Control Loop : max voltage reference limit reached (UStatorRefMax)"/>
-  <event time="740.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.28"/>
-  <event time="940.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.29"/>
-  <event time="1140.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.30"/>
-  <event time="1360.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.31"/>
-  <event time="1560.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.32"/>
-  <event time="1760.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.33"/>
-  <event time="1960.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.34"/>
-  <event time="2160.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.35"/>
-  <event time="2380.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.36"/>
-  <event time="2580.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.37"/>
-  <event time="2780.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.38"/>
-  <event time="2980.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.39"/>
+  <event time="90.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.220396"/>
+  <event time="140.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.231016"/>
+  <event time="140.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.230875"/>
+  <event time="200.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.240195"/>
+  <event time="220.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.240973"/>
+  <event time="290.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.250561"/>
+  <event time="300.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.251072"/>
+  <event time="380.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.261171"/>
+  <event time="410.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.260214"/>
+  <event time="450.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.270007"/>
+  <event time="530.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.280106"/>
+  <event time="530.000000" modelName="Generator1" message="Reactive Power Control Loop : max voltage reference limit reached (UStatorRefMax)"/>
+  <event time="600.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.270316"/>
+  <event time="610.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.290205"/>
+  <event time="690.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.300304"/>
+  <event time="770.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.310402"/>
+  <event time="790.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.280209"/>
+  <event time="850.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.320501"/>
+  <event time="930.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.3306"/>
+  <event time="980.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.290103"/>
+  <event time="1010.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.340699"/>
+  <event time="1090.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.350798"/>
+  <event time="1170.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.360896"/>
+  <event time="1180.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.300517"/>
+  <event time="1250.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.370995"/>
+  <event time="1330.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.381094"/>
+  <event time="1370.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.310411"/>
+  <event time="1410.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.391193"/>
+  <event time="1480.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.400029"/>
+  <event time="1560.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.320304"/>
+  <event time="1560.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.410128"/>
+  <event time="1640.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.420227"/>
+  <event time="1720.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.430325"/>
+  <event time="1750.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.330198"/>
+  <event time="1800.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.440424"/>
+  <event time="1880.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.450523"/>
+  <event time="1940.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.340091"/>
+  <event time="1960.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.460622"/>
+  <event time="2040.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.47072"/>
+  <event time="2120.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.480819"/>
+  <event time="2140.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.350505"/>
+  <event time="2200.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.490918"/>
+  <event time="2280.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.501017"/>
+  <event time="2330.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.360399"/>
+  <event time="2360.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.511116"/>
+  <event time="2440.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.521214"/>
+  <event time="2510.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.530051"/>
+  <event time="2520.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.370293"/>
+  <event time="2590.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.54015"/>
+  <event time="2670.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.550248"/>
+  <event time="2710.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.380186"/>
+  <event time="2750.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.560347"/>
+  <event time="2830.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.570446"/>
+  <event time="2900.000000" modelName="SVC" message="Secondary Voltage Regulation : new level 0.39008"/>
+  <event time="2910.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.580545"/>
+  <event time="2990.000000" modelName="SVC2" message="Secondary Voltage Regulation : new level 0.590643"/>
 </timeline>

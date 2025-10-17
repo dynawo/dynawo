@@ -19,7 +19,7 @@
   <dyn:blackBoxModel id="Line1" lib="Line" parFile="GeneratorPVTfoSVRTimeline.par" parId="Line"/>
   <dyn:blackBoxModel id="Line1Bis" lib="Line" parFile="GeneratorPVTfoSVRTimeline.par" parId="Line"/>
   <dyn:blackBoxModel id="InfiniteBus1" lib="InfiniteBus" parFile="GeneratorPVTfoSVRTimeline.par" parId="InfiniteBus1"/>
-  <dyn:blackBoxModel id="SVC" lib="SecondaryVoltageControlSimp" parFile="GeneratorPVTfoSVRTimeline.par" parId="SVC"/>
+  <dyn:blackBoxModel id="SVC" lib="DYNModelSecondaryVoltageControlSimplified" parFile="GeneratorPVTfoSVRTimeline.par" parId="SVC"/>
   <dyn:connect id1="Generator1" var1="generator_terminal" id2="Line1" var2="line_terminal1"/>
   <dyn:connect id1="Generator2" var1="generator_terminal" id2="Line1" var2="line_terminal1"/>
   <dyn:connect id1="InfiniteBus1" var1="infiniteBus_terminal" id2="Line1" var2="line_terminal2"/>
@@ -28,11 +28,11 @@
   <dyn:connect id1="InfiniteBus1" var1="infiniteBus_terminal" id2="Line1Bis" var2="line_terminal2"/>
   <dyn:connect id1="Generator1" var1="generator_N" id2="SignalN" var2="step_step"/>
   <dyn:connect id1="Generator2" var1="generator_N" id2="SignalN" var2="step_step"/>
-  <dyn:connect id1="Generator1" var1="reactivePowerControlLoop_level" id2="SVC" var2="secondaryVoltageControl_level"/>
-  <dyn:connect id1="Generator2" var1="reactivePowerControlLoop_level" id2="SVC" var2="secondaryVoltageControl_level"/>
-  <dyn:connect id1="SVC" var1="secondaryVoltageControl_UpPu" id2="Generator1" var2="generator_UPu"/>
-  <dyn:connect id1="SVC" var1="secondaryVoltageControl_limUQUp_1_" id2="Generator1" var2="generator_limUQUp"/>
-  <dyn:connect id1="SVC" var1="secondaryVoltageControl_limUQDown_1_" id2="Generator1" var2="generator_limUQDown"/>
-  <dyn:connect id1="SVC" var1="secondaryVoltageControl_limUQUp_2_" id2="Generator2" var2="generator_limUQUp"/>
-  <dyn:connect id1="SVC" var1="secondaryVoltageControl_limUQDown_2_" id2="Generator2" var2="generator_limUQDown"/>
+  <dyn:connect id1="SVC" var1="UpPu_value" id2="Generator1" var2="generator_UPu"/>
+  <dyn:connect id1="Generator1" var1="reactivePowerControlLoop_level" id2="SVC" var2="level_value"/>
+  <dyn:connect id1="Generator2" var1="reactivePowerControlLoop_level" id2="SVC" var2="level_value"/>
+  <dyn:connect id1="Generator1" var1="generator_QStator" id2="SVC" var2="QStator_0_value"/>
+  <dyn:connect id1="Generator2" var1="generator_QStator" id2="SVC" var2="QStator_1_value"/>
+  <dyn:connect id1="SVC" var1="blocker_0_value" id2="Generator1" var2="generator_blocker"/>
+  <dyn:connect id1="SVC" var1="blocker_1_value" id2="Generator2" var2="generator_blocker"/>
 </dyn:dynamicModelsArchitecture>
