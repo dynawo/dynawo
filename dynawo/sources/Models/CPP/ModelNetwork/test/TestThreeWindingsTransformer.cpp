@@ -139,6 +139,7 @@ createModelThreeWindingsTransformer(bool open, bool initModel) {
 
 TEST(ModelsModelNetwork, ModelNetworkThreeWindingsTransformerInitializationClosed) {
   std::shared_ptr<ModelThreeWindingsTransformer> tw3 = createModelThreeWindingsTransformer(false, false).first;
+  bool deactivateZeroCrossingFunctions = false;
   ASSERT_EQ(tw3->id(), "MyThreeWindingsTransformer");
 
   tw3->initSize();
@@ -164,7 +165,7 @@ TEST(ModelsModelNetwork, ModelNetworkThreeWindingsTransformerInitializationClose
   tw3->setFequations(fEquationIndex);
   ASSERT_EQ(fEquationIndex.size(), 0);
   ASSERT_NO_THROW(tw3->evalG(0.));
-  ASSERT_NO_THROW(tw3->evalZ(0.));
+  ASSERT_NO_THROW(tw3->evalZ(0., deactivateZeroCrossingFunctions));
   ASSERT_NO_THROW(tw3->evalState(0.));
   ASSERT_NO_THROW(tw3->evalCalculatedVars());
   ASSERT_THROW_DYNAWO(tw3->evalCalculatedVarI(42), Error::MODELER, KeyError_t::UndefCalculatedVarI);

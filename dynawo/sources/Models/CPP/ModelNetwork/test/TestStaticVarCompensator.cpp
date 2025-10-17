@@ -250,6 +250,7 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorCalculatedVariablesFlat
 
 TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorDiscreteVariables) {
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
+  bool deactivateZeroCrossingFunctions = false;
   auto tuple = createModelStaticVarCompensator(false, false, networkIIDM);
   std::shared_ptr<ModelStaticVarCompensator> svc = std::get<0>(tuple);
   int offSet = 0;
@@ -277,7 +278,7 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorDiscreteVariables) {
   ASSERT_EQ(z[ModelStaticVarCompensator::connectionStateNum_], svc->getConnected());
 
   z[ModelStaticVarCompensator::connectionStateNum_] = OPEN;
-  ASSERT_EQ(svc->evalZ(10.), NetworkComponent::STATE_CHANGE);
+  ASSERT_EQ(svc->evalZ(10., deactivateZeroCrossingFunctions), NetworkComponent::STATE_CHANGE);
   ASSERT_EQ(svc->evalState(10.), NetworkComponent::STATE_CHANGE);
   ASSERT_EQ(svc->getConnected(), OPEN);
   ASSERT_EQ(z[ModelStaticVarCompensator::connectionStateNum_], OPEN);

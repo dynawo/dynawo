@@ -140,7 +140,7 @@ class ModelThreeWindingsTransformer : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::evalZ()
    */
-  NetworkComponent::StateChange_t evalZ(double t) override;
+  NetworkComponent::StateChange_t evalZ(double t, bool deactivateZeroCrossingFunctions) override;
 
   /**
    * @copydoc NetworkComponent::evalG()
