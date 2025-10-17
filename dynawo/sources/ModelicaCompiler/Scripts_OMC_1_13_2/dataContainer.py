@@ -2018,6 +2018,7 @@ class Warn:
             line = sub_division_sim(line)
             if "omc_assert_warning" in line and not with_throw:
                 line = line.replace(INFO_OMC_PARAM,"")
+                line = line.replace("\\n", ": ")
             if has_omc_trace (line) or has_omc_equation_indexes (line) or "infoStreamPrint" in line:
                 continue
             if ".attribute" in line:
