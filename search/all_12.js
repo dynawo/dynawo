@@ -58,6 +58,7 @@ var searchData=
   ['resetcustomappender_5f',['resetCustomAppender_',['../d8/d1b/a02555.html#a8bccbd6d9b48a016c34cfebe73d0db9a',1,'DYN::Trace']]],
   ['resetcustomappenders',['resetCustomAppenders',['../d8/d1b/a02555.html#a307efa62de51e067f029f51acf146e77',1,'DYN::Trace']]],
   ['resetcustomappenders_5f',['resetCustomAppenders_',['../d8/d1b/a02555.html#afc3fe327a69bdfd37672ab9d5626af41',1,'DYN::Trace']]],
+  ['resetinjections',['resetInjections',['../d2/df0/a03119.html#acd8242c1bebbcaf1e93938aef16f1c15',1,'DYN::ModelBusContainer']]],
   ['resetinternalvariables',['resetInternalVariables',['../dc/d9b/a03155.html#a924108625b3501e3acca1780106e8a21',1,'DYN::ModelPhaseTapChanger::resetInternalVariables()'],['../d4/dbc/a03159.html#a69fd1093c17c290697173f1c72b786bc',1,'DYN::ModelRatioTapChanger::resetInternalVariables()']]],
   ['resetnodeinjection',['resetNodeInjection',['../df/d9e/a03111.html#a679dfbdc2e1826d54e28610a3a86a723',1,'DYN::ModelBus::resetNodeInjection()'],['../d7/d36/a03135.html#a4162b35e145ab19da7ddf125b92de6c5',1,'DYN::ModelHvdcLink::resetNodeInjection()']]],
   ['resetnodeinjections',['resetNodeInjections',['../d2/df0/a03119.html#af47ec19771129cb5258e051195097230',1,'DYN::ModelBusContainer']]],

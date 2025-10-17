@@ -106,15 +106,16 @@ $(document).ready(function(){initNavTree('d2/df0/a03119.html','../../');});
   <tr class="even"><td class="entry"><a class="el" href="../../d2/df0/a03119.html#a3b5a3290f0a4b3a5b09b6729d0466e4c">evalJt</a>(double cj, int rowOffset, SparseMatrix &amp;jt)</td><td class="entry"><a class="el" href="../../d2/df0/a03119.html">DYN::ModelBusContainer</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="../../d2/df0/a03119.html#a2d591064f0cb33124f91e8c81d3da918">evalJtPrim</a>(int rowOffset, SparseMatrix &amp;jtPrim)</td><td class="entry"><a class="el" href="../../d2/df0/a03119.html">DYN::ModelBusContainer</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="../../d2/df0/a03119.html#a67217e0627420b218eee4bc4ab3a09ab">exploreNeighbors</a>(double t)</td><td class="entry"><a class="el" href="../../d2/df0/a03119.html">DYN::ModelBusContainer</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d2/df0/a03119.html#afd1b6cef759a31ef68af3d862aebc9c4">getSubNetworks</a>() const</td><td class="entry"><a class="el" href="../../d2/df0/a03119.html">DYN::ModelBusContainer</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d2/df0/a03119.html#a66b7118174a02fcad238955d0c196b1c">getSubNetworks</a>() const</td><td class="entry"><a class="el" href="../../d2/df0/a03119.html">DYN::ModelBusContainer</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="../../d2/df0/a03119.html#a6c5cc2241578370a125419c3014edb2c">initDerivatives</a>()</td><td class="entry"><a class="el" href="../../d2/df0/a03119.html">DYN::ModelBusContainer</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="../../d2/df0/a03119.html#a4bb7cf8083a182f23ee843a9167c1072">initRefIslands</a>()</td><td class="entry"><a class="el" href="../../d2/df0/a03119.html">DYN::ModelBusContainer</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="../../d2/df0/a03119.html#a07a5b6ac97b5f2695347bb01d070385a">ModelBusContainer</a>()</td><td class="entry"><a class="el" href="../../d2/df0/a03119.html">DYN::ModelBusContainer</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="../../d2/df0/a03119.html#afb4ee2d7db8afa6a9b28da31a351ca97">models_</a></td><td class="entry"><a class="el" href="../../d2/df0/a03119.html">DYN::ModelBusContainer</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="../../d2/df0/a03119.html#a7b3ea90ccbfb4e8ce491c6632b7f41fb">resetCurrentUStatus</a>()</td><td class="entry"><a class="el" href="../../d2/df0/a03119.html">DYN::ModelBusContainer</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d2/df0/a03119.html#af47ec19771129cb5258e051195097230">resetNodeInjections</a>()</td><td class="entry"><a class="el" href="../../d2/df0/a03119.html">DYN::ModelBusContainer</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d2/df0/a03119.html#a2c5160c1075defd95514fde8f4aca10d">resetSubNetwork</a>()</td><td class="entry"><a class="el" href="../../d2/df0/a03119.html">DYN::ModelBusContainer</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d2/df0/a03119.html#a564137dde21fc01280ef085f69551601">subNetworks_</a></td><td class="entry"><a class="el" href="../../d2/df0/a03119.html">DYN::ModelBusContainer</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d2/df0/a03119.html#acd8242c1bebbcaf1e93938aef16f1c15">resetInjections</a>()</td><td class="entry"><a class="el" href="../../d2/df0/a03119.html">DYN::ModelBusContainer</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/df0/a03119.html#af47ec19771129cb5258e051195097230">resetNodeInjections</a>()</td><td class="entry"><a class="el" href="../../d2/df0/a03119.html">DYN::ModelBusContainer</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d2/df0/a03119.html#a2c5160c1075defd95514fde8f4aca10d">resetSubNetwork</a>()</td><td class="entry"><a class="el" href="../../d2/df0/a03119.html">DYN::ModelBusContainer</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/df0/a03119.html#a564137dde21fc01280ef085f69551601">subNetworks_</a></td><td class="entry"><a class="el" href="../../d2/df0/a03119.html">DYN::ModelBusContainer</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -131,7 +132,7 @@ $(document).ready(function(){initNavTree('d2/df0/a03119.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Fri Oct 17 2025 11:43:46 for Dynawo by
+    <li class="footer">Generated on Fri Oct 17 2025 13:20:05 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
