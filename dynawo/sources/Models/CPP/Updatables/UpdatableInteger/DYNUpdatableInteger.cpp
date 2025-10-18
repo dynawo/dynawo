@@ -158,8 +158,13 @@ UpdatableInteger::getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalcula
 }
 
 double
-UpdatableInteger::evalCalculatedVarI(unsigned /*iCalculatedVar*/) const {
-  return inputValue_;
+UpdatableInteger::evalCalculatedVarI(unsigned iCalculatedVar) const {
+  switch (iCalculatedVar) {
+    case inputValueIdx_:
+      return inputValue_;
+    default:
+      throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
+  }
 }
 
 void
@@ -206,4 +211,21 @@ UpdatableInteger::defineElements(std::vector<Element> &elements, std::map<std::s
   addElement(UPDATABLE_INPUT_NAME, Element::TERMINAL, elements, mapElement);
 }
 
+void
+UpdatableInteger::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
+  ModelCPP::dumpInStream(streamVariables, inputValue_);
+}
+
+void
+UpdatableInteger::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
+  char c;
+  streamVariables >> c;
+  streamVariables >> inputValue_;
+}
+
+void
+UpdatableInteger::dumpUserReadableElementList(const std::string& /*nameElement*/) const {
+  Trace::info() << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
+  Trace::info() << "  ->" << UPDATABLE_INPUT_NAME << Trace::endline;
+}
 }  // namespace DYN

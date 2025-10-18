@@ -234,6 +234,21 @@ class UpdatableContinuous : public ModelCPP {
    */
   void initParams() override { /* not needed */ }
 
+  /**
+   * @copydoc ModelCPP::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables)
+   */
+  void dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const override;
+
+  /**
+   * @copydoc ModelCPP::loadInternalVariables(boost::archive::binary_iarchive& streamVariables)
+   */
+  void loadInternalVariables(boost::archive::binary_iarchive& streamVariables) override;
+
+  /**
+   * @copydoc SubModel::dumpUserReadableElementList()
+   */
+  void dumpUserReadableElementList(const std::string& nameElement) const override;
+
  private:
   double inputValue_;      ///< updatable value
   bool updated_;           ///< @b true if updated from external input

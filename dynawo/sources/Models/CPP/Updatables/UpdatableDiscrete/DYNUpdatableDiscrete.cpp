@@ -158,8 +158,13 @@ UpdatableDiscrete::getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalcul
 }
 
 double
-UpdatableDiscrete::evalCalculatedVarI(unsigned /*iCalculatedVar*/) const {
-  return inputValue_;
+UpdatableDiscrete::evalCalculatedVarI(unsigned iCalculatedVar) const {
+  switch (iCalculatedVar) {
+    case inputValueIdx_:
+      return inputValue_;
+    default:
+      throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
+  }
 }
 
 void
@@ -199,10 +204,26 @@ UpdatableDiscrete::setSubModelParameters() {
   }
 }
 
-
 void
 UpdatableDiscrete::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
   addElement(UPDATABLE_INPUT_NAME, Element::TERMINAL, elements, mapElement);
 }
 
+void
+UpdatableDiscrete::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
+  ModelCPP::dumpInStream(streamVariables, inputValue_);
+}
+
+void
+UpdatableDiscrete::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
+  char c;
+  streamVariables >> c;
+  streamVariables >> inputValue_;
+}
+
+void
+UpdatableDiscrete::dumpUserReadableElementList(const std::string& /*nameElement*/) const {
+  Trace::info() << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
+  Trace::info() << "  ->" << UPDATABLE_INPUT_NAME << Trace::endline;
+}
 }  // namespace DYN

@@ -106,6 +106,7 @@ void
 UpdatableBoolean::evalG(const double /*t*/) {
   gLocal_[0] = (updated_) ? ROOT_UP : ROOT_DOWN;
   updated_ = false;
+  std::cout << "evalG -> updated false" << std::endl;
 }
 
 // evaluation of root functions
@@ -158,8 +159,13 @@ UpdatableBoolean::getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalcula
 }
 
 double
-UpdatableBoolean::evalCalculatedVarI(unsigned /*iCalculatedVar*/) const {
-  return inputValue_;
+UpdatableBoolean::evalCalculatedVarI(unsigned iCalculatedVar) const {
+  switch (iCalculatedVar) {
+    case inputValueIdx_:
+      return inputValue_;
+    default:
+      throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
+  }
 }
 
 void
@@ -206,4 +212,21 @@ UpdatableBoolean::defineElements(std::vector<Element> &elements, std::map<std::s
   addElement(UPDATABLE_INPUT_NAME, Element::TERMINAL, elements, mapElement);
 }
 
+void
+UpdatableBoolean::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
+  ModelCPP::dumpInStream(streamVariables, inputValue_);
+}
+
+void
+UpdatableBoolean::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
+  char c;
+  streamVariables >> c;
+  streamVariables >> inputValue_;
+}
+
+void
+UpdatableBoolean::dumpUserReadableElementList(const std::string& /*nameElement*/) const {
+  Trace::info() << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
+  Trace::info() << "  ->" << UPDATABLE_INPUT_NAME << Trace::endline;
+}
 }  // namespace DYN

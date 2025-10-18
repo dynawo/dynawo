@@ -21,8 +21,10 @@
 
 #include "CRVPoint.h"
 #include "CRVPointFactory.h"
+#include "DYNCommon.h"
 
 #include <iostream>
+#include <sstream>
 #include <limits>
 
 using std::string;
@@ -175,10 +177,11 @@ Curve::getBuffer() const {
 
 string
 Curve::getUniqueName() const {
-  if (factor_ == 1.)
-    return modelName_ + "_"  + variable_;
-  else
-    return modelName_ + "_"  + variable_ + "_" + std::to_string(factor_) + "x";
+  std::ostringstream stream;
+  stream << modelName_ << "_" << variable_;
+  if (DYN::doubleNotEquals(factor_, 1.))
+    stream << "_" << factor_ << "x";
+  return stream.str();
 }
 
 }  // namespace curves

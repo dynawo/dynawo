@@ -30,7 +30,7 @@ TEST(APIJOBTest, testInteractiveSetingsEntry) {
   std::shared_ptr<InteractiveSettingsEntry> interactiveSettings = std::make_shared<InteractiveSettingsEntry>();
 
   // check default attributes
-  ASSERT_EQ(interactiveSettings->getCouplingTimeStep(), 1.);
+  ASSERT_EQ(interactiveSettings->getCouplingTimeStep(), 0.);
   ASSERT_EQ(interactiveSettings->getChannelsEntry(), std::shared_ptr<ChannelsEntry>());
   ASSERT_EQ(interactiveSettings->getClockEntry(), std::shared_ptr<ClockEntry>());
   ASSERT_EQ(interactiveSettings->getStreamsEntry(), std::shared_ptr<StreamsEntry>());

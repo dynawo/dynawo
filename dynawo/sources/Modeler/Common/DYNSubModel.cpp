@@ -84,7 +84,6 @@ fDeb_(0),
 gDeb_(0),
 withLoadedParameters_(false),
 withLoadedVariables_(false),
-isUpdatable_(false),
 sizeFSave_(0),
 sizeZSave_(0),
 sizeGSave_(0),
@@ -101,7 +100,8 @@ modeChange_(false),
 modeChangeType_(NO_MODE) ,
 initialized_(false),
 currentTime_(0.),
-isInitProcess_(false) {
+isInitProcess_(false),
+isUpdatable_(false) {
   variables_.clear();
   parametersDynamic_.clear();
   variablesInit_.clear();
