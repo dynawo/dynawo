@@ -1269,21 +1269,21 @@ void ModelMulti::setLocalInitParameters(const std::shared_ptr<parameters::Parame
   localInitParameters_ = localInitParameters;
 }
 
-void ModelMulti::registerAction(const std::string& actionString) {
+void ModelMulti::registerAction(const string& actionString) {
   if (!actionBuffer_)
     return;
 
   // --- Parse the action string
   std::istringstream stream(actionString);
-  std::string token;
-  std::string subModelName;
+  string token;
+  string subModelName;
 
   // Read the id (first part before the first comma)
   std::getline(stream, subModelName, ',');
 
   const boost::shared_ptr<SubModel> subModel = findSubModelByName(subModelName);
   if (!subModel) {
-    Trace::error() << "ActionBuffer: Impossible to register action. Unknown SubModel: " << subModelName << Trace::endline;
+    Trace::warn() << DYNLog(ActionUnknownSubModel, subModelName) << Trace::endline;
     return;
   }
 
@@ -1291,18 +1291,19 @@ void ModelMulti::registerAction(const std::string& actionString) {
   // Read the rest of the parameter-value pairs
   while (std::getline(stream, token, ',')) {
     // parse the triple
-    std::string name = token;
-    std::string value;
+    string paramName = token;
+    string value;
 
     if (std::getline(stream, token, ',')) {
         value = token;
     } else {
-      Trace::error() << "ActionBuffer: Could not parse action, incomplete data" << Trace::endline;
+      string shortAction = (actionString.size() > 40) ? actionString.substring(0, 40) + "..." : actionString;
+      Trace::warn() << DYNLog(ActionUnparsable, shortAction) << Trace::endline;
       return;
     }
 
-    if (subModel->hasParameterDynamic(name)) {
-      const ParameterModeler& parameter = subModel->findParameterDynamic(name);
+    if (subModel->hasParameterDynamic(paramName)) {
+      const ParameterModeler& parameter = subModel->findParameterDynamic(paramName);
       boost::any castedValue;
       switch (parameter.getValueType()) {
         case VAR_TYPE_DOUBLE: {
@@ -1328,9 +1329,9 @@ void ModelMulti::registerAction(const std::string& actionString) {
         }
       }
 
-      parameterValueSet.push_back(std::make_tuple(name, castedValue, parameter.getValueType()));
+      parameterValueSet.push_back(std::make_tuple(paramName, castedValue, parameter.getValueType()));
     } else {
-      Trace::warn() << "ActionBuffer: Parameter: " << name << " does not exist" << Trace::endline;
+      Trace::warn() << DYNLog("ActionParameterNotFound", paramName) << Trace::endline;
       return;
     }
   }

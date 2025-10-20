@@ -106,7 +106,6 @@ void
 UpdatableBoolean::evalG(const double /*t*/) {
   gLocal_[0] = (updated_) ? ROOT_UP : ROOT_DOWN;
   updated_ = false;
-  std::cout << "evalG -> updated false" << std::endl;
 }
 
 // evaluation of root functions

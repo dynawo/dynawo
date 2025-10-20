@@ -41,13 +41,13 @@ ActionBuffer::addAction(const boost::shared_ptr<SubModel>& subModel, Action::Act
   if (actionIt != actions_.end()) {
     if (subModel->name() == "NETWORK") {
       actionIt->second.updateParameterValueSet(parameterValueSet);
-      Trace::info() << "ActionBuffer: Action list extended for NETWORK SubModel" << Trace::endline;
+      Trace::debug() << DYNlog("ActionListExtendedNetwork") << Trace::endline;
     } else {
       actionIt->second = newAction;
-      Trace::warn() << "ActionBuffer: Actions overriden for SubModel: " << subModel->name() << Trace::endline;
+      Trace::warn() << DYNLog("ActionListOverriden", subModel->name()) << Trace::endline;
     }
   } else {
-    Trace::info() << "ActionBuffer: New action registered on model: " << subModel->name() << Trace::endline;
+    Trace::debug() << DYNLog("ActionRegistered", subModel->name()) << Trace::endline;
     actions_.emplace(subModel->name(), newAction);
   }
 }

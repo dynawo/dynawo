@@ -18,8 +18,6 @@
  *
  */
 
-#include "DYNTrace.h"
-
 #include "DYNAction.h"
 
 namespace DYN {
@@ -55,7 +53,6 @@ Action::apply() {
     }
   }
   subModel_->setSubModelParameters();
-  Trace::info() << "Action: SubModel " << subModel_->name() << " parameters updated" << Trace::endline;
 }
 
 void
