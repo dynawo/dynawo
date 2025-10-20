@@ -9,7 +9,7 @@ jobs:
   fedora:
     name: Linux Fedora (${{ matrix.build-type }}, ${{ matrix.compiler }})
     runs-on: ubuntu-latest
-    timeout-minutes: 200
+    timeout-minutes: 300
     container: dynawo/dynawo-ci-nightly-fedora:latest
     strategy:
       matrix:
