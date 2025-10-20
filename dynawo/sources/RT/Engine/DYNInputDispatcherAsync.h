@@ -29,7 +29,7 @@
 #include <vector>
 
 #include "DYNRTInputCommon.h"
-#include "DYNActionBuffer.h"
+#include "DYNModel.h"
 #include "DYNClock.h"
 #include "DYNInputChannel.h"
 
@@ -41,15 +41,20 @@ class InputDispatcherAsync {
  public:
    /**
    * @brief Constructor
-   * @param actionBuffer pointer to the ActionBuffer object
    * @param clock pointer to the Clock object
    */
-  InputDispatcherAsync(std::shared_ptr<ActionBuffer> &actionBuffer, std::shared_ptr<Clock>& clock);
+  explicit InputDispatcherAsync(std::shared_ptr<Clock>& clock);
 
   /**
    * Destructor
    */
   ~InputDispatcherAsync();
+
+  /**
+   * @brief set Model instance
+   * @param model model instance
+   */
+  void setModel(std::shared_ptr<Model> model);
 
   /**
    * @brief Add an input channel to the dispatcher
@@ -80,7 +85,7 @@ class InputDispatcherAsync {
   void processLoop();
 
  private:
-  std::shared_ptr<ActionBuffer> actionBuffer_;               ///< Action buffer, receives input for models
+  std::shared_ptr<Model> model_;                             ///< Model, handles action registration
   std::shared_ptr<Clock> clock_;                             ///< Clock, handles trigger
   std::vector<std::shared_ptr<InputChannel> > channels_;     ///< Receivers for inputs and trigger
 

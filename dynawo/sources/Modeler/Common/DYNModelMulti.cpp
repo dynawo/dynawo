@@ -101,6 +101,11 @@ ModelMulti::setWorkingDirectory(const string& workingDirectory) {
 }
 
 void
+ModelMulti::setActionBuffer(const std::shared_ptr<ActionBuffer> actionBuffer) {
+  actionBuffer_ = actionBuffer;
+}
+
+void
 ModelMulti::addSubModel(const shared_ptr<SubModel>& sub, const string& libName) {
   sub->defineVariablesInit();
   sub->defineParametersInit();  // only for modelica models
@@ -1262,6 +1267,75 @@ void ModelMulti::setCurrentZ(const vector<double>& z) {
 
 void ModelMulti::setLocalInitParameters(const std::shared_ptr<parameters::ParametersSet>& localInitParameters) {
   localInitParameters_ = localInitParameters;
+}
+
+void ModelMulti::registerAction(const std::string& actionString) {
+  if (!actionBuffer_)
+    return;
+
+  // --- Parse the action string
+  std::istringstream stream(actionString);
+  std::string token;
+  std::string subModelName;
+
+  // Read the id (first part before the first comma)
+  std::getline(stream, subModelName, ',');
+
+  const boost::shared_ptr<SubModel> subModel = findSubModelByName(subModelName);
+  if (!subModel) {
+    Trace::error() << "ActionBuffer: Impossible to register action. Unknown SubModel: " << subModelName << Trace::endline;
+    return;
+  }
+
+  Action::ActionParameters parameterValueSet;
+  // Read the rest of the parameter-value pairs
+  while (std::getline(stream, token, ',')) {
+    // parse the triple
+    std::string name = token;
+    std::string value;
+
+    if (std::getline(stream, token, ',')) {
+        value = token;
+    } else {
+      Trace::error() << "ActionBuffer: Could not parse action, incomplete data" << Trace::endline;
+      return;
+    }
+
+    if (subModel->hasParameterDynamic(name)) {
+      const ParameterModeler& parameter = subModel->findParameterDynamic(name);
+      boost::any castedValue;
+      switch (parameter.getValueType()) {
+        case VAR_TYPE_DOUBLE: {
+          castedValue = std::stod(value);
+          break;
+        }
+        case VAR_TYPE_INT: {
+          castedValue = std::stoi(value);
+          break;
+        }
+        case VAR_TYPE_BOOL: {
+          bool bval = std::stoi(value);
+          castedValue = bval;
+          break;
+        }
+        case VAR_TYPE_STRING: {
+          castedValue = value;
+          break;
+        }
+        default:
+        {
+          throw DYNError(Error::MODELER, ParameterBadType, parameter.getName());
+        }
+      }
+
+      parameterValueSet.push_back(std::make_tuple(name, castedValue, parameter.getValueType()));
+    } else {
+      Trace::warn() << "ActionBuffer: Parameter: " << name << " does not exist" << Trace::endline;
+      return;
+    }
+  }
+  // --- Add to buffer
+  actionBuffer_->addAction(subModel, parameterValueSet);
 }
 
 }  // namespace DYN

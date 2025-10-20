@@ -24,7 +24,7 @@
 
 namespace DYN {
 
-Action::Action(boost::shared_ptr<SubModel>& subModel, std::vector<std::tuple<std::string, boost::any, DYN::typeVarC_t>>& parameterValueSet) :
+Action::Action(const boost::shared_ptr<SubModel>& subModel, std::vector<std::tuple<std::string, boost::any, DYN::typeVarC_t>>& parameterValueSet) :
 subModel_(subModel),
 parameterValueSet_(parameterValueSet) { }
 
@@ -59,7 +59,7 @@ Action::apply() {
 }
 
 void
-Action::updateParameterValueSet(std::vector<std::tuple<std::string, boost::any, DYN::typeVarC_t>>& newParameterValueSet) {
+Action::updateParameterValueSet(ActionParameters& newParameterValueSet) {
   parameterValueSet_.insert(parameterValueSet_.end(), newParameterValueSet.begin(), newParameterValueSet.end());
 }
 

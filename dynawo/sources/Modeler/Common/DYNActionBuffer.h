@@ -17,8 +17,8 @@
  * @brief ActionBuffer header
  *
  */
-#ifndef RT_ENGINE_DYNACTIONBUFFER_H_
-#define RT_ENGINE_DYNACTIONBUFFER_H_
+#ifndef MODELER_COMMON_DYNACTIONBUFFER_H_
+#define MODELER_COMMON_DYNACTIONBUFFER_H_
 
 #include <mutex>
 #include <unordered_map>
@@ -26,7 +26,6 @@
 
 #include "DYNModel.h"
 #include "DYNAction.h"
-#include "DYNRTInputCommon.h"
 
 
 namespace DYN {
@@ -40,28 +39,22 @@ namespace DYN {
 class ActionBuffer {
  public:
   /**
-   * @brief set model instance
-   * @param model model instance
-   */
-  void setModel(std::shared_ptr<Model>& model);
-
-  /**
    * @brief apply the list of action in the queue (empty the queue)
    */
   void applyActions();
 
   /**
    * @brief register an action item, merging with or replacing a previous item
-   * @param actionMessage action to register
+   * @param actionString action to register in string format
+   * @param parameterValueSet set of parameter values
    */
-  bool registerAction(ActionMessage& actionMessage);
+  void addAction(const boost::shared_ptr<SubModel>& subModel, Action::ActionParameters& parameterValueSet);
 
  private:
   std::unordered_map<std::string, Action> actions_;  ///< map of action ordered by model
   std::mutex actionsMutex_;                          ///< mutex for applying/registering a new action
-  std::shared_ptr<Model> model_;                     ///< simulation Model instance
 };
 
 }  // end of namespace DYN
 
-#endif  // RT_ENGINE_DYNACTIONBUFFER_H_
+#endif  // MODELER_COMMON_DYNACTIONBUFFER_H_

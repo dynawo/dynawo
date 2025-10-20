@@ -21,14 +21,18 @@
 
 namespace DYN {
 
-InputDispatcherAsync::InputDispatcherAsync(std::shared_ptr<ActionBuffer> &actionBuffer, std::shared_ptr<Clock>& clock) :
-  actionBuffer_(actionBuffer),
+InputDispatcherAsync::InputDispatcherAsync(std::shared_ptr<Clock>& clock) :
   clock_(clock),
   loopWaitInMs_(50),
   running_(false) {}
 
 InputDispatcherAsync::~InputDispatcherAsync() {
   stop();
+}
+
+void
+InputDispatcherAsync::setModel(std::shared_ptr<Model> model) {
+  model_ = model;
 }
 
 void
@@ -84,7 +88,7 @@ InputDispatcherAsync::processLoop() {
 
       switch (msg->getType()) {
         case MessageType::Action:
-          actionBuffer_->registerAction(static_cast<ActionMessage &>(*msg));
+          model_->registerAction(static_cast<ActionMessage &>(*msg).payload);
           break;
         case MessageType::StepTrigger:
           clock_->handleMessage(static_cast<StepTriggerMessage &>(*msg));

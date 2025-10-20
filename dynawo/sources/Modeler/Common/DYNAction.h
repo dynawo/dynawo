@@ -17,8 +17,8 @@
  * @brief EventSubscriber header
  *
  */
-#ifndef RT_ENGINE_DYNACTION_H_
-#define RT_ENGINE_DYNACTION_H_
+#ifndef MODELER_COMMON_DYNACTION_H_
+#define MODELER_COMMON_DYNACTION_H_
 
 #include <vector>
 #include <string>
@@ -35,12 +35,14 @@ namespace DYN {
  */
 class Action {
  public:
-  /**
+  typedef std::vector<std::tuple<std::string, boost::any, DYN::typeVarC_t> > ActionParameters;  // vector of <par name, value, type>
+
+ /**
    * @brief constructor
    * @param subModel SubModel where some value should be modified
    * @param parameterValueSet set of parameters to modify
    */
-  Action(boost::shared_ptr<SubModel>& subModel, std::vector<std::tuple<std::string, boost::any, DYN::typeVarC_t>>& parameterValueSet);
+  Action(const boost::shared_ptr<SubModel>& subModel, ActionParameters& parameterValueSet);
 
   /**
    * @brief apply the action
@@ -50,13 +52,13 @@ class Action {
   /**
    * @brief update the action parameters
    */
-  void updateParameterValueSet(std::vector<std::tuple<std::string, boost::any, DYN::typeVarC_t>>& newParameterValueSet);
+  void updateParameterValueSet(ActionParameters& newParameterValueSet);
 
  private:
-  boost::shared_ptr<SubModel> subModel_;                                                  ///< Pointer to the SubModel
-  std::vector<std::tuple<std::string, boost::any, DYN::typeVarC_t>> parameterValueSet_;   ///< Set of parameters to modify
+  boost::shared_ptr<SubModel> subModel_;   ///< Pointer to the SubModel
+  ActionParameters parameterValueSet_;     ///< Set of parameters to modify
 };
 
 }  // end of namespace DYN
 
-#endif  // RT_ENGINE_DYNACTION_H_
+#endif  // MODELER_COMMON_DYNACTION_H_

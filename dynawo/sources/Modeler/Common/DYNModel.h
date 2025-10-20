@@ -519,6 +519,12 @@ class Model {
    * @param localInitParameters local initialization solver parameters set
    */
   virtual void setLocalInitParameters(const std::shared_ptr<parameters::ParametersSet>& localInitParameters) = 0;
+
+  /**
+   * @brief register an action
+   * @param actionString string containing the action properties
+   */
+  virtual void registerAction(const std::string& actionString) = 0;
 };  ///< Generic class for Model
 
 #ifdef __clang__

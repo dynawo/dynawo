@@ -28,6 +28,7 @@
 #include "DYNModel.h"
 #include "DYNVariable.h"
 #include "DYNBitMask.h"
+#include "DYNActionBuffer.h"
 
 namespace DYN {
 class SubModel;
@@ -424,6 +425,12 @@ class ModelMulti : public Model, private boost::noncopyable {
   bool checkConnects();
 
   /**
+   * @brief set ActionBuffer object
+   * @param actionBuffer pointer to ActionBuffer object
+   */
+  void setActionBuffer(const std::shared_ptr<ActionBuffer> actionBuffer);
+
+  /**
    * @copydoc Model::setWorkingDirectory()
    */
   void setWorkingDirectory(const std::string& workingDirectory) override;
@@ -471,6 +478,12 @@ class ModelMulti : public Model, private boost::noncopyable {
    * @param localInitParameters local initialization solver parameters
    */
   void setLocalInitParameters(const std::shared_ptr<parameters::ParametersSet>& localInitParameters) override;
+
+  /**
+   * @brief register an action
+   * @param actionString string containing the action properties
+   */
+  void registerAction(const std::string& actionString) override;
 
  private:
   /**
@@ -609,7 +622,8 @@ class ModelMulti : public Model, private boost::noncopyable {
   std::shared_ptr<parameters::ParametersSet> localInitParameters_;  ///< local initialization solver parameters set
   std::vector<std::pair<boost::shared_ptr<SubModel>, unsigned>> curvesCalculatedVarIndexes_;  ///< curves calculated var locations in subModel
 
-  bool updatablesInitialized_;   ///< true if updatable models have been initialized
+  bool updatablesInitialized_;                  ///< true if updatable models have been initialized
+  std::shared_ptr<ActionBuffer> actionBuffer_;  ///< action manager for interactive mode
 };  ///< Class for Multiple-Model
 
 

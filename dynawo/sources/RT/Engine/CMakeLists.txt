@@ -12,16 +12,12 @@ set(SIM_VERSION_STRING ${DYNAWO_VERSION_STRING})
 set(SIM_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
 set(RTENGINE_SOURCES
-      DYNAction.cpp
-      DYNActionBuffer.cpp
       DYNClock.cpp
       DYNInputDispatcherAsync.cpp
       DYNOutputDispatcher.cpp
       )
 
 set(RTENGINE_INCLUDE_HEADERS
-      DYNAction.h
-      DYNActionBuffer.h
       DYNClock.h
       DYNInputDispatcherAsync.h
       DYNOutputDispatcher.h

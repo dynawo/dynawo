@@ -89,13 +89,17 @@ class SimulationRT: public Simulation {
   void configureRT();
 
   /**
-   * @brief update curves : at the end of each iteration, new points are added to curve
-   * @param updateCalculatedVariable @b true is calculated variables should be updated
+   * @copydoc Simulation::updateCurves(bool updateCalculatedVariable)
    */
   void updateCurves(bool updateCalculatedVariable = true) const override;
 
   /**
-   * @brief launch the simulation
+   * @copydoc Simulation::createModeler()
+   */
+  std::unique_ptr<Modeler> createModeler() const override;
+
+  /**
+   * @copydoc Simulation::simulate()
    */
   void simulate() override;
 

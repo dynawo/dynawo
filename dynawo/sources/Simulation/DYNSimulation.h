@@ -36,6 +36,7 @@
 #include "PARParametersSetCollection.h"
 #include "DYNDataInterface.h"
 #include "DYNSolverFactory.h"
+#include "DYNModeler.h"
 
 namespace timeline {
 class Timeline;
@@ -663,6 +664,12 @@ class Simulation {
    * @return true if a dump must be performed, false if not
    */
   bool hasIntermediateStateToDump() const;
+
+  /**
+   * @brief instanciate a Modeler
+   * @return Modeler object pointer
+   */
+  virtual std::unique_ptr<Modeler> createModeler() const;
 
  protected:
   std::shared_ptr<SimulationContext> context_;  ///< simulation context : configuration of the simulation

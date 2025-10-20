@@ -121,7 +121,7 @@ SimulationRT::configureRT() {
   clock_ = std::make_shared<Clock>();
   actionBuffer_ = std::make_shared<ActionBuffer>();
   outputDispatcher_ = std::make_shared<OutputDispatcher>();
-  inputDispatcherAsync_ = std::make_shared<InputDispatcherAsync>(actionBuffer_, clock_);
+  inputDispatcherAsync_ = std::make_shared<InputDispatcherAsync>(clock_);
 
   couplingTimeStep_ = jobEntry_->getInteractiveSettingsEntry()->getCouplingTimeStep() < 0 ? 0 : jobEntry_->getInteractiveSettingsEntry()->getCouplingTimeStep();
   // Clock settings
@@ -162,7 +162,6 @@ SimulationRT::configureRT() {
     } else {
       outputChannel = channelInterfaceMapIt->second;
     }
-    Trace::debug() << "OutputChannels created" << Trace::endline;
 
     if (streamEntry->getData() == "CURVES") {
       outputDispatcher_->addCurvesPublisher(outputChannel, streamEntry->getFormat());
@@ -174,7 +173,6 @@ SimulationRT::configureRT() {
       Trace::warn() << "Stream data unknown or not managed: " << streamEntry->getData() << Trace::endline;;
     }
   }
-  Trace::debug() << "Output dispatcher set up" << Trace::endline;
 
   // intialize input channels
   for (auto &channelEntry : channelsEntry->getChannelEntries()) {
@@ -217,7 +215,7 @@ SimulationRT::configureRT() {
   if (sendSimulationMetrics_)
     initComputationTimeCurve();
 
-  Trace::info() << "SimulationRT initialized" << Trace::endline;
+  Trace::debug() << "SimulationRT initialized" << Trace::endline;
 }
 
 void
@@ -231,14 +229,19 @@ SimulationRT::updateCurves(bool updateCalculatedVariable) const {
   curvesCollection_->updateCurves(tCurrent_);
 }
 
+std::unique_ptr<Modeler>
+SimulationRT::createModeler() const {
+  std::unique_ptr<Modeler> modeler;
+  modeler->setActionBuffer(actionBuffer_);
+  return modeler;
+}
 
 void
 SimulationRT::simulate() {
-  Trace::debug() << "---- simulate ----" << Trace::endline;
-
   Timer timer("SimulationRT::simulate()");
-  if (actionBuffer_)
-    actionBuffer_->setModel(model_);
+  if (inputDispatcherAsync_)
+    inputDispatcherAsync_->setModel(model_);
+
 
   printSolverHeader();
 
