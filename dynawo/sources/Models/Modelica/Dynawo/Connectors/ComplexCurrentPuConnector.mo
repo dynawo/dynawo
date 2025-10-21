@@ -13,4 +13,4 @@ within Dynawo.Connectors;
 * of simulation tools for power systems.
 */
 
-record ComplexCurrentPuConnector = ComplexPerUnitConnector;
+connector ComplexCurrentPuConnector = ComplexPerUnitConnector;

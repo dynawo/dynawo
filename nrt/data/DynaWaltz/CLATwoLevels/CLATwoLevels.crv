@@ -20,6 +20,6 @@
   <curve model="CLA" variable="currentLimitAutomaton_IMax1"/>
   <curve model="CLA" variable="currentLimitAutomaton_IMax2"/>
   <curve model="CLA" variable="currentLimitAutomaton_order"/>
-  <curve model="CLA" variable="currentLimitAutomaton_currentLimitAutomaton1_order_value"/>
-  <curve model="CLA" variable="currentLimitAutomaton_currentLimitAutomaton2_order_value"/>
+  <curve model="CLA" variable="currentLimitAutomaton_Order1"/>
+  <curve model="CLA" variable="currentLimitAutomaton_Order2"/>
 </curvesInput>

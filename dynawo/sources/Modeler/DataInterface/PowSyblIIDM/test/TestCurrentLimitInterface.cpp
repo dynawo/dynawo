@@ -19,16 +19,24 @@
 namespace DYN {
 
 TEST(DataInterfaceTest, CurrentLimit) {
-  DYN::CurrentLimitInterfaceIIDM C(1.0, 99);
+  DYN::CurrentLimitInterfaceIIDM C(1.0, 99, false);
   ASSERT_DOUBLE_EQ(C.getLimit(), 1);
   ASSERT_EQ(C.getAcceptableDuration(), 99);
+  ASSERT_FALSE(C.isFictitious());
 
-  DYN::CurrentLimitInterfaceIIDM D(std::numeric_limits<double>::max(), 9876UL);
+  DYN::CurrentLimitInterfaceIIDM D(std::numeric_limits<double>::max(), 9876UL, false);
   ASSERT_TRUE(std::isnan(D.getLimit()));
   ASSERT_EQ(D.getAcceptableDuration(), 9876);
+  ASSERT_FALSE(C.isFictitious());
 
-  DYN::CurrentLimitInterfaceIIDM E(-1000, std::numeric_limits<unsigned long>::max());
+  DYN::CurrentLimitInterfaceIIDM E(-1000, std::numeric_limits<unsigned long>::max(), false);
   ASSERT_DOUBLE_EQ(E.getLimit(), -1000);
   ASSERT_EQ(E.getAcceptableDuration(), std::numeric_limits<int>::max());
+  ASSERT_FALSE(C.isFictitious());
+
+  DYN::CurrentLimitInterfaceIIDM F(1.0, std::numeric_limits<unsigned long>::max(), true);
+  ASSERT_DOUBLE_EQ(F.getLimit(), 1);
+  ASSERT_EQ(F.getAcceptableDuration(), std::numeric_limits<int>::max());
+  ASSERT_TRUE(F.isFictitious());
 }  // TEST(DataInterfaceTest, CurrentLimit)
 }  // namespace DYN

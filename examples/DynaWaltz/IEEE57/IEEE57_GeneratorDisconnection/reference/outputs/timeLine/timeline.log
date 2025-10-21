@@ -1,638 +1,683 @@
-0 | GEN____2_SM | PMIN : activation
-0 | GEN____6_SM | PMIN : activation
-0 | GEN____9_SM | PMIN : activation
-0 | GEN____2_SM | PMIN : activation
-0 | GEN____6_SM | PMIN : activation
-0 | GEN____9_SM | PMIN : activation
-1 | GEN____6_SM | PMIN : deactivation
-1 | GEN____9_SM | PMIN : deactivation
-1 | GEN____6_SM | PMIN : deactivation
-1 | GEN____9_SM | PMIN : deactivation
-2 | GEN____2_SM | PMIN : deactivation
-50 | GEN___12_SM | GENERATOR : disconnecting
-50 | _LOAD__10_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__12_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__13_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__14_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__15_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__16_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__17_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__19_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__20_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__23_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__25_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__27_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__29_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__30_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__31_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__32_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__33_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__35_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__38_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__41_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__42_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__43_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__44_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__47_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__49_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__50_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__51_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__52_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__53_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__54_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__55_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__56_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__57_EC | Tap-changer : below minimum allowed value
-50 | _LOAD___1_EC | Tap-changer : below minimum allowed value
-50 | _LOAD___3_EC | Tap-changer : below minimum allowed value
-50 | _LOAD___9_EC | Tap-changer : below minimum allowed value
-50 | GEN___12_SM | Voltage regulator : upper limit reached (Efd)
-50 | _LOAD__10_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__12_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__13_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__14_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__15_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__16_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__17_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__19_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__20_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__23_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__25_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__27_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__29_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__30_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__31_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__32_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__33_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__35_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__38_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__41_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__42_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__43_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__44_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__47_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__49_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__50_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__51_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__52_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__53_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__54_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__55_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__56_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__57_EC | Tap-changer : below minimum allowed value
-50 | _LOAD___1_EC | Tap-changer : below minimum allowed value
-50 | _LOAD___3_EC | Tap-changer : below minimum allowed value
-50 | _LOAD___9_EC | Tap-changer : below minimum allowed value
-50 | GEN___12_SM | Voltage regulator : upper limit reached (Efd)
-50 | _LOAD__10_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__12_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__13_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__14_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__15_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__16_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__17_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__19_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__20_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__23_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__25_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__27_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__29_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__30_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__31_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__32_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__33_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__35_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__38_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__41_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__42_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__43_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__44_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__47_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__49_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__50_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__51_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__52_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__53_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__54_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__55_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__56_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__57_EC | Tap-changer : below minimum allowed value
-50 | _LOAD___1_EC | Tap-changer : below minimum allowed value
-50 | _LOAD___3_EC | Tap-changer : below minimum allowed value
-50 | _LOAD___9_EC | Tap-changer : below minimum allowed value
-50 | GEN___12_SM | Voltage regulator : upper limit reached (Efd)
-50 | _LOAD__10_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__12_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__13_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__14_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__15_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__16_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__17_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__19_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__20_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__23_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__25_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__27_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__29_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__30_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__31_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__32_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__33_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__35_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__38_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__41_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__42_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__43_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__44_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__47_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__49_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__50_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__51_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__52_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__53_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__54_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__55_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__56_EC | Tap-changer : below minimum allowed value
-50 | _LOAD__57_EC | Tap-changer : below minimum allowed value
-50 | _LOAD___1_EC | Tap-changer : below minimum allowed value
-50 | _LOAD___3_EC | Tap-changer : below minimum allowed value
-50 | _LOAD___9_EC | Tap-changer : below minimum allowed value
-80 | _LOAD__10_EC | Tap position change (increment)
-80 | _LOAD__12_EC | Tap position change (increment)
-80 | _LOAD__13_EC | Tap position change (increment)
-80 | _LOAD__14_EC | Tap position change (increment)
-80 | _LOAD__15_EC | Tap position change (increment)
-80 | _LOAD__16_EC | Tap position change (increment)
-80 | _LOAD__17_EC | Tap position change (increment)
-80 | _LOAD__10_EC | Tap position change (increment)
-80 | _LOAD__12_EC | Tap position change (increment)
-80 | _LOAD__13_EC | Tap position change (increment)
-80 | _LOAD__14_EC | Tap position change (increment)
-80 | _LOAD__15_EC | Tap position change (increment)
-80 | _LOAD__16_EC | Tap position change (increment)
-80 | _LOAD__17_EC | Tap position change (increment)
-80 | _LOAD__10_EC | Tap position change (increment)
-80 | _LOAD__12_EC | Tap position change (increment)
-80 | _LOAD__13_EC | Tap position change (increment)
-80 | _LOAD__14_EC | Tap position change (increment)
-80 | _LOAD__15_EC | Tap position change (increment)
-80 | _LOAD__16_EC | Tap position change (increment)
-80 | _LOAD__17_EC | Tap position change (increment)
-80 | _LOAD___1_EC | Tap-changer : below minimum allowed value
-80 | _LOAD___9_EC | Tap-changer : below minimum allowed value
-80 | _LOAD___1_EC | Tap-changer : below minimum allowed value
-80 | _LOAD___9_EC | Tap-changer : below minimum allowed value
-80 | _LOAD___1_EC | Tap-changer : below minimum allowed value
-80 | _LOAD___9_EC | Tap-changer : below minimum allowed value
-80 | _LOAD___1_EC | Tap-changer : below minimum allowed value
-80 | _LOAD___9_EC | Tap-changer : below minimum allowed value
-90 | _LOAD__10_EC | Tap position change (increment)
-90 | _LOAD__12_EC | Tap position change (increment)
-90 | _LOAD__13_EC | Tap position change (increment)
-90 | _LOAD__14_EC | Tap position change (increment)
-90 | _LOAD__15_EC | Tap position change (increment)
-90 | _LOAD__16_EC | Tap position change (increment)
-90 | _LOAD__17_EC | Tap position change (increment)
-90 | _LOAD__10_EC | Tap position change (increment)
-90 | _LOAD__12_EC | Tap position change (increment)
-90 | _LOAD__13_EC | Tap position change (increment)
-90 | _LOAD__14_EC | Tap position change (increment)
-90 | _LOAD__15_EC | Tap position change (increment)
-90 | _LOAD__16_EC | Tap position change (increment)
-90 | _LOAD__17_EC | Tap position change (increment)
-90 | _LOAD__10_EC | Tap position change (increment)
-90 | _LOAD__12_EC | Tap position change (increment)
-90 | _LOAD__13_EC | Tap position change (increment)
-90 | _LOAD__14_EC | Tap position change (increment)
-90 | _LOAD__15_EC | Tap position change (increment)
-90 | _LOAD__16_EC | Tap position change (increment)
-90 | _LOAD__17_EC | Tap position change (increment)
-100 | _LOAD__10_EC | Tap position change (increment)
-100 | _LOAD__12_EC | Tap position change (increment)
-100 | _LOAD__13_EC | Tap position change (increment)
-100 | _LOAD__14_EC | Tap position change (increment)
-100 | _LOAD__15_EC | Tap position change (increment)
-100 | _LOAD__16_EC | Tap position change (increment)
-100 | _LOAD__17_EC | Tap position change (increment)
-100 | _LOAD__10_EC | Tap position change (increment)
-100 | _LOAD__12_EC | Tap position change (increment)
-100 | _LOAD__13_EC | Tap position change (increment)
-100 | _LOAD__14_EC | Tap position change (increment)
-100 | _LOAD__15_EC | Tap position change (increment)
-100 | _LOAD__16_EC | Tap position change (increment)
-100 | _LOAD__17_EC | Tap position change (increment)
-100 | _LOAD__10_EC | Tap position change (increment)
-100 | _LOAD__12_EC | Tap position change (increment)
-100 | _LOAD__13_EC | Tap position change (increment)
-100 | _LOAD__14_EC | Tap position change (increment)
-100 | _LOAD__15_EC | Tap position change (increment)
-100 | _LOAD__16_EC | Tap position change (increment)
-100 | _LOAD__17_EC | Tap position change (increment)
-110 | _LOAD__10_EC | Tap position change (increment)
-110 | _LOAD__12_EC | Tap position change (increment)
-110 | _LOAD__13_EC | Tap position change (increment)
-110 | _LOAD__14_EC | Tap position change (increment)
-110 | _LOAD__16_EC | Tap position change (increment)
-110 | _LOAD__17_EC | Tap position change (increment)
-110 | _LOAD__19_EC | Tap position change (increment)
-110 | _LOAD__20_EC | Tap position change (increment)
-110 | _LOAD__23_EC | Tap position change (increment)
-110 | _LOAD__25_EC | Tap position change (increment)
-110 | _LOAD__27_EC | Tap position change (increment)
-110 | _LOAD__30_EC | Tap position change (increment)
-110 | _LOAD__31_EC | Tap position change (increment)
-110 | _LOAD__33_EC | Tap position change (increment)
-110 | _LOAD__35_EC | Tap position change (increment)
-110 | _LOAD__38_EC | Tap position change (increment)
-110 | _LOAD__41_EC | Tap position change (increment)
-110 | _LOAD__42_EC | Tap position change (increment)
-110 | _LOAD__43_EC | Tap position change (increment)
-110 | _LOAD__44_EC | Tap position change (increment)
-110 | _LOAD__47_EC | Tap position change (increment)
-110 | _LOAD__49_EC | Tap position change (increment)
-110 | _LOAD__50_EC | Tap position change (increment)
-110 | _LOAD__51_EC | Tap position change (increment)
-110 | _LOAD__52_EC | Tap position change (increment)
-110 | _LOAD__53_EC | Tap position change (increment)
-110 | _LOAD__55_EC | Tap position change (increment)
-110 | _LOAD__56_EC | Tap position change (increment)
-110 | _LOAD__57_EC | Tap position change (increment)
-110 | _LOAD___1_EC | Tap position change (increment)
-110 | _LOAD___9_EC | Tap position change (increment)
-110 | _LOAD__10_EC | Tap position change (increment)
-110 | _LOAD__12_EC | Tap position change (increment)
-110 | _LOAD__13_EC | Tap position change (increment)
-110 | _LOAD__14_EC | Tap position change (increment)
-110 | _LOAD__16_EC | Tap position change (increment)
-110 | _LOAD__17_EC | Tap position change (increment)
-110 | _LOAD__19_EC | Tap position change (increment)
-110 | _LOAD__20_EC | Tap position change (increment)
-110 | _LOAD__23_EC | Tap position change (increment)
-110 | _LOAD__25_EC | Tap position change (increment)
-110 | _LOAD__27_EC | Tap position change (increment)
-110 | _LOAD__30_EC | Tap position change (increment)
-110 | _LOAD__31_EC | Tap position change (increment)
-110 | _LOAD__33_EC | Tap position change (increment)
-110 | _LOAD__35_EC | Tap position change (increment)
-110 | _LOAD__38_EC | Tap position change (increment)
-110 | _LOAD__41_EC | Tap position change (increment)
-110 | _LOAD__42_EC | Tap position change (increment)
-110 | _LOAD__43_EC | Tap position change (increment)
-110 | _LOAD__44_EC | Tap position change (increment)
-110 | _LOAD__47_EC | Tap position change (increment)
-110 | _LOAD__49_EC | Tap position change (increment)
-110 | _LOAD__50_EC | Tap position change (increment)
-110 | _LOAD__51_EC | Tap position change (increment)
-110 | _LOAD__52_EC | Tap position change (increment)
-110 | _LOAD__53_EC | Tap position change (increment)
-110 | _LOAD__55_EC | Tap position change (increment)
-110 | _LOAD__56_EC | Tap position change (increment)
-110 | _LOAD__57_EC | Tap position change (increment)
-110 | _LOAD___1_EC | Tap position change (increment)
-110 | _LOAD___9_EC | Tap position change (increment)
-110 | _LOAD__10_EC | Tap position change (increment)
-110 | _LOAD__12_EC | Tap position change (increment)
-110 | _LOAD__13_EC | Tap position change (increment)
-110 | _LOAD__14_EC | Tap position change (increment)
-110 | _LOAD__16_EC | Tap position change (increment)
-110 | _LOAD__17_EC | Tap position change (increment)
-110 | _LOAD__19_EC | Tap position change (increment)
-110 | _LOAD__20_EC | Tap position change (increment)
-110 | _LOAD__23_EC | Tap position change (increment)
-110 | _LOAD__25_EC | Tap position change (increment)
-110 | _LOAD__27_EC | Tap position change (increment)
-110 | _LOAD__30_EC | Tap position change (increment)
-110 | _LOAD__31_EC | Tap position change (increment)
-110 | _LOAD__33_EC | Tap position change (increment)
-110 | _LOAD__35_EC | Tap position change (increment)
-110 | _LOAD__38_EC | Tap position change (increment)
-110 | _LOAD__41_EC | Tap position change (increment)
-110 | _LOAD__42_EC | Tap position change (increment)
-110 | _LOAD__43_EC | Tap position change (increment)
-110 | _LOAD__44_EC | Tap position change (increment)
-110 | _LOAD__47_EC | Tap position change (increment)
-110 | _LOAD__49_EC | Tap position change (increment)
-110 | _LOAD__50_EC | Tap position change (increment)
-110 | _LOAD__51_EC | Tap position change (increment)
-110 | _LOAD__52_EC | Tap position change (increment)
-110 | _LOAD__53_EC | Tap position change (increment)
-110 | _LOAD__55_EC | Tap position change (increment)
-110 | _LOAD__56_EC | Tap position change (increment)
-110 | _LOAD__57_EC | Tap position change (increment)
-110 | _LOAD___1_EC | Tap position change (increment)
-110 | _LOAD___9_EC | Tap position change (increment)
-110 | _LOAD__54_EC | Tap-changer : below minimum allowed value
-120 | _LOAD__10_EC | Tap position change (increment)
-120 | _LOAD__12_EC | Tap position change (increment)
-120 | _LOAD__13_EC | Tap position change (increment)
-120 | _LOAD__16_EC | Tap position change (increment)
-120 | _LOAD__17_EC | Tap position change (increment)
-120 | _LOAD__19_EC | Tap position change (increment)
-120 | _LOAD__23_EC | Tap position change (increment)
-120 | _LOAD__25_EC | Tap position change (increment)
-120 | _LOAD__31_EC | Tap position change (increment)
-120 | _LOAD__33_EC | Tap position change (increment)
-120 | _LOAD__38_EC | Tap position change (increment)
-120 | _LOAD__41_EC | Tap position change (increment)
-120 | _LOAD__43_EC | Tap position change (increment)
-120 | _LOAD__44_EC | Tap position change (increment)
-120 | _LOAD__47_EC | Tap position change (increment)
-120 | _LOAD__49_EC | Tap position change (increment)
-120 | _LOAD__50_EC | Tap position change (increment)
-120 | _LOAD__51_EC | Tap position change (increment)
-120 | _LOAD__55_EC | Tap position change (increment)
-120 | _LOAD__10_EC | Tap position change (increment)
-120 | _LOAD__12_EC | Tap position change (increment)
-120 | _LOAD__13_EC | Tap position change (increment)
-120 | _LOAD__16_EC | Tap position change (increment)
-120 | _LOAD__17_EC | Tap position change (increment)
-120 | _LOAD__19_EC | Tap position change (increment)
-120 | _LOAD__23_EC | Tap position change (increment)
-120 | _LOAD__25_EC | Tap position change (increment)
-120 | _LOAD__31_EC | Tap position change (increment)
-120 | _LOAD__33_EC | Tap position change (increment)
-120 | _LOAD__38_EC | Tap position change (increment)
-120 | _LOAD__41_EC | Tap position change (increment)
-120 | _LOAD__43_EC | Tap position change (increment)
-120 | _LOAD__44_EC | Tap position change (increment)
-120 | _LOAD__47_EC | Tap position change (increment)
-120 | _LOAD__49_EC | Tap position change (increment)
-120 | _LOAD__50_EC | Tap position change (increment)
-120 | _LOAD__51_EC | Tap position change (increment)
-120 | _LOAD__55_EC | Tap position change (increment)
-120 | _LOAD__10_EC | Tap position change (increment)
-120 | _LOAD__12_EC | Tap position change (increment)
-120 | _LOAD__13_EC | Tap position change (increment)
-120 | _LOAD__16_EC | Tap position change (increment)
-120 | _LOAD__17_EC | Tap position change (increment)
-120 | _LOAD__19_EC | Tap position change (increment)
-120 | _LOAD__23_EC | Tap position change (increment)
-120 | _LOAD__25_EC | Tap position change (increment)
-120 | _LOAD__31_EC | Tap position change (increment)
-120 | _LOAD__33_EC | Tap position change (increment)
-120 | _LOAD__38_EC | Tap position change (increment)
-120 | _LOAD__41_EC | Tap position change (increment)
-120 | _LOAD__43_EC | Tap position change (increment)
-120 | _LOAD__44_EC | Tap position change (increment)
-120 | _LOAD__47_EC | Tap position change (increment)
-120 | _LOAD__49_EC | Tap position change (increment)
-120 | _LOAD__50_EC | Tap position change (increment)
-120 | _LOAD__51_EC | Tap position change (increment)
-120 | _LOAD__55_EC | Tap position change (increment)
-130 | _LOAD__10_EC | Tap position change (increment)
-130 | _LOAD__12_EC | Tap position change (increment)
-130 | _LOAD__16_EC | Tap position change (increment)
-130 | _LOAD__23_EC | Tap position change (increment)
-130 | _LOAD__25_EC | Tap position change (increment)
-130 | _LOAD__31_EC | Tap position change (increment)
-130 | _LOAD__33_EC | Tap position change (increment)
-130 | _LOAD__38_EC | Tap position change (increment)
-130 | _LOAD__41_EC | Tap position change (increment)
-130 | _LOAD__43_EC | Tap position change (increment)
-130 | _LOAD__44_EC | Tap position change (increment)
-130 | _LOAD__47_EC | Tap position change (increment)
-130 | _LOAD__49_EC | Tap position change (increment)
-130 | _LOAD__50_EC | Tap position change (increment)
-130 | _LOAD__51_EC | Tap position change (increment)
-130 | _LOAD__10_EC | Tap position change (increment)
-130 | _LOAD__12_EC | Tap position change (increment)
-130 | _LOAD__16_EC | Tap position change (increment)
-130 | _LOAD__23_EC | Tap position change (increment)
-130 | _LOAD__25_EC | Tap position change (increment)
-130 | _LOAD__31_EC | Tap position change (increment)
-130 | _LOAD__33_EC | Tap position change (increment)
-130 | _LOAD__38_EC | Tap position change (increment)
-130 | _LOAD__41_EC | Tap position change (increment)
-130 | _LOAD__43_EC | Tap position change (increment)
-130 | _LOAD__44_EC | Tap position change (increment)
-130 | _LOAD__47_EC | Tap position change (increment)
-130 | _LOAD__49_EC | Tap position change (increment)
-130 | _LOAD__50_EC | Tap position change (increment)
-130 | _LOAD__51_EC | Tap position change (increment)
-130 | _LOAD__10_EC | Tap position change (increment)
-130 | _LOAD__12_EC | Tap position change (increment)
-130 | _LOAD__16_EC | Tap position change (increment)
-130 | _LOAD__23_EC | Tap position change (increment)
-130 | _LOAD__25_EC | Tap position change (increment)
-130 | _LOAD__31_EC | Tap position change (increment)
-130 | _LOAD__33_EC | Tap position change (increment)
-130 | _LOAD__38_EC | Tap position change (increment)
-130 | _LOAD__41_EC | Tap position change (increment)
-130 | _LOAD__43_EC | Tap position change (increment)
-130 | _LOAD__44_EC | Tap position change (increment)
-130 | _LOAD__47_EC | Tap position change (increment)
-130 | _LOAD__49_EC | Tap position change (increment)
-130 | _LOAD__50_EC | Tap position change (increment)
-130 | _LOAD__51_EC | Tap position change (increment)
-130 | _LOAD__29_EC | Tap-changer : below minimum allowed value
-140 | _LOAD__10_EC | Tap position change (increment)
-140 | _LOAD__12_EC | Tap position change (increment)
-140 | _LOAD__16_EC | Tap position change (increment)
-140 | _LOAD__23_EC | Tap position change (increment)
-140 | _LOAD__38_EC | Tap position change (increment)
-140 | _LOAD__41_EC | Tap position change (increment)
-140 | _LOAD__43_EC | Tap position change (increment)
-140 | _LOAD__44_EC | Tap position change (increment)
-140 | _LOAD__47_EC | Tap position change (increment)
-140 | _LOAD__49_EC | Tap position change (increment)
-140 | _LOAD__50_EC | Tap position change (increment)
-140 | _LOAD__51_EC | Tap position change (increment)
-140 | _LOAD__10_EC | Tap position change (increment)
-140 | _LOAD__12_EC | Tap position change (increment)
-140 | _LOAD__16_EC | Tap position change (increment)
-140 | _LOAD__23_EC | Tap position change (increment)
-140 | _LOAD__38_EC | Tap position change (increment)
-140 | _LOAD__41_EC | Tap position change (increment)
-140 | _LOAD__43_EC | Tap position change (increment)
-140 | _LOAD__44_EC | Tap position change (increment)
-140 | _LOAD__47_EC | Tap position change (increment)
-140 | _LOAD__49_EC | Tap position change (increment)
-140 | _LOAD__50_EC | Tap position change (increment)
-140 | _LOAD__51_EC | Tap position change (increment)
-140 | _LOAD__10_EC | Tap position change (increment)
-140 | _LOAD__12_EC | Tap position change (increment)
-140 | _LOAD__16_EC | Tap position change (increment)
-140 | _LOAD__23_EC | Tap position change (increment)
-140 | _LOAD__38_EC | Tap position change (increment)
-140 | _LOAD__41_EC | Tap position change (increment)
-140 | _LOAD__43_EC | Tap position change (increment)
-140 | _LOAD__44_EC | Tap position change (increment)
-140 | _LOAD__47_EC | Tap position change (increment)
-140 | _LOAD__49_EC | Tap position change (increment)
-140 | _LOAD__50_EC | Tap position change (increment)
-140 | _LOAD__51_EC | Tap position change (increment)
-140 | _LOAD__10_EC | Tap-changer : above maximum allowed value
-140 | _LOAD__17_EC | Tap-changer : below minimum allowed value
-140 | _LOAD__27_EC | Tap-changer : below minimum allowed value
-140 | _LOAD__29_EC | Tap-changer : below minimum allowed value
-140 | _LOAD__33_EC | Tap-changer : below minimum allowed value
-140 | _LOAD__10_EC | Tap-changer : above maximum allowed value
-140 | _LOAD__17_EC | Tap-changer : below minimum allowed value
-140 | _LOAD__27_EC | Tap-changer : below minimum allowed value
-140 | _LOAD__29_EC | Tap-changer : below minimum allowed value
-140 | _LOAD__33_EC | Tap-changer : below minimum allowed value
-140 | _LOAD__10_EC | Tap-changer : above maximum allowed value
-140 | _LOAD__17_EC | Tap-changer : below minimum allowed value
-140 | _LOAD__27_EC | Tap-changer : below minimum allowed value
-140 | _LOAD__29_EC | Tap-changer : below minimum allowed value
-140 | _LOAD__33_EC | Tap-changer : below minimum allowed value
-140 | _LOAD__10_EC | Tap-changer : above maximum allowed value
-140 | _LOAD__17_EC | Tap-changer : below minimum allowed value
-140 | _LOAD__27_EC | Tap-changer : below minimum allowed value
-140 | _LOAD__29_EC | Tap-changer : below minimum allowed value
-140 | _LOAD__33_EC | Tap-changer : below minimum allowed value
-150 | _LOAD__12_EC | Tap position change (increment)
-150 | _LOAD__16_EC | Tap position change (increment)
-150 | _LOAD__23_EC | Tap position change (increment)
-150 | _LOAD__38_EC | Tap position change (increment)
-150 | _LOAD__47_EC | Tap position change (increment)
-150 | _LOAD__49_EC | Tap position change (increment)
-150 | _LOAD__50_EC | Tap position change (increment)
-150 | _LOAD__51_EC | Tap position change (increment)
-150 | _LOAD__12_EC | Tap position change (increment)
-150 | _LOAD__16_EC | Tap position change (increment)
-150 | _LOAD__23_EC | Tap position change (increment)
-150 | _LOAD__38_EC | Tap position change (increment)
-150 | _LOAD__47_EC | Tap position change (increment)
-150 | _LOAD__49_EC | Tap position change (increment)
-150 | _LOAD__50_EC | Tap position change (increment)
-150 | _LOAD__51_EC | Tap position change (increment)
-150 | _LOAD__12_EC | Tap position change (increment)
-150 | _LOAD__16_EC | Tap position change (increment)
-150 | _LOAD__23_EC | Tap position change (increment)
-150 | _LOAD__38_EC | Tap position change (increment)
-150 | _LOAD__47_EC | Tap position change (increment)
-150 | _LOAD__49_EC | Tap position change (increment)
-150 | _LOAD__50_EC | Tap position change (increment)
-150 | _LOAD__51_EC | Tap position change (increment)
-150 | _LOAD__10_EC | Tap-changer : below minimum allowed value
-150 | _LOAD__12_EC | Tap-changer : above maximum allowed value
-150 | _LOAD__13_EC | Tap-changer : below minimum allowed value
-150 | _LOAD__14_EC | Tap-changer : below minimum allowed value
-150 | _LOAD__17_EC | Tap-changer : below minimum allowed value
-150 | _LOAD__10_EC | Tap-changer : below minimum allowed value
-150 | _LOAD__12_EC | Tap-changer : above maximum allowed value
-150 | _LOAD__13_EC | Tap-changer : below minimum allowed value
-150 | _LOAD__14_EC | Tap-changer : below minimum allowed value
-150 | _LOAD__17_EC | Tap-changer : below minimum allowed value
-150 | _LOAD__10_EC | Tap-changer : below minimum allowed value
-150 | _LOAD__12_EC | Tap-changer : above maximum allowed value
-150 | _LOAD__13_EC | Tap-changer : below minimum allowed value
-150 | _LOAD__14_EC | Tap-changer : below minimum allowed value
-150 | _LOAD__17_EC | Tap-changer : below minimum allowed value
-150 | _LOAD__10_EC | Tap-changer : below minimum allowed value
-150 | _LOAD__12_EC | Tap-changer : above maximum allowed value
-150 | _LOAD__13_EC | Tap-changer : below minimum allowed value
-150 | _LOAD__14_EC | Tap-changer : below minimum allowed value
-150 | _LOAD__17_EC | Tap-changer : below minimum allowed value
-160 | _LOAD__12_EC | Tap position change (increment)
-160 | _LOAD__16_EC | Tap position change (increment)
-160 | _LOAD__38_EC | Tap position change (increment)
-160 | _LOAD__49_EC | Tap position change (increment)
-160 | _LOAD__50_EC | Tap position change (increment)
-160 | _LOAD__51_EC | Tap position change (increment)
-160 | _LOAD__12_EC | Tap position change (increment)
-160 | _LOAD__16_EC | Tap position change (increment)
-160 | _LOAD__38_EC | Tap position change (increment)
-160 | _LOAD__49_EC | Tap position change (increment)
-160 | _LOAD__50_EC | Tap position change (increment)
-160 | _LOAD__51_EC | Tap position change (increment)
-160 | _LOAD__12_EC | Tap position change (increment)
-160 | _LOAD__16_EC | Tap position change (increment)
-160 | _LOAD__38_EC | Tap position change (increment)
-160 | _LOAD__49_EC | Tap position change (increment)
-160 | _LOAD__50_EC | Tap position change (increment)
-160 | _LOAD__51_EC | Tap position change (increment)
-160 | _LOAD__16_EC | Tap-changer : above maximum allowed value
-160 | _LOAD__23_EC | Tap-changer : below minimum allowed value
-160 | _LOAD__43_EC | Tap-changer : below minimum allowed value
-160 | _LOAD__47_EC | Tap-changer : below minimum allowed value
-160 | _LOAD__16_EC | Tap-changer : above maximum allowed value
-160 | _LOAD__23_EC | Tap-changer : below minimum allowed value
-160 | _LOAD__43_EC | Tap-changer : below minimum allowed value
-160 | _LOAD__47_EC | Tap-changer : below minimum allowed value
-160 | _LOAD__16_EC | Tap-changer : above maximum allowed value
-160 | _LOAD__23_EC | Tap-changer : below minimum allowed value
-160 | _LOAD__43_EC | Tap-changer : below minimum allowed value
-160 | _LOAD__47_EC | Tap-changer : below minimum allowed value
-160 | _LOAD__16_EC | Tap-changer : above maximum allowed value
-160 | _LOAD__23_EC | Tap-changer : below minimum allowed value
-160 | _LOAD__43_EC | Tap-changer : below minimum allowed value
-160 | _LOAD__47_EC | Tap-changer : below minimum allowed value
-170 | _LOAD__12_EC | Tap position change (increment)
-170 | _LOAD__49_EC | Tap position change (increment)
-170 | _LOAD__51_EC | Tap position change (increment)
-170 | _LOAD__54_EC | Tap position change (increment)
-170 | _LOAD__12_EC | Tap position change (increment)
-170 | _LOAD__49_EC | Tap position change (increment)
-170 | _LOAD__51_EC | Tap position change (increment)
-170 | _LOAD__54_EC | Tap position change (increment)
-170 | _LOAD__12_EC | Tap position change (increment)
-170 | _LOAD__49_EC | Tap position change (increment)
-170 | _LOAD__51_EC | Tap position change (increment)
-170 | _LOAD__54_EC | Tap position change (increment)
-170 | _LOAD__16_EC | Tap-changer : below minimum allowed value
-170 | _LOAD__44_EC | Tap-changer : below minimum allowed value
-170 | _LOAD__16_EC | Tap-changer : below minimum allowed value
-170 | _LOAD__44_EC | Tap-changer : below minimum allowed value
-170 | _LOAD__16_EC | Tap-changer : below minimum allowed value
-170 | _LOAD__44_EC | Tap-changer : below minimum allowed value
-170 | _LOAD__16_EC | Tap-changer : below minimum allowed value
-170 | _LOAD__44_EC | Tap-changer : below minimum allowed value
-180 | _LOAD__10_EC | Tap position change (increment)
-180 | _LOAD__13_EC | Tap position change (increment)
-180 | _LOAD__14_EC | Tap position change (increment)
-180 | _LOAD__17_EC | Tap position change (increment)
-180 | _LOAD__51_EC | Tap position change (increment)
-180 | _LOAD__10_EC | Tap position change (increment)
-180 | _LOAD__13_EC | Tap position change (increment)
-180 | _LOAD__14_EC | Tap position change (increment)
-180 | _LOAD__17_EC | Tap position change (increment)
-180 | _LOAD__51_EC | Tap position change (increment)
-180 | _LOAD__10_EC | Tap position change (increment)
-180 | _LOAD__13_EC | Tap position change (increment)
-180 | _LOAD__14_EC | Tap position change (increment)
-180 | _LOAD__17_EC | Tap position change (increment)
-180 | _LOAD__51_EC | Tap position change (increment)
-180 | _LOAD__13_EC | Tap-changer : above maximum allowed value
-190 | _LOAD__51_EC | Tap position change (increment)
-200 | _LOAD__10_EC | Tap position change (decrement)
-200 | _LOAD__16_EC | Tap position change (increment)
-200 | _LOAD__27_EC | Tap position change (increment)
-200 | _LOAD__29_EC | Tap position change (increment)
-200 | _LOAD__33_EC | Tap position change (increment)
-200 | _LOAD__10_EC | Tap position change (decrement)
-200 | _LOAD__16_EC | Tap position change (increment)
-200 | _LOAD__27_EC | Tap position change (increment)
-200 | _LOAD__29_EC | Tap position change (increment)
-200 | _LOAD__33_EC | Tap position change (increment)
-200 | _LOAD__10_EC | Tap position change (decrement)
-200 | _LOAD__16_EC | Tap position change (increment)
-200 | _LOAD__27_EC | Tap position change (increment)
-200 | _LOAD__29_EC | Tap position change (increment)
-200 | _LOAD__33_EC | Tap position change (increment)
-210 | _LOAD__10_EC | Tap position change (decrement)
-210 | _LOAD__12_EC | Tap position change (decrement)
-210 | _LOAD__10_EC | Tap position change (decrement)
-210 | _LOAD__12_EC | Tap position change (decrement)
-210 | _LOAD__10_EC | Tap position change (decrement)
-210 | _LOAD__12_EC | Tap position change (decrement)
-220 | _LOAD__12_EC | Tap position change (decrement)
-220 | _LOAD__16_EC | Tap position change (decrement)
-220 | _LOAD__23_EC | Tap position change (increment)
-220 | _LOAD__43_EC | Tap position change (increment)
-220 | _LOAD__47_EC | Tap position change (increment)
-220 | _LOAD__12_EC | Tap position change (decrement)
-220 | _LOAD__16_EC | Tap position change (decrement)
-220 | _LOAD__23_EC | Tap position change (increment)
-220 | _LOAD__43_EC | Tap position change (increment)
-220 | _LOAD__47_EC | Tap position change (increment)
-220 | _LOAD__12_EC | Tap position change (decrement)
-220 | _LOAD__16_EC | Tap position change (decrement)
-220 | _LOAD__23_EC | Tap position change (increment)
-220 | _LOAD__43_EC | Tap position change (increment)
-220 | _LOAD__47_EC | Tap position change (increment)
-220 | _LOAD__17_EC | Tap-changer : above maximum allowed value
-230 | _LOAD__16_EC | Tap position change (decrement)
-240 | _LOAD__13_EC | Tap position change (decrement)
-280 | _LOAD__17_EC | Tap position change (decrement)
+0.000000 | GEN____2_SM | PMIN : activation
+0.000000 | GEN____6_SM | PMIN : activation
+0.000000 | GEN____9_SM | PMIN : activation
+0.000000 | GEN____2_SM | PMIN : activation
+0.000000 | GEN____6_SM | PMIN : activation
+0.000000 | GEN____9_SM | PMIN : activation
+1.000000 | GEN____6_SM | PMIN : deactivation
+1.000000 | GEN____9_SM | PMIN : deactivation
+1.000000 | GEN____6_SM | PMIN : deactivation
+1.000000 | GEN____9_SM | PMIN : deactivation
+2.000000 | GEN____2_SM | PMIN : deactivation
+50.000000 | GEN___12_SM | GENERATOR : disconnecting
+50.000000 | _LOAD__10_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__12_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__13_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__14_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__15_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__16_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__17_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__19_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__20_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__23_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__25_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__27_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__29_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__30_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__31_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__32_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__33_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__35_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__38_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__41_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__42_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__43_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__44_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__47_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__49_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__50_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__51_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__52_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__53_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__54_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__55_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__56_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__57_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD___1_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD___3_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD___9_EC | Tap-changer : below minimum allowed value
+50.000000 | GEN___12_SM | Voltage regulator : upper limit reached (Efd)
+50.000000 | _LOAD__10_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__12_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__13_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__14_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__15_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__16_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__17_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__19_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__20_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__23_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__25_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__27_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__29_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__30_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__31_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__32_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__33_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__35_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__38_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__41_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__42_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__43_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__44_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__47_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__49_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__50_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__51_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__52_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__53_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__54_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__55_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__56_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__57_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD___1_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD___3_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD___9_EC | Tap-changer : below minimum allowed value
+50.000000 | GEN___12_SM | Voltage regulator : upper limit reached (Efd)
+50.000000 | _LOAD__10_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__12_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__13_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__14_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__15_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__16_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__17_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__19_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__20_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__23_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__25_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__27_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__29_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__30_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__31_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__32_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__33_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__35_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__38_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__41_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__42_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__43_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__44_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__47_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__49_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__50_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__51_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__52_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__53_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__54_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__55_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__56_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__57_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD___1_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD___3_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD___9_EC | Tap-changer : below minimum allowed value
+50.000000 | GEN___12_SM | Voltage regulator : upper limit reached (Efd)
+50.000000 | _LOAD__10_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__12_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__13_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__14_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__15_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__16_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__17_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__19_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__20_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__23_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__25_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__27_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__29_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__30_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__31_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__32_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__33_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__35_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__38_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__41_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__42_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__43_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__44_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__47_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__49_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__50_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__51_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__52_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__53_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__54_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__55_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__56_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD__57_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD___1_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD___3_EC | Tap-changer : below minimum allowed value
+50.000000 | _LOAD___9_EC | Tap-changer : below minimum allowed value
+80.000000 | _LOAD__10_EC | Tap position change (increment) - value : 65.424906kV
+80.000000 | _LOAD__12_EC | Tap position change (increment) - value : 62.720917kV
+80.000000 | _LOAD__13_EC | Tap position change (increment) - value : 66.720119kV
+80.000000 | _LOAD__14_EC | Tap position change (increment) - value : 67.356773kV
+80.000000 | _LOAD__15_EC | Tap position change (increment) - value : 68.171618kV
+80.000000 | _LOAD__16_EC | Tap position change (increment) - value : 64.238676kV
+80.000000 | _LOAD__17_EC | Tap position change (increment) - value : 66.531936kV
+80.000000 | _LOAD__10_EC | Tap position change (increment) - value : 65.424906kV
+80.000000 | _LOAD__12_EC | Tap position change (increment) - value : 62.720917kV
+80.000000 | _LOAD__13_EC | Tap position change (increment) - value : 66.720119kV
+80.000000 | _LOAD__14_EC | Tap position change (increment) - value : 67.356773kV
+80.000000 | _LOAD__15_EC | Tap position change (increment) - value : 68.171618kV
+80.000000 | _LOAD__16_EC | Tap position change (increment) - value : 64.238676kV
+80.000000 | _LOAD__17_EC | Tap position change (increment) - value : 66.531936kV
+80.000000 | _LOAD__10_EC | Tap position change (increment) - value : 65.424906kV
+80.000000 | _LOAD__12_EC | Tap position change (increment) - value : 62.720917kV
+80.000000 | _LOAD__13_EC | Tap position change (increment) - value : 66.720119kV
+80.000000 | _LOAD__14_EC | Tap position change (increment) - value : 67.356773kV
+80.000000 | _LOAD__15_EC | Tap position change (increment) - value : 68.171618kV
+80.000000 | _LOAD__16_EC | Tap position change (increment) - value : 64.238676kV
+80.000000 | _LOAD__17_EC | Tap position change (increment) - value : 66.531936kV
+80.000000 | _LOAD___1_EC | Tap-changer : below minimum allowed value
+80.000000 | _LOAD___9_EC | Tap-changer : below minimum allowed value
+80.000000 | _LOAD___1_EC | Tap-changer : below minimum allowed value
+80.000000 | _LOAD___9_EC | Tap-changer : below minimum allowed value
+80.000000 | _LOAD___1_EC | Tap-changer : below minimum allowed value
+80.000000 | _LOAD___9_EC | Tap-changer : below minimum allowed value
+80.000000 | _LOAD___1_EC | Tap-changer : below minimum allowed value
+80.000000 | _LOAD___9_EC | Tap-changer : below minimum allowed value
+90.000000 | _LOAD__10_EC | Tap position change (increment) - value : 66.117937kV
+90.000000 | _LOAD__12_EC | Tap position change (increment) - value : 63.397848kV
+90.000000 | _LOAD__13_EC | Tap position change (increment) - value : 67.426544kV
+90.000000 | _LOAD__14_EC | Tap position change (increment) - value : 68.064350kV
+90.000000 | _LOAD__15_EC | Tap position change (increment) - value : 68.918025kV
+90.000000 | _LOAD__16_EC | Tap position change (increment) - value : 64.925132kV
+90.000000 | _LOAD__17_EC | Tap position change (increment) - value : 67.256550kV
+90.000000 | _LOAD__10_EC | Tap position change (increment) - value : 66.117937kV
+90.000000 | _LOAD__12_EC | Tap position change (increment) - value : 63.397848kV
+90.000000 | _LOAD__13_EC | Tap position change (increment) - value : 67.426544kV
+90.000000 | _LOAD__14_EC | Tap position change (increment) - value : 68.064350kV
+90.000000 | _LOAD__15_EC | Tap position change (increment) - value : 68.918025kV
+90.000000 | _LOAD__16_EC | Tap position change (increment) - value : 64.925132kV
+90.000000 | _LOAD__17_EC | Tap position change (increment) - value : 67.256550kV
+90.000000 | _LOAD__10_EC | Tap position change (increment) - value : 66.117937kV
+90.000000 | _LOAD__12_EC | Tap position change (increment) - value : 63.397848kV
+90.000000 | _LOAD__13_EC | Tap position change (increment) - value : 67.426544kV
+90.000000 | _LOAD__14_EC | Tap position change (increment) - value : 68.064350kV
+90.000000 | _LOAD__15_EC | Tap position change (increment) - value : 68.918025kV
+90.000000 | _LOAD__16_EC | Tap position change (increment) - value : 64.925132kV
+90.000000 | _LOAD__17_EC | Tap position change (increment) - value : 67.256550kV
+100.000000 | _LOAD__10_EC | Tap position change (increment) - value : 66.809564kV
+100.000000 | _LOAD__12_EC | Tap position change (increment) - value : 64.072813kV
+100.000000 | _LOAD__13_EC | Tap position change (increment) - value : 68.131729kV
+100.000000 | _LOAD__14_EC | Tap position change (increment) - value : 68.770783kV
+100.000000 | _LOAD__15_EC | Tap position change (increment) - value : 69.663583kV
+100.000000 | _LOAD__16_EC | Tap position change (increment) - value : 65.609710kV
+100.000000 | _LOAD__17_EC | Tap position change (increment) - value : 67.979598kV
+100.000000 | _LOAD__10_EC | Tap position change (increment) - value : 66.809564kV
+100.000000 | _LOAD__12_EC | Tap position change (increment) - value : 64.072813kV
+100.000000 | _LOAD__13_EC | Tap position change (increment) - value : 68.131729kV
+100.000000 | _LOAD__14_EC | Tap position change (increment) - value : 68.770783kV
+100.000000 | _LOAD__15_EC | Tap position change (increment) - value : 69.663583kV
+100.000000 | _LOAD__16_EC | Tap position change (increment) - value : 65.609710kV
+100.000000 | _LOAD__17_EC | Tap position change (increment) - value : 67.979598kV
+100.000000 | _LOAD__10_EC | Tap position change (increment) - value : 66.809564kV
+100.000000 | _LOAD__12_EC | Tap position change (increment) - value : 64.072813kV
+100.000000 | _LOAD__13_EC | Tap position change (increment) - value : 68.131729kV
+100.000000 | _LOAD__14_EC | Tap position change (increment) - value : 68.770783kV
+100.000000 | _LOAD__15_EC | Tap position change (increment) - value : 69.663583kV
+100.000000 | _LOAD__16_EC | Tap position change (increment) - value : 65.609710kV
+100.000000 | _LOAD__17_EC | Tap position change (increment) - value : 67.979598kV
+110.000000 | _LOAD__10_EC | Tap position change (increment) - value : 67.499759kV
+110.000000 | _LOAD__10_EC | Tap position change (increment) - value : 67.156160kV
+110.000000 | _LOAD__12_EC | Tap position change (increment) - value : 64.745786kV
+110.000000 | _LOAD__12_EC | Tap position change (increment) - value : 63.767644kV
+110.000000 | _LOAD__13_EC | Tap position change (increment) - value : 68.835647kV
+110.000000 | _LOAD__13_EC | Tap position change (increment) - value : 68.490379kV
+110.000000 | _LOAD__14_EC | Tap position change (increment) - value : 69.476049kV
+110.000000 | _LOAD__14_EC | Tap position change (increment) - value : 68.975067kV
+110.000000 | _LOAD__16_EC | Tap position change (increment) - value : 66.292379kV
+110.000000 | _LOAD__16_EC | Tap position change (increment) - value : 65.173033kV
+110.000000 | _LOAD__17_EC | Tap position change (increment) - value : 68.701051kV
+110.000000 | _LOAD__17_EC | Tap position change (increment) - value : 68.196816kV
+110.000000 | _LOAD__19_EC | Tap position change (increment) - value : 13.567352kV
+110.000000 | _LOAD__20_EC | Tap position change (increment) - value : 13.460069kV
+110.000000 | _LOAD__23_EC | Tap position change (increment) - value : 17.341955kV
+110.000000 | _LOAD__25_EC | Tap position change (increment) - value : 13.457304kV
+110.000000 | _LOAD__27_EC | Tap position change (increment) - value : 13.723354kV
+110.000000 | _LOAD__30_EC | Tap position change (increment) - value : 13.437643kV
+110.000000 | _LOAD__31_EC | Tap position change (increment) - value : 13.375540kV
+110.000000 | _LOAD__33_EC | Tap position change (increment) - value : 13.246030kV
+110.000000 | _LOAD__35_EC | Tap position change (increment) - value : 17.393882kV
+110.000000 | _LOAD__38_EC | Tap position change (increment) - value : 17.293137kV
+110.000000 | _LOAD__41_EC | Tap position change (increment) - value : 13.417978kV
+110.000000 | _LOAD__42_EC | Tap position change (increment) - value : 13.364090kV
+110.000000 | _LOAD__43_EC | Tap position change (increment) - value : 13.371315kV
+110.000000 | _LOAD__44_EC | Tap position change (increment) - value : 17.504008kV
+110.000000 | _LOAD__47_EC | Tap position change (increment) - value : 17.342119kV
+110.000000 | _LOAD__49_EC | Tap position change (increment) - value : 17.133498kV
+110.000000 | _LOAD__50_EC | Tap position change (increment) - value : 17.097367kV
+110.000000 | _LOAD__51_EC | Tap position change (increment) - value : 16.761481kV
+110.000000 | _LOAD__52_EC | Tap position change (increment) - value : 13.777445kV
+110.000000 | _LOAD__53_EC | Tap position change (increment) - value : 13.789090kV
+110.000000 | _LOAD__55_EC | Tap position change (increment) - value : 13.672337kV
+110.000000 | _LOAD__56_EC | Tap position change (increment) - value : 13.408456kV
+110.000000 | _LOAD__57_EC | Tap position change (increment) - value : 13.353834kV
+110.000000 | _LOAD___1_EC | Tap position change (increment) - value : 69.657490kV
+110.000000 | _LOAD___1_EC | Tap position change (increment) - value : 68.828258kV
+110.000000 | _LOAD___9_EC | Tap position change (increment) - value : 69.660395kV
+110.000000 | _LOAD___9_EC | Tap position change (increment) - value : 69.056796kV
+110.000000 | _LOAD__10_EC | Tap position change (increment) - value : 67.499759kV
+110.000000 | _LOAD__10_EC | Tap position change (increment) - value : 67.156160kV
+110.000000 | _LOAD__12_EC | Tap position change (increment) - value : 64.745786kV
+110.000000 | _LOAD__12_EC | Tap position change (increment) - value : 63.767644kV
+110.000000 | _LOAD__13_EC | Tap position change (increment) - value : 68.835647kV
+110.000000 | _LOAD__13_EC | Tap position change (increment) - value : 68.490379kV
+110.000000 | _LOAD__14_EC | Tap position change (increment) - value : 69.476049kV
+110.000000 | _LOAD__14_EC | Tap position change (increment) - value : 68.975067kV
+110.000000 | _LOAD__16_EC | Tap position change (increment) - value : 66.292379kV
+110.000000 | _LOAD__16_EC | Tap position change (increment) - value : 65.173033kV
+110.000000 | _LOAD__17_EC | Tap position change (increment) - value : 68.701051kV
+110.000000 | _LOAD__17_EC | Tap position change (increment) - value : 68.196816kV
+110.000000 | _LOAD__19_EC | Tap position change (increment) - value : 13.567352kV
+110.000000 | _LOAD__20_EC | Tap position change (increment) - value : 13.460069kV
+110.000000 | _LOAD__23_EC | Tap position change (increment) - value : 17.341955kV
+110.000000 | _LOAD__25_EC | Tap position change (increment) - value : 13.457304kV
+110.000000 | _LOAD__27_EC | Tap position change (increment) - value : 13.723354kV
+110.000000 | _LOAD__30_EC | Tap position change (increment) - value : 13.437643kV
+110.000000 | _LOAD__31_EC | Tap position change (increment) - value : 13.375540kV
+110.000000 | _LOAD__33_EC | Tap position change (increment) - value : 13.246030kV
+110.000000 | _LOAD__35_EC | Tap position change (increment) - value : 17.393882kV
+110.000000 | _LOAD__38_EC | Tap position change (increment) - value : 17.293137kV
+110.000000 | _LOAD__41_EC | Tap position change (increment) - value : 13.417978kV
+110.000000 | _LOAD__42_EC | Tap position change (increment) - value : 13.364090kV
+110.000000 | _LOAD__43_EC | Tap position change (increment) - value : 13.371315kV
+110.000000 | _LOAD__44_EC | Tap position change (increment) - value : 17.504008kV
+110.000000 | _LOAD__47_EC | Tap position change (increment) - value : 17.342119kV
+110.000000 | _LOAD__49_EC | Tap position change (increment) - value : 17.133498kV
+110.000000 | _LOAD__50_EC | Tap position change (increment) - value : 17.097367kV
+110.000000 | _LOAD__51_EC | Tap position change (increment) - value : 16.761481kV
+110.000000 | _LOAD__52_EC | Tap position change (increment) - value : 13.777445kV
+110.000000 | _LOAD__53_EC | Tap position change (increment) - value : 13.789090kV
+110.000000 | _LOAD__55_EC | Tap position change (increment) - value : 13.672337kV
+110.000000 | _LOAD__56_EC | Tap position change (increment) - value : 13.408456kV
+110.000000 | _LOAD__57_EC | Tap position change (increment) - value : 13.353834kV
+110.000000 | _LOAD___1_EC | Tap position change (increment) - value : 69.657490kV
+110.000000 | _LOAD___1_EC | Tap position change (increment) - value : 68.828258kV
+110.000000 | _LOAD___9_EC | Tap position change (increment) - value : 69.660395kV
+110.000000 | _LOAD___9_EC | Tap position change (increment) - value : 69.056796kV
+110.000000 | _LOAD__10_EC | Tap position change (increment) - value : 67.499759kV
+110.000000 | _LOAD__10_EC | Tap position change (increment) - value : 67.156160kV
+110.000000 | _LOAD__12_EC | Tap position change (increment) - value : 64.745786kV
+110.000000 | _LOAD__12_EC | Tap position change (increment) - value : 63.767644kV
+110.000000 | _LOAD__13_EC | Tap position change (increment) - value : 68.835647kV
+110.000000 | _LOAD__13_EC | Tap position change (increment) - value : 68.490379kV
+110.000000 | _LOAD__14_EC | Tap position change (increment) - value : 69.476049kV
+110.000000 | _LOAD__14_EC | Tap position change (increment) - value : 68.975067kV
+110.000000 | _LOAD__16_EC | Tap position change (increment) - value : 66.292379kV
+110.000000 | _LOAD__16_EC | Tap position change (increment) - value : 65.173033kV
+110.000000 | _LOAD__17_EC | Tap position change (increment) - value : 68.701051kV
+110.000000 | _LOAD__17_EC | Tap position change (increment) - value : 68.196816kV
+110.000000 | _LOAD__19_EC | Tap position change (increment) - value : 13.567352kV
+110.000000 | _LOAD__20_EC | Tap position change (increment) - value : 13.460069kV
+110.000000 | _LOAD__23_EC | Tap position change (increment) - value : 17.341955kV
+110.000000 | _LOAD__25_EC | Tap position change (increment) - value : 13.457304kV
+110.000000 | _LOAD__27_EC | Tap position change (increment) - value : 13.723354kV
+110.000000 | _LOAD__30_EC | Tap position change (increment) - value : 13.437643kV
+110.000000 | _LOAD__31_EC | Tap position change (increment) - value : 13.375540kV
+110.000000 | _LOAD__33_EC | Tap position change (increment) - value : 13.246030kV
+110.000000 | _LOAD__35_EC | Tap position change (increment) - value : 17.393882kV
+110.000000 | _LOAD__38_EC | Tap position change (increment) - value : 17.293137kV
+110.000000 | _LOAD__41_EC | Tap position change (increment) - value : 13.417978kV
+110.000000 | _LOAD__42_EC | Tap position change (increment) - value : 13.364090kV
+110.000000 | _LOAD__43_EC | Tap position change (increment) - value : 13.371315kV
+110.000000 | _LOAD__44_EC | Tap position change (increment) - value : 17.504008kV
+110.000000 | _LOAD__47_EC | Tap position change (increment) - value : 17.342119kV
+110.000000 | _LOAD__49_EC | Tap position change (increment) - value : 17.133498kV
+110.000000 | _LOAD__50_EC | Tap position change (increment) - value : 17.097367kV
+110.000000 | _LOAD__51_EC | Tap position change (increment) - value : 16.761481kV
+110.000000 | _LOAD__52_EC | Tap position change (increment) - value : 13.777445kV
+110.000000 | _LOAD__53_EC | Tap position change (increment) - value : 13.789090kV
+110.000000 | _LOAD__55_EC | Tap position change (increment) - value : 13.672337kV
+110.000000 | _LOAD__56_EC | Tap position change (increment) - value : 13.408456kV
+110.000000 | _LOAD__57_EC | Tap position change (increment) - value : 13.353834kV
+110.000000 | _LOAD___1_EC | Tap position change (increment) - value : 69.657490kV
+110.000000 | _LOAD___1_EC | Tap position change (increment) - value : 68.828258kV
+110.000000 | _LOAD___9_EC | Tap position change (increment) - value : 69.660395kV
+110.000000 | _LOAD___9_EC | Tap position change (increment) - value : 69.056796kV
+110.000000 | _LOAD__54_EC | Tap-changer : below minimum allowed value
+120.000000 | _LOAD__10_EC | Tap position change (increment) - value : 68.048882kV
+120.000000 | _LOAD__10_EC | Tap position change (increment) - value : 68.580323kV
+120.000000 | _LOAD__12_EC | Tap position change (increment) - value : 65.256541kV
+120.000000 | _LOAD__12_EC | Tap position change (increment) - value : 65.118713kV
+120.000000 | _LOAD__13_EC | Tap position change (increment) - value : 69.414621kV
+120.000000 | _LOAD__16_EC | Tap position change (increment) - value : 66.821358kV
+120.000000 | _LOAD__16_EC | Tap position change (increment) - value : 66.557676kV
+120.000000 | _LOAD__17_EC | Tap position change (increment) - value : 69.293666kV
+120.000000 | _LOAD__19_EC | Tap position change (increment) - value : 13.672469kV
+120.000000 | _LOAD__23_EC | Tap position change (increment) - value : 17.465349kV
+120.000000 | _LOAD__25_EC | Tap position change (increment) - value : 13.534309kV
+120.000000 | _LOAD__31_EC | Tap position change (increment) - value : 13.551084kV
+120.000000 | _LOAD__33_EC | Tap position change (increment) - value : 13.428802kV
+120.000000 | _LOAD__38_EC | Tap position change (increment) - value : 17.416006kV
+120.000000 | _LOAD__41_EC | Tap position change (increment) - value : 13.514961kV
+120.000000 | _LOAD__43_EC | Tap position change (increment) - value : 13.478082kV
+120.000000 | _LOAD__44_EC | Tap position change (increment) - value : 17.633254kV
+120.000000 | _LOAD__47_EC | Tap position change (increment) - value : 17.468467kV
+120.000000 | _LOAD__49_EC | Tap position change (increment) - value : 17.257120kV
+120.000000 | _LOAD__50_EC | Tap position change (increment) - value : 17.212036kV
+120.000000 | _LOAD__51_EC | Tap position change (increment) - value : 16.885972kV
+120.000000 | _LOAD__55_EC | Tap position change (increment) - value : 13.798100kV
+120.000000 | _LOAD__10_EC | Tap position change (increment) - value : 68.048882kV
+120.000000 | _LOAD__10_EC | Tap position change (increment) - value : 68.580323kV
+120.000000 | _LOAD__12_EC | Tap position change (increment) - value : 65.256541kV
+120.000000 | _LOAD__12_EC | Tap position change (increment) - value : 65.118713kV
+120.000000 | _LOAD__13_EC | Tap position change (increment) - value : 69.414621kV
+120.000000 | _LOAD__16_EC | Tap position change (increment) - value : 66.821358kV
+120.000000 | _LOAD__16_EC | Tap position change (increment) - value : 66.557676kV
+120.000000 | _LOAD__17_EC | Tap position change (increment) - value : 69.293666kV
+120.000000 | _LOAD__19_EC | Tap position change (increment) - value : 13.672469kV
+120.000000 | _LOAD__23_EC | Tap position change (increment) - value : 17.465349kV
+120.000000 | _LOAD__25_EC | Tap position change (increment) - value : 13.534309kV
+120.000000 | _LOAD__31_EC | Tap position change (increment) - value : 13.551084kV
+120.000000 | _LOAD__33_EC | Tap position change (increment) - value : 13.428802kV
+120.000000 | _LOAD__38_EC | Tap position change (increment) - value : 17.416006kV
+120.000000 | _LOAD__41_EC | Tap position change (increment) - value : 13.514961kV
+120.000000 | _LOAD__43_EC | Tap position change (increment) - value : 13.478082kV
+120.000000 | _LOAD__44_EC | Tap position change (increment) - value : 17.633254kV
+120.000000 | _LOAD__47_EC | Tap position change (increment) - value : 17.468467kV
+120.000000 | _LOAD__49_EC | Tap position change (increment) - value : 17.257120kV
+120.000000 | _LOAD__50_EC | Tap position change (increment) - value : 17.212036kV
+120.000000 | _LOAD__51_EC | Tap position change (increment) - value : 16.885972kV
+120.000000 | _LOAD__55_EC | Tap position change (increment) - value : 13.798100kV
+120.000000 | _LOAD__10_EC | Tap position change (increment) - value : 68.048882kV
+120.000000 | _LOAD__10_EC | Tap position change (increment) - value : 68.580323kV
+120.000000 | _LOAD__12_EC | Tap position change (increment) - value : 65.256541kV
+120.000000 | _LOAD__12_EC | Tap position change (increment) - value : 65.118713kV
+120.000000 | _LOAD__13_EC | Tap position change (increment) - value : 69.414621kV
+120.000000 | _LOAD__16_EC | Tap position change (increment) - value : 66.821358kV
+120.000000 | _LOAD__16_EC | Tap position change (increment) - value : 66.557676kV
+120.000000 | _LOAD__17_EC | Tap position change (increment) - value : 69.293666kV
+120.000000 | _LOAD__19_EC | Tap position change (increment) - value : 13.672469kV
+120.000000 | _LOAD__23_EC | Tap position change (increment) - value : 17.465349kV
+120.000000 | _LOAD__25_EC | Tap position change (increment) - value : 13.534309kV
+120.000000 | _LOAD__31_EC | Tap position change (increment) - value : 13.551084kV
+120.000000 | _LOAD__33_EC | Tap position change (increment) - value : 13.428802kV
+120.000000 | _LOAD__38_EC | Tap position change (increment) - value : 17.416006kV
+120.000000 | _LOAD__41_EC | Tap position change (increment) - value : 13.514961kV
+120.000000 | _LOAD__43_EC | Tap position change (increment) - value : 13.478082kV
+120.000000 | _LOAD__44_EC | Tap position change (increment) - value : 17.633254kV
+120.000000 | _LOAD__47_EC | Tap position change (increment) - value : 17.468467kV
+120.000000 | _LOAD__49_EC | Tap position change (increment) - value : 17.257120kV
+120.000000 | _LOAD__50_EC | Tap position change (increment) - value : 17.212036kV
+120.000000 | _LOAD__51_EC | Tap position change (increment) - value : 16.885972kV
+120.000000 | _LOAD__55_EC | Tap position change (increment) - value : 13.798100kV
+130.000000 | _LOAD__10_EC | Tap position change (increment) - value : 68.618759kV
+130.000000 | _LOAD__12_EC | Tap position change (increment) - value : 65.790923kV
+130.000000 | _LOAD__12_EC | Tap position change (increment) - value : 66.506914kV
+130.000000 | _LOAD__16_EC | Tap position change (increment) - value : 67.371993kV
+130.000000 | _LOAD__16_EC | Tap position change (increment) - value : 67.977844kV
+130.000000 | _LOAD__23_EC | Tap position change (increment) - value : 17.598413kV
+130.000000 | _LOAD__25_EC | Tap position change (increment) - value : 13.622363kV
+130.000000 | _LOAD__31_EC | Tap position change (increment) - value : 13.738014kV
+130.000000 | _LOAD__33_EC | Tap position change (increment) - value : 13.622617kV
+130.000000 | _LOAD__38_EC | Tap position change (increment) - value : 17.548404kV
+130.000000 | _LOAD__41_EC | Tap position change (increment) - value : 13.622359kV
+130.000000 | _LOAD__43_EC | Tap position change (increment) - value : 13.591507kV
+130.000000 | _LOAD__44_EC | Tap position change (increment) - value : 17.771098kV
+130.000000 | _LOAD__47_EC | Tap position change (increment) - value : 17.603488kV
+130.000000 | _LOAD__49_EC | Tap position change (increment) - value : 17.388819kV
+130.000000 | _LOAD__50_EC | Tap position change (increment) - value : 17.333957kV
+130.000000 | _LOAD__51_EC | Tap position change (increment) - value : 17.016167kV
+130.000000 | _LOAD__10_EC | Tap position change (increment) - value : 68.618759kV
+130.000000 | _LOAD__12_EC | Tap position change (increment) - value : 65.790923kV
+130.000000 | _LOAD__12_EC | Tap position change (increment) - value : 66.506914kV
+130.000000 | _LOAD__16_EC | Tap position change (increment) - value : 67.371993kV
+130.000000 | _LOAD__16_EC | Tap position change (increment) - value : 67.977844kV
+130.000000 | _LOAD__23_EC | Tap position change (increment) - value : 17.598413kV
+130.000000 | _LOAD__25_EC | Tap position change (increment) - value : 13.622363kV
+130.000000 | _LOAD__31_EC | Tap position change (increment) - value : 13.738014kV
+130.000000 | _LOAD__33_EC | Tap position change (increment) - value : 13.622617kV
+130.000000 | _LOAD__38_EC | Tap position change (increment) - value : 17.548404kV
+130.000000 | _LOAD__41_EC | Tap position change (increment) - value : 13.622359kV
+130.000000 | _LOAD__43_EC | Tap position change (increment) - value : 13.591507kV
+130.000000 | _LOAD__44_EC | Tap position change (increment) - value : 17.771098kV
+130.000000 | _LOAD__47_EC | Tap position change (increment) - value : 17.603488kV
+130.000000 | _LOAD__49_EC | Tap position change (increment) - value : 17.388819kV
+130.000000 | _LOAD__50_EC | Tap position change (increment) - value : 17.333957kV
+130.000000 | _LOAD__51_EC | Tap position change (increment) - value : 17.016167kV
+130.000000 | _LOAD__10_EC | Tap position change (increment) - value : 68.618759kV
+130.000000 | _LOAD__12_EC | Tap position change (increment) - value : 65.790923kV
+130.000000 | _LOAD__12_EC | Tap position change (increment) - value : 66.506914kV
+130.000000 | _LOAD__16_EC | Tap position change (increment) - value : 67.371993kV
+130.000000 | _LOAD__16_EC | Tap position change (increment) - value : 67.977844kV
+130.000000 | _LOAD__23_EC | Tap position change (increment) - value : 17.598413kV
+130.000000 | _LOAD__25_EC | Tap position change (increment) - value : 13.622363kV
+130.000000 | _LOAD__31_EC | Tap position change (increment) - value : 13.738014kV
+130.000000 | _LOAD__33_EC | Tap position change (increment) - value : 13.622617kV
+130.000000 | _LOAD__38_EC | Tap position change (increment) - value : 17.548404kV
+130.000000 | _LOAD__41_EC | Tap position change (increment) - value : 13.622359kV
+130.000000 | _LOAD__43_EC | Tap position change (increment) - value : 13.591507kV
+130.000000 | _LOAD__44_EC | Tap position change (increment) - value : 17.771098kV
+130.000000 | _LOAD__47_EC | Tap position change (increment) - value : 17.603488kV
+130.000000 | _LOAD__49_EC | Tap position change (increment) - value : 17.388819kV
+130.000000 | _LOAD__50_EC | Tap position change (increment) - value : 17.333957kV
+130.000000 | _LOAD__51_EC | Tap position change (increment) - value : 17.016167kV
+130.000000 | _LOAD__29_EC | Tap-changer : below minimum allowed value
+140.000000 | _LOAD__10_EC | Tap position change (increment) - value : 69.196389kV
+140.000000 | _LOAD__12_EC | Tap position change (increment) - value : 66.325490kV
+140.000000 | _LOAD__12_EC | Tap position change (increment) - value : 67.909102kV
+140.000000 | _LOAD__16_EC | Tap position change (increment) - value : 67.921614kV
+140.000000 | _LOAD__23_EC | Tap position change (increment) - value : 17.731688kV
+140.000000 | _LOAD__38_EC | Tap position change (increment) - value : 17.680994kV
+140.000000 | _LOAD__41_EC | Tap position change (increment) - value : 13.729896kV
+140.000000 | _LOAD__43_EC | Tap position change (increment) - value : 13.705132kV
+140.000000 | _LOAD__44_EC | Tap position change (increment) - value : 17.909123kV
+140.000000 | _LOAD__47_EC | Tap position change (increment) - value : 17.738699kV
+140.000000 | _LOAD__49_EC | Tap position change (increment) - value : 17.520778kV
+140.000000 | _LOAD__50_EC | Tap position change (increment) - value : 17.456212kV
+140.000000 | _LOAD__51_EC | Tap position change (increment) - value : 17.147025kV
+140.000000 | _LOAD__10_EC | Tap position change (increment) - value : 69.196389kV
+140.000000 | _LOAD__12_EC | Tap position change (increment) - value : 66.325490kV
+140.000000 | _LOAD__12_EC | Tap position change (increment) - value : 67.909102kV
+140.000000 | _LOAD__16_EC | Tap position change (increment) - value : 67.921614kV
+140.000000 | _LOAD__23_EC | Tap position change (increment) - value : 17.731688kV
+140.000000 | _LOAD__38_EC | Tap position change (increment) - value : 17.680994kV
+140.000000 | _LOAD__41_EC | Tap position change (increment) - value : 13.729896kV
+140.000000 | _LOAD__43_EC | Tap position change (increment) - value : 13.705132kV
+140.000000 | _LOAD__44_EC | Tap position change (increment) - value : 17.909123kV
+140.000000 | _LOAD__47_EC | Tap position change (increment) - value : 17.738699kV
+140.000000 | _LOAD__49_EC | Tap position change (increment) - value : 17.520778kV
+140.000000 | _LOAD__50_EC | Tap position change (increment) - value : 17.456212kV
+140.000000 | _LOAD__51_EC | Tap position change (increment) - value : 17.147025kV
+140.000000 | _LOAD__10_EC | Tap position change (increment) - value : 69.196389kV
+140.000000 | _LOAD__12_EC | Tap position change (increment) - value : 66.325490kV
+140.000000 | _LOAD__12_EC | Tap position change (increment) - value : 67.909102kV
+140.000000 | _LOAD__16_EC | Tap position change (increment) - value : 67.921614kV
+140.000000 | _LOAD__23_EC | Tap position change (increment) - value : 17.731688kV
+140.000000 | _LOAD__38_EC | Tap position change (increment) - value : 17.680994kV
+140.000000 | _LOAD__41_EC | Tap position change (increment) - value : 13.729896kV
+140.000000 | _LOAD__43_EC | Tap position change (increment) - value : 13.705132kV
+140.000000 | _LOAD__44_EC | Tap position change (increment) - value : 17.909123kV
+140.000000 | _LOAD__47_EC | Tap position change (increment) - value : 17.738699kV
+140.000000 | _LOAD__49_EC | Tap position change (increment) - value : 17.520778kV
+140.000000 | _LOAD__50_EC | Tap position change (increment) - value : 17.456212kV
+140.000000 | _LOAD__51_EC | Tap position change (increment) - value : 17.147025kV
+140.000000 | _LOAD__10_EC | Tap-changer : above maximum allowed value
+140.000000 | _LOAD__17_EC | Tap-changer : below minimum allowed value
+140.000000 | _LOAD__27_EC | Tap-changer : below minimum allowed value
+140.000000 | _LOAD__29_EC | Tap-changer : below minimum allowed value
+140.000000 | _LOAD__33_EC | Tap-changer : below minimum allowed value
+140.000000 | _LOAD__10_EC | Tap-changer : above maximum allowed value
+140.000000 | _LOAD__17_EC | Tap-changer : below minimum allowed value
+140.000000 | _LOAD__27_EC | Tap-changer : below minimum allowed value
+140.000000 | _LOAD__29_EC | Tap-changer : below minimum allowed value
+140.000000 | _LOAD__33_EC | Tap-changer : below minimum allowed value
+140.000000 | _LOAD__10_EC | Tap-changer : above maximum allowed value
+140.000000 | _LOAD__17_EC | Tap-changer : below minimum allowed value
+140.000000 | _LOAD__27_EC | Tap-changer : below minimum allowed value
+140.000000 | _LOAD__29_EC | Tap-changer : below minimum allowed value
+140.000000 | _LOAD__33_EC | Tap-changer : below minimum allowed value
+140.000000 | _LOAD__10_EC | Tap-changer : above maximum allowed value
+140.000000 | _LOAD__17_EC | Tap-changer : below minimum allowed value
+140.000000 | _LOAD__27_EC | Tap-changer : below minimum allowed value
+140.000000 | _LOAD__29_EC | Tap-changer : below minimum allowed value
+140.000000 | _LOAD__33_EC | Tap-changer : below minimum allowed value
+150.000000 | _LOAD__12_EC | Tap position change (increment) - value : 66.864681kV
+150.000000 | _LOAD__12_EC | Tap position change (increment) - value : 69.329902kV
+150.000000 | _LOAD__16_EC | Tap position change (increment) - value : 68.484920kV
+150.000000 | _LOAD__23_EC | Tap position change (increment) - value : 17.870534kV
+150.000000 | _LOAD__38_EC | Tap position change (increment) - value : 17.818172kV
+150.000000 | _LOAD__47_EC | Tap position change (increment) - value : 17.876990kV
+150.000000 | _LOAD__49_EC | Tap position change (increment) - value : 17.655383kV
+150.000000 | _LOAD__50_EC | Tap position change (increment) - value : 17.580458kV
+150.000000 | _LOAD__51_EC | Tap position change (increment) - value : 17.278909kV
+150.000000 | _LOAD__12_EC | Tap position change (increment) - value : 66.864681kV
+150.000000 | _LOAD__12_EC | Tap position change (increment) - value : 69.329902kV
+150.000000 | _LOAD__16_EC | Tap position change (increment) - value : 68.484920kV
+150.000000 | _LOAD__23_EC | Tap position change (increment) - value : 17.870534kV
+150.000000 | _LOAD__38_EC | Tap position change (increment) - value : 17.818172kV
+150.000000 | _LOAD__47_EC | Tap position change (increment) - value : 17.876990kV
+150.000000 | _LOAD__49_EC | Tap position change (increment) - value : 17.655383kV
+150.000000 | _LOAD__50_EC | Tap position change (increment) - value : 17.580458kV
+150.000000 | _LOAD__51_EC | Tap position change (increment) - value : 17.278909kV
+150.000000 | _LOAD__12_EC | Tap position change (increment) - value : 66.864681kV
+150.000000 | _LOAD__12_EC | Tap position change (increment) - value : 69.329902kV
+150.000000 | _LOAD__16_EC | Tap position change (increment) - value : 68.484920kV
+150.000000 | _LOAD__23_EC | Tap position change (increment) - value : 17.870534kV
+150.000000 | _LOAD__38_EC | Tap position change (increment) - value : 17.818172kV
+150.000000 | _LOAD__47_EC | Tap position change (increment) - value : 17.876990kV
+150.000000 | _LOAD__49_EC | Tap position change (increment) - value : 17.655383kV
+150.000000 | _LOAD__50_EC | Tap position change (increment) - value : 17.580458kV
+150.000000 | _LOAD__51_EC | Tap position change (increment) - value : 17.278909kV
+150.000000 | _LOAD__10_EC | Tap-changer : below minimum allowed value
+150.000000 | _LOAD__12_EC | Tap-changer : above maximum allowed value
+150.000000 | _LOAD__13_EC | Tap-changer : below minimum allowed value
+150.000000 | _LOAD__14_EC | Tap-changer : below minimum allowed value
+150.000000 | _LOAD__17_EC | Tap-changer : below minimum allowed value
+150.000000 | _LOAD__10_EC | Tap-changer : below minimum allowed value
+150.000000 | _LOAD__12_EC | Tap-changer : above maximum allowed value
+150.000000 | _LOAD__13_EC | Tap-changer : below minimum allowed value
+150.000000 | _LOAD__14_EC | Tap-changer : below minimum allowed value
+150.000000 | _LOAD__17_EC | Tap-changer : below minimum allowed value
+150.000000 | _LOAD__10_EC | Tap-changer : below minimum allowed value
+150.000000 | _LOAD__12_EC | Tap-changer : above maximum allowed value
+150.000000 | _LOAD__13_EC | Tap-changer : below minimum allowed value
+150.000000 | _LOAD__14_EC | Tap-changer : below minimum allowed value
+150.000000 | _LOAD__17_EC | Tap-changer : below minimum allowed value
+150.000000 | _LOAD__10_EC | Tap-changer : below minimum allowed value
+150.000000 | _LOAD__12_EC | Tap-changer : above maximum allowed value
+150.000000 | _LOAD__13_EC | Tap-changer : below minimum allowed value
+150.000000 | _LOAD__14_EC | Tap-changer : below minimum allowed value
+150.000000 | _LOAD__17_EC | Tap-changer : below minimum allowed value
+160.000000 | _LOAD__12_EC | Tap position change (increment) - value : 67.400384kV
+160.000000 | _LOAD__16_EC | Tap position change (increment) - value : 69.044279kV
+160.000000 | _LOAD__38_EC | Tap position change (increment) - value : 17.956168kV
+160.000000 | _LOAD__49_EC | Tap position change (increment) - value : 17.790090kV
+160.000000 | _LOAD__50_EC | Tap position change (increment) - value : 17.704673kV
+160.000000 | _LOAD__51_EC | Tap position change (increment) - value : 17.410780kV
+160.000000 | _LOAD__12_EC | Tap position change (increment) - value : 67.400384kV
+160.000000 | _LOAD__16_EC | Tap position change (increment) - value : 69.044279kV
+160.000000 | _LOAD__38_EC | Tap position change (increment) - value : 17.956168kV
+160.000000 | _LOAD__49_EC | Tap position change (increment) - value : 17.790090kV
+160.000000 | _LOAD__50_EC | Tap position change (increment) - value : 17.704673kV
+160.000000 | _LOAD__51_EC | Tap position change (increment) - value : 17.410780kV
+160.000000 | _LOAD__12_EC | Tap position change (increment) - value : 67.400384kV
+160.000000 | _LOAD__16_EC | Tap position change (increment) - value : 69.044279kV
+160.000000 | _LOAD__38_EC | Tap position change (increment) - value : 17.956168kV
+160.000000 | _LOAD__49_EC | Tap position change (increment) - value : 17.790090kV
+160.000000 | _LOAD__50_EC | Tap position change (increment) - value : 17.704673kV
+160.000000 | _LOAD__51_EC | Tap position change (increment) - value : 17.410780kV
+160.000000 | _LOAD__16_EC | Tap-changer : above maximum allowed value
+160.000000 | _LOAD__23_EC | Tap-changer : below minimum allowed value
+160.000000 | _LOAD__43_EC | Tap-changer : below minimum allowed value
+160.000000 | _LOAD__47_EC | Tap-changer : below minimum allowed value
+160.000000 | _LOAD__16_EC | Tap-changer : above maximum allowed value
+160.000000 | _LOAD__23_EC | Tap-changer : below minimum allowed value
+160.000000 | _LOAD__43_EC | Tap-changer : below minimum allowed value
+160.000000 | _LOAD__47_EC | Tap-changer : below minimum allowed value
+160.000000 | _LOAD__16_EC | Tap-changer : above maximum allowed value
+160.000000 | _LOAD__23_EC | Tap-changer : below minimum allowed value
+160.000000 | _LOAD__43_EC | Tap-changer : below minimum allowed value
+160.000000 | _LOAD__47_EC | Tap-changer : below minimum allowed value
+160.000000 | _LOAD__16_EC | Tap-changer : above maximum allowed value
+160.000000 | _LOAD__23_EC | Tap-changer : below minimum allowed value
+160.000000 | _LOAD__43_EC | Tap-changer : below minimum allowed value
+160.000000 | _LOAD__47_EC | Tap-changer : below minimum allowed value
+170.000000 | _LOAD__12_EC | Tap position change (increment) - value : 68.043746kV
+170.000000 | _LOAD__49_EC | Tap position change (increment) - value : 17.941699kV
+170.000000 | _LOAD__51_EC | Tap position change (increment) - value : 17.561295kV
+170.000000 | _LOAD__54_EC | Tap position change (increment) - value : 13.770121kV
+170.000000 | _LOAD__12_EC | Tap position change (increment) - value : 68.043746kV
+170.000000 | _LOAD__49_EC | Tap position change (increment) - value : 17.941699kV
+170.000000 | _LOAD__51_EC | Tap position change (increment) - value : 17.561295kV
+170.000000 | _LOAD__54_EC | Tap position change (increment) - value : 13.770121kV
+170.000000 | _LOAD__12_EC | Tap position change (increment) - value : 68.043746kV
+170.000000 | _LOAD__49_EC | Tap position change (increment) - value : 17.941699kV
+170.000000 | _LOAD__51_EC | Tap position change (increment) - value : 17.561295kV
+170.000000 | _LOAD__54_EC | Tap position change (increment) - value : 13.770121kV
+170.000000 | _LOAD__16_EC | Tap-changer : below minimum allowed value
+170.000000 | _LOAD__44_EC | Tap-changer : below minimum allowed value
+170.000000 | _LOAD__16_EC | Tap-changer : below minimum allowed value
+170.000000 | _LOAD__44_EC | Tap-changer : below minimum allowed value
+170.000000 | _LOAD__16_EC | Tap-changer : below minimum allowed value
+170.000000 | _LOAD__44_EC | Tap-changer : below minimum allowed value
+170.000000 | _LOAD__16_EC | Tap-changer : below minimum allowed value
+170.000000 | _LOAD__44_EC | Tap-changer : below minimum allowed value
+180.000000 | _LOAD__10_EC | Tap position change (increment) - value : 69.491133kV
+180.000000 | _LOAD__13_EC | Tap position change (increment) - value : 69.547738kV
+180.000000 | _LOAD__14_EC | Tap position change (increment) - value : 69.501426kV
+180.000000 | _LOAD__17_EC | Tap position change (increment) - value : 69.480641kV
+180.000000 | _LOAD__51_EC | Tap position change (increment) - value : 17.716405kV
+180.000000 | _LOAD__10_EC | Tap position change (increment) - value : 69.491133kV
+180.000000 | _LOAD__13_EC | Tap position change (increment) - value : 69.547738kV
+180.000000 | _LOAD__14_EC | Tap position change (increment) - value : 69.501426kV
+180.000000 | _LOAD__17_EC | Tap position change (increment) - value : 69.480641kV
+180.000000 | _LOAD__51_EC | Tap position change (increment) - value : 17.716405kV
+180.000000 | _LOAD__10_EC | Tap position change (increment) - value : 69.491133kV
+180.000000 | _LOAD__13_EC | Tap position change (increment) - value : 69.547738kV
+180.000000 | _LOAD__14_EC | Tap position change (increment) - value : 69.501426kV
+180.000000 | _LOAD__17_EC | Tap position change (increment) - value : 69.480641kV
+180.000000 | _LOAD__51_EC | Tap position change (increment) - value : 17.716405kV
+180.000000 | _LOAD__13_EC | Tap-changer : above maximum allowed value
+190.000000 | _LOAD__51_EC | Tap position change (increment) - value : 17.882088kV
+200.000000 | _LOAD__10_EC | Tap position change (decrement) - value : 71.645070kV
+200.000000 | _LOAD__16_EC | Tap position change (increment) - value : 69.614816kV
+200.000000 | _LOAD__27_EC | Tap position change (increment) - value : 13.782221kV
+200.000000 | _LOAD__29_EC | Tap position change (increment) - value : 13.791473kV
+200.000000 | _LOAD__33_EC | Tap position change (increment) - value : 13.743242kV
+200.000000 | _LOAD__10_EC | Tap position change (decrement) - value : 71.645070kV
+200.000000 | _LOAD__16_EC | Tap position change (increment) - value : 69.614816kV
+200.000000 | _LOAD__27_EC | Tap position change (increment) - value : 13.782221kV
+200.000000 | _LOAD__29_EC | Tap position change (increment) - value : 13.791473kV
+200.000000 | _LOAD__33_EC | Tap position change (increment) - value : 13.743242kV
+200.000000 | _LOAD__10_EC | Tap position change (decrement) - value : 71.645070kV
+200.000000 | _LOAD__16_EC | Tap position change (increment) - value : 69.614816kV
+200.000000 | _LOAD__27_EC | Tap position change (increment) - value : 13.782221kV
+200.000000 | _LOAD__29_EC | Tap position change (increment) - value : 13.791473kV
+200.000000 | _LOAD__33_EC | Tap position change (increment) - value : 13.743242kV
+210.000000 | _LOAD__10_EC | Tap position change (decrement) - value : 70.743785kV
+210.000000 | _LOAD__12_EC | Tap position change (decrement) - value : 72.100957kV
+210.000000 | _LOAD__10_EC | Tap position change (decrement) - value : 70.743785kV
+210.000000 | _LOAD__12_EC | Tap position change (decrement) - value : 72.100957kV
+210.000000 | _LOAD__10_EC | Tap position change (decrement) - value : 70.743785kV
+210.000000 | _LOAD__12_EC | Tap position change (decrement) - value : 72.100957kV
+220.000000 | _LOAD__12_EC | Tap position change (decrement) - value : 71.327440kV
+220.000000 | _LOAD__16_EC | Tap position change (decrement) - value : 71.990272kV
+220.000000 | _LOAD__23_EC | Tap position change (increment) - value : 17.989027kV
+220.000000 | _LOAD__43_EC | Tap position change (increment) - value : 13.794591kV
+220.000000 | _LOAD__47_EC | Tap position change (increment) - value : 17.995227kV
+220.000000 | _LOAD__12_EC | Tap position change (decrement) - value : 71.327440kV
+220.000000 | _LOAD__16_EC | Tap position change (decrement) - value : 71.990272kV
+220.000000 | _LOAD__23_EC | Tap position change (increment) - value : 17.989027kV
+220.000000 | _LOAD__43_EC | Tap position change (increment) - value : 13.794591kV
+220.000000 | _LOAD__47_EC | Tap position change (increment) - value : 17.995227kV
+220.000000 | _LOAD__12_EC | Tap position change (decrement) - value : 71.327440kV
+220.000000 | _LOAD__16_EC | Tap position change (decrement) - value : 71.990272kV
+220.000000 | _LOAD__23_EC | Tap position change (increment) - value : 17.989027kV
+220.000000 | _LOAD__43_EC | Tap position change (increment) - value : 13.794591kV
+220.000000 | _LOAD__47_EC | Tap position change (increment) - value : 17.995227kV
+220.000000 | _LOAD__17_EC | Tap-changer : above maximum allowed value
+230.000000 | _LOAD__16_EC | Tap position change (decrement) - value : 71.193227kV
+240.000000 | _LOAD__13_EC | Tap position change (decrement) - value : 70.945826kV
+280.000000 | _LOAD__17_EC | Tap position change (decrement) - value : 70.750918kV

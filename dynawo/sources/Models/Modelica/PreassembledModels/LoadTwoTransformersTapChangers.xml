@@ -17,10 +17,8 @@
     <dyn:unitDynamicModel id="load" name="Dynawo.Electrical.Loads.LoadAlphaBeta" initName="Dynawo.Electrical.Loads.LoadConnect_INIT"/>
     <dyn:unitDynamicModel id="transformerD" name="Dynawo.Electrical.Transformers.TransformersVariableTapControlled.TransformerVariableTapControlled" initName="Dynawo.Electrical.Transformers.TransformersVariableTapControlled.TransformerVariableTapIControlled_INIT"/>
     <dyn:unitDynamicModel id="transformerT" name="Dynawo.Electrical.Transformers.TransformersVariableTapControlled.TransformerVariableTapControlled" initName="Dynawo.Electrical.Transformers.TransformersVariableTapControlled.TransformerVariableTapPQControlled_INIT"/>
-    <dyn:initConnect id1="load" var1="i0Pu" id2="transformerD" var2="i20Pu"/>
-    <dyn:initConnect id1="load" var1="u0Pu" id2="transformerD" var2="u20Pu"/>
-    <dyn:initConnect id1="transformerD" var1="i10Pu" id2="transformerT" var2="i20Pu"/>
-    <dyn:initConnect id1="transformerD" var1="u10Pu" id2="transformerT" var2="u20Pu"/>
+    <dyn:initConnect id1="load" var1="terminal0" id2="transformerD" var2="terminal20"/>
+    <dyn:initConnect id1="transformerD" var1="terminal10" id2="transformerT" var2="terminal20"/>
     <dyn:connect id1="load" var1="terminal" id2="transformerD" var2="terminal2"/>
     <dyn:connect id1="transformerD" var1="terminal1" id2="transformerT" var2="terminal2"/>
     <dyn:connect id1="load" var1="switchOffSignal1" id2="transformerD" var2="switchOffSignal1"/>

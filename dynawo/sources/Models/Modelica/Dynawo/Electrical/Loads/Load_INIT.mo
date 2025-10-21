@@ -22,7 +22,7 @@ model Load_INIT "Initialization for load from load-flow outputs"
 
   Types.ComplexVoltagePu u0Pu "Start value of complex voltage at load terminal in pu (base UNom)";
   Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power in pu (base SnRef) (receptor convention)";
-  flow Types.ComplexCurrentPu i0Pu "Start value of complex current at load terminal in pu (base UNom, SnRef) (receptor convention)";
+  Types.ComplexCurrentPu i0Pu "Start value of complex current at load terminal in pu (base UNom, SnRef) (receptor convention)";
 
 equation
   s0Pu = Complex(P0Pu, Q0Pu);
