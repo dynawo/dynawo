@@ -18,10 +18,12 @@
 #include "TLCsvExporter.h"
 #include "TLJsonExporter.h"
 #include "TLTxtExporter.h"
+#include "CRVXmlExporter.h"
 #include "CSTRExporter.h"
 #include "CSTRTxtExporter.h"
 #include "CSTRJsonExporter.h"
 #include "CSTRXmlExporter.h"
+#include "DYNError.h"
 
 #include <vector>
 #include <functional>
@@ -46,8 +48,7 @@ OutputDispatcher::addCurvesPublisher(std::shared_ptr<OutputChannel>& publisher, 
   } else if (formatStr == "XML") {
     format = CurvesStreamFormat::XML;
   } else {
-        throw DYNError(UnknownCurvesStreamFormat, formatStr);
-    return;
+    throw DYNError(Error::GENERAL, UnknownCurvesStreamFormat, formatStr);
   }
 
   if (curvesPublishers_.find(format) == curvesPublishers_.end()) {
@@ -68,8 +69,7 @@ OutputDispatcher::addTimelinePublisher(std::shared_ptr<OutputChannel>& publisher
   } else if (formatStr == "XML") {
     format = TimelineStreamFormat::XML;
   } else {
-        throw DYNError(UnknownTimelineStreamFormat, FormatStr);
-    return;
+    throw DYNError(Error::GENERAL, UnknownTimelineStreamFormat, formatStr);
   }
   if (timelinePublishers_.find(format) == timelinePublishers_.end()) {
     timelinePublishers_.emplace(format, std::vector<std::shared_ptr<OutputChannel> >());
@@ -87,8 +87,7 @@ OutputDispatcher::addConstraintsPublisher(std::shared_ptr<OutputChannel>& publis
   } else if (formatStr == "XML") {
     format = ConstraintsStreamFormat::XML;
   } else {
-        throw DYNError(UnknownConstraintsStreamFormat);
-    return;
+    throw DYNError(Error::GENERAL, UnknownConstraintsStreamFormat, formatStr);
   }
   if (constraintsPublishers_.find(format) == constraintsPublishers_.end()) {
     constraintsPublishers_.emplace(format, std::vector<std::shared_ptr<OutputChannel> >());
@@ -98,7 +97,7 @@ OutputDispatcher::addConstraintsPublisher(std::shared_ptr<OutputChannel>& publis
 
 void
 OutputDispatcher::addLogsPublisher(std::shared_ptr<OutputChannel>& /*publisher*/, const std::string /*formatStr*/) {
-  Trace::error() << DYNError(LogStreamNotImplemented) << Trace::endline;
+  Trace::error() << DYNError(Error::GENERAL, LogStreamNotImplemented) << Trace::endline;
 }
 
 void
@@ -144,12 +143,11 @@ OutputDispatcher::publishCurves(std::shared_ptr<curves::CurvesCollection>& curve
       case (CurvesStreamFormat::XML):
         std::stringstream stream;
         curves::XmlExporter exporter;
-        exporter.exportToStream(curves, stream);
+        exporter.exportToStream(curvesCollection, stream);
         std::string outputSring = stream.str();
         for (auto &publisher : curvePublishersPair.second)
           publisher->sendMessage(outputSring, "curves");
         break;
-      default:  //Error handled
     }
   }
 }
@@ -197,7 +195,6 @@ OutputDispatcher::publishTimeline(boost::shared_ptr<timeline::Timeline>& timelin
           publisher->sendMessage(strTimeline, "timeline");
         break;
       }
-      default:
     }
   }
 }
@@ -236,7 +233,6 @@ OutputDispatcher::publishConstraints(std::shared_ptr<constraints::ConstraintsCol
           publisher->sendMessage(strConstraints, "constraints");
         break;
       }
-      default:
     }
   }
 }

@@ -40,7 +40,7 @@ pollTimeoutMs_(10) {
   try {
     socket_.bind(endpoint);
   } catch (const zmqpp::exception& e) {
-    throw DYNError(DYN::Error::GENERAL, ZMQInterfaceBadEnpoint, endpoint);
+    throw DYNError(Error::GENERAL, ZMQInterfaceBadEnpoint, endpoint);
   }
 }
 

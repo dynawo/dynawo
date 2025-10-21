@@ -289,8 +289,8 @@ ReferenceUnknownOriginData  =             origin data %1% is not allowed for ref
 ReferenceToAnotherReference =             reference %1% points to another reference %2% in par set %3% in file %4%
 //---TL----------------------
 //--------------- RT -----------------------------------------
-UnknownCurvesStreamFormat   =             Unknown type of CurvesStreamFormat '%1%'
-UnknownTimelineStreamFormat =             Unknown type of TimelineStreamFormat '%1%'
-UnknownConstraintsStreamFormat =          Unknown type of ConstraintsStreamFormat '%1%'
-LogStreamNotImplemented     =             Log stream not (yet) implemented
-ZMQInterfaceBadEnpoint      =             ZMQ channel failed to bind with endpoint '%1%'
+UnknownCurvesStreamFormat   =             unknown type of CurvesStreamFormat '%1%'
+UnknownTimelineStreamFormat =             unknown type of TimelineStreamFormat '%1%'
+UnknownConstraintsStreamFormat =          unknown type of ConstraintsStreamFormat '%1%'
+LogStreamNotImplemented     =             log stream not (yet) implemented
+ZMQInterfaceBadEnpoint      =             channel ZMQ failed to bind with endpoint '%1%'

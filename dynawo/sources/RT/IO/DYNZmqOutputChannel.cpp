@@ -29,7 +29,7 @@ socket_(context_, zmqpp::socket_type::pub) {
     try {
     socket_.bind(endpoint);
   } catch (const zmqpp::exception& e) {
-    throw DYNError(DYN::Error::GENERAL, ZMQInterfaceBadEnpoint, endpoint);
+    throw DYNError(Error::GENERAL, ZMQInterfaceBadEnpoint, endpoint);
   }
 }
 
@@ -38,7 +38,7 @@ ZmqOutputChannel::sendMessage(const std::string& data) {
   zmqpp::message message;
   message << data;
   socket_.send(message);
-  Trace::debug() << DYNLog("ZmqDataSent", "") << Trace::endline;
+  Trace::debug() << DYNLog(ZmqDataSent, "") << Trace::endline;
 }
 
 void
@@ -47,7 +47,7 @@ ZmqOutputChannel::sendMessage(const std::string& data, const std::string& topic)
   message << topic;
   message << data;
   socket_.send(message);
-  Trace::debug() << DYNLog("ZmqDataSent", " (topic: " + topic + ")") << Trace::endline;
+  Trace::debug() << DYNLog(ZmqDataSent, " (topic: " + topic + ")") << Trace::endline;
 }
 
 void
@@ -56,7 +56,7 @@ ZmqOutputChannel::sendMessage(const std::vector<std::uint8_t>& data, const std::
   message << topic;
   message.add_raw(reinterpret_cast<const void*>(data.data()), data.size());
   socket_.send(message);
-  Trace::debug() << DYNLog("ZmqDataSent", " (topic: " + topic + ")") << Trace::endline;
+  Trace::debug() << DYNLog(ZmqDataSent, " (topic: " + topic + ")") << Trace::endline;
 }
 
 }  // end of namespace DYN

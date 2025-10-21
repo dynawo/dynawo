@@ -151,12 +151,12 @@ SimulationRT::configureRT() {
         else
           outputChannel = std::make_shared<ZmqOutputChannel>(channelEntry->getEndpoint());
         channelInterfaceMap.emplace(channelEntry->getId(), outputChannel);
-        Trace::debug() << DYNLog("ZmqChannelCreated", channelEntry->getId()) << Trace::endline;
+        Trace::debug() << DYNLog(ZmqChannelCreated, channelEntry->getId()) << Trace::endline;
 #else
         throw DYNError(Error::GENERAL, UnavailableLib, "ZMQPP");
 #endif
       } else {
-        Trace::warn() << DYNLog("UnsopportedOutputChannel", channelEntry->getType()) << Trace::endline;
+        Trace::warn() << DYNLog(UnsopportedOutputChannel, channelEntry->getType()) << Trace::endline;
         continue;
       }
     } else {
@@ -170,7 +170,7 @@ SimulationRT::configureRT() {
     } else if (streamEntry->getData() == "CONSTRAINTS") {
       outputDispatcher_->addConstraintsPublisher(outputChannel, streamEntry->getFormat());
     } else {
-      Trace::warn() << DYNLog("StreamDataNotManaged", streamEntry->getData()) << Trace::endline;;
+      Trace::warn() << DYNLog(StreamDataNotManaged, streamEntry->getData()) << Trace::endline;;
     }
   }
 
@@ -178,7 +178,7 @@ SimulationRT::configureRT() {
   for (auto &channelEntry : channelsEntry->getChannelEntries()) {
     if (channelEntry->getKind() == "OUTPUT") {
       if (channelInterfaceMap.find(channelEntry->getId()) == channelInterfaceMap.end())
-        Trace::warn() << DYNLog("OutputStreamMissing", channelEntry->getId()) << Trace::endline;
+        Trace::warn() << DYNLog(OutputStreamMissing, channelEntry->getId()) << Trace::endline;
     } else {  // INPUT
       // Input dispatcher settings
       if (channelEntry->getType() == "ZMQ") {
@@ -196,7 +196,7 @@ SimulationRT::configureRT() {
         throw DYNError(Error::GENERAL, UnavailableLib, "ZMQPP");
 #endif
       } else {
-        Trace::warn() << DYNLog("UnknownChannelType", channelEntry->getType()) << Trace::endline;
+        Trace::warn() << DYNLog(UnknownChannelType, channelEntry->getType()) << Trace::endline;
       }
     }
   }
@@ -204,7 +204,7 @@ SimulationRT::configureRT() {
   // Workaround to avoid saving value for each curve:
   //  - Set all curves as EXPORT_AS_FINAL_STATE_VALUE --> will keep only one Point corresponding to last value
   //  - Disable export of curves and final state values
-  Trace::info() << DYNLog("RTModeCurvesDisabled") << Trace::endline;
+  Trace::info() << DYNLog(RTModeCurvesDisabled) << Trace::endline;
   for (auto &curve : curvesCollection_->getCurves()) {
     curve->setExportType(curves::Curve::EXPORT_AS_FINAL_STATE_VALUE);
   }

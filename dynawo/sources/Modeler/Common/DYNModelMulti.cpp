@@ -1297,7 +1297,7 @@ void ModelMulti::registerAction(const string& actionString) {
     if (std::getline(stream, token, ',')) {
         value = token;
     } else {
-      string shortAction = (actionString.size() > 40) ? actionString.substring(0, 40) + "..." : actionString;
+      string shortAction = (actionString.size() > 40) ? actionString.substr(0, 40) + "..." : actionString;
       Trace::warn() << DYNLog(ActionUnparsable, shortAction) << Trace::endline;
       return;
     }
@@ -1331,7 +1331,7 @@ void ModelMulti::registerAction(const string& actionString) {
 
       parameterValueSet.push_back(std::make_tuple(paramName, castedValue, parameter.getValueType()));
     } else {
-      Trace::warn() << DYNLog("ActionParameterNotFound", paramName) << Trace::endline;
+      Trace::warn() << DYNLog(ActionParameterNotFound, paramName) << Trace::endline;
       return;
     }
   }
