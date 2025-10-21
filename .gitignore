@@ -22,6 +22,10 @@ dynawo/sources/Models/CPP/Controls/Voltage/ModelSecondaryVoltageControlSimplifie
 dynawo/sources/Models/CPP/Events/ModelVariationArea/DYNModelVariationArea.hpp
 dynawo/sources/Models/CPP/Events/ModelAreaShedding/DYNModelAreaShedding.hpp
 dynawo/sources/Models/CPP/Events/ModelVoltageSetPointChange/DYNModelVoltageSetPointChange.hpp
+dynawo/sources/Models/CPP/Updatables/UpdatableContinuous/DYNUpdatableContinuous.hpp
+dynawo/sources/Models/CPP/Updatables/UpdatableDiscrete/DYNUpdatableDiscrete.hpp
+dynawo/sources/Models/CPP/Updatables/UpdatableBoolean/DYNUpdatableBoolean.hpp
+dynawo/sources/Models/CPP/Updatables/UpdatableInteger/DYNUpdatableInteger.hpp
 nrt/output/
 nbproject/*
 util/nrt_diff/output/

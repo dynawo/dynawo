@@ -109,7 +109,6 @@
 #include "DYNSolver.h"
 #include "DYNTimer.h"
 #include "DYNModelMulti.h"
-#include "DYNModeler.h"
 #include "DYNFileSystemUtils.h"
 #include "DYNTerminate.h"
 #include "DYNDataInterface.h"
@@ -763,17 +762,23 @@ Simulation::importFinalStateValuesRequest() const {
   }
 }
 
+std::unique_ptr<Modeler>
+Simulation::createModeler() const {
+  std::unique_ptr<Modeler> modeler;
+  return modeler;
+}
+
 void
 Simulation::initFromData(const shared_ptr<DataInterface>& data, const shared_ptr<DynamicData>& dyd) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("Simulation::initFromData()");
 #endif
-  Modeler modeler;
-  modeler.setDataInterface(data);
-  modeler.setDynamicData(dyd);
-  modeler.initSystem();
+  std::unique_ptr<Modeler> modeler = createModeler();
+  modeler->setDataInterface(data);
+  modeler->setDynamicData(dyd);
+  modeler->initSystem();
 
-  model_ = modeler.getModel();
+  model_ = modeler->getModel();
   model_->setWorkingDirectory(context_->getWorkingDirectory());
   model_->setTimeline(timeline_);
   model_->setConstraints(constraintsCollection_);

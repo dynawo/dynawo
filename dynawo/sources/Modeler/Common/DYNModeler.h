@@ -25,6 +25,7 @@
 
 #include <boost/shared_ptr.hpp>
 #include "DYDModelicaModel.h"
+#include "DYNActionBuffer.h"
 
 namespace DYN {
 
@@ -62,6 +63,14 @@ class Modeler {
    */
   void setDynamicData(const boost::shared_ptr<DynamicData>& dyd) {
     dyd_ = dyd;
+  }
+
+  /**
+   * @brief set the action buffer to transfer to Model
+   * @param actionBuffer : action buffer
+   */
+  void setActionBuffer(const std::shared_ptr<ActionBuffer>& actionBuffer) {
+    actionBuffer_ = actionBuffer;
   }
 
   /**
@@ -156,6 +165,7 @@ class Modeler {
  private:
   boost::shared_ptr<DataInterface> data_;  ///< data used to build the model multi
   boost::shared_ptr<DynamicData> dyd_;  ///< dynamic data used to build the model multi
+  std::shared_ptr<ActionBuffer> actionBuffer_;  ///< action buffer to add to model multi
   std::shared_ptr<ModelMulti> model_;  ///< model created thanks to previous data
 
   std::map<std::string, boost::shared_ptr<SubModel> > subModels_;  ///< association between name and subModel : usefull when the connectors should be created
