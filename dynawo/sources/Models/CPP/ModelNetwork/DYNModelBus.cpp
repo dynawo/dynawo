@@ -732,10 +732,10 @@ ModelBus::defineElementsById(const std::string& id, std::vector<Element>& elemen
 }
 
 NetworkComponent::StateChange_t
-ModelBus::evalZ(const double /*t*/) {
+ModelBus::evalZ(const double /*t*/, bool deactivateZeroCrossingFunctions) {
   using constraints::ConstraintData;
 
-  if (network_->hasConstraints()) {
+  if (network_->hasConstraints() && !deactivateZeroCrossingFunctions) {
     if (g_[0] == ROOT_UP) {
       DYNAddConstraintWithData(network_, constraintId_, true, modelType_,
         ConstraintData(ConstraintData::USupUmax, uMax_*unom_, getCurrentU(ModelBus::UType_)), USupUmax);

@@ -25,6 +25,7 @@ namespace DYN {
 
 TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   ModelCurrentLimits mcl;
+  bool deactivateZeroCrossingFunctions = false;
   ASSERT_EQ(mcl.sizeZ(), 0);
   ASSERT_EQ(mcl.sizeG(), 0);
 
@@ -73,7 +74,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
     else
       ASSERT_EQ(states[i], ROOT_DOWN);
   }
-  mcl.evalZ("MY COMP", t, &states[0], desactivate, modelType, &network);
+  mcl.evalZ("MY COMP", t, &states[0], desactivate, modelType, &network, deactivateZeroCrossingFunctions);
 
   current = 11.;
   mcl.evalG(t, current, desactivate, &states[0]);
@@ -84,7 +85,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
       ASSERT_EQ(states[i], NO_ROOT);
     }
   }
-  mcl.evalZ("MY COMP", t, &states[0], desactivate, modelType, &network);
+  mcl.evalZ("MY COMP", t, &states[0], desactivate, modelType, &network, deactivateZeroCrossingFunctions);
 
   constraints->filter(DYN::CONSTRAINTS_KEEP_FIRST);  // filter constraint collection by removing cleared constraints
   unsigned n = 0;
@@ -126,7 +127,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
       ASSERT_EQ(states[i], ROOT_UP);
   }
   network.setCurrentTime(5.1);
-  mcl.evalZ("MY COMP", t, &states[0], desactivate, modelType, &network);
+  mcl.evalZ("MY COMP", t, &states[0], desactivate, modelType, &network, deactivateZeroCrossingFunctions);
 
   constraints->filter(DYN::CONSTRAINTS_KEEP_FIRST);  // filter constraint collection by removing cleared constraints
   n = 0;

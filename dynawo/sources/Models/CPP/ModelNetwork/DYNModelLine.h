@@ -186,7 +186,7 @@ class ModelLine : public NetworkComponent {
   /**
   * @copydoc NetworkComponent::evalZ()
   */
-  NetworkComponent::StateChange_t evalZ(double t) override;  // get the local Z function for time t
+  NetworkComponent::StateChange_t evalZ(double t, bool deactivateZeroCrossingFunctions) override;  // get the local Z function for time t
 
   /**
    * @brief evaluation G
