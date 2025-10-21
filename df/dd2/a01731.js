@@ -15,5 +15,7 @@ var a01731 =
     [ "kind", "df/dd2/a01731.html#ad02b1b78371283242dcb02205e187d9e", null ],
     [ "limit", "df/dd2/a01731.html#a3c047d86f037e06ac6b305b1a81ab00e", null ],
     [ "side", "df/dd2/a01731.html#a412dc19579f78f093f9812b5adfb123d", null ],
-    [ "value", "df/dd2/a01731.html#a5eb384459248d6048b1d539249a34e15", null ]
+    [ "value", "df/dd2/a01731.html#a5eb384459248d6048b1d539249a34e15", null ],
+    [ "valueMax", "df/dd2/a01731.html#a2d7eb49f2413e2ccff83842cef93afab", null ],
+    [ "valueMin", "df/dd2/a01731.html#ac777b2fb2124243257ab99861cb20490", null ]
 ];
