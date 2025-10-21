@@ -124,7 +124,20 @@ SimulationRT::configureRT() {
   inputDispatcherAsync_ = std::make_shared<InputDispatcherAsync>(clock_);
 
   couplingTimeStep_ = jobEntry_->getInteractiveSettingsEntry()->getCouplingTimeStep() < 0 ? 0 : jobEntry_->getInteractiveSettingsEntry()->getCouplingTimeStep();
-  // Clock settings
+
+  configureClock();
+  configureOutputsRT();
+  configureInputsRT();
+  configureCurvesRT();
+}
+
+void
+SimulationRT::configureClock() {
+  std::shared_ptr<job::ChannelsEntry> channelsEntry = jobEntry_->getInteractiveSettingsEntry()->getChannelsEntry();
+  std::shared_ptr<job::ClockEntry> clockEntry = jobEntry_->getInteractiveSettingsEntry()->getClockEntry();
+
+  if (!clock_)
+    return;
   if (clockEntry->getType() == "INTERNAL") {
     clock_->setUseTrigger(false);
     if (clockEntry->getSpeedup())
@@ -135,14 +148,18 @@ SimulationRT::configureRT() {
     if (!triggerChannelEntry)
       throw DYNError(Error::API, UnknownChannelId, clockEntry->getTriggerChannel());
   }
+}
 
-  // Output dispatcher settings
+void
+SimulationRT::configureOutputsRT() {
+  std::shared_ptr<job::ChannelsEntry> channelsEntry = jobEntry_->getInteractiveSettingsEntry()->getChannelsEntry();
+
   std::map<std::string, std::shared_ptr<OutputChannel> > channelInterfaceMap;
   for (auto &streamEntry : jobEntry_->getInteractiveSettingsEntry()->getStreamsEntry()->getStreamEntries()) {
     std::map<std::string, std::shared_ptr<OutputChannel> >::iterator channelInterfaceMapIt = channelInterfaceMap.find(streamEntry->getChannel());
     std::shared_ptr<OutputChannel> outputChannel;
     if (channelInterfaceMapIt == channelInterfaceMap.end()) {
-      // Create new OutputChannel
+      // Create a new output channel
       std::shared_ptr<job::ChannelEntry> channelEntry = channelsEntry->getChannelEntryById(streamEntry->getChannel());
       if (channelEntry->getType() == "ZMQ") {
 #ifdef USE_ZMQPP
@@ -163,6 +180,7 @@ SimulationRT::configureRT() {
       outputChannel = channelInterfaceMapIt->second;
     }
 
+    // Connect the output stream to the output channel
     if (streamEntry->getData() == "CURVES") {
       outputDispatcher_->addCurvesPublisher(outputChannel, streamEntry->getFormat());
     } else if (streamEntry->getData() == "TIMELINE") {
@@ -173,18 +191,24 @@ SimulationRT::configureRT() {
       Trace::warn() << DYNLog(StreamDataNotManaged, streamEntry->getData()) << Trace::endline;;
     }
   }
-
-  // intialize input channels
-  for (auto &channelEntry : channelsEntry->getChannelEntries()) {
-    if (channelEntry->getKind() == "OUTPUT") {
+  for (auto &channelEntry : channelsEntry->getChannelEntries())
+    if (channelEntry->getKind() == "OUTPUT")
       if (channelInterfaceMap.find(channelEntry->getId()) == channelInterfaceMap.end())
         Trace::warn() << DYNLog(OutputStreamMissing, channelEntry->getId()) << Trace::endline;
-    } else {  // INPUT
-      // Input dispatcher settings
+}
+
+void
+SimulationRT::configureInputsRT() {
+  std::shared_ptr<job::ChannelsEntry> channelsEntry = jobEntry_->getInteractiveSettingsEntry()->getChannelsEntry();
+  std::shared_ptr<job::ClockEntry> clockEntry = jobEntry_->getInteractiveSettingsEntry()->getClockEntry();
+
+  for (auto &channelEntry : channelsEntry->getChannelEntries()) {
+    if (channelEntry->getKind() == "INPUT") {
+      // Create input channel
       if (channelEntry->getType() == "ZMQ") {
 #ifdef USE_ZMQPP
         MessageFilter filter = MessageFilter::Actions | MessageFilter::TimeManagement;
-        if (clock_->getUseTrigger() && clockEntry->getTriggerChannel() == channelEntry->getId())  // is trigger channel
+        if (clockEntry->getType() == "EXTERNAL" && clockEntry->getTriggerChannel() == channelEntry->getId())  // is trigger channel
           filter = filter | MessageFilter::Trigger;
         std::shared_ptr<InputChannel> zmqServer;
         if (channelEntry->getEndpoint() == "")
@@ -200,7 +224,10 @@ SimulationRT::configureRT() {
       }
     }
   }
+}
 
+void
+SimulationRT::configureCurvesRT() {
   // Workaround to avoid saving value for each curve:
   //  - Set all curves as EXPORT_AS_FINAL_STATE_VALUE --> will keep only one Point corresponding to last value
   //  - Disable export of curves and final state values
@@ -444,5 +471,4 @@ SimulationRT::initComputationTimeCurve() {
   curve->setBuffer(&stepComputationTime_);
   curvesCollection_->add(curve);
 }
-
 }  // end of namespace DYN

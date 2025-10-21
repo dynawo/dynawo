@@ -1278,7 +1278,7 @@ void ModelMulti::registerAction(const string& actionString) {
   string token;
   string subModelName;
 
-  // Read the id (first part before the first comma)
+  // Read the model name (first part before the first comma)
   std::getline(stream, subModelName, ',');
 
   const boost::shared_ptr<SubModel> subModel = findSubModelByName(subModelName);
@@ -1290,7 +1290,6 @@ void ModelMulti::registerAction(const string& actionString) {
   Action::ActionParameters parameterValueSet;
   // Read the rest of the parameter-value pairs
   while (std::getline(stream, token, ',')) {
-    // parse the triple
     string paramName = token;
     string value;
 

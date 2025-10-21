@@ -89,6 +89,26 @@ class SimulationRT: public Simulation {
   void configureRT();
 
   /**
+   * @brief configure RT Clock
+   */
+  void configureClock();
+
+  /**
+   * @brief configure RT Outputs
+   */
+  void configureOutputsRT();
+
+  /**
+   * @brief configure RT Inputs
+   */
+  void configureInputsRT();
+
+  /**
+   * @brief configure Curves for RT Simulation
+   */
+  void configureCurvesRT();
+
+  /**
    * @copydoc Simulation::updateCurves(bool updateCalculatedVariable)
    */
   void updateCurves(bool updateCalculatedVariable = true) const override;

@@ -63,7 +63,7 @@ CsvExporter::exportToStream(const std::shared_ptr<CurvesCollection>& curves, ost
   // export header
   stream << "time" << CSV_SEPARATOR;
   for (std::shared_ptr<Curve> curve : curvesToExport) {
-    stream << curve->getUniqueName();
+    stream << curve->getUniqueName() << CSV_SEPARATOR;
   }
   stream << '\n';
 
