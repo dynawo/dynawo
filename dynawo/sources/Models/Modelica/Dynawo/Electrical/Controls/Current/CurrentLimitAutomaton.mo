@@ -46,6 +46,10 @@ equation
     Timeline.logEvent1(TimelineKeys.CurrentLimitAutomatonDisarming);
   end when;
 
+  when tThresholdReached <> Constants.inf and tOrder == Constants.inf and der(IMonitored.value) < 0 then
+    Constraint.logConstraintBeginData(ConstraintKeys.OverloadUpCLA, "OverloadUp", IMax, pre(IMonitored.value), String(tLagBeforeActing, significantDigits = 2));
+  end when;
+
   when time - tThresholdReached >= tLagBeforeActing then
     Constraint.logConstraintBeginData(ConstraintKeys.OverloadOpenCLA, "OverloadOpen", IMax, IMonitored.value, String(tLagBeforeActing, significantDigits = 2));
     order.value = OrderToEmit;

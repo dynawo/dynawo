@@ -16,11 +16,12 @@ model TapChanger "Tap-changer monitoring the voltage so that it remains within [
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
-  extends BaseClasses.BaseTapChangerPhaseShifterTarget(targetValue = UTarget, deadBand = UDeadBand, valueToMonitor0 = U0, Type = BaseClasses.TapChangerPhaseShifterParams.Automaton.TapChanger);
+  extends BaseClasses.BaseTapChangerPhaseShifterTarget(targetValue = UTarget, deadBand = UDeadBand, valueToMonitor0 = U0, Type = BaseClasses.TapChangerPhaseShifterParams.Automaton.TapChanger, factorValueToDisplay = UNom, unitValueToDisplay = "kV");
 
   parameter Types.VoltageModule UTarget "Voltage set-point";
   parameter Types.VoltageModule UDeadBand(min = 0) "Voltage dead-band";
   parameter Types.VoltageModule U0 "Initial voltage";
+  parameter Types.VoltageModule UNom = 1 "Nominal voltage in kV";
 
   Dynawo.Connectors.ImPin UMonitored(value(start = U0)) "Initial voltage";
 

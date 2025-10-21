@@ -35,11 +35,13 @@ class ConstraintData {
   /**
    * @brief possible values for kind
    */
-  typedef enum { PATL = 0, OverloadUp, OverloadOpen, UInfUmin, USupUmax, Undefined } kind_t;
+  typedef enum { PATL = 0, OverloadUp, OverloadOpen, UInfUmin, USupUmax, FictLim, Undefined  } kind_t;
 
   kind_t kind;                                 ///< Kind of constraint
   double limit;                                ///< Limit of the constraint
   double value;                                ///< value of the constraint
+  boost::optional<double> valueMin;            ///< minimum value reached during the presence of the constraint
+  boost::optional<double> valueMax;            ///< maximum value reached during the presence of the constraint
   boost::optional<int> side;                   ///< Side the constraint applies
   boost::optional<double> acceptableDuration;  ///< the acceptable duration of the constraint
 
@@ -57,6 +59,8 @@ class ConstraintData {
       kind(constraintKind),
       limit(constraintLimit),
       value(constraintValue),
+      valueMin(boost::none),
+      valueMax(boost::none),
       side(constraintSide),
       acceptableDuration(constraintAcceptableDuration) {}
 

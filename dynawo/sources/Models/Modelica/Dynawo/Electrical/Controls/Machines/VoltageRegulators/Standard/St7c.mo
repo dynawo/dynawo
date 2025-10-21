@@ -28,7 +28,7 @@ model St7c "IEEE excitation system type ST7C model (2016 standard)"
 equation
   connect(firstOrder1.y, variableLimiter.u) annotation(
     Line(points = {{261, 0}, {298, 0}}, color = {0, 0, 127}));
-  connect(min2.yMin, firstOrder1.u) annotation(
+  connect(min2.y, firstOrder1.u) annotation(
     Line(points = {{221, 0}, {238, 0}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram");

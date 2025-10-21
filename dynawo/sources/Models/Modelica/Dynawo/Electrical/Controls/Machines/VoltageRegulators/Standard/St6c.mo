@@ -32,7 +32,7 @@ model St6c "IEEE exciter type ST6C model (2016 standard)"
 
   Dynawo.NonElectrical.Blocks.NonLinear.LimitedFirstOrder limitedFirstOrder(Y0 = Efd0Pu / Vb0Pu, YMax = VmMaxPu, YMin = VmMinPu, tFilter = tA) annotation(
     Placement(visible = true, transformation(origin = {310, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax max2(nu = 2) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Max3 max2 annotation(
     Placement(visible = true, transformation(origin = {150, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch annotation(
     Placement(visible = true, transformation(origin = {-330, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -40,8 +40,14 @@ model St6c "IEEE exciter type ST6C model (2016 standard)"
     Placement(visible = true, transformation(origin = {-390, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = Sw1) annotation(
     Placement(visible = true, transformation(origin = {-390, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Min min3 annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Min2 min3 annotation(
     Placement(visible = true, transformation(origin = {-110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.Max3 max1 annotation(
+    Placement(visible = true, transformation(origin = {-230, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.Min3 min1 annotation(
+    Placement(visible = true, transformation(origin = {-170, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.Min3 min2 annotation(
+    Placement(transformation(origin = {210, -80}, extent = {{-10, -10}, {10, 10}})));
 
   //Initial parameters (inputs)
   parameter Types.VoltageModulePu USclOel0Pu "Stator current overexcitation limitation initial output voltage in pu (base UNom)";
@@ -50,79 +56,99 @@ model St6c "IEEE exciter type ST6C model (2016 standard)"
 equation
   if PositionOel == 1 then
     sum1.u[2] = UOelPu;
-    min1.u[2] = if PositionScl == 2 then USclOelPu else min1.u[1];
+    min1.u[2] = min1.u[1];
     sum2.u[3] = 0;
-    min2.u[2] = if PositionScl == 4 then USclOelPu else min2.u[1];
+    min2.u[2] = min2.u[1];
   elseif PositionOel == 2 then
     sum1.u[2] = 0;
-    min1.u[2] = if PositionScl == 2 then min(UOelPu, USclOelPu) else UOelPu;
+    min1.u[2] = UOelPu;
     sum2.u[3] = 0;
-    min2.u[2] = if PositionScl == 4 then USclOelPu else min2.u[1];
+    min2.u[2] = min2.u[1];
   elseif PositionOel == 3 then
     sum1.u[2] = 0;
-    min1.u[2] = if PositionScl == 2 then USclOelPu else min1.u[1];
+    min1.u[2] = min1.u[1];
     sum2.u[3] = UOelPu;
-    min2.u[2] = if PositionScl == 4 then USclOelPu else min2.u[1];
+    min2.u[2] = min2.u[1];
   elseif PositionOel == 4 then
     sum1.u[2] = 0;
-    min1.u[2] = if PositionScl == 2 then USclOelPu else min1.u[1];
+    min1.u[2] = min1.u[1];
     sum2.u[3] = 0;
-    min2.u[2] = if PositionScl == 4 then min(UOelPu, USclOelPu) else UOelPu;
+    min2.u[2] = UOelPu;
   else
     sum1.u[2] = 0;
-    min1.u[2] = if PositionScl == 2 then USclOelPu else min1.u[1];
+    min1.u[2] = min1.u[1];
     sum2.u[3] = 0;
-    min2.u[2] = if PositionScl == 4 then USclOelPu else min2.u[1];
+    min2.u[2] = min2.u[1];
   end if;
 
   if PositionUel == 1 then
     sum1.u[3] = UUelPu;
-    max1.u[2] = if PositionScl == 2 then USclUelPu else max1.u[1];
+    max1.u[2] = max1.u[1];
     sum2.u[4] = 0;
-    max2.u[2] = if PositionScl == 4 then USclUelPu else max2.u[1];
+    max2.u[2] = max2.u[1];
   elseif PositionUel == 2 then
     sum1.u[3] = 0;
-    max1.u[2] = if PositionScl == 2 then max(UUelPu, USclUelPu) else UUelPu;
+    max1.u[2] = UUelPu;
     sum2.u[4] = 0;
-    max2.u[2] = if PositionScl == 4 then USclUelPu else max2.u[1];
+    max2.u[2] = max2.u[1];
   elseif PositionUel == 3 then
     sum1.u[3] = 0;
-    max1.u[2] = if PositionScl == 2 then USclUelPu else max1.u[1];
+    max1.u[2] = max1.u[1];
     sum2.u[4] = UUelPu;
-    max2.u[2] = if PositionScl == 4 then USclUelPu else max2.u[1];
+    max2.u[2] = max2.u[1];
   elseif PositionUel == 4 then
     sum1.u[3] = 0;
-    max1.u[2] = if PositionScl == 2 then USclUelPu else max1.u[1];
+    max1.u[2] = max1.u[1];
     sum2.u[4] = 0;
-    max2.u[2] = if PositionScl == 4 then max(UUelPu, USclUelPu) else UUelPu;
+    max2.u[2] = UUelPu;
   else
     sum1.u[3] = 0;
-    max1.u[2] = if PositionScl == 2 then USclUelPu else max1.u[1];
+    max1.u[2] = max1.u[1];
     sum2.u[4] = 0;
-    max2.u[2] = if PositionScl == 4 then USclUelPu else max2.u[1];
+    max2.u[2] = max2.u[1];
   end if;
 
   if PositionScl == 1 then
     sum1.u[4] = USclOelPu + USclUelPu;
+    max1.u[3] = max1.u[1];
+    min1.u[3] = min1.u[1];
     sum2.u[5] = 0;
+    max2.u[3] = max2.u[1];
+    min2.u[3] = min2.u[1];
   elseif PositionScl == 2 then
     sum1.u[4] = 0;
+    max1.u[3] = USclUelPu;
+    min1.u[3] = USclOelPu;
     sum2.u[5] = 0;
+    max2.u[3] = max2.u[1];
+    min2.u[3] = min2.u[1];
   elseif PositionScl == 3 then
     sum1.u[4] = 0;
+    max1.u[3] = max1.u[1];
+    min1.u[3] = min1.u[1];
     sum2.u[5] = USclOelPu + USclUelPu;
+    max2.u[3] = max2.u[1];
+    min2.u[3] = min2.u[1];
   elseif PositionScl == 4 then
     sum1.u[4] = 0;
+    max1.u[3] = max1.u[1];
+    min1.u[3] = min1.u[1];
     sum2.u[5] = 0;
+    max2.u[3] = USclUelPu;
+    min2.u[3] = USclOelPu;
   else
     sum1.u[4] = 0;
+    max1.u[3] = max1.u[1];
+    min1.u[3] = min1.u[1];
     sum2.u[5] = 0;
+    max2.u[3] = max2.u[1];
+    min2.u[3] = min2.u[1];
   end if;
 
   connect(limiter.y, max2.u[1]) annotation(
     Line(points = {{102, -80}, {140, -80}}, color = {0, 0, 127}));
-  connect(max2.yMax, min2.u[1]) annotation(
-    Line(points = {{162, -74}, {200, -74}}, color = {0, 0, 127}));
+  connect(max2.y, min2.u[1]) annotation(
+    Line(points = {{162, -80}, {200, -80}}, color = {0, 0, 127}));
   connect(potentialCircuit.vE, switch.u1) annotation(
     Line(points = {{-378, 140}, {-360, 140}, {-360, 108}, {-342, 108}}, color = {0, 0, 127}));
   connect(booleanConstant.y, switch.u2) annotation(
@@ -143,6 +169,14 @@ equation
     Line(points = {{-159, 0}, {-140, 0}, {-140, 14}, {-122, 14}}, color = {0, 0, 127}));
   connect(min3.y, limPI1.limitMax) annotation(
     Line(points = {{-99, 20}, {-80, 20}, {-80, -94}, {-62, -94}}, color = {0, 0, 127}));
+  connect(sum1.y, max1.u[1]) annotation(
+    Line(points = {{-278, -60}, {-240, -60}}, color = {0, 0, 127}));
+  connect(max1.y, min1.u[1]) annotation(
+    Line(points = {{-218, -60}, {-180, -60}}, color = {0, 0, 127}));
+  connect(min1.y, sum2.u[1]) annotation(
+    Line(points = {{-158, -60}, {-140, -60}, {-140, -100}, {-122, -100}}, color = {0, 0, 127}));
+  connect(min2.y, min4.u2) annotation(
+    Line(points = {{221, -80}, {240, -80}, {240, -26}, {258, -26}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram");
 end St6c;

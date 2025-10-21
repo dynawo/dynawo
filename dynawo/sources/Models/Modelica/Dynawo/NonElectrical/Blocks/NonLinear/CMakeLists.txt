@@ -31,7 +31,11 @@ set(MODEL_FILES
   LimiterWithLag.mo
   LimiterWithLag_INIT.mo
   LimRateLimFirstOrder.mo
+  Max2.mo
+  Max3.mo
   MaxThresholdSwitch.mo
+  Min2.mo
+  Min3.mo
   MinThresholdSwitch.mo
   MultiSwitch.mo
   PIAntiWindUpTable.mo

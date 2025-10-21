@@ -95,6 +95,14 @@ ModelBusContainer::resetNodeInjections() {
 }
 
 void
+ModelBusContainer::resetInjections() {
+  for (auto& bus : models_) {
+    bus->resetNodeInjection();
+    bus->resetCurrentUStatus();
+  }
+}
+
+void
 ModelBusContainer::exploreNeighbors(const double t) {
   int numSubNetwork = 0;
   shared_ptr<SubNetwork> subNetwork(new SubNetwork(numSubNetwork));

@@ -74,46 +74,6 @@ TEST(APICSTRTest, CollectionAddConstraintsWithDetails) {
   ASSERT_NO_THROW(TxtExporter.exportToFile(collection, "constraint.txt"));
 }
 
-TEST(APICSTRTest, CollectionFilterConstraintKeepLast) {
-  std::unique_ptr<ConstraintsCollection> collection;
-  collection = ConstraintsCollectionFactory::newInstance("test");
-
-  collection->addConstraint("model", "constraint 1", 0, CONSTRAINT_BEGIN, "Line",
-      ConstraintData(ConstraintData::OverloadUp, 132.0, 133.0));    // add first constraint
-  collection->addConstraint("model", "constraint 1", 2, CONSTRAINT_END, "Line",
-      ConstraintData(ConstraintData::OverloadUp, 132.0, 128.0));      // add second constraint with same description and type CONSTRAINT_END
-  collection->addConstraint("model", "constraint 2", 4, CONSTRAINT_END, "Line",
-      ConstraintData(ConstraintData::OverloadUp, 132.0, 133.0));      // add END constraint (should not happen but who knows...)
-  collection->addConstraint("model", "constraint 3", 7, CONSTRAINT_BEGIN, "Line",
-      ConstraintData(ConstraintData::OverloadUp, 132.0, 133.0));    // add first constraint 3
-  collection->addConstraint("model", "constraint 1", 8, CONSTRAINT_BEGIN, "Line",
-      ConstraintData(ConstraintData::OverloadUp, 132.0, 134.0));    // add BEGIN constraint 1
-  collection->addConstraint("model", "constraint 1", 9, CONSTRAINT_BEGIN, "Line",
-      ConstraintData(ConstraintData::OverloadUp, 132.0, 135.0));    // add BEGIN constraint 1
-  collection->addConstraint("model", "constraint 1", 10, CONSTRAINT_BEGIN, "Line",
-      ConstraintData(ConstraintData::OverloadUp, 132.0, 136.0));    // add BEGIN constraint 1
-  collection->addConstraint("model", "constraint 3", 8, CONSTRAINT_END, "Line",
-      ConstraintData(ConstraintData::OverloadUp, 132.0, 128.0));      // add END constraint 3
-
-  auto nbConstraint = collection->getConstraintsById().size();
-
-  ASSERT_EQ(nbConstraint, 8);
-
-  collection->filter(DYN::NO_CONSTRAINTS_FILTER);
-  ASSERT_EQ(nbConstraint, 8);
-
-  collection->filter(DYN::CONSTRAINTS_KEEP_LAST);
-
-  nbConstraint = 0;
-  nbConstraint = collection->getConstraintsById().size();
-
-  ASSERT_EQ(nbConstraint, 2);  // the constraints have been removed
-  auto constraints =  collection->getConstraintsById();
-  auto it = constraints.find("10_model_0_constraint 1");
-  ASSERT_TRUE(it != constraints.end());
-  ASSERT_EQ(it->second->getData().get().value, 136);
-}
-
 TEST(APICSTRTest, CollectionFilterConstraintKeepFirst) {
   std::unique_ptr<ConstraintsCollection> collection;
   collection = ConstraintsCollectionFactory::newInstance("test");
@@ -144,11 +104,60 @@ TEST(APICSTRTest, CollectionFilterConstraintKeepFirst) {
   nbConstraint = 0;
   nbConstraint = collection->getConstraintsById().size();
 
-  ASSERT_EQ(nbConstraint, 2);  // the constraints have been removed
+  ASSERT_EQ(nbConstraint, 1);  // the constraints have been removed
   auto constraints =  collection->getConstraintsById();
-  auto it = constraints.find("8_model_0_constraint 1");
+  auto it = constraints.find("model_8_0_constraint 1");
   ASSERT_TRUE(it != constraints.end());
   ASSERT_EQ(it->second->getData().get().value, 134);
+}
+
+TEST(APICSTRTest, CollectionFilterConstraintDynaflowMode) {
+  std::unique_ptr<ConstraintsCollection> collection;
+  collection = ConstraintsCollectionFactory::newInstance("test");
+
+  collection->addConstraint("model", "constraint 1", 0, CONSTRAINT_BEGIN, "Line",
+      ConstraintData(ConstraintData::OverloadUp, 132.0, 133.0));    // add first constraint
+  collection->addConstraint("model", "constraint 1", 2, CONSTRAINT_END, "Line",
+      ConstraintData(ConstraintData::OverloadUp, 132.0, 128.0));      // add second constraint with same description and type CONSTRAINT_END
+  collection->addConstraint("model", "constraint 2", 4, CONSTRAINT_END, "Line",
+      ConstraintData(ConstraintData::OverloadUp, 132.0, 133.0));      // add END constraint (should not happen but who knows...)
+  collection->addConstraint("model", "constraint 3", 7, CONSTRAINT_BEGIN, "Line",
+      ConstraintData(ConstraintData::OverloadUp, 132.0, 133.0));    // add first constraint 3
+  collection->addConstraint("model", "constraint 1", 8, CONSTRAINT_BEGIN, "Line",
+      ConstraintData(ConstraintData::OverloadUp, 132.0, 134.0));    // add BEGIN constraint 1
+  collection->addConstraint("model", "constraint 1", 9, CONSTRAINT_BEGIN, "Line",
+      ConstraintData(ConstraintData::OverloadUp, 132.0, 135.0));    // add BEGIN constraint 1
+  collection->addConstraint("model", "constraint 1", 10, CONSTRAINT_BEGIN, "Line",
+      ConstraintData(ConstraintData::OverloadUp, 132.0, 136.0));    // add BEGIN constraint 1
+  collection->addConstraint("model", "constraint 3", 8, CONSTRAINT_END, "Line",
+      ConstraintData(ConstraintData::OverloadUp, 132.0, 128.0));      // add END constraint 3
+
+  auto nbConstraint = collection->getConstraintsById().size();
+
+  ASSERT_EQ(nbConstraint, 8);
+
+  collection->filter(DYN::CONSTRAINTS_DYNAFLOW);
+
+  nbConstraint = 0;
+  nbConstraint = collection->getConstraintsById().size();
+
+  ASSERT_EQ(nbConstraint, 3);  // closed constraints are kept
+
+  auto constraints =  collection->getConstraintsById();
+  auto it = constraints.find("model_2_0_constraint 1");
+  ASSERT_TRUE(it != constraints.end());
+  ASSERT_EQ(it->second->getData().get().value, 128);
+  ASSERT_EQ(it->second->getData().get().valueMax.get(), 133);
+
+  it = constraints.find("model_10_0_constraint 1");
+  ASSERT_TRUE(it != constraints.end());
+  ASSERT_EQ(it->second->getData().get().value, 136);
+  ASSERT_EQ(it->second->getData().get().valueMax.get(), 136);
+
+  it = constraints.find("model_8_0_constraint 3");
+  ASSERT_TRUE(it != constraints.end());
+  ASSERT_EQ(it->second->getData().get().value, 128);
+  ASSERT_EQ(it->second->getData().get().valueMax.get(), 133);
 }
 
 TEST(APICSTRTest, CollectionClearConstraints) {
