@@ -11,8 +11,8 @@ model GridFollowingPlant_INIT
   parameter Types.VoltageModulePu UReg0Pu "Start value of voltage amplitude at regulated bus in pu (base UNom)";
 
   // Line parameters
-  parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
-  parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
+  //parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
+  //parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
 
   Types.ComplexCurrentPu i0Pu(re(start = iStart0Pu.re)) "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
   Types.ComplexPerUnit iInj0Pu "Start value of complex current at injector terminal in pu (base UNom, SNom) (generator convention)";
@@ -39,7 +39,8 @@ equation
   s0Pu = u0Pu * ComplexMath.conj(i0Pu);
 
   iInj0Pu = - i0Pu * SystemBase.SnRef / SNom;
-  uInj0Pu = u0Pu - Complex(RPu, XPu) * i0Pu;
+  //uInj0Pu = u0Pu - Complex(RPu, XPu) * i0Pu;
+  uInj0Pu = u0Pu;
   sInj0Pu = uInj0Pu * ComplexMath.conj(iInj0Pu);
   PInj0Pu = ComplexMath.real(sInj0Pu);
   QInj0Pu = ComplexMath.imag(sInj0Pu);
