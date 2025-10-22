@@ -48,8 +48,6 @@ model GridFollowingPlant
     Placement(transformation(origin = {-50, 0}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Connectors.ACPower terminal(V(im(start = u0Pu.im), re(start = u0Pu.re)), i(im(start = i0Pu.im), re(start = i0Pu.re))) annotation(
     Placement(transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(extent = {{-10, -10}, {10, 10}})));
-  Dynawo.Electrical.Lines.Line line(BPu = 0, GPu = 0, RPu = RPu, XPu = XPu) annotation(
-    Placement(transformation(origin = {50, 0}, extent = {{10, -10}, {-10, 10}})));
   Dynawo.Electrical.PEIR.Plant.Simplified.BaseControls.Injector injector(SNom = SNom, i0Pu = i0Pu, U0Pu = UInj0Pu, u0Pu = uInj0Pu, PInj0Pu = PInj0Pu, QInj0Pu = QInj0Pu)  annotation(
     Placement(transformation(extent = {{-10, -10}, {10, 10}})));
 
@@ -69,15 +67,10 @@ model GridFollowingPlant
   final parameter Types.PerUnit URef0Pu = UReg0Pu + LambdaPu * QReg0Pu "Start value of voltage setpoint for plant level control in pu (base UNom)";
 
 equation
-  line.switchOffSignal1.value = injector.switchOffSignal1.value;
-  line.switchOffSignal2.value = injector.switchOffSignal2.value;
-
-  Complex(PGenPu, QGenPu) = -terminal.V * ComplexMath.conj(terminal.i);
+  Complex(PGenPu, QGenPu) = -terminal.V*ComplexMath.conj(terminal.i);
 
   connect(URefPu, plantControllerPI.URefPu) annotation(
     Line(points = {{-110, -40}, {-50, -40}, {-50, -10}}, color = {0, 0, 127}));
-  connect(line.terminal1, terminal) annotation(
-    Line(points = {{60, 0}, {100, 0}}, color = {0, 0, 255}));
   connect(QRegPu, plantControllerPI.QRegPu) annotation(
     Line(points = {{-110, 60}, {-50, 60}, {-50, 10}}, color = {0, 0, 127}));
   connect(URegPu, plantControllerPI.URegPu) annotation(
@@ -88,12 +81,12 @@ equation
     Line(points = {{-110, 40}, {-70, 40}, {-70, 10}, {-60, 10}}, color = {0, 0, 127}));
   connect(omegaRefPu, plantControllerPI.omegaRefPu) annotation(
     Line(points = {{-110, 0}, {-60, 0}}, color = {0, 0, 127}));
-  connect(injector.terminal, line.terminal2) annotation(
-    Line(points = {{12, 0}, {40, 0}}, color = {0, 0, 255}));
   connect(plantControllerPI.PInjPu, injector.PInjPu) annotation(
     Line(points = {{-38, 6}, {-10, 6}}, color = {0, 0, 127}));
   connect(plantControllerPI.QInjPu, injector.QInjPu) annotation(
     Line(points = {{-38, -6}, {-10, -6}}, color = {0, 0, 127}));
+  connect(injector.terminal, terminal) annotation(
+    Line(points = {{12, 0}, {100, 0}}, color = {0, 0, 255}));
 
   annotation(
     Diagram);
