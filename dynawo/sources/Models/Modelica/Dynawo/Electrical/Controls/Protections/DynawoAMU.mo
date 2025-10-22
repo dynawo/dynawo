@@ -39,9 +39,9 @@ model DynawoAMU
   parameter AmuState amuState = AmuState.Enable "Current AMU enable/disable state";
   parameter RmuModeState rmuMode = RmuModeState.Enable "Current RMU enable/disable state";
   
-  Dynawo.Connectors.VoltageModulePuConnector BusVoltage;
-  Real /*Types.VoltageModulePu*/ uBusMonitoredPu = BusVoltage "Monitored bus voltage in pu (base UNom)"; //TODO dynawo, should this be declared as an input or a connector,  If declared as a connector, it acts like a variable, which may lead to variable > equation imbalance.
-  input Types.Angle busPhaseAngle "Phase angle of the monitored bus"; 
+  //Dynawo.Connectors.VoltageModulePuConnector BusVoltage;
+  //Real /*Types.VoltageModulePu*/ uBusMonitoredPu = BusVoltage "Monitored bus voltage in pu (base UNom)"; //TODO dynawo, should this be declared as an input or a connector,  If declared as a connector, it acts like a variable, which may lead to variable > equation imbalance.
+  input Types.VoltageModulePu uBusMonitoredPu "Monitored bus voltage in pu (base UNom)"; //TODO dynawo, should this be declared as an input or a connector,  If declared as a connector, it acts like a variable, which may lead to variable > equation imbalance.
   //Dynawo.Connectors.VoltageModulePuConnector uBusMonitoredPu "Monitored bus voltage in pu (base UNom)";
   // Dynawo.Connectors.AngleConnector busPhaseAngle "Phase angle of the monitored bus";
 

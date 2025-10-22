@@ -26,6 +26,8 @@ set(MODEL_FILES
   UFLS3Steps.extvar
   UFLS10Steps.mo
   UFLS10Steps.extvar
+  DynawoAMU.mo
+  DynawoAMU.extvar
   )
 
 #
