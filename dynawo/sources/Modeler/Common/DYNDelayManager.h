@@ -113,7 +113,7 @@ class DelayManager {
    * @param values the delays definition, formatted according to the format defined by dumpDelays
    * @param restartTime of the restart
    *
-   * @returns false if an parsing error occurs, true if not
+   * @returns false if a parsing error occurs, true if not
    */
   bool loadDelays(const std::vector<std::string>& values, double restartTime);
 
