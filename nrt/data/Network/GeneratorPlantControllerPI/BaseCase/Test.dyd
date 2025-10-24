@@ -30,5 +30,6 @@
   <dyn:connect id1="Bus1" var1="bus_terminal" id2="Transformer" var2="transformer_terminal1"/>
   <dyn:connect id1="Transformer" var1="transformer_terminal2" id2="Bus2" var2="bus_terminal"/>
   <dyn:connect id1="Generator" var1="generator_terminal" id2="Bus2" var2="bus_terminal"/>
+  <!--dyn:connect id1="Generator" var1="generator_UPu" id2="NETWORK" var2="@VL1_BUS1@@NODE1@_Upu_value"/-->
   <dyn:connect id1="Generator" var1="generator_UPu" id2="NETWORK" var2="@VL1_BUS1@@NODE1@_Upu_value"/>
 </dyn:dynamicModelsArchitecture>

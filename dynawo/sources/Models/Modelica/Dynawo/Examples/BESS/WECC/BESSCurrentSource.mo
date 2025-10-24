@@ -153,7 +153,7 @@ model BESSCurrentSource "WECC BESS with REEC-C and REGC-B with a plant controlle
     U0Pu = BESS.U0Pu,
     UPhase0 = BESS.UPhaseInj0,
     XPu = BESS.XPu) annotation(
-    Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = false, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 initial algorithm
   BESS.Id0Pu := bess_INIT.Id0Pu;

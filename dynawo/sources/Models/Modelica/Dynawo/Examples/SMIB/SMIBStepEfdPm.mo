@@ -86,8 +86,8 @@ model SMIBStepEfdPm "Synchronous machine infinite bus with steps on Efd and Pm"
     Placement(visible = true, transformation(origin = {30, -70}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   // Initialization
-  Dynawo.Electrical.Loads.Load_INIT load_INIT(P0Pu = PRefPu.k, Q0Pu = QRefPu.k, U0Pu = 0.952267, UPhase0 = 0) annotation(
-    Placement(transformation(origin = {-90, -90}, extent = {{-10, -10}, {10, 10}})));
+  //Dynawo.Electrical.Loads.Load_INIT load_INIT(P0Pu = PRefPu.k, Q0Pu = QRefPu.k, U0Pu = 0.952267, UPhase0 = 0) annotation(
+    //Placement(transformation(origin = {-90, -90}, extent = {{-10, -10}, {10, 10}})));
 
 initial algorithm
   load.i0Pu.re := load_INIT.i0Pu.re;
