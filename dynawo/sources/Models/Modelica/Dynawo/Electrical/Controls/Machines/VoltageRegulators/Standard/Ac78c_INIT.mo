@@ -68,9 +68,9 @@ equation
   connect(realExpressionInit.y, gain1Init.u) annotation(
     Line(points = {{-119, 60}, {-82, 60}}, color = {0, 0, 127}));
   connect(ut0Pu, potentialCircuitInit.uT) annotation(
-    Line(points = {{-200, 20}, {-160, 20}, {-160, 4}, {-142, 4}}, color = {85, 170, 255}));
+    Line(points = {{-200, 20}, {-160, 20}, {-160, 6}, {-142, 6}}, color = {85, 170, 255}));
   connect(it0Pu, potentialCircuitInit.iT) annotation(
-    Line(points = {{-200, -20}, {-160, -20}, {-160, -4}, {-142, -4}}, color = {85, 170, 255}));
+    Line(points = {{-200, -20}, {-160, -20}, {-160, -6}, {-142, -6}}, color = {85, 170, 255}));
   connect(potentialCircuitInit.vE, switchInit.u1) annotation(
     Line(points = {{-119, 0}, {-100, 0}, {-100, -32}, {-83, -32}}, color = {0, 0, 127}));
   connect(booleanConstantInit.y, switchInit.u2) annotation(

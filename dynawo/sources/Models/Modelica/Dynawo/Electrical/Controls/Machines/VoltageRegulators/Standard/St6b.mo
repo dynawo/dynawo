@@ -51,9 +51,9 @@ equation
   connect(limiter.y, min2.u1) annotation(
     Line(points = {{102, -80}, {160, -80}, {160, -74}, {200, -74}}, color = {0, 0, 127}));
   connect(potentialCircuit.vE, division.u2) annotation(
-    Line(points = {{-378, 140}, {-200, 140}, {-200, 154}, {-182, 154}}, color = {0, 0, 127}));
+    Line(points = {{-358, 140}, {-200, 140}, {-200, 154}, {-182, 154}}, color = {0, 0, 127}));
   connect(potentialCircuit.vE, product1.u2) annotation(
-    Line(points = {{-378, 140}, {-200, 140}, {-200, 134}, {-82, 134}}, color = {0, 0, 127}));
+    Line(points = {{-358, 140}, {-200, 140}, {-200, 134}, {-82, 134}}, color = {0, 0, 127}));
   connect(min4.y, product.u2) annotation(
     Line(points = {{281, -20}, {340, -20}, {340, -6}, {358, -6}}, color = {0, 0, 127}));
   connect(UUelPu, max1.u2) annotation(

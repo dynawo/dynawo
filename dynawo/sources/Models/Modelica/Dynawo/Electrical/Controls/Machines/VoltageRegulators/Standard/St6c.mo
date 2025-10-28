@@ -35,11 +35,11 @@ model St6c "IEEE exciter type ST6C model (2016 standard)"
   Dynawo.NonElectrical.Blocks.NonLinear.Max2 max2 annotation(
     Placement(visible = true, transformation(origin = {150, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch annotation(
-    Placement(visible = true, transformation(origin = {-330, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-310, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const5(k = Kp) annotation(
-    Placement(visible = true, transformation(origin = {-390, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-370, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = Sw1) annotation(
-    Placement(visible = true, transformation(origin = {-390, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-370, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.Min2 min3 annotation(
     Placement(visible = true, transformation(origin = {-110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
@@ -124,15 +124,15 @@ equation
   connect(max2.y, min2.u1) annotation(
     Line(points = {{162, -80}, {180, -80}, {180, -74}, {200, -74}}, color = {0, 0, 127}));
   connect(potentialCircuit.vE, switch.u1) annotation(
-    Line(points = {{-378, 140}, {-360, 140}, {-360, 108}, {-342, 108}}, color = {0, 0, 127}));
+    Line(points = {{-358, 140}, {-340, 140}, {-340, 108}, {-322, 108}}, color = {0, 0, 127}));
   connect(booleanConstant.y, switch.u2) annotation(
-    Line(points = {{-378, 100}, {-342, 100}}, color = {255, 0, 255}));
+    Line(points = {{-359, 100}, {-323, 100}}, color = {255, 0, 255}));
   connect(const5.y, switch.u3) annotation(
-    Line(points = {{-378, 60}, {-360, 60}, {-360, 92}, {-342, 92}}, color = {0, 0, 127}));
+    Line(points = {{-359, 60}, {-340, 60}, {-340, 92}, {-323, 92}}, color = {0, 0, 127}));
   connect(switch.y, division.u2) annotation(
-    Line(points = {{-318, 100}, {-200, 100}, {-200, 154}, {-182, 154}}, color = {0, 0, 127}));
+    Line(points = {{-299, 100}, {-200, 100}, {-200, 154}, {-182, 154}}, color = {0, 0, 127}));
   connect(switch.y, product1.u2) annotation(
-    Line(points = {{-318, 100}, {-100, 100}, {-100, 134}, {-82, 134}}, color = {0, 0, 127}));
+    Line(points = {{-299, 100}, {-100, 100}, {-100, 134}, {-82, 134}}, color = {0, 0, 127}));
   connect(min4.y, limitedFirstOrder.u) annotation(
     Line(points = {{281, -20}, {298, -20}}, color = {0, 0, 127}));
   connect(limitedFirstOrder.y, product.u2) annotation(

@@ -44,6 +44,8 @@ model St9c "IEEE exciter type ST9C model (2016 standard)"
     Placement(visible = true, transformation(origin = {-340, 180}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 100}, extent = {{20, -20}, {-20, 20}}, rotation = 180)));
   Modelica.ComplexBlocks.Interfaces.ComplexInput itPu(re(start = it0Pu.re), im(start = it0Pu.im)) "Complex stator current in pu (base SNom, UNom)" annotation(
     Placement(visible = true, transformation(origin = {-340, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {120, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
+  Modelica.Blocks.Interfaces.BooleanInput running(start = true) "Running value of generator" annotation(
+    Placement(visible = true,transformation(origin = {-220, 220}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {-80, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput UOelPu(start = UOel0Pu) "Overexcitation limitation output voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-340, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UPssPu(start = 0) "Power system stabilizer output voltage in pu (base UNom)" annotation(
@@ -75,7 +77,7 @@ model St9c "IEEE exciter type ST9C model (2016 standard)"
     Placement(visible = true, transformation(origin = {200, -20}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tAs, k = Kas, y_start = Efd0Pu / Vb0Pu) annotation(
     Placement(visible = true, transformation(origin = {230, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.PotentialCircuit potentialCircuit(Ki = Ki, Kp = Kp, Theta = Thetap, X = XlPu) annotation(
+  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.PotentialCircuit potentialCircuit(Ki = Ki, Kp = Kp, Theta = Thetap, UseRunning = true, X = XlPu) annotation(
     Placement(visible = true, transformation(origin = {-170, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = Ka) annotation(
     Placement(visible = true, transformation(origin = {-70, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -105,7 +107,7 @@ model St9c "IEEE exciter type ST9C model (2016 standard)"
     Placement(visible = true, transformation(origin = {-170, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain2(k = Kc) annotation(
     Placement(visible = true, transformation(origin = {-170, 180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Division division annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.LimitedDivision division(YMax = 1, YMin = 0) annotation(
     Placement(visible = true, transformation(origin = {-50, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.RectifierRegulationCharacteristic rectifierRegulationCharacteristic annotation(
     Placement(visible = true, transformation(origin = {-10, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -182,9 +184,9 @@ equation
   connect(UsPu, firstOrder.u) annotation(
     Line(points = {{-340, -20}, {-302, -20}}, color = {0, 0, 127}));
   connect(utPu, potentialCircuit.uT) annotation(
-    Line(points = {{-340, 140}, {-200, 140}, {-200, 124}, {-182, 124}}, color = {85, 170, 255}));
+    Line(points = {{-340, 140}, {-200, 140}, {-200, 126}, {-182, 126}}, color = {85, 170, 255}));
   connect(itPu, potentialCircuit.iT) annotation(
-    Line(points = {{-340, 100}, {-200, 100}, {-200, 116}, {-182, 116}}, color = {85, 170, 255}));
+    Line(points = {{-340, 100}, {-200, 100}, {-200, 114}, {-182, 114}}, color = {85, 170, 255}));
   connect(product.y, EfdPu) annotation(
     Line(points = {{301, 80}, {329, 80}}, color = {0, 0, 127}));
   connect(firstOrder1.y, product.u2) annotation(
@@ -261,6 +263,8 @@ equation
     Line(points = {{181, -140}, {200, -140}, {200, -66}, {182, -66}}, color = {0, 0, 127}));
   connect(realExpression.y, gain1.u) annotation(
     Line(points = {{-6, -120}, {18, -120}}, color = {0, 0, 127}));
+  connect(running, potentialCircuit.running) annotation(
+    Line(points = {{-220, 220}, {-220, 120}, {-182, 120}}, color = {255, 0, 255}));
 
   annotation(
     preferredView = "diagram",

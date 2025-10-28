@@ -35,6 +35,8 @@ model Ac8c "IEEE exciter type AC8C model (2016 standard)"
   //Input variables
   Modelica.ComplexBlocks.Interfaces.ComplexInput itPu(re(start = it0Pu.re), im(start = it0Pu.im)) "Complex stator current in pu (base SNom, UNom)" annotation(
     Placement(visible = true, transformation(origin = {-380, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {120, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
+  Modelica.Blocks.Interfaces.BooleanInput running(start = true) "Running value of generator" annotation(
+    Placement(visible = true,transformation(origin = {-320, 220}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {-80, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput UOelPu(start = UOel0Pu) "Overexcitation limitation output voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-380, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput USclOelPu(start = USclOel0Pu) "Stator current overexcitation limitation output voltage in pu (base UNom)" annotation(
@@ -50,7 +52,7 @@ model Ac8c "IEEE exciter type AC8C model (2016 standard)"
     Placement(visible = true, transformation(origin = {-270, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product annotation(
     Placement(visible = true, transformation(origin = {230, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Division division annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.LimitedDivision division(YMax = 1, YMin = 0) annotation(
     Placement(visible = true, transformation(origin = {-150, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.RectifierRegulationCharacteristic rectifierRegulationCharacteristic annotation(
     Placement(visible = true, transformation(origin = {-90, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -58,7 +60,7 @@ model Ac8c "IEEE exciter type AC8C model (2016 standard)"
     Placement(visible = true, transformation(origin = {-30, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = Kc1) annotation(
     Placement(visible = true, transformation(origin = {-150, 160}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.PotentialCircuit potentialCircuit(Ki = Ki, Kp = Kp, Theta = Thetap, X = XlPu) annotation(
+  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.PotentialCircuit potentialCircuit(Ki = Ki, Kp = Kp, Theta = Thetap, UseRunning = true, X = XlPu) annotation(
     Placement(visible = true, transformation(origin = {-270, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch annotation(
     Placement(visible = true, transformation(origin = {-210, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -185,9 +187,9 @@ equation
   connect(potentialCircuit.vE, switch.u1) annotation(
     Line(points = {{-259, 120}, {-240, 120}, {-240, 88}, {-223, 88}}, color = {0, 0, 127}));
   connect(utPu, potentialCircuit.uT) annotation(
-    Line(points = {{-380, 140}, {-300, 140}, {-300, 124}, {-282, 124}}, color = {85, 170, 255}));
+    Line(points = {{-380, 140}, {-300, 140}, {-300, 126}, {-282, 126}}, color = {85, 170, 255}));
   connect(itPu, potentialCircuit.iT) annotation(
-    Line(points = {{-380, 100}, {-300, 100}, {-300, 116}, {-282, 116}}, color = {85, 170, 255}));
+    Line(points = {{-380, 100}, {-300, 100}, {-300, 114}, {-282, 114}}, color = {85, 170, 255}));
   connect(switch.y, division.u2) annotation(
     Line(points = {{-199, 80}, {-180, 80}, {-180, 114}, {-162, 114}}, color = {0, 0, 127}));
   connect(switch.y, product1.u2) annotation(
@@ -212,6 +214,8 @@ equation
     Line(points = {{-199, -40}, {-160, -40}}, color = {0, 0, 127}));
   connect(min2.y, limitedFirstOrder.u) annotation(
     Line(points = {{141, -40}, {158, -40}}, color = {0, 0, 127}));
+  connect(running, potentialCircuit.running) annotation(
+    Line(points = {{-320, 220}, {-320, 120}, {-282, 120}}, color = {255, 0, 255}));
 
   annotation(preferredView = "diagram");
 end Ac8c;

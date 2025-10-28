@@ -35,7 +35,7 @@ model Ac7c "IEEE exciter type AC7C model (2016 standard)"
   Modelica.Blocks.Interfaces.RealInput USclUelPu(start = USclUel0Pu) "Stator current underexcitation limitation output voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-500, -180}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {120, 40}, extent = {{20, -20}, {-20, 20}}, rotation = 0)));
 
-  Modelica.Blocks.Math.Division division annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.LimitedDivision division(YMax = 1, YMin = 0) annotation(
     Placement(visible = true, transformation(origin = {-270, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.RectifierRegulationCharacteristic rectifierRegulationCharacteristic annotation(
     Placement(visible = true, transformation(origin = {-210, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -146,8 +146,6 @@ equation
 
   connect(acRotatingExciter.EfdPu, EfdPu) annotation(
     Line(points = {{422, 0}, {490, 0}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
-  connect(IrPu, acRotatingExciter.IrPu) annotation(
-    Line(points = {{-500, 200}, {360, 200}, {360, 16}, {376, 16}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(division.y, rectifierRegulationCharacteristic.u) annotation(
     Line(points = {{-259, 120}, {-223, 120}}, color = {0, 0, 127}));
   connect(rectifierRegulationCharacteristic.y, product1.u1) annotation(
@@ -166,10 +164,6 @@ equation
     Line(points = {{-379, 80}, {-343, 80}}, color = {255, 0, 255}));
   connect(potentialCircuit.vE, switch.u1) annotation(
     Line(points = {{-379, 120}, {-360, 120}, {-360, 88}, {-343, 88}}, color = {0, 0, 127}));
-  connect(utPu, potentialCircuit.uT) annotation(
-    Line(points = {{-500, 140}, {-420, 140}, {-420, 124}, {-402, 124}}, color = {85, 170, 255}));
-  connect(itPu, potentialCircuit.iT) annotation(
-    Line(points = {{-500, 100}, {-420, 100}, {-420, 116}, {-402, 116}}, color = {85, 170, 255}));
   connect(switch.y, division.u2) annotation(
     Line(points = {{-319, 80}, {-300, 80}, {-300, 114}, {-282, 114}}, color = {0, 0, 127}));
   connect(switch.y, product1.u2) annotation(
