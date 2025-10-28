@@ -31,6 +31,7 @@
     <dyn:connect id1="generator" var1="omegaPu" id2="pss" var2="omegaPu"/>
     <dyn:connect id1="generator" var1="UStatorPu" id2="voltageRegulator" var2="UsPu"/>
     <dyn:connect id1="generator" var1="efdPu" id2="voltageRegulator" var2="EfdPu"/>
+    <dyn:connect id1="voltageRegulator" var1="running" id2="generator" var2="running.value"/>
     <dyn:connect id1="voltageRegulator" var1="UPssPu" id2="pss" var2="VPssPu"/>
     <dyn:connect id1="voltageRegulator" var1="utPu" id2="generator" var2="uPu"/>
     <dyn:connect id1="voltageRegulator" var1="itPu" id2="generator" var2="iStatorPu"/>

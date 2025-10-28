@@ -27,9 +27,9 @@ model Ac78c_INIT "IEEE exciter types AC7C and AC8C initialization model"
 
   //Input parameters
   Modelica.ComplexBlocks.Interfaces.ComplexInput it0Pu "Initial complex current in pu (base SNom, UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-200, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(extent = {{0, 0}, {0, 0}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-220, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(extent = {{0, 0}, {0, 0}}, rotation = 0)));
   Modelica.ComplexBlocks.Interfaces.ComplexInput ut0Pu "Initial complex voltage in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-200, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(extent = {{0, 0}, {0, 0}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-220, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(extent = {{0, 0}, {0, 0}}, rotation = 0)));
 
   //Output parameter
   Modelica.Blocks.Interfaces.RealOutput Vb0Pu "Initial available exciter field voltage in pu (base UNom)" annotation(
@@ -57,6 +57,8 @@ model Ac78c_INIT "IEEE exciter types AC7C and AC8C initialization model"
     Placement(visible = true, transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constInit(k = VbMaxPu) annotation(
     Placement(visible = true, transformation(origin = {90, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.BooleanConstant booleanConstant1Init(k = true) annotation(
+    Placement(visible = true, transformation(origin = {-190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
   connect(divisionInit.y, rectifierRegulationCharacteristicInit.u) annotation(
@@ -68,9 +70,9 @@ equation
   connect(realExpressionInit.y, gain1Init.u) annotation(
     Line(points = {{-119, 60}, {-82, 60}}, color = {0, 0, 127}));
   connect(ut0Pu, potentialCircuitInit.uT) annotation(
-    Line(points = {{-200, 20}, {-160, 20}, {-160, 4}, {-142, 4}}, color = {85, 170, 255}));
+    Line(points = {{-220, 40}, {-160, 40}, {-160, 6}, {-142, 6}}, color = {85, 170, 255}));
   connect(it0Pu, potentialCircuitInit.iT) annotation(
-    Line(points = {{-200, -20}, {-160, -20}, {-160, -4}, {-142, -4}}, color = {85, 170, 255}));
+    Line(points = {{-220, -40}, {-160, -40}, {-160, -6}, {-142, -6}}, color = {85, 170, 255}));
   connect(potentialCircuitInit.vE, switchInit.u1) annotation(
     Line(points = {{-119, 0}, {-100, 0}, {-100, -32}, {-83, -32}}, color = {0, 0, 127}));
   connect(booleanConstantInit.y, switchInit.u2) annotation(
@@ -87,8 +89,10 @@ equation
     Line(points = {{102, -20}, {120, -20}, {120, -6}, {138, -6}}, color = {0, 0, 127}));
   connect(min1Init.y, Vb0Pu) annotation(
     Line(points = {{162, 0}, {190, 0}}, color = {0, 0, 127}));
+  connect(booleanConstant1Init.y, potentialCircuitInit.running) annotation(
+    Line(points = {{-178, 0}, {-142, 0}}, color = {255, 0, 255}));
 
   annotation(
     preferredView = "diagram",
-    Diagram(coordinateSystem(extent = {{-180, -100}, {180, 100}})));
+    Diagram(coordinateSystem(extent = {{-200, -100}, {180, 100}})));
 end Ac78c_INIT;
