@@ -14,6 +14,7 @@
 <external_variables xmlns="http://www.rte-france.com/dynawo">
   <variable id="IrPu" type="continuous"/>
   <variable id="itPu" type="continuous"/>
+  <variable id="running" type="discrete"/>
   <variable id="UOelPu" type="continuous" optional="true"/>
   <variable id="UPssPu" type="continuous" optional="true"/>
   <variable id="UsPu" type="continuous"/>
