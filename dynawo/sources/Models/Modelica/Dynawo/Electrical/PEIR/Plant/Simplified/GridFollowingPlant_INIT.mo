@@ -1,7 +1,7 @@
 within Dynawo.Electrical.PEIR.Plant.Simplified;
 
 model GridFollowingPlant_INIT
-  parameter Types.ComplexCurrentPu iStart0Pu = Complex(0, 0) "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
+  //parameter Types.ComplexCurrentPu iStart0Pu = Complex(0, 0) "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
   parameter Types.ActivePowerPu P0Pu "Start value of active power at terminal in pu (base SnRef) (receptor convention)";
   parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at terminal in pu (base SnRef) (receptor convention)";
   parameter Dynawo.Connectors.VoltageModulePuConnector U0Pu "Start value of voltage amplitude at terminal in pu (base UNom)";
@@ -14,7 +14,7 @@ model GridFollowingPlant_INIT
   //parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
   //parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
 
-  Types.ComplexCurrentPu i0Pu(re(start = iStart0Pu.re)) "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
+  Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
   Types.ComplexPerUnit iInj0Pu "Start value of complex current at injector terminal in pu (base UNom, SNom) (generator convention)";
   Types.PerUnit PInj0Pu "Start value of active power at injector terminal in pu (base SNom) (generator convention)";
   Types.PerUnit QInj0Pu "Start value of reactive power at injector terminal in pu (base SNom) (generator convention)";
