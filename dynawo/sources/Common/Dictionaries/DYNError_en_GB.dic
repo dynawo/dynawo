@@ -128,6 +128,7 @@ VariableMultipleHasNoIndex  =             failed to retrieve index for %1% : mul
 VariableNativeIndexAlreadySet=            failed to set native variable %1% index : it is already set
 VariableNativeIndexNotSet   =             failed to retrieve native variable %1% index (not set yet)
 EmptyConnector              =             empty continuous connector found
+ErrorConnectedInputs        =             connector to input (model: %1%, variable: %2%) should be connected to only one non-input variable
 JobsFileBadlyFormattedDirectory =         jobs file not well formatted : directory items are not relevant where they are written
 JobsFileBadlyFormattedDumpInit =          jobs file not well formatted : DumpInitValues items are not relevant where they are written
 ModelicaPackageBadStructure =             bad Modelica package structure (%1%)
@@ -207,6 +208,7 @@ MultipleErrors              =             %1% errors were found and displayed ab
 MultipleAndHiddenErrors     =             first %1% errors displayed above
 MissingEnvironmentVariable  =             mandatory environment variable %1% is not defined
 ModelicaError               =             unexpected error while using Modelica library: %1%
+UnavailableLib              =             library %1% is not available (not included in build)
 //--------------- STATIC_DATA -----------------------------------------
 UnknownBus                  =             bus id '%1%' does not exist in the iidm import
 UnknownCalculatedBus        =             calculated bus associated to '%1%' node '%2%' does not exist in the iidm import
@@ -269,6 +271,8 @@ ExternalVariableIDNotUnique =             external variable id (%1%) is not uniq
 //---JOB---------------------
 CriteriaStepError           =             criteria step should be a positive integer (value found: %1%)
 ConstraintValueTypeError    =             constraint value type should be one of "FIRST", "LAST" or "DISABLED" (value found: %1%)
+UnknownChannelId            =             reference to channel id "%1%" invalid: channel must be declared
+MissingInteractiveSettings  =             interactiveSettings missing from job file for interactive simulation
 //---PAR---------------------
 MacroParameterSetAlreadyExists =          the macroParameterSet %1% already exists in collection
 MacroParSetAlreadyExists =                the macroParSet %1% already exists in set %2%
@@ -284,3 +288,9 @@ ReferenceNotFoundInSet      =             reference %1% is not found in set %2%
 ReferenceUnknownOriginData  =             origin data %1% is not allowed for references
 ReferenceToAnotherReference =             reference %1% points to another reference %2% in par set %3% in file %4%
 //---TL----------------------
+//--------------- RT -----------------------------------------
+UnknownCurvesStreamFormat   =             unknown type of CurvesStreamFormat '%1%'
+UnknownTimelineStreamFormat =             unknown type of TimelineStreamFormat '%1%'
+UnknownConstraintsStreamFormat =          unknown type of ConstraintsStreamFormat '%1%'
+LogStreamNotImplemented     =             log stream not (yet) implemented
+ZMQInterfaceBadEnpoint      =             channel ZMQ failed to bind with endpoint '%1%'

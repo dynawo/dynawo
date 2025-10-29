@@ -46,12 +46,14 @@ The \Dynawo source code \href{https://github.com/dynawo/dynawo.git}
 .3 Modeler.
 .3 ModelicaCompiler.
 .3 Models.
+.3 RT.
 .3 Simulation.
 .3 Solvers.
 .1 examples.
 .2 DynaFlow.
 .2 DynaSwing.
 .2 DynaWaltz.
+.2 RT.
 .1 nrt.
 .1 util.
 }
@@ -96,6 +98,8 @@ applied to the outputs produced by OpenModelica compiler. These scripts allow to
 get a final C code in adequation with the \Dynawo API;
 \item the Models directory contains the \Dynawo models library (both C++ and
 Modelica models);
+\item the RT directory contains the files related to the interactive -- real-time -- mode
+(interfaces for input/output, clock);
 \item the Simulation directory contains the files related to the handling
 of the global simulation itself;
 \item the Solvers directory is the part of the code dealing with the resolution of the DAE system.
