@@ -37,7 +37,7 @@ model GridFollowingPlant
     Placement(transformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput URegPu "Voltage amplitude at regulated bus in pu (base UNom)" annotation(
     Placement(transformation(origin = {-110, 20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealInput URefPu  "Voltage regulation set point in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput URefPu(start = 1)  "Voltage regulation set point in pu (base UNom)" annotation(
     Placement(transformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
 
   // Output variables
