@@ -21,21 +21,6 @@ partial model BaseWT4 "Partial base model for the WECC Wind Turbine models inclu
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
-  //Configuration parameters to define how the user wants to represent the internal network
-  parameter Boolean ConverterLVControl  = true "Boolean parameter to choose whether the converter is controlling at its output (LV side of its transformer) : True ; or after its transformer (MV side): False" annotation(
-    Dialog(tab = "LV transformer"));
-
-  //Parameters for LV transformer
-  parameter Types.PerUnit RLvTrPu "Serial resistance of LV transformer in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "LV transformer"));
-  parameter Types.PerUnit XLvTrPu "Serial reactance of LV transformer in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "LV transformer"));
-
-  // In every cases (RPu + j*XPu) is the serial impedance between converter's output and WT terminal
-  //Depending on the value of ConverterLVControl we are correctly defining these parameters
-  final parameter Types.PerUnit RPu = if ConverterLVControl then 1e-5 else RLvTrPu "Serial resistance between converter output and WT terminal in pu (base UNom, SNom)";
-  final parameter Types.PerUnit XPu = if ConverterLVControl then 1e-5 else XLvTrPu "Serial reactance between converter output and WT terminal in pu (base UNom, SNom)";
-
   // Input variable
   Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(
     Placement(visible = true, transformation(origin = {-79, 120}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {-1, 111}, extent = {{-11, -11}, {11, 11}}, rotation = -90)));
@@ -50,7 +35,7 @@ partial model BaseWT4 "Partial base model for the WECC Wind Turbine models inclu
     Placement(visible = true, transformation(origin = {-160, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant OmegaRef(k = 1) annotation(
     Placement(visible = true, transformation(origin = {-185, 38}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Dynawo.Electrical.Sources.IEC.BaseConverters.ElecSystem LvToMvTfo(BPu = 0, GPu = 0, RPu = RPu, SNom = SNom, XPu = XPu, i20Pu = iConv0Pu, u20Pu = uConv0Pu)  annotation(
+  Dynawo.Electrical.Sources.IEC.BaseConverters.ElecSystem LvToMvTfo(SNom = SNom, i20Pu = iConv0Pu, u20Pu = uConv0Pu)  annotation(
     Placement(visible = true, transformation(origin = {40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.Utilities.Measurements WTTerminalMeasurements(SNom = SNom)  annotation(
     Placement(visible = true, transformation(origin = {65, -8.88178e-16}, extent = {{-5, 5}, {5, -5}}, rotation = 0)));
@@ -98,6 +83,7 @@ equation
     Line(points = {{51, 0}, {60, 0}}, color = {0, 0, 255}));
   connect(WTTerminalMeasurements.uPu, pll.uPu) annotation(
     Line(points = {{66, -6}, {66, -60}, {-173, -60}, {-173, 50}, {-171, 50}}, color = {85, 170, 255}));
+
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html><head></head><body><p><br></p><ul>

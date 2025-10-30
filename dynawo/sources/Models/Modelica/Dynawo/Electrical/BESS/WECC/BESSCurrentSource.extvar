@@ -12,8 +12,6 @@
     simulation tools for power systems.
 -->
 <external_variables xmlns="http://www.rte-france.com/dynawo">
-  <variable type="continuous" id="iPccPu.re" optional="true"/>
-  <variable type="continuous" id="iPccPu.im" optional="true"/>
   <variable type="continuous" id="terminal.V.re"/>
   <variable type="continuous" id="terminal.V.im"/>
   <variable type="continuous" id="PAuxPu" optional="true"/>

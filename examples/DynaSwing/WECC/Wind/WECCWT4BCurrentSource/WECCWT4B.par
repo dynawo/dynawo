@@ -46,6 +46,10 @@
     <par type="DOUBLE" name="WT4B_Q0Pu" value="-0.2"/>
     <par type="DOUBLE" name="WT4B_U0Pu" value="1.0"/>
     <par type="DOUBLE" name="WT4B_UPhase0" value="0.03533563863002929"/>
+    <par type="DOUBLE" name="WT4B_PPcc0Pu" value="-0.7"/>
+    <par type="DOUBLE" name="WT4B_QPcc0Pu" value="-0.2"/>
+    <par type="DOUBLE" name="WT4B_UPcc0Pu" value="1"/>
+    <par type="DOUBLE" name="WT4B_UPhasePcc0" value="0.03533563863002929"/>
     <!-- Electrical Control -->
     <par type="DOUBLE" name="WT4B_QMaxPu" value="0.4"/>
     <par type="DOUBLE" name="WT4B_QMinPu" value="-0.4"/>

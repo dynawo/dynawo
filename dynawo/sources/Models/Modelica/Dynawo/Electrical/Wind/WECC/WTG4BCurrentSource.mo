@@ -1,20 +1,21 @@
 within Dynawo.Electrical.Wind.WECC;
 
+/*
+* Copyright (c) 2021, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+*/
+
 model WTG4BCurrentSource "WECC Wind Turbine model with a current source as interface with the grid"
-  /*
-    * Copyright (c) 2021, RTE (http://www.rte-france.com)
-    * See AUTHORS.txt
-    * All rights reserved.
-    * This Source Code Form is subject to the terms of the Mozilla Public
-    * License, v. 2.0. If a copy of the MPL was not distributed with this
-    * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-    * SPDX-License-Identifier: MPL-2.0
-    *
-    * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-    */
   extends Dynawo.Electrical.Controls.PLL.ParamsPLL;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
-  extends Dynawo.Electrical.Wind.WECC.BaseClasses.BaseWT4B;
+  extends Dynawo.Electrical.Wind.WECC.BaseClasses.BaseWT4B(LvToMvTfo(BPu = 0, GPu = 0, RPu = RPu, XPu = XPu));
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BasePCS;
 
   // Input variables
@@ -31,7 +32,8 @@ model WTG4BCurrentSource "WECC Wind Turbine model with a current source as inter
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initial parameters
-  final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else ComplexMath.'abs'(uControl0Pu) + Kc * QControl0Pu "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
+  final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else ComplexMath.'abs'(uControl0Pu) + Kc * QControl0Pu "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)" annotation(
+    Placement(visible = false, transformation(extent = {{0, 0}, {0, 0}})));
 
 equation
   connect(pll.omegaPLLPu, wecc_repc.omegaPu) annotation(
@@ -58,6 +60,7 @@ equation
     Line(points = {{-20, 93}, {-128, 93}, {-128, 11}}, color = {85, 170, 255}));
   connect(WTTerminalMeasurements.terminal2, TfoPCS.terminal2) annotation(
     Line(points = {{70, 0}, {80, 0}}, color = {0, 0, 255}));
+
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html><head></head><body><p> This block contains the generic WECC WTG model according to (in case page cannot be found, copy link in browser): <br><a href=\"https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf\">https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf</a> </p>
