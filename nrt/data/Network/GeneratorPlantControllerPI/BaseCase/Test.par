@@ -21,8 +21,8 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <reference name="generator_QReg0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
-    <reference name="generator_UReg0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="generator_UReg0Pu" origData="IIDM" origName="v1_pu" componentId="Transformer" type="DOUBLE"/>
+    <reference name="generator_QReg0Pu" origData="IIDM" origName="q1_pu" componentId="Transformer" type="DOUBLE"/>
     <par type="DOUBLE" name="generator_SNom" value="15"/>
     <par type="DOUBLE" name="generator_RPu" value="0"/>
     <par type="DOUBLE" name="generator_XPu" value="0"/>
