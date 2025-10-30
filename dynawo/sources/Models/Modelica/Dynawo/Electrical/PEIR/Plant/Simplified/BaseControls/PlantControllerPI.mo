@@ -33,11 +33,11 @@ model PlantControllerPI
     Placement(transformation(origin = {124, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Network angular reference frequency in pu (base OmegaNom)" annotation(
     Placement(transformation(origin = {-190, -20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealInput QRegPu "Reactive power at regulated bus in pu (base SnRef) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput QRegPu(start = QReg0Pu) "Reactive power at regulated bus in pu (base SnRef) (generator convention)" annotation(
     Placement(transformation(origin = {-50, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {1, 109}, extent = {{10, 10}, {-10, -10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput URegPu "Voltage amplitude at regulated bus in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput URegPu(start = UReg0Pu) "Voltage amplitude at regulated bus in pu (base UNom)" annotation(
     Placement(transformation(origin = {-190, 20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealInput URefPu "Voltage regulation set point in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Voltage regulation set point in pu (base UNom)" annotation(
     Placement(transformation(origin = {-190, 60}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   // Output variables
   Modelica.Blocks.Interfaces.RealOutput PInjPu(start = PInj0Pu) "Active power at injector terminal in pu (base SNom) (generator convention)" annotation(
