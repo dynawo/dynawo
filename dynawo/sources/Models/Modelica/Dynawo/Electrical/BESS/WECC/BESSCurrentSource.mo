@@ -13,7 +13,7 @@ within Dynawo.Electrical.BESS.WECC;
 */
 
 model BESSCurrentSource "WECC BESS with electrical control model type C, generator/converter model type A and plant control type A "
-  extends Dynawo.Electrical.BESS.WECC.BaseClasses.BaseBESSCurrentSource;
+  extends Dynawo.Electrical.BESS.WECC.BaseClasses.BaseBESSCurrentSource(LvToMvTfo(BPu = 0, GPu = 0, RPu = RPu, XPu = XPu));
   extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BasePCS;
 
@@ -58,6 +58,7 @@ equation
     Line(points = {{-20, 63}, {-123, 63}, {-123, 11}}, color = {85, 170, 255}));
   connect(i.y, repcA.iPu) annotation(
     Line(points = {{-20, 93}, {-128, 93}, {-128, 11}}, color = {85, 170, 255}));
+
   annotation(
     preferredView = "diagram",
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}})}, coordinateSystem(initialScale = 0.1)),

@@ -13,7 +13,22 @@ within Dynawo.Electrical.Photovoltaics.WECC;
 */
 
 model PVCurrentSourceNoPlantControl "WECC PV model with a current source as interface with the grid (REEC-B REGC-A)"
-  extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVCurrentSource;
+  extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVCurrentSource(LvToMvTfo(BPu = 0, GPu = 0, RPu = RPu, XPu = XPu));
+
+  //Configuration parameters to define how the user wants to represent the internal network
+  parameter Boolean ConverterLVControl = true "Boolean parameter to choose whether the converter is controlling at its output (LV side of its transformer) : True ; or after its transformer (MV side): False" annotation(
+    Dialog(tab = "LV transformer"));
+
+  //Parameters for LV transformer
+  parameter Types.PerUnit RLvTrPu "Serial resistance of LV transformer in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "LV transformer"));
+  parameter Types.PerUnit XLvTrPu "Serial reactance of LV transformer in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "LV transformer"));
+
+  // In every cases (RPu + j*XPu) is the serial impedance between converter's output and WT terminal
+  //Depending on the value of ConverterLVControl we are correctly defining these parameters
+  final parameter Types.PerUnit RPu = if ConverterLVControl then 1e-5 else RLvTrPu "Serial resistance between converter output and WT terminal in pu (base UNom, SNom)";
+  final parameter Types.PerUnit XPu = if ConverterLVControl then 1e-5 else XLvTrPu "Serial reactance between converter output and WT terminal in pu (base UNom, SNom)";
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput PInjRefPu(start = -PInj0Pu) "Active power setpoint at injector terminal in pu (generator convention) (base SNom)" annotation(
@@ -21,11 +36,16 @@ model PVCurrentSourceNoPlantControl "WECC PV model with a current source as inte
   Modelica.Blocks.Interfaces.RealInput QInjRefPu(start = -QInj0Pu) "Reactive power setpoint at injector terminal in pu (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
+  Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
+    Placement(visible = true, transformation(origin = {130, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+
 equation
-  connect(PInjRefPu, wecc_reec.PInjRefPu) annotation(
-    Line(points = {{-190, 20}, {-160, 20}, {-160, 6}, {-91, 6}}, color = {0, 0, 127}));
-  connect(QInjRefPu, wecc_reec.QInjRefPu) annotation(
-    Line(points = {{-190, -20}, {-160, -20}, {-160, -6}, {-91, -6}}, color = {0, 0, 127}));
+  connect(QInjRefPu, wecc_reec.QConvRefPu) annotation(
+    Line(points = {{-190, -20}, {-100, -20}, {-100, -6}, {-91, -6}}, color = {0, 0, 127}));
+  connect(PInjRefPu, wecc_reec.PConvRefPu) annotation(
+    Line(points = {{-190, 20}, {-100, 20}, {-100, 6}, {-91, 6}}, color = {0, 0, 127}));
+  connect(WTTerminalMeasurements.terminal2, terminal) annotation(
+    Line(points = {{70, 0}, {130, 0}}, color = {0, 0, 255}));
 
   annotation(
     preferredView = "diagram",
