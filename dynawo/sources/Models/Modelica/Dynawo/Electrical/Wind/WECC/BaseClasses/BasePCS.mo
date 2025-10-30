@@ -13,16 +13,12 @@ within Dynawo.Electrical.Wind.WECC.BaseClasses;
 */
 
 model BasePCS "Base model of the Power Collection System to be extended in the WECC models of power plants"
-
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsPCS;
 
   //Interface
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
-      Placement(visible = true, transformation(origin = {140, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(extent = {{120, -10}, {100, 10}}, rotation = 0)));
-
+    Placement(visible = true, transformation(origin = {140, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(extent = {{120, -10}, {100, 10}}, rotation = 0)));
   //Input variables
-  Modelica.ComplexBlocks.Interfaces.ComplexInput iPccPu(im(start = iPcc0Pu.re), re(start = iPcc0Pu.im)) "Complex current at PPC regulated bus in pu (receptor convention) (base SnRef, UNom)" annotation(
-    Placement(visible = true, transformation(origin = {140, 90}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(extent = {{120, 80}, {100, 100}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput PPccPu(start = PPcc0Pu) "Active power setpoint at regulated bus in pu (receptor convention) (base SnRef) (used only when PPCLocal = false)" annotation(
     Placement(visible = true, transformation(origin = {140, 20}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Modelica.Blocks.Interfaces.RealInput QPccPu(start = QPcc0Pu) "Reactive power setpoint at regulated bus in pu (receptor convention) (base SnRef) (used only when PPCLocal = false)" annotation(
@@ -50,35 +46,37 @@ model BasePCS "Base model of the Power Collection System to be extended in the W
     Placement(visible = true, transformation(origin = {99, 84}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.Utilities.Measurements WTGTerminalMeasurements(SNom = SNom) annotation(
     Placement(visible = true, transformation(origin = {115, 0}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression QRegPuSnExtern(y = -SystemBase.SnRef / SNom * QPccPu) annotation(
-    Placement(visible = true, transformation(origin = {59, 35.5}, extent = {{13, -7.5}, {-13, 7.5}}, rotation = 0)));
+  Modelica.Blocks.Sources.RealExpression QRegPuSnExtern(y = -SystemBase.SnRef/SNom*QPccPu) annotation(
+    Placement(transformation(origin = {59, 35.5}, extent = {{13, -7.5}, {-13, 7.5}})));
   Modelica.Blocks.Logical.Switch switch annotation(
     Placement(visible = true, transformation(origin = {25, 23}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch5 annotation(
     Placement(visible = true, transformation(origin = {25, 39}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression PRegPuSnExtern(y = -SystemBase.SnRef / SNom * PPccPu) annotation(
+  Modelica.Blocks.Sources.RealExpression PRegPuSnExtern(y = -SystemBase.SnRef/SNom*PPccPu) annotation(
     Placement(visible = true, transformation(origin = {59, 19.5}, extent = {{13, -7.5}, {-13, 7.5}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain(k = SNom / SystemBase.SnRef) annotation(
+  Modelica.Blocks.Math.Gain gain(k = SNom/SystemBase.SnRef) annotation(
     Placement(visible = true, transformation(origin = {64, 104}, extent = {{4, -4}, {-4, 4}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain1(k = SNom / SystemBase.SnRef) annotation(
+  Modelica.Blocks.Math.Gain gain1(k = SNom/SystemBase.SnRef) annotation(
     Placement(visible = true, transformation(origin = {64, 88}, extent = {{4, -4}, {-4, 4}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.ComplexToReal complexToReal2 annotation(
     Placement(visible = true, transformation(origin = {99, 100}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.ComplexToReal complexToReal3 annotation(
     Placement(visible = true, transformation(origin = {99, 70}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio TfoPCS(BPu = BPcsPu * SNom / SystemBase.SnRef, GPu = GPcsPu * SNom / SystemBase.SnRef, RPu = RPcsPu * SystemBase.SnRef / SNom, XPu = XPcsPu * SystemBase.SnRef / SNom, rTfoPu = rTfoPu)  annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio TfoPCS(BPu = BPcsPu*SNom/SystemBase.SnRef, GPu = GPcsPu*SNom/SystemBase.SnRef, RPu = RPcsPu*SystemBase.SnRef/SNom, XPu = XPcsPu*SystemBase.SnRef/SNom, rTfoPu = rTfoPu) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+  Modelica.ComplexBlocks.Sources.ComplexExpression complexExpr(y = ComplexMath.conj(Complex(PPccPu, QPccPu)/uPccPu))  annotation(
+    Placement(transformation(origin = {134, 84}, extent = {{10, -10}, {-10, 10}})));
 
   //Initial parameters
   parameter Types.ComplexPerUnit i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
   final parameter Types.ComplexCurrentPu iControl0Pu = if PPCLocal then i0Pu else iPcc0Pu "Initial complex current to be controlled by the PPC coming either from the external bus or from the model's output terminal (receptor convention, base UNom, SnRef)";
   parameter Types.ComplexPerUnit iPcc0Pu "Start value of complex current at external PCC in pu (used when PPCLocal = False, meaning the PCS is defined outside of the model) (receptor convention) (base UNom, SnRef)";
   parameter Types.PerUnit P0Pu "Start value of active power at converter terminal in pu (receptor convention) (base SnRef)";
-  final parameter Types.ActivePowerPu PControl0Pu = if PPCLocal then -P0Pu * SystemBase.SnRef / SNom else -PPcc0Pu * SystemBase.SnRef / SNom "Initial active power at the point controlled by the PPC (either model's output terminal or external PCC) (base SNom, generator convetion)";
+  final parameter Types.ActivePowerPu PControl0Pu = if PPCLocal then -P0Pu*SystemBase.SnRef/SNom else -PPcc0Pu*SystemBase.SnRef/SNom "Initial active power at the point controlled by the PPC (either model's output terminal or external PCC) (base SNom, generator convetion)";
   parameter Types.PerUnit PPcc0Pu = 1 "Initial active power at the external bus controlled by the PPC (used when PPCLocal = False) (receptor convention, base UNom, SnRef) (only if the PCS is defined outside of the model)" annotation(
     Dialog(tab = "Operating point", enable = not PPCLocal));
   parameter Types.PerUnit Q0Pu "Start value of reactive power at converter terminal in pu (receptor convention) (base SnRef)";
-  final parameter Types.ReactivePowerPu QControl0Pu = if PPCLocal then -Q0Pu * SystemBase.SnRef / SNom else -QPcc0Pu * SystemBase.SnRef / SNom "Initial reactive power at the point controlled by the PPC (either model's output terminal or external PCC) (base SNom, generator convention)";
+  final parameter Types.ReactivePowerPu QControl0Pu = if PPCLocal then -Q0Pu*SystemBase.SnRef/SNom else -QPcc0Pu*SystemBase.SnRef/SNom "Initial reactive power at the point controlled by the PPC (either model's output terminal or external PCC) (base SNom, generator convention)";
   parameter Types.PerUnit QPcc0Pu = 1 "Initial reactive power at the external bus controlled by the PPC (used when PPCLocal = False) (receptor convention, base UNom, SnRef) (only if the PCS is defined outside of the model)" annotation(
     Dialog(tab = "Operating point", enable = not PPCLocal));
   parameter Types.PerUnit U0Pu "Start value of voltage magnitude at converter terminal in pu (base UNom)";
@@ -91,6 +89,7 @@ model BasePCS "Base model of the Power Collection System to be extended in the W
 equation
   TfoPCS.switchOffSignal1.value = false;
   TfoPCS.switchOffSignal2.value = false;
+
   connect(booleanConstant.y, switch4.u2) annotation(
     Line(points = {{40, 109.5}, {40, 100}, {31, 100}}, color = {255, 0, 255}));
   connect(booleanConstant.y, switch3.u2) annotation(
@@ -113,8 +112,6 @@ equation
     Line(points = {{19.5, 100}, {-0.5, 100}, {-0.5, 96}, {-9, 96}}, color = {0, 0, 127}));
   connect(switch3.y, i.im) annotation(
     Line(points = {{19.5, 85}, {-0.5, 85}, {-0.5, 90}, {-9, 90}}, color = {0, 0, 127}));
-  connect(iPccPu, complexToReal1.u) annotation(
-    Line(points = {{140, 90}, {123, 90}, {123, 84}, {105, 84}}, color = {85, 170, 255}));
   connect(uPccPu, complexToReal.u) annotation(
     Line(points = {{140, 60}, {123, 60}, {123, 54}, {105, 54}}, color = {85, 170, 255}));
   connect(PRegPuSnExtern.y, switch.u3) annotation(
@@ -151,4 +148,9 @@ equation
     Line(points = {{120, 0}, {140, 0}}, color = {0, 0, 255}));
   connect(TfoPCS.terminal1, WTGTerminalMeasurements.terminal1) annotation(
     Line(points = {{100, 0}, {110, 0}}, color = {0, 0, 255}));
+  connect(complexExpr.y, complexToReal1.u) annotation(
+    Line(points = {{123, 84}, {106, 84}}, color = {85, 170, 255}));
+
+annotation(
+    Diagram);
 end BasePCS;

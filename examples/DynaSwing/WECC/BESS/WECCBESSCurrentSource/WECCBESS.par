@@ -15,159 +15,142 @@
 
   <set id="Solver">
     <par type="INT" name="order" value="2"/>
-    <par type="DOUBLE" name="initStep" value="1e-6"/>
-    <par type="DOUBLE" name="minStep" value="1e-8"/>
+    <par type="DOUBLE" name="initStep" value="1e-5"/>
+    <par type="DOUBLE" name="minStep" value="1e-6"/>
     <par type="DOUBLE" name="maxStep" value="10"/>
     <par type="DOUBLE" name="absAccuracy" value="1e-4"/>
     <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
   </set>
-
-  <set id="InfBusPar">
-    <par type="DOUBLE" name="infiniteBus_U0Pu" value="0.9906184368094055"/>
-    <par type="DOUBLE" name="infiniteBus_UEvtPu" value="0.5"/>
+  <!-- Infinite Bus -->
+  <set id="1">
+    <par type="DOUBLE" name="infiniteBus_U0Pu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_UEvtPu" value="0.55"/>
     <par type="DOUBLE" name="infiniteBus_UPhase" value="0"/>
     <par type="DOUBLE" name="infiniteBus_omega0Pu" value="1"/>
-    <par type="DOUBLE" name="infiniteBus_omegaEvtPu" value="1.0"/>
-    <par type="DOUBLE" name="infiniteBus_tUEvtStart" value="12"/>
-    <par type="DOUBLE" name="infiniteBus_tUEvtEnd" value="12.5"/>
-    <par type="DOUBLE" name="infiniteBus_tOmegaEvtStart" value="17"/>
-    <par type="DOUBLE" name="infiniteBus_tOmegaEvtEnd" value="17.5"/>
+    <par type="DOUBLE" name="infiniteBus_omegaEvtPu" value="1.01"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtStart" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtEnd" value="1.5"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtStart" value="6"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtEnd" value="6.5"/>
+  </set>
+  <!-- Line -->
+  <set id="2">
+    <par type="DOUBLE" name="line_XPu" value="0.0000020661"/>
+    <par type="DOUBLE" name="line_RPu" value="0.0"/>
+    <par type="DOUBLE" name="line_BPu" value="0.0"/>
+    <par type="DOUBLE" name="line_GPu" value="0.0"/>
   </set>
 
-  <set id="LinePar">
-    <par type="DOUBLE" name="line_RPu" value="0"/>
-    <par type="DOUBLE" name="line_XPu" value="0.05"/>
-    <par type="DOUBLE" name="line_GPu" value="0"/>
-    <par type="DOUBLE" name="line_BPu" value="0"/>
-  </set>
-
-  <set id="PlantPar">
-    <par type="DOUBLE" name="BESS_P0Pu" value="-0.7"/>
-    <par type="DOUBLE" name="BESS_Q0Pu" value="-0.2"/>
-    <par type="DOUBLE" name="BESS_U0Pu" value="1.0"/>
-    <par type="DOUBLE" name="BESS_UPhase0" value="0.03533563863002929"/>
-    <par type="DOUBLE" name="BESS_PPcc0Pu" value="-0.7"/>
-    <par type="DOUBLE" name="BESS_QPcc0Pu" value="-0.2"/>
+  <set id="3">
+    <par type="DOUBLE" name="BESS_PPcc0Pu" value="-0.03"/>
+    <par type="DOUBLE" name="BESS_QPcc0Pu" value="0"/>
     <par type="DOUBLE" name="BESS_UPcc0Pu" value="1.0"/>
-    <par type="DOUBLE" name="BESS_UPhasePcc0" value="0.03533563863002929"/>
-    <!-- Electrical Control -->
-    <par type="BOOL" name="BESS_QFlag" value="false"/>
-    <par type="BOOL" name="BESS_VFlag" value="true"/>
-    <par type="BOOL" name="BESS_PfFlag" value="false"/>
-    <par type="BOOL" name="BESS_PQFlag" value="false"/>
-    <par type="BOOL" name="BESS_PPriority" value="false"/>
-    <par type="DOUBLE" name="BESS_tRv" value="1e-5"/>
-    <par type="DOUBLE" name="BESS_UMinPu" value="0.9"/>
-    <par type="DOUBLE" name="BESS_UMaxPu" value="1.1"/>
-    <par type="DOUBLE" name="BESS_VUpPu" value="1.12"/>
-    <par type="DOUBLE" name="BESS_VDipPu" value="0.88"/>
-    <par type="DOUBLE" name="BESS_VRef0Pu" value="1"/>
-    <par type="DOUBLE" name="BESS_Dbd1Pu" value="-0.1"/>
-    <par type="DOUBLE" name="BESS_Dbd2Pu" value="0.1"/>
-    <par type="DOUBLE" name="BESS_Kqv" value="2"/>
-    <par type="DOUBLE" name="BESS_Iqh1Pu" value="2"/>
-    <par type="DOUBLE" name="BESS_Iql1Pu" value="-2"/>
-    <par type="DOUBLE" name="BESS_Kqp" value="1e-5"/>
+    <par type="DOUBLE" name="BESS_UPhasePcc0" value="0.00000144621"/>
+    <par type="DOUBLE" name="BESS_P0Pu" value="-0.03"/>
+    <par type="DOUBLE" name="BESS_Q0Pu" value="0"/>
+    <par type="DOUBLE" name="BESS_U0Pu" value="1.0"/>
+    <par type="DOUBLE" name="BESS_UPhase0" value="0.00000144621"/>
+    <par type="DOUBLE" name="BESS_SNom" value="6"/>
+    <par type="DOUBLE" name="BESS_PMaxPu" value="1"/>
+    <par type="DOUBLE" name="BESS_PMinPu" value="-0.667"/>
+    <par type="DOUBLE" name="BESS_QMaxPu" value="0.75"/>
+    <par type="DOUBLE" name="BESS_QMinPu" value="-0.75"/>
+    <par type="DOUBLE" name="BESS_tP" value="0.05"/>
+    <!-- REPC-A parameters -->
+    <par type="DOUBLE" name="BESS_DbdPu" value="0"/>
+    <par type="DOUBLE" name="BESS_DDn" value="126"/>
+    <par type="DOUBLE" name="BESS_DUp" value="126"/>
+    <par type="DOUBLE" name="BESS_EMaxPu" value="0.1"/>
+    <par type="DOUBLE" name="BESS_EMinPu" value="-0.1"/>
+    <par type="DOUBLE" name="BESS_FDbd1Pu" value="0.00083"/>
+    <par type="DOUBLE" name="BESS_FDbd2Pu" value="0.00083"/>
+    <par type="DOUBLE" name="BESS_FEMaxPu" value="999"/>
+    <par type="DOUBLE" name="BESS_FEMinPu" value="-999"/>
+    <par type="BOOL" name="BESS_FreqFlag" value="true"/>
+    <par type="DOUBLE" name="BESS_Kc" value="0"/>
+    <par type="DOUBLE" name="BESS_Ki" value="1e-6"/>
+    <par type="DOUBLE" name="BESS_Kig" value="1e-6"/>
+    <par type="DOUBLE" name="BESS_Kp" value="1e-6"/>
+    <par type="DOUBLE" name="BESS_Kpg" value="1"/>
+    <par type="BOOL" name="BESS_RefFlag" value="true"/>
+    <par type="DOUBLE" name="BESS_tLag" value="0.1"/>
+    <par type="DOUBLE" name="BESS_tFilterPC" value="0.02"/>
+    <par type="DOUBLE" name="BESS_tFt" value="1e-10"/>
+    <par type="DOUBLE" name="BESS_tFv" value="0.05"/>
+    <par type="BOOL" name="BESS_VCompFlag" value="true"/>
+    <par type="DOUBLE" name="BESS_VFrz" value="0"/>
+    <!-- RECC-C parameters -->
+    <par type="DOUBLE" name="BESS_Dbd1Pu" value="-0.05"/>
+    <par type="DOUBLE" name="BESS_Dbd2Pu" value="0.05"/>
+    <par type="DOUBLE" name="BESS_DPMaxPu" value="999"/>
+    <par type="DOUBLE" name="BESS_DPMinPu" value="-999"/>
+    <par type="DOUBLE" name="BESS_IMaxPu" value="1.11"/>
+    <par type="DOUBLE" name="BESS_Iqh1Pu" value="0.75"/>
+    <par type="DOUBLE" name="BESS_Iql1Pu" value="-0.75"/>
     <par type="DOUBLE" name="BESS_Kqi" value="1"/>
-    <par type="DOUBLE" name="BESS_VMaxPu" value="1.2"/>
-    <par type="DOUBLE" name="BESS_VMinPu" value="0.8"/>
-    <par type="DOUBLE" name="BESS_Kvp" value="1e-5"/>
-    <par type="DOUBLE" name="BESS_Kvi" value="1"/>
-    <par type="DOUBLE" name="BESS_tIq" value="0.01"/>
-    <par type="DOUBLE" name="BESS_tPord" value="0.01"/>
-    <par type="DOUBLE" name="BESS_DPMaxPu" value="1"/>
-    <par type="DOUBLE" name="BESS_DPMinPu" value="-1"/>
-    <par type="DOUBLE" name="BESS_IMaxPu" value="1.2"/>
-    <par type="DOUBLE" name="BESS_VDLIp11" value="0"/>
-    <par type="DOUBLE" name="BESS_VDLIp12" value="1"/>
-    <par type="DOUBLE" name="BESS_VDLIp21" value="0.33"/>
-    <par type="DOUBLE" name="BESS_VDLIp22" value="1"/>
-    <par type="DOUBLE" name="BESS_VDLIp31" value="0.66"/>
-    <par type="DOUBLE" name="BESS_VDLIp32" value="1"/>
-    <par type="DOUBLE" name="BESS_VDLIp41" value="1.05"/>
-    <par type="DOUBLE" name="BESS_VDLIp42" value="1"/>
-    <par type="DOUBLE" name="BESS_VDLIq11" value="1.1"/>
-    <par type="DOUBLE" name="BESS_VDLIq12" value="1"/>
-    <par type="DOUBLE" name="BESS_VDLIq21" value="1.15"/>
-    <par type="DOUBLE" name="BESS_VDLIq22" value="1"/>
-    <par type="DOUBLE" name="BESS_VDLIq31" value="1.2"/>
-    <par type="DOUBLE" name="BESS_VDLIq32" value="1"/>
-    <par type="DOUBLE" name="BESS_VDLIq41" value="1.3"/>
-    <par type="DOUBLE" name="BESS_VDLIq42" value="1"/>
+    <par type="DOUBLE" name="BESS_Kqp" value="1e-6"/>
+    <par type="DOUBLE" name="BESS_Kqv" value="15"/>
+    <par type="DOUBLE" name="BESS_Kvi" value="0.1"/>
+    <par type="DOUBLE" name="BESS_Kvp" value="1e-6"/>
+    <par type="BOOL" name="BESS_PQFlag" value="false"/>
+    <par type="BOOL" name="BESS_PfFlag" value="false"/>
+    <par type="BOOL" name="BESS_QFlag" value="false"/>
     <par type="DOUBLE" name="BESS_SOC0Pu" value="0.75"/>
     <par type="DOUBLE" name="BESS_SOCMaxPu" value="0.8"/>
     <par type="DOUBLE" name="BESS_SOCMinPu" value="0.2"/>
     <par type="DOUBLE" name="BESS_tBattery" value="999"/>
-    <!-- Generator Control -->
-    <par type="DOUBLE" name="BESS_tG" value="0.02"/>
-    <par type="DOUBLE" name="BESS_tFilterGC" value="1e-5"/>
-    <par type="DOUBLE" name="BESS_IqrMinPu" value="-10"/>
-    <par type="DOUBLE" name="BESS_IqrMaxPu" value="10"/>
-    <par type="DOUBLE" name="BESS_RrpwrPu" value="5.01"/>
+    <par type="DOUBLE" name="BESS_tIq" value="0.017"/>
+    <par type="DOUBLE" name="BESS_tPord" value="0.017"/>
+    <par type="DOUBLE" name="BESS_tRv" value="0.01"/>
+    <par type="DOUBLE" name="BESS_VUpPu" value="99"/>
+    <par type="DOUBLE" name="BESS_VDipPu" value="-99"/>
+    <par type="DOUBLE" name="BESS_VDLIp11" value="1.1"/>
+    <par type="DOUBLE" name="BESS_VDLIp12" value="1.1"/>
+    <par type="DOUBLE" name="BESS_VDLIp21" value="1.15"/>
+    <par type="DOUBLE" name="BESS_VDLIp22" value="1"/>
+    <par type="DOUBLE" name="BESS_VDLIp31" value="1.16"/>
+    <par type="DOUBLE" name="BESS_VDLIp32" value="1"/>
+    <par type="DOUBLE" name="BESS_VDLIp41" value="1.17"/>
+    <par type="DOUBLE" name="BESS_VDLIp42" value="1"/>
+    <par type="DOUBLE" name="BESS_VDLIq11" value="1.1"/>
+    <par type="DOUBLE" name="BESS_VDLIq12" value="1.1"/>
+    <par type="DOUBLE" name="BESS_VDLIq21" value="1.15"/>
+    <par type="DOUBLE" name="BESS_VDLIq22" value="1"/>
+    <par type="DOUBLE" name="BESS_VDLIq31" value="1.16"/>
+    <par type="DOUBLE" name="BESS_VDLIq32" value="1"/>
+    <par type="DOUBLE" name="BESS_VDLIq41" value="1.17"/>
+    <par type="DOUBLE" name="BESS_VDLIq42" value="1"/>
+    <par type="BOOL" name="BESS_VFlag" value="true"/>
+    <par type="DOUBLE" name="BESS_VMaxPu" value="1.1"/>
+    <par type="DOUBLE" name="BESS_VMinPu" value="0.9"/>
+    <par type="DOUBLE" name="BESS_VRef0Pu" value="1"/>
+    <!-- REGC-A parameters -->
+    <par type="DOUBLE" name="BESS_IqrMaxPu" value="999"/>
+    <par type="DOUBLE" name="BESS_IqrMinPu" value="-999"/>
+    <par type="DOUBLE" name="BESS_RrpwrPu" value="10"/>
+    <par type="DOUBLE" name="BESS_tFilterGC" value="0.02"/>
+    <par type="DOUBLE" name="BESS_tG" value="0.017"/>
     <par type="BOOL" name="BESS_Lvplsw" value="false"/>
-    <par type="DOUBLE" name="BESS_zerox" value="0.5"/>
-    <par type="DOUBLE" name="BESS_brkpt" value="0.9"/>
-    <par type="DOUBLE" name="BESS_lvpl1" value="1"/>
-    <!-- PLL Control -->
-    <par type="DOUBLE" name="BESS_KiPLL" value="200"/>
-    <par type="DOUBLE" name="BESS_KpPLL" value="30"/>
+    <par type="DOUBLE" name="BESS_zerox" value="0.1"/>
+    <par type="DOUBLE" name="BESS_brkpt" value="0.05"/>
+    <par type="DOUBLE" name="BESS_lvpl1" value="1.22"/>
+    <!-- PLL parameters -->
+    <par type="DOUBLE" name="BESS_KiPLL" value="20"/>
+    <par type="DOUBLE" name="BESS_KpPLL" value="3"/>
     <par type="DOUBLE" name="BESS_OmegaMaxPu" value="1.5"/>
     <par type="DOUBLE" name="BESS_OmegaMinPu" value="0.5"/>
-    <!-- Plant Control -->
-    <par type="DOUBLE" name="BESS_QMaxPu" value="0.4"/>
-    <par type="DOUBLE" name="BESS_QMinPu" value="-0.4"/>
-    <par type="DOUBLE" name="BESS_PMaxPu" value="0.9"/>
-    <par type="DOUBLE" name="BESS_PMinPu" value="0"/>
-    <par type="DOUBLE" name="BESS_tP" value="0.03"/>
-    <par type="BOOL" name="BESS_RefFlag" value="true"/>
-    <par type="BOOL" name="BESS_VCompFlag" value="false"/>
-    <par type="BOOL" name="BESS_FreqFlag" value="true"/>
-    <par type="DOUBLE" name="BESS_Kc" value="0.2"/>
-    <par type="DOUBLE" name="BESS_tFilterPC" value="0.04"/>
-    <par type="DOUBLE" name="BESS_DbdPu" value="0"/>
-    <par type="DOUBLE" name="BESS_EMaxPu" value="999"/>
-    <par type="DOUBLE" name="BESS_EMinPu" value="-999"/>
-    <par type="DOUBLE" name="BESS_tFt" value="1e-5"/>
-    <par type="DOUBLE" name="BESS_tFv" value="0.04"/>
-    <par type="DOUBLE" name="BESS_FDbd1Pu" value="0"/>
-    <par type="DOUBLE" name="BESS_FDbd2Pu" value="0"/>
-    <par type="DOUBLE" name="BESS_DDn" value="0"/>
-    <par type="DOUBLE" name="BESS_DUp" value="0"/>
-    <par type="DOUBLE" name="BESS_FEMaxPu" value="999"/>
-    <par type="DOUBLE" name="BESS_FEMinPu" value="-999"/>
-    <par type="DOUBLE" name="BESS_tLag" value="0.04"/>
-    <par type="DOUBLE" name="BESS_Kp" value="1"/>
-    <par type="DOUBLE" name="BESS_Ki" value="5"/>
-    <par type="DOUBLE" name="BESS_Kpg" value="1"/>
-    <par type="DOUBLE" name="BESS_Kig" value="5"/>
-    <par type="DOUBLE" name="BESS_VFrz" value="0.85"/>
-    <!-- BaseWT4 -->
-    <par type="DOUBLE" name="BESS_SNom" value="200"/>
-    <par type="DOUBLE" name="BESS_rTfoPu" value="0.962"/>
-    <par type="DOUBLE" name="BESS_RLvTrPu" value="0.015"/>
-    <par type="DOUBLE" name="BESS_XLvTrPu" value="0.06"/>
-    <par type="DOUBLE" name="BESS_RMvHvPu" value="0.03"/>
-    <par type="DOUBLE" name="BESS_XMvHvPu" value="0.15"/>
+    <par type="DOUBLE" name="BESS_RLvTrPu" value="0"/>
+    <par type="DOUBLE" name="BESS_XLvTrPu" value="0"/>
+    <par type="DOUBLE" name="BESS_RMvHvPu" value="0"/>
+    <par type="DOUBLE" name="BESS_XMvHvPu" value="1e-6"/>
     <par type="DOUBLE" name="BESS_BMvHvPu" value="0"/>
     <par type="DOUBLE" name="BESS_GMvHvPu" value="0"/>
     <par type="BOOL" name="BESS_PPCLocal" value="true"/>
     <par type="BOOL" name="BESS_ConverterLVControl" value="true"/>
   </set>
 
-  <set id="OmegaRefPar">
+  <!-- Set Point -->
+  <set id="4">
     <par type="DOUBLE" name="setPoint_Value0" value="1"/>
   </set>
-
-  <set id="PRefPu">
-    <par type="DOUBLE" name="step_Height" value="0.1"/>
-    <par type="DOUBLE" name="step_tStep" value="1"/>
-    <par type="DOUBLE" name="step_Value0" value="0.35"/>
-  </set>
-
-  <set id="URefPu">
-    <par type="DOUBLE" name="step_Height" value="-0.02"/>
-    <par type="DOUBLE" name="step_tStep" value="8"/>
-    <par type="DOUBLE" name="step_Value0" value="1.02"/>
-  </set>
-
 </parametersSet>

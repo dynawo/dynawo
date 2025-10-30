@@ -39,12 +39,13 @@
   </set>
   <set id="3">
     <par type="DOUBLE" name="WT4B_P0Pu" value="-0.7"/>
-    <par type="DOUBLE" name="WT4B_Q0Pu" value="-0.2"/>
-    <par type="DOUBLE" name="WT4B_U0Pu" value="1.0"/>
-    <par type="DOUBLE" name="WT4B_UPhase0" value="0.00000144621"/>
+    <par type="DOUBLE" name="WT4B_Q0Pu" value="-0.2795"/>
+    <par type="DOUBLE" name="WT4B_U0Pu" value="1.035338"/>
+    <par type="DOUBLE" name="WT4B_UPhase0" value="0.1015917638"/>
     <par type="DOUBLE" name="WT4B_SNom" value="100"/>
-    <par type="DOUBLE" name="WT4B_RPu" value="0"/>
-    <par type="DOUBLE" name="WT4B_XPu" value="0.15"/>
+    <par type="DOUBLE" name="WT4B_RLvTrPu" value="0"/>
+    <par type="DOUBLE" name="WT4B_XLvTrPu" value="0.15"/>
+    <par type="BOOL" name="WT4B_ConverterLVControl" value="true"/>
     <par type="DOUBLE" name="WT4B_DDn" value="20"/>
     <par type="DOUBLE" name="WT4B_DUp" value="0.001"/>
     <par type="BOOL" name="WT4B_FreqFlag" value="true"/>

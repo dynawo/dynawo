@@ -21,21 +21,6 @@ partial model BaseBESSCurrentSource "Partial base model for WECC BESS with elect
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
-  //Configuration parameters to define how the user wants to represent the internal network
-  parameter Boolean ConverterLVControl  = true "Boolean parameter to choose whether the converter is controlling at its output (LV side of its transformer) : True ; or after its transformer (MV side): False" annotation(
-    Dialog(tab = "LV transformer"));
-
-  //Parameters for LV transformer
-  parameter Types.PerUnit RLvTrPu "Serial resistance of LV transformer in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "LV transformer"));
-  parameter Types.PerUnit XLvTrPu "Serial reactance of LV transformer in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "LV transformer"));
-
-  // In every cases (RPu + j*XPu) is the serial impedance between converter's output and WT terminal
-  //Depending on the value of ConverterLVControl we are correctly defining these parameters
-  final parameter Types.PerUnit RPu = if ConverterLVControl then 1e-5 else RLvTrPu "Serial resistance between converter output and WT terminal in pu (base UNom, SNom)";
-  final parameter Types.PerUnit XPu = if ConverterLVControl then 1e-5 else XLvTrPu "Serial reactance between converter output and WT terminal in pu (base UNom, SNom)";
-
   // Input variables
   Modelica.Blocks.Interfaces.RealInput PAuxPu(start = 0) "Auxiliary input in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-90, 130}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
@@ -54,7 +39,7 @@ partial model BaseBESSCurrentSource "Partial base model for WECC BESS with elect
     Placement(visible = true, transformation(origin = {-185, 38}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Controls.WECC.Utilities.Measurements WTTerminalMeasurements(SNom = SNom) annotation(
     Placement(visible = true, transformation(origin = {65, -8.88178e-16}, extent = {{-5, 5}, {5, -5}}, rotation = 0)));
-  Sources.IEC.BaseConverters.ElecSystem LvToMvTfo(BPu = 0, GPu = 0, RPu = RPu, SNom = SNom, XPu = XPu, i20Pu = iConv0Pu, u20Pu = uConv0Pu) annotation(
+  Sources.IEC.BaseConverters.ElecSystem LvToMvTfo(SNom = SNom, i20Pu = iConv0Pu, u20Pu = uConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initial parameters

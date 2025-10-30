@@ -32,19 +32,20 @@
     <par type="DOUBLE" name="infiniteBus_tOmegaEvtEnd" value="6.5"/>
   </set>
   <set id="2">
-    <par type="DOUBLE" name="line_XPu" value="0.0000020661"/>
+    <par type="DOUBLE" name="line_XPu" value="0.1500020661"/>
     <par type="DOUBLE" name="line_RPu" value="0.0"/>
     <par type="DOUBLE" name="line_BPu" value="0.0"/>
     <par type="DOUBLE" name="line_GPu" value="0.0"/>
   </set>
   <set id="3">
     <par type="DOUBLE" name="WT4A_P0Pu" value="-0.7"/>
-    <par type="DOUBLE" name="WT4A_Q0Pu" value="-0.2"/>
-    <par type="DOUBLE" name="WT4A_U0Pu" value="1.0"/>
-    <par type="DOUBLE" name="WT4A_UPhase0" value="0.00000144621"/>
+    <par type="DOUBLE" name="WT4A_Q0Pu" value="-0.2795"/>
+    <par type="DOUBLE" name="WT4A_U0Pu" value="1.035338"/>
+    <par type="DOUBLE" name="WT4A_UPhase0" value="0.1015917638"/>
     <par type="DOUBLE" name="WT4A_SNom" value="100"/>
-    <par type="DOUBLE" name="WT4A_RPu" value="0"/>
-    <par type="DOUBLE" name="WT4A_XPu" value="0.15"/>
+    <par type="DOUBLE" name="WT4A_RLvTrPu" value="0"/>
+    <par type="DOUBLE" name="WT4A_XLvTrPu" value="0"/>
+    <par type="BOOL" name="WT4A_ConverterLVControl" value="true"/>
     <par type="DOUBLE" name="WT4A_DDn" value="20"/>
     <par type="DOUBLE" name="WT4A_DUp" value="0.001"/>
     <par type="BOOL" name="WT4A_FreqFlag" value="true"/>

@@ -42,9 +42,19 @@
     <par type="DOUBLE" name="photovoltaics_Q0Pu" value="-0.2"/>
     <par type="DOUBLE" name="photovoltaics_U0Pu" value="1.03713742957"/>
     <par type="DOUBLE" name="photovoltaics_UPhase0" value="0.203890124"/>
+    <par type="DOUBLE" name="photovoltaics_PPcc0Pu" value="-0.7"/>
+    <par type="DOUBLE" name="photovoltaics_QPcc0Pu" value="-0.2"/>
+    <par type="DOUBLE" name="photovoltaics_UPcc0Pu" value="1.03713742957"/>
+    <par type="DOUBLE" name="photovoltaics_UPhasePcc0" value="0.203890124"/>
     <par type="DOUBLE" name="photovoltaics_SNom" value="100"/>
-    <par type="DOUBLE" name="photovoltaics_RPu" value="0"/>
-    <par type="DOUBLE" name="photovoltaics_XPu" value="0.15"/>
+    <par type="DOUBLE" name="photovoltaics_RLvTrPu" value="0"/>
+    <par type="DOUBLE" name="photovoltaics_XLvTrPu" value="0"/>
+    <par type="DOUBLE" name="photovoltaics_RMvHvPu" value="0"/>
+    <par type="DOUBLE" name="photovoltaics_XMvHvPu" value="0.15"/>
+    <par type="DOUBLE" name="photovoltaics_BMvHvPu" value="0"/>
+    <par type="DOUBLE" name="photovoltaics_GMvHvPu" value="0"/>
+    <par type="BOOL" name="photovoltaics_PPCLocal" value="true"/>
+    <par type="BOOL" name="photovoltaics_ConverterLVControl" value="true"/>
     <par type="DOUBLE" name="photovoltaics_DDn" value="20"/>
     <par type="DOUBLE" name="photovoltaics_DUp" value="0.001"/>
     <par type="BOOL" name="photovoltaics_FreqFlag" value="true"/>

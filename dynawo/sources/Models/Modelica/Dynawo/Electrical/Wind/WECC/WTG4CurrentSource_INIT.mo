@@ -58,7 +58,6 @@ model WTG4CurrentSource_INIT "Initialization model for WECC Wind model with a cu
     Dialog(enable = not PPCLocal));
 
 equation
-
   //Regulated bus electrical quantities
   iPcc0Pu = ComplexMath.conj(sPcc0Pu / uPcc0Pu);
   uPcc0Pu = ComplexMath.fromPolar(UPcc0Pu, UPhasePcc0);
