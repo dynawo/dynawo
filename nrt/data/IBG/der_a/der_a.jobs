@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2025, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<jobs xmlns="http://www.rte-france.com/dynawo">
+    <job name="der_a">
+        <solver lib="dynawo_SolverIDA" parFile="der_a.par" parId="Solver"/>
+        <modeler compileDir="outputs/compilation">
+            <dynModels dydFile="der_a.dyd"/>
+            <precompiledModels useStandardModels="true"/>
+            <modelicaModels useStandardModels="true">
+              <directory path="." recursive="false"/>
+            </modelicaModels>
+        </modeler>
+        <simulation startTime="0" stopTime="20"/>
+        <outputs directory="outputs">
+            <curves inputFile="der_a.crv" exportMode="CSV"/>
+            <logs>
+              <appender tag="" file="dynawo.log" lvlFilter="INFO"/>
+            </logs>
+        </outputs>
+    </job>
+</jobs>
