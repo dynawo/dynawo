@@ -99,7 +99,17 @@ def is_adept_func(func, list_adept_structs):
 # @return the variable name without '.'
 def to_compile_name(var_name):
     name = var_name.replace(".","_")
-    name = name.replace("[","_")
+    name = to_table_name(name)
+    return name
+
+##
+# replace ']' by '_' A[1] => A_1_
+# replace ']' by '_'
+# replace ',' by '_' A[1,1] => A_1_1_
+# @param var_name : input name of the variable
+# @return the variable name without '.'
+def to_table_name(var_name):
+    name = var_name.replace("[","_")
     name = name.replace("]","_")
     name = name.replace(",","_")
     return name
@@ -392,6 +402,7 @@ def replace_dynamic_indexing(body):
     body_to_return = []
     depend_vars = []
     integer_array_create_tmp = {}
+    index_tmp = 0
     for line in body:
         if ("calc_base_index_dims_subs" not in line):
             body_to_return.append(line)
@@ -401,16 +412,25 @@ def replace_dynamic_indexing(body):
                     for i in range(0, int(size)):
                         body_to_return.append("    data->localData[0]->" + table + "[" + str(int(index) + i) + "] /* " + var_name + "[" + str(i + 1) +"] DISCRETE */" + " = integer_get(" + tmp + ", " + str(i) + ");\n")
             continue
+        ptrn_var_dynamic_index_nbdim = re.compile(r'\(&data->localData\[[0-9]+\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/\)\[calc_base_index_dims_subs\((?P<nbdim>[0-9]+),(?P<expr>.*)\)\]')
+        match = ptrn_var_dynamic_index_nbdim.findall(line)
+        is_param = False
+        if len(match) == 0:
+            #Parameter case
+            ptrn_var_dynamic_index_nbdim = re.compile(r'\(&data->simulationInfo->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/\)\[calc_base_index_dims_subs\((?P<nbdim>[0-9]+),(?P<expr>.*)\)\]')
+            match = ptrn_var_dynamic_index_nbdim.findall(line)
+            is_param = True
+
         ptrn_var_dynamic_index = re.compile(r'\(&data->localData\[[0-9]+\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/\)\[calc_base_index_dims_subs\([0-9]+, (?P<size>[0-9]+), (?P<expr>.*)\)\]')
-        match = ptrn_var_dynamic_index.findall(line)
-        index_tmp = 0
         if "real_array_create" in line:
+            match = ptrn_var_dynamic_index.findall(line)
             for var, var_name, size, expr in match:
                 index2 = -1
                 while var[index2] != '[':
                     index2 -= 1
                 body_to_return.append(re.sub(ptrn_var_dynamic_index, "data->localData[0]->" + var[:index2] + "["+var[index2:-1]+"] /* " + var_name+" DISCRETE */", line))
         elif "integer_array_create" in line:
+            match = ptrn_var_dynamic_index.findall(line)
             for var, var_name, size, expr in match:
                 index = -1
                 while var_name[index] != '[':
@@ -425,23 +445,53 @@ def replace_dynamic_indexing(body):
                     integer_array_create_tmp["tmp" + tmp_id] = [var[:index2], var[index2 + 1:-1], var_name[:index], size]
                 #body_to_return.append(re.sub(ptrn_var_dynamic_index, "data->localData[0]->" + var[:index2] + "["+var[index2:-1]+"] /* " + var_name+" DISCRETE */", line))
         else:
-            body_to_return.append("  modelica_real tmp_calc_var_" + str(index_tmp)+";\n")
-            for var, var_name, size, expr in match:
-                for i in range(1, int(size)+1):
-                    body_to_return.append("  if (" + expr + " == " + str(i) +") {\n")
-                    index = -1
-                    while var_name[index] != '[':
-                        index -= 1
-                    index2 = -1
-                    while var[index2] != '[':
-                        index2 -= 1
-                    body_to_return.append("    tmp_calc_var_" + str(index_tmp) + " = data->localData[0]->" + var[:index2] + "["+var[index2:-1]+"] /* " + var_name[:index]+"[" + str(i) + "]"+" DISCRETE */;\n")
-                    body_to_return.append("  }\n")
-                    depend_vars.append(var_name[:index]+"[" + str(i) + "]")
-                body_to_return.append(re.sub(ptrn_var_dynamic_index,"tmp_calc_var_" + str(index_tmp), line))
+            for var, var_name, nb_dim, expr in match:
+                params = expr.split(',')
+                sizes=[]
+                exprs=[]
+                for dim in range(1, int(nb_dim)+1):
+                    sizes.append(params[dim - 1])
+                for dim in range(1, int(nb_dim)+1):
+                    exprs.append(params[int(nb_dim) + dim - 1])
+                body_to_return.append("  modelica_real tmp_calc_var_" + str(index_tmp)+";\n")
+                dump_tmp_calc_var_value(body_to_return, depend_vars, sizes, exprs, is_param, var_name, var, index_tmp, 1, int(nb_dim), "")
+                body_to_return.append(re.sub(ptrn_var_dynamic_index_nbdim,"tmp_calc_var_" + str(index_tmp), line))
                 index_tmp+=1
 
     return (body_to_return, depend_vars)
+
+def dump_tmp_calc_var_value(body_to_return, depend_vars, sizes, exprs, is_param, var_name, var, index_tmp, index_dim, nb_max_dim, index_name):
+    if index_dim == nb_max_dim + 1:
+        index = -1
+        while var_name[index] != '[':
+            index -= 1
+        index2 = -1
+        while var[index2] != '[':
+            index2 -= 1
+        type = "DISCRETE"
+        table = "localData[0]"
+        if is_param:
+            type = "PARAM"
+            table ="simulationInfo"
+        body_to_return.append("    tmp_calc_var_" + str(index_tmp) + " = data->" + table + "->" + var[:index2] +var[index2:-1]+"] /* " + var_name[:index]+"[" + index_name + "] "+ type + " */;\n")
+        depend_vars.append(var_name[:index]+"[" + index_name + "]")
+        return
+    size = sizes[index_dim - 1]
+    expr = exprs[index_dim - 1]
+    for i in range(1, int(size)+1):
+        index_name_local = index_name
+        body_to_return.append("  if (" + expr + " == " + str(i) +") {\n")
+        type = "DISCRETE"
+        table = "localData[0]"
+        if is_param:
+            type = "PARAM"
+            table ="simulationInfo"
+        if int(index_dim) == 1:
+            index_name_local = str(i)
+        else:
+            index_name_local+= "," + str(i)
+        dump_tmp_calc_var_value(body_to_return, depend_vars, sizes, exprs, is_param, var_name, var, index_tmp, index_dim + 1, nb_max_dim, index_name_local)
+        body_to_return.append("  }\n")
 
 ##
 # Replace a DIVISION expression in a line by a/b
