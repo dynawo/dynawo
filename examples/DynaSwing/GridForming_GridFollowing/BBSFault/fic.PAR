@@ -103,7 +103,7 @@
     <par type="DOUBLE" name="WTG4A_PMinPu" value="0"/>
     <par type="BOOL" name="WTG4A_PQFlag" value="false"/>
     <par type="BOOL" name="WTG4A_PfFlag" value="false"/>
-    <par type="BOOL" name="WTG4A_QFlag" value="true"/>
+    <par type="INT" name="WTG4A_QFlag" value="1"/>
     <par type="DOUBLE" name="WTG4A_QMaxPu" value="0.4"/>
     <par type="DOUBLE" name="WTG4A_QMinPu" value="-0.4"/>
     <par type="BOOL" name="WTG4A_RateFlag" value="false"/>

@@ -70,7 +70,7 @@ model WTG4ACurrentSource1 "WECC Wind Type 4A Model (including the plant controll
     PQFlag = false,
     PfFlag = false,
     Q0Pu = -0.2,
-    QFlag = true,
+    QFlag = 1,
     QInj0Pu(fixed = false),
     QMaxPu = 0.4,
     QMinPu = -0.4,
