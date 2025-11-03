@@ -340,7 +340,7 @@ ModelManager::evalJtAdept(const double t, double* y, double* yp, const double cj
     stack.independent(&xp[0], static_cast<adept::uIndex>(xp.size()));
     stack.dependent(&output[0], nbOutput);
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
-    Timer* timer1 = new Timer("zzz reading");
+    Timer* timer1 = new Timer("ModelManager::evalJtAdept reading");
 #endif
     stack.jacobian(&jac[0]);
     stack.pause_recording();
@@ -350,7 +350,7 @@ ModelManager::evalJtAdept(const double t, double* y, double* yp, const double cj
 
     const int offsetJPrim = sizeY() * sizeY();
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
-    Timer* timer3 = new Timer("zzz filling");
+    Timer* timer3 = new Timer("ModelManager::evalJtAdept filling");
 #endif
 
     for (unsigned int i = 0; i < sizeF(); ++i) {
@@ -382,6 +382,9 @@ ModelManager::evalJtAdept(const double t, double* y, double* yp, const double cj
 
 void
 ModelManager::evalG(const double t) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer("ModelManager::evalG");
+#endif
   setManagerTime(t);
 
   modelModelica()->setGomc(gLocal_);
@@ -427,7 +430,7 @@ ModelManager::evalZ(const double t) {
 
 modeChangeType_t
 ModelManager::evalMode(const double t) {
-  modeChangeType_t delay_mode = delayManager_.evalMode(t);
+  modeChangeType_t delay_mode = delayManager_.evalMode(t, name());
 
   return std::max(delay_mode, modelModelica()->evalMode(t));
 }
@@ -710,6 +713,10 @@ ModelManager::dumpVariables(map< string, string >& mapVariables) {
   vector<double> valuesRoots(sizeG_, 0.);
   std::copy(gLocal_, gLocal_ + sizeG_, valuesRoots.begin());
 
+  nb = static_cast<unsigned int>(modelData()->nRelations);
+  vector<bool> valuesRelations(modelData()->nRelations, false);
+  std::copy(simulationInfo()->relations, simulationInfo()->relations + nb, valuesRelations.begin());
+
   os << cSum;
   os << cSumInit;
   os << valuesReal;
@@ -719,6 +726,7 @@ ModelManager::dumpVariables(map< string, string >& mapVariables) {
   os << valuesDerivatives;
   os << constCalcVars;
   os << valuesRoots;
+  os << valuesRelations;
 
   mapVariables[ variablesFileName() ] = values.str();
 }
@@ -740,6 +748,7 @@ ModelManager::loadVariables(const string& variables) {
   vector<double> valuesDerivatives;
   vector<double> constCalcVars;
   vector<double> valuesRoots;
+  vector<bool> valuesRelations;
 
   is >> cSumRead;
   is >> cSumInitRead;
@@ -751,6 +760,7 @@ ModelManager::loadVariables(const string& variables) {
   is >> valuesDerivatives;
   is >> constCalcVars;
   is >> valuesRoots;
+  is >> valuesRelations;
 
   if (hasInit()) {
     modelModelicaInit()->checkSum(cSumInit);
@@ -785,6 +795,7 @@ ModelManager::loadVariables(const string& variables) {
   std::copy(valuesDiscreteReal.begin(), valuesDiscreteReal.end(), data()->localData[0]->discreteVars);
   std::copy(constCalcVars.begin(), constCalcVars.end(), data()->constCalcVars.begin());
   std::copy(valuesRoots.begin(), valuesRoots.end(), gLocal_);
+  std::copy(valuesRelations.begin(), valuesRelations.end(), simulationInfo()->relations);
 }
 
 void
@@ -841,7 +852,7 @@ ModelManager::loadParameters(const string& parameters) {
   }
 
   // To activate all delays
-  delayManager_.evalMode(getCurrentTime());
+  delayManager_.evalMode(getCurrentTime(), name());
 
   // copy of loaded parameters in the map
   const std::unordered_map<string, ParameterModeler>& parametersMap = (this)->getParametersDynamic();

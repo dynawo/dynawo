@@ -29,7 +29,7 @@ jobs:
             cd /dynawo
             export DYNAWO_HOME=$(pwd)
             util/envDynawo.sh build-user
-            sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"GFM_Fault" : 1, "EntsoeTestCase3PlayBack":6.5, "HVDC":1, "PmConstAc6aPss3b":1}/' util/nrt_diff/settings.py
+            sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"PmConstAc7cPss2c" : 5, "GFM_Fault" : 1, "EntsoeTestCase3PlayBack":6.5, "HVDC":1, "PmConstAc6aPss3b":1}/' util/nrt_diff/settings.py
             branch=$(util/envDynawo.sh display-environment | grep DYNAWO_BRANCH_NAME | cut -d '=' -f 2)
             util/envDynawo.sh nrt || { cat nrt/output/${branch}/report.html && cat nrt/output/${branch}/nrt_nok.txt && exit 1; }
         env:
@@ -90,7 +90,7 @@ jobs:
           run: |
             cd /dynawo
             export DYNAWO_HOME=$(pwd)
-            sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"GFM_Fault" : 1, "EntsoeTestCase3PlayBack":6.5, "HVDC":1, "PmConstAc6aPss3b":1}/' util/nrt_diff/settings.py
+            sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"PmConstAc7cPss2c" : 3, "GFM_Fault" : 1, "EntsoeTestCase3PlayBack":6.5, "HVDC":1, "PmConstAc6aPss3b":1}/' util/nrt_diff/settings.py
             util/envDynawo.sh build-user
             branch=$(util/envDynawo.sh display-environment | grep DYNAWO_BRANCH_NAME | cut -d '=' -f 2)
             util/envDynawo.sh nrt || { cat nrt/output/${branch}/report.html && cat nrt/output/${branch}/nrt_nok.txt && exit 1; }

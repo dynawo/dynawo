@@ -14,6 +14,8 @@ within Dynawo.Electrical.Controls.Current;
 
 model CurrentLimitAutomatonTwoLevels "Current Limit Automaton (CLA) monitoring two components"
   import Modelica.Constants;
+  import Dynawo.NonElectrical.Logs.Constraint;
+  import Dynawo.NonElectrical.Logs.ConstraintKeys;
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
@@ -37,23 +39,74 @@ model CurrentLimitAutomatonTwoLevels "Current Limit Automaton (CLA) monitoring t
   //Outputs
   Dynawo.Connectors.IntPin order "Order emitted by the CLA (it should be a value corresponding to a state: [1:OPEN, 2:CLOSED, 3:CLOSED_1, 4:CLOSED_2, 5:CLOSED_3, 6:UNDEFINED])";
 
-  //Blocks
-  CurrentLimitAutomaton currentLimitAutomaton1(IMax = IMax1, OrderToEmit = OrderToEmit1, Running = Running1, tLagBeforeActing = tLagBeforeActing1);
-  CurrentLimitAutomaton currentLimitAutomaton2(IMax = IMax2, OrderToEmit = OrderToEmit2, Running = Running2, tLagBeforeActing = tLagBeforeActing2);
+protected
+  //CLA 1 internals and output
+  discrete Types.Time tThresholdReached1(start = Constants.inf) "Time when IMonitored1 > IMax1 was first reached in s";
+  discrete Types.Time tOrder1(start = Constants.inf) "Last time the CLA1 emitted an order in s";
+  discrete Integer Order1 "Output that would actually be emitted by CLA1";
+
+  //CLA 2 internals and output
+  discrete Types.Time tThresholdReached2(start = Constants.inf) "Time when IMonitored2 > IMax2 was first reached in s";
+  discrete Types.Time tOrder2(start = Constants.inf) "Last time the CLA2 emitted an order in s";
+  discrete Integer Order2 "Output that would actually be emitted by CLA2";
 
 equation
-  when currentLimitAutomaton1.order.value == 1 or currentLimitAutomaton2.order.value == 1 or (currentLimitAutomaton1.order.value == 3 and currentLimitAutomaton2.order.value == 4) or (currentLimitAutomaton1.order.value == 4 and currentLimitAutomaton2.order.value == 3) then
-    order.value = 1;
-  elsewhen currentLimitAutomaton1.order.value == 2 and currentLimitAutomaton2.order.value == 2 then
-    order.value = 2;
-  elsewhen ((currentLimitAutomaton1.order.value == 2 or currentLimitAutomaton1.order.value == 0) and currentLimitAutomaton2.order.value == 3) or (currentLimitAutomaton1.order.value == 3 and (currentLimitAutomaton2.order.value == 2 or currentLimitAutomaton2.order.value == 0)) or (currentLimitAutomaton1.order.value == 3 and currentLimitAutomaton2.order.value == 3) then
-    order.value = 3;
-  elsewhen ((currentLimitAutomaton1.order.value == 2 or currentLimitAutomaton1.order.value == 0) and currentLimitAutomaton2.order.value == 4) or (currentLimitAutomaton1.order.value == 4 and (currentLimitAutomaton2.order.value == 2 or currentLimitAutomaton2.order.value == 0)) or (currentLimitAutomaton1.order.value == 4 and currentLimitAutomaton2.order.value == 4) then
-    order.value = 4;
+  //CLA blocks substituted here to work around an annoying OMC bug
+
+  //Block 1
+  when IMonitored1.value > IMax1 and Running1 and pre(Order1) <> OrderToEmit1 then
+    Constraint.logConstraintBeginData(ConstraintKeys.OverloadUpCLA, "OverloadUp", IMax1, IMonitored1.value, String(tLagBeforeActing1, significantDigits = 2));
+    tThresholdReached1 = time;
+    Timeline.logEvent1(TimelineKeys.CurrentLimitAutomatonArming);
+  elsewhen IMonitored1.value < IMax1 and pre(tThresholdReached1) <> Constants.inf and pre(Order1) <> OrderToEmit1 then
+    Constraint.logConstraintEndData(ConstraintKeys.OverloadUpCLA, "OverloadUp", IMax1, IMonitored1.value, String(tLagBeforeActing1, significantDigits = 2));
+    tThresholdReached1 = Constants.inf;
+    Timeline.logEvent1(TimelineKeys.CurrentLimitAutomatonDisarming);
   end when;
 
-  connect(IMonitored1, currentLimitAutomaton1.IMonitored);
-  connect(IMonitored2, currentLimitAutomaton2.IMonitored);
+  when tThresholdReached1 <> Constants.inf and tOrder1 == Constants.inf and der(IMonitored1.value) < 0 then
+    Constraint.logConstraintBeginData(ConstraintKeys.OverloadUpCLA, "OverloadUp", IMax1, pre(IMonitored1.value), String(tLagBeforeActing1, significantDigits = 2));
+  end when;
+
+  when time - tThresholdReached1 >= tLagBeforeActing1 then
+    Constraint.logConstraintBeginData(ConstraintKeys.OverloadOpenCLA, "OverloadOpen", IMax1, IMonitored1.value, String(tLagBeforeActing1, significantDigits = 2));
+    Order1 = OrderToEmit1;
+    tOrder1 = time;
+    Timeline.logEvent1(TimelineKeys.CurrentLimitAutomatonActing);
+  end when;
+
+  //Block 2
+  when IMonitored2.value > IMax2 and Running2 and pre(Order2) <> OrderToEmit2 then
+    Constraint.logConstraintBeginData(ConstraintKeys.OverloadUpCLA, "OverloadUp", IMax2, IMonitored2.value, String(tLagBeforeActing2, significantDigits = 2));
+    tThresholdReached2 = time;
+    Timeline.logEvent1(TimelineKeys.CurrentLimitAutomatonArming);
+  elsewhen IMonitored2.value < IMax2 and pre(tThresholdReached2) <> Constants.inf and pre(Order2) <> OrderToEmit2 then
+    Constraint.logConstraintEndData(ConstraintKeys.OverloadUpCLA, "OverloadUp", IMax2, IMonitored2.value, String(tLagBeforeActing2, significantDigits = 2));
+    tThresholdReached2 = Constants.inf;
+    Timeline.logEvent1(TimelineKeys.CurrentLimitAutomatonDisarming);
+  end when;
+
+  when tThresholdReached2 <> Constants.inf and tOrder2 == Constants.inf and der(IMonitored2.value) < 0 then
+    Constraint.logConstraintBeginData(ConstraintKeys.OverloadUpCLA, "OverloadUp", IMax2, pre(IMonitored2.value), String(tLagBeforeActing2, significantDigits = 2));
+  end when;
+
+  when time - tThresholdReached2 >= tLagBeforeActing2 then
+    Constraint.logConstraintBeginData(ConstraintKeys.OverloadOpenCLA, "OverloadOpen", IMax2, IMonitored2.value, String(tLagBeforeActing2, significantDigits = 2));
+    Order2 = OrderToEmit2;
+    tOrder2 = time;
+    Timeline.logEvent1(TimelineKeys.CurrentLimitAutomatonActing);
+  end when;
+
+  //Top-level orders merge
+  when Order1 == 1 or Order2 == 1 or (Order1 == 3 and Order2 == 4) or (Order1 == 4 and Order2 == 3) then
+    order.value = 1;
+  elsewhen Order1 == 2 and Order2 == 2 then
+    order.value = 2;
+  elsewhen ((Order1 == 2 or Order1 == 0) and Order2 == 3) or (Order1 == 3 and (Order2 == 2 or Order2 == 0)) or (Order1 == 3 and Order2 == 3) then
+    order.value = 3;
+  elsewhen ((Order1 == 2 or Order1 == 0) and Order2 == 4) or (Order1 == 4 and (Order2 == 2 or Order2 == 0)) or (Order1 == 4 and Order2 == 4) then
+    order.value = 4;
+  end when;
 
   annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body>The automaton will open one component when the current stays higher than a predefined threshold during a certain amount of time on two monitored components (line, transformer, etc.) (one threshold and one time constant per element).</body></html>"));
