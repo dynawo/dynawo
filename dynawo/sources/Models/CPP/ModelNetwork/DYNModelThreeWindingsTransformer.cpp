@@ -132,7 +132,7 @@ ModelThreeWindingsTransformer::collectSilentZ(BitMask* /*silentZTable*/) {
 }
 
 NetworkComponent::StateChange_t
-ModelThreeWindingsTransformer::evalZ(const double /*t*/) {
+ModelThreeWindingsTransformer::evalZ(const double /*t*/, bool /*deactivateZeroCrossingFunctions*/) {
   return NetworkComponent::NO_CHANGE;
 }
 

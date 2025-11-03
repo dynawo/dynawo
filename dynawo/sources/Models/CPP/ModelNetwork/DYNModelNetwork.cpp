@@ -128,7 +128,8 @@ ModelCPP("NETWORK"),
 calculatedVarBuffer_(NULL),
 isInit_(false) ,
 isInitModel_(false),
-withNodeBreakerTopology_(false) {
+withNodeBreakerTopology_(false),
+deactivateZeroCrossingFunctions_(false) {
   busContainer_.reset(new ModelBusContainer());
 }
 
@@ -139,8 +140,8 @@ ModelNetwork::~ModelNetwork() {
 
 void
 ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
-  Timer timer("ModelNetwork::initFromData");
+#if defined(_DEBUG_)
+  Timer timer("ModelNetwork::initializeFromData");
 #endif
   Trace::debug(Trace::network()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::network()) << "Network initialization" << Trace::endline;
@@ -827,7 +828,8 @@ ModelNetwork::getSize() {
     sizeZ_ += component->sizeZ();
     sizeMode_ += component->sizeMode();
     sizeF_ += component->sizeF();
-    sizeG_ += component->sizeG();
+    if (!deactivateZeroCrossingFunctions_)
+      sizeG_ += component->sizeG();
     component->setOffsetCalculatedVar(sizeCalculatedVar_);
     sizeCalculatedVar_ += component->sizeCalculatedVar();
     componentIndexByCalculatedVar_.resize(sizeCalculatedVar_, index);
@@ -996,6 +998,8 @@ ModelNetwork::evalG(const double t) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer3("ModelNetwork::evalG");
 #endif
+  if (deactivateZeroCrossingFunctions_)
+    return;
   for (const auto& component : getComponents())
     component->evalG(t);
 }
@@ -1008,7 +1012,7 @@ ModelNetwork::evalZ(const double t) {
   bool topoChange = false;
   bool stateChange = false;
   for (const auto& component : getComponents()) {
-    switch (component->evalZ(t)) {
+    switch (component->evalZ(t, deactivateZeroCrossingFunctions_)) {
     case NetworkComponent::TOPO_CHANGE:
       topoChange = true;
       break;
@@ -1226,6 +1230,7 @@ ModelNetwork::defineParameters(vector<ParameterModeler>& parameters) {
   ModelTwoWindingsTransformer::defineParameters(parameters);
   ModelHvdcLink::defineParameters(parameters);
   parameters.push_back(ParameterModeler("startingPointMode", VAR_TYPE_STRING, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("deactivate_zero_crossing_functions", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
 
   for (const auto& component : getComponents()) {
     component->defineNonGenericParameters(parameters);
@@ -1292,6 +1297,10 @@ ModelNetwork::defineElements(vector<Element>& elements, map<string, int>& mapEle
 
 void
 ModelNetwork::setSubModelParameters() {
+  const auto& deactivateZeroCrossingFunctions = findParameter("deactivate_zero_crossing_functions", false);
+  deactivateZeroCrossingFunctions_ = false;
+  if (deactivateZeroCrossingFunctions.hasValue())
+    deactivateZeroCrossingFunctions_ = deactivateZeroCrossingFunctions.getValue<bool>();
   for (const auto& component : getComponents())
     component->setSubModelParameters(parametersDynamic_);
 }

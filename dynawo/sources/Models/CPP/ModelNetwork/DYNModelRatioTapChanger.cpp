@@ -21,6 +21,9 @@
 #include <boost/archive/binary_oarchive.hpp>
 
 #include "DYNModelRatioTapChanger.h"
+
+#include <DYNTimer.h>
+
 #include "DYNModelConstants.h"
 #include "DYNModelNetwork.h"
 
@@ -89,6 +92,9 @@ bool ModelRatioTapChanger::getUpIncreaseTargetU() const {
 void
 ModelRatioTapChanger::evalG(const double t, const double uValue, const bool nodeOff, const double disable, const double locked, const bool tfoClosed,
   const double deltaUTarget, state_g* g) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer3("ModelNetwork::ModelRatioTapChanger::evalG");
+#endif
   const int currentStepIndex = getCurrentStepIndex();
   const double maxTargetV = targetV_ + tolV_ + deltaUTarget;
   const double minTargetV = targetV_ - tolV_ + deltaUTarget;
@@ -109,8 +115,8 @@ ModelRatioTapChanger::evalG(const double t, const double uValue, const bool node
 
 void
 ModelRatioTapChanger::evalZ(const double t, const state_g* g, const double disable, const bool nodeOff, const double locked, const bool tfoClosed,
-  ModelNetwork* network) {
-  if (!(disable > 0) && !nodeOff && !(locked > 0) && tfoClosed) {
+  ModelNetwork* network, bool deactivateZeroCrossingFunctions) {
+  if (!(disable > 0) && !nodeOff && !(locked > 0) && tfoClosed && !deactivateZeroCrossingFunctions) {
     if (g[0] == ROOT_UP && !uMaxState_) {  // U > UMax
       if (!getUpIncreaseTargetU()) {
         whenUp_ = t;

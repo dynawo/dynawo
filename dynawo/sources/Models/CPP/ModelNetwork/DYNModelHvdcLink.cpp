@@ -295,7 +295,7 @@ ModelHvdcLink::evalJtPrim(const int /*rowOffset*/, SparseMatrix& /*jtPrim*/) {
 }
 
 NetworkComponent::StateChange_t
-ModelHvdcLink::evalZ(const double /*t*/) {
+ModelHvdcLink::evalZ(const double /*t*/, bool /*deactivateZeroCrossingFunctions*/) {
   if (modelBus1_->getConnectionState() == OPEN)
     z_[state1Num_] = OPEN;
   // evaluation of the discrete variables current values
