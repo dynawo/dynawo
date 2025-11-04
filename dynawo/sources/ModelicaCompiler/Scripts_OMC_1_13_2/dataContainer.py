@@ -2204,7 +2204,7 @@ class Modes:
                 if discrete_mode.boolean == False:
                     text_to_return.append("      modeChangeType = ALGEBRAIC_MODE;\n")
                 else:
-                    if model_name in ("NodeFault", "EventSetPointBoolean", "EventConnectedStatus", "EventQuadripoleConnection", "EventQuadripoleDisconnection", "EventSetPointReal", "EventSetPointDoubleReal"):
+                    if model_name in ("NodeFault") or "running.value" in z:
                         text_to_return.append("    return ALGEBRAIC_J_J_UPDATE_MODE;\n")
                     else:
                         text_to_return.append("    return ALGEBRAIC_J_UPDATE_MODE;\n")
