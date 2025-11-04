@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<constraints xmlns="http://www.rte-france.com/dynawo">
+  <constraint modelName="CLA_2_4" description="CLA : overload 10.00s" time="10.439578" type="OverloadUp" kind="OverloadUp" limit="1000" value="1079.8995706237536" valueMax="1162.5487308711593"/>
+  <constraint modelName="CLA_2_4" description="CLA : overload 10.00s : open line" time="20.439576" type="OverloadOpen" kind="OverloadOpen" limit="1000" value="1079.8528809641864"/>
+  <constraint modelName="CLA_2_5" description="CLA : overload 5.00s : open line" time="10.247924" type="OverloadOpen" kind="OverloadOpen" limit="600" value="613.57902220111407"/>
+  <constraint modelName="CLA_2_5" description="CLA : overload 5.00s" time="5.247925" type="OverloadUp" kind="OverloadUp" limit="600" value="614.12536656176815" valueMax="649.95313571740496"/>
+  <constraint modelName="_BUS____1-BUS____2-1_AC" description="permanent limit side 1" time="0.000000" type="Line" kind="PATL" limit="836.74000000000001" value="1680.9244430709039" valueMax="2299.2114951463905" side="1"/>
+  <constraint modelName="_BUS____2-BUS____3-1_AC" description="permanent limit side 1" time="10.520685" type="Line" kind="PATL" limit="836.74000000000001" value="836.73999999997363" valueMax="986.62365834304921" side="1"/>
+  <constraint modelName="_BUS____2-BUS____3-1_AC" description="permanent limit side 1" time="12.060097" type="Line" kind="PATL" limit="836.74000000000001" value="1609.4837769583551" valueMax="2806.174197011941" side="1"/>
+  <constraint modelName="_BUS____2-BUS____4-1_AC" description="permanent limit side 1" time="10.247924" type="Line" kind="PATL" limit="836.74000000000001" value="29.780976585823982" valueMax="1165.4352252902204" side="1"/>
+  <constraint modelName="_BUS____3-BUS____4-1_AC" description="permanent limit side 1" time="20.560191" type="Line" kind="PATL" limit="836.74000000000001" value="1125.3519632293719" valueMax="1433.6520462144147" side="1"/>
+</constraints>
