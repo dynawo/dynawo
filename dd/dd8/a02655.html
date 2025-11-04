@@ -676,9 +676,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <tr class="memitem:ab7f9028769433b01a4c7e60bc91655cb"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/dd8/a02655.html#ab7f9028769433b01a4c7e60bc91655cb">getInitSubModelParameterValue</a> (const std::string &amp;nameParameter, std::string &amp;value, bool &amp;found) const</td></tr>
 <tr class="memdesc:ab7f9028769433b01a4c7e60bc91655cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">retrieve the value of a parameter of the initialization model  <a href="#ab7f9028769433b01a4c7e60bc91655cb">More...</a><br /></td></tr>
 <tr class="separator:ab7f9028769433b01a4c7e60bc91655cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed59444912b966cd6fa30e953fc7fc1d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/dd8/a02655.html#aed59444912b966cd6fa30e953fc7fc1d">getOffsetY</a> () const</td></tr>
-<tr class="memdesc:aed59444912b966cd6fa30e953fc7fc1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">get index of this submodel in the global continuous variable table  <a href="#aed59444912b966cd6fa30e953fc7fc1d">More...</a><br /></td></tr>
-<tr class="separator:aed59444912b966cd6fa30e953fc7fc1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -762,10 +759,6 @@ double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/dd8/a02655.html#a3aeabff5f8a67b1878b6b4054ed42beb">yLocal_</a></td></tr>
 <tr class="memdesc:a3aeabff5f8a67b1878b6b4054ed42beb"><td class="mdescLeft">&#160;</td><td class="mdescRight">local buffer to use when accessing continuous variables <br /></td></tr>
 <tr class="separator:a3aeabff5f8a67b1878b6b4054ed42beb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa89366f7b3de10552876c89dde228484"><td class="memItemLeft" align="right" valign="top"><a id="aa89366f7b3de10552876c89dde228484"></a>
-unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/dd8/a02655.html#aa89366f7b3de10552876c89dde228484">offsetY_</a></td></tr>
-<tr class="memdesc:aa89366f7b3de10552876c89dde228484"><td class="mdescLeft">&#160;</td><td class="mdescRight">index in the global variable table <br /></td></tr>
-<tr class="separator:aa89366f7b3de10552876c89dde228484"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a528e9b3ca588c396ddb95d3aed861454"><td class="memItemLeft" align="right" valign="top"><a id="a528e9b3ca588c396ddb95d3aed861454"></a>
 double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/dd8/a02655.html#a528e9b3ca588c396ddb95d3aed861454">ypLocal_</a></td></tr>
 <tr class="memdesc:a528e9b3ca588c396ddb95d3aed861454"><td class="mdescLeft">&#160;</td><td class="mdescRight">local buffer to use when accessing derivatives of continuous variables <br /></td></tr>
@@ -3069,34 +3062,6 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 
 <p>get the indicator if the initial model is used or the dynamic model </p>
 <dl class="section return"><dt>Returns</dt><dd><b>true</b> if the initial model is used </dd></dl>
-
-</div>
-</div>
-<a id="aed59444912b966cd6fa30e953fc7fc1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed59444912b966cd6fa30e953fc7fc1d">&#9670;&nbsp;</a></span>getOffsetY()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int DYN::SubModel::getOffsetY </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>get index of this submodel in the global continuous variable table </p>
-<dl class="section return"><dt>Returns</dt><dd>index of this submodel in the global continuous variable table </dd></dl>
 
 </div>
 </div>
@@ -5972,7 +5937,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../dd/dd8/a02655.html">SubModel</a></li>
-    <li class="footer">Generated on Tue Nov 4 2025 10:20:54 for Dynawo by
+    <li class="footer">Generated on Tue Nov 4 2025 13:50:12 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

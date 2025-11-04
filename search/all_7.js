@@ -318,7 +318,6 @@ var searchData=
   ['getnum',['getNum',['../d2/d7a/a03115.html#a9268487fd995138df5551fdb603f061f',1,'DYN::SubNetwork']]],
   ['getoffsetcalculatedvar',['getOffsetCalculatedVar',['../db/d47/a03199.html#a3b06bd62e4ae15b0a26ffa5c6ad78e1e',1,'DYN::NetworkComponent']]],
   ['getoffsetmodel',['getOffsetModel',['../d8/d4e/a02595.html#ac456a2c50b37b34ae8b130288dae260e',1,'DYN::ConnectorContainer']]],
-  ['getoffsety',['getOffsetY',['../dd/dd8/a02655.html#aed59444912b966cd6fa30e953fc7fc1d',1,'DYN::SubModel']]],
   ['getoppositeevents',['getOppositeEvents',['../d1/d5d/a02503.html#aedff69ef6007d38481f24f8be86e6868',1,'DYN::OppositeEventDico']]],
   ['getoppositeeventsdico',['getOppositeEventsDico',['../d0/d01/a02511.html#abfeb28e393a816191939765ea13d2b9a',1,'DYN::IoDicos']]],
   ['getoprfromcs1tocs2',['getOprFromCS1toCS2',['../da/d37/a02787.html#abfcb20c451bcfb269d9f33cef038e542',1,'DYN::HvdcLineInterface::getOprFromCS1toCS2()'],['../d6/df9/a02923.html#a5ab96c60f04befa0951b33e841b8c66d',1,'DYN::HvdcLineInterfaceIIDM::getOprFromCS1toCS2()']]],
