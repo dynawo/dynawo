@@ -22,6 +22,7 @@
 #define API_CSTR_CSTRCONSTRAINTSCOLLECTION_H_
 
 #include "CSTRConstraint.h"
+#include "DYNEnumUtils.h"
 
 #include <map>
 #include <string>
@@ -59,6 +60,48 @@ class ConstraintsCollection {
     const double& time, Type_t type,
     const std::string& modelType = "",
     const boost::optional<ConstraintData>& data = boost::none);
+
+
+  /**
+   * @brief filter the constraint collection by removing constraints cancelled during the simulation
+   *
+   * @param type filter type
+   */
+  void filter(DYN::ConstraintValueType_t type);
+
+  /**
+  * @brief get constraints by model
+  *
+  * @return constraints by model
+  */
+  const std::map<std::string, std::vector<std::shared_ptr<Constraint> > >& getConstraintsByModel() const {
+    return constraintsByModel_;
+  }
+
+  /**
+  * @brief get constraints by id
+  *
+  * @return constraints by id
+  */
+  const std::map<std::string, std::shared_ptr<Constraint> >& getConstraintsById() const {
+    return constraintsById_;
+  }
+
+  /**
+  * @brief empty constraint collection
+  */
+  void clear();
+
+  /**
+   * @brief Build a string id from constraint details
+   *
+   * @param modelName model where the constraint occurs
+   * @param description description of the constraint
+   * @param time time when the constraint occurs
+   * @param type begin/end
+   * @return the sortable id string
+   */
+  std::string idFromDetails(const std::string & modelName, const std::string & description, const double & time, Type_t type) const;
 
  public:
   /**

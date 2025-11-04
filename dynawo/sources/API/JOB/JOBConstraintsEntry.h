@@ -20,6 +20,7 @@
 #ifndef API_JOB_JOBCONSTRAINTSENTRY_H_
 #define API_JOB_JOBCONSTRAINTSENTRY_H_
 
+#include "DYNEnumUtils.h"
 #include <string>
 
 namespace job {
@@ -30,6 +31,11 @@ namespace job {
  */
 class ConstraintsEntry {
  public:
+   /**
+   * @brief constructor
+   */
+  ConstraintsEntry();
+
   /**
    * @brief Output file attribute setter
    * @param outputFile Output file for constraints
@@ -54,9 +60,22 @@ class ConstraintsEntry {
    */
   const std::string& getExportMode() const;
 
+  /**
+   * @brief filter setter
+   * @param filter whether to filter the constraints
+   */
+  void setFilterType(DYN::ConstraintValueType_t filter);
+
+  /**
+   * @brief filter getter
+   * @return whether to filter the constraints
+   */
+  DYN::ConstraintValueType_t getFilterType() const;
+
  private:
   std::string outputFile_;  ///< Export file for constraints
   std::string exportMode_;  ///< Export mode for constraints output file
+  DYN::ConstraintValueType_t filter_;             ///< Whether to filter the constraints
 };
 
 }  // namespace job

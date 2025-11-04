@@ -49,62 +49,44 @@ CsvExporter::exportToFile(const std::shared_ptr<CurvesCollection>& curves, const
 
 void
 CsvExporter::exportToStream(const std::shared_ptr<CurvesCollection>& curves, ostream& stream) const {
-  const std::string CSVEXPORTER_SEPARATOR = ";";  ///< separator in csv file
+  static const char CSV_SEPARATOR = ';';
 
-  // check if there are curves to be printed
-  bool hasAvailableCurves(false);
-  for (CurvesCollection::iterator itCurve = curves->begin();
-          itCurve != curves->end();
-          ++itCurve) {
-    if ((*itCurve)->getAvailable()) {
-      hasAvailableCurves = true;
-      break;
-    }
-  }
+  // filter curves to actually be exported
+  std::vector<std::shared_ptr<Curve> > curvesToExport;
+  for (CurvesCollection::iterator itCurve = curves->begin(); itCurve != curves->end(); ++itCurve)
+    if ((*itCurve)->getAvailable() && (*itCurve)->getExportType() != curves::Curve::EXPORT_AS_FINAL_STATE_VALUE)
+      curvesToExport.push_back((*itCurve));
 
-  if (!hasAvailableCurves) {
+  if (curvesToExport.empty())
     return;
-  }
 
-  // if there are curves to be printed:
-
-  // print title line
-  stream << "time" << CSVEXPORTER_SEPARATOR;
-  for (CurvesCollection::iterator itCurve = curves->begin();
-          itCurve != curves->end();
-          ++itCurve) {
-    if ((*itCurve)->getAvailable() && (*itCurve)->getExportType() != curves::Curve::EXPORT_AS_FINAL_STATE_VALUE) {
-      stream << (*itCurve)->getModelName() << "_"
-              << (*itCurve)->getVariable() << CSVEXPORTER_SEPARATOR;
-    }
-  }
-  stream << "\n";
+  // export header
+  stream << "time" << CSV_SEPARATOR;
+  for (std::shared_ptr<Curve> curve : curvesToExport)
+    stream << curve->getModelName() << "_" << curve->getVariable() << CSV_SEPARATOR;
+  stream << '\n';
 
   // get time line
   std::vector<double> time;
-  for (CurvesCollection::iterator itCurve = curves->begin();
-          itCurve != curves->end();
-          ++itCurve) {
-    if ((*itCurve)->getAvailable()) {
-      for (Curve::const_iterator itPoint = (*itCurve)->cbegin();
-              itPoint != (*itCurve)->cend();
-              ++itPoint) {
-        time.push_back((*itPoint)->getTime());
-      }
-      break;
-    }
-  }
-  // for each time point ,print value for all the curves.
+  for (Curve::const_iterator itPoint = curvesToExport.front()->cbegin(); itPoint != curvesToExport.front()->cend(); ++itPoint)
+    time.push_back((*itPoint)->getTime());
+
+  // for each time point, print value for all the curves if at least one value (including time) has changed
+  std::string prevLine;
   for (unsigned int i = 0; i < time.size(); ++i) {
-    stream <<  DYN::double2String(time[i]) << CSVEXPORTER_SEPARATOR;
-    for (CurvesCollection::iterator itCurve = curves->begin();
-            itCurve != curves->end();
-            ++itCurve) {
-      if ((*itCurve)->getAvailable() && (*itCurve)->getExportType() != curves::Curve::EXPORT_AS_FINAL_STATE_VALUE) {
-        stream << DYN::double2String((*((*itCurve)->at(i)))->getValue()) << CSVEXPORTER_SEPARATOR;
-      }
+    std::string newLine = DYN::double2String(time[i]);
+    newLine += CSV_SEPARATOR;
+
+    for (std::shared_ptr<Curve> curve : curvesToExport) {
+      newLine += DYN::double2String((*(curve->at(i)))->getValue());
+      newLine += CSV_SEPARATOR;
     }
-    stream << "\n";
+    newLine += '\n';
+
+    if (newLine != prevLine) {
+      stream << newLine;
+      prevLine = newLine;
+    }
   }
 }
 

@@ -132,12 +132,21 @@
 
   <xs:complexType name="ConstraintsEntry">
     <xs:attribute name="exportMode" use="required" type="dyn:ConstraintsExportMode"/>
+    <xs:attribute name="filter" use="optional" type="dyn:ConstraintsExportValue"/>
   </xs:complexType>
 
   <xs:simpleType name="ConstraintsExportMode">
     <xs:restriction base="xs:string">
       <xs:enumeration value="XML"/>
       <xs:enumeration value="TXT"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ConstraintsExportValue">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="FIRST"/>
+      <xs:enumeration value="DYNAFLOW"/>
+      <xs:enumeration value="DISABLED"/>
     </xs:restriction>
   </xs:simpleType>
 

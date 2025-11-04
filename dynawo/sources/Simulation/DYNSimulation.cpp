@@ -1433,6 +1433,9 @@ Simulation::printTimeline(std::ostream& stream) const {
 
 void
 Simulation::printConstraints(std::ostream& stream) const {
+  if (!constraintsCollection_) return;
+  constraintsCollection_->filter(jobEntry_->getOutputsEntry()->getConstraintsEntry()->getFilterType());
+
   switch (exportConstraintsMode_) {
     case EXPORT_CONSTRAINTS_NONE:
       break;
