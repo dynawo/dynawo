@@ -11,6 +11,19 @@ index 1a766f96c1..2d80cad373 100644
  	cp -p "@OMBUILDDIR@"/share/doc/omc/testmodels/* ${INSTALL_DOCDIR}/omc/testmodels/
  	# man pages
  	# cp -p "@OMBUILDDIR@"/share/man/man1/*.gz ${INSTALL_MANDIR}/man1/
+diff --git a/OMCompiler/Compiler/BackEnd/DAEMode.mo b/OMCompiler/Compiler/BackEnd/DAEMode.mo
+index 60320f435e..5556dfa0f7 100644
+--- a/OMCompiler/Compiler/BackEnd/DAEMode.mo
++++ b/OMCompiler/Compiler/BackEnd/DAEMode.mo
+@@ -277,7 +277,7 @@ protected
+   Boolean isStateVarInvoled;
+ algorithm
+   varCrefLst := list(v.varName for v in inVars);
+-  isStateVarInvoled := Util.boolOrList(list(BackendVariable.isStateVar(v) for v in inVars));
++  isStateVarInvoled := not Flags.getConfigBool(Flags.CAUSALIZE_DAE_MODE) or Util.boolOrList(list(BackendVariable.isStateVar(v) for v in inVars));
+   (traverserArgs) :=
+   matchcontinue(inEqns, traverserArgs.recursiveStrongComponentRun, isStateVarInvoled)
+     local
 diff --git a/OMCompiler/Compiler/BackEnd/RemoveSimpleEquations.mo b/OMCompiler/Compiler/BackEnd/RemoveSimpleEquations.mo
 index 7b30c5adfd..eeb71099f7 100644
 --- a/OMCompiler/Compiler/BackEnd/RemoveSimpleEquations.mo
@@ -2459,7 +2472,7 @@ index d4e6748e89..e3d2c0781b 100644
    input BackendDAE.BackendDAE inBackendDAE;
    output BackendDAE.BackendDAE outBackendDAE;
 diff --git a/OMCompiler/Compiler/SimCode/SimCodeUtil.mo b/OMCompiler/Compiler/SimCode/SimCodeUtil.mo
-index 2bf62ff1a1..ef9e4cad0f 100644
+index 2bf62ff1a1..b80e1aa5c4 100644
 --- a/OMCompiler/Compiler/SimCode/SimCodeUtil.mo
 +++ b/OMCompiler/Compiler/SimCode/SimCodeUtil.mo
 @@ -8833,12 +8833,27 @@ algorithm
@@ -2512,7 +2525,7 @@ index 2bf62ff1a1..ef9e4cad0f 100644
  public function printVarLstCrefs
      input list<SimCodeVar.SimVar> inVars;
      output String str;
-@@ -8950,6 +8980,59 @@ algorithm
+@@ -8950,6 +8980,61 @@ algorithm
    dumpFunctions(functions);
  end dumpModelInfo;
  
@@ -2541,12 +2554,13 @@ index 2bf62ff1a1..ef9e4cad0f 100644
 +  list<SimCodeVar.SimVar> intConstVars;
 +  list<SimCodeVar.SimVar> stringConstVars;
 +  list<SimCodeFunction.Function> functions;
++  list<SimCodeVar.SimVar> seedVars;
 +  File.File file = File.File();
 +algorithm
 +  File.open(file,AbsynUtil.pathString(modelInfo.name)+"_variables.txt",File.Mode.Write);
 +  SimCode.MODELINFO(vars=simVars, varInfo=varInfo, functions=functions) := modelInfo;
 +  SimCodeVar.SIMVARS(stateVars=stateVars,derivativeVars=derivativeVars,algVars=algVars,boolAlgVars=boolAlgVars,intAlgVars=intAlgVars,discreteAlgVars=discreteAlgVars,aliasVars=aliasVars,intAliasVars=intAliasVars,boolAliasVars=boolAliasVars,
-+  paramVars=paramVars,intParamVars=intParamVars,boolParamVars=boolParamVars, stringParamVars=stringParamVars, extObjVars=extObjVars,constVars=constVars,intConstVars=intConstVars,stringConstVars=stringConstVars) := simVars;
++  paramVars=paramVars,intParamVars=intParamVars,boolParamVars=boolParamVars, stringParamVars=stringParamVars, extObjVars=extObjVars,constVars=constVars,intConstVars=intConstVars,stringConstVars=stringConstVars, seedVars=seedVars) := simVars;
 +  SimCode.VARINFO(numStateVars=nsv,numAlgVars=nalgv) := varInfo;
 +  dumpVarLstFile(stateVars,"stateVars ("+intString(nsv)+")", file);
 +  dumpVarLstFile(derivativeVars,"derivativeVars", file);
@@ -2565,6 +2579,7 @@ index 2bf62ff1a1..ef9e4cad0f 100644
 +  dumpVarLstFile(constVars,"constVars", file);
 +  dumpVarLstFile(intConstVars,"intConstVars", file);
 +  dumpVarLstFile(stringConstVars,"stringConstVars", file);
++  dumpVarLstFile(seedVars,"seedVars", file);
 +end dumpModelInfoToFile;
 +
 +
@@ -2572,7 +2587,7 @@ index 2bf62ff1a1..ef9e4cad0f 100644
  protected function dumpFunctions
    input list<SimCodeFunction.Function> functions;
  algorithm
-@@ -9502,6 +9585,7 @@ algorithm
+@@ -9502,6 +9587,7 @@ algorithm
    List.map_0(jacObs,dumpJacobianMatrix);
    print("\nmodelInfo:\n" + UNDERLINE + "\n");
    dumpModelInfo(simCode.modelInfo);
@@ -2694,6 +2709,34 @@ index 40b648ba04..11cefdc8db 100644
    (if shortIfExp then
      // Safe to do if eThen and eElse don't emit pre-expressions
      '(<%condExp%>?<%eThen%>:<%eElse%>)'
+diff --git a/OMCompiler/Compiler/Util/Flags.mo b/OMCompiler/Compiler/Util/Flags.mo
+index 2ff909cb81..4b6b039d36 100644
+--- a/OMCompiler/Compiler/Util/Flags.mo
++++ b/OMCompiler/Compiler/Util/Flags.mo
+@@ -1479,6 +1479,9 @@ constant ConfigFlag EVALUATE_STRUCTURAL_PARAMETERS = CONFIG_FLAG(156, "evaluateS
+     ("strictlyNecessary", Gettext.gettext("Evaluates only structural parameters strictly required by the frontend"))
+   })),
+   Gettext.gettext("Sets which structural parameters are evaluated by the frontend."));
++constant ConfigFlag CAUSALIZE_DAE_MODE = CONFIG_FLAG(157, "causalizeDaeMode",
++  NONE(), EXTERNAL(), BOOL_FLAG(true), NONE(),
++  Gettext.gettext("The system is partially causalized and simple assignments are generated for equations that can be solved explicitly. Only works with --daeMode."));
+ 
+ function getFlags
+   "Loads the flags with getGlobalRoot. Assumes flags have been loaded."
+diff --git a/OMCompiler/Compiler/Util/FlagsUtil.mo b/OMCompiler/Compiler/Util/FlagsUtil.mo
+index 26c34ee04b..ee18238904 100644
+--- a/OMCompiler/Compiler/Util/FlagsUtil.mo
++++ b/OMCompiler/Compiler/Util/FlagsUtil.mo
+@@ -414,7 +414,8 @@ constant list<Flags.ConfigFlag> allConfigFlags = {
+   Flags.BASE_MODELICA_FORMAT,
+   Flags.BASE_MODELICA_OPTIONS,
+   Flags.DEBUG_FOLLOW_EQUATIONS,
+-  Flags.EVALUATE_STRUCTURAL_PARAMETERS
++  Flags.EVALUATE_STRUCTURAL_PARAMETERS,
++  Flags.CAUSALIZE_DAE_MODE
+ };
+ 
+ public function new
 diff --git a/OMCompiler/Compiler/boot/LoadCompilerSources.mos b/OMCompiler/Compiler/boot/LoadCompilerSources.mos
 index 2c54903e7a..1568026237 100644
 --- a/OMCompiler/Compiler/boot/LoadCompilerSources.mos
@@ -2797,24 +2840,21 @@ index 279d1c17d0..7a687e7860 100644
  host_short=$host_cpu-$host_os
  
 diff --git a/configure.ac b/configure.ac
-index 7ffe391d02..8cc33645d0 100644
+index 7ffe391d02..7e951c8ef3 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -39,7 +39,7 @@ if test ! -z "$USE_CORBA"; then
-   CORBA_TARGETS="OMOptim-omoptim"
- fi
+@@ -1,6 +1,6 @@
+ dnl Process this file with autoconf to produce a configure script.
  
--for dir_target in OMCompiler-omc OMPlot-omplot OMEdit-omedit OMNotebook-omnotebook OMShell-omshell OMSens_Qt-omsens_qt $CORBA_TARGETS; do
-+for dir_target in OMCompiler-omc OMEdit-omedit OMNotebook-omnotebook OMShell-omshell OMSens_Qt-omsens_qt $CORBA_TARGETS; do
-   dir=`echo $dir_target | cut -d- -f1`
-   if test ! -f "$dir/configure.ac"; then
-     AC_MSG_NOTICE("Subproject $dir does not exist")
-@@ -57,7 +57,7 @@ if test -f testsuite/Makefile; then
- fi
+-AC_PREREQ([2.63])
++AC_PREREQ([2.71])
+ AC_INIT([OpenModelica],[dev],[https://trac.openmodelica.org/OpenModelica],[openmodelica],[https://openmodelica.org])
  
- 
--AC_CONFIG_SUBDIRS([OMCompiler OMPlot OMEdit OMNotebook OMShell OMSens_Qt])
-+AC_CONFIG_SUBDIRS([OMCompiler OMEdit OMNotebook OMShell OMSens_Qt])
- if test ! -z "$USE_CORBA"; then
+ AC_LANG([C])
+@@ -62,4 +62,5 @@ if test ! -z "$USE_CORBA"; then
    AC_CONFIG_SUBDIRS([OMOptim])
  fi
+ 
+-AC_OUTPUT(Makefile)
++AC_CONFIG_FILES([Makefile])
++AC_OUTPUT

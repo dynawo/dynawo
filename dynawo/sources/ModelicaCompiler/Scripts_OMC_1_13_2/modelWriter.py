@@ -482,6 +482,17 @@ class ModelWriter(ModelWriterBase):
         self.addLine("}\n")
 
     ##
+    # Add the body of evalJt in the cpp file
+    # @param self : object pointer
+    # @return
+    def fill_evalJt(self):
+        self.addEmptyLine()
+        self.addLine("double Model"+ self.className + "::evalJtTerm(int fIndex, int varIndex, const double cj)\n")
+        self.addLine("{\n")
+        self.addBody(self.builder.get_list_for_evaljt())
+        self.addLine("}\n")
+
+    ##
     # Add the body of initRpar in the cpp file
     # @param self : object pointer
     # @return

@@ -290,6 +290,8 @@ class Factory:
         self.list_for_setvariables = []
         ## List of equations to add in defineParameters function
         self.list_for_defineparameters = []
+        ## List of equations to add in evalJt function
+        self.list_for_evaljt = []
         ## List of equations to add in defineElements function
         self.list_for_defelem = []
         ## List of equations to define literal constants
@@ -848,11 +850,28 @@ class Factory:
         for f in self.reader.list_func_16dae_c:
             eq_maker = EqMaker(f)
             list_eq_maker_16dae_c.append( eq_maker )
+        map_dep = self.reader.get_map_dep_vars_for_func()
+
+        #retrieve the existing jacobian functions
+        eval_var_name_to_jacobian_func = {}
+        for f in self.reader.list_func_12jac_c:
+            eq_mak_num_omc = f.get_num_omc()
+            name_var_eval = None
+
+            # for Modelica reinit equations, the evaluated var scan does not always work
+            # a fallback is to look at the variable defined in this case
+            if eq_mak_num_omc in map_num_eq_vars_defined.keys():
+                if len(map_num_eq_vars_defined[eq_mak_num_omc]) > 1:
+                    error_exit("   Error: Found an equation (id: " + eq_mak_num_omc+") defining multiple variables. This is not supported in Dynawo.")
+                name_var_eval = map_num_eq_vars_defined[eq_mak_num_omc] [0]
+            if name_var_eval is not None:
+                var_name = jacobian_name_to_variable_name(name_var_eval)
+                eval_var_name_to_jacobian_func[var_name] = f
+
 
         # Find, for each function of the main *.c file :
         # - the variable it evaluates
         # - the vars on which it depends to evaluate this variable
-        map_dep = self.reader.get_map_dep_vars_for_func()
         for eq_mak in list_eq_maker_16dae_c:
             eq_mak_num_omc = eq_mak.get_num_omc()
             name_var_eval = None
@@ -885,6 +904,10 @@ class Factory:
                 elif name_var_eval in self.reader.var_name_to_eq_type:
                     eq_type = self.reader.var_name_to_eq_type[name_var_eval]
                 eq_mak.set_type( eq_type )
+
+                if name_var_eval in eval_var_name_to_jacobian_func:
+                    eq_mak.set_body_for_jacobian(eval_var_name_to_jacobian_func[name_var_eval].get_body())
+
 
         # Build an equation for each function in the dae *.c file
         for eq_mak in list_eq_maker_16dae_c:
@@ -1792,6 +1815,49 @@ class Factory:
         return self.list_for_setf
 
     ##
+    # prepare the lines that constitues the body of defineParameters
+    # @param self : object pointer
+    # @return
+    def prepare_for_evaljt(self):
+        if len(self.get_list_eq_syst()) == 0:
+            # TODO ADD A THROW IN THIS CASE
+            self.list_for_evaljt.append("  return 0.;\n")
+            return
+        self.list_for_evaljt.append("  jacobian->dae_cj = cj;\n\n")
+        self.list_for_evaljt.append("  std::fill(jacobian->seedVars, jacobian->seedVars + data->nbVars, 0);\n")
+        self.list_for_evaljt.append("  jacobian->seedVars[varIndex] = 1.;\n\n")
+        for eq in self.get_list_eq_syst():
+            standard_eq_body = []
+            standard_eq_body.append (self.ptrn_f_name %(eq.get_src_fct_name()))
+            eq_body = []
+            for line in eq.get_body_for_jacobian():
+                eq_body.append(line)
+            standard_eq_body.extend(eq_body)
+            self.list_for_evaljt.append("  {\n")
+            self.list_for_evaljt.extend(standard_eq_body)
+            self.list_for_evaljt.append("  }")
+            self.list_for_evaljt.append("\n\n")
+
+        #TODO PROPER ERROR
+        self.list_for_evaljt.append("  throw DYNError(Error::MODELER, UndefCalculatedVarI, 0);\n")
+
+        # remove atan3, replace pow by pow_dynawo
+        for index, line in enumerate(self.list_for_evaljt):
+            if "omc_Modelica_Math_atan3" in line:
+                line = transform_atan3_operator(line)
+            if "pow(" in line:
+                line = replace_pow(line)
+            line = replace_relation_indexes(line, self.omc_relation_index_2_dynawo_relations_index)
+            self.list_for_evaljt [index] = line
+
+    ##
+    # returns the lines that constitues the body of evalJt
+    # @param self : object pointer
+    # @return list of lines
+    def get_list_for_evaljt(self):
+        return self.list_for_evaljt
+
+    ##
     # returns the lines that constitues the body of setFquations
     # @param self : object pointer
     # @return list of lines
@@ -2298,6 +2364,8 @@ class Factory:
 
         # Filling the body of setupDataStruc in the generated file
         self.list_for_setupdatastruc = self.list_for_setupdatastruc + filtered_func + ["\n"]
+
+        self.list_for_setupdatastruc.append("  jacobian = (SYMBOLICJACOBIAN *)calloc(1,sizeof(SYMBOLICJACOBIAN));\n\n");
 
     ##
     # returns the lines that constitues the body of setupDataStruc
@@ -3937,6 +4005,7 @@ class Factory:
    # @param self : object pointer
    # @return list of lines
     def get_list_for_initializedatastruc(self):
+        # TODO PROPERLY COMPUTE jacobian->tmpVars size
         body="""
   dataStructInitialized_ = true;
   data->localData = (SIMULATION_DATA**) calloc(1, sizeof(SIMULATION_DATA*));
@@ -3946,6 +4015,8 @@ class Factory:
   int nb;
   nb = (data->modelData->nVariablesReal > 0) ? data->modelData->nVariablesReal : 0;
   data->simulationInfo->realVarsPre = (modelica_real*)calloc(nb, sizeof(modelica_real));
+  jacobian->seedVars = (modelica_real*) calloc(nb, sizeof(modelica_real));
+  jacobian->tmpVars = (modelica_real*) calloc(nb, sizeof(modelica_real));
 
   nb = (data->modelData->nStates > 0) ? data->modelData->nStates  : 0;
   data->simulationInfo->derivativesVarsPre = (modelica_real*)calloc(nb, sizeof(modelica_real));
@@ -4113,6 +4184,7 @@ class Factory:
         self.prepare_for_evalfadept()
         self.prepare_for_setvariables()
         self.prepare_for_defineparameters()
+        self.prepare_for_evaljt()
         self.prepare_for_literalconstants()
         self.prepare_for_evalcalculatedvars()
         self.prepare_for_evalcalculatedvari()

@@ -105,6 +105,7 @@ if __name__ == '__main__':
         reader_init.read_08bnd_c_file()       # Read *_08bnd.c
         reader_init.read_05evt_c_file()       # Read *_05evt.c
         reader_init.read_16dae_c_file()       # Read *_16dae.c
+        reader_init.read_12jac_c_file()       # Read *_12jac.c
         reader_init.read_07dly_c_file()
         reader_init.read_functions_header()      # Read *_functions.h
         reader_init.read_functions_c_file()       # Read *_functions.c
@@ -161,6 +162,7 @@ if __name__ == '__main__':
         writer_init_pb.fill_defineElements()
         writer_init_pb.fill_setVariables()
         writer_init_pb.fill_defineParameters()
+        writer_init_pb.fill_evalJt()
         writer_init_pb.fill_evalFAdept()
         writer_init_pb.fill_warnings()
         writer_init_pb.fill_setFequations()
@@ -216,6 +218,7 @@ if __name__ == '__main__':
     reader.read_08bnd_c_file()              # Read *_08bnd.c
     reader.read_05evt_c_file()              # Read *_05evt.c
     reader.read_16dae_c_file()           # Read *_16dae.c
+    reader.read_12jac_c_file()       # Read *_12jac.c
     reader.read_07dly_c_file()
     reader.read_eq_fictive_xml() # Read the fictitious equation file
     reader.read_struct_xml_file()        # Read *_structure.xml (contains structure elements)
@@ -270,6 +273,7 @@ if __name__ == '__main__':
     writer.fill_setParameters()
     writer.fill_setVariables()
     writer.fill_defineParameters()
+    writer.fill_evalJt()
     writer.fill_defineElements()
     writer.fill_evalFAdept()
     writer.fill_warnings()

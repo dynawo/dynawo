@@ -11,8 +11,8 @@
 # Preassembled models
 
 set(MODELICA_PREASSEMBLED_MODELS
-  BESSWeccCurrentSource.xml
-  BESSWeccCurrentSourceNoPlantControl.xml
+  #BESSWeccCurrentSource.xml
+  #BESSWeccCurrentSourceNoPlantControl.xml
   BooleanTable.xml
   Bus.xml
   BusWithInit.xml
@@ -164,13 +164,13 @@ set(MODELICA_PREASSEMBLED_MODELS
   HvdcVscDanglingP.xml
   HvdcVscDanglingUDc.xml
   HvdcVscEmulation.xml
-  IECWPP4ACurrentSource2015.xml
+  #IECWPP4ACurrentSource2015.xml
   IECWPP4ACurrentSource2020.xml
-  IECWPP4BCurrentSource2015.xml
+  #IECWPP4BCurrentSource2015.xml
   IECWPP4BCurrentSource2020.xml
-  IECWT4ACurrentSource2015.xml
+  #IECWT4ACurrentSource2015.xml
   IECWT4ACurrentSource2020.xml
-  IECWT4BCurrentSource2015.xml
+  #IECWT4BCurrentSource2015.xml Error: Internal error Stack overflow in DAEMode.getEqSystemDAEmode..
   IECWT4BCurrentSource2020.xml
   InertialGrid.xml
   InfiniteBus.xml
@@ -252,7 +252,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   UFLS3Steps.xml
   UFLS10Steps.xml
   UnderVoltageAutomaton.xml
-  VariableImpedantFault.xml
+  #VariableImpedantFault.xml
   VRRemote.xml
   WeightedDifference.xml
   WT4AWeccCurrentSource.xml
@@ -261,7 +261,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   WTG3WeccCurrentSource2.xml
   WTG4AWeccCurrentSource1.xml
   WTG4AWeccCurrentSource2.xml
-  WTG4BWeccCurrentSource.xml
+  #WTG4BWeccCurrentSource.xml
   )
 
 # PYTHON scripts preassembled models

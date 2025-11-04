@@ -149,6 +149,15 @@ class ModelModelica {
    */
   virtual void checkSum(std::string& checkSum) = 0;
 
+  /**
+   * @brief compute the transpose jacobian of the sub model \f$ J = @F/@x + cj * @F/@x' \f$
+   *
+   * @param fIndex index of the residual equation to be evaluated
+   * @param varIndex index of the state variable to be evaluated
+   * @param cj Jacobian prime coefficient
+   */
+  virtual double evalJtTerm(int fIndex, int varIndex, const double cj) = 0;
+
 #ifdef _ADEPT_
   /**
    * @brief compute the F function based on the ADEPT library

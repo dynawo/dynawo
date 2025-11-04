@@ -73,6 +73,7 @@ class HeaderPatternDefine:
     void setParameters( std::shared_ptr<parameters::ParametersSet> params );
     void defineVariables(std::vector< boost::shared_ptr<Variable> >& variables);
     void defineParameters(std::vector<ParameterModeler>& parameters);
+    double evalJtTerm(int fIndex, int varIndex, const double cj);
     void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
     void evalCalculatedVars(std::vector<double>& calculatedVars);
     double evalCalculatedVarI(unsigned iCalculatedVar) const;
@@ -95,6 +96,7 @@ class HeaderPatternDefine:
 
     private:
     DYNDATA * data;
+    SYMBOLICJACOBIAN* jacobian;
     ModelManager * modelManager_;
     bool dataStructInitialized_;
     std::string modelType_;
@@ -162,6 +164,7 @@ namespace DYN {
     void setParameters(std::shared_ptr<parameters::ParametersSet> params );
     void defineVariables(std::vector< boost::shared_ptr<Variable> >& variables);
     void defineParameters(std::vector<ParameterModeler>& parameters);
+    double evalJtTerm(int fIndex, int varIndex, const double cj);
     void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
     void evalCalculatedVars(std::vector<double>& calculatedVars);
     double evalCalculatedVarI(unsigned iCalculatedVar) const;
@@ -184,6 +187,7 @@ namespace DYN {
 
     private:
     DYNDATA * data;
+    SYMBOLICJACOBIAN* jacobian;
     ModelManager * modelManager_;
     bool dataStructInitialized_;
     std::string modelType_;

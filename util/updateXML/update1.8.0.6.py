@@ -54,7 +54,7 @@ def update(jobs):
             bbm.parset.add_param("BOOL", "SVarC_SelectModeAuto0", True)
 
     for bbm in jobs.dyds.get_bbms(lambda bbm: "Hvdc" in bbm.get_lib_name() and "Emulation" in bbm.get_lib_name()):
-        if not bbm.parset.check_if_param_exists("acemulation_Enabled0"):
+        if not bbm.parset.check_if_param_exists("acemulation_Enabled0") and not bbm.parset.check_if_ref_exists("acemulation_Enabled0"):
             bbm.parset.add_param("BOOL", "acemulation_Enabled0", True)
 
     for bbm in jobs.dyds.get_bbms(lambda bbm: "TapChangerAutomaton" in bbm.get_lib_name()):

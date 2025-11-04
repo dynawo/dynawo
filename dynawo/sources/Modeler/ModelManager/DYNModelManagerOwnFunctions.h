@@ -514,6 +514,11 @@ inline void create_index_spec(index_spec_t* dest, int nridx, ...) {
   }
   va_end(ap);
 }
+/**
+ *  Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/utility.h
+ *  pow(), but for integer exponents (faster implementation)
+ */
+modelica_real real_int_pow(modelica_real base, modelica_integer n);
 
 
 

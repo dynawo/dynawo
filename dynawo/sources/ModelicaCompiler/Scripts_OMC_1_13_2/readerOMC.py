@@ -132,6 +132,10 @@ class ReaderOMC:
         self._16dae_h_file = os.path.join (input_dir, self.mod_name + "_16dae.h")
         exist_file(self._16dae_h_file)
 
+        ## Full name of the _12jac.c file
+        self._12jac_c_file = os.path.join (input_dir, self.mod_name + "_12jac.c")
+        exist_file(self._12jac_c_file)
+
         ## Delay file
         self._07dly_c_file = os.path.join (input_dir, self.mod_name + "_07dly.c")
 
@@ -269,6 +273,12 @@ class ReaderOMC:
         self.var_init_val = {}
         ## List of warnings defined in this file
         self.warnings = []
+
+        # ---------------------------------------
+        # Attribute for reading *_12jac.c file
+        # ---------------------------------------
+        ## List of functions read in file
+        self.list_func_12jac_c = []
 
         # -----------------------------------------
         # Attribute for reading *_07dly.c file
@@ -416,7 +426,7 @@ class ReaderOMC:
             if "tag" in keys:
                 tag_eq = equation["tag"]
 
-            if type_eq == "residuals" or  type_eq == "container" or type_eq == "start" or  type_eq == "parameter" or  (type_eq == "initial" and "system" in tag_eq):
+            if type_eq == "residuals" or  type_eq == "container" or type_eq == "start" or  type_eq == "parameter" or  type_eq == "jacobian" or  (type_eq == "initial" and "system" in tag_eq):
                 index = str(int(equation["eqIndex"]))
 
                 self.map_tag_num_eq[index]=str(tag_eq)
@@ -995,6 +1005,35 @@ class ReaderOMC:
                 name_var_eval = self.map_num_eq_vars_defined[f.get_num_omc()] [0]
             if name_var_eval is not None and len(depend) > 0:
                 self.map_vars_depend_vars[name_var_eval].extend(depend)
+
+    ##
+    # Read the 12jac c file
+    # @param self: object pointer
+    # @return
+    def read_12jac_c_file(self):
+        # Reading of functions "..._eqFunction_${num}(...)"
+        self.list_func_12jac_c.extend(self.read_functions(self._12jac_c_file, self.ptrn_func_decl_main_c, self.functions_root_name))
+
+        ptrn_comments = re.compile(self.regular_expr_equation_index)
+        comment_opening = "/*"
+        comments_end = "*/"
+        with open(self._12jac_c_file, 'r') as f:
+            while True:
+                it = itertools.dropwhile(lambda line: comment_opening not in line, f)
+                next_iter = next(it, None)
+                if next_iter is None: break
+                list_body = list(itertools.takewhile(lambda line: comments_end not in line, f))
+                for line in list_body:
+                    if ptrn_comments.search(line) is not None:
+                        match = re.search(ptrn_comments, line)
+                        index = match.group('index')
+                        self.map_equation_formula[index] = list_body[-1].lstrip().strip('\n')
+                        break
+
+
+        for f in self.list_func_12jac_c:
+            (body, depend) = replace_dynamic_indexing(f.body)
+            f.body = body
 
 
     ##
@@ -1632,6 +1671,8 @@ class ReaderOMC:
                     set_param_address(name,  "integerParameter")
                 elif var_type == "stringParamVars":
                     set_param_address(name,  "stringParameter")
+                elif var_type == "seedVars":
+                    set_param_address(name, "seedVars")
                 elif var_type == "extObjVars":
                     set_param_address(name,  "data->simulationInfo->extObjs["+str(index_extobjs)+"]")
                     index_extobjs+=1
@@ -1761,6 +1802,7 @@ class ReaderOMC:
         index_string_param= 0
         index_aux_var= 0
         index_integer_double = 0
+        index_seed_var = 0
         alternative_way_to_declare_der = "$DER."
         for var in self.list_vars:
             name = var.get_name()
@@ -1796,6 +1838,11 @@ class ReaderOMC:
                 index_string_param+=1
         for var in self.list_vars:
             name = var.get_name()
+            if name.endswith("]"):
+                table_index = name.rfind('[')
+                name_seed = name[0:table_index]+".SeedA"+name[table_index:]
+            else:
+                name_seed = name+".SeedA"
             test_param_address(name)
             address = to_param_address(name)
             if "derivativesVars" in address:
@@ -1809,6 +1856,8 @@ class ReaderOMC:
                 set_param_address(name, "data->localData[0]->derivativesVars["+str(index)+"]")
                 set_param_address(name.replace(alternative_way_to_declare_der,"der(")+")", to_param_address(name))
                 set_param_address(name.replace("der(",alternative_way_to_declare_der)[:-1], to_param_address(name))
+            if has_param_address(name_seed):
+                set_param_address(name_seed, "jacobian->seedVars[" + address.replace("data->localData[0]->realVars[",""))
 
         self.nb_real_vars = index_real_var
         self.nb_discrete_vars = index_discrete_var

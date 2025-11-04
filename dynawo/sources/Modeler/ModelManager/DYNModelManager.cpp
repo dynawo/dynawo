@@ -389,17 +389,28 @@ ModelManager::evalG(const double t) {
 }
 
 void
-ModelManager::evalJt(const double t, const double cj, const int rowOffset, SparseMatrix& jt) {
+ModelManager::evalJt(const double /*t*/, const double cj, const int rowOffset, SparseMatrix& jt) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelManager::evalJ");
 #endif
 
-#ifdef _ADEPT_
-  evalJtAdept(t, yLocal_, ypLocal_, cj, jt, rowOffset, true);
-#else
-  // Assert when Adept wasn't used
-  assert(0 && "evalJt : Adept not used");
+
+// #ifdef _ADEPT_
+//   evalJtAdept(t, yLocal_, ypLocal_, cj, jt, rowOffset, true);
+// #else
+  for (unsigned int i = 0; i < sizeF(); ++i) {
+    jt.changeCol();
+    for (unsigned int j = 0; j < sizeY(); ++j) {
+      const double term = modelModelica()->evalJtTerm(i, j, cj);
+#ifdef _DEBUG_
+      if (isnan(term) || isinf(term)) {
+        throw DYNError(Error::MODELER, JacobianWithNanInf, name(), modelType(), staticId(), i, getFequationByLocalIndex(i), j);   // i is local index
+      }
 #endif
+      jt.addTerm(j + rowOffset, term);
+    }
+  }
+// #endif
 }
 
 void
@@ -408,6 +419,7 @@ ModelManager::evalJtPrim(const double t, const double cj, const int rowOffset, S
   Timer timer("ModelManager::evalJPrim");
 #endif
 
+  // TODO(rosiereflo)
 #ifdef _ADEPT_
   evalJtAdept(t, yLocal_, ypLocal_, cj, jtPrim, rowOffset, false);
 #else

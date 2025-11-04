@@ -1431,6 +1431,25 @@ int index_spec_fit_base_array(const index_spec_t *s, const base_array_t *a) {
     return 1;
 }
 
+
+modelica_real real_int_pow(modelica_real base, modelica_integer n) {
+  modelica_real result = 1.0;
+  modelica_integer m = n < 0;
+  if (m) {
+    assert(base == 0.0 && "Model error. 0^(whatever) is not defined");
+    n = -n;
+  }
+  while (n != 0) {
+    if ((n % 2) != 0) {
+      result *= base;
+      n--;
+    }
+    base *= base;
+    n /= 2;
+  }
+  return m ? (1 / result) : result;
+}
+
 #ifdef _ADEPT_
 void array_alloc_scalar_real_array_adept(real_array_t_adept* dest, int n, adept::adouble first, ...) {
   va_list ap;

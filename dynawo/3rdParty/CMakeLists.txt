@@ -683,7 +683,6 @@ if(NOT OMCompiler)
                           --disable-omplot
                           --disable-omshell
                           --with-qwt=NO
-                          --with-omc=no
       BUILD_COMMAND       make -j ${CPU_COUNT} omc
       INSTALL_COMMAND     make install
               COMMAND     cd <INSTALL_DIR>/bin && ln -s -f omc omcDynawo
