@@ -36,7 +36,7 @@ model TGov1 "IEEE governor type TGOV1"
   Modelica.Blocks.Interfaces.RealOutput PmPu(start = Pm0Pu) "Mechanical power in pu (base PNomTurb)" annotation(
     Placement(visible = true, transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {t3, 1}, b = {t2, 1}, x_start = {Pm0Pu}, y_start = Pm0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {t3, 1}, b = {t2, 1}, initType = Modelica.Blocks.Types.Init.SteadyState, u_start = Pm0Pu) annotation(
     Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {-90, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

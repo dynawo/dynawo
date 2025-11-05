@@ -95,7 +95,7 @@ ConnectorCalculatedVariable::evalJt(const double /*t*/, const double /*cj*/, con
   model_->evalJCalculatedVarI(indexCalculatedVariable_, jModel);
 
   for (std::size_t i = 0, iEnd = varExtIndexes_.size(); i < iEnd; ++i) {  // d(f)/dyModel = d(calculatedVariable)/d(yModel)
-    jt.addTerm(model_->getOffsetY() + varExtIndexes_[i], jModel[i]);
+    jt.addTerm(model_->yDeb() + varExtIndexes_[i], jModel[i]);
   }
 }
 
