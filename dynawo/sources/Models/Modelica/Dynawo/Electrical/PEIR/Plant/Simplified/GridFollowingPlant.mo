@@ -29,8 +29,6 @@ model GridFollowingPlant
   // Input variables
   Modelica.Blocks.Interfaces.RealInput deltaPmRefPu(start = 0) "Additional active power reference in pu (base PNom)" annotation(
     Placement(transformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 50}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.BooleanInput freeze(start = false) "Boolean to freeze the regulation" annotation(
-    Placement(transformation(origin = {-110, -20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Network angular reference frequency in pu (base OmegaNom)" annotation(
     Placement(transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 90}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput QRegPu(start = QReg0Pu) "Reactive power at regulated bus in pu (base SnRef) (generator convention)" annotation(
@@ -75,8 +73,6 @@ equation
     Line(points = {{-110, 60}, {-50, 60}, {-50, 10}}, color = {0, 0, 127}));
   connect(URegPu, plantControllerPI.URegPu) annotation(
     Line(points = {{-110, 20}, {-80, 20}, {-80, 4}, {-60, 4}}, color = {0, 0, 127}));
-  connect(freeze, plantControllerPI.freeze) annotation(
-    Line(points = {{-110, -20}, {-80, -20}, {-80, -4}, {-60, -4}}, color = {255, 0, 255}));
   connect(deltaPmRefPu, plantControllerPI.deltaPmRefPu) annotation(
     Line(points = {{-110, 40}, {-70, 40}, {-70, 10}, {-60, 10}}, color = {0, 0, 127}));
   connect(omegaRefPu, plantControllerPI.omegaRefPu) annotation(

@@ -13,6 +13,7 @@ set(MODEL_FILES
   package.order
   Injector.mo
   PlantControllerPI.mo
+  PlantControllerPI_old.mo
   )
 
 #
