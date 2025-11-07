@@ -44,7 +44,7 @@ Derivatives::addValue(const int numVar, const double value) {
     indices_.push_back(numVar);
     values_.push_back(value);
   } else {
-    int index = it - indices_.begin();
+    auto index = it - indices_.begin();
     values_[index] += value;
   }
 }
