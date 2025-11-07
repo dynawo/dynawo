@@ -144,17 +144,17 @@ TEST(APICSTRTest, CollectionFilterConstraintDynaflowMode) {
   ASSERT_EQ(nbConstraint, 3);  // closed constraints are kept
 
   auto constraints =  collection->getConstraintsById();
-  auto it = constraints.find("model_2_0_constraint 1");
+  auto it = constraints.find("model_0_0_constraint 1");
   ASSERT_TRUE(it != constraints.end());
   ASSERT_EQ(it->second->getData().get().value, 128);
   ASSERT_EQ(it->second->getData().get().valueMax.get(), 133);
 
-  it = constraints.find("model_10_0_constraint 1");
+  it = constraints.find("model_8_0_constraint 1");
   ASSERT_TRUE(it != constraints.end());
   ASSERT_EQ(it->second->getData().get().value, 136);
   ASSERT_EQ(it->second->getData().get().valueMax.get(), 136);
 
-  it = constraints.find("model_8_0_constraint 3");
+  it = constraints.find("model_7_0_constraint 3");
   ASSERT_TRUE(it != constraints.end());
   ASSERT_EQ(it->second->getData().get().value, 128);
   ASSERT_EQ(it->second->getData().get().valueMax.get(), 133);

@@ -89,7 +89,6 @@ ConstraintsCollection::filter(DYN::ConstraintValueType_t filterType) {
           else
             mergedData.valueMin = std::min(mergedData.valueMin.value(), mergedData.value);
           lastConstraint->setData(mergedData);
-          lastConstraint->setTime(constraint->getTime());
         }
         if (type == CONSTRAINT_END)  // close constraint
           activeConstraints.erase(activeConstraints.find(descr));
