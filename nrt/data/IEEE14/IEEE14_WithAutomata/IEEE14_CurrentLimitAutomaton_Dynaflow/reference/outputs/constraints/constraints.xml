@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <constraints xmlns="http://www.rte-france.com/dynawo">
-  <constraint modelName="CLA_2_5" description="CLA : overload 5.00s : open line" time="10.247924" type="OverloadOpen" kind="OverloadOpen" limit="600" value="613.57902220112419"/>
-  <constraint modelName="_BUS____2-BUS____3-1_AC" description="permanent limit side 1" time="11.725628" type="Line" kind="PATL" limit="836.74000000000001" value="836.73999999996602" valueMax="986.62365834298794" side="1"/>
-  <constraint modelName="CLA_2_4" description="CLA : overload 10.00s" time="19.016898" type="OverloadUp" kind="OverloadUp" limit="1000" value="1079.8995706237554" valueMax="1162.5487308711322"/>
-  <constraint modelName="CLA_2_4" description="CLA : overload 10.00s : open line" time="20.439576" type="OverloadOpen" kind="OverloadOpen" limit="1000" value="1079.8528809641869"/>
-  <constraint modelName="_BUS____2-BUS____4-1_AC" description="permanent limit side 1" time="20.439576" type="Line" kind="PATL" limit="836.74000000000001" value="29.780976585823982" valueMax="1165.4352252901917" side="1"/>
-  <constraint modelName="_BUS____1-BUS____2-1_AC" description="fictitious limit with value 810 on side 1" time="22.602431" type="Line" kind="Fictitious" limit="810" value="1680.9244430708384" valueMax="2299.2114951462695" side="1"/>
-  <constraint modelName="_BUS____1-BUS____2-1_AC" description="overload 60s side 1" time="22.602431" type="Line" kind="OverloadUp" limit="836.74000000000001" value="1680.9244430708384" valueMax="2299.2114951462695" side="1" acceptableDuration="60"/>
-  <constraint modelName="_BUS____1-BUS____2-1_AC" description="permanent limit side 1" time="22.602431" type="Line" kind="PATL" limit="836.74000000000001" value="1680.9244430708384" valueMax="2299.2114951462695" side="1"/>
-  <constraint modelName="_BUS____2-BUS____3-1_AC" description="permanent limit side 1" time="22.602431" type="Line" kind="PATL" limit="836.74000000000001" value="1609.4837769584162" valueMax="2806.1741970118578" side="1"/>
-  <constraint modelName="_BUS____3-BUS____4-1_AC" description="permanent limit side 1" time="22.602431" type="Line" kind="PATL" limit="836.74000000000001" value="1125.3519632295427" valueMax="1433.6520462144845" side="1"/>
-  <constraint modelName="CLA_2_5" description="CLA : overload 5.00s" time="9.846142" type="OverloadUp" kind="OverloadUp" limit="600" value="614.12536656177986" valueMax="649.95313571739632"/>
+  <constraint modelName="CLA_2_4" description="CLA : overload 10.00s" time="10.439578" type="OverloadUp" kind="OverloadUp" limit="1000" value="1079.8995706237581" valueMax="1162.5487308711488"/>
+  <constraint modelName="CLA_2_4" description="CLA : overload 10.00s : open line" time="20.439576" type="OverloadOpen" kind="OverloadOpen" limit="1000" value="1079.8528809641857"/>
+  <constraint modelName="CLA_2_5" description="CLA : overload 5.00s : open line" time="10.247924" type="OverloadOpen" kind="OverloadOpen" limit="600" value="613.57902220113658"/>
+  <constraint modelName="CLA_2_5" description="CLA : overload 5.00s" time="5.247925" type="OverloadUp" kind="OverloadUp" limit="600" value="614.12536656178236" valueMax="649.95313571740292"/>
+  <constraint modelName="_BUS____1-BUS____2-1_AC" description="fictitious limit with value 810 on side 1" time="0.000000" type="Line" kind="Fictitious" limit="810" value="1680.924443071028" valueMax="2299.211495146285" side="1"/>
+  <constraint modelName="_BUS____1-BUS____2-1_AC" description="overload 60s side 1" time="0.000000" type="Line" kind="OverloadUp" limit="836.74000000000001" value="1680.924443071028" valueMax="2299.211495146285" side="1" acceptableDuration="60"/>
+  <constraint modelName="_BUS____1-BUS____2-1_AC" description="permanent limit side 1" time="0.000000" type="Line" kind="PATL" limit="836.74000000000001" value="1680.924443071028" valueMax="2299.211495146285" side="1"/>
+  <constraint modelName="_BUS____2-BUS____3-1_AC" description="permanent limit side 1" time="10.520685" type="Line" kind="PATL" limit="836.74000000000001" value="836.73999999997511" valueMax="986.62365834299487" side="1"/>
+  <constraint modelName="_BUS____2-BUS____3-1_AC" description="permanent limit side 1" time="12.060097" type="Line" kind="PATL" limit="836.74000000000001" value="1609.4837769585329" valueMax="2806.1741970117873" side="1"/>
+  <constraint modelName="_BUS____2-BUS____4-1_AC" description="permanent limit side 1" time="10.247924" type="Line" kind="PATL" limit="836.74000000000001" value="29.780976585823982" valueMax="1165.435225290209" side="1"/>
+  <constraint modelName="_BUS____3-BUS____4-1_AC" description="permanent limit side 1" time="20.560191" type="Line" kind="PATL" limit="836.74000000000001" value="1125.3519632296659" valueMax="1433.6520462144445" side="1"/>
 </constraints>
