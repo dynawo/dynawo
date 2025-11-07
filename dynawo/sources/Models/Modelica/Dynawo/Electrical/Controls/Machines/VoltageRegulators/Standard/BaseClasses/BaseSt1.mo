@@ -79,7 +79,7 @@ partial model BaseSt1 "IEEE excitation system type ST1 base model"
     Placement(visible = true, transformation(origin = {140, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Math.Add3 add3(k3 = -1) annotation(
     Placement(visible = true, transformation(origin = {-310, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter(homotopyType = Modelica.Blocks.Types.VariableLimiterHomotopy.NoHomotopy) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.VariableLimiter variableLimiter annotation(
     Placement(visible = true, transformation(origin = {390, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = VrMaxPu) annotation(
     Placement(visible = true, transformation(origin = {250, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
