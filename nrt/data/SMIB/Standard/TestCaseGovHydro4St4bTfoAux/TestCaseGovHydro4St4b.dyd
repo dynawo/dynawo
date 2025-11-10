@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2025, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="SynchronousGenerator" lib="GeneratorSynchronousThreeWindingsGovHydro4St4bTfoAux" parFile="TestCaseGovHydro4St4b.par" parId="SynchronousGenerator"/>
+  <dyn:blackBoxModel id="Load" lib="LoadAlphaBeta" parFile="TestCaseGovHydro4St4b.par" parId="Load"/>
+  <dyn:blackBoxModel id="StepP" lib="Step" parFile="TestCaseGovHydro4St4b.par" parId="StepP"/>
+  <dyn:blackBoxModel id="OMEGA_REF" lib="DYNModelOmegaRef" parFile="TestCaseGovHydro4St4b.par" parId="OmegaRef"/>
+  <dyn:connect id1="Load" var1="load_PRefPu" id2="StepP" var2="step_step"/>
+  <dyn:connect id1="Load" var1="load_terminal" id2="SynchronousGenerator" var2="coupling_terminal1"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_0_value" id2="SynchronousGenerator" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_0_value" id2="SynchronousGenerator" var2="generator_omegaRefPu"/>
+</dyn:dynamicModelsArchitecture>

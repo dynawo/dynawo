@@ -15,6 +15,9 @@ set(MODEL_FILES
   package.order
   IdealSwitch.extvar
   IdealSwitch.mo
+  IdealSwitch2.extvar
+  IdealSwitch2.mo
+  IdealSwitchGeneratorAux_INIT.mo
   )
 
 #

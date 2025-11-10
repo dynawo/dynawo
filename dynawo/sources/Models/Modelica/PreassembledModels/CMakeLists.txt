@@ -64,10 +64,19 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorPVRemoteDiagramPQSignalNSFR.xml
   GeneratorSynchronousFourWindings.xml
   GeneratorSynchronousFourWindingsGovCt2St4b.xml
+  GeneratorSynchronousFourWindingsGovCt2St4bAux.xml
+  GeneratorSynchronousFourWindingsGovCt2St4bTfo.xml
+  GeneratorSynchronousFourWindingsGovCt2St4bTfoAux.xml
   GeneratorSynchronousFourWindingsGovSteam1St4b.xml
+  GeneratorSynchronousFourWindingsGovSteam1St4bAux.xml
   GeneratorSynchronousFourWindingsGovSteam1St4bPss2b.xml
+  GeneratorSynchronousFourWindingsGovSteam1St4bTfo.xml
+  GeneratorSynchronousFourWindingsGovSteam1St4bTfoAux.xml
   GeneratorSynchronousFourWindingsGovSteamEuSt4b.xml
   GeneratorSynchronousFourWindingsGoverPropVRPropInt.xml
+  GeneratorSynchronousFourWindingsGoverPropVRPropIntAux.xml
+  GeneratorSynchronousFourWindingsGoverPropVRPropIntTfo.xml
+  GeneratorSynchronousFourWindingsGoverPropVRPropIntTfoAux.xml
   GeneratorSynchronousFourWindingsIEEEG1Ac1a.xml
   GeneratorSynchronousFourWindingsIEEEG1Dc1a.xml
   GeneratorSynchronousFourWindingsIEEEG1IEEX2A.xml
@@ -94,6 +103,9 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousFourWindingsPmConstVRNordic.xml
   GeneratorSynchronousFourWindingsPmConstVRNordicTfo.xml
   GeneratorSynchronousFourWindingsProportionalRegulations.xml
+  GeneratorSynchronousFourWindingsProportionalRegulationsAux.xml
+  GeneratorSynchronousFourWindingsProportionalRegulationsTfo.xml
+  GeneratorSynchronousFourWindingsProportionalRegulationsTfoAux.xml
   GeneratorSynchronousFourWindingsTGov1Dc1a.xml
   GeneratorSynchronousFourWindingsTGov1Sexs.xml
   GeneratorSynchronousFourWindingsTGov1SexsPss2a.xml
@@ -103,10 +115,16 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousProportionalRegulationsInternalParameters.xml
   GeneratorSynchronousThreeWindings.xml
   GeneratorSynchronousThreeWindingsDTRI8.xml
+  GeneratorSynchronousThreeWindingsGovHydro4St4b.xml
+  GeneratorSynchronousThreeWindingsGovHydro4St4bAux.xml
+  GeneratorSynchronousThreeWindingsGovHydro4St4bTfo.xml
+  GeneratorSynchronousThreeWindingsGovHydro4St4bTfoAux.xml
   GeneratorSynchronousThreeWindingsGoverNordicVRNordic.xml
   GeneratorSynchronousThreeWindingsGoverNordicVRNordicTfo.xml
   GeneratorSynchronousThreeWindingsGoverPropVRPropInt.xml
-  GeneratorSynchronousThreeWindingsGovHydro4St4b.xml
+  GeneratorSynchronousThreeWindingsGoverPropVRPropIntAux.xml
+  GeneratorSynchronousThreeWindingsGoverPropVRPropIntTfo.xml
+  GeneratorSynchronousThreeWindingsGoverPropVRPropIntTfoAux.xml
   GeneratorSynchronousThreeWindingsHyGovBbSex1.xml
   GeneratorSynchronousThreeWindingsHyGovScrx.xml
   GeneratorSynchronousThreeWindingsHyGovScrxTfo.xml
@@ -122,6 +140,9 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousThreeWindingsPmConstVRNordic.xml
   GeneratorSynchronousThreeWindingsPmConstVRNordicTfo.xml
   GeneratorSynchronousThreeWindingsProportionalRegulations.xml
+  GeneratorSynchronousThreeWindingsProportionalRegulationsAux.xml
+  GeneratorSynchronousThreeWindingsProportionalRegulationsTfo.xml
+  GeneratorSynchronousThreeWindingsProportionalRegulationsTfoAux.xml
   GenericAutomaton.xml
   GridFormingConverterDroopControl.xml
   GridFormingConverterMatchingControl.xml
@@ -222,11 +243,11 @@ set(MODELICA_PREASSEMBLED_MODELS
   PowerTransferHVDCEmulation.xml
   PIAntiWindUpTable.xml
   Ramp.xml
-  ShuntBWithSections.xml
   SecondaryFrequencyRegulation.xml
   SecondaryVoltageControlSimp.xml
   SetPoint.xml
   ShuntB.xml
+  ShuntBWithSections.xml
   SignalN.xml
   SineWave.xml
   SpeedProtection.xml
