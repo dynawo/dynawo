@@ -21,6 +21,11 @@
   <curve model="Hvdc1" variable="hvdc_QInj2Pu"/>
   <curve model="Hvdc1" variable="hvdc_U1Pu"/>
   <curve model="Hvdc1" variable="hvdc_U2Pu"/>
+  <curve model="Hvdc1" variable="hvdc_blockerSide1"/>
+  <curve model="Hvdc1" variable="hvdc_Q1MaxPu"/>
+  <curve model="Hvdc1" variable="hvdc_Q1MinPu"/>
+  <curve model="Hvdc1" variable="hvdc_U1RefPu"/>
+  <curve model="Hvdc1" variable="hvdc_Lambda1Pu"/>
   <curve model="Hvdc1" variable="line_P1Pu"/>
   <curve model="Hvdc1" variable="line_Q1Pu"/>
   <curve model="Hvdc1" variable="line_P2Pu"/>
