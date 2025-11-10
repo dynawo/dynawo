@@ -75,7 +75,7 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
     tSample_(10.),
     iTerm_(0.),
     feedBackCorrection_(0.),
-    firstState_(true) {}
+    firstState_(0) {}
 
   void
   ModelSecondaryVoltageControlSimplified::defineParameters(std::vector<ParameterModeler>& parameters) {
@@ -217,9 +217,13 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
     if (gLocal_[ActivationNum_] == ROOT_UP) {
       auto notBlocked = std::find_if(&zLocal_[firstIndexBlockerNum_], &zLocal_[firstIndexBlockerNum_ + nbGenerators_],
           [](double b) { return b < 1; });
-      gLocal_[BlockingNum_] = (notBlocked != &zLocal_[firstIndexBlockerNum_ + nbGenerators_]) ? ROOT_DOWN : ROOT_UP;
-    } else {
-      gLocal_[BlockingNum_] = ROOT_DOWN;
+      const bool blocked = (notBlocked == &zLocal_[firstIndexBlockerNum_ + nbGenerators_]);
+      if (blocked && gLocal_[BlockingNum_] == ROOT_DOWN) {
+        DYNAddTimelineEvent(this, name(), VRFrozen);
+      } else if (!blocked && gLocal_[BlockingNum_] == ROOT_UP) {
+        DYNAddTimelineEvent(this, name(), VRUnfrozen);
+      }
+      gLocal_[BlockingNum_] = (!blocked) ? ROOT_DOWN : ROOT_UP;
     }
   }
 
@@ -251,9 +255,11 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
 
   void
   ModelSecondaryVoltageControlSimplified::evalZ(const double t) {
-    if (!isStartingFromDump() && firstState_) {
+    if (!isStartingFromDump() && firstState_ < 2) {
+      // Compute initial level from actual Qstator values at the beginning of the simulation
+      // Do it twice to make sure that discrete status variables were taken into account in continuous equations
       calculateInitialState();
-      firstState_ = false;
+      ++firstState_;
     }
     if (gLocal_[ActivationNum_] == ROOT_UP && doubleNotEquals(t, zLocal_[tLastActivationNum_]) && gLocal_[BlockingNum_] == ROOT_DOWN) {
       double minValue = zLocal_[UpRefPuNum_] - UDeadBandPu_;

@@ -17,11 +17,9 @@
     <dyn:unitDynamicModel id="reactivePowerControlLoop" name="Dynawo.Electrical.Controls.Machines.ReactivePowerControlLoops.ReactivePowerControlLoop2" initName="Dynawo.Electrical.Controls.Machines.ReactivePowerControlLoops.ReactivePowerControlLoop_INIT"/>
     <dyn:initConnect id1="reactivePowerControlLoop" var1="UStatorRef0Pu" id2="generator" var2="URef0PuVar"/>
     <dyn:initConnect id1="reactivePowerControlLoop" var1="QStator0Pu" id2="generator" var2="QStator0Pu"/>
-    <dyn:initConnect id1="reactivePowerControlLoop" var1="limUQUp0" id2="generator" var2="limUQUp0"/>
-    <dyn:initConnect id1="reactivePowerControlLoop" var1="limUQDown0" id2="generator" var2="limUQDown0"/>
+    <dyn:initConnect id1="reactivePowerControlLoop" var1="blocker0" id2="generator" var2="blocker0"/>
     <dyn:connect id1="reactivePowerControlLoop" var1="UStatorRefPu" id2="generator" var2="URefPu"/>
     <dyn:connect id1="reactivePowerControlLoop" var1="QStatorPu" id2="generator" var2="QStatorPu"/>
-    <dyn:connect id1="reactivePowerControlLoop" var1="limUQUp" id2="generator" var2="limUQUp"/>
-    <dyn:connect id1="reactivePowerControlLoop" var1="limUQDown" id2="generator" var2="limUQDown"/>
+    <dyn:connect id1="reactivePowerControlLoop" var1="blocker" id2="generator" var2="blocker"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

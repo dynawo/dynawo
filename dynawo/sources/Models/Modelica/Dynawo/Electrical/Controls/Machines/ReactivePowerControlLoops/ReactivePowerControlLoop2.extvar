@@ -14,6 +14,5 @@
 <external_variables xmlns="http://www.rte-france.com/dynawo">
   <variable id="QStatorPu" type="continuous" />
   <variable id="level" type="continuous" />
-  <variable id="limUQUp" type="boolean" defaultValue="false"/>
-  <variable id="limUQDown" type="boolean" defaultValue="false"/>
+  <variable id="blocker" type="boolean" defaultValue="false"/>
 </external_variables>
