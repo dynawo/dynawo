@@ -249,6 +249,76 @@ job_file = os.path.join(os.path.dirname(__file__), "Standard", "TestCaseGovCt2St
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
+###############################################################
+#             SMIB with GovCt2, St4b and auxiliary            #
+###############################################################
+
+case_name = "SMIB - TestCase - GovCt2 - St4b - Aux"
+case_description = "Active power variation on the load"
+job_file = os.path.join(os.path.dirname(__file__), "Standard", "TestCaseGovCt2St4bAux", "TestCaseGovCt2St4b.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+###############################################################
+#             SMIB with GovCt2, St4b and transformer          #
+###############################################################
+
+case_name = "SMIB - TestCase - GovCt2 - St4b - Tfo"
+case_description = "Active power variation on the load"
+job_file = os.path.join(os.path.dirname(__file__), "Standard", "TestCaseGovCt2St4bTfo", "TestCaseGovCt2St4b.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+###############################################################
+#      SMIB with GovCt2, St4b, transformer and auxiliary      #
+###############################################################
+
+case_name = "SMIB - TestCase - GovCt2 - St4b - Tfo - Aux"
+case_description = "Active power variation on the load"
+job_file = os.path.join(os.path.dirname(__file__), "Standard", "TestCaseGovCt2St4bTfoAux", "TestCaseGovCt2St4b.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+###################################################################
+#             SMIB with GovHydro4 and St4b                        #
+###################################################################
+
+case_name = "SMIB - TestCase - GovHydro4 - St4b"
+case_description = "Active power variation on the load"
+job_file = os.path.join(os.path.dirname(__file__), "Standard", "TestCaseGovHydro4St4b", "TestCaseGovHydro4St4b.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+###################################################################
+#             SMIB with GovHydro4, St4b and auxiliary             #
+###################################################################
+
+case_name = "SMIB - TestCase - GovHydro4 - St4b - Aux"
+case_description = "Active power variation on the load"
+job_file = os.path.join(os.path.dirname(__file__), "Standard", "TestCaseGovHydro4St4bAux", "TestCaseGovHydro4St4b.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+###################################################################
+#             SMIB with GovHydro4, St4b and transformer           #
+###################################################################
+
+case_name = "SMIB - TestCase - GovHydro4 - St4b - Tfo"
+case_description = "Active power variation on the load"
+job_file = os.path.join(os.path.dirname(__file__), "Standard", "TestCaseGovHydro4St4bTfo", "TestCaseGovHydro4St4b.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+###################################################################
+#          SMIB with GovHydro4, transformer and auxiliary         #
+###################################################################
+
+case_name = "SMIB - TestCase - GovHydro4 - St4b - Tfo - Aux"
+case_description = "Active power variation on the load"
+job_file = os.path.join(os.path.dirname(__file__), "Standard", "TestCaseGovHydro4St4bTfoAux", "TestCaseGovHydro4St4b.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
 ###################################################################
 #             SMIB with GovSteamEu and St4b                       #
 ###################################################################
@@ -256,15 +326,5 @@ test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeT
 case_name = "SMIB - TestCase - GovSteamEu - St4b"
 case_description = "Active power variation on the load"
 job_file = os.path.join(os.path.dirname(__file__), "Standard", "TestCaseGovSteamEuSt4b", "TestCaseGovSteamEuSt4b.jobs")
-
-test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
-
-###################################################################
-#             SMIB with GovHydro4 and St4b                       #
-###################################################################
-
-case_name = "SMIB - TestCase - GovHydro4 - St4b"
-case_description = "Active power variation on the load"
-job_file = os.path.join(os.path.dirname(__file__), "Standard", "TestCaseGovHydro4St4b", "TestCaseGovHydro4St4b.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
