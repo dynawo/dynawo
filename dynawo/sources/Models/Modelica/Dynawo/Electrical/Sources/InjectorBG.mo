@@ -46,7 +46,11 @@ protected
   Types.ComplexAdmittancePu YPuSnRef(re = GPuSnRef, im = BPuSnRef) "Admittance in pu (base SnRef)";
 
 equation
-  UPu = ComplexMath.'abs'(terminal.V);
+  if ((terminal.V.re == 0) and (terminal.V.im == 0)) then
+    UPu = 0;
+  else
+    UPu = ComplexMath.'abs'(terminal.V);
+  end if;
   PInjPu = -ComplexMath.real(terminal.V * ComplexMath.conj(terminal.i));
   QInjPu = -ComplexMath.imag(terminal.V * ComplexMath.conj(terminal.i));
 
