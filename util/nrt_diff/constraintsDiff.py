@@ -35,6 +35,8 @@ class ConstraintsObject:
         self.kind = ""
         self.limit = ""
         self.value = ""
+        self.valueMin = ""
+        self.valueMax = ""
         self.side = ""
         self.acceptable_duration = ""
 
@@ -58,6 +60,10 @@ def get_xml_constraints_info(filename):
             my_object.limit = child.attrib['limit']
         if "value" in child.attrib:
             my_object.value = child.attrib['value']
+        if "valueMin" in child.attrib:
+            my_object.valueMin = child.attrib['valueMin']
+        if "valueMax" in child.attrib:
+            my_object.valueMax = child.attrib['valueMax']
         if "side" in child.attrib:
             my_object.side = child.attrib['side']
         if "acceptableDuration" in child.attrib:
@@ -104,6 +110,13 @@ def get_txt_constraints_info(filename):
     f.close()
     return constraints_by_id
 
+def are_different(val1, val2) :
+    if not isinstance(val1,float) and not isinstance(val2,float) :
+        return False
+    if not isinstance(val1,float) or not isinstance(val2,float) :
+        return True
+    return not diffUtils.isclose(float(va1), float(val2))
+
 # Compare 2 dictionaries read from two constraint files
 # @param left_file_info : the dictionary from the left path
 # @param right_file_info : the dictionary from the right path
@@ -139,6 +152,12 @@ def compare_constraints_info (left_file_info, right_file_info):
             if firstObj.kind != secondObj.kind:
                 nb_differences+=1
                 msg += "[ERROR] object " + firstId + " has different kinds in the two files\n"
+            if are_different(firstObj.valueMin, secondObj.valueMin) :
+                nb_differences+=1
+                msg += "[ERROR] object " + firstId + " has different valueMin in the two files\n"
+            if are_different(firstObj.valueMax, secondObj.valueMax) :
+                nb_differences+=1
+                msg += "[ERROR] object " + firstId + " has different valueMax in the two files\n"
             if firstObj.value != "" or secondObj.value != "":
                 try:
                     difference = abs(float(firstObj.value)- float(secondObj.value))

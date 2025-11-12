@@ -102,6 +102,28 @@ typedef enum {
 } zChangeType_t;
 
 /**
+* define value type of the constraints
+*/
+typedef enum {
+  NO_CONSTRAINTS_FILTER = 0,
+  CONSTRAINTS_KEEP_FIRST,     ///< value registered in the constraint should be the first value seen by the simulation
+  CONSTRAINTS_DYNAFLOW,     ///< values registered in the constraint should be max and final value, keep closed constraints
+  SIZE_OF_ENUM  ///< value to use ONLY to assess the enumeration size
+} ConstraintValueType_t;  ///< constraint value type
+
+
+static const char* ConstraintValueTypeNames[ConstraintValueType_t::SIZE_OF_ENUM] = {"DISABLED",
+                                                                                    "FIRST",
+                                                                                    "DYNAFLOW"};  ///< string conversion of enum values
+
+// statically check that the size of ConstraintValueTypeNames fits the number of ConstraintValueType
+/**
+ * @brief Test is the size of ConstraintValueTypeNames is relevant with the enumeration size
+ */
+static_assert(sizeof(ConstraintValueTypeNames) / sizeof(char*) == ConstraintValueType_t::SIZE_OF_ENUM,
+    "Constraints value type string size does not match ConstraintValueType enumeration");
+
+/**
  * @brief return the string associated to the mode change type
  * @param modeChangeType mode change type as an enum
  * @return the string associated to the mode change type
