@@ -25,7 +25,7 @@ TEST(ModelsModelNetwork, ModelNetworkDerivative) {
   auto& values = derivatives.getValues();
   auto& indices = derivatives.getIndices();
   auto it = std::find(indices.begin(), indices.end(), 42);
-  unsigned int index = it - indices.begin();
+  auto index = it - indices.begin();
   ASSERT_EQ(values[index], 5.);
   ASSERT_EQ(derivatives.empty(), false);
 
@@ -65,7 +65,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusDerivative) {
   auto& irIndices = derivatives.getIndices(IR_DERIVATIVE);
   ASSERT_EQ(derivatives.getValues(IR_DERIVATIVE).size(), 1);
   auto itiR = std::find(irIndices.begin(), irIndices.end(), 42);
-  unsigned int index = itiR - irIndices.begin();
+  auto index = itiR - irIndices.begin();
   ASSERT_EQ(irValues[index], 5.);
   ASSERT_EQ(derivatives.getValues(II_DERIVATIVE).size(), 0);
   ASSERT_EQ(derivatives.empty(), false);
