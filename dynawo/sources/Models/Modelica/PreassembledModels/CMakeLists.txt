@@ -179,7 +179,6 @@ set(MODELICA_PREASSEMBLED_MODELS
   InfiniteBusWithVariations.xml
   InjectorBG.xml
   IntegerDoubleStep.xml
-  IntegerTable.xml
   LHVRT.xml
   Line.xml
   LoadAlphaBeta.xml
