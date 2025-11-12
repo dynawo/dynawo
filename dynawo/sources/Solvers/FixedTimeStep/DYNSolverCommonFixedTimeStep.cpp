@@ -542,6 +542,7 @@ SolverCommonFixedTimeStep::setDifferentialVariablesIndices() {
   for (int i = 0; i < model_->sizeY(); ++i) {
     if (modelYType[i] == DYN::DIFFERENTIAL) {
       differentialVariablesIndices_.push_back(i);
+      ++numDifferentialVariables_;
     }
   }
 }
