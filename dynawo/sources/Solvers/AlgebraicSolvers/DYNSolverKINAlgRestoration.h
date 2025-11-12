@@ -130,7 +130,7 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
    * @brief set the initial conditions of the equations to solve
    *
    * @param kinsolStategy time to use in equations
-   * @param noInitSetup indicates if the J should be evaluated or not at the first iteration
+   * @param noInitSetup indicates if the J should be evaluated or not at the first iteration, noInitSetup = false will force jacobian
   * @param evaluateOnlyModeAtFirstIter indicates if only residuals of models with mode change should be evaluated
   * @return the flag value
   */

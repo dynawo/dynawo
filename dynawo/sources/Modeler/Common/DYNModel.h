@@ -519,13 +519,13 @@ class Model {
   * @brief Print all equations.
   * @param ignoreF equations to erase from the initial set of equations
   */
-  virtual void printEquations(const std::unordered_set<int>& ignoreF) = 0;
+  virtual void printEquations(const std::unordered_set<int>& ignoreF, bool clearLogFile) = 0;
 
   /**
   * @brief Print all equations.
   * @param ignoreY variables to erase form the initial set of variables
   */
-  virtual void printVariableNames(const std::unordered_set<int>& ignoreY) = 0;
+  virtual void printVariableNames(const std::unordered_set<int>& ignoreY, bool clearLogFile) = 0;
 
   /**
   * @brief Print all parameters values

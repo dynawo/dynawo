@@ -679,7 +679,7 @@ SolverIDA::analyseFlag(const int & flag) {
 
   if (flag < 0) {
     Trace::error() << msg.str() << Trace::endline;
-    updateStatistics();
+    // updateStatistics();
     throw DYNError(Error::SUNDIALS_ERROR, SolverIDAError);
   }
 }
@@ -1163,8 +1163,10 @@ SolverIDA::reinit() {
       try {
         solverKINNormal_->solve(noInitSetup, evaluateOnlyMode, multipleStrategiesForAlgebraicRestoration_);
       } catch (const Error& e) {
-        solverKINNormal_->getValues(lastNewtonY_, lastNewtonYp_);
-        printLastNewtonY();
+        if (addLastNewtonDivergedPoint_)
+          solverKINNormal_->getValues(lastNewtonY_, lastNewtonYp_);
+        if (printLastNewtonY_)
+          printLastNewtonY();
         throw;
       }
       solverKINNormal_->getValues(vectorY_, vectorYp_);

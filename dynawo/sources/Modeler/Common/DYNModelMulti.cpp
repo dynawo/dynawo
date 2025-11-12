@@ -1293,10 +1293,14 @@ void ModelMulti::printEquations() {
   setIsInitProcess(isInitProcessBefore);
 }
 
-void ModelMulti::printEquations(const std::unordered_set<int>& ignoreF) {
+void ModelMulti::printEquations(const std::unordered_set<int>& ignoreF, bool clearLogFile) {
+  static int nbPrint = 0;
+  if (clearLogFile) {
+    Trace::clearLogFile(Trace::equations(), DEBUG);
+    // std::cout << "printEquations " << nbPrint << std::endl;
+  }
   int numEqFull = 0;
   int numEqSubset = 0;
-  static int nbPrint = 0;
   Trace::debug(Trace::equations()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::equations()) << "Equations (subset) " << nbPrint << Trace::endline;
   Trace::debug(Trace::equations()) << "------------------------------" << Trace::endline;
@@ -1311,12 +1315,28 @@ void ModelMulti::printEquations(const std::unordered_set<int>& ignoreF) {
     }
   }
   ++nbPrint;
+  // std::cout << "connectorContainer_->getOffsetModel() " << connectorContainer_->getOffsetModel() << std::endl;
+  const int offSetModel = connectorContainer_->getOffsetModel();
+  connectorContainer_->setOffsetModel(numEqSubset);
+  connectorContainer_->printEquations();
+  connectorContainer_->setOffsetModel(offSetModel);
+  numEqSubset += connectorContainer_->nbContinuousConnectors();
+  std::unordered_set<int> ignoreY;
+  std::string subModelName;
+  for (const auto numVarOptionnal : numVarsOptional_) {
+    Trace::debug(Trace::equations()) << numEqSubset << " optional connection " << getVariableName(numVarOptionnal, ignoreY, subModelName) << " model: " << subModelName << Trace::endline;
+    ++numEqSubset;
+  }
 }
 
-void ModelMulti::printVariableNames(const std::unordered_set<int>& ignoreY) {
+void ModelMulti::printVariableNames(const std::unordered_set<int>& ignoreY, bool clearLogFile) {
+  static int nbPrint = 0;
+  if (clearLogFile) {
+    Trace::clearLogFile(Trace::variables(), DEBUG);
+    // std::cout << "printVariableNames " << nbPrint << std::endl;
+  }
   int numVarFull = 0;
   int numVarSubset = 0;
-  static int nbPrint = 0;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::variables()) << "Variables (subset) " << nbPrint << Trace::endline;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;

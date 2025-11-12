@@ -1116,7 +1116,7 @@ Simulation::simulate() {
       }
     }
 
-    solver_->updateStatistics();
+    // solver_->updateStatistics();
 
     // If we haven't evaluated the calculated variables for the last iteration before, we must do it here if it might be used in the post process
     if (finalState_.iidmFile_ || exportCurvesMode_ != EXPORT_CURVES_NONE || activateCriteria_)
@@ -1286,6 +1286,7 @@ Simulation::printHighestDerivativesValues() {
 
 void
 Simulation::printEnd() {
+  solver_->updateStatistics();
   solver_->printEnd();
   solver_->printEndConsole();
 }

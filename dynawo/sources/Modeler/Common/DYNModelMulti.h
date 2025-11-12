@@ -482,13 +482,13 @@ class ModelMulti : public Model, private boost::noncopyable {
   * @brief Print all equations. Intended to be used in algebraic restoration solver.
   * @param ignoreF equations to erase from the initial set of equations
   */
-  void printEquations(const std::unordered_set<int>& ignoreF);
+  void printEquations(const std::unordered_set<int>& ignoreF, bool clearLogFile);
 
   /**
   * @brief Print all equations. Intended to be used in algebraic restoration solver.
   * @param ignoreY variables to erase form the initial set of variables
   */
-  void printVariableNames(const std::unordered_set<int>& ignoreY);
+  void printVariableNames(const std::unordered_set<int>& ignoreY, bool clearLogFile);
 
   /**
    * @copydoc Model::printParameterValues() const

@@ -174,6 +174,7 @@ SolverKINAlgRestoration::setupNewAlgebraicRestoration(double fnormtol, double in
     return;
   bool initKinsol = (numFPrevious != numF_);
   if (initKinsol) {
+    Trace::debug() << "We initialize KINSOL again." << Trace::endline;
     // warning: model_->sizeF() != numF_
     // model_->sizeF() is fixed during the whole simulation
     // numF_ could vary
@@ -288,7 +289,7 @@ SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
   if (solver->printNewtonSolutions_) {
     if (solver->mode_ == KIN_ALGEBRAIC) {
       long int current_nni_newton = 0;
-      KINGetNumNonlinSolvIters(solver->KINMem_, &current_nni_newton);
+      KINGetNumFuncEvals(solver->KINMem_, &current_nni_newton);
 
       static std::string base = "solY-";
       static std::string folder = "tmpSolYAlgRestoration";
@@ -298,8 +299,8 @@ SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
     }
   }
 
-  // model.printVariableNames(solver->ignoreY_);
-  // model.printEquations(solver->ignoreF_);
+  // model.printVariableNames(solver->ignoreY_, true);
+  // model.printEquations(solver->ignoreF_, true);
 
 // #ifdef _DEBUG_
   if (solver->printResiduals()) {
@@ -308,9 +309,15 @@ SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
     double wL2Norm = SolverCommon::weightedL2Norm(solver->vectorF_, solver->indexF_, solver->vectorFScale_);
     long int current_nni = 0;
     KINGetNumNonlinSolvIters(solver->KINMem_, &current_nni);
-    Trace::debug() << DYNLog(SolverKINResidualNormAlg, stringFromMode(solver->getMode()), current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
-    if (solver->printNewtonSolutions_)
+    long int current_nre = 0;
+    KINGetNumFuncEvals(solver->KINMem_, &current_nre);
+    Trace::debug() << DYNLog(SolverKINResidualNormAlg, stringFromMode(solver->getMode()), current_nni, weightedInfNorm, wL2Norm) << " nre " << current_nre << Trace::endline;
+    if (solver->printNewtonSolutions_) {
       Trace::debug() << "numPrintNewtonSolutions " << numPrintNewtonSolutions << Trace::endline;
+      // std::cout << "numPrintNewtonSolutions " << numPrintNewtonSolutions << std::endl;
+      // std::cout << "solver->indexY_ " << solver->indexY_.size() << std::endl;
+      // std::cout << DYNLog(SolverKINResidualNormAlg, stringFromMode(solver->getMode()), current_nni, weightedInfNorm, wL2Norm) << " nre " << current_nre << std::endl;
+    }
 
     const int nbErr = 10;
     Trace::debug() << DYNLog(KinLargestErrors, nbErr) << Trace::endline;
@@ -418,14 +425,14 @@ void SolverKINAlgRestoration::saveState() {
   vectorYForRestorationSave_.assign(vectorYForRestoration_.begin(), vectorYForRestoration_.end());
   vectorYpForRestorationSave_.assign(vectorYpForRestoration_.begin(), vectorYpForRestoration_.end());
   vectorYOrYpSolutionSave_.assign(vectorYOrYpSolution_.begin(), vectorYOrYpSolution_.end());
-  //model_->saveResidual(vectorFSave_);
+  model_->saveResidual(vectorFSave_);
 }
 
 void SolverKINAlgRestoration::restoreState() {
   vectorYForRestoration_.assign(vectorYForRestorationSave_.begin(), vectorYForRestorationSave_.end());
   vectorYpForRestoration_.assign(vectorYpForRestorationSave_.begin(), vectorYpForRestorationSave_.end());
   vectorYOrYpSolution_.assign(vectorYOrYpSolutionSave_.begin(), vectorYOrYpSolutionSave_.end());
-  //model_->restoreResidual(vectorFSave_);
+  model_->restoreResidual(vectorFSave_);
 }
 
 int SolverKINAlgRestoration::solveStrategy(const bool noInitSetup, const bool evaluateOnlyModeAtFirstIter, const int kinsolStategy) {

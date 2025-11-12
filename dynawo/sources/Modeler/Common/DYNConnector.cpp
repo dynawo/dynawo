@@ -452,7 +452,7 @@ ConnectorContainer::printYConnectors() const {
 
 void
 ConnectorContainer::printFlowConnectors() const {
-  std::size_t offset = yConnectors_.size();
+  std::size_t offset = nbYConnectors();
   for (unsigned int i = 0; i < nbFlowConnectors(); ++i) {
     shared_ptr<Connector> fc = flowConnectors_[i];
     stringstream ss;
