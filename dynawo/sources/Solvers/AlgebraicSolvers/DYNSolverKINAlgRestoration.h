@@ -131,11 +131,12 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
    * @brief set the initial conditions of the equations to solve
    *
    * @param kinsolStategy time to use in equations
-   * @param noInitSetup indicates if the J should be evaluated or not at the first iteration
+   * @param noInitSetup indicates if the J should be evaluated or not at the first iteration, noInitSetup = false will force jacobian
   * @param evaluateOnlyModeAtFirstIter indicates if only residuals of models with mode change should be evaluated
+  * @param multipleStrategiesForAlgebraicRestoration indicates if we try to use multiple strategies for restoration
   * @return the flag value
   */
-  int solveStrategy(bool noInitSetup, bool evaluateOnlyModeAtFirstIter, int kinsolStategy);
+  int solveStrategy(bool noInitSetup, bool evaluateOnlyModeAtFirstIter, int kinsolStategy,  bool multipleStrategiesForAlgebraicRestoration = false);
 
 #if _DEBUG_
   /**
@@ -267,8 +268,9 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   std::vector<double> vectorYForRestoration_;  ///< variables values during call of the solver
   std::vector<double> vectorYpForRestoration_;  ///< derivative variables during call of the solver
   std::vector<double> vectorYOrYpSolutionSave_;  ///< save solution of the restoration after the call of the solver for multiple strategies
-  std::vector<double> vectorYForRestorationSave_;  ///< save variables values during call of the solver  for multiple strategies
-  std::vector<double> vectorYpForRestorationSave_;  ///< save derivative variables during call of the solver  for multiple strategies
+  std::vector<double> vectorYForRestorationSave_;  ///< save variables values during call of the solver for multiple strategies
+  std::vector<double> vectorYpForRestorationSave_;  ///< save derivative variables during call of the solve for multiple strategies
+  std::vector<double> vectorFSave_;  ///< save residual vector for multiple strategies
   std::unordered_set<int> ignoreF_;  ///< equations to erase from the initial set of equations
   std::unordered_set<int> ignoreY_;  ///< variables to erase form the initial set of variables
   std::vector<int> indexF_;  ///< equations to keep from the initial set of equations
