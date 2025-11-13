@@ -1004,7 +1004,7 @@ TEST(ParametersTest, testParameters) {
   params->addParameter(parameters::ParameterFactory::newParameter("order1Prediction", false));
   ASSERT_NO_THROW(solver->setParametersFromPARFile(params));
   ASSERT_NO_THROW(solver->setSolverParameters());
-  ASSERT_EQ(solver->getParametersMap().size(), 41);
+  ASSERT_EQ(solver->getParametersMap().size(), 44);
 }
 
 TEST(ParametersTest, testParametersInit) {
@@ -1051,7 +1051,7 @@ TEST(ParametersTest, testParametersInit) {
   params->addParameter(parameters::ParameterFactory::newParameter("minimumModeChangeTypeForAlgebraicRestorationInit", std::string("ALGEBRAIC_J_UPDATE")));
   ASSERT_NO_THROW(solver->setParametersFromPARFile(params));
   ASSERT_NO_THROW(solver->setSolverParameters());
-  ASSERT_EQ(solver->getParametersMap().size(), 41);
+  ASSERT_EQ(solver->getParametersMap().size(), 44);
 }
 
 TEST(SimulationTest, testSolverSIMTestPredictionOrder1) {
