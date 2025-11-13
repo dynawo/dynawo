@@ -1322,7 +1322,7 @@ class Factory:
     # @param tmps_definition : list of tmps definitions to consider
     # @param created_relation_tmp : indicates if the tmp is a tmp related to created_relation
     def add_tmps_for_modes(self, tmps_to_add, tmps_assignment, tmps_definition, created_relation_tmp):
-        tmps_to_add.sort(key=lambda tmp: int(tmp.replace("tmp","")))
+        #tmps_to_add.sort(key=lambda tmp: int(tmp.replace("tmp","")))
         for tmp_to_add in tmps_to_add:
             for tmp_definition in tmps_definition:
                 if find_all_temporary_variable_in_line(tmp_definition)[0] == tmp_to_add:
@@ -1332,6 +1332,7 @@ class Factory:
                     else:
                         tmp_definition = tmp_definition + "\n"
                         self.modes.add_to_body_for_tmps("  " + tmp_definition)
+        for tmp_to_add in tmps_to_add:
             for tmp_assignment in tmps_assignment:
                 if find_all_temporary_variable_in_line(tmp_assignment)[0] == tmp_to_add:
                     if created_relation_tmp:

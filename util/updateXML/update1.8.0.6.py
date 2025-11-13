@@ -46,6 +46,8 @@ def update(jobs):
     for bbm in jobs.dyds.get_bbms(lambda bbm: "PhaseShifter" in bbm.get_lib_name()):
         if not bbm.parset.check_if_param_exists("phaseShifter_running0"):
             bbm.parset.add_param("BOOL", "phaseShifter_running0", True)
+        if not bbm.parset.check_if_param_exists("phaseShifter_UNom") and not bbm.parset.check_if_ref_exists("phaseShifter_UNom"):
+            bbm.parset.add_param("DOUBLE", "phaseShifter_UNom", 0)
 
     for bbm in jobs.dyds.get_bbms(lambda bbm: "StaticVarCompensator" in bbm.get_lib_name()):
         if bbm.parset.check_if_param_exists("SVarC_selectModeAuto0"):
