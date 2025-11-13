@@ -81,7 +81,7 @@ model PlantControllerPI "Plant model with PI controller"
   parameter Types.PerUnit QReg0Pu "Start value of reactive power at regulated bus in pu (generator convention) (base SnRef)";
   parameter Types.PerUnit UReg0Pu "Start value of voltage magnitude at regulated bus in pu (base UNom)";
 
-  final parameter Types.PerUnit URef0Pu = UReg0Pu + LambdaPu*QReg0Pu "Start value of voltage setpoint for plant level control in pu (base UNom)";
+  final parameter Types.PerUnit URef0Pu = UReg0Pu + LambdaPuSNom*QReg0Pu*SystemBase.SnRef/SNom "Start value of voltage setpoint for plant level control in pu (base UNom)";
   NonElectrical.Blocks.Continuous.LimitedPI limitedPI(Ki = Ki, Kp = Kp, YMax = QMaxPu, YMin = QMinPu, Y0 = QInj0Pu, Tol = 1e-4)  annotation(
     Placement(transformation(origin = {130, 40}, extent = {{-10, -10}, {10, 10}})));
 protected
