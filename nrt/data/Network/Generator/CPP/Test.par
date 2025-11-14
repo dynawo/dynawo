@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2025, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="InfiniteBus">
+    <reference name="infiniteBus_UPu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="infiniteBus_UPhase" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+  </set>
+  <set id="Load">
+    <reference name="load_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="load_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="load_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="load_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par type="DOUBLE" name="load_alpha" value="2"/>
+    <par type="DOUBLE" name="load_beta" value="2"/>
+  </set>
+  <set id="PStep">
+    <par type="DOUBLE" name="step_tStep" value="10"/>
+    <reference name="step_Value0" origData="IIDM" origName="p_pu" componentId="Load" type="DOUBLE"/>
+    <par type="DOUBLE" name="step_Height" value="0.005"/>
+  </set>
+  <set id="QStep">
+    <par type="DOUBLE" name="step_tStep" value="10"/>
+    <reference name="step_Value0" origData="IIDM" origName="q_pu" componentId="Load" type="DOUBLE"/>
+    <par type="DOUBLE" name="step_Height" value="0.0025"/>
+  </set>
+  <set id="Network_Generator">
+    <par type="BOOL" name="generator_isVoltageDependant" value="true"/>
+    <par type="DOUBLE" name="generator_alpha" value="2"/>
+    <par type="DOUBLE" name="generator_beta" value="2"/>
+    <par type="DOUBLE" name="capacitor_no_reclosing_delay" value="300"/>
+    <par type="DOUBLE" name="dangling_line_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="line_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="reactance_no_reclosing_delay" value="0"/>
+    <par type="DOUBLE" name="transformer_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="transformer_t1st_HT" value="60"/>
+    <par type="DOUBLE" name="transformer_t1st_THT" value="30"/>
+    <par type="DOUBLE" name="transformer_tNext_HT" value="10"/>
+    <par type="DOUBLE" name="transformer_tNext_THT" value="10"/>
+    <par type="DOUBLE" name="transformer_tolV" value="0.015"/>
+  </set>
+</parametersSet>
