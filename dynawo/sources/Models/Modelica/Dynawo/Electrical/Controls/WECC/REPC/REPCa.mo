@@ -24,7 +24,7 @@ model REPCa "WECC Plant Control type A"
 
 equation
   connect(lineDropCompensation1.U2Pu, voltageCheck.UPu) annotation(
-    Line(points = {{-538, 94}, {-360, 94}, {-360, 280}, {100, 280}}, color = {0, 0, 127}));
+    Line(points = {{-538, 94}, {-500, 94}, {-500, 120}, {-320, 120}, {-320, 280}, {100, 280}}, color = {0, 0, 127}));
   connect(switch2.y, firstOrder3.u) annotation(
     Line(points = {{-198, 140}, {-122, 140}}, color = {0, 0, 127}));
   connect(firstOrder3.y, UCtrlErr.u2) annotation(
@@ -38,11 +38,11 @@ equation
   connect(PRefPu, add3.u1) annotation(
     Line(points = {{-610, -40}, {-120, -40}, {-120, -52}, {-22, -52}}, color = {0, 0, 127}));
   connect(gain.y, QVCtrlErr.u2) annotation(
-    Line(points = {{-398, 40}, {-380, 40}, {-380, 60}, {-320, 60}, {-320, 94}, {-282, 94}}, color = {0, 0, 127}));
+    Line(points = {{-380, 80}, {-320, 80}, {-320, 94}, {-282, 94}}, color = {0, 0, 127}));
   connect(lineDropCompensation1.U2Pu, QVCtrlErr.u1) annotation(
-    Line(points = {{-538, 94}, {-360, 94}, {-360, 106}, {-282, 106}}, color = {0, 0, 127}));
+    Line(points = {{-538, 94}, {-500, 94}, {-500, 120}, {-320, 120}, {-320, 106}, {-282, 106}}, color = {0, 0, 127}));
   connect(lineDropCompensation1.U1Pu, switch2.u1) annotation(
-    Line(points = {{-538, 106}, {-380, 106}, {-380, 180}, {-240, 180}, {-240, 148}, {-222, 148}}, color = {0, 0, 127}));
+    Line(points = {{-538, 106}, {-520, 106}, {-520, 180}, {-240, 180}, {-240, 148}, {-222, 148}}, color = {0, 0, 127}));
   connect(add3.y, PRefLim.u) annotation(
     Line(points = {{2, -60}, {138, -60}}, color = {0, 0, 127}));
   connect(booleanConstant.y, limPID.freeze) annotation(

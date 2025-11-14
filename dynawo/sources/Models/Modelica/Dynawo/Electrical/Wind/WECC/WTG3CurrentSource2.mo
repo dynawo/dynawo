@@ -174,9 +174,8 @@ equation
     Line(points = {{62, -110}, {60, -110}, {60, -66}}, color = {0, 0, 127}));
 
   annotation(
+    preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-100, 80}, {360, -100}})),
-    version = "",
-    uses(Dynawo(version = "1.8.0"), Modelica(version = "3.2.3")),
     Documentation(info = "<html><head></head><body><p style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\">This block contains the generic WECC WTG model according to (in case page cannot be found, copy link in browser):&nbsp;<br><a href=\"https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf\">https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf</a></p><p style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\">The overall model is structured as follows:</p><ul style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\"><li>Main model: WECC_Wind with terminal connection and measurement inputs for P/Q/U/I.&nbsp;</li><li>Plant level control.&nbsp;</li><li>Electrical inverter control.</li><li>Generator control.&nbsp;</li><li>Injector (id,iq).</li><li>Torque control.</li><li>Pitch angle control.</li><li>Aero-Dynamic model.</li><li>Drive-train.</li></ul><div><font face=\"MS Shell Dlg 2\">The only difference with the model Wtg3CurrentSource1 is the change of the pitch controller model, this one offers mor flexibility with the limits of the integrators.</font></div></body></html>"),
     Icon(graphics = {Text(origin = {-26, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC WTG 3 2"), Rectangle(extent = {{-100, 100}, {100, -100}})}));
 end WTG3CurrentSource2;
