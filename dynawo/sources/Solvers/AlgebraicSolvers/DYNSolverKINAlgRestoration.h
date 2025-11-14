@@ -230,6 +230,24 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   */
   void cleanAlgebraicVectors();
 
+  /**
+  * @brief get Complete Jacobian matrix
+  *
+  * @return the Complete Jacobian matrix
+  */
+  inline SparseMatrix& getMatrix() {
+    return smj_;
+  }
+
+  /**
+  * @brief get Jacobian matrix only on algebraic variables
+  *
+  * @return the Jacobian matrix only on algebraic variables
+  */
+  inline SparseMatrix& getMatrixAlgebraic() {
+    return smjKin_;
+  }
+
  private:
   std::shared_ptr<Model> model_;  ///< model currently simulated
 
@@ -241,6 +259,9 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   std::vector<int> indexF_;  ///< equations to keep from the initial set of equations
   std::vector<int> indexY_;  ///< variables to keep form the initial set of variables
   modeKin_t mode_;  ///< mode of the solver (i.e. algebraic equations or derivative)
+
+  SparseMatrix smj_;  ///< Complete Jacobian matrix
+  SparseMatrix smjKin_;  ///< Jacobian matrix only on algebraic variables
 
 #if _DEBUG_
   bool checkJacobian_;  ///< Check jacobian
