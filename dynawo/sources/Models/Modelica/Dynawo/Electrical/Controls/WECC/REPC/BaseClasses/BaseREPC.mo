@@ -84,7 +84,7 @@ model BaseREPC "WECC Plant Control REPC common"
   Modelica.Blocks.Math.Add QVCtrlErr annotation(
     Placement(visible = true, transformation(origin = {-270, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = Kc) annotation(
-    Placement(visible = true, transformation(origin = {-410, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-390, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add wCtrlErr(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {-350, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.DeadZone deadZone1(uMax = FDbd2Pu, uMin = -FDbd1Pu) annotation(
@@ -105,7 +105,7 @@ model BaseREPC "WECC Plant Control REPC common"
     Placement(visible = true, transformation(origin = {340, 60}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.BaseControls.VoltageCheck voltageCheck(UMinPu = VFrz, UMaxPu = 999) annotation(
     Placement(visible = true, transformation(origin = {110, 280}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction leadLag(a = {tFv, 1}, b = {tFt, 1}, x_start = {QInj0Pu}, y_start = QInj0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction leadLag(a = {tFv, 1}, b = {tFt, 1}, initType = Modelica.Blocks.Types.Init.InitialState, x_start = {QInj0Pu}, y_start = QInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {390, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch(nu = 2) annotation(
     Placement(visible = true, transformation(origin = {200, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -121,13 +121,13 @@ model BaseREPC "WECC Plant Control REPC common"
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at regulated bus in pu (base UNom)";
   parameter Types.VoltageModulePu UInj0Pu "Start value of voltage magnitude at injector terminal in pu (base UNom)";
 
-  final parameter Types.VoltageModulePu URef0Pu = if VCompFlag == true then UInj0Pu else U0Pu + Kc*QGen0Pu "Start value of voltage setpoint for plant level control, calculated depending on VCompFlag, in pu (base UNom)";
+  final parameter Types.VoltageModulePu URef0Pu = if VCompFlag == true then UInj0Pu else U0Pu + Kc * QGen0Pu "Start value of voltage setpoint for plant level control, calculated depending on VCompFlag, in pu (base UNom)";
 
 equation
   connect(PRegPu, firstOrder1.u) annotation(
     Line(points = {{-610, -80}, {-422, -80}}, color = {0, 0, 127}));
-  connect(gain.u, QRegPu) annotation(
-    Line(points = {{-422, 40}, {-610, 40}}, color = {0, 0, 127}));
+  connect(QRegPu, gain.u) annotation(
+    Line(points = {{-610, 40}, {-420, 40}, {-420, 80}, {-402, 80}}, color = {0, 0, 127}));
   connect(switch.y, PInjRefPu) annotation(
     Line(points = {{581, -80}, {610, -80}}, color = {0, 0, 127}));
   connect(wCtrlErr.y, deadZone1.u) annotation(

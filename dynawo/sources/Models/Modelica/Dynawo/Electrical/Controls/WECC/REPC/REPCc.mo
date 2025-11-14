@@ -163,7 +163,7 @@ equation
   connect(firstOrder5.y, QVCtrlErr.u1) annotation(
     Line(points = {{-459, 120}, {-300, 120}, {-300, 106}, {-282, 106}}, color = {0, 0, 127}));
   connect(gain.y, firstOrder6.u) annotation(
-    Line(points = {{-398, 40}, {-380, 40}, {-380, 80}, {-362, 80}}, color = {0, 0, 127}));
+    Line(points = {{-380, 80}, {-362, 80}}, color = {0, 0, 127}));
   connect(firstOrder6.y, QVCtrlErr.u2) annotation(
     Line(points = {{-339, 80}, {-300, 80}, {-300, 94}, {-282, 94}}, color = {0, 0, 127}));
   connect(QRefPu, limiter7.u) annotation(
