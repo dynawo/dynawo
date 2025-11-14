@@ -36,7 +36,7 @@ model PlantControllerPI "Plant model with PI controller"
     Placement(transformation(origin = {-190, -40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 90}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Network angular reference frequency in pu (base OmegaNom)" annotation(
     Placement(transformation(origin = {-190, -20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealInput QRegPu(start = QReg0Pu) "Reactive power at regulated bus in pu (base SnRef) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput QRegPu(start = QReg0Pu) "Reactive power at regulated bus in pu (base SnRef) (generator or receptor? convention)" annotation(
     Placement(transformation(origin = {-20, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {1, 109}, extent = {{10, 10}, {-10, -10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput URegPu(start = UReg0Pu) "Voltage amplitude at regulated bus in pu (base UNom)" annotation(
     Placement(transformation(origin = {-190, 20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}})));
@@ -48,6 +48,7 @@ model PlantControllerPI "Plant model with PI controller"
     Placement(transformation(origin = {170, -40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealOutput QInjPu(start = QInj0Pu) "Reactive power at injector terminal in pu (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {170, 40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}})));
+
   Modelica.Blocks.Math.Add UCtrlErr(k2 = -1) annotation(
     Placement(transformation(origin = {-150, 40}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Add QVCtrlErr(k1 = -1) annotation(
@@ -55,7 +56,7 @@ model PlantControllerPI "Plant model with PI controller"
   Modelica.Blocks.Math.Gain gain(k = 1/LambdaPuSNom) annotation(
     Placement(transformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Nonlinear.Limiter QVErrLim(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = EMaxPu, uMin = EMinPu) annotation(
-    Placement(transformation(origin = {70, 40}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {90, 40}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Nonlinear.Limiter reactiveLimits(uMax = QMaxRegPu, uMin = QMinRegPu, homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy) annotation(
     Placement(transformation(origin = {-70, 40}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant const(k = PInj0Pu) annotation(
@@ -72,21 +73,25 @@ model PlantControllerPI "Plant model with PI controller"
     Placement(transformation(origin = {-50, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Nonlinear.Limiter limiter(uMax = PMaxPu, uMin = PMinPu) annotation(
     Placement(transformation(origin = {90, -40}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Math.Gain baseQReg(k = SystemBase.SnRef/SNom)  annotation(
+  Modelica.Blocks.Math.Gain baseQReg(k = -SystemBase.SnRef/SNom)  annotation(
     Placement(transformation(origin = {-20, 70}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Dynawo.NonElectrical.Blocks.Continuous.LimitedPI limitedPI(Ki = Ki, Kp = Kp, YMax = QMaxPu, YMin = QMinPu, Y0 = QInj0Pu, Tol = 1e-4)  annotation(
+    Placement(transformation(origin = {130, 40}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Nonlinear.DeadZone deadZone(uMax = DbdPu)  annotation(
+    Placement(transformation(origin = {50, 40}, extent = {{-10, -10}, {10, 10}})));
 
   // Initial parameters
   parameter Types.PerUnit PInj0Pu "Start value of active power at injector terminal in pu (generator convention) (base SNom)";
   parameter Types.PerUnit QInj0Pu "Start value of reactive power at injector terminal in pu (generator convention) (base SNom)";
-  parameter Types.PerUnit QReg0Pu "Start value of reactive power at regulated bus in pu (generator convention) (base SnRef)";
+  parameter Types.PerUnit QReg0Pu "Start value of reactive power at regulated bus in pu (generator or receptor ?convention) (base SnRef)";
   parameter Types.PerUnit UReg0Pu "Start value of voltage magnitude at regulated bus in pu (base UNom)";
 
-  final parameter Types.PerUnit URef0Pu = UReg0Pu + LambdaPuSNom*QReg0Pu*SystemBase.SnRef/SNom "Start value of voltage setpoint for plant level control in pu (base UNom)";
-  NonElectrical.Blocks.Continuous.LimitedPI limitedPI(Ki = Ki, Kp = Kp, YMax = QMaxPu, YMin = QMinPu, Y0 = QInj0Pu, Tol = 1e-4)  annotation(
-    Placement(transformation(origin = {130, 40}, extent = {{-10, -10}, {10, 10}})));
+  final parameter Types.PerUnit URef0Pu = UReg0Pu - LambdaPuSNom*QReg0Pu*SystemBase.SnRef/SNom "Start value of voltage setpoint for plant level control in pu (base UNom)";
+
 protected
   PStatus pStatus(start = PStatus.Standard) "Status of the power / frequency regulation function";
   QStatus qStatus(start = QStatus.Standard) "Voltage regulation status: standard, absorptionMax or generationMax";
+
 equation
   when reactiveLimits.y >= QMaxPu and pre(qStatus) <> QStatus.AbsorptionMax then
     qStatus = QStatus.AbsorptionMax;
@@ -98,6 +103,7 @@ equation
     qStatus = QStatus.Standard;
     Timeline.logEvent1(TimelineKeys.GeneratorPVBackRegulation);
   end when;
+
   when limiter.u >= PMaxPu and pre(pStatus) <> PStatus.LimitPMax then
     pStatus = PStatus.LimitPMax;
     Timeline.logEvent1(TimelineKeys.ActivatePMAX);
@@ -111,6 +117,7 @@ equation
     pStatus = PStatus.Standard;
     Timeline.logEvent1(TimelineKeys.DeactivatePMAX);
   end when;
+
   connect(URefPu, UCtrlErr.u1) annotation(
     Line(points = {{-190, 60}, {-172, 60}, {-172, 46}, {-162, 46}}, color = {0, 0, 127}));
   connect(URegPu, UCtrlErr.u2) annotation(
@@ -144,11 +151,14 @@ equation
   connect(baseQReg.y, QVCtrlErr.u1) annotation(
     Line(points = {{-20, 60}, {-20, 46}, {-2, 46}}, color = {0, 0, 127}));
   connect(QVErrLim.y, limitedPI.u) annotation(
-    Line(points = {{81, 40}, {118, 40}}, color = {0, 0, 127}));
+    Line(points = {{101, 40}, {118, 40}}, color = {0, 0, 127}));
   connect(limitedPI.y, QInjPu) annotation(
     Line(points = {{142, 40}, {170, 40}}, color = {0, 0, 127}));
-  connect(QVCtrlErr.y, QVErrLim.u) annotation(
-    Line(points = {{22, 40}, {58, 40}}, color = {0, 0, 127}));
+  connect(QVCtrlErr.y, deadZone.u) annotation(
+    Line(points = {{22, 40}, {38, 40}}, color = {0, 0, 127}));
+  connect(deadZone.y, QVErrLim.u) annotation(
+    Line(points = {{61, 40}, {78, 40}}, color = {0, 0, 127}));
+
   annotation(
     Diagram(coordinateSystem(extent = {{-180, -100}, {160, 100}})),
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-29, 11}, extent = {{-41, 19}, {97, -41}}, textString = "PI Plant Controller")}));
