@@ -92,7 +92,7 @@ partial model BaseCurrentLimiter "Current limitation base module for wind turbin
     Placement(visible = true, transformation(origin = {30, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback4 annotation(
     Placement(visible = true, transformation(origin = {-100, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Abs abs annotation(
+  Modelica.Blocks.Math.Abs abs1(generateEvent = true) annotation(
     Placement(visible = true, transformation(origin = {-270, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.Min2 min3 annotation(
     Placement(visible = true, transformation(origin = {-210, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -144,7 +144,7 @@ partial model BaseCurrentLimiter "Current limitation base module for wind turbin
 equation
   connect(booleanConstant1.y, booleanToInteger.u) annotation(
     Line(points = {{-18, 20}, {-2, 20}}, color = {255, 0, 255}));
-  connect(iqCmdPu, abs.u) annotation(
+  connect(iqCmdPu, abs1.u) annotation(
     Line(points = {{-320, -140}, {-282, -140}}, color = {0, 0, 127}));
   connect(product3.y, feedback4.u2) annotation(
     Line(points = {{-138, -140}, {-100, -140}, {-100, -128}}, color = {0, 0, 127}));
@@ -210,7 +210,7 @@ equation
     Line(points = {{-178, 140}, {-170, 140}, {-170, 146}, {-162, 146}}, color = {0, 0, 127}));
   connect(const.y, switch.u3) annotation(
     Line(points = {{-258, 130}, {-250, 130}, {-250, 108}, {-242, 108}}, color = {0, 0, 127}));
-  connect(abs.y, min3.u2) annotation(
+  connect(abs1.y, min3.u2) annotation(
     Line(points = {{-258, -140}, {-240, -140}, {-240, -146}, {-222, -146}}, color = {0, 0, 127}));
   connect(gain1.y, max2.u2) annotation(
     Line(points = {{102, -20}, {120, -20}, {120, -26}, {158, -26}}, color = {0, 0, 127}));
