@@ -12,6 +12,6 @@ within Dynawo.Electrical.PEIR;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-package Plant
+package Plant "Plant models package"
   extends Icons.Package;
 end Plant;
