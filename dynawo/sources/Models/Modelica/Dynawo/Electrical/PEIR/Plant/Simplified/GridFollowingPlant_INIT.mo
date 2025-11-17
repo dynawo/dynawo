@@ -1,6 +1,7 @@
 within Dynawo.Electrical.PEIR.Plant.Simplified;
 
 model GridFollowingPlant_INIT
+  extends AdditionalIcons.Init;
   //parameter Types.ComplexCurrentPu iStart0Pu = Complex(0, 0) "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
   parameter Types.ActivePowerPu P0Pu "Start value of active power at terminal in pu (base SnRef) (receptor convention)";
   parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at terminal in pu (base SnRef) (receptor convention)";

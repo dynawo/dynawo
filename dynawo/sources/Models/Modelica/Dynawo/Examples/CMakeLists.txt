@@ -24,6 +24,7 @@ add_subdirectory(RVS R)
 add_subdirectory(SVarC SV)
 add_subdirectory(SystemFrequencyResponse SFR)
 add_subdirectory(Photovoltaics P)
+add_subdirectory(PEIR PE)
 add_subdirectory(Wind W)
 
 set(MODEL_FILES
