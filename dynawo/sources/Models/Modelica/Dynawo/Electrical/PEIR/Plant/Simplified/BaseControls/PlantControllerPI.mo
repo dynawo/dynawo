@@ -77,7 +77,7 @@ model PlantControllerPI "Simplified plant model with PI controller"
   Modelica.Blocks.Math.Gain baseQReg(k = -SystemBase.SnRef/SNom)  annotation(
     Placement(transformation(origin = {-50, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Dynawo.NonElectrical.Blocks.Continuous.LimitedPI limitedPI(Ki = Ki, Kp = Kp, YMax = QMaxPu, YMin = QMinPu, Y0 = QInj0Pu, Tol = 1e-4)  annotation(
-    Placement(transformation(origin = {92, 80}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {90, 80}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Nonlinear.DeadZone deadZone(uMax = DbdPu)  annotation(
     Placement(transformation(origin = {10, 80}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.Switch switch1 annotation(
@@ -164,9 +164,9 @@ equation
   connect(VFlag.y, switch1.u2) annotation(
     Line(points = {{82, 40}, {118, 40}}, color = {255, 0, 255}));
   connect(QVErrLim.y, limitedPI.u) annotation(
-    Line(points = {{62, 80}, {80, 80}}, color = {0, 0, 127}));
+    Line(points = {{62, 80}, {78, 80}}, color = {0, 0, 127}));
   connect(limitedPI.y, switch1.u1) annotation(
-    Line(points = {{104, 80}, {110, 80}, {110, 48}, {118, 48}}, color = {0, 0, 127}));
+    Line(points = {{102, 80}, {110, 80}, {110, 48}, {118, 48}}, color = {0, 0, 127}));
   annotation(
     Diagram(coordinateSystem(extent = {{-180, -140}, {160, 140}})),
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-29, 11}, extent = {{-41, 19}, {97, -41}}, textString = "PI Plant Controller")}),
