@@ -68,6 +68,8 @@
 #include "DYNZmqOutputChannel.h"
 #endif
 
+#include "make_unique.hpp"
+
 using std::ofstream;
 using std::fstream;
 using std::string;
@@ -256,7 +258,7 @@ SimulationRT::updateCurves(bool updateCalculatedVariable) const {
 
 std::unique_ptr<Modeler>
 SimulationRT::createModeler() const {
-  std::unique_ptr<Modeler> modeler;
+  std::unique_ptr<Modeler> modeler = DYN::make_unique<Modeler>();
   modeler->setActionBuffer(actionBuffer_);
   return modeler;
 }
@@ -266,7 +268,6 @@ SimulationRT::simulate() {
   Timer timer("SimulationRT::simulate()");
   if (inputDispatcherAsync_)
     inputDispatcherAsync_->setModel(model_);
-
 
   printSolverHeader();
 

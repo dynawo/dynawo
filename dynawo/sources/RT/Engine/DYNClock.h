@@ -44,7 +44,6 @@ class Clock {
  public:
   /**
    * @brief constructor
-   * @param simulationTime start
    */
   Clock();
 
