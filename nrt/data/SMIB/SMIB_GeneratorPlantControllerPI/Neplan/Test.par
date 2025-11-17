@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2024, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="generator">
+    <par name="generator_QReg0Pu" type="DOUBLE" value="0.262178"/>
+    <par name="generator_UReg0Pu" type="DOUBLE" value="1.01192"/>
+    <par type="DOUBLE" name="generator_P0Pu" value="-1"/>
+    <par type="DOUBLE" name="generator_Q0Pu" value="0.21"/>
+    <par type="DOUBLE" name="generator_U0Pu" value="1.0"/>
+    <par type="DOUBLE" name="generator_UPhase0" value="0.21949"/>
+    <par type="DOUBLE" name="generator_SNom" value="15"/>
+    <par type="DOUBLE" name="generator_RPu" value="0"/>
+    <par type="DOUBLE" name="generator_XPu" value="0"/>
+    <par type="DOUBLE" name="generator_LambdaPuSNom" value="0.21"/>
+    <par type="DOUBLE" name="generator_AlphaPuPNom" value="0.05"/>
+    <par type="DOUBLE" name="generator_QMinRegPu" value="-0.6667"/>
+    <par type="DOUBLE" name="generator_QMaxRegPu" value="0.6667"/>
+    <par type="DOUBLE" name="generator_QMinPu" value="-99"/>
+    <par type="DOUBLE" name="generator_QMaxPu" value="99"/>
+    <par type="DOUBLE" name="generator_PMax" value="20"/>
+    <par type="DOUBLE" name="generator_PNom" value="15"/>
+    <par type="DOUBLE" name="generator_Ki" value="10"/>
+    <par type="DOUBLE" name="generator_Kp" value="5"/>
+  </set>
+  <set id="omegaRef">
+    <par type="DOUBLE" name="setPoint_Value0" value="1"/>
+  </set>
+  <set id="PRefPu">
+    <par type="DOUBLE" name="step_Height" value="-0.5"/>
+    <par type="DOUBLE" name="step_tStep" value="2"/>
+    <par type="DOUBLE" name="step_Value0" value="1"/>
+  </set>
+  <set id="InfiniteBus">
+    <par type="DOUBLE" name="infiniteBus_U0Pu" value="1.0678"/>
+    <par type="DOUBLE" name="infiniteBus_UEvtPu" value="0"/>
+    <par type="DOUBLE" name="infiniteBus_omega0Pu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_omegaEvtPu" value="0.99"/>
+    <par type="DOUBLE" name="infiniteBus_UPhase" value="-0.04"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtStart" value="100"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtEnd" value="100"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtStart" value="120"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtEnd" value="121"/>
+  </set>
+  <set id="Line">
+    <par type="DOUBLE" name="line_RPu" value="0.015"/>
+    <par type="DOUBLE" name="line_XPu" value="0.025"/>
+    <par type="DOUBLE" name="line_GPu" value="0"/>
+    <par type="DOUBLE" name="line_BPu" value="0.005"/>
+  </set>
+  <set id="Line1">
+    <par type="DOUBLE" name="line_RPu" value="0.01"/>
+    <par type="DOUBLE" name="line_XPu" value="0.1"/>
+    <par type="DOUBLE" name="line_GPu" value="0"/>
+    <par type="DOUBLE" name="line_BPu" value="0.01"/>
+  </set>
+  <set id="Line2A">
+    <par type="DOUBLE" name="line_RPu" value="0.005"/>
+    <par type="DOUBLE" name="line_XPu" value="0.05"/>
+    <par type="DOUBLE" name="line_GPu" value="0"/>
+    <par type="DOUBLE" name="line_BPu" value="0.005"/>
+  </set>
+  <set id="Line2B">
+    <par type="DOUBLE" name="line_RPu" value="0.005"/>
+    <par type="DOUBLE" name="line_XPu" value="0.05"/>
+    <par type="DOUBLE" name="line_GPu" value="0"/>
+    <par type="DOUBLE" name="line_BPu" value="0.005"/>
+  </set>
+  <set id="Line3">
+    <par type="DOUBLE" name="line_RPu" value="0"/>
+    <par type="DOUBLE" name="line_XPu" value="0.0457"/>
+    <par type="DOUBLE" name="line_GPu" value="0"/>
+    <par type="DOUBLE" name="line_BPu" value="0"/>
+  </set>
+  <set id="Tfo">
+    <par type="DOUBLE" name="transformer_rTfoPu" value="1"/>
+    <par type="DOUBLE" name="transformer_RPu" value="0"/>
+    <par type="DOUBLE" name="transformer_XPu" value="0.05"/>
+    <par type="DOUBLE" name="transformer_GPu" value="0"/>
+    <par type="DOUBLE" name="transformer_BPu" value="0"/>
+  </set>
+  <set id="Tfo1">
+    <par type="DOUBLE" name="transformer_rTfoPu" value="1"/>
+    <par type="DOUBLE" name="transformer_RPu" value="0"/>
+    <par type="DOUBLE" name="transformer_XPu" value="0.1"/>
+    <par type="DOUBLE" name="transformer_GPu" value="0"/>
+    <par type="DOUBLE" name="transformer_BPu" value="0"/>
+  </set>
+  <set id="Fault">
+    <par type="DOUBLE" name="fault_RPu" value="0"/>
+    <par type="DOUBLE" name="fault_XPu" value="0.8"/>
+    <par type="DOUBLE" name="fault_tBegin" value="112"/>
+    <par type="DOUBLE" name="fault_tEnd" value="112.15"/>
+  </set>
+  <set id="Fault1">
+    <par type="DOUBLE" name="fault_RPu" value="0"/>
+    <par type="DOUBLE" name="fault_XPu" value="0.18"/>
+    <par type="DOUBLE" name="fault_tBegin" value="106"/>
+    <par type="DOUBLE" name="fault_tEnd" value="106.4"/>
+  </set>
+  <set id="IDA">
+    <par type="INT" name="order" value="2"/>
+    <par type="DOUBLE" name="initStep" value="1e-7"/>
+    <par type="DOUBLE" name="minStep" value="1e-7"/>
+    <par type="DOUBLE" name="maxStep" value="10"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-3"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-3"/>
+  </set>
+</parametersSet>
