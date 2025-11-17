@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2024, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="generator" lib="GeneratorPlantControllerPI" parFile="Test.par" parId="generator"/>
+  <dyn:blackBoxModel id="InfBus" lib="InfiniteBusWithVariations" parFile="Test.par" parId="InfiniteBus"/>
+  <dyn:blackBoxModel id="Line" lib="Line" parFile="Test.par" parId="Line"/>
+  <dyn:blackBoxModel id="Line1" lib="Line" parFile="Test.par" parId="Line1"/>
+  <dyn:blackBoxModel id="Line2A" lib="Line" parFile="Test.par" parId="Line2A"/>
+  <dyn:blackBoxModel id="Line2B" lib="Line" parFile="Test.par" parId="Line2B"/>
+  <dyn:blackBoxModel id="Line3" lib="Line" parFile="Test.par" parId="Line3"/>
+  <dyn:blackBoxModel id="Tfo" lib="TransformerFixedRatio" parFile="Test.par" parId="Tfo"/>
+  <dyn:blackBoxModel id="Tfo1" lib="TransformerFixedRatio" parFile="Test.par" parId="Tfo1"/>
+  <dyn:blackBoxModel id="Fault" lib="NodeFault" parFile="Test.par" parId="Fault"/>
+  <dyn:blackBoxModel id="Fault1" lib="NodeFault" parFile="Test.par" parId="Fault1"/>
+  <dyn:blackBoxModel id="OmegaRefPu" lib="SetPoint" parFile="Test.par" parId="omegaRef"/>
+  <dyn:connect id1="OmegaRefPu" var1="setPoint_setPoint" id2="generator" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="generator" var1="generator_URegPu" id2="Tfo" var2="transformer_U2Pu"/>
+  <dyn:connect id1="generator" var1="generator_QRegPu" id2="Tfo" var2="transformer_Q2Pu"/>
+  <dyn:connect id1="generator" var1="generator_terminal" id2="Fault" var2="fault_terminal"/>
+  <dyn:connect id1="generator" var1="generator_terminal" id2="Tfo" var2="transformer_terminal1"/>
+  <dyn:connect id1="Tfo" var1="transformer_terminal2" id2="Line" var2="line_terminal1"/>
+  <dyn:connect id1="Line" var1="line_terminal2" id2="Tfo1" var2="transformer_terminal1"/>
+  <dyn:connect id1="Tfo1" var1="transformer_terminal2" id2="Line1" var2="line_terminal1"/>
+  <dyn:connect id1="Tfo1" var1="transformer_terminal2" id2="Line2A" var2="line_terminal1"/>
+  <dyn:connect id1="Line2A" var1="line_terminal2" id2="Fault1" var2="fault_terminal"/>
+  <dyn:connect id1="Line2A" var1="line_terminal2" id2="Line2B" var2="line_terminal1"/>
+  <dyn:connect id1="Line2B" var1="line_terminal2" id2="Line3" var2="line_terminal1"/>
+  <dyn:connect id1="Line1" var1="line_terminal2" id2="Line3" var2="line_terminal1"/>
+  <dyn:connect id1="Line3" var1="line_terminal2" id2="InfBus" var2="infiniteBus_terminal"/>
+</dyn:dynamicModelsArchitecture>
