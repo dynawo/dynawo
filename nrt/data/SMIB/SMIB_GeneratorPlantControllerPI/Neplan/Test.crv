@@ -42,4 +42,12 @@
 
   <curve model="Fault1" variable="fault_terminal_i_re"/>
   <curve model="Fault1" variable="fault_terminal_i_im"/>
+
+
+
+  <curve model="Fault" variable="fault_terminal_V_re"/>
+  <curve model="Fault" variable="fault_terminal_V_im"/>
+
+  <curve model="Fault1" variable="fault_terminal_V_re"/>
+  <curve model="Fault1" variable="fault_terminal_V_im"/>
 </curvesInput>
