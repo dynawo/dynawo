@@ -13,6 +13,6 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:modelicaModel id="GeneratorPlantControllerPI">
-    <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.PEIR.Plant.Simplified.GridFollowingPlant" initName ="Dynawo.Electrical.PEIR.Plant.Simplified.GridFollowingPlant_INIT"/>
+    <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.PEIR.Plant.Simplified.GridFollowingPlant"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

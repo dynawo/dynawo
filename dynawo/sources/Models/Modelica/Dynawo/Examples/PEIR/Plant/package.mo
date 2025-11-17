@@ -1,4 +1,4 @@
-within Dynawo.Electrical;
+within Dynawo.Examples.PEIR;
 
 /*
 * Copyright (c) 2025, RTE (http://www.rte-france.com)
@@ -12,6 +12,6 @@ within Dynawo.Electrical;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-package PEIR "Power Electronics Inverter-based Ressources package"
+package Plant
   extends Icons.Package;
-end PEIR;
+end Plant;
