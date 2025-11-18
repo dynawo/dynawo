@@ -118,6 +118,8 @@
 #include "DYNIoDico.h"
 #include "DYNBitMask.h"
 
+#include "make_unique.hpp"
+
 using std::ofstream;
 using std::fstream;
 using std::string;
@@ -764,7 +766,7 @@ Simulation::importFinalStateValuesRequest() const {
 
 std::unique_ptr<Modeler>
 Simulation::createModeler() const {
-  std::unique_ptr<Modeler> modeler;
+  std::unique_ptr<Modeler> modeler = DYN::make_unique<Modeler>();
   return modeler;
 }
 
