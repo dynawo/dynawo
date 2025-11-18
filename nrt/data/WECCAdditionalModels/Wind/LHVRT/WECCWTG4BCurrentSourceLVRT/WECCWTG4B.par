@@ -139,6 +139,7 @@
     <par type="DOUBLE" name="lvrt_UUnderPu" value="0.85"/>
     <par type="DOUBLE" name="lvrt_tUFilt" value="0.01"/>
     <par type="DOUBLE" name="lvrt_U0Pu" value="1"/>
+    <par type="DOUBLE" name="lvrt_tLagAction" value="0.05"/>
     <par type="STRING" name="lvrt_TablesFile" value="nrt/data/WECCAdditionalModels/Wind/LHVRT/WECCWTG4BCurrentSourceLVRT/LVRTcapabilities.txt"/>
     <par type="STRING" name="lvrt_TabletUunderUfilt" value="lvrtCapabilities"/>
   </set>
