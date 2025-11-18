@@ -32,19 +32,24 @@ model LVRT "Low-voltage ride-through protection"
   Modelica.Blocks.Interfaces.BooleanOutput fOCB(start = false) "Open Circuit Breaker flag" annotation(
     Placement(transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
 
+  Types.Time tThresholdReached(start = Modelica.Constants.inf) "Time when the threshold is reached in s";
   Dynawo.Connectors.BPin switchOffSignal(value(start = false)) "Switch off message for the machine";
   Modelica.Blocks.Tables.CombiTable1Ds combiTable1D(tableOnFile = true, tableName = TabletUunderUfilt, fileName = TablesFile, extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint) annotation(
     Placement(transformation(origin = {-30, 20}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.Timer timer annotation(
     Placement(transformation(origin = {-30, -20}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Continuous.FirstOrder filter(T = tUFilt, y_start = U0Pu)  annotation(
+  Modelica.Blocks.Continuous.FirstOrder filter(T = tUFilt, y_start = U0Pu) annotation(
     Placement(transformation(origin = {-110, 20}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.Timer timer1 annotation(
-    Placement(transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.Greater greater1 annotation(
-    Placement(transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant const1(k = tLagAction) annotation(
-    Placement(transformation(origin = {70, -40}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {30, -40}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Logical.Pre pre1 annotation(
+    Placement(transformation(origin = {110, -40}, extent = {{10, -10}, {-10, 10}})));
+  Modelica.Blocks.MathBoolean.Or or1(nu = 2)  annotation(
+    Placement(transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
 
   // Initial parameter
   parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)";
@@ -79,11 +84,17 @@ equation
   connect(filter.y, combiTable1D.u) annotation(
     Line(points = {{-99, 20}, {-42, 20}}, color = {0, 0, 127}));
   connect(timer1.y, greater1.u1) annotation(
-    Line(points = {{81, 0}, {97, 0}}, color = {0, 0, 127}));
+    Line(points = {{41, 0}, {57, 0}}, color = {0, 0, 127}));
   connect(const1.y, greater1.u2) annotation(
-    Line(points = {{81, -40}, {89.5, -40}, {89.5, -8}, {98, -8}}, color = {0, 0, 127}));
-  connect(greater1.y, fOCB) annotation(
+    Line(points = {{41, -40}, {49.5, -40}, {49.5, -8}, {58, -8}}, color = {0, 0, 127}));
+  connect(or1.y, fOCB) annotation(
     Line(points = {{122, 0}, {150, 0}}, color = {255, 0, 255}));
+  connect(greater1.y, or1.u[1]) annotation(
+    Line(points = {{82, 0}, {100, 0}}, color = {255, 0, 255}));
+  connect(pre1.y, or1.u[2]) annotation(
+    Line(points = {{99, -40}, {90, -40}, {90, 0}, {100, 0}}, color = {255, 0, 255}));
+  connect(pre1.u, or1.y) annotation(
+    Line(points = {{122, -40}, {130, -40}, {130, 0}, {122, 0}}, color = {255, 0, 255}));
 
   annotation(
     Diagram(coordinateSystem(extent = {{-140, -100}, {140, 100}})));
