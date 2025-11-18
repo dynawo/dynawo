@@ -32,8 +32,6 @@ model HVRT "High-voltage ride-through protection"
   Modelica.Blocks.Interfaces.BooleanOutput fOCB(start = false) "Open Circuit Breaker flag" annotation(
     Placement(transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
 
-  Types.Time tThresholdReached(start = Modelica.Constants.inf) "Time when the threshold is reached in s";
-
   Dynawo.Connectors.BPin switchOffSignal(value(start = false)) "Switch off message for the machine";
   Modelica.Blocks.Tables.CombiTable1Ds combiTable1D(tableOnFile = true, tableName = TabletUoverUfilt, fileName = TablesFile, extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint) annotation(
     Placement(transformation(origin = {-30, -20}, extent = {{-10, -10}, {10, 10}})));
@@ -44,19 +42,21 @@ model HVRT "High-voltage ride-through protection"
   Modelica.Blocks.Logical.Greater greater1 annotation(
     Placement(transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant const1(k = tLagAction) annotation(
-    Placement(transformation(origin = {50, -40}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Continuous.FirstOrder filter(T = tUFilt, y_start = U0Pu)  annotation(
+    Placement(transformation(origin = {70, -40}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Continuous.FirstOrder filter(T = tUFilt, y_start = U0Pu) annotation(
     Placement(transformation(origin = {-110, -20}, extent = {{-10, -10}, {10, 10}})));
 
   // Initial parameter
   parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)";
 
+protected
+  Types.Time tThresholdReached(start = Modelica.Constants.inf) "Time when the threshold is reached in s";
+
 equation
-  when filter.u >= UOverPu and not (pre(switchOffSignal.value)) then
+  when filter.y >= UOverPu and not (pre(switchOffSignal.value)) then
     Timeline.logEvent1(TimelineKeys.HVRTArming);
     tThresholdReached = time;
-  elsewhen (not (filter.u >= UOverPu)) and pre(tThresholdReached) <> Modelica.Constants.inf and not (pre(switchOffSignal.value)) then
-//illegal access to entryTime variable since protected -> to be changed
+  elsewhen (not (filter.y >= UOverPu)) and pre(tThresholdReached) <> Modelica.Constants.inf and not (pre(switchOffSignal.value)) then
     Timeline.logEvent1(TimelineKeys.HVRTDisarming);
     tThresholdReached = Modelica.Constants.inf;
   end when;
@@ -66,7 +66,7 @@ equation
     Timeline.logEvent1(TimelineKeys.HVRTTripped);
   end when;
 
-  when filter.u >= UOverPu then
+  when filter.y >= UOverPu then
     timer.u = true;
   end when;
 
@@ -77,7 +77,7 @@ equation
   connect(timer1.y, greater1.u1) annotation(
     Line(points = {{81, 0}, {97, 0}}, color = {0, 0, 127}));
   connect(const1.y, greater1.u2) annotation(
-    Line(points = {{61, -40}, {85, -40}, {85, -8}, {97, -8}}, color = {0, 0, 127}));
+    Line(points = {{81, -40}, {89, -40}, {89, -8}, {97, -8}}, color = {0, 0, 127}));
   connect(greater1.y, fOCB) annotation(
     Line(points = {{121, 0}, {149, 0}}, color = {255, 0, 255}));
   connect(UMonitoredPu, filter.u) annotation(
