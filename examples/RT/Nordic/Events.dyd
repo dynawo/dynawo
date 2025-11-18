@@ -25,4 +25,10 @@
     <dyn:connect id1="SouthLoadsDelta" var1="setPoint_setPoint" id2="NETWORK" var2="61_1_DeltaQc_value"/>
     <dyn:connect id1="SouthLoadsDelta" var1="setPoint_setPoint" id2="NETWORK" var2="62_1_DeltaQc_value"/>
     <dyn:connect id1="SouthLoadsDelta" var1="setPoint_setPoint" id2="NETWORK" var2="63_1_DeltaQc_value"/>
+
+    <dyn:blackBoxModel id="12_1_deltaPc" lib="DYNModelUpdatableContinuous"/>
+    <dyn:connect id1="12_1_deltaPc" var1="input_value" id2="NETWORK" var2="12_1_DeltaPc_value"/>
+    <dyn:blackBoxModel id="12_1_deltaQc" lib="DYNModelUpdatableContinuous"/>
+    <dyn:connect id1="12_1_deltaQc" var1="input_value" id2="NETWORK" var2="12_1_DeltaQc_value"/>
+
 </dyn:dynamicModelsArchitecture>

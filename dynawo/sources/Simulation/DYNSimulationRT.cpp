@@ -114,7 +114,7 @@ Simulation(jobEntry, context, data) {
 void
 SimulationRT::configureRT() {
   if (!jobEntry_->getInteractiveSettingsEntry())
-    throw DYNError(DYN::Error::API, MissingInteractiveSettings);
+    throw DYNError(Error::API, MissingInteractiveSettings);
 
   std::shared_ptr<job::ChannelsEntry> channelsEntry = jobEntry_->getInteractiveSettingsEntry()->getChannelsEntry();
   std::shared_ptr<job::ClockEntry> clockEntry = jobEntry_->getInteractiveSettingsEntry()->getClockEntry();
@@ -284,9 +284,19 @@ SimulationRT::simulate() {
   if (outputDispatcher_)
     outputDispatcher_->publishCurvesNames(curvesCollection_);
 
-
   bool criteriaChecked = true;
   try {
+    // update state variable only if the IIDM final state is exported, or criteria is checked, or lost equipments are exported
+    if (data_ && (finalState_.iidmFile_ || isLostEquipmentsExported())) {
+      data_->getStateVariableReference();   // Each state variable in DataInterface has a mapped reference variable in dynamic model,
+                                         // either in a modelica model or in a C++ model.
+      // save initial connection state at t0 for each equipment
+      if (isLostEquipmentsExported()) {
+        data_->updateFromModel(false);  // force state variables' init
+        connectedComponents_ = data_->findConnectedComponents();
+      }
+    }
+
     int currentIterNb = 0;
 
     inputDispatcherAsync_->start();
@@ -355,6 +365,12 @@ SimulationRT::simulate() {
         constraintsCollection_->clear();
         isPublicationTime = false;
         isWaitTime = true;
+      }
+      if (SignalHandler::gotExitSignal() && !end()) {
+        if (timeline_) {
+          addEvent(DYNTimeline(SignalReceived));
+        }
+        throw DYNError(Error::GENERAL, SignalReceived);
       }
     }
   } catch (const Terminate& t) {

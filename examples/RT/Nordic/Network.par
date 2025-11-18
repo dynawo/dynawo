@@ -33,6 +33,7 @@
         <par type="DOUBLE" name="transformer_tNext_HT" value="10"/>
         <par type="DOUBLE" name="transformer_tNext_THT" value="10"/>
         <par type="DOUBLE" name="transformer_tolV" value="0.014999999700000001"/>
+        <par type="BOOL" name="12_1_isControllable" value="true"/>
         <par type="BOOL" name="61_1_isControllable" value="true"/>
         <par type="BOOL" name="62_1_isControllable" value="true"/>
         <par type="BOOL" name="63_1_isControllable" value="true"/>

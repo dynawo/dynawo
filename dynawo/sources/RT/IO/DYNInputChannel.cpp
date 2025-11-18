@@ -28,4 +28,6 @@ InputChannel::InputChannel(const std::string& id, MessageFilter supportedMessage
   id_(id),
   supportedMessages_(supportedMessages) { }
 
+InputChannel::~InputChannel() = default;
+
 }  // end of namespace DYN

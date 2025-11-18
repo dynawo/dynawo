@@ -22,6 +22,8 @@
 #include <string>
 #include <memory>
 
+namespace DYN {
+
 /**
  * @enum CurvesStreamFormat
  * @brief Supported formats for curve outputs.
@@ -53,5 +55,7 @@ enum class ConstraintsStreamFormat {
   TXT,   ///< Plain text format
   XML    ///< XML format
 };
+
+}  // end of namespace DYN
 
 #endif  // RT_COMMON_DYNRTOUTPUTCOMMON_H_
