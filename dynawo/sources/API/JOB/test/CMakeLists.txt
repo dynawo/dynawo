@@ -12,6 +12,9 @@ set(MODULE_NAME JOB_unittest)
 
 set(MODULE_SOURCES
   TestAppenderEntry.cpp
+  TestChannelEntry.cpp
+  TestChannelsEntry.cpp
+  TestClockEntry.cpp
   TestConstraintsEntry.cpp
   TestCurvesEntry.cpp
   TestDynModelsEntry.cpp
@@ -20,6 +23,7 @@ set(MODULE_SOURCES
   TestFinalValuesEntry.cpp
   TestInitialStateEntry.cpp
   TestInitValuesEntry.cpp
+  TestInteractiveSettingsEntry.cpp
   TestJobCollection.cpp
   TestJobEntry.cpp
   TestLocalInitEntry.cpp
@@ -31,6 +35,8 @@ set(MODULE_SOURCES
   TestOutputsEntry.cpp
   TestSimulationEntry.cpp
   TestSolverEntry.cpp
+  TestStreamEntry.cpp
+  TestStreamsEntry.cpp
   TestTimelineEntry.cpp
   TestXmlImporter.cpp
   )

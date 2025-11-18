@@ -66,7 +66,7 @@ class CurvesCollection {
   }
 
  private:
-  std::vector<std::shared_ptr<Curve> > curves_;  ///< Vector of the curves object
+  std::vector<std::shared_ptr<Curve> > curves_;    ///< Vector of the curves object
   std::string id_;                                 ///< Curves collections id
 };
 

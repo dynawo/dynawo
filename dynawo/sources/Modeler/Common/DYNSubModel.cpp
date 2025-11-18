@@ -99,7 +99,8 @@ modeChange_(false),
 modeChangeType_(NO_MODE) ,
 initialized_(false),
 currentTime_(0.),
-isInitProcess_(false) {
+isInitProcess_(false),
+isUpdatable_(false) {
   variables_.clear();
   parametersDynamic_.clear();
   variablesInit_.clear();

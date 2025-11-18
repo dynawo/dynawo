@@ -26,6 +26,7 @@
 #include "JOBSimulationEntry.h"
 #include "JOBSolverEntry.h"
 #include "JOBLocalInitEntry.h"
+#include "JOBInteractiveSettingsEntry.h"
 
 #include <string>
 
@@ -98,6 +99,18 @@ class JobEntry {
   std::shared_ptr<LocalInitEntry> getLocalInitEntry() const;
 
   /**
+   * @brief Interactive settings container setter
+   * @param interactiveSettingsEntry : Interactive options settings for the job
+   */
+  void setInteractiveSettingsEntry(const std::shared_ptr<InteractiveSettingsEntry> & interactiveSettingsEntry);
+
+  /**
+   * @brief Interactive options settings getter
+   * @return Interactive options settings for the job
+   */
+  std::shared_ptr<InteractiveSettingsEntry> getInteractiveSettingsEntry() const;
+
+  /**
    * @brief Name setter
    * @param name : Name of the job
    */
@@ -128,12 +141,13 @@ class JobEntry {
   JobEntry(const JobEntry& other);
 
  private:
-  std::shared_ptr<ModelerEntry> modelerEntry_;        ///< Modeler entries container
-  std::shared_ptr<SolverEntry> solverEntry_;          ///< Solver entries container
-  std::shared_ptr<SimulationEntry> simulationEntry_;  ///< Simulation entries container
-  std::shared_ptr<OutputsEntry> outputsEntry_;        ///< Outputs entries container
-  std::shared_ptr<LocalInitEntry> localInitEntry_;    ///< Local init entries container
-  std::string name_;                                  ///< Name of the job used for description and logs purpose
+  std::shared_ptr<ModelerEntry> modelerEntry_;                          ///< Modeler entries container
+  std::shared_ptr<SolverEntry> solverEntry_;                            ///< Solver entries container
+  std::shared_ptr<SimulationEntry> simulationEntry_;                    ///< Simulation entries container
+  std::shared_ptr<OutputsEntry> outputsEntry_;                          ///< Outputs entries container
+  std::shared_ptr<LocalInitEntry> localInitEntry_;                      ///< Local init entries container
+  std::shared_ptr<InteractiveSettingsEntry> interactiveSettingsEntry_;  ///< interactive settings container
+  std::string name_;                                                    ///< Name of the job used for description and logs purpose
 };
 
 }  // namespace job

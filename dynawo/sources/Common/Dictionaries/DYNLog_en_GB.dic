@@ -275,3 +275,17 @@ XmlParsingError               =             error while parsing file %1% : %2%
 ExecutingCommand              =             executing command : %1%
 UnexpectedError               =             unexpected error
 DelayMode                     =             %1% mode for delay %2% with delayTime %3%
+// --> RT
+ActionListExtendedNetwork     =             action list extended for NETWORK SubModel
+ActionListOverriden           =             actions overriden for SubModel: %1%
+ActionParameterNotFound       =             action registry failed: unknown parameter: %1%
+ActionRegistered              =             action registered for SubModel: %1%
+ActionUnknownSubModel         =             impossible to register action. Unknown SubModel: %1%
+ActionUnparsable              =             could not parse action, incomplete data (%1%)
+ZmqDataSent                   =             data sent to ZMQ%1%
+ZmqChannelCreated             =             channel ZMQ (%1%) created
+UnsopportedOutputChannel      =             unsupported output Channel type: %1%
+OutputStreamMissing           =             output channel '%1%' not used by a stream, not instanciated
+UnknownChannelType            =             unknown channel type: %1%
+StreamDataNotManaged          =             stream data unknown or not managed: %1%
+RTModeCurvesDisabled          =             real time mode: disabling all curves recording (jobs-with-curves won't work!)

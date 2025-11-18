@@ -10,11 +10,13 @@
 
 set(COMMON_CPP_MODELS_SOURCES
     DYNModelCPP.cpp
+    DYNModelUpdatable.cpp
     )
 
 set(COMMON_CPP_MODELS_HEADERS
     DYNModelCPP.h
     DYNModelCPP.hpp
+    DYNModelUpdatable.h
     )
 
 add_library(dynawo_CPPModelsCommon SHARED ${COMMON_CPP_MODELS_SOURCES})

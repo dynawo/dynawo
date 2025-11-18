@@ -68,7 +68,8 @@ int main(int argc, char ** argv) {
   po::options_description desc;
   desc.add_options()
     ("help,h", "produce help message")
-    ("version,v", "print dynawo version");
+    ("version,v", "print dynawo version")
+    ("interactive,i", "experimental interactive simulator");
 
   po::options_description hidden("Hidden options");
   hidden.add_options() ("jobs-file", po::value<string>(&jobsFileName), "set job file");
@@ -109,7 +110,6 @@ int main(int argc, char ** argv) {
       usage(desc);
       return 1;
     }
-
     DYN::InitXerces xerces;
     DYN::InitLibXml2 libxml2;
     DYN::IoDicos& dicos = DYN::IoDicos::instance();
@@ -118,7 +118,12 @@ int main(int argc, char ** argv) {
     if (getEnvVar("DYNAWO_USE_XSD_VALIDATION") != "true")
       cout << "[INFO] xsd validation will not be used" << endl;
 
-    launchSimu(jobsFileName);
+    if (vm.count("interactive")) {
+      cout << ".... <WARNING> Interactive experiment <WARNING>...." << endl;
+      launchSimu(jobsFileName, true);
+    } else {
+      launchSimu(jobsFileName, false);
+    }
   } catch (const DYN::Error& e) {
     std::cerr << "DYN Error: " << e.what() << std::endl;
     return e.type();

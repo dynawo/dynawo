@@ -542,6 +542,106 @@ Here is an example of a par file containing local initialization solver paramete
 </set>
 \end{lstlisting}
 
+\subsubsection{Specify the interactive mode settings}
+
+To run \Dynawo in interactive mode, settings needs to be added to the jobs file.
+
+\begin{lstlisting}[language=XML, morekeywords={interactiveSettings}]
+<job name="MyJOB">
+  ...
+    <interactiveSettings couplingTimeStep="1">
+        <channels>
+            <channel id="zmq_input" kind="INPUT" type="ZMQ" endpoint="tcp://localhost:5555"/>
+            <channel id="zmq_output" kind="OUTPUT" type="ZMQ" endpoint="tcp://*:5556"/>
+        </channels>
+        <clock type="EXTERNAL" triggerChannel="zmq_input"/>
+        <streams>
+            <stream data="CURVES" channel="zmq_output" format="BYTES"/>
+            <stream data="TIMELINE" channel="zmq_output" format="JSON"/>
+            <stream data="CONSTRAINTS" channel="zmq_output" format="JSON"/>
+        </streams>
+    </interactiveSettings>
+</job>
+\end{lstlisting}
+
+The interactiveSettings attribute 'couplingTimeStep' corresponds to the minimum time interval in seconds between two coupling phase. A coupling phase consists of outputting the results, then waiting for an internal or external signal before continuing the simulation.
+
+Subelements of interactiveSettings tag are mandatory:
+
+\begin{itemize}
+
+\item \textbf{channels}: channels is a set of channel elements. A channel element defines the input channels (reception of actions, time management signals) or output channels (publication of curves, timeline, constraints). Each channel has a unique id, and a kind (INPUT or OUTPUT).
+
+
+\begin{table}[H]
+\center
+\begin{tabular}{ l | c | c }
+\toprule
+\textbf{{Name}} & \textbf{{Type}} & \textbf{{Description}} \\
+\midrule
+\rowcolor{white}
+\textbf{id} & string & Identifier of the channel \\
+\rowcolor{gray!10}
+\textbf{kind} & string & Kind of channel: INPUT or OUTPUT \\
+\rowcolor{white}
+\textbf{type} & string & Type of channel: ZMQ \\
+\rowcolor{gray!10}
+\textbf{endpoint} & string & specification of the endpoint \\
+\bottomrule
+\end{tabular}
+\caption{calculatedhannel parameters}
+\end{table}
+
+Currently implemented channels are:
+\begin{itemize}
+  \item \textbf{INPUT/ZMQ}: ZeroMQ interface in 'reply' mode on specified endpoint (default = 'tcp://*:5555'). Needs the environnement variable DYNAWO\_USE\_ZMQPP=ON and zmqpp library installed.
+  \item \textbf{OUTPUT/ZMQ}: ZeroMQ interface in 'pub' mode on specified endpoint  (default = 'tcp://*:5556'). Needs the environnement variable DYNAWO\_USE\_ZMQPP=ON and zmqpp library installed.
+\end{itemize}
+
+\item \textbf{streams}: streams is a set of stream elements. A stream defines the publication of a type of data using a specified output channel. Data will be published at a rate defined by the 'couplingTimeStep' attribute. Each stream shall be defined using the attributes:
+
+\begin{itemize}
+  \item \textbf{data}: type of data: CURVES, CONSTRAINTS, TIMELINE or LOGS
+  \item \textbf{channel}: output channel to publish to, identified by its id.
+  \item \textbf{format}: format for the output data, depending on the data type:
+  \begin{itemize}
+    \item for \textbf{CURVES}: JSON, CSV on the 'curves' topic, or BYTES which sends at the begining of the simulation the variables names separated by a newline character to topic "curves\_names, then periodically values as a vector of raw bytes to topic 'curves\_values'.
+    \item for \textbf{CONSTRAINTS}: JSON, TXT or XML to topic 'constraints'
+    \item for \textbf{TIMELINE}: JSON, CSV, TXT or XML to topic 'timeline'
+  \end{itemize}
+
+\end{itemize}
+
+\item \textbf{clock}: clock element define how the time is synchronized with the environment.
+
+Two clock types are defined:
+\begin{itemize}
+  \item \textbf{Internal clock}: simulation loop is waiting at the end of each coupling time step, to remain synchronized with the computer clock. A speedup factor can be applied to differenciate the clocks.
+  \item \textbf{External clock}: simulation loop waits for an external trigger at the end of each coupling time step. This trigger is a specific signal received though an input channel.
+\end{itemize}
+
+
+\begin{table}[H]
+\center
+\begin{tabular}{ l | c | c }
+\toprule
+\textbf{{Name}} & \textbf{{Type}} & \textbf{{Description}} \\
+\midrule
+\rowcolor{white}
+\textbf{type} & string & INTERNAL or EXTERNAL \\
+\rowcolor{gray!10}
+\textbf{speedup} & double & Speedup factor for the internal clock \\
+\rowcolor{white}
+\textbf{triggerChannel} & string & Trigger input channel id for the external clock \\
+\bottomrule
+\end{tabular}
+\caption{clock parameters}
+\end{table}
+
+
+\end{itemize}
+
+
 \subsection{dyd file}
 
 Different types of dynamic models can be used by \Dynawo and specified in the dyd file:
