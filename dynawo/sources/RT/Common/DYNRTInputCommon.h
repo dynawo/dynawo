@@ -22,6 +22,8 @@
 #include <string>
 #include <memory>
 
+namespace DYN {
+
 /**
  * @enum MessageFilter
  * @brief Defines categories of messages that can be filtered.
@@ -61,7 +63,7 @@ struct InputMessage {
   /**
    * @brief Destructor.
    */
-  virtual ~InputMessage() {}
+  virtual ~InputMessage() = default;
 
   /**
    * @brief Get the message type.
@@ -81,7 +83,7 @@ struct ActionMessage : public InputMessage {
    * @brief Constructor.
    * @param p Payload string
    */
-  explicit ActionMessage(std::string p) : payload(std::move(p)) {}
+  explicit ActionMessage(std::string p) : payload(std::move(p)) { }
 
   /**
    * @brief Get the message type.
@@ -113,5 +115,7 @@ struct StopMessage : public InputMessage {
    */
   MessageType getType() const override { return MessageType::Stop; }
 };
+
+}  // end of namespace DYN
 
 #endif  // RT_COMMON_DYNRTINPUTCOMMON_H_

@@ -33,16 +33,15 @@
         </dyn:outputs>
         <dyn:interactiveSettings couplingTimeStep="1">
             <dyn:channels>
-                <dyn:channel id="zmq_input" kind="INPUT" type="ZMQ" endpoint="tcp://localhost:5555"/>
+                <dyn:channel id="zmq_input" kind="INPUT" type="ZMQ" endpoint="tcp://*:5555"/>
                 <dyn:channel id="zmq_output" kind="OUTPUT" type="ZMQ" endpoint="tcp://*:5556"/>
             </dyn:channels>
             <dyn:streams>
-                <dyn:stream data="CURVES" channel="zmq_output" format="BYTES"/>
+                <dyn:stream data="CURVES" channel="zmq_output" format="JSON"/>
                 <dyn:stream data="TIMELINE" channel="zmq_output" format="JSON"/>
                 <dyn:stream data="CONSTRAINTS" channel="zmq_output" format="JSON"/>
             </dyn:streams>
-            <!-- <dyn:clock type="EXTERNAL" triggerChannel="zmq_input"/> -->
-            <dyn:clock type="INTERNAL"/>
+            <dyn:clock type="EXTERNAL" triggerChannel="zmq_input"/>
         </dyn:interactiveSettings>
     </dyn:job>
 </dyn:jobs>

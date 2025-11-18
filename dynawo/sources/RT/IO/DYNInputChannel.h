@@ -44,6 +44,11 @@ class InputChannel {
   InputChannel(const std::string& id, MessageFilter supportedMessages);
 
   /**
+   * @brief destructor
+   */
+  virtual ~InputChannel();
+
+  /**
    * @brief Start receiving messages.
    * @param callback Function called for each received message
    * @param useThread Whether to run reception in a separate thread

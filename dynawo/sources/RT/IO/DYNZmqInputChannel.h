@@ -62,12 +62,6 @@ class ZmqInputChannel: public InputChannel {
    */
   void stop();
 
-  /**
-   * @brief Receive messages in synchronous mode  --  to be checked (not used)
-   * @param stop If true, stop reception after processing
-   */
-  void receiveMessages(bool stop);
-
  private:
   /**
    * @brief Reception loop executed in a thread when enabled.
