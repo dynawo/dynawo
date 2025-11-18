@@ -82,7 +82,6 @@ InfiniteBus
 InfiniteBusFromTable
 InfiniteBusWithVariations
 IntegerDoubleStep
-LHVRT
 Line
 LineFault
 LoadAlphaBeta

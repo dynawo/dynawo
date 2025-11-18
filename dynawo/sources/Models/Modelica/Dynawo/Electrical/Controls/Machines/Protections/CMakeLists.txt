@@ -17,8 +17,6 @@ set(MODEL_FILES
   package.order
   HVRT.mo
   HVRT.extvar
-  LHVRT.mo
-  LHVRT.extvar
   LVRT.mo
   LVRT.extvar
   LossOfSynchronismProtection.mo
