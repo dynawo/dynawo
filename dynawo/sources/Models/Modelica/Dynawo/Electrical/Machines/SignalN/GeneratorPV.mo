@@ -24,20 +24,20 @@ model GeneratorPV "Model for generator PV based on SignalN for the frequency han
     Placement(transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {106, 0}, extent = {{-10, -10}, {10, 10}})));
 
 equation
-  when QGenPu + QDeadBandPu <= QMinPu and UPu - UDeadBandPu > URefPu then
+  when QGenPu <= QMinPu and UPu > URefPu then
     qStatus = QStatus.AbsorptionMax;
     limUQDown = true;
     limUQUp = false;
-  elsewhen QGenPu - QDeadBandPu >= QMaxPu and UPu + UDeadBandPu < URefPu then
+  elsewhen QGenPu >= QMaxPu and UPu < URefPu then
     qStatus = QStatus.GenerationMax;
     limUQDown = false;
     limUQUp = true;
   // If the two following branches are not here we fail to adjust QGenPu if QMaxPu was modified but we were in Standard Mode.
-  elsewhen QGenPu + QDeadBandPu <= QMinPu and UPu == URefPu then
+  elsewhen QGenPu <= QMinPu and UPu == URefPu then
     qStatus = QStatus.AbsorptionMax;
     limUQDown = true;
     limUQUp = false;
-  elsewhen QGenPu - QDeadBandPu >= QMaxPu and UPu == URefPu then
+  elsewhen QGenPu >= QMaxPu and UPu == URefPu then
     qStatus = QStatus.GenerationMax;
     limUQDown = false;
     limUQUp = true;

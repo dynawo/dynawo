@@ -47,7 +47,7 @@ partial model BaseHvdc "Base dynamic model for HVDC links"
   PStatus pStatus(start = PStatus.Standard) "Status of the active power function";
   Types.ReactivePowerPu Q1Pu(start = s10Pu.im) "Reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
   Types.ReactivePowerPu Q2Pu(start = 0) "Reactive power at terminal 2 in pu (base SnRef) (receptor convention)";
-  Types.ReactivePowerPu QInj1Pu(start = - s10Pu.im) "Reactive power at terminal 1 in pu (base SnRef) (generator convention)";
+  Types.ReactivePowerPu QInj1Pu(start = QInj10Pu) "Reactive power at terminal 1 in pu (base SnRef) (generator convention)";
   Types.ReactivePowerPu QInj2Pu(start = 0) "Reactive power at terminal 2 in pu (base SnRef) (generator convention)";
   Types.ComplexApparentPowerPu s1Pu(re(start = s10Pu.re), im(start = s10Pu.im)) "Complex apparent power at terminal 1 in pu (base SnRef) (receptor convention)";
   Types.VoltageModulePu U1Pu(start = ComplexMath.'abs'(u10Pu)) "Voltage amplitude at terminal 1 in pu (base UNom)";
@@ -56,6 +56,7 @@ partial model BaseHvdc "Base dynamic model for HVDC links"
   parameter Types.ActivePowerPu P1Ref0Pu "Start value of active power reference at terminal 1 in pu (base SnRef) (receptor convention)";
   parameter Types.ComplexApparentPowerPu s10Pu "Start value of complex apparent power at terminal 1 in pu (base SnRef) (receptor convention)";
   parameter Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 in pu (base UNom)";
+  parameter Types.ReactivePowerPu QInj10Pu "Start value of reactive power at terminal 1 in pu (base SnRef) (generator convention)";
 
 equation
   when (P1RefPu >= PMaxPu or P1RefPu <= -PMaxPu) and pre(pStatus) <> PStatus.LimitPMax then
