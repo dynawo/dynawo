@@ -21,7 +21,7 @@ model HvdcPVDiagramPQ_INIT "Initialisation model of PV HVDC link with a PQ diagr
 
 equation
   P1Ref0Pu = P1RefSetPu;
-  QInj10PuQNom = - s10Pu.im * SystemBase.SnRef / Q1Nom;
+  QInj10PuQNom = QInj10Pu * SystemBase.SnRef / Q1Nom;
 
   if - Q10Pu <= QInj1Min0Pu then
     q1Status0 = QStatus.AbsorptionMax;
@@ -37,6 +37,13 @@ equation
     q2Status0 = QStatus.GenerationMax;
   else
     q2Status0 = QStatus.Standard;
+  end if;
+
+
+  if Lambda1Pu <> 0 then
+    U10Pu + Lambda1Pu * QInj10Pu = U1Ref0Pu;
+  else
+    U1Ref0Pu = U10Pu;
   end if;
 
   annotation(preferredView = "text");

@@ -320,7 +320,6 @@ class ModelSecondaryVoltageControlSimplified : public ModelCPP {
   std::vector<double> SNom_;      ///< nominal apparent power in MVA (for each generator connected to the SVC)
   std::vector<double> U0Pu_;      ///< start value of voltage module in pu (base UNom)
   std::vector<double> XTfoPu_;    ///< reactance of the generators' transformer in pu (base UNom, SNom)
-  unsigned int firstState_;       ///< @b false is the initial state is not yet calculated
 
   static constexpr double LEVEL_MAX = 1.0;   ///< Maximal admissible level
   static constexpr double LEVEL_MIN = -1.0;  ///< Minimal admissible level

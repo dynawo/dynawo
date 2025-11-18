@@ -20,6 +20,8 @@ partial model BaseHVDC_INIT "Base initialization model for HVDC link"
   parameter Types.ReactivePowerPu Q10Pu "Start value of reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
   parameter Types.VoltageModulePu U10Pu "Start value of voltage amplitude at terminal 1 in pu (base UNom)";
   parameter Types.Angle UPhase10 "Start value of voltage angle at terminal 1 in rad";
+  parameter Types.PerUnit Lambda1Pu "Parameter Lambda of the voltage regulation law U1RefPu = U1Pu + Lambda1Pu * QInj1Pu, in pu (base UNom, SnRef) at terminal 1";
+  final parameter Types.ReactivePowerPu QInj10Pu=-Q10Pu "Reactive power at terminal 1 in pu (base SnRef) (generator convention)";
 
   parameter Types.ActivePowerPu P20Pu "Start value of active power at terminal 2 in pu (base SnRef) (receptor convention)";
   parameter Types.ReactivePowerPu Q20Pu "Start value of reactive power at terminal 2 in pu (base SnRef) (receptor convention)";

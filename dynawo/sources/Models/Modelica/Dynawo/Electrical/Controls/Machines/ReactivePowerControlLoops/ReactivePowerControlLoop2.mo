@@ -53,7 +53,7 @@ model ReactivePowerControlLoop2 "Simplified Reactive Power Control Loop model fo
     Placement(visible = true, transformation(origin = {-170, -160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T = Ti, y_start = QStator0Pu) annotation(
     Placement(visible = true, transformation(origin = {-130, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.DeadZone deadZone(uMax = QDeadBand, uMin = -QDeadBand) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.DeadZone deadZone(uMax = QDeadBand, uMin = -QDeadBand) annotation(
     Placement(transformation(origin = {-42, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(transformation(origin = {22, 0}, extent = {{-10, -10}, {10, 10}})));

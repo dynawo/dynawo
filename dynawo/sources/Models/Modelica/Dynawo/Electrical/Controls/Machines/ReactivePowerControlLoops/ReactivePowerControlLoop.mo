@@ -56,7 +56,7 @@ model ReactivePowerControlLoop "Simplified Reactive Power Control Loop model"
   parameter Types.VoltageModulePu UStatorRef0Pu "Start value of the generator stator voltage reference in pu (base UNom)";
   Modelica.Blocks.Logical.Switch errQLim annotation(
     Placement(transformation(origin = {-71, 1}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Nonlinear.DeadZone deadZone(uMax = QDeadBand, uMin = -QDeadBand)  annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.DeadZone deadZone(uMax = QDeadBand, uMin = -QDeadBand)  annotation(
     Placement(transformation(origin = {-40, 0}, extent = {{-10, -10}, {10, 10}})));
 protected
   UStatus uStatus(start = UStatus.Standard) "Status of the voltage reference";

@@ -15,7 +15,7 @@
   <dyn:modelicaModel id="HvdcPVRpcl2Side1">
     <dyn:unitDynamicModel id="hvdc" name="Dynawo.Electrical.HVDC.HvdcPV.HvdcPV" initName="Dynawo.Electrical.HVDC.HvdcPV.HvdcPV_INIT"/>
     <dyn:unitDynamicModel id="reactivePowerControlLoop" name="Dynawo.Electrical.Controls.Machines.ReactivePowerControlLoops.ReactivePowerControlLoop2" initName="Dynawo.Electrical.Controls.Machines.ReactivePowerControlLoops.ReactivePowerControlLoop_INIT"/>
-    <dyn:initConnect id1="reactivePowerControlLoop" var1="UStatorRef0Pu" id2="hvdc" var2="U1Ref0PuVar"/>
+    <dyn:initConnect id1="reactivePowerControlLoop" var1="UStatorRef0Pu" id2="hvdc" var2="U1Ref0Pu"/>
     <dyn:initConnect id1="reactivePowerControlLoop" var1="QStator0Pu" id2="hvdc" var2="QInj10PuQNom"/>
     <dyn:initConnect id1="reactivePowerControlLoop" var1="blocker0" id2="hvdc" var2="blockerSide10"/>
     <dyn:connect id1="reactivePowerControlLoop" var1="UStatorRefPu" id2="hvdc" var2="U1RefPu"/>
