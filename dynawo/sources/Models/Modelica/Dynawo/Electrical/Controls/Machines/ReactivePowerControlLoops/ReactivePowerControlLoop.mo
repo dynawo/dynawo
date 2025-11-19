@@ -1,18 +1,17 @@
 within Dynawo.Electrical.Controls.Machines.ReactivePowerControlLoops;
 
-/*
-* Copyright (c) 2022, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-*/
-
 model ReactivePowerControlLoop "Simplified Reactive Power Control Loop model"
+  /*
+  * Copyright (c) 2022, RTE (http://www.rte-france.com)
+  * See AUTHORS.txt
+  * All rights reserved.
+  * This Source Code Form is subject to the terms of the Mozilla Public
+  * License, v. 2.0. If a copy of the MPL was not distributed with this
+  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
+  * SPDX-License-Identifier: MPL-2.0
+  *
+  * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+  */
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
   parameter Types.PerUnit DerURefMaxPu "Maximum variation rate of UStatorRefPu in pu/s (base UNom)";
@@ -51,12 +50,16 @@ model ReactivePowerControlLoop "Simplified Reactive Power Control Loop model"
     Placement(transformation(origin = {84, 0}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.NonElectrical.Blocks.NonLinear.LimitedIntegrator limitedIntegrator(Y0 = UStatorRef0Pu, YMax = UStatorRefMaxPu, YMin = UStatorRefMinPu) annotation(
     Placement(transformation(origin = {52, 0}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Sources.BooleanExpression blocking(y = (uStatus == UStatus.LimitUMax or uStatus == UStatus.LimitUMin or blocker)) "Expression determining  if the reactive power or voltage have reached a limit" annotation(
+    Placement(transformation(origin = {52, 88}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Interfaces.BooleanOutput UQBlocker annotation(
+    Placement(transformation(origin = {110, 88}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {188, 86}, extent = {{-10, -10}, {10, 10}})));
   parameter Boolean blocker0 "Whether the minimum reactive power limits are reached or not (from generator voltage regulator), start value";
   parameter Types.ReactivePowerPu QStator0Pu "Start value of the generator stator reactive power in pu (base QNomAlt) (generator convention)";
   parameter Types.VoltageModulePu UStatorRef0Pu "Start value of the generator stator voltage reference in pu (base UNom)";
   Modelica.Blocks.Logical.Switch errQLim annotation(
     Placement(transformation(origin = {-71, 1}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.NonElectrical.Blocks.NonLinear.DeadZone deadZone(uMax = QDeadBand, uMin = -QDeadBand)  annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.DeadZone deadZone(uMax = QDeadBand, uMin = -QDeadBand) annotation(
     Placement(transformation(origin = {-40, 0}, extent = {{-10, -10}, {10, 10}})));
 protected
   UStatus uStatus(start = UStatus.Standard) "Status of the voltage reference";
@@ -102,6 +105,8 @@ equation
     Line(points = {{-28, 0}, {-22, 0}}, color = {0, 0, 127}));
   connect(errQLim.y, deadZone.u) annotation(
     Line(points = {{-60, 2}, {-52, 2}, {-52, 0}}, color = {0, 0, 127}));
+  connect(blocking.y, UQBlocker) annotation(
+    Line(points = {{63, 88}, {110, 88}}, color = {255, 0, 255}));
   annotation(
     preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-160, -180}, {100, 140}})),
