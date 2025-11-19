@@ -49,8 +49,8 @@
     <par type="DOUBLE" name="generator_XPu" value="0"/>
     <par type="DOUBLE" name="generator_LambdaPuSNom" value="0.21"/>
     <par type="DOUBLE" name="generator_AlphaPuPNom" value="0.05"/>
-    <par type="DOUBLE" name="generator_QMinReg" value="-10"/>
-    <par type="DOUBLE" name="generator_QMaxReg" value="10"/>
+    <par type="DOUBLE" name="generator_QMinRegPu" value="-10"/>
+    <par type="DOUBLE" name="generator_QMaxRegPu" value="10"/>
     <par type="DOUBLE" name="generator_QMinPu" value="-99"/>
     <par type="DOUBLE" name="generator_QMaxPu" value="99"/>
     <par type="DOUBLE" name="generator_PMin" value="0"/>
@@ -61,8 +61,16 @@
     <par type="DOUBLE" name="generator_Ki" value="10"/>
     <par type="DOUBLE" name="generator_Kp" value="5"/>
     <par type="DOUBLE" name="generator_DbdPu" value="0.05"/>
+    <par type="BOOL" name="generator_VRegFlag" value="true"/>
   </set>
   <set id="4">
     <par type="DOUBLE" name="setPoint_Value0" value="1"/>
+  </set>
+  <set id="Tfo">
+    <par type="DOUBLE" name="transformer_rTfoPu" value="1"/>
+    <par type="DOUBLE" name="transformer_RPu" value="0"/>
+    <par type="DOUBLE" name="transformer_XPu" value="0.05"/>
+    <par type="DOUBLE" name="transformer_GPu" value="0"/>
+    <par type="DOUBLE" name="transformer_BPu" value="0"/>
   </set>
 </parametersSet>
