@@ -32,6 +32,9 @@ model HvdcPVDanglingDiagramPQ "Model for PV HVDC link with a PQ diagram and term
   Modelica.Blocks.Interfaces.BooleanOutput blockerSide1 "If true, reactive power limits have been reached on converter side 1 or the hvdc is disconnected on side 1" annotation(
     Placement(transformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {106, 0}, extent = {{-10, -10}, {10, 10}})));
 
+  parameter Types.VoltageModulePu UDeadBandPu(min = 0)  = 0.001 "Voltage deadband around the target in pu (base UNom)";
+  parameter Types.ReactivePowerPu QDeadBandPu(min = 0)  = 0.001 "Reactive power deadband around the target in pu (base SnRef)";
+
 equation
   QInj1PuQNom = QInj1Pu * SystemBase.SnRef / Q1Nom;
 
@@ -44,7 +47,7 @@ equation
     q1Status = QStatus.AbsorptionMax;
     limUQDown1 = true;
     limUQUp1 = false;
-  elsewhen (QInj1Pu < QInj1MaxPu or U1Pu + Lambda1Pu * QInj1Pu > U1RefPu) and (QInj1Pu > QInj1MinPu or U1Pu + Lambda1Pu * QInj1Pu < U1RefPu) then
+  elsewhen (QInj1Pu + QDeadBandPu < QInj1MaxPu or U1Pu + Lambda1Pu * QInj1Pu  - UDeadBandPu > U1RefPu) and (QInj1Pu - QDeadBandPu > QInj1MinPu or U1Pu + Lambda1Pu * QInj1Pu + UDeadBandPu < U1RefPu) then
     q1Status = QStatus.Standard;
     limUQDown1 = false;
     limUQUp1 = false;

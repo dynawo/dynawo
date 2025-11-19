@@ -36,6 +36,9 @@ model HvdcPVDiagramPQ "Model of PV HVDC link with a PQ diagram. Each terminal ca
   Modelica.Blocks.Interfaces.BooleanOutput blockerSide2 "If true, reactive power limits have been reached on converter side 2 or the hvdc is disconnected on side 2" annotation(
     Placement(transformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {106, 0}, extent = {{-10, -10}, {10, 10}})));
 
+  parameter Types.VoltageModulePu UDeadBandPu(min = 0)  = 0.001 "Voltage deadband around the target in pu (base UNom)";
+  parameter Types.ReactivePowerPu QDeadBandPu(min = 0)  = 0.001 "Reactive power deadband around the target in pu (base SnRef)";
+
 equation
   QInj1PuQNom = QInj1Pu * SystemBase.SnRef / Q1Nom;
   QInj2PuQNom = QInj2Pu * SystemBase.SnRef / Q2Nom;
@@ -48,7 +51,7 @@ equation
     q1Status = QStatus.AbsorptionMax;
     limUQDown1 = true;
     limUQUp1 = false;
-  elsewhen (QInj1Pu < QInj1MaxPu or U1Pu + Lambda1Pu * QInj1Pu > U1RefPu) and (QInj1Pu > QInj1MinPu or U1Pu + Lambda1Pu * QInj1Pu < U1RefPu) then
+  elsewhen (QInj1Pu + QDeadBandPu < QInj1MaxPu or U1Pu + Lambda1Pu * QInj1Pu - UDeadBandPu > U1RefPu) and (QInj1Pu - QDeadBandPu > QInj1MinPu or U1Pu + Lambda1Pu * QInj1Pu  + UDeadBandPu < U1RefPu) then
     q1Status = QStatus.Standard;
     limUQDown1 = false;
     limUQUp1 = false;
@@ -62,7 +65,7 @@ equation
     q2Status = QStatus.AbsorptionMax;
     limUQDown2 = true;
     limUQUp2 = false;
-  elsewhen (QInj2Pu < QInj2MaxPu or U2Pu + Lambda2Pu * QInj2Pu > U2RefPu) and (QInj2Pu > QInj2MinPu or U2Pu + Lambda2Pu * QInj2Pu < U2RefPu) then
+  elsewhen (QInj2Pu + QDeadBandPu < QInj2MaxPu or U2Pu + Lambda2Pu * QInj2Pu - UDeadBandPu > U2RefPu) and (QInj2Pu - QDeadBandPu > QInj2MinPu or U2Pu + Lambda2Pu * QInj2Pu + UDeadBandPu< U2RefPu) then
     q2Status = QStatus.Standard;
     limUQDown2 = false;
     limUQUp2 = false;
