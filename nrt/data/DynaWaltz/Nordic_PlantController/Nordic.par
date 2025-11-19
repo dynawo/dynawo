@@ -159,6 +159,7 @@
     <par type="DOUBLE" name="generator_QMaxPu" value="999" />
     <par type="DOUBLE" name="generator_QMinPu" value="-999" />
     <par type="DOUBLE" name="generator_DbdPu" value="0.005" />
+    <par type="BOOL" name="generator_VRegFlag" value="true" />
   </set>
   <set id="Nordicg10">
     <reference type="DOUBLE" name="generator_P0Pu" origData="IIDM" origName="p_pu"/>
@@ -180,6 +181,7 @@
     <par type="DOUBLE" name="generator_QMaxPu" value="999" />
     <par type="DOUBLE" name="generator_QMinPu" value="-999" />
     <par type="DOUBLE" name="generator_DbdPu" value="0.005" />
+    <par type="BOOL" name="generator_VRegFlag" value="true" />
   </set>
   <set id="Nordicg02">
     <reference type="DOUBLE" name="generator_P0Pu" origData="IIDM" origName="p_pu"/>
@@ -201,6 +203,7 @@
     <par type="DOUBLE" name="generator_QMaxPu" value="999" />
     <par type="DOUBLE" name="generator_QMinPu" value="-999" />
     <par type="DOUBLE" name="generator_DbdPu" value="0.005" />
+    <par type="BOOL" name="generator_VRegFlag" value="true" />
   </set>
   <set id="Nordicg01">
     <reference type="DOUBLE" name="generator_P0Pu" origData="IIDM" origName="p_pu"/>
@@ -222,6 +225,7 @@
     <par type="DOUBLE" name="generator_QMaxPu" value="999" />
     <par type="DOUBLE" name="generator_QMinPu" value="-999" />
     <par type="DOUBLE" name="generator_DbdPu" value="0.005" />
+    <par type="BOOL" name="generator_VRegFlag" value="true" />
   </set>
   <set id="Nordicg12">
     <reference type="DOUBLE" name="generator_P0Pu" origData="IIDM" origName="p_pu"/>
@@ -243,6 +247,7 @@
     <par type="DOUBLE" name="generator_QMaxPu" value="999" />
     <par type="DOUBLE" name="generator_QMinPu" value="-999" />
     <par type="DOUBLE" name="generator_DbdPu" value="0.005" />
+    <par type="BOOL" name="generator_VRegFlag" value="true" />
   </set>
   <set id="Nordicg04">
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -317,6 +322,7 @@
     <par type="DOUBLE" name="generator_QMaxPu" value="999" />
     <par type="DOUBLE" name="generator_QMinPu" value="-999" />
     <par type="DOUBLE" name="generator_DbdPu" value="0.005" />
+    <par type="BOOL" name="generator_VRegFlag" value="true" />
   </set>
   <set id="Nordicg05">
     <reference type="DOUBLE" name="generator_P0Pu" origData="IIDM" origName="p_pu"/>
@@ -338,6 +344,7 @@
     <par type="DOUBLE" name="generator_QMaxPu" value="99" />
     <par type="DOUBLE" name="generator_QMinPu" value="-99" />
     <par type="DOUBLE" name="generator_DbdPu" value="0.005" />
+    <par type="BOOL" name="generator_VRegFlag" value="true" />
   </set>
   <set id="Nordicg08">
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -465,6 +472,7 @@
     <par type="DOUBLE" name="generator_QMaxPu" value="999" />
     <par type="DOUBLE" name="generator_QMinPu" value="-999" />
     <par type="DOUBLE" name="generator_DbdPu" value="0.005" />
+    <par type="BOOL" name="generator_VRegFlag" value="true" />
   </set>
   <set id="Nordicg15">
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -584,6 +592,7 @@
     <par type="DOUBLE" name="generator_QMaxPu" value="999" />
     <par type="DOUBLE" name="generator_QMinPu" value="-999" />
     <par type="DOUBLE" name="generator_DbdPu" value="0.005" />
+    <par type="BOOL" name="generator_VRegFlag" value="true" />
   </set>
   <set id="Nordicg17">
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -703,6 +712,7 @@
     <par type="DOUBLE" name="generator_QMaxPu" value="999" />
     <par type="DOUBLE" name="generator_QMinPu" value="-999" />
     <par type="DOUBLE" name="generator_DbdPu" value="0.005" />
+    <par type="BOOL" name="generator_VRegFlag" value="true" />
   </set>
   <set id="Nordicg18">
     <par type="DOUBLE" name="generator_DPu" value="0"/>

@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <timeline xmlns="http://www.rte-france.com/dynawo">
+  <event time="0.000000" modelName="g06" message="PMAX : activation"/>
+  <event time="0.000000" modelName="g07" message="PMAX : activation"/>
+  <event time="0.000000" modelName="g06" message="PMAX : activation"/>
+  <event time="0.000000" modelName="g07" message="PMAX : activation"/>
   <event time="2.000000" modelName="Fault" message="Fault (node) : end"/>
   <event time="2.000000" modelName="L4032-4044" message="LINE : opening both sides"/>
   <event time="2.000000" modelName="Fault" message="Fault (node) : end"/>
-  <event time="32.000000" modelName="Tr1-1041" message="Tap position change (decrement) - value : 19.4715kV"/>
-  <event time="32.000000" modelName="Tr3-1043" message="Tap position change (decrement) - value : 19.4839kV"/>
-  <event time="32.000000" modelName="Tr4-1044" message="Tap position change (decrement) - value : 19.3838kV"/>
-  <event time="32.000000" modelName="Tr5-1045" message="Tap position change (decrement) - value : 19.4064kV"/>
-  <event time="32.000000" modelName="Tr41-4041" message="Tap position change (decrement) - value : 19.274kV"/>
-  <event time="32.000000" modelName="Tr42-4042" message="Tap position change (decrement) - value : 19.2165kV"/>
-  <event time="32.000000" modelName="Tr43-4043" message="Tap position change (decrement) - value : 19.4509kV"/>
-  <event time="32.000000" modelName="Tr46-4046" message="Tap position change (decrement) - value : 19.5015kV"/>
-  <event time="32.000000" modelName="Tr47-4047" message="Tap position change (decrement) - value : 19.571kV"/>
-  <event time="32.000000" modelName="Tr61-4061" message="Tap position change (decrement) - value : 19.5352kV"/>
-  <event time="42.000000" modelName="Tr1-1041" message="Tap position change (decrement) - value : 19.4871kV"/>
-  <event time="42.000000" modelName="Tr3-1043" message="Tap position change (decrement) - value : 19.5214kV"/>
-  <event time="42.000000" modelName="Tr4-1044" message="Tap position change (decrement) - value : 19.4266kV"/>
-  <event time="42.000000" modelName="Tr5-1045" message="Tap position change (decrement) - value : 19.4531kV"/>
-  <event time="42.000000" modelName="Tr41-4041" message="Tap position change (decrement) - value : 19.3181kV"/>
-  <event time="42.000000" modelName="Tr42-4042" message="Tap position change (decrement) - value : 19.2657kV"/>
-  <event time="42.000000" modelName="Tr43-4043" message="Tap position change (decrement) - value : 19.5048kV"/>
-  <event time="42.000000" modelName="Tr46-4046" message="Tap position change (decrement) - value : 19.5663kV"/>
-  <event time="42.000000" modelName="Tr47-4047" message="Tap position change (decrement) - value : 19.6648kV"/>
-  <event time="42.000000" modelName="Tr61-4061" message="Tap position change (decrement) - value : 19.6047kV"/>
-  <event time="50.000000" modelName="Tr51-4051" message="Tap position change (decrement) - value : 19.4914kV"/>
+  <event time="33.000000" modelName="Tr1-1041" message="Tap position change (decrement) - value : 19.5257kV"/>
+  <event time="33.000000" modelName="Tr3-1043" message="Tap position change (decrement) - value : 19.5379kV"/>
+  <event time="33.000000" modelName="Tr4-1044" message="Tap position change (decrement) - value : 19.437kV"/>
+  <event time="33.000000" modelName="Tr5-1045" message="Tap position change (decrement) - value : 19.4547kV"/>
+  <event time="33.000000" modelName="Tr41-4041" message="Tap position change (decrement) - value : 19.3296kV"/>
+  <event time="33.000000" modelName="Tr42-4042" message="Tap position change (decrement) - value : 19.2701kV"/>
+  <event time="33.000000" modelName="Tr43-4043" message="Tap position change (decrement) - value : 19.4955kV"/>
+  <event time="33.000000" modelName="Tr46-4046" message="Tap position change (decrement) - value : 19.5407kV"/>
+  <event time="33.000000" modelName="Tr47-4047" message="Tap position change (decrement) - value : 19.6016kV"/>
+  <event time="43.000000" modelName="Tr1-1041" message="Tap position change (decrement) - value : 19.5095kV"/>
+  <event time="43.000000" modelName="Tr3-1043" message="Tap position change (decrement) - value : 19.5341kV"/>
+  <event time="43.000000" modelName="Tr4-1044" message="Tap position change (decrement) - value : 19.4737kV"/>
+  <event time="43.000000" modelName="Tr5-1045" message="Tap position change (decrement) - value : 19.4927kV"/>
+  <event time="43.000000" modelName="Tr41-4041" message="Tap position change (decrement) - value : 19.3834kV"/>
+  <event time="43.000000" modelName="Tr42-4042" message="Tap position change (decrement) - value : 19.3197kV"/>
+  <event time="43.000000" modelName="Tr43-4043" message="Tap position change (decrement) - value : 19.5456kV"/>
+  <event time="43.000000" modelName="Tr46-4046" message="Tap position change (decrement) - value : 19.6003kV"/>
+  <event time="43.000000" modelName="Tr47-4047" message="Tap position change (decrement) - value : 19.6882kV"/>
+  <event time="43.000000" modelName="Tr61-4061" message="Tap position change (decrement) - value : 19.4583kV"/>
 </timeline>
