@@ -17,12 +17,14 @@
     <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName ="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt4W_INIT"/>
     <dyn:unitDynamicModel id="voltageRegulator" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified.VRProportional" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified.VRProportional_INIT"/>
     <dyn:unitDynamicModel id="governor" name="Dynawo.Electrical.Controls.Machines.Governors.Simplified.GoverProportional" initName="Dynawo.Electrical.Controls.Machines.Governors.Governor_INIT"/>
-    <dyn:unitDynamicModel id="coupling" name="Dynawo.Electrical.Switches.IdealSwitch"/>
+    <dyn:unitDynamicModel id="coupling" name="Dynawo.Electrical.Switches.IdealSwitch2" initName="Dynawo.Electrical.Switches.IdealSwitchGeneratorAux_INIT"/>
     <dyn:unitDynamicModel id="auxLV" name="Dynawo.Electrical.Loads.LoadAlphaBeta" initName="Dynawo.Electrical.Loads.LoadAuxiliaries_INIT"/>
     <dyn:initConnect id1="voltageRegulator" var1="Efd0PuLF" id2="generator" var2="Efd0Pu"/>
     <dyn:initConnect id1="voltageRegulator" var1="Us0Pu" id2="generator" var2="UStator0Pu"/>
     <dyn:initConnect id1="governor" var1="Pm0Pu" id2="generator" var2="Pm0Pu"/>
     <dyn:initConnect id1="auxLV" var1="u0Pu" id2="generator" var2="u0Pu"/>
+    <dyn:initConnect id1="coupling" var1="PAuxLV0Pu" id2="auxLV" var2="P0Pu"/>
+    <dyn:initConnect id1="coupling" var1="QAuxLV0Pu" id2="auxLV" var2="Q0Pu"/>
     <dyn:connect id1="voltageRegulator" var1="EfdPu" id2="generator" var2="efdPu"/>
     <dyn:connect id1="voltageRegulator" var1="UsPu" id2="generator" var2="UStatorPu"/>
     <dyn:connect id1="governor" var1="omegaPu" id2="generator" var2="omegaPu"/>
