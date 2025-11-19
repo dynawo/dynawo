@@ -80,7 +80,8 @@ typedef enum {
   DIFFERENTIAL_MODE,  ///< Mode change on a differential function
   ALGEBRAIC_MODE,  ///< Mode change on an algebraic function not requiring a Jacobian update
   ALGEBRAIC_J_UPDATE_MODE,  ///< Mode change on an algebraic function requiring a Jacobian update
-  ALGEBRAIC_J_J_UPDATE_MODE  ///< Mode change on an algebraic function requiring a Jacobian update
+  ALGEBRAIC_J_J_UPDATE_MODE,  ///< Mode change on an algebraic function requiring a Jacobian update
+  NO_REINIT_MODE  ///< Mode change on an algebraic function requiring a Jacobian update
 } modeChangeType_t;
 
 /**
