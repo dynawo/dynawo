@@ -21,7 +21,6 @@ model HvdcPVDanglingDiagramPQ_INIT "Initialisation model of PV HVDC link with a 
 
 equation
   P1Ref0Pu = P1RefSetPu;
-  QInj10PuQNom = QInj10Pu * SystemBase.SnRef / Q1Nom;
 
   if - Q10Pu <= QInj1Min0Pu then
     q1Status0 = QStatus.AbsorptionMax;

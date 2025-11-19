@@ -24,6 +24,7 @@ partial model BasePV_INIT "Base initialization model for PV HVDC"
   Dynawo.Connectors.VoltageModulePuConnector U1Ref0Pu "Start value of the voltage regulation set point in pu (base UNom) at terminal 1";
 
 equation
+  QInj10PuQNom = QInj10Pu * SystemBase.SnRef / Q1Nom;
 
   annotation(preferredView = "text");
 end BasePV_INIT;
