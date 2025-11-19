@@ -18,10 +18,10 @@
  *
  */
 
-#include "DYNTrace.h"
-
 #include "DYNActionBuffer.h"
 #include "DYNModelMulti.h"
+#include "DYNMacrosMessage.h"
+#include "DYNTrace.h"
 
 namespace DYN {
 
