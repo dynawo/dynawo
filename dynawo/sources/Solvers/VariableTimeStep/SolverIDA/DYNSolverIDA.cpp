@@ -1181,10 +1181,10 @@ void
 SolverIDA::reinit() {
   Timer timer("SolverIDA::reinit");
   int counter = 0;
-  int flag0 = IDAReInit(IDAMem_, tSolve_, sundialsVectorY_, sundialsVectorYp_);  // required to relaunch the simulation
+  /*int flag0 = IDAReInit(IDAMem_, tSolve_, sundialsVectorY_, sundialsVectorYp_);  // required to relaunch the simulation
   if (flag0 < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");
-  return;
+  return;*/
   modeChangeType_t modeChangeType = model_->getModeChangeType();
   if (modeChangeType == NO_MODE) return;
 

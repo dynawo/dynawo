@@ -39,6 +39,8 @@ modeChangeType2Str(const modeChangeType_t& modeChangeType) {
       return "Algebraic mode (with J recalculation) change";
     case ALGEBRAIC_J_J_UPDATE_MODE:
       return "Algebraic mode (with J J recalculation) change";
+    case NO_REINIT_MODE:
+      return "Mode to skip the reinit";
     default:
       assert(0 && "Mode change type should be one of the enum values");
   }
