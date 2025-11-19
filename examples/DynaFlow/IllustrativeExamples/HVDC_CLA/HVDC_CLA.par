@@ -58,7 +58,6 @@
     <par type="DOUBLE" name="hvdc_PMaxPu" value="10000"/>
     <par type="BOOL" name="hvdc_modeU10" value="true"/>
     <par type="BOOL" name="hvdc_modeU20" value="true"/>
-    <par type="DOUBLE" name="hvdc_U1Ref0Pu" value="1"/>
     <par type="DOUBLE" name="hvdc_U2Ref0Pu" value="1"/>
     <par type="DOUBLE" name="hvdc_Q1Ref0Pu" value="-0.667"/>
     <par type="DOUBLE" name="hvdc_Q2Ref0Pu" value="-1.32"/>
