@@ -32,7 +32,6 @@ model LVRT "Low-voltage ride-through protection"
   Modelica.Blocks.Interfaces.BooleanOutput fOCB(start = false) "Open Circuit Breaker flag" annotation(
     Placement(transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
 
-  Types.Time tThresholdReached(start = Modelica.Constants.inf) "Time when the threshold is reached in s";
   Dynawo.Connectors.BPin switchOffSignal(value(start = false)) "Switch off message for the machine";
   Modelica.Blocks.Tables.CombiTable1Ds combiTable1D(tableOnFile = true, tableName = TabletUunderUfilt, fileName = TablesFile, extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint) annotation(
     Placement(transformation(origin = {-30, 20}, extent = {{-10, -10}, {10, 10}})));
