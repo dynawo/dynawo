@@ -45,6 +45,8 @@
     <macroParSet id="macro_signalNGeneratorFixedP"/>
     <par type="DOUBLE" name="generator_QDeadBandPu" value="0.0001"/>
     <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="12497041103945231709">
     <par name="generator_QMax0" type="DOUBLE" value="1000"/>
@@ -56,6 +58,8 @@
     <macroParSet id="macro_signalNGenerator"/>
     <par type="DOUBLE" name="generator_QDeadBandPu" value="0.0001"/>
     <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="3926348227757243444">
     <par name="generator_QMax0" type="DOUBLE" value="51"/>
@@ -67,6 +71,8 @@
     <macroParSet id="macro_signalNGenerator"/>
     <par type="DOUBLE" name="generator_QDeadBandPu" value="0.0001"/>
     <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="5381922176910680352">
     <par name="generator_QMax0" type="DOUBLE" value="25"/>
@@ -78,6 +84,8 @@
     <macroParSet id="macro_signalNGeneratorFixedP"/>
     <par type="DOUBLE" name="generator_QDeadBandPu" value="0.0001"/>
     <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="5821770868043647431">
     <par name="generator_QMax0" type="DOUBLE" value="25"/>
@@ -89,6 +97,8 @@
     <macroParSet id="macro_signalNGeneratorFixedP"/>
     <par type="DOUBLE" name="generator_QDeadBandPu" value="0.0001"/>
     <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="GenericRestorativeLoad">
     <par name="load_Alpha" type="DOUBLE" value="1.5"/>
@@ -119,9 +129,13 @@
     <reference type="INT" name="phaseShifter_tapMax" origData="IIDM" origName="highTapPosition" componentId="_BUS____5-BUS____6-1_PS"/>
     <reference type="BOOL" name="phaseShifter_regulating0" origData="IIDM" origName="regulating" componentId="_BUS____5-BUS____6-1_PS"/>
     <reference type="INT" name="phaseShifter_increasePhase" origData="IIDM" origName="increasePhase" componentId="_BUS____5-BUS____6-1_PS"/>
+    <par type="BOOL" name="phaseShifter_running0" value="true"/>
+    <par type="DOUBLE" name="phaseShifter_UNom" value="0"/>
   </set>
   <set id="PhaseShifterLock">
     <par type="DOUBLE" name="phaseShifterBlockingI_IMax" value="0.45"/>
     <par type="DOUBLE" name="phaseShifterBlockingI_tLagBeforeActing" value="20"/>
+    <par type="BOOL" name="phaseShifter_running0" value="true"/>
+    <par type="DOUBLE" name="phaseShifter_UNom" value="0"/>
   </set>
 </parametersSet>

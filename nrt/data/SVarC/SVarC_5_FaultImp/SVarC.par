@@ -59,6 +59,7 @@
     <par type="DOUBLE" name="SVarC_URefUp" value="230"/>
     <par type="DOUBLE" name="SVarC_UThresholdDown" value="218"/>
     <par type="DOUBLE" name="SVarC_UThresholdUp" value="240"/>
+    <par type="BOOL" name="SVarC_SelectModeAuto0" value="true"/>
   </set>
   <!-- Fault -->
   <set id="4">
