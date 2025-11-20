@@ -242,7 +242,6 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
     zLocal_[levelValNum_] = 0.;
     for (int g = 0; g < nbGenerators_; g++) {
       zLocal_[levelValNum_] += yLocal_[g + 1];
-      std::cout << "BUBU QS? " << name() << " " << yLocal_[g + 1] << std::endl;
      }
     double qrSum = 0;
     for (auto& qr : Qr_) {
@@ -250,7 +249,6 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
     }
     zLocal_[levelValNum_] = zLocal_[levelValNum_] / qrSum;
     antiWindUpCorrection();
-    std::cout << "BUBU? " << name() << " " << zLocal_[levelValNum_]  << std::endl;
     iTerm_ = zLocal_[levelValNum_] + feedBackCorrection_;
   }
 
@@ -259,7 +257,6 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
     if (!isStartingFromDump() && doubleIsZero(t) && doubleEquals(UpRef0Pu_, yLocal_[UpPuNum_])) {
       // Compute initial level from actual Qstator values at the beginning of the simulation
       // Do it twice to make sure that discrete status variables were taken into account in continuous equations
-      std::cout << "BUBU T " << name() << " " << t << " " << yLocal_[UpPuNum_]<< " " << zLocal_[UpRefPuNum_] << std::endl;
       calculateInitialState();
     }
     if (gLocal_[ActivationNum_] == ROOT_UP && doubleNotEquals(t, zLocal_[tLastActivationNum_]) && gLocal_[BlockingNum_] == ROOT_DOWN) {
@@ -276,7 +273,6 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
         if (doubleNotEquals(static_cast<int>(levelSave*100), static_cast<int>(zLocal_[levelValNum_]*100)))
           DYNAddTimelineEvent(this, name(), SVRLevelNew,  zLocal_[levelValNum_]);
       }
-      std::cout << "BUBU G? " << name() << " " << zLocal_[levelValNum_]  << std::endl;
       zLocal_[tLastActivationNum_] = t;
     }
   }

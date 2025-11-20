@@ -50,7 +50,7 @@ model ReactivePowerControlLoop "Simplified Reactive Power Control Loop model"
     Placement(transformation(origin = {84, 0}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.NonElectrical.Blocks.NonLinear.LimitedIntegrator limitedIntegrator(Y0 = UStatorRef0Pu, YMax = UStatorRefMaxPu, YMin = UStatorRefMinPu) annotation(
     Placement(transformation(origin = {52, 0}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.BooleanExpression blocking(y = (uStatus == UStatus.LimitUMax or uStatus == UStatus.LimitUMin or blocker)) "Expression determining  if the reactive power or voltage have reached a limit" annotation(
+  Modelica.Blocks.Sources.BooleanExpression blocking(y = ((uStatus == UStatus.LimitUMax and errQ.y <= 0) or (uStatus == UStatus.LimitUMin and errQ.y >= 0) or blocker)) "Expression determining  if the reactive power or voltage have reached a limit" annotation(
     Placement(transformation(origin = {52, 88}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.BooleanOutput UQBlocker annotation(
     Placement(transformation(origin = {110, 88}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {188, 86}, extent = {{-10, -10}, {10, 10}})));
@@ -59,6 +59,7 @@ model ReactivePowerControlLoop "Simplified Reactive Power Control Loop model"
   parameter Types.VoltageModulePu UStatorRef0Pu "Start value of the generator stator voltage reference in pu (base UNom)";
   Modelica.Blocks.Logical.Switch errQLim annotation(
     Placement(transformation(origin = {-71, 1}, extent = {{-10, -10}, {10, 10}})));
+  //Real errQLim;
   Dynawo.NonElectrical.Blocks.NonLinear.DeadZone deadZone(uMax = QDeadBand, uMin = -QDeadBand) annotation(
     Placement(transformation(origin = {-40, 0}, extent = {{-10, -10}, {10, 10}})));
 protected
@@ -105,6 +106,12 @@ equation
     Line(points = {{-28, 0}, {-22, 0}}, color = {0, 0, 127}));
   connect(errQLim.y, deadZone.u) annotation(
     Line(points = {{-60, 2}, {-52, 2}, {-52, 0}}, color = {0, 0, 127}));
+  //deadZone.u = errQLim;
+  //if blocker then
+  //  der(errQLim) = 0 ;
+  //else
+  //  errQLim = errQ.y;
+  //end if;
   connect(blocking.y, UQBlocker) annotation(
     Line(points = {{63, 88}, {110, 88}}, color = {255, 0, 255}));
   annotation(
