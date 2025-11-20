@@ -30,7 +30,7 @@ equation
     q1Status0 = QStatus.Standard;
   end if;
 
-  if Lambda1Pu <> 0 then
+  if UseLambda1 then
     U10Pu + Lambda1Pu * QInj10Pu = U1Ref0Pu;
   else
     U1Ref0Pu = U10Pu;
