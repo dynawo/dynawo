@@ -48,7 +48,7 @@ using parameters::ParametersSet;
 
 namespace DYN {
 
-ModelLoad::ModelLoad(const LoadInterface& load, const ModelBus& bus) :
+ModelLoad::ModelLoad(LoadInterface& load, ModelBus& bus) :
 NetworkComponent(load.getID()),
 load_(load),
 modelBus_(bus),
@@ -86,7 +86,7 @@ DeltaQcYNum_(0),
 zPYNum_(0),
 zQYNum_(0),
 startingPointMode_(WARM) {
-  connectionState_ = const_cast<LoadInterface&>(load).getInitialConnected() ? CLOSED : OPEN;
+  connectionState_ = load.getInitialConnected() ? CLOSED : OPEN;
 }
 
 void
@@ -160,7 +160,7 @@ ModelLoad::evalF(const propertyF_t type) {
     } else if (TqIsZero_) {
       f_[1] = zQPrim();
     } else {
-      const double U = getNonCstModelBus().getCurrentU(ModelBus::UPuType_);
+      const double U = modelBus_.getCurrentU(ModelBus::UPuType_);
 
       double zPprimValue = 0.;
       const double zp = zP();
@@ -211,20 +211,18 @@ ModelLoad::setGequations(std::map<int, std::string>& /*gEquationIndex*/) {
 void
 ModelLoad::init(int& yNum) {
   if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
-    const auto& loadInterface = getLoadInterface();
-    auto& loadInterfaceNonCst = getNonCstLoadInterface();
-    const double thetaNode = loadInterface.getBusInterface()->getAngle0();
-    const double unomNode = loadInterface.getBusInterface()->getVNom();
+    const double thetaNode = load_.getBusInterface()->getAngle0();
+    const double unomNode = load_.getBusInterface()->getVNom();
     switch (startingPointMode_) {
     case FLAT:
-      P0_ = loadInterface.getP0() / SNREF;
-      Q0_ = loadInterface.getQ0() / SNREF;
-      u0_ = loadInterface.getBusInterface()->getVNom() / unomNode;
+      P0_ = load_.getP0() / SNREF;
+      Q0_ = load_.getQ0() / SNREF;
+      u0_ = load_.getBusInterface()->getVNom() / unomNode;
       break;
     case WARM:
-      P0_ = loadInterfaceNonCst.getP() / SNREF;
-      Q0_ = loadInterfaceNonCst.getQ() / SNREF;
-      u0_ = loadInterfaceNonCst.getBusInterface()->getV0() / unomNode;
+      P0_ = load_.getP() / SNREF;
+      Q0_ = load_.getQ() / SNREF;
+      u0_ = load_.getBusInterface()->getV0() / unomNode;
       break;
     }
 
@@ -501,24 +499,22 @@ ModelLoad::Q_dUi(const double /*ur*/, const double ui, const double U, const dou
 
 void
 ModelLoad::evalNodeInjection() {
-  auto& modelBusNonCst = getNonCstModelBus();
-  const auto& modelBus = getNonCstModelBus();
   if (isRunning()) {
     if (network_->isInitModel()) {
-      modelBusNonCst.irAdd(ir0_);
-      modelBusNonCst.iiAdd(ii0_);
+      modelBus_.irAdd(ir0_);
+      modelBus_.iiAdd(ii0_);
     } else {
-      const double U = modelBusNonCst.getCurrentU(ModelBus::UPuType_);
+      const double U = modelBus_.getCurrentU(ModelBus::UPuType_);
       if (doubleIsZero(U))
         return;
       const double U2 = U * U;
-      const double ur = modelBus.ur();
-      const double ui = modelBus.ui();
+      const double ur = modelBus_.ur();
+      const double ui = modelBus_.ui();
       double ii;
       double ir;
       getI(ur, ui, U, U2, ir, ii);
-      modelBusNonCst.irAdd(ir);
-      modelBusNonCst.iiAdd(ii);
+      modelBus_.irAdd(ir);
+      modelBus_.iiAdd(ii);
     }
   }
 }
@@ -528,14 +524,13 @@ ModelLoad::evalDerivatives(const double /*cj*/) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelNetwork::ModelLoad::evalDerivatives");
 #endif
-  auto& modelBus = getNonCstModelBus();
   if (network_->isInitModel())
     return;
   if (isRunning()) {
-    const int urYNum = modelBus.urYNum();
-    const int uiYNum = modelBus.uiYNum();
-    const double ur = modelBus.ur();
-    const double ui = modelBus.ui();
+    const int urYNum = modelBus_.urYNum();
+    const int uiYNum = modelBus_.uiYNum();
+    const double ur = modelBus_.ur();
+    const double ui = modelBus_.ui();
     const double U2 = ur * ur + ui * ui;
     if (doubleIsZero(U2))
       return;
@@ -546,7 +541,7 @@ ModelLoad::evalDerivatives(const double /*cj*/) {
     const double QdUr = Q_dUr(ur, ui, U, U2);
     const double PdUi = P_dUi(ur, ui, U, U2);
     const double QdUi = Q_dUi(ur, ui, U, U2);
-    auto& derivatives = modelBus.derivatives();
+    auto& derivatives = modelBus_.derivatives();
     derivatives->addDerivative(IR_DERIVATIVE, urYNum, ir_dUr(ur, ui, U2, p, q, PdUr, QdUr));
     derivatives->addDerivative(IR_DERIVATIVE, uiYNum, ir_dUi(ur, ui, U2, p, q, PdUi, QdUi));
     derivatives->addDerivative(II_DERIVATIVE, urYNum, ii_dUr(ur, ui, U2, p, q, PdUr, QdUr));
@@ -830,9 +825,8 @@ ModelLoad::evalState(const double /*time*/) {
 
 void
 ModelLoad::evalCalculatedVars() {
-  auto& modelBus = getNonCstModelBus();
   if (isRunning()) {
-    const double U = modelBus.getCurrentU(ModelBus::UPuType_);
+    const double U = modelBus_.getCurrentU(ModelBus::UPuType_);
     // P
     calculatedVars_[pNum_] = P(U);
 

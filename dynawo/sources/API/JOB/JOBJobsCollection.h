@@ -57,8 +57,8 @@ class JobsCollection {
   *
   * @return variables
   */
-  std::vector<std::shared_ptr<JobEntry> >& getNonCstJobs() const {
-    return const_cast<std::vector<std::shared_ptr<JobEntry> >&>(getJobs());
+  std::vector<std::shared_ptr<JobEntry> >& getNonCstJobs() {
+    return jobs_;
   }
 
  private:

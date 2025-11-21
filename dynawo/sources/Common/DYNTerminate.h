@@ -41,6 +41,9 @@ class Terminate : public std::exception {
    */
   Terminate(const Terminate& t);
 
+  /// @brief Destructor
+  ~Terminate() = default;
+
   /**
    * @brief Constructor
    *
