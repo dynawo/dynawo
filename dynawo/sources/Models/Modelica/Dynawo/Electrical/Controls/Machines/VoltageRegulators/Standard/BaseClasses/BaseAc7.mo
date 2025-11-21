@@ -48,9 +48,11 @@ partial model BaseAc7 "IEEE exciter type AC7 base model"
 
   //Input variables
   Modelica.Blocks.Interfaces.RealInput IrPu(start = Ir0Pu) "Rotor current in pu (base SNom, user-selected base voltage)" annotation(
-    Placement(visible = true, transformation(origin = {-500, 200}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 100}, extent = {{20, -20}, {-20, 20}}, rotation = 180)));
+    Placement(visible = true, transformation(origin = {-500, 220}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 100}, extent = {{20, -20}, {-20, 20}}, rotation = 180)));
   Modelica.ComplexBlocks.Interfaces.ComplexInput itPu(re(start = it0Pu.re), im(start = it0Pu.im)) "Complex stator current in pu (base SNom, UNom)" annotation(
     Placement(visible = true, transformation(origin = {-500, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {120, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
+  Modelica.Blocks.Interfaces.BooleanInput running(start = true) "Running value of generator" annotation(
+    Placement(visible = true,transformation(origin = {-500, 180}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UPssPu(start = 0) "Power system stabilizer output voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-500, -100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -100}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UsPu(start = Us0Pu) "Stator voltage in pu (base UNom)" annotation(
@@ -162,7 +164,7 @@ equation
   connect(acRotatingExciter.VfePu, derivative.u) annotation(
     Line(points = {{422, -16}, {440, -16}, {440, -200}, {-58, -200}}, color = {0, 0, 127}));
   connect(IrPu, acRotatingExciter.IrPu) annotation(
-    Line(points = {{-500, 200}, {360, 200}, {360, 16}, {376, 16}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
+    Line(points = {{-500, 220}, {360, 220}, {360, 16}, {376, 16}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(const1.y, pid.u_m) annotation(
     Line(points = {{-99, -80}, {-70, -80}, {-70, -52}}, color = {0, 0, 127}));
   connect(UsPu, firstOrder.u) annotation(
@@ -174,13 +176,15 @@ equation
   connect(derivative.y, feedback.u2) annotation(
     Line(points = {{-81, -200}, {-280, -200}, {-280, -48}}, color = {0, 0, 127}));
   connect(utPu, potentialCircuit.uT) annotation(
-    Line(points = {{-500, 140}, {-420, 140}, {-420, 124}, {-402, 124}}, color = {85, 170, 255}));
+    Line(points = {{-500, 140}, {-420, 140}, {-420, 126}, {-402, 126}}, color = {85, 170, 255}));
   connect(itPu, potentialCircuit.iT) annotation(
-    Line(points = {{-500, 100}, {-420, 100}, {-420, 116}, {-402, 116}}, color = {85, 170, 255}));
+    Line(points = {{-500, 100}, {-420, 100}, {-420, 114}, {-402, 114}}, color = {85, 170, 255}));
   connect(add.y, sum1.u[1]) annotation(
     Line(points = {{-378, -40}, {-342, -40}}, color = {0, 0, 127}));
   connect(sum1.y, feedback.u1) annotation(
     Line(points = {{-318, -40}, {-288, -40}}, color = {0, 0, 127}));
+  connect(running, potentialCircuit.running) annotation(
+    Line(points = {{-500, 180}, {-440, 180}, {-440, 120}, {-402, 120}}, color = {255, 0, 255}));
 
   annotation(
     preferredView = "diagram",

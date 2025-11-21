@@ -41,6 +41,8 @@ partial model BaseSt4 "IEEE exciter type ST4 base model"
     Placement(visible = true, transformation(origin = {-400, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 100}, extent = {{20, -20}, {-20, 20}}, rotation = 180)));
   Modelica.ComplexBlocks.Interfaces.ComplexInput itPu(re(start = it0Pu.re), im(start = it0Pu.im)) "Complex stator current in pu (base SNom, UNom)" annotation(
     Placement(visible = true, transformation(origin = {-400, -160}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {120, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
+  Modelica.Blocks.Interfaces.BooleanInput running(start = true) "Running value of generator" annotation(
+    Placement(visible = true,transformation(origin = {-400, -200}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {120, 80}, extent = {{20, -20}, {-20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UOelPu(start = UOel0Pu) "Overexcitation limitation output voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-400, 160}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UPssPu(start = 0) "Power system stabilizer output voltage in pu (base UNom)" annotation(
@@ -60,7 +62,7 @@ partial model BaseSt4 "IEEE exciter type ST4 base model"
 
   Modelica.Blocks.Sources.Constant const(k = VbMaxPu) annotation(
     Placement(visible = true, transformation(origin = {210, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Division division annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.LimitedDivision division(YMax = 1, YMin = 0) annotation(
     Placement(visible = true, transformation(origin = {110, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.Min2 min3 annotation(
     Placement(visible = true, transformation(origin = {270, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -79,7 +81,7 @@ partial model BaseSt4 "IEEE exciter type ST4 base model"
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {40, 80}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = Kc) annotation(
-    Placement(visible = true, transformation(origin = {-330, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-310, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Sum sum1(k = {-1, 1, 1, 1, 1, 1}, nin = 6) annotation(
     Placement(visible = true, transformation(origin = {-290, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.PotentialCircuit potentialCircuit(Ki = Ki, Kp = Kp, Theta = Thetap, X = XlPu) annotation(
@@ -117,9 +119,9 @@ equation
   connect(feedback.y, limPI2.u) annotation(
     Line(points = {{49, 80}, {78, 80}}, color = {0, 0, 127}));
   connect(gain1.y, division.u1) annotation(
-    Line(points = {{-319, -80}, {80, -80}, {80, -114}, {98, -114}}, color = {0, 0, 127}));
+    Line(points = {{-299, -80}, {80, -80}, {80, -114}, {98, -114}}, color = {0, 0, 127}));
   connect(IrPu, gain1.u) annotation(
-    Line(points = {{-400, -80}, {-342, -80}}, color = {0, 0, 127}));
+    Line(points = {{-400, -80}, {-322, -80}}, color = {0, 0, 127}));
   connect(firstOrder.y, sum1.u[1]) annotation(
     Line(points = {{-339, 80}, {-303, 80}}, color = {0, 0, 127}));
   connect(UsRefPu, sum1.u[2]) annotation(
@@ -127,9 +129,11 @@ equation
   connect(rectifierRegulationCharacteristic.y, product1.u1) annotation(
     Line(points = {{161, -120}, {180, -120}, {180, -134}, {197, -134}}, color = {0, 0, 127}));
   connect(utPu, potentialCircuit.uT) annotation(
-    Line(points = {{-400, -120}, {-340, -120}, {-340, -136}, {-322, -136}}, color = {85, 170, 255}));
+    Line(points = {{-400, -120}, {-340, -120}, {-340, -134}, {-322, -134}}, color = {85, 170, 255}));
   connect(itPu, potentialCircuit.iT) annotation(
-    Line(points = {{-400, -160}, {-340, -160}, {-340, -144}, {-322, -144}}, color = {85, 170, 255}));
+    Line(points = {{-400, -160}, {-340, -160}, {-340, -146}, {-322, -146}}, color = {85, 170, 255}));
+  connect(running, potentialCircuit.running) annotation(
+    Line(points = {{-400, -200}, {-360, -200}, {-360, -140}, {-322, -140}}, color = {255, 0, 255}));
 
   annotation(
     preferredView = "diagram",
