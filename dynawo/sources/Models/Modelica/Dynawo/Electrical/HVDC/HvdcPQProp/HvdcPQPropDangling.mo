@@ -9,7 +9,7 @@ within Dynawo.Electrical.HVDC.HvdcPQProp;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
 model HvdcPQPropDangling "Model of HVDC link with a proportional reactive power control. terminal1 can inject a fixed reactive power or use the proportional control, depending on the user's choice. terminal2 is connected to a switched-off bus"
