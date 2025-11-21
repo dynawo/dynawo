@@ -139,7 +139,7 @@ class Simulation {
      * @param dumpFile Path of the dump
      * @param iidmFile Path of the IIDM
      */
-    ExportStateDefinition(double timestamp,
+    explicit ExportStateDefinition(double timestamp,
       boost::optional<boost::filesystem::path> dumpFile = boost::none,
       boost::optional<boost::filesystem::path> iidmFile = boost::none);
 
@@ -159,6 +159,11 @@ class Simulation {
   Simulation(const std::shared_ptr<job::JobEntry>& jobEntry,
               const std::shared_ptr<SimulationContext>& context,
               boost::shared_ptr<DataInterface> data = boost::shared_ptr<DataInterface>());
+
+  /**
+   * @brief default destructor
+   */
+  virtual ~Simulation() {}
 
   /**
    * @brief initialize the simulation

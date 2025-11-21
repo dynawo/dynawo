@@ -990,15 +990,15 @@ def replace_combi_table_jacobian_adept(line):
     match2d = re.search(r'omc_Modelica_Blocks_Tables_Internal_getTable2DValue\(.*,(?P<var_input1>.*),(?P<var_input2>.*)\)', line)
     matcht = re.search(r'omc_Modelica_Blocks_Tables_Internal_getTimeTableValue\(.*,.*,(?P<var_input>.*),.*,.*\)', line)
     if "omc_Modelica_Blocks_Tables_Internal_getTable1DValue" in line and match1d and ('derivativesVars' in match1d.group('var_input') or 'realVars' in match1d.group('var_input')):
-        if not 'NoDer' in line:
+        if 'NoDer' not in line:
             print(line)
             sys.exit("Issue with the replacement of omc_Modelica_Blocks_Tables_Internal_getTable1DValue in adept Jacobian.")
     elif "omc_Modelica_Blocks_Tables_Internal_getTable2DValue" in line and match2d and ('derivativesVars' in match2d.group('var_input1') or 'realVars' in match2d.group('var_input1') or 'derivativesVars' in match2d.group('var_input2') or 'realVars' in match2d.group('var_input2')):
-        if not 'NoDer' in line:
+        if 'NoDer' not in line:
             print(line)
             sys.exit("Issue with the replacement of omc_Modelica_Blocks_Tables_Internal_getTable2DValue in adept Jacobian.")
     elif "omc_Modelica_Blocks_Tables_Internal_getTimeTableValue" in line and matcht and ('derivativesVars' in matcht.group('var_input') or 'realVars' in matcht.group('var_input')):
-        if not 'NoDer' in line:
+        if 'NoDer' not in line:
             print(line)
             sys.exit("Issue with the replacement of omc_Modelica_Blocks_Tables_Internal_getTimeTableValue in adept Jacobian.")
 

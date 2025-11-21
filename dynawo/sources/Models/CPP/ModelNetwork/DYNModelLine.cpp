@@ -1256,10 +1256,8 @@ ModelLine::evalCalculatedVars() {
 double
 ModelLine::ur1() const {
   double ur1 = 0.;
-  if (modelBus1_) {
-    if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_1) {
-      ur1 = modelBus1_->ur();
-    }
+  if (modelBus1_ && (getConnectionState() == CLOSED || getConnectionState() == CLOSED_1)) {
+    ur1 = modelBus1_->ur();
   }
   return ur1;
 }
@@ -1267,10 +1265,8 @@ ModelLine::ur1() const {
 double
 ModelLine::ui1() const {
   double ui1 = 0.;
-  if (modelBus1_) {
-    if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_1) {
-      ui1 = modelBus1_->ui();
-    }
+  if (modelBus1_ && (getConnectionState() == CLOSED || getConnectionState() == CLOSED_1)) {
+    ui1 = modelBus1_->ui();
   }
   return ui1;
 }
@@ -1278,10 +1274,8 @@ ModelLine::ui1() const {
 double
 ModelLine::ur2() const {
   double ur2 = 0.;
-  if (modelBus2_) {
-    if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_2) {
-      ur2 = modelBus2_->ur();
-    }
+  if (modelBus2_ && (getConnectionState() == CLOSED || getConnectionState() == CLOSED_2)) {
+    ur2 = modelBus2_->ur();
   }
   return ur2;
 }
@@ -1289,10 +1283,8 @@ ModelLine::ur2() const {
 double
 ModelLine::ui2() const {
   double ui2 = 0.;
-  if (modelBus2_) {
-    if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_2) {
-      ui2 = modelBus2_->ui();
-    }
+  if (modelBus2_ && (getConnectionState() == CLOSED || getConnectionState() == CLOSED_2)) {
+    ui2 = modelBus2_->ui();
   }
   return ui2;
 }
@@ -1300,10 +1292,8 @@ ModelLine::ui2() const {
 double
 ModelLine::urp1() const {
   double urp1 = 0.;
-  if (modelBus1_) {
-    if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_1) {
-      urp1 = modelBus1_->urp();
-    }
+  if (modelBus1_ && (getConnectionState() == CLOSED || getConnectionState() == CLOSED_1)) {
+    urp1 = modelBus1_->urp();
   }
   return urp1;
 }
@@ -1311,10 +1301,8 @@ ModelLine::urp1() const {
 double
 ModelLine::uip1() const {
   double uip1 = 0.;
-  if (modelBus1_) {
-    if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_1) {
-      uip1 = modelBus1_->uip();
-    }
+  if (modelBus1_ && (getConnectionState() == CLOSED || getConnectionState() == CLOSED_1)) {
+    uip1 = modelBus1_->uip();
   }
   return uip1;
 }
@@ -1322,10 +1310,8 @@ ModelLine::uip1() const {
 double
 ModelLine::urp2() const {
   double urp2 = 0.;
-  if (modelBus2_) {
-    if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_2) {
-      urp2 = modelBus2_->urp();
-    }
+  if (modelBus2_ && (getConnectionState() == CLOSED || getConnectionState() == CLOSED_2)) {
+    urp2 = modelBus2_->urp();
   }
   return urp2;
 }
@@ -1333,10 +1319,8 @@ ModelLine::urp2() const {
 double
 ModelLine::uip2() const {
   double uip2 = 0.;
-  if (modelBus2_) {
-    if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_2) {
-      uip2 = modelBus2_->uip();
-    }
+  if (modelBus2_ && (getConnectionState() == CLOSED || getConnectionState() == CLOSED_2)) {
+    uip2 = modelBus2_->uip();
   }
   return uip2;
 }

@@ -36,6 +36,9 @@ class ChannelsEntry {
   /// @brief Constructor
   ChannelsEntry() = default;
 
+  /// @brief Destructor
+  ~ChannelsEntry() = default;
+
   /**
    * @brief Copy constructor
    * @param other original to copy

@@ -115,7 +115,7 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
    * @brief get size of Z
    * @return size of Z
    */
-  static int sizeZ();
+  int sizeZ() const;
 
  private:
   /**

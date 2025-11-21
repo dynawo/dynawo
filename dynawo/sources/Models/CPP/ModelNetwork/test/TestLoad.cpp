@@ -431,6 +431,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
   std::shared_ptr<VoltageLevelInterfaceIIDM>> myTuple = createModelLoad(false, false, networkIIDM);
   std::shared_ptr<ModelLoad> load = std::get<0>(myTuple);
   std::shared_ptr<ModelVoltageLevel> vl = std::get<1>(myTuple);
+  std::shared_ptr<ModelBus> bus = std::get<2>(myTuple);
   int yNum = 0;
   std::string startingPoint = "warm";
   fillParameters(load, startingPoint);
@@ -508,7 +509,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
   }
 
   // test getY0 (bus switchoff)
-  load->getNonCstModelBus().switchOff();
+  bus->switchOff();
   load->getY0();
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[DeltaPcIdx], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[DeltaQcIdx], 0);
@@ -631,6 +632,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadJt) {
   std::shared_ptr<VoltageLevelInterfaceIIDM>> myTuple = createModelLoad(false, false, networkIIDM);
   std::shared_ptr<ModelLoad> load = std::get<0>(myTuple);
   std::shared_ptr<ModelVoltageLevel> vl = std::get<1>(myTuple);
+  std::shared_ptr<ModelBus> bus = std::get<2>(myTuple);
   std::string startingPoint = "warm";
   fillParameters(load, startingPoint);
   load->initSize();
@@ -672,7 +674,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadJt) {
   ASSERT_EQ(smj.Ap_[1], 3);
   ASSERT_EQ(smj.Ap_[2], 6);
 
-  load->getNonCstModelBus().switchOff();
+  bus->switchOff();
   SparseMatrix smj2;
   smj2.init(size, size);
   load->evalJt(1., 0, smj2);
@@ -684,7 +686,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadJt) {
   ASSERT_EQ(smj2.Ap_[0], 0);
   ASSERT_EQ(smj2.Ap_[1], 1);
 
-  load->getNonCstModelBus().switchOn();
+  bus->switchOn();
   SparseMatrix smjPrime;
   smjPrime.init(size, size);
   load->evalJtPrim(0, smjPrime);

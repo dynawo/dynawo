@@ -40,7 +40,7 @@ class ModelLoad : public NetworkComponent {
    * @param load : load data interface used to build the model
    * @param bus : bus data-interface
    */
-  explicit ModelLoad(const LoadInterface& load, const ModelBus& bus);
+  explicit ModelLoad(LoadInterface& load, ModelBus& bus);
 
   /**
    * @brief  calculated variables type
@@ -72,30 +72,12 @@ class ModelLoad : public NetworkComponent {
   }
 
   /**
-  * @brief get the load interface non const version
-  *
-  * @return the load interface
-  */
-  LoadInterface& getNonCstLoadInterface() const {
-    return const_cast<LoadInterface&>(getLoadInterface());
-  }
-
-  /**
    * @brief get the bus to which the load is connected
    *
    * @return model of the bus
    */
   const ModelBus& getModelBus() const {
     return modelBus_;
-  }
-
-  /**
-  * @brief get the bus to which the load is connected
-  *
-  * @return model of the bus
-  */
-  ModelBus& getNonCstModelBus() const {
-    return const_cast<ModelBus&>(getModelBus());
   }
 
   /**
@@ -542,8 +524,8 @@ class ModelLoad : public NetworkComponent {
   }
 
  private:
-  const LoadInterface& load_;  ///< reference to the load interface object
-  const ModelBus& modelBus_;  ///< model bus
+  LoadInterface& load_;  ///< reference to the load interface object
+  ModelBus& modelBus_;  ///< model bus
   State connectionState_;  ///< "internal" load connection status, evaluated at the end of evalZ to detect if the state was modified by another component
   bool stateModified_;  ///< true if the load connection state was modified
   double kp_;  ///< gain kp
