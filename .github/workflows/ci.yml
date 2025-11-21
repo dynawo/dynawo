@@ -225,3 +225,54 @@ jobs:
           set _error=%ERRORLEVEL%
           call \d-i\dynawo.cmd jobs nrt\data\IEEE14\IEEE14_SyntaxExamples\IEEE14_BlackBoxModels\IEEE14.jobs || echo Error while running IEEE14_BlackBoxModels job
           exit /b %_error%%ERRORLEVEL%
+
+  build-macos:
+    runs-on: macos-15-intel
+    env:
+      DYNAWO_RESULTS_SHOW: "false"
+      DYNAWO_BUILD_TYPE: "Debug"
+      DYNAWO_COMPILER: CLANG
+      DYNAWO_BOOST_HOME_DEFAULT: "false"
+      DYNAWO_NB_PROCESSORS_USED: 4
+      DYNAWO_PYTHON_COMMAND: python3
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+
+      # We need to download Dynawo to get OpenModelica include files for compilation
+      - name: Pre-requisites
+        run: |
+          brew install automake gnu-sed libxml2
+          version_major=$(grep -m1 DYNAWO_VERSION_MAJOR dynawo/CMakeLists.txt | cut -d ' ' -f2 | cut -c 1)
+          version_minor=$(grep -m1 DYNAWO_VERSION_MINOR dynawo/CMakeLists.txt | cut -d ' ' -f2 | cut -c 1)
+          version_patch=$(grep -m1 DYNAWO_VERSION_PATCH dynawo/CMakeLists.txt | cut -d ' ' -f2 | cut -c 1)
+          version="${version_major}.${version_minor}.${version_patch}"
+          curl -sLO https://github.com/dynawo/dynawo/releases/download/vMaster/Dynawo_omc_v${version}.zip
+          unzip -q Dynawo_omc_v${version}.zip
+
+      - name: Setup Docker on macOS
+        id: setup-docker
+        uses: douglascamata/setup-docker-macos-action@v1.0.2
+
+      - name: Docker version test
+        run: docker run hello-world
+
+      - name: Build
+        env:
+          DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/dynawo/dynawo/OpenModelica
+          DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/dynawo/OpenModelica/Source
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh build-minimal
+          util/envDynawo.sh build-dynawo-target LoadAlphaBeta
+          util/envDynawo.sh build-dynawo-target GeneratorSynchronousFourWindingsProportionalRegulations
+          util/envDynawo.sh build-dynawo-target GeneratorSynchronousThreeWindingsProportionalRegulations
+
+      - name: Dynawo runtime
+        env:
+          DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/dynawo/dynawo/OpenModelica
+          DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/dynawo/OpenModelica/Source
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh jobs nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_BlackBoxModels/IEEE14.jobs

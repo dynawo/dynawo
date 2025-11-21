@@ -11,6 +11,10 @@
 # Minimum required (for ExternalProject_Add)
 cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
 
+if (POLICY CMP0167)
+  cmake_policy(SET CMP0167 NEW)
+endif()
+
 set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel (CMake defaults)")
 set(BOOST_ROOT_DEFAULT "true" CACHE STRING "Enable to find boost in system path or not.")
 set(FORCE_CXX11_ABI OFF CACHE BOOL "Choose either ON or OFF.")
@@ -84,13 +88,19 @@ set(boost_version        1.70.0)
 set(boost_md5            fea771fe8176828fabf9c09242ee8c26)
 if('${CMAKE_CXX_COMPILER_ID}' STREQUAL 'GNU')
   if (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 11)
-    set(boost_version "1.73.0")
+    set(boost_version 1.73.0)
     set(boost_md5          4036cd27ef7548b8d29c30ea10956196)
   endif()
 endif()
+
+if(APPLE)
+  set(boost_version 1.83.0)
+  set(boost_md5          e9d8ddf56ec35aa926b3fae04d22b8ad)
+endif()
+
 if(MSVC)
   if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 19.44)
-    set(boost_version "1.78.0")
+    set(boost_version 1.78.0)
     set(boost_md5          c2f6428ac52b0e5a3c9b2e1d8cc832b5)
   endif()
 endif()
@@ -244,6 +254,12 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
                           -DCMAKE_BUILD_TYPE:STRING=Release
                           -DBUILD_SHARED_LIBS=ON
                           -Dgtest_force_shared_crt:BOOL=ON
+                          -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+                          -DCMAKE_MACOSX_RPATH=True
+                          -DCMAKE_SKIP_BUILD_RPATH=False
+                          -DCMAKE_BUILD_WITH_INSTALL_RPATH=False
+                          -DCMAKE_INSTALL_RPATH=<INSTALL_DIR>/lib
+                          -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=True
     )
     ExternalProject_Add(googletest_debug
             INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/googletest
@@ -263,6 +279,12 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
                                 -DCMAKE_BUILD_TYPE:STRING=Debug
                                 -DBUILD_SHARED_LIBS=ON
                                 -Dgtest_force_shared_crt:BOOL=ON
+                                -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+                                -DCMAKE_MACOSX_RPATH=True
+                                -DCMAKE_SKIP_BUILD_RPATH=False
+                                -DCMAKE_BUILD_WITH_INSTALL_RPATH=False
+                                -DCMAKE_INSTALL_RPATH=<INSTALL_DIR>/lib
+                                -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=True
     )
     ExternalProject_Get_Property(googletest install_dir)
     set(GTEST_ROOT ${install_dir} CACHE PATH "Path to GoogleTest installation" FORCE)
@@ -357,8 +379,20 @@ else()
                         -DENABLE_EXPAT=OFF
                         -DENABLE_PCREPOSIX=OFF
                         -DENABLE_CNG=OFF
+                        -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+                        -DCMAKE_MACOSX_RPATH=True
+                        -DCMAKE_SKIP_BUILD_RPATH=False
+                        -DCMAKE_BUILD_WITH_INSTALL_RPATH=False
+                        -DCMAKE_INSTALL_RPATH=<INSTALL_DIR>/lib
+                        -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=True
   )
   ExternalProject_Get_Property(libarchive install_dir)
+  if(APPLE)
+    ExternalProject_Add_Step(libarchive install-macos
+      DEPENDEES install
+      COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/libarchive/rpath.sh ${CMAKE_INSTALL_PREFIX}/libarchive
+    )
+  endif()
   set(LIBARCHIVE_HOME ${install_dir} CACHE PATH "Path to LibArchive installation" FORCE)
 endif()
 
@@ -450,6 +484,7 @@ else()
                           $<$<BOOL:${FORCE_CXX11_ABI}>:cxxflags=-D_GLIBCXX_USE_CXX11_ABI=1>
                           install
                           --prefix=<INSTALL_DIR>
+                          $<$<BOOL:${APPLE}>:toolset=clang>
                           --disable-icu variant=$<IF:$<CONFIG:Debug>,debug,release>
                           link=shared
                           stage
@@ -457,6 +492,12 @@ else()
       INSTALL_COMMAND     ""
     )
     unset(TmpVar)
+    if(APPLE)
+      ExternalProject_Add_Step(boost install-macos
+        DEPENDEES install
+        COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/boost/rpath.sh ${CMAKE_INSTALL_PREFIX}/boost
+      )
+    endif()
   endif()
   ExternalProject_Get_Property(boost install_dir)
   set(BOOST_ROOT ${install_dir} CACHE PATH "Path to Boost installation" FORCE)
@@ -472,7 +513,7 @@ if(Adept_FOUND)
   add_custom_target(adept)
   set(ADEPT_HOME ${CMAKE_INSTALL_PREFIX}/adept)
 else()
-  if(MSVC)
+  if(MSVC OR APPLE)
     ExternalProject_Add(adept
       INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/adept
       DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/adept
@@ -491,6 +532,12 @@ else()
       CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
                           -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
                           -DBUILD_SHARED_LIBS=ON
+                          -DCMAKE_MACOSX_RPATH=True
+                          -DCMAKE_SKIP_BUILD_RPATH=False
+                          -DCMAKE_BUILD_WITH_INSTALL_RPATH=False
+                          -DCMAKE_INSTALL_RPATH=<INSTALL_DIR>/lib
+                          -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=True
+                          -DCMAKE_POLICY_VERSION_MINIMUM=3.5
     )
   else()
     ExternalProject_Add(adept
@@ -548,6 +595,12 @@ else()
     CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
                         -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
                         -DBUILD_SHARED_LIBS=ON
+                        -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+                        -DCMAKE_MACOSX_RPATH=True
+                        -DCMAKE_SKIP_BUILD_RPATH=False
+                        -DCMAKE_BUILD_WITH_INSTALL_RPATH=False
+                        -DCMAKE_INSTALL_RPATH=<INSTALL_DIR>/lib
+                        -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=True
   )
   ExternalProject_Get_Property(suitesparse install_dir)
   set(SUITESPARSE_HOME ${install_dir})
@@ -594,8 +647,20 @@ else()
                         -DKLU_INCLUDE_DIR:PATH=${SUITESPARSE_HOME}/include
                         -DKLU_LIBRARY_DIR:PATH=${SUITESPARSE_HOME}/lib
                         $<$<BOOL:${MSVC}>:-DCMAKE_INSTALL_LIBDIR=bin>
+                        -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+                        -DCMAKE_MACOSX_RPATH=True
+                        -DCMAKE_SKIP_BUILD_RPATH=False
+                        -DCMAKE_BUILD_WITH_INSTALL_RPATH=False
+                        -DCMAKE_INSTALL_RPATH=<INSTALL_DIR>/lib
+                        -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=True
   )
   ExternalProject_Get_Property(sundials install_dir)
+  if(APPLE)
+    ExternalProject_Add_Step(sundials install-macos
+      DEPENDEES install
+      COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/sundials/rpath.sh ${CMAKE_INSTALL_PREFIX}/sundials
+    )
+  endif()
   set(SUNDIALS_HOME ${install_dir})
 endif()
 
@@ -603,115 +668,117 @@ endif()
 unset(OMCompiler CACHE)
 unset(OMDevPackage CACHE)
 
-find_program(OMCompiler omcDynawo${CMAKE_EXECUTABLE_SUFFIX} PATHS ${OPENMODELICA_INSTALL}/bin NO_DEFAULT_PATH)
+if(NOT APPLE)
+  find_program(OMCompiler omcDynawo${CMAKE_EXECUTABLE_SUFFIX} PATHS ${OPENMODELICA_INSTALL}/bin NO_DEFAULT_PATH)
 
-if(NOT OMCompiler)
-  GetPatchCommand(openmodelica)
+  if(NOT OMCompiler)
+    GetPatchCommand(openmodelica)
 
-  if(MSVC)
-    find_path(OMDevPackage SETUP_OMDEV.bat PATHS ${OMDEV_HOME} NO_DEFAULT_PATH)
-    if(NOT OMDevPackage)
-      ExternalProject_Add(omdev
+    if(MSVC)
+      find_path(OMDevPackage SETUP_OMDEV.bat PATHS ${OMDEV_HOME} NO_DEFAULT_PATH)
+      if(NOT OMDevPackage)
+        ExternalProject_Add(omdev
+          DOWNLOAD_DIR        ${DOWNLOAD_DIR}
+          SOURCE_DIR          ${OMDEV_HOME}
+          TMP_DIR             ${TMP_DIR}
+          STAMP_DIR           ${DOWNLOAD_DIR}/omdev-stamp
+          GIT_REPOSITORY      ${omdev_git}
+          GIT_TAG             ${omdev_tag}
+          GIT_SHALLOW         1
+          UPDATE_DISCONNECTED 1
+          BUILD_IN_SOURCE     1
+          CONFIGURE_COMMAND   ""
+          BUILD_COMMAND       ""
+          INSTALL_COMMAND     ""
+          )
+          ExternalProject_Get_Property(omdev source_dir)
+          set(OMDEV_HOME ${source_dir} CACHE PATH "Path to OMDev installation" FORCE)
+      else()
+        add_custom_target(omdev)
+      endif()
+
+      ExternalProject_Add(openmodelica
+        DEPENDS             omdev
+        INSTALL_DIR         ${OPENMODELICA_INSTALL}
         DOWNLOAD_DIR        ${DOWNLOAD_DIR}
-        SOURCE_DIR          ${OMDEV_HOME}
         TMP_DIR             ${TMP_DIR}
-        STAMP_DIR           ${DOWNLOAD_DIR}/omdev-stamp
-        GIT_REPOSITORY      ${omdev_git}
-        GIT_TAG             ${omdev_tag}
+        STAMP_DIR           ${DOWNLOAD_DIR}/openmodelica-stamp
+        SOURCE_DIR          ${OPENMODELICA_SRC}
+        GIT_REPOSITORY      ${openmodelica_git}
+        GIT_TAG             ${openmodelica_tag}
+        GIT_SUBMODULES      common;libraries;OMCompiler
         GIT_SHALLOW         1
         UPDATE_DISCONNECTED 1
+        PATCH_COMMAND       ${openmodelica_patch_common}
+        COMMAND             ${openmodelica_patch_compiler}
         BUILD_IN_SOURCE     1
-        CONFIGURE_COMMAND   ""
-        BUILD_COMMAND       ""
-        INSTALL_COMMAND     ""
-        )
-        ExternalProject_Get_Property(omdev source_dir)
-        set(OMDEV_HOME ${source_dir} CACHE PATH "Path to OMDev installation" FORCE)
+
+        # the first call to bash initialize the login profile: at this step, errors like permission denied can be ignored !
+        CONFIGURE_COMMAND   ${CMAKE_COMMAND} -E env "OMDEV=${OMDEV_HOME}" ${OMDEV_HOME}/SETUP_OMDEV.bat && ${OMDEV_HOME}/tools/msys/usr/bin/bash.exe --login -c exit
+
+        BUILD_COMMAND       ${CMAKE_COMMAND} -E env "OMDEV=${OMDEV_HOME}" "OPENMODELICAHOME=<SOURCE_DIR>" "MSYS2_PATH_TYPE=inherit" "MSYSTEM=MINGW64"
+                                                    ${OMDEV_HOME}/tools/msys/usr/bin/bash.exe
+                                                    --login -c "cd $OPENMODELICAHOME && make -f Makefile.omdev.mingw -j$CPU_COUNT omc"
+
+        INSTALL_COMMAND     ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/build <INSTALL_DIR>
+                COMMAND     ${CMAKE_COMMAND} -E copy_if_different <INSTALL_DIR>/bin/omc.exe <INSTALL_DIR>/bin/omcDynawo.exe
+                COMMAND     ${CMAKE_COMMAND} -E copy_directory ${OMDEV_HOME}/tools/msys/mingw64/bin <INSTALL_DIR>/tools/msys/mingw64/bin
+                COMMAND     ${CMAKE_COMMAND} -E copy_directory ${OMDEV_HOME}/tools/msys/mingw64/lib/gcc <INSTALL_DIR>/tools/msys/mingw64/lib/gcc
+      )
     else()
-      add_custom_target(omdev)
+      ExternalProject_Add(openmodelica
+        INSTALL_DIR         ${OPENMODELICA_INSTALL}
+        DOWNLOAD_DIR        ${DOWNLOAD_DIR}
+        TMP_DIR             ${TMP_DIR}
+        STAMP_DIR           ${DOWNLOAD_DIR}/openmodelica-stamp
+        SOURCE_DIR          ${OPENMODELICA_SRC}
+        DOWNLOAD_COMMAND    ${CMAKE_CURRENT_SOURCE_DIR}/openmodelica/checkoutOpenModelica.sh --openmodelica-version=${openmodelica_version} --openmodelica-dir=${OPENMODELICA_SRC}
+        UPDATE_DISCONNECTED 1
+        PATCH_COMMAND       ${openmodelica_patch_common}
+        COMMAND             ${openmodelica_patch_compiler}
+        BUILD_IN_SOURCE     1
+        CONFIGURE_COMMAND   make clean > /dev/null 2>&1 || echo "Fisrt checkout, no clean needed."
+                  COMMAND   autoreconf || autoupdate && autoreconf --install
+                  COMMAND   <SOURCE_DIR>/configure
+                            "CC=${CMAKE_C_COMPILER}"
+                            "CXX=${CMAKE_CXX_COMPILER}"
+                            "CXXFLAGS=-std=c++11"
+                            --prefix=<INSTALL_DIR>
+                            --disable-modelica3d
+                            --disable-omnotebook
+                            --disable-omshell-terminal
+                            --with-qwt=NO
+                            --with-omc=no
+        BUILD_COMMAND       make -j ${CPU_COUNT} omc
+        INSTALL_COMMAND     make install
+                COMMAND     cd <INSTALL_DIR>/bin && ln -s -f omc omcDynawo
+      )
     endif()
+    ExternalProject_Get_Property(openmodelica install_dir)
+    set(OPENMODELICA_INSTALL ${install_dir} CACHE PATH "Path to OpenModelica installation" FORCE)
 
-    ExternalProject_Add(openmodelica
-      DEPENDS             omdev
-      INSTALL_DIR         ${OPENMODELICA_INSTALL}
-      DOWNLOAD_DIR        ${DOWNLOAD_DIR}
+    ExternalProject_Add(modelicalib
+      INSTALL_DIR         ${OPENMODELICA_INSTALL}/lib/omlibrary
+      DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/modelicalib
       TMP_DIR             ${TMP_DIR}
-      STAMP_DIR           ${DOWNLOAD_DIR}/openmodelica-stamp
-      SOURCE_DIR          ${OPENMODELICA_SRC}
-      GIT_REPOSITORY      ${openmodelica_git}
-      GIT_TAG             ${openmodelica_tag}
-      GIT_SUBMODULES      common;libraries;OMCompiler
-      GIT_SHALLOW         1
-      UPDATE_DISCONNECTED 1
-      PATCH_COMMAND       ${openmodelica_patch_common}
-      COMMAND             ${openmodelica_patch_compiler}
+      STAMP_DIR           ${DOWNLOAD_DIR}/modelicalib-stamp
+      SOURCE_DIR          ${DOWNLOAD_DIR}/modelicalib
+      DOWNLOAD_NAME       ${modelicalib_name}
+      URL                 ${modelicalib_url}
+      URL_MD5             ${modelicalib_md5}
       BUILD_IN_SOURCE     1
 
-      # the first call to bash initialize the login profile: at this step, errors like permission denied can be ignored !
-      CONFIGURE_COMMAND   ${CMAKE_COMMAND} -E env "OMDEV=${OMDEV_HOME}" ${OMDEV_HOME}/SETUP_OMDEV.bat && ${OMDEV_HOME}/tools/msys/usr/bin/bash.exe --login -c exit
+      CONFIGURE_COMMAND   ""
+      BUILD_COMMAND       ""
 
-      BUILD_COMMAND       ${CMAKE_COMMAND} -E env "OMDEV=${OMDEV_HOME}" "OPENMODELICAHOME=<SOURCE_DIR>" "MSYS2_PATH_TYPE=inherit" "MSYSTEM=MINGW64"
-                                                  ${OMDEV_HOME}/tools/msys/usr/bin/bash.exe
-                                                  --login -c "cd $OPENMODELICAHOME && make -f Makefile.omdev.mingw -j$CPU_COUNT omc"
-
-      INSTALL_COMMAND     ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/build <INSTALL_DIR>
-              COMMAND     ${CMAKE_COMMAND} -E copy_if_different <INSTALL_DIR>/bin/omc.exe <INSTALL_DIR>/bin/omcDynawo.exe
-              COMMAND     ${CMAKE_COMMAND} -E copy_directory ${OMDEV_HOME}/tools/msys/mingw64/bin <INSTALL_DIR>/tools/msys/mingw64/bin
-              COMMAND     ${CMAKE_COMMAND} -E copy_directory ${OMDEV_HOME}/tools/msys/mingw64/lib/gcc <INSTALL_DIR>/tools/msys/mingw64/lib/gcc
+      INSTALL_COMMAND     ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/Modelica <INSTALL_DIR>/Modelica
+              COMMAND     ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/ModelicaServices <INSTALL_DIR>/ModelicaServices
+              COMMAND     ${CMAKE_COMMAND} -E copy_if_different <SOURCE_DIR>/Complex.mo <INSTALL_DIR>/Complex.mo
     )
+    ExternalProject_Add_StepDependencies(openmodelica install modelicalib)
   else()
-    ExternalProject_Add(openmodelica
-      INSTALL_DIR         ${OPENMODELICA_INSTALL}
-      DOWNLOAD_DIR        ${DOWNLOAD_DIR}
-      TMP_DIR             ${TMP_DIR}
-      STAMP_DIR           ${DOWNLOAD_DIR}/openmodelica-stamp
-      SOURCE_DIR          ${OPENMODELICA_SRC}
-      DOWNLOAD_COMMAND    ${CMAKE_CURRENT_SOURCE_DIR}/openmodelica/checkoutOpenModelica.sh --openmodelica-version=${openmodelica_version} --openmodelica-dir=${OPENMODELICA_SRC}
-      UPDATE_DISCONNECTED 1
-      PATCH_COMMAND       ${openmodelica_patch_common}
-      COMMAND             ${openmodelica_patch_compiler}
-      BUILD_IN_SOURCE     1
-      CONFIGURE_COMMAND   make clean > /dev/null 2>&1 || echo "Fisrt checkout, no clean needed."
-                COMMAND   autoreconf || autoupdate && autoreconf --install
-                COMMAND   <SOURCE_DIR>/configure
-                          "CC=${CMAKE_C_COMPILER}"
-                          "CXX=${CMAKE_CXX_COMPILER}"
-                          "CXXFLAGS=-std=c++11"
-                          --prefix=<INSTALL_DIR>
-                          --disable-modelica3d
-                          --disable-omnotebook
-                          --disable-omshell-terminal
-                          --with-qwt=NO
-                          --with-omc=no
-      BUILD_COMMAND       make -j ${CPU_COUNT} omc
-      INSTALL_COMMAND     make install
-              COMMAND     cd <INSTALL_DIR>/bin && ln -s -f omc omcDynawo
-    )
+    add_custom_target(openmodelica)
   endif()
-  ExternalProject_Get_Property(openmodelica install_dir)
-  set(OPENMODELICA_INSTALL ${install_dir} CACHE PATH "Path to OpenModelica installation" FORCE)
-
-  ExternalProject_Add(modelicalib
-    INSTALL_DIR         ${OPENMODELICA_INSTALL}/lib/omlibrary
-    DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/modelicalib
-    TMP_DIR             ${TMP_DIR}
-    STAMP_DIR           ${DOWNLOAD_DIR}/modelicalib-stamp
-    SOURCE_DIR          ${DOWNLOAD_DIR}/modelicalib
-    DOWNLOAD_NAME       ${modelicalib_name}
-    URL                 ${modelicalib_url}
-    URL_MD5             ${modelicalib_md5}
-    BUILD_IN_SOURCE     1
-
-    CONFIGURE_COMMAND   ""
-    BUILD_COMMAND       ""
-
-    INSTALL_COMMAND     ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/Modelica <INSTALL_DIR>/Modelica
-            COMMAND     ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/ModelicaServices <INSTALL_DIR>/ModelicaServices
-            COMMAND     ${CMAKE_COMMAND} -E copy_if_different <SOURCE_DIR>/Complex.mo <INSTALL_DIR>/Complex.mo
-  )
-  ExternalProject_Add_StepDependencies(openmodelica install modelicalib)
-else()
-  add_custom_target(openmodelica)
 endif()
 
 set(LIBZIP_HOME ${CMAKE_INSTALL_PREFIX}/libzip)
@@ -746,6 +813,7 @@ else()
                           $<$<BOOL:${MSVC}>:-DBOOST_LIBRARYDIR=${BOOST_ROOT}/bin>
                           -DCMAKE_PREFIX_PATH:PATH=${ZLIB_ROOT}
                           $<$<BOOL:${LIBZIP_BUILD_TESTS}>:-DGTEST_ROOT:PATH=${GTEST_ROOT}>
+                          -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   )
   ExternalProject_Get_Property(libzip install_dir)
   set(LIBZIP_HOME ${install_dir})
@@ -803,6 +871,37 @@ else()
                           -DBUILD_SHARED_LIBS=ON
                           -Dnetwork:BOOL=OFF
     )
+  elseif(APPLE)
+      ExternalProject_Add(xercesc
+              INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/xerces-c
+              DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/xercesc
+              TMP_DIR             ${TMP_DIR}
+              STAMP_DIR           ${DOWNLOAD_DIR}/xerces-c-stamp
+              SOURCE_DIR          ${DOWNLOAD_DIR}/xerces-c
+              BINARY_DIR          ${DOWNLOAD_DIR}/xerces-c-build
+              URL                 ${xercesc_url}
+              URL_MD5             ${xercesc_md5}
+              PATCH_COMMAND       ${xercesc_patch_common}
+              COMMAND             ${xercesc_patch_compiler}
+
+              CMAKE_CACHE_ARGS    -DCMAKE_C_COMPILER:STRING=${CMAKE_C_COMPILER}
+              -DCMAKE_CXX_COMPILER:STRING=${CMAKE_CXX_COMPILER}
+
+              CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
+                                  -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
+                                  -DBUILD_SHARED_LIBS:BOOL=ON
+                                  -DCMAKE_MACOSX_RPATH=True
+                                  -DCMAKE_SKIP_BUILD_RPATH=False
+                                  -DCMAKE_BUILD_WITH_INSTALL_RPATH=False
+                                  -DCMAKE_INSTALL_RPATH=<INSTALL_DIR>/lib
+                                  -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=True
+                                  -Dnetwork:BOOL=OFF
+                                  -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+      )
+      ExternalProject_Add_Step(xercesc install-macos
+        DEPENDEES install
+        COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/xercesc/rpath.sh ${CMAKE_INSTALL_PREFIX}/xerces-c ${xercesc_version}
+      )
   else()
     ExternalProject_Add(xercesc
       INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/xerces-c
@@ -862,6 +961,7 @@ else()
                           -DBOOST_ROOT:PATH=${BOOST_ROOT}
                           $<$<BOOL:${MSVC}>:-DBOOST_LIBRARYDIR=${BOOST_ROOT}/bin>
                           $<$<BOOL:${LIBXML_BUILD_TESTS}>:-DGTEST_ROOT:PATH=${GTEST_ROOT}>
+                          -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   )
   ExternalProject_Get_Property(libxml install_dir)
   set(LIBXML_HOME ${install_dir})

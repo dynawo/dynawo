@@ -199,6 +199,8 @@ VALGRIND_MASSIF)
 GDB)
   if [ "`uname`" = "Linux" ]; then
     gdb -q --args ${DYNAWO} ${ARGS}
+  elif [ "`uname`" = "Darwin" ]; then
+    lldb -- ${DYNAWO} ${ARGS}
   else
     echo "OS not supported."
     exit 1
@@ -228,6 +230,8 @@ GENERATE_PREASSEMBLED-GDB)
   if [ -x "$(command -v $GENERATE_PREASSEMBLED)" ]; then
     if [ "`uname`" = "Linux" ]; then
       gdb -q --args ${GENERATE_PREASSEMBLED} ${ARGS}
+    elif [ "`uname`" = "Darwin" ]; then
+      lldb -- ${GENERATE_PREASSEMBLED} ${ARGS}
     else
       echo "OS not supported."
       exit 1
@@ -263,6 +267,8 @@ GDB-DUMPMODEL)
   if [ -x "$(command -v $DUMPMODELBIN)" ]; then
     if [ "`uname`" = "Linux" ]; then
       gdb -q --args ${DUMPMODELBIN} ${ARGS}
+    elif [ "`uname`" = "Darwin" ]; then
+      lldb -- ${DUMPMODELBIN} ${ARGS}
     else
       echo "OS not supported."
       exit 1

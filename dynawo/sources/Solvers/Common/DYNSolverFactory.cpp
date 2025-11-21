@@ -21,6 +21,7 @@
 #include "DYNCommon.h"
 #include "DYNSolverFactory.h"
 #include "DYNMacrosMessage.h"
+#include <boost/function.hpp>
 
 using std::map;
 using std::string;
@@ -36,7 +37,7 @@ SolverFactories::SolverFactories() {}
 SolverFactories::~SolverFactories() {
   SolverFactoryIterator iter = factoryMap_.begin();
   for (; iter != factoryMap_.end(); ++iter) {
-    boost::function<deleteSolverFactory_t>& deleteFactory = factoryMapDelete_.find(iter->first)->second;
+    boost::function<void(SolverFactory*)>& deleteFactory = factoryMapDelete_.find(iter->first)->second;
 
     deleteFactory(iter->second);
   }
@@ -60,7 +61,7 @@ SolverFactories::add(const std::string& lib, SolverFactory* factory) {
   factoryMap_.insert(std::make_pair(lib, factory));
 }
 
-void SolverFactories::add(const std::string& lib, const boost::function<deleteSolverFactory_t>& deleteFactory) {
+void SolverFactories::add(const std::string& lib, const boost::function<void(SolverFactory*)>& deleteFactory) {
   factoryMapDelete_.insert(std::make_pair(lib, deleteFactory));
 }
 
@@ -76,7 +77,7 @@ SolverFactory::createSolverFromLib(const std::string& lib) {
   if (SolverFactories::getInstance().end(iter)) {
     std::string func;
     boost::function<getFactory_t> getFactory;
-    boost::function<deleteSolverFactory_t> deleteFactory;
+    boost::function<void(SolverFactory*)> deleteFactory;
 
     boost::optional<boost::filesystem::path> libPath = getLibraryPathFromName(lib);
     if (!libPath.is_initialized()) {
@@ -93,9 +94,9 @@ SolverFactory::createSolverFromLib(const std::string& lib) {
 #endif
       func = "deleteFactory";
 #if (BOOST_VERSION >= 107600)
-      deleteFactory = boost::dll::import_symbol<deleteSolverFactory_t>(*sharedLib, func.c_str());
+      deleteFactory = boost::dll::import_symbol<void(SolverFactory*)>(*sharedLib, func.c_str());
 #else
-      deleteFactory = boost::dll::import<deleteSolverFactory_t>(*sharedLib, func.c_str());
+      deleteFactory = boost::dll::import<void(SolverFactory*)>(*sharedLib, func.c_str());
 #endif
     } catch (const boost::system::system_error& e) {
       Trace::error() << "Load error :" << e.what() << Trace::endline;

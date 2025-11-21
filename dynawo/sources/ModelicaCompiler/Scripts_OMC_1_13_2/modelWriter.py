@@ -855,6 +855,9 @@ class ModelWriter(ModelWriterBase):
         if current_platform == 'Linux':
             md5sum_pipe = Popen(["md5sum",file_name],stdout = PIPE)
             check_sum = md5sum_pipe.communicate()[0].split()[0]
+        elif current_platform == 'Darwin':
+            md5sum_pipe = Popen(["md5",file_name],stdout = PIPE)
+            check_sum = md5sum_pipe.communicate()[0].split()[-1]
         elif current_platform == 'Windows':
             md5sum_pipe = Popen(["certutil", "-hashfile", file_name, "MD5"], stdin = PIPE, stdout = PIPE)
             check_sum = md5sum_pipe.communicate()[0].split(os.linesep.encode())[1]
