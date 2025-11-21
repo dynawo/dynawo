@@ -7,7 +7,7 @@
 // file, you can obtain one at http://mozilla.org/MPL/2.0/.
 // SPDX-License-Identifier: MPL-2.0
 //
-// This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+// This file is part of Dynawo, a hybrid C++/Modelica open source time domain
 // simulation tool for power systems.
 //
 
@@ -28,7 +28,7 @@
  *
  *
  * @param jobsFileName file describing the job(s) to launch
- * @param isInteractive true if simulation in interactive or real-time mode 
+ * @param isInteractive true if simulation in interactive or real-time mode
  */
 void launchSimu(const std::string& jobsFileName, bool isInteractive = false);
 
