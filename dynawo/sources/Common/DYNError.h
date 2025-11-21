@@ -58,6 +58,9 @@ class Error : public std::exception {
    */
   Error(const Error& e);
 
+  /// @brief Destructor
+  ~Error() = default;
+
   /**
    * @brief Constructor
    *
@@ -139,6 +142,9 @@ class MessageError : public std::exception {
    * @param e error to copy
    */
   MessageError(const MessageError& e);
+
+  /// @brief Destructor
+  ~MessageError() = default;
 
   /**
    * @brief Constructor

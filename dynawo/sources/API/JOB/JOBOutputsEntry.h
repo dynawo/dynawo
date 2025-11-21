@@ -44,6 +44,9 @@ class OutputsEntry {
   /// @brief Default constructor
   OutputsEntry() = default;
 
+  /// @brief Destructor
+  ~OutputsEntry() = default;
+
   /**
    * @brief Copy constructor
    * @param other original to copy

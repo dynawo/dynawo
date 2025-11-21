@@ -42,7 +42,7 @@ ModelCurrentLimits::sizeG() const {
 }
 
 int
-ModelCurrentLimits::sizeZ() {
+ModelCurrentLimits::sizeZ() const {
   return 0;
 }
 
