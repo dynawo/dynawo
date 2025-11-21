@@ -7,7 +7,7 @@
 // file, you can obtain one at http://mozilla.org/MPL/2.0/.
 // SPDX-License-Identifier: MPL-2.0
 //
-// This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+// This file is part of Dynawo, a hybrid C++/Modelica open source time domain simulation tool for power systems.
 //
 
 #include <string>
@@ -20,7 +20,7 @@ namespace DYN
 std::string
 ModelOmegaRef::getCheckSum() const
 {
-  return "d487af82d96d7fae56828ed551f5fad2-d487af82d96d7fae56828ed551f5fad2";
+  return "4c49a66bc1d3c516fc2da29988c7e0ea-4c49a66bc1d3c516fc2da29988c7e0ea";
 }
 
 }
