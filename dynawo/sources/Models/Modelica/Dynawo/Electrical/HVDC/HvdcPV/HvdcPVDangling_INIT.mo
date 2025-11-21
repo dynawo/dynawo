@@ -21,7 +21,6 @@ model HvdcPVDangling_INIT "Initialisation model of PV HVDC link with terminal 1 
 
 equation
   P1Ref0Pu = P1RefSetPu;
-  QInj10PuQNom = - s10Pu.im * SystemBase.SnRef / Q1Nom;
 
   if - Q10Pu <= Q1MinPu then
     q1Status0 = QStatus.AbsorptionMax;
@@ -29,6 +28,12 @@ equation
     q1Status0 = QStatus.GenerationMax;
   else
     q1Status0 = QStatus.Standard;
+  end if;
+
+  if UseLambda1 then
+    U10Pu + Lambda1Pu * QInj10Pu = U1Ref0Pu;
+  else
+    U1Ref0Pu = U10Pu;
   end if;
 
   annotation(preferredView = "text");
