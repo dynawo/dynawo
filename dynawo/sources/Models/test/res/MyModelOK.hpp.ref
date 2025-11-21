@@ -18,7 +18,7 @@ namespace DYN
 std::string
 ModelOmegaRef::getCheckSum() const
 {
-  return "d487af82d96d7fae56828ed551f5fad2-d0690be9c539d6b9464b1857f389ff72";
+  return "4c49a66bc1d3c516fc2da29988c7e0ea-4ae4fb58a7f5d07a44765d77a08d46af";
 }
 
 }
