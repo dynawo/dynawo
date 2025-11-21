@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="Model" variable="TEST_u"/>
+</curvesInput>

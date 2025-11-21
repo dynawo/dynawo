@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:modelicaModel id="Model">
+    <dyn:unitDynamicModel id="TEST" name="Test" moFile="Test.mo" initName="Test_INIT" initFile="Test_INIT.mo" parFile="Test.par" parId="Test"/>
+  </dyn:modelicaModel>
+</dyn:dynamicModelsArchitecture>
