@@ -62,6 +62,7 @@ InvalidAlgebraicMode        =             invalid algebraic restoration mode: %1
 UndefinedStep               =             step %1% does not exist for tap changer %2%
 NanValue                    =             error when calculating F function for model %2% (index %1%) : find a NaN (Not a Number)
 SparseMatrixWithNanInf      =             error when calculating Jacobian matrix for model %1% named %2% : find a NaN (Not a Number) or an Inf
+JacobianWrongBuild          =             error when computing Jacobian matrix for model %1% named %2% : the number of columns filled are not equal to the number of equations of the model. Some jt.changeCol() are missing, iAp %3% and numCols %4%.
 ResidualWithNanInf          =             residual is a NaN or an Inf in Model %1% (type:%2%, staticId:%3%). (Equation F[%4%]: %5%.)
 JacobianWithNanInf          =             jacobian is a NaN or an Inf in Model %1% (type:%2%, staticId:%3%). (Equation F[%4%]: %5%. Variable x[%6%])
 TooMuchSubNetwork           =             number of subNetwork to simulate (%1%) is larger than the number allowed (%2%)

@@ -23,6 +23,7 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <unordered_set>
 #include <boost/shared_ptr.hpp>
 #include "DYNEnumUtils.h"
 #include "PARParametersSet.h"
@@ -322,6 +323,27 @@ class Model {
    */
   virtual void getFInfos(int globalFIndex, std::string& subModelName, int& localFIndex, std::string& fEquation) const = 0;
 
+ /**
+  * @brief get informations about residual functions using an ignored set of equations
+  *
+  * @param globalFIndex global index of the residual functions to find
+  * @param subModelName name of the subModel who contains the residual functions
+  * @param localFIndex local index of the residual functions inside the subModel
+  * @param fEquation equation formula related to local index
+  * @param ignoreF equations to erase from the initial set of equations
+  */
+  virtual void getFInfos(int globalFIndex, std::string& subModelName, int& localFIndex,
+   std::string& fEquation, const std::unordered_set<int>& ignoreF) const = 0;
+
+
+  /**
+  * @brief get informations about equations containing a variable
+  *
+  * @param subModelName name of the subModel who contains the residual functions
+  * @param variable variable to look for in equations
+  */
+  virtual std::vector<std::string> getFInfos(const std::string& subModelName, const std::string& variable) const = 0;
+
   /**
    * @brief get informations about root functions
    *
@@ -471,6 +493,20 @@ class Model {
   virtual void printEquations() = 0;
 
   /**
+  * @brief Print all equations.
+  * @param ignoreF equations to erase from the initial set of equations
+  * @param clearLogFile to clear the equations log file
+  */
+  virtual void printEquations(const std::unordered_set<int>& ignoreF, bool clearLogFile) = 0;
+
+  /**
+  * @brief Print all equations.
+  * @param ignoreY variables to erase form the initial set of variables
+  * @param clearLogFile to clear the variables log file
+  */
+  virtual void printVariableNames(const std::unordered_set<int>& ignoreY, bool clearLogFile) = 0;
+
+  /**
   * @brief Print all parameters values
   */
   virtual void printParameterValues() const = 0;
@@ -491,6 +527,19 @@ class Model {
    * @return name of the variable
    */
   virtual std::string getVariableName(int index) = 0;
+
+  /**
+   * @brief Get a variable name from its index and using an ignored set of variables
+   *
+   * This function is intended to be used in debug mode as it allocates a lot of memory
+   * but can be called in release mode.
+   *
+   * @param index Index of the variable.
+   * @param ignoreY variables to erase form the initial set of variables
+   *
+   * @return name of the variable
+   */
+  virtual std::string getVariableName(int index, const std::unordered_set<int>& ignoreY, std::string& subModelName) const = 0;
 
   /**
    * @brief Copy the discrete variable values from the model data structure to the solver data structure

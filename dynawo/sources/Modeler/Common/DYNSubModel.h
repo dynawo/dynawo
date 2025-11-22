@@ -1377,7 +1377,7 @@ class SubModel {
    * @param index WARNING index is local index in this submodel, not global index
    * @return string of equation
    */
-  const std::string& getFequationByLocalIndex(int index) const;
+  virtual const std::string& getFequationByLocalIndex(int index) const;
 
   /**
    * @brief get root equation string for debug log
