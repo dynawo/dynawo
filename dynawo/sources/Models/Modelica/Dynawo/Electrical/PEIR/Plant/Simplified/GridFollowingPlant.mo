@@ -6,10 +6,10 @@ model GridFollowingPlant "Simplified grid following model with plant control"
   parameter Types.ApparentPowerModule SNom "Apparent nominal power in MVA";
 
   // Plant controller parameters
-  parameter Types.PerUnit AlphaPuPNom = 0"Frequency sensitivity in pu (base PNom, OmegaNom)";
-  parameter Types.PerUnit DbdPu = 0.05 "Reactive power (RefFlag = 0) or voltage (RefFlag = 1) deadband in pu (base SNom or UNom) (typical: 0..0.1)";
-  parameter Types.PerUnit EMaxPu = 99 "Maximum VAR error in pu (base UNom or SNom)";
-  parameter Types.PerUnit EMinPu = -99 "Minimum VAR error in pu (base UNom or SNom)";
+  parameter Types.PerUnit AlphaPuPNom = 0 "Frequency sensitivity in pu (base PNom, OmegaNom)";
+  parameter Types.PerUnit DbdPu = 0.05 "Reactive power deadband in pu (base SNom)";
+  parameter Types.PerUnit EMaxPu = 99 "Maximum VAR error in pu (base SNom)";
+  parameter Types.PerUnit EMinPu = -99 "Minimum VAR error in pu (base SNom)";
   parameter Types.PerUnit Ki "VAR regulator integral gain";
   parameter Types.PerUnit Kp "VAR regulator proportional gain";
   parameter Types.PerUnit LambdaPuSNom "Reactive power sensitivity of the voltage regulation in pu (base UNom, SNom)";
