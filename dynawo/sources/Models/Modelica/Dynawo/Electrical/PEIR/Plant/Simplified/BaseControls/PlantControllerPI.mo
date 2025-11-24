@@ -24,7 +24,7 @@ model PlantControllerPI "Simplified plant model with PI controller"
   parameter Types.ReactivePower QMaxRegPu "Maximum reactive power at regulated bus in pu (base SNom)";
   parameter Types.ReactivePowerPu QMinPu "Minimum plant level reactive power command in pu (base SNom)";
   parameter Types.ReactivePower QMinRegPu "Minimum reactive power at regulated bus in pu (base SNom)";
-  parameter Boolean VRegFlag "If false, QInjPu is constant, if true, QInjPu is controlled";
+  parameter Boolean VRegFlag "If false, constant injection, if true, U+lambdaQ regulation";
 
   final parameter Types.PerUnit AlphaPu = AlphaPuPNom*PNom/SNom "Frequency sensitivity in pu (base SN-+
   om, OmegaNom)";
@@ -94,9 +94,11 @@ model PlantControllerPI "Simplified plant model with PI controller"
   parameter Types.PerUnit UReg0Pu "Start value of voltage magnitude at regulated bus in pu (base UNom)";
 
   final parameter Types.PerUnit URef0Pu = UReg0Pu - LambdaPuSNom*QReg0Pu*SystemBase.SnRef/SNom "Start value of voltage setpoint for plant level control in pu (base UNom)";
+
 protected
   PStatus pStatus(start = PStatus.Standard) "Status of the power / frequency regulation function";
   QStatus qStatus(start = QStatus.Standard) "Voltage regulation status: standard, absorptionMax or generationMax";
+
 equation
   when reactiveLimits.y >= QMaxPu and pre(qStatus) <> QStatus.AbsorptionMax then
     qStatus = QStatus.AbsorptionMax;
@@ -121,6 +123,7 @@ equation
     pStatus = PStatus.Standard;
     Timeline.logEvent1(TimelineKeys.DeactivatePMAX);
   end when;
+
   connect(URefPu, UCtrlErr.u1) annotation(
     Line(points = {{-190, 100}, {-172, 100}, {-172, 86}, {-162, 86}}, color = {0, 0, 127}));
   connect(URegPu, UCtrlErr.u2) annotation(
@@ -167,6 +170,7 @@ equation
     Line(points = {{62, 80}, {78, 80}}, color = {0, 0, 127}));
   connect(limitedPI.y, switch1.u1) annotation(
     Line(points = {{102, 80}, {110, 80}, {110, 48}, {118, 48}}, color = {0, 0, 127}));
+
   annotation(
     Diagram(coordinateSystem(extent = {{-180, -140}, {160, 140}})),
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-29, 11}, extent = {{-41, 19}, {97, -41}}, textString = "PI Plant Controller")}),
