@@ -241,7 +241,7 @@ class ModelHvdcLink : public NetworkComponent {
   /**
    * @brief addBusNeighbors
    */
-  void addBusNeighbors() override { /* not needed */ }
+  void addBusNeighbors() override;
 
   /**
    * @brief get connection status
