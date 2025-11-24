@@ -121,12 +121,15 @@ class TestnrtDiffCompareTwoFiles(unittest.TestCase):
         message = message.replace("<font color=\"red\">", "")
         message = message.replace("</font>", "")
         self.maxDiff = None
-        self.assertEqual(message, "nrt_diff/test/outputIIDMPowSyblNbk.xml: 4 different output values\n\
+        self.assertEqual(message, "nrt_diff/test/outputIIDMPowSyblNbk.xml: 7 different output values\n\
 [ERROR] attribute node2 of object S1VL2_BBS1_TWT_DISCONNECTOR (type switch) value: 2 has another value on right side (value: 3)\n\
 [ERROR] attribute nodes of object S1VL2_0 (type bus) value: 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23 \
 has another value on right side (value: 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,18,19,20,21,22,23)\n\
+[ERROR] attribute tapPosition of object TWT_phaseTapChanger (type phaseTapChanger) has different values (delta = 2.0) \n\
 [ERROR] attribute v of object S1VL1_0 (type bus) has different values (delta = 1.0) \n\
-[ERROR] attribute p of object LD1 (type load) has different values (delta = 0.20000000000000284) \n")
+[ERROR] attribute p of object LD1 (type load) has different values (delta = 0.20000000000000284) \n\
+[ERROR] attribute p2 of object TWT (type twoWindingsTransformer) has different values (delta = 0.00910000000000366) \n\
+[ERROR] attribute q1 of object LINE_S2S3 (type line) has different values (delta = 0.007100000000008322) \n")
 
     def test_constraints_xml(self):
         dir_path = os.path.dirname(os.path.realpath(__file__))

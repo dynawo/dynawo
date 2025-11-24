@@ -83,7 +83,7 @@
             </iidm:vscConverterStation>
             <iidm:lccConverterStation id="LCC1" name="LCC1" lossFactor="1.1000000000000001" powerFactor="0.59999999999999998" node="21" p="80.879999999999995"/>
         </iidm:voltageLevel>
-        <iidm:twoWindingsTransformer id="TWT" r="2" x="15.744999999999999" g="0" b="3.1999999999999999e-05" ratedU1="225" ratedU2="400" node1="4" voltageLevelId1="S1VL1" node2="3" voltageLevelId2="S1VL2" p1="-80" q1="-10" p2="80.0809" q2="5.4856999999999996">
+        <iidm:twoWindingsTransformer id="TWT" r="2" x="14.744999999999999" g="0" b="3.1999999999999999e-05" ratedU1="225" ratedU2="400" node1="4" voltageLevelId1="S1VL1" node2="3" voltageLevelId2="S1VL2" p1="-80" q1="-10" p2="80.09" q2="5.4856999999999996">
             <iidm:phaseTapChanger lowTapPosition="0" tapPosition="17" regulationMode="FIXED_TAP">
                 <iidm:terminalRef id="TWT" side="ONE"/>
                 <iidm:step r="39.784730000000003" x="29.784725000000002" g="0" b="0" rho="1" alpha="-42.799999999999997"/>
@@ -189,7 +189,7 @@
             <iidm:staticVarCompensator id="SVC" bMin="-0.050000000000000003" bMax="0.050000000000000003" voltageSetpoint="400" regulationMode="VOLTAGE" node="4" q="-12.541499999999999"/>
         </iidm:voltageLevel>
     </iidm:substation>
-    <iidm:line id="LINE_S2S3" r="0.0099999990000000007" x="19.100000024" g1="0" b1="0" g2="0" b2="0" node1="6" voltageLevelId1="S2VL1" node2="2" voltageLevelId2="S3VL1" p1="109.88930000000001" q1="190.02289999999999" p2="-109.88639999999999" q2="-184.5171"/>
+    <iidm:line id="LINE_S2S3" r="0.0099999990000000007" x="19.100000024" g1="0" b1="0" g2="0" b2="0" node1="6" voltageLevelId1="S2VL1" node2="2" voltageLevelId2="S3VL1" p1="109.88930000000001" q1="190.03" p2="-109.88639999999999" q2="-184.5171"/>
     <iidm:line id="LINE_S3S4" r="0.0099999990000000007" x="13.100000024" g1="0" b1="0" g2="0" b2="0" node1="8" voltageLevelId1="S3VL1" node2="6" voltageLevelId2="S4VL1" p1="240.00360000000001" q1="2.1751" p2="-240" q2="2.5415000000000001">
         <iidm:currentLimits1 permanentLimit="931"/>
         <iidm:currentLimits2 permanentLimit="931">
@@ -197,6 +197,6 @@
             <iidm:temporaryLimit name="LD71" acceptableDuration="60"/>
         </iidm:currentLimits2>
     </iidm:line>
-    <iidm:hvdcLine id="HVDC1" name="HVDC1" r="1" nominalV="500" convertersMode="SIDE_1_RECTIFIER_SIDE_2_INVERTER" activePowerSetpoint="10" maxP="300" converterStation1="VSC1" converterStation2="VSC2"/>
+    <iidm:hvdcLine id="HVDC1" name="HVDC1" r="1" nominalV="400" convertersMode="SIDE_1_RECTIFIER_SIDE_2_INVERTER" activePowerSetpoint="10" maxP="300" converterStation1="VSC1" converterStation2="VSC2"/>
     <iidm:hvdcLine id="HVDC2" name="HVDC2" r="1" nominalV="400" convertersMode="SIDE_1_RECTIFIER_SIDE_2_INVERTER" activePowerSetpoint="80" maxP="300" converterStation1="LCC1" converterStation2="LCC2"/>
 </iidm:network>

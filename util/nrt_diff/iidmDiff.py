@@ -52,7 +52,7 @@ def getOutputIIDMInfo(filename):
                 if myObject.type == 'bus':
                     set_values(child,'v',myObject)
                     set_values(child,'angle',myObject)
-                elif myObject.type == 'generator' or myObject.type == 'load':
+                elif myObject.type == 'generator' or myObject.type == 'load' or myObject.type == 'battery':
                     set_values(child,'p',myObject)
                     set_values(child,'q',myObject)
                     set_values(child,'bus',myObject)
@@ -62,26 +62,10 @@ def getOutputIIDMInfo(filename):
                     set_values(child,'node2',myObject)
                     set_values(child,'bus1',myObject)
                     set_values(child,'bus2',myObject)
-                elif myObject.type == 'line':
-                    set_values(child,'p1',myObject)
-                    set_values(child,'q1',myObject)
-                    set_values(child,'p2',myObject)
-                    set_values(child,'q2',myObject)
-                    set_values(child,'bus1',myObject)
-                    set_values(child,'bus2',myObject)
                 elif myObject.type == 'danglineLine':
                     set_values(child,'p',myObject)
                     set_values(child,'q',myObject)
                     set_values(child,'bus',myObject)
-                elif myObject.type == 'twoWindingsTransformer':
-                    set_values(child,'p1',myObject)
-                    set_values(child,'q1',myObject)
-                    set_values(child,'p2',myObject)
-                    set_values(child,'q2',myObject)
-                    set_values(child,'bus1',myObject)
-                    set_values(child,'bus2',myObject)
-                elif myObject.type == 'ratioTapChanger' or  myObject.type == 'phaseTapChanger':
-                    set_values(child,'tapPosition',myObject)
                 elif myObject.type == 'vscConverterStation'or  myObject.type == 'lccConverterStation':
                     set_values(child,'p',myObject)
                     set_values(child,'q',myObject)
@@ -106,6 +90,38 @@ def getOutputIIDMInfo(filename):
                 set_values(child,'angle',myObject)
                 set_values(child, 'nodes', myObject) # will compare the raw list of nodes indexes
                 IIDM_objects_byID[nodeBusId] = myObject
+    for line in XMLUtils.FindAll(iidm_root, prefix, "line", ns):
+         if 'id' in line.attrib:
+            myId = line.attrib['id']
+            myObject = IIDMobject(myId)
+            myObject.type = line.tag.replace("{"+ns[prefix]+"}", "")
+            set_values(line,'p1',myObject)
+            set_values(line,'q1',myObject)
+            set_values(line,'p2',myObject)
+            set_values(line,'q2',myObject)
+            set_values(line,'bus1',myObject)
+            set_values(line,'bus2',myObject)
+            IIDM_objects_byID[myId] = myObject
+    for twoWT in XMLUtils.FindAll(iidm_root, prefix, "twoWindingsTransformer", ns):
+        if 'id' in twoWT.attrib:
+            myId = twoWT.attrib['id']
+            myObject = IIDMobject(myId)
+            myObject.type = twoWT.tag.replace("{"+ns[prefix]+"}", "")
+            set_values(twoWT,'p1',myObject)
+            set_values(twoWT,'q1',myObject)
+            set_values(twoWT,'p2',myObject)
+            set_values(twoWT,'q2',myObject)
+            set_values(twoWT,'bus1',myObject)
+            set_values(twoWT,'bus2',myObject)
+            IIDM_objects_byID[myId] = myObject
+            for tapChanger in XMLUtils.FindAllWithAttribute(twoWT, "tapPosition"):
+                tapChangerType = tapChanger.tag.replace("{"+ns[prefix]+"}", "")
+                if tapChangerType == 'ratioTapChanger' or  tapChangerType == 'phaseTapChanger':
+                    tapChangerId = myId + "_" + tapChangerType
+                    tapChangerObject = IIDMobject(tapChangerId)
+                    tapChangerObject.type = tapChangerType
+                    set_values(tapChanger,'tapPosition',tapChangerObject)
+                    IIDM_objects_byID[tapChangerId] = tapChangerObject
     return IIDM_objects_byID
 
 # Check whether two output IIDM values files are close enough
