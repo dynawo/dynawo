@@ -130,10 +130,11 @@ class DelayManager {
   * @brief evaluate modes for delays
   *
   * @param time local time
+  * @param modelName name of the model containing the delay
   *
   * @return mode change type value
   */
-  modeChangeType_t evalMode(double time);
+  modeChangeType_t evalMode(double time, const std::string& modelName);
 
   /**
    * @brief Trigger delay

@@ -17,9 +17,15 @@ LimiterAtCurrentValueWithLag_INIT
 LimiterWithLag
 LimiterWithLag_INIT
 LimRateLimFirstOrder
+Max2
+Max3
 MaxThresholdSwitch
+Min2
+Min3
 MinThresholdSwitch
 MultiSwitch
+MultiSwitchFixed
+MultiSwitchVariable
 PIAntiWindUpTable
 PulseFixedDuration
 PulseMinimumDuration

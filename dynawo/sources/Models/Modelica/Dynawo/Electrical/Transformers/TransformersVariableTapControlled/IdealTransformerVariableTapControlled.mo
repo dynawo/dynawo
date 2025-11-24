@@ -38,6 +38,7 @@ model IdealTransformerVariableTapControlled
   parameter Types.VoltageModule U0 "Initial voltage";
   parameter Types.VoltageModule UDeadBand(min = 0) "Voltage dead-band";
   parameter Types.VoltageModule UTarget "Voltage set-point";
+  parameter Types.VoltageModule UNom = 1 "Nominal voltage in kV";
 
   // Transformer parameters
   parameter Types.PerUnit rTfoMinPu "Minimum transformation ratio in pu: U2/U1 in no load conditions";
@@ -55,7 +56,7 @@ model IdealTransformerVariableTapControlled
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Tap Changer
-  Dynawo.Electrical.Controls.Transformers.TapChanger tapChanger(U0 = U0, UDeadBand = UDeadBand, UTarget = UTarget, increaseTapToIncreaseValue = increaseTapToIncreaseValue, regulating0 = regulating0, state0 = state0, t1st = t1st, tNext = tNext, tap0 = Tap0, tapMax = tapMax, tapMin = tapMin)  annotation(
+  Dynawo.Electrical.Controls.Transformers.TapChanger tapChanger(U0 = U0, UDeadBand = UDeadBand, UTarget = UTarget, increaseTapToIncreaseValue = increaseTapToIncreaseValue, regulating0 = regulating0, state0 = state0, t1st = t1st, tNext = tNext, tap0 = Tap0, tapMax = tapMax, tapMin = tapMin, UNom = UNom)  annotation(
     Placement(visible = true, transformation(origin = {0, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Boolean locked(start = tapChanger.locked0) "Whether the tap-changer is locked";

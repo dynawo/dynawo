@@ -80,11 +80,23 @@ JsonExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& const
         case ConstraintData::USupUmax:
           item.put("kind", "USupUmax");
           break;
+        case ConstraintData::FictLim:
+          item.put("kind", "Fictitious");
+          break;
         case ConstraintData::Undefined:
           break;
       }
       item.put("limit", data->limit);
       item.put("value", data->value);
+
+      boost::optional<double> valueMin = data->valueMin;
+      if (valueMin)
+        item.put("valueMin", valueMin.value());
+
+      boost::optional<double> valueMax = data->valueMax;
+      if (valueMax)
+        item.put("valueMax", valueMax.value());
+
       boost::optional<int> side = data->side;
       if (side) {
         item.put("side", side.value());

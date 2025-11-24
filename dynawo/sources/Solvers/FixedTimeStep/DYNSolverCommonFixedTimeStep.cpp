@@ -262,7 +262,6 @@ bool
 SolverCommonFixedTimeStep::calculateICCommonModeChange(int& counter, bool& change) {
   // Updating discrete variable values and mode
   model_->evalG(tSolve_, g1_);
-  const modeChangeType_t modeChangeType = model_->getModeChangeType();
   if (std::equal(g0_.begin(), g0_.end(), g1_.begin())) {
     return true;
   } else {
@@ -273,6 +272,7 @@ SolverCommonFixedTimeStep::calculateICCommonModeChange(int& counter, bool& chang
     change = evalZMode(g0_, g1_, tSolve_);
   }
 
+  const modeChangeType_t modeChangeType = model_->getModeChangeType();
   model_->rotateBuffers();
   state_.reset();
   model_->reinitMode();

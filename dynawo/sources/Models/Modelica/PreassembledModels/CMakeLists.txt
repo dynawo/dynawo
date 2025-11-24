@@ -102,6 +102,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousFourWindingsVRKundurPssKundur.xml
   GeneratorSynchronousProportionalRegulationsInternalParameters.xml
   GeneratorSynchronousThreeWindings.xml
+  GeneratorSynchronousThreeWindingsDTRI8.xml
   GeneratorSynchronousThreeWindingsGoverNordicVRNordic.xml
   GeneratorSynchronousThreeWindingsGoverNordicVRNordicTfo.xml
   GeneratorSynchronousThreeWindingsGoverPropVRPropInt.xml

@@ -252,9 +252,9 @@ model GovCt2 "Governor type GovCT2"
     Placement(visible = true, transformation(origin = {28, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.VariableLimiter limitValveMaxValveMin(homotopyType = Modelica.Blocks.Types.VariableLimiterHomotopy.NoHomotopy, strict = false) annotation(
     Placement(visible = true, transformation(origin = {130, -88}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Min minLowValueSelect annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Min2 minLowValueSelect annotation(
     Placement(visible = true, transformation(origin = {72, -22}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Min minLowValueSelect2 annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Min2 minLowValueSelect2 annotation(
     Placement(visible = true, transformation(origin = {69, -87}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch(nu = 4) annotation(
     Placement(visible = true, transformation(origin = {-172, -158}, extent = {{-6, -6}, {6, 6}}, rotation = 90)));
@@ -278,9 +278,9 @@ model GovCt2 "Governor type GovCT2"
     Placement(visible = true, transformation(origin = {272, -126}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
   Modelica.Blocks.Tables.CombiTable1Ds tablePLimFromf(extrapolation = Modelica.Blocks.Types.Extrapolation.LastTwoPoints, smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments, table = PLimFromfPoints, tableOnFile = false, verboseRead = false) annotation(
     Placement(visible = true, transformation(origin = {138, 38}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunctCtB(a = {tB, 1}, b = {tC, 1}, x_start = {initPMechNoLossPu}, y_start = initPMechNoLossPu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunctCtB(a = {tB, 1}, b = {tC, 1}, initType = Modelica.Blocks.Types.Init.SteadyState, u_start = initPMechNoLossPu) annotation(
     Placement(visible = true, transformation(origin = {254, 106}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunctSAtSB(a = {tSB, 1}, b = {tSA, 1}, x_start = {initTexPu}, y_start = initTexPu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunctSAtSB(a = {tSB, 1}, b = {tSA, 1}, initType = Modelica.Blocks.Types.Init.SteadyState, u_start = initTexPu) annotation(
     Placement(visible = true, transformation(origin = {80, 114}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   // Initial parameters

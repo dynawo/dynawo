@@ -34,6 +34,8 @@
 
 #include <iomanip>
 
+#include <DYNTimer.h>
+
 #include "DYNCommon.h"
 #include "DYNModelRatioTapChanger.h"
 #include "DYNModelPhaseTapChanger.h"
@@ -243,12 +245,20 @@ modelType_("TwoWindingsTransformer") {
     // Due to IIDM convention
     if (cLimit1[0]->getLimit() < maximumValueCurrentLimit) {
       const double limit = cLimit1[0]->getLimit() / factorPuToASide1_;
-      currentLimits1_->addLimit(limit, cLimit1[0]->getAcceptableDuration());
+      currentLimits1_->addLimit(limit, cLimit1[0]->getAcceptableDuration(), false);
     }
     for (unsigned int i = 1; i < cLimit1.size(); ++i) {
       if (cLimit1[i-1]->getLimit() < maximumValueCurrentLimit) {
+        if (cLimit1[i-1]->isFictitious()) continue;
         const double limit = cLimit1[i-1]->getLimit() / factorPuToASide1_;
-        currentLimits1_->addLimit(limit, cLimit1[i]->getAcceptableDuration());
+        currentLimits1_->addLimit(limit, cLimit1[i]->getAcceptableDuration(), false);
+      }
+    }
+    for (unsigned int i = 1; i < cLimit1.size(); ++i) {
+      if (!cLimit1[i]->isFictitious()) continue;
+      if (cLimit1[i]->getLimit() < maximumValueCurrentLimit) {
+        const double limit = cLimit1[i]->getLimit() / factorPuToASide1_;
+        currentLimits1_->addLimit(limit, cLimit1[i]->getAcceptableDuration(), true);
       }
     }
   }
@@ -262,12 +272,20 @@ modelType_("TwoWindingsTransformer") {
     // Due to IIDM convention
     if (cLimit2[0]->getLimit() < maximumValueCurrentLimit) {
       const double limit = cLimit2[0]->getLimit() / factorPuToASide2_;
-      currentLimits2_->addLimit(limit, cLimit2[0]->getAcceptableDuration());
+      currentLimits2_->addLimit(limit, cLimit2[0]->getAcceptableDuration(), false);
     }
     for (unsigned int i = 1; i < cLimit2.size(); ++i) {
+      if (cLimit2[i-1]->isFictitious()) continue;
       if (cLimit2[i-1]->getLimit() < maximumValueCurrentLimit) {
         const double limit = cLimit2[i-1]->getLimit() / factorPuToASide2_;
-        currentLimits2_->addLimit(limit, cLimit2[i]->getAcceptableDuration());
+        currentLimits2_->addLimit(limit, cLimit2[i]->getAcceptableDuration(), false);
+      }
+    }
+    for (unsigned int i = 1; i < cLimit2.size(); ++i) {
+      if (!cLimit2[i]->isFictitious()) continue;
+      if (cLimit2[i]->getLimit() < maximumValueCurrentLimit) {
+        const double limit = cLimit2[i]->getLimit() / factorPuToASide2_;
+        currentLimits2_->addLimit(limit, cLimit2[i]->getAcceptableDuration(), true);
       }
     }
   }
@@ -872,47 +890,55 @@ ModelTwoWindingsTransformer::evalF(propertyF_t /*type*/) {
 
 void
 ModelTwoWindingsTransformer::evalDerivatives(const double /*cj*/) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer3("ModelNetwork::ModelTwoWindingsTransformer::evalDerivatives");
+#endif
   switch (knownBus_) {
     case BUS1_BUS2: {
       const int ur1YNum = modelBus1_->urYNum();
       const int ui1YNum = modelBus1_->uiYNum();
       const int ur2YNum = modelBus2_->urYNum();
       const int ui2YNum = modelBus2_->uiYNum();
-      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUr1_);
-      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ui1YNum, ir1_dUi1_);
-      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ur1YNum, ii1_dUr1_);
-      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ui1YNum, ii1_dUi1_);
-      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ur2YNum, ir1_dUr2_);
-      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ui2YNum, ir1_dUi2_);
-      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ur2YNum, ii1_dUr2_);
-      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ui2YNum, ii1_dUi2_);
+      auto& derivatives1 = modelBus1_->derivatives();
+      auto& derivatives2 = modelBus2_->derivatives();
 
-      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ur2YNum, ir2_dUr2_);
-      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ui2YNum, ir2_dUi2_);
-      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ur2YNum, ii2_dUr2_);
-      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ui2YNum, ii2_dUi2_);
-      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ur1YNum, ir2_dUr1_);
-      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ui1YNum, ir2_dUi1_);
-      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ur1YNum, ii2_dUr1_);
-      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ui1YNum, ii2_dUi1_);
+      derivatives1->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUr1_);
+      derivatives1->addDerivative(IR_DERIVATIVE, ui1YNum, ir1_dUi1_);
+      derivatives1->addDerivative(II_DERIVATIVE, ur1YNum, ii1_dUr1_);
+      derivatives1->addDerivative(II_DERIVATIVE, ui1YNum, ii1_dUi1_);
+      derivatives1->addDerivative(IR_DERIVATIVE, ur2YNum, ir1_dUr2_);
+      derivatives1->addDerivative(IR_DERIVATIVE, ui2YNum, ir1_dUi2_);
+      derivatives1->addDerivative(II_DERIVATIVE, ur2YNum, ii1_dUr2_);
+      derivatives1->addDerivative(II_DERIVATIVE, ui2YNum, ii1_dUi2_);
+
+      derivatives2->addDerivative(IR_DERIVATIVE, ur2YNum, ir2_dUr2_);
+      derivatives2->addDerivative(IR_DERIVATIVE, ui2YNum, ir2_dUi2_);
+      derivatives2->addDerivative(II_DERIVATIVE, ur2YNum, ii2_dUr2_);
+      derivatives2->addDerivative(II_DERIVATIVE, ui2YNum, ii2_dUi2_);
+      derivatives2->addDerivative(IR_DERIVATIVE, ur1YNum, ir2_dUr1_);
+      derivatives2->addDerivative(IR_DERIVATIVE, ui1YNum, ir2_dUi1_);
+      derivatives2->addDerivative(II_DERIVATIVE, ur1YNum, ii2_dUr1_);
+      derivatives2->addDerivative(II_DERIVATIVE, ui1YNum, ii2_dUi1_);
       break;
     }
     case BUS1: {
       const int ur1YNum = modelBus1_->urYNum();
       const int ui1YNum = modelBus1_->uiYNum();
-      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUr1_);
-      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ui1YNum, ir1_dUi1_);
-      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ur1YNum, ii1_dUr1_);
-      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ui1YNum, ii1_dUi1_);
+      auto& derivatives1 = modelBus1_->derivatives();
+      derivatives1->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUr1_);
+      derivatives1->addDerivative(IR_DERIVATIVE, ui1YNum, ir1_dUi1_);
+      derivatives1->addDerivative(II_DERIVATIVE, ur1YNum, ii1_dUr1_);
+      derivatives1->addDerivative(II_DERIVATIVE, ui1YNum, ii1_dUi1_);
       break;
     }
     case BUS2: {
       const int ur2YNum = modelBus2_->urYNum();
       const int ui2YNum = modelBus2_->uiYNum();
-      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ur2YNum, ir2_dUr2_);
-      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ui2YNum, ir2_dUi2_);
-      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ur2YNum, ii2_dUr2_);
-      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ui2YNum, ii2_dUi2_);
+      auto& derivatives2 = modelBus2_->derivatives();
+      derivatives2->addDerivative(IR_DERIVATIVE, ur2YNum, ir2_dUr2_);
+      derivatives2->addDerivative(IR_DERIVATIVE, ui2YNum, ir2_dUi2_);
+      derivatives2->addDerivative(II_DERIVATIVE, ur2YNum, ii2_dUr2_);
+      derivatives2->addDerivative(II_DERIVATIVE, ui2YNum, ii2_dUi2_);
       break;
     }
   }

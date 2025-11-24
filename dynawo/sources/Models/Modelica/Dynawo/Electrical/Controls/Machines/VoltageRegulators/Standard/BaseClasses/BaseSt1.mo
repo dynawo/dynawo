@@ -57,7 +57,7 @@ partial model BaseSt1 "IEEE excitation system type ST1 base model"
 
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tR, y_start = Us0Pu) annotation(
     Placement(visible = true, transformation(origin = {-370, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction1(a = {tB, 1}, b = {tC, 1}, x_start = {Va0Pu / Ka}, y_start = Va0Pu / Ka) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction1(a = {tB, 1}, b = {tC, 1}, initType = Modelica.Blocks.Types.Init.SteadyState, u_start = Va0Pu / Ka) annotation(
     Placement(visible = true, transformation(origin = {10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-200, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -65,7 +65,7 @@ partial model BaseSt1 "IEEE excitation system type ST1 base model"
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Derivative derivative(k = Kf, T = tF, x_start = Efd0Pu) annotation(
     Placement(visible = true, transformation(origin = {-150, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {tB1, 1}, b = {tC1, 1}, x_start = {Va0Pu / Ka}, y_start = Va0Pu / Ka) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {tB1, 1}, b = {tC1, 1}, initType = Modelica.Blocks.Types.Init.SteadyState, u_start = Va0Pu / Ka) annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = ViMaxPu, uMin = ViMinPu) annotation(
     Placement(visible = true, transformation(origin = {-150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -79,7 +79,7 @@ partial model BaseSt1 "IEEE excitation system type ST1 base model"
     Placement(visible = true, transformation(origin = {140, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Math.Add3 add3(k3 = -1) annotation(
     Placement(visible = true, transformation(origin = {-310, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter(homotopyType = Modelica.Blocks.Types.VariableLimiterHomotopy.NoHomotopy) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.VariableLimiter variableLimiter annotation(
     Placement(visible = true, transformation(origin = {390, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = VrMaxPu) annotation(
     Placement(visible = true, transformation(origin = {250, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -89,15 +89,15 @@ partial model BaseSt1 "IEEE excitation system type ST1 base model"
     Placement(visible = true, transformation(origin = {310, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Sum sum1(nin = 4) annotation(
     Placement(visible = true, transformation(origin = {-250, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax max1(nu = 3) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Max3 max1 annotation(
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add1 annotation(
     Placement(visible = true, transformation(origin = {190, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax max2(nu = 3) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Max3 max2 annotation(
     Placement(visible = true, transformation(origin = {250, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax min2(nu = 3) annotation(
-    Placement(visible = true, transformation(origin = {310, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Max max3 annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Min3 min2 annotation(
+    Placement(visible = true, transformation(origin = {310, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.Max2 max3 annotation(
     Placement(visible = true, transformation(origin = {-90, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const1(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-150, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -188,13 +188,13 @@ equation
     Line(points = {{-239, 0}, {-209, 0}}, color = {0, 0, 127}));
   connect(limiter.y, max1.u[1]) annotation(
     Line(points = {{-139, 0}, {-101, 0}}, color = {0, 0, 127}));
-  connect(max2.yMax, min2.u[1]) annotation(
-    Line(points = {{262, 6}, {300, 6}}, color = {0, 0, 127}));
-  connect(min2.yMin, derivative.u) annotation(
+  connect(max2.y, min2.u[1]) annotation(
+    Line(points = {{262, 0}, {300, 0}}, color = {0, 0, 127}));
+  connect(min2.y, derivative.u) annotation(
     Line(points = {{322, 0}, {340, 0}, {340, -40}, {-138, -40}}, color = {0, 0, 127}));
   connect(add1.y, max2.u[1]) annotation(
     Line(points = {{202, 20}, {220, 20}, {220, 0}, {240, 0}}, color = {0, 0, 127}));
-  connect(min2.yMin, variableLimiter.u) annotation(
+  connect(min2.y, variableLimiter.u) annotation(
     Line(points = {{322, 0}, {378, 0}}, color = {0, 0, 127}));
   connect(add.y, max3.u1) annotation(
     Line(points = {{-298, 160}, {-120, 160}, {-120, 146}, {-102, 146}}, color = {0, 0, 127}));

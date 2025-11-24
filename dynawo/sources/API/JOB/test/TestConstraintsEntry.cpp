@@ -31,11 +31,11 @@ TEST(APIJOBTest, testConstraintsEntry) {
 
   constraints->setOutputFile("/tmp/exportFile.txt");
   constraints->setExportMode("TXT");
-  constraints->setFilterType(DYN::CONSTRAINTS_KEEP_LAST);
+  constraints->setFilterType(DYN::CONSTRAINTS_DYNAFLOW);
 
   ASSERT_EQ(constraints->getOutputFile(), "/tmp/exportFile.txt");
   ASSERT_EQ(constraints->getExportMode(), "TXT");
-  ASSERT_EQ(constraints->getFilterType(), DYN::CONSTRAINTS_KEEP_LAST);
+  ASSERT_EQ(constraints->getFilterType(), DYN::CONSTRAINTS_DYNAFLOW);
 }
 
 }  // namespace job

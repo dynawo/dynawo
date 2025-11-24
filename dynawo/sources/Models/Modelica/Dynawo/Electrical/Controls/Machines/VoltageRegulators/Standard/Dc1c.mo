@@ -31,8 +31,8 @@ model Dc1c "IEEE excitation system type DC1C model (2016 standard)"
 
   Modelica.Blocks.Continuous.LimIntegrator limIntegrator(k = 1 / tE, outMax = 999, outMin = EfdMinPu, y_start = Efd0Pu) annotation(
     Placement(visible = true, transformation(origin = {190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax min1(nu = 3) annotation(
-    Placement(visible = true, transformation(origin = {10, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.Min3 min1 annotation(
+    Placement(visible = true, transformation(origin = {10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters (inputs)
   parameter Types.VoltageModulePu UOel0Pu "Overexcitation limitation initial output voltage in pu (base UNom)";
@@ -75,9 +75,9 @@ equation
     Line(points = {{202, 0}, {280, 0}, {280, -40}, {262, -40}}, color = {0, 0, 127}));
   connect(limIntegrator.y, product.u2) annotation(
     Line(points = {{202, 0}, {280, 0}, {280, -100}, {160, -100}, {160, -86}, {142, -86}}, color = {0, 0, 127}));
-  connect(max1.yMax, min1.u[1]) annotation(
-    Line(points = {{-19, 6}, {0, 6}}, color = {0, 0, 127}));
-  connect(min1.yMin, limitedFirstOrder.u) annotation(
+  connect(max1.y, min1.u[1]) annotation(
+    Line(points = {{-19, 0}, {0, 0}}, color = {0, 0, 127}));
+  connect(min1.y, limitedFirstOrder.u) annotation(
     Line(points = {{21, 0}, {37, 0}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram");

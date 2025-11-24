@@ -128,7 +128,8 @@ where [option] can be:"
         generate-preassembled-gdb             generate a preassembled model with debugger
         dump-model-gdb                        dump model with debugger
         dump-model-valgrind                   dump model with valgrind
-        compileCppModelicaModelInDynamicLib   compile Modelica Model generated for Dynawo"
+        compileCppModelicaModelInDynamicLib   compile Modelica Model generated for Dynawo
+        update-xml                            update dynawo input files for a new version. See README in util/updateXML/content."
 
   export_var_env DYNAWO_DOCUMENTATION_OPTIONS="    =========== Dynawo Documentation
         =========== Launch
@@ -820,6 +821,10 @@ config_dynawo() {
   fi
   if [ $DYNAWO_FORCE_CXX11_ABI = true ]; then
     CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DFORCE_CXX11_ABI=$DYNAWO_FORCE_CXX11_ABI"
+  fi
+
+  if [ -n "$DYNAWO_ZMQPP_HOME" ]; then
+    CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DZMQPP_HOME=$DYNAWO_ZMQPP_HOME"
   fi
 
   cmake -DCMAKE_C_COMPILER:PATH=$DYNAWO_C_COMPILER \
@@ -1673,6 +1678,10 @@ nrt_xsl() {
 
 nrt_update() {
   $DYNAWO_PYTHON_COMMAND $DYNAWO_HOME/util/updateXML/content/updateDynawoNRT/updateDynawoNRT.py $@
+}
+
+update_xml() {
+  $DYNAWO_PYTHON_COMMAND $DYNAWO_HOME/util/updateXML/update.py $@
 }
 
 check_coding_files() {
@@ -2571,6 +2580,10 @@ case $MODE in
     jobs_with_curves ${ARGS} || error_exit "Dynawo job with curves failed"
     ;;
 
+  jobs-interactive)
+    launch_jobs --interactive ${ARGS} || error_exit "Dynawo interactive simulation failed"
+    ;;
+
   list-models)
     list_models || error_exit "Error during the display of models list"
     ;;
@@ -2633,6 +2646,10 @@ case $MODE in
 
   unittest-gdb)
     unittest_gdb ${ARGS} || error_exit "Error during the run unittest in gdb"
+    ;;
+
+  update-xml)
+    update_xml ${ARGS} || error_exit "Error during update xml"
     ;;
 
   version)

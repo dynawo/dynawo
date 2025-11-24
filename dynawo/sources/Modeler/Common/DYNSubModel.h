@@ -1353,6 +1353,25 @@ class SubModel {
   }
 
   /**
+   * @brief Set updatable capability
+   *
+   * @param isUpdatable bool indicating the model is updatable or is connected to an updatable model
+   *
+   */
+  inline void setIsUpdatable(bool isUpdatable) {
+    isUpdatable_ = isUpdatable;
+  }
+
+  /**
+  * @brief Get updatable capability
+  *
+  * @return bool indicating if model needs to be initializated using connected variable
+  */
+  inline bool getIsUpdatable() const {
+    return isUpdatable_;
+  }
+
+  /**
    * @brief get equation string for debug log
    *
    * @param index WARNING index is local index in this submodel, not global index
@@ -1392,12 +1411,6 @@ class SubModel {
    * @param found @b true if the parameter exist, @b false else
    */
   virtual void getInitSubModelParameterValue(const std::string & nameParameter, std::string& value, bool& found) const;
-
-  /**
-   * @brief get index of this submodel in the global continuous variable table
-   * @return index of this submodel in the global continuous variable table
-   */
-  int getOffsetY() const { return offsetY_; }
 
  protected:
   /**
@@ -1552,7 +1565,6 @@ class SubModel {
   double* fLocal_;  ///< local buffer to fill when calculating residual functions
   state_g* gLocal_;  ///< local buffer to fill when calculating root functions
   double* yLocal_;  ///< local buffer to use when accessing continuous variables
-  unsigned int offsetY_;  ///< index in the global variable table
   double* ypLocal_;  ///< local buffer to use when accessing derivatives of continuous variables
   double* zLocal_;  ///< local buffer to use when accessing discrete variables
   bool* zLocalConnected_;  ///< table to know whether a discrete var is connected or not
@@ -1591,6 +1603,7 @@ class SubModel {
   std::map<int, std::string> gEquationInitIndex_;  ///< for DEBUG log, map of index of root equation and root equation in string  for init model
 
   std::shared_ptr<parameters::ParametersSet> localInitParameters_;  ///< local initialization solver parameters set
+
 
  private:
   unsigned int sizeFSave_;  ///< save of the size of F
@@ -1640,6 +1653,8 @@ class SubModel {
   std::string workingDirectory_;  ///< Working directory of the simulation (configuration of the simulation)
 
   bool isInitProcess_;  ///< whether the init process (or the standard dynamic simulation) is running
+
+  bool isUpdatable_;   ///< indicate if subModel is an updatable model (or connector to updatable model)
 };
 
 }  // namespace DYN

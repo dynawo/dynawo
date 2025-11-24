@@ -98,12 +98,20 @@ modelType_("DanglingLine")  {
     // Due to IIDM convention
     if (cLimit[0]->getLimit() < maximumValueCurrentLimit) {
       double limit = cLimit[0]->getLimit() / factorPuToA;
-      currentLimits_->addLimit(limit, cLimit[0]->getAcceptableDuration());
+      currentLimits_->addLimit(limit, cLimit[0]->getAcceptableDuration(), false);
     }
     for (unsigned int i = 1; i < cLimit.size(); ++i) {
+      if (cLimit[i]->isFictitious()) continue;
       if (cLimit[i-1]->getLimit() < maximumValueCurrentLimit) {
         double limit = cLimit[i-1]->getLimit() / factorPuToA;
-        currentLimits_->addLimit(limit, cLimit[i]->getAcceptableDuration());
+        currentLimits_->addLimit(limit, cLimit[i]->getAcceptableDuration(), false);
+      }
+    }
+    for (unsigned int i = 1; i < cLimit.size(); ++i) {
+      if (!cLimit[i]->isFictitious()) continue;
+      if (cLimit[i]->getLimit() < maximumValueCurrentLimit) {
+        double limit = cLimit[i]->getLimit() / factorPuToA;
+        currentLimits_->addLimit(limit, cLimit[i]->getAcceptableDuration(), true);
       }
     }
   }
@@ -550,14 +558,15 @@ ModelDanglingLine::evalDerivatives(const double /*cj*/) {
 
   // jacobian for sum current for node
   if (connectionState_ == CLOSED) {
-    modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUr_);
-    modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, ui1YNum, ir1_dUi_);
-    modelBus_->derivatives()->addDerivative(II_DERIVATIVE, ur1YNum, ii1_dUr_);
-    modelBus_->derivatives()->addDerivative(II_DERIVATIVE, ui1YNum, ii1_dUi_);
-    modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, ur2YNum, ir1_dUrFict_);
-    modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, ui2YNum, ir1_dUiFict_);
-    modelBus_->derivatives()->addDerivative(II_DERIVATIVE, ur2YNum, ii1_dUrFict_);
-    modelBus_->derivatives()->addDerivative(II_DERIVATIVE, ui2YNum, ii1_dUiFict_);
+    auto& derivatives = modelBus_->derivatives();
+    derivatives->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUr_);
+    derivatives->addDerivative(IR_DERIVATIVE, ui1YNum, ir1_dUi_);
+    derivatives->addDerivative(II_DERIVATIVE, ur1YNum, ii1_dUr_);
+    derivatives->addDerivative(II_DERIVATIVE, ui1YNum, ii1_dUi_);
+    derivatives->addDerivative(IR_DERIVATIVE, ur2YNum, ir1_dUrFict_);
+    derivatives->addDerivative(IR_DERIVATIVE, ui2YNum, ir1_dUiFict_);
+    derivatives->addDerivative(II_DERIVATIVE, ur2YNum, ii1_dUrFict_);
+    derivatives->addDerivative(II_DERIVATIVE, ui2YNum, ii1_dUiFict_);
   }
 }
 

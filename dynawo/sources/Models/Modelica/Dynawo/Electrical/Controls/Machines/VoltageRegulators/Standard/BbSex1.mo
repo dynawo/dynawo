@@ -45,7 +45,7 @@ model BbSex1 "Model of exciter BBSEX1"
 
   Modelica.Blocks.Math.Sum sum1(k = {1, 1, 1, 1, -1}, nin = 5) annotation(
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {t4 , 1}, b = {t3 , 1}, x_start = {Efd0Pu / K}, y_start = Efd0Pu / K) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {t4 , 1}, b = {t3 , 1}, initType = Modelica.Blocks.Types.Init.SteadyState, u_start = Efd0Pu / K) annotation(
     Placement(visible = true, transformation(origin = {-50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k =  t2 / t1) annotation(
     Placement(visible = true, transformation(origin = {50, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -57,7 +57,7 @@ model BbSex1 "Model of exciter BBSEX1"
     Placement(visible = true, transformation(origin = {50, -60}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T = t2, y_start = Efd0Pu) annotation(
     Placement(visible = true, transformation(origin = {90, -60}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter(homotopyType = Modelica.Blocks.Types.VariableLimiterHomotopy.NoHomotopy) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.VariableLimiter variableLimiter annotation(
     Placement(visible = true, transformation(origin = {170, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain3(k = EfdMaxPu) annotation(
     Placement(visible = true, transformation(origin = {-90, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -82,7 +82,7 @@ equation
   connect(UsRefPu, sum1.u[4]) annotation(
     Line(points = {{-220, -40}, {-140, -40}, {-140, 0}, {-102, 0}}, color = {0, 0, 127}));
   connect(firstOrder1.y, sum1.u[5]) annotation(
-    Line(points = {{-180, -80}, {-140, -80}, {-140, 0}, {-102, 0}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
+    Line(points = {{-160, -80}, {-140, -80}, {-140, 0}, {-102, 0}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(sum1.y, transferFunction.u) annotation(
     Line(points = {{-79, 0}, {-63, 0}}, color = {0, 0, 127}));
   connect(firstOrder.y, gain2.u) annotation(
@@ -96,9 +96,9 @@ equation
   connect(transferFunction.y, add.u1) annotation(
     Line(points = {{-39, 0}, {-20, 0}, {-20, -14}, {-3, -14}}, color = {0, 0, 127}));
   connect(firstOrder1.y, gain3.u) annotation(
-    Line(points = {{-180, -80}, {-120, -80}, {-120, 80}, {-102, 80}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
+    Line(points = {{-160, -80}, {-120, -80}, {-120, 80}, {-102, 80}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(firstOrder1.y, gain4.u) annotation(
-    Line(points = {{-180, -80}, {-102, -80}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
+    Line(points = {{-160, -80}, {-102, -80}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(gain3.y, variableLimiter.limit1) annotation(
     Line(points = {{-79, 80}, {140, 80}, {140, 8}, {157, 8}}, color = {0, 0, 127}));
   connect(gain4.y, variableLimiter.limit2) annotation(

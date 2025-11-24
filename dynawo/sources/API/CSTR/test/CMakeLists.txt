@@ -13,7 +13,6 @@ set(MODULE_NAME CSTR_unittest)
 set(MODULE_SOURCES
     Test.cpp
     TestConstraint.cpp
-    TestConstraintsCollection.cpp
     TestExporter.cpp
 )
 

@@ -51,7 +51,7 @@ partial model BaseDc1 "IEEE excitation system type DC1 base model"
     Placement(visible = true, transformation(origin = {-210, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {tB, 1}, b = {tC, 1}, x_start = {Va0Pu / Ka}, y_start = Va0Pu / Ka) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {tB, 1}, b = {tC, 1}, initType = Modelica.Blocks.Types.Init.SteadyState, u_start = Va0Pu / Ka) annotation(
     Placement(visible = true, transformation(origin = {-70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.LimitedFirstOrder limitedFirstOrder(K = Ka, Y0 = Va0Pu, YMax = VrMaxPu, YMin = VrMinPu, tFilter = tA) annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -63,7 +63,7 @@ partial model BaseDc1 "IEEE excitation system type DC1 base model"
     Placement(visible = true, transformation(origin = {50, -100}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Sum sum1(nin = 4) annotation(
     Placement(visible = true, transformation(origin = {-170, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax max1(nu = 3) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Max3 max1 annotation(
     Placement(visible = true, transformation(origin = {-30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Power power(base = exp(BEx)) annotation(
     Placement(visible = true, transformation(origin = {250, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));

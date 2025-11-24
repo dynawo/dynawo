@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2025, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <!-- Benchmark Case -->
+  <dyn:blackBoxModel id="Bus" lib="Bus"/>
+  <dyn:blackBoxModel id="BusPDR" lib="Bus"/>
+  <dyn:blackBoxModel id="Line1" lib="Line" parFile="I8.par" parId="Line1"/>
+  <dyn:blackBoxModel id="Load_eq" lib="LoadAlphaBeta" parFile="I8.par" parId="Load_EQ"/>
+  <dyn:blackBoxModel id="Load_de" lib="LoadAlphaBeta" parFile="I8.par" parId="Load_PE"/>
+  <dyn:blackBoxModel id="Generator" lib="GeneratorSynchronousThreeWindingsDTRI8" parFile="I8.par" parId="Generator"/>
+  <dyn:blackBoxModel id="DISCONNECT_LOAD" lib="EventSetPointBoolean" parFile="I8.par" parId="DisconnectLoad"/>
+  <dyn:blackBoxModel id="StepUp_Xfmr" lib="TransformerFixedRatio" parFile="I8.par" parId="StepUp_Xfmr"/>
+  <dyn:blackBoxModel id="Synch_Gen" lib="GeneratorSynchronousFourWindingsTGov1SexsPss2a" parFile="I8.par" parId="Synch_Gen"/>
+  <dyn:blackBoxModel id="OmegaRef" lib="DYNModelOmegaRef" parFile="I8.par" parId="OmegaRef"/>
+
+  <dyn:connect id1="Load_eq" var1="load_terminal" id2="Bus" var2="bus_terminal"/>
+  <dyn:connect id1="Load_de" var1="load_terminal" id2="Bus" var2="bus_terminal"/>
+  <dyn:connect id1="Generator" var1="generator_terminal" id2="Bus" var2="bus_terminal"/>
+  <dyn:connect id1="Line1" var1="line_terminal1" id2="Bus" var2="bus_terminal"/>
+  <dyn:connect id1="Line1" var1="line_terminal2" id2="BusPDR" var2="bus_terminal"/>
+  <dyn:connect id1="DISCONNECT_LOAD" var1="event_state1" id2="Load_de" var2="load_switchOffSignal2"/>
+  <dyn:connect id1="StepUp_Xfmr" var1="transformer_terminal1" id2="BusPDR" var2="bus_terminal"/>
+  <dyn:connect id1="Synch_Gen" var1="generator_terminal" id2="StepUp_Xfmr" var2="transformer_terminal2"/>
+  <dyn:connect id1="Generator" var1="generator_omegaPu" id2="OmegaRef" var2="omega_grp_0_value"/>
+  <dyn:connect id1="Generator" var1="generator_omegaRefPu" id2="OmegaRef" var2="omegaRef_grp_0_value"/>
+  <dyn:connect id1="Generator" var1="generator_running" id2="OmegaRef" var2="running_grp_0"/>
+  <dyn:connect id1="Synch_Gen" var1="generator_omegaPu" id2="OmegaRef" var2="omega_grp_1_value"/>
+  <dyn:connect id1="Synch_Gen" var1="generator_omegaRefPu" id2="OmegaRef" var2="omegaRef_grp_1_value"/>
+  <dyn:connect id1="Synch_Gen" var1="generator_running" id2="OmegaRef" var2="running_grp_1"/>
+</dyn:dynamicModelsArchitecture>

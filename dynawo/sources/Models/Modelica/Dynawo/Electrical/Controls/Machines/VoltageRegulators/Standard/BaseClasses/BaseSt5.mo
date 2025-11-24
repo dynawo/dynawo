@@ -55,22 +55,22 @@ partial model BaseSt5 "IEEE excitation system type ST5 base model"
 
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tR, y_start = Us0Pu) annotation(
     Placement(visible = true, transformation(origin = {-310, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {tB2, 1}, b = {tC2, 1}, x_start = {Vr0Pu}, y_start = Vr0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {tB2, 1}, b = {tC2, 1}, initType = Modelica.Blocks.Types.Init.SteadyState, u_start = Vr0Pu) annotation(
     Placement(visible = true, transformation(origin = {70, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = Kc) annotation(
     Placement(visible = true, transformation(origin = {170, 160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback1 annotation(
     Placement(visible = true, transformation(origin = {220, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter(homotopyType = Modelica.Blocks.Types.VariableLimiterHomotopy.NoHomotopy) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.VariableLimiter variableLimiter annotation(
     Placement(visible = true, transformation(origin = {330, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = VrMaxPu) annotation(
     Placement(visible = true, transformation(origin = {270, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain2(k = VrMinPu) annotation(
     Placement(visible = true, transformation(origin = {270, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax max1(nu = 3) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Max3 max1 annotation(
     Placement(visible = true, transformation(origin = {-150, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.MinMax min1(nu = 3) annotation(
-    Placement(visible = true, transformation(origin = {-90, -14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.Min3 min1 annotation(
+    Placement(visible = true, transformation(origin = {-90, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add1 annotation(
     Placement(visible = true, transformation(origin = {-30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add3(k2 = -1) annotation(
@@ -85,9 +85,9 @@ partial model BaseSt5 "IEEE excitation system type ST5 base model"
     Placement(visible = true, transformation(origin = {110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.LimitedLeadLag limitedLeadLag1(t1 = tUC1, t2 = tUB1, Y0 = Vr0Pu, YMax = VrMaxPu, YMin = VrMinPu) annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction1(a = {tUB2, 1}, b = {tUC2, 1}, x_start = {Vr0Pu}, y_start = Vr0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction1(a = {tUB2, 1}, b = {tUC2, 1}, initType = Modelica.Blocks.Types.Init.SteadyState, u_start = Vr0Pu) annotation(
     Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction2(a = {tOB2, 1}, b = {tOC2, 1}, x_start = {Vr0Pu}, y_start = Vr0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction2(a = {tOB2, 1}, b = {tOC2, 1}, initType = Modelica.Blocks.Types.Init.SteadyState, u_start = Vr0Pu) annotation(
     Placement(visible = true, transformation(origin = {70, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.LimitedLeadLag limitedLeadLag2(t1 = tOC1, t2 = tOB1, Y0 = Vr0Pu, YMax = VrMaxPu, YMin = VrMinPu) annotation(
     Placement(visible = true, transformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -117,15 +117,15 @@ equation
     Line(points = {{281, -120}, {300, -120}, {300, -8}, {318, -8}}, color = {0, 0, 127}));
   connect(variableLimiter.y, EfdPu) annotation(
     Line(points = {{341, 0}, {370, 0}}, color = {0, 0, 127}));
-  connect(max1.yMax, min1.u[1]) annotation(
-    Line(points = {{-139, -14}, {-100, -14}}, color = {0, 0, 127}));
+  connect(max1.y, min1.u[1]) annotation(
+    Line(points = {{-139, -20}, {-100, -20}}, color = {0, 0, 127}));
   connect(UsRefPu, add3.u1) annotation(
     Line(points = {{-380, 0}, {-280, 0}, {-280, -14}, {-262, -14}}, color = {0, 0, 127}));
   connect(firstOrder.y, add3.u2) annotation(
     Line(points = {{-299, -40}, {-280, -40}, {-280, -26}, {-263, -26}}, color = {0, 0, 127}));
   connect(UPssPu, add1.u1) annotation(
     Line(points = {{-380, 40}, {-60, 40}, {-60, 6}, {-42, 6}}, color = {0, 0, 127}));
-  connect(min1.yMin, add1.u2) annotation(
+  connect(min1.y, add1.u2) annotation(
     Line(points = {{-79, -20}, {-60, -20}, {-60, -6}, {-42, -6}}, color = {0, 0, 127}));
   connect(limiter.y, feedback1.u1) annotation(
     Line(points = {{181, 0}, {212, 0}}, color = {0, 0, 127}));

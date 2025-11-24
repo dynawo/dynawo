@@ -28,6 +28,7 @@ HvdcVscDanglingP
 HvdcVscDanglingUDc
 InfiniteBusWithImpedance
 InjectorBG
+IntegerTable
 Measurements
 SecondaryFrequencyRegulation
 ShuntB

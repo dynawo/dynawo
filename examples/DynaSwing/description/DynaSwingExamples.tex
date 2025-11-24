@@ -1512,4 +1512,60 @@ The two figures below show the evolution of the voltage at the load bus for the 
 \caption{Voltage at the load bus in pu for all considered cases}
 \end{figure}
 
+\chapter{DTR Fiche I8}
+
+\section{Test case description}
+
+This test is performed accordingly with DTR Fiche I8. The aim of this fiche is to check the behavior of a synchronous machine in case of a frequency variation. The objective is to verify that the voltage at the terminals of the production unit remains properly regulated during a significant variation in
+frequency. The study of voltage stability under frequency variation is carried out using a simplified network diagram in which the generation unit is connected to a very powerful network with variable frequency and voltage via a connection reactance of
+$X_{cc}$.
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{DTRI8.png}
+  \caption{DTR Fiche I8 setup}
+\end{figure}
+
+\subsection{Scenario}
+The simulated scenario is :
+\begin{itemize}
+\item at $t=20s$: a 7000MW load is disconnected;
+\end{itemize}
+
+\subsection{Solver}
+The solver used is the variable time step solver IDA with the following parameters:
+\begin{itemize}
+\item $Order$=2;
+\item $Accuracy_{Rel}$=$10^{-5}$;
+\item $Accuracy_{Abs}$=$10^{-5}$;
+\end{itemize}
+
+\newpage
+\section{Results}
+
+The two figures below show the evolution of the voltage at the PDR bus and the frequency of the network.
+
+\begin{figure}[H]
+\subfigure[Voltage at PDR bus]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[color=blue!50]
+        table[x=time,y=BusPDR_bus_terminal_V_re]
+        {../SingleMachineSystem/SynchronousMachineI8/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Frequency]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[color=blue!50]
+        table[x=time, y=Synch_Gen_generator_omegaPu]
+        {../SingleMachineSystem/SynchronousMachineI8/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{DTR Fiche I8 (voltage and frequency)}
+\end{figure}
+
 \end{document}

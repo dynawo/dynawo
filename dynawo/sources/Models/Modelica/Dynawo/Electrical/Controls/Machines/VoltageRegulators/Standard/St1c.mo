@@ -26,8 +26,8 @@ model St1c "IEEE excitation system type ST1C model (2016 standard)"
   Modelica.Blocks.Interfaces.RealInput USclUelPu(start = USclUel0Pu) "Stator current underexcitation limitation output voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-440, -160}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {120, 40}, extent = {{20, -20}, {-20, 20}}, rotation = 0)));
 
-  Modelica.Blocks.Math.MinMax min1(nu = 3) annotation(
-    Placement(visible = true, transformation(origin = {-30, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.Min3 min1 annotation(
+    Placement(visible = true, transformation(origin = {-30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters (inputs)
   parameter Types.VoltageModulePu USclOel0Pu "Stator current overexcitation limitation initial output voltage in pu (base UNom)";
@@ -78,9 +78,9 @@ equation
     min2.u[3] = min2.u[1];
   end if;
 
-  connect(max1.yMax, min1.u[1]) annotation(
-    Line(points = {{-79, 6}, {-41, 6}}, color = {0, 0, 127}));
-  connect(min1.yMin, transferFunction1.u) annotation(
+  connect(max1.y, min1.u[1]) annotation(
+    Line(points = {{-79, 0}, {-41, 0}}, color = {0, 0, 127}));
+  connect(min1.y, transferFunction1.u) annotation(
     Line(points = {{-19, 0}, {-3, 0}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram");
