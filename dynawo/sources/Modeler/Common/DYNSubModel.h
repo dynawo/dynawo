@@ -93,6 +93,12 @@ class SubModel {
   virtual void init(double t0) = 0;
 
   /**
+   * @brief initialize all the data for a sub model
+   * @param t0 : initial time of the simulation
+   */
+  virtual void initLinearize(double t0) = 0;
+
+  /**
    * @brief get the type of the sub model
    * @return the type of the sub model
    */
@@ -262,6 +268,31 @@ class SubModel {
   virtual void evalDynamicFType() = 0;
 
   /**
+   * @brief evaluate the properties of the variables that won't change during simulation
+   * (algebraic, differential, external or external optional variables)
+   *
+   */
+  virtual void evalStaticYTypeLinearize() = 0;
+
+  /**
+   * @brief update during the simulation the properties of the variables that depends on others variables values
+   *
+   */
+  virtual void evalDynamicYTypeLinearize() = 0;
+
+  /**
+   * @brief evaluate the properties of the residual function  that won't change during simulation (algebraic or differential equation)
+   *
+   */
+  virtual void evalStaticFTypeLinearize() = 0;
+
+  /**
+   * @brief update during the simulation the properties of the residual functions that depends on others variables values
+   *
+   */
+  virtual void evalDynamicFTypeLinearize() = 0;
+
+  /**
    * @brief Model model's sizes getter
    *
    * Get the sizes of the vectors and matrixes used by the solver to simulate
@@ -269,6 +300,15 @@ class SubModel {
    * and vector for the solver.
    */
   virtual void getSize() = 0;
+
+  /**
+   * @brief Model model's sizes getter
+   *
+   * Get the sizes of the vectors and matrixes used by the solver to simulate
+   * ModelModel instance. Used by @p ModelMulti to generate right size matrixes
+   * and vector for the solver.
+   */
+  virtual void getSizeLinearize() = 0;
 
   /**
    * @brief Model elements initializer
@@ -315,11 +355,25 @@ class SubModel {
   virtual void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) = 0;
 
   /**
+   * @brief define each variables of the model
+   *
+   * @param variables vector of variables to fullfill
+   */
+  virtual void defineVariablesLinearize(std::vector<boost::shared_ptr<Variable> >& variables) = 0;
+
+  /**
    * @brief define each parameters of the model
    *
    * @param parameters vector of parameters to fullfill
    */
   virtual void defineParameters(std::vector<ParameterModeler>& parameters) = 0;
+
+  /**
+   * @brief define each parameters of the model
+   *
+   * @param parameters vector of parameters to fullfill
+   */
+  virtual void defineParametersLinearize(std::vector<ParameterModeler>& parameters) = 0;
 
   /**
    * @brief define each variables of the init model
@@ -381,10 +435,20 @@ class SubModel {
    */
   virtual void setSharedParametersDefaultValuesInit() = 0;
 
+  /**
+   * @brief set the submodel shared init parameters value
+   */
+  virtual void setSharedParametersDefaultValuesLinearize() = 0;
+
    /**
    * @brief  init sub buffers
    */
   virtual void initSubBuffers() = 0;
+
+  /**
+   * @brief  init sub buffers
+   */
+  virtual void initSubBuffersLinearize() = 0;
 
   /**
    * @brief Notify that time step has been performed in the simulation
@@ -422,6 +486,17 @@ class SubModel {
    * @param sizeGGlob offset to use for the subModel in the G global vector
    */
   void initSize(int& sizeYGlob, int& sizeZGlob, int& sizeModeGlob, int& sizeFGlob, int& sizeGGlob);
+
+  /**
+   * @brief initialize size and offset to use during the simulation
+   *
+   * @param sizeYGlob offset to use for the subModel in the Y global vector
+   * @param sizeZGlob offset to use for the subModel in the Z global vector
+   * @param sizeModeGlob offset to use for the subModel in the Mode global vector
+   * @param sizeFGlob offset to use for the subModel in the F global vector
+   * @param sizeGGlob offset to use for the subModel in the G global vector
+   */
+  void initSizeLinearize(int& sizeYGlob, int& sizeZGlob, int& sizeModeGlob, int& sizeFGlob, int& sizeGGlob);
 
   /**
    * @brief Model F(t,y,y') function evaluation
@@ -573,6 +648,15 @@ class SubModel {
     }
 
   /**
+   * @brief get the properties of all variables
+   *
+   * @return the properties of all variables
+   */
+  inline propertyContinuousVar_t* getYTypeLinearize() const {
+      return yTypeLinearize_;
+  }
+
+  /**
    * @brief defines the name of all variables for the dynamic sub model
    *
    */
@@ -586,6 +670,10 @@ class SubModel {
    */
   inline void defineNamesInit() {
     defineNamesImpl(variablesInit_, zNamesInit_, xNamesInit_, calculatedVarNamesInit_);
+  }
+
+  inline void defineNamesLinearize() {
+    defineNamesImpl(variablesLinearize_, zNamesLinearize_, xNamesLinearize_, calculatedVarNamesLinearize_);
   }
 
   /**
@@ -655,6 +743,25 @@ class SubModel {
   std::vector<Element> getElements(const std::string& name) const;
 
   /**
+   * @brief define the elements of the subModel (terminal, structure)
+   */
+  void defineElementsLinearize();
+
+  /**
+   * @brief release the elements of subModel (only needed for connection)
+   */
+  void releaseElementsLinearize();
+
+  /**
+   * @brief get the elements associating to a name of variable/structure
+   *
+   * @param name name of the variable/structure
+   *
+   * @return elements associating to the variable/structure
+   */
+  std::vector<Element> getElementsLinearize(const std::string& name) const;
+
+  /**
    * @brief dump into the log the list of elements of the submodel
    * @param nameElement name of the variable/structure
    */
@@ -695,7 +802,7 @@ class SubModel {
    *
    * @return value of the variable
    */
-  double getVariableValue(const std::string& nameVariable) const;
+  double getVariableValue(const std::string& nameVariable, bool differentialValue, bool nativeBool) const;
 
   /**
    * @brief retrieve the current value of a given variable
@@ -704,7 +811,7 @@ class SubModel {
    *
    * @return value of the variable
    */
-  double getVariableValue(const boost::shared_ptr<Variable>& variable) const;
+  double getVariableValue(const boost::shared_ptr<Variable>& variable, bool differentialValue, bool nativeBool) const;
 
   /**
    * @brief retrieve the global index of a given variable
@@ -723,7 +830,7 @@ class SubModel {
    * @param isInitParam whether to retrieve the initial (or dynamic) parameters
    * @return @b true if the parameter exists inside the model
    */
-  bool hasParameter(const std::string& nameParameter, bool isInitParam) const;
+  bool hasParameter(const std::string& nameParameter, bool isInitParam, bool isLinearizeParam) const;
 
   /**
    * @brief check whether the initial parameter is available within the sub-model
@@ -732,7 +839,7 @@ class SubModel {
    * @return @b true if the initial parameter exists inside the model
    */
   inline bool hasParameterInit(const std::string& nameParameter) const {
-    return hasParameter(nameParameter, true);
+    return hasParameter(nameParameter, true, false);
   }
 
   /**
@@ -742,7 +849,11 @@ class SubModel {
    * @return @b true if the dynamic parameter exists inside the model
    */
   inline bool hasParameterDynamic(const std::string& nameParameter) const {
-    return hasParameter(nameParameter, false);
+    return hasParameter(nameParameter, false, false);
+  }
+
+  inline bool hasParameterLinearize(const std::string& nameParameter) const {
+    return hasParameter(nameParameter, false, true);
   }
 
   /**
@@ -831,6 +942,10 @@ class SubModel {
     return variablesByName_;
   }
 
+  const std::unordered_map<std::string, boost::shared_ptr<Variable> >& getVariableByNameLinearize() const {
+    return variablesByNameLinearize_;
+  }
+
   /**
    * @brief add a curve of a variable to store for the model
    *
@@ -858,11 +973,16 @@ class SubModel {
   void defineVariables();
 
   /**
+   * @brief defines all variables for the dynamic model
+   */
+  void defineVariablesLinearize();
+
+  /**
    * @brief defines all parameters for the dynamic model
    *
    */
   void defineParameters() {
-    defineParameters(false);
+    defineParameters(false, false);
   }
 
   /**
@@ -872,7 +992,7 @@ class SubModel {
    * @param nonUnitaryParameters non unitary parameter of this model
    * @param addedParameter parameter added after processing non unitary parameters
    */
-  void instantiateNonUnitaryParameters(bool isInitParam,
+  void instantiateNonUnitaryParameters(bool isInitParam,  bool isLinearizeParam,
       const std::map<std::string, ParameterModeler>& nonUnitaryParameters,
       std::unordered_set<std::string>& addedParameter);
 
@@ -882,11 +1002,11 @@ class SubModel {
    * @param parameterName name of the parameter to be set
    * @param isInitParam whether to do it for initial (or dynamic) parameters
    */
-  inline void setParameterFromPARFile(const std::string& parameterName, const bool isInitParam) {
+  inline void setParameterFromPARFile(const std::string& parameterName, const bool isInitParam, const bool isLinearizeParam) {
     if (readPARParameters_->hasReference(parameterName))
-      setParameterFromSet(readPARParameters_, IIDM, findParameterReference(parameterName, isInitParam));
+      setParameterFromSet(readPARParameters_, IIDM, findParameterReference(parameterName, isInitParam, isLinearizeParam));
     else
-      setParameterFromSet(readPARParameters_, PAR, findParameterReference(parameterName, isInitParam));
+      setParameterFromSet(readPARParameters_, PAR, findParameterReference(parameterName, isInitParam, isLinearizeParam));
   }
 
   /**
@@ -908,7 +1028,7 @@ class SubModel {
    * @brief set all parameters values from a parameters set (API PAR)
    * @param isInitParam whether the parameter is an initParam or a dynamic parameter
    */
-  void setParametersFromPARFile(bool isInitParam);
+  void setParametersFromPARFile(bool isInitParam, bool isLinearizeParam);
 
   /**
    * @brief search for a parameter with a given name
@@ -917,7 +1037,7 @@ class SubModel {
    * @param isInitParam whether to retrieve the initial (or dynamic) parameters
    * @return desired parameter
    */
-  const ParameterModeler& findParameter(const std::string& name, bool isInitParam) const;
+  const ParameterModeler& findParameter(const std::string& name, bool isInitParam, bool isLinearizeParam) const;
 
   /**
    * @brief search for an initial parameter with a given name
@@ -926,7 +1046,7 @@ class SubModel {
    * @return desired initial parameter
    */
   inline const ParameterModeler& findParameterInit(const std::string& name) const {
-    return findParameter(name, true);
+    return findParameter(name, true, false);
   }
 
   /**
@@ -936,7 +1056,17 @@ class SubModel {
    * @return desired dynamic parameter
    */
   inline const ParameterModeler& findParameterDynamic(const std::string& name) const {
-    return findParameter(name, false);
+    return findParameter(name, false, false);
+  }
+
+  /**
+   * @brief search for a dynamic parameter with a given name
+   *
+   * @param name name of the desired parameter
+   * @return desired dynamic parameter
+   */
+  inline const ParameterModeler& findParameterLinearize(const std::string& name) const {
+    return findParameter(name, false, true);
   }
 
   /**
@@ -947,17 +1077,22 @@ class SubModel {
    * @param value the value to set
    * @param isInitParam whether to retrieve the initial (or dynamic) parameters
    */
-  template <typename T> void setParameterValue(const std::string& name, const parameterOrigin_t& origin, const T& value, bool isInitParam);
-
+  template <typename T> void setParameterValue(const std::string& name, const parameterOrigin_t& origin,
+    const T& value, bool isInitParam, bool isLinearizeParam);
 
   /**
    * @brief Getter for parameters
    * @param isInitParam whether to retrieve the initial (or dynamic) parameters
    * @return submodel parameters
    */
-  inline const std::unordered_map<std::string, ParameterModeler>& getParameters(const bool isInitParam) const {
-    return (isInitParam ? getParametersInit() : getParametersDynamic());
-  }
+  const std::unordered_map<std::string, ParameterModeler>& getParameters(bool isInitParam, bool isLinearizeParam) const;
+
+  /**
+   * @brief Getter for parameters
+   * @param isInitParam whether to retrieve the initial (or dynamic) parameters
+   * @return submodel parameters
+   */
+  std::unordered_map<std::string, ParameterModeler>& getNonCstParameters(bool isInitParam, bool isLinearizeParam);
 
   /**
    * @brief Getter for attribute parametersDynamic_
@@ -967,6 +1102,13 @@ class SubModel {
   const std::unordered_map<std::string, ParameterModeler>& getParametersDynamic() const;
 
   /**
+   * @brief Getter for attribute parametersDynamic_
+   *
+   * @return submodel attribute parametersDynamic_
+   */
+  const std::unordered_map<std::string, ParameterModeler>& getParametersLinearize() const;
+
+  /**
    * @brief Getter for attribute parametersInit_
    *
    * @return submodel attribute parametersInit_
@@ -974,12 +1116,33 @@ class SubModel {
   const std::unordered_map<std::string, ParameterModeler>& getParametersInit() const;
 
   /**
+   * @brief Getter for attribute parametersDynamic_
+   *
+   * @return submodel attribute parametersDynamic_
+   */
+  std::unordered_map<std::string, ParameterModeler>& getNonCstParametersDynamic();
+
+  /**
+   * @brief Getter for attribute parametersDynamic_
+   *
+   * @return submodel attribute parametersDynamic_
+   */
+  std::unordered_map<std::string, ParameterModeler>& getNonCstParametersLinearize();
+
+  /**
+   * @brief Getter for attribute parametersInit_
+   *
+   * @return submodel attribute parametersInit_
+   */
+  std::unordered_map<std::string, ParameterModeler>& getNonCstParametersInit();
+
+  /**
    * @brief Add parameters
    *
    * @param parameters vector of parameters to add
    * @param isInitParam whether to retrieve the initial (or dynamic) parameters
    */
-  void addParameters(const std::vector<ParameterModeler>& parameters, bool isInitParam);
+  void addParameters(const std::vector<ParameterModeler>& parameters, bool isInitParam, bool isLinearizeParam);
 
   /**
    * @brief Add a parameter
@@ -987,14 +1150,14 @@ class SubModel {
    * @param parameter Parameter to add
    * @param isInitParam whether to retrieve the initial (or dynamic) parameters
    */
-  void addParameter(const ParameterModeler& parameter, bool isInitParam);
+  void addParameter(const ParameterModeler& parameter, bool isInitParam, bool isLinearizeParam);
 
   /**
    * @brief Reset the parameters
    *
    * @param isInitParam whether to reset the initial (or dynamic) parameters
    */
-  void resetParameters(bool isInitParam);
+  void resetParameters(bool isInitParam, bool isLinearizeParam);
 
   /**
    * @brief defines all variables for the init model
@@ -1006,7 +1169,11 @@ class SubModel {
    *
    */
   void defineParametersInit() {
-    defineParameters(true);
+    defineParameters(true, false);
+  }
+
+  void defineParametersLinearize() {
+    defineParameters(false, true);
   }
 
   /**
@@ -1014,7 +1181,7 @@ class SubModel {
    *
    * @param isInitParam whether to define the initial (or dynamic) parameters
    */
-  void defineParameters(bool isInitParam);
+  void defineParameters(bool isInitParam, bool isLinearizeParam);
 
   /**
    * @brief defines the local buffer to use for the evaluation of residual function
@@ -1067,6 +1234,56 @@ class SubModel {
   void setBufferFType(propertyF_t* fType, int offsetFType);
 
   /**
+   * @brief defines the local buffer to use for the evaluation of residual function
+   *
+   * @param f global buffer for the evaluation of residual function
+   * @param offsetF offset to use to find the beginning of the local buffer
+   */
+  void setBufferFLinearize(double* f, int offsetF);
+
+  /**
+   * @brief defines the local buffer to use for the evaluation of root function
+   *
+   * @param g global buffer for the evaluation of root function
+   * @param offsetG offset to use to find the beginning of the local buffer
+   */
+  void setBufferGLinearize(state_g* g, int offsetG);
+
+  /**
+   * @brief defines the local buffer to define the continuous variables
+   *
+   * @param y global buffer to define the continuous variable
+   * @param yp global buffer to define the derivative of the continuous variable
+   * @param offsetY offset to use to find the beginning of the local buffer
+   */
+  void setBufferYLinearize(double* y, double* yp, int offsetY);
+
+  /**
+   * @brief   defines the local buffer to define the discrete variables
+   *
+   * @param z global buffer to define the discrete variable
+   * @param zConnected global buffer to define the connection status of the discrete variable
+   * @param offsetZ offset to use to find the beginning of the local buffer
+   */
+  void setBufferZLinearize(double* z, bool* zConnected, int offsetZ);
+
+  /**
+   * @brief   defines the local buffer to define the variables properties
+   *
+   * @param yType global buffer to define the variable properties
+   * @param offsetYType offset to use to find the beginning of the local buffer
+   */
+  void setBufferYTypeLinearize(propertyContinuousVar_t* yType, int offsetYType);
+
+  /**
+   * @brief   defines the local buffer to define the residual functions properties
+   *
+   * @param fType global buffer to define the residual functions properties
+   * @param offsetFType offset to use to find the beginning of the local buffer
+   */
+  void setBufferFTypeLinearize(propertyF_t* fType, int offsetFType);
+
+  /**
    * @brief get the index to use to find the discrete values of the model inside the global vector
    *
    * @return index in the global vector
@@ -1101,6 +1318,43 @@ class SubModel {
    */
   inline int yDeb() const {
     return yDeb_;
+  }
+
+  /**
+   * @brief get the index to use to find the discrete values of the model inside the global vector
+   *
+   * @return index in the global vector
+   */
+  inline int zDebLinearize() const {
+    return zDebLinearize_;
+  }
+
+  /**
+   * @brief get the index to use to find the residual values of the model inside the global vector
+   *
+   * @return index in the global vector
+   */
+  inline int fDebLinearize() const {
+    return fDebLinearize_;
+  }
+
+  /**
+   * @brief get the index to use to find the root values of the model inside the global vector
+   *
+   * @return index in the global vector
+   */
+
+  inline int gDebLinearize() const {
+    return gDebLinearize_;
+  }
+
+  /**
+   * @brief get the index to use to find the continuous values of the model inside the global vector
+   *
+   * @return index in the global vector
+   */
+  inline int yDebLinearize() const {
+    return yDebLinearize_;
   }
 
   /**
@@ -1187,6 +1441,42 @@ class SubModel {
   }
 
   /**
+   * @brief get the names of all discrete variables of the dynamic model
+   *
+   * @return names of all discrete variables
+   */
+  inline const std::vector<std::string>& zNamesLinearize() {
+    return zNamesLinearize_;
+  }
+
+  /**
+   * @brief get the names of all continuous variables of the dynamic model
+   *
+   * @return names of all continuous variables
+   */
+  inline const std::vector<std::string>& xNamesLinearize() {
+    return xNamesLinearize_;
+  }
+
+  /**
+   * @brief get the names of all continuous aliases variables of the dynamic model
+   *
+   * @return names of all continuous aliases variables
+   */
+  inline const std::vector<std::pair<std::string, std::pair<std::string, bool> > >& xAliasesNamesLinearize() {
+    return xAliasesNamesLinearize_;
+  }
+
+  /**
+   * @brief get the names of all discrete aliases variables of the dynamic model
+   *
+   * @return names of all discrete aliases variables
+   */
+  inline const std::vector<std::pair<std::string, std::pair<std::string, bool> > >& zAliasesNamesLinearize() {
+    return zAliasesNamesLinearize_;
+  }
+
+  /**
    * @brief get the initial model variables (indexed by name)
    *
    * @return map (name, variable)
@@ -1263,12 +1553,39 @@ class SubModel {
   }
 
   /**
+  * @brief get the number of residual functions of the model
+  *
+  * @return number of residual functions
+  */
+  inline unsigned int sizeFLinearize() const {
+    return sizeFLinearize_;
+  }
+
+  /**
+   * @brief get the number of discrete variables
+   *
+   * @return number of discrete variables
+   */
+  inline unsigned int sizeZLinearize() const {
+    return sizeZLinearize_;
+  }
+
+  /**
    * @brief get the number of root functions
    *
    * @return number of root functions
    */
-  inline unsigned int sizeG() const {
+  unsigned int sizeG() const {
     return sizeG_;
+  }
+
+  /**
+   * @brief get the number of root functions
+   *
+   * @return number of root functions
+   */
+  unsigned int sizeGLinearize() const {
+    return sizeGLinearize_;
   }
 
   /**
@@ -1276,7 +1593,7 @@ class SubModel {
    *
    * @return number of mode
    */
-  inline unsigned int sizeMode() const {
+  unsigned int sizeMode() const {
     return sizeMode_;
   }
 
@@ -1285,8 +1602,12 @@ class SubModel {
    *
    * @return number of continuous variable
    */
-  inline unsigned int sizeY() const {
+  unsigned int sizeY() const {
     return sizeY_;
+  }
+
+  unsigned int sizeYLinearize() const {
+    return sizeYLinearize_;
   }
 
   /**
@@ -1294,7 +1615,7 @@ class SubModel {
    *
    * @return number of calculated variables
    */
-  inline unsigned int sizeCalculatedVar() const {
+  unsigned int sizeCalculatedVar() const {
     return static_cast<unsigned int>(calculatedVars_.size());
   }
 
@@ -1303,7 +1624,7 @@ class SubModel {
    *
    * @return number of residual functions of init
    */
-  inline unsigned int sizeFInit() const {
+  unsigned int sizeFInit() const {
     return static_cast<unsigned int>(fEquationInitIndex_.size());
   }
 
@@ -1312,7 +1633,7 @@ class SubModel {
    *
    * @return number of root functions of init
    */
-  inline unsigned int sizeGInit() const {
+  unsigned int sizeGInit() const {
     return static_cast<unsigned int>(gEquationInitIndex_.size());
   }
 
@@ -1321,7 +1642,7 @@ class SubModel {
    *
    * @param time time to use
    */
-  inline void setCurrentTime(const double time) {
+  void setCurrentTime(const double time) {
     currentTime_ = time;
   }
 
@@ -1372,6 +1693,24 @@ class SubModel {
   }
 
   /**
+   * @brief set whether we used the initial model or the dynamic model
+   *
+   * @param isInitProcess @b true if the initial model is used
+   */
+  inline void setIsLinearizeProcess(const bool isLinearizeProcess) {
+    isLinearizeProcess_ = isLinearizeProcess;
+  }
+
+  /**
+   * @brief get the indicator if the initial model is used or the dynamic model
+   *
+   * @return @b true if the initial model is used
+   */
+  inline bool getIsLinearizeProcess() const {
+    return isLinearizeProcess_;
+  }
+
+  /**
    * @brief get equation string for debug log
    *
    * @param index WARNING index is local index in this submodel, not global index
@@ -1411,6 +1750,23 @@ class SubModel {
    * @param found @b true if the parameter exist, @b false else
    */
   virtual void getInitSubModelParameterValue(const std::string & nameParameter, std::string& value, bool& found) const;
+
+  /**
+   * @brief retrieve the value of a parameter of the initialization model
+   *
+   * @param nameParameter name of a parameter to found
+   * @param value value of the parameter
+   * @param found @b true if the parameter exist, @b false else
+   */
+  virtual void getLinearizeSubModelParameterValue(const std::string & nameParameter, std::string& value, bool& found) const;
+
+  /**
+   * @brief get index of this submodel in the global continuous variable table
+   * @return index of this submodel in the global continuous variable table
+   */
+  int getOffsetY() const { return offsetY_; }
+
+  void setWithLinearize(double tLinearize);
 
  protected:
   /**
@@ -1459,6 +1815,13 @@ class SubModel {
   void printValuesVariables(std::ofstream& fstream);
 
   /**
+   * @brief write initial variables values of a model in a file
+   *
+   * @param fstream the file to stream variables to
+   */
+  void printLinearizeValuesVariables(std::ofstream& fstream);
+
+  /**
    * @brief write initial values parameters of a model in a file
    *
    * @param fstream the file to stream parameters to
@@ -1478,6 +1841,13 @@ class SubModel {
    * @param fstream the file to stream parameters to
    */
   virtual void printInitValuesParameters(std::ofstream& fstream) const;
+
+  /**
+   * @brief write parameters of the initialization model in a file
+   *
+   * @param fstream the file to stream parameters to
+   */
+  virtual void printLinearizeValuesParameters(std::ofstream& fstream);
 
   /**
   * @brief write internal parameters of a model in a file
@@ -1502,7 +1872,7 @@ class SubModel {
    * @param isInitParam whether to retrieve the initial (or dynamic) parameters
    * @return desired parameter as a reference
    */
-  ParameterModeler& findParameterReference(const std::string& name, bool isInitParam);
+  ParameterModeler& findParameterReference(const std::string& name, bool isInitParam, bool isLinearizeParam);
 
   /**
    * @brief save informations about the model (size, current values of buffers, etc..)
@@ -1522,6 +1892,15 @@ class SubModel {
    * @return list of subElements contains in element
    */
   std::vector<Element> getSubElements(const Element& element) const;
+
+  /**
+   * @brief get the subElements contains in one element
+   *
+   * @param element element where we should analyze and find the subElements
+   *
+   * @return list of subElements contains in element
+   */
+  std::vector<Element> getSubElementsLinearize(const Element& element) const;
 
   /**
    * @brief get the map of index of equation and equation in string format (init or dynamic ones)
@@ -1560,6 +1939,13 @@ class SubModel {
   unsigned int sizeY_;  ///< size of the local Y function
   unsigned int sizeCalculatedVar_;  ///< number of calculated variables
 
+  unsigned int sizeFLinearize_;  ///< size of the local F function
+  unsigned int sizeZLinearize_;  ///< size of the local Z function
+  unsigned int sizeGLinearize_;  ///< size of the local G function
+  unsigned int sizeModeLinearize_;  ///< size of the local mode function
+  unsigned int sizeYLinearize_;  ///< size of the local Y function
+  unsigned int sizeCalculatedVarLinearize_;  ///< number of calculated variables
+
   // Data associated to a subModel
   // -----------------------------
   double* fLocal_;  ///< local buffer to fill when calculating residual functions
@@ -1569,6 +1955,14 @@ class SubModel {
   double* zLocal_;  ///< local buffer to use when accessing discrete variables
   bool* zLocalConnected_;  ///< table to know whether a discrete var is connected or not
 
+  double* fLocalLinearize_;  ///< local buffer to fill when calculating residual functions
+  state_g* gLocalLinearize_;  ///< local buffer to fill when calculating root functions
+  double* yLocalLinearize_;  ///< local buffer to use when accessing continuous variables
+  unsigned int offsetYLinearize_;  ///< index in the global variable table
+  double* ypLocalLinearize_;  ///< local buffer to use when accessing derivatives of continuous variables
+  double* zLocalLinearize_;  ///< local buffer to use when accessing discrete variables
+  bool* zLocalConnectedLinearize_;  ///< table to know whether a discrete var is connected or not
+
   std::vector<double> yLocalInit_;  ///< local buffer used for the init model
   std::vector<double> ypLocalInit_;  ///< local buffer used for the init model
   std::vector<double> zLocalInit_;  ///< local buffer used for the init model
@@ -1576,13 +1970,18 @@ class SubModel {
 
   std::vector<double> calculatedVars_;  ///< local buffer to fill when calculating calculated variables
   std::vector<double> calculatedVarsInit_;  ///< local buffer to fill when calculating calculated variables for init model
+  std::vector<double> calculatedVarsLinearize_;  ///< local buffer to fill when calculating calculated variables for init model
   std::unordered_map<std::string, boost::shared_ptr<Variable> > variablesByName_;  ///< association between variables and its name for dynamic model
+  std::unordered_map<std::string, boost::shared_ptr<Variable> > variablesByNameLinearize_;  ///< association between variables and its name for dynamic model
   std::unordered_map<std::string, boost::shared_ptr<Variable> > variablesByNameInit_;  ///< association between variables and its name for init model
 
   propertyContinuousVar_t* yType_;  ///< local buffer to use when accessing each variable property (Algebraic / Differential / External)
   propertyF_t* fType_;  ///< local buffer to use when accessing each residual function property(Algebraic / Differential)
+  propertyContinuousVar_t* yTypeLinearize_;  ///< local buffer to use when accessing each variable property (Algebraic / Differential / External)
+  propertyF_t* fTypeLinearize_;  ///< local buffer to use when accessing each residual function property(Algebraic / Differential)
 
   std::unordered_map<std::string, ParameterModeler> parametersDynamic_;  ///< hashmap of sub-model parameters
+  std::unordered_map<std::string, ParameterModeler> parametersLinearize_;  ///< hashmap of sub-model parameters
   std::unordered_map<std::string, ParameterModeler> parametersInit_;  ///< hashmap of sub-model parameters
 
   // Index to access data inside global buffers
@@ -1593,17 +1992,29 @@ class SubModel {
   int fDeb_;  ///< offset to use to find residual functions values inside the global buffer
   int gDeb_;  ///< offset to use to find root functions values inside the global buffer
 
+  int yDebLinearize_;  ///< offset to use to find y values inside the global buffer
+  int zDebLinearize_;  ///< offset to use to find z values inside the global buffer
+  int modeDebLinearize_;  ///< offset to use to find mode values inside the global buffer
+  int fDebLinearize_;  ///< offset to use to find residual functions values inside the global buffer
+  int gDebLinearize_;  ///< offset to use to find root functions values inside the global buffer
+
   bool withLoadedParameters_;  ///< whether to load parameters values (from a dump)
   bool withLoadedVariables_;  ///< whether to load variable values (from a dump)
 
   std::map<int, std::string> fEquationIndex_;  ///< for DEBUG log, map of index of equation and equation in string
   std::map<int, std::string> gEquationIndex_;  ///< for DEBUG log, map of index of root equation and root equation in string
 
+  std::map<int, std::string> fEquationIndexLinearize_;  ///< for DEBUG log, map of index of equation and equation in string
+  std::map<int, std::string> gEquationIndexLinearize_;  ///< for DEBUG log, map of index of root equation and root equation in string
+
   std::map<int, std::string> fEquationInitIndex_;  ///< for DEBUG log, map of index of equation and equation in string for init model
   std::map<int, std::string> gEquationInitIndex_;  ///< for DEBUG log, map of index of root equation and root equation in string  for init model
 
   std::shared_ptr<parameters::ParametersSet> localInitParameters_;  ///< local initialization solver parameters set
 
+  bool withLinearize_;  ///< whether
+  double tLinearize_;  ///< tLinearize
+  bool isLinearizeProcess_;  ///< whether the init process (or the standard dynamic simulation) is running
 
  private:
   unsigned int sizeFSave_;  ///< save of the size of F
@@ -1627,6 +2038,7 @@ class SubModel {
   std::string staticId_;  ///< name of the model inside the IIDM data
 
   std::vector<boost::shared_ptr<Variable> > variables_;  ///< vector of sub-model variables
+  std::vector<boost::shared_ptr<Variable> > variablesLinearize_;  ///< vector of sub-model variables
 
   std::vector<std::string> zNames_;  ///< vector of the discrete variables name
   std::vector<std::string> xNames_;  ///< vector of the continuous variables names
@@ -1639,8 +2051,16 @@ class SubModel {
   std::vector<std::string> calculatedVarNamesInit_;  ///< name of the calculated variables of the init model
   std::vector<boost::shared_ptr<Variable> > variablesInit_;  ///< vector of sub-model variables
 
+  std::vector<std::string> zNamesLinearize_;  ///< name of the discrete variables of the init model
+  std::vector<std::string> xNamesLinearize_;  ///< name of the continuous variables of the init model
+  std::vector<std::string> calculatedVarNamesLinearize_;  ///< name of the calculated variables of the init model
+  std::vector<std::pair<std::string, std::pair<std::string, bool> > > xAliasesNamesLinearize_;  ///< vector of the continuous aliases variables names
+  std::vector<std::pair<std::string, std::pair<std::string, bool> > > zAliasesNamesLinearize_;  ///< vector of the discrete aliases variables names
+
   std::map<std::string, int > mapElement_;  ///< map between elements names and indexes
   std::vector<Element > elements_;  ///< elements of the models
+  std::map<std::string, int > mapElementLinearize_;  ///< map between elements names and indexes
+  std::vector<Element > elementsLinearize_;  ///< elements of the models
 
   std::vector<boost::shared_ptr<curves::Curve> > curves_;  ///< curves to store
 

@@ -163,6 +163,20 @@ int main(int argc, char ** argv) {
     bool withInitFile = false;
     modelicaCompile(modelName, compilationDir1, initFiles, moFiles, withInitFile, packageName, noInit, useAliasing);
 
+    std::string compilationDir1Lin = compilationDir1 + "/" + modelName + "Lin";
+    if (!isDirectory(compilationDir1Lin))
+      createDirectory(compilationDir1Lin);
+    auto ddbdir = getMandatoryEnvVar("DYNAWO_DDB_DIR");
+    auto ddbdirLin = getMandatoryEnvVar("DYNAWO_DDB_DIR_LIN");
+    setenv("DYNAWO_DDB_DIR", ddbdirLin.c_str(), 1);
+    copyFile(modelName + ".mo", modelDir, compilationDir1Lin);
+    copyFile(modelName + ".extvar", modelDir, compilationDir1Lin);
+    std::vector<string> initFilesLin;
+    std::vector<string> moFilesLin;
+    moFilesLin.push_back(ddbdirLin + "/Dynawo/package.mo");
+    modelicaCompile(modelName, compilationDir1Lin, initFilesLin, moFilesLin, withInitFile, packageName, true, useAliasing);
+    setenv("DYNAWO_DDB_DIR", ddbdir.c_str(), 1);
+
     // generate the .cpp file from the previous files
     generateModelFile(modelName, compilationDir1, withInitFile, additionalHeaderList, packageName, genCalcVars);
     if (!exists(absolute(modelName + "_Dyn.cpp", compilationDir1)))

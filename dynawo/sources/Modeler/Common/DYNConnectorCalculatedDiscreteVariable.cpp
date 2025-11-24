@@ -59,6 +59,11 @@ ConnectorCalculatedDiscreteVariable::init(const double /*t0*/) {
 }
 
 void
+ConnectorCalculatedDiscreteVariable::initLinearize(const double /*t0*/) {
+  // no initialization needed
+}
+
+void
 ConnectorCalculatedDiscreteVariable::evalF(double /*t*/, propertyF_t /*type*/) {
   /* not needed*/
 }
@@ -188,4 +193,20 @@ ConnectorCalculatedDiscreteVariable::loadVariables(const string& /*variables*/) 
   /* not needed */
 }
 
+void ConnectorCalculatedDiscreteVariable::getSizeLinearize() {
+  sizeFLinearize_ = sizeF_;
+  sizeYLinearize_ = sizeY_;
+  sizeZLinearize_ = sizeZ_;
+  sizeGLinearize_ = sizeG_;
+  sizeModeLinearize_ = sizeMode_;
+
+  calculatedVarsLinearize_.assign(calculatedVars_.size(), 0);
+}
+
+void ConnectorCalculatedDiscreteVariable::defineVariablesLinearize(std::vector<boost::shared_ptr<Variable> >& variables) {
+  defineVariables(variables);
+}
+
+void ConnectorCalculatedDiscreteVariable::defineParametersLinearize(std::vector<ParameterModeler>& /*parameters*/) {
+}
 }  // namespace DYN

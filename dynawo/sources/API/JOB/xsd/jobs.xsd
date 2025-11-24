@@ -175,6 +175,7 @@
 
   <xs:complexType name="LineariseEntry">
     <xs:attribute name="lineariseTime" use="required" type="xs:float"/>
+    <xs:attribute name="useLinearizeModel" use="required" type="xs:boolean"/>
   </xs:complexType>
 
   <xs:complexType name="FinalStateEntry">

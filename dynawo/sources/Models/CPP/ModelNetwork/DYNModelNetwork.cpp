@@ -1490,4 +1490,37 @@ ModelNetwork::loadInternalVariables(boost::archive::binary_iarchive&) {
   // not needed
 }
 
+void ModelNetwork::evalStaticYTypeLinearize() {
+  std::copy(yType_, yType_ + sizeY(), yTypeLinearize_);
+}
+
+void ModelNetwork::evalDynamicYTypeLinearize() {
+  std::copy(yType_, yType_ + sizeY(), yTypeLinearize_);
+}
+
+void ModelNetwork::evalStaticFTypeLinearize() {
+  std::copy(fType_, fType_ + sizeY(), fTypeLinearize_);
+}
+
+void ModelNetwork::evalDynamicFTypeLinearize() {
+  std::copy(fType_, fType_ + sizeY(), fTypeLinearize_);
+}
+
+void ModelNetwork::getSizeLinearize() {
+  sizeFLinearize_ = sizeF_;
+  sizeYLinearize_ = sizeY_;
+  sizeZLinearize_ = sizeZ_;
+  sizeGLinearize_ = sizeG_;
+  sizeModeLinearize_ = sizeMode_;
+
+  calculatedVarsLinearize_.assign(calculatedVars_.size(), 0);
+}
+
+void ModelNetwork::defineVariablesLinearize(std::vector<boost::shared_ptr<Variable> >& variables) {
+  defineVariables(variables);
+}
+
+void ModelNetwork::defineParametersLinearize(std::vector<ParameterModeler>& /*parameters*/) {
+}
+
 }  // namespace DYN

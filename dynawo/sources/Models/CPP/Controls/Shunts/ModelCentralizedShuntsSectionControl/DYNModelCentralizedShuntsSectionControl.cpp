@@ -167,6 +167,37 @@ namespace DYN {
     calculatedVars_.assign(nbCalculatedVariables_, 0);
   }
 
+  void ModelCentralizedShuntsSectionControl::evalStaticYTypeLinearize() {
+    std::copy(yType_, yType_ + sizeY(), yTypeLinearize_);
+  }
+
+  void ModelCentralizedShuntsSectionControl::evalDynamicYTypeLinearize() {
+  }
+
+  void ModelCentralizedShuntsSectionControl::evalStaticFTypeLinearize() {
+    std::copy(fType_, fType_ + sizeY(), fTypeLinearize_);
+  }
+
+  void ModelCentralizedShuntsSectionControl::evalDynamicFTypeLinearize() {
+  }
+
+  void ModelCentralizedShuntsSectionControl::getSizeLinearize() {
+    sizeFLinearize_ = sizeF_;
+    sizeYLinearize_ = sizeY_;
+    sizeZLinearize_ = sizeZ_;
+    sizeGLinearize_ = sizeG_;
+    sizeModeLinearize_ = sizeMode_;
+
+    calculatedVarsLinearize_.assign(calculatedVars_.size(), 0);
+  }
+
+  void ModelCentralizedShuntsSectionControl::defineVariablesLinearize(std::vector<boost::shared_ptr<Variable> >& variables) {
+    defineVariables(variables);
+  }
+
+  void ModelCentralizedShuntsSectionControl::defineParametersLinearize(std::vector<ParameterModeler>& /*parameters*/) {
+  }
+
   void
   ModelCentralizedShuntsSectionControl::evalStaticYType() {
     yType_[0] = EXTERNAL;

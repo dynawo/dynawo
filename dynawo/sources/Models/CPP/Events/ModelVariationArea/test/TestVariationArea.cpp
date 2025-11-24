@@ -47,7 +47,7 @@ static boost::shared_ptr<SubModel> initModelVariationArea(double deltaPLoad2, do
   parametersSet->createParameter("deltaP_load_1", deltaPLoad2);
   parametersSet->createParameter("deltaQ_load_1", deltaQLoad2);
   modelVariationArea->setPARParameters(parametersSet);
-  modelVariationArea->addParameters(parameters, false);
+  modelVariationArea->addParameters(parameters, false, false);
   modelVariationArea->setParametersFromPARFile();
   modelVariationArea->setSubModelParameters();
 
@@ -73,7 +73,7 @@ TEST(ModelsModelVariationArea, ModelVariationAreaDefineMethods) {
   parametersSet->createParameter("deltaQ_load_1", .05);
   ASSERT_NO_THROW(modelVariationArea->setPARParameters(parametersSet));
 
-  modelVariationArea->addParameters(parameters, false);
+  modelVariationArea->addParameters(parameters, false, false);
   ASSERT_NO_THROW(modelVariationArea->setParametersFromPARFile());
   ASSERT_NO_THROW(modelVariationArea->setSubModelParameters());
 

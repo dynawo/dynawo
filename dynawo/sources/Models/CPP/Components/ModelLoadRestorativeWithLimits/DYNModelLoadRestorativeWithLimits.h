@@ -302,6 +302,14 @@ class ModelLoadRestorativeWithLimits : public ModelCPP {
   */
   void evalZ(double t) override;
 
+  void evalStaticYTypeLinearize() override;
+  void evalDynamicYTypeLinearize() override;
+  void evalStaticFTypeLinearize() override;
+  void evalDynamicFTypeLinearize() override;
+  void getSizeLinearize() override;
+  void defineVariablesLinearize(std::vector<boost::shared_ptr<Variable> >& variables) override;
+  void defineParametersLinearize(std::vector<ParameterModeler>& parameters) override;
+
  private:
   unsigned int UfYNum_;  ///< local Y index for Uf
   unsigned int UrYNum_;  ///< local Y index for Ur

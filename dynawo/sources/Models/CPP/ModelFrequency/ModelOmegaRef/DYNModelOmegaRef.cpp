@@ -138,6 +138,37 @@ ModelOmegaRef::getSize() {
   calculatedVars_.assign(nbCalculatedVars_, 0);
 }
 
+void ModelOmegaRef::evalStaticYTypeLinearize() {
+  std::copy(yType_, yType_ + sizeY(), yTypeLinearize_);
+}
+
+void ModelOmegaRef::evalDynamicYTypeLinearize() {
+}
+
+void ModelOmegaRef::evalStaticFTypeLinearize() {
+  std::copy(fType_, fType_ + sizeY(), fTypeLinearize_);
+}
+
+void ModelOmegaRef::evalDynamicFTypeLinearize() {
+}
+
+void ModelOmegaRef::getSizeLinearize() {
+  sizeFLinearize_ = sizeF_;
+  sizeYLinearize_ = sizeY_;
+  sizeZLinearize_ = sizeZ_;
+  sizeGLinearize_ = sizeG_;
+  sizeModeLinearize_ = sizeMode_;
+
+  calculatedVarsLinearize_.assign(calculatedVars_.size(), 0);
+}
+
+void ModelOmegaRef::defineVariablesLinearize(std::vector<boost::shared_ptr<Variable> >& variables) {
+  defineVariables(variables);
+}
+
+void ModelOmegaRef::defineParametersLinearize(std::vector<ParameterModeler>& /*parameters*/) {
+}
+
 void
 ModelOmegaRef::calculateInitialState() {
   sortGenByCC();
@@ -460,11 +491,12 @@ ModelOmegaRef::setSubModelParameters() {
 
   // Get omegaRefMin and omegaRefMax parameters from the par file if they exist
   constexpr bool isInitParam = false;
-  const ParameterModeler& parameter = findParameter("omegaRefMin", isInitParam);
+  constexpr bool isLinearizeParam = false;
+  const ParameterModeler& parameter = findParameter("omegaRefMin", isInitParam, isLinearizeParam);
   if (parameter.hasValue()) {
     omegaRefMin_ = parameter.getDoubleValue();
   }
-  const ParameterModeler& parameter2 = findParameter("omegaRefMax", isInitParam);
+  const ParameterModeler& parameter2 = findParameter("omegaRefMax", isInitParam, isLinearizeParam);
   if (parameter2.hasValue()) {
     omegaRefMax_ = parameter2.getDoubleValue();
   }

@@ -101,6 +101,37 @@ ModelVoltageMeasurementsUtilities::getSize() {
   calculatedVars_.assign(nbCalculatedVars_, 0);
 }
 
+void ModelVoltageMeasurementsUtilities::evalStaticYTypeLinearize() {
+  std::copy(yType_, yType_ + sizeY(), yTypeLinearize_);
+}
+
+void ModelVoltageMeasurementsUtilities::evalDynamicYTypeLinearize() {
+}
+
+void ModelVoltageMeasurementsUtilities::evalStaticFTypeLinearize() {
+  std::copy(fType_, fType_ + sizeY(), fTypeLinearize_);
+}
+
+void ModelVoltageMeasurementsUtilities::evalDynamicFTypeLinearize() {
+}
+
+void ModelVoltageMeasurementsUtilities::getSizeLinearize() {
+  sizeFLinearize_ = sizeF_;
+  sizeYLinearize_ = sizeY_;
+  sizeZLinearize_ = sizeZ_;
+  sizeGLinearize_ = sizeG_;
+  sizeModeLinearize_ = sizeMode_;
+
+  calculatedVarsLinearize_.assign(calculatedVars_.size(), 0);
+}
+
+void ModelVoltageMeasurementsUtilities::defineVariablesLinearize(std::vector<boost::shared_ptr<Variable> >& variables) {
+  defineVariables(variables);
+}
+
+void ModelVoltageMeasurementsUtilities::defineParametersLinearize(std::vector<ParameterModeler>& /*parameters*/) {
+}
+
 void
 ModelVoltageMeasurementsUtilities::evalF(double /*t*/, propertyF_t /*type*/) {
   // No evalF function needed

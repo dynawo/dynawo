@@ -299,6 +299,14 @@ class ModelOmegaRef : public ModelCPP {
    */
   void calculateInitialState();
 
+  void evalStaticYTypeLinearize() override;
+  void evalDynamicYTypeLinearize() override;
+  void evalStaticFTypeLinearize() override;
+  void evalDynamicFTypeLinearize() override;
+  void getSizeLinearize() override;
+  void defineVariablesLinearize(std::vector<boost::shared_ptr<Variable> >& variables) override;
+  void defineParametersLinearize(std::vector<ParameterModeler>& parameters) override;
+
  private:
   static int col1stOmegaRef_;  ///< offset to find the first row the residual functions about omegaRef
   static int col1stOmega_;  ///< offset to find the first row the residual functions about omega

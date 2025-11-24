@@ -116,6 +116,8 @@ set(MODEL_SOURCES
   ${MODEL_NAME}.cpp
   ${MODEL_NAME}_Dyn.cpp
   ${MODEL_NAME}_Dyn_external.cpp
+  ${MODEL_NAME}_Linearize.cpp
+  ${MODEL_NAME}_Linearize_external.cpp
   )
 
 if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${MODEL_NAME}_Init.cpp)

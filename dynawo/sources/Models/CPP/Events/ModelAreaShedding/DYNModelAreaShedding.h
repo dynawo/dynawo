@@ -259,6 +259,14 @@ class ModelAreaShedding : public ModelCPP {
    */
   void initParams() override { /* not needed */ }
 
+  void evalStaticYTypeLinearize() override;
+  void evalDynamicYTypeLinearize() override;
+  void evalStaticFTypeLinearize() override;
+  void evalDynamicFTypeLinearize() override;
+  void getSizeLinearize() override;
+  void defineVariablesLinearize(std::vector<boost::shared_ptr<Variable> >& variables) override;
+  void defineParametersLinearize(std::vector<ParameterModeler>& parameters) override;
+
  private:
   // parameters
   std::vector<double> deltaP_;  ///< deltas in % to apply to PRefs

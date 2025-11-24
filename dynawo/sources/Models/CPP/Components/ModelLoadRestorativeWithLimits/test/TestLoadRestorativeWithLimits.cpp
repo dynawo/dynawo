@@ -51,7 +51,7 @@ static boost::shared_ptr<SubModel> initModelLoad(double u0Pu) {
   parametersSet->createParameter("load_Q0Pu", 1.);
   parametersSet->createParameter("load_UPhase0", 0.);
   modelLoad->setPARParameters(parametersSet);
-  modelLoad->addParameters(parameters, false);
+  modelLoad->addParameters(parameters, false, false);
   modelLoad->setParametersFromPARFile();
   modelLoad->setSubModelParameters();
 
@@ -80,7 +80,7 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsDefineMethod
   parametersSet->createParameter("load_Q0Pu", 1.);
   parametersSet->createParameter("load_UPhase0", 0.);
   ASSERT_NO_THROW(modelLoad->setPARParameters(parametersSet));
-  modelLoad->addParameters(parameters, false);
+  modelLoad->addParameters(parameters, false, false);
   ASSERT_NO_THROW(modelLoad->setParametersFromPARFile());
   ASSERT_NO_THROW(modelLoad->setSubModelParameters());
   std::vector<boost::shared_ptr<Variable> > variables;
@@ -105,7 +105,7 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsDefineMethod
   std::shared_ptr<parameters::ParametersSet> parametersSet_missingPar = parameters::ParametersSetFactory::newParametersSet("Parameterset");
   parametersSet_missingPar->createParameter("load_U0Pu", 1.);
   ASSERT_NO_THROW(modelLoad_missingPar->setPARParameters(parametersSet_missingPar));
-  modelLoad_missingPar->addParameters(parameters_missingPar, false);
+  modelLoad_missingPar->addParameters(parameters_missingPar, false, false);
   ASSERT_NO_THROW(modelLoad_missingPar->setParametersFromPARFile());
   ASSERT_THROW_DYNAWO(modelLoad_missingPar->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
 }

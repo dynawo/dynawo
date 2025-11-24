@@ -120,6 +120,37 @@ ModelVariationArea::getSize() {
   calculatedVars_.assign(nbCalculatedVars_, 0);
 }
 
+void ModelVariationArea::evalStaticYTypeLinearize() {
+  std::copy(yType_, yType_ + sizeY(), yTypeLinearize_);
+}
+
+void ModelVariationArea::evalDynamicYTypeLinearize() {
+}
+
+void ModelVariationArea::evalStaticFTypeLinearize() {
+  std::copy(fType_, fType_ + sizeY(), fTypeLinearize_);
+}
+
+void ModelVariationArea::evalDynamicFTypeLinearize() {
+}
+
+void ModelVariationArea::getSizeLinearize() {
+  sizeFLinearize_ = sizeF_;
+  sizeYLinearize_ = sizeY_;
+  sizeZLinearize_ = sizeZ_;
+  sizeGLinearize_ = sizeG_;
+  sizeModeLinearize_ = sizeMode_;
+
+  calculatedVarsLinearize_.assign(nbCalculatedVars_, 0);
+}
+
+void ModelVariationArea::defineVariablesLinearize(std::vector<boost::shared_ptr<Variable> >& variables) {
+  defineVariables(variables);
+}
+
+  void ModelVariationArea::defineParametersLinearize(std::vector<ParameterModeler>& /*parameters*/) {
+}
+
 // evaluation of F(t,y,y') function
 
 void

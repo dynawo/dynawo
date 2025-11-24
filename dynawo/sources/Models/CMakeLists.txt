@@ -47,6 +47,9 @@ add_custom_target(MODEL_FILES_INSTALL
 # (.so and .desc.xml)
 #
 add_custom_target(PREASSEMBLED_MODEL_FILES_INSTALL
+                  DEPENDS
+                    INSTALL_DYNAWO_DDBDIRLIN
+                    UPDATE_DYNAWO_DDBDIRLIN
                   COMMENT "Installing preassembled models"
                  )
 
@@ -57,6 +60,18 @@ add_custom_target(PREASSEMBLED_MODEL_FILES_INSTALL
 add_custom_target(CPP_FILES_INSTALL
                   COMMENT "Installing C++ models"
                  )
+
+add_custom_target(INSTALL_DYNAWO_DDBDIRLIN
+        DEPENDS
+          MODEL_FILES_INSTALL
+        COMMAND ${CMAKE_COMMAND} -E copy_directory ${ddbdir}/Dynawo ${ddbdirlin}/Dynawo
+)
+
+add_custom_target(UPDATE_DYNAWO_DDBDIRLIN
+        DEPENDS
+          INSTALL_DYNAWO_DDBDIRLIN
+        COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/updateLinearizeBlocks.py ${ddbdirlin}/Dynawo
+)
 
 set(EXTERNAL_VARIABLES_EXTENSION ".extvar")
 set(DESCRIPTION_XML_EXTENSION ".desc.xml")
@@ -109,6 +124,8 @@ macro(COMPILE_PREASSEMBLED_MODEL
       OUTPUT ${MODEL_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}
       DEPENDS
         MODEL_FILES_INSTALL
+        INSTALL_DYNAWO_DDBDIRLIN
+        UPDATE_DYNAWO_DDBDIRLIN
         ${PREASSEMBLED_MODEL}
         dynawo_ModelManager
       COMMAND
@@ -160,6 +177,8 @@ macro(COMPILE_PREASSEMBLED_MODEL
       DEPENDS
         ${PREASSEMBLED_MODEL}
         MODEL_FILES_INSTALL
+        INSTALL_DYNAWO_DDBDIRLIN
+        UPDATE_DYNAWO_DDBDIRLIN
         dynawo_ModelManager
       COMMAND
         test -f ${CMAKE_INSTALL_PREFIX}/${SBINDIR_NAME}/scriptVerifyModelList.py || (echo "Target install was not completed, you need to launch it before compiling a Modelica model. For example with dynawo build-dynawo-core." && exit 1)
@@ -172,6 +191,7 @@ macro(COMPILE_PREASSEMBLED_MODEL
         "${runtime_LD_LIBRARY_PATH}"
         "DYNAWO_INSTALL_DIR=${installdir}"
         "DYNAWO_DDB_DIR=${ddbdir}"
+        "DYNAWO_DDB_DIR_LIN=${ddbdirlin}"
         "DYNAWO_SCRIPTS_DIR=${sbindir}"
         "DYNAWO_RESOURCES_DIR=${sharedir}"
         "DYNAWO_DICTIONARIES=dictionaries_mapping"
@@ -223,7 +243,6 @@ macro(COMPILE_PREASSEMBLED_MODEL
   add_dependencies(PREASSEMBLED_MODEL_FILES_INSTALL ${MODEL_NAME})
 endmacro(COMPILE_PREASSEMBLED_MODEL)
 
-#
 # Macro called to install a C++ model and its description
 # file into ddbdir. Automatically adds the dependencies
 # to the main targets.
@@ -304,7 +323,8 @@ endmacro(COMPILE_CPP_MODEL)
 # PYTHON scripts for models
 set(PYTHON_SCRIPTS_MODELS
   checkSum_ModelsCPP.py
-  )
+  updateLinearizeBlocks.py
+)
 
 install(PROGRAMS ${PYTHON_SCRIPTS_MODELS} DESTINATION ${SBINDIR_NAME})
 

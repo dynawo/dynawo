@@ -114,6 +114,37 @@ ModelVoltageSetPointChange::getSize() {
   calculatedVars_.assign(nbCalculatedVars_, 0);
 }
 
+void ModelVoltageSetPointChange::evalStaticYTypeLinearize() {
+  std::copy(yType_, yType_ + sizeY(), yTypeLinearize_);
+}
+
+void ModelVoltageSetPointChange::evalDynamicYTypeLinearize() {
+}
+
+void ModelVoltageSetPointChange::evalStaticFTypeLinearize() {
+  std::copy(fType_, fType_ + sizeY(), fTypeLinearize_);
+}
+
+void ModelVoltageSetPointChange::evalDynamicFTypeLinearize() {
+}
+
+void ModelVoltageSetPointChange::getSizeLinearize() {
+  sizeFLinearize_ = sizeF_;
+  sizeYLinearize_ = sizeY_;
+  sizeZLinearize_ = sizeZ_;
+  sizeGLinearize_ = sizeG_;
+  sizeModeLinearize_ = sizeMode_;
+
+  calculatedVarsLinearize_.assign(calculatedVars_.size(), 0);
+}
+
+void ModelVoltageSetPointChange::defineVariablesLinearize(std::vector<boost::shared_ptr<Variable> >& variables) {
+  defineVariables(variables);
+}
+
+void ModelVoltageSetPointChange::defineParametersLinearize(std::vector<ParameterModeler>& /*parameters*/) {
+}
+
 void
 ModelVoltageSetPointChange::evalF(double /*t*/, propertyF_t /*type*/) {
   // not needed

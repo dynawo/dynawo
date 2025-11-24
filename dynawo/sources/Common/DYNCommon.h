@@ -180,7 +180,7 @@ namespace DYN {
    * @return the boolean value as a native boolean
    */
   static inline bool toNativeBool(const double dynawoBool) {
-    return dynawoBool >  0.0;
+    return dynawoBool > 0.0;
   }
 
 

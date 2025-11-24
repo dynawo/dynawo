@@ -68,21 +68,44 @@ sizeG_(0),
 sizeMode_(0),
 sizeY_(0),
 sizeCalculatedVar_(0),
+sizeFLinearize_(0),
+sizeZLinearize_(0),
+sizeGLinearize_(0),
+sizeModeLinearize_(0),
+sizeYLinearize_(0),
+sizeCalculatedVarLinearize_(0),
 fLocal_(NULL),
 gLocal_(NULL),
 yLocal_(NULL),
 ypLocal_(NULL),
 zLocal_(NULL),
 zLocalConnected_(NULL),
+fLocalLinearize_(NULL),
+gLocalLinearize_(NULL),
+yLocalLinearize_(NULL),
+offsetYLinearize_(-1),
+ypLocalLinearize_(NULL),
+zLocalLinearize_(NULL),
+zLocalConnectedLinearize_(NULL),
 yType_(NULL),
 fType_(NULL),
+yTypeLinearize_(NULL),
+fTypeLinearize_(NULL),
 yDeb_(0),
 zDeb_(0),
 modeDeb_(0),
 fDeb_(0),
 gDeb_(0),
+yDebLinearize_(0),
+zDebLinearize_(0),
+modeDebLinearize_(0),
+fDebLinearize_(0),
+gDebLinearize_(0),
 withLoadedParameters_(false),
 withLoadedVariables_(false),
+withLinearize_(false),
+tLinearize_(std::numeric_limits<double>::lowest()),
+isLinearizeProcess_(false),
 sizeFSave_(0),
 sizeZSave_(0),
 sizeGSave_(0),
@@ -182,6 +205,9 @@ SubModel::initSub(const double t0, const std::shared_ptr<parameters::ParametersS
   }
 
   init(t0);
+  setIsLinearizeProcess(true);
+  initLinearize(t0);
+  setIsLinearizeProcess(false);
 
 #ifdef _DEBUG_
   if (readPARParameters_) {
@@ -227,7 +253,6 @@ SubModel::initSize(int& sizeYGlob, int& sizeZGlob, int& sizeModeGlob, int& sizeF
   if (sizeZ_ != zNames_.size())
       throw DYNError(Error::MODELER, MismatchingVariableSizes, "Z", name(), sizeZ_, zNames_.size());
 
-
   yDeb_ = sizeYGlob;
   zDeb_ = sizeZGlob;
   modeDeb_ = sizeModeGlob;
@@ -239,6 +264,28 @@ SubModel::initSize(int& sizeYGlob, int& sizeZGlob, int& sizeModeGlob, int& sizeF
   sizeModeGlob += sizeMode_;
   sizeFGlob += sizeF_;
   sizeGGlob += sizeG_;
+}
+
+void
+SubModel::initSizeLinearize(int& sizeYGlob, int& sizeZGlob, int& sizeModeGlob, int& sizeFGlob, int& sizeGGlob) {
+  getSizeLinearize();
+
+  if (sizeYLinearize_ != xNamesLinearize_.size())
+    throw DYNError(Error::MODELER, MismatchingVariableSizes, "Y", name(), sizeYLinearize_, xNamesLinearize_.size());
+  if (sizeZLinearize_ != zNamesLinearize_.size())
+    throw DYNError(Error::MODELER, MismatchingVariableSizes, "Z", name(), sizeZLinearize_, zNamesLinearize_.size());
+
+  yDebLinearize_ = sizeYGlob;
+  zDebLinearize_ = sizeZGlob;
+  modeDebLinearize_ = sizeModeGlob;
+  fDebLinearize_ = sizeFGlob;
+  gDebLinearize_ = sizeGGlob;
+
+  sizeYGlob += sizeYLinearize_;
+  sizeZGlob += sizeZLinearize_;
+  sizeModeGlob += sizeModeLinearize_;
+  sizeFGlob += sizeFLinearize_;
+  sizeGGlob += sizeGLinearize_;
 }
 
 void
@@ -289,6 +336,53 @@ SubModel::getSubElements(const Element& element) const {
 }
 
 void
+SubModel::defineElementsLinearize() {
+  elementsLinearize_.clear();
+  mapElementLinearize_.clear();
+  defineElements(elementsLinearize_, mapElementLinearize_);
+}
+
+  void
+SubModel::releaseElementsLinearize() {
+vector<Element >().swap(elementsLinearize_);  /// clear erase elements, but do not reduce size
+  mapElementLinearize_.clear();
+}
+
+vector<Element>
+SubModel::getElementsLinearize(const string& nameElement) const {
+  const auto& iter = mapElementLinearize_.find(nameElement);
+  if (iter == mapElementLinearize_.end()) {
+    dumpUserReadableElementList(nameElement);
+    throw DYNError(Error::MODELER, SubModelUnknownElement, nameElement, name(), modelType());
+  } else {
+    vector<Element> elements;
+    const Element& element = elementsLinearize_[iter->second];
+    if (element.getTypeElement() == Element::STRUCTURE) {
+      vector<Element> subElements = getSubElements(element);
+      elements.insert(elements.begin(), subElements.begin(), subElements.end());
+    } else {
+      elements.push_back(element);
+    }
+    return elements;
+  }
+}
+
+vector<Element>
+SubModel::getSubElementsLinearize(const Element& element) const {
+  vector<Element> elements;
+  for (const auto subElementsNum : element.subElementsNum()) {
+    Element sub = elementsLinearize_[subElementsNum];
+    if (sub.getTypeElement() == Element::STRUCTURE) {
+      vector<Element> subElements = getSubElements(sub);
+      elements.insert(elements.begin(), subElements.begin(), subElements.end());
+    } else {
+      elements.push_back(sub);
+    }
+  }
+  return elements;
+}
+
+void
 SubModel::dumpUserReadableElementList(const std::string& nameElement) const {
   Trace::info() << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
   vector< std::pair<size_t, string> > vec;
@@ -323,7 +417,7 @@ SubModel::getVariable(const string& variableName) const {
 }
 
 double
-SubModel::getVariableValue(const shared_ptr<Variable>& variable) const {
+SubModel::getVariableValue(const shared_ptr<Variable>& variable, bool differentialValue, bool nativeBool) const {
 #ifdef _DEBUG_
   assert(variable && "SubModel::getVariableValue variable not found");
 #endif
@@ -339,7 +433,10 @@ SubModel::getVariableValue(const shared_ptr<Variable>& variable) const {
     switch (typeVar) {
       case CONTINUOUS:
       case FLOW: {
-        value = yLocal_[varNum];
+        if (differentialValue)
+          value = ypLocal_[varNum];
+        else
+          value = yLocal_[varNum];
         break;
       }
       case DISCRETE:
@@ -348,10 +445,14 @@ SubModel::getVariableValue(const shared_ptr<Variable>& variable) const {
         break;
       }
       case BOOLEAN: {
-        if (toNativeBool(zLocal_[varNum]))
-          value = 1;
-        else
-          value = 0;
+        if (nativeBool) {
+          if (toNativeBool(zLocal_[varNum]))
+            value = 1;
+          else
+            value = 0;
+        } else {
+          value = zLocal_[varNum];
+        }
         break;
       }
       case UNDEFINED_TYPE: {
@@ -399,13 +500,13 @@ SubModel::getVariableIndexGlobal(const shared_ptr<Variable>& variable) const {
 }
 
 double
-SubModel::getVariableValue(const string& nameVariable) const {
-  return getVariableValue(getVariable(nameVariable));
+SubModel::getVariableValue(const string& nameVariable, const bool differentialValue, const bool nativeBool) const {
+  return getVariableValue(getVariable(nameVariable), differentialValue, nativeBool);
 }
 
 bool
-SubModel::hasParameter(const string& nameParameter, const bool isInitParam) const {
-  const std::unordered_map<string, ParameterModeler>& parameters = getParameters(isInitParam);
+SubModel::hasParameter(const string& nameParameter, const bool isInitParam, const bool isLinearizeParam) const {
+  const std::unordered_map<string, ParameterModeler>& parameters = getParameters(isInitParam, isLinearizeParam);
   return (parameters.find(nameParameter) != parameters.end());
 }
 
@@ -440,7 +541,37 @@ SubModel::defineVariables() {
 }
 
 void
-SubModel::instantiateNonUnitaryParameters(const bool isInitParam, const std::map<string, ParameterModeler>& nonUnitaryParameters,
+SubModel::defineVariablesLinearize() {
+  variablesLinearize_.clear();
+  variablesByNameLinearize_.clear();
+  defineVariablesLinearize(variablesLinearize_);
+  // sort variable by name
+  for (const auto& variable : variablesLinearize_) {
+    variablesByNameLinearize_[variable->getName()] = variable;
+  }
+
+  // define alias
+  for (auto& variable : variablesLinearize_) {
+    if (variable->isAlias()) {
+      const shared_ptr<VariableAlias>& variableAlias = boost::dynamic_pointer_cast<VariableAlias>(variable);
+      if (!variableAlias->referenceVariableSet()) {
+        std::unordered_map<string, shared_ptr<Variable> >::const_iterator iter = variablesByNameLinearize_.find(variableAlias->getReferenceVariableName());
+        if (iter == variablesByNameLinearize_.end()) {
+          throw DYNError(Error::MODELER, AliasNotFound, name(), variableAlias->getReferenceVariableName());
+        } else {
+          variableAlias->setReferenceVariable(boost::dynamic_pointer_cast<VariableNative> (iter->second));
+          if (iter->second->isState() && (iter->second->getType() == DISCRETE || iter->second->getType() == BOOLEAN))
+            zAliasesNamesLinearize_.emplace_back(variableAlias->getName(), std::make_pair(iter->first, variableAlias->getNegated()));
+          else if (iter->second->isState() && (iter->second->getType() == CONTINUOUS || iter->second->getType() == FLOW))
+            xAliasesNamesLinearize_.emplace_back(variableAlias->getName(), std::make_pair(iter->first, variableAlias->getNegated()));
+        }
+      }
+    }
+  }
+}
+
+void
+SubModel::instantiateNonUnitaryParameters(const bool isInitParam, const bool isLinearizeParam, const std::map<string, ParameterModeler>& nonUnitaryParameters,
     std::unordered_set<string>& addedParameter) {
   stringstream ss;
   for (const auto& nonUnitaryParameter : nonUnitaryParameters) {
@@ -448,10 +579,10 @@ SubModel::instantiateNonUnitaryParameters(const bool isInitParam, const std::map
     const string paramName = parameter.getName();
     if (!parameter.isUnitary()) {
       const string cardinalityInformatorName = parameter.getCardinalityInformator();
-      if (!hasParameter(cardinalityInformatorName, isInitParam)) {
+      if (!hasParameter(cardinalityInformatorName, isInitParam, isLinearizeParam)) {
         throw DYNError(Error::MODELER, ParameterCardinalityNotDefined, paramName, cardinalityInformatorName);
       }
-      const ParameterModeler& cardinaliyInformator = findParameter(cardinalityInformatorName, isInitParam);
+      const ParameterModeler& cardinaliyInformator = findParameter(cardinalityInformatorName, isInitParam, isLinearizeParam);
       if (!cardinaliyInformator.hasValue()) {
         throw DYNError(Error::MODELER, ParameterCardinalityNotDefined, paramName, cardinalityInformatorName);
       } else if (cardinaliyInformator.getValueType() != VAR_TYPE_INT) {
@@ -466,7 +597,7 @@ SubModel::instantiateNonUnitaryParameters(const bool isInitParam, const std::map
         const string& newName = paramName + "_" + indexAsString;
         auto newParameter = ParameterModeler(newName, parameter.getValueType(), parameter.getScope());
         newParameter.setIsNonUnitaryParameterInstance(true);
-        addParameter(newParameter, isInitParam);
+        addParameter(newParameter, isInitParam, isLinearizeParam);
         addedParameter.insert(newName);
       }
     }
@@ -516,8 +647,9 @@ SubModel::setParameterFromSet(const std::shared_ptr<parameters::ParametersSet>& 
 }
 
 void
-SubModel::setParametersFromPARFile(const bool isInitParam) {
-  std::unordered_map<string, ParameterModeler>& parameters = (isInitParam ? parametersInit_ : parametersDynamic_);
+SubModel::setParametersFromPARFile(const bool isInitParam, bool isLinearizeParam) {
+  // std::unordered_map<string, ParameterModeler>& parameters = (isInitParam ? parametersInit_ : parametersDynamic_);
+  auto& parameters = getNonCstParameters(isInitParam, isLinearizeParam);
 
   std::map<string, ParameterModeler> nonUnitaryParameters;
   // Set values of parameters with unitary cardinality
@@ -537,11 +669,11 @@ SubModel::setParametersFromPARFile(const bool isInitParam) {
   //    -name of multiple parameter: weight_gen
   //    -name in multiple parameter instances: weight_gen_0, weight_gen_1, ...weight_gen_nbGen,
   std::unordered_set<string> addedParameters;
-  instantiateNonUnitaryParameters(isInitParam, nonUnitaryParameters, addedParameters);
+  instantiateNonUnitaryParameters(isInitParam, isLinearizeParam, nonUnitaryParameters, addedParameters);
 
   // set the unitary parameters coming from not-unitary parameters instantiation
   for (const auto& addedParameter : addedParameters) {
-    ParameterModeler& currentParameter = findParameterReference(addedParameter, isInitParam);
+    ParameterModeler& currentParameter = findParameterReference(addedParameter, isInitParam, isLinearizeParam);
     if (!currentParameter.isFullyInternal()) {
       setParameterFromPARFile(currentParameter);
     }
@@ -551,15 +683,38 @@ SubModel::setParametersFromPARFile(const bool isInitParam) {
 void
 SubModel::setParametersFromPARFile() {
   // set initial parameters from .par file
-  setParametersFromPARFile(true);
+  setParametersFromPARFile(true, false);
 
   // set dynamic parameters from .par file
-  setParametersFromPARFile(false);
+  setParametersFromPARFile(false, false);
+
+  // set linearize parameters from .par file
+  setParametersFromPARFile(false, true);
+}
+
+const std::unordered_map<std::string, ParameterModeler>&
+SubModel::getParameters(const bool isInitParam, const bool isLinearizeParam) const {
+  if (isInitParam)
+    return getParametersInit();
+  else if (isLinearizeParam)
+    return getParametersLinearize();
+  else
+    return getParametersDynamic();
+}
+
+std::unordered_map<std::string, ParameterModeler>&
+SubModel::getNonCstParameters(const bool isInitParam, const bool isLinearizeParam) {
+  if (isInitParam)
+    return getNonCstParametersInit();
+  else if (isLinearizeParam)
+    return getNonCstParametersLinearize();
+  else
+    return getNonCstParametersDynamic();
 }
 
 const ParameterModeler&
-SubModel::findParameter(const string& name, const bool isInitParam) const {
-  const std::unordered_map<string, ParameterModeler>& parameters = getParameters(isInitParam);
+SubModel::findParameter(const string& name, const bool isInitParam, const bool isLinearizeParam) const {
+  const std::unordered_map<string, ParameterModeler>& parameters = getParameters(isInitParam, isLinearizeParam);
   const auto& indexIterator = parameters.find(name);
 
   if (indexIterator == parameters.end()) {
@@ -569,15 +724,29 @@ SubModel::findParameter(const string& name, const bool isInitParam) const {
 }
 
 ParameterModeler&
-SubModel::findParameterReference(const string& name, const bool isInitParam) {
+SubModel::findParameterReference(const string& name, const bool isInitParam, const bool isLinearizeParam) {
   // Cannot use getParameters as we are not const here
-  std::unordered_map<string, ParameterModeler>& parameters = (isInitParam ? parametersInit_ : parametersDynamic_);
-  const auto& indexIterator = parameters.find(name);
-
-  if (indexIterator == parameters.end()) {
-    throw DYNError(Error::MODELER, ParameterNotDefined, name);
+  // std::unordered_map<string, ParameterModeler>& parameters = (isInitParam ? parametersInit_ : parametersDynamic_);
+  // const auto& indexIterator = parameters.find(name);
+  if (isInitParam) {
+    const auto& indexIterator = parametersInit_.find(name);
+    if (indexIterator == parametersInit_.end()) {
+      throw DYNError(Error::MODELER, ParameterNotDefined, name);
+    }
+    return indexIterator->second;
+  } else if (isLinearizeParam) {
+    const auto& indexIterator = parametersLinearize_.find(name);
+    if (indexIterator == parametersLinearize_.end()) {
+      throw DYNError(Error::MODELER, ParameterNotDefined, name);
+    }
+    return indexIterator->second;
+  } else {
+    const auto& indexIterator = parametersDynamic_.find(name);
+    if (indexIterator == parametersDynamic_.end()) {
+      throw DYNError(Error::MODELER, ParameterNotDefined, name);
+    }
+    return indexIterator->second;
   }
-  return indexIterator->second;
 }
 
 const std::unordered_map<string, ParameterModeler>&
@@ -590,24 +759,47 @@ SubModel::getParametersInit() const {
   return parametersInit_;
 }
 
+const std::unordered_map<string, ParameterModeler>&
+SubModel::getParametersLinearize() const {
+  return parametersLinearize_;
+}
+
+std::unordered_map<string, ParameterModeler>&
+SubModel::getNonCstParametersDynamic() {
+  return parametersDynamic_;
+}
+
+std::unordered_map<string, ParameterModeler>&
+SubModel::getNonCstParametersInit() {
+  return parametersInit_;
+}
+
+std::unordered_map<string, ParameterModeler>&
+SubModel::getNonCstParametersLinearize() {
+  return parametersLinearize_;
+}
+
 void
-SubModel::addParameters(const vector<ParameterModeler>& parameters, const bool isInitParam) {
+SubModel::addParameters(const vector<ParameterModeler>& parameters, const bool isInitParam, const bool isLinearizeParam) {
   for (const auto& parameter : parameters) {
-    if (!hasParameter(parameter.getName(), isInitParam)) {
-      addParameter(parameter, isInitParam);
+    if (!hasParameter(parameter.getName(), isInitParam, isLinearizeParam)) {
+      addParameter(parameter, isInitParam, isLinearizeParam);
     }
   }
 }
 
 void
-SubModel::addParameter(const ParameterModeler& parameter, const bool isInitParam) {
-  if (hasParameter(parameter.getName(), isInitParam)) {
+SubModel::addParameter(const ParameterModeler& parameter, const bool isInitParam, const bool isLinearizeParam) {
+  if (hasParameter(parameter.getName(), isInitParam, isLinearizeParam)) {
     throw DYNError(Error::MODELER, ParameterAlreadyExists, parameter.getName());
   }
   auto parameterToAdd = ParameterModeler(parameter);
   if (isInitParam) {
     parameterToAdd.setIndex(static_cast<unsigned int>(parametersInit_.size()));
     parametersInit_.insert(std::make_pair(parameterToAdd.getName(), parameterToAdd));
+  } else if (isLinearizeParam) {
+    parameterToAdd.setIndex(static_cast<unsigned int>(parametersLinearize_.size()));
+    parametersLinearize_.insert(std::make_pair(parameterToAdd.getName(), parameterToAdd));
   } else {
     parameterToAdd.setIndex(static_cast<unsigned int>(parametersDynamic_.size()));
     parametersDynamic_.insert(std::make_pair(parameterToAdd.getName(), parameterToAdd));
@@ -615,9 +807,11 @@ SubModel::addParameter(const ParameterModeler& parameter, const bool isInitParam
 }
 
 void
-SubModel::resetParameters(const bool isInitParam) {
+SubModel::resetParameters(const bool isInitParam, const bool isLinearizeParam) {
   if (isInitParam)
     parametersInit_.clear();
+  else if (isLinearizeParam)
+    parametersLinearize_.clear();
   else
     parametersDynamic_.clear();
 }
@@ -647,17 +841,19 @@ SubModel::defineVariablesInit() {
 }
 
 void
-SubModel::defineParameters(const bool isInitParam) {
-  resetParameters(isInitParam);
+SubModel::defineParameters(const bool isInitParam, const bool isLinearizeParam) {
+  resetParameters(isInitParam, isLinearizeParam);
 
   vector<ParameterModeler> parameters;
   if (isInitParam) {
     defineParametersInit(parameters);
+  } else if (isLinearizeParam) {
+    defineParametersLinearize(parameters);
   } else {
     defineParameters(parameters);
   }
 
-  addParameters(parameters, isInitParam);
+  addParameters(parameters, isInitParam, isLinearizeParam);
 }
 
 void
@@ -669,6 +865,8 @@ SubModel::printModelValues(const std::string& directory, const std::string& dump
   if (file.is_open()) {
     printValuesVariables(file);
     printValuesParameters(file);
+    printLinearizeValuesParameters(file);
+    printLinearizeValuesParameters(file);
 
     file.close();
   }
@@ -716,6 +914,22 @@ SubModel::printInitValuesParameters(std::ofstream& fstream) const {
       fstream << std::setw(50) << std::left << sortedParameterDynamic.first << std::right << " =" << std::setw(15) << value << std::endl;
     }
   }
+}
+
+void
+SubModel::printLinearizeValuesParameters(std::ofstream& fstream) {
+  std::map<std::string, ParameterModeler> sortedParametersDynamic(parametersLinearize_.begin(), parametersLinearize_.end());
+  fstream << " ====== LINEARIZE PARAMETERS VALUES ======\n";
+  for (const auto& sortedParameterDynamic : sortedParametersDynamic) {
+    bool found = false;
+    std::string value;
+    getSubModelParameterValue(sortedParameterDynamic.first, value, found);
+    if (found) {
+      fstream << std::setw(50) << std::left <<sortedParameterDynamic.first << std::right << " =" << std::setw(15) << value << std::endl;
+    }
+  }
+  fstream << " ====== LINEARIZE INTERNAL PARAMETERS VALUES ======\n";
+  printInternalParameters(fstream);
 }
 
 void SubModel::defineNamesImpl(vector<shared_ptr<Variable> >& variables, vector<string>& zNames,
@@ -855,6 +1069,55 @@ SubModel::setBufferZ(double* z, bool* zConnected, int offsetZ) {
   zLocalConnected_ = static_cast<bool*>(0);
   if (zConnected)
     zLocalConnected_ = &(zConnected[offsetZ]);
+}
+
+  void
+SubModel::setBufferFTypeLinearize(propertyF_t* fType, const int offsetFType) {
+  fTypeLinearize_ = static_cast<propertyF_t*>(0);
+  if (fType)
+    fTypeLinearize_ = &(fType[offsetFType]);
+}
+
+void
+SubModel::setBufferYTypeLinearize(propertyContinuousVar_t* yType, const int offsetYType) {
+  yTypeLinearize_ = static_cast<propertyContinuousVar_t*>(0);
+  if (yType)
+    yTypeLinearize_ = &(yType[offsetYType]);
+}
+
+void
+SubModel::setBufferFLinearize(double* f, const int offsetF) {
+  fLocalLinearize_ = static_cast<double*>(0);
+  if (f)
+    fLocalLinearize_ = &(f[offsetF]);
+}
+
+void
+SubModel::setBufferGLinearize(state_g* g, const int offsetG) {
+  gLocalLinearize_ = static_cast<state_g*>(0);
+  if (g)
+    gLocalLinearize_ = &(g[offsetG]);
+}
+
+void
+SubModel::setBufferYLinearize(double* y, double* yp, const int offsetY) {
+  yLocalLinearize_ = static_cast<double*>(0);
+  if (y)
+    yLocalLinearize_ = &(y[offsetY]);
+  ypLocalLinearize_ = static_cast<double*>(0);
+  if (yp)
+    ypLocalLinearize_ = &(yp[offsetY]);
+  offsetYLinearize_ = offsetY;
+}
+
+void
+SubModel::setBufferZLinearize(double* z, bool* zConnected, int offsetZ) {
+  zLocalLinearize_ = static_cast<double*>(0);
+  if (z)
+    zLocalLinearize_ = &(z[offsetZ]);
+  zLocalConnectedLinearize_ = static_cast<bool*>(0);
+  if (zConnected)
+    zLocalConnectedLinearize_ = &(zConnected[offsetZ]);
 }
 
 void
@@ -1309,7 +1572,8 @@ SubModel::gEquationIndex() const {
 void
 SubModel::getSubModelParameterValue(const string& nameParameter, std::string& value, bool& found) {
   constexpr bool isInitParam = false;
-  const ParameterModeler& parameter = findParameter(nameParameter, isInitParam);
+  constexpr bool isLinearizeParam = false;
+  const ParameterModeler& parameter = findParameter(nameParameter, isInitParam, isLinearizeParam);
   if (!parameter.hasValue()) {
     found = false;
   } else {
@@ -1324,7 +1588,24 @@ SubModel::getSubModelParameterValue(const string& nameParameter, std::string& va
 void
 SubModel::getInitSubModelParameterValue(const string& nameParameter, std::string& value, bool& found) const {
   constexpr bool isInitParam = true;
-  const ParameterModeler& parameter = findParameter(nameParameter, isInitParam);
+  constexpr bool isLinearizeParam = false;
+  const ParameterModeler& parameter = findParameter(nameParameter, isInitParam, isLinearizeParam);
+  if (!parameter.hasValue()) {
+    found = false;
+  } else {
+    found = true;
+    if (parameter.getValueType() == VAR_TYPE_STRING)
+      value = parameter.getValue<std::string>();
+    else
+      value = DYN::double2String(parameter.getDoubleValue());
+  }
+}
+
+void
+SubModel::getLinearizeSubModelParameterValue(const string& nameParameter, std::string& value, bool& found) const {
+  constexpr bool isInitParam = true;
+  constexpr bool isLinearizeParam = true;
+  const ParameterModeler& parameter = findParameter(nameParameter, isInitParam, isLinearizeParam);
   if (!parameter.hasValue()) {
     found = false;
   } else {
@@ -1368,6 +1649,37 @@ SubModel::printValuesVariables(std::ofstream& fstream) {
 }
 
 void
+SubModel::printLinearizeValuesVariables(std::ofstream& fstream) {
+  fstream << " ====== LINEARIZE VARIABLES VALUES ======\n";
+  const vector<string>& xNames = this->xNamesLinearize();
+  for (unsigned int i = 0; i < sizeY(); ++i)
+    fstream << std::setw(50) << std::left << xNames[i] << std::right << ": y =" << std::setw(15) << DYN::double2String(yLocalLinearize_[i])
+      << " yp =" << std::setw(15) << DYN::double2String(ypLocalLinearize_[i]) << "\n";
+
+  /*for (const auto& xAliasesName : xAliasesNames())
+    fstream << std::setw(50) << std::left << xAliasesName.first << std::right << ": " <<
+    (xAliasesName.second.second ? "negated " : "") << "alias of " << xAliasesName.second.first << "\n";*/
+
+  /*if (sizeCalculatedVar() > 0) {
+    evalCalculatedVars();
+    fstream << " ====== LINEARIZE CALCULATED VARIABLES VALUES ======\n";
+    const vector<string>& calculatedVarNames = getCalculatedVarNames();
+    for (unsigned int i = 0, iEnd = sizeCalculatedVar(); i < iEnd; ++i)
+      fstream << std::setw(50) << std::left << calculatedVarNames[i] << std::right << ": y ="
+        << std::setw(15) << DYN::double2String(getCalculatedVar(i)) << "\n";
+  }*/
+
+  const vector<string>& zNames = this->zNamesLinearize();
+  fstream << " ====== LINEARIZE DISCRETE VARIABLES VALUES ======\n";
+  for (unsigned int i = 0; i < sizeZ(); ++i)
+    fstream << std::setw(50) << std::left << zNames[i] << std::right << ": z =" << std::setw(15) << DYN::double2String(zLocalLinearize_[i]) << "\n";
+
+  /*for (const auto& zAliasesName : zAliasesNames())
+    fstream << std::setw(50) << std::left << zAliasesName.first << std::right << ": "<<
+    (zAliasesName.second.second ? "negated " : "") << "alias of " << zAliasesName.second.first << "\n";*/
+}
+
+void
 SubModel::printInitValuesVariables(std::ofstream& fstream) {
   fstream << " ====== INIT VARIABLES VALUES ======\n";
   const vector<string>& xNames = xNamesInit();
@@ -1400,4 +1712,8 @@ SubModel::printInternalParameters(std::ofstream& /*fstream*/) const {
   // do nothing
 }
 
+void SubModel::setWithLinearize(double tLinearize) {
+  withLinearize_ = true;
+  tLinearize_ = tLinearize;
+}
 }  // namespace DYN

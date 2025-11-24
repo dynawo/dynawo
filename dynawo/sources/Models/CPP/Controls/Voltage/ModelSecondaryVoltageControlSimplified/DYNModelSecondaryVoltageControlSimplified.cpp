@@ -153,6 +153,37 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
     calculatedVars_.assign(nbCalculatedVariables_, 0);
   }
 
+  void ModelSecondaryVoltageControlSimplified::evalStaticYTypeLinearize() {
+    std::copy(yType_, yType_ + sizeY(), yTypeLinearize_);
+  }
+
+  void ModelSecondaryVoltageControlSimplified::evalDynamicYTypeLinearize() {
+  }
+
+  void ModelSecondaryVoltageControlSimplified::evalStaticFTypeLinearize() {
+    std::copy(fType_, fType_ + sizeY(), fTypeLinearize_);
+  }
+
+  void ModelSecondaryVoltageControlSimplified::evalDynamicFTypeLinearize() {
+  }
+
+  void ModelSecondaryVoltageControlSimplified::getSizeLinearize() {
+    sizeFLinearize_ = sizeF_;
+    sizeYLinearize_ = sizeY_;
+    sizeZLinearize_ = sizeZ_;
+    sizeGLinearize_ = sizeG_;
+    sizeModeLinearize_ = sizeMode_;
+
+    calculatedVarsLinearize_.assign(calculatedVars_.size(), 0);
+  }
+
+  void ModelSecondaryVoltageControlSimplified::defineVariablesLinearize(std::vector<boost::shared_ptr<Variable> >& variables) {
+    defineVariables(variables);
+  }
+
+  void ModelSecondaryVoltageControlSimplified::defineParametersLinearize(std::vector<ParameterModeler>& /*parameters*/) {
+  }
+
   void
   ModelSecondaryVoltageControlSimplified::evalStaticYType() {
     yType_[0] = EXTERNAL;

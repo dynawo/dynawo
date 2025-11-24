@@ -280,6 +280,14 @@ class ModelCentralizedShuntsSectionControl : public ModelCPP {
    */
   void defineElements(std::vector<Element> &elements, std::map<std::string, int> &mapElement) override;
 
+  void evalStaticYTypeLinearize() override;
+  void evalDynamicYTypeLinearize() override;
+  void evalStaticFTypeLinearize() override;
+  void evalDynamicFTypeLinearize() override;
+  void getSizeLinearize() override;
+  void defineVariablesLinearize(std::vector<boost::shared_ptr<Variable> >& variables) override;
+  void defineParametersLinearize(std::vector<ParameterModeler>& parameters) override;
+
  private:
   int nbShunts_;                  ///< number of shunts
   std::vector<int> sections0_;    ///< initial section values of each shunt

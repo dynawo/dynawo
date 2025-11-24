@@ -275,17 +275,18 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingTransformerParam) {
 
   modelNetwork->defineParameters();
   const bool isInitParam = false;
+  const bool isLinearizeParam = false;
 
-  ASSERT_EQ(modelNetwork->hasParameter("transformer_currentLimit_maxTimeOperation", isInitParam), true);
-  ASSERT_EQ(modelNetwork->hasParameter("transformer_t1st_THT", isInitParam), true);
-  ASSERT_EQ(modelNetwork->hasParameter("transformer_tNext_THT", isInitParam), true);
-  ASSERT_EQ(modelNetwork->hasParameter("transformer_t1st_HT", isInitParam), true);
-  ASSERT_EQ(modelNetwork->hasParameter("transformer_tNext_HT", isInitParam), true);
-  ASSERT_EQ(modelNetwork->hasParameter("transformer_tolV", isInitParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("transformer_currentLimit_maxTimeOperation", isInitParam, isLinearizeParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("transformer_t1st_THT", isInitParam, isLinearizeParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("transformer_tNext_THT", isInitParam, isLinearizeParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("transformer_t1st_HT", isInitParam, isLinearizeParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("transformer_tNext_HT", isInitParam, isLinearizeParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("transformer_tolV", isInitParam, isLinearizeParam), true);
 
   ASSERT_NO_THROW(modelNetwork->setSubModelParameters());
 
-  modelNetwork->setParameterValue("transformer_currentLimit_maxTimeOperation", PAR, 7., isInitParam);
+  modelNetwork->setParameterValue("transformer_currentLimit_maxTimeOperation", PAR, 7., isInitParam, isLinearizeParam);
   ASSERT_NO_THROW(modelNetwork->setSubModelParameters());
 }
 
@@ -305,25 +306,26 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingTransformerWithRatioTapChangerPar
 
   modelNetwork->defineParameters();
   const bool isInitParam = false;
+  const bool isLinearizeParam = false;
 
   ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
 
-  modelNetwork->setParameterValue("transformer_currentLimit_maxTimeOperation", PAR, 7., isInitParam);
+  modelNetwork->setParameterValue("transformer_currentLimit_maxTimeOperation", PAR, 7., isInitParam, isLinearizeParam);
   ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
 
-  modelNetwork->setParameterValue("transformer_t1st_THT", PAR, 9., isInitParam);
+  modelNetwork->setParameterValue("transformer_t1st_THT", PAR, 9., isInitParam, isLinearizeParam);
   ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
 
-  modelNetwork->setParameterValue("transformer_tNext_THT", PAR, 10., isInitParam);
+  modelNetwork->setParameterValue("transformer_tNext_THT", PAR, 10., isInitParam, isLinearizeParam);
   ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
 
-  modelNetwork->setParameterValue("transformer_t1st_HT", PAR, 11., isInitParam);
+  modelNetwork->setParameterValue("transformer_t1st_HT", PAR, 11., isInitParam, isLinearizeParam);
   ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
 
-  modelNetwork->setParameterValue("transformer_tNext_HT", PAR, 12., isInitParam);
+  modelNetwork->setParameterValue("transformer_tNext_HT", PAR, 12., isInitParam, isLinearizeParam);
   ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
 
-  modelNetwork->setParameterValue("transformer_tolV", PAR, 13., isInitParam);
+  modelNetwork->setParameterValue("transformer_tolV", PAR, 13., isInitParam, isLinearizeParam);
   ASSERT_NO_THROW(modelNetwork->setSubModelParameters());
 }
 
@@ -343,17 +345,18 @@ TEST(ModelsModelNetwork, ModelNetworkBusParam) {
 
   modelNetwork->defineParameters();
   const bool isInitParam = false;
+  const bool isLinearizeParam = false;
 
-  ASSERT_EQ(modelNetwork->hasParameter("bus_uMax", isInitParam), true);
-  ASSERT_EQ(modelNetwork->hasParameter("bus_uMin", isInitParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("bus_uMax", isInitParam, isLinearizeParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("bus_uMin", isInitParam, isLinearizeParam), true);
   ASSERT_NO_THROW(modelNetwork->setSubModelParameters());
 
-  modelNetwork->setParameterValue("bus_uMax", PAR, 7., isInitParam);
-  ParameterModeler param = modelNetwork->findParameter("bus_uMin", isInitParam);
+  modelNetwork->setParameterValue("bus_uMax", PAR, 7., isInitParam, isLinearizeParam);
+  ParameterModeler param = modelNetwork->findParameter("bus_uMin", isInitParam, isLinearizeParam);
   ASSERT_THROW_DYNAWO(param.getValue<double>(), Error::MODELER, KeyError_t::ParameterHasNoValue);
   ASSERT_NO_THROW(modelNetwork->setSubModelParameters());
 
-  modelNetwork->setParameterValue("bus_uMin", PAR, 8., isInitParam);
+  modelNetwork->setParameterValue("bus_uMin", PAR, 8., isInitParam, isLinearizeParam);
   ASSERT_NO_THROW(modelNetwork->setSubModelParameters());
 }
 
@@ -373,11 +376,12 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineParam) {
 
   modelNetwork->defineParameters();
   const bool isInitParam = false;
+  const bool isLinearizeParam = false;
 
-  ASSERT_EQ(modelNetwork->hasParameter("dangling_line_currentLimit_maxTimeOperation", isInitParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("dangling_line_currentLimit_maxTimeOperation", isInitParam, isLinearizeParam), true);
   ASSERT_NO_THROW(modelNetwork->setSubModelParameters());
 
-  modelNetwork->setParameterValue("dangling_line_currentLimit_maxTimeOperation", PAR, 7., isInitParam);
+  modelNetwork->setParameterValue("dangling_line_currentLimit_maxTimeOperation", PAR, 7., isInitParam, isLinearizeParam);
   ASSERT_NO_THROW(modelNetwork->setSubModelParameters());
 }
 
@@ -397,11 +401,12 @@ TEST(ModelsModelNetwork, ModelNetworkLineParam) {
 
   modelNetwork->defineParameters();
   const bool isInitParam = false;
+  const bool isLinearizeParam = false;
 
-  ASSERT_EQ(modelNetwork->hasParameter("line_currentLimit_maxTimeOperation", isInitParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("line_currentLimit_maxTimeOperation", isInitParam, isLinearizeParam), true);
   ASSERT_NO_THROW(modelNetwork->setSubModelParameters());
 
-  modelNetwork->setParameterValue("line_currentLimit_maxTimeOperation", PAR, 7., isInitParam);
+  modelNetwork->setParameterValue("line_currentLimit_maxTimeOperation", PAR, 7., isInitParam, isLinearizeParam);
   ASSERT_NO_THROW(modelNetwork->setSubModelParameters());
 }
 
@@ -421,50 +426,51 @@ TEST(ModelsModelNetwork, ModelNetworkLoadParam) {
 
   modelNetwork->defineParameters();
   const bool isInitParam = false;
+  const bool isLinearizeParam = false;
 
-  ASSERT_EQ(modelNetwork->hasParameter("load_alpha", isInitParam), true);
-  ASSERT_EQ(modelNetwork->hasParameter("load_beta", isInitParam), true);
-  ASSERT_EQ(modelNetwork->hasParameter("load_isRestorative", isInitParam), true);
-  ASSERT_EQ(modelNetwork->hasParameter("load_isControllable", isInitParam), true);
-  ASSERT_EQ(modelNetwork->hasParameter("load_Tp", isInitParam), true);
-  ASSERT_EQ(modelNetwork->hasParameter("load_Tq", isInitParam), true);
-  ASSERT_EQ(modelNetwork->hasParameter("load_zPMax", isInitParam), true);
-  ASSERT_EQ(modelNetwork->hasParameter("load_zQMax", isInitParam), true);
-  ASSERT_EQ(modelNetwork->hasParameter("load_alphaLong", isInitParam), true);
-  ASSERT_EQ(modelNetwork->hasParameter("load_betaLong", isInitParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("load_alpha", isInitParam, isLinearizeParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("load_beta", isInitParam, isLinearizeParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("load_isRestorative", isInitParam, isLinearizeParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("load_isControllable", isInitParam, isLinearizeParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("load_Tp", isInitParam, isLinearizeParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("load_Tq", isInitParam, isLinearizeParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("load_zPMax", isInitParam, isLinearizeParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("load_zQMax", isInitParam, isLinearizeParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("load_alphaLong", isInitParam, isLinearizeParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("load_betaLong", isInitParam, isLinearizeParam), true);
 
-  ASSERT_EQ(modelNetwork->hasParameter("MyLoad_alpha", isInitParam), true);
-  ASSERT_EQ(modelNetwork->hasParameter("MyLoad_beta", isInitParam), true);
-  ASSERT_EQ(modelNetwork->hasParameter("MyLoad_isRestorative", isInitParam), true);
-  ASSERT_EQ(modelNetwork->hasParameter("MyLoad_isControllable", isInitParam), true);
-  ASSERT_EQ(modelNetwork->hasParameter("MyLoad_Tp", isInitParam), true);
-  ASSERT_EQ(modelNetwork->hasParameter("MyLoad_Tq", isInitParam), true);
-  ASSERT_EQ(modelNetwork->hasParameter("MyLoad_zPMax", isInitParam), true);
-  ASSERT_EQ(modelNetwork->hasParameter("MyLoad_zQMax", isInitParam), true);
-  ASSERT_EQ(modelNetwork->hasParameter("MyLoad_alphaLong", isInitParam), true);
-  ASSERT_EQ(modelNetwork->hasParameter("MyLoad_betaLong", isInitParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("MyLoad_alpha", isInitParam, isLinearizeParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("MyLoad_beta", isInitParam, isLinearizeParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("MyLoad_isRestorative", isInitParam, isLinearizeParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("MyLoad_isControllable", isInitParam, isLinearizeParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("MyLoad_Tp", isInitParam, isLinearizeParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("MyLoad_Tq", isInitParam, isLinearizeParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("MyLoad_zPMax", isInitParam, isLinearizeParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("MyLoad_zQMax", isInitParam, isLinearizeParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("MyLoad_alphaLong", isInitParam, isLinearizeParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("MyLoad_betaLong", isInitParam, isLinearizeParam), true);
 
   ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
 
-  modelNetwork->setParameterValue("load_alpha", PAR, 7., isInitParam);
+  modelNetwork->setParameterValue("load_alpha", PAR, 7., isInitParam, isLinearizeParam);
   ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
-  modelNetwork->setParameterValue("load_beta", PAR, 8., isInitParam);
+  modelNetwork->setParameterValue("load_beta", PAR, 8., isInitParam, isLinearizeParam);
   ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
-  modelNetwork->setParameterValue("load_isRestorative", PAR, true, isInitParam);
+  modelNetwork->setParameterValue("load_isRestorative", PAR, true, isInitParam, isLinearizeParam);
   ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
-  modelNetwork->setParameterValue("load_isControllable", PAR, true, isInitParam);
+  modelNetwork->setParameterValue("load_isControllable", PAR, true, isInitParam, isLinearizeParam);
   ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
-  modelNetwork->setParameterValue("load_Tp", PAR, 9., isInitParam);
+  modelNetwork->setParameterValue("load_Tp", PAR, 9., isInitParam, isLinearizeParam);
   ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
-  modelNetwork->setParameterValue("load_Tq", PAR, 10., isInitParam);
+  modelNetwork->setParameterValue("load_Tq", PAR, 10., isInitParam, isLinearizeParam);
   ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
-  modelNetwork->setParameterValue("load_zPMax", PAR, 11., isInitParam);
+  modelNetwork->setParameterValue("load_zPMax", PAR, 11., isInitParam, isLinearizeParam);
   ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
-  modelNetwork->setParameterValue("load_zQMax", PAR, 12., isInitParam);
+  modelNetwork->setParameterValue("load_zQMax", PAR, 12., isInitParam, isLinearizeParam);
   ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
-  modelNetwork->setParameterValue("load_alphaLong", PAR, 13., isInitParam);
+  modelNetwork->setParameterValue("load_alphaLong", PAR, 13., isInitParam, isLinearizeParam);
   ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
-  modelNetwork->setParameterValue("load_betaLong", PAR, 14., isInitParam);
+  modelNetwork->setParameterValue("load_betaLong", PAR, 14., isInitParam, isLinearizeParam);
 
   ASSERT_NO_THROW(modelNetwork->setSubModelParameters());
 }
@@ -485,15 +491,16 @@ TEST(ModelsModelNetwork, ModelNetworkCapacitorShuntCompensatorParam) {
 
   modelNetwork->defineParameters();
   const bool isInitParam = false;
+  const bool isLinearizeParam = false;
 
-  ASSERT_EQ(modelNetwork->hasParameter("capacitor_no_reclosing_delay", isInitParam), true);
-  ASSERT_EQ(modelNetwork->hasParameter("reactance_no_reclosing_delay", isInitParam), true);
-  ASSERT_EQ(modelNetwork->hasParameter("MyCapacitorShuntCompensator_no_reclosing_delay", isInitParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("capacitor_no_reclosing_delay", isInitParam, isLinearizeParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("reactance_no_reclosing_delay", isInitParam, isLinearizeParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("MyCapacitorShuntCompensator_no_reclosing_delay", isInitParam, isLinearizeParam), true);
   ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
 
-  modelNetwork->setParameterValue("reactance_no_reclosing_delay", PAR, 7., isInitParam);
+  modelNetwork->setParameterValue("reactance_no_reclosing_delay", PAR, 7., isInitParam, isLinearizeParam);
   ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
-  modelNetwork->setParameterValue("capacitor_no_reclosing_delay", PAR, 8., isInitParam);
+  modelNetwork->setParameterValue("capacitor_no_reclosing_delay", PAR, 8., isInitParam, isLinearizeParam);
   ASSERT_NO_THROW(modelNetwork->setSubModelParameters());
 }
 
@@ -513,15 +520,16 @@ TEST(ModelsModelNetwork, ModelNetworkReactanceShuntCompensatorParam) {
 
   modelNetwork->defineParameters();
   const bool isInitParam = false;
+  const bool isLinearizeParam = false;
 
-  ASSERT_EQ(modelNetwork->hasParameter("capacitor_no_reclosing_delay", isInitParam), true);
-  ASSERT_EQ(modelNetwork->hasParameter("reactance_no_reclosing_delay", isInitParam), true);
-  ASSERT_EQ(modelNetwork->hasParameter("MyReactanceShuntCompensator_no_reclosing_delay", isInitParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("capacitor_no_reclosing_delay", isInitParam, isLinearizeParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("reactance_no_reclosing_delay", isInitParam, isLinearizeParam), true);
+  ASSERT_EQ(modelNetwork->hasParameter("MyReactanceShuntCompensator_no_reclosing_delay", isInitParam, isLinearizeParam), true);
   ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
 
-  modelNetwork->setParameterValue("capacitor_no_reclosing_delay", PAR, 7., isInitParam);
+  modelNetwork->setParameterValue("capacitor_no_reclosing_delay", PAR, 7., isInitParam, isLinearizeParam);
   ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
-  modelNetwork->setParameterValue("reactance_no_reclosing_delay", PAR, 8., isInitParam);
+  modelNetwork->setParameterValue("reactance_no_reclosing_delay", PAR, 8., isInitParam, isLinearizeParam);
   ASSERT_NO_THROW(modelNetwork->setSubModelParameters());
 }
 

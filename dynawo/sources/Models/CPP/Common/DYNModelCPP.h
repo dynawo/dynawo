@@ -61,6 +61,11 @@ class ModelCPP : public SubModel {
   void init(double t0) override = 0;
 
   /**
+   * @copydoc SubModel::initLinearize(const double t0)
+   */
+  void initLinearize(double t0);
+
+  /**
    * @brief get the global indexes of the variables used to compute a calculated variable
    *
    * @param iCalculatedVar index of the calculated variable
@@ -222,6 +227,11 @@ class ModelCPP : public SubModel {
   void setSharedParametersDefaultValuesInit() override { /* no parameter */ }
 
   /**
+   * @copydoc SubModel::setSharedParametersDefaultValuesLinearize()
+   */
+  void setSharedParametersDefaultValuesLinearize() override { /* no parameter */ }
+
+  /**
    * @brief  CPP Model elements initializer
    *
    * Define  CPP Model elements (connection variables for output and other models).
@@ -256,6 +266,11 @@ class ModelCPP : public SubModel {
    * @copydoc SubModel::initSubBuffers()
    */
   void initSubBuffers() override { /* no internal buffers for CPP models excepted the network model */ }
+
+  /**
+   * @copydoc SubModel::initSubBuffers()
+   */
+  void initSubBuffersLinearize() override { /* no internal buffers for CPP models excepted the network model */ }
 
   /**
    * @copydoc SubModel::notifyTimeStep()

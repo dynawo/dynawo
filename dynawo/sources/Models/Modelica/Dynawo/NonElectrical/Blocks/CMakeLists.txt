@@ -12,6 +12,7 @@ add_subdirectory(Complex X)
 add_subdirectory(Continuous C)
 add_subdirectory(MathBoolean M)
 add_subdirectory(NonLinear N)
+add_subdirectory(Linear L)
 
 set(MODEL_FILES
   package.mo

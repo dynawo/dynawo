@@ -87,7 +87,7 @@ ComponentInterface::updateFromModel(bool filterForCriteriaCheck) {
   for (unsigned int i =0; i< stateVariables_.size(); ++i) {
     StateVariable& var = stateVariables_[i];
     if (!filterForCriteriaCheck || var.isNeededForCriteriaCheck())
-      var.setValue(modelDyn_->getVariableValue(var.getVariable()));
+      var.setValue(modelDyn_->getVariableValue(var.getVariable(), false, true));
   }
 }
 
