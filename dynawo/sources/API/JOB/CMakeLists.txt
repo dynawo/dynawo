@@ -62,6 +62,7 @@ set(API_JOB_SOURCES
     JOBClockEntry.cpp
     JOBStreamsEntry.cpp
     JOBStreamEntry.cpp
+    JOBLinearizeEntry.cpp
     )
 
 set(API_JOB_INCLUDE_HEADERS
@@ -110,6 +111,7 @@ set(API_JOB_INCLUDE_HEADERS
     JOBClockEntry.h
     JOBStreamsEntry.h
     JOBStreamEntry.h
+    JOBLinearizeEntry.h
     )
 
 add_library(dynawo_API_JOB SHARED ${API_JOB_SOURCES})

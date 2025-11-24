@@ -100,6 +100,11 @@ class ModelMulti : public Model, private boost::noncopyable {
   void evalJtPrim(double t, double cj, SparseMatrix& jtPrim) override;
 
   /**
+  * @copydoc Model::evalLinearize() const
+  */
+  void evalLinearize(double t, const std::string& path) override;
+
+  /**
    * @copydoc Model::checkDataCoherence(const double t)
    */
   void checkDataCoherence(double t) override;
@@ -581,6 +586,11 @@ class ModelMulti : public Model, private boost::noncopyable {
    */
   void collectSilentZ();
 
+  /**
+   * @copydoc Model::setWithLinearize
+   */
+  void setWithLinearize(double tLinearize) override;
+
  private:
   std::unordered_map<int, int> mapAssociationF_;  ///< association between an index of f functions and a subModel
   std::unordered_map<int, int> mapAssociationG_;  ///< association between an index of g functions and a subModel
@@ -624,6 +634,9 @@ class ModelMulti : public Model, private boost::noncopyable {
 
   bool updatablesInitialized_;                  ///< true if updatable models have been initialized
   std::shared_ptr<ActionBuffer> actionBuffer_;  ///< action manager for interactive mode
+
+  bool withLinearize_;  ///< withLinearize
+  double tLinearize_;  ///< tLinearize
 };  ///< Class for Multiple-Model
 
 

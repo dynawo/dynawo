@@ -45,6 +45,7 @@
 #include "DYNMacrosMessage.h"
 #include "DYNEnumUtils.h"
 #include "JOBModelsDirEntry.h"
+#include "JOBLinearizeEntry.h"
 
 #include "DYNExecUtils.h"
 
@@ -289,7 +290,8 @@ finalStateHandler_(parser::ElementName(namespace_uri(), "finalState")),
 curvesHandler_(parser::ElementName(namespace_uri(), "curves")),
 finalStateValuesHandler_(parser::ElementName(namespace_uri(), "finalStateValues")),
 lostEquipmentsHandler_(parser::ElementName(namespace_uri(), "lostEquipments")),
-logsHandler_(parser::ElementName(namespace_uri(), "logs")) {
+logsHandler_(parser::ElementName(namespace_uri(), "logs")),
+lineariseHandler_(parser::ElementName(namespace_uri(), "linearise")) {
   onStartElement(root_element, lambda::bind(&OutputsHandler::create, lambda::ref(*this), lambda_args::arg2));
 
   onElement(root_element + namespace_uri()("dumpInitValues"), initValuesHandler_);
@@ -302,6 +304,7 @@ logsHandler_(parser::ElementName(namespace_uri(), "logs")) {
   onElement(root_element + namespace_uri()("finalStateValues"), finalStateValuesHandler_);
   onElement(root_element + namespace_uri()("lostEquipments"), lostEquipmentsHandler_);
   onElement(root_element + namespace_uri()("logs"), logsHandler_);
+  onElement(root_element + namespace_uri()("linearise"), lineariseHandler_);
 
   initValuesHandler_.onEnd(lambda::bind(&OutputsHandler::addInitValuesEntry, lambda::ref(*this)));
   finalValuesHandler_.onEnd(lambda::bind(&OutputsHandler::addFinalValuesEntry, lambda::ref(*this)));
@@ -313,6 +316,7 @@ logsHandler_(parser::ElementName(namespace_uri(), "logs")) {
   finalStateValuesHandler_.onEnd(lambda::bind(&OutputsHandler::addFinalStateValues, lambda::ref(*this)));
   lostEquipmentsHandler_.onEnd(lambda::bind(&OutputsHandler::addLostEquipments, lambda::ref(*this)));
   logsHandler_.onEnd(lambda::bind(&OutputsHandler::addLog, lambda::ref(*this)));
+  lineariseHandler_.onEnd(lambda::bind(&OutputsHandler::addLinearize, lambda::ref(*this)));
 }
 
 OutputsHandler::~OutputsHandler() {}
@@ -376,6 +380,11 @@ OutputsHandler::create(attributes_type const& attributes) {
 shared_ptr<OutputsEntry>
 OutputsHandler::get() const {
   return outputs_;
+}
+
+void
+OutputsHandler::addLinearize() {
+  outputs_->setLinearizeEntry(lineariseHandler_.get());
 }
 
 LocalInitHandler::LocalInitHandler(elementName_type const& root_element) {
@@ -501,6 +510,21 @@ TimetableHandler::create(attributes_type const& attributes) {
 shared_ptr<TimetableEntry>
 TimetableHandler::get() const {
   return timetable_;
+}
+
+LinearizeHandler::LinearizeHandler(elementName_type const& root_element) {
+  onStartElement(root_element, lambda::bind(&LinearizeHandler::create, lambda::ref(*this), lambda_args::arg2));
+}
+
+void
+LinearizeHandler::create(attributes_type const& attributes) {
+  linearise_ = shared_ptr<LinearizeEntry>(new LinearizeEntry);
+  linearise_->setLinearizeTime(attributes["lineariseTime"]);
+}
+
+shared_ptr<LinearizeEntry>
+LinearizeHandler::get() const {
+  return linearise_;
 }
 
 FinalStateHandler::FinalStateHandler(elementName_type const& root_element) {
