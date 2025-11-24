@@ -187,7 +187,7 @@ DelayManager::evalMode(const double time, const std::string& modelName) {
     if (!(time < delayTime || doubleEquals(time, delayTime)) && !delay.isTriggered()) {
       delay.trigger();
       Trace::debug() << DYNLog(DelayMode, modelName, delayPair.first, delayTime) << Trace::endline;
-      delay_mode = ALGEBRAIC_J_UPDATE_MODE;
+      delay_mode = ALGEBRAIC_J_J_UPDATE_MODE;
     }
   }
   return delay_mode;

@@ -234,6 +234,7 @@ Solver::Impl::resetStats() {
   stats_.nmeDiff_ = 0;
   stats_.nmeAlg_ = 0;
   stats_.nmeAlgJ_ = 0;
+  stats_.nmeAlgJJ_ = 0;
 }
 
 void
@@ -527,6 +528,8 @@ void Solver::Impl::setSolverCommonParameters() {
       minimumModeChangeTypeForAlgebraicRestoration_ = ALGEBRAIC_MODE;
     else if (value == "ALGEBRAIC_J_UPDATE")
       minimumModeChangeTypeForAlgebraicRestoration_ = ALGEBRAIC_J_UPDATE_MODE;
+    else if (value == "ALGEBRAIC_J_J_UPDATE")
+      minimumModeChangeTypeForAlgebraicRestoration_ = ALGEBRAIC_J_J_UPDATE_MODE;
     else
       Trace::warn() << DYNLog(IncoherentParamMinimumModeChangeType, value) << Trace::endline;
   }
@@ -589,6 +592,7 @@ Solver::Impl::printEnd() const {
   Trace::info() << DYNLog(SolverNbModeEvalDiff, stats_.nmeDiff_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbModeEvalAlg, stats_.nmeAlg_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbModeEvalAlgJ, stats_.nmeAlgJ_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbModeEvalAlgJJ, stats_.nmeAlgJJ_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbAlgebraicResEval, stats_.nreAlgebraic_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbAlgebraicJacEval, stats_.njeAlgebraic_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbAlgebraicPrimResEval, stats_.nreAlgebraicPrim_) << Trace::endline;
