@@ -88,8 +88,6 @@ model GovHydro4St4b "Active power variation on the load with governor GovHydro4"
     Placement(visible = true, transformation(origin = {130, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 0) annotation(
     Placement(visible = true, transformation(origin = {156, 80}, extent = {{4, -4}, {-4, 4}}, rotation = 0)));
-  Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = true) annotation(
-    Placement(visible = true, transformation(origin = {156, 68}, extent = {{4, -4}, {-4, 4}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const1(k = avr.UOel0Pu) annotation(
     Placement(visible = true, transformation(origin = {84, 66}, extent = {{-4, -4}, {4, 4}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.Governors.Standard.Hydraulic.GovHydro4 governor(
@@ -151,6 +149,7 @@ equation
   load.switchOffSignal2.value = false;
   load.deltaP = 0;
   load.deltaQ = 0;
+  avr.running = generatorSynchronous.running.value;
 
   connect(generatorSynchronous.omegaPu, generatorSynchronous.omegaRefPu);
   connect(const.y, avr.UUelPu) annotation(
@@ -185,8 +184,6 @@ equation
     Line(points = {{4, 18}, {4, 30}, {152, 30}, {152, 53}, {142, 53}, {142, 52}}, color = {85, 170, 255}));
   connect(generatorSynchronous.iStatorPu_out, avr.itPu) annotation(
     Line(points = {{12, 18}, {12, 26}, {156, 26}, {156, 56}, {142, 56}}, color = {85, 170, 255}));
-  connect(booleanConstant.y, avr.running) annotation(
-    Line(points = {{152, 68}, {142, 68}}, color = {255, 0, 255}));
 
   annotation(
     preferredView = "diagram",
