@@ -86,9 +86,28 @@ ii2_dUr1_(0.),
 ii2_dUi1_(0.),
 ii2_dUr2_(0.),
 ii2_dUi2_(0.),
+old_ir1_dUr1_(0.),
+old_ir1_dUi1_(0.),
+old_ir1_dUr2_(0.),
+old_ir1_dUi2_(0.),
+old_ii1_dUr1_(0.),
+old_ii1_dUi1_(0.),
+old_ii1_dUr2_(0.),
+old_ii1_dUi2_(0.),
+old_ir2_dUr1_(0.),
+old_ir2_dUi1_(0.),
+old_ir2_dUr2_(0.),
+old_ir2_dUi2_(0.),
+old_ii2_dUr1_(0.),
+old_ii2_dUi1_(0.),
+old_ii2_dUr2_(0.),
+old_ii2_dUi2_(0.),
 topologyModified_(false),
 stateIndexModified_(false),
 updateYMat_(true),
+indexModifiedNow_(false),
+updateParams_(true),
+timeIndexModified_(-1.0),
 tapChangerIndex_(0),
 modelType_("TwoWindingsTransformer") {
   // init data
@@ -369,6 +388,24 @@ ModelTwoWindingsTransformer::initSize() {
 void
 ModelTwoWindingsTransformer::evalYMat() {
   if (updateYMat_) {
+    if (ir2_dUr1_ != ir2_dUr1()) {
+      old_ir1_dUr1_ = ir1_dUr1_;
+      old_ir1_dUi1_ = ir1_dUi1_;
+      old_ir1_dUr2_ = ir1_dUr2_;
+      old_ir1_dUi2_ = ir1_dUi2_;
+      old_ii1_dUr1_ = ii1_dUr1_;
+      old_ii1_dUi1_ = ii1_dUi1_;
+      old_ii1_dUr2_ = ii1_dUr2_;
+      old_ii1_dUi2_ = ii1_dUi2_;
+      old_ir2_dUr1_ = ir2_dUr1_;
+      old_ir2_dUi1_ = ir2_dUi1_;
+      old_ir2_dUr2_ = ir2_dUr2_;
+      old_ir2_dUi2_ = ir2_dUi2_;
+      old_ii2_dUr1_ = ii2_dUr1_;
+      old_ii2_dUi1_ = ii2_dUi1_;
+      old_ii2_dUr2_ = ii2_dUr2_;
+      old_ii2_dUi2_ = ii2_dUi2_;
+    }
     ir1_dUr1_ = ir1_dUr1();
     ir1_dUi1_ = ir1_dUi1();
     ir1_dUr2_ = ir1_dUr2();
@@ -448,26 +485,45 @@ ModelTwoWindingsTransformer::evalNodeInjection() {
       }
     }
   }
+  if (updateParams_) {
+    indexModifiedNow_ = false;
+  }
 }
 
 double
 ModelTwoWindingsTransformer::ir1(const double ur1, const double ui1, const double ur2, const double ui2) const {
-  return ir1_dUr1_ * ur1 + ir1_dUi1_ * ui1 + ir1_dUr2_ * ur2 + ir1_dUi2_ * ui2;
+  if (indexModifiedNow_) {
+    return old_ir1_dUr1_ * ur1 + old_ir1_dUi1_ * ui1 + old_ir1_dUr2_ * ur2 + old_ir1_dUi2_ * ui2;
+  } else {
+    return ir1_dUr1_ * ur1 + ir1_dUi1_ * ui1 + ir1_dUr2_ * ur2 + ir1_dUi2_ * ui2;
+  }
 }
 
 double
 ModelTwoWindingsTransformer::ii1(const double ur1, const double ui1, const double ur2, const double ui2) const {
-  return ii1_dUr1_ * ur1 + ii1_dUi1_ * ui1 + ii1_dUr2_ * ur2 + ii1_dUi2_ * ui2;
+  if (indexModifiedNow_) {
+    return old_ii1_dUr1_ * ur1 + old_ii1_dUi1_ * ui1 + old_ii1_dUr2_ * ur2 + old_ii1_dUi2_ * ui2;
+  } else {
+    return ii1_dUr1_ * ur1 + ii1_dUi1_ * ui1 + ii1_dUr2_ * ur2 + ii1_dUi2_ * ui2;
+  }
 }
 
 double
 ModelTwoWindingsTransformer::ir2(const double ur1, const double ui1, const double ur2, const double ui2) const {
-  return ir2_dUr1_ * ur1 + ir2_dUi1_ * ui1 + ir2_dUr2_ * ur2 + ir2_dUi2_ * ui2;
+  if (indexModifiedNow_) {
+    return old_ir2_dUr1_ * ur1 + old_ir2_dUi1_ * ui1 + old_ir2_dUr2_ * ur2 + old_ir2_dUi2_ * ui2;
+  } else {
+    return ir2_dUr1_ * ur1 + ir2_dUi1_ * ui1 + ir2_dUr2_ * ur2 + ir2_dUi2_ * ui2;
+  }
 }
 
 double
 ModelTwoWindingsTransformer::ii2(const double ur1, const double ui1, const double ur2, const double ui2) const {
-  return ii2_dUr1_ * ur1 + ii2_dUi1_ * ui1 + ii2_dUr2_ * ur2 + ii2_dUi2_ * ui2;
+  if (indexModifiedNow_) {
+    return old_ii2_dUr1_ * ur1 + old_ii2_dUi1_ * ui1 + old_ii2_dUr2_ * ur2 + old_ii2_dUi2_ * ui2;
+  } else {
+    return ii2_dUr1_ * ur1 + ii2_dUi1_ * ui1 + ii2_dUr2_ * ur2 + ii2_dUi2_ * ui2;
+  }
 }
 
 void
@@ -1394,9 +1450,12 @@ ModelTwoWindingsTransformer::evalZ(const double t) {
     updateYMat_ = true;
     return NetworkComponent::TOPO_CHANGE;
   } else if (stateIndexModified_) {
-    if (modelRatioChanger_ || modelPhaseChanger_)
+    if (modelRatioChanger_ || modelPhaseChanger_) {
+      timeIndexModified_ = t;
+      indexModifiedNow_ = true;
       updateYMat_ = true;
-    return NetworkComponent::STATE_CHANGE;
+      return NetworkComponent::STATE_CHANGE;
+    }
   }
   return NetworkComponent::NO_CHANGE;
 }
@@ -1459,6 +1518,11 @@ ModelTwoWindingsTransformer::P2(const double ur1, const double ui1, const double
 
 void
 ModelTwoWindingsTransformer::evalG(const double t) {
+  if (doubleNotEquals(t, timeIndexModified_)) {
+    updateParams_ = true;
+  } else {
+    updateParams_ = false;
+  }
   int offset = 0;
   double ur1Val = 0.;
   double ui1Val = 0.;
@@ -1573,7 +1637,8 @@ ModelTwoWindingsTransformer::evalCalculatedVars() {
   calculatedVars_[iS1ToS2Side2Num_] = -1. * calculatedVars_[iS2ToS1Side2Num_];
 
   calculatedVars_[iSide1Num_] = std::max(calculatedVars_[iS1ToS2Side1Num_], calculatedVars_[iS2ToS1Side1Num_]);
-  calculatedVars_[iSide2Num_] = std::max(calculatedVars_[iS1ToS2Side2Num_], calculatedVars_[iS1ToS2Side2Num_]);
+  // calculatedVars_[iSide2Num_] = std::max(calculatedVars_[iS1ToS2Side2Num_], calculatedVars_[iS1ToS2Side2Num_]);
+  calculatedVars_[iSide2Num_] = std::max(calculatedVars_[iS1ToS2Side2Num_], calculatedVars_[iS2ToS1Side2Num_]);
   calculatedVars_[twtStateNum_] = getConnectionState();
 }
 
