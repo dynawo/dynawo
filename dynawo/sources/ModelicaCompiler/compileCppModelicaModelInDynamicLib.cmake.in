@@ -12,6 +12,10 @@ cmake_minimum_required(VERSION 3.9.6)
 
 project(model CXX)
 
+if(LINUX)
+  set(CMAKE_SKIP_BUILD_RPATH True)
+endif()
+
 if(NOT DEFINED ENV{DYNAWO_INSTALL_DIR})
   message(FATAL_ERROR "You need to define DYNAWO_INSTALL_DIR environment variable.")
 endif()

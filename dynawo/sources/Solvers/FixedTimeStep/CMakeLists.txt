@@ -48,8 +48,7 @@ target_link_libraries(dynawo_SolverCommonFixedTimeStep
   )
 
 set_target_properties(dynawo_SolverCommonFixedTimeStep PROPERTIES VERSION ${SOLVER_COMMON_FIXED_TIME_STEP_VERSION_STRING}
-                                                SOVERSION ${SOLVER_COMMON_FIXED_TIME_STEP_VERSION_MAJOR}
-                                                   PREFIX "")
+                                                SOVERSION ${SOLVER_COMMON_FIXED_TIME_STEP_VERSION_MAJOR})
 
 install(TARGETS dynawo_SolverCommonFixedTimeStep EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
 install(FILES ${SOLVER_COMMON_FIXED_TIME_STEP_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})

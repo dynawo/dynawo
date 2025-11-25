@@ -75,11 +75,6 @@ class SolverFactory {
 };
 
 /**
-* @brief function pointer type to destroy a solver.
-*/
-typedef void deleteSolverFactory_t(SolverFactory*);
-
-/**
  * @brief SolverFactories class
  *
  * Manage solver factories to avoid loading the same library multiple
@@ -143,11 +138,11 @@ class SolverFactories : private boost::noncopyable {
    * @param deleteFactory : function pointer to a desctruction method
    * map
    */
-  void add(const std::string& lib, const boost::function<deleteSolverFactory_t>& deleteFactory);
+  void add(const std::string& lib, const boost::function<void(SolverFactory*)>& deleteFactory);
 
  private:
   std::map<std::string, SolverFactory* > factoryMap_;  ///< associate a library factory with the name of the library
-  std::map<std::string, boost::function<deleteSolverFactory_t> > factoryMapDelete_;  ///< associate a library factory with its destruction method
+  std::map<std::string, boost::function<void(SolverFactory*)> > factoryMapDelete_;  ///< associate a library factory with its destruction method
 };
 
 /**
