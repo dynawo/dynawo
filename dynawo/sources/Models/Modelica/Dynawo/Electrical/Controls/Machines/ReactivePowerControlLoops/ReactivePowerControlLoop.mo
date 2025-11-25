@@ -25,7 +25,7 @@ model ReactivePowerControlLoop "Simplified Reactive Power Control Loop model"
   Modelica.Blocks.Interfaces.RealInput level "Level received from the secondary voltage control [-1;1] " annotation(
     Placement(visible = true, transformation(origin = {-170, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.BooleanInput blocker(start = blocker0) "Whether the the reactive power control loop is blocked or not" annotation(
-    Placement(transformation(origin = {-172, 30}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-160, 0}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-170, -80}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-160, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput QStatorPu(start = QStator0Pu) "Generator stator reactive power in pu (base QNomAlt) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-172, -40}, extent = {{-12, -12}, {12, 12}}, rotation = 0), iconTransformation(origin = {-164, -28}, extent = {{-12, -12}, {12, 12}}, rotation = 0)));
   // Output variables
@@ -40,8 +40,6 @@ model ReactivePowerControlLoop "Simplified Reactive Power Control Loop model"
     Placement(transformation(origin = {-10, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Nonlinear.VariableLimiter rampLim(homotopyType = Modelica.Blocks.Types.VariableLimiterHomotopy.NoHomotopy) annotation(
     Placement(transformation(origin = {22, 0}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.Constant const1(k = 0) annotation(
-    Placement(transformation(origin = {-170, 60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant const2(k = DerURefMaxPu) annotation(
     Placement(transformation(origin = {-168, 122}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant const3(k = -DerURefMaxPu) annotation(
@@ -57,11 +55,10 @@ model ReactivePowerControlLoop "Simplified Reactive Power Control Loop model"
   parameter Boolean blocker0 "Whether the minimum reactive power limits are reached or not (from generator voltage regulator), start value";
   parameter Types.ReactivePowerPu QStator0Pu "Start value of the generator stator reactive power in pu (base QNomAlt) (generator convention)";
   parameter Types.VoltageModulePu UStatorRef0Pu "Start value of the generator stator voltage reference in pu (base UNom)";
-  Modelica.Blocks.Logical.Switch errQLim annotation(
-    Placement(transformation(origin = {-71, 1}, extent = {{-10, -10}, {10, 10}})));
-  //Real errQLim;
   Dynawo.NonElectrical.Blocks.NonLinear.DeadZone deadZone(uMax = QDeadBand, uMin = -QDeadBand) annotation(
     Placement(transformation(origin = {-40, 0}, extent = {{-10, -10}, {10, 10}})));
+  NonElectrical.Blocks.NonLinear.ConstantSwitch errQLim annotation(
+    Placement(transformation(origin = {-74, 0}, extent = {{-10, -10}, {10, 10}})));
 protected
   UStatus uStatus(start = UStatus.Standard) "Status of the voltage reference";
 equation
@@ -94,26 +91,18 @@ equation
     Line(points = {{63, 0}, {72, 0}}, color = {0, 0, 127}));
   connect(const3.y, rampLim.limit2) annotation(
     Line(points = {{-159, -120}, {-4, -120}, {-4, -8}, {10, -8}}, color = {0, 0, 127}));
-  connect(errQ.y, errQLim.u3) annotation(
-    Line(points = {{-90, 0}, {-90, -7}, {-83, -7}}, color = {0, 0, 127}));
   connect(const2.y, rampLim.limit1) annotation(
     Line(points = {{-156, 122}, {10, 122}, {10, 8}}, color = {0, 0, 127}));
-  connect(const1.y, errQLim.u1) annotation(
-    Line(points = {{-158, 60}, {-90, 60}, {-90, 9}, {-83, 9}}, color = {0, 0, 127}));
-  connect(blocker, errQLim.u2) annotation(
-    Line(points = {{-172, 30}, {-92, 30}, {-92, 1}, {-83, 1}}, color = {255, 0, 255}));
   connect(deadZone.y, gainIntegrator.u) annotation(
     Line(points = {{-28, 0}, {-22, 0}}, color = {0, 0, 127}));
-  connect(errQLim.y, deadZone.u) annotation(
-    Line(points = {{-60, 2}, {-52, 2}, {-52, 0}}, color = {0, 0, 127}));
-  //deadZone.u = errQLim;
-  //if blocker then
-  //  der(errQLim) = 0 ;
-  //else
-  //  errQLim = errQ.y;
-  //end if;
   connect(blocking.y, UQBlocker) annotation(
     Line(points = {{63, 88}, {110, 88}}, color = {255, 0, 255}));
+  connect(errQLim.u1, errQ.y) annotation(
+    Line(points = {{-86, 7}, {-86, 8.5}, {-90, 8.5}, {-90, 0}}, color = {0, 0, 127}));
+  connect(errQLim.y, deadZone.u) annotation(
+    Line(points = {{-62, 3}, {-62, 0}, {-52, 0}}, color = {0, 0, 127}));
+  connect(errQLim.u2, blocker) annotation(
+    Line(points = {{-86, 0}, {-86, -80}, {-170, -80}}, color = {255, 0, 255}));
   annotation(
     preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-160, -180}, {100, 140}})),
