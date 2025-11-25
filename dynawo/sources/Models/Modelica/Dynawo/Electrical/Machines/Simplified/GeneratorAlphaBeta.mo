@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Machines.Simplified;
 
 /*
-* Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+* Copyright (c) 2025, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,10 +9,11 @@ within Dynawo.Electrical.Machines.Simplified;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
-model GeneratorFictitious "Fictitious generator with voltage-dependent active and reactive power (alpha-beta model)"
+model GeneratorAlphaBeta "Generator with voltage-dependent active and reactive power (alpha-beta model)"
   extends BaseClasses.BaseGeneratorSimplified;
   extends AdditionalIcons.Machine;
 
@@ -28,4 +29,4 @@ equation
   end if;
 
   annotation(preferredView = "text");
-end GeneratorFictitious;
+end GeneratorAlphaBeta;
