@@ -156,8 +156,6 @@ model GovCt2St4b "Active power variation on the load with governor GovCT2"
     Placement(visible = true, transformation(origin = {50, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 0) annotation(
     Placement(visible = true, transformation(origin = {156, 80}, extent = {{4, -4}, {-4, 4}}, rotation = 0)));
-  Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = true) annotation(
-    Placement(visible = true, transformation(origin = {156, 68}, extent = {{4, -4}, {-4, 4}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const1(k = avr.UOel0Pu) annotation(
     Placement(visible = true, transformation(origin = {84, 66}, extent = {{-4, -4}, {4, 4}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant OmegaRef(k = Dynawo.Electrical.SystemBase.omegaRef0Pu) annotation(
@@ -237,8 +235,6 @@ equation
     Line(points = {{38, 10}, {50, 10}, {50, -80}, {90, -80}, {90, -56}, {99, -56}}, color = {0, 0, 127}));
   connect(governor.PmPu, generatorSynchronous.PmPu_in) annotation(
     Line(points = {{142, -40}, {150, -40}, {150, -90}, {32, -90}, {32, -16}}, color = {0, 0, 127}));
-  connect(booleanConstant.y, avr.running) annotation(
-    Line(points = {{152, 68}, {142, 68}}, color = {255, 0, 255}));
 
   annotation(
     preferredView = "diagram",
