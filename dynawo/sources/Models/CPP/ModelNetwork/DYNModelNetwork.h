@@ -306,6 +306,13 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
    */
   bool loadInternalVariables(std::stringstream& streamVariables) override;
 
+  /**
+  * @brief write initial values internal parameters of a model in a file
+  */
+  bool keepHvdcForeignNodes() const {
+    return keepHvdcForeignNodes_;
+  }
+
  protected:
   /**
   * @copydoc SubModel::dumpUserReadableElementList()
@@ -395,6 +402,7 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
   bool isInitModel_;  ///< whether the current model used is the init one
   bool withNodeBreakerTopology_;  ///< whether at least one voltageLevel has node breaker topology view
   bool deactivateRootFunctions_;  ///< whether we use root functions
+  bool keepHvdcForeignNodes_;  ///< whether we use root functions
 
   std::unique_ptr<ModelBusContainer> busContainer_;  ///< all network buses
   std::vector<std::shared_ptr<ModelVoltageLevel> > vLevelComponents_;  ///< all voltage level components

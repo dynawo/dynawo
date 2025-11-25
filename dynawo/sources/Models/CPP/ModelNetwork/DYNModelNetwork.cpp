@@ -127,7 +127,8 @@ calculatedVarBuffer_(NULL),
 isInit_(false) ,
 isInitModel_(false),
 withNodeBreakerTopology_(false),
-deactivateRootFunctions_(false) {
+deactivateRootFunctions_(false),
+keepHvdcForeignNodes_(false) {
   busContainer_.reset(new ModelBusContainer());
 }
 
@@ -1308,6 +1309,7 @@ ModelNetwork::defineParameters(vector<ParameterModeler>& parameters) {
   ModelHvdcLink::defineParameters(parameters);
   parameters.push_back(ParameterModeler("startingPointMode", VAR_TYPE_STRING, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler("deactivateRootFunctions", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("keepHvdcForeignNodes", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
 
   vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent) {
@@ -1384,6 +1386,12 @@ ModelNetwork::setSubModelParameters() {
   deactivateRootFunctions_ = false;
   if (deactivateRootFunctions.hasValue())
     deactivateRootFunctions_ = deactivateRootFunctions.getValue<bool>();
+
+  const auto& keepHvdcForeignNodes = findParameter("keepHvdcForeignNodes", false);
+  keepHvdcForeignNodes_ = false;
+  if (keepHvdcForeignNodes.hasValue())
+    keepHvdcForeignNodes_ = keepHvdcForeignNodes.getValue<bool>();
+
   vector<std::shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent) {
     (*itComponent)->setSubModelParameters(parametersDynamic_);
