@@ -129,8 +129,6 @@ model GovSteam1St4b2 "Active power variation on the load"
     Placement(visible = true, transformation(origin = {130, -20}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 0) annotation(
     Placement(visible = true, transformation(origin = {156, 80}, extent = {{4, -4}, {-4, 4}}, rotation = 0)));
-  Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = true) annotation(
-    Placement(visible = true, transformation(origin = {156, 68}, extent = {{4, -4}, {-4, 4}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const1(k = avr.UOel0Pu) annotation(
     Placement(visible = true, transformation(origin = {84, 66}, extent = {{-4, -4}, {4, 4}}, rotation = 0)));
 
@@ -162,6 +160,7 @@ equation
   load.switchOffSignal2.value = false;
   load.deltaP = 0;
   load.deltaQ = 0;
+  avr.running = generatorSynchronous.running.value;
 
   connect(generatorSynchronous.omegaPu, generatorSynchronous.omegaRefPu);
   connect(const.y, avr.UUelPu) annotation(
@@ -194,8 +193,6 @@ equation
     Line(points = {{-20, -50}, {-34, -50}, {-34, -28}}, color = {0, 0, 127}));
   connect(PRefPu.y, load.PRefPu) annotation(
     Line(points = {{-58, -50}, {-46, -50}, {-46, -28}}, color = {0, 0, 127}));
-  connect(booleanConstant.y, avr.running) annotation(
-    Line(points = {{152, 68}, {142, 68}}, color = {255, 0, 255}));
 
   annotation(
     preferredView = "diagram",
