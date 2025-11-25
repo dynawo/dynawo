@@ -159,6 +159,8 @@ model GovSteam1St4bPss2b1 "Voltage reference step on the synchronous machine (an
     Placement(visible = true, transformation(origin = {130, -20}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 0) annotation(
     Placement(visible = true, transformation(origin = {156, 80}, extent = {{4, -4}, {-4, 4}}, rotation = 0)));
+  Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = true) annotation(
+    Placement(visible = true, transformation(origin = {156, 68}, extent = {{4, -4}, {-4, 4}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const1(k = avr.UOel0Pu) annotation(
     Placement(visible = true, transformation(origin = {84, 66}, extent = {{-4, -4}, {4, 4}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const2(k = SystemBase.omegaRef0Pu) annotation(
@@ -206,6 +208,8 @@ equation
     Line(points = {{100, -36}, {110, -36}, {110, -60}, {32, -60}, {32, -16}}, color = {0, 0, 127}));
   connect(currentBus.terminal, generatorSynchronous.terminal) annotation(
     Line(points = {{-120, 0}, {20, 0}}, color = {0, 0, 255}));
+  connect(booleanConstant.y, avr.running) annotation(
+    Line(points = {{152, 68}, {142, 68}}, color = {255, 0, 255}));
 
   annotation(
     preferredView = "diagram",

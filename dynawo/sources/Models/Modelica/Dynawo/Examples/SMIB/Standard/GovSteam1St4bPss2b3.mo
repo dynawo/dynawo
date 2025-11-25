@@ -159,6 +159,8 @@ model GovSteam1St4bPss2b3 "Bolted three-phase short circuit at the high-level si
     Placement(visible = true, transformation(origin = {130, -20}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 0) annotation(
     Placement(visible = true, transformation(origin = {156, 80}, extent = {{4, -4}, {-4, 4}}, rotation = 0)));
+  Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = true) annotation(
+    Placement(visible = true, transformation(origin = {156, 68}, extent = {{4, -4}, {-4, 4}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const1(k = avr.UOel0Pu) annotation(
     Placement(visible = true, transformation(origin = {84, 66}, extent = {{-4, -4}, {4, 4}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const2(k = SystemBase.omegaRef0Pu) annotation(
@@ -252,6 +254,8 @@ equation
     Line(points = {{-99, -70}, {-86, -70}, {-86, -46}}, color = {0, 0, 127}));
   connect(QRefPu.y, load.QRefPu) annotation(
     Line(points = {{-61, -70}, {-74, -70}, {-74, -46}}, color = {0, 0, 127}));
+  connect(booleanConstant.y, avr.running) annotation(
+    Line(points = {{152, 68}, {142, 68}}, color = {255, 0, 255}));
 
   annotation(
     preferredView = "diagram",
