@@ -206,6 +206,7 @@ equation
   generatorSynchronous.switchOffSignal1.value = false;
   generatorSynchronous.switchOffSignal2.value = false;
   generatorSynchronous.switchOffSignal3.value = false;
+  avr.running = generatorSynchronous.running.value;
 
   connect(Omega0Pu.y, generatorSynchronous.omegaRefPu);
   connect(const.y, avr.UUelPu) annotation(
