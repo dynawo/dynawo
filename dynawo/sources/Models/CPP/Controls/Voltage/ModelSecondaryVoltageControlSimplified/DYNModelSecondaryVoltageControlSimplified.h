@@ -300,17 +300,26 @@ class ModelSecondaryVoltageControlSimplified : public ModelCPP {
    */
   void antiWindUpCorrection();
 
+  /**
+   * @brief Calculate the initial state of the model
+   */
+  void calculateInitialState();
+
  private:
   int nbGenerators_;              ///< number of generators
   double UDeadBandPu_;            ///< deadband width on difference bewteen UpPu and UpRefPu, in pu (base UNom)
-  double alpha_;                  ///< integral gain
-  double beta_;                   ///< proportional gain
+  double Alpha_;                  ///< integral gain
+  double Beta_;                   ///< proportional gain
   double UpRef0Pu_;               ///< initial voltage regulation set point in pu (base UNom)
   double tSample_;                ///< sample time of the SVC in s
   double iTerm_;                  ///< integral tem
   double feedBackCorrection_;     ///< feedback correction
   std::vector<double> Qr_;        ///< participation factor of the generators to the secondary voltage control in Mvar
   std::vector<double> Q0Pu_;      ///< start value of reactive power in pu (receptor convention) (base SnRef) (for each generator connected to the SVC)
+  std::vector<double> P0Pu_;      ///< start value of active power in pu (receptor convention) (base SnRef) (for each generator connected to the SVC)
+  std::vector<double> SNom_;      ///< nominal apparent power in MVA (for each generator connected to the SVC)
+  std::vector<double> U0Pu_;      ///< start value of voltage module in pu (base UNom)
+  std::vector<double> XTfoPu_;    ///< reactance of the generators' transformer in pu (base UNom, SNom)
 
   static constexpr double LEVEL_MAX = 1.0;   ///< Maximal admissible level
   static constexpr double LEVEL_MIN = -1.0;  ///< Minimal admissible level
