@@ -24,7 +24,8 @@ namespace job {
 
 ModelerEntry::ModelerEntry(const ModelerEntry& other):
     compileDir_(other.compileDir_),
-    symbolicJacobian_(false),
+    symbolicJacobian_(other.symbolicJacobian_),
+    symbolicResidual_(other.symbolicResidual_),
     preCompiledModelsDirEntry_(DYN::clone(other.preCompiledModelsDirEntry_)),
     modelicaModelsDirEntry_(DYN::clone(other.modelicaModelsDirEntry_)),
     networkEntry_(DYN::clone(other.networkEntry_)),
@@ -41,6 +42,8 @@ ModelerEntry::ModelerEntry(const ModelerEntry& other):
 ModelerEntry&
 ModelerEntry::operator=(const ModelerEntry& other) {
   compileDir_ = other.compileDir_;
+  symbolicJacobian_ = other.symbolicJacobian_;
+  symbolicResidual_ = other.symbolicResidual_;
   preCompiledModelsDirEntry_ = DYN::clone(other.preCompiledModelsDirEntry_);
   modelicaModelsDirEntry_ = DYN::clone(other.modelicaModelsDirEntry_);
   networkEntry_ = DYN::clone(other.networkEntry_);
