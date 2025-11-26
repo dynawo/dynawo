@@ -2027,7 +2027,6 @@ class Factory:
                     test = "DYN::doubleEquals" + found.group(0).replace (" == ", ",")
                     line = line.replace(found.group(0), test)
                 self.list_for_setg.append(line)
-                print ("BUBU? " + line)
                 nb_zero_crossing +=1
 
         nb_root = nb_zero_crossing
