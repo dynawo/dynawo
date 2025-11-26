@@ -12,11 +12,11 @@ model PlantControllerPI "Simplified plant model with PI controller"
   parameter Types.ApparentPowerModule SNom "Apparent nominal power in MVA";
 
   parameter Types.PerUnit AlphaPuPNom "Frequency sensitivity in pu (base PNom, OmegaNom)";
-  parameter Types.PerUnit DbdPu "Reactive power (RefFlag = 0) or voltage (RefFlag = 1) deadband in pu (base SNom or UNom) (typical: 0..0.1)";
-  parameter Types.PerUnit EMaxPu "Maximum Volt/VAR error in pu (base UNom or SNom)";
-  parameter Types.PerUnit EMinPu "Minimum Volt/VAR error in pu (base UNom or SNom)";
-  parameter Types.PerUnit Ki "Volt/VAR regulator integral gain";
-  parameter Types.PerUnit Kp "Volt/VAR regulator proportional gain";
+  parameter Types.PerUnit DbdPu "Reactive power deadband in pu (base UNom)";
+  parameter Types.PerUnit EMaxPu "Maximum VAR error in pu (base SNom)";
+  parameter Types.PerUnit EMinPu "Minimum VAR error in pu (base SNom)";
+  parameter Types.PerUnit Ki "VAR regulator integral gain";
+  parameter Types.PerUnit Kp "VAR regulator proportional gain";
   parameter Types.PerUnit LambdaPuSNom "Reactive power sensitivity of the voltage regulation in pu (base UNom, SNom)";
   parameter Types.ActivePower PMax "Maximum active power in MW";
   parameter Types.ActivePower PMin "Minimum active power in MW";
@@ -24,7 +24,7 @@ model PlantControllerPI "Simplified plant model with PI controller"
   parameter Types.ReactivePower QMaxRegPu "Maximum reactive power at regulated bus in pu (base SNom)";
   parameter Types.ReactivePowerPu QMinPu "Minimum plant level reactive power command in pu (base SNom)";
   parameter Types.ReactivePower QMinRegPu "Minimum reactive power at regulated bus in pu (base SNom)";
-  parameter Boolean VRegFlag "If false, constant injection, if true, U+lambdaQ regulation";
+  parameter Boolean VRegFlag "Minimum reactive power at regulated bus in pu (base SNom)";
 
   final parameter Types.PerUnit AlphaPu = AlphaPuPNom*PNom/SNom "Frequency sensitivity in pu (base SN-+
   om, OmegaNom)";
