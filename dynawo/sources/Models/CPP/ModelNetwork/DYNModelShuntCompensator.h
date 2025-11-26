@@ -325,7 +325,7 @@ class ModelShuntCompensator : public NetworkComponent {
    * and the closest bus bar section is not switched off
    * @return available or not
    */
-  bool isAvailable() const;
+  bool isAvailable(bool deactivateRootFunctions) const;
 
  private:
   std::weak_ptr<ShuntCompensatorInterface> shunt_;  ///< reference to the shunt interface object

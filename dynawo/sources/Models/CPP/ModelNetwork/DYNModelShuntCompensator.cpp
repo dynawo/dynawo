@@ -211,9 +211,9 @@ ModelShuntCompensator::evalG(const double& t) {
 }
 
 NetworkComponent::StateChange_t
-ModelShuntCompensator::evalZ(const double& t, bool /*deactivateRootFunctions*/) {
+ModelShuntCompensator::evalZ(const double& t, const bool deactivateRootFunctions) {
   z_[isCapacitorNum_] = isCapacitor() ? 1. : 0.;
-  z_[isAvailableNum_] = isAvailable() ? 1. : 0.;
+  z_[isAvailableNum_] = isAvailable(deactivateRootFunctions) ? 1. : 0.;
   z_[currentSectionNum_] = getCurrentSection();
 
   if (modelBus_->getConnectionState() == OPEN)
@@ -259,7 +259,7 @@ ModelShuntCompensator::getY0() {
 }
 
 bool
-ModelShuntCompensator::isAvailable() const {
+ModelShuntCompensator::isAvailable(const bool deactivateRootFunctions) const {
   if (!zConnected_[isAvailableNum_]) {
     return true;
   }
@@ -268,8 +268,10 @@ ModelShuntCompensator::isAvailable() const {
   } else if (getConnected() == OPEN && modelBus_->getVoltageLevel()->isClosestBBSSwitchedOff(modelBus_)) {
     return false;
   } else {
-    if (g_[0] == ROOT_UP)
-      return true;
+    if (!deactivateRootFunctions) {
+      if (g_[0] == ROOT_UP)
+        return true;
+    }
 
     return false;
   }
