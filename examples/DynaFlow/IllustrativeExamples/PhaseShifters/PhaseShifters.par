@@ -27,6 +27,8 @@
     <par type="DOUBLE" name="generator_PNom" value="1"/>
     <par type="DOUBLE" name="generator_QDeadBandPu" value="0.0001"/>
     <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="3">
     <par type="DOUBLE" name="load_Alpha" value="1.5"/>
@@ -49,6 +51,8 @@
     <reference type="INT" name="phaseShifter_tapMax" origData="IIDM" origName="highTapPosition" componentId="_BUS____5-BUS____6-1_PS"/>
     <reference type="BOOL" name="phaseShifter_regulating0" origData="IIDM" origName="regulating" componentId="_BUS____5-BUS____6-1_PS"/>
     <reference type="INT" name="phaseShifter_increasePhase" origData="IIDM" origName="increasePhase" componentId="_BUS____5-BUS____6-1_PS"/>
+    <par type="BOOL" name="phaseShifter_running0" value="true"/>
+    <par type="DOUBLE" name="phaseShifter_UNom" value="0"/>
   </set>
   <set id="5">
     <par type="DOUBLE" name="phaseShifter_t1st" value="40"/>
@@ -63,6 +67,8 @@
     <reference type="INT" name="phaseShifter_tapMax" origData="IIDM" origName="highTapPosition" componentId="_BUS____5-BUS____7-2_PS"/>
     <reference type="BOOL" name="phaseShifter_regulating0" origData="IIDM" origName="regulating" componentId="_BUS____5-BUS____7-2_PS"/>
     <reference type="INT" name="phaseShifter_increasePhase" origData="IIDM" origName="increasePhase" componentId="_BUS____5-BUS____7-2_PS"/>
+    <par type="BOOL" name="phaseShifter_running0" value="true"/>
+    <par type="DOUBLE" name="phaseShifter_UNom" value="0"/>
   </set>
   <set id="6">
     <par type="DOUBLE" name="event_tEvent" value="30"/>
