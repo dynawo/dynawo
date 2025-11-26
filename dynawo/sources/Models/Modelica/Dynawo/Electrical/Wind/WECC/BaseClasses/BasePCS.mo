@@ -23,7 +23,7 @@ model BasePCS "Base model of the Power Collection System to be extended in the W
     Placement(visible = true, transformation(origin = {140, 20}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Modelica.Blocks.Interfaces.RealInput QPccPu(start = QPcc0Pu) "Reactive power setpoint at regulated bus in pu (receptor convention) (base SnRef) (used only when PPCLocal = false)" annotation(
     Placement(visible = true, transformation(origin = {140, 38}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {110, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Modelica.ComplexBlocks.Interfaces.ComplexInput uPccPu(im(start = uPcc0Pu.re), re(start = uPcc0Pu.im)) "Complex voltage at PPC regulated bus in pu (base UNom)" annotation(
+  Modelica.ComplexBlocks.Interfaces.ComplexInput uPccPu(im(start = uPcc0Pu.im), re(start = uPcc0Pu.re)) "Complex voltage at PPC regulated bus in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {140, 60}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(extent = {{120, 60}, {100, 80}}, rotation = 0)));
 
   Modelica.Blocks.Logical.Switch switch1 annotation(
