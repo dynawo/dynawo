@@ -35,6 +35,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   EventSetPointDoubleReal.xml
   GeneratorAlphaBeta.xml
   GeneratorPlantControllerPI.xml
+  GeneratorPlantControllerPITfo.xml
   GeneratorPQ.xml
   GeneratorPQPropSignalN.xml
   GeneratorPQPropSignalNSFR.xml

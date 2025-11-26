@@ -16,6 +16,7 @@ set(MODEL_FILES
   GridFollowingPlant.mo
   GridFollowingPlant.extvar
   GridFollowingPlant_INIT.mo
+  GridFollowingPlantVar_INIT.mo
   )
 
 #
