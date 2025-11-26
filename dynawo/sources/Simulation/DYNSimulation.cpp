@@ -199,8 +199,8 @@ dumpLocalInitValues_(false),
 dumpGlobalInitValues_(false),
 dumpInitModelValues_(false),
 dumpFinalValues_(false),
-wasLoggingEnabled_(false),
 tLinearize_(boost::none),
+wasLoggingEnabled_(false),
 addLastNewtonDivergedPoint_(false) {
   SignalHandler::setSignalHandlers();
 
