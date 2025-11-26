@@ -119,7 +119,7 @@ createModelGenerator(bool open, bool initModel, powsybl::iidm::Network& networkI
 }
 
 static void
-fillParameters(std::shared_ptr<ModelGenerator> gen, std::string& startingPoint, double alpha, double beta, bool isVoltageDependant) {
+fillParameters(std::shared_ptr<ModelGenerator> gen, std::string& startingPoint, double alpha, double beta, bool isVoltageDependent) {
   std::unordered_map<std::string, ParameterModeler> parametersModels;
   {
     ParameterModeler param = ParameterModeler("startingPointMode", VAR_TYPE_STRING, EXTERNAL_PARAMETER);
@@ -137,8 +137,8 @@ fillParameters(std::shared_ptr<ModelGenerator> gen, std::string& startingPoint, 
     parametersModels.insert(std::make_pair(param.getName(), param));
   }
   {
-    ParameterModeler param = ParameterModeler("generator_isVoltageDependant", VAR_TYPE_BOOL, EXTERNAL_PARAMETER);
-    param.setValue<bool>(isVoltageDependant, PAR);
+    ParameterModeler param = ParameterModeler("generator_isVoltageDependent", VAR_TYPE_BOOL, EXTERNAL_PARAMETER);
+    param.setValue<bool>(isVoltageDependent, PAR);
     parametersModels.insert(std::make_pair(param.getName(), param));
   }
   gen->setSubModelParameters(parametersModels);

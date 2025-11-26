@@ -35,7 +35,7 @@
     <par type="DOUBLE" name="step_Height" value="0.0025"/>
   </set>
   <set id="Network_Generator">
-    <par type="BOOL" name="generator_isVoltageDependant" value="true"/>
+    <par type="BOOL" name="generator_isVoltageDependent" value="true"/>
     <par type="DOUBLE" name="generator_alpha" value="2"/>
     <par type="DOUBLE" name="generator_beta" value="2"/>
     <par type="DOUBLE" name="capacitor_no_reclosing_delay" value="300"/>
