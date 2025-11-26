@@ -174,7 +174,7 @@ class ModelSecondaryVoltageControlSimplified : public ModelCPP {
    * @param rowOffset offset to use to identify the row where data should be
    * added
    */
-  void evalJt(double t, double cj, int rowOffset, SparseMatrix &jt) override;
+  void evalJt(const double t, const double cj, SparseMatrix& jt, const int rowOffset) override;
   /**
    * @brief ModelSecondaryVoltageControlSimplified G(t,y,y') function evaluation
    *
@@ -232,7 +232,7 @@ class ModelSecondaryVoltageControlSimplified : public ModelCPP {
    * added
    * @param jtPrim jacobian matrix to fullfill
    */
-  void evalJtPrim(double t, double cj, int rowOffset, SparseMatrix& jtPrim) override;
+  void evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset) override;
   /**
    * @brief Model mode change type evaluation
    *
@@ -279,38 +279,32 @@ class ModelSecondaryVoltageControlSimplified : public ModelCPP {
    */
   void dumpUserReadableElementList(const std::string& nameElement) const override;
 
- protected:
-  /**
-   * @brief export the internal variables values of the sub model for dump in a stream
-   *
-   * @param streamVariables : stringstream with binary formated internalVariables
-   */
-  void dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const override;
-
-  /**
-   * @brief load the internal variables values from a previous dump
-   *
-   * @param streamVariables : stringstream with binary formated internalVariables
-   */
-  void loadInternalVariables(boost::archive::binary_iarchive& streamVariables) override;
-
  private:
   /**
    * @brief evaluate end set antiwindup correction
    */
   void antiWindUpCorrection();
 
+  /**
+   * @brief Calculate the initial state of the model
+   */
+  void calculateInitialState();
+
  private:
   int nbGenerators_;              ///< number of generators
   double UDeadBandPu_;            ///< deadband width on difference bewteen UpPu and UpRefPu, in pu (base UNom)
-  double alpha_;                  ///< integral gain
-  double beta_;                   ///< proportional gain
+  double Alpha_;                  ///< integral gain
+  double Beta_;                   ///< proportional gain
   double UpRef0Pu_;               ///< initial voltage regulation set point in pu (base UNom)
   double tSample_;                ///< sample time of the SVC in s
   double iTerm_;                  ///< integral tem
   double feedBackCorrection_;     ///< feedback correction
   std::vector<double> Qr_;        ///< participation factor of the generators to the secondary voltage control in Mvar
   std::vector<double> Q0Pu_;      ///< start value of reactive power in pu (receptor convention) (base SnRef) (for each generator connected to the SVC)
+  std::vector<double> P0Pu_;      ///< start value of active power in pu (receptor convention) (base SnRef) (for each generator connected to the SVC)
+  std::vector<double> SNom_;      ///< nominal apparent power in MVA (for each generator connected to the SVC)
+  std::vector<double> U0Pu_;      ///< start value of voltage module in pu (base UNom)
+  std::vector<double> XTfoPu_;    ///< reactance of the generators' transformer in pu (base UNom, SNom)
 
   static constexpr double LEVEL_MAX = 1.0;   ///< Maximal admissible level
   static constexpr double LEVEL_MIN = -1.0;  ///< Minimal admissible level
