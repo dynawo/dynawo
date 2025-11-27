@@ -1,16 +1,16 @@
 within Dynawo.Examples.InertialGrid;
 
- /*
-  * Copyright (c) 2024, RTE (http://www.rte-france.com)
-  * See AUTHORS.txt
-  * All rights reserved.
-  * This Source Code Form is subject to the terms of the Mozilla Public
-  * License, v. 2.0. If a copy of the MPL was not distributed with this
-  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-  * SPDX-License-Identifier: MPL-2.0
-  *
-  * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
-  */
+/*
+* Copyright (c) 2024, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+*/
 
 model DoubleInertialGrid
   extends Modelica.Icons.Example;
@@ -53,10 +53,12 @@ model DoubleInertialGrid
   Dynawo.Electrical.Lines.Line line3(BPu = 0, GPu = 0, RPu = R3Pu * L3, XPu = X3Pu * L3) annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Dynawo.Types.Frequency deltaFrequency "Frequency difference between both inertial grids";
+  Modelica.Blocks.Sources.RealExpression realExpression(y = (inertialGrid1.reducedOrderSFR.OmegaPu*inertialGrid1.H + inertialGrid2.reducedOrderSFR.OmegaPu*inertialGrid2.H)/(inertialGrid1.H + inertialGrid2.H)) "Center of inertia of rotation speed" annotation(
+    Placement(transformation(origin = {-90, 16}, extent = {{-10, -10}, {10, 10}})));
 
 equation
 // deltaFrequency calculation
-  deltaFrequency = inertialGrid1.reducedOrderSFR.deltaFrequency - inertialGrid2.reducedOrderSFR.deltaFrequency;
+  deltaFrequency = inertialGrid1.reducedOrderSFR.Frequency - inertialGrid2.reducedOrderSFR.Frequency;
 
 //Switch-off equations inhibitions
   load.switchOffSignal1.value = false;
@@ -113,6 +115,10 @@ equation
     Line(points = {{60, 0}, {72, 0}}, color = {0, 0, 255}));
   connect(line3.terminal2, bus.terminal) annotation(
     Line(points = {{40, 0}, {16, 0}}, color = {0, 0, 255}));
+  connect(realExpression.y, inertialGrid2.omegaRefPu) annotation(
+    Line(points = {{-79, 16}, {-66, 16}, {-66, -18}, {-38, -18}, {-38, -28}}, color = {0, 0, 127}));
+  connect(realExpression.y, inertialGrid1.omegaRefPu) annotation(
+    Line(points = {{-78, 16}, {-66, 16}, {-66, 60}, {-38, 60}, {-38, 52}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 50, Tolerance = 1e-08, Interval = 0.001),
