@@ -280,7 +280,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
   void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) override;
 
   /**
-   * @copydoc NetworkComponent::evalZ(double t)
+   * @copydoc NetworkComponent::evalZ()
    */
   NetworkComponent::StateChange_t evalZ(double t, bool deactivateZeroCrossingFunctions) override;  // compute the Z function
 

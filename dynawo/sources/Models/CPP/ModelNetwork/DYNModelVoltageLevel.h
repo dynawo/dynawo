@@ -224,7 +224,7 @@ class ModelVoltageLevel : public NetworkComponent {
   void setGequations(std::map<int, std::string>& gEquationIndex) override;
 
   /**
-   * @copydoc NetworkComponent::evalZ(double t)
+   * @copydoc NetworkComponent::evalZ()
    */
   NetworkComponent::StateChange_t evalZ(double t, bool deactivateZeroCrossingFunctions) override;
 

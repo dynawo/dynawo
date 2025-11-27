@@ -353,9 +353,10 @@ class ModelShuntCompensator : public NetworkComponent {
   /**
    * @brief return true if the shunt is available to be connected
    * and the closest bus bar section is not switched off
+   * @param deactivateZeroCrossingFunctions to deactivate zero crossing functions in model
    * @return available or not
    */
-  bool isAvailable() const;
+  bool isAvailable(bool deactivateZeroCrossingFunctions) const;
 
  private:
   std::weak_ptr<ShuntCompensatorInterface> shunt_;  ///< reference to the shunt interface object

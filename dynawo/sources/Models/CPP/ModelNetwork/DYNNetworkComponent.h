@@ -155,6 +155,7 @@ class NetworkComponent {  ///< Base class for network component models
   /**
    * @brief evaluation Z
    * @param t time
+   * @param deactivateZeroCrossingFunctions to deactivate zero crossing functions in model
    * @return the potential state change type
    */
   virtual StateChange_t evalZ(double t, bool deactivateZeroCrossingFunctions) = 0;
