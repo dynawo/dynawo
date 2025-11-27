@@ -713,6 +713,22 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
   double ii2_dUi1_;  ///< injection matrix value
   double ii2_dUr2_;  ///< injection matrix value
   double ii2_dUi2_;  ///< injection matrix value
+  double old_ir1_dUr1_;  ///< injection matrix value
+  double old_ir1_dUi1_;  ///< injection matrix value
+  double old_ir1_dUr2_;  ///< injection matrix value
+  double old_ir1_dUi2_;  ///< injection matrix value
+  double old_ii1_dUr1_;  ///< injection matrix value
+  double old_ii1_dUi1_;  ///< injection matrix value
+  double old_ii1_dUr2_;  ///< injection matrix value
+  double old_ii1_dUi2_;  ///< injection matrix value
+  double old_ir2_dUr1_;  ///< injection matrix value
+  double old_ir2_dUi1_;  ///< injection matrix value
+  double old_ir2_dUr2_;  ///< injection matrix value
+  double old_ir2_dUi2_;  ///< injection matrix value
+  double old_ii2_dUr1_;  ///< injection matrix value
+  double old_ii2_dUi1_;  ///< injection matrix value
+  double old_ii2_dUr2_;  ///< injection matrix value
+  double old_ii2_dUi2_;  ///< injection matrix value
   double ir01_;  ///< initial real part of the current at side 1
   double ii01_;  ///< initial imaginary part of the current at side 1
   double ir02_;  ///< initial real part of the current at side 2
@@ -725,6 +741,9 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
   bool topologyModified_;  ///< true if the 2wt connection state was modified
   bool stateIndexModified_;  ///< true if the 2wt state index was modified
   bool updateYMat_;  ///< true if YMat needs to be updated (= topologyModified or stateIndexModified on this 2wt)
+  bool indexModifiedNow_;
+  bool updateParams_;
+  double timeIndexModified_;
   double currentLimitsDesactivate_;  ///< whether the current limit automaton is deactivated
   double disableInternalTapChanger_;  ///< whether an external (or internal) model is used for the tap-changer
   double tapChangerLocked_;  ///< whether the tap-changer is locked
