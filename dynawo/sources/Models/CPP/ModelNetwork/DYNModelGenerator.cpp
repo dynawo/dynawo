@@ -23,7 +23,6 @@
 #include "DYNModelGenerator.h"
 
 #include <DYNNumericalUtils.h>
-#include <DYNTimer.h>
 
 #include "DYNModelBus.h"
 #include "DYNTrace.h"
@@ -119,15 +118,15 @@ ModelGenerator::evalNodeInjection() {
 void
 ModelGenerator::evalDerivatives(const double /*cj*/) {
   auto& modelBus = *modelBus_;
-  if (!network_->isInitModel() && isConnected() && modelBus.getSwitchOff()) {
+  if (!network_->isInitModel() && isConnected() && !modelBus.getSwitchOff()) {
     const double ur = modelBus.ur();
     const double ui = modelBus.ui();
     const double U2 = ur * ur + ui * ui;
     if (doubleIsZero(U2))
       return;
     if (isVoltageDependant_) {
-      int urYNum = modelBus.urYNum();
-      int uiYNum = modelBus.uiYNum();
+      const int urYNum = modelBus.urYNum();
+      const int uiYNum = modelBus.uiYNum();
 
       const double uPuOverU0PuSquare = U2 / U0Pu_square_;
       const double p = P0_ * pow_dynawo(uPuOverU0PuSquare, halfAlpha_);
