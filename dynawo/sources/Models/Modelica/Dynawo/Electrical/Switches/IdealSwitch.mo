@@ -36,9 +36,11 @@ model IdealSwitch "Ideal switch"
   Types.ReactivePowerPu Q1Pu "Reactive power on side 1 in pu (base SnRef) (receptor convention)";
   Types.ActivePowerPu P1GenPu "Active power on side 1 in pu (base SnRef) (generator convention)";
   Types.ReactivePowerPu Q1GenPu "Reactive power on side 1 in pu (base SnRef) (generator convention)";
+  Types.VoltageModulePu U1Pu "Voltage on side 1 in pu (base U1Nom)";
 
   Types.ActivePowerPu P2Pu "Active power on side 2 in pu (base SnRef) (receptor convention)";
   Types.ReactivePowerPu Q2Pu "Reactive power on side 2 in pu (base SnRef) (receptor convention)";
+  Types.VoltageModulePu U2Pu "Voltage on side 2 in pu (base U2Nom)";
 
 equation
   // When the switch is closed, V and i are equal on both sides. Otherwise, the currents are zero.
@@ -51,6 +53,8 @@ equation
     Q1GenPu = - Q1Pu;
     P2Pu = ComplexMath.real(terminal2.V * ComplexMath.conj(terminal2.i));
     Q2Pu = ComplexMath.imag(terminal2.V * ComplexMath.conj(terminal2.i));
+    U1Pu = ComplexMath.'abs'(terminal1.V);
+    U2Pu = ComplexMath.'abs'(terminal2.V);
   else
     terminal1.i = terminal2.i;
     terminal2.V = Complex(0);
@@ -60,10 +64,13 @@ equation
     Q1GenPu = 0;
     P2Pu = 0;
     Q2Pu = 0;
+    U1Pu = 0;
+    U2Pu = 0;
   end if;
 
-  annotation(preferredView = "text",
-    Documentation(info = "<html><head></head><body>When the switch is closed, the voltage on both terminals ar equal and the current is going through the switch.<div>When the switch is open, the current going through the switch is zero.</div><div><br></div><div>The equivalent circuit and conventions is:</div><div>
+  annotation(
+    preferredView = "text",
+    Documentation(info = "<html><head></head><body>When the switch is closed, the voltages on both terminals are equal and the current is going through the switch.<div>When the switch is open, the current going through the switch is zero.</div><div><br></div><div>The equivalent circuit and conventions are:</div><div>
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><!--StartFragment--><span style=\"font-family: 'Courier New'; font-size: 12pt;\">               I1                  I2</span></pre>
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">    (terminal1) --&gt;-------/ -------&lt;-- (terminal2)</span></pre>
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><br><!--EndFragment--></pre></div></body></html>"));
