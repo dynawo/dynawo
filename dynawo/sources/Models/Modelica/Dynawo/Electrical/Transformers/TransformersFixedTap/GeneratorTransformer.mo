@@ -40,7 +40,7 @@ model GeneratorTransformer "Two winding transformer with a fixed ratio"
 
   // Transformer variables for display
   Types.ActivePowerPu P1Pu "Active power on side 1 in pu (base SnRef) (receptor convention)";
-  Types.ReactivePowerPu Q1Pu "Reactive power on side 1 in pu (base SnRef) (receptor convention)";
+  Dynawo.Connectors.ReactivePowerPuConnector Q1Pu "Reactive power on side 1 in pu (base SnRef) (receptor convention)";
   Types.ActivePowerPu P1GenPu "Active power on side 1 in pu (base SnRef) (generator convention)";
   Types.ReactivePowerPu Q1GenPu "Reactive power on side 1 in pu (base SnRef) (generator convention)";
   Dynawo.Connectors.VoltageModulePuConnector U1Pu "Voltage on side 1 in pu (base U1Nom)";

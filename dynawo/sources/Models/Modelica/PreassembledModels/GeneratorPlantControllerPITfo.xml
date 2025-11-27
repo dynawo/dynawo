@@ -15,5 +15,15 @@
   <dyn:modelicaModel id="GeneratorPlantControllerPITfo">
     <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.PEIR.Plant.Simplified.GridFollowingPlant" initName="Dynawo.Electrical.PEIR.Plant.Simplified.GridFollowingPlantVar_INIT"/>
     <dyn:unitDynamicModel id="transformer" name="Dynawo.Electrical.Transformers.TransformersFixedTap.GeneratorTransformer" initName="Dynawo.Electrical.Transformers.TransformersFixedTap.GeneratorTransformer_INIT"/>
+    <dyn:initConnect id1="generator" var1="P0Pu" id2="transformer" var2="P20Pu"/>
+    <dyn:initConnect id1="generator" var1="Q0Pu" id2="transformer" var2="Q20Pu"/>
+    <dyn:initConnect id1="generator" var1="U0Pu" id2="transformer" var2="U20Pu"/>
+    <dyn:initConnect id1="generator" var1="UPhase0" id2="transformer" var2="U2Phase0"/>
+    <dyn:initConnect id1="generator" var1="QReg0Pu" id2="transformer" var2="Q10PuVar"/>
+    <dyn:initConnect id1="generator" var1="UReg0Pu" id2="transformer" var2="U10PuVar"/>
+    <dyn:connect id1="generator" var1="terminal" id2="transformer" var2="terminal2"/>
+    <dyn:connect id1="generator" var1="QRegPu" id2="transformer" var2="Q1Pu"/>
+    <dyn:connect id1="generator" var1="URegPu" id2="transformer" var2="U1Pu"/>
+    <dyn:connect id1="generator" var1="injector.switchOffSignal1" id2="transformer" var2="switchOffSignal1"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
