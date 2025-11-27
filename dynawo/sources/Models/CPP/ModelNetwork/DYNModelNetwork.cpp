@@ -227,7 +227,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
       const string& id = load->getID();
       componentsById[id] = load;
       std::shared_ptr<ModelBus> modelBus = modelBusById[load->getBusInterface()->getID()];
-      std::shared_ptr<ModelLoad> modelLoad(new ModelLoad(*load, *modelBus));
+      std::shared_ptr<ModelLoad> modelLoad(new ModelLoad(load, modelBus));
       modelLoad->setNetwork(this);
       modelVoltageLevelInit->addComponent(modelLoad);
 

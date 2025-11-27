@@ -88,7 +88,7 @@ createModelLoad(bool open, bool initModel, powsybl::iidm::Network& networkIIDM) 
   vl->addBus(bus1);
   bus1->setNetwork(network);
   bus1->setVoltageLevel(vl);
-  std::shared_ptr<ModelLoad> load = std::make_shared<ModelLoad>(*loadItfIIDM, *bus1);
+  std::shared_ptr<ModelLoad> load = std::make_shared<ModelLoad>(loadItfIIDM, bus1);
   load->setNetwork(network);
   vl->addComponent(load);
   bus1->initSize();
