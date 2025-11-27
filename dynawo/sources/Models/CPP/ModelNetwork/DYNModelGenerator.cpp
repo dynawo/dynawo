@@ -111,7 +111,7 @@ ModelGenerator::evalNodeInjection() {
 void
 ModelGenerator::evalDerivatives(const double /*cj*/) {
   auto& modelBus = *modelBus_;
-  if (!network_->isInitModel() && isConnected() && modelBus.getSwitchOff()) {
+  if (!network_->isInitModel() && isConnected() && !modelBus.getSwitchOff()) {
     const double ur = modelBus.ur();
     const double ui = modelBus.ui();
     const double U2 = ur * ur + ui * ui;
@@ -214,18 +214,22 @@ ModelGenerator::setSubModelParameters(const std::unordered_map<std::string, Para
   if (startingPointModeFound) {
     startingPointMode_ = getStartingPointMode(startingPointMode);
   }
-  try {
-    // Non generic parameters have a higher priority than generic ones
-    isVoltageDependant_ = getParameterDynamic<bool>(params, "isVoltageDependant", ids);
+  bool isVoltageDependantFound = false;
+  const bool boolValue = getParameterDynamicNoThrow<bool>(params, "isVoltageDependant", isVoltageDependantFound, ids);
+  if (isVoltageDependantFound) {
+    isVoltageDependant_ = boolValue;
     if (isVoltageDependant_) {
-      alpha_ = getParameterDynamic<double>(params, "alpha", ids);
-      beta_ = getParameterDynamic<double>(params, "beta", ids);
-      halfAlpha_ = 0.5 * alpha_;
-      halfBeta_ = 0.5 * beta_;
+      try {
+        // Non generic parameters have a higher priority than generic ones
+        alpha_ = getParameterDynamic<double>(params, "alpha", ids);
+        beta_ = getParameterDynamic<double>(params, "beta", ids);
+        halfAlpha_ = 0.5 * alpha_;
+        halfBeta_ = 0.5 * beta_;
+      } catch (const DYN::Error& e) {
+        Trace::error() << e.what() << Trace::endline;
+        throw DYNError(Error::MODELER, NetworkParameterNotFoundFor, id_);
+      }
     }
-  } catch (const DYN::Error& e) {
-    Trace::error() << e.what() << Trace::endline;
-    throw DYNError(Error::MODELER, NetworkParameterNotFoundFor, id_);
   }
   return;
 }
