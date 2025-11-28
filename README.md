@@ -10,7 +10,7 @@
     This file is part of Dynawo, an hybrid C++/Modelica open source time domain
     simulation tool for power systems.
 -->
-# Dyna&omega;o - An hybrid C++/Modelica suite of simulation tools for power systems
+# Dyna&omega;o - A hybrid C++/Modelica suite of simulation tools for power systems
 
 [![Build Status](https://github.com/dynawo/dynawo/workflows/CI/badge.svg)](https://github.com/dynawo/dynawo/actions)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dynawo_dynawo&metric=alert_status)](https://sonarcloud.io/dashboard?id=dynawo_dynawo)
@@ -62,7 +62,7 @@ For further informations about contributing guidelines, please refers to the [co
 <a name="about"></a>
 ## About Dyna&omega;o
 
-**Dyna&omega;o is an hybrid C++/Modelica open source suite of simulation tools for power systems. It aims at providing power system stakeholders with a transparent, flexible, interoperable and robust suite of simulation tools that could ease collaboration and cooperation in the power system community.**
+**Dyna&omega;o is a hybrid C++/Modelica open source suite of simulation tools for power systems. It aims at providing power system stakeholders with a transparent, flexible, interoperable and robust suite of simulation tools that could ease collaboration and cooperation in the power system community.**
 
 The nature of power system dynamics is deeply evolving towards a more diverse and difficult to predict behavior due to the massive changes going on in the power system (large penetration of power-electronic based components such as Renewable Energies Sources - RES - or High Voltage Direct Current - HVDC - lines, booming use of complex automata, control strategies or smart grids). Due to this radical change from physically-driven to numerically-driven dynamics, being able to assess the system stability becomes harder but is still essential as any generalized incident will be unacceptable for the economy and the consumers. This requires to have access to a transparent, flexible, robust and easy to use suite of simulation tools that will allow to run collaborative studies in a very simple way by sharing not only the same data but also the same modeling and solving choices in an open-source frame. Such tools will ensure to get similar results and to agree upon optimal and shared actions on the system to accompany the ongoing changes in the best possible way. This analysis has motivated us to launch a new effort on simulation tools that finally ends up in the development of the Dyna&omega;o's software.
 
