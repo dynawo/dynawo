@@ -43,6 +43,7 @@ def getOutputIIDMInfo(filename):
     IIDM_objects_byID = {}
     (iidm_root, ns, prefix) = XMLUtils.ImportXMLFileExtended(filename)
     for voltageLevel in XMLUtils.FindAll(iidm_root, prefix, "voltageLevel", ns):
+        index = 0
         for child in XMLUtils.FindAll(voltageLevel, prefix, "*", ns):
             if 'id' in child.attrib:
                 myId = child.attrib['id']
@@ -51,32 +52,20 @@ def getOutputIIDMInfo(filename):
                 if myObject.type == 'bus':
                     set_values(child,'v',myObject)
                     set_values(child,'angle',myObject)
-                elif myObject.type == 'generator' or myObject.type == 'load':
+                elif myObject.type == 'generator' or myObject.type == 'load' or myObject.type == 'battery':
                     set_values(child,'p',myObject)
                     set_values(child,'q',myObject)
                     set_values(child,'bus',myObject)
                 elif myObject.type == 'switch':
                     set_values(child,'open',myObject)
-                elif myObject.type == 'line':
-                    set_values(child,'p1',myObject)
-                    set_values(child,'q1',myObject)
-                    set_values(child,'p2',myObject)
-                    set_values(child,'q2',myObject)
+                    set_values(child,'node1',myObject)
+                    set_values(child,'node2',myObject)
                     set_values(child,'bus1',myObject)
                     set_values(child,'bus2',myObject)
                 elif myObject.type == 'danglineLine':
                     set_values(child,'p',myObject)
                     set_values(child,'q',myObject)
                     set_values(child,'bus',myObject)
-                elif myObject.type == 'twoWindingsTransformer':
-                    set_values(child,'p1',myObject)
-                    set_values(child,'q1',myObject)
-                    set_values(child,'p2',myObject)
-                    set_values(child,'q2',myObject)
-                    set_values(child,'bus1',myObject)
-                    set_values(child,'bus2',myObject)
-                elif myObject.type == 'ratioTapChanger' or  myObject.type == 'phaseTapChanger':
-                    set_values(child,'tapPosition',myObject)
                 elif myObject.type == 'vscConverterStation'or  myObject.type == 'lccConverterStation':
                     set_values(child,'p',myObject)
                     set_values(child,'q',myObject)
@@ -92,6 +81,47 @@ def getOutputIIDMInfo(filename):
                     set_values(child,'q',myObject)
                     set_values(child,'regulationMode',myObject)
                 IIDM_objects_byID[myId] = myObject
+            elif child.tag.replace("{"+ns[prefix]+"}", "") == 'bus': # in powsybl iidm, nodebreaker voltage level buses ids are computed:
+                nodeBusId = voltageLevel.attrib['id'] + "_" + str(index)
+                myObject = IIDMobject(nodeBusId)
+                index+=1
+                myObject.type = 'bus'
+                set_values(child,'v',myObject)
+                set_values(child,'angle',myObject)
+                set_values(child, 'nodes', myObject) # will compare the raw list of nodes indexes
+                IIDM_objects_byID[nodeBusId] = myObject
+    for line in XMLUtils.FindAll(iidm_root, prefix, "line", ns):
+         if 'id' in line.attrib:
+            myId = line.attrib['id']
+            myObject = IIDMobject(myId)
+            myObject.type = line.tag.replace("{"+ns[prefix]+"}", "")
+            set_values(line,'p1',myObject)
+            set_values(line,'q1',myObject)
+            set_values(line,'p2',myObject)
+            set_values(line,'q2',myObject)
+            set_values(line,'bus1',myObject)
+            set_values(line,'bus2',myObject)
+            IIDM_objects_byID[myId] = myObject
+    for twoWT in XMLUtils.FindAll(iidm_root, prefix, "twoWindingsTransformer", ns):
+        if 'id' in twoWT.attrib:
+            myId = twoWT.attrib['id']
+            myObject = IIDMobject(myId)
+            myObject.type = twoWT.tag.replace("{"+ns[prefix]+"}", "")
+            set_values(twoWT,'p1',myObject)
+            set_values(twoWT,'q1',myObject)
+            set_values(twoWT,'p2',myObject)
+            set_values(twoWT,'q2',myObject)
+            set_values(twoWT,'bus1',myObject)
+            set_values(twoWT,'bus2',myObject)
+            IIDM_objects_byID[myId] = myObject
+            for tapChanger in XMLUtils.FindAllWithAttribute(twoWT, "tapPosition"):
+                tapChangerType = tapChanger.tag.replace("{"+ns[prefix]+"}", "")
+                if tapChangerType == 'ratioTapChanger' or  tapChangerType == 'phaseTapChanger':
+                    tapChangerId = myId + "_" + tapChangerType
+                    tapChangerObject = IIDMobject(tapChangerId)
+                    tapChangerObject.type = tapChangerType
+                    set_values(tapChanger,'tapPosition',tapChangerObject)
+                    IIDM_objects_byID[tapChangerId] = tapChangerObject
     return IIDM_objects_byID
 
 # Check whether two output IIDM values files are close enough
@@ -148,6 +178,21 @@ def OutputIIDMCloseEnough (path_left, path_right):
                                 continue
                     nb_differences+=1
                     msg += "[ERROR] attribute " + attr1 + " of object " + firstId + " (type " + firstObj.type +") value: " + firstObj.values[attr1] + " is not in the equivalent object on right side\n"
+                elif firstObj.type=='switch' and (attr1=="node1" or attr1=="node2" or attr1=="bus1" or attr1=="bus2"):
+                    if ('node1' in firstObj.values and 'node2' in firstObj.values and 'node1' in secondObj.values and 'node2' in secondObj.values) \
+                        and (firstObj.values['node1'] == secondObj.values['node2']) and (firstObj.values['node2'] == secondObj.values['node1']) :
+                        continue
+                    if ('bus1' in firstObj.values and 'bus2' in firstObj.values and 'bus1' in secondObj.values and 'bus2' in secondObj.values) \
+                        and (firstObj.values['bus1'] == secondObj.values['bus2']) and (firstObj.values['bus2'] == secondObj.values['bus1']) :
+                        continue
+                    else:
+                        if (firstObj.values[attr1] != secondObj.values[attr1]):
+                            if (not is_left_powsybl_iidm and is_right_powsybl_iidm) or (not is_right_powsybl_iidm and is_left_powsybl_iidm):
+                                if "switch" in firstObj.type and attr1=="open":
+                                    #we ignore the open differences between the 2 differents libiidm as NODE_BREAKER topology is handled differently
+                                    continue
+                            nb_differences+=1
+                            msg += "[ERROR] attribute " + attr1 + " of object " + firstId + " (type " + firstObj.type +") value: " + firstObj.values[attr1] + " has another value on right side (value: " + secondObj.values[attr1] + ")\n"
                 else:
                     try:
                         difference = abs(float(firstObj.values[attr1])- float(secondObj.values[attr1]))
