@@ -392,7 +392,7 @@ class ModelGenerator : public NetworkComponent {
   double beta_;  ///< reactive power exponential sensitivity to voltage
   double halfAlpha_;  ///< 0.5 * active power exponential sensitivity to voltage
   double halfBeta_;  ///< 0.5 * reactive power exponential sensitivity to voltage
-  bool isVoltageDependant_;  ///< whether the produced energy remains constant
+  bool isVoltageDependent_;  ///< whether the produced energy remains constant
   State connectionState_;  ///< "internal" generator connection status, evaluated at the end of evalZ to detect if the state was modified by another component
   bool stateModified_;  ///< true if the generator connection state was modified
   std::shared_ptr<ModelBus> modelBus_;  ///< model bus

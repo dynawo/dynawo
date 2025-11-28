@@ -759,7 +759,7 @@ initModel(shared_ptr<DataInterface> data) {
   parametersSet->createParameter("load_beta", 0.);
   parametersSet->createParameter("load_isRestorative", false);
   parametersSet->createParameter("load_isControllable", false);
-  parametersSet->createParameter("generator_isVoltageDependant", false);
+  parametersSet->createParameter("generator_isVoltageDependent", false);
   parametersSet->createParameter("generator_alpha", 1.5);
   parametersSet->createParameter("generator_beta", 2.5);
   modelNetwork->setPARParameters(parametersSet);

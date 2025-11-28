@@ -37,6 +37,6 @@
         <par type="DOUBLE" name="CSPR_TEST_no_reclosing_delay" value="0"/>
         <par type="DOUBLE" name="generator_alpha" value="1.5"/>
         <par type="DOUBLE" name="generator_beta" value="2.5"/>
-        <par type="BOOL" name="generator_isVoltageDependant" value="false"/>
+        <par type="BOOL" name="generator_isVoltageDependent" value="false"/>
     </set>
 </parametersSet>
