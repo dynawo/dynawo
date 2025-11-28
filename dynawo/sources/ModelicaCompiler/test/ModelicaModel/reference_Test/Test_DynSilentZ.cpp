@@ -8,6 +8,8 @@
 
 #include "DYNElement.h"
 #include "PARParametersSetFactory.h"
+#include "DYNModelManager.h"
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 
 #include "TestSilentZ_Dyn.h"
 #include "TestSilentZ_Dyn_definition.h"
@@ -207,11 +209,13 @@ modeChangeType_t ModelTestSilentZ_Dyn::evalMode(const double t) const
 
   // z2 != pre(z2)
   if (doubleNotEquals(data->localData[0]->integerDoubleVars[0], data->simulationInfo->integerDoubleVarsPre[0])) {
+    Trace::debug() << modelManager_->name() << " Mode for condition z2" << Trace::endline;
       modeChangeType = ALGEBRAIC_MODE;
   }
 
   // z3 != pre(z3)
   if (doubleNotEquals(data->localData[0]->integerDoubleVars[1], data->simulationInfo->integerDoubleVarsPre[1])) {
+    Trace::debug() << modelManager_->name() << " Mode for condition z3" << Trace::endline;
       modeChangeType = ALGEBRAIC_MODE;
   }
 
