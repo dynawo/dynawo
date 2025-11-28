@@ -1,10 +1,10 @@
  ====== VARIABLES VALUES ======
 VL1_BUS1_ACPIN_V_re                               : y =       1.000000 yp =       0.000000
 VL1_BUS1_ACPIN_V_im                               : y =       0.000000 yp =       0.000000
-VL1_BUS1_ACPIN_i_re                               : y =      -0.002982 yp =       0.000000
-VL1_BUS1_ACPIN_i_im                               : y =       0.000528 yp =       0.000000
-VL2_BUS1_ACPIN_V_re                               : y =       1.001652 yp =       0.000000
-VL2_BUS1_ACPIN_V_im                               : y =       0.005858 yp =       0.000000
+VL1_BUS1_ACPIN_i_re                               : y =      -0.002996 yp =       0.000000
+VL1_BUS1_ACPIN_i_im                               : y =       0.000481 yp =       0.000000
+VL2_BUS1_ACPIN_V_re                               : y =       1.001561 yp =       0.000000
+VL2_BUS1_ACPIN_V_im                               : y =       0.005895 yp =       0.000000
 VL2_BUS1_ACPIN_i_re                               : y =      -0.005003 yp =       0.000000
 VL2_BUS1_ACPIN_i_im                               : y =       0.002465 yp =       0.000000
  ====== CALCULATED VARIABLES VALUES ======
@@ -12,27 +12,27 @@ VL1_BUS1_Upu_value                                : y =       1.000000
 VL1_BUS1_phipu_value                              : y =       0.000000
 VL1_BUS1_U_value                                  : y =       1.000000
 VL1_BUS1_phi_value                                : y =       0.000000
-VL2_BUS1_Upu_value                                : y =       1.001669
-VL2_BUS1_phipu_value                              : y =       0.005848
-VL2_BUS1_U_value                                  : y =       1.001669
-VL2_BUS1_phi_value                                : y =       0.335072
-Generator_P_value                                 : y =       0.007995
-Generator_Q_value                                 : y =       0.002998
+VL2_BUS1_Upu_value                                : y =       1.001579
+VL2_BUS1_phipu_value                              : y =       0.005886
+VL2_BUS1_U_value                                  : y =       1.001579
+VL2_BUS1_phi_value                                : y =       0.337230
+Generator_P_value                                 : y =       0.007993
+Generator_Q_value                                 : y =       0.002997
 Generator_genState_value                          : y =       2.000000
-line1_i1_value                                    : y =       0.003028
-line1_i2_value                                    : y =       0.003028
-line1_P1_value                                    : y =      -0.002982
-line1_P2_value                                    : y =       0.002984
-line1_Q1_value                                    : y =      -0.000528
-line1_Q2_value                                    : y =       0.000546
-line1_iS1ToS2Side1_value                          : y =    -174.822168
-line1_iS2ToS1Side1_value                          : y =     174.822168
-line1_iS1ToS2Side2_value                          : y =    -174.822168
-line1_iS2ToS1Side2_value                          : y =     174.822168
-line1_iSide1_value                                : y =     174.822168
-line1_iSide2_value                                : y =     174.822168
+line1_i1_value                                    : y =       0.003034
+line1_i2_value                                    : y =       0.003034
+line1_P1_value                                    : y =      -0.002996
+line1_P2_value                                    : y =       0.002997
+line1_Q1_value                                    : y =      -0.000481
+line1_Q2_value                                    : y =       0.000500
+line1_iS1ToS2Side1_value                          : y =    -175.170079
+line1_iS2ToS1Side1_value                          : y =     175.170079
+line1_iS1ToS2Side2_value                          : y =    -175.170079
+line1_iS2ToS1Side2_value                          : y =     175.170079
+line1_iSide1_value                                : y =     175.170079
+line1_iSide2_value                                : y =     175.170079
 line1_U1_value                                    : y =       1.000000
-line1_U2_value                                    : y =       1.001669
+line1_U2_value                                    : y =       1.001579
 line1_lineState_value                             : y =       2.000000
  ====== DISCRETE VARIABLES VALUES ======
 VL1_BUS1_numcc_value                              : z =       0.000000
