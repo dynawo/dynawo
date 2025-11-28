@@ -84,6 +84,7 @@ ModelUpdatableDiscrete::evalG(const double /*t*/) {
 
 void
 ModelUpdatableDiscrete::setFequations() {
+  // not needed
 }
 
 void

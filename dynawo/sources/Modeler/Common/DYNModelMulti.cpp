@@ -1042,7 +1042,7 @@ ModelMulti::initCurves(const std::shared_ptr<curves::Curve>& curve) {
         curve->setAvailable(true);
         curve->setFoundVariableName(variable);
         curve->setAsParameterCurve(true);   // This is a parameter curve
-        subModel->addParameterCurve(curve);
+        SubModel::addParameterCurve(curve);
       } else if (props.variableNameInSubModel_ == variable) {   // found exact curve name
         Trace::debug() << DYNLog(AddingCurve, modelName, variable) << Trace::endline;
         curve->setAvailable(true);

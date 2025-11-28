@@ -59,7 +59,8 @@ enum class MessageType {
  * @struct InputMessage
  * @brief Abstract base class for input messages.
  */
-struct InputMessage {
+class InputMessage {
+ public:
   /**
    * @brief Destructor.
    */
@@ -76,7 +77,8 @@ struct InputMessage {
  * @struct ActionMessage
  * @brief Message carrying an action payload.
  */
-struct ActionMessage : public InputMessage {
+class ActionMessage : public InputMessage {
+ public:
   std::string payload;  ///< Message content
 
   /**
@@ -96,7 +98,8 @@ struct ActionMessage : public InputMessage {
  * @struct StepTriggerMessage
  * @brief Message used to trigger a simulation step.
  */
-struct StepTriggerMessage : public InputMessage {
+class StepTriggerMessage : public InputMessage {
+ public:
   /**
    * @brief Get the message type.
    * @return MessageType::StepTrigger
@@ -108,7 +111,8 @@ struct StepTriggerMessage : public InputMessage {
  * @struct StopMessage
  * @brief Message used to stop the simulation.
  */
-struct StopMessage : public InputMessage {
+class StopMessage : public InputMessage {
+ public:
   /**
    * @brief Get the message type.
    * @return MessageType::Stop
