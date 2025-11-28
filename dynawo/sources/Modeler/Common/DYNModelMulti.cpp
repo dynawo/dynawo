@@ -334,6 +334,14 @@ ModelMulti::copyContinuousVariables(const double* y, const double* yp) {
   ypLocal_.assign(yp, yp + sizeY());
 }
 
+void ModelMulti::restoreResidual(const std::vector<double>& f) {
+  fLocal_.assign(f.begin(), f.end());
+}
+
+void ModelMulti::saveResidual(std::vector<double>& f) {
+  f.assign(fLocal_.begin(), fLocal_.end());
+}
+
 void
 ModelMulti::copyDiscreteVariables(const double* z) {
   yLocal_.assign(z, z + sizeZ());
@@ -436,6 +444,9 @@ ModelMulti::evalJt(const double t, const double cj, SparseMatrix& jt) {
 
 void
 ModelMulti::evalJtPrim(const double t, const double cj, SparseMatrix& jtPrim) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer("ModelMulti::evalJtPrim");
+#endif
   int rowOffset = 0;
   for (const auto& subModel : subModels_) {
     subModel->evalJtPrimSub(t, cj, rowOffset, jtPrim);

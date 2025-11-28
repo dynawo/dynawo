@@ -32,6 +32,8 @@
 #include "PARParametersSet.h"
 #include "TLTimeline.h"
 
+#include "DYNSolverCommon.h"
+
 using std::endl;
 using std::make_pair;
 using std::map;
@@ -87,8 +89,11 @@ enableSilentZ_(true),
 optimizeReinitAlgebraicResidualsEvaluations_(true),
 minimumModeChangeTypeForAlgebraicRestoration_(ALGEBRAIC_MODE),
 minimumModeChangeTypeForAlgebraicRestorationInit_(NO_MODE),
+multipleStrategiesForAlgebraicRestoration_(false),
+printUnstableRoot_(false),
 tSolve_(0.),
-startFromDump_(false) {
+startFromDump_(false),
+numDifferentialVariables_(0) {
   if (SUNContext_Create(NULL, &sundialsContext_) != 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverContextCreationError);
 }
@@ -143,6 +148,7 @@ Solver::Impl::printHeader() const {
   Trace::info() << DYNLog(SolverNbYVar, model_->sizeY()) << Trace::endline;
   Trace::info() << DYNLog(SolverNbZVar, model_->sizeZ()) << Trace::endline;
   Trace::info() << DYNLog(NbRootFunctions, model_->sizeG()) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbYDiffVar, numDifferentialVariables_) << Trace::endline;
 
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
   stringstream ss;
@@ -208,22 +214,33 @@ Solver::Impl::printParameterValues() const {
 
 void
 Solver::Impl::resetStats() {
-  // Statistics reinitialization
-  // -------------------------------
   stats_.nst_ = 0;
   stats_.nre_ = 0;
   stats_.nni_ = 0;
   stats_.nje_ = 0;
+  stats_.nreTotal_ = 0;
+  stats_.nniTotal_ = 0;
+  stats_.njeTotal_ = 0;
   stats_.netf_ = 0;
   stats_.ncfn_ = 0;
-  stats_.nge_ = 0;
+  stats_.ngeInternal_ = 0;
+  stats_.ngeSolver_ = 0;
   stats_.nze_ = 0;
   stats_.nme_ = 0;
+  stats_.nreAlgebraic_ = 0;
+  stats_.njeAlgebraic_ = 0;
+  stats_.nreAlgebraicPrim_ = 0;
+  stats_.njeAlgebraicPrim_ = 0;
+  stats_.nmeDiff_ = 0;
+  stats_.nmeAlg_ = 0;
+  stats_.nmeAlgJ_ = 0;
 }
 
 void
 Solver::Impl::solve(const double tAim, double& tNxt) {
-  // Solving
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer("Solver::Impl::solve");
+#endif
   state_.reset();
   model_->reinitMode();
   model_->rotateBuffers();
@@ -253,13 +270,11 @@ Solver::Impl::evalZMode(vector<state_g>& G0, vector<state_g>& G1, const double t
         || zChangeType == NOT_USED_IN_CONTINUOUS_EQ_Z_CHANGE) {
       // at least one discrete variable that is used in discrete equations has been modified: continue the propagation
       model_->evalG(time, G1);
-      ++stats_.nge_;
+      ++stats_.ngeInternal_;
       nonSilentZChange = true;
       change = true;
-#ifdef _DEBUG_
-      printUnstableRoot(time, G0, G1);
-      std::copy(G1.begin(), G1.end(), G0.begin());
-#endif
+      if (printUnstableRoot_)
+        printUnstableRoot(time, G0, G1);
     }
 
     if (zChangeType == NOT_SILENT_Z_CHANGE) {
@@ -356,6 +371,10 @@ Solver::Impl::defineCommonParameters() {
       ParameterSolver("minimumModeChangeTypeForAlgebraicRestoration", VAR_TYPE_STRING, optional)));
   parameters_.insert(make_pair("minimumModeChangeTypeForAlgebraicRestorationInit",
       ParameterSolver("minimumModeChangeTypeForAlgebraicRestorationInit", VAR_TYPE_STRING, optional)));
+  parameters_.insert(make_pair("multipleStrategiesForAlgebraicRestoration",
+      ParameterSolver("multipleStrategiesForAlgebraicRestoration", VAR_TYPE_BOOL, optional)));
+
+  parameters_.insert(make_pair("printUnstableRoot", ParameterSolver("printUnstableRoot", VAR_TYPE_BOOL, optional)));
 }
 
 bool
@@ -521,6 +540,14 @@ void Solver::Impl::setSolverCommonParameters() {
     else
       Trace::warn() << DYNLog(IncoherentParamMinimumModeChangeType, value) << Trace::endline;
   }
+
+  const ParameterSolver& multipleStrategiesForAlgebraicRestoration = findParameter("multipleStrategiesForAlgebraicRestoration");
+  if (multipleStrategiesForAlgebraicRestoration.hasValue())
+    multipleStrategiesForAlgebraicRestoration_ = multipleStrategiesForAlgebraicRestoration.getValue<bool>();
+
+  const ParameterSolver& printUnstableRoot = findParameter("printUnstableRoot");
+  if (printUnstableRoot.hasValue())
+    printUnstableRoot_ = printUnstableRoot.getValue<bool>();
 }
 
 void
@@ -545,8 +572,6 @@ Solver::Impl::setTimeline(const boost::shared_ptr<Timeline>& timeline) {
 
 void
 Solver::Impl::printEnd() const {
-  // (1) Print on the standard output
-  // -----------------------------------
   Trace::info() << Trace::endline;
   Trace::info() << DYNLog(SolverExecutionStats) << Trace::endline;
   Trace::info() << Trace::endline;
@@ -557,9 +582,17 @@ Solver::Impl::printEnd() const {
   Trace::info() << DYNLog(SolverNbNonLinIter, stats_.nni_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbErrorTestFail, stats_.netf_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbNonLinConvFail, stats_.ncfn_) << Trace::endline;
-  Trace::info() << DYNLog(SolverNbRootFuncEval, stats_.nge_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbSolverRootFuncEval, stats_.ngeSolver_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbInternalRootFuncEval, stats_.ngeInternal_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbDiscreteVarsEval, stats_.nze_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbModeEval, stats_.nme_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbModeEvalDiff, stats_.nmeDiff_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbModeEvalAlg, stats_.nmeAlg_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbModeEvalAlgJ, stats_.nmeAlgJ_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbAlgebraicResEval, stats_.nreAlgebraic_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbAlgebraicJacEval, stats_.njeAlgebraic_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbAlgebraicPrimResEval, stats_.nreAlgebraicPrim_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbAlgebraicPrimJacEval, stats_.njeAlgebraicPrim_) << Trace::endline;
 }
 
 }  // end namespace DYN
