@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:job name="Test">
+    <dyn:solver lib="dynawo_SolverSIM" parFile="solvers.par" parId="SIM"/>
+    <dyn:modeler compileDir="outputs/compilation">
+      <dyn:dynModels dydFile="Test.dyd"/>
+      <dyn:precompiledModels useStandardModels="false"/>
+      <dyn:modelicaModels useStandardModels="true">
+        <dyn:directory path="." recursive="false"/>
+      </dyn:modelicaModels>
+    </dyn:modeler>
+    <dyn:simulation startTime="0" stopTime="10"/>
+    <dyn:outputs directory="outputs">
+      <dyn:curves inputFile="Test.crv" exportMode="CSV"/>
+      <dyn:logs>
+        <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
+        <dyn:appender tag="COMPILE" file="dynawoCompiler.log" lvlFilter="DEBUG"/>
+      </dyn:logs>
+    </dyn:outputs>
+  </dyn:job>
+</dyn:jobs>
