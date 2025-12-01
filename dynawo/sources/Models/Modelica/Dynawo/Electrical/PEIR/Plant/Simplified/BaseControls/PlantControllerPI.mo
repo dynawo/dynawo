@@ -95,7 +95,7 @@ model PlantControllerPI "Simplified plant model with PI controller"
 
   final parameter Types.PerUnit URef0Pu = UReg0Pu - LambdaPuSNom*QReg0Pu*SystemBase.SnRef/SNom "Start value of voltage setpoint for plant level control in pu (base UNom)";
 
-protected
+//protected
   PStatus pStatus(start = PStatus.Standard) "Status of the power / frequency regulation function";
   QStatus qStatus(start = QStatus.Standard) "Voltage regulation status: standard, absorptionMax or generationMax";
 

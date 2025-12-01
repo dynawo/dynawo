@@ -50,14 +50,13 @@ model GridFollowingPlant "Simplified grid following model with plant control"
   parameter Types.ActivePowerPu P0Pu "Start value of active power at terminal in pu (base SnRef) (receptor convention)";
   parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at terminal in pu (base SnRef) (receptor convention)";
   parameter Types.PerUnit QReg0Pu "Start value of reactive power at regulated bus in pu (generator convention) (base SNom)";
-  parameter Types.PerUnit UReg0Pu "Start value of voltage magnitude at regulated bus in pu (base UNom)";
   parameter Types.PerUnit U0Pu "Start value of voltage amplitude at terminal in pu (base UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage angle at terminal in rad";
+  parameter Types.PerUnit UReg0Pu "Start value of voltage magnitude at regulated bus in pu (base UNom)";
+  parameter Types.PerUnit URef0Pu = UReg0Pu - LambdaPu * QReg0Pu "Start value of voltage setpoint for plant level control in pu (base UNom)";
 
   final parameter Types.ComplexCurrentPu i0Pu = Modelica.ComplexMath.conj(Complex(P0Pu, Q0Pu) / u0Pu) "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
   final parameter Types.ComplexVoltagePu u0Pu = Modelica.ComplexMath.fromPolar(U0Pu, UPhase0) "Start value of complex voltage at terminal in pu (base UNom)";
-  parameter Types.PerUnit URef0Pu = UReg0Pu - LambdaPu * QReg0Pu "Start value of voltage setpoint for plant level control in pu (base UNom)" annotation(
-    Placement(visible = false, transformation(origin = {nan, nan}, extent = {{nan, nan}, {nan, nan}})));
 
 equation
   Complex(PGenPu, QGenPu) = -terminal.V*ComplexMath.conj(terminal.i);
