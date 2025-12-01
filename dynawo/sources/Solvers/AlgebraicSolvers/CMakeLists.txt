@@ -23,6 +23,7 @@ target_include_directories(dynawo_SolverKINCommon
 target_link_libraries(dynawo_SolverKINCommon
   PUBLIC
     dynawo_Common
+    dynawo_SolverCommon
     Sundials::Sundials_KINSOL
     Sundials::Sundials_NVECSERIAL
     Sundials::Sundials_SUNLINSOLKLU
@@ -39,7 +40,6 @@ target_link_libraries(dynawo_SolverKINSubModel
   PUBLIC
     dynawo_SolverKINCommon
   PRIVATE
-    dynawo_SolverCommon
     dynawo_API_PAR
   )
 
@@ -65,8 +65,6 @@ target_include_directories(dynawo_SolverKINSOL
 target_link_libraries(dynawo_SolverKINSOL
   PUBLIC
     dynawo_SolverKINCommon
-  PRIVATE
-    dynawo_SolverCommon
   )
 
 set_target_properties(dynawo_SolverKINCommon dynawo_SolverKINSubModel dynawo_SolverKINSOL
