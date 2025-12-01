@@ -27,7 +27,7 @@ model ReactivePowerControlLoop2 "Simplified Reactive Power Control Loop model fo
   type UStatus = enumeration(Standard, LimitUMin, LimitUMax);
 
   // Input variables
-  Modelica.Blocks.Interfaces.RealInput level "Level received from the secondary voltage control [-1;1] " annotation(
+  Modelica.Blocks.Interfaces.RealInput level "Level received from the secondary voltage control [-1;1]" annotation(
     Placement(visible = true, transformation(origin = {-170, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.BooleanInput limUQDown(start = limUQDown0) "Whether the minimum reactive power limits are reached or not" annotation(
     Placement(visible = true, transformation(origin = {-170, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -71,7 +71,7 @@ model ReactivePowerControlLoop2 "Simplified Reactive Power Control Loop model fo
     Placement(visible = true, transformation(origin = {10, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter_UStatorRefMinMaxPu(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = UStatorRefMaxPu, uMin = UStatorRefMinPu) annotation(
     Placement(visible = true, transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.LimitedIntegrator limitedIntegrator(K = 1/Tech2, Y0 = UStatorRef0Pu, YMax = UStatorRefMaxPu, YMin = UStatorRefMinPu)  annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.LimitedIntegrator limitedIntegrator(K = 1/Tech2, Y0 = UStatorRef0Pu, YMax = UStatorRefMaxPu, YMin = UStatorRefMinPu) annotation(
     Placement(transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
 
   parameter Boolean limUQDown0 "Whether the minimum reactive power limits are reached or not (from generator voltage regulator), start value";
@@ -139,6 +139,7 @@ equation
     Line(points = {{22, 0}, {98, 0}}, color = {0, 0, 127}));
   connect(limitedIntegrator.y, limiter_UStatorRefMinMaxPu.u) annotation(
     Line(points = {{122, 0}, {138, 0}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-160, -180}, {180, 140}})),

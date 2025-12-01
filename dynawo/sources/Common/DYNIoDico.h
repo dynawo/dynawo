@@ -206,7 +206,7 @@ class IoDicos : public boost::noncopyable {
   std::vector<std::string> findFiles(const std::string& fileName);
 
  private:
-  std::vector<std::string> paths_;  ///< path where dictionnaries are researched
+  std::vector<std::string> paths_;  ///< path where dictionaries are researched
   std::map<std::string, std::shared_ptr<IoDico> > dicos_;  ///< map association between dictionary and their name
   std::map<std::string, std::shared_ptr<OppositeEventDico> > oppositeEventsDicos_;  ///< map association between dictionary and their name
 };

@@ -132,7 +132,7 @@ get_filename_component(INSTALL_OPENMODELICA $ENV{DYNAWO_INSTALL_OPENMODELICA} AB
 set(OMC_INCLUDE_DIR ${INSTALL_OPENMODELICA}/include/omc/c)
 
 if(NOT EXISTS ${OMC_INCLUDE_DIR})
-  message(FATAL_ERROR "OpenModelica include directories, ${OMC_INCLUDE_DIR}, does not exist. Use DYNAWO_INSTALL_OPENMODELICA environement variable to your installation.")
+  message(FATAL_ERROR "OpenModelica include directories, ${OMC_INCLUDE_DIR}, does not exist. Use DYNAWO_INSTALL_OPENMODELICA environment variable to your installation.")
 endif()
 
 target_include_directories(lib PUBLIC $ENV{DYNAWO_ADDITIONAL_INCLUDE_FOR_PREASSEMBLED} PRIVATE ${OMC_INCLUDE_DIR} ${ADEPT_INCLUDE_DIR})

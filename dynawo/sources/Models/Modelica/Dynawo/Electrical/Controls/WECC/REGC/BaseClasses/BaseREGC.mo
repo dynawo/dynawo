@@ -51,11 +51,11 @@ partial model BaseREGC "Base class for WECC Generator Converter REGC"
     Placement(visible = true, transformation(origin = {-180, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.MathBoolean.And and1(nu = 2) annotation(
     Placement(visible = true, transformation(origin = {-110, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.BooleanConstant QInj0PuPos(k = QInj0Pu > 0)  annotation(
+  Modelica.Blocks.Sources.BooleanConstant QInj0PuPos(k = QInj0Pu > 0) annotation(
     Placement(visible = true, transformation(origin = {-180, 160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.MathBoolean.And and2(nu = 2) annotation(
     Placement(visible = true, transformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.BooleanConstant Qinj0PuNeg(k = QInj0Pu < 0)  annotation(
+  Modelica.Blocks.Sources.BooleanConstant Qinj0PuNeg(k = QInj0Pu < 0) annotation(
     Placement(visible = true, transformation(origin = {-180, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initial parameters

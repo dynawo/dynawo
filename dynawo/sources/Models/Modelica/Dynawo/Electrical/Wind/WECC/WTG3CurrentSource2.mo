@@ -174,6 +174,7 @@ equation
     Line(points = {{62, -110}, {60, -110}, {60, -66}}, color = {0, 0, 127}));
 
   annotation(
+    preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-100, 80}, {360, -100}})),
     version = "",
     uses(Dynawo(version = "1.8.0"), Modelica(version = "3.2.3")),
