@@ -280,10 +280,10 @@ TEST(ModelsModelAreaShedding, ModelAreaSheddingContinuousAndDiscreteMethods) {
   smj.init(size, size);
   ModelAreaShedding->evalJt(0, 0, 0, smj);
   ASSERT_EQ(smj.nbElem(), 4);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[0], 1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[1], 1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[2], 1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[3], 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAx()[0], 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAx()[1], 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAx()[2], 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAx()[3], 1);
 
   ModelAreaShedding->evalG(2.);
   ModelAreaShedding->evalZ(2.);
