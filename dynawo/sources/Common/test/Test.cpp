@@ -409,13 +409,13 @@ TEST(CommonTest, testSparseMatrix) {
   smj3.erase(rows, columns, M);
   ASSERT_EQ(M.nbCol(), 2);
   ASSERT_EQ(M.nbElem(), 2);
-  ASSERT_EQ(M.Ap_[0], 0);
-  ASSERT_EQ(M.Ap_[1], 1);
-  ASSERT_EQ(M.Ap_[2], 2);
-  ASSERT_EQ(M.Ai_[0], 0);
-  ASSERT_EQ(M.Ai_[1], 0);
-  ASSERT_EQ(M.Ax_[0], 1);
-  ASSERT_EQ(M.Ax_[1], 4);
+  ASSERT_EQ(M.getAp()[0], 0);
+  ASSERT_EQ(M.getAp()[1], 1);
+  ASSERT_EQ(M.getAp()[2], 2);
+  ASSERT_EQ(M.getAi()[0], 0);
+  ASSERT_EQ(M.getAi()[1], 0);
+  ASSERT_EQ(M.getAx()[0], 1);
+  ASSERT_EQ(M.getAx()[1], 4);
 
   // reserve
   smj3.reserve(2);
@@ -430,9 +430,9 @@ TEST(CommonTest, testSparseMatrix) {
     smj4.addTerm(i, i);
   }
   for (int icol = 0; icol < smj4.nbCol(); ++icol) {
-    for (unsigned int ind = smj4.Ap_[icol]; ind < smj4.Ap_[icol + 1]; ++ind) {
-      int ilig = smj4.Ai_[ind];
-      double val = smj4.Ax_[ind];
+    for (unsigned int ind = smj4.getAp()[icol]; ind < smj4.getAp()[icol + 1]; ++ind) {
+      int ilig = smj4.getAi()[ind];
+      double val = smj4.getAx()[ind];
       ASSERT_EQ(ilig, ind+1);
       ASSERT_EQ(val, ind+1);
     }
