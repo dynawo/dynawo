@@ -309,23 +309,23 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   smj.changeCol();
   smj.changeCol();
   ASSERT_EQ(smj.nbElem(), 16);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ap_[0], 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ap_[1], 3);  // 3 elements non-zero for numCC_0
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ap_[2], 4);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ap_[10], 12);  // omega_grp_0
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ap_[11], 14);  // 2 elements non-zero for omega_grp_0
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ai_[0], 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ai_[1], 10);  // first index of omega
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ai_[2], 11);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ai_[12], 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ai_[13], 12);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ai_[14], 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ai_[15], 13);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[0], -1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[1], 0.6666666);  // first index of omega
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[2], 0.3333333);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[12], 1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[13], -1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAp()[0], 0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAp()[1], 3);  // 3 elements non-zero for numCC_0
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAp()[2], 4);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAp()[10], 12);  // omega_grp_0
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAp()[11], 14);  // 2 elements non-zero for omega_grp_0
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAi()[0], 0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAi()[1], 10);  // first index of omega
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAi()[2], 11);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAi()[12], 0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAi()[13], 12);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAi()[14], 0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAi()[15], 13);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAx()[0], -1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAx()[1], 0.6666666);  // first index of omega
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAx()[2], 0.3333333);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAx()[12], 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.getAx()[13], -1);
 
   y[10] = 2.5;  // Modifying omegaGrp_0
   modelOmegaRef->evalF(1, UNDEFINED_EQ);
@@ -364,15 +364,15 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   smj2.changeCol();
   smj2.changeCol();
   ASSERT_EQ(smj2.nbElem(), 14);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ap_[9], 10);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ap_[10], 11);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ap_[11], 12);  // 1 element non-zero for omega_grp_0
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ai_[11], 12);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ai_[12], 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ai_[13], 13);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[11], -1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[12], 1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[13], -1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.getAp()[9], 10);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.getAp()[10], 11);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.getAp()[11], 12);  // 1 element non-zero for omega_grp_0
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.getAi()[11], 12);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.getAi()[12], 0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.getAi()[13], 13);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.getAx()[11], -1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.getAx()[12], 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.getAx()[13], -1);
 
   mode = modelOmegaRef->evalMode(2);
   ASSERT_EQ(mode, NO_MODE);
