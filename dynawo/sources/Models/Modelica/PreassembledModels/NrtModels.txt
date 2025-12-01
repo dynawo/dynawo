@@ -93,6 +93,7 @@ LoadOneTransformer
 LoadOneTransformerTapChanger
 LoadPQ
 LoadTwoTransformersTapChangers
+LoadZIP
 LossOfSynchronismProtection
 NetworkTransformer
 NodeFault
