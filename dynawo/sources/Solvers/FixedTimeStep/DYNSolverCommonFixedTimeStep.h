@@ -266,7 +266,8 @@ class SolverCommonFixedTimeStep : public Solver::Impl {
   int msbset_;  ///< maximum number of nonlinear iterations that may be performed between calls to the linear solver setup routine
   int mxiter_;  ///< maximum number of nonlinear iterations
   int printfl_;  ///< level of verbosity of output
-  bool allLogs_;  ///< level of verbosity of output
+  bool allLogs_;  ///< print residuals during newton resolution
+  bool printReinitResiduals_;  ///< to print residuals during algebraic restoration
 
   bool skipNextNR_;  ///< indicates if the next algebraic resolution could be skipped
 

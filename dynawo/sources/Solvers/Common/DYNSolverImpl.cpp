@@ -321,7 +321,7 @@ Solver::Impl::printUnstableRoot(double t, const vector<state_g>& G0, const vecto
       int localGIndex(0);
       std::string gEquation("");
       model_->getGInfos(i, subModelName, localGIndex, gEquation);
-      Trace::debug() << DYNLog(RootGeq, i, subModelName, gEquation) << Trace::endline;
+      Trace::debug() << DYNLog(RootGeq, i, subModelName, gEquation, localGIndex, t) << Trace::endline;
     }
   }
   Trace::debug() << DYNLog(SolverInstableRootFound) << Trace::endline;
@@ -552,6 +552,8 @@ void Solver::Impl::setSolverCommonParameters() {
       minimumModeChangeTypeForAlgebraicRestorationInit_ = ALGEBRAIC_MODE;
     else if (value == "ALGEBRAIC_J_UPDATE")
       minimumModeChangeTypeForAlgebraicRestorationInit_ = ALGEBRAIC_J_UPDATE_MODE;
+    else if (value == "ALGEBRAIC_J_J_UPDATE")
+      minimumModeChangeTypeForAlgebraicRestoration_ = ALGEBRAIC_J_J_UPDATE_MODE;
     else
       Trace::warn() << DYNLog(IncoherentParamMinimumModeChangeType, value) << Trace::endline;
   }

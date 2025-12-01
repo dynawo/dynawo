@@ -144,8 +144,8 @@ SolverIDA::~SolverIDA() {
 
 void
 SolverIDA::defineSpecificParameters() {
-  const bool mandatory = true;
-  const bool notMandatory = false;
+  constexpr bool mandatory = true;  // name of the parameter indicates its purpose not its value
+  constexpr bool optional = false;  // name of the parameter indicates its purpose not its value
   // Time-domain part parameters
   parameters_.insert(make_pair("order", ParameterSolver("order", VAR_TYPE_INT, mandatory)));
   parameters_.insert(make_pair("initStep", ParameterSolver("initStep", VAR_TYPE_DOUBLE, mandatory)));
