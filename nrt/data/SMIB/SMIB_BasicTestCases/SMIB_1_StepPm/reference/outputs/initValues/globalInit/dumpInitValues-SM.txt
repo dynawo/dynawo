@@ -1,9 +1,9 @@
  ====== VARIABLES VALUES ======
-generator_lambdaDPu                               : y =       0.908445 yp =       0.000381
+generator_lambdaDPu                               : y =       0.908445 yp =       0.000000
 generator_lambdaQ1Pu                              : y =      -0.577451 yp =       0.000000
-generator_lambdaQ2Pu                              : y =      -0.577451 yp =       0.000009
-generator_lambdafPu                               : y =       1.162561 yp =      -0.000030
-generator_omegaPu                                 : y =       1.000000 yp =       0.000006
+generator_lambdaQ2Pu                              : y =      -0.577451 yp =       0.000000
+generator_lambdafPu                               : y =       1.162561 yp =       0.000000
+generator_omegaPu                                 : y =       1.000000 yp =       0.000000
 generator_omegaRefPu                              : y =       1.000000 yp =       0.000000
 generator_terminal_V_im                           : y =       0.474565 yp =       0.000000
 generator_terminal_V_re                           : y =       0.880236 yp =       0.000000
@@ -42,9 +42,9 @@ generator_uStatorPu_re                            : y =       0.880236 yp =     
 generator_udPu                                    : y =       0.637107 yp =       0.000000
 generator_ufPu                                    : y =       0.001119 yp =       0.000000
 generator_uqPu                                    : y =       0.770793 yp =       0.000000
-governor_PmRawPu_u3                               : y =      -0.000000 yp =       0.000000
+governor_PmRawPu_u3                               : y =       0.000000 yp =       0.000000
 governor_PmRawPu_y                                : y =       0.903000 yp =       0.000000
-governor_feedback_y                               : y =      -0.000000 yp =       0.000000
+governor_feedback_y                               : y =       0.000000 yp =       0.000000
 governor_limiter_y                                : y =       0.903000 yp =       0.000000
 voltageRegulator_UsRefTotal_y                     : y =       1.127905 yp =       0.000000
 voltageRegulator_feedback_u1                      : y =       1.127905 yp =       0.000000
@@ -73,10 +73,10 @@ voltageRegulator_limiterWithLag_y                 : alias of generator_efdPu
  ====== CALCULATED VARIABLES VALUES ======
 generator_IRotorPu                                : y =       2.558042
 generator_IStatorPu                               : y =      22.199818
-generator_PGen                                    : y =    1997.905158
+generator_PGen                                    : y =    1997.905157
 generator_PGenPu                                  : y =      19.979052
 generator_PePu                                    : y =       0.902957
-generator_QGen                                    : y =     967.900295
+generator_QGen                                    : y =     967.900293
 generator_QGenPu                                  : y =       9.679003
 generator_QStatorPu                               : y =       9.679003
 generator_QStatorPuQNom                           : y =       3.255401

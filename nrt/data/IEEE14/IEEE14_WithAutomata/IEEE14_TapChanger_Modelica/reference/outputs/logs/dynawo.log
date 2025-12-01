@@ -1,6 +1,6 @@
 INFO |  ============================================================ 
 INFO | DYNAWO VERSION  :     1.8.0
-INFO | DYNAWO REVISION :  master-25-2a37ba5e337
+INFO | DYNAWO REVISION :  3763_ida_refactor_1-63edcefdb0e
 INFO |  ============================================================ 
 INFO | 
 INFO | -----------------------------------------------------------------------
@@ -38,7 +38,7 @@ INFO | number of root functions : 321
 INFO | -----------------------------------------------------------------------
 INFO |         time ¦ iter num   order (k)      time step (h)
 INFO | -----------------------------------------------------------------------
-INFO |        0.000 ¦        0           0              0.150 
+INFO |        0.000 ¦        0           0              0.000 
 INFO |        0.000 ¦        1           1              0.000 
 INFO |        0.000 ¦        2           1              0.000 
 INFO |        0.000 ¦        3           2              0.000 
@@ -437,12 +437,12 @@ INFO |
 INFO | execution statistics :
 INFO | 
 INFO | number of time iterations                  = 328
-INFO | number of residual evaluations             = 492
-INFO | number of Jacobian evaluations             = 269
-INFO | number of nonlinear iterations             = 462
+INFO | number of residual evaluations             = 457
+INFO | number of Jacobian evaluations             = 268
+INFO | number of nonlinear iterations             = 427
 INFO | number of error test failures              = 0
 INFO | number of nonlinear convergence failures   = 0
-INFO | number of root functions evaluations       = 1652
+INFO | number of root functions evaluations       = 1651
 INFO | number of discrete variables evaluations   = 76
 INFO | number of mode evaluations                 = 54
 INFO | end of job 'IEEE14 - TapChanger (Modelica)'

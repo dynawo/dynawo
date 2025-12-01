@@ -1,6 +1,6 @@
 INFO |  ============================================================ 
 INFO | DYNAWO VERSION  :     1.8.0
-INFO | DYNAWO REVISION :  master-25-2a37ba5e337
+INFO | DYNAWO REVISION :  3763_ida_refactor_1-63edcefdb0e
 INFO |  ============================================================ 
 INFO | 
 INFO | -----------------------------------------------------------------------
@@ -381,9 +381,9 @@ INFO |
 INFO | execution statistics :
 INFO | 
 INFO | number of time iterations                  = 335
-INFO | number of residual evaluations             = 691
-INFO | number of Jacobian evaluations             = 72
-INFO | number of nonlinear iterations             = 673
+INFO | number of residual evaluations             = 671
+INFO | number of Jacobian evaluations             = 70
+INFO | number of nonlinear iterations             = 667
 INFO | number of error test failures              = 9
 INFO | number of nonlinear convergence failures   = 6
 INFO | number of root functions evaluations       = 387

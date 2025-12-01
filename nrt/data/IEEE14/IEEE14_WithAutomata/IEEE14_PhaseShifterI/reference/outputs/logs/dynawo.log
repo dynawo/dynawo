@@ -1,6 +1,6 @@
 INFO |  ============================================================ 
 INFO | DYNAWO VERSION  :     1.8.0
-INFO | DYNAWO REVISION :  master-25-2a37ba5e337
+INFO | DYNAWO REVISION :  3763_ida_refactor_1-63edcefdb0e
 INFO |  ============================================================ 
 INFO | 
 INFO | -----------------------------------------------------------------------
@@ -37,7 +37,7 @@ INFO | number of root functions : 317
 INFO | -----------------------------------------------------------------------
 INFO |         time ¦ iter num   order (k)      time step (h)
 INFO | -----------------------------------------------------------------------
-INFO |        0.000 ¦        0           0              0.100 
+INFO |        0.000 ¦        0           0              0.000 
 INFO |        0.000 ¦        1           1              0.000 
 INFO |        0.000 ¦        2           1              0.000 
 INFO |        0.000 ¦        3           2              0.000 
@@ -576,10 +576,6 @@ INFO | Algebraic mode change at t = 31.8522
 INFO |       31.852 ¦       20           2              0.131 
 INFO | calculation of the new starting point of the simulation.
 INFO |       31.852 ¦        0           0              0.000 
-INFO | Algebraic mode change at t = 31.8522
-INFO |       31.852 ¦        1           1              0.000 
-INFO | calculation of the new starting point of the simulation.
-INFO |       31.852 ¦        0           0              0.000 
 INFO |       31.852 ¦        1           1              0.000 
 INFO |       31.852 ¦        2           1              0.000 
 INFO |       31.852 ¦        3           2              0.000 
@@ -928,13 +924,13 @@ INFO |      100.000 ¦       36           1              0.234
 INFO | 
 INFO | execution statistics :
 INFO | 
-INFO | number of time iterations                  = 708
-INFO | number of residual evaluations             = 972
-INFO | number of Jacobian evaluations             = 630
-INFO | number of nonlinear iterations             = 900
+INFO | number of time iterations                  = 707
+INFO | number of residual evaluations             = 956
+INFO | number of Jacobian evaluations             = 629
+INFO | number of nonlinear iterations             = 886
 INFO | number of error test failures              = 4
 INFO | number of nonlinear convergence failures   = 0
-INFO | number of root functions evaluations       = 4269
-INFO | number of discrete variables evaluations   = 189
-INFO | number of mode evaluations                 = 144
+INFO | number of root functions evaluations       = 4238
+INFO | number of discrete variables evaluations   = 188
+INFO | number of mode evaluations                 = 143
 INFO | end of job 'IEEE14 - PhaseShifterI'
