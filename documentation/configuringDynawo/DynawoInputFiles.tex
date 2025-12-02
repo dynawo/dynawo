@@ -394,8 +394,16 @@ Several outputs are available with \Dynawo:
 \end{lstlisting}
 
 \item \textbf{Constraints}: the user can have access to the list of constraints that happened during the simulation by adding the item ``constraints'' in the jobs file, and by specifying the export mode.
+Constraints can be filtered at export with the ``filter'' flag (default=``FIRST'').
+
+If filter=``DISABLED'', all constraints registered during the simulation will be kept, even if the constraint was cleared before the end of the simulation.
+
+If filter=``FIRST'', constraints cleared during simulation will be removed and the ones still existing at the end of the simulation are associated to the value seen at the first time step when the constraint appeared.
+
+If filter=``DYNAFLOW'', constraints cleared during simulation will be kept and will contain the last value available (but timestep of the first one), whether that corresponds to the end of the constraint or the end of the simulation. Additionally, the maximum value observed while the constraint was in effect will be exported for each constraint.
+
 \begin{lstlisting}[language=XML, morekeywords={constraints},numbers=none]
-<constraints exportMode="TXT"/>
+<constraints exportMode="TXT" filter="false"/>
 \end{lstlisting}
 Two export modes are available for constraints: TXT or XML.
 

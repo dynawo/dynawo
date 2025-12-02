@@ -21,6 +21,9 @@
 
 namespace job {
 
+  ConstraintsEntry::ConstraintsEntry() :
+  filter_(DYN::CONSTRAINTS_KEEP_FIRST) {}
+
 void
 ConstraintsEntry::setOutputFile(const std::string& outputFile) {
   outputFile_ = outputFile;
@@ -41,4 +44,13 @@ ConstraintsEntry::getExportMode() const {
   return exportMode_;
 }
 
+void
+ConstraintsEntry::setFilterType(DYN::ConstraintValueType_t filter) {
+  filter_ = filter;
+}
+
+DYN::ConstraintValueType_t
+ConstraintsEntry::getFilterType() const {
+  return filter_;
+}
 }  // namespace job
