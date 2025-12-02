@@ -19,7 +19,7 @@
       <dyn:precompiledModels useStandardModels="true"/>
       <dyn:modelicaModels useStandardModels="true"/>
     </dyn:modeler>
-    <dyn:simulation startTime="0" stopTime="25" precision="1e-8"/>
+    <dyn:simulation startTime="0" stopTime="25" precision="1e-9"/>
     <dyn:outputs directory="outputs">
       <dyn:dumpInitValues local="true" global="true"/>
       <dyn:curves inputFile="WPP4BCurrentSource2015.crv" exportMode="CSV"/>
