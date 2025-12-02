@@ -100,6 +100,7 @@ nbLastTimeSimulated_(0) {
 void
 SolverIDA::cleanIDA() {
   if (sundialsMatrix_ != NULL) {
+    SolverCommon::cleanSUNMatrix(sundialsMatrix_);
     SUNMatDestroy(sundialsMatrix_);
     sundialsMatrix_ = NULL;
   }
@@ -251,7 +252,9 @@ SolverIDA::init(const std::shared_ptr<Model>& model, const double t0, const doub
   sundialsMatrix_ = SUNSparseMatrix(model->sizeY(), model->sizeY(), 0, CSR_MAT, sundialsContext_);
   if (sundialsMatrix_ == NULL)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "SUNSparseMatrix");
+  SolverCommon::freeSUNMatrix(sundialsMatrix_);
   smj_.init(model->sizeY(), model->sizeY());
+  SolverCommon::copySparseMatrixToSUNMatrix(smj_, sundialsMatrix_);
   /* Create KLU SUNLinearSolver object */
   linearSolver_ = SUNLinSol_KLU(sundialsVectorY_, sundialsMatrix_, sundialsContext_);
   if (linearSolver_ == NULL)

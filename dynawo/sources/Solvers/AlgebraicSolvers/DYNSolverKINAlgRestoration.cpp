@@ -191,6 +191,7 @@ SolverKINAlgRestoration::setupNewAlgebraicRestoration(const double fnormtol, con
     // needs to be done after initCommon for sundialsMatrix_ to exist
     smjKin_.reserve(indexY_.size());
     smj_.init(numF_, numF_);
+    SolverCommon::copySparseMatrixToSUNMatrix(smjKin_, sundialsMatrix_);
   } else {
     updateKINSOLSettings(fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl);
   }
