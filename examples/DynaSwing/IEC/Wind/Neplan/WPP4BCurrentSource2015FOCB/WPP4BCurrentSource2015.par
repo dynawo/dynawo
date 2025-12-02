@@ -210,7 +210,8 @@
     <par type="DOUBLE" name="initStep" value="1e-7"/>
     <par type="DOUBLE" name="minStep" value="1e-7"/>
     <par type="DOUBLE" name="maxStep" value="10"/>
-    <par type="DOUBLE" name="absAccuracy" value="1e-6"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-7"/>
     <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
+    <par type="DOUBLE" name="minimalAcceptableStep" value="1e-10"/>
   </set>
 </parametersSet>

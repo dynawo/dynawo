@@ -31,47 +31,51 @@ void ModelGeneratorPQ_Dyn::setupDataStruc()
   data->simulationInfo = (SIMULATION_INFO *)calloc(1,sizeof(SIMULATION_INFO));
   data->simulationInfo->daeModeData = (DAEMODE_DATA *)calloc(1,sizeof(DAEMODE_DATA));
   data->nbDummy = 0;
-  data->modelData->nStates = 3;
-  data->modelData->nVariablesReal = 11;
+  data->modelData->nStates = 4;
+  data->modelData->nVariablesReal = 9;
   data->modelData->nDiscreteReal = 4;
   data->modelData->nVariablesInteger = 3;
-  data->modelData->nVariablesBoolean = 10;
+  data->modelData->nVariablesBoolean = 9;
   data->modelData->nVariablesString = 0;
-  data->modelData->nParametersReal = 14 + 0; // 0 boolean emulated as real parameter
+  data->modelData->nParametersReal = 14 + 4; // 4 booleans emulated as real parameters
   data->modelData->nParametersInteger = 2;
   data->modelData->nParametersBoolean = 0; // all boolean parameters emulated as real parameters
   data->modelData->nParametersString = 0;
   data->modelData->nInputVars = 0;
   data->modelData->nOutputVars = 0;
-  data->modelData->nAliasReal = 0 - 0 /* Remove const aliases */;
+  data->modelData->nAliasReal = 3 - 0 /* Remove const aliases */;
   data->modelData->nAliasInteger = 0 - 0 /* Remove const aliases */;
   data->modelData->nAliasBoolean = 0 - 0 /* Remove const aliases */;
   data->modelData->nAliasString = 0;
-  data->modelData->nZeroCrossings = 7 + 2 + 0;
+  data->modelData->nZeroCrossings = 4 + 4 + 0;
   data->modelData->nSamples = 0;
-  data->modelData->nRelations = 9 + 0;
+  data->modelData->nRelations = 5 + 0;
   data->modelData->nMathEvents = 0;
   data->modelData->nExtObjs = 0;
   data->modelData->nMixedSystems = 0;
   data->modelData->nLinearSystems = 1;
   data->modelData->nNonLinearSystems = 0;
   data->modelData->nStateSets = 0;
-  data->modelData->nJacobians = 4;
+  data->modelData->nJacobians = 7;
   data->modelData->nOptimizeConstraints = 0;
   data->modelData->nOptimizeFinalConstraints = 0;
   data->modelData->nDelayExpressions = 0;
-  data->modelData->nClocks = 0;
-  data->modelData->nSubClocks = 0;
+  data->modelData->nBaseClocks = 0;
+  data->modelData->nSpatialDistributions = 0;
   data->modelData->nSensitivityVars = 0;
   data->modelData->nSensitivityParamVars = 0;
-  data->simulationInfo->daeModeData->nResidualVars = 2;
+  data->modelData->nSetcVars = 0;
+  data->modelData->ndataReconVars = 0;
+  data->modelData->nSetbVars = 0;
+  data->modelData->nRelatedBoundaryConditions = 0;
+  data->simulationInfo->daeModeData->nResidualVars = 5;
   data->simulationInfo->daeModeData->nAuxiliaryVars = 0;
 
-  data->nbVars =11;
-  data->nbF = 8;
-  data->nbModes = 3;
+  data->nbVars =9;
+  data->nbF = 6;
+  data->nbModes = 2;
   data->nbZ = 4;
-  data->nbCalculatedVars = 0;
+  data->nbCalculatedVars = 3;
   data->nbDelays = 0;
   data->constCalcVars.resize(0, 0.);
 }
@@ -180,24 +184,36 @@ void ModelGeneratorPQ_Dyn::deInitializeDataStruc()
 void ModelGeneratorPQ_Dyn::initRpar()
 {
   /* Setting shared and external parameters */
-  data->simulationInfo->realParameter[0] /* generator.AlphaPu */ = generator_AlphaPu_;
-  data->simulationInfo->realParameter[1] /* generator.PGen0Pu */ = generator_PGen0Pu_;
-  data->simulationInfo->realParameter[2] /* generator.PMaxPu */ = generator_PMaxPu_;
-  data->simulationInfo->realParameter[3] /* generator.PMinPu */ = generator_PMinPu_;
-  data->simulationInfo->realParameter[4] /* generator.QGen0Pu */ = generator_QGen0Pu_;
-  data->simulationInfo->realParameter[5] /* generator.QMaxPu */ = generator_QMaxPu_;
-  data->simulationInfo->realParameter[6] /* generator.QMinPu */ = generator_QMinPu_;
-  data->simulationInfo->realParameter[7] /* generator.U0Pu */ = generator_U0Pu_;
-  data->simulationInfo->realParameter[8] /* generator.UMaxPu */ = generator_UMaxPu_;
-  data->simulationInfo->realParameter[9] /* generator.UMinPu */ = generator_UMinPu_;
+  data->simulationInfo->realParameter[1] /* generator.AlphaPuPNom */ = generator_AlphaPuPNom_;
+  data->simulationInfo->realParameter[2] /* generator.PGen0Pu */ = generator_PGen0Pu_;
+  data->simulationInfo->realParameter[3] /* generator.PMax */ = generator_PMax_;
+  data->simulationInfo->realParameter[5] /* generator.PMin */ = generator_PMin_;
+  data->simulationInfo->realParameter[7] /* generator.PNom */ = generator_PNom_;
+  data->simulationInfo->realParameter[8] /* generator.QGen0Pu */ = generator_QGen0Pu_;
+  data->simulationInfo->realParameter[9] /* generator.U0Pu */ = generator_U0Pu_;
   data->simulationInfo->realParameter[10] /* generator.i0Pu.im */ = generator_i0Pu_im_;
   data->simulationInfo->realParameter[11] /* generator.i0Pu.re */ = generator_i0Pu_re_;
   data->simulationInfo->realParameter[12] /* generator.u0Pu.im */ = generator_u0Pu_im_;
   data->simulationInfo->realParameter[13] /* generator.u0Pu.re */ = generator_u0Pu_re_;
+  data->simulationInfo->realParameter[15] /* generator.SwitchOffSignal10 */ = fromNativeBool ( (toNativeBool (generator_SwitchOffSignal10_)));
+  data->simulationInfo->realParameter[16] /* generator.SwitchOffSignal20 */ = fromNativeBool ( (toNativeBool (generator_SwitchOffSignal20_)));
+  data->simulationInfo->realParameter[17] /* generator.SwitchOffSignal30 */ = fromNativeBool ( (toNativeBool (generator_SwitchOffSignal30_)));
   data->simulationInfo->integerParameter[0] /* generator.NbSwitchOffSignals */ = generator_NbSwitchOffSignals_;
   data->simulationInfo->integerParameter[1] /* generator.State0 */ = generator_State0_;
 
   // Setting internal parameters 
+{
+  (data->simulationInfo->realParameter[14] /* generator.Running0 PARAM */) = fromNativeBool ( (!((((toNativeBool (data->simulationInfo->realParameter[15] /* generator.SwitchOffSignal10 PARAM */))) || ((toNativeBool (data->simulationInfo->realParameter[16] /* generator.SwitchOffSignal20 PARAM */)))) || ((toNativeBool (data->simulationInfo->realParameter[17] /* generator.SwitchOffSignal30 PARAM */))))));
+}
+{
+  (data->simulationInfo->realParameter[6] /* generator.PMinPu PARAM */) = (0.01) * ((data->simulationInfo->realParameter[5] /* generator.PMin PARAM */));
+}
+{
+  (data->simulationInfo->realParameter[4] /* generator.PMaxPu PARAM */) = (0.01) * ((data->simulationInfo->realParameter[3] /* generator.PMax PARAM */));
+}
+{
+  (data->simulationInfo->realParameter[0] /* generator.AlphaPu PARAM */) = (0.01) * (((data->simulationInfo->realParameter[1] /* generator.AlphaPuPNom PARAM */)) * ((data->simulationInfo->realParameter[7] /* generator.PNom PARAM */)));
+}
 
   return;
 }
@@ -206,141 +222,105 @@ void ModelGeneratorPQ_Dyn::setFomc(double * f, propertyF_t type)
 {
   if (type != DIFFERENTIAL_EQ) {
   {
-  // ----- GeneratorPQ_eqFunction_63 -----
-  modelica_real tmp0;
-  modelica_real tmp1;
-  modelica_real tmp2;
-  tmp0 = data->localData[0]->realVars[2] /* generator.terminal.V.re STATE(1) */;
-  tmp1 = data->localData[0]->realVars[1] /* generator.terminal.V.im STATE(1) */;
-  f[0] = data->localData[0]->realVars[8] /*  generator.UPu variable  */ - ( sqrt((tmp0 * tmp0) + (tmp1 * tmp1)) );
+  // ----- GeneratorPQ_eqFunction_74 -----
+  (data->simulationInfo->daeModeData->residualVars[3]) /* $DAEres6 DAE_RESIDUAL_VAR */ = ((data->localData[0]->realVars[3] /* generator.terminal.V.re STATE(1) */)) * ((data->localData[0]->realVars[7] /* generator.terminal.i.im variable */)) + ((-(data->localData[0]->realVars[2] /* generator.terminal.V.im STATE(1) */))) * ((data->localData[0]->realVars[8] /* generator.terminal.i.re variable */)) - (data->localData[0]->realVars[6] /* generator.SGenPu.im variable */);
+    f[0] = data->simulationInfo->daeModeData->residualVars[3] /* $DAEres6 DAE_RESIDUAL_VAR */;
 
   }
 
 
   {
-  // ----- GeneratorPQ_eqFunction_81 -----
-  modelica_boolean tmp12;
-  modelica_real tmp13;
-  tmp12 = (modelica_boolean)(toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */));
-  if(tmp12)
+  // ----- GeneratorPQ_eqFunction_75 -----
+  (data->simulationInfo->daeModeData->residualVars[1]) /* $DAEres4 DAE_RESIDUAL_VAR */ = ((-(data->localData[0]->realVars[3] /* generator.terminal.V.re STATE(1) */))) * ((data->localData[0]->realVars[8] /* generator.terminal.i.re variable */)) - (data->localData[0]->realVars[4] /* generator.PGenPu variable */) - (((data->localData[0]->realVars[2] /* generator.terminal.V.im STATE(1) */)) * ((data->localData[0]->realVars[7] /* generator.terminal.i.im variable */)));
+    f[1] = data->simulationInfo->daeModeData->residualVars[1] /* $DAEres4 DAE_RESIDUAL_VAR */;
+
+  }
+
+
   {
-    tmp13 = data->simulationInfo->realParameter[1] /* generator.PGen0Pu PARAM */ + (data->simulationInfo->realParameter[0] /* generator.AlphaPu PARAM */) * (1.0 - data->localData[0]->realVars[0] /* generator.omegaRefPu.value STATE(1) */);
+  // ----- GeneratorPQ_eqFunction_89 -----
+  modelica_boolean tmp8;
+  modelica_real tmp9;
+  tmp8 = (modelica_boolean)((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */)));
+  if(tmp8)
+  {
+    tmp9 = (data->simulationInfo->realParameter[2] /* generator.PGen0Pu PARAM */) - ((-0.01) * (((data->localData[0]->realVars[0] /* generator.deltaPmRefPu.value STATE(1) */)) * ((data->simulationInfo->realParameter[7] /* generator.PNom PARAM */)))) - (((data->simulationInfo->realParameter[0] /* generator.AlphaPu PARAM */)) * ((data->localData[0]->realVars[1] /* generator.omegaRefPu.value STATE(1) */) - 1.0));
   }
   else
   {
-    tmp13 = 0.0;
+    tmp9 = 0.0;
   }
-  f[1] = data->localData[0]->realVars[4] /*  generator.PGenRawPu variable  */ - ( tmp13 );
+  f[3] = data->localData[0]->realVars[5] /*  generator.PGenRawPu variable  */ - ( tmp9 );
 
   }
 
 
   {
-  // ----- GeneratorPQ_eqFunction_90 -----
+  // ----- GeneratorPQ_eqFunction_104 -----
+  modelica_boolean tmp22;
+  modelica_real tmp23;
+  tmp22 = (modelica_boolean)((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */)));
+  if(tmp22)
+  {
+    tmp23 = (data->localData[0]->realVars[6] /* generator.SGenPu.im variable */) - (data->simulationInfo->realParameter[8] /* generator.QGen0Pu PARAM */);
+  }
+  else
+  {
+    tmp23 = (data->localData[0]->realVars[7] /* generator.terminal.i.im variable */);
+  }
+  (data->simulationInfo->daeModeData->residualVars[2]) /* $DAEres5 DAE_RESIDUAL_VAR */ = tmp23;
+    f[4] = data->simulationInfo->daeModeData->residualVars[2] /* $DAEres5 DAE_RESIDUAL_VAR */;
+
+  }
+
+
+  {
+  // ----- GeneratorPQ_eqFunction_105 -----
   modelica_boolean tmp24;
   modelica_real tmp25;
   modelica_boolean tmp26;
   modelica_real tmp27;
   modelica_boolean tmp28;
   modelica_real tmp29;
-  tmp28 = (modelica_boolean)(toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */));
+  tmp28 = (modelica_boolean)((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */)));
   if(tmp28)
   {
-    tmp26 = (modelica_boolean)((modelica_integer)data->localData[0]->integerDoubleVars[0] /* generator.pStatus DISCRETE */ == 3);
+    tmp26 = (modelica_boolean)((data->localData[0]->integerDoubleVars[1] /* generator.pStatus DISCRETE */) == 3);
     if(tmp26)
     {
-      tmp27 = data->simulationInfo->realParameter[2] /* generator.PMaxPu PARAM */;
+      tmp27 = (data->simulationInfo->realParameter[4] /* generator.PMaxPu PARAM */);
     }
     else
     {
-      tmp24 = (modelica_boolean)((modelica_integer)data->localData[0]->integerDoubleVars[0] /* generator.pStatus DISCRETE */ == 2);
+      tmp24 = (modelica_boolean)((data->localData[0]->integerDoubleVars[1] /* generator.pStatus DISCRETE */) == 2);
       if(tmp24)
       {
-        tmp25 = data->simulationInfo->realParameter[3] /* generator.PMinPu PARAM */;
+        tmp25 = (data->simulationInfo->realParameter[6] /* generator.PMinPu PARAM */);
       }
       else
       {
-        tmp25 = data->localData[0]->realVars[4] /* generator.PGenRawPu variable */;
+        tmp25 = (data->localData[0]->realVars[5] /* generator.PGenRawPu variable */);
       }
       tmp27 = tmp25;
     }
-    tmp29 = tmp27;
+    tmp29 = (data->localData[0]->realVars[4] /* generator.PGenPu variable */) - (tmp27);
   }
   else
   {
-    tmp29 = 0.0;
+    tmp29 = (data->localData[0]->realVars[8] /* generator.terminal.i.re variable */);
   }
-  f[2] = data->localData[0]->realVars[3] /*  generator.PGenPu variable  */ - ( tmp29 );
+  (data->simulationInfo->daeModeData->residualVars[4]) /* $DAEres7 DAE_RESIDUAL_VAR */ = tmp29;
+    f[5] = data->simulationInfo->daeModeData->residualVars[4] /* $DAEres7 DAE_RESIDUAL_VAR */;
 
   }
 
 
+  }
+  if (type != ALGEBRAIC_EQ) {
   {
-  // ----- GeneratorPQ_eqFunction_91 -----
-  f[3] = data->localData[0]->realVars[7] /*  generator.SGenPu.re variable  */ - ( data->localData[0]->realVars[3] /* generator.PGenPu variable */ );
-
-  }
-
-
-  {
-  // ----- GeneratorPQ_eqFunction_92 -----
-  $P$DAEres3 = ((-data->localData[0]->realVars[2] /* generator.terminal.V.re STATE(1) */)) * (data->localData[0]->realVars[10] /* generator.terminal.i.re variable */) - data->localData[0]->realVars[7] /* generator.SGenPu.re variable */ - ((data->localData[0]->realVars[1] /* generator.terminal.V.im STATE(1) */) * (data->localData[0]->realVars[9] /* generator.terminal.i.im variable */));
-  f[4] = $P$DAEres3;
-
-  }
-
-
-  {
-  // ----- GeneratorPQ_eqFunction_93 -----
-  modelica_boolean tmp32;
-  modelica_real tmp33;
-  modelica_boolean tmp34;
-  modelica_real tmp35;
-  modelica_boolean tmp36;
-  modelica_real tmp37;
-  tmp36 = (modelica_boolean)(toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */));
-  if(tmp36)
-  {
-    tmp34 = (modelica_boolean)(data->simulationInfo->integerDoubleVarsPre[1] /* generator.qStatus DISCRETE */ == 2);
-    if(tmp34)
-    {
-      tmp35 = data->simulationInfo->realParameter[5] /* generator.QMaxPu PARAM */;
-    }
-    else
-    {
-      tmp32 = (modelica_boolean)(data->simulationInfo->integerDoubleVarsPre[1] /* generator.qStatus DISCRETE */ == 3);
-      if(tmp32)
-      {
-        tmp33 = data->simulationInfo->realParameter[6] /* generator.QMinPu PARAM */;
-      }
-      else
-      {
-        tmp33 = data->simulationInfo->realParameter[4] /* generator.QGen0Pu PARAM */;
-      }
-      tmp35 = tmp33;
-    }
-    tmp37 = tmp35;
-  }
-  else
-  {
-    tmp37 = 0.0;
-  }
-  f[5] = data->localData[0]->realVars[5] /*  generator.QGenPu variable  */ - ( tmp37 );
-
-  }
-
-
-  {
-  // ----- GeneratorPQ_eqFunction_94 -----
-  f[6] = data->localData[0]->realVars[6] /*  generator.SGenPu.im variable  */ - ( data->localData[0]->realVars[5] /* generator.QGenPu variable */ );
-
-  }
-
-
-  {
-  // ----- GeneratorPQ_eqFunction_95 -----
-  $P$DAEres4 = (data->localData[0]->realVars[2] /* generator.terminal.V.re STATE(1) */) * (data->localData[0]->realVars[9] /* generator.terminal.i.im variable */) + ((-data->localData[0]->realVars[1] /* generator.terminal.V.im STATE(1) */)) * (data->localData[0]->realVars[10] /* generator.terminal.i.re variable */) - data->localData[0]->realVars[6] /* generator.SGenPu.im variable */;
-  f[7] = $P$DAEres4;
+  // ----- GeneratorPQ_eqFunction_76 -----
+  (data->simulationInfo->daeModeData->residualVars[0]) /* $DAEres3 DAE_RESIDUAL_VAR */ = (data->localData[0]->derivativesVars[0] /* der(generator.deltaPmRefPu.value) STATE_DER */);
+    f[2] = data->simulationInfo->daeModeData->residualVars[0] /* $DAEres3 DAE_RESIDUAL_VAR */;
 
   }
 
@@ -353,21 +333,15 @@ modeChangeType_t ModelGeneratorPQ_Dyn::evalMode(const double t) const
   modeChangeType_t modeChangeType = NO_MODE;
  
 
-  // ----- Mode for GeneratorPQ_eqFunction_90 --------- 
+  // ----- Mode for GeneratorPQ_eqFunction_105 --------- 
   // generator.pStatus != pre(generator.pStatus)
-  if (doubleNotEquals(data->localData[0]->integerDoubleVars[0], data->simulationInfo->integerDoubleVarsPre[0])) {
-      modeChangeType = ALGEBRAIC_MODE;
-  }
-
-  // ----- Mode for GeneratorPQ_eqFunction_93 --------- 
-  // generator.qStatus != pre(generator.qStatus)
   if (doubleNotEquals(data->localData[0]->integerDoubleVars[1], data->simulationInfo->integerDoubleVarsPre[1])) {
       modeChangeType = ALGEBRAIC_MODE;
   }
 
-  // ----- Mode for GeneratorPQ_eqFunction_81 --------- 
-  // ----- Mode for GeneratorPQ_eqFunction_90 --------- 
-  // ----- Mode for GeneratorPQ_eqFunction_93 --------- 
+  // ----- Mode for GeneratorPQ_eqFunction_89 --------- 
+  // ----- Mode for GeneratorPQ_eqFunction_104 --------- 
+  // ----- Mode for GeneratorPQ_eqFunction_105 --------- 
   // generator.running.value != pre(generator.running.value)
   if (doubleNotEquals(data->localData[0]->discreteVars[0], data->simulationInfo->discreteVarsPre[0])) {
     return ALGEBRAIC_J_UPDATE_MODE;
@@ -380,132 +354,115 @@ void ModelGeneratorPQ_Dyn::setZomc()
 {
   data->simulationInfo->discreteCall = 1;
 
-  // -------------------- $whenCondition10 ---------------------
-  modelica_boolean tmp3;
-  RELATIONHYSTERESIS(tmp3, data->localData[0]->realVars[8] /* generator.UPu variable */, 0.0001 + data->simulationInfo->realParameter[8] /* generator.UMaxPu PARAM */, 5, GreaterEq);
-  data->localData[0]->booleanVars[1] /* $whenCondition10 DISCRETE */ = (tmp3 && (data->simulationInfo->integerDoubleVarsPre[1] /* generator.qStatus DISCRETE */ != 2));
+  // -------------------- $whenCondition1 ---------------------
+  modelica_boolean tmp19;
+  modelica_real tmp20;
+  modelica_real tmp21;
+  tmp20 = 1.0;
+  tmp21 = fabs((data->simulationInfo->realParameter[4] /* generator.PMaxPu PARAM */));
+  relationhysteresis(tmp19, (data->localData[0]->realVars[5] /* generator.PGenRawPu variable */), (data->simulationInfo->realParameter[4] /* generator.PMaxPu PARAM */), tmp20, tmp21, 3, Less);
+  (data->localData[0]->booleanVars[0] /* $whenCondition1 DISCRETE */) = (tmp19 && ((data->simulationInfo->integerDoubleVarsPre[1] /* generator.pStatus DISCRETE */) == 3));
  
 
   // -------------------- $whenCondition2 ---------------------
-  modelica_boolean tmp20;
-  RELATIONHYSTERESIS(tmp20, data->localData[0]->realVars[4] /* generator.PGenRawPu variable */, data->simulationInfo->realParameter[2] /* generator.PMaxPu PARAM */, 4, Less);
-  data->localData[0]->booleanVars[2] /* $whenCondition2 DISCRETE */ = (tmp20 && (data->simulationInfo->integerDoubleVarsPre[0] /* generator.pStatus DISCRETE */ == 3));
+  modelica_boolean tmp16;
+  modelica_real tmp17;
+  modelica_real tmp18;
+  tmp17 = 1.0;
+  tmp18 = fabs((data->simulationInfo->realParameter[6] /* generator.PMinPu PARAM */));
+  relationhysteresis(tmp16, (data->localData[0]->realVars[5] /* generator.PGenRawPu variable */), (data->simulationInfo->realParameter[6] /* generator.PMinPu PARAM */), tmp17, tmp18, 2, Greater);
+  (data->localData[0]->booleanVars[1] /* $whenCondition2 DISCRETE */) = (tmp16 && ((data->simulationInfo->integerDoubleVarsPre[1] /* generator.pStatus DISCRETE */) == 2));
  
 
   // -------------------- $whenCondition3 ---------------------
-  modelica_boolean tmp18;
-  RELATIONHYSTERESIS(tmp18, data->localData[0]->realVars[4] /* generator.PGenRawPu variable */, data->simulationInfo->realParameter[3] /* generator.PMinPu PARAM */, 3, Greater);
-  data->localData[0]->booleanVars[3] /* $whenCondition3 DISCRETE */ = (tmp18 && (data->simulationInfo->integerDoubleVarsPre[0] /* generator.pStatus DISCRETE */ == 2));
+  modelica_boolean tmp13;
+  modelica_real tmp14;
+  modelica_real tmp15;
+  tmp14 = 1.0;
+  tmp15 = fabs((data->simulationInfo->realParameter[6] /* generator.PMinPu PARAM */));
+  relationhysteresis(tmp13, (data->localData[0]->realVars[5] /* generator.PGenRawPu variable */), (data->simulationInfo->realParameter[6] /* generator.PMinPu PARAM */), tmp14, tmp15, 1, LessEq);
+  (data->localData[0]->booleanVars[2] /* $whenCondition3 DISCRETE */) = (tmp13 && ((data->simulationInfo->integerDoubleVarsPre[1] /* generator.pStatus DISCRETE */) != 2));
  
 
   // -------------------- $whenCondition4 ---------------------
-  modelica_boolean tmp16;
-  RELATIONHYSTERESIS(tmp16, data->localData[0]->realVars[4] /* generator.PGenRawPu variable */, data->simulationInfo->realParameter[3] /* generator.PMinPu PARAM */, 2, LessEq);
-  data->localData[0]->booleanVars[4] /* $whenCondition4 DISCRETE */ = (tmp16 && (data->simulationInfo->integerDoubleVarsPre[0] /* generator.pStatus DISCRETE */ != 2));
- 
-
-  // -------------------- $whenCondition5 ---------------------
-  modelica_boolean tmp14;
-  RELATIONHYSTERESIS(tmp14, data->localData[0]->realVars[4] /* generator.PGenRawPu variable */, data->simulationInfo->realParameter[2] /* generator.PMaxPu PARAM */, 1, GreaterEq);
-  data->localData[0]->booleanVars[5] /* $whenCondition5 DISCRETE */ = (tmp14 && (data->simulationInfo->integerDoubleVarsPre[0] /* generator.pStatus DISCRETE */ != 3));
- 
-
-  // -------------------- $whenCondition8 ---------------------
-  modelica_boolean tmp7;
-  modelica_boolean tmp9;
-  RELATIONHYSTERESIS(tmp7, data->localData[0]->realVars[8] /* generator.UPu variable */, -0.0001 + data->simulationInfo->realParameter[8] /* generator.UMaxPu PARAM */, 7, Less);
-  RELATIONHYSTERESIS(tmp9, data->localData[0]->realVars[8] /* generator.UPu variable */, 0.0001 + data->simulationInfo->realParameter[9] /* generator.UMinPu PARAM */, 8, Greater);
-  data->localData[0]->booleanVars[8] /* $whenCondition8 DISCRETE */ = ((tmp7 && (data->simulationInfo->integerDoubleVarsPre[1] /* generator.qStatus DISCRETE */ == 2)) || (tmp9 && (data->simulationInfo->integerDoubleVarsPre[1] /* generator.qStatus DISCRETE */ == 3)));
- 
-
-  // -------------------- $whenCondition9 ---------------------
-  modelica_boolean tmp5;
-  RELATIONHYSTERESIS(tmp5, data->localData[0]->realVars[8] /* generator.UPu variable */, -0.0001 + data->simulationInfo->realParameter[9] /* generator.UMinPu PARAM */, 6, LessEq);
-  data->localData[0]->booleanVars[9] /* $whenCondition9 DISCRETE */ = (tmp5 && (data->simulationInfo->integerDoubleVarsPre[1] /* generator.qStatus DISCRETE */ != 3));
+  modelica_boolean tmp10;
+  modelica_real tmp11;
+  modelica_real tmp12;
+  tmp11 = 1.0;
+  tmp12 = fabs((data->simulationInfo->realParameter[4] /* generator.PMaxPu PARAM */));
+  relationhysteresis(tmp10, (data->localData[0]->realVars[5] /* generator.PGenRawPu variable */), (data->simulationInfo->realParameter[4] /* generator.PMaxPu PARAM */), tmp11, tmp12, 0, GreaterEq);
+  (data->localData[0]->booleanVars[3] /* $whenCondition4 DISCRETE */) = (tmp10 && ((data->simulationInfo->integerDoubleVarsPre[1] /* generator.pStatus DISCRETE */) != 3));
  
 
   // -------------------- generator.running.value ---------------------
-  if((data->localData[0]->booleanVars[6] /* $whenCondition6 DISCRETE */ && !data->simulationInfo->booleanVarsPre[6] /* $whenCondition6 DISCRETE */ /* edge */))
+  if(((data->localData[0]->booleanVars[7] /* $whenCondition8 DISCRETE */) && !(data->simulationInfo->booleanVarsPre[7] /* $whenCondition8 DISCRETE */) /* edge */))
   {
-    data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */ = fromNativeBool ( 0);
+    (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */) = fromNativeBool ( 0 /* false */);
   }
+  else if(((data->localData[0]->booleanVars[6] /* $whenCondition7 DISCRETE */) && !(data->simulationInfo->booleanVarsPre[6] /* $whenCondition7 DISCRETE */) /* edge */))
+  {
+    (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */) = fromNativeBool ( 1 /* true */);
+  }
+
+  // -------------------- generator.converter.u ---------------------
+  (data->localData[0]->integerDoubleVars[0] /* generator.converter.u DISCRETE */) = ((modelica_integer)((data->localData[0]->integerDoubleVars[2] /* generator.state DISCRETE */)));
 
   // -------------------- generator.pStatus ---------------------
-  if((data->localData[0]->booleanVars[5] /* $whenCondition5 DISCRETE */ && !data->simulationInfo->booleanVarsPre[5] /* $whenCondition5 DISCRETE */ /* edge */))
+  if(((data->localData[0]->booleanVars[3] /* $whenCondition4 DISCRETE */) && !(data->simulationInfo->booleanVarsPre[3] /* $whenCondition4 DISCRETE */) /* edge */))
   {
-    data->localData[0]->integerDoubleVars[0] /* generator.pStatus DISCRETE */ = 3;
+    (data->localData[0]->integerDoubleVars[1] /* generator.pStatus DISCRETE */) = 3;
   }
-  else if((data->localData[0]->booleanVars[4] /* $whenCondition4 DISCRETE */ && !data->simulationInfo->booleanVarsPre[4] /* $whenCondition4 DISCRETE */ /* edge */))
+  else if(((data->localData[0]->booleanVars[2] /* $whenCondition3 DISCRETE */) && !(data->simulationInfo->booleanVarsPre[2] /* $whenCondition3 DISCRETE */) /* edge */))
   {
-    data->localData[0]->integerDoubleVars[0] /* generator.pStatus DISCRETE */ = 2;
+    (data->localData[0]->integerDoubleVars[1] /* generator.pStatus DISCRETE */) = 2;
   }
-  else if((data->localData[0]->booleanVars[3] /* $whenCondition3 DISCRETE */ && !data->simulationInfo->booleanVarsPre[3] /* $whenCondition3 DISCRETE */ /* edge */))
+  else if(((data->localData[0]->booleanVars[1] /* $whenCondition2 DISCRETE */) && !(data->simulationInfo->booleanVarsPre[1] /* $whenCondition2 DISCRETE */) /* edge */))
   {
-    data->localData[0]->integerDoubleVars[0] /* generator.pStatus DISCRETE */ = 1;
+    (data->localData[0]->integerDoubleVars[1] /* generator.pStatus DISCRETE */) = 1;
   }
-  else if((data->localData[0]->booleanVars[2] /* $whenCondition2 DISCRETE */ && !data->simulationInfo->booleanVarsPre[2] /* $whenCondition2 DISCRETE */ /* edge */))
+  else if(((data->localData[0]->booleanVars[0] /* $whenCondition1 DISCRETE */) && !(data->simulationInfo->booleanVarsPre[0] /* $whenCondition1 DISCRETE */) /* edge */))
   {
-    data->localData[0]->integerDoubleVars[0] /* generator.pStatus DISCRETE */ = 1;
-  }
-
-  // -------------------- generator.qStatus ---------------------
-  if((data->localData[0]->booleanVars[1] /* $whenCondition10 DISCRETE */ && !data->simulationInfo->booleanVarsPre[1] /* $whenCondition10 DISCRETE */ /* edge */))
-  {
-    data->localData[0]->integerDoubleVars[1] /* generator.qStatus DISCRETE */ = 2;
-  }
-  else if((data->localData[0]->booleanVars[9] /* $whenCondition9 DISCRETE */ && !data->simulationInfo->booleanVarsPre[9] /* $whenCondition9 DISCRETE */ /* edge */))
-  {
-    data->localData[0]->integerDoubleVars[1] /* generator.qStatus DISCRETE */ = 3;
-  }
-  else if((data->localData[0]->booleanVars[8] /* $whenCondition8 DISCRETE */ && !data->simulationInfo->booleanVarsPre[8] /* $whenCondition8 DISCRETE */ /* edge */))
-  {
-    data->localData[0]->integerDoubleVars[1] /* generator.qStatus DISCRETE */ = 1;
+    (data->localData[0]->integerDoubleVars[1] /* generator.pStatus DISCRETE */) = 1;
   }
 
   // -------------------- generator.state ---------------------
-  if((data->localData[0]->booleanVars[7] /* $whenCondition7 DISCRETE */ && !data->simulationInfo->booleanVarsPre[7] /* $whenCondition7 DISCRETE */ /* edge */))
+  if(((data->localData[0]->booleanVars[5] /* $whenCondition6 DISCRETE */) && !(data->simulationInfo->booleanVarsPre[5] /* $whenCondition6 DISCRETE */) /* edge */))
   {
-    data->localData[0]->integerDoubleVars[2] /* generator.state DISCRETE */ = 1;
+    (data->localData[0]->integerDoubleVars[2] /* generator.state DISCRETE */) = 1;
+  }
+  else if(((data->localData[0]->booleanVars[4] /* $whenCondition5 DISCRETE */) && !(data->simulationInfo->booleanVarsPre[4] /* $whenCondition5 DISCRETE */) /* edge */))
+  {
+    (data->localData[0]->integerDoubleVars[2] /* generator.state DISCRETE */) = 2;
   }
 
 
   // -------------- call functions ----------
 {
-  if((data->localData[0]->booleanVars[1] /* $whenCondition10 DISCRETE */ && !data->simulationInfo->booleanVarsPre[1] /* $whenCondition10 DISCRETE */ /* edge */))
+  if(((data->localData[0]->booleanVars[5] /* $whenCondition6 DISCRETE */) && !(data->simulationInfo->booleanVarsPre[5] /* $whenCondition6 DISCRETE */) /* edge */))
   {
-    omc_Dynawo_NonElectrical_Logs_Timeline_logEvent1( ((modelica_integer) 58));
+    omc_Dynawo_NonElectrical_Logs_Timeline_logEvent1( ((modelica_integer) 28));
   }
-  else if((data->localData[0]->booleanVars[9] /* $whenCondition9 DISCRETE */ && !data->simulationInfo->booleanVarsPre[9] /* $whenCondition9 DISCRETE */ /* edge */))
+  else if(((data->localData[0]->booleanVars[4] /* $whenCondition5 DISCRETE */) && !(data->simulationInfo->booleanVarsPre[4] /* $whenCondition5 DISCRETE */) /* edge */))
   {
-    omc_Dynawo_NonElectrical_Logs_Timeline_logEvent1( ((modelica_integer) 29));
-  }
-  else if((data->localData[0]->booleanVars[8] /* $whenCondition8 DISCRETE */ && !data->simulationInfo->booleanVarsPre[8] /* $whenCondition8 DISCRETE */ /* edge */))
-  {
-    omc_Dynawo_NonElectrical_Logs_Timeline_logEvent1( ((modelica_integer) 48));
+    omc_Dynawo_NonElectrical_Logs_Timeline_logEvent1( ((modelica_integer) 27));
   }
 }
 {
-  if((data->localData[0]->booleanVars[7] /* $whenCondition7 DISCRETE */ && !data->simulationInfo->booleanVarsPre[7] /* $whenCondition7 DISCRETE */ /* edge */))
+  if(((data->localData[0]->booleanVars[3] /* $whenCondition4 DISCRETE */) && !(data->simulationInfo->booleanVarsPre[3] /* $whenCondition4 DISCRETE */) /* edge */))
   {
-    omc_Dynawo_NonElectrical_Logs_Timeline_logEvent1( ((modelica_integer) 54));
+    omc_Dynawo_NonElectrical_Logs_Timeline_logEvent1( ((modelica_integer) 0));
   }
-}
-{
-  if((data->localData[0]->booleanVars[5] /* $whenCondition5 DISCRETE */ && !data->simulationInfo->booleanVarsPre[5] /* $whenCondition5 DISCRETE */ /* edge */))
+  else if(((data->localData[0]->booleanVars[2] /* $whenCondition3 DISCRETE */) && !(data->simulationInfo->booleanVarsPre[2] /* $whenCondition3 DISCRETE */) /* edge */))
   {
-    omc_Dynawo_NonElectrical_Logs_Timeline_logEvent1( ((modelica_integer) 23));
+    omc_Dynawo_NonElectrical_Logs_Timeline_logEvent1( ((modelica_integer) 1));
   }
-  else if((data->localData[0]->booleanVars[4] /* $whenCondition4 DISCRETE */ && !data->simulationInfo->booleanVarsPre[4] /* $whenCondition4 DISCRETE */ /* edge */))
+  else if(((data->localData[0]->booleanVars[1] /* $whenCondition2 DISCRETE */) && !(data->simulationInfo->booleanVarsPre[1] /* $whenCondition2 DISCRETE */) /* edge */))
   {
-    omc_Dynawo_NonElectrical_Logs_Timeline_logEvent1( ((modelica_integer) 15));
+    omc_Dynawo_NonElectrical_Logs_Timeline_logEvent1( ((modelica_integer) 21));
   }
-  else if((data->localData[0]->booleanVars[3] /* $whenCondition3 DISCRETE */ && !data->simulationInfo->booleanVarsPre[3] /* $whenCondition3 DISCRETE */ /* edge */))
+  else if(((data->localData[0]->booleanVars[0] /* $whenCondition1 DISCRETE */) && !(data->simulationInfo->booleanVarsPre[0] /* $whenCondition1 DISCRETE */) /* edge */))
   {
-    omc_Dynawo_NonElectrical_Logs_Timeline_logEvent1( ((modelica_integer) 68));
-  }
-  else if((data->localData[0]->booleanVars[2] /* $whenCondition2 DISCRETE */ && !data->simulationInfo->booleanVarsPre[2] /* $whenCondition2 DISCRETE */ /* edge */))
-  {
-    omc_Dynawo_NonElectrical_Logs_Timeline_logEvent1( ((modelica_integer) 10));
+    omc_Dynawo_NonElectrical_Logs_Timeline_logEvent1( ((modelica_integer) 20));
   }
 }
 
@@ -515,7 +472,8 @@ void ModelGeneratorPQ_Dyn::setZomc()
 
 void ModelGeneratorPQ_Dyn::collectSilentZ(BitMask* silentZTable)
 {
-  silentZTable[6].setFlags(NotUsedInDiscreteEquations | NotUsedInContinuousEquations) /*generator.state */;
+  silentZTable[4].setFlags(NotUsedInDiscreteEquations | NotUsedInContinuousEquations) /*generator.converter.u */;
+  silentZTable[6].setFlags(NotUsedInContinuousEquations) /*generator.state */;
   silentZTable[1].setFlags(NotUsedInContinuousEquations) /*generator.switchOffSignal1.value */;
   silentZTable[2].setFlags(NotUsedInContinuousEquations) /*generator.switchOffSignal2.value */;
   silentZTable[3].setFlags(NotUsedInContinuousEquations) /*generator.switchOffSignal3.value */;
@@ -524,64 +482,87 @@ void ModelGeneratorPQ_Dyn::collectSilentZ(BitMask* silentZTable)
 void ModelGeneratorPQ_Dyn::setGomc(state_g * gout)
 {
   data->simulationInfo->discreteCall = 1;
+  // ------------- $whenCondition5 ------------
+  (data->localData[0]->booleanVars[4] /* $whenCondition5 DISCRETE */) = (((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */))) && (!((toNativeBool (data->simulationInfo->discreteVarsPre[0] /* generator.running.value DISCRETE */)))));
+ 
   // ------------- $whenCondition6 ------------
-  data->localData[0]->booleanVars[6] /* $whenCondition6 DISCRETE */ = (((toNativeBool (data->localData[0]->discreteVars[1] /* generator.switchOffSignal1.value DISCRETE */)) || (toNativeBool (data->localData[0]->discreteVars[2] /* generator.switchOffSignal2.value DISCRETE */))) || ((toNativeBool (data->localData[0]->discreteVars[3] /* generator.switchOffSignal3.value DISCRETE */)) && (toNativeBool (data->simulationInfo->discreteVarsPre[0] /* generator.running.value DISCRETE */))));
+  (data->localData[0]->booleanVars[5] /* $whenCondition6 DISCRETE */) = (!((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */))));
  
   // ------------- $whenCondition7 ------------
-  data->localData[0]->booleanVars[7] /* $whenCondition7 DISCRETE */ = (!(toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */)));
+  (data->localData[0]->booleanVars[6] /* $whenCondition7 DISCRETE */) = ((((!((toNativeBool (data->localData[0]->discreteVars[1] /* generator.switchOffSignal1.value DISCRETE */)))) && (!((toNativeBool (data->localData[0]->discreteVars[2] /* generator.switchOffSignal2.value DISCRETE */))))) && (!((toNativeBool (data->localData[0]->discreteVars[3] /* generator.switchOffSignal3.value DISCRETE */))))) && (!((toNativeBool (data->simulationInfo->discreteVarsPre[0] /* generator.running.value DISCRETE */)))));
  
-  modelica_boolean tmp_zc1;
-  modelica_boolean tmp_zc3;
-  modelica_boolean tmp_zc5;
-  modelica_boolean tmp_zc7;
-  modelica_boolean tmp_zc9;
-  modelica_boolean tmp_zc11;
-  modelica_boolean tmp_zc13;
-  modelica_boolean tmp_zc15;
-  
-  
-  tmp_zc1 = GreaterEqZC(data->localData[0]->realVars[4] /* generator.PGenRawPu variable */, data->simulationInfo->realParameter[2] /* generator.PMaxPu PARAM */, data->simulationInfo->storedRelations[1]);
-  tmp_zc3 = LessEqZC(data->localData[0]->realVars[4] /* generator.PGenRawPu variable */, data->simulationInfo->realParameter[3] /* generator.PMinPu PARAM */, data->simulationInfo->storedRelations[2]);
-  tmp_zc5 = GreaterZC(data->localData[0]->realVars[4] /* generator.PGenRawPu variable */, data->simulationInfo->realParameter[3] /* generator.PMinPu PARAM */, data->simulationInfo->storedRelations[3]);
-  tmp_zc7 = LessZC(data->localData[0]->realVars[4] /* generator.PGenRawPu variable */, data->simulationInfo->realParameter[2] /* generator.PMaxPu PARAM */, data->simulationInfo->storedRelations[4]);
-  tmp_zc9 = GreaterEqZC(data->localData[0]->realVars[8] /* generator.UPu variable */, 0.0001 + data->simulationInfo->realParameter[8] /* generator.UMaxPu PARAM */, data->simulationInfo->storedRelations[5]);
-  tmp_zc11 = LessEqZC(data->localData[0]->realVars[8] /* generator.UPu variable */, -0.0001 + data->simulationInfo->realParameter[9] /* generator.UMinPu PARAM */, data->simulationInfo->storedRelations[6]);
-  tmp_zc13 = LessZC(data->localData[0]->realVars[8] /* generator.UPu variable */, -0.0001 + data->simulationInfo->realParameter[8] /* generator.UMaxPu PARAM */, data->simulationInfo->storedRelations[7]);
-  tmp_zc15 = GreaterZC(data->localData[0]->realVars[8] /* generator.UPu variable */, 0.0001 + data->simulationInfo->realParameter[9] /* generator.UMinPu PARAM */, data->simulationInfo->storedRelations[8]);
-  
+  // ------------- $whenCondition8 ------------
+  (data->localData[0]->booleanVars[7] /* $whenCondition8 DISCRETE */) = ((((toNativeBool (data->localData[0]->discreteVars[1] /* generator.switchOffSignal1.value DISCRETE */))) || ((toNativeBool (data->localData[0]->discreteVars[2] /* generator.switchOffSignal2.value DISCRETE */)))) || (((toNativeBool (data->localData[0]->discreteVars[3] /* generator.switchOffSignal3.value DISCRETE */))) && ((toNativeBool (data->simulationInfo->discreteVarsPre[0] /* generator.running.value DISCRETE */)))));
+ 
 
-  gout[0] = ((tmp_zc1 && (data->simulationInfo->integerDoubleVarsPre[0] /* generator.pStatus DISCRETE */ != 3))) ? ROOT_UP : ROOT_DOWN;
-  gout[1] = ((tmp_zc3 && (data->simulationInfo->integerDoubleVarsPre[0] /* generator.pStatus DISCRETE */ != 2))) ? ROOT_UP : ROOT_DOWN;
-  gout[2] = ((tmp_zc5 && (data->simulationInfo->integerDoubleVarsPre[0] /* generator.pStatus DISCRETE */ == 2))) ? ROOT_UP : ROOT_DOWN;
-  gout[3] = ((tmp_zc7 && (data->simulationInfo->integerDoubleVarsPre[0] /* generator.pStatus DISCRETE */ == 3))) ? ROOT_UP : ROOT_DOWN;
-  gout[4] = ((tmp_zc9 && (data->simulationInfo->integerDoubleVarsPre[1] /* generator.qStatus DISCRETE */ != 2))) ? ROOT_UP : ROOT_DOWN;
-  gout[5] = ((tmp_zc11 && (data->simulationInfo->integerDoubleVarsPre[1] /* generator.qStatus DISCRETE */ != 3))) ? ROOT_UP : ROOT_DOWN;
-  gout[6] = (((tmp_zc13 && (data->simulationInfo->integerDoubleVarsPre[1] /* generator.qStatus DISCRETE */ == 2)) || (tmp_zc15 && (data->simulationInfo->integerDoubleVarsPre[1] /* generator.qStatus DISCRETE */ == 3)))) ? ROOT_UP : ROOT_DOWN;
-  gout[7] = ( data->localData[0]->booleanVars[6] ) ? ROOT_UP : ROOT_DOWN;
-  gout[8] = ( data->localData[0]->booleanVars[7] ) ? ROOT_UP : ROOT_DOWN;
+  modelica_boolean tmp_zc12;
+  modelica_real tmp_zc13;
+  modelica_real tmp_zc14;
+  modelica_boolean tmp_zc15;
+  modelica_real tmp_zc16;
+  modelica_real tmp_zc17;
+  modelica_boolean tmp_zc18;
+  modelica_real tmp_zc19;
+  modelica_real tmp_zc20;
+  modelica_boolean tmp_zc21;
+  modelica_real tmp_zc22;
+  modelica_real tmp_zc23;
+  modelica_real tmp_zc25;
+  modelica_real tmp_zc26;
+
+
+  tmp_zc13 = 1.0;
+  tmp_zc14 = fabs((data->simulationInfo->realParameter[4] /* generator.PMaxPu PARAM */));
+  tmp_zc12 = GreaterEqZC((data->localData[0]->realVars[5] /* generator.PGenRawPu variable */), (data->simulationInfo->realParameter[4] /* generator.PMaxPu PARAM */), tmp_zc13, tmp_zc14, data->simulationInfo->storedRelations[0]);
+
+  tmp_zc16 = 1.0;
+  tmp_zc17 = fabs((data->simulationInfo->realParameter[6] /* generator.PMinPu PARAM */));
+  tmp_zc15 = LessEqZC((data->localData[0]->realVars[5] /* generator.PGenRawPu variable */), (data->simulationInfo->realParameter[6] /* generator.PMinPu PARAM */), tmp_zc16, tmp_zc17, data->simulationInfo->storedRelations[1]);
+
+  tmp_zc19 = 1.0;
+  tmp_zc20 = fabs((data->simulationInfo->realParameter[6] /* generator.PMinPu PARAM */));
+  tmp_zc18 = GreaterZC((data->localData[0]->realVars[5] /* generator.PGenRawPu variable */), (data->simulationInfo->realParameter[6] /* generator.PMinPu PARAM */), tmp_zc19, tmp_zc20, data->simulationInfo->storedRelations[2]);
+
+  tmp_zc22 = 1.0;
+  tmp_zc23 = fabs((data->simulationInfo->realParameter[4] /* generator.PMaxPu PARAM */));
+  tmp_zc21 = LessZC((data->localData[0]->realVars[5] /* generator.PGenRawPu variable */), (data->simulationInfo->realParameter[4] /* generator.PMaxPu PARAM */), tmp_zc22, tmp_zc23, data->simulationInfo->storedRelations[3]);
+
+  tmp_zc25 = 1.0;
+  tmp_zc26 = 999999.0;
+
+
+
+  gout[0] = ((tmp_zc12 && ((data->simulationInfo->integerDoubleVarsPre[1] /* generator.pStatus DISCRETE */) != 3))) ? ROOT_UP : ROOT_DOWN;
+  gout[1] = ((tmp_zc15 && ((data->simulationInfo->integerDoubleVarsPre[1] /* generator.pStatus DISCRETE */) != 2))) ? ROOT_UP : ROOT_DOWN;
+  gout[2] = ((tmp_zc18 && ((data->simulationInfo->integerDoubleVarsPre[1] /* generator.pStatus DISCRETE */) == 2))) ? ROOT_UP : ROOT_DOWN;
+  gout[3] = ((tmp_zc21 && ((data->simulationInfo->integerDoubleVarsPre[1] /* generator.pStatus DISCRETE */) == 3))) ? ROOT_UP : ROOT_DOWN;
+  gout[4] = ( data->localData[0]->booleanVars[4] ) ? ROOT_UP : ROOT_DOWN;
+  gout[5] = ( data->localData[0]->booleanVars[5] ) ? ROOT_UP : ROOT_DOWN;
+  gout[6] = ( data->localData[0]->booleanVars[6] ) ? ROOT_UP : ROOT_DOWN;
+  gout[7] = ( data->localData[0]->booleanVars[7] ) ? ROOT_UP : ROOT_DOWN;
   data->simulationInfo->discreteCall = 0;
 }
 
 void ModelGeneratorPQ_Dyn::setY0omc()
 {
-  data->localData[0]->realVars[0] /* generator.omegaRefPu.value */ = 0.0;
-  data->localData[0]->realVars[1] /* generator.terminal.V.im */ = data->simulationInfo->realParameter[12] /* generator.u0Pu.im PARAM */;
-  data->localData[0]->realVars[2] /* generator.terminal.V.re */ = data->simulationInfo->realParameter[13] /* generator.u0Pu.re PARAM */;
-  data->localData[0]->realVars[9] /* generator.terminal.i.im */ = data->simulationInfo->realParameter[10] /* generator.i0Pu.im PARAM */;
-  data->localData[0]->realVars[10] /* generator.terminal.i.re */ = data->simulationInfo->realParameter[11] /* generator.i0Pu.re PARAM */;
-  data->localData[0]->realVars[8] /* generator.UPu */ = data->simulationInfo->realParameter[7] /* generator.U0Pu PARAM */;
-  data->localData[0]->discreteVars[1] /* generator.switchOffSignal1.value */ = fromNativeBool ( false);
-  data->localData[0]->discreteVars[2] /* generator.switchOffSignal2.value */ = fromNativeBool ( false);
-  data->localData[0]->discreteVars[3] /* generator.switchOffSignal3.value */ = fromNativeBool ( false);
-  data->localData[0]->integerDoubleVars[0] /* generator.pStatus */ = 1;
-  data->localData[0]->discreteVars[0] /* generator.running.value */ = fromNativeBool ( true);
-  data->localData[0]->realVars[4] /* generator.PGenRawPu */ = data->simulationInfo->realParameter[1] /* generator.PGen0Pu PARAM */;
-  data->localData[0]->realVars[3] /* generator.PGenPu */ = data->simulationInfo->realParameter[1] /* generator.PGen0Pu PARAM */;
-  data->localData[0]->realVars[7] /* generator.SGenPu.re */ = data->simulationInfo->realParameter[1] /* generator.PGen0Pu PARAM */;
-  data->localData[0]->realVars[5] /* generator.QGenPu */ = data->simulationInfo->realParameter[4] /* generator.QGen0Pu PARAM */;
-  data->localData[0]->realVars[6] /* generator.SGenPu.im */ = data->simulationInfo->realParameter[4] /* generator.QGen0Pu PARAM */;
-  data->localData[0]->integerDoubleVars[1] /* generator.qStatus */ = 1;
-  data->localData[0]->integerDoubleVars[2] /* generator.state */ = (modelica_integer)data->simulationInfo->integerParameter[1] /* generator.State0 PARAM */;
+  data->localData[0]->realVars[0] /* generator.deltaPmRefPu.value */ = 0.0;
+  data->localData[0]->realVars[1] /* generator.omegaRefPu.value */ = 0.0;
+  data->localData[0]->realVars[2] /* generator.terminal.V.im */ = (data->simulationInfo->realParameter[12] /* generator.u0Pu.im PARAM */);
+  data->localData[0]->realVars[3] /* generator.terminal.V.re */ = (data->simulationInfo->realParameter[13] /* generator.u0Pu.re PARAM */);
+  data->localData[0]->realVars[4] /* generator.PGenPu */ = (data->simulationInfo->realParameter[2] /* generator.PGen0Pu PARAM */);
+  data->localData[0]->realVars[6] /* generator.SGenPu.im */ = (data->simulationInfo->realParameter[8] /* generator.QGen0Pu PARAM */);
+  data->localData[0]->realVars[7] /* generator.terminal.i.im */ = (data->simulationInfo->realParameter[10] /* generator.i0Pu.im PARAM */);
+  data->localData[0]->realVars[8] /* generator.terminal.i.re */ = (data->simulationInfo->realParameter[11] /* generator.i0Pu.re PARAM */);
+  data->localData[0]->discreteVars[0] /* generator.running.value */ = fromNativeBool ( ((toNativeBool (data->simulationInfo->realParameter[14] /* generator.Running0 PARAM */))));
+  data->localData[0]->discreteVars[1] /* generator.switchOffSignal1.value */ = fromNativeBool ( ((toNativeBool (data->simulationInfo->realParameter[15] /* generator.SwitchOffSignal10 PARAM */))));
+  data->localData[0]->discreteVars[2] /* generator.switchOffSignal2.value */ = fromNativeBool ( ((toNativeBool (data->simulationInfo->realParameter[16] /* generator.SwitchOffSignal20 PARAM */))));
+  data->localData[0]->discreteVars[3] /* generator.switchOffSignal3.value */ = fromNativeBool ( ((toNativeBool (data->simulationInfo->realParameter[17] /* generator.SwitchOffSignal30 PARAM */))));
+  data->localData[0]->integerDoubleVars[1] /* generator.pStatus */ = 1;
+  data->localData[0]->integerDoubleVars[2] /* generator.state */ = (data->simulationInfo->integerParameter[1] /* generator.State0 PARAM */);
+  {
+    (data->localData[0]->integerDoubleVars[0] /* generator.converter.u DISCRETE */) = ((modelica_integer)((data->localData[0]->integerDoubleVars[2] /* generator.state DISCRETE */)));
+  }
+  data->localData[0]->realVars[5] /* generator.PGenRawPu */ = (data->simulationInfo->realParameter[2] /* generator.PGen0Pu PARAM */);
 }
 
 void ModelGeneratorPQ_Dyn::callCustomParametersConstructors()
@@ -590,17 +571,15 @@ void ModelGeneratorPQ_Dyn::callCustomParametersConstructors()
 
 void ModelGeneratorPQ_Dyn::evalStaticYType_omc(propertyContinuousVar_t* yType)
 {
-   yType[ 0 ] = EXTERNAL;   /* generator_omegaRefPu_value (rSta) - external variables */
-   yType[ 1 ] = EXTERNAL;   /* generator_terminal_V_im (rSta) - external variables */
-   yType[ 2 ] = EXTERNAL;   /* generator_terminal_V_re (rSta) - external variables */
-   yType[ 3 ] = ALGEBRAIC;   /* generator_PGenPu (rAlg)  */
-   yType[ 4 ] = ALGEBRAIC;   /* generator_PGenRawPu (rAlg)  */
-   yType[ 5 ] = ALGEBRAIC;   /* generator_QGenPu (rAlg)  */
+   yType[ 0 ] = DIFFERENTIAL;   /* generator_deltaPmRefPu_value (rSta)  */
+   yType[ 1 ] = EXTERNAL;   /* generator_omegaRefPu_value (rSta) - external variables */
+   yType[ 2 ] = EXTERNAL;   /* generator_terminal_V_im (rSta) - external variables */
+   yType[ 3 ] = EXTERNAL;   /* generator_terminal_V_re (rSta) - external variables */
+   yType[ 4 ] = ALGEBRAIC;   /* generator_PGenPu (rAlg)  */
+   yType[ 5 ] = ALGEBRAIC;   /* generator_PGenRawPu (rAlg)  */
    yType[ 6 ] = ALGEBRAIC;   /* generator_SGenPu_im (rAlg)  */
-   yType[ 7 ] = ALGEBRAIC;   /* generator_SGenPu_re (rAlg)  */
-   yType[ 8 ] = ALGEBRAIC;   /* generator_UPu (rAlg)  */
-   yType[ 9 ] = ALGEBRAIC;   /* generator_terminal_i_im (rAlg)  */
-   yType[ 10 ] = ALGEBRAIC;   /* generator_terminal_i_re (rAlg)  */
+   yType[ 7 ] = ALGEBRAIC;   /* generator_terminal_i_im (rAlg)  */
+   yType[ 8 ] = ALGEBRAIC;   /* generator_terminal_i_re (rAlg)  */
 }
 
 void ModelGeneratorPQ_Dyn::evalDynamicYType_omc(propertyContinuousVar_t* yType)
@@ -611,12 +590,10 @@ void ModelGeneratorPQ_Dyn::evalStaticFType_omc(propertyF_t* fType)
 {
    fType[ 0 ] = ALGEBRAIC_EQ;
    fType[ 1 ] = ALGEBRAIC_EQ;
-   fType[ 2 ] = ALGEBRAIC_EQ;
+   fType[ 2 ] = DIFFERENTIAL_EQ;
    fType[ 3 ] = ALGEBRAIC_EQ;
    fType[ 4 ] = ALGEBRAIC_EQ;
    fType[ 5 ] = ALGEBRAIC_EQ;
-   fType[ 6 ] = ALGEBRAIC_EQ;
-   fType[ 7 ] = ALGEBRAIC_EQ;
 }
 
 void ModelGeneratorPQ_Dyn::evalDynamicFType_omc(propertyF_t* fType)
@@ -630,9 +607,18 @@ std::shared_ptr<parameters::ParametersSet> ModelGeneratorPQ_Dyn::setSharedParame
 
    // This value may be updated later on through *.par/*.iidm data 
   std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("SharedModelicaParameters");
+  bool generator_SwitchOffSignal10_internal;
+  bool generator_SwitchOffSignal20_internal;
+  bool generator_SwitchOffSignal30_internal;
   int generator_NbSwitchOffSignals_internal;
   int generator_State0_internal;
 
+  generator_SwitchOffSignal10_internal = false; 
+  parametersSet->createParameter("generator_SwitchOffSignal10", generator_SwitchOffSignal10_internal);
+  generator_SwitchOffSignal20_internal = false; 
+  parametersSet->createParameter("generator_SwitchOffSignal20", generator_SwitchOffSignal20_internal);
+  generator_SwitchOffSignal30_internal = false; 
+  parametersSet->createParameter("generator_SwitchOffSignal30", generator_SwitchOffSignal30_internal);
   generator_NbSwitchOffSignals_internal = 3; 
   parametersSet->createParameter("generator_NbSwitchOffSignals", generator_NbSwitchOffSignals_internal);
   generator_State0_internal = 2; 
@@ -642,64 +628,72 @@ std::shared_ptr<parameters::ParametersSet> ModelGeneratorPQ_Dyn::setSharedParame
 
 void ModelGeneratorPQ_Dyn::setParameters( std::shared_ptr<parameters::ParametersSet> params )
 {
-  generator_AlphaPu_ = params->getParameter("generator_AlphaPu")->getDouble();
+  generator_AlphaPuPNom_ = params->getParameter("generator_AlphaPuPNom")->getDouble();
   generator_PGen0Pu_ = params->getParameter("generator_PGen0Pu")->getDouble();
-  generator_PMaxPu_ = params->getParameter("generator_PMaxPu")->getDouble();
-  generator_PMinPu_ = params->getParameter("generator_PMinPu")->getDouble();
+  generator_PMax_ = params->getParameter("generator_PMax")->getDouble();
+  generator_PMin_ = params->getParameter("generator_PMin")->getDouble();
+  generator_PNom_ = params->getParameter("generator_PNom")->getDouble();
   generator_QGen0Pu_ = params->getParameter("generator_QGen0Pu")->getDouble();
-  generator_QMaxPu_ = params->getParameter("generator_QMaxPu")->getDouble();
-  generator_QMinPu_ = params->getParameter("generator_QMinPu")->getDouble();
   generator_U0Pu_ = params->getParameter("generator_U0Pu")->getDouble();
-  generator_UMaxPu_ = params->getParameter("generator_UMaxPu")->getDouble();
-  generator_UMinPu_ = params->getParameter("generator_UMinPu")->getDouble();
   generator_i0Pu_im_ = params->getParameter("generator_i0Pu_im")->getDouble();
   generator_i0Pu_re_ = params->getParameter("generator_i0Pu_re")->getDouble();
   generator_u0Pu_im_ = params->getParameter("generator_u0Pu_im")->getDouble();
   generator_u0Pu_re_ = params->getParameter("generator_u0Pu_re")->getDouble();
+  generator_SwitchOffSignal10_ = fromNativeBool ( params->getParameter("generator_SwitchOffSignal10")->getBool());
+  generator_SwitchOffSignal20_ = fromNativeBool ( params->getParameter("generator_SwitchOffSignal20")->getBool());
+  generator_SwitchOffSignal30_ = fromNativeBool ( params->getParameter("generator_SwitchOffSignal30")->getBool());
   generator_NbSwitchOffSignals_ = params->getParameter("generator_NbSwitchOffSignals")->getInt();
   generator_State0_ = params->getParameter("generator_State0")->getInt();
 }
 
 void ModelGeneratorPQ_Dyn::defineVariables(std::vector<boost::shared_ptr<Variable> >& variables)
 {
+  variables.push_back (VariableNativeFactory::createState ("generator_deltaPmRefPu_value", CONTINUOUS, false));
   variables.push_back (VariableNativeFactory::createState ("generator_omegaRefPu_value", CONTINUOUS, false));
   variables.push_back (VariableNativeFactory::createState ("generator_terminal_V_im", CONTINUOUS, false));
   variables.push_back (VariableNativeFactory::createState ("generator_terminal_V_re", CONTINUOUS, false));
   variables.push_back (VariableNativeFactory::createState ("generator_PGenPu", CONTINUOUS, false));
   variables.push_back (VariableNativeFactory::createState ("generator_PGenRawPu", CONTINUOUS, false));
-  variables.push_back (VariableNativeFactory::createState ("generator_QGenPu", CONTINUOUS, false));
   variables.push_back (VariableNativeFactory::createState ("generator_SGenPu_im", CONTINUOUS, false));
-  variables.push_back (VariableNativeFactory::createState ("generator_SGenPu_re", CONTINUOUS, false));
-  variables.push_back (VariableNativeFactory::createState ("generator_UPu", CONTINUOUS, false));
   variables.push_back (VariableNativeFactory::createState ("generator_terminal_i_im", FLOW, false));
   variables.push_back (VariableNativeFactory::createState ("generator_terminal_i_re", FLOW, false));
+  variables.push_back (VariableAliasFactory::create ("generator_QGenPu", "generator_SGenPu_im", CONTINUOUS, false));
+  variables.push_back (VariableAliasFactory::create ("generator_SGenPu_re", "generator_PGenPu", CONTINUOUS, false));
+  variables.push_back (VariableAliasFactory::create ("generator_converter_y", "generator_genState", CONTINUOUS, false));
+  variables.push_back (VariableNativeFactory::createState ("generator_converter_u", INTEGER, false));
   variables.push_back (VariableNativeFactory::createState ("generator_pStatus", INTEGER, false));
-  variables.push_back (VariableNativeFactory::createState ("generator_qStatus", INTEGER, false));
   variables.push_back (VariableNativeFactory::createState ("generator_state", INTEGER, false));
   variables.push_back (VariableNativeFactory::createState ("generator_running_value", BOOLEAN, false));
   variables.push_back (VariableNativeFactory::createState ("generator_switchOffSignal1_value", BOOLEAN, false));
   variables.push_back (VariableNativeFactory::createState ("generator_switchOffSignal2_value", BOOLEAN, false));
   variables.push_back (VariableNativeFactory::createState ("generator_switchOffSignal3_value", BOOLEAN, false));
+  variables.push_back (VariableNativeFactory::createCalculated ("generator_PGen", CONTINUOUS, false));
+  variables.push_back (VariableNativeFactory::createCalculated ("generator_UPu", CONTINUOUS, false));
+  variables.push_back (VariableNativeFactory::createCalculated ("generator_genState", CONTINUOUS, false));
 }
 
 void ModelGeneratorPQ_Dyn::defineParameters(std::vector<ParameterModeler>& parameters)
 {
   using ParameterModelerTuple = std::tuple<std::string, DYN::typeVarC_t, DYN::parameterScope_t>;
-  std::array<ParameterModelerTuple, 16> parameterModelerArray = {
-    std::make_tuple("generator_AlphaPu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+  std::array<ParameterModelerTuple, 20> parameterModelerArray = {
+    std::make_tuple("generator_AlphaPu", VAR_TYPE_DOUBLE, INTERNAL_PARAMETER),
+    std::make_tuple("generator_AlphaPuPNom", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
     std::make_tuple("generator_PGen0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
-    std::make_tuple("generator_PMaxPu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
-    std::make_tuple("generator_PMinPu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_PMax", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_PMaxPu", VAR_TYPE_DOUBLE, INTERNAL_PARAMETER),
+    std::make_tuple("generator_PMin", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_PMinPu", VAR_TYPE_DOUBLE, INTERNAL_PARAMETER),
+    std::make_tuple("generator_PNom", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
     std::make_tuple("generator_QGen0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
-    std::make_tuple("generator_QMaxPu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
-    std::make_tuple("generator_QMinPu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
     std::make_tuple("generator_U0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
-    std::make_tuple("generator_UMaxPu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
-    std::make_tuple("generator_UMinPu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
     std::make_tuple("generator_i0Pu_im", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
     std::make_tuple("generator_i0Pu_re", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
     std::make_tuple("generator_u0Pu_im", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
     std::make_tuple("generator_u0Pu_re", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_Running0", VAR_TYPE_BOOL, INTERNAL_PARAMETER),
+    std::make_tuple("generator_SwitchOffSignal10", VAR_TYPE_BOOL, SHARED_PARAMETER),
+    std::make_tuple("generator_SwitchOffSignal20", VAR_TYPE_BOOL, SHARED_PARAMETER),
+    std::make_tuple("generator_SwitchOffSignal30", VAR_TYPE_BOOL, SHARED_PARAMETER),
     std::make_tuple("generator_NbSwitchOffSignals", VAR_TYPE_INT, SHARED_PARAMETER),
     std::make_tuple("generator_State0", VAR_TYPE_INT, SHARED_PARAMETER),
   };
@@ -712,34 +706,40 @@ void ModelGeneratorPQ_Dyn::defineParameters(std::vector<ParameterModeler>& param
 void ModelGeneratorPQ_Dyn::defineElements(std::vector<Element>& elements, std::map<std::string, int >& mapElement)
 {
   using ElementTuple = std::tuple<std::string, std::string, DYN::Element::typeElement>;
-  std::array<ElementTuple, 28> elementArray1 = {
+  std::array<ElementTuple, 34> elementArray1 = {
     std::make_tuple("generator", "generator", Element::STRUCTURE),
-    std::make_tuple("switchOffSignal3", "generator_switchOffSignal3", Element::STRUCTURE),
-    std::make_tuple("value", "generator_switchOffSignal3_value", Element::TERMINAL),
-    std::make_tuple("switchOffSignal2", "generator_switchOffSignal2", Element::STRUCTURE),
-    std::make_tuple("value", "generator_switchOffSignal2_value", Element::TERMINAL),
     std::make_tuple("omegaRefPu", "generator_omegaRefPu", Element::STRUCTURE),
     std::make_tuple("value", "generator_omegaRefPu_value", Element::TERMINAL),
+    std::make_tuple("deltaPmRefPu", "generator_deltaPmRefPu", Element::STRUCTURE),
+    std::make_tuple("value", "generator_deltaPmRefPu_value", Element::TERMINAL),
+    std::make_tuple("UPu", "generator_UPu", Element::TERMINAL),
+    std::make_tuple("QGenPu", "generator_QGenPu", Element::TERMINAL),
     std::make_tuple("terminal", "generator_terminal", Element::STRUCTURE),
     std::make_tuple("i", "generator_terminal_i", Element::STRUCTURE),
     std::make_tuple("im", "generator_terminal_i_im", Element::TERMINAL),
     std::make_tuple("re", "generator_terminal_i_re", Element::TERMINAL),
-    std::make_tuple("running", "generator_running", Element::STRUCTURE),
-    std::make_tuple("value", "generator_running_value", Element::TERMINAL),
-    std::make_tuple("switchOffSignal1", "generator_switchOffSignal1", Element::STRUCTURE),
-    std::make_tuple("value", "generator_switchOffSignal1_value", Element::TERMINAL),
-    std::make_tuple("qStatus", "generator_qStatus", Element::TERMINAL),
-    std::make_tuple("pStatus", "generator_pStatus", Element::TERMINAL),
-    std::make_tuple("PGenRawPu", "generator_PGenRawPu", Element::TERMINAL),
-    std::make_tuple("UPu", "generator_UPu", Element::TERMINAL),
-    std::make_tuple("QGenPu", "generator_QGenPu", Element::TERMINAL),
-    std::make_tuple("PGenPu", "generator_PGenPu", Element::TERMINAL),
-    std::make_tuple("SGenPu", "generator_SGenPu", Element::STRUCTURE),
-    std::make_tuple("im", "generator_SGenPu_im", Element::TERMINAL),
-    std::make_tuple("re", "generator_SGenPu_re", Element::TERMINAL),
     std::make_tuple("V", "generator_terminal_V", Element::STRUCTURE),
     std::make_tuple("im", "generator_terminal_V_im", Element::TERMINAL),
     std::make_tuple("re", "generator_terminal_V_re", Element::TERMINAL),
+    std::make_tuple("converter", "generator_converter", Element::STRUCTURE),
+    std::make_tuple("y", "generator_converter_y", Element::TERMINAL),
+    std::make_tuple("u", "generator_converter_u", Element::TERMINAL),
+    std::make_tuple("running", "generator_running", Element::STRUCTURE),
+    std::make_tuple("value", "generator_running_value", Element::TERMINAL),
+    std::make_tuple("switchOffSignal3", "generator_switchOffSignal3", Element::STRUCTURE),
+    std::make_tuple("value", "generator_switchOffSignal3_value", Element::TERMINAL),
+    std::make_tuple("switchOffSignal2", "generator_switchOffSignal2", Element::STRUCTURE),
+    std::make_tuple("value", "generator_switchOffSignal2_value", Element::TERMINAL),
+    std::make_tuple("switchOffSignal1", "generator_switchOffSignal1", Element::STRUCTURE),
+    std::make_tuple("value", "generator_switchOffSignal1_value", Element::TERMINAL),
+    std::make_tuple("pStatus", "generator_pStatus", Element::TERMINAL),
+    std::make_tuple("PGenRawPu", "generator_PGenRawPu", Element::TERMINAL),
+    std::make_tuple("SGenPu", "generator_SGenPu", Element::STRUCTURE),
+    std::make_tuple("im", "generator_SGenPu_im", Element::TERMINAL),
+    std::make_tuple("re", "generator_SGenPu_re", Element::TERMINAL),
+    std::make_tuple("PGenPu", "generator_PGenPu", Element::TERMINAL),
+    std::make_tuple("PGen", "generator_PGen", Element::TERMINAL),
+    std::make_tuple("genState", "generator_genState", Element::TERMINAL),
     std::make_tuple("state", "generator_state", Element::TERMINAL),
   };
   for (size_t elementsIndex1 = 0; elementsIndex1 < elementArray1.size(); ++elementsIndex1)
@@ -750,60 +750,72 @@ void ModelGeneratorPQ_Dyn::defineElements(std::vector<Element>& elements, std::m
   elements[0].subElementsNum().push_back(1);
   elements[0].subElementsNum().push_back(3);
   elements[0].subElementsNum().push_back(5);
+  elements[0].subElementsNum().push_back(6);
   elements[0].subElementsNum().push_back(7);
-  elements[0].subElementsNum().push_back(11);
-  elements[0].subElementsNum().push_back(13);
-  elements[0].subElementsNum().push_back(15);
-  elements[0].subElementsNum().push_back(16);
+  elements[0].subElementsNum().push_back(14);
   elements[0].subElementsNum().push_back(17);
-  elements[0].subElementsNum().push_back(18);
   elements[0].subElementsNum().push_back(19);
-  elements[0].subElementsNum().push_back(20);
   elements[0].subElementsNum().push_back(21);
+  elements[0].subElementsNum().push_back(23);
+  elements[0].subElementsNum().push_back(25);
+  elements[0].subElementsNum().push_back(26);
   elements[0].subElementsNum().push_back(27);
+  elements[0].subElementsNum().push_back(30);
+  elements[0].subElementsNum().push_back(31);
+  elements[0].subElementsNum().push_back(32);
+  elements[0].subElementsNum().push_back(33);
   elements[1].subElementsNum().push_back(2);
   elements[3].subElementsNum().push_back(4);
-  elements[5].subElementsNum().push_back(6);
   elements[7].subElementsNum().push_back(8);
-  elements[7].subElementsNum().push_back(24);
+  elements[7].subElementsNum().push_back(11);
   elements[8].subElementsNum().push_back(9);
   elements[8].subElementsNum().push_back(10);
   elements[11].subElementsNum().push_back(12);
-  elements[13].subElementsNum().push_back(14);
+  elements[11].subElementsNum().push_back(13);
+  elements[14].subElementsNum().push_back(15);
+  elements[14].subElementsNum().push_back(16);
+  elements[17].subElementsNum().push_back(18);
+  elements[19].subElementsNum().push_back(20);
   elements[21].subElementsNum().push_back(22);
-  elements[21].subElementsNum().push_back(23);
-  elements[24].subElementsNum().push_back(25);
-  elements[24].subElementsNum().push_back(26);
+  elements[23].subElementsNum().push_back(24);
+  elements[27].subElementsNum().push_back(28);
+  elements[27].subElementsNum().push_back(29);
 
-  std::array<std::pair<std::string, int>, 28> mapElementArray = {
+  std::array<std::pair<std::string, int>, 34> mapElementArray = {
     std::make_pair("generator", 0),
-    std::make_pair("generator_switchOffSignal3", 1),
-    std::make_pair("generator_switchOffSignal3_value", 2),
-    std::make_pair("generator_switchOffSignal2", 3),
-    std::make_pair("generator_switchOffSignal2_value", 4),
-    std::make_pair("generator_omegaRefPu", 5),
-    std::make_pair("generator_omegaRefPu_value", 6),
+    std::make_pair("generator_omegaRefPu", 1),
+    std::make_pair("generator_omegaRefPu_value", 2),
+    std::make_pair("generator_deltaPmRefPu", 3),
+    std::make_pair("generator_deltaPmRefPu_value", 4),
+    std::make_pair("generator_UPu", 5),
+    std::make_pair("generator_QGenPu", 6),
     std::make_pair("generator_terminal", 7),
     std::make_pair("generator_terminal_i", 8),
     std::make_pair("generator_terminal_i_im", 9),
     std::make_pair("generator_terminal_i_re", 10),
-    std::make_pair("generator_running", 11),
-    std::make_pair("generator_running_value", 12),
-    std::make_pair("generator_switchOffSignal1", 13),
-    std::make_pair("generator_switchOffSignal1_value", 14),
-    std::make_pair("generator_qStatus", 15),
-    std::make_pair("generator_pStatus", 16),
-    std::make_pair("generator_PGenRawPu", 17),
-    std::make_pair("generator_UPu", 18),
-    std::make_pair("generator_QGenPu", 19),
-    std::make_pair("generator_PGenPu", 20),
-    std::make_pair("generator_SGenPu", 21),
-    std::make_pair("generator_SGenPu_im", 22),
-    std::make_pair("generator_SGenPu_re", 23),
-    std::make_pair("generator_terminal_V", 24),
-    std::make_pair("generator_terminal_V_im", 25),
-    std::make_pair("generator_terminal_V_re", 26),
-    std::make_pair("generator_state", 27),
+    std::make_pair("generator_terminal_V", 11),
+    std::make_pair("generator_terminal_V_im", 12),
+    std::make_pair("generator_terminal_V_re", 13),
+    std::make_pair("generator_converter", 14),
+    std::make_pair("generator_converter_y", 15),
+    std::make_pair("generator_converter_u", 16),
+    std::make_pair("generator_running", 17),
+    std::make_pair("generator_running_value", 18),
+    std::make_pair("generator_switchOffSignal3", 19),
+    std::make_pair("generator_switchOffSignal3_value", 20),
+    std::make_pair("generator_switchOffSignal2", 21),
+    std::make_pair("generator_switchOffSignal2_value", 22),
+    std::make_pair("generator_switchOffSignal1", 23),
+    std::make_pair("generator_switchOffSignal1_value", 24),
+    std::make_pair("generator_pStatus", 25),
+    std::make_pair("generator_PGenRawPu", 26),
+    std::make_pair("generator_SGenPu", 27),
+    std::make_pair("generator_SGenPu_im", 28),
+    std::make_pair("generator_SGenPu_re", 29),
+    std::make_pair("generator_PGenPu", 30),
+    std::make_pair("generator_PGen", 31),
+    std::make_pair("generator_genState", 32),
+    std::make_pair("generator_state", 33),
   };
   for (size_t mapElementIndex = 0; mapElementIndex < mapElementArray.size(); ++mapElementIndex)
   {
@@ -817,55 +829,84 @@ void ModelGeneratorPQ_Dyn::evalFAdept(const std::vector<adept::adouble> & x,
                               std::vector<adept::adouble> & res)
 {
   /*
-    generator_omegaRefPu_value : x[0]
-    generator_terminal_V_im : x[1]
-    generator_terminal_V_re : x[2]
-    generator_PGenPu : x[3]
-    generator_PGenRawPu : x[4]
-    generator_QGenPu : x[5]
+    generator_deltaPmRefPu_value : x[0]
+    generator_omegaRefPu_value : x[1]
+    generator_terminal_V_im : x[2]
+    generator_terminal_V_re : x[3]
+    generator_PGenPu : x[4]
+    generator_PGenRawPu : x[5]
     generator_SGenPu_im : x[6]
-    generator_SGenPu_re : x[7]
-    generator_UPu : x[8]
-    generator_terminal_i_im : x[9]
-    generator_terminal_i_re : x[10]
-    der(generator_omegaRefPu_value) : xd[0]
-    der(generator_terminal_V_im) : xd[1]
-    der(generator_terminal_V_re) : xd[2]
+    generator_terminal_i_im : x[7]
+    generator_terminal_i_re : x[8]
+    der(generator_deltaPmRefPu_value) : xd[0]
+    der(generator_omegaRefPu_value) : xd[1]
+    der(generator_terminal_V_im) : xd[2]
+    der(generator_terminal_V_re) : xd[3]
 
   */
   adept::adouble $DAEres3;
   adept::adouble $DAEres4;
-  // ----- GeneratorPQ_eqFunction_63 -----
+  adept::adouble $DAEres5;
+  adept::adouble $DAEres6;
+  adept::adouble $DAEres7;
+  // ----- GeneratorPQ_eqFunction_74 -----
   {
-  adept::adouble tmp0;
-  adept::adouble tmp1;
-  adept::adouble tmp2;
-  tmp0 = x[2];
-  tmp1 = x[1];
-  res[0] = x[8] - ( sqrt((tmp0 * tmp0) + (tmp1 * tmp1)) );
+    res[0] = (x[3]) * (x[7]) + ((-x[2])) * (x[8]) - x[6];
 
   }
 
 
-  // ----- GeneratorPQ_eqFunction_81 -----
+  // ----- GeneratorPQ_eqFunction_75 -----
   {
-  modelica_boolean tmp12;
-  adept::adouble tmp13;
-  tmp12 = (modelica_boolean)(toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */));
-  if(tmp12)
+    res[1] = ((-x[3])) * (x[8]) - x[4] - ((x[2]) * (x[7]));
+
+  }
+
+
+  // ----- GeneratorPQ_eqFunction_76 -----
   {
-    tmp13 = data->simulationInfo->realParameter[1] /* generator.PGen0Pu PARAM */ + (data->simulationInfo->realParameter[0] /* generator.AlphaPu PARAM */) * (1.0 - x[0]);
+    res[2] = xd[0];
+
+  }
+
+
+  // ----- GeneratorPQ_eqFunction_89 -----
+  {
+  modelica_boolean tmp8;
+  adept::adouble tmp9;
+  tmp8 = (modelica_boolean)((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */)));
+  if(tmp8)
+  {
+    tmp9 = (data->simulationInfo->realParameter[2] /* generator.PGen0Pu PARAM */) - ((-0.01) * ((x[0]) * ((data->simulationInfo->realParameter[7] /* generator.PNom PARAM */)))) - (((data->simulationInfo->realParameter[0] /* generator.AlphaPu PARAM */)) * (x[1] - 1.0));
   }
   else
   {
-    tmp13 = 0.0;
+    tmp9 = 0.0;
   }
-  res[1] = x[4] - ( tmp13 );
+  res[3] = x[5] - ( tmp9 );
 
   }
 
 
-  // ----- GeneratorPQ_eqFunction_90 -----
+  // ----- GeneratorPQ_eqFunction_104 -----
+  {
+  modelica_boolean tmp22;
+  adept::adouble tmp23;
+  tmp22 = (modelica_boolean)((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */)));
+  if(tmp22)
+  {
+    tmp23 = x[6] - (data->simulationInfo->realParameter[8] /* generator.QGen0Pu PARAM */);
+  }
+  else
+  {
+    tmp23 = x[7];
+  }
+    res[4] = tmp23;
+
+  }
+
+
+  // ----- GeneratorPQ_eqFunction_105 -----
   {
   modelica_boolean tmp24;
   adept::adouble tmp25;
@@ -873,104 +914,34 @@ void ModelGeneratorPQ_Dyn::evalFAdept(const std::vector<adept::adouble> & x,
   adept::adouble tmp27;
   modelica_boolean tmp28;
   adept::adouble tmp29;
-  tmp28 = (modelica_boolean)(toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */));
+  tmp28 = (modelica_boolean)((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */)));
   if(tmp28)
   {
-    tmp26 = (modelica_boolean)((modelica_integer)data->localData[0]->integerDoubleVars[0] /* generator.pStatus DISCRETE */ == 3);
+    tmp26 = (modelica_boolean)((data->localData[0]->integerDoubleVars[1] /* generator.pStatus DISCRETE */) == 3);
     if(tmp26)
     {
-      tmp27 = data->simulationInfo->realParameter[2] /* generator.PMaxPu PARAM */;
+      tmp27 = (data->simulationInfo->realParameter[4] /* generator.PMaxPu PARAM */);
     }
     else
     {
-      tmp24 = (modelica_boolean)((modelica_integer)data->localData[0]->integerDoubleVars[0] /* generator.pStatus DISCRETE */ == 2);
+      tmp24 = (modelica_boolean)((data->localData[0]->integerDoubleVars[1] /* generator.pStatus DISCRETE */) == 2);
       if(tmp24)
       {
-        tmp25 = data->simulationInfo->realParameter[3] /* generator.PMinPu PARAM */;
+        tmp25 = (data->simulationInfo->realParameter[6] /* generator.PMinPu PARAM */);
       }
       else
       {
-        tmp25 = x[4];
+        tmp25 = x[5];
       }
       tmp27 = tmp25;
     }
-    tmp29 = tmp27;
+    tmp29 = x[4] - (tmp27);
   }
   else
   {
-    tmp29 = 0.0;
+    tmp29 = x[8];
   }
-  res[2] = x[3] - ( tmp29 );
-
-  }
-
-
-  // ----- GeneratorPQ_eqFunction_91 -----
-  {
-  res[3] = x[7] - ( x[3] );
-
-  }
-
-
-  // ----- GeneratorPQ_eqFunction_92 -----
-  {
-  $DAEres3 = ((-x[2])) * (x[10]) - x[7] - ((x[1]) * (x[9]));
-  res[4] = $DAEres3;
-
-  }
-
-
-  // ----- GeneratorPQ_eqFunction_93 -----
-  {
-  modelica_boolean tmp32;
-  adept::adouble tmp33;
-  modelica_boolean tmp34;
-  adept::adouble tmp35;
-  modelica_boolean tmp36;
-  adept::adouble tmp37;
-  tmp36 = (modelica_boolean)(toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */));
-  if(tmp36)
-  {
-    tmp34 = (modelica_boolean)(data->simulationInfo->integerDoubleVarsPre[1] /* generator.qStatus DISCRETE */ == 2);
-    if(tmp34)
-    {
-      tmp35 = data->simulationInfo->realParameter[5] /* generator.QMaxPu PARAM */;
-    }
-    else
-    {
-      tmp32 = (modelica_boolean)(data->simulationInfo->integerDoubleVarsPre[1] /* generator.qStatus DISCRETE */ == 3);
-      if(tmp32)
-      {
-        tmp33 = data->simulationInfo->realParameter[6] /* generator.QMinPu PARAM */;
-      }
-      else
-      {
-        tmp33 = data->simulationInfo->realParameter[4] /* generator.QGen0Pu PARAM */;
-      }
-      tmp35 = tmp33;
-    }
-    tmp37 = tmp35;
-  }
-  else
-  {
-    tmp37 = 0.0;
-  }
-  res[5] = x[5] - ( tmp37 );
-
-  }
-
-
-  // ----- GeneratorPQ_eqFunction_94 -----
-  {
-  res[6] = x[6] - ( x[5] );
-
-  }
-
-
-  // ----- GeneratorPQ_eqFunction_95 -----
-  {
-  $DAEres4 = (x[2]) * (x[9]) + ((-x[1])) * (x[10]) - x[6];
-  res[7] = $DAEres4;
+    res[5] = tmp29;
 
   }
 
@@ -990,21 +961,25 @@ void ModelGeneratorPQ_Dyn::checkParametersCoherence() const
   modelica_boolean tmp1;
   const modelica_string   tmp2 = "Variable violating min/max constraint: 1 <= generator.NbSwitchOffSignals <= 3 has value: ";
   modelica_string tmp3;
-  static int tmp4 = 0;
- modelica_string tmpMeta[1];
-  if(!tmp4)
+ modelica_string tmpMeta4;;
+  static int tmp5 = 0;
+  if(!tmp5)
   {
-    tmp0 = GreaterEq((modelica_integer)data->simulationInfo->integerParameter[0] /* generator.NbSwitchOffSignals PARAM */,((modelica_integer) 1));
-    tmp1 = LessEq((modelica_integer)data->simulationInfo->integerParameter[0] /* generator.NbSwitchOffSignals PARAM */,((modelica_integer) 3));
+    tmp0 = GreaterEq((data->simulationInfo->integerParameter[0] /* generator.NbSwitchOffSignals PARAM */),((modelica_integer) 1));
+    tmp1 = LessEq((data->simulationInfo->integerParameter[0] /* generator.NbSwitchOffSignals PARAM */),((modelica_integer) 3));
     if(!(tmp0 && tmp1))
     {
-      tmp3 = modelica_integer_to_modelica_string_format((modelica_integer)data->simulationInfo->integerParameter[0] /* generator.NbSwitchOffSignals PARAM */, mmc_strings_len1(100));
-      tmpMeta[0] = stringAppend((tmp2),tmp3);
+      tmp3 = modelica_integer_to_modelica_string_format((data->simulationInfo->integerParameter[0] /* generator.NbSwitchOffSignals PARAM */), mmc_strings_len1(100));
+      tmpMeta4 = stringAppend((tmp2),tmp3);
       {
-        omc_assert_warning("The following assertion has been violated %sat time %f\ngenerator.NbSwitchOffSignals >= 1 and generator.NbSwitchOffSignals <= 3", initial() ? "during initialization " : "", data->localData[0]->timeValue);
-        omc_assert_warning_withEquationIndexes(equationIndexes, (tmpMeta[0]));
+        const char* assert_cond = "(generator.NbSwitchOffSignals >= 1 and generator.NbSwitchOffSignals <= 3)";
+        if (data->simulationInfo->noThrowAsserts) {
+          throwStreamPrint(, "The following assertion has been violated %sat time %f\n(%s) --> \"%s\"", initial() ? "during initialization " : "", data->localData[0]->timeValue, assert_cond, (tmpMeta4));
+        } else {
+          omc_assert_warning_withEquationIndexes( equationIndexes, "The following assertion has been violated %sat time %f\n(%s) --> \"%s\"", initial() ? "during initialization " : "", data->localData[0]->timeValue, assert_cond, (tmpMeta4));
+        }
       }
-      tmp4 = 1;
+      tmp5 = 1;
     }
   }
 }
@@ -1013,25 +988,29 @@ void ModelGeneratorPQ_Dyn::checkParametersCoherence() const
 }
 {
 {
-  modelica_boolean tmp5;
   modelica_boolean tmp6;
-  const modelica_string   tmp7 = "Variable violating min/max constraint: Dynawo.Electrical.Constants.state.Open <= generator.State0 <= Dynawo.Electrical.Constants.state.Undefined has value: ";
-  modelica_string tmp8;
-  static int tmp9 = 0;
- modelica_string tmpMeta[1];
-  if(!tmp9)
+  modelica_boolean tmp7;
+  const modelica_string   tmp8 = "Variable violating min/max constraint: Dynawo.Electrical.Constants.state.Open <= generator.State0 <= Dynawo.Electrical.Constants.state.Undefined has value: ";
+  modelica_string tmp9;
+ modelica_string tmpMeta10;;
+  static int tmp11 = 0;
+  if(!tmp11)
   {
-    tmp5 = GreaterEq((modelica_integer)data->simulationInfo->integerParameter[1] /* generator.State0 PARAM */,1);
-    tmp6 = LessEq((modelica_integer)data->simulationInfo->integerParameter[1] /* generator.State0 PARAM */,6);
-    if(!(tmp5 && tmp6))
+    tmp6 = GreaterEq((data->simulationInfo->integerParameter[1] /* generator.State0 PARAM */),1);
+    tmp7 = LessEq((data->simulationInfo->integerParameter[1] /* generator.State0 PARAM */),6);
+    if(!(tmp6 && tmp7))
     {
-      tmp8 = modelica_integer_to_modelica_string_format((modelica_integer)data->simulationInfo->integerParameter[1] /* generator.State0 PARAM */, mmc_strings_len1(100));
-      tmpMeta[0] = stringAppend((tmp7),tmp8);
+      tmp9 = modelica_integer_to_modelica_string_format((data->simulationInfo->integerParameter[1] /* generator.State0 PARAM */), mmc_strings_len1(100));
+      tmpMeta10 = stringAppend((tmp8),tmp9);
       {
-        omc_assert_warning("The following assertion has been violated %sat time %f\ngenerator.State0 >= Dynawo.Electrical.Constants.state.Open and generator.State0 <= Dynawo.Electrical.Constants.state.Undefined", initial() ? "during initialization " : "", data->localData[0]->timeValue);
-        omc_assert_warning_withEquationIndexes(equationIndexes, (tmpMeta[0]));
+        const char* assert_cond = "(generator.State0 >= Dynawo.Electrical.Constants.state.Open and generator.State0 <= Dynawo.Electrical.Constants.state.Undefined)";
+        if (data->simulationInfo->noThrowAsserts) {
+          throwStreamPrint(, "The following assertion has been violated %sat time %f\n(%s) --> \"%s\"", initial() ? "during initialization " : "", data->localData[0]->timeValue, assert_cond, (tmpMeta10));
+        } else {
+          omc_assert_warning_withEquationIndexes( equationIndexes, "The following assertion has been violated %sat time %f\n(%s) --> \"%s\"", initial() ? "during initialization " : "", data->localData[0]->timeValue, assert_cond, (tmpMeta10));
+        }
       }
-      tmp9 = 1;
+      tmp11 = 1;
     }
   }
 }
@@ -1043,60 +1022,153 @@ void ModelGeneratorPQ_Dyn::checkParametersCoherence() const
 void ModelGeneratorPQ_Dyn::setFequations(std::map<int,std::string>& fEquationIndex)
 {
   //Note: fictive equations are not added. fEquationIndex.size() = sizeF() - Nunmber of fictive equations.
-  fEquationIndex[0] = "generator._UPu = (generator.terminal.V.re ^ 2.0 + generator.terminal.V.im ^ 2.0) ^ 0.5";//equation_index_omc:63
-  fEquationIndex[1] = "generator._PGenRawPu = if generator.running.value then generator.PGen0Pu + generator.AlphaPu * (1.0 - generator.omegaRefPu.value) else 0.0";//equation_index_omc:81
-  fEquationIndex[2] = "generator._PGenPu = if generator.running.value then if generator.pStatus == Dynawo.Electrical.Machines.GeneratorPQ.PStatus.LimitPMax then generator.PMaxPu else if generator.pStatus == Dynawo.Electrical.Machines.GeneratorPQ.PStatus.LimitPMin then generator.PMinPu else generator.PGenRawPu else 0.0";//equation_index_omc:90
-  fEquationIndex[3] = "generator._SGenPu._re = generator.PGenPu";//equation_index_omc:91
-  fEquationIndex[4] = "$DAEres3 = (-generator.terminal.V.re) * generator.terminal.i.re - generator.SGenPu.re - generator.terminal.V.im * generator.terminal.i.im";//equation_index_omc:92
-  fEquationIndex[5] = "generator._QGenPu = if generator.running.value then if pre(generator.qStatus) == Dynawo.Electrical.Machines.GeneratorPQ.QStatus.AbsorptionMax then generator.QMaxPu else if pre(generator.qStatus) == Dynawo.Electrical.Machines.GeneratorPQ.QStatus.GenerationMax then generator.QMinPu else generator.QGen0Pu else 0.0";//equation_index_omc:93
-  fEquationIndex[6] = "generator._SGenPu._im = generator.QGenPu";//equation_index_omc:94
-  fEquationIndex[7] = "$DAEres4 = generator.terminal.V.re * generator.terminal.i.im + (-generator.terminal.V.im) * generator.terminal.i.re - generator.SGenPu.im";//equation_index_omc:95
+  fEquationIndex[0] = "$DAEres6 = generator.terminal.V.re * generator.terminal.i.im + (-generator.terminal.V.im) * generator.terminal.i.re - generator.SGenPu.im";//equation_index_omc:74
+  fEquationIndex[1] = "$DAEres4 = (-generator.terminal.V.re) * generator.terminal.i.re - generator.PGenPu - generator.terminal.V.im * generator.terminal.i.im";//equation_index_omc:75
+  fEquationIndex[2] = "$DAEres3 = der(generator.deltaPmRefPu.value)";//equation_index_omc:76
+  fEquationIndex[3] = "generator.PGenRawPu = if generator.running.value then generator.PGen0Pu - (-0.01) * generator.deltaPmRefPu.value * generator.PNom - generator.AlphaPu * (generator.omegaRefPu.value - 1.0) else 0.0";//equation_index_omc:89
+  fEquationIndex[4] = "$DAEres5 = if generator.running.value then generator.SGenPu.im - generator.QGen0Pu else generator.terminal.i.im";//equation_index_omc:104
+  fEquationIndex[5] = "$DAEres7 = if generator.running.value then generator.PGenPu - (if generator.pStatus == generator.PStatus.LimitPMax then generator.PMaxPu else if generator.pStatus == generator.PStatus.LimitPMin then generator.PMinPu else generator.PGenRawPu) else generator.terminal.i.re";//equation_index_omc:105
 }
 
 void ModelGeneratorPQ_Dyn::setGequations(std::map<int,std::string>& gEquationIndex)
 {
 // ---------------- boolean conditions -------------
-  static const char *res[] = {  "generator.PGenRawPu >= generator.PMaxPu and pre(generator.pStatus) <> Dynawo.Electrical.Machines.GeneratorPQ.PStatus.LimitPMax",
-  "generator.PGenRawPu <= generator.PMinPu and pre(generator.pStatus) <> Dynawo.Electrical.Machines.GeneratorPQ.PStatus.LimitPMin",
-  "generator.PGenRawPu > generator.PMinPu and pre(generator.pStatus) == Dynawo.Electrical.Machines.GeneratorPQ.PStatus.LimitPMin",
-  "generator.PGenRawPu < generator.PMaxPu and pre(generator.pStatus) == Dynawo.Electrical.Machines.GeneratorPQ.PStatus.LimitPMax",
-  "generator.UPu >= 0.0001 + generator.UMaxPu and pre(generator.qStatus) <> Dynawo.Electrical.Machines.GeneratorPQ.QStatus.AbsorptionMax",
-  "generator.UPu <= -0.0001 + generator.UMinPu and pre(generator.qStatus) <> Dynawo.Electrical.Machines.GeneratorPQ.QStatus.GenerationMax",
-  "generator.UPu < -0.0001 + generator.UMaxPu and pre(generator.qStatus) == Dynawo.Electrical.Machines.GeneratorPQ.QStatus.AbsorptionMax or generator.UPu > 0.0001 + generator.UMinPu and pre(generator.qStatus) == Dynawo.Electrical.Machines.GeneratorPQ.QStatus.GenerationMax"};
+  static const char *res[] = {"generator.PGenRawPu >= generator.PMaxPu and pre(generator.pStatus) <> generator.PStatus.LimitPMax",
+  "generator.PGenRawPu <= generator.PMinPu and pre(generator.pStatus) <> generator.PStatus.LimitPMin",
+  "generator.PGenRawPu > generator.PMinPu and pre(generator.pStatus) == generator.PStatus.LimitPMin",
+  "generator.PGenRawPu < generator.PMaxPu and pre(generator.pStatus) == generator.PStatus.LimitPMax",
+  };
   gEquationIndex[0] =  res[0]  ;
   gEquationIndex[1] =  res[1]  ;
   gEquationIndex[2] =  res[2]  ;
   gEquationIndex[3] =  res[3]  ;
-  gEquationIndex[4] =  res[4]  ;
-  gEquationIndex[5] =  res[5]  ;
-  gEquationIndex[6] =  res[6]  ;
 // -----------------------------
+  // ------------- $whenCondition5 ------------
+  gEquationIndex[4] = " $whenCondition5:  (data->localData[0]->booleanVars[4] /* $whenCondition5 DISCRETE */) = (((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */))) && (!((toNativeBool (data->simulationInfo->discreteVarsPre[0] /* generator.running.value DISCRETE */))))); " ;
+ 
   // ------------- $whenCondition6 ------------
-  gEquationIndex[7] = " $whenCondition6:  data->localData[0]->booleanVars[6] /* $whenCondition6 DISCRETE */ = (((toNativeBool (data->localData[0]->discreteVars[1] /* generator.switchOffSignal1.value DISCRETE */)) || (toNativeBool (data->localData[0]->discreteVars[2] /* generator.switchOffSignal2.value DISCRETE */))) || ((toNativeBool (data->localData[0]->discreteVars[3] /* generator.switchOffSignal3.value DISCRETE */)) && (toNativeBool (data->simulationInfo->discreteVarsPre[0] /* generator.running.value DISCRETE */)))); " ;
+  gEquationIndex[5] = " $whenCondition6:  (data->localData[0]->booleanVars[5] /* $whenCondition6 DISCRETE */) = (!((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */)))); " ;
  
   // ------------- $whenCondition7 ------------
-  gEquationIndex[8] = " $whenCondition7:  data->localData[0]->booleanVars[7] /* $whenCondition7 DISCRETE */ = (!(toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */))); " ;
+  gEquationIndex[6] = " $whenCondition7:  (data->localData[0]->booleanVars[6] /* $whenCondition7 DISCRETE */) = ((((!((toNativeBool (data->localData[0]->discreteVars[1] /* generator.switchOffSignal1.value DISCRETE */)))) && (!((toNativeBool (data->localData[0]->discreteVars[2] /* generator.switchOffSignal2.value DISCRETE */))))) && (!((toNativeBool (data->localData[0]->discreteVars[3] /* generator.switchOffSignal3.value DISCRETE */))))) && (!((toNativeBool (data->simulationInfo->discreteVarsPre[0] /* generator.running.value DISCRETE */))))); " ;
+ 
+  // ------------- $whenCondition8 ------------
+  gEquationIndex[7] = " $whenCondition8:  (data->localData[0]->booleanVars[7] /* $whenCondition8 DISCRETE */) = ((((toNativeBool (data->localData[0]->discreteVars[1] /* generator.switchOffSignal1.value DISCRETE */))) || ((toNativeBool (data->localData[0]->discreteVars[2] /* generator.switchOffSignal2.value DISCRETE */)))) || (((toNativeBool (data->localData[0]->discreteVars[3] /* generator.switchOffSignal3.value DISCRETE */))) && ((toNativeBool (data->simulationInfo->discreteVarsPre[0] /* generator.running.value DISCRETE */))))); " ;
  
 }
 
 void ModelGeneratorPQ_Dyn::evalCalculatedVars(std::vector<double>& calculatedVars)
 {
+  {
+      calculatedVars[0] /* generator.PGen*/ = (100.0) * ((data->localData[0]->realVars[4] /* generator.PGenPu variable */));
+  }
+  {
+    modelica_real tmp3;
+    modelica_real tmp4;
+    modelica_real tmp5;
+    modelica_boolean tmp6;
+    modelica_real tmp7;
+    tmp6 = (modelica_boolean)((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */)));
+    if(tmp6)
+    {
+      tmp3 = (data->localData[0]->realVars[3] /* generator.terminal.V.re STATE(1) */);
+      tmp4 = (data->localData[0]->realVars[2] /* generator.terminal.V.im STATE(1) */);
+      tmp7 = sqrt((tmp3 * tmp3) + (tmp4 * tmp4));
+    }
+    else
+    {
+      tmp7 = 0.0;
+    }
+      calculatedVars[1] /* generator.UPu*/ = tmp7;
+  }
+  {
+      calculatedVars[2] /* generator.genState*/ = ((modelica_real)(data->localData[0]->integerDoubleVars[0] /* generator.converter.u DISCRETE */));
+  }
 }
 
 double ModelGeneratorPQ_Dyn::evalCalculatedVarI(unsigned iCalculatedVar) const
 {
+  if (iCalculatedVar == 0)  /* generator.PGen */
+  {
+      return (100.0) * ((data->localData[0]->realVars[4] /* generator.PGenPu variable */));
+  }
+  if (iCalculatedVar == 1)  /* generator.UPu */
+  {
+    modelica_real tmp3;
+    modelica_real tmp4;
+    modelica_real tmp5;
+    modelica_boolean tmp6;
+    modelica_real tmp7;
+    tmp6 = (modelica_boolean)((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */)));
+    if(tmp6)
+    {
+      tmp3 = (data->localData[0]->realVars[3] /* generator.terminal.V.re STATE(1) */);
+      tmp4 = (data->localData[0]->realVars[2] /* generator.terminal.V.im STATE(1) */);
+      tmp7 = sqrt((tmp3 * tmp3) + (tmp4 * tmp4));
+    }
+    else
+    {
+      tmp7 = 0.0;
+    }
+      return tmp7;
+  }
+  if (iCalculatedVar == 2)  /* generator.genState */
+  {
+      return ((modelica_real)(data->localData[0]->integerDoubleVars[0] /* generator.converter.u DISCRETE */));
+  }
   throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
 }
 
 #ifdef _ADEPT_
 adept::adouble ModelGeneratorPQ_Dyn::evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd) const
 {
+  if (iCalculatedVar == 0)  /* generator.PGen */
+  {
+      return (100.0) * (x[indexOffset +0]);
+  }
+
+
+  if (iCalculatedVar == 1)  /* generator.UPu */
+  {
+    adept::adouble tmp3;
+    adept::adouble tmp4;
+    adept::adouble tmp5;
+    modelica_boolean tmp6;
+    adept::adouble tmp7;
+    tmp6 = (modelica_boolean)((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */)));
+    if(tmp6)
+    {
+      tmp3 = x[indexOffset +1];
+      tmp4 = x[indexOffset +0];
+      tmp7 = sqrt((tmp3 * tmp3) + (tmp4 * tmp4));
+    }
+    else
+    {
+      tmp7 = 0.0;
+    }
+      return tmp7;
+  }
+
+
+  if (iCalculatedVar == 2)  /* generator.genState */
+  {
+      return ((modelica_real)(data->localData[0]->integerDoubleVars[0] /* generator.converter.u DISCRETE */));
+  }
+
+
   throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
 }
 #endif
 
 void ModelGeneratorPQ_Dyn::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const
 {
+  if (iCalculatedVar == 0)  /* generator.PGen */ {
+    indexes.push_back(4);
+  }
+  if (iCalculatedVar == 1)  /* generator.UPu */ {
+    indexes.push_back(2);
+    indexes.push_back(3);
+  }
 }
 
 }

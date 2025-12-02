@@ -39,4 +39,8 @@
         <par type="DOUBLE" name="generator_beta" value="2.5"/>
         <par type="BOOL" name="generator_isVoltageDependent" value="false"/>
     </set>
+    <!--InfiniteBus parameters-->
+    <set id="1">
+        <par type="DOUBLE" name="Theta" value="0"/>
+    </set>
 </parametersSet>

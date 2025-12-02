@@ -85,6 +85,8 @@
     <par type="DOUBLE" name="voltageRegulator_tLeadTgr" value="10"/>
     <par type="DOUBLE" name="voltageRegulator_tOelMin" value="-11"/>
     <par type="BOOL" name="generator_UseApproximation" value="true"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Nordicg11">
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -136,6 +138,8 @@
     <par type="DOUBLE" name="voltageRegulator_tLeadTgr" value="10"/>
     <par type="DOUBLE" name="voltageRegulator_tOelMin" value="-20"/>
     <par type="BOOL" name="generator_UseApproximation" value="true"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Nordicg10">
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -187,6 +191,8 @@
     <par type="DOUBLE" name="voltageRegulator_tLeadTgr" value="10"/>
     <par type="DOUBLE" name="voltageRegulator_tOelMin" value="-11"/>
     <par type="BOOL" name="generator_UseApproximation" value="true"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Nordicg02">
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -238,6 +244,8 @@
     <par type="DOUBLE" name="voltageRegulator_tLeadTgr" value="10"/>
     <par type="DOUBLE" name="voltageRegulator_tOelMin" value="-11"/>
     <par type="BOOL" name="generator_UseApproximation" value="true"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Nordicg01">
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -289,6 +297,8 @@
     <par type="DOUBLE" name="voltageRegulator_tLeadTgr" value="10"/>
     <par type="DOUBLE" name="voltageRegulator_tOelMin" value="-11"/>
     <par type="BOOL" name="generator_UseApproximation" value="true"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Nordicg12">
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -340,6 +350,8 @@
     <par type="DOUBLE" name="voltageRegulator_tLeadTgr" value="10"/>
     <par type="DOUBLE" name="voltageRegulator_tOelMin" value="-20"/>
     <par type="BOOL" name="generator_UseApproximation" value="true"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Nordicg04">
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -391,6 +403,8 @@
     <par type="DOUBLE" name="voltageRegulator_tLeadTgr" value="10"/>
     <par type="DOUBLE" name="voltageRegulator_tOelMin" value="-11"/>
     <par type="BOOL" name="generator_UseApproximation" value="true"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Nordicg03">
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -442,6 +456,8 @@
     <par type="DOUBLE" name="voltageRegulator_tLeadTgr" value="10"/>
     <par type="DOUBLE" name="voltageRegulator_tOelMin" value="-11"/>
     <par type="BOOL" name="generator_UseApproximation" value="true"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Nordicg05">
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -493,6 +509,8 @@
     <par type="DOUBLE" name="voltageRegulator_tLeadTgr" value="10"/>
     <par type="DOUBLE" name="voltageRegulator_tOelMin" value="-11"/>
     <par type="BOOL" name="generator_UseApproximation" value="true"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Nordicg08">
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -544,6 +562,8 @@
     <par type="DOUBLE" name="voltageRegulator_tLeadTgr" value="10"/>
     <par type="DOUBLE" name="voltageRegulator_tOelMin" value="-11"/>
     <par type="BOOL" name="generator_UseApproximation" value="true"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Nordicg19">
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -595,6 +615,8 @@
     <par type="DOUBLE" name="voltageRegulator_tLeadTgr" value="10"/>
     <par type="DOUBLE" name="voltageRegulator_tOelMin" value="-11"/>
     <par type="BOOL" name="generator_UseApproximation" value="true"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Nordicg09">
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -646,6 +668,8 @@
     <par type="DOUBLE" name="voltageRegulator_tLeadTgr" value="10"/>
     <par type="DOUBLE" name="voltageRegulator_tOelMin" value="-11"/>
     <par type="BOOL" name="generator_UseApproximation" value="true"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Nordicg15">
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -695,6 +719,8 @@
     <par type="DOUBLE" name="voltageRegulator_tLeadTgr" value="5"/>
     <par type="DOUBLE" name="voltageRegulator_tOelMin" value="-18"/>
     <par type="BOOL" name="generator_UseApproximation" value="true"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Nordicg14">
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -744,6 +770,8 @@
     <par type="DOUBLE" name="voltageRegulator_tLeadTgr" value="5"/>
     <par type="DOUBLE" name="voltageRegulator_tOelMin" value="-18"/>
     <par type="BOOL" name="generator_UseApproximation" value="true"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Nordicg06">
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -793,6 +821,8 @@
     <par type="DOUBLE" name="voltageRegulator_tLeadTgr" value="5"/>
     <par type="DOUBLE" name="voltageRegulator_tOelMin" value="-20"/>
     <par type="BOOL" name="generator_UseApproximation" value="true"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Nordicg17">
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -842,6 +872,8 @@
     <par type="DOUBLE" name="voltageRegulator_tLeadTgr" value="5"/>
     <par type="DOUBLE" name="voltageRegulator_tOelMin" value="-18"/>
     <par type="BOOL" name="generator_UseApproximation" value="true"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Nordicg16">
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -891,6 +923,8 @@
     <par type="DOUBLE" name="voltageRegulator_tLeadTgr" value="5"/>
     <par type="DOUBLE" name="voltageRegulator_tOelMin" value="-18"/>
     <par type="BOOL" name="generator_UseApproximation" value="true"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Nordicg07">
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -940,6 +974,8 @@
     <par type="DOUBLE" name="voltageRegulator_tLeadTgr" value="5"/>
     <par type="DOUBLE" name="voltageRegulator_tOelMin" value="-20"/>
     <par type="BOOL" name="generator_UseApproximation" value="true"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Nordicg18">
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -989,6 +1025,8 @@
     <par type="DOUBLE" name="voltageRegulator_tLeadTgr" value="5"/>
     <par type="DOUBLE" name="voltageRegulator_tOelMin" value="-18"/>
     <par type="BOOL" name="generator_UseApproximation" value="true"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Nordicg13">
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -1036,5 +1074,7 @@
     <par type="DOUBLE" name="voltageRegulator_tLeadTgr" value="4"/>
     <par type="DOUBLE" name="voltageRegulator_tOelMin" value="-17"/>
     <par type="BOOL" name="generator_UseApproximation" value="true"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
 </parametersSet>

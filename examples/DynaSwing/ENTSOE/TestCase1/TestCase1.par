@@ -93,6 +93,8 @@
     <par type="DOUBLE" name="pss_VPssMaxPu" value="0.1"/>
     <par type="DOUBLE" name="pss_VPssMinPu" value="-0.1"/>
     <par type="DOUBLE" name="pss_PGen0Pu" value="0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
+    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <!-- URef step -->
   <set id="URef">

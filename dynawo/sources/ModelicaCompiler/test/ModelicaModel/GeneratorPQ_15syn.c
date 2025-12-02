@@ -9,18 +9,20 @@ extern "C" {
 void GeneratorPQ_function_initSynchronous(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
-  long i=0, j=0;
+  assertStreamPrint(threadData, data->modelData->nBaseClocks==0, "Number of base clocks doesn't match number of clocks that are initialized! Code generation error!");
+  data->simulationInfo->baseClocks = calloc(0, sizeof(BASECLOCK_DATA));
+
   TRACE_POP
 }
 
-/* Update the base clock. */
-void GeneratorPQ_function_updateSynchronous(DATA *data, threadData_t *threadData, long i)
+/* Update base-clock. */
+void GeneratorPQ_function_updateSynchronous(DATA *data, threadData_t *threadData, long base_idx)
 {
   TRACE_PUSH
   modelica_boolean ret;
-  switch (i) {
+  switch (base_idx) {
     default:
-      throwStreamPrint(NULL, "Internal Error: unknown base partition %ld", i);
+      throwStreamPrint(NULL, "Internal Error: unknown base partition %ld", base_idx);
       break;
   }
   TRACE_POP
@@ -28,15 +30,15 @@ void GeneratorPQ_function_updateSynchronous(DATA *data, threadData_t *threadData
 
 
 
-/*Clocked systems equations */
-int GeneratorPQ_function_equationsSynchronous(DATA *data, threadData_t *threadData, long i)
+/* Clocked systems equations */
+int GeneratorPQ_function_equationsSynchronous(DATA *data, threadData_t *threadData, long base_idx, long sub_idx)
 {
   TRACE_PUSH
   int ret;
 
-  switch (i) {
+  switch (base_idx) {
     default:
-      throwStreamPrint(NULL, "Internal Error: unknown sub partition %ld", i);
+      throwStreamPrint(NULL, "Internal Error: unknown base-clock partition %ld", base_idx);
       ret = 1;
       break;
   }
@@ -45,7 +47,7 @@ int GeneratorPQ_function_equationsSynchronous(DATA *data, threadData_t *threadDa
   return ret;
 }
 
-/* pre(%v%) = %v% */
+/* %v% = pre(%v%)*/
 void GeneratorPQ_function_savePreSynchronous(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
@@ -57,4 +59,3 @@ void GeneratorPQ_function_savePreSynchronous(DATA *data, threadData_t *threadDat
 #if defined(__cplusplus)
 }
 #endif
-

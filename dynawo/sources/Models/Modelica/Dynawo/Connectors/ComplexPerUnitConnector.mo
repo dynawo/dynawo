@@ -13,5 +13,5 @@ within Dynawo.Connectors;
 * of simulation tools for power systems.
 */
 
-record ComplexPerUnitConnector = Complex(redeclare Types.PerUnit re "Real part of complex per unit quantity",
+connector ComplexPerUnitConnector = Complex(redeclare Types.PerUnit re "Real part of complex per unit quantity",
                                          redeclare Types.PerUnit im "Imaginary part of complex per unit quantity") "Complex per unit";

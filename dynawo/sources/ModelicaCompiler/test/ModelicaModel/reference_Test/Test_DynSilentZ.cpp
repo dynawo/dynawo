@@ -56,14 +56,18 @@ void ModelTestSilentZ_Dyn::setupDataStruc()
   data->modelData->nLinearSystems = 0;
   data->modelData->nNonLinearSystems = 0;
   data->modelData->nStateSets = 0;
-  data->modelData->nJacobians = 4;
+  data->modelData->nJacobians = 6;
   data->modelData->nOptimizeConstraints = 0;
   data->modelData->nOptimizeFinalConstraints = 0;
   data->modelData->nDelayExpressions = 0;
-  data->modelData->nClocks = 0;
-  data->modelData->nSubClocks = 0;
+  data->modelData->nBaseClocks = 0;
+  data->modelData->nSpatialDistributions = 0;
   data->modelData->nSensitivityVars = 0;
   data->modelData->nSensitivityParamVars = 0;
+  data->modelData->nSetcVars = 0;
+  data->modelData->ndataReconVars = 0;
+  data->modelData->nSetbVars = 0;
+  data->modelData->nRelatedBoundaryConditions = 0;
   data->simulationInfo->daeModeData->nResidualVars = 1;
   data->simulationInfo->daeModeData->nAuxiliaryVars = 0;
 
@@ -191,8 +195,8 @@ void ModelTestSilentZ_Dyn::setFomc(double * f, propertyF_t type)
   if (type != ALGEBRAIC_EQ) {
   {
   // ----- TestSilentZ.TestSilentZ_eqFunction_11 -----
-  $P$DAEres0 = 5.0 - data->localData[0]->derivativesVars[0] /* der(u) STATE_DER */;
-  f[0] = $P$DAEres0;
+  (data->simulationInfo->daeModeData->residualVars[0]) /* $DAEres0 DAE_RESIDUAL_VAR */ = 5.0 - (data->localData[0]->derivativesVars[0] /* der(u) STATE_DER */);
+    f[0] = data->simulationInfo->daeModeData->residualVars[0] /* $DAEres0 DAE_RESIDUAL_VAR */;
 
   }
 
@@ -223,39 +227,47 @@ void ModelTestSilentZ_Dyn::setZomc()
   data->simulationInfo->discreteCall = 1;
 
   // -------------------- b ---------------------
-  data->localData[0]->discreteVars[0] /* b DISCRETE */ = fromNativeBool ( ((modelica_integer)data->localData[0]->integerDoubleVars[0] /* z2 DISCRETE */ == ((modelica_integer) 2)));
+  (data->localData[0]->discreteVars[0] /* b DISCRETE */) = fromNativeBool ( ((data->localData[0]->integerDoubleVars[0] /* z2 DISCRETE */) == ((modelica_integer) 2)));
 
   // -------------------- z2 ---------------------
-  modelica_boolean tmp3;
-  modelica_boolean tmp4;
-  modelica_integer tmp5;
-  RELATIONHYSTERESIS(tmp3, data->localData[0]->timeValue, 2.0, 0, Greater);
-  tmp4 = (modelica_boolean)tmp3;
-  if(tmp4)
+  modelica_boolean tmp5;
+  modelica_real tmp6;
+  modelica_real tmp7;
+  modelica_boolean tmp8;
+  modelica_integer tmp9;
+  tmp6 = 1.0;
+  tmp7 = 2.0;
+  relationhysteresis(tmp5, data->localData[0]->timeValue, 2.0, tmp6, tmp7, 0, Greater);
+  tmp8 = (modelica_boolean)tmp5;
+  if(tmp8)
   {
-    tmp5 = ((modelica_integer) 2);
+    tmp9 = ((modelica_integer) 2);
   }
   else
   {
-    tmp5 = ((modelica_integer) 1);
+    tmp9 = ((modelica_integer) 1);
   }
-  data->localData[0]->integerDoubleVars[0] /* z2 DISCRETE */ = tmp5;
+  (data->localData[0]->integerDoubleVars[0] /* z2 DISCRETE */) = tmp9;
 
   // -------------------- z3 ---------------------
   modelica_boolean tmp0;
-  modelica_boolean tmp1;
-  modelica_integer tmp2;
-  RELATIONHYSTERESIS(tmp0, data->localData[0]->timeValue, 2.0, 0, Greater);
-  tmp1 = (modelica_boolean)tmp0;
-  if(tmp1)
+  modelica_real tmp1;
+  modelica_real tmp2;
+  modelica_boolean tmp3;
+  modelica_integer tmp4;
+  tmp1 = 1.0;
+  tmp2 = 2.0;
+  relationhysteresis(tmp0, data->localData[0]->timeValue, 2.0, tmp1, tmp2, 0, Greater);
+  tmp3 = (modelica_boolean)tmp0;
+  if(tmp3)
   {
-    tmp2 = ((modelica_integer) 2);
+    tmp4 = ((modelica_integer) 2);
   }
   else
   {
-    tmp2 = ((modelica_integer) 1);
+    tmp4 = ((modelica_integer) 1);
   }
-  data->localData[0]->integerDoubleVars[1] /* z3 DISCRETE */ = tmp2;
+  (data->localData[0]->integerDoubleVars[1] /* z3 DISCRETE */) = tmp4;
   data->simulationInfo->discreteCall = 0;
 }
 
@@ -269,23 +281,62 @@ void ModelTestSilentZ_Dyn::collectSilentZ(BitMask* silentZTable)
 void ModelTestSilentZ_Dyn::setGomc(state_g * gout)
 {
   data->simulationInfo->discreteCall = 1;
-  modelica_boolean tmp_zc0;
-  
-  
-  tmp_zc0 = GreaterZC(data->localData[0]->timeValue, 2.0, data->simulationInfo->storedRelations[0]);
-  
 
-  gout[0] = (tmp_zc0) ? ROOT_UP : ROOT_DOWN;
+  modelica_boolean tmp_zc8;
+  modelica_real tmp_zc9;
+  modelica_real tmp_zc10;
+
+
+  tmp_zc9 = 1.0;
+  tmp_zc10 = 2.0;
+  tmp_zc8 = GreaterZC(data->localData[0]->timeValue, 2.0, tmp_zc9, tmp_zc10, data->simulationInfo->storedRelations[0]);
+
+
+
+  gout[0] = (tmp_zc8) ? ROOT_UP : ROOT_DOWN;
   data->simulationInfo->discreteCall = 0;
 }
 
 void ModelTestSilentZ_Dyn::setY0omc()
 {
   data->localData[0]->realVars[0] /* u */ = 1.0;
-  data->localData[0]->integerDoubleVars[1] /* z3 */ = 1;
-  data->localData[0]->integerDoubleVars[0] /* z2 */ = 1;
+
   {
-    data->localData[0]->discreteVars[0] /* b DISCRETE */ = fromNativeBool ( ((modelica_integer)data->localData[0]->integerDoubleVars[0] /* z2 DISCRETE */ == ((modelica_integer) 2)));
+    modelica_boolean tmp0;
+    modelica_boolean tmp1;
+    modelica_integer tmp2;
+    tmp0 = Greater(data->localData[0]->timeValue,2.0);
+    tmp1 = (modelica_boolean)tmp0;
+    if(tmp1)
+    {
+      tmp2 = ((modelica_integer) 2);
+    }
+    else
+    {
+      tmp2 = ((modelica_integer) 1);
+    }
+    (data->localData[0]->integerDoubleVars[1] /* z3 DISCRETE */) = tmp2;
+  }
+
+  {
+    modelica_boolean tmp3;
+    modelica_boolean tmp4;
+    modelica_integer tmp5;
+    tmp3 = Greater(data->localData[0]->timeValue,2.0);
+    tmp4 = (modelica_boolean)tmp3;
+    if(tmp4)
+    {
+      tmp5 = ((modelica_integer) 2);
+    }
+    else
+    {
+      tmp5 = ((modelica_integer) 1);
+    }
+    (data->localData[0]->integerDoubleVars[0] /* z2 DISCRETE */) = tmp5;
+  }
+
+  {
+    (data->localData[0]->discreteVars[0] /* b DISCRETE */) = fromNativeBool ( ((data->localData[0]->integerDoubleVars[0] /* z2 DISCRETE */) == ((modelica_integer) 2)));
   }
 }
 
@@ -371,8 +422,7 @@ void ModelTestSilentZ_Dyn::evalFAdept(const std::vector<adept::adouble> & x,
   adept::adouble $DAEres0;
   // ----- TestSilentZ.TestSilentZ_eqFunction_11 -----
   {
-  $DAEres0 = 5.0 - xd[0];
-  res[0] = $DAEres0;
+    res[0] = 5.0 - xd[0];
 
   }
 
@@ -405,18 +455,18 @@ void ModelTestSilentZ_Dyn::setGequations(std::map<int,std::string>& gEquationInd
 void ModelTestSilentZ_Dyn::evalCalculatedVars(std::vector<double>& calculatedVars)
 {
   {
-    modelica_boolean tmp7;
-    modelica_real tmp8;
-    tmp7 = (modelica_boolean)(toNativeBool (data->localData[0]->discreteVars[0] /* b DISCRETE */));
-    if(tmp7)
+    modelica_boolean tmp10;
+    modelica_real tmp11;
+    tmp10 = (modelica_boolean)((toNativeBool (data->localData[0]->discreteVars[0] /* b DISCRETE */)));
+    if(tmp10)
     {
-      tmp8 = data->localData[0]->realVars[0] /* u STATE(1) */;
+      tmp11 = (data->localData[0]->realVars[0] /* u STATE(1) */);
     }
     else
     {
-      tmp8 = (((modelica_real)((modelica_integer)data->localData[0]->integerDoubleVars[1] /* z3 DISCRETE */))) * (data->localData[0]->realVars[0] /* u STATE(1) */);
+      tmp11 = (((modelica_real)(data->localData[0]->integerDoubleVars[1] /* z3 DISCRETE */))) * ((data->localData[0]->realVars[0] /* u STATE(1) */));
     }
-      calculatedVars[0] /* x*/ = tmp8;
+      calculatedVars[0] /* x*/ = tmp11;
   }
 }
 
@@ -424,18 +474,18 @@ double ModelTestSilentZ_Dyn::evalCalculatedVarI(unsigned iCalculatedVar) const
 {
   if (iCalculatedVar == 0)  /* x */
   {
-    modelica_boolean tmp7;
-    modelica_real tmp8;
-    tmp7 = (modelica_boolean)(toNativeBool (data->localData[0]->discreteVars[0] /* b DISCRETE */));
-    if(tmp7)
+    modelica_boolean tmp10;
+    modelica_real tmp11;
+    tmp10 = (modelica_boolean)((toNativeBool (data->localData[0]->discreteVars[0] /* b DISCRETE */)));
+    if(tmp10)
     {
-      tmp8 = data->localData[0]->realVars[0] /* u STATE(1) */;
+      tmp11 = (data->localData[0]->realVars[0] /* u STATE(1) */);
     }
     else
     {
-      tmp8 = (((modelica_real)((modelica_integer)data->localData[0]->integerDoubleVars[1] /* z3 DISCRETE */))) * (data->localData[0]->realVars[0] /* u STATE(1) */);
+      tmp11 = (((modelica_real)(data->localData[0]->integerDoubleVars[1] /* z3 DISCRETE */))) * ((data->localData[0]->realVars[0] /* u STATE(1) */));
     }
-      return tmp8;
+      return tmp11;
   }
   throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
 }
@@ -445,18 +495,18 @@ adept::adouble ModelTestSilentZ_Dyn::evalCalculatedVarIAdept(unsigned iCalculate
 {
   if (iCalculatedVar == 0)  /* x */
   {
-    modelica_boolean tmp7;
-    adept::adouble tmp8;
-    tmp7 = (modelica_boolean)(toNativeBool (data->localData[0]->discreteVars[0] /* b DISCRETE */));
-    if(tmp7)
+    modelica_boolean tmp10;
+    adept::adouble tmp11;
+    tmp10 = (modelica_boolean)((toNativeBool (data->localData[0]->discreteVars[0] /* b DISCRETE */)));
+    if(tmp10)
     {
-      tmp8 = x[indexOffset +0];
+      tmp11 = x[indexOffset +0];
     }
     else
     {
-      tmp8 = (((modelica_real)((modelica_integer)data->localData[0]->integerDoubleVars[1] /* z3 DISCRETE */))) * (x[indexOffset +0]);
+      tmp11 = (((modelica_real)(data->localData[0]->integerDoubleVars[1] /* z3 DISCRETE */))) * (x[indexOffset +0]);
     }
-      return tmp8;
+      return tmp11;
   }
 
 
