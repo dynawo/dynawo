@@ -1,6 +1,6 @@
 INFO |  ============================================================ 
 INFO | DYNAWO VERSION  :     1.8.0
-INFO | DYNAWO REVISION :  master-18-475edf01e10
+INFO | DYNAWO REVISION :  3751_new_strategy_for_reinit_1-bae21afadb3
 INFO |  ============================================================ 
 INFO | 
 INFO | -----------------------------------------------------------------------
@@ -36,6 +36,7 @@ INFO | -----------------------------------------------------------------------
 INFO | number of continuous variables : 639
 INFO | number of discrete variables : 284
 INFO | number of root functions : 217
+INFO | number of differential variables : 288
 INFO | -----------------------------------------------------------------------
 INFO |         time ¦ iter num   Nonlinear iter   jac eval      time step (h)
 INFO | -----------------------------------------------------------------------
@@ -1077,13 +1078,21 @@ INFO |        3.000 ¦     1000             1134         23              0.003
 INFO | 
 INFO | execution statistics :
 INFO | 
-INFO | number of time iterations                  = 1000
-INFO | number of residual evaluations             = 2150
-INFO | number of Jacobian evaluations             = 23
-INFO | number of nonlinear iterations             = 1134
-INFO | number of error test failures              = 0
-INFO | number of nonlinear convergence failures   = 0
-INFO | number of root functions evaluations       = 1029
-INFO | number of discrete variables evaluations   = 38
-INFO | number of mode evaluations                 = 24
+INFO | number of time iterations                                  = 1000
+INFO | number of residual evaluations                             = 2114
+INFO | number of Jacobian evaluations                             = 9
+INFO | number of nonlinear iterations                             = 1113
+INFO | number of error test failures                              = 0
+INFO | number of nonlinear convergence failures                   = 0
+INFO | number of solver root functions evaluations                = 0
+INFO | number of internal root functions evaluations              = 1029
+INFO | number of discrete variables evaluations                   = 38
+INFO | number of mode evaluations                                 = 24
+INFO | number of differential mode                                = 0
+INFO | number of algebraic mode                                   = 0
+INFO | number of algebraic J update mode                          = 0
+INFO | number of algebraic restoration residual evaluations       = 38
+INFO | number of algebraic restoration Jacobian evaluations       = 14
+INFO | number of algebraic prim restoration residual evaluations  = 0
+INFO | number of algebraic prim restoration Jacobian evaluations  = 0
 INFO | end of job 'All converter-interfaced 5-machine system (3 GFM + 2 GFL) - Fault'

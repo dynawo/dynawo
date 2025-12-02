@@ -1,6 +1,6 @@
 INFO |  ============================================================ 
 INFO | DYNAWO VERSION  :     1.8.0
-INFO | DYNAWO REVISION :  3763_ida_refactor_1-63edcefdb0e
+INFO | DYNAWO REVISION :  3751_new_strategy_for_reinit_1-bae21afadb3
 INFO |  ============================================================ 
 INFO | 
 INFO | -----------------------------------------------------------------------
@@ -18,6 +18,26 @@ INFO |
 INFO | -----------------------------------------------------------------------
 INFO | starting global initialization
 INFO | -----------------------------------------------------------------------
+INFO | 
+INFO | execution statistics :
+INFO | 
+INFO | number of time iterations                                  = 0
+INFO | number of residual evaluations                             = 2
+INFO | number of Jacobian evaluations                             = 2
+INFO | number of nonlinear iterations                             = 0
+INFO | number of error test failures                              = 0
+INFO | number of nonlinear convergence failures                   = 0
+INFO | number of solver root functions evaluations                = 0
+INFO | number of internal root functions evaluations              = 3
+INFO | number of discrete variables evaluations                   = 3
+INFO | number of mode evaluations                                 = 2
+INFO | number of differential mode                                = 0
+INFO | number of algebraic mode                                   = 0
+INFO | number of algebraic J update mode                          = 0
+INFO | number of algebraic restoration residual evaluations       = 2
+INFO | number of algebraic restoration Jacobian evaluations       = 1
+INFO | number of algebraic prim restoration residual evaluations  = 2
+INFO | number of algebraic prim restoration Jacobian evaluations  = 1
 INFO | end of global initialization
 INFO | -----------------------------------------------------------------------
 INFO | 
@@ -34,6 +54,7 @@ INFO | -----------------------------------------------------------------------
 INFO | number of continuous variables : 442
 INFO | number of discrete variables : 278
 INFO | number of root functions : 318
+INFO | number of differential variables : 31
 INFO | -----------------------------------------------------------------------
 INFO |         time ¦ iter num   order (k)      time step (h)
 INFO | -----------------------------------------------------------------------
@@ -349,13 +370,21 @@ INFO |       20.000 ¦       67           1              0.307
 INFO | 
 INFO | execution statistics :
 INFO | 
-INFO | number of time iterations                  = 264
-INFO | number of residual evaluations             = 330
-INFO | number of Jacobian evaluations             = 171
-INFO | number of nonlinear iterations             = 310
-INFO | number of error test failures              = 0
-INFO | number of nonlinear convergence failures   = 0
-INFO | number of root functions evaluations       = 1241
-INFO | number of discrete variables evaluations   = 54
-INFO | number of mode evaluations                 = 37
+INFO | number of time iterations                                  = 264
+INFO | number of residual evaluations                             = 301
+INFO | number of Jacobian evaluations                             = 158
+INFO | number of nonlinear iterations                             = 301
+INFO | number of error test failures                              = 0
+INFO | number of nonlinear convergence failures                   = 0
+INFO | number of solver root functions evaluations                = 1182
+INFO | number of internal root functions evaluations              = 52
+INFO | number of discrete variables evaluations                   = 51
+INFO | number of mode evaluations                                 = 35
+INFO | number of differential mode                                = 0
+INFO | number of algebraic mode                                   = 0
+INFO | number of algebraic J update mode                          = 0
+INFO | number of algebraic restoration residual evaluations       = 13
+INFO | number of algebraic restoration Jacobian evaluations       = 8
+INFO | number of algebraic prim restoration residual evaluations  = 14
+INFO | number of algebraic prim restoration Jacobian evaluations  = 3
 INFO | end of job 'IEEE14 - Under-frequency load shedding'

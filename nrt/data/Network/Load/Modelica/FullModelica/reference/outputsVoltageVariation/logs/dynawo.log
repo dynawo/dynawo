@@ -1,6 +1,6 @@
 INFO |  ============================================================ 
 INFO | DYNAWO VERSION  :     1.8.0
-INFO | DYNAWO REVISION :  master-18-475edf01e10
+INFO | DYNAWO REVISION :  3751_new_strategy_for_reinit_1-bae21afadb3
 INFO |  ============================================================ 
 INFO | 
 INFO | -----------------------------------------------------------------------
@@ -34,6 +34,7 @@ INFO | -----------------------------------------------------------------------
 INFO | number of continuous variables : 46
 INFO | number of discrete variables : 20
 INFO | number of root functions : 32
+INFO | number of differential variables : 6
 INFO | -----------------------------------------------------------------------
 INFO |         time ¦ iter num   Nonlinear iter   jac eval      time step (h)
 INFO | -----------------------------------------------------------------------
@@ -1544,13 +1545,21 @@ INFO |     1500.000 ¦     1500             1035          4              1.000
 INFO | 
 INFO | execution statistics :
 INFO | 
-INFO | number of time iterations                  = 1500
-INFO | number of residual evaluations             = 2536
-INFO | number of Jacobian evaluations             = 4
-INFO | number of nonlinear iterations             = 1035
-INFO | number of error test failures              = 0
-INFO | number of nonlinear convergence failures   = 0
-INFO | number of root functions evaluations       = 1504
-INFO | number of discrete variables evaluations   = 6
-INFO | number of mode evaluations                 = 3
+INFO | number of time iterations                                  = 1500
+INFO | number of residual evaluations                             = 2534
+INFO | number of Jacobian evaluations                             = 2
+INFO | number of nonlinear iterations                             = 1033
+INFO | number of error test failures                              = 0
+INFO | number of nonlinear convergence failures                   = 0
+INFO | number of solver root functions evaluations                = 0
+INFO | number of internal root functions evaluations              = 1504
+INFO | number of discrete variables evaluations                   = 6
+INFO | number of mode evaluations                                 = 3
+INFO | number of differential mode                                = 0
+INFO | number of algebraic mode                                   = 0
+INFO | number of algebraic J update mode                          = 0
+INFO | number of algebraic restoration residual evaluations       = 3
+INFO | number of algebraic restoration Jacobian evaluations       = 2
+INFO | number of algebraic prim restoration residual evaluations  = 0
+INFO | number of algebraic prim restoration Jacobian evaluations  = 0
 INFO | end of job 'Disconnect load test with voltage variation'
