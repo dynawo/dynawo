@@ -89,7 +89,9 @@ bool ModelRatioTapChanger::getUpIncreaseTargetU() const {
 void
 ModelRatioTapChanger::evalG(const double t, const double uValue, const bool nodeOff, const double disable, const double locked, const bool tfoClosed,
   const double deltaUTarget, state_g* g) {
-  const int currentStepIndex = getCurrentStepIndex();
+  int currentStepIndex = getCurrentStepIndex();
+  if (getNextStepIndex() != -1)
+    currentStepIndex = getNextStepIndex();
   const double maxTargetV = targetV_ + tolV_ + deltaUTarget;
   const double minTargetV = targetV_ - tolV_ + deltaUTarget;
   g[0] = (uValue > maxTargetV && doubleNotEquals(uValue, maxTargetV)
@@ -110,19 +112,22 @@ ModelRatioTapChanger::evalG(const double t, const double uValue, const bool node
 void
 ModelRatioTapChanger::evalZ(const double t, const state_g* g, const double disable, const bool nodeOff, const double locked, const bool tfoClosed,
   ModelNetwork* network) {
+  int currentStepIndex = getCurrentStepIndex();
+  if (getNextStepIndex() != -1)
+    currentStepIndex = getNextStepIndex();
   if (!(disable > 0) && !nodeOff && !(locked > 0) && tfoClosed) {
     if (g[0] == ROOT_UP && !uMaxState_) {  // U > UMax
       if (!getUpIncreaseTargetU()) {
         whenUp_ = t;
         moveUp_ = true;
-        tapRefUp_ = getCurrentStepIndex();
+        tapRefUp_ = currentStepIndex;
         whenDown_ = VALDEF;
         moveDown_ = false;
         tapRefDown_ = getHighStepIndex();
       } else {
         whenDown_ = t;
         moveDown_ = true;
-        tapRefDown_ = getCurrentStepIndex();
+        tapRefDown_ = currentStepIndex;
         whenUp_ = VALDEF;
         moveUp_ = false;
         tapRefUp_ = getLowStepIndex();
@@ -136,14 +141,14 @@ ModelRatioTapChanger::evalZ(const double t, const state_g* g, const double disab
       if (!getUpIncreaseTargetU()) {
         whenDown_ = t;
         moveDown_ = true;
-        tapRefDown_ = getCurrentStepIndex();
+        tapRefDown_ = currentStepIndex;
         whenUp_ = VALDEF;
         moveUp_ = false;
         tapRefUp_ = getLowStepIndex();
       } else {
         whenUp_ = t;
         moveUp_ = true;
-        tapRefUp_ = getCurrentStepIndex();
+        tapRefUp_ = currentStepIndex;
         whenDown_ = VALDEF;
         moveDown_ = false;
         tapRefDown_ = getHighStepIndex();
@@ -166,13 +171,17 @@ ModelRatioTapChanger::evalZ(const double t, const state_g* g, const double disab
     }
 
     if (g[2] == ROOT_UP) {
-      setCurrentStepIndex(getCurrentStepIndex() + 1);
+      if (getNextStepIndex() == -1)
+        setNextStepIndex(getCurrentStepIndex());
+      setNextStepIndex(getNextStepIndex() + 1);
       whenLastTap_ = t;
       DYNAddTimelineEvent(network, id(), TapUp, latestUValue_, "kV");
     }
 
     if (g[3] == ROOT_UP) {
-      setCurrentStepIndex(getCurrentStepIndex() - 1);
+      if (getNextStepIndex() == -1)
+        setNextStepIndex(getCurrentStepIndex());
+      setNextStepIndex(getNextStepIndex() - 1);
       whenLastTap_ = t;
       DYNAddTimelineEvent(network, id(), TapDown, latestUValue_, "kV");
     }
