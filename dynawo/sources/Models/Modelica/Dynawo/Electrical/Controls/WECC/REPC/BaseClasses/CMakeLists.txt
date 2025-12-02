@@ -6,16 +6,13 @@
 # file, you can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
 #
-# This file is part of Dynawo, an hybrid C++/Modelica open source suite
+# This file is part of Dynawo, a hybrid C++/Modelica open source suite
 # of simulation tools for power systems.
-
-# Parameters of the PV WECC model
 
 set(MODEL_FILES
   package.mo
   package.order
-  ParamsREPC.mo
-  ParamsREPCc.mo
+  BaseREPC.mo
   )
 
 #

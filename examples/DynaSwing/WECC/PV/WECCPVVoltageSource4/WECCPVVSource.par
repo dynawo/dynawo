@@ -72,7 +72,7 @@
     <par type="DOUBLE" name="photovoltaics_QMaxPu" value="0.4"/>
     <par type="DOUBLE" name="photovoltaics_QMinPu" value="-0.4"/>
     <par type="BOOL" name="photovoltaics_RateFlag" value="false"/>
-    <par type="BOOL" name="photovoltaics_RefFlag" value="true"/>
+    <par type="INT" name="photovoltaics_RefFlag" value="1"/>
     <par type="DOUBLE" name="photovoltaics_tFilterPC" value="0.04"/>
     <par type="DOUBLE" name="photovoltaics_tFilterGC" value="0.02"/>
     <par type="DOUBLE" name="photovoltaics_tFt" value="1e-5"/>

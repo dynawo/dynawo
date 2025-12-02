@@ -16,9 +16,9 @@ within Dynawo.Electrical.Controls.WECC.Parameters.REPC;
 record ParamsREPC
   parameter Boolean FreqFlag "Governor response disable (0) or enable (1)" annotation(
   Dialog(tab="Plant Control"));
-  parameter Boolean RefFlag "Plant level reactive power (0) or voltage control (1)" annotation(
-  Dialog(tab="Plant Control"));
-  parameter Boolean VCompFlag "Reactive droop (0) or line drop compensation (1) if RefFlag true" annotation(
+  parameter Integer RefFlag "0: Reactive power control; 1: Voltage control; 2: Power factor control (only for REPC-C)" annotation(
+    Dialog(tab = "Plant Control"));
+  parameter Boolean VCompFlag "Reactive droop (0) or line drop compensation (1) if RefFlag = 1" annotation(
   Dialog(tab="Plant Control"));
 
   parameter Types.PerUnit DbdPu "Reactive power (RefFlag = 0) or voltage (RefFlag = 1) deadband in pu (base SNom or UNom) (typical: 0..0.1)" annotation(
@@ -33,13 +33,13 @@ record ParamsREPC
   Dialog(tab="Plant Control"));
   parameter Types.PerUnit FDbd1Pu "Overfrequency deadband for governor response in pu (base omegaNom) (typical: 0.004)" annotation(
   Dialog(tab="Plant Control"));
-  parameter Types.PerUnit FDbd2Pu "Underfrequency deadband for governor response in pu (base omegaNom)^ (typical: 0.004)" annotation(
+  parameter Types.PerUnit FDbd2Pu "Underfrequency deadband for governor response in pu (base omegaNom) (typical: 0.004)" annotation(
   Dialog(tab="Plant Control"));
   parameter Types.PerUnit FEMaxPu "Maximum frequency error in droop regulator in pu (base omegaNom)" annotation(
   Dialog(tab="Plant Control"));
   parameter Types.PerUnit FEMinPu "Minimum frequency error in droop regulator in pu (base omegaNom)" annotation(
   Dialog(tab="Plant Control"));
-  parameter Types.PerUnit Kc "Reactive droop when VCompFlag = 0" annotation(
+  parameter Types.PerUnit Kc "Reactive droop when VCompFlag = false" annotation(
   Dialog(tab="Plant Control"));
   parameter Types.PerUnit Ki "Volt/VAR regulator integral gain" annotation(
   Dialog(tab="Plant Control"));
