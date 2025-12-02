@@ -149,6 +149,9 @@ TEST(ModelsModelNetwork, ModelNetworkPhaseTapChanger) {
   ASSERT_EQ(states[4], ROOT_DOWN);
   ASSERT_EQ(states[5], ROOT_DOWN);
   ptc.evalZ(t, &states[0], &network, disable, P1SupP2, locked, tfoClosed);
+  ASSERT_EQ(ptc.getCurrentStepIndex(), 0);
+  ASSERT_EQ(ptc.getNextStepIndex(), 1);
+  ptc.applyStep();
   ASSERT_EQ(ptc.getCurrentStepIndex(), 1);
   t = 135.;
   ptc.evalG(t, iValue, nodeOff, &states[0], disable, locked, tfoClosed);
@@ -159,6 +162,9 @@ TEST(ModelsModelNetwork, ModelNetworkPhaseTapChanger) {
   ASSERT_EQ(states[4], ROOT_DOWN);
   ASSERT_EQ(states[5], ROOT_DOWN);
   ptc.evalZ(t, &states[0], &network, disable, P1SupP2, locked, tfoClosed);
+  ASSERT_EQ(ptc.getCurrentStepIndex(), 1);
+  ASSERT_EQ(ptc.getNextStepIndex(), 2);
+  ptc.applyStep();
   ASSERT_EQ(ptc.getCurrentStepIndex(), 2);
 
   P1SupP2 = false;
@@ -172,6 +178,9 @@ TEST(ModelsModelNetwork, ModelNetworkPhaseTapChanger) {
   ASSERT_EQ(states[5], ROOT_DOWN);
   ptc.evalZ(t, &states[0], &network, disable, P1SupP2, locked, tfoClosed);
   ASSERT_EQ(ptc.getCurrentStepIndex(), 2);
+  ASSERT_EQ(ptc.getNextStepIndex(), -1);
+  ptc.applyStep();
+  ASSERT_EQ(ptc.getCurrentStepIndex(), 2);
   iValue = 6.;
   ptc.evalG(t, iValue, nodeOff, &states[0], disable, locked, tfoClosed);
   ASSERT_EQ(states[0], ROOT_UP);
@@ -182,6 +191,9 @@ TEST(ModelsModelNetwork, ModelNetworkPhaseTapChanger) {
   ASSERT_EQ(states[5], ROOT_DOWN);
   ptc.evalZ(t, &states[0], &network, disable, P1SupP2, locked, tfoClosed);
   ASSERT_EQ(ptc.getCurrentStepIndex(), 2);
+  ASSERT_EQ(ptc.getNextStepIndex(), -1);
+  ptc.applyStep();
+  ASSERT_EQ(ptc.getCurrentStepIndex(), 2);
   t = 235.;
   ptc.evalG(t, iValue, nodeOff, &states[0], disable, locked, tfoClosed);
   ASSERT_EQ(states[0], ROOT_UP);
@@ -191,6 +203,9 @@ TEST(ModelsModelNetwork, ModelNetworkPhaseTapChanger) {
   ASSERT_EQ(states[4], ROOT_UP);
   ASSERT_EQ(states[5], ROOT_DOWN);
   ptc.evalZ(t, &states[0], &network, disable, P1SupP2, locked, tfoClosed);
+  ASSERT_EQ(ptc.getCurrentStepIndex(), 2);
+  ASSERT_EQ(ptc.getNextStepIndex(), 1);
+  ptc.applyStep();
   ASSERT_EQ(ptc.getCurrentStepIndex(), 1);
   t = 255.;
   ptc.evalG(t, iValue, nodeOff, &states[0], disable, locked, tfoClosed);
@@ -201,6 +216,9 @@ TEST(ModelsModelNetwork, ModelNetworkPhaseTapChanger) {
   ASSERT_EQ(states[4], ROOT_DOWN);
   ASSERT_EQ(states[5], ROOT_UP);
   ptc.evalZ(t, &states[0], &network, disable, P1SupP2, locked, tfoClosed);
+  ASSERT_EQ(ptc.getCurrentStepIndex(), 1);
+  ASSERT_EQ(ptc.getNextStepIndex(), 0);
+  ptc.applyStep();
   ASSERT_EQ(ptc.getCurrentStepIndex(), 0);
 }
 
@@ -267,6 +285,7 @@ TEST(ModelsModelNetwork, ModelNetworkRatioTapChanger) {
   ASSERT_EQ(states[2], ROOT_UP);
   ASSERT_EQ(states[3], ROOT_DOWN);
   ptc.evalZ(t, &states[0], &network, disable, nodeOff, locked, tfoClosed);
+  ptc.applyStep();
   ASSERT_EQ(ptc.getCurrentStepIndex(), 1);
 
   t = 135.;
@@ -276,6 +295,7 @@ TEST(ModelsModelNetwork, ModelNetworkRatioTapChanger) {
   ASSERT_EQ(states[2], ROOT_UP);
   ASSERT_EQ(states[3], ROOT_DOWN);
   ptc.evalZ(t, &states[0], &network, disable, nodeOff, locked, tfoClosed);
+  ptc.applyStep();
   ASSERT_EQ(ptc.getCurrentStepIndex(), 2);
 
   deltaUTarget = 1.;
@@ -286,6 +306,7 @@ TEST(ModelsModelNetwork, ModelNetworkRatioTapChanger) {
   ASSERT_EQ(states[2], ROOT_DOWN);
   ASSERT_EQ(states[3], ROOT_DOWN);
   ptc.evalZ(t, &states[0], &network, disable, nodeOff, locked, tfoClosed);
+  ptc.applyStep();
   ASSERT_EQ(ptc.getCurrentStepIndex(), 2);
 
   deltaUTarget = -1.;
@@ -296,6 +317,7 @@ TEST(ModelsModelNetwork, ModelNetworkRatioTapChanger) {
   ASSERT_EQ(states[2], ROOT_DOWN);
   ASSERT_EQ(states[3], ROOT_DOWN);
   ptc.evalZ(t, &states[0], &network, disable, nodeOff, locked, tfoClosed);
+  ptc.applyStep();
   ASSERT_EQ(ptc.getCurrentStepIndex(), 2);
 
   ptc.setSide("ONE");
@@ -306,6 +328,7 @@ TEST(ModelsModelNetwork, ModelNetworkRatioTapChanger) {
   ASSERT_EQ(states[2], ROOT_DOWN);
   ASSERT_EQ(states[3], ROOT_DOWN);
   ptc.evalZ(t, &states[0], &network, disable, nodeOff, locked, tfoClosed);
+  ptc.applyStep();
   ASSERT_EQ(ptc.getCurrentStepIndex(), 2);
   uValue = 11.2;
   ptc.evalG(t, uValue, nodeOff, &states[0], disable, locked, tfoClosed, deltaUTarget);
@@ -314,6 +337,7 @@ TEST(ModelsModelNetwork, ModelNetworkRatioTapChanger) {
   ASSERT_EQ(states[2], ROOT_DOWN);
   ASSERT_EQ(states[3], ROOT_DOWN);
   ptc.evalZ(t, &states[0], &network, disable, nodeOff, locked, tfoClosed);
+  ptc.applyStep();
   ASSERT_EQ(ptc.getCurrentStepIndex(), 2);
   t = 235.;
   ptc.evalG(t, uValue, nodeOff, &states[0], disable, locked, tfoClosed, deltaUTarget);
@@ -322,6 +346,7 @@ TEST(ModelsModelNetwork, ModelNetworkRatioTapChanger) {
   ASSERT_EQ(states[2], ROOT_DOWN);
   ASSERT_EQ(states[3], ROOT_UP);
   ptc.evalZ(t, &states[0], &network, disable, nodeOff, locked, tfoClosed);
+  ptc.applyStep();
   ASSERT_EQ(ptc.getCurrentStepIndex(), 1);
   t = 255.;
   ptc.evalG(t, uValue, nodeOff, &states[0], disable, locked, tfoClosed, deltaUTarget);
@@ -330,6 +355,7 @@ TEST(ModelsModelNetwork, ModelNetworkRatioTapChanger) {
   ASSERT_EQ(states[2], ROOT_DOWN);
   ASSERT_EQ(states[3], ROOT_UP);
   ptc.evalZ(t, &states[0], &network, disable, nodeOff, locked, tfoClosed);
+  ptc.applyStep();
   ASSERT_EQ(ptc.getCurrentStepIndex(), 0);
 }
 }  // namespace DYN
