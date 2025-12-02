@@ -841,8 +841,9 @@ Simulation::init() {
     model_->setGequationsModel();  ///< set formula for modelica models' root equations and Network models' equations
     model_->printEquations();
   }
+  if (Trace::logExists("", DEBUG))
+    model_->setFequationsModel();  ///< set formula for modelica models' equations and Network models' equations
 #ifdef _DEBUG_
-  model_->setFequationsModel();  ///< set formula for modelica models' equations and Network models' equations
   model_->setGequationsModel();  ///< set formula for modelica models' root equations and Network models' equations
 #endif
 
