@@ -363,7 +363,7 @@ ModelManager::evalJtAdept(const double t, double* y, double* yp, const double cj
         double term = coeff * jac[indice] + cj * jac[indice + offsetJPrim];
 #ifdef _DEBUG_
         if (isnan(term) || isinf(term)) {
-          throw DYNError(Error::MODELER, JacobianWithNanInf, name(), modelType(), staticId(), i, getFequationByLocalIndex(i), j);   // i is local index
+          throw DYNError(Error::MODELER, JacobianWithNanInf, name(), modelType(), staticId(), i + 1, getFequationByLocalIndex(i + 1), j);   // i is local index
         }
 #endif
         Jt.addTerm(j + rowOffset, term);
