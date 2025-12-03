@@ -424,6 +424,21 @@ ModelMulti::evalJt(const double t, const double cj, SparseMatrix& Jt) {
     }*/
 
     if (!Jt.withoutNan() || !Jt.withoutInf()) {
+
+      const auto& rows = Jt.getWithNanOrInfRowIndices();
+      const auto& cols = Jt.getWithNanOrInfColIndices();
+      string variableName;
+      int localFIndex;
+      string fEquation;
+      std::string subModelName("");
+      for (unsigned int i = 0; i < Jt.getWithNanOrInfColIndices().size(); ++i) {
+        int row = rows[i];
+        int col = cols[i];
+        variableName = getVariableName(row);
+        getFInfos(col, subModelName, localFIndex, fEquation);
+        Trace::debug() << "Jacobian term is nan, for variable: " << variableName << " (localIndex " << row - (rowOffset - subModel->sizeY()) << ")" << Trace::endline;
+        Trace::debug() << "Jacobian term is nan, for equation: " << fEquation << " (localIndex " << localFIndex << ")" << Trace::endline;
+      }
       throw DYNError(Error::MODELER, SparseMatrixWithNanInf, subModel->modelType(), subModel->name());
     }
   }

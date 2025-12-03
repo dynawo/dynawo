@@ -269,6 +269,14 @@ class SparseMatrix {
     return iAp_;
   }
 
+  const std::vector<int>& getWithNanOrInfRowIndices() const {
+    return withInfOrNanRowIndices_;
+  }
+
+  const std::vector<int>& getWithNanOrInfColIndices() const {
+   return withInfOrNanColIndices_;
+  }
+
  private:
   /**
    * @brief delete all allocated memory of the matrix
@@ -301,6 +309,8 @@ class SparseMatrix {
  private:
   bool withoutNan_;  ///< @b true if there isn't any NaN value in the Sparse Matrix
   bool withoutInf_;  ///< @b true if there isn't any infinite value in the Sparse Matrix
+  std::vector<int> withInfOrNanRowIndices_;  ///<
+  std::vector<int> withInfOrNanColIndices_;  ///<
   // @b index begins with the zero value (0<=i<nbRow_, 0<=j<nbCol_)
   int nbRow_;  ///< number of row in the sparse Matrix structure
   int nbCol_;  ///< number of column in the sparse Matrix structure
