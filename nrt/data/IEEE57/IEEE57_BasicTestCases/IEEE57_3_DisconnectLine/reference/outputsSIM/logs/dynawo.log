@@ -1,6 +1,6 @@
 INFO |  ============================================================ 
-INFO | DYNAWO VERSION  :     1.6.0
-INFO | DYNAWO REVISION :    master-e473c85d51
+INFO | DYNAWO VERSION  :     1.8.0
+INFO | DYNAWO REVISION :  master-18-475edf01e10
 INFO |  ============================================================ 
 INFO | 
 INFO | -----------------------------------------------------------------------
@@ -33,52 +33,52 @@ INFO | -----------------------------------------------------------------------
 INFO | -----------------------------------------------------------------------
 INFO | number of continuous variables : 509
 INFO | number of discrete variables : 601
-INFO | number of root functions : 387
+INFO | number of root functions : 515
 INFO | -----------------------------------------------------------------------
-INFO |         time | iter num   Nonlinear iter   jac eval      time step (h)
+INFO |         time ¦ iter num   Nonlinear iter   jac eval      time step (h)
 INFO | -----------------------------------------------------------------------
-INFO |        0.000 |        0                0          0              1.000 
+INFO |        0.000 ¦        0                0          0              1.000 
 INFO | state of Line _BEAV___6-CLIN___8-1_AC change from 2 to 4
 INFO | Algebraic mode (with J recalculation) change at t = 1
-INFO |        1.000 |        1                1          1              1.000 
+INFO |        1.000 ¦        1                1          1              1.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |        1.000 |        1                2          2              1.000 
+INFO |        1.000 ¦        1                2          2              1.000 
 INFO | Algebraic mode change at t = 2
-INFO |        2.000 |        2                5          3              1.000 
+INFO |        2.000 ¦        2                5          3              1.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |        2.000 |        2                6          3              1.000 
+INFO |        2.000 ¦        2                6          3              1.000 
 INFO | Algebraic mode change at t = 3
-INFO |        3.000 |        3                8          3              1.000 
+INFO |        3.000 ¦        3                8          3              1.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |        3.000 |        3                9          3              1.000 
-INFO |        4.000 |        4               11          3              1.000 
-INFO |        5.000 |        5               12          3              1.000 
-INFO |        6.000 |        6               13          3              1.000 
-INFO |        7.000 |        7               14          3              1.000 
-INFO |        8.000 |        8               15          3              1.000 
-INFO |        9.000 |        9               16          3              1.000 
-INFO |       10.000 |       10               17          3              1.000 
-INFO |       11.000 |       11               18          3              1.000 
-INFO |       12.000 |       12               19          3              1.000 
+INFO |        3.000 ¦        3                9          3              1.000 
+INFO |        4.000 ¦        4               11          3              1.000 
+INFO |        5.000 ¦        5               12          3              1.000 
+INFO |        6.000 ¦        6               13          3              1.000 
+INFO |        7.000 ¦        7               14          3              1.000 
+INFO |        8.000 ¦        8               15          3              1.000 
+INFO |        9.000 ¦        9               16          3              1.000 
+INFO |       10.000 ¦       10               17          3              1.000 
+INFO |       11.000 ¦       11               18          3              1.000 
+INFO |       12.000 ¦       12               19          3              1.000 
 INFO | initial guess of the algebraic solver is accurate, following SimplifiedSolver iterations will be skipped until the next mode change
-INFO |       13.000 |       13               19          3              1.000 
-INFO |       14.000 |       14               19          3              1.000 
-INFO |       15.000 |       15               19          3              1.000 
-INFO |       16.000 |       16               19          3              1.000 
-INFO |       17.000 |       17               19          3              1.000 
-INFO |       18.000 |       18               19          3              1.000 
-INFO |       19.000 |       19               19          3              1.000 
-INFO |       20.000 |       20               19          3              1.000 
-INFO |       21.000 |       21               19          3              1.000 
-INFO |       22.000 |       22               19          3              1.000 
-INFO |       23.000 |       23               19          3              1.000 
-INFO |       24.000 |       24               19          3              1.000 
-INFO |       25.000 |       25               19          3              1.000 
-INFO |       26.000 |       26               19          3              1.000 
-INFO |       27.000 |       27               19          3              1.000 
-INFO |       28.000 |       28               19          3              1.000 
-INFO |       29.000 |       29               19          3              1.000 
-INFO |       30.000 |       30               19          3              1.000 
+INFO |       13.000 ¦       13               19          3              1.000 
+INFO |       14.000 ¦       14               19          3              1.000 
+INFO |       15.000 ¦       15               19          3              1.000 
+INFO |       16.000 ¦       16               19          3              1.000 
+INFO |       17.000 ¦       17               19          3              1.000 
+INFO |       18.000 ¦       18               19          3              1.000 
+INFO |       19.000 ¦       19               19          3              1.000 
+INFO |       20.000 ¦       20               19          3              1.000 
+INFO |       21.000 ¦       21               19          3              1.000 
+INFO |       22.000 ¦       22               19          3              1.000 
+INFO |       23.000 ¦       23               19          3              1.000 
+INFO |       24.000 ¦       24               19          3              1.000 
+INFO |       25.000 ¦       25               19          3              1.000 
+INFO |       26.000 ¦       26               19          3              1.000 
+INFO |       27.000 ¦       27               19          3              1.000 
+INFO |       28.000 ¦       28               19          3              1.000 
+INFO |       29.000 ¦       29               19          3              1.000 
+INFO |       30.000 ¦       30               19          3              1.000 
 INFO | 
 INFO | execution statistics :
 INFO | 
