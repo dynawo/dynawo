@@ -15,6 +15,7 @@ EventSetPointReal
 GeneratorPQ
 GeneratorPQPropDiagramPQSignalN
 GeneratorPQPropSignalN
+GeneratorPTanPhi
 GeneratorPVDiagramPQRpcl2SignalN
 GeneratorPVDiagramPQRpclSignalN
 GeneratorPVDiagramPQSignalN
