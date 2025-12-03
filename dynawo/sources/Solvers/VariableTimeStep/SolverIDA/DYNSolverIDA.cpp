@@ -453,6 +453,7 @@ SolverIDA::analyseFlag(const int & flag) {
       msg << DYNLog(IdaIllInput);
       break;
     case IDA_LSETUP_FAIL:
+      checkJacobian();
       msg << DYNLog(IdalsetupFail);
       break;
     case IDA_LINIT_FAIL:
@@ -494,6 +495,45 @@ SolverIDA::analyseFlag(const int & flag) {
     Trace::error() << msg.str() << Trace::endline;
 #endif
     throw DYNError(Error::SUNDIALS_ERROR, SolverIDAError);
+  }
+}
+
+void
+SolverIDA::checkJacobian() {
+  Model& model = *model_;
+  // SparseMatrix& smj = getMatrix();
+  // TODO Get the right matrix
+  SparseMatrix smj;
+  SparseMatrix::CheckError error = smj.check();
+  string subModelName;
+  string equation;
+  string equation_bis;
+  int local_index;
+
+  switch (error.code) {
+    case SparseMatrix::CHECK_ZERO_ROW: {
+      string variable = model.getVariableName(error.info);
+      string subModelNameWithUnderscore = subModelName + "_";
+      size_t pos = variable.find(subModelNameWithUnderscore);
+
+      if (pos != std::string::npos) {
+        variable.erase(pos, subModelNameWithUnderscore.length());
+      }
+      std::replace(variable.begin(), variable.end(), '_', '.');
+      std::vector<std::string> equations = model.getFInfos(subModelName, variable);
+      if (!equations.empty())
+        Trace::error() << "Equations containing the ill variable" << Trace::endline;
+      for (const auto& equationVariable : equations) {
+        Trace::error() << equationVariable << Trace::endline;
+      }
+      throw DYNError(DYN::Error::SOLVER_ALGO, SolverJacobianWithNulRow, error.info, model.getVariableName(error.info));
+    }
+    case SparseMatrix::CHECK_ZERO_COLUMN:
+      model.getFInfos(error.info, subModelName, local_index, equation);
+      throw DYNError(DYN::Error::SOLVER_ALGO, SolverJacobianWithNulColumn, error.info, equation);
+    case SparseMatrix::CHECK_OK:
+      // do nothing
+      break;
   }
 }
 

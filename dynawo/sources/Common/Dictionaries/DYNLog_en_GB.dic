@@ -275,6 +275,9 @@ XmlParsingError               =             error while parsing file %1% : %2%
 ExecutingCommand              =             executing command : %1%
 UnexpectedError               =             unexpected error
 DelayMode                     =             %1% mode for delay %2% with delayTime %3%
+JacobianNanInfTerm            =             jacobian term is nan or inf, for row %1% col %2%
+JacobianNanInfVariable        =             jacobian term is nan or inf, for variable: %1%
+JacobianNanInfEquation        =             jacobian term is nan or inf, for equation: %1%
 // --> RT
 ActionListExtendedNetwork     =             action list extended for NETWORK SubModel
 ActionListOverriden           =             actions overriden for SubModel: %1%

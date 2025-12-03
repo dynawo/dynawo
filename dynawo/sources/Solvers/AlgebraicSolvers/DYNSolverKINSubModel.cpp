@@ -32,6 +32,8 @@
 #include "DYNSparseMatrix.h"
 #include "DYNTimer.h"
 
+#include "DYNFileSystemUtils.h"
+
 namespace DYN {
 
 SolverKINSubModel::SolverKINSubModel() :
@@ -129,6 +131,24 @@ SolverKINSubModel::evalFInit_KIN(N_Vector yy, N_Vector rr, void* data) {
   // copy of values in output vector
   realtype* irr = NV_DATA_S(rr);
   memcpy(irr, solver->fBuffer_, solver->numF_ * sizeof(solver->fBuffer_[0]));
+
+#ifdef _DEBUG_
+  // Print the current residual norms, the first one is used as a stopping criterion
+  solver->vectorF_.resize(solver->numF_);
+  memcpy(&solver->vectorF_[0], solver->fBuffer_, solver->numF_ * sizeof(solver->fBuffer_[0]));
+  double weightedInfNorm = SolverCommon::weightedInfinityNorm(solver->vectorF_, solver->vectorFScale_);
+  double wL2Norm = SolverCommon::weightedL2Norm(solver->vectorF_, solver->vectorFScale_);
+  long int current_nni = 0;
+  KINGetNumNonlinSolvIters(solver->KINMem_, &current_nni);
+  Trace::debug() << DYNLog(SolverKINResidualNorm, current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
+
+  const int nbErr = 10;
+  Trace::debug() << DYNLog(KinLargestErrors, nbErr) << Trace::endline;
+  std::vector<std::pair<double, size_t> > fErr;
+  for (size_t i = 0; i < solver->numF_; ++i)
+    fErr.push_back(std::pair<double, size_t>(solver->vectorF_[i], i));
+  SolverCommon::printLargestErrors(fErr, *subModel, nbErr);
+#endif
 
   return 0;
 }

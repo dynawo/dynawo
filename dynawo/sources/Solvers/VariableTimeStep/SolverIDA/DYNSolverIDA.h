@@ -264,6 +264,14 @@ class SolverIDA : public Solver::Impl {
     return smj_;
   }
 
+  /**
+   * @brief Check jacobian
+   *
+   * @throw exceptions if jacobian is incorrect
+   *
+   */
+  void checkJacobian();
+
  private:
   void* IDAMem_;  ///< IDA internal memory structure
   SUNLinearSolver linearSolver_;  ///< Linear Solver pointer
