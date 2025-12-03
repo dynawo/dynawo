@@ -278,3 +278,13 @@ case_description = "Active power variation on the load"
 job_file = os.path.join(os.path.dirname(__file__), "Standard", "TestCaseGovSteamEuSt7b", "TestCaseGovSteamEuSt7b.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+###################################################################
+#             SMIB with GeneratorPTanPhi                          #
+###################################################################
+
+case_name = "SMIB - GeneratorPTanPhi"
+case_description = "GeneratorPTanPhi"
+job_file = os.path.join(os.path.dirname(__file__), "SMIB_GeneratorPTanPhi", "GeneratorPTanPhi.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
