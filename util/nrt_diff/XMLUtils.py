@@ -28,3 +28,6 @@ def ImportXMLFileExtended(path):
 def FindAll(root, prefix, element, ns):
     prefix_str = "{" + str(ns[prefix]) + "}" if prefix in ns else ""
     return root.findall(".//" + prefix_str + element)
+
+def FindAllWithAttribute(root, attribute):
+    return root.findall(".//*[@" + attribute + "]")
