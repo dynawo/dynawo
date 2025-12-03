@@ -42,8 +42,9 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
  public:
   /**
    * @brief default constructor
+   * @param printReinitResiduals to enable to print residuals info in log
    */
-  SolverKINAlgRestoration();
+  explicit SolverKINAlgRestoration(bool printReinitResiduals);
 
   /**
    * @brief destructor
@@ -96,8 +97,9 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
    * @return the flag value
    * @param noInitSetup indicates if the J should be evaluated or not at the first iteration
    * @param evaluateOnlyModeAtFirstIter indicates if only residuals of models with mode change should be evaluated
+   * @param multipleStrategiesForAlgebraicRestoration indicates if we try to use multiple strategies for restoration
    */
-  int solve(bool noInitSetup = true, bool evaluateOnlyModeAtFirstIter = false);
+  int solve(bool noInitSetup = true, bool evaluateOnlyModeAtFirstIter = false, bool multipleStrategiesForAlgebraicRestoration = false);
 
   /**
    * @brief getter for the model currently simulated
@@ -124,6 +126,17 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
    * @param yp value of derivatives of variables
    */
   void setInitialValues(double t, const std::vector<double>& y, const std::vector<double>& yp);
+
+  /**
+   * @brief set the initial conditions of the equations to solve
+   *
+   * @param kinsolStategy time to use in equations
+   * @param noInitSetup indicates if the J should be evaluated or not at the first iteration, noInitSetup = false will force jacobian
+  * @param evaluateOnlyModeAtFirstIter indicates if only residuals of models with mode change should be evaluated
+  * @param multipleStrategiesForAlgebraicRestoration indicates if we try to use multiple strategies for restoration
+  * @return the flag value
+  */
+  int solveStrategy(bool noInitSetup, bool evaluateOnlyModeAtFirstIter, int kinsolStategy,  bool multipleStrategiesForAlgebraicRestoration = false);
 
 #if _DEBUG_
   /**
@@ -219,6 +232,16 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
 #endif
 
   /**
+  * @brief save state before performing algebraic restoration
+  */
+  void saveState();
+
+  /**
+  * @brief restore state before performing algebraic restoration to use a new strategy
+  */
+  void restoreState();
+
+  /**
   * @brief get mode
   *
   * @return the mode of the restoration
@@ -231,11 +254,23 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   void cleanAlgebraicVectors();
 
  private:
+  /**
+  * @brief print reinit residuals getter
+  * @return print reinit residuals in logs
+  */
+  bool printResiduals() const {
+    return printReinitResiduals_;
+  }
+
   std::shared_ptr<Model> model_;  ///< model currently simulated
 
   std::vector<double> vectorYOrYpSolution_;  ///< Solution of the restoration after the call of the solver
   std::vector<double> vectorYForRestoration_;  ///< variables values during call of the solver
   std::vector<double> vectorYpForRestoration_;  ///< derivative variables during call of the solver
+  std::vector<double> vectorYOrYpSolutionSave_;  ///< save solution of the restoration after the call of the solver for multiple strategies
+  std::vector<double> vectorYForRestorationSave_;  ///< save variables values during call of the solver for multiple strategies
+  std::vector<double> vectorYpForRestorationSave_;  ///< save derivative variables during call of the solve for multiple strategies
+  std::vector<double> vectorFSave_;  ///< save residual vector for multiple strategies
   std::unordered_set<int> ignoreF_;  ///< equations to erase from the initial set of equations
   std::unordered_set<int> ignoreY_;  ///< variables to erase form the initial set of variables
   std::vector<int> indexF_;  ///< equations to keep from the initial set of equations
@@ -245,6 +280,7 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
 #if _DEBUG_
   bool checkJacobian_;  ///< Check jacobian
 #endif
+  bool printReinitResiduals_;  ///< print residuals in log
 };
 
 }  // end of namespace DYN
