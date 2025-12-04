@@ -331,6 +331,8 @@ class ModelWriter(ModelWriterBase):
         self.file_content.append("\n")
         self.file_content.append("#include \"DYNElement.h\"\n")
         self.file_content.append("#include \"PARParametersSetFactory.h\"\n")
+        self.file_content.append("#include \"DYNModelManager.h\"\n")
+        self.file_content.append("#pragma GCC diagnostic ignored \"-Wunused-parameter\"\n")
         self.file_content.append("\n")
         self.file_content.append(HASHTAG_INCLUDE + self.className + ".h\"\n")
         if self.init_pb_:
