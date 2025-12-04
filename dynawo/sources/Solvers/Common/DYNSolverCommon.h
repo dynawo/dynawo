@@ -64,6 +64,14 @@ class SolverCommon {
   static void cleanSUNMatrix(SUNMatrix& sundialsMatrix);
 
   /**
+  * @brief Allocate SUNMatrix underlying structure
+  *
+  * @param sundialsMatrix KINSOL matrix
+  *
+  */
+  static void allocateSUNMatrix(SparseMatrix& smj, SUNMatrix& sundialsMatrix);
+
+  /**
   * @brief Free SUNMatrix underlying structure
   *
   * @param sundialsMatrix KINSOL matrix

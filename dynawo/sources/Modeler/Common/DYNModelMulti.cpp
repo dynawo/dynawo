@@ -1164,7 +1164,7 @@ void ModelMulti::printVariableNames(bool withVariableType) {
   Trace::clearLogFile(Trace::variables(), DEBUG);
   Trace::printDynawoLogHeader(Trace::variables());
   int nVar = 0;
-  Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
+  /*Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::variables()) << "X variables init" << Trace::endline;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
@@ -1173,9 +1173,9 @@ void ModelMulti::printVariableNames(bool withVariableType) {
        Trace::debug(Trace::variables()) << nVar << " " << (*it)->name() << " | " << xNames[j] << " (local " << j << ")" << Trace::endline;
        ++nVar;
     }
-  }
+  }*/
   nVar = 0;
-  Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
+  /*Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::variables()) << "X calculated variables init" << Trace::endline;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
@@ -1184,9 +1184,9 @@ void ModelMulti::printVariableNames(bool withVariableType) {
        Trace::debug(Trace::variables()) << nVar << " " << (*it)->name() << " | " << xNames[j] << " (local " << j << ")" << Trace::endline;
        ++nVar;
     }
-  }
+  }*/
   nVar = 0;
-  Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
+  /*Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::variables()) << "Z variables init" << Trace::endline;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
@@ -1195,7 +1195,7 @@ void ModelMulti::printVariableNames(bool withVariableType) {
       Trace::debug(Trace::variables()) << nVar << " " << (*it)->name() << " | " << zNames[j] << " (local " << j << ")" << Trace::endline;
       ++nVar;
     }
-  }
+  }*/
   nVar = 0;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   if (withVariableType)
@@ -1224,7 +1224,7 @@ void ModelMulti::printVariableNames(bool withVariableType) {
     }
   }
   nVar = 0;
-  Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
+  /*Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::variables()) << "X calculated variables" << Trace::endline;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
@@ -1234,9 +1234,9 @@ void ModelMulti::printVariableNames(bool withVariableType) {
       Trace::debug(Trace::variables()) << nVar << " " << varName << " (local " << j << ")" << Trace::endline;
       ++nVar;
     }
-  }
+  }*/
   nVar = 0;
-  Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
+  /*Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::variables()) << "Z variables" << Trace::endline;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
@@ -1252,14 +1252,14 @@ void ModelMulti::printVariableNames(bool withVariableType) {
       Trace::debug(Trace::variables()) << (*it)->name() << " | " << zAlias[j].first << " is an alias of "
           << (*it)->name() << "_" << zAlias[j].second.first << " (negated: " << zAlias[j].second.second << ")" << Trace::endline;
     }
-  }
+  }*/
 }
 
 void ModelMulti::printEquations() {
   bool isInitProcessBefore = subModels_[0]->getIsInitProcess();
   setIsInitProcess(true);
   int nVar = 0;
-  Trace::debug(Trace::equations()) << "------------------------------" << Trace::endline;
+  /*Trace::debug(Trace::equations()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::equations()) << "Equations init" << Trace::endline;
   Trace::debug(Trace::equations()) << "------------------------------" << Trace::endline;
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
@@ -1268,7 +1268,7 @@ void ModelMulti::printEquations() {
           " model: " << (*it)->name() << " (local " << j << ")" <<  Trace::endline;
       ++nVar;
     }
-  }
+  }*/
   setIsInitProcess(false);
   nVar = 0;
   Trace::debug(Trace::equations()) << "------------------------------" << Trace::endline;
@@ -1292,7 +1292,7 @@ void ModelMulti::printEquations() {
 
   setIsInitProcess(true);
   nVar = 0;
-  Trace::debug(Trace::equations()) << "------------------------------" << Trace::endline;
+  /*Trace::debug(Trace::equations()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::equations()) << "Roots init" << Trace::endline;
   Trace::debug(Trace::equations()) << "------------------------------" << Trace::endline;
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
@@ -1301,10 +1301,10 @@ void ModelMulti::printEquations() {
           " model: " << (*it)->name() << " (local " << j << ")" <<  Trace::endline;
       ++nVar;
     }
-  }
+  }*/
   setIsInitProcess(false);
   nVar = 0;
-  Trace::debug(Trace::equations()) << "------------------------------" << Trace::endline;
+  /*Trace::debug(Trace::equations()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::equations()) << "Roots" << Trace::endline;
   Trace::debug(Trace::equations()) << "------------------------------" << Trace::endline;
   for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
@@ -1313,7 +1313,7 @@ void ModelMulti::printEquations() {
           " model: " << (*it)->name() << " (local " << j << ")" << Trace::endline;
       ++nVar;
     }
-  }
+  }*/
   setIsInitProcess(isInitProcessBefore);
 }
 
@@ -1403,7 +1403,6 @@ std::string ModelMulti::getVariableName(int index) {
 std::string ModelMulti::getVariableName(const int index, const std::unordered_set<int>& ignoreY, std::string& subModelName) {
   int numVarFull = 0;
   int numVarSubset = 0;
-  assert(ignoreY.find(index) != ignoreY.end());
   std::string varName;
   for (const auto& subModel : subModels_) {
     const std::vector<std::string>& xNames = subModel->xNames();

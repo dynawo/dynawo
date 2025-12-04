@@ -506,10 +506,14 @@ SolverIDA::calculateIC(double /*tEnd*/) {
 // #if _DEBUG_
   if (activateCheckJacobian_) {
     solverKINNormal_->setCheckJacobian(true);
-    solverKINYPrim_->setCheckJacobian(true);
+    if (restorationYPrim_) {
+      solverKINYPrim_->setCheckJacobian(true);
+    }
   } else {
     solverKINNormal_->setCheckJacobian(false);
-    solverKINYPrim_->setCheckJacobian(false);
+    if (restorationYPrim_) {
+      solverKINYPrim_->setCheckJacobian(false);
+    }
   }
 // #endif
   do {
@@ -608,10 +612,14 @@ SolverIDA::calculateIC(double /*tEnd*/) {
 // #if _DEBUG_
   if (activateCheckJacobianAfterInit_) {
     solverKINNormal_->setCheckJacobian(true);
-    solverKINYPrim_->setCheckJacobian(true);
+    if (restorationYPrim_) {
+      solverKINYPrim_->setCheckJacobian(true);
+    }
   } else {
     solverKINNormal_->setCheckJacobian(false);
-    solverKINYPrim_->setCheckJacobian(false);
+    if (restorationYPrim_) {
+      solverKINYPrim_->setCheckJacobian(false);
+    }
   }
 // #endif
 }

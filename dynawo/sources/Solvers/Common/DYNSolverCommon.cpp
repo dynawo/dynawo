@@ -48,12 +48,16 @@ bool
 SolverCommon::copySparseToKINSOL(SparseMatrix& smj, SUNMatrix& sundialsMatrix, const std::vector<sunindextype>& lastRowVals) {
   bool matrixStructChange = false;
   if (SM_NNZ_S(sundialsMatrix) < smj.nbElem()) {
+    // Trace::debug() << "call SM_NNZ_S(sundialsMatrix) < smj.nbElem()" << Trace::endline;
+    // freeSUNMatrix(sundialsMatrix);
+    // allocateSUNMatrix(smj, sundialsMatrix);
     matrixStructChange = true;
   }
 
   copySparseMatrixToSUNMatrix(smj, sundialsMatrix);
 
   if (!std::equal(lastRowVals.begin(), lastRowVals.end(), smj.getAi().begin())) {
+    // Trace::debug() << "call lastRowVals" << Trace::endline;
     matrixStructChange = true;
   }
 
@@ -66,6 +70,26 @@ SolverCommon::copySparseMatrixToSUNMatrix(SparseMatrix& smj, SUNMatrix& sundials
   SM_INDEXPTRS_S(sundialsMatrix) = &(smj.getNonCstAp())[0];
   SM_INDEXVALS_S(sundialsMatrix) = &(smj.getNonCstAi())[0];
   SM_DATA_S(sundialsMatrix) = &(smj.getNonCstAx())[0];
+
+  /*const auto& ap = smj.getAp();
+  const auto& ai = smj.getAi();
+  const auto& ax = smj.getAx();
+  auto size = smj.nbCol();
+  for (unsigned i = 0, iEnd = size + 1; i < iEnd; ++i) {
+    SM_INDEXPTRS_S(sundialsMatrix)[i] = ap[i];  //!!! implicit conversion from unsigned to sunindextype
+  }
+  for (unsigned i = 0, iEnd = smj.nbElem(); i < iEnd; ++i) {
+    SM_INDEXVALS_S(sundialsMatrix)[i] = ai[i];  //!!! implicit conversion from int to sunindextype
+    SM_DATA_S(sundialsMatrix)[i] = ax[i];  //!!! implicit conversion from double to realtype
+  }*/
+}
+
+void SolverCommon::allocateSUNMatrix(SparseMatrix& smj, SUNMatrix& sundialsMatrix) {
+  auto size = smj.nbCol();
+  SM_NNZ_S(sundialsMatrix) = smj.nbElem();
+  SM_INDEXPTRS_S(sundialsMatrix) = reinterpret_cast<sunindextype*> (malloc((size + 1) * sizeof (sunindextype)));
+  SM_INDEXVALS_S(sundialsMatrix) = reinterpret_cast<sunindextype*> (malloc(SM_NNZ_S(sundialsMatrix) * sizeof (sunindextype)));
+  SM_DATA_S(sundialsMatrix) = reinterpret_cast<realtype*> (malloc(SM_NNZ_S(sundialsMatrix) * sizeof (realtype)));
 }
 
 void

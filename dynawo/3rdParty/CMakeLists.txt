@@ -238,6 +238,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
                           -DCMAKE_BUILD_TYPE:STRING=Release
                           -DBUILD_SHARED_LIBS=ON
                           -Dgtest_force_shared_crt:BOOL=ON
+            -DCMAKE_POLICY_VERSION_MINIMUM=3.5
     )
     ExternalProject_Add(googletest_debug
             INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/googletest
@@ -257,6 +258,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
                                 -DCMAKE_BUILD_TYPE:STRING=Debug
                                 -DBUILD_SHARED_LIBS=ON
                                 -Dgtest_force_shared_crt:BOOL=ON
+            -DCMAKE_POLICY_VERSION_MINIMUM=3.5
     )
     ExternalProject_Get_Property(googletest install_dir)
     set(GTEST_ROOT ${install_dir} CACHE PATH "Path to GoogleTest installation" FORCE)
@@ -542,6 +544,7 @@ else()
     CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
                         -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
                         -DBUILD_SHARED_LIBS=ON
+          -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   )
   ExternalProject_Get_Property(suitesparse install_dir)
   set(SUITESPARSE_HOME ${install_dir})
@@ -740,6 +743,7 @@ else()
                           $<$<BOOL:${MSVC}>:-DBOOST_LIBRARYDIR=${BOOST_ROOT}/bin>
                           -DCMAKE_PREFIX_PATH:PATH=${ZLIB_ROOT}
                           $<$<BOOL:${LIBZIP_BUILD_TESTS}>:-DGTEST_ROOT:PATH=${GTEST_ROOT}>
+          -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   )
   ExternalProject_Get_Property(libzip install_dir)
   set(LIBZIP_HOME ${install_dir})
@@ -856,6 +860,7 @@ else()
                           -DBOOST_ROOT:PATH=${BOOST_ROOT}
                           $<$<BOOL:${MSVC}>:-DBOOST_LIBRARYDIR=${BOOST_ROOT}/bin>
                           $<$<BOOL:${LIBXML_BUILD_TESTS}>:-DGTEST_ROOT:PATH=${GTEST_ROOT}>
+          -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   )
   ExternalProject_Get_Property(libxml install_dir)
   set(LIBXML_HOME ${install_dir})
