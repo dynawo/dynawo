@@ -143,6 +143,7 @@ generator_xq                                      : y =       0.200338
 voltageRegulator_UsRef0Pu                         : y =       1.112246
 generator_PGen0Pu                                 : y =       0.400000
 generator_QGen0Pu                                 : y =       0.435600
+generator_U0PuVar                                 : y =       1.045072
 generator_s0Pu_im                                 : y =      -0.435600
 generator_s0Pu_re                                 : y =      -0.400000
  ====== INIT DISCRETE VARIABLES VALUES ======
