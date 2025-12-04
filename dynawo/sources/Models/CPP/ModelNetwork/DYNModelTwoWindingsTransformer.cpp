@@ -429,6 +429,7 @@ ModelTwoWindingsTransformer::evalNodeInjection() {
       modelBus2_->iiAdd(ii02_);
     }
   } else {
+    applyStep();
     if (modelBus1_ || modelBus2_) {
       const double ur1Val = ur1();
       const double ui1Val = ui1();
@@ -480,6 +481,16 @@ ModelTwoWindingsTransformer::setCurrentStepIndex(const int stepIndex) {
     modelTapChanger_->setCurrentStepIndex(stepIndex);
 }
 
+void
+ModelTwoWindingsTransformer::setNextStepIndex(const int stepIndex) {
+  if (modelRatioChanger_)
+    modelRatioChanger_->setNextStepIndex(stepIndex);
+  else if (modelPhaseChanger_)
+    modelPhaseChanger_->setNextStepIndex(stepIndex);
+  else
+    modelTapChanger_->setNextStepIndex(stepIndex);
+}
+
 int
 ModelTwoWindingsTransformer::getCurrentStepIndex() const {
   if (modelRatioChanger_)
@@ -488,6 +499,43 @@ ModelTwoWindingsTransformer::getCurrentStepIndex() const {
     return modelPhaseChanger_->getCurrentStepIndex();
   else
     return modelTapChanger_->getCurrentStepIndex();
+}
+
+int
+ModelTwoWindingsTransformer::getNextStepIndex() const {
+  if (modelRatioChanger_)
+    return modelRatioChanger_->getNextStepIndex();
+  else if (modelPhaseChanger_)
+    return modelPhaseChanger_->getNextStepIndex();
+  else
+    return modelTapChanger_->getNextStepIndex();
+}
+
+void
+ModelTwoWindingsTransformer::applyStep() {
+    int save = getNextStepIndex();
+    if (modelRatioChanger_) {
+      modelRatioChanger_->applyStep();
+      if (save != -1) {
+        updateYMat_ = true;
+        evalYMat();
+      }
+    }
+    if (modelPhaseChanger_) {
+      if (getNextStepIndex() != -1)
+      modelPhaseChanger_->applyStep();
+      if (save != -1) {
+        updateYMat_ = true;
+        evalYMat();
+      }
+    }
+    if (modelTapChanger_) {
+      modelTapChanger_->applyStep();
+      if (save != -1) {
+        updateYMat_ = true;
+        evalYMat();
+      }
+    }
 }
 
 double
@@ -1362,17 +1410,20 @@ ModelTwoWindingsTransformer::evalZ(const double t) {
   }
 
   const int currStateIndex = static_cast<int>(z_[currentStepIndexNum_]);
-  if (currStateIndex != getCurrentStepIndex()) {
+  int internalStepIndex = getCurrentStepIndex();
+  if (getNextStepIndex() != -1)
+    internalStepIndex = getNextStepIndex();
+  if (currStateIndex != internalStepIndex) {
     if (disableInternalTapChanger_ > 0.) {
       // external automaton
-      Trace::debug() << DYNLog(TfoTapChange, id_, getCurrentStepIndex(), z_[currentStepIndexNum_]) << Trace::endline;
+      Trace::debug() << DYNLog(TfoTapChange, id_, internalStepIndex, z_[currentStepIndexNum_]) << Trace::endline;
     } else {
       // internal automaton
-      Trace::debug() << DYNLog(TfoTapChange, id_, z_[currentStepIndexNum_], getCurrentStepIndex()) << Trace::endline;
-      z_[currentStepIndexNum_] = getCurrentStepIndex();
+      Trace::debug() << DYNLog(TfoTapChange, id_, z_[currentStepIndexNum_], internalStepIndex) << Trace::endline;
+      z_[currentStepIndexNum_] = internalStepIndex;
     }
     stateIndexModified_ = true;
-    setCurrentStepIndex(static_cast<int>(z_[currentStepIndexNum_]));
+    setNextStepIndex(static_cast<int>(z_[currentStepIndexNum_]));
   }
 
   if (doubleNotEquals(z_[currentLimitsDesactivateNum_], getCurrentLimitsDesactivate())) {

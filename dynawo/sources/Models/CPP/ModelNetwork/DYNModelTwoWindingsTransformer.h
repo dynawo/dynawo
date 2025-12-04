@@ -488,10 +488,27 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
   int getCurrentStepIndex() const;
 
   /**
+   * @brief  get the index of the tap used at the next timestep
+   * @return the index of the tap used at the next timestep
+   */
+  int getNextStepIndex() const;
+
+  /**
+   * @brief replace the current step index by the next step index (if modified)
+   */
+  void applyStep();
+
+  /**
    * @brief  set the index of the tap used
    * @param stepIndex index of the tap used
    */
   void setCurrentStepIndex(int stepIndex);
+
+  /**
+   * @brief  set the index of the tap used at the next timestep
+   * @param stepIndex index of the tap used at the next timestep
+   */
+  void setNextStepIndex(int stepIndex);
 
   /**
    * @brief  get the current value of the active power at side 1
