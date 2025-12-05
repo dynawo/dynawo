@@ -18,7 +18,7 @@ set(RTIO_INCLUDE_HEADERS
       DYNOutputChannel.h
       )
 
-if (ZMQPP_FOUND)
+if (ZMQ_FOUND)
       list(APPEND RTIO_SOURCES
             DYNZmqInputChannel.cpp
             DYNZmqOutputChannel.cpp
@@ -40,8 +40,8 @@ target_link_libraries(dynawo_RTIO
     dynawo_RTCommon
 )
 
-if (ZMQPP_FOUND)
-      target_link_libraries(dynawo_RTIO PUBLIC ZMQPP::ZMQPP)
+if (ZMQ_FOUND)
+      target_link_libraries(dynawo_RTIO PUBLIC ZMQ::ZMQ)
 endif()
 
 target_include_directories(dynawo_RTIO SYSTEM INTERFACE

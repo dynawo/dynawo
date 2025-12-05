@@ -28,8 +28,9 @@
 #include <vector>
 #include <string>
 #include <condition_variable>
-#include <zmqpp/zmqpp.hpp>
+#include <zmq.hpp>
 #include <atomic>
+#include <thread>
 
 namespace DYN {
 
@@ -69,8 +70,8 @@ class ZmqInputChannel: public InputChannel {
   void receiveLoop();
 
  private:
-  zmqpp::context context_;              ///< ZeroMQ context
-  zmqpp::socket socket_;                ///< ZeroMQ socket
+  zmq::context_t context_;              ///< ZeroMQ context
+  zmq::socket_t socket_;                ///< ZeroMQ socket
   bool useThread_;                      ///< Whether reception uses a dedicated thread
   std::atomic<bool> stopFlag_;          ///< Flag to signal stopping reception
   long pollTimeoutMs_;                  ///< Polling timeout in milliseconds
