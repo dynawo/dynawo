@@ -594,8 +594,8 @@ Subelements of interactiveSettings tag are mandatory:
 
 Currently implemented channels are:
 \begin{itemize}
-  \item \textbf{INPUT/ZMQ}: ZeroMQ interface in 'reply' mode on specified endpoint (default = 'tcp://*:5555'). Needs the environnement variable DYNAWO\_USE\_ZMQPP=ON and zmqpp library installed.
-  \item \textbf{OUTPUT/ZMQ}: ZeroMQ interface in 'pub' mode on specified endpoint  (default = 'tcp://*:5556'). Needs the environnement variable DYNAWO\_USE\_ZMQPP=ON and zmqpp library installed.
+  \item \textbf{INPUT/ZMQ}: ZeroMQ interface in 'reply' mode on specified endpoint (default = 'tcp://*:5555'). Needs ZeroMQ library installed.
+  \item \textbf{OUTPUT/ZMQ}: ZeroMQ interface in 'pub' mode on specified endpoint  (default = 'tcp://*:5556'). Needs ZeroMQ library installed.
 \end{itemize}
 
 \item \textbf{streams}: streams is a set of stream elements. A stream defines the publication of a type of data using a specified output channel. Data will be published at a rate defined by the 'couplingTimeStep' attribute. Each stream shall be defined using the attributes:
