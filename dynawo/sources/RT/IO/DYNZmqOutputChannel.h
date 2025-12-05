@@ -23,7 +23,7 @@
 #include <string>
 #include <sstream>
 #include <cstdint>
-#include <zmqpp/zmqpp.hpp>
+#include <zmq.hpp>
 
 #include "DYNOutputChannel.h"
 
@@ -65,8 +65,8 @@ class ZmqOutputChannel : public OutputChannel {
   void sendMessage(const std::vector<std::uint8_t>& data, const std::string& topic) override;
 
  private:
-  zmqpp::context context_;  ///< ZeroMQ context
-  zmqpp::socket socket_;    ///< ZeroMQ socket for sending messages
+  zmq::context_t context_;  ///< ZeroMQ context
+  zmq::socket_t socket_;    ///< ZeroMQ PUB socket
 };
 
 }  // end of namespace DYN
