@@ -86,8 +86,12 @@ model DynGFMVSM "PEIR model with GFM VSM control and dynamic connections to the 
   final parameter Types.ComplexVoltagePu uFilter0Pu = u0Pu - Complex(RTransformerPu, LTransformerPu*SystemBase.omegaRef0Pu) * i0Pu * SystemBase.SnRef / SNom "Start value of the complex voltage at the filter in pu (base UNom)";
   final parameter Types.Angle Theta0 = atan2(uFilter0Pu.im, uFilter0Pu.re) "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad";
 
+  Constants.state state(start = State0) "Injector connection state";
+
+  parameter Constants.state State0 = Constants.state.Closed "Start value of connection state";
 
 equation
+  state = Constants.state.Closed;
   connect(Converter.iqConvPu, Control.iqConvPu) annotation(
     Line(points = {{84, 20}, {84, -86}, {-63, -86}, {-63, 20}}, color = {245, 121, 0}));
   connect(Converter.idConvPu, Control.idConvPu) annotation(
