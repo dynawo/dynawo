@@ -8,7 +8,7 @@
     file, you can obtain one at http://mozilla.org/MPL/2.0/.
     SPDX-License-Identifier: MPL-2.0
 
-    This file is part of Dynawo, an hybrid C++/Modelica open source suite
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
     of simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
@@ -22,7 +22,7 @@
     <dyn:initConnect id1="voltageRegulator" var1="Efd0Pu" id2="generator" var2="Efd0Pu"/>
     <dyn:initConnect id1="voltageRegulator" var1="IRotor0Pu" id2="generator" var2="IRotor0Pu"/>
     <dyn:initConnect id1="voltageRegulator" var1="UStator0Pu" id2="generator" var2="UStator0Pu"/>
-    <dyn:initConnect id1="voltageRegulator" var1="Ut0Pu" id2="generator" var2="U0Pu"/>
+    <dyn:initConnect id1="voltageRegulator" var1="Ut0Pu" id2="generator" var2="U0PuVar"/>
     <dyn:initConnect id1="overExcitationLimiter" var1="Ifd0Pu" id2="generator" var2="IRotor0Pu"/>
     <dyn:initConnect id1="powerSystemStabilizer" var1="PGen0Pu" id2="generator" var2="PGen0Pu"/>
     <dyn:initConnect id1="governor" var1="Pm0Pu" id2="generator" var2="Pm0Pu"/>

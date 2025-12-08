@@ -23,7 +23,6 @@
 #include "DYNModelGenerator.h"
 
 #include <DYNNumericalUtils.h>
-#include <DYNTimer.h>
 
 #include "DYNModelBus.h"
 #include "DYNTrace.h"
@@ -59,7 +58,7 @@ alpha_(0.),
 beta_(0.),
 halfAlpha_(0.),
 halfBeta_(0.),
-isVoltageDependant_(false),
+isVoltageDependent_(false),
 stateModified_(false),
 startingPointMode_(WARM) {
   connectionState_ = generator->getInitialConnected() ? CLOSED : OPEN;
@@ -93,7 +92,7 @@ ModelGenerator::evalNodeInjection() {
     const double U2 = modelBus_->getCurrentU(ModelBus::U2PuType_);
     if (doubleIsZero(U2))
       return;
-    if (isVoltageDependant_) {
+    if (isVoltageDependent_) {
       const double uPuOverU0PuSquare = U2 / U0Pu_square_;
       const double P = P0_ * pow_dynawo(uPuOverU0PuSquare, halfAlpha_);
       const double Q = Q0_ * pow_dynawo(uPuOverU0PuSquare, halfBeta_);
@@ -119,15 +118,15 @@ ModelGenerator::evalNodeInjection() {
 void
 ModelGenerator::evalDerivatives(const double /*cj*/) {
   auto& modelBus = *modelBus_;
-  if (!network_->isInitModel() && isConnected() && modelBus.getSwitchOff()) {
+  if (!network_->isInitModel() && isConnected() && !modelBus.getSwitchOff()) {
     const double ur = modelBus.ur();
     const double ui = modelBus.ui();
     const double U2 = ur * ur + ui * ui;
     if (doubleIsZero(U2))
       return;
-    if (isVoltageDependant_) {
-      int urYNum = modelBus.urYNum();
-      int uiYNum = modelBus.uiYNum();
+    if (isVoltageDependent_) {
+      const int urYNum = modelBus.urYNum();
+      const int uiYNum = modelBus.uiYNum();
 
       const double uPuOverU0PuSquare = U2 / U0Pu_square_;
       const double p = P0_ * pow_dynawo(uPuOverU0PuSquare, halfAlpha_);
@@ -201,14 +200,14 @@ void
 ModelGenerator::defineParameters(vector<ParameterModeler>& parameters) {
   parameters.push_back(ParameterModeler("generator_alpha", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler("generator_beta", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("generator_isVoltageDependant", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("generator_isVoltageDependent", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
 }
 
 void
 ModelGenerator::defineNonGenericParameters(std::vector<ParameterModeler>& parameters) {
   parameters.push_back(ParameterModeler(id_ + "_alpha", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler(id_ + "_beta", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler(id_ + "_isVoltageDependant", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler(id_ + "_isVoltageDependent", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
 }
 
 void
@@ -222,11 +221,11 @@ ModelGenerator::setSubModelParameters(const std::unordered_map<std::string, Para
   if (startingPointModeFound) {
     startingPointMode_ = getStartingPointMode(startingPointMode);
   }
-  bool isVoltageDependantFound = false;
-  const bool boolValue = getParameterDynamicNoThrow<bool>(params, "isVoltageDependant", isVoltageDependantFound, ids);
-  if (isVoltageDependantFound) {
-    isVoltageDependant_ = boolValue;
-    if (isVoltageDependant_) {
+  bool isVoltageDependentFound = false;
+  const bool boolValue = getParameterDynamicNoThrow<bool>(params, "isVoltageDependent", isVoltageDependentFound, ids);
+  if (isVoltageDependentFound) {
+    isVoltageDependent_ = boolValue;
+    if (isVoltageDependent_) {
       try {
         // Non generic parameters have a higher priority than generic ones
         alpha_ = getParameterDynamic<double>(params, "alpha", ids);
@@ -365,7 +364,7 @@ ModelGenerator::evalCalculatedVars() {
     double irCalculated = 0;
     double iiCalculated = 0;
     if (!doubleIsZero(U2)) {
-      if (isVoltageDependant_) {
+      if (isVoltageDependent_) {
         const double uPuOverU0PuSquare = U2 / U0Pu_square_;
         const double P = P0_ * pow_dynawo(uPuOverU0PuSquare, halfAlpha_);
         const double Q = Q0_ * pow_dynawo(uPuOverU0PuSquare, halfBeta_);
@@ -416,7 +415,7 @@ ModelGenerator::evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<doubl
         const double ui = modelBus_->ui();
         const double U2 = ur * ur + ui * ui;
         if (!doubleIsZero(U2)) {
-          if (isVoltageDependant_) {
+          if (isVoltageDependent_) {
             const double uPuOverU0PuSquare = U2 / U0Pu_square_;
 
             const double PdUr = 1. / U2 * P0_ * alpha_ * ur * pow_dynawo(uPuOverU0PuSquare, halfAlpha_);
@@ -440,7 +439,7 @@ ModelGenerator::evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<doubl
         const double ui = modelBus_->ui();
         const double U2 = ur * ur + ui * ui;
         if (!doubleIsZero(U2)) {
-          if (isVoltageDependant_) {
+          if (isVoltageDependent_) {
             const double uPuOverU0PuSquare = U2 / U0Pu_square_;
 
             const double QdUr = 1. / U2 * Q0_ * beta_ * ur * pow_dynawo(uPuOverU0PuSquare, halfBeta_);
@@ -472,7 +471,7 @@ ModelGenerator::evalCalculatedVarI(unsigned numCalculatedVar) const {
         // P = ur*ir + ui* ii
         const double U2 = modelBus_->getCurrentU(ModelBus::U2PuType_);
         if (!doubleIsZero(U2)) {
-          if (isVoltageDependant_) {
+          if (isVoltageDependent_) {
             const double uPuOverU0PuSquare = U2 / U0Pu_square_;
             const double P = P0_ * pow_dynawo(uPuOverU0PuSquare, halfAlpha_);
             return P;
@@ -492,7 +491,7 @@ ModelGenerator::evalCalculatedVarI(unsigned numCalculatedVar) const {
         // q = ui*ir - ur * ii
         const double U2 = modelBus_->getCurrentU(ModelBus::U2PuType_);
         if (!doubleIsZero(U2)) {
-          if (isVoltageDependant_) {
+          if (isVoltageDependent_) {
             const double uPuOverU0PuSquare = U2 / U0Pu_square_;
             const double Q = Q0_ * pow_dynawo(uPuOverU0PuSquare, halfBeta_);
             return Q;

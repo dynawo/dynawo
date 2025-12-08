@@ -40,7 +40,7 @@ class ModelLoad : public NetworkComponent {
    * @param load : load data interface used to build the model
    * @param bus : bus data-interface
    */
-  explicit ModelLoad(const LoadInterface& load, const ModelBus& bus);
+  explicit ModelLoad(const std::shared_ptr<LoadInterface>& load, const std::shared_ptr<ModelBus>& bus);
 
   /**
    * @brief  calculated variables type
@@ -61,42 +61,6 @@ class ModelLoad : public NetworkComponent {
   void setConnected(const State state) {
     connectionState_ = state;
   }  // set the load connection status
-
-  /**
-  * @brief get the load interface
-  *
-  * @return the load interface
-  */
-  const LoadInterface& getLoadInterface() const {
-    return load_;
-  }
-
-  /**
-  * @brief get the load interface non const version
-  *
-  * @return the load interface
-  */
-  LoadInterface& getNonCstLoadInterface() const {
-    return const_cast<LoadInterface&>(getLoadInterface());
-  }
-
-  /**
-   * @brief get the bus to which the load is connected
-   *
-   * @return model of the bus
-   */
-  const ModelBus& getModelBus() const {
-    return modelBus_;
-  }
-
-  /**
-  * @brief get the bus to which the load is connected
-  *
-  * @return model of the bus
-  */
-  ModelBus& getNonCstModelBus() const {
-    return const_cast<ModelBus&>(getModelBus());
-  }
 
   /**
    * @brief evaluate node injection
@@ -300,7 +264,7 @@ class ModelLoad : public NetworkComponent {
    * @return @b whether the load is running
    */
   inline bool isRunning() const {
-    return (isConnected() && !modelBus_.getSwitchOff());
+    return (isConnected() && !modelBus_->getSwitchOff());
   }
 
   /**
@@ -542,8 +506,8 @@ class ModelLoad : public NetworkComponent {
   }
 
  private:
-  const LoadInterface& load_;  ///< reference to the load interface object
-  const ModelBus& modelBus_;  ///< model bus
+  std::weak_ptr<LoadInterface> load_;  ///< reference to the load interface object
+  std::shared_ptr<ModelBus> modelBus_;  ///< model bus
   State connectionState_;  ///< "internal" load connection status, evaluated at the end of evalZ to detect if the state was modified by another component
   bool stateModified_;  ///< true if the load connection state was modified
   double kp_;  ///< gain kp

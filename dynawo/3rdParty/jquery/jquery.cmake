@@ -36,13 +36,13 @@ else()
   add_custom_target(jquery_download ALL)
 endif()
 
-if(NOT EXISTS "${DYNAWO_HOME}/util/curvesToHtml/resources/jquery.flot.crosshair.js" OR 
-NOT EXISTS "${DYNAWO_HOME}/util/curvesToHtml/resources/jquery.flot.js" OR 
-NOT EXISTS "${DYNAWO_HOME}/util/curvesToHtml/resources/jquery.flot.navigate.js" OR 
-NOT EXISTS "${DYNAWO_HOME}/util/curvesToHtml/resources/jquery.flot.selection.js" OR 
-NOT EXISTS "${DYNAWO_HOME}/util/curvesToHtml/resources/arrow-down.gif" OR 
-NOT EXISTS "${DYNAWO_HOME}/util/curvesToHtml/resources/arrow-left.gif" OR 
-NOT EXISTS "${DYNAWO_HOME}/util/curvesToHtml/resources/arrow-right.gif" OR 
+if(NOT EXISTS "${DYNAWO_HOME}/util/curvesToHtml/resources/jquery.flot.crosshair.js" OR
+NOT EXISTS "${DYNAWO_HOME}/util/curvesToHtml/resources/jquery.flot.js" OR
+NOT EXISTS "${DYNAWO_HOME}/util/curvesToHtml/resources/jquery.flot.navigate.js" OR
+NOT EXISTS "${DYNAWO_HOME}/util/curvesToHtml/resources/jquery.flot.selection.js" OR
+NOT EXISTS "${DYNAWO_HOME}/util/curvesToHtml/resources/arrow-down.gif" OR
+NOT EXISTS "${DYNAWO_HOME}/util/curvesToHtml/resources/arrow-left.gif" OR
+NOT EXISTS "${DYNAWO_HOME}/util/curvesToHtml/resources/arrow-right.gif" OR
 NOT EXISTS "${DYNAWO_HOME}/util/curvesToHtml/resources/arrow-up.gif")
   include(ExternalProject)
 

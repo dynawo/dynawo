@@ -102,8 +102,6 @@ using std::chrono::steady_clock;
 using std::chrono::microseconds;
 using std::chrono::duration_cast;
 
-static const char TIME_FILENAME[] = "time.bin";  ///< name of the file to dump time at the end of the simulation
-
 namespace DYN {
 
 SimulationRT::SimulationRT(const std::shared_ptr<job::JobEntry>& jobEntry, const std::shared_ptr<SimulationContext>& context, shared_ptr<DataInterface> data) :
@@ -190,13 +188,12 @@ SimulationRT::configureOutputsRT() {
     } else if (streamEntry->getData() == "CONSTRAINTS") {
       outputDispatcher_->addConstraintsPublisher(outputChannel, streamEntry->getFormat());
     } else {
-      Trace::warn() << DYNLog(StreamDataNotManaged, streamEntry->getData()) << Trace::endline;;
+      Trace::warn() << DYNLog(StreamDataNotManaged, streamEntry->getData()) << Trace::endline;
     }
   }
   for (auto &channelEntry : channelsEntry->getChannelEntries())
-    if (channelEntry->getKind() == "OUTPUT")
-      if (channelInterfaceMap.find(channelEntry->getId()) == channelInterfaceMap.end())
-        Trace::warn() << DYNLog(OutputStreamMissing, channelEntry->getId()) << Trace::endline;
+    if (channelEntry->getKind() == "OUTPUT" && channelInterfaceMap.find(channelEntry->getId()) == channelInterfaceMap.end())
+      Trace::warn() << DYNLog(OutputStreamMissing, channelEntry->getId()) << Trace::endline;
 }
 
 void

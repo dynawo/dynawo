@@ -34,7 +34,7 @@
 namespace DYN {
 
 OutputDispatcher::OutputDispatcher() :
-  running_(false) {}
+      running_(false) {}
 
 void
 OutputDispatcher::addCurvesPublisher(std::shared_ptr<OutputChannel>& publisher, const std::string formatStr) {
@@ -112,7 +112,7 @@ OutputDispatcher::publishCurvesNames(std::shared_ptr<curves::CurvesCollection>& 
     curvesValues_.reserve((nbAvailableCurves + 1) * sizeof(double));
     std::string formatedCurvesNames = curvesNamesToString(curvesCollection);
     for (auto &publisher : curvesPublishers_.find(CurvesStreamFormat::BYTES)->second)
-        publisher->sendMessage(formatedCurvesNames, "curves_names");
+      publisher->sendMessage(formatedCurvesNames, "curves_names");
   }
 }
 
@@ -122,32 +122,32 @@ OutputDispatcher::publishCurves(std::shared_ptr<curves::CurvesCollection>& curve
     return;
   for (auto &curvePublishersPair : curvesPublishers_) {
     switch (curvePublishersPair.first) {
-      case (CurvesStreamFormat::BYTES): {
-        updateCurvesValues(curvesCollection);
-        for (auto &publisher : curvePublishersPair.second)
-          publisher->sendMessage(curvesValues_, "curves_values");
-        break;
-      }
-      case (CurvesStreamFormat::JSON): {
-        std::string outputSring = curvesToJson(curvesCollection);
-        for (auto &publisher : curvePublishersPair.second)
-          publisher->sendMessage(outputSring, "curves");
-        break;
-      }
-      case (CurvesStreamFormat::CSV): {
-        std::string outputSring = curvesToCsv(curvesCollection);
-        for (auto &publisher : curvePublishersPair.second)
-          publisher->sendMessage(outputSring, "curves");
-        break;
-      }
-      case (CurvesStreamFormat::XML):
-        std::stringstream stream;
-        curves::XmlExporter exporter;
-        exporter.exportToStream(curvesCollection, stream);
-        std::string outputSring = stream.str();
-        for (auto &publisher : curvePublishersPair.second)
-          publisher->sendMessage(outputSring, "curves");
-        break;
+    case CurvesStreamFormat::BYTES: {
+      updateCurvesValues(curvesCollection);
+      for (auto &publisher : curvePublishersPair.second)
+        publisher->sendMessage(curvesValues_, "curves_values");
+      break;
+    }
+    case CurvesStreamFormat::JSON: {
+      std::string outputSring = curvesToJson(curvesCollection);
+      for (auto &publisher : curvePublishersPair.second)
+        publisher->sendMessage(outputSring, "curves");
+      break;
+    }
+    case CurvesStreamFormat::CSV: {
+      std::string outputSring = curvesToCsv(curvesCollection);
+      for (auto &publisher : curvePublishersPair.second)
+        publisher->sendMessage(outputSring, "curves");
+      break;
+    }
+    case CurvesStreamFormat::XML:
+            std::stringstream stream;
+    curves::XmlExporter exporter;
+    exporter.exportToStream(curvesCollection, stream);
+    std::string outputSring = stream.str();
+    for (auto &publisher : curvePublishersPair.second)
+      publisher->sendMessage(outputSring, "curves");
+    break;
     }
   }
 }
@@ -159,80 +159,80 @@ OutputDispatcher::publishTimeline(boost::shared_ptr<timeline::Timeline>& timelin
 
   for (auto &timelinePublishersPair : timelinePublishers_) {
     switch (timelinePublishersPair.first) {
-      case (TimelineStreamFormat::JSON): {
-        std::stringstream stream;
-        timeline::JsonExporter exporter;
-        exporter.exportToStream(timeline, stream);
-        std::string strTimeline = stream.str();
-        for (auto &publisher : timelinePublishersPair.second)
-          publisher->sendMessage(strTimeline, "timeline");
-        break;
-      }
-      case (TimelineStreamFormat::CSV): {
-        std::stringstream stream;
-        timeline::CsvExporter exporter;
-        exporter.exportToStream(timeline, stream);
-        std::string strTimeline = stream.str();
-        for (auto &publisher : timelinePublishersPair.second)
-          publisher->sendMessage(strTimeline, "timeline");
-        break;
-      }
-      case (TimelineStreamFormat::TXT): {
-        std::stringstream stream;
-        timeline::TxtExporter exporter;
-        exporter.exportToStream(timeline, stream);
-        std::string strTimeline = stream.str();
-        for (auto &publisher : timelinePublishersPair.second)
-          publisher->sendMessage(strTimeline, "timeline");
-        break;
-      }
-      case (TimelineStreamFormat::XML): {
-        std::stringstream stream;
-        timeline::XmlExporter exporter;
-        exporter.exportToStream(timeline, stream);
-        std::string strTimeline = stream.str();
-        for (auto &publisher : timelinePublishersPair.second)
-          publisher->sendMessage(strTimeline, "timeline");
-        break;
-      }
+    case TimelineStreamFormat::JSON: {
+      std::stringstream stream;
+      timeline::JsonExporter exporter;
+      exporter.exportToStream(timeline, stream);
+      std::string strTimeline = stream.str();
+      for (auto &publisher : timelinePublishersPair.second)
+        publisher->sendMessage(strTimeline, "timeline");
+      break;
+    }
+    case TimelineStreamFormat::CSV: {
+      std::stringstream stream;
+      timeline::CsvExporter exporter;
+      exporter.exportToStream(timeline, stream);
+      std::string strTimeline = stream.str();
+      for (auto &publisher : timelinePublishersPair.second)
+        publisher->sendMessage(strTimeline, "timeline");
+      break;
+    }
+    case TimelineStreamFormat::TXT: {
+      std::stringstream stream;
+      timeline::TxtExporter exporter;
+      exporter.exportToStream(timeline, stream);
+      std::string strTimeline = stream.str();
+      for (auto &publisher : timelinePublishersPair.second)
+        publisher->sendMessage(strTimeline, "timeline");
+      break;
+    }
+    case TimelineStreamFormat::XML: {
+      std::stringstream stream;
+      timeline::XmlExporter exporter;
+      exporter.exportToStream(timeline, stream);
+      std::string strTimeline = stream.str();
+      for (auto &publisher : timelinePublishersPair.second)
+        publisher->sendMessage(strTimeline, "timeline");
+      break;
+    }
     }
   }
 }
 
 void
 OutputDispatcher::publishConstraints(std::shared_ptr<constraints::ConstraintsCollection>& constraintsCollection) {
-    if (!constraintsCollection)
+  if (!constraintsCollection)
     return;
 
   for (auto &constraintsPublishersPair : constraintsPublishers_) {
     switch (constraintsPublishersPair.first) {
-      case (ConstraintsStreamFormat::JSON): {
-        std::stringstream stream;
-        constraints::JsonExporter exporter;
-        exporter.exportToStream(constraintsCollection, stream);
-        std::string strConstraints = stream.str();
-        for (auto &publisher : constraintsPublishersPair.second)
-          publisher->sendMessage(strConstraints, "constraints");
-        break;
-      }
-      case (ConstraintsStreamFormat::TXT): {
-        std::stringstream stream;
-        constraints::TxtExporter exporter;
-        exporter.exportToStream(constraintsCollection, stream);
-        std::string strConstraints = stream.str();
-        for (auto &publisher : constraintsPublishersPair.second)
-          publisher->sendMessage(strConstraints, "constraints");
-        break;
-      }
-      case (ConstraintsStreamFormat::XML): {
-        std::stringstream stream;
-        constraints::XmlExporter exporter;
-        exporter.exportToStream(constraintsCollection, stream);
-        std::string strConstraints = stream.str();
-        for (auto &publisher : constraintsPublishersPair.second)
-          publisher->sendMessage(strConstraints, "constraints");
-        break;
-      }
+    case ConstraintsStreamFormat::JSON: {
+      std::stringstream stream;
+      constraints::JsonExporter exporter;
+      exporter.exportToStream(constraintsCollection, stream);
+      std::string strConstraints = stream.str();
+      for (auto &publisher : constraintsPublishersPair.second)
+        publisher->sendMessage(strConstraints, "constraints");
+      break;
+    }
+    case ConstraintsStreamFormat::TXT: {
+      std::stringstream stream;
+      constraints::TxtExporter exporter;
+      exporter.exportToStream(constraintsCollection, stream);
+      std::string strConstraints = stream.str();
+      for (auto &publisher : constraintsPublishersPair.second)
+        publisher->sendMessage(strConstraints, "constraints");
+      break;
+    }
+    case ConstraintsStreamFormat::XML: {
+      std::stringstream stream;
+      constraints::XmlExporter exporter;
+      exporter.exportToStream(constraintsCollection, stream);
+      std::string strConstraints = stream.str();
+      for (auto &publisher : constraintsPublishersPair.second)
+        publisher->sendMessage(strConstraints, "constraints");
+      break;
+    }
     }
   }
 }

@@ -8,7 +8,7 @@
     file, you can obtain one at http://mozilla.org/MPL/2.0/.
     SPDX-License-Identifier: MPL-2.0
 
-    This file is part of Dynawo, an hybrid C++/Modelica open source suite
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
     of simulation tools for power systems.
 -->
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
@@ -35,7 +35,7 @@
     <par type="DOUBLE" name="step_Height" value="0.0025"/>
   </set>
   <set id="Network_Generator">
-    <par type="BOOL" name="generator_isVoltageDependant" value="true"/>
+    <par type="BOOL" name="generator_isVoltageDependent" value="true"/>
     <par type="DOUBLE" name="generator_alpha" value="2"/>
     <par type="DOUBLE" name="generator_beta" value="2"/>
     <par type="DOUBLE" name="capacitor_no_reclosing_delay" value="300"/>

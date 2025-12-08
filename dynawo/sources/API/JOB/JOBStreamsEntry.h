@@ -35,6 +35,9 @@ class StreamsEntry {
   /// @brief Constructor
   StreamsEntry() = default;
 
+  /// @brief Destructor
+  ~StreamsEntry() = default;
+
   /**
    * @brief Copy constructor
    * @param other original to copy
