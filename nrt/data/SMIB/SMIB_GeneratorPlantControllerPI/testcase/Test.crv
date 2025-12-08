@@ -12,9 +12,9 @@
     simulation tools for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-  <curve model="Generator" variable="generator_UPu"/>
-  <curve model="Generator" variable="generator_PGen"/>
-  <curve model="Generator" variable="generator_QGen"/>
-  <curve model="Generator" variable="generator_PGenPu"/>
-  <curve model="Generator" variable="generator_QGenPu"/>
+  <curve model="GFL" variable="gridFollowing_UPu"/>
+  <curve model="GFL" variable="gridFollowing_PGen"/>
+  <curve model="GFL" variable="gridFollowing_QGen"/>
+  <curve model="GFL" variable="gridFollowing_PGenPu"/>
+  <curve model="GFL" variable="gridFollowing_QGenPu"/>
 </curvesInput>

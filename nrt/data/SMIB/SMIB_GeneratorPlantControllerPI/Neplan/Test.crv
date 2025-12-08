@@ -12,27 +12,27 @@
     simulation tools for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-  <curve model="generator" variable="generator_UPu"/>
-  <curve model="generator" variable="generator_PGen"/>
-  <curve model="generator" variable="generator_QGen"/>
-  <curve model="generator" variable="generator_PGenPu"/>
-  <curve model="generator" variable="generator_QGenPu"/>
+  <curve model="gridFollowing" variable="gridFollowing_UPu"/>
+  <curve model="gridFollowing" variable="gridFollowing_PGen"/>
+  <curve model="gridFollowing" variable="gridFollowing_QGen"/>
+  <curve model="gridFollowing" variable="gridFollowing_PGenPu"/>
+  <curve model="gridFollowing" variable="gridFollowing_QGenPu"/>
 
-  <curve model="generator" variable="generator_plantControllerPI_PInjPu"/>
-  <curve model="generator" variable="generator_plantControllerPI_QInjPu"/>
+  <curve model="gridFollowing" variable="gridFollowing_plantControllerPropInt_PInjPu"/>
+  <curve model="gridFollowing" variable="gridFollowing_plantControllerPropInt_QInjPu"/>
 
-  <curve model="generator" variable="generator_plantControllerPI_QVCtrlErr_y"/>
-  <curve model="generator" variable="generator_plantControllerPI_QVCtrlErr_u1"/>
-  <curve model="generator" variable="generator_plantControllerPI_QVCtrlErr_u2"/>
+  <curve model="gridFollowing" variable="gridFollowing_plantControllerPropInt_QVCtrlErr_y"/>
+  <curve model="gridFollowing" variable="gridFollowing_plantControllerPropInt_QVCtrlErr_u1"/>
+  <curve model="gridFollowing" variable="gridFollowing_plantControllerPropInt_QVCtrlErr_u2"/>
 
 
-  <curve model="generator" variable="generator_plantControllerPI_URefPu"/>
-  <curve model="generator" variable="generator_plantControllerPI_URegPu"/>
-  <curve model="generator" variable="generator_plantControllerPI_QRegPu"/>
+  <curve model="gridFollowing" variable="gridFollowing_plantControllerPropInt_URefPu"/>
+  <curve model="gridFollowing" variable="gridFollowing_plantControllerPropInt_URegPu"/>
+  <curve model="gridFollowing" variable="gridFollowing_plantControllerPropInt_QRegPu"/>
 
-  <curve model="generator" variable="generator_plantControllerPI_deadZone_y"/>
-  <curve model="generator" variable="generator_plantControllerPI_limitedPI_u"/>
-  <curve model="generator" variable="generator_plantControllerPI_limitedPI_y"/>
+  <curve model="gridFollowing" variable="gridFollowing_plantControllerPropInt_deadZone_y"/>
+  <curve model="gridFollowing" variable="gridFollowing_plantControllerPropInt_limitedPI_u"/>
+  <curve model="gridFollowing" variable="gridFollowing_plantControllerPropInt_limitedPI_y"/>
   <curve model="Tfo" variable="transformer_U2Pu"/>
   <curve model="Tfo" variable="transformer_Q2Pu"/>
 

@@ -28,26 +28,26 @@ model GridFollowingPlantPropInt
   Dynawo.Electrical.Events.NodeFault nodeFault1(RPu = 0, XPu = 0.4, tBegin = 12, tEnd = 12.15) annotation(
     Placement(transformation(origin = {-90, -40}, extent = {{-10, 10}, {10, -10}})));
 
-  Dynawo.Electrical.PEIR.Plant.Simplified.GridFollowingPlant gridFollowingPlant(SNom = 15, Ki = 10, Kp = 5, LambdaPuSNom = 0.21, PMax = 20, PNom = 15, QMaxPu = 99, QMaxRegPu = 0.6667, QMinPu = -99, QMinRegPu = -0.6667, P0Pu = -0.2, Q0Pu = 0.0439939, U0Pu = 1.06437, UPhase0 = 0.00808331, QReg0Pu = 0.0458447, UReg0Pu = 1.06648, VRegFlag = true) annotation(
+  Dynawo.Electrical.PEIR.Plant.Simplified.GridFollowingPlantPropInt gridFollowingPlantPropInt(SNom = 15, Ki = 10, Kp = 5, LambdaPuSNom = 0.21, PMax = 20, PNom = 15, QMaxPu = 99, QMaxRegPu = 0.6667, QMinPu = -99, QMinRegPu = -0.6667, P0Pu = -0.2, Q0Pu = 0.0439939, U0Pu = 1.06437, UPhase0 = 0.00808331, QReg0Pu = 0.0458447, UReg0Pu = 1.06648, VRegFlag = true) annotation(
     Placement(transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
 
 equation
-  gridFollowingPlant.injector.switchOffSignal1.value = false;
-  gridFollowingPlant.injector.switchOffSignal2.value = false;
-  gridFollowingPlant.injector.switchOffSignal3.value = false;
-  der(gridFollowingPlant.URefPu) = 0;
-  gridFollowingPlant.URegPu = transformer1.U2Pu;
-  gridFollowingPlant.QRegPu = transformer1.Q2Pu;
+  gridFollowingPlantPropInt.injector.switchOffSignal1.value = false;
+  gridFollowingPlantPropInt.injector.switchOffSignal2.value = false;
+  gridFollowingPlantPropInt.injector.switchOffSignal3.value = false;
+  der(gridFollowingPlantPropInt.URefPu) = 0;
+  gridFollowingPlantPropInt.URegPu = transformer1.U2Pu;
+  gridFollowingPlantPropInt.QRegPu = transformer1.Q2Pu;
 
   connect(nodeFault.terminal, line.terminal2) annotation(
     Line(points = {{70, -40}, {70, -20}, {60, -20}}, color = {0, 0, 255}));
-  connect(gridFollowingPlant.terminal, transformer1.terminal1) annotation(
+  connect(gridFollowingPlantPropInt.terminal, transformer1.terminal1) annotation(
     Line(points = {{-100, 0}, {-80, 0}}, color = {0, 0, 255}));
-  connect(gridFollowingPlant.terminal, nodeFault1.terminal) annotation(
+  connect(gridFollowingPlantPropInt.terminal, nodeFault1.terminal) annotation(
     Line(points = {{-100, 0}, {-90, 0}, {-90, -40}}, color = {0, 0, 255}));
-  connect(gridFollowingPlant.omegaRefPu, omegaRefPu.y) annotation(
+  connect(gridFollowingPlantPropInt.omegaRefPu, omegaRefPu.y) annotation(
     Line(points = {{-121, -8}, {-126, -8}, {-126, -60}, {-139, -60}}, color = {0, 0, 127}));
-  connect(deltaPmRef.y, gridFollowingPlant.deltaPmRefPu) annotation(
+  connect(deltaPmRef.y, gridFollowingPlantPropInt.deltaPmRefPu) annotation(
     Line(points = {{-139, -20}, {-131, -20}, {-131, -4}, {-121, -4}}, color = {0, 0, 127}));
 
   annotation(

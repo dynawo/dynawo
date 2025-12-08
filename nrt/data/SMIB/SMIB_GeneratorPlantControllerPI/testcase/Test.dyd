@@ -15,12 +15,12 @@
   <dyn:blackBoxModel id="InfBus" lib="InfiniteBusWithVariations" parFile="Test.par" parId="1"/>
   <dyn:blackBoxModel id="Line" lib="Line" parFile="Test.par" parId="2"/>
   <dyn:blackBoxModel id="Tfo" lib="TransformerFixedRatio" parFile="Test.par" parId="Tfo"/>
-  <dyn:blackBoxModel id="Generator" lib="GeneratorPlantControllerPI" parFile="Test.par" parId="3"/>
+  <dyn:blackBoxModel id="GFL" lib="GridFollowingPlantPropInt" parFile="Test.par" parId="3"/>
   <dyn:blackBoxModel id="OmegaRefPu" lib="SetPoint" parFile="Test.par" parId="4"/>
-  <dyn:connect id1="OmegaRefPu" var1="setPoint_setPoint" id2="Generator" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OmegaRefPu" var1="setPoint_setPoint" id2="GFL" var2="gridFollowing_omegaRefPu"/>
   <dyn:connect id1="InfBus" var1="infiniteBus_terminal" id2="Line" var2="line_terminal1"/>
-  <dyn:connect id1="Generator" var1="generator_URegPu" id2="Tfo" var2="transformer_U2Pu"/>
-  <dyn:connect id1="Generator" var1="generator_QRegPu" id2="Tfo" var2="transformer_Q2Pu"/>
-  <dyn:connect id1="Generator" var1="generator_terminal" id2="Tfo" var2="transformer_terminal1"/>
+  <dyn:connect id1="GFL" var1="gridFollowing_URegPu" id2="Tfo" var2="transformer_U2Pu"/>
+  <dyn:connect id1="GFL" var1="gridFollowing_QRegPu" id2="Tfo" var2="transformer_Q2Pu"/>
+  <dyn:connect id1="GFL" var1="gridFollowing_terminal" id2="Tfo" var2="transformer_terminal1"/>
   <dyn:connect id1="Tfo" var1="transformer_terminal2" id2="Line" var2="line_terminal2"/>
 </dyn:dynamicModelsArchitecture>

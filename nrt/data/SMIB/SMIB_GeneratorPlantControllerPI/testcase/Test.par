@@ -38,30 +38,30 @@
     <par type="DOUBLE" name="line_GPu" value="0.0"/>
   </set>
   <set id="3">
-    <par name="generator_QReg0Pu" type="DOUBLE" value="0.2"/>
-    <par name="generator_UReg0Pu" type="DOUBLE" value="1"/>
-    <par type="DOUBLE" name="generator_P0Pu" value="-0.7"/>
-    <par type="DOUBLE" name="generator_Q0Pu" value="-0.2"/>
-    <par type="DOUBLE" name="generator_U0Pu" value="1.0"/>
-    <par type="DOUBLE" name="generator_UPhase0" value="0.00000144621"/>
-    <par type="DOUBLE" name="generator_SNom" value="15"/>
-    <par type="DOUBLE" name="generator_RPu" value="0"/>
-    <par type="DOUBLE" name="generator_XPu" value="0"/>
-    <par type="DOUBLE" name="generator_LambdaPuSNom" value="0.21"/>
-    <par type="DOUBLE" name="generator_AlphaPuPNom" value="0.05"/>
-    <par type="DOUBLE" name="generator_QMinRegPu" value="-10"/>
-    <par type="DOUBLE" name="generator_QMaxRegPu" value="10"/>
-    <par type="DOUBLE" name="generator_QMinPu" value="-99"/>
-    <par type="DOUBLE" name="generator_QMaxPu" value="99"/>
-    <par type="DOUBLE" name="generator_PMin" value="0"/>
-    <par type="DOUBLE" name="generator_PMax" value="20"/>
-    <par type="DOUBLE" name="generator_PNom" value="15"/>
-    <par type="DOUBLE" name="generator_EMaxPu" value="99"/>
-    <par type="DOUBLE" name="generator_EMinPu" value="-99"/>
-    <par type="DOUBLE" name="generator_Ki" value="10"/>
-    <par type="DOUBLE" name="generator_Kp" value="5"/>
-    <par type="DOUBLE" name="generator_DbdPu" value="0.05"/>
-    <par type="BOOL" name="generator_VRegFlag" value="true"/>
+    <par name="gridFollowing_QReg0Pu" type="DOUBLE" value="0.2"/>
+    <par name="gridFollowing_UReg0Pu" type="DOUBLE" value="1"/>
+    <par type="DOUBLE" name="gridFollowing_P0Pu" value="-0.7"/>
+    <par type="DOUBLE" name="gridFollowing_Q0Pu" value="-0.2"/>
+    <par type="DOUBLE" name="gridFollowing_U0Pu" value="1.0"/>
+    <par type="DOUBLE" name="gridFollowing_UPhase0" value="0.00000144621"/>
+    <par type="DOUBLE" name="gridFollowing_SNom" value="15"/>
+    <par type="DOUBLE" name="gridFollowing_RPu" value="0"/>
+    <par type="DOUBLE" name="gridFollowing_XPu" value="0"/>
+    <par type="DOUBLE" name="gridFollowing_LambdaPuSNom" value="0.21"/>
+    <par type="DOUBLE" name="gridFollowing_AlphaPuPNom" value="0.05"/>
+    <par type="DOUBLE" name="gridFollowing_QMinRegPu" value="-10"/>
+    <par type="DOUBLE" name="gridFollowing_QMaxRegPu" value="10"/>
+    <par type="DOUBLE" name="gridFollowing_QMinPu" value="-99"/>
+    <par type="DOUBLE" name="gridFollowing_QMaxPu" value="99"/>
+    <par type="DOUBLE" name="gridFollowing_PMin" value="0"/>
+    <par type="DOUBLE" name="gridFollowing_PMax" value="20"/>
+    <par type="DOUBLE" name="gridFollowing_PNom" value="15"/>
+    <par type="DOUBLE" name="gridFollowing_EMaxPu" value="99"/>
+    <par type="DOUBLE" name="gridFollowing_EMinPu" value="-99"/>
+    <par type="DOUBLE" name="gridFollowing_Ki" value="10"/>
+    <par type="DOUBLE" name="gridFollowing_Kp" value="5"/>
+    <par type="DOUBLE" name="gridFollowing_DbdPu" value="0.05"/>
+    <par type="BOOL" name="gridFollowing_VRegFlag" value="true"/>
   </set>
   <set id="4">
     <par type="DOUBLE" name="setPoint_Value0" value="1"/>

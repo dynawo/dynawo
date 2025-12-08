@@ -1,4 +1,4 @@
-0.000000 | generator | PMAX : activation
+0.000000 | gridFollowing | PMAX : activation
 5.999999 | Fault1 | Fault (node) : beginning
 6.249999 | Fault1 | Fault (node) : end
 11.999998 | Fault | Fault (node) : beginning
