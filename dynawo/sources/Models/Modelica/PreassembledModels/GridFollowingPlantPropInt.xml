@@ -12,7 +12,7 @@
     simulation tool for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:modelicaModel id="GeneratorPlantControllerPI">
-    <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.PEIR.Plant.Simplified.GridFollowingPlant"/>
+  <dyn:modelicaModel id="GridFollowingPlantPropInt">
+    <dyn:unitDynamicModel id="gridFollowing" name="Dynawo.Electrical.PEIR.Plant.Simplified.GridFollowingPlantPropInt"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

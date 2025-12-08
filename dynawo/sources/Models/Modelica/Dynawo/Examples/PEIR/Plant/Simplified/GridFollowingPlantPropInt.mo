@@ -12,7 +12,7 @@ within Dynawo.Examples.PEIR.Plant.Simplified;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model GeneratorPlantControllerPI
+model GridFollowingPlantPropInt
   extends Modelica.Icons.Example;
   extends Examples.Wind.IEC.Neplan.BaseClasses.BaseWindNeplan;
 
@@ -53,4 +53,4 @@ equation
   annotation(
     Diagram(coordinateSystem(extent = {{-140, -100}, {160, 60}})),
   experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-06, Interval = 0.001));
-end GeneratorPlantControllerPI;
+end GridFollowingPlantPropInt;

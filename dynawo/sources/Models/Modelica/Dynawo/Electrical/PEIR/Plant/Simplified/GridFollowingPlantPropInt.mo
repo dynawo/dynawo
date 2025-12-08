@@ -1,6 +1,18 @@
 within Dynawo.Electrical.PEIR.Plant.Simplified;
 
-model GridFollowingPlant "Simplified grid following model with plant control"
+/*
+* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite of simulation tools for power systems.
+*/
+
+model GridFollowingPlantPropInt "Simplified grid following model with plant control"
 
   // Nominal parameters
   parameter Types.ApparentPowerModule SNom "Apparent nominal power in MVA";
@@ -39,7 +51,7 @@ model GridFollowingPlant "Simplified grid following model with plant control"
   Types.ActivePowerPu PGenPu(start = - P0Pu) "Active power at terminal in pu (base SnRef) (generator convention)";
   Types.ReactivePowerPu QGenPu(start = - Q0Pu) "Reactive power at terminal in pu (base SnRef) (generator convention)";
 
-  Dynawo.Electrical.PEIR.Plant.Simplified.BaseControls.PlantControllerPI plantControllerPI(DbdPu = DbdPu, EMaxPu = EMaxPu, EMinPu = EMinPu, Ki = Ki, Kp = Kp, PMin = PMin, PMax = PMax, PNom = PNom, AlphaPuPNom = AlphaPuPNom, LambdaPuSNom = LambdaPuSNom, QMaxRegPu = QMaxRegPu, QMinRegPu = QMinRegPu, SNom = SNom, UReg0Pu = UReg0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, PInj0Pu = -P0Pu*SystemBase.SnRef/SNom, QInj0Pu = -Q0Pu*SystemBase.SnRef/SNom, QReg0Pu = QReg0Pu, VRegFlag = VRegFlag)  annotation(
+  Dynawo.Electrical.PEIR.Plant.Simplified.BaseControls.PlantControllerPropInt plantControllerPropInt(DbdPu = DbdPu, EMaxPu = EMaxPu, EMinPu = EMinPu, Ki = Ki, Kp = Kp, PMin = PMin, PMax = PMax, PNom = PNom, AlphaPuPNom = AlphaPuPNom, LambdaPuSNom = LambdaPuSNom, QMaxRegPu = QMaxRegPu, QMinRegPu = QMinRegPu, SNom = SNom, UReg0Pu = UReg0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, PInj0Pu = -P0Pu*SystemBase.SnRef/SNom, QInj0Pu = -Q0Pu*SystemBase.SnRef/SNom, QReg0Pu = QReg0Pu, VRegFlag = VRegFlag)  annotation(
     Placement(transformation(origin = {-50, 0}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Connectors.ACPower terminal(V(im(start = u0Pu.im), re(start = u0Pu.re)), i(im(start = i0Pu.im), re(start = i0Pu.re))) annotation(
     Placement(transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {100, 2}, extent = {{-10, -10}, {10, 10}})));
@@ -61,19 +73,19 @@ model GridFollowingPlant "Simplified grid following model with plant control"
 equation
   Complex(PGenPu, QGenPu) = -terminal.V*ComplexMath.conj(terminal.i);
 
-  connect(URefPu, plantControllerPI.URefPu) annotation(
+  connect(URefPu, plantControllerPropInt.URefPu) annotation(
     Line(points = {{-110, -40}, {-50, -40}, {-50, -10}}, color = {0, 0, 127}));
-  connect(QRegPu, plantControllerPI.QRegPu) annotation(
+  connect(QRegPu, plantControllerPropInt.QRegPu) annotation(
     Line(points = {{-110, 60}, {-50, 60}, {-50, 10}}, color = {0, 0, 127}));
-  connect(URegPu, plantControllerPI.URegPu) annotation(
+  connect(URegPu, plantControllerPropInt.URegPu) annotation(
     Line(points = {{-110, 20}, {-80, 20}, {-80, 4}, {-60, 4}}, color = {0, 0, 127}));
-  connect(deltaPmRefPu, plantControllerPI.deltaPmRefPu) annotation(
+  connect(deltaPmRefPu, plantControllerPropInt.deltaPmRefPu) annotation(
     Line(points = {{-110, 40}, {-70, 40}, {-70, 10}, {-60, 10}}, color = {0, 0, 127}));
-  connect(omegaRefPu, plantControllerPI.omegaRefPu) annotation(
+  connect(omegaRefPu, plantControllerPropInt.omegaRefPu) annotation(
     Line(points = {{-110, 0}, {-60, 0}}, color = {0, 0, 127}));
-  connect(plantControllerPI.PInjPu, injector.PInjPu) annotation(
+  connect(plantControllerPropInt.PInjPu, injector.PInjPu) annotation(
     Line(points = {{-38, 6}, {-1, 6}}, color = {0, 0, 127}));
-  connect(plantControllerPI.QInjPu, injector.QInjPu) annotation(
+  connect(plantControllerPropInt.QInjPu, injector.QInjPu) annotation(
     Line(points = {{-38, -6}, {-1, -6}}, color = {0, 0, 127}));
   connect(injector.terminal, terminal) annotation(
     Line(points = {{20, 0}, {100, 0}}, color = {0, 0, 255}));
@@ -82,4 +94,4 @@ equation
     Diagram,
   Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-1, 2}, extent = {{-83, 38}, {83, -38}}, textString = "Grid Following Plant PI Controller")}),
   Documentation(info = "<html><head></head><body><br></body></html>"));
-end GridFollowingPlant;
+end GridFollowingPlantPropInt;

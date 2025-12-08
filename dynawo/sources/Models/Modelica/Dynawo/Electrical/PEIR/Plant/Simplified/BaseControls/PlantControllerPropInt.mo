@@ -1,6 +1,18 @@
 within Dynawo.Electrical.PEIR.Plant.Simplified.BaseControls;
 
-model PlantControllerPI "Simplified plant model with PI controller"
+/*
+* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite of simulation tools for power systems.
+*/
+
+model PlantControllerPropInt "Simplified plant model with PI controller"
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
@@ -175,4 +187,4 @@ equation
     Diagram(coordinateSystem(extent = {{-180, -140}, {160, 140}})),
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-29, 11}, extent = {{-41, 19}, {97, -41}}, textString = "PI Plant Controller")}),
   Documentation(info = "<html><head></head><body>Simplified plant model for active and reactive control :<div><br></div><div>Active power is frequency dependent if AlphaPu &gt;0.</div><div><br></div><div>Reactive power :&nbsp;</div><div>- if VRegFlag is true : URefPu = URegPu - LambdaPu * QRegPu (QReg is in receptor convention). QInjPu is controlled with a PI controller.</div><div>- if VRegFlag is false : QInjPu = QInj0Pu (constant).</div><div><br></div></body></html>"));
-end PlantControllerPI;
+end PlantControllerPropInt;

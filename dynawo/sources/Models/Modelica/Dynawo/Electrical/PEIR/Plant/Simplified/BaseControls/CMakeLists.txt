@@ -12,7 +12,7 @@ set(MODEL_FILES
   package.mo
   package.order
   InjectorInterface.mo
-  PlantControllerPI.mo
+  PlantControllerPropInt.mo
   )
 
 #
