@@ -1,6 +1,10 @@
 INFO |  ============================================================ 
 INFO | DYNAWO VERSION  :     1.8.0
+<<<<<<< HEAD
 INFO | DYNAWO REVISION :    master-e45f50c3ddf
+=======
+INFO | DYNAWO REVISION :  3558_documentation-90e8fd907e9
+>>>>>>> e48cae25f9a (#3558 Deletion or renaming of outdated variables in .crv)
 INFO |  ============================================================ 
 INFO | 
 INFO | -----------------------------------------------------------------------
@@ -34,32 +38,7 @@ INFO |
 INFO | -----------------------------------------------------------------------
 INFO | starting curve initialization
 INFO | -----------------------------------------------------------------------
-WARN | curve not added: Id: GEN____1_SM , name: generator_omegaPu
-WARN | curve not added: Id: GEN____1_SM , name: generator_PGen
-WARN | curve not added: Id: GEN____1_SM , name: generator_QGen
-WARN | curve not added: Id: GEN____1_SM , name: generator_UStatorPu
-WARN | curve not added: Id: GEN____1_SM , name: voltageRegulator_EfdPu
-WARN | curve not added: Id: GEN____2_SM , name: generator_omegaPu
-WARN | curve not added: Id: GEN____2_SM , name: generator_PGen
-WARN | curve not added: Id: GEN____2_SM , name: generator_QGen
-WARN | curve not added: Id: GEN____2_SM , name: generator_UStatorPu
-WARN | curve not added: Id: GEN____2_SM , name: voltageRegulator_EfdPu
-WARN | curve not added: Id: GEN____3_SM , name: generator_omegaPu
-WARN | curve not added: Id: GEN____3_SM , name: generator_PGen
-WARN | curve not added: Id: GEN____3_SM , name: generator_QGen
-WARN | curve not added: Id: GEN____3_SM , name: generator_UStatorPu
-WARN | curve not added: Id: GEN____3_SM , name: voltageRegulator_EfdPu
-WARN | curve not added: Id: GEN____6_SM , name: generator_omegaPu
-WARN | curve not added: Id: GEN____6_SM , name: generator_PGen
-WARN | curve not added: Id: GEN____6_SM , name: generator_QGen
-WARN | curve not added: Id: GEN____6_SM , name: generator_UStatorPu
-WARN | curve not added: Id: GEN____6_SM , name: voltageRegulator_EfdPu
-WARN | curve not added: Id: GEN____8_SM , name: generator_omegaPu
-WARN | curve not added: Id: GEN____8_SM , name: generator_PGen
-WARN | curve not added: Id: GEN____8_SM , name: generator_QGen
-WARN | curve not added: Id: GEN____8_SM , name: generator_UStatorPu
-WARN | curve not added: Id: GEN____8_SM , name: voltageRegulator_EfdPu
-INFO | end of curve initialization, added 16 curves
+INFO | end of curve initialization, added 31 curves
 INFO | -----------------------------------------------------------------------
 INFO | 
 INFO | -----------------------------------------------------------------------
@@ -67,7 +46,7 @@ INFO | starting simulation with solver SimplifiedSolver
 INFO | -----------------------------------------------------------------------
 INFO | -----------------------------------------------------------------------
 INFO | number of continuous variables : 158
-INFO | number of discrete variables : 176
+INFO | number of discrete variables : 171
 INFO | number of root functions : 216
 INFO | -----------------------------------------------------------------------
 INFO |         time ¦ iter num   Nonlinear iter   jac eval      time step (h)
