@@ -900,28 +900,9 @@ void SolverIDA::printLastNewtonY() const {
 
 void
 SolverIDA::solveStep(double tAim, double& tNxt) {
-  // std::cout << std::scientific << std::setprecision(15) << "taim  " << tAim << " tNxt " << tNxt << std::endl;
   int flag = IDASolve(IDAMem_, tAim, &tNxt, sundialsVectorY_, sundialsVectorYp_, solveTaskToInt());
   if (uround_) {
-    // if (getTimeStep() < uroundPrecision_ && !doubleIsZero(getTimeStep())) {
-    //   std::cout << "uroundPrecision_ getTimeStep()" << std::endl;
-    //   double exponent = 2.0; // Example exponent, you can change this as needed
-    //   double result = pow(getTimeStep(), exponent);
-    //
-    //   // Rounding to the nearest lower power of 10
-    //   double roundedResult = pow(10.0, floor(log10(result)));
-    //
-    //   std::cout << uroundPrecision_ << " " << getTimeStep() << " " << roundedResult << std::endl;
-    //   uroundPrecision_ = getTimeStep();
-    // }
     double currentUroundPrecision = uroundPrecision_ / (100. * (getTimeStep() + tNxt));
-    // double exponent = 1.0; // Example exponent, you can change this as needed
-    // double result = pow(getTimeStep(), exponent);
-    //
-    // // Rounding to the nearest lower power of 10
-    // double roundedResult = pow(10.0, floor(log10(getTimeStep())));
-    // std::cout << "uroundPrecision_ currentUroundPrecision getTimeStep()" << std::endl;
-    std::cout <<  uroundPrecision_ << " " <<  currentUroundPrecision << " " << getTimeStep() << std::endl;
     int flag1 = IDASetURound(IDAMem_, currentUroundPrecision);
     if (flag1 < 0)
       throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetURound");
@@ -934,39 +915,6 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
   switch (flag) {
     case IDA_SUCCESS:
       msg = "IDA_SUCCESS";
-      //std::cout << "IDA_SUCCESS" << std::endl;
-      // if (countForceReinit_ == 1 || countForceReinit_ == 2) {
-      //   if (countForceReinit_ == 2) {
-      //     // if (!(doubleEquals(getTimeStep(), uroundPrecisionSave_) || getTimeStep() < uroundPrecisionSave_)) {
-      //     //   uroundPrecision_ = uroundPrecisionSave_;
-      //     // }
-      //     minStep_ = minStepSave_;
-      //     setCurrentPrecision(precisionSave_);
-      //     minimalAcceptableStep_ = minimalAcceptableStepSave_;
-      //     IDASetMinStep(IDAMem_, minStep_);
-      //   }
-      //   countForceReinit_ = 0;
-      // }
-      // if (uroundPrecisionSave_ < uroundPrecisionInit_) {
-      //   if (getTimeStep() / uroundPrecisionInit_ > 100) {
-      //     // std::cout << "uroundPrecisionSave_ = uroundPrecisionInit_" << std::endl;
-      //     uroundPrecisionSave_ = uroundPrecisionInit_;
-      //   }
-      // }
-      // if (doubleNotEquals(uroundPrecision_, uroundPrecisionSave_)) {
-      //   if (getTimeStep() / uroundPrecisionSave_ > 100) {
-      //     // std::cout << "uroundPrecision_ = uroundPrecisionSave_" << std::endl;
-      //     uroundPrecision_ = uroundPrecisionSave_;
-      //     IDASetURound(IDAMem_, uroundPrecision_ / (100. * (getTimeStep() + tNxt)));
-      //   }
-      // }
-      // tdist = abs(tAim - tNxt);
-      // troundoff = 2 * uroundPrecision_ * (abs(tNxt) + abs(tAim));
-      // std::cout << "tdist " << tdist << " troundoff " << troundoff << std::endl;
-      // if (tdist < troundoff) {
-      //   std::cout << "tdist < troundoff" << std::endl;
-      //   std::cout << "tdist " << tdist << " troundoff " << troundoff << std::endl;
-      // }
       if (countForceReinit_ >= 1) {
         countForceReinit_ = 0;
       }
@@ -1072,9 +1020,6 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
           setCurrentPrecision(precisionSave_ / factor);
           minimalAcceptableStep_ /= factor;
           IDASetMinStep(IDAMem_, minStep_);
-          // std::cout << "uroundPrecision_ / (100. * (getTimeStep() + tNxt))" << std::endl;
-          // std::cout << uroundPrecision_ / (100. * (getTimeStep() + tNxt)) << std::endl;
-          // std::cout << uroundPrecision_ << " " << getTimeStep() << std::endl;
           if (doubleIsZero(tNxt) || doubleIsZero(getTimeStep())) {
             IDASetURound(IDAMem_, uroundPrecision_);
           } else {
