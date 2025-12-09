@@ -300,6 +300,9 @@ class SolverIDA : public Solver::Impl {
   double initStep_;  ///< initial step size
   double minStep_;  ///< minimal step size
   double minStepSave_;  ///< minimal step size saved in case of force reinit
+  double minimalAcceptableStepSave_;  ///< minimal step size saved in case of force reinit
+  double minStepInit_;  ///< minimal step size saved in case of force reinit
+  double minimalAcceptableStepInit_;  ///< minimal step size saved in case of force reinit
   double maxStep_;  ///< maximum step size
   double absAccuracy_;  ///< relative error tolerance
   double relAccuracy_;  ///< absolute error tolerance
@@ -308,6 +311,8 @@ class SolverIDA : public Solver::Impl {
   double uroundPrecision_;  ///< to activate change on uround
   double uroundPrecisionSave_;  ///< save uround precision in case of force reinit
   double precisionSave_;  ///< save precision in case of force reinit
+  double uroundPrecisionInit_;  ///< save uround precision in case of force reinit
+  double precisionInit_;  ///< save precision in case of force reinit
   bool uroundPrecisionAlignedPrecision_;  ///< to activate change on uround
   bool newReinit_;  ///< test
   std::string solveTask_;  ///< test

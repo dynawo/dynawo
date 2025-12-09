@@ -90,6 +90,8 @@ sundialsVectorYType_(NULL),
 order_(0),
 initStep_(0.),
 minStep_(0.),
+minStepSave_(0.),
+minimalAcceptableStepSave_(0.),
 maxStep_(0.),
 absAccuracy_(0.),
 relAccuracy_(0.),
@@ -450,6 +452,11 @@ SolverIDA::init(const std::shared_ptr<Model>& model, const double t0, const doub
   if (printNewtonSolutions_) {
     solverKINNormal_->setPrintNewtonSolutions();
   }
+
+  uroundPrecisionInit_ = uroundPrecision_;
+  precisionInit_ = getCurrentPrecision();
+  minStepInit_ = minStep_;
+  minimalAcceptableStepInit_ = minimalAcceptableStep_;
 }
 
 void
@@ -893,27 +900,93 @@ void SolverIDA::printLastNewtonY() const {
 
 void
 SolverIDA::solveStep(double tAim, double& tNxt) {
+  // std::cout << std::scientific << std::setprecision(15) << "taim  " << tAim << " tNxt " << tNxt << std::endl;
   int flag = IDASolve(IDAMem_, tAim, &tNxt, sundialsVectorY_, sundialsVectorYp_, solveTaskToInt());
   if (uround_) {
-    int flag1 = IDASetURound(IDAMem_, uroundPrecision_ / (100. * (getTimeStep() + tNxt)));
+    // if (getTimeStep() < uroundPrecision_ && !doubleIsZero(getTimeStep())) {
+    //   std::cout << "uroundPrecision_ getTimeStep()" << std::endl;
+    //   double exponent = 2.0; // Example exponent, you can change this as needed
+    //   double result = pow(getTimeStep(), exponent);
+    //
+    //   // Rounding to the nearest lower power of 10
+    //   double roundedResult = pow(10.0, floor(log10(result)));
+    //
+    //   std::cout << uroundPrecision_ << " " << getTimeStep() << " " << roundedResult << std::endl;
+    //   uroundPrecision_ = getTimeStep();
+    // }
+    double currentUroundPrecision = uroundPrecision_ / (100. * (getTimeStep() + tNxt));
+    // double exponent = 1.0; // Example exponent, you can change this as needed
+    // double result = pow(getTimeStep(), exponent);
+    //
+    // // Rounding to the nearest lower power of 10
+    // double roundedResult = pow(10.0, floor(log10(getTimeStep())));
+    // std::cout << "uroundPrecision_ currentUroundPrecision getTimeStep()" << std::endl;
+    std::cout <<  uroundPrecision_ << " " <<  currentUroundPrecision << " " << getTimeStep() << std::endl;
+    int flag1 = IDASetURound(IDAMem_, currentUroundPrecision);
     if (flag1 < 0)
       throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetURound");
   }
+
+  double tdist;
+  double troundoff;
 
   string msg;
   switch (flag) {
     case IDA_SUCCESS:
       msg = "IDA_SUCCESS";
       //std::cout << "IDA_SUCCESS" << std::endl;
-      if (countForceReinit_ == 1 || countForceReinit_ == 2) {
-        if (countForceReinit_ == 2) {
+      // if (countForceReinit_ == 1 || countForceReinit_ == 2) {
+      //   if (countForceReinit_ == 2) {
+      //     // if (!(doubleEquals(getTimeStep(), uroundPrecisionSave_) || getTimeStep() < uroundPrecisionSave_)) {
+      //     //   uroundPrecision_ = uroundPrecisionSave_;
+      //     // }
+      //     minStep_ = minStepSave_;
+      //     setCurrentPrecision(precisionSave_);
+      //     minimalAcceptableStep_ = minimalAcceptableStepSave_;
+      //     IDASetMinStep(IDAMem_, minStep_);
+      //   }
+      //   countForceReinit_ = 0;
+      // }
+      // if (uroundPrecisionSave_ < uroundPrecisionInit_) {
+      //   if (getTimeStep() / uroundPrecisionInit_ > 100) {
+      //     // std::cout << "uroundPrecisionSave_ = uroundPrecisionInit_" << std::endl;
+      //     uroundPrecisionSave_ = uroundPrecisionInit_;
+      //   }
+      // }
+      // if (doubleNotEquals(uroundPrecision_, uroundPrecisionSave_)) {
+      //   if (getTimeStep() / uroundPrecisionSave_ > 100) {
+      //     // std::cout << "uroundPrecision_ = uroundPrecisionSave_" << std::endl;
+      //     uroundPrecision_ = uroundPrecisionSave_;
+      //     IDASetURound(IDAMem_, uroundPrecision_ / (100. * (getTimeStep() + tNxt)));
+      //   }
+      // }
+      // tdist = abs(tAim - tNxt);
+      // troundoff = 2 * uroundPrecision_ * (abs(tNxt) + abs(tAim));
+      // std::cout << "tdist " << tdist << " troundoff " << troundoff << std::endl;
+      // if (tdist < troundoff) {
+      //   std::cout << "tdist < troundoff" << std::endl;
+      //   std::cout << "tdist " << tdist << " troundoff " << troundoff << std::endl;
+      // }
+      if (countForceReinit_ >= 1) {
+        countForceReinit_ = 0;
+      }
+      if (uroundPrecisionSave_ < uroundPrecisionInit_) {
+        if (getTimeStep() / uroundPrecisionInit_ > 100) {
+          uroundPrecisionSave_ = uroundPrecisionInit_;
+          minStepSave_ = minStepInit_;
+          minimalAcceptableStepSave_ = minimalAcceptableStepInit_;
+          precisionSave_ = precisionInit_;
+        }
+      }
+      if (doubleNotEquals(uroundPrecision_, uroundPrecisionSave_)) {
+        if (getTimeStep() / uroundPrecisionSave_ > 100) {
           uroundPrecision_ = uroundPrecisionSave_;
           minStep_ = minStepSave_;
           setCurrentPrecision(precisionSave_);
+          minimalAcceptableStep_ = minimalAcceptableStepSave_;
           IDASetMinStep(IDAMem_, minStep_);
           IDASetURound(IDAMem_, uroundPrecision_ / (100. * (getTimeStep() + tNxt)));
         }
-        countForceReinit_ = 0;
       }
       break;
     case IDA_ROOT_RETURN:
@@ -930,15 +1003,18 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
       break;
     case IDA_CONV_FAIL:
       if (useForceReinit_) {
+        if (stats_.nst_ == 0) {
+          ++countForceReinit_; // If we fail at first time step we need to force reinit with divided time step and not with simple reinit
+        }
         if (countForceReinit_ == 0) {
           Trace::info() << "SolverIDA: IDA_CONV_FAIL force reinit" << Trace::endline;
-          int msbsetAlgJSave = msbsetAlgJ_;
+          int msbsetAlgJSave = msbsetAlg_;
           modeChangeType_t minimumModeChangeTypeForAlgebraicRestorationSave = minimumModeChangeTypeForAlgebraicRestoration_;
-          msbsetAlgJ_ = 1;
-          minimumModeChangeTypeForAlgebraicRestoration_ = ALGEBRAIC_J_J_UPDATE_MODE;
+          msbsetAlg_ = 1;
+          minimumModeChangeTypeForAlgebraicRestoration_ = ALGEBRAIC_MODE;
           model_->setModeChangeType(minimumModeChangeTypeForAlgebraicRestoration_);
           reinit();
-          msbsetAlgJ_ = msbsetAlgJSave;
+          msbsetAlg_ = msbsetAlgJSave;
           minimumModeChangeTypeForAlgebraicRestoration_ = minimumModeChangeTypeForAlgebraicRestorationSave;
           ++countForceReinit_;
           break;
@@ -952,7 +1028,11 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
           uroundPrecision_ /= factor;
           setCurrentPrecision(precisionSave_ / factor);
           IDASetMinStep(IDAMem_, minStep_);
-          IDASetURound(IDAMem_, uroundPrecision_ / (100. * (getTimeStep() + tNxt)));
+          if (doubleIsZero(tNxt) || doubleIsZero(getTimeStep())) {
+            IDASetURound(IDAMem_, uroundPrecision_);
+          } else {
+            IDASetURound(IDAMem_, uroundPrecision_ / (100. * (getTimeStep() + tNxt)));
+          }
           ++countForceReinit_;
         } else {
           printLastNewtonY();
@@ -965,6 +1045,9 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
       break;
     case IDA_ERR_FAIL:
       if (useForceReinit_) {
+        if (stats_.nst_ == 0) {
+          ++countForceReinit_; // If we fail at first time step we need to force reinit with divided time step and not with simple reinit
+        }
         if (countForceReinit_ == 0) {
           Trace::info() << "SolverIDA: IDA_ERR_FAIL force reinit" << Trace::endline;
           int msbsetAlgJSave = msbsetAlgJ_;
@@ -982,12 +1065,22 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
           uroundPrecisionSave_ = uroundPrecision_;
           precisionSave_ = getCurrentPrecision();
           minStepSave_ = minStep_;
+          minimalAcceptableStepSave_ = minimalAcceptableStep_;
           const double factor = 100.;
           minStep_ /= factor;
           uroundPrecision_ /= factor;
           setCurrentPrecision(precisionSave_ / factor);
+          minimalAcceptableStep_ /= factor;
           IDASetMinStep(IDAMem_, minStep_);
-          IDASetURound(IDAMem_, uroundPrecision_ / (100. * (getTimeStep() + tNxt)));
+          // std::cout << "uroundPrecision_ / (100. * (getTimeStep() + tNxt))" << std::endl;
+          // std::cout << uroundPrecision_ / (100. * (getTimeStep() + tNxt)) << std::endl;
+          // std::cout << uroundPrecision_ << " " << getTimeStep() << std::endl;
+          if (doubleIsZero(tNxt) || doubleIsZero(getTimeStep())) {
+            IDASetURound(IDAMem_, uroundPrecision_);
+          } else {
+            IDASetURound(IDAMem_, uroundPrecision_ / (100. * (getTimeStep() + tNxt)));
+          }
+          IDASetInitStep(IDAMem_, minStep_);
           ++countForceReinit_;
         } else {
           printLastNewtonY();
