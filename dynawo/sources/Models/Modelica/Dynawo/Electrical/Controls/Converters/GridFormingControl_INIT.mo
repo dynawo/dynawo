@@ -18,6 +18,7 @@ model GridFormingControl_INIT "Initialization model for the grid forming control
   parameter Types.PerUnit KpVI "Proportional gain of the virtual impedance";
   parameter Types.PerUnit XRratio "X/R ratio of the virtual impedance";
   parameter Types.CurrentModulePu IMaxVI "Maximum current before activating the virtual impedance in pu (base UNom, SNom)";
+  parameter Types.PerUnit Kff = 0 "Gain of the active damping (for droop control)";
 
   Types.PerUnit IdcSourceRef0Pu "Start value of DC current reference in pu (base UdcNom, SNom)";
   Dynawo.Connectors.PerUnitConnector IdcSource0Pu "Start value of DC current in pu (base UdcNom, SNom)";
@@ -47,9 +48,9 @@ model GridFormingControl_INIT "Initialization model for the grid forming control
 equation
   /* External loop */
   PRef0Pu = PFilter0Pu;
-  UdFilter0Pu = UFilterRef0Pu;
+  UdFilter0Pu = UFilterRef0Pu - Kff*IdPcc0Pu - DeltaVVId0;
   QRef0Pu = QFilter0Pu;
-  UqFilter0Pu = 0;
+  UqFilter0Pu = - Kff*IqPcc0Pu - DeltaVVIq0;
 
   /* DC voltage control */
   IdcSourceRef0Pu = IdcSource0Pu;
