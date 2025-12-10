@@ -1,0 +1,114 @@
+ ====== VARIABLES VALUES ======
+VL1_BUS1_ACPIN_V_re                               : y =       0.900810 yp =       0.000000
+VL1_BUS1_ACPIN_V_im                               : y =       0.000000 yp =       0.000000
+VL1_BUS1_ACPIN_i_re                               : y =     -22.178845 yp =       0.000000
+VL1_BUS1_ACPIN_i_im                               : y =      -0.961812 yp =       0.000000
+VL2_BUS1_ACPIN_V_re                               : y =       0.886722 yp =       0.000000
+VL2_BUS1_ACPIN_V_im                               : y =       0.324855 yp =       0.000000
+VL3_BUS1_ACPIN_V_re                               : y =       0.880230 yp =       0.000000
+VL3_BUS1_ACPIN_V_im                               : y =       0.474562 yp =       0.000000
+VL3_BUS1_ACPIN_i_re                               : y =      22.178845 yp =       0.000000
+VL3_BUS1_ACPIN_i_im                               : y =       0.961812 yp =       0.000000
+ ====== CALCULATED VARIABLES VALUES ======
+VL1_BUS1_Upu_value                                : y =       0.900810
+VL1_BUS1_phipu_value                              : y =       0.000000
+VL1_BUS1_U_value                                  : y =       0.900810
+VL1_BUS1_phi_value                                : y =       0.000000
+VL2_BUS1_Upu_value                                : y =       0.944355
+VL2_BUS1_phipu_value                              : y =       0.351170
+VL2_BUS1_U_value                                  : y =       0.944355
+VL2_BUS1_phi_value                                : y =      20.120549
+VL3_BUS1_Upu_value                                : y =       1.000007
+VL3_BUS1_phipu_value                              : y =       0.494463
+VL3_BUS1_U_value                                  : y =       1.000007
+VL3_BUS1_phi_value                                : y =      28.330626
+line1_i1_value                                    : y =      14.437450
+line1_i2_value                                    : y =      14.437450
+line1_P1_value                                    : y =     -12.993187
+line1_P2_value                                    : y =      12.993187
+line1_Q1_value                                    : y =       0.563465
+line1_Q2_value                                    : y =       4.131020
+line1_iS1ToS2Side1_value                          : y = -833546.559131
+line1_iS2ToS1Side1_value                          : y =  833546.559131
+line1_iS1ToS2Side2_value                          : y = -833546.559131
+line1_iS2ToS1Side2_value                          : y =  833546.559131
+line1_iSide1_value                                : y =  833546.559131
+line1_iSide2_value                                : y =  833546.559131
+line1_U1_value                                    : y =       0.900810
+line1_U2_value                                    : y =       0.944355
+line1_lineState_value                             : y =       2.000000
+line2_i1_value                                    : y =       7.762240
+line2_i2_value                                    : y =       7.762240
+line2_P1_value                                    : y =      -6.985738
+line2_P2_value                                    : y =       6.985738
+line2_Q1_value                                    : y =       0.302945
+line2_Q2_value                                    : y =       2.221027
+line2_iS1ToS2Side1_value                          : y = -448153.153611
+line2_iS2ToS1Side1_value                          : y =  448153.153611
+line2_iS1ToS2Side2_value                          : y = -448153.153611
+line2_iS2ToS1Side2_value                          : y =  448153.153611
+line2_iSide1_value                                : y =  448153.153611
+line2_iSide2_value                                : y =  448153.153611
+line2_U1_value                                    : y =       0.900810
+line2_U2_value                                    : y =       0.944355
+line2_lineState_value                             : y =       2.000000
+TR_i1_value                                       : y =      22.199690
+TR_i2_value                                       : y =      22.199690
+TR_P1_value                                       : y =     -19.978925
+TR_P2_value                                       : y =      19.978925
+TR_Q1_value                                       : y =      -6.352047
+TR_Q2_value                                       : y =       9.678624
+TR_iS1ToS2Side1_value                             : y =-1281699.712742
+TR_iS2ToS1Side1_value                             : y =   1.281700e+06
+TR_iS1ToS2Side2_value                             : y =-1281699.712742
+TR_iS2ToS1Side2_value                             : y =   1.281700e+06
+TR_iSide1_value                                   : y =   1.281700e+06
+TR_iSide2_value                                   : y =-1281699.712742
+TR_twtState_value                                 : y =       2.000000
+ ====== DISCRETE VARIABLES VALUES ======
+VL1_BUS1_numcc_value                              : z =       0.000000
+VL1_BUS1_switchOff_value                          : z =      -1.000000
+VL1_BUS1_state_value                              : z =       2.000000
+VL2_BUS1_numcc_value                              : z =       0.000000
+VL2_BUS1_switchOff_value                          : z =      -1.000000
+VL2_BUS1_state_value                              : z =       2.000000
+VL3_BUS1_numcc_value                              : z =       0.000000
+VL3_BUS1_switchOff_value                          : z =      -1.000000
+VL3_BUS1_state_value                              : z =       2.000000
+line1_state_value                                 : z =       2.000000
+line1_desactivate_currentLimits_value             : z =       0.000000
+line2_state_value                                 : z =       2.000000
+line2_desactivate_currentLimits_value             : z =       0.000000
+TR_state_value                                    : z =       2.000000
+TR_step_value                                     : z =       0.000000
+TR_desactivate_currentLimits_value                : z =       0.000000
+TR_disable_internal_tapChanger_value              : z =       0.000000
+TR_TAP_CHANGER_locked_value                       : z =       0.000000
+TR_TAP_CHANGER_deltaUTarget_value                 : z =       0.000000
+ ====== PARAMETERS VALUES ======
+capacitor_no_reclosing_delay                       =     300.000000
+dangling_line_currentLimit_maxTimeOperation        =      90.000000
+line_currentLimit_maxTimeOperation                 =      90.000000
+load_Tp                                            =      90.000000
+load_Tq                                            =      90.000000
+load_alpha                                         =       1.000000
+load_alphaLong                                     =       0.000000
+load_beta                                          =       1.000000
+load_betaLong                                      =       0.000000
+load_isControllable                                =      -1.000000
+load_isRestorative                                 =      -1.000000
+load_zPMax                                         =     100.000000
+load_zQMax                                         =     100.000000
+reactance_no_reclosing_delay                       =       0.000000
+transformer_currentLimit_maxTimeOperation          =      90.000000
+transformer_t1st_HT                                =      60.000000
+transformer_t1st_THT                               =      30.000000
+transformer_tNext_HT                               =      10.000000
+transformer_tNext_THT                              =      10.000000
+transformer_tolV                                   =       0.015000
+ ====== INTERNAL PARAMETERS VALUES ======
+TR_R                                               =              0
+TR_X                                               =        0.00675
+TR_B                                               =              0
+TR_G                                               =              0
+TR_rho                                             =              1

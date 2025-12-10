@@ -181,6 +181,38 @@ TEST(DataInterfaceTest, TwoWTransformer_1) {
   ASSERT_EQ(tfoInterface.getRatedU1(), 2.0);
   ASSERT_EQ(tfoInterface.getRatedU2(), 0.4);
 
+    constexpr double SNREF  = 100;
+  tfoInterface.importStaticParameters();
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("p1"), 0.);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("q1"), 0.);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("p2"), 0.);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("q2"), 0.);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("p1_pu"), 0.);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("q1_pu"), 0.);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("p2_pu"), 0.);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("q2_pu"), 0.);
+
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("v1"), 10.);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("angle1"), 0.01);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("v1Nom"), 380.);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("v2"), 11.);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("angle2"), 0.02);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("v2Nom"), 225.);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("v1_pu"), 10. / 380.);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("angle1_pu"), 0.01 * M_PI / 180);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("v2_pu"), 11. / 225.);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("angle2_pu"), 0.02 * M_PI / 180);
+
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("r"), 3.0);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("x"), 33.);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("g"), 1.0);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("b"), .2);
+  const double coeff = tfoInterface.getVNom2() * tfoInterface.getVNom2() / SNREF;
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("r_pu"), 3.0 / coeff);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("x_pu"), 33. / coeff);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("g_pu"), 1.0 * coeff);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("b_pu"), 0.2 * coeff);
+
   ASSERT_FALSE(tfoInterface.getRatioTapChanger());
   transformer.newRatioTapChanger()
     .setTapPosition(2L)
