@@ -8,6 +8,8 @@
 
 #include "DYNElement.h"
 #include "PARParametersSetFactory.h"
+#include "DYNModelManager.h"
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 
 #include "Test_Dyn.h"
 #include "Test_Dyn_definition.h"
