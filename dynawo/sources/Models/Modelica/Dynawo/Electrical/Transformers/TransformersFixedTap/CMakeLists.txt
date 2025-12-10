@@ -19,6 +19,7 @@ set(MODEL_FILES
   GeneratorTransformer.mo
   GeneratorTransformer.extvar
   GeneratorTransformer_INIT.mo
+  GeneratorTransformerAux_INIT.mo
   NetworkTransformer.extvar
   NetworkTransformer.mo
   NetworkTransformer_INIT.mo
