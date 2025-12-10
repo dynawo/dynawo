@@ -144,7 +144,7 @@ partial model BaseQControl "Reactive power control base module for wind turbines
     Placement(visible = true, transformation(origin = {-250, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain6(k = -1) annotation(
     Placement(visible = true, transformation(origin = {-230, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Abs abs annotation(
+  Modelica.Blocks.Math.Abs abs1(generateEvent = true) annotation(
     Placement(visible = true, transformation(origin = {-286, 14}, extent = {{-6, 6}, {6, -6}}, rotation = 90)));
   Modelica.Blocks.Logical.LessThreshold lessThreshold(threshold = UqDipPu) annotation(
     Placement(visible = true, transformation(origin = {-210, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -268,7 +268,7 @@ equation
     Line(points = {{-238, 0}, {-200, 0}, {-200, -8}, {-182, -8}}, color = {0, 0, 127}));
   connect(gain6.y, vDrop.QPu) annotation(
     Line(points = {{-218, -20}, {-182, -20}}, color = {0, 0, 127}));
-  connect(abs.y, product.u2) annotation(
+  connect(abs1.y, product.u2) annotation(
     Line(points = {{-286, 20}, {-286, 38}}, color = {0, 0, 127}));
   connect(greaterEqualThreshold.y, antiWindupIntegrator1.fMin) annotation(
     Line(points = {{120, 22}, {120, 130}, {150, 130}, {150, 180}, {166, 180}, {166, 240}, {154, 240}, {154, 248}}, color = {255, 0, 255}));
