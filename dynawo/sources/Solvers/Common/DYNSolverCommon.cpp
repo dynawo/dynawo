@@ -31,52 +31,70 @@
 namespace DYN {
 
 bool
-SolverCommon::copySparseToKINSOL(const SparseMatrix& smj, SUNMatrix& JJ, const int& size, sunindextype * lastRowVals) {
+SolverCommon::copySparseToKINSOL(SparseMatrix& smj, SUNMatrix& sundialsMatrix, const std::vector<sunindextype>& lastRowVals) {
   bool matrixStructChange = false;
-  if (SM_NNZ_S(JJ) < smj.nbElem()) {
-    free(SM_INDEXPTRS_S(JJ));
-    free(SM_INDEXVALS_S(JJ));
-    free(SM_DATA_S(JJ));
-    SM_NNZ_S(JJ) = smj.nbElem();
-    SM_INDEXPTRS_S(JJ) = reinterpret_cast<sunindextype*> (malloc((size + 1) * sizeof (sunindextype)));
-    SM_INDEXVALS_S(JJ) = reinterpret_cast<sunindextype*> (malloc(SM_NNZ_S(JJ) * sizeof (sunindextype)));
-    SM_DATA_S(JJ) = reinterpret_cast<realtype*> (malloc(SM_NNZ_S(JJ) * sizeof (realtype)));
+  if (SM_NNZ_S(sundialsMatrix) < smj.nbElem()) {
     matrixStructChange = true;
   }
 
-  // NNZ has to be actualized anyway
-  SM_NNZ_S(JJ) = smj.nbElem();
+  copySparseMatrixToSUNMatrix(smj, sundialsMatrix);
 
-  for (unsigned i = 0, iEnd = size + 1; i < iEnd; ++i) {
-    SM_INDEXPTRS_S(JJ)[i] = smj.Ap_[i];  //!!! implicit conversion from unsigned to sunindextype
-  }
-  for (unsigned i = 0, iEnd = smj.nbElem(); i < iEnd; ++i) {
-    SM_INDEXVALS_S(JJ)[i] = smj.Ai_[i];  //!!! implicit conversion from int to sunindextype
-    SM_DATA_S(JJ)[i] = smj.Ax_[i];  //!!! implicit conversion from double to realtype
-  }
-
-  if (lastRowVals != NULL) {
-    if (memcmp(lastRowVals, SM_INDEXVALS_S(JJ), sizeof (sunindextype)*SM_NNZ_S(JJ)) != 0) {
-      matrixStructChange = true;
-    }
-  } else {  // first time or size change
+  if (!std::equal(lastRowVals.begin(), lastRowVals.end(), smj.getAi().begin())) {
     matrixStructChange = true;
   }
 
   return matrixStructChange;
 }
 
-void SolverCommon::propagateMatrixStructureChangeToKINSOL(const SparseMatrix& smj, SUNMatrix& JJ, const int& size, sunindextype** lastRowVals,
+void
+SolverCommon::copySparseMatrixToSUNMatrix(SparseMatrix& smj, SUNMatrix& sundialsMatrix) {
+  SM_NNZ_S(sundialsMatrix) = smj.nbElem();
+  SM_INDEXPTRS_S(sundialsMatrix) = &(smj.getNonCstAp())[0];
+  SM_INDEXVALS_S(sundialsMatrix) = &(smj.getNonCstAi())[0];
+  SM_DATA_S(sundialsMatrix) = &(smj.getNonCstAx())[0];
+}
+
+void
+SolverCommon::cleanSUNMatrix(SUNMatrix& sundialsMatrix) {
+  if (SM_INDEXPTRS_S(sundialsMatrix) != NULL) {
+    SM_INDEXPTRS_S(sundialsMatrix) = NULL;
+    SM_CONTENT_S(sundialsMatrix)->colptrs = NULL;
+    SM_CONTENT_S(sundialsMatrix)->rowptrs = NULL;
+  }
+  if (SM_INDEXVALS_S(sundialsMatrix) != NULL) {
+    SM_INDEXVALS_S(sundialsMatrix) = NULL;
+    SM_CONTENT_S(sundialsMatrix)->rowvals = NULL;
+    SM_CONTENT_S(sundialsMatrix)->colvals = NULL;
+  }
+  if (SM_DATA_S(sundialsMatrix) != NULL) {
+    SM_DATA_S(sundialsMatrix) = NULL;
+  }
+}
+
+void
+SolverCommon::freeSUNMatrix(SUNMatrix& sundialsMatrix) {
+  if (SM_INDEXPTRS_S(sundialsMatrix) != NULL) {
+    free(SM_INDEXPTRS_S(sundialsMatrix));
+    SM_INDEXPTRS_S(sundialsMatrix) = NULL;
+  }
+  if (SM_INDEXVALS_S(sundialsMatrix) != NULL) {
+    free(SM_INDEXVALS_S(sundialsMatrix));
+    SM_INDEXVALS_S(sundialsMatrix) = NULL;
+  }
+  if (SM_DATA_S(sundialsMatrix) != NULL) {
+    free(SM_DATA_S(sundialsMatrix));
+    SM_DATA_S(sundialsMatrix) = NULL;
+  }
+}
+
+void SolverCommon::propagateMatrixStructureChangeToKINSOL(SparseMatrix& smj, SUNMatrix& sundialsMatrix, std::vector<sunindextype>& lastRowVals,
                                                           SUNLinearSolver& LS, bool log) {
-  bool matrixStructChange = copySparseToKINSOL(smj, JJ, size, *lastRowVals);
+  bool matrixStructChange = copySparseToKINSOL(smj, sundialsMatrix, lastRowVals);
 
   if (matrixStructChange) {
-    SUNLinSol_KLUReInit(LS, JJ, SM_NNZ_S(JJ), 2);  // reinit symbolic factorisation
-    if (*lastRowVals != NULL) {
-      free(*lastRowVals);
-    }
-    *lastRowVals = reinterpret_cast<sunindextype*> (malloc(sizeof (sunindextype)*SM_NNZ_S(JJ)));
-    memcpy(*lastRowVals, SM_INDEXVALS_S(JJ), sizeof (sunindextype)*SM_NNZ_S(JJ));
+    SUNLinSol_KLUReInit(LS, sundialsMatrix, SM_NNZ_S(sundialsMatrix), 2);  // reinit symbolic factorisation
+    lastRowVals.resize(SM_NNZ_S(sundialsMatrix));
+    lastRowVals = smj.getAi();
     if (log)
       Trace::debug() << DYNLog(MatrixStructureChange) << Trace::endline;
   }
