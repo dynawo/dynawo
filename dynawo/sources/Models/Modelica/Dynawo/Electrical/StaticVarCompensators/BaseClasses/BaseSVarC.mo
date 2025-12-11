@@ -55,12 +55,8 @@ equation
     Timeline.logEvent1(TimelineKeys.SVarCBackRegulation);
   end when;
 
-  if (running.value) then
-    if ((terminal.V.re == 0) and (terminal.V.im == 0)) then
-      UPu = 0;
-    else
-      UPu = Modelica.ComplexMath.'abs'(terminal.V);
-    end if;
+  if running.value then
+    UPu = Modelica.ComplexMath.'abs'(terminal.V);
     terminal.i = terminal.V * Complex(0, BPu);
   else
     UPu = 0;

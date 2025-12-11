@@ -49,11 +49,7 @@ equation
     else
       UStatorPu = UStatorRefPu;
     end if;
-    if ((uStatorPu.re == 0) and (uStatorPu.im == 0)) then
-      UStatorPu = 0.;
-    else
-      UStatorPu = ComplexMath.'abs'(uStatorPu);
-    end if;
+    UStatorPu = ComplexMath.'abs'(uStatorPu);
   else
     terminal.i.im = 0;
     UStatorPu = 0;
@@ -64,6 +60,7 @@ equation
   sStatorPu = uStatorPu * ComplexMath.conj(iStatorPu);
   QStatorPu = sStatorPu.im * SNom / QNomAlt;
 
-  annotation(preferredView = "text",
+  annotation(
+    preferredView = "text",
     Documentation(info = "<html><head></head><body> This generator regulates the voltage UStatorPu unless its reactive power generation hits its limits QMinPu or QMaxPu at terminal (in this case, the generator provides QMinPu or QMaxPu at terminal and the voltage is no longer regulated at stator).</div></body></html>"));
 end GeneratorPVTfo;
