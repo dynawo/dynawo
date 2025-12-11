@@ -30,15 +30,17 @@ model BusWithInit "Bus with init"
 
 equation
   terminal.i = Complex(0);
+
   if ((terminal.V.re == 0) and (terminal.V.im == 0)) then
     UPu = 0;
+    UPhase = 0;
   else
     UPu = ComplexMath.'abs'(terminal.V);
+    UPhase = ComplexMath.arg(terminal.V);
   end if;
-  UPhase = ComplexMath.arg(terminal.V);
+
   UPhaseDeg = UPhase * 180.0 / Constants.pi;
   U = UPu * UNom;
 
   annotation(preferredView = "text");
-
 end BusWithInit;
