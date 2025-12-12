@@ -893,7 +893,8 @@ StreamHandler::create(attributes_type const& attributes) {
   stream_ = std::make_shared<StreamEntry>();
   stream_->setData(attributes["data"]);
   stream_->setChannel(attributes["channel"]);
-  stream_->setFormat(attributes["format"]);
+  if (attributes.has("format"))
+    stream_->setFormat(attributes["format"]);
 }
 
 shared_ptr<StreamEntry>

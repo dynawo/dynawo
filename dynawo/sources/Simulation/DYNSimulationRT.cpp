@@ -21,32 +21,26 @@
 #include <iomanip>
 #include <vector>
 #include <map>
-#include <cstdlib>
-#include <sstream>
 #include <fstream>
 #include <thread>
-#ifdef _MSC_VER
-#include <process.h>
-#endif
+
+#include <libzip/ZipOutputStream.h>
+#include <libzip/ZipInputStream.h>
 
 #include "TLTimelineFactory.h"
 #include "TLTimeline.h"
-#include "TLJsonExporter.h"
 
 #include "CRVCurvesCollectionFactory.h"
 #include "CRVCurveFactory.h"
-#include "CRVPoint.h"
 
 #include "FSVFinalStateValuesCollectionFactory.h"
 #include "FSVFinalStateValuesCollection.h"
 
 #include "CSTRConstraintsCollectionFactory.h"
-#include "CSTRJsonExporter.h"
 
 #include "LEQLostEquipmentsCollectionFactory.h"
 
 #include "JOBJobEntry.h"
-#include "JOBCurvesEntry.h"
 #include "JOBInteractiveSettingsEntry.h"
 #include "JOBClockEntry.h"
 #include "JOBChannelEntry.h"
@@ -104,8 +98,10 @@ using std::chrono::duration_cast;
 
 namespace DYN {
 
-SimulationRT::SimulationRT(const std::shared_ptr<job::JobEntry>& jobEntry, const std::shared_ptr<SimulationContext>& context, shared_ptr<DataInterface> data) :
-Simulation(jobEntry, context, data) {
+SimulationRT::SimulationRT(const std::shared_ptr<job::JobEntry>& jobEntry,
+                         const std::shared_ptr<SimulationContext>& context,
+                         const boost::shared_ptr<DataInterface>& data)
+    : Simulation(jobEntry, context, data) {
   configureRT();
 }
 
@@ -119,16 +115,17 @@ SimulationRT::configureRT() {
 
   // initialize interactive simulation managing objects
   clock_ = std::make_shared<Clock>();
+  dumpManager_ = std::make_shared<DumpManager>();
   actionBuffer_ = std::make_shared<ActionBuffer>();
   outputDispatcher_ = std::make_shared<OutputDispatcher>();
-  inputDispatcherAsync_ = std::make_shared<InputDispatcherAsync>(clock_);
+  inputDispatcher_ = std::make_shared<InputDispatcherAsync>(clock_, dumpManager_);
 
   couplingTimeStep_ = jobEntry_->getInteractiveSettingsEntry()->getCouplingTimeStep() < 0 ? 0 : jobEntry_->getInteractiveSettingsEntry()->getCouplingTimeStep();
 
   configureClock();
-  configureOutputsRT();
-  configureInputsRT();
-  configureCurvesRT();
+  configureRTOutputs();
+  configureRTInputs();
+  configureRTCurves();
 }
 
 void
@@ -139,19 +136,19 @@ SimulationRT::configureClock() {
   if (!clock_)
     return;
   if (clockEntry->getType() == "INTERNAL") {
-    clock_->setUseTrigger(false);
+    clock_->setUseStepTrigger(false);
     if (clockEntry->getSpeedup())
       clock_->setSpeedup(clockEntry->getSpeedup().get());
   } else {
-    clock_->setUseTrigger(true);
-    std::shared_ptr<job::ChannelEntry> triggerChannelEntry = channelsEntry->getChannelEntryById(clockEntry->getTriggerChannel());
-    if (!triggerChannelEntry)
+    clock_->setUseStepTrigger(true);
+    std::shared_ptr<job::ChannelEntry> stepTriggerChannelEntry = channelsEntry->getChannelEntryById(clockEntry->getTriggerChannel());
+    if (!stepTriggerChannelEntry)
       throw DYNError(Error::API, UnknownChannelId, clockEntry->getTriggerChannel());
   }
 }
 
 void
-SimulationRT::configureOutputsRT() {
+SimulationRT::configureRTOutputs() {
   std::shared_ptr<job::ChannelsEntry> channelsEntry = jobEntry_->getInteractiveSettingsEntry()->getChannelsEntry();
 
   std::map<std::string, std::shared_ptr<OutputChannel> > channelInterfaceMap;
@@ -187,6 +184,8 @@ SimulationRT::configureOutputsRT() {
       outputDispatcher_->addTimelinePublisher(outputChannel, streamEntry->getFormat());
     } else if (streamEntry->getData() == "CONSTRAINTS") {
       outputDispatcher_->addConstraintsPublisher(outputChannel, streamEntry->getFormat());
+    } else if (streamEntry->getData() == "DUMP") {
+      outputDispatcher_->addDumpPublisher(outputChannel);
     } else {
       Trace::warn() << DYNLog(StreamDataNotManaged, streamEntry->getData()) << Trace::endline;
     }
@@ -197,7 +196,7 @@ SimulationRT::configureOutputsRT() {
 }
 
 void
-SimulationRT::configureInputsRT() {
+SimulationRT::configureRTInputs() {
   std::shared_ptr<job::ChannelsEntry> channelsEntry = jobEntry_->getInteractiveSettingsEntry()->getChannelsEntry();
   std::shared_ptr<job::ClockEntry> clockEntry = jobEntry_->getInteractiveSettingsEntry()->getClockEntry();
 
@@ -206,15 +205,15 @@ SimulationRT::configureInputsRT() {
       // Create input channel
       if (channelEntry->getType() == "ZMQ") {
 #ifdef USE_ZMQ
-        MessageFilter filter = MessageFilter::Actions | MessageFilter::TimeManagement;
+        InputMessageFilter filter = InputMessageFilter::ACTIONS | InputMessageFilter::TIME_MANAGEMENT | InputMessageFilter::DUMP;
         if (clockEntry->getType() == "EXTERNAL" && clockEntry->getTriggerChannel() == channelEntry->getId())  // is trigger channel
-          filter = filter | MessageFilter::Trigger;
+          filter = filter | InputMessageFilter::STEP;
         std::shared_ptr<InputChannel> zmqServer;
         if (channelEntry->getEndpoint() == "")
           zmqServer = std::make_shared<ZmqInputChannel>("zmq", filter);
         else
           zmqServer = std::make_shared<ZmqInputChannel>("zmq", filter, channelEntry->getEndpoint());
-        inputDispatcherAsync_->addInputChannel(zmqServer);
+        inputDispatcher_->addInputChannel(zmqServer);
 #else
         throw DYNError(Error::GENERAL, UnavailableLib, "ZMQ");
 #endif
@@ -226,7 +225,7 @@ SimulationRT::configureInputsRT() {
 }
 
 void
-SimulationRT::configureCurvesRT() {
+SimulationRT::configureRTCurves() {
   // Workaround to avoid saving value for each curve:
   //  - Set all curves as EXPORT_AS_FINAL_STATE_VALUE --> will keep only one Point corresponding to last value
   //  - Disable export of curves and final state values
@@ -237,7 +236,7 @@ SimulationRT::configureCurvesRT() {
   exportCurvesMode_ = EXPORT_CURVES_NONE;
   exportFinalStateValuesMode_ = EXPORT_FINAL_STATE_VALUES_NONE;
   // Add simulation time to curves
-  bool sendSimulationMetrics_ = true;
+  constexpr bool sendSimulationMetrics_ = true;
   if (sendSimulationMetrics_)
     initComputationTimeCurve();
 }
@@ -263,25 +262,22 @@ SimulationRT::createModeler() const {
 void
 SimulationRT::simulate() {
   Timer timer("SimulationRT::simulate()");
-  if (inputDispatcherAsync_)
-    inputDispatcherAsync_->setModel(model_);
+  if (inputDispatcher_)
+    inputDispatcher_->setModel(model_);
 
   printSolverHeader();
 
   // Printing out the initial solution
   solver_->printSolve();
-  if (exportCurvesMode_ != EXPORT_CURVES_NONE) {
-    // This is a workaround to update the calculated variables with initial values of y and yp as they are not accessible at this level
-    model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
-  }
-  const bool updateCalculatedVariable = false;
+  model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
+  constexpr bool updateCalculatedVariable = false;
+  constexpr bool criteriaChecked = true;
   initComputationTimeCurve();
   updateCurves(updateCalculatedVariable);  // initial curves
 
   if (outputDispatcher_)
     outputDispatcher_->publishCurvesNames(curvesCollection_);
 
-  bool criteriaChecked = true;
   try {
     // update state variable only if the IIDM final state is exported, or criteria is checked, or lost equipments are exported
     if (data_ && (finalState_.iidmFile_ || isLostEquipmentsExported())) {
@@ -294,22 +290,20 @@ SimulationRT::simulate() {
       }
     }
 
-    int currentIterNb = 0;
-
-    inputDispatcherAsync_->start();
+    inputDispatcher_->start();
 
     clock_->start(tCurrent_);
 
     double nextOutputT = tCurrent_;  // Publish first time step
     bool isPublicationTime = false;
     bool isWaitTime = false;
-    while (!end() && !clock_->getStopMessageReceived() && !SignalHandler::gotExitSignal() && criteriaChecked) {
-      // If simulated time corresponds to a completed period, publish the results at the end of the step, then wait before applying the actions
+    while (!end() && !clock_->getStopMessageReceived() && !SignalHandler::gotExitSignal()) {
+      // If simulated time corresponds to a completed period, publish the results at the end of the step,
+      // then wait for trigger and apply actions before next time step simulation
       if (tCurrent_ >= nextOutputT) {
         isPublicationTime = true;
         nextOutputT += couplingTimeStep_;
       }
-
       if (isWaitTime) {
         clock_->wait(tCurrent_);
         updateStepStart();
@@ -317,18 +311,8 @@ SimulationRT::simulate() {
         isWaitTime = false;
       }
 
-      double elapsed = timer.elapsed();
-      double timeout = jobEntry_->getSimulationEntry()->getTimeout();
-      if (elapsed > timeout) {
-        Trace::warn() << DYNLog(SimulationTimeoutReached, jobEntry_->getName(), timeout) << Trace::endline;
-        endSimulationWithError(false);
-        return;
-      }
-
       solver_->solve(tStop_, tCurrent_);
       solver_->printSolve();
-      if (currentIterNb == 0)
-        printHighestDerivativesValues();
 
       BitMask solverState = solver_->getState();
       if (solverState.getFlags(ModeChange)) {
@@ -345,7 +329,6 @@ SimulationRT::simulate() {
       }
 
       model_->checkDataCoherence(tCurrent_);  // check if needed
-      ++currentIterNb;
 
       model_->notifyTimeStep();  // check if needed
 
@@ -357,11 +340,16 @@ SimulationRT::simulate() {
       if (isPublicationTime) {
         outputDispatcher_->publishCurves(curvesCollection_);
         outputDispatcher_->publishTimeline(timeline_);
-        outputDispatcher_->publishConstraints(constraintsCollection_);
         timeline_->clear();
+        outputDispatcher_->publishConstraints(constraintsCollection_);
         constraintsCollection_->clear();
         isPublicationTime = false;
         isWaitTime = true;
+        // dump before wait time to have the correct tCurrent_ value
+        if (dumpManager_->hasReceivedDumpSignal()) {
+          publishStateDump();
+          dumpManager_->resetDumpSignal();
+        }
       }
       if (SignalHandler::gotExitSignal() && !end()) {
         if (timeline_) {
@@ -412,4 +400,17 @@ SimulationRT::initComputationTimeCurve() {
   curve->setBuffer(&stepComputationTime_);
   curvesCollection_->add(curve);
 }
+
+void
+SimulationRT::publishStateDump() const {
+  const boost::shared_ptr<zip::ZipFile> archive = createDumpStateArchive();
+
+  if (archive) {
+    std::ostringstream zipBuffer(std::ios::binary);
+    zip::ZipOutputStream::write(zipBuffer, archive);
+    const std::string zipBytes = zipBuffer.str();
+    outputDispatcher_->publishStateDump(zipBytes);
+  }
+}
+
 }  // end of namespace DYN

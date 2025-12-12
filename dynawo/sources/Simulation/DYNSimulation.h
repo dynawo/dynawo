@@ -21,9 +21,10 @@
 #define SIMULATION_DYNSIMULATION_H_
 
 #include <vector>
-#include <queue>
+#include <deque>
 #include <unordered_map>
 #include <memory>
+#include <libzip/ZipFile.h>
 #include <boost/shared_ptr.hpp>
 #include <boost/optional.hpp>
 #include <boost/filesystem.hpp>
@@ -215,11 +216,18 @@ class Simulation {
   void printEnd() const;
 
   /**
-   * @brief load a previous state
+   * @brief load a previous state from file
    * @param fileName name of file where the dump is stored
    * @return the last time stored in the dump state
    */
   double loadState(const std::string& fileName);
+
+  /**
+   * @brief load a previous state from archive
+   * @param archive name of file where the dump is stored
+   * @return the last time stored in the dump state
+   */
+  double loadState(boost::shared_ptr<zip::ZipFile> archive);
 
   /**
    * @brief store a simulation state in a file
@@ -236,6 +244,12 @@ class Simulation {
    * @param dumpFile the dump file to export to
    */
   void dumpState(const boost::filesystem::path& dumpFile) const;
+
+  /**
+   * @brief create a ZipFile archive with state dump
+   * @return shared_ptr to ZipFile archive with state dump
+   */
+  boost::shared_ptr<zip::ZipFile> createDumpStateArchive() const;
 
   /**
    * @brief dump the final state of the network in a IIDM file
@@ -726,7 +740,7 @@ class Simulation {
   pid_t pid_;  ///< pid of the current simulation
 
   ExportStateDefinition finalState_;  ///< Final state definition
-  std::queue<ExportStateDefinition> intermediateStates_;  ///< Queue of intermediate dump states to perform, sorted by timestamp
+  std::deque<ExportStateDefinition> intermediateStates_;  ///< Queue of intermediate dump states to perform, sorted by timestamp
 
   double tStart_{};  ///< start time of the simulation
   double tCurrent_{};  ///< current time of the simulation

@@ -15,12 +15,14 @@ set(RTENGINE_SOURCES
       DYNClock.cpp
       DYNInputDispatcherAsync.cpp
       DYNOutputDispatcher.cpp
+      DYNDumpManager.cpp
       )
 
 set(RTENGINE_INCLUDE_HEADERS
       DYNClock.h
       DYNInputDispatcherAsync.h
       DYNOutputDispatcher.h
+      DYNDumpManager.h
       )
 
 add_library(dynawo_RTEngine SHARED ${RTENGINE_SOURCES})

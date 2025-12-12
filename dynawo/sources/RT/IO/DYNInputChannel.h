@@ -41,7 +41,7 @@ class InputChannel {
    * @param id Identifier of the input channel
    * @param supportedMessages Message types supported by the channel
    */
-  InputChannel(const std::string& id, MessageFilter supportedMessages);
+  InputChannel(const std::string& id, InputMessageFilter supportedMessages);
 
   /**
    * @brief destructor
@@ -66,13 +66,13 @@ class InputChannel {
    * @param value Message filter to test
    * @return true if the channel supports the message type, false otherwise
    */
-  inline bool supports(MessageFilter value) {
+  inline bool supports(InputMessageFilter value) {
     return (static_cast<int>(supportedMessages_) & static_cast<int>(value)) != 0;
   }
 
  protected:
-  std::string id_;                   ///< Identifier of the input channel
-  MessageFilter supportedMessages_;  ///< Supported message types
+  std::string id_;                        ///< Identifier of the input channel
+  InputMessageFilter supportedMessages_;  ///< Supported message types
 };
 
 }  // end of namespace DYN

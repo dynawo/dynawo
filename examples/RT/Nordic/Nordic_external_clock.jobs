@@ -40,6 +40,7 @@
                 <dyn:stream data="CURVES" channel="zmq_output" format="JSON"/>
                 <dyn:stream data="TIMELINE" channel="zmq_output" format="JSON"/>
                 <dyn:stream data="CONSTRAINTS" channel="zmq_output" format="JSON"/>
+                <dyn:stream data="DUMP" channel="zmq_output"/>
             </dyn:streams>
             <dyn:clock type="EXTERNAL" triggerChannel="zmq_input"/>
         </dyn:interactiveSettings>

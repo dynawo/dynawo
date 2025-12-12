@@ -294,7 +294,6 @@ ModelLoad::evalJt(const double cj, const int rowOffset, SparseMatrix& jt) {
       const double U = sqrt(ur * ur + ui * ui);
       const int urYNum = modelBus_->urYNum();
       const int uiYNum = modelBus_->uiYNum();
-
       // column for equations Zp
       jt.changeCol();
       // @f[0]/@zp, @f[0]/@ur, @f[0]/@ui

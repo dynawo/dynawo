@@ -19,8 +19,6 @@
  */
 #ifndef RT_COMMON_DYNRTOUTPUTCOMMON_H_
 #define RT_COMMON_DYNRTOUTPUTCOMMON_H_
-#include <string>
-#include <memory>
 
 namespace DYN {
 
