@@ -457,6 +457,7 @@ SolverIDA::init(const std::shared_ptr<Model>& model, const double t0, const doub
   precisionInit_ = getCurrentPrecision();
   minStepInit_ = minStep_;
   minimalAcceptableStepInit_ = minimalAcceptableStep_;
+  uroundPrecisionSave_ = uroundPrecision_;
 }
 
 void
@@ -907,9 +908,6 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
     if (flag1 < 0)
       throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetURound");
   }
-
-  double tdist;
-  double troundoff;
 
   string msg;
   switch (flag) {
