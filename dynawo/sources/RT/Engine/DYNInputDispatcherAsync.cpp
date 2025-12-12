@@ -21,8 +21,9 @@
 
 namespace DYN {
 
-InputDispatcherAsync::InputDispatcherAsync(std::shared_ptr<Clock>& clock) :
+InputDispatcherAsync::InputDispatcherAsync(std::shared_ptr<Clock> clock, std::shared_ptr<DumpManager> dumpManager) :
   clock_(clock),
+  dumpManager_(dumpManager),
   loopWaitInMs_(50),
   running_(false) {}
 
@@ -45,8 +46,8 @@ InputDispatcherAsync::start() {
   bool useTrigger = false;
 
   for (auto channel : channels_)
-    useTrigger |= channel->supports(MessageFilter::Trigger);
-  clock_->setUseTrigger(useTrigger);
+    useTrigger |= channel->supports(InputMessageFilter::STEP);
+  clock_->setUseStepTrigger(useTrigger);
 
   for (auto channel : channels_)
     channel->startReceiving([this](std::shared_ptr<InputMessage> msg){ this->dispatchMessage(std::move(msg)); }, true);
@@ -87,14 +88,18 @@ InputDispatcherAsync::processLoop() {
       lock.unlock();
 
       switch (msg->getType()) {
-        case MessageType::Action:
-          model_->registerAction(static_cast<ActionMessage &>(*msg).payload);
+        case InputMessageType::ACTION:
+          for (const auto& actionString : static_cast<ActionMessage &>(*msg).getPayload())
+            model_->registerAction(actionString);
           break;
-        case MessageType::StepTrigger:
+        case InputMessageType::STEP:
           clock_->handleMessage(static_cast<StepTriggerMessage &>(*msg));
           break;
-        case MessageType::Stop:
+        case InputMessageType::STOP:
           clock_->handleMessage(static_cast<StopMessage &>(*msg));
+          break;
+        case InputMessageType::DUMP:
+          dumpManager_->handleMessage(static_cast<DumpTriggerMessage &>(*msg));
           break;
       }
 

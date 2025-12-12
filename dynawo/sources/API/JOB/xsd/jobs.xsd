@@ -306,7 +306,7 @@
   <xs:complexType name="StreamEntry">
     <xs:attribute name="data" use="required" type="dyn:StreamData"/>
     <xs:attribute name="channel" use="required" type="xs:NMTOKEN"/>
-    <xs:attribute name="format" use="required" type="dyn:StreamFormat"/>
+    <xs:attribute name="format" use="optional" type="dyn:StreamFormat"/>
   </xs:complexType>
 
   <xs:simpleType name="StreamData">
@@ -315,6 +315,7 @@
       <xs:enumeration value="TIMELINE"/>
       <xs:enumeration value="CONSTRAINTS"/>
       <xs:enumeration value="LOGS"/>
+      <xs:enumeration value="DUMP"/>
     </xs:restriction>
   </xs:simpleType>
 

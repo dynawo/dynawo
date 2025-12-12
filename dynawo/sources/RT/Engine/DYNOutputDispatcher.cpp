@@ -101,6 +101,11 @@ OutputDispatcher::addLogsPublisher(std::shared_ptr<OutputChannel>& /*publisher*/
 }
 
 void
+OutputDispatcher::addDumpPublisher(std::shared_ptr<OutputChannel>& publisher) {
+  dumpPublishers_.push_back(publisher);
+}
+
+void
 OutputDispatcher::publishCurvesNames(std::shared_ptr<curves::CurvesCollection>& curvesCollection) {
   if (!curvesCollection)
     return;
@@ -237,6 +242,11 @@ OutputDispatcher::publishConstraints(std::shared_ptr<constraints::ConstraintsCol
   }
 }
 
+void
+OutputDispatcher::publishStateDump(const std::string& stateDumpString) {
+  for (auto &publisher : dumpPublishers_)
+    publisher->sendMessage(stateDumpString, "dump");
+}
 
 std::string
 OutputDispatcher::curvesToJson(std::shared_ptr<curves::CurvesCollection> curvesCollection) const {
