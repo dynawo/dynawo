@@ -41,7 +41,7 @@ using std::chrono::duration_cast;
 namespace DYN {
 
 Clock::Clock():
-useTrigger_(false),
+useStepTrigger_(false),
 running_(false),
 stopMessageReceived_(false),
 speedup_(1.),
@@ -71,7 +71,7 @@ Clock::stop() {
 }
 
 void
-Clock::handleMessage(StepTriggerMessage& /*triggerMessage*/) {
+Clock::handleMessage(StepTriggerMessage& /*stepTriggerMessage*/) {
     {
       std::lock_guard<std::mutex> lock(mutex_);
       triggeredStepCnt_++;
@@ -87,7 +87,7 @@ Clock::handleMessage(StopMessage& /*stopMessage*/) {
 
 void
 Clock::wait(double simulationTime) {
-  if (!useTrigger_) {
+  if (!useStepTrigger_) {
     if (running_ && speedup_ > 0)
       std::this_thread::sleep_until(referenceClockTime_ + microseconds(static_cast<int>(1000000*(simulationTime-referenceSimuTime_)/speedup_)));
     return;
@@ -109,13 +109,13 @@ Clock::getStopMessageReceived() const {
 }
 
 bool
-Clock::getUseTrigger() const {
-  return useTrigger_;
+Clock::getUseStepTrigger() const {
+  return useStepTrigger_;
 }
 
 void
-Clock::setUseTrigger(const bool useTrigger) {
-  useTrigger_ = useTrigger;
+Clock::setUseStepTrigger(const bool useStepTrigger) {
+  useStepTrigger_ = useStepTrigger;
 }
 
 }  // end of namespace DYN

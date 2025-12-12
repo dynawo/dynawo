@@ -12,22 +12,32 @@
 //
 
 /**
- * @file  DYNInputChannel.cpp
+ * @file  DYNDumpManager.cpp
  *
- * @brief Input channel inpmlementation
+ * @brief RT dump manager
  *
  */
 
-#include "DYNInputChannel.h"
-
-#include "DYNRTInputCommon.h"
+#include "DYNDumpManager.h"
 
 namespace DYN {
 
-InputChannel::InputChannel(const std::string& id, InputMessageFilter supportedMessages):
-  id_(id),
-  supportedMessages_(supportedMessages) { }
+DumpManager::DumpManager():
+  dumpSignalReceived_(false) {}
 
-InputChannel::~InputChannel() = default;
+void
+DumpManager::handleMessage(DumpTriggerMessage& /*dumpTriggerMessage*/) {
+  dumpSignalReceived_ = true;
+}
+
+bool
+DumpManager::hasReceivedDumpSignal() {
+  return dumpSignalReceived_;
+}
+
+void
+DumpManager::resetDumpSignal() {
+  dumpSignalReceived_ = false;
+}
 
 }  // end of namespace DYN
