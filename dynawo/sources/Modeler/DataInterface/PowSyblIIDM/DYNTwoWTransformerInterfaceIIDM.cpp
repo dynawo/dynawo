@@ -193,6 +193,10 @@ TwoWTransformerInterfaceIIDM::getR() const {
 
 double
 TwoWTransformerInterfaceIIDM::getX() const {
+  if (doubleIsZero(tfoIIDM_.getX()) && doubleIsZero(tfoIIDM_.getR())) {
+    Trace::warn() << DYNLog(PossibleDivisionByZero, tfoIIDM_.getId()) << Trace::endline;
+    return 0.01;  // default parameter
+  }
   return tfoIIDM_.getX();
 }
 
