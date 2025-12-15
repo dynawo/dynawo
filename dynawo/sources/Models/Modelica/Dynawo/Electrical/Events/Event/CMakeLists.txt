@@ -27,6 +27,7 @@ set(MODEL_FILES
   EventQuadripoleConnection.mo
   EventQuadripoleDisconnection.mo
   EventConnectedStatus.mo
+  EventConnectedStatusShunt.mo
   )
 
 #

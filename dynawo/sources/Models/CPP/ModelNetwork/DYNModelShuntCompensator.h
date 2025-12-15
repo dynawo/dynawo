@@ -64,7 +64,8 @@ class ModelShuntCompensator : public NetworkComponent {
     connectionStateNum_ = 0,
     isCapacitorNum_ = 1,
     isAvailableNum_ = 2,
-    currentSectionNum_ = 3
+    currentSectionNum_ = 3,
+    switchOffNum_ = 4
   } IndexDiscreteVariable_t;
 
   /**

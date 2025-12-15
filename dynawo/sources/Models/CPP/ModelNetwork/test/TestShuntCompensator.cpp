@@ -264,7 +264,7 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorDiscreteVariables) {
   int yOffSet = 0;
   capa->init(yOffSet);
   capa->initSize();
-  unsigned nbZ = 4;
+  unsigned nbZ = 5;
   unsigned nbG = 1;
   ASSERT_EQ(capa->sizeZ(), nbZ);
   ASSERT_EQ(capa->sizeG(), nbG);
@@ -329,10 +329,12 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorDiscreteVariables) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[ModelShuntCompensator::isCapacitorNum_], 1.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[ModelShuntCompensator::isAvailableNum_], 0.);
 
-  zConnected[ModelShuntCompensator::isAvailableNum_] = false;
-  capa->evalG(0.);
-  capa->evalZ(0.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(z[ModelShuntCompensator::isAvailableNum_], 1.);
+  z[ModelShuntCompensator::isAvailableNum_] = 1.;
+  z[ModelShuntCompensator::switchOffNum_] = 1.;
+  capa->evalG(10.);
+  capa->evalZ(10.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(z[ModelShuntCompensator::isAvailableNum_], 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(z[ModelShuntCompensator::switchOffNum_], 1.);
 
   std::map<int, std::string> gEquationIndex;
   capa->setGequations(gEquationIndex);
@@ -450,7 +452,7 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorDefineInstantiate) {
   std::vector<Element> elements;
   std::map<std::string, int> mapElement;
   ASSERT_NO_THROW(capa->defineElements(elements, mapElement));
-  ASSERT_EQ(elements.size(), 10);
+  ASSERT_EQ(elements.size(), 12);
 }
 
 TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorJt) {

@@ -437,6 +437,7 @@ _BANK___9_SC_state_value                          : z =       2.000000
 _BANK___9_SC_isCapacitor_value                    : z =       1.000000
 _BANK___9_SC_isAvailable_value                    : z =       1.000000
 _BANK___9_SC_currentSection_value                 : z =       1.000000
+_BANK___9_SC_switchOff_value                      : z =       0.000000
 _BUS____7_TN_numcc_value                          : z =       0.000000
 _BUS____7_TN_switchOff_value                      : z =      -1.000000
 _BUS____7_TN_state_value                          : z =       2.000000
