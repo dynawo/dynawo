@@ -69,8 +69,8 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
   ModelSecondaryVoltageControlSimplified::ModelSecondaryVoltageControlSimplified() : ModelCPP("SecondaryVoltageControlSimplified"),
     nbGenerators_(0),
     UDeadBandPu_(0.),
-    alpha_(0.),
-    beta_(0.),
+    Alpha_(0.),
+    Beta_(0.),
     UpRef0Pu_(0.),
     tSample_(10.),
     iTerm_(0.),
@@ -80,12 +80,16 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
   ModelSecondaryVoltageControlSimplified::defineParameters(std::vector<ParameterModeler>& parameters) {
     parameters.push_back(ParameterModeler("nbGenerators", VAR_TYPE_INT, EXTERNAL_PARAMETER));
     parameters.push_back(ParameterModeler("UDeadBandPu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-    parameters.push_back(ParameterModeler("alpha", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-    parameters.push_back(ParameterModeler("beta", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+    parameters.push_back(ParameterModeler("Alpha", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+    parameters.push_back(ParameterModeler("Beta", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
     parameters.push_back(ParameterModeler("UpRef0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
     parameters.push_back(ParameterModeler("tSample", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
     parameters.push_back(ParameterModeler("Qr", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbGenerators"));
     parameters.push_back(ParameterModeler("Q0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbGenerators"));
+    parameters.push_back(ParameterModeler("P0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbGenerators"));
+    parameters.push_back(ParameterModeler("U0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbGenerators"));
+    parameters.push_back(ParameterModeler("SNom", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbGenerators"));
+    parameters.push_back(ParameterModeler("XTfoPu", VAR_TYPE_DOUBLE, SHARED_PARAMETER, "*", "nbGenerators"));
   }
 
   void
@@ -93,12 +97,16 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
     try {
       nbGenerators_ = findParameterDynamic("nbGenerators").getValue<int>();
       UDeadBandPu_ = findParameterDynamic("UDeadBandPu").getValue<double>();
-      alpha_ = findParameterDynamic("alpha").getValue<double>();
-      beta_ = findParameterDynamic("beta").getValue<double>();
+      Alpha_ = findParameterDynamic("Alpha").getValue<double>();
+      Beta_ = findParameterDynamic("Beta").getValue<double>();
       UpRef0Pu_ = findParameterDynamic("UpRef0Pu").getValue<double>();
       tSample_ = findParameterDynamic("tSample").getValue<double>();
       std::stringstream qrName;
       std::stringstream q0PuName;
+      std::stringstream p0PuName;
+      std::stringstream u0PuName;
+      std::stringstream sNomName;
+      std::stringstream xTfoPuName;
       for (int s = 0; s < nbGenerators_; ++s) {
         qrName.str(std::string());
         qrName.clear();
@@ -108,10 +116,34 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
         q0PuName.clear();
         q0PuName << "Q0Pu_" << s;
         Q0Pu_.push_back(findParameterDynamic(q0PuName.str()).getValue<double>());
+        p0PuName.str(std::string());
+        p0PuName.clear();
+        p0PuName << "P0Pu_" << s;
+        P0Pu_.push_back(findParameterDynamic(p0PuName.str()).getValue<double>());
+        u0PuName.str(std::string());
+        u0PuName.clear();
+        u0PuName << "U0Pu_" << s;
+        U0Pu_.push_back(findParameterDynamic(u0PuName.str()).getValue<double>());
+        sNomName.str(std::string());
+        sNomName.clear();
+        sNomName << "SNom_" << s;
+        const auto& paramSNom = findParameterDynamic(sNomName.str());
+        if (paramSNom.hasValue())
+          SNom_.push_back(paramSNom.getValue<double>());
+        else
+          SNom_.push_back(SNREF);
+        xTfoPuName.str(std::string());
+        xTfoPuName.clear();
+        xTfoPuName << "XTfoPu_" << s;
+        const auto& paramXTfoPu = findParameterDynamic(xTfoPuName.str());
+        if (paramXTfoPu.hasValue())
+          XTfoPu_.push_back(paramXTfoPu.getValue<double>());
+        else
+          XTfoPu_.push_back(0.);
       }
     } catch (const DYN::Error& e) {
-    Trace::error() << e.what() << Trace::endline;
-    throw DYNError(Error::MODELER, NetworkParameterNotFoundFor, name());
+      Trace::error() << e.what() << Trace::endline;
+      throw DYNError(Error::MODELER, NetworkParameterNotFoundFor, name());
     }
   }
 
@@ -122,11 +154,17 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
     variables.push_back(VariableNativeFactory::createState("tLastActivation_value", DISCRETE));
     variables.push_back(VariableNativeFactory::createState("levelVal_value", DISCRETE));
     std::stringstream blockerName;
+    std::stringstream Qs;
     for (int s = 0; s < nbGenerators_; ++s) {
       blockerName.str(std::string());
       blockerName.clear();
       blockerName << "blocker_" << s << "_value";
       variables.push_back(VariableNativeFactory::createState(blockerName.str(), BOOLEAN));
+
+      Qs.str(std::string());
+      Qs.clear();
+      Qs << "QStator_" << s << "_value";
+      variables.push_back(VariableNativeFactory::createState(Qs.str(), CONTINUOUS));
     }
     variables.push_back(VariableNativeFactory::createCalculated("level_value", CONTINUOUS));
   }
@@ -146,7 +184,7 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
   void
   ModelSecondaryVoltageControlSimplified::getSize() {
     sizeF_ = 0;
-    sizeY_ = 1;
+    sizeY_ = 1 + nbGenerators_;
     sizeZ_ = firstIndexBlockerNum_ + nbGenerators_;
     sizeG_ = 2;
     sizeMode_ = 0;
@@ -156,6 +194,9 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
   void
   ModelSecondaryVoltageControlSimplified::evalStaticYType() {
     yType_[0] = EXTERNAL;
+    for (int s = 0; s < nbGenerators_; ++s) {
+      yType_[s + 1] = EXTERNAL;
+    }
   }
 
   void
@@ -175,9 +216,13 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
     if (gLocal_[ActivationNum_] == ROOT_UP) {
       auto notBlocked = std::find_if(&zLocal_[firstIndexBlockerNum_], &zLocal_[firstIndexBlockerNum_ + nbGenerators_],
           [](double b) { return b < 1; });
-      gLocal_[BlockingNum_] = (notBlocked != &zLocal_[firstIndexBlockerNum_ + nbGenerators_]) ? ROOT_DOWN : ROOT_UP;
-    } else {
-      gLocal_[BlockingNum_] = ROOT_DOWN;
+      const bool blocked = (notBlocked == &zLocal_[firstIndexBlockerNum_ + nbGenerators_]);
+      if (blocked && gLocal_[BlockingNum_] == ROOT_DOWN) {
+        DYNAddTimelineEvent(this, name(), VRFrozen);
+      } else if (!blocked && gLocal_[BlockingNum_] == ROOT_UP) {
+        DYNAddTimelineEvent(this, name(), VRUnfrozen);
+      }
+      gLocal_[BlockingNum_] = (!blocked) ? ROOT_DOWN : ROOT_UP;
     }
   }
 
@@ -193,17 +238,40 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
   }
 
   void
+  ModelSecondaryVoltageControlSimplified::calculateInitialState() {
+    zLocal_[levelValNum_] = 0.;
+    for (int g = 0; g < nbGenerators_; g++) {
+      zLocal_[levelValNum_] += yLocal_[g + 1];
+     }
+    double qrSum = 0;
+    for (auto& qr : Qr_) {
+      qrSum += qr;
+    }
+    zLocal_[levelValNum_] = zLocal_[levelValNum_] / qrSum;
+    antiWindUpCorrection();
+    iTerm_ = zLocal_[levelValNum_] + feedBackCorrection_;
+  }
+
+  void
   ModelSecondaryVoltageControlSimplified::evalZ(const double t) {
+    if (!isStartingFromDump() && doubleIsZero(t) && doubleEquals(UpRef0Pu_, yLocal_[UpPuNum_])) {
+      // Compute initial level from actual Qstator values at the beginning of the simulation
+      // Do it as long as the voltage is constant to make sure that discrete status variables were taken into account in continuous equations
+      calculateInitialState();
+    }
     if (gLocal_[ActivationNum_] == ROOT_UP && doubleNotEquals(t, zLocal_[tLastActivationNum_]) && gLocal_[BlockingNum_] == ROOT_DOWN) {
       double minValue = zLocal_[UpRefPuNum_] - UDeadBandPu_;
       double maxValue = zLocal_[UpRefPuNum_] + UDeadBandPu_;
       if (doubleLess(yLocal_[UpPuNum_], minValue) || doubleGreater(yLocal_[UpPuNum_], maxValue)) {
         double iTermTmp = iTerm_;
-        iTermTmp += alpha_ * (zLocal_[UpRefPuNum_] - yLocal_[UpPuNum_]) * tSample_;
-        zLocal_[levelValNum_] = iTermTmp + beta_ * (zLocal_[UpRefPuNum_] - yLocal_[UpPuNum_]);
+        iTermTmp += Alpha_ * (zLocal_[UpRefPuNum_] - yLocal_[UpPuNum_]) * tSample_;
+        double levelSave = zLocal_[levelValNum_];
+        zLocal_[levelValNum_] = iTermTmp + Beta_ * (zLocal_[UpRefPuNum_] - yLocal_[UpPuNum_]);
         feedBackCorrection_ = 0;
         antiWindUpCorrection();
         iTerm_ = iTermTmp + feedBackCorrection_;
+        if (doubleNotEquals(static_cast<int>(levelSave*100), static_cast<int>(zLocal_[levelValNum_]*100)))
+          DYNAddTimelineEvent(this, name(), SVRLevelNew,  zLocal_[levelValNum_]);
       }
       zLocal_[tLastActivationNum_] = t;
     }
@@ -223,9 +291,15 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
     if (!isStartingFromDump()) {
       zLocal_[tLastActivationNum_] = 0.;
       zLocal_[levelValNum_] = 0.;
-      for (auto& q : Q0Pu_) {
-        zLocal_[levelValNum_] += (-1.0 * q * SNREF);
-      }
+      double iSquare0Pu = 0.;
+      double QTfo0Pu = 0.;
+      double QStator0Pu = 0.;
+      for (int g = 0; g < nbGenerators_; g++) {
+        iSquare0Pu = (P0Pu_[g] * P0Pu_[g] + Q0Pu_[g] * Q0Pu_[g]) / (U0Pu_[g] * U0Pu_[g]);
+        QTfo0Pu = iSquare0Pu * XTfoPu_[g] * SNREF / SNom_[g];
+        QStator0Pu = Q0Pu_[g] - QTfo0Pu;
+        zLocal_[levelValNum_] += (-1.0 * QStator0Pu * SNREF);
+       }
       double qrSum = 0;
       for (auto& qr : Qr_) {
         qrSum += qr;
@@ -236,6 +310,7 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
       for (int i = firstIndexBlockerNum_; i < firstIndexBlockerNum_ + nbGenerators_ ; i++) {
         zLocal_[i] =  false;
       }
+      gLocal_[BlockingNum_] = ROOT_DOWN;
     }
   }
 
@@ -294,12 +369,19 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
     addElement("levelVal", Element::STRUCTURE, elements, mapElement);
     addSubElement("value", "levelVal", Element::TERMINAL, name(), modelType(), elements, mapElement);
     std::stringstream blockerName;
+    std::stringstream Qs;
     for (int s = 0; s < nbGenerators_; ++s) {
       blockerName.str(std::string());
       blockerName.clear();
       blockerName << "blocker_" << s;
       addElement(blockerName.str(), Element::STRUCTURE, elements, mapElement);
       addSubElement("value", blockerName.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
+
+      Qs.str(std::string());
+      Qs.clear();
+      Qs << "QStator_" << s;
+      addElement(Qs.str(), Element::STRUCTURE, elements, mapElement);
+      addSubElement("value", Qs.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
     }
     addElement("level", Element::STRUCTURE, elements, mapElement);
     addSubElement("value", "level", Element::TERMINAL, name(), modelType(), elements, mapElement);
@@ -329,6 +411,7 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
     Trace::info() << "  ->" << "levelVal_value" << Trace::endline;
     Trace::info() << "  ->" << "level_value" << Trace::endline;
     Trace::info() << "  ->" << "blocker_" << "<0-" << nbGenerators_ << ">_value" << Trace::endline;
+    Trace::info() << "  ->" << "QStator_" << "<0-" << nbGenerators_ << ">_value" << Trace::endline;
   }
 
 }  // namespace DYN
