@@ -579,7 +579,7 @@ class ReaderOMC:
                         root.diff_var.append(m2)
                 else:
                     root.type = ALGEBRAIC
-                self.split_min_max(final_expr, root)
+                self.split_min_max(root)
 
     def remove_condition(self, initial_idx, splitted_eq):
         idx = initial_idx
@@ -591,7 +591,7 @@ class ReaderOMC:
         return (idx+1, no_event_found)
 
 
-    def split_min_max(self, final_expr, root):
+    def split_min_max(self, root):
         nodes_to_add = 0
         if "min" in root.eq:
             nodes_to_add+= root.eq.count("min(")

@@ -33,6 +33,9 @@ class InteractiveSettingsEntry {
    */
   InteractiveSettingsEntry();
 
+  /// @brief Destructor
+  ~InteractiveSettingsEntry() = default;
+
   /**
    * @brief Copy constructor
    * @param other original to copy

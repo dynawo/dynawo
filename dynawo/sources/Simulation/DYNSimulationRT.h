@@ -84,6 +84,11 @@ class SimulationRT: public Simulation {
               boost::shared_ptr<DataInterface> data = boost::shared_ptr<DataInterface>());
 
   /**
+   * @brief default destructor
+   */
+  virtual ~SimulationRT() {}
+
+  /**
    * @brief configure RT System
    */
   void configureRT();
