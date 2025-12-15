@@ -145,7 +145,7 @@ SolverIDA::~SolverIDA() {
 void
 SolverIDA::defineSpecificParameters() {
   constexpr bool mandatory = true;  // name of the parameter indicates its purpose not its value
-  constexpr bool optional = false;  // name of the parameter indicates its purpose not its value
+  constexpr bool notMandatory = false;  // name of the parameter indicates its purpose not its value
   // Time-domain part parameters
   parameters_.insert(make_pair("order", ParameterSolver("order", VAR_TYPE_INT, mandatory)));
   parameters_.insert(make_pair("initStep", ParameterSolver("initStep", VAR_TYPE_DOUBLE, mandatory)));
@@ -514,10 +514,14 @@ SolverIDA::calculateIC(double /*tEnd*/) {
 // #if _DEBUG_
   if (activateCheckJacobian_) {
     solverKINNormal_->setCheckJacobian(true);
-    solverKINYPrim_->setCheckJacobian(true);
+    if (restorationYPrim_) {
+      solverKINYPrim_->setCheckJacobian(true);
+    }
   } else {
     solverKINNormal_->setCheckJacobian(false);
-    solverKINYPrim_->setCheckJacobian(false);
+    if (restorationYPrim_) {
+      solverKINYPrim_->setCheckJacobian(false);
+    }
   }
 // #endif
   do {
@@ -616,10 +620,14 @@ SolverIDA::calculateIC(double /*tEnd*/) {
 // #if _DEBUG_
   if (activateCheckJacobianAfterInit_) {
     solverKINNormal_->setCheckJacobian(true);
-    solverKINYPrim_->setCheckJacobian(true);
+    if (restorationYPrim_) {
+      solverKINYPrim_->setCheckJacobian(true);
+    }
   } else {
     solverKINNormal_->setCheckJacobian(false);
-    solverKINYPrim_->setCheckJacobian(false);
+    if (restorationYPrim_) {
+      solverKINYPrim_->setCheckJacobian(false);
+    }
   }
 // #endif
 }
