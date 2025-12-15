@@ -64,7 +64,7 @@ class InputMessage {
   /**
    * @brief Destructor.
    */
-  virtual ~InputMessage() = default;
+  virtual ~InputMessage() { }
 
   /**
    * @brief Get the message type.
