@@ -80,30 +80,33 @@ bool ModelPhaseTapChanger::getIncreaseTap(const bool P1SupP2) const {
 void ModelPhaseTapChanger::evalG(const double t, const double iValue, const bool /*nodeOff*/,
                                  const double disable, const double locked,
                                  const bool tfoClosed, state_g* g) {
+  int currentStepIndex = getCurrentStepIndex();
+  if (getNextStepIndex() != -1)
+    currentStepIndex = getNextStepIndex();
   g[0] = (iValue >= thresholdI_ && !(disable > 0.) && tfoClosed)
              ? ROOT_UP
              : ROOT_DOWN;  // I > IThreshold
   g[1] = (iValue < thresholdI_) ? ROOT_UP : ROOT_DOWN;
 
   g[2] = (moveUp_ && (t - whenUp_ >= getTFirst()) &&
-          getCurrentStepIndex() < getHighStepIndex() && !(locked > 0.) &&
-          getRegulating() && getCurrentStepIndex() == tapRefUp_ && tfoClosed)
+          currentStepIndex < getHighStepIndex() && !(locked > 0.) &&
+          getRegulating() && currentStepIndex == tapRefUp_ && tfoClosed)
              ? ROOT_UP
              : ROOT_DOWN;  // first tap Up
   g[3] = (moveUp_ && (t - whenLastTap_ >= getTNext()) &&
-          getCurrentStepIndex() < getHighStepIndex() && !(locked > 0.) &&
-          getRegulating() && getCurrentStepIndex() != tapRefUp_ && tfoClosed)
+          currentStepIndex < getHighStepIndex() && !(locked > 0.) &&
+          getRegulating() && currentStepIndex != tapRefUp_ && tfoClosed)
              ? ROOT_UP
              : ROOT_DOWN;  // next tap Up
 
   g[4] = (moveDown_ && (t - whenDown_ >= getTFirst()) &&
-          getCurrentStepIndex() > getLowStepIndex() && !(locked > 0.) &&
-          getRegulating() && getCurrentStepIndex() == tapRefDown_ && tfoClosed)
+          currentStepIndex > getLowStepIndex() && !(locked > 0.) &&
+          getRegulating() && currentStepIndex == tapRefDown_ && tfoClosed)
              ? ROOT_UP
              : ROOT_DOWN;  // first tap down
   g[5] = (moveDown_ && (t - whenLastTap_ >= getTNext()) &&
-          getCurrentStepIndex() > getLowStepIndex() && !(locked > 0.) &&
-          getRegulating() && getCurrentStepIndex() != tapRefDown_ && tfoClosed)
+          currentStepIndex > getLowStepIndex() && !(locked > 0.) &&
+          getRegulating() && currentStepIndex != tapRefDown_ && tfoClosed)
              ? ROOT_UP
              : ROOT_DOWN;  // next tap down
 
@@ -113,19 +116,22 @@ void ModelPhaseTapChanger::evalG(const double t, const double iValue, const bool
 void ModelPhaseTapChanger::evalZ(const double t, const state_g* g,
                                  const double disable, const bool P1SupP2, const double locked,
                                  const bool tfoClosed, ModelNetwork* network) {
+  int currentStepIndex = getCurrentStepIndex();
+  if (getNextStepIndex() != -1)
+    currentStepIndex = getNextStepIndex();
   if (!(disable > 0.) && !(locked > 0.) && tfoClosed) {
     if (g[0] == ROOT_UP && !currentOverThresholdState_) {  // I > IThreshold
       if (getIncreaseTap(P1SupP2)) {
         whenUp_ = t;
         moveUp_ = true;
-        tapRefUp_ = getCurrentStepIndex();
+        tapRefUp_ = currentStepIndex;
         whenDown_ = VALDEF;
         moveDown_ = false;
         tapRefDown_ = getHighStepIndex();
       } else {
         whenDown_ = t;
         moveDown_ = true;
-        tapRefDown_ = getCurrentStepIndex();
+        tapRefDown_ = currentStepIndex;
         whenUp_ = VALDEF;
         moveUp_ = false;
         tapRefUp_ = getLowStepIndex();
@@ -144,13 +150,17 @@ void ModelPhaseTapChanger::evalZ(const double t, const state_g* g,
     }
 
     if (g[2] == ROOT_UP || g[3] == ROOT_UP) {  // increase tap
-      setCurrentStepIndex(getCurrentStepIndex() + 1);
+      if (getNextStepIndex() == -1)
+        setNextStepIndex(getCurrentStepIndex());
+      setNextStepIndex(getNextStepIndex() + 1);
       whenLastTap_ = t;
       DYNAddTimelineEvent(network, id(), TapUp, latestIValue_, "A");
     }
 
     if (g[4] == ROOT_UP || g[5] == ROOT_UP) {  // decrease tap
-      setCurrentStepIndex(getCurrentStepIndex() - 1);
+      if (getNextStepIndex() == -1)
+        setNextStepIndex(getCurrentStepIndex());
+      setNextStepIndex(getNextStepIndex() - 1);
       whenLastTap_ = t;
       DYNAddTimelineEvent(network, id(), TapDown, latestIValue_, "A");
     }
