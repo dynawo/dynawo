@@ -58,6 +58,10 @@ namespace criteria {
 class CriteriaCollection;
 }
 
+namespace linearise {
+class Linearize;
+}
+
 namespace DYN {
 class Message;
 class MessageTimeline;
@@ -676,6 +680,22 @@ class Simulation {
    */
   virtual std::unique_ptr<Modeler> createModeler() const;
 
+  /**
+   * @brief setter of the time of the linearisation
+   * @param time start time of the linearisation
+   */
+  void setLinearizeTime(const double time) {
+    tLinearize_ = time;
+  }
+
+  /**
+   * @brief getter for the start time of the linearisation
+   * @return the start time of the linearisation
+   */
+  double getLinearizeTime() const {
+    return tLinearize_.value();
+  }
+
  protected:
   std::shared_ptr<SimulationContext> context_;  ///< simulation context : configuration of the simulation
   std::shared_ptr<job::JobEntry> jobEntry_;  ///< jobs data description
@@ -689,6 +709,7 @@ class Simulation {
   std::shared_ptr<criteria::CriteriaCollection> criteriaCollection_;  ///< instance of criteria collection where criteria are stored
   std::shared_ptr<std::vector<
           std::shared_ptr<ComponentInterface> > > connectedComponents_;  ///< instance of vector of connected components at simulation start
+  std::shared_ptr<linearise::Linearize> linearise_;  ///< instance of the linearise where events are stored
 
   std::vector<std::string> dydFiles_;  ///< list of files to used dynamic data
   std::string iidmFile_;  ///< iidm input file
@@ -738,6 +759,7 @@ class Simulation {
   bool dumpInitModelValues_;  ///< whether to export the results from the initialisation model
   bool dumpFinalValues_;  ///< whether to export the values of the models's variables and parameters at the end of the simulation
   std::vector<double> zCurrent_;  ///< current values of the model's discrete variables
+  boost::optional<double> tLinearize_;  ///< start time of the Linearisation
 
   bool wasLoggingEnabled_;  ///< true if logging was enabled by an upper project
 
@@ -776,6 +798,11 @@ class Simulation {
    * @brief configure the lost equipments outputs
    */
   void configureLostEquipmentsOutputs();
+
+  /**
+   * @brief configure the linearisation outputs
+   */
+  void configureLinearizeOutputs();
 };
 
 }  // end of namespace DYN

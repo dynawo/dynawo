@@ -145,6 +145,23 @@ class SparseMatrix {
   void printToFile(bool sparse = false) const;
 
   /**
+   * @brief print all the values stored in the matrix in a file
+   *
+   * @param sparse @b true if the matrix should be printed with a sparse pattern
+   * @param path path to print file
+   * @param filename name of the file
+   */
+  void printToFile(bool sparse, const std::string& path, const std::string& filename) const;
+
+  /**
+   * @brief print all the values stored in the matrix in a file
+   *
+   * @param path path to print file
+   * @param prefix prefix for the name of the file
+   */
+  void printToFileAiApAx(const std::string& path, const std::string& prefix) const;
+
+  /**
    * @brief erase some rows and columns in the matrix and returns a new matrix
    *
    * @param rows rows to erase
@@ -240,7 +257,7 @@ class SparseMatrix {
    * @param M matrix to copy
    * @warning should not be used
    */
-  SparseMatrix(const SparseMatrix & M);
+  SparseMatrix(const SparseMatrix& M);
 
  public:
   std::vector<unsigned> Ap_;  ///< for each column, first non-null element index in Ai and Ax
