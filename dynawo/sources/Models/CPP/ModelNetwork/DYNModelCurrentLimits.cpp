@@ -39,21 +39,6 @@ nbTemporaryLimits_(0) {
 
 int
 ModelCurrentLimits::sizeG() {
-  /*static int nbUseless = 0;
-  static int nbCalls = 0;
-  if (!sizeG_) {
-    for (auto acceptableDuration : acceptableDurations_)
-      if (acceptableDuration > maxTimeOperation_)
-        ++nbUseless;
-
-    sizeG_ = static_cast<int>(2 * limits_.size());
-  } else {
-    if (nbCalls == 0) {
-      // std::cout << "nbUseless " << nbUseless << std::endl;
-      nbCalls++;
-    }
-  }*/
-
   return 2 * limits_.size();
 }
 
@@ -75,6 +60,25 @@ ModelCurrentLimits::setFactorPuToA(double factorPuToA) {
 void
 ModelCurrentLimits::setMaxTimeOperation(double maxTimeOperation) {
   maxTimeOperation_ = maxTimeOperation;
+
+  std::vector<size_t> indicesToRemove;
+  for (unsigned int i = 0; i < acceptableDurations_.size(); ++i) {
+    if (acceptableDurations_[i] > maxTimeOperation_) {
+      indicesToRemove.push_back(i);
+    }
+  }
+
+  std::sort(indicesToRemove.begin(), indicesToRemove.end(), std::greater<size_t>());
+
+  for (size_t index : indicesToRemove) {
+    if (index < limits_.size()) {
+      limits_.erase(limits_.begin() + index);
+      activated_.erase(activated_.begin() + index);
+      tLimitReached_.erase(tLimitReached_.begin() + index);
+      acceptableDurations_.erase(acceptableDurations_.begin() + index);
+      openingAuthorized_.erase(openingAuthorized_.begin() + index);
+    }
+  }
 }
 
 void
@@ -90,7 +94,6 @@ ModelCurrentLimits::addLimit(double limit, int acceptableDuration) {
       openingAuthorized_.push_back(true);
       nbTemporaryLimits_++;
     }
-    // sizeG_.reset();
   }
 }
 
