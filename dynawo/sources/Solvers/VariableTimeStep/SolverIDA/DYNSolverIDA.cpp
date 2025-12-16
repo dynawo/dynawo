@@ -330,7 +330,7 @@ SolverIDA::init(const std::shared_ptr<Model>& model, const double t0, const doub
 }
 
 void
-SolverIDA::calculateIC(double tEnd) {
+SolverIDA::calculateIC(const double /*tEnd*/) {
 #ifdef _DEBUG_
   vector<double> y0;
   y0.assign(vectorY_.begin(), vectorY_.end());
@@ -392,7 +392,7 @@ SolverIDA::calculateIC(double tEnd) {
     }
 #endif
     flagInit_ = true;
-    int flag = IDACalcIC(IDAMem_, IDA_YA_YDP_INIT, startFromDump() ? initStep_ : tEnd);
+    int flag = IDACalcIC(IDAMem_, IDA_YA_YDP_INIT, initStep_);
     analyseFlag(flag);
 
     // gathering of values computed by IDACalcIC
