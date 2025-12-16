@@ -20,6 +20,7 @@ generator_tableQMin_u_0_                          : alias of generator_PGenPu
 generator_tableQMin_y_0_                          : alias of generator_QMinPu
  ====== CALCULATED VARIABLES VALUES ======
 generator_PGen                                    : y =      40.000000
+generator_QStator                                 : y =      43.560000
 generator_QStatorPu                               : y =       0.854118
 generator_genState                                : y =       2.000000
  ====== DISCRETE VARIABLES VALUES ======
