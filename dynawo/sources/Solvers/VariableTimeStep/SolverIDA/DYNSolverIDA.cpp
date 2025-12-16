@@ -921,25 +921,29 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
   switch (flag) {
     case IDA_SUCCESS:
       msg = "IDA_SUCCESS";
-      if (countForceReinit_ >= 1) {
-        countForceReinit_ = 0;
-      }
-      if (uroundPrecisionSave_ < uroundPrecisionInit_) {
-        if (getTimeStep() / uroundPrecisionInit_ > 100) {
-          uroundPrecisionSave_ = uroundPrecisionInit_;
-          minStepSave_ = minStepInit_;
-          minimalAcceptableStepSave_ = minimalAcceptableStepInit_;
-          precisionSave_ = precisionInit_;
+      if (useForceReinit_) {
+        if (countForceReinit_ >= 1) {
+          countForceReinit_ = 0;
         }
-      }
-      if (doubleNotEquals(uroundPrecision_, uroundPrecisionSave_)) {
-        if (getTimeStep() / uroundPrecisionSave_ > 100) {
-          uroundPrecision_ = uroundPrecisionSave_;
-          minStep_ = minStepSave_;
-          setCurrentPrecision(precisionSave_);
-          minimalAcceptableStep_ = minimalAcceptableStepSave_;
-          IDASetMinStep(IDAMem_, minStep_);
-          IDASetURound(IDAMem_, uroundPrecision_ / (100. * (getTimeStep() + tNxt)));
+        if (uroundPrecisionSave_ < uroundPrecisionInit_) {
+          if (getTimeStep() / uroundPrecisionInit_ > 100) {
+            uroundPrecisionSave_ = uroundPrecisionInit_;
+            minStepSave_ = minStepInit_;
+            minimalAcceptableStepSave_ = minimalAcceptableStepInit_;
+            precisionSave_ = precisionInit_;
+          }
+        }
+        if (doubleNotEquals(uroundPrecision_, uroundPrecisionSave_)) {
+          if (getTimeStep() / uroundPrecisionSave_ > 100) {
+            uroundPrecision_ = uroundPrecisionSave_;
+            minStep_ = minStepSave_;
+            setCurrentPrecision(precisionSave_);
+            minimalAcceptableStep_ = minimalAcceptableStepSave_;
+            IDASetMinStep(IDAMem_, minStep_);
+            if (uround_) {
+              IDASetURound(IDAMem_, uroundPrecision_ / (100. * (getTimeStep() + tNxt)));
+            }
+          }
         }
       }
       break;
@@ -982,10 +986,12 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
           uroundPrecision_ /= factor;
           setCurrentPrecision(precisionSave_ / factor);
           IDASetMinStep(IDAMem_, minStep_);
-          if (doubleIsZero(tNxt) || doubleIsZero(getTimeStep())) {
-            IDASetURound(IDAMem_, uroundPrecision_);
-          } else {
-            IDASetURound(IDAMem_, uroundPrecision_ / (100. * (getTimeStep() + tNxt)));
+          if (uround_) {
+            if (doubleIsZero(tNxt) || doubleIsZero(getTimeStep())) {
+              IDASetURound(IDAMem_, uroundPrecision_);
+            } else {
+              IDASetURound(IDAMem_, uroundPrecision_ / (100. * (getTimeStep() + tNxt)));
+            }
           }
           ++countForceReinit_;
         } else {
@@ -1026,10 +1032,12 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
           setCurrentPrecision(precisionSave_ / factor);
           minimalAcceptableStep_ /= factor;
           IDASetMinStep(IDAMem_, minStep_);
-          if (doubleIsZero(tNxt) || doubleIsZero(getTimeStep())) {
-            IDASetURound(IDAMem_, uroundPrecision_);
-          } else {
-            IDASetURound(IDAMem_, uroundPrecision_ / (100. * (getTimeStep() + tNxt)));
+          if (uround_) {
+            if (doubleIsZero(tNxt) || doubleIsZero(getTimeStep())) {
+              IDASetURound(IDAMem_, uroundPrecision_);
+            } else {
+              IDASetURound(IDAMem_, uroundPrecision_ / (100. * (getTimeStep() + tNxt)));
+            }
           }
           IDASetInitStep(IDAMem_, minStep_);
           ++countForceReinit_;
