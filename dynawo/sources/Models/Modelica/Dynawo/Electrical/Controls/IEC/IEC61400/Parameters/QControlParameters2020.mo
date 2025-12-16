@@ -43,19 +43,32 @@ record QControlParameters2020
   parameter Real TableQwpMinPwpFiltCom[:,:] = [TableQwpMinPwpFiltCom11, TableQwpMinPwpFiltCom12; TableQwpMinPwpFiltCom21, TableQwpMinPwpFiltCom22; TableQwpMinPwpFiltCom31, TableQwpMinPwpFiltCom32] "Power dependent reactive power minimum limit" annotation(
     Dialog(tab = "QControlTables"));
 
-  parameter Real TableQwpUErr11 = -0.05 annotation(
+  parameter Real TableQwpUErr11 = -999 annotation(
     Dialog(tab = "QControlTables"));
-  parameter Real TableQwpUErr12 = 1.21 annotation(
+  parameter Real TableQwpUErr12 = -5.44 annotation(
     Dialog(tab = "QControlTables"));
-  parameter Real TableQwpUErr21 = 0 annotation(
+  parameter Real TableQwpUErr21 = -0.5 annotation(
     Dialog(tab = "QControlTables"));
-  parameter Real TableQwpUErr22 = 0.21 annotation(
+  parameter Real TableQwpUErr22 = -5.44 annotation(
     Dialog(tab = "QControlTables"));
-  parameter Real TableQwpUErr31 = 0.05 annotation(
+  parameter Real TableQwpUErr31 = -0.01 annotation(
     Dialog(tab = "QControlTables"));
-  parameter Real TableQwpUErr32 = -0.79 annotation(
+  parameter Real TableQwpUErr32 = -0.0001 annotation(
     Dialog(tab = "QControlTables"));
-  parameter Real TableQwpUErr[:,:] = [TableQwpUErr11, TableQwpUErr12; TableQwpUErr21, TableQwpUErr22; TableQwpUErr31, TableQwpUErr32] "Table for the UQ static mode" annotation(
+  parameter Real TableQwpUErr41 = 0.01 annotation(
+    Dialog(tab = "QControlTables"));
+  parameter Real TableQwpUErr42 = 0.0001 annotation(
+    Dialog(tab = "QControlTables"));
+  parameter Real TableQwpUErr51 = 0.5 annotation(
+    Dialog(tab = "QControlTables"));
+  parameter Real TableQwpUErr52 = 5.44 annotation(
+    Dialog(tab = "QControlTables"));
+  parameter Real TableQwpUErr61 = 999 annotation(
+    Dialog(tab = "QControlTables"));
+  parameter Real TableQwpUErr62 = 5.44 annotation(
+    Dialog(tab = "QControlTables"));
+
+  parameter Real TableQwpUErr[:,:] = [TableQwpUErr11, TableQwpUErr12; TableQwpUErr21, TableQwpUErr22; TableQwpUErr31, TableQwpUErr32; TableQwpUErr41, TableQwpUErr42; TableQwpUErr51, TableQwpUErr52; TableQwpUErr61, TableQwpUErr62] "Table for the UQ static mode" annotation(
     Dialog(tab = "QControlTables"));
 
   annotation(
