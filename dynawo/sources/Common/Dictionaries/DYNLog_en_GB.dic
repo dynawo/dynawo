@@ -24,7 +24,7 @@ SolveParameters               =             starting local initialization of mod
 SolveParametersOK             =             local initialization of model %1% ended successfully
 SolveParametersFError         =             error > %1% : F[%2%] = %3% equation %4%
 UnstableRoot                  =             instability for root  : %1%
-RootGeq                       =             root: %1% ( model: %2%, equation: %3% )
+RootGeq                       =             root: %1% ( model: %2%, equation: %3%, localIndex: %4% ) at time %5%
 UnstableRootFound             =             at least one root is not stable
 SolveParametersError          =             local initialization of model %1% failed
 IncorrectConnectionDiffSize   =             impossible to connect model :%1% element :%2% to model :%3% element :%4% (different size structure %5% Vs %6%)
