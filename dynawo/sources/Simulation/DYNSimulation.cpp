@@ -908,6 +908,9 @@ Simulation::init() {
 
 void
 Simulation::calculateIC() {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer("Simulation::calculateIC");
+#endif
   // ensure locally satisfactory values for initial models
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
   Trace::info() << DYNLog(ModelLocalInit) << Trace::endline;
@@ -1165,7 +1168,6 @@ Simulation::checkCriteria(const double t, const bool finalStep) const {
   return criteriaChecked;
 }
 
-
 void
 Simulation::getFailingCriteria(std::vector<std::pair<double, std::string> >& failingCriteria) const {
   if (data_)
@@ -1243,6 +1245,7 @@ Simulation::printHighestDerivativesValues() const {
 
 void
 Simulation::printEnd() const {
+  solver_->updateStatistics();
   solver_->printEnd();
 }
 

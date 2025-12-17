@@ -67,12 +67,12 @@ class SolverKINEuler : public SolverKINCommon, private boost::noncopyable {
    * @param sundialsVectorY solution of the algebraic resolution
    */
   void init(const std::shared_ptr<Model>& model, Solver* timeSchemeSolver, double fnormtol,
-            double initialaddtol, double scsteptol, double mxnewtstep, int msbset, int mxiter, int printfl, N_Vector sundialsVectorY);
+            double initialaddtol, double scsteptol, double mxnewtstep, int msbset, int mxiter, int printfl, N_Vector sundialsVectorY, bool allLogs);
 
   /**
    * @brief solve the problem
    *
-   * @param noInitSetup indicate if kinsol have to rebuilt the jacobian at the beginning
+   * @param noInitSetup indicate if kinsol have to rebuilt the jacobian at the beginning, noInitSetup = false will force jacobian
    * @param skipAlgebraicResidualsEvaluation indicate if algebraic residuals needs to be be evaluated
    *
    * @return @b KIN_SUCCESS if everything ok, error flag else
@@ -125,9 +125,19 @@ class SolverKINEuler : public SolverKINCommon, private boost::noncopyable {
     return *timeSchemeSolver_;
   }
 
+  /**
+  * @brief all logs getter
+  *
+  * @return all logs value
+  */
+  bool getAllLogs() const {
+    return allLogs_;
+  }
+
  private:
   std::shared_ptr<Model> model_;  ///< instance of model to interact with
   Solver* timeSchemeSolver_;  ///< instance of time-scheme solver to interact with
+  bool allLogs_;  ///< level of verbosity of output
 };
 
 }  // namespace DYN
