@@ -211,6 +211,7 @@ inline void integer_set(integer_array_t *a, size_t i, modelica_integer r) {reint
  */
 void pack_integer_array(integer_array_t *a);
 
+extern "C" {
 /**
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/gc/memory_pool.h
  * It is needed for Dynawo models dynamic libraries compilation
@@ -236,10 +237,17 @@ inline _index_t* size_alloc(int n) {return reinterpret_cast<_index_t *>(malloc(n
 inline _index_t** index_alloc(int n) {return reinterpret_cast<_index_t **>(malloc(n*sizeof(_index_t*)));}
 
 /**
- * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/memory_pool.h
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/gc/memory_pool.h
  * It is needed for Dynawo models dynamic libraries compilation
  */
+m_boolean* boolean_alloc(int n);
+
+/**
+* Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/memory_pool.h
+* It is needed for Dynawo models dynamic libraries compilation
+*/
 inline void* generic_alloc(int n, size_t sze) {return reinterpret_cast<void *>(malloc(n*sze));}
+}
 
 /**
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/integer_array.h
@@ -288,12 +296,6 @@ void create_integer_array_from_range(integer_array_t *dest, modelica_integer sta
  * It is needed for Dynawo models dynamic libraries compilation
  */
 _index_t* integer_array_make_index_array(const integer_array_t *arr);
-
-/**
- * Method copied from <OpenModelica Sources>/SimulationRuntime/c/gc/memory_pool.h
- * It is needed for Dynawo models dynamic libraries compilation
- */
-m_boolean* boolean_alloc(int n);
 
 /**
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/boolean_array.h
@@ -472,6 +474,114 @@ inline void create_index_spec(index_spec_t* dest, int nridx, ...) {
       dest->index_type[i] = static_cast<char>(va_arg(ap, _index_t)); /* char is cast to int by va_arg.*/
   }
   va_end(ap);
+}
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.c
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+void index_real_array(const real_array_t * source,
+                      const index_spec_t* source_spec,
+                      real_array_t* dest);
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.c
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+void index_alloc_real_array(const real_array_t * source,
+                            const index_spec_t* source_spec,
+                            real_array_t* dest);
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/base_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+void index_alloc_base_array_size(const base_array_t * source, const index_spec_t* source_spec, base_array_t* dest);
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/base_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+int ndims_base_array(const base_array_t* a);
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+void promote_alloc_real_array(const real_array_t * a, int n, real_array_t* dest);
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+void promote_real_array(const real_array_t * a, int n, real_array_t* dest);
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+void cat_alloc_real_array(int k,real_array_t* dest, int n, const real_array_t* first,...);
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+void div_real_array_scalar(const real_array_t * a, modelica_real b, real_array_t* dest);
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+real_array_t div_alloc_real_array_scalar(const real_array_t a, modelica_real b);
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+void usub_alloc_real_array(const real_array_t a, real_array_t* dest);
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+void mul_real_array_scalar(const real_array_t * a, modelica_real b, real_array_t* dest);
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+real_array_t mul_alloc_real_array_scalar(const real_array_t a, modelica_real b);
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+void copy_real_array(const real_array_t source, real_array_t* dest);
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+modelica_real sum_real_array(const real_array_t a);
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/index_spec.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+static inline size_t base_array_nr_of_elements(const base_array_t a) {
+  size_t nr_of_elements = 1;
+  for (int i = 0; i < a.ndims; ++i) {
+    nr_of_elements *= a.dim_size[i];
+  }
+  return nr_of_elements;
+}
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/index_spec.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+extern "C" {
+_index_t *make_index_array(int nridx, ...);
 }
 
 #endif  // DOXYGEN_SHOULD_SKIP_THIS
