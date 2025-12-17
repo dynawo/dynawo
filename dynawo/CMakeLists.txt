@@ -141,8 +141,8 @@ endif()
 
 list(APPEND CMAKE_PREFIX_PATH "${LIBXML2_HOME}")
 
-if (DEFINED ZMQPP_HOME)
-  list(APPEND CMAKE_PREFIX_PATH "${ZMQPP_HOME}")
+if (DEFINED ZMQ_HOME)
+  list(APPEND CMAKE_PREFIX_PATH "${ZMQ_HOME}")
 endif()
 
 # Python Interpreter
@@ -275,11 +275,11 @@ find_package(LibXml2 "2.9" REQUIRED)
 find_package(LibIIDM "1.5.1" REQUIRED PATHS ${LIBIIDM_HOME})
 
 # Interactive mode interfaces
-find_package(ZMQPP)
-if(ZMQPP_FOUND)
-    add_definitions(-DUSE_ZMQPP)
+find_package(ZMQ)
+if(ZMQ_FOUND)
+    add_definitions(-DUSE_ZMQ)
 else()
-    message(STATUS "ZMQPP library not found. Disabling support.")
+    message(STATUS "ZMQ library not found. Disabling support.")
 endif()
 
 if(MSVC)
@@ -338,8 +338,8 @@ install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindSuiteSparse.cmake DESTINATIO
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindSundials.cmake DESTINATION ${SHAREDIR_NAME}/cmake)
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindlibZIP.cmake DESTINATION ${SHAREDIR_NAME}/cmake)
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/CPUCount.cmake DESTINATION ${SHAREDIR_NAME}/cmake)
-if (ZMQPP_FOUND)
-  install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindZMQPP.cmake DESTINATION ${SHAREDIR_NAME}/cmake)
+if (ZMQ_FOUND)
+  install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindZMQ.cmake DESTINATION ${SHAREDIR_NAME}/cmake)
 endif()
 
 if(MSVC)

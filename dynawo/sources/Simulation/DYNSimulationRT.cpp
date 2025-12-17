@@ -63,7 +63,7 @@
 #include "DYNSubModel.h"
 #include "DYNRTInputCommon.h"
 
-#ifdef USE_ZMQPP
+#ifdef USE_ZMQ
 #include "DYNZmqInputChannel.h"
 #include "DYNZmqOutputChannel.h"
 #endif
@@ -162,7 +162,7 @@ SimulationRT::configureOutputsRT() {
       // Create a new output channel
       std::shared_ptr<job::ChannelEntry> channelEntry = channelsEntry->getChannelEntryById(streamEntry->getChannel());
       if (channelEntry->getType() == "ZMQ") {
-#ifdef USE_ZMQPP
+#ifdef USE_ZMQ
         if (channelEntry->getEndpoint() == "")
           outputChannel = std::make_shared<ZmqOutputChannel>();
         else
@@ -170,7 +170,7 @@ SimulationRT::configureOutputsRT() {
         channelInterfaceMap.emplace(channelEntry->getId(), outputChannel);
         Trace::debug() << DYNLog(ZmqChannelCreated, channelEntry->getId()) << Trace::endline;
 #else
-        throw DYNError(Error::GENERAL, UnavailableLib, "ZMQPP");
+        throw DYNError(Error::GENERAL, UnavailableLib, "ZMQ");
 #endif
       } else {
         Trace::warn() << DYNLog(UnsopportedOutputChannel, channelEntry->getType()) << Trace::endline;
@@ -205,7 +205,7 @@ SimulationRT::configureInputsRT() {
     if (channelEntry->getKind() == "INPUT") {
       // Create input channel
       if (channelEntry->getType() == "ZMQ") {
-#ifdef USE_ZMQPP
+#ifdef USE_ZMQ
         MessageFilter filter = MessageFilter::Actions | MessageFilter::TimeManagement;
         if (clockEntry->getType() == "EXTERNAL" && clockEntry->getTriggerChannel() == channelEntry->getId())  // is trigger channel
           filter = filter | MessageFilter::Trigger;
@@ -216,7 +216,7 @@ SimulationRT::configureInputsRT() {
           zmqServer = std::make_shared<ZmqInputChannel>("zmq", filter, channelEntry->getEndpoint());
         inputDispatcherAsync_->addInputChannel(zmqServer);
 #else
-        throw DYNError(Error::GENERAL, UnavailableLib, "ZMQPP");
+        throw DYNError(Error::GENERAL, UnavailableLib, "ZMQ");
 #endif
       } else {
         Trace::warn() << DYNLog(UnknownChannelType, channelEntry->getType()) << Trace::endline;
