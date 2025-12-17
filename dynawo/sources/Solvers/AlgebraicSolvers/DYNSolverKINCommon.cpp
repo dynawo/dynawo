@@ -30,6 +30,7 @@
 #include "DYNSolverKINCommon.h"
 #include "DYNTrace.h"
 #include "DYNMacrosMessage.h"
+#include "DYNSolverCommon.h"
 
 using std::stringstream;
 
@@ -40,7 +41,6 @@ KINMem_(NULL),
 linearSolver_(NULL),
 sundialsMatrix_(NULL),
 sundialsVectorY_(NULL),
-lastRowVals_(NULL),
 numF_(0),
 t0_(0.),
 firstIteration_(false),
@@ -70,10 +70,6 @@ void SolverKINCommon::clean() {
   if (KINMem_ != NULL) {
     KINFree(&KINMem_);
     KINMem_ = NULL;
-  }
-  if (lastRowVals_ != NULL) {
-    free(lastRowVals_);
-    lastRowVals_ = NULL;
   }
 
   if (sundialsVectorFScale_ != NULL) {
@@ -133,10 +129,10 @@ SolverKINCommon::initCommon(const double fnormtol, const double initialaddtol, c
   // -------------------
   // Passing CSR_MAT indicates that we solve A'x = B - linear system using the matrix transpose -
   // and not Ax = B (see sunlinsol_klu.c:149)
-  const int nnz = static_cast<int>(0.0001 * numF_ * numF_);  // This value will be adjusted later on in the process
+  const int nnz = 0;  // This value will be adjusted later on in the process
   sundialsMatrix_ = SUNSparseMatrix(numF_, numF_, nnz, CSR_MAT, sundialsContext_);
   if (sundialsMatrix_ == NULL)
-      throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "SUNSparseMatrix");
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "SUNSparseMatrix");
   linearSolver_ = SUNLinSol_KLU(sundialsVectorY_, sundialsMatrix_, sundialsContext_);
   if (linearSolver_ == NULL)
       throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "SUNLinSol_KLU");
