@@ -41,6 +41,7 @@
       <parameter name="printflAlg" valueType="INT" cardinality="1"/>
       <parameter name="printflAlgInit" valueType="INT" cardinality="1"/>
       <parameter name="printflAlgJ" valueType="INT" cardinality="1"/>
+      <parameter name="printReinitResiduals" valueType="BOOL" cardinality="1"/>
       <parameter name="printUnstableRoot" valueType="BOOL" cardinality="1"/>
       <parameter name="scsteptol" valueType="DOUBLE" cardinality="1"/>
       <parameter name="scsteptolAlg" valueType="DOUBLE" cardinality="1"/>

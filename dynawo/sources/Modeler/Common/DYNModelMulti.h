@@ -75,7 +75,7 @@ class ModelMulti : public Model, private boost::noncopyable {
   void restoreResidual(const std::vector<double>& f) override;
 
   /**
-  * @copydoc Model::saveResidual(const std::vector<double>& f)
+  * @copydoc Model::saveResidual(std::vector<double>& f)
   */
   void saveResidual(std::vector<double>& f) override;
 
@@ -88,6 +88,11 @@ class ModelMulti : public Model, private boost::noncopyable {
    * @copydoc Model::evalG(double t, std::vector<state_g> &g)
    */
   void evalG(double t, std::vector<state_g>& g) override;
+
+  /**
+   * @copydoc Model::evalG(double t, double* g)
+   */
+  void evalG(double t, double* g);
 
   /**
    * @copydoc Model::evalZ(double t)

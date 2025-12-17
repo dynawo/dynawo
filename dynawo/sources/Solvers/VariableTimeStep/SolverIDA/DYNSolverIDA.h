@@ -239,6 +239,13 @@ class SolverIDA : public Solver::Impl {
   double getTimeStep() const override;
 
   /**
+  * @brief get the current time step
+  *
+  * @return the current time step
+  */
+  double getCurrentStep() const;
+
+  /**
    * @brief Debug function to print weighted error during newton iterations
    *
    */
@@ -273,6 +280,12 @@ class SolverIDA : public Solver::Impl {
     return allLogs_;
   }
 
+  /**
+  * @brief transform solve task enum to int
+  * @return solve task enum to int
+  */
+  int solveTaskToInt() const;
+
  private:
   void* IDAMem_;  ///< IDA internal memory structure
   SUNLinearSolver linearSolver_;  ///< Linear Solver pointer
@@ -288,7 +301,28 @@ class SolverIDA : public Solver::Impl {
   double maxStep_;  ///< maximum step size
   double absAccuracy_;  ///< relative error tolerance
   double relAccuracy_;  ///< absolute error tolerance
-  bool printReinitResiduals_;  ///< print reinit residuals in logs
+  double deltacj_;  ///< the cj change threshold that requires a linear solver setup call
+  bool uround_;  ///< to activate change on uround
+  double uroundPrecision_;  ///< the uround precision to use
+  bool optimizeReinit_;  ///< to avoid calling IDAReinit even if no restoration was done
+  std::string solveTask_;  ///< task mode to call IDA
+  int maxnef_;  ///< maximum number of error test failures allowed on one step (>0)
+  int maxcor_;  ///< maximum number of nonlinear solver iterations allowed in one solve attempt (>0)
+  int maxncf_;  ///< maximum number of allowable nonlinear solver convergence failures in one step (>0)
+  double nlscoef_;  ///< coefficient in nonlinear convergence test (>0.0)
+  bool activateCheckJacobian_;  ///< to activate the check on jacobian at init on algebraic restoration
+  bool activateCheckJacobianAfterInit_;  ///< to activate the check on jacobian after init on algebraic restoration
+  bool printReinitResiduals_;  ///< to print residuals during algebraic restoration
+  int countForceReinit_;  ///< number of reinit after a failure, only one reinit can be done and if no time step is validated after the simulation ends
+  bool activateForceReinit_;  ///< to activate force reinit
+  double minStepSave_;  ///< minimal step size saved in case of force reinit
+  double uroundPrecisionSave_;  ///< save uround precision in case of force reinit
+  double precisionSave_;  ///< save precision in case of force reinit
+  double minimalAcceptableStepSave_;   ///< save minimal acceptable step in case of force reinit
+  double minStepInit_;  ///< minimal step size saved in case of force reinit
+  double uroundPrecisionInit_;  ///< save uround precision in case of force reinit
+  double precisionInit_;  ///< save precision in case of force reinit
+  double minimalAcceptableStepInit_;   ///< save minimal acceptable step in case of force reinit
 
   bool flagInit_;  ///< @b true if the solver is in initialization mode
   int nbLastTimeSimulated_;  ///< nb times of simulation of the latest time (to see if the solver succeed to pass through event at one point)

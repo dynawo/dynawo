@@ -65,6 +65,7 @@ typedef struct {
   long int nmeDiff_;  ///< number of differential modes
   long int nmeAlg_;  ///< number of algebraic mode
   long int nmeAlgJ_;  ///< number of algebraic with J update mode
+  long int nmeAlgJJ_;  ///< number of algebraic with J J update mode
 } stat_t;
 
 class Message;

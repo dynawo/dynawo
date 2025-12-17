@@ -2157,7 +2157,7 @@ class Modes:
     # Get the body for the evalmode
     # @param self : object pointer
     # @return body to print for evalmode
-    def get_body_for_evalmode(self):
+    def get_body_for_evalmode(self, model_name):
         text_to_return = []
         body_tmps = self.body_for_tmps + self.body_for_tmps_created_relations
         for line in body_tmps:
@@ -2199,7 +2199,10 @@ class Modes:
                 if discrete_mode.boolean == False:
                     text_to_return.append("      modeChangeType = ALGEBRAIC_MODE;\n")
                 else:
-                    text_to_return.append("    return ALGEBRAIC_J_UPDATE_MODE;\n")
+                    if model_name in ("NodeFault") or "running.value" in z:
+                        text_to_return.append("    return ALGEBRAIC_J_J_UPDATE_MODE;\n")
+                    else:
+                        text_to_return.append("    return ALGEBRAIC_J_UPDATE_MODE;\n")
             else:
                 text_to_return.append("    if (modeChangeType == NO_MODE)\n")
                 text_to_return.append("      modeChangeType = DIFFERENTIAL_MODE;\n")
