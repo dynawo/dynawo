@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<iidm:network xmlns:iidm="http://www.powsybl.org/schema/iidm/1_5" id="trident" caseDate="2025-12-04T17:58:06.263Z" forecastDistance="0" sourceFormat="code" minimumValidationLevel="STEADY_STATE_HYPOTHESIS">
+    <iidm:substation id="s">
+        <iidm:voltageLevel id="vl1" nominalV="20.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="b1"/>
+            </iidm:busBreakerTopology>
+            <iidm:generator id="g1" energySource="THERMAL" minP="0.0" maxP="200.0" voltageRegulatorOn="true" targetP="100.0" targetV="413.4" bus="b1" connectableBus="b1">
+                <iidm:regulatingTerminal id="tr1" side="TWO"/>
+                <iidm:minMaxReactiveLimits minQ="-1.7976931348623157E308" maxQ="1.7976931348623157E308"/>
+            </iidm:generator>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="vl2" nominalV="20.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="b2"/>
+            </iidm:busBreakerTopology>
+            <iidm:generator id="g2" energySource="THERMAL" minP="0.0" maxP="200.0" voltageRegulatorOn="true" targetP="100.0" targetV="413.4" bus="b2" connectableBus="b2">
+                <iidm:regulatingTerminal id="tr2" side="TWO"/>
+                <iidm:minMaxReactiveLimits minQ="-1.7976931348623157E308" maxQ="1.7976931348623157E308"/>
+            </iidm:generator>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="vl3" nominalV="20.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="b3"/>
+            </iidm:busBreakerTopology>
+            <iidm:generator id="g3" energySource="THERMAL" minP="0.0" maxP="200.0" voltageRegulatorOn="true" targetP="100.0" targetV="413.4" bus="b3" connectableBus="b3">
+                <iidm:regulatingTerminal id="tr3" side="TWO"/>
+                <iidm:minMaxReactiveLimits minQ="-1.7976931348623157E308" maxQ="1.7976931348623157E308"/>
+            </iidm:generator>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="vl4" nominalV="400.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="b4"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="l4" loadType="UNDEFINED" p0="299.6" q0="200.0" bus="b4" connectableBus="b4" p="299.6" q="200.0"/>
+        </iidm:voltageLevel>
+        <iidm:twoWindingsTransformer id="tr1" r="1.0" x="30.0" g="0.0" b="0.0" ratedU1="20.5" ratedU2="399.0" voltageLevelId1="vl1" bus1="b1" connectableBus1="b1" voltageLevelId2="vl4" bus2="b4" connectableBus2="b4"/>
+        <iidm:twoWindingsTransformer id="tr2" r="1.0" x="36.0" g="0.0" b="0.0" ratedU1="20.2" ratedU2="398.0" voltageLevelId1="vl2" bus1="b2" connectableBus1="b2" voltageLevelId2="vl4" bus2="b4" connectableBus2="b4"/>
+        <iidm:twoWindingsTransformer id="tr3" r="2.0" x="50.0" g="0.0" b="0.0" ratedU1="21.3" ratedU2="397.0" voltageLevelId1="vl3" bus1="b3" connectableBus1="b3" voltageLevelId2="vl4" bus2="b4" connectableBus2="b4"/>
+    </iidm:substation>
+</iidm:network>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dyn:parametersSet xmlns:dyn="http://www.rte-france.com/dynawo">
+    <dyn:set id="FREQ_SYNC_PAR">
+        <dyn:par type="DOUBLE" name="weight_gen_0" value="6539.400000000001"/>
+        <dyn:par type="DOUBLE" name="weight_gen_1" value="7056.0"/>
+        <dyn:par type="DOUBLE" name="weight_gen_2" value="7056.0"/>
+        <dyn:par type="INT" name="nbGen" value="3"/>
+    </dyn:set>
+</dyn:parametersSet>

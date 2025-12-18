@@ -35,6 +35,7 @@
             <xs:field xpath="@var2"/>
           </xs:unique>
         </xs:element>
+
         <xs:element name="modelTemplate" type="dyn:ModelTemplate" minOccurs="0" maxOccurs="unbounded">
           <xs:unique name="UniqueModelTemplateConnectId">
             <xs:selector xpath="dyn:connect"/>
@@ -51,9 +52,9 @@
             <xs:field xpath="@var2"/>
           </xs:unique>
         </xs:element>
+
         <xs:element name="blackBoxModel" type="dyn:BlackBoxModel" minOccurs="0" maxOccurs="unbounded"/>
-        <xs:element name="modelTemplateExpansion" type="dyn:ModelTemplateExpansion" minOccurs="0"
-                            maxOccurs="unbounded"/>
+        <xs:element name="modelTemplateExpansion" type="dyn:ModelTemplateExpansion" minOccurs="0" maxOccurs="unbounded"/>
         <xs:element name="connect" type="dyn:Connect" minOccurs="0" maxOccurs="unbounded"/>
         <xs:element name="macroConnect" type="dyn:MacroConnect" minOccurs="0" maxOccurs="unbounded"/>
         <xs:element name="macroConnector" type="dyn:MacroConnector" minOccurs="0" maxOccurs="unbounded"/>
@@ -147,6 +148,7 @@
           <xs:element name="macroStaticRef" type="dyn:MacroStaticRef" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
         <xs:attribute name="staticId" type="xs:string"/>
+        <xs:attribute name="staticIds" type="xs:string"/>
         <xs:attribute name="lib" use="required" type="xs:string"/>
         <xs:attribute name="parFile" type="xs:string"/>
         <xs:attribute name="parId" type="xs:string"/>

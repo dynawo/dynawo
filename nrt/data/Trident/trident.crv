@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="NETWORK" variable="b1_Upu_value"/>
+  <curve model="NETWORK" variable="b2_Upu_value"/>
+  <curve model="NETWORK" variable="b3_Upu_value"/>
+  <curve model="NETWORK" variable="b4_Upu_value"/>
+  <curve model="g1" variable="generator_omegaPu"/>
+  <curve model="g1" variable="generator_PGen"/>
+  <curve model="g1" variable="generator_QGen"/>
+  <curve model="g1" variable="generator_UStatorPu"/>
+  <curve model="g1" variable="voltageRegulator_EfdPu"/>
+  <curve model="g2" variable="generator_omegaPu"/>
+  <curve model="g2" variable="generator_PGen"/>
+  <curve model="g2" variable="generator_QGen"/>
+  <curve model="g2" variable="generator_UStatorPu"/>
+  <curve model="g2" variable="voltageRegulator_EfdPu"/>
+  <curve model="g3" variable="generator_omegaPu"/>
+  <curve model="g3" variable="generator_PGen"/>
+  <curve model="g3" variable="generator_QGen"/>
+  <curve model="g3" variable="generator_UStatorPu"/>
+  <curve model="g3" variable="voltageRegulator_EfdPu"/>
+  <curve model="l4" variable="load_PPu"/>
+  <curve model="l4" variable="load_QPu"/>
+</curvesInput>

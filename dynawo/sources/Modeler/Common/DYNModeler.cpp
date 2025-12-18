@@ -102,6 +102,9 @@ void
 Modeler::initModelDescription() {
   for (const auto& modelDescriptionPair : dyd_->getModelDescriptions()) {
     const auto& modelDescription = modelDescriptionPair.second;
+    std::cout << "dyn model key " << modelDescriptionPair.first << " ID " << modelDescription->getID()
+              << " staticId " << modelDescription->getStaticId() << std::endl;
+
     if (modelDescription->getModel()->getType() == dynamicdata::Model::MODEL_TEMPLATE) {
       continue;
     }
@@ -134,39 +137,49 @@ Modeler::initModelDescription() {
 void
 Modeler::initParamDescription(const std::shared_ptr<ModelDescription>& modelDescription) const {
   const std::shared_ptr<ParametersSet>& params = modelDescription->getParametersSet();
+  if (!params)  // params can be a nullptr if no parFile was given for the model
+    return;
 
-  // params can be a nullptr if no parFile was given for the model
-  if (params) {
-    // if there are references in external parameters, retrieve the parameters' value from IIDM
-    for (const auto& referenceName : params->getReferencesNames()) {
-      string refType = params->getReference(referenceName)->getType();
-      const Reference::OriginData refOrigData = params->getReference(referenceName)->getOrigData();
-      const string& refOrigName = params->getReference(referenceName)->getOrigName();
-      string staticID = modelDescription->getStaticId();
-      const string& componentID = params->getReference(referenceName)->getComponentId();
-      // if data_ origin is IIDM file, retrieve the value and add a parameter in the parameter set.
-      if (!componentID.empty())
-        staticID = componentID;  // when componentID exist, this id should be used to find the parameter value
-      if (refOrigData == Reference::IIDM) {
-        if (staticID.empty())
-          throw DYNError(Error::MODELER, ParameterStaticIdNotFound, refOrigName, params->getReference(referenceName)->getName(), modelDescription->getID());
-        if (refType == "DOUBLE") {
-          const double value = data_->getStaticParameterDoubleValue(staticID, refOrigName);
-          params->createParameter(referenceName, value);
-        } else if (refType == "INT") {
-          const int value = data_->getStaticParameterIntValue(staticID, refOrigName);
-          params->createParameter(referenceName, value);
-        } else if (refType == "BOOL") {
-          const bool value = data_->getStaticParameterBoolValue(staticID, refOrigName);
-          params->createParameter(referenceName, value);
-        } else {
-          throw DYNError(Error::MODELER, ParameterWrongTypeReference, referenceName);
-        }
-      } else if (refOrigData == Reference::PAR) {
-        continue;  // PAR reference already resolved in DynamicData => nothing to do
+  string staticID = modelDescription->getStaticId();
+  string dynID = modelDescription->getID();
+
+  // if there are references in external parameters, retrieve the parameters' value from IIDM
+  for (const auto& refName : params->getReferencesNames()) {
+    auto ref = params->getReference(refName);
+    string refType = ref->getType();
+    const Reference::OriginData refOrigData = ref->getOrigData();
+    const string& refOrigName = ref->getOrigName();
+    const string& componentID = ref->getComponentId();
+
+    std::cout << " staticID " << staticID
+              << " refName " << refName
+              << " refType " << refType
+              << " refOrigData " << refOrigData
+              << " refOrigName " << refOrigName
+              << std::endl;
+
+    // if data_ origin is IIDM file, retrieve the value and add a parameter in the parameter set.
+    if (!componentID.empty())
+      staticID = componentID;  // when componentID exist, this id should be used to find the parameter value
+    if (refOrigData == Reference::IIDM) {
+      if (staticID.empty())
+        throw DYNError(Error::MODELER, ParameterStaticIdNotFound, refOrigName, refName, dynID);
+      if (refType == "DOUBLE") {
+        const double value = data_->getStaticParameterDoubleValue(staticID, refOrigName);
+        params->createParameter(refName, value);
+      } else if (refType == "INT") {
+        const int value = data_->getStaticParameterIntValue(staticID, refOrigName);
+        params->createParameter(refName, value);
+      } else if (refType == "BOOL") {
+        const bool value = data_->getStaticParameterBoolValue(staticID, refOrigName);
+        params->createParameter(refName, value);
       } else {
-        throw DYNError(Error::MODELER, FunctionNotAvailable);
+        throw DYNError(Error::MODELER, ParameterWrongTypeReference, refName);
       }
+    } else if (refOrigData == Reference::PAR) {
+        continue;  // PAR reference already resolved in DynamicData => nothing to do
+    } else {
+        throw DYNError(Error::MODELER, FunctionNotAvailable);
     }
   }
 }

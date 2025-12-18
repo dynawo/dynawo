@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--dynawo: 1.8.0-->
+<dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
+    <dyn:job name="trident_base">
+        <dyn:solver lib="dynawo_SolverIDA" parFile="solvers.par" parId="2"/>
+        <dyn:modeler compileDir="outputs/compilation">
+            <dyn:network iidmFile="trident.xiidm" parFile="network.par" parId="8"/>
+            <dyn:dynModels dydFile="trident_base.dyd"/>
+            <dyn:precompiledModels useStandardModels="true"/>
+            <dyn:modelicaModels useStandardModels="false"/>
+        </dyn:modeler>
+        <dyn:simulation startTime="0.0" stopTime="10.0" precision="1.0E-6"/>
+        <dyn:outputs directory="outputs">
+            <dyn:dumpInitValues local="false" global="false"/>
+            <dyn:timeline exportMode="XML"/>
+            <dyn:finalState exportIIDMFile="true" exportDumpFile="false"/>
+            <dyn:curves inputFile="trident.crv" exportMode="CSV"/>
+            <dyn:logs>
+                <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
+            </dyn:logs>
+        </dyn:outputs>
+    </dyn:job>
+    <dyn:job name="trident_grouped">
+        <dyn:solver lib="dynawo_SolverIDA" parFile="solvers.par" parId="2"/>
+        <dyn:modeler compileDir="outputs/compilation">
+            <dyn:network iidmFile="trident.xiidm" parFile="network.par" parId="8"/>
+            <dyn:dynModels dydFile="trident_grouped.dyd"/>
+            <dyn:precompiledModels useStandardModels="true"/>
+            <dyn:modelicaModels useStandardModels="false"/>
+        </dyn:modeler>
+        <dyn:simulation startTime="0.0" stopTime="10.0" precision="1.0E-6"/>
+        <dyn:outputs directory="outputs">
+            <dyn:dumpInitValues local="false" global="false"/>
+            <dyn:timeline exportMode="XML"/>
+            <dyn:finalState exportIIDMFile="true" exportDumpFile="false"/>
+            <dyn:curves inputFile="trident.crv" exportMode="CSV"/>
+            <dyn:logs>
+                <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
+            </dyn:logs>
+        </dyn:outputs>
+    </dyn:job>
+</dyn:jobs>

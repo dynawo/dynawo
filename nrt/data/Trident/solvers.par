@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+    <set id="2">
+        <par type="INT" name="order" value="2"/>
+        <par type="DOUBLE" name="initStep" value="0.000001"/>
+        <par type="DOUBLE" name="minStep" value="0.000001"/>
+        <par type="DOUBLE" name="maxStep" value="10"/>
+        <par type="DOUBLE" name="absAccuracy" value="1e-4"/>
+        <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
+    </set>
+</parametersSet>
