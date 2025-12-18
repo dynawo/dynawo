@@ -33,13 +33,14 @@ static const char STOP_KEY[] = "stop";  ///< Key used to signal stop
 
 ZmqInputChannel::ZmqInputChannel(const std::string& id, MessageFilter messageFilter, const std::string& endpoint) :
 InputChannel(id, messageFilter),
-socket_(context_, zmqpp::socket_type::reply),
+context_(1),
+socket_(context_, zmq::socket_type::rep),
 useThread_(false),
 stopFlag_(false),
 pollTimeoutMs_(10) {
   try {
     socket_.bind(endpoint);
-  } catch (const zmqpp::exception& e) {
+  } catch (const zmq::error_t& e) {
     throw DYNError(Error::GENERAL, ZMQInterfaceBadEnpoint, endpoint);
   }
 }
@@ -65,47 +66,50 @@ ZmqInputChannel::stop() {
 
 void
 ZmqInputChannel::receiveLoop() {
-  zmqpp::poller poller;
-  poller.add(socket_);
+  zmq::pollitem_t items[] = {
+      { static_cast<void*>(socket_), 0, ZMQ_POLLIN, 0 }
+  };
 
   while (!stopFlag_) {
-    if (poller.poll(pollTimeoutMs_)) {
-      if (poller.has_input(socket_)) {
-        zmqpp::message message;
-        socket_.receive(message);
+    zmq::poll(items, 1, std::chrono::milliseconds(pollTimeoutMs_));
 
-        std::string payload;
-        message >> payload;
+  if (items[0].revents & ZMQ_POLLIN) {
+        zmq::message_t msg;
+        socket_.recv(msg, zmq::recv_flags::none);
 
-        zmqpp::message reply;
+        std::string payload(static_cast<char*>(msg.data()), msg.size());
+
+        std::string replyStr;
         std::shared_ptr<InputMessage> inputMsg;
+
         if (payload.empty()) {
           if (!supports(MessageFilter::Trigger)) {
-            reply << "trigger received but not supported";
+            replyStr = "trigger received but not supported";
           } else {
-            reply << "trigger received";
+            replyStr = "trigger received";
             inputMsg = std::make_shared<StepTriggerMessage>();
           }
         } else if (payload == STOP_KEY) {
           if (!supports(MessageFilter::TimeManagement)) {
-            reply << "stop received but not supported";
+            replyStr = "stop received but not supported";
           } else {
-            reply << "stop received";
+            replyStr = "stop received";
             inputMsg = std::make_shared<StopMessage>();
           }
         } else {
           if (!supports(MessageFilter::Actions)) {
-            reply << "action received but not supported";
+            replyStr = "action received but not supported";
           } else {
-            reply << "action received";
+            replyStr = "action received";
             inputMsg = std::make_shared<ActionMessage>(payload);
           }
         }
-        socket_.send(reply);
-        callback_(std::move(inputMsg));
+
+        socket_.send(zmq::buffer(replyStr), zmq::send_flags::none);
+
+        if (callback_) callback_(std::move(inputMsg));
       }
     }
-  }
 }
 
 }  // end of namespace DYN
