@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2025, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="Generator" variable="generator_URefPu"/>
+  <curve model="Generator" variable="generator_UPu"/>
+  <curve model="Generator" variable="generator_QGenRefPu"/>
+  <curve model="Generator" variable="generator_QGenPu"/>
+  <curve model="Generator" variable="generator_QMaxPu"/>
+  <curve model="Generator" variable="generator_QMinPu"/>
+  <curve model="Generator" variable="generator_PGenPu"/>
+  <curve model="Generator" variable="generator_PGenRawPu"/>
+  <curve model="Generator" variable="generator_PMinPu"/>
+  <curve model="Generator" variable="generator_PMaxPu"/>
+  <curve model="Generator" variable="generator_LambdaPu"/>
+  <curve model="Generator" variable="generator_running"/>
+  <curve model="Generator" variable="generator_omegaRefPu"/>
+</curvesInput>
