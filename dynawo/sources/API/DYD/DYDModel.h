@@ -28,6 +28,7 @@
 #include <map>
 #include <memory>
 #include <string>
+#include <set>
 
 namespace dynamicdata {
 
@@ -73,10 +74,11 @@ class Model {
    * no id is set (the id is assumed to be the parent model dynamic id in this case)
    * @param var variable
    * @param staticVar static variable
+   * @param componentID static ID
    * @throws Error::API exception if staticRef already exists
    * @return Reference to the current Model instance
    */
-  Model& addStaticRef(const std::string& var, const std::string& staticVar);
+  Model& addStaticRef(const std::string& var, const std::string& staticVar, const std::string& componentID);
 
   /**
    * @brief macroStaticRef adder
@@ -118,6 +120,12 @@ class Model {
   const std::map<std::string, std::shared_ptr<MacroStaticRef>>& getMacroStaticRefs() const {
     return macroStaticRefs_;
   }
+
+    /**
+  * @brief get all componentIds referenced in static refs and macro static refs
+  * @return the set of unique component Ids
+  */
+  std::set<std::string> getComponentIds() const;
 
  protected:
   /**

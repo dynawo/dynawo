@@ -46,11 +46,11 @@ Model::getType() const {
 }
 
 Model&
-Model::addStaticRef(const string& var, const string& staticVar) {
+Model::addStaticRef(const string& var, const string& staticVar, const string& componentID) {
   // The staticRef key in the map is var_staticVar
   string key = var + '_' + staticVar;
   std::pair<std::map<std::string, std::unique_ptr<StaticRef> >::iterator, bool> ret;
-  ret = staticRefs_.emplace(key, StaticRefFactory::newStaticRef(var, staticVar));
+  ret = staticRefs_.emplace(key, StaticRefFactory::newStaticRef(var, staticVar, componentID));
   if (!ret.second)
     throw DYNError(DYN::Error::API, StaticRefNotUnique, getId(), var, staticVar);
 
@@ -82,6 +82,25 @@ Model::findMacroStaticRef(const string& id) {
     throw DYNError(DYN::Error::API, MacroStaticRefUndefined, id);
 
   return iter->second;
+}
+
+std::set<std::string>
+Model::getComponentIds() const {
+  std::set<std::string> componentIds;
+
+  for (const auto & it : staticRefs_) {
+    const std::unique_ptr<StaticRef> & sref = it.second;
+    if (sref->getComponentID() != "")
+      componentIds.insert(sref->getComponentID());
+  }
+
+  for (auto it : macroStaticRefs_) {
+    const std::shared_ptr<MacroStaticRef> & msref = it.second;
+    if (msref->getComponentId() != "")
+      componentIds.insert(msref->getComponentId());
+  }
+
+  return componentIds;
 }
 
 }  // namespace dynamicdata

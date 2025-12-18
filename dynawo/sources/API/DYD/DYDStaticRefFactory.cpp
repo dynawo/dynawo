@@ -30,8 +30,8 @@ StaticRefFactory::newStaticRef() {
 }
 
 std::unique_ptr<StaticRef>
-StaticRefFactory::newStaticRef(const string& modelVar, const string& staticVar) {
-  return std::unique_ptr<StaticRef>(new StaticRef(modelVar, staticVar));
+StaticRefFactory::newStaticRef(const string& modelVar, const string& staticVar, const string& componentID) {
+  return std::unique_ptr<StaticRef>(new StaticRef(modelVar, staticVar, componentID));
 }
 
 }  // namespace dynamicdata

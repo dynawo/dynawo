@@ -41,8 +41,9 @@ class StaticRef {
    *
    * @param modelVar Dynamic model variable
    * @param staticVar static model variable
+   * @param componentID static model ID
    */
-  StaticRef(const std::string& modelVar, const std::string& staticVar);
+  StaticRef(const std::string& modelVar, const std::string& staticVar, const std::string& componentID);
 
   /**
    * @brief Model Variable setter
@@ -54,6 +55,11 @@ class StaticRef {
    * @param staticVar static variable
    */
   void setStaticVar(const std::string& staticVar);
+  /**
+   * @brief Component ID setter
+   * @param staticVar component ID
+   */
+  void setComponentID(const std::string& componentID);
 
   /**
    * @brief Model variable getter
@@ -65,6 +71,11 @@ class StaticRef {
    * @return static variable
    */
   const std::string& getStaticVar() const;
+  /**
+   * @brief Component ID getter
+   * @return component ID
+   */
+  const std::string& getComponentID() const;
 
   /**
    * @brief compare two staticRef
@@ -75,12 +86,13 @@ class StaticRef {
    *         @b false else
    */
   inline bool operator==(const StaticRef& other) {
-    return getModelVar() == other.getModelVar() && getStaticVar() == other.getStaticVar();
+    return getModelVar() == other.getModelVar() && getStaticVar() == other.getStaticVar() && getComponentID() == other.getComponentID();
   }
 
  private:
   std::string modelVar_;   ///< model variable
   std::string staticVar_;  ///< static variable
+  std::string componentID_;  ///< component ID
 };
 
 }  // namespace dynamicdata

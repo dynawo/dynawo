@@ -59,6 +59,7 @@ struct ConnectorRead {
 struct StaticRefRead {
   std::string var;        ///< variable fo the model
   std::string staticVar;  ///< static variable
+  std::string componentID;  ///< component (i.e static) ID
 };
 
 /**
