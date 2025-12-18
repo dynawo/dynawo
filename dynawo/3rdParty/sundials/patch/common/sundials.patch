@@ -1,7 +1,36 @@
-diff -urpN sundials-6.3.0/include/kinsol/kinsol.h sundials-6.3.0_patched/include/kinsol/kinsol.h
---- sundials-6.3.0/include/kinsol/kinsol.h	2022-08-11 06:45:15.000000000 +0200
-+++ sundials-6.3.0_patched/include/kinsol/kinsol.h	2023-11-22 09:55:03.402892533 +0100
-@@ -132,6 +132,7 @@ SUNDIALS_EXPORT int KINSetFuncNormTol(vo
+diff --git a/include/ida/ida.h b/include/ida/ida.h
+index 216554ee2..fc77e5f16 100644
+--- a/include/ida/ida.h
++++ b/include/ida/ida.h
+@@ -47,6 +47,7 @@ extern "C" {
+ #define IDA_ROOT_RETURN      2
+ 
+ #define IDA_WARNING          99
++#define IDA_DEBUG            999
+ 
+ #define IDA_TOO_MUCH_WORK   -1
+ #define IDA_TOO_MUCH_ACC    -2
+@@ -146,6 +147,7 @@ SUNDIALS_EXPORT int IDASetMaxErrTestFails(void *ida_mem, int maxnef);
+ SUNDIALS_EXPORT int IDASetSuppressAlg(void *ida_mem, booleantype suppressalg);
+ SUNDIALS_EXPORT int IDASetId(void *ida_mem, N_Vector id);
+ SUNDIALS_EXPORT int IDASetConstraints(void *ida_mem, N_Vector constraints);
++SUNDIALS_EXPORT int IDASetURound(void *ida_mem, realtype uround);
+ 
+ /* Optional step adaptivity input functions */
+ SUNDIALS_EXPORT
+@@ -193,6 +195,7 @@ SUNDIALS_EXPORT int IDAGetWorkSpace(void *ida_mem, long int *lenrw,
+                                     long int *leniw);
+ SUNDIALS_EXPORT int IDAGetNumSteps(void *ida_mem, long int *nsteps);
+ SUNDIALS_EXPORT int IDAGetNumResEvals(void *ida_mem, long int *nrevals);
++SUNDIALS_EXPORT int IDAGetNewtonCurIter(void *ida_mem, long int *newtoncuriter);
+ SUNDIALS_EXPORT int IDAGetNumLinSolvSetups(void *ida_mem, long int *nlinsetups);
+ SUNDIALS_EXPORT int IDAGetNumErrTestFails(void *ida_mem, long int *netfails);
+ SUNDIALS_EXPORT int IDAGetNumBacktrackOps(void *ida_mem, long int *nbacktr);
+diff --git a/include/kinsol/kinsol.h b/include/kinsol/kinsol.h
+index f2e98e3a6..137b2c721 100644
+--- a/include/kinsol/kinsol.h
++++ b/include/kinsol/kinsol.h
+@@ -132,6 +132,7 @@ SUNDIALS_EXPORT int KINSetFuncNormTol(void *kinmem, realtype fnormtol);
  SUNDIALS_EXPORT int KINSetScaledStepTol(void *kinmem, realtype scsteptol);
  SUNDIALS_EXPORT int KINSetConstraints(void *kinmem, N_Vector constraints);
  SUNDIALS_EXPORT int KINSetSysFunc(void *kinmem, KINSysFn func);
@@ -9,10 +38,176 @@ diff -urpN sundials-6.3.0/include/kinsol/kinsol.h sundials-6.3.0_patched/include
  
  /* Optional input functions for handling error/info/debug events */
  SUNDIALS_EXPORT int KINSetErrHandlerFn(void *kinmem, KINErrHandlerFn ehfun,
-diff -urpN sundials-6.3.0/src/ida/ida.c sundials-6.3.0_patched/src/ida/ida.c
---- sundials-6.3.0/src/ida/ida.c	2022-08-11 06:41:29.000000000 +0200
-+++ sundials-6.3.0_patched/src/ida/ida.c	2023-11-22 09:55:28.398981849 +0100
-@@ -3329,8 +3329,10 @@ static int IDARcheck2(IDAMem IDA_mem)
+diff --git a/include/sundials/sundials_nonlinearsolver.h b/include/sundials/sundials_nonlinearsolver.h
+index eeb76992f..36fa634d1 100644
+--- a/include/sundials/sundials_nonlinearsolver.h
++++ b/include/sundials/sundials_nonlinearsolver.h
+@@ -72,6 +72,7 @@ typedef _SUNDIALS_STRUCT_ _generic_SUNNonlinearSolver *SUNNonlinearSolver;
+  * ---------------------------------------------------------------------------*/
+ 
+ typedef int (*SUNNonlinSolSysFn)(N_Vector y, N_Vector F, void* mem);
++typedef int (*SUNNonlinSolInitCurIterNewtonFn)(void* mem);
+ 
+ typedef int (*SUNNonlinSolLSetupFn)(booleantype jbad, booleantype* jcur,
+                                     void* mem);
+@@ -106,12 +107,14 @@ struct _generic_SUNNonlinearSolver_Ops {
+                booleantype, void*);
+   int (*free)(SUNNonlinearSolver);
+   int (*setsysfn)(SUNNonlinearSolver, SUNNonlinSolSysFn);
++  int (*setinitcuriternewtonfn)(SUNNonlinearSolver, SUNNonlinSolInitCurIterNewtonFn);
+   int (*setlsetupfn)(SUNNonlinearSolver, SUNNonlinSolLSetupFn);
+   int (*setlsolvefn)(SUNNonlinearSolver, SUNNonlinSolLSolveFn);
+   int (*setctestfn)(SUNNonlinearSolver, SUNNonlinSolConvTestFn, void*);
+   int (*setmaxiters)(SUNNonlinearSolver, int);
+   int (*getnumiters)(SUNNonlinearSolver, long int*);
+   int (*getcuriter)(SUNNonlinearSolver, int*);
++  int (*getcuriternewton)(SUNNonlinearSolver, int*);
+   int (*getnumconvfails)(SUNNonlinearSolver, long int*);
+ };
+ 
+@@ -152,6 +155,9 @@ SUNDIALS_EXPORT int SUNNonlinSolFree(SUNNonlinearSolver NLS);
+ SUNDIALS_EXPORT int SUNNonlinSolSetSysFn(SUNNonlinearSolver NLS,
+                                          SUNNonlinSolSysFn SysFn);
+ 
++SUNDIALS_EXPORT int SUNNonlinSolSetInitCurIterNewton(SUNNonlinearSolver NLS,
++                                       SUNNonlinSolInitCurIterNewtonFn InitCurIterNewtonFn);
++
+ SUNDIALS_EXPORT int SUNNonlinSolSetLSetupFn(SUNNonlinearSolver NLS,
+                                             SUNNonlinSolLSetupFn SetupFn);
+ 
+@@ -172,6 +178,9 @@ SUNDIALS_EXPORT int SUNNonlinSolGetNumIters(SUNNonlinearSolver NLS,
+ SUNDIALS_EXPORT int SUNNonlinSolGetCurIter(SUNNonlinearSolver NLS,
+                                            int *iter);
+ 
++SUNDIALS_EXPORT int SUNNonlinSolGetCurIterNewton(SUNNonlinearSolver NLS,
++                                           int *iter);
++
+ SUNDIALS_EXPORT int SUNNonlinSolGetNumConvFails(SUNNonlinearSolver NLS,
+                                                 long int *nconvfails);
+ 
+diff --git a/include/sunnonlinsol/sunnonlinsol_newton.h b/include/sunnonlinsol/sunnonlinsol_newton.h
+index 8ec182d7f..dd29ed2e4 100644
+--- a/include/sunnonlinsol/sunnonlinsol_newton.h
++++ b/include/sunnonlinsol/sunnonlinsol_newton.h
+@@ -38,6 +38,7 @@ struct _SUNNonlinearSolverContent_Newton {
+ 
+   /* functions provided by the integrator */
+   SUNNonlinSolSysFn      Sys;    /* nonlinear system residual function         */
++  SUNNonlinSolInitCurIterNewtonFn      InitCurIterNewton;    /* nonlinear system residual function         */
+   SUNNonlinSolLSetupFn   LSetup; /* linear solver setup function               */
+   SUNNonlinSolLSolveFn   LSolve; /* linear solver solve function               */
+   SUNNonlinSolConvTestFn CTest;  /* nonlinear solver convergence test function */
+@@ -46,6 +47,7 @@ struct _SUNNonlinearSolverContent_Newton {
+   N_Vector    delta;      /* Newton update vector                                   */
+   booleantype jcur;       /* Jacobian status, current = SUNTRUE / stale = SUNFALSE  */
+   int         curiter;    /* current number of iterations in a solve attempt        */
++  int         curiterNewton;    /* current number of iterations in a solve attempt        */
+   int         maxiters;   /* maximum number of iterations in a solve attempt        */
+   long int    niters;     /* total number of nonlinear iterations across all solves */
+   long int    nconvfails; /* total number of convergence failures across all solves */
+@@ -87,6 +89,9 @@ SUNDIALS_EXPORT int SUNNonlinSolFree_Newton(SUNNonlinearSolver NLS);
+ SUNDIALS_EXPORT int SUNNonlinSolSetSysFn_Newton(SUNNonlinearSolver NLS,
+                                                 SUNNonlinSolSysFn SysFn);
+ 
++SUNDIALS_EXPORT int SUNNonlinSolSetInitCurIterNewtonFn_Newton(SUNNonlinearSolver NLS,
++                                              SUNNonlinSolInitCurIterNewtonFn InitCurIterNewtonFn);
++
+ SUNDIALS_EXPORT int SUNNonlinSolSetLSetupFn_Newton(SUNNonlinearSolver NLS,
+                                                    SUNNonlinSolLSetupFn LSetupFn);
+ 
+@@ -107,6 +112,9 @@ SUNDIALS_EXPORT int SUNNonlinSolGetNumIters_Newton(SUNNonlinearSolver NLS,
+ SUNDIALS_EXPORT int SUNNonlinSolGetCurIter_Newton(SUNNonlinearSolver NLS,
+                                                   int *iter);
+ 
++SUNDIALS_EXPORT int SUNNonlinSolGetCurIterNewton_Newton(SUNNonlinearSolver NLS,
++                                                int *iter);
++
+ SUNDIALS_EXPORT int SUNNonlinSolGetNumConvFails_Newton(SUNNonlinearSolver NLS,
+                                                        long int *nconvfails);
+ 
+diff --git a/src/ida/ida.c b/src/ida/ida.c
+index a9a0e1b8f..4d456ecc7 100644
+--- a/src/ida/ida.c
++++ b/src/ida/ida.c
+@@ -490,6 +490,8 @@ int IDAInit(void *ida_mem, IDAResFn res,
+ 
+   IDA_mem->ida_nst     = 0;
+   IDA_mem->ida_nre     = 0;
++  IDA_mem->ida_newtoncuriter     = 0;
++  IDA_mem->ida_maxcor     = 0;
+   IDA_mem->ida_ncfn    = 0;
+   IDA_mem->ida_netf    = 0;
+   IDA_mem->ida_nni     = 0;
+@@ -2337,6 +2339,10 @@ static int IDAStep(IDAMem IDA_mem)
+     /* Compute predicted values for yy and yp */
+     IDAPredict(IDA_mem);
+ 
++    char debugMessage[2000];
++    snprintf(debugMessage, sizeof(debugMessage), "hh = %1.6e", IDA_mem->ida_hh);
++    IDA_mem->ida_ehfun(IDA_DEBUG, "IDA", "IDAStep", debugMessage, IDA_mem->ida_user_data);
++
+     /* Nonlinear system solution */
+     nflag = IDANls(IDA_mem);
+ 
+@@ -2713,6 +2719,10 @@ static int IDATestError(IDAMem IDA_mem, realtype ck,
+                      "ck_enorm_k = %"RSYM, ck * enorm_k);
+ #endif
+ 
++  char debugMessage[2000];
++  snprintf(debugMessage, sizeof(debugMessage), "ck * enorm_k = %1.6f (tol = 1)", ck * enorm_k);
++  IDA_mem->ida_ehfun(IDA_DEBUG, "IDA", "IDATestError", debugMessage, IDA_mem->ida_user_data);
++
+   /* Perform error test */
+   if (ck * enorm_k > ONE) return(ERROR_TEST_FAIL);
+   else                    return(IDA_SUCCESS);
+@@ -2830,6 +2840,10 @@ static int IDAHandleNFlag(IDAMem IDA_mem, int nflag, realtype err_k, realtype er
+         IDA_mem->ida_eta = SUNMAX(IDA_mem->ida_eta_cf,
+                                   IDA_mem->ida_hmin / SUNRabs(IDA_mem->ida_hh));
+       IDA_mem->ida_hh *= IDA_mem->ida_eta;
++      
++      char debugMessage[2000];
++      snprintf(debugMessage, sizeof(debugMessage), "Nonlinear solver failed, PREDICT_AGAIN with hh divided (ncfPtr = %d < mxncf = %d).", *ncfPtr, IDA_mem->ida_maxncf);
++      IDA_mem->ida_ehfun(IDA_DEBUG, "IDA", "IDAHandleNFlag", debugMessage, IDA_mem->ida_user_data);
+ 
+       return(PREDICT_AGAIN);
+     }
+@@ -2865,6 +2879,8 @@ static int IDAHandleNFlag(IDAMem IDA_mem, int nflag, realtype err_k, realtype er
+                          IDA_mem->ida_kk, IDA_mem->ida_eta, IDA_mem->ida_hh);
+ #endif
+ 
++      IDA_mem->ida_ehfun(IDA_DEBUG, "IDA", "IDAHandleNFlag", "PREDICT_AGAIN nefPtr == 1", IDA_mem->ida_user_data);
++
+       return(PREDICT_AGAIN);
+ 
+     } else if (*nefPtr == 2) {
+@@ -2876,7 +2892,7 @@ static int IDAHandleNFlag(IDAMem IDA_mem, int nflag, realtype err_k, realtype er
+       IDA_mem->ida_eta = SUNMAX(IDA_mem->ida_eta_min_ef,
+                                 IDA_mem->ida_hmin / SUNRabs(IDA_mem->ida_hh));
+       IDA_mem->ida_hh *= IDA_mem->ida_eta;
+-      
++
+ #if SUNDIALS_LOGGING_LEVEL >= SUNDIALS_LOGGING_INFO
+       SUNLogger_QueueMsg(IDA_LOGGER, SUN_LOGLEVEL_INFO,
+                          "IDA::IDAHandleNFlag", "second-error-test-fail",
+@@ -2884,6 +2900,8 @@ static int IDAHandleNFlag(IDAMem IDA_mem, int nflag, realtype err_k, realtype er
+                          IDA_mem->ida_kk, IDA_mem->ida_eta, IDA_mem->ida_hh);
+ #endif
+ 
++      IDA_mem->ida_ehfun(IDA_DEBUG, "IDA", "IDAHandleNFlag", "PREDICT_AGAIN nefPtr == 2", IDA_mem->ida_user_data);
++
+       return(PREDICT_AGAIN);
+ 
+     } else if (*nefPtr < IDA_mem->ida_maxnef) {
+@@ -2902,6 +2920,8 @@ static int IDAHandleNFlag(IDAMem IDA_mem, int nflag, realtype err_k, realtype er
+                          IDA_mem->ida_kk, IDA_mem->ida_eta, IDA_mem->ida_hh);
+ #endif
+ 
++      IDA_mem->ida_ehfun(IDA_DEBUG, "IDA", "IDAHandleNFlag", "PREDICT_AGAIN nefPtr < IDA_mem->ida_maxnef", IDA_mem->ida_user_data);
++
+       return(PREDICT_AGAIN);
+ 
+     } else {
+@@ -3329,8 +3349,10 @@ static int IDARcheck2(IDAMem IDA_mem)
    if (IDA_mem->ida_irfnd == 0) return(IDA_SUCCESS);
  
    (void) IDAGetSolution(IDA_mem, IDA_mem->ida_tlo, IDA_mem->ida_yy, IDA_mem->ida_yp);
@@ -25,7 +220,7 @@ diff -urpN sundials-6.3.0/src/ida/ida.c sundials-6.3.0_patched/src/ida/ida.c
    IDA_mem->ida_nge++;
    if (retval != 0) return(IDA_RTFUNC_FAIL);
  
-@@ -3339,7 +3341,7 @@ static int IDARcheck2(IDAMem IDA_mem)
+@@ -3339,7 +3361,7 @@ static int IDARcheck2(IDAMem IDA_mem)
      IDA_mem->ida_iroots[i] = 0;
    for (i = 0; i < IDA_mem->ida_nrtfn; i++) {
      if (!IDA_mem->ida_gactive[i]) continue;
@@ -34,7 +229,7 @@ diff -urpN sundials-6.3.0/src/ida/ida.c sundials-6.3.0_patched/src/ida/ida.c
        zroot = SUNTRUE;
        IDA_mem->ida_iroots[i] = 1;
      }
-@@ -3372,6 +3374,10 @@ static int IDARcheck2(IDAMem IDA_mem)
+@@ -3372,6 +3394,10 @@ static int IDARcheck2(IDAMem IDA_mem)
        if (IDA_mem->ida_iroots[i] == 1) return(CLOSERT);
        zroot = SUNTRUE;
        IDA_mem->ida_iroots[i] = 1;
@@ -45,9 +240,174 @@ diff -urpN sundials-6.3.0/src/ida/ida.c sundials-6.3.0_patched/src/ida/ida.c
      } else {
        if (IDA_mem->ida_iroots[i] == 1)
          IDA_mem->ida_glo[i] = IDA_mem->ida_ghi[i];
-diff -urpN sundials-6.3.0/src/kinsol/kinsol.c sundials-6.3.0_patched/src/kinsol/kinsol.c
---- sundials-6.3.0/src/kinsol/kinsol.c	2022-08-11 06:45:15.000000000 +0200
-+++ sundials-6.3.0_patched/src/kinsol/kinsol.c	2023-11-22 09:56:09.315128052 +0100
+diff --git a/src/ida/ida_impl.h b/src/ida/ida_impl.h
+index f3ab613b3..f8f0a20bd 100644
+--- a/src/ida/ida_impl.h
++++ b/src/ida/ida_impl.h
+@@ -227,6 +227,8 @@ typedef struct IDAMemRec {
+ 
+   long int ida_nst;      /* number of internal steps taken                    */
+   long int ida_nre;      /* number of function (res) calls                    */
++  long int ida_newtoncuriter; /* newton current iteration count               */
++  long int ida_maxcor;   /* maximum number of Newton iterations               */
+   long int ida_ncfn;     /* number of corrector convergence failures          */
+   long int ida_netf;     /* number of error test failures                     */
+   long int ida_nni;      /* number of Newton iterations performed             */
+diff --git a/src/ida/ida_io.c b/src/ida/ida_io.c
+index 0e651a27e..086be86ef 100644
+--- a/src/ida/ida_io.c
++++ b/src/ida/ida_io.c
+@@ -490,6 +490,8 @@ int IDASetMaxNonlinIters(void *ida_mem, int maxcor)
+     return(IDA_MEM_FAIL);
+   }
+ 
++  IDA_mem->ida_maxcor = maxcor;
++
+   return(SUNNonlinSolSetMaxIters(IDA_mem->NLS, maxcor));
+ }
+ 
+@@ -822,6 +824,22 @@ int IDASetStepToleranceIC(void *ida_mem, realtype steptol)
+   return(IDA_SUCCESS);
+ }
+ 
++int IDASetURound(void *ida_mem, realtype uround)
++{
++  IDAMem IDA_mem;
++
++  if (ida_mem==NULL) {
++    IDAProcessError(NULL, IDA_MEM_NULL, "IDA", "IDASetURound", MSG_NO_MEM);
++    return(IDA_MEM_NULL);
++  }
++
++  IDA_mem = (IDAMem) ida_mem;
++
++  IDA_mem->ida_uround = uround;
++
++  return(IDA_SUCCESS);
++}
++
+ /*
+  * =================================================================
+  * IDA optional input functions
+@@ -862,6 +880,22 @@ int IDAGetNumResEvals(void *ida_mem, long int *nrevals)
+   return(IDA_SUCCESS);
+ }
+ 
++int IDAGetNewtonCurIter(void *ida_mem, long int *newtoncuriter)
++{
++  IDAMem IDA_mem;
++
++  if (ida_mem==NULL) {
++    IDAProcessError(NULL, IDA_MEM_NULL, "IDA", "IDAGetNewtonCurIter", MSG_NO_MEM);
++    return(IDA_MEM_NULL);
++  }
++
++  IDA_mem = (IDAMem) ida_mem;
++
++  *newtoncuriter = IDA_mem->ida_newtoncuriter;
++
++  return(IDA_SUCCESS);
++}
++
+ /*-----------------------------------------------------------------*/
+ 
+ int IDAGetNumLinSolvSetups(void *ida_mem, long int *nlinsetups)
+diff --git a/src/ida/ida_nls.c b/src/ida/ida_nls.c
+index d8f408cac..9897f5822 100644
+--- a/src/ida/ida_nls.c
++++ b/src/ida/ida_nls.c
+@@ -28,6 +28,7 @@
+ 
+ /* private functions passed to nonlinear solver */
+ static int idaNlsResidual(N_Vector ycor, N_Vector res, void* ida_mem);
++static int idaNlsInitCurIterNewton(void* ida_mem);
+ static int idaNlsLSetup(booleantype jbad, booleantype* jcur, void* ida_mem);
+ static int idaNlsLSolve(N_Vector delta, void* ida_mem);
+ static int idaNlsConvTest(SUNNonlinearSolver NLS, N_Vector ycor, N_Vector del,
+@@ -96,6 +97,8 @@ int IDASetNonlinearSolver(void *ida_mem, SUNNonlinearSolver NLS)
+     return(IDA_ILL_INPUT);
+   }
+ 
++  SUNNonlinSolSetInitCurIterNewton(IDA_mem->NLS, idaNlsInitCurIterNewton);
++
+   /* set convergence test function */
+   retval = SUNNonlinSolSetConvTestFn(IDA_mem->NLS, idaNlsConvTest, ida_mem);
+   if (retval != IDA_SUCCESS) {
+@@ -285,6 +288,17 @@ static int idaNlsLSolve(N_Vector delta, void* ida_mem)
+   return(IDA_SUCCESS);
+ }
+ 
++static int idaNlsInitCurIterNewton(void* ida_mem) {
++  IDAMem IDA_mem;
++  if (ida_mem == NULL) {
++    IDAProcessError(NULL, IDA_MEM_NULL, "IDA", "idaNlsInitCurIterNewton", MSG_NO_MEM);
++    return(IDA_MEM_NULL);
++  }
++  IDA_mem = (IDAMem) ida_mem;
++  IDA_mem->ida_newtoncuriter = 0;
++
++  return(IDA_SUCCESS);
++}
+ 
+ static int idaNlsResidual(N_Vector ycor, N_Vector res, void* ida_mem)
+ {
+@@ -322,7 +336,7 @@ static int idaNlsConvTest(SUNNonlinearSolver NLS, N_Vector ycor, N_Vector del,
+                           realtype tol, N_Vector ewt, void* ida_mem)
+ {
+   IDAMem IDA_mem;
+-  int m, retval;
++  int m, mm, retval;
+   realtype delnrm;
+   realtype rate;
+ 
+@@ -338,6 +352,9 @@ static int idaNlsConvTest(SUNNonlinearSolver NLS, N_Vector ycor, N_Vector del,
+   /* get the current nonlinear solver iteration count */
+   retval = SUNNonlinSolGetCurIter(NLS, &m);
+   if (retval != IDA_SUCCESS) return(IDA_MEM_NULL);
++  retval = SUNNonlinSolGetCurIterNewton(NLS, &mm);
++  if (retval != IDA_SUCCESS) return(IDA_MEM_NULL);
++  IDA_mem->ida_newtoncuriter = mm;
+ 
+   /* test for convergence, first directly, then with rate estimate. */
+   if (m == 0){
+@@ -345,11 +362,31 @@ static int idaNlsConvTest(SUNNonlinearSolver NLS, N_Vector ycor, N_Vector del,
+     if (delnrm <= PT0001 * IDA_mem->ida_toldel) return(SUN_NLS_SUCCESS);
+   } else {
+     rate = SUNRpowerR( delnrm/IDA_mem->ida_oldnrm, ONE/m );
+-    if (rate > RATEMAX) return(SUN_NLS_CONV_RECVR);
++    if (rate > RATEMAX) {
++      char debugMessage[2000];
++      snprintf(debugMessage, sizeof(debugMessage), "Newton diverged, m = %d, R = %1.6f > 0.9", m, rate);
++      IDA_mem->ida_ehfun(IDA_DEBUG, "IDA", "idaNlsConvTest", debugMessage, IDA_mem->ida_user_data);
++
++      return(SUN_NLS_CONV_RECVR);
++    }
++
+     IDA_mem->ida_ss = rate/(ONE - rate);
++
++    char debugMessage[2000];
++    snprintf(debugMessage, sizeof(debugMessage), "m = %d, R = %1.6f (divergence R > 0.9), S*||delta_m|| = %1.6f (tol = %.2f)", m, rate, IDA_mem->ida_ss*delnrm, tol);
++    IDA_mem->ida_ehfun(IDA_DEBUG, "IDA", "idaNlsConvTest", debugMessage, IDA_mem->ida_user_data);
++  }
++
++  if (IDA_mem->ida_ss*delnrm <= tol) {
++    IDA_mem->ida_ehfun(IDA_DEBUG, "IDA", "idaNlsConvTest", "Newton converged.", IDA_mem->ida_user_data);
++    return(SUN_NLS_SUCCESS);
+   }
+ 
+-  if (IDA_mem->ida_ss*delnrm <= tol) return(SUN_NLS_SUCCESS);
++  if (++m >= IDA_mem->ida_maxcor) {
++    char debugMessage[2000];
++    snprintf(debugMessage, sizeof(debugMessage), "Newton reached max iterations, m = %d and maxcor = %d.", m, IDA_mem->ida_maxcor);
++    IDA_mem->ida_ehfun(IDA_DEBUG, "IDA", "idaNlsConvTest", debugMessage, IDA_mem->ida_user_data);
++  }
+ 
+   /* not yet converged */
+   return(SUN_NLS_CONTINUE);
+diff --git a/src/kinsol/kinsol.c b/src/kinsol/kinsol.c
+index c1b392898..921436219 100644
+--- a/src/kinsol/kinsol.c
++++ b/src/kinsol/kinsol.c
 @@ -290,6 +290,7 @@ void *KINCreate(SUNContext sunctx)
    kin_mem->kin_sqrt_relfunc     = SUNRsqrt(uround);
    kin_mem->kin_scsteptol        = SUNRpowerR(uround,TWOTHIRDS);
@@ -65,9 +425,10 @@ diff -urpN sundials-6.3.0/src/kinsol/kinsol.c sundials-6.3.0_patched/src/kinsol/
      kin_mem->kin_fnorm = N_VWL2Norm(kin_mem->kin_fval, kin_mem->kin_fscale);
      return(KIN_INITIAL_GUESS_OK);
    }
-diff -urpN sundials-6.3.0/src/kinsol/kinsol_impl.h sundials-6.3.0_patched/src/kinsol/kinsol_impl.h
---- sundials-6.3.0/src/kinsol/kinsol_impl.h	2022-08-11 06:45:15.000000000 +0200
-+++ sundials-6.3.0_patched/src/kinsol/kinsol_impl.h	2023-11-22 09:55:40.647025614 +0100
+diff --git a/src/kinsol/kinsol_impl.h b/src/kinsol/kinsol_impl.h
+index c4a821c7a..30e3bdff9 100644
+--- a/src/kinsol/kinsol_impl.h
++++ b/src/kinsol/kinsol_impl.h
 @@ -87,6 +87,7 @@ typedef struct KINMemRec {
    void *kin_user_data;         /* work space available to func routine         */
    realtype kin_fnormtol;       /* stopping tolerance on L2-norm of function
@@ -76,7 +437,7 @@ diff -urpN sundials-6.3.0/src/kinsol/kinsol_impl.h sundials-6.3.0_patched/src/ki
    realtype kin_scsteptol;      /* scaled step length tolerance                 */
    int kin_globalstrategy;      /* choices are KIN_NONE, KIN_LINESEARCH
                                    KIN_PICARD and KIN_FP                        */
-@@ -443,6 +444,7 @@ void KINInfoHandler(const char *module,
+@@ -443,6 +444,7 @@ void KINInfoHandler(const char *module, const char *function,
  #define MSG_BAD_MXNEWTSTEP     "Illegal mxnewtstep < 0."
  #define MSG_BAD_RELFUNC        "relfunc < 0 illegal."
  #define MSG_BAD_FNORMTOL       "fnormtol < 0 illegal."
@@ -84,10 +445,11 @@ diff -urpN sundials-6.3.0/src/kinsol/kinsol_impl.h sundials-6.3.0_patched/src/ki
  #define MSG_BAD_SCSTEPTOL      "scsteptol < 0 illegal."
  #define MSG_BAD_MXNBCF         "mxbcf < 0 illegal."
  #define MSG_BAD_CONSTRAINTS    "Illegal values in constraints vector."
-diff -urpN sundials-6.3.0/src/kinsol/kinsol_io.c sundials-6.3.0_patched/src/kinsol/kinsol_io.c
---- sundials-6.3.0/src/kinsol/kinsol_io.c	2022-08-11 06:45:15.000000000 +0200
-+++ sundials-6.3.0_patched/src/kinsol/kinsol_io.c	2023-11-22 09:55:45.827044123 +0100
-@@ -856,6 +856,37 @@ int KINSetFuncNormTol(void *kinmem, real
+diff --git a/src/kinsol/kinsol_io.c b/src/kinsol/kinsol_io.c
+index 812dabad9..e2341f802 100644
+--- a/src/kinsol/kinsol_io.c
++++ b/src/kinsol/kinsol_io.c
+@@ -856,6 +856,37 @@ int KINSetFuncNormTol(void *kinmem, realtype fnormtol)
    return(KIN_SUCCESS);
  }
  
@@ -125,10 +487,11 @@ diff -urpN sundials-6.3.0/src/kinsol/kinsol_io.c sundials-6.3.0_patched/src/kins
  /*
   * -----------------------------------------------------------------
   * Function : KINSetScaledStepTol
-diff -urpN sundials-6.3.0/src/kinsol/kinsol_ls.c sundials-6.3.0_patched/src/kinsol/kinsol_ls.c
---- sundials-6.3.0/src/kinsol/kinsol_ls.c	2022-08-11 06:45:15.000000000 +0200
-+++ sundials-6.3.0_patched/src/kinsol/kinsol_ls.c	2023-11-22 09:55:52.751068864 +0100
-@@ -248,6 +248,8 @@ int KINSetJacFn(void *kinmem, KINLsJacFn
+diff --git a/src/kinsol/kinsol_ls.c b/src/kinsol/kinsol_ls.c
+index aaea6ca63..3ca2038ca 100644
+--- a/src/kinsol/kinsol_ls.c
++++ b/src/kinsol/kinsol_ls.c
+@@ -248,6 +248,8 @@ int KINSetJacFn(void *kinmem, KINLsJacFn jac)
      kinls_mem->J_data = kin_mem;
    }
  
@@ -137,3 +500,148 @@ diff -urpN sundials-6.3.0/src/kinsol/kinsol_ls.c sundials-6.3.0_patched/src/kins
    return(KINLS_SUCCESS);
  }
  
+diff --git a/src/sundials/sundials_nonlinearsolver.c b/src/sundials/sundials_nonlinearsolver.c
+index 87c0a1ee4..142b2d41a 100644
+--- a/src/sundials/sundials_nonlinearsolver.c
++++ b/src/sundials/sundials_nonlinearsolver.c
+@@ -62,6 +62,7 @@ SUNNonlinearSolver SUNNonlinSolNewEmpty(SUNContext sunctx)
+   ops->setmaxiters     = NULL;
+   ops->getnumiters     = NULL;
+   ops->getcuriter      = NULL;
++  ops->getcuriternewton = NULL;
+   ops->getnumconvfails = NULL;
+ 
+   /* attach context and ops, initialize content to NULL */
+@@ -161,6 +162,11 @@ int SUNNonlinSolSetSysFn(SUNNonlinearSolver NLS, SUNNonlinSolSysFn SysFn)
+   return((int) NLS->ops->setsysfn(NLS, SysFn));
+ }
+ 
++int SUNNonlinSolSetInitCurIterNewton(SUNNonlinearSolver NLS, SUNNonlinSolInitCurIterNewtonFn InitCurIterNewtonFn)
++{
++  return((int) NLS->ops->setinitcuriternewtonfn(NLS, InitCurIterNewtonFn));
++}
++
+ /* set the linear solver setup function (optional) */
+ int SUNNonlinSolSetLSetupFn(SUNNonlinearSolver NLS, SUNNonlinSolLSetupFn LSetupFn)
+ {
+@@ -226,6 +232,18 @@ int SUNNonlinSolGetCurIter(SUNNonlinearSolver NLS, int *iter)
+ }
+ 
+ 
++/* get the iteration count for the current nonlinear solve */
++int SUNNonlinSolGetCurIterNewton(SUNNonlinearSolver NLS, int *iter)
++{
++  if (NLS->ops->getcuriternewton) {
++    return((int) NLS->ops->getcuriternewton(NLS, iter));
++  } else {
++    *iter = -1;
++    return(SUN_NLS_SUCCESS);
++  }
++}
++
++
+ /* get the total number on nonlinear solve convergence failures (optional) */
+ int SUNNonlinSolGetNumConvFails(SUNNonlinearSolver NLS, long int *nconvfails)
+ {
+diff --git a/src/sunnonlinsol/newton/sunnonlinsol_newton.c b/src/sunnonlinsol/newton/sunnonlinsol_newton.c
+index 401754dfc..61da43083 100644
+--- a/src/sunnonlinsol/newton/sunnonlinsol_newton.c
++++ b/src/sunnonlinsol/newton/sunnonlinsol_newton.c
+@@ -62,12 +62,14 @@ SUNNonlinearSolver SUNNonlinSol_Newton(N_Vector y, SUNContext sunctx)
+   NLS->ops->solve           = SUNNonlinSolSolve_Newton;
+   NLS->ops->free            = SUNNonlinSolFree_Newton;
+   NLS->ops->setsysfn        = SUNNonlinSolSetSysFn_Newton;
++  NLS->ops->setinitcuriternewtonfn = SUNNonlinSolSetInitCurIterNewtonFn_Newton;
+   NLS->ops->setlsetupfn     = SUNNonlinSolSetLSetupFn_Newton;
+   NLS->ops->setlsolvefn     = SUNNonlinSolSetLSolveFn_Newton;
+   NLS->ops->setctestfn      = SUNNonlinSolSetConvTestFn_Newton;
+   NLS->ops->setmaxiters     = SUNNonlinSolSetMaxIters_Newton;
+   NLS->ops->getnumiters     = SUNNonlinSolGetNumIters_Newton;
+   NLS->ops->getcuriter      = SUNNonlinSolGetCurIter_Newton;
++  NLS->ops->getcuriternewton = SUNNonlinSolGetCurIterNewton_Newton;
+   NLS->ops->getnumconvfails = SUNNonlinSolGetNumConvFails_Newton;
+ 
+   /* Create content */
+@@ -83,11 +85,13 @@ SUNNonlinearSolver SUNNonlinSol_Newton(N_Vector y, SUNContext sunctx)
+ 
+   /* Fill general content */
+   content->Sys         = NULL;
++  content->InitCurIterNewton = NULL;
+   content->LSetup      = NULL;
+   content->LSolve      = NULL;
+   content->CTest       = NULL;
+   content->jcur        = SUNFALSE;
+   content->curiter     = 0;
++  content->curiterNewton = 0;
+   content->maxiters    = 3;
+   content->niters      = 0;
+   content->nconvfails  = 0;
+@@ -148,7 +152,8 @@ int SUNNonlinSolInitialize_Newton(SUNNonlinearSolver NLS)
+   /* check that all required function pointers have been set */
+   if ( (NEWTON_CONTENT(NLS)->Sys    == NULL) ||
+        (NEWTON_CONTENT(NLS)->LSolve == NULL) ||
+-       (NEWTON_CONTENT(NLS)->CTest  == NULL) ) {
++       (NEWTON_CONTENT(NLS)->CTest  == NULL) ||
++       (NEWTON_CONTENT(NLS)->InitCurIterNewton == NULL)) {
+     return(SUN_NLS_MEM_NULL);
+   }
+ 
+@@ -226,6 +231,9 @@ int SUNNonlinSolSolve_Newton(SUNNonlinearSolver NLS,
+        Preform Newton iteraion */
+   for(;;) {
+ 
++    NEWTON_CONTENT(NLS)->curiterNewton = 0;
++    NEWTON_CONTENT(NLS)->InitCurIterNewton(mem);
++
+     /* compute the nonlinear residual, store in delta */
+     retval = NEWTON_CONTENT(NLS)->Sys(ycor, delta, mem);
+     if (retval != SUN_NLS_SUCCESS) break;
+@@ -259,6 +267,7 @@ int SUNNonlinSolSolve_Newton(SUNNonlinearSolver NLS,
+     for(;;) {
+ 
+       /* increment nonlinear solver iteration counter */
++      NEWTON_CONTENT(NLS)->curiterNewton++;
+       NEWTON_CONTENT(NLS)->niters++;
+ 
+       /* compute the negative of the residual for the linear system rhs */
+@@ -387,6 +396,21 @@ int SUNNonlinSolSetSysFn_Newton(SUNNonlinearSolver NLS, SUNNonlinSolSysFn SysFn)
+ }
+ 
+ 
++int SUNNonlinSolSetInitCurIterNewtonFn_Newton(SUNNonlinearSolver NLS, SUNNonlinSolInitCurIterNewtonFn InitCurIterNewtonFn)
++{
++  /* check that the nonlinear solver is non-null */
++  if (NLS == NULL)
++    return(SUN_NLS_MEM_NULL);
++
++  /* check that the nonlinear system function is non-null */
++  if (InitCurIterNewtonFn == NULL)
++    return(SUN_NLS_ILL_INPUT);
++
++  NEWTON_CONTENT(NLS)->InitCurIterNewton = InitCurIterNewtonFn;
++  return(SUN_NLS_SUCCESS);
++}
++
++
+ int SUNNonlinSolSetLSetupFn_Newton(SUNNonlinearSolver NLS, SUNNonlinSolLSetupFn LSetupFn)
+ {
+   /* check that the nonlinear solver is non-null */
+@@ -477,6 +501,18 @@ int SUNNonlinSolGetCurIter_Newton(SUNNonlinearSolver NLS, int *iter)
+ }
+ 
+ 
++int SUNNonlinSolGetCurIterNewton_Newton(SUNNonlinearSolver NLS, int *iter)
++{
++  /* check that the nonlinear solver is non-null */
++  if (NLS == NULL)
++    return(SUN_NLS_MEM_NULL);
++
++  /* return the current nonlinear solver iteration count */
++  *iter = NEWTON_CONTENT(NLS)->curiterNewton;
++  return(SUN_NLS_SUCCESS);
++}
++
++
+ int SUNNonlinSolGetNumConvFails_Newton(SUNNonlinearSolver NLS, long int *nconvfails)
+ {
+   /* check that the nonlinear solver is non-null */

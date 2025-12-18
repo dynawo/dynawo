@@ -370,7 +370,7 @@ modeChangeType_t ModelGeneratorPQ_Dyn::evalMode(const double t) const
   // ----- Mode for GeneratorPQ_eqFunction_93 --------- 
   // generator.running.value != pre(generator.running.value)
   if (doubleNotEquals(data->localData[0]->discreteVars[0], data->simulationInfo->discreteVarsPre[0])) {
-    return ALGEBRAIC_J_UPDATE_MODE;
+    return ALGEBRAIC_J_J_UPDATE_MODE;
   }
 
   return modeChangeType;

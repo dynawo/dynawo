@@ -77,6 +77,7 @@ msbset_(0),
 mxiter_(15),
 printfl_(0),
 allLogs_(false),
+printReinitResiduals_(false),
 skipNextNR_(false),
 skipAlgebraicResidualsEvaluation_(false),
 optimizeAlgebraicResidualsEvaluations_(true),
@@ -106,6 +107,7 @@ SolverCommonFixedTimeStep::defineSpecificParametersCommon() {
   parameters_.insert(make_pair("optimizeAlgebraicResidualsEvaluations", ParameterSolver("optimizeAlgebraicResidualsEvaluations", VAR_TYPE_BOOL, optional)));
   parameters_.insert(make_pair("skipNRIfInitialGuessOK", ParameterSolver("skipNRIfInitialGuessOK", VAR_TYPE_BOOL, optional)));
   parameters_.insert(make_pair("allLogs", ParameterSolver("allLogs", VAR_TYPE_BOOL, optional)));
+  parameters_.insert(make_pair("printReinitResiduals", ParameterSolver("printReinitResiduals", VAR_TYPE_BOOL, optional)));
 }
 
 void
@@ -145,6 +147,9 @@ SolverCommonFixedTimeStep::setSolverSpecificParametersCommon() {
   const ParameterSolver& allLogs = findParameter("allLogs");
   if (allLogs.hasValue())
     allLogs_ = allLogs.getValue<bool>();
+  const ParameterSolver& printReinitResiduals = findParameter("printReinitResiduals");
+  if (printReinitResiduals.hasValue())
+    printReinitResiduals_ = printReinitResiduals.getValue<bool>();
 }
 
 void
@@ -167,18 +172,20 @@ SolverCommonFixedTimeStep::initCommon(const std::shared_ptr<Model> &model, const
     solverKINEuler_->init(model, this, fnormtol_, initialaddtol_, scsteptol_, mxnewtstep_, msbset_, mxiter_, printfl_, sundialsVectorY_, allLogs_);
   }
 
-  constexpr bool printReinitResiduals = false;
-  solverKINAlgRestoration_.reset(new SolverKINAlgRestoration(printReinitResiduals));
+  solverKINAlgRestoration_.reset(new SolverKINAlgRestoration(printReinitResiduals_));
   solverKINAlgRestoration_->init(model_, SolverKINAlgRestoration::KIN_ALGEBRAIC);
   if (hasPrediction()) {
-    solverKINYPrim_.reset(new SolverKINAlgRestoration(printReinitResiduals));
+    solverKINYPrim_.reset(new SolverKINAlgRestoration(printReinitResiduals_));
     getSolverKINYPrim().init(model_, SolverKINAlgRestoration::KIN_DERIVATIVES);
   }
 
   setDifferentialVariablesIndices();
 
-  if (allLogs_)
+  if (allLogs_ || printReinitResiduals_)
     model_->setFequationsModel();  ///< set formula for modelica models' equations and Network models' equations
+
+  if (printUnstableRoot_)
+    model_->setGequationsModel();
 
   Trace::debug() << DYNLog(SolverFixedTimeStepInitOK, solverType()) << Trace::endline;
 }
@@ -406,7 +413,7 @@ SolverCommonFixedTimeStep::increaseStep() {
 }
 
 void SolverCommonFixedTimeStep::handleRoot(bool& redoStep) {
-  if (model_->getModeChangeType() == ALGEBRAIC_J_UPDATE_MODE) {
+  if (model_->getModeChangeType() == ALGEBRAIC_J_UPDATE_MODE || model_->getModeChangeType() == ALGEBRAIC_J_J_UPDATE_MODE) {
     factorizationForced_ = true;
   } else {
     factorizationForced_ = false;
@@ -439,7 +446,7 @@ bool SolverCommonFixedTimeStep::setupNewAlgRestoration(modeChangeType_t modeChan
       getSolverKINYPrim().setupNewAlgebraicRestoration(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
 
     return false;  // no J factorization
-  } else if (modeChangeType == ALGEBRAIC_J_UPDATE_MODE) {
+  } else if (modeChangeType == ALGEBRAIC_J_UPDATE_MODE || modeChangeType == ALGEBRAIC_J_J_UPDATE_MODE) {
     solverKINAlgRestoration_->setupNewAlgebraicRestoration(fnormtolAlgJ_, initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_,
                                                            printflAlgJ_);
     setDifferentialVariablesIndices();
@@ -464,6 +471,8 @@ SolverCommonFixedTimeStep::reinit() {
 
   if (modeChangeType < minimumModeChangeTypeForAlgebraicRestoration_)
     return;
+
+  Trace::info() << DYNLog(NewStartPoint) << Trace::endline;
 
   const bool evaluateOnlyMode = optimizeReinitAlgebraicResidualsEvaluations_;
   skipAlgebraicResidualsEvaluation_ = false;

@@ -199,6 +199,9 @@ int main(int argc, char ** argv) {
   } catch (const DYN::Error& e) {
     std::cerr << " Compilation of " << modelName << " failed :" << e << std::endl;
     return -1;
+  } catch (const DYN::MessageError& e) {
+    std::cerr << " Compilation of " << modelName << " failed :" << e << std::endl;
+    return -1;
   } catch (...) {
     std::cerr << " Compilation of " << modelName << " failed : Unexpected exception " << std::endl;
     return -1;

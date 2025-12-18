@@ -65,6 +65,7 @@ class SolverKINEuler : public SolverKINCommon, private boost::noncopyable {
    * @param mxiter maximum number of nonlinear iterations
    * @param printfl level of verbosity of output
    * @param sundialsVectorY solution of the algebraic resolution
+   * @param allLogs to print residual logs
    */
   void init(const std::shared_ptr<Model>& model, Solver* timeSchemeSolver, double fnormtol,
             double initialaddtol, double scsteptol, double mxnewtstep, int msbset, int mxiter, int printfl, N_Vector sundialsVectorY, bool allLogs);

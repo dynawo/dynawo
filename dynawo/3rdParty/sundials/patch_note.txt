@@ -1,0 +1,16 @@
+The patch is divided in 4 parts:
+
+1. IDASetURound
+It defines a new method IDASetURound to change the default ida_uround to compare the root functions equality.
+By default it is UNIT_ROUNDOFF = DBL_EPSILON = 2.22045e-16
+https://en.cppreference.com/w/cpp/types/climits.html
+
+2. KINSetInitialAdditionalTolerance
+This method adds a coefficient for the first criteria check of convergence of the first residual in the Newton algorithm.
+It aims to be more strict at first iteration: f_norm <= (initialaddtol*fnormtol).
+By default 0.1 is used.
+
+3. Modification of g evaluations.
+We use a temporary variable (trout, grout) to detect sign change of g.
+
+4. Debug logs to dynawo about ida resolution

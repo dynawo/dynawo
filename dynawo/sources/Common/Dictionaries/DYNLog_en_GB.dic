@@ -212,6 +212,8 @@ SolverNbModeEval              =             number of mode evaluations          
 SolverNbModeEvalDiff          =             number of differential mode                                = %1%
 SolverNbModeEvalAlg           =             number of algebraic mode                                   = %1%
 SolverNbModeEvalAlgJ          =             number of algebraic J update mode                          = %1%
+SolverNbModeEvalAlgJJ         =             number of algebraic J J update mode                        = %1%
+SolverNbSymoblicJ             =             number of symbolic J                                       = %1%
 // --> Common to both solvers
 CalculateIC                   =             calculate initial condition of the DAE
 EndCalculateIC                =             end of calculate initial condition of the DAE
@@ -234,15 +236,34 @@ IdaBadEwt                     =             IDA_BAD_EWT : Some component of the 
 IdaFirstResFail               =             IDA_FIRST_RES_FAIL : The user's residual function returned a recoverable error flag on the first call, but IDACalcIC was unable to recover.
 IdaResFail                    =             IDA_RES_FAIL : The user's residual function returned a nonrecoverable error flag.
 IdaNoRecovery                 =             IDA_NO_RECOVERY : The user's residual function, or the linear solver's setup or solve function had a recoverable error, but IDACalcIC was unable to recover.
-IdaConstrFail                 =             IDA_CONSTR_FAIL : IDACalcIC was unable to find a solution satisfying the inequality constraints.
+IdaConstrFail                 =             IDA_CONSTR_FAIL : The inequality constraints were violated and the solver was unable to recover.
 IdaLinesearchFail             =             IDA_LINESEARCH_FAIL : The linesearch algorithm failed to find a solution with a step larger than steptol in weighted RMS norm.
-IdaConvFail                   =             IDA_CONV_FAIL : IDACalcIC failed to get convergence of the Newton iterations.
+IdaErrFail                    =             IDA_ERR_FAIL : Error test failures occurred too many times (mxnef) during one internal time step or occurred with h = h_min
+IdaConvFail                   =             IDA_CONV_FAIL : Convergence test failures occurred too many times (mxncf) during one internal time step or occurred with h = h_min
+IdaAccuracyFail               =             IDA_TOO_MUCH_ACC : The solver could not satisfy the accuracy demanded by the user for some internal step.
+IdaTooMuchWork                =             IDA_TOO_MUCH_WORK : The solver took mxstep internal steps but could not reach tout. The default value for mxstep is MXSTEP_DEFAULT = 500.
 SolverIDAUnknownError         =             unknown error during IDA Solve
 SolverIDARestorAlgebraicEqu   =             restoration of the algebraic equations
 SolverIDADebugResidual        =             DEBUG RESIDUAL
 SolverIDALargestErrors        =             largest errors (= total variation during Newton iterations * weight) for variables - truncated to the first %1%
 SolverIDAErrorValue           =             error > %1% : variable %2% %3%, error %4%
 SolverIDANumRootsFound        =             solverIDA: number of roots found %1%
+SolverIDACalculateICStartZMode =            start updating discrete variable values and mode
+SolverIDACalculateICEvalG     =             updating evalG
+SolverIDACalculateICEvalZMode =             updating evalZMode
+SolverIDACalculateICEndZMode  =             end updating discrete variable values and mode
+SolverIDACalculateICStartAlgResto =         start algebraic restoration %1%
+SolverIDACalculateICEndAlgResto =           end algebraic restoration %1%
+SolverIDACalculateICStartIDACalcIC =        start IDACalcIC %1%
+SolverIDACalculateICIEndDACalcIC =          end IDACalcIC %1%
+SolverIDACalculateICStartEvalG =            start calculateIC evalG %1%
+SolverIDACalculateICEndEvalG  =             end calculateIC evalG %1%
+SolverIDACalculateICStartZModeLoop =        start calculateIC evalZMode %1%
+SolverIDACalculateICEndZModeLoop  =         end calculateIC evalZMode %1%
+SolverIDAForceReinitConvFail  =             solverIDA fails with IDA_CONV_FAIL we force a reinit
+SolverIDAForceReinitErrFail   =             solverIDA fails with IDA_ERR_FAIL we force a reinit
+SolverIDAForceReinitTimeStepConvFail =      solverIDA fails with IDA_CONV_FAIL we force a reinit with a divided min step
+SolverIDAForceReinitTimeStepErrFail =       solverIDA fails with IDA_ERR_FAIL we force a reinit with a divided min step
 // --> DYNSolverFixedTimeStep
 SolverFixedTimeStepInitOK     =             initialization of %1% : ok
 SolverFixedTimeStepInitGuessOK =            initial guess of the algebraic solver is accurate, following %1% iterations will be skipped until the next mode change

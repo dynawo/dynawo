@@ -220,5 +220,7 @@
     <par type="DOUBLE" name="minimalAcceptableStep" value="1e-6"/>
     <par type="DOUBLE" name="absAccuracy" value="1e-4"/>
     <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
+    <par type="INT" name="maximumNumberSlowStepIncrease" value="100"/>
+    <par type="STRING" name="minimumModeChangeTypeForAlgebraicRestoration" value="ALGEBRAIC_J_J_UPDATE"/>
   </set>
 </parametersSet>

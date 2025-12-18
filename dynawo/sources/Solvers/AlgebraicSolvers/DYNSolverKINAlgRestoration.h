@@ -138,7 +138,6 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   */
   int solveStrategy(bool noInitSetup, bool evaluateOnlyModeAtFirstIter, int kinsolStategy,  bool multipleStrategiesForAlgebraicRestoration = false);
 
-#if _DEBUG_
   /**
    * @brief set check jacobian during evalF
    * @param checkJacobian enable or disable the jacobian sanity check
@@ -146,7 +145,6 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   void setCheckJacobian(const bool checkJacobian) {
     checkJacobian_ = checkJacobian;
   }
-#endif
 
   /**
   * @brief clean sundials structures to force a new algebraic restoration setup
@@ -277,9 +275,7 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   std::vector<int> indexY_;  ///< variables to keep form the initial set of variables
   modeKin_t mode_;  ///< mode of the solver (i.e. algebraic equations or derivative)
 
-#if _DEBUG_
   bool checkJacobian_;  ///< Check jacobian
-#endif
   bool printReinitResiduals_;  ///< print residuals in log
 };
 
