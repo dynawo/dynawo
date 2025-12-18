@@ -47,6 +47,14 @@ class StaticRefInterface {
   }
 
   /**
+   * @brief set component (i.e static) id
+   * @param componentID component's id
+   */
+  void setComponentID(const std::string& componentID) {
+    componentID_ = componentID;
+  }
+
+  /**
    * @brief set model variable
    * @param modelVar model's variable
    */
@@ -71,6 +79,14 @@ class StaticRefInterface {
   }
 
   /**
+   * @brief get component (i.e static) id
+   * @returns component ID
+   */
+  const std::string& getComponentID() const {
+    return componentID_;
+  }
+
+  /**
    * @brief get model var
    * @returns model var
    */
@@ -88,6 +104,7 @@ class StaticRefInterface {
 
  private:
   std::string modelID_; /**< ID of the model */
+  std::string componentID_; /**< ID of the static device, overwriting static ID of the model if not null */
   std::string modelVar_; /**< Var name of the model */
   std::string staticVar_; /**< Pin name of the static Device */
 };  ///< interface class for static reference

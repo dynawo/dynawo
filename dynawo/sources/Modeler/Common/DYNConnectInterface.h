@@ -71,6 +71,14 @@ class ConnectInterface {  ///< Generic class for connecting two dynamic models
   }
 
   /**
+   * @brief set component ID
+   * @param var variable
+   */
+  inline void setComponentId(const std::string& var) {
+    componentId_ = var;
+  }
+
+  /**
    * @brief get first model
    * @returns Compiled Model name
    */
@@ -102,11 +110,20 @@ class ConnectInterface {  ///< Generic class for connecting two dynamic models
     return model2Var_;
   }
 
+    /**
+   * @brief get component ID (ID in network)
+   * @returns componentID, may be null if a static ID is already defined
+   */
+  inline std::string getComponentId() {
+    return componentId_;
+  }
+
  private:
   std::string connectedModel1_;  ///< first model
   std::string model1Var_;  ///< first model's variable
   std::string connectedModel2_;  ///< second model
   std::string model2Var_;  ///< second model's variable
+  std::string componentId_;  ///< ID in network
 };  ///< interface class for dynamic connections
 
 #ifdef __clang__

@@ -26,11 +26,12 @@ using std::string;
 
 namespace dynamicdata {
 
-Connector::Connector(const string& model1, const string& var1, const string& model2, const string& var2) :
+Connector::Connector(const string& model1, const string& var1, const string& model2, const string& var2, const string& componentId) :
     firstModelId_(model1),
     firstVariableId_(var1),
     secondModelId_(model2),
-    secondVariableId_(var2) {}
+    secondVariableId_(var2),
+    componentId_(componentId) {}
 
 const string&
 Connector::getFirstVariableId() const {
@@ -50,6 +51,11 @@ Connector::getFirstModelId() const {
 const string&
 Connector::getSecondModelId() const {
   return secondModelId_;
+}
+
+const string&
+Connector::getComponentId() const {
+  return componentId_;
 }
 
 }  // namespace dynamicdata

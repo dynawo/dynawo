@@ -207,7 +207,7 @@ ModelicaModelHandler::addInitConnect() {
 void
 ModelicaModelHandler::addStaticRef() {
   StaticRefRead s = staticRefHandler_.get();
-  modelicaModel_->addStaticRef(s.var, s.staticVar);
+  modelicaModel_->addStaticRef(s.var, s.staticVar, s.componentID);
 }
 
 void
@@ -284,7 +284,7 @@ ModelTemplateHandler::addInitConnect() {
 void
 ModelTemplateHandler::addStaticRef() {
   StaticRefRead s = staticRefHandler_.get();
-  modelTemplate_->addStaticRef(s.var, s.staticVar);
+  modelTemplate_->addStaticRef(s.var, s.staticVar, s.componentID);
 }
 
 void
@@ -329,7 +329,7 @@ BlackBoxModelHandler::create(attributes_type const& attributes) {
 void
 BlackBoxModelHandler::addStaticRef() {
   StaticRefRead s = staticRefHandler_.get();
-  blackBoxModel_->addStaticRef(s.var, s.staticVar);
+  blackBoxModel_->addStaticRef(s.var, s.staticVar, s.componentID);
 }
 
 void
@@ -374,7 +374,7 @@ ModelTemplateExpansionHandler::create(attributes_type const& attributes) {
 void
 ModelTemplateExpansionHandler::addStaticRef() {
   StaticRefRead s = staticRefHandler_.get();
-  modelTemplateExpansion_->addStaticRef(s.var, s.staticVar);
+  modelTemplateExpansion_->addStaticRef(s.var, s.staticVar, s.componentID);
 }
 
 void
@@ -423,6 +423,8 @@ MacroConnectHandler::create(attributes_type const& attributes) {
     macroConnect_->setName1(attributes["name1"]);
   if (attributes.has("name2"))
     macroConnect_->setName2(attributes["name2"]);
+  if (attributes.has("componentId"))
+    macroConnect_->setComponentId(attributes["componentId"]);
 }
 
 std::shared_ptr<MacroConnect>
@@ -493,6 +495,7 @@ void
 StaticRefHandler::create(attributes_type const& attributes) {
   staticRef_.var = attributes["var"].as_string();
   staticRef_.staticVar = attributes["staticVar"].as_string();
+  staticRef_.componentID = attributes.has("componentId") ? attributes["componentId"].as_string() : "";
 }
 
 StaticRefRead
@@ -508,7 +511,8 @@ MacroStaticRefHandler::~MacroStaticRefHandler() {}
 
 void
 MacroStaticRefHandler::create(attributes_type const& attributes) {
-  macroStaticRef_ = MacroStaticRefFactory::newMacroStaticRef(attributes["id"]);
+  const std::string & componentId = attributes.has("componentId") ? attributes["componentId"].as_string() : "";
+  macroStaticRef_ = MacroStaticRefFactory::newMacroStaticRef(attributes["id"], componentId);
 }
 
 std::shared_ptr<MacroStaticRef>

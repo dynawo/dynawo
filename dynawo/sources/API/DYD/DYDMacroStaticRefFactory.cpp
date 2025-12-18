@@ -25,8 +25,8 @@ using std::string;
 namespace dynamicdata {
 
 std::unique_ptr<MacroStaticRef>
-MacroStaticRefFactory::newMacroStaticRef(const string& id) {
-  return std::unique_ptr<MacroStaticRef>(new MacroStaticRef(id));
+MacroStaticRefFactory::newMacroStaticRef(const string& id, const string& componentId) {
+  return std::unique_ptr<MacroStaticRef>(new MacroStaticRef(id, componentId));
 }
 
 }  // namespace dynamicdata
