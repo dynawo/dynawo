@@ -21,11 +21,13 @@ partial model BaseQStatusDangling_INIT "Base initialization model for QStatus at
 
   Modelica.Blocks.Interfaces.BooleanOutput limUQDown10 "Whether the minimum reactive power limits are reached or not at terminal 1, start value";
   Modelica.Blocks.Interfaces.BooleanOutput limUQUp10 "Whether the maximum reactive power limits are reached or not at terminal 1, start value";
+  Modelica.Blocks.Interfaces.BooleanOutput blockerSide10 "Whether the reactive power limits are reached or not at terminal 1, start value";
   QStatus q1Status0 "Start voltage regulation status of terminal 1: Standard, AbsorptionMax, GenerationMax";
 
 equation
   limUQDown10 = q1Status0 == QStatus.AbsorptionMax;
   limUQUp10 = q1Status0 == QStatus.GenerationMax;
+  blockerSide10 = limUQDown10 or limUQUp10;
 
   annotation(preferredView = "text");
 end BaseQStatusDangling_INIT;
