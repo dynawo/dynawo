@@ -28,8 +28,10 @@ using std::string;
 namespace dynamicdata {
 
 std::unique_ptr<Connector>
-ConnectorFactory::newConnector(const string & model1, const string & var1, const string & model2, const string & var2) {
-  return std::unique_ptr<Connector>(new Connector(model1, var1, model2, var2));
+ConnectorFactory::newConnector(const string & model1, const string & var1,
+                               const string & model2, const string & var2,
+                               const string & componentId) {
+  return std::unique_ptr<Connector>(new Connector(model1, var1, model2, var2, componentId));
 }
 
 }  // namespace dynamicdata

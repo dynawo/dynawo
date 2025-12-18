@@ -23,11 +23,19 @@ using std::string;
 
 namespace dynamicdata {
 
-MacroStaticRef::MacroStaticRef(const string& id) : id_(id) {}
+MacroStaticRef::MacroStaticRef(const string& id, const string& componentId) :
+  id_(id),
+  componentId_(componentId)
+  {}
 
 const string&
 MacroStaticRef::getId() const {
   return id_;
+}
+
+const string&
+MacroStaticRef::getComponentId() const {
+  return componentId_;
 }
 
 }  // namespace dynamicdata

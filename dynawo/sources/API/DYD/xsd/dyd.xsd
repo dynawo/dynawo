@@ -194,15 +194,18 @@
     <xs:attribute name="index2" type="xs:int"/>
     <xs:attribute name="name1" type="xs:string"/>
     <xs:attribute name="name2" type="xs:string"/>
+    <xs:attribute name="componentId" type="xs:string"/>
   </xs:complexType>
 
   <xs:complexType name="StaticRef">
     <xs:attribute name="var" use="required" type="xs:string"/>
     <xs:attribute name="staticVar" use="required" type="xs:string"/>
+    <xs:attribute name="componentId" type="xs:string"/>
   </xs:complexType>
 
   <xs:complexType name="MacroStaticRef">
     <xs:attribute name="id" use="required" type="xs:string"/>
+    <xs:attribute name="componentId" type="xs:string"/>
   </xs:complexType>
 
   <xs:simpleType name='IdString'>

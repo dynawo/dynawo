@@ -45,7 +45,7 @@ file(GLOB Renewable WT*.xml Photovoltaics*.xml)
 file(GLOB Shunts Shunt*.xml)
 file(GLOB SVarc StaticVarCompensator*.xml)
 file(GLOB TapChangers TapChanger*.xml)
-file(GLOB Transformer TransformerFixedRatio.xml)
+file(GLOB Transformer TransformerFixedRatio.xml GeneratorTransformer.xml)
 file(GLOB SecondaryControl Secondary*.xml)
 file(GLOB IEC IEC*.xml)
 

@@ -102,91 +102,88 @@ void
 Modeler::initModelDescription() {
   for (const auto& modelDescriptionPair : dyd_->getModelDescriptions()) {
     const auto& modelDescription = modelDescriptionPair.second;
-    if (modelDescription->getModel()->getType() == dynamicdata::Model::MODEL_TEMPLATE) {
+    if (modelDescription->getModel()->getType() == dynamicdata::Model::MODEL_TEMPLATE)
       continue;
-    }
 
-    if (modelDescription->hasCompiledModel()) {
-      shared_ptr<SubModel> model;
-      model = SubModelFactory::createSubModelFromLib(modelDescription->getLib());
-      model->name(modelDescription->getID());
-      model->staticId(modelDescription->getStaticId());
-      std::shared_ptr<ParametersSet> params = modelDescription->getParametersSet();
-      initParamDescription(modelDescription);
-
-      model->setPARParameters(params);
-      model->initFromData(data_);
-      // add the submodel
-      model_->addSubModel(model, modelDescription->getLib());
-      subModels_[modelDescription->getID()] = model;
-      modelDescription->setSubModel(model);
-      // reference static
-      if (!modelDescription->getStaticId().empty()) {
-        data_->setDynamicModel(modelDescription->getStaticId(), model);
-        initStaticRefs(model, modelDescription);
-      }
-    } else {
+    if (!modelDescription->hasCompiledModel())
       throw DYNError(Error::MODELER, CompileModel, modelDescription->getID());
-    }
+
+    shared_ptr<SubModel> submodel;
+    submodel = SubModelFactory::createSubModelFromLib(modelDescription->getLib());
+    submodel->name(modelDescription->getID());
+    submodel->staticId(modelDescription->getStaticId());
+
+    std::shared_ptr<ParametersSet> params = modelDescription->getParametersSet();
+    initParamDescription(modelDescription);
+    submodel->setPARParameters(params);
+
+    submodel->initFromData(data_);
+
+    model_->addSubModel(submodel, modelDescription->getLib());
+    subModels_[modelDescription->getID()] = submodel;
+    modelDescription->setSubModel(submodel);
+
+    initStaticRefs(submodel, modelDescription);
   }
 }
 
 void
 Modeler::initParamDescription(const std::shared_ptr<ModelDescription>& modelDescription) const {
   const std::shared_ptr<ParametersSet>& params = modelDescription->getParametersSet();
+  if (!params)  // params can be a nullptr if no parFile was given for the model
+    return;
 
-  // params can be a nullptr if no parFile was given for the model
-  if (params) {
-    // if there are references in external parameters, retrieve the parameters' value from IIDM
-    for (const auto& referenceName : params->getReferencesNames()) {
-      string refType = params->getReference(referenceName)->getType();
-      const Reference::OriginData refOrigData = params->getReference(referenceName)->getOrigData();
-      const string& refOrigName = params->getReference(referenceName)->getOrigName();
-      string staticID = modelDescription->getStaticId();
-      const string& componentID = params->getReference(referenceName)->getComponentId();
-      // if data_ origin is IIDM file, retrieve the value and add a parameter in the parameter set.
-      if (!componentID.empty())
-        staticID = componentID;  // when componentID exist, this id should be used to find the parameter value
-      if (refOrigData == Reference::IIDM) {
-        if (staticID.empty())
-          throw DYNError(Error::MODELER, ParameterStaticIdNotFound, refOrigName, params->getReference(referenceName)->getName(), modelDescription->getID());
-        if (refType == "DOUBLE") {
-          const double value = data_->getStaticParameterDoubleValue(staticID, refOrigName);
-          params->createParameter(referenceName, value);
-        } else if (refType == "INT") {
-          const int value = data_->getStaticParameterIntValue(staticID, refOrigName);
-          params->createParameter(referenceName, value);
-        } else if (refType == "BOOL") {
-          const bool value = data_->getStaticParameterBoolValue(staticID, refOrigName);
-          params->createParameter(referenceName, value);
-        } else {
-          throw DYNError(Error::MODELER, ParameterWrongTypeReference, referenceName);
-        }
-      } else if (refOrigData == Reference::PAR) {
-        continue;  // PAR reference already resolved in DynamicData => nothing to do
-      } else {
-        throw DYNError(Error::MODELER, FunctionNotAvailable);
-      }
-    }
+  const string & staticId = modelDescription->getStaticId();
+  const string & dynId = modelDescription->getID();
+
+  // if there are references in external parameters, retrieve the parameters' value from IIDM
+  for (const string & refName : params->getReferencesNames()) {
+    auto ref = params->getReference(refName);
+    const Reference::OriginData refOrigData = ref->getOrigData();
+
+    // PAR reference already resolved in DynamicData => nothing to do
+    if (refOrigData == Reference::PAR)
+        continue;
+
+    // unhandled ref type => throw error
+    if (refOrigData != Reference::IIDM)
+      throw DYNError(Error::MODELER, FunctionNotAvailable);
+
+    const string & refType = ref->getType();
+    const string & refOrigName = ref->getOrigName();
+    const string & componentId = ref->getComponentId();
+
+  // when componentId exists, it should be used instead of staticId to retrieve reference parameter in IIDM
+    const string & refOrigId = componentId.empty() ? staticId : componentId;
+    if (refOrigId.empty())
+      throw DYNError(Error::MODELER, ParameterStaticIdNotFound, refOrigName, refName, dynId);
+
+    if      (refType == "DOUBLE") params->createParameter(refName, data_->getStaticParameterDoubleValue(refOrigId, refOrigName));
+    else if (refType == "INT")    params->createParameter(refName, data_->getStaticParameterIntValue(   refOrigId, refOrigName));
+    else if (refType == "BOOL")   params->createParameter(refName, data_->getStaticParameterBoolValue(  refOrigId, refOrigName));
+    else                          throw DYNError(Error::MODELER, ParameterWrongTypeReference, refName);
   }
 }
 
 void
-Modeler::initStaticRefs(const boost::shared_ptr<SubModel>& model, const std::shared_ptr<ModelDescription>& modelDescription) const {
-  for (const auto& staticRefInterface : modelDescription->getStaticRefInterfaces()) {
-    const string& modelID = staticRefInterface->getModelID().empty() ? modelDescription->getID() : staticRefInterface->getModelID();
-    const string& modelVar = staticRefInterface->getModelVar();
-    const string& staticVar = staticRefInterface->getStaticVar();
+Modeler::initStaticRefs(const boost::shared_ptr<SubModel> & submodel, const std::shared_ptr<ModelDescription> & modelDescr) const {
+  for (const auto & sref : modelDescr->getStaticRefInterfaces()) {
+    const string & staticId = sref->getComponentID().empty() ? modelDescr->getStaticId() : sref->getComponentID();
+    const string & modelId  = sref->getModelID().empty()     ? modelDescr->getID()       : sref->getModelID();
 
-    data_->setReference(staticVar, model->staticId(), modelID, modelVar);
+    if (staticId.empty())
+      throw DYNError(Error::MODELER, StaticRefNoStaticId, sref->getStaticVar(), sref->getModelVar(), modelId);
+
+    data_->setReference(sref->getStaticVar(), staticId, modelId, sref->getModelVar());
+    data_->setDynamicModel(staticId, submodel);
+    data_->hasDynamicModel(staticId);
   }
 }
-
 
 void
 Modeler::replaceStaticAndNodeMacroInVariableName(const shared_ptr<SubModel>& subModel1, string& var1,
-    const shared_ptr<SubModel>& subModel2, string& var2) const {
-
+                                                 const shared_ptr<SubModel>& subModel2, string& var2,
+                                                 const string& componentId) const {
   // convention : if node inside a connector, the staticId of the component is placed before
   // so the name of the var is as follow : @STATIC_ID@@@NODE@_var or @STATIC_ID@@@NODE1@_var or @STATIC_ID@@@NODE2@_var
   const string labelNode = "@NODE@";
@@ -194,13 +191,15 @@ Modeler::replaceStaticAndNodeMacroInVariableName(const shared_ptr<SubModel>& sub
   const string labelNode2 = "@NODE2@";
   const string labelStaticId = "@STATIC_ID@";
 
+  const string & staticId1 = (subModel2->name() == "NETWORK" && subModel1->staticId().empty()) ? componentId : subModel1->staticId();
+  const string & staticId2 = (subModel1->name() == "NETWORK" && subModel2->staticId().empty()) ? componentId : subModel2->staticId();
+
   // replace @STATIC_ID@ with the static id of the model where the connection should be made
-  const bool foundStaticIdInVar1 = var1.find(labelStaticId) != string::npos;
-  const bool foundStaticIdInVar2 = var2.find(labelStaticId) != string::npos;
-  if (foundStaticIdInVar1)
-    var1.replace(var1.find(labelStaticId), labelStaticId.size(), "@" + subModel2->staticId() + "@");
-  if (foundStaticIdInVar2)
-    var2.replace(var2.find(labelStaticId), labelStaticId.size(), "@" + subModel1->staticId() + "@");
+  if (var1.find(labelStaticId) != string::npos)
+    var1.replace(var1.find(labelStaticId), labelStaticId.size(), "@" + staticId2 + "@");
+
+  if (var2.find(labelStaticId) != string::npos)
+    var2.replace(var2.find(labelStaticId), labelStaticId.size(), "@" + staticId1 + "@");
 
   // replace @NODE@, @NODE1@, @NODE2@ with the static id of the bus
   replaceNodeWithBus(subModel1, var1, subModel2, var2, labelNode);
@@ -233,6 +232,7 @@ Modeler::initConnects() {
     string id2 = connectInterface->getConnectedModel2();
     string var1 = connectInterface->getModel1Var();
     string var2 = connectInterface->getModel2Var();
+    string componentId = connectInterface->getComponentId();
 
     const auto& iter1 = subModels_.find(id1);
     const auto& iter2 = subModels_.find(id2);
@@ -242,7 +242,7 @@ Modeler::initConnects() {
       continue;
     }
 
-    replaceStaticAndNodeMacroInVariableName(iter1->second, var1, iter2->second, var2);
+    replaceStaticAndNodeMacroInVariableName(iter1->second, var1, iter2->second, var2, componentId);
 
     Trace::debug(Trace::modeler()) << DYNLog(DynamicConnect, id1, var1, id2, var2) << Trace::endline;
 
@@ -347,7 +347,6 @@ Modeler::sanityCheckFlowConnection() const {
     vector<std::pair<string, string> > variablesConnectedInternally;
     collectAllInternalConnections(model, variablesConnectedInternally);
 
-
     // Assign an unique id for all flow connections
     for (const auto& variableConnectedInternally : variablesConnectedInternally) {
       const boost::shared_ptr<Variable>& var = subModel->getVariable(variableConnectedInternally.first);
@@ -380,13 +379,14 @@ Modeler::sanityCheckFlowConnection() const {
     const string& id2 = connectInterface->getConnectedModel2();
     string var1 = connectInterface->getModel1Var();
     string var2 = connectInterface->getModel2Var();
+    string componentId = connectInterface->getComponentId();
 
     const auto& iter1 = subModels_.find(id1);
     const auto& iter2 = subModels_.find(id2);
     if (iter1 == subModels_.end() || iter2 == subModels_.end()) {
       continue;
     }
-    replaceStaticAndNodeMacroInVariableName(iter1->second, var1, iter2->second, var2);
+    replaceStaticAndNodeMacroInVariableName(iter1->second, var1, iter2->second, var2, componentId);
 
     vector<std::pair<string, string> > connectedVars;
     model_->findVariablesConnectedBy(iter1->second, var1, iter2->second, var2, connectedVars);

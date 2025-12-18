@@ -844,11 +844,13 @@ Compiler::concatRefs() const {
       string modelId = model->getID();
       string modelVar = staticRef->getModelVar();
       string staticVar = staticRef->getStaticVar();
+      string componentID = staticRef->getComponentID();
 
       shared_ptr<StaticRefInterface> newStaticRefInterface(new StaticRefInterface());
       newStaticRefInterface->setModelID(modelId);
       newStaticRefInterface->setModelVar(modelVar);
       newStaticRefInterface->setStaticVar(staticVar);
+      newStaticRefInterface->setComponentID(componentID);
 
       model->addStaticRefInterface(newStaticRefInterface);
     }
@@ -861,6 +863,7 @@ Compiler::concatRefs() const {
       const string& macroStaticRefId = macroStaticRefPair.second->getId();
       const std::shared_ptr<dynamicdata::MacroStaticReference>& macroStaticReference =
         dyd_->getDynamicModelsCollection()->findMacroStaticReference(macroStaticRefId);
+      const string& componentId = macroStaticRefPair.second->getComponentId();
       // retrieve the StaticRef elements contained in the MacroStaticRefenence
       for (const auto& staticRefPair : macroStaticReference->getStaticReferences()) {
         const auto& staticRef = staticRefPair.second;
@@ -872,6 +875,8 @@ Compiler::concatRefs() const {
         newStaticRefInterface->setModelID(modelId);
         newStaticRefInterface->setModelVar(modelVar);
         newStaticRefInterface->setStaticVar(staticVar);
+        if (!componentId.empty())
+          newStaticRefInterface->setComponentID(componentId);
 
         model->addStaticRefInterface(newStaticRefInterface);
       }
@@ -918,6 +923,7 @@ Compiler::concatConnects() {
     const auto& connectorSecondModelId = connector->getSecondModelId();
     const auto& connectorFirstVariableId = connector->getFirstVariableId();
     const auto& connectorSecondVariableId = connector->getSecondVariableId();
+    const auto& connectorComponentId = connector->getComponentId();
 
     if (connectorFirstModelId == "NETWORK") {
       connect->setConnectedModel1("NETWORK");
@@ -947,6 +953,7 @@ Compiler::concatConnects() {
               connectorSecondModelId, connectorSecondVariableId, unknownModel);
     }
 
+    connect->setComponentId(connectorComponentId);
     dyd_->addConnectInterface(std::move(connect));
   }
 }

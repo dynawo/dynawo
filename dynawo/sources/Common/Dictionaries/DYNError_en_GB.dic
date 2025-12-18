@@ -254,6 +254,7 @@ ConnectorIDNotUnique        =             connectorID for model %1% (first = "%2
 StaticRefNotUnique          =             staticRef for model %1% (var = "%2%", staticVar = "%3%") is not unique
 StaticRefNotUniqueInMacro   =             staticRef for macroStaticReference %1% (var = "%2%", staticVar = "%3%") is not unique
 StaticRefUndefined          =             staticRef (%1%) is not defined
+StaticRefNoStaticId         =             staticRef between vars %1% and %2% in model %3% has no static ID
 MacroStaticRefNotUnique     =             macroStaticRef for model %1% ( id = "%2%") is not unique
 MacroStaticRefUndefined     =             macroStaticRef (id = "%1%") is not defined
 MacroStaticReferenceNotUnique =           macroStaticReference (id = "%1%") is not unique

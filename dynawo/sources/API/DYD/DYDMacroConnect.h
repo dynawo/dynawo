@@ -88,6 +88,12 @@ class MacroConnect {
   void setName2(const std::string& name2);
 
   /**
+   * @brief set the Id of the static model
+   * @param componentId  ID of the static model to replace \@STATIC_ID\@
+   */
+  void setComponentId(const std::string& componentId);
+
+  /**
    * @brief get the index of the first model
    * @return index of the first model to replace \@INDEX\@
    */
@@ -111,6 +117,12 @@ class MacroConnect {
    */
   const std::string& getName2() const;
 
+  /**
+   * @brief get the Id of the static model
+   * @return ID of the static model to replace \@STATIC_ID\@
+   */
+  const std::string& getComponentId() const;
+
  private:
   std::string connectorId_;    ///< id of the connector
   std::string firstModelId_;   ///< Model name for the first Model
@@ -119,6 +131,7 @@ class MacroConnect {
   std::string index2_;         ///< index of the second model to replace \@INDEX\@
   std::string name1_;          ///< name of the first model to replace \@NAME\@
   std::string name2_;          ///< name of the second model to replace \@NAME\@
+  std::string componentId_;    ///< ID of the static model to replace \@STATIC_ID\@
 };
 
 }  // namespace dynamicdata
