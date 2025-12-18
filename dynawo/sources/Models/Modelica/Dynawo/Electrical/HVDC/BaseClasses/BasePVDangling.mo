@@ -23,7 +23,7 @@ partial model BasePVDangling "Base dynamic model for PV control at terminal 1"
   input Dynawo.Connectors.VoltageModulePuConnector U1RefPu(start = U1Ref0Pu) "Voltage regulation set point in pu (base UNom) at terminal 1";
 
   Dynawo.Connectors.ReactivePowerPuConnector QInj1PuQNom "Reactive power at terminal 1 in pu (base Q1Nom) (generator convention)";
-  Dynawo.Connectors.ReactivePowerPuConnector QInj1 "Reactive power at terminal 1 in MVar (generator convention)";
+  Types.ReactivePower QInj1 "Reactive power at terminal 1 in MVar (generator convention)";
 
   parameter Types.VoltageModulePu U1Ref0Pu "Start value of the voltage regulation set point in pu (base UNom) at terminal 1";
 
