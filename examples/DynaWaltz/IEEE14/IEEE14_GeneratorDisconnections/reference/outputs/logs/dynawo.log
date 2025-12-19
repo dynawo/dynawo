@@ -1,6 +1,6 @@
 INFO |  ============================================================ 
 INFO | DYNAWO VERSION  :     1.8.0
-INFO | DYNAWO REVISION :  3585_transformers_variable_tap-3f1617f6d16
+INFO | DYNAWO REVISION :    master-9407b118183
 INFO |  ============================================================ 
 INFO | 
 INFO | -----------------------------------------------------------------------
@@ -32,8 +32,8 @@ INFO | starting simulation with solver SimplifiedSolver
 INFO | -----------------------------------------------------------------------
 INFO | -----------------------------------------------------------------------
 INFO | number of continuous variables : 516
-INFO | number of discrete variables : 535
-INFO | number of root functions : 708
+INFO | number of discrete variables : 536
+INFO | number of root functions : 774
 INFO | -----------------------------------------------------------------------
 INFO |         time ¦ iter num   Nonlinear iter   jac eval      time step (h)
 INFO | -----------------------------------------------------------------------

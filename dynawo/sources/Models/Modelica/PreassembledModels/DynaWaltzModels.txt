@@ -2,6 +2,7 @@ CurrentLimitAutomaton
 CurrentLimitAutomatonTwoLevels
 DYNModelOmegaRef
 EventConnectedStatus
+EventConnectedStatusShunt
 EventQuadripoleConnection
 EventQuadripoleDisconnection
 EventSetPointBoolean
