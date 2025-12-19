@@ -49,11 +49,16 @@ equation
   terminal1.V = terminal2.V;
   terminal1.i = iPu;
   terminal1.V = uPu;
-  UPu = Modelica.ComplexMath.'abs'(uPu);
   PPu = (SystemBase.SnRef / SNom) * ComplexMath.real(terminal1.V * ComplexMath.conj(iPu));
   QPu = (SystemBase.SnRef / SNom) * ComplexMath.imag(terminal1.V * ComplexMath.conj(iPu));
   PPuSnRef = (SNom / SystemBase.SnRef) * PPu;
   QPuSnRef = (SNom / SystemBase.SnRef) * QPu;
+
+  if (uPu.re == 0 and uPu.im == 0) then
+    UPu = 0;
+  else
+    UPu = ComplexMath.'abs'(uPu);
+  end if;
 
   annotation(preferredView = "text");
 end Measurements;
