@@ -88,8 +88,17 @@ model Measurements "Measurement module for wind turbine controls (IEC N°61400-2
     Dialog(tab = "Operating point"));
 
 equation
-  UWtPu = ComplexMath.'abs'(uPu);
-  IWtPu = ComplexMath.'abs'(iPu);
+  if (iPu.re == 0 and iPu.im == 0) then
+    IWtPu = 0;
+  else
+    IWtPu = ComplexMath.'abs'(iPu);
+  end if;
+
+  if (uPu.re == 0 and uPu.im == 0) then
+    UWtPu = 0;
+  else
+    UWtPu = ComplexMath.'abs'(uPu);
+  end if;
 
   connect(iPu, product.u2) annotation(
     Line(points = {{-160, 80}, {-120, 80}, {-120, 106}, {-82, 106}}, color = {85, 170, 255}));

@@ -33,28 +33,22 @@ protected
   Types.ReactivePower zQ(start = 1.0) "Bounded zQRaw";
 
 equation
-  if (running.value) then
-    if ((terminal.V.re == 0) and (terminal.V.im == 0)) then
-      Tp * der(zPRaw) = 0.;
-      Tq * der(zQRaw) = 0.;
-      PPu = 0.;
-      QPu = 0.;
-    else
-      Tp * der(zPRaw) = (ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ alphaLong - zPRaw * (ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ alpha;
-      Tq * der(zQRaw) = (ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ betaLong - zQRaw * (ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ beta;
-      PPu = zP * PRefPu * (1. + deltaP) * ((ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ alpha);
-      QPu = zQ * QRefPu * (1. + deltaQ) * ((ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ beta);
-    end if;
+  if running.value then
+    Tp * der(zPRaw) = (ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ alphaLong - zPRaw * (ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ alpha;
+    Tq * der(zQRaw) = (ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ betaLong - zQRaw * (ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ beta;
+    PPu = zP * PRefPu * (1. + deltaP) * ((ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ alpha);
+    QPu = zQ * QRefPu * (1. + deltaQ) * ((ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ beta);
     zP = if zPRaw >= zPMax then zPMax elseif zPRaw <= 0. then 0. else zPRaw;
     zQ = if zQRaw >= zQMax then zQMax elseif zQRaw <= 0. then 0. else zQRaw;
   else
-    Tp * der(zPRaw) = 0.;
-    Tq * der(zQRaw) = 0.;
-    zP = 0.;
-    zQ = 0.;
+    Tp * der(zPRaw) = 0;
+    Tq * der(zQRaw) = 0;
+    zP = 0;
+    zQ = 0;
     terminal.i = Complex(0);
   end if;
 
-  annotation(preferredView = "text",
+  annotation(
+    preferredView = "text",
     Documentation(info = "<html><head></head><body>  After an event, the load goes back to its initial PPu/QPu unless the voltage at its terminal is lower than UMinPu or higher than UMaxPu. In this case, the load behaves as a classical Alpha-Beta load.<div>This load restoration emulates the behaviour of a tap changer transformer that connects the load to the system and regulates the voltage at its terminal.</div></body></html>"));
 end LoadAlphaBetaRestorativeNetwork;

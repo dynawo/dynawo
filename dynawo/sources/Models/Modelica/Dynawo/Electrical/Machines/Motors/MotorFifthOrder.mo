@@ -13,7 +13,7 @@ within Dynawo.Electrical.Machines.Motors;
 * of simulation tools for power systems.
 */
 
-model MotorFifthOrder "Two-cage (or one-cage if Lpp = Lp) induction motor model, based on https://www.powerworld.com/WebHelp/Content/TransientModels_HTML/Load%20Characteristic%20MOTORW.htm, must be incorporated in a load model."
+model MotorFifthOrder "Two-cage (or one-cage if Lpp = Lp) induction motor model, must be incorporated in a load model"
   extends BaseClasses.BaseMotor;
   extends AdditionalIcons.Machine;
   import Modelica.Constants;
@@ -72,7 +72,8 @@ model MotorFifthOrder "Two-cage (or one-cage if Lpp = Lp) induction motor model,
 
 equation
   assert(shareTrip1Pu + shareTrip2Pu <= 1, "Total share of motors that trip should be lower or equal to 1");
-  if (running.value) then
+
+  if running.value then
     der(EqPPu) * tP0 = -EqPPu + idPu * (LsPu - LPPu) - EdPPu * SystemBase.omegaNom * omegaRefPu.value * s * tP0;
     der(EdPPu) * tP0 = -EdPPu - iqPu * (LsPu - LPPu) + EqPPu * SystemBase.omegaNom * omegaRefPu.value * s * tP0;
     der(EqPPPu) = der(EqPPu) + 1/tPP0 * (EqPPu - EqPPPu + (LPPu - LPPPu) * idPu) + SystemBase.omegaNom * omegaRefPu.value * s * (EdPPu - EdPPPu);
@@ -93,8 +94,9 @@ equation
 
     s = (omegaRefPu.value - omegaRPu) / omegaRefPu.value;
     cePu = EdPPPu * idPu + EqPPPu * iqPu;
-    clPu = ce0Pu * (omegaRPu / omegaR0Pu)^torqueExponent;
+    clPu = ce0Pu * (omegaRPu / omegaR0Pu) ^ torqueExponent;
     2 * H * der(omegaRPu) = cePu - clPu;
+    UPu = ComplexMath.'abs'(V);
   else
     der(EqPPu) = 0;
     der(EdPPu) = 0;
@@ -109,12 +111,7 @@ equation
     cePu = 0;
     clPu = 0;
     der(omegaRPu) = 0;
-  end if;
-
-  if ((V.re == 0) and (V.im == 0)) then
-    UPu = 0.;
-  else
-    UPu = ComplexMath.'abs'(V);
+    UPu = 0;
   end if;
 
   // Trip block 1
@@ -151,5 +148,7 @@ equation
     connected2 = true;
   end when;
 
-  annotation(preferredView = "text");
+  annotation(
+    preferredView = "text",
+    Documentation(info = "<html><head></head><body>This model is based on&nbsp;https://www.powerworld.com/WebHelp/Content/TransientModels_HTML/Load%20Characteristic%20MOTORW.htm</body></html>"));
 end MotorFifthOrder;

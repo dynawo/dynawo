@@ -44,7 +44,7 @@ model TransformerFixedRatio "Two winding transformer with a fixed ratio"
   Types.VoltageModulePu U2Pu "Voltage on side 2 in pu (base U2Nom)";
 
 equation
-  if (running.value) then
+  if running.value then
     rTfoPu * rTfoPu * terminal1.V = rTfoPu * terminal2.V + ZPu * terminal1.i;
     terminal1.i = rTfoPu * (YPu * terminal2.V - terminal2.i);
   else
@@ -57,24 +57,17 @@ equation
   P2Pu = ComplexMath.real(terminal2.V * ComplexMath.conj(terminal2.i));
   Q2Pu = ComplexMath.imag(terminal2.V * ComplexMath.conj(terminal2.i));
 
-  if (running.value) then
-    if ((terminal1.V.re == 0) and (terminal1.V.im == 0)) then
-      U1Pu = 0;
-    else
-      U1Pu = ComplexMath.'abs'(terminal1.V);
-    end if;
-    if ((terminal2.V.re == 0) and (terminal2.V.im == 0)) then
-      U2Pu = 0;
-    else
-      U2Pu = ComplexMath.'abs'(terminal2.V);
-    end if;
+  if running.value then
+    U1Pu = ComplexMath.'abs'(terminal1.V);
+    U2Pu = ComplexMath.'abs'(terminal2.V);
   else
     U1Pu = 0;
     U2Pu = 0;
   end if;
 
-  annotation(preferredView = "text",
-      Documentation(info = "<html><head></head><body>The transformer has the following equivalent circuit and conventions:<div><br></div><div>
+  annotation(
+    preferredView = "text",
+    Documentation(info = "<html><head></head><body>The transformer has the following equivalent circuit and conventions:<div><br></div><div>
 <p style=\"margin: 0px;\"><br></p>
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">               I1  r                I2</span></pre>
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">    U1,P1,Q1 --&gt;---oo----R+jX-------&lt;-- U2,P2,Q2</span></pre>
