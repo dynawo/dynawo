@@ -331,7 +331,7 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsContinuousAn
   ASSERT_EQ(fType[0], ALGEBRAIC_EQ);
   ASSERT_NO_THROW(modelLoad->evalF(0, ALGEBRAIC_EQ));
   ASSERT_NO_THROW(modelLoad->setFequations());
-  // case yLocal_[UfYNum_] <= UMaxPu_
+  // case yLocal_[UfYNum_] <= UMinPu_
   g[0] = ROOT_DOWN;
   g[1] = ROOT_UP;
   g[2] = ROOT_DOWN;
