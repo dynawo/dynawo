@@ -117,8 +117,13 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsTypeMethods)
   unsigned nbZ = 3;
   std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
   std::vector<propertyF_t> fTypes(nbF, UNDEFINED_EQ);
+  std::vector<double> z(modelLoad->sizeZ(), 0);
+  bool* zConnected = new bool[modelLoad->sizeZ()];
+  for (size_t i = 0; i < modelLoad->sizeZ(); ++i)
+    zConnected[i] = true;
   modelLoad->setBufferYType(&yTypes[0], 0);
   modelLoad->setBufferFType(&fTypes[0], 0);
+  modelLoad->setBufferZ(&z[0], zConnected, 0);
 
   ASSERT_EQ(modelLoad->sizeY(), nbY);
   ASSERT_EQ(modelLoad->sizeF(), nbF);
@@ -267,6 +272,10 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsContinuousAn
   ASSERT_NO_THROW(modelLoad->evalZ(1));
   ASSERT_EQ(z[2], 0);
   ASSERT_NO_THROW(modelLoad->evalMode(1));
+  ASSERT_NO_THROW(modelLoad->evalDynamicYType());
+  ASSERT_EQ(yType[0], DIFFERENTIAL);
+  ASSERT_NO_THROW(modelLoad->evalDynamicFType());
+  ASSERT_EQ(fType[0], DIFFERENTIAL_EQ);
   SparseMatrix smj2;
   smj2.init(size, size);
   ASSERT_NO_THROW(modelLoad->evalJt(1, 0, 0, smj2));
@@ -287,6 +296,10 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsContinuousAn
   ASSERT_NO_THROW(modelLoad->evalZ(1));
   ASSERT_EQ(z[2], 0);
   ASSERT_NO_THROW(modelLoad->evalMode(1));
+  ASSERT_NO_THROW(modelLoad->evalDynamicYType());
+  ASSERT_EQ(yType[0], DIFFERENTIAL);
+  ASSERT_NO_THROW(modelLoad->evalDynamicFType());
+  ASSERT_EQ(fType[0], DIFFERENTIAL_EQ);
   // case switchOff1 is false, switchOff2 is false, running is false -> at the end the load should be connected
   z[0] = -1;
   z[1] = -1;
@@ -300,10 +313,16 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsContinuousAn
   ASSERT_NO_THROW(modelLoad->evalZ(1));
   ASSERT_EQ(z[2], 1);
   ASSERT_NO_THROW(modelLoad->evalMode(1));
-
+  ASSERT_NO_THROW(modelLoad->evalDynamicYType());
+  ASSERT_EQ(yType[0], DIFFERENTIAL);
+  ASSERT_NO_THROW(modelLoad->evalDynamicFType());
+  ASSERT_EQ(fType[0], DIFFERENTIAL_EQ);
+  // case yLocal_[UfYNum_] >= UMaxPu_
   g[0] = ROOT_UP;
   g[1] = ROOT_DOWN;
+  g[2] = ROOT_DOWN;
   ASSERT_NO_THROW(modelLoad->evalZ(0));
+  ASSERT_EQ(z[2], 1);
   ASSERT_NO_THROW(modelLoad->evalMode(0));
   ASSERT_NO_THROW(modelLoad->setGequations());
   ASSERT_NO_THROW(modelLoad->evalDynamicYType());
@@ -312,9 +331,12 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsContinuousAn
   ASSERT_EQ(fType[0], ALGEBRAIC_EQ);
   ASSERT_NO_THROW(modelLoad->evalF(0, ALGEBRAIC_EQ));
   ASSERT_NO_THROW(modelLoad->setFequations());
+  // case yLocal_[UfYNum_] <= UMinPu_
   g[0] = ROOT_DOWN;
   g[1] = ROOT_UP;
+  g[2] = ROOT_DOWN;
   ASSERT_NO_THROW(modelLoad->evalZ(0));
+  ASSERT_EQ(z[2], 1);
   ASSERT_NO_THROW(modelLoad->evalMode(0));
   ASSERT_NO_THROW(modelLoad->setGequations());
   ASSERT_NO_THROW(modelLoad->evalDynamicYType());

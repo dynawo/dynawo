@@ -161,8 +161,12 @@ namespace DYN {
 
   void
   ModelLoadRestorativeWithLimits::evalDynamicYType() {
-    if (UMaxPuReached_ || UMinPuReached_) {
-      yType_[UfYNum_] = ALGEBRAIC;  // uf
+    if (isConnected()) {
+      if (UMaxPuReached_ || UMinPuReached_) {
+        yType_[UfYNum_] = ALGEBRAIC;  // uf
+      } else {
+        yType_[UfYNum_] = DIFFERENTIAL;  // uf
+      }
     } else {
       yType_[UfYNum_] = DIFFERENTIAL;  // uf
     }
@@ -177,8 +181,12 @@ namespace DYN {
 
   void
   ModelLoadRestorativeWithLimits::evalDynamicFType() {
-    if (UMaxPuReached_ || UMinPuReached_) {
-      fType_[0] = ALGEBRAIC_EQ;
+    if (isConnected()) {
+      if (UMaxPuReached_ || UMinPuReached_) {
+        fType_[0] = ALGEBRAIC_EQ;
+      } else {
+        fType_[0] = DIFFERENTIAL_EQ;
+      }
     } else {
       fType_[0] = DIFFERENTIAL_EQ;
     }
