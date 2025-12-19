@@ -52,7 +52,6 @@ model InjectorIDQ "Injector controlled by d and q current components idPu and iq
   parameter Types.Angle UPhase0 "Start value of voltage angle at injector terminal in rad";
 
 equation
-  UPu = ComplexMath.'abs'(terminal.V);
   uPu = terminal.V;
 
   // Active and reactive power in generator convention and SNom base from terminal in receptor base in SnRef
@@ -65,8 +64,10 @@ equation
     // Park's transformations dq-currents in generator convention, -> receptor convention for terminal
     terminal.i.re = -(cos(UPhase) * idPu - sin(UPhase) * iqPu) * SNom / SystemBase.SnRef;
     terminal.i.im = -(sin(UPhase) * idPu + cos(UPhase) * iqPu) * SNom / SystemBase.SnRef;
+    UPu = ComplexMath.'abs'(terminal.V);
   else
     terminal.i = Complex(0,0);
+    UPu = 0;
   end if;
 
   annotation(
