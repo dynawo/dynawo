@@ -13,8 +13,8 @@ set(MODEL_FILES
     package.mo
     package.order
     Network.mo
-    NetworkWithPQLoads.mo
     NetworkWithAlphaBetaLoads.mo
+    NetworkWithPQLoads.mo
     )
 
 #
