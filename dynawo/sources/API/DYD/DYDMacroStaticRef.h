@@ -38,7 +38,7 @@ class MacroStaticRef {
    *
    * @param[in] id id of the macroStaticRef
    */
-  explicit MacroStaticRef(const std::string& id);
+  explicit MacroStaticRef(const std::string& id, const std::string& componentId);
 
   /**
    * @brief macroStaticRef id getter
@@ -46,9 +46,16 @@ class MacroStaticRef {
    * @return the id of the macroStaticRef
    */
   const std::string& getId() const;
+  /**
+   * @brief macroStaticRef componentId getter
+   *
+   * @return the component id of the macroStaticRef
+   */
+  const std::string& getComponentId() const;
 
  private:
   std::string id_;  ///< id of the macroStaticRef
+  std::string componentId_;  ///< id of the macroStaticRef
 };
 
 }  // namespace dynamicdata

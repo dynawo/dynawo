@@ -860,9 +860,11 @@ Compiler::concatRefs() const {
     //---------------------------------
     for (const auto& macroStaticRefPair : model->getModel()->getMacroStaticRefs()) {
       // use the MacroStaticRef id to find the correspondant MacroStaticReference
+
       const string& macroStaticRefId = macroStaticRefPair.second->getId();
       const std::shared_ptr<dynamicdata::MacroStaticReference>& macroStaticReference =
         dyd_->getDynamicModelsCollection()->findMacroStaticReference(macroStaticRefId);
+      const string& componentId = macroStaticRefPair.second->getComponentId();
       // retrieve the StaticRef elements contained in the MacroStaticRefenence
       for (const auto& staticRefPair : macroStaticReference->getStaticReferences()) {
         const auto& staticRef = staticRefPair.second;
@@ -874,6 +876,8 @@ Compiler::concatRefs() const {
         newStaticRefInterface->setModelID(modelId);
         newStaticRefInterface->setModelVar(modelVar);
         newStaticRefInterface->setStaticVar(staticVar);
+        if (!componentId.empty())
+          newStaticRefInterface->setComponentID(componentId);
 
         model->addStaticRefInterface(newStaticRefInterface);
       }

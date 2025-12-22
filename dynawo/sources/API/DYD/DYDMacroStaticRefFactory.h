@@ -40,7 +40,7 @@ class MacroStaticRefFactory {
    * @param[in] id : id for new MacroStaticRef instance
    * @returns a unique pointer to a new @p MacroStaticRef with given id
    */
-  static std::unique_ptr<MacroStaticRef> newMacroStaticRef(const std::string& id);
+  static std::unique_ptr<MacroStaticRef> newMacroStaticRef(const std::string& id, const std::string& componentId);
 };
 
 }  // namespace dynamicdata

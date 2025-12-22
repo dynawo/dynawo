@@ -204,6 +204,7 @@
 
   <xs:complexType name="MacroStaticRef">
     <xs:attribute name="id" use="required" type="xs:string"/>
+    <xs:attribute name="componentId" type="xs:string"/>
   </xs:complexType>
 
   <xs:simpleType name='IdString'>

@@ -510,7 +510,8 @@ MacroStaticRefHandler::~MacroStaticRefHandler() {}
 
 void
 MacroStaticRefHandler::create(attributes_type const& attributes) {
-  macroStaticRef_ = MacroStaticRefFactory::newMacroStaticRef(attributes["id"]);
+  const std::string & componentId = attributes.has("componentId") ? attributes["componentId"].as_string() : "";
+  macroStaticRef_ = MacroStaticRefFactory::newMacroStaticRef(attributes["id"], componentId);
 }
 
 std::shared_ptr<MacroStaticRef>

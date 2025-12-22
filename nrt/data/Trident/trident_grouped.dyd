@@ -13,10 +13,10 @@
         <dyn:staticRef var="generator_state"  staticVar="state" componentId="g1"/>
     </dyn:blackBoxModel>
     <dyn:blackBoxModel id="c2" lib="GeneratorSynchronousFourWindingsProportionalRegulationsTfo" parFile="models_grouped.par" parId="GSFWPR_g2">
-        <dyn:macroStaticRef id="srefs_gen"/>
+        <dyn:macroStaticRef id="srefs_gen" componentId="g2"/>
     </dyn:blackBoxModel>
     <dyn:blackBoxModel id="c3" lib="GeneratorSynchronousFourWindingsProportionalRegulationsTfo" parFile="models_grouped.par" parId="GSFWPR_g3">
-        <dyn:macroStaticRef id="srefs_gen"/>
+        <dyn:macroStaticRef id="srefs_gen" componentId="g3"/>
     </dyn:blackBoxModel>
 
     <dyn:blackBoxModel id="FREQ_SYNC" lib="DYNModelOmegaRef" parFile="freq_sync.par" parId="FREQ_SYNC_PAR"/>
