@@ -21,6 +21,8 @@ partial model BasePVCurrentSource "Base for WECC PV with a current source as int
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
+  parameter Boolean FRTconstantcurrent;
+
   // Line parameters
   parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
   parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
@@ -58,16 +60,20 @@ equation
   line.switchOffSignal1.value = injector.switchOffSignal1.value;
   line.switchOffSignal2.value = injector.switchOffSignal2.value;
 
+  if wecc_reec.frtOn and FRTconstantcurrent then
+    injector.idPu = pre(injector.idPu);
+    injector.iqPu = pre(injector.iqPu);
+  else
+    wecc_regc.idRefPu = injector.idPu;
+    wecc_regc.iqRefPu = injector.iqPu;
+  end if;
+
   connect(wecc_reec.iqCmdPu, wecc_regc.iqCmdPu) annotation(
     Line(points = {{-69, -6}, {-51, -6}}, color = {0, 0, 127}));
   connect(wecc_reec.frtOn, wecc_regc.frtOn) annotation(
     Line(points = {{-69, 0}, {-51, 0}}, color = {255, 0, 255}));
   connect(wecc_reec.idCmdPu, wecc_regc.idCmdPu) annotation(
     Line(points = {{-69, 6}, {-51, 6}}, color = {0, 0, 127}));
-  connect(wecc_regc.idRefPu, injector.idPu) annotation(
-    Line(points = {{-29, -6}, {-11.5, -6}}, color = {0, 0, 127}));
-  connect(wecc_regc.iqRefPu, injector.iqPu) annotation(
-    Line(points = {{-29, 4}, {-11.5, 4}}, color = {0, 0, 127}));
   connect(injector.UPu, wecc_regc.UPu) annotation(
     Line(points = {{11.5, -8}, {20, -8}, {20, -20}, {-46, -20}, {-46, -11}}, color = {0, 0, 127}));
   connect(injector.UPu, wecc_reec.UPu) annotation(
