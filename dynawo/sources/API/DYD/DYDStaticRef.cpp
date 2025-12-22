@@ -21,7 +21,11 @@
 
 namespace dynamicdata {
 
-StaticRef::StaticRef(const std::string& modelVar, const std::string& staticVar) : modelVar_(modelVar), staticVar_(staticVar) {}
+StaticRef::StaticRef(const std::string& modelVar, const std::string& staticVar, const std::string& componentID) :
+  modelVar_(modelVar),
+  staticVar_(staticVar),
+  componentID_(componentID)
+  {}
 
 void
 StaticRef::setModelVar(const std::string& modelVar) {
@@ -33,6 +37,11 @@ StaticRef::setStaticVar(const std::string& staticVar) {
   staticVar_ = staticVar;
 }
 
+void
+StaticRef::setComponentID(const std::string& componentID) {
+  componentID_ = componentID;
+}
+
 const std::string&
 StaticRef::getModelVar() const {
   return modelVar_;
@@ -41,6 +50,11 @@ StaticRef::getModelVar() const {
 const std::string&
 StaticRef::getStaticVar() const {
   return staticVar_;
+}
+
+const std::string&
+StaticRef::getComponentID() const {
+  return componentID_;
 }
 
 }  // namespace dynamicdata

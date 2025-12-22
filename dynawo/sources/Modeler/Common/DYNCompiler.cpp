@@ -844,11 +844,13 @@ Compiler::concatRefs() const {
       string modelId = model->getID();
       string modelVar = staticRef->getModelVar();
       string staticVar = staticRef->getStaticVar();
+      string componentID = staticRef->getComponentID();
 
       shared_ptr<StaticRefInterface> newStaticRefInterface(new StaticRefInterface());
       newStaticRefInterface->setModelID(modelId);
       newStaticRefInterface->setModelVar(modelVar);
       newStaticRefInterface->setStaticVar(staticVar);
+      newStaticRefInterface->setComponentID(componentID);
 
       model->addStaticRefInterface(newStaticRefInterface);
     }

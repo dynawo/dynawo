@@ -148,7 +148,6 @@
           <xs:element name="macroStaticRef" type="dyn:MacroStaticRef" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
         <xs:attribute name="staticId" type="xs:string"/>
-        <xs:attribute name="staticIds" type="xs:string"/>
         <xs:attribute name="lib" use="required" type="xs:string"/>
         <xs:attribute name="parFile" type="xs:string"/>
         <xs:attribute name="parId" type="xs:string"/>
@@ -201,6 +200,7 @@
   <xs:complexType name="StaticRef">
     <xs:attribute name="var" use="required" type="xs:string"/>
     <xs:attribute name="staticVar" use="required" type="xs:string"/>
+    <xs:attribute name="componentId" type="xs:string"/>
   </xs:complexType>
 
   <xs:complexType name="MacroStaticRef">

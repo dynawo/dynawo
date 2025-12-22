@@ -105,32 +105,28 @@ Modeler::initModelDescription() {
     std::cout << "dyn model key " << modelDescriptionPair.first << " ID " << modelDescription->getID()
               << " staticId " << modelDescription->getStaticId() << std::endl;
 
-    if (modelDescription->getModel()->getType() == dynamicdata::Model::MODEL_TEMPLATE) {
+    if (modelDescription->getModel()->getType() == dynamicdata::Model::MODEL_TEMPLATE)
       continue;
-    }
 
-    if (modelDescription->hasCompiledModel()) {
-      shared_ptr<SubModel> model;
-      model = SubModelFactory::createSubModelFromLib(modelDescription->getLib());
-      model->name(modelDescription->getID());
-      model->staticId(modelDescription->getStaticId());
-      std::shared_ptr<ParametersSet> params = modelDescription->getParametersSet();
-      initParamDescription(modelDescription);
-
-      model->setPARParameters(params);
-      model->initFromData(data_);
-      // add the submodel
-      model_->addSubModel(model, modelDescription->getLib());
-      subModels_[modelDescription->getID()] = model;
-      modelDescription->setSubModel(model);
-      // reference static
-      if (!modelDescription->getStaticId().empty()) {
-        data_->setDynamicModel(modelDescription->getStaticId(), model);
-        initStaticRefs(model, modelDescription);
-      }
-    } else {
+    if (!modelDescription->hasCompiledModel())
       throw DYNError(Error::MODELER, CompileModel, modelDescription->getID());
-    }
+
+    shared_ptr<SubModel> submodel;
+    submodel = SubModelFactory::createSubModelFromLib(modelDescription->getLib());
+    submodel->name(modelDescription->getID());
+    submodel->staticId(modelDescription->getStaticId());
+
+    std::shared_ptr<ParametersSet> params = modelDescription->getParametersSet();
+    initParamDescription(modelDescription);
+    submodel->setPARParameters(params);
+
+    submodel->initFromData(data_);
+
+    model_->addSubModel(submodel, modelDescription->getLib());
+    subModels_[modelDescription->getID()] = submodel;
+    modelDescription->setSubModel(submodel);
+
+    initStaticRefs(submodel, modelDescription);
   }
 }
 
@@ -140,61 +136,65 @@ Modeler::initParamDescription(const std::shared_ptr<ModelDescription>& modelDesc
   if (!params)  // params can be a nullptr if no parFile was given for the model
     return;
 
-  string staticID = modelDescription->getStaticId();
-  string dynID = modelDescription->getID();
+  const string & staticId = modelDescription->getStaticId();
+  const string & dynId = modelDescription->getID();
 
   // if there are references in external parameters, retrieve the parameters' value from IIDM
-  for (const auto& refName : params->getReferencesNames()) {
+  for (const string & refName : params->getReferencesNames()) {
     auto ref = params->getReference(refName);
-    string refType = ref->getType();
     const Reference::OriginData refOrigData = ref->getOrigData();
-    const string& refOrigName = ref->getOrigName();
-    const string& componentID = ref->getComponentId();
 
-    std::cout << " staticID " << staticID
+    // PAR reference already resolved in DynamicData => nothing to do
+    if (refOrigData == Reference::PAR)
+        continue;
+
+    // unhandled ref type => throw error
+    if (refOrigData != Reference::IIDM)
+      throw DYNError(Error::MODELER, FunctionNotAvailable);
+
+    const string & refType = ref->getType();
+    const string & refOrigName = ref->getOrigName();
+    const string & componentId = ref->getComponentId();
+
+  // when componentId exists, it should be used instead of staticId to retrieve reference parameter in IIDM
+    const string & refOrigId = componentId.empty() ? staticId : componentId;
+    if (refOrigId.empty())
+      throw DYNError(Error::MODELER, ParameterStaticIdNotFound, refOrigName, refName, dynId);
+
+    std::cout << " staticID " << staticId
               << " refName " << refName
               << " refType " << refType
               << " refOrigData " << refOrigData
               << " refOrigName " << refOrigName
+              << " componentId " << componentId
               << std::endl;
 
-    // if data_ origin is IIDM file, retrieve the value and add a parameter in the parameter set.
-    if (!componentID.empty())
-      staticID = componentID;  // when componentID exist, this id should be used to find the parameter value
-    if (refOrigData == Reference::IIDM) {
-      if (staticID.empty())
-        throw DYNError(Error::MODELER, ParameterStaticIdNotFound, refOrigName, refName, dynID);
-      if (refType == "DOUBLE") {
-        const double value = data_->getStaticParameterDoubleValue(staticID, refOrigName);
-        params->createParameter(refName, value);
-      } else if (refType == "INT") {
-        const int value = data_->getStaticParameterIntValue(staticID, refOrigName);
-        params->createParameter(refName, value);
-      } else if (refType == "BOOL") {
-        const bool value = data_->getStaticParameterBoolValue(staticID, refOrigName);
-        params->createParameter(refName, value);
-      } else {
-        throw DYNError(Error::MODELER, ParameterWrongTypeReference, refName);
-      }
-    } else if (refOrigData == Reference::PAR) {
-        continue;  // PAR reference already resolved in DynamicData => nothing to do
-    } else {
-        throw DYNError(Error::MODELER, FunctionNotAvailable);
-    }
+    if      (refType == "DOUBLE") params->createParameter(refName, data_->getStaticParameterDoubleValue(refOrigId, refOrigName));
+    else if (refType == "INT")    params->createParameter(refName, data_->getStaticParameterIntValue(   refOrigId, refOrigName));
+    else if (refType == "BOOL")   params->createParameter(refName, data_->getStaticParameterBoolValue(  refOrigId, refOrigName));
+    else                          throw DYNError(Error::MODELER, ParameterWrongTypeReference, refName);
   }
 }
 
 void
-Modeler::initStaticRefs(const boost::shared_ptr<SubModel>& model, const std::shared_ptr<ModelDescription>& modelDescription) const {
-  for (const auto& staticRefInterface : modelDescription->getStaticRefInterfaces()) {
-    const string& modelID = staticRefInterface->getModelID().empty() ? modelDescription->getID() : staticRefInterface->getModelID();
-    const string& modelVar = staticRefInterface->getModelVar();
-    const string& staticVar = staticRefInterface->getStaticVar();
+Modeler::initStaticRefs(const boost::shared_ptr<SubModel> & submodel, const std::shared_ptr<ModelDescription> & modelDescr) const {
+  for (const auto & sref : modelDescr->getStaticRefInterfaces()) {
+    const string & staticId = sref->getComponentID().empty() ? modelDescr->getStaticId() : sref->getComponentID();
+    const string & modelId  = sref->getModelID().empty()     ? modelDescr->getID()       : sref->getModelID();
 
-    data_->setReference(staticVar, model->staticId(), modelID, modelVar);
+    std::cout << " staticId " << staticId
+              << " modelId " << modelId
+              << " staticVar " << sref->getStaticVar()
+              << " modelVar " << sref->getModelVar()
+              << std::endl;
+
+    if (staticId.empty())
+      throw DYNError(Error::MODELER, StaticRefNoStaticId, sref->getStaticVar(), sref->getModelVar(), modelId);
+
+    data_->setReference(sref->getStaticVar(), staticId, modelId, sref->getModelVar());
+    data_->setDynamicModel(staticId, submodel);
   }
 }
-
 
 void
 Modeler::replaceStaticAndNodeMacroInVariableName(const shared_ptr<SubModel>& subModel1, string& var1,

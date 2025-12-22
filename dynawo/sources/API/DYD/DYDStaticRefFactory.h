@@ -47,9 +47,10 @@ class StaticRefFactory {
    *
    * @param[in] modelVar : dynamic model variable
    * @param[in] staticVar : static model variable
+   * @param[in] componentID : static model ID
    * @returns Unique pointer to a new @p StaticRef
    */
-  static std::unique_ptr<StaticRef> newStaticRef(const std::string& modelVar, const std::string& staticVar);
+  static std::unique_ptr<StaticRef> newStaticRef(const std::string& modelVar, const std::string& staticVar, const std::string& componentID);
 };
 
 }  // namespace dynamicdata

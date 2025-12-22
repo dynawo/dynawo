@@ -40,7 +40,7 @@ MacroStaticReference::addStaticRef(const string& var, const string& staticVar) {
   // The staticRef key in the map is var_staticVar
   string key = var + '_' + staticVar;
   std::pair<std::map<std::string, std::unique_ptr<StaticRef> >::iterator, bool> ret;
-  ret = staticRefs_.emplace(key, StaticRefFactory::newStaticRef(var, staticVar));
+  ret = staticRefs_.emplace(key, StaticRefFactory::newStaticRef(var, staticVar, ""));
   if (!ret.second)
     throw DYNError(DYN::Error::API, StaticRefNotUniqueInMacro, id_, var, staticVar);
 }

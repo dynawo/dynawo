@@ -73,10 +73,11 @@ class Model {
    * no id is set (the id is assumed to be the parent model dynamic id in this case)
    * @param var variable
    * @param staticVar static variable
+   * @param componentID static ID
    * @throws Error::API exception if staticRef already exists
    * @return Reference to the current Model instance
    */
-  Model& addStaticRef(const std::string& var, const std::string& staticVar);
+  Model& addStaticRef(const std::string& var, const std::string& staticVar, const std::string& componentID);
 
   /**
    * @brief macroStaticRef adder

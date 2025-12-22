@@ -7,19 +7,19 @@
         <dyn:staticRef var="generator_state"  staticVar="state"/>
     </dyn:macroStaticReference>
 
-    <dyn:blackBoxModel id="g1" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="models.par" parId="GSFWPR_g1" staticId="g1">
+    <dyn:blackBoxModel id="g1" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="models_base.par" parId="GSFWPR_g1" staticId="g1">
         <dyn:macroStaticRef id="srefs_gen"/>
     </dyn:blackBoxModel>
-    <dyn:blackBoxModel id="g2" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="models.par" parId="GSFWPR_g2" staticId="g2">
+    <dyn:blackBoxModel id="g2" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="models_base.par" parId="GSFWPR_g2" staticId="g2">
         <dyn:macroStaticRef id="srefs_gen"/>
     </dyn:blackBoxModel>
-    <dyn:blackBoxModel id="g3" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="models.par" parId="GSFWPR_g3" staticId="g3">
+    <dyn:blackBoxModel id="g3" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="models_base.par" parId="GSFWPR_g3" staticId="g3">
         <dyn:macroStaticRef id="srefs_gen"/>
     </dyn:blackBoxModel>
 
     <dyn:blackBoxModel id="FREQ_SYNC" lib="DYNModelOmegaRef" parFile="freq_sync.par" parId="FREQ_SYNC_PAR"/>
 
-    <dyn:blackBoxModel id="l4" lib="LoadAlphaBeta" parFile="models.par" parId="LAB" staticId="l4">
+    <dyn:blackBoxModel id="l4" lib="LoadAlphaBeta" parFile="models_base.par" parId="LAB" staticId="l4">
         <dyn:staticRef var="load_PPu" staticVar="p"/>
         <dyn:staticRef var="load_QPu" staticVar="q"/>
         <dyn:staticRef var="load_state" staticVar="state"/>
