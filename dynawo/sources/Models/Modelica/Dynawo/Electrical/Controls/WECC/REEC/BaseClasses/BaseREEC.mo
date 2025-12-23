@@ -88,8 +88,6 @@ partial model BaseREEC "WECC Electrical Control REEC common"
     Placement(visible = true, transformation(origin = {-20, 46}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression UFilteredPu3(y = UFilteredPu) annotation(
     Placement(visible = true, transformation(origin = {190, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Dynawo.NonElectrical.Blocks.NonLinear.Max2 max1 annotation(
-    Placement(visible = true, transformation(origin = {50, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constant2(k = 0.01) annotation(
     Placement(visible = true, transformation(origin = {-20, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant VRefConst(k = if VRef0Pu < 0.5 then UInj0Pu else VRef0Pu) annotation(
@@ -112,6 +110,8 @@ partial model BaseREEC "WECC Electrical Control REEC common"
     Placement(visible = true, transformation(origin = {125, 220}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   NonElectrical.Blocks.Continuous.VarLimPIDFreeze varLimPIDFreeze(K = Kvp, Ti = Kvp / Kvi, WithFeedForward = false, Xi0 = Iq0Pu / Kvp, Y0 = Iq0Pu) annotation(
     Placement(visible = true, transformation(origin = {180, 112}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Max max1 annotation(
+    Placement(visible = true, transformation(origin = {50, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
   connect(variableLimiter.y, iqCmdPu) annotation(
     Line(points = {{521, 110}, {550, 110}}, color = {0, 0, 127}));
@@ -155,12 +155,6 @@ equation
     Line(points = {{-270, 110}, {-170, 110}, {-170, 142}, {-132, 142}}, color = {0, 0, 127}));
   connect(UPu, voltageCheck.UPu) annotation(
     Line(points = {{-270, 270}, {40, 270}}, color = {0, 0, 127}));
-  connect(max1.y, division.u2) annotation(
-    Line(points = {{61, 40}, {70, 40}, {70, 48}, {78, 48}}, color = {0, 0, 127}));
-  connect(UFilteredPu2.y, max1.u1) annotation(
-    Line(points = {{-9, 46}, {38, 46}}, color = {0, 0, 127}));
-  connect(constant2.y, max1.u2) annotation(
-    Line(points = {{-9, 20}, {20, 20}, {20, 34}, {38, 34}}, color = {0, 0, 127}));
   connect(deadZone.y, gain.u) annotation(
     Line(points = {{175, 220}, {192, 220}}, color = {0, 0, 127}));
   connect(PConvPu, firstOrder1.u) annotation(
@@ -187,8 +181,6 @@ equation
     Line(points = {{61, 240}, {80, 240}, {80, 226}, {113, 226}}, color = {0, 0, 127}));
   connect(VRefConst.y, add.u2) annotation(
     Line(points = {{61, 200}, {80, 200}, {80, 214}, {113, 214}}, color = {0, 0, 127}));
-  connect(max1.y, division1.u2) annotation(
-    Line(points = {{61, 40}, {99, 40}, {99, -126}, {169, -126}}, color = {0, 0, 127}));
   connect(varLimPIDFreeze.y, switch2.u1) annotation(
     Line(points = {{191, 112}, {268, 112}}, color = {0, 0, 127}));
   connect(UFilteredPu3.y, varLimPIDFreeze.u_m) annotation(
@@ -199,6 +191,14 @@ equation
     Line(points = {{38, 112}, {78, 112}}, color = {0, 0, 127}));
   connect(limiter.y, varLimPIDFreeze.u_s) annotation(
     Line(points = {{101, 112}, {168, 112}}, color = {0, 0, 127}));
+  connect(UFilteredPu2.y, max1.u1) annotation(
+    Line(points = {{-9, 46}, {38, 46}}, color = {0, 0, 127}));
+  connect(constant2.y, max1.u2) annotation(
+    Line(points = {{-9, 20}, {20, 20}, {20, 34}, {38, 34}}, color = {0, 0, 127}));
+  connect(max1.y, division.u2) annotation(
+    Line(points = {{61, 40}, {70, 40}, {70, 48}, {78, 48}}, color = {0, 0, 127}));
+  connect(max1.y, division1.u2) annotation(
+    Line(points = {{61, 40}, {100, 40}, {100, -126}, {169, -126}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html>

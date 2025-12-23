@@ -37,7 +37,8 @@ model WTG4ACurrentSource2 "WECC Wind Turbine model with a simplified drive train
     Placement(visible = true, transformation(origin = {-91, -41}, extent = {{-10, -5}, {10, 5}}, rotation = 0)));
 
   // Initial parameters
-  final parameter Types.VoltageModulePu URef0Pu = if VCompFlag == true then UInj0Pu else (U0Pu - Kc * Q0Pu * SystemBase.SnRef / SNom) "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
+  final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else ComplexMath.'abs'(uControl0Pu) + Kc * QControl0Pu "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)" annotation(
+    Placement(visible = false, transformation(extent = {{0, 0}, {0, 0}})));
 
 equation
   connect(URefPu, wecc_repc.URefPu) annotation(

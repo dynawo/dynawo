@@ -1,7 +1,6 @@
 BaseClasses
 PVCurrentSource
 PVCurrentSourceNoPlantControl
-PVCurrentSource_INIT
 PVVoltageSource1
 PVVoltageSource1NoPlantControl
 PVVoltageSource2
