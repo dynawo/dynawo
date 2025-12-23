@@ -112,9 +112,9 @@ model WT4ACurrentSource "WECC Wind Type 4A Model on infinite bus"
     zerox = 0.05) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
 
-  Modelica.Blocks.Sources.Constant PInjRefPu(k = 0.7) annotation(
+  Modelica.Blocks.Sources.Constant PConvRefPu(k = 0.7) annotation(
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
-  Modelica.Blocks.Sources.Constant QInjRefPu(k = 0.2) annotation(
+  Modelica.Blocks.Sources.Constant QConvRefPu(k = 0.2) annotation(
     Placement(visible = true, transformation(origin = {90, 40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PFaRef(k = acos(WT4A.PF0)) annotation(
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
@@ -154,9 +154,9 @@ equation
     Line(points = {{-20, 0}, {0, 0}, {0, 0}, {0, 0}}, color = {0, 0, 255}));
   connect(infiniteBus.terminal, line.terminal1) annotation(
     Line(points = {{-82, 0}, {-60, 0}, {-60, 0}, {-60, 0}}, color = {0, 0, 255}));
-  connect(PInjRefPu.y, WT4A.PInjRefPu) annotation(
+  connect(PConvRefPu.y, WT4A.PConvRefPu) annotation(
     Line(points = {{79, -40}, {60, -40}, {60, -12}, {42, -12}}, color = {0, 0, 127}));
-  connect(QInjRefPu.y, WT4A.QInjRefPu) annotation(
+  connect(QConvRefPu.y, WT4A.QConvRefPu) annotation(
     Line(points = {{79, 40}, {60, 40}, {60, 12}, {42, 12}}, color = {0, 0, 127}));
   connect(PFaRef.y, WT4A.PFaRef) annotation(
     Line(points = {{79, -80}, {20, -80}, {20, -22}}, color = {0, 0, 127}));

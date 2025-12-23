@@ -18,7 +18,8 @@ model WTG4ACurrentSource2 "WECC Wind Turbine model with a simplified drive train
   extends Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
   extends Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGT;
   extends Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGTb;
-  extends Electrical.Wind.WECC.BaseClasses.BaseWT4;
+  extends Electrical.Wind.WECC.BaseClasses.BaseWT4(LvToMvTfo(BPu = 0, GPu = 0, RPu = RPu, XPu = XPu));
+  extends Dynawo.Electrical.Wind.WECC.BaseClasses.BasePCS;
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(
@@ -30,18 +31,14 @@ model WTG4ACurrentSource2 "WECC Wind Turbine model with a simplified drive train
   Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Voltage setpoint for plant level control in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
-  Dynawo.Electrical.Controls.WECC.REPC.REPCa wecc_repc(DDn = DDn, DUp = DUp, FreqFlag = FreqFlag, Kc = Kc, Ki = Ki, Kig = Kig, Kp = Kp, Kpg = Kpg, PGen0Pu = -P0Pu*SystemBase.SnRef/SNom, PInj0Pu = PInj0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, QGen0Pu = -Q0Pu*SystemBase.SnRef/SNom, QInj0Pu = QInj0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, RcPu = RPu, RefFlag = RefFlag, tFilterPC = tFilterPC, tFt = tFt, tFv = tFv, tLag = tLag, tP = tP, U0Pu = U0Pu, UInj0Pu = UInj0Pu, VCompFlag = VCompFlag, VFrz = VFrz, XcPu = XPu, DbdPu = DbdPu, EMaxPu = EMaxPu, EMinPu = EMinPu, FDbd1Pu = FDbd1Pu, FDbd2Pu = FDbd2Pu, FEMaxPu = FEMaxPu, FEMinPu = FEMinPu, iInj0Pu = iInj0Pu, u0Pu = u0Pu) annotation(
+  Dynawo.Electrical.Controls.WECC.REPC.REPCa wecc_repc(DDn = DDn, DUp = DUp, FreqFlag = FreqFlag, Kc = Kc, Ki = Ki, Kig = Kig, Kp = Kp, Kpg = Kpg, PMaxPu = PMaxPu, PMinPu = PMinPu, QMaxPu = QMaxPu, QMinPu = QMinPu, RcPu = RPu, RefFlag = RefFlag, tFilterPC = tFilterPC, tFt = tFt, tFv = tFv, tLag = tLag, tP = tP, VCompFlag = VCompFlag, VFrz = VFrz, XcPu = XPu, DbdPu = DbdPu, EMaxPu = EMaxPu, EMinPu = EMinPu, FDbd1Pu = FDbd1Pu, FDbd2Pu = FDbd2Pu, FEMaxPu = FEMaxPu, FEMinPu = FEMinPu, PControl0Pu = PControl0Pu, PConv0Pu = PConv0Pu, QControl0Pu = QControl0Pu, QConv0Pu = QConv0Pu, URef0Pu = URef0Pu, iControl0Pu = iControl0Pu, uControl0Pu = uControl0Pu, SNom = SNom) annotation(
     Placement(transformation(origin = {-118, 0}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Controls.WECC.Mechanical.WTGTb wecc_wtgt(Dshaft = Dshaft, Hg = Hg, Ht = Ht, Kshaft = Kshaft, tp = tp, PInj0Pu = PInj0Pu, PePu(start = PInj0Pu)) annotation(
     Placement(visible = true, transformation(origin = {-91, -41}, extent = {{-10, -5}, {10, 5}}, rotation = 0)));
 
   // Initial parameters
-  parameter Types.ComplexCurrentPu iInj0Pu "Start value of complex current at injector in pu (base UNom, SNom) (generator convention)";
-  parameter Types.ActivePowerPu P0Pu "Start value of active power at regulated bus in pu (base SnRef) (receptor convention)";
-  parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at regulated bus in pu (base SnRef) (receptor convention)";
-  parameter Types.VoltageModulePu U0Pu "Start value of voltage magnitude at regulated bus in pu (base UNom)";
-
-  final parameter Types.VoltageModulePu URef0Pu = if VCompFlag == true then UInj0Pu else (U0Pu - Kc * Q0Pu * SystemBase.SnRef / SNom) "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
+  final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else ComplexMath.'abs'(uControl0Pu) + Kc * QControl0Pu "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)" annotation(
+    Placement(visible = false, transformation(extent = {{0, 0}, {0, 0}})));
 
 equation
   connect(URefPu, wecc_repc.URefPu) annotation(
@@ -54,24 +51,26 @@ equation
     Line(points = {{-190, 0}, {-160, 0}, {-160, -2}, {-129, -2}}, color = {0, 0, 127}));
   connect(QRefPu, wecc_repc.QRefPu) annotation(
     Line(points = {{-190, -20}, {-160, -20}, {-160, -6}, {-129, -6}}, color = {0, 0, 127}));
-  connect(measurements.iPu, wecc_repc.iPu) annotation(
-    Line(points = {{96, 11}, {96, 50}, {-126, 50}, {-126, 11}}, color = {85, 170, 255}));
-  connect(measurements.uPu, wecc_repc.uPu) annotation(
-    Line(points = {{92, 11}, {92, 40}, {-121, 40}, {-121, 11}}, color = {85, 170, 255}));
-  connect(measurements.QPu, wecc_repc.QRegPu) annotation(
-    Line(points = {{88, 11}, {88, 30}, {-115, 30}, {-115, 11}}, color = {0, 0, 127}));
-  connect(measurements.PPu, wecc_repc.PRegPu) annotation(
-    Line(points = {{84, 11}, {84, 20}, {-110, 20}, {-110, 11}}, color = {0, 0, 127}));
-  connect(wecc_repc.PInjRefPu, wecc_reec.PInjRefPu) annotation(
-    Line(points = {{-107, 6}, {-91, 6}}, color = {0, 0, 127}));
-  connect(wecc_repc.QInjRefPu, wecc_reec.QInjRefPu) annotation(
-    Line(points = {{-107, -6}, {-91, -6}}, color = {0, 0, 127}));
   connect(injector.PInjPuSn, wecc_wtgt.PePu) annotation(
     Line(points = {{12, -4}, {25, -4}, {25, -41}, {-80, -41}}, color = {0, 0, 127}));
   connect(wecc_wtgt.omegaGPu, wecc_reec.omegaGPu) annotation(
     Line(points = {{-87, -35}, {-85, -35}, {-85, -11}}, color = {0, 0, 127}));
   connect(OmegaRef.y, wecc_wtgt.omegaRefPu) annotation(
     Line(points = {{-179, 38}, {-176, 38}, {-176, -58}, {-113, -58}, {-113, -41}, {-102, -41}}, color = {0, 0, 127}));
+  connect(switch.y, wecc_repc.PRegPu) annotation(
+    Line(points = {{20, 23}, {-112, 23}, {-112, 11}}, color = {0, 0, 127}));
+  connect(switch5.y, wecc_repc.QRegPu) annotation(
+    Line(points = {{20, 39}, {-117, 39}, {-117, 11}}, color = {0, 0, 127}));
+  connect(u.y, wecc_repc.uPu) annotation(
+    Line(points = {{-20, 63}, {-123, 63}, {-123, 11}}, color = {85, 170, 255}));
+  connect(i.y, wecc_repc.iPu) annotation(
+    Line(points = {{-20, 93}, {-128, 93}, {-128, 11}}, color = {85, 170, 255}));
+  connect(wecc_repc.PConvRefPu, wecc_reec.PConvRefPu) annotation(
+    Line(points = {{-109, 6}, {-91, 6}}, color = {0, 0, 127}));
+  connect(wecc_repc.QConvRefPu, wecc_reec.QConvRefPu) annotation(
+    Line(points = {{-109, -6}, {-91, -6}}, color = {0, 0, 127}));
+  connect(WTTerminalMeasurements.terminal2, TfoPCS.terminal2) annotation(
+    Line(points = {{70, 0}, {80, 0}}, color = {0, 0, 255}));
 
   annotation(
     preferredView = "diagram",

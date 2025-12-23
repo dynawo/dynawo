@@ -18,6 +18,10 @@
   <variable type="continuous" id="PWPRefPu" optional="true"/>
   <variable type="continuous" id="tanPhi" optional="true"/>
   <variable type="continuous" id="xWPRefPu" optional="true"/>
+  <variable type="continuous" id="PPccPu" optional="true"/>
+  <variable type="continuous" id="QPccPu" optional="true"/>
+  <variable type="continuous" id="uPccPu.re" optional="true"/>
+  <variable type="continuous" id="uPccPu.im" optional="true"/>
   <variable type="discrete" id="wT4BCurrentSource.wT4Injector.switchOffSignal1.value" defaultValue="false"/>
   <variable type="discrete" id="wT4BCurrentSource.wT4Injector.switchOffSignal2.value" defaultValue="false"/>
   <variable type="discrete" id="wT4BCurrentSource.wT4Injector.switchOffSignal3.value" defaultValue="false"/>

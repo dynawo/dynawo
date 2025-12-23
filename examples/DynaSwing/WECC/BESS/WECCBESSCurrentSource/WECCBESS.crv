@@ -24,4 +24,7 @@
   <curve model="BESS" variable="BESS_pll_omegaPLLPu"/>
   <curve model="BESS" variable="BESS_reecC_idCmdPu"/>
   <curve model="BESS" variable="BESS_reecC_iqCmdPu"/>
+  <curve model="BESS" variable="BESS_LvToMvTfo_RPu"/>
+  <curve model="BESS" variable="BESS_LvToMvTfo_XPu"/>
+
 </curvesInput>

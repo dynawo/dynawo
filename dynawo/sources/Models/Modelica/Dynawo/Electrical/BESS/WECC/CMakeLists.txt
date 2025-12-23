@@ -18,7 +18,6 @@ set(MODEL_FILES
   BESSCurrentSource.extvar
   BESSCurrentSourceNoPlantControl.mo
   BESSCurrentSourceNoPlantControl.extvar
-  BESS_INIT.mo
   )
 
 #

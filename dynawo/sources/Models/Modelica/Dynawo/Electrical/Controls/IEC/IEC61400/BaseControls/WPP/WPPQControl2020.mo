@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WPP;
 */
 
 model WPPQControl2020 "Reactive power control module for wind power plants (IEC N°61400-27-1:2020)"
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseWPPQControl(combiTable1Ds2(table = TableQwpUErr));
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseWPPQControl(combiTable1Ds2.table = TableQwpUErr);
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlParameters2020;
 
   //QControl parameters
@@ -57,9 +57,7 @@ model WPPQControl2020 "Reactive power control module for wind power plants (IEC 
   Dynawo.NonElectrical.Blocks.NonLinear.VariableLimiter variableLimiter annotation(
     Placement(visible = true, transformation(origin = {-30, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = XErrMaxPu, uMin = XErrMinPu) annotation(
-    Placement(visible = true, transformation(origin = {110, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  equation
+    Placement(visible = true, transformation(origin = {110, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));  equation
   connect(xWPRefComPu, multiSwitch.u[1]) annotation(
     Line(points = {{-340, 120}, {-140, 120}, {-140, 103}, {-80, 103}}, color = {0, 0, 127}));
   connect(multiSwitch.y, variableLimiter.u) annotation(
@@ -122,7 +120,6 @@ model WPPQControl2020 "Reactive power control module for wind power plants (IEC 
     Line(points = {{-198, -120}, {-180, -120}, {-180, -20}, {-220, -20}, {-220, -8}}, color = {0, 0, 127}));
   connect(QWPFiltComPu, gain.u) annotation(
     Line(points = {{-340, -40}, {-140, -40}, {-140, -72}, {-122, -72}}, color = {0, 0, 127}));
-
   annotation(
     preferredView = "diagram",
     Icon(graphics = {Text(origin = {22, -108}, extent = {{-94, 60}, {48, 12}}, textString = "2020")}));

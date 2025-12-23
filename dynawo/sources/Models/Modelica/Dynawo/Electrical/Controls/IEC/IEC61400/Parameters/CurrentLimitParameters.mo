@@ -33,13 +33,13 @@ record CurrentLimitParameters
     Dialog(tab = "CurrentLimitTables"));
   parameter Real TableIpMaxUwt52 = 1 annotation(
     Dialog(tab = "CurrentLimitTables"));
-  parameter Real TableIpMaxUwt61 = 1.075 annotation(
+  parameter Real TableIpMaxUwt61 = 1 annotation(
     Dialog(tab = "CurrentLimitTables"));
-  parameter Real TableIpMaxUwt62 = 1.0001 annotation(
+  parameter Real TableIpMaxUwt62 = 1.1 annotation(
     Dialog(tab = "CurrentLimitTables"));
   parameter Real TableIpMaxUwt71 = 1.1 annotation(
     Dialog(tab = "CurrentLimitTables"));
-  parameter Real TableIpMaxUwt72 = 1.0001 annotation(
+  parameter Real TableIpMaxUwt72 = 1.2 annotation(
     Dialog(tab = "CurrentLimitTables"));
   parameter Real TableIpMaxUwt[:,:] = [TableIpMaxUwt11, TableIpMaxUwt12; TableIpMaxUwt21, TableIpMaxUwt22; TableIpMaxUwt31, TableIpMaxUwt32; TableIpMaxUwt41, TableIpMaxUwt42; TableIpMaxUwt51, TableIpMaxUwt52; TableIpMaxUwt61, TableIpMaxUwt62; TableIpMaxUwt71, TableIpMaxUwt72] "Voltage dependency of active current limits" annotation(
     Dialog(tab = "CurrentLimitTables"));
