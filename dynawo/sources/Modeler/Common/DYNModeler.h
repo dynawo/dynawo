@@ -142,7 +142,8 @@ class Modeler {
    * @param var2 second connected variable
    */
   void replaceStaticAndNodeMacroInVariableName(const boost::shared_ptr<SubModel>& subModel1, std::string& var1,
-      const boost::shared_ptr<SubModel>& subModel2, std::string& var2) const;
+                                               const boost::shared_ptr<SubModel>& subModel2, std::string& var2,
+                                               const std::string& componentId) const;
 
  private:
   /**

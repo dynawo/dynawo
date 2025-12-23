@@ -53,7 +53,7 @@ DynamicModelsCollection::addConnect(const string& model1, const string& var1, co
   if (model1 == model2)
     throw DYNError(DYN::Error::API, InternalConnectDoneInSystem, model1, var1, model2, var2);
 
-  connectors_.push_back(ConnectorFactory::newConnector(model1, var1, model2, var2));
+  connectors_.push_back(ConnectorFactory::newConnector(model1, var1, model2, var2, ""));
 }
 
 void

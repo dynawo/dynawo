@@ -45,7 +45,9 @@ class ConnectorFactory {
    * @param[in] var2 : second model connected port name
    * @returns Unique pointer to a new @p Connector
    */
-  static std::unique_ptr<Connector> newConnector(const std::string& model1, const std::string& var1, const std::string& model2, const std::string& var2);
+  static std::unique_ptr<Connector> newConnector(const std::string& model1, const std::string& var1,
+                                                 const std::string& model2, const std::string& var2,
+                                                 const std::string& componentId);
 };
 
 }  // namespace dynamicdata

@@ -41,8 +41,9 @@ class Connector {
    * @param var1   First model connected port name
    * @param model2 Shared pointer to the second model
    * @param var2  Second model connected port name
+   * @param componentId ID of model in network, if applicable
    */
-  Connector(const std::string& model1, const std::string& var1, const std::string& model2, const std::string& var2);
+  Connector(const std::string& model1, const std::string& var1, const std::string& model2, const std::string& var2, const std::string& componentId);
 
   /**
    * @brief First model getter
@@ -72,11 +73,19 @@ class Connector {
    */
   const std::string& getSecondVariableId() const;
 
+    /**
+   * @brief Component ID getter
+   *
+   * @return the component ID
+   */
+  const std::string& getComponentId() const;
+
  private:
   std::string firstModelId_;     /**< Model name for the first Model */
   std::string firstVariableId_;  /**< Variable name for the first Model */
   std::string secondModelId_;    /**< Model name for the second Model */
   std::string secondVariableId_; /**< Variable name for the second Model */
+  std::string componentId_;      /**< ID of the network component */
 };
 
 }  // namespace dynamicdata

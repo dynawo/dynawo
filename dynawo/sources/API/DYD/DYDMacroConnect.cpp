@@ -66,6 +66,11 @@ MacroConnect::setName2(const std::string& name2) {
   name2_ = name2;
 }
 
+void
+MacroConnect::setComponentId(const std::string& componentId) {
+  componentId_ = componentId;
+}
+
 const string&
 MacroConnect::getIndex1() const {
   return index1_;
@@ -84,6 +89,11 @@ MacroConnect::getName1() const {
 const string&
 MacroConnect::getName2() const {
   return name2_;
+}
+
+const string&
+MacroConnect::getComponentId() const {
+  return componentId_;
 }
 
 }  // namespace dynamicdata

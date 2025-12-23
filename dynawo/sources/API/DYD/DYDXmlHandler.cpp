@@ -423,6 +423,8 @@ MacroConnectHandler::create(attributes_type const& attributes) {
     macroConnect_->setName1(attributes["name1"]);
   if (attributes.has("name2"))
     macroConnect_->setName2(attributes["name2"]);
+  if (attributes.has("componentId"))
+    macroConnect_->setComponentId(attributes["componentId"]);
 }
 
 std::shared_ptr<MacroConnect>

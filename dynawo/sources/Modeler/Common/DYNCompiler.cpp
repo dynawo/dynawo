@@ -539,7 +539,7 @@ Compiler::collectMacroConnections(const map<string, std::shared_ptr<dynamicdata:
       replaceMacroInVariableId(macroConnect->getIndex1(), macroConnect->getName1(), model1, model2, connector, var1);
       replaceMacroInVariableId(macroConnect->getIndex2(), macroConnect->getName2(), model1, model2, connector, var2);
 
-      macroConnection.push_back(boost::make_shared<dynamicdata::Connector>(model1, var1, model2, var2));
+      macroConnection.push_back(boost::make_shared<dynamicdata::Connector>(model1, var1, model2, var2, ""));
     }
   }
 }
@@ -924,6 +924,7 @@ Compiler::concatConnects() {
     const auto& connectorSecondModelId = connector->getSecondModelId();
     const auto& connectorFirstVariableId = connector->getFirstVariableId();
     const auto& connectorSecondVariableId = connector->getSecondVariableId();
+    const auto& connectorComponentId = connector->getComponentId();
 
     if (connectorFirstModelId == "NETWORK") {
       connect->setConnectedModel1("NETWORK");
@@ -953,6 +954,7 @@ Compiler::concatConnects() {
               connectorSecondModelId, connectorSecondVariableId, unknownModel);
     }
 
+    connect->setComponentId(connectorComponentId);
     dyd_->addConnectInterface(std::move(connect));
   }
 }

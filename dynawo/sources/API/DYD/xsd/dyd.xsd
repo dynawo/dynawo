@@ -194,6 +194,7 @@
     <xs:attribute name="index2" type="xs:int"/>
     <xs:attribute name="name1" type="xs:string"/>
     <xs:attribute name="name2" type="xs:string"/>
+    <xs:attribute name="componentId" type="xs:string"/>
   </xs:complexType>
 
   <xs:complexType name="StaticRef">

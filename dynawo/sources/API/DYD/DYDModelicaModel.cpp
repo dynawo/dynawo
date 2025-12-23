@@ -113,7 +113,7 @@ ModelicaModel::addConnect(const string& model1, const string& var1, const string
   // Used instead of map_[connectionId] = Connector::Impl(model1, var1, model2, var2)
   // to avoid necessity to create Connector::Impl default constructor
   pair<map<string, shared_ptr<Connector> >::iterator, bool> ret;
-  ret = connectorsMap_.emplace(connectionId, ConnectorFactory::newConnector(model1, var1, model2, var2));
+  ret = connectorsMap_.emplace(connectionId, ConnectorFactory::newConnector(model1, var1, model2, var2, ""));
   if (!ret.second)
     throw DYNError(DYN::Error::API, ConnectorIDNotUnique, id_.get(), model1 + '_' + var1, model2 + '_' + var2);
   return *this;
@@ -125,7 +125,7 @@ ModelicaModel::addInitConnect(const string& model1, const string& var1, const st
   // Used instead of initConnectorsMap_[ic_Id] = Connector::Impl(model1, var1, model2, var2)
   // to avoid necessity to create Connector::Impl default constructor
   pair<map<string, shared_ptr<Connector> >::iterator, bool> ret;
-  ret = initConnectorsMap_.emplace(ic_Id, ConnectorFactory::newConnector(model1, var1, model2, var2));
+  ret = initConnectorsMap_.emplace(ic_Id, ConnectorFactory::newConnector(model1, var1, model2, var2, ""));
   if (!ret.second)
     throw DYNError(DYN::Error::API, ConnectorIDNotUnique, id_.get(), model1 + '_' + var1, model2 + '_' + var2);
   return *this;

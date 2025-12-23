@@ -368,6 +368,7 @@ DynamicData::createModelDescriptions() {
     const string& connector = macroConnect->getConnector();
     const string& model1 = macroConnect->getFirstModelId();
     const string& model2 = macroConnect->getSecondModelId();
+    const string& componentId = macroConnect->getComponentId();
 
     const std::shared_ptr<dynamicdata::MacroConnector> macroConnector = dynamicModelsCollection_->findMacroConnector(connector);
 
@@ -383,7 +384,7 @@ DynamicData::createModelDescriptions() {
       replaceMacroInVariableId(macroConnect->getIndex1(), macroConnect->getName1(), model1, model2, connector, var1);
       replaceMacroInVariableId(macroConnect->getIndex2(), macroConnect->getName2(), model1, model2, connector, var2);
 
-      systemConnects_.push_back(std::make_shared<dynamicdata::Connector>(model1, var1, model2, var2));
+      systemConnects_.push_back(std::make_shared<dynamicdata::Connector>(model1, var1, model2, var2, componentId));
     }
   }
 }

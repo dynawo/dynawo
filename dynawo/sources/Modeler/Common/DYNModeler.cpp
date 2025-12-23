@@ -102,8 +102,8 @@ void
 Modeler::initModelDescription() {
   for (const auto& modelDescriptionPair : dyd_->getModelDescriptions()) {
     const auto& modelDescription = modelDescriptionPair.second;
-    std::cout << "dyn model key " << modelDescriptionPair.first << " ID " << modelDescription->getID()
-              << " staticId " << modelDescription->getStaticId() << std::endl;
+    // std::cout << "dyn model key " << modelDescriptionPair.first << " ID " << modelDescription->getID()
+    //           << " staticId " << modelDescription->getStaticId() << std::endl;
 
     if (modelDescription->getModel()->getType() == dynamicdata::Model::MODEL_TEMPLATE)
       continue;
@@ -161,13 +161,13 @@ Modeler::initParamDescription(const std::shared_ptr<ModelDescription>& modelDesc
     if (refOrigId.empty())
       throw DYNError(Error::MODELER, ParameterStaticIdNotFound, refOrigName, refName, dynId);
 
-    std::cout << " staticID " << staticId
-              << " refName " << refName
-              << " refType " << refType
-              << " refOrigData " << refOrigData
-              << " refOrigName " << refOrigName
-              << " componentId " << componentId
-              << std::endl;
+    // std::cout << " staticID " << staticId
+    //           << " refName " << refName
+    //           << " refType " << refType
+    //           << " refOrigData " << refOrigData
+    //           << " refOrigName " << refOrigName
+    //           << " componentId " << componentId
+    //           << std::endl;
 
     if      (refType == "DOUBLE") params->createParameter(refName, data_->getStaticParameterDoubleValue(refOrigId, refOrigName));
     else if (refType == "INT")    params->createParameter(refName, data_->getStaticParameterIntValue(   refOrigId, refOrigName));
@@ -182,11 +182,11 @@ Modeler::initStaticRefs(const boost::shared_ptr<SubModel> & submodel, const std:
     const string & staticId = sref->getComponentID().empty() ? modelDescr->getStaticId() : sref->getComponentID();
     const string & modelId  = sref->getModelID().empty()     ? modelDescr->getID()       : sref->getModelID();
 
-    std::cout << " staticId " << staticId
-              << " modelId " << modelId
-              << " staticVar " << sref->getStaticVar()
-              << " modelVar " << sref->getModelVar()
-              << std::endl;
+    // std::cout << " staticId " << staticId
+    //           << " modelId " << modelId
+    //           << " staticVar " << sref->getStaticVar()
+    //           << " modelVar " << sref->getModelVar()
+    //           << std::endl;
 
     if (staticId.empty())
       throw DYNError(Error::MODELER, StaticRefNoStaticId, sref->getStaticVar(), sref->getModelVar(), modelId);
@@ -198,8 +198,8 @@ Modeler::initStaticRefs(const boost::shared_ptr<SubModel> & submodel, const std:
 
 void
 Modeler::replaceStaticAndNodeMacroInVariableName(const shared_ptr<SubModel>& subModel1, string& var1,
-    const shared_ptr<SubModel>& subModel2, string& var2) const {
-
+                                                 const shared_ptr<SubModel>& subModel2, string& var2,
+                                                 const string& componentId) const {
   // convention : if node inside a connector, the staticId of the component is placed before
   // so the name of the var is as follow : @STATIC_ID@@@NODE@_var or @STATIC_ID@@@NODE1@_var or @STATIC_ID@@@NODE2@_var
   const string labelNode = "@NODE@";
@@ -207,13 +207,23 @@ Modeler::replaceStaticAndNodeMacroInVariableName(const shared_ptr<SubModel>& sub
   const string labelNode2 = "@NODE2@";
   const string labelStaticId = "@STATIC_ID@";
 
+  const string & staticId1 = (subModel2->name() == "NETWORK" && subModel1->staticId().empty()) ? componentId : subModel1->staticId();
+  const string & staticId2 = (subModel1->name() == "NETWORK" && subModel2->staticId().empty()) ? componentId : subModel2->staticId();
+
+    // std::cout << " id1 " << subModel1->name()
+    //           << " id2 " << subModel2->name()
+    //           << " var1 " << var1
+    //           << " var2 " << var2
+    //           << " componentId " << componentId
+    //           << std::endl;
+
+
   // replace @STATIC_ID@ with the static id of the model where the connection should be made
-  const bool foundStaticIdInVar1 = var1.find(labelStaticId) != string::npos;
-  const bool foundStaticIdInVar2 = var2.find(labelStaticId) != string::npos;
-  if (foundStaticIdInVar1)
-    var1.replace(var1.find(labelStaticId), labelStaticId.size(), "@" + subModel2->staticId() + "@");
-  if (foundStaticIdInVar2)
-    var2.replace(var2.find(labelStaticId), labelStaticId.size(), "@" + subModel1->staticId() + "@");
+  if (var1.find(labelStaticId) != string::npos)
+    var1.replace(var1.find(labelStaticId), labelStaticId.size(), "@" + staticId2 + "@");
+
+  if (var2.find(labelStaticId) != string::npos)
+    var2.replace(var2.find(labelStaticId), labelStaticId.size(), "@" + staticId1 + "@");
 
   // replace @NODE@, @NODE1@, @NODE2@ with the static id of the bus
   replaceNodeWithBus(subModel1, var1, subModel2, var2, labelNode);
@@ -246,6 +256,14 @@ Modeler::initConnects() {
     string id2 = connectInterface->getConnectedModel2();
     string var1 = connectInterface->getModel1Var();
     string var2 = connectInterface->getModel2Var();
+    string componentId = connectInterface->getComponentId();
+
+    std::cout << " id1 " << id1
+              << " id2 " << id2
+              << " var1 " << var1
+              << " var2 " << var2
+              << " componentId " << componentId
+              << std::endl;
 
     const auto& iter1 = subModels_.find(id1);
     const auto& iter2 = subModels_.find(id2);
@@ -255,7 +273,7 @@ Modeler::initConnects() {
       continue;
     }
 
-    replaceStaticAndNodeMacroInVariableName(iter1->second, var1, iter2->second, var2);
+    replaceStaticAndNodeMacroInVariableName(iter1->second, var1, iter2->second, var2, componentId);
 
     Trace::debug(Trace::modeler()) << DYNLog(DynamicConnect, id1, var1, id2, var2) << Trace::endline;
 
@@ -393,13 +411,14 @@ Modeler::sanityCheckFlowConnection() const {
     const string& id2 = connectInterface->getConnectedModel2();
     string var1 = connectInterface->getModel1Var();
     string var2 = connectInterface->getModel2Var();
+    string componentId = connectInterface->getComponentId();
 
     const auto& iter1 = subModels_.find(id1);
     const auto& iter2 = subModels_.find(id2);
     if (iter1 == subModels_.end() || iter2 == subModels_.end()) {
       continue;
     }
-    replaceStaticAndNodeMacroInVariableName(iter1->second, var1, iter2->second, var2);
+    replaceStaticAndNodeMacroInVariableName(iter1->second, var1, iter2->second, var2, componentId);
 
     vector<std::pair<string, string> > connectedVars;
     model_->findVariablesConnectedBy(iter1->second, var1, iter2->second, var2, connectedVars);
