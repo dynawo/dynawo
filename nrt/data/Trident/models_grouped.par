@@ -8,7 +8,7 @@
         <reference type="DOUBLE" name="load_U0Pu" origData="IIDM" origName="v_pu"/>
         <reference type="DOUBLE" name="load_UPhase0" origData="IIDM" origName="angle_pu"/>
     </set>
-    <set id="GSFWPR_g1">
+    <set id="GSFWPR_c1">
         <par type="INT" name="generator_ExcitationPu" value="1"/>
         <par type="DOUBLE" name="generator_md" value="0.215"/>
         <par type="DOUBLE" name="generator_mq" value="0.215"/>
@@ -56,10 +56,32 @@
         <par type="DOUBLE" name="governor_PNom" value="1090"/>
         <par type="DOUBLE" name="URef_ValueIn" value="0"/>
         <par type="DOUBLE" name="Pm_ValueIn" value="0"/>
-        <reference type="DOUBLE" name="generator_P0Pu" origData="IIDM" origName="p_pu" componentId="g1"/>
-        <reference type="DOUBLE" name="generator_Q0Pu" origData="IIDM" origName="q_pu" componentId="g1"/>
-        <reference type="DOUBLE" name="generator_U0Pu" origData="IIDM" origName="v_pu" componentId="g1"/>
-        <reference type="DOUBLE" name="generator_UPhase0" origData="IIDM" origName="angle_pu" componentId="g1"/>
+        <par type="DOUBLE" name="transformer_SNom" value="100"/>
+        <par type="DOUBLE" name="transformer_UBaseHV" value="225"/>
+        <par type="DOUBLE" name="transformer_UBaseLV" value="10.5"/>
+        <par type="DOUBLE" name="transformer_UNomHV" value="234.999954"/>
+        <par type="DOUBLE" name="transformer_UNomLV" value="10.5"/>
+        <par type="DOUBLE" name="transformer_ZShortCircuit" value="12.780015000000001"/>
+        <par type="DOUBLE" name="transformer_copperLosses" value="0.40799999199999998"/>
+        <par type="DOUBLE" name="transformer_iMagnetizing" value="0.30000001199999998"/>
+        <par type="DOUBLE" name="transformer_RPu" value="1"/>
+        <par type="DOUBLE" name="transformer_XPu" value="30"/>
+        <par type="DOUBLE" name="transformer_GPu" value="0"/>
+        <par type="DOUBLE" name="transformer_BPu" value="0"/>
+        <reference type="DOUBLE" name="generator_P0Pu"       origData="IIDM" origName="p_pu"      componentId="g1"/>
+        <reference type="DOUBLE" name="generator_Q0Pu"       origData="IIDM" origName="q_pu"      componentId="g1"/>
+        <reference type="DOUBLE" name="generator_U0Pu"       origData="IIDM" origName="v_pu"      componentId="g1"/>
+        <reference type="DOUBLE" name="generator_UPhase0"    origData="IIDM" origName="angle_pu"  componentId="g1"/>
+        <reference type="DOUBLE" name="transformer_P10Pu"    origData="IIDM" origName="p1_pu"     componentId="tr1"/>
+        <reference type="DOUBLE" name="transformer_Q10Pu"    origData="IIDM" origName="q1_pu"     componentId="tr1"/>
+        <reference type="DOUBLE" name="transformer_U10Pu"    origData="IIDM" origName="v1_pu"     componentId="tr1"/>
+        <reference type="DOUBLE" name="transformer_U1Phase0" origData="IIDM" origName="angle1_pu" componentId="tr1"/>
+        <!--
+        <reference type="DOUBLE" name="transformer_RPu"      origData="IIDM" origName="r_pu"      componentId="tr1"/>
+        <reference type="DOUBLE" name="transformer_XPu"      origData="IIDM" origName="x_pu"      componentId="tr1"/>
+        <reference type="DOUBLE" name="transformer_GPu"      origData="IIDM" origName="g_pu"      componentId="tr1"/>
+        <reference type="DOUBLE" name="transformer_BPu"      origData="IIDM" origName="b_pu"      componentId="tr1"/>
+        -->
     </set>
     <set id="GSFWPR_g2">
         <par type="INT" name="generator_ExcitationPu" value="1"/>

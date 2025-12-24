@@ -161,13 +161,13 @@ Modeler::initParamDescription(const std::shared_ptr<ModelDescription>& modelDesc
     if (refOrigId.empty())
       throw DYNError(Error::MODELER, ParameterStaticIdNotFound, refOrigName, refName, dynId);
 
-    // std::cout << " staticID " << staticId
-    //           << " refName " << refName
-    //           << " refType " << refType
-    //           << " refOrigData " << refOrigData
-    //           << " refOrigName " << refOrigName
-    //           << " componentId " << componentId
-    //           << std::endl;
+    std::cout << " staticID " << staticId
+              << " refName " << refName
+              << " refType " << refType
+              << " refOrigData " << refOrigData
+              << " refOrigName " << refOrigName
+              << " componentId " << componentId
+              << std::endl;
 
     if      (refType == "DOUBLE") params->createParameter(refName, data_->getStaticParameterDoubleValue(refOrigId, refOrigName));
     else if (refType == "INT")    params->createParameter(refName, data_->getStaticParameterIntValue(   refOrigId, refOrigName));
@@ -182,7 +182,8 @@ Modeler::initStaticRefs(const boost::shared_ptr<SubModel> & submodel, const std:
     const string & staticId = sref->getComponentID().empty() ? modelDescr->getStaticId() : sref->getComponentID();
     const string & modelId  = sref->getModelID().empty()     ? modelDescr->getID()       : sref->getModelID();
 
-    // std::cout << " staticId " << staticId
+    // std::cout << " staticId " << modelDescr->getStaticId()
+    //           << " componentID " << sref->getComponentID()
     //           << " modelId " << modelId
     //           << " staticVar " << sref->getStaticVar()
     //           << " modelVar " << sref->getModelVar()
@@ -258,12 +259,12 @@ Modeler::initConnects() {
     string var2 = connectInterface->getModel2Var();
     string componentId = connectInterface->getComponentId();
 
-    std::cout << " id1 " << id1
-              << " id2 " << id2
-              << " var1 " << var1
-              << " var2 " << var2
-              << " componentId " << componentId
-              << std::endl;
+    // std::cout << " id1 " << id1
+    //           << " id2 " << id2
+    //           << " var1 " << var1
+    //           << " var2 " << var2
+    //           << " componentId " << componentId
+    //           << std::endl;
 
     const auto& iter1 = subModels_.find(id1);
     const auto& iter2 = subModels_.find(id2);

@@ -495,8 +495,7 @@ void
 StaticRefHandler::create(attributes_type const& attributes) {
   staticRef_.var = attributes["var"].as_string();
   staticRef_.staticVar = attributes["staticVar"].as_string();
-  if (attributes.has("componentId"))
-    staticRef_.componentID = attributes["componentId"].as_string();
+  staticRef_.componentID = attributes.has("componentId") ? attributes["componentId"].as_string() : "";
 }
 
 StaticRefRead

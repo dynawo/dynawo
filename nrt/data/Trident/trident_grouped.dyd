@@ -1,42 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
 
+    <!-- combined gen+tfo 1 : no macros-->
+    <dyn:blackBoxModel id="c1" lib="GeneratorSynchronousFourWindingsProportionalRegulationsTfo" parFile="models_grouped.par" parId="GSFWPR_c1">
+        <dyn:staticRef var="generator_PGenPu"    staticVar="p"     componentId="g1"/>
+        <dyn:staticRef var="generator_QGenPu"    staticVar="q"     componentId="g1"/>
+        <dyn:staticRef var="generator_state"     staticVar="state" componentId="g1"/>
+        <dyn:staticRef var="transformer_P1GenPu" staticVar="p1"    componentId="tr1"/>
+        <dyn:staticRef var="transformer_Q1GenPu" staticVar="q1"    componentId="tr1"/>
+        <dyn:staticRef var="transformer_P2GenPu" staticVar="p2"    componentId="tr1"/>
+        <dyn:staticRef var="transformer_Q2GenPu" staticVar="q2"    componentId="tr1"/>
+    </dyn:blackBoxModel>
+
+    <dyn:connect id1="c1"        var1="transformer_terminal1"      id2="NETWORK" var2="@tr1@@NODE2@_ACPIN"/>
+    <dyn:connect id1="c1"        var1="generator_switchOffSignal1" id2="NETWORK" var2="@g1@@NODE@_switchOff"/>
+    <dyn:connect id1="FREQ_SYNC" var1="numcc_node_0"               id2="NETWORK" var2="@g1@@NODE@_numcc"/>
+
+    <!-- combined gen+tfo 2 and 3 : macros only-->
     <dyn:macroStaticReference id="srefs_gen">
         <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
         <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
         <dyn:staticRef var="generator_state"  staticVar="state"/>
     </dyn:macroStaticReference>
 
-    <dyn:blackBoxModel id="c1" lib="GeneratorSynchronousFourWindingsProportionalRegulationsTfo" parFile="models_grouped.par" parId="GSFWPR_g1">
-        <dyn:staticRef var="generator_PGenPu" staticVar="p" componentId="g1"/>
-        <dyn:staticRef var="generator_QGenPu" staticVar="q" componentId="g1"/>
-        <dyn:staticRef var="generator_state"  staticVar="state" componentId="g1"/>
-    </dyn:blackBoxModel>
+    <dyn:macroStaticReference id="srefs_tfo">
+        <dyn:staticRef var="transformer_P1GenPu" staticVar="p1"/>
+        <dyn:staticRef var="transformer_Q1GenPu" staticVar="q1"/>
+        <dyn:staticRef var="transformer_P2GenPu" staticVar="p2"/>
+        <dyn:staticRef var="transformer_Q2GenPu" staticVar="q2"/>
+    </dyn:macroStaticReference>
+
     <dyn:blackBoxModel id="c2" lib="GeneratorSynchronousFourWindingsProportionalRegulationsTfo" parFile="models_grouped.par" parId="GSFWPR_g2">
         <dyn:macroStaticRef id="srefs_gen" componentId="g2"/>
+        <dyn:macroStaticRef id="srefs_tfo" componentId="tr2"/>
     </dyn:blackBoxModel>
     <dyn:blackBoxModel id="c3" lib="GeneratorSynchronousFourWindingsProportionalRegulationsTfo" parFile="models_grouped.par" parId="GSFWPR_g3">
         <dyn:macroStaticRef id="srefs_gen" componentId="g3"/>
-    </dyn:blackBoxModel>
-
-    <dyn:blackBoxModel id="FREQ_SYNC" lib="DYNModelOmegaRef" parFile="freq_sync.par" parId="FREQ_SYNC_PAR"/>
-
-    <dyn:blackBoxModel id="l4" lib="LoadAlphaBeta" parFile="models_grouped.par" parId="LAB" staticId="l4">
-        <dyn:staticRef var="load_PPu" staticVar="p"/>
-        <dyn:staticRef var="load_QPu" staticVar="q"/>
-        <dyn:staticRef var="load_state" staticVar="state"/>
+        <dyn:macroStaticRef id="srefs_tfo" componentId="tr3"/>
     </dyn:blackBoxModel>
 
     <dyn:macroConnector id="gen_to_network">
-        <dyn:connect var1="generator_terminal" var2="@STATIC_ID@@NODE@_ACPIN"/>
         <dyn:connect var1="generator_switchOffSignal1" var2="@STATIC_ID@@NODE@_switchOff"/>
     </dyn:macroConnector>
 
-    <dyn:connect id1="c1" var1="generator_terminal"         id2="NETWORK" var2="@g1@@NODE@_ACPIN"/>
-    <dyn:connect id1="c1" var1="generator_switchOffSignal1" id2="NETWORK" var2="@g1@@NODE@_switchOff"/>
+    <dyn:macroConnector id="tfo_to_network">
+        <dyn:connect var1="transformer_terminal1" var2="@STATIC_ID@@NODE2@_ACPIN"/>
+    </dyn:macroConnector>
 
-    <dyn:macroConnect connector="gen_to_network" id1="c2" id2="NETWORK" componentId="g2"/>
-    <dyn:macroConnect connector="gen_to_network" id1="c3" id2="NETWORK" componentId="g3"/>
+    <dyn:macroConnector id="freq_to_network">
+        <dyn:connect var1="numcc_node_@INDEX@" var2="@STATIC_ID@@NODE@_numcc"/>
+    </dyn:macroConnector>
+
+   <dyn:macroConnect connector="tfo_to_network"  id1="c2"        id2="NETWORK" componentId="tr2"/>
+   <dyn:macroConnect connector="gen_to_network"  id1="c2"        id2="NETWORK" componentId="g2"/>
+
+   <dyn:macroConnect connector="tfo_to_network"  id1="c3"        id2="NETWORK" componentId="tr3"/>
+   <dyn:macroConnect connector="gen_to_network"  id1="c3"        id2="NETWORK" componentId="g3"/>
+
+   <dyn:macroConnect connector="freq_to_network" id1="FREQ_SYNC" index1="1" id2="NETWORK" componentId="g2"/>
+   <dyn:macroConnect connector="freq_to_network" id1="FREQ_SYNC" index1="2" id2="NETWORK" componentId="g3"/>
+
+    <!-- the rest, unaffected by 1dyn_to_nstat-->
+    <dyn:blackBoxModel id="FREQ_SYNC" lib="DYNModelOmegaRef" parFile="freq_sync.par" parId="FREQ_SYNC_PAR"/>
 
     <dyn:macroConnector id="freq_sync_to_gen">
         <dyn:connect var1="omega_grp_@INDEX@_value" var2="generator_omegaPu"/>
@@ -48,9 +73,11 @@
     <dyn:macroConnect connector="freq_sync_to_gen" id1="FREQ_SYNC" index1="1" id2="c2"/>
     <dyn:macroConnect connector="freq_sync_to_gen" id1="FREQ_SYNC" index1="2" id2="c3"/>
 
-    <dyn:connect id1="FREQ_SYNC" var1="numcc_node_0" id2="NETWORK" var2="@g1@@NODE@_numcc"/>
-    <dyn:connect id1="FREQ_SYNC" var1="numcc_node_1" id2="NETWORK" var2="@g2@@NODE@_numcc"/>
-    <dyn:connect id1="FREQ_SYNC" var1="numcc_node_2" id2="NETWORK" var2="@g3@@NODE@_numcc"/>
+    <dyn:blackBoxModel id="l4" lib="LoadAlphaBeta" parFile="models_grouped.par" parId="LAB" staticId="l4">
+        <dyn:staticRef var="load_PPu" staticVar="p"/>
+        <dyn:staticRef var="load_QPu" staticVar="q"/>
+        <dyn:staticRef var="load_state" staticVar="state"/>
+    </dyn:blackBoxModel>
 
     <dyn:connect id1="l4" var1="load_terminal"         id2="NETWORK" var2="@STATIC_ID@@NODE@_ACPIN"/>
     <dyn:connect id1="l4" var1="load_switchOffSignal1" id2="NETWORK" var2="@STATIC_ID@@NODE@_switchOff"/>
