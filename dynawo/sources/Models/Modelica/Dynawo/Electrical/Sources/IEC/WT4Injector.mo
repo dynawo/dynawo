@@ -63,11 +63,11 @@ model WT4Injector "Converter model and grid interface according to IEC N°61400-
     Placement(visible = true, transformation(origin = {-40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {-60, 110}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
 
   //Output variables
-  Modelica.ComplexBlocks.Interfaces.ComplexOutput iWtPu(re(start = -iWt0Pu.re*SystemBase.SnRef/SNom), im(start = -iWt0Pu.im*SystemBase.SnRef/SNom)) "Complex current at grid terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  Modelica.ComplexBlocks.Interfaces.ComplexOutput iWtPu(re(start = elecSystem.i20Pu.re), im(start = elecSystem.i20Pu.im)) "Complex current at grid terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput PAgPu(start = ip0Pu * U0Pu) "Generator (air gap) power in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-80, -110}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.ComplexBlocks.Interfaces.ComplexOutput uWtPu(re(start = uWt0Pu.re), im(start = uWt0Pu.im)) "Complex voltage at grid terminal in pu (base UNom)" annotation(
+  Modelica.ComplexBlocks.Interfaces.ComplexOutput uWtPu(re(start = elecSystem.u20Pu.re), im(start = elecSystem.u20Pu.im)) "Complex voltage at grid terminal in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Types.ActivePowerPu PGenPu(start = -P0Pu) "Active power at terminal in pu (base SnRef) (generator convention)";
   Types.ReactivePowerPu QGenPu(start = -Q0Pu) "Reactive power at terminal in pu (base SnRef) (generator convention)";
@@ -78,7 +78,7 @@ model WT4Injector "Converter model and grid interface according to IEC N°61400-
     Placement(visible = true, transformation(origin = {70, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Dynawo.Electrical.Sources.IEC.BaseConverters.ElecSystem elecSystem(SNom = SNom, BPu = BesPu, GPu = GesPu, RPu = ResPu, XPu = XesPu, i20Pu = -iWt0Pu*Dynawo.Electrical.SystemBase.SnRef/SNom, u20Pu = uWt0Pu) annotation(
     Placement(visible = true, transformation(origin = {40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Sources.IEC.BaseConverters.GenSystem4 genSystem(DipMaxPu = DipMaxPu, DiqMaxPu = DiqMaxPu, DiqMinPu = DiqMinPu, IpMax0Pu = IpMax0Pu, IqMax0Pu = IqMax0Pu, IqMin0Pu = IqMin0Pu, Kipaw = Kipaw, Kiqaw = Kiqaw, P0Pu = P0Pu, PAg0Pu = PAg0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, tG = tG, iGs0Pu = Complex(GesPu, BesPu)*(uWt0Pu - Complex(ResPu, XesPu)*iWt0Pu*SystemBase.SnRef/SNom) - iWt0Pu*SystemBase.SnRef/SNom, uGs0Pu = uWt0Pu - Complex(ResPu, XesPu)*iWt0Pu*SystemBase.SnRef/SNom, iq0Pu = iq0Pu, ip0Pu = ip0Pu) annotation(
+  Dynawo.Electrical.Sources.IEC.BaseConverters.GenSystem4 genSystem(DipMaxPu = DipMaxPu, DiqMaxPu = DiqMaxPu, DiqMinPu = DiqMinPu, IpMax0Pu = IpMax0Pu, IqMax0Pu = IqMax0Pu, IqMin0Pu = IqMin0Pu, Kipaw = Kipaw, Kiqaw = Kiqaw, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, tG = tG, iGs0Pu = elecSystem.i10Pu, uGs0Pu = elecSystem.u10Pu, iq0Pu = iq0Pu, ip0Pu = ip0Pu) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   //Initial parameters
@@ -96,8 +96,6 @@ model WT4Injector "Converter model and grid interface according to IEC N°61400-
     Dialog(group = "Initialization"));
   parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));
-  parameter Types.ActivePowerPu PAg0Pu "Initial generator (air gap) power in pu (base SNom) (generator convention)" annotation(
-    Dialog(group = "Initialization"));
   parameter Types.ReactivePowerPu Q0Pu "Initial reactive power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));
   parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(

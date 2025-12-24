@@ -142,7 +142,8 @@ partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 st
     Placement(visible = true, transformation(origin = {-130, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput xWTRefPu(start = XWT0Pu) "Reactive power loop reference : reactive power or voltage reference depending on the Q control mode (MqG), in pu (base SNom or UNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-130, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -19.5}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Sources.IEC.WT4Injector wT4Injector(BesPu = BesPu, DipMaxPu = DipMaxPu, DiqMaxPu = DiqMaxPu, DiqMinPu = DiqMinPu, GesPu = GesPu, IpMax0Pu = IpMax0Pu, IqMax0Pu = IqMax0Pu, IqMin0Pu = IqMin0Pu, Kipaw = Kipaw, Kiqaw = Kiqaw, P0Pu = P0Pu, PAg0Pu = PAg0Pu, Q0Pu = Q0Pu, ResPu = ResPu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, XesPu = XesPu, iWt0Pu = i0Pu, tG = tG, uWt0Pu = u0Pu, iq0Pu = iq0Pu, ip0Pu = ip0Pu) annotation(
+
+  Dynawo.Electrical.Sources.IEC.WT4Injector wT4Injector(BesPu = BesPu, DipMaxPu = DipMaxPu, DiqMaxPu = DiqMaxPu, DiqMinPu = DiqMinPu, GesPu = GesPu, IpMax0Pu = IpMax0Pu, IqMax0Pu = IqMax0Pu, IqMin0Pu = IqMin0Pu, Kipaw = Kipaw, Kiqaw = Kiqaw, P0Pu = P0Pu, Q0Pu = Q0Pu, ResPu = ResPu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, XesPu = XesPu, iWt0Pu = i0Pu, tG = tG, uWt0Pu = u0Pu, iq0Pu = iq0Pu, ip0Pu = ip0Pu) annotation(
     Placement(visible = true, transformation(origin = {20, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries.PLL pll(U0Pu = U0Pu, UPhase0 = UPhase0, UPll1Pu = UPll1Pu, UPll2Pu = UPll2Pu, tPll = tPll, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {-20, 76}, extent = {{20, -20}, {-20, 20}}, rotation = 90)));
@@ -157,7 +158,6 @@ partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 st
   final parameter Types.PerUnit IqMin0Pu = max(-IqMax0Pu, Kpqu * (U0Pu - UpquMaxPu)) "Initial minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" ;
   parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));
-  final parameter Types.ActivePowerPu PAg0Pu = ip0Pu * U0Pu "Initial generator (air gap) power in pu (base SNom) (generator convention)";
   parameter Types.ReactivePowerPu Q0Pu "Initial reactive power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));
   final parameter Types.ReactivePowerPu QMax0Pu = if QlConst then QMaxPu else min(Modelica.Math.Vectors.interpolate(TableQMaxUwtcFilt[:,1], TableQMaxUwtcFilt[:,2], U0Pu), Modelica.Math.Vectors.interpolate(TableQMaxPwtcFilt[:,1], TableQMaxPwtcFilt[:,2], -P0Pu*SystemBase.SnRef/SNom)) "Initial maximum reactive power at grid terminal in pu (base SNom) (generator convention)";

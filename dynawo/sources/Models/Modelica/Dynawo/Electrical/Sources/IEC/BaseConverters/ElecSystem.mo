@@ -37,19 +37,22 @@ model ElecSystem "RLC filter for WT (IEC N°61400-27-1)"
     Dialog(tab = "Electrical"));
   parameter Types.PerUnit XPu "Serial reactance in pu (base UNom, SNom)" annotation(
     Dialog(tab = "Electrical"));
+
   //Interfaces
   Dynawo.Connectors.ACPower terminal1(V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re*SNom/SystemBase.SnRef), im(start = i10Pu.im*SNom/SystemBase.SnRef))) "terminal 1, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(
     Placement(visible = true, transformation(origin = {-70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Connectors.ACPower terminal2(V(re(start = u20Pu.re), im(start = u20Pu.im)), i(re(start = -i20Pu.re*SNom/SystemBase.SnRef), im(start = -i20Pu.im*SNom/SystemBase.SnRef))) "terminal 2, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(
     Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
   //Output variables
-  Types.ComplexCurrentPu i1Pu(re(start = i10Pu.re), im(start = i10Pu.im)) "Complex current at terminal 1 in pu (base UNom, SNom) (generator convention)";
+  Types.ComplexCurrentPu i1Pu(re(start = i10Pu.re), im(start = i10Pu.im)) "Complex current at terminal 1 in pu (base UNom, SNom) (receptor convention)";
   Types.ComplexCurrentPu i2Pu(re(start = i20Pu.re), im(start = i20Pu.im)) "Complex current at terminal 2 in pu (base UNom, SNom) (generator convention)";
   Types.ComplexVoltagePu u1Pu(re(start = u10Pu.re), im(start = u10Pu.im)) "Complex voltage at terminal 1 in pu (base UNom)";
   Types.ComplexVoltagePu u2Pu(re(start = u20Pu.re), im(start = u20Pu.im)) "Complex voltage at terminal 2 in pu (base UNom)";
-  Modelica.Blocks.Interfaces.RealOutput i1ImPu(start = i10Pu.im) "Imaginary component of the current at terminal 1 in pu (base UNom, SNom) (generator convention)" annotation(
+
+  Modelica.Blocks.Interfaces.RealOutput i1ImPu(start = i10Pu.im) "Imaginary component of the current at terminal 1 in pu (base UNom, SNom) (receptor convention)" annotation(
     Placement(visible = true, transformation(origin = {20, -70}, extent = {{-10, 10}, {10, -10}}, rotation = -90), iconTransformation(origin = {90, -110}, extent = {{10, 10}, {-10, -10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealOutput i1RePu(start = i10Pu.re) "Real component of the current at terminal 1 in pu (base UNom, SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput i1RePu(start = i10Pu.re) "Real component of the current at terminal 1 in pu (base UNom, SNom) (receptor convention)" annotation(
     Placement(visible = true, transformation(origin = {10, -70}, extent = {{-10, 10}, {10, -10}}, rotation = -90), iconTransformation(origin = {70, -110}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealOutput i2ImPu(start = i20Pu.im) "Imaginary component of the current at terminal 2 in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-40, -70}, extent = {{-10, 10}, {10, -10}}, rotation = -90), iconTransformation(origin = {-20, -110}, extent = {{10, 10}, {-10, -10}}, rotation = 90)));
@@ -73,6 +76,7 @@ model ElecSystem "RLC filter for WT (IEC N°61400-27-1)"
     Dialog(group = "Initialization"));
   parameter Types.ComplexVoltagePu u20Pu "Initial complex voltage at terminal 2 in pu (base UNom)" annotation(
     Dialog(group = "Initialization"));
+
 equation
   u1Pu = terminal1.V;
   u2Pu = terminal2.V;
