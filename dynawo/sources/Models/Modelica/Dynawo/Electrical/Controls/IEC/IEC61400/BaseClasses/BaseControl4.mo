@@ -133,7 +133,7 @@ partial model BaseControl4 "Whole generator base control module for type 4 wind 
     Dialog(tab = "Operating point"));
   parameter Types.ComplexVoltagePu uWt0Pu "Initial complex voltage at grid terminal in pu (base UNom)" annotation(
     Dialog(group = "Initialization"));
-  parameter Types.PerUnit XWT0Pu "Initial reactive power or voltage reference at grid terminal in pu (base SNom or UNom) (generator convention)" annotation(
+  parameter Types.PerUnit XWT0Pu "Initial reactive power or voltage reference communicated to WT in pu (base SNom or UNom) (generator convention)" annotation(
     Dialog(tab = "Operating point"));
 
 equation
