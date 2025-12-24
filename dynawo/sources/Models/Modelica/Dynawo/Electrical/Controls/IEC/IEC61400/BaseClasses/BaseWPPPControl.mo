@@ -53,16 +53,22 @@ model BaseWPPPControl "Base active power control module for wind power plants (I
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add3 add31 annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.AntiWindupIntegrator antiWindupIntegrator(DyMax = DPRefMaxPu, DyMin = DPRefMinPu, Y0 = (KwppRef - 1) * P0Pu * SystemBase.SnRef / SNom, YMax = PKiwppMaxPu, YMin = PKiwppMinPu, tI = if Kiwpp > 1e-5 then 1 / Kiwpp else 1 / Modelica.Constants.eps) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.AntiWindupIntegrator antiWindupIntegrator(DyMax = DPRefMaxPu, DyMin = DPRefMinPu, Y0 = PPDRefCom0Pu + KwppRef*P0Pu*SystemBase.SnRef/SNom, YMax = PKiwppMaxPu, YMin = PKiwppMinPu, tI = if Kiwpp > 1e-5 then 1/Kiwpp else 1/Modelica.Constants.eps) annotation(
     Placement(visible = true, transformation(origin = {50, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFeedthroughFreezeLimDetection absLimRateLimFeedthroughFreezeLimDetection(DyMax = 999, DyMin = -999, U0 = -P0Pu * SystemBase.SnRef / SNom, Y0 = -P0Pu * SystemBase.SnRef / SNom, YMax = PRefMaxPu, YMin = PRefMinPu, tS = tS) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFeedthroughFreezeLimDetection absLimRateLimFeedthroughFreezeLimDetection(DyMax = 999, DyMin = -999, U0 = PPDRefCom0Pu, Y0 = PPDRefCom0Pu, YMax = PRefMaxPu, YMin = PRefMinPu, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {130, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.RampLimiter rampLimiter(DuMax = DPwpRefMaxPu, DuMin = DPwpRefMinPu, Y0 = -P0Pu * SystemBase.SnRef / SNom, tS = tS) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.RampLimiter rampLimiter(DuMax = DPwpRefMaxPu, DuMin = DPwpRefMinPu, Y0 = -P0Pu*SystemBase.SnRef/SNom, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {-130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameter
+  parameter Types.ComplexCurrentPu i0Pu "Initial complex current at grid terminal in pu (base UNom, SnRef) (receptor convention)" annotation(
+    Dialog(group="Initialization"));
   parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));
+  parameter Types.ActivePowerPu PPDRefCom0Pu "Initial reference active power communicated to WT in pu (base SNom) (generator convention)" annotation(
+    Dialog(group="Initialization"));
+  parameter Types.ComplexVoltagePu u0Pu "Initial complex voltage at grid terminal in pu (base UNom)" annotation(
+    Dialog(group="Initialization"));
 
 equation
   connect(gain1.y, add31.u2) annotation(
