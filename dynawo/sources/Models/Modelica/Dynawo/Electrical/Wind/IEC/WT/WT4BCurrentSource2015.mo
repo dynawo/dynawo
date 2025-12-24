@@ -82,6 +82,9 @@ model WT4BCurrentSource2015 "Wind Turbine Type 4B model from IEC 61400-27-1:2015
   Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries.MeasurementsPQ measurementsPQ(P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, i0Pu = i0Pu, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {-8, -90}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
+  //Initial parameter
+  final parameter Types.ActivePowerPu PAg0Pu = ip0Pu * U0Pu "Initial generator (air gap) power in pu (base SNom) (generator convention)";
+
 equation
   connect(control4B.ipMaxPu, wT4Injector.ipMaxPu) annotation(
     Line(points = {{-36, -24}, {-2, -24}}, color = {0, 0, 127}));
