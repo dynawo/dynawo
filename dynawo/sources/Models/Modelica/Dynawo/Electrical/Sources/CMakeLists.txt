@@ -26,6 +26,12 @@ set(MODEL_FILES
   InjectorIDQ_INIT.mo
   InjectorURI.mo
   InjectorURI.extvar
+  ConverterCurrentSourceIEC63406.mo
+  ConverterCurrentSourceIEC63406_INIT.mo
+  ConverterCurrentSourceIEC63406.extvar
+  ConverterVoltageSourceIEC63406.mo
+  ConverterVoltageSourceIEC63406_INIT.mo
+  ConverterVoltageSourceIEC63406.extvar
   )
 
 #
