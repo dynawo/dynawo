@@ -53,9 +53,9 @@ modulation/switching process." annotation(Dialog(tab = "Source"));
     Placement(visible = true, transformation(origin = {60, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.RealToComplex realToComplex1 annotation(
     Placement(visible = true, transformation(origin = {60, -70}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Dynawo.Electrical.Sources.IEC.BaseConverters.ElecSystem elecSystem(BesPu = 10e-6, GesPu = 10e-6, IGsIm0Pu = IsIm0Pu, IGsRe0Pu = IsRe0Pu, ResPu = ResPu, SNom = SNom, UGsIm0Pu = UeIm0Pu, UGsRe0Pu = UeRe0Pu, XesPu = XesPu, i0Pu = i0Pu, u0Pu = u0Pu) annotation(
+  Dynawo.Electrical.Sources.IEC.BaseConverters.ElecSystem elecSystem(BesPu = 0, GesPu = 0, IGsIm0Pu = IsIm0Pu, IGsRe0Pu = IsRe0Pu, ResPu = ResPu, SNom = SNom, UGsIm0Pu = UeIm0Pu, UGsRe0Pu = UeRe0Pu, XesPu = XesPu, i0Pu = i0Pu, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {40, 1.77636e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Sources.IEC.BaseConverters.VoltageSourceIEC63406 voltageSourceIEC63406(IsIm0Pu = IsIm0Pu, IsRe0Pu = IsRe0Pu, P0Pu = P0Pu, Q0Pu = Q0Pu, ResPu = ResPu, SNom = SNom, Te = Te, Tg = Tg, U0Pu = U0Pu, UPhase0 = UPhase0, UeIm0Pu = UeIm0Pu, UeRe0Pu = UeRe0Pu, Ued0Pu = Ued0Pu, Ueq0Pu = Ueq0Pu, XesPu = XesPu)  annotation(
+  Dynawo.Electrical.Sources.IEC.BaseConverters.VoltageSourceIEC63406 voltageSourceIEC63406(IsIm0Pu = IsIm0Pu, IsRe0Pu = IsRe0Pu, P0Pu = P0Pu, Q0Pu = Q0Pu, ResPu = ResPu, SNom = SNom, Te = Te, Tg = Tg, U0Pu = U0Pu, UPhase0 = UPhase0, UeIm0Pu = UeIm0Pu, UeRe0Pu = UeRe0Pu, Ued0Pu = Ued0Pu, Ueq0Pu = Ueq0Pu, XesPu = XesPu, u0Pu = u0Pu)  annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-40, -20}, {40, 20}}, rotation = 0)));
 
   //Initial parameters

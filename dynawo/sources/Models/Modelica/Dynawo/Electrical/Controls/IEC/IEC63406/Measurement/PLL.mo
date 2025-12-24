@@ -103,6 +103,7 @@ model PLL "Phase-Locked-Loop (IEC 63406)"
     Placement(visible = true, transformation(origin = {14, -34}, extent = {{-6, -6}, {6, 6}}, rotation = 90)));
   Modelica.Blocks.Sources.Constant const1(k = Dynawo.Electrical.SystemBase.omegaNom)  annotation(
     Placement(visible = true, transformation(origin = {-20, -108}, extent = {{-8, -8}, {8, 8}}, rotation = 90)));
+
 equation
   connect(uPu, switch12.u3) annotation(
     Line(points = {{-112, 0}, {-92, 0}, {-92, 6}, {-82, 6}}, color = {85, 170, 255}));
@@ -114,7 +115,7 @@ equation
     Line(points = {{-112, 0}, {-92, 0}, {-92, 80}, {-62, 80}}, color = {85, 170, 255}));
   connect(complexToPolar1.phi, firstOrder.u) annotation(
     Line(points = {{-38, 86}, {-10, 86}, {-10, 40}, {-2, 40}}, color = {0, 0, 127}));
-  connect(switch12.y, transformRItoDQ.uPu) annotation(
+  connect(switch12.y, transformRItoDQ.u) annotation(
     Line(points = {{-58, 0}, {-54, 0}, {-54, -6}, {-51, -6}}, color = {85, 170, 255}));
   connect(switch11.y, integrator.u) annotation(
     Line(points = {{33, 0}, {37, 0}, {37, 6}, {41, 6}}, color = {0, 0, 127}));
@@ -132,7 +133,7 @@ equation
     Line(points = {{55, 6}, {60, 6}, {60, 16}, {-54, 16}, {-54, 6}, {-50, 6}}, color = {0, 0, 127}));
   connect(lessThreshold.y, switch1.u2) annotation(
     Line(points = {{-60, 40}, {-86, 40}, {-86, -80}, {-50, -80}}, color = {255, 0, 255}));
-  connect(transformRItoDQ.uqPu, limitedPI.u) annotation(
+  connect(transformRItoDQ.uq, limitedPI.u) annotation(
     Line(points = {{-28, 6}, {-26, 6}, {-26, 0}, {-22, 0}}, color = {0, 0, 127}));
   connect(limitedPI.y, switch11.u3) annotation(
     Line(points = {{1, 0}, {4, 0}, {4, 8}, {10, 8}}, color = {0, 0, 127}));
@@ -177,6 +178,7 @@ equation
   connect(const1.y, add.u2) annotation(
     Line(points = {{-20, -100}, {-20, -86}, {-12, -86}}, color = {0, 0, 127}));
   annotation(
-    Icon(graphics = {Text(extent = {{-100, 100}, {100, -100}}, textString = "PLL"), Rectangle(extent = {{-100, 100}, {100, -100}})}),
-    experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-6, Interval = 0.002));
+    Icon(graphics = {Text(extent = {{-100, 100}, {100, -100}}, textString = "PLL"), Rectangle(extent = {{-100, 100}, {100, -100}})}, coordinateSystem(grid = {1, 1})),
+    experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-6, Interval = 0.002),
+  Diagram(coordinateSystem(grid = {1, 1})));
 end PLL;

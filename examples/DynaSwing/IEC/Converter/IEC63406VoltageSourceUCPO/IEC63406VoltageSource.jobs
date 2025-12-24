@@ -12,10 +12,10 @@
     simulation tools for power systems.
 -->
 <dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:job name="IEC63406CurrentSource">
-    <dyn:solver lib="dynawo_SolverIDA" parFile="IEC63406CurrentSource.par" parId="IDA"/>
+  <dyn:job name="IEC63406VoltageSource">
+    <dyn:solver lib="dynawo_SolverIDA" parFile="IEC63406VoltageSource.par" parId="IDA"/>
     <dyn:modeler compileDir="outputs/compilation">
-      <dyn:dynModels dydFile="IEC63406CurrentSource.dyd"/>
+      <dyn:dynModels dydFile="IEC63406VoltageSource.dyd"/>
       <dyn:precompiledModels useStandardModels="true"/>
       <dyn:modelicaModels useStandardModels="true"/>
     </dyn:modeler>
@@ -23,7 +23,7 @@
     <dyn:outputs directory="outputs">
       <dyn:dumpInitValues local="true" global="true"/>
       <dyn:timeline exportMode="TXT"/>
-      <dyn:curves inputFile="IEC63406CurrentSource.crv" exportMode="CSV"/>
+      <dyn:curves inputFile="IEC63406VoltageSource.crv" exportMode="CSV"/>
       <dyn:logs>
         <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
       </dyn:logs>

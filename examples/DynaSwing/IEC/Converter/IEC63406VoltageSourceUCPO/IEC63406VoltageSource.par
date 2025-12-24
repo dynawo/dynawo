@@ -17,7 +17,7 @@
     <par type="DOUBLE" name="Converter_SNom" value="50"/>
     <par type="DOUBLE" name="Converter_tS" value="0.001"/>
     <par type="DOUBLE" name="Converter_IMaxPu" value="1.3"/>
-    <par type="STRING" name="Converter_TableFileName" value="/home/philinux/dynawo/dynawo/examples/DynaSwing/IEC/Converter/IEC63406CurrentSourceUCPO/TableFile.txt"/>
+    <par type="STRING" name="Converter_TableFileName" value="/home/philinux/dynawo/dynawo/examples/DynaSwing/IEC/Converter/IEC63406VoltageSourceUCPO/TableFile.txt"/>
     <par type="DOUBLE" name="Converter_PMaxPu" value="1"/>
     <par type="BOOL" name="Converter_StorageFlag" value="true"/>
     <par type="BOOL" name="Converter_PriorityFlag" value="true"/>
@@ -153,8 +153,9 @@
     <par type="DOUBLE" name="Converter_ResPu" value="0.03"/>
     <par type="DOUBLE" name="Converter_XesPu" value="0.15"/>
 
-    <!-- CurrentSource -->
+    <!-- VoltageSource -->
     <par type="DOUBLE" name="Converter_Tg" value="0.01"/>
+    <par type="DOUBLE" name="Converter_Te" value="0.005"/>
 
     <!-- GridMeasurement -->
     <par type="DOUBLE" name="Converter_TpFilt" value="0.01"/>

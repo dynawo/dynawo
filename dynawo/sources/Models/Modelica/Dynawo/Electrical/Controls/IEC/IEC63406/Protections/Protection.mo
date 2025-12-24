@@ -242,9 +242,9 @@ model Protection "Protection module (IEC63406)"
     Placement(visible = true, transformation(origin = {50, -212}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-  when or1.y == true then
-    tripFlag = true;
-  end when;
+//  when or1.y == true then
+//    tripFlag = true;
+//  end when;
 
   connect(lessEqual.y, timer.u) annotation(
     Line(points = {{-59, 240}, {-22, 240}}, color = {255, 0, 255}));
@@ -418,7 +418,8 @@ equation
     Line(points = {{62, -28}, {98, -28}}, color = {0, 0, 127}));
   connect(realExpression20.y, greater4.u2) annotation(
     Line(points = {{62, -68}, {98, -68}}, color = {0, 0, 127}));
-
+  connect(or1.y, tripFlag) annotation(
+    Line(points = {{182, 0}, {220, 0}}, color = {255, 0, 255}));
   annotation(
     Diagram(coordinateSystem(extent = {{-200, -340}, {200, 340}})),
     Icon(graphics = {Rectangle(extent = {{-200, 340}, {200, -340}}), Text(origin = {-1, 0}, extent = {{-197, 340}, {197, -340}}, textString = "Protection")}, coordinateSystem(extent = {{-200, -340}, {200, 340}})));

@@ -45,7 +45,7 @@ model PControl "Active power control (IEC 63406)"
   Modelica.Blocks.Interfaces.RealInput pFFRPu(start = 0) "Active power in pu (base SNom) added to the main order due to the Fast Frequency Response" annotation(
     Placement(visible = true, transformation(origin = {-90, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {-160, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput pMeasPu(start = -P0Pu * SystemBase.SnRef / SNom) "Measured (and filtered) active power component in pu (base SNom) (generator convention)" annotation(
-    Placement(visible = true, transformation(origin = {-40, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-190, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-200, -38}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-190, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput pRefPu(start = -P0Pu * SystemBase.SnRef / SNom) "Active power reference provided by the plant controller in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-200, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-190, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput uMeasPu(start = U0Pu) "Measured (and filtered) voltage component in pu (base UNom)" annotation(
@@ -120,7 +120,7 @@ equation
   connect(variableLimiter.y, division.u1) annotation(
     Line(points = {{-8, 0}, {0, 0}, {0, -6}, {18, -6}}, color = {0, 0, 127}));
   connect(pMeasPu, add1.u2) annotation(
-    Line(points = {{-40, -40}, {0, -40}, {0, -38}, {4, -38}}, color = {0, 0, 127}));
+    Line(points = {{-200, -38}, {4, -38}}, color = {0, 0, 127}));
   connect(pAvailOutPu, variableLimiter.limit1) annotation(
     Line(points = {{-40, 110}, {-40, 8}, {-32, 8}}, color = {0, 0, 127}));
   connect(pAvailInPu, variableLimiter.limit2) annotation(

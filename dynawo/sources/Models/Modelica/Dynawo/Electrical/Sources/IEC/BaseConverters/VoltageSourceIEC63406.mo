@@ -56,7 +56,7 @@ modulation/switching process." annotation(Dialog(tab = "Source"));
     Placement(visible = true, transformation(origin = {-170, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = Tg, y_start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu))  annotation(
     Placement(visible = true, transformation(origin = {-170, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Sources.IEC.BaseConverters.UgridToUconverter ugridToUconverter(ResPu = ResPu, XesPu = XesPu)  annotation(
+  Dynawo.Electrical.Sources.IEC.BaseConverters.UgridToUconverter ugridToUconverter(ResPu = ResPu, Ued0Pu = Ued0Pu, Ueq0Pu = Ueq0Pu, XesPu = XesPu)  annotation(
     Placement(visible = true, transformation(origin = {-100, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder2(T = Te, y_start = Ued0Pu) annotation(
     Placement(visible = true, transformation(origin = {-30, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -102,7 +102,7 @@ modulation/switching process." annotation(Dialog(tab = "Source"));
     Dialog(tab = "Operating point"));
 
 equation
-  Complex(transformDQtoRI.urPu, transformDQtoRI.uiPu) = terminal.V;
+  Complex(transformDQtoRI.ur, transformDQtoRI.ui) = terminal.V;
 
   connect(ipRefPu, firstOrder.u) annotation(
     Line(points = {{-210, 60}, {-182, 60}}, color = {0, 0, 127}));
@@ -116,23 +116,23 @@ equation
     Line(points = {{-78, 48}, {-60, 48}, {-60, 60}, {-42, 60}}, color = {0, 0, 127}));
   connect(ugridToUconverter.ueqPu, firstOrder3.u) annotation(
     Line(points = {{-78, 32}, {-60, 32}, {-60, 20}, {-42, 20}}, color = {0, 0, 127}));
-  connect(transformRItoDQ.uqPu, ugridToUconverter.ugqPu) annotation(
+  connect(transformRItoDQ.uq, ugridToUconverter.ugqPu) annotation(
     Line(points = {{-62, -60}, {-108, -60}, {-108, 16}}, color = {0, 0, 127}));
-  connect(transformRItoDQ.udPu, ugridToUconverter.ugdPu) annotation(
+  connect(transformRItoDQ.ud, ugridToUconverter.ugdPu) annotation(
     Line(points = {{-62, -84}, {-92, -84}, {-92, 16}}, color = {0, 0, 127}));
   connect(thetaPLL, transformRItoDQ.phi) annotation(
     Line(points = {{-210, -40}, {0, -40}, {0, -60}, {-18, -60}}, color = {0, 0, 127}));
-  connect(firstOrder2.y, transformDQtoRI.udPu) annotation(
+  connect(firstOrder2.y, transformDQtoRI.ud) annotation(
     Line(points = {{-18, 60}, {0, 60}, {0, 34}, {18, 34}}, color = {0, 0, 127}));
-  connect(firstOrder3.y, transformDQtoRI.uqPu) annotation(
+  connect(firstOrder3.y, transformDQtoRI.uq) annotation(
     Line(points = {{-18, 20}, {0, 20}, {0, 26}, {18, 26}}, color = {0, 0, 127}));
   connect(thetaPLL, transformDQtoRI.phi) annotation(
     Line(points = {{-210, -40}, {10, -40}, {10, 8}, {18, 8}}, color = {0, 0, 127}));
-  connect(transformDQtoRI.urPu, realToComplex.re) annotation(
+  connect(transformDQtoRI.ur, realToComplex.re) annotation(
     Line(points = {{62, 32}, {80, 32}, {80, 26}, {98, 26}}, color = {0, 0, 127}));
-  connect(transformDQtoRI.uiPu, realToComplex.im) annotation(
+  connect(transformDQtoRI.ui, realToComplex.im) annotation(
     Line(points = {{62, 8}, {80, 8}, {80, 14}, {98, 14}}, color = {0, 0, 127}));
-  connect(uPu, transformRItoDQ.uPu) annotation(
+  connect(uPu, transformRItoDQ.u) annotation(
     Line(points = {{210, -80}, {-14, -80}, {-14, -84}, {-18, -84}}, color = {85, 170, 255}));
   connect(complexToReal.im, QInjPu) annotation(
     Line(points = {{182, -36}, {210, -36}}, color = {0, 0, 127}));
