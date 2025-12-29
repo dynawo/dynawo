@@ -85,7 +85,9 @@ model QControl "Reactive power control (IEC 63406)"
 
   //Output variables
   Modelica.Blocks.Interfaces.RealOutput iQcmdPu(start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Reactive current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-    Placement(visible = true, transformation(origin = {330, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {340, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {340, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {340, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput voltageDroop annotation(
+    Placement(visible = true, transformation(origin = {339, 81}, extent = {{-19, -19}, {19, 19}}, rotation = 0), iconTransformation(origin = {334, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Math.Add add(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -175,6 +177,8 @@ model QControl "Reactive power control (IEC 63406)"
     Placement(visible = true, transformation(origin = {-227, 67}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
   Modelica.Blocks.Sources.IntegerConstant PFFLAG(k = PFFlag)  annotation(
     Placement(visible = true, transformation(origin = {-120, 48}, extent = {{-8, -8}, {8, 8}}, rotation = -90)));
+  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze(T = Tiq, UseFreeze = true, UseRateLim = true, Y0 = -Q0Pu * SystemBase.SnRef / (SNom * U0Pu))  annotation(
+    Placement(visible = true, transformation(origin = {140, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
   parameter Types.PerUnit IQMax0Pu = if PriorityFlag then IMaxPu else sqrt(IMaxPu ^ 2 - (-P0Pu * SystemBase.SnRef / (SNom * U0Pu)) ^ 2)  "Initial maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
@@ -187,9 +191,10 @@ model QControl "Reactive power control (IEC 63406)"
     Dialog(tab = "Operating point"));
   parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
     Dialog(group="Operating point"));
-  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze(T = Tiq, UseFreeze = true, UseRateLim = true, Y0 = -Q0Pu * SystemBase.SnRef / (SNom * U0Pu))  annotation(
-    Placement(visible = true, transformation(origin = {140, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
 equation
+  voltageDroop = uMeasPu + 1/KDroop*qMeasPu;
+
   connect(deadZone.u, add1.y) annotation(
     Line(points = {{-272, 40}, {-279, 40}}, color = {0, 0, 127}));
   connect(deadZone.y, gain.u) annotation(
@@ -253,7 +258,7 @@ equation
   connect(realExpression19.y, variableLimiter4.limit1) annotation(
     Line(points = {{69, -12}, {78, -12}}, color = {0, 0, 127}));
   connect(gain2.y, iQcmdPu) annotation(
-    Line(points = {{311, -20}, {329, -20}}, color = {0, 0, 127}));
+    Line(points = {{311, -20}, {340, -20}}, color = {0, 0, 127}));
   connect(limiter1.y, division.u2) annotation(
     Line(points = {{-48, -80}, {0, -80}, {0, -86}, {18, -86}}, color = {0, 0, 127}));
   connect(add3.y, multiSwitch.u[1]) annotation(
