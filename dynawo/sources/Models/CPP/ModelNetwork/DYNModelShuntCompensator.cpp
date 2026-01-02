@@ -76,7 +76,7 @@ ModelShuntCompensator::initSize() {
   } else {
     sizeF_ = 0;
     sizeY_ = 0;
-    sizeZ_ = 4;  // connectionState, isCapacitor, isAvailable, currentSection
+    sizeZ_ = 5;  // connectionState, isCapacitor, isAvailable, currentSection, switchOff
     sizeG_ = 1;  // time out for availability
     sizeMode_ = 1;
     sizeCalculatedVar_ = nbCalculatedVariables_;
@@ -178,6 +178,7 @@ ModelShuntCompensator::instantiateVariables(vector<shared_ptr<Variable> >& varia
   variables.push_back(VariableNativeFactory::createState(id_ + "_isCapacitor_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createState(id_ + "_isAvailable_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createState(id_ + "_currentSection_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_switchOff_value", BOOLEAN));
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q_value", CONTINUOUS));
 }
 
@@ -187,6 +188,7 @@ ModelShuntCompensator::defineVariables(vector<shared_ptr<Variable> >& variables)
   variables.push_back(VariableNativeFactory::createState("@ID@_isCapacitor_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createState("@ID@_isAvailable_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createState("@ID@_currentSection_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState("@ID@_switchOff_value", BOOLEAN));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q_value", CONTINUOUS));
 }
 
@@ -197,6 +199,7 @@ ModelShuntCompensator::defineElements(std::vector<Element>& elements, std::map<s
   addElementWithValue(shName + string("_isCapacitor"), "ShuntCompensator", elements, mapElement);
   addElementWithValue(shName + string("_isAvailable"), "ShuntCompensator", elements, mapElement);
   addElementWithValue(shName + string("_currentSection"), "ShuntCompensator", elements, mapElement);
+  addElementWithValue(shName + string("_switchOff"), "ShuntCompensator", elements, mapElement);
   addElementWithValue(shName + string("_Q"), "ShuntCompensator", elements, mapElement);
 }
 
@@ -242,6 +245,7 @@ ModelShuntCompensator::collectSilentZ(BitMask* silentZTable) {
   silentZTable[isCapacitorNum_].setFlags(NotUsedInDiscreteEquations | NotUsedInContinuousEquations);
   silentZTable[isAvailableNum_].setFlags(NotUsedInDiscreteEquations | NotUsedInContinuousEquations);
   silentZTable[currentSectionNum_].setFlags(NotUsedInDiscreteEquations | NotUsedInContinuousEquations);
+  silentZTable[switchOffNum_].setFlags(NotUsedInDiscreteEquations | NotUsedInContinuousEquations);
 }
 
 void
@@ -300,6 +304,9 @@ bool
 ModelShuntCompensator::isAvailable() const {
   if (!zConnected_[isAvailableNum_]) {
     return true;
+  }
+  if (z_[switchOffNum_] > 0) {
+    return false;
   }
   if (getConnected() == CLOSED && cannotBeDisconnected_) {
     return false;

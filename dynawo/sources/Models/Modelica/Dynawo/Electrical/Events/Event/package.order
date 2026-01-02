@@ -13,3 +13,4 @@ EventQuadripoleStatus
 EventQuadripoleConnection
 EventQuadripoleDisconnection
 EventConnectedStatus
+EventConnectedStatusShunt

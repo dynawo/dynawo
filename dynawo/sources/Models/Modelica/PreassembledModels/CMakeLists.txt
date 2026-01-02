@@ -28,6 +28,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   DoubleStep.xml
   ElectronicLoad.xml
   EventConnectedStatus.xml
+  EventConnectedStatusShunt.xml
   EventQuadripoleConnection.xml
   EventQuadripoleDisconnection.xml
   EventSetPointBoolean.xml

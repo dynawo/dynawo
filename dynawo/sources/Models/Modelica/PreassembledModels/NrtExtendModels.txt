@@ -1,4 +1,5 @@
 EventConnectedStatus
+EventConnectedStatusShunt
 EventSetPointDoubleReal
 GeneratorAlphaBeta
 GeneratorPQ
