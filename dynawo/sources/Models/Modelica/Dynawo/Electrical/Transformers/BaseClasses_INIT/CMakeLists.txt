@@ -15,6 +15,7 @@ set(MODEL_FILES
   package.mo
   package.order
   BaseGeneratorTransformer_INIT.mo
+  BaseGeneratorTransformerConnect_INIT.mo
   BaseTransformerParameters_INIT.mo
   BaseTransformerVariables_INIT.mo
   BaseTransformerVariableTap_INIT.mo

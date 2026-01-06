@@ -1,4 +1,5 @@
 BaseGeneratorTransformer_INIT
+BaseGeneratorTransformerConnect_INIT
 BaseTransformerParameters_INIT
 BaseTransformerVariables_INIT
 BaseTransformerVariableTap_INIT

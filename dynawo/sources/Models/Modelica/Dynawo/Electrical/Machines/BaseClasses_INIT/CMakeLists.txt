@@ -16,6 +16,7 @@ set(MODEL_FILES
   package.order
   BaseGeneratorParameters_INIT.mo
   BaseGeneratorVariables_INIT.mo
+  BaseGeneratorVariablesConnect_INIT.mo
   )
 
 #
