@@ -22,3 +22,4 @@ LoadAlphaBetaTwoMotorFifthOrder
 LoadAlphaBetaTwoMotorFifthOrder_INIT
 LoadAlphaBetaThreeMotorFifthOrder
 LoadAlphaBetaThreeMotorFifthOrder_INIT
+LoadAuxiliariesConnect_INIT
