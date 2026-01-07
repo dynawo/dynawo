@@ -22,7 +22,7 @@ model LoadAuxiliaries_INIT "Initialization for auxiliaries where P0PuVar, Q0PuVa
   Dynawo.Connectors.ReactivePowerPuConnector Q0PuVar "Start value of reactive power in pu (base SnRef) (receptor convention)";
   Dynawo.Connectors.ComplexVoltagePuConnector u0Pu "Start value of complex voltage at load terminal in pu (base UNom)";
   Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power in pu (base SnRef) (receptor convention)";
-  flow Types.ComplexCurrentPu i0Pu "Start value of complex current at load terminal in pu (base UNom, SnRef) (receptor convention)";
+  flow Dynawo.Connectors.ComplexCurrentPuConnector i0Pu "Start value of complex current at load terminal in pu (base UNom, SnRef) (receptor convention)";
 
 equation
   P0PuVar = P0Pu;
