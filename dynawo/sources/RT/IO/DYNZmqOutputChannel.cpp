@@ -25,37 +25,39 @@
 namespace DYN {
 
 ZmqOutputChannel::ZmqOutputChannel(const std::string& endpoint):
-socket_(context_, zmqpp::socket_type::pub) {
+  context_(1),
+  socket_(context_, zmq::socket_type::pub) {
     try {
     socket_.bind(endpoint);
-  } catch (const zmqpp::exception& e) {
+  } catch (const zmq::error_t& e) {
     throw DYNError(Error::GENERAL, ZMQInterfaceBadEnpoint, endpoint);
   }
 }
 
 void
 ZmqOutputChannel::sendMessage(const std::string& data) {
-  zmqpp::message message;
-  message << data;
-  socket_.send(message);
-  Trace::debug() << DYNLog(ZmqDataSent, "") << Trace::endline;
+  sendMessage(data, "");
 }
 
 void
 ZmqOutputChannel::sendMessage(const std::string& data, const std::string& topic) {
-  zmqpp::message message;
-  message << topic;
-  message << data;
-  socket_.send(message);
+  zmq::message_t topic_msg(topic.data(), topic.size());
+  zmq::message_t data_msg(data.data(), data.size());
+
+  socket_.send(topic_msg, zmq::send_flags::sndmore);
+  socket_.send(data_msg, zmq::send_flags::none);
+
   Trace::debug() << DYNLog(ZmqDataSent, " (topic: " + topic + ")") << Trace::endline;
 }
 
 void
 ZmqOutputChannel::sendMessage(const std::vector<std::uint8_t>& data, const std::string& topic) {
-  zmqpp::message message;
-  message << topic;
-  message.add_raw(reinterpret_cast<const void*>(data.data()), data.size());
-  socket_.send(message);
+  zmq::message_t topic_msg(topic.data(), topic.size());
+  zmq::message_t data_msg(data.data(), data.size());
+
+  socket_.send(topic_msg, zmq::send_flags::sndmore);
+  socket_.send(data_msg, zmq::send_flags::none);
+
   Trace::debug() << DYNLog(ZmqDataSent, " (topic: " + topic + ")") << Trace::endline;
 }
 

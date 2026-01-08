@@ -35,12 +35,15 @@ protected
   Types.ComplexVoltagePu uRef0Pu "Start value of complex voltage reference at terminal in pu (base UNom)";
 
 equation
-  if QGen0Pu <= QMinPu and UStator0Pu >= UStatorRef0Pu then
+  if QGenRaw0Pu <= QMinPu and UStator0Pu >= UStatorRef0Pu then
     qStatus0 = QStatus.AbsorptionMax;
-  elseif QGen0Pu >= QMaxPu and UStator0Pu <= UStatorRef0Pu then
+    QGen0Pu = QMinPu;
+  elseif QGenRaw0Pu >= QMaxPu and UStator0Pu <= UStatorRef0Pu then
     qStatus0 = QStatus.GenerationMax;
+    QGen0Pu = QMaxPu;
   else
     qStatus0 = QStatus.Standard;
+    QGen0Pu = QGenRaw0Pu;
   end if;
 
   uRef0Pu = ComplexMath.fromPolar(URef0Pu, UPhase0);

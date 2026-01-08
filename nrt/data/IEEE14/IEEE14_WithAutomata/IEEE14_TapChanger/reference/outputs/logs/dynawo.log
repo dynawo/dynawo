@@ -1,6 +1,6 @@
 INFO |  ============================================================ 
 INFO | DYNAWO VERSION  :     1.8.0
-INFO | DYNAWO REVISION :  1272_preassembled-25f51016b35
+INFO | DYNAWO REVISION :  master-25-2a37ba5e337
 INFO |  ============================================================ 
 INFO | 
 INFO | -----------------------------------------------------------------------
@@ -34,7 +34,7 @@ INFO | -----------------------------------------------------------------------
 INFO | -----------------------------------------------------------------------
 INFO | number of continuous variables : 447
 INFO | number of discrete variables : 266
-INFO | number of root functions : 281
+INFO | number of root functions : 325
 INFO | -----------------------------------------------------------------------
 INFO |         time ¦ iter num   order (k)      time step (h)
 INFO | -----------------------------------------------------------------------
@@ -465,7 +465,7 @@ INFO | number of Jacobian evaluations             = 293
 INFO | number of nonlinear iterations             = 439
 INFO | number of error test failures              = 0
 INFO | number of nonlinear convergence failures   = 0
-INFO | number of root functions evaluations       = 1906
+INFO | number of root functions evaluations       = 1904
 INFO | number of discrete variables evaluations   = 85
 INFO | number of mode evaluations                 = 62
 INFO | end of job 'IEEE14 - TapChanger'

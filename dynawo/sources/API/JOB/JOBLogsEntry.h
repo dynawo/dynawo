@@ -37,6 +37,9 @@ class LogsEntry {
   /// @brief Constructor
   LogsEntry() = default;
 
+  /// @brief Destructor
+  ~LogsEntry() = default;
+
   /**
    * @brief Copy constructor
    * @param other original to copy

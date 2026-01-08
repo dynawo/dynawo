@@ -63,7 +63,7 @@
 #include "DYNSubModel.h"
 #include "DYNRTInputCommon.h"
 
-#ifdef USE_ZMQPP
+#ifdef USE_ZMQ
 #include "DYNZmqInputChannel.h"
 #include "DYNZmqOutputChannel.h"
 #endif
@@ -101,8 +101,6 @@ using parameters::ParametersSetFactory;
 using std::chrono::steady_clock;
 using std::chrono::microseconds;
 using std::chrono::duration_cast;
-
-static const char TIME_FILENAME[] = "time.bin";  ///< name of the file to dump time at the end of the simulation
 
 namespace DYN {
 
@@ -164,7 +162,7 @@ SimulationRT::configureOutputsRT() {
       // Create a new output channel
       std::shared_ptr<job::ChannelEntry> channelEntry = channelsEntry->getChannelEntryById(streamEntry->getChannel());
       if (channelEntry->getType() == "ZMQ") {
-#ifdef USE_ZMQPP
+#ifdef USE_ZMQ
         if (channelEntry->getEndpoint() == "")
           outputChannel = std::make_shared<ZmqOutputChannel>();
         else
@@ -172,7 +170,7 @@ SimulationRT::configureOutputsRT() {
         channelInterfaceMap.emplace(channelEntry->getId(), outputChannel);
         Trace::debug() << DYNLog(ZmqChannelCreated, channelEntry->getId()) << Trace::endline;
 #else
-        throw DYNError(Error::GENERAL, UnavailableLib, "ZMQPP");
+        throw DYNError(Error::GENERAL, UnavailableLib, "ZMQ");
 #endif
       } else {
         Trace::warn() << DYNLog(UnsopportedOutputChannel, channelEntry->getType()) << Trace::endline;
@@ -190,13 +188,12 @@ SimulationRT::configureOutputsRT() {
     } else if (streamEntry->getData() == "CONSTRAINTS") {
       outputDispatcher_->addConstraintsPublisher(outputChannel, streamEntry->getFormat());
     } else {
-      Trace::warn() << DYNLog(StreamDataNotManaged, streamEntry->getData()) << Trace::endline;;
+      Trace::warn() << DYNLog(StreamDataNotManaged, streamEntry->getData()) << Trace::endline;
     }
   }
   for (auto &channelEntry : channelsEntry->getChannelEntries())
-    if (channelEntry->getKind() == "OUTPUT")
-      if (channelInterfaceMap.find(channelEntry->getId()) == channelInterfaceMap.end())
-        Trace::warn() << DYNLog(OutputStreamMissing, channelEntry->getId()) << Trace::endline;
+    if (channelEntry->getKind() == "OUTPUT" && channelInterfaceMap.find(channelEntry->getId()) == channelInterfaceMap.end())
+      Trace::warn() << DYNLog(OutputStreamMissing, channelEntry->getId()) << Trace::endline;
 }
 
 void
@@ -208,7 +205,7 @@ SimulationRT::configureInputsRT() {
     if (channelEntry->getKind() == "INPUT") {
       // Create input channel
       if (channelEntry->getType() == "ZMQ") {
-#ifdef USE_ZMQPP
+#ifdef USE_ZMQ
         MessageFilter filter = MessageFilter::Actions | MessageFilter::TimeManagement;
         if (clockEntry->getType() == "EXTERNAL" && clockEntry->getTriggerChannel() == channelEntry->getId())  // is trigger channel
           filter = filter | MessageFilter::Trigger;
@@ -219,7 +216,7 @@ SimulationRT::configureInputsRT() {
           zmqServer = std::make_shared<ZmqInputChannel>("zmq", filter, channelEntry->getEndpoint());
         inputDispatcherAsync_->addInputChannel(zmqServer);
 #else
-        throw DYNError(Error::GENERAL, UnavailableLib, "ZMQPP");
+        throw DYNError(Error::GENERAL, UnavailableLib, "ZMQ");
 #endif
       } else {
         Trace::warn() << DYNLog(UnknownChannelType, channelEntry->getType()) << Trace::endline;

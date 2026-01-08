@@ -44,7 +44,7 @@ LostEquipmentsCollection::cend() const {
 }
 
 LostEquipmentsCollection::LostEquipmentsCollectionConstIterator::LostEquipmentsCollectionConstIterator(const LostEquipmentsCollection* iterated, bool begin) :
-    current_((begin ? iterated->lostEquipments_.begin() : iterated->lostEquipments_.end())) {}
+    current_(begin ? iterated->lostEquipments_.begin() : iterated->lostEquipments_.end()) {}
 
 LostEquipmentsCollection::LostEquipmentsCollectionConstIterator&
 LostEquipmentsCollection::LostEquipmentsCollectionConstIterator::operator++() {
