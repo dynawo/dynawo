@@ -255,19 +255,15 @@ string
 Modeler::findNodeConnectorName(const string& id, const string& labelNode) const {
   // remove labelNode: @NODE@ or @NODE1@ or @NODE2@
   string tmpId = id;
-  tmpId.replace(tmpId.find(labelNode), labelNode.size(), "");
-  // retrieve the staticId of the component
-  vector<string> strs;
-  boost::split(strs, tmpId, boost::is_any_of("@"));
-
-  if (strs.size() == 3) {
-    const string busName = data_->getBusName(strs[1], labelNode);
+  size_t pos = id.find(labelNode);
+  if (pos != string::npos) {
+    const std::string staticId = id.substr(1, pos - 2);  // remove opening and closing @ character
+    const string busName = data_->getBusName(staticId, labelNode);
     if (busName.empty()) {
       throw DYNError(Error::MODELER, MacroNotResolved, id, "bus not found");
     }
-    const string staticIdLabel = "@" + strs[1] + "@";
-    // replace @staticId@ by the node name
-    tmpId.replace(tmpId.find(staticIdLabel), staticIdLabel.size(), busName);
+    tmpId.replace(tmpId.find("@" + staticId + "@"), staticId.size() + 2, "");
+    tmpId.replace(tmpId.find(labelNode), labelNode.size(), busName);
   }
   return tmpId;
 }
