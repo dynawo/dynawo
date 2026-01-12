@@ -86,7 +86,7 @@ class SimulationRT: public Simulation {
   /**
    * @brief default destructor
    */
-  virtual ~SimulationRT() {}
+  ~SimulationRT() override {}
 
   /**
    * @brief configure RT System

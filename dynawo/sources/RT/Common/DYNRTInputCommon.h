@@ -56,7 +56,7 @@ enum class MessageType {
 };
 
 /**
- * @struct InputMessage
+ * @class InputMessage
  * @brief Abstract base class for input messages.
  */
 class InputMessage {
@@ -64,7 +64,7 @@ class InputMessage {
   /**
    * @brief Destructor.
    */
-  virtual ~InputMessage() { }
+  virtual ~InputMessage();
 
   /**
    * @brief Get the message type.
@@ -74,7 +74,7 @@ class InputMessage {
 };
 
 /**
- * @struct ActionMessage
+ * @class ActionMessage
  * @brief Message carrying an action payload.
  */
 class ActionMessage : public InputMessage {
@@ -88,6 +88,11 @@ class ActionMessage : public InputMessage {
   explicit ActionMessage(std::string p) : payload(std::move(p)) { }
 
   /**
+   * @brief Destructor.
+   */
+  ~ActionMessage() override;
+
+  /**
    * @brief Get the message type.
    * @return MessageType::Action
    */
@@ -95,11 +100,16 @@ class ActionMessage : public InputMessage {
 };
 
 /**
- * @struct StepTriggerMessage
+ * @class StepTriggerMessage
  * @brief Message used to trigger a simulation step.
  */
 class StepTriggerMessage : public InputMessage {
  public:
+  /**
+   * @brief Destructor.
+   */
+  ~StepTriggerMessage() override;
+
   /**
    * @brief Get the message type.
    * @return MessageType::StepTrigger
@@ -108,11 +118,16 @@ class StepTriggerMessage : public InputMessage {
 };
 
 /**
- * @struct StopMessage
+ * @class StopMessage
  * @brief Message used to stop the simulation.
  */
 class StopMessage : public InputMessage {
  public:
+  /**
+   * @brief Destructor.
+   */
+  ~StopMessage() override;
+
   /**
    * @brief Get the message type.
    * @return MessageType::Stop

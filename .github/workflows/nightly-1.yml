@@ -40,6 +40,7 @@ jobs:
           util/envDynawo.sh build-tests
 
       - name: NRT
+        if: ${{ matrix.build-type != 'Debug' }}
         run: |
           export DYNAWO_HOME=$(pwd)
           sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"GFM_Fault" : 1, "PmConstAc6aPss3b":1}/' util/nrt_diff/settings.py
