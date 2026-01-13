@@ -59,7 +59,7 @@ class Error : public std::exception {
   Error(const Error& e);
 
   /// @brief Destructor
-  ~Error() = default;
+  ~Error() override = default;
 
   /**
    * @brief Constructor
@@ -144,7 +144,7 @@ class MessageError : public std::exception {
   MessageError(const MessageError& e);
 
   /// @brief Destructor
-  ~MessageError() = default;
+  ~MessageError() override = default;
 
   /**
    * @brief Constructor
