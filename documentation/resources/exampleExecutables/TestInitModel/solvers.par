@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="SIM">
+    <par type="DOUBLE" name="hMin" value="0.000001"/>
+    <par type="DOUBLE" name="hMax" value="1"/>
+    <par type="DOUBLE" name="kReduceStep" value="0.5"/>
+    <par type="INT" name="maxNewtonTry" value="10"/>
+  </set>
+</parametersSet>
