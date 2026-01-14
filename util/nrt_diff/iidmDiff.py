@@ -43,7 +43,6 @@ def getOutputIIDMInfo(filename):
     IIDM_objects_byID = {}
     (iidm_root, ns, prefix) = XMLUtils.ImportXMLFileExtended(filename)
     for voltageLevel in XMLUtils.FindAll(iidm_root, prefix, "voltageLevel", ns):
-        index = 0
         for child in XMLUtils.FindAll(voltageLevel, prefix, "*", ns):
             if 'id' in child.attrib:
                 myId = child.attrib['id']
@@ -81,10 +80,11 @@ def getOutputIIDMInfo(filename):
                     set_values(child,'q',myObject)
                     set_values(child,'regulationMode',myObject)
                 IIDM_objects_byID[myId] = myObject
-            elif child.tag.replace("{"+ns[prefix]+"}", "") == 'bus': # in powsybl iidm, nodebreaker voltage level buses ids are computed:
-                nodeBusId = voltageLevel.attrib['id'] + "_" + str(index)
+            elif child.tag.replace("{"+ns[prefix]+"}", "") == 'bus' and 'nodes' in child.attrib : # in powsybl iidm, nodebreaker voltage level buses ids are computed:
+                nodesString = child.attrib['nodes']
+                firstNode = nodesString.split(",")[0] # computed id here will be based on the frst node in the its list (they are sorted in iidm def)
+                nodeBusId = voltageLevel.attrib['id'] + "_" + str(firstNode)
                 myObject = IIDMobject(nodeBusId)
-                index+=1
                 myObject.type = 'bus'
                 set_values(child,'v',myObject)
                 set_values(child,'angle',myObject)

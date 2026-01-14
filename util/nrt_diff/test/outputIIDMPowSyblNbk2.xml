@@ -8,6 +8,7 @@
                 <iidm:switch id="S1VL1_LD1_BREAKER" name="S1VL1_LD1_BREAKER" kind="BREAKER" retained="true" open="false" node1="1" node2="2"/>
                 <iidm:switch id="S1VL1_BBS_TWT_DISCONNECTOR" name="S1VL1_BBS_TWT_DISCONNECTOR" kind="DISCONNECTOR" retained="false" open="false" node1="0" node2="3"/>
                 <iidm:switch id="S1VL1_TWT_BREAKER" name="S1VL1_TWT_BREAKER" kind="BREAKER" retained="true" open="false" node1="3" node2="4"/>
+                <iidm:bus v="10.0" angle="2.2822" nodes="5,6"/>
                 <iidm:bus v="225.6139" angle="2.2822" nodes="0,1,2,3,4"/>
             </iidm:nodeBreakerTopology>
             <iidm:load id="LD1" loadType="UNDEFINED" p0="80" q0="10" node="2" p="80.2" q="10"/>
