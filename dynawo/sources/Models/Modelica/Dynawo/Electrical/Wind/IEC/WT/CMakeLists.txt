@@ -12,7 +12,6 @@
 set(MODEL_FILES
   package.mo
   package.order
-  WT4CurrentSource_INIT.mo
   WT4ACurrentSource2015.mo
   WT4ACurrentSource2015.extvar
   WT4ACurrentSource2020.mo

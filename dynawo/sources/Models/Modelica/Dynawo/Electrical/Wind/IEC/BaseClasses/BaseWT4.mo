@@ -22,16 +22,16 @@ partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 st
   parameter Types.Time tS "Integration time step in s";
 
   //Circuit parameters
-  parameter Boolean ConverterLVControl = true "Boolean parameter to choose whether the converter is controlling at its output (LV side of its transformer) : True ; or after its transformer (MV side): False" annotation(
-  Dialog(tab="Converter control"));
+  parameter Boolean ConverterLVControl = true "If true, the converter is controlling at its output (LV side of its transformer), if false, after its transformer (MV side)"  annotation(
+    Dialog(tab="Converter control"));
   parameter Types.PerUnit BesPu = 0 "Shunt susceptance between converter output and converter point of control in pu (base UNom, SNom)" annotation(
-  Dialog(tab="Converter control", enable = not ConverterLVControl));
+    Dialog(tab="Converter control", enable = not ConverterLVControl));
   parameter Types.PerUnit GesPu = 0 "Shunt conductance between converter output and converter point of control in pu (base UNom, SNom)" annotation(
-  Dialog(tab="Converter control", enable = not ConverterLVControl));
+    Dialog(tab="Converter control", enable = not ConverterLVControl));
   parameter Types.PerUnit ResPu = 0 "Serial resistance between converter output and converter point of control in pu (base UNom, SNom)" annotation(
-  Dialog(tab="Converter control", enable = not ConverterLVControl));
+    Dialog(tab="Converter control", enable = not ConverterLVControl));
   parameter Types.PerUnit XesPu = 0 "Serial reactance between converter output and converter point of control in pu (base UNom, SNom)" annotation(
-  Dialog(tab="Converter control", enable = not ConverterLVControl));
+    Dialog(tab="Converter control", enable = not ConverterLVControl));
 
   //Control parameters
   parameter Types.PerUnit DipMaxPu "Maximum active current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
@@ -150,7 +150,7 @@ partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 st
 
   //Initial parameters
   final parameter Types.ComplexCurrentPu i0Pu = Modelica.ComplexMath.conj(Complex(P0Pu,Q0Pu)/u0Pu) "Initial complex current at grid terminal in pu (base UNom, SnRef) (receptor convention)";
-  final parameter Types.ComplexCurrentPu iGs0Pu = Complex(GesPu, BesPu)*(u0Pu - Complex(ResPu, XesPu)*i0Pu*SystemBase.SnRef/SNom) - i0Pu*SystemBase.SnRef/SNom "Complex current at converter output (base SNom) (generator convention)";
+  final parameter Types.ComplexCurrentPu iGs0Pu = Complex(GesPu, BesPu)*(u0Pu - Complex(ResPu, XesPu)*i0Pu*SystemBase.SnRef/SNom) - i0Pu*SystemBase.SnRef/SNom "Complex current at converter output in pu (base SNom) (generator convention)";
   final parameter Types.CurrentModulePu ip0Pu = cos(UPhase0)*iGs0Pu.re + sin(UPhase0)*iGs0Pu.im "Initial active current component at converter terminal in pu (base UNom, SNom) (generator convention)";
   final parameter Types.PerUnit IpMax0Pu = Modelica.Math.Vectors.interpolate(TableIpMaxUwt[:,1], TableIpMaxUwt[:,2], U0Pu) "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)";
   final parameter Types.CurrentModulePu iq0Pu = cos(UPhase0)*iGs0Pu.im - sin(UPhase0)*iGs0Pu.re "Initial reactive current component at converter terminal in pu (base UNom, SNom) (generator convention)";
@@ -167,7 +167,7 @@ partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 st
   final parameter Types.ComplexVoltagePu u0Pu = Modelica.ComplexMath.fromPolar(U0Pu, UPhase0) "Initial complex voltage at grid terminal in pu (base UNom)";
   parameter Types.Angle UPhase0 "Initial voltage angle at grid terminal in rad" annotation(
     Dialog(tab = "Operating point"));
-  final parameter Types.VoltageModulePu UWt0DroppedPu = ((U0Pu + RDropPu * P0Pu * SystemBase.SnRef / (SNom * U0Pu) + XDropPu * Q0Pu * SystemBase.SnRef / (SNom * U0Pu))^2 + (-XDropPu * P0Pu * SystemBase.SnRef / (SNom * U0Pu) + RDropPu * Q0Pu * SystemBase.SnRef / (SNom * U0Pu))^2)^0.5 "Initial voltage magnitude controlled by the WT (base UNom)";
+  final parameter Types.VoltageModulePu UWt0DroppedPu = ((U0Pu + RDropPu * P0Pu * SystemBase.SnRef / (SNom * U0Pu) + XDropPu * Q0Pu * SystemBase.SnRef / (SNom * U0Pu))^2 + (-XDropPu * P0Pu * SystemBase.SnRef / (SNom * U0Pu) + RDropPu * Q0Pu * SystemBase.SnRef / (SNom * U0Pu))^2)^0.5 "Initial voltage magnitude controlled by the WT in pu (base UNom)";
   final parameter Types.PerUnit XWT0Pu = if MqG == 0 then UWt0DroppedPu - URef0Pu else -iq0Pu * U0Pu "Initial reactive power or voltage reference at grid WT terminal in pu (base SNom or UNom) (generator convention)";
 
 equation

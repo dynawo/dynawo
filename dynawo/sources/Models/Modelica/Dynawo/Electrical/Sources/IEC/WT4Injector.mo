@@ -21,7 +21,7 @@ model WT4Injector "Converter model and grid interface according to IEC N°61400-
   //Circuit parameters
   parameter Types.PerUnit BesPu "Shunt susceptance in pu (base UNom, SNom)" annotation(
     Dialog(tab = "Electrical"));
-   parameter Types.PerUnit GesPu "Shunt conductance in pu (base UNom, SNom)" annotation(
+  parameter Types.PerUnit GesPu "Shunt conductance in pu (base UNom, SNom)" annotation(
     Dialog(tab = "Electrical"));
   parameter Types.PerUnit ResPu "Serial resistance in pu (base UNom, SNom)" annotation(
     Dialog(tab = "Electrical"));
@@ -82,9 +82,9 @@ model WT4Injector "Converter model and grid interface according to IEC N°61400-
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   //Initial parameters
-  parameter Types.CurrentModulePu ip0Pu "Initial active current component at converter terminal in pu (base UNom, SNom) (generator convention)"annotation(
+  parameter Types.CurrentModulePu ip0Pu "Initial active current component at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
-  parameter Types.CurrentModulePu iq0Pu "Initial reactive current component at converter terminal in pu (base UNom, SNom) (generator convention)"annotation(
+  parameter Types.CurrentModulePu iq0Pu "Initial reactive current component at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
   parameter Types.ComplexCurrentPu iWt0Pu "Initial complex current at grid terminal in pu (base UNom, SnRef) (receptor convention)" annotation(
     Dialog(group = "Initialization"));

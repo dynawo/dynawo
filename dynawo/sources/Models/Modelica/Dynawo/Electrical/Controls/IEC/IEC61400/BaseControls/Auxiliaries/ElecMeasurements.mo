@@ -40,7 +40,7 @@ model ElecMeasurements "This block measures the voltage and current in pu (base 
   Modelica.Blocks.Interfaces.RealOutput QPuSnRef "Reactive power Q at terminal 1 in pu (base SnRef) (generator convention)";
   Modelica.ComplexBlocks.Interfaces.ComplexOutput uPu "Complex voltage at terminal 1 in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {20, -70}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {40, -110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealOutput UPhase "Voltage angle at terminal 1 in rad)";
+  Modelica.Blocks.Interfaces.RealOutput UPhase "Voltage angle at terminal 1 in rad";
   Modelica.Blocks.Interfaces.RealOutput UPu "Voltage magnitude at terminal 1 in pu (base UNom)";
 
 equation

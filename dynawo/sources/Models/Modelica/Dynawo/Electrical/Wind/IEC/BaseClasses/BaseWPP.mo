@@ -43,12 +43,12 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
     Dialog(tab = "LV transformer"));
 
   //Configuration parameters to define how the user wants to represent the internal network
-  parameter Boolean ConverterLVControl "Boolean parameter to choose whether the converter is controlling at its output (LV side of its transformer) : True ; or after its transformer (MV side): False" annotation(
+  parameter Boolean ConverterLVControl  "If true, the converter is controlling at its output (LV side of its transformer), if false, after its transformer (MV side)" annotation(
     Dialog(tab = "LV transformer"));
-  parameter Boolean PPCLocal "Boolean parameter to choose whether the Power Park Control is controlling at model's output terminal (True) or at a remote terminal using external measurements (False)" annotation(
+  parameter Boolean PPCLocal "If true, the Power Park Control is controlling at model's output terminal, if false, at a remote terminal using external measurements" annotation(
     Dialog(tab = "MV network + MV/HV transformer"));
 
-  // In every cases (RPcsPu + j*XPcsPu) and (GPcsPu + j*BPcsPu) are respectively the serial impedance and shunt admittance between WT terminal and model's output terminal
+  // In every case (RPcsPu + j*XPcsPu) and (GPcsPu + j*BPcsPu) are respectively the serial impedance and shunt admittance between WT terminal and model's output terminal
   //Depending on the 4 possible combinations of (ConverterLVControl ; PPCLocal) we are correctly defining these parameters
   final parameter Types.PerUnit BPcsPu = if PPCLocal and ConverterLVControl then BLvTrPu + BMvHvPu elseif PPCLocal and not ConverterLVControl then BMvHvPu
    elseif not PPCLocal and ConverterLVControl then BLvTrPu else 0 "Shunt susceptance between WT terminal and model's output terminal in pu (base UNom, SNom)";
