@@ -57,7 +57,7 @@ class UnitDynamicModel:
         self.__xml_element.attrib['name'] = name
 
     def get_init_name(self):
-        return self.__xml_element.attrib['initName']
+        return getattr(self.__xml_element, "initName", "")
 
     def set_init_name(self, name):
         self.__xml_element.attrib['initName'] = name

@@ -16,19 +16,22 @@ from content.Ticket import ticket
 # initConnect : LoadAuxiliaries_INIT (P0Pu -> P0PuVar, Q0Pu -> Q0PuVar), BaseGeneratorParameters_INIT (U0Pu -> U0PuVar)
 @ticket(3895)
 def update(jobs):
-    modelica_models = jobs.dyds.get_modelica_models(lambda modelica_model: modelica_model.get_init_name() == "Dynawo.Electrical.Loads.LoadAuxiliaries_INIT")
-    for modelica_model in modelica_models:
-        modelica_model.init_connects.change_var_name("P0Pu", "P0PuVar")
-        modelica_model.init_connects.change_var_name("Q0Pu", "Q0PuVar")
-
     init_models_OmegaRef = ["GeneratorPQ", "GeneratorPV", "GeneratorSynchronousExt3W", "GeneratorSynchronousExt4W", "GeneratorSynchronousInt"]
     init_models_SignalN = ["GeneratorPQPropDiagramPQSFR", "GeneratorPQPropDiagramPQ", "GeneratorPVDiagramPQSFR", "GeneratorPVDiagramPQ", \
     "GeneratorPVQNomAltParDiagram", "GeneratorPVRemoteDiagramPQSFR", "GeneratorPVRemoteDiagramPQ", "GeneratorPVTfoDiagramPQ", \
     "GeneratorPQPropSFR", "GeneratorPQProp", "GeneratorPVPropSFR", "GeneratorPVProp", "GeneratorPVQNomAltPar", "GeneratorPVRemoteSFR", \
     "GeneratorPVRemote", "GeneratorPVSFR", "GeneratorPVTfo"]
-    modelica_models = jobs.dyds.get_modelica_models(lambda modelica_model: \
-    modelica_model.get_init_name().replace("Dynawo.Electrical.Machines.OmegaRef.", "").replace("_INIT", "") in init_models_OmegaRef or \
-    modelica_model.get_init_name().replace("Dynawo.Electrical.Machines.SignalN.", "").replace("_INIT", "") in init_models_SignalN or \
-    modelica_model.get_init_name() == "Dynawo.Electrical.Machines.Simplified.GeneratorSimplified_INIT")
+
+    modelica_models = jobs.dyds.get_modelica_models(lambda _: True)
     for modelica_model in modelica_models:
-        modelica_model.init_connects.change_var_name("U0Pu", "U0PuVar")
+        unit_dynamic_models = modelica_model.get_unit_dynamic_models(
+            lambda unit_dynamic_model: unit_dynamic_model.get_init_name() == "Dynawo.Electrical.Loads.LoadAuxiliaries_INIT")
+        for unit_dynamic_model in unit_dynamic_models:
+            unit_dynamic_model.init_connects.change_var_name("P0Pu", "P0PuVar")
+            unit_dynamic_model.init_connects.change_var_name("Q0Pu", "Q0PuVar")
+        unit_dynamic_models = modelica_model.get_unit_dynamic_models(lambda unit_dynamic_model: \
+          unit_dynamic_model.get_init_name().replace("Dynawo.Electrical.Machines.OmegaRef.", "").replace("_INIT", "") in init_models_OmegaRef or \
+          unit_dynamic_model.get_init_name().replace("Dynawo.Electrical.Machines.SignalN.", "").replace("_INIT", "") in init_models_SignalN or \
+          unit_dynamic_model.get_init_name() == "Dynawo.Electrical.Machines.Simplified.GeneratorSimplified_INIT")
+        for unit_dynamic_model in unit_dynamic_models:
+            unit_dynamic_model.init_connects.change_var_name("U0Pu", "U0PuVar")
