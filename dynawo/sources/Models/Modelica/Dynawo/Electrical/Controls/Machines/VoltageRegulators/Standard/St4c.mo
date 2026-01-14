@@ -141,13 +141,13 @@ equation
   connect(potentialCircuit.vE, switch.u1) annotation(
     Line(points = {{-298, -140}, {-280, -140}, {-280, -172}, {-262, -172}}, color = {0, 0, 127}));
   connect(booleanConstant.y, switch.u2) annotation(
-    Line(points = {{-298, -180}, {-262, -180}}, color = {255, 0, 255}));
+    Line(points = {{-299, -180}, {-263, -180}}, color = {255, 0, 255}));
   connect(const1.y, switch.u3) annotation(
-    Line(points = {{-298, -220}, {-280, -220}, {-280, -188}, {-262, -188}}, color = {0, 0, 127}));
+    Line(points = {{-299, -220}, {-280, -220}, {-280, -188}, {-263, -188}}, color = {0, 0, 127}));
   connect(switch.y, division.u2) annotation(
-    Line(points = {{-238, -180}, {80, -180}, {80, -126}, {98, -126}}, color = {0, 0, 127}));
+    Line(points = {{-239, -180}, {80, -180}, {80, -126}, {98, -126}}, color = {0, 0, 127}));
   connect(switch.y, product1.u2) annotation(
-    Line(points = {{-238, -180}, {180, -180}, {180, -146}, {198, -146}}, color = {0, 0, 127}));
+    Line(points = {{-239, -180}, {180, -180}, {180, -146}, {198, -146}}, color = {0, 0, 127}));
   connect(add.y, min1.u[1]) annotation(
     Line(points = {{-158, 80}, {-120, 80}}, color = {0, 0, 127}));
   connect(min1.y, limPI1.u) annotation(

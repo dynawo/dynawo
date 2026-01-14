@@ -1,6 +1,6 @@
 EventConnectedStatus
 EventSetPointDoubleReal
-GeneratorFictitious
+GeneratorAlphaBeta
 GeneratorPQ
 GeneratorPV
 GeneratorPVDiagramPQ

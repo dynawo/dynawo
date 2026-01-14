@@ -7,7 +7,7 @@ EventQuadripoleDisconnection
 EventSetPointBoolean
 EventSetPointDoubleReal
 EventSetPointReal
-GeneratorFictitious
+GeneratorAlphaBeta
 GeneratorPQ
 GeneratorPV
 GeneratorPVDiagramPQ

@@ -90,7 +90,7 @@ jobs:
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         run: |
           export DYNAWO_HOME=$(pwd)
-          util/envDynawo.sh build-doxygen-doc
+          util/envDynawo.sh build-doxygen-doc || { cat install/gcc8/master/Debug/shared/dynawo/doxygen/warnings_filtered.txt && exit 1; }
 
       - name: Deploy to GitHub Pages
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'

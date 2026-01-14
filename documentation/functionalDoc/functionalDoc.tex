@@ -485,7 +485,7 @@ The most detailed model (GeneratorSynchronous) can either represent a three-wind
 \begin{itemize}
 \item GeneratorPQ in which the P output is modulated according to frequency and the Q output is constant equal to a fixed value.
 \item GeneratorPV that modulates the P output according to frequency and the Q outputs to keep $U + \lambda * Q$ as close as possible to a set point.
-\item GeneratorFictitious that acts as a voltage-dependent generator. P and Q vary around their initial values depending on the voltage value.
+\item GeneratorAlphaBeta that acts as a voltage-dependent generator. P and Q vary around their initial values depending on the voltage value.
 \end{itemize}
 \medskip
 
@@ -538,7 +538,7 @@ The different preassembled models delivered with \Dynawo are:
 \begin{itemize}
 \item CurrentLimitAutomaton corresponding to the current limit automaton model
 \item Different event models
-\item GeneratorFictitious, GeneratorPV, GeneratorPQ and various three-winding and four-winding generator preassembled models corresponding to the different generator models that can be connected to an OmegaRef explicit frequency model
+\item GeneratorAlphaBeta, GeneratorPV, GeneratorPQ and various three-winding and four-winding generator preassembled models corresponding to the different generator models that can be connected to an OmegaRef explicit frequency model
 \item Several GeneratorPV and GeneratorPQ are generator preassembled models that can be connected to a SignalN implicit frequency model.
 \item GenericAutomaton that enables to call a C function every few s (corresponding to the GenericAutomaton model)
 \item Three grid forming converter models featuring different types of control: GridFormingConverterMatchingControl, GridFormingConverterDroopControl and GridFormingConverterDispatchableVirtualOscillatorControl

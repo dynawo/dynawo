@@ -62,6 +62,9 @@ class TraceStream {
    */
   TraceStream();
 
+  /// @brief Destructor
+  ~TraceStream() = default;
+
   /**
    * @brief Constructor
    *

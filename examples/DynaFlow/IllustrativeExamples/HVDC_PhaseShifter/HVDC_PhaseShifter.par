@@ -8,7 +8,7 @@
     file, you can obtain one at http://mozilla.org/MPL/2.0/.
     SPDX-License-Identifier: MPL-2.0
 
-    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
     simulation tool for power systems.
 -->
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
@@ -70,7 +70,6 @@
     <par type="DOUBLE" name="hvdc_PMaxPu" value="10000"/>
     <par type="BOOL" name="hvdc_modeU10" value="true"/>
     <par type="BOOL" name="hvdc_modeU20" value="true"/>
-    <par type="DOUBLE" name="hvdc_U1Ref0Pu" value="1"/>
     <par type="DOUBLE" name="hvdc_U2Ref0Pu" value="1"/>
     <par type="DOUBLE" name="hvdc_Q1Ref0Pu" value="1.3276"/>
     <par type="DOUBLE" name="hvdc_Q2Ref0Pu" value="0.144"/>
