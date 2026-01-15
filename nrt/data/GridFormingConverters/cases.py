@@ -27,3 +27,13 @@ case_description = "Grid Forming Converters - Three nodes system"
 job_file = os.path.join(os.path.dirname(__file__), "GridFormingConverters.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+###################################################################
+#           GridForming - DYNGFMVSM - PFilterRef Step             #
+###################################################################
+
+case_name = "SMIB - Step PFilterRef"
+case_description = "SMIB test case with a step on the GFM reference power"
+job_file = os.path.join(os.path.dirname(__file__), "SMIB", "DynGFMVSM", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 10, standardReturnCodeType, standardReturnCode))

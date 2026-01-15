@@ -10,9 +10,12 @@
 # of simulation tools for power systems.
 
 add_subdirectory(BaseControls B)
+add_subdirectory(Converters C)
+add_subdirectory(Plants P)
 add_subdirectory(Protections P)
 
 set(MODEL_FILES
+  # PEIR control models
   package.mo
   package.order
   )
