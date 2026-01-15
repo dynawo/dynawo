@@ -10,10 +10,16 @@
 # of simulation tools for power systems.
 
 add_subdirectory(DER D)
+add_subdirectory(Auxiliaries A)
+add_subdirectory(CurrentLoops C)
+add_subdirectory(GFM GFM)
+add_subdirectory(Plant P)
 
 set(MODEL_FILES
+  # Converter control elements models
   package.mo
   package.order
+  VirtualImpedance2.mo
   )
 
 #
