@@ -25,6 +25,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   DistanceProtectionLineFourZonesWithBlinder.xml
   DistanceProtectionLineTwoZones.xml
   DistanceProtectionLineTwoZonesWithBlinder.xml
+  DynGridFormingVirtualSynchronousMachine.xml
   DoubleStep.xml
   ElectronicLoad.xml
   EventConnectedStatus.xml
