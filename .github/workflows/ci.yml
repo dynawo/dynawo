@@ -211,7 +211,7 @@ jobs:
           cmake --build b --target install || exit /b 1
           cmake --build b --target models-cpp || exit /b 1
           cmake --build b --target BooleanTable
-          type "b/M/M/P/BooleanTable.log"
+          type "b\M\M\P\BooleanTable.log"
 
       - name: Dynawo runtime
         shell: cmd
