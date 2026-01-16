@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: Member List</title>
+<title>Dynawo: parameters::Exporter Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('df/db6/a02455.html','../../');});
+$(document).ready(function(){initNavTree('da/d23/a02452.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,15 +94,157 @@ $(document).ready(function(){initNavTree('df/db6/a02455.html','../../');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="../../dc/d4e/a02449.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::mapcompabs Member List</div>  </div>
+<div class="title">parameters::Exporter Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../df/db6/a02455.html">DYN::mapcompabs</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../df/db6/a02455.html#a5b94b9095aea081dc45c87b83c639857">operator()</a>(const std::pair&lt; double, size_t &gt; &amp;p1, const std::pair&lt; double, size_t &gt; &amp;p2) const</td><td class="entry"><a class="el" href="../../df/db6/a02455.html">DYN::mapcompabs</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-</table></div><!-- contents -->
+<p><a class="el" href="../../da/d23/a02452.html" title="Exporter interface class. ">Exporter</a> interface class.  
+ <a href="../../da/d23/a02452.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../d1/d98/a00407_source.html">PARExporter.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for parameters::Exporter:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="../../da/d23/a02452.png" usemap="#parameters::Exporter_map" alt=""/>
+  <map id="parameters::Exporter_map" name="parameters::Exporter_map">
+<area href="../../d4/dad/a02500.html" title="XML exporter interface class. " alt="parameters::XmlExporter" shape="rect" coords="0,56,150,80"/>
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a4be4567a81af482517744fd4628e54f6"><td class="memItemLeft" align="right" valign="top"><a id="a4be4567a81af482517744fd4628e54f6"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d23/a02452.html#a4be4567a81af482517744fd4628e54f6">~Exporter</a> ()=default</td></tr>
+<tr class="memdesc:a4be4567a81af482517744fd4628e54f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:a4be4567a81af482517744fd4628e54f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdcf19910eadee8d3a529d88b1ac7e93"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d23/a02452.html#afdcf19910eadee8d3a529d88b1ac7e93">exportToFile</a> (const std::shared_ptr&lt; <a class="el" href="../../d2/d35/a02480.html">ParametersSetCollection</a> &gt; &amp;collection, const std::string &amp;filePath, const std::string &amp;encoding) const =0</td></tr>
+<tr class="memdesc:afdcf19910eadee8d3a529d88b1ac7e93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export method for this exporter.  <a href="#afdcf19910eadee8d3a529d88b1ac7e93">More...</a><br /></td></tr>
+<tr class="separator:afdcf19910eadee8d3a529d88b1ac7e93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae95cf8e5b7bb64ca8f4fb65697329fb5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d23/a02452.html#ae95cf8e5b7bb64ca8f4fb65697329fb5">exportToStream</a> (const std::shared_ptr&lt; <a class="el" href="../../d2/d35/a02480.html">ParametersSetCollection</a> &gt; &amp;collection, std::ostream &amp;stream, const std::string &amp;encoding) const =0</td></tr>
+<tr class="memdesc:ae95cf8e5b7bb64ca8f4fb65697329fb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export method for this exporter.  <a href="#ae95cf8e5b7bb64ca8f4fb65697329fb5">More...</a><br /></td></tr>
+<tr class="separator:ae95cf8e5b7bb64ca8f4fb65697329fb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="../../da/d23/a02452.html" title="Exporter interface class. ">Exporter</a> interface class. </p>
+<p><a class="el" href="../../da/d23/a02452.html" title="Exporter interface class. ">Exporter</a> class for parameters collections. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="afdcf19910eadee8d3a529d88b1ac7e93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdcf19910eadee8d3a529d88b1ac7e93">&#9670;&nbsp;</a></span>exportToFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void parameters::Exporter::exportToFile </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../d2/d35/a02480.html">ParametersSetCollection</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>collection</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>filePath</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>encoding</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Export method for this exporter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">collection</td><td>Collection to export </td></tr>
+    <tr><td class="paramname">filePath</td><td>File to export to </td></tr>
+    <tr><td class="paramname">encoding</td><td>the encoding for xml (parameter is ignored if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d4/dad/a02500.html#aad3d33a63866ebc87e0fd704a9b15446">parameters::XmlExporter</a>.</p>
+
+</div>
+</div>
+<a id="ae95cf8e5b7bb64ca8f4fb65697329fb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae95cf8e5b7bb64ca8f4fb65697329fb5">&#9670;&nbsp;</a></span>exportToStream()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void parameters::Exporter::exportToStream </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../d2/d35/a02480.html">ParametersSetCollection</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>collection</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>encoding</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Export method for this exporter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">collection</td><td>Collection to export </td></tr>
+    <tr><td class="paramname">stream</td><td>stream to export to </td></tr>
+    <tr><td class="paramname">encoding</td><td>the encoding for xml (parameter is ignored if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d4/dad/a02500.html#abea14d7607045a66908c7cdecc71f344">parameters::XmlExporter</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li><a class="el" href="../../d1/d98/a00407_source.html">PARExporter.h</a></li>
+</ul>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -118,7 +260,8 @@ $(document).ready(function(){initNavTree('df/db6/a02455.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Nov 12 2025 18:05:57 for Dynawo by
+    <li class="navelem"><b>parameters</b></li><li class="navelem"><a class="el" href="../../da/d23/a02452.html">Exporter</a></li>
+    <li class="footer">Generated on Fri Jan 16 2026 12:04:17 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

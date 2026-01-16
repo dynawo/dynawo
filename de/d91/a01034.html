@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNSolverImpl.h File Reference</title>
+<title>Dynawo: DYNModelUpdatableInteger.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -97,35 +97,30 @@ $(document).ready(function(){initNavTree('de/d91/a01034.html','../../');});
   <div class="summary">
 <a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">DYNSolverImpl.h File Reference</div>  </div>
+<div class="title">DYNModelUpdatableInteger.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Dynawo solvers : header file.  
+<p>Continuous updatable parameter header.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
-<code>#include &lt;map&gt;</code><br />
-<code>#include &lt;boost/core/noncopyable.hpp&gt;</code><br />
-<code>#include &lt;sundials/sundials_nvector.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../db/d23/a01025_source.html">DYNSolver.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../dc/d8e/a00473_source.html">DYNEnumUtils.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../db/daf/a01019_source.html">DYNParameterSolver.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d2/d41/a01037_source.html">DYNSolverImpl.hpp</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d7/d46/a00890_source.html">DYNModelCPP.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../da/dd6/a00896_source.html">DYNModelUpdatable.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../dd/dc0/a00611_source.html">DYNModelConstants.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/d0f/a00644_source.html">DYNSubModelFactory.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../dc/d2f/a00425_source.html">PARParametersSet.h</a>&quot;</code><br />
 </div>
 <p><a href="../../de/d91/a01034_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d38/a03259.html">DYN::stat_t</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure for storing solver statistics.  <a href="../../d6/d38/a03259.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d06/a03368.html">DYN::ModelUpdatableIntegerFactory</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d0/db9/a03372.html">ModelUpdatableInteger</a> factory.  <a href="../../d0/d06/a03368.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dc1/a03263.html">DYN::Solver::Impl</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../db/d5f/a03239.html" title="Solver interface class. ">Solver</a> implemented class.  <a href="../../dc/dc1/a03263.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/db9/a03372.html">DYN::ModelUpdatableInteger</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Dynawo solvers : header file. </p>
+<div class="textblock"><p>Continuous updatable parameter header. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -142,8 +137,8 @@ Classes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_a769528b188158bb44ac136b67c42939.html">Solvers</a></li><li class="navelem"><a class="el" href="../../dir_3c3ef2360bd5ecb4837d8def2fdc339b.html">Common</a></li><li class="navelem"><a class="el" href="../../de/d91/a01034.html">DYNSolverImpl.h</a></li>
-    <li class="footer">Generated on Wed Nov 12 2025 18:05:56 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_a4d4f000bd99afbf77ec024c15aebee1.html">Models</a></li><li class="navelem"><a class="el" href="../../dir_1d85a110c1104c8803c230870bb3238d.html">CPP</a></li><li class="navelem"><a class="el" href="../../dir_459b526646e8fb2383e63c28166ff5b7.html">Updatables</a></li><li class="navelem"><a class="el" href="../../dir_83aca741739b0724e88b6b4bb039f72f.html">ModelUpdatableInteger</a></li><li class="navelem"><a class="el" href="../../de/d91/a01034.html">DYNModelUpdatableInteger.h</a></li>
+    <li class="footer">Generated on Fri Jan 16 2026 12:04:15 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

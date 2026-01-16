@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: Member List</title>
+<title>Dynawo: timeline::CsvExporter Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('da/d96/a02547.html','../../');});
+$(document).ready(function(){initNavTree('d1/df6/a02544.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,20 +94,166 @@ $(document).ready(function(){initNavTree('da/d96/a02547.html','../../');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="../../de/dd4/a02541.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::Timers Member List</div>  </div>
+<div class="title">timeline::CsvExporter Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../da/d96/a02547.html">DYN::Timers</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../da/d96/a02547.html#ade75b49e9ed3bafb0a8accdded941026">add</a>(const std::string &amp;name, double time)</td><td class="entry"><a class="el" href="../../da/d96/a02547.html">DYN::Timers</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../da/d96/a02547.html#ab581f841f3714b6a444f00a77d1478f5">add_</a>(const std::string &amp;name, double time)</td><td class="entry"><a class="el" href="../../da/d96/a02547.html">DYN::Timers</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../da/d96/a02547.html#abb72441f57c5757298609fed6bbe00f5">instance</a>()</td><td class="entry"><a class="el" href="../../da/d96/a02547.html">DYN::Timers</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../da/d96/a02547.html#ae33becbdc1202097f34fc59c4b52708c">nbAppels_</a></td><td class="entry"><a class="el" href="../../da/d96/a02547.html">DYN::Timers</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../da/d96/a02547.html#a762a6851042a228126e0efaa6b87f73f">timers_</a></td><td class="entry"><a class="el" href="../../da/d96/a02547.html">DYN::Timers</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../da/d96/a02547.html#ab3672d402793caaa2dfac58a15cef244">~Timers</a>()</td><td class="entry"><a class="el" href="../../da/d96/a02547.html">DYN::Timers</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-</table></div><!-- contents -->
+<p>CSV exporter interface class.  
+ <a href="../../d1/df6/a02544.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../d1/d0b/a00452_source.html">TLCsvExporter.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for timeline::CsvExporter:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="../../d1/df6/a02544.png" usemap="#timeline::CsvExporter_map" alt=""/>
+  <map id="timeline::CsvExporter_map" name="timeline::CsvExporter_map">
+<area href="../../dc/d32/a02556.html" title="Exporter interface class. " alt="timeline::Exporter" shape="rect" coords="0,0,130,24"/>
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aeabfd36ae852548834fd8fa8ed797120"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df6/a02544.html#aeabfd36ae852548834fd8fa8ed797120">exportToFile</a> (const boost::shared_ptr&lt; <a class="el" href="../../db/d44/a02564.html">Timeline</a> &gt; &amp;timeline, const std::string &amp;filePath) const override</td></tr>
+<tr class="memdesc:aeabfd36ae852548834fd8fa8ed797120"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export method in csv format.  <a href="#aeabfd36ae852548834fd8fa8ed797120">More...</a><br /></td></tr>
+<tr class="separator:aeabfd36ae852548834fd8fa8ed797120"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e2c4cd21d1cec6a25749cbe8747064c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df6/a02544.html#a4e2c4cd21d1cec6a25749cbe8747064c">exportToStream</a> (const boost::shared_ptr&lt; <a class="el" href="../../db/d44/a02564.html">Timeline</a> &gt; &amp;timeline, std::ostream &amp;stream) const override</td></tr>
+<tr class="memdesc:a4e2c4cd21d1cec6a25749cbe8747064c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export method in csv format.  <a href="#a4e2c4cd21d1cec6a25749cbe8747064c">More...</a><br /></td></tr>
+<tr class="separator:a4e2c4cd21d1cec6a25749cbe8747064c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_a02556"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a02556')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../dc/d32/a02556.html">timeline::Exporter</a></td></tr>
+<tr class="memitem:a5d63ea81ae82ca92bce6bdcdcae4cfbc inherit pub_methods_a02556"><td class="memItemLeft" align="right" valign="top"><a id="a5d63ea81ae82ca92bce6bdcdcae4cfbc"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d32/a02556.html#a5d63ea81ae82ca92bce6bdcdcae4cfbc">Exporter</a> ()</td></tr>
+<tr class="memdesc:a5d63ea81ae82ca92bce6bdcdcae4cfbc inherit pub_methods_a02556"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor. <br /></td></tr>
+<tr class="separator:a5d63ea81ae82ca92bce6bdcdcae4cfbc inherit pub_methods_a02556"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbb92c28b5baf0c79c9f77b98406b309 inherit pub_methods_a02556"><td class="memItemLeft" align="right" valign="top"><a id="acbb92c28b5baf0c79c9f77b98406b309"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d32/a02556.html#acbb92c28b5baf0c79c9f77b98406b309">~Exporter</a> ()=default</td></tr>
+<tr class="memdesc:acbb92c28b5baf0c79c9f77b98406b309 inherit pub_methods_a02556"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:acbb92c28b5baf0c79c9f77b98406b309 inherit pub_methods_a02556"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3da56f52f72694fbe3860299e1f8aa56 inherit pub_methods_a02556"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d32/a02556.html#a3da56f52f72694fbe3860299e1f8aa56">setExportWithTime</a> (const bool exportWithTime)</td></tr>
+<tr class="memdesc:a3da56f52f72694fbe3860299e1f8aa56 inherit pub_methods_a02556"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether to export time setter  <a href="../../dc/d32/a02556.html#a3da56f52f72694fbe3860299e1f8aa56">More...</a><br /></td></tr>
+<tr class="separator:a3da56f52f72694fbe3860299e1f8aa56 inherit pub_methods_a02556"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7f1b498fc7cd3dea9c084ab3da448ae inherit pub_methods_a02556"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d32/a02556.html#ad7f1b498fc7cd3dea9c084ab3da448ae">setMaxPriority</a> (const boost::optional&lt; int &gt; maxPriority)</td></tr>
+<tr class="memdesc:ad7f1b498fc7cd3dea9c084ab3da448ae inherit pub_methods_a02556"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum priority setter  <a href="../../dc/d32/a02556.html#ad7f1b498fc7cd3dea9c084ab3da448ae">More...</a><br /></td></tr>
+<tr class="separator:ad7f1b498fc7cd3dea9c084ab3da448ae inherit pub_methods_a02556"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_attribs_a02556"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_a02556')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../dc/d32/a02556.html">timeline::Exporter</a></td></tr>
+<tr class="memitem:a3cea0999ec63144bb692b4fed5951c23 inherit pro_attribs_a02556"><td class="memItemLeft" align="right" valign="top"><a id="a3cea0999ec63144bb692b4fed5951c23"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d32/a02556.html#a3cea0999ec63144bb692b4fed5951c23">exportWithTime_</a></td></tr>
+<tr class="memdesc:a3cea0999ec63144bb692b4fed5951c23 inherit pro_attribs_a02556"><td class="mdescLeft">&#160;</td><td class="mdescRight">boolean indicating whether to export time when exporting timeline <br /></td></tr>
+<tr class="separator:a3cea0999ec63144bb692b4fed5951c23 inherit pro_attribs_a02556"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add563d0da7b15436bd2fe60810e99c4f inherit pro_attribs_a02556"><td class="memItemLeft" align="right" valign="top"><a id="add563d0da7b15436bd2fe60810e99c4f"></a>
+boost::optional&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d32/a02556.html#add563d0da7b15436bd2fe60810e99c4f">maxPriority_</a></td></tr>
+<tr class="memdesc:add563d0da7b15436bd2fe60810e99c4f inherit pro_attribs_a02556"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum priority allowed when exporting timeline <br /></td></tr>
+<tr class="separator:add563d0da7b15436bd2fe60810e99c4f inherit pro_attribs_a02556"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>CSV exporter interface class. </p>
+<p>Csv export class for timeline </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="aeabfd36ae852548834fd8fa8ed797120"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeabfd36ae852548834fd8fa8ed797120">&#9670;&nbsp;</a></span>exportToFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void timeline::CsvExporter::exportToFile </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../db/d44/a02564.html">Timeline</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>timeline</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>filePath</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Export method in csv format. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">timeline</td><td><a class="el" href="../../db/d44/a02564.html" title="Timeline interface class. ">Timeline</a> to export </td></tr>
+    <tr><td class="paramname">filePath</td><td>File to export csv formatted timeline to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="../../dc/d32/a02556.html#a1d9986c16a88a1541a012dfe74c88955">timeline::Exporter</a>.</p>
+
+</div>
+</div>
+<a id="a4e2c4cd21d1cec6a25749cbe8747064c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e2c4cd21d1cec6a25749cbe8747064c">&#9670;&nbsp;</a></span>exportToStream()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void timeline::CsvExporter::exportToStream </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../db/d44/a02564.html">Timeline</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>timeline</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Export method in csv format. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">timeline</td><td><a class="el" href="../../db/d44/a02564.html" title="Timeline interface class. ">Timeline</a> to export </td></tr>
+    <tr><td class="paramname">stream</td><td>stream to export csv formatted timeline to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="../../dc/d32/a02556.html#ad89cf490dc7a018d06d669d2acb9be4a">timeline::Exporter</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li><a class="el" href="../../d1/d0b/a00452_source.html">TLCsvExporter.h</a></li>
+</ul>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -123,7 +269,8 @@ $(document).ready(function(){initNavTree('da/d96/a02547.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Nov 12 2025 18:05:57 for Dynawo by
+    <li class="navelem"><b>timeline</b></li><li class="navelem"><a class="el" href="../../d1/df6/a02544.html">CsvExporter</a></li>
+    <li class="footer">Generated on Fri Jan 16 2026 12:04:17 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

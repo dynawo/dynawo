@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: Member List</title>
+<title>Dynawo: job::StreamEntry Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('dd/d29/a02283.html','../../');});
+$(document).ready(function(){initNavTree('da/d68/a02280.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,20 +94,201 @@ $(document).ready(function(){initNavTree('dd/d29/a02283.html','../../');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="../../d0/dc1/a02277.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">job::XmlHandler Member List</div>  </div>
+<div class="title">job::StreamEntry Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../dd/d29/a02283.html">job::XmlHandler</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../dd/d29/a02283.html#a035c1ed79cddd54d880ae3627787d374">addJob</a>()</td><td class="entry"><a class="el" href="../../dd/d29/a02283.html">job::XmlHandler</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../dd/d29/a02283.html#a3e6c019a1b370817f0e7d862ded5654d">getJobsCollection</a>() const</td><td class="entry"><a class="el" href="../../dd/d29/a02283.html">job::XmlHandler</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../dd/d29/a02283.html#a94736e22a657df41bd7b455833fd7d03">jobHandler_</a></td><td class="entry"><a class="el" href="../../dd/d29/a02283.html">job::XmlHandler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../dd/d29/a02283.html#a16d7d03455abf96be7d911effcb9979a">jobsCollection_</a></td><td class="entry"><a class="el" href="../../dd/d29/a02283.html">job::XmlHandler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../dd/d29/a02283.html#aeed04b426f06fa19811604c7202e96e3">XmlHandler</a>()</td><td class="entry"><a class="el" href="../../dd/d29/a02283.html">job::XmlHandler</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../dd/d29/a02283.html#a6a88f59d96723f320941c6540d846fae">~XmlHandler</a>() override</td><td class="entry"><a class="el" href="../../dd/d29/a02283.html">job::XmlHandler</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Output stream entry container class.  
+ <a href="../../da/d68/a02280.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../d6/d80/a00371_source.html">JOBStreamEntry.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a56079c919d887921f838f3f351b89e9d"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d68/a02280.html#a56079c919d887921f838f3f351b89e9d">getData</a> () const</td></tr>
+<tr class="memdesc:a56079c919d887921f838f3f351b89e9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data attribute getter.  <a href="#a56079c919d887921f838f3f351b89e9d">More...</a><br /></td></tr>
+<tr class="separator:a56079c919d887921f838f3f351b89e9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69fa4b4cf71e3ad6ccd8a23208306483"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d68/a02280.html#a69fa4b4cf71e3ad6ccd8a23208306483">getChannel</a> () const</td></tr>
+<tr class="memdesc:a69fa4b4cf71e3ad6ccd8a23208306483"><td class="mdescLeft">&#160;</td><td class="mdescRight">Channel attribute getter.  <a href="#a69fa4b4cf71e3ad6ccd8a23208306483">More...</a><br /></td></tr>
+<tr class="separator:a69fa4b4cf71e3ad6ccd8a23208306483"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecd6f956a51be81e89240d6150449dca"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d68/a02280.html#aecd6f956a51be81e89240d6150449dca">getFormat</a> () const</td></tr>
+<tr class="memdesc:aecd6f956a51be81e89240d6150449dca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Format attribute getter.  <a href="#aecd6f956a51be81e89240d6150449dca">More...</a><br /></td></tr>
+<tr class="separator:aecd6f956a51be81e89240d6150449dca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac404486b4fcd73e506216cf4746846d1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d68/a02280.html#ac404486b4fcd73e506216cf4746846d1">setData</a> (const std::string &amp;data)</td></tr>
+<tr class="memdesc:ac404486b4fcd73e506216cf4746846d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data attribute setter.  <a href="#ac404486b4fcd73e506216cf4746846d1">More...</a><br /></td></tr>
+<tr class="separator:ac404486b4fcd73e506216cf4746846d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73a8285f84c219f017ee464392d762db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d68/a02280.html#a73a8285f84c219f017ee464392d762db">setChannel</a> (const std::string &amp;channel)</td></tr>
+<tr class="memdesc:a73a8285f84c219f017ee464392d762db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Channel attribute setter.  <a href="#a73a8285f84c219f017ee464392d762db">More...</a><br /></td></tr>
+<tr class="separator:a73a8285f84c219f017ee464392d762db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44a07ba8500c0bbee5d9d78dbe46f820"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d68/a02280.html#a44a07ba8500c0bbee5d9d78dbe46f820">setFormat</a> (const std::string &amp;format)</td></tr>
+<tr class="memdesc:a44a07ba8500c0bbee5d9d78dbe46f820"><td class="mdescLeft">&#160;</td><td class="mdescRight">Format attribute setter.  <a href="#a44a07ba8500c0bbee5d9d78dbe46f820">More...</a><br /></td></tr>
+<tr class="separator:a44a07ba8500c0bbee5d9d78dbe46f820"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a9ef66c3243d78b75a8315d6bc77102f9"><td class="memItemLeft" align="right" valign="top"><a id="a9ef66c3243d78b75a8315d6bc77102f9"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d68/a02280.html#a9ef66c3243d78b75a8315d6bc77102f9">data_</a></td></tr>
+<tr class="memdesc:a9ef66c3243d78b75a8315d6bc77102f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data identifier (required) <br /></td></tr>
+<tr class="separator:a9ef66c3243d78b75a8315d6bc77102f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acea101b245a183d7c0e4de426192b470"><td class="memItemLeft" align="right" valign="top"><a id="acea101b245a183d7c0e4de426192b470"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d68/a02280.html#acea101b245a183d7c0e4de426192b470">channel_</a></td></tr>
+<tr class="memdesc:acea101b245a183d7c0e4de426192b470"><td class="mdescLeft">&#160;</td><td class="mdescRight">Channel name (required) <br /></td></tr>
+<tr class="separator:acea101b245a183d7c0e4de426192b470"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5527b39a7dd633571a86d4c8ed064e57"><td class="memItemLeft" align="right" valign="top"><a id="a5527b39a7dd633571a86d4c8ed064e57"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d68/a02280.html#a5527b39a7dd633571a86d4c8ed064e57">format_</a></td></tr>
+<tr class="memdesc:a5527b39a7dd633571a86d4c8ed064e57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output stream format (required) <br /></td></tr>
+<tr class="separator:a5527b39a7dd633571a86d4c8ed064e57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Output stream entry container class. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a69fa4b4cf71e3ad6ccd8a23208306483"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69fa4b4cf71e3ad6ccd8a23208306483">&#9670;&nbsp;</a></span>getChannel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string&amp; job::StreamEntry::getChannel </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Channel attribute getter. </p>
+<dl class="section return"><dt>Returns</dt><dd>Channel name for the output stream </dd></dl>
+
+</div>
+</div>
+<a id="a56079c919d887921f838f3f351b89e9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56079c919d887921f838f3f351b89e9d">&#9670;&nbsp;</a></span>getData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string&amp; job::StreamEntry::getData </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Data attribute getter. </p>
+<dl class="section return"><dt>Returns</dt><dd>Data identifier for the output stream </dd></dl>
+
+</div>
+</div>
+<a id="aecd6f956a51be81e89240d6150449dca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecd6f956a51be81e89240d6150449dca">&#9670;&nbsp;</a></span>getFormat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string&amp; job::StreamEntry::getFormat </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Format attribute getter. </p>
+<dl class="section return"><dt>Returns</dt><dd>Format of the output stream (eg. JSON, CSV, BYTES, XML, TXT) </dd></dl>
+
+</div>
+</div>
+<a id="a73a8285f84c219f017ee464392d762db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73a8285f84c219f017ee464392d762db">&#9670;&nbsp;</a></span>setChannel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void job::StreamEntry::setChannel </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>channel</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Channel attribute setter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">channel</td><td>Channel name for the output stream </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac404486b4fcd73e506216cf4746846d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac404486b4fcd73e506216cf4746846d1">&#9670;&nbsp;</a></span>setData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void job::StreamEntry::setData </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Data attribute setter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>Data identifier for the output stream </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a44a07ba8500c0bbee5d9d78dbe46f820"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44a07ba8500c0bbee5d9d78dbe46f820">&#9670;&nbsp;</a></span>setFormat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void job::StreamEntry::setFormat </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>format</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Format attribute setter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">format</td><td>Format of the output stream (eg. JSON, CSV, BYTES, XML, TXT) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li><a class="el" href="../../d6/d80/a00371_source.html">JOBStreamEntry.h</a></li>
+</ul>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -123,7 +304,8 @@ $(document).ready(function(){initNavTree('dd/d29/a02283.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Nov 12 2025 18:05:58 for Dynawo by
+    <li class="navelem"><b>job</b></li><li class="navelem"><a class="el" href="../../da/d68/a02280.html">StreamEntry</a></li>
+    <li class="footer">Generated on Fri Jan 16 2026 12:04:17 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNSolverTRAP.h File Reference</title>
+<title>Dynawo: DYNRTInputCommon.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,36 +95,108 @@ $(document).ready(function(){initNavTree('da/d17/a01046.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">DYNSolverTRAP.h File Reference</div>  </div>
+<div class="title">DYNRTInputCommon.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Solver based on trapezoidal method integration method using KINSOL to solve each step.  
+<p>Input message header.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;boost/shared_ptr.hpp&gt;</code><br />
-<code>#include &lt;sundials/sundials_nvector.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../d6/dcf/a01031_source.html">DYNSolverFactory.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../de/d91/a01034_source.html">DYNSolverImpl.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../dc/d8e/a00473_source.html">DYNEnumUtils.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../db/d14/a01040_source.html">DYNSolverCommonFixedTimeStep.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;string&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 </div>
 <p><a href="../../da/d17/a01046_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/de5/a03279.html">DYN::SolverTRAPFactory</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d2/dd0/a03283.html" title="class Solver TRAP : trapezoidal solver ">SolverTRAP</a> factory class.  <a href="../../d0/de5/a03279.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d4f/a03376.html">DYN::InputMessage</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract base class for input messages.  <a href="../../d7/d4f/a03376.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dd0/a03283.html">DYN::SolverTRAP</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">class <a class="el" href="../../db/d5f/a03239.html" title="Solver interface class. ">Solver</a> TRAP : trapezoidal solver  <a href="../../d2/dd0/a03283.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d57/a03380.html">DYN::ActionMessage</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../dc/dcb/a02648.html" title="Message are used to access to dictionnary log where log are described with the boost::format conventi...">Message</a> carrying an action payload.  <a href="../../d0/d57/a03380.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d22/a03384.html">DYN::StepTriggerMessage</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../dc/dcb/a02648.html" title="Message are used to access to dictionnary log where log are described with the boost::format conventi...">Message</a> used to trigger a simulation step.  <a href="../../d7/d22/a03384.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d8d/a03388.html">DYN::StopMessage</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../dc/dcb/a02648.html" title="Message are used to access to dictionnary log where log are described with the boost::format conventi...">Message</a> used to stop the simulation.  <a href="../../d6/d8d/a03388.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a92932c35a7382682ccddd420baa1906a"><td class="memItemLeft" align="right" valign="top"><a id="a92932c35a7382682ccddd420baa1906a"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d17/a01046.html#a92932c35a7382682ccddd420baa1906a">DYN::MessageFilter</a> { <b>DYN::MessageFilter::None</b> = 0, 
+<b>DYN::MessageFilter::Actions</b> = 1 &lt;&lt; 0, 
+<b>DYN::MessageFilter::TimeManagement</b> = 1 &lt;&lt; 1, 
+<b>DYN::MessageFilter::Trigger</b> = 1 &lt;&lt; 2
+ }</td></tr>
+<tr class="memdesc:a92932c35a7382682ccddd420baa1906a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines categories of messages that can be filtered. <br /></td></tr>
+<tr class="separator:a92932c35a7382682ccddd420baa1906a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96f7b35210d75995a7bff55a3ee4b0cd"><td class="memItemLeft" align="right" valign="top"><a id="a96f7b35210d75995a7bff55a3ee4b0cd"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d17/a01046.html#a96f7b35210d75995a7bff55a3ee4b0cd">DYN::MessageType</a> { <b>DYN::MessageType::Action</b>, 
+<b>DYN::MessageType::StepTrigger</b>, 
+<b>DYN::MessageType::Stop</b>
+ }</td></tr>
+<tr class="memdesc:a96f7b35210d75995a7bff55a3ee4b0cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the types of input messages. <br /></td></tr>
+<tr class="separator:a96f7b35210d75995a7bff55a3ee4b0cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a3d2bebcec6fc282cda9eb5b00237d66e"><td class="memItemLeft" align="right" valign="top">MessageFilter&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d17/a01046.html#a3d2bebcec6fc282cda9eb5b00237d66e">DYN::operator|</a> (MessageFilter a, MessageFilter b)</td></tr>
+<tr class="memdesc:a3d2bebcec6fc282cda9eb5b00237d66e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bitwise OR operator for combining message filters.  <a href="../../da/d17/a01046.html#a3d2bebcec6fc282cda9eb5b00237d66e">More...</a><br /></td></tr>
+<tr class="separator:a3d2bebcec6fc282cda9eb5b00237d66e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Solver based on trapezoidal method integration method using KINSOL to solve each step. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Input message header. </p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="file_a3d2bebcec6fc282cda9eb5b00237d66e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_a3d2bebcec6fc282cda9eb5b00237d66e">&#9670;&nbsp;</a></span>operator|()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">MessageFilter DYN::operator| </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../da/d17/a01046.html#a92932c35a7382682ccddd420baa1906a">MessageFilter</a>&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../da/d17/a01046.html#a92932c35a7382682ccddd420baa1906a">MessageFilter</a>&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Bitwise OR operator for combining message filters. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>First filter </td></tr>
+    <tr><td class="paramname">b</td><td>Second filter </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Combined filter </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -140,8 +212,8 @@ Classes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_a769528b188158bb44ac136b67c42939.html">Solvers</a></li><li class="navelem"><a class="el" href="../../dir_1024be19efd68fd87579d4f87baf6c4c.html">FixedTimeStep</a></li><li class="navelem"><a class="el" href="../../dir_50c1e04ecf59fd59d9cffc60fd5a5fc5.html">SolverTRAP</a></li><li class="navelem"><a class="el" href="../../da/d17/a01046.html">DYNSolverTRAP.h</a></li>
-    <li class="footer">Generated on Wed Nov 12 2025 18:05:56 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c46db7bd8c7067701c1d6b63dbd877bb.html">RT</a></li><li class="navelem"><a class="el" href="../../dir_833e443b4490d82614894b06975aa41e.html">Common</a></li><li class="navelem"><a class="el" href="../../da/d17/a01046.html">DYNRTInputCommon.h</a></li>
+    <li class="footer">Generated on Fri Jan 16 2026 12:04:15 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -1,0 +1,35 @@
+var a03000 =
+[
+    [ "VoltageLevelTopologyKind_t", "dd/d6f/a03000.html#aa640378559edc3ac305b0dcde5446d68", [
+      [ "BUS_BREAKER", "dd/d6f/a03000.html#aa640378559edc3ac305b0dcde5446d68a2b43692d4fca93a915685e2f6ece7504", null ],
+      [ "NODE_BREAKER", "dd/d6f/a03000.html#aa640378559edc3ac305b0dcde5446d68aec8c4e94576a386c8451c3fecbf59432", null ]
+    ] ],
+    [ "~VoltageLevelInterface", "dd/d6f/a03000.html#a86a28077a98b0a3f2b5523ccd94d2431", null ],
+    [ "addBus", "dd/d6f/a03000.html#a38183710725a19ed4a797efac8e2f7cd", null ],
+    [ "addDanglingLine", "dd/d6f/a03000.html#a9c9a20eabada9d104e7e6b2b1e1e820a", null ],
+    [ "addGenerator", "dd/d6f/a03000.html#a9be0231d8e30818de30a780cd3b1ae83", null ],
+    [ "addLccConverter", "dd/d6f/a03000.html#af6c7c3bc567e1f1a04295b9c0bb63f4e", null ],
+    [ "addLoad", "dd/d6f/a03000.html#aadc827d2794a4f40ec3bbf4a9ef91c5a", null ],
+    [ "addShuntCompensator", "dd/d6f/a03000.html#a0f1bd44c9c4ea09ff9c9d74a248b49c6", null ],
+    [ "addStaticVarCompensator", "dd/d6f/a03000.html#af91f0b371e8363930051c2c5a6298211", null ],
+    [ "addSwitch", "dd/d6f/a03000.html#a627ef6e65308bcbbc7b4da2909373c29", null ],
+    [ "addVscConverter", "dd/d6f/a03000.html#ab9d538eb9ed19c388e26dafbd269ec40", null ],
+    [ "connectNode", "dd/d6f/a03000.html#a2c80fb21478cf39ddc2ead2605d74214", null ],
+    [ "disconnectNode", "dd/d6f/a03000.html#a4927802c73560d1292ccb2ec4a0f1185", null ],
+    [ "exportSwitchesState", "dd/d6f/a03000.html#a60adf8e5ea13987d3bd97e0b7baa7f75", null ],
+    [ "getBuses", "dd/d6f/a03000.html#a765190ac1405ff86111f8c9fd870b917", null ],
+    [ "getDanglingLines", "dd/d6f/a03000.html#a5fde287e0f96a9c612f5e5e259bfcf36", null ],
+    [ "getGenerators", "dd/d6f/a03000.html#abf325f388e26fddb26cb1fb0701a4bae", null ],
+    [ "getID", "dd/d6f/a03000.html#a8fc71c6fe6b4a6809fca66c955a8002a", null ],
+    [ "getLccConverters", "dd/d6f/a03000.html#a8737edb5de8507d17a408ee3b4e7bde8", null ],
+    [ "getLoads", "dd/d6f/a03000.html#aed3021fd8ad9ecd6e951ab5a044b36cc", null ],
+    [ "getShuntCompensators", "dd/d6f/a03000.html#ab904cabb2b8ca381baca4524887eb966", null ],
+    [ "getStaticVarCompensators", "dd/d6f/a03000.html#a46bd5f0a3d35b3ad7d3c0bfab892d9b4", null ],
+    [ "getSwitches", "dd/d6f/a03000.html#a527fc7e5049d462004cfcf047f588ebc", null ],
+    [ "getVNom", "dd/d6f/a03000.html#a395a8c12510b0435386be76daf9e211f", null ],
+    [ "getVoltageLevelTopologyKind", "dd/d6f/a03000.html#ac9d26e18dbef5399a91dbfe0e04cd01f", null ],
+    [ "getVscConverters", "dd/d6f/a03000.html#a95aec8034894941471d1c858f87fcdec", null ],
+    [ "isNodeBreakerTopology", "dd/d6f/a03000.html#af40d1b2100c0c5195d4cf80aa0ce8cba", null ],
+    [ "isNodeConnected", "dd/d6f/a03000.html#ad17c6ed50acbd76a8a9a30cf15bad645", null ],
+    [ "mapConnections", "dd/d6f/a03000.html#a6e8fb203c27141f98f470c26a3f4afb4", null ]
+];

@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: Member List</title>
+<title>Dynawo: curves::CurvesCollection Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('d1/d6b/a01775.html','../../');});
+$(document).ready(function(){initNavTree('dd/d20/a01772.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,23 +94,169 @@ $(document).ready(function(){initNavTree('d1/d6b/a01775.html','../../');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="../../d7/d6d/a01769.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">dynamicdata::Connector Member List</div>  </div>
+<div class="title">curves::CurvesCollection Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../d1/d6b/a01775.html">dynamicdata::Connector</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../d1/d6b/a01775.html#a6def630fe5d30f3c080fd48cf31131b8">Connector</a>(const std::string &amp;model1, const std::string &amp;var1, const std::string &amp;model2, const std::string &amp;var2)</td><td class="entry"><a class="el" href="../../d1/d6b/a01775.html">dynamicdata::Connector</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d1/d6b/a01775.html#a1381c7b0b3fcf7f391b4dcc6f02a0ba9">firstModelId_</a></td><td class="entry"><a class="el" href="../../d1/d6b/a01775.html">dynamicdata::Connector</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d1/d6b/a01775.html#a5c3cdad461249e31e2ae630a5daa608b">firstVariableId_</a></td><td class="entry"><a class="el" href="../../d1/d6b/a01775.html">dynamicdata::Connector</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d1/d6b/a01775.html#af21c7d55ade7c5334337b853c65abcca">getFirstModelId</a>() const</td><td class="entry"><a class="el" href="../../d1/d6b/a01775.html">dynamicdata::Connector</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d1/d6b/a01775.html#ae3d5f16a0399972586d75ee93b806944">getFirstVariableId</a>() const</td><td class="entry"><a class="el" href="../../d1/d6b/a01775.html">dynamicdata::Connector</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d1/d6b/a01775.html#a18c276ef25fdfca43363a7b2c36bdd64">getSecondModelId</a>() const</td><td class="entry"><a class="el" href="../../d1/d6b/a01775.html">dynamicdata::Connector</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d1/d6b/a01775.html#a79919de452d0d3e280bcac0012f7333d">getSecondVariableId</a>() const</td><td class="entry"><a class="el" href="../../d1/d6b/a01775.html">dynamicdata::Connector</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d1/d6b/a01775.html#a6d7352d55cb26b0ddb1101e8530c22c2">secondModelId_</a></td><td class="entry"><a class="el" href="../../d1/d6b/a01775.html">dynamicdata::Connector</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d1/d6b/a01775.html#a67cc60db3e8402b064652ab6abbe5058">secondVariableId_</a></td><td class="entry"><a class="el" href="../../d1/d6b/a01775.html">dynamicdata::Connector</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-</table></div><!-- contents -->
+<p>Curves collection interface class.  
+ <a href="../../dd/d20/a01772.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../dd/d32/a00041_source.html">CRVCurvesCollection.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aaeb5b57e21a61c8f760e2df114c6594e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d20/a01772.html#aaeb5b57e21a61c8f760e2df114c6594e">CurvesCollection</a> (const std::string &amp;id)</td></tr>
+<tr class="memdesc:aaeb5b57e21a61c8f760e2df114c6594e"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructor  <a href="#aaeb5b57e21a61c8f760e2df114c6594e">More...</a><br /></td></tr>
+<tr class="separator:aaeb5b57e21a61c8f760e2df114c6594e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64ad30aae632079149f9059c4a4af7ce"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d20/a01772.html#a64ad30aae632079149f9059c4a4af7ce">add</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d51/a01764.html">Curve</a> &gt; &amp;curve)</td></tr>
+<tr class="memdesc:a64ad30aae632079149f9059c4a4af7ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a curve to the collection  <a href="#a64ad30aae632079149f9059c4a4af7ce">More...</a><br /></td></tr>
+<tr class="separator:a64ad30aae632079149f9059c4a4af7ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91357be76a9a91f7c48925da8a100cf0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d20/a01772.html#a91357be76a9a91f7c48925da8a100cf0">updateCurves</a> (double time)</td></tr>
+<tr class="memdesc:a91357be76a9a91f7c48925da8a100cf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a new point for each curve  <a href="#a91357be76a9a91f7c48925da8a100cf0">More...</a><br /></td></tr>
+<tr class="separator:a91357be76a9a91f7c48925da8a100cf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76d6bb891701be6e88d6b9bd068fe4f2"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../dc/d51/a01764.html">Curve</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d20/a01772.html#a76d6bb891701be6e88d6b9bd068fe4f2">getCurves</a> () const</td></tr>
+<tr class="memdesc:a76d6bb891701be6e88d6b9bd068fe4f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">get curves  <a href="#a76d6bb891701be6e88d6b9bd068fe4f2">More...</a><br /></td></tr>
+<tr class="separator:a76d6bb891701be6e88d6b9bd068fe4f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a740a14c99536d92adf930a1d6ff572f5"><td class="memItemLeft" align="right" valign="top"><a id="a740a14c99536d92adf930a1d6ff572f5"></a>
+std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../dc/d51/a01764.html">Curve</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d20/a01772.html#a740a14c99536d92adf930a1d6ff572f5">curves_</a></td></tr>
+<tr class="memdesc:a740a14c99536d92adf930a1d6ff572f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector of the curves object. <br /></td></tr>
+<tr class="separator:a740a14c99536d92adf930a1d6ff572f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2e780e8cc019bcdee0e630995f54f16"><td class="memItemLeft" align="right" valign="top"><a id="ab2e780e8cc019bcdee0e630995f54f16"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d20/a01772.html#ab2e780e8cc019bcdee0e630995f54f16">id_</a></td></tr>
+<tr class="memdesc:ab2e780e8cc019bcdee0e630995f54f16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Curves collections id. <br /></td></tr>
+<tr class="separator:ab2e780e8cc019bcdee0e630995f54f16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Curves collection interface class. </p>
+<p>Interface class for curves collection object. This a container for curves </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aaeb5b57e21a61c8f760e2df114c6594e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaeb5b57e21a61c8f760e2df114c6594e">&#9670;&nbsp;</a></span>CurvesCollection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">curves::CurvesCollection::CurvesCollection </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>constructor </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>curvesCollection's id </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a64ad30aae632079149f9059c4a4af7ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64ad30aae632079149f9059c4a4af7ce">&#9670;&nbsp;</a></span>add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void curves::CurvesCollection::add </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../dc/d51/a01764.html">Curve</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>curve</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>add a curve to the collection </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">curve</td><td>curve to add to the collection </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a76d6bb891701be6e88d6b9bd068fe4f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76d6bb891701be6e88d6b9bd068fe4f2">&#9670;&nbsp;</a></span>getCurves()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt;std::shared_ptr&lt;<a class="el" href="../../dc/d51/a01764.html">Curve</a>&gt; &gt;&amp; curves::CurvesCollection::getCurves </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get curves </p>
+<dl class="section return"><dt>Returns</dt><dd>curves </dd></dl>
+
+</div>
+</div>
+<a id="a91357be76a9a91f7c48925da8a100cf0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91357be76a9a91f7c48925da8a100cf0">&#9670;&nbsp;</a></span>updateCurves()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void curves::CurvesCollection::updateCurves </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>time</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>add a new point for each curve </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">time</td><td>time of the new point </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li><a class="el" href="../../dd/d32/a00041_source.html">CRVCurvesCollection.h</a></li>
+</ul>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -126,7 +272,8 @@ $(document).ready(function(){initNavTree('d1/d6b/a01775.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Nov 12 2025 18:05:57 for Dynawo by
+    <li class="navelem"><b>curves</b></li><li class="navelem"><a class="el" href="../../dd/d20/a01772.html">CurvesCollection</a></li>
+    <li class="footer">Generated on Fri Jan 16 2026 12:04:15 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: Member List</title>
+<title>Dynawo: job::ChannelsEntry Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('d8/d08/a02143.html','../../');});
+$(document).ready(function(){initNavTree('de/d81/a02140.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,25 +94,232 @@ $(document).ready(function(){initNavTree('d8/d08/a02143.html','../../');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="../../de/d74/a02137.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">job::ModelsDirEntry Member List</div>  </div>
+<div class="title">job::ChannelsEntry Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../d8/d08/a02143.html">job::ModelsDirEntry</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../d8/d08/a02143.html#adf28c5f597d9ef4d9a618e1bed399a19">addDirectory</a>(const UserDefinedDirectory &amp;directory)</td><td class="entry"><a class="el" href="../../d8/d08/a02143.html">job::ModelsDirEntry</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d8/d08/a02143.html#a9a180359777bda7f87a05ae3df51b30c">clearDirectories</a>()</td><td class="entry"><a class="el" href="../../d8/d08/a02143.html">job::ModelsDirEntry</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d8/d08/a02143.html#a248c5c99651c5bbdb737f1cd42f1ceb2">dirs_</a></td><td class="entry"><a class="el" href="../../d8/d08/a02143.html">job::ModelsDirEntry</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d8/d08/a02143.html#a616f49308d7a72cfed33479ab82e0ac9">getDirectories</a>() const</td><td class="entry"><a class="el" href="../../d8/d08/a02143.html">job::ModelsDirEntry</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d8/d08/a02143.html#a5d1d1cd1f051f4d8086d1bc0d5eae078">getModelExtension</a>() const</td><td class="entry"><a class="el" href="../../d8/d08/a02143.html">job::ModelsDirEntry</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d8/d08/a02143.html#ac8d18c49fe451a759b523b04a981e7fe">getUseStandardModels</a>() const</td><td class="entry"><a class="el" href="../../d8/d08/a02143.html">job::ModelsDirEntry</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d8/d08/a02143.html#a543aef4265cdde8dbcbe263e0f997e8e">modelExtension_</a></td><td class="entry"><a class="el" href="../../d8/d08/a02143.html">job::ModelsDirEntry</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d8/d08/a02143.html#a6091e88b943d9656b6c450f854bf3f82">ModelsDirEntry</a>()</td><td class="entry"><a class="el" href="../../d8/d08/a02143.html">job::ModelsDirEntry</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d8/d08/a02143.html#a9477a46d7d6b7668feca1c985148a5bb">setModelExtension</a>(const std::string &amp;modelExtension)</td><td class="entry"><a class="el" href="../../d8/d08/a02143.html">job::ModelsDirEntry</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d8/d08/a02143.html#a50782dfbf59bdd36edb8a5feda682c13">setUseStandardModels</a>(const bool useStandardModels)</td><td class="entry"><a class="el" href="../../d8/d08/a02143.html">job::ModelsDirEntry</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d8/d08/a02143.html#a0e085e76a9db3a4dc9d239864066d42b">useStandardModels_</a></td><td class="entry"><a class="el" href="../../d8/d08/a02143.html">job::ModelsDirEntry</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-</table></div><!-- contents -->
+<p>Channels entries container class.  
+ <a href="../../de/d81/a02140.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../d5/d35/a00266_source.html">JOBChannelsEntry.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ab473d112e2ee5cd7b6e71bd7dc92d23f"><td class="memItemLeft" align="right" valign="top"><a id="ab473d112e2ee5cd7b6e71bd7dc92d23f"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d81/a02140.html#ab473d112e2ee5cd7b6e71bd7dc92d23f">ChannelsEntry</a> ()=default</td></tr>
+<tr class="memdesc:ab473d112e2ee5cd7b6e71bd7dc92d23f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. <br /></td></tr>
+<tr class="separator:ab473d112e2ee5cd7b6e71bd7dc92d23f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa709575c1641bba1898e3c764efc1994"><td class="memItemLeft" align="right" valign="top"><a id="aa709575c1641bba1898e3c764efc1994"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d81/a02140.html#aa709575c1641bba1898e3c764efc1994">~ChannelsEntry</a> ()=default</td></tr>
+<tr class="memdesc:aa709575c1641bba1898e3c764efc1994"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:aa709575c1641bba1898e3c764efc1994"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6c523aac319ac82aca9990c0fb8f1b0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d81/a02140.html#af6c523aac319ac82aca9990c0fb8f1b0">ChannelsEntry</a> (const <a class="el" href="../../de/d81/a02140.html">ChannelsEntry</a> &amp;other)</td></tr>
+<tr class="memdesc:af6c523aac319ac82aca9990c0fb8f1b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <a href="#af6c523aac319ac82aca9990c0fb8f1b0">More...</a><br /></td></tr>
+<tr class="separator:af6c523aac319ac82aca9990c0fb8f1b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1898a0e7663381f930e961f3454ae13b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d81/a02140.html">ChannelsEntry</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d81/a02140.html#a1898a0e7663381f930e961f3454ae13b">operator=</a> (const <a class="el" href="../../de/d81/a02140.html">ChannelsEntry</a> &amp;other)</td></tr>
+<tr class="memdesc:a1898a0e7663381f930e961f3454ae13b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignement Operator.  <a href="#a1898a0e7663381f930e961f3454ae13b">More...</a><br /></td></tr>
+<tr class="separator:a1898a0e7663381f930e961f3454ae13b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a321877649f4dd9433d0daa34ce8b0ab9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d81/a02140.html#a321877649f4dd9433d0daa34ce8b0ab9">addChannelEntry</a> (const std::shared_ptr&lt; <a class="el" href="../../db/ddd/a02136.html">ChannelEntry</a> &gt; &amp;channelEntry)</td></tr>
+<tr class="memdesc:a321877649f4dd9433d0daa34ce8b0ab9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Channel entry adder.  <a href="#a321877649f4dd9433d0daa34ce8b0ab9">More...</a><br /></td></tr>
+<tr class="separator:a321877649f4dd9433d0daa34ce8b0ab9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5bc7d6544df2206990cac754950d710"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../db/ddd/a02136.html">ChannelEntry</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d81/a02140.html#af5bc7d6544df2206990cac754950d710">getChannelEntries</a> () const</td></tr>
+<tr class="memdesc:af5bc7d6544df2206990cac754950d710"><td class="mdescLeft">&#160;</td><td class="mdescRight">Channel entries getter.  <a href="#af5bc7d6544df2206990cac754950d710">More...</a><br /></td></tr>
+<tr class="separator:af5bc7d6544df2206990cac754950d710"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74cd589fe546da7bea834af89f2cb5ab"><td class="memItemLeft" align="right" valign="top">const std::shared_ptr&lt; <a class="el" href="../../db/ddd/a02136.html">ChannelEntry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d81/a02140.html#a74cd589fe546da7bea834af89f2cb5ab">getChannelEntryById</a> (const std::string &amp;id) const</td></tr>
+<tr class="memdesc:a74cd589fe546da7bea834af89f2cb5ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Channel entry getter by id.  <a href="#a74cd589fe546da7bea834af89f2cb5ab">More...</a><br /></td></tr>
+<tr class="separator:a74cd589fe546da7bea834af89f2cb5ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a61327cf6a8fee6bff35a642adf51f73c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d81/a02140.html#a61327cf6a8fee6bff35a642adf51f73c">copy</a> (const <a class="el" href="../../de/d81/a02140.html">ChannelsEntry</a> &amp;other)</td></tr>
+<tr class="memdesc:a61327cf6a8fee6bff35a642adf51f73c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy.  <a href="#a61327cf6a8fee6bff35a642adf51f73c">More...</a><br /></td></tr>
+<tr class="separator:a61327cf6a8fee6bff35a642adf51f73c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a643d378173f71bc41338354474549b7a"><td class="memItemLeft" align="right" valign="top"><a id="a643d378173f71bc41338354474549b7a"></a>
+std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../db/ddd/a02136.html">ChannelEntry</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d81/a02140.html#a643d378173f71bc41338354474549b7a">channels_</a></td></tr>
+<tr class="memdesc:a643d378173f71bc41338354474549b7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Channels for the job. <br /></td></tr>
+<tr class="separator:a643d378173f71bc41338354474549b7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a674293a0f434e9a860c85a12ade1f426"><td class="memItemLeft" align="right" valign="top"><a id="a674293a0f434e9a860c85a12ade1f426"></a>
+std::unordered_map&lt; std::string, std::shared_ptr&lt; <a class="el" href="../../db/ddd/a02136.html">ChannelEntry</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d81/a02140.html#a674293a0f434e9a860c85a12ade1f426">channelsById_</a></td></tr>
+<tr class="memdesc:a674293a0f434e9a860c85a12ade1f426"><td class="mdescLeft">&#160;</td><td class="mdescRight">Channels for the job by Id. <br /></td></tr>
+<tr class="separator:a674293a0f434e9a860c85a12ade1f426"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Channels entries container class. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="af6c523aac319ac82aca9990c0fb8f1b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6c523aac319ac82aca9990c0fb8f1b0">&#9670;&nbsp;</a></span>ChannelsEntry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">job::ChannelsEntry::ChannelsEntry </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../de/d81/a02140.html">ChannelsEntry</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copy constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>original to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a321877649f4dd9433d0daa34ce8b0ab9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a321877649f4dd9433d0daa34ce8b0ab9">&#9670;&nbsp;</a></span>addChannelEntry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void job::ChannelsEntry::addChannelEntry </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../db/ddd/a02136.html">ChannelEntry</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>channelEntry</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Channel entry adder. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">channelEntry</td><td>: channel for the job </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a61327cf6a8fee6bff35a642adf51f73c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61327cf6a8fee6bff35a642adf51f73c">&#9670;&nbsp;</a></span>copy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void job::ChannelsEntry::copy </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../de/d81/a02140.html">ChannelsEntry</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Copy. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>original to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af5bc7d6544df2206990cac754950d710"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5bc7d6544df2206990cac754950d710">&#9670;&nbsp;</a></span>getChannelEntries()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt;std::shared_ptr&lt;<a class="el" href="../../db/ddd/a02136.html">ChannelEntry</a>&gt; &gt;&amp; job::ChannelsEntry::getChannelEntries </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Channel entries getter. </p>
+<dl class="section return"><dt>Returns</dt><dd>Vector of the channels for the job </dd></dl>
+
+</div>
+</div>
+<a id="a74cd589fe546da7bea834af89f2cb5ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74cd589fe546da7bea834af89f2cb5ab">&#9670;&nbsp;</a></span>getChannelEntryById()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::shared_ptr&lt;<a class="el" href="../../db/ddd/a02136.html">ChannelEntry</a>&gt; job::ChannelsEntry::getChannelEntryById </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Channel entry getter by id. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>id of the channel </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Channel entry with id </dd></dl>
+
+</div>
+</div>
+<a id="a1898a0e7663381f930e961f3454ae13b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1898a0e7663381f930e961f3454ae13b">&#9670;&nbsp;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../de/d81/a02140.html">ChannelsEntry</a>&amp; job::ChannelsEntry::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../de/d81/a02140.html">ChannelsEntry</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Assignement Operator. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>original to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>reference on current entry </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li><a class="el" href="../../d5/d35/a00266_source.html">JOBChannelsEntry.h</a></li>
+</ul>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -128,7 +335,8 @@ $(document).ready(function(){initNavTree('d8/d08/a02143.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Nov 12 2025 18:05:57 for Dynawo by
+    <li class="navelem"><b>job</b></li><li class="navelem"><a class="el" href="../../de/d81/a02140.html">ChannelsEntry</a></li>
+    <li class="footer">Generated on Fri Jan 16 2026 12:04:17 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

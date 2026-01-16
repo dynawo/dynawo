@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: Member List</title>
+<title>Dynawo: job::JobsCollection Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('d3/dcb/a02211.html','../../');});
+$(document).ready(function(){initNavTree('d8/d1e/a02208.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,19 +94,129 @@ $(document).ready(function(){initNavTree('d3/dcb/a02211.html','../../');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="../../dc/d43/a02205.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">job::NetworkHandler Member List</div>  </div>
+<div class="title">job::JobsCollection Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../d3/dcb/a02211.html">job::NetworkHandler</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../d3/dcb/a02211.html#a8ca88c4fe02b069daa382dfccebe03cc">create</a>(attributes_type const &amp;attributes)</td><td class="entry"><a class="el" href="../../d3/dcb/a02211.html">job::NetworkHandler</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d3/dcb/a02211.html#a6765092980ddb57fe62d9b2827069673">get</a>() const</td><td class="entry"><a class="el" href="../../d3/dcb/a02211.html">job::NetworkHandler</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d3/dcb/a02211.html#aa7b8853df5eeb09162a8cb9dc7cf70fe">network_</a></td><td class="entry"><a class="el" href="../../d3/dcb/a02211.html">job::NetworkHandler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d3/dcb/a02211.html#a7e266c7e0a1482dba11333cff037cf5c">NetworkHandler</a>(elementName_type const &amp;root_element)</td><td class="entry"><a class="el" href="../../d3/dcb/a02211.html">job::NetworkHandler</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d3/dcb/a02211.html#a1687862a7d70541a50b32eb6262b9608">~NetworkHandler</a>() override</td><td class="entry"><a class="el" href="../../d3/dcb/a02211.html">job::NetworkHandler</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>jobs collection interface class  
+ <a href="../../d8/d1e/a02208.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../da/de0/a00317_source.html">JOBJobsCollection.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aa7a0ccfd742595bb2259b138e8aa6786"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d1e/a02208.html#aa7a0ccfd742595bb2259b138e8aa6786">addJob</a> (const std::shared_ptr&lt; <a class="el" href="../../dd/dce/a02200.html">JobEntry</a> &gt; &amp;jobEntry)</td></tr>
+<tr class="memdesc:aa7a0ccfd742595bb2259b138e8aa6786"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a job to the jobs collection  <a href="#aa7a0ccfd742595bb2259b138e8aa6786">More...</a><br /></td></tr>
+<tr class="separator:aa7a0ccfd742595bb2259b138e8aa6786"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7faf08a97c4c917c767115c45be3b9c1"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../dd/dce/a02200.html">JobEntry</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d1e/a02208.html#a7faf08a97c4c917c767115c45be3b9c1">getJobs</a> () const</td></tr>
+<tr class="memdesc:a7faf08a97c4c917c767115c45be3b9c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the variables  <a href="#a7faf08a97c4c917c767115c45be3b9c1">More...</a><br /></td></tr>
+<tr class="separator:a7faf08a97c4c917c767115c45be3b9c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aded12c1a677f6bd3f0daa09414f0bd9e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../dd/dce/a02200.html">JobEntry</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d1e/a02208.html#aded12c1a677f6bd3f0daa09414f0bd9e">getNonCstJobs</a> ()</td></tr>
+<tr class="memdesc:aded12c1a677f6bd3f0daa09414f0bd9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the variables  <a href="#aded12c1a677f6bd3f0daa09414f0bd9e">More...</a><br /></td></tr>
+<tr class="separator:aded12c1a677f6bd3f0daa09414f0bd9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a4e5366ce7b63ef6bdeda3ee8c56505fe"><td class="memItemLeft" align="right" valign="top"><a id="a4e5366ce7b63ef6bdeda3ee8c56505fe"></a>
+std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../dd/dce/a02200.html">JobEntry</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d1e/a02208.html#a4e5366ce7b63ef6bdeda3ee8c56505fe">jobs_</a></td></tr>
+<tr class="memdesc:a4e5366ce7b63ef6bdeda3ee8c56505fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector of the jobs object. <br /></td></tr>
+<tr class="separator:a4e5366ce7b63ef6bdeda3ee8c56505fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>jobs collection interface class </p>
+<p>Interface class for jobs collection object. This a container for jobs description </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="aa7a0ccfd742595bb2259b138e8aa6786"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7a0ccfd742595bb2259b138e8aa6786">&#9670;&nbsp;</a></span>addJob()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void job::JobsCollection::addJob </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../dd/dce/a02200.html">JobEntry</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>jobEntry</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>add a job to the jobs collection </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">jobEntry</td><td>job to add to the structure </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7faf08a97c4c917c767115c45be3b9c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7faf08a97c4c917c767115c45be3b9c1">&#9670;&nbsp;</a></span>getJobs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt;std::shared_ptr&lt;<a class="el" href="../../dd/dce/a02200.html">JobEntry</a>&gt; &gt;&amp; job::JobsCollection::getJobs </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get the variables </p>
+<dl class="section return"><dt>Returns</dt><dd>variables </dd></dl>
+
+</div>
+</div>
+<a id="aded12c1a677f6bd3f0daa09414f0bd9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aded12c1a677f6bd3f0daa09414f0bd9e">&#9670;&nbsp;</a></span>getNonCstJobs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::shared_ptr&lt;<a class="el" href="../../dd/dce/a02200.html">JobEntry</a>&gt; &gt;&amp; job::JobsCollection::getNonCstJobs </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get the variables </p>
+<dl class="section return"><dt>Returns</dt><dd>variables </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li><a class="el" href="../../da/de0/a00317_source.html">JOBJobsCollection.h</a></li>
+</ul>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -122,7 +232,8 @@ $(document).ready(function(){initNavTree('d3/dcb/a02211.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Nov 12 2025 18:05:57 for Dynawo by
+    <li class="navelem"><b>job</b></li><li class="navelem"><a class="el" href="../../d8/d1e/a02208.html">JobsCollection</a></li>
+    <li class="footer">Generated on Fri Jan 16 2026 12:04:17 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

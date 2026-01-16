@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: Member List</title>
+<title>Dynawo: finalStateValues::FinalStateValueFactory Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('d9/dff/a02099.html','../../');});
+$(document).ready(function(){initNavTree('dd/d77/a02096.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,24 +94,61 @@ $(document).ready(function(){initNavTree('d9/dff/a02099.html','../../');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="../../d3/d1e/a02093.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">job::InitValuesEntry Member List</div>  </div>
+<div class="title">finalStateValues::FinalStateValueFactory Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../d9/dff/a02099.html">job::InitValuesEntry</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/dff/a02099.html#a121ff92da448a97623f0ca5574dbf4d8">dumpGlobalInitValues_</a></td><td class="entry"><a class="el" href="../../d9/dff/a02099.html">job::InitValuesEntry</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/dff/a02099.html#a16d12123fab6745e7f6ea87fd7afd1c1">dumpInitModelValues_</a></td><td class="entry"><a class="el" href="../../d9/dff/a02099.html">job::InitValuesEntry</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/dff/a02099.html#a1a05c453c03ac509ef7994ff24fbdba6">dumpLocalInitValues_</a></td><td class="entry"><a class="el" href="../../d9/dff/a02099.html">job::InitValuesEntry</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/dff/a02099.html#a08e7c8f0c54e9d14b0954c3a06c7c590">getDumpGlobalInitValues</a>() const</td><td class="entry"><a class="el" href="../../d9/dff/a02099.html">job::InitValuesEntry</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/dff/a02099.html#aa78d956ac318d0604bc51b496aed2c17">getDumpInitModelValues</a>() const</td><td class="entry"><a class="el" href="../../d9/dff/a02099.html">job::InitValuesEntry</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/dff/a02099.html#aa695ab850362c50542972805e82ab61e">getDumpLocalInitValues</a>() const</td><td class="entry"><a class="el" href="../../d9/dff/a02099.html">job::InitValuesEntry</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/dff/a02099.html#a8391c6ad8ec77a093808ef4a8480ed49">InitValuesEntry</a>()</td><td class="entry"><a class="el" href="../../d9/dff/a02099.html">job::InitValuesEntry</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/dff/a02099.html#a643115538254664caeb26109ef8e69b1">setDumpGlobalInitValues</a>(const bool dumpGlobalInitValues)</td><td class="entry"><a class="el" href="../../d9/dff/a02099.html">job::InitValuesEntry</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/dff/a02099.html#ae6dcb74bfe9a0f40e24e1c89bf6d3750">setDumpInitModelValues</a>(const bool dumpInitModelValues)</td><td class="entry"><a class="el" href="../../d9/dff/a02099.html">job::InitValuesEntry</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/dff/a02099.html#a23a6f8841745fe7a82d745f2c20893e8">setDumpLocalInitValues</a>(const bool dumpLocalInitValues)</td><td class="entry"><a class="el" href="../../d9/dff/a02099.html">job::InitValuesEntry</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p><a class="el" href="../../d4/de0/a02092.html" title="FinalStateValue interface class. ">FinalStateValue</a> factory class.  
+ <a href="../../dd/d77/a02096.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../d7/d40/a00236_source.html">FSVFinalStateValueFactory.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a4281622c3a682ceaeef6724ee08298a7"><td class="memItemLeft" align="right" valign="top">static std::unique_ptr&lt; <a class="el" href="../../d4/de0/a02092.html">FinalStateValue</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d77/a02096.html#a4281622c3a682ceaeef6724ee08298a7">newFinalStateValue</a> ()</td></tr>
+<tr class="memdesc:a4281622c3a682ceaeef6724ee08298a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create new <a class="el" href="../../d4/de0/a02092.html" title="FinalStateValue interface class. ">FinalStateValue</a> instance.  <a href="#a4281622c3a682ceaeef6724ee08298a7">More...</a><br /></td></tr>
+<tr class="separator:a4281622c3a682ceaeef6724ee08298a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="../../d4/de0/a02092.html" title="FinalStateValue interface class. ">FinalStateValue</a> factory class. </p>
+<p><a class="el" href="../../dd/d77/a02096.html" title="FinalStateValue factory class. ">FinalStateValueFactory</a> encapsulates methods for creating new <code><a class="el" href="../../d4/de0/a02092.html" title="FinalStateValue interface class. ">FinalStateValue</a></code> objects. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a4281622c3a682ceaeef6724ee08298a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4281622c3a682ceaeef6724ee08298a7">&#9670;&nbsp;</a></span>newFinalStateValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static std::unique_ptr&lt;<a class="el" href="../../d4/de0/a02092.html">FinalStateValue</a>&gt; finalStateValues::FinalStateValueFactory::newFinalStateValue </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create new <a class="el" href="../../d4/de0/a02092.html" title="FinalStateValue interface class. ">FinalStateValue</a> instance. </p>
+<dl class="section return"><dt>Returns</dt><dd>a unique pointer to a new <code><a class="el" href="../../d4/de0/a02092.html" title="FinalStateValue interface class. ">FinalStateValue</a></code> </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li><a class="el" href="../../d7/d40/a00236_source.html">FSVFinalStateValueFactory.h</a></li>
+</ul>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -127,7 +164,8 @@ $(document).ready(function(){initNavTree('d9/dff/a02099.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Nov 12 2025 18:05:57 for Dynawo by
+    <li class="navelem"><b>finalStateValues</b></li><li class="navelem"><a class="el" href="../../dd/d77/a02096.html">FinalStateValueFactory</a></li>
+    <li class="footer">Generated on Fri Jan 16 2026 12:04:17 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: Member List</title>
+<title>Dynawo: DYN::SubModelFactory Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('d6/daf/a02803.html','../../');});
+$(document).ready(function(){initNavTree('d9/dd1/a02800.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,26 +94,146 @@ $(document).ready(function(){initNavTree('d6/daf/a02803.html','../../');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="../../d0/d51/a02797.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::NetworkInterface Member List</div>  </div>
+<div class="title">DYN::SubModelFactory Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../d6/daf/a02803.html">DYN::NetworkInterface</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../d6/daf/a02803.html#ac7d123c147fd40831746c6a74473aa8c">addHvdcLine</a>(const std::shared_ptr&lt; HvdcLineInterface &gt; &amp;hvdc)=0</td><td class="entry"><a class="el" href="../../d6/daf/a02803.html">DYN::NetworkInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d6/daf/a02803.html#a469bac51797edbc48a02cc525f876b4e">addLine</a>(const std::shared_ptr&lt; LineInterface &gt; &amp;line)=0</td><td class="entry"><a class="el" href="../../d6/daf/a02803.html">DYN::NetworkInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d6/daf/a02803.html#a990622b87c2afde4e2333b07ef43d4b9">addThreeWTransformer</a>(const std::shared_ptr&lt; ThreeWTransformerInterface &gt; &amp;tfo)=0</td><td class="entry"><a class="el" href="../../d6/daf/a02803.html">DYN::NetworkInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d6/daf/a02803.html#a2a90e4064118b031c1f7931546aa5870">addTwoWTransformer</a>(const std::shared_ptr&lt; TwoWTransformerInterface &gt; &amp;tfo)=0</td><td class="entry"><a class="el" href="../../d6/daf/a02803.html">DYN::NetworkInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d6/daf/a02803.html#af8400225a285e0847b3410cee913c048">addVoltageLevel</a>(const std::shared_ptr&lt; VoltageLevelInterface &gt; &amp;voltageLevel)=0</td><td class="entry"><a class="el" href="../../d6/daf/a02803.html">DYN::NetworkInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d6/daf/a02803.html#a15997222bdb84260a32ce2a5272cd9ba">getHvdcLines</a>() const =0</td><td class="entry"><a class="el" href="../../d6/daf/a02803.html">DYN::NetworkInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d6/daf/a02803.html#a44a1bc2d7eda4561e9c6735c1073f25a">getLines</a>() const =0</td><td class="entry"><a class="el" href="../../d6/daf/a02803.html">DYN::NetworkInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d6/daf/a02803.html#a802c8d2a32bfc399e430b9f3f9de0486">getSlackNodeBusId</a>() const =0</td><td class="entry"><a class="el" href="../../d6/daf/a02803.html">DYN::NetworkInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d6/daf/a02803.html#a90475fa0dd0a1c436bb5bbc3e032b16d">getThreeWTransformers</a>() const =0</td><td class="entry"><a class="el" href="../../d6/daf/a02803.html">DYN::NetworkInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d6/daf/a02803.html#a928b6fa6268d6d113a95db85a4719579">getTwoWTransformers</a>() const =0</td><td class="entry"><a class="el" href="../../d6/daf/a02803.html">DYN::NetworkInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d6/daf/a02803.html#acdbf85fe0b5cad237d50f836a9947fb3">getVoltageLevels</a>() const =0</td><td class="entry"><a class="el" href="../../d6/daf/a02803.html">DYN::NetworkInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d6/daf/a02803.html#a9c0d66e2ad6b7d1e07b39f1ae941e796">~NetworkInterface</a>()=default</td><td class="entry"><a class="el" href="../../d6/daf/a02803.html">DYN::NetworkInterface</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<p><a class="el" href="../../d9/dd1/a02800.html" title="SubModelFactory class. ">SubModelFactory</a> class.  
+ <a href="../../d9/dd1/a02800.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../d9/d0f/a00644_source.html">DYNSubModelFactory.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for DYN::SubModelFactory:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="../../d9/dd1/a02800.png" usemap="#DYN::SubModelFactory_map" alt=""/>
+  <map id="DYN::SubModelFactory_map" name="DYN::SubModelFactory_map">
+<area href="../../df/d1e/a03212.html" title="ModelAreaSheddingFactory Model factory. " alt="DYN::ModelAreaSheddingFactory" shape="rect" coords="334,112,658,136"/>
+<area href="../../da/dfb/a03188.html" title="ModelCentralizedShuntsSectionControl factory. " alt="DYN::ModelCentralizedShuntsSectionControlFactory" shape="rect" coords="334,168,658,192"/>
+<area href="../../d6/da1/a03180.html" title="ModelLoadRestorativeWithLimits factory. " alt="DYN::ModelLoadRestorativeWithLimitsFactory" shape="rect" coords="334,224,658,248"/>
+<area href="../../db/de4/a03288.html" title="Network Model factory. " alt="DYN::ModelNetworkFactory" shape="rect" coords="334,280,658,304"/>
+<area href="../../d5/de9/a03236.html" title="Reference frequency factory. " alt="DYN::ModelOmegaRefFactory" shape="rect" coords="334,336,658,360"/>
+<area href="../../dc/ddd/a03196.html" title="ModelSecondaryVoltageControlSimplified factory. " alt="DYN::ModelSecondaryVoltageControlSimplifiedFactory" shape="rect" coords="334,392,658,416"/>
+<area href="../../da/dcf/a03344.html" title="ModelUpdatableBoolean factory. " alt="DYN::ModelUpdatableBooleanFactory" shape="rect" coords="334,448,658,472"/>
+<area href="../../d2/d66/a03352.html" title="ModelUpdatableContinuous factory. " alt="DYN::ModelUpdatableContinuousFactory" shape="rect" coords="334,504,658,528"/>
+<area href="../../d6/da3/a03360.html" title="ModelUpdatableDiscrete factory. " alt="DYN::ModelUpdatableDiscreteFactory" shape="rect" coords="334,560,658,584"/>
+<area href="../../d0/d06/a03368.html" title="ModelUpdatableInteger factory. " alt="DYN::ModelUpdatableIntegerFactory" shape="rect" coords="334,616,658,640"/>
+<area href="../../da/df5/a03220.html" title="ModelVariationAreaFactory Model factory. " alt="DYN::ModelVariationAreaFactory" shape="rect" coords="334,672,658,696"/>
+<area href="../../d6/d75/a03204.html" title="ModelVoltageMeasurementsUtilitiesFactory factory. " alt="DYN::ModelVoltageMeasurementsUtilitiesFactory" shape="rect" coords="334,728,658,752"/>
+<area href="../../d6/d63/a03228.html" title="ModelVoltageSetPointChangeFactory Model factory. " alt="DYN::ModelVoltageSetPointChangeFactory" shape="rect" coords="334,784,658,808"/>
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a1bb6496935dc2d52e0c560aeefe28aa8"><td class="memItemLeft" align="right" valign="top"><a id="a1bb6496935dc2d52e0c560aeefe28aa8"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd1/a02800.html#a1bb6496935dc2d52e0c560aeefe28aa8">SubModelFactory</a> ()</td></tr>
+<tr class="memdesc:a1bb6496935dc2d52e0c560aeefe28aa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. <br /></td></tr>
+<tr class="separator:a1bb6496935dc2d52e0c560aeefe28aa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeae89abfad8d2a15989016592b78982a"><td class="memItemLeft" align="right" valign="top"><a id="aeae89abfad8d2a15989016592b78982a"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd1/a02800.html#aeae89abfad8d2a15989016592b78982a">~SubModelFactory</a> ()</td></tr>
+<tr class="memdesc:aeae89abfad8d2a15989016592b78982a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:aeae89abfad8d2a15989016592b78982a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd583c8cef912d3c0ee48ac7dc7338a8"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../de/db6/a02792.html">SubModel</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd1/a02800.html#acd583c8cef912d3c0ee48ac7dc7338a8">create</a> () const =0</td></tr>
+<tr class="memdesc:acd583c8cef912d3c0ee48ac7dc7338a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">create a new instance of a submodel  <a href="#acd583c8cef912d3c0ee48ac7dc7338a8">More...</a><br /></td></tr>
+<tr class="separator:acd583c8cef912d3c0ee48ac7dc7338a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac31031e42bdb59f3bd55ef9000c94762"><td class="memItemLeft" align="right" valign="top"><a id="ac31031e42bdb59f3bd55ef9000c94762"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd1/a02800.html#ac31031e42bdb59f3bd55ef9000c94762">destroy</a> (<a class="el" href="../../de/db6/a02792.html">SubModel</a> *) const =0</td></tr>
+<tr class="memdesc:ac31031e42bdb59f3bd55ef9000c94762"><td class="mdescLeft">&#160;</td><td class="mdescRight">destroy an instance of a submodel <br /></td></tr>
+<tr class="separator:ac31031e42bdb59f3bd55ef9000c94762"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:acadba5eed3d7b590d7a855998f7b264a"><td class="memItemLeft" align="right" valign="top">static boost::shared_ptr&lt; <a class="el" href="../../de/db6/a02792.html">SubModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd1/a02800.html#acadba5eed3d7b590d7a855998f7b264a">createSubModelFromLib</a> (const std::string &amp;lib)</td></tr>
+<tr class="memdesc:acadba5eed3d7b590d7a855998f7b264a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a submodel loading given lib.  <a href="#acadba5eed3d7b590d7a855998f7b264a">More...</a><br /></td></tr>
+<tr class="separator:acadba5eed3d7b590d7a855998f7b264a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a801e01b80f9214f3af8c933f24e9f297"><td class="memItemLeft" align="right" valign="top"><a id="a801e01b80f9214f3af8c933f24e9f297"></a>
+boost::shared_ptr&lt; boost::dll::shared_library &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd1/a02800.html#a801e01b80f9214f3af8c933f24e9f297">lib_</a></td></tr>
+<tr class="memdesc:a801e01b80f9214f3af8c933f24e9f297"><td class="mdescLeft">&#160;</td><td class="mdescRight">Library of the submodel. <br /></td></tr>
+<tr class="separator:a801e01b80f9214f3af8c933f24e9f297"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="../../d9/dd1/a02800.html" title="SubModelFactory class. ">SubModelFactory</a> class. </p>
+<p>Utility interface used to define a building class for sub models. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="acd583c8cef912d3c0ee48ac7dc7338a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd583c8cef912d3c0ee48ac7dc7338a8">&#9670;&nbsp;</a></span>create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="../../de/db6/a02792.html">SubModel</a>* DYN::SubModelFactory::create </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>create a new instance of a submodel </p>
+<dl class="section return"><dt>Returns</dt><dd>the new instance of submodel </dd></dl>
+
+<p>Implemented in <a class="el" href="../../db/de4/a03288.html#af07db2baee567bf9fc8b6e3f2c789431">DYN::ModelNetworkFactory</a>, <a class="el" href="../../d6/da1/a03180.html#a90dd2eb22afe9fd4bdc6cbcba3e0a0e4">DYN::ModelLoadRestorativeWithLimitsFactory</a>, <a class="el" href="../../da/dcf/a03344.html#a800d912e97775537c62fc8b50c09e81e">DYN::ModelUpdatableBooleanFactory</a>, <a class="el" href="../../d2/d66/a03352.html#a38a82c62ed0957404fb4806c66266e94">DYN::ModelUpdatableContinuousFactory</a>, <a class="el" href="../../d6/da3/a03360.html#ac9a546cb24bab4ca9826cd36f89f9832">DYN::ModelUpdatableDiscreteFactory</a>, <a class="el" href="../../d0/d06/a03368.html#a8cb8ed24dc73d7048b4c842704e7c969">DYN::ModelUpdatableIntegerFactory</a>, <a class="el" href="../../da/dfb/a03188.html#a2864b86ec1abc029d94dc9f2dd6128ad">DYN::ModelCentralizedShuntsSectionControlFactory</a>, <a class="el" href="../../d6/d75/a03204.html#ae433dadbda68583023c2f02b3e721d27">DYN::ModelVoltageMeasurementsUtilitiesFactory</a>, <a class="el" href="../../dc/ddd/a03196.html#af467aa13ea4f5af979e6fff803a8e90b">DYN::ModelSecondaryVoltageControlSimplifiedFactory</a>, <a class="el" href="../../d5/de9/a03236.html#a409f629c2e894672fbc0f70bfc2d8354">DYN::ModelOmegaRefFactory</a>, <a class="el" href="../../df/d1e/a03212.html#ab15706020d562714706fe3d36cfb4462">DYN::ModelAreaSheddingFactory</a>, <a class="el" href="../../da/df5/a03220.html#acd0e9ec9edc9f4c68babadc7b208962e">DYN::ModelVariationAreaFactory</a>, and <a class="el" href="../../d6/d63/a03228.html#a755119c12751ca076b75970569983dcf">DYN::ModelVoltageSetPointChangeFactory</a>.</p>
+
+</div>
+</div>
+<a id="acadba5eed3d7b590d7a855998f7b264a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acadba5eed3d7b590d7a855998f7b264a">&#9670;&nbsp;</a></span>createSubModelFromLib()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static boost::shared_ptr&lt;<a class="el" href="../../de/db6/a02792.html">SubModel</a>&gt; DYN::SubModelFactory::createSubModelFromLib </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>lib</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a submodel loading given lib. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lib</td><td>: Name of the submodel library to load </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the created submodel </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li><a class="el" href="../../d9/d0f/a00644_source.html">DYNSubModelFactory.h</a></li>
+</ul>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -129,7 +249,8 @@ $(document).ready(function(){initNavTree('d6/daf/a02803.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Nov 12 2025 18:05:57 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d9/dd1/a02800.html">SubModelFactory</a></li>
+    <li class="footer">Generated on Fri Jan 16 2026 12:04:16 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

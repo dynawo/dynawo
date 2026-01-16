@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: Member List</title>
+<title>Dynawo: timeline::XmlExporter Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('d4/d70/a02579.html','../../');});
+$(document).ready(function(){initNavTree('d0/df5/a02576.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,56 +94,166 @@ $(document).ready(function(){initNavTree('d4/d70/a02579.html','../../');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="../../d2/ddf/a02573.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::Compiler Member List</div>  </div>
+<div class="title">timeline::XmlExporter Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../d4/d70/a02579.html#a7c21d98d417a3f6bec5196506d22a2cb">additionalHeaderFiles_</a></td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d4/d70/a02579.html#a48e18bb1aed968b5cac24231b2983d08">collectConnectedExtVar</a>(const std::string &amp;itUnitDynamicModelName, const std::vector&lt; boost::shared_ptr&lt; dynamicdata::Connector &gt; &gt; &amp;macroConnection, const std::vector&lt; std::shared_ptr&lt; dynamicdata::Connector &gt; &gt; &amp;internalConnects, std::set&lt; std::string &gt; &amp;extVarConnected) const</td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d4/d70/a02579.html#affdfc116eed6adb0a56697633999ca8f">collectMacroConnections</a>(const std::map&lt; std::string, std::shared_ptr&lt; dynamicdata::MacroConnect &gt; &gt; &amp;macroConnects, std::vector&lt; boost::shared_ptr&lt; dynamicdata::Connector &gt; &gt; &amp;macroConnection) const</td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d4/d70/a02579.html#a5991461dfc61b297875b2f9861adbd5a">compile</a>()</td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d4/d70/a02579.html#a48eb3340eef70b494b6a2e3e72b869d3">compileBlackBoxModelDescription</a>(const std::shared_ptr&lt; ModelDescription &gt; &amp;blackBoxModelDescription)</td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d4/d70/a02579.html#a98a75816d6cab6c490b208d5fc5129e3">compiledLib_</a></td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d4/d70/a02579.html#a6f9a9de45737bc06b4e87564f8d558f8">compiledModelDescriptions_</a></td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d4/d70/a02579.html#a528c7a7b86020e2137a32233f86500b8">compileModelicaModelDescription</a>(const std::shared_ptr&lt; ModelDescription &gt; &amp;modelicaModelDescription)</td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d4/d70/a02579.html#a37d46c9b44c4c59dc37ea876b0ac33db">compileModelTemplateExpansionDescription</a>(const std::shared_ptr&lt; ModelDescription &gt; &amp;modelTemplateExpansionDescription)</td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d4/d70/a02579.html#a90a349e04b98d3d3453e627c4ce8f0a6">Compiler</a>(const boost::shared_ptr&lt; DynamicData &gt; &amp;dyd, const bool useStandardPrecompiledModels, const std::vector&lt; UserDefinedDirectory &gt; &amp;precompiledModelsDirs, const std::string &amp;precompiledModelsExtension, const bool useStandardModelicaModels, const std::vector&lt; UserDefinedDirectory &gt; &amp;modelicaModelsDirs, const std::string &amp;modelicaModelsExtension, const std::unordered_set&lt; boost::filesystem::path, PathHash &gt; &amp;pathsToIgnore, const std::vector&lt; std::string &gt; &amp;additionalHeaderFiles, const bool rmModels, std::string outputDir)</td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d4/d70/a02579.html#a6420ada9dc3947fce5642983314960bd">concatConnects</a>()</td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d4/d70/a02579.html#aae27b998ca4af7c77ee33e2015e706d8">concatModel</a>(const std::shared_ptr&lt; ModelDescription &gt; &amp;modelicaModelDescription)</td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d4/d70/a02579.html#a6baf36bbce61d798e57c8dac716688a1">concatRefs</a>() const</td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d4/d70/a02579.html#af778d8707bcc8ae510142ed5be1d92ff">connectVariableName</a>(const std::shared_ptr&lt; ModelDescription &gt; &amp;model, const std::string &amp;rawVariableName) const</td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>CONTINUOUS_VAR</b> enum value (defined in <a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a>)</td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>DISCRETE_VAR</b> enum value (defined in <a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a>)</td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d4/d70/a02579.html#ab71e5361ff20490c0e3c23e1e30e5bb2">dyd_</a></td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d4/d70/a02579.html#aa856be38d5e64a043039bdbb43102281">extVarFiles_</a></td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d4/d70/a02579.html#a85804da9ea9ce5e917826dece880b769">getCompiledLib</a>()</td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d4/d70/a02579.html#a977c1c174b69b27cf2cd138c821827ba">getDDB</a>()</td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d4/d70/a02579.html#a2c7b131f1e4ff524f634a9ec020bae16">initConcatFile_</a></td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d4/d70/a02579.html#ae19d5c635da1cf67e1042cab37054bf1">libFiles_</a></td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d4/d70/a02579.html#adc6c73eb80dc245c2f1870658a5cab3b">modelConcatFile_</a></td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d4/d70/a02579.html#a3801620952be6b5872035cf645be75d9">modelDirPath_</a></td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d4/d70/a02579.html#a978bb464e851b8dc178192601dbcad1a">modelicaModelsDirsPaths_</a></td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d4/d70/a02579.html#a41919be2729c52694229967e54b4a954">modelicaModelsExtension_</a></td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d4/d70/a02579.html#afd4d41b92a3e6def60f1a25835eb8f34">modelicaModelVariableName</a>(const std::string &amp;rawVariableName, const std::string &amp;modelId, const std::map&lt; std::string, std::shared_ptr&lt; dynamicdata::UnitDynamicModel &gt; &gt; &amp;unitDynamicModels) const</td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d4/d70/a02579.html#afdcd0d54b8552850dbc4f22ce09bff1a">modelTemplateDescriptions_</a></td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d4/d70/a02579.html#ac133591c79ca8f98d6970ea1b95913c7">moFilesAll_</a></td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d4/d70/a02579.html#a776e20996e3da5e99294d5bf4f3bbca8">moFilesCompilation_</a></td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d4/d70/a02579.html#a233faa9ae7ada97c363a156b0accadcd">pathsToIgnore_</a></td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d4/d70/a02579.html#a770ef1f1ac9b9922553bbcaf48cefd85">precompiledModelsDirsPaths_</a></td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d4/d70/a02579.html#aacc1cfc966aaed4149d568e0cf793c4d">precompiledModelsExtension_</a></td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d4/d70/a02579.html#ab999da35dcd8a0320b1e073355ce92a3">rmModels_</a></td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d4/d70/a02579.html#a007c8084bc9980aea05e8121642fe328">throwIfAllModelicaFilesAreNotAvailable</a>(const std::map&lt; std::string, std::shared_ptr&lt; dynamicdata::UnitDynamicModel &gt; &gt; &amp;unitDynamicModels) const</td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d4/d70/a02579.html#a6c9d1657e8d89e06b570ae1d9e9c196c">typeVar_t</a> enum name</td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d4/d70/a02579.html#a57296c9d41ddcf9e2dcf1bf46dad17c4">unitDynamicModelsMap_</a></td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d4/d70/a02579.html#ad5eeeec93aea69e6f3314fee7f8a8fda">useStandardModelicaModels_</a></td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d4/d70/a02579.html#a2a25bc407de75b3d7b1ceb65fc7011c0">useStandardPrecompiledModels_</a></td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d4/d70/a02579.html#aeb72b565bc5fcf9434368fdf8161f29a">writeConcatModelicaFile</a>(const std::string &amp;modelID, const std::shared_ptr&lt; ModelDescription &gt; &amp;modelicaModelDescription, const std::vector&lt; boost::shared_ptr&lt; dynamicdata::Connector &gt; &gt; &amp;macroConnection, const std::map&lt; std::string, std::shared_ptr&lt; dynamicdata::UnitDynamicModel &gt; &gt; &amp;unitDynamicModels, const std::vector&lt; std::shared_ptr&lt; dynamicdata::Connector &gt; &gt; &amp;internalConnects) const</td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d4/d70/a02579.html#a3374f8c06f1b82e81b0d0e6e2b00246d">writeExtvarFile</a>(const std::shared_ptr&lt; ModelDescription &gt; &amp;modelicaModelDescription, const std::vector&lt; boost::shared_ptr&lt; dynamicdata::Connector &gt; &gt; &amp;macroConnection, const std::map&lt; std::string, std::shared_ptr&lt; dynamicdata::UnitDynamicModel &gt; &gt; &amp;unitDynamicModels, const std::vector&lt; std::shared_ptr&lt; dynamicdata::Connector &gt; &gt; &amp;internalConnects, const std::map&lt; std::string, std::shared_ptr&lt; externalVariables::VariablesCollection &gt; &gt; &amp;allExternalVariables) const</td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d4/d70/a02579.html#afe9acddcbb8a4ca84566f023b734189e">writeInitFile</a>(const std::shared_ptr&lt; ModelDescription &gt; &amp;modelicaModelDescription, const std::map&lt; std::string, std::shared_ptr&lt; dynamicdata::UnitDynamicModel &gt; &gt; &amp;unitDynamicModels, const std::map&lt; std::string, std::shared_ptr&lt; dynamicdata::MacroConnect &gt; &gt; &amp;macroConnects) const</td><td class="entry"><a class="el" href="../../d4/d70/a02579.html">DYN::Compiler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-</table></div><!-- contents -->
+<p>XML exporter interface class.  
+ <a href="../../d0/df5/a02576.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../d9/d34/a00476_source.html">TLXmlExporter.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for timeline::XmlExporter:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="../../d0/df5/a02576.png" usemap="#timeline::XmlExporter_map" alt=""/>
+  <map id="timeline::XmlExporter_map" name="timeline::XmlExporter_map">
+<area href="../../dc/d32/a02556.html" title="Exporter interface class. " alt="timeline::Exporter" shape="rect" coords="0,0,129,24"/>
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a779f04facb8d90b64d6ca5cdb4ea0bda"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/df5/a02576.html#a779f04facb8d90b64d6ca5cdb4ea0bda">exportToFile</a> (const boost::shared_ptr&lt; <a class="el" href="../../db/d44/a02564.html">Timeline</a> &gt; &amp;timeline, const std::string &amp;filePath) const override</td></tr>
+<tr class="memdesc:a779f04facb8d90b64d6ca5cdb4ea0bda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export method in XML format.  <a href="#a779f04facb8d90b64d6ca5cdb4ea0bda">More...</a><br /></td></tr>
+<tr class="separator:a779f04facb8d90b64d6ca5cdb4ea0bda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7aa9361d0f8f436a6b8baee98cdfa0c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/df5/a02576.html#ab7aa9361d0f8f436a6b8baee98cdfa0c">exportToStream</a> (const boost::shared_ptr&lt; <a class="el" href="../../db/d44/a02564.html">Timeline</a> &gt; &amp;timeline, std::ostream &amp;stream) const override</td></tr>
+<tr class="memdesc:ab7aa9361d0f8f436a6b8baee98cdfa0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export method in XML format.  <a href="#ab7aa9361d0f8f436a6b8baee98cdfa0c">More...</a><br /></td></tr>
+<tr class="separator:ab7aa9361d0f8f436a6b8baee98cdfa0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_a02556"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a02556')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../dc/d32/a02556.html">timeline::Exporter</a></td></tr>
+<tr class="memitem:a5d63ea81ae82ca92bce6bdcdcae4cfbc inherit pub_methods_a02556"><td class="memItemLeft" align="right" valign="top"><a id="a5d63ea81ae82ca92bce6bdcdcae4cfbc"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d32/a02556.html#a5d63ea81ae82ca92bce6bdcdcae4cfbc">Exporter</a> ()</td></tr>
+<tr class="memdesc:a5d63ea81ae82ca92bce6bdcdcae4cfbc inherit pub_methods_a02556"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor. <br /></td></tr>
+<tr class="separator:a5d63ea81ae82ca92bce6bdcdcae4cfbc inherit pub_methods_a02556"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbb92c28b5baf0c79c9f77b98406b309 inherit pub_methods_a02556"><td class="memItemLeft" align="right" valign="top"><a id="acbb92c28b5baf0c79c9f77b98406b309"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d32/a02556.html#acbb92c28b5baf0c79c9f77b98406b309">~Exporter</a> ()=default</td></tr>
+<tr class="memdesc:acbb92c28b5baf0c79c9f77b98406b309 inherit pub_methods_a02556"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:acbb92c28b5baf0c79c9f77b98406b309 inherit pub_methods_a02556"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3da56f52f72694fbe3860299e1f8aa56 inherit pub_methods_a02556"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d32/a02556.html#a3da56f52f72694fbe3860299e1f8aa56">setExportWithTime</a> (const bool exportWithTime)</td></tr>
+<tr class="memdesc:a3da56f52f72694fbe3860299e1f8aa56 inherit pub_methods_a02556"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether to export time setter  <a href="../../dc/d32/a02556.html#a3da56f52f72694fbe3860299e1f8aa56">More...</a><br /></td></tr>
+<tr class="separator:a3da56f52f72694fbe3860299e1f8aa56 inherit pub_methods_a02556"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7f1b498fc7cd3dea9c084ab3da448ae inherit pub_methods_a02556"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d32/a02556.html#ad7f1b498fc7cd3dea9c084ab3da448ae">setMaxPriority</a> (const boost::optional&lt; int &gt; maxPriority)</td></tr>
+<tr class="memdesc:ad7f1b498fc7cd3dea9c084ab3da448ae inherit pub_methods_a02556"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum priority setter  <a href="../../dc/d32/a02556.html#ad7f1b498fc7cd3dea9c084ab3da448ae">More...</a><br /></td></tr>
+<tr class="separator:ad7f1b498fc7cd3dea9c084ab3da448ae inherit pub_methods_a02556"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_attribs_a02556"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_a02556')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../dc/d32/a02556.html">timeline::Exporter</a></td></tr>
+<tr class="memitem:a3cea0999ec63144bb692b4fed5951c23 inherit pro_attribs_a02556"><td class="memItemLeft" align="right" valign="top"><a id="a3cea0999ec63144bb692b4fed5951c23"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d32/a02556.html#a3cea0999ec63144bb692b4fed5951c23">exportWithTime_</a></td></tr>
+<tr class="memdesc:a3cea0999ec63144bb692b4fed5951c23 inherit pro_attribs_a02556"><td class="mdescLeft">&#160;</td><td class="mdescRight">boolean indicating whether to export time when exporting timeline <br /></td></tr>
+<tr class="separator:a3cea0999ec63144bb692b4fed5951c23 inherit pro_attribs_a02556"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add563d0da7b15436bd2fe60810e99c4f inherit pro_attribs_a02556"><td class="memItemLeft" align="right" valign="top"><a id="add563d0da7b15436bd2fe60810e99c4f"></a>
+boost::optional&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d32/a02556.html#add563d0da7b15436bd2fe60810e99c4f">maxPriority_</a></td></tr>
+<tr class="memdesc:add563d0da7b15436bd2fe60810e99c4f inherit pro_attribs_a02556"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum priority allowed when exporting timeline <br /></td></tr>
+<tr class="separator:add563d0da7b15436bd2fe60810e99c4f inherit pro_attribs_a02556"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>XML exporter interface class. </p>
+<p>XML export class for timeline </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a779f04facb8d90b64d6ca5cdb4ea0bda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a779f04facb8d90b64d6ca5cdb4ea0bda">&#9670;&nbsp;</a></span>exportToFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void timeline::XmlExporter::exportToFile </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../db/d44/a02564.html">Timeline</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>timeline</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>filePath</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Export method in XML format. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">timeline</td><td><a class="el" href="../../db/d44/a02564.html" title="Timeline interface class. ">Timeline</a> to export </td></tr>
+    <tr><td class="paramname">filePath</td><td>File to export XML formatted timeline to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="../../dc/d32/a02556.html#a1d9986c16a88a1541a012dfe74c88955">timeline::Exporter</a>.</p>
+
+</div>
+</div>
+<a id="ab7aa9361d0f8f436a6b8baee98cdfa0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7aa9361d0f8f436a6b8baee98cdfa0c">&#9670;&nbsp;</a></span>exportToStream()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void timeline::XmlExporter::exportToStream </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../db/d44/a02564.html">Timeline</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>timeline</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Export method in XML format. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">timeline</td><td><a class="el" href="../../db/d44/a02564.html" title="Timeline interface class. ">Timeline</a> to export </td></tr>
+    <tr><td class="paramname">stream</td><td>stream to export XML formatted timeline to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="../../dc/d32/a02556.html#ad89cf490dc7a018d06d669d2acb9be4a">timeline::Exporter</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li><a class="el" href="../../d9/d34/a00476_source.html">TLXmlExporter.h</a></li>
+</ul>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -159,7 +269,8 @@ $(document).ready(function(){initNavTree('d4/d70/a02579.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Nov 12 2025 18:05:56 for Dynawo by
+    <li class="navelem"><b>timeline</b></li><li class="navelem"><a class="el" href="../../d0/df5/a02576.html">XmlExporter</a></li>
+    <li class="footer">Generated on Fri Jan 16 2026 12:04:17 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
