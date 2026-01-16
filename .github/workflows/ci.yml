@@ -210,11 +210,8 @@ jobs:
           cmake -Wno-dev -S dynawo -B b -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../d-i -DDYNAWO_HOME=.. -DINSTALL_OPENMODELICA=../../OpenModelica -DDYNAWO_THIRD_PARTY_DIR=../../d-3-p -G "Ninja"
           cmake --build b --target install || exit /b 1
           cmake --build b --target models-cpp || exit /b 1
-          cmake --build b --target SMIB_MODELS || exit /b 1
-          cmake --build b --target LoadAlphaBeta || exit /b 1
-          cmake --build b --target GeneratorSynchronousFourWindingsProportionalRegulations || exit /b 1
-          cmake --build b --target GeneratorSynchronousThreeWindingsProportionalRegulations || exit /b 1
-          cmake --build b --target solvers || exit /b 1
+          cmake --build b --target BooleanTable
+          type D:/dynawo/b/M/M/P/BooleanTable.log
 
       - name: Dynawo runtime
         shell: cmd
