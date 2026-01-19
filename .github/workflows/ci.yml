@@ -202,6 +202,7 @@ jobs:
         shell: cmd
         env:
           PATH: C:\Windows\system32;C:\Program Files\Git\cmd;C:\hostedtoolcache\windows\Python\3.9.13\x64
+          DYNAWO_PYTHON_COMMAND: python3
         run: |
           call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
           cd \dynawo
