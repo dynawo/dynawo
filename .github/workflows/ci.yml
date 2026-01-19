@@ -212,6 +212,10 @@ jobs:
           cmake --build b --target models-cpp || exit /b 1
           cmake --build b --target SMIB_MODELS
           type "b\M\M\P\NodeFault.log"
+          cmake --build b --target LoadAlphaBeta || exit /b 1
+          cmake --build b --target GeneratorSynchronousFourWindingsProportionalRegulations || exit /b 1
+          cmake --build b --target GeneratorSynchronousThreeWindingsProportionalRegulations || exit /b 1
+          cmake --build b --target solvers || exit /b 1
 
       - name: Dynawo runtime
         shell: cmd
