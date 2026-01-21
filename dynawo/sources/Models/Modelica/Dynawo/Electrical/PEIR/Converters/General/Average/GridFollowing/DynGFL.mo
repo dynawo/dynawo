@@ -12,10 +12,12 @@ model DynGFL "PEIR model with GFL control and dynamic connections to the grid"
   *
   * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
   */
-extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffInjector;
+
+  extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffInjector;
+
   // Installation parameter
   parameter Types.ApparentPowerModule SNom "Nominal apparent power module for the converter";
-  parameter Types.Time tUFilt = 1/6283 "Filter time constant for voltage measurement in s";
+  parameter Types.Time tUFilt = 0.01 "Filter time constant for voltage measurement in s";
 
   // PLL parameters
   parameter Types.PerUnit Ki "PLL integrator gain" annotation(
@@ -74,7 +76,7 @@ extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffInjector;
     Placement(visible = true, transformation(origin = {-110, 32}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.PEIR.BaseControls.Auxiliaries.Measurements Measurements(IdPcc0Pu = Converter.refFrameRotation.IdPcc0Pu, IqPcc0Pu = Converter.refFrameRotation.IqPcc0Pu, UdFilter0Pu = Converter.RLTransformer.UdFilter0Pu, UdPcc0Pu = Converter.refFrameRotation.UdPcc0Pu, UqFilter0Pu = Converter.RLTransformer.UqFilter0Pu, UqPcc0Pu = Converter.refFrameRotation.UqPcc0Pu, tUFilt = tUFilt) annotation(
     Placement(visible = true, transformation(origin = {18, -32}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
-  Dynawo.Electrical.Controls.PEIR.Converters.Average.DynGridFollowingControl Control(IdConv0Pu = Converter.RLCFilter.IdConv0Pu, IqConv0Pu = Converter.RLCFilter.IqConv0Pu,Kfd = Kfd, Kfq = Kfq, Ki = Ki, Kic = Kic, Kid = Kid, Kiq = Kiq, Kp = Kp, Kpc = Kpc, Kpd = Kpd, Kpq = Kpq, LFilterPu = LFilterPu, LTransformerPu = LTransformerPu, Omega0Pu = SystemBase.omegaRef0Pu, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, PFilter0Pu = Measurements.PFilter0Pu, QFilter0Pu = Measurements.QFilter0Pu, RFilterPu = RFilterPu, RTransformerPu = RTransformerPu, Theta0 = Converter.Theta0, UdConv0Pu = Converter.RLCFilter.UdConv0Pu, UdFilter0Pu = Converter.RLTransformer.UdFilter0Pu, UdFilteredPcc0Pu = Measurements.UdPcc0Pu, UqConv0Pu = Converter.RLCFilter.UqConv0Pu, UqFilter0Pu = Converter.RLTransformer.UqFilter0Pu, UqFilteredPcc0Pu = Measurements.UqPcc0Pu, tPFilt = tPFilt, tQFilt = tQFilt)  annotation(
+  Dynawo.Electrical.Controls.PEIR.Converters.Average.DynGridFollowingControl Control(IdConv0Pu = Converter.RLCFilter.IdConv0Pu, IqConv0Pu = Converter.RLCFilter.IqConv0Pu,Kfd = Kfd, Kfq = Kfq, Ki = Ki, Kic = Kic, Kid = Kid, Kiq = Kiq, Kp = Kp, Kpc = Kpc, Kpd = Kpd, Kpq = Kpq, LFilterPu = LFilterPu, LTransformerPu = LTransformerPu, Omega0Pu = SystemBase.omegaRef0Pu, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, PFilter0Pu = Measurements.PFilter0Pu, QFilter0Pu = Measurements.QFilter0Pu, RFilterPu = RFilterPu, RTransformerPu = RTransformerPu, Theta0 = Converter.Theta0, UdConv0Pu = Converter.RLCFilter.UdConv0Pu, UdFilter0Pu = Converter.RLTransformer.UdFilter0Pu, UqConv0Pu = Converter.RLCFilter.UqConv0Pu, UqFilter0Pu = Converter.RLTransformer.UqFilter0Pu, tPFilt = tPFilt, tQFilt = tQFilt)  annotation(
     Placement(visible = true, transformation(origin = {-46, 42}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Sources.PEIR.Converters.Average.DynConverter1 Converter(CFilterPu = CFilterPu, LFilterPu = LFilterPu, LTransformerPu = LTransformerPu, Omega0Pu = SystemBase.omegaRef0Pu, RFilterPu = RFilterPu, RTransformerPu = RTransformerPu, SNom = SNom, Theta0 = Theta0, i0Pu = i0Pu, tVSC = tVSC, u0Pu = u0Pu)  annotation(
     Placement(visible = true, transformation(origin = {70, 42}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -97,6 +99,10 @@ equation
     Line(points = {{-110, 64}, {-80, 64}, {-80, 58}, {-68, 58}}, color = {85, 170, 0}, thickness = 0.5));
   connect(QFilterRefPu, Control.QFilterRefPu) annotation(
     Line(points = {{-110, 32}, {-80, 32}, {-80, 38}, {-68, 38}}, color = {85, 170, 0}, thickness = 0.5));
+  connect(Control.QFilterPu, Measurements.QFilterPu) annotation(
+    Line(points = {{-68, 24}, {-72, 24}, {-72, -36}, {-4, -36}}, color = {85, 170, 0}));
+  connect(Control.PFilterPu, Measurements.PFilterPu) annotation(
+    Line(points = {{-68, 28}, {-80, 28}, {-80, -44}, {-4, -44}}, color = {85, 170, 0}));
   connect(Converter.terminal, terminal) annotation(
     Line(points = {{92, 42}, {106, 42}}, color = {0, 0, 255}));
   connect(Control.udConvRefPu, Converter.udConvRefPu) annotation(
@@ -123,20 +129,13 @@ equation
     Line(points = {{84, 20}, {84, -80}, {-58, -80}, {-58, 20}}, color = {245, 121, 0}));
   connect(Converter.iqConvPu, Control.iqConvPu) annotation(
     Line(points = {{88, 20}, {88, -86}, {-62, -86}, {-62, 20}}, color = {245, 121, 0}));
-  connect(Converter.uqFilterPu, Control.uqFilterPu) annotation(
-    Line(points = {{78, 20}, {78, -74}, {-54, -74}, {-54, 20}}, color = {85, 170, 0}));
   connect(Converter.udFilterPu, Control.udFilterPu) annotation(
     Line(points = {{74, 20}, {74, -64}, {-50, -64}, {-50, 20}}, color = {85, 170, 0}));
-  connect(Measurements.PFilterPu, Control.PFilterPu) annotation(
-    Line(points = {{-4, -48}, {-92, -48}, {-92, 28}, {-68, 28}}, color = {0, 0, 127}));
-  connect(Measurements.QPccPu, Control.QFilterPu) annotation(
-    Line(points = {{-4, -34}, {-86, -34}, {-86, 24}, {-68, 24}}, color = {0, 0, 127}));
-  connect(Measurements.uqFilteredPccPu, Control.uqPccPu) annotation(
-    Line(points = {{-4, -26}, {-30, -26}, {-30, 20}}, color = {0, 0, 127}));
-  connect(Measurements.udFilteredPccPu, Control.udPccPu) annotation(
-    Line(points = {{-4, -20}, {-40, -20}, {-40, 20}}, color = {0, 0, 127}));
+  connect(Converter.uqFilterPu, Control.uqFilterPu) annotation(
+    Line(points = {{78, 20}, {78, -74}, {-54, -74}, {-54, 20}}, color = {85, 170, 0}));
+
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html><head></head><body>This model represents a power-electronics interface resource, with the following elements:<div><br></div><div>- A Grid-Forming Virtual Synchronous Machine control defining voltage source references at the converter interface</div><div>- A converter part with an AVM model, a dynamic RLC filter and a dynamic RL transformer</div><div>- A measurement block to apply measurement treatment to the voltage and current</div><div><br></div><div>As of today, the model doesn't include any current saturation scheme.</div><div><br></div><div><br></div><div><br></div></body></html>"),
-    Diagram(graphics = {Text(origin = {51, -27}, lineColor = {85, 170, 255}, extent = {{-13, 1}, {13, -1}}, textString = "udPccPu"), Text(origin = {51, -37}, lineColor = {85, 170, 255}, extent = {{-13, 1}, {13, -1}}, textString = "uqPccPu"), Text(origin = {19, -61}, lineColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "udFilterPu"), Text(origin = {19, -71}, lineColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "uqFilterPu"), Text(origin = {-17, -43}, lineColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "QFilterPu"), Text(origin = {-17, -51}, lineColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "PFilterPu"), Text(origin = {9, 53}, lineColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "udConvRefPu", textStyle = {TextStyle.Bold}), Text(origin = {9, 37}, lineColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "uqConvRefPu", textStyle = {TextStyle.Bold}), Text(origin = {19, -77}, lineColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "idConvPu"), Text(origin = {19, -83}, lineColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "iqConvPu"), Text(origin = {9, 83}, lineColor = {0, 0, 127}, extent = {{-13, 1}, {13, -1}}, textString = "theta"), Text(origin = {9, 75}, lineColor = {0, 0, 127}, extent = {{-13, 1}, {13, -1}}, textString = "omegaPu"), Text(origin = {-16, -17}, lineColor = {192, 97, 203}, extent = {{-20, 1}, {20, -1}}, textString = "udFilteredPccPu"), Text(origin = {-16, -23}, lineColor = {192, 97, 203}, extent = {{-20, 1}, {20, -1}}, textString = "uqFilteredPccPu")}));
+    Diagram(graphics = {Text(origin = {51, -27}, lineColor = {85, 170, 255}, extent = {{-13, 1}, {13, -1}}, textString = "udPccPu"), Text(origin = {51, -37}, lineColor = {85, 170, 255}, extent = {{-13, 1}, {13, -1}}, textString = "uqPccPu"), Text(origin = {19, -61}, lineColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "udFilterPu"), Text(origin = {19, -71}, lineColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "uqFilterPu"), Text(origin = {-21, -33}, lineColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "QFilterPu"), Text(origin = {-21, -41}, lineColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "PFilterPu"), Text(origin = {9, 53}, lineColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "udConvRefPu", textStyle = {TextStyle.Bold}), Text(origin = {9, 37}, lineColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "uqConvRefPu", textStyle = {TextStyle.Bold}), Text(origin = {19, -77}, lineColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "idConvPu"), Text(origin = {19, -83}, lineColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "iqConvPu"), Text(origin = {9, 83}, lineColor = {0, 0, 127}, extent = {{-13, 1}, {13, -1}}, textString = "theta"), Text(origin = {9, 75}, lineColor = {0, 0, 127}, extent = {{-13, 1}, {13, -1}}, textString = "omegaPu")}));
 end DynGFL;

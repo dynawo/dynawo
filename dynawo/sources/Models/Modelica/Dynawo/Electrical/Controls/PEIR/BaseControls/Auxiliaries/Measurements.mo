@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.PEIR.BaseControls.Auxiliaries;
 
 /*
-* Copyright (c) 2026, RTE (http://www.rte-france.com)
+* Copyright (c) 2025, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -35,14 +35,11 @@ model Measurements "Measurements block for PEIR models"
     Placement(visible = true, transformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput QFilterPu(start = QFilter0Pu) "Reactive power at the filter in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 24}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput QPccPu(start = QFilter0Pu) "Reactive power at the Pcc in pu (base SNom)"annotation(
-    Placement(visible = true, transformation(origin = {110, 14}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 8}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput udFilteredPccPu(start = UdPcc0Pu) "Filtered d-axis voltage at PCC in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -62}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput uqFilteredPccPu(start = UqPcc0Pu) "Filtered q-axis voltage at PCC in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Dynawo.Types.VoltageModulePu UPccPu  "voltage module at the Pcc in pu (base UNom)";
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tUFilt, k = 1, y_start = UqPcc0Pu) annotation(
     Placement(visible = true, transformation(origin = {1.33227e-15, -80}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder( T = tUFilt,k = 1, y_start = UdPcc0Pu) annotation(
@@ -62,8 +59,6 @@ model Measurements "Measurements block for PEIR models"
 equation
   PFilterPu = udFilterPu * idPccPu + uqFilterPu * iqPccPu;
   QFilterPu = uqFilterPu * idPccPu - udFilterPu * iqPccPu;
-  QPccPu = uqPccPu * idPccPu - udPccPu * iqPccPu;
-  UPccPu = uqPccPu^2 + udPccPu^2;
 
   connect(firstOrder1.y, uqFilteredPccPu) annotation(
     Line(points = {{8, -80}, {110, -80}}, color = {0, 0, 127}));
