@@ -40,7 +40,7 @@ equation
   der(GFL2.QFilterRefPu) = 0;
   der(GFL2.omegaRefPu) = 0;
 
-  // GFL switch off signals
+  // No Switch off GFL
   GFL1.switchOffSignal1.value = false;
   GFL1.switchOffSignal2.value = false;
   GFL1.switchOffSignal3.value = false;
@@ -65,6 +65,4 @@ equation
     Line(points = {{44, 0}, {54, 0}}, color = {0, 0, 255}));
   connect(Bus.terminal, line.terminal2) annotation(
     Line(points = {{2, 0}, {24, 0}}, color = {0, 0, 255}));
-annotation(
-    Diagram(coordinateSystem(extent = {{-80, 20}, {80, -60}})));
 end TwoConvertersDynGFL;

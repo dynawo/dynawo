@@ -15,6 +15,8 @@ set(MODEL_FILES
   TwoConvertersGFL.mo
   TwoConvertersDynGFL.mo
   TwoConvertersDynGFLDynLine.mo
+  OneDynGFLDynLine_TunningD.mo
+  TwoConverter_FixeLgrid_TunningD.mo
   )
 
 #

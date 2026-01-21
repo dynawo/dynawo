@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.PEIR.BaseControls.CurrentLoops;
 
 /*
-* Copyright (c) 2015-2026, RTE (http://www.rte-france.com)
+* Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
