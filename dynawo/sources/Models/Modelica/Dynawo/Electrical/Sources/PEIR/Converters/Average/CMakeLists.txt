@@ -10,6 +10,8 @@
 # of simulation tools for power systems.
 
 set(MODEL_FILES
+  Converter1.mo
+  Converter2.mo
   DynConverter1.mo
   package.mo
   package.order

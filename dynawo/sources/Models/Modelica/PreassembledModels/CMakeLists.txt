@@ -25,6 +25,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   DistanceProtectionLineFourZonesWithBlinder.xml
   DistanceProtectionLineTwoZones.xml
   DistanceProtectionLineTwoZonesWithBlinder.xml
+  DynGridFollowing.xml
   DynGridFormingVirtualSynchronousMachine.xml
   DoubleStep.xml
   ElectronicLoad.xml
@@ -124,6 +125,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousThreeWindingsPmConstVRNordicTfo.xml
   GeneratorSynchronousThreeWindingsProportionalRegulations.xml
   GenericAutomaton.xml
+  GridFollowing.xml
   GridFormingConverterDroopControl.xml
   GridFormingConverterMatchingControl.xml
   GridFormingConverterDispatchableVirtualOscillatorControl.xml

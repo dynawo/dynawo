@@ -10,6 +10,7 @@
 
 add_subdirectory(Auxiliaries A)
 add_subdirectory(CurrentLoops C)
+add_subdirectory(GFL GFL)
 add_subdirectory(GFM GFM)
 add_subdirectory(Plant P)
 

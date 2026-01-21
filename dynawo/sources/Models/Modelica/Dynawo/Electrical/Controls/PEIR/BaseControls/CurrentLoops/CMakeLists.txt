@@ -12,7 +12,9 @@ set(MODEL_FILES
   # Converter control elements models
   package.mo
   package.order
+  CurrentLoop.mo
   DynCurrentLoop.mo
+  DynCurrentLoopV2.mo
   )
 
 #

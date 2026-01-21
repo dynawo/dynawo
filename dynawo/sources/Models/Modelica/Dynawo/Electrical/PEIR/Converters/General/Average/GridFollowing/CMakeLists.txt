@@ -1,4 +1,4 @@
-# Copyright (c) 2026, RTE (http://www.rte-france.com)
+# Copyright (c) 2025, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,17 +12,17 @@
 set(MODEL_FILES
   package.mo
   package.order
-  DynRLCFilter.mo
-  DynRLTransformer.mo
-  RefFrameRotation.mo
-  RLCFilter.mo
-  RLTransformer.mo
-  VSCConverter.mo
+  csGFL.mo
+  DynGFL.mo
+  DynGFL.extvar
+  GFL.mo
+  GFL.extvar
+  DynGFLMeasurementFiltered.mo
   )
 
 #
 # Modelica models install
 #
-foreach(MODEL_FILE ${MODEL_FILES})
-  install_model_file(${MODEL_FILE})
-endforeach(MODEL_FILE)
+foreach( MODEL_FILE ${MODEL_FILES} )
+    install_model_file(${MODEL_FILE})
+endforeach( MODEL_FILE )
