@@ -201,7 +201,7 @@ jobs:
       - name: Build Dynawo
         shell: cmd
         env:
-          PATH: C:\Windows\system32;C:\Program Files\Git\cmd;C:\hostedtoolcache\windows\Python\3.9.13\x64
+          PATH: C:\Windows\system32;C:\Program Files\Git\cmd;C:\hostedtoolcache\windows\Python\3.12.10\x64
           DYNAWO_PYTHON_COMMAND: python3
         run: |
           call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
@@ -212,7 +212,6 @@ jobs:
           cmake --build b --target install || exit /b 1
           cmake --build b --target models-cpp || exit /b 1
           cmake --build b --target SMIB_MODELS
-          type "b\M\M\P\NodeFault.log"
           cmake --build b --target LoadAlphaBeta || exit /b 1
           cmake --build b --target GeneratorSynchronousFourWindingsProportionalRegulations || exit /b 1
           cmake --build b --target GeneratorSynchronousThreeWindingsProportionalRegulations || exit /b 1
