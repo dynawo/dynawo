@@ -1,6 +1,6 @@
 INFO |  ============================================================ 
 INFO | DYNAWO VERSION  :     1.8.0
-INFO | DYNAWO REVISION :  master-25-2a37ba5e337
+INFO | DYNAWO REVISION :  3763_ida_refactor_1-63edcefdb0e
 INFO |  ============================================================ 
 INFO | 
 INFO | -----------------------------------------------------------------------
@@ -37,7 +37,7 @@ INFO | number of root functions : 309
 INFO | -----------------------------------------------------------------------
 INFO |         time ¦ iter num   order (k)      time step (h)
 INFO | -----------------------------------------------------------------------
-INFO |        0.000 ¦        0           0              0.030 
+INFO |        0.000 ¦        0           0              0.000 
 INFO |        0.000 ¦        1           1              0.000 
 INFO |        0.000 ¦        2           1              0.000 
 INFO |        0.000 ¦        3           2              0.000 
@@ -275,6 +275,10 @@ INFO | Algebraic mode change at t = 1.622
 INFO |        1.622 ¦       24           2              0.033 
 INFO | calculation of the new starting point of the simulation.
 INFO |        1.622 ¦        0           0              0.000 
+INFO | Algebraic mode change at t = 1.622
+INFO |        1.622 ¦        1           1              0.000 
+INFO | calculation of the new starting point of the simulation.
+INFO |        1.622 ¦        0           0              0.000 
 INFO |        1.622 ¦        1           1              0.000 
 INFO |        1.622 ¦        2           1              0.000 
 INFO |        1.622 ¦        3           2              0.000 
@@ -321,6 +325,10 @@ INFO | Algebraic mode change at t = 1.92341
 INFO |        1.923 ¦       23           2              0.046 
 INFO | calculation of the new starting point of the simulation.
 INFO |        1.923 ¦        0           0              0.000 
+INFO | Algebraic mode change at t = 1.92341
+INFO |        1.923 ¦        1           1              0.000 
+INFO | calculation of the new starting point of the simulation.
+INFO |        1.923 ¦        0           0              0.000 
 INFO |        1.923 ¦        1           1              0.000 
 INFO |        1.923 ¦        2           1              0.000 
 INFO |        1.923 ¦        3           2              0.000 
@@ -345,10 +353,6 @@ INFO |        2.117 ¦       19           2              0.066
 INFO |        2.117 ¦       19           2              0.066 
 INFO | Algebraic mode change at t = 2.11744
 INFO |        2.117 ¦       19           2              0.066 
-INFO | calculation of the new starting point of the simulation.
-INFO |        2.117 ¦        0           0              0.000 
-INFO | Algebraic mode change at t = 2.11744
-INFO |        2.117 ¦        1           1              0.000 
 INFO | calculation of the new starting point of the simulation.
 INFO |        2.117 ¦        0           0              0.000 
 INFO |        2.117 ¦        1           1              0.000 
@@ -410,6 +414,14 @@ INFO |        2.679 ¦       23           2              0.059
 INFO |        2.679 ¦       23           2              0.059 
 INFO | Algebraic mode change at t = 2.67884
 INFO |        2.679 ¦       23           2              0.059 
+INFO | calculation of the new starting point of the simulation.
+INFO |        2.679 ¦        0           0              0.000 
+INFO | Algebraic mode change at t = 2.67884
+INFO |        2.679 ¦        1           1              0.000 
+INFO | calculation of the new starting point of the simulation.
+INFO |        2.679 ¦        0           0              0.000 
+INFO | Algebraic mode change at t = 2.67884
+INFO |        2.679 ¦        1           1              0.000 
 INFO | calculation of the new starting point of the simulation.
 INFO |        2.679 ¦        0           0              0.000 
 INFO |        2.679 ¦        1           1              0.000 
@@ -547,13 +559,13 @@ INFO |       30.000 ¦       61           1              1.161
 INFO | 
 INFO | execution statistics :
 INFO | 
-INFO | number of time iterations                  = 411
-INFO | number of residual evaluations             = 580
-INFO | number of Jacobian evaluations             = 312
-INFO | number of nonlinear iterations             = 532
+INFO | number of time iterations                  = 414
+INFO | number of residual evaluations             = 584
+INFO | number of Jacobian evaluations             = 315
+INFO | number of nonlinear iterations             = 530
 INFO | number of error test failures              = 3
 INFO | number of nonlinear convergence failures   = 0
-INFO | number of root functions evaluations       = 2063
-INFO | number of discrete variables evaluations   = 94
-INFO | number of mode evaluations                 = 72
+INFO | number of root functions evaluations       = 2104
+INFO | number of discrete variables evaluations   = 97
+INFO | number of mode evaluations                 = 75
 INFO | end of job 'IEEE14 - Line Fault'
