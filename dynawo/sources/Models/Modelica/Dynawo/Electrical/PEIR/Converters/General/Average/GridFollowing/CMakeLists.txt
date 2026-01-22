@@ -17,7 +17,6 @@ set(MODEL_FILES
   DynGFL.extvar
   GFL.mo
   GFL.extvar
-  DynGFLMeasurementFiltered.mo
   )
 
 #

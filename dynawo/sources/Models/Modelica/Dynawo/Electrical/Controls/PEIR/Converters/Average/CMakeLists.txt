@@ -15,7 +15,6 @@ set(MODEL_FILES
   DynGridFormingControlVSM.mo
   csGridFollowingControl.mo
   DynGridFollowingControl.mo
-  DynGridFollowingControlV2.mo
   GridFollowingControl.mo
   )
 
