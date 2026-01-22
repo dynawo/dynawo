@@ -14,7 +14,6 @@ set(MODEL_FILES
   package.order
   CurrentLoop.mo
   DynCurrentLoop.mo
-  DynCurrentLoopV2.mo
   )
 
 #
