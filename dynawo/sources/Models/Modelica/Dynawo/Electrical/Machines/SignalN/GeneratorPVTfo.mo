@@ -17,6 +17,12 @@ model GeneratorPVTfo "Model for generator PV based on SignalN for the frequency 
   extends BaseClasses.BaseTfo;
   extends BaseClasses.BaseQStator(QStatorPu(start = QStator0Pu));
 
+  // blocks
+  Modelica.Blocks.Sources.BooleanExpression blocking(y = (qStatus == QStatus.AbsorptionMax or qStatus == QStatus.GenerationMax or running.value == false)) "Expression determining if reactive power limits have been reached or if the generator is disconnected" annotation(
+    Placement(transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Interfaces.BooleanOutput blocker(start =  (qStatus0 == QStatus.AbsorptionMax or qStatus0 == QStatus.GenerationMax or Running0 == false)) "If true, reactive power limits have been reached or the generator is disconnected" annotation(
+    Placement(transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {106, 0}, extent = {{-10, -10}, {10, 10}})));
+
 equation
   when QGenPu + QDeadBandPu <= QMinPu and UStatorPu - UDeadBandPu > UStatorRefPu then
     qStatus = QStatus.AbsorptionMax;
@@ -49,7 +55,11 @@ equation
     else
       UStatorPu = UStatorRefPu;
     end if;
-    UStatorPu = ComplexMath.'abs'(uStatorPu);
+    if ((uStatorPu.re == 0) and (uStatorPu.im == 0)) then
+      UStatorPu = 0.;
+    else
+      UStatorPu = ComplexMath.'abs'(uStatorPu);
+    end if;
   else
     terminal.i.im = 0;
     UStatorPu = 0;
@@ -59,6 +69,9 @@ equation
   iStatorPu = - terminal.i * SystemBase.SnRef / SNom;
   sStatorPu = uStatorPu * ComplexMath.conj(iStatorPu);
   QStatorPu = sStatorPu.im * SNom / QNomAlt;
+
+  connect(blocking.y, blocker) annotation(
+    Line(points = {{82, 0}, {110, 0}}, color = {255, 0, 255}));
 
   annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body> This generator regulates the voltage UStatorPu unless its reactive power generation hits its limits QMinPu or QMaxPu at terminal (in this case, the generator provides QMinPu or QMaxPu at terminal and the voltage is no longer regulated at stator).</div></body></html>"));

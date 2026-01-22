@@ -21,8 +21,10 @@
 
 #include "CRVPoint.h"
 #include "CRVPointFactory.h"
+#include "DYNCommon.h"
 
 #include <iostream>
+#include <sstream>
 #include <limits>
 
 using std::string;
@@ -76,6 +78,16 @@ Curve::updateParameterCurveValue(std::string /*parameterName*/, double parameter
   for (const auto& point : points_) {
     point->setValue(parameterValue * factor_);
   }
+}
+
+double
+Curve::getLastTime() const {
+  return (points_.empty()) ? -1 : points_.back()->getTime();
+}
+
+double
+Curve::getLastValue() const {
+  return (points_.empty()) ? 0 : points_.back()->getValue();
 }
 
 void
@@ -161,6 +173,15 @@ Curve::getNegated() const {
 const double*
 Curve::getBuffer() const {
   return buffer_;
+}
+
+string
+Curve::getUniqueName() const {
+  std::ostringstream stream;
+  stream << modelName_ << "_" << variable_;
+  if (DYN::doubleNotEquals(factor_, 1.))
+    stream << "_" << factor_ << "x";
+  return stream.str();
 }
 
 }  // namespace curves

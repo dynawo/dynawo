@@ -14,8 +14,8 @@
 set(MODEL_FILES
   package.mo
   package.order
-  GeneratorFictitious.mo
-  GeneratorFictitious.extvar
+  GeneratorAlphaBeta.mo
+  GeneratorAlphaBeta.extvar
   GeneratorPVFixed.mo
   GeneratorPVFixed.extvar
   GeneratorSimplified_INIT.mo

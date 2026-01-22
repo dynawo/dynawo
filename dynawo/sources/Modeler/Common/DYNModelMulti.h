@@ -28,6 +28,7 @@
 #include "DYNModel.h"
 #include "DYNVariable.h"
 #include "DYNBitMask.h"
+#include "DYNActionBuffer.h"
 
 namespace DYN {
 class SubModel;
@@ -424,6 +425,12 @@ class ModelMulti : public Model, private boost::noncopyable {
   bool checkConnects();
 
   /**
+   * @brief set ActionBuffer object
+   * @param actionBuffer pointer to ActionBuffer object
+   */
+  void setActionBuffer(const std::shared_ptr<ActionBuffer> actionBuffer);
+
+  /**
    * @copydoc Model::setWorkingDirectory()
    */
   void setWorkingDirectory(const std::string& workingDirectory) override;
@@ -472,6 +479,12 @@ class ModelMulti : public Model, private boost::noncopyable {
    */
   void setLocalInitParameters(const std::shared_ptr<parameters::ParametersSet>& localInitParameters) override;
 
+  /**
+   * @brief register an action
+   * @param actionString string containing the action properties
+   */
+  void registerAction(const std::string& actionString) override;
+
  private:
   /**
    * @brief create a submodel for a calculated variable when connecting a state and a calculated variables
@@ -481,15 +494,17 @@ class ModelMulti : public Model, private boost::noncopyable {
    * @param name name of the submodel created
    * @param subModel submodel owning the calculated variable to connect
    * @param variable the calculated variable to connect
+   * @param isUpdatable bool indicating if submodel needs initialization from connected model
    * @return a submodel for the calculated variable
    */
   template<class T>
   boost::shared_ptr<SubModel>
   setConnector(T connectorSubModel, const std::string& name,
-             const boost::shared_ptr<SubModel>& subModel, const boost::shared_ptr<Variable>& variable) {
+             const boost::shared_ptr<SubModel>& subModel, const boost::shared_ptr<Variable>& variable, bool isUpdatable) {
     connectorSubModel->name(name);
     connectorSubModel->setVariableName(variable->getName());
     connectorSubModel->setParams(subModel, variable->getIndex());
+    connectorSubModel->setIsUpdatable(isUpdatable);
     return boost::dynamic_pointer_cast<SubModel>(connectorSubModel);
   }
 
@@ -606,6 +621,9 @@ class ModelMulti : public Model, private boost::noncopyable {
 
   std::shared_ptr<parameters::ParametersSet> localInitParameters_;  ///< local initialization solver parameters set
   std::vector<std::pair<boost::shared_ptr<SubModel>, unsigned>> curvesCalculatedVarIndexes_;  ///< curves calculated var locations in subModel
+
+  bool updatablesInitialized_;                  ///< true if updatable models have been initialized
+  std::shared_ptr<ActionBuffer> actionBuffer_;  ///< action manager for interactive mode
 };  ///< Class for Multiple-Model
 
 

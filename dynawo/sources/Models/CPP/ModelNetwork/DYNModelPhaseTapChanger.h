@@ -81,14 +81,14 @@ class ModelPhaseTapChanger : public ModelTapChanger {
    *
    * @return size of G function
    */
-  static inline int sizeG() { return 6; }
+  inline int sizeG() const { return 6; }
 
   /**
    * @brief  get size of discrete variables
    *
    * @return number of discrete variables
    */
-  static inline int sizeZ() { return 0; }
+  inline int sizeZ() const { return 0; }
 
   /**
    * @brief set the current threshold over which the current should not go
@@ -129,6 +129,7 @@ class ModelPhaseTapChanger : public ModelTapChanger {
 
  private:
   double thresholdI_;  ///< threshold of I
+  double latestIValue_;  ///< latest measured current value
   double whenUp_;      ///< when the current reached a value over the threshold
   double whenDown_;    ///< when the current reached a value under the threshold
   double whenLastTap_;  ///< last time when a tap changer

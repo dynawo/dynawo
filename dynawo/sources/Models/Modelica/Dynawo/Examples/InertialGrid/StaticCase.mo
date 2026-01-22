@@ -48,7 +48,7 @@ model StaticCase
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Dynawo.Electrical.Buses.InfiniteBus slackBus(UPhase = 0, UPu = 1) annotation(
     Placement(visible = true, transformation(origin = {-36, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Dynawo.Electrical.Machines.Simplified.GeneratorFictitious Gen2(Alpha = 0, Beta = 0, PGen0Pu = 3.3, QGen0Pu = 0, U0Pu = 1, i0Pu = ComplexMath.conj(Complex(Gen2.PGen0Pu, Gen2.QGen0Pu) / Gen2.u0Pu), u0Pu = Complex(1, 0)) annotation(
+  Dynawo.Electrical.Machines.Simplified.GeneratorAlphaBeta Gen2(Alpha = 0, Beta = 0, PGen0Pu = 3.3, QGen0Pu = 0, U0Pu = 1, i0Pu = ComplexMath.conj(Complex(Gen2.PGen0Pu, Gen2.QGen0Pu) / Gen2.u0Pu), u0Pu = Complex(1, 0)) annotation(
     Placement(visible = true, transformation(origin = {-26, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation

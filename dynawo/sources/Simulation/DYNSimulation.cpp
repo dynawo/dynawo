@@ -109,7 +109,6 @@
 #include "DYNSolver.h"
 #include "DYNTimer.h"
 #include "DYNModelMulti.h"
-#include "DYNModeler.h"
 #include "DYNFileSystemUtils.h"
 #include "DYNTerminate.h"
 #include "DYNDataInterface.h"
@@ -118,6 +117,8 @@
 #include "DYNSignalHandler.h"
 #include "DYNIoDico.h"
 #include "DYNBitMask.h"
+
+#include "make_unique.hpp"
 
 using std::ofstream;
 using std::fstream;
@@ -763,17 +764,23 @@ Simulation::importFinalStateValuesRequest() const {
   }
 }
 
+std::unique_ptr<Modeler>
+Simulation::createModeler() const {
+  std::unique_ptr<Modeler> modeler = DYN::make_unique<Modeler>();
+  return modeler;
+}
+
 void
 Simulation::initFromData(const shared_ptr<DataInterface>& data, const shared_ptr<DynamicData>& dyd) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("Simulation::initFromData()");
 #endif
-  Modeler modeler;
-  modeler.setDataInterface(data);
-  modeler.setDynamicData(dyd);
-  modeler.initSystem();
+  std::unique_ptr<Modeler> modeler = createModeler();
+  modeler->setDataInterface(data);
+  modeler->setDynamicData(dyd);
+  modeler->initSystem();
 
-  model_ = modeler.getModel();
+  model_ = modeler->getModel();
   model_->setWorkingDirectory(context_->getWorkingDirectory());
   model_->setTimeline(timeline_);
   model_->setConstraints(constraintsCollection_);
@@ -1187,14 +1194,14 @@ Simulation::updateParametersValues() const {
 }
 
 void
-Simulation::updateCurves(const bool updateCalculateVariable) const {
+Simulation::updateCurves(const bool updateCalculatedVariable) const {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("Simulation::updateCurves()");
 #endif
   if (exportCurvesMode_ == EXPORT_CURVES_NONE && exportFinalStateValuesMode_ == EXPORT_FINAL_STATE_VALUES_NONE)
     return;
 
-  if (updateCalculateVariable)
+  if (updateCalculatedVariable)
     model_->updateCalculatedVarForCurves();
 
   curvesCollection_->updateCurves(tCurrent_);

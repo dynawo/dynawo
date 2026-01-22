@@ -47,7 +47,7 @@ model WPPPControl2015 "Active power control module for wind power plants (IEC NÂ
     Placement(visible = true, transformation(origin = {110, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.MathBoolean.Or or1(nu = 2) annotation(
     Placement(visible = true, transformation(origin = {110, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {tpfv, 1},b = {tpft, 1}, x_start = {-P0Pu*SystemBase.SnRef/SNom}, y_start = -P0Pu * SystemBase.SnRef / SNom) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {tpfv, 1},b = {tpft, 1}, initType = Modelica.Blocks.Types.Init.SteadyState, u_start = -P0Pu * SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {170, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFeedthroughFreeze absLimRateLimFeedthroughFreeze(DyMax = DPRefMaxPu, DyMin = DPRefMinPu, U0 = -P0Pu*SystemBase.SnRef/SNom, Y0 = -P0Pu*SystemBase.SnRef/SNom, YMax = PRefMaxPu, YMin = PRefMinPu, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {204, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));

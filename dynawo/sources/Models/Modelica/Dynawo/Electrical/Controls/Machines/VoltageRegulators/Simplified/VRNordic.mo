@@ -79,7 +79,7 @@ model VRNordic "Voltage regulator model for the Nordic 32 test system used for v
     Placement(visible = true, transformation(origin = {-270, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.LimIntegrator timer(outMax = 99, outMin = tOelMin, y_start = tOelMin) annotation(
     Placement(visible = true, transformation(origin = {-150, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction leadLag(a = {tLagTgr, 1}, b = {tLeadTgr, 1}, x_start = {Efd0Pu}, y_start = Efd0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction leadLag(a = {tLagTgr, 1}, b = {tLeadTgr, 1}, initType = Modelica.Blocks.Types.Init.SteadyState, u_start = Efd0Pu) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback dU annotation(
     Placement(visible = true, transformation(origin = {-220, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

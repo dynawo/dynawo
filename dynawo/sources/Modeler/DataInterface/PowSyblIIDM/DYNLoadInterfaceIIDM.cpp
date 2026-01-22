@@ -121,6 +121,7 @@ LoadInterfaceIIDM::importStaticParameters() {
     staticParameters_.insert(std::make_pair("angle_pu", StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(theta * M_PI / 180)));
     staticParameters_.insert(std::make_pair("v", StaticParameter("v", StaticParameter::DOUBLE).setValue(v0_)));
     staticParameters_.insert(std::make_pair("angle", StaticParameter("angle", StaticParameter::DOUBLE).setValue(theta)));
+    staticParameters_.insert(std::make_pair("UNom", StaticParameter("UNom", StaticParameter::DOUBLE).setValue(vNom_)));
   } else {
     v0_ = 0;
     vNom_ = 0;
@@ -128,6 +129,7 @@ LoadInterfaceIIDM::importStaticParameters() {
     staticParameters_.insert(std::make_pair("angle_pu", StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(0.)));
     staticParameters_.insert(std::make_pair("v", StaticParameter("v", StaticParameter::DOUBLE).setValue(0.)));
     staticParameters_.insert(std::make_pair("angle", StaticParameter("angle", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("UNom", StaticParameter("angle", StaticParameter::DOUBLE).setValue(vNom_)));
   }
   // attention to sign convention
 }

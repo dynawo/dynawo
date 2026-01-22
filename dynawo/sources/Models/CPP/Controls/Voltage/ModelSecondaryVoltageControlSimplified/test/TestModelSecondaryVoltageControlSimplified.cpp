@@ -44,13 +44,16 @@ static boost::shared_ptr<SubModel> createModelSecondaryVoltageControlSimplified(
     parameters.push_back(ParameterModeler("Q0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbGenerators"));
     parametersSet->createParameter("nbGenerators", static_cast<int>(nbGen));
     parametersSet->createParameter("UDeadBandPu", 0.01);
-    parametersSet->createParameter("alpha", 2.);
-    parametersSet->createParameter("beta", 3.5);
+    parametersSet->createParameter("Alpha", 2.);
+    parametersSet->createParameter("Beta", 3.5);
     parametersSet->createParameter("UpRef0Pu", 1.);
     parametersSet->createParameter("tSample", 2.);
     for (size_t i = 0; i < nbGen; ++i) {
       parametersSet->createParameter("Qr_" + std::to_string(i), 100.);
       parametersSet->createParameter("Q0Pu_" + std::to_string(i), 1.);
+      parametersSet->createParameter("P0Pu_" + std::to_string(i), 1.);
+      parametersSet->createParameter("U0Pu_" + std::to_string(i), 1.);
+      parametersSet->createParameter("SNom_" + std::to_string(i), 100.);
     }
     voltmu->setPARParameters(parametersSet);
     voltmu->addParameters(parameters, false);
@@ -67,7 +70,7 @@ TEST(ModelSecondaryVoltageControlSimplified, ModelSecondaryVoltageControlSimplif
     svc->init(0.);
     std::vector<ParameterModeler> parameters;
     svc->defineParameters(parameters);
-    ASSERT_EQ(parameters.size(), 8);
+    ASSERT_EQ(parameters.size(), 12);
     // Define the model parameters
     size_t nbGen = 2;
     std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("Parameterset");
@@ -75,13 +78,16 @@ TEST(ModelSecondaryVoltageControlSimplified, ModelSecondaryVoltageControlSimplif
     parameters.push_back(ParameterModeler("Q0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbGenerators"));
     parametersSet->createParameter("nbGenerators", static_cast<int>(nbGen));
     parametersSet->createParameter("UDeadBandPu", 0.01);
-    parametersSet->createParameter("alpha", 0.08);
-    parametersSet->createParameter("beta", 3.5);
+    parametersSet->createParameter("Alpha", 0.08);
+    parametersSet->createParameter("Beta", 3.5);
     parametersSet->createParameter("UpRef0Pu", 1.);
     parametersSet->createParameter("tSample", 2.);
     for (size_t i = 0; i < nbGen; ++i) {
       parametersSet->createParameter("Qr_" + std::to_string(i), 100.);
       parametersSet->createParameter("Q0Pu_" + std::to_string(i), 1.);
+      parametersSet->createParameter("P0Pu_" + std::to_string(i), 1.);
+      parametersSet->createParameter("U0Pu_" + std::to_string(i), 1.);
+      parametersSet->createParameter("SNom_" + std::to_string(i), 100.);
     }
     ASSERT_NO_THROW(svc->setPARParameters(parametersSet));
     svc->addParameters(parameters, false);
@@ -90,7 +96,7 @@ TEST(ModelSecondaryVoltageControlSimplified, ModelSecondaryVoltageControlSimplif
 
     ASSERT_NO_THROW(svc->getSize());
     ASSERT_EQ(svc->sizeG(), 2);
-    ASSERT_EQ(svc->sizeY(), 1);
+    ASSERT_EQ(svc->sizeY(), 3);
     ASSERT_EQ(svc->sizeZ(), nbGen + DYN::ModelSecondaryVoltageControlSimplified::firstIndexBlockerNum_);
     ASSERT_EQ(svc->sizeMode(), 0);
     ASSERT_EQ(svc->sizeF(), 0);
@@ -99,7 +105,7 @@ TEST(ModelSecondaryVoltageControlSimplified, ModelSecondaryVoltageControlSimplif
     std::vector<boost::shared_ptr<Variable> > variables;
     svc->defineVariables(variables);
     unsigned long nbVar = static_cast<unsigned long>(DYN::ModelSecondaryVoltageControlSimplified::firstIndexBlockerNum_) +
-                            nbGen + static_cast<unsigned long>(DYN::ModelSecondaryVoltageControlSimplified::nbContinuousVariables_)
+                            2*nbGen + static_cast<unsigned long>(DYN::ModelSecondaryVoltageControlSimplified::nbContinuousVariables_)
                             + static_cast<unsigned long>(DYN::ModelSecondaryVoltageControlSimplified::nbCalculatedVariables_);
     ASSERT_EQ(variables.size(), nbVar);
     std::vector<Element> elements;
@@ -143,6 +149,8 @@ TEST(ModelSecondaryVoltageControlSimplified, ModelSecondaryVoltageControlSimplif
   for (size_t i = 0; i < svc->sizeZ(); ++i)
     zConnected[i] = true;
   svc->setBufferZ(&z[0], zConnected, 0);
+  std::vector<state_g> g(svc->sizeG(), NO_ROOT);
+  svc->setBufferG(&g[0], 0);
   svc->init(0);
   svc->getY0();
 
@@ -163,6 +171,8 @@ TEST(ModelSecondaryVoltageControlSimplified, ModelSecondaryVoltageControlSimplif
   std::vector<double> yp(svc->sizeY(), 0);
   svc->setBufferY(&y[0], &yp[0], 0.);
   y[ModelSecondaryVoltageControlSimplified::UpPuNum_] = 0.95;
+  y[1] = -100.;
+  y[2] = -100.;
   std::vector<double> z(svc->sizeZ(), 0);
   bool* zConnected = new bool[svc->sizeZ()];
   BitMask* silentZ = new BitMask[svc->sizeZ()];

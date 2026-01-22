@@ -90,7 +90,7 @@ jobs:
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         run: |
           export DYNAWO_HOME=$(pwd)
-          util/envDynawo.sh build-doxygen-doc
+          util/envDynawo.sh build-doxygen-doc || { cat install/gcc8/master/Debug/shared/dynawo/doxygen/warnings_filtered.txt && exit 1; }
 
       - name: Deploy to GitHub Pages
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
@@ -201,7 +201,7 @@ jobs:
       - name: Build Dynawo
         shell: cmd
         env:
-          PATH: C:\Windows\system32;C:\Program Files\Git\cmd;C:\hostedtoolcache\windows\Python\3.9.13\x64
+          PATH: C:\Windows\system32;C:\Program Files\Git\cmd;C:\hostedtoolcache\windows\Python\3.12.10\x64
         run: |
           call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
           cd \dynawo

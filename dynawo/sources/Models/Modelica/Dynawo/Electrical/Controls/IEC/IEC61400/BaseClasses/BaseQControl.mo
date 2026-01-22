@@ -70,11 +70,9 @@ partial model BaseQControl "Reactive power control base module for wind turbines
   Modelica.Blocks.Interfaces.RealOutput iqCmdPu(start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Reactive current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {310, -200}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Sources.IntegerConstant integerConstant1(k = MqG) annotation(
-    Placement(visible = true, transformation(origin = {-270, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch switch2(nu = 5) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitchFixed switch2(f = MqG, nu = 5) annotation(
     Placement(visible = true, transformation(origin = {-250, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch switch4(nu = 5) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitchFixed switch4(f = MqG, nu = 5) annotation(
     Placement(visible = true, transformation(origin = {270, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.VariableLimiter variableLimiter annotation(
     Placement(visible = true, transformation(origin = {-210, 240}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -98,7 +96,7 @@ partial model BaseQControl "Reactive power control base module for wind turbines
     Placement(visible = true, transformation(origin = {50, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.DelayFlag delayFlag(FI0 = false, FO0 = 0, tD = tPost, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {-150, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch switch7(nu = 3) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitchVariable switch7(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {250, -200}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter2(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = IqH1Pu, uMin = IqMinPu) annotation(
     Placement(visible = true, transformation(origin = {190, -200}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -134,8 +132,6 @@ partial model BaseQControl "Reactive power control base module for wind turbines
     Placement(visible = true, transformation(origin = {-70, 280}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add2 annotation(
     Placement(visible = true, transformation(origin = {-70, 180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.IntegerConstant integerConstant(k = MqG) annotation(
-    Placement(visible = true, transformation(origin = {290, 280}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const1(k = URef0Pu) annotation(
     Placement(visible = true, transformation(origin = {-130, 160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFeedthroughFreeze absLimRateLimFeedthroughFreeze(DyMax = 999, U0 = -Q0Pu * SystemBase.SnRef / (SNom * U0Pu), Y0 = -Q0Pu * SystemBase.SnRef / (SNom * U0Pu), YMax = IqMaxPu, YMin = IqMinPu, tS = tS) annotation(
@@ -152,7 +148,7 @@ partial model BaseQControl "Reactive power control base module for wind turbines
     Placement(visible = true, transformation(origin = {-286, 14}, extent = {{-6, 6}, {6, -6}}, rotation = 90)));
   Modelica.Blocks.Logical.LessThreshold lessThreshold(threshold = UqDipPu) annotation(
     Placement(visible = true, transformation(origin = {-210, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch switch(nu = 5) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitchFixed switch(f = MqG, nu = 5) annotation(
     Placement(visible = true, transformation(origin = {-24, 240}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
@@ -196,8 +192,6 @@ equation
     Line(points = {{-280, 62}, {-280, 76}, {-260, 76}}, color = {0, 0, 127}));
   connect(product.y, switch2.u[5]) annotation(
     Line(points = {{-280, 62}, {-280, 74}, {-260, 74}}, color = {0, 0, 127}));
-  connect(integerConstant1.y, switch2.f) annotation(
-    Line(points = {{-258, 120}, {-250, 120}, {-250, 92}}, color = {255, 127, 0}));
   connect(switch2.y, absLimRateLimFirstOrderFreeze.u) annotation(
     Line(points = {{-238, 80}, {-182, 80}}, color = {0, 0, 127}));
   connect(QWTMinPu, absLimRateLimFirstOrderFreeze.yMin) annotation(
@@ -224,8 +218,6 @@ equation
     Line(points = {{41, 240}, {52, 240}}, color = {0, 0, 127}));
   connect(vDrop.UDropPu, feedback1.u2) annotation(
     Line(points = {{-138, -20}, {0, -20}, {0, 220}, {60, 220}, {60, 232}}, color = {0, 0, 127}));
-  connect(integerConstant.y, switch4.f) annotation(
-    Line(points = {{280, 280}, {270, 280}, {270, 112}}, color = {255, 127, 0}));
   connect(antiWindupIntegrator1.y, add1.u1) annotation(
     Line(points = {{161, 260}, {200, 260}, {200, 246}, {218, 246}}, color = {0, 0, 127}));
   connect(feedback.y, antiWindupIntegrator.u) annotation(
@@ -296,8 +288,6 @@ equation
     Line(points = {{-58, 240}, {-34, 240}}, color = {0, 0, 127}));
   connect(const.y, switch.u[5]) annotation(
     Line(points = {{-58, 280}, {-40, 280}, {-40, 240}, {-34, 240}}, color = {0, 0, 127}));
-  connect(integerConstant.y, switch.f) annotation(
-    Line(points = {{280, 280}, {-24, 280}, {-24, 252}}, color = {255, 127, 0}));
 
   annotation(
     preferredView = "diagram",

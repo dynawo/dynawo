@@ -35,7 +35,7 @@ model SEXS "IEEE Automatic Voltage Regulator type SEXS (Simplified excitation sy
 
   Dynawo.NonElectrical.Blocks.NonLinear.LimitedFirstOrder limitedFirstOrder(tFilter = Te, K = K, YMax = EMax, YMin = EMin, Y0 = Efd0Pu) annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction leadLag(a = {Tb, 1}, b = {Ta, 1}, x_start = {Efd0Pu / K}, y_start = Efd0Pu / K) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction leadLag(a = {Tb, 1}, b = {Ta, 1}, initType = Modelica.Blocks.Types.Init.SteadyState, u_start = Efd0Pu / K) annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add3 add3(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {-50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

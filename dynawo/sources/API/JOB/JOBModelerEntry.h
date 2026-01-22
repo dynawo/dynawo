@@ -114,6 +114,9 @@ class ModelerEntry {
    */
   ModelerEntry() = default;
 
+  /// @brief Destructor
+  ~ModelerEntry() = default;
+
   /**
    * @brief Copy constructor
    * @param other the modeler entry to copy

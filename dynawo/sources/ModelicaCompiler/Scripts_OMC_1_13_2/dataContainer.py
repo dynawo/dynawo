@@ -1803,6 +1803,7 @@ class RootObject:
         new_body = []
         i = 0
         double_equality_prtn = re.compile(r'\(data->localData\[0\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/ == data->localData\[0\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/\)')
+        double_equality_parameter_prtn = re.compile(r'\(data->localData\[0\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/ == data->simulationInfo->realParameter\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/\)')
         for line in self.body_for_num_relation:
             line = replace_var_names(line)
             if i == 0 or i == len(self.body_for_num_relation)-1:
@@ -1812,6 +1813,10 @@ class RootObject:
                 line = sub_division_sim(line)
                 line = line.replace('threadData,','')
                 found = re.search(double_equality_prtn, line)
+                if found is not None:
+                    test = "DYN::doubleEquals" + found.group(0).replace (" == ", ",")
+                    line = line.replace(found.group(0), test)
+                found = re.search(double_equality_parameter_prtn, line)
                 if found is not None:
                     test = "DYN::doubleEquals" + found.group(0).replace (" == ", ",")
                     line = line.replace(found.group(0), test)

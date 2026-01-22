@@ -12,8 +12,8 @@
 20.000763 | GEN____8_SM | PMIN : activation
 20.000764 | GEN____3_SM | PMIN : activation
 20.239503 | GEN____6_SM | PMIN : activation
-79.999984 | TAP_CHANGER_LOAD_3 | Tap position change (increment)
-89.999982 | TAP_CHANGER_LOAD_3 | Tap position change (increment)
+79.999984 | TAP_CHANGER_LOAD_3 | Tap position change (increment) - value : 66.191608kV
+89.999982 | TAP_CHANGER_LOAD_3 | Tap position change (increment) - value : 67.475903kV
 98.749984 | GEN____6_SM | PMIN : deactivation
 100.316959 | GEN____3_SM | PMIN : deactivation
 100.359293 | GEN____8_SM | PMIN : deactivation

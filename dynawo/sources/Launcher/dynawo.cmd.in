@@ -43,7 +43,7 @@ set LIBXML2_HOME=%thirdPartyInstallPath%\libxml2
 set OPENMODELICA_HOME=@INSTALL_OPENMODELICA@
 
 if not defined DYNAWO_PYTHON_COMMAND (
-  set DYNAWO_PYTHON_COMMAND=python
+  set DYNAWO_PYTHON_COMMAND=python3
 )
 
 if not defined DYNAWO_BROWSER (

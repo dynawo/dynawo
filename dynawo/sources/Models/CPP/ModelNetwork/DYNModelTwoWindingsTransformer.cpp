@@ -34,6 +34,8 @@
 
 #include <iomanip>
 
+#include <DYNTimer.h>
+
 #include "DYNCommon.h"
 #include "DYNModelRatioTapChanger.h"
 #include "DYNModelPhaseTapChanger.h"
@@ -427,6 +429,7 @@ ModelTwoWindingsTransformer::evalNodeInjection() {
       modelBus2_->iiAdd(ii02_);
     }
   } else {
+    applyStep();
     if (modelBus1_ || modelBus2_) {
       const double ur1Val = ur1();
       const double ui1Val = ui1();
@@ -478,6 +481,16 @@ ModelTwoWindingsTransformer::setCurrentStepIndex(const int stepIndex) {
     modelTapChanger_->setCurrentStepIndex(stepIndex);
 }
 
+void
+ModelTwoWindingsTransformer::setNextStepIndex(const int stepIndex) {
+  if (modelRatioChanger_)
+    modelRatioChanger_->setNextStepIndex(stepIndex);
+  else if (modelPhaseChanger_)
+    modelPhaseChanger_->setNextStepIndex(stepIndex);
+  else
+    modelTapChanger_->setNextStepIndex(stepIndex);
+}
+
 int
 ModelTwoWindingsTransformer::getCurrentStepIndex() const {
   if (modelRatioChanger_)
@@ -486,6 +499,43 @@ ModelTwoWindingsTransformer::getCurrentStepIndex() const {
     return modelPhaseChanger_->getCurrentStepIndex();
   else
     return modelTapChanger_->getCurrentStepIndex();
+}
+
+int
+ModelTwoWindingsTransformer::getNextStepIndex() const {
+  if (modelRatioChanger_)
+    return modelRatioChanger_->getNextStepIndex();
+  else if (modelPhaseChanger_)
+    return modelPhaseChanger_->getNextStepIndex();
+  else
+    return modelTapChanger_->getNextStepIndex();
+}
+
+void
+ModelTwoWindingsTransformer::applyStep() {
+    int save = getNextStepIndex();
+    if (modelRatioChanger_) {
+      modelRatioChanger_->applyStep();
+      if (save != -1) {
+        updateYMat_ = true;
+        evalYMat();
+      }
+    }
+    if (modelPhaseChanger_) {
+      if (getNextStepIndex() != -1)
+      modelPhaseChanger_->applyStep();
+      if (save != -1) {
+        updateYMat_ = true;
+        evalYMat();
+      }
+    }
+    if (modelTapChanger_) {
+      modelTapChanger_->applyStep();
+      if (save != -1) {
+        updateYMat_ = true;
+        evalYMat();
+      }
+    }
 }
 
 double
@@ -888,47 +938,55 @@ ModelTwoWindingsTransformer::evalF(propertyF_t /*type*/) {
 
 void
 ModelTwoWindingsTransformer::evalDerivatives(const double /*cj*/) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer3("ModelNetwork::ModelTwoWindingsTransformer::evalDerivatives");
+#endif
   switch (knownBus_) {
     case BUS1_BUS2: {
       const int ur1YNum = modelBus1_->urYNum();
       const int ui1YNum = modelBus1_->uiYNum();
       const int ur2YNum = modelBus2_->urYNum();
       const int ui2YNum = modelBus2_->uiYNum();
-      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUr1_);
-      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ui1YNum, ir1_dUi1_);
-      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ur1YNum, ii1_dUr1_);
-      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ui1YNum, ii1_dUi1_);
-      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ur2YNum, ir1_dUr2_);
-      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ui2YNum, ir1_dUi2_);
-      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ur2YNum, ii1_dUr2_);
-      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ui2YNum, ii1_dUi2_);
+      auto& derivatives1 = modelBus1_->derivatives();
+      auto& derivatives2 = modelBus2_->derivatives();
 
-      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ur2YNum, ir2_dUr2_);
-      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ui2YNum, ir2_dUi2_);
-      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ur2YNum, ii2_dUr2_);
-      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ui2YNum, ii2_dUi2_);
-      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ur1YNum, ir2_dUr1_);
-      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ui1YNum, ir2_dUi1_);
-      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ur1YNum, ii2_dUr1_);
-      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ui1YNum, ii2_dUi1_);
+      derivatives1->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUr1_);
+      derivatives1->addDerivative(IR_DERIVATIVE, ui1YNum, ir1_dUi1_);
+      derivatives1->addDerivative(II_DERIVATIVE, ur1YNum, ii1_dUr1_);
+      derivatives1->addDerivative(II_DERIVATIVE, ui1YNum, ii1_dUi1_);
+      derivatives1->addDerivative(IR_DERIVATIVE, ur2YNum, ir1_dUr2_);
+      derivatives1->addDerivative(IR_DERIVATIVE, ui2YNum, ir1_dUi2_);
+      derivatives1->addDerivative(II_DERIVATIVE, ur2YNum, ii1_dUr2_);
+      derivatives1->addDerivative(II_DERIVATIVE, ui2YNum, ii1_dUi2_);
+
+      derivatives2->addDerivative(IR_DERIVATIVE, ur2YNum, ir2_dUr2_);
+      derivatives2->addDerivative(IR_DERIVATIVE, ui2YNum, ir2_dUi2_);
+      derivatives2->addDerivative(II_DERIVATIVE, ur2YNum, ii2_dUr2_);
+      derivatives2->addDerivative(II_DERIVATIVE, ui2YNum, ii2_dUi2_);
+      derivatives2->addDerivative(IR_DERIVATIVE, ur1YNum, ir2_dUr1_);
+      derivatives2->addDerivative(IR_DERIVATIVE, ui1YNum, ir2_dUi1_);
+      derivatives2->addDerivative(II_DERIVATIVE, ur1YNum, ii2_dUr1_);
+      derivatives2->addDerivative(II_DERIVATIVE, ui1YNum, ii2_dUi1_);
       break;
     }
     case BUS1: {
       const int ur1YNum = modelBus1_->urYNum();
       const int ui1YNum = modelBus1_->uiYNum();
-      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUr1_);
-      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ui1YNum, ir1_dUi1_);
-      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ur1YNum, ii1_dUr1_);
-      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ui1YNum, ii1_dUi1_);
+      auto& derivatives1 = modelBus1_->derivatives();
+      derivatives1->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUr1_);
+      derivatives1->addDerivative(IR_DERIVATIVE, ui1YNum, ir1_dUi1_);
+      derivatives1->addDerivative(II_DERIVATIVE, ur1YNum, ii1_dUr1_);
+      derivatives1->addDerivative(II_DERIVATIVE, ui1YNum, ii1_dUi1_);
       break;
     }
     case BUS2: {
       const int ur2YNum = modelBus2_->urYNum();
       const int ui2YNum = modelBus2_->uiYNum();
-      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ur2YNum, ir2_dUr2_);
-      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ui2YNum, ir2_dUi2_);
-      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ur2YNum, ii2_dUr2_);
-      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ui2YNum, ii2_dUi2_);
+      auto& derivatives2 = modelBus2_->derivatives();
+      derivatives2->addDerivative(IR_DERIVATIVE, ur2YNum, ir2_dUr2_);
+      derivatives2->addDerivative(IR_DERIVATIVE, ui2YNum, ir2_dUi2_);
+      derivatives2->addDerivative(II_DERIVATIVE, ur2YNum, ii2_dUr2_);
+      derivatives2->addDerivative(II_DERIVATIVE, ui2YNum, ii2_dUi2_);
       break;
     }
   }
@@ -1352,17 +1410,20 @@ ModelTwoWindingsTransformer::evalZ(const double t) {
   }
 
   const int currStateIndex = static_cast<int>(z_[currentStepIndexNum_]);
-  if (currStateIndex != getCurrentStepIndex()) {
+  int internalStepIndex = getCurrentStepIndex();
+  if (getNextStepIndex() != -1)
+    internalStepIndex = getNextStepIndex();
+  if (currStateIndex != internalStepIndex) {
     if (disableInternalTapChanger_ > 0.) {
       // external automaton
-      Trace::debug() << DYNLog(TfoTapChange, id_, getCurrentStepIndex(), z_[currentStepIndexNum_]) << Trace::endline;
+      Trace::debug() << DYNLog(TfoTapChange, id_, internalStepIndex, z_[currentStepIndexNum_]) << Trace::endline;
     } else {
       // internal automaton
-      Trace::debug() << DYNLog(TfoTapChange, id_, z_[currentStepIndexNum_], getCurrentStepIndex()) << Trace::endline;
-      z_[currentStepIndexNum_] = getCurrentStepIndex();
+      Trace::debug() << DYNLog(TfoTapChange, id_, z_[currentStepIndexNum_], internalStepIndex) << Trace::endline;
+      z_[currentStepIndexNum_] = internalStepIndex;
     }
     stateIndexModified_ = true;
-    setCurrentStepIndex(static_cast<int>(z_[currentStepIndexNum_]));
+    setNextStepIndex(static_cast<int>(z_[currentStepIndexNum_]));
   }
 
   if (doubleNotEquals(z_[currentLimitsDesactivateNum_], getCurrentLimitsDesactivate())) {

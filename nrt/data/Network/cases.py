@@ -237,3 +237,13 @@ case_description = "Test the basic behavior of the Modelica Network Transformer 
 job_file = os.path.join(os.path.dirname(__file__), "Transformer", "Modelica", "Ratio", "Test.jobs")
 
 test_cases.append((case_name, case_description, job_file, 3, standardReturnCodeType, standardReturnCode))
+
+############################################
+#           Generator                      #
+############################################
+
+case_name = "Network alpha beta voltage dependant generator model"
+case_description = "Test the basic behavior of the Alpha beta voltage dependant network generator model to a voltage variation"
+job_file = os.path.join(os.path.dirname(__file__), "Generator", "CPP", "Test.jobs")
+
+test_cases.append((case_name, case_description, job_file, 3, standardReturnCodeType, standardReturnCode))
