@@ -115,9 +115,20 @@
   <curve model="Generator11" variable="generator_QGenPu"/>
   <curve model="Generator11" variable="generator_QMaxPu"/>
   <curve model="Generator11" variable="generator_QMinPu"/>
+  <curve model="Generator11" variable="generator_blocker"/>
+  <curve model="Generator11" variable="generator_qStatus"/>
   <curve model="Generator11" variable="reactivePowerControlLoop_level"/>
   <curve model="Generator11" variable="reactivePowerControlLoop_QStatorPu"/>
   <curve model="Generator11" variable="reactivePowerControlLoop_UStatorRefPu"/>
+  <curve model="Generator11" variable="reactivePowerControlLoop_feedback_y"/>
+  <curve model="Generator11" variable="reactivePowerControlLoop_feedback_u1"/>
+  <curve model="Generator11" variable="reactivePowerControlLoop_feedback_u2"/>
+  <curve model="Generator11" variable="reactivePowerControlLoop_DeltaURefMaxPu"/>
+  <curve model="Generator11" variable="reactivePowerControlLoop_rampLim_y"/>
+  <curve model="Generator11" variable="reactivePowerControlLoop_errQ_y"/>
+  <curve model="Generator11" variable="reactivePowerControlLoop_errQLim_y"/>
+  <curve model="Generator11" variable="reactivePowerControlLoop_limitedIntegrator_y"/>
+  <curve model="Generator11" variable="reactivePowerControlLoop_UStatorRefMaxPu"/>
   <curve model="Generator12" variable="generator_UPu"/>
   <curve model="Generator12" variable="generator_URefPu"/>
   <curve model="Generator12" variable="generator_PGenPu"/>

@@ -42,6 +42,7 @@ partial model BaseGeneratorSignalNPQDiagram_INIT "Base initialization model for 
 
   Modelica.Blocks.Interfaces.BooleanOutput limUQDown0(start = false) "Whether the minimum reactive power limits are reached or not (from generator voltage regulator), start value";
   Modelica.Blocks.Interfaces.BooleanOutput limUQUp0(start = false) "Whether the maximum reactive power limits are reached or not (from generator voltage regulator), start value";
+  Modelica.Blocks.Interfaces.BooleanOutput blocker0(start = false) "Whether the reactive power limits are reached or not (from generator voltage regulator), start value";
   Types.ActivePowerPu PMaxPu "Maximum active power in pu (base SnRef)";
   Types.ActivePowerPu PMinPu "Minimum active power in pu (base SnRef)";
   Types.ReactivePowerPu QMax0Pu "Start value of maximum reactive power in pu (base SnRef)";
@@ -65,6 +66,7 @@ equation
 
   limUQDown0 = qStatus0 == QStatus.AbsorptionMax;
   limUQUp0 = qStatus0 == QStatus.GenerationMax;
+  blocker0 = limUQDown0 or limUQUp0;
 
   annotation(preferredView = "text");
 end BaseGeneratorSignalNPQDiagram_INIT;
