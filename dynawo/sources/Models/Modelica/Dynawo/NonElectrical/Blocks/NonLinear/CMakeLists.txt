@@ -43,6 +43,7 @@ set(MODEL_FILES
   SwitchInteger.mo
   VariableDelayFlag.mo
   VariableLimiter.mo
+  ConstantSwitch.mo
   )
 
 #
