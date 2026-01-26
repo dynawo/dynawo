@@ -73,7 +73,7 @@ class SolverKINEuler : public SolverKINCommon, private boost::noncopyable {
   /**
    * @brief solve the problem
    *
-   * @param noInitSetup indicate if kinsol have to rebuilt the jacobian at the beginning
+   * @param noInitSetup indicate if kinsol have to rebuilt the jacobian at the beginning, noInitSetup = false will force jacobian
    * @param skipAlgebraicResidualsEvaluation indicate if algebraic residuals needs to be be evaluated
    *
    * @return @b KIN_SUCCESS if everything ok, error flag else

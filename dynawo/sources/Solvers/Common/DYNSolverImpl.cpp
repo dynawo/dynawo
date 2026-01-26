@@ -90,6 +90,7 @@ minimumModeChangeTypeForAlgebraicRestorationInit_(NO_MODE),
 printUnstableRoot_(false),
 printReinitResiduals_(false),
 printResiduals_(false),
+multipleStrategiesForAlgebraicRestoration_(false),
 tSolve_(0.),
 startFromDump_(false) {
   if (SUNContext_Create(NULL, &sundialsContext_) != 0)
@@ -368,6 +369,8 @@ Solver::Impl::defineCommonParameters() {
   parameters_.insert(make_pair("printUnstableRoot", ParameterSolver("printUnstableRoot", VAR_TYPE_BOOL, optional)));
   parameters_.insert(make_pair("printResiduals", ParameterSolver("printResiduals", VAR_TYPE_BOOL, optional)));
   parameters_.insert(make_pair("printReinitResiduals", ParameterSolver("printReinitResiduals", VAR_TYPE_BOOL, optional)));
+  parameters_.insert(make_pair("multipleStrategiesForAlgebraicRestoration",
+      ParameterSolver("multipleStrategiesForAlgebraicRestoration", VAR_TYPE_BOOL, optional)));
 }
 
 bool
@@ -543,6 +546,9 @@ void Solver::Impl::setSolverCommonParameters() {
   const ParameterSolver& printUnstableRoot = findParameter("printUnstableRoot");
   if (printUnstableRoot.hasValue())
     printUnstableRoot_ = printUnstableRoot.getValue<bool>();
+  const ParameterSolver& multipleStrategiesForAlgebraicRestoration = findParameter("multipleStrategiesForAlgebraicRestoration");
+  if (multipleStrategiesForAlgebraicRestoration.hasValue())
+    multipleStrategiesForAlgebraicRestoration_ = multipleStrategiesForAlgebraicRestoration.getValue<bool>();
 }
 
 void
