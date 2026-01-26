@@ -3,16 +3,16 @@ load_PRefPu                                       : y =   0.0400000000 yp =   0.
 load_QRefPu                                       : y =   0.0050000000 yp =   0.0000000000
 load_deltaP                                       : y =   0.0000000000 yp =   0.0000000000
 load_deltaQ                                       : y =   0.0000000000 yp =   0.0000000000
-load_terminal_V_im                                : y =  -0.3878201462 yp =   0.0000000000
-load_terminal_V_re                                : y =  -0.9143608231 yp =   0.0000000000
-load_PPu                                          : y =   0.0404206874 yp =   0.0000000000
-load_QPu                                          : y =   0.0051054002 yp =   0.0000000000
-load_terminal_i_im                                : y =  -0.0111708604 yp =   0.0000000000
-load_terminal_i_re                                : y =  -0.0394690489 yp =   0.0000000000
+load_terminal_V_im                                : y =   0.9880759813 yp =   0.0000000000
+load_terminal_V_re                                : y =  -0.1011237967 yp =   0.0000000000
+load_PPu                                          : y =   0.0404219177 yp =   0.0000000000
+load_QPu                                          : y =   0.0051057089 yp =   0.0000000000
+load_terminal_i_im                                : y =   0.0410082684 yp =   0.0000000000
+load_terminal_i_re                                : y =   0.0009574239 yp =   0.0000000000
 load_SPu_im                                       : alias of load_QPu
 load_SPu_re                                       : alias of load_PPu
  ====== CALCULATED VARIABLES VALUES ======
-load_UPu_value                                    : y =   0.9932070180
+load_UPu_value                                    : y =   0.9932372159
  ====== DISCRETE VARIABLES VALUES ======
 load_running_value                                : z =   1.0000000000
 load_switchOffSignal1_value                       : z =  -1.0000000000

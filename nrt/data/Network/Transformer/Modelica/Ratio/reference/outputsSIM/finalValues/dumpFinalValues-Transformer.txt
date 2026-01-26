@@ -1,23 +1,23 @@
  ====== VARIABLES VALUES ======
-transformer_terminal1_V_im                        : y =  -0.3878201462 yp =   0.0000000000
-transformer_terminal1_V_re                        : y =  -0.9143608231 yp =   0.0000000000
-transformer_terminal2_V_im                        : y =  -0.4086756916 yp =   0.0000000000
-transformer_terminal2_V_re                        : y =  -0.9127163134 yp =   0.0000000000
-transformer_terminal1_i_im                        : y =   0.0111708604 yp =   0.0000000000
-transformer_terminal1_i_re                        : y =   0.0394690489 yp =   0.0000000000
-transformer_terminal2_i_im                        : y =  -0.0111838822 yp =   0.0000000000
-transformer_terminal2_i_re                        : y =  -0.0394743143 yp =   0.0000000000
+transformer_terminal1_V_im                        : y =   0.9880759813 yp =   0.0000000000
+transformer_terminal1_V_re                        : y =  -0.1011237967 yp =   0.0000000000
+transformer_terminal2_V_im                        : y =   0.9926509610 yp =   0.0000000000
+transformer_terminal2_V_re                        : y =  -0.1215377125 yp =   0.0000000000
+transformer_terminal1_i_im                        : y =  -0.0410082684 yp =   0.0000000000
+transformer_terminal1_i_re                        : y =  -0.0009574239 yp =   0.0000000000
+transformer_terminal2_i_im                        : y =   0.0410171380 yp =   0.0000000000
+transformer_terminal2_i_re                        : y =   0.0009465319 yp =   0.0000000000
  ====== CALCULATED VARIABLES VALUES ======
-transformer_I1Pu                                  : y =   0.0410194337
-transformer_I2Pu                                  : y =   0.0410280478
-transformer_ISide1                                : y =1184.1290547557
-transformer_ISide2                                : y =2368.7554468560
-transformer_P1Pu                                  : y =  -0.0404212367
-transformer_P2Pu                                  : y =   0.0405994314
-transformer_Q1Pu                                  : y =  -0.0050926952
-transformer_Q2Pu                                  : y =   0.0059244809
-transformer_U1Pu                                  : y =   0.9932070180
-transformer_U2Pu                                  : y =   1.0000334443
+transformer_I1Pu                                  : y =   0.0410194435
+transformer_I2Pu                                  : y =   0.0410280578
+transformer_ISide1                                : y =1184.1293360970
+transformer_ISide2                                : y =2368.7560235837
+transformer_P1Pu                                  : y =  -0.0404224668
+transformer_P2Pu                                  : y =   0.0406006621
+transformer_Q1Pu                                  : y =  -0.0050929193
+transformer_Q2Pu                                  : y =   0.0059247049
+transformer_U1Pu                                  : y =   0.9932372159
+transformer_U2Pu                                  : y =   1.0000636710
  ====== DISCRETE VARIABLES VALUES ======
 transformer_running_value                         : z =   1.0000000000
 transformer_switchOffSignal1_value                : z =  -1.0000000000

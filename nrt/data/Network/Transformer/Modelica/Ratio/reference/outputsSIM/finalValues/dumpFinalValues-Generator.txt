@@ -1,59 +1,59 @@
  ====== VARIABLES VALUES ======
-generator_lambdaDPu                               : y =   0.6920730203 yp =  -0.0000696405
-generator_lambdaQ1Pu                              : y =  -0.5120722614 yp =  -0.0043199733
+generator_lambdaDPu                               : y =   0.6920616372 yp =  -0.0000084238
+generator_lambdaQ1Pu                              : y =  -0.5121288168 yp =  -0.0029671170
 generator_lambdaQ2Pu                              : y =  -0.5709472574 yp =   0.0000000000
-generator_lambdafPu                               : y =   0.8454109622 yp =  -0.0001147285
-generator_omegaPu                                 : y =   1.2002960315 yp =  -0.0000193154
+generator_lambdafPu                               : y =   0.8454079685 yp =  -0.0002062903
+generator_omegaPu                                 : y =   1.2002983634 yp =  -0.0000205326
 generator_omegaRefPu                              : y =   1.0000000000 yp =   0.0000000000
-generator_terminal_V_im                           : y =  -0.4086756916 yp =   0.0000000000
-generator_terminal_V_re                           : y =  -0.9127163134 yp =   0.0000000000
-generator_theta                                   : y =2643.2477995320 yp =  62.9248541138
+generator_terminal_V_im                           : y =   0.9926509610 yp =   0.0000000000
+generator_terminal_V_re                           : y =  -0.1215377125 yp =   0.0000000000
+generator_theta                                   : y =1384.7408385941 yp =  62.9255866841
 governor_PmRefPu                                  : y =   0.9068915577 yp =   0.0000000000
 governor_deltaPmRefPu                             : y =   0.0000000000 yp =   0.0000000000
 voltageRegulator_UsRefPu                          : y =   1.0000000000 yp =   0.0000000000
 voltageRegulator_deltaUsRefPu                     : y =   0.0000000000 yp =   0.0000000000
-voltageRegulator_integrator_y                     : y =   1.5468241662 yp =  -0.0007902053
-generator_MdSatPPu                                : y =   1.8764536934 yp =   0.0000000000
-generator_MqSatPPu                                : y =   1.8764536934 yp =   0.0000000000
-generator_PmPu                                    : y =   0.7065955262 yp =   0.0000000000
-generator_UStatorPu                               : y =   1.0000395103 yp =   0.0000000000
-generator_cePu                                    : y =   0.3926648604 yp =   0.0000000000
-generator_cmPu                                    : y =   0.5886843810 yp =   0.0000000000
-generator_cos2Eta                                 : y =   0.6462222192 yp =   0.0000000000
-generator_efdPu                                   : y =   1.5460339609 yp =   0.0000000000
-generator_iDPu                                    : y =   0.0000201832 yp =   0.0000000000
-generator_iQ1Pu                                   : y =   0.0001744740 yp =   0.0000000000
-generator_iQ2Pu                                   : y =  -0.0000005886 yp =   0.0000000000
-generator_idPu                                    : y =  -0.3977426004 yp =   0.0000000000
-generator_ifPu                                    : y =   0.7665405469 yp =   0.0000000000
-generator_iqPu                                    : y =  -0.2730781577 yp =   0.0000000000
-generator_lambdaADPu                              : y =   0.6920711224 yp =   0.0000000000
-generator_lambdaAQPu                              : y =  -0.5120830506 yp =   0.0000000000
-generator_lambdaAirGapPu                          : y =   0.8609294071 yp =   0.0000000000
-generator_lambdadPu                               : y =   0.6117271171 yp =   0.0000000000
-generator_lambdaqPu                               : y =  -0.5672448384 yp =   0.0000000000
-generator_mdsPu                                   : y =   1.8764470776 yp =   0.0000000000
-generator_miPu                                    : y =   1.8764536934 yp =   0.0000000000
-generator_mqsPu                                   : y =   1.8764470776 yp =   0.0000000000
-generator_sin2Eta                                 : y =   0.3537811209 yp =   0.0000000000
-generator_terminal_i_im                           : y =   0.0143234989 yp =   0.0000000000
-generator_terminal_i_re                           : y =   0.0709379623 yp =   0.0000000000
-generator_uStatorPu_im                            : y =  -0.4086756916 yp =   0.0000000000
-generator_uStatorPu_re                            : y =  -0.9127163134 yp =   0.0000000000
-generator_udPu                                    : y =   0.6797495660 yp =   0.0000000000
-generator_ufPu                                    : y =   0.0006682738 yp =   0.0000000000
-generator_uqPu                                    : y =   0.7334900796 yp =   0.0000000000
-governor_PmRawPu_u3                               : y =  -0.2002960315 yp =   0.0000000000
-governor_PmRawPu_y                                : y =   0.7065955262 yp =   0.0000000000
-governor_feedback_y                               : y =  -0.2002960315 yp =   0.0000000000
-governor_limiter_y                                : y =   0.7065955262 yp =   0.0000000000
+voltageRegulator_integrator_y                     : y =   1.5468228201 yp =  -0.0013953203
+generator_MdSatPPu                                : y =   1.8764281642 yp =   0.0000000000
+generator_MqSatPPu                                : y =   1.8764281642 yp =   0.0000000000
+generator_PmPu                                    : y =   0.7065931943 yp =   0.0000000000
+generator_UStatorPu                               : y =   1.0000697660 yp =   0.0000000000
+generator_cePu                                    : y =   0.3926759489 yp =   0.0000000000
+generator_cmPu                                    : y =   0.5886812946 yp =   0.0000000000
+generator_cos2Eta                                 : y =   0.6461683868 yp =   0.0000000000
+generator_efdPu                                   : y =   1.5454274998 yp =   0.0000000000
+generator_iDPu                                    : y =   0.0000024414 yp =   0.0000000000
+generator_iQ1Pu                                   : y =   0.0001198352 yp =   0.0000000000
+generator_iQ2Pu                                   : y =  -0.0000005881 yp =   0.0000000000
+generator_idPu                                    : y =  -0.3977586198 yp =   0.0000000000
+generator_ifPu                                    : y =   0.7665741450 yp =   0.0000000000
+generator_iqPu                                    : y =  -0.2730555922 yp =   0.0000000000
+generator_lambdaADPu                              : y =   0.6920614076 yp =   0.0000000000
+generator_lambdaAQPu                              : y =  -0.5121362273 yp =   0.0000000000
+generator_lambdaAirGapPu                          : y =   0.8609532511 yp =   0.0000000000
+generator_lambdadPu                               : y =   0.6117141664 yp =   0.0000000000
+generator_lambdaqPu                               : y =  -0.5672934569 yp =   0.0000000000
+generator_mdsPu                                   : y =   1.8764215246 yp =   0.0000000000
+generator_miPu                                    : y =   1.8764281642 yp =   0.0000000000
+generator_mqsPu                                   : y =   1.8764215246 yp =   0.0000000000
+generator_sin2Eta                                 : y =   0.3538349657 yp =   0.0000000000
+generator_terminal_i_im                           : y =  -0.0720086585 yp =   0.0000000000
+generator_terminal_i_re                           : y =  -0.0072193999 yp =   0.0000000000
+generator_uStatorPu_im                            : y =   0.9926509610 yp =   0.0000000000
+generator_uStatorPu_re                            : y =  -0.1215377125 yp =   0.0000000000
+generator_udPu                                    : y =   0.6798092002 yp =   0.0000000000
+generator_ufPu                                    : y =   0.0006680117 yp =   0.0000000000
+generator_uqPu                                    : y =   0.7334760243 yp =   0.0000000000
+governor_PmRawPu_u3                               : y =  -0.2002983634 yp =   0.0000000000
+governor_PmRawPu_y                                : y =   0.7065931943 yp =   0.0000000000
+governor_feedback_y                               : y =  -0.2002983634 yp =   0.0000000000
+governor_limiter_y                                : y =   0.7065931943 yp =   0.0000000000
 voltageRegulator_UsRefTotal_y                     : y =   1.0000000000 yp =   0.0000000000
 voltageRegulator_feedback_u1                      : y =   1.0000000000 yp =   0.0000000000
-voltageRegulator_feedback_y                       : y =  -0.0000395103 yp =   0.0000000000
-voltageRegulator_feedbackNonWindUp_u2             : y =   1.5460339609 yp =   0.0000000000
+voltageRegulator_feedback_y                       : y =  -0.0000697660 yp =   0.0000000000
+voltageRegulator_feedbackNonWindUp_u2             : y =   1.5454274998 yp =   0.0000000000
 voltageRegulator_feedbackNonWindUp_y              : y =   0.0000000000 yp =   0.0000000000
-voltageRegulator_gain_y                           : y =  -0.0007902053 yp =   0.0000000000
-voltageRegulator_integrator_u                     : y =  -0.0000395103 yp =   0.0000000000
+voltageRegulator_gain_y                           : y =  -0.0013953203 yp =   0.0000000000
+voltageRegulator_integrator_u                     : y =  -0.0000697660 yp =   0.0000000000
 governor_PmPu                                     : alias of generator_PmPu
 governor_PmRawPu_u1                               : alias of governor_deltaPmRefPu
 governor_PmRawPu_u2                               : alias of governor_PmRefPu
@@ -82,24 +82,24 @@ voltageRegulator_rawEfd_u1                        : alias of voltageRegulator_in
 voltageRegulator_rawEfd_u2                        : alias of voltageRegulator_gain_y
 voltageRegulator_rawEfd_y                         : alias of voltageRegulator_feedbackNonWindUp_u2
  ====== CALCULATED VARIABLES VALUES ======
-generator_IRotorPu                                : y =   1.5468788236
-generator_IStatorPu                               : y =   0.0723695870
-generator_PGen                                    : y =   7.0599901309
-generator_PGenPu                                  : y =   0.0705999013
-generator_PePu                                    : y =   0.4713140736
-generator_QGen                                    : y =   1.5917329677
-generator_QGenPu                                  : y =   0.0159173297
-generator_QStatorPu                               : y =   0.0159173297
-generator_QStatorPuQNom                           : y =   0.1423689247
-generator_UPu                                     : y =   1.0000334443
+generator_IRotorPu                                : y =   1.5469466246
+generator_IStatorPu                               : y =   0.0723696527
+generator_PGen                                    : y =   7.0602034718
+generator_PGenPu                                  : y =   0.0706020347
+generator_PePu                                    : y =   0.4713282988
+generator_QGen                                    : y =   1.5918111893
+generator_QGenPu                                  : y =   0.0159181119
+generator_QStatorPu                               : y =   0.0159181119
+generator_QStatorPuQNom                           : y =   0.1423759211
+generator_UPu                                     : y =   1.0000636710
 generator_genState                                : y =   2.0000000000
-generator_iStatorPu_im                            : y =   0.0143234989
-generator_iStatorPu_re                            : y =   0.0709379623
-generator_sStatorPu_im                            : y =  -0.0159173297
-generator_sStatorPu_re                            : y =  -0.0705999013
-generator_thetaInternal_value                     : y =   0.7473900074
-generator_uPu_im                                  : y =  -0.4086756916
-generator_uPu_re                                  : y =  -0.9127163134
+generator_iStatorPu_im                            : y =  -0.0720086585
+generator_iStatorPu_re                            : y =  -0.0072193999
+generator_sStatorPu_im                            : y =  -0.0159181119
+generator_sStatorPu_re                            : y =  -0.0706020347
+generator_thetaInternal_value                     : y =   0.7474432974
+generator_uPu_im                                  : y =   0.9926509610
+generator_uPu_re                                  : y =  -0.1215377125
 governor_limiter_simplifiedExpr                   : y =   0.0000000000
 voltageRegulator_integrator_local_set             : y =   0.0000000000
 voltageRegulator_limUsRef_simplifiedExpr          : y =   0.0000000000
