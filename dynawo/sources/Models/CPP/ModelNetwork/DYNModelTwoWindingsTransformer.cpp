@@ -242,13 +242,21 @@ modelType_("TwoWindingsTransformer") {
     currentLimits1_->setFactorPuToA(factorPuToASide1_);
     // Due to IIDM convention
     if (cLimit1[0]->getLimit() < maximumValueCurrentLimit) {
-      double limit = cLimit1[0]->getLimit() / factorPuToASide1_;
-      currentLimits1_->addLimit(limit, cLimit1[0]->getAcceptableDuration());
+      const double limit = cLimit1[0]->getLimit() / factorPuToASide1_;
+      currentLimits1_->addLimit(limit, cLimit1[0]->getAcceptableDuration(), false);
     }
     for (unsigned int i = 1; i < cLimit1.size(); ++i) {
       if (cLimit1[i-1]->getLimit() < maximumValueCurrentLimit) {
-        double limit = cLimit1[i-1]->getLimit() / factorPuToASide1_;
-        currentLimits1_->addLimit(limit, cLimit1[i]->getAcceptableDuration());
+        if (cLimit1[i-1]->isFictitious()) continue;
+        const double limit = cLimit1[i-1]->getLimit() / factorPuToASide1_;
+        currentLimits1_->addLimit(limit, cLimit1[i]->getAcceptableDuration(), false);
+      }
+    }
+    for (unsigned int i = 1; i < cLimit1.size(); ++i) {
+      if (!cLimit1[i]->isFictitious()) continue;
+      if (cLimit1[i]->getLimit() < maximumValueCurrentLimit) {
+        const double limit = cLimit1[i]->getLimit() / factorPuToASide1_;
+        currentLimits1_->addLimit(limit, cLimit1[i]->getAcceptableDuration(), true);
       }
     }
   }
@@ -261,13 +269,21 @@ modelType_("TwoWindingsTransformer") {
     currentLimits2_->setFactorPuToA(factorPuToASide2_);
     // Due to IIDM convention
     if (cLimit2[0]->getLimit() < maximumValueCurrentLimit) {
-      double limit = cLimit2[0]->getLimit() / factorPuToASide2_;
-      currentLimits2_->addLimit(limit, cLimit2[0]->getAcceptableDuration());
+      const double limit = cLimit2[0]->getLimit() / factorPuToASide2_;
+      currentLimits2_->addLimit(limit, cLimit2[0]->getAcceptableDuration(), false);
     }
     for (unsigned int i = 1; i < cLimit2.size(); ++i) {
+      if (cLimit2[i-1]->isFictitious()) continue;
       if (cLimit2[i-1]->getLimit() < maximumValueCurrentLimit) {
-        double limit = cLimit2[i-1]->getLimit() / factorPuToASide2_;
-        currentLimits2_->addLimit(limit, cLimit2[i]->getAcceptableDuration());
+        const double limit = cLimit2[i-1]->getLimit() / factorPuToASide2_;
+        currentLimits2_->addLimit(limit, cLimit2[i]->getAcceptableDuration(), false);
+      }
+    }
+    for (unsigned int i = 1; i < cLimit2.size(); ++i) {
+      if (!cLimit2[i]->isFictitious()) continue;
+      if (cLimit2[i]->getLimit() < maximumValueCurrentLimit) {
+        const double limit = cLimit2[i]->getLimit() / factorPuToASide2_;
+        currentLimits2_->addLimit(limit, cLimit2[i]->getAcceptableDuration(), true);
       }
     }
   }
@@ -411,6 +427,7 @@ ModelTwoWindingsTransformer::evalNodeInjection() {
       modelBus2_->iiAdd(ii02_);
     }
   } else {
+    applyStep();
     if (modelBus1_ || modelBus2_) {
       double ur1Val = ur1();
       double ui1Val = ui1();
@@ -462,6 +479,16 @@ ModelTwoWindingsTransformer::setCurrentStepIndex(const int& stepIndex) {
     modelTapChanger_->setCurrentStepIndex(stepIndex);
 }
 
+void
+ModelTwoWindingsTransformer::setNextStepIndex(const int stepIndex) {
+  if (modelRatioChanger_)
+    modelRatioChanger_->setNextStepIndex(stepIndex);
+  else if (modelPhaseChanger_)
+    modelPhaseChanger_->setNextStepIndex(stepIndex);
+  else
+    modelTapChanger_->setNextStepIndex(stepIndex);
+}
+
 int
 ModelTwoWindingsTransformer::getCurrentStepIndex() const {
   if (modelRatioChanger_)
@@ -470,6 +497,43 @@ ModelTwoWindingsTransformer::getCurrentStepIndex() const {
     return modelPhaseChanger_->getCurrentStepIndex();
   else
     return modelTapChanger_->getCurrentStepIndex();
+}
+
+int
+ModelTwoWindingsTransformer::getNextStepIndex() const {
+  if (modelRatioChanger_)
+    return modelRatioChanger_->getNextStepIndex();
+  else if (modelPhaseChanger_)
+    return modelPhaseChanger_->getNextStepIndex();
+  else
+    return modelTapChanger_->getNextStepIndex();
+}
+
+void
+ModelTwoWindingsTransformer::applyStep() {
+    int save = getNextStepIndex();
+    if (modelRatioChanger_) {
+      modelRatioChanger_->applyStep();
+      if (save != -1) {
+        updateYMat_ = true;
+        evalYMat();
+      }
+    }
+    if (modelPhaseChanger_) {
+      if (getNextStepIndex() != -1)
+      modelPhaseChanger_->applyStep();
+      if (save != -1) {
+        updateYMat_ = true;
+        evalYMat();
+      }
+    }
+    if (modelTapChanger_) {
+      modelTapChanger_->applyStep();
+      if (save != -1) {
+        updateYMat_ = true;
+        evalYMat();
+      }
+    }
 }
 
 double
@@ -1336,18 +1400,21 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
     }
   }
 
-  int currStateIndex = static_cast<int>(static_cast<int>(z_[currentStepIndexNum_]));
-  if (currStateIndex != getCurrentStepIndex()) {
+  const int currStateIndex = static_cast<int>(z_[currentStepIndexNum_]);
+  int internalStepIndex = getCurrentStepIndex();
+  if (getNextStepIndex() != -1)
+    internalStepIndex = getNextStepIndex();
+  if (currStateIndex != internalStepIndex) {
     if (disableInternalTapChanger_ > 0.) {
       // external automaton
-      Trace::debug() << DYNLog(TfoTapChange, id_, getCurrentStepIndex(), z_[currentStepIndexNum_]) << Trace::endline;
+      Trace::debug() << DYNLog(TfoTapChange, id_, internalStepIndex, z_[currentStepIndexNum_]) << Trace::endline;
     } else {
       // internal automaton
-      Trace::debug() << DYNLog(TfoTapChange, id_, z_[currentStepIndexNum_], getCurrentStepIndex()) << Trace::endline;
-      z_[currentStepIndexNum_] = getCurrentStepIndex();
+      Trace::debug() << DYNLog(TfoTapChange, id_, z_[currentStepIndexNum_], internalStepIndex) << Trace::endline;
+      z_[currentStepIndexNum_] = internalStepIndex;
     }
     stateIndexModified_ = true;
-    setCurrentStepIndex(static_cast<int>(z_[currentStepIndexNum_]));
+    setNextStepIndex(static_cast<int>(z_[currentStepIndexNum_]));
   }
 
   if (doubleNotEquals(z_[currentLimitsDesactivateNum_], getCurrentLimitsDesactivate())) {

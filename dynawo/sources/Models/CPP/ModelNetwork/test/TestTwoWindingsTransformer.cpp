@@ -148,9 +148,13 @@ createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChange
         .add();
   }
   transformer.newCurrentLimits1().beginTemporaryLimit().
-      setName("MyLimit").setValue(10.).setAcceptableDuration(5.).endTemporaryLimit().add();
+      setName("MyLimit").setValue(10.).setAcceptableDuration(5.).endTemporaryLimit()
+      .beginTemporaryLimit().setName("MyLimit").setValue(8.).setAcceptableDuration(std::numeric_limits<unsigned long>::max())
+        .setFictitious(true).endTemporaryLimit().add();
   transformer.newCurrentLimits2().beginTemporaryLimit().
-      setName("MyLimit2").setValue(20.).setAcceptableDuration(2.).endTemporaryLimit().add();
+      setName("MyLimit2").setValue(20.).setAcceptableDuration(2.).endTemporaryLimit()
+      .beginTemporaryLimit().setName("MyLimit2").setValue(18.).setAcceptableDuration(std::numeric_limits<unsigned long>::max())
+        .setFictitious(true).endTemporaryLimit().add();
   if (open || !closed1) {
     transformer.getTerminal1().disconnect();
   }
@@ -182,14 +186,16 @@ createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChange
     // permanent limit
     if (!std::isnan(currentLimits.getPermanentLimit())) {
       std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(),
-                                                                                      std::numeric_limits<unsigned long>::max()));
+                                                                                                      std::numeric_limits<unsigned long>::max(), false));
       tw2ItfIIDM->addCurrentLimitInterface1(std::move(cLimit));
     }
 
     // temporary limit
     for (auto& currentLimit : currentLimits.getTemporaryLimits()) {
       if (!currentLimit.isFictitious()) {
-        std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
+        std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(),
+                                                                                                        currentLimit.getAcceptableDuration(),
+                                                                                                        currentLimit.isFictitious()));
         tw2ItfIIDM->addCurrentLimitInterface1(std::move(cLimit));
       }
     }
@@ -201,14 +207,16 @@ createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChange
     // permanent limit
     if (!std::isnan(currentLimits.getPermanentLimit())) {
       std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(),
-                                                                                      std::numeric_limits<unsigned long>::max()));
+                                                                                                      std::numeric_limits<unsigned long>::max(), false));
       tw2ItfIIDM->addCurrentLimitInterface2(std::move(cLimit));
     }
 
     // temporary limit
     for (auto& currentLimit : currentLimits.getTemporaryLimits()) {
       if (!currentLimit.isFictitious()) {
-        std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(), currentLimit.getAcceptableDuration()));
+        std::unique_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.getValue(),
+                                                                                                        currentLimit.getAcceptableDuration(),
+                                                                                                        currentLimit.isFictitious()));
         tw2ItfIIDM->addCurrentLimitInterface2(std::move(cLimit));
       }
     }

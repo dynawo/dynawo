@@ -125,11 +125,11 @@ TEST(DataInterfaceTest, ThreeWTransformer_1) {
   ASSERT_EQ(tfoInterface.getCurrentLimitInterfaces1().size(), 0);
   ASSERT_EQ(tfoInterface.getCurrentLimitInterfaces2().size(), 0);
   ASSERT_EQ(tfoInterface.getCurrentLimitInterfaces3().size(), 0);
-  std::unique_ptr<CurrentLimitInterface> curLimItf1(new CurrentLimitInterfaceIIDM(1, 1));
+  std::unique_ptr<CurrentLimitInterface> curLimItf1(new CurrentLimitInterfaceIIDM(1, 1, false));
   tfoInterface.addCurrentLimitInterface1(std::move(curLimItf1));
-  std::unique_ptr<CurrentLimitInterface> curLimItf2(new CurrentLimitInterfaceIIDM(2, 2));
+  std::unique_ptr<CurrentLimitInterface> curLimItf2(new CurrentLimitInterfaceIIDM(2, 2, false));
   tfoInterface.addCurrentLimitInterface2(std::move(curLimItf2));
-  std::unique_ptr<CurrentLimitInterface> curLimItf3(new CurrentLimitInterfaceIIDM(3, 3));
+  std::unique_ptr<CurrentLimitInterface> curLimItf3(new CurrentLimitInterfaceIIDM(3, 3, false));
   tfoInterface.addCurrentLimitInterface3(std::move(curLimItf3));
   ASSERT_EQ(tfoInterface.getCurrentLimitInterfaces1().size(), 1);
   ASSERT_EQ(tfoInterface.getCurrentLimitInterfaces2().size(), 1);

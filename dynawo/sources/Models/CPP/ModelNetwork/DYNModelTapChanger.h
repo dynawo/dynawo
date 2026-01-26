@@ -51,7 +51,8 @@ class ModelTapChanger {
         lowStepIndex_(lowIndex),
         highStepIndex_(0),
         tFirst_(60),
-        tNext_(10) {}
+        tNext_(10),
+        nextStepIndex_(-1) {}
 
   /**
    * @brief destructor
@@ -188,6 +189,29 @@ class ModelTapChanger {
    */
   template <typename T> void dumpInternalVariable(boost::archive::binary_oarchive& os, T value) const;
 
+  /**
+   * @brief set next step index
+   *
+   * @param index next step index
+   */
+  inline void setNextStepIndex(int index) { nextStepIndex_ = index;}
+
+  /**
+   * @brief get next step index
+   *
+   * @return next step index
+   */
+  inline int getNextStepIndex() const {return nextStepIndex_;}
+
+  /**
+   * @brief  update the steps to the next value computed during evalZ
+   */
+  void applyStep() {
+    if (nextStepIndex_ != -1)
+      setCurrentStepIndex(nextStepIndex_);
+    nextStepIndex_ = -1;
+  }
+
  private:
   std::string id_;  ///< id of the tap changer
   std::vector<TapChangerStep>
@@ -200,6 +224,7 @@ class ModelTapChanger {
   double tFirst_;  ///< time to wait before changing of step for the first time
   double tNext_;   ///< time to wait before changing of step if it's not the
                    ///< first time
+  int nextStepIndex_;  ///< new value of the step index at the next timestep (-1 if unmodified)
 };                 // class ModelTapChanger
 
 }  // namespace DYN
