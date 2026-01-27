@@ -43,7 +43,7 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
     Dialog(tab = "LV transformer"));
 
   //Configuration parameters to define how the user wants to represent the internal network
-  parameter Boolean ConverterLVControl  "If true, the converter is controlling at its output (LV side of its transformer), if false, after its transformer (MV side)" annotation(
+  parameter Boolean ConverterLVControl "If true, the converter is controlling at its output (LV side of its transformer), if false, after its transformer (MV side)" annotation(
     Dialog(tab = "LV transformer"));
   parameter Boolean PPCLocal "If true, the Power Park Control is controlling at model's output terminal, if false, at a remote terminal using external measurements" annotation(
     Dialog(tab = "MV network + MV/HV transformer"));
@@ -59,7 +59,7 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
   final parameter Types.PerUnit XPcsPu = if PPCLocal and ConverterLVControl then XLvTrPu + XMvHvPu elseif PPCLocal and not ConverterLVControl then XMvHvPu
    elseif not PPCLocal and ConverterLVControl then XLvTrPu else 0 "Serial reactance between WT terminal and model's output terminal in pu (base UNom, SNom)";
 
-  // In every cases (ResPu + j*XesPu) and (GesPu + j*BesPu) are respectively the serial impedance and shunt admittance between converter's output and WT terminal
+  // In every case (ResPu + j*XesPu) and (GesPu + j*BesPu) are respectively the serial impedance and shunt admittance between converter's output and WT terminal
   //Depending on the value of ConverterLVControl we are correctly defining these parameters
   final parameter Types.PerUnit BesPu = if ConverterLVControl then 0 else BLvTrPu "Shunt susceptance between converter output and WT terminal in pu (base UNom, SNom)";
   final parameter Types.PerUnit GesPu = if ConverterLVControl then 0 else GLvTrPu "Shunt conductance between converter output and WT terminal in pu (base UNom, SNom)";
@@ -227,7 +227,7 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
     Placement(transformation(origin = {-140, 80}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-110, 20}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput QPccPu(start = QPcc0Pu) "Reactive power measurement coming from the external PCC (base SnRef, receptor convention) (used only when PPCLocal = false)" annotation(
     Placement(transformation(origin = {220, -30}, extent = {{20, -20}, {-20, 20}}), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput tanPhi(start = Q0Pu/P0Pu) "Tangent phi (can be figured as QPu / PPu)" annotation(
+  Modelica.Blocks.Interfaces.RealInput tanPhi(start = Q0Pu / P0Pu) "Tangent phi (can be figured as QPu / PPu)" annotation(
     Placement(visible = true, transformation(origin = {-20, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.Interfaces.ComplexInput uPccPu(re(start = Modelica.ComplexMath.real(Modelica.ComplexMath.fromPolar(UPcc0Pu, UPccPhase0))), im(start = Modelica.ComplexMath.imag(Modelica.ComplexMath.fromPolar(UPcc0Pu, UPccPhase0)))) annotation(
     Placement(transformation(origin = {220, -68}, extent = {{20, -20}, {-20, 20}}), iconTransformation(origin = {60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
@@ -250,38 +250,68 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
     Placement(transformation(origin = {12, -4}, extent = {{10, -10}, {-10, 10}}, rotation = -0)));
   Modelica.ComplexBlocks.ComplexMath.RealToComplex realToComplex1 annotation(
     Placement(transformation(origin = {12, -64}, extent = {{10, -10}, {-10, 10}})));
-  Modelica.Blocks.Sources.RealExpression realExpression1(y = -SystemBase.SnRef/SNom*Modelica.ComplexMath.imag(Modelica.ComplexMath.conj(Complex(PPccPu, QPccPu)/uPccPu))) annotation(
+  Modelica.Blocks.Sources.RealExpression realExpression1(y = -SystemBase.SnRef / SNom * Modelica.ComplexMath.imag(Modelica.ComplexMath.conj(Complex(PPccPu, QPccPu) / uPccPu))) annotation(
     Placement(transformation(origin = {138, -18}, extent = {{10, -10}, {-10, 10}})));
   Modelica.ComplexBlocks.ComplexMath.ComplexToReal complexToReal annotation(
     Placement(transformation(origin = {148, -68}, extent = {{10, -10}, {-10, 10}}, rotation = -0)));
-  Modelica.Blocks.Sources.RealExpression realExpression(y = -SystemBase.SnRef/SNom*Modelica.ComplexMath.real(Modelica.ComplexMath.conj(Complex(PPccPu, QPccPu)/uPccPu))) annotation(
+  Modelica.Blocks.Sources.RealExpression realExpression(y = -SystemBase.SnRef / SNom * Modelica.ComplexMath.real(Modelica.ComplexMath.conj(Complex(PPccPu, QPccPu) / uPccPu))) annotation(
     Placement(transformation(origin = {138, 0}, extent = {{10, -10}, {-10, 10}})));
 
   //Initial parameters
-  final parameter Types.ComplexCurrentPu i0Pu = Modelica.ComplexMath.conj(Complex(P0Pu, Q0Pu)/u0Pu) "Initial complex current at grid terminal in pu (base UNom, SnRef) (receptor convention)";
-  final parameter Types.ComplexCurrentPu iControl0Pu = if PPCLocal then i0Pu else Modelica.ComplexMath.conj(Complex(PPcc0Pu, QPcc0Pu) / Modelica.ComplexMath.fromPolar(UPcc0Pu, UPccPhase0)) "Initial complex current to be controlled by the PPC coming either from the external bus or from the model's output terminal (receptor convention, base UNom, SnRef)";
-  final parameter Types.ComplexCurrentPu iWt0Pu = i0Pu - Complex(GPcsPu, BPcsPu)*(u0Pu*SNom/SystemBase.SnRef - Complex(RPcsPu, XPcsPu)*i0Pu) "Initial complex current at WT terminal in pu (base UNom, SnRef) (receptor convention)";
+  parameter Types.ComplexCurrentPu i0Pu "Initial complex current at grid terminal in pu (base UNom, SnRef) (receptor convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.ComplexCurrentPu iControl0Pu "Initial complex current to be controlled by the PPC coming either from the external bus or from the model's output terminal in pu (base UNom, SnRef) (receptor convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.ComplexCurrentPu iGs0Pu "Complex current at converter output in pu (base SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.CurrentModulePu Ip0Pu "Initial active current component at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.PerUnit IpMax0Pu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.CurrentModulePu Iq0Pu "Initial reactive current component at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.PerUnit IqMax0Pu "Initial maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.PerUnit IqMin0Pu "Initial minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.ComplexCurrentPu iWt0Pu "Initial complex current at WT terminal in pu (base UNom, SnRef) (receptor convention)" annotation(
+    Dialog(group = "Initialization"));
   parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));
-  final parameter Types.ActivePowerPu PControl0Pu = if PPCLocal then -P0Pu * SystemBase.SnRef / SNom else -PPcc0Pu * SystemBase.SnRef / SNom "Initial active power at the point controlled by the PPC (either model's output terminal or external PCC) (base SNom, generator convetion)";
-  parameter Types.CurrentComponent PPcc0Pu = 0 "Initial active power at the external bus controlled by the PPC (used when PPCLocal = False) (receptor convention, base UNom, SnRef) (only if the PCS is defined outside of the model)" annotation(
+  parameter Types.ActivePowerPu PControl0Pu "Initial active power at the point controlled by the PPC (either model's output terminal or external PCC) in pu (base SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.CurrentComponent PPcc0Pu = 0 "Initial active power at the external bus controlled by the PPC (used when PPCLocal = false) in pu (base UNom, SnRef) (receptor convention) (only if the PCS is defined outside of the model)" annotation(
     Dialog(tab = "Operating point", enable = not PPCLocal));
   parameter Types.ReactivePowerPu Q0Pu "Initial reactive power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));
-  final parameter Types.ReactivePowerPu QControl0Pu = if PPCLocal then -Q0Pu * SystemBase.SnRef / SNom else -QPcc0Pu * SystemBase.SnRef / SNom "Initial reactive power at the point controlled by the PPC (either model's output terminal or external PCC) (base SNom, generator convention)";
-  parameter Types.CurrentComponent QPcc0Pu = 0 "Initial reactive power at the external bus controlled by the PPC (used when PPCLocal = False) (receptor convention, base UNom, SnRef) (only if the PCS is defined outside of the model)" annotation(
+  parameter Types.ReactivePowerPu QControl0Pu "Initial reactive power at the point controlled by the PPC (either model's output terminal or external PCC) (base SNom, generator convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.ReactivePowerPu QMax0Pu "Initial maximum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.ReactivePowerPu QMin0Pu "Initial minimum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.CurrentComponent QPcc0Pu = 0 "Initial reactive power at the external bus controlled by the PPC (used when PPCLocal = false) in pu (base UNom, SnRef) (receptor convention) (only if the PCS is defined outside of the model)" annotation(
     Dialog(tab = "Operating point", enable = not PPCLocal));
   parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
     Dialog(tab = "Operating point"));
-  final parameter Types.ComplexVoltagePu u0Pu = Modelica.ComplexMath.fromPolar(U0Pu, UPhase0) "Initial complex voltage at grid terminal in pu (base UNom)";
-  parameter Types.CurrentModulePu UPcc0Pu = 1 "Initial voltage module at the external bus controlled by the PPC (used when PPCLocal = False) (base UNom) (only if the PCS is defined outside of the model)" annotation(
+  parameter Types.ComplexVoltagePu u0Pu "Initial complex voltage at grid terminal in pu (base UNom)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.CurrentModulePu UPcc0Pu = 1 "Initial voltage module at the external bus controlled by the PPC (used when PPCLocal = false) (base UNom) (only if the PCS is defined outside of the model)" annotation(
     Dialog(tab = "Operating point", enable = not PPCLocal));
-  parameter Types.Angle UPccPhase0 = 0 "Initial voltage angle at the external bus controlled by the PPC (used when PPCLocal = False) (base UNom) (only if the PCS is defined outside of the model)" annotation(
+  parameter Types.Angle UPccPhase0 = 0 "Initial voltage angle at the external bus controlled by the PPC (used when PPCLocal = false) (base UNom) (only if the PCS is defined outside of the model)" annotation(
     Dialog(tab = "Operating point", enable = not PPCLocal));
   parameter Types.Angle UPhase0 "Initial voltage angle at grid terminal in rad" annotation(
     Dialog(tab = "Operating point"));
-  final parameter Types.ComplexVoltagePu uControl0Pu = if PPCLocal then u0Pu else Modelica.ComplexMath.fromPolar(UPcc0Pu, UPccPhase0) "Initial complex voltage to be controlled by the PPC coming either from the external bus or from the model's output terminal (base UNom)";
-  final parameter Types.ComplexVoltagePu uWt0Pu = u0Pu - Complex(RPcsPu, XPcsPu)*i0Pu*SystemBase.SnRef/SNom "Initial complex voltage at WT terminal in pu (base UNom)";
+  parameter Types.ComplexVoltagePu uControl0Pu "Initial complex voltage to be controlled by the PPC coming either from the external bus or from the model's output terminal (base UNom)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.VoltageModulePu UWt0DroppedPu "Initial voltage magnitude controlled by the WT in pu (base UNom)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.ComplexVoltagePu uWt0Pu "Initial complex voltage at WT terminal in pu (base UNom)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.PerUnit X0Pu annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.PerUnit XWT0Pu "Initial reactive power or voltage reference at grid WT terminal in pu (base SNom or UNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
 
 equation
   connect(PCS.terminal2, elecMeasurements.terminal1) annotation(

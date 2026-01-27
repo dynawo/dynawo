@@ -87,7 +87,7 @@ partial model BaseControl4 "Whole generator base control module for type 4 wind 
   //Input variables
   Modelica.Blocks.Interfaces.RealInput omegaGenPu(start = SystemBase.omega0Pu) "Generator angular frequency in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-180, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput PWTRefPu(start = ip0Pu * U0Pu) "Active power reference at grid terminal in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PWTRefPu(start = Ip0Pu * U0Pu) "Active power reference at grid terminal in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-180, 140}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput tanPhi(start = Q0Pu / P0Pu) "Tangent phi (can be figured as QPu / PPu)" annotation(
     Placement(visible = true, transformation(origin = {-180, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -95,11 +95,11 @@ partial model BaseControl4 "Whole generator base control module for type 4 wind 
     Placement(visible = true, transformation(origin = {-180, -100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -59.5}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Output variables
-  Modelica.Blocks.Interfaces.RealOutput ipCmdPu(start = ip0Pu) "Active current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput ipCmdPu(start = Ip0Pu) "Active current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {170, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput ipMaxPu(start = IpMax0Pu) "Maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {170, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput iqCmdPu(start = iq0Pu) "Reactive current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput iqCmdPu(start = Iq0Pu) "Reactive current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {170, -84}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput iqMaxPu(start = IqMax0Pu) "Maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {170, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -107,11 +107,11 @@ partial model BaseControl4 "Whole generator base control module for type 4 wind 
     Placement(visible = true, transformation(origin = {170, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
-  parameter Types.CurrentModulePu ip0Pu "Initial active current component at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-    Dialog(group = "Initialization"));
-  parameter Types.CurrentModulePu iq0Pu "Initial reactive current component at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.CurrentModulePu Ip0Pu "Initial active current component at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
   parameter Types.PerUnit IpMax0Pu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.CurrentModulePu Iq0Pu "Initial reactive current component at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
   parameter Types.PerUnit IqMax0Pu "Initial maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));

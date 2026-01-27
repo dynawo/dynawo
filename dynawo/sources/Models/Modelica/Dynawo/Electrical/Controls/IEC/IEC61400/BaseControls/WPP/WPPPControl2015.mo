@@ -34,7 +34,7 @@ model WPPPControl2015 "Active power control module for wind power plants (IEC NÂ
     Placement(visible = true, transformation(origin = {-180, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Output variable
-  Modelica.Blocks.Interfaces.RealOutput PWTRefPu(start = -P0Pu * SystemBase.SnRef / SNom) "Reference active power communicated to PD in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput PWTRefPu(start = PPDRefCom0Pu) "Reference active power communicated to PD in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {240, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tWPPFiltP, y_start = -P0Pu * SystemBase.SnRef / SNom) annotation(
@@ -47,9 +47,9 @@ model WPPPControl2015 "Active power control module for wind power plants (IEC NÂ
     Placement(visible = true, transformation(origin = {110, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.MathBoolean.Or or1(nu = 2) annotation(
     Placement(visible = true, transformation(origin = {110, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {tpfv, 1},b = {tpft, 1}, initType = Modelica.Blocks.Types.Init.SteadyState, u_start = -P0Pu * SystemBase.SnRef / SNom) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {tpfv, 1}, b = {tpft, 1}, initType = Modelica.Blocks.Types.Init.SteadyState, u_start = PPDRefCom0Pu) annotation(
     Placement(visible = true, transformation(origin = {170, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFeedthroughFreeze absLimRateLimFeedthroughFreeze(DyMax = DPRefMaxPu, DyMin = DPRefMinPu, U0 = -P0Pu*SystemBase.SnRef/SNom, Y0 = -P0Pu*SystemBase.SnRef/SNom, YMax = PRefMaxPu, YMin = PRefMinPu, tS = tS) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFeedthroughFreeze absLimRateLimFeedthroughFreeze(DyMax = DPRefMaxPu, DyMin = DPRefMinPu, U0 = PPDRefCom0Pu, Y0 = PPDRefCom0Pu, YMax = PRefMaxPu, YMin = PRefMinPu, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {204, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
 
 equation
