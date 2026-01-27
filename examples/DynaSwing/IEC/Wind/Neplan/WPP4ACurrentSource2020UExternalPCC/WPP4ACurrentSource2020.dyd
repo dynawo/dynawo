@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--
-    Copyright (c) 2025, RTE (http://www.rte-france.com)
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
     This Source Code Form is subject to the terms of the Mozilla Public
@@ -38,10 +38,8 @@
   <dyn:connect id1="Line2B" var1="line_terminal2" id2="Line3" var2="line_terminal1"/>
   <dyn:connect id1="Line1" var1="line_terminal2" id2="Line3" var2="line_terminal1"/>
   <dyn:connect id1="Line3" var1="line_terminal2" id2="InfBus" var2="infiniteBus_terminal"/>
-
   <dyn:connect id1="Tfo" var1="transformer_terminal1_V_re" id2="WPP4A" var2="WPP_uPccPu_re"/>
   <dyn:connect id1="Tfo" var1="transformer_terminal1_V_im" id2="WPP4A" var2="WPP_uPccPu_im"/>
   <dyn:connect id1="Tfo" var1="transformer_P1Pu" id2="WPP4A" var2="WPP_PPccPu"/>
   <dyn:connect id1="Tfo" var1="transformer_Q1Pu" id2="WPP4A" var2="WPP_QPccPu"/>
-
 </dyn:dynamicModelsArchitecture>

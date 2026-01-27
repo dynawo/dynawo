@@ -39,7 +39,7 @@ model WPPQControl2015 "Reactive power control module for wind power plants (IEC 
     Placement(visible = true, transformation(origin = {-220, 180}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {-49, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput UWPPu(start = U0Pu) "Voltage module communicated to WP in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-340, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UWPRefPu(start = U0Pu) "Reference voltage module communicated to WP in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UWPRefPu(start = X0Pu) "Reference voltage module communicated to WP in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-340, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Output variable

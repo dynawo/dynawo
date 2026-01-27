@@ -91,7 +91,6 @@
     <par type="DOUBLE" name="WT_Q0Pu" value="0.21"/>
     <par type="DOUBLE" name="WT_U0Pu" value="1"/>
     <par type="DOUBLE" name="WT_UPhase0" value="0.21949"/>
-    <par type="DOUBLE" name="WT_XWT0Pu" value="-0.21"/>
   </set>
   <set id="PRefPu">
     <par type="DOUBLE" name="step_Height" value="-0.5"/>

@@ -133,7 +133,6 @@
     <par type="DOUBLE" name="WPP_Q0Pu" value="0.21"/>
     <par type="DOUBLE" name="WPP_U0Pu" value="1"/>
     <par type="DOUBLE" name="WPP_UPhase0" value="0.21949"/>
-    <par type="DOUBLE" name="WPP_XWT0Pu" value="-0.21"/>
   </set>
   <set id="PRefPu">
     <par type="DOUBLE" name="step_Height" value="-0.5"/>
@@ -216,10 +215,10 @@
   </set>
   <set id="IDA">
     <par type="INT" name="order" value="2"/>
-    <par type="DOUBLE" name="initStep" value="1e-6"/>
-    <par type="DOUBLE" name="minStep" value="1e-6"/>
+    <par type="DOUBLE" name="initStep" value="1e-7"/>
+    <par type="DOUBLE" name="minStep" value="1e-7"/>
     <par type="DOUBLE" name="maxStep" value="10"/>
-    <par type="DOUBLE" name="absAccuracy" value="1e-4"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-5"/>
     <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
   </set>
 </parametersSet>

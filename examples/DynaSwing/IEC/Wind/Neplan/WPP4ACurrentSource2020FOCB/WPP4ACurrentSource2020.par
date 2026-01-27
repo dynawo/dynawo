@@ -224,9 +224,6 @@
     <par type="DOUBLE" name="fault_tBegin" value="6"/>
     <par type="DOUBLE" name="fault_tEnd" value="6.4"/>
   </set>
-  <set id="SetPoint">
-    <par type="DOUBLE" name="setPoint_Value0" value="0"/>
-  </set>
   <set id="IDA">
     <par type="INT" name="order" value="2"/>
     <par type="DOUBLE" name="initStep" value="1e-7"/>
