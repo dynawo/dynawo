@@ -17,6 +17,9 @@ model WPP4ACurrentSource2020 "Wind Power Plant Type 4A model from IEC 61400-27-1
   extends Dynawo.Examples.Wind.IEC.Neplan.BaseClasses.BaseWindNeplan;
 
   Dynawo.Electrical.Wind.IEC.WPP.WPP4ACurrentSource2020 wPP4ACurrentSource(
+    BLvTrPu = 0.001,
+    BMvHvPu = 0.001,
+    ConverterLVControl = false,
     DPMaxP4APu = 1,
     DPRefMax4APu = 100,
     DPRefMaxPu = 1,
@@ -34,10 +37,15 @@ model WPP4ACurrentSource2020 "Wind Power Plant Type 4A model from IEC 61400-27-1
     DipMaxPu = 1,
     DiqMaxPu = 100,
     DiqMinPu = -100,
+    GLvTrPu = 0.0005,
+    GMvHvPu = 0.0005,
     IMaxDipPu = 1.3,
     IMaxPu = 1.3,
+    IpMax0Pu = Modelica.Math.Vectors.interpolate(wPP4ACurrentSource.TableIpMaxUwt[:, 1], wPP4ACurrentSource.TableIpMaxUwt[:, 2], wPP4ACurrentSource.U0Pu),
     IqH1Pu = 1.05,
+    IqMax0Pu = min(Modelica.Math.Vectors.interpolate(wPP4ACurrentSource.TableIqMaxUwt[:, 1], wPP4ACurrentSource.TableIqMaxUwt[:, 2], wPP4ACurrentSource.U0Pu), max(0, wPP4ACurrentSource.IMaxPu ^ 2 - min(wPP4ACurrentSource.IpMax0Pu, -wPP4ACurrentSource.P0Pu * SystemBase.SnRef / (wPP4ACurrentSource.SNom * wPP4ACurrentSource.U0Pu)) ^ 2) ^ 0.5),
     IqMaxPu = 1.05,
+    IqMin0Pu = max(-wPP4ACurrentSource.IqMax0Pu, wPP4ACurrentSource.Kpqu * (wPP4ACurrentSource.U0Pu - wPP4ACurrentSource.UpquMaxPu)),
     IqMinPu = -1.05,
     IqPostPu = 0,
     Kipaw = 100,
@@ -63,20 +71,30 @@ model WPP4ACurrentSource2020 "Wind Power Plant Type 4A model from IEC 61400-27-1
     Mqfrt = 1,
     Mqpri = true,
     MwpqMode = 0,
-    P0Pu = -PRefPu.offset*wPP4ACurrentSource.SNom/SystemBase.SnRef,
+    P0Pu = -PRefPu.offset * wPP4ACurrentSource.SNom / SystemBase.SnRef,
+    PControl0Pu = if wPP4ACurrentSource.PPCLocal then -wPP4ACurrentSource.P0Pu * SystemBase.SnRef / wPP4ACurrentSource.SNom else -wPP4ACurrentSource.PPcc0Pu * SystemBase.SnRef / wPP4ACurrentSource.SNom,
     PErrMaxPu = 1,
     PErrMinPu = -1,
     PKiwppMaxPu = 1.01,
     PKiwppMinPu = -1,
+    PPCLocal = true,
     PRefMaxPu = 1.01,
     PRefMinPu = 0,
-    Q0Pu = -xRefPu.offset*wPP4ACurrentSource.SNom/SystemBase.SnRef,
+    Q0Pu = -xRefPu.offset * wPP4ACurrentSource.SNom / SystemBase.SnRef,
+    QControl0Pu = if wPP4ACurrentSource.PPCLocal then -wPP4ACurrentSource.Q0Pu * SystemBase.SnRef / wPP4ACurrentSource.SNom else -wPP4ACurrentSource.QPcc0Pu * SystemBase.SnRef / wPP4ACurrentSource.SNom,
+    QMax0Pu = if wPP4ACurrentSource.QlConst then wPP4ACurrentSource.QMaxPu else min(Modelica.Math.Vectors.interpolate(wPP4ACurrentSource.TableQMaxUwtcFilt[:, 1], wPP4ACurrentSource.TableQMaxUwtcFilt[:, 2], wPP4ACurrentSource.U0Pu), Modelica.Math.Vectors.interpolate(wPP4ACurrentSource.TableQMaxPwtcFilt[:, 1], wPP4ACurrentSource.TableQMaxPwtcFilt[:, 2], -wPP4ACurrentSource.P0Pu * SystemBase.SnRef / wPP4ACurrentSource.SNom)),
     QMaxPu = 0.8,
+    QMin0Pu = if wPP4ACurrentSource.QlConst then wPP4ACurrentSource.QMinPu else max(Modelica.Math.Vectors.interpolate(wPP4ACurrentSource.TableQMinUwtcFilt[:, 1], wPP4ACurrentSource.TableQMinUwtcFilt[:, 2], wPP4ACurrentSource.U0Pu), Modelica.Math.Vectors.interpolate(wPP4ACurrentSource.TableQMinPwtcFilt[:, 1], wPP4ACurrentSource.TableQMinPwtcFilt[:, 2], -wPP4ACurrentSource.P0Pu * SystemBase.SnRef / wPP4ACurrentSource.SNom)),
     QMinPu = -0.8,
     QlConst = true,
     RDropPu = 0,
+    RLvTrPu = 0.001,
+    RMvHvPu = 0.001,
     RwpDropPu = 0,
     SNom = 100,
+    TableIpMaxUwt52 = 1.01,
+    TableIpMaxUwt62 = 1.01,
+    TableIpMaxUwt72 = 1.01,
     U0Pu = 1.00018,
     UMaxPu = 1.1,
     UMinPu = 0.9,
@@ -86,6 +104,7 @@ model WPP4ACurrentSource2020 "Wind Power Plant Type 4A model from IEC 61400-27-1
     UPll2Pu = 0.13,
     URef0Pu = 0,
     UUnderPu = 0.9,
+    UWt0DroppedPu = ((wPP4ACurrentSource.U0Pu + wPP4ACurrentSource.RDropPu * wPP4ACurrentSource.P0Pu * SystemBase.SnRef / (wPP4ACurrentSource.SNom * wPP4ACurrentSource.U0Pu) + wPP4ACurrentSource.XDropPu * wPP4ACurrentSource.Q0Pu * SystemBase.SnRef / (wPP4ACurrentSource.SNom * wPP4ACurrentSource.U0Pu)) ^ 2 + ((-wPP4ACurrentSource.XDropPu * wPP4ACurrentSource.P0Pu * SystemBase.SnRef / (wPP4ACurrentSource.SNom * wPP4ACurrentSource.U0Pu)) + wPP4ACurrentSource.RDropPu * wPP4ACurrentSource.Q0Pu * SystemBase.SnRef / (wPP4ACurrentSource.SNom * wPP4ACurrentSource.U0Pu)) ^ 2) ^ 0.5,
     UpDipPu = 0,
     UpquMaxPu = 1.1,
     UqDipPu = 0.9,
@@ -97,11 +116,20 @@ model WPP4ACurrentSource2020 "Wind Power Plant Type 4A model from IEC 61400-27-1
     XErrMinPu = -1,
     XKiwpxMaxPu = 1,
     XKiwpxMinPu = -1,
+    XLvTrPu = 0.01,
+    XMvHvPu = 0.01,
     XRefMaxPu = 1,
     XRefMinPu = -1,
+    XWT0Pu = if wPP4ACurrentSource.MqG == 0 then wPP4ACurrentSource.UWt0DroppedPu - wPP4ACurrentSource.URef0Pu else -wPP4ACurrentSource.iq0Pu * wPP4ACurrentSource.U0Pu,
     XwpDropPu = 0,
     fOverPu = 1.1,
     fUnderPu = 0.9,
+    i0Pu = Modelica.ComplexMath.conj(Complex(wPP4ACurrentSource.P0Pu, wPP4ACurrentSource.Q0Pu) / wPP4ACurrentSource.u0Pu),
+    iControl0Pu = if wPP4ACurrentSource.PPCLocal then wPP4ACurrentSource.i0Pu else Modelica.ComplexMath.conj(Complex(wPP4ACurrentSource.PPcc0Pu, wPP4ACurrentSource.QPcc0Pu) / Modelica.ComplexMath.fromPolar(wPP4ACurrentSource.UPcc0Pu, wPP4ACurrentSource.UPccPhase0)),
+    iGs0Pu = Complex(wPP4ACurrentSource.GesPu, wPP4ACurrentSource.BesPu) * (wPP4ACurrentSource.u0Pu - Complex(wPP4ACurrentSource.ResPu, wPP4ACurrentSource.XesPu) * wPP4ACurrentSource.i0Pu * SystemBase.SnRef / wPP4ACurrentSource.SNom) - wPP4ACurrentSource.i0Pu * SystemBase.SnRef / wPP4ACurrentSource.SNom,
+    iWt0Pu = wPP4ACurrentSource.i0Pu - Complex(wPP4ACurrentSource.GPcsPu, wPP4ACurrentSource.BPcsPu) * (wPP4ACurrentSource.u0Pu * wPP4ACurrentSource.SNom / SystemBase.SnRef - Complex(wPP4ACurrentSource.RPcsPu, wPP4ACurrentSource.XPcsPu) * wPP4ACurrentSource.i0Pu),
+    ip0Pu = cos(wPP4ACurrentSource.UPhase0) * wPP4ACurrentSource.iGs0Pu.re + sin(wPP4ACurrentSource.UPhase0) * wPP4ACurrentSource.iGs0Pu.im,
+    iq0Pu = cos(wPP4ACurrentSource.UPhase0) * wPP4ACurrentSource.iGs0Pu.im - sin(wPP4ACurrentSource.UPhase0) * wPP4ACurrentSource.iGs0Pu.re,
     tG = 0.01,
     tIFilt = 0.01,
     tIcFilt = 0.01,
@@ -128,14 +156,13 @@ model WPP4ACurrentSource2020 "Wind Power Plant Type 4A model from IEC 61400-27-1
     tfFilt = 0.01,
     tfcFilt = 0.01,
     tfpFilt = 0.01,
-    TableIpMaxUwt52 = 1.01,
-    TableIpMaxUwt62 = 1.01,
-    TableIpMaxUwt72 = 1.01, BMvHvPu = 0.001, GMvHvPu = 0.0005, RMvHvPu = 0.001, XMvHvPu = 0.01, PPCLocal = true, BLvTrPu = 0.001, GLvTrPu = 0.0005, RLvTrPu = 0.001, XLvTrPu = 0.01, ConverterLVControl = false
-    ) annotation(
+    u0Pu = Modelica.ComplexMath.fromPolar(wPP4ACurrentSource.U0Pu, wPP4ACurrentSource.UPhase0),
+    uControl0Pu = if wPP4ACurrentSource.PPCLocal then wPP4ACurrentSource.u0Pu else Modelica.ComplexMath.fromPolar(wPP4ACurrentSource.UPcc0Pu, wPP4ACurrentSource.UPccPhase0),
+    uWt0Pu = wPP4ACurrentSource.u0Pu - Complex(wPP4ACurrentSource.RPcsPu, wPP4ACurrentSource.XPcsPu) * wPP4ACurrentSource.i0Pu * SystemBase.SnRef / wPP4ACurrentSource.SNom) annotation(
     Placement(transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.Constant const(k = 0)  annotation(
+  Modelica.Blocks.Sources.Constant const(k = 0) annotation(
     Placement(transformation(origin = {-110, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.ComplexBlocks.Sources.ComplexConstant complexConst(k = Complex(1, 0))  annotation(
+  Modelica.ComplexBlocks.Sources.ComplexConstant complexConst(k = Complex(1, 0)) annotation(
     Placement(transformation(origin = {-104, -40}, extent = {{-4, -4}, {4, 4}}, rotation = 90)));
 
   // Faults

@@ -17,6 +17,7 @@ model WT4ACurrentSource2020FOCB "Wind Turbine Type 4A model from IEC 61400-27-1:
   extends Dynawo.Examples.Wind.IEC.Neplan.BaseClasses.BaseWindNeplan;
 
   Dynawo.Electrical.Wind.IEC.WT.WT4ACurrentSource2020 wT4ACurrentSource(
+    ConverterLVControl = false,
     DPMaxP4APu = 1,
     DPRefMax4APu = 100,
     DPRefMin4APu = -100,
@@ -27,10 +28,14 @@ model WT4ACurrentSource2020FOCB "Wind Turbine Type 4A model from IEC 61400-27-1:
     DipMaxPu = 1,
     DiqMaxPu = 100,
     DiqMinPu = -100,
+    GesPu = 0.0005,
     IMaxDipPu = 1.3,
     IMaxPu = 1.3,
+    IpMax0Pu = Modelica.Math.Vectors.interpolate(wT4ACurrentSource.TableIpMaxUwt[:, 1], wT4ACurrentSource.TableIpMaxUwt[:, 2], wT4ACurrentSource.U0Pu),
     IqH1Pu = 1.05,
+    IqMax0Pu = min(Modelica.Math.Vectors.interpolate(wT4ACurrentSource.TableIqMaxUwt[:, 1], wT4ACurrentSource.TableIqMaxUwt[:, 2], wT4ACurrentSource.U0Pu), max(0, wT4ACurrentSource.IMaxPu ^ 2 - min(wT4ACurrentSource.IpMax0Pu, -wT4ACurrentSource.P0Pu * SystemBase.SnRef / (wT4ACurrentSource.SNom * wT4ACurrentSource.U0Pu)) ^ 2) ^ 0.5),
     IqMaxPu = 1.05,
+    IqMin0Pu = max(-wT4ACurrentSource.IqMax0Pu, wT4ACurrentSource.Kpqu * (wT4ACurrentSource.U0Pu - wT4ACurrentSource.UpquMaxPu)),
     IqMinPu = -1.05,
     IqPostPu = 0,
     Kipaw = 100,
@@ -50,10 +55,13 @@ model WT4ACurrentSource2020FOCB "Wind Turbine Type 4A model from IEC 61400-27-1:
     Mqpri = true,
     P0Pu = -1,
     Q0Pu = 0.21,
+    QMax0Pu = if wT4ACurrentSource.QlConst then wT4ACurrentSource.QMaxPu else min(Modelica.Math.Vectors.interpolate(wT4ACurrentSource.TableQMaxUwtcFilt[:, 1], wT4ACurrentSource.TableQMaxUwtcFilt[:, 2], wT4ACurrentSource.U0Pu), Modelica.Math.Vectors.interpolate(wT4ACurrentSource.TableQMaxPwtcFilt[:, 1], wT4ACurrentSource.TableQMaxPwtcFilt[:, 2], -wT4ACurrentSource.P0Pu * SystemBase.SnRef / wT4ACurrentSource.SNom)),
     QMaxPu = 0.8,
+    QMin0Pu = if wT4ACurrentSource.QlConst then wT4ACurrentSource.QMinPu else max(Modelica.Math.Vectors.interpolate(wT4ACurrentSource.TableQMinUwtcFilt[:, 1], wT4ACurrentSource.TableQMinUwtcFilt[:, 2], wT4ACurrentSource.U0Pu), Modelica.Math.Vectors.interpolate(wT4ACurrentSource.TableQMinPwtcFilt[:, 1], wT4ACurrentSource.TableQMinPwtcFilt[:, 2], -wT4ACurrentSource.P0Pu * SystemBase.SnRef / wT4ACurrentSource.SNom)),
     QMinPu = -0.8,
     QlConst = true,
     RDropPu = 0,
+    ResPu = 0.001,
     SNom = 100,
     TabletUunderUwtfilt12 = 0.5,
     TabletUunderUwtfilt22 = 0.5,
@@ -67,13 +75,20 @@ model WT4ACurrentSource2020FOCB "Wind Turbine Type 4A model from IEC 61400-27-1:
     UPll2Pu = 0.13,
     URef0Pu = 0,
     UUnderPu = 0.9,
+    UWt0DroppedPu = ((wT4ACurrentSource.U0Pu + wT4ACurrentSource.RDropPu * wT4ACurrentSource.P0Pu * SystemBase.SnRef / (wT4ACurrentSource.SNom * wT4ACurrentSource.U0Pu) + wT4ACurrentSource.XDropPu * wT4ACurrentSource.Q0Pu * SystemBase.SnRef / (wT4ACurrentSource.SNom * wT4ACurrentSource.U0Pu)) ^ 2 + ((-wT4ACurrentSource.XDropPu * wT4ACurrentSource.P0Pu * SystemBase.SnRef / (wT4ACurrentSource.SNom * wT4ACurrentSource.U0Pu)) + wT4ACurrentSource.RDropPu * wT4ACurrentSource.Q0Pu * SystemBase.SnRef / (wT4ACurrentSource.SNom * wT4ACurrentSource.U0Pu)) ^ 2) ^ 0.5,
     UpDipPu = 0,
     UpquMaxPu = 1.1,
     UqDipPu = 0.9,
     UqRisePu = 1.1,
     XDropPu = 0,
+    XWT0Pu = if wT4ACurrentSource.MqG == 0 then wT4ACurrentSource.UWt0DroppedPu - wT4ACurrentSource.URef0Pu else -wT4ACurrentSource.iq0Pu * wT4ACurrentSource.U0Pu,
+    XesPu = 0.01,
     fOverPu = 1.1,
     fUnderPu = 0.9,
+    i0Pu = Modelica.ComplexMath.conj(Complex(wT4ACurrentSource.P0Pu, wT4ACurrentSource.Q0Pu) / wT4ACurrentSource.u0Pu),
+    iGs0Pu = Complex(wT4ACurrentSource.GesPu, wT4ACurrentSource.BesPu) * (wT4ACurrentSource.u0Pu - Complex(wT4ACurrentSource.ResPu, wT4ACurrentSource.XesPu) * wT4ACurrentSource.i0Pu * SystemBase.SnRef / wT4ACurrentSource.SNom) - wT4ACurrentSource.i0Pu * SystemBase.SnRef / wT4ACurrentSource.SNom,
+    ip0Pu = cos(wT4ACurrentSource.UPhase0) * wT4ACurrentSource.iGs0Pu.re + sin(wT4ACurrentSource.UPhase0) * wT4ACurrentSource.iGs0Pu.im,
+    iq0Pu = cos(wT4ACurrentSource.UPhase0) * wT4ACurrentSource.iGs0Pu.im - sin(wT4ACurrentSource.UPhase0) * wT4ACurrentSource.iGs0Pu.re,
     tG = 0.01,
     tIcFilt = 0.01,
     tIpFilt = 0.01,
@@ -91,7 +106,8 @@ model WT4ACurrentSource2020FOCB "Wind Turbine Type 4A model from IEC 61400-27-1:
     tUpFilt = 0.01,
     tUss = 1,
     tfcFilt = 0.01,
-    tfpFilt = 0.01, GesPu = 0.0005, ResPu = 0.001, XesPu = 0.01, ConverterLVControl = false) annotation(
+    tfpFilt = 0.01,
+    u0Pu = Modelica.ComplexMath.fromPolar(wT4ACurrentSource.U0Pu, wT4ACurrentSource.UPhase0)) annotation(
     Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Faults
