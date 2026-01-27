@@ -47,13 +47,19 @@ model DynGridFollowingControl
   Modelica.Blocks.Interfaces.RealInput QFilterPu(start = QFilter0Pu) "Reactive power generated at the converter's capacitor in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-108, -16}, extent = {{-8, -8}, {8, 8}}, rotation = 0), iconTransformation(origin = {-109, -93}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput iqConvPu(start = IqConv0Pu) "q-axis current in the converter in pu (base UNom, SNom) (generator convention)" annotation(
-    Placement(visible = true, transformation(origin = {80, -108}, extent = {{-8, -8}, {8, 8}}, rotation = 90), iconTransformation(origin = {-85, -109}, extent = {{-9, -9}, {9, 9}}, rotation = 90)));
+    Placement(visible = true, transformation(origin = {96, -108}, extent = {{-8, -8}, {8, 8}}, rotation = 90), iconTransformation(origin = {-85, -109}, extent = {{-9, -9}, {9, 9}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput idConvPu(start = IdConv0Pu) "d-axis current in the converter in pu (base UNom, SNom) (generator convention)" annotation(
-    Placement(visible = true, transformation(origin = {64, -108}, extent = {{-8, -8}, {8, 8}}, rotation = 90), iconTransformation(origin = {-65, -109}, extent = {{-9, -9}, {9, 9}}, rotation = 90)));
+    Placement(visible = true, transformation(origin = {80, -108}, extent = {{-8, -8}, {8, 8}}, rotation = 90), iconTransformation(origin = {-65, -109}, extent = {{-9, -9}, {9, 9}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput uqFilterPu(start = UqFilter0Pu) "q-axis voltage at the converter's capacitor in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {48, -108}, extent = {{-8, -8}, {8, 8}}, rotation = 90), iconTransformation(origin = {-37, -109}, extent = {{-9, -9}, {9, 9}}, rotation = 90)));
+    Placement(visible = true, transformation(origin = {26, -108}, extent = {{-8, -8}, {8, 8}}, rotation = 90), iconTransformation(origin = {-37, -109}, extent = {{-9, -9}, {9, 9}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput udFilterPu(start = UdFilter0Pu) "d-axis voltage at the converter's capacitor in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {32, -108}, extent = {{-8, -8}, {8, 8}}, rotation = 90), iconTransformation(origin = {-17, -109}, extent = {{-9, -9}, {9, 9}}, rotation = 90)));
+    Placement(visible = true, transformation(origin = {6, -108}, extent = {{-8, -8}, {8, 8}}, rotation = 90), iconTransformation(origin = {-17, -109}, extent = {{-9, -9}, {9, 9}}, rotation = 90)));
+
+  Modelica.Blocks.Interfaces.RealInput udPccPu(start = UdFilteredPcc0Pu) annotation(
+    Placement(visible = true, transformation(origin = {62, -108}, extent = {{-8, -8}, {8, 8}}, rotation = 90), iconTransformation(origin = {33, -109}, extent = {{-9, -9}, {9, 9}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealInput uqPccPu(start = UqFilteredPcc0Pu) annotation(
+    Placement(visible = true, transformation(origin = {44, -108}, extent = {{-8, -8}, {8, 8}}, rotation = 90), iconTransformation(origin = {75, -109}, extent = {{-9, -9}, {9, 9}}, rotation = 90)));
+
   Modelica.Blocks.Interfaces.RealInput PFilterRefPu(start = PFilter0Pu) "Active power reference at the converter's capacitor in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-108, 38}, extent = {{-8, -8}, {8, 8}}, rotation = 0), iconTransformation(origin = {-109, 77}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = Omega0Pu) "Frequency reference in pu (base omegaNom)" annotation(
@@ -81,6 +87,8 @@ model DynGridFollowingControl
   parameter Types.PerUnit UqConv0Pu "Start value of q-axis modulation voltage reference in pu (base UNom)";
   parameter Types.PerUnit UdFilter0Pu "Start value of d-axis voltage at the converter's capacitor in pu (base UNom)";
   parameter Types.PerUnit UqFilter0Pu "Start value of q-axis voltage at the converter's capacitor in pu (base UNom)";
+  parameter Types.PerUnit UdFilteredPcc0Pu "Start value of d-axis voltage at the PCC in pu (base UNom)";
+  parameter Types.PerUnit UqFilteredPcc0Pu "Start value of q-axis voltage at the PCC in pu (base UNom)";
   parameter Types.PerUnit IdConv0Pu "Start value of d-axis current in the converter in pu (base UNom, SNom) (generator convention)";
   parameter Types.PerUnit IqConv0Pu "Start value of q-axis current in the converter in pu (base UNom, SNom) (generator convention)";
   parameter Types.Angle Theta0 "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad";
@@ -92,9 +100,9 @@ equation
   connect(udConvRefPu, currentLoop.udConvRefPu) annotation(
     Line(points = {{107, 11}, {74, 11}, {74, 10}}, color = {245, 121, 0}, thickness = 0.5));
   connect(idConvPu, currentLoop.idConvPu) annotation(
-    Line(points = {{64, -108}, {64, -14}}, color = {245, 121, 0}));
+    Line(points = {{80, -108}, {80, -61}, {64, -61}, {64, -14}}, color = {245, 121, 0}));
   connect(iqConvPu, currentLoop.iqConvPu) annotation(
-    Line(points = {{80, -108}, {80, -61}, {72, -61}, {72, -14}}, color = {245, 121, 0}));
+    Line(points = {{96, -108}, {96, -61}, {72, -61}, {72, -14}}, color = {245, 121, 0}));
   connect(currentLoop.uqConvRefPu, uqConvRefPu) annotation(
     Line(points = {{73.6, -2.24}, {73.6, -3.24}, {106.6, -3.24}}, color = {245, 121, 0}, thickness = 0.5));
   connect(PLL.theta, theta) annotation(
@@ -113,16 +121,16 @@ equation
     Line(points = {{-108, -2}, {-80, -2}, {-80, 0}, {-50, 0}}, color = {85, 170, 0}));
   connect(QFilterPu, outerLoop.QFilterPu) annotation(
     Line(points = {{-108, -16}, {-68, -16}, {-68, -4}, {-50, -4}}, color = {85, 170, 0}));
-  connect(currentLoop.uqFilterPu, uqFilterPu) annotation(
-    Line(points = {{48, -14}, {48, -108}}, color = {85, 170, 0}));
-  connect(udFilterPu, currentLoop.udFilterPu) annotation(
-    Line(points = {{32, -108}, {32, -62}, {40, -62}, {40, -14}}, color = {85, 170, 0}));
   connect(PLL.uqFilterPu, uqFilterPu) annotation(
-    Line(points = {{-52, 54}, {-56, 54}, {-56, -40}, {48, -40}, {48, -108}}, color = {85, 170, 0}, pattern = LinePattern.Dash));
+    Line(points = {{-52, 54}, {-56, 54}, {-56, -40}, {26, -40}, {26, -108}}, color = {85, 170, 0}, pattern = LinePattern.Dash));
   connect(outerLoop.iqConvRefPu, currentLoop.iqConvRefPu) annotation(
     Line(points = {{-14, -2}, {38, -2}}, color = {245, 121, 0}, thickness = 0.5));
   connect(outerLoop.idConvRefPu, currentLoop.idConvRefPu) annotation(
     Line(points = {{-14, 10}, {38, 10}}, color = {245, 121, 0}, thickness = 0.5));
+  connect(udFilterPu, currentLoop.udFilterPu) annotation(
+    Line(points = {{6, -108}, {2, -108}, {2, -46}, {58, -46}, {58, -14}}, color = {0, 0, 127}));
+  connect(uqFilterPu, currentLoop.uqFilterPu) annotation(
+    Line(points = {{26, -108}, {24, -108}, {24, -76}, {52, -76}, {52, -14}}, color = {0, 0, 127}));
   annotation(preferredView = "diagram",
     Diagram(graphics = {Text(origin = {13, 15}, lineColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "idConvRefPu", textStyle = {TextStyle.Bold}), Text(origin = {13, 1}, lineColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "iqConvRefPu", textStyle = {TextStyle.Bold})}));
 end DynGridFollowingControl;

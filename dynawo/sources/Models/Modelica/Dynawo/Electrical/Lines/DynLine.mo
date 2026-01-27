@@ -54,9 +54,13 @@ model DynLine "AC power line - Dynamic PI model"
 
 
 equation
-  LPu / SystemBase.omegaNom * der(terminal1.i.re) + RPu * terminal1.i.re - omegaPu.value * LPu * terminal1.i.im = terminal1.V.re - terminal2.V.re;
+
+
+
+    LPu / SystemBase.omegaNom * der(terminal1.i.re) + RPu * terminal1.i.re - omegaPu.value * LPu * terminal1.i.im = terminal1.V.re - terminal2.V.re;
   LPu / SystemBase.omegaNom * der(terminal1.i.im) + RPu * terminal1.i.im + omegaPu.value * LPu * terminal1.i.re = terminal1.V.im - terminal2.V.im;
   terminal2.i = - terminal1.i;
+
 
   P1Pu = ComplexMath.real(terminal1.V * ComplexMath.conj(terminal1.i));
   Q1Pu = ComplexMath.imag(terminal1.V * ComplexMath.conj(terminal1.i));

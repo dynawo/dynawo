@@ -95,5 +95,6 @@ equation
   connect(feedback.y, limIntegrator.u) annotation(
     Line(points = {{-36, -40}, {0, -40}, {0, -68}, {22, -68}}, color = {0, 0, 127}));
   annotation(preferredView = "diagram",
-    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(extent = {{-100, 100}, {100, -100}}, textString = "Outer Loop")}));
+    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(extent = {{-100, 100}, {100, -100}}, textString = "Outer Loop")}),
+  Documentation(info = "<html><head></head><body>Pfilter or Qfilter is calculated directly from the values of ufilter and ifilter which are the direct mesures without a mesurement filter</body></html>"));
 end OuterLoop;

@@ -20,30 +20,34 @@ model Measurements "Measurements block for PEIR models"
   Modelica.Blocks.Interfaces.RealInput idPccPu(start = IdPcc0Pu) "d-axis current at the PCC in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-109, -79}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput iqPccPu(start = IqPcc0Pu) "q-axis current at the PCC in pu (base UNom, SNom)" annotation(
-    Placement(visible = true, transformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-109, -59}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-110, 56}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-109, -59}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput udPccPu(start = UdPcc0Pu) "d-axis voltage at the PCC in pu (base UNom)"annotation(
     Placement(visible = true, transformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-109, -9}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput uqPccPu(start = UqPcc0Pu) "q-axis voltage at the PCC in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-109, 9}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput udFilterPu(start = UdFilter0Pu) "d-axis voltage at the filter in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-109, 57}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-110, 16}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-109, 57}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput uqFilterPu(start = UqFilter0Pu) "q-axis voltage at the filter in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-109, 75}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-110, -6}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-109, 75}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
 
   // Outputs
   Modelica.Blocks.Interfaces.RealOutput PFilterPu(start = PFilter0Pu) "Active power at the filter in pu (base SNom)" annotation(
-    Placement(visible = true, transformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput QFilterPu(start = QFilter0Pu) "Reactive power at the filter in pu (base SNom)" annotation(
-    Placement(visible = true, transformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 24}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput udFilteredPccPu(start = UdPcc0Pu) "Filtered d-axis voltage at PCC in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 56}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput udFilteredPccPu(start = udFilteredPcc0Pu) "Filtered d-axis voltage at PCC in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -62}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput uqFilteredPccPu(start = UqPcc0Pu) "Filtered q-axis voltage at PCC in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput uqFilteredPccPu(start = uqFilteredPcc0Pu) "Filtered q-axis voltage at PCC in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tUFilt, k = 1, y_start = UqPcc0Pu) annotation(
     Placement(visible = true, transformation(origin = {1.33227e-15, -80}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder( T = tUFilt,k = 1, y_start = UdPcc0Pu) annotation(
     Placement(visible = true, transformation(origin = {1.33227e-15, -40}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
+
+Modelica.Blocks.Interfaces.RealOutput QPccPu(start = QFilter0Pu) annotation(
+    Placement(visible = true, transformation(origin = {110, 14}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 8}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
 
   // Initial parameters
   parameter Types.PerUnit IdPcc0Pu "Start value of d-axis current at PCC in pu (base UNom, SNom) (generator convention)";
@@ -55,18 +59,22 @@ model Measurements "Measurements block for PEIR models"
 
   final parameter Types.PerUnit PFilter0Pu = UdFilter0Pu * IdPcc0Pu + UqFilter0Pu * IqPcc0Pu "Start value of active power at the filter in pu (base SNom)";
   final parameter Types.PerUnit QFilter0Pu = UqFilter0Pu * IdPcc0Pu - UdFilter0Pu * IqPcc0Pu "Start value of reactive power at the filter in pu (base SNom)";
+  final parameter Types.PerUnit udFilteredPcc0Pu = UdPcc0Pu;
+  final parameter Types.PerUnit uqFilteredPcc0Pu = UqPcc0Pu;
 
-equation
+  //Dynawo.Types.ReactivePowerPu QPccPu  "reactive power at the Pcc in pu (base SNom)";
+  Dynawo.Types.VoltageModulePu UPccPu  "voltage module at the Pcc in pu (base UNom)";  equation
   PFilterPu = udFilterPu * idPccPu + uqFilterPu * iqPccPu;
   QFilterPu = uqFilterPu * idPccPu - udFilterPu * iqPccPu;
+  QPccPu    = uqPccPu * idPccPu - udPccPu * iqPccPu;
+  UPccPu    = uqPccPu^2 + udPccPu^2;
 
   connect(firstOrder1.y, uqFilteredPccPu) annotation(
     Line(points = {{8, -80}, {110, -80}}, color = {0, 0, 127}));
+  connect(firstOrder.y, udFilteredPccPu) annotation(
+    Line(points = {{8.8, -40}, {110.8, -40}}, color = {0, 0, 127}));
   connect(uqPccPu, firstOrder1.u) annotation(
     Line(points = {{-110, -80}, {-10, -80}}, color = {0, 0, 127}));
   connect(udPccPu, firstOrder.u) annotation(
     Line(points = {{-110, -40}, {-10, -40}}, color = {0, 0, 127}));
-  connect(firstOrder.y, udFilteredPccPu) annotation(
-    Line(points = {{8.8, -40}, {110.8, -40}}, color = {0, 0, 127}));
-
 end Measurements;

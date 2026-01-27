@@ -7,11 +7,11 @@ model ENTSOE2
   parameter Types.Time tMagnitudeEvtstart = 20;
   parameter Types.Time tMagnitudeEvtEnd = 20 + 3;
 
-  Dynawo.Electrical.PEIR.Converters.General.Average.GridForming.GFMVSM GFMVSM(BFilterPu = 1e-5, H = 3, IMaxVI = 1.2, Kfd = 0.8, Kff = 0, Kfq = 0, Kic = 15, KpVI = 0.6, Kpc = 0.477465, Mq = 0.2, OmegaSetPu = 1, P0Pu = -7.4663, Q0Pu = 0.4119, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.9984, UPhase0 = 0.0374, Wf = 31.4159, Wff = 60, XFilterPu = 0.15, XRratio = 10, XTransformerPu = 0.06, XVI = 0, kVSM = 155.955)  annotation(
+  Dynawo.Electrical.PEIR.Converters.General.Average.GridForming.GFMVSM GFMVSM(BFilterPu = 1e-5, H = 3, IMaxVI = 1.2, Kfd = 0.8, Kff = 0, Kfq = 0, Kic = 15, KpVI = 0.21, Kpc = 0.477465, Mq = 0.2, OmegaSetPu = 1, P0Pu = -7.4663, Q0Pu = 0.4119, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.9984, UPhase0 = 0.0374, Wf = 31.4159, Wff = 60, XFilterPu = 0.15, XRratio = 10, XTransformerPu = 0.06, XVI = 0, kVSM = 80)  annotation(
     Placement(visible = true, transformation(origin = {-9, -1}, extent = {{-19, -19}, {19, 19}}, rotation = 0)));
-  Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(U0Pu = 1, UEvtPu = 1.04, UPhase = 0, omega0Pu = 1, omegaEvtPu = 1.88, tOmegaEvtEnd = tOmegaEvtEnd, tOmegaEvtStart = tOmegaEvtStart, tUEvtEnd = tMagnitudeEvtEnd, tUEvtStart = tMagnitudeEvtstart) annotation(
+  Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(U0Pu = 1, UEvtPu = 1.06, UPhase = 0, omega0Pu = 1, omegaEvtPu = 1.88, tOmegaEvtEnd = tOmegaEvtEnd, tOmegaEvtStart = tOmegaEvtStart, tUEvtEnd = tMagnitudeEvtEnd, tUEvtStart = tMagnitudeEvtstart) annotation(
     Placement(visible = true, transformation(origin = {82, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
- Electrical.Lines.Line line(BPu = 0, GPu = 0, RPu = 0.000166667, XPu = 0.005)  annotation(
+ Electrical.Lines.Line line(BPu = 0, GPu = 0, RPu = 0.000166667, XPu = 0.1)  annotation(
     Placement(visible = true, transformation(origin = {44, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant QRefPu(k = 0)  annotation(
     Placement(visible = true, transformation(origin = {-112, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

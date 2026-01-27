@@ -31,10 +31,11 @@ model DynCurrentLoop "Current loop control for grid forming and grid following c
     Placement(visible = true, transformation(origin = {-150, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput iqConvRefPu(start = IqConv0Pu) "q-axis current reference in the converter in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-150, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput udFilterPu(start = UdFilter0Pu) "d-axis voltage at the converter's capacitor in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-149, 130}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100,-110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput uqFilterPu(start = UqFilter0Pu) "q-axis voltage at the converter's capacitor in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-150, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-50,-110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+
+  Modelica.Blocks.Interfaces.RealInput uqFilterPu(start = UqFilter0Pu) annotation(
+    Placement(visible = true, transformation(origin = {-155, -161}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-22, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealInput udFilterPu(start = UdFilter0Pu) annotation(
+    Placement(visible = true, transformation(origin = {-148, 167}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {10, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
   Modelica.Blocks.Interfaces.RealOutput udConvRefPu(start = UdConv0Pu) "d-axis modulation voltage reference in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {150, 86}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -74,7 +75,7 @@ model DynCurrentLoop "Current loop control for grid forming and grid following c
   Modelica.Blocks.Math.Add addq2 annotation(
     Placement(visible = true, transformation(origin = {90, -86}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain feedforwardKd(k = Kfd)  annotation(
-    Placement(visible = true, transformation(origin = {25, 130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {26, 129}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain feedforwardKq(k = Kfq)  annotation(
     Placement(visible = true, transformation(origin = {-12, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
@@ -139,17 +140,16 @@ equation
     Line(points = {{61, 80}, {78, 80}}, color = {0, 0, 127}));
   connect(GainLfd.y, feedbackLwd.u1) annotation(
     Line(points = {{1, 25}, {10, 25}, {10, -74}, {38, -74}}, color = {0, 0, 127}));
-  connect(uqFilterPu, feedforwardKq.u) annotation(
-    Line(points = {{-150, -130}, {-24, -130}}, color = {0, 0, 127}));
   connect(feedforwardKq.y, addq2.u2) annotation(
     Line(points = {{-1, -130}, {70, -130}, {70, -92}, {78, -92}}, color = {0, 0, 127}));
-  connect(udFilterPu, feedforwardKd.u) annotation(
-    Line(points = {{-149, 130}, {13, 130}}, color = {0, 0, 127}));
   connect(feedforwardKd.y, addd2.u1) annotation(
-    Line(points = {{36, 130}, {70, 130}, {70, 92}, {78, 92}}, color = {0, 0, 127}));
-
+    Line(points = {{37, 129}, {70, 129}, {70, 92}, {78, 92}}, color = {0, 0, 127}));
+  connect(udFilterPu, feedforwardKd.u) annotation(
+    Line(points = {{-148, 167}, {-64, 167}, {-64, 129}, {14, 129}}, color = {0, 0, 127}));
+  connect(uqFilterPu, feedforwardKq.u) annotation(
+    Line(points = {{-155, -161}, {-24, -161}, {-24, -130}}, color = {0, 0, 127}));
   annotation(preferredView = "diagram",
     Icon(coordinateSystem(grid = {1, 1}), graphics = {Rectangle(origin = {0, -0.5}, extent = {{-100, 99.5}, {100, -99.5}}), Text(origin = {-1, -2}, extent = {{-99, 99}, {99, -97}}, textString = "Current Loop")}),
     preferredView = "diagram",
-    Diagram(coordinateSystem(grid = {1, 1}, extent = {{-140, -140}, {140, 140}})));
+    Diagram(coordinateSystem(grid = {1, 1}, extent = {{-170, 180}, {170, -180}})));
 end DynCurrentLoop;

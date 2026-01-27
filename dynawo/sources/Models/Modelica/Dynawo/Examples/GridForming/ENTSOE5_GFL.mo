@@ -16,7 +16,7 @@ model ENTSOE5_GFL
     Placement(visible = true, transformation(origin = {-112, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
  Modelica.Blocks.Sources.Step step(height = 0.25, offset = GFL.Control.outerLoop.QFilter0Pu, startTime = 100) annotation(
     Placement(visible = true, transformation(origin = {-112, -38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
- Dynawo.Electrical.PEIR.Converters.General.Average.GridFollowing.GFL GFL(BFilterPu = 1e-5, Kfd = 0.8, Kfq = 0, Ki = 10, Kic = 15, Kid = 2.25, Kiq = 2.25, Kp = 2, Kpc = 0.477465, Kpd = 0.12, Kpq = 0.12, XFilterPu = 0.15, XTransformerPu = 0.06, OmegaMaxPu = 0.9, OmegaMinPu = 1.1,P0Pu = -7.4663, Q0Pu = 0.4119, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.9984, UPhase0 = 0.0374, tPFilt = 0.02, tQFilt = 0.02) annotation(
+ Dynawo.Electrical.PEIR.Converters.General.Average.GridFollowing.GFL GFL(BFilterPu = 1e-5, Kfd = 0.8, Kfq = 0, Ki = 5, Kic = 15, Kid = 25, Kiq = 2.25, Kp = 2, Kpc = 0.477465, Kpd = 0.12, Kpq = 0.12, OmegaMaxPu = 0.9, OmegaMinPu = 1.1,P0Pu = -7.4663, Q0Pu = 0.4119, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.9984, UPhase0 = 0.0374, XFilterPu = 0.15, XTransformerPu = 0.06, tPFilt = 0.02, tQFilt = 0.02) annotation(
     Placement(visible = true, transformation(origin = {-10, -1.77636e-15}, extent = {{-18, -18}, {18, 18}}, rotation = 0)));
 equation
   line.switchOffSignal1.value = false;

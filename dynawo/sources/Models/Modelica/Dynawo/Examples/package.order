@@ -17,3 +17,10 @@ SVarC
 SystemFrequencyResponse
 Wind
 TwoConverters
+TwoConvertersLinearization
+GFM_Rfgv2Tests
+ImpedanceScanofConverters
+EMTP_OM
+LimitStab
+LimitStab_10Hz
+WithFeedForward

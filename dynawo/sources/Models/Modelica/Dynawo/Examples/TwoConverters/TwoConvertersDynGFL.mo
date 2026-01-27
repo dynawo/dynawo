@@ -57,4 +57,6 @@ equation
     Line(points = {{44, 0}, {54, 0}}, color = {0, 0, 255}));
   connect(Bus.terminal, line.terminal2) annotation(
     Line(points = {{2, 0}, {24, 0}}, color = {0, 0, 255}));
+annotation(
+    Diagram(coordinateSystem(extent = {{-80, 20}, {80, -60}})));
 end TwoConvertersDynGFL;

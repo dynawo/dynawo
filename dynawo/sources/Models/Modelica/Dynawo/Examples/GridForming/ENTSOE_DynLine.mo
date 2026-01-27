@@ -7,9 +7,9 @@ model ENTSOE_DynLine
   parameter Types.Time tMagnitudeEvtstart = 20;
   parameter Types.Time tMagnitudeEvtEnd = 20 + 3;
 
-  Dynawo.Electrical.PEIR.Converters.General.Average.GridForming.DynGFMVSM DynGFMVSM(CFilterPu = 1e-05, H = 3, IMaxVI = 1.2, Kfd = 0.8, Kff = 0, Kfq = 0, Kic = 15, KpVI = 0.6, Kpc = 0.477465, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.2, P0Pu = -7.4663, Q0Pu = 0.4119, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.9984, UPhase0 = 0.0374, Wf = 31.4159, Wff = 60, XRratio = 10, XVI = 0, kVSM = 155.955, OmegaSetPu = 1, tVSC = 0.0004)  annotation(
+  Dynawo.Electrical.PEIR.Converters.General.Average.GridForming.DynGFMVSM DynGFMVSM(CFilterPu = 1e-05, H = 3, IMaxVI = 1.2, Kfd = 0.8, Kff = 0, Kfq = 0, Kic = 15, KpVI = 0.21, Kpc = 0.477465, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0, OmegaSetPu = 1, P0Pu = -7.4663, Q0Pu = 0.4119, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 100, U0Pu = 0.9984, UPhase0 = 0.0374, Wf = 31.4159, Wff = 60, XRratio = 10, XVI = 0.21, kVSM = 80, tVSC = 0.0004)  annotation(
     Placement(visible = true, transformation(origin = {-9, -1}, extent = {{-19, -19}, {19, 19}}, rotation = 0)));
-  Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(U0Pu = 1, UEvtPu = 1.04, UPhase = 0, omega0Pu = 1, omegaEvtPu = 1.88, tOmegaEvtEnd = tOmegaEvtEnd, tOmegaEvtStart = tOmegaEvtStart, tUEvtEnd = tMagnitudeEvtEnd, tUEvtStart = tMagnitudeEvtstart) annotation(
+  Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(U0Pu = 1, UEvtPu = 1.06, UPhase = 0, omega0Pu = 1, omegaEvtPu = 1.88, tOmegaEvtEnd = tOmegaEvtEnd, tOmegaEvtStart = tOmegaEvtStart, tUEvtEnd = tMagnitudeEvtEnd, tUEvtStart = tMagnitudeEvtstart) annotation(
     Placement(visible = true, transformation(origin = {82, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Sources.Constant QRefPu(k = 0)  annotation(
     Placement(visible = true, transformation(origin = {-112, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -17,9 +17,9 @@ model ENTSOE_DynLine
     Placement(visible = true, transformation(origin = {-112, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 1) annotation(
     Placement(visible = true, transformation(origin = {-112, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Step PRefPu(height = 0.25, offset = 0.75, startTime = 5)  annotation(
+  Modelica.Blocks.Sources.Step PRefPu(height = 0, offset = 0.5, startTime = 5)  annotation(
     Placement(visible = true, transformation(origin = {-112, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Lines.DynLine dynLine(LPu = 0.005, RPu = 0.000166667, U01Pu = 0.9984, UPhase01 = 0.0374, P01Pu = 7.4663, Q01Pu = -0.4119, U02Pu = 1, UPhase02 = 0, P02Pu = -7.457, Q02Pu = 0.692)  annotation(
+  Electrical.Lines.DynLine dynLine(LPu = 0.1, P01Pu = 7.4663, P02Pu = -7.457, Q01Pu = -0.4119, Q02Pu = 0.692, RPu = 0.000166667, U01Pu = 0.9984, U02Pu = 1, UPhase01 = 0.0374, UPhase02 = 0)  annotation(
     Placement(visible = true, transformation(origin = {42, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
   dynLine.switchOffSignal1.value = false;

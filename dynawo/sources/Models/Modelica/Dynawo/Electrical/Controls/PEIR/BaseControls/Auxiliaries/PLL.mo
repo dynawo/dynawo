@@ -46,7 +46,6 @@ model PLL "Phase-Locked Loop"
 
   //Initial parameter
   parameter Types.Angle Theta0 "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad";
-
 equation
   connect(add2.y, omegaPLLPu) annotation(
     Line(points = {{121, -60}, {150, -60}}, color = {0, 0, 127}));
@@ -63,9 +62,9 @@ equation
   connect(gain.y, add1.u1) annotation(
     Line(points = {{11, 20}, {20, 20}, {20, 6}, {38, 6}}, color = {0, 0, 127}));
   connect(uqFilterPu, gain.u) annotation(
-    Line(points = {{-150, 0}, {-60, 0}, {-60, 20}, {-12, 20}}, color = {0, 0, 127}));
+    Line(points = {{-150, 0}, {-76, 0}, {-76, 16}, {-12, 16}, {-12, 20}}, color = {0, 0, 127}));
   connect(limIntegrator.u, uqFilterPu) annotation(
-    Line(points = {{-12, -20}, {-60, -20}, {-60, 0}, {-150, 0}}, color = {0, 0, 127}));
+    Line(points = {{-12, -20}, {-76, -20}, {-76, 0}, {-150, 0}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html><head></head><body><p> The PLL calculates the frequency of the grid voltage by synchronizing the internal phase angle with measured voltage phasor. q-component of internal voltage phasor is therefore controlled to be zero. </p>
